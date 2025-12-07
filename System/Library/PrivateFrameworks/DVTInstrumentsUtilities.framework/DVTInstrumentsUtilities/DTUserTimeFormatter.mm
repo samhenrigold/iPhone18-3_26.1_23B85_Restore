@@ -1,5 +1,6 @@
 @interface DTUserTimeFormatter
 + (id)stringForNanoseconds:(unint64_t)nanoseconds;
++ (id)stringForNanoseconds:(unint64_t)nanoseconds highestResolutionTimeEnabled:(BOOL)enabled;
 + (id)stringForObjectValue:(id)value;
 + (void)initialize;
 - (id)stringForObjectValue:(id)value;
@@ -26,7 +27,7 @@
 
 + (id)stringForNanoseconds:(unint64_t)nanoseconds
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (nanoseconds)
   {
     if (nanoseconds > 0x3E7)
@@ -71,9 +72,23 @@
     v6 = @"0 s";
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
+}
+
++ (id)stringForNanoseconds:(unint64_t)nanoseconds highestResolutionTimeEnabled:(BOOL)enabled
+{
+  if (enabled)
+  {
+    objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%llu ns", enabled, v4, nanoseconds);
+  }
+
+  else
+  {
+    objc_msgSend_stringForNanoseconds_(self, a2, nanoseconds, enabled, v4);
+  }
+  v5 = ;
+
+  return v5;
 }
 
 + (id)stringForObjectValue:(id)value

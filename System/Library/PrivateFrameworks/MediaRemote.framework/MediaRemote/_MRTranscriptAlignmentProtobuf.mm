@@ -199,7 +199,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    playerStartTime = self->_playerStartTime;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -219,7 +218,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  playerEndTime = self->_playerEndTime;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -234,7 +232,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  referenceStartTime = self->_referenceStartTime;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -249,7 +246,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  referenceEndTime = self->_referenceEndTime;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -264,12 +260,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  matchedBeginning = self->_matchedBeginning;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_7:
-    matchedEnd = self->_matchedEnd;
     PBDataWriterWriteBOOLField();
   }
 
@@ -510,7 +504,6 @@ LABEL_7:
       goto LABEL_30;
     }
 
-    v7 = *(equalCopy + 40);
     if (self->_matchedBeginning)
     {
       if ((*(equalCopy + 40) & 1) == 0)

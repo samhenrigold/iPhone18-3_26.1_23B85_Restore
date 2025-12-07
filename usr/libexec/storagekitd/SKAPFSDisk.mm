@@ -1,6 +1,7 @@
 @interface SKAPFSDisk
 + (BOOL)isLIFSAPFSWithDiskDescription:(id)description;
 - (BOOL)_cacheInfoForDADisk:(id)disk;
+- (BOOL)_cacheSpacesWithPurgeable:(BOOL)purgeable;
 - (BOOL)canResize;
 - (BOOL)canUpdateDiskIdentifierWithDiskInfo:(id)info;
 - (BOOL)cleanupWithError:(id *)error;
@@ -170,6 +171,97 @@ LABEL_16:
   }
 
   return v11;
+}
+
+- (BOOL)_cacheSpacesWithPurgeable:(BOOL)purgeable
+{
+  purgeableCopy = purgeable;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v23.receiver = selfCopy;
+  v23.super_class = SKAPFSDisk;
+  if (![(SKAPFSDisk *)&v23 _cacheSpacesWithPurgeable:purgeableCopy])
+  {
+LABEL_13:
+    LOBYTE(v8) = 0;
+    goto LABEL_16;
+  }
+
+  if (![(SKAPFSDisk *)selfCopy isIOMediaDisk])
+  {
+    mountPoint = [(SKAPFSDisk *)selfCopy mountPoint];
+    v13 = [mountPoint length] == 0;
+
+    if (v13)
+    {
+      v19 = sub_10000BFD0();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v25 = "[SKAPFSDisk(Daemon) _cacheSpacesWithPurgeable:]";
+        v26 = 2112;
+        v27[0] = selfCopy;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%s: LiveFS disk is not mounted: %@", buf, 0x16u);
+      }
+    }
+
+    else
+    {
+      v22[2] = 0;
+      memset(v21, 0, 12);
+      v22[0] = 5;
+      v22[1] = 2155872256;
+      mountPoint2 = [(SKAPFSDisk *)selfCopy mountPoint];
+      v15 = mountPoint2;
+      v16 = getattrlist([mountPoint2 fileSystemRepresentation], v22, v21, 0xCuLL, 1u) == 0;
+
+      if (v16)
+      {
+        [(SKAPFSDisk *)selfCopy setUsedSpace:*(v21 + 4)];
+        goto LABEL_15;
+      }
+
+      v17 = sub_10000BFD0();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v18 = *__error();
+        *buf = 136315650;
+        v25 = "[SKAPFSDisk(Daemon) _cacheSpacesWithPurgeable:]";
+        v26 = 1024;
+        LODWORD(v27[0]) = v18;
+        WORD2(v27[0]) = 2112;
+        *(v27 + 6) = selfCopy;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s: getattrlist failed with errno %d for %@", buf, 0x1Cu);
+      }
+    }
+
+    goto LABEL_13;
+  }
+
+  privateCache = [(SKAPFSDisk *)selfCopy privateCache];
+  liveDiskIdentifier = [privateCache liveDiskIdentifier];
+  containerBSDName = [(SKAPFSDisk *)selfCopy containerBSDName];
+  v8 = [SKAPFSContainerDisk copyExtendedSpaceInfoWithDiskIdentifier:liveDiskIdentifier containerBSDName:containerBSDName];
+
+  if (v8)
+  {
+    v9 = [v8 objectForKeyedSubscript:@"fs_used"];
+    [(SKAPFSDisk *)selfCopy setUsedSpace:sub_100010370(v9)];
+
+    v10 = [v8 objectForKeyedSubscript:@"fs_reserve"];
+    [(SKAPFSDisk *)selfCopy setReserveSpace:sub_100010370(v10)];
+
+    v11 = [v8 objectForKeyedSubscript:@"fs_quota"];
+    [(SKAPFSDisk *)selfCopy setQuotaSpace:sub_100010370(v11)];
+
+LABEL_15:
+    LOBYTE(v8) = 1;
+  }
+
+LABEL_16:
+  objc_sync_exit(selfCopy);
+
+  return v8;
 }
 
 - (void)cacheEncryptionInfo

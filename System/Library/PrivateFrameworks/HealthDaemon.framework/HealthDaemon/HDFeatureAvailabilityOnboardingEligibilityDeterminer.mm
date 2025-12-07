@@ -317,40 +317,40 @@ LABEL_16:
 
 - (id)_onboardingEligibilitiesForOnboardingCompletions:(id)completions onboardingEligibilityRetrievalBlock:(id)block error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   completionsCopy = completions;
   blockCopy = block;
   if ([completionsCopy count])
   {
     errorCopy = error;
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     obj = completionsCopy;
-    v10 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v10 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v34;
+      v12 = *v33;
 LABEL_4:
       v13 = 0;
       while (1)
       {
-        if (*v34 != v12)
+        if (*v33 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        countryCode2 = *(*(&v33 + 1) + 8 * v13);
+        countryCode2 = *(*(&v32 + 1) + 8 * v13);
         if ([countryCode2 version] >= self->_currentOnboardingVersion)
         {
           v16 = v9;
           countryCode = [countryCode2 countryCode];
-          v32 = 0;
-          v18 = blockCopy[2](blockCopy, countryCode, &v32);
-          v19 = v32;
+          v31 = 0;
+          v18 = blockCopy[2](blockCopy, countryCode, &v31);
+          v19 = v31;
 
           if (!v18)
           {
@@ -361,8 +361,8 @@ LABEL_4:
             {
               *buf = 138543618;
               selfCopy3 = self;
-              v39 = 2114;
-              v40 = v19;
+              v38 = 2114;
+              v39 = v19;
               _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to determine onboarding eligibility: %{public}@", buf, 0x16u);
             }
 
@@ -423,7 +423,7 @@ LABEL_27:
 
         if (v11 == ++v13)
         {
-          v11 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v11 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v11)
           {
             goto LABEL_4;
@@ -451,8 +451,6 @@ LABEL_29:
 
     v21 = MEMORY[0x277CBEBF8];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

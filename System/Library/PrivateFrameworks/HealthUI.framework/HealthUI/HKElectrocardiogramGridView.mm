@@ -44,7 +44,7 @@
   v7 = firstObject;
   if (firstObject)
   {
-    [firstObject scale];
+    objc_msgSend_scale(firstObject);
     v8 = v15;
     v9 = v16;
   }
@@ -146,7 +146,7 @@
         v18 = v17;
         if (v14)
         {
-          [v14 scale];
+          objc_msgSend_scale(v14);
           m11 = v77.m11;
           m12 = v77.m12;
           m13 = v77.m13;

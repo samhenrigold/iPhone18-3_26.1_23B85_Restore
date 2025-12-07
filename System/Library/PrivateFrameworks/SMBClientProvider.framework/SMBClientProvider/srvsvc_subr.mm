@@ -53,7 +53,7 @@
     status = v13;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_1000653D8(v43);
+      sub_1000653D8();
     }
 
 LABEL_31:
@@ -130,7 +130,7 @@ LABEL_28:
     status = v25;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100065498(&v40);
+      sub_100065498();
     }
 
     goto LABEL_31;
@@ -143,7 +143,7 @@ LABEL_28:
     status = v27;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100065514(v38);
+      sub_100065514();
     }
 
     v15 = 0;

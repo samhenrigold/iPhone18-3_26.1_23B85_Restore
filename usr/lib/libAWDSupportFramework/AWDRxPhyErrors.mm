@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    bphyRxcrsglitch = self->_bphyRxcrsglitch;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  rfdisable = self->_rfdisable;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  bphyBadplcp = self->_bphyBadplcp;
 
   PBDataWriterWriteUint64Field();
 }

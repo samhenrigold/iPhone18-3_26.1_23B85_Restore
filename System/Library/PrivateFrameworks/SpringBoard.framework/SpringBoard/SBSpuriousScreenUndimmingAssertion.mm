@@ -58,7 +58,7 @@ void __59__SBSpuriousScreenUndimmingAssertion__accessListWithBlock___block_invok
   return v2;
 }
 
-uint64_t __49__SBSpuriousScreenUndimmingAssertion_isAnyActive__block_invoke(uint64_t a1, void *a2)
+void *__49__SBSpuriousScreenUndimmingAssertion_isAnyActive__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;

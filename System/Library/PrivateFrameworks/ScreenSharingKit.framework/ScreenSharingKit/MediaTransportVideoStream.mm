@@ -2,8 +2,11 @@
 - (_TtC16ScreenSharingKit25MediaTransportVideoStream)init;
 - (void)dealloc;
 - (void)remoteVideoClientDidReceiveFirstFrame:(id)frame;
+- (void)screenCapture:(id)capture didStart:(BOOL)start withError:(id)error;
+- (void)screenCapture:(id)capture didStop:(BOOL)stop withError:(id)error;
 - (void)screenCapture:(id)capture didUpdateAttributes:(id)attributes error:(id)error;
 - (void)serverDidDisconnect:;
+- (void)stream:(id)stream didStart:(BOOL)start error:(id)error;
 - (void)streamDidRTCPTimeOut:(id)out;
 - (void)streamDidServerDie:(id)die;
 - (void)streamDidStop:(id)stop;
@@ -16,7 +19,7 @@
   if (*(&self->super.isa + OBJC_IVAR____TtC16ScreenSharingKit25MediaTransportVideoStream_currentState) == 5)
   {
     v3.receiver = self;
-    v3.super_class = type metadata accessor for MediaTransportVideoStream();
+    v3.super_class = type metadata accessor for MediaTransportVideoStream(0);
     v2 = v3.receiver;
     [(MediaTransportVideoStream *)&v3 dealloc];
   }
@@ -42,6 +45,15 @@
   sub_264AE913C(frame);
 }
 
+- (void)stream:(id)stream didStart:(BOOL)start error:(id)error
+{
+  startCopy = start;
+  streamCopy = stream;
+  selfCopy = self;
+  errorCopy = error;
+  sub_264AEB82C(startCopy, error, 2);
+}
+
 - (void)streamDidRTCPTimeOut:(id)out
 {
   outCopy = out;
@@ -61,6 +73,24 @@
   dieCopy = die;
   selfCopy = self;
   sub_264AEB574();
+}
+
+- (void)screenCapture:(id)capture didStart:(BOOL)start withError:(id)error
+{
+  startCopy = start;
+  captureCopy = capture;
+  selfCopy = self;
+  errorCopy = error;
+  sub_264AEB82C(startCopy, error, 3);
+}
+
+- (void)screenCapture:(id)capture didStop:(BOOL)stop withError:(id)error
+{
+  stopCopy = stop;
+  captureCopy = capture;
+  selfCopy = self;
+  errorCopy = error;
+  sub_264AEB82C(stopCopy, error, 4);
 }
 
 - (void)screenCapture:(id)capture didUpdateAttributes:(id)attributes error:(id)error

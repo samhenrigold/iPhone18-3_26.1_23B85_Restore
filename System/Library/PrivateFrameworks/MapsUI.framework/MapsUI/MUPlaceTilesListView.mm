@@ -26,18 +26,18 @@
 
 - (void)_updateAppearance
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = self->_viewModels;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     v8 = *MEMORY[0x1E695F058];
     v9 = *(MEMORY[0x1E695F058] + 8);
     v10 = *(MEMORY[0x1E695F058] + 16);
@@ -47,14 +47,14 @@
       v12 = 0;
       do
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * v12);
+        v13 = *(*(&v17 + 1) + 8 * v12);
         v14 = [MUPlaceTileListContentView alloc];
-        v15 = [(MUPlaceTileListContentView *)v14 initWithFrame:v8, v9, v10, v11, v18];
+        v15 = [(MUPlaceTileListContentView *)v14 initWithFrame:v8, v9, v10, v11, v17];
         [(MUPlaceTileListContentView *)v15 setViewModel:v13];
         [v3 addObject:v15];
 
@@ -62,7 +62,7 @@
       }
 
       while (v6 != v12);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -70,8 +70,6 @@
 
   v16 = [v3 copy];
   [(MUPlaceVerticalCardContainerView *)self setRowViews:v16];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setViewModels:(id)models

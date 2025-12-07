@@ -24,7 +24,7 @@
 - (NSArray)rows
 {
   sub_190D52690();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD57920);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD57920, &unk_190DE8FC0);
   v2 = sub_190D57160();
 
   return v2;
@@ -104,7 +104,7 @@
 
   v6 = sub_190875570(v8);
 
-  sub_19022EEA4(v8, &unk_1EAD551C0);
+  sub_19022EEA4(v8, &unk_1EAD551C0, &unk_190DD9790);
   return v6 & 1;
 }
 

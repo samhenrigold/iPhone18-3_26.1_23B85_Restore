@@ -54,27 +54,26 @@
 
 BOOL __114__HDWorkoutZonesAssociationSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v21[0] = *(a1 + 32);
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = *(a1 + 32);
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v7 = *(*(a1 + 64) + 8) + 24;
   v8 = *(a1 + 40);
   v9 = [*(a1 + 48) database];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __114__HDWorkoutZonesAssociationSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2;
-  v16[3] = &unk_27861D0D8;
-  v17 = v5;
-  v18 = *(a1 + 32);
-  v19 = *(a1 + 48);
-  v20 = *(a1 + 56);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __114__HDWorkoutZonesAssociationSyncEntity_generateSyncObjectsForSession_syncAnchorRange_profile_messageHandler_error___block_invoke_2;
+  v15[3] = &unk_27861D0D8;
+  v16 = v5;
+  v17 = *(a1 + 32);
+  v18 = *(a1 + 48);
+  v19 = *(a1 + 56);
   v11 = *(a1 + 72);
   v10 = *(a1 + 80);
   v12 = v5;
-  v13 = [(HDHealthEntity *)HDWorkoutZonesAssociationEntity enumerateEntitiesForSyncWithProperties:v6 predicate:0 session:v8 syncAnchorRange:v11 limit:v10 lastSyncAnchor:0 healthDatabase:v7 error:v9 block:a3, v16];
+  v13 = [(HDHealthEntity *)HDWorkoutZonesAssociationEntity enumerateEntitiesForSyncWithProperties:v6 predicate:0 session:v8 syncAnchorRange:v11 limit:v10 lastSyncAnchor:0 healthDatabase:v7 error:v9 block:a3, v15];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -87,41 +86,40 @@ BOOL __114__HDWorkoutZonesAssociationSyncEntity_generateSyncObjectsForSession_sy
     v12 = [v10 zonesUUIDWithTransaction:*(a1 + 32) error:a8];
     if (v12)
     {
-      v13 = *(a1 + 40);
-      v14 = HDSQLiteColumnWithNameAsInt64();
-      v15 = [*(a1 + 48) syncIdentityManager];
-      v16 = [v15 identityForEntityID:v14 transaction:*(a1 + 32) error:a8];
+      v13 = HDSQLiteColumnWithNameAsInt64();
+      v14 = [*(a1 + 48) syncIdentityManager];
+      v15 = [v14 identityForEntityID:v13 transaction:*(a1 + 32) error:a8];
 
-      v17 = v16 != 0;
-      if (v16)
+      v16 = v15 != 0;
+      if (v15)
       {
-        v18 = objc_alloc_init(HDCodableWorkoutZonesAssociation);
-        v19 = [v11 hk_dataForUUIDBytes];
-        [(HDCodableWorkoutZonesAssociation *)v18 setWorkoutUUID:v19];
+        v17 = objc_alloc_init(HDCodableWorkoutZonesAssociation);
+        v18 = [v11 hk_dataForUUIDBytes];
+        [(HDCodableWorkoutZonesAssociation *)v17 setWorkoutUUID:v18];
 
-        v20 = [v12 hk_dataForUUIDBytes];
-        [(HDCodableWorkoutZonesAssociation *)v18 setZonesSampleUUID:v20];
+        v19 = [v12 hk_dataForUUIDBytes];
+        [(HDCodableWorkoutZonesAssociation *)v17 setZonesSampleUUID:v19];
 
-        v21 = [v16 identity];
-        v22 = [v21 codableSyncIdentity];
-        [(HDCodableWorkoutZonesAssociation *)v18 setSyncIdentity:v22];
+        v20 = [v15 identity];
+        v21 = [v20 codableSyncIdentity];
+        [(HDCodableWorkoutZonesAssociation *)v17 setSyncIdentity:v21];
 
-        [*(a1 + 56) addObject:v18];
+        [*(a1 + 56) addObject:v17];
       }
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 + (id)decodeSyncObjectWithData:(id)data

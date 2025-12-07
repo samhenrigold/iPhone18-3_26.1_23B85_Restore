@@ -1681,7 +1681,7 @@ uint64_t PlatformUtilities_iOS::IsTelephonyCaptureAllowed(caulk::build::detail *
       }
     }
 
-    v6 = CAVerboseAbort();
+    v6 = CAVerboseAbort("Unhandled case in switch");
     return PlatformUtilities_iOS::ProductSupportsTelephonyOverUSB(v6);
   }
 
@@ -1752,10 +1752,11 @@ LABEL_14:
   CACFString::~CACFString(&suffix);
 }
 
-void sub_1DE1E3E38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1DE1E3E38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   CACFString::~CACFString(&a9);
-  CACFString::~CACFString(&a11);
+  CACFString::~CACFString(va);
   _Unwind_Resume(a1);
 }
 
@@ -2050,26 +2051,26 @@ LABEL_46:
   return v28;
 }
 
-void sub_1DE1E47AC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23)
+void sub_1DE1E47AC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23)
 {
   if (*(v24 - 89) < 0)
   {
     operator delete(*(v24 - 112));
   }
 
-  MEMORY[0x1E12BF2C0](&__p);
+  MEMORY[0x1E12BF2C0](&__p, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v23 + *(a23 - 24)));
   __cxa_end_catch();
   JUMPOUT(0x1DE1E4598);
 }
 
-void sub_1DE1E4850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1DE1E4850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   __cxa_end_catch();
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
-  MEMORY[0x1E12BF3E0](a6);
+  MEMORY[0x1E12BF3E0](a13);
   _Unwind_Resume(a1);
 }
 
@@ -2107,137 +2108,137 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
 
 CFStringRef PlatformUtilities_iOS::CopyProductTypeFilePrefix(int a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   __str[0] = 0;
   switch(a1)
   {
     case 1:
-      v28 = 0;
+      v27 = 0;
       v1 = 184;
       goto LABEL_218;
     case 2:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_217;
     case 3:
-      v28 = 97;
+      v27 = 97;
 LABEL_217:
       v1 = 238;
       goto LABEL_218;
     case 4:
-      v28 = 0;
+      v27 = 0;
       v1 = 520;
       goto LABEL_218;
     case 5:
-      v28 = 0;
+      v27 = 0;
       v1 = 620;
 LABEL_218:
       v24 = 98;
       goto LABEL_242;
     case 6:
-      v28 = 0;
+      v27 = 0;
       v1 = 10;
       goto LABEL_241;
     case 7:
-      v28 = 0;
+      v27 = 0;
       v1 = 11;
       goto LABEL_241;
     case 8:
-      v28 = 0;
+      v27 = 0;
       v1 = 12;
       goto LABEL_241;
     case 9:
-      v28 = 0;
+      v27 = 0;
       v1 = 16;
       goto LABEL_241;
     case 10:
-      v28 = 0;
+      v27 = 0;
       v1 = 17;
       goto LABEL_241;
     case 11:
-      v28 = 0;
+      v27 = 0;
       v1 = 101;
       goto LABEL_241;
     case 12:
-      v28 = 0;
+      v27 = 0;
       v1 = 111;
       goto LABEL_241;
     case 13:
-      v28 = 0;
+      v27 = 0;
       v1 = 121;
       goto LABEL_241;
     case 14:
-      v28 = 0;
+      v27 = 0;
       v1 = 20;
       goto LABEL_241;
     case 15:
-      v28 = 0;
+      v27 = 0;
       v1 = 21;
       goto LABEL_241;
     case 16:
-      v28 = 0;
+      v27 = 0;
       v1 = 22;
       goto LABEL_241;
     case 17:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_228;
     case 18:
-      v28 = 0;
+      v27 = 0;
       v1 = 28;
       goto LABEL_241;
     case 19:
-      v28 = 0;
+      v27 = 0;
       v1 = 37;
       goto LABEL_241;
     case 20:
-      v28 = 0;
+      v27 = 0;
       v1 = 38;
       goto LABEL_241;
     case 21:
-      v28 = 0;
+      v27 = 0;
       v1 = 201;
       goto LABEL_241;
     case 22:
-      v28 = 0;
+      v27 = 0;
       v1 = 211;
       goto LABEL_241;
     case 23:
-      v28 = 0;
+      v27 = 0;
       v1 = 221;
       goto LABEL_241;
     case 24:
-      v28 = 0;
+      v27 = 0;
       v1 = 32;
       goto LABEL_241;
     case 25:
-      v28 = 0;
+      v27 = 0;
       v1 = 33;
       goto LABEL_241;
     case 26:
-      v28 = 0;
+      v27 = 0;
       v1 = 79;
       goto LABEL_241;
     case 27:
-      v28 = 0;
+      v27 = 0;
       v1 = 42;
       goto LABEL_241;
     case 28:
-      v28 = 0;
+      v27 = 0;
       v1 = 43;
       goto LABEL_241;
     case 29:
-      v28 = 0;
+      v27 = 0;
       v1 = 47;
       goto LABEL_241;
     case 30:
-      v28 = 0;
+      v27 = 0;
       v1 = 48;
       goto LABEL_241;
     case 31:
-      v28 = 0;
+      v27 = 0;
       v1 = 49;
       goto LABEL_241;
     case 32:
-      v28 = 103;
+      v27 = 103;
       v1 = 52;
       goto LABEL_241;
     case 33:
@@ -2246,70 +2247,70 @@ LABEL_218:
     case 34:
       v2 = 112;
 LABEL_240:
-      v28 = v2;
+      v27 = v2;
       v1 = 53;
       goto LABEL_241;
     case 35:
-      v28 = 112;
+      v27 = 112;
       v1 = 54;
       goto LABEL_241;
     case 36:
-      v28 = 0;
+      v27 = 0;
       v1 = 63;
       goto LABEL_241;
     case 37:
-      v28 = 0;
+      v27 = 0;
       v1 = 64;
       goto LABEL_241;
     case 38:
-      v28 = 0;
+      v27 = 0;
       v1 = 73;
       goto LABEL_241;
     case 39:
-      v28 = 0;
+      v27 = 0;
       v1 = 74;
       goto LABEL_241;
     case 40:
-      v28 = 0;
+      v27 = 0;
       v1 = 83;
       goto LABEL_241;
     case 41:
-      v28 = 0;
+      v27 = 0;
       v1 = 84;
       goto LABEL_241;
     case 42:
-      v28 = 0;
+      v27 = 0;
       v1 = 93;
       goto LABEL_241;
     case 43:
-      v28 = 0;
+      v27 = 0;
       v1 = 94;
       goto LABEL_241;
     case 44:
-      v28 = 117;
+      v27 = 117;
 LABEL_228:
       v1 = 27;
 LABEL_241:
       v24 = 100;
       goto LABEL_242;
     case 45:
-      v28 = 0;
+      v27 = 0;
       v1 = 59;
       goto LABEL_206;
     case 46:
-      v28 = 0;
+      v27 = 0;
       v1 = 104;
       goto LABEL_213;
     case 47:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_53;
     case 48:
-      v28 = 100;
+      v27 = 100;
 LABEL_53:
       v1 = 42;
       goto LABEL_235;
     case 49:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_112;
     case 50:
       v3 = 98;
@@ -2317,314 +2318,314 @@ LABEL_53:
     case 51:
       v3 = 115;
 LABEL_74:
-      v28 = v3;
+      v27 = v3;
 LABEL_112:
       v1 = 71;
       goto LABEL_235;
     case 52:
-      v28 = 0;
+      v27 = 0;
       v1 = 72;
       goto LABEL_235;
     case 53:
-      v28 = 0;
+      v27 = 0;
       v1 = 73;
       goto LABEL_235;
     case 54:
-      v28 = 0;
+      v27 = 0;
       v1 = 81;
       goto LABEL_235;
     case 55:
-      v28 = 0;
+      v27 = 0;
       v1 = 82;
       goto LABEL_235;
     case 56:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_194;
     case 57:
-      v28 = 109;
+      v27 = 109;
 LABEL_194:
       v1 = 85;
       goto LABEL_235;
     case 58:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_234;
     case 59:
-      v28 = 109;
+      v27 = 109;
 LABEL_234:
       v1 = 86;
       goto LABEL_235;
     case 60:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_72;
     case 61:
-      v28 = 109;
+      v27 = 109;
 LABEL_72:
       v1 = 87;
       goto LABEL_235;
     case 62:
-      v28 = 0;
+      v27 = 0;
       v1 = 96;
       goto LABEL_235;
     case 63:
-      v28 = 0;
+      v27 = 0;
       v1 = 97;
       goto LABEL_235;
     case 64:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_210;
     case 65:
-      v28 = 97;
+      v27 = 97;
 LABEL_210:
       v1 = 98;
       goto LABEL_235;
     case 66:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_224;
     case 67:
-      v28 = 97;
+      v27 = 97;
 LABEL_224:
       v1 = 99;
       goto LABEL_235;
     case 68:
-      v28 = 97;
+      v27 = 97;
       v1 = 105;
       goto LABEL_235;
     case 69:
-      v28 = 0;
+      v27 = 0;
       v1 = 120;
       goto LABEL_235;
     case 70:
-      v28 = 0;
+      v27 = 0;
       v1 = 127;
       goto LABEL_235;
     case 71:
-      v28 = 0;
+      v27 = 0;
       v1 = 128;
       goto LABEL_235;
     case 72:
-      v28 = 0;
+      v27 = 0;
       goto LABEL_152;
     case 73:
-      v28 = 97;
+      v27 = 97;
 LABEL_152:
       v1 = 171;
       goto LABEL_235;
     case 74:
-      v28 = 0;
+      v27 = 0;
       v1 = 181;
       goto LABEL_235;
     case 75:
-      v28 = 0;
+      v27 = 0;
       v1 = 182;
       goto LABEL_235;
     case 76:
-      v28 = 0;
+      v27 = 0;
       v1 = 207;
       goto LABEL_235;
     case 77:
-      v28 = 0;
+      v27 = 0;
       v1 = 210;
       goto LABEL_235;
     case 78:
-      v28 = 0;
+      v27 = 0;
       v1 = 217;
       goto LABEL_235;
     case 79:
-      v28 = 0;
+      v27 = 0;
       v1 = 255;
       goto LABEL_235;
     case 80:
-      v28 = 0;
+      v27 = 0;
       v1 = 271;
       goto LABEL_235;
     case 81:
-      v28 = 0;
+      v27 = 0;
       v1 = 272;
       goto LABEL_235;
     case 82:
-      v28 = 0;
+      v27 = 0;
       v1 = 305;
       goto LABEL_235;
     case 83:
-      v28 = 0;
+      v27 = 0;
       v1 = 307;
       goto LABEL_235;
     case 84:
-      v28 = 0;
+      v27 = 0;
       v1 = 308;
       goto LABEL_235;
     case 85:
-      v28 = 0;
+      v27 = 0;
       v1 = 310;
       goto LABEL_235;
     case 86:
-      v28 = 0;
+      v27 = 0;
       v1 = 311;
       goto LABEL_235;
     case 87:
-      v28 = 0;
+      v27 = 0;
       v1 = 317;
       goto LABEL_235;
     case 88:
-      v28 = 0;
+      v27 = 0;
       v1 = 320;
       goto LABEL_235;
     case 89:
-      v28 = 0;
+      v27 = 0;
       v1 = 348;
       goto LABEL_235;
     case 90:
-      v28 = 0;
+      v27 = 0;
       v1 = 381;
       goto LABEL_235;
     case 91:
-      v28 = 0;
+      v27 = 0;
       v1 = 382;
       goto LABEL_235;
     case 92:
-      v28 = 0;
+      v27 = 0;
       v1 = 407;
       goto LABEL_235;
     case 93:
-      v28 = 0;
+      v27 = 0;
       v1 = 408;
       goto LABEL_235;
     case 94:
-      v28 = 0;
+      v27 = 0;
       v1 = 410;
       goto LABEL_235;
     case 95:
-      v28 = 0;
+      v27 = 0;
       v1 = 411;
       goto LABEL_235;
     case 96:
-      v28 = 0;
+      v27 = 0;
       v1 = 417;
       goto LABEL_235;
     case 97:
-      v28 = 0;
+      v27 = 0;
       v1 = 420;
       goto LABEL_235;
     case 98:
-      v28 = 0;
+      v27 = 0;
       v1 = 507;
       goto LABEL_235;
     case 99:
-      v28 = 0;
+      v27 = 0;
       v1 = 508;
       goto LABEL_235;
     case 100:
-      v28 = 0;
+      v27 = 0;
       v1 = 517;
       goto LABEL_235;
     case 101:
-      v28 = 0;
+      v27 = 0;
       v1 = 522;
       goto LABEL_235;
     case 102:
-      v28 = 0;
+      v27 = 0;
       v1 = 537;
       goto LABEL_235;
     case 103:
-      v28 = 0;
+      v27 = 0;
       v1 = 538;
       goto LABEL_235;
     case 104:
-      v28 = 0;
+      v27 = 0;
       v1 = 617;
       goto LABEL_235;
     case 105:
-      v28 = 0;
+      v27 = 0;
       v1 = 620;
       goto LABEL_235;
     case 106:
-      v28 = 0;
+      v27 = 0;
       v1 = 717;
       goto LABEL_235;
     case 107:
-      v28 = 0;
+      v27 = 0;
       v1 = 720;
 LABEL_235:
       v24 = 106;
       goto LABEL_242;
     case 108:
-      v28 = 97;
+      v27 = 97;
       v1 = 27;
       goto LABEL_213;
     case 109:
-      v28 = 97;
+      v27 = 97;
       v1 = 28;
       goto LABEL_213;
     case 110:
-      v28 = 0;
+      v27 = 0;
       v1 = 41;
       goto LABEL_213;
     case 111:
-      v28 = 0;
+      v27 = 0;
       v1 = 42;
       goto LABEL_213;
     case 112:
-      v28 = 0;
+      v27 = 0;
       v1 = 48;
       goto LABEL_213;
     case 113:
-      v28 = 0;
+      v27 = 0;
       v1 = 49;
       goto LABEL_213;
     case 114:
-      v28 = 0;
+      v27 = 0;
       v1 = 51;
       goto LABEL_213;
     case 115:
-      v28 = 0;
+      v27 = 0;
       v1 = 53;
       goto LABEL_213;
     case 116:
-      v28 = 0;
+      v27 = 0;
       v1 = 56;
       goto LABEL_213;
     case 117:
-      v28 = 0;
+      v27 = 0;
       v1 = 61;
       goto LABEL_213;
     case 118:
-      v28 = 0;
+      v27 = 0;
       v1 = 64;
       goto LABEL_213;
     case 119:
-      v28 = 0;
+      v27 = 0;
       v1 = 65;
       goto LABEL_213;
     case 120:
-      v28 = 0;
+      v27 = 0;
       v1 = 66;
       goto LABEL_213;
     case 121:
-      v28 = 0;
+      v27 = 0;
       v1 = 69;
       goto LABEL_213;
     case 122:
-      v28 = 0;
+      v27 = 0;
       v1 = 71;
       goto LABEL_213;
     case 123:
-      v28 = 0;
+      v27 = 0;
       v1 = 74;
       goto LABEL_213;
     case 124:
-      v28 = 0;
+      v27 = 0;
       v1 = 75;
       goto LABEL_213;
     case 125:
-      v28 = 0;
+      v27 = 0;
       v1 = 841;
       goto LABEL_213;
     case 126:
-      v28 = 0;
+      v27 = 0;
       v1 = 102;
       goto LABEL_213;
     case 127:
-      v28 = 0;
+      v27 = 0;
       v1 = 112;
       goto LABEL_213;
     case 128:
@@ -2633,7 +2634,7 @@ LABEL_235:
     case 129:
       v4 = 98;
 LABEL_61:
-      v28 = v4;
+      v27 = v4;
       v1 = 111;
       goto LABEL_213;
     case 130:
@@ -2642,7 +2643,7 @@ LABEL_61:
     case 131:
       v13 = 98;
 LABEL_204:
-      v28 = v13;
+      v27 = v13;
       v1 = 121;
       goto LABEL_213;
     case 132:
@@ -2651,7 +2652,7 @@ LABEL_204:
     case 133:
       v7 = 98;
 LABEL_82:
-      v28 = v7;
+      v27 = v7;
       v1 = 131;
       goto LABEL_213;
     case 134:
@@ -2660,7 +2661,7 @@ LABEL_82:
     case 135:
       v20 = 98;
 LABEL_133:
-      v28 = v20;
+      v27 = v20;
       v1 = 140;
       goto LABEL_213;
     case 136:
@@ -2669,7 +2670,7 @@ LABEL_133:
     case 137:
       v22 = 98;
 LABEL_135:
-      v28 = v22;
+      v27 = v22;
       v1 = 141;
       goto LABEL_213;
     case 138:
@@ -2678,7 +2679,7 @@ LABEL_135:
     case 139:
       v19 = 98;
 LABEL_130:
-      v28 = v19;
+      v27 = v19;
       v1 = 142;
       goto LABEL_213;
     case 140:
@@ -2687,7 +2688,7 @@ LABEL_130:
     case 141:
       v17 = 115;
 LABEL_168:
-      v28 = v17;
+      v27 = v17;
       v1 = 143;
       goto LABEL_213;
     case 142:
@@ -2696,7 +2697,7 @@ LABEL_168:
     case 143:
       v11 = 98;
 LABEL_164:
-      v28 = v11;
+      v27 = v11;
       v1 = 144;
       goto LABEL_213;
     case 144:
@@ -2705,7 +2706,7 @@ LABEL_164:
     case 145:
       v25 = 98;
 LABEL_185:
-      v28 = v25;
+      v27 = v25;
       v1 = 146;
       goto LABEL_213;
     case 146:
@@ -2714,7 +2715,7 @@ LABEL_185:
     case 147:
       v9 = 115;
 LABEL_189:
-      v28 = v9;
+      v27 = v9;
       v1 = 149;
       goto LABEL_213;
     case 148:
@@ -2723,7 +2724,7 @@ LABEL_189:
     case 149:
       v5 = 98;
 LABEL_199:
-      v28 = v5;
+      v27 = v5;
       v1 = 157;
       goto LABEL_213;
     case 150:
@@ -2732,7 +2733,7 @@ LABEL_199:
     case 151:
       v16 = 98;
 LABEL_97:
-      v28 = v16;
+      v27 = v16;
       v1 = 158;
       goto LABEL_213;
     case 152:
@@ -2741,7 +2742,7 @@ LABEL_97:
     case 153:
       v10 = 98;
 LABEL_191:
-      v28 = v10;
+      v27 = v10;
       v1 = 187;
       goto LABEL_213;
     case 154:
@@ -2750,7 +2751,7 @@ LABEL_191:
     case 155:
       v15 = 98;
 LABEL_148:
-      v28 = v15;
+      v27 = v15;
       v1 = 188;
       goto LABEL_213;
     case 156:
@@ -2759,7 +2760,7 @@ LABEL_148:
     case 157:
       v6 = 98;
 LABEL_166:
-      v28 = v6;
+      v27 = v6;
       v1 = 197;
       goto LABEL_213;
     case 158:
@@ -2768,11 +2769,11 @@ LABEL_166:
     case 159:
       v18 = 98;
 LABEL_126:
-      v28 = v18;
+      v27 = v18;
       v1 = 198;
       goto LABEL_213;
     case 160:
-      v28 = 0;
+      v27 = 0;
       v1 = 199;
       goto LABEL_213;
     case 161:
@@ -2781,7 +2782,7 @@ LABEL_126:
     case 162:
       v8 = 98;
 LABEL_175:
-      v28 = v8;
+      v27 = v8;
       v1 = 207;
       goto LABEL_213;
     case 163:
@@ -2790,7 +2791,7 @@ LABEL_175:
     case 164:
       v12 = 98;
 LABEL_70:
-      v28 = v12;
+      v27 = v12;
       v1 = 208;
       goto LABEL_213;
     case 165:
@@ -2799,7 +2800,7 @@ LABEL_70:
     case 166:
       v14 = 98;
 LABEL_86:
-      v28 = v14;
+      v27 = v14;
       v1 = 217;
       goto LABEL_213;
     case 167:
@@ -2808,23 +2809,23 @@ LABEL_86:
     case 168:
       v23 = 98;
 LABEL_145:
-      v28 = v23;
+      v27 = v23;
       v1 = 218;
       goto LABEL_213;
     case 169:
-      v28 = 0;
+      v27 = 0;
       v1 = 210;
       goto LABEL_213;
     case 170:
-      v28 = 0;
+      v27 = 0;
       v1 = 101;
       goto LABEL_172;
     case 171:
-      v28 = 0;
+      v27 = 0;
       v1 = 102;
       goto LABEL_172;
     case 172:
-      v28 = 0;
+      v27 = 0;
       v1 = 103;
 LABEL_172:
       v24 = 112;
@@ -2835,118 +2836,118 @@ LABEL_172:
     case 174:
       v21 = 112;
 LABEL_177:
-      v28 = v21;
+      v27 = v21;
       v1 = 398;
       goto LABEL_178;
     case 175:
-      v28 = 0;
+      v27 = 0;
       v1 = 456;
       goto LABEL_178;
     case 176:
-      v28 = 112;
+      v27 = 112;
       v1 = 698;
       goto LABEL_178;
     case 177:
-      v28 = 0;
+      v27 = 0;
       v1 = 720;
       goto LABEL_178;
     case 178:
-      v28 = 0;
+      v27 = 0;
       v1 = 721;
       goto LABEL_178;
     case 179:
-      v28 = 0;
+      v27 = 0;
       v1 = 734;
       goto LABEL_178;
     case 180:
-      v28 = 0;
+      v27 = 0;
       v1 = 742;
       goto LABEL_178;
     case 181:
-      v28 = 0;
+      v27 = 0;
       v1 = 1125;
       goto LABEL_178;
     case 182:
-      v28 = 0;
+      v27 = 0;
       v1 = 1153;
       goto LABEL_178;
     case 183:
-      v28 = 0;
+      v27 = 0;
       v1 = 1232;
       goto LABEL_178;
     case 184:
-      v28 = 0;
+      v27 = 0;
       v1 = 1250;
       goto LABEL_178;
     case 185:
-      v28 = 0;
+      v27 = 0;
       v1 = 1251;
       goto LABEL_178;
     case 186:
-      v28 = 0;
+      v27 = 0;
       v1 = 1252;
       goto LABEL_178;
     case 187:
-      v28 = 0;
+      v27 = 0;
       v1 = 1253;
       goto LABEL_178;
     case 188:
       snprintf(__str, 0x18uLL, "%c%d%c", 116, 698, 116);
       goto LABEL_243;
     case 189:
-      v28 = 0;
+      v27 = 0;
       v1 = 6502;
       goto LABEL_178;
     case 190:
-      v28 = 0;
+      v27 = 0;
       v1 = 6809;
 LABEL_178:
       v24 = 116;
       goto LABEL_242;
     case 191:
-      v28 = 0;
+      v27 = 0;
       v1 = 100;
       v24 = 113;
       goto LABEL_242;
     case 192:
-      v28 = 0;
+      v27 = 0;
       v1 = 301;
 LABEL_213:
       v24 = 110;
       goto LABEL_242;
     case 193:
-      v28 = 0;
+      v27 = 0;
       v1 = 314;
       goto LABEL_139;
     case 194:
-      v28 = 0;
+      v27 = 0;
       v1 = 317;
 LABEL_139:
       v24 = 122;
       goto LABEL_242;
     case 195:
-      v28 = 0;
+      v27 = 0;
       v1 = 101;
       goto LABEL_206;
     case 196:
-      v28 = 0;
+      v27 = 0;
       v1 = 201;
       goto LABEL_206;
     case 197:
-      v28 = 0;
+      v27 = 0;
       v1 = 301;
       goto LABEL_206;
     case 198:
-      v28 = 0;
+      v27 = 0;
       v1 = 401;
       goto LABEL_206;
     case 199:
-      v28 = 0;
+      v27 = 0;
       v1 = 501;
 LABEL_206:
       v24 = 118;
 LABEL_242:
-      snprintf(__str, 0x18uLL, "%c%d%c", v24, v1, v28);
+      snprintf(__str, 0x18uLL, "%c%d%c", v24, v1, v27);
 LABEL_243:
       if (!__str[0])
       {
@@ -2961,7 +2962,6 @@ LABEL_245:
       break;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2976,14 +2976,19 @@ uint64_t CADeprecated::CAPThread::SetTimeConstraints(uint64_t this, int a2, int 
   {
     *policy_info = *(this + 108);
     v6 = *(this + 120);
-    v11 = *(this + 116);
-    v12 = v6;
+    v12 = *(this + 116);
+    v13 = v6;
     v7 = atomic_load((this + 8));
     v8 = pthread_mach_thread_np(v7);
     this = thread_policy_set(v8, 2u, policy_info, 4u);
     if (this)
     {
-      v9 = CAVerboseAbort();
+      v10[0] = BYTE3(this);
+      v10[1] = BYTE2(this);
+      v10[2] = BYTE1(this);
+      v10[3] = this;
+      v10[4] = 0;
+      v9 = CAVerboseAbort("CAPThread::SetTimeConstraints: thread_policy_set failed, Error: %d (%s)", this, v10);
       CADeprecated::CAPThread::~CAPThread(v9);
     }
   }
@@ -3026,45 +3031,44 @@ CADeprecated::CAPThread *CADeprecated::CAPThread::CAPThread(CADeprecated::CAPThr
   return CADeprecated::CAPThread::CAPThread(this, a2, a3, a4, a5, a6, a7, a8, a9);
 }
 
-pthread_t CADeprecated::CAPThread::SetPriority(pthread_t this, int a2, char a3)
+double CADeprecated::CAPThread::SetPriority(uint64_t this, int a2, char a3, BOOL a4)
 {
-  *&this->__opaque[88] = a2;
-  this->__opaque[105] = 0;
-  this->__opaque[106] = a3;
-  if (atomic_load(&this->__cleanup_stack))
+  *(this + 104) = a2;
+  *(this + 121) = 0;
+  *(this + 122) = a3;
+  if (atomic_load((this + 8)))
   {
-    v4 = atomic_load(&this->__cleanup_stack);
-    return CADeprecated::CAPThread::SetPriority(v4, *&this->__opaque[88], this->__opaque[106]);
+    v5 = atomic_load((this + 8));
+    return CADeprecated::CAPThread::SetPriority(v5, *(this + 104), *(this + 122));
   }
 
-  return this;
+  return result;
 }
 
-pthread_t CADeprecated::CAPThread::SetPriority(pthread_t this, _opaque_pthread_t *a2, int a3)
+double CADeprecated::CAPThread::SetPriority(pthread_t this, _opaque_pthread_t *a2, int a3)
 {
   if (this)
   {
     v3 = a2;
-    v4 = this;
-    if (!a3 || (policy_info = 0, v5 = pthread_mach_thread_np(this), !thread_policy_set(v5, 1u, &policy_info, 1u)))
+    if (!a3 || (policy_info = 0, v5 = pthread_mach_thread_np(this), (v6 = thread_policy_set(v5, 1u, &policy_info, 1u)) == 0))
     {
-      v6 = pthread_self();
-      v10 = v3 - CADeprecated::CAPThread::getScheduledPriority(v6, 0);
-      v7 = pthread_mach_thread_np(v4);
-      this = thread_policy_set(v7, 3u, &v10, 1u);
-      if (!this)
+      v7 = pthread_self();
+      v13 = v3 - CADeprecated::CAPThread::getScheduledPriority(v7, 0);
+      v8 = pthread_mach_thread_np(this);
+      v9 = thread_policy_set(v8, 3u, &v13, 1u);
+      if (!v9)
       {
-        return this;
+        return result;
       }
 
-      CAVerboseAbort();
+      v6 = CAVerboseAbort("CAPThread::SetPriority: failed to set the precedence policy, Error: 0x%X", v9);
     }
 
-    v8 = CAVerboseAbort();
-    return CADeprecated::CAPThread::SetName(v8, v9);
+    v11 = CAVerboseAbort("CAPThread::SetPriority: failed to set the fixed-priority policy, Error: 0x%X", v6);
+    return CADeprecated::CAPThread::SetName(v11, v12);
   }
 
-  return this;
+  return result;
 }
 
 double CADeprecated::CAPThread::SetName(CADeprecated::CAPThread *this, const char *a2)
@@ -3088,44 +3092,41 @@ double CADeprecated::CAPThread::SetName(CADeprecated::CAPThread *this, const cha
 
 uint64_t LogMachError(const char *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = 136316162;
-    v7 = "SharableMemory.cpp";
-    v8 = 1024;
-    v9 = 52;
-    v10 = 2080;
-    v11 = a1;
-    v12 = 1024;
-    v13 = a2;
-    v14 = 2080;
-    v15 = mach_error_string(a2);
-    _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d %s failed: 0x%x (%s)", &v6, 0x2Cu);
+    v5 = 136316162;
+    v6 = "SharableMemory.cpp";
+    v7 = 1024;
+    v8 = 52;
+    v9 = 2080;
+    v10 = a1;
+    v11 = 1024;
+    v12 = a2;
+    v13 = 2080;
+    v14 = mach_error_string(a2);
+    _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d %s failed: 0x%x (%s)", &v5, 0x2Cu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
 void LogPosixError(const char *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v2 = *__error();
-    v4 = 136315906;
-    v5 = "SharableMemory.cpp";
-    v6 = 1024;
-    v7 = 58;
-    v8 = 2080;
-    v9 = a1;
-    v10 = 1024;
-    v11 = v2;
-    _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d %s failed: errno %d", &v4, 0x22u);
+    v3 = 136315906;
+    v4 = "SharableMemory.cpp";
+    v5 = 1024;
+    v6 = 58;
+    v7 = 2080;
+    v8 = a1;
+    v9 = 1024;
+    v10 = v2;
+    _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d %s failed: errno %d", &v3, 0x22u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void SharableMemoryBlock::~SharableMemoryBlock(xpc_object_t *this)
@@ -3223,7 +3224,7 @@ void KaiserWindow::KaiserWindow(KaiserWindow *this, int a2, double a3)
   *(this + 4) = 0;
   if (a2 != -1)
   {
-    std::vector<float>::__vallocate[abi:ne200100](this + 16, (a2 + 1));
+    std::vector<float>::__vallocate[abi:ne200100](this + 2, (a2 + 1));
   }
 
   if (a3 >= 50.0)
@@ -3317,7 +3318,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -3596,9 +3597,9 @@ void MSHMIGSourceSetSendOnceCallback(__CFRunLoopSource *a1, uint64_t a2)
 
 uint64_t MSHMIGReceiveAndDispatchMessage(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1EEE9AC00]();
-  v8 = (v15 - v7);
+  v8 = (v14 - v7);
   v8->msgh_bits = 0;
   v8->msgh_remote_port = 0;
   v8->msgh_local_port = v3;
@@ -3616,12 +3617,11 @@ uint64_t MSHMIGReceiveAndDispatchMessage(uint64_t a1, uint64_t a2)
   v12 = mach_msg(v8, v9, 0, v4, v5, v6, 0);
   if (!v12)
   {
-    memset(v15, 0, sizeof(v15));
-    v16 = a2;
-    mshMIGPerform(v8, v10, v11, v15);
+    memset(v14, 0, sizeof(v14));
+    v15 = a2;
+    mshMIGPerform(v8, v10, v11, v14);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -3730,21 +3730,20 @@ xpc_object_t __copy_helper_block_e8_40c35_ZTSKN10applesauce3xpc10connectionE(uin
   return result;
 }
 
-void swix::connection::state::rebuild_connection(uint64_t a1@<X0>, const swix::connection_config *a2@<X8>)
+void swix::connection::state::rebuild_connection(uint64_t a1@<X0>, xpc_object_t *a3@<X8>)
 {
   v8 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a1 + 152));
-  v4 = *(a1 + 160);
-  if (!v4)
+  v5 = *(a1 + 160);
+  if (!v5)
   {
     swix::connection_config::connection_config(&v7, (a1 + 16));
-    swix::make_connection(a2, &v7);
-    swix::detail::connection_impl::create(&v7, a2, v5);
+    swix::make_connection(a3, &v7);
+    swix::detail::connection_impl::create(&v7, a3, v6);
   }
 
-  swix::detail::connection_impl::get(a2, *(v4 + 16));
+  swix::detail::connection_impl::get(a3, *(v5 + 16));
   os_unfair_lock_unlock((a1 + 152));
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1E6AE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -3783,7 +3782,7 @@ void swix::connection_config::~connection_config(swix::connection_config *this)
   }
 }
 
-void swix::xpc_object_description(swix *this@<X0>, void *a2@<X1>, _BYTE *a3@<X8>)
+void swix::xpc_object_description(swix *this@<X0>, void *a2@<X1>, void *a3@<X8>)
 {
   v4 = MEMORY[0x1E12BFEC0](this, a2);
   std::string::basic_string[abi:ne200100]<0>(a3, v4);
@@ -3791,17 +3790,17 @@ void swix::xpc_object_description(swix *this@<X0>, void *a2@<X1>, _BYTE *a3@<X8>
   free(v4);
 }
 
-uint64_t ___ZN4swix6detail14watchdog_timerC2ENS_14timeout_configE_block_invoke(uint64_t a1)
+uint64_t ___ZN4swix6detail14watchdog_timerC2ENS_14timeout_configE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 48);
-  if (!v2)
+  v3 = *(*(a1 + 32) + 48);
+  if (!v3)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v3 = *(*v2 + 48);
+  v4 = *(*v3 + 48);
 
-  return v3();
+  return v4();
 }
 
 void std::__throw_bad_function_call[abi:ne200100]()
@@ -3865,9 +3864,9 @@ void std::__shared_ptr_emplace<swix::connection::state>::~__shared_ptr_emplace(s
 
 void swix::connection::send_with_async_reply(uint64_t a1, swix::encode_message *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  swix::connection::xpc_connection(a1, &connection);
-  swix::encode_message::xpc_message(a2, &message);
+  v22 = *MEMORY[0x1E69E9840];
+  swix::connection::xpc_connection(&connection, a1);
+  swix::encode_message::xpc_message(&message, a2);
   v6 = *(a1 + 8);
   if (*(v6 + 88))
   {
@@ -3880,7 +3879,7 @@ void swix::connection::send_with_async_reply(uint64_t a1, swix::encode_message *
       v11 = MEMORY[0x1E12BFEC0](message);
       std::string::basic_string[abi:ne200100]<0>(__p, v11);
       free(v11);
-      if (v16 >= 0)
+      if (v15 >= 0)
       {
         v12 = __p;
       }
@@ -3891,11 +3890,11 @@ void swix::connection::send_with_async_reply(uint64_t a1, swix::encode_message *
       }
 
       *buf = 134218242;
-      v20 = v10;
-      v21 = 2080;
-      v22 = v12;
+      v19 = v10;
+      v20 = 2080;
+      v21 = v12;
       _os_log_impl(&dword_1DE1D2000, v7, OS_LOG_TYPE_DEFAULT, "%p send msg %s", buf, 0x16u);
-      if (v16 < 0)
+      if (v15 < 0)
       {
         operator delete(__p[0]);
       }
@@ -3916,7 +3915,6 @@ void swix::connection::send_with_async_reply(uint64_t a1, swix::encode_message *
   xpc_connection_send_message_with_reply(connection, v9, 0, handler);
   xpc_release(v9);
   xpc_release(connection);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1E7138(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, xpc_object_t object)
@@ -5377,9 +5375,9 @@ uint64_t CACFDictionary::AddSInt32(CFMutableDictionaryRef *this, const __CFStrin
   return v6;
 }
 
-void sub_1DE1E8D10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1E8D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -5421,9 +5419,9 @@ uint64_t CACFDictionary::AddUInt32(CFMutableDictionaryRef *this, const __CFStrin
   return v6;
 }
 
-void sub_1DE1E8DF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1E8DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -5453,9 +5451,9 @@ uint64_t CACFDictionary::AddSInt64(CFMutableDictionaryRef *this, const __CFStrin
   return v6;
 }
 
-void sub_1DE1E8EA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1E8EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -5485,9 +5483,9 @@ uint64_t CACFDictionary::AddUInt64(CFMutableDictionaryRef *this, const __CFStrin
   return v6;
 }
 
-void sub_1DE1E8F48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1E8F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -5517,9 +5515,9 @@ uint64_t CACFDictionary::AddFloat32(CFMutableDictionaryRef *this, const __CFStri
   return v6;
 }
 
-void sub_1DE1E8FF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1E8FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -5549,9 +5547,9 @@ uint64_t CACFDictionary::AddFloat64(CFMutableDictionaryRef *this, const __CFStri
   return v6;
 }
 
-void sub_1DE1E9098(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1E9098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -5736,20 +5734,18 @@ uint64_t CACFDictionary::AddCString(CFMutableDictionaryRef *this, const __CFStri
   return v6;
 }
 
-unint64_t CACFDictionary::PrintToLog(CACFDictionary *this, const __CFDictionary *a2)
+void CACFDictionary::PrintToLog(CACFDictionary *this, const __CFString *a2)
 {
-  result = CFDictionaryGetCount(this);
-  if (result)
+  Count = CFDictionaryGetCount(this);
+  if (Count)
   {
-    if (!(result >> 61))
+    if (!(Count >> 61))
     {
       operator new();
     }
 
     std::vector<CADeprecated::XMachServer::Client *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_1DE1E9550(_Unwind_Exception *a1)
@@ -5761,7 +5757,7 @@ void sub_1DE1E9550(_Unwind_Exception *a1)
 
 void TFileBSD::Clear(FILE **this)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v2 = *kTFileBSDSubsystem;
@@ -5778,15 +5774,15 @@ void TFileBSD::Clear(FILE **this)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315906;
-    v8 = "TFileBSD.cpp";
-    v9 = 1024;
-    v10 = 567;
-    v11 = 2080;
-    v12 = "Clear";
-    v13 = 2048;
-    v14 = this;
-    _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v7, 0x26u);
+    v6 = 136315906;
+    v7 = "TFileBSD.cpp";
+    v8 = 1024;
+    v9 = 567;
+    v10 = 2080;
+    v11 = "Clear";
+    v12 = 2048;
+    v13 = this;
+    _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v6, 0x26u);
   }
 
 LABEL_7:
@@ -5815,26 +5811,24 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          v7 = 136315906;
-          v8 = "TFileBSD.cpp";
-          v9 = 1024;
-          v10 = 585;
-          v11 = 2080;
-          v12 = "Clear";
-          v13 = 2048;
-          v14 = this;
-          _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v7, 0x26u);
+          v6 = 136315906;
+          v7 = "TFileBSD.cpp";
+          v8 = 1024;
+          v9 = 585;
+          v10 = 2080;
+          v11 = "Clear";
+          v12 = 2048;
+          v13 = this;
+          _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v6, 0x26u);
         }
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void TFileBSD::Close(TFileBSD *this)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v2 = *kTFileBSDSubsystem;
@@ -5852,13 +5846,13 @@ void TFileBSD::Close(TFileBSD *this)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v10 = "TFileBSD.cpp";
-    v11 = 1024;
-    v12 = 341;
-    v13 = 2080;
-    v14 = "Close";
-    v15 = 2048;
-    v16 = this;
+    v9 = "TFileBSD.cpp";
+    v10 = 1024;
+    v11 = 341;
+    v12 = 2080;
+    v13 = "Close";
+    v14 = 2048;
+    v15 = this;
     _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", buf, 0x26u);
   }
 
@@ -5866,23 +5860,23 @@ LABEL_7:
   v3 = *(this + 2);
   if (v3 && fclose(v3))
   {
-    v6 = *__error();
+    v5 = *__error();
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v8, v6 + 100000);
+      CAX4CCString::CAX4CCString(v7, v5 + 100000);
       *buf = 136315906;
-      v10 = "TFileBSD.cpp";
-      v11 = 1024;
-      v12 = 345;
-      v13 = 2080;
-      v14 = v8;
-      v15 = 2080;
-      v16 = "Close::fclose failed";
+      v9 = "TFileBSD.cpp";
+      v10 = 1024;
+      v11 = 345;
+      v12 = 2080;
+      v13 = v7;
+      v14 = 2080;
+      v15 = "Close::fclose failed";
       _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
     exception = __cxa_allocate_exception(0x110uLL);
-    CAXException::CAXException(exception, "Close::fclose failed", v6 + 100000);
+    CAXException::CAXException(exception, "Close::fclose failed", v5 + 100000);
   }
 
   *(this + 2) = 0;
@@ -5896,25 +5890,23 @@ LABEL_7:
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v10 = "TFileBSD.cpp";
-          v11 = 1024;
-          v12 = 348;
-          v13 = 2080;
-          v14 = "Close";
-          v15 = 2048;
-          v16 = this;
+          v9 = "TFileBSD.cpp";
+          v10 = 1024;
+          v11 = 348;
+          v12 = 2080;
+          v13 = "Close";
+          v14 = 2048;
+          v15 = this;
           _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", buf, 0x26u);
         }
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void TFileBSD::Open(const char **this, unsigned int a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v4 = *kTFileBSDSubsystem;
@@ -5932,13 +5924,13 @@ void TFileBSD::Open(const char **this, unsigned int a2)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v16 = "TFileBSD.cpp";
-    v17 = 1024;
-    v18 = 304;
-    v19 = 2080;
-    v20 = "Open";
-    v21 = 2048;
-    v22 = this;
+    v15 = "TFileBSD.cpp";
+    v16 = 1024;
+    v17 = 304;
+    v18 = 2080;
+    v19 = "Open";
+    v20 = 2048;
+    v21 = this;
     _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", buf, 0x26u);
   }
 
@@ -5949,15 +5941,15 @@ LABEL_7:
     {
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
-        CAX4CCString::CAX4CCString(v14, 0xFFFFFFCE);
+        CAX4CCString::CAX4CCString(v13, 0xFFFFFFCE);
         *buf = 136315906;
-        v16 = "TFileBSD.cpp";
-        v17 = 1024;
-        v18 = 309;
-        v19 = 2080;
-        v20 = v14;
-        v21 = 2080;
-        v22 = "Open - file open invalid file permission";
+        v15 = "TFileBSD.cpp";
+        v16 = 1024;
+        v17 = 309;
+        v18 = 2080;
+        v19 = v13;
+        v20 = 2080;
+        v21 = "Open - file open invalid file permission";
         _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
       }
 
@@ -5972,20 +5964,20 @@ LABEL_7:
       {
         if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
         {
-          CAX4CCString::CAX4CCString(v14, 0xFFFFFFCA);
+          CAX4CCString::CAX4CCString(v13, 0xFFFFFFCA);
           *buf = 136315906;
-          v16 = "TFileBSD.cpp";
-          v17 = 1024;
-          v18 = 315;
-          v19 = 2080;
-          v20 = v14;
-          v21 = 2080;
-          v22 = "Open: Permission denied";
+          v15 = "TFileBSD.cpp";
+          v16 = 1024;
+          v17 = 315;
+          v18 = 2080;
+          v19 = v13;
+          v20 = 2080;
+          v21 = "Open: Permission denied";
           _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
         }
 
-        v10 = __cxa_allocate_exception(0x110uLL);
-        CAXException::CAXException(v10, "Open: Permission denied", -54);
+        v9 = __cxa_allocate_exception(0x110uLL);
+        CAXException::CAXException(v9, "Open: Permission denied", -54);
       }
     }
 
@@ -6003,23 +5995,23 @@ LABEL_7:
     this[2] = v7;
     if (!v7)
     {
-      v12 = *__error();
+      v11 = *__error();
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
-        CAX4CCString::CAX4CCString(v14, v12 + 100000);
+        CAX4CCString::CAX4CCString(v13, v11 + 100000);
         *buf = 136315906;
-        v16 = "TFileBSD.cpp";
-        v17 = 1024;
-        v18 = 321;
-        v19 = 2080;
-        v20 = v14;
-        v21 = 2080;
-        v22 = "Open::fopen failed";
+        v15 = "TFileBSD.cpp";
+        v16 = 1024;
+        v17 = 321;
+        v18 = 2080;
+        v19 = v13;
+        v20 = 2080;
+        v21 = "Open::fopen failed";
         _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
       }
 
-      v13 = __cxa_allocate_exception(0x110uLL);
-      CAXException::CAXException(v13, "Open::fopen failed", v12 + 100000);
+      v12 = __cxa_allocate_exception(0x110uLL);
+      CAXException::CAXException(v12, "Open::fopen failed", v11 + 100000);
     }
 
     if (this[4] >= 1)
@@ -6040,25 +6032,23 @@ LABEL_7:
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v16 = "TFileBSD.cpp";
-          v17 = 1024;
-          v18 = 332;
-          v19 = 2080;
-          v20 = "Open";
-          v21 = 2048;
-          v22 = this;
+          v15 = "TFileBSD.cpp";
+          v16 = 1024;
+          v17 = 332;
+          v18 = 2080;
+          v19 = "Open";
+          v20 = 2048;
+          v21 = this;
           _os_log_impl(&dword_1DE1D2000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", buf, 0x26u);
         }
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void TFileBSD::DeleteFile(const std::__fs::filesystem::path **this)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v2 = *kTFileBSDSubsystem;
@@ -6075,15 +6065,15 @@ void TFileBSD::DeleteFile(const std::__fs::filesystem::path **this)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315906;
-    v7 = "TFileBSD.cpp";
-    v8 = 1024;
-    v9 = 284;
-    v10 = 2080;
-    v11 = "DeleteFile";
-    v12 = 2048;
-    v13 = this;
-    _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v6, 0x26u);
+    v5 = 136315906;
+    v6 = "TFileBSD.cpp";
+    v7 = 1024;
+    v8 = 284;
+    v9 = 2080;
+    v10 = "DeleteFile";
+    v11 = 2048;
+    v12 = this;
+    _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v5, 0x26u);
   }
 
 LABEL_7:
@@ -6102,26 +6092,24 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          v6 = 136315906;
-          v7 = "TFileBSD.cpp";
-          v8 = 1024;
-          v9 = 295;
-          v10 = 2080;
-          v11 = "DeleteFile";
-          v12 = 2048;
-          v13 = this;
-          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v6, 0x26u);
+          v5 = 136315906;
+          v6 = "TFileBSD.cpp";
+          v7 = 1024;
+          v8 = 295;
+          v9 = 2080;
+          v10 = "DeleteFile";
+          v11 = 2048;
+          v12 = this;
+          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v5, 0x26u);
         }
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void TFileBSD::Create(TFileBSD *this)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v2 = *kTFileBSDSubsystem;
@@ -6139,13 +6127,13 @@ void TFileBSD::Create(TFileBSD *this)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v13 = "TFileBSD.cpp";
-    v14 = 1024;
-    v15 = 256;
-    v16 = 2080;
-    v17 = "Create";
-    v18 = 2048;
-    v19 = this;
+    v12 = "TFileBSD.cpp";
+    v13 = 1024;
+    v14 = 256;
+    v15 = 2080;
+    v16 = "Create";
+    v17 = 2048;
+    v18 = this;
     _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", buf, 0x26u);
   }
 
@@ -6158,44 +6146,44 @@ LABEL_7:
       v4 = fopen(v3, "w+b");
       if (!v4)
       {
-        v7 = *__error();
+        v6 = *__error();
         if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
         {
-          CAX4CCString::CAX4CCString(v11, v7 + 100000);
+          CAX4CCString::CAX4CCString(v10, v6 + 100000);
           *buf = 136315906;
-          v13 = "TFileBSD.cpp";
-          v14 = 1024;
-          v15 = 262;
-          v16 = 2080;
-          v17 = v11;
-          v18 = 2080;
-          v19 = "Create::fopen failed";
+          v12 = "TFileBSD.cpp";
+          v13 = 1024;
+          v14 = 262;
+          v15 = 2080;
+          v16 = v10;
+          v17 = 2080;
+          v18 = "Create::fopen failed";
           _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
         }
 
         exception = __cxa_allocate_exception(0x110uLL);
-        CAXException::CAXException(exception, "Create::fopen failed", v7 + 100000);
+        CAXException::CAXException(exception, "Create::fopen failed", v6 + 100000);
       }
 
       if (fclose(v4))
       {
-        v9 = *__error();
+        v8 = *__error();
         if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
         {
-          CAX4CCString::CAX4CCString(v11, v9 + 100000);
+          CAX4CCString::CAX4CCString(v10, v8 + 100000);
           *buf = 136315906;
-          v13 = "TFileBSD.cpp";
-          v14 = 1024;
-          v15 = 263;
-          v16 = 2080;
-          v17 = v11;
-          v18 = 2080;
-          v19 = "Create::fclose failed";
+          v12 = "TFileBSD.cpp";
+          v13 = 1024;
+          v14 = 263;
+          v15 = 2080;
+          v16 = v10;
+          v17 = 2080;
+          v18 = "Create::fclose failed";
           _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
         }
 
-        v10 = __cxa_allocate_exception(0x110uLL);
-        CAXException::CAXException(v10, "Create::fclose failed", v9 + 100000);
+        v9 = __cxa_allocate_exception(0x110uLL);
+        CAXException::CAXException(v9, "Create::fclose failed", v8 + 100000);
       }
     }
   }
@@ -6210,25 +6198,23 @@ LABEL_7:
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v13 = "TFileBSD.cpp";
-          v14 = 1024;
-          v15 = 275;
-          v16 = 2080;
-          v17 = "Create";
-          v18 = 2048;
-          v19 = this;
+          v12 = "TFileBSD.cpp";
+          v13 = 1024;
+          v14 = 275;
+          v15 = 2080;
+          v16 = "Create";
+          v17 = 2048;
+          v18 = this;
           _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", buf, 0x26u);
         }
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-BOOL TFileBSD::Exists(const char **this)
+BOOL TFileBSD::Exists(uint64_t (***this)(const char **))
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v2 = *kTFileBSDSubsystem;
@@ -6245,19 +6231,19 @@ BOOL TFileBSD::Exists(const char **this)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v7.st_dev = 136315906;
-    *&v7.st_mode = "TFileBSD.cpp";
-    WORD2(v7.st_ino) = 1024;
-    *(&v7.st_ino + 6) = 230;
-    HIWORD(v7.st_uid) = 2080;
-    *&v7.st_gid = "Exists";
-    *(&v7.st_rdev + 2) = 2048;
-    *(&v7.st_rdev + 6) = this;
-    _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v7, 0x26u);
+    v6.st_dev = 136315906;
+    *&v6.st_mode = "TFileBSD.cpp";
+    WORD2(v6.st_ino) = 1024;
+    *(&v6.st_ino + 6) = 230;
+    HIWORD(v6.st_uid) = 2080;
+    *&v6.st_gid = "Exists";
+    *(&v6.st_rdev + 2) = 2048;
+    *(&v6.st_rdev + 6) = this;
+    _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v6, 0x26u);
   }
 
 LABEL_7:
-  v3 = ((*(*this + 15))(this) & 1) != 0 || stat(this[1], &v7) == 0;
+  v3 = ((*this)[15](this) & 1) != 0 || stat(this[1], &v6) == 0;
   if (kTFileBSDSubsystem)
   {
     if (*(kTFileBSDSubsystem + 8))
@@ -6267,27 +6253,26 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          v7.st_dev = 136315906;
-          *&v7.st_mode = "TFileBSD.cpp";
-          WORD2(v7.st_ino) = 1024;
-          *(&v7.st_ino + 6) = 246;
-          HIWORD(v7.st_uid) = 2080;
-          *&v7.st_gid = "Exists";
-          *(&v7.st_rdev + 2) = 2048;
-          *(&v7.st_rdev + 6) = this;
-          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v7, 0x26u);
+          v6.st_dev = 136315906;
+          *&v6.st_mode = "TFileBSD.cpp";
+          WORD2(v6.st_ino) = 1024;
+          *(&v6.st_ino + 6) = 246;
+          HIWORD(v6.st_uid) = 2080;
+          *&v6.st_gid = "Exists";
+          *(&v6.st_rdev + 2) = 2048;
+          *(&v6.st_rdev + 6) = this;
+          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v6, 0x26u);
         }
       }
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 off_t TFileBSD::GetLength(FILE **this)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v2 = *kTFileBSDSubsystem;
@@ -6320,13 +6305,13 @@ LABEL_7:
   {
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v12, 0xFFFFFFDA);
+      CAX4CCString::CAX4CCString(v11, 0xFFFFFFDA);
       buf.st_dev = 136315906;
       *&buf.st_mode = "TFileBSD.cpp";
       WORD2(buf.st_ino) = 1024;
       *(&buf.st_ino + 6) = 427;
       HIWORD(buf.st_uid) = 2080;
-      *&buf.st_gid = v12;
+      *&buf.st_gid = v11;
       *(&buf.st_rdev + 2) = 2080;
       *(&buf.st_rdev + 6) = "GetLength - file not open";
       _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", &buf, 0x26u);
@@ -6339,23 +6324,23 @@ LABEL_7:
   v3 = fileno(this[2]);
   if (fstat(v3, &buf))
   {
-    v9 = *__error();
+    v8 = *__error();
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v11, v9 + 100000);
-      *v12 = 136315906;
-      v13 = "TFileBSD.cpp";
-      v14 = 1024;
-      v15 = 430;
-      v16 = 2080;
-      v17 = v11;
-      v18 = 2080;
-      v19 = "GetLength::fstat failed";
-      _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", v12, 0x26u);
+      CAX4CCString::CAX4CCString(v10, v8 + 100000);
+      *v11 = 136315906;
+      v12 = "TFileBSD.cpp";
+      v13 = 1024;
+      v14 = 430;
+      v15 = 2080;
+      v16 = v10;
+      v17 = 2080;
+      v18 = "GetLength::fstat failed";
+      _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", v11, 0x26u);
     }
 
-    v10 = __cxa_allocate_exception(0x110uLL);
-    CAXException::CAXException(v10, "GetLength::fstat failed", v9 + 100000);
+    v9 = __cxa_allocate_exception(0x110uLL);
+    CAXException::CAXException(v9, "GetLength::fstat failed", v8 + 100000);
   }
 
   st_size = buf.st_size;
@@ -6368,27 +6353,26 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          *v12 = 136315906;
-          v13 = "TFileBSD.cpp";
-          v14 = 1024;
-          v15 = 433;
-          v16 = 2080;
-          v17 = "GetLength";
-          v18 = 2048;
-          v19 = this;
-          _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", v12, 0x26u);
+          *v11 = 136315906;
+          v12 = "TFileBSD.cpp";
+          v13 = 1024;
+          v14 = 433;
+          v15 = 2080;
+          v16 = "GetLength";
+          v17 = 2048;
+          v18 = this;
+          _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", v11, 0x26u);
         }
       }
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return st_size;
 }
 
 void TFileBSD::Skip(FILE **this, off_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v4 = *kTFileBSDSubsystem;
@@ -6406,13 +6390,13 @@ void TFileBSD::Skip(FILE **this, off_t a2)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v12 = "TFileBSD.cpp";
-    v13 = 1024;
-    v14 = 403;
-    v15 = 2080;
-    v16 = "Skip";
-    v17 = 2048;
-    v18 = this;
+    v11 = "TFileBSD.cpp";
+    v12 = 1024;
+    v13 = 403;
+    v14 = 2080;
+    v15 = "Skip";
+    v16 = 2048;
+    v17 = this;
     _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", buf, 0x26u);
   }
 
@@ -6421,15 +6405,15 @@ LABEL_7:
   {
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v10, 0xFFFFFFDA);
+      CAX4CCString::CAX4CCString(v9, 0xFFFFFFDA);
       *buf = 136315906;
-      v12 = "TFileBSD.cpp";
-      v13 = 1024;
-      v14 = 406;
-      v15 = 2080;
-      v16 = v10;
-      v17 = 2080;
-      v18 = "Skip - file not open";
+      v11 = "TFileBSD.cpp";
+      v12 = 1024;
+      v13 = 406;
+      v14 = 2080;
+      v15 = v9;
+      v16 = 2080;
+      v17 = "Skip - file not open";
       _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
@@ -6439,23 +6423,23 @@ LABEL_7:
 
   if (fseeko(this[2], a2, 1))
   {
-    v8 = *__error();
+    v7 = *__error();
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v10, v8 + 100000);
+      CAX4CCString::CAX4CCString(v9, v7 + 100000);
       *buf = 136315906;
-      v12 = "TFileBSD.cpp";
-      v13 = 1024;
-      v14 = 408;
-      v15 = 2080;
-      v16 = v10;
-      v17 = 2080;
-      v18 = "Skip::fseeko failed";
+      v11 = "TFileBSD.cpp";
+      v12 = 1024;
+      v13 = 408;
+      v14 = 2080;
+      v15 = v9;
+      v16 = 2080;
+      v17 = "Skip::fseeko failed";
       _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
-    v9 = __cxa_allocate_exception(0x110uLL);
-    CAXException::CAXException(v9, "Skip::fseeko failed", v8 + 100000);
+    v8 = __cxa_allocate_exception(0x110uLL);
+    CAXException::CAXException(v8, "Skip::fseeko failed", v7 + 100000);
   }
 
   this[3] = (this[3] + a2);
@@ -6469,25 +6453,23 @@ LABEL_7:
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v12 = "TFileBSD.cpp";
-          v13 = 1024;
-          v14 = 414;
-          v15 = 2080;
-          v16 = "Skip";
-          v17 = 2048;
-          v18 = this;
+          v11 = "TFileBSD.cpp";
+          v12 = 1024;
+          v13 = 414;
+          v14 = 2080;
+          v15 = "Skip";
+          v16 = 2048;
+          v17 = this;
           _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", buf, 0x26u);
         }
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t TFileBSD::GetPosition(TFileBSD *this)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = kTFileBSDSubsystem;
   if (kTFileBSDSubsystem)
   {
@@ -6502,20 +6484,20 @@ LABEL_8:
         {
           if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
           {
-            v7 = 136315906;
-            v8 = "TFileBSD.cpp";
-            v9 = 1024;
-            v10 = 393;
-            v11 = 2080;
-            v12 = "GetPosition";
-            v13 = 2048;
-            v14 = this;
-            _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v7, 0x26u);
+            v6 = 136315906;
+            v7 = "TFileBSD.cpp";
+            v8 = 1024;
+            v9 = 393;
+            v10 = 2080;
+            v11 = "GetPosition";
+            v12 = 2048;
+            v13 = this;
+            _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v6, 0x26u);
           }
         }
       }
 
-      goto LABEL_12;
+      return *(this + 3);
     }
   }
 
@@ -6526,15 +6508,15 @@ LABEL_8:
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315906;
-    v8 = "TFileBSD.cpp";
-    v9 = 1024;
-    v10 = 391;
-    v11 = 2080;
-    v12 = "GetPosition";
-    v13 = 2048;
-    v14 = this;
-    _os_log_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v7, 0x26u);
+    v6 = 136315906;
+    v7 = "TFileBSD.cpp";
+    v8 = 1024;
+    v9 = 391;
+    v10 = 2080;
+    v11 = "GetPosition";
+    v12 = 2048;
+    v13 = this;
+    _os_log_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v6, 0x26u);
     v2 = kTFileBSDSubsystem;
   }
 
@@ -6543,39 +6525,36 @@ LABEL_8:
     goto LABEL_8;
   }
 
-LABEL_12:
-  result = *(this + 3);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return *(this + 3);
 }
 
 void TFileBSD::SeekAsync(TFileBSD *this, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = kTFileBSDSubsystem;
   if (!kTFileBSDSubsystem)
   {
     *(this + 3) = a2;
-    goto LABEL_13;
+    return;
   }
 
   v5 = *(kTFileBSDSubsystem + 8);
   if ((v5 & 1) != 0 && (v6 = *kTFileBSDSubsystem) != 0 && os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315906;
-    v10 = "TFileBSD.cpp";
-    v11 = 1024;
-    v12 = 377;
-    v13 = 2080;
-    v14 = "SeekAsync";
-    v15 = 2048;
-    v16 = this;
-    _os_log_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v9, 0x26u);
+    v8 = 136315906;
+    v9 = "TFileBSD.cpp";
+    v10 = 1024;
+    v11 = 377;
+    v12 = 2080;
+    v13 = "SeekAsync";
+    v14 = 2048;
+    v15 = this;
+    _os_log_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v8, 0x26u);
     v4 = kTFileBSDSubsystem;
     *(this + 3) = a2;
     if (!v4 || (*(v4 + 8) & 1) == 0)
     {
-      goto LABEL_13;
+      return;
     }
   }
 
@@ -6584,31 +6563,31 @@ void TFileBSD::SeekAsync(TFileBSD *this, uint64_t a2)
     *(this + 3) = a2;
     if ((v5 & 1) == 0)
     {
-      goto LABEL_13;
+      return;
     }
   }
 
   v7 = *v4;
-  if (*v4 && os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
+  if (*v4)
   {
-    v9 = 136315906;
-    v10 = "TFileBSD.cpp";
-    v11 = 1024;
-    v12 = 381;
-    v13 = 2080;
-    v14 = "SeekAsync";
-    v15 = 2048;
-    v16 = this;
-    _os_log_impl(&dword_1DE1D2000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v9, 0x26u);
+    if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = 136315906;
+      v9 = "TFileBSD.cpp";
+      v10 = 1024;
+      v11 = 381;
+      v12 = 2080;
+      v13 = "SeekAsync";
+      v14 = 2048;
+      v15 = this;
+      _os_log_impl(&dword_1DE1D2000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v8, 0x26u);
+    }
   }
-
-LABEL_13:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void TFileBSD::Seek(FILE **this, FILE *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v4 = *kTFileBSDSubsystem;
@@ -6626,13 +6605,13 @@ void TFileBSD::Seek(FILE **this, FILE *a2)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v12 = "TFileBSD.cpp";
-    v13 = 1024;
-    v14 = 358;
-    v15 = 2080;
-    v16 = "Seek";
-    v17 = 2048;
-    v18 = this;
+    v11 = "TFileBSD.cpp";
+    v12 = 1024;
+    v13 = 358;
+    v14 = 2080;
+    v15 = "Seek";
+    v16 = 2048;
+    v17 = this;
     _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", buf, 0x26u);
   }
 
@@ -6641,15 +6620,15 @@ LABEL_7:
   {
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v10, 0xFFFFFFDA);
+      CAX4CCString::CAX4CCString(v9, 0xFFFFFFDA);
       *buf = 136315906;
-      v12 = "TFileBSD.cpp";
-      v13 = 1024;
-      v14 = 361;
-      v15 = 2080;
-      v16 = v10;
-      v17 = 2080;
-      v18 = "Seek - file not open";
+      v11 = "TFileBSD.cpp";
+      v12 = 1024;
+      v13 = 361;
+      v14 = 2080;
+      v15 = v9;
+      v16 = 2080;
+      v17 = "Seek - file not open";
       _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
@@ -6659,23 +6638,23 @@ LABEL_7:
 
   if (fseeko(this[2], a2 + this[4], 0))
   {
-    v8 = *__error();
+    v7 = *__error();
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v10, v8 + 100000);
+      CAX4CCString::CAX4CCString(v9, v7 + 100000);
       *buf = 136315906;
-      v12 = "TFileBSD.cpp";
-      v13 = 1024;
-      v14 = 363;
-      v15 = 2080;
-      v16 = v10;
-      v17 = 2080;
-      v18 = "Seek::fseeko failed";
+      v11 = "TFileBSD.cpp";
+      v12 = 1024;
+      v13 = 363;
+      v14 = 2080;
+      v15 = v9;
+      v16 = 2080;
+      v17 = "Seek::fseeko failed";
       _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
-    v9 = __cxa_allocate_exception(0x110uLL);
-    CAXException::CAXException(v9, "Seek::fseeko failed", v8 + 100000);
+    v8 = __cxa_allocate_exception(0x110uLL);
+    CAXException::CAXException(v8, "Seek::fseeko failed", v7 + 100000);
   }
 
   this[3] = a2;
@@ -6689,25 +6668,23 @@ LABEL_7:
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v12 = "TFileBSD.cpp";
-          v13 = 1024;
-          v14 = 368;
-          v15 = 2080;
-          v16 = "Seek";
-          v17 = 2048;
-          v18 = this;
+          v11 = "TFileBSD.cpp";
+          v12 = 1024;
+          v13 = 368;
+          v14 = 2080;
+          v15 = "Seek";
+          v16 = 2048;
+          v17 = this;
           _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", buf, 0x26u);
         }
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t TFileBSD::ReadAsync(void *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     if (*(kTFileBSDSubsystem + 8))
@@ -6717,15 +6694,15 @@ uint64_t TFileBSD::ReadAsync(void *a1, uint64_t a2, int a3, uint64_t a4, uint64_
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          v23 = 136315906;
-          v24 = "TFileBSD.cpp";
-          v25 = 1024;
-          v26 = 502;
-          v27 = 2080;
-          v28 = "ReadAsync";
-          v29 = 2048;
-          v30 = a1;
-          _os_log_impl(&dword_1DE1D2000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v23, 0x26u);
+          v22 = 136315906;
+          v23 = "TFileBSD.cpp";
+          v24 = 1024;
+          v25 = 502;
+          v26 = 2080;
+          v27 = "ReadAsync";
+          v28 = 2048;
+          v29 = a1;
+          _os_log_impl(&dword_1DE1D2000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v22, 0x26u);
         }
       }
     }
@@ -6736,105 +6713,99 @@ uint64_t TFileBSD::ReadAsync(void *a1, uint64_t a2, int a3, uint64_t a4, uint64_
     CAAssertRtn();
   }
 
-  if ((*(*a1 + 120))(a1))
+  if (!(*(*a1 + 120))(a1))
   {
-    v11 = a1[5];
-    v12 = a1[3];
-    v13 = v12 + a3;
-    v14 = v11 - v12;
-    if (v13 <= v11)
+    return 4294967258;
+  }
+
+  v11 = a1[5];
+  v12 = a1[3];
+  v13 = v12 + a3;
+  v14 = v11 - v12;
+  if (v13 <= v11)
+  {
+    v15 = a3;
+  }
+
+  else
+  {
+    v15 = v14;
+  }
+
+  if (v15 < 1)
+  {
+    v19 = 0;
+    if (!v15)
     {
-      v15 = a3;
-    }
-
-    else
-    {
-      v15 = v14;
-    }
-
-    if (v15 < 1)
-    {
-      v19 = 0;
-      if (!v15)
-      {
-        --*sReadCounter_BSD;
-      }
-    }
-
-    else
-    {
-      LOBYTE(v23) = 0;
-      v16 = (*(*TFileBSD::sGuard + 32))(TFileBSD::sGuard, &v23);
-      if (v16)
-      {
-        FreeRequestBlock = TFileBSD::GetFreeRequestBlock(v16);
-        if (!FreeRequestBlock)
-        {
-          v19 = 0xFFFFFFFFLL;
-          goto LABEL_27;
-        }
-
-        *(FreeRequestBlock + 1) = a4;
-        *(FreeRequestBlock + 2) = a5;
-        v18 = a1[3];
-        *(FreeRequestBlock + 6) = v18;
-        a1[3] = v18 + v15;
-        *(FreeRequestBlock + 7) = v15;
-        *(FreeRequestBlock + 4) = a2;
-        *(FreeRequestBlock + 5) = a1;
-        *FreeRequestBlock = 1;
-        (*(*TFileBSD::sGuard + 80))(TFileBSD::sGuard);
-        if (v23 == 1)
-        {
-          (*(*TFileBSD::sGuard + 24))(TFileBSD::sGuard);
-        }
-
-        v19 = 0;
-      }
-
-      else
-      {
-        v19 = 0xFFFFFFFFLL;
-      }
-    }
-
-    if (kTFileBSDSubsystem)
-    {
-      if (*(kTFileBSDSubsystem + 8))
-      {
-        v20 = *kTFileBSDSubsystem;
-        if (*kTFileBSDSubsystem)
-        {
-          if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
-          {
-            v23 = 136315906;
-            v24 = "TFileBSD.cpp";
-            v25 = 1024;
-            v26 = 557;
-            v27 = 2080;
-            v28 = "ReadAsync";
-            v29 = 2048;
-            v30 = a1;
-            _os_log_impl(&dword_1DE1D2000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v23, 0x26u);
-          }
-        }
-      }
+      --*sReadCounter_BSD;
     }
   }
 
   else
   {
-    v19 = 4294967258;
+    LOBYTE(v22) = 0;
+    v16 = (*(*TFileBSD::sGuard + 32))(TFileBSD::sGuard, &v22);
+    if (v16)
+    {
+      FreeRequestBlock = TFileBSD::GetFreeRequestBlock(v16);
+      if (!FreeRequestBlock)
+      {
+        return 0xFFFFFFFFLL;
+      }
+
+      *(FreeRequestBlock + 1) = a4;
+      *(FreeRequestBlock + 2) = a5;
+      v18 = a1[3];
+      *(FreeRequestBlock + 6) = v18;
+      a1[3] = v18 + v15;
+      *(FreeRequestBlock + 7) = v15;
+      *(FreeRequestBlock + 4) = a2;
+      *(FreeRequestBlock + 5) = a1;
+      *FreeRequestBlock = 1;
+      (*(*TFileBSD::sGuard + 80))(TFileBSD::sGuard);
+      if (v22 == 1)
+      {
+        (*(*TFileBSD::sGuard + 24))(TFileBSD::sGuard);
+      }
+
+      v19 = 0;
+    }
+
+    else
+    {
+      v19 = 0xFFFFFFFFLL;
+    }
   }
 
-LABEL_27:
-  v21 = *MEMORY[0x1E69E9840];
+  if (kTFileBSDSubsystem)
+  {
+    if (*(kTFileBSDSubsystem + 8))
+    {
+      v20 = *kTFileBSDSubsystem;
+      if (*kTFileBSDSubsystem)
+      {
+        if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
+        {
+          v22 = 136315906;
+          v23 = "TFileBSD.cpp";
+          v24 = 1024;
+          v25 = 557;
+          v26 = 2080;
+          v27 = "ReadAsync";
+          v28 = 2048;
+          v29 = a1;
+          _os_log_impl(&dword_1DE1D2000, v20, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v22, 0x26u);
+        }
+      }
+    }
+  }
+
   return v19;
 }
 
 _BYTE *TFileBSD::GetFreeRequestBlock(TFileBSD *this)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v1 = *kTFileBSDSubsystem;
@@ -6851,60 +6822,56 @@ _BYTE *TFileBSD::GetFreeRequestBlock(TFileBSD *this)
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315650;
-    v8 = "TFileBSD.cpp";
-    v9 = 1024;
-    v10 = 594;
-    v11 = 2080;
-    v12 = "GetFreeRequestBlock";
-    _os_log_impl(&dword_1DE1D2000, v1, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s", &v7, 0x1Cu);
+    v6 = 136315650;
+    v7 = "TFileBSD.cpp";
+    v8 = 1024;
+    v9 = 594;
+    v10 = 2080;
+    v11 = "GetFreeRequestBlock";
+    _os_log_impl(&dword_1DE1D2000, v1, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s", &v6, 0x1Cu);
   }
 
 LABEL_7:
   v2 = (*TFileBSD::sRequestBlockList + 48 * TFileBSD::sAsyncRequestWriteIndex);
   if (*v2)
   {
-    v2 = 0;
+    return 0;
   }
 
-  else
+  v3 = (TFileBSD::sAsyncRequestWriteIndex + 1) & 0x7F;
+  if (TFileBSD::sAsyncRequestWriteIndex + 1 <= 0)
   {
-    v3 = (TFileBSD::sAsyncRequestWriteIndex + 1) & 0x7F;
-    if (TFileBSD::sAsyncRequestWriteIndex + 1 <= 0)
-    {
-      v3 = -(-(TFileBSD::sAsyncRequestWriteIndex + 1) & 0x7F);
-    }
+    v3 = -(-(TFileBSD::sAsyncRequestWriteIndex + 1) & 0x7F);
+  }
 
-    TFileBSD::sAsyncRequestWriteIndex = v3;
-    if (kTFileBSDSubsystem)
+  TFileBSD::sAsyncRequestWriteIndex = v3;
+  if (kTFileBSDSubsystem)
+  {
+    if (*(kTFileBSDSubsystem + 8))
     {
-      if (*(kTFileBSDSubsystem + 8))
+      v4 = *kTFileBSDSubsystem;
+      if (*kTFileBSDSubsystem)
       {
-        v4 = *kTFileBSDSubsystem;
-        if (*kTFileBSDSubsystem)
+        if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
-          {
-            v7 = 136315650;
-            v8 = "TFileBSD.cpp";
-            v9 = 1024;
-            v10 = 601;
-            v11 = 2080;
-            v12 = "GetFreeRequestBlock";
-            _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s", &v7, 0x1Cu);
-          }
+          v6 = 136315650;
+          v7 = "TFileBSD.cpp";
+          v8 = 1024;
+          v9 = 601;
+          v10 = 2080;
+          v11 = "GetFreeRequestBlock";
+          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s", &v6, 0x1Cu);
         }
       }
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 size_t TFileBSD::Write(FILE **this, void *a2, size_t a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v6 = *kTFileBSDSubsystem;
@@ -6922,13 +6889,13 @@ size_t TFileBSD::Write(FILE **this, void *a2, size_t a3)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v17 = "TFileBSD.cpp";
-    v18 = 1024;
-    v19 = 473;
-    v20 = 2080;
-    v21 = "Write";
-    v22 = 2048;
-    v23 = this;
+    v16 = "TFileBSD.cpp";
+    v17 = 1024;
+    v18 = 473;
+    v19 = 2080;
+    v20 = "Write";
+    v21 = 2048;
+    v22 = this;
     _os_log_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", buf, 0x26u);
   }
 
@@ -6937,15 +6904,15 @@ LABEL_7:
   {
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v15, 0xFFFFFFDA);
+      CAX4CCString::CAX4CCString(v14, 0xFFFFFFDA);
       *buf = 136315906;
-      v17 = "TFileBSD.cpp";
-      v18 = 1024;
-      v19 = 476;
-      v20 = 2080;
-      v21 = v15;
-      v22 = 2080;
-      v23 = "Write - file not open";
+      v16 = "TFileBSD.cpp";
+      v17 = 1024;
+      v18 = 476;
+      v19 = 2080;
+      v20 = v14;
+      v21 = 2080;
+      v22 = "Write - file not open";
       _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
@@ -6961,23 +6928,23 @@ LABEL_7:
       v8 = ferror(this[2]);
       if (v8)
       {
-        v13 = v8;
+        v12 = v8;
         if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
         {
-          CAX4CCString::CAX4CCString(v15, v13);
+          CAX4CCString::CAX4CCString(v14, v12);
           *buf = 136315906;
-          v17 = "TFileBSD.cpp";
-          v18 = 1024;
-          v19 = 486;
-          v20 = 2080;
-          v21 = v15;
-          v22 = 2080;
-          v23 = "Write::fwrite";
+          v16 = "TFileBSD.cpp";
+          v17 = 1024;
+          v18 = 486;
+          v19 = 2080;
+          v20 = v14;
+          v21 = 2080;
+          v22 = "Write::fwrite";
           _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
         }
 
-        v14 = __cxa_allocate_exception(0x110uLL);
-        CAXException::CAXException(v14, "Write::fwrite", v13);
+        v13 = __cxa_allocate_exception(0x110uLL);
+        CAXException::CAXException(v13, "Write::fwrite", v12);
       }
     }
 
@@ -6999,26 +6966,25 @@ LABEL_7:
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v17 = "TFileBSD.cpp";
-          v18 = 1024;
-          v19 = 492;
-          v20 = 2080;
-          v21 = "Write";
-          v22 = 2048;
-          v23 = this;
+          v16 = "TFileBSD.cpp";
+          v17 = 1024;
+          v18 = 492;
+          v19 = 2080;
+          v20 = "Write";
+          v21 = 2048;
+          v22 = this;
           _os_log_impl(&dword_1DE1D2000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", buf, 0x26u);
         }
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 size_t TFileBSD::Read(FILE **this, void *a2, size_t a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v6 = *kTFileBSDSubsystem;
@@ -7036,13 +7002,13 @@ size_t TFileBSD::Read(FILE **this, void *a2, size_t a3)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v17 = "TFileBSD.cpp";
-    v18 = 1024;
-    v19 = 443;
-    v20 = 2080;
-    v21 = "Read";
-    v22 = 2048;
-    v23 = this;
+    v16 = "TFileBSD.cpp";
+    v17 = 1024;
+    v18 = 443;
+    v19 = 2080;
+    v20 = "Read";
+    v21 = 2048;
+    v22 = this;
     _os_log_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", buf, 0x26u);
   }
 
@@ -7051,15 +7017,15 @@ LABEL_7:
   {
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v15, 0xFFFFFFDA);
+      CAX4CCString::CAX4CCString(v14, 0xFFFFFFDA);
       *buf = 136315906;
-      v17 = "TFileBSD.cpp";
-      v18 = 1024;
-      v19 = 446;
-      v20 = 2080;
-      v21 = v15;
-      v22 = 2080;
-      v23 = "Read - file not open";
+      v16 = "TFileBSD.cpp";
+      v17 = 1024;
+      v18 = 446;
+      v19 = 2080;
+      v20 = v14;
+      v21 = 2080;
+      v22 = "Read - file not open";
       _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
@@ -7075,23 +7041,23 @@ LABEL_7:
       v8 = ferror(this[2]);
       if (v8)
       {
-        v13 = v8;
+        v12 = v8;
         if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
         {
-          CAX4CCString::CAX4CCString(v15, v13);
+          CAX4CCString::CAX4CCString(v14, v12);
           *buf = 136315906;
-          v17 = "TFileBSD.cpp";
-          v18 = 1024;
-          v19 = 457;
-          v20 = 2080;
-          v21 = v15;
-          v22 = 2080;
-          v23 = "Read::fread";
+          v16 = "TFileBSD.cpp";
+          v17 = 1024;
+          v18 = 457;
+          v19 = 2080;
+          v20 = v14;
+          v21 = 2080;
+          v22 = "Read::fread";
           _os_log_impl(&dword_1DE1D2000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
         }
 
-        v14 = __cxa_allocate_exception(0x110uLL);
-        CAXException::CAXException(v14, "Read::fread", v13);
+        v13 = __cxa_allocate_exception(0x110uLL);
+        CAXException::CAXException(v13, "Read::fread", v12);
       }
     }
 
@@ -7113,20 +7079,19 @@ LABEL_7:
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v17 = "TFileBSD.cpp";
-          v18 = 1024;
-          v19 = 463;
-          v20 = 2080;
-          v21 = "Read";
-          v22 = 2048;
-          v23 = this;
+          v16 = "TFileBSD.cpp";
+          v17 = 1024;
+          v18 = 463;
+          v19 = 2080;
+          v20 = "Read";
+          v21 = 2048;
+          v22 = this;
           _os_log_impl(&dword_1DE1D2000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", buf, 0x26u);
         }
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -7138,7 +7103,7 @@ void TFileBSD::~TFileBSD(TFileBSD *this)
 }
 
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = &unk_1F595E2E0;
   *this = &unk_1F595E2E0;
   if (kTFileBSDSubsystem)
@@ -7157,15 +7122,15 @@ void TFileBSD::~TFileBSD(TFileBSD *this)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315906;
-    v8 = "TFileBSD.cpp";
-    v9 = 1024;
-    v10 = 126;
-    v11 = 2080;
-    v12 = "~TFileBSD";
-    v13 = 2048;
-    v14 = this;
-    _os_log_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v7, 0x26u);
+    v6 = 136315906;
+    v7 = "TFileBSD.cpp";
+    v8 = 1024;
+    v9 = 126;
+    v10 = 2080;
+    v11 = "~TFileBSD";
+    v12 = 2048;
+    v13 = this;
+    _os_log_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v6, 0x26u);
     v2 = *this;
   }
 
@@ -7184,15 +7149,15 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          v7 = 136315906;
-          v8 = "TFileBSD.cpp";
-          v9 = 1024;
-          v10 = 135;
-          v11 = 2080;
-          v12 = "~TFileBSD";
-          v13 = 2048;
-          v14 = this;
-          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v7, 0x26u);
+          v6 = 136315906;
+          v7 = "TFileBSD.cpp";
+          v8 = 1024;
+          v9 = 135;
+          v10 = 2080;
+          v11 = "~TFileBSD";
+          v12 = 2048;
+          v13 = this;
+          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v6, 0x26u);
         }
       }
     }
@@ -7204,13 +7169,51 @@ LABEL_7:
     free(v5);
     *(this + 1) = 0;
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+void sub_1DE1EC3A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int128 a10)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __cxa_begin_catch(a1);
+  v11 = *(v10 + 1688);
+  if (v11)
+  {
+    v12 = *v11;
+    if (!*v11)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v12 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    LODWORD(a9) = 136315906;
+    *(&a9 + 4) = "TFileBSD.cpp";
+    WORD6(a9) = 1024;
+    *(&a9 + 14) = 132;
+    WORD1(a10) = 2080;
+    *(&a10 + 4) = "~TFileBSD";
+    WORD6(a10) = 2048;
+    _os_log_impl(&dword_1DE1D2000, v12, OS_LOG_TYPE_INFO, "%25s:%-5d <-%s %p: Swallowed exception from Close()", &a9, 0x26u);
+  }
+
+LABEL_8:
+  __cxa_end_catch();
+  JUMPOUT(0x1DE1EC2CCLL);
 }
 
 void TFileBSD::TFileBSD(TFileBSD *this, const __CFURL *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *this = &unk_1F595E2E0;
   *(this + 1) = 0;
   v4 = (this + 8);
@@ -7235,15 +7238,15 @@ void TFileBSD::TFileBSD(TFileBSD *this, const __CFURL *a2)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315906;
-    v9 = "TFileBSD.cpp";
-    v10 = 1024;
-    v11 = 71;
-    v12 = 2080;
-    v13 = "TFileBSD";
-    v14 = 2048;
-    v15 = this;
-    _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v8, 0x26u);
+    v7 = 136315906;
+    v8 = "TFileBSD.cpp";
+    v9 = 1024;
+    v10 = 71;
+    v11 = 2080;
+    v12 = "TFileBSD";
+    v13 = 2048;
+    v14 = this;
+    _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v7, 0x26u);
   }
 
 LABEL_9:
@@ -7269,21 +7272,19 @@ LABEL_9:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          v8 = 136315906;
-          v9 = "TFileBSD.cpp";
-          v10 = 1024;
-          v11 = 96;
-          v12 = 2080;
-          v13 = "TFileBSD";
-          v14 = 2048;
-          v15 = this;
-          _os_log_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v8, 0x26u);
+          v7 = 136315906;
+          v8 = "TFileBSD.cpp";
+          v9 = 1024;
+          v10 = 96;
+          v11 = 2080;
+          v12 = "TFileBSD";
+          v13 = 2048;
+          v14 = this;
+          _os_log_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v7, 0x26u);
         }
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1EC684(_Unwind_Exception *exception_object)
@@ -7299,7 +7300,7 @@ void sub_1DE1EC684(_Unwind_Exception *exception_object)
 
 void TFileBSD::Initialize(TFileBSD *this)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = kTFileBSDSubsystem;
   if (kTFileBSDSubsystem)
   {
@@ -7316,20 +7317,20 @@ LABEL_8:
         {
           if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
           {
-            v6 = 136315906;
-            v7 = "TFileBSD.cpp";
-            v8 = 1024;
-            v9 = 149;
-            v10 = 2080;
-            v11 = "Initialize";
-            v12 = 2048;
-            v13 = this;
-            _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v6, 0x26u);
+            v5 = 136315906;
+            v6 = "TFileBSD.cpp";
+            v7 = 1024;
+            v8 = 149;
+            v9 = 2080;
+            v10 = "Initialize";
+            v11 = 2048;
+            v12 = this;
+            _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v5, 0x26u);
           }
         }
       }
 
-      goto LABEL_12;
+      return;
     }
   }
 
@@ -7340,15 +7341,15 @@ LABEL_8:
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315906;
-    v7 = "TFileBSD.cpp";
-    v8 = 1024;
-    v9 = 144;
-    v10 = 2080;
-    v11 = "Initialize";
-    v12 = 2048;
-    v13 = this;
-    _os_log_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v6, 0x26u);
+    v5 = 136315906;
+    v6 = "TFileBSD.cpp";
+    v7 = 1024;
+    v8 = 144;
+    v9 = 2080;
+    v10 = "Initialize";
+    v11 = 2048;
+    v12 = this;
+    _os_log_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v5, 0x26u);
     v2 = kTFileBSDSubsystem;
   }
 
@@ -7358,9 +7359,6 @@ LABEL_8:
   {
     goto LABEL_8;
   }
-
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void *CADeprecated::CAAutoFree<char>::allocBytes(void **a1)
@@ -7385,7 +7383,7 @@ void *CADeprecated::CAAutoFree<char>::allocBytes(void **a1)
 
 void TFileBSD::TFileBSD(TFileBSD *this, const char **a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   *this = &unk_1F595E2E0;
   *(this + 1) = 0;
   v4 = (this + 8);
@@ -7405,15 +7403,15 @@ void TFileBSD::TFileBSD(TFileBSD *this, const char **a2)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315906;
-    v11 = "TFileBSD.cpp";
-    v12 = 1024;
-    v13 = 106;
-    v14 = 2080;
-    v15 = "TFileBSD";
-    v16 = 2048;
-    v17 = this;
-    _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v10, 0x26u);
+    v9 = 136315906;
+    v10 = "TFileBSD.cpp";
+    v11 = 1024;
+    v12 = 106;
+    v13 = 2080;
+    v14 = "TFileBSD";
+    v15 = 2048;
+    v16 = this;
+    _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s %p", &v9, 0x26u);
   }
 
 LABEL_7:
@@ -7439,21 +7437,19 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          v10 = 136315906;
-          v11 = "TFileBSD.cpp";
-          v12 = 1024;
-          v13 = 117;
-          v14 = 2080;
-          v15 = "TFileBSD";
-          v16 = 2048;
-          v17 = this;
-          _os_log_impl(&dword_1DE1D2000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v10, 0x26u);
+          v9 = 136315906;
+          v10 = "TFileBSD.cpp";
+          v11 = 1024;
+          v12 = 117;
+          v13 = 2080;
+          v14 = "TFileBSD";
+          v15 = 2048;
+          v16 = this;
+          _os_log_impl(&dword_1DE1D2000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s %p", &v9, 0x26u);
         }
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1ECB10(_Unwind_Exception *exception_object)
@@ -7469,7 +7465,7 @@ void sub_1DE1ECB10(_Unwind_Exception *exception_object)
 
 uint64_t TFileBSD::InitializeAsync(TFileBSD *this, int *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v3 = *kTFileBSDSubsystem;
@@ -7486,13 +7482,13 @@ uint64_t TFileBSD::InitializeAsync(TFileBSD *this, int *a2)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315650;
-    v8 = "TFileBSD.cpp";
-    v9 = 1024;
-    v10 = 171;
-    v11 = 2080;
-    v12 = "InitializeAsync";
-    _os_log_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s", &v7, 0x1Cu);
+    v6 = 136315650;
+    v7 = "TFileBSD.cpp";
+    v8 = 1024;
+    v9 = 171;
+    v10 = 2080;
+    v11 = "InitializeAsync";
+    _os_log_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s", &v6, 0x1Cu);
   }
 
 LABEL_7:
@@ -7512,21 +7508,19 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          v7 = 136315650;
-          v8 = "TFileBSD.cpp";
-          v9 = 1024;
-          v10 = 188;
-          v11 = 2080;
-          v12 = "InitializeAsync";
-          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s", &v7, 0x1Cu);
+          v6 = 136315650;
+          v7 = "TFileBSD.cpp";
+          v8 = 1024;
+          v9 = 188;
+          v10 = 2080;
+          v11 = "InitializeAsync";
+          _os_log_impl(&dword_1DE1D2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s", &v6, 0x1Cu);
         }
       }
     }
   }
 
-  result = pthread_mutex_unlock(&sTFileMutex);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return pthread_mutex_unlock(&sTFileMutex);
 }
 
 void sub_1DE1ECE18(_Unwind_Exception *a1)
@@ -7618,14 +7612,13 @@ void CADeprecated::CAGuard::Locker::~Locker(CADeprecated::CAGuard::Locker *this)
 {
   if (*(this + 8) == 1)
   {
-    v2 = *this;
     (*(**this + 24))();
   }
 }
 
 uint64_t TFileBSD::ShutdownAsync(TFileBSD *this)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (kTFileBSDSubsystem)
   {
     v1 = *kTFileBSDSubsystem;
@@ -7642,13 +7635,13 @@ uint64_t TFileBSD::ShutdownAsync(TFileBSD *this)
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    *v9 = 136315650;
-    *&v9[4] = "TFileBSD.cpp";
-    v10 = 1024;
-    v11 = 197;
-    v12 = 2080;
-    v13 = "ShutdownAsync";
-    _os_log_impl(&dword_1DE1D2000, v1, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s", v9, 0x1Cu);
+    *v8 = 136315650;
+    *&v8[4] = "TFileBSD.cpp";
+    v9 = 1024;
+    v10 = 197;
+    v11 = 2080;
+    v12 = "ShutdownAsync";
+    _os_log_impl(&dword_1DE1D2000, v1, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s", v8, 0x1Cu);
   }
 
 LABEL_7:
@@ -7656,9 +7649,9 @@ LABEL_7:
   if (sReadCounter_BSD)
   {
     v2 = TFileBSD::sGuard;
-    *v9 = TFileBSD::sGuard;
+    *v8 = TFileBSD::sGuard;
     v3 = (*(*TFileBSD::sGuard + 16))(TFileBSD::sGuard);
-    v9[8] = v3;
+    v8[8] = v3;
     TFileBSD::sKillAsyncThread = 1;
     (*(*TFileBSD::sGuard + 80))(TFileBSD::sGuard);
     if (v3)
@@ -7707,21 +7700,19 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kTFileBSDSubsystem, OS_LOG_TYPE_DEBUG))
         {
-          *v9 = 136315650;
-          *&v9[4] = "TFileBSD.cpp";
-          v10 = 1024;
-          v11 = 221;
-          v12 = 2080;
-          v13 = "ShutdownAsync";
-          _os_log_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s", v9, 0x1Cu);
+          *v8 = 136315650;
+          *&v8[4] = "TFileBSD.cpp";
+          v9 = 1024;
+          v10 = 221;
+          v11 = 2080;
+          v12 = "ShutdownAsync";
+          _os_log_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s", v8, 0x1Cu);
         }
       }
     }
   }
 
-  result = pthread_mutex_unlock(&sTFileMutex);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return pthread_mutex_unlock(&sTFileMutex);
 }
 
 void sub_1DE1ED3D0(_Unwind_Exception *exception_object, int a2)
@@ -7882,7 +7873,7 @@ void *std::__function::__func<void CASmartPreferences::AddHandler<int>(__CFStrin
 
 uint64_t CALog::PrefValueToPriority(const __CFString *this, BOOL *a2, BOOL *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   valuePtr = -1;
   v5 = CFGetTypeID(this);
   if (v5 == CFNumberGetTypeID())
@@ -7947,9 +7938,9 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v11 = 0;
-    v7 = sscanf(buffer, "%d", &v11);
-    v6 = v11 + 3;
+    v10 = 0;
+    v7 = sscanf(buffer, "%d", &v10);
+    v6 = v10 + 3;
     if (v7 != 1)
     {
       v6 = -1;
@@ -7958,7 +7949,6 @@ LABEL_22:
 
 LABEL_23:
   *a2 = v6 > 0;
-  v8 = *MEMORY[0x1E69E9840];
   return v6 & ~(v6 >> 31);
 }
 
@@ -8151,7 +8141,7 @@ CADeserializer *operator>>(CADeserializer *a1, void *a2)
 
 uint64_t CADeprecated::CAMutex::Try(CADeprecated::CAMutex *this, BOOL *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   *a2 = 0;
   v4 = pthread_self();
   if (pthread_equal(v4, atomic_load_explicit(this + 2, memory_order_acquire)))
@@ -8171,28 +8161,28 @@ uint64_t CADeprecated::CAMutex::Try(CADeprecated::CAMutex *this, BOOL *a2)
 
     if (v6)
     {
-      v11[0] = HIBYTE(v6);
-      v11[1] = BYTE2(v6);
-      v11[2] = BYTE1(v6);
-      v9 = v6;
-      v11[3] = v6;
-      v11[4] = 0;
+      v10[0] = HIBYTE(v6);
+      v10[1] = BYTE2(v6);
+      v10[2] = BYTE1(v6);
+      v8 = v6;
+      v10[3] = v6;
+      v10[4] = 0;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315906;
-        v13 = "CAMutex.cpp";
-        v14 = 1024;
-        v15 = 224;
-        v16 = 1024;
-        v17 = v9;
-        v18 = 2080;
-        v19 = v11;
+        v12 = "CAMutex.cpp";
+        v13 = 1024;
+        v14 = 224;
+        v15 = 1024;
+        v16 = v8;
+        v17 = 2080;
+        v18 = v10;
         _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAMutex::Try: call to pthread_mutex_trylock failed, Error: %d (%s)", buf, 0x22u);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
       *exception = off_1F595E710;
-      exception[2] = v9;
+      exception[2] = v8;
     }
 
     atomic_store(v4, this + 2);
@@ -8202,7 +8192,6 @@ uint64_t CADeprecated::CAMutex::Try(CADeprecated::CAMutex *this, BOOL *a2)
   result = 1;
 LABEL_7:
   *a2 = v5;
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8219,7 +8208,7 @@ CADeprecated::CAMutex::Unlocker *CADeprecated::CAMutex::Unlocker::Unlocker(CADep
 
   else
   {
-    v4 = CAVerboseAbort();
+    v4 = CAVerboseAbort("Major problem: Unlocker attempted to unlock a mutex not owned by the current thread!");
     return CADeprecated::CAMutex::Unlocker::Unlocker(v4, v5);
   }
 }
@@ -8228,7 +8217,6 @@ void CADeprecated::CAMutex::Unlocker::~Unlocker(CADeprecated::CAMutex::Unlocker 
 {
   if (*(this + 8) == 1)
   {
-    v2 = *this;
     (*(**this + 16))();
   }
 }
@@ -8509,7 +8497,7 @@ double TStream::ReadLittleFloat64(TStream *this)
   return v2;
 }
 
-char *CADeprecated::CABufferList::AllocateBuffersAndCopyFrom(char *this, unsigned int a2, CADeprecated::CABufferList *a3, CADeprecated::CABufferList *a4)
+void CADeprecated::CABufferList::AllocateBuffersAndCopyFrom(CADeprecated::CABufferList *this, unsigned int a2, CADeprecated::CABufferList *a3, CADeprecated::CABufferList *a4)
 {
   v4 = *(this + 6);
   if (v4 == *(a3 + 6) && v4 == *(a4 + 6))
@@ -8519,7 +8507,6 @@ char *CADeprecated::CABufferList::AllocateBuffersAndCopyFrom(char *this, unsigne
     {
       if (!v7)
       {
-        v15 = *(a3 + 9);
         operator new[]();
       }
 
@@ -8530,7 +8517,9 @@ char *CADeprecated::CABufferList::AllocateBuffersAndCopyFrom(char *this, unsigne
     {
 LABEL_15:
       v13 = CAAssertRtn();
-      return CADeprecated::CABufferList::BytesConsumed(v13, v14);
+LABEL_13:
+      CADeprecated::CABufferList::BytesConsumed(v13, v14);
+      return;
     }
 
     v8 = *(a3 + 9);
@@ -8542,7 +8531,7 @@ LABEL_15:
       do
       {
         --v4;
-        this = memmove(*v11, *(v10 + 1), *v10);
+        memmove(*v11, *(v10 + 1), *v10);
         v12 = *v11;
         v11 += 2;
         *v9 = v12;
@@ -8560,11 +8549,9 @@ LABEL_15:
       v13 = a3;
       v14 = v8;
 
-      return CADeprecated::CABufferList::BytesConsumed(v13, v14);
+      goto LABEL_13;
     }
   }
-
-  return this;
 }
 
 uint64_t CADeprecated::CABufferList::BytesConsumed(uint64_t this, unsigned int a2)
@@ -8634,16 +8621,16 @@ uint64_t CADeprecated::CABufferList::DeallocateBuffers(CADeprecated::CABufferLis
 
 uint64_t CAShowAudioBufferList(const AudioBufferList *a1, int a2, const AudioStreamBasicDescription *a3, const char *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   mFormatID = a3->mFormatID;
   mFormatFlags = a3->mFormatFlags;
   mBytesPerFrame = a3->mBytesPerFrame;
   mChannelsPerFrame = a3->mChannelsPerFrame;
   mBitsPerChannel = a3->mBitsPerChannel;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   *__str = 0u;
   if (mFormatID != 1819304813)
   {
@@ -8666,19 +8653,19 @@ uint64_t CAShowAudioBufferList(const AudioBufferList *a1, int a2, const AudioStr
         v12 = -10;
       }
 
-      goto LABEL_11;
+      return show(a1, a2, v12, a4, __str);
     }
 
 LABEL_10:
     v12 = 1;
-    goto LABEL_11;
+    return show(a1, a2, v12, a4, __str);
   }
 
   if (!mBytesPerFrame)
   {
 LABEL_6:
     v12 = 0;
-    goto LABEL_11;
+    return show(a1, a2, v12, a4, __str);
   }
 
   if ((mFormatFlags & 0x20) != 0)
@@ -8706,22 +8693,19 @@ LABEL_6:
 
     if ((mFormatFlags & 2) != 0)
     {
-      v15 = " BEI";
+      v14 = " BEI";
     }
 
     else
     {
       v12 = -v12;
-      v15 = " LEI";
+      v14 = " LEI";
     }
 
-    strlcat(__str, v15, 0x50uLL);
+    strlcat(__str, v14, 0x50uLL);
   }
 
-LABEL_11:
-  result = show(a1, a2, v12, a4, __str);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return show(a1, a2, v12, a4, __str);
 }
 
 uint64_t show(const AudioBufferList *a1, int a2, int a3, const char *a4, const char *a5)
@@ -8777,14 +8761,12 @@ LABEL_40:
           if (a3 == -10)
           {
 LABEL_29:
-            v20 = *mData;
             mData += 4;
             goto LABEL_30;
           }
 
           if (a3 == -4)
           {
-            v19 = *mData;
             mData += 4;
 LABEL_34:
             printf(" %08X");
@@ -8796,14 +8778,13 @@ LABEL_34:
           switch(a3)
           {
             case -3:
-              v23 = (mData[2] << 16) | (mData[1] << 8);
-              v24 = *mData;
+              v16 = (mData[2] << 16) | (mData[1] << 8);
+              v17 = *mData;
 LABEL_39:
-              printf(" %06X", v23 | v24);
+              printf(" %06X", v16 | v17);
               mData += 3;
               break;
             case -2:
-              v21 = *mData;
               mData += 2;
               goto LABEL_32;
             case -1:
@@ -8817,15 +8798,13 @@ LABEL_39:
         switch(a3)
         {
           case 3:
-            v23 = (*mData << 16) | (mData[1] << 8);
-            v24 = mData[2];
+            v16 = (*mData << 16) | (mData[1] << 8);
+            v17 = mData[2];
             goto LABEL_39;
           case 4:
-            v22 = *mData;
             mData += 4;
             goto LABEL_34;
           case 10:
-            v18 = *mData;
             mData += 4;
 LABEL_30:
             printf(" %6.3f");
@@ -8841,11 +8820,10 @@ LABEL_30:
             goto LABEL_29;
           case 1:
 LABEL_21:
-            v17 = *mData++;
+            ++mData;
             printf(" %02X");
             break;
           case 2:
-            v16 = *mData;
             mData += 2;
 LABEL_32:
             printf(" %04X");
@@ -9413,9 +9391,9 @@ uint64_t CACFArray::AppendSInt32(CACFArray *this, int a2)
   return v4;
 }
 
-void sub_1DE1EFC38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1EFC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -9446,9 +9424,9 @@ uint64_t CACFArray::AppendUInt32(CACFArray *this, int a2)
   return v4;
 }
 
-void sub_1DE1EFCE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1EFCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -9479,9 +9457,9 @@ uint64_t CACFArray::AppendSInt64(CACFArray *this, uint64_t a2)
   return v4;
 }
 
-void sub_1DE1EFD98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1EFD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -9512,9 +9490,9 @@ uint64_t CACFArray::AppendUInt64(CACFArray *this, uint64_t a2)
   return v4;
 }
 
-void sub_1DE1EFE48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1EFE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -9545,9 +9523,9 @@ uint64_t CACFArray::AppendFloat32(CACFArray *this, float a2)
   return v4;
 }
 
-void sub_1DE1EFEF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1EFEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -9578,9 +9556,9 @@ uint64_t CACFArray::AppendFloat64(CACFArray *this, double a2)
   return v4;
 }
 
-void sub_1DE1EFFA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1EFFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -9752,9 +9730,34 @@ const __CFArray *CACFArray::InsertSInt32(CACFArray *this, unsigned int a2, int a
   return inserted;
 }
 
-void sub_1DE1F028C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F028C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
+}
+
+const __CFArray *CACFArray::InsertUInt32(CACFArray *this, unsigned int a2, int a3)
+{
+  if (!*this || *(this + 9) != 1)
+  {
+    return 0;
+  }
+
+  valuePtr = a3;
+  v5 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+  v8 = v5;
+  v9 = 1;
+  if (v5)
+  {
+    inserted = CACFArray::InsertCFType(this, a2, v5);
+  }
+
+  else
+  {
+    inserted = 0;
+  }
+
+  CACFNumber::~CACFNumber(&v8);
+  return inserted;
 }

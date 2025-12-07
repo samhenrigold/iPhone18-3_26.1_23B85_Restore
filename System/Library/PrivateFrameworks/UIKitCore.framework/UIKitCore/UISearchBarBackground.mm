@@ -88,7 +88,7 @@
 
           else
           {
-            +[UIColor blackColor];
+            objc_msgSend_blackColor(UIColor);
           }
           v9 = ;
         }
@@ -341,7 +341,7 @@ LABEL_29:
     }
 
     v17 = +[UIColor _barHairlineShadowColor];
-    v15 = [(UIColor *)1.0 _composedColorFromSourceColor:v17 destinationColor:0 tintColor:0 alpha:?];
+    v15 = [UIColor _composedColorFromSourceColor:v17 destinationColor:0 tintColor:0 alpha:1.0];
   }
 
 LABEL_18:

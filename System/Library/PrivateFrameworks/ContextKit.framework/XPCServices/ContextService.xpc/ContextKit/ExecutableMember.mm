@@ -126,27 +126,27 @@ LABEL_12:
             if (!v18)
             {
 LABEL_24:
-              v20 = NSObject_class_();
+              v20 = NSObject_class_(v18, v19);
               goto LABEL_25;
             }
           }
 
-          v19 = IOSClass_arrayOf(v18);
+          v18 = IOSClass_arrayOf(v18);
         }
 
         else
         {
-          v19 = [IOSClass classForIosName:v16];
+          v18 = [IOSClass classForIosName:v16];
         }
       }
 
       else
       {
-        v19 = sub_10027FAF0(v15);
+        v18 = sub_10027FAF0(v15);
       }
 
-      v21 = v19;
-      if (!v19)
+      v21 = v18;
+      if (!v18)
       {
         goto LABEL_24;
       }
@@ -249,19 +249,21 @@ LABEL_25:
 - (id)internalName
 {
   selector = self->selector_;
-  if (!selector)
+  if (selector)
+  {
+    return NSStringFromSelector(selector);
+  }
+
+  else
   {
     return NSStringFromSelector(0);
   }
-
-  v3 = self->selector_;
-  return NSStringFromSelector(selector);
 }
 
 - (id)getDeclaredAnnotations
 {
-  objcClass = [(IOSClass *)self->class_ objcClass];
-  if (objcClass && JreFindClassMethod(objcClass, -[NSString UTF8String](+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"__annotations_%@", [-[ExecutableMember internalName](self "internalName")]), "UTF8String")))
+  ClassMethod = [(IOSClass *)self->class_ objcClass];
+  if (ClassMethod && (ClassMethod = JreFindClassMethod(ClassMethod, -[NSString UTF8String](+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"__annotations_%@", [-[ExecutableMember internalName](self "internalName")]), "UTF8String"))) != 0)
   {
 
     method_invoke();
@@ -269,9 +271,9 @@ LABEL_25:
 
   else
   {
-    v5 = JavaLangAnnotationAnnotation_class_();
+    v6 = JavaLangAnnotationAnnotation_class_(ClassMethod, v4);
 
-    return [IOSObjectArray arrayWithLength:0 type:v5];
+    return [IOSObjectArray arrayWithLength:0 type:v6];
   }
 
   return result;
@@ -288,9 +290,10 @@ LABEL_25:
 
   else
   {
-    v5[0] = [(NSMethodSignature *)self->methodSignature_ numberOfArguments]- 2;
-    v5[1] = 0;
-    return [IOSObjectArray arrayWithDimensions:2 lengths:v5 type:JavaLangAnnotationAnnotation_class_()];
+    numberOfArguments = [(NSMethodSignature *)self->methodSignature_ numberOfArguments];
+    v7[0] = numberOfArguments - 2;
+    v7[1] = 0;
+    return [IOSObjectArray arrayWithDimensions:2 lengths:v7 type:JavaLangAnnotationAnnotation_class_(numberOfArguments, v6)];
   }
 
   return result;
@@ -303,37 +306,37 @@ LABEL_25:
   getModifiers = [(ExecutableMember *)self getModifiers];
   if (getModifiers)
   {
-    [-[JavaLangStringBuilder appendWithNSString:](v3 appendWithNSString:{JavaLangReflectModifier_toStringWithInt_(getModifiers & 0xFF7F)), "appendWithChar:", 32}];
+    [-[JavaLangStringBuilder appendWithNSString:](v3 appendWithNSString:{JavaLangReflectModifier_toStringWithInt_(getModifiers & 0xFFFFFF7F, v6)), "appendWithChar:", 32}];
   }
 
   if (v4)
   {
-    v6 = *(v4 + 4);
-    if (v6)
+    v7 = *(v4 + 4);
+    if (v7)
     {
-      if (*(v6 + 8) >= 1)
+      if (*(v7 + 8) >= 1)
       {
         [(JavaLangStringBuilder *)v3 appendWithChar:60];
-        v7 = *(v4 + 4);
-        if (*(v7 + 8) >= 1)
+        v8 = *(v4 + 4);
+        if (*(v8 + 8) >= 1)
         {
-          v8 = 0;
+          v9 = 0;
           do
           {
-            LibcoreReflectTypes_appendGenericType_type_(v3, *(v7 + 24 + 8 * v8));
-            v7 = *(v4 + 4);
-            v9 = *(v7 + 8);
-            if (v8 < v9 - 1)
+            LibcoreReflectTypes_appendGenericType_type_(v3, *(v8 + 24 + 8 * v9));
+            v8 = *(v4 + 4);
+            v10 = *(v8 + 8);
+            if (v9 < v10 - 1)
             {
               [(JavaLangStringBuilder *)v3 appendWithNSString:@", "];
-              v7 = *(v4 + 4);
-              v9 = *(v7 + 8);
+              v8 = *(v4 + 4);
+              v10 = *(v8 + 8);
             }
 
-            ++v8;
+            ++v9;
           }
 
-          while (v8 < v9);
+          while (v9 < v10);
         }
 
         [(JavaLangStringBuilder *)v3 appendWithNSString:@"> "];
@@ -369,9 +372,9 @@ LABEL_25:
     TypeArray_clone = LibcoreReflectTypes_getTypeArray_clone_(*(v4 + 1), 0);
     if (TypeArray_clone[2] >= 1)
     {
-      v13 = TypeArray_clone;
+      v14 = TypeArray_clone;
       [(JavaLangStringBuilder *)v3 appendWithNSString:@" throws "];
-      LibcoreReflectTypes_appendArrayGenericType_types_(v3, v13);
+      LibcoreReflectTypes_appendArrayGenericType_types_(v3, v14);
     }
   }
 

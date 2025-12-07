@@ -176,7 +176,7 @@ void __50___UITextLayoutCanvasView__performViewportLayout___block_invoke_3(uint6
 void __65___UITextLayoutCanvasView__supportsLocationForPositionInViewport__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  if (dyld_program_sdk_at_least() && [v0 isEqualToString:@"com.apple.mobilenotes"])
+  if (dyld_program_sdk_at_least() && objc_msgSend_isEqualToString_(v0))
   {
     _MergedGlobals_13_1 = 1;
   }

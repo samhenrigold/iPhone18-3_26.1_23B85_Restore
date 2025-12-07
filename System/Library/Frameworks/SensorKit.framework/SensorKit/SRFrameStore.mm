@@ -24,19 +24,19 @@
 
 - (uint64_t)initWithFileHandle:(unint64_t)handle maxSize:(uint64_t)size permission:(uint64_t)permission defaults:
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_45;
+    return 0;
   }
 
-  v54.receiver = self;
-  v54.super_class = SRFrameStore;
-  v9 = objc_msgSendSuper2(&v54, sel_init);
+  v53.receiver = self;
+  v53.super_class = SRFrameStore;
+  v9 = objc_msgSendSuper2(&v53, sel_init);
   v10 = v9;
   if (!v9)
   {
-    goto LABEL_48;
+    return v10;
   }
 
   if (permission)
@@ -60,9 +60,9 @@
   }
 
   v9[2] = v12;
-  v57 = 0;
-  v56 = 0u;
-  memset(v55, 0, sizeof(v55));
+  v56 = 0;
+  v55 = 0u;
+  memset(v54, 0, sizeof(v54));
   objc_opt_self();
   seekToEndOfFile = [a2 seekToEndOfFile];
   [a2 seekToFileOffset:0];
@@ -95,11 +95,11 @@
       v25 = bytes;
       if (*bytes == 1195725633)
       {
-        v53 = *(bytes + 16);
-        v55[0] = *bytes;
-        v55[1] = v53;
-        v56 = *(bytes + 32);
-        v57 = *(bytes + 48);
+        v52 = *(bytes + 16);
+        v54[0] = *bytes;
+        v54[1] = v52;
+        v55 = *(bytes + 32);
+        v56 = *(bytes + 48);
         goto LABEL_22;
       }
 
@@ -107,15 +107,15 @@
       if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68289794;
-        *v59 = 4;
-        *&v59[4] = 2082;
-        *&v59[6] = "ASEG";
-        *&v59[14] = 1042;
-        *&v59[16] = 4;
-        *v60 = 2082;
-        *&v60[2] = v25;
-        v61 = 2114;
-        v62 = pathname;
+        *v58 = 4;
+        *&v58[4] = 2082;
+        *&v58[6] = "ASEG";
+        *&v58[14] = 1042;
+        *&v58[16] = 4;
+        *v59 = 2082;
+        *&v59[2] = v25;
+        v60 = 2114;
+        v61 = pathname;
         v17 = "Segment header magic number %{public}.4s doesn't match %{public}.4s in file %{public}@. Potentially overwriting whatever data is currently there";
         v18 = v26;
         v19 = OS_LOG_TYPE_DEFAULT;
@@ -131,9 +131,9 @@
       {
         v23 = [v21 length];
         *buf = 138543618;
-        *v59 = pathname;
-        *&v59[8] = 2050;
-        *&v59[10] = v23;
+        *v58 = pathname;
+        *&v58[8] = 2050;
+        *&v58[10] = v23;
         v17 = "Unable to read frames file segment header %{public}@. Received data of %{public}lu length. Potentially overwriting whatever data is currently there";
         v18 = v22;
         v19 = OS_LOG_TYPE_INFO;
@@ -149,7 +149,7 @@
     if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      *v59 = pathname;
+      *v58 = pathname;
       v17 = "Frames file %{public}@ is invalid because the current size is less than a valid segment header. Potentially overwriting whatever data is currently there.";
       v18 = v16;
       v19 = OS_LOG_TYPE_INFO;
@@ -160,23 +160,23 @@ LABEL_20:
   }
 
 LABEL_21:
-  SRMakeSegmentHeader(v55, 0, lastPathComponent, v12);
+  SRMakeSegmentHeader(v54, 0, lastPathComponent, v12);
 LABEL_22:
   seekToEndOfFile2 = [a2 seekToEndOfFile];
   [a2 seekToFileOffset:0];
   pathname2 = [(NSFileHandle *)a2 pathname];
-  v30 = *(v55 + 4);
-  if (*(v55 + 4) > seekToEndOfFile2)
+  v30 = *(v54 + 4);
+  if (*(v54 + 4) > seekToEndOfFile2)
   {
     v31 = SRLogFrameStore;
     if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_INFO))
     {
       *buf = 138543874;
-      *v59 = pathname2;
-      *&v59[8] = 2048;
-      *&v59[10] = v30;
-      *&v59[18] = 2050;
-      *v60 = handle;
+      *v58 = pathname2;
+      *&v58[8] = 2048;
+      *&v58[10] = v30;
+      *&v58[18] = 2050;
+      *v59 = handle;
       v32 = "Segment header in %{public}@ says file size is %llu but that is larger than the max size (%{public}lu) we can support.";
       v33 = v31;
       v34 = OS_LOG_TYPE_INFO;
@@ -189,13 +189,13 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  if (!(*(v55 + 4) | size & 0xFFFFFFFFFFFFFFFDLL))
+  if (!(*(v54 + 4) | size & 0xFFFFFFFFFFFFFFFDLL))
   {
     v45 = SRLogFrameStore;
     if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *v59 = pathname2;
+      *v58 = pathname2;
       v32 = "Not mapping an empty file %{public}@";
       v33 = v45;
       v34 = OS_LOG_TYPE_DEFAULT;
@@ -205,37 +205,35 @@ LABEL_43:
 
 LABEL_44:
 
-LABEL_45:
-    v10 = 0;
-    goto LABEL_48;
+    return 0;
   }
 
-  v36 = DWORD1(v55[1]);
+  v36 = DWORD1(v54[1]);
   v37 = *(v10 + 8);
-  if (DWORD1(v55[1]) != v37)
+  if (DWORD1(v54[1]) != v37)
   {
     v38 = SRLogFrameStore;
     if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_DEFAULT))
     {
       v39 = "";
       *buf = 138544130;
-      *v59 = pathname2;
-      *&v59[8] = 1026;
+      *v58 = pathname2;
+      *&v58[8] = 1026;
       if (size == 1)
       {
         v39 = "Potentially overwriting whatever data is currently there";
       }
 
-      *&v59[10] = v36;
-      *&v59[14] = 1026;
-      *&v59[16] = v37;
-      *v60 = 2080;
-      *&v60[2] = v39;
+      *&v58[10] = v36;
+      *&v58[14] = 1026;
+      *&v58[16] = v37;
+      *v59 = 2080;
+      *&v59[2] = v39;
       _os_log_impl(&dword_1C914D000, v38, OS_LOG_TYPE_DEFAULT, "Segment versions of %{public}@ don't match. Received %{public}d, expected %{public}d.%s", buf, 0x22u);
     }
 
     v30 = 0;
-    *(v55 + 4) = 0;
+    *(v54 + 4) = 0;
   }
 
   if (a2)
@@ -260,15 +258,15 @@ LABEL_45:
   }
 
   *(v10 + 32) = size;
-  v42 = memoryMappingsForPermission(size, v55, handleCopy, v30);
+  v42 = memoryMappingsForPermission(size, v54, handleCopy, v30);
   *(v10 + 56) = a2;
   if (size == 1 && ([(SRFrameStore *)v10 resizeBackingFileTo:handleCopy]& 1) == 0)
   {
-    v52 = SRLogFrameStore;
+    v51 = SRLogFrameStore;
     if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_1C914D000, v52, OS_LOG_TYPE_ERROR, "Failed to resize backing file", buf, 2u);
+      _os_log_error_impl(&dword_1C914D000, v51, OS_LOG_TYPE_ERROR, "Failed to resize backing file", buf, 2u);
     }
 
     goto LABEL_44;
@@ -291,15 +289,13 @@ LABEL_45:
   v47 = *(v10 + 16);
   v49 = objc_getProperty(v10, v48, 56, 1);
   [(SRMemoryMapping *)v47 mapWithFileHandle:v49];
-  *(v10 + 48) = *(v55 + 12);
-LABEL_48:
-  v50 = *MEMORY[0x1E69E9840];
+  *(v10 + 48) = *(v54 + 12);
   return v10;
 }
 
 - (uint64_t)resizeBackingFileTo:(uint64_t)result
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v2 = result;
@@ -309,15 +305,15 @@ LABEL_48:
       if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_INFO))
       {
         pathname = [(NSFileHandle *)*(v2 + 56) pathname];
-        v7 = 138478083;
-        v8 = pathname;
-        v9 = 2048;
-        v10 = a2;
-        _os_log_impl(&dword_1C914D000, v3, OS_LOG_TYPE_INFO, "Resizing file %{private}@ to %llu bytes", &v7, 0x16u);
+        v6 = 138478083;
+        v7 = pathname;
+        v8 = 2048;
+        v9 = a2;
+        _os_log_impl(&dword_1C914D000, v3, OS_LOG_TYPE_INFO, "Resizing file %{private}@ to %llu bytes", &v6, 0x16u);
       }
 
       [*(v2 + 56) truncateFileAtOffset:a2];
-      result = 1;
+      return 1;
     }
 
     else
@@ -325,20 +321,19 @@ LABEL_48:
       result = os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_ERROR);
       if (result)
       {
-        LOWORD(v7) = 0;
-        _os_log_error_impl(&dword_1C914D000, v3, OS_LOG_TYPE_ERROR, "Attempting to resize a non-writable file", &v7, 2u);
-        result = 0;
+        LOWORD(v6) = 0;
+        _os_log_error_impl(&dword_1C914D000, v3, OS_LOG_TYPE_ERROR, "Attempting to resize a non-writable file", &v6, 2u);
+        return 0;
       }
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)dealloc
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self)
   {
     header = self->_header;
@@ -394,8 +389,8 @@ LABEL_9:
       pathname2 = [(NSFileHandle *)v13 pathname];
       *buf = 138543618;
       pathname = pathname2;
-      v19 = 2050;
-      v20 = v5;
+      v18 = 2050;
+      v19 = v5;
       _os_log_impl(&dword_1C914D000, v11, OS_LOG_TYPE_INFO, "Finalizing %{public}@ to %{public}llu bytes", buf, 0x16u);
     }
 
@@ -405,10 +400,9 @@ LABEL_9:
   objc_setProperty_atomic(self, v10, 0, 56);
 
   self->_segmentName = 0;
-  v16.receiver = self;
-  v16.super_class = SRFrameStore;
-  [(SRFrameStore *)&v16 dealloc];
-  v15 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = SRFrameStore;
+  [(SRFrameStore *)&v15 dealloc];
 }
 
 - (uint64_t)resizeMappedRegionTo:(uint64_t)to
@@ -447,20 +441,20 @@ LABEL_9:
 
 - (uint64_t)isValidFrame:(uint64_t)result
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v2 = *(result + 16);
     if (!v2)
     {
-      goto LABEL_4;
+      return 0;
     }
 
     v4 = (a2 + 20);
     v5 = *(a2 + 16);
     if (a2 + 20 + v5 > *(v2 + 24))
     {
-      goto LABEL_4;
+      return 0;
     }
 
     v6 = adler32(0, 0, 0);
@@ -473,18 +467,16 @@ LABEL_9:
       result = os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_INFO);
       if (result)
       {
-        v12 = 134218240;
-        v13 = v8;
-        v14 = 2050;
-        v15 = v7;
-        _os_log_impl(&dword_1C914D000, v10, OS_LOG_TYPE_INFO, "Checksums don't match. Header: %llu, Generated checksum: %{public}lu. Skipping frame.", &v12, 0x16u);
-LABEL_4:
-        result = 0;
+        v11 = 134218240;
+        v12 = v8;
+        v13 = 2050;
+        v14 = v7;
+        _os_log_impl(&dword_1C914D000, v10, OS_LOG_TYPE_INFO, "Checksums don't match. Header: %llu, Generated checksum: %{public}lu. Skipping frame.", &v11, 0x16u);
+        return 0;
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -552,7 +544,7 @@ LABEL_12:
 
 - (uint64_t)writeFrameForBytes:(z_size_t)bytes length:(SRError *)length timestamp:(double)timestamp error:
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v6 = result;
@@ -566,13 +558,13 @@ LABEL_12:
         _os_log_error_impl(&dword_1C914D000, v20, OS_LOG_TYPE_ERROR, "Failed to find a segment header while writing. Dropping incoming data", buf, 2u);
         if (!length)
         {
-          goto LABEL_48;
+          return 0;
         }
       }
 
       else if (!length)
       {
-        goto LABEL_48;
+        return 0;
       }
 
       v19 = 12294;
@@ -581,8 +573,8 @@ LABEL_12:
 
     if (!*(v8 + 4))
     {
-      v39 = 0;
-      v38 = 0u;
+      v38 = 0;
+      v37 = 0u;
       memset(buf, 0, sizeof(buf));
       SRMakeSegmentHeader(buf, 56, *(result + 40), *(result + 8));
       v12 = *(v6 + 24);
@@ -593,8 +585,8 @@ LABEL_12:
         {
           v14 = *buf;
           v15 = *&buf[16];
-          v16 = v38;
-          *(v13 + 48) = v39;
+          v16 = v37;
+          *(v13 + 48) = v38;
           *(v13 + 16) = v15;
           *(v13 + 32) = v16;
           *v13 = v14;
@@ -629,12 +621,10 @@ LABEL_25:
         v26 = [SRError errorWithCode:v19];
         result = 0;
         *length = v26;
-        goto LABEL_49;
+        return result;
       }
 
-LABEL_48:
-      result = 0;
-      goto LABEL_49;
+      return 0;
     }
 
     v21 = *(v6 + 48);
@@ -650,13 +640,13 @@ LABEL_48:
         _os_log_error_impl(&dword_1C914D000, v25, OS_LOG_TYPE_ERROR, "Frame should come in chronological order. Input %f < last %f", buf, 0x16u);
         if (!length)
         {
-          goto LABEL_48;
+          return 0;
         }
       }
 
       else if (!length)
       {
-        goto LABEL_48;
+        return 0;
       }
 
       v19 = 12292;
@@ -675,19 +665,20 @@ LABEL_48:
         *&buf[12] = 2048;
         *&buf[14] = v23;
         _os_log_error_impl(&dword_1C914D000, v24, OS_LOG_TYPE_ERROR, "Timestamp is from the future. Input %f, Current: %f", buf, 0x16u);
-        if (!length)
+        if (length)
         {
-          goto LABEL_48;
+          goto LABEL_21;
         }
       }
 
-      else if (!length)
+      else if (length)
       {
-        goto LABEL_48;
+LABEL_21:
+        v19 = 12296;
+        goto LABEL_25;
       }
 
-      v19 = 12296;
-      goto LABEL_25;
+      return 0;
     }
 
     if (HIDWORD(bytes))
@@ -702,13 +693,13 @@ LABEL_48:
         _os_log_error_impl(&dword_1C914D000, v27, OS_LOG_TYPE_ERROR, "Sample too large %{public}zu but only %u supported", buf, 0x12u);
         if (!length)
         {
-          goto LABEL_48;
+          return 0;
         }
       }
 
       else if (!length)
       {
-        goto LABEL_48;
+        return 0;
       }
 
       v19 = 12293;
@@ -729,14 +720,14 @@ LABEL_48:
       v30 = (v30[3] + v30[4] - v30[2]);
     }
 
-    v36 = v30;
+    v35 = v30;
     v31 = *(v6 + 24);
     if (v31)
     {
       v32 = *(v31 + 16);
-      if ([(SRMemoryMapping *)v31 isValidWriteToDestinationAddress:8uLL withLength:&v36 bytes:?])
+      if ([(SRMemoryMapping *)v31 isValidWriteToDestinationAddress:8uLL withLength:&v35 bytes:?])
       {
-        *(v32 + 4) = v36;
+        *(v32 + 4) = v35;
       }
 
       v33 = *(v6 + 24);
@@ -750,17 +741,15 @@ LABEL_48:
       }
     }
 
-    result = 1;
+    return 1;
   }
 
-LABEL_49:
-  v35 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)markFrameAsRemoved:(uint64_t)removed
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (removed)
   {
     *(a2 + 8) = 0;
@@ -771,25 +760,23 @@ LABEL_49:
       v4 = SRLogFrameStore;
       if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_FAULT))
       {
-        v6[0] = 67240192;
-        v6[1] = v3;
-        _os_log_fault_impl(&dword_1C914D000, v4, OS_LOG_TYPE_FAULT, "Failed to zero out memory. %{public, darwin.errno}d", v6, 8u);
+        v5[0] = 67240192;
+        v5[1] = v3;
+        _os_log_fault_impl(&dword_1C914D000, v4, OS_LOG_TYPE_FAULT, "Failed to zero out memory. %{public, darwin.errno}d", v5, 8u);
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sync
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (self)
+  v11 = *MEMORY[0x1E69E9840];
+  if (result)
   {
     v2 = SRLogFrameStore;
     if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = self[2];
+      v4 = result[2];
       if (v4)
       {
         v5 = *(v4 + 24) - *(v4 + 16);
@@ -800,19 +787,17 @@ LABEL_49:
         v5 = 0;
       }
 
-      Property = objc_getProperty(self, v3, 56, 1);
-      v8 = 134349314;
-      v9 = v5;
-      v10 = 2114;
+      Property = objc_getProperty(result, v3, 56, 1);
+      v7 = 134349314;
+      v8 = v5;
+      v9 = 2114;
       pathname = [(NSFileHandle *)Property pathname];
-      _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_DEFAULT, "Syncing %{public}zu bytes from segment %{public}@ to disk", &v8, 0x16u);
+      _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_DEFAULT, "Syncing %{public}zu bytes from segment %{public}@ to disk", &v7, 0x16u);
     }
 
-    [(SRMemoryMapping *)self[3] sync];
-    [(SRMemoryMapping *)self[2] sync];
+    [(SRMemoryMapping *)result[3] sync];
+    [(SRMemoryMapping *)result[2] sync];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -31,7 +31,7 @@
   [(CKTranscriptMessageContentCell *)&v15 configureForChatItem:itemCopy context:context animated:animatedCopy animationDuration:curve animationCurve:duration];
   if (itemCopy)
   {
-    [itemCopy geometryDescriptor];
+    objc_msgSend_geometryDescriptor(itemCopy);
   }
 
   else

@@ -94,7 +94,7 @@
   v4 = [(PLHighlightItemList *)&v12 description];
   startDate = self->_startDate;
   endDate = self->_endDate;
-  v7 = [(NSMutableOrderedSet *)self->_internalHighlightItems count];
+  v7 = objc_msgSend_count(self->_internalHighlightItems);
   isNewList = [(PLHighlightItemList *)self isNewList];
   v9 = @"NO";
   if (isNewList)
@@ -239,7 +239,7 @@
 
     timeSortDescriptors = [objc_opt_class() timeSortDescriptors];
     internalHighlightItems = self->_internalHighlightItems;
-    v7 = [(NSMutableOrderedSet *)internalHighlightItems count];
+    v7 = objc_msgSend_count(internalHighlightItems);
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
     v9[2] = __40__PLHighlightItemList_addHighlightItem___block_invoke;
@@ -327,12 +327,12 @@ LABEL_11:
 
 - (BOOL)hasChanges
 {
-  if ([(NSMutableSet *)self->_internalAddedHighlightItems count]|| [(NSMutableSet *)self->_internalRemovedHighlightItems count])
+  if (objc_msgSend_count(self->_internalAddedHighlightItems, a2) || objc_msgSend_count(self->_internalRemovedHighlightItems))
   {
     LOBYTE(v3) = 1;
   }
 
-  else if (self->_parentHighlightItem && [(NSMutableOrderedSet *)self->_internalHighlightItems count])
+  else if (self->_parentHighlightItem && objc_msgSend_count(self->_internalHighlightItems))
   {
     startDate = [(PLHighlightItem *)self->_parentHighlightItem startDate];
     if ([startDate isEqualToDate:self->_startDate])

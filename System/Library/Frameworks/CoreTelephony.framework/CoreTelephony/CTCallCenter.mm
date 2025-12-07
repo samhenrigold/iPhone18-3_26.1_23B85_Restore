@@ -212,31 +212,31 @@ void __36__CTCallCenter_setCallEventHandler___block_invoke(uint64_t a1)
 
 - (BOOL)getCurrentCallSetFromServer_sync:(id)server_sync
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (server_sync)
   {
     v5 = objc_autoreleasePoolPush();
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     calls = [(CXCallObserver *)[(CTCallCenter *)self callKitObserver] calls];
-    v7 = [(NSArray *)calls countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSArray *)calls countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(calls);
           }
 
-          v11 = [CTCall callForCXCall:*(*(&v14 + 1) + 8 * v10)];
+          v11 = [CTCall callForCXCall:*(*(&v13 + 1) + 8 * v10)];
           if (v11)
           {
             [server_sync addObject:v11];
@@ -246,7 +246,7 @@ void __36__CTCallCenter_setCallEventHandler___block_invoke(uint64_t a1)
         }
 
         while (v8 != v10);
-        v8 = [(NSArray *)calls countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSArray *)calls countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -255,9 +255,7 @@ void __36__CTCallCenter_setCallEventHandler___block_invoke(uint64_t a1)
     objc_autoreleasePoolPop(v5);
   }
 
-  result = server_sync != 0;
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return server_sync != 0;
 }
 
 - (BOOL)calculateCallStateChanges_sync:(id)changes_sync
@@ -406,7 +404,7 @@ LABEL_14:
   return v7;
 }
 
-uint64_t __28__CTCallCenter_currentCalls__block_invoke(uint64_t a1)
+void *__28__CTCallCenter_currentCalls__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (!*(v2 + 32))

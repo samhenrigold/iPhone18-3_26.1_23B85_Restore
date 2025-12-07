@@ -37,7 +37,7 @@
 
 - (void)updateStateWithInputIndex:(int64_t)index
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   internalString = [(TIMarkedTextBuffer_ja_Romaji *)self internalString];
   externalString = self->_externalString;
   self->_externalString = 0;
@@ -61,7 +61,7 @@
       v11 = [Romakana hiraganaString:lowercaseString mappingArray:v8];
     }
 
-    v31 = internalString;
+    v30 = internalString;
     if ([internalString length] <= index)
     {
       v14 = &stru_2A2525CC0;
@@ -74,8 +74,8 @@
       v14 = [Romakana hiraganaString:lowercaseString2 mappingArray:v8];
     }
 
-    v29 = v14;
-    v30 = v11;
+    v28 = v14;
+    v29 = v11;
     v15 = [(__CFString *)v11 stringByAppendingString:v14];
     v16 = self->_externalString;
     self->_externalString = v15;
@@ -90,29 +90,29 @@
       self->_externalIndex = 0;
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v19 = v8;
-    v20 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v20)
     {
       v21 = v20;
       v22 = 0;
       v23 = 0;
-      v24 = *v33;
+      v24 = *v32;
       do
       {
         v25 = 0;
         do
         {
-          if (*v33 != v24)
+          if (*v32 != v24)
           {
             objc_enumerationMutation(v19);
           }
 
-          v22 += [*(*(&v32 + 1) + 8 * v25) intValue];
+          v22 += [*(*(&v31 + 1) + 8 * v25) intValue];
           v26 = self->_externalIndexToInternalIndexMappingArray;
           v27 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v22];
           [(NSMutableArray *)v26 addObject:v27];
@@ -127,16 +127,14 @@
         }
 
         while (v21 != v25);
-        v21 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v21);
     }
 
-    internalString = v31;
+    internalString = v30;
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 - (void)deleteFromInput:(int64_t *)input newInput:(id *)newInput inputIndex:(int64_t *)index

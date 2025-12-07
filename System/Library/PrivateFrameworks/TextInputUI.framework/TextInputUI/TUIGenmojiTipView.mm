@@ -17,15 +17,16 @@
 - (TUIGenmojiTipView)initWith:(id)with
 {
   v3 = _Block_copy(with);
-  *(swift_allocObject() + 16) = v3;
-  sub_18FFFB5BC();
+  v4 = swift_allocObject();
+  *v4->internalTextComposerClient = v3;
+  sub_18FFFB5BC(sub_18FFFC2CC, v4);
   return result;
 }
 
 - (TUIGenmojiTipView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR___TUIGenmojiTipView_viewModel;
-  type metadata accessor for TipView.ViewModel();
+  type metadata accessor for TipView.ViewModel(0);
   v5 = swift_allocObject();
   *(v5 + 16) = 1;
   *(v5 + 24) = 0;

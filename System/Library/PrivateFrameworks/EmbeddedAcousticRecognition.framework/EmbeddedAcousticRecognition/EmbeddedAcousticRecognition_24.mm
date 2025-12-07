@@ -1,3 +1,1791 @@
+uint64_t *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *,0>(uint64_t *result, int *a2, uint64_t *a3, uint64_t a4)
+{
+  v4 = *a2;
+  v5 = a2[1];
+  v6 = *a3;
+  v7 = HIDWORD(*a3);
+  if (v5 <= *(result + 1))
+  {
+    if (v7 > v5)
+    {
+      *a2 = v6;
+      *a3 = v4;
+      v10 = a2 + 1;
+      v11 = a2[1];
+      a2[1] = *(a3 + 1);
+      *(a3 + 1) = v11;
+      v12 = *result;
+      if (HIDWORD(*a2) > HIDWORD(*result))
+      {
+        *result = *a2;
+        v9 = result + 1;
+        *a2 = v12;
+        goto LABEL_9;
+      }
+    }
+  }
+
+  else
+  {
+    v8 = *result;
+    if (v7 > v5)
+    {
+      *result = v6;
+      v9 = result + 1;
+      *a3 = v8;
+      v10 = a3 + 1;
+LABEL_9:
+      v15 = *v9;
+      *v9 = *v10;
+      *v10 = v15;
+      goto LABEL_10;
+    }
+
+    *result = v4;
+    *a2 = v8;
+    v9 = a2 + 1;
+    v13 = *(result + 1);
+    *(result + 1) = a2[1];
+    a2[1] = v13;
+    v14 = *a2;
+    if (HIDWORD(*a3) > HIDWORD(*a2))
+    {
+      *a2 = *a3;
+      *a3 = v14;
+      v10 = a3 + 1;
+      goto LABEL_9;
+    }
+  }
+
+LABEL_10:
+  v16 = *a3;
+  if (HIDWORD(*a4) > HIDWORD(*a3))
+  {
+    *a3 = *a4;
+    *a4 = v16;
+    v17 = *(a3 + 1);
+    *(a3 + 1) = *(a4 + 4);
+    *(a4 + 4) = v17;
+    v18 = *a2;
+    if (HIDWORD(*a3) > HIDWORD(*a2))
+    {
+      *a2 = *a3;
+      *a3 = v18;
+      v19 = a2[1];
+      a2[1] = *(a3 + 1);
+      *(a3 + 1) = v19;
+      v20 = *result;
+      if (HIDWORD(*a2) > HIDWORD(*result))
+      {
+        *result = *a2;
+        *a2 = v20;
+        v21 = *(result + 1);
+        *(result + 1) = a2[1];
+        a2[1] = v21;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(uint64_t *result, uint64_t *a2)
+{
+  if (result != a2)
+  {
+    v2 = result + 1;
+    if (result + 1 != a2)
+    {
+      v3 = 0;
+      v4 = result;
+      do
+      {
+        v6 = *v4;
+        v5 = v4[1];
+        v4 = v2;
+        if (SHIDWORD(v5) > SHIDWORD(v6))
+        {
+          v7 = v3;
+          while (1)
+          {
+            v8 = result + v7;
+            v9 = *(result + v7 + 4);
+            *(v8 + 2) = v6;
+            *(v8 + 3) = v9;
+            if (!v7)
+            {
+              break;
+            }
+
+            v6 = *(v8 - 1);
+            v7 -= 8;
+            if (SHIDWORD(v5) <= SHIDWORD(v6))
+            {
+              v10 = (result + v7 + 8);
+              goto LABEL_10;
+            }
+          }
+
+          v10 = result;
+LABEL_10:
+          *v10 = v5;
+        }
+
+        ++v2;
+        v3 += 8;
+      }
+
+      while (v4 + 1 != a2);
+    }
+  }
+
+  return result;
+}
+
+void *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(void *result, void *a2)
+{
+  if (result != a2)
+  {
+    v2 = result + 1;
+    if (result + 1 != a2)
+    {
+      v3 = result + 12;
+      do
+      {
+        v5 = *result;
+        v4 = result[1];
+        result = v2;
+        if (SHIDWORD(v4) > SHIDWORD(v5))
+        {
+          v6 = v3;
+          do
+          {
+            v7 = v6;
+            v8 = *(v6 - 2);
+            v6 -= 2;
+            *(v7 - 1) = v5;
+            *v7 = v8;
+            v5 = *(v7 - 5);
+          }
+
+          while (SHIDWORD(v4) > SHIDWORD(v5));
+          *(v6 - 1) = v4;
+        }
+
+        ++v2;
+        v3 += 8;
+      }
+
+      while (result + 1 != a2);
+    }
+  }
+
+  return result;
+}
+
+unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,int> *,kaldi::quasar::Lexicon::HasMoreProns &>(uint64_t *a1, uint64_t *a2)
+{
+  v2 = *a1;
+  v3 = HIDWORD(*a1);
+  if (v3 <= *(a2 - 1))
+  {
+    v7 = a1 + 1;
+    do
+    {
+      v5 = v7;
+      if (v7 >= a2)
+      {
+        break;
+      }
+
+      v8 = *(v7++ + 1);
+    }
+
+    while (v3 <= v8);
+  }
+
+  else
+  {
+    v4 = a1;
+    do
+    {
+      v5 = (v4 + 1);
+      v6 = *(v4++ + 3);
+    }
+
+    while (v3 <= v6);
+  }
+
+  if (v5 >= a2)
+  {
+    v9 = a2;
+  }
+
+  else
+  {
+    do
+    {
+      v9 = a2 - 1;
+      v10 = *(a2-- - 1);
+    }
+
+    while (v3 > v10);
+  }
+
+  if (v5 < v9)
+  {
+    v11 = *v5;
+    v12 = *v9;
+    do
+    {
+      *v5 = v12;
+      *v9 = v11;
+      v13 = *(v5 + 4);
+      *(v5 + 4) = *(v9 + 1);
+      *(v9 + 1) = v13;
+      do
+      {
+        v14 = *(v5 + 8);
+        v5 += 8;
+        v11 = v14;
+      }
+
+      while (v3 <= SHIDWORD(v14));
+      do
+      {
+        v15 = *--v9;
+        v12 = v15;
+      }
+
+      while (v3 > SHIDWORD(v15));
+    }
+
+    while (v5 < v9);
+  }
+
+  if ((v5 - 8) != a1)
+  {
+    *a1 = *(v5 - 8);
+    *(a1 + 1) = *(v5 - 4);
+  }
+
+  *(v5 - 8) = v2;
+  *(v5 - 4) = v3;
+  return v5;
+}
+
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,int> *,kaldi::quasar::Lexicon::HasMoreProns &>(unint64_t *a1, uint64_t *a2)
+{
+  v2 = 0;
+  v3 = *a1;
+  v4 = HIDWORD(*a1);
+  do
+  {
+    v5 = a1[++v2];
+  }
+
+  while (SHIDWORD(v5) > v4);
+  v6 = &a1[v2];
+  if (v2 == 1)
+  {
+    while (v6 < a2)
+    {
+      v7 = a2 - 1;
+      v9 = *(a2-- - 1);
+      if (v9 > v4)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    v7 = a2;
+  }
+
+  else
+  {
+    do
+    {
+      v7 = a2 - 1;
+      v8 = *(a2-- - 1);
+    }
+
+    while (v8 <= v4);
+  }
+
+LABEL_9:
+  if (v6 >= v7)
+  {
+    v11 = v6;
+  }
+
+  else
+  {
+    v10 = *v7;
+    v11 = v6;
+    v12 = v7;
+    do
+    {
+      *v11 = v10;
+      *v12 = v5;
+      v13 = *(v11 + 1);
+      *(v11 + 1) = *(v12 + 1);
+      *(v12 + 1) = v13;
+      do
+      {
+        v14 = v11[1];
+        ++v11;
+        LODWORD(v5) = v14;
+      }
+
+      while (SHIDWORD(v14) > v4);
+      do
+      {
+        v15 = *--v12;
+        v10 = v15;
+      }
+
+      while (SHIDWORD(v15) <= v4);
+    }
+
+    while (v11 < v12);
+  }
+
+  if (v11 - 1 != a1)
+  {
+    *a1 = *(v11 - 2);
+    *(a1 + 1) = *(v11 - 1);
+  }
+
+  *(v11 - 2) = v3;
+  *(v11 - 1) = v4;
+  return v11 - 1;
+}
+
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(int *a1, char *a2)
+{
+  v4 = (a2 - a1) >> 3;
+  if (v4 > 2)
+  {
+    if (v4 == 3)
+    {
+      v20 = a1[2];
+      v21 = a1[3];
+      v22 = a1[1];
+      v23 = *(a2 - 1);
+      if (v21 <= v22)
+      {
+        if (SHIDWORD(v23) <= v21)
+        {
+          return 1;
+        }
+
+        a1[2] = v23;
+        *(a2 - 2) = v20;
+        v26 = a1 + 3;
+        v35 = a1[3];
+        a1[3] = *(a2 - 1);
+        *(a2 - 1) = v35;
+        v36 = *a1;
+        v37 = *(a1 + 1);
+        if (SHIDWORD(v37) <= HIDWORD(*a1))
+        {
+          return 1;
+        }
+
+        *a1 = v37;
+        a1[2] = v36;
+        v25 = a1 + 1;
+      }
+
+      else
+      {
+        v24 = *a1;
+        if (SHIDWORD(v23) <= v21)
+        {
+          a1[1] = v21;
+          a1[2] = v24;
+          a1[3] = v22;
+          *a1 = v20;
+          v40 = *(a2 - 1);
+          v41 = *(a1 + 1);
+          if (SHIDWORD(v40) <= SHIDWORD(v41))
+          {
+            return 1;
+          }
+
+          a1[2] = v40;
+          *(a2 - 2) = v41;
+          v26 = (a2 - 4);
+          v25 = a1 + 3;
+        }
+
+        else
+        {
+          *a1 = v23;
+          v25 = a1 + 1;
+          *(a2 - 2) = v24;
+          v26 = (a2 - 4);
+        }
+      }
+
+      v42 = *v25;
+      *v25 = *v26;
+      *v26 = v42;
+      return 1;
+    }
+
+    if (v4 != 4)
+    {
+      if (v4 == 5)
+      {
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *,0>(a1, a1 + 2, a1 + 2, (a1 + 6));
+        v8 = *(a2 - 1);
+        v9 = *(a1 + 3);
+        if (SHIDWORD(v8) > SHIDWORD(v9))
+        {
+          a1[6] = v8;
+          *(a2 - 2) = v9;
+          v10 = a1[7];
+          a1[7] = *(a2 - 1);
+          *(a2 - 1) = v10;
+          v11 = *(a1 + 2);
+          v12 = *(a1 + 3);
+          v13 = HIDWORD(v12);
+          if (SHIDWORD(v12) > SHIDWORD(v11))
+          {
+            *(a1 + 2) = v12;
+            *(a1 + 3) = v11;
+            v14 = *(a1 + 1);
+            v15 = *(a1 + 2);
+            if (SHIDWORD(v15) > SHIDWORD(v14))
+            {
+              a1[2] = v15;
+              a1[3] = v13;
+              *(a1 + 2) = v14;
+              v16 = *a1;
+              v17 = *(a1 + 1);
+              v18 = HIDWORD(*a1);
+              if (SHIDWORD(v17) > v18)
+              {
+                *a1 = v17;
+                a1[1] = v13;
+                result = 1;
+                a1[2] = v16;
+                a1[3] = v18;
+                return result;
+              }
+            }
+          }
+        }
+
+        return 1;
+      }
+
+      goto LABEL_17;
+    }
+
+    std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *,0>(a1, a1 + 2, a1 + 2, (a2 - 8));
+    return 1;
+  }
+
+  if (v4 < 2)
+  {
+    return 1;
+  }
+
+  if (v4 == 2)
+  {
+    v5 = *(a2 - 1);
+    v6 = *a1;
+    if (SHIDWORD(v5) > HIDWORD(*a1))
+    {
+      *a1 = v5;
+      *(a2 - 2) = v6;
+      v7 = a1[1];
+      a1[1] = *(a2 - 1);
+      *(a2 - 1) = v7;
+    }
+
+    return 1;
+  }
+
+LABEL_17:
+  v27 = a1 + 4;
+  v28 = *(a1 + 2);
+  v30 = a1[2];
+  v29 = a1[3];
+  v32 = *a1;
+  LODWORD(v31) = a1[1];
+  v33 = HIDWORD(v28);
+  if (v29 > v31)
+  {
+    if (SHIDWORD(v28) <= v29)
+    {
+      a1[3] = v31;
+      v34 = a1 + 3;
+      a1[1] = v29;
+      a1[2] = v32;
+      *a1 = v30;
+      v43 = *(a1 + 1);
+      v31 = HIDWORD(v43);
+      if (SHIDWORD(v28) <= SHIDWORD(v43))
+      {
+        goto LABEL_34;
+      }
+
+      a1[2] = v28;
+      a1[4] = v43;
+    }
+
+    else
+    {
+      *a1 = v28;
+      a1[4] = v32;
+      v34 = a1 + 1;
+    }
+
+    v38 = a1 + 5;
+    goto LABEL_33;
+  }
+
+  if (SHIDWORD(v28) > v29)
+  {
+    *(a1 + 1) = v28;
+    v38 = a1 + 3;
+    a1[4] = v30;
+    a1[5] = v29;
+    v39 = *(a1 + 1);
+    v33 = HIDWORD(v39);
+    if (SHIDWORD(v39) > v31)
+    {
+      *a1 = v39;
+      a1[2] = v32;
+      v34 = a1 + 1;
+LABEL_33:
+      *v34 = v33;
+      *v38 = v31;
+    }
+  }
+
+LABEL_34:
+  v44 = (a1 + 6);
+  if (a1 + 6 == a2)
+  {
+    return 1;
+  }
+
+  v45 = 0;
+  v46 = 0;
+  while (1)
+  {
+    v47 = *v44;
+    v48 = *v27;
+    v49 = HIDWORD(*v44);
+    if (v49 > SHIDWORD(v48))
+    {
+      v50 = v45;
+      while (1)
+      {
+        v51 = a1 + v50;
+        v52 = *(a1 + v50 + 20);
+        *(v51 + 6) = v48;
+        *(v51 + 7) = v52;
+        if (v50 == -16)
+        {
+          break;
+        }
+
+        v48 = *(v51 + 1);
+        v50 -= 8;
+        if (v49 <= SHIDWORD(v48))
+        {
+          v53 = (a1 + v50 + 24);
+          goto LABEL_42;
+        }
+      }
+
+      v53 = a1;
+LABEL_42:
+      *v53 = v47;
+      v53[1] = v49;
+      if (++v46 == 8)
+      {
+        return v44 + 8 == a2;
+      }
+    }
+
+    v27 = v44;
+    v45 += 8;
+    v44 += 8;
+    if (v44 == a2)
+    {
+      return 1;
+    }
+  }
+}
+
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *,std::pair<int,int> *>(char *a1, char *a2, char *a3, uint64_t a4)
+{
+  if (a1 != a2)
+  {
+    v8 = (a2 - a1) >> 3;
+    if (v8 >= 2)
+    {
+      v9 = (v8 - 2) >> 1;
+      v10 = v9 + 1;
+      v11 = &a1[8 * v9];
+      do
+      {
+        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(a1, a4, v8, v11--);
+        --v10;
+      }
+
+      while (v10);
+    }
+
+    v12 = a2;
+    if (a2 != a3)
+    {
+      v12 = a2;
+      do
+      {
+        v13 = *v12;
+        if (HIDWORD(*v12) > HIDWORD(*a1))
+        {
+          *v12 = *a1;
+          *a1 = v13;
+          v14 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v14;
+          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(a1, a4, v8, a1);
+        }
+
+        v12 += 8;
+      }
+
+      while (v12 != a3);
+    }
+
+    if (v8 >= 2)
+    {
+      v15 = a2 - 8;
+      do
+      {
+        v17 = *a1;
+        v16 = *(a1 + 1);
+        v18 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(a1, a4, v8);
+        if (v15 == v18)
+        {
+          *v18 = v17;
+          *(v18 + 1) = v16;
+        }
+
+        else
+        {
+          *v18 = *v15;
+          *(v18 + 1) = *(v15 + 1);
+          *v15 = v17;
+          *(v15 + 1) = v16;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(a1, (v18 + 8), a4, (v18 + 8 - a1) >> 3);
+        }
+
+        v15 -= 8;
+      }
+
+      while (v8-- > 2);
+    }
+
+    return v12;
+  }
+
+  return a3;
+}
+
+uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t *a4)
+{
+  if (a3 >= 2)
+  {
+    v4 = a4 - result;
+    v5 = (a3 - 2) >> 1;
+    if (v5 >= (a4 - result) >> 3)
+    {
+      v6 = v4 >> 2;
+      v7 = (v4 >> 2) + 1;
+      v8 = result + 8 * v7;
+      v9 = v6 + 2;
+      v10 = *v8;
+      if (v9 < a3 && SHIDWORD(v10) > HIDWORD(*(v8 + 8)))
+      {
+        v10 = *(v8 + 8);
+        v8 += 8;
+        v7 = v9;
+      }
+
+      v11 = *a4;
+      v12 = HIDWORD(v10);
+      v13 = HIDWORD(*a4);
+      if (v12 <= v13)
+      {
+        LODWORD(v14) = *v8;
+        do
+        {
+          v15 = a4;
+          a4 = v8;
+          *v15 = v14;
+          *(v15 + 1) = *(v8 + 4);
+          if (v5 < v7)
+          {
+            break;
+          }
+
+          v16 = (2 * v7) | 1;
+          v8 = result + 8 * v16;
+          v7 = 2 * v7 + 2;
+          v14 = *v8;
+          if (v7 >= a3)
+          {
+            v7 = v16;
+          }
+
+          else if (SHIDWORD(v14) <= HIDWORD(*(v8 + 8)))
+          {
+            v7 = v16;
+          }
+
+          else
+          {
+            v14 = *(v8 + 8);
+            v8 += 8;
+          }
+        }
+
+        while (SHIDWORD(v14) <= v13);
+        *a4 = v11;
+        *(a4 + 1) = v13;
+      }
+    }
+  }
+
+  return result;
+}
+
+_DWORD *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(_DWORD *a1, uint64_t a2, uint64_t a3)
+{
+  v3 = 0;
+  do
+  {
+    v4 = &a1[2 * v3];
+    v5 = v4 + 2;
+    v6 = (2 * v3) | 1;
+    v3 = 2 * v3 + 2;
+    if (v3 >= a3)
+    {
+      v3 = v6;
+    }
+
+    else if (v4[3] <= v4[5])
+    {
+      v3 = v6;
+    }
+
+    else
+    {
+      v5 = v4 + 4;
+    }
+
+    *a1 = *v5;
+    a1[1] = v5[1];
+    a1 = v5;
+  }
+
+  while (v3 <= (a3 - 2) / 2);
+  return v5;
+}
+
+uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Lexicon::HasMoreProns &,std::pair<int,int> *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a4 >= 2)
+  {
+    v4 = (a4 - 2) >> 1;
+    v5 = (result + 8 * v4);
+    v6 = *v5;
+    v9 = *(a2 - 8);
+    v7 = (a2 - 8);
+    v8 = v9;
+    v10 = HIDWORD(v9);
+    if (HIDWORD(*v5) > SHIDWORD(v9))
+    {
+      do
+      {
+        v11 = v7;
+        v7 = v5;
+        *v11 = v6;
+        v11[1] = v5[1];
+        if (!v4)
+        {
+          break;
+        }
+
+        v4 = (v4 - 1) >> 1;
+        v5 = (result + 8 * v4);
+        v6 = *v5;
+      }
+
+      while (HIDWORD(*v5) > v10);
+      *v7 = v8;
+      v7[1] = v10;
+    }
+  }
+
+  return result;
+}
+
+void std::deque<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,std::allocator<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>>::push_back(unint64_t *result, void *a2)
+{
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = ((v4 - v5) << 6) - 1;
+  }
+
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
+  {
+    std::deque<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,std::allocator<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
+  }
+
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
+}
+
+void std::deque<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,std::allocator<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>>::__add_back_capacity(unint64_t *a1)
+{
+  v1 = a1[4];
+  v2 = v1 >= 0x200;
+  v3 = v1 - 512;
+  if (!v2)
+  {
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
+    {
+      if (v6 != v5)
+      {
+        operator new();
+      }
+
+      operator new();
+    }
+
+    if (v6 == *a1)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = v7 >> 2;
+    }
+
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v8);
+  }
+
+  a1[4] = v3;
+  v4 = a1[1];
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v9);
+}
+
+void sub_1B51C6F7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
+{
+  operator delete(v13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node::~Node(void *a1)
+{
+  for (i = a1; ; i = v3)
+  {
+    while (i[3])
+    {
+      i = *(i[2] + 24);
+    }
+
+    if (i == a1)
+    {
+      break;
+    }
+
+    v3 = i[10];
+    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::erase(v3, *(v3 + 16));
+    v4 = kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node::~Node(i);
+    MEMORY[0x1B8C85350](v4, 0x10A0C40A79550FFLL);
+  }
+
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table((a1 + 5));
+
+  return std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(a1);
+}
+
+uint64_t *std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string> const&>(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 8);
+  *v3 = 0;
+  v3[1] = 0;
+  v3[2] = 0;
+  result = std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v3, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  *(a1 + 8) = v3 + 3;
+  return result;
+}
+
+uint64_t *std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::vector<std::string> const&>(char **a1, void *a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v3 = v2 + 1;
+  if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
+  {
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
+  {
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+  {
+    v6 = 0xAAAAAAAAAAAAAAALL;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v18 = a1;
+  if (v6)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<quasar::Token>>>(a1, v6);
+  }
+
+  v7 = 24 * v2;
+  v14 = 0;
+  v15 = v7;
+  v16 = 24 * v2;
+  v17 = 0;
+  *v7 = 0;
+  *(v7 + 8) = 0;
+  *(v7 + 16) = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((24 * v2), *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  v8 = v16 + 24;
+  v9 = a1[1] - *a1;
+  v10 = &v15[-v9];
+  memcpy(&v15[-v9], *a1, v9);
+  v11 = *a1;
+  *a1 = v10;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
+  v16 = v11;
+  v17 = v12;
+  v14 = v11;
+  v15 = v11;
+  std::__split_buffer<std::vector<std::string>>::~__split_buffer(&v14);
+  return v8;
+}
+
+void sub_1B51C71EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<std::vector<std::string>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51C750C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, char a41)
+{
+  if (a34 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a40 < 0)
+  {
+    operator delete(a35);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51C7E98(_Unwind_Exception *a1)
+{
+  v5 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51C80B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
+{
+  if (v13 != v14)
+  {
+  }
+
+  if (v18 != v12)
+  {
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51C8694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+{
+  std::pair<std::vector<std::vector<unsigned int>>,std::vector<std::vector<std::vector<quasar::Token>>>>::~pair(&a9);
+  a9 = &a16;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&a9);
+  a9 = &a19;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&a9);
+
+  _Unwind_Resume(a1);
+}
+
+void **std::pair<std::vector<std::vector<unsigned int>>,std::vector<std::vector<std::vector<quasar::Token>>>>::~pair(void **a1)
+{
+  v3 = a1 + 3;
+  std::vector<std::vector<std::vector<quasar::Token>>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  v3 = a1;
+  std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  return a1;
+}
+
+void sub_1B51C8FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  a9 = (v10 - 80);
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a9);
+  a9 = (v10 - 56);
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a9);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51C96B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  STACK[0x250] = &a15;
+  std::vector<std::vector<std::vector<quasar::Token>>>::__destroy_vector::operator()[abi:ne200100](&STACK[0x250]);
+
+  std::pair<std::vector<std::vector<unsigned int>>,std::vector<std::vector<std::vector<quasar::Token>>>>::~pair(a10);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51C9950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
+  v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  std::pair<std::vector<std::vector<unsigned int>>,std::vector<std::vector<std::vector<quasar::Token>>>>::~pair(va1);
+  std::pair<std::vector<std::vector<unsigned int>>,std::vector<std::vector<std::vector<quasar::Token>>>>::~pair(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51CA394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, id a60)
+{
+  _Block_object_dispose(&a55, 8);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1B51CA5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+{
+  _Block_object_dispose(&a19, 8);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51CA76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+{
+  _Block_object_dispose(&a19, 8);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t quasar::join<std::vector<int>>(unsigned int **a1, uint64_t *a2)
+{
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v7);
+  quasar::joinToStream<std::vector<int>>(&v8, a1, a2);
+  std::stringbuf::str();
+  v7[0] = *MEMORY[0x1E69E54D8];
+  v5 = *(MEMORY[0x1E69E54D8] + 72);
+  *(v7 + *(v7[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v8 = v5;
+  v9 = MEMORY[0x1E69E5548] + 16;
+  if (v11 < 0)
+  {
+    operator delete(v10[7].__locale_);
+  }
+
+  v9 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v10);
+  std::iostream::~basic_iostream();
+  return MEMORY[0x1B8C85200](&v12);
+}
+
+void sub_1B51CBBD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x1E69E54D8]);
+  MEMORY[0x1B8C85200](v3 + 128);
+  _Unwind_Resume(a1);
+}
+
+id EARHelpers::VectorToArray<int>(unsigned int **a1)
+{
+  v2 = [MEMORY[0x1E695DF70] array];
+  v3 = *a1;
+  v4 = a1[1];
+  if (*a1 != v4)
+  {
+    do
+    {
+      v5 = [MEMORY[0x1E696AD98] numberWithInt:*v3];
+      [v2 addObject:v5];
+
+      ++v3;
+    }
+
+    while (v3 != v4);
+  }
+
+  v6 = [v2 copy];
+
+  return v6;
+}
+
+void sub_1B51CC1A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+{
+  *(v14 - 40) = v13;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100]((v14 - 40));
+  *(v14 - 40) = &a13;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100]((v14 - 40));
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51CC2FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, char a21)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  a9 = &a18;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a9);
+  a9 = &a21;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a9);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51CC51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14)
+{
+  a14 = &a9;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a14);
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B51CC614(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+id EARSpeechRecognitionResultFromQuasarResult(void *a1, quasar::Token **a2, void *a3, void *a4, uint64_t a5, unsigned int a6, int a7, char a8, uint64_t *a9, int a10, uint64_t a11, char a12, uint64_t a13, char a14, uint64_t *a15, unsigned __int8 a16, unsigned __int8 a17, uint64_t a18)
+{
+  v22 = a18;
+  v23 = a1;
+  v46 = a3;
+  v45 = a4;
+  dispatch_assert_queue_V2(v23[1]);
+  v85 = 0uLL;
+  v86 = 0;
+  memset(v84, 0, sizeof(v84));
+  memset(v83, 0, sizeof(v83));
+  memset(v82, 0, sizeof(v82));
+  memset(v81, 0, sizeof(v81));
+  memset(v80, 0, sizeof(v80));
+  if ((a16 & a17) != 0)
+  {
+    v24 = 0.0;
+  }
+
+  else
+  {
+    v24 = a6 / 1000.0;
+  }
+
+  v25 = [(dispatch_queue_t *)v23 relevantTextContext];
+  v43 = a7;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = __Block_byref_object_copy__2;
+  v78 = __Block_byref_object_dispose__2;
+  v79 = &stru_1F2D44B60;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = __Block_byref_object_copy__2;
+  v72 = __Block_byref_object_dispose__2;
+  v73 = &stru_1F2D44B60;
+  v66[0] = 0;
+  v66[1] = v66;
+  v66[2] = 0x4812000000;
+  v66[3] = __Block_byref_object_copy__420;
+  v66[4] = __Block_byref_object_dispose__421;
+  v66[5] = &unk_1B5CADD23;
+  memset(v67, 0, sizeof(v67));
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x4812000000;
+  v62 = __Block_byref_object_copy__420;
+  v63 = __Block_byref_object_dispose__421;
+  v64 = &unk_1B5CADD23;
+  memset(v65, 0, sizeof(v65));
+  if ((-[dispatch_queue_t continuousListeningFormatAcrossUtterances](v23, "continuousListeningFormatAcrossUtterances") & 1) != 0 || ([v25 leftContextWasAppended] & 1) == 0)
+  {
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = ___Z42EARSpeechRecognitionResultFromQuasarResultP20_EARSpeechRecognizerRKNSt3__16vectorIN6quasar5TokenENS1_9allocatorIS4_EEEEP8NSStringSB_S9_jjbNS1_10shared_ptrINS3_25ContinuousListeningConfigEEEiS9_bS9_bNSC_IbEEbbRK14FormattingInfo_block_invoke;
+    v58[3] = &unk_1E7C1A3C0;
+    v58[4] = &v74;
+    v58[5] = &v68;
+    v58[6] = v66;
+    v58[7] = &v59;
+    [v25 getLeftAndRightContextWithCompletion:v58];
+    if ([v25 leftContextEndsWithAppendedAutoPunctuation])
+    {
+      v26 = 1;
+    }
+
+    else
+    {
+      v26 = [v25 leftContextWasAppended] ^ 1;
+    }
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  v27 = v23[2];
+  if (v27)
+  {
+    v28 = a9[1];
+    v54 = *a9;
+    v55 = v28;
+    if (v28)
+    {
+      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v42 = v25;
+    v29 = [(dispatch_queue_t *)v23 itnEnablingFlags];
+    v30 = [(dispatch_queue_t *)v23 recognizeEmoji];
+    v31 = v60;
+    v32 = v75[5];
+    v33 = v69[5];
+    v34 = a15[1];
+    v52 = *a15;
+    v53 = v34;
+    if (v34)
+    {
+      atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = ___Z42EARSpeechRecognitionResultFromQuasarResultP20_EARSpeechRecognizerRKNSt3__16vectorIN6quasar5TokenENS1_9allocatorIS4_EEEEP8NSStringSB_S9_jjbNS1_10shared_ptrINS3_25ContinuousListeningConfigEEEiS9_bS9_bNSC_IbEEbbRK14FormattingInfo_block_invoke_2;
+    v50[3] = &unk_1E7C1A3E8;
+    v51 = v23;
+    LOBYTE(v41) = 0;
+    HIBYTE(v40) = a14;
+    LOBYTE(v40) = 0;
+    HIBYTE(v39) = a12;
+    BYTE2(v39) = v30;
+    LOWORD(v39) = v29;
+    BYTE4(v38) = a8;
+    LODWORD(v38) = v43;
+    objc_msgSend_formatWords_unrepairedWordsOut_task_language_preItnLeftContext_separateAutoEndPunctuation_partialResults_timestampOffset_zeroTimestamp_continuousListeningConfig_postItnLeftContext_itnResult_itnOverrides_itnEnablingFlags_recognizeEmoji_leftContextProvidedByClient_preItnRightContext_postItnLeftContextStr_postItnRightContextStr_stripLeadingAppendedAutoPunctuation_emojiTokenIndices_persistEmoji_shouldHideTrailingPunctuation_isTrailingPunctuationHidden_isFinal_choiceIdx_itnCompletion_(v27, v84, v38, &v54, a11, v83, v81, v39, v31 + 6, v32, v33, v26, v80, v40, &v52, v41, v50);
+    std::vector<quasar::Token>::__vdeallocate(&v85);
+    v85 = v56;
+    v86 = v57;
+    v57 = 0;
+    v56 = 0uLL;
+    v87 = &v56;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v87);
+    v22 = a18;
+    v25 = v42;
+    if (v53)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v53);
+    }
+
+    if (v55)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+    }
+  }
+
+  else if (&v85 != a2)
+  {
+    std::vector<quasar::Token>::__assign_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v85, *a2, a2[1], 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 5));
+  }
+
+  v35 = [_EARSpeechRecognitionResult alloc];
+  memset(v49, 0, sizeof(v49));
+  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v49, v85, SDWORD2(v85), 0x6DB6DB6DB6DB6DB7 * ((*(&v85 + 1) - v85) >> 5));
+  memset(v48, 0, sizeof(v48));
+  std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v48, *a2, a2[1], 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 5));
+  v36 = [(_EARSpeechRecognitionResult *)v35 _initWithTokens:v49 preITNTokens:v48 confidence:0 voiceCommandInterpretations:0 preITNVoiceCommandInterpretations:1 utteranceStart:v22 preITNUseHatText:a10 formattingInfo:v24];
+  *&v56 = v48;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v56);
+  *&v56 = v49;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v56);
+  _Block_object_dispose(&v59, 8);
+  *&v56 = v65;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v56);
+  _Block_object_dispose(v66, 8);
+  v59 = v67;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v59);
+  _Block_object_dispose(&v68, 8);
+
+  _Block_object_dispose(&v74, 8);
+  v66[0] = v80;
+  std::vector<std::pair<int,std::vector<std::string>>>::__destroy_vector::operator()[abi:ne200100](v66);
+  v66[0] = v81;
+  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](v66);
+  v66[0] = v82;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v66);
+  v66[0] = v83;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v66);
+  v66[0] = v84;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v66);
+  v66[0] = &v85;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v66);
+
+  return v36;
+}
+
+void sub_1B51CCDB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void **a32, void **a33, void *a34, void *a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, std::__shared_weak_count *a50, uint64_t a51, std::__shared_weak_count *a52, void **a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+{
+  if (a50)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a50);
+  }
+
+  if (a52)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a52);
+  }
+
+  _Block_object_dispose(&a64, 8);
+  a53 = a32;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a53);
+  _Block_object_dispose(&STACK[0x200], 8);
+  a64 = a33;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a64);
+  _Block_object_dispose(&STACK[0x248], 8);
+
+  _Block_object_dispose(&STACK[0x278], 8);
+  STACK[0x200] = &STACK[0x2A8];
+  std::vector<std::pair<int,std::vector<std::string>>>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
+  STACK[0x200] = v64 - 240;
+  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
+  STACK[0x200] = v64 - 216;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
+  STACK[0x200] = v64 - 192;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
+  STACK[0x200] = v64 - 168;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
+  STACK[0x200] = v64 - 144;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&STACK[0x200]);
+
+  _Unwind_Resume(a1);
+}
+
+__n128 __Block_byref_object_copy__420(__n128 *a1, __n128 *a2)
+{
+  a1[3] = 0uLL;
+  a1[4].n128_u64[0] = 0;
+  result = a2[3];
+  a1[3] = result;
+  a1[4].n128_u64[0] = a2[4].n128_u64[0];
+  a2[3] = 0uLL;
+  a2[4].n128_u64[0] = 0;
+  return result;
+}
+
+void ___Z42EARSpeechRecognitionResultFromQuasarResultP20_EARSpeechRecognizerRKNSt3__16vectorIN6quasar5TokenENS1_9allocatorIS4_EEEEP8NSStringSB_S9_jjbNS1_10shared_ptrINS3_25ContinuousListeningConfigEEEiS9_bS9_bNSC_IbEEbbRK14FormattingInfo_block_invoke(void *a1, void *a2, void *a3, void *a4, void *a5)
+{
+  v10 = a2;
+  v11 = a3;
+  v12 = a5;
+  objc_storeStrong((*(a1[4] + 8) + 40), a2);
+  v13 = a4;
+  objc_storeStrong((*(a1[5] + 8) + 40), a3);
+  stringsToTokensWithZeroTimestamps(v13, &v16);
+
+  v14 = *(a1[6] + 8);
+  std::vector<quasar::Token>::__vdeallocate((v14 + 48));
+  *(v14 + 48) = v16;
+  *(v14 + 64) = v17;
+  v17 = 0;
+  v16 = 0uLL;
+  v18 = &v16;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v18);
+  stringsToTokensWithZeroTimestamps(v12, &v16);
+  v15 = *(a1[7] + 8);
+  std::vector<quasar::Token>::__vdeallocate((v15 + 48));
+  *(v15 + 48) = v16;
+  *(v15 + 64) = v17;
+  v17 = 0;
+  v16 = 0uLL;
+  v18 = &v16;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v18);
+}
+
+void stringsToTokensWithZeroTimestamps(void *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = 0;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v4 = v3;
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  if (v5)
+  {
+    v6 = *v23;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v23 != v6)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v8 = *(*(&v22 + 1) + 8 * v7);
+        v9 = quasar::Token::Token(__p);
+        if (v8)
+        {
+          objc_msgSend_ear_toString(v8, v9);
+        }
+
+        else
+        {
+          v26 = 0uLL;
+          v27 = 0;
+        }
+
+        if (SHIBYTE(v11) < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        *__p = v26;
+        v11 = v27;
+
+        std::vector<quasar::Token>::push_back[abi:ne200100](a2, __p);
+        if (v21 < 0)
+        {
+          operator delete(v20);
+        }
+
+        if (v19 < 0)
+        {
+          operator delete(v18);
+        }
+
+        *&v26 = &v17;
+        std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](&v26);
+        if (v16 < 0)
+        {
+          operator delete(v15);
+        }
+
+        *&v26 = &v14;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v26);
+        if (v13 < 0)
+        {
+          operator delete(v12);
+        }
+
+        if (SHIBYTE(v11) < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        ++v7;
+      }
+
+      while (v5 != v7);
+      v5 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    }
+
+    while (v5);
+  }
+}
+
+void sub_1B51CD2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&a9);
+
+  _Unwind_Resume(a1);
+}
+
+void ___Z42EARSpeechRecognitionResultFromQuasarResultP20_EARSpeechRecognizerRKNSt3__16vectorIN6quasar5TokenENS1_9allocatorIS4_EEEEP8NSStringSB_S9_jjbNS1_10shared_ptrINS3_25ContinuousListeningConfigEEEiS9_bS9_bNSC_IbEEbbRK14FormattingInfo_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v8[1] = *MEMORY[0x1E69E9840];
+  v5 = a4;
+  v6 = [*(a1 + 32) recognitionMetrics];
+  v8[0] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  [v6 addItnRunIntervals:v7];
+}
+
+void sub_1B51CD3BC(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+id RHPackageToEARPackage(quasar::result_handler::Package *a1)
+{
+  v2 = [_EARSpeechRecognition alloc];
+  v38 = 0;
+  *__p = 0u;
+  v37 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(&__p[1], "▁");
+  LOBYTE(v38) = 0;
+  v33 = [(_EARSpeechRecognition *)v2 _initWithNBestList:a1 useHatText:0 endsOfSentencePunctuations:0 formattingInfo:__p];
+  if (SHIBYTE(v37) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  v3 = [_EARSpeechRecognition alloc];
+  v38 = 0;
+  *__p = 0u;
+  v37 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(&__p[1], "▁");
+  LOBYTE(v38) = 0;
+  v32 = [(_EARSpeechRecognition *)v3 _initWithNBestList:a1 + 48 useHatText:0 endsOfSentencePunctuations:0 formattingInfo:__p];
+  if (SHIBYTE(v37) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  v4 = [_EARSpeechRecognition alloc];
+  v38 = 0;
+  *__p = 0u;
+  v37 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(&__p[1], "▁");
+  LOBYTE(v38) = 0;
+  v31 = [(_EARSpeechRecognition *)v4 _initWithNBestList:a1 + 24 useHatText:0 endsOfSentencePunctuations:0 formattingInfo:__p];
+  if (SHIBYTE(v37) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  v30 = *(a1 + 19);
+  if (*(a1 + 368) != 1)
+  {
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v11 = 0;
+    v34 = 0;
+    goto LABEL_49;
+  }
+
+  v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v6 = EARHelpers::EARVoiceCommandInterpretationsFromQuasarCommandData((a1 + 184), v5);
+  if ([v6 count])
+  {
+    [v34 addObject:v6];
+  }
+
+  if ((*(a1 + 368) & 1) == 0)
+  {
+    std::__throw_bad_optional_access[abi:ne200100]();
+  }
+
+  quasar::topChoice2Str(a1 + 23, __p);
+  if ((SBYTE7(v37) & 0x8000000000000000) != 0)
+  {
+    if (__p[1])
+    {
+      v7 = __p[0];
+      goto LABEL_17;
+    }
+  }
+
+  else if (BYTE7(v37))
+  {
+    v7 = __p;
+LABEL_17:
+    v12 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:v7];
+    goto LABEL_19;
+  }
+
+  v12 = 0;
+LABEL_19:
+  if ((*(a1 + 368) & 1) == 0)
+  {
+    std::__throw_bad_optional_access[abi:ne200100]();
+  }
+
+  quasar::topChoice2Str(a1 + 26, &v35);
+  if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  {
+    if (v35.__r_.__value_.__l.__size_)
+    {
+      v13 = v35.__r_.__value_.__r.__words[0];
+      goto LABEL_25;
+    }
+  }
+
+  else if (*(&v35.__r_.__value_.__s + 23))
+  {
+    v13 = &v35;
+LABEL_25:
+    v10 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:v13];
+    goto LABEL_27;
+  }
+
+  v10 = 0;
+LABEL_27:
+  if ((*(a1 + 368) & 1) == 0)
+  {
+    std::__throw_bad_optional_access[abi:ne200100]();
+  }
+
+  v14 = *(a1 + 42);
+  if (*(a1 + 43) == v14)
+  {
+    v8 = 0;
+    v9 = 0;
+    goto LABEL_44;
+  }
+
+  v15 = (v14 + 24);
+  if ((*(v14 + 47) & 0x8000000000000000) != 0)
+  {
+    if (!*(v14 + 32))
+    {
+LABEL_36:
+      v9 = 0;
+      goto LABEL_37;
+    }
+
+    v15 = *v15;
+  }
+
+  else if (!*(v14 + 47))
+  {
+    goto LABEL_36;
+  }
+
+  v9 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:v15];
+LABEL_37:
+  v16 = (v14 + 48);
+  if ((*(v14 + 71) & 0x8000000000000000) != 0)
+  {
+    if (!*(v14 + 56))
+    {
+LABEL_43:
+      v8 = 0;
+      goto LABEL_44;
+    }
+
+    v16 = *v16;
+  }
+
+  else if (!*(v14 + 71))
+  {
+    goto LABEL_43;
+  }
+
+  v8 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:v16];
+LABEL_44:
+  v11 = v12;
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v35.__r_.__value_.__l.__data_);
+  }
+
+  if (SBYTE7(v37) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+LABEL_49:
+  v17 = [_EARVoiceCommandDebugInfo alloc];
+  BYTE2(v28) = *(a1 + 460);
+  LOWORD(v28) = *(a1 + 229);
+  v18 = [_EARVoiceCommandDebugInfo initWithPrecedingUtterance:v17 commandUtterance:"initWithPrecedingUtterance:commandUtterance:target:payload:hasVoiceCommandInExhaustiveParses:hasVoiceCommandParses:hasVoiceCommandEditIntent:hasVoiceCommandAfterReranking:hasNoVoiceCommandAfterRespeakCheck:commandParserMachContinuousStartTicks:commandParserMachContinuousEndTicks:commandParserMachAbsoluteStartTicks:commandParserMachAbsoluteEndTicks:" target:v11 payload:v10 hasVoiceCommandInExhaustiveParses:v9 hasVoiceCommandParses:v8 hasVoiceCommandEditIntent:*(a1 + 456) hasVoiceCommandAfterReranking:*(a1 + 457) hasNoVoiceCommandAfterRespeakCheck:v28 commandParserMachContinuousStartTicks:*(a1 + 58) commandParserMachContinuousEndTicks:*(a1 + 59) commandParserMachAbsoluteStartTicks:*(a1 + 60) commandParserMachAbsoluteEndTicks:*(a1 + 61)];
+  v19 = [_EARPerformanceMarkers alloc];
+  v20 = EARHelpers::VectorToArray<int>(a1 + 11);
+  v21 = EARHelpers::VectorToArray<int>(a1 + 14);
+  v22 = EARHelpers::VectorToArray<int>(a1 + 17);
+  v23 = [(_EARPerformanceMarkers *)v19 initWithCorrectPartialResultIndexList:v20 correctAlignedPartialResultIndexList:v21 tokenDelayInMilliseconds:v22];
+
+  v24 = [_EARSpeechRecognitionResultPackage alloc];
+  LOWORD(v29) = *(a1 + 40);
+  v25 = [(_EARSpeechRecognitionResultPackage *)v24 _initWithRecognition:v32 preITNRecognition:v33 unrepairedRecognition:v31 recognitionIsFormatted:1 isFinal:*(a1 + 72) audioAnalytics:0 utteranceStart:v30 / 1000.0 latticeMitigatorResult:0 nBestVoiceCommandInterpretations:v34 preITNNBestVoiceCommandInterpretations:0 recognitionPaused:v29 firstResultAfterResume:0 endOfSentenceLikelihood:0 numTokensExcludingTriggerPhrase:v18 voiceCommandDebugInfo:v23 performanceMarkers:?];
+  v26 = EARHelpers::VectorToArray<int>(a1 + 11);
+  [v25 setCorrectPartialResultIndexList:v26];
+
+  return v25;
+}
+
 void sub_1B51CD894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, void *a20, void *a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *__p, void *a29, int a30, __int16 a31, char a32, char a33, int a34, __int16 a35, char a36, char a37)
 {
   if (a33 < 0)
@@ -32,7 +1820,7 @@ void ***std::unique_ptr<quasar::result_handler::Package>::~unique_ptr[abi:ne2001
   return a1;
 }
 
-id RHPackageToEARResult(uint64_t **a1)
+id RHPackageToEARResult(uint64_t *a1)
 {
   v2 = a1[6];
   v3 = a1[7];
@@ -41,7 +1829,7 @@ id RHPackageToEARResult(uint64_t **a1)
   v14 = 0;
   if (v2 != v3)
   {
-    std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v14, *v2, v2[1], 0x6DB6DB6DB6DB6DB7 * ((v2[1] - *v2) >> 5));
+    std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v14, *v2, *(v2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v2 + 8) - *v2) >> 5));
   }
 
   v4 = *a1;
@@ -51,7 +1839,7 @@ id RHPackageToEARResult(uint64_t **a1)
   v11 = 0;
   if (v4 != v5)
   {
-    std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v11, *v4, v4[1], 0x6DB6DB6DB6DB6DB7 * ((v4[1] - *v4) >> 5));
+    std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v11, *v4, *(v4 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v4 + 8) - *v4) >> 5));
   }
 
   v6 = [_EARSpeechRecognitionResult alloc];
@@ -81,8 +1869,8 @@ void sub_1B51CE014(_Unwind_Exception *a1)
 
 void EARResultToRHPackage(_EARSpeechRecognitionResult *a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v1 = a1;
+  v3 = *MEMORY[0x1E69E9840];
+  v2 = a1;
   operator new();
 }
 
@@ -132,20 +1920,21 @@ uint64_t std::vector<quasar::Token>::push_back[abi:ne200100](uint64_t a1, const 
   return result;
 }
 
-void EARContinuousListeningResultHelper::writePartialImpl(uint64_t a1, uint64_t *a2, unsigned int a3, int a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, char a9, uint64_t *a10, uint64_t a11)
+void EARContinuousListeningResultHelper::writePartialImpl(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, char a9, uint64_t *a10, uint64_t a11)
 {
+  v14 = a3;
   EARContinuousListeningResultHelper::setParser(a1);
-  memset(v32, 0, sizeof(v32));
-  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(v32, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  memset(v31, 0, sizeof(v31));
+  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(v31, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   WeakRetained = objc_loadWeakRetained((a1 + 208));
   v17 = objc_loadWeakRetained((a1 + 216));
   v18 = *(a1 + 232);
   v19 = *(a1 + 240);
-  quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(a1, &v30);
+  quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(&v29, a1);
   v20 = objc_loadWeakRetained((a1 + 224));
   v21 = a10[1];
-  v29[0] = *a10;
-  v29[1] = v21;
+  v28[0] = *a10;
+  v28[1] = v21;
   if (v21)
   {
     atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -153,15 +1942,14 @@ void EARContinuousListeningResultHelper::writePartialImpl(uint64_t a1, uint64_t 
 
   v22 = *(a1 + 248);
   v23 = *(a1 + 256);
-  v28[0] = v22;
-  v28[1] = v23;
+  v27[0] = v22;
+  v27[1] = v23;
   if (v23)
   {
     atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  LODWORD(v24) = a4;
-  writePartialToResultStream(v32, WeakRetained, v17, v18, v19, a5, a3, a3, v24, &v30, 0, v20, a6, a7, a8, a9, v29, v28, a11);
+  writePartialToResultStream(v31, WeakRetained, v17, v18, v19, a5, v14, v14, a4, &v29, 0, v20, a6, a7, a8, a9, v28, v27, a11);
   if (v23)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v23);
@@ -172,13 +1960,13 @@ void EARContinuousListeningResultHelper::writePartialImpl(uint64_t a1, uint64_t 
     std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
-  if (v31)
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
   }
 
-  v33 = v32;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v33);
+  v32 = v31;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v32);
 }
 
 void sub_1B51CEC74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
@@ -212,7 +2000,7 @@ void EARContinuousListeningResultHelper::setParser(EARContinuousListeningResultH
   {
     dispatch_assert_queue_V2(WeakRetained[1]);
     v4 = *(this + 35);
-    [(dispatch_queue_t *)v3 getParser];
+    objc_msgSend_getParser(v3);
     quasar::result_handler::VoiceEditingResultHandler::setParser(v4, &v5);
     if (v6)
     {
@@ -233,7 +2021,7 @@ void sub_1B51CED4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void writePartialToResultStream(quasar::Token ***a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, int a7, unsigned int a8, uint64_t a9, uint64_t *a10, int a11, void *a12, uint64_t a13, char a14, uint64_t a15, char a16, uint64_t *a17, void *a18, uint64_t a19)
+void writePartialToResultStream(quasar::Token ***a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, int a7, unsigned int a8, unsigned int a9, uint64_t *a10, int a11, void *a12, uint64_t a13, char a14, uint64_t a15, char a16, uint64_t *a17, uint64_t *a18, uint64_t a19)
 {
   v56 = *MEMORY[0x1E69E9840];
   v24 = a2;
@@ -336,91 +2124,92 @@ void writePartialToResultStream(quasar::Token ***a1, void *a2, void *a3, void *a
   [v41 addPartialResultToContext:*a1];
 }
 
-void sub_1B51CF0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, void *a23, void *a24, void *a25, void **a26)
+void sub_1B51CF0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, void *a23, void *a24, void *a25, quasar::result_handler::Package *a26)
 {
   std::unique_ptr<quasar::result_handler::Package>::~unique_ptr[abi:ne200100](&a26);
 
   _Unwind_Resume(a1);
 }
 
-void EARContinuousListeningResultHelper::writeFinalImpl(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned int a4, unsigned int a5, int a6, unsigned __int8 a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, unsigned __int8 a12, uint64_t a13, unsigned __int8 a14, uint64_t a15)
+void EARContinuousListeningResultHelper::writeFinalImpl(uint64_t a1, __int128 ***a2, uint64_t a3, uint64_t a4, unsigned int a5, int a6, unsigned __int8 a7, uint64_t a8, uint64_t a9, uint64_t a10, __int16 a11, uint64_t a12, unsigned __int8 a13, uint64_t a14)
 {
+  v17 = a4;
   EARContinuousListeningResultHelper::setParser(a1);
   WeakRetained = objc_loadWeakRetained((a1 + 208));
-  v27 = objc_loadWeakRetained((a1 + 216));
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v26 = objc_loadWeakRetained((a1 + 216));
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  memset(v40, 0, sizeof(v40));
-  v38 = 0u;
-  *__p = 0u;
+  v42 = 0u;
+  v40 = 0u;
+  memset(v39, 0, sizeof(v39));
   v37 = 0u;
-  v39 = 1065353216;
-  v23 = *(a1 + 232);
-  v22 = *(a1 + 240);
-  v24 = objc_loadWeakRetained((a1 + 224));
-  quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(a1, &v34);
-  memset(v33, 0, sizeof(v33));
-  v32[0] = 0;
-  v32[1] = 0;
-  v31 = v32;
-  memset(v30, 0, sizeof(v30));
-  v25 = *(a1 + 248);
-  v26 = *(a1 + 256);
-  v29[0] = v25;
-  v29[1] = v26;
-  if (v26)
+  *__p = 0u;
+  v36 = 0u;
+  v38 = 1065353216;
+  v22 = *(a1 + 232);
+  v21 = *(a1 + 240);
+  v23 = objc_loadWeakRetained((a1 + 224));
+  quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(&v33, a1);
+  memset(v32, 0, sizeof(v32));
+  v31[0] = 0;
+  v31[1] = 0;
+  v30 = v31;
+  memset(v29, 0, sizeof(v29));
+  v24 = *(a1 + 248);
+  v25 = *(a1 + 256);
+  v28[0] = v24;
+  v28[1] = v25;
+  if (v25)
   {
-    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  writeFinalChoicesToResultStream(a2, a3, a4, WeakRetained, v27, v40, __p, v23, -1000.0, 9.0, a5, a6, v22, v24, 1, a7, &v34, a9, a10, v33, &v31, v30, a11, a12, a14, 0, v29, a15);
-  if (v26)
+  writeFinalChoicesToResultStream(a2, a3, v17, WeakRetained, v26, v39, __p, v22, -1000.0, 9.0, a5, a6, v21, v23, 1, a7, &v33, a9, a10, v32, &v30, v29, a11, a13, 0, v28, a14);
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
-  v48 = v30;
-  std::vector<std::set<std::string>>::__destroy_vector::operator()[abi:ne200100](&v48);
-  std::__tree<std::string>::destroy(&v31, v32[0]);
-  v31 = v33;
-  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](&v31);
-  if (v35)
+  v47 = v29;
+  std::vector<std::set<std::string>>::__destroy_vector::operator()[abi:ne200100](&v47);
+  std::__tree<std::string>::destroy(&v30, v31[0]);
+  v30 = v32;
+  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](&v30);
+  if (v34)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
   }
 
-  if (SHIBYTE(v37) < 0)
+  if (SHIBYTE(v36) < 0)
   {
     operator delete(__p[1]);
   }
 
-  if (v45)
+  if (v44)
   {
-    *(&v45 + 1) = v45;
-    operator delete(v45);
+    *(&v44 + 1) = v44;
+    operator delete(v44);
   }
 
-  if (v43)
+  if (v42)
   {
-    *(&v43 + 1) = v43;
-    operator delete(v43);
+    *(&v42 + 1) = v42;
+    operator delete(v42);
   }
 
-  if (v41)
+  if (v40)
   {
-    *(&v41 + 1) = v41;
-    operator delete(v41);
+    *(&v40 + 1) = v40;
+    operator delete(v40);
   }
 
-  if (v40[0])
+  if (v39[0])
   {
-    v40[1] = v40[0];
-    operator delete(v40[0]);
+    v39[1] = v39[0];
+    operator delete(v39[0]);
   }
 }
 
@@ -451,17 +2240,17 @@ void sub_1B51CF3D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void writeFinalChoicesToResultStream(uint64_t *a1, uint64_t a2, unsigned int a3, void *a4, void *a5, uint64_t a6, unsigned __int8 *a7, void *a8, double a9, double a10, unsigned int a11, int a12, void *a13, void *a14, int a15, unsigned __int8 a16, uint64_t *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, char a23, unsigned __int8 a24, unsigned __int8 a25, int a26, void *a27, uint64_t a28)
+void writeFinalChoicesToResultStream(__int128 ***a1, uint64_t a2, unsigned int a3, void *a4, void *a5, uint64_t a6, unsigned __int8 *a7, void *a8, double a9, double a10, unsigned int a11, int a12, void *a13, void *a14, int a15, unsigned __int8 a16, uint64_t *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, __int16 a23, unsigned __int8 a24, int a25, uint64_t *a26, uint64_t a27)
 {
-  v298 = *MEMORY[0x1E69E9840];
-  v33 = a4;
-  v194 = a5;
-  v190 = a8;
-  v189 = a13;
-  v201 = a14;
-  v199 = v33;
-  dispatch_assert_queue_V2(v33[1]);
-  v188 = a1;
+  v297 = *MEMORY[0x1E69E9840];
+  v32 = a4;
+  v193 = a5;
+  v189 = a8;
+  v188 = a13;
+  v200 = a14;
+  v198 = v32;
+  dispatch_assert_queue_V2(v32[1]);
+  v187 = a1;
   if (*a1 == a1[1])
   {
     std::string::basic_string[abi:ne200100]<0>(&__s, "");
@@ -472,19 +2261,19 @@ void writeFinalChoicesToResultStream(uint64_t *a1, uint64_t a2, unsigned int a3,
     quasar::TextProc::GetOrthography(*a1, 0, &__s);
   }
 
-  if (v201)
+  if (v200)
   {
-    [v201 prevBestRecogText];
-    v34 = BYTE7(v221);
-    v35 = *(&__p + 1);
+    objc_msgSend_prevBestRecogText(v200);
+    v33 = BYTE7(v220);
+    v34 = *(&__p + 1);
   }
 
   else
   {
-    v35 = 0;
     v34 = 0;
+    v33 = 0;
     __p = 0uLL;
-    *&v221 = 0;
+    *&v220 = 0;
   }
 
   if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -497,15 +2286,15 @@ void writeFinalChoicesToResultStream(uint64_t *a1, uint64_t a2, unsigned int a3,
     size = __s.__r_.__value_.__l.__size_;
   }
 
-  if ((v34 & 0x80u) == 0)
+  if ((v33 & 0x80u) == 0)
   {
-    v35 = v34;
+    v34 = v33;
   }
 
-  if (size != v35 || ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_s = &__s) : (p_s = __s.__r_.__value_.__r.__words[0]), (v34 & 0x80u) == 0 ? (p_p = &__p) : (p_p = __p), memcmp(p_s, p_p, size)))
+  if (size != v34 || ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_s = &__s) : (p_s = __s.__r_.__value_.__r.__words[0]), (v33 & 0x80u) == 0 ? (p_p = &__p) : (p_p = __p), memcmp(p_s, p_p, size)))
   {
-    v193 = 0;
-    if ((v34 & 0x80) == 0)
+    v192 = 0;
+    if ((v33 & 0x80) == 0)
     {
       goto LABEL_22;
     }
@@ -513,109 +2302,109 @@ void writeFinalChoicesToResultStream(uint64_t *a1, uint64_t a2, unsigned int a3,
     goto LABEL_21;
   }
 
-  v193 = [v201 countOfIsFinalFalseAlreadyWritten] != 0;
-  if ((BYTE7(v221) & 0x80) != 0)
+  v192 = [v200 countOfIsFinalFalseAlreadyWritten] != 0;
+  if ((BYTE7(v220) & 0x80) != 0)
   {
 LABEL_21:
     operator delete(__p);
   }
 
 LABEL_22:
-  v283 = 0;
-  v284 = &v283;
-  v285 = 0x3032000000;
-  v286 = __Block_byref_object_copy__2;
-  v287 = __Block_byref_object_dispose__2;
-  v288 = 0;
-  v277 = 0;
-  v278 = &v277;
-  v279 = 0x3032000000;
-  v280 = __Block_byref_object_copy__2;
-  v281 = __Block_byref_object_dispose__2;
   v282 = 0;
-  v271 = 0;
-  v272 = &v271;
-  v273 = 0x3032000000;
-  v274 = __Block_byref_object_copy__2;
-  v275 = __Block_byref_object_dispose__2;
-  v276 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (v193)
+  v283 = &v282;
+  v284 = 0x3032000000;
+  v285 = __Block_byref_object_copy__2;
+  v286 = __Block_byref_object_dispose__2;
+  v287 = 0;
+  v276 = 0;
+  v277 = &v276;
+  v278 = 0x3032000000;
+  v279 = __Block_byref_object_copy__2;
+  v280 = __Block_byref_object_dispose__2;
+  v281 = 0;
+  v270 = 0;
+  v271 = &v270;
+  v272 = 0x3032000000;
+  v273 = __Block_byref_object_copy__2;
+  v274 = __Block_byref_object_dispose__2;
+  v275 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (v192)
   {
-    v39 = [(dispatch_queue_t *)v33 canCloneIsFinalAsLastNonFinal];
+    v38 = [(dispatch_queue_t *)v32 canCloneIsFinalAsLastNonFinal];
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
-  if ([(dispatch_queue_t *)v33 enableDRTOptimization])
+  if ([(dispatch_queue_t *)v32 enableDRTOptimization])
   {
-    if ([v190 isEqualToString:@"Dictation"])
+    if ([v189 isEqualToString:@"Dictation"])
     {
-      v40 = v193;
+      v39 = v192;
     }
 
     else
     {
-      v40 = v39;
+      v39 = v38;
     }
 
-    if (!v40)
+    if (!v39)
     {
       goto LABEL_30;
     }
   }
 
-  else if (!v39)
+  else if (!v38)
   {
 LABEL_30:
-    v195 = v33[2];
-    v265 = 0;
-    v41 = a17[1];
-    v263 = *a17;
-    v264 = v41;
-    if (v41)
+    v194 = v32[2];
+    v264 = 0;
+    v40 = a17[1];
+    v262 = *a17;
+    v263 = v40;
+    if (v40)
     {
-      atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v191 = [(dispatch_queue_t *)v33 hasUtteranceDetection];
-    v42 = [(dispatch_queue_t *)v33 concatenateUtterances];
-    v43 = [(dispatch_queue_t *)v33 itnEnablingFlags];
-    v44 = [(dispatch_queue_t *)v33 recognizeEmoji];
-    v262 = 0;
-    v45 = *(a21 + 16);
-    if (v45)
+    v190 = [(dispatch_queue_t *)v32 hasUtteranceDetection];
+    v41 = [(dispatch_queue_t *)v32 concatenateUtterances];
+    v42 = [(dispatch_queue_t *)v32 itnEnablingFlags];
+    v43 = [(dispatch_queue_t *)v32 recognizeEmoji];
+    v261 = 0;
+    v44 = *(a21 + 16);
+    if (v44)
     {
-      v46 = &v261;
+      v45 = &v260;
     }
 
     else
     {
-      v46 = 0;
+      v45 = 0;
     }
 
-    if (v45)
+    if (v44)
     {
-      v261 = 0;
+      v260 = 0;
     }
 
-    v47 = v284 + 5;
-    v260 = v284[5];
-    v48 = (v278 + 5);
-    v259 = v278[5];
-    v258 = 0;
-    v49 = v199[7];
-    v185 = [(dispatch_queue_t *)v199 relevantTextContext];
-    [(dispatch_queue_t *)v199 getParser];
-    v50 = resultPackageWithResultChoices(v188, a3, v195, a6, a7, v190, a11, v189, a9, a10, a16, &v265, &v263, v191, v42, a18, a19, a20, v43, v44, 1u, &v262, a22, v46, a23, a24, a25, &v260, &v259, &v258, v49, a26, v185, a28, [(dispatch_queue_t *)v199 continuousListeningFormatAcrossUtterances]);
-    v192 = v265;
-    v196 = v262;
-    v198 = v50;
-    if (v45)
+    v46 = v283 + 5;
+    v259 = v283[5];
+    v47 = (v277 + 5);
+    v258 = v277[5];
+    v257 = 0;
+    v48 = v198[7];
+    v184 = [(dispatch_queue_t *)v198 relevantTextContext];
+    objc_msgSend_getParser(v198);
+    v49 = resultPackageWithResultChoices(v187, a3, v194, a6, a7, v189, a11, v188, a9, a10, a16, &v264, &v262, v190, v41, a18, a19, a20, v42, v43, 1u, &v261, a22, v45, a23, HIBYTE(a23), a24, &v259, &v258, &v257, v48, a25, v184, a27, [(dispatch_queue_t *)v198 continuousListeningFormatAcrossUtterances]);
+    v191 = v264;
+    v195 = v261;
+    v197 = v49;
+    if (v44)
     {
-      obja = v261;
+      obja = v260;
     }
 
     else
@@ -623,205 +2412,205 @@ LABEL_30:
       obja = 0;
     }
 
-    objc_storeStrong(v47, v260);
-    objc_storeStrong(v48, v259);
-    v187 = v258;
-    if (v257)
+    objc_storeStrong(v46, v259);
+    objc_storeStrong(v47, v258);
+    v186 = v257;
+    if (v256)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v257);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v256);
     }
 
-    if (v264)
+    if (v263)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v264);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v263);
     }
 
-    [v272[5] addObjectsFromArray:v187];
-    v52 = [(_EARSpeechRecognitionResultPackage *)v50 hasNonEmptyToken];
-    v255 = 0u;
-    v256 = 0u;
-    v253 = 0u;
+    [v271[5] addObjectsFromArray:v186];
+    v51 = [(_EARSpeechRecognitionResultPackage *)v49 hasNonEmptyToken];
     v254 = 0u;
+    v255 = 0u;
+    v252 = 0u;
+    v253 = 0u;
     objb = obja;
-    v86 = [objb countByEnumeratingWithState:&v253 objects:v296 count:16];
-    if (v86)
+    v85 = [objb countByEnumeratingWithState:&v252 objects:v295 count:16];
+    if (v85)
     {
-      v87 = *v254;
+      v86 = *v253;
       do
       {
-        for (i = 0; i != v86; ++i)
+        for (i = 0; i != v85; ++i)
         {
-          if (*v254 != v87)
+          if (*v253 != v86)
           {
             objc_enumerationMutation(objb);
           }
 
-          v89 = [objb objectForKeyedSubscript:*(*(&v253 + 1) + 8 * i)];
-          v90 = [v89 hasNonEmptyToken];
+          v88 = [objb objectForKeyedSubscript:*(*(&v252 + 1) + 8 * i)];
+          v89 = [v88 hasNonEmptyToken];
 
-          v52 |= v90;
+          v51 |= v89;
         }
 
-        v86 = [objb countByEnumeratingWithState:&v253 objects:v296 count:16];
+        v85 = [objb countByEnumeratingWithState:&v252 objects:v295 count:16];
       }
 
-      while (v86);
+      while (v85);
     }
 
     if (objb)
     {
-      v91 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v251 = 0u;
-      v252 = 0u;
-      v249 = 0u;
+      v90 = objc_alloc_init(MEMORY[0x1E695DF90]);
       v250 = 0u;
-      v92 = objb;
-      v93 = [v92 countByEnumeratingWithState:&v249 objects:v295 count:16];
-      if (v93)
+      v251 = 0u;
+      v248 = 0u;
+      v249 = 0u;
+      v91 = objb;
+      v92 = [v91 countByEnumeratingWithState:&v248 objects:v294 count:16];
+      if (v92)
       {
-        v94 = *v250;
+        v93 = *v249;
         do
         {
-          for (j = 0; j != v93; ++j)
+          for (j = 0; j != v92; ++j)
           {
-            if (*v250 != v94)
+            if (*v249 != v93)
             {
-              objc_enumerationMutation(v92);
+              objc_enumerationMutation(v91);
             }
 
-            v96 = *(*(&v249 + 1) + 8 * j);
-            v97 = [v92 objectForKeyedSubscript:v96];
-            v98 = [v97 copy];
-            [v91 setObject:v98 forKeyedSubscript:v96];
+            v95 = *(*(&v248 + 1) + 8 * j);
+            v96 = [v91 objectForKeyedSubscript:v95];
+            v97 = [v96 copy];
+            [v90 setObject:v97 forKeyedSubscript:v95];
           }
 
-          v93 = [v92 countByEnumeratingWithState:&v249 objects:v295 count:16];
+          v92 = [v91 countByEnumeratingWithState:&v248 objects:v294 count:16];
         }
 
-        while (v93);
+        while (v92);
       }
 
-      v99 = v91;
+      v98 = v90;
     }
 
     else
     {
-      v99 = 0;
+      v98 = 0;
     }
 
-    [v201 setAnyResults:v52 & 1];
-    v113 = [(_EARSpeechRecognitionResultPackage *)v198 copy];
-    [v201 setPrevPackage:v113];
+    [v200 setAnyResults:v51 & 1];
+    v112 = [(_EARSpeechRecognitionResultPackage *)v197 copy];
+    [v200 setPrevPackage:v112];
 
-    [v201 setPrevMuxPackages:v99];
+    [v200 setPrevMuxPackages:v98];
     if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v248, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v247, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v248 = __s;
+      v247 = __s;
     }
 
-    [v201 setPrevBestRecogText:&v248];
-    if (SHIBYTE(v248.__r_.__value_.__r.__words[2]) < 0)
+    [v200 setPrevBestRecogText:&v247];
+    if (SHIBYTE(v247.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v248.__r_.__value_.__l.__data_);
+      operator delete(v247.__r_.__value_.__l.__data_);
     }
 
-    [v201 setPrevPackageWithoutPersonalization:v196];
+    [v200 setPrevPackageWithoutPersonalization:v195];
     if ((a3 & 1) == 0)
     {
-      [v201 incrementCountOfIsFinalFalseAlreadyWritten];
+      [v200 incrementCountOfIsFinalFalseAlreadyWritten];
     }
 
     goto LABEL_83;
   }
 
-  v51 = [v201 prevPackage];
-  v52 = [v201 anyResults];
-  [(_EARSpeechRecognitionResultPackage *)v51 setIsFinal:a3];
-  v53 = v33[2];
-  v270[0] = MEMORY[0x1E69E9820];
-  v270[1] = 3221225472;
-  v270[2] = ___ZL31writeFinalChoicesToResultStreamRKNSt3__16vectorINS0_IN6quasar5TokenENS_9allocatorIS2_EEEENS3_IS5_EEEERKNS0_IdNS3_IdEEEEbP20_EARSpeechRecognizerPU44objcproto33_EARSpeechRecognitionResultStream11objc_objectRKNS1_14AudioAnalyticsERKNS1_20LatnnMitigatorResultEdP8NSStringjjSP_P17_EARResultContextNS1_21RecogResultStreamBase11RecogStatusEbRKS5_NS_10shared_ptrINS1_25ContinuousListeningConfigEEESV_RS7_RKNS0_INS1_11ItnOverrideENS3_IS10_EEEERKNS_3setINS_12basic_stringIcNS_11char_traitsIcEENS3_IcEEEENS_4lessIS1A_EENS3_IS1A_EEEERKNS0_IS1E_NS3_IS1E_EEEEbbSV_bdiNSW_INS1_14result_handler13ResultHandlerEEERK14FormattingInfo_block_invoke;
-  v270[3] = &unk_1E7C1A638;
-  v270[4] = &v283;
-  v270[5] = &v277;
-  v270[6] = &v271;
-  [v53 setItnMetricsWithCompletion:v270];
-  v198 = v51;
-  v54 = [(_EARSpeechRecognitionResultPackage *)v51 recognition];
-  v55 = [v54 tokenSausage];
-  v56 = (a12 + a11) / 1000.0;
-  v57 = tokenSausageWithExtendedEndTime(v55, v56);
-  v58 = [(_EARSpeechRecognitionResultPackage *)v198 recognition];
-  [v58 setTokenSausage:v57];
+  v50 = [v200 prevPackage];
+  v51 = [v200 anyResults];
+  [(_EARSpeechRecognitionResultPackage *)v50 setIsFinal:a3];
+  v52 = v32[2];
+  v269[0] = MEMORY[0x1E69E9820];
+  v269[1] = 3221225472;
+  v269[2] = ___ZL31writeFinalChoicesToResultStreamRKNSt3__16vectorINS0_IN6quasar5TokenENS_9allocatorIS2_EEEENS3_IS5_EEEERKNS0_IdNS3_IdEEEEbP20_EARSpeechRecognizerPU44objcproto33_EARSpeechRecognitionResultStream11objc_objectRKNS1_14AudioAnalyticsERKNS1_20LatnnMitigatorResultEdP8NSStringjjSP_P17_EARResultContextNS1_21RecogResultStreamBase11RecogStatusEbRKS5_NS_10shared_ptrINS1_25ContinuousListeningConfigEEESV_RS7_RKNS0_INS1_11ItnOverrideENS3_IS10_EEEERKNS_3setINS_12basic_stringIcNS_11char_traitsIcEENS3_IcEEEENS_4lessIS1A_EENS3_IS1A_EEEERKNS0_IS1E_NS3_IS1E_EEEEbbSV_bdiNSW_INS1_14result_handler13ResultHandlerEEERK14FormattingInfo_block_invoke;
+  v269[3] = &unk_1E7C1A638;
+  v269[4] = &v282;
+  v269[5] = &v276;
+  v269[6] = &v270;
+  [v52 setItnMetricsWithCompletion:v269];
+  v197 = v50;
+  v53 = [(_EARSpeechRecognitionResultPackage *)v50 recognition];
+  v54 = [v53 tokenSausage];
+  v55 = (a12 + a11) / 1000.0;
+  v56 = tokenSausageWithExtendedEndTime(v54, v55);
+  v57 = [(_EARSpeechRecognitionResultPackage *)v197 recognition];
+  [v57 setTokenSausage:v56];
 
-  v59 = [(_EARSpeechRecognitionResultPackage *)v198 preITNRecognition];
-  v60 = [v59 tokenSausage];
-  v61 = tokenSausageWithExtendedEndTime(v60, v56);
-  v62 = [(_EARSpeechRecognitionResultPackage *)v198 preITNRecognition];
-  [v62 setTokenSausage:v61];
+  v58 = [(_EARSpeechRecognitionResultPackage *)v197 preITNRecognition];
+  v59 = [v58 tokenSausage];
+  v60 = tokenSausageWithExtendedEndTime(v59, v55);
+  v61 = [(_EARSpeechRecognitionResultPackage *)v197 preITNRecognition];
+  [v61 setTokenSausage:v60];
 
-  v63 = [(_EARSpeechRecognitionResultPackage *)v198 unrepairedRecognition];
-  v64 = [v63 tokenSausage];
-  v65 = tokenSausageWithExtendedEndTime(v64, v56);
-  v66 = [(_EARSpeechRecognitionResultPackage *)v198 unrepairedRecognition];
-  [v66 setTokenSausage:v65];
+  v62 = [(_EARSpeechRecognitionResultPackage *)v197 unrepairedRecognition];
+  v63 = [v62 tokenSausage];
+  v64 = tokenSausageWithExtendedEndTime(v63, v55);
+  v65 = [(_EARSpeechRecognitionResultPackage *)v197 unrepairedRecognition];
+  [v65 setTokenSausage:v64];
 
-  [(_EARSpeechRecognitionResultPackage *)v198 setFirstResultAfterResume:0];
-  [(_EARSpeechRecognitionResultPackage *)v198 setRecognitionPaused:a24];
+  [(_EARSpeechRecognitionResultPackage *)v197 setFirstResultAfterResume:0];
+  [(_EARSpeechRecognitionResultPackage *)v197 setRecognitionPaused:HIBYTE(a23)];
   if (*(a21 + 16))
   {
-    v67 = [v201 prevMuxPackages];
-    v268 = 0u;
-    v269 = 0u;
-    v266 = 0u;
+    v66 = [v200 prevMuxPackages];
     v267 = 0u;
-    objb = v67;
-    v68 = [objb countByEnumeratingWithState:&v266 objects:v297 count:16];
-    if (v68)
+    v268 = 0u;
+    v265 = 0u;
+    v266 = 0u;
+    objb = v66;
+    v67 = [objb countByEnumeratingWithState:&v265 objects:v296 count:16];
+    if (v67)
     {
-      v69 = *v267;
+      v68 = *v266;
       do
       {
-        for (k = 0; k != v68; ++k)
+        for (k = 0; k != v67; ++k)
         {
-          if (*v267 != v69)
+          if (*v266 != v68)
           {
             objc_enumerationMutation(objb);
           }
 
-          v71 = *(*(&v266 + 1) + 8 * k);
-          v72 = [v201 prevMuxPackages];
-          v73 = [v72 objectForKeyedSubscript:v71];
+          v70 = *(*(&v265 + 1) + 8 * k);
+          v71 = [v200 prevMuxPackages];
+          v72 = [v71 objectForKeyedSubscript:v70];
 
-          [v73 setIsFinal:a3];
-          v74 = [v73 recognition];
-          v75 = [v74 tokenSausage];
-          v76 = tokenSausageWithExtendedEndTime(v75, v56);
-          v77 = [v73 recognition];
-          [v77 setTokenSausage:v76];
+          [v72 setIsFinal:a3];
+          v73 = [v72 recognition];
+          v74 = [v73 tokenSausage];
+          v75 = tokenSausageWithExtendedEndTime(v74, v55);
+          v76 = [v72 recognition];
+          [v76 setTokenSausage:v75];
 
-          v78 = [v73 preITNRecognition];
-          v79 = [v78 tokenSausage];
-          v80 = tokenSausageWithExtendedEndTime(v79, v56);
-          v81 = [v73 preITNRecognition];
-          [v81 setTokenSausage:v80];
+          v77 = [v72 preITNRecognition];
+          v78 = [v77 tokenSausage];
+          v79 = tokenSausageWithExtendedEndTime(v78, v55);
+          v80 = [v72 preITNRecognition];
+          [v80 setTokenSausage:v79];
 
-          v82 = [v73 unrepairedRecognition];
-          v83 = [v82 tokenSausage];
-          v84 = tokenSausageWithExtendedEndTime(v83, v56);
-          v85 = [v73 unrepairedRecognition];
-          [v85 setTokenSausage:v84];
+          v81 = [v72 unrepairedRecognition];
+          v82 = [v81 tokenSausage];
+          v83 = tokenSausageWithExtendedEndTime(v82, v55);
+          v84 = [v72 unrepairedRecognition];
+          [v84 setTokenSausage:v83];
         }
 
-        v68 = [objb countByEnumeratingWithState:&v266 objects:v297 count:16];
+        v67 = [objb countByEnumeratingWithState:&v265 objects:v296 count:16];
       }
 
-      while (v68);
+      while (v67);
     }
   }
 
@@ -830,152 +2619,152 @@ LABEL_30:
     objb = 0;
   }
 
-  v100 = [v201 prevPackageWithoutPersonalization];
-  [v100 setIsFinal:a3];
-  v101 = [v100 recognition];
-  v196 = v100;
-  v102 = [v101 tokenSausage];
-  v103 = tokenSausageWithExtendedEndTime(v102, v56);
-  v104 = [v196 recognition];
-  [v104 setTokenSausage:v103];
+  v99 = [v200 prevPackageWithoutPersonalization];
+  [v99 setIsFinal:a3];
+  v100 = [v99 recognition];
+  v195 = v99;
+  v101 = [v100 tokenSausage];
+  v102 = tokenSausageWithExtendedEndTime(v101, v55);
+  v103 = [v195 recognition];
+  [v103 setTokenSausage:v102];
 
-  v105 = [v196 preITNRecognition];
-  v106 = [v105 tokenSausage];
-  v107 = tokenSausageWithExtendedEndTime(v106, v56);
-  v108 = [v196 preITNRecognition];
-  [v108 setTokenSausage:v107];
+  v104 = [v195 preITNRecognition];
+  v105 = [v104 tokenSausage];
+  v106 = tokenSausageWithExtendedEndTime(v105, v55);
+  v107 = [v195 preITNRecognition];
+  [v107 setTokenSausage:v106];
 
-  v109 = [v196 unrepairedRecognition];
-  v110 = [v109 tokenSausage];
-  v111 = tokenSausageWithExtendedEndTime(v110, v56);
-  v112 = [v196 unrepairedRecognition];
-  [v112 setTokenSausage:v111];
+  v108 = [v195 unrepairedRecognition];
+  v109 = [v108 tokenSausage];
+  v110 = tokenSausageWithExtendedEndTime(v109, v55);
+  v111 = [v195 unrepairedRecognition];
+  [v111 setTokenSausage:v110];
 
-  [v196 setFirstResultAfterResume:0];
-  [v196 setRecognitionPaused:a24];
-  v192 = 0;
+  [v195 setFirstResultAfterResume:0];
+  [v195 setRecognitionPaused:HIBYTE(a23)];
+  v191 = 0;
 LABEL_83:
-  if (a15 != 1 || (a3 & 1) == 0 || v193)
+  if (a15 != 1 || (a3 & 1) == 0 || v192)
   {
-    v114 = 0;
+    v113 = 0;
   }
 
   else
   {
-    v114 = [(dispatch_queue_t *)v199 canCloneIsFinalAsLastNonFinal];
+    v113 = [(dispatch_queue_t *)v198 canCloneIsFinalAsLastNonFinal];
   }
 
   if (quasar::gLogLevel >= 5)
   {
     if (*(a21 + 16))
     {
-      v246 = 0u;
-      v247 = 0u;
-      v244 = 0u;
       v245 = 0u;
-      v115 = objb;
-      v116 = [v115 countByEnumeratingWithState:&v244 objects:v294 count:16];
-      if (v116)
+      v246 = 0u;
+      v243 = 0u;
+      v244 = 0u;
+      v114 = objb;
+      v115 = [v114 countByEnumeratingWithState:&v243 objects:v293 count:16];
+      if (v115)
       {
-        v117 = *v245;
+        v116 = *v244;
         do
         {
-          for (m = 0; m != v116; ++m)
+          for (m = 0; m != v115; ++m)
           {
-            if (*v245 != v117)
+            if (*v244 != v116)
             {
-              objc_enumerationMutation(v115);
+              objc_enumerationMutation(v114);
             }
 
-            v119 = *(*(&v244 + 1) + 8 * m);
-            v120 = [v115 objectForKeyedSubscript:v119];
-            logPackageToQuasarDebug(v120, v119, 0);
+            v118 = *(*(&v243 + 1) + 8 * m);
+            v119 = [v114 objectForKeyedSubscript:v118];
+            logPackageToQuasarDebug(v119, v118, 0);
           }
 
-          v116 = [v115 countByEnumeratingWithState:&v244 objects:v294 count:16];
+          v115 = [v114 countByEnumeratingWithState:&v243 objects:v293 count:16];
         }
 
-        while (v116);
+        while (v115);
       }
     }
 
     else
     {
-      logPackageToQuasarDebug(v198, 0, 0);
+      logPackageToQuasarDebug(v197, 0, 0);
     }
   }
 
-  if ((v52 & 1) == 0 && ![(_EARSpeechRecognitionResultPackage *)v198 recognitionPaused])
+  if ((v51 & 1) == 0 && ![(_EARSpeechRecognitionResultPackage *)v197 recognitionPaused])
   {
     goto LABEL_151;
   }
 
-  v121 = *(a21 + 16);
-  if (!v121)
+  v120 = *(a21 + 16);
+  if (!v120)
   {
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
       if (objc_opt_respondsToSelector())
       {
-        v140 = [(_EARSpeechRecognitionResultPackage *)v198 nBestResults];
-        v141 = [(_EARSpeechRecognitionResultPackage *)v198 recognition];
-        v142 = [v141 tokenSausage];
-        v143 = [(_EARSpeechRecognitionResultPackage *)v198 recognition];
-        v144 = [v143 interpretationIndices];
-        [v194 speechRecognizer:v199 didRecognizeFinalResults:v140 tokenSausage:v142 nBestChoices:v144];
+        v139 = [(_EARSpeechRecognitionResultPackage *)v197 nBestResults];
+        v140 = [(_EARSpeechRecognitionResultPackage *)v197 recognition];
+        v141 = [v140 tokenSausage];
+        v142 = [(_EARSpeechRecognitionResultPackage *)v197 recognition];
+        v143 = [v142 interpretationIndices];
+        [v193 speechRecognizer:v198 didRecognizeFinalResults:v139 tokenSausage:v141 nBestChoices:v143];
       }
 
       else
       {
-        v145 = [(_EARSpeechRecognitionResultPackage *)v198 nBestResults];
-        [v194 speechRecognizer:v199 didRecognizeFinalResults:v145];
+        v144 = [(_EARSpeechRecognitionResultPackage *)v197 nBestResults];
+        [v193 speechRecognizer:v198 didRecognizeFinalResults:v144];
       }
 
       goto LABEL_151;
     }
 
-    if (v114)
+    if (v113)
     {
-      v139 = [(_EARSpeechRecognitionResultPackage *)v198 copy];
-      [v139 setIsFinal:0];
-      [v194 speechRecognizer:v199 didRecognizeFinalResultPackage:v139];
+      v138 = [(_EARSpeechRecognitionResultPackage *)v197 copy];
+      [v138 setIsFinal:0];
+      [v193 speechRecognizer:v198 didRecognizeFinalResultPackage:v138];
     }
 
-    if (*a27)
+    if (*a26)
     {
-      EARPackageToRHPackage(v198);
+      EARPackageToRHPackage(v197);
     }
 
-    if ([(dispatch_queue_t *)v199 hasUtteranceDetection])
+    if ([(dispatch_queue_t *)v198 hasUtteranceDetection])
     {
-      if (![(dispatch_queue_t *)v199 concatenateUtterances]|| (a3 & 1) != 0)
+      if (![(dispatch_queue_t *)v198 concatenateUtterances]|| (a3 & 1) != 0)
       {
 LABEL_144:
-        if (v201)
+        if (v200)
         {
-          [v201 partialResults];
+          objc_msgSend_partialResults(v200);
         }
 
         else
         {
           __p = 0uLL;
-          *&v221 = 0;
+          *&v220 = 0;
         }
 
-        v146 = *v188;
-        v147 = v188[1];
-        *&v217 = 0;
-        v216 = 0uLL;
-        if (v146 != v147)
+        v145 = *v187;
+        v146 = v187[1];
+        *&v216 = 0;
+        v215 = 0uLL;
+        if (v145 != v146)
         {
-          std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v216, *v146, v146[1], 0x6DB6DB6DB6DB6DB7 * ((v146[1] - *v146) >> 5));
+          std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v215, *v145, *(v145 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v145 + 8) - *v145) >> 5));
         }
 
-        -[_EARSpeechRecognitionResultPackage setCorrectPartialResultIndexList:oneBestFinalResult:partialResultIndexOffset:](v198, "setCorrectPartialResultIndexList:oneBestFinalResult:partialResultIndexOffset:", &__p, &v216, [v201 partialResultIndexOffset]);
-        v233 = &v216;
-        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v233);
-        *&v216 = &__p;
-        std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v216);
+        -[_EARSpeechRecognitionResultPackage setCorrectPartialResultIndexList:oneBestFinalResult:partialResultIndexOffset:](v197, "setCorrectPartialResultIndexList:oneBestFinalResult:partialResultIndexOffset:", &__p, &v215, [v200 partialResultIndexOffset]);
+        v232 = &v215;
+        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v232);
+        *&v215 = &__p;
+        std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v215);
       }
     }
 
@@ -984,80 +2773,80 @@ LABEL_144:
       goto LABEL_144;
     }
 
-    [v194 speechRecognizer:v199 didRecognizeFinalResultPackage:v198];
+    [v193 speechRecognizer:v198 didRecognizeFinalResultPackage:v197];
     goto LABEL_151;
   }
 
-  if (v121 != [objb count])
+  if (v120 != [objb count])
   {
-    v183 = [MEMORY[0x1E696AAA8] currentHandler];
-    v184 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void writeFinalChoicesToResultStream(const std::vector<std::vector<Token>> &, const std::vector<double> &, BOOL, _EARSpeechRecognizer *__strong, __strong id<_EARSpeechRecognitionResultStream>, const AudioAnalytics &, const LatnnMitigatorResult &, const double, NSString *__strong, const unsigned int, const unsigned int, NSString *__strong, _EARResultContext *__strong, RecogResultStreamBase::RecogStatus, BOOL, const std::vector<Token> &, std::shared_ptr<ContinuousListeningConfig>, const std::vector<Token> &, std::vector<std::vector<Token>> &, const std::vector<quasar::ItnOverride> &, const std::set<std::string> &, const std::vector<std::set<std::string>> &, BOOL, BOOL, const std::vector<quasar::Token> &, BOOL, double, int, std::shared_ptr<result_handler::ResultHandler>, const FormattingInfo &)"}];
-    [v183 handleFailureInFunction:v184 file:@"EARSpeechRecognizer.mm" lineNumber:2558 description:{@"There are results, but not every user has results"}];
+    v182 = [MEMORY[0x1E696AAA8] currentHandler];
+    v183 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void writeFinalChoicesToResultStream(const std::vector<std::vector<Token>> &, const std::vector<double> &, BOOL, _EARSpeechRecognizer *__strong, __strong id<_EARSpeechRecognitionResultStream>, const AudioAnalytics &, const LatnnMitigatorResult &, const double, NSString *__strong, const unsigned int, const unsigned int, NSString *__strong, _EARResultContext *__strong, RecogResultStreamBase::RecogStatus, BOOL, const std::vector<Token> &, std::shared_ptr<ContinuousListeningConfig>, const std::vector<Token> &, std::vector<std::vector<Token>> &, const std::vector<quasar::ItnOverride> &, const std::set<std::string> &, const std::vector<std::set<std::string>> &, BOOL, BOOL, const std::vector<quasar::Token> &, BOOL, double, int, std::shared_ptr<result_handler::ResultHandler>, const FormattingInfo &)"}];
+    [v182 handleFailureInFunction:v183 file:@"EARSpeechRecognizer.mm" lineNumber:2558 description:{@"There are results, but not every user has results"}];
   }
 
   if (objc_opt_respondsToSelector())
   {
-    if (v114)
+    if (v113)
     {
-      v122 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v242 = 0u;
-      v243 = 0u;
-      v240 = 0u;
+      v121 = objc_alloc_init(MEMORY[0x1E695DF90]);
       v241 = 0u;
-      v123 = objb;
-      v124 = [v123 countByEnumeratingWithState:&v240 objects:v293 count:16];
-      if (v124)
+      v242 = 0u;
+      v239 = 0u;
+      v240 = 0u;
+      v122 = objb;
+      v123 = [v122 countByEnumeratingWithState:&v239 objects:v292 count:16];
+      if (v123)
       {
-        v125 = *v241;
+        v124 = *v240;
         do
         {
-          for (n = 0; n != v124; ++n)
+          for (n = 0; n != v123; ++n)
           {
-            if (*v241 != v125)
+            if (*v240 != v124)
             {
-              objc_enumerationMutation(v123);
+              objc_enumerationMutation(v122);
             }
 
-            v127 = *(*(&v240 + 1) + 8 * n);
-            v128 = [v123 objectForKeyedSubscript:v127];
-            v129 = [v128 copy];
+            v126 = *(*(&v239 + 1) + 8 * n);
+            v127 = [v122 objectForKeyedSubscript:v126];
+            v128 = [v127 copy];
 
-            [v129 setIsFinal:0];
-            [v122 setObject:v129 forKeyedSubscript:v127];
+            [v128 setIsFinal:0];
+            [v121 setObject:v128 forKeyedSubscript:v126];
           }
 
-          v124 = [v123 countByEnumeratingWithState:&v240 objects:v293 count:16];
+          v123 = [v122 countByEnumeratingWithState:&v239 objects:v292 count:16];
         }
 
-        while (v124);
+        while (v123);
       }
 
-      v130 = [(dispatch_queue_t *)v199 _unmaskMuxPackages:v122];
-      [v194 speechRecognizer:v199 didRecognizeFinalResultMultiUserPackages:v130];
+      v129 = [(dispatch_queue_t *)v198 _unmaskMuxPackages:v121];
+      [v193 speechRecognizer:v198 didRecognizeFinalResultMultiUserPackages:v129];
     }
 
-    v238 = 0u;
-    v239 = 0u;
-    v236 = 0u;
     v237 = 0u;
-    v131 = objb;
-    v132 = [v131 countByEnumeratingWithState:&v236 objects:v292 count:16];
-    if (v132)
+    v238 = 0u;
+    v235 = 0u;
+    v236 = 0u;
+    v130 = objb;
+    v131 = [v130 countByEnumeratingWithState:&v235 objects:v291 count:16];
+    if (v131)
     {
-      v133 = *v237;
+      v132 = *v236;
       do
       {
-        for (ii = 0; ii != v132; ++ii)
+        for (ii = 0; ii != v131; ++ii)
         {
-          if (*v237 != v133)
+          if (*v236 != v132)
           {
-            objc_enumerationMutation(v131);
+            objc_enumerationMutation(v130);
           }
 
-          v135 = *(*(&v236 + 1) + 8 * ii);
-          if ([(dispatch_queue_t *)v199 hasUtteranceDetection])
+          v134 = *(*(&v235 + 1) + 8 * ii);
+          if ([(dispatch_queue_t *)v198 hasUtteranceDetection])
           {
-            if ([(dispatch_queue_t *)v199 concatenateUtterances]&& (a3 & 1) == 0)
+            if ([(dispatch_queue_t *)v198 concatenateUtterances]&& (a3 & 1) == 0)
             {
               continue;
             }
@@ -1068,133 +2857,133 @@ LABEL_144:
             continue;
           }
 
-          v136 = [v131 objectForKeyedSubscript:v135];
-          v137 = [v136 preITNRecognition];
-          EARHelpers::QuasarNbestFromEARSpeechRecognition(v137, &__p);
+          v135 = [v130 objectForKeyedSubscript:v134];
+          v136 = [v135 preITNRecognition];
+          EARHelpers::QuasarNbestFromEARSpeechRecognition(&__p, v136);
 
-          if (v201)
+          if (v200)
           {
-            [v201 partialResults];
+            objc_msgSend_partialResults(v200);
           }
 
           else
           {
-            v216 = 0uLL;
-            *&v217 = 0;
+            v215 = 0uLL;
+            *&v216 = 0;
           }
 
-          v235 = 0;
-          v233 = 0;
           v234 = 0;
+          v232 = 0;
+          v233 = 0;
           if (__p != *(&__p + 1))
           {
-            std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v233, *__p, *(__p + 8), 0x6DB6DB6DB6DB6DB7 * ((*(__p + 8) - *__p) >> 5));
+            std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v232, *__p, *(__p + 8), 0x6DB6DB6DB6DB6DB7 * ((*(__p + 8) - *__p) >> 5));
           }
 
-          [v136 setCorrectPartialResultIndexList:&v216 oneBestFinalResult:&v233 partialResultIndexOffset:{objc_msgSend(v201, "partialResultIndexOffset")}];
-          v215[0] = &v233;
-          std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v215);
-          v233 = &v216;
-          std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v233);
-          *&v216 = &__p;
-          std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v216);
+          [v135 setCorrectPartialResultIndexList:&v215 oneBestFinalResult:&v232 partialResultIndexOffset:{objc_msgSend(v200, "partialResultIndexOffset")}];
+          v214[0] = &v232;
+          std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v214);
+          v232 = &v215;
+          std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v232);
+          *&v215 = &__p;
+          std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v215);
         }
 
-        v132 = [v131 countByEnumeratingWithState:&v236 objects:v292 count:16];
+        v131 = [v130 countByEnumeratingWithState:&v235 objects:v291 count:16];
       }
 
-      while (v132);
+      while (v131);
     }
 
-    v138 = [(dispatch_queue_t *)v199 _unmaskMuxPackages:v131];
-    [v194 speechRecognizer:v199 didRecognizeFinalResultMultiUserPackages:v138];
+    v137 = [(dispatch_queue_t *)v198 _unmaskMuxPackages:v130];
+    [v193 speechRecognizer:v198 didRecognizeFinalResultMultiUserPackages:v137];
   }
 
 LABEL_151:
-  if ((a24 & 1) == 0 && [(dispatch_queue_t *)v199 hasUtteranceDetection]&& ([(dispatch_queue_t *)v199 concatenateUtterances]& 1) == 0)
+  if ((a23 & 0x100) == 0 && [(dispatch_queue_t *)v198 hasUtteranceDetection]&& ([(dispatch_queue_t *)v198 concatenateUtterances]& 1) == 0)
   {
-    v148 = [(_EARSpeechRecognitionResultPackage *)v198 recognition];
-    v149 = [v148 oneBest];
+    v147 = [(_EARSpeechRecognitionResultPackage *)v197 recognition];
+    v148 = [v147 oneBest];
 
-    v150 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v231 = 0u;
-    v232 = 0u;
-    v229 = 0u;
+    v149 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v230 = 0u;
-    v151 = [(_EARSpeechRecognitionResultPackage *)v198 preITNRecognition];
-    v152 = [v151 oneBest];
+    v231 = 0u;
+    v228 = 0u;
+    v229 = 0u;
+    v150 = [(_EARSpeechRecognitionResultPackage *)v197 preITNRecognition];
+    v151 = [v150 oneBest];
 
-    v153 = [v152 countByEnumeratingWithState:&v229 objects:v291 count:16];
-    if (v153)
+    v152 = [v151 countByEnumeratingWithState:&v228 objects:v290 count:16];
+    if (v152)
     {
-      v154 = *v230;
+      v153 = *v229;
       do
       {
-        for (jj = 0; jj != v153; ++jj)
+        for (jj = 0; jj != v152; ++jj)
         {
-          if (*v230 != v154)
+          if (*v229 != v153)
           {
-            objc_enumerationMutation(v152);
+            objc_enumerationMutation(v151);
           }
 
-          v156 = [*(*(&v229 + 1) + 8 * jj) tokenName];
-          [v150 addObject:v156];
+          v155 = [*(*(&v228 + 1) + 8 * jj) tokenName];
+          [v149 addObject:v155];
         }
 
-        v153 = [v152 countByEnumeratingWithState:&v229 objects:v291 count:16];
+        v152 = [v151 countByEnumeratingWithState:&v228 objects:v290 count:16];
       }
 
-      while (v153);
+      while (v152);
     }
 
-    v157 = [(dispatch_queue_t *)v199 relevantTextContext];
-    v158 = EARHelpers::EarTokensToNSString(v149);
-    [v157 appendToLeftContext:v158 preItnLeftContext:v150];
+    v156 = [(dispatch_queue_t *)v198 relevantTextContext];
+    v157 = EARHelpers::EarTokensToNSString(v148);
+    [v156 appendToLeftContext:v157 preItnLeftContext:v149];
 
-    v159 = [v149 lastObject];
-    LOBYTE(v158) = v159 == 0;
+    v158 = [v148 lastObject];
+    LOBYTE(v157) = v158 == 0;
 
-    if ((v158 & 1) == 0)
+    if ((v157 & 1) == 0)
     {
-      v160 = [(dispatch_queue_t *)v199 relevantTextContext];
-      v161 = [v149 lastObject];
-      [v160 setLeftContextEndsWithAppendedAutoPunctuation:{objc_msgSend(v161, "appendedAutoPunctuation")}];
+      v159 = [(dispatch_queue_t *)v198 relevantTextContext];
+      v160 = [v148 lastObject];
+      [v159 setLeftContextEndsWithAppendedAutoPunctuation:{objc_msgSend(v160, "appendedAutoPunctuation")}];
     }
   }
 
-  if ([(dispatch_queue_t *)v199 hasUtteranceDetection]&& ([(dispatch_queue_t *)v199 concatenateUtterances]& 1) == 0)
+  if ([(dispatch_queue_t *)v198 hasUtteranceDetection]&& ([(dispatch_queue_t *)v198 concatenateUtterances]& 1) == 0)
   {
-    [v201 updateLoggableResultWithCurrentResult:v188 currentCosts:a2 startMilliseconds:a11];
-    [v201 resetPartialResultContext];
+    [v200 updateLoggableResultWithCurrentResult:v187 currentCosts:a2 startMilliseconds:a11];
+    [v200 resetPartialResultContext];
   }
 
-  v162 = [(_EARSpeechRecognitionResult *)v192 tokens];
-  if ([v162 count])
+  v161 = [(_EARSpeechRecognitionResult *)v191 tokens];
+  if ([v161 count])
   {
-    v163 = [(_EARSpeechRecognitionResultPackage *)v198 recognitionPaused];
+    v162 = [(_EARSpeechRecognitionResultPackage *)v197 recognitionPaused];
 
-    if (!v163)
+    if (!v162)
     {
-      if (*a27)
+      if (*a26)
       {
-        EARResultToRHPackage(v192);
+        EARResultToRHPackage(v191);
       }
 
-      [v194 speechRecognizer:v199 didRecognizePartialResult:v192];
-      if (v192)
+      [v193 speechRecognizer:v198 didRecognizePartialResult:v191];
+      if (v191)
       {
-        [(_EARSpeechRecognitionResult *)v192 quasarPreItnTokens];
+        objc_msgSend_quasarPreItnTokens(v191);
       }
 
       else
       {
         __p = 0uLL;
-        *&v221 = 0;
+        *&v220 = 0;
       }
 
-      [v201 addPartialResultToContext:&__p];
-      *&v216 = &__p;
-      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v216);
+      [v200 addPartialResultToContext:&__p];
+      *&v215 = &__p;
+      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v215);
     }
   }
 
@@ -1208,151 +2997,151 @@ LABEL_151:
     {
       if (objb && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        v164 = [(dispatch_queue_t *)v199 _unmaskMuxPackages:objb];
-        [v194 speechRecognizer:v199 didProduceLoggableMultiUserPackages:v164];
+        v163 = [(dispatch_queue_t *)v198 _unmaskMuxPackages:objb];
+        [v193 speechRecognizer:v198 didProduceLoggableMultiUserPackages:v163];
       }
     }
 
-    else if (v198 && (objc_opt_respondsToSelector() & 1) != 0)
+    else if (v197 && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      if ([(dispatch_queue_t *)v199 hasUtteranceDetection]&& ([(dispatch_queue_t *)v199 concatenateUtterances]& 1) == 0)
+      if ([(dispatch_queue_t *)v198 hasUtteranceDetection]&& ([(dispatch_queue_t *)v198 concatenateUtterances]& 1) == 0)
       {
-        if (v201)
+        if (v200)
         {
-          [v201 loggableConcatResult];
+          objc_msgSend_loggableConcatResult(v200);
         }
 
         else
         {
-          v234 = 0;
           v233 = 0;
-          v235 = 0;
+          v232 = 0;
+          v234 = 0;
         }
 
-        if (v284[5])
+        if (v283[5])
         {
-          v165 = v278[5] != 0;
+          v164 = v277[5] != 0;
         }
 
         else
         {
-          v165 = 0;
+          v164 = 0;
         }
 
-        v166 = v199[2];
-        v227 = 0u;
-        v228 = 0u;
-        v225 = 0u;
+        v165 = v198[2];
         v226 = 0u;
-        v223 = 0u;
+        v227 = 0u;
         v224 = 0u;
-        v221 = 0u;
+        v225 = 0u;
         v222 = 0u;
+        v223 = 0u;
+        v220 = 0u;
+        v221 = 0u;
         __p = 0u;
-        v217 = 0u;
-        v218 = 0u;
         v216 = 0u;
-        v219 = 1065353216;
-        memset(v215, 0, sizeof(v215));
-        v213 = 0;
-        v214 = 0;
+        v217 = 0u;
+        v215 = 0u;
+        v218 = 1065353216;
+        memset(v214, 0, sizeof(v214));
         v212 = 0;
-        v167 = [(dispatch_queue_t *)v199 hasUtteranceDetection];
-        v168 = [(dispatch_queue_t *)v199 concatenateUtterances];
-        memset(v211, 0, sizeof(v211));
+        v213 = 0;
+        v211 = 0;
+        v166 = [(dispatch_queue_t *)v198 hasUtteranceDetection];
+        v167 = [(dispatch_queue_t *)v198 concatenateUtterances];
         memset(v210, 0, sizeof(v210));
-        v169 = [(dispatch_queue_t *)v199 itnEnablingFlags];
-        v170 = [(dispatch_queue_t *)v199 recognizeEmoji];
-        v171 = 0;
-        v172 = 0;
         memset(v209, 0, sizeof(v209));
+        v168 = [(dispatch_queue_t *)v198 itnEnablingFlags];
+        v169 = [(dispatch_queue_t *)v198 recognizeEmoji];
+        v170 = 0;
+        v171 = 0;
         memset(v208, 0, sizeof(v208));
-        v173 = &v207;
-        if (v165)
+        memset(v207, 0, sizeof(v207));
+        v172 = &v206;
+        if (v164)
         {
-          v173 = 0;
+          v172 = 0;
         }
 
-        v174 = v284;
-        if (!v165)
+        v173 = v283;
+        if (!v164)
         {
-          v175 = v284[5];
-          v171 = (v278 + 5);
-          v206 = v278[5];
-          v207 = v175;
-          v172 = &v206;
+          v174 = v283[5];
+          v170 = (v277 + 5);
+          v205 = v277[5];
+          v206 = v174;
+          v171 = &v205;
         }
 
-        v205 = 0;
-        v176 = resultPackageWithResultChoices(&v233, 1u, v166, &__p, &v216, v190, 0, v189, -1000.0, 9.0, 0, &v214, &v212, v167, v168, v211, a19, v210, v169, v170, 0, 0, v209, 0, 0, a24, a25, v173, v172, &v205, v199[7], 0, 0, a28, 0);
-        v177 = v214;
-        if (!v165)
+        v204 = 0;
+        v175 = resultPackageWithResultChoices(&v232, 1u, v165, &__p, &v215, v189, 0, v188, -1000.0, 9.0, 0, &v213, &v211, v166, v167, v210, a19, v209, v168, v169, 0, 0, v208, 0, 0, HIBYTE(a23), a24, v172, v171, &v204, v198[7], 0, 0, a27, 0);
+        v176 = v213;
+        if (!v164)
         {
-          objc_storeStrong(v174 + 5, v207);
-          objc_storeStrong(v171, v206);
+          objc_storeStrong(v173 + 5, v206);
+          objc_storeStrong(v170, v205);
         }
 
-        v178 = v205;
-        v290 = v208;
-        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v290);
+        v177 = v204;
+        v289 = v207;
+        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v289);
+        v207[0] = v208;
+        std::vector<std::set<std::string>>::__destroy_vector::operator()[abi:ne200100](v207);
         v208[0] = v209;
-        std::vector<std::set<std::string>>::__destroy_vector::operator()[abi:ne200100](v208);
+        std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](v208);
         v209[0] = v210;
-        std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](v209);
-        v210[0] = v211;
-        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v210);
-        if (v213)
+        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v209);
+        if (v212)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v212);
         }
 
-        v211[0] = v215;
-        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v211);
-        if (SHIBYTE(v217) < 0)
+        v210[0] = v214;
+        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v210);
+        if (SHIBYTE(v216) < 0)
         {
-          operator delete(*(&v216 + 1));
+          operator delete(*(&v215 + 1));
         }
 
         quasar::AudioAnalytics::~AudioAnalytics(&__p);
-        [v272[5] addObjectsFromArray:v178];
-        if (v176)
+        [v271[5] addObjectsFromArray:v177];
+        if (v175)
         {
-          [v194 speechRecognizer:v199 didProduceLoggablePackage:v176];
+          [v193 speechRecognizer:v198 didProduceLoggablePackage:v175];
         }
 
-        *&__p = &v233;
+        *&__p = &v232;
         std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&__p);
       }
 
       else
       {
-        [v194 speechRecognizer:v199 didProduceLoggablePackage:v196];
+        [v193 speechRecognizer:v198 didProduceLoggablePackage:v195];
       }
     }
 
-    v179 = [(dispatch_queue_t *)v199 recognitionMetrics];
-    [v179 addPauseDurationMetric];
+    v178 = [(dispatch_queue_t *)v198 recognitionMetrics];
+    [v178 addPauseDurationMetric];
 
-    v180 = [(dispatch_queue_t *)v199 recognitionMetrics];
-    [v180 addItnRunIntervals:v272[5]];
+    v179 = [(dispatch_queue_t *)v198 recognitionMetrics];
+    [v179 addItnRunIntervals:v271[5]];
 
-    if (v284[5] && v278[5])
+    if (v283[5] && v277[5])
     {
-      v181 = [(dispatch_queue_t *)v199 recognitionMetrics];
-      [v181 addEmojiRecognitionMetrics:v284[5] recognizedEmojis:v278[5]];
+      v180 = [(dispatch_queue_t *)v198 recognitionMetrics];
+      [v180 addEmojiRecognitionMetrics:v283[5] recognizedEmojis:v277[5]];
     }
 
-    v182 = [(dispatch_queue_t *)v199 relevantTextContext];
-    [v182 reset];
+    v181 = [(dispatch_queue_t *)v198 relevantTextContext];
+    [v181 reset];
 
-    [v194 speechRecognizer:v199 didFinishRecognitionWithError:0];
-    [v201 resetPartialResultContext];
+    [v193 speechRecognizer:v198 didFinishRecognitionWithError:0];
+    [v200 resetPartialResultContext];
   }
 
-  _Block_object_dispose(&v271, 8);
+  _Block_object_dispose(&v270, 8);
 
-  _Block_object_dispose(&v277, 8);
-  _Block_object_dispose(&v283, 8);
+  _Block_object_dispose(&v276, 8);
+  _Block_object_dispose(&v282, 8);
 
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -1427,7 +3216,7 @@ void EARContinuousListeningResultHelper::writeFinalCandidateImpl(uint64_t a1, ui
   v33 = 1065353216;
   v16 = *(a1 + 232);
   v15 = *(a1 + 240);
-  quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(a1, &v28);
+  quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(&v28, a1);
   memset(v27, 0, sizeof(v27));
   v26[0] = 0;
   v26[1] = 0;
@@ -1560,7 +3349,7 @@ void writeFinalCandidateChoicesToResultStream(uint64_t *a1, void *a2, void *a3, 
   v59 = 0;
   v34 = v27[7];
   v35 = [(dispatch_queue_t *)v27 relevantTextContext];
-  [(dispatch_queue_t *)v27 getParser];
+  objc_msgSend_getParser(v27);
   v36 = resultPackageWithResultChoices(a1, 0, v28, a4, a5, v53, a7, v52, a8, a9, 0, 0, &v60, v30, v31, a13, a14, a15, v32, v33, 0, &v59, a17, 0, a18, 0, 0, 0, 0, &v58, v34, a20, v35, a23, [(dispatch_queue_t *)v27 continuousListeningFormatAcrossUtterances]);
   v37 = v59;
   v38 = v58;
@@ -1670,24 +3459,22 @@ void sub_1B51D21C0(_Unwind_Exception *a1)
 
 void sub_1B51D2D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, void *a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *__p, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a71, 8);
-  _Block_object_dispose((v77 - 200), 8);
-  a71 = a23;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a71);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose((v71 - 200), 8);
+  a65 = a23;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a65);
 
   _Unwind_Resume(a1);
 }
 
 __n128 __Block_byref_object_copy__531(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -1730,22 +3517,22 @@ void sub_1B51D38B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<quasar::Token>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+uint64_t std::vector<quasar::Token>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<quasar::Token>::__emplace_back_slow_path<quasar::Token>(a1, a2);
   }
 
   else
   {
-    std::allocator_traits<std::allocator<quasar::Token>>::construct[abi:ne200100]<quasar::Token,quasar::Token,0>(a1, *(a1 + 8), a2);
+    std::allocator_traits<std::allocator<quasar::Token>>::construct[abi:ne200100]<quasar::Token,quasar::Token,0>(a1, a1[1], a2);
     result = v3 + 224;
-    *(a1 + 8) = v3 + 224;
+    a1[1] = v3 + 224;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -1842,7 +3629,7 @@ void addAotLmeStreams(uint64_t a1, void *a2, void *a3)
       v9 = v8;
       if (v8)
       {
-        [v8 ear_toString];
+        objc_msgSend_ear_toString(v8);
         v10 = HIBYTE(v21);
         v12 = __p;
         v11 = v20;
@@ -1888,11 +3675,11 @@ void addAotLmeStreams(uint64_t a1, void *a2, void *a3)
       v17 = v16;
       if (v6)
       {
-        [v6 lmeData];
+        objc_msgSend_lmeData(v6);
         if (v17)
         {
 LABEL_16:
-          [v17 ear_toString];
+          objc_msgSend_ear_toString(v17);
           goto LABEL_19;
         }
       }
@@ -1917,7 +3704,7 @@ void *__copy_helper_block_ea8_40c29_ZTSN6quasar14LmeDataStreamsE(void *a1, uint6
   a1[6] = 0;
   v3 = a1 + 5;
   a1[7] = 0;
-  std::vector<quasar::LmeDataFactoryBase::LmeType>::__init_with_size[abi:ne200100]<quasar::LmeDataFactoryBase::LmeType*,quasar::LmeDataFactoryBase::LmeType*>((a1 + 5), *(a2 + 40), *(a2 + 48), (*(a2 + 48) - *(a2 + 40)) >> 2);
+  std::vector<quasar::LmeDataFactoryBase::LmeType>::__init_with_size[abi:ne200100]<quasar::LmeDataFactoryBase::LmeType*,quasar::LmeDataFactoryBase::LmeType*>(a1 + 5, *(a2 + 40), *(a2 + 48), (*(a2 + 48) - *(a2 + 40)) >> 2);
   return std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>::map[abi:ne200100](v3 + 3, a2 + 64);
 }
 
@@ -1933,13 +3720,13 @@ void sub_1B51D5E98(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void __destroy_helper_block_ea8_40c29_ZTSN6quasar14LmeDataStreamsE(uint64_t a1)
+void __destroy_helper_block_ea8_40c29_ZTSN6quasar14LmeDataStreamsE(void *a1)
 {
-  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(a1 + 64, *(a1 + 72));
-  v2 = *(a1 + 40);
+  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy((a1 + 8), a1[9]);
+  v2 = a1[5];
   if (v2)
   {
-    *(a1 + 48) = v2;
+    a1[6] = v2;
 
     operator delete(v2);
   }
@@ -1968,7 +3755,7 @@ void sub_1B51D61F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B51D6564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_1B51D6564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -1997,15 +3784,15 @@ void sub_1B51D6898(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_1B51D7948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (v70)
+  if (v65)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v65);
   }
 
-  STACK[0x2E0] = &a70;
+  STACK[0x2E0] = &a65;
   std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100](&STACK[0x2E0]);
-  a70 = &STACK[0x200];
-  std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100](&a70);
+  a65 = &STACK[0x200];
+  std::vector<std::shared_ptr<quasar::LmeContainer>>::__destroy_vector::operator()[abi:ne200100](&a65);
   if (SLOBYTE(STACK[0x22F]) < 0)
   {
     operator delete(STACK[0x218]);
@@ -2026,50 +3813,50 @@ void sub_1B51D7948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t ResultStreamWrapper::hasInterUtteranceLeftContext(ResultStreamWrapper *this)
+uint64_t ResultStreamWrapper::hasInterUtteranceLeftContext(ResultStreamWrapper *this, const char *a2)
 {
-  v2 = *(this + 10);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  [v2 continuousListeningResultHelper];
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  }
-
-  if (!v8)
-  {
-    return 0;
-  }
-
   v3 = *(this + 10);
-  if (v3)
+  if (!v3)
   {
-    [v3 continuousListeningResultHelper];
-    v3 = v6;
+    return 0;
+  }
+
+  objc_msgSend_continuousListeningResultHelper(v3, a2);
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  if (!v9)
+  {
+    return 0;
+  }
+
+  v4 = *(this + 10);
+  if (v4)
+  {
+    objc_msgSend_continuousListeningResultHelper(v4);
+    v4 = v7;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(v3, &v8);
-  v4 = *(v8 + 12);
-  if (v9)
+  quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(&v9, v4);
+  v5 = *(v9 + 12);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  if (v7)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  return v4;
+  return v5;
 }
 
 void sub_1B51D7F18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -2086,8 +3873,7 @@ __n128 __Block_byref_object_copy__586(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -2155,8 +3941,7 @@ __n128 __Block_byref_object_copy__593(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -2169,16 +3954,13 @@ void __Block_byref_object_dispose__594(uint64_t a1)
   }
 }
 
-void getModelFilesWithSuffix()
+void getModelFilesWithSuffix(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v0 = 0;
-  v1 = 0;
-  v2 = 0;
-  v4 = 0u;
-  v5 = 0u;
+  memset(v3, 0, sizeof(v3));
+  memset(v5, 0, sizeof(v5));
   v6 = 1065353216;
-  quasar::SystemConfig::SystemConfig(v3);
+  quasar::SystemConfig::SystemConfig(v4, a1, v3, v5);
 }
 
 void sub_1B51D92A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24)
@@ -2276,7 +4058,7 @@ void sub_1B51DA16C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1B51DA708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, char a13, void *a14, uint64_t a15, char a16, char *a17)
+void sub_1B51DA708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char *a17)
 {
   if (a10)
   {
@@ -2293,7 +4075,7 @@ void sub_1B51DA708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1B51DA8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, char a13, void *a14, uint64_t a15, char a16, char *a17)
+void sub_1B51DA8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char *a17)
 {
   if (a10)
   {
@@ -2310,7 +4092,7 @@ void sub_1B51DA8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1B51DA9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_1B51DA9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
   quasar::PTree::~PTree(&a10);
   a10 = (v10 - 40);
@@ -2343,14 +4125,14 @@ void sub_1B51DAE98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B51DB018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1B51DB018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1B51DB470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41)
+void sub_1B51DB470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char *a41)
 {
   a41 = &a15;
   std::vector<std::vector<std::vector<quasar::Token>>>::__destroy_vector::operator()[abi:ne200100](&a41);
@@ -2538,7 +4320,7 @@ id EARHelpers::ContainerToNSSet<std::set<BOOL>>(void *a1)
   return v9;
 }
 
-void sub_1B51DE9A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, void *a14)
+void sub_1B51DE9A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
 {
   std::__tree<int>::destroy(&a13, a14);
 
@@ -2616,15 +4398,15 @@ uint64_t std::optional<std::set<std::string>>::operator=[abi:ne200100]<std::set<
   return a1;
 }
 
-void sub_1B51DEE0C(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
+void sub_1B51DEE0C(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, ...)
 {
-  va_start(va, a51);
-  if (a8 < 0)
+  va_start(va, a55);
+  if (SHIBYTE(a12) < 0)
   {
-    operator delete(__p);
+    operator delete(a10);
   }
 
-  std::ostringstream::~ostringstream(&a38, MEMORY[0x1E69E54E8]);
+  std::ostringstream::~ostringstream(&a42, MEMORY[0x1E69E54E8]);
   MEMORY[0x1B8C85200](va);
   _Unwind_Resume(a1);
 }
@@ -2842,7 +4624,7 @@ id tokenSausageWithExtendedEndTime(void *a1, double a2)
           v19 = v18;
           if (v18)
           {
-            [v18 quasarToken];
+            objc_msgSend_quasarToken(v18);
           }
 
           else
@@ -2908,91 +4690,91 @@ id tokenSausageWithExtendedEndTime(void *a1, double a2)
 id resultPackageWithResultChoices(uint64_t *a1, unsigned int a2, void *a3, uint64_t a4, unsigned __int8 *a5, void *a6, unsigned int a7, void *a8, double a9, double a10, unsigned __int8 a11, void *a12, uint64_t *a13, unsigned __int8 a14, unsigned __int8 a15, uint64_t a16, uint64_t a17, uint64_t a18, __int16 a19, unsigned __int8 a20, unsigned __int8 a21, void *a22, void *a23, void *a24, char a25, unsigned __int8 a26, unsigned __int8 a27, uint64_t a28, uint64_t a29, void *a30, void *a31, int a32, void *a33, uint64_t a34, char a35)
 {
   v39 = a3;
-  v135 = a6;
-  v134 = a8;
-  v143 = a31;
-  v126 = a33;
-  v125 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v134 = a6;
+  v133 = a8;
+  v142 = a31;
+  v125 = a33;
   v124 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v136 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  memset(v205, 0, sizeof(v205));
-  memset(v204, 0, sizeof(v204));
-  v201 = 0;
-  v202 = 0;
-  v203 = 0;
-  memset(v200, 0, sizeof(v200));
-  v199[0] = 0;
-  v199[1] = 0;
-  v198 = v199;
-  v197[1] = 0;
-  v197[0] = 0;
-  v196 = v197;
-  v195[1] = 0;
-  v195[0] = 0;
-  v194 = v195;
-  v193[1] = 0;
+  v123 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v135 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  memset(v199, 0, sizeof(v199));
+  memset(v198, 0, sizeof(v198));
+  v195 = 0;
+  v196 = 0;
+  v197 = 0;
+  memset(v194, 0, sizeof(v194));
   v193[0] = 0;
+  v193[1] = 0;
   v192 = v193;
+  v191[1] = 0;
+  v191[0] = 0;
+  v190 = v191;
+  v189[1] = 0;
+  v189[0] = 0;
+  v188 = v189;
+  v187[1] = 0;
+  v187[0] = 0;
+  v186 = v187;
   if (a24 && a1[1] - *a1 != a23[1] - *a23)
   {
-    v115 = [MEMORY[0x1E696AAA8] currentHandler];
-    v116 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"_EARSpeechRecognitionResultPackage *resultPackageWithResultChoices(const std::vector<std::vector<Token>> &, BOOL, _EARFormatter *__strong, const AudioAnalytics &, const LatnnMitigatorResult &, const double, NSString *__strong, const unsigned int, NSString *__strong, BOOL, const std::vector<Token> &, _EARSpeechRecognitionResult *__autoreleasing *, std::shared_ptr<ContinuousListeningConfig>, BOOL, BOOL, const std::vector<Token> &, std::vector<std::vector<Token>> &, const std::vector<quasar::ItnOverride> &, quasar::ItnEnablingFlags::Flags, BOOL, BOOL, _EARSpeechRecognitionResultPackage *__autoreleasing *, const std::vector<std::set<std::string>> &, NSDictionary<NSString *, _EARSpeechRecognitionResultPackage *> *__autoreleasing *, BOOL, BOOL, const std::vector<quasar::Token> &, BOOL, BOOL, NSDictionary<NSString *, NSNumber *> *__autoreleasing *, NSArray<NSString *> *__autoreleasing *, double, NSArray<NSArray<NSNumber *> *> *__autoreleasing *, BOOL, BOOL, NSSet<NSString *> *__strong, int, _EARRelevantTextContext *__strong, std::shared_ptr<quasar::corrective_reranking::Parser>, const FormattingInfo &, BOOL)"}];
-    [v115 handleFailureInFunction:v116 file:@"EARSpeechRecognizer.mm" lineNumber:2062 description:@"Results are not properly labeled"];
+    v114 = [MEMORY[0x1E696AAA8] currentHandler];
+    v115 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"_EARSpeechRecognitionResultPackage *resultPackageWithResultChoices(const std::vector<std::vector<Token>> &, BOOL, _EARFormatter *__strong, const AudioAnalytics &, const LatnnMitigatorResult &, const double, NSString *__strong, const unsigned int, NSString *__strong, BOOL, const std::vector<Token> &, _EARSpeechRecognitionResult *__autoreleasing *, std::shared_ptr<ContinuousListeningConfig>, BOOL, BOOL, const std::vector<Token> &, std::vector<std::vector<Token>> &, const std::vector<quasar::ItnOverride> &, quasar::ItnEnablingFlags::Flags, BOOL, BOOL, _EARSpeechRecognitionResultPackage *__autoreleasing *, const std::vector<std::set<std::string>> &, NSDictionary<NSString *, _EARSpeechRecognitionResultPackage *> *__autoreleasing *, BOOL, BOOL, const std::vector<quasar::Token> &, BOOL, BOOL, NSDictionary<NSString *, NSNumber *> *__autoreleasing *, NSArray<NSString *> *__autoreleasing *, double, NSArray<NSArray<NSNumber *> *> *__autoreleasing *, BOOL, BOOL, NSSet<NSString *> *__strong, int, _EARRelevantTextContext *__strong, std::shared_ptr<quasar::corrective_reranking::Parser>, const FormattingInfo &, BOOL)"}];
+    [v114 handleFailureInFunction:v115 file:@"EARSpeechRecognizer.mm" lineNumber:2062 description:@"Results are not properly labeled"];
   }
 
-  v186 = 0;
-  v187 = &v186;
-  v188 = 0x3032000000;
-  v189 = __Block_byref_object_copy__2;
-  v190 = __Block_byref_object_dispose__2;
-  v191 = &stru_1F2D44B60;
   v180 = 0;
   v181 = &v180;
   v182 = 0x3032000000;
   v183 = __Block_byref_object_copy__2;
   v184 = __Block_byref_object_dispose__2;
   v185 = &stru_1F2D44B60;
-  v173 = 0;
-  v174 = &v173;
-  v175 = 0x4812000000;
-  v176 = __Block_byref_object_copy__420;
-  v177 = __Block_byref_object_dispose__421;
-  v178 = &unk_1B5CADD23;
-  memset(v179, 0, sizeof(v179));
-  v166 = 0;
-  v167 = &v166;
-  v168 = 0x4812000000;
-  v169 = __Block_byref_object_copy__420;
-  v170 = __Block_byref_object_dispose__421;
-  v171 = &unk_1B5CADD23;
-  memset(v172, 0, sizeof(v172));
-  if ((a35 & 1) != 0 || ([v126 leftContextWasAppended] & 1) == 0)
+  v174 = 0;
+  v175 = &v174;
+  v176 = 0x3032000000;
+  v177 = __Block_byref_object_copy__2;
+  v178 = __Block_byref_object_dispose__2;
+  v179 = &stru_1F2D44B60;
+  v172[0] = 0;
+  v172[1] = v172;
+  v172[2] = 0x4812000000;
+  v172[3] = __Block_byref_object_copy__420;
+  v172[4] = __Block_byref_object_dispose__421;
+  v172[5] = &unk_1B5CADD23;
+  memset(v173, 0, sizeof(v173));
+  v165 = 0;
+  v166 = &v165;
+  v167 = 0x4812000000;
+  v168 = __Block_byref_object_copy__420;
+  v169 = __Block_byref_object_dispose__421;
+  v170 = &unk_1B5CADD23;
+  memset(v171, 0, sizeof(v171));
+  if ((a35 & 1) != 0 || ([v125 leftContextWasAppended] & 1) == 0)
   {
-    v165[0] = MEMORY[0x1E69E9820];
-    v165[1] = 3221225472;
-    v165[2] = ___ZL30resultPackageWithResultChoicesRKNSt3__16vectorINS0_IN6quasar5TokenENS_9allocatorIS2_EEEENS3_IS5_EEEEbP13_EARFormatterRKNS1_14AudioAnalyticsERKNS1_20LatnnMitigatorResultEdP8NSStringjSJ_bRKS5_PU15__autoreleasingP27_EARSpeechRecognitionResultNS_10shared_ptrINS1_25ContinuousListeningConfigEEEbbSL_RS7_RKNS0_INS1_11ItnOverrideENS3_ISU_EEEEtbbPU15__autoreleasingP34_EARSpeechRecognitionResultPackageRKNS0_INS_3setINS_12basic_stringIcNS_11char_traitsIcEENS3_IcEEEENS_4lessIS18_EENS3_IS18_EEEENS3_IS1C_EEEEPU15__autoreleasingP12NSDictionaryISJ_S10_EbbSL_bbPU15__autoreleasingPS1H_ISJ_P8NSNumberEPU15__autoreleasingP7NSArrayISJ_EdPU15__autoreleasingPS1S_IPS1S_IS1N_EEbbP5NSSetISJ_EiP23_EARRelevantTextContextNSQ_INS1_20corrective_reranking6ParserEEERK14FormattingInfob_block_invoke;
-    v165[3] = &unk_1E7C1A3C0;
-    v165[4] = &v186;
-    v165[5] = &v180;
-    v165[6] = &v173;
-    v165[7] = &v166;
-    [v126 getLeftAndRightContextWithCompletion:v165];
-    if ([v126 leftContextEndsWithAppendedAutoPunctuation])
+    v164[0] = MEMORY[0x1E69E9820];
+    v164[1] = 3221225472;
+    v164[2] = ___ZL30resultPackageWithResultChoicesRKNSt3__16vectorINS0_IN6quasar5TokenENS_9allocatorIS2_EEEENS3_IS5_EEEEbP13_EARFormatterRKNS1_14AudioAnalyticsERKNS1_20LatnnMitigatorResultEdP8NSStringjSJ_bRKS5_PU15__autoreleasingP27_EARSpeechRecognitionResultNS_10shared_ptrINS1_25ContinuousListeningConfigEEEbbSL_RS7_RKNS0_INS1_11ItnOverrideENS3_ISU_EEEEtbbPU15__autoreleasingP34_EARSpeechRecognitionResultPackageRKNS0_INS_3setINS_12basic_stringIcNS_11char_traitsIcEENS3_IcEEEENS_4lessIS18_EENS3_IS18_EEEENS3_IS1C_EEEEPU15__autoreleasingP12NSDictionaryISJ_S10_EbbSL_bbPU15__autoreleasingPS1H_ISJ_P8NSNumberEPU15__autoreleasingP7NSArrayISJ_EdPU15__autoreleasingPS1S_IPS1S_IS1N_EEbbP5NSSetISJ_EiP23_EARRelevantTextContextNSQ_INS1_20corrective_reranking6ParserEEERK14FormattingInfob_block_invoke;
+    v164[3] = &unk_1E7C1A3C0;
+    v164[4] = &v180;
+    v164[5] = &v174;
+    v164[6] = v172;
+    v164[7] = &v165;
+    [v125 getLeftAndRightContextWithCompletion:v164];
+    if ([v125 leftContextEndsWithAppendedAutoPunctuation])
     {
       LOBYTE(v40) = 1;
     }
 
     else
     {
-      v40 = [v126 leftContextWasAppended] ^ 1;
+      v40 = [v125 leftContextWasAppended] ^ 1;
     }
 
-    v128 = v40;
+    v127 = v40;
   }
 
   else
   {
-    v128 = 0;
+    v127 = 0;
   }
 
   v41 = *a1;
@@ -3002,156 +4784,155 @@ id resultPackageWithResultChoices(uint64_t *a1, unsigned int a2, void *a3, uint6
     v43 = 0;
     do
     {
-      v44 = (v41 + 24 * v43);
-      v163 = 0uLL;
-      v164 = 0;
-      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v163, *v44, v44[1], ((v44[1] - *v44) >> 5) * v42);
-      memset(v162, 0, sizeof(v162));
+      v44 = v41 + 24 * v43;
+      v162 = 0uLL;
+      v163 = 0;
+      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v162, *v44, *(v44 + 8), ((*(v44 + 8) - *v44) >> 5) * v42);
       memset(v161, 0, sizeof(v161));
       memset(v160, 0, sizeof(v160));
       memset(v159, 0, sizeof(v159));
-      v157 = 0uLL;
-      v158 = 0;
-      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v157, *v44, v44[1], ((v44[1] - *v44) >> 5) * v42);
+      memset(v158, 0, sizeof(v158));
+      v156 = 0uLL;
+      v157 = 0;
+      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v156, *v44, *(v44 + 8), ((*(v44 + 8) - *v44) >> 5) * v42);
       if (v39)
       {
         v45 = v42;
-        v46 = v174;
-        v47 = a13[1];
-        v153 = *a13;
-        v154 = v47;
-        if (v47)
+        v46 = a13[1];
+        v152 = *a13;
+        v153 = v46;
+        if (v46)
         {
-          atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v48 = v167;
-        v49 = v187[5];
-        v50 = v181[5];
-        v152 = 0;
+        v47 = v166;
+        v48 = v181[5];
+        v49 = v175[5];
         v151 = 0;
-        v146[0] = MEMORY[0x1E69E9820];
-        v146[1] = 3221225472;
-        v146[2] = ___ZL30resultPackageWithResultChoicesRKNSt3__16vectorINS0_IN6quasar5TokenENS_9allocatorIS2_EEEENS3_IS5_EEEEbP13_EARFormatterRKNS1_14AudioAnalyticsERKNS1_20LatnnMitigatorResultEdP8NSStringjSJ_bRKS5_PU15__autoreleasingP27_EARSpeechRecognitionResultNS_10shared_ptrINS1_25ContinuousListeningConfigEEEbbSL_RS7_RKNS0_INS1_11ItnOverrideENS3_ISU_EEEEtbbPU15__autoreleasingP34_EARSpeechRecognitionResultPackageRKNS0_INS_3setINS_12basic_stringIcNS_11char_traitsIcEENS3_IcEEEENS_4lessIS18_EENS3_IS18_EEEENS3_IS1C_EEEEPU15__autoreleasingP12NSDictionaryISJ_S10_EbbSL_bbPU15__autoreleasingPS1H_ISJ_P8NSNumberEPU15__autoreleasingP7NSArrayISJ_EdPU15__autoreleasingPS1S_IPS1S_IS1N_EEbbP5NSSetISJ_EiP23_EARRelevantTextContextNSQ_INS1_20corrective_reranking6ParserEEERK14FormattingInfob_block_invoke_2;
-        v146[3] = &unk_1E7C1A660;
-        v51 = v136;
-        v150 = v43;
-        v147 = v51;
-        v148 = a28;
-        v149 = a29;
-        HIDWORD(v122) = v43;
-        LOBYTE(v122) = a2;
-        LOWORD(v121) = a21;
-        LOBYTE(v120) = v128;
-        BYTE3(v119) = a25;
-        BYTE2(v119) = a20;
-        LOWORD(v119) = a19;
-        BYTE4(v117) = 0;
-        LODWORD(v117) = a7;
-        [v39 formatWords:v44 unrepairedWordsOut:v160 task:v135 language:v134 preItnLeftContext:v46 + 6 separateAutoEndPunctuation:a11 partialResults:v162 timestampOffset:v117 zeroTimestamp:&v153 continuousListeningConfig:a16 postItnLeftContext:v161 itnResult:a18 itnOverrides:v119 itnEnablingFlags:v48 + 6 recognizeEmoji:v49 leftContextProvidedByClient:v50 preItnRightContext:v120 postItnLeftContextStr:v159 postItnRightContextStr:v121 stripLeadingAppendedAutoPunctuation:&v151 emojiTokenIndices:v122 persistEmoji:v146 shouldHideTrailingPunctuation:? isTrailingPunctuationHidden:? isFinal:? choiceIdx:? itnCompletion:?];
-        std::vector<quasar::Token>::__vdeallocate(&v163);
+        v150 = 0;
+        v145[0] = MEMORY[0x1E69E9820];
+        v145[1] = 3221225472;
+        v145[2] = ___ZL30resultPackageWithResultChoicesRKNSt3__16vectorINS0_IN6quasar5TokenENS_9allocatorIS2_EEEENS3_IS5_EEEEbP13_EARFormatterRKNS1_14AudioAnalyticsERKNS1_20LatnnMitigatorResultEdP8NSStringjSJ_bRKS5_PU15__autoreleasingP27_EARSpeechRecognitionResultNS_10shared_ptrINS1_25ContinuousListeningConfigEEEbbSL_RS7_RKNS0_INS1_11ItnOverrideENS3_ISU_EEEEtbbPU15__autoreleasingP34_EARSpeechRecognitionResultPackageRKNS0_INS_3setINS_12basic_stringIcNS_11char_traitsIcEENS3_IcEEEENS_4lessIS18_EENS3_IS18_EEEENS3_IS1C_EEEEPU15__autoreleasingP12NSDictionaryISJ_S10_EbbSL_bbPU15__autoreleasingPS1H_ISJ_P8NSNumberEPU15__autoreleasingP7NSArrayISJ_EdPU15__autoreleasingPS1S_IPS1S_IS1N_EEbbP5NSSetISJ_EiP23_EARRelevantTextContextNSQ_INS1_20corrective_reranking6ParserEEERK14FormattingInfob_block_invoke_2;
+        v145[3] = &unk_1E7C1A660;
+        v50 = v135;
+        v149 = v43;
+        v146 = v50;
+        v147 = a28;
+        v148 = a29;
+        HIDWORD(v121) = v43;
+        LOBYTE(v121) = a2;
+        LOWORD(v120) = a21;
+        LOBYTE(v119) = v127;
+        BYTE3(v118) = a25;
+        BYTE2(v118) = a20;
+        LOWORD(v118) = a19;
+        BYTE4(v116) = 0;
+        LODWORD(v116) = a7;
+        objc_msgSend_formatWords_unrepairedWordsOut_task_language_preItnLeftContext_separateAutoEndPunctuation_partialResults_timestampOffset_zeroTimestamp_continuousListeningConfig_postItnLeftContext_itnResult_itnOverrides_itnEnablingFlags_recognizeEmoji_leftContextProvidedByClient_preItnRightContext_postItnLeftContextStr_postItnRightContextStr_stripLeadingAppendedAutoPunctuation_emojiTokenIndices_persistEmoji_shouldHideTrailingPunctuation_isTrailingPunctuationHidden_isFinal_choiceIdx_itnCompletion_(v39, v161, v116, &v152, a16, v160, a18, v118, v47 + 6, v48, v49, v119, v158, v120, &v150, v121, v145);
+        std::vector<quasar::Token>::__vdeallocate(&v162);
+        v162 = v154;
         v163 = v155;
-        v164 = v156;
-        v156 = 0;
-        v155 = 0uLL;
-        v206[0] = &v155;
-        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v206);
-        if (v152)
+        v155 = 0;
+        v154 = 0uLL;
+        v201[0] = &v154;
+        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v201);
+        if (v151)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v152);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v151);
         }
 
         v42 = v45;
-        if (v154)
+        if (v153)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v154);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v153);
         }
 
-        [v39 formattedTokensWithoutEmojiModifier:&v163 emojiTokenIndices:v159 recognizeEmoji:a20];
-        std::vector<quasar::Token>::__vdeallocate(&v157);
+        objc_msgSend_formattedTokensWithoutEmojiModifier_emojiTokenIndices_recognizeEmoji_(v39);
+        std::vector<quasar::Token>::__vdeallocate(&v156);
+        v156 = v154;
         v157 = v155;
-        v158 = v156;
-        v156 = 0;
-        v155 = 0uLL;
-        v206[0] = &v155;
-        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v206);
+        v155 = 0;
+        v154 = 0uLL;
+        v201[0] = &v154;
+        std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v201);
       }
 
-      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v205, &v163);
-      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v204, &v157);
+      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v199, &v162);
+      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v198, &v156);
       if (v39 && !v43)
       {
-        [v39 appendNbestListWithEmojiAlternativesForFormattedTokens:&v163 formattedTokensWithoutEmojiModifier:&v157 formattedNBestList:v205 formattedNBestListWithoutEmojiModifier:v204 emojiTokenIndices:v159 recognizeEmoji:a20];
+        [v39 appendNbestListWithEmojiAlternativesForFormattedTokens:&v162 formattedTokensWithoutEmojiModifier:&v156 formattedNBestList:v199 formattedNBestListWithoutEmojiModifier:v198 emojiTokenIndices:v158 recognizeEmoji:a20];
       }
 
-      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](&v201, v162);
-      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](a17, v161);
-      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v200, v160);
+      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](&v195, v161);
+      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](a17, v160);
+      std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v194, v159);
       if (a24)
       {
-        v52 = (*a23 + 24 * v43);
-        v55 = *v52;
-        v53 = v52 + 1;
-        v54 = v55;
-        if (v55 != v53)
+        v51 = (*a23 + 24 * v43);
+        v54 = *v51;
+        v52 = v51 + 1;
+        v53 = v54;
+        if (v54 != v52)
         {
           do
           {
-            v206[0] = (v54 + 4);
-            v56 = std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v198, v54 + 4);
-            std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v56 + 56, v44);
-            v206[0] = (v54 + 4);
-            v57 = std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v196, v54 + 4);
-            std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v57 + 56, &v163);
-            v206[0] = (v54 + 4);
-            v58 = std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v194, v54 + 4);
-            std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v58 + 56, v162);
-            v206[0] = (v54 + 4);
-            v59 = std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v192, v54 + 4);
-            std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100](v59 + 56, v160);
-            v60 = v54[1];
-            if (v60)
+            v201[0] = (v53 + 4);
+            v55 = std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v192, v53 + 4, &std::piecewise_construct, v201, &v200);
+            std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100]((v55 + 7), v44);
+            v201[0] = (v53 + 4);
+            v56 = std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v190, v53 + 4, &std::piecewise_construct, v201, &v200);
+            std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100]((v56 + 7), &v162);
+            v201[0] = (v53 + 4);
+            v57 = std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v188, v53 + 4, &std::piecewise_construct, v201, &v200);
+            std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100]((v57 + 7), v161);
+            v201[0] = (v53 + 4);
+            v58 = std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v186, v53 + 4, &std::piecewise_construct, v201, &v200);
+            std::vector<std::vector<quasar::Token>>::push_back[abi:ne200100]((v58 + 7), v159);
+            v59 = v53[1];
+            if (v59)
             {
               do
               {
-                v61 = v60;
-                v60 = *v60;
+                v60 = v59;
+                v59 = *v59;
               }
 
-              while (v60);
+              while (v59);
             }
 
             else
             {
               do
               {
-                v61 = v54[2];
-                v62 = *v61 == v54;
-                v54 = v61;
+                v60 = v53[2];
+                v61 = *v60 == v53;
+                v53 = v60;
               }
 
-              while (!v62);
+              while (!v61);
             }
 
-            v54 = v61;
+            v53 = v60;
           }
 
-          while (v61 != v53);
+          while (v60 != v52);
         }
       }
 
-      *&v155 = &v157;
-      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v155);
-      *&v157 = v159;
-      std::vector<std::pair<int,std::vector<std::string>>>::__destroy_vector::operator()[abi:ne200100](&v157);
+      *&v154 = &v156;
+      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v154);
+      *&v156 = v158;
+      std::vector<std::pair<int,std::vector<std::string>>>::__destroy_vector::operator()[abi:ne200100](&v156);
+      v158[0] = v159;
+      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v158);
       v159[0] = v160;
       std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v159);
       v160[0] = v161;
       std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v160);
-      v161[0] = v162;
+      v161[0] = &v162;
       std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v161);
-      v162[0] = &v163;
-      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v162);
       ++v43;
       v41 = *a1;
     }
@@ -3161,242 +4942,242 @@ id resultPackageWithResultChoices(uint64_t *a1, unsigned int a2, void *a3, uint6
 
   if (a30)
   {
-    *a30 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v136];
+    *a30 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v135];
   }
 
-  v63 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v64 = [MEMORY[0x1E696AD98] numberWithDouble:*(a4 + 128)];
-  [v63 setObject:v64 forKeyedSubscript:@"speakingRate"];
+  v62 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v63 = [MEMORY[0x1E696AD98] numberWithDouble:*(a4 + 128)];
+  [v62 setObject:v63 forKeyedSubscript:@"speakingRate"];
 
-  v65 = [MEMORY[0x1E696AD98] numberWithDouble:*(a4 + 136)];
-  [v63 setObject:v65 forKeyedSubscript:@"averagePauseDuration"];
+  v64 = [MEMORY[0x1E696AD98] numberWithDouble:*(a4 + 136)];
+  [v62 setObject:v64 forKeyedSubscript:@"averagePauseDuration"];
 
-  v131 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v66 = getEARAcousticFeature(a4);
-  [v131 setObject:v66 forKeyedSubscript:@"jitter"];
+  v130 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v65 = getEARAcousticFeature(a4);
+  [v130 setObject:v65 forKeyedSubscript:@"jitter"];
 
-  v67 = getEARAcousticFeature(a4 + 32);
-  [v131 setObject:v67 forKeyedSubscript:@"shimmer"];
+  v66 = getEARAcousticFeature(a4 + 32);
+  [v130 setObject:v66 forKeyedSubscript:@"shimmer"];
 
-  v68 = getEARAcousticFeature(a4 + 64);
-  [v131 setObject:v68 forKeyedSubscript:@"pitch"];
+  v67 = getEARAcousticFeature(a4 + 64);
+  [v130 setObject:v67 forKeyedSubscript:@"pitch"];
 
-  v69 = getEARAcousticFeature(a4 + 96);
-  [v131 setObject:v69 forKeyedSubscript:@"voicing"];
+  v68 = getEARAcousticFeature(a4 + 96);
+  [v130 setObject:v68 forKeyedSubscript:@"voicing"];
 
-  v138 = [[_EARAudioAnalytics alloc] _initWithSpeechRecognitionFeatures:v63 acousticFeatures:v131 snr:a9];
-  v70 = a5[31];
-  if (v70 >= 0)
+  v137 = [[_EARAudioAnalytics alloc] _initWithSpeechRecognitionFeatures:v62 acousticFeatures:v130 snr:a9];
+  v69 = a5[31];
+  if (v69 >= 0)
   {
-    v71 = a5 + 8;
-  }
-
-  else
-  {
-    v71 = *(a5 + 1);
-  }
-
-  if (v70 >= 0)
-  {
-    v72 = a5[31];
+    v70 = a5 + 8;
   }
 
   else
   {
-    v72 = *(a5 + 2);
+    v70 = *(a5 + 1);
   }
 
-  v130 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:{v71, v72}];
-  if (*a5 == 1 && [v130 length])
+  if (v69 >= 0)
   {
-    v73 = [_EARLatticeMitigatorResult alloc];
-    v75 = *(a5 + 4);
-    v74 = *(a5 + 5);
+    v71 = a5[31];
+  }
+
+  else
+  {
+    v71 = *(a5 + 2);
+  }
+
+  v129 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:{v70, v71}];
+  if (*a5 == 1 && [v129 length])
+  {
+    v72 = [_EARLatticeMitigatorResult alloc];
+    v74 = *(a5 + 4);
+    v73 = *(a5 + 5);
+    *&v73 = v73;
     *&v74 = v74;
-    *&v75 = v75;
-    LODWORD(v76) = *(a5 + 12);
-    LODWORD(v77) = *(a5 + 13);
-    v137 = [(_EARLatticeMitigatorResult *)v73 initWithVersion:v130 score:*a5 threshold:v74 calibrationScale:v75 calibrationOffset:v76 processed:v77];
+    LODWORD(v75) = *(a5 + 12);
+    LODWORD(v76) = *(a5 + 13);
+    v136 = [(_EARLatticeMitigatorResult *)v72 initWithVersion:v129 score:*a5 threshold:v73 calibrationScale:v74 calibrationOffset:v75 processed:v76];
   }
 
   else
   {
-    v137 = 0;
+    v136 = 0;
   }
 
   if ((a14 & a15) != 0)
   {
-    v78 = 0.0;
+    v77 = 0.0;
   }
 
   else
   {
-    v78 = a7 / 1000.0;
+    v77 = a7 / 1000.0;
   }
 
-  if (a12 && v201 != v202)
+  if (a12 && v195 != v196)
   {
-    v79 = [_EARSpeechRecognitionResult alloc];
-    memset(v145, 0, sizeof(v145));
-    std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v145, *v201, v201[1], ((v201[1] - *v201) >> 5) * v42);
+    v78 = [_EARSpeechRecognitionResult alloc];
     memset(v144, 0, sizeof(v144));
-    *a12 = [(_EARSpeechRecognitionResult *)v79 _initWithTokens:v145 preITNTokens:v144 confidence:0 voiceCommandInterpretations:0 preITNVoiceCommandInterpretations:1 utteranceStart:a34 preITNUseHatText:0.0 formattingInfo:v78];
-    *&v163 = v144;
-    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v163);
-    *&v163 = v145;
-    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v163);
+    std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v144, *v195, *(v195 + 8), ((*(v195 + 8) - *v195) >> 5) * v42);
+    memset(v143, 0, sizeof(v143));
+    *a12 = [(_EARSpeechRecognitionResult *)v78 _initWithTokens:v144 preITNTokens:v143 confidence:0 voiceCommandInterpretations:0 preITNVoiceCommandInterpretations:1 utteranceStart:a34 preITNUseHatText:0.0 formattingInfo:v77];
+    *&v162 = v143;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v162);
+    *&v162 = v144;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v162);
   }
 
   p_superclass = &OBJC_METACLASS____EARPeopleSuggesterConfig.superclass;
-  v129 = v63;
+  v128 = v62;
   if (a24)
   {
-    v133 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v81 = v196;
-    if (v196 != v197)
+    v132 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v80 = v190;
+    if (v190 != v191)
     {
-      v82 = &std::piecewise_construct;
+      v81 = &std::piecewise_construct;
       do
       {
-        v83 = objc_autoreleasePoolPush();
-        v84 = objc_alloc((p_superclass + 199));
-        v85 = v81 + 4;
-        v162[0] = (v81 + 4);
-        v86 = [v84 _initWithNBestList:std::__tree<std::__value_type<std::string useHatText:std::vector<std::vector<quasar::Token>>> endsOfSentencePunctuations:std::__map_value_compare<std::string formattingInfo:{std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>, std::less<std::string>, true>, std::allocator<std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string, std::piecewise_construct_t const&, std::tuple<std::string const&>, std::tuple<>>(&v198, v81 + 4) + 56, 1, v143, a34}];
-        v87 = v86;
-        context = v83;
+        v82 = objc_autoreleasePoolPush();
+        v83 = objc_alloc((p_superclass + 199));
+        v84 = v80 + 4;
+        v161[0] = (v80 + 4);
+        v85 = [v83 _initWithNBestList:std::__tree<std::__value_type<std::string useHatText:std::vector<std::vector<quasar::Token>>> endsOfSentencePunctuations:std::__map_value_compare<std::string formattingInfo:{std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>, std::less<std::string>, true>, std::allocator<std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string, std::piecewise_construct_t const&, std::tuple<std::string const&>, std::tuple<>>(&v192, v80 + 4, v81, v161, v160) + 7, 1, v142, a34}];
+        v86 = v85;
+        context = v82;
         if (v39)
         {
-          v88 = objc_alloc((p_superclass + 199));
-          v162[0] = (v81 + 4);
-          v89 = [v88 _initWithNBestList:std::__tree<std::__value_type<std::string useHatText:std::vector<std::vector<quasar::Token>>> endsOfSentencePunctuations:std::__map_value_compare<std::string formattingInfo:{std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>, std::less<std::string>, true>, std::allocator<std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string, std::piecewise_construct_t const&, std::tuple<std::string const&>, std::tuple<>>(&v196, v81 + 4) + 56, 0, v143, a34}];
+          v87 = objc_alloc((p_superclass + 199));
+          v161[0] = (v80 + 4);
+          v88 = [v87 _initWithNBestList:std::__tree<std::__value_type<std::string useHatText:std::vector<std::vector<quasar::Token>>> endsOfSentencePunctuations:std::__map_value_compare<std::string formattingInfo:{std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>, std::less<std::string>, true>, std::allocator<std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string, std::piecewise_construct_t const&, std::tuple<std::string const&>, std::tuple<>>(&v190, v80 + 4, v81, v161, v160) + 7, 0, v142, a34}];
         }
 
         else
         {
-          v89 = v86;
+          v88 = v85;
         }
 
-        v90 = v89;
-        v91 = v39;
-        v92 = p_superclass;
-        v93 = objc_alloc((p_superclass + 199));
-        v162[0] = (v81 + 4);
-        v94 = [v93 _initWithNBestList:std::__tree<std::__value_type<std::string useHatText:std::vector<std::vector<quasar::Token>>> endsOfSentencePunctuations:std::__map_value_compare<std::string formattingInfo:{std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>, std::less<std::string>, true>, std::allocator<std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string, std::piecewise_construct_t const&, std::tuple<std::string const&>, std::tuple<>>(&v192, v81 + 4) + 56, 0, v143, a34}];
-        v95 = v82;
-        v96 = [_EARSpeechRecognitionResultPackage alloc];
-        v97 = [MEMORY[0x1E696AD98] numberWithDouble:a10];
-        LOWORD(v118) = __PAIR16__(a27, a26);
-        v98 = [(_EARSpeechRecognitionResultPackage *)v96 _initWithRecognition:v90 preITNRecognition:v87 unrepairedRecognition:v94 recognitionIsFormatted:v91 != 0 isFinal:a2 audioAnalytics:v138 utteranceStart:v78 latticeMitigatorResult:v137 nBestVoiceCommandInterpretations:0 preITNNBestVoiceCommandInterpretations:0 recognitionPaused:v118 firstResultAfterResume:v97 endOfSentenceLikelihood:a32 numTokensExcludingTriggerPhrase:0 voiceCommandDebugInfo:0 performanceMarkers:?];
+        v89 = v88;
+        v90 = v39;
+        v91 = p_superclass;
+        v92 = objc_alloc((p_superclass + 199));
+        v161[0] = (v80 + 4);
+        v93 = [v92 _initWithNBestList:std::__tree<std::__value_type<std::string useHatText:std::vector<std::vector<quasar::Token>>> endsOfSentencePunctuations:std::__map_value_compare<std::string formattingInfo:{std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>, std::less<std::string>, true>, std::allocator<std::__value_type<std::string, std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string, std::piecewise_construct_t const&, std::tuple<std::string const&>, std::tuple<>>(&v186, v80 + 4, v81, v161, v160) + 7, 0, v142, a34}];
+        v94 = v81;
+        v95 = [_EARSpeechRecognitionResultPackage alloc];
+        v96 = [MEMORY[0x1E696AD98] numberWithDouble:a10];
+        LOWORD(v117) = __PAIR16__(a27, a26);
+        v97 = [(_EARSpeechRecognitionResultPackage *)v95 _initWithRecognition:v89 preITNRecognition:v86 unrepairedRecognition:v93 recognitionIsFormatted:v90 != 0 isFinal:a2 audioAnalytics:v137 utteranceStart:v77 latticeMitigatorResult:v136 nBestVoiceCommandInterpretations:0 preITNNBestVoiceCommandInterpretations:0 recognitionPaused:v117 firstResultAfterResume:v96 endOfSentenceLikelihood:a32 numTokensExcludingTriggerPhrase:0 voiceCommandDebugInfo:0 performanceMarkers:?];
 
-        v99 = *(v81 + 55);
-        if ((v99 & 0x8000000000000000) != 0)
+        v98 = *(v80 + 55);
+        if (v98 < 0)
         {
-          v85 = v81[4];
-          v99 = v81[5];
+          v84 = v80[4];
+          v98 = v80[5];
         }
 
-        v100 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:{v85, v99}];
-        [v133 setObject:v98 forKeyedSubscript:v100];
+        v99 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:{v84, v98}];
+        [v132 setObject:v97 forKeyedSubscript:v99];
 
         objc_autoreleasePoolPop(context);
-        v101 = v81[1];
-        p_superclass = v92;
-        v82 = v95;
-        if (v101)
+        v100 = v80[1];
+        p_superclass = v91;
+        v81 = v94;
+        if (v100)
         {
           do
           {
-            v102 = v101;
-            v101 = *v101;
+            v101 = v100;
+            v100 = *v100;
           }
 
-          while (v101);
+          while (v100);
         }
 
         else
         {
           do
           {
-            v102 = v81[2];
-            v62 = *v102 == v81;
-            v81 = v102;
+            v101 = v80[2];
+            v61 = *v101 == v80;
+            v80 = v101;
           }
 
-          while (!v62);
+          while (!v61);
         }
 
-        v81 = v102;
-        v39 = v91;
+        v80 = v101;
+        v39 = v90;
       }
 
-      while (v102 != v197);
+      while (v101 != v191);
     }
 
-    *a24 = [v133 copy];
+    *a24 = [v132 copy];
   }
 
-  v103 = [objc_alloc((p_superclass + 199)) _initWithNBestList:a1 useHatText:1 endsOfSentencePunctuations:v143 formattingInfo:a34];
-  v104 = v103;
+  v102 = [objc_alloc((p_superclass + 199)) _initWithNBestList:a1 useHatText:1 endsOfSentencePunctuations:v142 formattingInfo:a34];
+  v103 = v102;
   if (v39)
   {
-    v105 = [objc_alloc((p_superclass + 199)) _initWithNBestList:v205 useHatText:0 endsOfSentencePunctuations:v143 formattingInfo:a34];
+    v104 = [objc_alloc((p_superclass + 199)) _initWithNBestList:v199 useHatText:0 endsOfSentencePunctuations:v142 formattingInfo:a34];
   }
 
   else
   {
-    v105 = v103;
+    v104 = v102;
   }
 
-  v106 = v105;
-  v107 = [objc_alloc((p_superclass + 199)) _initWithNBestList:v200 useHatText:0 endsOfSentencePunctuations:v143 formattingInfo:a34];
+  v105 = v104;
+  v106 = [objc_alloc((p_superclass + 199)) _initWithNBestList:v194 useHatText:0 endsOfSentencePunctuations:v142 formattingInfo:a34];
   if (v39)
   {
-    v108 = [objc_alloc((p_superclass + 199)) _initWithNBestList:v204 useHatText:0 endsOfSentencePunctuations:v143 formattingInfo:a34];
+    v107 = [objc_alloc((p_superclass + 199)) _initWithNBestList:v198 useHatText:0 endsOfSentencePunctuations:v142 formattingInfo:a34];
   }
 
   else
   {
-    v108 = v104;
+    v107 = v103;
   }
 
-  v109 = v108;
+  v108 = v107;
   if (a22)
   {
-    v110 = [_EARSpeechRecognitionResultPackage alloc];
-    v111 = [MEMORY[0x1E696AD98] numberWithDouble:a10];
-    LOWORD(v118) = __PAIR16__(a27, a26);
-    *a22 = [(_EARSpeechRecognitionResultPackage *)v110 _initWithRecognition:v109 preITNRecognition:v104 unrepairedRecognition:v107 recognitionIsFormatted:v39 != 0 isFinal:a2 audioAnalytics:v138 utteranceStart:v78 latticeMitigatorResult:v137 nBestVoiceCommandInterpretations:0 preITNNBestVoiceCommandInterpretations:0 recognitionPaused:v118 firstResultAfterResume:v111 endOfSentenceLikelihood:a32 numTokensExcludingTriggerPhrase:0 voiceCommandDebugInfo:0 performanceMarkers:?];
+    v109 = [_EARSpeechRecognitionResultPackage alloc];
+    v110 = [MEMORY[0x1E696AD98] numberWithDouble:a10];
+    LOWORD(v117) = __PAIR16__(a27, a26);
+    *a22 = [(_EARSpeechRecognitionResultPackage *)v109 _initWithRecognition:v108 preITNRecognition:v103 unrepairedRecognition:v106 recognitionIsFormatted:v39 != 0 isFinal:a2 audioAnalytics:v137 utteranceStart:v77 latticeMitigatorResult:v136 nBestVoiceCommandInterpretations:0 preITNNBestVoiceCommandInterpretations:0 recognitionPaused:v117 firstResultAfterResume:v110 endOfSentenceLikelihood:a32 numTokensExcludingTriggerPhrase:0 voiceCommandDebugInfo:0 performanceMarkers:?];
   }
 
-  v112 = [_EARSpeechRecognitionResultPackage alloc];
-  v113 = [MEMORY[0x1E696AD98] numberWithDouble:a10];
-  LOWORD(v118) = __PAIR16__(a27, a26);
-  v142 = [(_EARSpeechRecognitionResultPackage *)v112 _initWithRecognition:v106 preITNRecognition:v104 unrepairedRecognition:v107 recognitionIsFormatted:v39 != 0 isFinal:a2 audioAnalytics:v138 utteranceStart:v78 latticeMitigatorResult:v137 nBestVoiceCommandInterpretations:v125 preITNNBestVoiceCommandInterpretations:v124 recognitionPaused:v118 firstResultAfterResume:v113 endOfSentenceLikelihood:a32 numTokensExcludingTriggerPhrase:0 voiceCommandDebugInfo:0 performanceMarkers:?];
+  v111 = [_EARSpeechRecognitionResultPackage alloc];
+  v112 = [MEMORY[0x1E696AD98] numberWithDouble:a10];
+  LOWORD(v117) = __PAIR16__(a27, a26);
+  v141 = [(_EARSpeechRecognitionResultPackage *)v111 _initWithRecognition:v105 preITNRecognition:v103 unrepairedRecognition:v106 recognitionIsFormatted:v39 != 0 isFinal:a2 audioAnalytics:v137 utteranceStart:v77 latticeMitigatorResult:v136 nBestVoiceCommandInterpretations:v124 preITNNBestVoiceCommandInterpretations:v123 recognitionPaused:v117 firstResultAfterResume:v112 endOfSentenceLikelihood:a32 numTokensExcludingTriggerPhrase:0 voiceCommandDebugInfo:0 performanceMarkers:?];
 
-  _Block_object_dispose(&v166, 8);
-  *&v163 = v172;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v163);
-  _Block_object_dispose(&v173, 8);
-  v166 = v179;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v166);
+  _Block_object_dispose(&v165, 8);
+  *&v162 = v171;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v162);
+  _Block_object_dispose(v172, 8);
+  v165 = v173;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v165);
+  _Block_object_dispose(&v174, 8);
+
   _Block_object_dispose(&v180, 8);
-
-  _Block_object_dispose(&v186, 8);
+  std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::destroy(&v186, v187[0]);
+  std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::destroy(&v188, v189[0]);
+  std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::destroy(&v190, v191[0]);
   std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::destroy(&v192, v193[0]);
-  std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::destroy(&v194, v195[0]);
-  std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::destroy(&v196, v197[0]);
-  std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::destroy(&v198, v199[0]);
-  v173 = v200;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v173);
-  v173 = &v201;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v173);
-  v173 = v204;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v173);
-  v173 = v205;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v173);
+  v172[0] = v194;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](v172);
+  v172[0] = &v195;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](v172);
+  v172[0] = v198;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](v172);
+  v172[0] = v199;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](v172);
 
-  return v142;
+  return v141;
 }
 
 void sub_1B51E0C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, void *a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *a60)
@@ -3480,7 +5261,7 @@ void logPackageToQuasarDebug(_EARSpeechRecognitionResultPackage *a1, NSString *a
       v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v63, "PostITN 1-Best: ", 16);
       if (v53)
       {
-        [v53 ear_toString];
+        objc_msgSend_ear_toString(v53);
         v13 = HIBYTE(v62);
         v15 = __p;
         v14 = v61;
@@ -3584,7 +5365,7 @@ void logPackageToQuasarDebug(_EARSpeechRecognitionResultPackage *a1, NSString *a
             v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v63, "PostITN Token[", 14);
             if (v5)
             {
-              [(NSString *)v5 ear_toString];
+              objc_msgSend_ear_toString(v5);
               v24 = HIBYTE(v62);
               v26 = __p;
               v25 = v61;
@@ -3631,7 +5412,7 @@ void logPackageToQuasarDebug(_EARSpeechRecognitionResultPackage *a1, NSString *a
             v37 = v36;
             if (v36)
             {
-              [v36 ear_toString];
+              objc_msgSend_ear_toString(v36);
               v38 = HIBYTE(v59);
               v40 = v57;
               v39 = v58;
@@ -3715,7 +5496,7 @@ void logPackageToQuasarDebug(_EARSpeechRecognitionResultPackage *a1, NSString *a
     v46 = v45;
     if (v45)
     {
-      [v45 ear_toString];
+      objc_msgSend_ear_toString(v45);
       v47 = HIBYTE(v62);
       v49 = __p;
       v48 = v61;
@@ -3821,18 +5602,18 @@ id getEARAcousticFeature(uint64_t a1)
   return v5;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::vector<quasar::Token>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3969,7 +5750,7 @@ void quasar::SpeechRecognizerActiveConfiguration::~SpeechRecognizerActiveConfigu
   }
 }
 
-void *std::__shared_ptr_emplace<quasar::LmeContainer>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<quasar::LmeData const>,std::string,quasar::LmeDataFactoryBase::LmeType,std::allocator<quasar::LmeContainer>,0>(void *a1, __int128 *a2, uint64_t a3, unsigned int *a4)
+void *std::__shared_ptr_emplace<quasar::LmeContainer>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<quasar::LmeData const>,std::string,quasar::LmeDataFactoryBase::LmeType,std::allocator<quasar::LmeContainer>,0>(void *a1, __int128 *a2, __int128 *a3, unsigned int *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3986,11 +5767,10 @@ void std::__shared_ptr_emplace<quasar::LmeContainer>::~__shared_ptr_emplace(std:
   JUMPOUT(0x1B8C85350);
 }
 
-void std::allocator<quasar::LmeContainer>::construct[abi:ne200100]<quasar::LmeContainer,std::shared_ptr<quasar::LmeData const>,std::string,quasar::LmeDataFactoryBase::LmeType>(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, unsigned int *a5)
+void std::allocator<quasar::LmeContainer>::construct[abi:ne200100]<quasar::LmeContainer,std::shared_ptr<quasar::LmeData const>,std::string,quasar::LmeDataFactoryBase::LmeType>(uint64_t a1, uint64_t a2, __int128 *a3, __int128 *a4, unsigned int *a5)
 {
   v5 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   quasar::LmeContainer::LmeContainer(a2, &v5, a4, *a5);
   if (*(&v5 + 1))
   {
@@ -4008,7 +5788,7 @@ void sub_1B51E1FF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<quasar::LmeDataFactoryBase::LmeType>::__init_with_size[abi:ne200100]<quasar::LmeDataFactoryBase::LmeType*,quasar::LmeDataFactoryBase::LmeType*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<quasar::LmeDataFactoryBase::LmeType>::__init_with_size[abi:ne200100]<quasar::LmeDataFactoryBase::LmeType*,quasar::LmeDataFactoryBase::LmeType*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4039,7 +5819,7 @@ void *std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<q
   return a1;
 }
 
-uint64_t std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__tree_node<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,void *> *,long>>>(uint64_t result, int *a2, int *a3)
+void *std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__tree_node<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,void *> *,long>>>(void *result, int *a2, int *a3)
 {
   if (a2 != a3)
   {
@@ -4047,7 +5827,7 @@ uint64_t std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_pt
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__emplace_hint_unique_key_args<quasar::LmeDataFactoryBase::LmeType,std::pair<quasar::LmeDataFactoryBase::LmeType const,std::vector<std::shared_ptr<quasar::LmeContainer>>> const&>(v5, v5 + 1, v4 + 8);
+      result = std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__emplace_hint_unique_key_args<quasar::LmeDataFactoryBase::LmeType,std::pair<quasar::LmeDataFactoryBase::LmeType const,std::vector<std::shared_ptr<quasar::LmeContainer>>> const&>(v5, (v5 + 8), v4 + 8, (v4 + 8));
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -4081,9 +5861,9 @@ uint64_t std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_pt
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__emplace_hint_unique_key_args<quasar::LmeDataFactoryBase::LmeType,std::pair<quasar::LmeDataFactoryBase::LmeType const,std::vector<std::shared_ptr<quasar::LmeContainer>>> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__emplace_hint_unique_key_args<quasar::LmeDataFactoryBase::LmeType,std::pair<quasar::LmeDataFactoryBase::LmeType const,std::vector<std::shared_ptr<quasar::LmeContainer>>> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__find_equal<quasar::LmeDataFactoryBase::LmeType>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__find_equal<quasar::LmeDataFactoryBase::LmeType>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__construct_node<std::pair<quasar::LmeDataFactoryBase::LmeType const,std::vector<std::shared_ptr<quasar::LmeContainer>>> const&>();
@@ -4092,9 +5872,9 @@ uint64_t std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__find_equal<quasar::LmeDataFactoryBase::LmeType>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::__find_equal<quasar::LmeDataFactoryBase::LmeType>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -4121,7 +5901,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -4182,7 +5962,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -4261,7 +6041,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -4290,7 +6070,7 @@ void sub_1B51E2420(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::shared_ptr<quasar::LmeContainer>>::__init_with_size[abi:ne200100]<std::shared_ptr<quasar::LmeContainer>*,std::shared_ptr<quasar::LmeContainer>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<quasar::LmeContainer>>::__init_with_size[abi:ne200100]<std::shared_ptr<quasar::LmeContainer>*,std::shared_ptr<quasar::LmeContainer>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4376,7 +6156,7 @@ void std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vect
   }
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4398,7 +6178,7 @@ void sub_1B51E2818(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4415,7 +6195,7 @@ void sub_1B51E289C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<quasar::Token>>,std::vector<quasar::Token>*,std::vector<quasar::Token>*,std::vector<quasar::Token>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<quasar::Token>>,std::vector<quasar::Token>*,std::vector<quasar::Token>*,std::vector<quasar::Token>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -4432,8 +6212,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v4, *v6, v6[1], 0x6DB6DB6DB6DB6DB7 * ((v6[1] - *v6) >> 5));
-      v6 += 3;
+      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v4, *v6, *(v6 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v6 + 8) - *v6) >> 5));
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -4468,7 +6248,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<quasar::Token
   }
 }
 
-void std::vector<std::vector<std::vector<quasar::Token>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::vector<quasar::Token>>>::__destroy_vector::operator()[abi:ne200100](void *****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -4494,11 +6274,11 @@ void std::vector<std::vector<std::vector<quasar::Token>>>::__destroy_vector::ope
   }
 }
 
-uint64_t std::vector<std::vector<unsigned int>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<unsigned int>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -4540,8 +6320,8 @@ uint64_t std::vector<std::vector<unsigned int>>::push_back[abi:ne200100](uint64_
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -4558,14 +6338,14 @@ uint64_t std::vector<std::vector<unsigned int>>::push_back[abi:ne200100](uint64_
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -4619,7 +6399,7 @@ void **std::vector<std::vector<std::vector<quasar::Token>>>::push_back[abi:ne200
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
     v12 = result[1] - *result;
-    v13 = v11 - v12;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -4701,7 +6481,7 @@ void std::vector<std::vector<std::vector<quasar::Token>>>::__vdeallocate(void **
   }
 }
 
-uint64_t quasar::joinToStream<std::vector<int>>(uint64_t result, unsigned int **a2, uint64_t *a3)
+void *quasar::joinToStream<std::vector<int>>(void *result, unsigned int **a2, uint64_t *a3)
 {
   v3 = *a2;
   v4 = a2[1];
@@ -5054,11 +6834,11 @@ void std::vector<std::vector<quasar::Token>>::__assign_with_size[abi:ne200100]<s
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<quasar::Token> const*,std::vector<quasar::Token> const*,std::vector<quasar::Token>*>(&v15, a2, (a2 + v11), v8);
-    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<quasar::Token>>,std::vector<quasar::Token> const*,std::vector<quasar::Token> const*,std::vector<quasar::Token>*>(a1, (a2 + v11), a3, *(a1 + 8));
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<quasar::Token>>,std::vector<quasar::Token> const*,std::vector<quasar::Token> const*,std::vector<quasar::Token>*>(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<quasar::Token>>,std::vector<quasar::Token> const*,std::vector<quasar::Token> const*,std::vector<quasar::Token>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<quasar::Token>>,std::vector<quasar::Token> const*,std::vector<quasar::Token> const*,std::vector<quasar::Token>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -5075,8 +6855,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v4, *v6, v6[1], 0x6DB6DB6DB6DB6DB7 * ((v6[1] - *v6) >> 5));
-      v6 += 3;
+      std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v4, *v6, *(v6 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v6 + 8) - *v6) >> 5));
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -5089,7 +6869,7 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
   return v4;
 }
 
-quasar::Token **std::__copy_impl::operator()[abi:ne200100]<std::vector<quasar::Token> const*,std::vector<quasar::Token> const*,std::vector<quasar::Token>*>(int a1, quasar::Token **a2, quasar::Token **a3, uint64_t a4)
+quasar::Token **std::__copy_impl::operator()[abi:ne200100]<std::vector<quasar::Token> const*,std::vector<quasar::Token> const*,std::vector<quasar::Token>*>(int a1, quasar::Token **a2, quasar::Token **a3, quasar::Token **a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -5102,7 +6882,7 @@ quasar::Token **std::__copy_impl::operator()[abi:ne200100]<std::vector<quasar::T
       }
 
       v5 += 3;
-      a4 += 24;
+      a4 += 3;
     }
 
     while (v5 != a3);
@@ -5166,7 +6946,7 @@ void std::vector<std::vector<quasar::Token>>::__assign_with_size[abi:ne200100]<s
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<quasar::Token> const*,std::vector<quasar::Token> const*,std::vector<quasar::Token>*>(&v15, a2, (a2 + v11), v8);
-    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<quasar::Token>>,std::vector<quasar::Token>*,std::vector<quasar::Token>*,std::vector<quasar::Token>*>(a1, (a2 + v11), a3, *(a1 + 8));
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<quasar::Token>>,std::vector<quasar::Token>*,std::vector<quasar::Token>*,std::vector<quasar::Token>*>(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
@@ -5220,9 +7000,9 @@ uint64_t std::vector<quasar::Token>::__emplace_back_slow_path<quasar::Token cons
   return v12;
 }
 
-void sub_1B51E3918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B51E3918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::Token>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5360,7 +7140,7 @@ void *std::__shared_ptr_emplace<quasar::corrective_reranking::Parser>::__shared_
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F2D042C8;
-  quasar::corrective_reranking::Parser::Parser(a1 + 3);
+  quasar::corrective_reranking::Parser::Parser((a1 + 3));
   return a1;
 }
 
@@ -5381,7 +7161,7 @@ void std::__shared_ptr_emplace<quasar::corrective_reranking::Parser>::__on_zero_
 
 void quasar::corrective_reranking::Config::~Config(void **this)
 {
-  quasar::PTree::~PTree((this + 80));
+  quasar::PTree::~PTree(this + 80);
   if (*(this + 631) < 0)
   {
     operator delete(this[76]);
@@ -5745,7 +7525,7 @@ void ResultStreamWrapper::writePartial(uint64_t a1, __int128 **a2, int a3, int a
             v61 = 0;
             std::string::basic_string[abi:ne200100]<0>(v57, "");
             quasar::Token::Token(buf, &v66, 0, 0, 0, 1, 0, &v64, 0.0, &v62, &v59, 0, v57, 0, 0, 0);
-            std::vector<quasar::Token>::push_back[abi:ne200100](v25 - 24, buf);
+            std::vector<quasar::Token>::push_back[abi:ne200100]((v25 - 24), buf);
             if (v78 < 0)
             {
               operator delete(__p);
@@ -5854,7 +7634,7 @@ void ResultStreamWrapper::writePartial(uint64_t a1, __int128 **a2, int a3, int a
       v20 = v39;
       if (v35)
       {
-        [v35 continuousListeningResultHelper];
+        objc_msgSend_continuousListeningResultHelper(v35);
       }
 
       else
@@ -5903,7 +7683,7 @@ void ResultStreamWrapper::writePartial(uint64_t a1, __int128 **a2, int a3, int a
       }
 
       memset(v44, 0, sizeof(v44));
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v44, v64, *(&v64 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v64 + 1) - v64) >> 3));
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v44, v64, SDWORD2(v64), 0xAAAAAAAAAAAAAAABLL * ((*(&v64 + 1) - v64) >> 3));
       v54 = a4;
       v51 = a3;
       v52 = v37;
@@ -5911,7 +7691,7 @@ void ResultStreamWrapper::writePartial(uint64_t a1, __int128 **a2, int a3, int a
       memset(v45, 0, sizeof(v45));
       std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(v45, v79, v80, 0xAAAAAAAAAAAAAAABLL * ((v80 - v79) >> 3));
       memset(v46, 0, sizeof(v46));
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v46, v62, *(&v62 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v62 + 1) - v62) >> 3));
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v46, v62, SDWORD2(v62), 0xAAAAAAAAAAAAAAABLL * ((*(&v62 + 1) - v62) >> 3));
       memset(v47, 0, sizeof(v47));
       std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v47, v59, v60, 0xAAAAAAAAAAAAAAABLL * ((v60 - v59) >> 3));
       v55 = a10;
@@ -5989,16 +7769,16 @@ void ResultStreamWrapper::writePartial(uint64_t a1, __int128 **a2, int a3, int a
   }
 }
 
-void sub_1B51E521C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, std::__shared_weak_count *a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, void *__p, uint64_t a63)
+void sub_1B51E521C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, std::__shared_weak_count *a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, void **a61, void *__p, uint64_t a63)
 {
-  *(v72 - 104) = v69;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v72 - 104));
-  *(v72 - 104) = v68;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v72 - 104));
-  *(v72 - 104) = v67;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100]((v72 - 104));
-  *(v72 - 104) = v71;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v72 - 104));
+  *(v70 - 104) = v67;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v70 - 104));
+  *(v70 - 104) = v66;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v70 - 104));
+  *(v70 - 104) = v65;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100]((v70 - 104));
+  *(v70 - 104) = v69;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100]((v70 - 104));
   if (a25)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a25);
@@ -6009,7 +7789,7 @@ void sub_1B51E521C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a23);
   }
 
-  if (a67 < 0)
+  if (a65 < 0)
   {
     operator delete(__p);
   }
@@ -6025,18 +7805,18 @@ void sub_1B51E521C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a46);
   }
 
-  if (v70)
+  if (v68)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v68);
   }
 
-  a61 = v72 - 128;
+  a61 = (v70 - 128);
   std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&a61);
 
   _Unwind_Resume(a1);
 }
 
-void ResultStreamWrapper::writeFinalChoices(uint64_t a1, unsigned __int8 *a2, unsigned int a3)
+void ResultStreamWrapper::writeFinalChoices(uint64_t a1, quasar::PTree *a2, unsigned int a3)
 {
   v54[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -6063,10 +7843,10 @@ void ResultStreamWrapper::writeFinalChoices(uint64_t a1, unsigned __int8 *a2, un
             while (v8 != v9)
             {
               quasar::Token::Token(&__p, v8);
-              if (a2[584] == 1)
+              if (*(a2 + 584) == 1)
               {
                 quasar::resetWhiteSpace(&__p, a2 + 592);
-                v10 = a2[584];
+                v10 = *(a2 + 584);
               }
 
               else
@@ -6172,7 +7952,7 @@ void ResultStreamWrapper::writeFinalChoices(uint64_t a1, unsigned __int8 *a2, un
         v20 = *(a1 + 80);
         if (v20)
         {
-          [v20 continuousListeningResultHelper];
+          objc_msgSend_continuousListeningResultHelper(v20);
         }
 
         else
@@ -6361,12 +8141,13 @@ void ResultStreamWrapper::reportRecognitionProgress(ResultStreamWrapper *this, i
   }
 }
 
-void ResultStreamWrapper::reportHighResolutionRecognitionProgress(ResultStreamWrapper *this, int a2)
+void ResultStreamWrapper::reportHighResolutionRecognitionProgress(ResultStreamWrapper *this, const char *a2)
 {
   v3 = *(this + 10);
   if (v3)
   {
-    [v3 continuousListeningResultHelper];
+    v4 = a2;
+    objc_msgSend_continuousListeningResultHelper(v3);
     if (v7)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -6377,7 +8158,7 @@ void ResultStreamWrapper::reportHighResolutionRecognitionProgress(ResultStreamWr
       v5 = *(this + 10);
       if (v5)
       {
-        [(EARContinuousListeningResultHelper *)v5 continuousListeningResultHelper];
+        objc_msgSend_continuousListeningResultHelper(v5);
         v5 = v6;
       }
 
@@ -6386,7 +8167,7 @@ void ResultStreamWrapper::reportHighResolutionRecognitionProgress(ResultStreamWr
         v7 = 0;
       }
 
-      EARContinuousListeningResultHelper::reportHighResolutionRecognitionProgress(v5, a2);
+      EARContinuousListeningResultHelper::reportHighResolutionRecognitionProgress(v5, v4);
       if (v7)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -6395,69 +8176,69 @@ void ResultStreamWrapper::reportHighResolutionRecognitionProgress(ResultStreamWr
   }
 }
 
-void ResultStreamWrapper::reportPause(ResultStreamWrapper *this)
+void ResultStreamWrapper::reportPause(ResultStreamWrapper *this, const char *a2)
 {
-  v2 = *(this + 10);
-  if (v2)
+  v3 = *(this + 10);
+  if (v3)
   {
-    [v2 continuousListeningResultHelper];
-    if (v5)
+    objc_msgSend_continuousListeningResultHelper(v3, a2);
+    if (v6)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
 
-    if (v4)
+    if (v5)
     {
-      v3 = *(this + 10);
-      if (v3)
+      v4 = *(this + 10);
+      if (v4)
       {
-        [(EARContinuousListeningResultHelper *)v3 continuousListeningResultHelper];
-        v3 = v4;
+        objc_msgSend_continuousListeningResultHelper(v4);
+        v4 = v5;
       }
 
       else
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      EARContinuousListeningResultHelper::reportPause(v3);
-      if (v5)
+      EARContinuousListeningResultHelper::reportPause(v4);
+      if (v6)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
       }
     }
   }
 }
 
-void ResultStreamWrapper::reportResume(ResultStreamWrapper *this)
+void ResultStreamWrapper::reportResume(ResultStreamWrapper *this, const char *a2)
 {
-  v2 = *(this + 10);
-  if (v2)
+  v3 = *(this + 10);
+  if (v3)
   {
-    [v2 continuousListeningResultHelper];
-    if (v5)
+    objc_msgSend_continuousListeningResultHelper(v3, a2);
+    if (v6)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
 
-    if (v4)
+    if (v5)
     {
-      v3 = *(this + 10);
-      if (v3)
+      v4 = *(this + 10);
+      if (v4)
       {
-        [(EARContinuousListeningResultHelper *)v3 continuousListeningResultHelper];
-        v3 = v4;
+        objc_msgSend_continuousListeningResultHelper(v4);
+        v4 = v5;
       }
 
       else
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      EARContinuousListeningResultHelper::reportResume(v3);
-      if (v5)
+      EARContinuousListeningResultHelper::reportResume(v4);
+      if (v6)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
       }
     }
   }
@@ -6748,7 +8529,7 @@ void EARFormatterResultStream::~EARFormatterResultStream(EARFormatterResultStrea
   JUMPOUT(0x1B8C85350);
 }
 
-void EARFormatterResultStream::writePartial(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int a5, int a6, uint64_t *a7, uint64_t a8, uint64_t a9, BOOL a10, BOOL a11, uint64_t a12)
+void EARFormatterResultStream::writePartial(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5, int a6, uint64_t *a7, uint64_t a8, uint64_t a9, BOOL a10, BOOL a11, uint64_t a12)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 24));
   v18 = *(a1 + 32);
@@ -6762,56 +8543,56 @@ void EARFormatterResultStream::writePartial(uint64_t a1, uint64_t a2, unsigned i
       v21 = *(a1 + 48);
       if (v21)
       {
-        [v21 ear_toString];
+        objc_msgSend_ear_toString(v21);
       }
 
       else
       {
+        v46 = 0;
         v47 = 0;
         v48 = 0;
-        v49 = 0;
       }
 
       v22 = *(a1 + 40);
       if (v22)
       {
-        [v22 ear_toString];
+        objc_msgSend_ear_toString(v22);
       }
 
       else
       {
+        v43 = 0;
         v44 = 0;
         v45 = 0;
-        v46 = 0;
       }
 
-      LODWORD(v20) = [v20 isEnableAutoPunctuation:&v47 task:&v44 itnEnablingFlags:[(dispatch_queue_t *)WeakRetained itnEnablingFlags]];
-      if (SHIBYTE(v46) < 0)
+      LODWORD(v20) = [v20 isEnableAutoPunctuation:&v46 task:&v43 itnEnablingFlags:[(dispatch_queue_t *)WeakRetained itnEnablingFlags]];
+      if (SHIBYTE(v45) < 0)
       {
-        operator delete(v44);
+        operator delete(v43);
       }
 
-      if (SHIBYTE(v49) < 0)
+      if (SHIBYTE(v48) < 0)
       {
-        operator delete(v47);
+        operator delete(v46);
       }
     }
 
-    v43 = 0;
-    quasar::DoublePartialLogic::handlePartial(*(a1 + 64), v20, a10, a11, &v43);
-    if (!v43)
+    v42 = 0;
+    quasar::DoublePartialLogic::handlePartial(*(a1 + 64), v20, a10, a11, &v42);
+    if (!v42)
     {
       v23 = *(a1 + 56);
       if (v23)
       {
-        [v23 continuousListeningResultHelper];
-        if (v41)
+        objc_msgSend_continuousListeningResultHelper(v23);
+        if (v40)
         {
-          quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(v41, &v39);
-          if (v41)
+          quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(&v38, v40);
+          if (v40)
           {
-            v24 = *(v41 + 256);
-            v32 = *(v41 + 248);
+            v24 = v40[32];
+            v31 = v40[31];
             if (v24)
             {
               atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6820,7 +8601,7 @@ void EARFormatterResultStream::writePartial(uint64_t a1, uint64_t a2, unsigned i
 
           else
           {
-            v32 = 0;
+            v31 = 0;
             v24 = 0;
           }
 
@@ -6830,83 +8611,82 @@ void EARFormatterResultStream::writePartial(uint64_t a1, uint64_t a2, unsigned i
 
       else
       {
+        v40 = 0;
         v41 = 0;
-        v42 = 0;
       }
 
-      v32 = 0;
+      v31 = 0;
       v24 = 0;
+      v38 = 0;
       v39 = 0;
-      v40 = 0;
 LABEL_22:
-      memset(v38, 0, sizeof(v38));
-      std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(v38, *a7, a7[1], 0xAAAAAAAAAAAAAAABLL * ((a7[1] - *a7) >> 3));
+      memset(v37, 0, sizeof(v37));
+      std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(v37, *a7, a7[1], 0xAAAAAAAAAAAAAAABLL * ((a7[1] - *a7) >> 3));
       v25 = *(a1 + 48);
-      v30 = *(a1 + 40);
-      v31 = a3;
+      v29 = *(a1 + 40);
+      v30 = a3;
+      v46 = 0;
       v47 = 0;
       v48 = 0;
-      v49 = 0;
-      v26 = v40;
-      v37[0] = v39;
-      v37[1] = v40;
-      if (v40)
+      v26 = v39;
+      v36[0] = v38;
+      v36[1] = v39;
+      if (v39)
       {
-        atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
+      v43 = 0;
       v44 = 0;
       v45 = 0;
-      v46 = 0;
-      memset(v36, 0, sizeof(v36));
+      memset(v35, 0, sizeof(v35));
       v27 = *(a1 + 56);
       ShouldHideTrailingPunctuation = quasar::DoublePartialLogic::getShouldHideTrailingPunctuation(*(a1 + 64));
-      quasar::DoublePartialLogic::getIsLastPartialTrailingPunctuationHidden(*(a1 + 64), &v34);
-      v33[0] = v32;
-      v33[1] = v24;
+      quasar::DoublePartialLogic::getIsLastPartialTrailingPunctuationHidden(&v33, *(a1 + 64));
+      v32[0] = v31;
+      v32[1] = v24;
       if (v24)
       {
         atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      LODWORD(v29) = a5;
-      writePartialToResultStream(v38, WeakRetained, v19, v30, v25, &v47, 0, v31, v29, v37, a6, v27, &v44, 0, v36, ShouldHideTrailingPunctuation, &v34, v33, a12);
+      writePartialToResultStream(v37, WeakRetained, v19, v29, v25, &v46, 0, v30, a5, v36, a6, v27, &v43, 0, v35, ShouldHideTrailingPunctuation, &v33, v32, a12);
       if (v24)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
-      if (v35)
+      if (v34)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v34);
       }
 
-      v50 = v36;
-      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v50);
-      v36[0] = &v44;
-      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v36);
+      v49 = v35;
+      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v49);
+      v35[0] = &v43;
+      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v35);
       if (v26)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v26);
       }
 
-      v44 = &v47;
-      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v44);
-      v47 = v38;
-      std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v47);
+      v43 = &v46;
+      std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v43);
+      v46 = v37;
+      std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v46);
       if (v24)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
-      if (v40)
+      if (v39)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v39);
       }
 
-      if (v42)
+      if (v41)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v41);
       }
     }
   }
@@ -6933,36 +8713,36 @@ void EARFormatterResultStream::writeFinalChoices(uint64_t a1, uint64_t a2, int a
     goto LABEL_51;
   }
 
-  v50 = v7;
+  v51 = v7;
   dispatch_assert_queue_V2(WeakRetained[1]);
   ContinuousListeningConfig = *(a1 + 56);
   if (!ContinuousListeningConfig)
   {
-    v79 = 0;
     v80 = 0;
+    v81 = 0;
     goto LABEL_9;
   }
 
-  [ContinuousListeningConfig continuousListeningResultHelper];
-  ContinuousListeningConfig = v79;
-  if (!v79)
+  objc_msgSend_continuousListeningResultHelper(ContinuousListeningConfig);
+  ContinuousListeningConfig = v80;
+  if (!v80)
   {
 LABEL_9:
     v11 = 0;
-    v51 = 0;
-    v77 = 0;
+    v52 = 0;
     v78 = 0;
+    v79 = 0;
     goto LABEL_12;
   }
 
-  ContinuousListeningConfig = quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(v79, &v77);
-  if (v79)
+  ContinuousListeningConfig = quasar::ContinuousListeningResultHelper::getContinuousListeningConfig(&v78, v80);
+  if (v80)
   {
-    v11 = *(v79 + 248);
-    v10 = *(v79 + 256);
+    v11 = v80[31];
+    v10 = v80[32];
     if (v10)
     {
-      v51 = *(v79 + 256);
+      v52 = v80[32];
       atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
       goto LABEL_12;
     }
@@ -6973,17 +8753,17 @@ LABEL_9:
     v11 = 0;
   }
 
-  v51 = 0;
+  v52 = 0;
 LABEL_12:
-  v76[0] = 0;
-  v76[1] = 0;
-  v75 = v76;
+  v77[0] = 0;
+  v77[1] = 0;
+  v76 = v77;
   v12 = *(a2 + 360);
   if (v12)
   {
-    if (&v75 != (v12 + 344))
+    if (&v76 != (v12 + 344))
     {
-      std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(&v75, *(v12 + 344), (v12 + 352));
+      std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(&v76, *(v12 + 344), (v12 + 352));
     }
   }
 
@@ -6997,38 +8777,38 @@ LABEL_12:
   }
 
   String = quasar::PTree::getString(a2);
-  v72 = 0;
   v73 = 0;
   v74 = 0;
-  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&v72, *String, String[1], 0xAAAAAAAAAAAAAAABLL * ((String[1] - *String) >> 3));
+  v75 = 0;
+  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&v73, *String, String[1], 0xAAAAAAAAAAAAAAABLL * ((String[1] - *String) >> 3));
   BitmapRegion = quasar::GeoRegion::getBitmapRegion(a2);
-  v69 = 0;
   v70 = 0;
   v71 = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v69, *BitmapRegion, BitmapRegion[1], (BitmapRegion[1] - *BitmapRegion) >> 3);
+  v72 = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v70, *BitmapRegion, *(BitmapRegion + 8), (*(BitmapRegion + 8) - *BitmapRegion) >> 3);
   DestToks = quasar::Align::getDestToks(a2);
-  memset(v68, 0, sizeof(v68));
-  std::vector<std::set<std::string>>::__init_with_size[abi:ne200100]<std::set<std::string>*,std::set<std::string>*>(v68, *DestToks, DestToks[1], 0xAAAAAAAAAAAAAAABLL * ((DestToks[1] - *DestToks) >> 3));
-  if ([(dispatch_queue_t *)WeakRetained continuousListeningFormatAcrossUtterances]&& v72 == v73)
+  memset(v69, 0, sizeof(v69));
+  std::vector<std::set<std::string>>::__init_with_size[abi:ne200100]<std::set<std::string>*,std::set<std::string>*>(v69, *DestToks, DestToks[1], 0xAAAAAAAAAAAAAAABLL * ((DestToks[1] - *DestToks) >> 3));
+  if ([(dispatch_queue_t *)WeakRetained continuousListeningFormatAcrossUtterances]&& v73 == v74)
   {
-    v65 = 0;
     v66 = 0;
     v67 = 0;
-    std::vector<std::vector<quasar::Token>>::assign(&v72, 1uLL, &v65);
-    v62 = &v65;
-    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v62);
-    v65 = 0;
-    std::vector<double>::assign(&v69, 1uLL, &v65);
+    v68 = 0;
+    std::vector<std::vector<quasar::Token>>::assign(&v73, 1uLL, &v66);
+    v63 = &v66;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v63);
     v66 = 0;
+    std::vector<double>::assign(&v70, 1uLL, &v66);
     v67 = 0;
-    v65 = &v66;
-    std::vector<std::set<std::string>>::assign(v68, 1uLL, &v65);
-    std::__tree<std::string>::destroy(&v65, v66);
+    v68 = 0;
+    v66 = &v67;
+    std::vector<std::set<std::string>>::assign(v69, 1uLL, &v66);
+    std::__tree<std::string>::destroy(&v66, v67);
   }
 
-  v65 = 0;
   v66 = 0;
   v67 = 0;
+  v68 = 0;
   if ((*(a2 + 568) & 1) != 0 || *(a2 + 569) == 1)
   {
     MultiChainMultiAudioBuffer = quasar::SpeechRequestData::getMultiChainMultiAudioBuffer(a2);
@@ -7037,47 +8817,47 @@ LABEL_12:
     v20 = *(a2 + 392);
     v22 = *(a1 + 40);
     v21 = *(a1 + 48);
-    v62 = 0;
     v63 = 0;
     v64 = 0;
-    v23 = v78;
-    v61[0] = v77;
-    v61[1] = v78;
-    if (v78)
+    v65 = 0;
+    v23 = v79;
+    v62[0] = v78;
+    v62[1] = v79;
+    if (v79)
     {
-      atomic_fetch_add_explicit(&v78->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v58 = 0;
     v59 = 0;
     v60 = 0;
+    v61 = 0;
     Config = kaldi::quasar::CEInferenceNet::GetConfig(a2);
-    v55 = 0;
     v56 = 0;
     v57 = 0;
+    v58 = 0;
     v25 = *(a2 + 560);
     v26 = *(a2 + 568);
     v27 = *(a2 + 572);
-    v54[0] = v11;
-    v28 = v51;
-    v54[1] = v51;
-    if (v51)
+    v55[0] = v11;
+    v28 = v52;
+    v55[1] = v52;
+    if (v52)
     {
-      atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v45 = v21;
-    v8 = v50;
-    writeFinalCandidateChoicesToResultStream(&v72, WeakRetained, v50, MultiChainMultiAudioBuffer, (a2 + 440), v22, v19, v18, v25, v20, v45, v61, &v58, &v65, Config, &v75, v68, 0, v26, v27, v54, *(a1 + 56), a2 + 584);
-    if (v51)
+    v8 = v51;
+    writeFinalCandidateChoicesToResultStream(&v73, WeakRetained, v51, MultiChainMultiAudioBuffer, (a2 + 440), v22, v19, v18, v25, v20, v45, v62, &v59, &v66, Config, &v76, v69, 0, v26, v27, v55, *(a1 + 56), a2 + 584);
+    if (v52)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v51);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v52);
     }
 
-    v81[0] = &v55;
-    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v81);
-    v55 = &v58;
-    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v55);
+    v82[0] = &v56;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v82);
+    v56 = &v59;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v56);
     if (!v23)
     {
       goto LABEL_43;
@@ -7097,56 +8877,58 @@ LABEL_12:
       v31 = *(a2 + 556) ^ 1;
     }
 
-    v49 = v32;
+    v50 = v32;
     v33 = quasar::SpeechRequestData::getMultiChainMultiAudioBuffer(a2);
     v34 = v11;
     v35 = *(a2 + 408);
-    v46 = *(a2 + 388);
+    v47 = *(a2 + 388);
     v36 = *(a2 + 392);
     v37 = *(a1 + 48);
-    v47 = *(a1 + 40);
-    v48 = v33;
+    v48 = *(a1 + 40);
+    v49 = v33;
     v38 = *(a1 + 56);
-    v62 = 0;
     v63 = 0;
     v64 = 0;
-    v39 = v78;
-    v53[0] = v77;
-    v53[1] = v78;
-    if (v78)
+    v65 = 0;
+    v39 = v79;
+    v54[0] = v78;
+    v54[1] = v79;
+    if (v79)
     {
-      atomic_fetch_add_explicit(&v78->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v58 = 0;
     v59 = 0;
     v60 = 0;
+    v61 = 0;
     v40 = kaldi::quasar::CEInferenceNet::GetConfig(a2);
     v41 = *(a2 + 556);
-    v55 = 0;
     v56 = 0;
     v57 = 0;
+    v58 = 0;
     v42 = *(a2 + 557);
     v43 = *(a2 + 560);
     v44 = *(a2 + 572);
-    v52[0] = v34;
-    v52[1] = v51;
-    if (v51)
+    v53[0] = v34;
+    v53[1] = v52;
+    if (v52)
     {
-      atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    writeFinalChoicesToResultStream(&v72, &v69, v49 & 1, WeakRetained, v8, v48, (a2 + 440), v47, v35, v43, v46, v36, v37, v38, a3, v31 & 1, v53, &v58, &v65, v40, &v75, v68, 0, v41, v42, v44, v52, a2 + 584);
-    v28 = v51;
-    if (v51)
+    HIBYTE(v46) = v41;
+    LOBYTE(v46) = 0;
+    writeFinalChoicesToResultStream(&v73, &v70, v50 & 1, WeakRetained, v8, v49, (a2 + 440), v48, v35, v43, v47, v36, v37, v38, a3, v31 & 1, v54, &v59, &v66, v40, &v76, v69, v46, v42, v44, v53, a2 + 584);
+    v28 = v52;
+    if (v52)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v51);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v52);
     }
 
-    v81[0] = &v55;
-    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v81);
-    v55 = &v58;
-    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v55);
+    v82[0] = &v56;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](v82);
+    v56 = &v59;
+    std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v56);
     if (!v39)
     {
       goto LABEL_43;
@@ -7157,34 +8939,34 @@ LABEL_12:
 
   std::__shared_weak_count::__release_shared[abi:ne200100](v29);
 LABEL_43:
-  v58 = &v62;
-  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v58);
-  v62 = &v65;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v62);
-  v65 = v68;
-  std::vector<std::set<std::string>>::__destroy_vector::operator()[abi:ne200100](&v65);
-  if (v69)
+  v59 = &v63;
+  std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](&v59);
+  v63 = &v66;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v63);
+  v66 = v69;
+  std::vector<std::set<std::string>>::__destroy_vector::operator()[abi:ne200100](&v66);
+  if (v70)
   {
-    v70 = v69;
-    operator delete(v69);
+    v71 = v70;
+    operator delete(v70);
   }
 
-  v69 = &v72;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v69);
-  std::__tree<std::string>::destroy(&v75, v76[0]);
+  v70 = &v73;
+  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v70);
+  std::__tree<std::string>::destroy(&v76, v77[0]);
   if (v28)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
-  if (v78)
+  if (v79)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v78);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v79);
   }
 
-  if (v80)
+  if (v81)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v80);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v81);
   }
 
 LABEL_51:
@@ -7311,7 +9093,7 @@ void std::vector<std::vector<quasar::Token>>::assign(uint64_t a1, unint64_t a2, 
   }
 }
 
-void *std::vector<double>::assign(void *a1, unint64_t a2, uint64_t *a3)
+void *std::vector<double>::assign(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -7429,21 +9211,21 @@ void *std::vector<double>::assign(void *a1, unint64_t a2, uint64_t *a3)
   return result;
 }
 
-void std::vector<std::set<std::string>>::assign(uint64_t a1, unint64_t a2, const void ***a3)
+void std::vector<std::set<std::string>>::assign(char ***a1, unint64_t a2, const void ***a3)
 {
   v6 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) < a2)
   {
     std::vector<std::set<std::string>>::__vdeallocate(a1);
     if (a2 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v7 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+      v7 = 0x5555555555555556 * (a1[2] - *a1);
       if (v7 <= a2)
       {
         v7 = a2;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
       {
         v8 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -7459,7 +9241,7 @@ void std::vector<std::set<std::string>>::assign(uint64_t a1, unint64_t a2, const
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = (*(a1 + 8) - v6) >> 3;
+  v9 = a1[1] - v6;
   v10 = 0xAAAAAAAAAAAAAAABLL * v9;
   if (0xAAAAAAAAAAAAAAABLL * v9 >= a2)
   {
@@ -7483,8 +9265,8 @@ void std::vector<std::set<std::string>>::assign(uint64_t a1, unint64_t a2, const
 
   if (a2 <= v10)
   {
-    v15 = *(a1 + 8);
-    v16 = *a1 + 24 * a2;
+    v15 = a1[1];
+    v16 = &(*a1)[3 * a2];
     if (v15 != v16)
     {
       do
@@ -7497,12 +9279,12 @@ void std::vector<std::set<std::string>>::assign(uint64_t a1, unint64_t a2, const
       while (v17 != v16);
     }
 
-    *(a1 + 8) = v16;
+    a1[1] = v16;
   }
 
   else
   {
-    v12 = *(a1 + 8);
+    v12 = a1[1];
     v13 = &v12[3 * (a2 - v10)];
     v14 = 24 * a2 - 24 * v10;
     do
@@ -7513,11 +9295,11 @@ void std::vector<std::set<std::string>>::assign(uint64_t a1, unint64_t a2, const
     }
 
     while (v14);
-    *(a1 + 8) = v13;
+    a1[1] = v13;
   }
 }
 
-uint64_t std::vector<std::set<std::string>>::__init_with_size[abi:ne200100]<std::set<std::string>*,std::set<std::string>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::set<std::string>>::__init_with_size[abi:ne200100]<std::set<std::string>*,std::set<std::string>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7534,7 +9316,7 @@ void sub_1B51E7B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::set<std::string>>,std::set<std::string>*,std::set<std::string>*,std::set<std::string>*>(uint64_t a1, const void ***a2, const void ***a3, void *a4)
+uint64_t **std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::set<std::string>>,std::set<std::string>*,std::set<std::string>*,std::set<std::string>*>(uint64_t a1, const void ***a2, const void ***a3, uint64_t **a4)
 {
   v4 = a4;
   v10 = a4;
@@ -7589,7 +9371,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::set<std::string>>,st
   }
 }
 
-void std::vector<std::set<std::string>>::__vdeallocate(void **a1)
+void std::vector<std::set<std::string>>::__vdeallocate(char ***a1)
 {
   v1 = *a1;
   if (*a1)
@@ -7644,19 +9426,26 @@ void EARContinuousListeningResultHelper::EARContinuousListeningResultHelper(uint
   v19 = [v13 allowUtteranceDelay];
   if (v18)
   {
-    [v18 ear_toString];
+    objc_msgSend_ear_toString(v18);
   }
 
-  quasar::ContinuousListeningResultHelper::ContinuousListeningResultHelper(a1, v19);
+  else
+  {
+    __p[0] = 0;
+    __p[1] = 0;
+    v21 = 0;
+  }
+
+  quasar::ContinuousListeningResultHelper::ContinuousListeningResultHelper(a1, v19, __p);
 }
 
-void sub_1B51E82A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_1B51E82A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   v32 = *(v30 - 96);
   *(v30 - 96) = 0;
   if (v32)
   {
-    (*(*v32 + 8))(v32);
+    (*(*v32 + 8))(v32, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v33 = *(v26 + 272);
@@ -7679,32 +9468,32 @@ void sub_1B51E82A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B51E84B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1B51E84B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   std::make_unique[abi:ne200100]<quasar::result_handler::VoiceEditingRecoveryHandler,std::unique_ptr<quasar::result_handler::ResultHandler>,std::shared_ptr<EARVoiceEditingClient> &,0>(va);
-  MEMORY[0x1B8C85350](v5, v4);
+  MEMORY[0x1B8C85350](v8, v7);
   _Unwind_Resume(a1);
 }
 
-void sub_1B51E85CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1B51E85CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  if (a4)
+  va_start(va1, a7);
+  va_start(va, a7);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   std::make_unique[abi:ne200100]<quasar::result_handler::VoiceEditingResultHandler,quasar::result_handler::VoiceEditingResultHandlerConfig &,std::unique_ptr<quasar::result_handler::ResultHandler>,decltype(nullptr),std::shared_ptr<EARVoiceEditingClient> &,0>(va, va1);
-  MEMORY[0x1B8C85350](v5, v4);
+  MEMORY[0x1B8C85350](v8, v7);
   _Unwind_Resume(a1);
 }
 
@@ -7768,7 +9557,7 @@ void EAROutputResultHandler::~EAROutputResultHandler(id *this)
   JUMPOUT(0x1B8C85350);
 }
 
-void EAROutputResultHandler::handlePartial(uint64_t a1, uint64_t a2, uint64_t ***a3)
+void EAROutputResultHandler::handlePartial(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 16));
   v6 = objc_loadWeakRetained((a1 + 24));
@@ -7807,7 +9596,7 @@ void EAROutputResultHandler::handlePartial(uint64_t a1, uint64_t a2, uint64_t **
           v12 = v11;
           if (v11)
           {
-            [v11 ear_toString];
+            objc_msgSend_ear_toString(v11);
             v13 = HIBYTE(v22);
             v15 = __p;
             v14 = v21;
@@ -7859,7 +9648,7 @@ void EAROutputResultHandler::handlePartial(uint64_t a1, uint64_t a2, uint64_t **
         v23 = 0uLL;
         if (v18 != v19)
         {
-          std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v23, *v18, v18[1], 0x6DB6DB6DB6DB6DB7 * ((v18[1] - *v18) >> 5));
+          std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(&v23, *v18, *(v18 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(v18 + 8) - *v18) >> 5));
         }
 
         __p = &v23;
@@ -7867,1804 +9656,4 @@ void EAROutputResultHandler::handlePartial(uint64_t a1, uint64_t a2, uint64_t **
       }
     }
   }
-}
-
-void sub_1B51E89E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::locale a16)
-{
-  quasar::QuasarDebugMessage::~QuasarDebugMessage(&a16);
-
-  _Unwind_Resume(a1);
-}
-
-void EAROutputResultHandler::handleCommandCandidate(uint64_t a1, uint64_t a2, quasar::result_handler::Package **a3)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 16));
-  v6 = objc_loadWeakRetained((a1 + 24));
-  v7 = v6;
-  if (WeakRetained)
-  {
-    if (v6)
-    {
-      dispatch_assert_queue_V2(WeakRetained[1]);
-      if (objc_opt_respondsToSelector())
-      {
-        v8 = RHPackageToEARPackage(*a3);
-        if ([v8 hasNonEmptyToken])
-        {
-          if (quasar::gLogLevel >= 5)
-          {
-            v75 = 0u;
-            v76 = 0u;
-            v73 = 0u;
-            v74 = 0u;
-            v71 = 0u;
-            v72 = 0u;
-            v69 = 0u;
-            v70 = 0u;
-            v67 = 0u;
-            v68 = 0u;
-            v65 = 0u;
-            v66 = 0u;
-            v63 = 0u;
-            v64 = 0u;
-            v61 = 0u;
-            v62 = 0u;
-            v60 = 0u;
-            kaldi::KaldiWarnMessage::KaldiWarnMessage(&v60);
-            v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v60, "EAROutputResultHandler: voiceCommandCandidatePackage PreITN preceding: ", 71);
-            v10 = [v8 preITNRecognition];
-            v11 = [v10 potentialPrecedingRecognition];
-            v12 = [v11 nBest];
-            v13 = [v12 firstObject];
-            v14 = transcriptFromTokens(v13);
-            v15 = v14;
-            if (v14)
-            {
-              [v14 ear_toString];
-              v16 = HIBYTE(v59);
-              v18 = __p;
-              v17 = v58;
-            }
-
-            else
-            {
-              v17 = 0;
-              v18 = 0;
-              v16 = 0;
-              __p = 0;
-              v58 = 0;
-              v59 = 0;
-            }
-
-            if ((v16 & 0x80u) == 0)
-            {
-              p_p = &__p;
-            }
-
-            else
-            {
-              p_p = v18;
-            }
-
-            if ((v16 & 0x80u) == 0)
-            {
-              v20 = v16;
-            }
-
-            else
-            {
-              v20 = v17;
-            }
-
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, p_p, v20);
-            if (SHIBYTE(v59) < 0)
-            {
-              operator delete(__p);
-            }
-
-            quasar::QuasarDebugMessage::~QuasarDebugMessage(&v60);
-            if (quasar::gLogLevel >= 5)
-            {
-              v75 = 0u;
-              v76 = 0u;
-              v73 = 0u;
-              v74 = 0u;
-              v71 = 0u;
-              v72 = 0u;
-              v69 = 0u;
-              v70 = 0u;
-              v67 = 0u;
-              v68 = 0u;
-              v65 = 0u;
-              v66 = 0u;
-              v63 = 0u;
-              v64 = 0u;
-              v61 = 0u;
-              v62 = 0u;
-              v60 = 0u;
-              kaldi::KaldiWarnMessage::KaldiWarnMessage(&v60);
-              v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v60, "EAROutputResultHandler: voiceCommandCandidatePackage PreITN command: ", 69);
-              v22 = [v8 preITNRecognition];
-              v23 = [v22 potentialCommandRecognition];
-              v24 = [v23 nBest];
-              v25 = [v24 firstObject];
-              v26 = transcriptFromTokens(v25);
-              v27 = v26;
-              if (v26)
-              {
-                [v26 ear_toString];
-                v28 = HIBYTE(v59);
-                v30 = __p;
-                v29 = v58;
-              }
-
-              else
-              {
-                v29 = 0;
-                v30 = 0;
-                v28 = 0;
-                __p = 0;
-                v58 = 0;
-                v59 = 0;
-              }
-
-              if ((v28 & 0x80u) == 0)
-              {
-                v31 = &__p;
-              }
-
-              else
-              {
-                v31 = v30;
-              }
-
-              if ((v28 & 0x80u) == 0)
-              {
-                v32 = v28;
-              }
-
-              else
-              {
-                v32 = v29;
-              }
-
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v31, v32);
-              if (SHIBYTE(v59) < 0)
-              {
-                operator delete(__p);
-              }
-
-              quasar::QuasarDebugMessage::~QuasarDebugMessage(&v60);
-              if (quasar::gLogLevel >= 5)
-              {
-                v75 = 0u;
-                v76 = 0u;
-                v73 = 0u;
-                v74 = 0u;
-                v71 = 0u;
-                v72 = 0u;
-                v69 = 0u;
-                v70 = 0u;
-                v67 = 0u;
-                v68 = 0u;
-                v65 = 0u;
-                v66 = 0u;
-                v63 = 0u;
-                v64 = 0u;
-                v61 = 0u;
-                v62 = 0u;
-                v60 = 0u;
-                kaldi::KaldiWarnMessage::KaldiWarnMessage(&v60);
-                v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v60, "EAROutputResultHandler: voiceCommandCandidatePackage PostITN preceding: ", 72);
-                v34 = [v8 recognition];
-                v35 = [v34 potentialPrecedingRecognition];
-                v36 = [v35 nBest];
-                v37 = [v36 firstObject];
-                v38 = transcriptFromTokens(v37);
-                v39 = v38;
-                if (v38)
-                {
-                  [v38 ear_toString];
-                  v40 = HIBYTE(v59);
-                  v42 = __p;
-                  v41 = v58;
-                }
-
-                else
-                {
-                  v41 = 0;
-                  v42 = 0;
-                  v40 = 0;
-                  __p = 0;
-                  v58 = 0;
-                  v59 = 0;
-                }
-
-                if ((v40 & 0x80u) == 0)
-                {
-                  v43 = &__p;
-                }
-
-                else
-                {
-                  v43 = v42;
-                }
-
-                if ((v40 & 0x80u) == 0)
-                {
-                  v44 = v40;
-                }
-
-                else
-                {
-                  v44 = v41;
-                }
-
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, v43, v44);
-                if (SHIBYTE(v59) < 0)
-                {
-                  operator delete(__p);
-                }
-
-                quasar::QuasarDebugMessage::~QuasarDebugMessage(&v60);
-                if (quasar::gLogLevel >= 5)
-                {
-                  v75 = 0u;
-                  v76 = 0u;
-                  v73 = 0u;
-                  v74 = 0u;
-                  v71 = 0u;
-                  v72 = 0u;
-                  v69 = 0u;
-                  v70 = 0u;
-                  v67 = 0u;
-                  v68 = 0u;
-                  v65 = 0u;
-                  v66 = 0u;
-                  v63 = 0u;
-                  v64 = 0u;
-                  v61 = 0u;
-                  v62 = 0u;
-                  v60 = 0u;
-                  kaldi::KaldiWarnMessage::KaldiWarnMessage(&v60);
-                  v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v60, "EAROutputResultHandler: voiceCommandCandidatePackage PostITN command: ", 70);
-                  v46 = [v8 recognition];
-                  v47 = [v46 potentialCommandRecognition];
-                  v48 = [v47 nBest];
-                  v49 = [v48 firstObject];
-                  v50 = transcriptFromTokens(v49);
-                  v51 = v50;
-                  if (v50)
-                  {
-                    [v50 ear_toString];
-                    v52 = HIBYTE(v59);
-                    v54 = __p;
-                    v53 = v58;
-                  }
-
-                  else
-                  {
-                    v53 = 0;
-                    v54 = 0;
-                    v52 = 0;
-                    __p = 0;
-                    v58 = 0;
-                    v59 = 0;
-                  }
-
-                  if ((v52 & 0x80u) == 0)
-                  {
-                    v55 = &__p;
-                  }
-
-                  else
-                  {
-                    v55 = v54;
-                  }
-
-                  if ((v52 & 0x80u) == 0)
-                  {
-                    v56 = v52;
-                  }
-
-                  else
-                  {
-                    v56 = v53;
-                  }
-
-                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, v55, v56);
-                  if (SHIBYTE(v59) < 0)
-                  {
-                    operator delete(__p);
-                  }
-
-                  quasar::QuasarDebugMessage::~QuasarDebugMessage(&v60);
-                  if (quasar::gLogLevel >= 5)
-                  {
-                    v75 = 0u;
-                    v76 = 0u;
-                    v73 = 0u;
-                    v74 = 0u;
-                    v71 = 0u;
-                    v72 = 0u;
-                    v69 = 0u;
-                    v70 = 0u;
-                    v67 = 0u;
-                    v68 = 0u;
-                    v65 = 0u;
-                    v66 = 0u;
-                    v63 = 0u;
-                    v64 = 0u;
-                    v61 = 0u;
-                    v62 = 0u;
-                    v60 = 0u;
-                    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v60);
-                    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v60, "EAROutputResultHandler: didRecognizeVoiceCommandCandidatePackage", 64);
-                    quasar::QuasarDebugMessage::~QuasarDebugMessage(&v60);
-                  }
-                }
-              }
-            }
-          }
-
-          [v7 speechRecognizer:WeakRetained didRecognizeVoiceCommandCandidatePackage:v8];
-        }
-      }
-    }
-  }
-}
-
-void sub_1B51E8FD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::locale a16)
-{
-  quasar::QuasarDebugMessage::~QuasarDebugMessage(&a16);
-
-  _Unwind_Resume(a1);
-}
-
-void EAROutputResultHandler::handleFinalCandidate(uint64_t a1, uint64_t a2, quasar::result_handler::Package **a3)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 16));
-  v6 = objc_loadWeakRetained((a1 + 24));
-  v7 = v6;
-  if (WeakRetained)
-  {
-    if (v6)
-    {
-      dispatch_assert_queue_V2(WeakRetained[1]);
-      if (objc_opt_respondsToSelector())
-      {
-        v8 = RHPackageToEARPackage(*a3);
-        if ([v8 hasNonEmptyToken])
-        {
-          if (quasar::gLogLevel >= 5)
-          {
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
-            v37 = 0u;
-            v34 = 0u;
-            v35 = 0u;
-            v32 = 0u;
-            v33 = 0u;
-            v30 = 0u;
-            v31 = 0u;
-            v28 = 0u;
-            v29 = 0u;
-            v26 = 0u;
-            v27 = 0u;
-            v24 = 0u;
-            v25 = 0u;
-            v23 = 0u;
-            kaldi::KaldiWarnMessage::KaldiWarnMessage(&v23);
-            v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "EAROutputResultHandler: finalResultCandidatePackage PostITN: ", 61);
-            v10 = [v8 recognition];
-            v11 = [v10 nBest];
-            v12 = [v11 firstObject];
-            v13 = transcriptFromTokens(v12);
-            v14 = v13;
-            if (v13)
-            {
-              [v13 ear_toString];
-              v15 = HIBYTE(v22);
-              v17 = __p;
-              v16 = v21;
-            }
-
-            else
-            {
-              v16 = 0;
-              v17 = 0;
-              v15 = 0;
-              __p = 0;
-              v21 = 0;
-              v22 = 0;
-            }
-
-            if ((v15 & 0x80u) == 0)
-            {
-              p_p = &__p;
-            }
-
-            else
-            {
-              p_p = v17;
-            }
-
-            if ((v15 & 0x80u) == 0)
-            {
-              v19 = v15;
-            }
-
-            else
-            {
-              v19 = v16;
-            }
-
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, p_p, v19);
-            if (SHIBYTE(v22) < 0)
-            {
-              operator delete(__p);
-            }
-
-            quasar::QuasarDebugMessage::~QuasarDebugMessage(&v23);
-            if (quasar::gLogLevel >= 5)
-            {
-              v38 = 0u;
-              v39 = 0u;
-              v36 = 0u;
-              v37 = 0u;
-              v34 = 0u;
-              v35 = 0u;
-              v32 = 0u;
-              v33 = 0u;
-              v30 = 0u;
-              v31 = 0u;
-              v28 = 0u;
-              v29 = 0u;
-              v26 = 0u;
-              v27 = 0u;
-              v24 = 0u;
-              v25 = 0u;
-              v23 = 0u;
-              kaldi::KaldiWarnMessage::KaldiWarnMessage(&v23);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "EAROutputResultHandler: didRecognizeFinalResultCandidatePackage", 63);
-              quasar::QuasarDebugMessage::~QuasarDebugMessage(&v23);
-            }
-          }
-
-          [v7 speechRecognizer:WeakRetained didRecognizeFinalResultCandidatePackage:v8];
-        }
-      }
-    }
-  }
-}
-
-void sub_1B51E92FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::locale a16)
-{
-  quasar::QuasarDebugMessage::~QuasarDebugMessage(&a16);
-
-  _Unwind_Resume(a1);
-}
-
-void EAROutputResultHandler::handleFinal(uint64_t a1, uint64_t a2, quasar::result_handler::Package **a3)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 16));
-  v6 = objc_loadWeakRetained((a1 + 24));
-  v7 = v6;
-  if (WeakRetained)
-  {
-    if (v6)
-    {
-      dispatch_assert_queue_V2(WeakRetained[1]);
-      if (objc_opt_respondsToSelector())
-      {
-        v8 = RHPackageToEARPackage(*a3);
-        if (([v8 hasNonEmptyToken] & 1) != 0 || objc_msgSend(v8, "recognitionPaused"))
-        {
-          if (quasar::gLogLevel >= 5)
-          {
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
-            v37 = 0u;
-            v34 = 0u;
-            v35 = 0u;
-            v32 = 0u;
-            v33 = 0u;
-            v30 = 0u;
-            v31 = 0u;
-            v28 = 0u;
-            v29 = 0u;
-            v26 = 0u;
-            v27 = 0u;
-            v24 = 0u;
-            v25 = 0u;
-            v23 = 0u;
-            kaldi::KaldiWarnMessage::KaldiWarnMessage(&v23);
-            v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "EAROutputResultHandler: final PostITN: ", 39);
-            v10 = [v8 recognition];
-            v11 = [v10 nBest];
-            v12 = [v11 firstObject];
-            v13 = transcriptFromTokens(v12);
-            v14 = v13;
-            if (v13)
-            {
-              [v13 ear_toString];
-              v15 = HIBYTE(v22);
-              v17 = __p;
-              v16 = v21;
-            }
-
-            else
-            {
-              v16 = 0;
-              v17 = 0;
-              v15 = 0;
-              __p = 0;
-              v21 = 0;
-              v22 = 0;
-            }
-
-            if ((v15 & 0x80u) == 0)
-            {
-              p_p = &__p;
-            }
-
-            else
-            {
-              p_p = v17;
-            }
-
-            if ((v15 & 0x80u) == 0)
-            {
-              v19 = v15;
-            }
-
-            else
-            {
-              v19 = v16;
-            }
-
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, p_p, v19);
-            if (SHIBYTE(v22) < 0)
-            {
-              operator delete(__p);
-            }
-
-            quasar::QuasarDebugMessage::~QuasarDebugMessage(&v23);
-            if (quasar::gLogLevel >= 5)
-            {
-              v38 = 0u;
-              v39 = 0u;
-              v36 = 0u;
-              v37 = 0u;
-              v34 = 0u;
-              v35 = 0u;
-              v32 = 0u;
-              v33 = 0u;
-              v30 = 0u;
-              v31 = 0u;
-              v28 = 0u;
-              v29 = 0u;
-              v26 = 0u;
-              v27 = 0u;
-              v24 = 0u;
-              v25 = 0u;
-              v23 = 0u;
-              kaldi::KaldiWarnMessage::KaldiWarnMessage(&v23);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "EAROutputResultHandler: didRecognizeFinalResultPackage", 54);
-              quasar::QuasarDebugMessage::~QuasarDebugMessage(&v23);
-            }
-          }
-
-          [v7 speechRecognizer:WeakRetained didRecognizeFinalResultPackage:v8];
-        }
-      }
-    }
-  }
-}
-
-void sub_1B51E95B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::locale a16)
-{
-  quasar::QuasarDebugMessage::~QuasarDebugMessage(&a16);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t quasar::result_handler::ResultHandler::updateNow(uint64_t this, int *a2)
-{
-  v2 = *a2;
-  if (*a2 <= *(this + 8))
-  {
-    v2 = *(this + 8);
-  }
-
-  *a2 = v2;
-  *(this + 8) = v2;
-  return this;
-}
-
-void std::__shared_ptr_emplace<EARVoiceEditingClient>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2D046A0;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C85350);
-}
-
-void EARVoiceEditingClient::~EARVoiceEditingClient(EARVoiceEditingClient *this)
-{
-  *this = &unk_1F2D046F0;
-  v2 = *(this + 3);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  objc_destroyWeak(this + 1);
-
-  quasar::Bitmap::~Bitmap(this);
-}
-
-{
-  *this = &unk_1F2D046F0;
-  v2 = *(this + 3);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  objc_destroyWeak(this + 1);
-  quasar::Bitmap::~Bitmap(this);
-
-  JUMPOUT(0x1B8C85350);
-}
-
-void EARVoiceEditingClient::getLeftAndRightContext(id *this@<X0>, std::string *a2@<X8>)
-{
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x4812000000;
-  v17 = __Block_byref_object_copy__1405;
-  v18 = __Block_byref_object_dispose__1406;
-  v19 = &unk_1B5CADD23;
-  v21 = 0;
-  v22 = 0;
-  v20 = 0;
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x4812000000;
-  v8 = __Block_byref_object_copy__1405;
-  v9 = __Block_byref_object_dispose__1406;
-  v10 = &unk_1B5CADD23;
-  v12 = 0;
-  v13 = 0;
-  __p = 0;
-  WeakRetained = objc_loadWeakRetained(this + 1);
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = ___ZN21EARVoiceEditingClient22getLeftAndRightContextEv_block_invoke;
-  v4[3] = &unk_1E7C1A6D0;
-  v4[4] = &v14;
-  v4[5] = &v5;
-  [WeakRetained getLeftAndRightContextWithCompletion:v4];
-  std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(a2, v15 + 3, v6 + 3);
-
-  _Block_object_dispose(&v5, 8);
-  if (SHIBYTE(v13) < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Block_object_dispose(&v14, 8);
-  if (SHIBYTE(v22) < 0)
-  {
-    operator delete(v20);
-  }
-}
-
-void sub_1B51E99E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
-{
-  _Block_object_dispose(&a15, 8);
-  if (a26 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Block_object_dispose((v27 - 104), 8);
-  if (*(v27 - 33) < 0)
-  {
-    operator delete(*(v27 - 56));
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t EARVoiceEditingClient::getDisambiguationActive(id *this)
-{
-  WeakRetained = objc_loadWeakRetained(this + 1);
-  v2 = [WeakRetained disambiguationActive];
-
-  return v2;
-}
-
-uint64_t EARVoiceEditingClient::getFavorCommandSuppression(id *this)
-{
-  WeakRetained = objc_loadWeakRetained(this + 1);
-  v2 = [WeakRetained favorCommandSuppression];
-
-  return v2;
-}
-
-uint64_t EARVoiceEditingClient::getUndoEventAndReset(id *this)
-{
-  WeakRetained = objc_loadWeakRetained(this + 1);
-  v2 = [WeakRetained getUndoEventAndReset];
-
-  return v2;
-}
-
-uint64_t EARVoiceEditingClient::getUtteranceStartedWithSelectedText(id *this)
-{
-  WeakRetained = objc_loadWeakRetained(this + 1);
-  v2 = [WeakRetained utteranceStartedWithSelectedText];
-
-  return v2;
-}
-
-void EARVoiceEditingClient::setEnableFinalization(EARVoiceEditingClient *this, char a2)
-{
-  v3 = *(this + 3);
-  if (v3)
-  {
-    v5 = std::__shared_weak_count::lock(v3);
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *(this + 2);
-      if (v7)
-      {
-        quasar::UtteranceDelayResultStream::setEnableFinalization(v7, a2);
-      }
-
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-    }
-  }
-}
-
-__n128 __Block_byref_object_copy__1405(__n128 *a1, __n128 *a2)
-{
-  result = a2[3];
-  a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a1[3] = result;
-  a2[3].n128_u64[1] = 0;
-  a2[4].n128_u64[0] = 0;
-  a2[3].n128_u64[0] = 0;
-  return result;
-}
-
-void __Block_byref_object_dispose__1406(uint64_t a1)
-{
-  if (*(a1 + 71) < 0)
-  {
-    operator delete(*(a1 + 48));
-  }
-}
-
-void ___ZN21EARVoiceEditingClient22getLeftAndRightContextEv_block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
-{
-  v9 = a2;
-  v10 = a3;
-  v11 = a4;
-  v12 = a5;
-  if (v9)
-  {
-    [v9 ear_toString];
-  }
-
-  else
-  {
-    v15 = 0uLL;
-    v16 = 0;
-  }
-
-  v13 = *(*(a1 + 32) + 8);
-  if (*(v13 + 71) < 0)
-  {
-    operator delete(*(v13 + 48));
-  }
-
-  *(v13 + 48) = v15;
-  *(v13 + 64) = v16;
-  if (v10)
-  {
-    [v10 ear_toString];
-  }
-
-  else
-  {
-    v15 = 0uLL;
-    v16 = 0;
-  }
-
-  v14 = *(*(a1 + 40) + 8);
-  if (*(v14 + 71) < 0)
-  {
-    operator delete(*(v14 + 48));
-  }
-
-  *(v14 + 48) = v15;
-  *(v14 + 64) = v16;
-}
-
-std::string *std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(std::string *this, __int128 *a2, __int128 *a3)
-{
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
-  }
-
-  else
-  {
-    v5 = *a2;
-    this->__r_.__value_.__r.__words[2] = *(a2 + 2);
-    *&this->__r_.__value_.__l.__data_ = v5;
-  }
-
-  if (*(a3 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(this + 1, *a3, *(a3 + 1));
-  }
-
-  else
-  {
-    v6 = *a3;
-    this[1].__r_.__value_.__r.__words[2] = *(a3 + 2);
-    *&this[1].__r_.__value_.__l.__data_ = v6;
-  }
-
-  return this;
-}
-
-void sub_1B51E9DA0(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void quasar::result_handler::VoiceEditingResultHandlerConfig::~VoiceEditingResultHandlerConfig(void **this)
-{
-  if (*(this + 135) < 0)
-  {
-    operator delete(this[14]);
-  }
-
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((this + 9));
-}
-
-uint64_t *std::shared_ptr<quasar::result_handler::ResultHandler>::shared_ptr[abi:ne200100]<quasar::result_handler::ResultHandler,std::default_delete<quasar::result_handler::ResultHandler>,0>(uint64_t *result, uint64_t *a2)
-{
-  v2 = *a2;
-  *result = *a2;
-  if (v2)
-  {
-    operator new();
-  }
-
-  result[1] = 0;
-  *a2 = 0;
-  return result;
-}
-
-void std::__shared_ptr_pointer<quasar::result_handler::ResultHandler  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C85350);
-}
-
-uint64_t std::__shared_ptr_pointer<quasar::result_handler::ResultHandler  *>::__on_zero_shared(uint64_t a1)
-{
-  result = *(a1 + 24);
-  if (result)
-  {
-    return (*(*result + 8))();
-  }
-
-  return result;
-}
-
-uint64_t std::__shared_ptr_pointer<quasar::result_handler::ResultHandler  *>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *std::__shared_ptr_emplace<quasar::UtteranceDelayResultStream>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<quasar::RecogResultStreamBase> &,std::shared_ptr<quasar::ContinuousListeningConfig> &,std::allocator<quasar::UtteranceDelayResultStream>,0>(void *a1, uint64_t *a2, uint64_t *a3)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = &unk_1F2D047B8;
-  std::allocator<quasar::UtteranceDelayResultStream>::construct[abi:ne200100]<quasar::UtteranceDelayResultStream,std::shared_ptr<quasar::RecogResultStreamBase> &,std::shared_ptr<quasar::ContinuousListeningConfig> &>(&v5, (a1 + 3), a2, a3);
-  return a1;
-}
-
-void std::__shared_ptr_emplace<quasar::UtteranceDelayResultStream>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F2D047B8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1B8C85350);
-}
-
-void std::allocator<quasar::UtteranceDelayResultStream>::construct[abi:ne200100]<quasar::UtteranceDelayResultStream,std::shared_ptr<quasar::RecogResultStreamBase> &,std::shared_ptr<quasar::ContinuousListeningConfig> &>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  v4 = a3[1];
-  v8 = *a3;
-  v9 = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v5 = a4[1];
-  v6 = *a4;
-  v7 = v5;
-  if (v5)
-  {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  quasar::UtteranceDelayResultStream::UtteranceDelayResultStream(a2, &v8, &v6);
-  if (v7)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-  }
-
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  }
-}
-
-void sub_1B51EA124(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void ResultStreamWrapper::replacementTokenName(uint64_t a1@<X0>, std::string *a2@<X1>, int a3@<W2>, std::string *a4@<X8>)
-{
-  v51 = a3;
-  v6 = *(a1 + 48);
-  if (!v6)
-  {
-    goto LABEL_72;
-  }
-
-  if ((SHIBYTE(a2->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
-  {
-    if (!a2->__r_.__value_.__l.__size_)
-    {
-      goto LABEL_72;
-    }
-
-    v9 = a2->__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    if (!*(&a2->__r_.__value_.__s + 23))
-    {
-      goto LABEL_72;
-    }
-
-    v9 = a2;
-  }
-
-  v10 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:v9];
-  v11 = [v10 lowercaseString];
-  v12 = [v6 objectForKey:v11];
-
-  if (v12)
-  {
-    [v12 ear_toString];
-    if (a3)
-    {
-      size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
-      v14 = size;
-      if ((size & 0x80u) != 0)
-      {
-        size = a2->__r_.__value_.__l.__size_;
-      }
-
-      if (size)
-      {
-        v15 = HIBYTE(v50);
-        if (v50 < 0)
-        {
-          v15 = *(&v49 + 1);
-        }
-
-        if (v15)
-        {
-          v16 = v14 >= 0 ? a2 : a2->__r_.__value_.__r.__words[0];
-          v17 = v16->__r_.__value_.__s.__data_[0];
-          if ((v17 & 0x80000000) != 0 ? __maskrune(v17, 0x8000uLL) : *(MEMORY[0x1E69E9830] + 4 * v17 + 60) & 0x8000)
-          {
-            if (v50 >= 0)
-            {
-              v41 = &v49;
-            }
-
-            else
-            {
-              v41 = v49;
-            }
-
-            v42 = __toupper(*v41);
-            if (v50 >= 0)
-            {
-              v43 = &v49;
-            }
-
-            else
-            {
-              v43 = v49;
-            }
-
-            *v43 = v42;
-          }
-        }
-      }
-    }
-
-    *&a4->__r_.__value_.__l.__data_ = v49;
-    a4->__r_.__value_.__r.__words[2] = v50;
-    v50 = 0;
-    v49 = 0uLL;
-LABEL_85:
-
-    return;
-  }
-
-  if (a3)
-  {
-    memset(&__p, 0, sizeof(__p));
-    memset(&v47, 0, sizeof(v47));
-    v19 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v20 = a2->__r_.__value_.__l.__size_;
-    if ((v19 & 0x80000000) == 0)
-    {
-      v20 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    }
-
-    if (v20)
-    {
-      v21 = 0;
-      v22 = v19 >> 63;
-      v23 = MEMORY[0x1E69E9830];
-      while (1)
-      {
-        v24 = (v22 & 1) != 0 ? a2->__r_.__value_.__r.__words[0] : a2;
-        v25 = *(v24 + v21);
-        if ((v25 & 0x80000000) != 0 ? __maskrune(v25, 0x2000uLL) : *(v23 + 4 * v25 + 60) & 0x2000)
-        {
-          break;
-        }
-
-        ++v21;
-        v27 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-        v22 = v27 >> 63;
-        if ((v27 & 0x80000000) != 0)
-        {
-          v27 = a2->__r_.__value_.__l.__size_;
-        }
-
-        if (v27 <= v21)
-        {
-          goto LABEL_39;
-        }
-      }
-
-      std::string::basic_string(&v46, a2, 0, v21, &v52);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-
-      __p = v46;
-      std::string::basic_string(&v46, a2, v21, 0xFFFFFFFFFFFFFFFFLL, &v52);
-      v47 = v46;
-    }
-
-LABEL_39:
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v28 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v28 = __p.__r_.__value_.__l.__size_;
-    }
-
-    if (v28)
-    {
-      v29 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
-      v30 = v29;
-      if ((v29 & 0x80u) != 0)
-      {
-        v29 = a2->__r_.__value_.__l.__size_;
-      }
-
-      v31 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-      if (v28 != v29 || (v30 >= 0 ? (v32 = a2) : (v32 = a2->__r_.__value_.__r.__words[0]), memcmp(v31, v32, v28)))
-      {
-        v33 = *(a1 + 48);
-        v34 = [MEMORY[0x1E696AEC0] ear_stringWithStringView:{v31, v28}];
-        v35 = [v34 lowercaseString];
-        v36 = [v33 objectForKey:v35];
-
-        if (v36)
-        {
-          [v36 ear_toString];
-          if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v37 = &v47;
-          }
-
-          else
-          {
-            v37 = v47.__r_.__value_.__r.__words[0];
-          }
-
-          if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            v38 = HIBYTE(v47.__r_.__value_.__r.__words[2]);
-          }
-
-          else
-          {
-            v38 = v47.__r_.__value_.__l.__size_;
-          }
-
-          v39 = std::string::append(&v46, v37, v38);
-          v40 = *&v39->__r_.__value_.__l.__data_;
-          v45 = v39->__r_.__value_.__r.__words[2];
-          *v44 = v40;
-          v39->__r_.__value_.__l.__size_ = 0;
-          v39->__r_.__value_.__r.__words[2] = 0;
-          v39->__r_.__value_.__r.__words[0] = 0;
-          ResultStreamWrapper::replacementTokenName(std::string const&,BOOL)::{lambda(std::string const&,std::string)#1}::operator()(&v51, a2, v44, a4);
-          if (SHIBYTE(v45) < 0)
-          {
-            operator delete(v44[0]);
-          }
-
-          if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v46.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v47.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(__p.__r_.__value_.__l.__data_);
-          }
-
-          goto LABEL_85;
-        }
-      }
-    }
-
-    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v47.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-  }
-
-LABEL_72:
-  if (SHIBYTE(a2->__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(a4, a2->__r_.__value_.__l.__data_, a2->__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    *&a4->__r_.__value_.__l.__data_ = *&a2->__r_.__value_.__l.__data_;
-    a4->__r_.__value_.__r.__words[2] = a2->__r_.__value_.__r.__words[2];
-  }
-}
-
-void sub_1B51EA5FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  if (a26 < 0)
-  {
-    operator delete(a21);
-  }
-
-  if (a33 < 0)
-  {
-    operator delete(a28);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t ___ZN19ResultStreamWrapper12writePartialERKNSt3__16vectorINS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS5_IS7_EEEE27PartialUtteranceStartMillisbiiRKNS1_INS1_IN6quasar5TokenENS5_ISE_EEEENS5_ISG_EEEESB_SB_bbRK14FormattingInfo_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    EARContinuousListeningResultHelper::setParser(v2);
-  }
-
-  v4 = *(a1 + 213);
-  return (*(**(a1 + 48) + 24))(*(a1 + 48), a1 + 64, *(a1 + 200), *(a1 + 212), *(a1 + 204), *(a1 + 208), a1 + 88, a1 + 112, a1 + 136, v4, a1 + 160);
-}
-
-void __copy_helper_block_ea8_32c63_ZTSKNSt3__110shared_ptrI34EARContinuousListeningResultHelperEE48c59_ZTSKNSt3__110shared_ptrIN6quasar21RecogResultStreamBaseEEE64c90_ZTSKNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEEE88c72_ZTSNSt3__16vectorINS0_IN6quasar5TokenENS_9allocatorIS2_EEEENS3_IS5_EEEE112c90_ZTSKNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEEE136c90_ZTSKNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEEE160c21_ZTSK14FormattingInfo(std::string *a1, uint64_t a2)
-{
-  a1[1].__r_.__value_.__l.__size_ = *(a2 + 32);
-  v4 = *(a2 + 40);
-  a1[1].__r_.__value_.__r.__words[2] = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  a1[2].__r_.__value_.__r.__words[0] = *(a2 + 48);
-  v5 = *(a2 + 56);
-  a1[2].__r_.__value_.__l.__size_ = v5;
-  if (v5)
-  {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  a1[2].__r_.__value_.__r.__words[2] = 0;
-  a1[3].__r_.__value_.__r.__words[0] = 0;
-  a1[3].__r_.__value_.__l.__size_ = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&a1[2].__r_.__value_.__r.__words[2], *(a2 + 64), *(a2 + 72), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 72) - *(a2 + 64)) >> 3));
-  a1[3].__r_.__value_.__r.__words[2] = 0;
-  a1[4].__r_.__value_.__r.__words[0] = 0;
-  a1[4].__r_.__value_.__l.__size_ = 0;
-  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(&a1[3].__r_.__value_.__r.__words[2], *(a2 + 88), *(a2 + 96), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 96) - *(a2 + 88)) >> 3));
-  a1[4].__r_.__value_.__r.__words[2] = 0;
-  a1[5].__r_.__value_.__r.__words[0] = 0;
-  a1[5].__r_.__value_.__l.__size_ = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&a1[4].__r_.__value_.__r.__words[2], *(a2 + 112), *(a2 + 120), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 120) - *(a2 + 112)) >> 3));
-  a1[5].__r_.__value_.__r.__words[2] = 0;
-  a1[6].__r_.__value_.__r.__words[0] = 0;
-  a1[6].__r_.__value_.__l.__size_ = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&a1[5].__r_.__value_.__r.__words[2], *(a2 + 136), *(a2 + 144), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 144) - *(a2 + 136)) >> 3));
-  a1[6].__r_.__value_.__s.__data_[16] = *(a2 + 160);
-  if (*(a2 + 191) < 0)
-  {
-    std::string::__init_copy_ctor_external(a1 + 7, *(a2 + 168), *(a2 + 176));
-  }
-
-  else
-  {
-    v6 = *(a2 + 168);
-    a1[7].__r_.__value_.__r.__words[2] = *(a2 + 184);
-    *&a1[7].__r_.__value_.__l.__data_ = v6;
-  }
-
-  a1[8].__r_.__value_.__s.__data_[0] = *(a2 + 192);
-}
-
-void sub_1B51EA8A8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  v4 = *(v2 + 56);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  v5 = *(v2 + 40);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void __destroy_helper_block_ea8_32c63_ZTSKNSt3__110shared_ptrI34EARContinuousListeningResultHelperEE48c59_ZTSKNSt3__110shared_ptrIN6quasar21RecogResultStreamBaseEEE64c90_ZTSKNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEEE88c72_ZTSNSt3__16vectorINS0_IN6quasar5TokenENS_9allocatorIS2_EEEENS3_IS5_EEEE112c90_ZTSKNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEEE136c90_ZTSKNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEEE160c21_ZTSK14FormattingInfo(uint64_t a1)
-{
-  v2 = (a1 + 64);
-  v3 = (a1 + 88);
-  v4 = (a1 + 112);
-  v5 = (a1 + 136);
-  if (*(a1 + 191) < 0)
-  {
-    operator delete(*(a1 + 168));
-  }
-
-  v8 = v5;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v8 = v4;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v8 = v3;
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v8 = v2;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
-  v6 = *(a1 + 56);
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-  }
-
-  v7 = *(a1 + 40);
-  if (v7)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-  }
-}
-
-__n128 ResultStreamWrapper::replacementTokenName(std::string const&,BOOL)::{lambda(std::string const&,std::string)#1}::operator()@<Q0>(_BYTE *a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
-{
-  if (*a1 == 1)
-  {
-    v6 = a2[23];
-    v7 = v6;
-    if ((v6 & 0x80u) != 0)
-    {
-      v6 = *(a2 + 1);
-    }
-
-    if (v6)
-    {
-      v8 = a3[23];
-      if (v8 < 0)
-      {
-        v8 = *(a3 + 1);
-      }
-
-      if (v8)
-      {
-        if (v7 >= 0)
-        {
-          v9 = a2;
-        }
-
-        else
-        {
-          v9 = *a2;
-        }
-
-        v10 = *v9;
-        if ((v10 & 0x80000000) != 0)
-        {
-          if (!__maskrune(v10, 0x8000uLL))
-          {
-            goto LABEL_20;
-          }
-        }
-
-        else if ((*(MEMORY[0x1E69E9830] + 4 * v10 + 60) & 0x8000) == 0)
-        {
-          goto LABEL_20;
-        }
-
-        v11 = a3;
-        if (a3[23] < 0)
-        {
-          v11 = *a3;
-        }
-
-        v12 = __toupper(*v11);
-        v13 = a3;
-        if (a3[23] < 0)
-        {
-          v13 = *a3;
-        }
-
-        *v13 = v12;
-      }
-    }
-  }
-
-LABEL_20:
-  result = *a3;
-  *a4 = *a3;
-  *(a4 + 16) = *(a3 + 2);
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
-  *a3 = 0;
-  return result;
-}
-
-uint64_t ___ZN19ResultStreamWrapper17writeFinalChoicesERKN6quasar11RecogResultENS0_21RecogResultStreamBase11RecogStatusE_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    EARContinuousListeningResultHelper::setParser(v2);
-  }
-
-  v3 = *(**(a1 + 48) + 40);
-
-  return v3();
-}
-
-quasar::RecogResult *__copy_helper_block_ea8_32c63_ZTSKNSt3__110shared_ptrI34EARContinuousListeningResultHelperEE48c59_ZTSKNSt3__110shared_ptrIN6quasar21RecogResultStreamBaseEEE64c26_ZTSN6quasar11RecogResultE(void *a1, void *a2)
-{
-  v2 = a2[5];
-  a1[4] = a2[4];
-  a1[5] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v3 = a2[7];
-  a1[6] = a2[6];
-  a1[7] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return quasar::RecogResult::RecogResult((a1 + 8), (a2 + 8));
-}
-
-void sub_1B51EAB58(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 56);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v4 = *(v1 + 40);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void __destroy_helper_block_ea8_32c63_ZTSKNSt3__110shared_ptrI34EARContinuousListeningResultHelperEE48c59_ZTSKNSt3__110shared_ptrIN6quasar21RecogResultStreamBaseEEE64c26_ZTSN6quasar11RecogResultE(void *a1)
-{
-  quasar::RecogResult::~RecogResult((a1 + 8));
-  v2 = a1[7];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = a1[5];
-  if (v3)
-  {
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-}
-
-quasar::RecogResult *quasar::RecogResult::RecogResult(quasar::RecogResult *this, const quasar::RecogResult *a2)
-{
-  *this = &unk_1F2D3DC70;
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(this + 8, *(a2 + 1), *(a2 + 2), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 2) - *(a2 + 1)) >> 3));
-  *(this + 4) = 0;
-  *(this + 5) = 0;
-  *(this + 6) = 0;
-  std::vector<std::set<std::string>>::__init_with_size[abi:ne200100]<std::set<std::string>*,std::set<std::string>*>(this + 32, *(a2 + 4), *(a2 + 5), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 5) - *(a2 + 4)) >> 3));
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  *(this + 9) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(this + 56, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 3);
-  *(this + 10) = 0;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  std::vector<std::vector<quasar::Token>>::__init_with_size[abi:ne200100]<std::vector<quasar::Token>*,std::vector<quasar::Token>*>(this + 80, *(a2 + 10), *(a2 + 11), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 11) - *(a2 + 10)) >> 3));
-  *(this + 13) = 0;
-  *(this + 14) = 0;
-  *(this + 15) = 0;
-  std::vector<quasar::ItnOverride>::__init_with_size[abi:ne200100]<quasar::ItnOverride*,quasar::ItnOverride*>(this + 104, *(a2 + 13), *(a2 + 14), 0x8E38E38E38E38E39 * ((*(a2 + 14) - *(a2 + 13)) >> 3));
-  quasar::AudioAnalytics::AudioAnalytics((this + 128), (a2 + 128));
-  if (*(a2 + 295) < 0)
-  {
-    std::string::__init_copy_ctor_external((this + 272), *(a2 + 34), *(a2 + 35));
-  }
-
-  else
-  {
-    v4 = *(a2 + 17);
-    *(this + 36) = *(a2 + 36);
-    *(this + 17) = v4;
-  }
-
-  *(this + 37) = 0;
-  *(this + 38) = 0;
-  *(this + 39) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 296, *(a2 + 37), *(a2 + 38), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 38) - *(a2 + 37)) >> 3));
-  *(this + 40) = 0;
-  *(this + 41) = 0;
-  *(this + 42) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 320, *(a2 + 40), *(a2 + 41), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 41) - *(a2 + 40)) >> 3));
-  *(this + 43) = *(a2 + 43);
-  v5 = *(a2 + 44);
-  *(this + 44) = v5;
-  if (v5)
-  {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  *(this + 45) = *(a2 + 45);
-  v6 = *(a2 + 46);
-  *(this + 46) = v6;
-  if (v6)
-  {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v7 = *(a2 + 376);
-  v8 = *(a2 + 408);
-  *(this + 392) = *(a2 + 392);
-  *(this + 408) = v8;
-  *(this + 376) = v7;
-  *(this + 53) = *(a2 + 53);
-  v9 = *(a2 + 54);
-  *(this + 54) = v9;
-  if (v9)
-  {
-    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  *(this + 440) = *(a2 + 440);
-  if (*(a2 + 471) < 0)
-  {
-    std::string::__init_copy_ctor_external((this + 448), *(a2 + 56), *(a2 + 57));
-  }
-
-  else
-  {
-    v10 = *(a2 + 28);
-    *(this + 58) = *(a2 + 58);
-    *(this + 28) = v10;
-  }
-
-  v11 = *(a2 + 472);
-  *(this + 61) = *(a2 + 61);
-  *(this + 472) = v11;
-  *(this + 496) = *(a2 + 496);
-  if (*(a2 + 527) < 0)
-  {
-    std::string::__init_copy_ctor_external(this + 21, *(a2 + 63), *(a2 + 64));
-  }
-
-  else
-  {
-    v12 = *(a2 + 504);
-    *(this + 65) = *(a2 + 65);
-    *(this + 504) = v12;
-  }
-
-  v13 = *(a2 + 33);
-  *(this + 68) = *(a2 + 68);
-  *(this + 33) = v13;
-  v14 = *(a2 + 552);
-  *(this + 564) = *(a2 + 564);
-  *(this + 552) = v14;
-  *(this + 584) = *(a2 + 584);
-  if (*(a2 + 615) < 0)
-  {
-    std::string::__init_copy_ctor_external((this + 592), *(a2 + 74), *(a2 + 75));
-  }
-
-  else
-  {
-    v15 = *(a2 + 37);
-    *(this + 76) = *(a2 + 76);
-    *(this + 37) = v15;
-  }
-
-  *(this + 616) = *(a2 + 616);
-  *(this + 78) = 0;
-  *(this + 80) = 0;
-  *(this + 79) = 0;
-  std::vector<std::pair<quasar::LmeDataStatus,quasar::LmeUsageStatus>>::__init_with_size[abi:ne200100]<std::pair<quasar::LmeDataStatus,quasar::LmeUsageStatus>*,std::pair<quasar::LmeDataStatus,quasar::LmeUsageStatus>*>(this + 624, *(a2 + 78), *(a2 + 79), (*(a2 + 79) - *(a2 + 78)) >> 3);
-  return this;
-}
-
-void sub_1B51EAF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, void **a10)
-{
-  if (*(v10 + 527) < 0)
-  {
-    operator delete(*v12);
-  }
-
-  if (*(v10 + 471) < 0)
-  {
-    operator delete(*(v10 + 448));
-  }
-
-  v14 = *(v10 + 432);
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
-
-  v15 = *(v10 + 368);
-  if (v15)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-  }
-
-  v16 = *(v10 + 352);
-  if (v16)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-  }
-
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
-  a10 = a9;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
-  if (*(v10 + 295) < 0)
-  {
-    operator delete(*(v10 + 272));
-  }
-
-  quasar::AudioAnalytics::~AudioAnalytics((v10 + 128));
-  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](&a10);
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  v17 = *v11;
-  if (*v11)
-  {
-    *(v10 + 64) = v17;
-    operator delete(v17);
-  }
-
-  std::vector<std::set<std::string>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  std::vector<std::vector<quasar::Token>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::vector<quasar::ItnOverride>::__init_with_size[abi:ne200100]<quasar::ItnOverride*,quasar::ItnOverride*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<quasar::ItnOverride>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_1B51EB0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  *(v9 + 8) = v10;
-  std::vector<quasar::ItnOverride>::__destroy_vector::operator()[abi:ne200100](&a9);
-  _Unwind_Resume(a1);
-}
-
-void std::vector<quasar::ItnOverride>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0x38E38E38E38E38FLL)
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<quasar::ItnOverride>>(a1, a2);
-  }
-
-  std::vector<int>::__throw_length_error[abi:ne200100]();
-}
-
-void std::__allocate_at_least[abi:ne200100]<std::allocator<quasar::ItnOverride>>(uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0x38E38E38E38E38FLL)
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-std::string *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<quasar::ItnOverride>,quasar::ItnOverride*,quasar::ItnOverride*,quasar::ItnOverride*>(uint64_t a1, __int128 *a2, __int128 *a3, std::string *this)
-{
-  v4 = this;
-  v13 = this;
-  v14 = this;
-  v11[0] = a1;
-  v11[1] = &v13;
-  v11[2] = &v14;
-  v12 = 0;
-  if (a2 != a3)
-  {
-    v6 = a2;
-    do
-    {
-      if (*(v6 + 23) < 0)
-      {
-        std::string::__init_copy_ctor_external(v4, *v6, *(v6 + 1));
-      }
-
-      else
-      {
-        v7 = *v6;
-        v4->__r_.__value_.__r.__words[2] = *(v6 + 2);
-        *&v4->__r_.__value_.__l.__data_ = v7;
-      }
-
-      if (*(v6 + 47) < 0)
-      {
-        std::string::__init_copy_ctor_external(v4 + 1, *(v6 + 3), *(v6 + 4));
-      }
-
-      else
-      {
-        v8 = *(v6 + 24);
-        v4[1].__r_.__value_.__r.__words[2] = *(v6 + 5);
-        *&v4[1].__r_.__value_.__l.__data_ = v8;
-      }
-
-      if (*(v6 + 71) < 0)
-      {
-        std::string::__init_copy_ctor_external(v4 + 2, *(v6 + 6), *(v6 + 7));
-      }
-
-      else
-      {
-        v9 = v6[3];
-        v4[2].__r_.__value_.__r.__words[2] = *(v6 + 8);
-        *&v4[2].__r_.__value_.__l.__data_ = v9;
-      }
-
-      v6 = (v6 + 72);
-      v4 = v14 + 3;
-      v14 += 3;
-    }
-
-    while (v6 != a3);
-  }
-
-  v12 = 1;
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<quasar::ItnOverride>,quasar::ItnOverride*>>::~__exception_guard_exceptions[abi:ne200100](v11);
-  return v4;
 }

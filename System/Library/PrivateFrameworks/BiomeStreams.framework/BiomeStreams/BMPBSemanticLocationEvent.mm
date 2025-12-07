@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)placeTypeAsString:(int)string;
+- (id)userSpecificPlaceTypeAsString:(int)string;
 - (int)StringAsPlaceType:(id)type;
 - (int)StringAsUserSpecificPlaceType:(id)type;
 - (int)placeType;
@@ -60,6 +62,21 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)userSpecificPlaceTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E53BC8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsUserSpecificPlaceType:(id)type
 {
   typeCopy = type;
@@ -107,6 +124,21 @@
   {
     return 0;
   }
+}
+
+- (id)placeTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E53BF0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPlaceType:(id)type
@@ -223,12 +255,11 @@ LABEL_14:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    starting = self->_starting;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -247,22 +278,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  userSpecificPlaceType = self->_userSpecificPlaceType;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    placeType = self->_placeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_loiIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -365,7 +394,6 @@ LABEL_5:
     goto LABEL_22;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 4) == 0)
   {
     if ((*(equalCopy + 28) & 4) == 0)
@@ -374,7 +402,7 @@ LABEL_5:
     }
 
 LABEL_22:
-    v8 = 0;
+    v6 = 0;
     goto LABEL_23;
   }
 
@@ -383,7 +411,6 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v6 = *(equalCopy + 24);
   if (self->_starting)
   {
     if ((*(equalCopy + 24) & 1) == 0)
@@ -427,17 +454,17 @@ LABEL_4:
   loiIdentifier = self->_loiIdentifier;
   if (loiIdentifier | *(equalCopy + 1))
   {
-    v8 = [(NSString *)loiIdentifier isEqual:?];
+    v6 = [(NSString *)loiIdentifier isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v6 = 1;
   }
 
 LABEL_23:
 
-  return v8;
+  return v6;
 }
 
 - (unint64_t)hash

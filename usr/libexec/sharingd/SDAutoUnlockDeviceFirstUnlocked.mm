@@ -38,7 +38,6 @@
 {
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 }

@@ -2,6 +2,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (LiveFSFPUnlockServiceSource)initWithFileProviderExtension:(id)extension itemIdentifier:(id)identifier;
 - (id)makeListenerEndpointAndReturnError:(id *)error;
+- (void)unlockWithPassword:(id)password saveToKeychain:(BOOL)keychain completionHandler:(id)handler;
 @end
 
 @implementation LiveFSFPUnlockServiceSource
@@ -80,20 +81,55 @@ void __66__LiveFSFPUnlockServiceSource_listener_shouldAcceptNewConnection___bloc
   [WeakRetained invalidate];
 }
 
+- (void)unlockWithPassword:(id)password saveToKeychain:(BOOL)keychain completionHandler:(id)handler
+{
+  keychainCopy = keychain;
+  passwordCopy = password;
+  handlerCopy = handler;
+  v10 = livefs_std_log();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_255FE9000, v10, OS_LOG_TYPE_INFO, "unlock starting", buf, 2u);
+  }
+
+  fileProviderExtension = self->_fileProviderExtension;
+  v18 = 0;
+  v12 = [(LiveFSFPExtensionHelper *)fileProviderExtension getVolumeManagerWithError:&v18];
+  v13 = v18;
+  if (v12)
+  {
+    domain = [(NSFileProviderExtension *)self->_fileProviderExtension domain];
+    identifier = [domain identifier];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __83__LiveFSFPUnlockServiceSource_unlockWithPassword_saveToKeychain_completionHandler___block_invoke;
+    v16[3] = &unk_27981AAF8;
+    v16[4] = self;
+    v17 = handlerCopy;
+    [v12 unlockVolume:identifier password:passwordCopy saveToKeychain:keychainCopy completionHandler:v16];
+  }
+
+  else
+  {
+    (*(handlerCopy + 2))(handlerCopy, v13);
+  }
+}
+
 void __83__LiveFSFPUnlockServiceSource_unlockWithPassword_saveToKeychain_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(*(a1 + 32) + 8) domain];
     v6 = [v5 identifier];
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_255FE9000, v4, OS_LOG_TYPE_INFO, "unlockVolume on domain %@ returning %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_255FE9000, v4, OS_LOG_TYPE_INFO, "unlockVolume on domain %@ returning %@", &v7, 0x16u);
   }
 
   if (!v3)
@@ -103,8 +139,6 @@ void __83__LiveFSFPUnlockServiceSource_unlockWithPassword_saveToKeychain_complet
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

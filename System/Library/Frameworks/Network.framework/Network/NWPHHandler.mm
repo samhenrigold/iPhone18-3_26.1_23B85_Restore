@@ -23,7 +23,7 @@
   v11 = __nwlog_obj();
   *buf = 136446210;
   v22 = "[NWPHHandler initWithHandlerFunction:allowedEntitlementGroup:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v18 = 0;

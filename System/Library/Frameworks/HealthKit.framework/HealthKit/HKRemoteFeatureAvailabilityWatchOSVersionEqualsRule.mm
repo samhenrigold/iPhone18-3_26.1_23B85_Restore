@@ -29,12 +29,12 @@
 
 - (BOOL)evaluate
 {
-  [(HKRemoteFeatureAvailabilityWatchOSVersionEqualsRule *)self targetVersion];
+  objc_msgSend_targetVersion(self, a2);
   dataSource = [(HKRemoteFeatureAvailabilityBaseRule *)self dataSource];
   v4 = dataSource;
   if (dataSource)
   {
-    [dataSource watchOSVersion];
+    objc_msgSend_watchOSVersion(dataSource);
   }
 
   else

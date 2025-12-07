@@ -171,15 +171,14 @@
   v15 = v14;
   objc_msgSend_quaternion(internal[1], v16, v17);
   v19 = v18;
-  v27 = *(internal + 1);
-  v20 = *(internal + 3);
-  v25 = v20;
-  v26 = *(internal + 2);
-  v21 = internal[8];
-  v28.receiver = self;
-  v28.super_class = CMPose;
-  [(CMLogItem *)&v28 timestamp];
-  return objc_msgSend_stringWithFormat_(v5, v22, @"CMPose,q.x,%f,q.y,%f,q.z,%f,q.w,%f,translation.x,%f,translation.y,%f,translation.z,%f,consumedAuxTimestamp,%f,receivedAuxTimestamp,%f,machAbsTimestamp,%f,presentationTimestamp,%f,timestamp,%f", v7, v11, v15, v19, v27, v26, v25, v21, v23);
+  v26 = *(internal + 1);
+  v24 = *(internal + 3);
+  v25 = *(internal + 2);
+  v20 = internal[8];
+  v27.receiver = self;
+  v27.super_class = CMPose;
+  [(CMLogItem *)&v27 timestamp];
+  return objc_msgSend_stringWithFormat_(v5, v21, @"CMPose,q.x,%f,q.y,%f,q.z,%f,q.w,%f,translation.x,%f,translation.y,%f,translation.z,%f,consumedAuxTimestamp,%f,receivedAuxTimestamp,%f,machAbsTimestamp,%f,presentationTimestamp,%f,timestamp,%f", v7, v11, v15, v19, v26, v25, v24, v20, v22);
 }
 
 - ($1AB5FA073B851C12C2339EC22442E995)translation

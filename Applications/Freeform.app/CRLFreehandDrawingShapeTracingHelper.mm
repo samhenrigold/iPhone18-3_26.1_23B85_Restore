@@ -57,7 +57,7 @@
           memset(&v130, 0, sizeof(v130));
           if (v21)
           {
-            [v21 pureTransformInRoot];
+            objc_msgSend_pureTransformInRoot(v21);
           }
 
           pathSource = [v21 pathSource];

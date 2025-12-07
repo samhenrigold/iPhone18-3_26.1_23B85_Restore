@@ -71,51 +71,39 @@ void __75__NGMFullDeviceIdentity_MigrationToModernizedKeyStorage__requiresMigrat
 
 - (BOOL)deleteKeyWithTag:(id)tag
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CDC238];
   v4 = *MEMORY[0x277CDC120];
-  v15[0] = *MEMORY[0x277CDC228];
-  v15[1] = v4;
-  v16[0] = v3;
-  v16[1] = @"com.apple.messageprotection";
-  v15[2] = *MEMORY[0x277CDBF20];
-  v16[2] = tag;
+  v14[0] = *MEMORY[0x277CDC228];
+  v14[1] = v4;
+  v15[0] = v3;
+  v15[1] = @"com.apple.messageprotection";
+  v14[2] = *MEMORY[0x277CDBF20];
+  v15[2] = tag;
   v5 = MEMORY[0x277CBEAC0];
   tagCopy = tag;
-  v7 = [v5 dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v7 = [v5 dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   v8 = SecItemDelete(v7);
   v9 = v8;
   if (v8 != -25300 && v8 != 0)
   {
-    v11 = MessageProtectionLog();
+    v11 = MessageProtectionLog(v8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [(NGMFullDeviceIdentity(MigrationToModernizedKeyStorage) *)v9 deleteKeyWithTag:v11];
     }
   }
 
-  if (v9)
-  {
-    v12 = v9 == -25300;
-  }
-
-  else
-  {
-    v12 = 1;
-  }
-
-  result = v12;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return !v9 || v9 == -25300;
 }
 
 - (void)postMigrationKeychainCleanup
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 1;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 1;
   deviceSigningKey = [(NGMFullDeviceIdentity *)self deviceSigningKey];
   keyStore = [deviceSigningKey keyStore];
 
@@ -124,38 +112,38 @@ void __75__NGMFullDeviceIdentity_MigrationToModernizedKeyStorage__requiresMigrat
     deviceSigningKey2 = [(NGMFullDeviceIdentity *)self deviceSigningKey];
     keyIdentifier = [deviceSigningKey2 keyIdentifier];
     v7 = [(NGMFullDeviceIdentity *)self deleteKeyWithTag:keyIdentifier];
-    *(v13 + 24) &= v7;
+    *(v14 + 24) &= v7;
   }
 
   devicePrekeys = [(NGMFullDeviceIdentity *)self devicePrekeys];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __86__NGMFullDeviceIdentity_MigrationToModernizedKeyStorage__postMigrationKeychainCleanup__block_invoke;
-  v11[3] = &unk_2786FDC30;
-  v11[4] = self;
-  v11[5] = &v12;
-  [devicePrekeys enumerateObjectsUsingBlock:v11];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __86__NGMFullDeviceIdentity_MigrationToModernizedKeyStorage__postMigrationKeychainCleanup__block_invoke;
+  v12[3] = &unk_2786FDC30;
+  v12[4] = self;
+  v12[5] = &v13;
+  [devicePrekeys enumerateObjectsUsingBlock:v12];
 
-  if (v13[3])
+  if (v14[3])
   {
-    v9 = MessageProtectionLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = MessageProtectionLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_22B404000, v9, OS_LOG_TYPE_INFO, "Migration to CTKOID key storage done.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_22B404000, v10, OS_LOG_TYPE_INFO, "Migration to CTKOID key storage done.", v11, 2u);
     }
   }
 
   else
   {
-    v9 = MessageProtectionLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = MessageProtectionLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(NGMFullDeviceIdentity(MigrationToModernizedKeyStorage) *)v9 postMigrationKeychainCleanup];
+      [(NGMFullDeviceIdentity(MigrationToModernizedKeyStorage) *)v10 postMigrationKeychainCleanup];
     }
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
 }
 
 void __86__NGMFullDeviceIdentity_MigrationToModernizedKeyStorage__postMigrationKeychainCleanup__block_invoke(uint64_t a1, void *a2)
@@ -175,9 +163,9 @@ void __86__NGMFullDeviceIdentity_MigrationToModernizedKeyStorage__postMigrationK
 
 - (id)sign:(id)sign forType:(int64_t)type error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   signCopy = sign;
-  v9 = MessageProtectionLog();
+  v9 = MessageProtectionLog(signCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -211,36 +199,34 @@ void __86__NGMFullDeviceIdentity_MigrationToModernizedKeyStorage__postMigrationK
   v13 = 0;
 LABEL_9:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)batchSign:(id)sign forType:(int64_t)type error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   signCopy = sign;
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(signCopy, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = signCopy;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [(NGMFullDeviceIdentity *)self sign:*(*(&v20 + 1) + 8 * i) forType:type error:error, v20];
+        v15 = [(NGMFullDeviceIdentity *)self sign:*(*(&v19 + 1) + 8 * i) forType:type error:error, v19];
         v16 = v15;
         if (!v15 || *error)
         {
@@ -252,7 +238,7 @@ LABEL_9:
         [v9 addObject:v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         continue;
@@ -264,8 +250,6 @@ LABEL_9:
 
   v17 = v9;
 LABEL_12:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -319,7 +303,7 @@ LABEL_12:
 
     else
     {
-      v16 = MessageProtectionLog();
+      v16 = MessageProtectionLog(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [NGMFullDeviceIdentity identityWithAccess:error error:v16];
@@ -393,10 +377,10 @@ LABEL_12:
 
           else
           {
-            v23 = MessageProtectionLog();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v24 = MessageProtectionLog(v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
-              [(NGMFullDeviceIdentity *)v38 identityWithDataRepresentation:v22 error:&v39, v23];
+              [(NGMFullDeviceIdentity *)v38 identityWithDataRepresentation:v22 error:&v39, v24];
             }
           }
 
@@ -412,17 +396,17 @@ LABEL_12:
 
     if (v10)
     {
-      v24 = v32;
-      v25 = [[selfCopy alloc] initWithSigningKey:v10 devicePrekeys:v32];
+      v25 = v32;
+      v26 = [[selfCopy alloc] initWithSigningKey:v10 devicePrekeys:v32];
       representationCopy = v31;
     }
 
     else
     {
       MPLogAndAssignError(200, errorCopy, @"Failed to initialize signing keys from NGMFullDeviceIdentity data.");
-      v25 = 0;
+      v26 = 0;
       representationCopy = v31;
-      v24 = v32;
+      v25 = v32;
     }
 
     v7 = v30;
@@ -431,43 +415,42 @@ LABEL_12:
   else
   {
     MPLogAndAssignError(303, error, @"The deserialization of the NGMFullDeviceIdentity failed.");
-    v25 = 0;
+    v26 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v26;
 }
 
 - (id)dataRepresentationWithError:(id *)error
 {
   requiresMigration = [(NGMFullDeviceIdentity *)self requiresMigration];
+  v5 = requiresMigration;
   if (requiresMigration)
   {
-    v5 = MessageProtectionLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = MessageProtectionLog(requiresMigration);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B404000, v5, OS_LOG_TYPE_INFO, "Starting key migration to CTKOID.", buf, 2u);
+      _os_log_impl(&dword_22B404000, v6, OS_LOG_TYPE_INFO, "Starting key migration to CTKOID.", buf, 2u);
     }
   }
 
-  v6 = objc_alloc_init(NGMPBFullDeviceIdentity);
+  v7 = objc_alloc_init(NGMPBFullDeviceIdentity);
   deviceSigningKey = [(NGMFullDeviceIdentity *)self deviceSigningKey];
   protobuffer = [deviceSigningKey protobuffer];
-  [(NGMPBFullDeviceIdentity *)v6 setSigningKey:protobuffer];
+  [(NGMPBFullDeviceIdentity *)v7 setSigningKey:protobuffer];
 
   devicePrekeys = [(NGMFullDeviceIdentity *)self devicePrekeys];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __53__NGMFullDeviceIdentity_dataRepresentationWithError___block_invoke;
-  v13[3] = &unk_2786FDC90;
-  v10 = v6;
-  v14 = v10;
-  [devicePrekeys enumerateObjectsUsingBlock:v13];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __53__NGMFullDeviceIdentity_dataRepresentationWithError___block_invoke;
+  v14[3] = &unk_2786FDC90;
+  v11 = v7;
+  v15 = v11;
+  [devicePrekeys enumerateObjectsUsingBlock:v14];
 
-  data = [(NGMPBFullDeviceIdentity *)v10 data];
-  if (requiresMigration)
+  data = [(NGMPBFullDeviceIdentity *)v11 data];
+  if (v5)
   {
     [(NGMFullDeviceIdentity *)self postMigrationKeychainCleanup];
   }
@@ -621,7 +604,7 @@ void __68__NGMFullDeviceIdentity_unsealMessage_signedByPublicIdentity_error___bl
 
 - (void)unsealMessageAndAttributes:(id)attributes authenticatedData:(id)data messageType:(int64_t)type guid:(id)guid sendingURI:(id)i sendingPushToken:(id)token receivingURI:(id)rI receivingPushToken:(id)self0 signedByPublicIdentity:(id)self1 decryptionBlock:(id)self2
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   dataCopy = data;
   guidCopy = guid;
@@ -631,7 +614,7 @@ void __68__NGMFullDeviceIdentity_unsealMessage_signedByPublicIdentity_error___bl
   pushTokenCopy = pushToken;
   identityCopy = identity;
   blockCopy = block;
-  v17 = MessageProtectionLog();
+  v17 = MessageProtectionLog(blockCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -654,93 +637,94 @@ void __68__NGMFullDeviceIdentity_unsealMessage_signedByPublicIdentity_error___bl
   }
 
   hasTetraMessage = [(NGMPBOuterMessage *)v19 hasTetraMessage];
-  v24 = MessageProtectionLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+  v24 = hasTetraMessage;
+  v25 = MessageProtectionLog(hasTetraMessage);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
     *&buf[4] = guidCopy;
     *&buf[12] = 1024;
     *&buf[14] = v22;
     *&buf[18] = 1024;
-    *&buf[20] = hasTetraMessage;
-    _os_log_impl(&dword_22B404000, v24, OS_LOG_TYPE_INFO, "Message with GUID: %@ hasEchnidaPayload=%d hasSecondaryPayload=%d", buf, 0x18u);
+    *&buf[20] = v24;
+    _os_log_impl(&dword_22B404000, v25, OS_LOG_TYPE_INFO, "Message with GUID: %@ hasEchnidaPayload=%d hasSecondaryPayload=%d", buf, 0x18u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v112 = __Block_byref_object_copy_;
-  v113 = __Block_byref_object_dispose_;
-  v114 = 0;
+  v113 = __Block_byref_object_copy_;
+  v114 = __Block_byref_object_dispose_;
+  v115 = 0;
+  v107 = 0;
+  v108[0] = &v107;
+  v108[1] = 0x3032000000;
+  v108[2] = __Block_byref_object_copy_;
+  v108[3] = __Block_byref_object_dispose_;
+  v109 = 0;
+  v104 = 0;
+  v105[0] = &v104;
+  v105[1] = 0x3032000000;
+  v105[2] = __Block_byref_object_copy__25;
+  v105[3] = __Block_byref_object_dispose__26;
   v106 = 0;
-  v107[0] = &v106;
-  v107[1] = 0x3032000000;
-  v107[2] = __Block_byref_object_copy_;
-  v107[3] = __Block_byref_object_dispose_;
-  v108 = 0;
+  v102[0] = 0;
+  v102[1] = v102;
+  v102[2] = 0x3032000000;
+  v102[3] = __Block_byref_object_copy_;
+  v102[4] = __Block_byref_object_dispose_;
   v103 = 0;
-  v104[0] = &v103;
-  v104[1] = 0x3032000000;
-  v104[2] = __Block_byref_object_copy__25;
-  v104[3] = __Block_byref_object_dispose__26;
-  v105 = 0;
-  v101[0] = 0;
-  v101[1] = v101;
-  v101[2] = 0x3032000000;
-  v101[3] = __Block_byref_object_copy_;
-  v101[4] = __Block_byref_object_dispose_;
-  v102 = 0;
-  v95 = 0;
-  v96 = &v95;
-  v97 = 0x3032000000;
-  v98 = __Block_byref_object_copy_;
-  v99 = __Block_byref_object_dispose_;
-  v100 = 0;
-  v91 = 0;
+  v96 = 0;
+  v97 = &v96;
+  v98 = 0x3032000000;
+  v99 = __Block_byref_object_copy_;
+  v100 = __Block_byref_object_dispose_;
+  v101 = 0;
   v92 = 0;
-  v93[0] = &v92;
-  v93[1] = 0x3032000000;
-  v93[2] = __Block_byref_object_copy_;
-  v93[3] = __Block_byref_object_dispose_;
-  v94 = 0;
+  v93 = 0;
+  v94[0] = &v93;
+  v94[1] = 0x3032000000;
+  v94[2] = __Block_byref_object_copy_;
+  v94[3] = __Block_byref_object_dispose_;
+  v95 = 0;
+  v90 = 0;
+  v91[0] = &v90;
+  v91[1] = 0x3032000000;
+  v91[2] = __Block_byref_object_copy__25;
+  v91[3] = __Block_byref_object_dispose__26;
+  v88[0] = 0;
+  v88[1] = v88;
+  v88[2] = 0x3032000000;
+  v88[3] = __Block_byref_object_copy_;
+  v88[4] = __Block_byref_object_dispose_;
   v89 = 0;
-  v90[0] = &v89;
-  v90[1] = 0x3032000000;
-  v90[2] = __Block_byref_object_copy__25;
-  v90[3] = __Block_byref_object_dispose__26;
-  v87[0] = 0;
-  v87[1] = v87;
-  v87[2] = 0x3032000000;
-  v87[3] = __Block_byref_object_copy_;
-  v87[4] = __Block_byref_object_dispose_;
-  v88 = 0;
   if (v22)
   {
-    v81[0] = MEMORY[0x277D85DD0];
-    v81[1] = 3221225472;
-    v81[2] = __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_messageType_guid_sendingURI_sendingPushToken_receivingURI_receivingPushToken_signedByPublicIdentity_decryptionBlock___block_invoke;
-    v81[3] = &unk_2786FDD08;
-    v83 = v101;
-    v82 = dictionary;
-    v84 = buf;
-    v85 = &v106;
-    v86 = &v103;
-    [(NGMFullDeviceIdentity *)self unsealMessageAndAttributes:attributesCopy signedByPublicIdentity:identityCopy decryptionBlock:v81];
+    v82[0] = MEMORY[0x277D85DD0];
+    v82[1] = 3221225472;
+    v82[2] = __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_messageType_guid_sendingURI_sendingPushToken_receivingURI_receivingPushToken_signedByPublicIdentity_decryptionBlock___block_invoke;
+    v82[3] = &unk_2786FDD08;
+    v84 = v102;
+    v83 = dictionary;
+    v85 = buf;
+    v86 = &v107;
+    v87 = &v104;
+    [(NGMFullDeviceIdentity *)self unsealMessageAndAttributes:attributesCopy signedByPublicIdentity:identityCopy decryptionBlock:v82];
 
-    if (!hasTetraMessage)
+    if ((v24 & 1) == 0)
     {
-      v25 = *&buf[8];
-      v27 = v104;
-      v26 = v107;
+      v26 = *&buf[8];
+      v28 = v105;
+      v27 = v108;
 LABEL_29:
-      v44 = v25[5];
+      v46 = v26[5];
       goto LABEL_30;
     }
   }
 
-  else if (!hasTetraMessage)
+  else if (!v24)
   {
-    v25 = v96;
+    v26 = v97;
     goto LABEL_21;
   }
 
@@ -748,16 +732,17 @@ LABEL_29:
   publicKey = [deviceSigningKey publicKey];
   dataRepresentation = [publicKey dataRepresentation];
 
-  if ([identityCopy isTetraCompatibleWithFullKey:self])
+  v31 = [identityCopy isTetraCompatibleWithFullKey:self];
+  if (v31)
   {
     if (dataRepresentation)
     {
-      v30 = MessageProtectionLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v32 = MessageProtectionLog(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
-        *v109 = 138412290;
-        v110 = guidCopy;
-        _os_log_impl(&dword_22B404000, v30, OS_LOG_TYPE_INFO, "Starting Tetra decryption of GUID: %@", v109, 0xCu);
+        *v110 = 138412290;
+        v111 = guidCopy;
+        _os_log_impl(&dword_22B404000, v32, OS_LOG_TYPE_INFO, "Starting Tetra decryption of GUID: %@", v110, 0xCu);
       }
 
       tetraMessage = [(NGMPBOuterMessage *)v19 tetraMessage];
@@ -766,97 +751,96 @@ LABEL_29:
       tetraRegistration = [identityCopy tetraRegistration];
       tetraVersion = [tetraRegistration tetraVersion];
       devicePrekeys = [(NGMFullDeviceIdentity *)self devicePrekeys];
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_messageType_guid_sendingURI_sendingPushToken_receivingURI_receivingPushToken_signedByPublicIdentity_decryptionBlock___block_invoke_37;
-      v72[3] = &unk_2786FDD30;
-      v73 = guidCopy;
-      v75 = v87;
-      v74 = dictionary;
-      v76 = &v95;
-      v77 = &v92;
-      v78 = &v89;
-      LODWORD(v53) = tetraVersion;
-      [_TtC17MessageProtection8TetraAPI openWithMessage:tetraMessage authenticatedData:dataCopy guid:v73 sendingURI:iCopy sendingPushToken:tokenCopy receivingURI:rICopy receivingPushToken:pushTokenCopy theirIdentity:identityCopy signedBy:tetraWrapped tetraVersion:v53 ourPrekeys:devicePrekeys ourSigningPublicKeyCompactRepresentation:dataRepresentation decryptionBlock:v72];
+      v73[0] = MEMORY[0x277D85DD0];
+      v73[1] = 3221225472;
+      v73[2] = __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_messageType_guid_sendingURI_sendingPushToken_receivingURI_receivingPushToken_signedByPublicIdentity_decryptionBlock___block_invoke_37;
+      v73[3] = &unk_2786FDD30;
+      v74 = guidCopy;
+      v76 = v88;
+      v75 = dictionary;
+      v77 = &v96;
+      v78 = &v93;
+      v79 = &v90;
+      LODWORD(v54) = tetraVersion;
+      [_TtC17MessageProtection8TetraAPI openWithMessage:tetraMessage authenticatedData:dataCopy guid:v74 sendingURI:iCopy sendingPushToken:tokenCopy receivingURI:rICopy receivingPushToken:pushTokenCopy theirIdentity:identityCopy signedBy:tetraWrapped tetraVersion:v54 ourPrekeys:devicePrekeys ourSigningPublicKeyCompactRepresentation:dataRepresentation decryptionBlock:v73];
 
-      v36 = v73;
+      v38 = v74;
     }
 
     else
     {
-      v79 = 0;
-      v38 = MEMORY[0x277CCACA8];
+      v80 = 0;
+      v40 = MEMORY[0x277CCACA8];
       deviceSigningKey2 = [(NGMFullDeviceIdentity *)self deviceSigningKey];
-      v55 = [deviceSigningKey2 description];
+      v56 = [deviceSigningKey2 description];
       deviceSigningKey3 = [(NGMFullDeviceIdentity *)self deviceSigningKey];
       publicKey2 = [deviceSigningKey3 publicKey];
-      v54 = [publicKey2 description];
+      v55 = [publicKey2 description];
       deviceSigningKey4 = [(NGMFullDeviceIdentity *)self deviceSigningKey];
       publicKey3 = [deviceSigningKey4 publicKey];
       dataRepresentation2 = [publicKey3 dataRepresentation];
-      v42 = [dataRepresentation2 description];
-      v43 = [v38 stringWithFormat:@"Unable to serialize the device public signing key (%@ %@ %@).", v55, v54, v42];
-      MPLogAndAssignError(3, &v79, v43);
-      v36 = v79;
+      v44 = [dataRepresentation2 description];
+      v45 = [v40 stringWithFormat:@"Unable to serialize the device public signing key (%@ %@ %@).", v56, v55, v44];
+      MPLogAndAssignError(3, &v80, v45);
+      v38 = v80;
 
-      [dictionary setObject:v36 forKey:&unk_283F13B98];
+      [dictionary setObject:v38 forKey:&unk_283F13B98];
     }
   }
 
   else
   {
-    v80 = 0;
+    v81 = 0;
     guidCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Received a Tetra message (%@), but the sender identity version is not compatible with ours.", guidCopy];
-    MPLogAndAssignError(3001, &v80, guidCopy);
-    v36 = v80;
+    MPLogAndAssignError(3001, &v81, guidCopy);
+    v38 = v81;
 
-    [dictionary setObject:v36 forKey:&unk_283F13B98];
+    [dictionary setObject:v38 forKey:&unk_283F13B98];
   }
 
-  v25 = v96;
+  v26 = v97;
   if (!v22)
   {
-    v26 = v93;
-    v27 = v90;
+    v27 = v94;
+    v28 = v91;
     goto LABEL_29;
   }
 
 LABEL_21:
-  v44 = *(*&buf[8] + 40);
-  v45 = v25[5];
-  v27 = v104;
-  v26 = v107;
-  if (!v44)
+  v46 = *(*&buf[8] + 40);
+  v47 = v26[5];
+  v28 = v105;
+  v27 = v108;
+  if (!v46)
   {
-    if (v45)
+    if (v47)
     {
-      (*(blockCopy + 2))(blockCopy, v45, *(v93[0] + 40), dictionary, *(v90[0] + 40));
+      (*(blockCopy + 2))(blockCopy, v47, *(v94[0] + 40), dictionary, *(v91[0] + 40));
       goto LABEL_31;
     }
 
     goto LABEL_30;
   }
 
-  if (!v45)
+  if (!v47)
   {
 LABEL_30:
-    (*(blockCopy + 2))(blockCopy, v44, *(*v26 + 40), dictionary, *(*v27 + 40));
+    (*(blockCopy + 2))(blockCopy, v46, *(*v27 + 40), dictionary, *(*v28 + 40));
     goto LABEL_31;
   }
 
-  if (([v45 isEqualToData:*(*&buf[8] + 40)] & 1) == 0)
+  if (([v47 isEqualToData:*(*&buf[8] + 40)] & 1) == 0)
   {
-    v46 = MEMORY[0x277CCACA8];
-    v47 = [*(*&buf[8] + 40) length];
-    v48 = [v46 stringWithFormat:@"Non-matching double-encryption payloads (Echnida: %lu, Tetra: %lu)", v47, objc_msgSend(v96[5], "length")];
-    v71 = 0;
-    MPLogAndAssignError(3002, &v71, v48);
-    v49 = v71;
-    [dictionary setObject:v49 forKey:&unk_283F13B98];
-    v50 = MessageProtectionLog();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+    v48 = MEMORY[0x277CCACA8];
+    v49 = [*(*&buf[8] + 40) length];
+    v50 = [v48 stringWithFormat:@"Non-matching double-encryption payloads (Echnida: %lu, Tetra: %lu)", v49, objc_msgSend(v97[5], "length")];
+    v72 = 0;
+    MPLogAndAssignError(3002, &v72, v50);
+    v51 = v72;
+    v52 = MessageProtectionLog([dictionary setObject:v51 forKey:&unk_283F13B98]);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
     {
-      [NGMFullDeviceIdentity unsealMessageAndAttributes:v48 authenticatedData:v50 messageType:? guid:? sendingURI:? sendingPushToken:? receivingURI:? receivingPushToken:? signedByPublicIdentity:? decryptionBlock:?];
+      [NGMFullDeviceIdentity unsealMessageAndAttributes:v50 authenticatedData:v52 messageType:? guid:? sendingURI:? sendingPushToken:? receivingURI:? receivingPushToken:? signedByPublicIdentity:? decryptionBlock:?];
     }
   }
 
@@ -864,25 +848,24 @@ LABEL_30:
   aBlock[1] = 3221225472;
   aBlock[2] = __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_messageType_guid_sendingURI_sendingPushToken_receivingURI_receivingPushToken_signedByPublicIdentity_decryptionBlock___block_invoke_41;
   aBlock[3] = &unk_2786FDD58;
-  aBlock[4] = &v103;
-  aBlock[5] = &v89;
-  v51 = _Block_copy(aBlock);
-  (*(blockCopy + 2))(blockCopy, *(*&buf[8] + 40), *(v107[0] + 40), dictionary, v51);
+  aBlock[4] = &v104;
+  aBlock[5] = &v90;
+  v53 = _Block_copy(aBlock);
+  (*(blockCopy + 2))(blockCopy, *(*&buf[8] + 40), *(v108[0] + 40), dictionary, v53);
 
 LABEL_31:
-  _Block_object_dispose(v87, 8);
+  _Block_object_dispose(v88, 8);
 
-  _Block_object_dispose(&v89, 8);
-  _Block_object_dispose(&v92, 8);
+  _Block_object_dispose(&v90, 8);
+  _Block_object_dispose(&v93, 8);
 
-  _Block_object_dispose(&v95, 8);
-  _Block_object_dispose(v101, 8);
+  _Block_object_dispose(&v96, 8);
+  _Block_object_dispose(v102, 8);
 
-  _Block_object_dispose(&v103, 8);
-  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v104, 8);
+  _Block_object_dispose(&v107, 8);
 
   _Block_object_dispose(buf, 8);
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_messageType_guid_sendingURI_sendingPushToken_receivingURI_receivingPushToken_signedByPublicIdentity_decryptionBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -914,18 +897,18 @@ void __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_m
 
 void __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_messageType_guid_sendingURI_sendingPushToken_receivingURI_receivingPushToken_signedByPublicIdentity_decryptionBlock___block_invoke_37(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v10 = a2;
   v11 = a3;
   v12 = a4;
   v13 = a5;
-  v14 = MessageProtectionLog();
+  v14 = MessageProtectionLog(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = *(a1 + 32);
-    v22 = 138412290;
-    v23 = v15;
-    _os_log_impl(&dword_22B404000, v14, OS_LOG_TYPE_INFO, "Finished Tetra decryption of GUID: %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = v15;
+    _os_log_impl(&dword_22B404000, v14, OS_LOG_TYPE_INFO, "Finished Tetra decryption of GUID: %@", &v21, 0xCu);
   }
 
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a4);
@@ -947,8 +930,6 @@ void __186__NGMFullDeviceIdentity_unsealMessageAndAttributes_authenticatedData_m
     v20 = *(v19 + 40);
     *(v19 + 40) = v18;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsealMessageAndAttributes:(id)attributes signedByPublicIdentity:(id)identity decryptionBlock:(id)block
@@ -1127,23 +1108,23 @@ LABEL_53:
                     if (v56)
                     {
                       v90 = v56;
-                      v63 = MEMORY[0x277CCACA8];
-                      v64 = [v56 description];
-                      v65 = [v63 stringWithFormat:@"An error occured while validating the counter: %@", v64];
-                      MPLogAndAssignError(6, &v90, v65);
+                      v64 = MEMORY[0x277CCACA8];
+                      v65 = [v56 description];
+                      v66 = [v64 stringWithFormat:@"An error occured while validating the counter: %@", v65];
+                      MPLogAndAssignError(6, &v90, v66);
                       v74 = v46;
-                      v66 = v90;
+                      v67 = v90;
 
-                      (*(v70 + 2))(v70, 0, 0, v66, 0);
-                      v56 = v66;
+                      (*(v70 + 2))(v70, 0, 0, v67, 0);
+                      v56 = v67;
                       v46 = v74;
                     }
 
                     else
                     {
                       v89 = 0;
-                      v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"The message was rejected because of a detected replay."];
-                      MPLogAndAssignError(5, &v89, v67);
+                      v68 = [MEMORY[0x277CCACA8] stringWithFormat:@"The message was rejected because of a detected replay."];
+                      MPLogAndAssignError(5, &v89, v68);
                       v56 = v89;
 
                       (*(v70 + 2))(v70, 0, 0, v56, 0);
@@ -1166,8 +1147,8 @@ LABEL_53:
                   MPLogAndAssignError(604, &v92, @"Failed to initialize replay counter database.");
                   v56 = v92;
 
-                  (*(v70 + 2))(v70, 0, 0, v56, 0);
-                  v55 = MessageProtectionLog();
+                  v63 = (*(v70 + 2))(v70, 0, 0, v56, 0);
+                  v55 = MessageProtectionLog(v63);
                   if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
                   {
                     [NGMFullDeviceIdentity unsealMessageAndAttributes:v55 signedByPublicIdentity:? decryptionBlock:?];
@@ -1275,7 +1256,6 @@ LABEL_37:
 LABEL_55:
 
 LABEL_56:
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (id)signDataWithFormatter:(id)formatter error:(id *)error
@@ -1296,16 +1276,16 @@ LABEL_56:
 
     if (lastObject)
     {
-      if (MPSecondaryRegistrationDisabled() && ([lastObject tetraRegistration], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
+      if (MPSecondaryRegistrationDisabled() && ([lastObject tetraRegistration], v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
       {
-        v7 = MessageProtectionLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v9 = MessageProtectionLog(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v16 = 0;
-          v8 = "Re-registering with a fresh prekey because Tetra was disabled and we still have a prekey with secondary registration.";
-          v9 = &v16;
+          v19 = 0;
+          v10 = "Re-registering with a fresh prekey because Tetra was disabled and we still have a prekey with secondary registration.";
+          v11 = &v19;
 LABEL_17:
-          _os_log_impl(&dword_22B404000, v7, OS_LOG_TYPE_INFO, v8, v9, 2u);
+          _os_log_impl(&dword_22B404000, v9, OS_LOG_TYPE_INFO, v10, v11, 2u);
         }
       }
 
@@ -1317,26 +1297,27 @@ LABEL_17:
         {
           tetraRegistration2 = [lastObject tetraRegistration];
           tetraVersion = [tetraRegistration2 tetraVersion];
-          v13 = tetraVersion == +[_TtC17MessageProtection13TetraVersions currentTetraVersion];
+          v15 = tetraVersion == +[_TtC17MessageProtection13TetraVersions currentTetraVersion];
         }
 
         else
         {
-          v13 = 0;
+          v15 = 0;
         }
 
-        if ((MPSecondaryRegistrationDisabled() & 1) != 0 || v13)
+        v16 = MPSecondaryRegistrationDisabled();
+        if ((v16 & 1) != 0 || v15)
         {
           v3 = [NGMTimeBasedEvaluations prekeyShouldBeRolled:lastObject];
           goto LABEL_20;
         }
 
-        v7 = MessageProtectionLog();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+        v9 = MessageProtectionLog(v16);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v15 = 0;
-          v8 = "Re-registering because of Tetra update or an enablement.";
-          v9 = &v15;
+          v18 = 0;
+          v10 = "Re-registering because of Tetra update or an enablement.";
+          v11 = &v18;
           goto LABEL_17;
         }
       }
@@ -1344,12 +1325,12 @@ LABEL_17:
 
     else
     {
-      v7 = MessageProtectionLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v9 = MessageProtectionLog(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v17 = 0;
-        v8 = "No device prekey is available, rolling should occur.";
-        v9 = &v17;
+        v20 = 0;
+        v10 = "No device prekey is available, rolling should occur.";
+        v11 = &v20;
         goto LABEL_17;
       }
     }
@@ -1365,31 +1346,31 @@ LABEL_20:
 
 - (BOOL)eraseFromKeyChain:(id *)chain
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = [(NGMFullDeviceIdentity *)self devicePrekeys:chain];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 &= [*(*(&v11 + 1) + 8 * i) delete];
+        v7 &= [*(*(&v10 + 1) + 8 * i) delete];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -1400,7 +1381,6 @@ LABEL_20:
     LOBYTE(v7) = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1415,29 +1395,29 @@ LABEL_20:
 
 - (BOOL)updateWithRegisteredTicket:(id)ticket error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   ticketCopy = ticket;
   array = [MEMORY[0x277CBEB18] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   devicePrekeys = [(NGMFullDeviceIdentity *)self devicePrekeys];
-  v8 = [devicePrekeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [devicePrekeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(devicePrekeys);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         if ([NGMTimeBasedEvaluations prekeyCanBeDeleted:v12])
         {
           [v12 delete];
@@ -1445,7 +1425,7 @@ LABEL_20:
         }
       }
 
-      v9 = [devicePrekeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [devicePrekeys countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -1461,7 +1441,6 @@ LABEL_20:
   prekey = [ticketCopy prekey];
   [devicePrekeys3 addObject:prekey];
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1510,13 +1489,11 @@ void __36__NGMFullDeviceIdentity_description__block_invoke(uint64_t a1, void *a2
 
 + (void)identityWithAccess:(id *)a1 error:(NSObject *)a2 .cold.1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Signing key generation failed: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Signing key generation failed: %@", &v4, 0xCu);
 }
 
 + (void)identityWithDataRepresentation:(void *)a3 error:(NSObject *)a4 .cold.1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -1529,11 +1506,10 @@ void __36__NGMFullDeviceIdentity_description__block_invoke(uint64_t a1, void *a2
 
 - (void)unsealMessageAndAttributes:(uint64_t)a1 authenticatedData:(NSObject *)a2 messageType:guid:sendingURI:sendingPushToken:receivingURI:receivingPushToken:signedByPublicIdentity:decryptionBlock:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_22B404000, a2, OS_LOG_TYPE_FAULT, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_22B404000, a2, OS_LOG_TYPE_FAULT, "%@", &v2, 0xCu);
 }
 
 @end

@@ -2,6 +2,7 @@
 + (id)returnDelimiterData;
 + (id)singleByteTokens;
 + (id)utf16Tokens;
+- (BOOL)_applyNextStringInEncoding:(unint64_t)encoding quotedPrintable:(BOOL)printable stopTokens:(int)tokens trim:(BOOL)trim maximumValueLength:(unint64_t)length intoString:(id)string;
 - (BOOL)advancePastEOL;
 - (BOOL)advancePastEOLSingle;
 - (BOOL)advancePastEOLUnicode;
@@ -24,6 +25,7 @@
 - (id)nextQuotedStringValueInEncoding:(unint64_t)encoding;
 - (id)nextSingleByteBase64Line:(BOOL *)line;
 - (id)nextSingleByteStringInEncoding:(unint64_t)encoding quotedPrintable:(BOOL)printable stopTokens:(int)tokens trim:(BOOL)trim maximumValueLength:(unint64_t)length;
+- (id)nextStringInEncoding:(unint64_t)encoding quotedPrintable:(BOOL)printable stopTokens:(int)tokens trim:(BOOL)trim maximumValueLength:(unint64_t)length;
 - (id)nextUnicodeBase64Line:(BOOL *)line;
 - (id)nextUnicodeStringStopTokens:(int)tokens quotedPrintable:(BOOL)printable trim:(BOOL)trim maximumValueLength:(unint64_t)length;
 - (id)os_log;
@@ -34,6 +36,7 @@
 - (id)tokenSetForLength:(int64_t)length;
 - (id)trimData:(id)data withPrefixLength:(unint64_t)length suffixLength:(unint64_t)suffixLength;
 - (id)unicodeStringByRoundingData:(id)data toNextWholeCharacterUsingEncoding:(unint64_t)encoding prefixLength:(unint64_t)length suffixLength:(unint64_t)suffixLength maximumValueLength:(unint64_t)valueLength;
+- (int)nextTokenPeek:(BOOL)peek length:(int64_t)length;
 - (int)nextTokenPeekSingle:(BOOL)single length:(int64_t)length;
 - (int)nextTokenPeekUnicode:(BOOL)unicode length:(int64_t)length;
 - (int)tokenAtCursor;
@@ -210,7 +213,7 @@ uint64_t __22__CNVCardLexer_os_log__block_invoke()
 
 - (int)nextTokenPeekSingle:(BOOL)single length:(int64_t)length
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   p_cursor = &self->_cursor;
   cursor = self->_cursor;
   self->_peekedPoint = cursor;
@@ -250,12 +253,12 @@ uint64_t __22__CNVCardLexer_os_log__block_invoke()
   }
 
   lengthCopy2 = length;
-  v38 = &self->_cursor;
+  v37 = &self->_cursor;
   v12 = 1;
   do
   {
     v13 = self->_bytes[cursor];
-    *&v39[v12 - 1] = v13;
+    *&v38[v12 - 1] = v13;
     v14 = [(CNVCardLexer *)self tokenSetForLength:v12];
     if (v14)
     {
@@ -269,7 +272,7 @@ uint64_t __22__CNVCardLexer_os_log__block_invoke()
         {
           ValueAtIndex = CFArrayGetValueAtIndex(v15, v18);
           v20 = ValueAtIndex[1];
-          v21 = v39;
+          v21 = v38;
           do
           {
             while (1)
@@ -325,7 +328,7 @@ LABEL_27:
 
   while (v29);
   length = lengthCopy2;
-  p_cursor = v38;
+  p_cursor = v37;
   if (!single)
   {
 LABEL_38:
@@ -364,16 +367,15 @@ LABEL_39:
     }
 
     ++self->_errorCount;
-    result = 65538;
+    return 65538;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (int)nextTokenPeekUnicode:(BOOL)unicode length:(int64_t)length
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   cursor = self->_cursor;
   self->_peekedPoint = cursor;
   if (length <= 0)
@@ -421,7 +423,7 @@ LABEL_39:
     v14 = cursor + 1;
     self->_peekedPoint = v14;
     v15 = bytes[v14];
-    v16 = &v45[v11];
+    v16 = &v44[v11];
     *(v16 - 1) = v15 | (v13 << 8);
     *v16 = 0;
     v17 = [(CNVCardLexer *)self tokenSetForLength:v11];
@@ -437,7 +439,7 @@ LABEL_39:
     {
       ValueAtIndex = CFArrayGetValueAtIndex(v18, v21);
       v23 = ValueAtIndex[1];
-      v24 = v45;
+      v24 = v44;
       while (1)
       {
         v26 = *v23++;
@@ -534,20 +536,32 @@ LABEL_35:
     os_log = [(CNVCardLexer *)self os_log];
     if (os_log_type_enabled(os_log, OS_LOG_TYPE_ERROR))
     {
-      v38 = self->_cursor;
+      v37 = self->_cursor;
       *buf = 134218240;
-      v42 = v38;
-      v43 = 1024;
-      v44 = v31 | v15;
+      v41 = v37;
+      v42 = 1024;
+      v43 = v31 | v15;
       _os_log_error_impl(&dword_2771F5000, os_log, OS_LOG_TYPE_ERROR, "vCard Syntax Error, character %ld : %C", buf, 0x12u);
     }
 
     ++self->_errorCount;
-    result = 65538;
+    return 65538;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+- (int)nextTokenPeek:(BOOL)peek length:(int64_t)length
+{
+  if (self->_unicode)
+  {
+    return [(CNVCardLexer *)self nextTokenPeekUnicode:peek length:length];
+  }
+
+  else
+  {
+    return [(CNVCardLexer *)self nextTokenPeekSingle:peek length:length];
+  }
 }
 
 - (id)nextQuotedPrintableData
@@ -1465,6 +1479,104 @@ LABEL_14:
 
   while (cursor < self->_length);
 LABEL_16:
+}
+
+- (BOOL)_applyNextStringInEncoding:(unint64_t)encoding quotedPrintable:(BOOL)printable stopTokens:(int)tokens trim:(BOOL)trim maximumValueLength:(unint64_t)length intoString:(id)string
+{
+  trimCopy = trim;
+  v10 = *&tokens;
+  printableCopy = printable;
+  stringCopy = string;
+  if (self->_unicode)
+  {
+    v15 = [(CNVCardLexer *)self nextUnicodeStringStopTokens:v10 quotedPrintable:printableCopy trim:trimCopy maximumValueLength:length];
+    [stringCopy _cn_appendNonNilString:v15];
+    if (([(CNVCardLexer *)self nextTokenPeekUnicode:1 length:1]& 0x8000) != 0)
+    {
+      [(CNVCardLexer *)self advancePastEOL];
+      if (([(CNVCardLexer *)self nextTokenPeekUnicode:1 length:1]& 0x4000) == 0)
+      {
+        v16 = 0;
+        v17 = self->_cursor - 2;
+LABEL_9:
+        self->_cursor = v17;
+        goto LABEL_11;
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v15 = [(CNVCardLexer *)self nextSingleByteStringInEncoding:encoding quotedPrintable:printableCopy stopTokens:v10 trim:trimCopy maximumValueLength:length];
+    [stringCopy _cn_appendNonNilString:v15];
+    if (([(CNVCardLexer *)self nextTokenPeekSingle:1 length:1]& 0x8000) != 0)
+    {
+      [(CNVCardLexer *)self advancePastEOL];
+      if (([(CNVCardLexer *)self nextTokenPeekSingle:1 length:1]& 0x4000) == 0)
+      {
+        v16 = 0;
+        v17 = self->_cursor - 1;
+        goto LABEL_9;
+      }
+
+LABEL_10:
+      [(CNVCardLexer *)self advanceToPeekPoint];
+      v16 = 1;
+      goto LABEL_11;
+    }
+  }
+
+  v16 = 0;
+LABEL_11:
+
+  return v16;
+}
+
+- (id)nextStringInEncoding:(unint64_t)encoding quotedPrintable:(BOOL)printable stopTokens:(int)tokens trim:(BOOL)trim maximumValueLength:(unint64_t)length
+{
+  trimCopy = trim;
+  v9 = *&tokens;
+  printableCopy = printable;
+  string = [MEMORY[0x277CCAB68] string];
+  cursor = self->_cursor;
+  while (1)
+  {
+    v15 = [(CNVCardLexer *)self _applyNextStringInEncoding:encoding quotedPrintable:printableCopy stopTokens:v9 trim:0 maximumValueLength:length intoString:string];
+    v16 = self->_cursor;
+    if (v15 && v16 <= cursor)
+    {
+      break;
+    }
+
+    cursor = self->_cursor;
+    if (!v15)
+    {
+      if (!trimCopy)
+      {
+        goto LABEL_7;
+      }
+
+      goto LABEL_6;
+    }
+  }
+
+  os_log = [(CNVCardLexer *)self os_log];
+  if (os_log_type_enabled(os_log, OS_LOG_TYPE_FAULT))
+  {
+    [CNVCardLexer nextStringInEncoding:v16 quotedPrintable:os_log stopTokens:? trim:? maximumValueLength:?];
+  }
+
+  if (trimCopy)
+  {
+LABEL_6:
+    [string _cn_trim];
+  }
+
+LABEL_7:
+
+  return string;
 }
 
 - (int)tokenAtCursor
@@ -2451,25 +2563,23 @@ LABEL_21:
 
 - (void)nextTokenPeekSingle:(os_log_t)log length:.cold.1(uint64_t *a1, int a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 1024;
-  v8 = a2;
-  _os_log_error_impl(&dword_2771F5000, log, OS_LOG_TYPE_ERROR, "vCard syntax error, character %ld : %c", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 1024;
+  v7 = a2;
+  _os_log_error_impl(&dword_2771F5000, log, OS_LOG_TYPE_ERROR, "vCard syntax error, character %ld : %c", &v4, 0x12u);
 }
 
 - (void)nextStringInEncoding:(os_log_t)log quotedPrintable:stopTokens:trim:maximumValueLength:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_fault_impl(&dword_2771F5000, log, OS_LOG_TYPE_FAULT, "Cursor did not move (%lu --> %lu), but lexar did not detect a value boundary", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_fault_impl(&dword_2771F5000, log, OS_LOG_TYPE_FAULT, "Cursor did not move (%lu --> %lu), but lexar did not detect a value boundary", &v3, 0x16u);
 }
 
 @end

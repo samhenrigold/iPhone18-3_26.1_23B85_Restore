@@ -32,7 +32,7 @@
   if (objc_opt_class() == self)
   {
     qword_100016920 = os_log_create("com.apple.SensorKit", "DataExport");
-    if (sub_1000037BC())
+    if (sub_1000037BC(0))
     {
       *buf = 0;
       v6 = buf;
@@ -217,18 +217,18 @@ LABEL_4:
 
     v6 = [SRError errorWithCode:8195];
 LABEL_13:
-    v13 = v6;
+    v14 = v6;
     goto LABEL_14;
   }
 
   v9 = [+[NSXPCConnection currentConnection](NSXPCConnection valueForEntitlement:"valueForEntitlement:", @"com.apple.private.sensorkit.reader.wildcard.allow"];
   if (!v9 || (v10 = v9, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([v10 BOOLValue] & 1) == 0)
   {
-    v12 = qword_100016920;
+    v13 = qword_100016920;
     if (os_log_type_enabled(qword_100016920, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Connection does not have a valid entitlement", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Connection does not have a valid entitlement", buf, 2u);
     }
 
     v6 = +[SRError invalidEntitlementError];
@@ -236,25 +236,25 @@ LABEL_13:
   }
 
   self->_exporting = 1;
-  v11 = sub_100001750();
-  v15 = 0;
+  v12 = sub_100001750(RDFileURLs, v11);
+  v16 = 0;
   if ([+[NSFileManager createDirectoryAtURL:"createDirectoryAtURL:withIntermediateDirectories:attributes:error:"]
   {
-    [(SRDataExportService *)self exportDataForSensors:sensors toBaseDirectory:v11 completionHandler:reply];
+    [(SRDataExportService *)self exportDataForSensors:sensors toBaseDirectory:v12 completionHandler:reply];
     return;
   }
 
-  v14 = qword_100016920;
+  v15 = qword_100016920;
   if (os_log_type_enabled(qword_100016920, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v17 = v15;
-    _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to create output directory because %{public}@", buf, 0xCu);
+    v18 = v16;
+    _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to create output directory because %{public}@", buf, 0xCu);
   }
 
-  v13 = v15;
+  v14 = v16;
 LABEL_14:
-  (*(reply + 2))(reply, 0, 0, v13);
+  (*(reply + 2))(reply, 0, 0, v14);
 }
 
 - (void)cancelWithReply:(id)reply

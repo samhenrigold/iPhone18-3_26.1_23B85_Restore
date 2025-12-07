@@ -82,7 +82,7 @@ id __59__SBSceneRenderingEnvironmentManager_initWithBKSInterface___block_invoke(
 
 - (id)registerParticipantForSceneWithIdentifier:(id)identifier displayConfiguration:(id)configuration
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   configurationCopy = configuration;
   if (!identifierCopy)
@@ -111,95 +111,96 @@ id __59__SBSceneRenderingEnvironmentManager_initWithBKSInterface___block_invoke(
   if (!v12)
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
-    v14 = SBLogShellScene();
+    v14 = SBLogShellScene(uUID);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString = [uUID UUIDString];
       *buf = 138543618;
-      v34 = uUIDString;
-      v35 = 2114;
-      v36 = v11;
+      v35 = uUIDString;
+      v36 = 2114;
+      v37 = v11;
       _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Generated scene rendering environment identifier %{public}@ for displayUUID %{public}@", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     v16 = MEMORY[0x277CF0BD0];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"SBSceneRenderingEnvironmentManager-%@", v11];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __101__SBSceneRenderingEnvironmentManager_registerParticipantForSceneWithIdentifier_displayConfiguration___block_invoke;
-    v28[3] = &unk_2783B46A0;
-    objc_copyWeak(&v32, buf);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __101__SBSceneRenderingEnvironmentManager_registerParticipantForSceneWithIdentifier_displayConfiguration___block_invoke;
+    v29[3] = &unk_2783B46A0;
+    objc_copyWeak(&v33, buf);
     v18 = uUID;
-    v29 = v18;
-    v30 = hardwareIdentifier;
+    v30 = v18;
+    v31 = hardwareIdentifier;
     v19 = v11;
-    v31 = v19;
-    v12 = [v16 assertionWithIdentifier:v17 stateDidChangeHandler:v28];
+    v32 = v19;
+    v12 = [v16 assertionWithIdentifier:v17 stateDidChangeHandler:v29];
 
-    v20 = SBLogShellScene();
-    [v12 setLog:v20];
+    v21 = SBLogShellScene(v20);
+    [v12 setLog:v21];
 
     [(NSMutableDictionary *)self->_displayUUIDToIdentifier setObject:v18 forKey:v19];
     [(NSMutableDictionary *)self->_displayUUIDToAssertion setObject:v12 forKey:v19];
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(buf);
   }
 
-  v21 = [v12 acquireForReason:identifierCopy];
-  v22 = [(NSMutableDictionary *)self->_displayUUIDToIdentifier objectForKey:v11];
-  uUIDString2 = [v22 UUIDString];
+  v22 = [v12 acquireForReason:identifierCopy];
+  v23 = [(NSMutableDictionary *)self->_displayUUIDToIdentifier objectForKey:v11];
+  uUIDString2 = [v23 UUIDString];
 
   if (!uUIDString2)
   {
     [(SBSceneRenderingEnvironmentManager *)&self->_displayUUIDToIdentifier registerParticipantForSceneWithIdentifier:a2 displayConfiguration:self, v11];
   }
 
-  v24 = [[SBSceneRenderingEnvironmentParticipant alloc] initWithRenderingEnvironmentIdentifier:uUIDString2 assertion:v21];
+  v25 = [[SBSceneRenderingEnvironmentParticipant alloc] initWithRenderingEnvironmentIdentifier:uUIDString2 assertion:v22];
 
-  return v24;
+  return v25;
 }
 
 void __101__SBSceneRenderingEnvironmentManager_registerParticipantForSceneWithIdentifier_displayConfiguration___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([a2 isActive])
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = [a2 isActive];
+  if (v3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 56));
     if (WeakRetained)
     {
-      v4 = WeakRetained[1];
-      v5 = MEMORY[0x277CBEB98];
-      v10 = WeakRetained;
-      v6 = [*(a1 + 32) UUIDString];
-      v7 = [v5 setWithObject:v6];
-      [v4 setDisplayIdentifiers:v7 forDisplayUUID:*(a1 + 40)];
+      v5 = WeakRetained[1];
+      v6 = MEMORY[0x277CBEB98];
+      v11 = WeakRetained;
+      v7 = [*(a1 + 32) UUIDString];
+      v8 = [v6 setWithObject:v7];
+      [v5 setDisplayIdentifiers:v8 forDisplayUUID:*(a1 + 40)];
 
-      WeakRetained = v10;
+      WeakRetained = v11;
     }
   }
 
   else
   {
-    v8 = SBLogShellScene();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogShellScene(v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 48);
+      v10 = *(a1 + 48);
       *buf = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Scheduling cleanup of scene rendering environments for displayUUID %{public}@", buf, 0xCu);
+      v16 = v10;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Scheduling cleanup of scene rendering environments for displayUUID %{public}@", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __101__SBSceneRenderingEnvironmentManager_registerParticipantForSceneWithIdentifier_displayConfiguration___block_invoke_31;
     block[3] = &unk_2783A9CE8;
-    objc_copyWeak(&v13, (a1 + 56));
-    v12 = *(a1 + 48);
+    objc_copyWeak(&v14, (a1 + 56));
+    v13 = *(a1 + 48);
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 }
 
@@ -216,49 +217,50 @@ void __101__SBSceneRenderingEnvironmentManager_registerParticipantForSceneWithId
 
 - (void)_cleanupForPotentiallyInvalidAssertionForSanitizedDisplayUUID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v5 = [(NSMutableDictionary *)self->_displayUUIDToAssertion objectForKey:dCopy];
   isActive = [v5 isActive];
-  v7 = SBLogShellScene();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (isActive)
+  v7 = isActive;
+  v8 = SBLogShellScene(isActive);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
-    if (v8)
+    if (v9)
     {
-      v11 = 138543362;
-      v12 = dCopy;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "No cleanup of scene rendering environment for displayUUID %{public}@ necessary - it is still active", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = dCopy;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "No cleanup of scene rendering environment for displayUUID %{public}@ necessary - it is still active", &v12, 0xCu);
     }
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      v11 = 138543362;
-      v12 = dCopy;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Cleaning up scene rendering environment for displayUUID %{public}@", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = dCopy;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Cleaning up scene rendering environment for displayUUID %{public}@", &v12, 0xCu);
     }
 
-    v9 = dCopy;
-    if ([@"main" isEqualToString:v9])
+    v10 = dCopy;
+    if ([@"main" isEqualToString:v10])
     {
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v10 = v9;
+      v11 = v10;
     }
 
-    v7 = v10;
+    v8 = v11;
 
-    [(SBSceneRenderingEnvironmentManagerBKSInterface *)self->_bksInterface setDisplayIdentifiers:0 forDisplayUUID:v7];
+    [(SBSceneRenderingEnvironmentManagerBKSInterface *)self->_bksInterface setDisplayIdentifiers:0 forDisplayUUID:v8];
     [v5 invalidate];
-    [(NSMutableDictionary *)self->_displayUUIDToAssertion removeObjectForKey:v9];
-    [(NSMutableDictionary *)self->_displayUUIDToIdentifier removeObjectForKey:v9];
+    [(NSMutableDictionary *)self->_displayUUIDToAssertion removeObjectForKey:v10];
+    [(NSMutableDictionary *)self->_displayUUIDToIdentifier removeObjectForKey:v10];
   }
 }
 

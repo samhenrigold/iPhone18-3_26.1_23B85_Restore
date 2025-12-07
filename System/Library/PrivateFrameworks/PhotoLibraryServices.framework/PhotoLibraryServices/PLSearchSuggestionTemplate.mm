@@ -91,7 +91,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -136,12 +136,12 @@
                 identifier2 = [(PLSearchSuggestionTemplate *)v5 identifier];
                 if (identifier == identifier2)
                 {
-                  v10 = 1;
+                  isEqualToString = 1;
                 }
 
                 else
                 {
-                  v10 = [identifier isEqualToString:identifier2];
+                  isEqualToString = objc_msgSend_isEqualToString_(identifier);
                 }
 
                 goto LABEL_17;
@@ -152,18 +152,18 @@
       }
 
 LABEL_16:
-      v10 = 0;
+      isEqualToString = 0;
 LABEL_17:
 
       goto LABEL_18;
     }
 
-    v10 = 0;
+    isEqualToString = 0;
   }
 
 LABEL_18:
 
-  return v10;
+  return isEqualToString;
 }
 
 - (BOOL)isDateOnlyTemplate
@@ -282,7 +282,7 @@ LABEL_11:
   }
 
   v20 = PLServicesLocalizedFrameworkString();
-  if ([v20 length] && !objc_msgSend(v20, "isEqualToString:", keyCopy))
+  if ([v20 length] && !objc_msgSend_isEqualToString_(v20))
   {
 
 LABEL_2:

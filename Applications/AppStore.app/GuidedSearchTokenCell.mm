@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000851E0();
+  sub_1000851E0(selfCopy, v2);
 }
 
 - (void)applyLayoutAttributes:(id)attributes

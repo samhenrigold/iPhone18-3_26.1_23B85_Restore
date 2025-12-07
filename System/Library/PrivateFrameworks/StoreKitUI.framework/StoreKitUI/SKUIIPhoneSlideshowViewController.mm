@@ -221,12 +221,13 @@
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  if (SKUIUserInterfaceIdiom(self->_clientContext) == 1)
+  v2 = SKUIUserInterfaceIdiom(self->_clientContext);
+  if (v2 == 1)
   {
     return 30;
   }
 
-  if (SKUIAllowsLandscapePhone())
+  if (SKUIAllowsLandscapePhone(v2, v3))
   {
     return 26;
   }

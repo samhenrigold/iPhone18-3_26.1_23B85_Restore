@@ -50,7 +50,7 @@
     [iconCopy applyTreatmentsToMiniGridCellView:viewCopy];
     [v7 center];
     [v7 setCenter:?];
-    [v7 bounds];
+    objc_msgSend_bounds(v7);
     [viewCopy setBounds:?];
     [v7 removeFromSuperview];
     [(SBHIconMiniGridView *)self addSubview:viewCopy];

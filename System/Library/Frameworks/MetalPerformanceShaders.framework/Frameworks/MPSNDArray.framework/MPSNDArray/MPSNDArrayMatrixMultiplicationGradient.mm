@@ -11,9 +11,9 @@
 
 - (MPSNDArrayMatrixMultiplicationGradient)initWithDevice:(id)device sourceCount:(unint64_t)count sourceGradientIndex:(unint64_t)index
 {
-  v10.receiver = self;
-  v10.super_class = MPSNDArrayMatrixMultiplicationGradient;
-  result = [(MPSNDArrayMultiaryGradientKernel *)&v10 initWithDevice:device sourceCount:count sourceGradientIndex:?];
+  v9.receiver = self;
+  v9.super_class = MPSNDArrayMatrixMultiplicationGradient;
+  result = [(MPSNDArrayMultiaryGradientKernel *)&v9 initWithDevice:device sourceCount:count sourceGradientIndex:?];
   if (result)
   {
     if (index >= 2)
@@ -23,7 +23,6 @@
       result = v7;
       if (v8)
       {
-        sourceGradientIndex = v7->super._sourceGradientIndex;
         MTLReportFailure();
         result = v7;
       }
@@ -40,32 +39,30 @@
 
 - (id)destinationArrayDescriptorForSourceArrays:(id)arrays sourceState:(id)state
 {
-  v14[16] = *MEMORY[0x277D85DE8];
+  v13[16] = *MEMORY[0x277D85DE8];
   v6 = [arrays objectAtIndexedSubscript:{self->super._sourceGradientIndex, state}];
   v7 = MEMORY[0x277CD7410];
-  v14[0] = *(v6 + *MEMORY[0x277CD7410]);
-  v14[1] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 4);
-  v14[2] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 8);
-  v14[3] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 12);
-  v14[4] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 16);
-  v14[5] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 20);
-  v14[6] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 24);
-  v14[7] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 28);
-  v14[8] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 32);
-  v14[9] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 36);
-  v14[10] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 40);
-  v14[11] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 44);
-  v14[12] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 48);
-  v14[13] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 52);
-  v14[14] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 56);
-  v14[15] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 60);
+  v13[0] = *(v6 + *MEMORY[0x277CD7410]);
+  v13[1] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 4);
+  v13[2] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 8);
+  v13[3] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 12);
+  v13[4] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 16);
+  v13[5] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 20);
+  v13[6] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 24);
+  v13[7] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 28);
+  v13[8] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 32);
+  v13[9] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 36);
+  v13[10] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 40);
+  v13[11] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 44);
+  v13[12] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 48);
+  v13[13] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 52);
+  v13[14] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 56);
+  v13[15] = *([arrays objectAtIndexedSubscript:self->super._sourceGradientIndex] + *v7 + 60);
   v8 = MEMORY[0x277CD7268];
   v9 = [arrays objectAtIndexedSubscript:self->super._sourceGradientIndex];
   v10 = *(v9 + *MEMORY[0x277CD73C8]);
   v11 = [arrays objectAtIndexedSubscript:self->super._sourceGradientIndex];
-  result = [v8 descriptorWithDataType:v10 dimensionCount:*(v11 + *MEMORY[0x277CD73F0]) dimensionSizes:v14];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v8 descriptorWithDataType:v10 dimensionCount:*(v11 + *MEMORY[0x277CD73F0]) dimensionSizes:v13];
 }
 
 - (MPSNDArrayMatrixMultiplicationGradient)initWithCoder:(id)coder device:(id)device
@@ -113,9 +110,9 @@
 
 - (id)workloadStatisticsForSourceArrays:(id)arrays destArrays:(id)destArrays kernel:(id)kernel kernelDAGObject:(id)object sourceState:(id)state
 {
-  v69.receiver = self;
-  v69.super_class = MPSNDArrayMatrixMultiplicationGradient;
-  v9 = [(MPSNDArrayMultiaryBase *)&v69 workloadStatisticsForSourceArrays:arrays destArrays:destArrays sourceState:state];
+  v64.receiver = self;
+  v64.super_class = MPSNDArrayMatrixMultiplicationGradient;
+  v9 = [(MPSNDArrayMultiaryBase *)&v64 workloadStatisticsForSourceArrays:arrays destArrays:destArrays sourceState:state];
   graph = [object graph];
   v11 = *(graph + 64);
   v12 = *v11;
@@ -183,77 +180,72 @@ LABEL_16:
 LABEL_17:
   v20 = [arrays objectAtIndexedSubscript:v16];
   v21 = [arrays objectAtIndexedSubscript:v17];
-  v22 = v21;
-  v23 = *MEMORY[0x277CD73D8];
-  v24 = *(v20 + v23);
-  v25 = BYTE1(*(v20 + v23));
-  v61 = *(v21 + v23);
-  v26 = BYTE1(*(v21 + v23));
-  v27 = *MEMORY[0x277CD7410];
-  v28 = *(v20 + v27 + 4 * (WORD1(*(v20 + v23)) & 0xF));
-  v29 = *(destArrays + v27);
-  v30 = *(destArrays + v27 + 16);
-  v31 = *(destArrays + v27 + 48);
-  v32 = *(destArrays + v23);
-  v66 = *(destArrays + v27 + 32);
-  v67 = v31;
-  v65[0] = v29;
-  v65[1] = v30;
-  v33 = *(v65 + (BYTE1(v32) & 0xF));
-  v68[2] = v66;
-  v68[3] = v31;
-  v68[0] = v29;
-  v68[1] = v30;
-  v34 = *(v68 + (v32 & 0xF));
-  if (v61 <= v26)
+  v22 = *MEMORY[0x277CD73D8];
+  v23 = *(v20 + v22);
+  v24 = BYTE1(*(v20 + v22));
+  v56 = *(v21 + v22);
+  v25 = BYTE1(*(v21 + v22));
+  v26 = *MEMORY[0x277CD7410];
+  v27 = *(v20 + v26 + 4 * (WORD1(*(v20 + v22)) & 0xF));
+  v28 = *(destArrays + v26);
+  v29 = *(destArrays + v26 + 16);
+  v30 = *(destArrays + v26 + 48);
+  v31 = *(destArrays + v22);
+  v61 = *(destArrays + v26 + 32);
+  v62 = v30;
+  v60[0] = v28;
+  v60[1] = v29;
+  v32 = *(v60 + (BYTE1(v31) & 0xF));
+  v63[2] = v61;
+  v63[3] = v30;
+  v63[0] = v28;
+  v63[1] = v29;
+  v33 = *(v63 + (v31 & 0xF));
+  if (v56 <= v25)
   {
-    v35 = v24;
+    v34 = v23;
   }
 
   else
   {
-    v35 = v25;
+    v34 = v24;
   }
 
-  v36 = *(v21 + v27 + 4 * (v35 & 0xF));
-  v37 = MEMORY[0x277CD73C8];
-  v62 = v28;
-  v38 = (v33 * v28 * v34 * v36);
+  v35 = *(v21 + v26 + 4 * (v34 & 0xF));
+  v57 = v27;
+  v36 = (v32 * v27 * v33 * v35);
   if ((*(destArrays + *MEMORY[0x277CD73C8]) & 0xFFF8) == 0x20)
   {
-    [v9 setFloat32Ops:v38];
+    [v9 setFloat32Ops:v36];
     [v9 setFloat16Ops:0.0];
   }
 
   else
   {
-    [v9 setFloat16Ops:v38];
+    [v9 setFloat16Ops:v36];
     [v9 setFloat32Ops:0.0];
   }
 
   [v9 float32Ops];
-  v40 = v39;
+  v38 = v37;
   [v9 float16Ops];
-  v42 = v40 + v41;
+  v40 = v38 + v39;
   [v9 deviceMemoryBytesRead];
-  v44 = v43;
+  v42 = v41;
   [v9 deviceMemoryBytesWrite];
-  v46 = *(v20 + *v37);
-  v47 = v42 / (v44 + v45);
-  v48 = MPSGetDataTypeName();
-  v49 = *(v22 + *v37);
-  v50 = MPSGetDataTypeName();
-  v51 = *(destArrays + *v37);
-  v52 = MPSGetDataTypeName();
-  MPSKernel_LogInfo(kernel, 2uLL, "Matrix Multiply: M=%lu, N=%lu, K=%lu, Batch Size: %lu, transposeA=%d, transposeB=%d, A Datatype: %s, B Datatype: %s C Datatype: %s\t", v33, v34, v36, v62, v24 > v25, v61 > v26, v48, v50, v52);
+  v44 = v40 / (v42 + v43);
+  v45 = MPSGetDataTypeName();
+  v46 = MPSGetDataTypeName();
+  v47 = MPSGetDataTypeName();
+  MPSKernel_LogInfo(kernel, 2uLL, "Matrix Multiply: M=%lu, N=%lu, K=%lu, Batch Size: %lu, transposeA=%d, transposeB=%d, A Datatype: %s, B Datatype: %s C Datatype: %s\t", v32, v33, v35, v57, v23 > v24, v56 > v25, v45, v46, v47);
   [v9 float16Ops];
-  v54 = v53;
+  v49 = v48;
   [v9 float32Ops];
-  v56 = v55;
+  v51 = v50;
   [v9 deviceMemoryBytesRead];
-  v58 = v57;
+  v53 = v52;
   [v9 deviceMemoryBytesWrite];
-  MPSKernel_LogInfo(kernel, 2uLL, "Matrix Multiply: f16Ops=%f, f32Ops=%f, BytesRead=%f, BytesWritten=%f, OpsPerByte=%f\n", v54, v56, v58, v59, v47);
+  MPSKernel_LogInfo(kernel, 2uLL, "Matrix Multiply: f16Ops=%f, f32Ops=%f, BytesRead=%f, BytesWritten=%f, OpsPerByte=%f\n", v49, v51, v53, v54, v44);
   return v9;
 }
 

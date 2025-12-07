@@ -3,6 +3,7 @@
 - (id)compactTitle;
 - (id)contact;
 - (id)notificationTitle;
+- (void)adaptForPresentationInPopover:(BOOL)popover;
 - (void)invalidate;
 @end
 
@@ -16,6 +17,13 @@
   v4.receiver = self;
   v4.super_class = DDAddToAddressBookAction;
   [(DDAction *)&v4 invalidate];
+}
+
+- (void)adaptForPresentationInPopover:(BOOL)popover
+{
+  popoverCopy = popover;
+  viewController = [(DDAction *)self viewController];
+  [viewController adaptForPresentationInPopover:popoverCopy];
 }
 
 + (BOOL)actionAvailableForContact:(id)contact
@@ -61,7 +69,7 @@ LABEL_7:
 
 - (id)contact
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   contact = self->super.super._contact;
   if (!contact)
   {
@@ -79,19 +87,19 @@ LABEL_7:
         v6 = [(NSURL *)v4 dd_phoneNumberFromValidSchemes:v5];
         if (!self->super.super._result)
         {
-          v14 = [(NSURL *)v4 dd_emailFromValidSchemes:v5];
-          v8 = dd_userFriendlyEmail(v14);
+          v13 = [(NSURL *)v4 dd_emailFromValidSchemes:v5];
+          v8 = dd_userFriendlyEmail(v13);
 
           v7 = objc_alloc_init(MEMORY[0x277CBDB38]);
           if (v8)
           {
-            v15 = [MEMORY[0x277CBDB20] labeledValueWithLabel:0 value:v8];
-            v16 = v15;
-            if (v15)
+            v14 = [MEMORY[0x277CBDB20] labeledValueWithLabel:0 value:v8];
+            v15 = v14;
+            if (v14)
             {
-              v19[0] = v15;
-              v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-              [(CNContact *)v7 setEmailAddresses:v17];
+              v18[0] = v14;
+              v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+              [(CNContact *)v7 setEmailAddresses:v16];
             }
 
             objc_storeStrong(&self->super.super._contact, v7);
@@ -133,8 +141,8 @@ LABEL_10:
           v10 = v9;
           if (v9)
           {
-            v18 = v9;
-            v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+            v17 = v9;
+            v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
             [(CNContact *)v7 setPhoneNumbers:v11];
           }
 
@@ -154,14 +162,13 @@ LABEL_10:
   }
 
 LABEL_17:
-  v12 = *MEMORY[0x277D85DE8];
 
   return contact;
 }
 
 - (id)notificationTitle
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   contact = [(DDAddToAddressBookAction *)self contact];
 
   if (contact)
@@ -231,48 +238,48 @@ LABEL_19:
 
         if (value3)
         {
-          v48 = value2;
-          v34 = [MEMORY[0x277CBDB80] stringFromPostalAddress:value3 style:0];
+          v47 = value2;
+          v33 = [MEMORY[0x277CBDB80] stringFromPostalAddress:value3 style:0];
           newlineCharacterSet = [MEMORY[0x277CCA900] newlineCharacterSet];
-          v36 = [v34 componentsSeparatedByCharactersInSet:newlineCharacterSet];
+          v35 = [v33 componentsSeparatedByCharactersInSet:newlineCharacterSet];
 
-          v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v48 = 0u;
           v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
-          v38 = v36;
-          v39 = [v38 countByEnumeratingWithState:&v49 objects:v53 count:16];
-          if (v39)
+          v37 = v35;
+          v38 = [v37 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          if (v38)
           {
-            v40 = v39;
-            v41 = *v50;
-            v47 = v37;
+            v39 = v38;
+            v40 = *v49;
+            v46 = v36;
             while (2)
             {
-              for (i = 0; i != v40; ++i)
+              for (i = 0; i != v39; ++i)
               {
-                if (*v50 != v41)
+                if (*v49 != v40)
                 {
-                  objc_enumerationMutation(v38);
+                  objc_enumerationMutation(v37);
                 }
 
-                v43 = *(*(&v49 + 1) + 8 * i);
+                v42 = *(*(&v48 + 1) + 8 * i);
                 whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-                v45 = [v43 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+                v44 = [v42 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
-                if ([v45 length])
+                if ([v44 length])
                 {
-                  v37 = v47;
-                  [v47 addObject:v45];
+                  v36 = v46;
+                  [v46 addObject:v44];
 
                   goto LABEL_35;
                 }
               }
 
-              v40 = [v38 countByEnumeratingWithState:&v49 objects:v53 count:16];
-              v37 = v47;
-              if (v40)
+              v39 = [v37 countByEnumeratingWithState:&v48 objects:v52 count:16];
+              v36 = v46;
+              if (v39)
               {
                 continue;
               }
@@ -283,13 +290,13 @@ LABEL_19:
 
 LABEL_35:
 
-          if ([v38 count])
+          if ([v37 count])
           {
-            v46 = [v37 componentsJoinedByString:@" "];
-            [v4 addObject:v46];
+            v45 = [v36 componentsJoinedByString:@" "];
+            [v4 addObject:v45];
           }
 
-          value2 = v48;
+          value2 = v47;
         }
 
         if ([v4 count] == 1)
@@ -333,7 +340,6 @@ LABEL_35:
 
 LABEL_20:
 LABEL_21:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

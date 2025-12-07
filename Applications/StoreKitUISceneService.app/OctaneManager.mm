@@ -287,22 +287,22 @@
 - (id)deleteAllTransactionsWithContext:(id)context
 {
   contextCopy = context;
-  v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = sub_1000025E4;
-  v19[3] = sub_1000025F4;
-  v20 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1000025E4;
+  v21 = sub_1000025F4;
+  v22 = 0;
   dispatchQueue = self->_dispatchQueue;
-  v12 = _NSConcreteStackBlock;
-  v13 = 3221225472;
-  v14 = sub_100002E84;
-  v15 = &unk_1000BDF40;
-  v17 = &v18;
+  v11 = _NSConcreteStackBlock;
+  v12 = 3221225472;
+  v13 = sub_100002E84;
+  v14 = &unk_1000BDF40;
+  v16 = &v17;
   v6 = contextCopy;
-  v16 = v6;
-  dispatch_sync(dispatchQueue, &v12);
-  v7 = *(v19[0] + 40);
+  v15 = v6;
+  dispatch_sync(dispatchQueue, &v11);
+  v7 = v18[5];
   if (v7)
   {
     if (qword_1000D52E8 != -1)
@@ -313,18 +313,19 @@
     v8 = qword_1000D52D8;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      logKey = [v6 logKey];
-      sub_10008DD78(logKey, v19);
+      [v6 logKey];
+      objc_claimAutoreleasedReturnValue();
+      sub_10008DD78();
     }
 
-    v7 = *(v19[0] + 40);
+    v7 = v18[5];
   }
 
-  v10 = v7;
+  v9 = v7;
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
 
-  return v10;
+  return v9;
 }
 
 - (void)deleteDataWithContext:(id)context
@@ -737,29 +738,29 @@
   keyCopy = key;
   parametersCopy = parameters;
   contextCopy = context;
-  v36 = 0;
-  v37[0] = &v36;
-  v37[1] = 0x3032000000;
-  v37[2] = sub_1000025E4;
-  v37[3] = sub_1000025F4;
-  v38 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_1000025E4;
+  v39 = sub_1000025F4;
+  v40 = 0;
   dispatchQueue = self->_dispatchQueue;
-  v26 = _NSConcreteStackBlock;
-  v27 = 3221225472;
-  v28 = sub_100004B10;
-  v29 = &unk_1000BE058;
-  v34 = &v36;
+  v25 = _NSConcreteStackBlock;
+  v26 = 3221225472;
+  v27 = sub_100004B10;
+  v28 = &unk_1000BE058;
+  v33 = &v35;
   v17 = signatureCopy;
-  v30 = v17;
+  v29 = v17;
   v18 = keyCopy;
-  v31 = v18;
+  v30 = v18;
   sourceCopy = source;
   v19 = parametersCopy;
-  v32 = v19;
+  v31 = v19;
   v20 = contextCopy;
-  v33 = v20;
-  dispatch_sync(dispatchQueue, &v26);
-  v21 = *(v37[0] + 40);
+  v32 = v20;
+  dispatch_sync(dispatchQueue, &v25);
+  v21 = v36[5];
   if (v21)
   {
     if (qword_1000D52E8 != -1)
@@ -770,18 +771,19 @@
     v22 = qword_1000D52D8;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      logKey = [v20 logKey];
-      sub_10008DF40(logKey, v37);
+      [v20 logKey];
+      objc_claimAutoreleasedReturnValue();
+      sub_10008DF40();
     }
 
-    v21 = *(v37[0] + 40);
+    v21 = v36[5];
   }
 
-  v24 = v21;
+  v23 = v21;
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
 
-  return v24;
+  return v23;
 }
 
 - (int64_t)storeKitErrorForCategory:(int64_t)category bundleID:(id)d
@@ -1045,22 +1047,21 @@
 {
   existCopy = exist;
   v5 = sub_100012634(&qword_1000D1D58, &unk_1000954C0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v16 - v7;
-  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_100034210(v9, v10, existCopy, v8);
+  v7 = &v15 - v6;
+  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  sub_100034210(v8, v9, existCopy, v7);
 
-  v11 = type metadata accessor for URL();
-  v13 = 0;
-  if (sub_100012898(v8, 1, v11) != 1)
+  v10 = type metadata accessor for URL();
+  v12 = 0;
+  if (sub_100012898(v7, 1, v10) != 1)
   {
-    URL._bridgeToObjectiveC()(v12);
-    v13 = v14;
-    (*(*(v11 - 8) + 8))(v8, v11);
+    URL._bridgeToObjectiveC()(v11);
+    v12 = v13;
+    (*(*(v10 - 8) + 8))(v7, v10);
   }
 
-  return v13;
+  return v12;
 }
 
 + (BOOL)saveConfigurationData:(id)data withContext:(id)context error:(id *)error

@@ -3,7 +3,7 @@
 
 @implementation CKRecord
 
-uint64_t __48__CKRecord_HealthDaemon__hd_setValuesIfChanged___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__48__CKRecord_HealthDaemon__hd_setValuesIfChanged___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) hd_setValue:a3 ifChangedForKey:a2];
   if (result)
@@ -14,7 +14,7 @@ uint64_t __48__CKRecord_HealthDaemon__hd_setValuesIfChanged___block_invoke(uint6
   return result;
 }
 
-uint64_t __57__CKRecord_HealthDaemon__hd_setEncryptedValuesIfChanged___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__57__CKRecord_HealthDaemon__hd_setEncryptedValuesIfChanged___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) hd_setEncryptedValue:a3 ifChangedForKey:a2];
   if (result)

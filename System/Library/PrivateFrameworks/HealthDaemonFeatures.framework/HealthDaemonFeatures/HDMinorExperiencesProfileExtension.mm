@@ -7,27 +7,26 @@
 
 - (HDMinorExperiencesProfileExtension)initWithProfile:(id)profile
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v14.receiver = self;
-  v14.super_class = HDMinorExperiencesProfileExtension;
-  v5 = [(HDMinorExperiencesProfileExtension *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = HDMinorExperiencesProfileExtension;
+  v5 = [(HDMinorExperiencesProfileExtension *)&v13 init];
   if (v5)
   {
     v6 = [[HDExampleFeatureProfileExtension alloc] initWithProfile:profileCopy];
-    v15[0] = v6;
+    v14[0] = v6;
     v7 = [[HDGlucoseExperienceProfileExtension alloc] initWithProfile:profileCopy];
-    v15[1] = v7;
+    v14[1] = v7;
     v8 = [[HDRespiratoryRateMeasurementsProfileExtension alloc] initWithProfile:profileCopy];
-    v15[2] = v8;
+    v14[2] = v8;
     v9 = [[HDWristTemperatureMeasurementsProfileExtension alloc] initWithProfile:profileCopy];
-    v15[3] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
+    v14[3] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
     minorExperiences = v5->_minorExperiences;
     v5->_minorExperiences = v10;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -39,7 +39,7 @@
     }
 
     v6 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
-    _NRLogWithArgs(v6, 0, "%s%.30s:%-4d not activating as cancelled", v7, v8, v9, v10, v11, "");
+    _NRLogWithArgs(v6, 0, "%s%.30s:%-4d not activating as cancelled", ", "[NRXPCComm activate]"", 123);
   }
 
 LABEL_8:
@@ -99,25 +99,26 @@ void __27__NRXPCComm_activateLocked__block_invoke(uint64_t a1, void *a2)
     *(WeakRetained + 8) = 0;
     if (v3 == MEMORY[0x277D863F0])
     {
-      v19 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
+      v14 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v51 = v19;
-        v52 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+        v31 = v14;
+        v32 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-        if (!v52)
+        if (!v32)
         {
           goto LABEL_37;
         }
       }
 
-      v53 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
-      v37 = v53;
-      v59 = "%s%.30s:%-4d xpc connection interrupted";
+      v33 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
+      v27 = v33;
+      v41 = 149;
+      v34 = "%s%.30s:%-4d xpc connection interrupted";
     }
 
     else
@@ -130,17 +131,17 @@ void __27__NRXPCComm_activateLocked__block_invoke(uint64_t a1, void *a2)
         {
 
 LABEL_27:
-          v37 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
-          _NRLogWithArgs(v37, 16, "%s%.30s:%-4d received unknown XPC error: %@", v38, v39, v40, v41, v42, "");
+          v27 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
+          _NRLogWithArgs(v27, 16, "%s%.30s:%-4d received unknown XPC error: %@", ", "[NRXPCComm activateLocked]_block_invoke"", 154, v3);
 LABEL_36:
 
           goto LABEL_37;
         }
 
-        v35 = v9;
-        v36 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+        v25 = v9;
+        v26 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-        if (v36)
+        if (v26)
         {
           goto LABEL_27;
         }
@@ -148,19 +149,19 @@ LABEL_36:
 LABEL_37:
         v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
         [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"teardown"];
-        v62 = *(WeakRetained + 5);
-        if (v62)
+        v37 = *(WeakRetained + 5);
+        if (v37)
         {
-          v63 = v62;
-          v64 = *(WeakRetained + 6);
-          v70[0] = MEMORY[0x277D85DD0];
-          v70[1] = 3221225472;
-          v70[2] = __27__NRXPCComm_activateLocked__block_invoke_2;
-          v70[3] = &unk_27996B158;
-          v72 = v63;
-          v71 = v13;
-          v65 = v63;
-          dispatch_async(v64, v70);
+          v38 = v37;
+          v39 = *(WeakRetained + 6);
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __27__NRXPCComm_activateLocked__block_invoke_2;
+          v45[3] = &unk_27996B158;
+          v47 = v38;
+          v46 = v13;
+          v40 = v38;
+          dispatch_async(v39, v45);
         }
 
         os_unfair_lock_unlock(WeakRetained + 3);
@@ -173,21 +174,22 @@ LABEL_37:
 
       else
       {
-        v60 = v9;
-        v61 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+        v35 = v9;
+        v36 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-        if (!v61)
+        if (!v36)
         {
           goto LABEL_37;
         }
       }
 
-      v53 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
-      v37 = v53;
-      v59 = "%s%.30s:%-4d received XPC error invalid";
+      v33 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
+      v27 = v33;
+      v41 = 152;
+      v34 = "%s%.30s:%-4d received XPC error invalid";
     }
 
-    _NRLogWithArgs(v53, 0, v59, v54, v55, v56, v57, v58, "");
+    _NRLogWithArgs(v33, 0, v34, ", "[NRXPCComm activateLocked]_block_invoke"", v41);
     goto LABEL_36;
   }
 
@@ -202,37 +204,37 @@ LABEL_37:
 
     else
     {
-      v20 = v10;
-      v21 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+      v15 = v10;
+      v16 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-      if (!v21)
+      if (!v16)
       {
         goto LABEL_18;
       }
     }
 
-    v22 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
-    _NRLogWithArgs(v22, 2, "%s%.30s:%-4d Received XPC dict: %@", v23, v24, v25, v26, v27, "");
+    v17 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
+    _NRLogWithArgs(v17, 2, "%s%.30s:%-4d Received XPC dict: %@", ", "[NRXPCComm activateLocked]_block_invoke"", 168, v3);
 
 LABEL_18:
     v13 = xpc_dictionary_get_dictionary(v3, "XPCCommNotification");
-    v28 = xpc_dictionary_get_value(v13, "XPCCommDictionary");
+    v18 = xpc_dictionary_get_value(v13, "XPCCommDictionary");
     if (MEMORY[0x25F8746E0]() == v6)
     {
-      v30 = _CFXPCCreateCFObjectFromXPCObject();
-      v31 = *(WeakRetained + 5);
-      if (v31)
+      v20 = _CFXPCCreateCFObjectFromXPCObject();
+      v21 = *(WeakRetained + 5);
+      if (v21)
       {
-        v32 = v31;
-        v33 = *(WeakRetained + 6);
+        v22 = v21;
+        v23 = *(WeakRetained + 6);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __27__NRXPCComm_activateLocked__block_invoke_3;
         block[3] = &unk_27996B158;
-        v69 = v32;
-        v68 = v30;
-        v34 = v32;
-        dispatch_async(v33, block);
+        v44 = v22;
+        v43 = v20;
+        v24 = v22;
+        dispatch_async(v23, block);
       }
 
       os_unfair_lock_unlock(WeakRetained + 3);
@@ -240,17 +242,17 @@ LABEL_18:
       goto LABEL_40;
     }
 
-    v29 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
+    v19 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v43 = v29;
-      v44 = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
+      v28 = v19;
+      v29 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
 
-      if (!v44)
+      if (!v29)
       {
 LABEL_30:
         os_unfair_lock_unlock(WeakRetained + 3);
@@ -259,8 +261,8 @@ LABEL_30:
       }
     }
 
-    v45 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
-    _NRLogWithArgs(v45, 17, "Invalid notification format", v46, v47, v48, v49, v50, v66);
+    v30 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
+    _NRLogWithArgs(v30, 17, "Invalid notification format");
 
     goto LABEL_30;
   }
@@ -271,7 +273,7 @@ LABEL_30:
 
 LABEL_13:
     v13 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 3));
-    _NRLogWithArgs(v13, 16, "%s%.30s:%-4d received unexpected XPC message %@", v14, v15, v16, v17, v18, "");
+    _NRLogWithArgs(v13, 16, "%s%.30s:%-4d received unexpected XPC message %@", ", "[NRXPCComm activateLocked]_block_invoke"", 189, v3);
 LABEL_40:
 
     goto LABEL_41;
@@ -290,7 +292,7 @@ LABEL_41:
 
 - (void)sendMessageLocked:(uint64_t)locked
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!locked)
   {
@@ -302,33 +304,33 @@ LABEL_41:
   v4 = xpc_dictionary_create(0, 0, 0);
   if (!v4)
   {
-    v20 = nrCopyLogObj_336();
+    v19 = nrCopyLogObj_336();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v23 = v20;
-      v24 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      v22 = v19;
+      v23 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
 
-      if (!v24)
+      if (!v23)
       {
         goto LABEL_23;
       }
     }
 
-    v25 = nrCopyLogObj_336();
-    _NRLogWithArgs(v25, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v26, v27, v28, v29, v30, "");
+    v24 = nrCopyLogObj_336();
+    _NRLogWithArgs(v24, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_23:
-    _os_log_pack_size();
-    MEMORY[0x28223BE20]();
-    v31 = *__error();
-    v32 = _os_log_pack_fill();
-    __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v32, "nr_xpc_dictionary_create");
-    v33 = nrCopyLogObj_336();
-    _NRLogAbortWithPack(v33);
+    v25 = _os_log_pack_size();
+    v27 = &handler[-1] - ((MEMORY[0x28223BE20](v25, v26) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v28 = __error();
+    v29 = _os_log_pack_fill(v27, v25, *v28, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+    __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v29, "nr_xpc_dictionary_create");
+    v30 = nrCopyLogObj_336();
+    _NRLogAbortWithPack(v30, v27);
   }
 
   v5 = v4;
@@ -341,62 +343,62 @@ LABEL_23:
   if (v9)
   {
     *uuid = 0;
-    v57 = 0;
+    v48 = 0;
     [v9 getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(v8, "DeviceIdentifier", uuid);
     goto LABEL_5;
   }
 
-  v21 = nrCopyLogObj_336();
+  v20 = nrCopyLogObj_336();
   if (sNRCopyLogToStdErr == 1)
   {
   }
 
   else
   {
-    v34 = v21;
-    v35 = os_log_type_enabled(v21, OS_LOG_TYPE_FAULT);
+    v31 = v20;
+    v32 = os_log_type_enabled(v20, OS_LOG_TYPE_FAULT);
 
-    if (!v35)
+    if (!v32)
     {
       goto LABEL_5;
     }
   }
 
-  v36 = nrCopyLogObj_336();
-  _NRLogWithArgs(v36, 17, "%s called with null uuid", v37, v38, v39, v40, v41, "nr_xpc_dictionary_set_nsuuid");
+  v33 = nrCopyLogObj_336();
+  _NRLogWithArgs(v33, 17, "%s called with null uuid", "nr_xpc_dictionary_set_nsuuid");
 
 LABEL_5:
   v11 = xpc_dictionary_create(0, 0, 0);
   if (!v11)
   {
-    v22 = nrCopyLogObj_336();
+    v21 = nrCopyLogObj_336();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v42 = v22;
-      v43 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+      v34 = v21;
+      v35 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
 
-      if (!v43)
+      if (!v35)
       {
         goto LABEL_28;
       }
     }
 
-    v44 = nrCopyLogObj_336();
-    _NRLogWithArgs(v44, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", v45, v46, v47, v48, v49, "");
+    v36 = nrCopyLogObj_336();
+    _NRLogWithArgs(v36, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 
 LABEL_28:
-    _os_log_pack_size();
-    MEMORY[0x28223BE20]();
-    v50 = *__error();
-    v51 = _os_log_pack_fill();
-    __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v51, "nr_xpc_dictionary_create");
-    v52 = nrCopyLogObj_336();
-    _NRLogAbortWithPack(v52);
+    v37 = _os_log_pack_size();
+    v39 = &handler[-1] - ((MEMORY[0x28223BE20](v37, v38) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v40 = __error();
+    v41 = _os_log_pack_fill(v39, v37, *v40, &dword_25B98C000, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+    __os_log_helper_1_2_4_8_34_8_0_8_0_4_0(v41, "nr_xpc_dictionary_create");
+    v42 = nrCopyLogObj_336();
+    _NRLogAbortWithPack(v42, v39);
   }
 
   if (v3)
@@ -431,27 +433,25 @@ LABEL_28:
   handler[1] = 3221225472;
   handler[2] = __31__NRXPCComm_sendMessageLocked___block_invoke;
   handler[3] = &unk_27996AEF8;
-  objc_copyWeak(&v55, uuid);
+  objc_copyWeak(&v46, uuid);
   v18 = v15;
-  v54 = v18;
+  v45 = v18;
   xpc_connection_send_message_with_reply(v16, v8, v17, handler);
 
   *(locked + 8) = 1;
-  objc_destroyWeak(&v55);
+  objc_destroyWeak(&v46);
 
   objc_destroyWeak(uuid);
 LABEL_14:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __31__NRXPCComm_sendMessageLocked___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = a2;
+  v12 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = MEMORY[0x25F8746E0](v24);
+    v4 = MEMORY[0x25F8746E0](v12);
     v5 = MEMORY[0x277D86480];
     v6 = _NRCopyLogObjectForNRUUID(WeakRetained[3]);
     if (v4 == v5)
@@ -462,18 +462,17 @@ void __31__NRXPCComm_sendMessageLocked___block_invoke(uint64_t a1, void *a2)
 
       else
       {
-        v15 = v6;
-        v16 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+        v10 = v6;
+        v11 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
 
-        if (!v16)
+        if (!v11)
         {
           goto LABEL_12;
         }
       }
 
       v9 = _NRCopyLogObjectForNRUUID(WeakRetained[3]);
-      v23 = *(a1 + 32);
-      _NRLogWithArgs(v9, 16, "%s%.30s:%-4d failed to send %@ due to error %@", v17, v18, v19, v20, v21, "");
+      _NRLogWithArgs(v9, 16, "%s%.30s:%-4d failed to send %@ due to error %@", ", "[NRXPCComm sendMessageLocked:]_block_invoke"", 230, *(a1 + 32), v12);
     }
 
     else
@@ -494,8 +493,7 @@ void __31__NRXPCComm_sendMessageLocked___block_invoke(uint64_t a1, void *a2)
       }
 
       v9 = _NRCopyLogObjectForNRUUID(WeakRetained[3]);
-      v22 = *(a1 + 32);
-      _NRLogWithArgs(v9, 0, "%s%.30s:%-4d sent %@", v10, v11, v12, v13, v14, "");
+      _NRLogWithArgs(v9, 0, "%s%.30s:%-4d sent %@", ", "[NRXPCComm sendMessageLocked:]_block_invoke"", 232, *(a1 + 32));
     }
   }
 
@@ -537,7 +535,7 @@ LABEL_6:
   }
 
   v8 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
-  _NRLogWithArgs(v8, 0, "%s%.30s:%-4d not sending message as cancelled", v9, v10, v11, v12, v13, "");
+  _NRLogWithArgs(v8, 0, "%s%.30s:%-4d not sending message as cancelled", ", "[NRXPCComm sendXPCCommDictionary:]"", 111);
 
 LABEL_9:
   os_unfair_lock_unlock(&self->_lock);
@@ -572,7 +570,7 @@ LABEL_9:
 
 LABEL_4:
     v6 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
-    _NRLogWithArgs(v6, 0, "%s%.30s:%-4d Dealloc", v7, v8, v9, v10, v11, "");
+    _NRLogWithArgs(v6, 0, "%s%.30s:%-4d Dealloc", ", "[NRXPCComm dealloc]"", 86);
 
     goto LABEL_5;
   }
@@ -587,14 +585,14 @@ LABEL_4:
 
 LABEL_5:
   [(NRXPCComm *)self cancel];
-  v12 = self->_nrUUID;
+  v7 = self->_nrUUID;
   os_unfair_lock_lock(&sNRLogLock);
-  [sNRUUIDsEligibleForLogObject removeObject:v12];
+  [sNRUUIDsEligibleForLogObject removeObject:v7];
 
   os_unfair_lock_unlock(&sNRLogLock);
-  v13.receiver = self;
-  v13.super_class = NRXPCComm;
-  [(NRXPCComm *)&v13 dealloc];
+  v8.receiver = self;
+  v8.super_class = NRXPCComm;
+  [(NRXPCComm *)&v8 dealloc];
 }
 
 - (void)cancel
@@ -617,7 +615,7 @@ LABEL_5:
   }
 
   v6 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
-  _NRLogWithArgs(v6, 0, "%s%.30s:%-4d Cancel", v7, v8, v9, v10, v11, "");
+  _NRLogWithArgs(v6, 0, "%s%.30s:%-4d Cancel", ", "[NRXPCComm cancel]"", 78);
 
 LABEL_5:
   self->_cancelled = 1;
@@ -626,7 +624,7 @@ LABEL_5:
   if (connection)
   {
     xpc_connection_cancel(connection);
-    v13 = self->_connection;
+    v8 = self->_connection;
     self->_connection = 0;
   }
 
@@ -635,76 +633,76 @@ LABEL_5:
 
 - (NRXPCComm)initWithDeviceIdentifier:(id)identifier notificationQueue:(id)queue notificationBlock:(id)block
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   queueCopy = queue;
   blockCopy = block;
   if (!identifierCopy)
   {
-    v30 = nrCopyLogObj_336();
+    v24 = nrCopyLogObj_336();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v32 = v30;
-      v33 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+      v26 = v24;
+      v27 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
 
-      if (!v33)
+      if (!v27)
       {
 LABEL_14:
-        _os_log_pack_size();
-        MEMORY[0x28223BE20]();
-        v40 = *__error();
-        v41 = _os_log_pack_fill();
-        *v41 = 136446466;
-        *(v41 + 4) = "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]";
-        *(v41 + 12) = 2080;
-        *(v41 + 14) = "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]";
+        v29 = _os_log_pack_size();
+        v31 = &v42 - ((MEMORY[0x28223BE20](v29, v30) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v32 = __error();
+        v33 = _os_log_pack_fill(v31, v29, *v32, &dword_25B98C000, "%{public}s BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier");
+        *v33 = 136446466;
+        *(v33 + 4) = "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]";
+        *(v33 + 12) = 2080;
+        *(v33 + 14) = "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]";
         goto LABEL_18;
       }
     }
 
-    v34 = nrCopyLogObj_336();
-    _NRLogWithArgs(v34, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier", v35, v36, v37, v38, v39, "");
+    v28 = nrCopyLogObj_336();
+    _NRLogWithArgs(v28, 16, "%s%.30s:%-4d ABORTING: BUG IN CLIENT OF NetworkRelay: %s called with NULL deviceIdentifier", ", "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]", 58, "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]"");
 
     goto LABEL_14;
   }
 
   v12 = blockCopy;
-  v53.receiver = self;
-  v53.super_class = NRXPCComm;
-  v13 = [(NRXPCComm *)&v53 init];
+  v43.receiver = self;
+  v43.super_class = NRXPCComm;
+  v13 = [(NRXPCComm *)&v43 init];
   if (!v13)
   {
-    v31 = nrCopyLogObj_336();
+    v25 = nrCopyLogObj_336();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v42 = v31;
-      v43 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
+      v34 = v25;
+      v35 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
 
-      if (!v43)
+      if (!v35)
       {
 LABEL_17:
-        _os_log_pack_size();
-        MEMORY[0x28223BE20]();
-        v50 = *__error();
-        v51 = _os_log_pack_fill();
-        *v51 = 136446210;
-        *(v51 + 4) = "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]";
+        v37 = _os_log_pack_size();
+        v31 = &v42 - ((MEMORY[0x28223BE20](v37, v38) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v39 = __error();
+        v40 = _os_log_pack_fill(v31, v37, *v39, &dword_25B98C000, "%{public}s [super init] failed");
+        *v40 = 136446210;
+        *(v40 + 4) = "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]";
 LABEL_18:
-        v52 = nrCopyLogObj_336();
-        _NRLogAbortWithPack(v52);
+        v41 = nrCopyLogObj_336();
+        _NRLogAbortWithPack(v41, v31);
       }
     }
 
-    v44 = nrCopyLogObj_336();
-    _NRLogWithArgs(v44, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v45, v46, v47, v48, v49, "");
+    v36 = nrCopyLogObj_336();
+    _NRLogWithArgs(v36, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]"", 59);
 
     goto LABEL_17;
   }
@@ -729,7 +727,7 @@ LABEL_18:
 
 LABEL_6:
     v22 = _NRCopyLogObjectForNRUUID(v14->_nrUUID);
-    _NRLogWithArgs(v22, 0, "%s%.30s:%-4d Init for %@", v23, v24, v25, v26, v27, "");
+    _NRLogWithArgs(v22, 0, "%s%.30s:%-4d Init for %@", ", "[NRXPCComm initWithDeviceIdentifier:notificationQueue:notificationBlock:]"", 71, identifierCopy);
 
     goto LABEL_7;
   }
@@ -744,7 +742,6 @@ LABEL_6:
 
 LABEL_7:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

@@ -44,20 +44,21 @@
 
 + (void)requestAccountPolicyForClipMetadata:(id)metadata withCompletion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   completionCopy = completion;
-  if (CPSBypassAccountEligibilityCheck())
+  v8 = CPSBypassAccountEligibilityCheck();
+  if (v8)
   {
-    v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = v8;
+      v11 = v10;
       *buf = 138543618;
       *&buf[4] = objc_opt_class();
       *&buf[12] = 2048;
       *&buf[14] = self;
-      _os_log_impl(&dword_2436ED000, v9, OS_LOG_TYPE_INFO, "%{public}@ (%p): Bypassing account policy check.", buf, 0x16u);
+      _os_log_impl(&dword_2436ED000, v11, OS_LOG_TYPE_INFO, "%{public}@ (%p): Bypassing account policy check.", buf, 0x16u);
     }
 
     sharedConnection = +[CPSClipInvocationPolicy eligiblePolicy];
@@ -66,246 +67,248 @@
 
   else
   {
-    v11 = CPSAccountPolicyOverride();
-    v12 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
-    if (v11)
+    v13 = CPSAccountPolicyOverride();
+    v15 = CPS_LOG_CHANNEL_PREFIXClipServices(v13, v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+    if (v13)
     {
-      if (v13)
+      if (v16)
       {
-        v14 = v12;
+        v17 = v15;
         *buf = 138543874;
         *&buf[4] = objc_opt_class();
         *&buf[12] = 2048;
         *&buf[14] = self;
         *&buf[22] = 2048;
-        v31 = v11;
-        _os_log_impl(&dword_2436ED000, v14, OS_LOG_TYPE_INFO, "%{public}@ (%p): Use policy override from user defaults: value = %ld ", buf, 0x20u);
+        v35 = v13;
+        _os_log_impl(&dword_2436ED000, v17, OS_LOG_TYPE_INFO, "%{public}@ (%p): Use policy override from user defaults: value = %ld ", buf, 0x20u);
       }
 
-      sharedConnection = [CPSClipInvocationPolicy ineligiblePolicyWithReason:v11];
+      sharedConnection = [CPSClipInvocationPolicy ineligiblePolicyWithReason:v13];
       completionCopy[2](completionCopy, sharedConnection);
     }
 
     else
     {
-      if (v13)
+      if (v16)
       {
-        v15 = v12;
+        v18 = v15;
         *buf = 138543618;
         *&buf[4] = objc_opt_class();
         *&buf[12] = 2048;
         *&buf[14] = self;
-        _os_log_impl(&dword_2436ED000, v15, OS_LOG_TYPE_INFO, "%{public}@ (%p): Determining account policy.", buf, 0x16u);
+        _os_log_impl(&dword_2436ED000, v18, OS_LOG_TYPE_INFO, "%{public}@ (%p): Determining account policy.", buf, 0x16u);
       }
 
-      v26 = 0;
-      v27 = &v26;
-      v28 = 0x2050000000;
-      v16 = getMCProfileConnectionClass_softClass_0;
-      v29 = getMCProfileConnectionClass_softClass_0;
+      v30 = 0;
+      v31 = &v30;
+      v32 = 0x2050000000;
+      v19 = getMCProfileConnectionClass_softClass_0;
+      v33 = getMCProfileConnectionClass_softClass_0;
       if (!getMCProfileConnectionClass_softClass_0)
       {
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __getMCProfileConnectionClass_block_invoke_0;
-        v31 = &unk_278DCDC00;
-        v32 = &v26;
+        v35 = &unk_278DCDC00;
+        v36 = &v30;
         __getMCProfileConnectionClass_block_invoke_0(buf);
-        v16 = v27[3];
+        v19 = v31[3];
       }
 
-      v17 = v16;
-      _Block_object_dispose(&v26, 8);
-      sharedConnection = [v16 sharedConnection];
+      v20 = v19;
+      _Block_object_dispose(&v30, 8);
+      sharedConnection = [v19 sharedConnection];
       if ([sharedConnection isAppClipsAllowed])
       {
-        if ([metadataCopy hasFullAppInstalledOnSystem])
+        hasFullAppInstalledOnSystem = [metadataCopy hasFullAppInstalledOnSystem];
+        if (hasFullAppInstalledOnSystem)
         {
-          v18 = CPS_LOG_CHANNEL_PREFIXClipServices();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+          v23 = CPS_LOG_CHANNEL_PREFIXClipServices(hasFullAppInstalledOnSystem, v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
-            v19 = v18;
-            v20 = objc_opt_class();
+            v24 = v23;
+            v25 = objc_opt_class();
             *buf = 138543618;
-            *&buf[4] = v20;
+            *&buf[4] = v25;
             *&buf[12] = 2048;
             *&buf[14] = self;
-            _os_log_impl(&dword_2436ED000, v19, OS_LOG_TYPE_INFO, "%{public}@ (%p): Bypassing account policy check because full app is already installed.", buf, 0x16u);
+            _os_log_impl(&dword_2436ED000, v24, OS_LOG_TYPE_INFO, "%{public}@ (%p): Bypassing account policy check because full app is already installed.", buf, 0x16u);
           }
 
-          v21 = +[CPSClipInvocationPolicy eligiblePolicy];
-          completionCopy[2](completionCopy, v21);
+          v26 = +[CPSClipInvocationPolicy eligiblePolicy];
+          completionCopy[2](completionCopy, v26);
         }
 
         else
         {
-          v21 = objc_alloc_init(MEMORY[0x277CEC320]);
-          [v21 setLookupFamilyInfoIfNecessary:1];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __78__CPSClipInvocationPolicy_requestAccountPolicyForClipMetadata_withCompletion___block_invoke;
-          v23[3] = &unk_278DCEA18;
+          v26 = objc_alloc_init(MEMORY[0x277CEC320]);
+          [v26 setLookupFamilyInfoIfNecessary:1];
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __78__CPSClipInvocationPolicy_requestAccountPolicyForClipMetadata_withCompletion___block_invoke;
+          v27[3] = &unk_278DCEA18;
           selfCopy = self;
-          v24 = completionCopy;
-          [v21 statusWithCompletion:v23];
+          v28 = completionCopy;
+          [v26 statusWithCompletion:v27];
         }
       }
 
       else
       {
-        v21 = [CPSClipInvocationPolicy ineligiblePolicyWithReason:6];
-        completionCopy[2](completionCopy, v21);
+        v26 = [CPSClipInvocationPolicy ineligiblePolicyWithReason:6];
+        completionCopy[2](completionCopy, v26);
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __78__CPSClipInvocationPolicy_requestAccountPolicyForClipMetadata_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+  if (v9)
   {
-    v8 = *(a1 + 40);
-    v9 = v7;
-    v21 = 138543874;
-    v22 = v8;
-    v23 = 2048;
-    v24 = objc_opt_class();
-    v25 = 2048;
-    v26 = [v5 accountStatus];
-    _os_log_impl(&dword_2436ED000, v9, OS_LOG_TYPE_INFO, "%{public}@ (%p): Obtained ASDAccountStatusCode: %ld", &v21, 0x20u);
+    v11 = *(a1 + 40);
+    v12 = v8;
+    v25 = 138543874;
+    v26 = v11;
+    v27 = 2048;
+    v28 = objc_opt_class();
+    v29 = 2048;
+    v30 = [v5 accountStatus];
+    _os_log_impl(&dword_2436ED000, v12, OS_LOG_TYPE_INFO, "%{public}@ (%p): Obtained ASDAccountStatusCode: %ld", &v25, 0x20u);
   }
 
   if (!v5 || v6)
   {
-    v12 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = CPS_LOG_CHANNEL_PREFIXClipServices(v9, v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __78__CPSClipInvocationPolicy_requestAccountPolicyForClipMetadata_withCompletion___block_invoke_cold_1(a1, v12, v6);
+      __78__CPSClipInvocationPolicy_requestAccountPolicyForClipMetadata_withCompletion___block_invoke_cold_1(a1, v15, v6);
     }
 
-    v10 = *(a1 + 32);
-    v11 = 12;
+    v13 = *(a1 + 32);
+    v14 = 12;
   }
 
   else
   {
     if (([v5 hasErrorStatus] & 1) == 0)
     {
-      v10 = *(a1 + 32);
-      v13 = +[CPSClipInvocationPolicy eligiblePolicy];
+      v13 = *(a1 + 32);
+      v16 = +[CPSClipInvocationPolicy eligiblePolicy];
       goto LABEL_13;
     }
 
     if ([v5 hasResponseFlag:1])
     {
-      v10 = *(a1 + 32);
-      v11 = 1;
+      v13 = *(a1 + 32);
+      v14 = 1;
     }
 
     else if ([v5 hasResponseFlag:32])
     {
-      v10 = *(a1 + 32);
-      v11 = 4;
+      v13 = *(a1 + 32);
+      v14 = 4;
     }
 
     else if ([v5 hasResponseFlag:16])
     {
-      v10 = *(a1 + 32);
-      v11 = 9;
+      v13 = *(a1 + 32);
+      v14 = 9;
     }
 
     else if ([v5 hasResponseFlag:64])
     {
-      v10 = *(a1 + 32);
-      v11 = 10;
+      v13 = *(a1 + 32);
+      v14 = 10;
     }
 
     else if ([v5 hasResponseFlag:4])
     {
-      v10 = *(a1 + 32);
-      v11 = 11;
+      v13 = *(a1 + 32);
+      v14 = 11;
     }
 
     else if ([v5 hasResponseFlag:256])
     {
-      v10 = *(a1 + 32);
-      v11 = 3;
-    }
-
-    else if ([v5 hasResponseFlag:128])
-    {
-      v10 = *(a1 + 32);
-      v11 = 2;
+      v13 = *(a1 + 32);
+      v14 = 3;
     }
 
     else
     {
-      v16 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v18 = [v5 hasResponseFlag:128];
+      if (v18)
       {
-        v17 = *(a1 + 40);
-        v18 = v16;
-        v19 = objc_opt_class();
-        v20 = [v5 accountStatus];
-        v21 = 138543874;
-        v22 = v17;
-        v23 = 2048;
-        v24 = v19;
-        v25 = 2048;
-        v26 = v20;
-        _os_log_impl(&dword_2436ED000, v18, OS_LOG_TYPE_INFO, "%{public}@ (%p): Unhandled ASDAccountStatusCode encountered while determining account policy. Account status: %ld", &v21, 0x20u);
+        v13 = *(a1 + 32);
+        v14 = 2;
       }
 
-      v10 = *(a1 + 32);
-      v11 = 15;
+      else
+      {
+        v20 = CPS_LOG_CHANNEL_PREFIXClipServices(v18, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        {
+          v21 = *(a1 + 40);
+          v22 = v20;
+          v23 = objc_opt_class();
+          v24 = [v5 accountStatus];
+          v25 = 138543874;
+          v26 = v21;
+          v27 = 2048;
+          v28 = v23;
+          v29 = 2048;
+          v30 = v24;
+          _os_log_impl(&dword_2436ED000, v22, OS_LOG_TYPE_INFO, "%{public}@ (%p): Unhandled ASDAccountStatusCode encountered while determining account policy. Account status: %ld", &v25, 0x20u);
+        }
+
+        v13 = *(a1 + 32);
+        v14 = 15;
+      }
     }
   }
 
-  v13 = [CPSClipInvocationPolicy ineligiblePolicyWithReason:v11];
+  v16 = [CPSClipInvocationPolicy ineligiblePolicyWithReason:v14];
 LABEL_13:
-  v14 = v13;
-  (*(v10 + 16))(v10, v13);
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = v16;
+  (*(v13 + 16))(v13, v16);
 }
 
 + (id)invocationPolicyWithAMSDict:(id)dict
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
-  v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(dictCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = v5;
-    v17 = 138543618;
+    v7 = v6;
+    v19 = 138543618;
     selfCopy2 = objc_opt_class();
-    v19 = 2048;
+    v21 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "%{public}@ (%p): Determining clip policy.", &v17, 0x16u);
+    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "%{public}@ (%p): Determining clip policy.", &v19, 0x16u);
   }
 
-  v7 = [objc_alloc(MEMORY[0x277CEC388]) initWithDictionary:dictCopy];
+  v8 = [objc_alloc(MEMORY[0x277CEC388]) initWithDictionary:dictCopy];
 
-  v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v11 = CPS_LOG_CHANNEL_PREFIXClipServices(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v9 = v8;
-    v10 = objc_opt_class();
-    responseCode = [v7 responseCode];
-    v17 = 138543874;
+    v12 = v11;
+    v13 = objc_opt_class();
+    responseCode = [v8 responseCode];
+    v19 = 138543874;
     selfCopy2 = self;
-    v19 = 2048;
-    selfCopy = v10;
     v21 = 2048;
-    v22 = responseCode;
-    _os_log_impl(&dword_2436ED000, v9, OS_LOG_TYPE_INFO, "%{public}@ (%p): Obtained ASDClipRestrictionsTask response code: %ld", &v17, 0x20u);
+    selfCopy = v13;
+    v23 = 2048;
+    v24 = responseCode;
+    _os_log_impl(&dword_2436ED000, v12, OS_LOG_TYPE_INFO, "%{public}@ (%p): Obtained ASDClipRestrictionsTask response code: %ld", &v19, 0x20u);
   }
 
   if (CPSAMSRestrictionsCodeOverride() == 14)
@@ -313,40 +316,38 @@ LABEL_13:
     goto LABEL_6;
   }
 
-  if ([v7 hasErrorStatus])
+  if ([v8 hasErrorStatus])
   {
-    if ([v7 hasResponseFlag:1])
+    if ([v8 hasResponseFlag:1])
     {
-      v12 = 9;
+      v15 = 9;
       goto LABEL_7;
     }
 
-    if ([v7 hasResponseFlag:2])
+    if ([v8 hasResponseFlag:2])
     {
-      v12 = 5;
+      v15 = 5;
       goto LABEL_7;
     }
 
-    if (![v7 hasResponseFlag:4])
+    if (![v8 hasResponseFlag:4])
     {
-      v12 = 15;
+      v15 = 15;
       goto LABEL_7;
     }
 
 LABEL_6:
-    v12 = 14;
+    v15 = 14;
 LABEL_7:
-    v13 = [CPSClipInvocationPolicy ineligiblePolicyWithReason:v12];
+    v16 = [CPSClipInvocationPolicy ineligiblePolicyWithReason:v15];
     goto LABEL_12;
   }
 
-  v13 = +[CPSClipInvocationPolicy eligiblePolicy];
+  v16 = +[CPSClipInvocationPolicy eligiblePolicy];
 LABEL_12:
-  v14 = v13;
+  v17 = v16;
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v17;
 }
 
 - (NSString)localizedTitle
@@ -451,20 +452,18 @@ LABEL_16:
 
 void __78__CPSClipInvocationPolicy_requestAccountPolicyForClipMetadata_withCompletion___block_invoke_cold_1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = a2;
   v6 = objc_opt_class();
   v7 = [a3 cps_privacyPreservingDescription];
-  v9 = 138543874;
-  v10 = v4;
-  v11 = 2048;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  _os_log_error_impl(&dword_2436ED000, v5, OS_LOG_TYPE_ERROR, "%{public}@ (%p): Error determining account policy: %@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543874;
+  v9 = v4;
+  v10 = 2048;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_error_impl(&dword_2436ED000, v5, OS_LOG_TYPE_ERROR, "%{public}@ (%p): Error determining account policy: %@", &v8, 0x20u);
 }
 
 @end

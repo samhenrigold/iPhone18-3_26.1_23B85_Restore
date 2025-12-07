@@ -294,7 +294,7 @@ SSPromise *__39__SSDevice_storeFrontIdentifierPromise__block_invoke(uint64_t a1,
   return &v3->isa;
 }
 
-uint64_t __25__SSDevice_clientVersion__block_invoke(uint64_t a1)
+void *__25__SSDevice_clientVersion__block_invoke(uint64_t a1)
 {
   MainBundle = CFBundleGetMainBundle();
   InfoDictionary = CFBundleGetInfoDictionary(MainBundle);
@@ -330,7 +330,7 @@ uint64_t __25__SSDevice_clientVersion__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __22__SSDevice_clientName__block_invoke(uint64_t a1)
+void *__22__SSDevice_clientName__block_invoke(uint64_t a1)
 {
   MainBundle = CFBundleGetMainBundle();
   result = [*(a1 + 32) _userAgentClientNameForInfoPlist:CFBundleGetInfoDictionary(MainBundle)];
@@ -360,28 +360,27 @@ uint64_t __22__SSDevice_clientName__block_invoke(uint64_t a1)
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       LODWORD(v21) = 136446210;
       *(&v21 + 4) = "[SSDevice automaticDownloadKinds]";
-      LODWORD(v19) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v21, v19}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
@@ -400,12 +399,12 @@ uint64_t __22__SSDevice_clientName__block_invoke(uint64_t a1)
   block[4] = self;
   block[5] = &v21;
   dispatch_sync(dispatchQueue, block);
-  v17 = *(*(&v21 + 1) + 40);
+  v18 = *(*(&v21 + 1) + 40);
   _Block_object_dispose(&v21, 8);
-  return v17;
+  return v18;
 }
 
-uint64_t __34__SSDevice_automaticDownloadKinds__block_invoke(uint64_t a1)
+void *__34__SSDevice_automaticDownloadKinds__block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 16);
   if (!v2)
@@ -433,17 +432,17 @@ void __34__SSDevice_automaticDownloadKinds__block_invoke_2(uint64_t a1, void *a2
 {
   if (a2 && MEMORY[0x1DA6E0380](a2) == MEMORY[0x1E69E9E80])
   {
-    objc_opt_class();
-    v4 = SSXPCDictionaryCopyCFObjectWithClass(a2, "0");
-    v5 = v4;
-    if (v4)
+    v4 = objc_opt_class();
+    v5 = SSXPCDictionaryCopyCFObjectWithClass(a2, "0", v4);
+    v6 = v5;
+    if (v5)
     {
-      v6 = v4;
-      v4 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v4];
-      v5 = v6;
+      v7 = v5;
+      v5 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v5];
+      v6 = v7;
     }
 
-    *(*(a1 + 32) + 16) = v4;
+    *(*(a1 + 32) + 16) = v5;
   }
 }
 
@@ -550,43 +549,42 @@ id __39__SSDevice_cloudMediaLibraryIdentifier__block_invoke(uint64_t a1)
         v7 = shouldLog;
       }
 
-      if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [v5 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        v8 = v7;
+        v9 = v7;
       }
 
       else
       {
-        v8 = v7 & 2;
+        v9 = v7 & 2;
       }
 
-      if (v8)
+      if (v9)
       {
         v23 = 136446210;
         v24 = "[SSDevice getAvailableItemKindsWithBlock:]";
-        LODWORD(v20) = 12;
-        v9 = _os_log_send_and_compose_impl();
-        if (v9)
+        if (v10)
         {
-          v10 = v9;
-          v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v23, v20}];
-          free(v10);
-          SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+          v11 = v10;
+          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+          free(v11);
+          SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
         }
       }
     }
 
-    v18 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v18, "0", 68);
-    v19 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+    v19 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v19, "0", 68);
+    v20 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
     v22[2] = __43__SSDevice_getAvailableItemKindsWithBlock___block_invoke;
     v22[3] = &unk_1E84AC760;
-    v22[4] = v19;
+    v22[4] = v20;
     v22[5] = block;
-    [(SSXPCConnection *)v19 sendMessage:v18 withReply:v22];
-    xpc_release(v18);
+    [(SSXPCConnection *)v20 sendMessage:v19 withReply:v22];
+    xpc_release(v19);
   }
 }
 
@@ -601,12 +599,12 @@ void __43__SSDevice_getAvailableItemKindsWithBlock___block_invoke(uint64_t a1, v
   {
     if (a2 && MEMORY[0x1DA6E0380](a2) == MEMORY[0x1E69E9E80])
     {
-      objc_opt_class();
-      v9 = SSXPCDictionaryCopyCFObjectWithClass(a2, "1");
+      v9 = objc_opt_class();
+      v10 = SSXPCDictionaryCopyCFObjectWithClass(a2, "1", v9);
       v5 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithXPCEncoding:{xpc_dictionary_get_value(a2, "2")}];
-      if (v9)
+      if (v10)
       {
-        v6 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v9];
+        v6 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v10];
       }
 
       else
@@ -662,42 +660,41 @@ LABEL_7:
       v6 = shouldLog;
     }
 
-    if (os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v4 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v7 = v6;
+      v8 = v6;
     }
 
     else
     {
-      v7 = v6 & 2;
+      v8 = v6 & 2;
     }
 
-    if (v7)
+    if (v8)
     {
       v21 = 136446210;
       v22 = "[SSDevice getCellularNetworkingAllowedWithBlock:]";
-      LODWORD(v19) = 12;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      if (v9)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v21, v19}];
-        free(v9);
-        SSFileLog(v4, @"%@", v11, v12, v13, v14, v15, v16, v10);
+        v10 = v9;
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
+        SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v11);
       }
     }
   }
 
-  v17 = SSXPCCreateMessageDictionary(87);
-  v18 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v18 = SSXPCCreateMessageDictionary(87);
+  v19 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
   v20[2] = __50__SSDevice_getCellularNetworkingAllowedWithBlock___block_invoke;
   v20[3] = &unk_1E84AC760;
-  v20[4] = v18;
+  v20[4] = v19;
   v20[5] = block;
-  [(SSXPCConnection *)v18 sendMessage:v17 withReply:v20];
-  xpc_release(v17);
+  [(SSXPCConnection *)v19 sendMessage:v18 withReply:v20];
+  xpc_release(v18);
 }
 
 void __50__SSDevice_getCellularNetworkingAllowedWithBlock___block_invoke(uint64_t a1, void *a2)
@@ -807,43 +804,42 @@ uint64_t __48__SSDevice_loadStoreFrontWithCompletionHandler___block_invoke_3(uin
       v6 = shouldLog;
     }
 
-    if (os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v4 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v7 = v6;
+      v8 = v6;
     }
 
     else
     {
-      v7 = v6 & 2;
+      v8 = v6 & 2;
     }
 
-    if (v7)
+    if (v8)
     {
       v21 = 136446210;
       v22 = "[SSDevice sdk_loadStorefrontCountryCode:]";
-      LODWORD(v19) = 12;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      if (v9)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v21, v19}];
-        free(v9);
-        SSFileLog(v4, @"%@", v11, v12, v13, v14, v15, v16, v10);
+        v10 = v9;
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
+        SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v11);
       }
     }
   }
 
-  v17 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v17, "0", 173);
-  v18 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v18 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v18, "0", 173);
+  v19 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
   v20[2] = __42__SSDevice_sdk_loadStorefrontCountryCode___block_invoke;
   v20[3] = &unk_1E84AC760;
-  v20[4] = v18;
+  v20[4] = v19;
   v20[5] = code;
-  [(SSXPCConnection *)v18 sendMessage:v17 withReply:v20];
-  xpc_release(v17);
+  [(SSXPCConnection *)v19 sendMessage:v18 withReply:v20];
+  xpc_release(v18);
 }
 
 void __42__SSDevice_sdk_loadStorefrontCountryCode___block_invoke(uint64_t a1, void *a2)
@@ -863,8 +859,8 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  objc_opt_class();
-  v6 = SSXPCDictionaryCopyCFObjectWithClass(a2, "1");
+  v9 = objc_opt_class();
+  v6 = SSXPCDictionaryCopyCFObjectWithClass(a2, "1", v9);
   v5 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithXPCEncoding:{xpc_dictionary_get_value(a2, "2")}];
 LABEL_7:
   if (!(v5 | v6))
@@ -922,6 +918,7 @@ LABEL_7:
       shouldLog = [v6 shouldLog];
       shouldLogToDisk = [v6 shouldLogToDisk];
       oSLogObject = [v6 OSLogObject];
+      v10 = oSLogObject;
       if (shouldLogToDisk)
       {
         shouldLog |= 2u;
@@ -929,53 +926,51 @@ LABEL_7:
 
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        v10 = shouldLog;
+        v11 = shouldLog;
       }
 
       else
       {
-        v10 = shouldLog & 2;
+        v11 = shouldLog & 2;
       }
 
-      if (v10)
+      if (v11)
       {
         v32 = 136446210;
         v33 = "[SSDevice sdk_loadStoreFrontIdentifier:]";
-        LODWORD(v23) = 12;
-        v11 = _os_log_send_and_compose_impl();
-        if (v11)
+        if (v12)
         {
-          v12 = v11;
-          v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v32, v23}];
-          free(v12);
-          SSFileLog(v6, @"%@", v14, v15, v16, v17, v18, v19, v13);
+          v13 = v12;
+          v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+          free(v13);
+          SSFileLog(v6, @"%@", v15, v16, v17, v18, v19, v20, v14);
         }
       }
     }
 
-    v20 = objc_alloc_init(SSURLBagContext);
-    [(SSURLBagContext *)v20 setBagType:0];
-    [(SSURLBagContext *)v20 setIgnoresCaches:1];
-    v21 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v21, "0", 174);
-    SSXPCDictionarySetCFObject(v21, "1", v20);
+    v21 = objc_alloc_init(SSURLBagContext);
+    [(SSURLBagContext *)v21 setBagType:0];
+    [(SSURLBagContext *)v21 setIgnoresCaches:1];
+    v22 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v22, "0", 174);
+    SSXPCDictionarySetCFObject(v22, "1", v21);
 
-    v22 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+    v23 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
     v24[0] = MEMORY[0x1E69E9820];
     v24[1] = 3221225472;
     v24[2] = __41__SSDevice_sdk_loadStoreFrontIdentifier___block_invoke_85;
     v24[3] = &unk_1E84AF340;
-    v24[5] = v22;
+    v24[5] = v23;
     v24[6] = identifier;
     v24[4] = self;
-    [(SSXPCConnection *)v22 sendMessage:v21 withReply:v24];
-    xpc_release(v21);
+    [(SSXPCConnection *)v23 sendMessage:v22 withReply:v24];
+    xpc_release(v22);
   }
 
   _Block_object_dispose(&v26, 8);
 }
 
-uint64_t __41__SSDevice_sdk_loadStoreFrontIdentifier___block_invoke(uint64_t a1)
+void *__41__SSDevice_sdk_loadStoreFrontIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -1029,7 +1024,7 @@ void __41__SSDevice_sdk_loadStoreFrontIdentifier___block_invoke_85(uint64_t a1, 
   }
 }
 
-uint64_t __41__SSDevice_sdk_loadStoreFrontIdentifier___block_invoke_2(uint64_t a1)
+void *__41__SSDevice_sdk_loadStoreFrontIdentifier___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 40) copy];
   *(*(a1 + 32) + 72) = result;
@@ -1099,37 +1094,36 @@ id __34__SSDevice_mediaLibraryIdentifier__block_invoke(uint64_t a1)
       v6 = shouldLog;
     }
 
-    if (os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v4 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v7 = v6;
+      v8 = v6;
     }
 
     else
     {
-      v7 = v6 & 2;
+      v8 = v6 & 2;
     }
 
-    if (v7)
+    if (v8)
     {
       v20 = 136446210;
       v21 = "[SSDevice setCellularNetworkingAllowed:]";
-      LODWORD(v19) = 12;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      if (v9)
       {
-        v9 = v8;
-        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v20, v19}];
-        free(v9);
-        SSFileLog(v4, @"%@", v11, v12, v13, v14, v15, v16, v10);
+        v10 = v9;
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
+        SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v11);
       }
     }
   }
 
-  v17 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-  v18 = SSXPCCreateMessageDictionary(88);
-  xpc_dictionary_set_BOOL(v18, "1", allowed);
-  [(SSXPCConnection *)v17 sendMessage:v18];
-  xpc_release(v18);
+  v18 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v19 = SSXPCCreateMessageDictionary(88);
+  xpc_dictionary_set_BOOL(v19, "1", allowed);
+  [(SSXPCConnection *)v18 sendMessage:v19];
+  xpc_release(v19);
 }
 
 - (void)setStoreFrontWithResponseHeaders:(id)headers
@@ -1172,51 +1166,50 @@ id __34__SSDevice_mediaLibraryIdentifier__block_invoke(uint64_t a1)
         v8 = shouldLog;
       }
 
-      if (os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_FAULT))
+      oSLogObject = [v6 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
       {
-        v9 = v8;
+        v10 = v8;
       }
 
       else
       {
-        v9 = v8 & 2;
+        v10 = v8 & 2;
       }
 
-      if (v9)
+      if (v10)
       {
         v24 = 136446210;
         v25 = "[SSDevice showPromptWithIdentifier:completionHandler:]";
-        LODWORD(v22) = 12;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        if (v11)
         {
-          v11 = v10;
-          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v24, v22}];
-          free(v11);
-          SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v12);
+          v12 = v11;
+          v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+          free(v12);
+          SSFileLog(v6, @"%@", v14, v15, v16, v17, v18, v19, v13);
         }
       }
     }
 
-    v19 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v19, "0", 69);
-    SSXPCDictionarySetCFObject(v19, "1", identifier);
-    v20 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+    v20 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v20, "0", 69);
+    SSXPCDictionarySetCFObject(v20, "1", identifier);
+    v21 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
     v23[0] = MEMORY[0x1E69E9820];
     v23[1] = 3221225472;
     v23[2] = __55__SSDevice_showPromptWithIdentifier_completionHandler___block_invoke;
     v23[3] = &unk_1E84AC760;
-    v23[4] = v20;
+    v23[4] = v21;
     v23[5] = handler;
-    [(SSXPCConnection *)v20 sendMessage:v19 withReply:v23];
-    xpc_release(v19);
+    [(SSXPCConnection *)v21 sendMessage:v20 withReply:v23];
+    xpc_release(v20);
   }
 
   else if (handler)
   {
-    v21 = *(handler + 2);
+    v22 = *(handler + 2);
 
-    v21(handler, 0);
+    v22(handler, 0);
   }
 }
 
@@ -1475,15 +1468,21 @@ LABEL_3:
       shouldLog = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v12 = shouldLog | 2;
+        LODWORD(v12) = shouldLog | 2;
       }
 
       else
       {
-        v12 = shouldLog;
+        LODWORD(v12) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject = [v10 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v12 = v12;
+      }
+
+      else
       {
         v12 &= 2u;
       }
@@ -1494,17 +1493,16 @@ LABEL_3:
         v24 = objc_opt_class();
         v25 = 2114;
         displayCopy = display;
-        LODWORD(v22) = 22;
-        v7 = _os_log_send_and_compose_impl();
+        v7 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to fetch needsDisplay for a server prompt. There's no active account or local account. promptIdentifier = %{public}@", &v23, 22);
         if (!v7)
         {
           return v7;
         }
 
-        v13 = v7;
-        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v23, v22}];
-        free(v13);
-        SSFileLog(v10, @"%@", v15, v16, v17, v18, v19, v20, v14);
+        v14 = v7;
+        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+        free(v14);
+        SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, v15);
       }
 
       goto LABEL_4;
@@ -1547,15 +1545,15 @@ LABEL_4:
 
 + (void)setLastPromptAttemptDate:(id)date forPromptWithIdentifier:(id)identifier
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v6 = +[SSAccountStore defaultStore];
   activeAccount = [v6 activeAccount];
   if (activeAccount || (activeAccount = [objc_msgSend(v6 "localAccount")]) != 0)
   {
     v8 = activeAccount;
     [activeAccount setLastAttemptDate:date forServerPromptWithIdentifier:identifier];
-    v26 = 0;
-    if (([v6 saveAccount:v8 verifyCredentials:0 error:&v26] & 1) == 0)
+    v27 = 0;
+    if (([v6 saveAccount:v8 verifyCredentials:0 error:&v27] & 1) == 0)
     {
       v9 = +[SSLogConfig sharedAccountsConfig];
       if (!v9)
@@ -1564,26 +1562,23 @@ LABEL_4:
       }
 
       shouldLog = [v9 shouldLog];
-      v11 = [v9 shouldLogToDisk] ? shouldLog | 2 : shouldLog;
-      if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_ERROR))
-      {
-        v11 &= 2u;
-      }
-
+      LODWORD(v11) = [v9 shouldLogToDisk] ? shouldLog | 2 : shouldLog;
+      oSLogObject = [v9 OSLogObject];
+      v11 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR) ? v11 : v11 & 2u;
       if (v11)
       {
-        v12 = objc_opt_class();
+        v13 = objc_opt_class();
         hashedDescription = [v8 hashedDescription];
-        v27 = 138544130;
-        v28 = v12;
-        v29 = 2114;
+        v28 = 138544130;
+        v29 = v13;
+        v30 = 2114;
         identifierCopy2 = hashedDescription;
-        v31 = 2114;
+        v32 = 2114;
         identifierCopy = identifier;
-        v33 = 2114;
-        v34 = v26;
-        LODWORD(v25) = 42;
-        goto LABEL_22;
+        v34 = 2114;
+        v35 = v27;
+        v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to save the lastAttemptDate for a server prompt. account = %{public}@ | promptIdentifier = %{public}@ | error = %{public}@", &v28, 42);
+        goto LABEL_24;
       }
     }
   }
@@ -1599,34 +1594,39 @@ LABEL_4:
     shouldLog2 = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v15 = shouldLog2 | 2;
+      LODWORD(v17) = shouldLog2 | 2;
     }
 
     else
     {
-      v15 = shouldLog2;
+      LODWORD(v17) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject2 = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v15 &= 2u;
+      v17 = v17;
     }
 
-    if (v15)
+    else
     {
-      v27 = 138543618;
-      v28 = objc_opt_class();
-      v29 = 2114;
+      v17 &= 2u;
+    }
+
+    if (v17)
+    {
+      v28 = 138543618;
+      v29 = objc_opt_class();
+      v30 = 2114;
       identifierCopy2 = identifier;
-      LODWORD(v25) = 22;
-LABEL_22:
-      v16 = _os_log_send_and_compose_impl();
-      if (v16)
+      v15 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: Failed to save the lastAttemptDate for a server prompt. There's no active account or local account. promptIdentifier = %{public}@", &v28, 22);
+LABEL_24:
+      if (v15)
       {
-        v17 = v16;
-        v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v27, v25}];
-        free(v17);
-        SSFileLog(v9, @"%@", v19, v20, v21, v22, v23, v24, v18);
+        v19 = v15;
+        v20 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+        free(v19);
+        SSFileLog(v9, @"%@", v21, v22, v23, v24, v25, v26, v20);
       }
     }
   }
@@ -1635,7 +1635,7 @@ LABEL_22:
 + (void)setPromptWithIdentifier:(id)identifier needsDisplay:(BOOL)display
 {
   displayCopy = display;
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v6 = +[SSAccountStore defaultStore];
   activeAccount = [v6 activeAccount];
   if (activeAccount || (activeAccount = [objc_msgSend(v6 "localAccount")]) != 0)
@@ -1652,8 +1652,8 @@ LABEL_22:
       [v8 setLastAttemptDate:0 forServerPromptWithIdentifier:identifier];
     }
 
-    v36 = 0;
-    if (([v6 saveAccount:v8 verifyCredentials:0 error:&v36] & 1) == 0)
+    v37 = 0;
+    if (([v6 saveAccount:v8 verifyCredentials:0 error:&v37] & 1) == 0)
     {
       v9 = +[SSLogConfig sharedAccountsConfig];
       if (!v9)
@@ -1664,39 +1664,44 @@ LABEL_22:
       shouldLog = [v9 shouldLog];
       if ([v9 shouldLogToDisk])
       {
-        v11 = shouldLog | 2;
+        LODWORD(v11) = shouldLog | 2;
       }
 
       else
       {
-        v11 = shouldLog;
+        LODWORD(v11) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject = [v9 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v11 = v11;
+      }
+
+      else
       {
         v11 &= 2u;
       }
 
       if (v11)
       {
-        v12 = objc_opt_class();
+        v13 = objc_opt_class();
         hashedDescription = [v8 hashedDescription];
-        v37 = 138544130;
-        v38 = v12;
-        v39 = 2114;
+        v38 = 138544130;
+        v39 = v13;
+        v40 = 2114;
         identifierCopy2 = hashedDescription;
-        v41 = 2114;
+        v42 = 2114;
         identifierCopy = identifier;
-        v43 = 2114;
-        v44 = v36;
-        LODWORD(v35) = 42;
-        v14 = _os_log_send_and_compose_impl();
-        if (v14)
+        v44 = 2114;
+        v45 = v37;
+        v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to save needsDisplay for a server prompt. account = %{public}@ | promptIdentifier = %{public}@ | error = %{public}@", &v38, 42);
+        if (v15)
         {
-          v15 = v14;
-          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v37, v35}];
-          free(v15);
-          SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, v16);
+          v16 = v15;
+          v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+          free(v16);
+          SSFileLog(v9, @"%@", v18, v19, v20, v21, v22, v23, v17);
         }
       }
     }
@@ -1704,42 +1709,47 @@ LABEL_22:
 
   else
   {
-    v23 = +[SSLogConfig sharedAccountsConfig];
-    if (!v23)
+    v24 = +[SSLogConfig sharedAccountsConfig];
+    if (!v24)
     {
-      v23 = +[SSLogConfig sharedConfig];
+      v24 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v23 shouldLog];
-    if ([v23 shouldLogToDisk])
+    shouldLog2 = [v24 shouldLog];
+    if ([v24 shouldLogToDisk])
     {
-      v25 = shouldLog2 | 2;
+      LODWORD(v26) = shouldLog2 | 2;
     }
 
     else
     {
-      v25 = shouldLog2;
+      LODWORD(v26) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v23 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject2 = [v24 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v25 &= 2u;
+      v26 = v26;
     }
 
-    if (v25)
+    else
     {
-      v37 = 138543618;
-      v38 = objc_opt_class();
-      v39 = 2114;
+      v26 &= 2u;
+    }
+
+    if (v26)
+    {
+      v38 = 138543618;
+      v39 = objc_opt_class();
+      v40 = 2114;
       identifierCopy2 = identifier;
-      LODWORD(v35) = 22;
-      v26 = _os_log_send_and_compose_impl();
-      if (v26)
+      v28 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: Failed to save needsDisplay for a server prompt. There's no active account or local account. promptIdentifier = %{public}@", &v38, 22);
+      if (v28)
       {
-        v27 = v26;
-        v28 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v37, v35}];
-        free(v27);
-        SSFileLog(v23, @"%@", v29, v30, v31, v32, v33, v34, v28);
+        v29 = v28;
+        v30 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
+        free(v29);
+        SSFileLog(v24, @"%@", v31, v32, v33, v34, v35, v36, v30);
       }
     }
   }
@@ -1855,7 +1865,7 @@ double __24__SSDevice_batteryLevel__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __22__SSDevice_deviceType__block_invoke(uint64_t a1)
+void *__22__SSDevice_deviceType__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _deviceType];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1971,7 +1981,7 @@ uint64_t __23__SSDevice_isPluggedIn__block_invoke(uint64_t result)
 
 - (void)enableAllAutomaticDownloadKindsWithCompletionBlock:(id)block
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v5)
   {
@@ -1981,41 +1991,45 @@ uint64_t __23__SSDevice_isPluggedIn__block_invoke(uint64_t result)
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v5 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v19 = 138412290;
-    v20 = objc_opt_class();
-    LODWORD(v18) = 12;
-    v17 = &v19;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v18 = 138412290;
+    v19 = objc_opt_class();
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Enable all automatic download kinds", &v18, 12);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v19, v18}];
-      free(v9);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, v10);
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
     }
   }
 
-  [(SSDevice *)self _updateAutomaticDownloadKinds:0 withValue:@"all" completionBlock:block, v17];
+  [(SSDevice *)self _updateAutomaticDownloadKinds:0 withValue:@"all" completionBlock:block];
 }
 
 - (void)minusAutomaticDownloadKinds:(id)kinds withCompletionBlock:(id)block
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v7)
   {
@@ -2025,38 +2039,42 @@ uint64_t __23__SSDevice_isPluggedIn__block_invoke(uint64_t result)
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (v9)
   {
-    v21 = 138412546;
-    v22 = objc_opt_class();
-    v23 = 2112;
+    v20 = 138412546;
+    v21 = objc_opt_class();
+    v22 = 2112;
     kindsCopy = kinds;
-    LODWORD(v20) = 22;
-    v19 = &v21;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Disable automatic download kinds: %@", &v20, 22);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v20}];
-      free(v11);
-      SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, v12);
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
     }
   }
 
-  [(SSDevice *)self _updateAutomaticDownloadKinds:kinds withValue:@"minus" completionBlock:block, v19];
+  [(SSDevice *)self _updateAutomaticDownloadKinds:kinds withValue:@"minus" completionBlock:block];
 }
 
 - (NSString)phoneNumber
@@ -2112,7 +2130,7 @@ id __23__SSDevice_productType__block_invoke(uint64_t a1)
 
 - (void)setAutomaticDownloadKinds:(id)kinds withCompletionBlock:(id)block
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v7)
   {
@@ -2122,38 +2140,42 @@ id __23__SSDevice_productType__block_invoke(uint64_t a1)
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (v9)
   {
-    v21 = 138412546;
-    v22 = objc_opt_class();
-    v23 = 2112;
+    v20 = 138412546;
+    v21 = objc_opt_class();
+    v22 = 2112;
     kindsCopy = kinds;
-    LODWORD(v20) = 22;
-    v19 = &v21;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Set automatic download kinds: %@", &v20, 22);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v20}];
-      free(v11);
-      SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, v12);
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
     }
   }
 
-  [(SSDevice *)self _updateAutomaticDownloadKinds:kinds withValue:@"set" completionBlock:block, v19];
+  [(SSDevice *)self _updateAutomaticDownloadKinds:kinds withValue:@"set" completionBlock:block];
 }
 
 - (void)setCloudMediaLibraryIdentifier:(id)identifier
@@ -2313,33 +2335,33 @@ void __36__SSDevice_setStoreFrontIdentifier___block_invoke(uint64_t a1, uint64_t
     v5 = v4;
   }
 
-  if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_ERROR))
+  v6 = [v3 OSLogObject];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v6 = v5;
+    v7 = v5;
   }
 
   else
   {
-    v6 = v5 & 2;
+    v7 = v5 & 2;
   }
 
-  if (v6)
+  if (v7)
   {
     v17 = 138412290;
     v18 = a2;
-    LODWORD(v16) = 12;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, v6, 16, "SSDevice: Failed to update the device's storefront ID. We couldn't get the local account. error = %@", &v17, 12);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v17, v16}];
-      free(v8);
-      SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+      v9 = v8;
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
+      SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
     }
   }
 }
 
-uint64_t __36__SSDevice_setStoreFrontIdentifier___block_invoke_144(uint64_t a1, void *a2)
+void *__36__SSDevice_setStoreFrontIdentifier___block_invoke_144(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 "storeFrontIdentifier")];
   if ((result & 1) == 0)
@@ -2359,7 +2381,7 @@ uint64_t __36__SSDevice_setStoreFrontIdentifier___block_invoke_144(uint64_t a1, 
 
 void __36__SSDevice_setStoreFrontIdentifier___block_invoke_2(uint64_t a1, int a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v6 = +[SSLogConfig sharedAccountsConfig];
   v7 = v6;
   if (a2)
@@ -2372,26 +2394,32 @@ void __36__SSDevice_setStoreFrontIdentifier___block_invoke_2(uint64_t a1, int a2
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v10 = [v7 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v10 = SSHashIfNeeded(*(a1 + 32));
-      LODWORD(v24) = 138543362;
-      *(&v24 + 4) = v10;
-      LODWORD(v23) = 12;
-      goto LABEL_21;
+      v11 = SSHashIfNeeded(*(a1 + 32));
+      LODWORD(v25) = 138543362;
+      *(&v25 + 4) = v11;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v10, 0, "SSDevice: Successfully set the device's storefront to %{public}@", &v25, 12, v25);
+      goto LABEL_22;
     }
   }
 
@@ -2402,40 +2430,40 @@ void __36__SSDevice_setStoreFrontIdentifier___block_invoke_2(uint64_t a1, int a2
       v7 = +[SSLogConfig sharedConfig];
     }
 
-    v11 = [v7 shouldLog];
+    v13 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v12 = v11 | 2;
+      v14 = v13 | 2;
     }
 
     else
     {
-      v12 = v11;
+      v14 = v13;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_ERROR))
+    v15 = [v7 OSLogObject];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v13 = v12;
+      v16 = v14;
     }
 
     else
     {
-      v13 = v12 & 2;
+      v16 = v14 & 2;
     }
 
-    if (v13)
+    if (v16)
     {
-      LODWORD(v24) = 138412290;
-      *(&v24 + 4) = a3;
-      LODWORD(v23) = 12;
-LABEL_21:
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      LODWORD(v25) = 138412290;
+      *(&v25 + 4) = a3;
+      v12 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1D48BA000, v15, 16, "SSDevice: Failed to update the device's storefront ID. error = %@", &v25, 12, v25);
+LABEL_22:
+      if (v12)
       {
-        v15 = v14;
-        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v24, v23, v24}];
-        free(v15);
-        SSFileLog(v7, @"%@", v17, v18, v19, v20, v21, v22, v16);
+        v17 = v12;
+        v18 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v17);
+        SSFileLog(v7, @"%@", v19, v20, v21, v22, v23, v24, v18);
       }
     }
   }
@@ -2638,37 +2666,36 @@ uint64_t __31__SSDevice_stopPowerMonitoring__block_invoke(uint64_t result)
       v4 = shouldLog;
     }
 
-    if (os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v5 = v4;
+      v6 = v4;
     }
 
     else
     {
-      v5 = v4 & 2;
+      v6 = v4 & 2;
     }
 
-    if (v5)
+    if (v6)
     {
       v18 = 136446210;
       v19 = "[SSDevice synchronizeAutomaticDownloadKinds]";
-      LODWORD(v17) = 12;
-      v6 = _os_log_send_and_compose_impl();
-      if (v6)
+      if (v7)
       {
-        v7 = v6;
-        v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v18, v17}];
-        free(v7);
-        SSFileLog(v2, @"%@", v9, v10, v11, v12, v13, v14, v8);
+        v8 = v7;
+        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+        free(v8);
+        SSFileLog(v2, @"%@", v10, v11, v12, v13, v14, v15, v9);
       }
     }
   }
 
-  v15 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-  v16 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v16, "0", 76);
-  [(SSXPCConnection *)v15 sendSynchronousMessage:v16 withReply:&__block_literal_global_163];
-  xpc_release(v16);
+  v16 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v17 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v17, "0", 76);
+  [(SSXPCConnection *)v16 sendSynchronousMessage:v17 withReply:&__block_literal_global_163];
+  xpc_release(v17);
 }
 
 - (NSString)thinnedApplicationVariantIdentifier
@@ -2715,7 +2742,7 @@ uint64_t __31__SSDevice_stopPowerMonitoring__block_invoke(uint64_t result)
 
 - (void)unionAutomaticDownloadKinds:(id)kinds withCompletionBlock:(id)block
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v7)
   {
@@ -2725,38 +2752,42 @@ uint64_t __31__SSDevice_stopPowerMonitoring__block_invoke(uint64_t result)
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (v9)
   {
-    v21 = 138412546;
-    v22 = objc_opt_class();
-    v23 = 2112;
+    v20 = 138412546;
+    v21 = objc_opt_class();
+    v22 = 2112;
     kindsCopy = kinds;
-    LODWORD(v20) = 22;
-    v19 = &v21;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Enable automatic download kinds: %@", &v20, 22);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v20}];
-      free(v11);
-      SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, v12);
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
     }
   }
 
-  [(SSDevice *)self _updateAutomaticDownloadKinds:kinds withValue:@"union" completionBlock:block, v19];
+  [(SSDevice *)self _updateAutomaticDownloadKinds:kinds withValue:@"union" completionBlock:block];
 }
 
 - (NSString)uniqueDeviceIdentifier
@@ -2828,7 +2859,7 @@ id __34__SSDevice_uniqueDeviceIdentifier__block_invoke(uint64_t a1)
 
 - (void)setStoreFrontIdentifier:(id)identifier forRequest:(id)request response:(id)response account:(id)account
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v11 = +[SSAccountStore defaultStore];
   if (!account)
   {
@@ -2865,31 +2896,31 @@ id __34__SSDevice_uniqueDeviceIdentifier__block_invoke(uint64_t a1)
       v19 = shouldLog;
     }
 
-    if (os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v17 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v20 = v19;
+      v21 = v19;
     }
 
     else
     {
-      v20 = v19 & 2;
+      v21 = v19 & 2;
     }
 
-    if (!v20)
+    if (!v21)
     {
       goto LABEL_26;
     }
 
-    v48 = 138544130;
-    v49 = objc_opt_class();
-    v50 = 2114;
-    v51 = v13;
+    v50 = 138544130;
+    v51 = objc_opt_class();
     v52 = 2114;
-    hashedDescription = [account hashedDescription];
+    v53 = v13;
     v54 = 2114;
-    v55 = +[SSStackShot generateSymbolicatedStackShot];
-    LODWORD(v46) = 42;
-    v45 = &v48;
+    hashedDescription = [account hashedDescription];
+    v56 = 2114;
+    v57 = +[SSStackShot generateSymbolicatedStackShot];
+    v22 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "%{public}@: [%{public}@] Setting a storefront ID on an account. Saving %{public}@. %{public}@", &v50, 42);
   }
 
   else
@@ -2905,82 +2936,81 @@ id __34__SSDevice_uniqueDeviceIdentifier__block_invoke(uint64_t a1)
       shouldLog2 |= 2u;
     }
 
-    if (os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v17 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = shouldLog2;
+      v25 = shouldLog2;
     }
 
     else
     {
-      v22 = shouldLog2 & 2;
+      v25 = shouldLog2 & 2;
     }
 
-    if (!v22)
+    if (!v25)
     {
       goto LABEL_26;
     }
 
-    v48 = 138543874;
-    v49 = objc_opt_class();
-    v50 = 2114;
-    v51 = v13;
+    v50 = 138543874;
+    v51 = objc_opt_class();
     v52 = 2114;
+    v53 = v13;
+    v54 = 2114;
     hashedDescription = [account hashedDescription];
-    LODWORD(v46) = 32;
-    v45 = &v48;
+    v22 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "%{public}@: [%{public}@] Setting a storefront ID on an account. Saving %{public}@.", &v50, 32);
   }
 
-  v23 = _os_log_send_and_compose_impl();
-  if (v23)
+  if (v22)
   {
-    v24 = v23;
-    v25 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:{4, &v48, v46}];
-    free(v24);
-    SSFileLog(v17, @"%@", v26, v27, v28, v29, v30, v31, v25);
+    v26 = v22;
+    v27 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
+    free(v26);
+    SSFileLog(v17, @"%@", v28, v29, v30, v31, v32, v33, v27);
   }
 
 LABEL_26:
-  v47 = 0;
-  if (([v12 saveAccount:v14 verifyCredentials:0 error:{&v47, v45}] & 1) == 0)
+  v49 = 0;
+  if (([v12 saveAccount:v14 verifyCredentials:0 error:&v49] & 1) == 0)
   {
-    v32 = +[SSLogConfig sharedAccountsStorefrontConfig];
-    if (!v32)
+    v34 = +[SSLogConfig sharedAccountsStorefrontConfig];
+    if (!v34)
     {
-      v32 = +[SSLogConfig sharedConfig];
+      v34 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v32 shouldLog];
-    if ([v32 shouldLogToDisk])
+    shouldLog3 = [v34 shouldLog];
+    if ([v34 shouldLogToDisk])
     {
       shouldLog3 |= 2u;
     }
 
-    if (os_log_type_enabled([v32 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject3 = [v34 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
     {
-      v34 = shouldLog3;
+      v37 = shouldLog3;
     }
 
     else
     {
-      v34 = shouldLog3 & 2;
+      v37 = shouldLog3 & 2;
     }
 
-    if (v34)
+    if (v37)
     {
-      v35 = objc_opt_class();
-      v48 = 138543618;
-      v49 = v35;
-      v50 = 2114;
-      v51 = v13;
-      LODWORD(v46) = 22;
-      v45 = &v48;
-      v36 = _os_log_send_and_compose_impl();
-      if (v36)
+      v38 = objc_opt_class();
+      v50 = 138543618;
+      v51 = v38;
+      v52 = 2114;
+      v53 = v13;
+      LODWORD(v48) = 22;
+      v39 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 16, "%{public}@: [%{public}@] Failed to set a storefront ID on an account.", &v50, v48);
+      if (v39)
       {
-        v37 = v36;
-        v38 = [MEMORY[0x1E696AEC0] stringWithCString:v36 encoding:{4, &v48, v46}];
-        free(v37);
-        SSFileLog(v32, @"%@", v39, v40, v41, v42, v43, v44, v38);
+        v40 = v39;
+        v41 = [MEMORY[0x1E696AEC0] stringWithCString:v39 encoding:4];
+        free(v40);
+        SSFileLog(v34, @"%@", v42, v43, v44, v45, v46, v47, v41);
       }
     }
   }
@@ -3400,7 +3430,7 @@ intptr_t __49__SSDevice__copyKeyValueStoreValueForDomain_key___block_invoke(uint
 
 - (BOOL)_getDeviceType:(unsigned int *)type error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = MGCopyAnswer();
   v6 = MGCopyAnswer();
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -3415,8 +3445,8 @@ intptr_t __49__SSDevice__copyKeyValueStoreValueForDomain_key___block_invoke(uint
 
   else
   {
-    v35 = 0;
-    CjHbHx(&v35 + 4, &v35);
+    v34 = 0;
+    CjHbHx(&v34 + 4, &v34);
     v14 = v15 == 0;
     if (v15)
     {
@@ -3427,43 +3457,47 @@ intptr_t __49__SSDevice__copyKeyValueStoreValueForDomain_key___block_invoke(uint
         v17 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v17 shouldLog];
+      LODWORD(v18) = [v17 shouldLog];
       if ([v17 shouldLogToDisk])
       {
-        shouldLog |= 2u;
+        LODWORD(v18) = v18 | 2;
       }
 
-      if (!os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject = [v17 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
       {
-        shouldLog &= 2u;
+        v18 = v18;
       }
 
-      if (shouldLog)
+      else
       {
-        v19 = objc_opt_class();
-        v20 = v16;
-        v38 = 138412546;
-        v39 = v19;
-        v40 = 2048;
-        v41 = v16;
-        LODWORD(v33) = 22;
-        v32 = &v38;
-        v21 = _os_log_send_and_compose_impl();
-        if (v21)
+        v18 &= 2u;
+      }
+
+      if (v18)
+      {
+        v20 = objc_opt_class();
+        v21 = v16;
+        v37 = 138412546;
+        v38 = v20;
+        v39 = 2048;
+        v40 = v16;
+        v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%@: Couldn't get dt for user agent: %ld", &v37, 22);
+        if (v22)
         {
-          v22 = v21;
-          v23 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v38, v33}];
-          free(v22);
-          SSFileLog(v17, @"%@", v24, v25, v26, v27, v28, v29, v23);
+          v23 = v22;
+          v24 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
+          free(v23);
+          SSFileLog(v17, @"%@", v25, v26, v27, v28, v29, v30, v24);
         }
       }
 
       else
       {
-        v20 = v16;
+        v21 = v16;
       }
 
-      v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:v20 userInfo:{0, v32}];
+      v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:v21 userInfo:0];
       [standardUserDefaults removeObjectForKey:@"SSDeviceType"];
       [standardUserDefaults synchronize];
       intValue = 0;
@@ -3471,16 +3505,16 @@ intptr_t __49__SSDevice__copyKeyValueStoreValueForDomain_key___block_invoke(uint
 
     else
     {
-      v36[0] = @"hardwareModel";
-      v36[1] = @"buildVersion";
-      v37[0] = v5;
-      v37[1] = v6;
-      v36[2] = @"deviceTypeNumber";
-      v37[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(v35)];
-      [standardUserDefaults setObject:objc_msgSend(MEMORY[0x1E695DF20] forKey:{"dictionaryWithObjects:forKeys:count:", v37, v36, 3), @"SSDeviceType"}];
+      v35[0] = @"hardwareModel";
+      v35[1] = @"buildVersion";
+      v36[0] = v5;
+      v36[1] = v6;
+      v35[2] = @"deviceTypeNumber";
+      v36[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(v34)];
+      [standardUserDefaults setObject:objc_msgSend(MEMORY[0x1E695DF20] forKey:{"dictionaryWithObjects:forKeys:count:", v36, v35, 3), @"SSDeviceType"}];
       [standardUserDefaults synchronize];
       v13 = 0;
-      intValue = HIDWORD(v35);
+      intValue = HIDWORD(v34);
     }
   }
 
@@ -3491,15 +3525,15 @@ intptr_t __49__SSDevice__copyKeyValueStoreValueForDomain_key___block_invoke(uint
 
   if (error)
   {
-    v30 = v14;
+    v31 = v14;
   }
 
   else
   {
-    v30 = 1;
+    v31 = 1;
   }
 
-  if ((v30 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
     *error = v13;
   }
@@ -3530,15 +3564,21 @@ void __45__SSDevice__invalidateAutomaticDownloadKinds__block_invoke(uint64_t a1)
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
-  if (!os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  v5 = [v2 OSLogObject];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
@@ -3547,24 +3587,23 @@ void __45__SSDevice__invalidateAutomaticDownloadKinds__block_invoke(uint64_t a1)
   {
     v19 = 138412290;
     v20 = objc_opt_class();
-    LODWORD(v17) = 12;
-    v5 = _os_log_send_and_compose_impl();
-    if (v5)
+    v6 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1D48BA000, v5, 0, "%@: Invalidating automatic download kinds", &v19, 12);
+    if (v6)
     {
-      v6 = v5;
-      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, &v19, v17}];
-      free(v6);
-      SSFileLog(v2, @"%@", v8, v9, v10, v11, v12, v13, v7);
+      v7 = v6;
+      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:4];
+      free(v7);
+      SSFileLog(v2, @"%@", v9, v10, v11, v12, v13, v14, v8);
     }
   }
 
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 16);
-  if (v15)
+  v15 = *(a1 + 32);
+  v16 = *(v15 + 16);
+  if (v16)
   {
 
     *(*(a1 + 32) + 16) = 0;
-    v14 = *(a1 + 32);
+    v15 = *(a1 + 32);
   }
 
   global_queue = dispatch_get_global_queue(0, 0);
@@ -3572,7 +3611,7 @@ void __45__SSDevice__invalidateAutomaticDownloadKinds__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __45__SSDevice__invalidateAutomaticDownloadKinds__block_invoke_230;
   block[3] = &unk_1E84AC408;
-  block[4] = v14;
+  block[4] = v15;
   dispatch_async(global_queue, block);
 }
 
@@ -3895,34 +3934,39 @@ uint64_t __48__SSDevice__postStoreFrontDidChangeNotification__block_invoke(uint6
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v6 = objc_opt_class();
+    v7 = objc_opt_class();
     v18 = 138412546;
-    v19 = v6;
+    v19 = v7;
     v20 = 2048;
     v21 = state64;
-    LODWORD(v16) = 22;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Plugged-in state changed: %llu", &v18, 22);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v18, v16}];
-      free(v8);
-      SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+      v9 = v8;
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
+      SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
     }
   }
 
@@ -3967,46 +4011,45 @@ uint64_t __48__SSDevice__postStoreFrontDidChangeNotification__block_invoke(uint6
       v11 = shouldLog;
     }
 
-    if (os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v11;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v11 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v26 = 136446210;
       v27 = "[SSDevice _updateAutomaticDownloadKinds:withValue:completionBlock:]";
-      LODWORD(v24) = 12;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      if (v14)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v24}];
-        free(v14);
-        SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, v15);
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, v16);
       }
     }
   }
 
-  v22 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v22, "0", 75);
-  SSXPCDictionarySetCFObject(v22, "1", [kinds allObjects]);
-  SSXPCDictionarySetCFObject(v22, "2", value);
-  v23 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v23 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v23, "0", 75);
+  SSXPCDictionarySetCFObject(v23, "1", [kinds allObjects]);
+  SSXPCDictionarySetCFObject(v23, "2", value);
+  v24 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
   v25[0] = MEMORY[0x1E69E9820];
   v25[1] = 3221225472;
   v25[2] = __68__SSDevice__updateAutomaticDownloadKinds_withValue_completionBlock___block_invoke;
   v25[3] = &unk_1E84AF748;
-  v25[5] = v23;
+  v25[5] = v24;
   v25[6] = block;
   v25[4] = self;
-  [(SSXPCConnection *)v23 sendMessage:v22 withReply:v25];
-  xpc_release(v22);
+  [(SSXPCConnection *)v24 sendMessage:v23 withReply:v25];
+  xpc_release(v23);
 }
 
 void __68__SSDevice__updateAutomaticDownloadKinds_withValue_completionBlock___block_invoke(uint64_t a1, void *a2)

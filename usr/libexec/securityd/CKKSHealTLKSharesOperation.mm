@@ -1,5 +1,7 @@
 @interface CKKSHealTLKSharesOperation
 + (id)createMissingKeyShares:(id)shares peers:(id)peers databaseProvider:(id)provider altDSID:(id)d sendMetric:(BOOL)metric error:(id *)error;
++ (id)createMissingKeyShares:(id)shares trustStates:(id)states databaseProvider:(id)provider altDSID:(id)d sendMetric:(BOOL)metric error:(id *)error;
++ (id)filterTrustedPeers:(id)peers missingTLKSharesFor:(id)for databaseProvider:(id)provider altDSID:(id)d sendMetric:(BOOL)metric error:(id *)error;
 - (BOOL)areNewSharesSufficient:(id)sufficient trustStates:(id)states error:(id *)error;
 - (CKKSHealTLKSharesOperation)initWithDependencies:(id)dependencies intendedState:(id)state errorState:(id)errorState;
 - (void)checkAndHealTLKShares:(id)shares currentTrustStates:(id)states;
@@ -756,6 +758,612 @@ LABEL_78:
   return v13;
 }
 
++ (id)filterTrustedPeers:(id)peers missingTLKSharesFor:(id)for databaseProvider:(id)provider altDSID:(id)d sendMetric:(BOOL)metric error:(id *)error
+{
+  metricCopy = metric;
+  peersCopy = peers;
+  forCopy = for;
+  providerCopy = provider;
+  dCopy = d;
+  v168 = peersCopy;
+  currentTrustedPeersError = [peersCopy currentTrustedPeersError];
+
+  if (currentTrustedPeersError)
+  {
+    v15 = [forCopy tlk];
+    zoneName = [v15 zoneName];
+    v17 = sub_100019104(@"ckksshare", zoneName);
+
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      currentTrustedPeersError2 = [peersCopy currentTrustedPeersError];
+      *buf = 138412290;
+      *&buf[4] = currentTrustedPeersError2;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Couldn't find missing shares because trusted peers aren't available: %@", buf, 0xCu);
+    }
+
+    if (error)
+    {
+      *error = [peersCopy currentTrustedPeersError];
+    }
+
+LABEL_12:
+    v24 = +[NSSet set];
+    goto LABEL_13;
+  }
+
+  currentSelfPeersError = [peersCopy currentSelfPeersError];
+
+  if (currentSelfPeersError)
+  {
+    v20 = [forCopy tlk];
+    zoneName2 = [v20 zoneName];
+    v22 = sub_100019104(@"ckksshare", zoneName2);
+
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      currentSelfPeersError2 = [peersCopy currentSelfPeersError];
+      *buf = 138412290;
+      *&buf[4] = currentSelfPeersError2;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Couldn't find missing shares because self peers aren't available: %@", buf, 0xCu);
+    }
+
+    if (error)
+    {
+      *error = [peersCopy currentSelfPeersError];
+    }
+
+    goto LABEL_12;
+  }
+
+  v155 = +[NSMutableSet set];
+  v26 = [AAFAnalyticsEventSecurity alloc];
+  v153 = [v26 initWithCKKSMetrics:&__NSDictionary0__struct altDSID:dCopy eventName:kSecurityRTCEventNameEvaluateTLKShares testsAreEnabled:0 category:kSecurityRTCEventCategoryAccountDataAccessRecovery sendMetric:metricCopy];
+  currentTrustedPeerIDs = [peersCopy currentTrustedPeerIDs];
+  currentSelfPeers = [peersCopy currentSelfPeers];
+  currentSelf = [currentSelfPeers currentSelf];
+  peerID = [currentSelf peerID];
+  v31 = [currentTrustedPeerIDs containsObject:peerID];
+
+  if (v31)
+  {
+    v191 = 0u;
+    v192 = 0u;
+    v189 = 0u;
+    v190 = 0u;
+    obj = [v168 currentTrustedPeers];
+    v165 = [obj countByEnumeratingWithState:&v189 objects:v206 count:16];
+    if (v165)
+    {
+      v158 = 0;
+      v163 = *v190;
+      v164 = 1;
+      while (1)
+      {
+        v32 = 0;
+        do
+        {
+          if (*v190 != v163)
+          {
+            v33 = v32;
+            objc_enumerationMutation(obj);
+            v32 = v33;
+          }
+
+          v166 = v32;
+          v172 = *(*(&v189 + 1) + 8 * v32);
+          v34 = [forCopy tlk];
+          zoneName3 = [v34 zoneName];
+          v36 = [v172 shouldHaveView:zoneName3];
+
+          if (v36)
+          {
+            *buf = 0;
+            *&buf[8] = buf;
+            *&buf[16] = 0x3032000000;
+            v203 = sub_1001D796C;
+            v204 = sub_1001D797C;
+            v205 = 0;
+            v183 = 0;
+            v184 = &v183;
+            v185 = 0x3032000000;
+            v186 = sub_1001D796C;
+            v187 = sub_1001D797C;
+            v188 = 0;
+            if (providerCopy)
+            {
+              v178[0] = _NSConcreteStackBlock;
+              v178[1] = 3221225472;
+              v178[2] = sub_1001D9E84;
+              v178[3] = &unk_100345070;
+              v180 = &v183;
+              v178[4] = v172;
+              v179 = forCopy;
+              v181 = buf;
+              [providerCopy dispatchSyncWithReadOnlySQLTransaction:v178];
+            }
+
+            else
+            {
+              v40 = objc_autoreleasePoolPush();
+              peerID2 = [v172 peerID];
+              v42 = [forCopy tlk];
+              contextID = [v42 contextID];
+              v44 = [forCopy tlk];
+              uuid = [v44 uuid];
+              v46 = [forCopy tlk];
+              zoneID = [v46 zoneID];
+              v48 = (*&buf[8] + 40);
+              v182 = *(*&buf[8] + 40);
+              v49 = [CKKSTLKShareRecord allFor:peerID2 contextID:contextID keyUUID:uuid zoneID:zoneID error:&v182];
+              objc_storeStrong(v48, v182);
+              v50 = v184[5];
+              v184[5] = v49;
+
+              objc_autoreleasePoolPop(v40);
+            }
+
+            v51 = v184[5];
+            if (!v51 || *(*&buf[8] + 40))
+            {
+              v52 = [forCopy tlk];
+              zoneName4 = [v52 zoneName];
+              v54 = sub_100019104(@"ckksshare", zoneName4);
+
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+              {
+                v55 = *(*&buf[8] + 40);
+                *v195 = 138412546;
+                v196 = v172;
+                v197 = 2112;
+                v198 = v55;
+                _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "Unable to load existing TLKShares for peer (%@): %@", v195, 0x16u);
+              }
+
+LABEL_85:
+
+              _Block_object_dispose(&v183, 8);
+              _Block_object_dispose(buf, 8);
+
+              ++v164;
+              goto LABEL_86;
+            }
+
+            pendingTLKShares = [forCopy pendingTLKShares];
+            v57 = pendingTLKShares;
+            if (pendingTLKShares)
+            {
+              v58 = pendingTLKShares;
+            }
+
+            else
+            {
+              v58 = &__NSArray0__struct;
+            }
+
+            v59 = [v51 arrayByAddingObjectsFromArray:v58];
+
+            v159 = +[NSMutableArray array];
+            v176 = 0u;
+            v177 = 0u;
+            v174 = 0u;
+            v175 = 0u;
+            v167 = v59;
+            v60 = [v167 countByEnumeratingWithState:&v174 objects:v201 count:16];
+            if (!v60)
+            {
+
+LABEL_80:
+              v112 = [forCopy tlk];
+              zoneName5 = [v112 zoneName];
+              v114 = sub_100019104(@"ckksshare", zoneName5);
+
+              if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+              {
+                v115 = [forCopy tlk];
+                uuid2 = [v115 uuid];
+                *v195 = 138412802;
+                v196 = v172;
+                v197 = 2112;
+                v198 = uuid2;
+                v199 = 2112;
+                v200 = v159;
+                _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, "Peer %@ is shared %@ via insufficient shares: %@", v195, 0x20u);
+              }
+
+              publicEncryptionKey = [v172 publicEncryptionKey];
+
+              if (publicEncryptionKey)
+              {
+                [v155 addObject:v172];
+              }
+
+LABEL_84:
+
+              v54 = v167;
+              goto LABEL_85;
+            }
+
+            v157 = 0;
+            v169 = *v175;
+            while (2)
+            {
+              v61 = 0;
+              v62 = v158 + 1;
+              v158 += v60;
+              v170 = v60;
+LABEL_39:
+              if (*v175 != v169)
+              {
+                objc_enumerationMutation(v167);
+              }
+
+              v63 = *(*(&v174 + 1) + 8 * v61);
+              v64 = objc_autoreleasePoolPush();
+              share = [v63 share];
+              receiverPeerID = [share receiverPeerID];
+              peerID3 = [v172 peerID];
+              v68 = [receiverPeerID isEqualToString:peerID3];
+
+              if (v68)
+              {
+                senderPeerID = [v63 senderPeerID];
+                v70 = [senderPeerID hasPrefix:@"spid-"];
+
+                if (!v70)
+                {
+                  goto LABEL_45;
+                }
+
+                currentTrustedPeers = [v168 currentTrustedPeers];
+                v173 = 0;
+                v72 = [v63 signatureVerifiesWithPeerSet:currentTrustedPeers error:&v173];
+                tlkUUID = v173;
+
+                if (v72)
+                {
+
+LABEL_45:
+                  tlkUUID = [v63 tlkUUID];
+                  v74 = [forCopy tlk];
+                  uuid3 = [v74 uuid];
+                  if ([tlkUUID isEqualToString:uuid3])
+                  {
+                    currentTrustedPeerIDs2 = [v168 currentTrustedPeerIDs];
+                    senderPeerID2 = [v63 senderPeerID];
+                    v78 = [currentTrustedPeerIDs2 containsObject:senderPeerID2];
+
+                    if (!v78)
+                    {
+                      v96 = 0;
+                      goto LABEL_64;
+                    }
+
+                    peerID4 = [v172 peerID];
+                    currentSelfPeers2 = [v168 currentSelfPeers];
+                    currentSelf2 = [currentSelfPeers2 currentSelf];
+                    peerID5 = [currentSelf2 peerID];
+                    v83 = [peerID4 isEqualToString:peerID5];
+
+                    if (v83)
+                    {
+                      currentSelfPeers3 = [v168 currentSelfPeers];
+                      currentSelf3 = [currentSelfPeers3 currentSelf];
+                      publicEncryptionKey2 = [currentSelf3 publicEncryptionKey];
+                      tlkUUID = [publicEncryptionKey2 keyData];
+
+                      senderPeerID3 = [v63 senderPeerID];
+                      currentSelfPeers4 = [v168 currentSelfPeers];
+                      currentSelf4 = [currentSelfPeers4 currentSelf];
+                      peerID6 = [currentSelf4 peerID];
+                      if ([senderPeerID3 isEqualToString:peerID6])
+                      {
+                        share2 = [v63 share];
+                        receiverPublicEncryptionKeySPKI = [share2 receiverPublicEncryptionKeySPKI];
+                        v156 = [receiverPublicEncryptionKeySPKI isEqual:tlkUUID];
+
+                        if (v156)
+                        {
+                          v92 = [forCopy tlk];
+                          zoneName6 = [v92 zoneName];
+                          v74 = sub_100019104(@"ckksshare", zoneName6);
+
+                          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                          {
+                            v94 = [forCopy tlk];
+                            uuid4 = [v94 uuid];
+                            *v195 = 138412802;
+                            v196 = v172;
+                            v197 = 2112;
+                            v198 = uuid4;
+                            v199 = 2112;
+                            v200 = v63;
+                            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Local peer %@ is shared %@ via self: %@", v195, 0x20u);
+                          }
+
+                          goto LABEL_61;
+                        }
+                      }
+
+                      else
+                      {
+                      }
+
+                      [v159 addObject:v63];
+LABEL_73:
+                      v96 = 0;
+LABEL_63:
+
+LABEL_64:
+                      objc_autoreleasePoolPop(v64);
+                      if (v96 != 5 && v96)
+                      {
+                        v158 = v62;
+                        goto LABEL_77;
+                      }
+
+                      v61 = v61 + 1;
+                      ++v62;
+                      if (v170 == v61)
+                      {
+                        v60 = [v167 countByEnumeratingWithState:&v174 objects:v201 count:16];
+                        if (!v60)
+                        {
+LABEL_77:
+
+                          if (v157)
+                          {
+                            goto LABEL_84;
+                          }
+
+                          goto LABEL_80;
+                        }
+
+                        continue;
+                      }
+
+                      goto LABEL_39;
+                    }
+
+                    publicEncryptionKey3 = [v172 publicEncryptionKey];
+                    tlkUUID = [publicEncryptionKey3 keyData];
+
+                    share3 = [v63 share];
+                    receiverPublicEncryptionKeySPKI2 = [share3 receiverPublicEncryptionKeySPKI];
+                    v102 = [receiverPublicEncryptionKeySPKI2 isEqual:tlkUUID];
+
+                    if (!v102)
+                    {
+                      v107 = [forCopy tlk];
+                      zoneName7 = [v107 zoneName];
+                      v109 = sub_100019104(@"ckksshare", zoneName7);
+
+                      if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+                      {
+                        v110 = [forCopy tlk];
+                        uuid5 = [v110 uuid];
+                        *v195 = 138412802;
+                        v196 = v172;
+                        v197 = 2112;
+                        v198 = uuid5;
+                        v199 = 2112;
+                        v200 = v63;
+                        _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "Peer %@ has a share for %@, but to old keys: %@", v195, 0x20u);
+                      }
+
+                      [v159 addObject:v63];
+                      goto LABEL_73;
+                    }
+
+                    v103 = [forCopy tlk];
+                    zoneName8 = [v103 zoneName];
+                    v74 = sub_100019104(@"ckksshare", zoneName8);
+
+                    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v105 = [forCopy tlk];
+                      uuid6 = [v105 uuid];
+                      *v195 = 138412802;
+                      v196 = v172;
+                      v197 = 2112;
+                      v198 = uuid6;
+                      v199 = 2112;
+                      v200 = v63;
+                      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Peer %@ is shared %@ via trusted %@", v195, 0x20u);
+                    }
+
+LABEL_61:
+                    v96 = 4;
+                    v157 = 1;
+                  }
+
+                  else
+                  {
+
+                    v96 = 0;
+                  }
+                }
+
+                else
+                {
+                  v97 = [forCopy tlk];
+                  zoneName9 = [v97 zoneName];
+                  v74 = sub_100019104(@"ckksshare", zoneName9);
+
+                  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                  {
+                    *v195 = 138412546;
+                    v196 = tlkUUID;
+                    v197 = 2112;
+                    v198 = v63;
+                    _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Existing TLKShare's signature doesn't verify with current peer set: %@ %@", v195, 0x16u);
+                  }
+
+                  v96 = 5;
+                }
+
+                goto LABEL_63;
+              }
+
+              break;
+            }
+
+            v96 = 5;
+            goto LABEL_64;
+          }
+
+          v37 = [forCopy tlk];
+          zoneName10 = [v37 zoneName];
+          v39 = sub_100019104(@"ckksshare", zoneName10);
+
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            *&buf[4] = v172;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Peer (%@) is not supposed to have view, skipping", buf, 0xCu);
+          }
+
+LABEL_86:
+          v32 = v166 + 1;
+        }
+
+        while ((v166 + 1) != v165);
+        v165 = [obj countByEnumeratingWithState:&v189 objects:v206 count:16];
+        if (!v165)
+        {
+          goto LABEL_95;
+        }
+      }
+    }
+
+    v158 = 0;
+    v164 = 1;
+LABEL_95:
+
+    if ([v155 count])
+    {
+      v129 = [forCopy tlk];
+      zoneName11 = [v129 zoneName];
+      v131 = sub_100019104(@"ckksshare", zoneName11);
+
+      if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+      {
+        v132 = [v155 count];
+        *buf = 134218242;
+        *&buf[4] = v132;
+        *&buf[12] = 2112;
+        *&buf[14] = v155;
+        _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_DEFAULT, "Missing TLK shares for %lu peers: %@", buf, 0x16u);
+      }
+
+      v133 = [forCopy tlk];
+      zoneName12 = [v133 zoneName];
+      v135 = sub_100019104(@"ckksshare", zoneName12);
+
+      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
+      {
+        currentSelfPeersError3 = [v168 currentSelfPeersError];
+        v137 = currentSelfPeersError3;
+        if (currentSelfPeersError3)
+        {
+          v138 = currentSelfPeersError3;
+        }
+
+        else
+        {
+          v138 = @"no error";
+        }
+
+        currentSelfPeers5 = [v168 currentSelfPeers];
+        *buf = 138412546;
+        *&buf[4] = v138;
+        *&buf[12] = 2112;
+        *&buf[14] = currentSelfPeers5;
+        _os_log_impl(&_mh_execute_header, v135, OS_LOG_TYPE_DEFAULT, "Self peers are (%@) %@", buf, 0x16u);
+      }
+
+      v140 = [forCopy tlk];
+      zoneName13 = [v140 zoneName];
+      v142 = sub_100019104(@"ckksshare", zoneName13);
+
+      if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
+      {
+        currentTrustedPeersError3 = [v168 currentTrustedPeersError];
+        v144 = currentTrustedPeersError3;
+        if (currentTrustedPeersError3)
+        {
+          v145 = currentTrustedPeersError3;
+        }
+
+        else
+        {
+          v145 = @"no error";
+        }
+
+        currentTrustedPeers2 = [v168 currentTrustedPeers];
+        *buf = 138412546;
+        *&buf[4] = v145;
+        *&buf[12] = 2112;
+        *&buf[14] = currentTrustedPeers2;
+        _os_log_impl(&_mh_execute_header, v142, OS_LOG_TYPE_DEFAULT, "Trusted peers are (%@) %@", buf, 0x16u);
+      }
+    }
+
+    v193[0] = kSecurityRTCFieldPeersEvaluatedForTLKShares;
+    v147 = [NSNumber numberWithInt:v164];
+    v194[0] = v147;
+    v193[1] = kSecurityRTCFieldNumPeersMissingShares;
+    v148 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v155 count]);
+    v194[1] = v148;
+    v193[2] = kSecurityRTCFieldNumTLKSharesEvaluated;
+    v149 = [NSNumber numberWithInt:v158];
+    v194[2] = v149;
+    v150 = [NSDictionary dictionaryWithObjects:v194 forKeys:v193 count:3];
+    [v153 addMetrics:v150];
+
+    currentTrustedPeersError4 = [v168 currentTrustedPeersError];
+    currentTrustedPeersError5 = [v168 currentTrustedPeersError];
+    [v153 sendMetricWithResult:currentTrustedPeersError4 == 0 error:currentTrustedPeersError5];
+
+    v24 = v155;
+  }
+
+  else
+  {
+    v118 = [forCopy tlk];
+    zoneName14 = [v118 zoneName];
+    v120 = sub_100019104(@"ckksshare", zoneName14);
+
+    if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+    {
+      currentSelfPeers6 = [v168 currentSelfPeers];
+      currentSelf5 = [currentSelfPeers6 currentSelf];
+      peerID7 = [currentSelf5 peerID];
+      currentTrustedPeerIDs3 = [v168 currentTrustedPeerIDs];
+      *buf = 138412546;
+      *&buf[4] = peerID7;
+      *&buf[12] = 2112;
+      *&buf[14] = currentTrustedPeerIDs3;
+      _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_ERROR, "current self peer (%@) is not in the set of trusted peers: %@", buf, 0x16u);
+    }
+
+    if (error)
+    {
+      currentSelfPeers7 = [v168 currentSelfPeers];
+      currentSelf6 = [currentSelfPeers7 currentSelf];
+      peerID8 = [currentSelf6 peerID];
+      v127 = [NSString stringWithFormat:@"current self peer (%@) is not in the set of trusted peers", peerID8];
+      *error = [NSError errorWithDomain:@"CKKSErrorDomain" code:52 description:v127];
+    }
+
+    v24 = 0;
+  }
+
+LABEL_13:
+
+  return v24;
+}
+
 + (id)createMissingKeyShares:(id)shares peers:(id)peers databaseProvider:(id)provider altDSID:(id)d sendMetric:(BOOL)metric error:(id *)error
 {
   metricCopy = metric;
@@ -954,6 +1562,129 @@ LABEL_31:
   }
 
   return v42;
+}
+
++ (id)createMissingKeyShares:(id)shares trustStates:(id)states databaseProvider:(id)provider altDSID:(id)d sendMetric:(BOOL)metric error:(id *)error
+{
+  metricCopy = metric;
+  sharesCopy = shares;
+  statesCopy = states;
+  providerCopy = provider;
+  dCopy = d;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  obj = statesCopy;
+  v41 = [statesCopy countByEnumeratingWithState:&v43 objects:v51 count:16];
+  if (v41)
+  {
+    errorCopy = error;
+    v16 = 0;
+    v37 = 0;
+    v39 = *v44;
+    v17 = sharesCopy;
+    do
+    {
+      for (i = 0; i != v41; i = i + 1)
+      {
+        if (*v44 != v39)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v19 = *(*(&v43 + 1) + 8 * i);
+        v42 = 0;
+        v20 = [self createMissingKeyShares:v17 peers:v19 databaseProvider:providerCopy altDSID:dCopy sendMetric:metricCopy error:&v42];
+        v21 = v42;
+        v22 = v21;
+        if (v20)
+        {
+          v23 = v21 == 0;
+        }
+
+        else
+        {
+          v23 = 0;
+        }
+
+        if (v23)
+        {
+          if (v16)
+          {
+            v30 = [v16 setByAddingObjectsFromSet:v20];
+
+            v16 = v30;
+          }
+
+          else
+          {
+            v16 = v20;
+          }
+        }
+
+        else
+        {
+          v38 = v16;
+          v24 = metricCopy;
+          v25 = dCopy;
+          v26 = providerCopy;
+          v27 = [v17 tlk];
+          zoneName = [v27 zoneName];
+          v29 = sub_100019104(@"ckksshare", zoneName);
+
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412546;
+            v48 = v19;
+            v49 = 2112;
+            v50 = v22;
+            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Unable to create shares for trust set %@: %@", buf, 0x16u);
+          }
+
+          if (!v37)
+          {
+            v37 = v22;
+          }
+
+          providerCopy = v26;
+          v17 = sharesCopy;
+          dCopy = v25;
+          metricCopy = v24;
+          v16 = v38;
+        }
+      }
+
+      v41 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+    }
+
+    while (v41);
+    if (v16)
+    {
+      v31 = v37;
+    }
+
+    else
+    {
+      v31 = v37;
+      if (errorCopy && v37)
+      {
+        v32 = v37;
+        v31 = v37;
+        v16 = 0;
+        *errorCopy = v37;
+      }
+    }
+  }
+
+  else
+  {
+    v31 = 0;
+    v16 = 0;
+    v17 = sharesCopy;
+  }
+
+  return v16;
 }
 
 @end

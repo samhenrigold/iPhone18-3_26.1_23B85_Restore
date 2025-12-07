@@ -33,12 +33,11 @@
   swift_beginAccess();
   swift_unknownObjectRetain_n();
 
-  v7 = *self->recordStore;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *self->recordStore;
+  v8 = *self->recordStore;
   *self->recordStore = 0x8000000000000000;
   sub_22B9BB368(store, type, isUniquelyReferenced_nonNull_native);
-  *self->recordStore = v9;
+  *self->recordStore = v8;
   swift_endAccess();
   swift_unknownObjectRelease();
 }

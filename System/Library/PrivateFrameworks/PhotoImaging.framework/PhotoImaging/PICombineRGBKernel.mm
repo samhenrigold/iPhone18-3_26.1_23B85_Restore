@@ -346,7 +346,7 @@ LABEL_52:
     *&v54 = width2;
     *(&v54 + 1) = height;
     v55 = depth;
-    [MEMORY[0x1E69B3A20] groupSizeForImageSize:&v54 pipelineState:self];
+    objc_msgSend_groupSizeForImageSize_pipelineState_(MEMORY[0x1E69B3A20]);
     v54 = 0uLL;
     v55 = 0;
     v52 = *buf;
@@ -358,7 +358,7 @@ LABEL_52:
     callStackSymbols = v21;
     v4 = v20;
     v5 = v49;
-    [MEMORY[0x1E69B3A20] gridSizeForThreadGroupSize:&v52 imageSize:&v50];
+    objc_msgSend_gridSizeForThreadGroupSize_imageSize_(MEMORY[0x1E69B3A20]);
     v52 = v54;
     v53 = v55;
     v50 = *buf;

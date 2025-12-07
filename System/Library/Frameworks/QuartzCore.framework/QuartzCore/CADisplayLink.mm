@@ -751,7 +751,7 @@ LABEL_16:
           v8 = 0;
         }
 
-        v9 = *(CADisplayLookupFromDisplayId(v8) + 1);
+        v9 = *(CADisplayLookupFromDisplayId(v8) + 8);
         os_unfair_lock_lock((v5 + 8));
         CA::Display::DisplayLinkItem::hot_swap_display(v5, v9);
         os_unfair_lock_unlock((v5 + 8));

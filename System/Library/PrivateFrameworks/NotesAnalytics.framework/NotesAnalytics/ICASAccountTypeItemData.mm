@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"accountType";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"accountType";
   accountType = [(ICASAccountTypeItemData *)self accountType];
   if (accountType)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = accountType2;
-  v16[0] = accountType2;
-  v15[1] = @"countOfAccounts";
+  v15[0] = accountType2;
+  v14[1] = @"countOfAccounts";
   countOfAccounts = [(ICASAccountTypeItemData *)self countOfAccounts];
   if (countOfAccounts)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = countOfAccounts2;
-  v16[1] = countOfAccounts2;
-  v15[2] = @"countOfNotes";
+  v15[1] = countOfAccounts2;
+  v14[2] = @"countOfNotes";
   countOfNotes = [(ICASAccountTypeItemData *)self countOfNotes];
   if (countOfNotes)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = countOfNotes2;
-  v16[2] = countOfNotes2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = countOfNotes2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

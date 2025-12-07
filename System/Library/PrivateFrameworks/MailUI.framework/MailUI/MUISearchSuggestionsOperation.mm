@@ -6,50 +6,51 @@
 void __58___MUISearchSuggestionsOperation__startQueryForSuggester___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 64);
-  if (v4)
+  v4 = v3;
+  v5 = *(a1 + 64);
+  if (v5)
   {
-    v5 = *(a1 + 56);
-    v6 = signpostLog();
-    v7 = v6;
-    if (v5)
+    v6 = *(a1 + 56);
+    v7 = signpostLog(v3);
+    v8 = v7;
+    if (v6)
     {
-      if (v4 == -1 || !os_signpost_enabled(v6))
+      if (v5 == -1 || !os_signpost_enabled(v7))
       {
         goto LABEL_10;
       }
 
       *buf = 0;
-      v8 = "com.apple.mail.search.suggestion.zkw.suggester";
+      v9 = "com.apple.mail.search.suggestion.zkw.suggester";
     }
 
     else
     {
-      if (v4 == -1 || !os_signpost_enabled(v6))
+      if (v5 == -1 || !os_signpost_enabled(v7))
       {
         goto LABEL_10;
       }
 
       *buf = 0;
-      v8 = "com.apple.mail.search.suggestion.ayt.suggester";
+      v9 = "com.apple.mail.search.suggestion.ayt.suggester";
     }
 
-    _os_signpost_emit_with_name_impl(&dword_214A5E000, v7, OS_SIGNPOST_INTERVAL_END, v4, v8, "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_214A5E000, v8, OS_SIGNPOST_INTERVAL_END, v5, v9, "", buf, 2u);
 LABEL_10:
   }
 
-  v9 = *(a1 + 32);
+  v10 = *(a1 + 32);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __58___MUISearchSuggestionsOperation__startQueryForSuggester___block_invoke_2;
   block[3] = &unk_27818B0E8;
-  objc_copyWeak(&v14, (a1 + 48));
-  v12 = *(a1 + 40);
-  v13 = v3;
-  v10 = v3;
-  dispatch_async(v9, block);
+  objc_copyWeak(&v15, (a1 + 48));
+  v13 = *(a1 + 40);
+  v14 = v4;
+  v11 = v4;
+  dispatch_async(v10, block);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
 }
 
 void __58___MUISearchSuggestionsOperation__startQueryForSuggester___block_invoke_2(void **a1)

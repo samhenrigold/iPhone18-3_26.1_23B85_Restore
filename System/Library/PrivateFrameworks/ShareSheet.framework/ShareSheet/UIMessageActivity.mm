@@ -444,7 +444,7 @@ void __44__UIMessageActivity__backgroundPreheatBlock__block_invoke()
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __44__UIMessageActivity__backgroundPreheatBlock__block_invoke_2(uint64_t a1)
+void *__44__UIMessageActivity__backgroundPreheatBlock__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) canSendText];
   if (result)

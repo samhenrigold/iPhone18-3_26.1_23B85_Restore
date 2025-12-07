@@ -1,3 +1,1143 @@
+uint64_t APReceiverAudioSessionRealTimeCopyMetrics(uint64_t a1, uint64_t a2)
+{
+  if (a1)
+  {
+    if (a2)
+    {
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      CFDictionarySetInt64();
+      return 0;
+    }
+
+    else
+    {
+      APSLogErrorAt();
+      return 4294895145;
+    }
+  }
+
+  else
+  {
+    v2 = 4294895144;
+    APSLogErrorAt();
+  }
+
+  return v2;
+}
+
+uint64_t APReceiverAudioSessionRealTimeLogEnded(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (!result)
+  {
+    return result;
+  }
+
+  if (!a2)
+  {
+    APSLogErrorAt();
+    return 4294895145;
+  }
+
+  v4 = result;
+  v5 = *(result + 2304);
+  if (v5 == -1)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = v5 / 0xF4240;
+  }
+
+  v7 = *(result + 2312);
+  if (v7 == -1)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = v7 / 0xF4240;
+  }
+
+  v9 = *(result + 2320);
+  if (v9 == -1)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = v9 / 0xF4240;
+  }
+
+  v11 = *(result + 2328);
+  if (v11 == -1)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v11 / 0xF4240;
+  }
+
+  v13 = *(result + 2336);
+  if (v13 == -1)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    v14 = v13 / 0xF4240;
+  }
+
+  v15 = UpTicksToSeconds();
+  v16 = v15;
+  if ((v15 / 0x3C) < 1)
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = 100 * *(v4 + 8888) / (v15 / 0x3C);
+  }
+
+  DataBuffer_AppendF(a2, "Glitches:    %d%%, %d total glitches, %d glitchy minute(s). %d total minutes\n", v17, *(v4 + 8876), *(v4 + 8888), v15 / 0x3C);
+  DataBuffer_AppendF(a2, "Retransmits: %u sent, %u received, %u futile, %u not found, %u/%u/%u ms min/max/avg, %u/%u ms retry min/max\n", *(v4 + 2288), *(v4 + 2292), *(v4 + 2296), *(v4 + 2300), v6, v8, v10, v12, v14);
+  DataBuffer_AppendF(a2, "Packets:     %u lost, %u unrecovered, %u late, %u max burst, %u big losses, %d%% compression\n", qword_27E37EED8, HIDWORD(qword_27E37EED8), dword_27E37EEE0, *(v4 + 2348), *(v4 + 2352), *(v4 + 1880) / 0x64u);
+  DataBuffer_AppendF(a2, "Audio Time Sync: %d max skew, %u skew reset(s)\n", *(v4 + 2112), *(v4 + 2116));
+  DataBuffer_AppendF(a2, "Glitch Histogram: %@\n", *(v4 + 2440));
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v19 = *(v4 + 8968);
+  v20 = *(v4 + 8960);
+  if (v19 >= v20)
+  {
+    v21 = v19 - v20;
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  v22 = *(v4 + 8976);
+  if (v21 >= v22)
+  {
+    v23 = v21 - v22;
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  if (gLogCategory_APReceiverAudioSessionRealTime <= 50)
+  {
+    if (gLogCategory_APReceiverAudioSessionRealTime != -1)
+    {
+LABEL_29:
+      LogPrintF(&gLogCategory_APReceiverAudioSessionRealTime, "OSStatus APReceiverAudioSessionRealTimeLogEnded(void *, DataBuffer *, int32_t)", 33554482, "%@ ccCountBegin: %llu. ccCountEnd: %llu. ccCount: %llu. apCCTriggerCount: %llu. nonAPCoreCaptureCount: %llu. ccCountSender: %llu. ccCountAPSender: %llu. ccCountNonAPSender: %llu. receiverIODiscontinuityCount: %u. senderIODiscontinuityCount: %llu. senderPrimaryPacketDropCount: %llu.\n", *(v4 + 32), v20, v19, v21, v22, v23, *(v4 + 8984), *(v4 + 8992), *(v4 + 9000), *(v4 + 8944), *(v4 + 9320), *(v4 + 9328));
+      goto LABEL_31;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v20 = *(v4 + 8960);
+      v19 = *(v4 + 8968);
+      v22 = *(v4 + 8976);
+      goto LABEL_29;
+    }
+  }
+
+LABEL_31:
+  FigCFDictionarySetInt32();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  audioSession_updateCallDurationMetric(v4, 0);
+  FigCFDictionarySetInt64();
+  v24 = *(v4 + 9288);
+  if (v24)
+  {
+    if (gLogCategory_APReceiverAudioSessionRealTime <= 50)
+    {
+      if (gLogCategory_APReceiverAudioSessionRealTime != -1 || (v25 = _LogCategory_Initialize(), v24 = *(v4 + 9288), v25))
+      {
+        LogPrintF(&gLogCategory_APReceiverAudioSessionRealTime, "OSStatus APReceiverAudioSessionRealTimeLogEnded(void *, DataBuffer *, int32_t)", 33554482, "%@ SenderNANWifiStats: %@\n", *(v4 + 32), v24);
+      }
+    }
+
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFBooleanGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+  }
+
+  v26 = *(v4 + 9296);
+  if (v26)
+  {
+    if (gLogCategory_APReceiverAudioSessionRealTime <= 50)
+    {
+      if (gLogCategory_APReceiverAudioSessionRealTime != -1 || (v27 = _LogCategory_Initialize(), v26 = *(v4 + 9296), v27))
+      {
+        LogPrintF(&gLogCategory_APReceiverAudioSessionRealTime, "OSStatus APReceiverAudioSessionRealTimeLogEnded(void *, DataBuffer *, int32_t)", 33554482, "%@ ReceiverNANWifiStats: %@\n", *(v4 + 32), v26);
+      }
+    }
+
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFBooleanGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFNumberGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+    CFStringGetTypeID();
+    CFDictionaryGetTypedValue();
+    FigCFDictionarySetValue();
+  }
+
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt32();
+  FigCFDictionarySetInt32();
+  FigCFDictionarySetInt32();
+  FigCFDictionarySetInt32();
+  FigCFDictionarySetInt32();
+  v28 = *(v4 + 2440);
+  if (v28)
+  {
+    CFDictionaryGetValue(v28, @"Histogram_GlitchDuration");
+    v29 = APSStatsHistogramCopyValuesAsRTCString();
+    APSStatsHistogramGetTotalSampleCount();
+    FigCFDictionarySetInt64();
+    CFDictionarySetValue(Mutable, @"glitchDurationHistogram", v29);
+    if (v29)
+    {
+      CFRelease(v29);
+    }
+
+    CFDictionaryGetValue(*(v4 + 2440), @"Histogram_StartupGlitchDuration");
+    v30 = APSStatsHistogramCopyValuesAsRTCString();
+    APSStatsHistogramGetTotalSampleCount();
+    FigCFDictionarySetInt64();
+    CFDictionarySetValue(Mutable, @"startupGlitchDurationHistogram", v30);
+    if (v30)
+    {
+      CFRelease(v30);
+    }
+
+    CFDictionaryGetValue(*(v4 + 2440), @"Histogram_NetworkTransitTime");
+    v31 = APSStatsHistogramCopyValuesAsRTCString();
+    APSStatsHistogramGetTotalSampleCount();
+    FigCFDictionarySetInt64();
+    CFDictionarySetValue(Mutable, @"receiverRenderDeadlineHistogram", v31);
+    if (v31)
+    {
+      CFRelease(v31);
+    }
+
+    CFDictionaryGetValue(*(v4 + 2440), @"Histogram_RenderRedundancyLevel");
+    v32 = APSStatsHistogramCopyValuesAsRTCString();
+    APSStatsHistogramGetTotalSampleCount();
+    FigCFDictionarySetInt64();
+    CFDictionarySetValue(Mutable, @"renderRedundancyLevelHistogram", v32);
+    if (v32)
+    {
+      CFRelease(v32);
+    }
+  }
+
+  v33 = *MEMORY[0x277CBECE8];
+  v34 = *(v4 + 156);
+  if (v34 <= 15)
+  {
+    if (v34 > 3)
+    {
+      if (v34 == 4)
+      {
+        v35 = "AWDL";
+        goto LABEL_76;
+      }
+
+      if (v34 == 8)
+      {
+        v35 = "USB";
+        goto LABEL_76;
+      }
+    }
+
+    else
+    {
+      if (v34 == 1)
+      {
+        v35 = "Enet";
+        goto LABEL_76;
+      }
+
+      if (v34 == 2)
+      {
+        v35 = "WiFi";
+        goto LABEL_76;
+      }
+    }
+  }
+
+  else if (v34 <= 63)
+  {
+    if (v34 == 16)
+    {
+      v35 = "Direct";
+      goto LABEL_76;
+    }
+
+    if (v34 == 32)
+    {
+      v35 = "BTLE";
+      goto LABEL_76;
+    }
+  }
+
+  else
+  {
+    switch(v34)
+    {
+      case 64:
+        v35 = "WFD";
+        goto LABEL_76;
+      case 128:
+        v35 = "NAN";
+        goto LABEL_76;
+      case 256:
+        v35 = "IPsecBT";
+        goto LABEL_76;
+    }
+  }
+
+  if (v34 == 512)
+  {
+    v35 = "IPSecWiFi";
+  }
+
+  else
+  {
+    v35 = "?";
+  }
+
+LABEL_76:
+  v36 = CFStringCreateWithFormat(v33, 0, @"%s", v35);
+  v37 = *(v4 + 72);
+  if (v37 <= 31)
+  {
+    if (v37 <= 3)
+    {
+      if (v37 == 1)
+      {
+        v38 = "PCM";
+        goto LABEL_106;
+      }
+
+      if (v37 == 2)
+      {
+        v38 = "ALAC";
+        goto LABEL_106;
+      }
+    }
+
+    else
+    {
+      switch(v37)
+      {
+        case 4:
+          v38 = "AAC-LC";
+          goto LABEL_106;
+        case 8:
+          v38 = "AAC-ELD";
+          goto LABEL_106;
+        case 16:
+          v38 = "H.264";
+          goto LABEL_106;
+      }
+    }
+
+LABEL_101:
+    if (v37 == 2048)
+    {
+      v38 = "QLAC";
+    }
+
+    else if (v37 == 4096)
+    {
+      v38 = "APAC";
+    }
+
+    else
+    {
+      v38 = "?";
+    }
+
+    goto LABEL_106;
+  }
+
+  if (v37 > 255)
+  {
+    switch(v37)
+    {
+      case 256:
+        v38 = "QC3";
+        goto LABEL_106;
+      case 512:
+        v38 = "QAAC-HE";
+        goto LABEL_106;
+      case 1024:
+        v38 = "QAAC-LC";
+        goto LABEL_106;
+    }
+
+    goto LABEL_101;
+  }
+
+  if (v37 == 32)
+  {
+    v38 = "Opus";
+    goto LABEL_106;
+  }
+
+  if (v37 == 64)
+  {
+    v38 = "HEVC";
+    goto LABEL_106;
+  }
+
+  if (v37 != 128)
+  {
+    goto LABEL_101;
+  }
+
+  v38 = "DDPLUS";
+LABEL_106:
+  v39 = CFStringCreateWithFormat(v33, 0, @"%s", v38);
+  v40 = *(v4 + 136);
+  if (v40)
+  {
+    CFDictionarySetValue(Mutable, @"clientDeviceModel", v40);
+  }
+
+  v41 = *(v4 + 144);
+  if (v41)
+  {
+    CFDictionarySetValue(Mutable, @"clientOSBuildVersionNumber", v41);
+  }
+
+  CFDictionarySetValue(Mutable, @"transportType", v36);
+  CFDictionarySetValue(Mutable, @"codecType", v39);
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  v43 = 600;
+  if (v16 > 0x258)
+  {
+    v43 = v16;
+  }
+
+  LODWORD(v42) = *(v4 + 76);
+  v44 = (v42 * 0.1 * v43);
+  v45 = 2 * v43;
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt64();
+  v46 = *(v4 + 9128);
+  if (v45 <= v46)
+  {
+    LODWORD(v46) = v45;
+  }
+
+  *(v4 + 9128) = v46;
+  FigCFDictionarySetInt64();
+  v47 = *(v4 + 9132);
+  if (v47 >= v44)
+  {
+    LODWORD(v47) = v44;
+  }
+
+  *(v4 + 9132) = v47;
+  FigCFDictionarySetInt64();
+  FigCFDictionarySetInt32();
+  FigCFDictionarySetInt32();
+  CFDictionarySetValue(Mutable, @"sessionType", @"AudioRealTime");
+  v48 = CFPreferencesCopyValue(@"ExperimentGroup", @"com.apple.da", @"mobile", *MEMORY[0x277CBF010]);
+  if (FigCFEqual())
+  {
+    FigCFDictionarySetInt64();
+  }
+
+  APSRTCReportingAgentSendMediaEvent();
+  APSRTCReportingAgentSendEvent();
+  if (Mutable)
+  {
+    CFRelease(Mutable);
+  }
+
+  if (v36)
+  {
+    CFRelease(v36);
+  }
+
+  if (v39)
+  {
+    CFRelease(v39);
+  }
+
+  if (v48)
+  {
+    CFRelease(v48);
+  }
+
+  return 0;
+}
+
+CFMutableDictionaryRef APReceiverAudioSessionRealTimeCopyAudioBufferInfo(uint64_t a1, int *a2)
+{
+  if (a1)
+  {
+    Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (Mutable)
+    {
+      v4 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+      if (v4)
+      {
+        CFRelease(v4);
+        v5 = 0;
+      }
+
+      else
+      {
+        v5 = -72150;
+        APSLogErrorAt();
+        CFRelease(Mutable);
+        Mutable = 0;
+      }
+    }
+
+    else
+    {
+      v5 = -72150;
+      APSLogErrorAt();
+    }
+  }
+
+  else
+  {
+    APSLogErrorAt();
+    Mutable = 0;
+    v5 = -72152;
+  }
+
+  if (a2)
+  {
+    *a2 = v5;
+  }
+
+  return Mutable;
+}
+
+void *APReceiverAudioSessionRealTimeCopyProperty(uint64_t a1, CFTypeRef cf1, int *a3)
+{
+  v13 = 0;
+  if (!a1)
+  {
+    goto LABEL_30;
+  }
+
+  if (!cf1)
+  {
+    APSLogErrorAt();
+    result = 0;
+    v10 = -72151;
+    goto LABEL_32;
+  }
+
+  if (gLogCategory_APReceiverAudioSessionRealTime <= 30 && (gLogCategory_APReceiverAudioSessionRealTime != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APReceiverAudioSessionRealTime, "CFTypeRef APReceiverAudioSessionRealTimeCopyProperty(void *, CFStringRef, OSStatus *)", 33554462, "%@ copy propertyKey: '%@'\n", *(a1 + 32), cf1);
+  }
+
+  if (CFEqual(cf1, @"AudioFormat"))
+  {
+    v6 = *(a1 + 2368);
+    goto LABEL_9;
+  }
+
+  if (CFEqual(cf1, @"CompressionType"))
+  {
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = (a1 + 72);
+    goto LABEL_13;
+  }
+
+  if (CFEqual(cf1, @"MediaDataControlPort"))
+  {
+    result = CFNumberCreateInt64();
+    if (a3)
+    {
+      goto LABEL_20;
+    }
+
+    return result;
+  }
+
+  if (CFEqual(cf1, @"MaximumLatency"))
+  {
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = (a1 + 1656);
+    goto LABEL_13;
+  }
+
+  if (CFEqual(cf1, @"MinimumLatency"))
+  {
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = (a1 + 1652);
+    goto LABEL_13;
+  }
+
+  if (CFEqual(cf1, @"NumberOfChannels"))
+  {
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = (a1 + 80);
+    goto LABEL_13;
+  }
+
+  if (CFEqual(cf1, @"PlatformAudioLatency"))
+  {
+    audioSession_sessionLock(*(a1 + 2360));
+    v12 = *(a1 + 1648);
+    audioSession_sessionUnlock(*(a1 + 2360));
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = &v12;
+    goto LABEL_13;
+  }
+
+  if (CFEqual(cf1, @"RTCPPort"))
+  {
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = (a1 + 1604);
+    goto LABEL_13;
+  }
+
+  if (CFEqual(cf1, @"RTCPPortRemote"))
+  {
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = (a1 + 1608);
+    goto LABEL_13;
+  }
+
+  if (!CFEqual(cf1, @"AudioPort"))
+  {
+    if (CFEqual(cf1, @"AudioNetworkInfo"))
+    {
+      v6 = *(a1 + 520);
+      if (!v6)
+      {
+LABEL_30:
+        APSLogErrorAt();
+        result = 0;
+        v10 = -72152;
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      if (CFEqual(cf1, @"SampleRate"))
+      {
+        v8 = *MEMORY[0x277CBECE8];
+        v9 = (a1 + 76);
+LABEL_13:
+        result = CFNumberCreate(v8, kCFNumberSInt32Type, v9);
+        if (!a3)
+        {
+          return result;
+        }
+
+        goto LABEL_20;
+      }
+
+      if (!CFEqual(cf1, @"IsUsingScreen"))
+      {
+        if (gLogCategory_APReceiverAudioSessionRealTime <= 50 && (gLogCategory_APReceiverAudioSessionRealTime != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APReceiverAudioSessionRealTime, "CFTypeRef APReceiverAudioSessionRealTimeCopyProperty(void *, CFStringRef, OSStatus *)", 33554482, "%@ Unknown copy property: %@\n", *(a1 + 32), cf1);
+        }
+
+        result = 0;
+        v10 = -72154;
+        goto LABEL_32;
+      }
+
+      v11 = MEMORY[0x277CBED28];
+      if (!*(a1 + 2384))
+      {
+        v11 = MEMORY[0x277CBED10];
+      }
+
+      v6 = *v11;
+    }
+
+LABEL_9:
+    result = CFRetain(v6);
+    if (!a3)
+    {
+      return result;
+    }
+
+    goto LABEL_20;
+  }
+
+  if (!*(a1 + 96))
+  {
+LABEL_40:
+    v8 = *MEMORY[0x277CBECE8];
+    v9 = (a1 + 512);
+    goto LABEL_13;
+  }
+
+  if (*(a1 + 520))
+  {
+    *(a1 + 512) = CFDictionaryGetInt64();
+    goto LABEL_40;
+  }
+
+  APSLogErrorAt();
+  result = 0;
+  v10 = -72153;
+LABEL_32:
+  v13 = v10;
+  if (a3)
+  {
+LABEL_20:
+    *a3 = v13;
+  }
+
+  return result;
+}
+
+uint64_t APReceiverAudioSessionRealTimeSetProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3)
+{
+  v12 = 0;
+  if (!a1)
+  {
+    APSLogErrorAt();
+    return -72152;
+  }
+
+  if (!cf1 || !a3)
+  {
+    APSLogErrorAt();
+    return -72151;
+  }
+
+  if (gLogCategory_APReceiverAudioSessionRealTime <= 30 && (gLogCategory_APReceiverAudioSessionRealTime != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APReceiverAudioSessionRealTime, "OSStatus APReceiverAudioSessionRealTimeSetProperty(void *, CFStringRef, CFTypeRef)", 33554462, "%@ set propertyKey: '%@'\n", *(a1 + 32), cf1);
+  }
+
+  if (!CFEqual(cf1, @"VolumeLinear"))
+  {
+    if (CFEqual(cf1, @"PlatformAudioLatency"))
+    {
+      v8 = CFGetInt64Ranged();
+      audioSession_sessionLock(*(a1 + 2360));
+      *(a1 + 1648) = v8;
+LABEL_14:
+      audioSession_sessionUnlock(*(a1 + 2360));
+      return v12;
+    }
+
+    if (CFEqual(cf1, @"RTCMetadata"))
+    {
+      APSRTCReportingAgentSendMediaEvent();
+      return v12;
+    }
+
+    if (CFEqual(cf1, @"timelineOffset"))
+    {
+      v10 = CFGetInt64();
+      if ((v10 - 251) > 0xFFFFFE0A)
+      {
+        audioSession_sessionLock(*(a1 + 2360));
+        gAirTunesRelativeTimeOffset = v10;
+        goto LABEL_14;
+      }
+
+      APSLogErrorAt();
+      return -6710;
+    }
+
+    else
+    {
+      if (gLogCategory_APReceiverAudioSessionRealTime <= 50 && (gLogCategory_APReceiverAudioSessionRealTime != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APReceiverAudioSessionRealTime, "OSStatus APReceiverAudioSessionRealTimeSetProperty(void *, CFStringRef, CFTypeRef)", 33554482, "%@ Unknown set property: %@\n", *(a1 + 32), cf1);
+      }
+
+      return -72154;
+    }
+  }
+
+  if (gLogCategory_APReceiverAudioSessionRealTime <= 50 && (gLogCategory_APReceiverAudioSessionRealTime != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APReceiverAudioSessionRealTime, "OSStatus APReceiverAudioSessionRealTimeSetProperty(void *, CFStringRef, CFTypeRef)", 33554482, "<AirPlayVolume> session realtime, %@ set volume linear = %@\n", *(a1 + 32), a3);
+  }
+
+  v12 = APReceiverAudioSessionPlatformSetProperty(*a1, v6, @"RASP::VolumeLinear", v7, a3);
+  if (v12)
+  {
+    APSLogErrorAt();
+  }
+
+  return v12;
+}
+
+uint64_t APReceiverStatsCollectorGetTypeID()
+{
+  if (APReceiverStatsCollectorGetTypeID_once != -1)
+  {
+    dispatch_once(&APReceiverStatsCollectorGetTypeID_once, &__block_literal_global_536);
+  }
+
+  return APReceiverStatsCollectorGetTypeID_typeID;
+}
+
+uint64_t __APReceiverStatsCollectorGetTypeID_block_invoke()
+{
+  APReceiverStatsCollectorGetTypeID_statsCollectorClass = 0;
+  unk_27E37EBE0 = "APReceiverStatsCollector";
+  qword_27E37EBE8 = aprstats_Init;
+  unk_27E37EBF0 = 0;
+  qword_27E37EBF8 = aprstats_Finalize;
+  unk_27E37EC00 = 0;
+  qword_27E37EC08 = 0;
+  unk_27E37EC10 = 0;
+  qword_27E37EC18 = aprstats_CopyDebugDescription;
+  result = _CFRuntimeRegisterClass();
+  APReceiverStatsCollectorGetTypeID_typeID = result;
+  return result;
+}
+
+CFStringRef aprstats_CopyDebugDescription(const void *a1)
+{
+  v5 = 0;
+  ASPrintF(&v5, "%{ptr}", a1);
+  v2 = CFGetAllocator(a1);
+  v3 = CFStringCreateWithFormat(v2, 0, @"<APReceiverStatsCollector %p %s>", a1, v5);
+  free(v5);
+  return v3;
+}
+
+void aprstats_Finalize(void *a1)
+{
+  if (gLogCategory_APReceiverStatsCollector <= 30 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APReceiverStatsCollector, "void aprstats_Finalize(CFTypeRef)", 33554462, "Finalizing stats collector %{ptr}\n", a1);
+  }
+
+  APReceiverStatsCollectorDisableHUD(a1);
+  v2 = a1[25];
+  if (v2)
+  {
+    CFRelease(v2);
+    a1[25] = 0;
+  }
+
+  v3 = a1[6];
+  if (v3)
+  {
+    CFRelease(v3);
+    a1[6] = 0;
+  }
+
+  v4 = a1[15];
+  if (v4)
+  {
+    CFRelease(v4);
+    a1[15] = 0;
+  }
+
+  v5 = a1[16];
+  if (v5)
+  {
+    CFRelease(v5);
+    a1[16] = 0;
+  }
+
+  v6 = a1[17];
+  if (v6)
+  {
+    CFRelease(v6);
+    a1[17] = 0;
+  }
+
+  v7 = a1[34];
+  if (v7)
+  {
+    CFRelease(v7);
+    a1[34] = 0;
+  }
+
+  v8 = a1[2];
+  if (v8)
+  {
+    dispatch_release(v8);
+    a1[2] = 0;
+  }
+}
+
+void APReceiverStatsCollectorDisableHUD(uint64_t a1)
+{
+  if (a1)
+  {
+    v2 = *(a1 + 16);
+    if (v2)
+    {
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __APReceiverStatsCollectorDisableHUD_block_invoke;
+      block[3] = &__block_descriptor_40_e5_v8__0l;
+      block[4] = a1;
+      dispatch_sync(v2, block);
+    }
+  }
+}
+
+void *__APReceiverStatsCollectorDisableHUD_block_invoke(void *result)
+{
+  v1 = result[4];
+  if (*(v1 + 256))
+  {
+    v2 = result;
+    [MEMORY[0x277CD9FF0] begin];
+    [MEMORY[0x277CD9FF0] setDisableActions:1];
+    [*(v1 + 32) removeFromSuperlayer];
+
+    *(v1 + 32) = 0;
+    [*(v1 + 40) removeFromSuperlayer];
+
+    *(v1 + 40) = 0;
+    *(v1 + 24) = 0;
+    v3 = *(v1 + 264);
+    if (v3)
+    {
+      [objc_msgSend(v3 "layer")];
+
+      *(v1 + 264) = 0;
+    }
+
+    result = [MEMORY[0x277CD9FF0] commit];
+    if (gLogCategory_APReceiverStatsCollector <= 30)
+    {
+      if (gLogCategory_APReceiverStatsCollector != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        result = LogPrintF(&gLogCategory_APReceiverStatsCollector, "void aprstats_hudDisable(APReceiverStatsCollectorRef)", 33554462, "Tore down HUD\n");
+      }
+    }
+
+    *(v2[4] + 256) = 0;
+  }
+
+  return result;
+}
+
 double aprstats_Init(uint64_t a1)
 {
   *(a1 + 272) = 0;
@@ -30,7 +1170,7 @@ uint64_t APReceiverStatsCollectorCreate()
 
   if (gLogCategory_APReceiverStatsCollector <= 30 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverStatsCollector, "APReceiverStatsCollectorRef APReceiverStatsCollectorCreate(void)", 33554462, "Creating APReceiverStatsCollector\n");
   }
 
   if (APReceiverStatsCollectorGetTypeID_once != -1)
@@ -51,7 +1191,7 @@ uint64_t APReceiverStatsCollectorCreate()
       *(Instance + 112) = 0;
       if (gLogCategory_APReceiverStatsCollector <= 30 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverStatsCollector, "APReceiverStatsCollectorRef APReceiverStatsCollectorCreate(void)", 33554462, "Created stats collector %{ptr}\n", Instance);
       }
 
       return Instance;
@@ -61,7 +1201,7 @@ uint64_t APReceiverStatsCollectorCreate()
   APSLogErrorAt();
   if (gLogCategory_APReceiverStatsCollector <= 90 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverStatsCollector, "APReceiverStatsCollectorRef APReceiverStatsCollectorCreate(void)", 33554522, "### APReceiverStatsCollectorCreate failed, error: %#m\n", 4294954510);
   }
 
   if (Instance)
@@ -93,21 +1233,22 @@ void APReceiverStatsCollectorSetScreenOptions(uint64_t a1, uint64_t a2)
 
 uint64_t __APReceiverStatsCollectorSetScreenOptions_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
+  v1 = *(a1 + 40);
   if (gLogCategory_APReceiverStatsCollector <= 30 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverStatsCollector, "void aprstats_configureScreen(APReceiverStatsCollectorRef, CFDictionaryRef)", 33554462, "Configuring stats collector %{ptr} with screen options: %@\n", v2, v1);
   }
 
   FigCFDictionaryGetInt32IfPresent();
-  *(v1 + 248) = 0;
-  v2 = *(v1 + 120);
-  if (v2)
+  *(v2 + 248) = 0;
+  v3 = *(v2 + 120);
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
-  *(v1 + 120) = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
+  *(v2 + 120) = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
   CFStringAppendF();
   CFStringAppendF();
   CFArrayGetTypeID();
@@ -115,29 +1256,29 @@ uint64_t __APReceiverStatsCollectorSetScreenOptions_block_invoke(uint64_t a1)
   if (TypedValue)
   {
     Count = CFArrayGetCount(TypedValue);
-    v5 = Count >= 0x10 ? 16 : Count;
+    v6 = Count >= 0x10 ? 16 : Count;
     if (Count)
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
         CFDictionaryGetTypeID();
         if (CFArrayGetTypedValueAtIndex())
         {
           CFStringGetTypeID();
-          v7 = CFDictionaryGetTypedValue();
-          if (v7)
+          v8 = CFDictionaryGetTypedValue();
+          if (v8)
           {
-            CFEqual(v7, @"HIDIn");
+            CFEqual(v8, @"HIDIn");
             CFStringAppendF();
-            ++*(v1 + 248);
+            ++*(v2 + 248);
           }
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v5 != v6);
+      while (v6 != v7);
     }
   }
 
@@ -145,7 +1286,7 @@ uint64_t __APReceiverStatsCollectorSetScreenOptions_block_invoke(uint64_t a1)
   CFStringAppendF();
   CFStringAppendF();
   CFStringAppendF();
-  *(v1 + 252) += 4;
+  *(v2 + 252) += 4;
   if (FigSupportsIOSurfaceTimingInfo())
   {
     CFStringAppendF();
@@ -239,203 +1380,6 @@ void APReceiverStatsCollectorEnableHUD(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t __APReceiverStatsCollectorEnableHUD_block_invoke(uint64_t result)
-{
-  v1 = result;
-  v3 = *(result + 32);
-  v2 = *(result + 40);
-  if (!v3)
-  {
-    v3 = *(v2 + 48);
-  }
-
-  if (*(v2 + 256))
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3 == 0;
-  }
-
-  if (!v4)
-  {
-    v5 = objc_alloc_init(MEMORY[0x277CCA8B0]);
-    v6 = *(v2 + 260);
-    Value = CFDictionaryGetValue(v3, @"PresentationLayer");
-    if (Value)
-    {
-      v8 = Value;
-      Int32IfPresent = FigCFDictionaryGetInt32IfPresent();
-      *(v2 + 24) = v8;
-      [MEMORY[0x277CD9FF0] begin];
-      [MEMORY[0x277CD9FF0] setDisableActions:1];
-      v10 = objc_alloc_init(APHUDLayer);
-      *(v2 + 32) = v10;
-      [(APHUDLayer *)v10 setName:@"HUDLayer"];
-      [*(v2 + 32) setFrame:{40.0, 40.0, 400.0, 470.0}];
-      [*(v2 + 32) setEdgeAntialiasingMask:0];
-      if (Int32IfPresent)
-      {
-        [*(v2 + 32) setZPosition:0];
-      }
-
-      [*(v2 + 32) addLine:@" Version:\t" withColorIndex:14];
-      [*(v2 + 32) addLine:@" Interface:\t" withColorIndex:14];
-      v11 = *(v2 + 32);
-      if (v6)
-      {
-        v12 = @" TReg(R):\t";
-      }
-
-      else
-      {
-        [v11 addLine:@" TReg(S):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" TReg(R):\t" withColorIndex:14];
-        v11 = *(v2 + 32);
-        v12 = @" S WxH:\t";
-      }
-
-      [v11 addLine:v12 withColorIndex:14];
-      [*(v2 + 32) addLine:@" D WxH:\t" withColorIndex:14];
-      [*(v2 + 32) addLine:@" Codec:\t" withColorIndex:14];
-      v13 = *(v2 + 32);
-      if (v6)
-      {
-        [v13 addLine:@" TV-FPS:\t" withColorIndex:0];
-        [*(v2 + 32) addLine:@" TV-DPS:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" RSSI(R):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Chan(R):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Seq(R1):\t" withColorIndex:14];
-        v14 = *(v2 + 32);
-        v15 = @" Seq(R2):\t";
-        v16 = 14;
-      }
-
-      else
-      {
-        [v13 addLine:@" Chroma:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" P-FPS:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" W-FPS:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" SubS:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" B4En:\t" withColorIndex:1];
-        [*(v2 + 32) addLine:@" FPS Th:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Q-FPS:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" S-FPS:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" R-FPS:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" TV-FPS:\t" withColorIndex:0];
-        [*(v2 + 32) addLine:@" TV-DPS:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Est BW:\t" withColorIndex:3];
-        [*(v2 + 32) addLine:@" Act BW:\t" withColorIndex:4];
-        [*(v2 + 32) addLine:@" Loss:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" RTT:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Latency:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Ahead:\t" withColorIndex:2];
-        [*(v2 + 32) addLine:@" EnDp:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" IdEn:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" IdDp:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" CPU:\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" RSSI(S):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" RSSI(R):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Chan(S):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Chan(R):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Seq(S1):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Seq(S2):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Seq(R1):\t" withColorIndex:14];
-        [*(v2 + 32) addLine:@" Seq(R2):\t" withColorIndex:14];
-        v14 = *(v2 + 32);
-        v15 = @" SO Drops:\t";
-        v16 = 5;
-      }
-
-      [v14 addLine:v15 withColorIndex:v16];
-      [*(v2 + 32) addLine:@" A Buff\t" withColorIndex:14];
-      [*(v2 + 32) addLine:@" A Lost:\t" withColorIndex:14];
-      [*(v2 + 32) addLine:@" A Unrec:\t" withColorIndex:14];
-      [*(v2 + 32) addLine:@" A Late:\t" withColorIndex:14];
-      v17 = CGColorCreateWithRGB();
-      [*(v2 + 32) setBackgroundColor:v17];
-      CFRelease(v17);
-      [*(v2 + 32) setGeometryFlipped:{objc_msgSend(*(v2 + 24), "contentsAreFlipped") ^ 1}];
-      [*(v2 + 24) addSublayer:*(v2 + 32)];
-      v18 = objc_alloc_init(APGraphLayer);
-      *(v2 + 40) = v18;
-      [(APGraphLayer *)v18 setName:@"GraphLayer"];
-      [*(v2 + 40) setFrame:{40.0, 520.0, 195.0, 150.0}];
-      [*(v2 + 40) setBorderWidth:1.0];
-      [*(v2 + 40) setEdgeAntialiasingMask:0];
-      if (Int32IfPresent)
-      {
-        [*(v2 + 40) setZPosition:0];
-      }
-
-      [*(v2 + 40) setUpGraphs:6];
-      LODWORD(v19) = 1116471296;
-      [*(v2 + 40) setUpGraph:0 min:30 max:0.0 numValues:v19];
-      if (!v6)
-      {
-        LODWORD(v20) = 1116471296;
-        [*(v2 + 40) setUpGraph:1 min:30 max:0.0 numValues:v20];
-        LODWORD(v21) = 1120403456;
-        LODWORD(v22) = -20.0;
-        [*(v2 + 40) setUpGraph:2 min:30 max:v22 numValues:v21];
-        LODWORD(v23) = 20.0;
-        [*(v2 + 40) setUpGraph:3 min:30 max:0.0 numValues:v23];
-        LODWORD(v24) = 25.0;
-        [*(v2 + 40) setUpGraph:4 min:30 max:0.0 numValues:v24];
-        LODWORD(v25) = 30.0;
-        [*(v2 + 40) setUpGraph:5 min:30 max:0.0 numValues:v25];
-      }
-
-      [*(v2 + 40) setGeometryFlipped:{objc_msgSend(*(v2 + 24), "contentsAreFlipped") ^ 1}];
-      [*(v2 + 24) addSublayer:*(v2 + 40)];
-      if (FigGetCFPreferenceNumberWithDefault())
-      {
-        v26 = [APLatencyVisualizationLayer alloc];
-        [*(v2 + 40) zPosition];
-        v28 = [(APLatencyVisualizationLayer *)v26 init:aprstats_getSynchronizedNetworkTime timeContext:v2 zPosition:(v27 + 3.0)];
-        [v28 setFrame:{*(v2 + 160), *(v2 + 168), *(v2 + 176), *(v2 + 184)}];
-        [*(v2 + 24) addSublayer:v28];
-        *(v2 + 264) = [[APLatencyVisualizationTrackingController alloc] init:v28];
-
-        if (gLogCategory_APReceiverStatsCollector <= 30 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
-        {
-          LogPrintF();
-        }
-      }
-
-      [MEMORY[0x277CD9FF0] commit];
-      if (gLogCategory_APReceiverStatsCollector <= 30 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
-      {
-        [*(v2 + 32) frame];
-        v30 = v29;
-        [*(v2 + 32) frame];
-        v32 = v31;
-        [*(v2 + 32) frame];
-        v34 = v33;
-        [*(v2 + 32) frame];
-        v38 = v34;
-        v39 = v35;
-        v36 = v30;
-        v37 = v32;
-        LogPrintF();
-      }
-
-      result = [v5 drain];
-      *(*(v1 + 40) + 256) = 1;
-    }
-
-    else
-    {
-      APSLogErrorAt();
-      return [v5 drain];
-    }
-  }
-
-  return result;
-}
-
 double aprstats_getSynchronizedNetworkTime(uint64_t a1)
 {
   v1 = *(a1 + 272);
@@ -489,9 +1433,9 @@ void APReceiverStatsCollectorShowStats(uint64_t a1)
 
 void __APReceiverStatsCollectorShowStats_block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 257) || *(v1 + 256))
+  if (*(v1 + 256))
   {
     Current = CFAbsoluteTimeGetCurrent();
     v3 = Current - *(v1 + 232);
@@ -504,6 +1448,7 @@ void __APReceiverStatsCollectorShowStats_block_invoke(uint64_t a1)
       FigCFDictionaryGetDoubleIfPresent();
       FigCFDictionaryGetDoubleIfPresent();
       FigCFDictionaryGetDoubleIfPresent();
+      v50 = 0.0 * 100.0;
       FigCFDictionaryGetInt32IfPresent();
       FigCFDictionaryGetInt32IfPresent();
       FigCFDictionaryGetInt32IfPresent();
@@ -518,9 +1463,9 @@ void __APReceiverStatsCollectorShowStats_block_invoke(uint64_t a1)
       FigCFDictionaryGetInt32IfPresent();
       FigCFDictionaryGetInt32IfPresent();
       FigCFDictionaryGetInt32IfPresent();
-      v46 = *(v1 + 72);
-      v6 = v46 - *(v1 + 76);
-      *(v1 + 76) = v46;
+      v49 = *(v1 + 72);
+      v6 = v49 - *(v1 + 76);
+      *(v1 + 76) = v49;
       v7 = *(v1 + 136);
       if (v7)
       {
@@ -539,7 +1484,7 @@ void __APReceiverStatsCollectorShowStats_block_invoke(uint64_t a1)
               while (1)
               {
                 ValueAtIndex = CFArrayGetValueAtIndex(v9, v13);
-                v52 = 0;
+                v56 = 0;
                 if (FigCFDictionaryGetInt32IfPresent())
                 {
                   break;
@@ -547,7 +1492,7 @@ void __APReceiverStatsCollectorShowStats_block_invoke(uint64_t a1)
 
                 if (v12 == ++v13)
                 {
-                  goto LABEL_13;
+                  goto LABEL_12;
                 }
               }
 
@@ -557,50 +1502,56 @@ void __APReceiverStatsCollectorShowStats_block_invoke(uint64_t a1)
         }
       }
 
-LABEL_13:
+LABEL_12:
       if (FigCFDictionaryGetInt32IfPresent())
       {
-        v45 = ((v46 - *(v1 + 80)) / v3 + 0.5);
-        *(v1 + 80) = v46;
+        v48 = ((v49 - *(v1 + 80)) / v3 + 0.5);
+        *(v1 + 80) = v49;
       }
 
       else
       {
-        v45 = 0;
+        v48 = 0;
       }
 
       if (FigCFDictionaryGetInt32IfPresent())
       {
-        v44 = ((v46 - *(v1 + 84)) / v3 + 0.5);
-        *(v1 + 84) = v46;
+        v47 = ((v49 - *(v1 + 84)) / v3 + 0.5);
+        *(v1 + 84) = v49;
       }
 
       else
       {
-        v44 = 0;
+        v47 = 0;
       }
 
+      v15 = v4;
       if (v7)
       {
-        CFDictionaryGetValue(v7, *MEMORY[0x277CD64B0]);
+        v42 = CFDictionaryGetValue(v7, *MEMORY[0x277CD64B0]);
       }
 
-      v42 = (v6 / v3 + 0.5);
-      v41 = *(v1 + 88) - (v4 & (v4 >> 31));
+      else
+      {
+        v42 = 0;
+      }
+
+      v45 = (v6 / v3 + 0.5);
+      v44 = *(v1 + 88) - (v15 & (v15 >> 31));
       add_explicit = atomic_fetch_add_explicit((v1 + 60), 0, memory_order_relaxed);
       atomic_fetch_add_explicit((v1 + 60), -add_explicit, memory_order_relaxed);
-      v16 = atomic_fetch_add_explicit((v1 + 64), 0, memory_order_relaxed);
-      atomic_fetch_add_explicit((v1 + 64), -v16, memory_order_relaxed);
-      v17 = atomic_fetch_add_explicit((v1 + 68), 0, memory_order_relaxed);
-      atomic_fetch_add_explicit((v1 + 68), -v17, memory_order_relaxed);
+      v17 = atomic_fetch_add_explicit((v1 + 64), 0, memory_order_relaxed);
+      atomic_fetch_add_explicit((v1 + 64), -v17, memory_order_relaxed);
+      v18 = atomic_fetch_add_explicit((v1 + 68), 0, memory_order_relaxed);
+      atomic_fetch_add_explicit((v1 + 68), -v18, memory_order_relaxed);
       if (*(v1 + 256))
       {
-        v43 = v4;
-        v40 = objc_alloc_init(MEMORY[0x277CCA8B0]);
-        v50 = 0;
-        v51 = 0;
-        v49 = 0;
-        v48 = 0;
+        v46 = v4;
+        v43 = objc_alloc_init(MEMORY[0x277CCA8B0]);
+        v54 = 0;
+        v55 = 0;
+        v53 = 0;
+        v52 = 0;
         if (*(v1 + 128))
         {
           CFDictionaryGetValue(*(v1 + 128), @"trafficRegistration");
@@ -608,14 +1559,14 @@ LABEL_13:
           FigCFDictionaryGetBooleanIfPresent();
           FigCFDictionaryGetInt32IfPresent();
           FigCFDictionaryGetInt32IfPresent();
-          LODWORD(v47) = 0;
+          LODWORD(v51) = 0;
         }
 
-        v47 = 0;
+        v51 = 0;
         APTransportGetSharedTransport();
         CMBaseObject = FigTransportGetCMBaseObject();
-        v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (v19 && !v19(CMBaseObject, *MEMORY[0x277CE4F30], *MEMORY[0x277CBECE8], &v47))
+        v20 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (v20 && !v20(CMBaseObject, *MEMORY[0x277CE4F30], *MEMORY[0x277CBECE8], &v51))
         {
           APTransportTrafficRegistrarGetRegistration();
           APTransportTrafficRegistrarGetRSSI();
@@ -623,188 +1574,200 @@ LABEL_13:
           APTransportTrafficRegistrarGetAWDLChannelSequence();
         }
 
-        if (v47)
+        if (v51)
         {
-          CFRelease(v47);
+          CFRelease(v51);
         }
 
         [MEMORY[0x277CD9FF0] begin];
         [MEMORY[0x277CD9FF0] setDisableActions:1];
         if (*(v1 + 260))
         {
-          v20 = "Mirroring 2";
+          v21 = "Mirroring 2";
         }
 
         else
         {
-          v20 = "Mirroring 1";
+          v21 = "Mirroring 1";
         }
 
-        [*(v1 + 32) setValueAtIndex:0 format:{@"%s", v20}];
+        [*(v1 + 32) setValueAtIndex:0 format:{@"%s", v21}];
         [*(v1 + 32) setValueAtIndex:1 format:{@"%s", v1 + 208}];
         if (v5)
         {
-          v21 = 2;
+          v22 = 2;
         }
 
         else
         {
           [*(v1 + 32) setValueAtIndex:2 format:{@"%s%s", "", ""}];
-          v21 = 3;
+          v22 = 3;
         }
 
-        v22 = (v21 + 1);
-        [*(v1 + 32) setValueAtIndex:v21 format:{@"%s%s", "", ""}];
+        v23 = (v22 + 1);
+        [*(v1 + 32) setValueAtIndex:v22 format:{@"%s%s", "", ""}];
         if (!v5)
         {
-          [*(v1 + 32) setValueAtIndex:(v21 + 1) format:{@"%.0fx%.0f", *(v1 + 144), *(v1 + 152)}];
-          v22 = (v21 + 2);
+          [*(v1 + 32) setValueAtIndex:(v22 + 1) format:{@"%.0fx%.0f", *(v1 + 144), *(v1 + 152)}];
+          v23 = (v22 + 2);
         }
 
-        [*(v1 + 32) setValueAtIndex:v22 format:{@"%.0fx%.0f", *(v1 + 176), *(v1 + 184)}];
-        v23 = (v22 + 2);
-        [*(v1 + 32) setValueAtIndex:(v22 + 1) format:{@"%c%c%c%c", HIBYTE(*(v1 + 192)), BYTE2(*(v1 + 192)), BYTE1(*(v1 + 192)), *(v1 + 192)}];
+        [*(v1 + 32) setValueAtIndex:v23 format:{@"%.0fx%.0f", *(v1 + 176), *(v1 + 184)}];
+        v24 = (v23 + 2);
+        [*(v1 + 32) setValueAtIndex:(v23 + 1) format:{@"%c%c%c%c", HIBYTE(*(v1 + 192)), BYTE2(*(v1 + 192)), BYTE1(*(v1 + 192)), *(v1 + 192)}];
         if (!v5)
         {
-          v24 = *(v1 + 200);
-          if (!v24)
+          v25 = *(v1 + 200);
+          if (!v25)
           {
-            v24 = &stru_28512F888;
+            v25 = &stru_28512F888;
           }
 
-          [*(v1 + 32) setValueAtIndex:(v22 + 2) format:{@"%@", v24}];
-          [*(v1 + 32) setValueAtIndex:(v22 + 3) format:{@"%u", 0}];
-          [*(v1 + 32) setValueAtIndex:(v22 + 4) format:{@"%u", 0}];
-          [*(v1 + 32) setValueAtIndex:(v22 + 5) format:{@"%u", 0}];
-          [*(v1 + 32) setValueAtIndex:(v22 + 6) format:{@"%u", 0}];
-          [*(v1 + 32) setValueAtIndex:(v22 + 7) format:{@"%u", 0}];
-          [*(v1 + 32) setValueAtIndex:v22 | 8 format:{@"%u", 0}];
-          [*(v1 + 32) setValueAtIndex:(v22 + 9) format:{@"%u", 0}];
-          v23 = (v22 + 11);
-          [*(v1 + 32) setValueAtIndex:(v22 + 10) format:{@"%u", v42}];
-        }
-
-        [*(v1 + 32) setValueAtIndex:v23 format:{@"%u", v45}];
-        v25 = (v23 + 2);
-        [*(v1 + 32) setValueAtIndex:(v23 + 1) format:{@"%u", v44}];
-        if (!v5)
-        {
-          [*(v1 + 32) setValueAtIndex:(v23 + 2) format:{@"%.2f", 0.0 / 1000000.0}];
-          [*(v1 + 32) setValueAtIndex:(v23 + 3) format:{@"%.2f", 0.0 / 1000000.0}];
-          [*(v1 + 32) setValueAtIndex:(v23 + 4) format:{@"%u%%", (0.0 * 100.0)}];
-          [*(v1 + 32) setValueAtIndex:(v23 + 5) format:{@"%u ms", 0}];
-          [*(v1 + 32) setValueAtIndex:(v23 + 6) format:{@"%d", v41}];
-          [*(v1 + 32) setValueAtIndex:(v23 + 7) format:{@"%d", v43}];
-          [*(v1 + 32) setValueAtIndex:(v23 + 8) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:(v23 + 2) format:{@"%@", v25}];
+          [*(v1 + 32) setValueAtIndex:(v23 + 3) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:(v23 + 4) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:(v23 + 5) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:(v23 + 6) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:(v23 + 7) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:v23 | 8 format:{@"%u", 0}];
           [*(v1 + 32) setValueAtIndex:(v23 + 9) format:{@"%u", 0}];
-          [*(v1 + 32) setValueAtIndex:(v23 + 10) format:{@"%u", 0}];
-          [*(v1 + 32) setValueAtIndex:(v23 + 11) format:{@"%u", 0.0}];
-          v25 = (v23 + 13);
-          [*(v1 + 32) setValueAtIndex:(v23 + 12) format:{@"%d", 0}];
+          v24 = (v23 + 11);
+          [*(v1 + 32) setValueAtIndex:(v23 + 10) format:{@"%u", v45}];
         }
 
-        v26 = (v25 + 1);
-        [*(v1 + 32) setValueAtIndex:v25 format:{@"%d", 0}];
+        [*(v1 + 32) setValueAtIndex:v24 format:{@"%u", v48}];
+        v26 = (v24 + 2);
+        [*(v1 + 32) setValueAtIndex:(v24 + 1) format:{@"%u", v47}];
         if (!v5)
         {
-          [*(v1 + 32) setValueAtIndex:(v25 + 1) format:{@"%d", 0}];
-          v26 = (v25 + 2);
+          [*(v1 + 32) setValueAtIndex:(v24 + 2) format:{@"%.2f", 0.0 / 1000000.0}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 3) format:{@"%.2f", 0.0 / 1000000.0}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 4) format:{@"%u%%", v50}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 5) format:{@"%u ms", 0}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 6) format:{@"%d", v44}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 7) format:{@"%d", v46}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 8) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 9) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 10) format:{@"%u", 0}];
+          [*(v1 + 32) setValueAtIndex:(v24 + 11) format:{@"%u", 0.0}];
+          v26 = (v24 + 13);
+          [*(v1 + 32) setValueAtIndex:(v24 + 12) format:{@"%d", 0}];
         }
 
         v27 = (v26 + 1);
         [*(v1 + 32) setValueAtIndex:v26 format:{@"%d", 0}];
         if (!v5)
         {
-          v28 = v50;
-          if (!v50)
-          {
-            v28 = "N/A";
-          }
+          [*(v1 + 32) setValueAtIndex:(v26 + 1) format:{@"%d", 0}];
+          v27 = (v26 + 2);
+        }
 
-          [*(v1 + 32) setValueAtIndex:(v26 + 1) format:{@"%s", v28}];
-          v27 = (v26 + 3);
-          v29 = v51;
-          if (!v51)
+        v28 = (v27 + 1);
+        [*(v1 + 32) setValueAtIndex:v27 format:{@"%d", 0}];
+        if (!v5)
+        {
+          v29 = v54;
+          if (!v54)
           {
             v29 = "N/A";
           }
 
-          [*(v1 + 32) setValueAtIndex:(v26 + 2) format:{@"%s", v29}];
+          [*(v1 + 32) setValueAtIndex:(v27 + 1) format:{@"%s", v29}];
+          v28 = (v27 + 3);
+          v30 = v55;
+          if (!v55)
+          {
+            v30 = "N/A";
+          }
+
+          [*(v1 + 32) setValueAtIndex:(v27 + 2) format:{@"%s", v30}];
         }
 
-        v30 = v48;
-        if (!v48)
+        v31 = v52;
+        if (!v52)
         {
-          v30 = "N/A";
+          v31 = "N/A";
         }
 
-        [*(v1 + 32) setValueAtIndex:v27 format:{@"%s", v30}];
-        v31 = (v27 + 2);
-        v32 = v49;
-        if (!v49)
+        [*(v1 + 32) setValueAtIndex:v28 format:{@"%s", v31}];
+        v32 = (v28 + 2);
+        v33 = v53;
+        if (!v53)
         {
-          v32 = "N/A";
+          v33 = "N/A";
         }
 
-        [*(v1 + 32) setValueAtIndex:(v27 + 1) format:{@"%s", v32}];
+        [*(v1 + 32) setValueAtIndex:(v28 + 1) format:{@"%s", v33}];
         if (!v5)
         {
-          [*(v1 + 32) setValueAtIndex:(v27 + 2) format:{@"%u", 0}];
-          v31 = (v27 + 3);
+          [*(v1 + 32) setValueAtIndex:(v28 + 2) format:{@"%u", 0}];
+          v32 = (v28 + 3);
         }
 
-        [*(v1 + 32) setValueAtIndex:v31 format:{@"%u ms", *(v1 + 56)}];
-        [*(v1 + 32) setValueAtIndex:(v31 + 1) format:{@"%u", add_explicit}];
-        [*(v1 + 32) setValueAtIndex:(v31 + 2) format:{@"%u", v16}];
-        [*(v1 + 32) setValueAtIndex:(v31 + 3) format:{@"%u", v17}];
+        [*(v1 + 32) setValueAtIndex:v32 format:{@"%u ms", *(v1 + 56)}];
+        [*(v1 + 32) setValueAtIndex:(v32 + 1) format:{@"%u", add_explicit}];
+        [*(v1 + 32) setValueAtIndex:(v32 + 2) format:{@"%u", v17}];
+        [*(v1 + 32) setValueAtIndex:(v32 + 3) format:{@"%u", v18}];
         [*(v1 + 32) setNeedsDisplay];
         [*(v1 + 32) display];
-        *&v33 = v45;
-        [*(v1 + 40) updateValue:0 value:v33];
+        *&v34 = v48;
+        [*(v1 + 40) updateValue:0 value:v34];
+        v15 = v4;
         if (!v5)
         {
-          *&v34 = 0;
-          [*(v1 + 40) updateValue:1 value:v34];
-          *&v35 = v43;
-          [*(v1 + 40) updateValue:2 value:v35];
-          HIDWORD(v36) = 0;
-          *&v36 = 0.0 / 1000000.0;
-          [*(v1 + 40) updateValue:3 value:v36];
+          *&v35 = 0;
+          [*(v1 + 40) updateValue:1 value:v35];
+          *&v36 = v46;
+          [*(v1 + 40) updateValue:2 value:v36];
           HIDWORD(v37) = 0;
           *&v37 = 0.0 / 1000000.0;
-          [*(v1 + 40) updateValue:4 value:v37];
-          *&v38 = 0;
-          [*(v1 + 40) updateValue:5 value:v38];
+          [*(v1 + 40) updateValue:3 value:v37];
+          HIDWORD(v38) = 0;
+          *&v38 = 0.0 / 1000000.0;
+          [*(v1 + 40) updateValue:4 value:v38];
+          *&v39 = 0;
+          [*(v1 + 40) updateValue:5 value:v39];
         }
 
         [*(v1 + 40) setNeedsDisplay];
         [*(v1 + 40) display];
-        v39 = *(v1 + 264);
-        if (v39)
+        v40 = *(v1 + 264);
+        if (v40)
         {
-          [objc_msgSend(v39 "layer")];
+          [objc_msgSend(v40 "layer")];
         }
 
         [MEMORY[0x277CD9FF0] commit];
-        free(v50);
-        free(v51);
-        free(v48);
-        free(v49);
-        [v40 drain];
+        free(v54);
+        free(v55);
+        free(v52);
+        free(v53);
+        [v43 drain];
       }
 
       if (*(v1 + 257) && gLogCategory_APReceiverStatsCollector <= 50 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        if (v42)
+        {
+          v41 = v42;
+        }
+
+        else
+        {
+          v41 = @"not available";
+        }
+
+        LogPrintF(&gLogCategory_APReceiverStatsCollector, "void aprstats_showStats(APReceiverStatsCollectorRef)", 34078770, "P-FPS: %u  W-FPS: %u  SubS: %u  B4En: %u  FPS Th: %u  Q-FPS: %u  S-FPS: %u  R-FPS: %u  TV-FPS: %u  TV-DPS: %u  M Mbps: %.2f  A Mbps: %.2f  Loss: %u%%  RTT: %u ms  Latency: %d  Ahead: %d  EnDp: %u  IdEn: %u  IdDp: %u  EQDp: %u  CPU: %u  RSSI: %d  SO Drops: %u  A Buff: %u ms  A Lost: %u  A Unrec: %u  A Late: %u  TV-Hist: %@\n", 0, 0, 0, 0, 0, 0, 0, v45, v48, v47, 0.0 / 1000000.0, 0.0 / 1000000.0, v50, 0, v44, v15, 0, 0, 0, 0, 0.0, 0, 0, *(v1 + 56), add_explicit, v17, v18, v41);
       }
     }
   }
 }
 
-uint64_t aprstats_createAWDLSequenceLines(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t aprstats_createAWDLSequenceLines(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   result = AirPlayCreateAWDLChannelSequenceString();
-  if (a3 >= 9)
+  if (v3 >= 9)
   {
 
     return AirPlayCreateAWDLChannelSequenceString();
@@ -1098,6 +2061,7 @@ void *__APReceiverStatsCollectorGetFrameCounters_block_invoke(void *result)
 
 void __APReceiverStatsCollectorUpdateAndCopyFrameStats_block_invoke(void *a1)
 {
+  v30[0] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   v2 = a1[5];
   v3 = a1[6];
@@ -1126,96 +2090,138 @@ void __APReceiverStatsCollectorUpdateAndCopyFrameStats_block_invoke(void *a1)
 
   if (v5 < -*(v1 + 88) && gLogCategory_APReceiverStatsCollector <= 50 && (gLogCategory_APReceiverStatsCollector != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverStatsCollector, "void aprstats_updateAndCopyFrameStats(APReceiverStatsCollectorRef, const APReceiverStatsCollectorFrameStats *, CFDictionaryRef *)", 33554482, "*** Stats collector %{ptr}: late screen frame (%d ms)\n", v1, v5);
   }
 
   if (v3)
   {
-    v21 = v3;
+    v27 = v3;
     v6 = *MEMORY[0x277CBECE8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    v29 = 0;
+    v28 = &v29;
     v8 = *(v2 + 16);
     if (!v8)
     {
       v8 = *(v2 + 8);
     }
 
-    v20 = Mutable;
-    snprintf_add();
-    *(v1 + 240) = v8;
-    v9 = *(v2 + 8);
-    v10 = *(v1 + 248);
-    if (v10 <= 0)
+    v26 = Mutable;
+    v9 = v8 - *(v1 + 240);
+    v10 = v9 < 1;
+    v11 = ((1000 * v9 * 0x40000000401uLL) >> 64) >> 10;
+    if (v10)
     {
       v11 = 0;
     }
 
+    if (v11 >= 0x3E7)
+    {
+      LODWORD(v11) = 999;
+    }
+
+    snprintf_add(&v28, v30, "%5d ", v11);
+    *(v1 + 240) = v8;
+    v12 = *(v2 + 8);
+    v13 = *(v1 + 248);
+    if (v13 <= 0)
+    {
+      v14 = 0;
+    }
+
     else
     {
-      v11 = v10 - 1;
+      v14 = v13 - 1;
     }
 
-    if (v11 >= *(v2 + 40))
+    if (v14 >= *(v2 + 40))
     {
-      v11 = *(v2 + 40);
+      v14 = *(v2 + 40);
     }
 
-    if (v11 >= 1)
+    if (v14 >= 1)
     {
-      v12 = *(v2 + 24);
-      v13 = &v12[v11];
+      v15 = *(v2 + 24);
+      v16 = &v15[v14];
       do
       {
-        snprintf_add();
-        v14 = *v12++;
-        v9 += ((v14 << 32) * 0x4189374BC6A7F0uLL) >> 64;
+        if (*v15 >= 0x3E7u)
+        {
+          v17 = 999;
+        }
+
+        else
+        {
+          v17 = *v15;
+        }
+
+        snprintf_add(&v28, v30, "%5d ", v17);
+        v18 = *v15++;
+        v12 += ((v18 << 32) * 0x4189374BC6A7F0uLL) >> 64;
       }
 
-      while (v12 < v13);
+      while (v15 < v16);
     }
 
-    v19 = v6;
+    v25 = v6;
     if (*(v2 + 44) >= 1)
     {
-      v15 = 0;
+      v19 = 0;
       do
       {
-        snprintf_add();
-        ++v15;
+        v20 = *(*(v2 + 32) + 8 * v19);
+        if (v20 <= v12)
+        {
+          v21 = 0;
+        }
+
+        else
+        {
+          v21 = ((1000 * (v20 - v12) * 0x40000000401uLL) >> 64) >> 10;
+        }
+
+        if (v21 >= 0x3E7)
+        {
+          LODWORD(v21) = 999;
+        }
+
+        snprintf_add(&v28, v30, "%5d ", v21);
+        ++v19;
+        v12 = v20;
       }
 
-      while (v15 < *(v2 + 44));
+      while (v19 < *(v2 + 44));
     }
 
     CFDictionarySetCString();
     FigCFDictionarySetInt32();
-    v16 = CFStringCreateMutable(v19, 0);
+    v22 = CFStringCreateMutable(v25, 0);
     UpTicksToMilliseconds();
     CFStringAppendF();
-    CFDictionarySetValue(v20, @"preLine", v16);
-    CFRelease(v16);
+    CFDictionarySetValue(v26, @"preLine", v22);
+    CFRelease(v22);
     FigCFDictionarySetInt32();
     FigCFDictionarySetInt32();
     FigCFDictionarySetInt32();
     FigCFDictionarySetInt64();
-    v17 = *(v1 + 120);
-    if (v17)
+    v23 = *(v1 + 120);
+    if (v23)
     {
-      HIDWORD(v18) = -1030792151 * *(v1 + 72);
-      LODWORD(v18) = HIDWORD(v18);
-      if ((v18 >> 2) <= 0x28F5C28)
+      HIDWORD(v24) = -1030792151 * *(v1 + 72);
+      LODWORD(v24) = HIDWORD(v24);
+      if ((v24 >> 2) <= 0x28F5C28)
       {
-        CFDictionarySetValue(v20, @"header", v17);
+        CFDictionarySetValue(v26, @"header", v23);
       }
     }
 
-    *v21 = v20;
+    *v27 = v26;
   }
 }
 
-uint64_t APReceiverStatsCollectorLogFrameStats(uint64_t result, const __CFDictionary *a2)
+const __CFDictionary *APReceiverStatsCollectorLogFrameStats(const __CFDictionary *result, const __CFDictionary *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!result)
   {
     return result;
@@ -1226,14 +2232,15 @@ uint64_t APReceiverStatsCollectorLogFrameStats(uint64_t result, const __CFDictio
   FigCFDictionaryGetInt32IfPresent();
   FigCFDictionaryGetInt32IfPresent();
   FigCFDictionaryGetInt32IfPresent();
-  v15 = 0;
+  v22[0] = 0;
+  v17 = v22;
   if (a2)
   {
-    v14 = 0;
-    v12 = 0u;
-    v13 = 0u;
+    v21 = 0;
+    v19 = 0u;
+    v20 = 0u;
     FigCFDictionaryGetInt64IfPresent();
-    v11 = 0;
+    v18 = 0;
     if (CFDictionaryGetValue(a2, *MEMORY[0x277CD6338]))
     {
       FigGetIOSurfaceTimingStatsFromTimingInfoDictionary();
@@ -1243,10 +2250,10 @@ uint64_t APReceiverStatsCollectorLogFrameStats(uint64_t result, const __CFDictio
     v5 = 0;
     do
     {
-      v6 = *(&v11 + v4);
+      v6 = *(&v18 + v4);
       if (!v6)
       {
-        *(&v11 + v4) = v5;
+        *(&v18 + v4) = v5;
         v6 = v5;
       }
 
@@ -1256,7 +2263,7 @@ uint64_t APReceiverStatsCollectorLogFrameStats(uint64_t result, const __CFDictio
 
     while (v4 != 48);
     FigCFDictionaryGetInt64IfPresent();
-    if (v11)
+    if (v18)
     {
       v7 = UpTicksToMilliseconds();
     }
@@ -1266,68 +2273,100 @@ uint64_t APReceiverStatsCollectorLogFrameStats(uint64_t result, const __CFDictio
       v7 = 0;
     }
 
-    snprintf_add();
-    v8 = 0;
-    v10 = v7;
+    if (v7 >= 999)
+    {
+      v9 = 999;
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    snprintf_add(&v17, &v23, "%5d ", v9);
+    v10 = 0;
+    v16 = v7;
     do
     {
-      if (*(&v11 + v8 + 8) <= *(&v11 + v8))
+      if (*(&v18 + v10 + 8) <= *(&v18 + v10))
       {
-        v9 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v9 = UpTicksToMilliseconds();
+        v11 = UpTicksToMilliseconds();
       }
 
-      snprintf_add();
-      v10 += v9;
-      v8 += 8;
+      if (v11 >= 999)
+      {
+        v12 = 999;
+      }
+
+      else
+      {
+        v12 = v11;
+      }
+
+      snprintf_add(&v17, &v23, "%5d ", v12);
+      v8 = v16 + v11;
+      v16 += v11;
+      v10 += 8;
     }
 
-    while (v8 != 32);
+    while (v10 != 32);
   }
 
-  snprintf_add();
-  snprintf_add();
-  snprintf_add();
-  snprintf_add();
+  else
+  {
+    v8 = 0;
+  }
+
+  if (v8 >= 999)
+  {
+    v8 = 999;
+  }
+
+  snprintf_add(&v17, &v23, "%5d ", v8);
+  snprintf_add(&v17, &v23, "%+5d ", 0);
+  snprintf_add(&v17, &v23, "%4d ", 0);
+  snprintf_add(&v17, &v23, "%6d", 0);
   result = CFDictionaryGetValue(v3, @"header");
   if (!result)
   {
-    goto LABEL_31;
+    goto LABEL_39;
   }
 
   if (gLogCategory_APReceiverStatsCollector <= 50)
   {
+    v13 = result;
     if (gLogCategory_APReceiverStatsCollector != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_APReceiverStatsCollector, "void APReceiverStatsCollectorLogFrameStats(CFDictionaryRef, CFDictionaryRef)", 33554482, "\n");
     }
 
     if (gLogCategory_APReceiverStatsCollector <= 50)
     {
       if (gLogCategory_APReceiverStatsCollector != -1 || (result = _LogCategory_Initialize(), result))
       {
-        result = LogPrintF();
+        result = LogPrintF(&gLogCategory_APReceiverStatsCollector, "void APReceiverStatsCollectorLogFrameStats(CFDictionaryRef, CFDictionaryRef)", 33554482, "%@\n", v13);
       }
 
       if (gLogCategory_APReceiverStatsCollector <= 50)
       {
         if (gLogCategory_APReceiverStatsCollector != -1 || (result = _LogCategory_Initialize(), result))
         {
-          result = LogPrintF();
+          result = LogPrintF(&gLogCategory_APReceiverStatsCollector, "void APReceiverStatsCollectorLogFrameStats(CFDictionaryRef, CFDictionaryRef)", 33554482, "\n");
         }
 
-LABEL_31:
+LABEL_39:
         if (gLogCategory_APReceiverStatsCollector <= 50)
         {
           if (gLogCategory_APReceiverStatsCollector != -1 || (result = _LogCategory_Initialize(), result))
           {
-            CFDictionaryGetValue(v3, @"preLine");
-            CFDictionaryGetValue(v3, @"deltasMs");
-            return LogPrintF();
+            Value = CFDictionaryGetValue(v3, @"preLine");
+            v15 = CFDictionaryGetValue(v3, @"deltasMs");
+            return LogPrintF(&gLogCategory_APReceiverStatsCollector, "void APReceiverStatsCollectorLogFrameStats(CFDictionaryRef, CFDictionaryRef)", 33554482, "%@%@%s\n", Value, v15, v22);
           }
         }
       }
@@ -1380,7 +2419,7 @@ void AirPlayManagedDefaultsLogging_HandleReceiverManagedDefaultsLoggingChanged()
     v2 = CFGetTypeID(v0);
     if (v2 != CFStringGetTypeID() || CFStringGetLength(v1) < 1)
     {
-      ___HandleManagedDefaultsLoggingChanged_block_invoke();
+      ___HandleManagedDefaultsLoggingChanged_block_invoke(&__block_literal_global_365);
 LABEL_11:
       CFRelease(v1);
       return;
@@ -1410,11 +2449,11 @@ LABEL_11:
 
   else
   {
-    ___HandleManagedDefaultsLoggingChanged_block_invoke();
+    ___HandleManagedDefaultsLoggingChanged_block_invoke(&__block_literal_global_365);
   }
 }
 
-uint64_t APReceiverScreenSinkCreateFileWriter(uint64_t a1, void *a2)
+uint64_t APReceiverScreenSinkCreateFileWriter(uint64_t a1, CFTypeRef *a2)
 {
   if (!IsAppleInternalBuild())
   {
@@ -1425,7 +2464,7 @@ uint64_t APReceiverScreenSinkCreateFileWriter(uint64_t a1, void *a2)
   {
     if (gLogCategory_APReceiverScreenSinkFileWriter <= 30 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus APReceiverScreenSinkCreateFileWriter(CFAllocatorRef, APReceiverScreenSinkRef *)", 33554462, "Creating FileWriter screen sink\n");
     }
 
     if (APReceiverScreenSinkGetClassID_once != -1)
@@ -1444,7 +2483,7 @@ uint64_t APReceiverScreenSinkCreateFileWriter(uint64_t a1, void *a2)
     {
       if (gLogCategory_APReceiverScreenSinkFileWriter <= 30 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus APReceiverScreenSinkCreateFileWriter(CFAllocatorRef, APReceiverScreenSinkRef *)", 33554462, "Created FileWriter screen sink %{ptr}\n", 0);
       }
 
       v4 = 0;
@@ -1466,104 +2505,110 @@ uint64_t fwsink_updateVideoConfig(uint64_t a1, uint64_t a2)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APReceiverScreenSinkFileWriter <= 30 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_updateVideoConfig(APReceiverScreenSinkRef, CMBlockBufferRef, CGSize, CGRect, CGRect, uint32_t)", 33554462, "Sink %{ptr}: updating video config\n", a1);
   }
 
   if (!*(DerivedStorage + 16))
   {
-    v7 = 4294895164;
+    v8 = 4294895164;
     goto LABEL_13;
   }
 
   if (!a2)
   {
     APSLogErrorAt();
-    v7 = 4294895165;
+    v8 = 4294895165;
 LABEL_14:
     if (gLogCategory_APReceiverScreenSinkFileWriter <= 60 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_updateVideoConfig(APReceiverScreenSinkRef, CMBlockBufferRef, CGSize, CGRect, CGRect, uint32_t)", 33554492, "### Update video config for sink %{ptr} failed, error: %#m\n", a1, v8);
     }
 
-    return v7;
+    return v8;
   }
 
-  v6 = *(DerivedStorage + 8);
-  v5 = (DerivedStorage + 8);
-  v4 = v6;
-  if (v6)
-  {
-    CFRelease(v4);
-    *v5 = 0;
-  }
-
-  v7 = APSVideoFormatDescriptionCreateFromBlockBuffer();
+  v7 = *(DerivedStorage + 8);
+  v6 = (DerivedStorage + 8);
+  v5 = v7;
   if (v7)
+  {
+    CFRelease(v5);
+    *v6 = 0;
+  }
+
+  v8 = APSVideoFormatDescriptionCreateFromBlockBuffer();
+  if (v8)
   {
 LABEL_13:
     APSLogErrorAt();
     goto LABEL_14;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t fwsink_updateH264VideoConfig(uint64_t a1, const __CFData *a2)
+uint64_t fwsink_updateH264VideoConfig(uint64_t a1, const __CFData *a2, double a3, double a4)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APReceiverScreenSinkFileWriter <= 30 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_updateH264VideoConfig(APReceiverScreenSinkRef, CFDataRef, CGSize, CGRect, CGRect, uint32_t)", 33554462, "Sink %{ptr}: updating H.264 video config\n", a1);
   }
 
   if (!*(DerivedStorage + 16))
   {
-    v7 = 4294895164;
+    v10 = 4294895164;
     goto LABEL_13;
   }
 
   if (!a2)
   {
     APSLogErrorAt();
-    v7 = 4294895165;
+    v10 = 4294895165;
 LABEL_14:
     if (gLogCategory_APReceiverScreenSinkFileWriter <= 60 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_updateH264VideoConfig(APReceiverScreenSinkRef, CFDataRef, CGSize, CGRect, CGRect, uint32_t)", 33554492, "### Update H.264 video config for sink %{ptr} failed, error: %#m\n", a1, v10);
     }
 
-    return v7;
+    return v10;
   }
 
-  v6 = *(DerivedStorage + 8);
-  v5 = (DerivedStorage + 8);
-  v4 = v6;
-  if (v6)
+  v9 = *(DerivedStorage + 8);
+  v8 = (DerivedStorage + 8);
+  v7 = v9;
+  if (v9)
   {
-    CFRelease(v4);
-    *v5 = 0;
+    CFRelease(v7);
+    *v8 = 0;
   }
 
   CFDataGetBytePtr(a2);
   CFDataGetLength(a2);
-  v7 = FigVideoFormatDescriptionCreateWithSampleDescriptionExtensionAtom();
-  if (v7)
+  v10 = FigVideoFormatDescriptionCreateWithSampleDescriptionExtensionAtom();
+  if (v10)
   {
 LABEL_13:
     APSLogErrorAt();
     goto LABEL_14;
   }
 
-  return v7;
+  return v10;
 }
 
 uint64_t fwsink_enqueueFrame(uint64_t a1, OpaqueCMBlockBuffer *a2, uint64_t a3, uint64_t a4, int a5)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v20 = 0;
+  v22 = 0;
   if (gLogCategory_APReceiverScreenSinkFileWriter <= 30 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v10 = "";
+    if (!a5)
+    {
+      v10 = "non-";
+    }
+
+    LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_enqueueFrame(APReceiverScreenSinkRef, CMBlockBufferRef, uint64_t, CFDictionaryRef, Boolean)", 33554462, "Sink %{ptr}: enqueuing frame with time %llu (%skeyframe)\n", a1, a3, v10);
   }
 
   memset(&sampleTimingArray, 0, sizeof(sampleTimingArray));
@@ -1577,104 +2622,104 @@ uint64_t fwsink_enqueueFrame(uint64_t a1, OpaqueCMBlockBuffer *a2, uint64_t a3, 
       sampleTimingArray.decodeTimeStamp = sampleTimingArray.duration;
       CMClockMakeHostTimeFromSystemUnits(&sampleTimingArray.presentationTimeStamp, a3);
       sampleSizeArray = CMBlockBufferGetDataLength(a2);
-      v9 = CMSampleBufferCreate(*MEMORY[0x277CBECE8], a2, 1u, 0, 0, *(DerivedStorage + 8), 1, 1, &sampleTimingArray, 1, &sampleSizeArray, &v20);
-      if (v9)
+      v11 = CMSampleBufferCreate(*MEMORY[0x277CBECE8], a2, 1u, 0, 0, *(DerivedStorage + 8), 1, 1, &sampleTimingArray, 1, &sampleSizeArray, &v22);
+      if (v11)
       {
-        v16 = v9;
+        v18 = v11;
       }
 
       else
       {
         if (!a5)
         {
-          SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(v20, 1u);
+          SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(v22, 1u);
           ValueAtIndex = CFArrayGetValueAtIndex(SampleAttachmentsArray, 0);
           CFDictionarySetValue(ValueAtIndex, *MEMORY[0x277CC06A0], *MEMORY[0x277CBED28]);
         }
 
-        v12 = *DerivedStorage;
-        v13 = v20;
-        v14 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-        if (v14)
+        v14 = *DerivedStorage;
+        v15 = v22;
+        v16 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+        if (v16)
         {
-          v15 = v14(v12, v13, 0, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
-          v16 = 0;
-          if (!v15)
+          v17 = v16(v14, v15, 0, *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
+          v18 = 0;
+          if (!v17)
           {
-            goto LABEL_15;
+            goto LABEL_17;
           }
 
-          v16 = v15;
+          v18 = v17;
         }
 
         else
         {
-          v16 = 4294954514;
+          v18 = 4294954514;
         }
       }
     }
 
     else
     {
-      v16 = 4294895164;
+      v18 = 4294895164;
     }
   }
 
   else
   {
-    v16 = 4294895164;
+    v18 = 4294895164;
   }
 
   APSLogErrorAt();
-LABEL_15:
-  if (v20)
+LABEL_17:
+  if (v22)
   {
-    CFRelease(v20);
+    CFRelease(v22);
   }
 
-  if (v16 && gLogCategory_APReceiverScreenSinkFileWriter <= 60 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
+  if (v18 && gLogCategory_APReceiverScreenSinkFileWriter <= 60 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_enqueueFrame(APReceiverScreenSinkRef, CMBlockBufferRef, uint64_t, CFDictionaryRef, Boolean)", 33554492, "### Enqueue frame to file writer sink %{ptr} failed, error: %#m\n", a1, v18);
   }
 
-  return v16;
+  return v18;
 }
 
-uint64_t fwsink_Stop()
+uint64_t fwsink_Stop(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 16))
   {
-    v1 = DerivedStorage;
+    v3 = DerivedStorage;
     if (gLogCategory_APReceiverScreenSinkFileWriter <= 30 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_Stop(APReceiverScreenSinkRef)", 33554462, "Stopping file writer sink %{ptr}\n", a1);
     }
 
-    v2 = *v1;
-    if (*v1)
+    v4 = *v3;
+    if (*v3)
     {
-      v3 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-      if (v3)
+      v5 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+      if (v5)
       {
-        v3(v2, 0);
+        v5(v4, 0);
       }
 
-      if (*v1)
+      if (*v3)
       {
-        CFRelease(*v1);
-        *v1 = 0;
+        CFRelease(*v3);
+        *v3 = 0;
       }
     }
 
-    v4 = *(v1 + 8);
-    if (v4)
+    v6 = *(v3 + 8);
+    if (v6)
     {
-      CFRelease(v4);
-      *(v1 + 8) = 0;
+      CFRelease(v6);
+      *(v3 + 8) = 0;
     }
 
-    *(v1 + 16) = 0;
+    *(v3 + 16) = 0;
   }
 
   return 0;
@@ -1692,7 +2737,7 @@ uint64_t fwsink_Start(uint64_t a1, const __CFDictionary *a2)
   v5 = DerivedStorage;
   if (gLogCategory_APReceiverScreenSinkFileWriter <= 30 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_Start(APReceiverScreenSinkRef, CFDictionaryRef)", 33554462, "Starting file writer sink %{ptr} with options: %@\n", a1, a2);
   }
 
   Value = CFDictionaryGetValue(a2, @"FilePath");
@@ -1759,7 +2804,7 @@ LABEL_17:
 LABEL_18:
   if (gLogCategory_APReceiverScreenSinkFileWriter <= 90 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "OSStatus fwsink_Start(APReceiverScreenSinkRef, CFDictionaryRef)", 33554522, "### Start file writer sink %{ptr} failed, error: %#m\n", a1, v15);
   }
 
   v16 = *(*(CMBaseObjectGetVTable() + 16) + 16);
@@ -1773,10 +2818,11 @@ LABEL_18:
 
 CFStringRef fwsink_CopyDebugDescription(const void *a1)
 {
-  ASPrintF();
+  v5 = 0;
+  ASPrintF(&v5, "%{ptr}", a1);
   v2 = CFGetAllocator(a1);
-  v3 = CFStringCreateWithFormat(v2, 0, @"<APReceiverScreenSinkFileWriter %p %s>", a1, 0);
-  free(0);
+  v3 = CFStringCreateWithFormat(v2, 0, @"<APReceiverScreenSinkFileWriter %p %s>", a1, v5);
+  free(v5);
   return v3;
 }
 
@@ -1784,7 +2830,7 @@ uint64_t fwsink_Finalize(uint64_t a1)
 {
   if (gLogCategory_APReceiverScreenSinkFileWriter <= 30 && (gLogCategory_APReceiverScreenSinkFileWriter != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSinkFileWriter, "void fwsink_Finalize(CMBaseObjectRef)", 33554462, "Finalizing screen sink %{ptr}\n", a1);
   }
 
   VTable = CMBaseObjectGetVTable();
@@ -1820,7 +2866,7 @@ void _APReceiverNTPClientFinalize(uint64_t a1)
   if (gLogCategory_APReceiverNTPClient <= 40 && (gLogCategory_APReceiverNTPClient != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverNTPClient, "void _APReceiverNTPClientFinalize(CFTypeRef)", 33554472, "APReceiverNTPClient finalized\n");
   }
 }
 
@@ -1863,7 +2909,7 @@ uint64_t APReceiverNTPClientStop(uint64_t a1)
 
   if ((v2 & 0x80000000) == 0 && gLogCategory_APReceiverNTPClient <= 50 && (gLogCategory_APReceiverNTPClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverNTPClient, "OSStatus APReceiverNTPClientStop(APReceiverNTPClientRef)", 33554482, "NTP client stopped\n");
   }
 
   return v3;
@@ -1930,15 +2976,17 @@ LABEL_7:
 
   if (gLogCategory_APReceiverNTPClient <= 50 && (gLogCategory_APReceiverNTPClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverNTPClient, "OSStatus ntpClient_sendRequest(APReceiverNTPClientRef)", 33554482, "### NTP send request failed: %#m\n", v6);
   }
 
   return v6;
 }
 
-uint64_t ntpClient_receiveResponse()
+uint64_t ntpClient_receiveResponse(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v37 = 0u;
+  v38 = 0u;
   v35 = 0u;
   v36 = 0u;
   v33 = 0u;
@@ -1969,15 +3017,13 @@ uint64_t ntpClient_receiveResponse()
   v10 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v5 = 0u;
-  v6 = 0u;
-  v3 = 0;
-  v4 = 0;
-  v0 = SocketRecvFrom();
-  v1 = v0;
-  if (v0 != 35)
+  v5 = 0;
+  v6 = 0;
+  v2 = SocketRecvFrom();
+  v3 = v2;
+  if (v2 != 35)
   {
-    if (v0)
+    if (v2)
     {
       APSLogErrorAt();
     }
@@ -1988,7 +3034,7 @@ uint64_t ntpClient_receiveResponse()
     }
   }
 
-  return v1;
+  return v3;
 }
 
 uint64_t ntpClient_thread(uint64_t a1)
@@ -1999,7 +3045,7 @@ uint64_t ntpClient_thread(uint64_t a1)
   SetCurrentThreadPriority();
   if (gLogCategory_APReceiverNTPClient <= 30 && (gLogCategory_APReceiverNTPClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverNTPClient, "void *ntpClient_thread(void *)", 33554462, "NTP client thread starting\n");
   }
 
   v13.tv_sec = 0;
@@ -2087,14 +3133,14 @@ LABEL_29:
 
     if (__darwin_check_fd_set_overflow(v1, &v14, 0) && (v14.fds_bits[v7] & v6) != 0)
     {
-      ntpClient_receiveResponse();
+      ntpClient_receiveResponse(a1, v1);
     }
   }
 
   while (!__darwin_check_fd_set_overflow(v2, &v14, 0) || (v14.fds_bits[v5] & v8) == 0);
   if (gLogCategory_APReceiverNTPClient <= 30 && (gLogCategory_APReceiverNTPClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverNTPClient, "void *ntpClient_thread(void *)", 33554462, "NTP client thread exit\n");
   }
 
   return 0;
@@ -2137,7 +3183,7 @@ uint64_t APReceiverScreenSessionCreate(uint64_t a1, const void *a2, const __CFDi
     {
       if (gLogCategory_APReceiverScreenSession <= 30 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus APReceiverScreenSessionCreate(CFAllocatorRef, APReceiverScreenSinkRef, CFDictionaryRef, APReceiverScreenSessionRef *)", 33554462, "Creating APReceiverScreenSession with options: %@\n", a3);
       }
 
       if (APReceiverScreenSessionGetClassID_once != -1)
@@ -2260,7 +3306,7 @@ LABEL_28:
               APTTrafficMetricsCreate();
               if (gLogCategory_APReceiverScreenSession <= 30 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus APReceiverScreenSessionCreate(CFAllocatorRef, APReceiverScreenSinkRef, CFDictionaryRef, APReceiverScreenSessionRef *)", 33554462, "Created screen session %{ptr}\n", cf);
               }
 
               v20 = 0;
@@ -2313,7 +3359,7 @@ LABEL_50:
 LABEL_51:
   if (gLogCategory_APReceiverScreenSession <= 90 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus APReceiverScreenSessionCreate(CFAllocatorRef, APReceiverScreenSinkRef, CFDictionaryRef, APReceiverScreenSessionRef *)", 33554522, "### APReceiverScreenSessionCreate failed, error: %#m\n", v20);
   }
 
   if (cf)
@@ -2362,7 +3408,7 @@ void aprscreen_captureIntrospectorCmd(NSObject **a1, uint64_t a2, int a3, uint64
     if (strcmp(v8, "stop"))
     {
 LABEL_4:
-      FPrintF();
+      FPrintF(a2, "Usage: %s start|stop\n", *a4);
       return;
     }
 
@@ -2389,7 +3435,9 @@ uint64_t __aprscreen_captureIntrospectorCmd_block_invoke(uint64_t a1)
     return CFSetApplyBlock();
   }
 
-  return FPrintF();
+  v3 = *(a1 + 48);
+
+  return FPrintF(v3, "No active screen sessions\n");
 }
 
 void __aprscreen_captureIntrospectorCmd_block_invoke_2(uint64_t a1, uint64_t a2)
@@ -2397,23 +3445,69 @@ void __aprscreen_captureIntrospectorCmd_block_invoke_2(uint64_t a1, uint64_t a2)
   if (*(a1 + 48))
   {
     cf = 0;
-    v2 = aprscreen_captureStart(a2, *(a1 + 32), &cf);
-    if (!v2)
+    v4 = aprscreen_captureStart(a2, *(a1 + 32), &cf);
+    if (!v4)
     {
-      FPrintF();
+      FPrintF(*(a1 + 40), "Starting screen session %{ptr} capture to %@\n", a2, cf);
       CFRelease(cf);
     }
   }
 
   else
   {
-    v2 = aprscreen_captureStop();
+    v4 = aprscreen_captureStop(a2);
   }
 
-  if (v2)
+  if (v4 > -72122)
   {
-    FPrintF();
+    if (v4 == -72121)
+    {
+      FPrintF(*(a1 + 40), "Screen session %{ptr}: can't request key frames from the sender\n", a2, v7);
+      return;
+    }
+
+    if (!v4)
+    {
+      return;
+    }
   }
+
+  else
+  {
+    if (v4 == -72124)
+    {
+      FPrintF(*(a1 + 40), "Screen session %{ptr}: capture from this sender is not supported\n", a2, v7);
+      return;
+    }
+
+    if (v4 == -72123)
+    {
+      if (*(a1 + 48))
+      {
+        v5 = "capture already";
+      }
+
+      else
+      {
+        v5 = "no capture";
+      }
+
+      FPrintF(*(a1 + 40), "Screen session %{ptr}: %s in progress\n", a2, v5);
+      return;
+    }
+  }
+
+  if (*(a1 + 48))
+  {
+    v6 = "start";
+  }
+
+  else
+  {
+    v6 = "stop";
+  }
+
+  FPrintF(*(a1 + 40), "Screen session %{ptr}: %s error: %#m\n", a2, v6, v4);
 }
 
 uint64_t aprscreen_captureStart(uint64_t a1, const char *a2, CFStringRef *a3)
@@ -2434,7 +3528,7 @@ uint64_t aprscreen_captureStart(uint64_t a1, const char *a2, CFStringRef *a3)
     {
       if (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize())
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_captureStart(APReceiverScreenSessionRef, const char *, CFStringRef *)", 33554522, "### Screen session %{ptr}: capture already started\n", a1);
       }
 
       Mutable = 0;
@@ -2452,7 +3546,7 @@ uint64_t aprscreen_captureStart(uint64_t a1, const char *a2, CFStringRef *a3)
       v13 = 4294895172;
       if (gLogCategory_APReceiverScreenSession <= 90 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_captureStart(APReceiverScreenSessionRef, const char *, CFStringRef *)", 33554522, "### Screen session %{ptr}: capture from this sender not supported\n", a1);
       }
 
       goto LABEL_33;
@@ -2471,7 +3565,7 @@ uint64_t aprscreen_captureStart(uint64_t a1, const char *a2, CFStringRef *a3)
       {
         if (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize())
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_captureStart(APReceiverScreenSessionRef, const char *, CFStringRef *)", 33554522, "### Screen session %{ptr}: can't request key frame from sender\n", a1);
         }
 
         Mutable = 0;
@@ -2575,37 +3669,37 @@ LABEL_37:
   return v13;
 }
 
-uint64_t aprscreen_captureStop()
+uint64_t aprscreen_captureStop(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
-  v1 = *(DerivedStorage + 168);
-  if (v1)
+  v2 = *(DerivedStorage + 168);
+  if (v2)
   {
-    v2 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-    if (v2)
-    {
-      v2(v1);
-    }
-
-    v3 = *(DerivedStorage + 168);
+    v3 = *(*(CMBaseObjectGetVTable() + 16) + 16);
     if (v3)
     {
-      CFRelease(v3);
+      v3(v2);
+    }
+
+    v4 = *(DerivedStorage + 168);
+    if (v4)
+    {
+      CFRelease(v4);
       *(DerivedStorage + 168) = 0;
     }
 
-    v4 = 0;
+    v5 = 0;
     *(DerivedStorage + 176) = 0;
   }
 
   else
   {
-    v4 = 4294895173;
+    v5 = 4294895173;
   }
 
   FigSimpleMutexUnlock();
-  return v4;
+  return v5;
 }
 
 uint64_t __introspector_getCollectionOfScreenSessions_block_invoke()
@@ -2626,33 +3720,33 @@ uint64_t __introspector_getCollectionOfScreenSessions_block_invoke()
   return result;
 }
 
-uint64_t aprscreen_SetSecurityInfoAES()
+uint64_t aprscreen_SetSecurityInfoAES(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
-  if (DerivedStorage[185] || DerivedStorage[184])
+  if (*(DerivedStorage + 184))
   {
-    v1 = 4294895173;
+    v5 = 4294895173;
     if (gLogCategory_APReceiverScreenSession <= 90 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_SetSecurityInfoAES(APReceiverScreenSessionRef, const uint8_t *, const uint8_t *)", 33554522, "### Screen session %{ptr}: can't set AES security info in this state\n", a1);
     }
   }
 
   else
   {
-    if (DerivedStorage[704])
+    if (*(DerivedStorage + 704))
     {
       AES_CTR_Final();
-      DerivedStorage[704] = 0;
+      *(DerivedStorage + 704) = 0;
     }
 
-    v1 = AES_CTR_Init();
-    DerivedStorage[704] = v1 == 0;
+    v5 = AES_CTR_Init();
+    *(DerivedStorage + 704) = v5 == 0;
   }
 
   FigSimpleMutexUnlock();
-  return v1;
+  return v5;
 }
 
 uint64_t aprscreen_SetSecurityInfoChaCha(uint64_t a1, _OWORD *a2, uint64_t a3)
@@ -2660,14 +3754,14 @@ uint64_t aprscreen_SetSecurityInfoChaCha(uint64_t a1, _OWORD *a2, uint64_t a3)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (a2 && a3 == 32)
   {
-    v6 = DerivedStorage;
+    v7 = DerivedStorage;
     FigSimpleMutexLock();
-    if (*(v6 + 185) || *(v6 + 184))
+    if (*(v7 + 185) || *(v7 + 184))
     {
-      v7 = 4294895173;
+      v8 = 4294895173;
       if (gLogCategory_APReceiverScreenSession <= 90 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_SetSecurityInfoChaCha(APReceiverScreenSessionRef, const uint8_t *, size_t)", 33554522, "### Screen session %{ptr}: can't set ChaCha security info in this state\n", a1);
       }
     }
 
@@ -2675,14 +3769,14 @@ uint64_t aprscreen_SetSecurityInfoChaCha(uint64_t a1, _OWORD *a2, uint64_t a3)
     {
       for (i = 0; i != 304; ++i)
       {
-        *(v6 + 352 + i) = 0;
+        *(v7 + 352 + i) = 0;
       }
 
-      v7 = 0;
-      v9 = a2[1];
-      *(v6 + 616) = *a2;
-      *(v6 + 632) = v9;
-      *(v6 + 352) = 1;
+      v8 = 0;
+      v10 = a2[1];
+      *(v7 + 616) = *a2;
+      *(v7 + 632) = v10;
+      *(v7 + 352) = 1;
     }
 
     FigSimpleMutexUnlock();
@@ -2694,31 +3788,31 @@ uint64_t aprscreen_SetSecurityInfoChaCha(uint64_t a1, _OWORD *a2, uint64_t a3)
     return 4294895175;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t aprscreen_SetEventHandler(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
-  if (*(DerivedStorage + 185) || *(DerivedStorage + 184))
+  if (*(DerivedStorage + 184))
   {
-    v6 = 4294895173;
+    v7 = 4294895173;
     if (gLogCategory_APReceiverScreenSession <= 90 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_SetEventHandler(APReceiverScreenSessionRef, APReceiverScreenSessionEventHandler, void *)", 33554522, "### Screen session %{ptr}: can't set event handler in this state\n", a1);
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
     *(DerivedStorage + 152) = a2;
     *(DerivedStorage + 160) = a3;
   }
 
   FigSimpleMutexUnlock();
-  return v6;
+  return v7;
 }
 
 uint64_t aprscreen_Shutdown(uint64_t a1)
@@ -2748,7 +3842,7 @@ uint64_t aprscreen_Shutdown(uint64_t a1)
     {
       if (gLogCategory_APReceiverScreenSession <= 30 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_Shutdown(APReceiverScreenSessionRef)", 33554462, "Shutting down screen session %{ptr}\n", a1);
       }
 
       v4 = *(DerivedStorage + 228);
@@ -2794,7 +3888,7 @@ uint64_t aprscreen_Start(uint64_t a1, const void *a2)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APReceiverScreenSession <= 30 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_Start(APReceiverScreenSessionRef, CFDictionaryRef)", 33554462, "Starting screen session %{ptr} with options: %@\n", a1, a2);
   }
 
   FigSimpleMutexLock();
@@ -2803,8 +3897,7 @@ uint64_t aprscreen_Start(uint64_t a1, const void *a2)
     v5 = 4294895173;
     if (gLogCategory_APReceiverScreenSession <= 90 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
     {
-LABEL_12:
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_Start(APReceiverScreenSessionRef, CFDictionaryRef)", 33554522, "### Screen session %{ptr} was shut down\n", a1);
     }
   }
 
@@ -2813,7 +3906,7 @@ LABEL_12:
     v5 = 4294895173;
     if (gLogCategory_APReceiverScreenSession <= 90 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_12;
+      LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_Start(APReceiverScreenSessionRef, CFDictionaryRef)", 33554522, "### Screen session %{ptr} already started\n", a1);
     }
   }
 
@@ -2840,40 +3933,40 @@ LABEL_12:
   return v5;
 }
 
-uint64_t aprscreen_ntpTimestamp()
+uint64_t aprscreen_ntpTimestamp(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v6 = 0;
   v7 = 0;
   v8 = 0;
-  v1 = *(DerivedStorage + 136);
-  if (!v1)
-  {
-    goto LABEL_6;
-  }
-
-  v2 = *(DerivedStorage + 128);
+  v9 = 0;
+  v2 = *(DerivedStorage + 136);
   if (!v2)
   {
-    v1 = 0;
     goto LABEL_6;
   }
 
-  v1 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v1)
+  v3 = *(DerivedStorage + 128);
+  if (!v3)
+  {
+    v2 = 0;
+    goto LABEL_6;
+  }
+
+  v2 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v2)
   {
 LABEL_6:
-    v3 = 0;
+    v4 = 0;
     goto LABEL_7;
   }
 
-  v1(v2, &v6);
-  v3 = v8;
-  v1 = v7;
+  v2(v3, &v7);
+  v4 = v9;
+  v2 = v8;
 LABEL_7:
-  *(&v5 + 1) = v3;
-  *&v5 = v1;
-  return v5 >> 32;
+  *(&v6 + 1) = v4;
+  *&v6 = v2;
+  return v6 >> 32;
 }
 
 uint64_t aprscreen_decryptBuffer(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -2948,7 +4041,7 @@ LABEL_17:
     {
       if (gLogCategory_APReceiverScreenSession != -1 || (v17 = _LogCategory_Initialize(), result = v18, v17))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_decryptBuffer(APReceiverScreenSessionRef, uint8_t *, uint32_t *)", 33554522, "### Decrypt frame error: %#m\n", result);
         return v18;
       }
     }
@@ -2962,20 +4055,20 @@ uint64_t aprscreen_SetProperty(uint64_t a1, uint64_t a2)
   v2 = 4294895174;
   if (a2)
   {
-    v3 = gLogCategory_APReceiverScreenSession;
+    v4 = gLogCategory_APReceiverScreenSession;
     if (gLogCategory_APReceiverScreenSession <= 30)
     {
       if (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize())
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", 33554462, "%{ptr} set propertyKey: '%@'\n", a1, a2);
       }
 
-      v3 = gLogCategory_APReceiverScreenSession;
+      v4 = gLogCategory_APReceiverScreenSession;
     }
 
-    if (v3 <= 50 && (v3 != -1 || _LogCategory_Initialize()))
+    if (v4 <= 50 && (v4 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", 33554482, "Unknown set property: %@\n", a2);
     }
   }
 
@@ -2993,17 +4086,17 @@ uint64_t aprscreen_CopyProperty(uint64_t a1, const void *a2, const __CFAllocator
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (a2 && a4)
   {
-    v8 = DerivedStorage;
+    v9 = DerivedStorage;
     if (gLogCategory_APReceiverScreenSession <= 30 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", 33554462, "%{ptr} copy propertyKey: '%@'\n", a1, a2);
     }
 
     if (CFEqual(a2, @"ListenPort"))
     {
-      v9 = CFNumberCreate(a3, kCFNumberSInt32Type, (v8 + 224));
-      *a4 = v9;
-      if (v9)
+      v10 = CFNumberCreate(a3, kCFNumberSInt32Type, (v9 + 224));
+      *a4 = v10;
+      if (v10)
       {
         return 0;
       }
@@ -3017,10 +4110,10 @@ uint64_t aprscreen_CopyProperty(uint64_t a1, const void *a2, const __CFAllocator
 
     else
     {
-      v10 = 4294895174;
+      v11 = 4294895174;
       if (gLogCategory_APReceiverScreenSession <= 50 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverScreenSession, "OSStatus aprscreen_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", 33554482, "Unknown copy property: %@\n", a2);
       }
     }
   }
@@ -3031,16 +4124,18 @@ uint64_t aprscreen_CopyProperty(uint64_t a1, const void *a2, const __CFAllocator
     return 4294895175;
   }
 
-  return v10;
+  return v11;
 }
 
 CFStringRef aprscreen_CopyDebugDescription(const void *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v14 = 0;
+  v15 = 0;
   v3 = *(DerivedStorage + 352);
   v4 = *(DerivedStorage + 704);
-  ASPrintF();
-  ASPrintF();
+  ASPrintF(&v15, "%{ptr}", a1);
+  ASPrintF(&v14, "%##a", DerivedStorage + 252);
   v5 = CFGetAllocator(a1);
   v6 = "yes";
   if (*(DerivedStorage + 185))
@@ -3098,9 +4193,9 @@ CFStringRef aprscreen_CopyDebugDescription(const void *a1)
     v6 = "no";
   }
 
-  v12 = CFStringCreateWithFormat(v5, 0, @"<APReceiverScreenSession %p %s>{\n\tShut down:          %s\n\tStarted:            %s\n\tAllow P2P:          %s\n\tIgnore timestamps:  %s\n\tPeer address:       %s\n\tConfigs processed:  %u\n\tFrames processed:   %u\n\tChaCha used:        %s\n\tAES used:           %s\n\tNetworkClock:      %p\n\tSink:               %@\n}", a1, 0, v7, v8, v9, v10, 0, *(DerivedStorage + 344), *(DerivedStorage + 336), v11, v6, *(DerivedStorage + 128), *(DerivedStorage + 144));
-  free(0);
-  free(0);
+  v12 = CFStringCreateWithFormat(v5, 0, @"<APReceiverScreenSession %p %s>{\n\tShut down:          %s\n\tStarted:            %s\n\tAllow P2P:          %s\n\tIgnore timestamps:  %s\n\tPeer address:       %s\n\tConfigs processed:  %u\n\tFrames processed:   %u\n\tChaCha used:        %s\n\tAES used:           %s\n\tNetworkClock:      %p\n\tSink:               %@\n}", a1, v15, v7, v8, v9, v10, v14, *(DerivedStorage + 344), *(DerivedStorage + 336), v11, v6, *(DerivedStorage + 128), *(DerivedStorage + 144));
+  free(v15);
+  free(v14);
   return v12;
 }
 
@@ -3109,7 +4204,7 @@ uint64_t aprscreen_Finalize(uint64_t a1)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APReceiverScreenSession <= 30 && (gLogCategory_APReceiverScreenSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverScreenSession, "void aprscreen_Finalize(CMBaseObjectRef)", 33554462, "Finalizing screen session %{ptr}\n", a1);
   }
 
   v3 = *(*(CMBaseObjectGetVTable() + 16) + 16);
@@ -3229,7 +4324,7 @@ uint64_t mcProcessor_SetProperty(uint64_t a1, const void *a2, uint64_t a3)
   v6 = DerivedStorage;
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_SetProperty(CFTypeRef, CFStringRef, CFTypeRef)", 33554462, "%{ptr} set propertyKey: '%@'\n", a2, a3);
   }
 
   if (CFEqual(a2, @"rp_startedVideo"))
@@ -3430,7 +4525,7 @@ LABEL_51:
   a3 = 4294895342;
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_SetProperty(CFTypeRef, CFStringRef, CFTypeRef)", 33554482, "unknown property %@\n", a2);
   }
 
   return a3;
@@ -3450,7 +4545,7 @@ void *mcProcessor_CopyProperty(uint64_t a1, const void *a2, int *a3)
   v6 = DerivedStorage;
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "CFTypeRef mcProcessor_CopyProperty(CFTypeRef, CFStringRef, OSStatus *)", 33554462, "copy propertyKey: '%@'\n", a2);
   }
 
   if (CFEqual(a2, @"rp_startedVideo"))
@@ -3545,7 +4640,7 @@ LABEL_8:
         {
           if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "CFTypeRef mcProcessor_CopyProperty(CFTypeRef, CFStringRef, OSStatus *)", 33554482, "unknown property %@\n", a2);
           }
 
           v10 = -71954;
@@ -3629,11 +4724,11 @@ uint64_t mcProcessor_SetTransportDelegate(uint64_t a1, __int128 *a2)
 uint64_t mcProcessor_HandleRequest()
 {
   v0 = MEMORY[0x28223BE20]();
-  v223 = v1;
+  v256 = v1;
   v3 = v2;
   v5 = v4;
   v6 = v0;
-  v253 = *MEMORY[0x277D85DE8];
+  v286 = *MEMORY[0x277D85DE8];
   v7 = 4294895362;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   *(DerivedStorage + 272) = mach_absolute_time();
@@ -3652,21 +4747,21 @@ uint64_t mcProcessor_HandleRequest()
           }
 
           LODWORD(valuePtr) = 0;
-          v251 = 0u;
-          v252 = 0u;
-          v249 = 0u;
-          v250 = 0u;
-          v247 = 0u;
-          v248 = 0u;
-          v245 = 0u;
-          v246 = 0u;
-          v243 = 0u;
-          v244 = 0u;
-          v241 = 0u;
-          v242 = 0u;
-          v239 = 0u;
-          v240 = 0u;
-          v238 = 0u;
+          v284 = 0u;
+          v285 = 0u;
+          v282 = 0u;
+          v283 = 0u;
+          v280 = 0u;
+          v281 = 0u;
+          v278 = 0u;
+          v279 = 0u;
+          v276 = 0u;
+          v277 = 0u;
+          v274 = 0u;
+          v275 = 0u;
+          v272 = 0u;
+          v273 = 0u;
+          v271 = 0u;
           *theDict = 0u;
           number.value = 0;
           v10 = *(CMBaseObjectGetDerivedStorage() + 392);
@@ -3678,21 +4773,21 @@ uint64_t mcProcessor_HandleRequest()
               CFNumberGetValue(number.value, kCFNumberFloatType, &valuePtr);
               if (gLogCategory_APReceiverRequestProcessorMediaControl <= 20 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessGetVolume(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554452, "Current volume %f\n", *&valuePtr);
               }
 
-              v170 = snprintf(theDict, 0x100uLL, "volume: %f\n", *&valuePtr);
-              if (!APReceiverRequestProcessorPrepareBinaryDataResponse(theDict, v170, v223))
+              v178 = snprintf(theDict, 0x100uLL, "volume: %f\n", *&valuePtr);
+              if (!APReceiverRequestProcessorPrepareBinaryDataResponse(theDict, v178, v256))
               {
                 v9 = 0;
-LABEL_360:
+LABEL_365:
                 value = number.value;
                 if (!number.value)
                 {
                   return v9;
                 }
 
-LABEL_631:
+LABEL_681:
                 CFRelease(value);
                 return v9;
               }
@@ -3707,333 +4802,380 @@ LABEL_631:
           }
 
           v9 = 4294895362;
-          goto LABEL_360;
+          goto LABEL_365;
         }
 
-        v54 = CMBaseObjectGetDerivedStorage();
-        LODWORD(v227) = 0;
+        v56 = CMBaseObjectGetDerivedStorage();
+        LODWORD(v260) = 0;
         number.value = 0;
         valuePtr = 0;
         CFDataGetTypeID();
         TypedValue = CFDictionaryGetTypedValue();
-        v56 = TypedValue;
+        v58 = TypedValue;
         if (!TypedValue)
         {
-          goto LABEL_160;
+          goto LABEL_161;
         }
 
         CFDataGetBytePtr(TypedValue);
-        CFDataGetLength(v56);
+        CFDataGetLength(v58);
         CFDictionaryGetTypeID();
-        v57 = CFCreateWithPlistBytes();
-        v56 = v57;
-        if (!v57)
+        v59 = CFCreateWithPlistBytes();
+        v58 = v59;
+        if (!v59)
         {
           APSLogErrorAt();
-          v107 = 0;
-          v108 = 0;
+          v111 = 0;
+          v112 = 0;
           v9 = 4294895354;
-          goto LABEL_622;
+          goto LABEL_672;
         }
 
-        v58 = CFDictionaryGetValue(v57, @"type");
-        v59 = CFDictionaryGetValue(v56, @"params");
-        if (!v58)
+        v60 = CFDictionaryGetValue(v59, @"type");
+        v61 = CFDictionaryGetValue(v58, @"params");
+        cf1a = v60;
+        if (!v60)
         {
-          if (!*(v54 + 408))
+          if (!*(v56 + 408))
           {
-            goto LABEL_160;
+            goto LABEL_161;
           }
 
-          goto LABEL_546;
+          goto LABEL_596;
         }
 
-        if (!CFEqual(v58, @"playlistInsert") || (CFDictionaryGetTypeID(), !CFDictionaryGetTypedValue()) || (CFDictionaryGetTypeID(), (v60 = CFDictionaryGetTypedValue()) == 0))
+        if (!CFEqual(v60, @"playlistInsert") || (CFDictionaryGetTypeID(), !CFDictionaryGetTypedValue()) || (CFDictionaryGetTypeID(), (v62 = CFDictionaryGetTypedValue()) == 0))
         {
-LABEL_545:
-          if (!*(v54 + 408))
+LABEL_595:
+          if (!*(v56 + 408))
           {
-            v209 = CFGetTypeID(v58);
-            if (v209 == CFStringGetTypeID())
+            v235 = CFGetTypeID(cf1a);
+            if (v235 == CFStringGetTypeID())
             {
-              if (CFEqual(v58, @"requestForStreamingKey"))
+              if (CFEqual(cf1a, @"requestForStreamingKey"))
               {
                 cf1a = @"requestForStreamingKey";
               }
 
               else
               {
-                v211 = CFEqual(v58, @"unhandledURLResponse");
-                v212 = v58;
-                if (v211)
+                v237 = CFEqual(cf1a, @"unhandledURLResponse");
+                v238 = cf1a;
+                if (v237)
                 {
-                  v212 = @"failedURLResponse";
+                  v238 = @"failedURLResponse";
                 }
 
-                cf1a = v212;
+                cf1a = v238;
               }
 
-              if (!v59 || (v213 = CFGetTypeID(v59), v213 == CFDictionaryGetTypeID()))
+              if (!v61 || (v239 = CFGetTypeID(v61), v239 == CFDictionaryGetTypeID()))
               {
-                v214 = *(v54 + 392);
-                if (!v214)
+                v240 = *(v56 + 392);
+                if (!v240)
                 {
                   APSLogErrorAt();
-                  v107 = 0;
-                  v108 = 0;
-                  goto LABEL_720;
+                  v111 = 0;
+                  v112 = 0;
+                  goto LABEL_770;
                 }
 
-                v215 = *(*(CMBaseObjectGetVTable() + 16) + 104);
-                if (!v215)
+                v241 = *(*(CMBaseObjectGetVTable() + 16) + 104);
+                if (!v241)
                 {
-                  v198 = -12782;
-                  goto LABEL_590;
+                  v224 = 4294954514;
+                  goto LABEL_640;
                 }
 
-                inserted = v215(v214, cf1a, v59, &number);
-LABEL_588:
-                v198 = inserted;
-LABEL_590:
-                v108 = 0;
-                goto LABEL_607;
+                inserted = v241(v240, cf1a, v61, &number);
+LABEL_638:
+                v224 = inserted;
+LABEL_640:
+                v112 = 0;
+                goto LABEL_657;
               }
             }
 
-LABEL_160:
+LABEL_161:
             APSLogErrorAt();
-            v107 = 0;
-            v108 = 0;
+            v111 = 0;
+            v112 = 0;
             v9 = 4294895366;
-            goto LABEL_622;
+            goto LABEL_672;
           }
 
-LABEL_546:
+LABEL_596:
           if (FigCFEqual())
           {
             Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            v108 = Mutable;
+            v112 = Mutable;
             if (Mutable)
             {
               CFDictionarySetValue(Mutable, @"kind", @"request");
-              CFDictionarySetValue(v108, @"type", @"streamingKey");
+              CFDictionarySetValue(v112, @"type", @"streamingKey");
               FigCFDictionarySetValue();
-              if (v59)
+              if (v61)
               {
-                v194 = CFGetTypeID(v59);
-                if (v194 == CFDictionaryGetTypeID())
+                v220 = CFGetTypeID(v61);
+                if (v220 == CFDictionaryGetTypeID())
                 {
                   FigCFDictionarySetValueFromKeyInDict();
                 }
               }
 
-              v195 = CMBaseObjectGetDerivedStorage();
-              v196 = v195;
+              v221 = CMBaseObjectGetDerivedStorage();
+              v222 = v221;
               theDict[0] = 0;
-              if (*(v195 + 384))
+              if (*(v221 + 384))
               {
-                ++*(v195 + 424);
+                ++*(v221 + 424);
                 UInt64 = FigCFNumberCreateUInt64();
                 if (UInt64)
                 {
-                  CFDictionarySetValue(v108, @"messageID", UInt64);
-                  v198 = mcProcessor_createAndWrapDataDictionaryForV2(v108, 0, theDict);
-                  if (v198)
+                  CFDictionarySetValue(v112, @"messageID", UInt64);
+                  v224 = mcProcessor_createAndWrapDataDictionaryForV2(v112, 0, theDict);
+                  if (v224)
                   {
                     APSLogErrorAt();
-                    v201 = theDict[0];
+                    v227 = theDict[0];
                   }
 
                   else
                   {
-                    v199 = FigSemaphoreCreate();
+                    v225 = FigSemaphoreCreate();
                     FigSimpleMutexLock();
-                    CFDictionarySetValue(*(v196 + 416), UInt64, v199);
+                    CFDictionarySetValue(*(v222 + 416), UInt64, v225);
                     FigSimpleMutexUnlock();
-                    v200 = *(v196 + 392);
-                    v201 = theDict[0];
-                    v202 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-                    if (v202)
+                    v226 = *(v222 + 392);
+                    v227 = theDict[0];
+                    v228 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+                    if (v228)
                     {
-                      v198 = v202(v200, v201, 0);
-                      if (!v198)
+                      v224 = v228(v226, v227, 0);
+                      if (!v224)
                       {
-                        v198 = FigSemaphoreWaitRelative();
-                        if (v198)
+                        v224 = FigSemaphoreWaitRelative();
+                        if (v224)
                         {
                           if (gLogCategory_APReceiverRequestProcessorMediaControl <= 90 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
                           {
-                            LogPrintF();
+                            LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_processRequestCreatingResponseV2(APReceiverRequestProcessorRef, CFMutableDictionaryRef, CFDictionaryRef *)", 33554522, "Error waiting on semaphore: %d\n", v224);
                           }
 
                           FigSimpleMutexLock();
-                          CFDictionaryRemoveValue(*(v196 + 416), UInt64);
+                          CFDictionaryRemoveValue(*(v222 + 416), UInt64);
                           FigSimpleMutexUnlock();
                         }
 
                         FigSimpleMutexLock();
-                        v219 = CFDictionaryGetValue(*(v196 + 440), UInt64);
-                        if (v219)
+                        v245 = CFDictionaryGetValue(*(v222 + 440), UInt64);
+                        if (v245)
                         {
-                          v220 = CFRetain(v219);
+                          v246 = CFRetain(v245);
                         }
 
                         else
                         {
-                          v220 = 0;
+                          v246 = 0;
                         }
 
-                        CFDictionaryRemoveValue(*(v196 + 440), UInt64);
+                        CFDictionaryRemoveValue(*(v222 + 440), UInt64);
                         FigSimpleMutexUnlock();
                         if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
                         {
-                          LogPrintF();
+                          LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_processRequestCreatingResponseV2(APReceiverRequestProcessorRef, CFMutableDictionaryRef, CFDictionaryRef *)", 33554462, "V2 response from dictionary: %@\n", v246);
                         }
 
-                        number.value = v220;
-                        goto LABEL_605;
+                        number.value = v246;
+                        goto LABEL_655;
                       }
                     }
 
                     else
                     {
-                      v198 = -12782;
+                      v224 = 4294954514;
                     }
 
                     APSLogErrorAt();
                   }
 
-LABEL_605:
+LABEL_655:
                   FigSemaphoreDestroy();
                   CFRelease(UInt64);
-                  if (v201)
+                  if (v227)
                   {
-                    CFRelease(v201);
+                    CFRelease(v227);
                   }
 
-                  goto LABEL_607;
+                  goto LABEL_657;
                 }
 
-                v198 = -6728;
+                v224 = 4294960568;
               }
 
               else
               {
-                v198 = -6709;
+                v224 = 4294960587;
               }
 
               APSLogErrorAt();
               FigSemaphoreDestroy();
-LABEL_607:
-              LODWORD(v227) = v198;
-              goto LABEL_608;
+LABEL_657:
+              LODWORD(v260) = v224;
+LABEL_658:
+              v247 = cf1a;
+              if (!v224 || gLogCategory_APReceiverRequestProcessorMediaControl > 50)
+              {
+LABEL_667:
+                v111 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+                if (v111)
+                {
+                  CFDictionarySetNumber();
+                  if (number.value)
+                  {
+                    CFDictionarySetValue(v111, @"params", number.value);
+                  }
+
+                  if (!APReceiverRequestProcessorPreparePlistResponse(v111, v256))
+                  {
+                    v9 = 0;
+                    goto LABEL_672;
+                  }
+
+                  APSLogErrorAt();
+                  goto LABEL_770;
+                }
+
+                APSLogErrorAt();
+                goto LABEL_718;
+              }
+
+              if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+              {
+                if (!_LogCategory_Initialize())
+                {
+                  goto LABEL_663;
+                }
+
+                v224 = v260;
+                v247 = cf1a;
+              }
+
+              LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessAction(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "### Action error for %'@: %#m\n", v247, v224);
+LABEL_663:
+              if (gLogCategory_APReceiverRequestProcessorMediaControl <= 10 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
+              {
+                LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessAction(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554442, "%1@\n", v3);
+              }
+
+              goto LABEL_667;
             }
 
-            goto LABEL_739;
+            goto LABEL_789;
           }
 
           if (FigCFEqual())
           {
-            v203 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            v108 = v203;
-            if (v203)
+            v229 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+            v112 = v229;
+            if (v229)
             {
-              CFDictionarySetValue(v203, @"kind", @"request");
-              CFDictionarySetValue(v108, @"type", @"unhandledURL");
+              CFDictionarySetValue(v229, @"kind", @"request");
+              CFDictionarySetValue(v112, @"type", @"unhandledURL");
               FigCFDictionarySetValue();
-              if (v59)
+              if (v61)
               {
-                v204 = CFGetTypeID(v59);
-                if (v204 == CFDictionaryGetTypeID())
+                v230 = CFGetTypeID(v61);
+                if (v230 == CFDictionaryGetTypeID())
                 {
                   FigCFDictionarySetValueFromKeyInDict();
                 }
               }
 
-              LODWORD(v227) = mcProcessor_createAndWrapDataDictionaryForV2(v108, 0, &valuePtr);
-              if (!v227)
+              LODWORD(v260) = mcProcessor_createAndWrapDataDictionaryForV2(v112, 0, &valuePtr);
+              if (!v260)
               {
-                v205 = *(v54 + 392);
-                v206 = valuePtr;
-                v207 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-                if (!v207)
+                v231 = *(v56 + 392);
+                v232 = valuePtr;
+                v233 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+                if (!v233)
                 {
-                  v198 = -12782;
-                  goto LABEL_607;
+                  v224 = 4294954514;
+                  goto LABEL_657;
                 }
 
-                v208 = v207(v205, v206, 0);
-LABEL_579:
-                v198 = v208;
-                goto LABEL_607;
+                v234 = v233(v231, v232, 0);
+LABEL_629:
+                v224 = v234;
+                goto LABEL_657;
               }
 
-              goto LABEL_741;
+              goto LABEL_791;
             }
 
-            goto LABEL_739;
+            goto LABEL_789;
           }
 
           if (FigCFEqual())
           {
             CFDictionaryGetTypeID();
             CFDictionaryGetTypedValue();
-            v108 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            if (v108)
+            v112 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+            if (v112)
             {
               CFDictionaryGetTypeID();
-              v210 = CFDictionaryGetTypedValue();
-              if (!v210)
+              v236 = CFDictionaryGetTypedValue();
+              if (!v236)
               {
                 APSLogErrorAt();
-LABEL_668:
-                v107 = 0;
-LABEL_720:
+LABEL_718:
+                v111 = 0;
+LABEL_770:
                 v9 = 4294895362;
-                goto LABEL_622;
+                goto LABEL_672;
               }
 
-              CFDictionarySetValue(v108, @"item", v210);
-              CFDictionarySetValue(v108, @"type", @"removePlayQueueItem");
+              CFDictionarySetValue(v112, @"item", v236);
+              CFDictionarySetValue(v112, @"type", @"removePlayQueueItem");
               FigCFDictionarySetValueFromKeyInDict();
-              LODWORD(v227) = mcProcessor_createAndWrapDataDictionaryForV2(v108, 0, &valuePtr);
-              if (!v227)
+              LODWORD(v260) = mcProcessor_createAndWrapDataDictionaryForV2(v112, 0, &valuePtr);
+              if (!v260)
               {
-                v208 = APReceiverUIControllerControlVideoPlayback(*(v54 + 392), valuePtr);
-                goto LABEL_579;
+                v234 = APReceiverUIControllerControlVideoPlayback(*(v56 + 392), valuePtr);
+                goto LABEL_629;
               }
 
-LABEL_741:
+LABEL_791:
               APSLogErrorAt();
-              v107 = 0;
-              goto LABEL_742;
+              v111 = 0;
+              goto LABEL_792;
             }
 
-LABEL_739:
+LABEL_789:
             APSLogErrorAt();
-            v107 = 0;
-            v108 = 0;
-LABEL_742:
+            v111 = 0;
+            v112 = 0;
+LABEL_792:
             v9 = 4294895350;
-LABEL_622:
+LABEL_672:
             if (number.value)
             {
               CFRelease(number.value);
             }
 
-            if (v107)
+            if (v111)
             {
-              CFRelease(v107);
+              CFRelease(v111);
             }
 
-            if (v56)
+            if (v58)
             {
-              CFRelease(v56);
+              CFRelease(v58);
             }
 
-            if (v108)
+            if (v112)
             {
-              CFRelease(v108);
+              CFRelease(v112);
             }
 
             value = valuePtr;
@@ -4042,124 +5184,111 @@ LABEL_622:
               return v9;
             }
 
-            goto LABEL_631;
+            goto LABEL_681;
           }
 
           if (!FigCFEqual())
           {
-            v108 = 0;
-            v198 = v227;
-LABEL_608:
-            if (v198 && gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
-            {
-              if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize())
-              {
-                LogPrintF();
-              }
-
-              if (gLogCategory_APReceiverRequestProcessorMediaControl <= 10 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
-              {
-                LogPrintF();
-              }
-            }
-
-            v107 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            if (v107)
-            {
-              CFDictionarySetNumber();
-              if (number.value)
-              {
-                CFDictionarySetValue(v107, @"params", number.value);
-              }
-
-              if (!APReceiverRequestProcessorPreparePlistResponse(v107, v223))
-              {
-                v9 = 0;
-                goto LABEL_622;
-              }
-
-              APSLogErrorAt();
-              goto LABEL_720;
-            }
-
-            APSLogErrorAt();
-            goto LABEL_668;
+            v112 = 0;
+            v224 = v260;
+            goto LABEL_658;
           }
 
           CFDictionaryGetTypeID();
           if (CFDictionaryGetTypedValue())
           {
             CFDictionaryGetTypeID();
-            v217 = CFDictionaryGetTypedValue();
-            if (v217)
+            v243 = CFDictionaryGetTypedValue();
+            if (v243)
             {
               CFDictionaryGetTypeID();
-              v218 = CFDictionaryGetTypedValue();
-              inserted = mcProcessor_insertPlayQueueItemV2(v6, v217, v218, 0);
-              goto LABEL_588;
+              v244 = CFDictionaryGetTypedValue();
+              inserted = mcProcessor_insertPlayQueueItemV2(v6, v243, v244, 0, 0);
+              goto LABEL_638;
             }
           }
 
-          goto LABEL_160;
+          goto LABEL_161;
         }
 
-        v61 = v60;
+        v63 = v62;
         Int64 = CFDictionaryGetInt64();
+        v65 = Int64;
         if (Int64 > 1)
         {
           if (Int64 == 2)
           {
             if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
             {
-              CFDictionaryGetValue(v61, @"uuid");
-              if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+              v252 = CFDictionaryGetValue(v63, @"uuid");
+              if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
               {
-                _LogCategory_Initialize();
+                v202 = 0;
               }
 
-              CFDictionaryGetValue(v61, @"path");
-              if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+              else
               {
-                _LogCategory_Initialize();
+                v202 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
               }
 
-              LogPrintF();
+              v215 = CFDictionaryGetValue(v63, @"path");
+              if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+              {
+                v216 = 0;
+              }
+
+              else
+              {
+                v216 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+              }
+
+              LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessAction(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "AirPlay playlist insert of local file FP %'@ (%?@) %?@\n", v252, v202, v215, v216, v63);
             }
 
-            ++*(v54 + 248);
+            ++*(v56 + 248);
           }
 
           else
           {
             if (Int64 != 3)
             {
-LABEL_450:
+LABEL_458:
               if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessAction(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "AirPlay playlist insert of ? (%d) %@\n", v65, v63);
               }
 
-              goto LABEL_537;
+              goto LABEL_586;
             }
 
             if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
             {
-              CFDictionaryGetValue(v61, @"uuid");
-              if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+              v250 = CFDictionaryGetValue(v63, @"uuid");
+              if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
               {
-                _LogCategory_Initialize();
+                v200 = 0;
               }
 
-              CFDictionaryGetValue(v61, @"Content-Location");
-              if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+              else
               {
-                _LogCategory_Initialize();
+                v200 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
               }
 
-              LogPrintF();
+              v211 = CFDictionaryGetValue(v63, @"Content-Location");
+              if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+              {
+                v212 = 0;
+              }
+
+              else
+              {
+                v212 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+              }
+
+              LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessAction(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "AirPlay playlist insert of remote stream FP %'@ (%?@) %?@\n", v250, v200, v211, v212, v63);
             }
 
-            ++*(v54 + 256);
+            ++*(v56 + 256);
           }
         }
 
@@ -4171,82 +5300,107 @@ LABEL_450:
             {
               if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
               {
-                CFDictionaryGetValue(v61, @"uuid");
-                if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+                v249 = CFDictionaryGetValue(v63, @"uuid");
+                if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
                 {
-                  _LogCategory_Initialize();
+                  v193 = 0;
                 }
 
-                CFDictionaryGetValue(v61, @"Content-Location");
-                if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+                else
                 {
-                  _LogCategory_Initialize();
+                  v193 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
                 }
 
-                LogPrintF();
+                v209 = CFDictionaryGetValue(v63, @"Content-Location");
+                if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+                {
+                  v210 = 0;
+                }
+
+                else
+                {
+                  v210 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+                }
+
+                LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessAction(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "AirPlay playlist insert of remote stream %'@ (%?@) %?@\n", v249, v193, v209, v210, v63);
               }
 
-              ++*(v54 + 252);
-              goto LABEL_537;
+              ++*(v56 + 252);
+              goto LABEL_586;
             }
 
-            goto LABEL_450;
+            goto LABEL_458;
           }
 
           if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
           {
-            CFDictionaryGetValue(v61, @"uuid");
-            if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+            v251 = CFDictionaryGetValue(v63, @"uuid");
+            if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
             {
-              _LogCategory_Initialize();
+              v201 = 0;
             }
 
-            CFDictionaryGetValue(v61, @"path");
-            if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+            else
             {
-              _LogCategory_Initialize();
+              v201 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
             }
 
-            LogPrintF();
+            v213 = CFDictionaryGetValue(v63, @"path");
+            if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+            {
+              v214 = 0;
+            }
+
+            else
+            {
+              v214 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+            }
+
+            LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessAction(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "AirPlay playlist insert of local file %'@ (%?@) %?@\n", v251, v201, v213, v214, v63);
           }
 
-          ++*(v54 + 244);
+          ++*(v56 + 244);
         }
 
-LABEL_537:
-        v192 = *(v54 + 24);
-        if (v192 == 4 || v192 == 128 || v192 == 64)
+LABEL_586:
+        v217 = *(v56 + 24);
+        if (v217 == 4 || v217 == 128 || v217 == 64)
         {
-          CFDictionarySetValue(v61, @"allowP2P", *MEMORY[0x277CBED28]);
+          CFDictionarySetValue(v63, @"allowP2P", *MEMORY[0x277CBED28]);
         }
 
-        LODWORD(v227) = mcProcessor_addTLSInfo();
-        if (v227)
+        LODWORD(v260) = mcProcessor_addTLSInfo(v6, v63);
+        if (v260)
         {
           APSLogErrorAt();
-          v107 = 0;
-          v108 = 0;
+          v111 = 0;
+          v112 = 0;
           v9 = 4294895353;
-          goto LABEL_622;
+          goto LABEL_672;
         }
 
-        if (*(v54 + 120))
+        if (*(v56 + 120))
         {
-          CFDictionaryGetInt64();
+          v218 = CFDictionaryGetInt64() != 0;
         }
 
-        mcProcessor_fixIPAddressURL();
-        LODWORD(v227) = APReceiverFairPlayHelperProcessFPInfo(*(v54 + 400), v61, 0);
-        if (v227)
+        else
+        {
+          v218 = 0;
+        }
+
+        mcProcessor_fixIPAddressURL(v6, v63, v218);
+        LODWORD(v260) = APReceiverFairPlayHelperProcessFPInfo(*(v56 + 400), v63, 0);
+        if (v260)
         {
           APSLogErrorAt();
-          v107 = 0;
-          v108 = 0;
+          v111 = 0;
+          v112 = 0;
           v9 = 4294895352;
-          goto LABEL_622;
+          goto LABEL_672;
         }
 
-        goto LABEL_545;
+        goto LABEL_595;
       }
 
       if (v5 != 1735422066)
@@ -4256,13 +5410,13 @@ LABEL_537:
           return v9;
         }
 
-        v243 = 0u;
-        v244 = 0u;
-        v241 = 0u;
-        v242 = 0u;
-        v239 = 0u;
-        v240 = 0u;
-        v238 = 0u;
+        v276 = 0u;
+        v277 = 0u;
+        v274 = 0u;
+        v275 = 0u;
+        v272 = 0u;
+        v273 = 0u;
+        v271 = 0u;
         *theDict = 0u;
         number.value = 0;
         v18 = *(CMBaseObjectGetDerivedStorage() + 392);
@@ -4278,21 +5432,21 @@ LABEL_537:
             v24 = v23;
             if (gLogCategory_APReceiverRequestProcessorMediaControl <= 10 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF();
+              LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessGetScrubPosition(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554442, "Current position %f of %f\n", v22, v24);
             }
 
-            v172 = snprintf(theDict, 0x80uLL, "duration: %f\nposition: %f\n", v24, v22);
-            if (!APReceiverRequestProcessorPrepareBinaryDataResponse(theDict, v172, v223))
+            v180 = snprintf(theDict, 0x80uLL, "duration: %f\nposition: %f\n", v24, v22);
+            if (!APReceiverRequestProcessorPrepareBinaryDataResponse(theDict, v180, v256))
             {
               v9 = 0;
-LABEL_365:
+LABEL_370:
               value = number.value;
               if (!number.value)
               {
                 return v9;
               }
 
-              goto LABEL_631;
+              goto LABEL_681;
             }
           }
 
@@ -4305,50 +5459,50 @@ LABEL_365:
         }
 
         v9 = 4294895362;
-        goto LABEL_365;
+        goto LABEL_370;
       }
 
-      v68 = CMBaseObjectGetDerivedStorage();
-      LODWORD(v227) = 0;
+      v72 = CMBaseObjectGetDerivedStorage();
+      LODWORD(v260) = 0;
       theDict[0] = 0;
       number.value = 0;
       valuePtr = 0;
       CFStringGetTypeID();
-      v69 = CFDictionaryGetTypedValue();
-      if (!v69)
+      v73 = CFDictionaryGetTypedValue();
+      if (!v73)
       {
         APSLogErrorAt();
         v9 = 4294895362;
-        goto LABEL_438;
+        goto LABEL_445;
       }
 
       CFDataGetTypeID();
-      v70 = CFDictionaryGetTypedValue();
-      v71 = v70;
-      if (v70)
+      v74 = CFDictionaryGetTypedValue();
+      v75 = v74;
+      if (v74)
       {
-        if (CFDataGetLength(v70) >= 1)
+        if (CFDataGetLength(v74) >= 1)
         {
-          v72 = CFPropertyListCreateWithData(0, v71, 0, 0, 0);
-          v71 = v72;
-          if (!v72 || (v137 = CFGetTypeID(v72), v137 != CFDictionaryGetTypeID()))
+          v76 = CFPropertyListCreateWithData(0, v75, 0, 0, 0);
+          v75 = v76;
+          if (!v76 || (v144 = CFGetTypeID(v76), v144 != CFDictionaryGetTypeID()))
           {
             APSLogErrorAt();
-            v73 = 0;
+            v77 = 0;
             v7 = 4294895354;
-LABEL_433:
-            if (v71)
+LABEL_440:
+            if (v75)
             {
-              CFRelease(v71);
+              CFRelease(v75);
             }
 
-            if (v73)
+            if (v77)
             {
-              CFRelease(v73);
+              CFRelease(v77);
             }
 
             v9 = v7;
-LABEL_438:
+LABEL_445:
             if (valuePtr)
             {
               CFRelease(valuePtr);
@@ -4365,93 +5519,94 @@ LABEL_438:
               return v9;
             }
 
-            goto LABEL_631;
+            goto LABEL_681;
           }
 
-          v117 = CFDictionaryGetValue(v71, @"qualifier");
-LABEL_247:
-          v138 = *(v68 + 392);
-          if (!v138)
+          v121 = CFDictionaryGetValue(v75, @"qualifier");
+LABEL_250:
+          v145 = *(v72 + 392);
+          if (!v145)
           {
             APSLogErrorAt();
-            goto LABEL_713;
+            goto LABEL_763;
           }
 
-          if (*(v68 + 408))
+          if (*(v72 + 408))
           {
-            v139 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            v73 = v139;
-            if (v139)
+            v146 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+            v77 = v146;
+            if (v146)
             {
-              CFDictionarySetValue(v139, @"kind", @"request");
-              CFDictionarySetValue(v73, @"type", @"property");
-              CFDictionarySetValue(v73, @"property", v69);
-              if (v117 && (v140 = CFGetTypeID(v117), v140 == CFDictionaryGetTypeID()))
+              CFDictionarySetValue(v146, @"kind", @"request");
+              CFDictionarySetValue(v77, @"type", @"property");
+              CFDictionarySetValue(v77, @"property", v73);
+              if (v121 && (v147 = CFGetTypeID(v121), v147 == CFDictionaryGetTypeID()))
               {
-                mcProcessor_qualifierToRendererParameters(v117, v73);
+                mcProcessor_qualifierToRendererParameters(v121, v77);
                 FigCFDictionarySetValueFromKeyInDict();
                 FigCFDictionarySetValueFromKeyInDict();
               }
 
               else
               {
-                v141 = FigCFEqual();
-                v142 = v117 == 0;
-                if (!v141)
+                v148 = FigCFEqual();
+                v149 = v121 == 0;
+                if (!v148)
                 {
-                  v142 = 1;
+                  v149 = 1;
                 }
 
-                if (!v142)
+                if (!v149)
                 {
-                  v143 = CFGetTypeID(v117);
-                  if (v143 == CFNumberGetTypeID())
+                  v150 = CFGetTypeID(v121);
+                  if (v150 == CFNumberGetTypeID())
                   {
                     FigCFDictionarySetValue();
                   }
                 }
               }
 
-              LODWORD(v227) = mcProcessor_createAndWrapDataDictionaryForV2(v73, 1, &valuePtr);
-              if (!v227)
+              LODWORD(v260) = mcProcessor_createAndWrapDataDictionaryForV2(v77, 1, &valuePtr);
+              if (!v260)
               {
-                v144 = *(v68 + 392);
-                v145 = valuePtr;
-                v146 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-                if (v146)
+                v151 = *(v72 + 392);
+                v152 = valuePtr;
+                v153 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+                if (v153)
                 {
-                  v147 = v146(v144, v145, &number);
-                  LODWORD(v227) = v147;
-                  if (v147 == -6727 || !v147)
+                  v154 = v153(v151, v152, &number);
+                  LODWORD(v260) = v154;
+                  if (v154 == -6727 || !v154)
                   {
-LABEL_368:
-                    if (v147)
+LABEL_373:
+                    if (v154)
                     {
-                      goto LABEL_688;
+                      goto LABEL_738;
                     }
 
-                    v174 = number.value;
-                    goto LABEL_431;
+                    v182 = number.value;
+                    goto LABEL_438;
                   }
                 }
 
                 else
                 {
-                  LODWORD(v227) = -12782;
+                  v154 = 4294954514;
+                  LODWORD(v260) = -12782;
                 }
 
                 if (gLogCategory_APReceiverRequestProcessorMediaControl > 50)
                 {
-                  goto LABEL_688;
+                  goto LABEL_738;
                 }
 
-                if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || (v173 = _LogCategory_Initialize(), v147 = v227, v173))
+                if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || (v181 = _LogCategory_Initialize(), v154 = v260, v181))
                 {
-                  LogPrintF();
-                  v147 = v227;
+                  LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessGetProxiedProperty(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "### %{ptr} Get property '%@' failed: %#m\n", v6, v73, v154);
+                  LODWORD(v154) = v260;
                 }
 
-                goto LABEL_368;
+                goto LABEL_373;
               }
 
               APSLogErrorAt();
@@ -4460,69 +5615,80 @@ LABEL_368:
             else
             {
               APSLogErrorAt();
-              v73 = 0;
+              v77 = 0;
             }
 
             v7 = 4294895350;
-            goto LABEL_433;
+            goto LABEL_440;
           }
 
-          v148 = *(*(CMBaseObjectGetVTable() + 16) + 112);
-          if (v148)
+          v155 = *(*(CMBaseObjectGetVTable() + 16) + 112);
+          if (v155)
           {
-            v149 = v148(v138, v69, v71, theDict);
-            LODWORD(v227) = v149;
-            if (v149 == -6727 || !v149)
+            v156 = v155(v145, v73, v75, theDict);
+            LODWORD(v260) = v156;
+            if (v156 == -6727 || !v156)
             {
-LABEL_427:
-              v174 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              if (v174)
-              {
-                CFDictionarySetNumber();
-                if (theDict[0])
-                {
-                  CFDictionarySetValue(v174, @"value", theDict[0]);
-                }
-
-                v73 = 0;
-                number.value = v174;
-LABEL_431:
-                if (!APReceiverRequestProcessorPreparePlistResponse(v174, v223))
-                {
-                  v7 = 0;
-                  goto LABEL_433;
-                }
-
-LABEL_688:
-                APSLogErrorAt();
-                goto LABEL_433;
-              }
-
-              APSLogErrorAt();
-LABEL_713:
-              v73 = 0;
-              goto LABEL_433;
+              goto LABEL_434;
             }
           }
 
           else
           {
-            LODWORD(v227) = -12782;
+            v156 = 4294954514;
+            LODWORD(v260) = -12782;
           }
 
-          if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
+          if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
           {
-            LogPrintF();
+            if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+            {
+              if (!_LogCategory_Initialize())
+              {
+                goto LABEL_434;
+              }
+
+              v156 = v260;
+            }
+
+            LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessGetProxiedProperty(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "### %{ptr} Get property '%@' failed: %#m\n", v6, v73, v156);
           }
 
-          goto LABEL_427;
+LABEL_434:
+          v182 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+          if (v182)
+          {
+            CFDictionarySetNumber();
+            if (theDict[0])
+            {
+              CFDictionarySetValue(v182, @"value", theDict[0]);
+            }
+
+            v77 = 0;
+            number.value = v182;
+LABEL_438:
+            if (!APReceiverRequestProcessorPreparePlistResponse(v182, v256))
+            {
+              v7 = 0;
+              goto LABEL_440;
+            }
+
+LABEL_738:
+            APSLogErrorAt();
+            goto LABEL_440;
+          }
+
+          APSLogErrorAt();
+LABEL_763:
+          v77 = 0;
+          goto LABEL_440;
         }
 
-        v71 = 0;
+        v75 = 0;
       }
 
-      v117 = 0;
-      goto LABEL_247;
+      v121 = 0;
+      goto LABEL_250;
     }
 
     if (v5 <= 1885435251)
@@ -4536,84 +5702,84 @@ LABEL_26:
           return v9;
         }
 
-LABEL_274:
-        *v223 = 0;
+LABEL_277:
+        *v256 = 0;
         return v9;
       }
 
-      v63 = CMBaseObjectGetDerivedStorage();
-      LODWORD(v226) = 0;
-      v64 = CFDictionaryCopyCString();
-      v65 = v64;
-      if (v64)
+      v66 = CMBaseObjectGetDerivedStorage();
+      LODWORD(v259) = 0;
+      v67 = CFDictionaryCopyCString();
+      v68 = v67;
+      if (v67)
       {
-        v66 = v64;
+        v69 = v67;
       }
 
       else
       {
-        v66 = "00000000-0000-0000-0000-000000000000";
+        v69 = "00000000-0000-0000-0000-000000000000";
       }
 
-      strlen(v66);
-      v67 = StringToUUID();
-      LODWORD(v226) = v67;
+      v70 = strlen(v69);
+      v71 = StringToUUID();
+      LODWORD(v259) = v71;
       if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30)
       {
         if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize())
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessServerInfo(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554462, "sessionUUID %#U\n", v66 + 104);
         }
 
-        v67 = v226;
+        v71 = v259;
       }
 
-      if (v67 && gLogCategory_APReceiverRequestProcessorMediaControl <= 60 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
+      if (v71 && gLogCategory_APReceiverRequestProcessorMediaControl <= 60 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessServerInfo(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554492, "### Bad session UUID: '%.*s', %#m\n", v70, v69);
       }
 
-      v163 = *(*(v63 + 128) + 160);
-      v251 = 0u;
-      v252 = 0u;
-      v249 = 0u;
-      v250 = 0u;
-      v247 = 0u;
-      v248 = 0u;
-      v245 = 0u;
-      v246 = 0u;
-      v243 = 0u;
-      v244 = 0u;
-      v241 = 0u;
-      v242 = 0u;
-      v239 = 0u;
-      v240 = 0u;
-      v238 = 0u;
+      v170 = *(*(v66 + 128) + 160);
+      v284 = 0u;
+      v285 = 0u;
+      v282 = 0u;
+      v283 = 0u;
+      v280 = 0u;
+      v281 = 0u;
+      v278 = 0u;
+      v279 = 0u;
+      v276 = 0u;
+      v277 = 0u;
+      v274 = 0u;
+      v275 = 0u;
+      v272 = 0u;
+      v273 = 0u;
+      v271 = 0u;
       *theDict = 0u;
-      v164 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      if (v164)
+      v171 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      if (v171)
       {
         CFObjectGetPropertyInt64Sync();
         FigCFDictionarySetInt64();
-        LODWORD(v227) = *(v163 + 96);
-        WORD2(v227) = *(v163 + 100);
+        LODWORD(v260) = *(v170 + 96);
+        WORD2(v260) = *(v170 + 100);
         HardwareAddressToCString();
         CFDictionarySetCString();
         valuePtr = 0;
         p_valuePtr = &valuePtr;
-        v235 = 0x2020000000;
-        v236 = 0;
-        v165 = *(v163 + 16);
+        v268 = 0x2020000000;
+        v269 = 0;
+        v172 = *(v170 + 16);
         number.value = MEMORY[0x277D85DD0];
         *&number.timescale = 3221225472;
         number.epoch = __APReceiverSystemInfoCopyFeatures_block_invoke;
-        v230 = &unk_278C60738;
-        v231 = &valuePtr;
-        v232 = v163;
-        dispatch_sync(v165, &number);
-        v166 = p_valuePtr[3];
+        v263 = &unk_278C60738;
+        v264 = &valuePtr;
+        v265 = v170;
+        dispatch_sync(v172, &number);
+        v173 = p_valuePtr[3];
         _Block_object_dispose(&valuePtr, 8);
-        if (v166 && APSFeaturesGetLegacyFlags())
+        if (v173 && APSFeaturesGetLegacyFlags())
         {
           CFDictionarySetInt64();
         }
@@ -4634,7 +5800,7 @@ LABEL_274:
         LOBYTE(theDict[0]) = 0;
         HardwareAddressToCString();
         CFDictionarySetCString();
-        CFDictionarySetValue(v164, @"protovers", @"1.0");
+        CFDictionarySetValue(v171, @"protovers", @"1.0");
         APSVersionUtilsGetShortVersionLength();
         CFDictionarySetCString();
         if (IsAppleInternalBuild())
@@ -4644,32 +5810,37 @@ LABEL_274:
           CFDictionarySetCString();
         }
 
-        if (v166)
+        if (v173)
         {
-          CFRelease(v166);
+          CFRelease(v173);
         }
 
-        LODWORD(v226) = 0;
-        v167 = CFDictionaryCopyCString();
-        v168 = v167;
-        if (v167)
+        LODWORD(v259) = 0;
+        v174 = CFDictionaryCopyCString();
+        v175 = v174;
+        if (v174)
         {
-          strlen(v167);
+          v176 = strlen(v174);
+        }
+
+        else
+        {
+          v176 = 0;
         }
 
         LODWORD(theDict[0]) = 0;
-        SNScanF();
+        SNScanF(v69, v176, "%u", theDict);
         LODWORD(theDict[0]) = wmhYOjgJkR();
         CFDictionarySetInt64();
-        if (!APReceiverRequestProcessorPrepareXMLPlistResponse(v164, v223))
+        if (!APReceiverRequestProcessorPrepareXMLPlistResponse(v171, v256))
         {
           v9 = 0;
-          if (!v65)
+          if (!v68)
           {
-            goto LABEL_336;
+            goto LABEL_341;
           }
 
-          goto LABEL_335;
+          goto LABEL_340;
         }
 
         APSLogErrorAt();
@@ -4678,27 +5849,27 @@ LABEL_274:
       else
       {
         APSLogErrorAt();
-        LODWORD(v226) = -6728;
+        LODWORD(v259) = -6728;
         APSLogErrorAt();
-        v168 = 0;
+        v175 = 0;
       }
 
       v9 = 4294895362;
-      if (!v65)
+      if (!v68)
       {
-LABEL_336:
-        free(v168);
-        if (v164)
+LABEL_341:
+        free(v175);
+        if (v171)
         {
-          CFRelease(v164);
+          CFRelease(v171);
         }
 
         return v9;
       }
 
-LABEL_335:
-      free(v65);
-      goto LABEL_336;
+LABEL_340:
+      free(v68);
+      goto LABEL_341;
     }
 
     if (v5 != 1885435252)
@@ -4712,11 +5883,11 @@ LABEL_335:
       started = 0;
       number.value = 0;
       *&number.timescale = 0;
-      v226 = 0;
-      v227 = 0;
-      v239 = 0u;
-      v240 = 0u;
-      v238 = 0u;
+      v259 = 0;
+      v260 = 0;
+      v272 = 0u;
+      v273 = 0u;
+      v271 = 0u;
       *theDict = 0u;
       cf = 0;
       Current = CFAbsoluteTimeGetCurrent();
@@ -4730,61 +5901,61 @@ LABEL_335:
 
       if (strnicmpx())
       {
-        v224 = 0;
+        v257 = 0;
         valuePtr = 0;
-        v101 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        if (!v101)
+        v105 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        if (!v105)
         {
           APSLogErrorAt();
-          v103 = 0;
-LABEL_723:
-          v132 = 0;
+          v107 = 0;
+LABEL_773:
+          v137 = 0;
           v9 = v7;
-          goto LABEL_351;
+          goto LABEL_356;
         }
 
         CFStringGetTypeID();
-        v102 = CFDictionaryGetTypedValue();
-        CFDictionarySetValue(v101, @"Content-Location", v102);
-        v103 = CFDictionaryCopyCString();
-        if (v103)
+        v106 = CFDictionaryGetTypedValue();
+        CFDictionarySetValue(v105, @"Content-Location", v106);
+        v107 = CFDictionaryCopyCString();
+        if (v107)
         {
-          v104 = strlen(v103);
-          if (v104 >= 0x40)
+          v108 = strlen(v107);
+          if (v108 >= 0x40)
           {
             APSLogErrorAt();
-LABEL_722:
+LABEL_772:
             v7 = 4294895366;
-            goto LABEL_723;
+            goto LABEL_773;
           }
         }
 
         else
         {
-          v104 = 0;
+          v108 = 0;
         }
 
         __memcpy_chk();
-        *(theDict + v104) = 0;
-        if (sscanf(theDict, "%f", &v224) != 1)
+        *(theDict + v108) = 0;
+        if (sscanf(theDict, "%f", &v257) != 1)
         {
-          goto LABEL_721;
+          goto LABEL_771;
         }
 
         started = CFDictionarySetNumber();
         if (started)
         {
-LABEL_684:
+LABEL_734:
           APSLogErrorAt();
-          goto LABEL_723;
+          goto LABEL_773;
         }
 
-        free(v103);
-        v121 = CFDictionaryCopyCString();
-        v103 = v121;
-        if (v121)
+        free(v107);
+        v125 = CFDictionaryCopyCString();
+        v107 = v125;
+        if (v125)
         {
-          strlen(v121);
+          strlen(v125);
         }
 
         if (!started)
@@ -4792,7 +5963,7 @@ LABEL_684:
           started = Base64DecodeCopy();
           if (started)
           {
-            goto LABEL_721;
+            goto LABEL_771;
           }
 
           CFDictionarySetData();
@@ -4804,323 +5975,431 @@ LABEL_684:
       else
       {
         CFDataGetTypeID();
-        v105 = CFDictionaryGetTypedValue();
-        v106 = v105;
+        v109 = CFDictionaryGetTypedValue();
+        v110 = v109;
+        if (!v109)
+        {
+          APSLogErrorAt();
+          v107 = 0;
+          v105 = 0;
+          v137 = 0;
+          goto LABEL_355;
+        }
+
+        CFDataGetBytePtr(v109);
+        CFDataGetLength(v110);
+        CFDictionaryGetTypeID();
+        v105 = CFCreateWithPlistBytes();
         if (!v105)
         {
           APSLogErrorAt();
-          v103 = 0;
-          v101 = 0;
-          v132 = 0;
-          goto LABEL_350;
+          v107 = 0;
+          v105 = 0;
+          goto LABEL_760;
         }
 
-        CFDataGetBytePtr(v105);
-        CFDataGetLength(v106);
-        CFDictionaryGetTypeID();
-        v101 = CFCreateWithPlistBytes();
-        if (!v101)
-        {
-          APSLogErrorAt();
-          v103 = 0;
-          v101 = 0;
-          goto LABEL_710;
-        }
-
-        v103 = 0;
+        v107 = 0;
       }
 
-      v122 = CFDictionaryGetValue(v101, @"Start-Estimated-Date");
-      v123 = v122;
-      if (!v122)
+      v126 = CFDictionaryGetValue(v105, @"Start-Estimated-Date");
+      v127 = v126;
+      v128 = 0.0;
+      if (!v126)
       {
-        goto LABEL_213;
+        goto LABEL_214;
       }
 
-      v124 = CFGetTypeID(v122);
-      if (v124 == CFDateGetTypeID())
+      v129 = CFGetTypeID(v126);
+      if (v129 == CFDateGetTypeID())
       {
         free(v27);
-        v125 = CFDictionaryCopyCString();
-        v27 = v125;
-        if (v125)
+        v130 = CFDictionaryCopyCString();
+        v27 = v130;
+        if (v130)
         {
-          strlen(v125);
+          strlen(v130);
           valuePtr = 0;
           p_valuePtr = 0;
-          v126 = CFGetTypeID(v123);
-          if (v126 == CFDateGetTypeID())
+          v131 = CFGetTypeID(v127);
+          if (v131 == CFDateGetTypeID())
           {
             started = ParseFractionalDateString();
             if (!started)
             {
-              v127 = valuePtr;
-              v128 = p_valuePtr;
-              v129 = number.value;
+              v132 = valuePtr;
+              v133 = p_valuePtr;
+              v134 = number.value;
               timescale = number.timescale;
-              v131 = MEMORY[0x23EF199B0](v123);
-              v132 = CFDateCreate(0, v131 + (1000000 * (v129 - v127) - v128 + timescale) / 1000000.0);
-              if (v132)
+              v136 = MEMORY[0x23EF199B0](v127);
+              v128 = (1000000 * (v134 - v132) - v133 + timescale) / 1000000.0;
+              v137 = CFDateCreate(0, v136 + v128);
+              if (v137)
               {
-                CFDictionarySetValue(v101, @"Start-Estimated-Date", v132);
+                CFDictionarySetValue(v105, @"Start-Estimated-Date", v137);
+                goto LABEL_215;
+              }
+
+              goto LABEL_734;
+            }
+          }
+
+LABEL_771:
+          APSLogErrorAt();
+          goto LABEL_772;
+        }
+
 LABEL_214:
-                v133 = CFDictionaryGetValue(v101, @"Start-Position");
-                if (!v133)
+        v137 = 0;
+LABEL_215:
+        v138 = CFDictionaryGetValue(v105, @"Start-Position");
+        if (v138)
+        {
+          v139 = 0;
+        }
+
+        else
+        {
+          v138 = CFDictionaryGetValue(v105, @"Start-Date");
+          if (!v138)
+          {
+            v138 = CFDictionaryGetValue(v105, @"Start-Estimated-Date");
+          }
+
+          v139 = 1;
+        }
+
+        if (gMediaControlVideoDisabled)
+        {
+          if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessPlay(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "### Video playback disabled\n");
+          }
+
+          goto LABEL_355;
+        }
+
+        v140 = *(cf1 + 49);
+        v141 = *(*(CMBaseObjectGetVTable() + 16) + 72);
+        if (v141)
+        {
+          started = v141(v140, 0, 0);
+          if (!started)
+          {
+            v142 = *(cf1 + 6);
+            if (v142 == 4 || v142 == 128 || v142 == 64)
+            {
+              CFDictionarySetValue(v105, @"allowP2P", *MEMORY[0x277CBED28]);
+            }
+
+            if (*(cf1 + 15))
+            {
+              v143 = CFDictionaryGetInt64() != 0;
+            }
+
+            else
+            {
+              v143 = 0;
+            }
+
+            mcProcessor_fixIPAddressURL(v6, v105, v143);
+            v194 = CFDictionaryGetValue(v105, @"Content-Location");
+            v195 = v194;
+            if (v194)
+            {
+              v196 = CFGetTypeID(v194);
+              if (v196 == CFStringGetTypeID())
+              {
+                if (CFDictionaryGetValue(v105, @"cookies") && !*(cf1 + 176))
                 {
-                  v133 = CFDictionaryGetValue(v101, @"Start-Date");
-                  if (!v133)
+                  if (gLogCategory_APReceiverRequestProcessorMediaControl <= 60 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
                   {
-                    v133 = CFDictionaryGetValue(v101, @"Start-Estimated-Date");
+                    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessPlay(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554492, "### Ignoring cookies from unauthenticated client for URL %@\n", v195);
                   }
+
+                  CFDictionaryRemoveValue(v105, @"cookies");
                 }
 
-                if (gMediaControlVideoDisabled)
+                if (CFDictionaryGetValue(v105, @"purchaseBundle") && !*(cf1 + 176))
                 {
-                  if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
+                  if (gLogCategory_APReceiverRequestProcessorMediaControl <= 60 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
                   {
-                    LogPrintF();
+                    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessPlay(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554492, "### Ignoring purchase bundle from unauthenticated client for URL %@\n", v195);
                   }
 
-                  goto LABEL_350;
+                  CFDictionaryRemoveValue(v105, @"purchaseBundle");
                 }
 
-                v134 = cf1[49];
-                v135 = *(*(CMBaseObjectGetVTable() + 16) + 72);
-                if (v135)
+                if (IsAppleInternalBuild() && CFDictionaryGetInt64())
                 {
-                  started = v135(v134, 0, 0);
-                  if (!started)
+                  APReceiverSystemInfoClearVideoCache();
+                }
+
+                started = mcProcessor_addTLSInfo(v6, v105);
+                if (started)
+                {
+                  APSLogErrorAt();
+                  v9 = 4294895353;
+                  goto LABEL_356;
+                }
+
+                if (gLogCategory_APReceiverRequestProcessorMediaControl > 50 || gLogCategory_APReceiverRequestProcessorMediaControl == -1 && !_LogCategory_Initialize())
+                {
+LABEL_522:
+                  CFDictionarySetInt64();
+                  if (*(cf1 + 49))
                   {
-                    v136 = *(cf1 + 6);
-                    if (v136 == 4 || v136 == 128 || v136 == 64)
+                    if (*(cf1 + 408))
                     {
-                      CFDictionarySetValue(v101, @"allowP2P", *MEMORY[0x277CBED28]);
-                    }
-
-                    if (cf1[15])
-                    {
-                      CFDictionaryGetInt64();
-                    }
-
-                    mcProcessor_fixIPAddressURL();
-                    v185 = CFDictionaryGetValue(v101, @"Content-Location");
-                    if (v185)
-                    {
-                      v186 = CFGetTypeID(v185);
-                      if (v186 == CFStringGetTypeID())
+                      started = mcProcessor_startVideoPlaybackV2(v6);
+                      if (!started)
                       {
-                        if (CFDictionaryGetValue(v101, @"cookies") && !*(cf1 + 176))
+                        started = mcProcessor_insertPlayQueueItemV2(v6, v105, 0, v138, v139);
+                        if (!started)
                         {
-                          if (gLogCategory_APReceiverRequestProcessorMediaControl <= 60 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
-                          {
-                            LogPrintF();
-                          }
-
-                          CFDictionaryRemoveValue(v101, @"cookies");
+                          goto LABEL_526;
                         }
-
-                        if (CFDictionaryGetValue(v101, @"purchaseBundle") && !*(cf1 + 176))
-                        {
-                          if (gLogCategory_APReceiverRequestProcessorMediaControl <= 60 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
-                          {
-                            LogPrintF();
-                          }
-
-                          CFDictionaryRemoveValue(v101, @"purchaseBundle");
-                        }
-
-                        if (IsAppleInternalBuild() && CFDictionaryGetInt64())
-                        {
-                          APReceiverSystemInfoClearVideoCache();
-                        }
-
-                        started = mcProcessor_addTLSInfo();
-                        if (started)
-                        {
-                          APSLogErrorAt();
-                          v9 = 4294895353;
-                          goto LABEL_351;
-                        }
-
-                        if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
-                        {
-                          CFDictionaryGetValue(v101, @"uuid");
-                          v190 = gLogCategory_APReceiverRequestProcessorMediaControl;
-                          if (gLogCategory_APReceiverRequestProcessorMediaControl <= 10)
-                          {
-                            if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || (_LogCategory_Initialize(), v190 = gLogCategory_APReceiverRequestProcessorMediaControl, gLogCategory_APReceiverRequestProcessorMediaControl <= 10))
-                            {
-                              if (v190 == -1)
-                              {
-                                _LogCategory_Initialize();
-                              }
-                            }
-                          }
-
-                          LogPrintF();
-                        }
-
-                        CFDictionarySetInt64();
-                        if (cf1[49])
-                        {
-                          if (*(cf1 + 408))
-                          {
-                            started = mcProcessor_startVideoPlaybackV2(v6);
-                            if (!started)
-                            {
-                              started = mcProcessor_insertPlayQueueItemV2(v6, v101, 0, v133);
-                              if (!started)
-                              {
-                                goto LABEL_489;
-                              }
-                            }
-                          }
-
-                          else
-                          {
-                            v226 = "?";
-                            started = APReceiverFairPlayHelperProcessFPInfo(cf1[50], v101, &v226);
-                            if (started)
-                            {
-                              APSLogErrorAt();
-                              v9 = 4294895352;
-                              goto LABEL_351;
-                            }
-
-                            v191 = APReceiverUIControllerStartVideoPlaybackV1(cf1[49], cf1[16], v101, &cf);
-                            started = v191;
-                            v9 = 4294895359;
-                            if (v191 <= 452)
-                            {
-                              if (v191 == -6721)
-                              {
-                                goto LABEL_351;
-                              }
-
-                              if (!v191)
-                              {
-                                if (!cf)
-                                {
-                                  APSLogErrorAt();
-                                  v9 = 4294960534;
-                                  goto LABEL_351;
-                                }
-
-                                *(cf1 + 94) = CFDictionaryGetInt64();
-LABEL_489:
-                                mcProcessor_addTrafficRegistration();
-                                if (!*(cf1 + 384))
-                                {
-                                  mcProcessor_logVideoStarted(Current, v6, v101);
-                                }
-
-                                _mcProcessor_StartKeepAliveTimer(v6);
-                                *(cf1 + 384) = 1;
-                                AirPlayReceiverServerHoldPowerAssertion(cf1[16]);
-                                v9 = 0;
-                                if (v223)
-                                {
-                                  *v223 = 0;
-                                }
-
-                                goto LABEL_351;
-                              }
-                            }
-
-                            else if (v191 == 453 || v191 == 200453)
-                            {
-                              goto LABEL_351;
-                            }
-                          }
-                        }
-
-                        goto LABEL_244;
                       }
                     }
 
-                    APSLogErrorAt();
-LABEL_711:
-                    v9 = 4294895366;
-                    goto LABEL_351;
+                    else
+                    {
+                      v259 = "?";
+                      started = APReceiverFairPlayHelperProcessFPInfo(*(cf1 + 50), v105, &v259);
+                      if (started)
+                      {
+                        APSLogErrorAt();
+                        v9 = 4294895352;
+                        goto LABEL_356;
+                      }
+
+                      v208 = APReceiverUIControllerStartVideoPlaybackV1(*(cf1 + 49), *(cf1 + 16), v105, &cf);
+                      started = v208;
+                      v9 = 4294895359;
+                      if (v208 <= 452)
+                      {
+                        if (v208 == -6721)
+                        {
+                          goto LABEL_356;
+                        }
+
+                        if (!v208)
+                        {
+                          if (!cf)
+                          {
+                            APSLogErrorAt();
+                            v9 = 4294960534;
+                            goto LABEL_356;
+                          }
+
+                          *(cf1 + 94) = CFDictionaryGetInt64();
+LABEL_526:
+                          mcProcessor_addTrafficRegistration(v6, v105);
+                          if (!*(cf1 + 384))
+                          {
+                            mcProcessor_logVideoStarted(v6, v105, *(cf1 + 6), Current);
+                          }
+
+                          _mcProcessor_StartKeepAliveTimer(v6);
+                          *(cf1 + 384) = 1;
+                          AirPlayReceiverServerHoldPowerAssertion(*(cf1 + 16));
+                          v9 = 0;
+                          if (v256)
+                          {
+                            *v256 = 0;
+                          }
+
+                          goto LABEL_356;
+                        }
+                      }
+
+                      else if (v208 == 453 || v208 == 200453)
+                      {
+                        goto LABEL_356;
+                      }
+                    }
+                  }
+
+                  goto LABEL_247;
+                }
+
+                v203 = *(cf1 + 6);
+                if (v203 <= 15)
+                {
+                  if (v203 > 3)
+                  {
+                    if (v203 == 4)
+                    {
+                      v204 = "AWDL";
+                      goto LABEL_512;
+                    }
+
+                    if (v203 == 8)
+                    {
+                      v204 = "USB";
+                      goto LABEL_512;
+                    }
+                  }
+
+                  else
+                  {
+                    if (v203 == 1)
+                    {
+                      v204 = "Enet";
+                      goto LABEL_512;
+                    }
+
+                    if (v203 == 2)
+                    {
+                      v204 = "WiFi";
+                      goto LABEL_512;
+                    }
+                  }
+                }
+
+                else if (v203 <= 63)
+                {
+                  if (v203 == 16)
+                  {
+                    v204 = "Direct";
+                    goto LABEL_512;
+                  }
+
+                  if (v203 == 32)
+                  {
+                    v204 = "BTLE";
+                    goto LABEL_512;
                   }
                 }
 
                 else
                 {
-                  started = -12782;
+                  switch(v203)
+                  {
+                    case 64:
+                      v204 = "WFD";
+                      goto LABEL_512;
+                    case 128:
+                      v204 = "NAN";
+                      goto LABEL_512;
+                    case 256:
+                      v204 = "IPsecBT";
+                      goto LABEL_512;
+                  }
                 }
 
-LABEL_244:
-                APSLogErrorAt();
-LABEL_350:
-                v9 = 4294895362;
-LABEL_351:
-                free(v103);
-                free(v227);
-                free(v27);
-                if (v132)
+                if (v203 == 512)
                 {
-                  CFRelease(v132);
+                  v204 = "IPSecWiFi";
                 }
 
-                if (v101)
+                else
                 {
-                  CFRelease(v101);
+                  v204 = "?";
                 }
 
-                if (cf)
+LABEL_512:
+                v253 = v204;
+                v248 = CFDictionaryGetValue(v105, @"uuid");
+                v205 = gLogCategory_APReceiverRequestProcessorMediaControl;
+                if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
                 {
-                  CFRelease(cf);
+                  v206 = 0;
                 }
 
-                return v9;
+                else
+                {
+                  if (gLogCategory_APReceiverRequestProcessorMediaControl != -1)
+                  {
+                    v206 = 1;
+                    goto LABEL_518;
+                  }
+
+                  v206 = _LogCategory_Initialize() != 0;
+                  v205 = gLogCategory_APReceiverRequestProcessorMediaControl;
+                  if (gLogCategory_APReceiverRequestProcessorMediaControl <= 10)
+                  {
+LABEL_518:
+                    v207 = v205 != -1 || _LogCategory_Initialize() != 0;
+                    goto LABEL_521;
+                  }
+                }
+
+                v207 = 0;
+LABEL_521:
+                LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessPlay(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "AirPlay Video via %s of %'@ (%?@) at %@ (%+f) %s %?@\n", v253, v248, v206, v195, v138, *&v128, 0, v207, v105);
+                goto LABEL_522;
               }
-
-              goto LABEL_684;
             }
-          }
 
-LABEL_721:
-          APSLogErrorAt();
-          goto LABEL_722;
+            APSLogErrorAt();
+LABEL_761:
+            v9 = 4294895366;
+            goto LABEL_356;
+          }
         }
 
-LABEL_213:
-        v132 = 0;
-        goto LABEL_214;
+        else
+        {
+          started = -12782;
+        }
+
+LABEL_247:
+        APSLogErrorAt();
+LABEL_355:
+        v9 = 4294895362;
+LABEL_356:
+        free(v107);
+        free(v260);
+        free(v27);
+        if (v137)
+        {
+          CFRelease(v137);
+        }
+
+        if (v105)
+        {
+          CFRelease(v105);
+        }
+
+        if (cf)
+        {
+          CFRelease(cf);
+        }
+
+        return v9;
       }
 
       APSLogErrorAt();
-LABEL_710:
-      v132 = 0;
-      goto LABEL_711;
+LABEL_760:
+      v137 = 0;
+      goto LABEL_761;
     }
 
-    LODWORD(v226) = 0;
-    v74 = CMBaseObjectGetDerivedStorage();
+    LODWORD(v259) = 0;
+    v78 = CMBaseObjectGetDerivedStorage();
     number.value = 0;
     bzero(theDict, 0x1E000uLL);
     valuePtr = 0;
-    v227 = 0;
+    v260 = 0;
     CFStringGetTypeID();
-    v75 = CFDictionaryGetTypedValue();
-    if (!*(v74 + 408))
+    v79 = CFDictionaryGetTypedValue();
+    if (!*(v78 + 408))
     {
-      v98 = APReceiverFairPlayHelperCopyAuthorizeItemResponseIntoBuffer(*(v74 + 400), v3, v75, theDict, 0x1E000uLL, &number);
-      if (v98)
+      v102 = APReceiverFairPlayHelperCopyAuthorizeItemResponseIntoBuffer(*(v78 + 400), v3, v79, theDict, 0x1E000uLL, &number);
+      if (v102)
       {
-        v9 = v98;
+        v9 = v102;
         APSLogErrorAt();
-        goto LABEL_424;
+        goto LABEL_431;
       }
 
-      v99 = 0;
-      v75 = 0;
-      v80 = 0;
-      v78 = 0;
-      v100 = number.value;
-LABEL_413:
-      if (APReceiverRequestProcessorPrepareBinaryDataResponse(theDict, v100, v223))
+      v103 = 0;
+      v79 = 0;
+      v84 = 0;
+      v82 = 0;
+      v104 = number.value;
+LABEL_420:
+      if (APReceiverRequestProcessorPrepareBinaryDataResponse(theDict, v104, v256))
       {
         APSLogErrorAt();
       }
@@ -5130,52 +6409,52 @@ LABEL_413:
         v7 = 0;
       }
 
-      if (!v78)
+      if (!v82)
       {
-        goto LABEL_417;
+        goto LABEL_424;
       }
 
-      goto LABEL_416;
+      goto LABEL_423;
     }
 
-    LODWORD(v226) = mcProcessor_startVideoPlaybackV2(v6);
-    if (v226)
+    LODWORD(v259) = mcProcessor_startVideoPlaybackV2(v6);
+    if (v259)
     {
       APSLogErrorAt();
       v9 = 4294895362;
-      goto LABEL_424;
+      goto LABEL_431;
     }
 
-    v76 = *MEMORY[0x277CBECE8];
+    v80 = *MEMORY[0x277CBECE8];
     MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, v3);
-    v78 = MutableCopy;
+    v82 = MutableCopy;
     if (!MutableCopy)
     {
       APSLogErrorAt();
       v9 = 4294895350;
-      goto LABEL_424;
+      goto LABEL_431;
     }
 
     CFDictionarySetValue(MutableCopy, @"type", @"authorizeItem");
-    CFDictionarySetValue(v78, @"kind", @"request");
-    if (v75)
+    CFDictionarySetValue(v82, @"kind", @"request");
+    if (v79)
     {
-      v79 = CFDictionaryCreateMutable(v76, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v80 = v79;
-      if (!v79)
+      v83 = CFDictionaryCreateMutable(v80, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v84 = v83;
+      if (!v83)
       {
         APSLogErrorAt();
-        v75 = 0;
-        v80 = 0;
-        goto LABEL_696;
+        v79 = 0;
+        v84 = 0;
+        goto LABEL_746;
       }
 
-      CFDictionarySetValue(v79, @"uuid", v75);
-      CFDictionarySetValue(v78, @"item", v80);
-      v75 = CFDictionaryGetValue(v3, @"PIC-Request");
-      if (v75)
+      CFDictionarySetValue(v83, @"uuid", v79);
+      CFDictionarySetValue(v82, @"item", v84);
+      v79 = CFDictionaryGetValue(v3, @"PIC-Request");
+      if (v79)
       {
-        v75 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v75 options:0];
+        v79 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v79 options:0];
         FigCFDictionarySetValue();
       }
 
@@ -5184,84 +6463,84 @@ LABEL_413:
 
     else
     {
-      v80 = 0;
+      v84 = 0;
     }
 
-    LODWORD(v226) = mcProcessor_createAndWrapDataDictionaryForV2(v78, 1, &valuePtr);
-    if (!v226)
+    LODWORD(v259) = mcProcessor_createAndWrapDataDictionaryForV2(v82, 1, &valuePtr);
+    if (!v259)
     {
-      v118 = *(v74 + 392);
-      v99 = valuePtr;
-      v119 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-      if (v119)
+      v122 = *(v78 + 392);
+      v103 = valuePtr;
+      v123 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+      if (v123)
       {
-        if (!v119(v118, v99, &v227))
+        if (!v123(v122, v103, &v260))
         {
-          v120 = v227;
+          v124 = v260;
           if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_copyAuthorizeItemResponseV2IntoBuffer(CFDictionaryRef, uint8_t *, size_t, size_t *)", 33554462, "Creating header response for authorizeItem request with params = %@", v124);
           }
 
-          if (v120)
+          if (v124)
           {
-            v187 = CFDictionaryGetValue(v120, @"PIC-Data");
-            v188 = CFDictionaryGetValue(v120, @"playerGUID");
-            v189 = snprintf(theDict, 0x1E000uLL, "%s: %s\n%s: %s\n", "PIC-Data", [objc_msgSend(v187 base64EncodedStringWithOptions:{0), "cStringUsingEncoding:", 4}], "Player-GUID", objc_msgSend(v188, "cStringUsingEncoding:", 4));
-            if (v189 - 122880 >= 0xFFFE2001)
+            v197 = CFDictionaryGetValue(v124, @"PIC-Data");
+            v198 = CFDictionaryGetValue(v124, @"playerGUID");
+            v199 = snprintf(theDict, 0x1E000uLL, "%s: %s\n%s: %s\n", "PIC-Data", [objc_msgSend(v197 base64EncodedStringWithOptions:{0), "cStringUsingEncoding:", 4}], "Player-GUID", objc_msgSend(v198, "cStringUsingEncoding:", 4));
+            if (v199 - 122880 >= 0xFFFE2001)
             {
-              v100 = v189;
-              number.value = v189;
-              goto LABEL_413;
+              v104 = v199;
+              number.value = v199;
+              goto LABEL_420;
             }
           }
 
           APSLogErrorAt();
           APSLogErrorAt();
-LABEL_416:
-          CFRelease(v78);
-          v99 = valuePtr;
-LABEL_417:
-          if (v99)
+LABEL_423:
+          CFRelease(v82);
+          v103 = valuePtr;
+LABEL_424:
+          if (v103)
           {
-            CFRelease(v99);
+            CFRelease(v103);
           }
 
-          if (v80)
+          if (v84)
           {
-            CFRelease(v80);
+            CFRelease(v84);
           }
 
-          if (v75)
+          if (v79)
           {
-            CFRelease(v75);
+            CFRelease(v79);
           }
 
           v9 = v7;
-LABEL_424:
-          v184 = v227;
-          if (!v227)
+LABEL_431:
+          v192 = v260;
+          if (!v260)
           {
             return v9;
           }
 
-          goto LABEL_394;
+          goto LABEL_399;
         }
       }
 
       else
       {
-        LODWORD(v226) = -12782;
+        LODWORD(v259) = -12782;
       }
 
       APSLogErrorAt();
-      goto LABEL_416;
+      goto LABEL_423;
     }
 
     APSLogErrorAt();
-LABEL_696:
+LABEL_746:
     v7 = 4294895350;
-    goto LABEL_416;
+    goto LABEL_423;
   }
 
   if (v5 <= 1918989412)
@@ -5279,17 +6558,17 @@ LABEL_696:
           CFNumberGetValue(v46, kCFNumberFloatType, theDict);
           if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessSetVolume(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "Set Volume to %f\n", *theDict);
           }
 
-          v150 = *(v45 + 392);
-          if (v150)
+          v157 = *(v45 + 392);
+          if (v157)
           {
-            v151 = *(*(CMBaseObjectGetVTable() + 16) + 120);
-            if (v151 && !v151(v150, @"volume", 0, v47))
+            v158 = *(*(CMBaseObjectGetVTable() + 16) + 120);
+            if (v158 && !v158(v157, @"volume", 0, v47))
             {
               v7 = 0;
-              *v223 = 0;
+              *v256 = 0;
             }
           }
 
@@ -5318,7 +6597,7 @@ LABEL_696:
           v17 = CFGetTypeID(v15);
           if (v17 == CFDictionaryGetTypeID())
           {
-            v9 = mcProcessor_processSetRateInternal(v6, v16, v223);
+            v9 = mcProcessor_processSetRateInternal(v6, v16, v256);
           }
 
           else
@@ -5348,7 +6627,7 @@ LABEL_696:
 
     v34 = CMBaseObjectGetDerivedStorage();
     v35 = v34;
-    LODWORD(v227) = 0;
+    LODWORD(v260) = 0;
     theDict[0] = 0;
     number.value = 0;
     valuePtr = 0;
@@ -5356,12 +6635,12 @@ LABEL_696:
     {
       v36 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       v37 = v36;
-      if (!v36 || (CFDictionarySetValue(v36, @"type", @"playbackInfo"), CFDictionarySetValue(v37, @"kind", @"request"), LODWORD(v227) = mcProcessor_createAndWrapDataDictionaryForV2(v37, 1, &number), v227))
+      if (!v36 || (CFDictionarySetValue(v36, @"type", @"playbackInfo"), CFDictionarySetValue(v37, @"kind", @"request"), LODWORD(v260) = mcProcessor_createAndWrapDataDictionaryForV2(v37, 1, &number), v260))
       {
         APSLogErrorAt();
         v43 = 0;
         v9 = 4294895350;
-        goto LABEL_233;
+        goto LABEL_236;
       }
 
       v38 = *(v35 + 392);
@@ -5369,8 +6648,8 @@ LABEL_696:
       v40 = *(*(CMBaseObjectGetVTable() + 16) + 64);
       if (v40)
       {
-        LODWORD(v227) = v40(v38, v39, &valuePtr);
-        if (!v227)
+        LODWORD(v260) = v40(v38, v39, &valuePtr);
+        if (!v260)
         {
           v41 = FigCFDictionaryGetValue();
           if (v41)
@@ -5381,13 +6660,13 @@ LABEL_696:
             {
               mcProcessor_replaceV2RangeKeysWithV1(v42, *MEMORY[0x277CC10A8]);
               mcProcessor_replaceV2RangeKeysWithV1(v43, *MEMORY[0x277CC1070]);
-              v44 = APReceiverRequestProcessorPrepareXMLPlistResponse(v43, v223);
-LABEL_146:
-              LODWORD(v227) = v44;
+              v44 = APReceiverRequestProcessorPrepareXMLPlistResponse(v43, v256);
+LABEL_147:
+              LODWORD(v260) = v44;
               if (!v44)
               {
                 v9 = 0;
-LABEL_233:
+LABEL_236:
                 if (theDict[0])
                 {
                   CFRelease(theDict[0]);
@@ -5417,9 +6696,9 @@ LABEL_233:
               }
 
               APSLogErrorAt();
-LABEL_232:
+LABEL_235:
               v9 = 4294895362;
-              goto LABEL_233;
+              goto LABEL_236;
             }
           }
         }
@@ -5427,65 +6706,65 @@ LABEL_232:
 
       else
       {
-        LODWORD(v227) = -12782;
+        LODWORD(v260) = -12782;
       }
 
       APSLogErrorAt();
-LABEL_231:
+LABEL_234:
       v43 = 0;
-      goto LABEL_232;
+      goto LABEL_235;
     }
 
     v37 = *(v34 + 392);
     if (!v37)
     {
       APSLogErrorAt();
-      goto LABEL_231;
+      goto LABEL_234;
     }
 
-    v90 = *(*(CMBaseObjectGetVTable() + 16) + 112);
-    if (v90)
+    v94 = *(*(CMBaseObjectGetVTable() + 16) + 112);
+    if (v94)
     {
-      LODWORD(v227) = v90(v37, @"playbackInfo", 0, theDict);
+      LODWORD(v260) = v94(v37, @"playbackInfo", 0, theDict);
       if (theDict[0])
       {
         CFDictionaryGetDouble();
-        if (v227)
+        if (v260)
         {
-LABEL_137:
-          v94 = CFDictionaryGetInt64();
-          if (!v227)
+LABEL_138:
+          v98 = CFDictionaryGetInt64();
+          if (!v260)
           {
-            *(v35 + 212) = v94;
+            *(v35 + 212) = v98;
           }
 
           CFDictionaryGetDouble();
-          if (!v227)
+          if (!v260)
           {
-            *(v35 + 216) = v95;
+            *(v35 + 216) = v99;
           }
 
           CFDictionaryGetDouble();
-          if (!v227)
+          if (!v260)
           {
-            *(v35 + 224) = v96;
+            *(v35 + 224) = v100;
           }
 
           CFDictionaryGetDouble();
-          if (!v227)
+          if (!v260)
           {
-            *(v35 + 232) = v97;
+            *(v35 + 232) = v101;
           }
 
-          v44 = APReceiverRequestProcessorPrepareXMLPlistResponse(theDict[0], v223);
+          v44 = APReceiverRequestProcessorPrepareXMLPlistResponse(theDict[0], v256);
           v37 = 0;
           v43 = 0;
-          goto LABEL_146;
+          goto LABEL_147;
         }
 
-        v92 = v91;
-        v93 = CFDictionaryCreateMutableCopy(0, 0, theDict[0]);
-        if (v93)
+        v96 = v95;
+        v97 = CFDictionaryCreateMutableCopy(0, 0, theDict[0]);
+        if (v97)
         {
           if (theDict[0])
           {
@@ -5493,27 +6772,27 @@ LABEL_137:
             theDict[0] = 0;
           }
 
-          CFDictionaryRemoveValue(v93, @"playbackLikelyToKeepUpTime");
+          CFDictionaryRemoveValue(v97, @"playbackLikelyToKeepUpTime");
           if (!*(v35 + 208))
           {
-            *(v35 + 208) = ((v92 - *(v35 + 200)) * 1000.0);
+            *(v35 + 208) = ((v96 - *(v35 + 200)) * 1000.0);
             CFDictionarySetInt64();
           }
 
-          theDict[0] = v93;
-          goto LABEL_137;
+          theDict[0] = v97;
+          goto LABEL_138;
         }
       }
     }
 
     else
     {
-      LODWORD(v227) = -12782;
+      LODWORD(v260) = -12782;
     }
 
     APSLogErrorAt();
     v37 = 0;
-    goto LABEL_231;
+    goto LABEL_234;
   }
 
   if (v5 > 1936748657)
@@ -5526,24 +6805,24 @@ LABEL_137:
         {
           if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessStop(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "Stop\n");
           }
 
-          if (mcProcessor_handleStop())
+          if (mcProcessor_handleStop(v6))
           {
             APSLogErrorAt();
             return 4294895362;
           }
 
           v9 = 0;
-          goto LABEL_274;
+          goto LABEL_277;
         }
 
         return v9;
       }
 
       v48 = CMBaseObjectGetDerivedStorage();
-      LODWORD(v227) = 0;
+      LODWORD(v260) = 0;
       valuePtr = 0;
       CFDataGetTypeID();
       v49 = CFDictionaryGetTypedValue();
@@ -5558,7 +6837,7 @@ LABEL_137:
         {
           APSLogErrorAt();
           v9 = 4294895366;
-          goto LABEL_393;
+          goto LABEL_398;
         }
       }
 
@@ -5567,12 +6846,12 @@ LABEL_137:
       if (!v51)
       {
         APSLogErrorAt();
-        v178 = 0;
+        v186 = 0;
         v7 = 4294895366;
-        goto LABEL_386;
+        goto LABEL_391;
       }
 
-      CFNumberGetValue(v51, kCFNumberFloatType, &v227);
+      CFNumberGetValue(v51, kCFNumberFloatType, &v260);
       v53 = gLogCategory_APReceiverRequestProcessorMediaControl;
       if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
       {
@@ -5580,104 +6859,110 @@ LABEL_137:
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_373;
+            goto LABEL_378;
           }
 
           v53 = gLogCategory_APReceiverRequestProcessorMediaControl;
         }
 
-        if (v53 == -1)
+        v54 = *&v260;
+        if (v53 > 10)
         {
-          _LogCategory_Initialize();
+          v55 = 0;
         }
 
-        LogPrintF();
+        else
+        {
+          v55 = v53 != -1 || _LogCategory_Initialize() != 0;
+        }
+
+        LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessSetScrubPosition(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "Set position to %f %?@\n", v54, v55, v50);
       }
 
-LABEL_373:
-      v175 = *(v48 + 392);
-      if (!v175)
+LABEL_378:
+      v183 = *(v48 + 392);
+      if (!v183)
       {
         APSLogErrorAt();
         v52 = 0;
-        v178 = 0;
-        goto LABEL_386;
+        v186 = 0;
+        goto LABEL_391;
       }
 
       if (*(v48 + 408))
       {
-        v176 = *MEMORY[0x277CBECE8];
-        v177 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        v52 = v177;
-        if (!v177)
+        v184 = *MEMORY[0x277CBECE8];
+        v185 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v52 = v185;
+        if (!v185)
         {
           APSLogErrorAt();
           v52 = 0;
-          v178 = 0;
+          v186 = 0;
           v7 = 4294895350;
-          goto LABEL_386;
+          goto LABEL_391;
         }
 
-        CFDictionarySetValue(v177, @"type", @"seek");
+        CFDictionarySetValue(v185, @"type", @"seek");
         CFDictionarySetValue(v52, @"kind", @"request");
         theDict[0] = 0;
         theDict[1] = 0;
-        *&v238 = 0;
-        CMTimeMakeWithSeconds(theDict, *&v227, 10000);
+        *&v271 = 0;
+        CMTimeMakeWithSeconds(theDict, *&v260, 10000);
         *&number.value = *theDict;
-        number.epoch = v238;
-        v178 = CMTimeCopyAsDictionary(&number, v176);
+        number.epoch = v271;
+        v186 = CMTimeCopyAsDictionary(&number, v184);
         FigCFDictionarySetValue();
         FigCFDictionarySetValueFromKeyInDict();
         FigCFDictionarySetValue();
         FigCFDictionarySetValueFromKeyInDict();
         if (mcProcessor_createAndWrapDataDictionaryForV2(v52, 0, &valuePtr))
         {
-          goto LABEL_385;
+          goto LABEL_390;
         }
 
-        v179 = *(v48 + 392);
-        v180 = valuePtr;
-        v181 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-        if (v181)
+        v187 = *(v48 + 392);
+        v188 = valuePtr;
+        v189 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+        if (v189)
         {
-          v182 = v181(v179, v180, 0);
+          v190 = v189(v187, v188, 0);
         }
 
         else
         {
-          v182 = -12782;
+          v190 = -12782;
         }
       }
 
       else
       {
-        v183 = *(*(CMBaseObjectGetVTable() + 16) + 120);
-        if (!v183)
+        v191 = *(*(CMBaseObjectGetVTable() + 16) + 120);
+        if (!v191)
         {
-          v178 = 0;
+          v186 = 0;
           v52 = 0;
-          goto LABEL_385;
+          goto LABEL_390;
         }
 
-        v182 = v183(v175, @"position", v50, v52);
+        v190 = v191(v183, @"position", v50, v52);
         v52 = 0;
-        v178 = 0;
+        v186 = 0;
       }
 
-      if (!v182)
+      if (!v190)
       {
         v7 = 0;
-        *v223 = 0;
-LABEL_386:
+        *v256 = 0;
+LABEL_391:
         if (v50)
         {
           CFRelease(v50);
         }
 
-        if (v178)
+        if (v186)
         {
-          CFRelease(v178);
+          CFRelease(v186);
         }
 
         if (v52)
@@ -5686,111 +6971,159 @@ LABEL_386:
         }
 
         v9 = v7;
-LABEL_393:
-        v184 = valuePtr;
+LABEL_398:
+        v192 = valuePtr;
         if (!valuePtr)
         {
           return v9;
         }
 
-LABEL_394:
-        CFRelease(v184);
+LABEL_399:
+        CFRelease(v192);
         return v9;
       }
 
-LABEL_385:
+LABEL_390:
       APSLogErrorAt();
-      goto LABEL_386;
+      goto LABEL_391;
     }
 
-    v81 = CMBaseObjectGetDerivedStorage();
+    v85 = CMBaseObjectGetDerivedStorage();
     LODWORD(number.value) = 0;
     theDict[0] = 0;
     CFStringGetTypeID();
-    v82 = CFDictionaryGetTypedValue();
-    if (v82)
+    v86 = CFDictionaryGetTypedValue();
+    if (v86)
     {
       CFDataGetTypeID();
-      v83 = CFDictionaryGetTypedValue();
-      v84 = v83;
-      if (!v83)
+      v87 = CFDictionaryGetTypedValue();
+      v88 = v87;
+      if (!v87)
       {
-        v87 = 0;
-        v88 = 0;
-        goto LABEL_185;
+        v91 = 0;
+        v92 = 0;
+        goto LABEL_186;
       }
 
-      if (CFDataGetLength(v83) < 1)
+      if (CFDataGetLength(v87) < 1)
       {
-        v87 = 0;
+        v91 = 0;
+        v92 = 0;
         v88 = 0;
-        v84 = 0;
-        goto LABEL_185;
+        goto LABEL_186;
       }
 
-      v85 = CFPropertyListCreateWithData(0, v84, 0, 0, 0);
-      v84 = v85;
-      if (v85)
+      v89 = CFPropertyListCreateWithData(0, v88, 0, 0, 0);
+      v88 = v89;
+      if (v89)
       {
-        v86 = CFGetTypeID(v85);
-        if (v86 != CFDictionaryGetTypeID())
+        v90 = CFGetTypeID(v89);
+        if (v90 != CFDictionaryGetTypeID())
         {
           APSLogErrorAt();
-          v153 = 0;
+          v160 = 0;
           v9 = 4294895354;
-LABEL_344:
-          CFRelease(v84);
-LABEL_345:
-          if (v153)
+LABEL_349:
+          CFRelease(v88);
+LABEL_350:
+          if (v160)
           {
-            CFRelease(v153);
+            CFRelease(v160);
           }
 
-          goto LABEL_347;
+          goto LABEL_352;
         }
 
-        v87 = CFDictionaryGetValue(v84, @"qualifier");
-        v88 = CFDictionaryGetValue(v84, @"value");
-LABEL_185:
+        v91 = CFDictionaryGetValue(v88, @"qualifier");
+        v92 = CFDictionaryGetValue(v88, @"value");
+LABEL_186:
         if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessSetProxiedProperty(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554462, "Setting property %@ with qualifier %@ and value %@\n", v86, v91, v92);
         }
 
-        v152 = *(v81 + 392);
-        if (!v152)
+        v159 = *(v85 + 392);
+        if (!v159)
         {
           APSLogErrorAt();
-          v153 = 0;
-          goto LABEL_343;
+          v160 = 0;
+          goto LABEL_348;
         }
 
-        if (!*(v81 + 408))
+        if (!*(v85 + 408))
         {
-          v159 = *(*(CMBaseObjectGetVTable() + 16) + 120);
-          if (v159)
+          v166 = *(*(CMBaseObjectGetVTable() + 16) + 120);
+          if (v166)
           {
-            v158 = v159(v152, v82, v87, v88);
+            value_low = v166(v159, v86, v91, v92);
           }
 
           else
           {
-            v158 = -12782;
+            value_low = 4294954514;
           }
 
-          v153 = 0;
-          goto LABEL_312;
+          v160 = 0;
+LABEL_315:
+          LODWORD(number.value) = value_low;
+          if (value_low && gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
+          {
+            if (gLogCategory_APReceiverRequestProcessorMediaControl != -1)
+            {
+LABEL_318:
+              LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_requestProcessSetProxiedProperty(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "### Set property '%@' failed: %#m\n", v86, value_low);
+              goto LABEL_344;
+            }
+
+            if (_LogCategory_Initialize())
+            {
+              value_low = LODWORD(number.value);
+              goto LABEL_318;
+            }
+          }
+
+LABEL_344:
+          v177 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+          if (v177)
+          {
+            CFDictionarySetNumber();
+            if (APReceiverRequestProcessorPreparePlistResponse(v177, v256))
+            {
+              APSLogErrorAt();
+            }
+
+            else
+            {
+              v7 = 0;
+            }
+
+            CFRelease(v177);
+          }
+
+          else
+          {
+            APSLogErrorAt();
+          }
+
+LABEL_348:
+          v9 = v7;
+          if (!v88)
+          {
+            goto LABEL_350;
+          }
+
+          goto LABEL_349;
         }
 
-        v153 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        if (v153)
+        v160 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        if (v160)
         {
-          if (v87)
+          if (v91)
           {
-            v154 = CFGetTypeID(v87);
-            if (v154 == CFDictionaryGetTypeID())
+            v161 = CFGetTypeID(v91);
+            if (v161 == CFDictionaryGetTypeID())
             {
-              mcProcessor_qualifierToRendererParameters(v87, v153);
+              mcProcessor_qualifierToRendererParameters(v91, v160);
               FigCFDictionarySetValueFromKeyInDict();
               FigCFDictionarySetValueFromKeyInDict();
             }
@@ -5798,80 +7131,44 @@ LABEL_185:
 
           if (FigCFEqual())
           {
-            CFDictionarySetValue(v153, @"type", @"seek");
+            CFDictionarySetValue(v160, @"type", @"seek");
             FigCFDictionarySetValue();
-            LODWORD(number.value) = mcProcessor_createAndWrapDataDictionaryForV2(v153, 0, theDict);
+            LODWORD(number.value) = mcProcessor_createAndWrapDataDictionaryForV2(v160, 0, theDict);
             if (!LODWORD(number.value))
             {
-              v155 = *(v81 + 392);
-              v156 = theDict[0];
-              v157 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-              if (v157)
+              v162 = *(v85 + 392);
+              v163 = theDict[0];
+              v164 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+              if (v164)
               {
-LABEL_299:
-                v158 = v157(v155, v156, 0);
-                goto LABEL_312;
+LABEL_302:
+                value_low = v164(v162, v163, 0);
+                goto LABEL_315;
               }
 
-LABEL_309:
-              v158 = -12782;
 LABEL_312:
-              LODWORD(number.value) = v158;
-              if (v158 && gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
-              {
-                LogPrintF();
-              }
-
-              v169 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              if (v169)
-              {
-                CFDictionarySetNumber();
-                if (APReceiverRequestProcessorPreparePlistResponse(v169, v223))
-                {
-                  APSLogErrorAt();
-                }
-
-                else
-                {
-                  v7 = 0;
-                }
-
-                CFRelease(v169);
-              }
-
-              else
-              {
-                APSLogErrorAt();
-              }
-
-LABEL_343:
-              v9 = v7;
-              if (!v84)
-              {
-                goto LABEL_345;
-              }
-
-              goto LABEL_344;
+              value_low = 4294954514;
+              goto LABEL_315;
             }
           }
 
           else
           {
-            CFDictionarySetValue(v153, @"type", @"setProperty");
-            CFDictionarySetValue(v153, @"kind", @"request");
-            CFDictionarySetValue(v153, @"property", v82);
+            CFDictionarySetValue(v160, @"type", @"setProperty");
+            CFDictionarySetValue(v160, @"kind", @"request");
+            CFDictionarySetValue(v160, @"property", v86);
             FigCFDictionarySetValue();
-            v160 = FigCFEqual();
-            v161 = v87 == 0;
-            if (!v160)
+            v167 = FigCFEqual();
+            v168 = v91 == 0;
+            if (!v167)
             {
-              v161 = 1;
+              v168 = 1;
             }
 
-            if (!v161)
+            if (!v168)
             {
-              v162 = CFGetTypeID(v87);
-              if (v162 == CFNumberGetTypeID())
+              v169 = CFGetTypeID(v91);
+              if (v169 == CFNumberGetTypeID())
               {
                 FigCFDictionarySetValue();
               }
@@ -5879,18 +7176,18 @@ LABEL_343:
 
             FigCFDictionaryGetValue();
             FigCFDictionarySetValue();
-            LODWORD(number.value) = mcProcessor_createAndWrapDataDictionaryForV2(v153, 0, theDict);
+            LODWORD(number.value) = mcProcessor_createAndWrapDataDictionaryForV2(v160, 0, theDict);
             if (!LODWORD(number.value))
             {
-              v155 = *(v81 + 392);
-              v156 = theDict[0];
-              v157 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-              if (v157)
+              v162 = *(v85 + 392);
+              v163 = theDict[0];
+              v164 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+              if (v164)
               {
-                goto LABEL_299;
+                goto LABEL_302;
               }
 
-              goto LABEL_309;
+              goto LABEL_312;
             }
           }
 
@@ -5900,11 +7197,11 @@ LABEL_343:
         else
         {
           APSLogErrorAt();
-          v153 = 0;
+          v160 = 0;
         }
 
         v7 = 4294895350;
-        goto LABEL_343;
+        goto LABEL_348;
       }
 
       APSLogErrorAt();
@@ -5917,7 +7214,7 @@ LABEL_343:
       v9 = 4294895362;
     }
 
-LABEL_347:
+LABEL_352:
     if (theDict[0])
     {
       CFRelease(theDict[0]);
@@ -5940,7 +7237,7 @@ LABEL_347:
     v29 = CFDictionaryGetTypedValue();
     if (!v29)
     {
-      goto LABEL_664;
+      goto LABEL_714;
     }
 
     LODWORD(number.value) = CFStringCopyUTF8CString();
@@ -5949,7 +7246,7 @@ LABEL_347:
       CFStringGetLength(v29);
       if (strnicmpx())
       {
-        goto LABEL_664;
+        goto LABEL_714;
       }
 
       theDict[0] = 0;
@@ -5957,7 +7254,7 @@ LABEL_347:
       v30 = CFDictionaryGetTypedValue();
       if (!v30)
       {
-        goto LABEL_664;
+        goto LABEL_714;
       }
 
       LODWORD(number.value) = CFStringCopyUTF8CString();
@@ -5966,7 +7263,7 @@ LABEL_347:
         CFStringGetLength(v30);
         if (strnicmpx())
         {
-          goto LABEL_664;
+          goto LABEL_714;
         }
 
         theDict[0] = 0;
@@ -5974,7 +7271,7 @@ LABEL_347:
         v31 = CFDictionaryGetTypedValue();
         if (!v31)
         {
-          goto LABEL_664;
+          goto LABEL_714;
         }
 
         LODWORD(number.value) = CFStringCopyUTF8CString();
@@ -5994,7 +7291,7 @@ LABEL_347:
           theDict[0] = 0;
           if (*(v28 + 104) != 0)
           {
-            goto LABEL_664;
+            goto LABEL_714;
           }
 
           CFStringGetTypeID();
@@ -6004,7 +7301,7 @@ LABEL_347:
             LODWORD(number.value) = CFStringCopyUTF8CString();
             if (LODWORD(number.value))
             {
-              goto LABEL_685;
+              goto LABEL_735;
             }
 
             CFStringGetLength(v32);
@@ -6021,73 +7318,73 @@ LABEL_347:
 
           if (v33)
           {
-            goto LABEL_664;
+            goto LABEL_714;
           }
 
           CFStringGetTypeID();
-          v109 = CFDictionaryGetTypedValue();
-          if (!v109)
+          v113 = CFDictionaryGetTypedValue();
+          if (!v113)
           {
             *(v28 + 301) = 116;
             *(v28 + 297) = 1852143205;
             Length = 5;
-            goto LABEL_168;
+            goto LABEL_169;
           }
 
           LODWORD(number.value) = CFStringCopyUTF8CString();
           if (!LODWORD(number.value))
           {
-            Length = CFStringGetLength(v109);
+            Length = CFStringGetLength(v113);
             if (Length < 0x10)
             {
               memcpy((v28 + 297), theDict[0], Length);
               theDict[0] = 0;
-LABEL_168:
+LABEL_169:
               *(v28 + Length + 297) = 0;
-              v111 = *(v28 + 128);
-              v112 = *(v28 + 32);
+              v115 = *(v28 + 128);
+              v116 = *(v28 + 32);
               CFObjectSetValue();
-              CFRetain(v111);
-              dispatch_retain(*(v112 + 120));
+              CFRetain(v115);
+              dispatch_retain(*(v116 + 120));
               CFRetain(v6);
-              v113 = HTTPConnectionDetach();
-              if (v113)
+              v117 = HTTPConnectionDetach();
+              if (v117)
               {
                 APSLogErrorAt();
               }
 
-              LODWORD(number.value) = v113;
-              goto LABEL_171;
+              LODWORD(number.value) = v117;
+              goto LABEL_172;
             }
 
-LABEL_664:
+LABEL_714:
             APSLogErrorAt();
-LABEL_171:
-            v114 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            if (!v114)
+LABEL_172:
+            v118 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+            if (!v118)
             {
               APSLogErrorAt();
-              v114 = 0;
+              v118 = 0;
               LODWORD(number.value) = -71950;
-              goto LABEL_175;
+              goto LABEL_176;
             }
 
             LODWORD(number.value) = CFDictionarySetInt64();
             if (LODWORD(number.value))
             {
               APSLogErrorAt();
-              goto LABEL_175;
+              goto LABEL_176;
             }
 
-            *v223 = v114;
-LABEL_174:
-            v114 = 0;
+            *v256 = v118;
 LABEL_175:
-            v115 = *(v28 + 392);
-            v116 = *(*(CMBaseObjectGetVTable() + 16) + 80);
-            if (v116)
+            v118 = 0;
+LABEL_176:
+            v119 = *(v28 + 392);
+            v120 = *(*(CMBaseObjectGetVTable() + 16) + 80);
+            if (v120)
             {
-              v116(v115, 0);
+              v120(v119, 0);
             }
 
             if (theDict[0])
@@ -6095,9 +7392,9 @@ LABEL_175:
               free(theDict[0]);
             }
 
-            if (v114)
+            if (v118)
             {
-              CFRelease(v114);
+              CFRelease(v118);
             }
 
             return LODWORD(number.value);
@@ -6106,91 +7403,89 @@ LABEL_175:
       }
     }
 
-LABEL_685:
+LABEL_735:
     APSLogErrorAt();
-    goto LABEL_174;
+    goto LABEL_175;
   }
 
-  return mcProcessor_processSetRateInternal(v6, v3, v223);
+  return mcProcessor_processSetRateInternal(v6, v3, v256);
 }
 
-uint64_t mcProcessor_addTLSInfo()
+uint64_t mcProcessor_addTLSInfo(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (!*(DerivedStorage + 120) || (v1 = DerivedStorage, !CFDictionaryGetInt64()))
+  if (!*(DerivedStorage + 120) || (v3 = DerivedStorage, !CFDictionaryGetInt64()))
   {
-    if (gLogCategory_APReceiverRequestProcessorMediaControl > 50 || gLogCategory_APReceiverRequestProcessorMediaControl == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
     {
-      return 0;
+      LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_addTLSInfo(APReceiverRequestProcessorRef, CFMutableDictionaryRef)", 33554482, "Not enabling AirPlay Video TLS\n");
     }
 
-LABEL_10:
-    LogPrintF();
     return 0;
   }
 
-  v2 = *(v1 + 120);
-  v3 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-  if (v3)
+  v4 = *(v3 + 120);
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+  if (v5)
   {
-    v4 = v3(v2, "Pair-TLS-PSK", 12, 0, 0, 16, v8);
-    if (!v4)
+    v6 = v5(v4, "Pair-TLS-PSK", 12, 0, 0, 16, v10);
+    if (!v6)
     {
       CFDictionarySetData();
       __s[0] = 0;
       SockAddrToString();
       strlen(__s);
       CFDictionarySetData();
-      if (gLogCategory_APReceiverRequestProcessorMediaControl > 50 || gLogCategory_APReceiverRequestProcessorMediaControl == -1 && !_LogCategory_Initialize())
+      if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
       {
-        return 0;
+        LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_addTLSInfo(APReceiverRequestProcessorRef, CFMutableDictionaryRef)", 33554482, "Enabling AirPlay Video TLS\n");
       }
 
-      goto LABEL_10;
+      return 0;
     }
 
-    v5 = v4;
+    v7 = v6;
   }
 
   else
   {
-    v5 = 4294954514;
+    v7 = 4294954514;
   }
 
   APSLogErrorAt();
-  return v5;
+  return v7;
 }
 
 uint64_t mcProcessor_createAndWrapDataDictionaryForV2(uint64_t a1, int a2, CFMutableDictionaryRef *a3)
 {
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_createAndWrapDataDictionaryForV2(CFDictionaryRef, Boolean, CFDictionaryRef *)", 33554462, "V2 message: %@\n", a1);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
-    v6 = Mutable;
+    v7 = Mutable;
     CFDataFromCFPropertyList = FigCreateCFDataFromCFPropertyList();
     if (CFDataFromCFPropertyList)
     {
-      v8 = CFDataFromCFPropertyList;
+      v9 = CFDataFromCFPropertyList;
       APSLogErrorAt();
-      CFRelease(v6);
+      CFRelease(v7);
     }
 
     else
     {
-      CFDictionarySetValue(v6, @"data", 0);
+      CFDictionarySetValue(v7, @"data", 0);
       if (a2)
       {
-        CFDictionarySetValue(v6, @"PerformSync", *MEMORY[0x277CBED28]);
+        CFDictionarySetValue(v7, @"PerformSync", *MEMORY[0x277CBED28]);
       }
 
-      v8 = 0;
-      *a3 = v6;
+      v9 = 0;
+      *a3 = v7;
     }
   }
 
@@ -6200,7 +7495,7 @@ uint64_t mcProcessor_createAndWrapDataDictionaryForV2(uint64_t a1, int a2, CFMut
     return 4294895346;
   }
 
-  return v8;
+  return v9;
 }
 
 uint64_t APReceiverUIControllerControlVideoPlayback(uint64_t a1, uint64_t a2)
@@ -6214,11 +7509,11 @@ uint64_t APReceiverUIControllerControlVideoPlayback(uint64_t a1, uint64_t a2)
   return v4(a1, a2, 0);
 }
 
-uint64_t mcProcessor_insertPlayQueueItemV2(uint64_t a1, const __CFDictionary *a2, uint64_t a3, uint64_t a4)
+uint64_t mcProcessor_insertPlayQueueItemV2(uint64_t a1, const __CFDictionary *a2, uint64_t a3, CFDictionaryRef a4, int a5)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   cf = 0;
-  v8 = *MEMORY[0x277CBECE8];
+  v9 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
@@ -6226,33 +7521,33 @@ uint64_t mcProcessor_insertPlayQueueItemV2(uint64_t a1, const __CFDictionary *a2
     return 4294960568;
   }
 
-  v10 = Mutable;
-  MutableCopy = CFDictionaryCreateMutableCopy(v8, 0, a2);
+  v11 = Mutable;
+  MutableCopy = CFDictionaryCreateMutableCopy(v9, 0, a2);
   if (!MutableCopy)
   {
     APSLogErrorAt();
-    CFRelease(v10);
+    CFRelease(v11);
     return 4294960568;
   }
 
-  v12 = MutableCopy;
+  v13 = MutableCopy;
   if (a4 || CFDictionaryGetValue(a2, @"Start-Position"))
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else if (CFDictionaryGetValue(a2, @"Start-Date") || CFDictionaryGetValue(a2, @"Start-Estimated-Date"))
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
     Int64 = CFDictionaryGetInt64();
-    memset(&v23, 0, sizeof(v23));
-    CMTimeMakeWithSeconds(&v23, Int64, 10000);
-    v22 = v23;
-    v13 = CMTimeCopyAsDictionary(&v22, v8);
+    memset(&v24, 0, sizeof(v24));
+    CMTimeMakeWithSeconds(&v24, Int64, 10000);
+    v23 = v24;
+    v14 = CMTimeCopyAsDictionary(&v23, v9);
   }
 
   CFDictionaryGetValue(a2, @"uuid");
@@ -6274,7 +7569,7 @@ uint64_t mcProcessor_insertPlayQueueItemV2(uint64_t a1, const __CFDictionary *a2
   FigCFDictionarySetValue();
   CFDictionaryGetValue(a2, @"tlsPSKEnabled");
   FigCFDictionarySetValue();
-  v14 = *MEMORY[0x277CC0F68];
+  v15 = *MEMORY[0x277CC0F68];
   CFDictionaryGetValue(a2, *MEMORY[0x277CC0F68]);
   FigCFDictionarySetValue();
   CFDictionaryGetValue(a2, @"buyParams");
@@ -6303,7 +7598,7 @@ uint64_t mcProcessor_insertPlayQueueItemV2(uint64_t a1, const __CFDictionary *a2
   FigCFDictionarySetValue();
   CFDictionaryGetValue(a2, *MEMORY[0x277CC0F08]);
   FigCFDictionarySetValue();
-  CFDictionarySetValue(v10, @"type", @"insertPlayQueueItem");
+  CFDictionarySetValue(v11, @"type", @"insertPlayQueueItem");
   FigCFDictionarySetValue();
   if (a3)
   {
@@ -6312,46 +7607,46 @@ uint64_t mcProcessor_insertPlayQueueItemV2(uint64_t a1, const __CFDictionary *a2
 
   CFDictionaryGetValue(a2, @"tlsPSKEnabled");
   FigCFDictionarySetValue();
-  CFDictionaryGetValue(a2, v14);
+  CFDictionaryGetValue(a2, v15);
   FigCFDictionarySetValue();
   CFDictionaryGetValue(a2, *MEMORY[0x277CC0F38]);
   FigCFDictionarySetValue();
-  v15 = mcProcessor_createAndWrapDataDictionaryForV2(v10, 0, &cf);
-  if (v15)
+  v16 = mcProcessor_createAndWrapDataDictionaryForV2(v11, 0, &cf);
+  if (v16)
   {
-    v19 = v15;
+    v20 = v16;
     APSLogErrorAt();
   }
 
   else
   {
-    v16 = *(DerivedStorage + 392);
-    v17 = cf;
-    v18 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-    if (v18)
+    v17 = *(DerivedStorage + 392);
+    v18 = cf;
+    v19 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+    if (v19)
     {
-      v19 = v18(v16, v17, 0);
+      v20 = v19(v17, v18, 0);
     }
 
     else
     {
-      v19 = 4294954514;
+      v20 = 4294954514;
     }
   }
 
-  CFRelease(v10);
-  if (v13)
+  CFRelease(v11);
+  if (v14)
   {
-    CFRelease(v13);
+    CFRelease(v14);
   }
 
-  CFRelease(v12);
+  CFRelease(v13);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v19;
+  return v20;
 }
 
 uint64_t APReceiverRequestProcessorPreparePlistResponse(const void *a1, CFMutableDictionaryRef *a2)
@@ -6435,7 +7730,7 @@ uint64_t mcProcessor_startVideoPlaybackV2(uint64_t a1)
   FigCFDictionarySetValue();
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_startVideoPlaybackV2(APReceiverRequestProcessorRef)", 33554462, "%{ptr} Starting video playback V2 with params: %@\n", a1, v5);
   }
 
   v7 = *(v3 + 392);
@@ -6518,22 +7813,22 @@ uint64_t APReceiverUIControllerStartVideoPlaybackV1(uint64_t a1, uint64_t a2, ui
   return v8(a1, mcProcessor_handleMediaControlEvent, a2, a3, a4);
 }
 
-void mcProcessor_addTrafficRegistration()
+void mcProcessor_addTrafficRegistration(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v11 = 0;
-  v10 = 0;
+  v13 = 0;
+  v12 = 0;
   cf = 0;
   APTransportGetSharedTransport();
   CMBaseObject = FigTransportGetCMBaseObject();
-  v2 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v2)
+  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v4)
   {
     PeerMACAddress = -12782;
     goto LABEL_11;
   }
 
-  PeerMACAddress = v2(CMBaseObject, *MEMORY[0x277CE4F30], *MEMORY[0x277CBECE8], &cf);
+  PeerMACAddress = v4(CMBaseObject, *MEMORY[0x277CE4F30], *MEMORY[0x277CBECE8], &cf);
   if (PeerMACAddress)
   {
 LABEL_11:
@@ -6541,17 +7836,17 @@ LABEL_11:
     goto LABEL_21;
   }
 
-  v3 = *(DerivedStorage + 24);
-  if (v3 != 4 && v3 != 128 && v3 != 64)
+  v5 = *(DerivedStorage + 24);
+  if (v5 != 4 && v5 != 128 && v5 != 64)
   {
 LABEL_18:
-    v8 = *(DerivedStorage + 168);
-    v7 = (DerivedStorage + 168);
-    v6 = v8;
-    if (v8)
+    v10 = *(DerivedStorage + 168);
+    v9 = (DerivedStorage + 168);
+    v8 = v10;
+    if (v10)
     {
-      CFRelease(v6);
-      *v7 = 0;
+      CFRelease(v8);
+      *v9 = 0;
     }
 
     PeerMACAddress = APTransportTrafficRegistrarInfraTransactionCreate();
@@ -6571,7 +7866,7 @@ LABEL_18:
 
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 40 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_addTrafficRegistration(APReceiverRequestProcessorRef, CFDictionaryRef)", 33554472, "Could not get MAC address from endpoint info, querying it from NDP table\n");
   }
 
   PeerMACAddress = GetPeerMACAddress();
@@ -6579,10 +7874,10 @@ LABEL_18:
   {
 LABEL_14:
     Int64 = CFDictionaryGetInt64();
-    v5 = *(DerivedStorage + 160);
-    if (v5)
+    v7 = *(DerivedStorage + 160);
+    if (v7)
     {
-      CFRelease(v5);
+      CFRelease(v7);
       *(DerivedStorage + 160) = 0;
     }
 
@@ -6602,7 +7897,7 @@ LABEL_14:
 
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 60 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_addTrafficRegistration(APReceiverRequestProcessorRef, CFDictionaryRef)", 33554492, "Peer's MAC address is not available. Cannot perform traffic registration.\n");
   }
 
 LABEL_21:
@@ -6612,7 +7907,7 @@ LABEL_21:
   }
 }
 
-uint64_t mcProcessor_logVideoStarted(double a1, uint64_t a2, const __CFDictionary *a3)
+uint64_t mcProcessor_logVideoStarted(uint64_t a1, const __CFDictionary *a2, int a3, double a4)
 {
   result = CMBaseObjectGetDerivedStorage();
   if (*(result + 200) != 0.0)
@@ -6620,148 +7915,568 @@ uint64_t mcProcessor_logVideoStarted(double a1, uint64_t a2, const __CFDictionar
     return result;
   }
 
-  v6 = result;
+  v8 = result;
   *(result + 244) = 0;
-  v7 = (result + 244);
-  *(result + 200) = a1;
+  v9 = (result + 244);
+  *(result + 200) = a4;
   *(result + 208) = 0u;
   *(result + 224) = 0u;
   *(result + 252) = 0;
   UUIDGet();
-  CFDictionaryGetInt64();
-  if (!CFDictionaryGetValue(a3, @"Start-Position") && !CFDictionaryGetValue(a3, @"Start-Date"))
+  if (CFDictionaryGetInt64())
   {
-    CFDictionaryGetValue(a3, @"Start-Estimated-Date");
-  }
-
-  result = CFDictionaryGetInt64();
-  if (result > 1)
-  {
-    if (result == 2)
-    {
-      if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
-      {
-        if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || (result = _LogCategory_Initialize(), result))
-        {
-          CFDictionaryGetValue(a3, @"uuid");
-          if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
-          {
-            _LogCategory_Initialize();
-          }
-
-          CFDictionaryGetValue(a3, @"path");
-          if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
-          {
-            _LogCategory_Initialize();
-          }
-
-          result = LogPrintF();
-        }
-      }
-
-      ++v6[62];
-    }
-
-    else
-    {
-      if (result != 3)
-      {
-LABEL_18:
-        if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
-        {
-          if (gLogCategory_APReceiverRequestProcessorMediaControl != -1)
-          {
-            return LogPrintF();
-          }
-
-          result = _LogCategory_Initialize();
-          if (result)
-          {
-            return LogPrintF();
-          }
-        }
-
-        return result;
-      }
-
-      if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
-      {
-        if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || (result = _LogCategory_Initialize(), result))
-        {
-          CFDictionaryGetValue(a3, @"uuid");
-          if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
-          {
-            _LogCategory_Initialize();
-          }
-
-          CFDictionaryGetValue(a3, @"Content-Location");
-          if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
-          {
-            _LogCategory_Initialize();
-          }
-
-          result = LogPrintF();
-        }
-      }
-
-      ++v6[64];
-    }
+    v10 = "Audio";
   }
 
   else
   {
-    if (result)
+    v10 = "Video";
+  }
+
+  Value = CFDictionaryGetValue(a2, @"Start-Position");
+  if (!Value)
+  {
+    Value = CFDictionaryGetValue(a2, @"Start-Date");
+    if (!Value)
     {
-      if (result == 1)
+      Value = CFDictionaryGetValue(a2, @"Start-Estimated-Date");
+    }
+  }
+
+  if (Value)
+  {
+    v12 = Value;
+  }
+
+  else
+  {
+    v12 = @"?";
+  }
+
+  result = CFDictionaryGetInt64();
+  v13 = result;
+  if (result > 1)
+  {
+    if (result != 2)
+    {
+      if (result != 3)
       {
-        if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
-        {
-          if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || (result = _LogCategory_Initialize(), result))
-          {
-            CFDictionaryGetValue(a3, @"uuid");
-            if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
-            {
-              _LogCategory_Initialize();
-            }
+        goto LABEL_26;
+      }
 
-            CFDictionaryGetValue(a3, @"Content-Location");
-            if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
-            {
-              _LogCategory_Initialize();
-            }
-
-            result = LogPrintF();
-          }
-        }
-
-        ++v6[63];
+      if (gLogCategory_APReceiverRequestProcessorMediaControl > 50 || gLogCategory_APReceiverRequestProcessorMediaControl == -1 && (result = _LogCategory_Initialize(), !result))
+      {
+LABEL_184:
+        ++v8[64];
         return result;
       }
 
-      goto LABEL_18;
+      v16 = CFDictionaryGetValue(a2, @"uuid");
+      if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+      {
+        v17 = 0;
+      }
+
+      else
+      {
+        v17 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+      }
+
+      v25 = CFDictionaryGetValue(a2, @"Content-Location");
+      if (a3 <= 15)
+      {
+        if (a3 > 3)
+        {
+          if (a3 == 4)
+          {
+            v26 = "AWDL";
+            goto LABEL_178;
+          }
+
+          if (a3 == 8)
+          {
+            v26 = "USB";
+            goto LABEL_178;
+          }
+        }
+
+        else
+        {
+          if (a3 == 1)
+          {
+            v26 = "Enet";
+            goto LABEL_178;
+          }
+
+          if (a3 == 2)
+          {
+            v26 = "WiFi";
+            goto LABEL_178;
+          }
+        }
+      }
+
+      else if (a3 <= 63)
+      {
+        if (a3 == 16)
+        {
+          v26 = "Direct";
+          goto LABEL_178;
+        }
+
+        if (a3 == 32)
+        {
+          v26 = "BTLE";
+          goto LABEL_178;
+        }
+      }
+
+      else
+      {
+        switch(a3)
+        {
+          case 64:
+            v26 = "WFD";
+            goto LABEL_178;
+          case 128:
+            v26 = "NAN";
+            goto LABEL_178;
+          case 256:
+            v26 = "IPsecBT";
+            goto LABEL_178;
+        }
+      }
+
+      if (a3 == 512)
+      {
+        v26 = "IPSecWiFi";
+      }
+
+      else
+      {
+        v26 = "?";
+      }
+
+LABEL_178:
+      if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+      {
+        v32 = 0;
+      }
+
+      else
+      {
+        v32 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+      }
+
+      result = LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of remote stream FP %'@ (%?@), Start=%@, TP=%s %?@\n", v10, v16, v17, v25, v12, v26, v32, a2);
+      goto LABEL_184;
     }
 
-    if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 50 || gLogCategory_APReceiverRequestProcessorMediaControl == -1 && (result = _LogCategory_Initialize(), !result))
     {
-      if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || (result = _LogCategory_Initialize(), result))
+LABEL_204:
+      ++v8[62];
+      return result;
+    }
+
+    v21 = CFDictionaryGetValue(a2, @"uuid");
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+    {
+      v22 = 0;
+    }
+
+    else
+    {
+      v22 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+    }
+
+    v29 = CFDictionaryGetValue(a2, @"path");
+    if (a3 <= 15)
+    {
+      if (a3 > 3)
       {
-        CFDictionaryGetValue(a3, @"uuid");
-        if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+        if (a3 == 4)
         {
-          _LogCategory_Initialize();
+          v30 = "AWDL";
+          goto LABEL_198;
         }
 
-        CFDictionaryGetValue(a3, @"path");
-        if (gLogCategory_APReceiverRequestProcessorMediaControl == -1)
+        if (a3 == 8)
         {
-          _LogCategory_Initialize();
+          v30 = "USB";
+          goto LABEL_198;
+        }
+      }
+
+      else
+      {
+        if (a3 == 1)
+        {
+          v30 = "Enet";
+          goto LABEL_198;
         }
 
-        result = LogPrintF();
+        if (a3 == 2)
+        {
+          v30 = "WiFi";
+          goto LABEL_198;
+        }
       }
     }
 
-    ++*v7;
+    else if (a3 <= 63)
+    {
+      if (a3 == 16)
+      {
+        v30 = "Direct";
+        goto LABEL_198;
+      }
+
+      if (a3 == 32)
+      {
+        v30 = "BTLE";
+        goto LABEL_198;
+      }
+    }
+
+    else
+    {
+      switch(a3)
+      {
+        case 64:
+          v30 = "WFD";
+          goto LABEL_198;
+        case 128:
+          v30 = "NAN";
+          goto LABEL_198;
+        case 256:
+          v30 = "IPsecBT";
+          goto LABEL_198;
+      }
+    }
+
+    if (a3 == 512)
+    {
+      v30 = "IPSecWiFi";
+    }
+
+    else
+    {
+      v30 = "?";
+    }
+
+LABEL_198:
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+    {
+      v34 = 0;
+    }
+
+    else
+    {
+      v34 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+    }
+
+    result = LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of local file FP %'@ (%?@), Start=%@, TP=%s %?@\n", v10, v21, v22, v29, v12, v30, v34, a2);
+    goto LABEL_204;
+  }
+
+  if (!result)
+  {
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 50 || gLogCategory_APReceiverRequestProcessorMediaControl == -1 && (result = _LogCategory_Initialize(), !result))
+    {
+LABEL_194:
+      ++*v9;
+      return result;
+    }
+
+    v19 = CFDictionaryGetValue(a2, @"uuid");
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+    {
+      v20 = 0;
+    }
+
+    else
+    {
+      v20 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+    }
+
+    v27 = CFDictionaryGetValue(a2, @"path");
+    if (a3 <= 15)
+    {
+      if (a3 > 3)
+      {
+        if (a3 == 4)
+        {
+          v28 = "AWDL";
+          goto LABEL_188;
+        }
+
+        if (a3 == 8)
+        {
+          v28 = "USB";
+          goto LABEL_188;
+        }
+      }
+
+      else
+      {
+        if (a3 == 1)
+        {
+          v28 = "Enet";
+          goto LABEL_188;
+        }
+
+        if (a3 == 2)
+        {
+          v28 = "WiFi";
+          goto LABEL_188;
+        }
+      }
+    }
+
+    else if (a3 <= 63)
+    {
+      if (a3 == 16)
+      {
+        v28 = "Direct";
+        goto LABEL_188;
+      }
+
+      if (a3 == 32)
+      {
+        v28 = "BTLE";
+        goto LABEL_188;
+      }
+    }
+
+    else
+    {
+      switch(a3)
+      {
+        case 64:
+          v28 = "WFD";
+          goto LABEL_188;
+        case 128:
+          v28 = "NAN";
+          goto LABEL_188;
+        case 256:
+          v28 = "IPsecBT";
+          goto LABEL_188;
+      }
+    }
+
+    if (a3 == 512)
+    {
+      v28 = "IPSecWiFi";
+    }
+
+    else
+    {
+      v28 = "?";
+    }
+
+LABEL_188:
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+    {
+      v33 = 0;
+    }
+
+    else
+    {
+      v33 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+    }
+
+    result = LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of local file %'@ (%?@), Start=%@, TP=%s %?@\n", v10, v19, v20, v27, v12, v28, v33, a2);
+    goto LABEL_194;
+  }
+
+  if (result == 1)
+  {
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 50 || gLogCategory_APReceiverRequestProcessorMediaControl == -1 && (result = _LogCategory_Initialize(), !result))
+    {
+LABEL_174:
+      ++v8[63];
+      return result;
+    }
+
+    v14 = CFDictionaryGetValue(a2, @"uuid");
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+    {
+      v15 = 0;
+    }
+
+    else
+    {
+      v15 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+    }
+
+    v23 = CFDictionaryGetValue(a2, @"Content-Location");
+    if (a3 <= 15)
+    {
+      if (a3 > 3)
+      {
+        if (a3 == 4)
+        {
+          v24 = "AWDL";
+          goto LABEL_168;
+        }
+
+        if (a3 == 8)
+        {
+          v24 = "USB";
+          goto LABEL_168;
+        }
+      }
+
+      else
+      {
+        if (a3 == 1)
+        {
+          v24 = "Enet";
+          goto LABEL_168;
+        }
+
+        if (a3 == 2)
+        {
+          v24 = "WiFi";
+          goto LABEL_168;
+        }
+      }
+    }
+
+    else if (a3 <= 63)
+    {
+      if (a3 == 16)
+      {
+        v24 = "Direct";
+        goto LABEL_168;
+      }
+
+      if (a3 == 32)
+      {
+        v24 = "BTLE";
+        goto LABEL_168;
+      }
+    }
+
+    else
+    {
+      switch(a3)
+      {
+        case 64:
+          v24 = "WFD";
+          goto LABEL_168;
+        case 128:
+          v24 = "NAN";
+          goto LABEL_168;
+        case 256:
+          v24 = "IPsecBT";
+          goto LABEL_168;
+      }
+    }
+
+    if (a3 == 512)
+    {
+      v24 = "IPSecWiFi";
+    }
+
+    else
+    {
+      v24 = "?";
+    }
+
+LABEL_168:
+    if (gLogCategory_APReceiverRequestProcessorMediaControl > 10)
+    {
+      v31 = 0;
+    }
+
+    else
+    {
+      v31 = gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize() != 0;
+    }
+
+    result = LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of remote stream %'@ (%?@), Start=%@, TP=%s %?@\n", v10, v14, v15, v23, v12, v24, v31, a2);
+    goto LABEL_174;
+  }
+
+LABEL_26:
+  if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50)
+  {
+    if (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || (result = _LogCategory_Initialize(), result))
+    {
+      if (a3 <= 15)
+      {
+        if (a3 > 3)
+        {
+          if (a3 == 4)
+          {
+            v18 = "AWDL";
+            return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+          }
+
+          if (a3 == 8)
+          {
+            v18 = "USB";
+            return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+          }
+        }
+
+        else
+        {
+          if (a3 == 1)
+          {
+            v18 = "Enet";
+            return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+          }
+
+          if (a3 == 2)
+          {
+            v18 = "WiFi";
+            return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+          }
+        }
+      }
+
+      else if (a3 <= 63)
+      {
+        if (a3 == 16)
+        {
+          v18 = "Direct";
+          return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+        }
+
+        if (a3 == 32)
+        {
+          v18 = "BTLE";
+          return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+        }
+      }
+
+      else
+      {
+        switch(a3)
+        {
+          case 64:
+            v18 = "WFD";
+            return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+          case 128:
+            v18 = "NAN";
+            return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+          case 256:
+            v18 = "IPsecBT";
+            return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+        }
+      }
+
+      v18 = "?";
+      if (a3 == 512)
+      {
+        v18 = "IPSecWiFi";
+      }
+
+      return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_logVideoStarted(APReceiverRequestProcessorRef, CFDictionaryRef, NetTransportType, CFAbsoluteTime)", 33554482, "AirPlay %s of ? (%d), Start=%@, TP=%s %@\n", v10, v13, v12, v18, a2);
+    }
   }
 
   return result;
@@ -6955,7 +8670,7 @@ LABEL_32:
   CFNumberGetValue(v8, kCFNumberFloatType, &valuePtr);
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "APSTransportMessageProcessingStatus mcProcessor_processSetRateInternal(APReceiverRequestProcessorRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "Set Rate to %f\n", valuePtr);
   }
 
   v10 = 4294895362;
@@ -7058,17 +8773,17 @@ LABEL_27:
   return v10;
 }
 
-uint64_t mcProcessor_handleStop()
+uint64_t mcProcessor_handleStop(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = CMBaseObjectGetDerivedStorage();
-  v2 = *(v1 + 264);
-  if (v2)
+  v2 = CMBaseObjectGetDerivedStorage();
+  v3 = *(v2 + 264);
+  if (v3)
   {
-    v3 = v1;
-    dispatch_source_cancel(*(v1 + 264));
-    dispatch_release(v2);
-    *(v3 + 264) = 0;
+    v4 = v2;
+    dispatch_source_cancel(*(v2 + 264));
+    dispatch_release(v3);
+    *(v4 + 264) = 0;
   }
 
   if (!*(DerivedStorage + 384))
@@ -7076,15 +8791,21 @@ uint64_t mcProcessor_handleStop()
     return 0;
   }
 
-  v4 = CMBaseObjectGetDerivedStorage();
-  if (*(v4 + 200) != 0.0)
+  v5 = CMBaseObjectGetDerivedStorage();
+  if (*(v5 + 200) != 0.0)
   {
-    *(v4 + 200) = 0;
+    *(v5 + 200) = 0;
   }
 
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v6 = "V";
+    if (!*(DerivedStorage + 384))
+    {
+      v6 = "v";
+    }
+
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_handleStop(APReceiverRequestProcessorRef, CFStringRef, void **)", 33554482, "Stopping AirPlay (%s) from %##a\n", v6, DerivedStorage + 40);
   }
 
   if (*(DerivedStorage + 392))
@@ -7098,103 +8819,103 @@ uint64_t mcProcessor_handleStop()
         return 4294960568;
       }
 
-      v7 = Mutable;
+      v9 = Mutable;
       CFDictionarySetInt64();
       CFDictionarySetInt64();
-      v8 = *(DerivedStorage + 392);
-      v9 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-      if (v9)
+      v10 = *(DerivedStorage + 392);
+      v11 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+      if (v11)
       {
-        v5 = v9(v8, v7);
-        v10 = 0;
+        v7 = v11(v10, v9);
+        v12 = 0;
       }
 
       else
       {
-        v10 = 0;
-        v5 = 4294954514;
+        v12 = 0;
+        v7 = 4294954514;
       }
     }
 
     else
     {
-      v10 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v12 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       CFDictionarySetInt64();
       CFDictionarySetInt64();
-      v11 = *(DerivedStorage + 392);
-      v12 = *(*(CMBaseObjectGetVTable() + 16) + 96);
-      if (v12)
+      v13 = *(DerivedStorage + 392);
+      v14 = *(*(CMBaseObjectGetVTable() + 16) + 96);
+      if (v14)
       {
-        v12(v11, v10);
+        v14(v13, v12);
       }
 
-      v5 = 0;
       v7 = 0;
+      v9 = 0;
     }
 
-    v13 = *(DerivedStorage + 128);
-    v14 = *(v13 + 204) - 1;
-    *(v13 + 204) = v14;
-    if (!v14)
+    v15 = *(DerivedStorage + 128);
+    v16 = *(v15 + 204) - 1;
+    *(v15 + 204) = v16;
+    if (!v16)
     {
-      v19 = *(v13 + 208);
-      if (v19)
+      v21 = *(v15 + 208);
+      if (v21)
       {
-        IOPMAssertionRelease(v19);
-        *(v13 + 208) = 0;
+        IOPMAssertionRelease(v21);
+        *(v15 + 208) = 0;
         if (gLogCategory_AirPlayReceiverServer <= 40 && (gLogCategory_AirPlayReceiverServer != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_AirPlayReceiverServer, "void AirPlayReceiverServerReleasePowerAssertion(AirPlayReceiverServerRef)", 33554472, "Allowing idle sleep\n");
         }
       }
     }
 
-    v15 = CMBaseObjectGetDerivedStorage();
-    v16 = *(v15 + 160);
-    if (v16)
+    v17 = CMBaseObjectGetDerivedStorage();
+    v18 = *(v17 + 160);
+    if (v18)
     {
-      CFRelease(v16);
-      *(v15 + 160) = 0;
+      CFRelease(v18);
+      *(v17 + 160) = 0;
     }
 
-    v17 = *(v15 + 168);
-    if (v17)
+    v19 = *(v17 + 168);
+    if (v19)
     {
-      CFRelease(v17);
-      *(v15 + 168) = 0;
+      CFRelease(v19);
+      *(v17 + 168) = 0;
     }
 
     *(DerivedStorage + 384) = 0;
-    if (v7)
+    if (v9)
     {
-      CFRelease(v7);
+      CFRelease(v9);
     }
 
-    if (v10)
+    if (v12)
     {
-      CFRelease(v10);
+      CFRelease(v12);
     }
   }
 
   else
   {
-    v5 = 4294960534;
+    v7 = 4294960534;
     APSLogErrorAt();
   }
 
-  return v5;
+  return v7;
 }
 
-void _mcProcessor_KeepAliveTimer()
+void _mcProcessor_KeepAliveTimer(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = mach_absolute_time() - *(DerivedStorage + 272);
-  if (v1 <= SecondsToUpTicks())
+  v2 = mach_absolute_time() - *(DerivedStorage + 272);
+  if (v2 <= SecondsToUpTicks())
   {
-    if (v1 > SecondsToUpTicks() && gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
+    if (v2 > SecondsToUpTicks() && gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
     {
-      UpTicksToSeconds();
-      LogPrintF();
+      v4 = UpTicksToSeconds();
+      LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void _mcProcessor_KeepAliveTimer(void *)", 33554482, "### No activity from client in %llu seconds\n", v4);
     }
   }
 
@@ -7202,15 +8923,15 @@ void _mcProcessor_KeepAliveTimer()
   {
     if (gLogCategory_APReceiverRequestProcessorMediaControl <= 60 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
     {
-      UpTicksToSeconds();
-      LogPrintF();
+      v3 = UpTicksToSeconds();
+      LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void _mcProcessor_KeepAliveTimer(void *)", 33554492, "### No activity from client in %llu seconds, stopping keep-alive timer\n", v3);
     }
 
-    v2 = *(DerivedStorage + 264);
-    if (v2)
+    v5 = *(DerivedStorage + 264);
+    if (v5)
     {
       dispatch_source_cancel(*(DerivedStorage + 264));
-      dispatch_release(v2);
+      dispatch_release(v5);
       *(DerivedStorage + 264) = 0;
     }
   }
@@ -7221,15 +8942,16 @@ uint64_t mcProcessor_handleMediaControlEvent(dispatch_queue_t *a1, const void *a
   result = AirPlayReceiverServerPostMediaControlEvent(a1, a2);
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30)
   {
+    v4 = result;
     if (gLogCategory_APReceiverRequestProcessorMediaControl != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_handleMediaControlEvent(const void *, CFDictionaryRef)", 33554462, "Posted media control event %@. Result: %#m\n", a2, v4);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_handleMediaControlEvent(const void *, CFDictionaryRef)", 33554462, "Posted media control event %@. Result: %#m\n", a2, v4);
     }
   }
 
@@ -7238,11 +8960,11 @@ uint64_t mcProcessor_handleMediaControlEvent(dispatch_queue_t *a1, const void *a
 
 uint64_t mcProcessor_UIControllerCopyTLSInfoCallback(uint64_t a1, uint64_t a2, CFMutableDictionaryRef *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_UIControllerCopyTLSInfoCallback(const void *, CFDictionaryRef, CFDictionaryRef *)", 33554462, "[%{ptr}] Received copy TLS Info callback with %@.", a1, a2);
   }
 
   if (!a1)
@@ -7254,23 +8976,23 @@ uint64_t mcProcessor_UIControllerCopyTLSInfoCallback(uint64_t a1, uint64_t a2, C
   a1 = *(DerivedStorage + 120);
   if (a1)
   {
-    v6 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-    if (v6)
+    v7 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+    if (v7)
     {
-      v7 = v6(a1, "Pair-TLS-PSK", 12, 0, 0, 16, v12);
-      if (!v7)
+      v8 = v7(a1, "Pair-TLS-PSK", 12, 0, 0, 16, v13);
+      if (!v8)
       {
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         if (Mutable)
         {
-          v9 = Mutable;
+          v10 = Mutable;
           CFDictionarySetData();
           __s[0] = 0;
           SockAddrToString();
           strlen(__s);
           CFDictionarySetData();
           a1 = 0;
-          *a3 = v9;
+          *a3 = v10;
           return a1;
         }
 
@@ -7279,7 +9001,7 @@ uint64_t mcProcessor_UIControllerCopyTLSInfoCallback(uint64_t a1, uint64_t a2, C
         goto LABEL_13;
       }
 
-      a1 = v7;
+      a1 = v8;
     }
 
     else
@@ -7291,7 +9013,7 @@ uint64_t mcProcessor_UIControllerCopyTLSInfoCallback(uint64_t a1, uint64_t a2, C
 LABEL_13:
     if (gLogCategory_APReceiverRequestProcessorMediaControl <= 90 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_UIControllerCopyTLSInfoCallback(const void *, CFDictionaryRef, CFDictionaryRef *)", 33554522, "Error while responding to TLS request: %i", a1);
     }
   }
 
@@ -7303,7 +9025,7 @@ void mcProcessor_UIControllerVideoPlaybackCallback(uint64_t a1, const void *a2, 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_UIControllerVideoPlaybackCallback(const void *, CFNumberRef, CFDictionaryRef)", 33554462, "[%{ptr}] Received video playback callback with %@ and %@.", a1, a2, a3);
   }
 
   if (!a1 || !a3 || (Value = CFDictionaryGetValue(a3, @"data")) == 0 || (v8 = *MEMORY[0x277CBECE8], (v9 = CFPropertyListCreateWithData(*MEMORY[0x277CBECE8], Value, 0, 0, 0)) == 0))
@@ -7363,7 +9085,7 @@ LABEL_53:
 LABEL_54:
       if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_UIControllerVideoPlaybackCallback(const void *, CFNumberRef, CFDictionaryRef)", 33554462, "Posting media control event with %@ from %@", MutableCopy, v10);
       }
 
       AirPlayReceiverServerPostMediaControlEvent(*(DerivedStorage + 128), MutableCopy);
@@ -7389,7 +9111,7 @@ LABEL_54:
     {
       if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_UIControllerVideoPlaybackCallback(const void *, CFNumberRef, CFDictionaryRef)", 33554482, "[%{ptr}] %@ V2 notification is not supported in V1\n", a1, v14);
       }
 
       Mutable = 0;
@@ -7538,7 +9260,7 @@ LABEL_36:
 
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_UIControllerVideoPlaybackCallback(const void *, CFNumberRef, CFDictionaryRef)", 33554462, "Posting media control event with %@", v10);
   }
 
   v25 = FigCFDictionaryCreateMutableCopy();
@@ -7552,130 +9274,130 @@ LABEL_36:
   }
 }
 
-uint64_t mcProcessor_Start()
+uint64_t mcProcessor_Start(uint64_t a1)
 {
   CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 30 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_Start(APReceiverRequestProcessorRef, CFDictionaryRef)", 33554462, "%{ptr} started\n", a1);
   }
 
   return 0;
 }
 
-uint64_t mcProcessor_Finalize()
+uint64_t mcProcessor_Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "void mcProcessor_Finalize(CMBaseObjectRef)", 33554482, "%{ptr} finalizing\n", a1);
   }
 
-  v1 = CMBaseObjectGetDerivedStorage();
-  *(v1 + 176) = 0;
-  APReceiverFairPlayHelperRemoveAllFPSessions(*(v1 + 400));
-  *(v1 + 185) = 0;
-  *(v1 + 177) = 0;
-  v2 = 0uLL;
-  *(v1 + 200) = 0u;
-  *(v1 + 216) = 0u;
-  *(v1 + 225) = 0u;
-  *(v1 + 252) = 0;
-  *(v1 + 244) = 0;
-  *(v1 + 16) = 0;
-  *(v1 + 20) = 0;
-  *(v1 + 144) = 0;
-  *(v1 + 40) = 0u;
-  *(v1 + 56) = 0u;
-  *(v1 + 72) = 0u;
-  *(v1 + 88) = 0u;
-  *(v1 + 104) = 0u;
-  v3 = *(v1 + 152);
-  if (v3)
-  {
-    CFRelease(v3);
-    v2 = 0uLL;
-  }
-
-  *(v1 + 176) = 0;
-  *(v1 + 260) = 0;
-  *(v1 + 360) = 0;
-  *(v1 + 272) = v2;
-  *(v1 + 288) = v2;
-  *(v1 + 299) = v2;
-  v4 = *(v1 + 368);
-  if (v4)
-  {
-    CFRelease(v4);
-    *(v1 + 368) = 0;
-  }
-
-  *(v1 + 384) = 0;
-  *(v1 + 376) = 0;
-  if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
-  }
-
-  v5 = *(DerivedStorage + 120);
+  v3 = CMBaseObjectGetDerivedStorage();
+  *(v3 + 176) = 0;
+  APReceiverFairPlayHelperRemoveAllFPSessions(*(v3 + 400));
+  *(v3 + 185) = 0;
+  *(v3 + 177) = 0;
+  v4 = 0uLL;
+  *(v3 + 200) = 0u;
+  *(v3 + 216) = 0u;
+  *(v3 + 225) = 0u;
+  *(v3 + 252) = 0;
+  *(v3 + 244) = 0;
+  *(v3 + 16) = 0;
+  *(v3 + 20) = 0;
+  *(v3 + 144) = 0;
+  *(v3 + 40) = 0u;
+  *(v3 + 56) = 0u;
+  *(v3 + 72) = 0u;
+  *(v3 + 88) = 0u;
+  *(v3 + 104) = 0u;
+  v5 = *(v3 + 152);
   if (v5)
   {
     CFRelease(v5);
+    v4 = 0uLL;
   }
 
-  v6 = *(DerivedStorage + 392);
+  *(v3 + 176) = 0;
+  *(v3 + 260) = 0;
+  *(v3 + 360) = 0;
+  *(v3 + 272) = v4;
+  *(v3 + 288) = v4;
+  *(v3 + 299) = v4;
+  v6 = *(v3 + 368);
   if (v6)
   {
     CFRelease(v6);
-    *(DerivedStorage + 392) = 0;
+    *(v3 + 368) = 0;
   }
 
-  v7 = *(DerivedStorage + 400);
+  *(v3 + 384) = 0;
+  *(v3 + 376) = 0;
+  if (gLogCategory_APReceiverRequestProcessorMediaControl <= 50 && (gLogCategory_APReceiverRequestProcessorMediaControl != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APReceiverRequestProcessorMediaControl, "OSStatus mcProcessor_Stop(APReceiverRequestProcessorRef, CFStringRef)", 33554482, "%{ptr} stopped due to %@\n", a1, 0);
+  }
+
+  v7 = *(DerivedStorage + 120);
   if (v7)
   {
     CFRelease(v7);
-    *(DerivedStorage + 400) = 0;
   }
 
-  v8 = *(DerivedStorage + 128);
+  v8 = *(DerivedStorage + 392);
   if (v8)
   {
     CFRelease(v8);
-    *(DerivedStorage + 128) = 0;
+    *(DerivedStorage + 392) = 0;
   }
 
-  v9 = *(DerivedStorage + 136);
+  v9 = *(DerivedStorage + 400);
   if (v9)
   {
     CFRelease(v9);
-    *(DerivedStorage + 136) = 0;
+    *(DerivedStorage + 400) = 0;
   }
 
-  v10 = *(DerivedStorage + 416);
+  v10 = *(DerivedStorage + 128);
   if (v10)
   {
     CFRelease(v10);
-    *(DerivedStorage + 416) = 0;
+    *(DerivedStorage + 128) = 0;
   }
 
-  v11 = *(DerivedStorage + 440);
+  v11 = *(DerivedStorage + 136);
   if (v11)
   {
     CFRelease(v11);
-    *(DerivedStorage + 440) = 0;
+    *(DerivedStorage + 136) = 0;
   }
 
-  v12 = *(DerivedStorage + 160);
+  v12 = *(DerivedStorage + 416);
   if (v12)
   {
     CFRelease(v12);
-    *(DerivedStorage + 160) = 0;
+    *(DerivedStorage + 416) = 0;
   }
 
-  v13 = *(DerivedStorage + 168);
+  v13 = *(DerivedStorage + 440);
   if (v13)
   {
     CFRelease(v13);
+    *(DerivedStorage + 440) = 0;
+  }
+
+  v14 = *(DerivedStorage + 160);
+  if (v14)
+  {
+    CFRelease(v14);
+    *(DerivedStorage + 160) = 0;
+  }
+
+  v15 = *(DerivedStorage + 168);
+  if (v15)
+  {
+    CFRelease(v15);
     *(DerivedStorage + 168) = 0;
   }
 
@@ -7683,10 +9405,10 @@ uint64_t mcProcessor_Finalize()
   result = FigSimpleMutexDestroy();
   if (*(DerivedStorage + 360))
   {
-    v15 = *(DerivedStorage + 336);
-    if (v15)
+    v17 = *(DerivedStorage + 336);
+    if (v17)
     {
-      result = v15(*(DerivedStorage + 320));
+      result = v17(*(DerivedStorage + 320));
     }
   }
 
@@ -7770,13 +9492,13 @@ void _APReceiverAudioSessionFinalize(uint64_t a1)
 
     if (gLogCategory_APReceiverAudioSession != -1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverAudioSession, "void _APReceiverAudioSessionFinalize(CFTypeRef)", 33554482, "%@ Audio session torn down\n", v3);
     }
   }
 
   if (gLogCategory_APReceiverAudioSession <= 50 && (gLogCategory_APReceiverAudioSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverAudioSession, "void _APReceiverAudioSessionFinalize(CFTypeRef)", 33554482, "%@ APReceiverAudioSession finalized\n", v3);
   }
 
 LABEL_25:
@@ -7825,20 +9547,20 @@ void APReceiverAudioSessionInvalidate(uint64_t a1)
 
     if (gLogCategory_APReceiverAudioSession <= 50 && (gLogCategory_APReceiverAudioSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverAudioSession, "void APReceiverAudioSessionInvalidate(APReceiverAudioSessionRef)", 33554482, "%@ Audio session invalidated\n", *(a1 + 32));
     }
   }
 }
 
 uint64_t APReceiverAudioSessionCreate(int a1, _OWORD *a2, char *a3, const void *a4, uint64_t *a5)
 {
-  v172 = *MEMORY[0x277D85DE8];
+  v179 = *MEMORY[0x277D85DE8];
   mSampleRate_low = 0;
   cf = 0;
   value = 0;
   if (gLogCategory_APReceiverAudioSession <= 30 && (gLogCategory_APReceiverAudioSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverAudioSession, "OSStatus APReceiverAudioSessionCreate(APStreamType, sockaddr_ip, sockaddr_ip, uint8_t *, CFDictionaryRef, APReceiverAudioSessionRef *)", 33554462, "Creating audio session\n");
   }
 
   if (gAPReceiverAudioSessionInitOnce != -1)
@@ -7852,9 +9574,9 @@ uint64_t APReceiverAudioSessionCreate(int a1, _OWORD *a2, char *a3, const void *
   {
     APSLogErrorAt();
     Mutable = 0;
-LABEL_377:
+LABEL_383:
     mSampleRate_low = -6728;
-    goto LABEL_246;
+    goto LABEL_248;
   }
 
   *(Instance + 320) = 0;
@@ -7880,7 +9602,7 @@ LABEL_377:
   Int64Ranged = CFDictionaryGetInt64Ranged();
   Int64 = CFDictionaryGetInt64();
   v13 = CFDictionaryGetInt64();
-  v150 = CFDictionaryGetInt64();
+  v157 = CFDictionaryGetInt64();
   *(v10 + 20) = v13 != 0;
   *(v10 + 24) = a1;
   *(v10 + 216) = 0;
@@ -7888,47 +9610,44 @@ LABEL_377:
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
-LABEL_376:
+LABEL_382:
     APSLogErrorAt();
-    goto LABEL_377;
+    goto LABEL_383;
   }
 
   if (Int64)
   {
-    v146 = v10;
-    v16 = CFStringCreateF();
+    v16 = CFStringCreateF(&mSampleRate_low, "RAS ['SCR'-%{ptr}]", v10);
     *(v10 + 32) = v16;
     if (mSampleRate_low)
     {
-      goto LABEL_368;
+      goto LABEL_374;
     }
   }
 
   else if (v13)
   {
-    v146 = v10;
-    v16 = CFStringCreateF();
+    v16 = CFStringCreateF(&mSampleRate_low, "RAS ['MED'-%{ptr}]", v10);
     *(v10 + 32) = v16;
     if (mSampleRate_low)
     {
-      goto LABEL_368;
+      goto LABEL_374;
     }
   }
 
   else
   {
-    v146 = v10;
-    v16 = CFStringCreateF();
+    v16 = CFStringCreateF(&mSampleRate_low, "RAS ['AUX'-%{ptr}]", v10);
     *(v10 + 32) = v16;
     if (mSampleRate_low)
     {
-      goto LABEL_368;
+      goto LABEL_374;
     }
   }
 
   v17 = Int64Ranged;
   CFDictionarySetValue(Mutable, @"RASP::LogPrefix", v16);
-  if (!v150)
+  if (!v157)
   {
     v18 = &unk_27E37D000;
     if (v17)
@@ -7944,16 +9663,14 @@ LABEL_376:
   {
     if (gLogCategory_APReceiverAudioSession != -1 || _LogCategory_Initialize())
     {
-      v146 = *(v10 + 32);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverAudioSession, "OSStatus APReceiverAudioSessionCreate(APStreamType, sockaddr_ip, sockaddr_ip, uint8_t *, CFDictionaryRef, APReceiverAudioSessionRef *)", 33554482, "%@ using sink\n", *(v10 + 32));
     }
 
 LABEL_23:
     v19 = v18[944];
     if (v19 <= 50 && (v19 != -1 || _LogCategory_Initialize()))
     {
-      v146 = *(v10 + 32);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverAudioSession, "OSStatus APReceiverAudioSessionCreate(APStreamType, sockaddr_ip, sockaddr_ip, uint8_t *, CFDictionaryRef, APReceiverAudioSessionRef *)", 33554482, "%@ disable platform render\n", *(v10 + 32));
     }
   }
 
@@ -7969,19 +9686,18 @@ LABEL_28:
       mSampleRate_low = audioSession_setupGhostAudio(v10, &inSourceFormat, a4);
       if (mSampleRate_low)
       {
-        goto LABEL_368;
+        goto LABEL_374;
       }
 
-      goto LABEL_138;
+      goto LABEL_139;
     }
 
-    if (!v150 && APSSettingsGetIntWithDefault())
+    if (!v157 && APSSettingsGetIntWithDefault())
     {
       v24 = v18[944];
       if (v24 <= 50 && (v24 != -1 || _LogCategory_Initialize()))
       {
-        v146 = *(v10 + 32);
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverAudioSession, "OSStatus APReceiverAudioSessionCreate(APStreamType, sockaddr_ip, sockaddr_ip, uint8_t *, CFDictionaryRef, APReceiverAudioSessionRef *)", 33554482, "%@ Using Buffered Hose Receiver Session\n", *(v10 + 32));
       }
 
       if (CFDictionaryGetValue(a4, @"PKDDeviceContext"))
@@ -7989,7 +9705,7 @@ LABEL_28:
         mSampleRate_low = FigPKDStartAirPlayReceiverSession();
         if (mSampleRate_low)
         {
-          goto LABEL_368;
+          goto LABEL_374;
         }
 
         *(v10 + 272) = 0;
@@ -7998,13 +9714,10 @@ LABEL_28:
 
       *&inSourceFormat.mSampleRate = *a3;
       *&inSourceFormat.mFormatFlags = *(a3 + 12);
-      v38 = APReceiverAudioSessionBufferedHoseCreate(v10, *(v10 + 32), &inSourceFormat, a4, 0, (v10 + 40));
-      if (v38)
+      v21 = APReceiverAudioSessionBufferedHoseCreate(v10, *(v10 + 32), &inSourceFormat, a4, 0, (v10 + 40));
+      if (v21)
       {
-        v143 = v38;
-        APSLogErrorAt();
-        mSampleRate_low = v143;
-        goto LABEL_368;
+        goto LABEL_389;
       }
 
       *(v10 + 56) = APReceiverAudioSessionBufferedHoseInvalidate;
@@ -8028,37 +9741,35 @@ LABEL_28:
       *(v10 + 192) = 0;
       *(v10 + 200) = 0;
       *(v10 + 208) = 0;
-      v39 = v18[944];
-      if (v39 <= 50 && (v39 != -1 || _LogCategory_Initialize()))
+      v41 = v18[944];
+      if (v41 <= 50 && (v41 != -1 || _LogCategory_Initialize()))
       {
-        v146 = *(v10 + 32);
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverAudioSession, "OSStatus audioSession_setupBufferedAudioHose(APReceiverAudioSessionRef, sockaddr_ip, CFDictionaryRef, uint64_t)", 33554482, "%@ AudioSession setup for buffered source\n", *(v10 + 32));
       }
 
       mSampleRate_low = 0;
       CFDictionarySetValue(Mutable, @"RASP::DisablePlatformRendering", *MEMORY[0x277CBED28]);
-      goto LABEL_138;
+      goto LABEL_139;
     }
 
-    v147 = *a3;
-    v148 = a3[1];
-    v171[0] = *(a3 + 2);
-    *(v171 + 10) = *(a3 + 12);
+    v154 = *a3;
+    v155 = a3[1];
+    v178[0] = *(a3 + 2);
+    *(v178 + 10) = *(a3 + 12);
     v23 = *(v10 + 32);
     AudioFormatIndex = 0;
-    v157 = 0;
+    v164 = 0;
     if (gLogCategory_APReceiverAudioSessionBuffered <= 30 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
     {
-      v146 = v23;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554462, "%@ Creating buffered audio session\n", v23);
     }
 
     v25 = malloc_type_calloc(1uLL, 0x508uLL, 0x10F0040D1BE82D6uLL);
     if (!v25)
     {
-      v52 = -72150;
+      v54 = -72150;
       APSLogErrorAt();
-      goto LABEL_387;
+      goto LABEL_393;
     }
 
     v26 = v25;
@@ -8072,817 +9783,1240 @@ LABEL_28:
     }
 
     v26[4] = v27;
-    v158 = APSRTCReportingAgentCreate();
-    if (v158)
+    v28 = APSRTCReportingAgentCreate();
+    v165 = v28;
+    if (v28)
     {
-      if (gLogCategory_APReceiverAudioSessionBuffered <= 90 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_APReceiverAudioSessionBuffered <= 90)
       {
-        v146 = v26[3];
-        LogPrintF();
+        v29 = v28;
+        if (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize())
+        {
+          LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554522, "### %@ Could not create RTCReporting agent. err=%d\n", v26[3], v29);
+        }
       }
 
-      v158 = 0;
+      v165 = 0;
     }
 
     else if (gLogCategory_APReceiverAudioSessionBuffered <= 40 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
     {
-      v146 = v26[3];
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554472, "%@ Created RTCReporting agent. %p\n", v26[3], v26[158]);
     }
 
-    v28 = FigSimpleMutexCreate();
-    v26[141] = v28;
-    if (!v28)
+    v30 = FigSimpleMutexCreate();
+    v26[141] = v30;
+    if (!v30)
     {
       APSLogErrorAt();
-      v33 = 0;
-      v34 = -72150;
-      goto LABEL_128;
+      v36 = 0;
+      v37 = -72150;
+      goto LABEL_130;
     }
 
-    v29 = dispatch_queue_create("APReceiverAudioSessionQueue", 0);
-    v26[149] = v29;
-    if (!v29 || (v30 = dispatch_queue_create("APReceiverAudioSessionLogQueue", 0), (v26[155] = v30) == 0))
+    v31 = dispatch_queue_create("APReceiverAudioSessionQueue", 0);
+    v26[149] = v31;
+    if (!v31 || (v32 = dispatch_queue_create("APReceiverAudioSessionLogQueue", 0), (v26[155] = v32) == 0))
     {
       APSLogErrorAt();
-      v33 = 0;
-      v158 = APSSignalErrorAt();
-      goto LABEL_129;
+      v36 = 0;
+      v165 = APSSignalErrorAt();
+      goto LABEL_131;
     }
 
     *(v26 + 1225) = CFDictionaryGetInt64() != 0;
-    if (v158)
+    if (!v165)
     {
-      APSLogErrorAt();
-      v33 = 0;
-      goto LABEL_129;
-    }
-
-    if (CFDictionaryGetInt64Ranged() != 1381257248)
-    {
-      if (gLogCategory_APReceiverAudioSessionBuffered <= 90 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
+      v33 = CFDictionaryGetInt64Ranged();
+      if (v33 != 1381257248)
       {
-        v146 = v26[3];
-        LogPrintF();
+        if (gLogCategory_APReceiverAudioSessionBuffered <= 90 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554522, "### %@ audioConnectionType '%C' not supported\n", v26[3], v33);
+        }
+
+        v36 = 0;
+        goto LABEL_82;
       }
 
-      v33 = 0;
-      goto LABEL_80;
-    }
+      if (!CFDictionaryContainsKey(a4, @"MediaDataControl"))
+      {
+        v36 = 0;
+        goto LABEL_106;
+      }
 
-    if (CFDictionaryContainsKey(a4, @"MediaDataControl"))
-    {
       CFArrayGetTypeID();
       TypedValue = CFDictionaryGetTypedValue();
-      Count = CFArrayGetCount(TypedValue);
-      if (Count)
+      if (!v165)
       {
-        if (Count != 1)
+        Count = CFArrayGetCount(TypedValue);
+        if (Count)
         {
-          if (Count != 2)
+          if (Count != 1)
           {
-            v33 = 0;
-            v37 = -6705;
-            goto LABEL_89;
+            if (Count != 2)
+            {
+              v36 = 0;
+              v40 = -6705;
+              goto LABEL_91;
+            }
+
+            CFDataGetTypeID();
+            CFArrayGetTypedValueAtIndex();
+            if (v165)
+            {
+LABEL_429:
+              APSLogErrorAt();
+              v36 = 0;
+              goto LABEL_92;
+            }
           }
 
           CFDataGetTypeID();
           CFArrayGetTypedValueAtIndex();
-        }
-
-        CFDataGetTypeID();
-        CFArrayGetTypedValueAtIndex();
-      }
-
-      v35 = CFDictionaryCreateMutable(v14, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v33 = v35;
-      if (!v35)
-      {
-        APSLogErrorAt();
-        v37 = -6728;
-        goto LABEL_89;
-      }
-
-      v36 = MEMORY[0x277CBED28];
-      if (!*(v26 + 1225))
-      {
-        v36 = MEMORY[0x277CBED10];
-      }
-
-      CFDictionarySetValue(v35, @"MDC::AllowP2P", *v36);
-      FigCFDictionarySetValue();
-      FigCFDictionarySetValue();
-      CFDictionarySetValue(v33, @"MDC::Label", @"BUF");
-      CFDictionarySetInt64();
-      FigCFDictionarySetInt32();
-      *&v154 = v10;
-      *(&v154 + 1) = audioSession_handleMediaDataControlRequest_6044;
-      v155 = 0;
-      LOBYTE(inSourceFormat.mSampleRate) = v147;
-      BYTE1(inSourceFormat.mSampleRate) = v148;
-      *(&inSourceFormat.mSampleRate + 2) = v171[0];
-      *&inSourceFormat.mFormatFlags = *(v171 + 10);
-      v158 = APMediaDataControlServerCreate(&inSourceFormat, v33, &v154, v26 + 5);
-      if (v158)
-      {
-        goto LABEL_424;
-      }
-
-      v18 = &unk_27E37D000;
-      if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
-      {
-        v146 = v26[3];
-        LogPrintF();
-      }
-    }
-
-    else
-    {
-      v33 = 0;
-    }
-
-    *(v26 + 22) = CFDictionaryGetInt64();
-    if (v158)
-    {
-      goto LABEL_419;
-    }
-
-    v40 = CFDictionaryGetValue(a4, @"AudioFormat");
-    if (v40)
-    {
-      v41 = CFRetain(v40);
-      v26[142] = v41;
-      if (v41)
-      {
-        v42 = (v26 + 142);
-        AudioFormatIndex = APSAudioFormatDescriptionGetAudioFormatIndex();
-        if (AudioFormatIndex)
-        {
-          goto LABEL_519;
-        }
-
-        v158 = APCompressionTypeToAPAudioFormatIndex();
-        if (!v158)
-        {
-          if (*v42)
+          if (v165)
           {
-            CFRelease(*v42);
-            *v42 = 0;
+            goto LABEL_429;
           }
+        }
 
-          v158 = APSAudioFormatDescriptionCreateWithAudioFormatIndex();
-          if (!v158)
+        v38 = CFDictionaryCreateMutable(v14, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v36 = v38;
+        if (!v38)
+        {
+          APSLogErrorAt();
+          v40 = -6728;
+          goto LABEL_91;
+        }
+
+        v39 = MEMORY[0x277CBED28];
+        if (!*(v26 + 1225))
+        {
+          v39 = MEMORY[0x277CBED10];
+        }
+
+        CFDictionarySetValue(v38, @"MDC::AllowP2P", *v39);
+        FigCFDictionarySetValue();
+        FigCFDictionarySetValue();
+        CFDictionarySetValue(v36, @"MDC::Label", @"BUF");
+        CFDictionarySetInt64();
+        FigCFDictionarySetInt32();
+        *&v161 = v10;
+        *(&v161 + 1) = audioSession_handleMediaDataControlRequest_6044;
+        v162 = 0;
+        LOBYTE(inSourceFormat.mSampleRate) = v154;
+        BYTE1(inSourceFormat.mSampleRate) = v155;
+        *(&inSourceFormat.mSampleRate + 2) = v178[0];
+        *&inSourceFormat.mFormatFlags = *(v178 + 10);
+        v165 = APMediaDataControlServerCreate(&inSourceFormat, v36, &v161, v26 + 5);
+        if (v165)
+        {
+          goto LABEL_432;
+        }
+
+        v18 = &unk_27E37D000;
+        if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ Created media data control server [%{ptr}]", v26[3], v26[5]);
+        }
+
+LABEL_106:
+        *(v26 + 22) = CFDictionaryGetInt64();
+        if (v165)
+        {
+          goto LABEL_426;
+        }
+
+        v42 = CFDictionaryGetValue(a4, @"AudioFormat");
+        if (v42)
+        {
+          v43 = CFRetain(v42);
+          v26[142] = v43;
+          if (v43)
           {
-LABEL_519:
-            ASBD = APSAudioFormatDescriptionGetASBD();
-            if (!v158)
+            v44 = (v26 + 142);
+            AudioFormatIndex = APSAudioFormatDescriptionGetAudioFormatIndex();
+            if (!AudioFormatIndex)
             {
-              *(v26 + 27) = APAudioFormatIndexGetBitsPerChannel();
-              if (!*(v26 + 22))
+              v165 = APCompressionTypeToAPAudioFormatIndex();
+              if (v165)
               {
-                *(v26 + 22) = APAudioFormatIDToAPCompressionType();
+                goto LABEL_426;
               }
 
-              *(v26 + 23) = *ASBD;
-              v44 = *(ASBD + 28);
-              *(v26 + 24) = v44;
-              v45 = *(ASBD + 24);
-              *(v26 + 25) = v45;
-              if (!v45)
+              if (*v44)
               {
-                *(v26 + 25) = (((*(v26 + 27) + 7) & 0xFFFFFFF8) * v44) >> 3;
+                CFRelease(*v44);
+                *v44 = 0;
               }
 
-              v46 = CFDictionaryGetValue(a4, @"NetworkClock");
-              v26[143] = v46;
-              if (v46)
+              v165 = APSAudioFormatDescriptionCreateWithAudioFormatIndex();
+              if (v165)
               {
-                v47 = CFGetTypeID(v46);
-                if (v47 != APSNetworkClockGetTypeID())
-                {
-LABEL_416:
-                  APSLogErrorAt();
-LABEL_80:
-                  v34 = -72151;
-LABEL_128:
-                  v158 = v34;
-                  goto LABEL_129;
-                }
+                goto LABEL_426;
+              }
+            }
 
-                v48 = v26[143];
-                if (v48)
+            ASBD = APSAudioFormatDescriptionGetASBD();
+            if (v165)
+            {
+              goto LABEL_426;
+            }
+
+            *(v26 + 27) = APAudioFormatIndexGetBitsPerChannel();
+            if (!*(v26 + 22))
+            {
+              *(v26 + 22) = APAudioFormatIDToAPCompressionType();
+            }
+
+            *(v26 + 23) = *ASBD;
+            v46 = *(ASBD + 28);
+            *(v26 + 24) = v46;
+            v47 = *(ASBD + 24);
+            *(v26 + 25) = v47;
+            if (!v47)
+            {
+              *(v26 + 25) = (((*(v26 + 27) + 7) & 0xFFFFFFF8) * v46) >> 3;
+            }
+
+            v48 = CFDictionaryGetValue(a4, @"NetworkClock");
+            v26[143] = v48;
+            if (v48)
+            {
+              v49 = CFGetTypeID(v48);
+              if (v49 != APSNetworkClockGetTypeID())
+              {
+LABEL_423:
+                APSLogErrorAt();
+LABEL_82:
+                v37 = -72151;
+LABEL_130:
+                v165 = v37;
+                goto LABEL_131;
+              }
+
+              v50 = v26[143];
+              if (v50)
+              {
+                CFRetain(v50);
+              }
+            }
+
+            *(v26 + 1152) = CFDictionaryGetInt64() != 0;
+            if (v165)
+            {
+              goto LABEL_426;
+            }
+
+            v51 = CFDictionaryGetValue(a4, @"StatsCollector");
+            v26[148] = v51;
+            if (v51)
+            {
+              CFRetain(v51);
+            }
+
+            APTTrafficMetricsCreate();
+            v52 = CFDictionaryGetInt64();
+            if (v52)
+            {
+              v53 = *(v26 + 23) * v52 / 0x3E8u;
+              *(v26 + 116) = v53;
+            }
+
+            else
+            {
+              *(v26 + 116) = CFDictionaryGetInt64();
+              v53 = CFDictionaryGetInt64();
+            }
+
+            *(v26 + 117) = v53;
+            *(v26 + 118) = 0;
+            *(v26 + 26) = CFDictionaryGetInt64();
+            CFDictionaryGetData();
+            if (v165 == -6727)
+            {
+              v165 = 0;
+LABEL_263:
+              v100 = UpTicksPerSecond();
+              v101 = mach_absolute_time();
+              v26[86] = SecondsToUpTicks();
+              v26[87] = v101;
+              v26[100] = 60 * v100;
+              v26[99] = v101 + 60 * v100;
+              CFPreferenceNumberWithDefault = FigGetCFPreferenceNumberWithDefault();
+              *(v26 + 216) = CFPreferenceNumberWithDefault;
+              v26[102] = v101;
+              v26[103] = v100 * CFPreferenceNumberWithDefault;
+              v26[104] = v100;
+              v26[105] = 0;
+              v26[106] = v101;
+              v26[107] = 10 * v100;
+              inSourceFormat.mSampleRate = 0.0;
+              CMBaseObject = APSNetworkClockGetCMBaseObject();
+              v104 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+              if (v104)
+              {
+                v104(CMBaseObject, *MEMORY[0x277CEA260], v14, &inSourceFormat);
+                mSampleRate = inSourceFormat.mSampleRate;
+              }
+
+              else
+              {
+                mSampleRate = 0.0;
+              }
+
+              v106 = *MEMORY[0x277CEA278];
+              if (*&mSampleRate == *MEMORY[0x277CEA278])
+              {
+                v107 = -1;
+              }
+
+              else
+              {
+                v107 = 4410;
+                if (mSampleRate != 0.0 && v106)
                 {
-                  CFRetain(v48);
+                  v108 = CFEqual(*&mSampleRate, v106);
+                  mSampleRate = inSourceFormat.mSampleRate;
+                  if (v108)
+                  {
+                    v107 = -1;
+                  }
+
+                  else
+                  {
+                    v107 = 4410;
+                  }
                 }
               }
 
-              *(v26 + 1152) = CFDictionaryGetInt64() != 0;
-              if (!v158)
+              if (mSampleRate != 0.0)
               {
-                v49 = CFDictionaryGetValue(a4, @"StatsCollector");
-                v26[148] = v49;
-                if (v49)
+                CFRelease(*&mSampleRate);
+              }
+
+              *(v26 + 219) = v107;
+              v109 = FigGetCFPreferenceNumberWithDefault();
+              *(v26 + 219) = v109;
+              if (gLogCategory_APReceiverAudioSessionBuffered <= 50)
+              {
+                if (gLogCategory_APReceiverAudioSessionBuffered == -1)
                 {
-                  CFRetain(v49);
+                  if (!_LogCategory_Initialize())
+                  {
+                    goto LABEL_279;
+                  }
+
+                  v109 = *(v26 + 219);
                 }
 
-                APTTrafficMetricsCreate();
-                v50 = CFDictionaryGetInt64();
-                if (v50)
+                LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ Setting buffered audio session timeout secs to %d; rtpOffsetThreshold: %u\n", v26[3], *(v26 + 216), v109);
+              }
+
+LABEL_279:
+              *(v26 + 1224) = 1;
+              if (!v165)
+              {
+                v110 = FigGetCFPreferenceNumberWithDefault();
+                if (v110)
                 {
-                  v51 = *(v26 + 23) * v50 / 0x3E8u;
-                  *(v26 + 116) = v51;
+                  v111 = v110;
+                  v112 = ServerSocketOpen();
+                  v165 = v112;
+                  if (gLogCategory_APReceiverAudioSessionBuffered <= 50)
+                  {
+                    if (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize())
+                    {
+                      LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ Overriding buffered audio session TCP receive buffer size: %d\n", v26[3], v111);
+                    }
+
+                    v112 = v165;
+                  }
                 }
 
                 else
                 {
-                  *(v26 + 116) = CFDictionaryGetInt64();
-                  v51 = CFDictionaryGetInt64();
+                  v112 = ServerSocketOpen();
+                  v165 = v112;
                 }
 
-                *(v26 + 117) = v51;
-                *(v26 + 118) = 0;
-                *(v26 + 26) = CFDictionaryGetInt64();
-                CFDictionaryGetData();
-                if (v158 == -6727)
+                if (!v112)
                 {
-                  v158 = 0;
-LABEL_261:
-                  v98 = UpTicksPerSecond();
-                  v99 = mach_absolute_time();
-                  v26[86] = SecondsToUpTicks();
-                  v26[87] = v99;
-                  v26[100] = 60 * v98;
-                  v26[99] = v99 + 60 * v98;
-                  CFPreferenceNumberWithDefault = FigGetCFPreferenceNumberWithDefault();
-                  *(v26 + 216) = CFPreferenceNumberWithDefault;
-                  v26[102] = v99;
-                  v26[103] = v98 * CFPreferenceNumberWithDefault;
-                  v26[104] = v98;
-                  v26[105] = 0;
-                  v26[106] = v99;
-                  v26[107] = 10 * v98;
-                  inSourceFormat.mSampleRate = 0.0;
-                  CMBaseObject = APSNetworkClockGetCMBaseObject();
-                  v102 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-                  if (v102)
+                  if (*(v26 + 1225))
                   {
-                    v102(CMBaseObject, *MEMORY[0x277CEA260], v14, &inSourceFormat);
-                    mSampleRate = inSourceFormat.mSampleRate;
+                    SocketSetP2P();
                   }
 
-                  else
+                  v113 = CFDictionaryGetInt64();
+                  *(v26 + 1226) = v113 != 0;
+                  if (!v165)
                   {
-                    mSampleRate = 0.0;
-                  }
-
-                  v104 = *MEMORY[0x277CEA278];
-                  if (*&mSampleRate == *MEMORY[0x277CEA278])
-                  {
-                    v105 = -1;
-                  }
-
-                  else
-                  {
-                    v105 = 4410;
-                    if (mSampleRate != 0.0 && v104)
+                    if (!v113)
                     {
-                      v106 = CFEqual(*&mSampleRate, v104);
-                      mSampleRate = inSourceFormat.mSampleRate;
-                      if (v106)
+                      SocketSetQoS();
+                    }
+
+                    v165 = OpenSelfConnectedLoopbackSocket();
+                    if (!v165)
+                    {
+                      v114 = FigGetCFPreferenceNumberWithDefault();
+                      if (v114)
                       {
-                        v105 = -1;
+                        *(v26 + 119) = v114;
+                        if (gLogCategory_APReceiverAudioSessionBuffered > 50)
+                        {
+                          goto LABEL_304;
+                        }
+
+                        if (gLogCategory_APReceiverAudioSessionBuffered != -1)
+                        {
+                          goto LABEL_297;
+                        }
+
+                        if (_LogCategory_Initialize())
+                        {
+                          v114 = *(v26 + 119);
+LABEL_297:
+                          LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ Overriding buffered audio session node count: %d\n", v26[3], v114);
+                        }
                       }
 
                       else
                       {
-                        v105 = 4410;
-                      }
-                    }
-                  }
-
-                  if (mSampleRate != 0.0)
-                  {
-                    CFRelease(*&mSampleRate);
-                  }
-
-                  *(v26 + 219) = v105;
-                  *(v26 + 219) = FigGetCFPreferenceNumberWithDefault();
-                  if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
-                  {
-                    v146 = v26[3];
-                    LogPrintF();
-                  }
-
-                  *(v26 + 1224) = 1;
-                  if (!v158)
-                  {
-                    if (FigGetCFPreferenceNumberWithDefault())
-                    {
-                      v107 = ServerSocketOpen();
-                      v158 = v107;
-                      if (gLogCategory_APReceiverAudioSessionBuffered <= 50)
-                      {
-                        if (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize())
+                        v115 = *(v26 + 22);
+                        if (v115 == 8 || v115 == 4)
                         {
-                          v146 = v26[3];
-                          LogPrintF();
+                          v116 = 5200;
                         }
 
-                        v107 = v158;
-                      }
-                    }
-
-                    else
-                    {
-                      v107 = ServerSocketOpen();
-                      v158 = v107;
-                    }
-
-                    if (!v107)
-                    {
-                      if (*(v26 + 1225))
-                      {
-                        SocketSetP2P();
-                      }
-
-                      v108 = CFDictionaryGetInt64();
-                      *(v26 + 1226) = v108 != 0;
-                      if (!v158)
-                      {
-                        if (!v108)
+                        else
                         {
-                          SocketSetQoS();
+                          v116 = 15034;
                         }
 
-                        v158 = OpenSelfConnectedLoopbackSocket();
-                        if (!v158)
+                        *(v26 + 119) = v116;
+                      }
+
+LABEL_304:
+                      v117 = FigGetCFPreferenceNumberWithDefault();
+                      if (v117)
+                      {
+                        v118 = v117;
+                        v26[60] = v117;
+                        if (gLogCategory_APReceiverAudioSessionBuffered > 50)
                         {
-                          v109 = FigGetCFPreferenceNumberWithDefault();
-                          if (v109)
+                          goto LABEL_310;
+                        }
+
+                        if (gLogCategory_APReceiverAudioSessionBuffered != -1)
+                        {
+                          goto LABEL_307;
+                        }
+
+                        if (_LogCategory_Initialize())
+                        {
+                          v118 = v26[60];
+LABEL_307:
+                          LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ Overriding buffered audio session maxPacketSize: %d\n", v26[3], v118);
+                        }
+                      }
+
+                      else
+                      {
+                        v26[60] = 0xFFFFLL;
+                      }
+
+LABEL_310:
+                      v119 = malloc_type_calloc(1uLL, v26[60], 0x100004077774924uLL);
+                      v26[61] = v119;
+                      if (!v119)
+                      {
+                        goto LABEL_601;
+                      }
+
+                      v120 = FigGetCFPreferenceNumberWithDefault();
+                      if (v120)
+                      {
+                        v121 = v120;
+                        v26[62] = v120;
+                        if (gLogCategory_APReceiverAudioSessionBuffered > 50)
+                        {
+                          goto LABEL_321;
+                        }
+
+                        if (gLogCategory_APReceiverAudioSessionBuffered != -1)
+                        {
+                          goto LABEL_314;
+                        }
+
+                        if (_LogCategory_Initialize())
+                        {
+                          v121 = v26[62];
+LABEL_314:
+                          LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ Overriding buffered audio audioBufferSize: %d\n", v26[3], v121);
+                        }
+                      }
+
+                      else
+                      {
+                        v122 = *(v26 + 22);
+                        if (v122 == 8 || v122 == 4)
+                        {
+                          v123 = 5000000;
+                        }
+
+                        else
+                        {
+                          v123 = 21168000;
+                        }
+
+                        v26[62] = v123;
+                      }
+
+LABEL_321:
+                      v26[63] = 12;
+                      APSAllocatorGetDefaultAirPlayMallocZone();
+                      v165 = APSContiguousAllocatorCreate();
+                      if (!v165)
+                      {
+                        v124 = malloc_type_malloc(*(v26 + 119) << 6, 0x10700404D6600FEuLL);
+                        v26[64] = v124;
+                        if (v124)
+                        {
+                          v125 = (*(v26 + 119) - 1);
+                          if (*(v26 + 119) != 1)
                           {
-                            *(v26 + 119) = v109;
+                            v126 = (v125 + 1) & 0x1FFFFFFFELL;
+                            v127 = vdupq_n_s64(v125 - 1);
+                            v128 = xmmword_23EAA1810;
+                            v129 = v124 + 8;
+                            v130 = vdupq_n_s64(1uLL);
+                            v131 = vdupq_n_s64(2uLL);
+                            do
+                            {
+                              v132 = vmovn_s64(vcgeq_u64(v127, v128));
+                              v133 = vaddq_s64(v128, v130);
+                              if (v132.i8[0])
+                              {
+                                *(v129 - 8) = &v124[8 * v133.i64[0]];
+                              }
+
+                              if (v132.i8[4])
+                              {
+                                *v129 = &v124[8 * v133.i64[1]];
+                              }
+
+                              v128 = vaddq_s64(v128, v131);
+                              v129 += 16;
+                              v126 -= 2;
+                            }
+
+                            while (v126);
+                          }
+
+                          v124[8 * v125] = 0;
+                          v26[74] = v124;
+                          *(v26 + 150) = 0;
+                          v26[66] = v26 + 65;
+                          v26[65] = v26 + 65;
+                          v26[73] = v26 + 65;
+                          v134 = FigGetCFPreferenceNumberWithDefault();
+                          if (v134)
+                          {
+                            BufferSize = v134;
                             if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
                             {
-                              v146 = v26[3];
-                              LogPrintF();
+                              LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ Overriding buffered audio session decodeBufferSize: %d\n", v26[3], BufferSize);
                             }
                           }
 
                           else
                           {
-                            v110 = *(v26 + 22);
-                            if (v110 == 8 || v110 == 4)
+                            BufferSize = APCompressionTypeGetBufferSize();
+                            if (!BufferSize)
                             {
-                              v111 = 5200;
+                              APSLogErrorAt();
+                              v40 = -6735;
+                              goto LABEL_91;
+                            }
+                          }
+
+                          if (*(v26 + 22) == 1)
+                          {
+                            goto LABEL_343;
+                          }
+
+                          memset(&inSourceFormat, 0, sizeof(inSourceFormat));
+                          v136 = APCompressionTypeFillStreamDescription();
+                          if (v136)
+                          {
+                            v151 = v136;
+                          }
+
+                          else
+                          {
+                            LODWORD(v137) = *(v26 + 23);
+                            inDestinationFormat.mSampleRate = v137;
+                            *&inDestinationFormat.mFormatID = 0xC6C70636DLL;
+                            v138 = *(v26 + 24);
+                            v139 = *(v26 + 27);
+                            inDestinationFormat.mBytesPerPacket = (v139 >> 3) * v138;
+                            inDestinationFormat.mFramesPerPacket = 1;
+                            inDestinationFormat.mBytesPerFrame = inDestinationFormat.mBytesPerPacket;
+                            inDestinationFormat.mChannelsPerFrame = v138;
+                            inDestinationFormat.mBitsPerChannel = v139;
+                            inDestinationFormat.mReserved = 0;
+                            v140 = AudioConverterNew(&inSourceFormat, &inDestinationFormat, v26 + 91);
+                            if (v140)
+                            {
+                              v151 = v140;
                             }
 
                             else
                             {
-                              v111 = 15034;
-                            }
-
-                            *(v26 + 119) = v111;
-                          }
-
-                          v112 = FigGetCFPreferenceNumberWithDefault();
-                          if (v112)
-                          {
-                            v26[60] = v112;
-                            if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
-                            {
-                              v146 = v26[3];
-                              LogPrintF();
-                            }
-                          }
-
-                          else
-                          {
-                            v26[60] = 0xFFFFLL;
-                          }
-
-                          v113 = malloc_type_calloc(1uLL, v26[60], 0x100004077774924uLL);
-                          v26[61] = v113;
-                          if (!v113)
-                          {
-                            goto LABEL_516;
-                          }
-
-                          v114 = FigGetCFPreferenceNumberWithDefault();
-                          if (v114)
-                          {
-                            v26[62] = v114;
-                            if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
-                            {
-                              v146 = v26[3];
-                              LogPrintF();
-                            }
-                          }
-
-                          else
-                          {
-                            v115 = *(v26 + 22);
-                            if (v115 == 8 || v115 == 4)
-                            {
-                              v116 = 5000000;
-                            }
-
-                            else
-                            {
-                              v116 = 21168000;
-                            }
-
-                            v26[62] = v116;
-                          }
-
-                          v26[63] = 12;
-                          APSAllocatorGetDefaultAirPlayMallocZone();
-                          v158 = APSContiguousAllocatorCreate();
-                          if (!v158)
-                          {
-                            v117 = malloc_type_malloc(*(v26 + 119) << 6, 0x10700404D6600FEuLL);
-                            v26[64] = v117;
-                            if (v117)
-                            {
-                              v118 = (*(v26 + 119) - 1);
-                              if (*(v26 + 119) != 1)
+                              if (inSourceFormat.mFormatID != 1634492771 || (inPropertyData = bswap32(inSourceFormat.mFramesPerPacket), v168 = *(v26 + 27), v169 = 2600, v170 = 14, v141 = *(v26 + 23), v171 = *(v26 + 24), v172 = -256, v167 = 0, v173 = 0, v174 = 0, v175 = bswap32(v141), (v142 = AudioConverterSetProperty(v26[91], 0x646D6763u, 0x18u, &inPropertyData)) == 0))
                               {
-                                v119 = (v118 + 1) & 0x1FFFFFFFELL;
-                                v120 = vdupq_n_s64(v118 - 1);
-                                v121 = xmmword_23EAA1810;
-                                v122 = v117 + 8;
-                                v123 = vdupq_n_s64(1uLL);
-                                v124 = vdupq_n_s64(2uLL);
-                                do
+                                v165 = 0;
+LABEL_343:
+                                v26[77] = BufferSize;
+                                v143 = malloc_type_malloc(BufferSize, 0x100004077774924uLL);
+                                v26[76] = v143;
+                                if (v143)
                                 {
-                                  v125 = vmovn_s64(vcgeq_u64(v120, v121));
-                                  v126 = vaddq_s64(v121, v123);
-                                  if (v125.i8[0])
+                                  v144 = malloc_type_malloc(v26[77], 0x100004077774924uLL);
+                                  v26[80] = v144;
+                                  if (v144)
                                   {
-                                    *(v122 - 8) = &v117[8 * v126.i64[0]];
-                                  }
-
-                                  if (v125.i8[4])
-                                  {
-                                    *v122 = &v117[8 * v126.i64[1]];
-                                  }
-
-                                  v121 = vaddq_s64(v121, v124);
-                                  v122 += 16;
-                                  v119 -= 2;
-                                }
-
-                                while (v119);
-                              }
-
-                              v117[8 * v118] = 0;
-                              v26[74] = v117;
-                              *(v26 + 150) = 0;
-                              v26[66] = v26 + 65;
-                              v26[65] = v26 + 65;
-                              v26[73] = v26 + 65;
-                              v127 = FigGetCFPreferenceNumberWithDefault();
-                              if (v127)
-                              {
-                                BufferSize = v127;
-                                if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
-                                {
-                                  v146 = v26[3];
-                                  LogPrintF();
-                                }
-                              }
-
-                              else
-                              {
-                                BufferSize = APCompressionTypeGetBufferSize();
-                                if (!BufferSize)
-                                {
-                                  APSLogErrorAt();
-                                  v37 = -6735;
-                                  goto LABEL_89;
-                                }
-                              }
-
-                              if (*(v26 + 22) == 1)
-                              {
-                                goto LABEL_341;
-                              }
-
-                              memset(&inSourceFormat, 0, sizeof(inSourceFormat));
-                              v129 = APCompressionTypeFillStreamDescription();
-                              if (v129)
-                              {
-                                v144 = v129;
-                              }
-
-                              else
-                              {
-                                LODWORD(v130) = *(v26 + 23);
-                                inDestinationFormat.mSampleRate = v130;
-                                *&inDestinationFormat.mFormatID = 0xC6C70636DLL;
-                                v131 = *(v26 + 24);
-                                v132 = *(v26 + 27);
-                                inDestinationFormat.mBytesPerPacket = (v132 >> 3) * v131;
-                                inDestinationFormat.mFramesPerPacket = 1;
-                                inDestinationFormat.mBytesPerFrame = inDestinationFormat.mBytesPerPacket;
-                                inDestinationFormat.mChannelsPerFrame = v131;
-                                inDestinationFormat.mBitsPerChannel = v132;
-                                inDestinationFormat.mReserved = 0;
-                                v133 = AudioConverterNew(&inSourceFormat, &inDestinationFormat, v26 + 91);
-                                if (v133)
-                                {
-                                  v144 = v133;
-                                }
-
-                                else
-                                {
-                                  if (inSourceFormat.mFormatID != 1634492771 || (inPropertyData = bswap32(inSourceFormat.mFramesPerPacket), v161 = *(v26 + 27), v162 = 2600, v163 = 14, v134 = *(v26 + 23), v164 = *(v26 + 24), v165 = -256, v160 = 0, v166 = 0, v167 = 0, v168 = bswap32(v134), (v135 = AudioConverterSetProperty(v26[91], 0x646D6763u, 0x18u, &inPropertyData)) == 0))
-                                  {
-                                    v158 = 0;
-LABEL_341:
-                                    v26[77] = BufferSize;
-                                    v136 = malloc_type_malloc(BufferSize, 0x100004077774924uLL);
-                                    v26[76] = v136;
-                                    if (v136)
+                                    v26[79] = BufferSize;
+                                    v145 = malloc_type_malloc(BufferSize, 0x100004077774924uLL);
+                                    v26[78] = v145;
+                                    if (v145)
                                     {
-                                      v137 = malloc_type_malloc(v26[77], 0x100004077774924uLL);
-                                      v26[80] = v137;
-                                      if (v137)
+                                      gAirPlayAudioStats = xmmword_23EAA1830;
+                                      byte_27E37EED0 = 0;
+                                      qword_27E37EED8 = 0;
+                                      dword_27E37EEE0 = 0;
+                                      v146 = CFDictionaryGetValue(a4, @"ReceiverSession");
+                                      if (v146)
                                       {
-                                        v26[79] = BufferSize;
-                                        v138 = malloc_type_malloc(BufferSize, 0x100004077774924uLL);
-                                        v26[78] = v138;
-                                        if (v138)
+                                        *(v26 + 319) = v146[124];
+                                        APSCopyClusterInfo();
+                                        if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
                                         {
-                                          gAirPlayAudioStats = xmmword_23EAA1830;
-                                          byte_27E37EED0 = 0;
-                                          qword_27E37EED8 = 0;
-                                          dword_27E37EEE0 = 0;
-                                          v139 = CFDictionaryGetValue(a4, @"ReceiverSession");
-                                          if (v139)
+                                          LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ self cluster type %u, sender perceived cluster type %u\n", v26[3], *(v26 + 318), *(v26 + 319));
+                                        }
+
+                                        v26[1] = FigCFWeakReferenceHolderCreateWithReferencedObject();
+                                        PIDInit();
+                                        *(v26 + 1036) = CFDictionaryGetInt64() != 0;
+                                        v18 = &unk_27E37D000;
+                                        if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
+                                        {
+                                          v147 = v26[3];
+                                          if (APSAudioFormatDescriptionGetAudioFormatIndex() == 6)
                                           {
-                                            *(v26 + 319) = v139[124];
-                                            APSCopyClusterInfo();
-                                            if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
-                                            {
-                                              v146 = v26[3];
-                                              LogPrintF();
-                                            }
-
-                                            v26[1] = FigCFWeakReferenceHolderCreateWithReferencedObject();
-                                            PIDInit();
-                                            *(v26 + 1036) = CFDictionaryGetInt64() != 0;
-                                            v18 = &unk_27E37D000;
-                                            if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
-                                            {
-                                              v140 = v26[3];
-                                              if (APSAudioFormatDescriptionGetAudioFormatIndex() != 6
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 10
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 11
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 15
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 18
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 22
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 24
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 2
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 3
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 4
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 5
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 7
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 8
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 9
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 12
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 13
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 14
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 16
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 17
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 45
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 46
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 44
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 38
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 78
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 80
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 82
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 84
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 93
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 47
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 48
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 79
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 81
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 83
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 69
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 94
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 85
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 19
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 20
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 86
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 21
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 40
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 39
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 90
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 23
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 42
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 41
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 25
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 26
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 27
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 28
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 29
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 30
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 31
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 32
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 43
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 49
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 50
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 51
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 52
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 53
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 54
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 55
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 56
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 57
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 58
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 60
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 89
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 61
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 62
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 63
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 33
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 34
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 35
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 87
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 88
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 91
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 64
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 65
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 66
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 67
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 76
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 77
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 68
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 92
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 70
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 71
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 72
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 73
-                                                && APSAudioFormatDescriptionGetAudioFormatIndex() != 74)
-                                              {
-                                                APSAudioFormatDescriptionGetAudioFormatIndex();
-                                              }
-
-                                              v146 = v140;
-                                              LogPrintF();
-                                            }
-
-                                            v26[83] = 8;
-                                            v145 = malloc_type_calloc(1uLL, 8uLL, 0xED05D5E3uLL);
-                                            v26[82] = v145;
-                                            if (v145)
-                                            {
-                                              *(v26 + 1228) = CFPrefs_GetInt64() != 0;
-                                              *(v26 + 1124) = 0;
-                                              if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
-                                              {
-                                                v146 = v26[3];
-                                                LogPrintF();
-                                              }
-
-                                              APTTrafficMetricsConnectionFormed();
-                                              *(v10 + 40) = v26;
-                                              if (!v33)
-                                              {
-LABEL_131:
-                                                v52 = v158;
-                                                if (!v158)
-                                                {
-                                                  *(v10 + 56) = 0;
-                                                  *(v10 + 64) = APReceiverAudioSessionBufferedSetSecurityInfo;
-                                                  *(v10 + 72) = APReceiverAudioSessionBufferedStartPacketProcesser;
-                                                  *(v10 + 80) = APReceiverAudioSessionBufferedStopPacketProcesser;
-                                                  *(v10 + 96) = 0;
-                                                  *(v10 + 104) = 0;
-                                                  *(v10 + 88) = APReceiverAudioSessionBufferedFlushAudio;
-                                                  *(v10 + 112) = APReceiverAudioSessionBufferedSetRateAndAnchorTime;
-                                                  *(v10 + 120) = APReceiverAudioSessionBufferedConvertProgressRTPTimeToSecond;
-                                                  *(v10 + 128) = APReceiverAudioSessionBufferedReadAudio;
-                                                  *(v10 + 136) = APReceiverAudioSessionBufferedUpdateLatency;
-                                                  *(v10 + 144) = APReceiverAudioSessionBufferedCopyProperty;
-                                                  *(v10 + 152) = APReceiverAudioSessionBufferedSetProperty;
-                                                  *(v10 + 160) = APReceiverAudioSessionBufferedCopyMetrics;
-                                                  *(v10 + 168) = APReceiverAudioSessionBufferedLogEnded;
-                                                  *(v10 + 48) = APReceiverAudioSessionBufferedFinalize;
-                                                  *(v10 + 176) = APReceiverAudioSessionBufferedCopyAudioBufferInfo;
-                                                  *(v10 + 184) = 0u;
-                                                  *(v10 + 200) = 0u;
-                                                  v53 = v18[944];
-                                                  if (v53 > 50 || v53 == -1 && !_LogCategory_Initialize())
-                                                  {
-                                                    goto LABEL_137;
-                                                  }
-
-                                                  v146 = *(v10 + 32);
-LABEL_135:
-                                                  LogPrintF();
-LABEL_137:
-                                                  mSampleRate_low = 0;
-                                                  goto LABEL_138;
-                                                }
-
-LABEL_387:
-                                                APSLogErrorAt();
-                                                mSampleRate_low = v52;
-                                                goto LABEL_368;
-                                              }
-
-LABEL_130:
-                                              CFRelease(v33);
-                                              goto LABEL_131;
-                                            }
-
-                                            goto LABEL_516;
+                                            v148 = "PCM/24000/16/1";
                                           }
 
-                                          APSLogErrorAt();
-                                          v158 = APSSignalErrorAt();
-LABEL_90:
-                                          v18 = &unk_27E37D000;
-                                          goto LABEL_129;
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 10)
+                                          {
+                                            v148 = "PCM/44100/16/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 11)
+                                          {
+                                            v148 = "PCM/44100/16/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 15)
+                                          {
+                                            v148 = "PCM/48000/16/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 18)
+                                          {
+                                            v148 = "ALAC/44100/16/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 22)
+                                          {
+                                            v148 = "AAC-LC/44100/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 24)
+                                          {
+                                            v148 = "AAC-ELD/44100/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 2)
+                                          {
+                                            v148 = "PCM/8000/16/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 3)
+                                          {
+                                            v148 = "PCM/8000/16/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 4)
+                                          {
+                                            v148 = "PCM/16000/16/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 5)
+                                          {
+                                            v148 = "PCM/16000/16/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 7)
+                                          {
+                                            v148 = "PCM/24000/16/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 8)
+                                          {
+                                            v148 = "PCM/32000/16/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 9)
+                                          {
+                                            v148 = "PCM/32000/16/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 12)
+                                          {
+                                            v148 = "PCM/44100/24/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 13)
+                                          {
+                                            v148 = "PCM/44100/24/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 14)
+                                          {
+                                            v148 = "PCM/48000/16/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 16)
+                                          {
+                                            v148 = "PCM/48000/24/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 17)
+                                          {
+                                            v148 = "PCM/48000/24/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 45)
+                                          {
+                                            v148 = "PCM/48000/32f/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 46)
+                                          {
+                                            v148 = "PCM/48000/32f/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 44)
+                                          {
+                                            v148 = "PCM/48000/16/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 38)
+                                          {
+                                            v148 = "PCM/48000/16/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 78)
+                                          {
+                                            v148 = "PCM/48000/16/7.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 80)
+                                          {
+                                            v148 = "PCM/48000/16/5.1.4";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 82)
+                                          {
+                                            v148 = "PCM/48000/16/7.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 84)
+                                          {
+                                            v148 = "PCM/48000/16/7.1.4";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 93)
+                                          {
+                                            v148 = "PCM/48000/16/9.1.6";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 47)
+                                          {
+                                            v148 = "PCM/48000/32f/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 48)
+                                          {
+                                            v148 = "PCM/48000/32f/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 79)
+                                          {
+                                            v148 = "PCM/48000/32f/7.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 81)
+                                          {
+                                            v148 = "PCM/48000/32f/5.1.4";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 83)
+                                          {
+                                            v148 = "PCM/48000/32f/7.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 69)
+                                          {
+                                            v148 = "PCM/48000/32f/7.1.4";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 94)
+                                          {
+                                            v148 = "PCM/48000/32f/9.1.6";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 85)
+                                          {
+                                            v148 = "ALAC/44100/20/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 19)
+                                          {
+                                            v148 = "ALAC/44100/24/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 20)
+                                          {
+                                            v148 = "ALAC/48000/16/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 86)
+                                          {
+                                            v148 = "ALAC/48000/20/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 21)
+                                          {
+                                            v148 = "ALAC/48000/24/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 40)
+                                          {
+                                            v148 = "AAC_LC/48000/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 39)
+                                          {
+                                            v148 = "AAC_LC/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 90)
+                                          {
+                                            v148 = "AAC_LC/48000/7.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 23)
+                                          {
+                                            v148 = "AAC-LC/48000/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 42)
+                                          {
+                                            v148 = "AAC_ELD/48000/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 41)
+                                          {
+                                            v148 = "AAC_ELD/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 25)
+                                          {
+                                            v148 = "AAC-ELD/48000/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 26)
+                                          {
+                                            v148 = "AAC-ELD/16000/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 27)
+                                          {
+                                            v148 = "AAC-ELD/24000/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 28)
+                                          {
+                                            v148 = "OPUS/16000/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 29)
+                                          {
+                                            v148 = "OPUS/24000/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 30)
+                                          {
+                                            v148 = "OPUS/48000/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 31)
+                                          {
+                                            v148 = "AAC-ELD/44100/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 32)
+                                          {
+                                            v148 = "AAC-ELD/48000/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 43)
+                                          {
+                                            v148 = "AAC-ELD/32000/1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 49)
+                                          {
+                                            v148 = "DDPLUS/48000/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 50)
+                                          {
+                                            v148 = "DDPLUS/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 51)
+                                          {
+                                            v148 = "DDPLUS/48000/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 52)
+                                          {
+                                            v148 = "DDPLUS/48000/7.1.4";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 53)
+                                          {
+                                            v148 = "DDPLUS/48000/9.1.6";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 54)
+                                          {
+                                            v148 = "QAAC/48000/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 55)
+                                          {
+                                            v148 = "QAAC/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 56)
+                                          {
+                                            v148 = "QAAC/48000/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 57)
+                                          {
+                                            v148 = "QAACHE/48000/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 58)
+                                          {
+                                            v148 = "QAACHE/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 60)
+                                          {
+                                            v148 = "QAACHE/48000/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 89)
+                                          {
+                                            v148 = "PAAC/44100/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 61)
+                                          {
+                                            v148 = "QLAC/48000/24/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 62)
+                                          {
+                                            v148 = "QC3/48000/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 63)
+                                          {
+                                            v148 = "QC3/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 33)
+                                          {
+                                            v148 = "QC3/48000/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 34)
+                                          {
+                                            v148 = "QC3/48000/7.1.4";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 35)
+                                          {
+                                            v148 = "QC3/48000/9.1.6";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 87)
+                                          {
+                                            v148 = "QAC3/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 88)
+                                          {
+                                            v148 = "QEC3/48000/7.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 91)
+                                          {
+                                            v148 = "EAC3/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 64)
+                                          {
+                                            v148 = "APAC/48000/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 65)
+                                          {
+                                            v148 = "APAC/48000/5.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 66)
+                                          {
+                                            v148 = "APAC/48000/5.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 67)
+                                          {
+                                            v148 = "APAC/48000/7.1";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 76)
+                                          {
+                                            v148 = "APAC/48000/5.1.4";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 77)
+                                          {
+                                            v148 = "APAC/48000/7.1.2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 68)
+                                          {
+                                            v148 = "APAC/48000/7.1.4";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 92)
+                                          {
+                                            v148 = "APAC/48000/9.1.6";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 70)
+                                          {
+                                            v148 = "QAAC/44100/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 71)
+                                          {
+                                            v148 = "QAACHE/44100/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 72)
+                                          {
+                                            v148 = "QAACHEV2/44100/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 73)
+                                          {
+                                            v148 = "QLAC/44100/24/2";
+                                          }
+
+                                          else if (APSAudioFormatDescriptionGetAudioFormatIndex() == 74)
+                                          {
+                                            v148 = "MP3/44100/2";
+                                          }
+
+                                          else
+                                          {
+                                            v152 = APSAudioFormatDescriptionGetAudioFormatIndex();
+                                            v148 = "";
+                                            if (v152 == 75)
+                                            {
+                                              v148 = "MP3/48000/2";
+                                            }
+                                          }
+
+                                          LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ audio set up for %s on port %d\n", v147, v148, *(v26 + 114));
                                         }
+
+                                        v26[83] = 8;
+                                        v153 = malloc_type_calloc(1uLL, 8uLL, 0xED05D5E3uLL);
+                                        v26[82] = v153;
+                                        if (v153)
+                                        {
+                                          *(v26 + 1228) = CFPrefs_GetInt64() != 0;
+                                          *(v26 + 1124) = 0;
+                                          if (gLogCategory_APReceiverAudioSessionBuffered <= 50 && (gLogCategory_APReceiverAudioSessionBuffered != -1 || _LogCategory_Initialize()))
+                                          {
+                                            LogPrintF(&gLogCategory_APReceiverAudioSessionBuffered, "OSStatus APReceiverAudioSessionBufferedCreate(APReceiverAudioSessionRef, CFStringRef, sockaddr_ip, CFDictionaryRef, void **)", 33554482, "%@ Setup buffered audio session buffer size: %u buffer node count: %u decodeBufferSize: %lu compressionType: %u for client: '%@'\n", v26[3], v26[62], *(v26 + 119), v26[77], *(v26 + 22), v26[4]);
+                                          }
+
+                                          APTTrafficMetricsConnectionFormed();
+                                          *(v10 + 40) = v26;
+                                          if (!v36)
+                                          {
+LABEL_133:
+                                            v54 = v165;
+                                            if (!v165)
+                                            {
+                                              *(v10 + 56) = 0;
+                                              *(v10 + 64) = APReceiverAudioSessionBufferedSetSecurityInfo;
+                                              *(v10 + 72) = APReceiverAudioSessionBufferedStartPacketProcesser;
+                                              *(v10 + 80) = APReceiverAudioSessionBufferedStopPacketProcesser;
+                                              *(v10 + 96) = 0;
+                                              *(v10 + 104) = 0;
+                                              *(v10 + 88) = APReceiverAudioSessionBufferedFlushAudio;
+                                              *(v10 + 112) = APReceiverAudioSessionBufferedSetRateAndAnchorTime;
+                                              *(v10 + 120) = APReceiverAudioSessionBufferedConvertProgressRTPTimeToSecond;
+                                              *(v10 + 128) = APReceiverAudioSessionBufferedReadAudio;
+                                              *(v10 + 136) = APReceiverAudioSessionBufferedUpdateLatency;
+                                              *(v10 + 144) = APReceiverAudioSessionBufferedCopyProperty;
+                                              *(v10 + 152) = APReceiverAudioSessionBufferedSetProperty;
+                                              *(v10 + 160) = APReceiverAudioSessionBufferedCopyMetrics;
+                                              *(v10 + 168) = APReceiverAudioSessionBufferedLogEnded;
+                                              *(v10 + 48) = APReceiverAudioSessionBufferedFinalize;
+                                              *(v10 + 176) = APReceiverAudioSessionBufferedCopyAudioBufferInfo;
+                                              *(v10 + 184) = 0u;
+                                              *(v10 + 200) = 0u;
+                                              v55 = v18[944];
+                                              if (v55 <= 50 && (v55 != -1 || _LogCategory_Initialize()))
+                                              {
+                                                LogPrintF(&gLogCategory_APReceiverAudioSession, "OSStatus audioSession_setupBufferedAudio(APReceiverAudioSessionRef, sockaddr_ip, CFDictionaryRef)", 33554482, "%@ AudioSession setup for buffered source\n", *(v10 + 32));
+                                              }
+
+                                              goto LABEL_138;
+                                            }
+
+LABEL_393:
+                                            APSLogErrorAt();
+                                            mSampleRate_low = v54;
+                                            goto LABEL_374;
+                                          }
+
+LABEL_132:
+                                          CFRelease(v36);
+                                          goto LABEL_133;
+                                        }
+
+                                        goto LABEL_601;
                                       }
+
+                                      APSLogErrorAt();
+                                      v165 = APSSignalErrorAt();
+LABEL_92:
+                                      v18 = &unk_27E37D000;
+                                      goto LABEL_131;
                                     }
-
-                                    APSLogErrorAt();
-                                    v37 = -72150;
-LABEL_89:
-                                    v158 = v37;
-                                    goto LABEL_90;
                                   }
-
-                                  v144 = v135;
                                 }
+
+                                APSLogErrorAt();
+                                v40 = -72150;
+LABEL_91:
+                                v165 = v40;
+                                goto LABEL_92;
                               }
 
-                              APSLogErrorAt();
-                              v158 = v144;
-LABEL_424:
-                              APSLogErrorAt();
-                              goto LABEL_90;
+                              v151 = v142;
                             }
-
-LABEL_516:
-                            APSLogErrorAt();
-                            v34 = -6728;
-                            goto LABEL_128;
                           }
+
+                          APSLogErrorAt();
+                          v165 = v151;
+LABEL_432:
+                          APSLogErrorAt();
+                          goto LABEL_92;
                         }
+
+LABEL_601:
+                        APSLogErrorAt();
+                        v37 = -6728;
+                        goto LABEL_130;
                       }
                     }
                   }
-
-                  goto LABEL_419;
-                }
-
-                if (!v158)
-                {
-                  if (v157 == 32)
-                  {
-                    for (i = 112; i != 416; ++i)
-                    {
-                      *(v26 + i) = 0;
-                    }
-
-                    __memcpy_chk();
-                    *(v26 + 112) = 1;
-                    goto LABEL_261;
-                  }
-
-                  goto LABEL_416;
                 }
               }
+
+LABEL_426:
+              APSLogErrorAt();
+LABEL_131:
+              free(v26);
+              if (!v36)
+              {
+                goto LABEL_133;
+              }
+
+              goto LABEL_132;
             }
+
+            if (v165)
+            {
+              goto LABEL_426;
+            }
+
+            if (v164 == 32)
+            {
+              for (i = 112; i != 416; ++i)
+              {
+                *(v26 + i) = 0;
+              }
+
+              __memcpy_chk();
+              *(v26 + 112) = 1;
+              goto LABEL_263;
+            }
+
+            goto LABEL_423;
           }
         }
 
-LABEL_419:
-        APSLogErrorAt();
-LABEL_129:
-        free(v26);
-        if (!v33)
+        else
         {
-          goto LABEL_131;
+          v26[142] = 0;
         }
 
+        APSLogErrorAt();
+        v37 = -6705;
         goto LABEL_130;
       }
     }
 
-    else
-    {
-      v26[142] = 0;
-    }
-
     APSLogErrorAt();
-    v34 = -6705;
-    goto LABEL_128;
+    v36 = 0;
+    goto LABEL_131;
   }
 
   if (v20 == 96)
@@ -8894,41 +11028,43 @@ LABEL_129:
       *&inDestinationFormat.mSampleRate = *a3;
       *&inDestinationFormat.mFormatFlags = *(a3 + 12);
       v21 = APReceiverAudioSessionRealTimeCreate(v10, *(v10 + 32), &inSourceFormat, &inDestinationFormat, a4, (v10 + 40));
-      if (v21)
+      if (!v21)
       {
-        v142 = v21;
-        APSLogErrorAt();
-        mSampleRate_low = v142;
-        goto LABEL_368;
+        *(v10 + 56) = APReceiverAudioSessionRealTimeInvalidate;
+        *(v10 + 64) = APReceiverAudioSessionRealTimeSetSecurityInfo;
+        *(v10 + 72) = APReceiverAudioSessionRealTimeStartPacketProcesser;
+        *(v10 + 80) = APReceiverAudioSessionRealTimeStopPacketProcesser;
+        *(v10 + 88) = APReceiverAudioSessionRealTimeFlushAudio;
+        *(v10 + 96) = 0;
+        *(v10 + 104) = 0;
+        *(v10 + 112) = 0;
+        *(v10 + 120) = APReceiverAudioSessionRealTimeConvertProgressRTPTimeToSecond;
+        *(v10 + 128) = APReceiverAudioSessionRealTimeReadAudio;
+        *(v10 + 136) = APReceiverAudioSessionRealTimeUpdateLatency;
+        *(v10 + 144) = APReceiverAudioSessionRealTimeCopyProperty;
+        *(v10 + 152) = APReceiverAudioSessionRealTimeSetProperty;
+        *(v10 + 160) = APReceiverAudioSessionRealTimeCopyMetrics;
+        *(v10 + 168) = APReceiverAudioSessionRealTimeLogEnded;
+        *(v10 + 48) = APReceiverAudioSessionRealTimeFinalize;
+        *(v10 + 176) = APReceiverAudioSessionRealTimeCopyAudioBufferInfo;
+        *(v10 + 184) = 0u;
+        *(v10 + 200) = 0u;
+        v22 = v18[944];
+        if (v22 <= 50 && (v22 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APReceiverAudioSession, "OSStatus audioSession_setupRealTimeAudio(APReceiverAudioSessionRef, sockaddr_ip, sockaddr_ip, uint8_t *, CFDictionaryRef)", 33554482, "%@ AudioSession setup for real time source\n", *(v10 + 32));
+        }
+
+LABEL_138:
+        mSampleRate_low = 0;
+        goto LABEL_139;
       }
 
-      *(v10 + 56) = APReceiverAudioSessionRealTimeInvalidate;
-      *(v10 + 64) = APReceiverAudioSessionRealTimeSetSecurityInfo;
-      *(v10 + 72) = APReceiverAudioSessionRealTimeStartPacketProcesser;
-      *(v10 + 80) = APReceiverAudioSessionRealTimeStopPacketProcesser;
-      *(v10 + 88) = APReceiverAudioSessionRealTimeFlushAudio;
-      *(v10 + 96) = 0;
-      *(v10 + 104) = 0;
-      *(v10 + 112) = 0;
-      *(v10 + 120) = APReceiverAudioSessionRealTimeConvertProgressRTPTimeToSecond;
-      *(v10 + 128) = APReceiverAudioSessionRealTimeReadAudio;
-      *(v10 + 136) = APReceiverAudioSessionRealTimeUpdateLatency;
-      *(v10 + 144) = APReceiverAudioSessionRealTimeCopyProperty;
-      *(v10 + 152) = APReceiverAudioSessionRealTimeSetProperty;
-      *(v10 + 160) = APReceiverAudioSessionRealTimeCopyMetrics;
-      *(v10 + 168) = APReceiverAudioSessionRealTimeLogEnded;
-      *(v10 + 48) = APReceiverAudioSessionRealTimeFinalize;
-      *(v10 + 176) = APReceiverAudioSessionRealTimeCopyAudioBufferInfo;
-      *(v10 + 184) = 0u;
-      *(v10 + 200) = 0u;
-      v22 = v18[944];
-      if (v22 > 50 || v22 == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_137;
-      }
-
-      v146 = *(v10 + 32);
-      goto LABEL_135;
+LABEL_389:
+      v150 = v21;
+      APSLogErrorAt();
+      mSampleRate_low = v150;
+      goto LABEL_374;
     }
 
     *&inSourceFormat.mSampleRate = *a3;
@@ -8936,29 +11072,33 @@ LABEL_129:
     mSampleRate_low = audioSession_setupGhostAudio(v10, &inSourceFormat, a4);
     if (mSampleRate_low)
     {
-      goto LABEL_368;
+      goto LABEL_374;
     }
   }
 
-LABEL_138:
-  v54 = v18[944];
-  if (v54 <= 50 && (v54 != -1 || _LogCategory_Initialize()))
+LABEL_139:
+  v56 = v18[944];
+  if (v56 <= 50 && (v56 != -1 || _LogCategory_Initialize()))
   {
-    v146 = *(v10 + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverAudioSession, "OSStatus APReceiverAudioSessionCreate(APStreamType, sockaddr_ip, sockaddr_ip, uint8_t *, CFDictionaryRef, APReceiverAudioSessionRef *)", 33554482, "%@ Audio session created\n", *(v10 + 32));
   }
 
   CFDictionaryGetTypeID();
-  v55 = CFDictionaryGetTypedValue();
-  CFDictionarySetInt64();
-  v58 = APReceiverAudioSessionCopyProperty(v10, v56, @"AudioFormat", v57, &mSampleRate_low);
-  cf = v58;
+  v57 = CFDictionaryGetTypedValue();
   if (mSampleRate_low)
   {
-    goto LABEL_368;
+    goto LABEL_374;
   }
 
-  CFDictionarySetValue(Mutable, @"RASP::AudioFormat", v58);
+  CFDictionarySetInt64();
+  v60 = APReceiverAudioSessionCopyProperty(v10, v58, @"AudioFormat", v59, &mSampleRate_low);
+  cf = v60;
+  if (mSampleRate_low)
+  {
+    goto LABEL_374;
+  }
+
+  CFDictionarySetValue(Mutable, @"RASP::AudioFormat", v60);
   if (CFDictionaryGetValueIfPresent(a4, @"ReceiverSession", &value))
   {
     CFDictionarySetValue(Mutable, @"RASP::ReceiverSession", value);
@@ -8971,69 +11111,69 @@ LABEL_138:
 
   if (!CFDictionaryGetValueIfPresent(a4, @"NetworkClock", &value))
   {
-    v59 = 0;
-    goto LABEL_165;
+    v61 = 0;
+    goto LABEL_167;
   }
 
-  v59 = value;
-  v60 = APSNetworkClockGetCMBaseObject();
-  v61 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v61)
+  v61 = value;
+  v62 = APSNetworkClockGetCMBaseObject();
+  v63 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v63)
   {
-    v61(v60, *MEMORY[0x277CEA260], v14, &value);
+    v63(v62, *MEMORY[0x277CEA260], v14, &value);
   }
 
-  v62 = value;
-  v63 = *MEMORY[0x277CEA268];
+  v64 = value;
+  v65 = *MEMORY[0x277CEA268];
   if (value == *MEMORY[0x277CEA268])
   {
-    goto LABEL_154;
+    goto LABEL_156;
   }
 
-  if (value && v63)
+  if (value && v65)
   {
-    if (CFEqual(value, v63))
+    if (CFEqual(value, v65))
     {
-LABEL_154:
-      v64 = @"NTP";
-LABEL_162:
-      CFDictionarySetValue(Mutable, @"RASP::TimingProtocol", v64);
-      goto LABEL_163;
+LABEL_156:
+      v66 = @"NTP";
+LABEL_164:
+      CFDictionarySetValue(Mutable, @"RASP::TimingProtocol", v66);
+      goto LABEL_165;
     }
 
-    v62 = value;
+    v64 = value;
   }
 
-  v65 = *MEMORY[0x277CEA278];
-  if (v62 == *MEMORY[0x277CEA278] || v62 && v65 && CFEqual(v62, v65))
+  v67 = *MEMORY[0x277CEA278];
+  if (v64 == *MEMORY[0x277CEA278] || v64 && v67 && CFEqual(v64, v67))
   {
-    v64 = @"PTP";
-    goto LABEL_162;
+    v66 = @"PTP";
+    goto LABEL_164;
   }
 
-LABEL_163:
+LABEL_165:
   if (value)
   {
     CFRelease(value);
   }
 
-LABEL_165:
+LABEL_167:
   if (CFDictionaryGetValueIfPresent(a4, @"UsingScreen", &value))
   {
     CFDictionarySetValue(Mutable, @"RASP::UsingScreen", value);
   }
 
-  if (CFDictionaryGetValueIfPresent(v55, @"audioLoopback", &value))
+  if (CFDictionaryGetValueIfPresent(v57, @"audioLoopback", &value))
   {
     CFDictionarySetValue(Mutable, @"RASP::AudioLookback", value);
   }
 
-  if (CFDictionaryGetValueIfPresent(v55, @"audioType", &value))
+  if (CFDictionaryGetValueIfPresent(v57, @"audioType", &value))
   {
     CFDictionarySetValue(Mutable, @"RASP::AudioType", value);
   }
 
-  if (CFDictionaryGetValueIfPresent(v55, @"audioMode", &value))
+  if (CFDictionaryGetValueIfPresent(v57, @"audioMode", &value))
   {
     CFDictionarySetValue(Mutable, @"RASP::AudioMode", value);
   }
@@ -9041,16 +11181,16 @@ LABEL_165:
   FigCFDictionarySetValueFromKeyInDict();
   if (!APSAudioFormatDescriptionGetAudioFormatIndex())
   {
-    if (v58)
+    if (v60)
     {
-      CFRelease(v58);
+      CFRelease(v60);
       cf = 0;
     }
 
     mSampleRate_low = APSAudioFormatDescriptionCreateWithAudioFormatIndex();
     if (mSampleRate_low)
     {
-      goto LABEL_368;
+      goto LABEL_374;
     }
   }
 
@@ -9058,39 +11198,38 @@ LABEL_165:
   mSampleRate_low = APAudioFormatIndexToPCMASBD();
   if (mSampleRate_low)
   {
-    goto LABEL_368;
+    goto LABEL_374;
   }
 
   LODWORD(inSourceFormat.mSampleRate) = 0;
-  v66 = CFDictionaryGetValue(Mutable, @"RASP::LogPrefix");
-  v67 = CFGetTypeID(v10);
+  v68 = CFDictionaryGetValue(Mutable, @"RASP::LogPrefix");
+  v69 = CFGetTypeID(v10);
   if (gAPReceiverAudioSessionInitOnce != -1)
   {
     dispatch_once_f(&gAPReceiverAudioSessionInitOnce, 0, _APReceiverAudioSessionGetTypeID);
   }
 
-  if (v67 != gAPReceiverAudioSessionTypeID)
+  if (v69 != gAPReceiverAudioSessionTypeID)
   {
-    v141 = -6705;
-LABEL_367:
+    v149 = -6705;
+LABEL_373:
     APSLogErrorAt();
-    mSampleRate_low = v141;
-LABEL_368:
+    mSampleRate_low = v149;
+LABEL_374:
     APSLogErrorAt();
-    goto LABEL_246;
+    goto LABEL_248;
   }
 
-  v68 = CFGetTypeID(Mutable);
-  if (v68 != CFDictionaryGetTypeID())
+  v70 = CFGetTypeID(Mutable);
+  if (v70 != CFDictionaryGetTypeID())
   {
-    v141 = -6705;
-    goto LABEL_367;
+    v149 = -6705;
+    goto LABEL_373;
   }
 
   if (gLogCategory_APReceiverAudioSessionPlatform <= 50 && (gLogCategory_APReceiverAudioSessionPlatform != -1 || _LogCategory_Initialize()))
   {
-    v146 = v66;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverAudioSessionPlatform, "OSStatus APReceiverAudioSessionPlatformCreate(APReceiverAudioSessionRef, CFDictionaryRef, void **)", 33554482, "%@ APReceiverAudioSessionPlatform setting up", v68);
   }
 
   if (gAPReceiverAudioSessionPlatformInitOnce != -1)
@@ -9098,83 +11237,83 @@ LABEL_368:
     dispatch_once_f(&gAPReceiverAudioSessionPlatformInitOnce, 0, _APReceiverAudioSessionPlatformGetTypeID);
   }
 
-  v69 = _CFRuntimeCreateInstance();
-  if (!v69)
+  v71 = _CFRuntimeCreateInstance();
+  if (!v71)
   {
-    v141 = -6728;
-    goto LABEL_367;
+    v149 = -6728;
+    goto LABEL_373;
   }
 
-  v70 = v69;
-  *(v69 + 16) = 0u;
-  v71 = (v69 + 16);
-  *(v69 + 256) = 0;
-  *(v69 + 224) = 0u;
-  *(v69 + 240) = 0u;
-  *(v69 + 192) = 0u;
-  *(v69 + 208) = 0u;
-  *(v69 + 160) = 0u;
-  *(v69 + 176) = 0u;
-  *(v69 + 128) = 0u;
-  *(v69 + 144) = 0u;
-  *(v69 + 96) = 0u;
-  *(v69 + 112) = 0u;
-  *(v69 + 64) = 0u;
-  *(v69 + 80) = 0u;
-  *(v69 + 32) = 0u;
-  *(v69 + 48) = 0u;
-  v72 = APSSettingsGetInt64();
-  v73 = APSSettingsGetInt64();
-  v74 = v71[3];
-  if (v66)
+  v72 = v71;
+  *(v71 + 16) = 0u;
+  v73 = (v71 + 16);
+  *(v71 + 256) = 0;
+  *(v71 + 224) = 0u;
+  *(v71 + 240) = 0u;
+  *(v71 + 192) = 0u;
+  *(v71 + 208) = 0u;
+  *(v71 + 160) = 0u;
+  *(v71 + 176) = 0u;
+  *(v71 + 128) = 0u;
+  *(v71 + 144) = 0u;
+  *(v71 + 96) = 0u;
+  *(v71 + 112) = 0u;
+  *(v71 + 64) = 0u;
+  *(v71 + 80) = 0u;
+  *(v71 + 32) = 0u;
+  *(v71 + 48) = 0u;
+  v74 = APSSettingsGetInt64();
+  v75 = APSSettingsGetInt64();
+  v76 = v73[3];
+  if (v68)
   {
-    CFRetain(v66);
+    CFRetain(v68);
   }
 
-  *(v70 + 40) = v66;
-  if (v74)
+  *(v72 + 40) = v68;
+  if (v76)
   {
-    CFRelease(v74);
+    CFRelease(v76);
   }
 
-  *(v70 + 24) = v10;
+  *(v72 + 24) = v10;
   if (gAirPlayReceiverSessionInitOnce != -1)
   {
     dispatch_once_f(&gAirPlayReceiverSessionInitOnce, 0, _GetTypeID_6322);
   }
 
-  *v71 = CFDictionaryGetTypedValue();
+  *v73 = CFDictionaryGetTypedValue();
   if (LODWORD(inSourceFormat.mSampleRate))
   {
-    goto LABEL_381;
+    goto LABEL_387;
   }
 
-  *(v70 + 48) = CFDictionaryGetInt64();
+  *(v72 + 48) = CFDictionaryGetInt64();
   if (LODWORD(inSourceFormat.mSampleRate))
   {
-    goto LABEL_381;
+    goto LABEL_387;
   }
 
-  v75 = CFDictionaryGetValue(Mutable, @"RASP::AudioFormat");
-  if (v75)
+  v77 = CFDictionaryGetValue(Mutable, @"RASP::AudioFormat");
+  if (v77)
   {
-    v75 = CFRetain(v75);
+    v77 = CFRetain(v77);
   }
 
-  *(v70 + 56) = v75;
-  v76 = (v70 + 56);
+  *(v72 + 56) = v77;
+  v78 = (v72 + 56);
   if (!APSAudioFormatDescriptionGetAudioFormatIndex())
   {
-    if (*v76)
+    if (*v78)
     {
-      CFRelease(*v76);
-      *v76 = 0;
+      CFRelease(*v78);
+      *v78 = 0;
     }
 
     LODWORD(inSourceFormat.mSampleRate) = APSAudioFormatDescriptionCreateWithAudioFormatIndex();
     if (LODWORD(inSourceFormat.mSampleRate))
     {
-      goto LABEL_381;
+      goto LABEL_387;
     }
   }
 
@@ -9182,115 +11321,115 @@ LABEL_368:
   LODWORD(inSourceFormat.mSampleRate) = APAudioFormatIndexToPCMASBD();
   if (LODWORD(inSourceFormat.mSampleRate))
   {
-    goto LABEL_381;
+    goto LABEL_387;
   }
 
-  *(v70 + 64) = CFDictionaryGetInt64() != 0;
-  *(v70 + 69) = CFDictionaryGetInt64() != 0;
+  *(v72 + 64) = CFDictionaryGetInt64() != 0;
+  *(v72 + 69) = CFDictionaryGetInt64() != 0;
   CFStringGetTypeID();
-  v77 = CFDictionaryGetTypedValue();
-  if (v77 && !CFEqual(v77, @"NTP"))
+  v79 = CFDictionaryGetTypedValue();
+  if (v79 && !CFEqual(v79, @"NTP"))
   {
-    v80 = 0;
+    v82 = 0;
   }
 
   else
   {
-    v78 = *(v70 + 48);
-    v80 = v78 == 96 || v78 == 103;
+    v80 = *(v72 + 48);
+    v82 = v80 == 96 || v80 == 103;
   }
 
-  *(v70 + 65) = v80;
+  *(v72 + 65) = v82;
   CFObjectGetPropertyDoubleSync();
   APSVolumeConvertDBToLinearGain();
-  *(v70 + 236) = v81;
-  v82 = *(v70 + 48);
-  v84 = v82 == 96 || v82 == 103;
-  *(v70 + 68) = v84;
-  *(v70 + 66) = 0;
+  *(v72 + 236) = v83;
+  v84 = *(v72 + 48);
+  v86 = v84 == 96 || v84 == 103;
+  *(v72 + 68) = v86;
+  *(v72 + 66) = 0;
   CFStringGetTypeID();
-  v85 = CFDictionaryGetTypedValue();
-  if (v85)
+  v87 = CFDictionaryGetTypedValue();
+  if (v87)
   {
-    if ((v86 = v85, v72) && CFEqual(v85, @"speechRecognition") || v73 && CFEqual(v86, @"telephony"))
+    if ((v88 = v87, v74) && CFEqual(v87, @"speechRecognition") || v75 && CFEqual(v88, @"telephony"))
     {
-      *(v70 + 66) = 1;
+      *(v72 + 66) = 1;
     }
   }
 
-  *(v70 + 67) = 0;
+  *(v72 + 67) = 0;
   CFStringGetTypeID();
-  v87 = CFDictionaryGetTypedValue();
-  if (v87 && CFEqual(v87, @"moviePlayback"))
+  v89 = CFDictionaryGetTypedValue();
+  if (v89 && CFEqual(v89, @"moviePlayback"))
   {
-    *(v70 + 67) = 1;
+    *(v72 + 67) = 1;
   }
 
-  v88 = CFDictionaryGetInt64();
-  if (LODWORD(inSourceFormat.mSampleRate) || (!v88 ? (v89 = +[APAVAudioSessionManager ambientSessionManager](APAVAudioSessionManager, "ambientSessionManager", v146)) : (v89 = +[APAVAudioSessionManager mediaSessionManager]), (*(v70 + 32) = v89, *(v70 + 67)) ? (v90 = @"moviePlayback") : (v90 = @"default"), _UpdateAVAudioSessionAudioMode_5424(v70, v90), (LODWORD(inSourceFormat.mSampleRate) = _MainAudioEnsureSetup(v70, Mutable)) != 0))
+  v90 = CFDictionaryGetInt64();
+  if (LODWORD(inSourceFormat.mSampleRate) || (!v90 ? (v91 = +[APAVAudioSessionManager ambientSessionManager](APAVAudioSessionManager, "ambientSessionManager")) : (v91 = +[APAVAudioSessionManager mediaSessionManager]), (*(v72 + 32) = v91, *(v72 + 67)) ? (v92 = @"moviePlayback") : (v92 = @"default"), _UpdateAVAudioSessionAudioMode_5424(v72, v92), (LODWORD(inSourceFormat.mSampleRate) = _MainAudioEnsureSetup(v72, Mutable)) != 0))
   {
-LABEL_381:
+LABEL_387:
     APSLogErrorAt();
-    APReceiverAudioSessionPlatformFinalize(v70);
+    APReceiverAudioSessionPlatformFinalize(v72);
     mSampleRate_low = LODWORD(inSourceFormat.mSampleRate);
     if (LODWORD(inSourceFormat.mSampleRate))
     {
-      goto LABEL_368;
+      goto LABEL_374;
     }
   }
 
   else
   {
-    *(v10 + 216) = v70;
+    *(v10 + 216) = v72;
     mSampleRate_low = 0;
   }
 
-  if (!v150)
+  if (!v157)
   {
-    goto LABEL_244;
+    goto LABEL_246;
   }
 
-  if (v59)
+  if (v61)
   {
-    v91 = CFRetain(v59);
+    v93 = CFRetain(v61);
   }
 
   else
   {
-    v91 = 0;
+    v93 = 0;
   }
 
-  *(v10 + 320) = v91;
-  v92 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-  v93 = dispatch_queue_create("APReceiverAudioSessionSink", v92);
-  *(v10 + 288) = v93;
-  if (!v93)
+  *(v10 + 320) = v93;
+  v94 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+  v95 = dispatch_queue_create("APReceiverAudioSessionSink", v94);
+  *(v10 + 288) = v95;
+  if (!v95)
   {
-    goto LABEL_376;
+    goto LABEL_382;
   }
 
-  v94 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v93);
-  *(v10 + 296) = v94;
-  if (!v94)
+  v96 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v95);
+  *(v10 + 296) = v96;
+  if (!v96)
   {
-    goto LABEL_376;
+    goto LABEL_382;
   }
 
-  dispatch_set_context(v94, v10);
+  dispatch_set_context(v96, v10);
   dispatch_source_set_event_handler_f(*(v10 + 296), audioSession_sinkTimer);
   dispatch_source_set_timer(*(v10 + 296), 0, 0x1312D00uLL, 0);
-  v95 = audioSession_getCurrentNetworkTime(v10, 0) * *(v10 + 224);
-  *(v10 + 304) = v95;
-  *(v10 + 312) = v95;
+  v97 = audioSession_getCurrentNetworkTime(v10, 0) * *(v10 + 224);
+  *(v10 + 304) = v97;
+  *(v10 + 312) = v97;
   dispatch_resume(*(v10 + 296));
-LABEL_244:
+LABEL_246:
   if (a5)
   {
     *a5 = v10;
     v10 = 0;
   }
 
-LABEL_246:
+LABEL_248:
   if (cf)
   {
     CFRelease(cf);
@@ -9307,501 +11446,4 @@ LABEL_246:
   }
 
   return mSampleRate_low;
-}
-
-uint64_t audioSession_setupGhostAudio(uint64_t a1, _OWORD *a2, CFTypeRef cf)
-{
-  v3 = *(a1 + 32);
-  *v19 = *a2;
-  *&v19[12] = *(a2 + 12);
-  v23 = 0;
-  if (!v3)
-  {
-    v16 = 4294960591;
-LABEL_31:
-    APSLogErrorAt();
-    goto LABEL_32;
-  }
-
-  v6 = CFGetTypeID(cf);
-  if (v6 != CFDictionaryGetTypeID())
-  {
-    v16 = 4294960591;
-    goto LABEL_31;
-  }
-
-  v7 = malloc_type_calloc(1uLL, 0x30uLL, 0x1060040987D7E9EuLL);
-  if (!v7)
-  {
-    v16 = 4294895146;
-    goto LABEL_31;
-  }
-
-  v8 = v7;
-  *(v7 + 32) = 0;
-  *v7 = CFDictionaryGetInt64Ranged();
-  if (v23)
-  {
-    goto LABEL_42;
-  }
-
-  v8[1] = a1;
-  v8[2] = CFRetain(v3);
-  Value = CFDictionaryGetValue(cf, @"AudioFormat");
-  if (!Value)
-  {
-    APSLogErrorAt();
-    goto LABEL_35;
-  }
-
-  v8[3] = CFRetain(Value);
-  if (CFDictionaryGetInt64Ranged())
-  {
-    APSLogErrorAt();
-    v23 = -72151;
-    if (gLogCategory_APReceiverAudioSessionGhost <= 90 && (gLogCategory_APReceiverAudioSessionGhost != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
-    goto LABEL_43;
-  }
-
-  if (!CFDictionaryContainsKey(cf, @"MediaDataControl"))
-  {
-    v13 = 0;
-    goto LABEL_19;
-  }
-
-  Int64 = CFDictionaryGetInt64();
-  CFArrayGetTypeID();
-  TypedValue = CFDictionaryGetTypedValue();
-  if (v23)
-  {
-LABEL_42:
-    APSLogErrorAt();
-LABEL_43:
-    v13 = 0;
-    goto LABEL_37;
-  }
-
-  Count = CFArrayGetCount(TypedValue);
-  if (!Count)
-  {
-    goto LABEL_15;
-  }
-
-  if (Count != 1)
-  {
-    if (Count == 2)
-    {
-      CFDataGetTypeID();
-      CFArrayGetTypedValueAtIndex();
-      goto LABEL_13;
-    }
-
-LABEL_35:
-    v13 = 0;
-    v18 = -6705;
-LABEL_36:
-    v23 = v18;
-    goto LABEL_37;
-  }
-
-LABEL_13:
-  CFDataGetTypeID();
-  CFArrayGetTypedValueAtIndex();
-LABEL_15:
-  Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v13 = Mutable;
-  if (!Mutable)
-  {
-    APSLogErrorAt();
-    v18 = -6728;
-    goto LABEL_36;
-  }
-
-  v15 = MEMORY[0x277CBED28];
-  if (!Int64)
-  {
-    v15 = MEMORY[0x277CBED10];
-  }
-
-  CFDictionarySetValue(Mutable, @"MDC::AllowP2P", *v15);
-  FigCFDictionarySetValue();
-  FigCFDictionarySetValue();
-  CFDictionarySetValue(v13, @"MDC::Label", @"GHOST");
-  CFDictionarySetInt64();
-  FigCFDictionarySetInt32();
-  *&v21 = a1;
-  *(&v21 + 1) = audioSession_handleMediaDataControlRequest_3715;
-  v22 = 0;
-  v20[0] = *v19;
-  *(v20 + 12) = *&v19[12];
-  v23 = APMediaDataControlServerCreate(v20, v13, &v21, v8 + 5);
-  if (!v23)
-  {
-LABEL_19:
-    *(a1 + 40) = v8;
-    if (!v13)
-    {
-      goto LABEL_21;
-    }
-
-    goto LABEL_20;
-  }
-
-  APSLogErrorAt();
-LABEL_37:
-  APReceiverAudioSessionGhostFinalize(v8);
-  if (v13)
-  {
-LABEL_20:
-    CFRelease(v13);
-  }
-
-LABEL_21:
-  v16 = v23;
-  if (v23)
-  {
-LABEL_32:
-    APSLogErrorAt();
-    return v16;
-  }
-
-  *(a1 + 48) = APReceiverAudioSessionGhostFinalize;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = APReceiverAudioSessionGhostSetSecurityInfo;
-  *(a1 + 72) = APReceiverAudioSessionGhostStartPacketProcesser;
-  *(a1 + 80) = APReceiverAudioSessionGhostStopPacketProcesser;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 88) = APReceiverAudioSessionGhostFlushAudio;
-  *(a1 + 112) = APReceiverAudioSessionGhostSetRateAndAnchorTime;
-  *(a1 + 120) = APReceiverAudioSessionGhostConvertProgressRTPTimeToSecond;
-  *(a1 + 128) = APReceiverAudioSessionGhostReadAudio;
-  *(a1 + 136) = APReceiverAudioSessionGhostUpdateLatency;
-  *(a1 + 144) = APReceiverAudioSessionGhostCopyProperty;
-  *(a1 + 152) = APReceiverAudioSessionGhostSetProperty;
-  *(a1 + 160) = APReceiverAudioSessionGhostCopyMetrics;
-  *(a1 + 168) = APReceiverAudioSessionGhostLogEnded;
-  *(a1 + 176) = APReceiverAudioSessionGhostCopyAudioBufferInfo;
-  *(a1 + 184) = 0u;
-  *(a1 + 200) = 0u;
-  if (gLogCategory_APReceiverAudioSession <= 50 && (gLogCategory_APReceiverAudioSession != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
-  }
-
-  return 0;
-}
-
-CFNumberRef APReceiverAudioSessionCopyProperty(const __CFNumber *a1, int a2, __CFString *cf1, uint64_t a4, _DWORD *a5)
-{
-  v6 = a1;
-  v18 = 0;
-  if (a1)
-  {
-    if (cf1)
-    {
-      if (cf1 == @"AirPlayArrivalToRenderLatencyMs" || CFEqual(cf1, @"AirPlayArrivalToRenderLatencyMs"))
-      {
-        valuePtr = 0;
-        v18 = audioSession_airPlayArrivalToRenderLatencyMs(v6, &valuePtr);
-        if (!v18)
-        {
-          v6 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
-          if (v6)
-          {
-            goto LABEL_7;
-          }
-
-LABEL_38:
-          APSLogErrorAt();
-          v14 = -6728;
-          goto LABEL_39;
-        }
-
-LABEL_36:
-        APSLogErrorAt();
-LABEL_37:
-        v6 = 0;
-        goto LABEL_7;
-      }
-
-      if (cf1 == @"WifiArrivalToRenderLatencyMs" || CFEqual(cf1, @"WifiArrivalToRenderLatencyMs"))
-      {
-        valuePtr = 0;
-        IntWithDefault = APSSettingsGetIntWithDefault();
-        v18 = audioSession_airPlayArrivalToRenderLatencyMs(v6, &valuePtr);
-        if (!v18)
-        {
-          v16 = valuePtr + IntWithDefault;
-          v6 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &v16);
-          if (v6)
-          {
-            goto LABEL_7;
-          }
-
-          goto LABEL_38;
-        }
-
-        goto LABEL_36;
-      }
-
-      if (cf1 == @"IsMedia" || CFEqual(cf1, @"IsMedia"))
-      {
-        v10 = MEMORY[0x277CBED28];
-        if (!*(v6 + 20))
-        {
-          v10 = MEMORY[0x277CBED10];
-        }
-
-        v11 = *v10;
-      }
-
-      else
-      {
-        if (cf1 == @"PlatformIOBufferSize" || CFEqual(cf1, @"PlatformIOBufferSize"))
-        {
-          v13 = atomic_load(v6 + 66);
-          valuePtr = v13;
-          v6 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
-          if (v6)
-          {
-            goto LABEL_7;
-          }
-
-          goto LABEL_38;
-        }
-
-        if (cf1 == @"StreamType" || CFEqual(cf1, @"StreamType"))
-        {
-          v6 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, v6 + 24);
-          if (v6)
-          {
-            goto LABEL_7;
-          }
-
-          goto LABEL_38;
-        }
-
-        if (cf1 != @"PKDReceiverContext" && !CFEqual(cf1, @"PKDReceiverContext"))
-        {
-          v15 = *(v6 + 18);
-          if (!v15)
-          {
-            APSLogErrorAt();
-            v6 = 0;
-            v14 = -12782;
-            goto LABEL_39;
-          }
-
-          v12 = v15(*(v6 + 5), cf1, &v18);
-LABEL_21:
-          v6 = v12;
-          goto LABEL_7;
-        }
-
-        v11 = *(v6 + 35);
-        if (!v11)
-        {
-          goto LABEL_37;
-        }
-      }
-
-      v12 = CFRetain(v11);
-      goto LABEL_21;
-    }
-
-    APSLogErrorAt();
-    v6 = 0;
-    v14 = -72151;
-  }
-
-  else
-  {
-    APSLogErrorAt();
-    v14 = -72152;
-  }
-
-LABEL_39:
-  v18 = v14;
-LABEL_7:
-  if (a5)
-  {
-    *a5 = v18;
-  }
-
-  return v6;
-}
-
-double audioSession_getCurrentNetworkTime(uint64_t a1, uint64_t *a2)
-{
-  v4 = mach_absolute_time();
-  v10 = *MEMORY[0x277CEA280];
-  v11 = *(MEMORY[0x277CEA280] + 16);
-  UpTicksToSecondsF();
-  v6 = v5;
-  v7 = *(a1 + 320);
-  if (v7)
-  {
-    v8 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-    if (!v8 || v8(v7, v4, &v10))
-    {
-      APSLogErrorAt();
-      if (!a2)
-      {
-        return v6;
-      }
-
-      goto LABEL_6;
-    }
-
-    v6 = v11 + *(&v10 + 1) * 5.42101086e-20;
-  }
-
-  if (a2)
-  {
-LABEL_6:
-    *a2 = v4;
-  }
-
-  return v6;
-}
-
-void audioSession_sinkTimer(uint64_t a1)
-{
-  v12 = 0;
-  CurrentNetworkTime = audioSession_getCurrentNetworkTime(a1, &v12);
-  v3 = *(a1 + 224);
-  v4 = *(a1 + 312);
-  v5 = *(a1 + 304);
-  v6 = *(a1 + 248);
-  if (dispatch_source_get_data(*(a1 + 296)))
-  {
-    v7 = (CurrentNetworkTime * v3);
-    v8 = (v7 - v4) * v6;
-    v9 = malloc_type_malloc(v8, 0xED26B195uLL);
-    if (v9)
-    {
-      v10 = v9;
-      v11 = *(a1 + 128);
-      if (!v11 || v11(*(a1 + 40), (v4 - v5), v12, v9, v8))
-      {
-        APSLogErrorAt();
-      }
-
-      else
-      {
-        *(a1 + 312) = v7;
-      }
-
-      free(v10);
-    }
-
-    else
-    {
-      APSLogErrorAt();
-    }
-  }
-}
-
-uint64_t APReceiverAudioSessionReadAudio(uint64_t a1)
-{
-  if (a1)
-  {
-    v2 = *(a1 + 128);
-    if (v2)
-    {
-      v3 = *(a1 + 40);
-
-      return v2(v3);
-    }
-
-    else
-    {
-      return 4294954514;
-    }
-  }
-
-  else
-  {
-    APSLogErrorAt();
-    return 4294895144;
-  }
-}
-
-uint64_t audioSession_airPlayArrivalToRenderLatencyMs(uint64_t a1, _DWORD *a2)
-{
-  PropertyInt64Sync = CFObjectGetPropertyInt64Sync();
-  *a2 = ((*(a1 + 224) * 0.5 + (1000 * (CFObjectGetPropertyInt64Sync() + PropertyInt64Sync))) / *(a1 + 224));
-  return 0;
-}
-
-uint64_t APReceiverAudioSessionApplyVolumeFade(uint64_t a1, uint64_t a2, CMTime *a3)
-{
-  if (a1)
-  {
-    time1 = *a3;
-    v10 = **&MEMORY[0x277CC08F0];
-    result = CMTimeCompare(&time1, &v10);
-    if (result <= 0)
-    {
-      return APSLogErrorAt();
-    }
-
-    else
-    {
-      v8 = *(a1 + 184);
-      if (v8)
-      {
-        v9 = *(a1 + 40);
-        time1 = *a3;
-        return v8(v9, a2, &time1);
-      }
-    }
-  }
-
-  else
-  {
-
-    return APSLogErrorAt();
-  }
-
-  return result;
-}
-
-uint64_t APReceiverAudioSessionSetProperty(uint64_t a1, __CFString *cf1, uint64_t a3)
-{
-  if (!a1)
-  {
-    v6 = 4294895144;
-    APSLogErrorAt();
-    return v6;
-  }
-
-  if (!cf1)
-  {
-    APSLogErrorAt();
-    return 4294895145;
-  }
-
-  if (cf1 == @"PlatformIOBufferSize" || CFEqual(cf1, @"PlatformIOBufferSize"))
-  {
-    v6 = 0;
-    atomic_store(CFGetInt64Ranged(), (a1 + 264));
-    return v6;
-  }
-
-  v8 = *(a1 + 152);
-  if (!v8)
-  {
-    APSLogErrorAt();
-    return 4294954514;
-  }
-
-  v9 = *(a1 + 40);
-
-  return v8(v9, cf1, a3);
 }

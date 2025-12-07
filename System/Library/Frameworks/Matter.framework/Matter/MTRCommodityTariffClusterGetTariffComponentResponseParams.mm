@@ -69,11 +69,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:1792 commandID:0 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v25)
   {
     sub_2393C5AAC(v24);
-    sub_2393C5ADC(v8, *(v25 + 1), *(v25 + 3));
+    sub_2393C5ADC(v8, *(v25 + 8), *(v25 + 24));
     v9 = sub_2393C6FD0(v24, 256);
     if (!v9)
     {
@@ -155,30 +155,30 @@ LABEL_6:
   {
 LABEL_5:
     tariffComponent29 = objc_opt_new();
-    sub_2393C5AAC(v82);
-    v80 = 0;
-    v81 = 0;
-    sub_2393C5BDC(v82, struct + 24);
-    while (sub_238E72E88(&v80))
+    sub_2393C5AAC(v106);
+    v104 = 0;
+    v105 = 0;
+    sub_2393C5BDC(v106, struct + 24);
+    while (sub_238E72E88(&v104))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v82[18]];
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v106[18]];
       [tariffComponent29 addObject:v9];
     }
 
-    if (v80 != 33)
+    if (v104 != 33)
     {
-      v10 = v80;
-      if (v80)
+      v10 = v104;
+      if (v104)
       {
-        v11 = v81;
-        v7 = v80 & 0xFFFFFFFF00000000;
+        v11 = v105;
+        v7 = v104 & 0xFFFFFFFF00000000;
 LABEL_63:
 
         goto LABEL_64;
       }
     }
 
-    [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self setDayEntryIDs:tariffComponent29, v80];
+    [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self setDayEntryIDs:tariffComponent29, v104];
 
     v12 = objc_opt_new();
     [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self setTariffComponent:v12];
@@ -187,40 +187,40 @@ LABEL_63:
     tariffComponent = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
     [tariffComponent setTariffComponentID:v13];
 
-    if (*(struct + 104) == 1 && (sub_238DE36B8(struct + 104)[32] & 1) != 0)
+    if (*(struct + 104) == 1 && (sub_238DE36B8(struct + 104, v15)[32] & 1) != 0)
     {
-      v15 = objc_opt_new();
+      v16 = objc_opt_new();
       tariffComponent2 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
-      [tariffComponent2 setPrice:v15];
+      [tariffComponent2 setPrice:v16];
 
-      v17 = MEMORY[0x277CCABB0];
-      v18 = sub_238DE36B8(struct + 104);
-      if ((v18[32] & 1) == 0)
+      v18 = MEMORY[0x277CCABB0];
+      v20 = sub_238DE36B8(struct + 104, v19);
+      if ((v20[32] & 1) == 0)
       {
         goto LABEL_65;
       }
 
-      v19 = [v17 numberWithUnsignedChar:*v18];
+      v21 = [v18 numberWithUnsignedChar:*v20];
       tariffComponent3 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
       price = [tariffComponent3 price];
-      [price setPriceType:v19];
+      [price setPriceType:v21];
 
-      v22 = sub_238DE36B8(struct + 104);
-      if ((v22[32] & 1) == 0)
+      v25 = sub_238DE36B8(struct + 104, v24);
+      if ((v25[32] & 1) == 0)
       {
         goto LABEL_65;
       }
 
-      if (v22[8] == 1)
+      if (v25[8] == 1)
       {
-        v23 = MEMORY[0x277CCABB0];
-        v24 = sub_238DE36B8(struct + 104);
-        if ((v24[32] & 1) == 0)
+        v27 = MEMORY[0x277CCABB0];
+        v28 = sub_238DE36B8(struct + 104, v26);
+        if ((v28[32] & 1) == 0)
         {
           goto LABEL_65;
         }
 
-        tariffComponent5 = [v23 numberWithLongLong:*sub_238DE36B8(v24 + 8)];
+        tariffComponent5 = [v27 numberWithLongLong:{*sub_238DE36B8(v28 + 8, v29)}];
         tariffComponent4 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
         price2 = [tariffComponent4 price];
         [price2 setPrice:tariffComponent5];
@@ -233,22 +233,22 @@ LABEL_63:
         [tariffComponent4 setPrice:0];
       }
 
-      v29 = sub_238DE36B8(struct + 104);
-      if ((v29[32] & 1) == 0)
+      v35 = sub_238DE36B8(struct + 104, v34);
+      if ((v35[32] & 1) == 0)
       {
         goto LABEL_65;
       }
 
-      if (v29[24] == 1)
+      if (v35[24] == 1)
       {
-        v30 = MEMORY[0x277CCABB0];
-        v31 = sub_238DE36B8(struct + 104);
-        if ((v31[32] & 1) == 0)
+        v37 = MEMORY[0x277CCABB0];
+        v38 = sub_238DE36B8(struct + 104, v36);
+        if ((v38[32] & 1) == 0)
         {
           goto LABEL_65;
         }
 
-        tariffComponent7 = [v30 numberWithShort:*sub_238E0A934(v31 + 24)];
+        tariffComponent7 = [v37 numberWithShort:{SLOWORD(sub_238E0A934(v38 + 24, v39)->super.isa)}];
         tariffComponent6 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
         price3 = [tariffComponent6 price];
         [price3 setPriceLevel:tariffComponent7];
@@ -270,7 +270,7 @@ LABEL_63:
 
     if (*(struct + 152) == 1)
     {
-      tariffComponent9 = [MEMORY[0x277CCABB0] numberWithBool:*sub_238DE36D8(struct + 152)];
+      tariffComponent9 = [MEMORY[0x277CCABB0] numberWithBool:{LOBYTE(sub_238DE36D8(struct + 152, v42)->super.isa)}];
       tariffComponent8 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
       [tariffComponent8 setFriendlyCredit:tariffComponent9];
     }
@@ -283,16 +283,16 @@ LABEL_63:
 
     if (*(struct + 154) == 1)
     {
-      v36 = objc_opt_new();
+      v45 = objc_opt_new();
       tariffComponent10 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
-      [tariffComponent10 setAuxiliaryLoad:v36];
+      [tariffComponent10 setAuxiliaryLoad:v45];
 
-      v38 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(struct + 154)];
+      v48 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(struct + 154, v47)->super.isa)}];
       tariffComponent11 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
       auxiliaryLoad = [tariffComponent11 auxiliaryLoad];
-      [auxiliaryLoad setNumber:v38];
+      [auxiliaryLoad setNumber:v48];
 
-      tariffComponent13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:sub_238DE36D8(struct + 154)[1]];
+      tariffComponent13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{BYTE1(sub_238DE36D8(struct + 154, v51)->super.isa)}];
       tariffComponent12 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
       auxiliaryLoad2 = [tariffComponent12 auxiliaryLoad];
       [auxiliaryLoad2 setRequiredState:tariffComponent13];
@@ -306,16 +306,16 @@ LABEL_63:
 
     if (*(struct + 158) == 1)
     {
-      v44 = objc_opt_new();
+      v55 = objc_opt_new();
       tariffComponent14 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
-      [tariffComponent14 setPeakPeriod:v44];
+      [tariffComponent14 setPeakPeriod:v55];
 
-      v46 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238E0A934(struct + 158)];
+      v58 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238E0A934(struct + 158, v57)->super.isa)}];
       tariffComponent15 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
       peakPeriod = [tariffComponent15 peakPeriod];
-      [peakPeriod setSeverity:v46];
+      [peakPeriod setSeverity:v58];
 
-      tariffComponent17 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(sub_238E0A934(struct + 158) + 1)];
+      tariffComponent17 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{WORD1(sub_238E0A934(struct + 158, v61)->super.isa)}];
       tariffComponent16 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
       peakPeriod2 = [tariffComponent16 peakPeriod];
       [peakPeriod2 setPeakPeriod:tariffComponent17];
@@ -329,15 +329,15 @@ LABEL_63:
 
     if (*(struct + 168) == 1)
     {
-      v52 = objc_opt_new();
+      v65 = objc_opt_new();
       tariffComponent18 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
-      [tariffComponent18 setPowerThreshold:v52];
+      [tariffComponent18 setPowerThreshold:v65];
 
-      if (*sub_238DE36B8(struct + 168) == 1)
+      if (*sub_238DE36B8(struct + 168, v67) == 1)
       {
-        v54 = MEMORY[0x277CCABB0];
-        v55 = sub_238DE36B8(struct + 168);
-        tariffComponent20 = [v54 numberWithLongLong:*sub_238DE36B8(v55)];
+        v69 = MEMORY[0x277CCABB0];
+        v70 = sub_238DE36B8(struct + 168, v68);
+        tariffComponent20 = [v69 numberWithLongLong:{*sub_238DE36B8(v70, v71)}];
         tariffComponent19 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
         powerThreshold = [tariffComponent19 powerThreshold];
         [powerThreshold setPowerThreshold:tariffComponent20];
@@ -350,11 +350,11 @@ LABEL_63:
         [tariffComponent19 setPowerThreshold:0];
       }
 
-      if (sub_238DE36B8(struct + 168)[16] == 1)
+      if (sub_238DE36B8(struct + 168, v76)[16] == 1)
       {
-        v60 = MEMORY[0x277CCABB0];
-        v61 = sub_238DE36B8(struct + 168);
-        tariffComponent22 = [v60 numberWithLongLong:*sub_238DE36B8(v61 + 16)];
+        v78 = MEMORY[0x277CCABB0];
+        v79 = sub_238DE36B8(struct + 168, v77);
+        tariffComponent22 = [v78 numberWithLongLong:{*sub_238DE36B8(v79 + 16, v80)}];
         tariffComponent21 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
         powerThreshold2 = [tariffComponent21 powerThreshold];
         [powerThreshold2 setApparentPowerThreshold:tariffComponent22];
@@ -367,16 +367,16 @@ LABEL_63:
         [tariffComponent21 setApparentPowerThreshold:0];
       }
 
-      if (sub_238DE36B8(struct + 168)[33])
+      if (sub_238DE36B8(struct + 168, v84)[33])
       {
-        v65 = MEMORY[0x277CCABB0];
-        v66 = sub_238DE36B8(struct + 168);
-        if ((v66[33] & 1) == 0)
+        v86 = MEMORY[0x277CCABB0];
+        v87 = sub_238DE36B8(struct + 168, v85);
+        if ((v87[33] & 1) == 0)
         {
           goto LABEL_65;
         }
 
-        tariffComponent24 = [v65 numberWithUnsignedChar:v66[32]];
+        tariffComponent24 = [v86 numberWithUnsignedChar:v87[32]];
         tariffComponent23 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
         powerThreshold3 = [tariffComponent23 powerThreshold];
         [powerThreshold3 setPowerThresholdSource:tariffComponent24];
@@ -409,7 +409,7 @@ LABEL_63:
       [tariffComponent26 setThreshold:0];
     }
 
-    if (*(struct + 232) != 1 || (sub_238DE36B8(struct + 232)[16] & 1) == 0)
+    if (*(struct + 232) != 1 || (sub_238DE36B8(struct + 232, v92)[16] & 1) == 0)
     {
       tariffComponent27 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
       [tariffComponent27 setLabel:0];
@@ -417,7 +417,7 @@ LABEL_63:
 LABEL_59:
       if (*(struct + 264) == 1)
       {
-        tariffComponent29 = [MEMORY[0x277CCABB0] numberWithBool:*sub_238DE36D8(struct + 264)];
+        tariffComponent29 = [MEMORY[0x277CCABB0] numberWithBool:{LOBYTE(sub_238DE36D8(struct + 264, v99)->super.isa)}];
         tariffComponent28 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
         [tariffComponent28 setPredicted:tariffComponent29];
       }
@@ -434,12 +434,12 @@ LABEL_59:
       goto LABEL_63;
     }
 
-    v71 = sub_238DE36B8(struct + 232);
-    if (v71[16])
+    v94 = sub_238DE36B8(struct + 232, v93);
+    if (v94[16])
     {
-      v72 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v71 length:*(v71 + 1) encoding:4];
+      v95 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v94 length:*(v94 + 1) encoding:4];
       tariffComponent30 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
-      [tariffComponent30 setLabel:v72];
+      [tariffComponent30 setLabel:v95];
 
       tariffComponent31 = [(MTRCommodityTariffClusterGetTariffComponentResponseParams *)self tariffComponent];
       label2 = [tariffComponent31 label];
@@ -462,11 +462,11 @@ LABEL_57:
   v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
   v10 = 47;
 LABEL_64:
-  v78 = v10 | v7;
-  v79 = v11;
-  result.mFile = v79;
-  result.mError = v78;
-  result.mLine = HIDWORD(v78);
+  v102 = v10 | v7;
+  v103 = v11;
+  result.mFile = v103;
+  result.mError = v102;
+  result.mLine = HIDWORD(v102);
   return result;
 }
 

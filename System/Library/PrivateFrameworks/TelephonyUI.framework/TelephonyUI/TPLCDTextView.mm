@@ -53,7 +53,7 @@
 
 - (CGRect)textRect
 {
-  v86[2] = *MEMORY[0x1E69E9840];
+  v85[2] = *MEMORY[0x1E69E9840];
   v3 = 504;
   if (*(self + 504))
   {
@@ -71,14 +71,14 @@
       text = self->_text;
       font = self->_font;
       v23 = *MEMORY[0x1E69DB778];
-      v82[0] = *MEMORY[0x1E69DB648];
-      v82[1] = v23;
-      v83[0] = font;
+      v81[0] = *MEMORY[0x1E69DB648];
+      v81[1] = v23;
+      v82[0] = font;
       v24 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-      v81 = v24;
-      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v81 count:1];
-      v83[1] = v25;
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:2];
+      v80 = v24;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v80 count:1];
+      v82[1] = v25;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
       [(NSString *)text boundingRectWithSize:0 options:v26 attributes:0 context:v7, v9];
       v28 = v27;
     }
@@ -94,7 +94,7 @@
     v30 = v28 > v7;
     if (minFontSize > self->_minFontSize && v28 > v7)
     {
-      v71 = 504;
+      v70 = 504;
       v32 = *MEMORY[0x1E69DB648];
       v33 = *MEMORY[0x1E69DB778];
       v34 = *MEMORY[0x1E695F060];
@@ -102,20 +102,20 @@
       {
         v35 = v11;
         minFontSize = minFontSize + -1.0;
-        v11 = [MEMORY[0x1E69DB878] _thinSystemFontOfSize:{minFontSize, v71}];
+        v11 = [MEMORY[0x1E69DB878] _thinSystemFontOfSize:{minFontSize, v70}];
 
         v36 = v34;
         if ([(NSString *)self->_text length])
         {
           v37 = self->_text;
-          v79[1] = v33;
-          v80[0] = v11;
-          v79[0] = v32;
+          v78[1] = v33;
+          v79[0] = v11;
+          v78[0] = v32;
           v38 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-          v78 = v38;
-          v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
-          v80[1] = v39;
-          v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:2];
+          v77 = v38;
+          v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
+          v79[1] = v39;
+          v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:2];
           [(NSString *)v37 boundingRectWithSize:0 options:v40 attributes:0 context:v7, v9];
           v36 = v41;
         }
@@ -124,7 +124,7 @@
       }
 
       while (minFontSize > self->_minFontSize && v36 > v7);
-      v3 = v71;
+      v3 = v70;
     }
 
     defaultParagraphStyle = [MEMORY[0x1E69DB7D0] defaultParagraphStyle];
@@ -135,36 +135,36 @@
     {
       [v14 setLineBreakMode:3];
       v51 = *MEMORY[0x1E69DB688];
-      v76[0] = *MEMORY[0x1E69DB648];
-      v76[1] = v51;
-      v77[0] = v11;
-      v77[1] = v14;
-      v76[2] = *MEMORY[0x1E69DB778];
+      v75[0] = *MEMORY[0x1E69DB648];
+      v75[1] = v51;
+      v76[0] = v11;
+      v76[1] = v14;
+      v75[2] = *MEMORY[0x1E69DB778];
       v46 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-      v75 = v46;
-      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
-      v77[2] = v47;
+      v74 = v46;
+      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v74 count:1];
+      v76[2] = v47;
       v48 = MEMORY[0x1E695DF20];
-      v49 = v77;
-      v50 = v76;
+      v49 = v76;
+      v50 = v75;
     }
 
     else
     {
       [v14 setLineBreakMode:4];
       v45 = *MEMORY[0x1E69DB688];
-      v73[0] = *MEMORY[0x1E69DB648];
-      v73[1] = v45;
-      v74[0] = v11;
-      v74[1] = v14;
-      v73[2] = *MEMORY[0x1E69DB778];
+      v72[0] = *MEMORY[0x1E69DB648];
+      v72[1] = v45;
+      v73[0] = v11;
+      v73[1] = v14;
+      v72[2] = *MEMORY[0x1E69DB778];
       v46 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-      v72 = v46;
-      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
-      v74[2] = v47;
+      v71 = v46;
+      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v71 count:1];
+      v73[2] = v47;
       v48 = MEMORY[0x1E695DF20];
-      v49 = v74;
-      v50 = v73;
+      v49 = v73;
+      v50 = v72;
     }
 
     v52 = [v48 dictionaryWithObjects:v49 forKeys:v50 count:3];
@@ -191,14 +191,14 @@
   {
     v12 = self->_text;
     v13 = *MEMORY[0x1E69DB778];
-    v85[0] = *MEMORY[0x1E69DB648];
-    v85[1] = v13;
-    v86[0] = v11;
+    v84[0] = *MEMORY[0x1E69DB648];
+    v84[1] = v13;
+    v85[0] = v11;
     v14 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-    v84 = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
-    v86[1] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:2];
+    v83 = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
+    v85[1] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:2];
     [(NSString *)v12 boundingRectWithSize:0 options:v16 attributes:0 context:v7, v9];
     v18 = v17;
     v20 = v19;
@@ -258,7 +258,6 @@ LABEL_45:
   y = self->_textRect.origin.y;
   width = self->_textRect.size.width;
   height = self->_textRect.size.height;
-  v70 = *MEMORY[0x1E69E9840];
   result.size.height = height;
   result.size.width = width;
   result.origin.y = y;
@@ -379,21 +378,20 @@ LABEL_45:
 
 - (CGSize)sizeToFit
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   text = self->_text;
   font = self->_font;
-  v12 = *MEMORY[0x1E69DB648];
-  v13[0] = font;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x1E69DB648];
+  v12[0] = font;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   [(NSString *)text sizeWithAttributes:v4];
   v6 = v5;
   v8 = v7;
 
-  v9 = *MEMORY[0x1E69E9840];
-  v10 = v6;
-  v11 = v8;
-  result.height = v11;
-  result.width = v10;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -402,7 +400,7 @@ LABEL_45:
   offsetCopy = offset;
   width = rect.size.width;
   x = rect.origin.x;
-  v31[4] = *MEMORY[0x1E69E9840];
+  v30[4] = *MEMORY[0x1E69E9840];
   [(TPLCDTextView *)self textRect:rect.origin.x];
   v9 = v8;
   v11 = v10;
@@ -442,23 +440,22 @@ LABEL_45:
 
   isNaturallyRTL = [(NSString *)self->_text isNaturallyRTL];
   v22 = *MEMORY[0x1E69DB688];
-  v30[0] = *MEMORY[0x1E69DB648];
-  v30[1] = v22;
-  v31[0] = v14;
-  v31[1] = v16;
+  v29[0] = *MEMORY[0x1E69DB648];
+  v29[1] = v22;
+  v30[0] = v14;
+  v30[1] = v16;
   v23 = *MEMORY[0x1E69DB650];
-  v31[2] = v20;
+  v30[2] = v20;
   v24 = *MEMORY[0x1E69DB778];
-  v30[2] = v23;
-  v30[3] = v24;
+  v29[2] = v23;
+  v29[3] = v24;
   v25 = [MEMORY[0x1E696AD98] numberWithInteger:isNaturallyRTL];
-  v29 = v25;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
-  v31[3] = v26;
-  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:4];
+  v28 = v25;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+  v30[3] = v26;
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:4];
 
   [(NSString *)self->_text drawInRect:v27 withAttributes:x + v9, v11, ceil(width), v13];
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTextColor:(id)color
@@ -517,7 +514,7 @@ LABEL_45:
 
 - (void)_setupForAnimationIfNecessary
 {
-  v43[2] = *MEMORY[0x1E69E9840];
+  v42[2] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69DB878] _thinSystemFontOfSize:self->_minFontSize];
   [(TPLCDTextView *)self bounds];
   v5 = v4;
@@ -526,14 +523,14 @@ LABEL_45:
   {
     text = self->_text;
     v9 = *MEMORY[0x1E69DB778];
-    v42[0] = *MEMORY[0x1E69DB648];
-    v42[1] = v9;
-    v43[0] = v3;
+    v41[0] = *MEMORY[0x1E69DB648];
+    v41[1] = v9;
+    v42[0] = v3;
     v10 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-    v41 = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
-    v43[1] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:2];
+    v40 = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+    v42[1] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
     [(NSString *)text boundingRectWithSize:0 options:v12 attributes:0 context:v5, v7];
     v14 = v13;
     v16 = v15;
@@ -609,8 +606,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAnimatesIfTruncated:(BOOL)truncated
@@ -690,7 +685,6 @@ LABEL_22:
   animation = self->_animation;
   self->_animation = 0;
 
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [self->_delegate lcdTextViewCompletedScroll:self];

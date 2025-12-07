@@ -25,27 +25,27 @@
 
 - (void)actionMain
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v2 = self->_items;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v3)
   {
-    v4 = *v34;
+    v4 = *v33;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v34 != v4)
+        if (*v33 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (!FPPinningSupportedForItem(*(*(&v33 + 1) + 8 * v5)))
+        if (!FPPinningSupportedForItem(*(*(&v32 + 1) + 8 * v5)))
         {
           v15 = FPNotSupportedError();
           [(FPOperation *)self completedWithResult:0 error:v15];
@@ -57,7 +57,7 @@
       }
 
       while (v3 != v5);
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v3)
       {
         continue;
@@ -68,50 +68,50 @@
   }
 
   v2 = dispatch_group_create();
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x3032000000;
-  v31[3] = __Block_byref_object_copy__26;
-  v31[4] = __Block_byref_object_dispose__26;
-  v32 = 0;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x3032000000;
+  v30[3] = __Block_byref_object_copy__26;
+  v30[4] = __Block_byref_object_dispose__26;
+  v31 = 0;
   v6 = objc_opt_new();
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = self->_items;
-  v7 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v7 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v7)
   {
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       v9 = 0;
       do
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
+        v10 = *(*(&v26 + 1) + 8 * v9);
         dispatch_group_enter(&v2->super);
         v11 = +[FPDaemonConnection sharedConnection];
         itemID = [v10 itemID];
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __28__FPPinOperation_actionMain__block_invoke;
-        v23[3] = &unk_1E793E080;
-        v26 = v31;
-        v24 = v6;
-        v25 = v2;
-        [v11 pinItemWithID:itemID completionHandler:v23];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __28__FPPinOperation_actionMain__block_invoke;
+        v22[3] = &unk_1E793E080;
+        v25 = v30;
+        v23 = v6;
+        v24 = v2;
+        [v11 pinItemWithID:itemID completionHandler:v22];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v7 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v7);
@@ -122,16 +122,14 @@
   block[1] = 3221225472;
   block[2] = __28__FPPinOperation_actionMain__block_invoke_2;
   block[3] = &unk_1E793E0D0;
-  v20 = v6;
+  v19 = v6;
   selfCopy = self;
-  v22 = v31;
+  v21 = v30;
   v14 = v6;
   dispatch_group_notify(&v2->super, callbackQueue, block);
 
-  _Block_object_dispose(v31, 8);
+  _Block_object_dispose(v30, 8);
 LABEL_18:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __28__FPPinOperation_actionMain__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -162,49 +160,49 @@ void __28__FPPinOperation_actionMain__block_invoke(uint64_t a1, void *a2, void *
 
 void __28__FPPinOperation_actionMain__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (![*(*(&v12 + 1) + 8 * v6) isRecursivelyDownloaded])
+        if (![*(*(&v11 + 1) + 8 * v6) isRecursivelyDownloaded])
         {
 
           v7 = [[FPDownloadOperation alloc] initWithItems:*(a1 + 32)];
           [(FPDownloadOperation *)v7 setRecursively:1];
-          v10[0] = MEMORY[0x1E69E9820];
-          v10[1] = 3221225472;
-          v10[2] = __28__FPPinOperation_actionMain__block_invoke_3;
-          v10[3] = &unk_1E793E0A8;
-          v11 = *(a1 + 40);
-          [(FPDownloadOperation *)v7 setDownloadCompletionBlock:v10];
+          v9[0] = MEMORY[0x1E69E9820];
+          v9[1] = 3221225472;
+          v9[2] = __28__FPPinOperation_actionMain__block_invoke_3;
+          v9[3] = &unk_1E793E0A8;
+          v10 = *(a1 + 40);
+          [(FPDownloadOperation *)v7 setDownloadCompletionBlock:v9];
           v8 = +[FPItemManager defaultManager];
           [v8 scheduleAction:v7];
 
-          goto LABEL_11;
+          return;
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -215,8 +213,6 @@ void __28__FPPinOperation_actionMain__block_invoke_2(uint64_t a1)
   }
 
   [*(a1 + 40) completedWithResult:*(a1 + 32) error:*(*(*(a1 + 48) + 8) + 40)];
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __28__FPPinOperation_actionMain__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)

@@ -37,7 +37,7 @@
   result = self->_original;
   if (result)
   {
-    return objc_msgSend_renderState(result, a3, v3, v4, v5);
+    return objc_msgSend_renderState(result, v3, v4, v5, a3);
   }
 
   retstr->blendState = 0;

@@ -186,7 +186,7 @@ uint64_t __49__FCThreadSafeMapTable_addEntriesFromDictionary___block_invoke(uint
   return v3;
 }
 
-uint64_t __29__FCThreadSafeMapTable_count__block_invoke(uint64_t a1)
+void *__29__FCThreadSafeMapTable_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -230,41 +230,39 @@ uint64_t __29__FCThreadSafeMapTable_count__block_invoke(uint64_t a1)
 
 void __57__FCThreadSafeMapTable_subdictionaryForKeys_passingTest___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        v8 = [*(*(a1 + 40) + 16) objectForKey:{v7, v10}];
+        v7 = *(*(&v9 + 1) + 8 * i);
+        v8 = [*(*(a1 + 40) + 16) objectForKey:{v7, v9}];
         if (v8 && (*(*(a1 + 56) + 16))())
         {
           [*(a1 + 48) setObject:v8 forKeyedSubscript:v7];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readWithAccessor:(id)accessor

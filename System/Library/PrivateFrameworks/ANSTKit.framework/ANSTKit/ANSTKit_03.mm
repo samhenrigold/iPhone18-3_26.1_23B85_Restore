@@ -1651,7 +1651,7 @@ uint64_t acTrkObjectRemoveKilled(char *__src, unsigned int a2, int a3)
   v8 = a2;
   do
   {
-    if (v7[136] < a3)
+    if (*(v7 + 136) < a3)
     {
       if (v5 != v6)
       {
@@ -1662,7 +1662,7 @@ uint64_t acTrkObjectRemoveKilled(char *__src, unsigned int a2, int a3)
     }
 
     ++v5;
-    v7 += 441;
+    v7 += 1764;
   }
 
   while (v8 != v5);
@@ -1708,9 +1708,10 @@ void acTrkObjectRearrange(uint64_t a1, uint64_t a2, void *a3, unsigned int a4)
   }
 }
 
-uint64_t acTrkFullBodyAssocTrkDet(unsigned int a1, unsigned int a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, _DWORD *a12, _DWORD *a13, _DWORD *a14, uint64_t a15, unsigned int *a16, float *a17, uint64_t a18, uint64_t a19, unsigned int a20, void *a21)
+uint64_t acTrkFullBodyAssocTrkDet(unsigned int a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7, unint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, _DWORD *a12, _DWORD *a13, _DWORD *a14, uint64_t a15, unsigned int *a16, float *a17, uint64_t a18, uint64_t a19, unsigned int a20, void *a21)
 {
   v23 = a6;
+  v24 = a5;
   v26 = a15;
   if (a6 <= a8)
   {
@@ -1752,8 +1753,8 @@ uint64_t acTrkFullBodyAssocTrkDet(unsigned int a1, unsigned int a2, uint64_t a3,
   v32 = __b;
   v398 = a7;
   v396 = v406;
-  v33 = a5;
-  v392 = a5;
+  v33 = v24;
+  v392 = v24;
   v381 = v23;
   if (a8)
   {
@@ -1776,7 +1777,7 @@ uint64_t acTrkFullBodyAssocTrkDet(unsigned int a1, unsigned int a2, uint64_t a3,
     v372 = *(&v418 + 1);
     v380 = __b;
     memset(__b, 255, 4 * a8);
-    if (!(a5 | *a16))
+    if (!(v24 | *a16))
     {
       if (a8 > 7)
       {
@@ -2030,14 +2031,14 @@ LABEL_46:
       return v80;
     }
 
-    v376 = a5 == 0;
-    if (a5 <= a8)
+    v376 = v24 == 0;
+    if (v24 <= a8)
     {
       v33 = a8;
     }
 
-    acTrkObjectSetUpFeatureMunkresCost(a4, a5, v398, a8, v34, v38, a9, a11, v37);
-    if (a5 && v33 <= 0x1D)
+    acTrkObjectSetUpFeatureMunkresCost(a4, v24, v398, a8, v34, v38, a9, a11, v37);
+    if (v24 && v33 <= 0x1D)
     {
       memcpy(__dst, v34, 4 * v33 * v33);
       bmMunkres(v34, v33, v365, v64, v35, v65, 0, v66);
@@ -2045,10 +2046,10 @@ LABEL_46:
 
     v67 = *(&v410 + 1);
     v400 = a8;
-    acTrkObjectFeatureAssocCore(a4, a5, v398, a8, v35, __dst, a11, a9, v29, &v400, v380, v362, a17, a1, a2, a19, a20);
+    acTrkObjectFeatureAssocCore(a4, v24, v398, a8, v35, __dst, a11, a9, v29, &v400, v380, v362, a17, a1, a2, a19, a20);
     __dsta = 0;
     v68 = v400;
-    if (!a5 || !v400)
+    if (!v24 || !v400)
     {
 LABEL_73:
       v374 = a8;
@@ -2638,15 +2639,15 @@ LABEL_189:
       goto LABEL_205;
     }
 
-    acTrkObjectSetUpIoUMunkresCost(a4, a5, v398, a8, v366);
+    acTrkObjectSetUpIoUMunkresCost(a4, v24, v398, a8, v366);
     memcpy(v373, v366, 4 * v33 * v33);
     bmMunkres(v366, v33, v67, v69, v367, v70, 0, v71);
-    acTrkObjectIoUAssocCore(a4, a5, v398, a8, v367, v373, a9, a11, v29, &v400, v380, v363, v36, a17, a19, a20);
-    if (a5 >= 2)
+    acTrkObjectIoUAssocCore(a4, v24, v398, a8, v367, v373, a9, a11, v29, &v400, v380, v363, v36, a17, a19, a20);
+    if (v24 >= 2)
     {
       v136 = 0;
       v137 = 0;
-      v72 = a5 & 0xFFFFFFFE;
+      v72 = v24 & 0xFFFFFFFE;
       v138 = a4;
       v139 = v72;
       do
@@ -2667,7 +2668,7 @@ LABEL_189:
 
       while (v139);
       v73 = v137 + v136;
-      if (v72 == a5)
+      if (v72 == v24)
       {
         goto LABEL_72;
       }
@@ -2679,7 +2680,7 @@ LABEL_189:
       v73 = 0;
     }
 
-    v140 = a5 - v72;
+    v140 = v24 - v72;
     v141 = (a4 + 1764 * v72 + 544);
     do
     {
@@ -2701,14 +2702,14 @@ LABEL_72:
 
   v400 = 0;
   v40 = *a16;
-  if (!(a5 | *a16))
+  if (!(v24 | *a16))
   {
     goto LABEL_46;
   }
 
-  v376 = a5 == 0;
+  v376 = v24 == 0;
   v380 = __b;
-  if (a5)
+  if (v24)
   {
     v41 = 0;
     v42 = 0;
@@ -2799,7 +2800,7 @@ LABEL_25:
 
       *(a4 + v41 + 544) = v47;
       v41 += 1764;
-      if (1764 * a5 == v41)
+      if (1764 * v24 == v41)
       {
         __dstb = v42;
         v40 = *a16;
@@ -3402,7 +3403,7 @@ uint64_t AcTrkObjectGroupIdCount(uint64_t result, unsigned int a2, char *__b)
     result = memset(__b, 255, 4 * a2);
     v7 = 0;
     v8 = a2 - 1;
-    v9 = (__b + 4);
+    v9 = __b + 4;
     v10 = (v5 + 1768);
     do
     {
@@ -3438,7 +3439,7 @@ uint64_t AcTrkObjectGroupIdCount(uint64_t result, unsigned int a2, char *__b)
       }
 
       --v8;
-      ++v9;
+      v9 += 4;
       v10 += 441;
       ++v7;
     }
@@ -3738,7 +3739,7 @@ uint64_t acTrkObjectRemoveYoungOverlapObjects(uint64_t a1, uint64_t a2, char *a3
     memset(a3, 255, 4 * v4);
     v8 = 0;
     v9 = v4 - 1;
-    v10 = (a3 + 4);
+    v10 = a3 + 4;
     v11 = (a1 + 1768);
     do
     {
@@ -3774,7 +3775,7 @@ uint64_t acTrkObjectRemoveYoungOverlapObjects(uint64_t a1, uint64_t a2, char *a3
       }
 
       --v9;
-      ++v10;
+      v10 += 4;
       v11 += 441;
       ++v8;
     }
@@ -4104,11 +4105,11 @@ _DWORD *acTrkFilterMultiUbodyinSameFbody(_DWORD *result, unsigned int *a2, uint6
       do
       {
         v19 = &v8[441 * v15];
-        if (*(v19 + 2) == 1)
+        if (v19[2] == 1)
         {
           v20 = 0;
-          v21 = *(v19 + 12);
-          v22 = vadd_f32(v21, *(v19 + 20));
+          v21 = *(v19 + 3);
+          v22 = vadd_f32(v21, *(v19 + 5));
           v23 = vsub_f32(v22, v21);
           v24 = vcgtz_f32(v23);
           v25 = v23.f32[1];
@@ -4173,7 +4174,7 @@ _DWORD *acTrkFilterMultiUbodyinSameFbody(_DWORD *result, unsigned int *a2, uint6
               v41 = 0.0;
             }
 
-            if (v41 > *a5 && *(v19 + 134) >= 2u)
+            if (v41 > *a5 && v19[134] >= 2u)
             {
               v42 = *(v19 + 218);
               if (v42 < 0.5)
@@ -4182,7 +4183,7 @@ _DWORD *acTrkFilterMultiUbodyinSameFbody(_DWORD *result, unsigned int *a2, uint6
               }
 
               v16 |= v42 < 0.5;
-              if (*(v19 + 7) >= 2u)
+              if (v19[7] >= 2u)
               {
                 v43 = *a7;
                 v44 = v43;
@@ -4238,10 +4239,10 @@ LABEL_11:
         do
         {
           v52 = &v8[441 * v48];
-          if (*(v52 + 2) == 1)
+          if (v52[2] == 1)
           {
-            v53 = *(v52 + 12);
-            v54 = vadd_f32(v53, *(v52 + 20));
+            v53 = *(v52 + 3);
+            v54 = vadd_f32(v53, *(v52 + 5));
             v55 = *(v17 + 12);
             v56 = vadd_f32(v55, *(v17 + 20));
             if (vcgt_f32(v55, v53).u8[0])
@@ -4251,13 +4252,13 @@ LABEL_11:
 
             else
             {
-              v57 = *(v52 + 12);
+              v57 = *(v52 + 3);
             }
 
             v55.i32[0] = HIDWORD(*(v17 + 12));
-            if (COERCE_FLOAT(HIDWORD(*(v52 + 12))) >= v55.f32[1])
+            if (COERCE_FLOAT(HIDWORD(*(v52 + 3))) >= v55.f32[1])
             {
-              v55.i32[0] = HIDWORD(*(v52 + 12));
+              v55.i32[0] = HIDWORD(*(v52 + 3));
             }
 
             if (vcgt_f32(v56, v54).u8[0])
@@ -4288,7 +4289,7 @@ LABEL_11:
               v61.f32[0] = 0.0;
             }
 
-            if (v61.f32[0] > a5[1] && *(v52 + 134) == 1 && *v51 <= 4u)
+            if (v61.f32[0] > a5[1] && v52[134] == 1 && *v51 <= 4u)
             {
               v62 = 0;
               v63 = -1.0;
@@ -4644,7 +4645,7 @@ LABEL_32:
     v40 = vmovn_s32(vbicq_s8(vmvnq_s8(vuzp1q_s32(vceqq_s64(v35, v33), vceqq_s64(v34, v33))), vuzp1q_s32(vceqq_s64(v35, v36), vceqq_s64(v34, v36))));
     if (v40.i8[0])
     {
-      v38[136] = 2;
+      *(v38 + 136) = 2;
       if ((v40.i8[2] & 1) == 0)
       {
 LABEL_57:
@@ -4662,11 +4663,11 @@ LABEL_57:
       goto LABEL_57;
     }
 
-    v38[577] = 2;
+    *(v38 + 577) = 2;
     if (v40.i8[4])
     {
 LABEL_62:
-      v38[1018] = 2;
+      *(v38 + 1018) = 2;
       if ((v40.i8[6] & 1) == 0)
       {
         goto LABEL_54;
@@ -4682,11 +4683,11 @@ LABEL_58:
     }
 
 LABEL_63:
-    v38[1459] = 2;
+    *(v38 + 1459) = 2;
 LABEL_54:
     v34 = vaddq_s64(v34, v37);
     v35 = vaddq_s64(v35, v37);
-    v38 += 1764;
+    v38 += 7056;
     v39 -= 4;
   }
 
@@ -4852,13 +4853,13 @@ LABEL_14:
   }
 
   v13 = a3 & 0xFFFFFFF8;
-  f32 = a2[1].f32;
+  v15 = a2 + 1;
   v14 = 0.0;
   v16 = v13;
   do
   {
-    v14 = (((((((v14 + COERCE_FLOAT(*(f32 - 1))) + COERCE_FLOAT(HIDWORD(*(f32 - 2)))) + COERCE_FLOAT(*(f32 - 1))) + COERCE_FLOAT(HIDWORD(*(f32 - 1)))) + COERCE_FLOAT(*f32)) + COERCE_FLOAT(HIDWORD(*f32))) + COERCE_FLOAT(*(f32 + 1))) + COERCE_FLOAT(HIDWORD(*f32));
-    f32 += 8;
+    v14 = (((((((v14 + COERCE_FLOAT(*&v15[-1])) + COERCE_FLOAT(HIDWORD(v15[-1].i64[0]))) + COERCE_FLOAT(v15[-1].i64[1])) + COERCE_FLOAT(HIDWORD(*&v15[-1]))) + COERCE_FLOAT(*v15)) + COERCE_FLOAT(HIDWORD(v15->i64[0]))) + COERCE_FLOAT(v15->i64[1])) + COERCE_FLOAT(HIDWORD(*v15));
+    v15 += 2;
     v16 -= 8;
   }
 
@@ -4932,15 +4933,15 @@ LABEL_16:
 
   v20 = a3 & 0xFFFFFFF8;
   v21 = vdupq_lane_s32(v4, 0);
-  v22 = a2[1].f32;
+  v22 = a2 + 1;
   v23 = result + 1;
   v24 = v20;
   do
   {
     v25 = vdivq_f32(*v23, v21);
-    *(v22 - 1) = vdivq_f32(v23[-1], v21);
+    v22[-1] = vdivq_f32(v23[-1], v21);
     *v22 = v25;
-    v22 += 8;
+    v22 += 2;
     v23 += 2;
     v24 -= 8;
   }
@@ -5102,7 +5103,7 @@ void acLGroupIDDominanPersonPatch(uint64_t a1, uint64_t a2, uint64_t a3, int a4,
   }
 }
 
-uint64_t acTrkHandAssocTrkDet(unsigned int a1, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10, _DWORD *a11, _DWORD *a12, uint64_t a13, unsigned int *a14, float *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, unsigned int a20, void *a21)
+uint64_t acTrkHandAssocTrkDet(int a1, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10, _DWORD *a11, _DWORD *a12, uint64_t a13, unsigned int *a14, float *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, unsigned int a20, void *a21)
 {
   v21 = a7;
   v23 = a3;
@@ -7472,7 +7473,7 @@ LABEL_5:
   return 0;
 }
 
-__n128 getInitialPos(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, unsigned int a5, __n128 *a6, BOOL *a7, __n128 result, double a9, double a10, double a11, double a12, uint8x16_t a13)
+__n128 getInitialPos(uint64_t *a1, uint64_t a2, uint64_t a3, size_t a4, unsigned int a5, __n128 *a6, BOOL *a7, __n128 result, double a9, double a10, double a11, double a12, uint8x16_t a13)
 {
   v13 = *(a1 + 2);
   if (!v13 || (v14 = *(a1 + 3), !v14))
@@ -8042,14 +8043,14 @@ int32x4_t acFaceInternalReset(uint64_t a1)
   return result;
 }
 
-float32x4_t *acDetRectIntersect@<X0>(float32x4_t *result@<X0>, float32x4_t *a2@<X1>, uint64_t a3@<X8>)
+int8x16_t *acDetRectIntersect@<X0>(int8x16_t *result@<X0>, float32x4_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
   v4.i64[0] = a2->i64[0];
   v4.i64[1] = result->i64[1];
   v3.i64[1] = a2->i64[1];
   *a3 = vbslq_s8(vcgtq_f32(*a2, *result), v4, v3);
-  v5 = result[1].f32[2];
+  v5 = *&result[1].i32[2];
   if (v5 < a2[1].f32[2])
   {
     v5 = a2[1].f32[2];
@@ -8059,7 +8060,7 @@ float32x4_t *acDetRectIntersect@<X0>(float32x4_t *result@<X0>, float32x4_t *a2@<
   return result;
 }
 
-float32x4_t *acSmallestEnclosingBox@<X0>(float32x4_t *result@<X0>, float32x4_t *a2@<X1>, uint64_t a3@<X8>)
+float32x4_t *acSmallestEnclosingBox@<X0>(float32x4_t *result@<X0>, int8x16_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *a2;
   v4.i64[0] = result->i64[0];
@@ -8067,9 +8068,9 @@ float32x4_t *acSmallestEnclosingBox@<X0>(float32x4_t *result@<X0>, float32x4_t *
   v3.i64[1] = result->i64[1];
   *a3 = vbslq_s8(vcgtq_f32(*a2, *result), v4, v3);
   v5 = result[1].f32[2];
-  if (v5 < a2[1].f32[2])
+  if (v5 < *&a2[1].i32[2])
   {
-    v5 = a2[1].f32[2];
+    v5 = *&a2[1].i32[2];
   }
 
   *(a3 + 24) = v5;
@@ -8719,7 +8720,7 @@ float acAttrEyeLoc(float32x2_t *a1, float32x2_t *a2)
   return result;
 }
 
-uint64_t AcAttrCreate(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t AcAttrCreate(uint64_t **a1, uint64_t a2, _DWORD *a3)
 {
   result = 4294967292;
   if (a1 && a2)
@@ -8849,7 +8850,7 @@ uint64_t AcAttrPreProcess(uint64_t *a1, unsigned int *a2, uint64_t a3, _DWORD *a
                   if (v16)
                   {
                     v17 = a6;
-                    v18 = (a6 + 1);
+                    v18 = a6 + 1;
                     v19 = a4 + 2;
                     v20 = (v17 + 133);
                     v21 = (a3 + 244);
@@ -8861,8 +8862,9 @@ uint64_t AcAttrPreProcess(uint64_t *a1, unsigned int *a2, uint64_t a3, _DWORD *a
                       *v20 = v22;
                       Config = acCropResizeGenerateConfig(v14, v15, a2 + 2, *(v13 + 68), *(v13 + 72), 1, v18, v23.f32[0], v23.f32[1], v22.f32[0], v22.f32[1]);
                       result = 0;
-                      *v19++ = Config;
-                      v18 += 52;
+                      *v19 = Config;
+                      v19 = (v19 + 1);
+                      v18 += 13;
                       v20 += 2;
                       v21 += 351;
                       --v16;
@@ -9082,8 +9084,8 @@ LABEL_12:
   }
 
   v17 = 0;
-  v18 = (a1 + 196);
-  v19 = (a5 + 224);
+  v18 = a1 + 196;
+  v19 = a5 + 224;
   while (1)
   {
     result = AcAttrNode::postProcess(*a1, v18, 7, a4, v19, v17, v9, v10, v11, v12, v13, v14, v15, v16);
@@ -9094,7 +9096,7 @@ LABEL_12:
 
     ++v17;
     v19 += 2808;
-    v18 += 168;
+    v18 += 21;
     if (v17 >= *(a5 + 55))
     {
       goto LABEL_12;
@@ -9145,7 +9147,7 @@ LABEL_11:
 
   v18 = 0;
   v19 = a3 + 240;
-  v20 = (a5 + 224);
+  v20 = a5 + 224;
   while (1)
   {
     *(a4 + v18 + 8) = 1;

@@ -47,40 +47,40 @@ id __65___UIEventDeferringRecord_descriptionBuilderWithMultilinePrefix___block_i
 
 void __65___UIEventDeferringRecord_descriptionBuilderWithMultilinePrefix___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
-  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
   v3 = *(*(a1 + 32) + 8);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = v4;
-    v6 = *v12;
+    v6 = v4;
+    v7 = *v13;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(a1 + 40);
-        v9 = _UIEventDeferringShorterRecreationReasonStringForReason(*(*(&v11 + 1) + 8 * v7));
-        v10 = [v8 appendObject:v9 withName:{0, v11}];
+        v9 = *(a1 + 40);
+        v10 = _UIEventDeferringShorterRecreationReasonStringForReason(*(*(&v12 + 1) + 8 * v8), v5);
+        v11 = [v9 appendObject:v10 withName:{0, v12}];
 
-        ++v7;
+        ++v8;
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v6 != v8);
+      v6 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 }
 

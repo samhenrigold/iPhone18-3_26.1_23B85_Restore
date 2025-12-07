@@ -89,10 +89,10 @@
       OUTLINED_FUNCTION_1_17();
       [computeCommandEncoder setBuffer:v19 offset:0 atIndex:1];
       [computeCommandEncoder setBuffer:v20 offset:0 atIndex:2];
-      v21 = ([velocityCopy width] + 15) >> 4;
+      [velocityCopy width];
       [velocityCopy height];
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_0_7();
+      *&v21 = OUTLINED_FUNCTION_0_7().u64[0];
       OUTLINED_FUNCTION_4_4(v22, v23, v24, v25, v26, v27, v28, v29, v31, v32, 1, v21);
       [computeCommandEncoder endEncoding];
 
@@ -122,10 +122,10 @@
       [computeCommandEncoder setComputePipelineState:self->_smoothVelocity];
       OUTLINED_FUNCTION_3_2();
       OUTLINED_FUNCTION_5();
-      v13 = ([smoothedMagnitude width] + 15) >> 4;
+      [smoothedMagnitude width];
       [smoothedMagnitude height];
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_0_7();
+      *&v13 = OUTLINED_FUNCTION_0_7().u64[0];
       OUTLINED_FUNCTION_4_4(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24, 1, v13);
       [v12 endEncoding];
       v5 = 0;
@@ -197,10 +197,10 @@
       OUTLINED_FUNCTION_3_2();
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_1_17();
-      v15 = ([v6 width] + 15) >> 4;
+      [v6 width];
       [v6 height];
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_0_7();
+      *&v15 = OUTLINED_FUNCTION_0_7().u64[0];
       OUTLINED_FUNCTION_4_4(v16, v17, v18, v19, v20, v21, v22, v23, v25, v26, 1, v15);
       [computeCommandEncoder endEncoding];
 
@@ -232,10 +232,10 @@
       OUTLINED_FUNCTION_3_2();
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_1_17();
-      v15 = ([v6 width] + 15) >> 4;
+      [v6 width];
       [v6 height];
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_0_7();
+      *&v15 = OUTLINED_FUNCTION_0_7().u64[0];
       OUTLINED_FUNCTION_4_4(v16, v17, v18, v19, v20, v21, v22, v23, v25, v26, 1, v15);
       [computeCommandEncoder endEncoding];
 

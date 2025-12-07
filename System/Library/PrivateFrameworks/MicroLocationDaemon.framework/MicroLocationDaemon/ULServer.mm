@@ -42,30 +42,30 @@
 
 - (id)_remoteProxyForToken:(id)token
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   queue = [(ULServer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   clientConnections = [(ULServer *)self clientConnections];
-  remoteObjectProxy = [clientConnections countByEnumeratingWithState:&v15 objects:v19 count:16];
+  remoteObjectProxy = [clientConnections countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (remoteObjectProxy)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != remoteObjectProxy; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(clientConnections);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         connectionToken = [v10 connectionToken];
         v12 = [connectionToken isEqual:tokenCopy];
 
@@ -76,7 +76,7 @@
         }
       }
 
-      remoteObjectProxy = [clientConnections countByEnumeratingWithState:&v15 objects:v19 count:16];
+      remoteObjectProxy = [clientConnections countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (remoteObjectProxy)
       {
         continue;
@@ -87,8 +87,6 @@
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return remoteObjectProxy;
 }
@@ -121,7 +119,7 @@ LABEL_11:
 
 void __70__ULServer_NSXPCListenerDelegate__listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     __70__ULServer_NSXPCListenerDelegate__listener_shouldAcceptNewConnection___block_invoke_cold_1();
@@ -131,9 +129,9 @@ void __70__ULServer_NSXPCListenerDelegate__listener_shouldAcceptNewConnection___
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v23 = 138412290;
-    v24 = v3;
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "trying to accept connection: %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = v3;
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "trying to accept connection: %@", &v22, 0xCu);
   }
 
   v4 = [ULClientProcessConnection alloc];
@@ -167,11 +165,11 @@ void __70__ULServer_NSXPCListenerDelegate__listener_shouldAcceptNewConnection___
         v17 = MEMORY[0x277CCABB0];
         v18 = [*(a1 + 40) clientConnections];
         v19 = [v17 numberWithUnsignedInteger:{objc_msgSend(v18, "count")}];
-        v23 = 138412546;
-        v24 = v16;
-        v25 = 2112;
-        v26 = v19;
-        _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "Accepting connection of: %@, number of connections: %@", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v16;
+        v24 = 2112;
+        v25 = v19;
+        _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "Accepting connection of: %@, number of connections: %@", &v22, 0x16u);
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -186,7 +184,7 @@ void __70__ULServer_NSXPCListenerDelegate__listener_shouldAcceptNewConnection___
     v20 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v23) = 0;
+      LOWORD(v22) = 0;
       v21 = "Connection is not signed, declining";
       goto LABEL_20;
     }
@@ -202,16 +200,14 @@ void __70__ULServer_NSXPCListenerDelegate__listener_shouldAcceptNewConnection___
     v20 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v23) = 0;
+      LOWORD(v22) = 0;
       v21 = "Connection declined";
 LABEL_20:
-      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_ERROR, v21, &v23, 2u);
+      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_ERROR, v21, &v22, 2u);
     }
   }
 
 LABEL_21:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientConnectionSeveredConnection:(id)connection
@@ -233,7 +229,7 @@ LABEL_21:
 
 void __81__ULServer_ULClientProcessConnectionDelegate__clientConnectionSeveredConnection___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) clientConnections];
   [v2 removeObject:*(a1 + 40)];
 
@@ -264,14 +260,12 @@ void __81__ULServer_ULClientProcessConnectionDelegate__clientConnectionSeveredCo
     v12 = MEMORY[0x277CCABB0];
     v13 = [*(a1 + 32) clientConnections];
     v14 = [v12 numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
-    v16 = 138412546;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v14;
-    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "Connection (%@) severed, number of connections left: %@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v14;
+    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "Connection (%@) severed, number of connections left: %@", &v15, 0x16u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSendPredictionContextResults:(id)results toConnection:(id)connection

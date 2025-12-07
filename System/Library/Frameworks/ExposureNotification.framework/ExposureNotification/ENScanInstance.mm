@@ -32,21 +32,23 @@
 
 - (id)description
 {
-  NSAppendPrintF_safe();
-  v10 = 0;
-  minimumAttenuation = self->_minimumAttenuation;
-  NSAppendPrintF_safe();
-  v3 = v10;
+  v12 = 0;
+  NSAppendPrintF_safe(&v12, "ENScanInstance");
+  v3 = v12;
+  v11 = v3;
+  NSAppendPrintF_safe(&v11, ", MinAttn %d", self->_minimumAttenuation);
+  v4 = v11;
 
-  typicalAttenuation = self->_typicalAttenuation;
-  NSAppendPrintF_safe();
-  v4 = v3;
+  v10 = v4;
+  NSAppendPrintF_safe(&v10, ", TypAttn %d", self->_typicalAttenuation);
+  v5 = v10;
 
-  secondsSinceLastScan = self->_secondsSinceLastScan;
-  NSAppendPrintF_safe();
-  v5 = v4;
+  v9 = v5;
+  NSAppendPrintF_safe(&v9, ", SecondsSinceLastScan %d", self->_secondsSinceLastScan);
+  v6 = v9;
+  v7 = v9;
 
-  return v4;
+  return v6;
 }
 
 - (ENScanInstance)initWithXPCObject:(id)object error:(id *)error
@@ -57,12 +59,12 @@
   {
     if (!error)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
-LABEL_17:
-    ENErrorF(2);
-    *error = v11 = 0;
+    ENErrorF(2, "super init failed");
+LABEL_18:
+    *error = v13 = 0;
     goto LABEL_13;
   }
 
@@ -70,55 +72,59 @@ LABEL_17:
   {
     if (!error)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
-    goto LABEL_17;
+    ENErrorF(2, "XPC non-dict");
+    goto LABEL_18;
   }
 
+  v15 = 0;
   OUTLINED_FUNCTION_1();
   v8 = CUXPCDecodeUInt64RangedEx();
   if (v8 == 6)
   {
-    v7->_minimumAttenuation = 0;
+    v7->_minimumAttenuation = v15;
   }
 
   else if (v8 == 5)
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
+  v15 = 0;
   OUTLINED_FUNCTION_1();
   v9 = CUXPCDecodeUInt64RangedEx();
   if (v9 == 6)
   {
-    v7->_typicalAttenuation = 0;
+    v7->_typicalAttenuation = v15;
   }
 
   else if (v9 == 5)
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
-  v10 = OUTLINED_FUNCTION_4();
-  if (v10 != 6)
+  v15 = 0;
+  v12 = OUTLINED_FUNCTION_4(v9, "secsLS", v10, v11, &v15);
+  if (v12 != 6)
   {
-    if (v10 != 5)
+    if (v12 != 5)
     {
       goto LABEL_12;
     }
 
-LABEL_18:
-    v11 = 0;
+LABEL_19:
+    v13 = 0;
     goto LABEL_13;
   }
 
-  v7->_secondsSinceLastScan = 0;
+  v7->_secondsSinceLastScan = v15;
 LABEL_12:
-  v11 = v7;
+  v13 = v7;
 LABEL_13:
 
-  return v11;
+  return v13;
 }
 
 @end

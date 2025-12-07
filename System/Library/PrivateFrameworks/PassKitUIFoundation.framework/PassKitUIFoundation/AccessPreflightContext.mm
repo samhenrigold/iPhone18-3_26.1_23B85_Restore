@@ -3,7 +3,7 @@
 
 @implementation AccessPreflightContext
 
-uint64_t ___AccessPreflightContext_block_invoke_2(uint64_t a1)
+void *___AccessPreflightContext_block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)

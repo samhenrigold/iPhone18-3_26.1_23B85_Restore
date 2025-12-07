@@ -16,9 +16,9 @@
     +[UIView(BRGeometry) br_behaviourMap];
   }
 
-  v1 = br_behaviourMap_behaviourMap;
+  v2 = br_behaviourMap_behaviourMap;
 
-  return v1;
+  return v2;
 }
 
 + (void)br_gatherBehaviour

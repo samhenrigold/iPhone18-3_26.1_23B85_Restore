@@ -84,7 +84,7 @@ id __33__TROperationQueue_addOperation___block_invoke(uint64_t a1)
   dispatch_sync(cancellationQ, v7);
 }
 
-uint64_t __42__TROperationQueue_addOperationWithBlock___block_invoke(uint64_t a1)
+void *__42__TROperationQueue_addOperationWithBlock___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   v4.receiver = *(a1 + 32);
@@ -116,34 +116,34 @@ uint64_t __42__TROperationQueue_addOperationWithBlock___block_invoke(uint64_t a1
 
 id __52__TROperationQueue_addOperations_waitUntilFinished___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isCancelled])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v2 = *(a1 + 40);
-    v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v13;
+      v5 = *v12;
       do
       {
         v6 = 0;
         do
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          [*(*(&v12 + 1) + 8 * v6++) cancel];
+          [*(*(&v11 + 1) + 8 * v6++) cancel];
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v4);
@@ -152,11 +152,9 @@ id __52__TROperationQueue_addOperations_waitUntilFinished___block_invoke(uint64_
 
   v7 = *(a1 + 40);
   v8 = *(a1 + 48);
-  v11.receiver = *(a1 + 32);
-  v11.super_class = TROperationQueue;
-  result = objc_msgSendSuper2(&v11, sel_addOperations_waitUntilFinished_, v7, v8);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v10.receiver = *(a1 + 32);
+  v10.super_class = TROperationQueue;
+  return objc_msgSendSuper2(&v10, sel_addOperations_waitUntilFinished_, v7, v8);
 }
 
 @end

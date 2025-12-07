@@ -222,8 +222,9 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke(uint64_t
   [v3 syncSession:v4 applyChanges:v5 completion:v8];
 }
 
-void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24(uint64_t a1, char a2, void *a3)
+void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   if (_sync_log_facilities_pred != -1)
   {
@@ -233,7 +234,7 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24(uint6
   v6 = qword_1EDE73420;
   if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
   {
-    __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24_cold_2(a1, v6, a2);
+    __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24_cold_2(a1, v6, v3);
   }
 
   v7 = [*(a1 + 40) queue];
@@ -242,7 +243,7 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24(uint6
   block[2] = __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_27;
   block[3] = &unk_1E86CB310;
   v8 = *(a1 + 32);
-  v17 = a2;
+  v17 = v3;
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
   v13 = v8;
@@ -255,7 +256,7 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24(uint6
 
 void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_27(uint64_t a1)
 {
-  *&v27[5] = *MEMORY[0x1E69E9840];
+  *&v26[5] = *MEMORY[0x1E69E9840];
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -273,11 +274,11 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_27(uint6
       v6 = "YES";
     }
 
-    v26 = 67109378;
-    v27[0] = v5;
-    LOWORD(v27[1]) = 2080;
-    *(&v27[1] + 2) = v6;
-    _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_INFO, "Building response for processed changes, chunkIndex = %u, success = %s", &v26, 0x12u);
+    v25 = 67109378;
+    v26[0] = v5;
+    LOWORD(v26[1]) = 2080;
+    *(&v26[1] + 2) = v6;
+    _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_INFO, "Building response for processed changes, chunkIndex = %u, success = %s", &v25, 0x12u);
   }
 
   v7 = [*(a1 + 40) service];
@@ -300,9 +301,9 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_27(uint6
         v11 = v9;
         v12 = [v10 error];
         v13 = _SYObfuscate(v12);
-        v26 = 138543362;
-        *v27 = v13;
-        _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_DEFAULT, "Error occurred while waiting for v1 Sync Batch ingestion, returning error: %{public}@", &v26, 0xCu);
+        v25 = 138543362;
+        *v26 = v13;
+        _os_log_impl(&dword_1DF835000, v11, OS_LOG_TYPE_DEFAULT, "Error occurred while waiting for v1 Sync Batch ingestion, returning error: %{public}@", &v25, 0xCu);
       }
 
       v14 = [SYErrorInfo alloc];
@@ -328,11 +329,11 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_27(uint6
       v19 = v17;
       LODWORD(v18) = [v18 chunkIndex];
       v20 = _SYObfuscate(*(a1 + 48));
-      v26 = 67109378;
-      v27[0] = v18;
-      LOWORD(v27[1]) = 2114;
-      *(&v27[1] + 2) = v20;
-      _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "Client failed to process incoming BatchSyncChunk (%u), returning error: %{public}@", &v26, 0x12u);
+      v25 = 67109378;
+      v26[0] = v18;
+      LOWORD(v26[1]) = 2114;
+      *(&v26[1] + 2) = v20;
+      _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "Client failed to process incoming BatchSyncChunk (%u), returning error: %{public}@", &v25, 0x12u);
     }
 
     v21 = [[SYErrorInfo alloc] initWithError:*(a1 + 48)];
@@ -343,8 +344,6 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_27(uint6
   v23 = *(a1 + 32);
   v24 = [*(a1 + 40) wrappedUserContext];
   (v22)[2](v22, v23, v24);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleBatchChunk:(id)chunk completion:(id)completion
@@ -383,7 +382,7 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_27(uint6
 
 void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24_cold_2(uint64_t a1, void *a2, char a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 chunkIndex];
@@ -393,13 +392,11 @@ void __49__SYIncomingBatchSyncSession__continueProcessing__block_invoke_24_cold_
     v7 = "YES";
   }
 
-  v9[0] = 67109378;
-  v9[1] = v6;
-  v10 = 2080;
-  v11 = v7;
-  _os_log_debug_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEBUG, "Delegate callout complete: -syncSession:applyChanges:completion:, v1 chunkIndex = %u, success = %s", v9, 0x12u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = 67109378;
+  v8[1] = v6;
+  v9 = 2080;
+  v10 = v7;
+  _os_log_debug_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEBUG, "Delegate callout complete: -syncSession:applyChanges:completion:, v1 chunkIndex = %u, success = %s", v8, 0x12u);
 }
 
 @end

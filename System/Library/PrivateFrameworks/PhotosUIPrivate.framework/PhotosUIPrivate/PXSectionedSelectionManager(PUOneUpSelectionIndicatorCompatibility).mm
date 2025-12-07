@@ -6,16 +6,16 @@
 
 - (uint64_t)pu_isAssetReferenceSelected:()PUOneUpSelectionIndicatorCompatibility
 {
-  indexPath = [a3 indexPath];
+  v5 = objc_msgSend_indexPath(a3, a2);
   selectionSnapshot = [self selectionSnapshot];
   dataSource = [selectionSnapshot dataSource];
   [dataSource identifier];
 
   PXSimpleIndexPathFromIndexPath();
-  memset(v9, 0, sizeof(v9));
-  v7 = [selectionSnapshot isIndexPathSelected:v9];
+  memset(v10, 0, sizeof(v10));
+  v8 = [selectionSnapshot isIndexPathSelected:v10];
 
-  return v7;
+  return v8;
 }
 
 @end

@@ -127,7 +127,7 @@
     return 0;
   }
 
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+  objc_msgSend_getPixelTransformForImage_(self);
   v12 = v28[0];
   v13 = v28[5];
   v27 = 0;
@@ -140,7 +140,7 @@
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input);
   }
 
   else
@@ -151,7 +151,7 @@
   v14 = v27 == 0;
   if (v27)
   {
-    [(PAESharedDefaultBase *)self getImageBoundary:input];
+    objc_msgSend_getImageBoundary_(self);
     v25[0] = vcvtq_f64_f32(v24[0]);
     v25[1] = vcvtq_f64_f32(v24[1]);
     v16 = PCMatrix44Tmpl<double>::transformRect<double>(v28, v25, v25);
@@ -163,7 +163,7 @@
         (*(**&v26 + 16))(v26);
       }
 
-      [(PAESharedDefaultBase *)self changeDOD:&v23 withRect:v25];
+      objc_msgSend_changeDOD_withRect_(self);
       v17 = v24[0];
       if (*&v26 == *v24)
       {

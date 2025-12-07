@@ -78,28 +78,28 @@
 
 - (id)generateCollectionKeyForDataPoint:(id)point error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   pointCopy = point;
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   requiredFields = [(FedStatsCollectionKeyGenerator *)self requiredFields];
-  v8 = [requiredFields countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v8 = [requiredFields countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v46;
+    v10 = *v45;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v46 != v10)
+        if (*v45 != v10)
         {
           objc_enumerationMutation(requiredFields);
         }
 
-        v12 = *(*(&v45 + 1) + 8 * i);
+        v12 = *(*(&v44 + 1) + 8 * i);
         allKeys = [pointCopy allKeys];
         v14 = [allKeys containsObject:v12];
 
@@ -116,7 +116,7 @@
         }
       }
 
-      v9 = [requiredFields countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v9 = [requiredFields countByEnumeratingWithState:&v44 objects:v50 count:16];
       if (v9)
       {
         continue;
@@ -137,9 +137,9 @@
 
   unifiedFields2 = [(FedStatsCollectionKeyGenerator *)self unifiedFields];
   namespaceIdentifier = [(FedStatsCollectionKeyGenerator *)self namespaceIdentifier];
-  v44 = 0;
-  v19 = [FedStatsDataCohort keysForCohorts:unifiedFields2 namespaceID:namespaceIdentifier parameters:pointCopy possibleError:&v44];
-  requiredFields = v44;
+  v43 = 0;
+  v19 = [FedStatsDataCohort keysForCohorts:unifiedFields2 namespaceID:namespaceIdentifier parameters:pointCopy possibleError:&v43];
+  requiredFields = v43;
 
   if (v19)
   {
@@ -172,8 +172,8 @@ LABEL_16:
 
     else
     {
-      v50 = @"N/A";
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+      v49 = @"N/A";
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
       v24 = [v30 mutableCopy];
     }
 
@@ -194,16 +194,16 @@ LABEL_16:
       }
     }
 
-    v49[0] = prefix;
+    v48[0] = prefix;
     v37 = [v24 componentsJoinedByString:@"|"];
-    v49[1] = v37;
+    v48[1] = v37;
     experimentIdentifier = [(FedStatsCollectionKeyGenerator *)self experimentIdentifier];
-    v49[2] = experimentIdentifier;
+    v48[2] = experimentIdentifier;
     deploymentIdentifier = [(FedStatsCollectionKeyGenerator *)self deploymentIdentifier];
-    v49[3] = deploymentIdentifier;
+    v48[3] = deploymentIdentifier;
     treatmentIdentifier = [(FedStatsCollectionKeyGenerator *)self treatmentIdentifier];
-    v49[4] = treatmentIdentifier;
-    v41 = [*(v23 + 2656) arrayWithObjects:v49 count:5];
+    v48[4] = treatmentIdentifier;
+    v41 = [*(v23 + 2656) arrayWithObjects:v48 count:5];
     v22 = [v41 componentsJoinedByString:@":"];
 
     goto LABEL_27;
@@ -223,14 +223,12 @@ LABEL_14:
 
 LABEL_27:
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 + (id)extractCohortKeyValuesFrom:(id)from
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v4 = [fromCopy componentsSeparatedByString:@":"];
   if ([fromCopy length] >= 3)
@@ -245,29 +243,29 @@ LABEL_27:
 
     else
     {
-      v21 = v4;
-      v22 = fromCopy;
+      v20 = v4;
+      v21 = fromCopy;
       v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v7, "count")}];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v10 = v7;
-      v11 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v24;
+        v13 = *v23;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v24 != v13)
+            if (*v23 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v23 + 1) + 8 * i);
+            v15 = *(*(&v22 + 1) + 8 * i);
             v16 = [v15 componentsSeparatedByString:@"="];
             if ([v16 count] == 2)
             {
@@ -282,20 +280,20 @@ LABEL_27:
               if (os_log_type_enabled(lastObject, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v28 = v15;
+                v27 = v15;
                 _os_log_error_impl(&dword_24AB24000, lastObject, OS_LOG_TYPE_ERROR, "Cannot separate cohort key and value for '%@'", buf, 0xCu);
               }
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
         }
 
         while (v12);
       }
 
-      v4 = v21;
-      fromCopy = v22;
+      v4 = v20;
+      fromCopy = v21;
     }
   }
 
@@ -303,8 +301,6 @@ LABEL_27:
   {
     v5 = MEMORY[0x277CBEC10];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

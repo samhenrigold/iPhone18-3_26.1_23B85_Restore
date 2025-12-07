@@ -98,7 +98,7 @@ LABEL_13:
   p_elementSize = &self->_elementSize;
   if (self->_elementSize < length)
   {
-    v10 = scn_default_log();
+    v10 = scn_default_log(self, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [SCNMTLBufferAllocator newSubBufferWithBytes:length length:p_elementSize renderContext:v10];

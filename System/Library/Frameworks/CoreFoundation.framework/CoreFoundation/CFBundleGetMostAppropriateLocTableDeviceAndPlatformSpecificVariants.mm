@@ -7,10 +7,10 @@ CFTypeRef ___CFBundleGetMostAppropriateLocTableDeviceAndPlatformSpecificVariants
 {
   cf[1] = *MEMORY[0x1E69E9840];
   cf[0] = 0;
-  v13 = 0;
-  ProductNameSuffix = _CFBundleGetProductNameSuffix();
+  v12 = 0;
+  ProductNameSuffix = _CFBundleGetProductNameSuffix(a1, a2);
   PlatformNameSuffix = _CFBundleGetPlatformNameSuffix();
-  _CFBundleSplitFileName(a2, cf, 0, 0, ProductNameSuffix, PlatformNameSuffix, 2, &v13);
+  _CFBundleSplitFileName(a2, cf, 0, 0, ProductNameSuffix, PlatformNameSuffix, 2, &v12);
   if (cf[0])
   {
     CFRelease(cf[0]);
@@ -20,7 +20,7 @@ CFTypeRef ___CFBundleGetMostAppropriateLocTableDeviceAndPlatformSpecificVariants
   Value = CFDictionaryGetValue(*(a1 + 64), a2);
   result = CFNumberGetValue(Value, kCFNumberSInt8Type, &valuePtr);
   v8 = valuePtr;
-  if ((valuePtr & 1) != 0 && v13 > *(*(*(a1 + 32) + 8) + 24))
+  if ((valuePtr & 1) != 0 && v12 > *(*(*(a1 + 32) + 8) + 24))
   {
     v9 = *(*(*(a1 + 40) + 8) + 24);
     if (v9)
@@ -30,11 +30,11 @@ CFTypeRef ___CFBundleGetMostAppropriateLocTableDeviceAndPlatformSpecificVariants
 
     result = CFRetain(a2);
     *(*(*(a1 + 40) + 8) + 24) = result;
-    *(*(*(a1 + 32) + 8) + 24) = v13;
+    *(*(*(a1 + 32) + 8) + 24) = v12;
     v8 = valuePtr;
   }
 
-  if ((v8 & 2) != 0 && v13 > *(*(*(a1 + 48) + 8) + 24))
+  if ((v8 & 2) != 0 && v12 > *(*(*(a1 + 48) + 8) + 24))
   {
     v10 = *(*(*(a1 + 56) + 8) + 24);
     if (v10)
@@ -44,10 +44,9 @@ CFTypeRef ___CFBundleGetMostAppropriateLocTableDeviceAndPlatformSpecificVariants
 
     result = CFRetain(a2);
     *(*(*(a1 + 56) + 8) + 24) = result;
-    *(*(*(a1 + 48) + 8) + 24) = v13;
+    *(*(*(a1 + 48) + 8) + 24) = v12;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 

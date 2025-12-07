@@ -6,23 +6,17 @@
 
 - (void)appendAdditionalParameters:()Association
 {
-  v49 = a3;
+  v42 = a3;
   scanResult = [self scanResult];
   WiFiNetworkCreateFromCoreWiFiScanResult();
 
-  isCarPlayOnly = [v49 isCarPlayOnly];
-  v6 = MEMORY[0x277CBED28];
-  if (isCarPlayOnly)
+  if ([v42 isCarPlayOnly])
   {
-    v7 = *MEMORY[0x277D29818];
-    v8 = *MEMORY[0x277CBED28];
     WiFiNetworkSetProperty();
   }
 
-  if ([v49 isInstantHotspot])
+  if ([v42 isInstantHotspot])
   {
-    v9 = *MEMORY[0x277D29810];
-    v10 = *v6;
     WiFiNetworkSetProperty();
   }
 
@@ -34,7 +28,7 @@
     knownNetworkProfile = WiFiNetworkCreateFromCoreWiFiNetworkProfile();
   }
 
-  enterpriseParameters = [v49 enterpriseParameters];
+  enterpriseParameters = [v42 enterpriseParameters];
 
   if (enterpriseParameters)
   {
@@ -43,13 +37,12 @@
       WiFiNetworkCreateCopy();
     }
 
-    v14 = *MEMORY[0x277D29850];
-    v15 = WiFiNetworkGetProperty();
-    v16 = [v15 objectForKey:@"EAPClientConfiguration"];
-    v17 = v16;
-    if (v16)
+    v8 = WiFiNetworkGetProperty();
+    v9 = [v8 objectForKey:@"EAPClientConfiguration"];
+    v10 = v9;
+    if (v9)
     {
-      dictionary = [v16 mutableCopy];
+      dictionary = [v9 mutableCopy];
     }
 
     else
@@ -57,102 +50,102 @@
       dictionary = [MEMORY[0x277CBEB38] dictionary];
     }
 
-    v19 = dictionary;
-    enterpriseParameters2 = [v49 enterpriseParameters];
+    v12 = dictionary;
+    enterpriseParameters2 = [v42 enterpriseParameters];
     username = [enterpriseParameters2 username];
 
     if (username)
     {
-      enterpriseParameters3 = [v49 enterpriseParameters];
+      enterpriseParameters3 = [v42 enterpriseParameters];
       username2 = [enterpriseParameters3 username];
-      [v19 setObject:username2 forKey:@"UserName"];
+      [v12 setObject:username2 forKey:@"UserName"];
     }
 
-    enterpriseParameters4 = [v49 enterpriseParameters];
+    enterpriseParameters4 = [v42 enterpriseParameters];
     password = [enterpriseParameters4 password];
 
     if (password)
     {
-      enterpriseParameters5 = [v49 enterpriseParameters];
+      enterpriseParameters5 = [v42 enterpriseParameters];
       password2 = [enterpriseParameters5 password];
-      [v19 setObject:password2 forKey:@"UserPassword"];
+      [v12 setObject:password2 forKey:@"UserPassword"];
     }
 
-    enterpriseParameters6 = [v49 enterpriseParameters];
+    enterpriseParameters6 = [v42 enterpriseParameters];
     tLSIdentity = [enterpriseParameters6 TLSIdentity];
 
     if (tLSIdentity)
     {
-      enterpriseParameters7 = [v49 enterpriseParameters];
+      enterpriseParameters7 = [v42 enterpriseParameters];
       [enterpriseParameters7 TLSIdentity];
-      v31 = EAPSecIdentityHandleCreate();
+      v24 = EAPSecIdentityHandleCreate();
 
-      if (v31)
+      if (v24)
       {
-        [v19 setObject:v31 forKey:@"TLSIdentityHandle"];
-        CFRelease(v31);
+        [v12 setObject:v24 forKey:@"TLSIdentityHandle"];
+        CFRelease(v24);
       }
 
-      v32 = [v19 objectForKey:@"AcceptEAPTypes"];
+      v25 = [v12 objectForKey:@"AcceptEAPTypes"];
 
-      if (v32)
+      if (v25)
       {
-        v33 = [v19 objectForKey:@"AcceptEAPTypes"];
-        v34 = [v33 containsObject:&unk_2883333F0];
+        v26 = [v12 objectForKey:@"AcceptEAPTypes"];
+        v27 = [v26 containsObject:&unk_2883333F0];
 
-        if ((v34 & 1) == 0)
+        if ((v27 & 1) == 0)
         {
-          v35 = [v19 objectForKey:@"AcceptEAPTypes"];
-          v36 = [v35 mutableCopy];
+          v28 = [v12 objectForKey:@"AcceptEAPTypes"];
+          v29 = [v28 mutableCopy];
 
-          [v36 addObject:&unk_2883333F0];
-          [v19 setObject:v36 forKey:@"AcceptEAPTypes"];
+          [v29 addObject:&unk_2883333F0];
+          [v12 setObject:v29 forKey:@"AcceptEAPTypes"];
         }
       }
 
       else
       {
-        [v19 setObject:&unk_288333450 forKey:@"AcceptEAPTypes"];
+        [v12 setObject:&unk_288333450 forKey:@"AcceptEAPTypes"];
       }
     }
 
-    v37 = [v19 objectForKey:@"AcceptEAPTypes"];
+    v30 = [v12 objectForKey:@"AcceptEAPTypes"];
 
-    if (!v37)
+    if (!v30)
     {
-      enterpriseParameters8 = [v49 enterpriseParameters];
+      enterpriseParameters8 = [v42 enterpriseParameters];
       tLSIdentity2 = [enterpriseParameters8 TLSIdentity];
 
       if (tLSIdentity2)
       {
-        v40 = &unk_288333468;
+        v33 = &unk_288333468;
       }
 
       else
       {
-        v40 = &unk_288333480;
+        v33 = &unk_288333480;
       }
 
-      [v19 setObject:v40 forKey:@"AcceptEAPTypes"];
+      [v12 setObject:v33 forKey:@"AcceptEAPTypes"];
     }
 
-    enterpriseParameters9 = [v49 enterpriseParameters];
+    enterpriseParameters9 = [v42 enterpriseParameters];
     certificateChain = [enterpriseParameters9 certificateChain];
 
     if (certificateChain)
     {
-      enterpriseParameters10 = [v49 enterpriseParameters];
+      enterpriseParameters10 = [v42 enterpriseParameters];
       certificateChain2 = [enterpriseParameters10 certificateChain];
-      [v19 setObject:certificateChain2 forKey:@"TLSUserTrustProceedCertificateChain"];
+      [v12 setObject:certificateChain2 forKey:@"TLSUserTrustProceedCertificateChain"];
 
-      [v19 setObject:MEMORY[0x277CBEC38] forKey:@"TLSSaveTrustExceptions"];
+      [v12 setObject:MEMORY[0x277CBEC38] forKey:@"TLSSaveTrustExceptions"];
     }
 
-    if ([v19 count])
+    if ([v12 count])
     {
-      if (v15)
+      if (v8)
       {
-        dictionary2 = [v15 mutableCopy];
+        dictionary2 = [v8 mutableCopy];
       }
 
       else
@@ -160,14 +153,14 @@
         dictionary2 = [MEMORY[0x277CBEB38] dictionary];
       }
 
-      v46 = dictionary2;
-      [dictionary2 setObject:v19 forKey:@"EAPClientConfiguration"];
+      v39 = dictionary2;
+      [dictionary2 setObject:v12 forKey:@"EAPClientConfiguration"];
       WiFiNetworkSetProperty();
     }
   }
 
   CoreWiFiNetworkProfile = WiFiNetworkCreateCoreWiFiNetworkProfile();
-  if ([v49 joinedUsingWiFiPasswordSharing])
+  if ([v42 joinedUsingWiFiPasswordSharing])
   {
     [CoreWiFiNetworkProfile setAddReason:11];
   }

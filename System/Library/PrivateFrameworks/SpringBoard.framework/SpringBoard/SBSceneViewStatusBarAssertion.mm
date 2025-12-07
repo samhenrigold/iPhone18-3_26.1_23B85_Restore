@@ -187,7 +187,7 @@
   v9 = observerCopy;
   if (observerCopy)
   {
-    if (![(NSHashTable *)self->_observers containsObject:observerCopy])
+    if ((objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy) & 1) == 0)
     {
       observers = self->_observers;
       v6 = v9;

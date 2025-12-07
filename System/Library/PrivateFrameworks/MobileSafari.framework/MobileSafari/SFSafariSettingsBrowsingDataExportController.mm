@@ -87,12 +87,13 @@
 void __145__SFSafariSettingsBrowsingDataExportController_exportHistoryToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXExport(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __145__SFSafariSettingsBrowsingDataExportController_exportHistoryToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_cold_1(v4, v3);
+      __145__SFSafariSettingsBrowsingDataExportController_exportHistoryToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_cold_1(v6, v5);
     }
   }
 
@@ -124,12 +125,13 @@ void __145__SFSafariSettingsBrowsingDataExportController_exportHistoryToDirector
 void __95__SFSafariSettingsBrowsingDataExportController_exportBookmarksToFileWithURL_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXExport(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __95__SFSafariSettingsBrowsingDataExportController_exportBookmarksToFileWithURL_completionHandler___block_invoke_cold_1(v4, v3);
+      __95__SFSafariSettingsBrowsingDataExportController_exportBookmarksToFileWithURL_completionHandler___block_invoke_cold_1(v6, v5);
     }
   }
 
@@ -159,36 +161,36 @@ void __95__SFSafariSettingsBrowsingDataExportController_exportBookmarksToFileWit
 
 void __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
-  v35 = [[SFExtensionsProfilesDataSource alloc] initWithTabGroupManager:*(a1 + 32)];
+  v58 = *MEMORY[0x1E69E9840];
+  v37 = [[SFExtensionsProfilesDataSource alloc] initWithTabGroupManager:*(a1 + 32)];
   group = dispatch_group_create();
-  v47 = 0u;
-  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v36 = a1;
+  v51 = 0u;
+  v52 = 0u;
+  v38 = a1;
   obj = *(a1 + 40);
-  v37 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
-  if (v37)
+  v39 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
+  if (v39)
   {
-    v34 = *v48;
-    v31 = v40;
+    v36 = *v50;
+    v33 = v42;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v48 != v34)
+        if (*v50 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = [*(v36 + 32) profileWithIdentifier:{*(*(&v47 + 1) + 8 * i), v31}];
+        v3 = [*(v38 + 32) profileWithIdentifier:{*(*(&v49 + 1) + 8 * i), v33}];
         v4 = [v3 title];
         v5 = [v4 safari_filenameByFixingIllegalCharacters];
 
         v6 = MEMORY[0x1E69C8ED0];
-        v7 = *(v36 + 48);
-        v38 = v5;
+        v7 = *(v38 + 48);
+        v40 = v5;
         if ([v3 isDefault])
         {
           v8 = 0;
@@ -206,89 +208,91 @@ void __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirec
         v12 = [v10 path];
         [v11 createFileAtPath:v12 contents:0 attributes:0];
 
-        v13 = [(SFExtensionsProfilesDataSource *)v35 profileServerIDToContentBlockerManagers];
+        v13 = [(SFExtensionsProfilesDataSource *)v37 profileServerIDToContentBlockerManagers];
         v14 = [v3 serverID];
         v15 = [v13 objectForKeyedSubscript:v14];
-        v54[0] = v15;
-        v16 = [(SFExtensionsProfilesDataSource *)v35 profileServerIDToWebExtensionsControllers];
+        v56[0] = v15;
+        v16 = [(SFExtensionsProfilesDataSource *)v37 profileServerIDToWebExtensionsControllers];
         v17 = [v3 serverID];
         v18 = [v16 objectForKeyedSubscript:v17];
-        v54[1] = v18;
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+        v56[1] = v18;
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
 
         v20 = [MEMORY[0x1E695DF70] array];
-        v43 = 0u;
-        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
+        v48 = 0u;
         v21 = v19;
-        v22 = [v21 countByEnumeratingWithState:&v43 objects:v53 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v45 objects:v55 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v44;
+          v24 = *v46;
           do
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v44 != v24)
+              if (*v46 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = [*(*(&v43 + 1) + 8 * j) extensionsDataForExport];
+              v26 = [*(*(&v45 + 1) + 8 * j) extensionsDataForExport];
               [v20 addObjectsFromArray:v26];
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v43 objects:v53 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v45 objects:v55 count:16];
           }
 
           while (v23);
         }
 
         v27 = objc_alloc(MEMORY[0x1E69C97A0]);
-        v42 = 0;
-        v28 = [v27 initWithURL:v10 error:&v42];
-        v29 = v42;
+        v44 = 0;
+        v28 = [v27 initWithURL:v10 error:&v44];
+        v29 = v44;
+        v31 = v29;
         if (v29)
         {
-          v30 = WBS_LOG_CHANNEL_PREFIXExport();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v32 = WBS_LOG_CHANNEL_PREFIXExport(v29, v30);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_cold_1(v51, v30, v29, &v52);
+            __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_cold_1(v53, v32, v31, &v54);
           }
         }
 
         else
         {
           dispatch_group_enter(group);
-          v39[0] = MEMORY[0x1E69E9820];
-          v39[1] = 3221225472;
-          v40[0] = __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_7;
-          v40[1] = &unk_1E721E178;
-          v41 = group;
-          [v28 exportExtensionDictionaries:v20 completionHandler:v39];
+          v41[0] = MEMORY[0x1E69E9820];
+          v41[1] = 3221225472;
+          v42[0] = __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_7;
+          v42[1] = &unk_1E721E178;
+          v43 = group;
+          [v28 exportExtensionDictionaries:v20 completionHandler:v41];
         }
       }
 
-      v37 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v39 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
-    while (v37);
+    while (v39);
   }
 
-  dispatch_group_notify(group, MEMORY[0x1E69E96A0], *(v36 + 56));
+  dispatch_group_notify(group, MEMORY[0x1E69E96A0], *(v38 + 56));
 }
 
 void __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_7(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXExport(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_7_cold_1(v4, v3);
+      __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_7_cold_1(v6, v5);
     }
   }
 
@@ -302,21 +306,21 @@ void __148__SFSafariSettingsBrowsingDataExportController_exportExtensionsToDirec
   v4 = sandbox_extension_issue_file();
   if (v4)
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v4 length:strlen(v4) encoding:4 freeWhenDone:1];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v4 length:strlen(v4) encoding:4 freeWhenDone:1];
   }
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXExport(0, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(SFSafariSettingsBrowsingDataExportController *)lCopy _sandboxExtensionForURL:v6];
+      [(SFSafariSettingsBrowsingDataExportController *)lCopy _sandboxExtensionForURL:v7];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 void __145__SFSafariSettingsBrowsingDataExportController_exportHistoryToDirectoryWithURL_profileIdentifiersToExportFrom_tabGroupManager_completionHandler___block_invoke_cold_1(void *a1, void *a2)

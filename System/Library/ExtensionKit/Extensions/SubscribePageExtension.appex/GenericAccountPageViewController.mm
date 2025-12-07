@@ -31,7 +31,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1004CC564();
+  sub_1004CC564(selfCopy, v2);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -75,7 +75,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1004CCAE4();
+  sub_1004CCAE4(selfCopy);
 }
 
 - (unint64_t)supportedInterfaceOrientations
@@ -127,7 +127,7 @@
   sub_100741744();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1004CCF38(viewCopy);
+  v12 = sub_1004CCF38(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -149,7 +149,7 @@
   viewCopy = view;
   headerViewCopy = headerView;
   selfCopy = self;
-  sub_1004CE91C(viewCopy, headerViewCopy);
+  sub_1004CE91C(viewCopy, headerViewCopy, section);
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

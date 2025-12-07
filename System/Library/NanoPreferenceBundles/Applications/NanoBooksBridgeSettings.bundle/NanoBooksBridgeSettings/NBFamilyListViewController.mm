@@ -91,27 +91,28 @@
 
 - (void)_reloadData
 {
-  v3 = +[NBBridgeUtilities isExplicitMaterialAllowed]^ 1;
-  v4 = NBDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = +[NBBridgeUtilities isExplicitMaterialAllowed];
+  v4 = v3 ^ 1;
+  v5 = NBDefaultLog(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     dsids = [(NBFamilyListViewController *)self dsids];
     excludeStoreIDs = [(NBFamilyListViewController *)self excludeStoreIDs];
-    v12 = 138412802;
-    v13 = dsids;
-    v14 = 2112;
-    v15 = excludeStoreIDs;
-    v16 = 1024;
-    v17 = v3;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Fetching family audiobooks for (%@). Excluding storeIDs:(%@) isExplicitRestricted:(%i)", &v12, 0x1Cu);
+    v13 = 138412802;
+    v14 = dsids;
+    v15 = 2112;
+    v16 = excludeStoreIDs;
+    v17 = 1024;
+    v18 = v4;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Fetching family audiobooks for (%@). Excluding storeIDs:(%@) isExplicitRestricted:(%i)", &v13, 0x1Cu);
   }
 
-  v7 = +[BLJaliscoReadOnlyDAAPClient sharedClient];
+  v8 = +[BLJaliscoReadOnlyDAAPClient sharedClient];
   dsids2 = [(NBFamilyListViewController *)self dsids];
   allObjects = [dsids2 allObjects];
   excludeStoreIDs2 = [(NBFamilyListViewController *)self excludeStoreIDs];
-  v11 = [v7 fetchItemsForDSIDs:allObjects excludeStoreIDs:excludeStoreIDs2 isExplicitRestricted:v3];
-  [(NBFamilyListViewController *)self setAudiobooks:v11];
+  v12 = [v8 fetchItemsForDSIDs:allObjects excludeStoreIDs:excludeStoreIDs2 isExplicitRestricted:v4];
+  [(NBFamilyListViewController *)self setAudiobooks:v12];
 
   [(NBFamilyListViewController *)self reloadSpecifiers];
 }
@@ -161,10 +162,10 @@
 
   if (v8 >= v10)
   {
-    v15 = NBDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = NBDefaultLog(v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_12390(self, pathCopy, v15);
+      sub_12390(self, pathCopy, v17);
     }
 
     goto LABEL_9;
@@ -172,27 +173,27 @@
 
   objc_opt_class();
   audiobooks2 = [(NBFamilyListViewController *)self audiobooks];
-  v12 = [audiobooks2 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
-  v13 = BUDynamicCast();
+  v13 = [audiobooks2 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
+  v14 = BUDynamicCast();
 
-  if (!v13)
+  if (!v14)
   {
-    v15 = NBDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = NBDefaultLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_12478(self, pathCopy, v15);
+      sub_12478(self, pathCopy, v17);
     }
 
     goto LABEL_9;
   }
 
-  storeID = [v13 storeID];
-  v15 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [storeID nb_uint64_t]);
+  storeID = [v14 storeID];
+  v17 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [storeID nb_uint64_t]);
 
-  if (v15)
+  if (v17)
   {
     delegate = [(NBFamilyListViewController *)self delegate];
-    [delegate selectAudiobookDidSelectAudiobookWithAdamId:v15];
+    [delegate selectAudiobookDidSelectAudiobookWithAdamId:v17];
 
 LABEL_9:
   }

@@ -15,7 +15,7 @@
   Date.init()();
   *(&self->super.isa + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCLocationChangePacer_hierarchyController) = controllerCopy;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for DOCLocationChangePacer();
+  v7.super_class = type metadata accessor for DOCLocationChangePacer(0);
   return [(DOCLocationChangePacer *)&v7 init];
 }
 

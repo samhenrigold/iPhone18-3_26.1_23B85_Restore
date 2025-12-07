@@ -1,4 +1,4 @@
-void *BuiltinLogType()
+void *BuiltinLogType(uint64_t a1, uint64_t a2)
 {
   if (qword_8178 != -1)
   {
@@ -19,7 +19,7 @@ void sub_DD0(id a1)
 
 id BuiltinAudioFactory(uint64_t a1, const void *a2)
 {
-  v3 = BuiltinLogType();
+  v3 = BuiltinLogType(a1, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -44,17 +44,17 @@ void sub_FCC(uint64_t a1, uint64_t a2, const char *a3)
   ObjectForKey = ASDT::IORegistry::GetObjectForKey("builtin-plugin-name", "IODeviceTree:/product/audio", a3);
   if (ObjectForKey)
   {
-    v5 = [[NSString alloc] initWithData:ObjectForKey encoding:1];
+    v4 = [[NSString alloc] initWithData:ObjectForKey encoding:1];
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  if ([v5 length] && (objc_msgSend(v5, "isEqualToString:", @"BuiltinAudioPlugin") & 1) == 0)
+  if ([v4 length] && (v5 = objc_msgSend(v4, "isEqualToString:", @"BuiltinAudioPlugin"), (v5 & 1) == 0))
   {
-    v9 = BuiltinLogType();
+    v9 = BuiltinLogType(v5, v6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315138;
@@ -68,7 +68,6 @@ void sub_FCC(uint64_t a1, uint64_t a2, const char *a3)
 
   else
   {
-    v6 = *(a1 + 32);
     v7 = objc_alloc_init(objc_opt_class());
     v8 = qword_8180;
     qword_8180 = v7;

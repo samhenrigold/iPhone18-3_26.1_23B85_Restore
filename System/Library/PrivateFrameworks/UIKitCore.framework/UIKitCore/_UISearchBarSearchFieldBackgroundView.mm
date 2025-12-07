@@ -157,7 +157,6 @@ LABEL_35:
         compositingFilter = [layer compositingFilter];
         type = [compositingFilter type];
         v21 = type;
-        v22 = *MEMORY[0x1E6979CD0];
         goto LABEL_17;
       case 2020:
         v10 = !colorCopy;
@@ -168,9 +167,9 @@ LABEL_35:
         layer2 = [(UIView *)self layer];
         compositingFilter2 = [layer2 compositingFilter];
         type2 = [compositingFilter2 type];
-        v16 = [type2 isEqualToString:*MEMORY[0x1E6979CD0]];
+        isEqualToString = objc_msgSend_isEqualToString_(type2);
 
-        if (v16)
+        if (isEqualToString)
         {
           v17 = 0.182;
           v12 = 0.52;
@@ -187,7 +186,7 @@ LABEL_35:
           v12 = v17;
         }
 
-        v27 = 1.0;
+        v26 = 1.0;
         goto LABEL_34;
     }
 
@@ -201,23 +200,23 @@ LABEL_2:
         goto LABEL_36;
       }
 
-      v24 = !colorCopy;
-      v25 = 0.105;
-      v26 = 0.3;
+      v23 = !colorCopy;
+      v24 = 0.105;
+      v25 = 0.3;
       goto LABEL_49;
     }
 
-    v29 = UISearchBarUsesModernAppearance();
+    v28 = UISearchBarUsesModernAppearance();
     layer = [(UIView *)self layer];
     compositingFilter = [layer compositingFilter];
     type = [compositingFilter type];
     v21 = type;
-    if (!v29)
+    if (!v28)
     {
-      v32 = [type isEqualToString:*MEMORY[0x1E6979850]];
+      v31 = objc_msgSend_isEqualToString_(type);
 
-      v24 = !colorCopy;
-      if (v32)
+      v23 = !colorCopy;
+      if (v31)
       {
         v12 = 1.0;
         if (!colorCopy)
@@ -225,32 +224,31 @@ LABEL_2:
           v12 = 0.35;
         }
 
-        v27 = 0.48;
+        v26 = 0.48;
         goto LABEL_34;
       }
 
-      v25 = 0.035;
-      v26 = 0.1;
+      v24 = 0.035;
+      v25 = 0.1;
 LABEL_49:
-      if (v24)
+      if (v23)
       {
-        v33 = v25;
+        v32 = v24;
       }
 
       else
       {
-        v33 = v26;
+        v32 = v25;
       }
 
-      v8 = [UIColor colorWithRed:0.203921569 green:0.223529412 blue:0.31372549 alpha:v33];
+      v8 = [UIColor colorWithRed:0.203921569 green:0.223529412 blue:0.31372549 alpha:v32];
       goto LABEL_35;
     }
 
-    v22 = *MEMORY[0x1E6979CD0];
 LABEL_17:
-    v23 = [type isEqualToString:v22];
+    v22 = objc_msgSend_isEqualToString_(type);
 
-    v8 = [(_UISearchBarSearchFieldBackgroundView *)self _ultralightFillColorForOverlayFilter:v23 != 0 active:colorCopy];
+    v8 = [(_UISearchBarSearchFieldBackgroundView *)self _ultralightFillColorForOverlayFilter:v22 != 0 active:colorCopy];
     goto LABEL_35;
   }
 
@@ -276,9 +274,9 @@ LABEL_22:
       v12 = v11;
     }
 
-    v27 = 0.0;
+    v26 = 0.0;
 LABEL_34:
-    v8 = [UIColor colorWithWhite:v27 alpha:v12];
+    v8 = [UIColor colorWithWhite:v26 alpha:v12];
     goto LABEL_35;
   }
 
@@ -297,13 +295,13 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v30 = +[UIColor _textFieldBackgroundColor];
-  v3 = v30;
+  v29 = +[UIColor _textFieldBackgroundColor];
+  v3 = v29;
   if (!colorCopy)
   {
-    v31 = [v30 colorWithAlphaComponent:0.35];
+    v30 = [v29 colorWithAlphaComponent:0.35];
 
-    v3 = v31;
+    v3 = v30;
   }
 
 LABEL_36:

@@ -40,35 +40,33 @@
 
 - (id)counterGroupKeyNamesForTransitionTypeByReasonLogEvents
 {
-  v19[6] = *MEMORY[0x277D85DE8];
+  v18[6] = *MEMORY[0x277D85DE8];
   v2 = @"Unknown";
-  v19[0] = @"Unknown";
+  v18[0] = @"Unknown";
   v3 = @"Home";
-  v19[1] = @"Home";
+  v18[1] = @"Home";
   v4 = @"Away";
-  v19[2] = @"Away";
+  v18[2] = @"Away";
   v5 = @"Vacation";
-  v19[3] = @"Vacation";
+  v18[3] = @"Vacation";
   v6 = @"ComingHome";
-  v19[4] = @"ComingHome";
+  v18[4] = @"ComingHome";
   v7 = @"ComingHomeFromVacation";
-  v19[5] = @"ComingHomeFromVacation";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:6];
+  v18[5] = @"ComingHomeFromVacation";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:6];
 
-  v9 = [v8 copy];
+  v9 = objc_msgSend_copy(v8);
   v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count") * objc_msgSend(v8, "count")}];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __94__HMDHomeActivityStateLogEventAnalyzer_counterGroupKeyNamesForTransitionTypeByReasonLogEvents__block_invoke;
-  v16[3] = &unk_27867E4C8;
-  v17 = v9;
-  v18 = v10;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __94__HMDHomeActivityStateLogEventAnalyzer_counterGroupKeyNamesForTransitionTypeByReasonLogEvents__block_invoke;
+  v15[3] = &unk_27867E4C8;
+  v16 = v9;
+  v17 = v10;
   v11 = v10;
   v12 = v9;
-  [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:v16];
-  v13 = [v11 copy];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:v15];
+  v13 = objc_msgSend_copy(v11);
 
   return v13;
 }
@@ -143,7 +141,7 @@ void __94__HMDHomeActivityStateLogEventAnalyzer_counterGroupKeyNamesForTransitio
 
 - (void)runDailyTask
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDHomeActivityStateLogEventAnalyzer *)self dataSource];
   isCurrentDeviceConfirmedPrimaryResident = [dataSource isCurrentDeviceConfirmedPrimaryResident];
 
@@ -160,16 +158,15 @@ void __94__HMDHomeActivityStateLogEventAnalyzer_counterGroupKeyNamesForTransitio
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Not submitting daily task because this device is not the current primary resident Device", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Not submitting daily task because this device is not the current primary resident Device", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
 
   [(HMDHomeActivityStateLogEventAnalyzer *)self resetCounterGroups];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeHouseholdCounterGroupsForKey:(id)key afterDate:(id)date
@@ -304,7 +301,7 @@ uint64_t __86__HMDHomeActivityStateLogEventAnalyzer_removeHouseholdCounterGroups
   [counterGroupKeyNamesForTransitionTypeByReasonLogEvents hmf_enumerateWithAutoreleasePoolUsingBlock:&v15];
   if ([v10 count])
   {
-    v13 = [v10 copy];
+    v13 = objc_msgSend_copy(v10);
   }
 
   else
@@ -351,7 +348,7 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
 
 - (id)householdTransitionLogEventForHomeWithUUID:(id)d date:(id)date
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   v8 = [(HMDHomeActivityStateLogEventAnalyzer *)self counterGroupForKey:@"HMDHouseholdHomeActivityStateTransitionLogEventCounterGroup" homeUUID:dCopy date:dateCopy];
@@ -362,17 +359,17 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
     v11 = @"Vacation";
     v12 = @"ComingHome";
     v13 = @"ComingHomeFromVacation";
-    v31 = [v8 fetchEventCounterForEventName:@"Home"];
-    v30 = [v8 fetchEventCounterForEventName:@"Away"];
-    v29 = [v8 fetchEventCounterForEventName:@"Vacation"];
-    v28 = [v8 fetchEventCounterForEventName:@"ComingHome"];
-    v27 = [v8 fetchEventCounterForEventName:@"ComingHomeFromVacation"];
+    v30 = [v8 fetchEventCounterForEventName:@"Home"];
+    v29 = [v8 fetchEventCounterForEventName:@"Away"];
+    v28 = [v8 fetchEventCounterForEventName:@"Vacation"];
+    v27 = [v8 fetchEventCounterForEventName:@"ComingHome"];
+    v26 = [v8 fetchEventCounterForEventName:@"ComingHomeFromVacation"];
     v14 = @"Automated";
     v15 = @"AutomatedHoldEnd";
     v16 = @"ManualHoldEnd";
     v17 = @"ManualHoldStart";
     v18 = @"Other";
-    v19 = -[HMDHouseholdHomeActivityStateTransitionLogEvent initWithHomeUUID:homeCount:awayCount:vacationCount:comingHomeCount:comingHomeFromVacationCount:automatedCount:automatedHoldEndCount:manualHoldEndCount:manualHoldStartCount:otherCount:]([HMDHouseholdHomeActivityStateTransitionLogEvent alloc], "initWithHomeUUID:homeCount:awayCount:vacationCount:comingHomeCount:comingHomeFromVacationCount:automatedCount:automatedHoldEndCount:manualHoldEndCount:manualHoldStartCount:otherCount:", dCopy, v31, v30, v29, v28, v27, [v8 fetchEventCounterForEventName:@"Automated"], objc_msgSend(v8, "fetchEventCounterForEventName:", @"AutomatedHoldEnd"), objc_msgSend(v8, "fetchEventCounterForEventName:", @"ManualHoldEnd"), objc_msgSend(v8, "fetchEventCounterForEventName:", @"ManualHoldStart"), objc_msgSend(v8, "fetchEventCounterForEventName:", @"Other"));
+    v19 = -[HMDHouseholdHomeActivityStateTransitionLogEvent initWithHomeUUID:homeCount:awayCount:vacationCount:comingHomeCount:comingHomeFromVacationCount:automatedCount:automatedHoldEndCount:manualHoldEndCount:manualHoldStartCount:otherCount:]([HMDHouseholdHomeActivityStateTransitionLogEvent alloc], "initWithHomeUUID:homeCount:awayCount:vacationCount:comingHomeCount:comingHomeFromVacationCount:automatedCount:automatedHoldEndCount:manualHoldEndCount:manualHoldStartCount:otherCount:", dCopy, v30, v29, v28, v27, v26, [v8 fetchEventCounterForEventName:@"Automated"], objc_msgSend(v8, "fetchEventCounterForEventName:", @"AutomatedHoldEnd"), objc_msgSend(v8, "fetchEventCounterForEventName:", @"ManualHoldEnd"), objc_msgSend(v8, "fetchEventCounterForEventName:", @"ManualHoldStart"), objc_msgSend(v8, "fetchEventCounterForEventName:", @"Other"));
   }
 
   else
@@ -385,19 +382,17 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
       v23 = HMFGetLogIdentifier();
       uUIDString = [dCopy UUIDString];
       *buf = 138543874;
-      v33 = v23;
-      v34 = 2112;
-      v35 = uUIDString;
-      v36 = 2112;
-      v37 = dateCopy;
+      v32 = v23;
+      v33 = 2112;
+      v34 = uUIDString;
+      v35 = 2112;
+      v36 = dateCopy;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly failed to fetch household counter group at for homeUUID %@ on date %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
     v19 = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -414,7 +409,7 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
 
 - (void)incrementHouseholdTransitionCountersWithEvent:(id)event
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -448,15 +443,15 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
     }
 
     v16 = v15;
-    v29 = 138544130;
-    v30 = v8;
-    v31 = 2112;
-    v32 = uUIDString;
-    v33 = 2112;
-    v34 = v13;
-    v35 = 2112;
-    v36 = v16;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Incrementing HMDHouseholdHomeActivityStateTransitionLogEvent counters for home with UUID %@: toState %@ and reason %@", &v29, 0x2Au);
+    v28 = 138544130;
+    v29 = v8;
+    v30 = 2112;
+    v31 = uUIDString;
+    v32 = 2112;
+    v33 = v13;
+    v34 = 2112;
+    v35 = v16;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Incrementing HMDHouseholdHomeActivityStateTransitionLogEvent counters for home with UUID %@: toState %@ and reason %@", &v28, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -493,13 +488,11 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
 
   v27 = v26;
   [v21 incrementEventCounterForEventName:v27];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)incrementHouseholdTransitionTypeByReasonCountersWithEvent:(id)event
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -545,17 +538,17 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
     }
 
     v19 = v18;
-    v31 = 138544386;
-    v32 = v8;
-    v33 = 2112;
-    v34 = uUIDString;
-    v35 = 2112;
-    v36 = v13;
-    v37 = 2112;
-    v38 = v16;
-    v39 = 2112;
-    v40 = v19;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Incrementing HMDHouseholdHomeActivityStateTransitionTypeByReasonLogEvent counters for home with UUID %@: fromState %@ toState %@ and reason %@", &v31, 0x34u);
+    v30 = 138544386;
+    v31 = v8;
+    v32 = 2112;
+    v33 = uUIDString;
+    v34 = 2112;
+    v35 = v13;
+    v36 = 2112;
+    v37 = v16;
+    v38 = 2112;
+    v39 = v19;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Incrementing HMDHouseholdHomeActivityStateTransitionTypeByReasonLogEvent counters for home with UUID %@: fromState %@ toState %@ and reason %@", &v30, 0x34u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -580,8 +573,6 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
 
   v29 = v28;
   [v26 incrementEventCounterForEventName:v29];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleStateTransitionLogEvent:(id)event
@@ -636,19 +627,17 @@ void __101__HMDHomeActivityStateLogEventAnalyzer_householdTransitionTypeByReason
 
 - (void)configure
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   dataSource = [(HMDHomeActivityStateLogEventAnalyzer *)self dataSource];
   dailyScheduler = [dataSource dailyScheduler];
   [dailyScheduler registerDailyTaskRunner:self];
 
   dataSource2 = [(HMDHomeActivityStateLogEventAnalyzer *)self dataSource];
   logEventDispatcher = [dataSource2 logEventDispatcher];
-  v9[0] = objc_opt_class();
-  v9[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[0] = objc_opt_class();
+  v8[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   [logEventDispatcher addObserver:self forEventClasses:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeActivityStateLogEventAnalyzer)initWithDataSource:(id)source

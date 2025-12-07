@@ -48,14 +48,16 @@
 
 - (void)setObjcNearFieldSharingEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  SFAirDropUserDefaults.objcNearFieldSharingEnabled.setter(enabled);
+  SFAirDropUserDefaults.objcNearFieldSharingEnabled.setter(enabledCopy);
 }
 
 - (void)setObjcCellularUsageEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  SFAirDropUserDefaults.cellularUsageEnabled.setter(enabled);
+  SFAirDropUserDefaults.cellularUsageEnabled.setter(enabledCopy);
 }
 
 - (NSString)description

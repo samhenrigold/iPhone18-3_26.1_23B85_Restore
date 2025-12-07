@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setCopyableString:(id)string
 {
-  v4 = [string copy];
-  copyableString = self->_copyableString;
-  self->_copyableString = v4;
+  self->_copyableString = [string copy];
 
   MEMORY[0x1EEE66BB8]();
 }

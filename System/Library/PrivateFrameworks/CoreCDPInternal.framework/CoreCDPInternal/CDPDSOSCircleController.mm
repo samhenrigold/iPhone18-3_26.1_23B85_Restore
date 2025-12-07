@@ -50,7 +50,7 @@
 
 - (void)prepareCircleStateForRecovery
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   circleStatus = [(CDPDSOSCircleController *)self circleStatus];
   v3 = _CDPLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -66,8 +66,8 @@
     v4 = _CDPLogSystem();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to reset to offering in SOS", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_24510B000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to reset to offering in SOS", v15, 2u);
     }
 
     v5 = SOSCCResetToOffering();
@@ -84,12 +84,10 @@
 
     else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Successfully reset SOS circle to offering", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Successfully reset SOS circle to offering", v15, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_joinCircleIgnoringBackups:(BOOL)backups completion:(id)completion
@@ -199,58 +197,51 @@ void __65__CDPDSOSCircleController__joinCircleIgnoringBackups_completion___block
   if (((a2 & 1) != 0 || a3) && *(a1 + 64) != 1 || *(a1 + 56) == 1)
   {
     [*(a1 + 32) setNeedsBackupRecovery:1];
-    v16 = *(a1 + 32);
     v15 = *(*(a1 + 48) + 16);
 LABEL_10:
     v15();
     goto LABEL_11;
   }
 
-  v17 = _CDPLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v16 = _CDPLogSystem();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, "Circle status is CDPSyncingStatusAbsent and backups are NOT present... Trying to create and join the circle", buf, 2u);
+    _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "Circle status is CDPSyncingStatusAbsent and backups are NOT present... Trying to create and join the circle", buf, 2u);
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __65__CDPDSOSCircleController__joinCircleIgnoringBackups_completion___block_invoke_17;
-  v19[3] = &unk_278E255A0;
-  v18 = *(a1 + 40);
-  v21 = *(a1 + 48);
-  v20 = *(a1 + 32);
-  [v18 _requestToJoinAndWaitForSuccessWithHandler:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __65__CDPDSOSCircleController__joinCircleIgnoringBackups_completion___block_invoke_17;
+  v18[3] = &unk_278E255A0;
+  v17 = *(a1 + 40);
+  v20 = *(a1 + 48);
+  v19 = *(a1 + 32);
+  [v17 _requestToJoinAndWaitForSuccessWithHandler:v18];
 
 LABEL_11:
 }
 
 uint64_t __65__CDPDSOSCircleController__joinCircleIgnoringBackups_completion___block_invoke_17(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a3)
-  {
-    v4 = *(a1 + 40);
-  }
-
-  else
+  if (!a3)
   {
     [*(a1 + 32) setDidJoin:a2];
-    v6 = *(a1 + 32);
   }
 
-  v5 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v4();
 }
 
 - (void)joinCircleAfterRecoveryWithCompletion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   circleProxy = self->_circleProxy;
-  v48 = 0;
-  v6 = [(CDPDCircleProxy *)circleProxy requestToJoinCircleAfterRestore:&v48];
-  v7 = v48;
+  v47 = 0;
+  v6 = [(CDPDCircleProxy *)circleProxy requestToJoinCircleAfterRestore:&v47];
+  v7 = v47;
   v8 = _CDPLogSystem();
   v9 = v8;
   if (v6)
@@ -266,16 +257,16 @@ uint64_t __65__CDPDSOSCircleController__joinCircleIgnoringBackups_completion___b
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v50 = circleStatus;
+      v49 = circleStatus;
       _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "Circle status after successful request to join is %lu", buf, 0xCu);
     }
 
     if (circleStatus == 3)
     {
       v29 = self->_circleProxy;
-      v44 = 0;
-      [(CDPDCircleProxy *)v29 resetToOffering:&v44];
-      v15 = v44;
+      v43 = 0;
+      [(CDPDCircleProxy *)v29 resetToOffering:&v43];
+      v15 = v43;
       if (completionCopy)
       {
         completionCopy[2](completionCopy, 0, v15);
@@ -288,16 +279,16 @@ uint64_t __65__CDPDSOSCircleController__joinCircleIgnoringBackups_completion___b
     {
       v30 = objc_alloc_init(CDPDCircleStateObserver);
       v31 = self->_circleProxy;
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __65__CDPDSOSCircleController_joinCircleAfterRecoveryWithCompletion___block_invoke;
-      v39[3] = &unk_278E25C00;
-      v40 = v30;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __65__CDPDSOSCircleController_joinCircleAfterRecoveryWithCompletion___block_invoke;
+      v38[3] = &unk_278E25C00;
+      v39 = v30;
       selfCopy = self;
-      v42 = completionCopy;
-      v43 = circleStatus;
+      v41 = completionCopy;
+      v42 = circleStatus;
       v15 = v30;
-      [(CDPDCircleStateObserver *)v15 observeCircleStateWithCircleProxy:v31 changeHandler:v39];
+      [(CDPDCircleStateObserver *)v15 observeCircleStateWithCircleProxy:v31 changeHandler:v38];
 
 LABEL_38:
       goto LABEL_39;
@@ -308,15 +299,15 @@ LABEL_38:
     cliqueConfiguration = [cdpContext cliqueConfiguration];
     v15 = [v12 initWithContextData:cliqueConfiguration];
 
-    v47 = 0;
-    LODWORD(cliqueConfiguration) = [(CDPDCircleStateObserver *)v15 fetchUserControllableViewsSyncingEnabled:&v47];
-    v16 = v47;
+    v46 = 0;
+    LODWORD(cliqueConfiguration) = [(CDPDCircleStateObserver *)v15 fetchUserControllableViewsSyncingEnabled:&v46];
+    v16 = v46;
     if (cliqueConfiguration)
     {
       v17 = self->_circleProxy;
-      v46 = 0;
-      v18 = [(CDPDCircleProxy *)v17 setUserControllableViewsSyncStatus:1 error:&v46];
-      v19 = v46;
+      v45 = 0;
+      v18 = [(CDPDCircleProxy *)v17 setUserControllableViewsSyncStatus:1 error:&v45];
+      v19 = v45;
       v20 = _CDPLogSystem();
       v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
       if (v18)
@@ -342,7 +333,7 @@ LABEL_33:
       }
 
       *buf = 138412290;
-      v50 = v19;
+      v49 = v19;
       v22 = "Failed to enable SOS views: %@";
     }
 
@@ -355,7 +346,7 @@ LABEL_33:
         if (v32)
         {
           *buf = 138412290;
-          v50 = v16;
+          v49 = v16;
           _os_log_impl(&dword_24510B000, v19, OS_LOG_TYPE_DEFAULT, "Failed to fetch user controllable views from clique, error: %@", buf, 0xCu);
         }
 
@@ -369,9 +360,9 @@ LABEL_33:
       }
 
       v33 = self->_circleProxy;
-      v45 = 0;
-      v34 = [(CDPDCircleProxy *)v33 setUserControllableViewsSyncStatus:0 error:&v45];
-      v19 = v45;
+      v44 = 0;
+      v34 = [(CDPDCircleProxy *)v33 setUserControllableViewsSyncStatus:0 error:&v44];
+      v19 = v44;
       v20 = _CDPLogSystem();
       v35 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
       if (v34)
@@ -400,7 +391,7 @@ LABEL_35:
       }
 
       *buf = 138412290;
-      v50 = v19;
+      v49 = v19;
       v22 = "Failed to disable SOS views: %@";
     }
 
@@ -420,8 +411,6 @@ LABEL_35:
   }
 
 LABEL_39:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __65__CDPDSOSCircleController_joinCircleAfterRecoveryWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
@@ -480,31 +469,31 @@ LABEL_11:
 
 - (void)useCircleInfoToUpdateNameForDevices:(id)devices
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   _peerDeviceNamesByPeerID = [(CDPDSOSCircleController *)self _peerDeviceNamesByPeerID];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = devicesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v20;
+    v10 = *v19;
     *&v8 = 138412546;
-    v18 = v8;
+    v17 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         recordID = [v12 recordID];
 
         if (recordID)
@@ -517,10 +506,10 @@ LABEL_11:
             v16 = _CDPLogSystem();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v18;
-              v24 = v12;
-              v25 = 2112;
-              v26 = v15;
+              *buf = v17;
+              v23 = v12;
+              v24 = 2112;
+              v25 = v15;
               _os_log_debug_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEBUG, "Updating device name for %@ to '%@' based on circle info", buf, 0x16u);
             }
 
@@ -529,13 +518,11 @@ LABEL_11:
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applyToJoinCircleWithJoinHandler:(id)handler
@@ -717,26 +704,25 @@ uint64_t __82__CDPDSOSCircleController__requestCircleJoinWithObserver_requestBlo
 
 void __65__CDPDSOSCircleController__joinCircleIgnoringBackups_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "Can't join circle, failed to check for presence of secure backup records: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "Can't join circle, failed to check for presence of secure backup records: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)joinCircleAfterRecoveryWithCompletion:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "Failed to request circle join after restore with error %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "Failed to request circle join after restore with error %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __65__CDPDSOSCircleController_joinCircleAfterRecoveryWithCompletion___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Circle status is now %lu (waiting for CDPSyncingStatusIn or CDPSyncingStatusPending)", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Circle status is now %lu (waiting for CDPSyncingStatusIn or CDPSyncingStatusPending)", &v3, 0xCu);
 }
 
 @end

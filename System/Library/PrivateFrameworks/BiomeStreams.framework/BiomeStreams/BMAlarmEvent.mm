@@ -73,22 +73,20 @@
 
 - (id)jsonDict
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"alarmID";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v9[0] = @"alarmID";
   uUIDString = [(NSUUID *)self->_alarmID UUIDString];
-  v11[0] = uUIDString;
-  v10[1] = @"isSleepAlarm";
+  v10[0] = uUIDString;
+  v9[1] = @"isSleepAlarm";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:self->_isSleepAlarm];
-  v11[1] = v4;
-  v10[2] = @"eventType";
+  v10[1] = v4;
+  v9[2] = @"eventType";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_eventType];
-  v11[2] = v5;
-  v10[3] = @"lastEventType";
+  v10[2] = v5;
+  v9[3] = @"lastEventType";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_lastEventType];
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
@@ -177,7 +175,7 @@
       v5 = __biome_log_for_category();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [BMAlarmEvent initWithProto:];
+        [BMAlarmEvent initWithProto:?];
       }
 
       selfCopy = 0;

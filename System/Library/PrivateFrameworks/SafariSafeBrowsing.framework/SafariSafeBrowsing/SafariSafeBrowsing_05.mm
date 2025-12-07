@@ -1,22 +1,6 @@
-void sub_22562D45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
-{
-  if (a23)
-  {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a23);
-  }
-
-  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(&a12);
-  if (a11)
-  {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a11);
-  }
-
-  _Unwind_Resume(a1);
-}
-
 void ___ZN12SafeBrowsing13LookupContext40forceUpdateRemoteConfigurationFromServerENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   SafeBrowsing::LookupContext::ensureConnection(*(a1 + 32));
   v3 = SafeBrowsing::createMessage(6u);
@@ -28,42 +12,40 @@ void ___ZN12SafeBrowsing13LookupContext40forceUpdateRemoteConfigurationFromServe
   handler[2] = ___ZZN12SafeBrowsing13LookupContext40forceUpdateRemoteConfigurationFromServerENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke;
   handler[3] = &__block_descriptor_80_ea8_32c173_ZTSKZZN12SafeBrowsing13LookupContext40forceUpdateRemoteConfigurationFromServerENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
   v7 = *(a1 + 40);
-  v9 = v4;
-  v10 = v7;
+  v8 = v4;
+  v9 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v11, a1 + 48);
-  handler[4] = v9;
-  v13 = v10;
-  if (v10)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a1 + 48);
+  handler[4] = v8;
+  v12 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v14, v11);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
   xpc_connection_send_message_with_reply(v6, v3, v5, handler);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v11);
-  if (v10)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v14);
-  if (v13)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v13);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562D600(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562D600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(v3 + 32);
+  va_start(va, a3);
+  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(v4 + 32);
   SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(va);
 
   _Unwind_Resume(a1);
@@ -111,23 +93,24 @@ void SafeBrowsing::LookupContext::handleForceUpdateRemoteConfigurationFromServer
   if (MEMORY[0x22AA67EF0]() == MEMORY[0x277D86480])
   {
     v7 = Platform::xpcErrorCode(v4);
+    v9 = v7;
     cat = v8;
     *&v13.__val_ = v7;
     v13.__cat_ = v8;
     if (v7)
     {
-      v10 = SSBOSLogRemoteConfiguration();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = SSBOSLogRemoteConfiguration(v7, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         std::error_code::message(&v12, &v13);
-        SafeBrowsing::LookupContext::handleForceUpdateRemoteConfigurationFromServerReply(&v12);
+        SafeBrowsing::LookupContext::handleForceUpdateRemoteConfigurationFromServerReply();
       }
 
-      v7 = *&v13.__val_;
+      v9 = *&v13.__val_;
       cat = v13.__cat_;
     }
 
-    std::function<void ()(BOOL,std::error_code)>::operator()(a3, 0, v7, cat);
+    std::function<void ()(BOOL,std::error_code)>::operator()(a3, 0, v9, cat);
   }
 
   else
@@ -136,57 +119,53 @@ void SafeBrowsing::LookupContext::handleForceUpdateRemoteConfigurationFromServer
     v6 = std::system_category();
     std::function<void ()(BOOL,std::error_code)>::operator()(a3, v5, 0, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void SafeBrowsing::LookupContext::deleteAllDatabases(void *a1, uint64_t a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
+  v12[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v5, a1);
   v4 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext18deleteAllDatabasesENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_80_ea8_32c102_ZTSKZN12SafeBrowsing13LookupContext18deleteAllDatabasesENSt3__18functionIFvbNS1_10error_codeEEEEE3__0_e5_v8__0l;
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  if (v7)
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a2);
-  block[4] = v8;
-  v12 = v9;
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v9, a2);
+  block[4] = v7;
+  v11 = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v12, v9);
   dispatch_async(v4, block);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v9);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v12)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562D978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
+void sub_22562D978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
 {
   if (a23)
   {
@@ -204,7 +183,7 @@ void sub_22562D978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN12SafeBrowsing13LookupContext18deleteAllDatabasesENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   SafeBrowsing::LookupContext::ensureConnection(*(a1 + 32));
   v3 = SafeBrowsing::createMessage(7u);
@@ -216,42 +195,40 @@ void ___ZN12SafeBrowsing13LookupContext18deleteAllDatabasesENSt3__18functionIFvb
   handler[2] = ___ZZN12SafeBrowsing13LookupContext18deleteAllDatabasesENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke;
   handler[3] = &__block_descriptor_80_ea8_32c151_ZTSKZZN12SafeBrowsing13LookupContext18deleteAllDatabasesENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
   v7 = *(a1 + 40);
-  v9 = v4;
-  v10 = v7;
+  v8 = v4;
+  v9 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v11, a1 + 48);
-  handler[4] = v9;
-  v13 = v10;
-  if (v10)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a1 + 48);
+  handler[4] = v8;
+  v12 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v14, v11);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
   xpc_connection_send_message_with_reply(v6, v3, v5, handler);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v11);
-  if (v10)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v14);
-  if (v13)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v13);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562DB1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562DB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(v3 + 32);
+  va_start(va, a3);
+  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(v4 + 32);
   SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(va);
 
   _Unwind_Resume(a1);
@@ -299,23 +276,24 @@ void SafeBrowsing::LookupContext::handleDeleteAllDatabasesReply(uint64_t a1, voi
   if (MEMORY[0x22AA67EF0]() == MEMORY[0x277D86480])
   {
     v7 = Platform::xpcErrorCode(v4);
+    v9 = v7;
     cat = v8;
     *&v13.__val_ = v7;
     v13.__cat_ = v8;
     if (v7)
     {
-      v10 = SSBOSLogDatabase();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = SSBOSLogDatabase(v7, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         std::error_code::message(&v12, &v13);
-        SafeBrowsing::LookupContext::handleDeleteAllDatabasesReply(&v12);
+        SafeBrowsing::LookupContext::handleDeleteAllDatabasesReply();
       }
 
-      v7 = *&v13.__val_;
+      v9 = *&v13.__val_;
       cat = v13.__cat_;
     }
 
-    std::function<void ()(BOOL,std::error_code)>::operator()(a3, 0, v7, cat);
+    std::function<void ()(BOOL,std::error_code)>::operator()(a3, 0, v9, cat);
   }
 
   else
@@ -324,8 +302,6 @@ void SafeBrowsing::LookupContext::handleDeleteAllDatabasesReply(uint64_t a1, voi
     v6 = std::system_category();
     std::function<void ()(BOOL,std::error_code)>::operator()(a3, v5, 0, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void SafeBrowsing::LookupContext::setClientIsInUse(SafeBrowsing::LookupContext *this)
@@ -454,22 +430,22 @@ void SafeBrowsing::LookupContext::handleClientInUseReply(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SSBOSLogDatabase();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = SSBOSLogDatabase(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     LOWORD(v8.__r_.__value_.__l.__data_) = 0;
-    _os_log_impl(&dword_2255EE000, v4, OS_LOG_TYPE_INFO, "Received ClientInUse reply", &v8, 2u);
+    _os_log_impl(&dword_2255EE000, v5, OS_LOG_TYPE_INFO, "Received ClientInUse reply", &v8, 2u);
   }
 
   if (MEMORY[0x22AA67EF0](v3) == MEMORY[0x277D86480])
   {
     *&v9.__val_ = Platform::xpcErrorCode(v3);
-    v9.__cat_ = v5;
-    v6 = SSBOSLogDatabase();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9.__cat_ = v6;
+    v7 = SSBOSLogDatabase(*&v9.__val_, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       std::error_code::message(&v8, &v9);
-      SafeBrowsing::LookupContext::handleClientInUseReply(&v8);
+      SafeBrowsing::LookupContext::handleClientInUseReply();
     }
   }
 
@@ -479,57 +455,53 @@ void SafeBrowsing::LookupContext::handleClientInUseReply(uint64_t a1, void *a2)
   }
 
   *(a1 + 160) = 0;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void SafeBrowsing::LookupContext::fetchCellularDataPlan(void *a1, uint64_t a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
+  v12[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v5, a1);
   v4 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext21fetchCellularDataPlanENSt3__18functionIFvPKcNS1_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_80_ea8_32c107_ZTSKZN12SafeBrowsing13LookupContext21fetchCellularDataPlanENSt3__18functionIFvPKcNS1_10error_codeEEEEE3__0_e5_v8__0l;
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  if (v7)
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v10, a2);
-  block[4] = v8;
-  v12 = v9;
-  if (v9)
+  std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v9, a2);
+  block[4] = v7;
+  v11 = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v13, v10);
+  std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v12, v9);
   dispatch_async(v4, block);
-  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v10);
-  if (v9)
+  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v9);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v12)
+  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562E224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
+void sub_22562E224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
 {
   if (a23)
   {
@@ -547,7 +519,7 @@ void sub_22562E224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN12SafeBrowsing13LookupContext21fetchCellularDataPlanENSt3__18functionIFvPKcNS1_10error_codeEEEE_block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   SafeBrowsing::LookupContext::ensureConnection(*(a1 + 32));
   v3 = SafeBrowsing::createMessage(9u);
@@ -559,42 +531,40 @@ void ___ZN12SafeBrowsing13LookupContext21fetchCellularDataPlanENSt3__18functionI
   handler[2] = ___ZZN12SafeBrowsing13LookupContext21fetchCellularDataPlanENSt3__18functionIFvPKcNS1_10error_codeEEEEENK3__0clEv_block_invoke;
   handler[3] = &__block_descriptor_80_ea8_32c156_ZTSKZZN12SafeBrowsing13LookupContext21fetchCellularDataPlanENSt3__18functionIFvPKcNS1_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
   v7 = *(a1 + 40);
-  v9 = v4;
-  v10 = v7;
+  v8 = v4;
+  v9 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v11, a1 + 48);
-  handler[4] = v9;
-  v13 = v10;
-  if (v10)
+  std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v10, a1 + 48);
+  handler[4] = v8;
+  v12 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v14, v11);
+  std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v13, v10);
   xpc_connection_send_message_with_reply(v6, v3, v5, handler);
-  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v11);
-  if (v10)
+  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v10);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
   }
 
-  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v14);
-  if (v13)
+  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v13);
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v13);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562E3C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562E3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  SafeBrowsing::LookupContext::fetchCellularDataPlan(std::function<void ()(char const*,std::error_code)>)::$_0::~$_0(v3 + 32);
+  va_start(va, a3);
+  SafeBrowsing::LookupContext::fetchCellularDataPlan(std::function<void ()(char const*,std::error_code)>)::$_0::~$_0(v4 + 32);
   SafeBrowsing::LookupContext::fetchCellularDataPlan(std::function<void ()(char const*,std::error_code)>)::$_0::~$_0(va);
 
   _Unwind_Resume(a1);
@@ -654,23 +624,24 @@ void SafeBrowsing::LookupContext::handleFetchCellularDataPlanReply(uint64_t a1, 
   if (MEMORY[0x22AA67EF0]() == MEMORY[0x277D86480])
   {
     v7 = Platform::xpcErrorCode(v4);
+    v9 = v7;
     cat = v8;
     *&v13.__val_ = v7;
     v13.__cat_ = v8;
     if (v7)
     {
-      v10 = SSBOSLogDatabase();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = SSBOSLogDatabase(v7, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         std::error_code::message(&v12, &v13);
-        SafeBrowsing::LookupContext::handleFetchCellularDataPlanReply(&v12);
+        SafeBrowsing::LookupContext::handleFetchCellularDataPlanReply();
       }
 
-      v7 = *&v13.__val_;
+      v9 = *&v13.__val_;
       cat = v13.__cat_;
     }
 
-    std::function<void ()(char const*,std::error_code)>::operator()(a3, 0, v7, cat);
+    std::function<void ()(char const*,std::error_code)>::operator()(a3, 0, v9, cat);
   }
 
   else
@@ -679,8 +650,6 @@ void SafeBrowsing::LookupContext::handleFetchCellularDataPlanReply(uint64_t a1, 
     v6 = std::system_category();
     std::function<void ()(char const*,std::error_code)>::operator()(a3, string, 0, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void std::function<void ()(char const*,std::error_code)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -703,72 +672,73 @@ void std::function<void ()(char const*,std::error_code)>::operator()(uint64_t a1
 
 void SafeBrowsing::LookupContext::handleGetSafeBrowsingEnabledStateReply(uint64_t a1, void *a2)
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SSBOSLogXPC();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = SSBOSLogXPC(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-    _os_log_impl(&dword_2255EE000, v4, OS_LOG_TYPE_INFO, "Receive GetSafeBrowsingEnabledState response from safe browsing service", &buf, 2u);
+    _os_log_impl(&dword_2255EE000, v5, OS_LOG_TYPE_INFO, "Receive GetSafeBrowsingEnabledState response from safe browsing service", &buf, 2u);
   }
 
   *(a1 + 163) = 0;
   if (MEMORY[0x22AA67EF0](v3) == MEMORY[0x277D86480])
   {
-    *&v21.__val_ = Platform::xpcErrorCode(v3);
-    v21.__cat_ = v12;
-    if (v21.__val_)
+    v13 = Platform::xpcErrorCode(v3);
+    *&v22.__val_ = v13;
+    v22.__cat_ = v14;
+    if (v13)
     {
-      v13 = SSBOSLogXPC();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = SSBOSLogXPC(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        std::error_code::message(&buf, &v21);
-        SafeBrowsing::LookupContext::handleGetSafeBrowsingEnabledStateReply(&buf);
+        std::error_code::message(&buf, &v22);
+        SafeBrowsing::LookupContext::handleGetSafeBrowsingEnabledStateReply();
       }
     }
 
-    v14 = *(a1 + 168);
-    p_buf = v14;
-    v19 = *(a1 + 176);
-    v15 = v19;
+    v16 = *(a1 + 168);
+    p_buf = v16;
+    v20 = *(a1 + 176);
+    v17 = v20;
     *(a1 + 176) = 0;
     *(a1 + 184) = 0;
     *(a1 + 168) = 0;
-    v16 = v15;
-    while (v14 != v16)
+    v18 = v17;
+    while (v16 != v18)
     {
-      std::function<void ()(BOOL,std::error_code)>::operator()(v14, 1, *&v21.__val_, v21.__cat_);
-      v14 += 32;
+      std::function<void ()(BOOL,std::error_code)>::operator()(v16, 1, *&v22.__val_, v22.__cat_);
+      v16 += 32;
     }
 
-    v22[0] = &p_buf;
-    p_p_buf = v22;
+    v23[0] = &p_buf;
+    p_p_buf = v23;
   }
 
   else
   {
-    v5 = xpc_dictionary_get_BOOL(v3, "safeBrowsingEnabled");
-    v6 = xpc_dictionary_get_BOOL(v3, "googleShouldUseV5");
-    *(a1 + 161) = v5;
-    *(*(a1 + 120) + 128) = v6;
+    v6 = xpc_dictionary_get_BOOL(v3, "safeBrowsingEnabled");
+    v7 = xpc_dictionary_get_BOOL(v3, "googleShouldUseV5");
+    *(a1 + 161) = v6;
+    *(*(a1 + 120) + 128) = v7;
     *(a1 + 162) = 0;
     buf = *(a1 + 168);
     size = buf.__r_.__value_.__l.__size_;
-    v7 = buf.__r_.__value_.__r.__words[0];
+    v8 = buf.__r_.__value_.__r.__words[0];
     *(a1 + 176) = 0;
     *(a1 + 184) = 0;
     *(a1 + 168) = 0;
-    v9 = size;
-    if (v7 != size)
+    v10 = size;
+    if (v8 != size)
     {
-      v10 = std::system_category();
+      v11 = std::system_category();
       do
       {
-        std::function<void ()(BOOL,std::error_code)>::operator()(v7, *(a1 + 161), 0, v10);
-        v7 += 32;
+        std::function<void ()(BOOL,std::error_code)>::operator()(v8, *(a1 + 161), 0, v11);
+        v8 += 32;
       }
 
-      while (v7 != v9);
+      while (v8 != v10);
     }
 
     p_buf = &buf;
@@ -776,8 +746,6 @@ void SafeBrowsing::LookupContext::handleGetSafeBrowsingEnabledStateReply(uint64_
   }
 
   std::vector<std::function<void ()(BOOL,std::error_code)>>::__destroy_vector::operator()[abi:sn200100](p_p_buf);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void std::vector<std::function<void ()(std::error_code)>>::__destroy_vector::operator()[abi:sn200100](void ***a1)
@@ -832,15 +800,14 @@ void std::vector<std::function<void ()(BOOL,std::error_code)>>::__destroy_vector
 
 void *std::function<void ()(Backend::Google::DatabaseConfiguration)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::__value_func[abi:sn200100](v5, a2);
-  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::swap[abi:sn200100](v5, a1);
-  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::~__value_func[abi:sn200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::__value_func[abi:sn200100](v4, a2);
+  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::swap[abi:sn200100](v4, a1);
+  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::~__value_func[abi:sn200100](v4);
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
+char *std::__hash_table<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
   v7 = *a2;
   v8 = *(a1 + 8);
@@ -867,7 +834,7 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::function<vo
     {
       for (i = *v10; i; i = *i)
       {
-        v12 = i[1];
+        v12 = *(i + 1);
         if (v12 == v7)
         {
           if (*(i + 4) == v7)
@@ -905,9 +872,9 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::function<vo
   v25[1] = a1;
   v25[2] = 1;
   *v13 = 0;
-  v13[1] = v7;
+  *(v13 + 1) = v7;
   *(v13 + 4) = **a4;
-  v13[6] = 0;
+  *(v13 + 6) = 0;
   v14 = (*(a1 + 24) + 1);
   v15 = *(a1 + 32);
   if (!v8 || (v15 * v8) < v14)
@@ -994,14 +961,14 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::function<vo
   return i;
 }
 
-void sub_22562EC9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562EC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,void *>>>>::~unique_ptr[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,void *>>>>::~unique_ptr[abi:sn200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,void *>>>>::~unique_ptr[abi:sn200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1036,7 +1003,7 @@ uint64_t std::__function::__value_func<void ()(Backend::Google::DatabaseConfigur
 
 void *std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::swap[abi:sn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -1046,15 +1013,15 @@ void *std::__function::__value_func<void ()(Backend::Google::DatabaseConfigurati
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -1082,11 +1049,10 @@ void *std::__function::__value_func<void ()(Backend::Google::DatabaseConfigurati
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::vector<std::function<void ()(std::error_code)>>::__emplace_back_slow_path<std::function<void ()(std::error_code)> const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::function<void ()(std::error_code)>>::__emplace_back_slow_path<std::function<void ()(std::error_code)> const&>(char **a1, uint64_t a2)
 {
   v2 = a1[1] - *a1;
   v3 = (v2 >> 5) + 1;
@@ -1137,9 +1103,9 @@ LABEL_11:
   return v15;
 }
 
-void sub_22562F0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22562F0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::function<void ()(std::error_code)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1247,18 +1213,16 @@ uint64_t std::__split_buffer<std::function<void ()(std::error_code)>>::~__split_
 
 void ___ZZN12SafeBrowsing13LookupContext36forceDeviceIdentificationTokenUpdateENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v6, a1 + 48);
-  SafeBrowsing::LookupContext::handleForceDeviceIdentificationTokenUpdateReply(v4, v3, v6);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v5, a1 + 48);
+  SafeBrowsing::LookupContext::handleForceDeviceIdentificationTokenUpdateReply(v4, v3, v5);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
 }
 
-void sub_22562F2B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562F2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](va);
 
   _Unwind_Resume(a1);
@@ -1315,34 +1279,35 @@ uint64_t std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std:
   return a1;
 }
 
-uint64_t std::function<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::function<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7[0] = a3;
   v7[1] = a4;
   v4 = *(a1 + 24);
   if (v4)
   {
-    return (*(*v4 + 48))(v4, a2, v7);
+    (*(*v4 + 48))(v4, a2, v7);
   }
 
-  v6 = std::__throw_bad_function_call[abi:sn200100]();
-  return ___ZZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_13ServiceStatusENS1_10error_codeEEEEENK3__0clEv_block_invoke(v6);
+  else
+  {
+    v5 = std::__throw_bad_function_call[abi:sn200100]();
+    ___ZZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_13ServiceStatusENS1_10error_codeEEEEENK3__0clEv_block_invoke(v5, v6);
+  }
 }
 
 void ___ZZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_13ServiceStatusENS1_10error_codeEEEEENK3__0clEv_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v6, a1 + 48);
-  SafeBrowsing::LookupContext::handleGetServiceStatusReply(v4, v3, v6);
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v5, a1 + 48);
+  SafeBrowsing::LookupContext::handleGetServiceStatusReply(v4, v3, v5);
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v5);
 }
 
-void sub_22562F4E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562F4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](va);
 
   _Unwind_Resume(a1);
@@ -1399,7 +1364,7 @@ uint64_t std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::
   return a1;
 }
 
-char *std::vector<Backend::LookupResult>::__vallocate[abi:sn200100](void *a1, unint64_t a2)
+void *std::vector<Backend::LookupResult>::__vallocate[abi:sn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 >> 61)
   {
@@ -1409,7 +1374,7 @@ char *std::vector<Backend::LookupResult>::__vallocate[abi:sn200100](void *a1, un
   result = std::allocator<Backend::LookupResult>::allocate_at_least[abi:sn200100](a1, a2);
   *a1 = result;
   a1[1] = result;
-  a1[2] = &result[8 * v4];
+  a1[2] = result + 8 * v4;
   return result;
 }
 
@@ -1445,7 +1410,7 @@ void __destroy_helper_block_ea8_32c160_ZTSKZZN12SafeBrowsing13LookupContext27get
   }
 }
 
-uint64_t std::vector<std::function<void ()(BOOL,std::error_code)>>::__emplace_back_slow_path<std::function<void ()(BOOL,std::error_code)> const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::function<void ()(BOOL,std::error_code)>>::__emplace_back_slow_path<std::function<void ()(BOOL,std::error_code)> const&>(char **a1, uint64_t a2)
 {
   v2 = a1[1] - *a1;
   v3 = (v2 >> 5) + 1;
@@ -1496,9 +1461,9 @@ LABEL_11:
   return v15;
 }
 
-void sub_22562F7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22562F7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::function<void ()(BOOL,std::error_code)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1678,18 +1643,18 @@ LABEL_11:
   return v16;
 }
 
-void sub_22562FA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22562FA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::function<void ()(std::error_code)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::vector<SafeBrowsing::ServiceStatus::Connection>::push_back[abi:sn200100](uint64_t *result, uint64_t a2)
+unint64_t std::vector<SafeBrowsing::ServiceStatus::Connection>::push_back[abi:sn200100](unint64_t result, uint64_t a2)
 {
   v2 = result;
-  v3 = result[1];
-  if (v3 >= result[2])
+  v3 = *(result + 8);
+  if (v3 >= *(result + 16))
   {
     result = std::vector<SafeBrowsing::ServiceStatus::Connection>::__emplace_back_slow_path<SafeBrowsing::ServiceStatus::Connection>(result, a2);
     goto LABEL_5;
@@ -1704,9 +1669,9 @@ uint64_t *std::vector<SafeBrowsing::ServiceStatus::Connection>::push_back[abi:sn
     *(a2 + 16) = 0;
     *(a2 + 24) = 0;
     *(a2 + 8) = 0;
-    result = (v3 + 32);
+    result = v3 + 32;
 LABEL_5:
-    v2[1] = result;
+    *(v2 + 8) = result;
     return result;
   }
 
@@ -1714,7 +1679,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t std::vector<SafeBrowsing::ServiceStatus::Connection>::__emplace_back_slow_path<SafeBrowsing::ServiceStatus::Connection>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<SafeBrowsing::ServiceStatus::Connection>::__emplace_back_slow_path<SafeBrowsing::ServiceStatus::Connection>(char **a1, uint64_t a2)
 {
   v2 = a1[1] - *a1;
   v3 = (v2 >> 5) + 1;
@@ -1771,9 +1736,9 @@ LABEL_11:
   return v17;
 }
 
-void sub_22562FBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22562FBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<SafeBrowsing::ServiceStatus::Connection>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1864,18 +1829,16 @@ uint64_t std::__call_once_proxy[abi:sn200100]<std::tuple<SafeBrowsing::allowGoog
 
 void ___ZZN12SafeBrowsing13LookupContext36forceLoadRemoteConfigurationFromDiskENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v6, a1 + 48);
-  SafeBrowsing::LookupContext::handleForceLoadRemoteConfigurationFromDiskReply(v4, v3, v6);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v5, a1 + 48);
+  SafeBrowsing::LookupContext::handleForceLoadRemoteConfigurationFromDiskReply(v4, v3, v5);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
 }
 
-void sub_22562FDDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562FDDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](va);
 
   _Unwind_Resume(a1);
@@ -1918,18 +1881,16 @@ void __destroy_helper_block_ea8_32c169_ZTSKZZN12SafeBrowsing13LookupContext36for
 
 void ___ZZN12SafeBrowsing13LookupContext40forceUpdateRemoteConfigurationFromServerENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v6, a1 + 48);
-  SafeBrowsing::LookupContext::handleForceUpdateRemoteConfigurationFromServerReply(v4, v3, v6);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v5, a1 + 48);
+  SafeBrowsing::LookupContext::handleForceUpdateRemoteConfigurationFromServerReply(v4, v3, v5);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
 }
 
-void sub_22562FF38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562FF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](va);
 
   _Unwind_Resume(a1);
@@ -1972,18 +1933,16 @@ void __destroy_helper_block_ea8_32c173_ZTSKZZN12SafeBrowsing13LookupContext40for
 
 void ___ZZN12SafeBrowsing13LookupContext18deleteAllDatabasesENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v6, a1 + 48);
-  SafeBrowsing::LookupContext::handleDeleteAllDatabasesReply(v4, v3, v6);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v5, a1 + 48);
+  SafeBrowsing::LookupContext::handleDeleteAllDatabasesReply(v4, v3, v5);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v5);
 }
 
-void sub_225630094(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_225630094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](va);
 
   _Unwind_Resume(a1);
@@ -2048,18 +2007,16 @@ void __destroy_helper_block_ea8_32c110_ZTSKZZN12SafeBrowsing13LookupContext16set
 
 void ___ZZN12SafeBrowsing13LookupContext21fetchCellularDataPlanENSt3__18functionIFvPKcNS1_10error_codeEEEEENK3__0clEv_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v6, a1 + 48);
-  SafeBrowsing::LookupContext::handleFetchCellularDataPlanReply(v4, v3, v6);
-  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](v5, a1 + 48);
+  SafeBrowsing::LookupContext::handleFetchCellularDataPlanReply(v4, v3, v5);
+  std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](v5);
 }
 
-void sub_225630224(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_225630224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(char const*,std::error_code)>::~__value_func[abi:sn200100](va);
 
   _Unwind_Resume(a1);
@@ -2284,12 +2241,12 @@ uint64_t std::__function::__func<SafeBrowsing::LookupContext::getDatabaseStatus(
   return a1;
 }
 
-void std::__function::__func<SafeBrowsing::LookupContext::getDatabaseStatus(std::function<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::getDatabaseStatus(std::function<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>)::$_0>,void ()(std::error_code)>::~__func(void *a1)
+void std::__function::__func<SafeBrowsing::LookupContext::getDatabaseStatus(std::function<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::getDatabaseStatus(std::function<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>)::$_0>,void ()(std::error_code)>::~__func(id *a1)
 {
   *a1 = &unk_2838CEE38;
-  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](a1 + 32);
+  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100]((a1 + 4));
 
-  v2 = *(a1 + 2);
+  v2 = a1[2];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](v2);
@@ -2498,12 +2455,12 @@ uint64_t std::__function::__func<SafeBrowsing::LookupContext::lookUpURL(NSURL *,
   return a1;
 }
 
-void std::__function::__func<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(BOOL,std::error_code)>::~__func(void *a1)
+void std::__function::__func<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(BOOL,std::error_code)>::~__func(id *a1)
 {
   *a1 = &unk_2838CEE80;
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](a1 + 40);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100]((a1 + 5));
 
-  v2 = *(a1 + 2);
+  v2 = a1[2];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](v2);
@@ -2600,50 +2557,48 @@ void std::__function::__func<SafeBrowsing::LookupContext::lookUpURL(NSURL *,Safe
 
 void std::__function::__func<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(BOOL,std::error_code)>::operator()(uint64_t a1, char *a2, uint64_t *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   v6 = *a3;
   cat = a3[1];
-  *&v17.__val_ = v6;
-  v17.__cat_ = cat;
+  *&v16.__val_ = v6;
+  v16.__cat_ = cat;
   if (v5)
   {
     v8 = *(a1 + 8);
     v9 = *(a1 + 24);
     v10 = *(a1 + 32);
     v11 = *(a1 + 36);
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](&v18, a1 + 40);
-    SafeBrowsing::LookupContext::performURLLookup(v8, v9, v10, v11, &v18);
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](&v18);
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](&v17, a1 + 40);
+    SafeBrowsing::LookupContext::performURLLookup(v8, v9, v10, v11, &v17);
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](&v17);
   }
 
   else
   {
     if (v6)
     {
-      v12 = SSBOSLogXPC();
+      v12 = SSBOSLogXPC(a1, a2);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        std::error_code::message(&v18, &v17);
-        std::__function::__func<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(BOOL,std::error_code)>::operator()(&v18);
+        std::error_code::message(&v17, &v16);
+        std::__function::__func<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(BOOL,std::error_code)>::operator()();
       }
 
-      v6 = *&v17.__val_;
-      cat = v17.__cat_;
+      v6 = *&v16.__val_;
+      cat = v16.__cat_;
     }
 
     __p = 0;
+    v14 = 0;
     v15 = 0;
-    v16 = 0;
     std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>::operator()(a1 + 40, &__p, v6, cat);
     if (__p)
     {
-      v15 = __p;
+      v14 = __p;
       operator delete(__p);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__value_func<void ()(std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>,std::error_code)>::__value_func[abi:sn200100](uint64_t a1, uint64_t a2)
@@ -2701,12 +2656,12 @@ uint64_t std::__function::__func<SafeBrowsing::LookupContext::performURLLookup(N
   return a1;
 }
 
-void std::__function::__func<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(std::error_code)>::~__func(void *a1)
+void std::__function::__func<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(std::error_code)>::~__func(id *a1)
 {
   *a1 = &unk_2838CEEC8;
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](a1 + 40);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100]((a1 + 5));
 
-  v2 = *(a1 + 2);
+  v2 = a1[2];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](v2);
@@ -2803,24 +2758,24 @@ void std::__function::__func<SafeBrowsing::LookupContext::performURLLookup(NSURL
 
 void std::__function::__func<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(std::error_code)>::operator()(uint64_t a1, std::error_code *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = *a2;
-  if (v13.__val_)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = *a2;
+  if (v12.__val_)
   {
-    v3 = SSBOSLogDatabase();
+    v3 = SSBOSLogDatabase(a1, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      std::error_code::message(&v14, &v13);
-      std::__function::__func<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(std::error_code)>::operator()(&v14);
+      std::error_code::message(&v13, &v12);
+      std::__function::__func<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0,std::allocator<SafeBrowsing::LookupContext::performURLLookup(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0>,void ()(std::error_code)>::operator()();
     }
 
     __p = 0;
+    v10 = 0;
     v11 = 0;
-    v12 = 0;
-    std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>::operator()(a1 + 40, &__p, *&v13.__val_, v13.__cat_);
+    std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>::operator()(a1 + 40, &__p, *&v12.__val_, v12.__cat_);
     if (__p)
     {
-      v11 = __p;
+      v10 = __p;
       operator delete(__p);
     }
   }
@@ -2833,12 +2788,10 @@ void std::__function::__func<SafeBrowsing::LookupContext::performURLLookup(NSURL
     v6 = *(a1 + 24);
     v7 = *(a1 + 32);
     v8 = *(a1 + 36);
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](&v14, a1 + 40);
-    SafeBrowsing::BrowsingDatabaseCoordinator::performURLLookup(v5, v4, v6, v7, v8, &v14);
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](&v14);
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](&v13, a1 + 40);
+    SafeBrowsing::BrowsingDatabaseCoordinator::performURLLookup(v5, v4, v6, v7, v8, &v13);
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](&v13);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__value_func<void ()(char const*,std::error_code)>::__value_func[abi:sn200100](uint64_t a1, uint64_t a2)
@@ -3004,13 +2957,13 @@ uint64_t Backend::Google::repeatedlyUnescapePercentEscapes(uint64_t a1)
   return result;
 }
 
-uint64_t Backend::Google::percentEscape(uint64_t a1)
+uint64_t Backend::Google::percentEscape(char **a1)
 {
   __p[0] = 0;
   __p[1] = 0;
   v14 = 0;
   v1 = *a1;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (*a1 == v2)
   {
     goto LABEL_16;
@@ -3065,16 +3018,16 @@ LABEL_16:
 
   else
   {
-    std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__p, __p[1], v4, *(a1 + 8), *(a1 + 8) - v4);
+    std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__p, __p[1], v4, a1[1], a1[1] - v4);
     v10 = *a1;
     if (*a1)
     {
-      *(a1 + 8) = v10;
+      a1[1] = v10;
       operator delete(v10);
     }
 
     *a1 = *__p;
-    *(a1 + 16) = v14;
+    a1[2] = v14;
     return 1;
   }
 
@@ -3083,9 +3036,9 @@ LABEL_16:
 
 uint64_t Backend::Google::canonicalizeIPAddress(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   std::string::__init_with_size[abi:sn200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__p, *a1, *(a1 + 8), *(a1 + 8) - *a1);
-  if (v11 >= 0)
+  if (v10 >= 0)
   {
     v2 = __p;
   }
@@ -3095,22 +3048,22 @@ uint64_t Backend::Google::canonicalizeIPAddress(uint64_t a1)
     v2 = __p[0];
   }
 
-  v3 = inet_aton(v2, &v12);
-  if (SHIBYTE(v11) < 0)
+  v3 = inet_aton(v2, &v11);
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p[0]);
   }
 
   if (v3)
   {
-    v4 = inet_ntop(2, &v12, v13, 0x10u);
+    v4 = inet_ntop(2, &v11, v12, 0x10u);
     v3 = v4 != 0;
     if (v4)
     {
       v5 = v4;
       v6 = strlen(v4);
       __p[1] = 0;
-      v11 = 0;
+      v10 = 0;
       __p[0] = 0;
       std::vector<char>::__init_with_size[abi:sn200100]<char const*,char const*>(__p, v5, &v5[v6], v6);
       v7 = *a1;
@@ -3121,15 +3074,14 @@ uint64_t Backend::Google::canonicalizeIPAddress(uint64_t a1)
       }
 
       *a1 = *__p;
-      *(a1 + 16) = v11;
+      *(a1 + 16) = v10;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t Backend::Google::canonicalizeHostName(void *a1, _BYTE *a2)
+uint64_t Backend::Google::canonicalizeHostName(char **a1, _BYTE *a2)
 {
     ;
   }
@@ -3583,8 +3535,7 @@ LABEL_15:
   v6 = *a2;
   *(v4 + 16) = *(a2 + 2);
   *v4 = v6;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v7 = v4 + 24;
 LABEL_13:
@@ -3761,7 +3712,7 @@ std::string *std::string::append[abi:sn200100]<std::__wrap_iter<unsigned char co
   return this;
 }
 
-void Backend::Google::CanonicalURL::canonicalizeURL(Backend::Google::CanonicalURL *this@<X0>, uint64_t a2@<X8>)
+void Backend::Google::CanonicalURL::canonicalizeURL(Backend::Google::CanonicalURL *this@<X0>, uint64_t x8_0@<X8>)
 {
   v9[0] = 0;
   v9[1] = 0;
@@ -3785,7 +3736,7 @@ void Backend::Google::CanonicalURL::canonicalizeURL(Backend::Google::CanonicalUR
   v9[0] = 0;
   v9[1] = 0;
   v10 = 0;
-  Backend::Google::CanonicalURL::canonicalizeURL(__p, a2);
+  Backend::Google::CanonicalURL::canonicalizeURL(__p, x8_0);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -3799,10 +3750,10 @@ void Backend::Google::CanonicalURL::canonicalizeURL(Backend::Google::CanonicalUR
   }
 }
 
-void Backend::Google::CanonicalURL::canonicalizeURL(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void Backend::Google::CanonicalURL::canonicalizeURL(char **a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   if (*a1 != v4)
   {
     while (1)
@@ -3817,14 +3768,14 @@ void Backend::Google::CanonicalURL::canonicalizeURL(uint64_t a1@<X0>, uint64_t a
 
       if (++v5 == v4)
       {
-        v5 = *(a1 + 8);
+        v5 = a1[1];
         break;
       }
     }
 
     if (v5 != v4)
     {
-      v10 = v5 + 1;
+      v10 = (v5 + 1);
       if (v5 + 1 != v4)
       {
         do
@@ -3839,7 +3790,7 @@ void Backend::Google::CanonicalURL::canonicalizeURL(uint64_t a1@<X0>, uint64_t a
         }
 
         while (v10 != v4);
-        v4 = *(a1 + 8);
+        v4 = a1[1];
       }
     }
   }
@@ -3854,7 +3805,7 @@ void Backend::Google::CanonicalURL::canonicalizeURL(uint64_t a1@<X0>, uint64_t a
   if (v5 != v4)
   {
     v4 = v5;
-    *(a1 + 8) = v5;
+    a1[1] = v5;
   }
 
   if (v13 != v4)
@@ -3890,7 +3841,7 @@ void Backend::Google::CanonicalURL::canonicalizeURL(uint64_t a1@<X0>, uint64_t a
       }
 
       v4 = &v13[v16];
-      *(a1 + 8) = &v13[v16];
+      a1[1] = &v13[v16];
       v13 = v17;
     }
   }
@@ -3927,7 +3878,7 @@ LABEL_126:
     }
 
     v4 = &v21[v23];
-    *(a1 + 8) = &v21[v23];
+    a1[1] = &v21[v23];
   }
 
   v24 = v14;
@@ -3958,7 +3909,7 @@ LABEL_126:
           memmove(v26, &v26[v25], v24 - v26);
         }
 
-        *(a1 + 8) = &v26[v27];
+        a1[1] = &v26[v27];
       }
 
       goto LABEL_53;
@@ -3973,7 +3924,7 @@ LABEL_53:
 
   Backend::Google::percentEscape(a1);
   v28 = *MEMORY[0x277CBECE8];
-  v29 = CFURLCreateWithBytes(*MEMORY[0x277CBECE8], *a1, *(a1 + 8) - *a1, 0x600u, 0);
+  v29 = CFURLCreateWithBytes(*MEMORY[0x277CBECE8], *a1, a1[1] - *a1, 0x600u, 0);
   if (!CFURLCanBeDecomposed(v29) || !CFURLGetBytes(v29, 0, -1))
   {
     *(a2 + 48) = 0u;
@@ -3995,7 +3946,7 @@ LABEL_53:
   }
 
   std::vector<unsigned char>::__insert_with_size[abi:sn200100]<unsigned char const*,unsigned char const*>(a1, *a1, "http://", "", 7);
-  v50 = CFURLCreateWithBytes(v28, *a1, *(a1 + 8) - *a1, 0x600u, 0);
+  v50 = CFURLCreateWithBytes(v28, *a1, a1[1] - *a1, 0x600u, 0);
   if (v29 == v50)
   {
     v51 = 0;
@@ -4074,7 +4025,7 @@ LABEL_119:
       v42 = CFURLGetByteRangeForComponent(v29, kCFURLComponentPort, 0);
       if (v42.location != -1)
       {
-        v43 = (v42.location + *a1);
+        v43 = &(*a1)[v42.location];
         v44 = &v43[v42.length];
         v45 = &v37[v32];
         switch(v32)
@@ -4091,7 +4042,7 @@ LABEL_119:
                 if (v42.length == 3)
                 {
                   v59 = "443";
-                  v60 = (v42.location + *a1);
+                  v60 = &(*a1)[v42.location];
                   while (*v60 == *v59)
                   {
                     ++v60;
@@ -4120,7 +4071,7 @@ LABEL_119:
                 if (v42.length == 2)
                 {
                   v55 = "80";
-                  v56 = (v42.location + *a1);
+                  v56 = &(*a1)[v42.location];
                   while (*v56 == *v55)
                   {
                     ++v56;
@@ -4149,7 +4100,7 @@ LABEL_119:
                 if (v42.length == 2)
                 {
                   v48 = "21";
-                  v49 = (v42.location + *a1);
+                  v49 = &(*a1)[v42.location];
                   while (*v49 == *v48)
                   {
                     ++v49;
@@ -4186,14 +4137,14 @@ LABEL_113:
         CFURLGetByteRangeForComponent(v29, kCFURLComponentParameterString, &v69);
         if (v69.length)
         {
-          std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__dst, __dst[1], (v69.location + *a1), (v69.location + *a1 + v69.length), v69.length);
+          std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__dst, __dst[1], &(*a1)[v69.location], &(*a1)[v69.location + v69.length], v69.length);
         }
 
         __dst[8] = (__dst[1] - __dst[0]);
         CFURLGetByteRangeForComponent(v29, kCFURLComponentQuery, &v68);
         if (v68.length)
         {
-          std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__dst, __dst[1], (v68.location + *a1), (v68.location + *a1 + v68.length), v68.length);
+          std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__dst, __dst[1], &(*a1)[v68.location], &(*a1)[v68.location + v68.length], v68.length);
         }
 
         v66 = __dst[0];
@@ -4239,7 +4190,7 @@ LABEL_127:
     }
 
 LABEL_58:
-    v33 = (rangeIncludingSeparators.location + *a1);
+    v33 = &(*a1)[rangeIncludingSeparators.location];
     if (length < 0)
     {
       goto LABEL_127;
@@ -4281,22 +4232,22 @@ LABEL_123:
 
 void Backend::Google::CanonicalURL::computeHashes(Backend::Google::CanonicalURL *this@<X0>, uint64_t a2@<X8>)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  Backend::Google::computeHostNameParts((*(this + 3) + *this), (*(this + 4) + *this), *(this + 40), &v29);
-  Backend::Google::computePathParts((*(this + 6) + *this), (*(this + 7) + *this), (*(this + 8) + *this), (*(this + 9) + *this), &v27);
+  v32 = *MEMORY[0x277D85DE8];
+  Backend::Google::computeHostNameParts((*(this + 3) + *this), (*(this + 4) + *this), *(this + 40), &v28);
+  Backend::Google::computePathParts((*(this + 6) + *this), (*(this + 7) + *this), (*(this + 8) + *this), (*(this + 9) + *this), &v26);
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  std::vector<std::array<unsigned char,32ul>>::reserve(a2, 0x8E38E38E38E38E39 * (v30 - v29) * ((v28 - v27) >> 3));
-  v4 = v29;
-  for (i = v30; v4 != i; v4 += 3)
+  std::vector<std::array<unsigned char,32ul>>::reserve(a2, 0x8E38E38E38E38E39 * (v29 - v28) * ((v27 - v26) >> 3));
+  v4 = v28;
+  for (i = v29; v4 != i; v4 += 3)
   {
-    v6 = v27;
-    v7 = v28;
+    v6 = v26;
+    v7 = v27;
     while (v6 != v7)
     {
       std::operator+[abi:sn200100]<char,std::char_traits<char>,std::allocator<char>>(v4, v6, __p);
-      Platform::computeSHA256(__p, &v31);
+      Platform::computeSHA256(__p, &v30);
       v8 = *(a2 + 8);
       v9 = *(a2 + 16);
       if (v8 >= v9)
@@ -4334,8 +4285,8 @@ LABEL_23:
 
         v18 = &v16[v12];
         v19 = &v16[32 * v17];
-        v20 = v32;
-        *v18 = v31;
+        v20 = v31;
+        *v18 = v30;
         *(v18 + 1) = v20;
         v11 = &v16[v12 + 32];
         v21 = *(a2 + 8) - *a2;
@@ -4358,14 +4309,14 @@ LABEL_23:
           goto LABEL_22;
         }
 
-        v10 = v32;
-        *v8 = v31;
+        v10 = v31;
+        *v8 = v30;
         v8[1] = v10;
         v11 = (v8 + 2);
       }
 
       *(a2 + 8) = v11;
-      if (v26 < 0)
+      if (v25 < 0)
       {
         operator delete(__p[0]);
       }
@@ -4374,11 +4325,10 @@ LABEL_23:
     }
   }
 
-  *&v31 = &v27;
-  std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v31);
-  *&v31 = &v29;
-  std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v31);
-  v24 = *MEMORY[0x277D85DE8];
+  *&v30 = &v26;
+  std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v30);
+  *&v30 = &v28;
+  std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v30);
 }
 
 void std::vector<std::array<unsigned char,32ul>>::reserve(uint64_t a1, unint64_t a2)
@@ -4421,10 +4371,10 @@ char *std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_i
   v7 = __src;
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 < __len)
+  if ((v9 - v10) < __len)
   {
     v11 = *a1;
-    v12 = &v10[__len - *a1];
+    v12 = v10 - *a1 + __len;
     if (v12 >= 0)
     {
       v13 = (__dst - v11);
@@ -4489,10 +4439,10 @@ char *std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_i
   }
 
   v17 = v10 - __dst;
-  if (v10 - __dst >= __len)
+  if ((v10 - __dst) >= __len)
   {
     v28 = &__dst[__len];
-    v29 = &v10[-__len];
+    v29 = (v10 - __len);
     v30 = *(a1 + 8);
     if (v10 >= __len)
     {
@@ -4523,16 +4473,16 @@ char *std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_i
     memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
   }
 
-  v20 = &v10[v19];
-  *(a1 + 8) = &v10[v19];
+  v20 = (v10 + v19);
+  *(a1 + 8) = v10 + v19;
   if (v17 >= 1)
   {
     v21 = &v5[v6];
-    v22 = &v10[v19];
+    v22 = (v10 + v19);
     if (&v20[-v6] < v10)
     {
-      v23 = a4 - &v7[v6];
-      v24 = a4 - v7;
+      v23 = (a4 - &v7[v6]);
+      v24 = (a4 - v7);
       do
       {
         v5[v24++] = v5[v23++];
@@ -4706,11 +4656,9 @@ LABEL_15:
 
 uint64_t Platform::OutputStream::writeUInt64(Platform::OutputStream *this, unint64_t a2)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = bswap64(a2);
-  result = (*(*this + 24))(this, v4, 8);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = bswap64(a2);
+  return (*(*this + 24))(this, v3, 8);
 }
 
 unint64_t Platform::OutputStream::getOffset32(Platform::OutputStream *this, unsigned int *a2)
@@ -4766,7 +4714,7 @@ LABEL_5:
   return result;
 }
 
-std::string *Platform::stringByAppendingPathComponent@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+std::string *Platform::stringByAppendingPathComponent@<X0>(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
   v4 = a1;
   if (*(a1 + 23) < 0)
@@ -5036,9 +4984,9 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
   return std::string::__assign_external(this, __s, v4);
 }
 
-void sub_225633F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_225633F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5637,12 +5585,12 @@ uint64_t detail::lazy_promise<ReadResult<unsigned long long>>::result(uint64_t a
     return a1 + 16;
   }
 
-  v6 = v1;
-  v7 = v2;
-  std::exception_ptr::exception_ptr(&v5, (a1 + 16));
-  v4.__ptr_ = &v5;
+  v7 = v1;
+  v8 = v2;
+  std::exception_ptr::exception_ptr(&v6, (a1 + 16));
+  v4.__ptr_ = &v6;
   std::rethrow_exception(v4);
-  return detail::lazy_promise<std::optional<std::pair<std::shared_ptr<ReadStream>,unsigned long>>>::~lazy_promise();
+  return detail::lazy_promise<std::optional<std::pair<std::shared_ptr<ReadStream>,unsigned long>>>::~lazy_promise(v5);
 }
 
 uint64_t detail::lazy_promise<std::optional<std::pair<std::shared_ptr<ReadStream>,unsigned long>>>::~lazy_promise(uint64_t a1)
@@ -5794,29 +5742,7 @@ uint64_t detail::lazy_promise<std::optional<std::string>>::~lazy_promise(uint64_
   return a1;
 }
 
-void ReadStream::readByte(std::exception_ptr *__p)
-{
-  if (__p->__ptr_)
-  {
-    if (LOBYTE(__p[9].__ptr_))
-    {
-      ptr = __p[6].__ptr_;
-      if (ptr)
-      {
-        std::__shared_weak_count::__release_shared[abi:sn200100](ptr);
-      }
-    }
-  }
-
-  if (LODWORD(__p[3].__ptr_) == 2)
-  {
-    std::exception_ptr::~exception_ptr(__p + 4);
-  }
-
-  operator delete(__p);
-}
-
-uint64_t Backend::Google::readVarint(uint64_t a1)
+void Backend::Google::readVarint(uint64_t a1)
 {
   if (!*(a1 + 96))
   {
@@ -5897,7 +5823,8 @@ LABEL_14:
   if (v5)
   {
     std::__throw_bad_variant_access[abi:sn200100]();
-    return Backend::Google::readVarint(v13);
+    Backend::Google::readVarint(v12);
+    return;
   }
 
   *(a1 + 32) = v1 & 1;
@@ -5909,7 +5836,7 @@ LABEL_19:
 LABEL_20:
   v11 = *v10;
 
-  return v11();
+  v11();
 }
 
 void Backend::Google::readVarint(void *__p)
@@ -5947,7 +5874,7 @@ void Backend::Google::readVarint(void *__p)
   operator delete(__p);
 }
 
-uint64_t Backend::Google::ProtocolMessageReader::nextField(uint64_t a1)
+void Backend::Google::ProtocolMessageReader::nextField(uint64_t a1)
 {
   if (*(a1 + 88))
   {
@@ -6005,7 +5932,8 @@ LABEL_3:
     if (v5 != 1)
     {
       std::__throw_bad_variant_access[abi:sn200100]();
-      return Backend::Google::ProtocolMessageReader::nextField(v14);
+      Backend::Google::ProtocolMessageReader::nextField(v13);
+      return;
     }
 
     FieldType = Backend::Google::getFieldType(v4);
@@ -6032,7 +5960,7 @@ LABEL_3:
 LABEL_17:
   v12 = *v8;
 
-  return v12();
+  v12();
 }
 
 void Backend::Google::ProtocolMessageReader::nextField(void *__p)
@@ -6049,12 +5977,11 @@ void Backend::Google::ProtocolMessageReader::nextField(void *__p)
 
   if (!v2)
   {
-    v3 = *(__p + 10);
     (*(*(__p + 10) + 8))();
-    v4 = *(__p + 6);
-    if (v4)
+    v3 = *(__p + 6);
+    if (v3)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
     }
   }
 
@@ -6142,12 +6069,11 @@ void Backend::Google::ProtocolMessageReader::skipVarintField(void *__p)
 
   if (!v2)
   {
-    v3 = *(__p + 10);
     (*(*(__p + 10) + 8))();
-    v4 = *(__p + 6);
-    if (v4)
+    v3 = *(__p + 6);
+    if (v3)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
     }
   }
 
@@ -6253,7 +6179,7 @@ void Backend::Google::ProtocolMessageReader::skip64BitField(void *__p)
   operator delete(__p);
 }
 
-uint64_t Backend::Google::ProtocolMessageReader::byteReaderAndLength(uint64_t a1, __n128 Varint)
+void Backend::Google::ProtocolMessageReader::byteReaderAndLength(uint64_t a1, __n128 Varint)
 {
   if (*(a1 + 128))
   {
@@ -6314,8 +6240,9 @@ LABEL_3:
       std::construct_at[abi:sn200100]<ReadStream,std::shared_ptr<ReadStream> &,unsigned long long &,ReadStream*>(v6 + 3, (v5 + 2), (a1 + 64));
       if (*(a1 + 72) != 1)
       {
-        v15 = std::__throw_bad_variant_access[abi:sn200100]();
-        return Backend::Google::ProtocolMessageReader::byteReaderAndLength(v15);
+        std::__throw_bad_variant_access[abi:sn200100]();
+        Backend::Google::ProtocolMessageReader::byteReaderAndLength(v14);
+        return;
       }
 
       v7 = *(a1 + 64);
@@ -6343,14 +6270,14 @@ LABEL_15:
 LABEL_16:
   v13 = *v12;
 
-  return v13(Varint);
+  v13(Varint);
 }
 
-void Backend::Google::ProtocolMessageReader::byteReaderAndLength(void *a1)
+void Backend::Google::ProtocolMessageReader::byteReaderAndLength(_BYTE *a1)
 {
   if (*a1)
   {
-    v2 = *(a1 + 128) == 0;
+    v2 = a1[128] == 0;
   }
 
   else
@@ -6360,16 +6287,15 @@ void Backend::Google::ProtocolMessageReader::byteReaderAndLength(void *a1)
 
   if (!v2)
   {
-    v3 = *(a1 + 15);
     (*(*(a1 + 15) + 8))();
-    v4 = *(a1 + 11);
-    if (v4)
+    v3 = *(a1 + 11);
+    if (v3)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
     }
   }
 
-  detail::lazy_promise<std::optional<std::pair<std::shared_ptr<ReadStream>,unsigned long>>>::~lazy_promise(a1 + 16);
+  detail::lazy_promise<std::optional<std::pair<std::shared_ptr<ReadStream>,unsigned long>>>::~lazy_promise((a1 + 16));
 
   operator delete(a1);
 }
@@ -6514,22 +6440,21 @@ void Backend::Google::ProtocolMessageReader::skipLengthDelimitedField(std::excep
   {
     if (LOBYTE(__p[13].__ptr_) == 1)
     {
-      ptr = __p[8].__ptr_;
       (*(__p[8].__ptr_ + 1))();
     }
 
     else
     {
-      v3 = __p[6].__ptr_;
-      if (v3)
+      ptr = __p[6].__ptr_;
+      if (ptr)
       {
-        v3[1]();
+        ptr[1]();
       }
 
-      v4 = __p[10].__ptr_;
-      if (v4)
+      v3 = __p[10].__ptr_;
+      if (v3)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v3);
       }
     }
   }
@@ -6631,12 +6556,11 @@ void Backend::Google::ProtocolMessageReader::fieldType(void *__p)
 
   if (!v2)
   {
-    v3 = *(__p + 10);
     (*(*(__p + 10) + 8))();
-    v4 = *(__p + 6);
-    if (v4)
+    v3 = *(__p + 6);
+    if (v3)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
     }
   }
 
@@ -7130,7 +7054,7 @@ LABEL_17:
       goto LABEL_8;
     }
 
-    Backend::Google::ProtocolMessageReader::skipField(*(a1 + 56), v9);
+    Backend::Google::ProtocolMessageReader::skipField(*(a1 + 56), v9, (a1 + 48));
     v6 = *(a1 + 48);
     *(a1 + 40) = v6;
     if (!v6)
@@ -7241,7 +7165,6 @@ void Backend::Google::ProtocolMessageReader::skipField(void *__p)
 
   if (!v2)
   {
-    v3 = *(__p + 8);
     (*(*(__p + 8) + 8))();
   }
 
@@ -7340,7 +7263,6 @@ void Backend::Google::ProtocolMessageReader::byteReader(_BYTE *a1)
 
   if (!v2)
   {
-    v3 = *(a1 + 10);
     (*(*(a1 + 10) + 8))();
   }
 
@@ -7588,36 +7510,34 @@ void Backend::Google::ProtocolMessageReader::readRepeatedPackedInt32(void *a1)
   {
     if (*(a1 + 168) == 1)
     {
-      v2 = *(a1 + 16);
-      (*(*(a1 + 16) + 8))();
+      (*(a1[16] + 8))();
     }
 
     else
     {
-      v3 = *(a1 + 19);
-      (*(*(a1 + 19) + 8))();
-      v4 = *(a1 + 12);
+      (*(a1[19] + 8))();
+      v2 = a1[12];
+      if (v2)
+      {
+        std::__shared_weak_count::__release_shared[abi:sn200100](v2);
+      }
+
+      v3 = a1[8];
+      if (v3)
+      {
+        a1[9] = v3;
+        operator delete(v3);
+      }
+
+      v4 = a1[18];
       if (v4)
       {
         std::__shared_weak_count::__release_shared[abi:sn200100](v4);
       }
-
-      v5 = *(a1 + 8);
-      if (v5)
-      {
-        *(a1 + 9) = v5;
-        operator delete(v5);
-      }
-
-      v6 = *(a1 + 18);
-      if (v6)
-      {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v6);
-      }
     }
   }
 
-  detail::lazy_promise<std::optional<std::vector<unsigned int>>>::~lazy_promise(a1 + 16);
+  detail::lazy_promise<std::optional<std::vector<unsigned int>>>::~lazy_promise((a1 + 2));
 
   operator delete(a1);
 }
@@ -7843,33 +7763,32 @@ void Backend::Google::ProtocolMessageReader::readLengthDelimitedField(void *a1)
   {
     if (*(a1 + 152) == 1)
     {
-      v2 = *(a1 + 11);
-      (*(*(a1 + 11) + 8))();
+      (*(a1[11] + 8))();
     }
 
     else
     {
-      v3 = *(a1 + 9);
+      v2 = a1[9];
+      if (v2)
+      {
+        (*(v2 + 8))();
+      }
+
+      v3 = a1[18];
       if (v3)
       {
-        (*(v3 + 8))();
+        operator delete(v3);
       }
 
-      v4 = *(a1 + 18);
+      v4 = a1[13];
       if (v4)
       {
-        operator delete(v4);
-      }
-
-      v5 = *(a1 + 13);
-      if (v5)
-      {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v5);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v4);
       }
     }
   }
 
-  detail::lazy_promise<std::optional<std::vector<unsigned int>>>::~lazy_promise(a1 + 16);
+  detail::lazy_promise<std::optional<std::vector<unsigned int>>>::~lazy_promise((a1 + 2));
 
   operator delete(a1);
 }
@@ -7968,12 +7887,11 @@ void Backend::Google::ProtocolMessageReader::readVarintField(void *__p)
 
   if (!v2)
   {
-    v3 = *(__p + 11);
     (*(*(__p + 11) + 8))();
-    v4 = *(__p + 7);
-    if (v4)
+    v3 = *(__p + 7);
+    if (v3)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
     }
   }
 
@@ -8092,7 +8010,6 @@ void Backend::Google::ProtocolMessageReader::riceDecompressor(_BYTE *a1)
 
   if (!v2)
   {
-    v3 = *(a1 + 13);
     (*(*(a1 + 13) + 8))();
   }
 
@@ -8199,7 +8116,6 @@ void Backend::Google::ProtocolMessageReader::readString(_BYTE *a1)
 
   if (!v2)
   {
-    v3 = *(a1 + 11);
     (*(*(a1 + 11) + 8))();
   }
 
@@ -8301,7 +8217,7 @@ char *Backend::Google::ProtocolMessageWriter::writeBytes(char **this, int a2, ch
   return std::vector<unsigned char>::__insert_with_size[abi:sn200100]<unsigned char const*,unsigned char const*>(this, v9, a3, a4, a4 - a3);
 }
 
-char *Backend::Google::ProtocolMessageWriter::writeStringField(Backend::Google::ProtocolMessageWriter *a1, int a2, uint64_t a3)
+char *Backend::Google::ProtocolMessageWriter::writeStringField(char **a1, int a2, char **a3)
 {
   v6 = Backend::Google::ProtocolBuffers::wireType(1);
   Backend::Google::ProtocolMessageWriter::writeVarint(a1, v6 | (8 * a2));
@@ -8312,11 +8228,11 @@ char *Backend::Google::ProtocolMessageWriter::writeStringField(Backend::Google::
 
   else
   {
-    v7 = *(a3 + 8);
+    v7 = a3[1];
   }
 
   Backend::Google::ProtocolMessageWriter::writeVarint(a1, v7);
-  v8 = *(a1 + 1);
+  v8 = a1[1];
   v9 = *(a3 + 23);
   if (v9 >= 0)
   {
@@ -8335,25 +8251,25 @@ char *Backend::Google::ProtocolMessageWriter::writeStringField(Backend::Google::
 
   else
   {
-    v11 = *(a3 + 8);
+    v11 = a3[1];
   }
 
   return std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(a1, v8, v10, &v10[v11], v11);
 }
 
-double Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(char **a1, int a2, uint64_t a3)
+void Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(char **a1, int a2, uint64_t a3)
 {
   __p = 0;
+  v12 = 0;
   v13 = 0;
-  v14 = 0;
   v4 = *(a3 + 24);
   if (v4)
   {
     (*(*v4 + 48))(v4, &__p);
     v6 = __p;
-    v7 = v13;
+    v7 = v12;
+    v12 = 0;
     v13 = 0;
-    v14 = 0;
     __p = 0;
     v8 = Backend::Google::ProtocolBuffers::wireType(1);
     Backend::Google::ProtocolMessageWriter::writeVarint(a1, v8 | (8 * a2));
@@ -8366,18 +8282,16 @@ double Backend::Google::ProtocolMessageWriter::writeEmbeddedMessageField(char **
 
     if (__p)
     {
-      v13 = __p;
+      v12 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v10 = std::__throw_bad_function_call[abi:sn200100]();
-    *&result = Backend::Google::ProtocolMessageWriter::finish(v10, v11).n128_u64[0];
+    v9 = std::__throw_bad_function_call[abi:sn200100]();
+    Backend::Google::ProtocolMessageWriter::finish(v9, v10);
   }
-
-  return result;
 }
 
 __n128 Backend::Google::ProtocolMessageWriter::finish@<Q0>(Backend::Google::ProtocolMessageWriter *this@<X0>, uint64_t a2@<X8>)
@@ -8403,10 +8317,10 @@ char *std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_i
   v7 = __src;
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 < a5)
+  if ((v9 - v10) < a5)
   {
     v11 = *a1;
-    v12 = &v10[a5 - *a1];
+    v12 = v10 - *a1 + a5;
     if (v12 < 0)
     {
       goto LABEL_37;
@@ -8473,10 +8387,10 @@ char *std::vector<unsigned char>::__insert_with_size[abi:sn200100]<std::__wrap_i
   }
 
   v17 = v10 - __dst;
-  if (v10 - __dst >= a5)
+  if ((v10 - __dst) >= a5)
   {
     v22 = &__dst[a5];
-    v23 = &v10[-a5];
+    v23 = (v10 - a5);
     v24 = *(a1 + 8);
     if (v10 >= a5)
     {
@@ -8599,10 +8513,10 @@ void sub_22563A280(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22563AA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_22563AA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  v16 = v14;
+  va_start(va, a16);
+  v23 = v21;
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -8675,31 +8589,31 @@ void SafeBrowsing::SafeHashCache::add(uint64_t a1, __int128 *a2)
   std::mutex::unlock((a1 + 8));
 }
 
-void SafeBrowsing::SafeHashCache::addUnlocked(uint64_t a1, __int128 *a2)
+void SafeBrowsing::SafeHashCache::addUnlocked(void *a1, __int128 *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a2[1];
-  v20 = *a2;
-  v21 = v4;
-  v22 = 0;
-  v5 = std::__tree<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::__map_value_compare<std::array<unsigned char,32ul>,std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::less<std::array<unsigned char,32ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>>::__emplace_unique_key_args<std::array<unsigned char,32ul>,std::pair<std::array<unsigned char,32ul> const,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>((a1 + 96), &v20, &v20);
+  v19 = *a2;
+  v20 = v4;
+  v21 = 0;
+  v5 = std::__tree<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::__map_value_compare<std::array<unsigned char,32ul>,std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::less<std::array<unsigned char,32ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>>::__emplace_unique_key_args<std::array<unsigned char,32ul>,std::pair<std::array<unsigned char,32ul> const,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>(a1 + 12, &v19, &v19);
   v6 = v5;
   if (v7)
   {
     v8 = operator new(0x30uLL);
-    v9 = a1 + 72;
+    v9 = a1 + 9;
     v10 = a2[1];
     v8[1] = *a2;
     v8[2] = v10;
-    v11 = *(a1 + 80);
-    *v8 = a1 + 72;
+    v11 = a1[10];
+    *v8 = a1 + 9;
     *(v8 + 1) = v11;
     *v11 = v8;
-    v12 = *(a1 + 88) + 1;
-    *(a1 + 80) = v8;
-    *(a1 + 88) = v12;
+    v12 = a1[11] + 1;
+    a1[10] = v8;
+    a1[11] = v12;
     *(v6 + 8) = v8;
-    if (*(a1 + 112) > *a1)
+    if (a1[14] > *a1)
     {
       if (!v12)
       {
@@ -8707,16 +8621,16 @@ void SafeBrowsing::SafeHashCache::addUnlocked(uint64_t a1, __int128 *a2)
       }
 
       v13 = *(*v9 + 32);
-      v20 = *(*v9 + 16);
-      v21 = v13;
-      std::__tree<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::__map_value_compare<std::array<unsigned char,32ul>,std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::less<std::array<unsigned char,32ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>>::__erase_unique<std::array<unsigned char,32ul>>((a1 + 96), &v20);
-      std::list<std::array<unsigned char,32ul>>::pop_back((a1 + 72));
+      v19 = *(*v9 + 16);
+      v20 = v13;
+      std::__tree<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::__map_value_compare<std::array<unsigned char,32ul>,std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::less<std::array<unsigned char,32ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>>::__erase_unique<std::array<unsigned char,32ul>>(a1 + 12, &v19);
+      std::list<std::array<unsigned char,32ul>>::pop_back(a1 + 9);
     }
   }
 
   else
   {
-    v14 = *(a1 + 80);
+    v14 = a1[10];
     v15 = *(v5 + 8);
     if (v14 != v15)
     {
@@ -8731,14 +8645,12 @@ void SafeBrowsing::SafeHashCache::addUnlocked(uint64_t a1, __int128 *a2)
         *v15 = v18;
         *v14 = v15;
         v15[1] = v14;
-        v14 = *(a1 + 80);
+        v14 = a1[10];
       }
     }
 
     *(v5 + 8) = v14;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void SafeBrowsing::SafeHashCache::add(uint64_t a1, __int128 **a2)
@@ -8853,7 +8765,7 @@ void *std::__list_imp<std::array<unsigned char,32ul>>::clear(void *result)
   return result;
 }
 
-_OWORD *std::__tree<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::__map_value_compare<std::array<unsigned char,32ul>,std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::less<std::array<unsigned char,32ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>>::__emplace_unique_key_args<std::array<unsigned char,32ul>,std::pair<std::array<unsigned char,32ul> const,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>(uint64_t **a1, unsigned __int8 *a2, uint64_t a3)
+_OWORD *std::__tree<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::__map_value_compare<std::array<unsigned char,32ul>,std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::less<std::array<unsigned char,32ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>>::__emplace_unique_key_args<std::array<unsigned char,32ul>,std::pair<std::array<unsigned char,32ul> const,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>(uint64_t ***a1, unsigned __int8 *a2, uint64_t a3)
 {
   v5 = std::__tree<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::__map_value_compare<std::array<unsigned char,32ul>,std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>,std::less<std::array<unsigned char,32ul>>,true>,std::allocator<std::__value_type<std::array<unsigned char,32ul>,std::__list_iterator<std::array<unsigned char,32ul>,void *>>>>::__find_equal<std::array<unsigned char,32ul>>(a1, &v10, a2);
   v6 = *v5;
@@ -9186,34 +9098,34 @@ void sub_22563B880(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void SafeBrowsing::Service::initialize(SafeBrowsing::Service *this)
 {
-  *&v27 = *MEMORY[0x277D85DE8];
-  SafeBrowsing::Service::databaseBaseDirectory(v20);
-  v2 = v22;
-  if (v22 != 1)
+  *&v26 = *MEMORY[0x277D85DE8];
+  SafeBrowsing::Service::databaseBaseDirectory(v19);
+  v2 = v21;
+  if (v21 != 1)
   {
     goto LABEL_23;
   }
 
   std::string::basic_string[abi:sn200100]<0>(&block.__r_.__value_.__l.__data_, "Google");
-  Platform::stringByAppendingPathComponent(v20, &block, &v19);
+  Platform::stringByAppendingPathComponent(v19, &block, &v18);
   if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(block.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:sn200100]<0>(&block.__r_.__value_.__l.__data_, "goog-malware-shavar");
-  std::string::basic_string[abi:sn200100]<0>(v25, "goog-phish-shavar");
-  std::string::basic_string[abi:sn200100]<0>(v26, "goog-unwanted-shavar");
+  std::string::basic_string[abi:sn200100]<0>(v24, "goog-phish-shavar");
+  std::string::basic_string[abi:sn200100]<0>(v25, "goog-unwanted-shavar");
   memset(&__p, 0, sizeof(__p));
-  std::vector<std::string>::__init_with_size[abi:sn200100]<std::string const*,std::string const*>(&__p, &block, &v27, 3uLL);
-  SafeBrowsing::Service::initializeDatabaseManager(this, &v19, &__p, 0x100000001uLL);
+  std::vector<std::string>::__init_with_size[abi:sn200100]<std::string const*,std::string const*>(&__p, &block, &v26, 3uLL);
+  SafeBrowsing::Service::initializeDatabaseManager(this, &v18, &__p, 0x100000001uLL);
   p_p = &__p;
   std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&p_p);
   for (i = 0; i != -9; i -= 3)
   {
-    if (SHIBYTE(v26[i + 2]) < 0)
+    if (SHIBYTE(v25[i + 2]) < 0)
     {
-      operator delete(v26[i]);
+      operator delete(v25[i]);
     }
   }
 
@@ -9227,13 +9139,13 @@ void SafeBrowsing::Service::initialize(SafeBrowsing::Service *this)
   shouldConsultWithTencent = Backend::Google::SSBUtilities::shouldConsultWithTencent(v5);
   if (shouldConsultWithTencent)
   {
-    if ((v22 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
       goto LABEL_27;
     }
 
     std::string::basic_string[abi:sn200100]<0>(&__p.__r_.__value_.__l.__data_, "Tencent");
-    Platform::stringByAppendingPathComponent(v20, &__p, &block);
+    Platform::stringByAppendingPathComponent(v19, &__p, &block);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -9244,12 +9156,12 @@ void SafeBrowsing::Service::initialize(SafeBrowsing::Service *this)
     p_p = &__p;
     std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&p_p);
     v7 = *(this + 1);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3321888768;
-    v16[2] = ___ZN12SafeBrowsing7Service10initializeEv_block_invoke_23;
-    v16[3] = &__block_descriptor_40_ea8_32c48_ZTSKZN12SafeBrowsing7Service10initializeEvE3__1_e8_v12__0i8l;
-    v16[4] = this;
-    shouldConsultWithTencent = notify_register_dispatch("com.apple.Safari.SafeBrowsing.TencentRemoteConfigurationDidChange", this + 96, v7, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3321888768;
+    v15[2] = ___ZN12SafeBrowsing7Service10initializeEv_block_invoke_23;
+    v15[3] = &__block_descriptor_40_ea8_32c48_ZTSKZN12SafeBrowsing7Service10initializeEvE3__1_e8_v12__0i8l;
+    v15[4] = this;
+    shouldConsultWithTencent = notify_register_dispatch("com.apple.Safari.SafeBrowsing.TencentRemoteConfigurationDidChange", this + 96, v7, v15);
     if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(block.__r_.__value_.__l.__data_);
@@ -9258,10 +9170,10 @@ void SafeBrowsing::Service::initialize(SafeBrowsing::Service *this)
 
   if (Backend::Google::SSBUtilities::shouldConsultWithApple(shouldConsultWithTencent))
   {
-    if (v22)
+    if (v21)
     {
       std::string::basic_string[abi:sn200100]<0>(&__p.__r_.__value_.__l.__data_, "Apple");
-      Platform::stringByAppendingPathComponent(v20, &__p, &block);
+      Platform::stringByAppendingPathComponent(v19, &__p, &block);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -9272,12 +9184,12 @@ void SafeBrowsing::Service::initialize(SafeBrowsing::Service *this)
       p_p = &__p;
       std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&p_p);
       v8 = *(this + 1);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3321888768;
-      v15[2] = ___ZN12SafeBrowsing7Service10initializeEv_block_invoke_28;
-      v15[3] = &__block_descriptor_40_ea8_32c48_ZTSKZN12SafeBrowsing7Service10initializeEvE3__2_e8_v12__0i8l;
-      v15[4] = this;
-      notify_register_dispatch("com.apple.Safari.SafeBrowsing.AppleRemoteConfigurationDidChange", this + 122, v8, v15);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3321888768;
+      v14[2] = ___ZN12SafeBrowsing7Service10initializeEv_block_invoke_28;
+      v14[3] = &__block_descriptor_40_ea8_32c48_ZTSKZN12SafeBrowsing7Service10initializeEvE3__2_e8_v12__0i8l;
+      v14[4] = this;
+      notify_register_dispatch("com.apple.Safari.SafeBrowsing.AppleRemoteConfigurationDidChange", this + 122, v8, v14);
       if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(block.__r_.__value_.__l.__data_);
@@ -9295,33 +9207,31 @@ LABEL_20:
   block.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
   block.__r_.__value_.__l.__size_ = 3321888768;
   block.__r_.__value_.__r.__words[2] = ___ZN12SafeBrowsing7Service41registerDatabaseLoadingDispatchGroupBlockEv_block_invoke;
-  v25[0] = &__block_descriptor_40_ea8_32c79_ZTSKZN12SafeBrowsing7Service41registerDatabaseLoadingDispatchGroupBlockEvE3__0_e5_v8__0l;
-  v25[1] = this;
+  v24[0] = &__block_descriptor_40_ea8_32c79_ZTSKZN12SafeBrowsing7Service41registerDatabaseLoadingDispatchGroupBlockEvE3__0_e5_v8__0l;
+  v24[1] = this;
   dispatch_async(v9, &block);
   v10 = *(this + 1);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3321888768;
-  v14[2] = ___ZN12SafeBrowsing7Service10initializeEv_block_invoke_32;
-  v14[3] = &__block_descriptor_40_ea8_32c48_ZTSKZN12SafeBrowsing7Service10initializeEvE3__3_e8_v12__0i8l;
-  v14[4] = this;
-  notify_register_dispatch("com.apple.Safari.SafeBrowsing.RegionCodeDidChange", this + 124, v10, v14);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3321888768;
+  v13[2] = ___ZN12SafeBrowsing7Service10initializeEv_block_invoke_32;
+  v13[3] = &__block_descriptor_40_ea8_32c48_ZTSKZN12SafeBrowsing7Service10initializeEvE3__3_e8_v12__0i8l;
+  v13[4] = this;
+  notify_register_dispatch("com.apple.Safari.SafeBrowsing.RegionCodeDidChange", this + 124, v10, v13);
   v11 = objc_alloc_init(SSBDatabaseUpdateSupport);
   v12 = *(this + 19);
   *(this + 19) = v11;
 
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v19.__r_.__value_.__l.__data_);
+    operator delete(v18.__r_.__value_.__l.__data_);
   }
 
-  v2 = v22;
+  v2 = v21;
 LABEL_23:
-  if ((v2 & 1) != 0 && v21 < 0)
+  if ((v2 & 1) != 0 && v20 < 0)
   {
-    operator delete(v20[0]);
+    operator delete(v19[0]);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22563BD94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41)
@@ -9370,7 +9280,7 @@ uint64_t SafeBrowsing::Service::isEnabled(SafeBrowsing::Service *this)
   return v2;
 }
 
-void SafeBrowsing::Service::checkInOrRegisterUpdateActivity(SafeBrowsing::Service *this, const char *a2)
+void SafeBrowsing::Service::checkInOrRegisterUpdateActivity(__int128 **this, const char *a2)
 {
   if (SafeBrowsing::Service::isEnabled(this))
   {
@@ -9419,27 +9329,29 @@ void *SafeBrowsing::Service::shared(SafeBrowsing::Service *this)
   return &unk_280B0EDA0;
 }
 
-void SafeBrowsing::Service::databaseBaseDirectory(uint64_t a1@<X8>)
+void SafeBrowsing::Service::databaseBaseDirectory(uint64_t *__return_ptr a1@<X8>)
 {
   v17 = *MEMORY[0x277D85DE8];
   memset(v15, 0, 15);
   memset(&v14, 0, sizeof(v14));
   UserCacheDirectory = Platform::getUserCacheDirectory(&v14);
+  v4 = UserCacheDirectory;
+  v5 = UserCacheDirectory;
   if (UserCacheDirectory)
   {
-    v5 = v3;
-    v6 = 0;
+    v6 = v3;
     v7 = 0;
+    v8 = 0;
   }
 
   else
   {
     std::string::basic_string[abi:sn200100]<0>(__p, "com.apple.Safari.SafeBrowsing");
-    Platform::stringByAppendingPathComponent(&v14, __p, &v16);
+    Platform::stringByAppendingPathComponent(&v14.__r_.__value_.__l.__data_, __p, &v16);
     v15[0] = v16.__r_.__value_.__l.__size_;
-    v6 = v16.__r_.__value_.__r.__words[0];
+    v7 = v16.__r_.__value_.__r.__words[0];
     *(v15 + 7) = *(&v16.__r_.__value_.__r.__words[1] + 7);
-    v7 = HIBYTE(v16.__r_.__value_.__r.__words[2]);
+    v8 = HIBYTE(v16.__r_.__value_.__r.__words[2]);
     *(&v16.__r_.__value_.__s + 23) = 0;
     v16.__r_.__value_.__s.__data_[0] = 0;
     if (v13 < 0)
@@ -9447,7 +9359,8 @@ void SafeBrowsing::Service::databaseBaseDirectory(uint64_t a1@<X8>)
       operator delete(__p[0]);
     }
 
-    v5 = std::system_category();
+    UserCacheDirectory = std::system_category();
+    v6 = UserCacheDirectory;
   }
 
   if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
@@ -9455,36 +9368,34 @@ void SafeBrowsing::Service::databaseBaseDirectory(uint64_t a1@<X8>)
     operator delete(v14.__r_.__value_.__l.__data_);
   }
 
-  *&v11.__val_ = UserCacheDirectory;
-  v11.__cat_ = v5;
-  if (UserCacheDirectory)
+  *&v11.__val_ = v4;
+  v11.__cat_ = v6;
+  if (v5)
   {
-    v8 = SSBOSLogService();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SSBOSLogService(UserCacheDirectory, v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       std::error_code::message(&v14, &v11);
-      SafeBrowsing::Service::databaseBaseDirectory(&v14);
+      SafeBrowsing::Service::databaseBaseDirectory();
     }
 
     *a1 = 0;
     *(a1 + 24) = 0;
-    if (v7 < 0)
+    if (v8 < 0)
     {
-      operator delete(v6);
+      operator delete(v7);
     }
   }
 
   else
   {
-    v9 = v15[0];
-    *a1 = v6;
-    *(a1 + 8) = v9;
+    v10 = v15[0];
+    *a1 = v7;
+    a1[1] = v10;
     *(a1 + 15) = *(v15 + 7);
-    *(a1 + 23) = v7;
+    *(a1 + 23) = v8;
     *(a1 + 24) = 1;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22563C24C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -9501,41 +9412,42 @@ void SafeBrowsing::Service::initializeDatabaseManager(uint64_t a1, std::string *
 {
   v33 = *MEMORY[0x277D85DE8];
   v31 = a4;
-  v30.__r_.__value_.__r.__words[0] = Platform::createDirectoryWithIntermediateDirectories(a2);
-  v30.__r_.__value_.__l.__size_ = v7;
-  if (LODWORD(v30.__r_.__value_.__l.__data_))
+  DirectoryWithIntermediateDirectories = Platform::createDirectoryWithIntermediateDirectories(a2);
+  v30.__r_.__value_.__r.__words[0] = DirectoryWithIntermediateDirectories;
+  v30.__r_.__value_.__l.__size_ = v8;
+  if (DirectoryWithIntermediateDirectories)
   {
-    v8 = SSBOSLogService();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SSBOSLogService(DirectoryWithIntermediateDirectories, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       std::error_code::message(&v32, &v30);
-      SafeBrowsing::Service::initializeDatabaseManager(&v32);
+      SafeBrowsing::Service::initializeDatabaseManager();
     }
   }
 
   else
   {
-    v10 = *a3;
-    v9 = a3[1];
-    if (v10 != v9)
+    v11 = *a3;
+    v10 = a3[1];
+    if (v11 != v10)
     {
       while (1)
       {
-        if (*(v10 + 23) < 0)
+        if (*(v11 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v32, *v10, *(v10 + 1));
+          std::string::__init_copy_ctor_external(&v32, *v11, *(v11 + 1));
         }
 
         else
         {
-          v11 = *v10;
-          v32.__r_.__value_.__r.__words[2] = *(v10 + 2);
-          *&v32.__r_.__value_.__l.__data_ = v11;
+          v12 = *v11;
+          v32.__r_.__value_.__r.__words[2] = *(v11 + 2);
+          *&v32.__r_.__value_.__l.__data_ = v12;
         }
 
-        Platform::stringByAppendingPathComponent(a2, &v32, &v30);
-        v12 = (v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v30 : v30.__r_.__value_.__r.__words[0];
-        if (unlink(v12) == -1 && *__error() == 2)
+        Platform::stringByAppendingPathComponent(&a2->__r_.__value_.__l.__data_, &v32, &v30);
+        v13 = (v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v30 : v30.__r_.__value_.__r.__words[0];
+        if (unlink(v13) == -1 && *__error() == 2)
         {
           break;
         }
@@ -9550,8 +9462,8 @@ void SafeBrowsing::Service::initializeDatabaseManager(uint64_t a1, std::string *
           operator delete(v32.__r_.__value_.__l.__data_);
         }
 
-        v10 = (v10 + 24);
-        if (v10 == v9)
+        v11 = (v11 + 24);
+        if (v11 == v10)
         {
           goto LABEL_19;
         }
@@ -9576,79 +9488,79 @@ LABEL_19:
         case 3:
           SafeBrowsing::Service::threatListDescriptorsFromConfiguration(v31, &v30);
           std::allocate_shared[abi:sn200100]<Backend::Google::DatabaseUpdater,std::allocator<Backend::Google::DatabaseUpdater>,SafeBrowsing::Service &,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::Configuration &,std::string const,std::vector<Backend::Google::ThreatListDescriptor>,Backend::Google::DatabaseConfiguration &,0>(a1, (a1 + 8), (a1 + 24), a2, &v30, &v31, &v32);
-          v23 = *&v32.__r_.__value_.__l.__data_;
+          v24 = *&v32.__r_.__value_.__l.__data_;
           *&v32.__r_.__value_.__l.__data_ = 0uLL;
-          v24 = *(a1 + 416);
-          *(a1 + 408) = v23;
-          if (v24)
+          v25 = *(a1 + 416);
+          *(a1 + 408) = v24;
+          if (v25)
           {
-            std::__shared_weak_count::__release_shared[abi:sn200100](v24);
+            std::__shared_weak_count::__release_shared[abi:sn200100](v25);
             if (v32.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:sn200100](v32.__r_.__value_.__l.__size_);
             }
           }
 
-          v25 = operator new(0x18uLL);
+          v26 = operator new(0x18uLL);
           std::string::basic_string[abi:sn200100]<0>(&v32.__r_.__value_.__l.__data_, "Loading Apple Databases");
-          Platform::Transaction::Transaction(v25, &v32);
+          Platform::Transaction::Transaction(v26, &v32);
           if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v32.__r_.__value_.__l.__data_);
           }
 
-          std::unique_ptr<Platform::Transaction>::reset[abi:sn200100]((a1 + 392), v25);
-          v18 = *(a1 + 8);
+          std::unique_ptr<Platform::Transaction>::reset[abi:sn200100]((a1 + 392), v26);
+          v19 = *(a1 + 8);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3321888768;
           block[2] = ___ZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationE_block_invoke_10;
           block[3] = &__block_descriptor_40_ea8_32c197_ZTSKZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationEE3__2_e5_v8__0l;
           block[4] = a1;
-          v19 = block;
+          v20 = block;
           break;
         case 2:
           SafeBrowsing::Service::threatListDescriptorsFromConfiguration(v31, &v30);
           std::allocate_shared[abi:sn200100]<Backend::Google::DatabaseUpdater,std::allocator<Backend::Google::DatabaseUpdater>,SafeBrowsing::Service &,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::Configuration &,std::string const,std::vector<Backend::Google::ThreatListDescriptor>,Backend::Google::DatabaseConfiguration &,0>(a1, (a1 + 8), (a1 + 24), a2, &v30, &v31, &v32);
-          v20 = *&v32.__r_.__value_.__l.__data_;
+          v21 = *&v32.__r_.__value_.__l.__data_;
           *&v32.__r_.__value_.__l.__data_ = 0uLL;
-          v21 = *(a1 + 312);
-          *(a1 + 304) = v20;
-          if (v21)
+          v22 = *(a1 + 312);
+          *(a1 + 304) = v21;
+          if (v22)
           {
-            std::__shared_weak_count::__release_shared[abi:sn200100](v21);
+            std::__shared_weak_count::__release_shared[abi:sn200100](v22);
             if (v32.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:sn200100](v32.__r_.__value_.__l.__size_);
             }
           }
 
-          v22 = operator new(0x18uLL);
+          v23 = operator new(0x18uLL);
           std::string::basic_string[abi:sn200100]<0>(&v32.__r_.__value_.__l.__data_, "Loading Tencent Databases");
-          Platform::Transaction::Transaction(v22, &v32);
+          Platform::Transaction::Transaction(v23, &v32);
           if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v32.__r_.__value_.__l.__data_);
           }
 
-          std::unique_ptr<Platform::Transaction>::reset[abi:sn200100]((a1 + 288), v22);
-          v18 = *(a1 + 8);
+          std::unique_ptr<Platform::Transaction>::reset[abi:sn200100]((a1 + 288), v23);
+          v19 = *(a1 + 8);
           v28[0] = MEMORY[0x277D85DD0];
           v28[1] = 3321888768;
           v28[2] = ___ZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationE_block_invoke_6;
           v28[3] = &__block_descriptor_40_ea8_32c197_ZTSKZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationEE3__1_e5_v8__0l;
           v28[4] = a1;
-          v19 = v28;
+          v20 = v28;
           break;
         case 1:
           SafeBrowsing::Service::threatListDescriptorsFromConfiguration(v31, &v30);
-          std::allocate_shared[abi:sn200100]<Backend::Google::DeviceIdentificationTokenFetcher,std::allocator<Backend::Google::DeviceIdentificationTokenFetcher>,Backend::Google::Configuration &,Backend::Google::SafeBrowsingProvider &,0>(a1 + 24, &v31 + 1, &v32);
-          v13 = *&v32.__r_.__value_.__l.__data_;
+          std::allocate_shared[abi:sn200100]<Backend::Google::DeviceIdentificationTokenFetcher,std::allocator<Backend::Google::DeviceIdentificationTokenFetcher>,Backend::Google::Configuration &,Backend::Google::SafeBrowsingProvider &,0>((a1 + 24), &v31 + 1, &v32);
+          v14 = *&v32.__r_.__value_.__l.__data_;
           *&v32.__r_.__value_.__l.__data_ = 0uLL;
-          v14 = *(a1 + 272);
-          *(a1 + 264) = v13;
-          if (v14)
+          v15 = *(a1 + 272);
+          *(a1 + 264) = v14;
+          if (v15)
           {
-            std::__shared_weak_count::__release_shared[abi:sn200100](v14);
+            std::__shared_weak_count::__release_shared[abi:sn200100](v15);
             if (v32.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:sn200100](v32.__r_.__value_.__l.__size_);
@@ -9656,41 +9568,41 @@ LABEL_19:
           }
 
           std::allocate_shared[abi:sn200100]<Backend::Google::DatabaseUpdater,std::allocator<Backend::Google::DatabaseUpdater>,SafeBrowsing::Service &,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::Configuration &,std::string const,std::vector<Backend::Google::ThreatListDescriptor>,Backend::Google::DatabaseConfiguration &,0>(a1, (a1 + 8), (a1 + 24), a2, &v30, &v31, &v32);
-          v15 = *&v32.__r_.__value_.__l.__data_;
+          v16 = *&v32.__r_.__value_.__l.__data_;
           *&v32.__r_.__value_.__l.__data_ = 0uLL;
-          v16 = *(a1 + 208);
-          *(a1 + 200) = v15;
-          if (v16)
+          v17 = *(a1 + 208);
+          *(a1 + 200) = v16;
+          if (v17)
           {
-            std::__shared_weak_count::__release_shared[abi:sn200100](v16);
+            std::__shared_weak_count::__release_shared[abi:sn200100](v17);
             if (v32.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:sn200100](v32.__r_.__value_.__l.__size_);
             }
           }
 
-          v17 = operator new(0x18uLL);
+          v18 = operator new(0x18uLL);
           std::string::basic_string[abi:sn200100]<0>(&v32.__r_.__value_.__l.__data_, "Loading Google Databases");
-          Platform::Transaction::Transaction(v17, &v32);
+          Platform::Transaction::Transaction(v18, &v32);
           if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v32.__r_.__value_.__l.__data_);
           }
 
-          std::unique_ptr<Platform::Transaction>::reset[abi:sn200100]((a1 + 184), v17);
-          v18 = *(a1 + 8);
+          std::unique_ptr<Platform::Transaction>::reset[abi:sn200100]((a1 + 184), v18);
+          v19 = *(a1 + 8);
           v29[0] = MEMORY[0x277D85DD0];
           v29[1] = 3321888768;
           v29[2] = ___ZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationE_block_invoke;
           v29[3] = &__block_descriptor_40_ea8_32c197_ZTSKZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationEE3__0_e5_v8__0l;
           v29[4] = a1;
-          v19 = v29;
+          v20 = v29;
           break;
         default:
-          goto LABEL_50;
+          return;
       }
 
-      dispatch_async(v18, v19);
+      dispatch_async(v19, v20);
       if (v30.__r_.__value_.__r.__words[0])
       {
         v30.__r_.__value_.__l.__size_ = v30.__r_.__value_.__r.__words[0];
@@ -9698,9 +9610,6 @@ LABEL_19:
       }
     }
   }
-
-LABEL_50:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22563C774(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -9775,5 +9684,105 @@ void SafeBrowsing::Service::threatListDescriptorsFromConfiguration(unint64_t a1@
       v14 = xmmword_2256598C0;
       std::vector<Backend::Google::ThreatListDescriptor>::push_back[abi:sn200100](a2, &v14);
     }
+  }
+}
+
+void sub_22563C9BC(_Unwind_Exception *a1)
+{
+  v4 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v4;
+    operator delete(v4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationE_block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  dispatch_group_enter(*(v1 + 16));
+  v2 = *(v1 + 200);
+
+  Backend::Google::DatabaseUpdater::initialize(v2);
+}
+
+void ___ZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationE_block_invoke_6(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  dispatch_group_enter(*(v1 + 16));
+  v2 = *(v1 + 304);
+
+  Backend::Google::DatabaseUpdater::initialize(v2);
+}
+
+void ___ZN12SafeBrowsing7Service25initializeDatabaseManagerERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERKNS1_6vectorIS7_NS5_IS7_EEEEN7Backend6Google21DatabaseConfigurationE_block_invoke_10(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  dispatch_group_enter(*(v1 + 16));
+  v2 = *(v1 + 408);
+
+  Backend::Google::DatabaseUpdater::initialize(v2);
+}
+
+void SafeBrowsing::Service::registerDatabaseLoadingDispatchGroupBlock(SafeBrowsing::Service *this)
+{
+  v1 = *(this + 1);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3321888768;
+  block[2] = ___ZN12SafeBrowsing7Service41registerDatabaseLoadingDispatchGroupBlockEv_block_invoke;
+  block[3] = &__block_descriptor_40_ea8_32c79_ZTSKZN12SafeBrowsing7Service41registerDatabaseLoadingDispatchGroupBlockEvE3__0_e5_v8__0l;
+  block[4] = this;
+  dispatch_async(v1, block);
+}
+
+void SafeBrowsing::Service::regionCodeDidChange(SafeBrowsing::Service *this)
+{
+  if (Backend::Google::SSBUtilities::shouldConsultWithTencent(this))
+  {
+    SafeBrowsing::Service::databaseBaseDirectory(v5);
+    v2 = v7;
+    if (v7 == 1)
+    {
+      std::string::basic_string[abi:sn200100]<0>(&__p, "Tencent");
+      Platform::stringByAppendingPathComponent(v5, &__p, &v4);
+      if (SHIBYTE(v10) < 0)
+      {
+        operator delete(__p);
+      }
+
+      __p = 0;
+      v9 = 0;
+      v10 = 0;
+      SafeBrowsing::Service::initializeDatabaseManager(this, &v4, &__p, 0x200000001uLL);
+      p_p = &__p;
+      std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&p_p);
+      v3 = *(this + 1);
+      __p = MEMORY[0x277D85DD0];
+      v9 = 3321888768;
+      v10 = ___ZN12SafeBrowsing7Service41registerDatabaseLoadingDispatchGroupBlockEv_block_invoke;
+      v11 = &__block_descriptor_40_ea8_32c79_ZTSKZN12SafeBrowsing7Service41registerDatabaseLoadingDispatchGroupBlockEvE3__0_e5_v8__0l;
+      v12 = this;
+      dispatch_async(v3, &__p);
+      notify_post("com.apple.Safari.SafeBrowsing.DidFinishTencentDatabaseUpdate");
+      if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v4.__r_.__value_.__l.__data_);
+      }
+
+      v2 = v7;
+    }
+
+    if ((v2 & 1) != 0 && v6 < 0)
+    {
+      operator delete(v5[0]);
+    }
+  }
+
+  else
+  {
+
+    notify_post("com.apple.Safari.SafeBrowsing.DidFinishTencentDatabaseUpdate");
   }
 }

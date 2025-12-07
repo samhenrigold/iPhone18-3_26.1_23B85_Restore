@@ -17,74 +17,75 @@
 
 - (BOOL)incrementPage
 {
-  v4 = objc_msgSend_slidesForPrinting(self, a2, v2);
-  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  slidesForPrinting = [(KNRenderingExporter *)self slidesForPrinting];
+  v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   currentSlidesOnPage = self->super.super.super._currentSlidesOnPage;
-  self->super.super.super._currentSlidesOnPage = v5;
+  self->super.super.super._currentSlidesOnPage = v4;
 
   if (!self->super.super.super._currentSlideNode)
   {
     self->super.super.super._currentBuildIndex = 0;
-    v9 = objc_msgSend_objectAtIndex_(v4, v7, 0);
-    objc_msgSend_setCurrentSlideNode_(self, v10, v9);
+    v6 = [slidesForPrinting objectAtIndex:0];
+    [(KNRenderingExporter *)self setCurrentSlideNode:v6];
 
-    v11 = self->super.super.super._currentSlidesOnPage;
-    v12 = MEMORY[0x277D812A8];
+    v7 = self->super.super.super._currentSlidesOnPage;
+    v8 = MEMORY[0x277D812A8];
     currentSlideNode = self->super.super.super._currentSlideNode;
-    v15 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v14, self->super.super.super._currentBuildIndex);
-    v17 = objc_msgSend_pairWithFirst_second_(v12, v16, currentSlideNode, v15);
-    objc_msgSend_addObject_(v11, v18, v17);
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->super.super.super._currentBuildIndex];
+    v11 = [v8 pairWithFirst:currentSlideNode second:v10];
+    [(NSMutableArray *)v7 addObject:v11];
   }
 
-  v19 = objc_msgSend_count(self->super.super.super._currentSlidesOnPage, v7, v8);
-  if (v19 < objc_msgSend_slidesPerPage(self, v20, v21))
+  v12 = [(NSMutableArray *)self->super.super.super._currentSlidesOnPage count];
+  if (v12 < [(KNRenderingExporter *)self slidesPerPage])
   {
     do
     {
-      v24 = objc_msgSend_indexOfObject_(v4, v22, self->super.super.super._currentSlideNode);
-      v27 = objc_msgSend_count(v4, v25, v26);
-      if (objc_msgSend_isPrintingBuilds(self, v28, v29) && objc_msgSend_safeHasBuildEvents(self->super.super.super._currentSlideNode, v22, v30) && (v32 = self->super.super.super._currentBuildIndex + 1, v32 <= objc_msgSend_safeBuildEventCount(self->super.super.super._currentSlideNode, v22, v31)))
+      v13 = [slidesForPrinting indexOfObject:self->super.super.super._currentSlideNode];
+      v14 = [slidesForPrinting count];
+      if ([(KNRenderingExporter *)self isPrintingBuilds]&& [(KNSlideNode *)self->super.super.super._currentSlideNode safeHasBuildEvents]&& (v15 = self->super.super.super._currentBuildIndex + 1, v15 <= [(KNSlideNode *)self->super.super.super._currentSlideNode safeBuildEventCount]))
       {
-        v48 = self->super.super.super._currentBuildIndex + 1;
-        self->super.super.super._currentBuildIndex = v48;
-        v36 = MEMORY[0x277D812A8];
-        v35 = self->super.super.super._currentSlidesOnPage;
-        v37 = self->super.super.super._currentSlideNode;
-        objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v22, v48);
+        currentBuildIndex = self->super.super.super._currentBuildIndex + 1;
+        self->super.super.super._currentBuildIndex = currentBuildIndex;
+        v18 = MEMORY[0x277D812A8];
+        v17 = self->super.super.super._currentSlidesOnPage;
+        v19 = self->super.super.super._currentSlideNode;
+        v20 = MEMORY[0x277CCABB0];
       }
 
       else
       {
-        v23 = v24 + 1;
-        if (v24 + 1 >= v27)
+        if (v13 + 1 >= v14)
         {
           break;
         }
 
         self->super.super.super._currentBuildIndex = 0;
-        v33 = objc_msgSend_objectAtIndex_(v4, v22, v23);
-        objc_msgSend_setCurrentSlideNode_(self, v34, v33);
+        v16 = [slidesForPrinting objectAtIndex:?];
+        [(KNRenderingExporter *)self setCurrentSlideNode:v16];
 
-        v35 = self->super.super.super._currentSlidesOnPage;
-        v36 = MEMORY[0x277D812A8];
-        v37 = self->super.super.super._currentSlideNode;
-        objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v38, self->super.super.super._currentBuildIndex);
+        v17 = self->super.super.super._currentSlidesOnPage;
+        v18 = MEMORY[0x277D812A8];
+        v19 = self->super.super.super._currentSlideNode;
+        v20 = MEMORY[0x277CCABB0];
+        currentBuildIndex = self->super.super.super._currentBuildIndex;
       }
-      v39 = ;
-      v41 = objc_msgSend_pairWithFirst_second_(v36, v40, v37, v39);
-      objc_msgSend_addObject_(v35, v42, v41);
 
-      v45 = objc_msgSend_count(self->super.super.super._currentSlidesOnPage, v43, v44);
+      v22 = [v20 numberWithUnsignedInteger:currentBuildIndex];
+      v23 = [v18 pairWithFirst:v19 second:v22];
+      [(NSMutableArray *)v17 addObject:v23];
+
+      v24 = [(NSMutableArray *)self->super.super.super._currentSlidesOnPage count];
     }
 
-    while (v45 < objc_msgSend_slidesPerPage(self, v46, v47));
+    while (v24 < [(KNRenderingExporter *)self slidesPerPage]);
   }
 
-  if (objc_msgSend_count(self->super.super.super._currentSlidesOnPage, v22, v23))
+  if ([(NSMutableArray *)self->super.super.super._currentSlidesOnPage count])
   {
-    v51.receiver = self;
-    v51.super_class = KNPdfGridExporter;
-    incrementPage = [(KNRenderingExporter *)&v51 incrementPage];
+    v27.receiver = self;
+    v27.super_class = KNPdfGridExporter;
+    incrementPage = [(KNRenderingExporter *)&v27 incrementPage];
   }
 
   else
@@ -101,109 +102,105 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v82 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D7FFD8]);
-  v12 = objc_msgSend_show(v82, v10, v11);
-  objc_msgSend_size(v12, v13, v14);
-  if (width <= height || v17 <= v18)
+  v42 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D7FFD8]);
+  show = [v42 show];
+  [show size];
+  if (width <= height || v11 <= v12)
   {
-    v19 = v18 > v17 && height > width;
+    v13 = v12 > v11 && height > width;
   }
 
   else
   {
-    v19 = 1;
+    v13 = 1;
   }
 
-  v22 = objc_msgSend_slidesPerPage(self, v15, v16) - 2;
-  if (v22 > 0xE)
+  v14 = [(KNRenderingExporter *)self slidesPerPage]- 2;
+  if (v14 > 0xE)
   {
-    v24 = 2;
-    v23 = 3;
+    v16 = 2;
+    v15 = 3;
   }
 
   else
   {
-    v23 = qword_275E71140[v22];
-    v24 = qword_275E711B8[v22];
+    v15 = qword_275E71140[v14];
+    v16 = qword_275E711B8[v14];
   }
 
-  if (v19)
+  if (v13)
   {
-    v25 = v23;
+    v17 = v15;
   }
 
   else
   {
-    v25 = v24;
+    v17 = v16;
   }
 
-  if (v19)
+  if (v13)
   {
-    v26 = v24;
+    v18 = v16;
   }
 
   else
   {
-    v26 = v23;
+    v18 = v15;
   }
 
-  v27 = (width + (v25 - 1) * -18.0) / v25;
-  v28 = (v26 - 1);
-  v29 = (height + v28 * -18.0) / v26;
-  v30 = y + (v29 + 18.0) * v28;
-  v33 = objc_msgSend_array(MEMORY[0x277CBEB18], v20, v21);
-  v34 = 0;
+  v19 = (width + (v17 - 1) * -18.0) / v17;
+  v20 = (v18 - 1);
+  v21 = (height + v20 * -18.0) / v18;
+  v22 = y + (v21 + 18.0) * v20;
+  array = [MEMORY[0x277CBEB18] array];
+  v24 = 0;
   do
   {
-    v35 = 0;
+    v25 = 0;
     do
     {
-      v36 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v31, v32, x + v35 * 18.0 + v27 * v35, v30 - (v34 * 18.0 + v29 * v34), v27, v29);
-      objc_msgSend_addObject_(v33, v37, v36);
+      v26 = [MEMORY[0x277CCAE60] valueWithCGRect:{x + v25 * 18.0 + v19 * v25, v22 - (v24 * 18.0 + v21 * v24), v19, v21}];
+      [array addObject:v26];
 
-      ++v35;
+      ++v25;
     }
 
-    while (v25 != v35);
-    ++v34;
+    while (v17 != v25);
+    ++v24;
   }
 
-  while (v34 != v26);
-  if (objc_msgSend_count(self->super.super.super._currentSlidesOnPage, v31, v32))
+  while (v24 != v18);
+  if ([(NSMutableArray *)self->super.super.super._currentSlidesOnPage count])
   {
-    v39 = 0;
+    v27 = 0;
     do
     {
-      v40 = objc_msgSend_objectAtIndexedSubscript_(self->super.super.super._currentSlidesOnPage, v38, v39);
-      v43 = objc_msgSend_first(v40, v41, v42);
-      v46 = objc_msgSend_second(v40, v44, v45);
-      v49 = objc_msgSend_unsignedIntegerValue(v46, v47, v48);
+      v28 = [(NSMutableArray *)self->super.super.super._currentSlidesOnPage objectAtIndexedSubscript:v27];
+      first = [v28 first];
+      second = [v28 second];
+      unsignedIntegerValue = [second unsignedIntegerValue];
 
-      v51 = objc_msgSend_objectAtIndexedSubscript_(v33, v50, v39);
-      objc_msgSend_CGRectValue(v51, v52, v53);
-      v55 = v54;
-      v57 = v56;
-      v59 = v58;
-      v61 = v60;
+      v32 = [array objectAtIndexedSubscript:v27];
+      [v32 CGRectValue];
 
-      v64 = objc_msgSend_cyanColor(MEMORY[0x277D81180], v62, v63);
-      nullsub_1(context, v64, v55, v57, v59, v61);
+      cyanColor = [MEMORY[0x277D81180] cyanColor];
+      nullsub_1();
 
-      objc_msgSend_isPrintingSlideNumbers(self, v65, v66);
-      objc_msgSend_size(v12, v67, v68);
+      [(KNRenderingExporter *)self isPrintingSlideNumbers];
+      [show size];
       TSUFitOrFillSizeInRect();
-      v70 = v69;
-      v72 = v71;
-      v74 = v73;
-      v76 = v75;
-      objc_msgSend_drawImageForSlideNode_event_slideSize_intoRect_annotationFlagsScale_context_(self, v77, v43, v49, context, v73, v75, v69, v71, v73, v75, 0.0);
-      objc_msgSend_drawBorderForRect_context_(self, v78, context, v70, v72, v74, v76);
-      objc_msgSend_drawSlideNumberForNode_buildIndex_forRect_context_position_(self, v79, v43, v49, context, 2, v70, v72, v74, v76);
+      v35 = v34;
+      v37 = v36;
+      v39 = v38;
+      v41 = v40;
+      [(KNRenderingExporter *)self drawImageForSlideNode:first event:unsignedIntegerValue slideSize:context intoRect:v38 annotationFlagsScale:v40 context:v34, v36, v38, v40, 0.0];
+      [(KNRenderingExporter *)self drawBorderForRect:context context:v35, v37, v39, v41];
+      [(KNRenderingExporter *)self drawSlideNumberForNode:first buildIndex:unsignedIntegerValue forRect:context context:2 position:v35, v37, v39, v41];
 
-      ++v39;
+      ++v27;
     }
 
-    while (v39 < objc_msgSend_count(self->super.super.super._currentSlidesOnPage, v80, v81));
+    while (v27 < [(NSMutableArray *)self->super.super.super._currentSlidesOnPage count]);
   }
 }
 

@@ -39,6 +39,7 @@
 - (void)getMailComposeExtensionViewControllerForSession:(id)session hostDelegate:(id)delegate completionHandler:(id)handler;
 - (void)getMailSignatureVerificationExtensionViewControllerForMessageSigners:(id)signers completionHandler:(id)handler;
 - (void)primaryActionClickedForMessageContext:(id)context completionHandler:(id)handler;
+- (void)setEnabled:(BOOL)enabled;
 @end
 
 @implementation MERemoteExtension
@@ -115,14 +116,14 @@ void __24__MERemoteExtension_log__block_invoke(uint64_t a1)
 
 void __39__MERemoteExtension_initWithExtension___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = +[MERemoteExtension log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_257F67000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Extension interrupted", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_257F67000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Extension interrupted", &v5, 0xCu);
   }
 
   if (WeakRetained)
@@ -131,9 +132,9 @@ void __39__MERemoteExtension_initWithExtension___block_invoke(uint64_t a1)
     v3 = +[MERemoteExtension log];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543362;
-      v7 = WeakRetained;
-      _os_log_impl(&dword_257F67000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Resetting extension _remoteExtensionProxyPromise as Extension interrupted.", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = WeakRetained;
+      _os_log_impl(&dword_257F67000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Resetting extension _remoteExtensionProxyPromise as Extension interrupted.", &v5, 0xCu);
     }
 
     v4 = *&WeakRetained[22]._os_unfair_lock_opaque;
@@ -141,8 +142,6 @@ void __39__MERemoteExtension_initWithExtension___block_invoke(uint64_t a1)
 
     os_unfair_lock_unlock(WeakRetained + 2);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -232,7 +231,7 @@ LABEL_8:
 
 - (BOOL)isEnabled
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   extension = [(MERemoteExtension *)self extension];
   optedIn = [extension optedIn];
 
@@ -252,24 +251,85 @@ LABEL_8:
     }
 
     v12 = @"NO";
-    v15 = 134218754;
+    v14 = 134218754;
     selfCopy = self;
-    v17 = 2114;
-    v18 = extensionID2;
+    v16 = 2114;
+    v17 = extensionID2;
     if (optedIn)
     {
       v12 = @"YES";
     }
 
-    v19 = 2114;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v12;
-    _os_log_impl(&dword_257F67000, v8, OS_LOG_TYPE_DEFAULT, "MERemoteExtension<%p>: Extension %{public}@ is userEnabled: %{public}@ and optedIn: %@.", &v15, 0x2Au);
+    v18 = 2114;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v12;
+    _os_log_impl(&dword_257F67000, v8, OS_LOG_TYPE_DEFAULT, "MERemoteExtension<%p>: Extension %{public}@ is userEnabled: %{public}@ and optedIn: %@.", &v14, 0x2Au);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return optedIn & v7;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v23 = *MEMORY[0x277D85DE8];
+  isEnabled = [(MERemoteExtension *)self isEnabled];
+  v6 = +[MERemoteExtension log];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    extensionID = [(MERemoteExtension *)self extensionID];
+    *buf = 138543618;
+    v18 = extensionID;
+    v19 = 1024;
+    v20 = enabledCopy;
+    _os_log_impl(&dword_257F67000, v6, OS_LOG_TYPE_DEFAULT, "Settting enabled state for extension: %{public}@ to state: %d.", buf, 0x12u);
+  }
+
+  if (isEnabled || !enabledCopy)
+  {
+    v8 = 0;
+    if (!isEnabled || enabledCopy)
+    {
+      goto LABEL_12;
+    }
+
+    extension = [(MERemoteExtension *)self extension];
+    v15 = 0;
+    v10 = &v15;
+    [extension attemptOptOut:&v15];
+  }
+
+  else
+  {
+    extension = [(MERemoteExtension *)self extension];
+    v16 = 0;
+    v10 = &v16;
+    [extension attemptOptIn:&v16];
+  }
+
+  v8 = *v10;
+
+  if (v8)
+  {
+    v11 = +[MERemoteExtension log];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v14 = [(MERemoteExtension *)self description];
+      *buf = 138543874;
+      v18 = v14;
+      v19 = 1024;
+      v20 = enabledCopy;
+      v21 = 2114;
+      v22 = v8;
+      _os_log_error_impl(&dword_257F67000, v11, OS_LOG_TYPE_ERROR, "Error settting enabled state for extension: %{public}@ to state: %d. Error: %{public}@", buf, 0x1Cu);
+    }
+  }
+
+LABEL_12:
+  v12 = +[MEExtensionUserPreferences sharedInstance];
+  extensionID2 = [(MERemoteExtension *)self extensionID];
+  [v12 setExtensionEnabled:enabledCopy forExtensionID:extensionID2];
 }
 
 - (NSArray)capabilities
@@ -315,16 +375,14 @@ uint64_t __33__MERemoteExtension_capabilities__block_invoke(uint64_t a1, void *a
 
 void __36__MERemoteExtension_allCapabilities__block_invoke()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MEComposeSessionHandler";
-  v3[1] = @"MEMessageSecurityHandler";
-  v3[2] = @"MEMessageActionHandler";
-  v3[3] = @"MEContentBlocker";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MEComposeSessionHandler";
+  v2[1] = @"MEMessageSecurityHandler";
+  v2[2] = @"MEMessageActionHandler";
+  v2[3] = @"MEContentBlocker";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v1 = allCapabilities_allCapabilities;
   allCapabilities_allCapabilities = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allCapabilitiesRequiringMessageContentAccess
@@ -341,15 +399,13 @@ void __36__MERemoteExtension_allCapabilities__block_invoke()
 
 void __65__MERemoteExtension_allCapabilitiesRequiringMessageContentAccess__block_invoke()
 {
-  v3[3] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MEComposeSessionHandler";
-  v3[1] = @"MEMessageSecurityHandler";
-  v3[2] = @"MEMessageActionHandler";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
+  v2[3] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MEComposeSessionHandler";
+  v2[1] = @"MEMessageSecurityHandler";
+  v2[2] = @"MEMessageActionHandler";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
   v1 = allCapabilitiesRequiringMessageContentAccess_allCapabilitiesRequiringMessageContentAccess;
   allCapabilitiesRequiringMessageContentAccess_allCapabilitiesRequiringMessageContentAccess = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)outboundNetworkingAllowed
@@ -512,7 +568,7 @@ void __48__MERemoteExtension__remoteExtensionProxyFuture__block_invoke(uint64_t 
 
 - (id)_loadRemoteExtesionProxyFuture
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   extension = [(MERemoteExtension *)self extension];
 
   if (!extension)
@@ -551,53 +607,51 @@ void __48__MERemoteExtension__remoteExtensionProxyFuture__block_invoke(uint64_t 
     block[1] = 3221225472;
     block[2] = __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke;
     block[3] = &unk_279858E58;
-    objc_copyWeak(&v18, buf);
-    v17 = v9;
+    objc_copyWeak(&v17, buf);
+    v16 = v9;
     dispatch_async(v11, block);
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
   }
 
   future = [(EFPromise *)v9 future];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return future;
 }
 
 void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     v4 = [(os_unfair_lock_s *)WeakRetained extension];
-    v29 = 0;
-    v5 = [v4 beginExtensionRequestWithOptions:0 inputItems:0 error:&v29];
-    v6 = v29;
-    v7 = v29;
-
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__0;
-    v27 = __Block_byref_object_dispose__0;
     v28 = 0;
+    v5 = [v4 beginExtensionRequestWithOptions:0 inputItems:0 error:&v28];
+    v6 = v28;
+    v7 = v28;
+
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__0;
+    v26 = __Block_byref_object_dispose__0;
+    v27 = 0;
     if (v7)
     {
-      objc_storeStrong(&v28, v6);
+      objc_storeStrong(&v27, v6);
       v8 = +[MERemoteExtension log];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v21 = [v24[5] ef_publicDescription];
+        v20 = [v23[5] ef_publicDescription];
         *buf = 138412802;
-        v31 = v5;
-        v32 = 2112;
-        v33 = v3;
-        v34 = 2114;
-        v35 = v21;
+        v30 = v5;
+        v31 = 2112;
+        v32 = v3;
+        v33 = 2114;
+        v34 = v20;
         _os_log_error_impl(&dword_257F67000, v8, OS_LOG_TYPE_ERROR, "Error setting up a new request, requestID:%@, extension:%@, error:%{public}@", buf, 0x20u);
       }
 
@@ -610,9 +664,9 @@ void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke(uint64
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v31 = v5;
-        v32 = 2112;
-        v33 = v3;
+        v30 = v5;
+        v31 = 2112;
+        v32 = v3;
         _os_log_impl(&dword_257F67000, v10, OS_LOG_TYPE_DEFAULT, "Finished setting up a new request, requestID:%@, extension:%@", buf, 0x16u);
       }
 
@@ -624,17 +678,17 @@ void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke(uint64
       *&v3[26]._os_unfair_lock_opaque = v12;
 
       v14 = [v8 _auxiliaryConnection];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke_120;
-      v22[3] = &unk_279859358;
-      v22[4] = v3;
-      v22[5] = &v23;
-      v9 = [v14 synchronousRemoteObjectProxyWithErrorHandler:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke_120;
+      v21[3] = &unk_279859358;
+      v21[4] = v3;
+      v21[5] = &v22;
+      v9 = [v14 synchronousRemoteObjectProxyWithErrorHandler:v21];
     }
 
     v15 = *(a1 + 32);
-    if (v24[5])
+    if (v23[5])
     {
       [v15 finishWithError:?];
       os_unfair_lock_lock(v3 + 2);
@@ -642,11 +696,11 @@ void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke(uint64
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         v17 = [(os_unfair_lock_s *)v3 ef_publicDescription];
-        v18 = [v24[5] ef_publicDescription];
+        v18 = [v23[5] ef_publicDescription];
         *buf = 138543618;
-        v31 = v17;
-        v32 = 2114;
-        v33 = v18;
+        v30 = v17;
+        v31 = 2114;
+        v32 = v18;
         _os_log_impl(&dword_257F67000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Resetting extension _remoteExtensionProxyPromise as Extension start failed with error %{public}@.", buf, 0x16u);
       }
 
@@ -661,10 +715,8 @@ void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke(uint64
       [v15 finishWithResult:v9];
     }
 
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke_120(uint64_t a1, void *a2)
@@ -809,7 +861,7 @@ void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke_120(ui
 
 - (id)_getInterfaceForExtensionCapability:(id)capability error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   capabilityCopy = capability;
   capabilities = [(MERemoteExtension *)self capabilities];
   v8 = [capabilities containsObject:capabilityCopy];
@@ -823,16 +875,16 @@ void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke_120(ui
   _loadRemoteExtesionProxyFuture = [(MERemoteExtension *)self _loadRemoteExtesionProxyFuture];
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
-    v23 = 0;
-    v10 = &v23;
-    v11 = [_loadRemoteExtesionProxyFuture resultIfAvailable:&v23];
+    v22 = 0;
+    v10 = &v22;
+    v11 = [_loadRemoteExtesionProxyFuture resultIfAvailable:&v22];
   }
 
   else
   {
-    v22 = 0;
-    v10 = &v22;
-    v11 = [_loadRemoteExtesionProxyFuture resultWithTimeout:&v22 error:10.0];
+    v21 = 0;
+    v10 = &v21;
+    v11 = [_loadRemoteExtesionProxyFuture resultWithTimeout:&v21 error:10.0];
   }
 
   v12 = v11;
@@ -883,7 +935,6 @@ LABEL_16:
 LABEL_17:
 
 LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1043,14 +1094,13 @@ LABEL_18:
 
 void __51__MERemoteExtension__loadRemoteExtesionProxyFuture__block_invoke_120_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_257F67000, log, OS_LOG_TYPE_ERROR, "XPC Error %@ fetching remote extension proxy %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_257F67000, log, OS_LOG_TYPE_ERROR, "XPC Error %@ fetching remote extension proxy %@", &v4, 0x16u);
 }
 
 - (void)_getInterfaceForExtensionCapability:(os_log_t)log error:.cold.1(void *a1, uint8_t *buf, os_log_t log)

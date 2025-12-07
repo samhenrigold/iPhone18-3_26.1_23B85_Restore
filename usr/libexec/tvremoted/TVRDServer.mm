@@ -151,25 +151,25 @@ void __18__TVRDServer_init__block_invoke(uint64_t a1)
     v3 = [WeakRetained systemMonitor];
     v4 = [v3 screenLocked];
 
-    v5 = _TVRDXPCLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TVRDXPCLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = @"unlocked";
+      v7 = @"unlocked";
       if (v4)
       {
-        v6 = @"locked";
+        v7 = @"locked";
       }
 
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Screen is now %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Screen is now %@", &v8, 0xCu);
     }
   }
 }
 
 void __18__TVRDServer_init__block_invoke_13(id a1)
 {
-  v1 = _TVRDXPCLog();
+  v1 = _TVRDXPCLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -179,7 +179,7 @@ void __18__TVRDServer_init__block_invoke_13(id a1)
 
 void __18__TVRDServer_init__block_invoke_14(uint64_t a1)
 {
-  v2 = _TVRDXPCLog();
+  v2 = _TVRDXPCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -286,7 +286,7 @@ id __18__TVRDServer_init__block_invoke_16(uint64_t a1)
 
 - (void)dealloc
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -305,7 +305,7 @@ id __18__TVRDServer_init__block_invoke_16(uint64_t a1)
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = _TVRDXPCLog();
+  v6 = _TVRDXPCLog(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -328,8 +328,7 @@ id __18__TVRDServer_init__block_invoke_16(uint64_t a1)
 void __49__TVRDServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
   v2 = [[TVRDClientProcessConnection alloc] initWithXPCConnection:*(a1 + 32) delegate:*(a1 + 40)];
-  [*(*(a1 + 40) + 16) addObject:v2];
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog([*(*(a1 + 40) + 16) addObject:v2]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(a1 + 40) + 16);
@@ -345,7 +344,7 @@ void __49__TVRDServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t
 {
   connectionCopy = connection;
   identifierCopy = identifier;
-  v10 = _TVRDXPCLog();
+  v10 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -376,13 +375,13 @@ void __81__TVRDServer_clientConnection_addedInterestedDeviceIdentifier_connectio
   [v4 setObject:v2 forKeyedSubscript:v6];
 
   v7 = [*(*v3 + 3) countForObject:*v5];
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(*v3 + 3);
-    v14 = 138543362;
-    v15 = v9;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[TVRDServer] deviceIdentifiers: %{public}@", &v14, 0xCu);
+    v15 = 138543362;
+    v16 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[TVRDServer] deviceIdentifiers: %{public}@", &v15, 0xCu);
   }
 
   if (v7)
@@ -390,13 +389,13 @@ void __81__TVRDServer_clientConnection_addedInterestedDeviceIdentifier_connectio
     if (v7 >= 1)
     {
       v10 = [*v3 _cachedDeviceForIdentifier:*v5];
-      v11 = _TVRDXPCLog();
+      v11 = _TVRDXPCLog(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = *(*v3 + 4);
-        v14 = 138543362;
-        v15 = v12;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[TVRDServer] cachedDevices: %{public}@", &v14, 0xCu);
+        v15 = 138543362;
+        v16 = v12;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[TVRDServer] cachedDevices: %{public}@", &v15, 0xCu);
       }
 
       if (v10)
@@ -406,10 +405,10 @@ void __81__TVRDServer_clientConnection_addedInterestedDeviceIdentifier_connectio
 
       else
       {
-        v13 = _TVRDXPCLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = _TVRDXPCLog(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          __81__TVRDServer_clientConnection_addedInterestedDeviceIdentifier_connectionContext___block_invoke_cold_1(v5, v3, v13);
+          __81__TVRDServer_clientConnection_addedInterestedDeviceIdentifier_connectionContext___block_invoke_cold_1(v5, v3, v14);
         }
 
         [*v3 _informClientCouldNotLocateDeviceWithIdentifier:*v5];
@@ -475,7 +474,7 @@ void __86__TVRDServer_clientConnection_reiteratedInterestInDeviceIdentifier_conn
 {
   connectionCopy = connection;
   identifierCopy = identifier;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -499,7 +498,7 @@ void __65__TVRDServer_clientConnection_removedInterestedDeviceIdentifier___block
 {
   [*(*(a1 + 32) + 24) countForObject:*(a1 + 40)];
   v2 = [*(a1 + 32) _cachedDeviceForIdentifier:*(a1 + 40)];
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(a1 + 32) + 24);
@@ -584,33 +583,33 @@ void __91__TVRDServer_clientConnection_receivedAuthChallengeLocallyEnteredCode_f
     if (v6)
     {
       [v6 userEnteredCodeLocally:*(a1 + 48)];
-      v7 = *(*(a1 + 32) + 48);
-      v8 = [v3 identifier];
-      [v7 removeObjectForKey:v8];
+      v8 = *(*(a1 + 32) + 48);
+      v9 = [v3 identifier];
+      [v8 removeObjectForKey:v9];
     }
 
     else
     {
-      v8 = _TVRDXPCLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _TVRDXPCLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 40);
-        v11 = 138412290;
-        v12 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Client attempted to fulfill an auth challenge that appears to no longer exist, for device with identifier %@. Ignoring.", &v11, 0xCu);
+        v11 = *(a1 + 40);
+        v12 = 138412290;
+        v13 = v11;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Client attempted to fulfill an auth challenge that appears to no longer exist, for device with identifier %@. Ignoring.", &v12, 0xCu);
       }
     }
   }
 
   else
   {
-    v6 = _TVRDXPCLog();
+    v6 = _TVRDXPCLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Client attempted to fulfill an auth challenge for a device that appears to no longer exist, device identifier %@. Ignoring.", &v11, 0xCu);
+      v10 = *(a1 + 40);
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Client attempted to fulfill an auth challenge for a device that appears to no longer exist, device identifier %@. Ignoring.", &v12, 0xCu);
     }
   }
 }
@@ -640,33 +639,33 @@ void __73__TVRDServer_clientConnection_cancelledAuthChallengeForDeviceIdentifier
     if (v6)
     {
       [v6 cancel];
-      v7 = *(*(a1 + 32) + 48);
-      v8 = [v3 identifier];
-      [v7 removeObjectForKey:v8];
+      v8 = *(*(a1 + 32) + 48);
+      v9 = [v3 identifier];
+      [v8 removeObjectForKey:v9];
     }
 
     else
     {
-      v8 = _TVRDXPCLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _TVRDXPCLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 40);
-        v11 = 138412290;
-        v12 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Client attempted to cancel an auth challenge that appears to no longer exist, for device with identifier %@. Ignoring.", &v11, 0xCu);
+        v11 = *(a1 + 40);
+        v12 = 138412290;
+        v13 = v11;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Client attempted to cancel an auth challenge that appears to no longer exist, for device with identifier %@. Ignoring.", &v12, 0xCu);
       }
     }
   }
 
   else
   {
-    v6 = _TVRDXPCLog();
+    v6 = _TVRDXPCLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Client attempted to fulfill an auth challenge for a device that appears to no longer exist, device identifier %@. Ignoring.", &v11, 0xCu);
+      v10 = *(a1 + 40);
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Client attempted to fulfill an auth challenge for a device that appears to no longer exist, device identifier %@. Ignoring.", &v12, 0xCu);
     }
   }
 }
@@ -688,7 +687,7 @@ void __73__TVRDServer_clientConnection_cancelledAuthChallengeForDeviceIdentifier
 
 void __77__TVRDServer_clientConnection_requestsSendingButtonEvent_toDeviceIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   v3 = [*(a1 + 32) _cachedDeviceForIdentifier:*(a1 + 40)];
   v4 = v3;
   if (v3)
@@ -712,10 +711,10 @@ void __77__TVRDServer_clientConnection_requestsSendingButtonEvent_toDeviceIdenti
 
   else
   {
-    v9 = _TVRDXPCLog();
+    v9 = _TVRDXPCLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __77__TVRDServer_clientConnection_requestsSendingButtonEvent_toDeviceIdentifier___block_invoke_cold_1((v2 + 8), v2);
+      __77__TVRDServer_clientConnection_requestsSendingButtonEvent_toDeviceIdentifier___block_invoke_cold_1((v2 + 1), v2);
     }
   }
 }
@@ -766,7 +765,7 @@ void __85__TVRDServer_clientConnection_requestsSendingGameControllerEvent_toDevi
 
 void __76__TVRDServer_clientConnection_requestsSendingTouchEvent_toDeviceIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   v3 = [*(a1 + 32) _cachedDeviceForIdentifier:*(a1 + 40)];
   v4 = v3;
   if (v3)
@@ -781,10 +780,10 @@ void __76__TVRDServer_clientConnection_requestsSendingTouchEvent_toDeviceIdentif
 
   else
   {
-    v6 = _TVRDXPCLog();
+    v6 = _TVRDXPCLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __76__TVRDServer_clientConnection_requestsSendingTouchEvent_toDeviceIdentifier___block_invoke_cold_1((v2 + 8), v2);
+      __76__TVRDServer_clientConnection_requestsSendingTouchEvent_toDeviceIdentifier___block_invoke_cold_1((v2 + 1), v2);
     }
   }
 }
@@ -1087,7 +1086,7 @@ void __79__TVRDServer_clientConnection_requestsSendingInputReturnKeyToDeviceIden
 void __82__TVRDServer_clientConnection_requestsSendingInputDataPayload_toDeviceIdentifier___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _cachedDeviceForIdentifier:*(a1 + 40)];
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 48);
@@ -1124,7 +1123,7 @@ void __82__TVRDServer_clientConnection_requestsSendingInputDataPayload_toDeviceI
 
 void __71__TVRDServer_clientConnectionRequestsStartingDeviceQuery_withResponse___block_invoke(uint64_t a1)
 {
-  v2 = _TVRDXPCLog();
+  v2 = _TVRDXPCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1169,25 +1168,26 @@ void __71__TVRDServer_clientConnectionRequestsStartingDeviceQuery_withResponse__
 
 void __56__TVRDServer_clientConnectionRequestsEndingDeviceQuery___block_invoke(uint64_t a1)
 {
-  v2 = _TVRDXPCLog();
+  v2 = _TVRDXPCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ requested ending general device query", &v6, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ requested ending general device query", &v7, 0xCu);
   }
 
   [*(*(a1 + 40) + 56) removeObject:*(a1 + 32)];
-  if ([*(*(a1 + 40) + 56) count])
+  v4 = [*(*(a1 + 40) + 56) count];
+  if (v4)
   {
-    v4 = _TVRDXPCLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TVRDXPCLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(*(a1 + 40) + 56);
-      v6 = 138543362;
-      v7 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not ending device query - %{public}@", &v6, 0xCu);
+      v6 = *(*(a1 + 40) + 56);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not ending device query - %{public}@", &v7, 0xCu);
     }
   }
 
@@ -1213,7 +1213,7 @@ void __56__TVRDServer_clientConnectionRequestsEndingDeviceQuery___block_invoke(u
 
 void __67__TVRDServer_clientConnection_requestsSuggestedDeviceWithResponse___block_invoke(uint64_t a1)
 {
-  v2 = _TVRDXPCLog();
+  v2 = _TVRDXPCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1247,16 +1247,16 @@ void __48__TVRDServer_clientConnectionSeveredConnection___block_invoke(uint64_t 
   v2 = [*(a1 + 32) clientConnections];
   [v2 removeObject:*(a1 + 40)];
 
-  v3 = _TVRDXPCLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _TVRDXPCLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 40);
-    v5 = [*(a1 + 32) clientConnections];
-    v6 = 138543618;
-    v7 = v4;
-    v8 = 2048;
-    v9 = [v5 count];
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Removed %{public}@. Total connections: %ld", &v6, 0x16u);
+    v5 = *(a1 + 40);
+    v6 = [*(a1 + 32) clientConnections];
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2048;
+    v10 = [v6 count];
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Removed %{public}@. Total connections: %ld", &v7, 0x16u);
   }
 }
 
@@ -1307,7 +1307,7 @@ void __92__TVRDServer_clientConnection_requestsSendingEvent_toDeviceWithIdentifi
 
 void __90__TVRDServer_clientConnection_requestsEnablingRemoteOnLockscreen_forDeviceWithIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = _TVRDXPCLog();
+  v2 = _TVRDXPCLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1318,47 +1318,57 @@ void __90__TVRDServer_clientConnection_requestsEnablingRemoteOnLockscreen_forDev
     }
 
     *buf = 138543618;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v4;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ requested to %@ remote on lockscreen", buf, 0x16u);
   }
 
   if (*(a1 + 40))
   {
-    v5 = [*(a1 + 48) _cachedDeviceForIdentifier:?];
-    v6 = v5;
-    v7 = !v5 || [v5 connectionType] != 1 || objc_msgSend(v6, "attentionState") == 3;
-    v8 = _TVRDXPCLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v6 = [*(a1 + 48) _cachedDeviceForIdentifier:?];
+    v7 = v6;
+    if (v6 && (v6 = [v6 connectionType], v6 == 1))
     {
-      v9 = [v6 attentionState];
-      if ((v9 - 1) >= 3)
+      v6 = [v7 attentionState];
+      v8 = v6 == 3;
+    }
+
+    else
+    {
+      v8 = 1;
+    }
+
+    v9 = _TVRDXPCLog(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = [v7 attentionState];
+      if ((v10 - 1) >= 3)
       {
-        v10 = [NSString stringWithFormat:@"(unknown: %ld)", v9];
+        v11 = [NSString stringWithFormat:@"(unknown: %ld)", v10];
       }
 
       else
       {
-        v10 = off_100020A68[(v9 - 1)];
+        v11 = off_100020A68[(v10 - 1)];
       }
 
-      [v6 connectionType];
-      v12 = TVRCDeviceConnectionTypeDescription();
+      [v7 connectionType];
+      v13 = TVRCDeviceConnectionTypeDescription();
       *buf = 138543618;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v12;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "AttentionState:%{public}@ connectionType:%{public}@", buf, 0x16u);
+      v18 = v11;
+      v19 = 2114;
+      v20 = v13;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "AttentionState:%{public}@ connectionType:%{public}@", buf, 0x16u);
     }
 
-    if (v7 || (*(a1 + 56) & 1) == 0)
+    if (v8 || (*(a1 + 56) & 1) == 0)
     {
       if ((*(a1 + 56) & 1) == 0)
       {
 LABEL_22:
-        v13 = +[TVRDAssertionManager sharedInstance];
-        [v13 releaseLockScreenAssertion];
+        v14 = +[TVRDAssertionManager sharedInstance];
+        [v14 releaseLockScreenAssertion];
 LABEL_25:
 
         goto LABEL_26;
@@ -1367,42 +1377,43 @@ LABEL_25:
 
     else
     {
-      v14 = [*(a1 + 48) systemMonitor];
-      v15 = [v14 screenLocked];
+      v15 = [*(a1 + 48) systemMonitor];
+      v16 = [v15 screenLocked];
 
-      if ((v15 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
         goto LABEL_22;
       }
     }
 
-    v13 = +[TVRDAssertionManager sharedInstance];
-    [v13 acquireLockScreenAssertion];
+    v14 = +[TVRDAssertionManager sharedInstance];
+    [v14 acquireLockScreenAssertion];
     goto LABEL_25;
   }
 
   if (*(a1 + 56) == 1)
   {
-    v11 = _TVRDXPCLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _TVRDXPCLog(v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Client requested to enable lock screen assertion for nil device identifier. Releasing lock screen assertion", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Client requested to enable lock screen assertion for nil device identifier. Releasing lock screen assertion", buf, 2u);
     }
   }
 
-  v6 = +[TVRDAssertionManager sharedInstance];
-  [v6 releaseLockScreenAssertion];
+  v7 = +[TVRDAssertionManager sharedInstance];
+  [v7 releaseLockScreenAssertion];
 LABEL_26:
 }
 
 - (BOOL)clientConnection:(id)connection isConnectedToDeviceWithIdentifier:(id)identifier
 {
-  v4 = [(TVRDServer *)self _cachedDeviceForIdentifier:identifier];
-  v5 = v4;
-  if (v4)
+  connectionState = [(TVRDServer *)self _cachedDeviceForIdentifier:identifier];
+  v5 = connectionState;
+  if (connectionState)
   {
-    v6 = [v4 connectionState] == 2;
+    connectionState = [connectionState connectionState];
+    v6 = connectionState == 2;
   }
 
   else
@@ -1410,7 +1421,7 @@ LABEL_26:
     v6 = 0;
   }
 
-  v7 = _TVRDXPCLog();
+  v7 = _TVRDXPCLog(connectionState);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138543618;
@@ -1441,7 +1452,7 @@ LABEL_26:
 void __86__TVRDServer_clientConnection_requestsEnablingFindingSession_forDeviceWithIdentifier___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 56);
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 1)
   {
@@ -1467,14 +1478,14 @@ LABEL_6:
 
   v8 = [*(a1 + 40) _cachedDeviceForIdentifier:*(a1 + 48)];
   v9 = v8;
-  if (v8 && [v8 connectionType] == 1)
+  if (v8 && (v8 = [v8 connectionType], v8 == 1))
   {
     [v9 _enableFindingSession:*(a1 + 56)];
   }
 
   else
   {
-    v10 = _TVRDXPCLog();
+    v10 = _TVRDXPCLog(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __86__TVRDServer_clientConnection_requestsEnablingFindingSession_forDeviceWithIdentifier___block_invoke_cold_1(v9);
@@ -1485,7 +1496,7 @@ LABEL_6:
 - (void)deviceBeganConnecting:(id)connecting
 {
   connectingCopy = connecting;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(connectingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -1505,15 +1516,16 @@ LABEL_6:
     v9 = *v17;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      v10 = 0;
+      do
       {
         if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = _TVRDXPCLog();
+        v11 = *(*(&v16 + 1) + 8 * v10);
+        v12 = _TVRDXPCLog(v7);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription = [connectingCopy extendedDescription];
@@ -1527,12 +1539,16 @@ LABEL_6:
         remoteObjectProxy = [v11 remoteObjectProxy];
         v15 = [TVRCDeviceState deviceStateFromDevice:connectingCopy];
         [remoteObjectProxy deviceUpdatedState:v15];
+
+        v10 = v10 + 1;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      while (v8 != v10);
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
 }
 
@@ -1540,12 +1556,12 @@ LABEL_6:
 {
   deviceCopy = device;
   challengeCopy = challenge;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(challengeCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     extendedDescription = [deviceCopy extendedDescription];
     *buf = 138543362;
-    v38 = extendedDescription;
+    v39 = extendedDescription;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Encountered auth challenge for device: %{public}@", buf, 0xCu);
   }
 
@@ -1555,62 +1571,67 @@ LABEL_6:
 
   if (v12)
   {
-    v13 = _TVRDXPCLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _TVRDXPCLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       extendedDescription2 = [deviceCopy extendedDescription];
       *buf = 138412290;
-      v38 = extendedDescription2;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Already a pending auth challenge for device %@, cancelling.", buf, 0xCu);
+      v39 = extendedDescription2;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Already a pending auth challenge for device %@, cancelling.", buf, 0xCu);
     }
 
     [v12 cancel];
   }
 
-  v30 = v12;
-  v15 = self->_authChallengesByID;
+  v31 = v12;
+  v16 = self->_authChallengesByID;
   identifier2 = [deviceCopy identifier];
-  [(NSMutableDictionary *)v15 setObject:challengeCopy forKey:identifier2];
+  [(NSMutableDictionary *)v16 setObject:challengeCopy forKey:identifier2];
 
   selfCopy = self;
-  v18 = deviceCopy;
+  v19 = deviceCopy;
   [(TVRDServer *)selfCopy _interestedClientProcessConnectionsForDevice:deviceCopy];
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  obj = v35 = 0u;
-  v19 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v19)
+  v35 = 0u;
+  obj = v36 = 0u;
+  v20 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v20)
   {
-    v20 = v19;
-    v21 = *v33;
+    v21 = v20;
+    v22 = *v34;
     do
     {
-      for (i = 0; i != v20; i = i + 1)
+      v23 = 0;
+      do
       {
-        if (*v33 != v21)
+        if (*v34 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v32 + 1) + 8 * i);
-        v24 = _TVRDXPCLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v24 = *(*(&v33 + 1) + 8 * v23);
+        v25 = _TVRDXPCLog(v20);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v38 = v23;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Sending auth challenge to interested client %{public}@", buf, 0xCu);
+          v39 = v24;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Sending auth challenge to interested client %{public}@", buf, 0xCu);
         }
 
-        remoteObjectProxy = [v23 remoteObjectProxy];
-        v26 = [TVRCDeviceState deviceStateFromDevice:v18];
+        remoteObjectProxy = [v24 remoteObjectProxy];
+        v27 = [TVRCDeviceState deviceStateFromDevice:v19];
         challengeType = [challengeCopy challengeType];
         challengeAttributes = [challengeCopy challengeAttributes];
         codeToEnterOnDevice = [challengeCopy codeToEnterOnDevice];
-        [remoteObjectProxy deviceWithState:v26 encounteredAuthChallengeOfType:challengeType attributes:challengeAttributes codeToEnterOnDevice:codeToEnterOnDevice throttleSeconds:{objc_msgSend(challengeCopy, "throttleSeconds")}];
+        [remoteObjectProxy deviceWithState:v27 encounteredAuthChallengeOfType:challengeType attributes:challengeAttributes codeToEnterOnDevice:codeToEnterOnDevice throttleSeconds:{objc_msgSend(challengeCopy, "throttleSeconds")}];
+
+        v23 = v23 + 1;
       }
 
-      v20 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      while (v21 != v23);
+      v20 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v21 = v20;
     }
 
     while (v20);
@@ -1620,7 +1641,7 @@ LABEL_6:
 - (void)deviceConnected:(id)connected
 {
   connectedCopy = connected;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(connectedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -1679,15 +1700,16 @@ LABEL_6:
     v18 = *v28;
     do
     {
-      for (j = 0; j != v17; j = j + 1)
+      v19 = 0;
+      do
       {
         if (*v28 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v27 + 1) + 8 * j);
-        v21 = _TVRDXPCLog();
+        v20 = *(*(&v27 + 1) + 8 * v19);
+        v21 = _TVRDXPCLog(v16);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription = [connectedCopy extendedDescription];
@@ -1701,12 +1723,16 @@ LABEL_6:
         remoteObjectProxy = [v20 remoteObjectProxy];
         v24 = [TVRCDeviceState deviceStateFromDevice:connectedCopy];
         [remoteObjectProxy deviceUpdatedState:v24];
+
+        v19 = v19 + 1;
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v27 objects:v39 count:16];
+      while (v17 != v19);
+      v16 = [v15 countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v17 = v16;
     }
 
-    while (v17);
+    while (v16);
   }
 
   objc_storeWeak(&self->_lastConnectedDevice, connectedCopy);
@@ -1750,7 +1776,7 @@ LABEL_6:
 void __44__TVRDServer__publishUserPresenceForDevice___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
-  v6 = _TVRDXPCLog();
+  v6 = _TVRDXPCLog(v5);
   v7 = v6;
   if (v5)
   {
@@ -1777,46 +1803,47 @@ void __44__TVRDServer__publishUserPresenceForDevice___block_invoke(uint64_t a1, 
 - (void)_switchToCurrentUserProfileForDevice:(id)device
 {
   deviceCopy = device;
-  if ([deviceCopy attentionState] == 1)
+  attentionState = [deviceCopy attentionState];
+  if (attentionState == 1)
   {
-    v4 = +[ACAccountStore defaultStore];
-    ams_activeiCloudAccount = [v4 ams_activeiCloudAccount];
+    v5 = +[ACAccountStore defaultStore];
+    ams_activeiCloudAccount = [v5 ams_activeiCloudAccount];
     aa_altDSID = [ams_activeiCloudAccount aa_altDSID];
 
     if (aa_altDSID)
     {
-      v7 = TVRCSwitchActiveUserAccountEvent;
-      v15 = TVRCiCloudAltDSID;
-      v16 = aa_altDSID;
-      v8 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke;
-      v11[3] = &unk_1000209D0;
+      v8 = TVRCSwitchActiveUserAccountEvent;
+      v16 = TVRCiCloudAltDSID;
+      v17 = aa_altDSID;
+      v9 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke;
+      v12[3] = &unk_1000209D0;
       aa_altDSID = aa_altDSID;
-      v12 = aa_altDSID;
-      [deviceCopy sendEvent:v7 options:v8 response:v11];
+      v13 = aa_altDSID;
+      [deviceCopy sendEvent:v8 options:v9 response:v12];
     }
   }
 
   else
   {
-    aa_altDSID = _TVRDXPCLog();
+    aa_altDSID = _TVRDXPCLog(attentionState);
     if (os_log_type_enabled(aa_altDSID, OS_LOG_TYPE_DEFAULT))
     {
-      attentionState = [deviceCopy attentionState];
-      if ((attentionState - 1) >= 3)
+      attentionState2 = [deviceCopy attentionState];
+      if ((attentionState2 - 1) >= 3)
       {
-        v10 = [NSString stringWithFormat:@"(unknown: %ld)", attentionState];
+        v11 = [NSString stringWithFormat:@"(unknown: %ld)", attentionState2];
       }
 
       else
       {
-        v10 = off_100020A68[(attentionState - 1)];
+        v11 = off_100020A68[(attentionState2 - 1)];
       }
 
       *buf = 138543362;
-      v14 = v10;
+      v15 = v11;
       _os_log_impl(&_mh_execute_header, aa_altDSID, OS_LOG_TYPE_DEFAULT, "device is: %{public}@. Ignore switching users", buf, 0xCu);
     }
   }
@@ -1825,7 +1852,7 @@ void __44__TVRDServer__publishUserPresenceForDevice___block_invoke(uint64_t a1, 
 void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
-  v6 = _TVRDXPCLog();
+  v6 = _TVRDXPCLog(v5);
   v7 = v6;
   if (v5)
   {
@@ -1848,11 +1875,11 @@ void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64
 {
   deviceCopy = device;
   errorCopy = error;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v42 = deviceCopy;
+    v43 = deviceCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Device disconnected: %{public}@", buf, 0xCu);
   }
 
@@ -1861,80 +1888,80 @@ void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64
   [(NSMutableDictionary *)authChallengesByID removeObjectForKey:identifier];
 
   [(TVRDServer *)self _interestedClientProcessConnectionsForDevice:deviceCopy];
-  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  obj = v39 = 0u;
-  v11 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
+  v39 = 0u;
+  obj = v40 = 0u;
+  v11 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (v11)
   {
     v12 = v11;
-    v29 = *v37;
+    v30 = *v38;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v37 != v29)
+        if (*v38 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v36 + 1) + 8 * i);
+        v14 = *(*(&v37 + 1) + 8 * i);
         deviceIdentifiers = [v14 deviceIdentifiers];
         v16 = [NSString stringWithFormat:@"%@ - identifiers: %@", v14, deviceIdentifiers];
 
-        v17 = _TVRDXPCLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = _TVRDXPCLog(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription = [deviceCopy extendedDescription];
           *buf = 138543618;
-          v42 = v16;
-          v43 = 2114;
-          v44 = extendedDescription;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Broadcasting to %{public}@, that device disconnected: %{public}@", buf, 0x16u);
+          v43 = v16;
+          v44 = 2114;
+          v45 = extendedDescription;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Broadcasting to %{public}@, that device disconnected: %{public}@", buf, 0x16u);
         }
 
-        v19 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
-        [v19 setDisconnectReason:reason];
-        [v19 setDisconnectError:errorCopy];
+        v20 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
+        [v20 setDisconnectReason:reason];
+        [v20 setDisconnectError:errorCopy];
         remoteObjectProxy = [v14 remoteObjectProxy];
-        [remoteObjectProxy deviceUpdatedState:v19];
+        [remoteObjectProxy deviceUpdatedState:v20];
 
         identifier2 = [deviceCopy identifier];
         [v14 removeInterestForDeviceWithIdentifier:identifier2];
 
-        v34 = 0u;
         v35 = 0u;
-        v32 = 0u;
+        v36 = 0u;
         v33 = 0u;
+        v34 = 0u;
         alternateIdentifiers = [deviceCopy alternateIdentifiers];
         allValues = [alternateIdentifiers allValues];
 
-        v24 = [allValues countByEnumeratingWithState:&v32 objects:v40 count:16];
-        if (v24)
+        v25 = [allValues countByEnumeratingWithState:&v33 objects:v41 count:16];
+        if (v25)
         {
-          v25 = v24;
-          v26 = *v33;
+          v26 = v25;
+          v27 = *v34;
           do
           {
-            for (j = 0; j != v25; j = j + 1)
+            for (j = 0; j != v26; j = j + 1)
             {
-              if (*v33 != v26)
+              if (*v34 != v27)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              [v14 removeInterestForDeviceWithIdentifier:*(*(&v32 + 1) + 8 * j)];
+              [v14 removeInterestForDeviceWithIdentifier:*(*(&v33 + 1) + 8 * j)];
             }
 
-            v25 = [allValues countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v26 = [allValues countByEnumeratingWithState:&v33 objects:v41 count:16];
           }
 
-          while (v25);
+          while (v26);
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
+      v12 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
     }
 
     while (v12);
@@ -1945,7 +1972,7 @@ void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64
 {
   deviceCopy = device;
   fromCopy = from;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(fromCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     name = [deviceCopy name];
@@ -1960,7 +1987,7 @@ void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64
   v10 = [(TVRDServer *)self _interestedClientProcessConnectionsForDevice:deviceCopy];
   if (![v10 count])
   {
-    v11 = _TVRDXPCLog();
+    v11 = _TVRDXPCLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [TVRDServer device:v11 didUpdateNameFrom:?];
@@ -1981,15 +2008,16 @@ void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64
     v15 = *v26;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      v16 = 0;
+      do
       {
         if (*v26 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v25 + 1) + 8 * i);
-        v18 = _TVRDXPCLog();
+        v17 = *(*(&v25 + 1) + 8 * v16);
+        v18 = _TVRDXPCLog(v13);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription = [deviceCopy extendedDescription];
@@ -2003,12 +2031,16 @@ void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64
         remoteObjectProxy = [v17 remoteObjectProxy];
         v21 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
         [remoteObjectProxy deviceUpdatedState:v21];
+
+        v16 = v16 + 1;
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      while (v14 != v16);
+      v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = v13;
     }
 
-    while (v14);
+    while (v13);
   }
 
   generalDeviceQuery = selfCopy->_generalDeviceQuery;
@@ -2033,15 +2065,16 @@ void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64
     v9 = *v17;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      v10 = 0;
+      do
       {
         if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = _TVRDXPCLog();
+        v11 = *(*(&v16 + 1) + 8 * v10);
+        v12 = _TVRDXPCLog(v7);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription = [deviceCopy extendedDescription];
@@ -2055,19 +2088,23 @@ void __51__TVRDServer__switchToCurrentUserProfileForDevice___block_invoke(uint64
         remoteObjectProxy = [v11 remoteObjectProxy];
         v15 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
         [remoteObjectProxy deviceUpdatedState:v15];
+
+        v10 = v10 + 1;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      while (v8 != v10);
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
 }
 
 - (void)device:(id)device updatedAttentionState:(int64_t)state
 {
   deviceCopy = device;
-  v7 = _TVRDXPCLog();
+  v7 = _TVRDXPCLog(deviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     name = [deviceCopy name];
@@ -2135,15 +2172,16 @@ LABEL_15:
     v15 = *v23;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      v16 = 0;
+      do
       {
         if (*v23 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * i);
-        v18 = _TVRDXPCLog();
+        v17 = *(*(&v22 + 1) + 8 * v16);
+        v18 = _TVRDXPCLog(v13);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription = [deviceCopy extendedDescription];
@@ -2157,19 +2195,23 @@ LABEL_15:
         remoteObjectProxy = [v17 remoteObjectProxy];
         v21 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
         [remoteObjectProxy deviceUpdatedState:v21];
+
+        v16 = v16 + 1;
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      while (v14 != v16);
+      v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = v13;
     }
 
-    while (v14);
+    while (v13);
   }
 }
 
 - (void)device:(id)device updatedSiriRemoteFindingState:(int64_t)state
 {
   deviceCopy = device;
-  v7 = _TVRDXPCLog();
+  v7 = _TVRDXPCLog(deviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     if (state < 7 && ((0x77u >> state) & 1) != 0)
@@ -2200,15 +2242,16 @@ LABEL_15:
     v13 = *v21;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      v14 = 0;
+      do
       {
         if (*v21 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
-        v16 = _TVRDXPCLog();
+        v15 = *(*(&v20 + 1) + 8 * v14);
+        v16 = _TVRDXPCLog(v11);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription = [deviceCopy extendedDescription];
@@ -2222,12 +2265,16 @@ LABEL_15:
         remoteObjectProxy = [(__CFString *)v15 remoteObjectProxy];
         v19 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
         [remoteObjectProxy deviceUpdatedState:v19];
+
+        v14 = v14 + 1;
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      while (v12 != v14);
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v12 = v11;
     }
 
-    while (v12);
+    while (v11);
   }
 }
 
@@ -2235,7 +2282,7 @@ LABEL_15:
 {
   deviceCopy = device;
   infoCopy = info;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     extendedDescription = [deviceCopy extendedDescription];
@@ -2260,15 +2307,16 @@ LABEL_15:
     v13 = *v22;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      v14 = 0;
+      do
       {
         if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
-        v16 = _TVRDXPCLog();
+        v15 = *(*(&v21 + 1) + 8 * v14);
+        v16 = _TVRDXPCLog(v11);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription2 = [deviceCopy extendedDescription];
@@ -2282,12 +2330,16 @@ LABEL_15:
         remoteObjectProxy = [v15 remoteObjectProxy];
         v19 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
         [remoteObjectProxy deviceUpdatedState:v19];
+
+        v14 = v14 + 1;
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      while (v12 != v14);
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = v11;
     }
 
-    while (v12);
+    while (v11);
   }
 }
 
@@ -2295,7 +2347,7 @@ LABEL_15:
 {
   deviceCopy = device;
   infoCopy = info;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     extendedDescription = [deviceCopy extendedDescription];
@@ -2320,15 +2372,16 @@ LABEL_15:
     v13 = *v22;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      v14 = 0;
+      do
       {
         if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
-        v16 = _TVRDXPCLog();
+        v15 = *(*(&v21 + 1) + 8 * v14);
+        v16 = _TVRDXPCLog(v11);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription2 = [deviceCopy extendedDescription];
@@ -2342,12 +2395,16 @@ LABEL_15:
         remoteObjectProxy = [v15 remoteObjectProxy];
         v19 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
         [remoteObjectProxy deviceUpdatedState:v19];
+
+        v14 = v14 + 1;
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      while (v12 != v14);
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = v11;
     }
 
-    while (v12);
+    while (v11);
   }
 }
 
@@ -2355,7 +2412,7 @@ LABEL_15:
 {
   remoteCopy = remote;
   deviceCopy = device;
-  v7 = _TVRDXPCLog();
+  v7 = _TVRDXPCLog(deviceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     extendedDescription = [deviceCopy extendedDescription];
@@ -2367,9 +2424,9 @@ LABEL_15:
     }
 
     *buf = 138543618;
-    v35 = extendedDescription;
-    v36 = 2080;
-    v37 = v10;
+    v36 = extendedDescription;
+    v37 = 2080;
+    v38 = v10;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "'%{public}@' supports find my remote: %s", buf, 0x16u);
   }
 
@@ -2379,28 +2436,28 @@ LABEL_15:
     [(TVRDServer *)self deviceQueryDidUpdateDevices:self->_generalDeviceQuery];
   }
 
-  v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
+  v31 = 0u;
   obj = self->_clientConnections;
-  v12 = [(NSMutableSet *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v12 = [(NSMutableSet *)obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v12)
   {
     v14 = v12;
-    v15 = *v30;
+    v15 = *v31;
     *&v13 = 138543618;
-    v27 = v13;
+    v28 = v13;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v30 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * i);
+        v17 = *(*(&v30 + 1) + 8 * i);
         allIdentifiers = [deviceCopy allIdentifiers];
         deviceIdentifiers = [v17 deviceIdentifiers];
         identifier = [deviceCopy identifier];
@@ -2411,33 +2468,33 @@ LABEL_15:
         else
         {
           deviceIdentifiers2 = [v17 deviceIdentifiers];
-          v22 = [deviceIdentifiers2 intersectsSet:allIdentifiers];
+          v23 = [deviceIdentifiers2 intersectsSet:allIdentifiers];
 
-          if (!v22)
+          if (!v23)
           {
             goto LABEL_19;
           }
         }
 
-        v23 = _TVRDXPCLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = _TVRDXPCLog(v21);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           extendedDescription2 = [deviceCopy extendedDescription];
-          *buf = v27;
-          v35 = v17;
-          v36 = 2114;
-          v37 = extendedDescription2;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Broadcasting to %{public}@, that paired remote was updated: %{public}@", buf, 0x16u);
+          *buf = v28;
+          v36 = v17;
+          v37 = 2114;
+          v38 = extendedDescription2;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Broadcasting to %{public}@, that paired remote was updated: %{public}@", buf, 0x16u);
         }
 
         remoteObjectProxy = [v17 remoteObjectProxy];
-        v26 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
-        [remoteObjectProxy deviceUpdatedState:v26];
+        v27 = [TVRCDeviceState deviceStateFromDevice:deviceCopy];
+        [remoteObjectProxy deviceUpdatedState:v27];
 
 LABEL_19:
       }
 
-      v14 = [(NSMutableSet *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v14 = [(NSMutableSet *)obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v14);
@@ -2446,7 +2503,7 @@ LABEL_19:
 
 - (void)devicePoweredOff:(id)off
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -2475,15 +2532,16 @@ LABEL_19:
       v9 = *v20;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        v10 = 0;
+        do
         {
           if (*v20 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
-          v12 = _TVRDXPCLog();
+          v11 = *(*(&v19 + 1) + 8 * v10);
+          v12 = _TVRDXPCLog(v7);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             extendedDescription = [attributes extendedDescription];
@@ -2497,12 +2555,16 @@ LABEL_19:
           remoteObjectProxy = [v11 remoteObjectProxy];
           v15 = [TVRCDeviceState deviceStateFromDevice:attributes];
           [remoteObjectProxy deviceUpdatedState:v15];
+
+          v10 = v10 + 1;
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        while (v8 != v10);
+        v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v8 = v7;
       }
 
-      while (v8);
+      while (v7);
     }
 
     [(NSDate *)self->_lastConnectionTimestamp timeIntervalSinceNow];
@@ -2538,15 +2600,16 @@ LABEL_19:
       v8 = *v16;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        v9 = 0;
+        do
         {
           if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
-          v11 = _TVRDXPCLog();
+          v10 = *(*(&v15 + 1) + 8 * v9);
+          v11 = _TVRDXPCLog(v6);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             extendedDescription = [v4 extendedDescription];
@@ -2560,12 +2623,16 @@ LABEL_19:
           remoteObjectProxy = [v10 remoteObjectProxy];
           v14 = [TVRCDeviceState deviceStateFromDevice:v4];
           [remoteObjectProxy deviceUpdatedState:v14];
+
+          v9 = v9 + 1;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        while (v7 != v9);
+        v6 = [v5 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v7 = v6;
       }
 
-      while (v7);
+      while (v6);
     }
   }
 }
@@ -2587,15 +2654,16 @@ LABEL_19:
       v9 = *v17;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        v10 = 0;
+        do
         {
           if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
-          v12 = _TVRDXPCLog();
+          v11 = *(*(&v16 + 1) + 8 * v10);
+          v12 = _TVRDXPCLog(v7);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             extendedDescription = [text extendedDescription];
@@ -2609,12 +2677,16 @@ LABEL_19:
           remoteObjectProxy = [v11 remoteObjectProxy];
           v15 = [TVRCDeviceState deviceStateFromDevice:text];
           [remoteObjectProxy deviceUpdatedState:v15];
+
+          v10 = v10 + 1;
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        while (v8 != v10);
+        v7 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v8 = v7;
       }
 
-      while (v8);
+      while (v7);
     }
   }
 }
@@ -2636,15 +2708,16 @@ LABEL_19:
       v9 = *v17;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        v10 = 0;
+        do
         {
           if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
-          v12 = _TVRDXPCLog();
+          v11 = *(*(&v16 + 1) + 8 * v10);
+          v12 = _TVRDXPCLog(v7);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             extendedDescription = [attributes extendedDescription];
@@ -2658,12 +2731,16 @@ LABEL_19:
           remoteObjectProxy = [v11 remoteObjectProxy];
           v15 = [TVRCDeviceState deviceStateFromDevice:attributes];
           [remoteObjectProxy deviceUpdatedState:v15];
+
+          v10 = v10 + 1;
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        while (v8 != v10);
+        v7 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v8 = v7;
       }
 
-      while (v8);
+      while (v7);
     }
   }
 }
@@ -2671,55 +2748,56 @@ LABEL_19:
 - (void)_becameInterestedInDeviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = identifierCopy;
+    v21 = identifierCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Server became interested in %{public}@", buf, 0xCu);
   }
 
   v6 = [(TVRDServer *)self _deviceForIdentifierInDeviceQuery:identifierCopy];
+  v7 = v6;
   if (v6)
   {
-    v7 = _TVRDXPCLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _TVRDXPCLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       cachedDevices = [(TVRDServer *)self cachedDevices];
       *buf = 138543618;
-      v19 = v6;
-      v20 = 2112;
-      v21 = cachedDevices;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Device Query contains device %{public}@. Adding to cachedDevices: %@", buf, 0x16u);
+      v21 = v7;
+      v22 = 2112;
+      v23 = cachedDevices;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Device Query contains device %{public}@. Adding to cachedDevices: %@", buf, 0x16u);
     }
 
-    [(NSMutableSet *)self->_cachedDevices addObject:v6];
-    v9 = _TVRDXPCLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = _TVRDXPCLog([(NSMutableSet *)self->_cachedDevices addObject:v7]);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       cachedDevices2 = [(TVRDServer *)self cachedDevices];
       *buf = 138412290;
-      v19 = cachedDevices2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "After adding interested device to cachedDevices: %@", buf, 0xCu);
+      v21 = cachedDevices2;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "After adding interested device to cachedDevices: %@", buf, 0xCu);
     }
 
-    [(TVRDServer *)self _connectToDeviceIfNeeded:v6];
+    [(TVRDServer *)self _connectToDeviceIfNeeded:v7];
   }
 
   else
   {
     isRunning = [(TVRXDeviceQuery *)self->_generalDeviceQuery isRunning];
-    v12 = _TVRDXPCLog();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    if (isRunning)
+    v13 = isRunning;
+    v14 = _TVRDXPCLog(isRunning);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    if (v13)
     {
-      if (v13)
+      if (v15)
       {
         *buf = 138412546;
-        v19 = 0;
-        v20 = 2048;
-        v21 = 0x4024000000000000;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Device Query does not contain device %@, but device query is running. Putting a %.1f second timer to find the device", buf, 0x16u);
+        v21 = 0;
+        v22 = 2048;
+        v23 = 0x4024000000000000;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Device Query does not contain device %@, but device query is running. Putting a %.1f second timer to find the device", buf, 0x16u);
       }
 
       [(NSMutableSet *)self->_identifiersRequestingConnection addObject:identifierCopy];
@@ -2728,25 +2806,25 @@ LABEL_19:
 
     else
     {
-      if (v13)
+      if (v15)
       {
         *buf = 138543362;
-        v19 = identifierCopy;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No device query running. Will attempt to locate device with ID %{public}@", buf, 0xCu);
+        v21 = identifierCopy;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No device query running. Will attempt to locate device with ID %{public}@", buf, 0xCu);
       }
 
       objc_initWeak(buf, self);
       deviceSearch = self->_deviceSearch;
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = __54__TVRDServer__becameInterestedInDeviceWithIdentifier___block_invoke;
-      v15[3] = &unk_1000209F8;
-      objc_copyWeak(&v17, buf);
-      v15[4] = self;
-      v16 = identifierCopy;
-      [(TVRXDeviceLocator *)deviceSearch findDeviceWithIdentifier:v16 timeout:v15 completion:10.0];
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = __54__TVRDServer__becameInterestedInDeviceWithIdentifier___block_invoke;
+      v17[3] = &unk_1000209F8;
+      objc_copyWeak(&v19, buf);
+      v17[4] = self;
+      v18 = identifierCopy;
+      [(TVRXDeviceLocator *)deviceSearch findDeviceWithIdentifier:v18 timeout:v17 completion:10.0];
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(buf);
     }
   }
@@ -2756,7 +2834,7 @@ void __54__TVRDServer__becameInterestedInDeviceWithIdentifier___block_invoke(uin
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(WeakRetained);
   v6 = v5;
   if (v3)
   {
@@ -2844,12 +2922,12 @@ LABEL_11:
 - (void)_lostInterestInDeviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[TVRDServer] lost interest in %{public}@", &v12, 0xCu);
+    v14 = 138543362;
+    v15 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[TVRDServer] lost interest in %{public}@", &v14, 0xCu);
   }
 
   [(TVRXDeviceLocator *)self->_deviceSearch cancelSearchForDeviceWithIdentifier:identifierCopy];
@@ -2857,36 +2935,38 @@ LABEL_11:
   [v6 cancel];
   [(NSMutableDictionary *)self->_authChallengesByID removeObjectForKey:identifierCopy];
   v7 = [(TVRDServer *)self _cachedDeviceForIdentifier:identifierCopy];
+  v8 = v7;
   if (v7)
   {
-    v8 = _TVRDXPCLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _TVRDXPCLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       cachedDevices = self->_cachedDevices;
-      v12 = 138543874;
-      v13 = identifierCopy;
-      v14 = 2114;
-      v15 = v7;
+      v14 = 138543874;
+      v15 = identifierCopy;
       v16 = 2114;
-      v17 = cachedDevices;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Server lost interest in %{public}@, disconnecting and removing device %{public}@ from cachedDevices: %{public}@", &v12, 0x20u);
+      v17 = v8;
+      v18 = 2114;
+      v19 = cachedDevices;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Server lost interest in %{public}@, disconnecting and removing device %{public}@ from cachedDevices: %{public}@", &v14, 0x20u);
     }
 
-    keyboardController = [v7 keyboardController];
+    keyboardController = [v8 keyboardController];
     [keyboardController setDelegate:0];
 
-    [v7 disconnect];
-    [(NSMutableSet *)self->_cachedDevices removeObject:v7];
+    [v8 disconnect];
+    [(NSMutableSet *)self->_cachedDevices removeObject:v8];
   }
 
-  if ([(NSMutableSet *)self->_identifiersRequestingConnection containsObject:identifierCopy])
+  v12 = [(NSMutableSet *)self->_identifiersRequestingConnection containsObject:identifierCopy];
+  if (v12)
   {
-    v11 = _TVRDXPCLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _TVRDXPCLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Server lost interest in %{public}@, removing identifier", &v12, 0xCu);
+      v14 = 138543362;
+      v15 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Server lost interest in %{public}@, removing identifier", &v14, 0xCu);
     }
 
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_informClientCouldNotLocateDeviceWithIdentifier:" object:identifierCopy];
@@ -2936,24 +3016,24 @@ LABEL_11:
 {
   deviceCopy = device;
   identifierCopy = identifier;
-  v8 = _TVRDXPCLog();
+  v8 = _TVRDXPCLog(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [deviceCopy identifier];
     *buf = 138543618;
-    v31 = identifierCopy;
-    v32 = 2114;
-    v33 = identifier;
+    v33 = identifierCopy;
+    v34 = 2114;
+    v35 = identifier;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating all client connections' deviceIdentifiers from: %{public}@ to %{public}@", buf, 0x16u);
   }
 
-  v10 = _TVRDXPCLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _TVRDXPCLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [(TVRDServer *)self countedSetDescriptionFor:self->_deviceIdentifiers];
+    v12 = [(TVRDServer *)self countedSetDescriptionFor:self->_deviceIdentifiers];
     *buf = 138543362;
-    v31 = v11;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Before updating identifiers: %{public}@", buf, 0xCu);
+    v33 = v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Before updating identifiers: %{public}@", buf, 0xCu);
   }
 
   [(NSCountedSet *)self->_deviceIdentifiers removeObject:identifierCopy];
@@ -2963,52 +3043,52 @@ LABEL_11:
 
   if ((deviceIdentifiers & 1) == 0)
   {
-    v14 = self->_deviceIdentifiers;
+    v16 = self->_deviceIdentifiers;
     identifier3 = [deviceCopy identifier];
-    [(NSCountedSet *)v14 addObject:identifier3];
+    [(NSCountedSet *)v16 addObject:identifier3];
   }
 
-  v16 = _TVRDXPCLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = _TVRDXPCLog(v15);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = [(TVRDServer *)self countedSetDescriptionFor:self->_deviceIdentifiers];
+    v19 = [(TVRDServer *)self countedSetDescriptionFor:self->_deviceIdentifiers];
     *buf = 138543362;
-    v31 = v17;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Updated Identifiers: %{public}@", buf, 0xCu);
+    v33 = v19;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Updated Identifiers: %{public}@", buf, 0xCu);
   }
 
+  v29 = 0u;
+  v30 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v18 = self->_clientConnections;
-  v19 = [(NSMutableSet *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v19)
+  v20 = self->_clientConnections;
+  v21 = [(NSMutableSet *)v20 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v21)
   {
-    v20 = v19;
-    v21 = *v26;
+    v22 = v21;
+    v23 = *v28;
     do
     {
-      v22 = 0;
+      v24 = 0;
       do
       {
-        if (*v26 != v21)
+        if (*v28 != v23)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v20);
         }
 
-        v23 = *(*(&v25 + 1) + 8 * v22);
+        v25 = *(*(&v27 + 1) + 8 * v24);
         identifier4 = [deviceCopy identifier];
-        [v23 updateDeviceIdentifier:identifierCopy to:identifier4];
+        [v25 updateDeviceIdentifier:identifierCopy to:identifier4];
 
-        v22 = v22 + 1;
+        v24 = v24 + 1;
       }
 
-      while (v20 != v22);
-      v20 = [(NSMutableSet *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      while (v22 != v24);
+      v22 = [(NSMutableSet *)v20 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
-    while (v20);
+    while (v22);
   }
 }
 
@@ -3074,7 +3154,7 @@ LABEL_10:
 
   if (![v23 count])
   {
-    v20 = _TVRDXPCLog();
+    v20 = _TVRDXPCLog(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [TVRDServer _interestedClientProcessConnectionsForDevice:deviceCopy];
@@ -3172,7 +3252,7 @@ LABEL_11:
 - (void)_connectToDeviceIfNeeded:(id)needed
 {
   neededCopy = needed;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(neededCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     extendedDescription = [neededCopy extendedDescription];
@@ -3187,7 +3267,7 @@ LABEL_11:
 
   if ([neededCopy connectionState] == 2)
   {
-    v8 = _TVRDXPCLog();
+    v8 = _TVRDXPCLog(2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       extendedDescription2 = [neededCopy extendedDescription];
@@ -3201,7 +3281,7 @@ LABEL_11:
 
   else if ([neededCopy connectionState] == 1)
   {
-    v10 = _TVRDXPCLog();
+    v10 = _TVRDXPCLog(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       extendedDescription3 = [neededCopy extendedDescription];
@@ -3284,8 +3364,7 @@ LABEL_11:
     if ([v5 isEqual:v6])
     {
       [(NSMutableSet *)self->_cachedDevices removeObject:v5];
-      [(NSMutableSet *)self->_cachedDevices addObject:v6];
-      v9 = _TVRDXPCLog();
+      v9 = _TVRDXPCLog([(NSMutableSet *)self->_cachedDevices addObject:v6]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         cachedDevices = self->_cachedDevices;
@@ -3349,28 +3428,28 @@ LABEL_11:
 
 - (void)_startGeneralDeviceQuery
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting general device query", &v9, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting general device query", &v10, 2u);
   }
 
-  v4 = _TVRDXPCLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _TVRDXPCLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     cachedDevices = [(TVRDServer *)self cachedDevices];
-    v9 = 138543362;
-    v10 = cachedDevices;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Existing cachedDevices: %{public}@", &v9, 0xCu);
+    v10 = 138543362;
+    v11 = cachedDevices;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Existing cachedDevices: %{public}@", &v10, 0xCu);
   }
 
   generalDeviceQuery = self->_generalDeviceQuery;
   if (!generalDeviceQuery)
   {
-    v7 = objc_alloc_init(TVRXDeviceQuery);
-    v8 = self->_generalDeviceQuery;
-    self->_generalDeviceQuery = v7;
+    v8 = objc_alloc_init(TVRXDeviceQuery);
+    v9 = self->_generalDeviceQuery;
+    self->_generalDeviceQuery = v8;
 
     [(TVRXDeviceQuery *)self->_generalDeviceQuery setDelegate:self];
     generalDeviceQuery = self->_generalDeviceQuery;
@@ -3425,7 +3504,7 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke(uint64_t a1, void 
       if (v8)
       {
         v9 = [TVRCDeviceState arrayOfStatesFromDevices:v3];
-        v10 = _TVRDXPCLog();
+        v10 = _TVRDXPCLog(v9);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
@@ -3473,10 +3552,11 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke(uint64_t a1, void 
 void __39__TVRDServer__activateIRSessionManager__block_invoke_90(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRDXPCLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRDXPCLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __39__TVRDServer__activateIRSessionManager__block_invoke_90_cold_1();
     }
@@ -3484,8 +3564,8 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke_90(uint64_t a1, vo
 
   else
   {
-    v4 = [*(a1 + 32) irSessionManager];
-    [v4 requestCurrentRecommendedDevices];
+    v5 = [*(a1 + 32) irSessionManager];
+    [v5 requestCurrentRecommendedDevices];
   }
 }
 
@@ -3499,7 +3579,7 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke_90(uint64_t a1, vo
 
 - (void)_stopGeneralDeviceQuery
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -3518,11 +3598,11 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke_90(uint64_t a1, vo
 - (void)_updateDevicesWithRecommendations:(id)recommendations
 {
   recommendationsCopy = recommendations;
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(recommendationsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v41 = "[TVRDServer _updateDevicesWithRecommendations:]";
+    v44 = "[TVRDServer _updateDevicesWithRecommendations:]";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -3534,100 +3614,100 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke_90(uint64_t a1, vo
   {
     irSessionManager2 = [(TVRDServer *)self irSessionManager];
     suggestedDevices2 = [irSessionManager2 suggestedDevices];
-    v11 = [NSMutableSet setWithArray:suggestedDevices2];
+    v12 = [NSMutableSet setWithArray:suggestedDevices2];
 
-    v12 = [recommendationsCopy mutableCopy];
-    v13 = _TVRDXPCLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-    {
-      [TVRDServer _updateDevicesWithRecommendations:];
-    }
-
-    v14 = _TVRDXPCLog();
+    v13 = [recommendationsCopy mutableCopy];
+    v14 = _TVRDXPCLog(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [TVRDServer _updateDevicesWithRecommendations:];
     }
 
-    v33 = recommendationsCopy;
-
-    [v12 intersectSet:v11];
-    v15 = _TVRDXPCLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = _TVRDXPCLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [TVRDServer _updateDevicesWithRecommendations:];
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    obj = v12;
-    v16 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
-    if (v16)
+    v36 = recommendationsCopy;
+
+    v17 = _TVRDXPCLog([v13 intersectSet:v12]);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v17 = v16;
-      v18 = *v37;
-      v19 = &TVRCDeviceConnectionTypeDescription_ptr;
-      v34 = *v37;
+      [TVRDServer _updateDevicesWithRecommendations:];
+    }
+
+    v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    obj = v13;
+    v18 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+    if (v18)
+    {
+      v19 = v18;
+      v20 = *v40;
+      v21 = &TVRCDeviceConnectionTypeDescription_ptr;
+      v37 = *v40;
       do
       {
-        for (i = 0; i != v17; i = i + 1)
+        for (i = 0; i != v19; i = i + 1)
         {
-          if (*v37 != v18)
+          if (*v40 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v36 + 1) + 8 * i);
-          v22 = v19[110];
-          identifier = [v21 identifier];
-          v24 = [v22 predicateWithFormat:@"identifier ==[c] %@", identifier];
-          v25 = [v11 filteredSetUsingPredicate:v24];
+          v23 = *(*(&v39 + 1) + 8 * i);
+          v24 = v21[110];
+          identifier = [v23 identifier];
+          v26 = [v24 predicateWithFormat:@"identifier ==[c] %@", identifier];
+          v27 = [v12 filteredSetUsingPredicate:v26];
 
-          anyObject = [v25 anyObject];
+          anyObject = [v27 anyObject];
+          v29 = anyObject;
           if (anyObject)
           {
-            v27 = _TVRDXPCLog();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            v30 = _TVRDXPCLog(anyObject);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              [anyObject extendedDescription];
-              v28 = v11;
-              v30 = v29 = v19;
-              [v21 extendedDescription];
-              v32 = v31 = v17;
+              [v29 extendedDescription];
+              v31 = v12;
+              v33 = v32 = v21;
+              [v23 extendedDescription];
+              v35 = v34 = v19;
               *buf = 138543618;
-              v41 = v30;
-              v42 = 2114;
-              v43 = v32;
-              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Assigning classification from suggestedDevice: %{public}@ to device: %{public}@", buf, 0x16u);
+              v44 = v33;
+              v45 = 2114;
+              v46 = v35;
+              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Assigning classification from suggestedDevice: %{public}@ to device: %{public}@", buf, 0x16u);
 
-              v17 = v31;
-              v19 = v29;
-              v11 = v28;
-              v18 = v34;
+              v19 = v34;
+              v21 = v32;
+              v12 = v31;
+              v20 = v37;
             }
 
-            [v21 setClassification:{objc_msgSend(anyObject, "classification")}];
+            [v23 setClassification:{objc_msgSend(v29, "classification")}];
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v19 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
-      while (v17);
+      while (v19);
     }
 
-    recommendationsCopy = v33;
+    recommendationsCopy = v36;
   }
 
   else
   {
-    v11 = _TVRDXPCLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _TVRDXPCLog(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "There are no suggested devices. Skipping updating devices with recommendations", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "There are no suggested devices. Skipping updating devices with recommendations", buf, 2u);
     }
   }
 }
@@ -3635,170 +3715,174 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke_90(uint64_t a1, vo
 - (void)deviceQueryDidUpdateDevices:(id)devices
 {
   devices = [devices devices];
-  v5 = _TVRDXPCLog();
+  v5 = _TVRDXPCLog(devices);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v62 = devices;
+    v63 = devices;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "General device query updated set of devices %{public}@", buf, 0xCu);
   }
 
   [TVRCDeviceState setOfStatesFromDevices:devices];
-  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  obj = v59 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+  v59 = 0u;
+  obj = v60 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v57;
+    v8 = *v58;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      v9 = 0;
+      do
       {
-        if (*v57 != v8)
+        if (*v58 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v56 + 1) + 8 * i);
-        v11 = _TVRDXPCLog();
+        v10 = *(*(&v57 + 1) + 8 * v9);
+        v11 = _TVRDXPCLog(v6);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v62 = v10;
+          v63 = v10;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Updated deviceState: %{public}@", buf, 0xCu);
         }
+
+        v9 = v9 + 1;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+      while (v7 != v9);
+      v6 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
+      v7 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
   irSessionManager = [(TVRDServer *)self irSessionManager];
   [irSessionManager processNewDevices:devices];
 
   [(TVRDServer *)self _updateDevicesWithRecommendations:devices];
-  v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
+  v54 = 0u;
   v13 = self->_deviceQueryObservers;
-  v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v52 objects:v66 count:16];
+  v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v53 objects:v67 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v53;
+    v16 = *v54;
     do
     {
-      for (j = 0; j != v15; j = j + 1)
+      for (i = 0; i != v15; i = i + 1)
       {
-        if (*v53 != v16)
+        if (*v54 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        remoteObjectProxy = [*(*(&v52 + 1) + 8 * j) remoteObjectProxy];
+        remoteObjectProxy = [*(*(&v53 + 1) + 8 * i) remoteObjectProxy];
         [remoteObjectProxy deviceQueryUpdatedDiscoveredDevices:obj];
       }
 
-      v15 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v52 objects:v66 count:16];
+      v15 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v53 objects:v67 count:16];
     }
 
     while (v15);
   }
 
-  v50 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v41 = devices;
-  v19 = [v41 countByEnumeratingWithState:&v48 objects:v65 count:16];
+  v50 = 0u;
+  v42 = devices;
+  v19 = [v42 countByEnumeratingWithState:&v49 objects:v66 count:16];
   if (v19)
   {
     v21 = v19;
-    v42 = *v49;
+    v43 = *v50;
     *&v20 = 138543362;
-    v40 = v20;
+    v41 = v20;
     do
     {
-      for (k = 0; k != v21; k = k + 1)
+      for (j = 0; j != v21; j = j + 1)
       {
-        if (*v49 != v42)
+        if (*v50 != v43)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v42);
         }
 
-        v23 = *(*(&v48 + 1) + 8 * k);
-        [v23 setDelegate:{self, v40}];
+        v23 = *(*(&v49 + 1) + 8 * j);
+        [v23 setDelegate:{self, v41}];
         identifier = [v23 identifier];
         v25 = [(TVRDServer *)self _cachedDeviceForIdentifier:identifier];
 
         if (v25)
         {
-          if ([v25 connectionState] != 2 && v25 != v23)
+          connectionState = [v25 connectionState];
+          if (connectionState != 2 && v25 != v23)
           {
-            v27 = _TVRDXPCLog();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            v28 = _TVRDXPCLog(connectionState);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               cachedDevices = [(TVRDServer *)self cachedDevices];
               *buf = 138543618;
-              v62 = cachedDevices;
-              v63 = 2114;
-              v64 = v23;
-              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Updating stale device in cachedDevices:%{public}@ with %{public}@", buf, 0x16u);
+              v63 = cachedDevices;
+              v64 = 2114;
+              v65 = v23;
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Updating stale device in cachedDevices:%{public}@ with %{public}@", buf, 0x16u);
             }
 
             [(NSMutableSet *)self->_cachedDevices removeObject:v25];
-            [(NSMutableSet *)self->_cachedDevices addObject:v23];
-            v29 = _TVRDXPCLog();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            v30 = _TVRDXPCLog([(NSMutableSet *)self->_cachedDevices addObject:v23]);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
               cachedDevices2 = [(TVRDServer *)self cachedDevices];
-              *buf = v40;
-              v62 = cachedDevices2;
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Updated cachedDevices:%{public}@", buf, 0xCu);
+              *buf = v41;
+              v63 = cachedDevices2;
+              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Updated cachedDevices:%{public}@", buf, 0xCu);
             }
           }
         }
 
-        v46 = 0u;
         v47 = 0u;
-        v44 = 0u;
+        v48 = 0u;
         v45 = 0u;
+        v46 = 0u;
         allIdentifiers = [v23 allIdentifiers];
-        v32 = [allIdentifiers countByEnumeratingWithState:&v44 objects:v60 count:16];
-        if (v32)
+        v33 = [allIdentifiers countByEnumeratingWithState:&v45 objects:v61 count:16];
+        if (v33)
         {
-          v33 = v32;
-          v34 = *v45;
+          v34 = v33;
+          v35 = *v46;
           while (2)
           {
-            for (m = 0; m != v33; m = m + 1)
+            for (k = 0; k != v34; k = k + 1)
             {
-              if (*v45 != v34)
+              if (*v46 != v35)
               {
                 objc_enumerationMutation(allIdentifiers);
               }
 
-              v36 = *(*(&v44 + 1) + 8 * m);
-              if ([(NSMutableSet *)self->_identifiersRequestingConnection containsObject:v36])
+              v37 = *(*(&v45 + 1) + 8 * k);
+              if ([(NSMutableSet *)self->_identifiersRequestingConnection containsObject:v37])
               {
-                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_informClientCouldNotLocateDeviceWithIdentifier:" object:v36];
-                [(NSMutableSet *)self->_identifiersRequestingConnection removeObject:v36];
-                v37 = _TVRDXPCLog();
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_informClientCouldNotLocateDeviceWithIdentifier:" object:v37];
+                v38 = _TVRDXPCLog([(NSMutableSet *)self->_identifiersRequestingConnection removeObject:v37]);
+                if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
                 {
                   extendedDescription = [v23 extendedDescription];
                   cachedDevices3 = [(TVRDServer *)self cachedDevices];
                   *buf = 138543618;
-                  v62 = extendedDescription;
-                  v63 = 2114;
-                  v64 = cachedDevices3;
-                  _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Adding %{public}@ to cachedDevices: %{public}@", buf, 0x16u);
+                  v63 = extendedDescription;
+                  v64 = 2114;
+                  v65 = cachedDevices3;
+                  _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Adding %{public}@ to cachedDevices: %{public}@", buf, 0x16u);
                 }
 
                 [(NSMutableSet *)self->_cachedDevices addObject:v23];
@@ -3807,8 +3891,8 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke_90(uint64_t a1, vo
               }
             }
 
-            v33 = [allIdentifiers countByEnumeratingWithState:&v44 objects:v60 count:16];
-            if (v33)
+            v34 = [allIdentifiers countByEnumeratingWithState:&v45 objects:v61 count:16];
+            if (v34)
             {
               continue;
             }
@@ -3820,7 +3904,7 @@ void __39__TVRDServer__activateIRSessionManager__block_invoke_90(uint64_t a1, vo
 LABEL_46:
       }
 
-      v21 = [v41 countByEnumeratingWithState:&v48 objects:v65 count:16];
+      v21 = [v42 countByEnumeratingWithState:&v49 objects:v66 count:16];
     }
 
     while (v21);
@@ -3845,22 +3929,20 @@ void __81__TVRDServer_clientConnection_addedInterestedDeviceIdentifier_connectio
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Could not find cached device with ID %{public}@, even though someone is already interested in that device. All cachedDevices - %{public}@", &v5, 0x16u);
 }
 
-void __77__TVRDServer_clientConnection_requestsSendingButtonEvent_toDeviceIdentifier___block_invoke_cold_1(uint64_t *a1, id *a2)
+void __77__TVRDServer_clientConnection_requestsSendingButtonEvent_toDeviceIdentifier___block_invoke_cold_1(uint64_t a1, id *a2)
 {
-  v2 = *a1;
-  v3 = [*a2 cachedDevices];
+  v2 = [*a2 cachedDevices];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __76__TVRDServer_clientConnection_requestsSendingTouchEvent_toDeviceIdentifier___block_invoke_cold_1(uint64_t *a1, id *a2)
+void __76__TVRDServer_clientConnection_requestsSendingTouchEvent_toDeviceIdentifier___block_invoke_cold_1(uint64_t a1, id *a2)
 {
-  v2 = *a1;
-  v3 = [*a2 cachedDevices];
+  v2 = [*a2 cachedDevices];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __86__TVRDServer_clientConnection_requestsEnablingFindingSession_forDeviceWithIdentifier___block_invoke_cold_1(void *a1)
@@ -3869,6 +3951,13 @@ void __86__TVRDServer_clientConnection_requestsEnablingFindingSession_forDeviceW
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+}
+
+void __54__TVRDServer__becameInterestedInDeviceWithIdentifier___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_1(&_mh_execute_header, a2, a3, "Could not locate device with ID %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_interestedClientProcessConnectionsForDevice:(void *)a1 .cold.1(void *a1)

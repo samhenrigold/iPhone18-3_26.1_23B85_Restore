@@ -17,7 +17,7 @@ void AirPlayReceiverXPCClient_SetDelegateWithQueue(NSObject *a1, NSObject *a2)
           dispatch_set_finalizer_f(*v6, _AirPlayReceiverXPCClient_Finalize);
           if (gLogCategory_AirPlayReceiverXPCClientCore <= 30 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "OSStatus AirPlayReceiverXPCClient_Create(AirPlayReceiverXPCClientRef *)", 33554462, "Created %{ptr}\n", v6);
           }
 
           gAirPlayReceiverXPCClient = v6;
@@ -63,7 +63,7 @@ void AirPlayReceiverXPCClient_SetDelegateWithQueue(NSObject *a1, NSObject *a2)
   {
     if (gLogCategory_AirPlayReceiverXPCClientCore <= 30 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void AirPlayReceiverXPCClient_Delete(AirPlayReceiverXPCClientRef)", 33554462, "Deleting %{ptr}\n", v2);
     }
 
     v8 = dispatch_semaphore_create(0);
@@ -99,28 +99,28 @@ void _AirPlayReceiverXPCClient_Delete(uint64_t a1)
   dispatch_release(*a1);
   if (gLogCategory_AirPlayReceiverXPCClientCore <= 30 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void _AirPlayReceiverXPCClient_Delete(void *)", 33554462, "Deleted   %{ptr}\n", a1);
   }
 }
 
-void _AirPlayReceiverXPCClient_StopAllActiveSessions(_BYTE *a1)
+void _AirPlayReceiverXPCClient_StopAllActiveSessions(_BYTE *result)
 {
-  if (!a1[56])
+  if (!result[56])
   {
-    if (a1[57])
+    if (result[57])
     {
-      _AirPlayReceiverXPCClient_StopAudio(a1, 0);
+      _AirPlayReceiverXPCClient_StopAudio(result, 0);
     }
 
-    if (a1[58])
+    if (result[58])
     {
-      _AirPlayReceiverXPCClient_StopPresentation(a1, 0);
+      _AirPlayReceiverXPCClient_StopPresentation(result, 0);
     }
 
-    if (a1[59])
+    if (result[59])
     {
 
-      _AirPlayReceiverXPCClient_StopVideo(a1, 0);
+      _AirPlayReceiverXPCClient_StopVideo(result, 0);
     }
   }
 }
@@ -176,9 +176,9 @@ LABEL_8:
   _Block_object_dispose(&v8, 8);
 }
 
-void sub_2585664F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2585664F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -220,7 +220,7 @@ void _AirPlayReceiverXPCClient_StopPresentation(uint64_t a1, void *a2)
   {
     if (gLogCategory_AirPlayReceiverXPCClientCore <= 40 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void _AirPlayReceiverXPCClient_StopPresentation(AirPlayReceiverXPCClientRef, xpc_object_t)", 33554472, "Stopping presentation\n");
     }
 
     *(a1 + 40) = 0;
@@ -256,7 +256,7 @@ void _AirPlayReceiverXPCClient_StopPresentation(uint64_t a1, void *a2)
 
   if (gLogCategory_AirPlayReceiverXPCClientCore <= 50 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void _AirPlayReceiverXPCClient_StopPresentation(AirPlayReceiverXPCClientRef, xpc_object_t)", 33554482, "Ignoring stop of inactive presentation\n");
   }
 
   *(v9 + 6) = 0;
@@ -274,9 +274,9 @@ LABEL_20:
   _Block_object_dispose(&v8, 8);
 }
 
-void sub_258566794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_258566794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -332,25 +332,25 @@ LABEL_8:
   _Block_object_dispose(&v8, 8);
 }
 
-void sub_258566904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_258566904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258567BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_258567BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
   v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -362,8 +362,7 @@ void _AirPlayReceiverXPCClient_SendPingMsg(uint64_t a1)
   xpc_dictionary_set_string(v2, "function", "ping");
   if (gLogCategory_AirPlayReceiverXPCClientCore <= 30 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
   {
-    v3 = *(a1 + 24);
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void _AirPlayReceiverXPCClient_SendPingMsg(AirPlayReceiverXPCClientRef)", 33554462, "Posting Ping message(%{ptr})\n", *(a1 + 24));
   }
 
   xpc_connection_send_message(*(a1 + 24), v2);
@@ -379,7 +378,7 @@ void _AirPlayReceiverXPCClient_HideProgress(uint64_t a1, void *a2)
   v10 = 0;
   if (gLogCategory_AirPlayReceiverXPCClientCore <= 40 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void _AirPlayReceiverXPCClient_HideProgress(AirPlayReceiverXPCClientRef, xpc_object_t)", 33554472, "Hiding presentation progress\n");
   }
 
   if (*(a1 + 32))
@@ -407,151 +406,147 @@ void _AirPlayReceiverXPCClient_HideProgress(uint64_t a1, void *a2)
   _Block_object_dispose(&v7, 8);
 }
 
-void sub_258568044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258568044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void _AirPlayReceiverXPCClient_StartVideo(uint64_t a1, void *a2)
 {
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3052000000;
-  v27 = __Block_byref_object_copy_;
-  v28 = __Block_byref_object_dispose_;
   v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3052000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = 0;
   v4 = xpc_dictionary_copy_cf_object();
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v5 = [v4 objectForKey:@"Content-Location"], objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     APSLogErrorAt();
-    *(v31 + 6) = -6756;
+    *(v30 + 6) = -6756;
     goto LABEL_28;
   }
 
   Value = CFDictionaryGetValue(v4, @"cookies");
   v7 = Value;
-  if (!Value)
+  if (Value)
   {
-    goto LABEL_23;
-  }
-
-  v8 = CFGetTypeID(Value);
-  if (v8 != CFArrayGetTypeID())
-  {
-    goto LABEL_23;
-  }
-
-  if (_CFHTTPCookieStorageGetDefault())
-  {
-    v9 = CFURLCreateWithString(0, v5, 0);
-    if (v9)
+    v8 = CFGetTypeID(Value);
+    if (v8 == CFArrayGetTypeID())
     {
-      v10 = CFHTTPCookieStorageCopyCookiesForURL();
-      CFRelease(v9);
-      if (v10)
+      if (_CFHTTPCookieStorageGetDefault())
       {
-        Count = CFArrayGetCount(v10);
-        if (Count >= 1)
+        v9 = CFURLCreateWithString(0, v5, 0);
+        if (v9)
         {
-          for (i = 0; i != Count; ++i)
+          v10 = CFHTTPCookieStorageCopyCookiesForURL();
+          CFRelease(v9);
+          if (v10)
           {
-            CFArrayGetValueAtIndex(v10, i);
-            CFHTTPCookieStorageDeleteCookie();
+            Count = CFArrayGetCount(v10);
+            if (Count >= 1)
+            {
+              for (i = 0; i != Count; ++i)
+              {
+                CFArrayGetValueAtIndex(v10, i);
+                CFHTTPCookieStorageDeleteCookie();
+              }
+            }
+
+            CFRelease(v10);
           }
-        }
 
-        CFRelease(v10);
-      }
-
-      v13 = CFArrayGetCount(v7);
-      if (v13 < 1)
-      {
+          v13 = CFArrayGetCount(v7);
+          if (v13 < 1)
+          {
 LABEL_19:
-        *(v31 + 6) = 0;
-        if (gLogCategory_AirPlayReceiverXPCClientCore <= 20 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
-        {
-          goto LABEL_21;
+            *(v30 + 6) = 0;
+            if (gLogCategory_AirPlayReceiverXPCClientCore <= 20 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void _AirPlayReceiverXPCClient_StartVideo(AirPlayReceiverXPCClientRef, xpc_object_t)", 33554452, "Set cookies for URL '%@':\n%@\n", v5, v7);
+            }
+
+            goto LABEL_23;
+          }
+
+          v14 = 0;
+          while (1)
+          {
+            ValueAtIndex = CFArrayGetValueAtIndex(v7, v14);
+            if (!ValueAtIndex || (v16 = CFGetTypeID(ValueAtIndex), v16 != CFDictionaryGetTypeID()))
+            {
+              v21 = 4294960540;
+              goto LABEL_33;
+            }
+
+            v17 = CFHTTPCookieCreateWithProperties();
+            if (!v17)
+            {
+              break;
+            }
+
+            CFHTTPCookieStorageSetCookie();
+            CFRelease(v17);
+            if (v13 == ++v14)
+            {
+              goto LABEL_19;
+            }
+          }
+
+          v21 = 4294960596;
         }
 
-        goto LABEL_23;
+        else
+        {
+          v21 = 4294960596;
+        }
       }
 
-      v14 = 0;
-      while (1)
+      else
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v7, v14);
-        if (!ValueAtIndex || (v16 = CFGetTypeID(ValueAtIndex), v16 != CFDictionaryGetTypeID()))
-        {
-          v21 = -6756;
-          goto LABEL_33;
-        }
-
-        v17 = CFHTTPCookieCreateWithProperties();
-        if (!v17)
-        {
-          break;
-        }
-
-        CFHTTPCookieStorageSetCookie();
-        CFRelease(v17);
-        if (v13 == ++v14)
-        {
-          goto LABEL_19;
-        }
+        v21 = 4294960596;
       }
-
-      v21 = -6700;
-    }
-
-    else
-    {
-      v21 = -6700;
-    }
-  }
-
-  else
-  {
-    v21 = -6700;
-  }
 
 LABEL_33:
-  APSLogErrorAt();
-  *(v31 + 6) = v21;
-  if (gLogCategory_AirPlayReceiverXPCClientCore <= 60)
-  {
-    if (gLogCategory_AirPlayReceiverXPCClientCore != -1)
-    {
-LABEL_21:
-      LogPrintF();
-      goto LABEL_23;
-    }
+      APSLogErrorAt();
+      *(v30 + 6) = v21;
+      if (gLogCategory_AirPlayReceiverXPCClientCore <= 60)
+      {
+        if (gLogCategory_AirPlayReceiverXPCClientCore != -1)
+        {
+LABEL_35:
+          LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void _AirPlayReceiverXPCClient_StartVideo(AirPlayReceiverXPCClientRef, xpc_object_t)", 33554492, "### Set cookies failed for URL %@: %#m\n", v5, v21);
+          goto LABEL_23;
+        }
 
-    if (_LogCategory_Initialize())
-    {
-      v22 = *(v31 + 6);
-      goto LABEL_21;
+        if (_LogCategory_Initialize())
+        {
+          v21 = *(v30 + 6);
+          goto LABEL_35;
+        }
+      }
     }
   }
 
 LABEL_23:
-  *(v31 + 6) = -6700;
+  *(v30 + 6) = -6700;
   v18 = *(a1 + 8);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = ___AirPlayReceiverXPCClient_StartVideo_block_invoke;
   block[3] = &unk_27989A2E0;
   block[4] = v4;
-  block[5] = &v30;
-  block[6] = &v24;
+  block[5] = &v29;
+  block[6] = &v23;
   block[7] = a1;
   dispatch_sync(v18, block);
-  if (!*(v31 + 6))
+  if (!*(v30 + 6))
   {
     *(a1 + 59) = 1;
     if (v4)
@@ -569,8 +564,8 @@ LABEL_23:
 
 LABEL_28:
   reply = xpc_dictionary_create_reply(a2);
-  xpc_dictionary_set_int64(reply, "error", *(v31 + 6));
-  if (v25[5])
+  xpc_dictionary_set_int64(reply, "error", *(v30 + 6));
+  if (v24[5])
   {
     xpc_dictionary_set_cf_object();
   }
@@ -578,15 +573,15 @@ LABEL_28:
   xpc_connection_send_message(*(a1 + 24), reply);
   xpc_release(reply);
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v29, 8);
 }
 
-void sub_25856850C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25856850C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 120), 8);
+  _Block_object_dispose((v19 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -653,11 +648,11 @@ void _AirPlayReceiverXPCClient_StartAudio(uint64_t a1, void *a2)
   _Block_object_dispose(&v15, 8);
 }
 
-void sub_25856873C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25856873C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -705,9 +700,9 @@ LABEL_4:
   _Block_object_dispose(&v10, 8);
 }
 
-void sub_2585688D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2585688D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -737,9 +732,9 @@ void _AirPlayReceiverXPCClient_UpdateAudioProgress(uint64_t a1, xpc_object_t xdi
   _Block_object_dispose(&v9, 8);
 }
 
-void sub_2585689F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2585689F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -765,7 +760,7 @@ void _AirPlayReceiverXPCClient_Finalize(void *a1)
 
   if (gLogCategory_AirPlayReceiverXPCClientCore <= 30 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void _AirPlayReceiverXPCClient_Finalize(void *)", 33554462, "Finalized %{ptr}\n", a1);
   }
 
   free(a1);
@@ -820,7 +815,7 @@ LABEL_7:
   APSLogErrorAt();
   if (gLogCategory_AirPlayReceiverXPCClientCore <= 60 && (gLogCategory_AirPlayReceiverXPCClientCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverXPCClientCore, "void AirPlayReceiverXPCClient_PostEvent(const char *, CFTypeRef)", 33554492, "### Bad event params:\n%1@\n", cf);
   }
 }
 
@@ -851,148 +846,134 @@ void aprmrc_handleEvents(CFTypeRef cf1, const __CFDictionary *a2)
   v4 = APReceiverMediaRemoteXPCClientGetShared_mediaRemoteXPCClient;
   if (gLogCategory_APReceiverMediaRemoteXPCClient <= 40 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
   {
-    v17 = cf1;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleEvents(CFStringRef, CFDictionaryRef)", 33554472, "Got event: %@\n", cf1);
   }
 
-  if (!CFEqual(cf1, @"didReceiveMediaRemoteData"))
+  if (CFEqual(cf1, @"didReceiveMediaRemoteData"))
   {
-    if (CFEqual(cf1, @"didCloseCommChannel"))
+    Value = CFDictionaryGetValue(a2, @"objectID");
+    v6 = CFDictionaryGetValue(a2, @"data");
+    if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
     {
-      Value = CFDictionaryGetValue(a2, @"objectID");
-      pthread_mutex_lock((v4 + 24));
-      v8 = CFDictionaryGetValue(*(v4 + 8), Value);
-      v9 = v8;
-      if (v8)
-      {
-        CFRetain(v8);
-        [(APReceiverMediaRemoteCommunicationChannel *)v9 invalidate];
-        CFDictionaryRemoveValue(*(v4 + 8), Value);
-        CFDictionaryRemoveValue(*(v4 + 16), Value);
-      }
+      Length = CFDataGetLength(v6);
+      LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleEvents(CFStringRef, CFDictionaryRef)", 33554482, "Got event: %@ Payload size: %d\n", cf1, Length);
+    }
 
+    pthread_mutex_lock((v4 + 24));
+    v14 = CFDictionaryGetValue(*(v4 + 8), Value);
+    if (v14)
+    {
+      v13 = v14;
+      CFRetain(v14);
+    }
+
+    else
+    {
+      v13 = [[APReceiverMediaRemoteCommunicationChannel alloc] initWithDictionary:a2];
+      CFDictionaryAddValue(*(v4 + 8), Value, v13);
       if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
       {
-        v18 = *(v4 + 8);
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleEvents(CFStringRef, CFDictionaryRef)", 33554482, "Client communication channels dictionary after addition: %@\n", *(v4 + 8));
       }
+    }
 
-      pthread_mutex_unlock((v4 + 24));
-      [*v4 didCloseCommunicationChannel:v9];
-      if (v9)
-      {
-        v15 = v9;
+    pthread_mutex_unlock((v4 + 24));
+    [*v4 didReceiveData:v6 fromCommunicationChannel:v13];
+    if (v13)
+    {
+LABEL_37:
+      v17 = v13;
+      goto LABEL_38;
+    }
+  }
+
+  else if (CFEqual(cf1, @"didCloseCommChannel"))
+  {
+    v8 = CFDictionaryGetValue(a2, @"objectID");
+    pthread_mutex_lock((v4 + 24));
+    v9 = CFDictionaryGetValue(*(v4 + 8), v8);
+    v10 = v9;
+    if (v9)
+    {
+      CFRetain(v9);
+      [(APReceiverMediaRemoteCommunicationChannel *)v10 invalidate];
+      CFDictionaryRemoveValue(*(v4 + 8), v8);
+      CFDictionaryRemoveValue(*(v4 + 16), v8);
+    }
+
+    if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleEvents(CFStringRef, CFDictionaryRef)", 33554482, "Client communication channels dictionary after deletion: %@\n", *(v4 + 8));
+    }
+
+    pthread_mutex_unlock((v4 + 24));
+    [*v4 didCloseCommunicationChannel:v10];
+    if (v10)
+    {
+      v17 = v10;
 LABEL_38:
 
-        CFRelease(v15);
-        return;
-      }
-
-      return;
+      CFRelease(v17);
     }
+  }
 
-    if (!CFEqual(cf1, @"didSetupReverseCommChannel"))
-    {
-      if (CFEqual(cf1, @"failedToSetupReverseCommChannel"))
-      {
-        CFDictionaryGetInt64Ranged();
-        v14 = CFDictionaryGetValue(a2, @"clientUUID");
-        if (gLogCategory_APReceiverMediaRemoteXPCClient <= 90 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
-        {
-          LogPrintF();
-        }
-
-        v16 = *v4;
-
-        [v16 failedToSetupReverseCommunicationChannel:v14];
-      }
-
-      else if (!CFEqual(cf1, @"connectAck") && gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF();
-      }
-
-      return;
-    }
-
-    v10 = CFDictionaryGetValue(a2, @"objectID");
+  else if (CFEqual(cf1, @"didSetupReverseCommChannel"))
+  {
+    v11 = CFDictionaryGetValue(a2, @"objectID");
     pthread_mutex_lock((v4 + 24));
-    v11 = CFDictionaryGetValue(*(v4 + 8), v10);
-    if (v11)
+    v12 = CFDictionaryGetValue(*(v4 + 8), v11);
+    if (v12)
     {
-      v12 = v11;
-      CFRetain(v11);
+      v13 = v12;
+      CFRetain(v12);
       if (gLogCategory_APReceiverMediaRemoteXPCClient < 91 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
       {
-        [(APReceiverMediaRemoteCommunicationChannel *)v12 uuid];
-        v21 = *(v4 + 8);
-LABEL_44:
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleEvents(CFStringRef, CFDictionaryRef)", 33554522, "### Comm channel with ID %@ UUID %@ already exists: %@\n", v11, [(APReceiverMediaRemoteCommunicationChannel *)v13 uuid], *(v4 + 8));
       }
     }
 
     else
     {
-      v12 = [[APReceiverMediaRemoteCommunicationChannel alloc] initWithDictionary:a2];
-      CFDictionaryAddValue(*(v4 + 8), v10, v12);
-      CFDictionaryAddValue(*(v4 + 16), v10, v12);
+      v13 = [[APReceiverMediaRemoteCommunicationChannel alloc] initWithDictionary:a2];
+      CFDictionaryAddValue(*(v4 + 8), v11, v13);
+      CFDictionaryAddValue(*(v4 + 16), v11, v13);
       if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
       {
-        v20 = *(v4 + 8);
-        goto LABEL_44;
+        LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleEvents(CFStringRef, CFDictionaryRef)", 33554482, "Client communication channels dictionary after addition: %@\n", *(v4 + 8));
       }
     }
 
     pthread_mutex_unlock((v4 + 24));
-    [*v4 didSetupReverseCommunicationChannel:v12];
-    if (!v12)
+    [*v4 didSetupReverseCommunicationChannel:v13];
+    if (v13)
     {
-      return;
-    }
-
-    goto LABEL_37;
-  }
-
-  v5 = CFDictionaryGetValue(a2, @"objectID");
-  v6 = CFDictionaryGetValue(a2, @"data");
-  if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
-  {
-    CFDataGetLength(v6);
-    LogPrintF();
-  }
-
-  pthread_mutex_lock((v4 + 24));
-  v13 = CFDictionaryGetValue(*(v4 + 8), v5);
-  if (v13)
-  {
-    v12 = v13;
-    CFRetain(v13);
-  }
-
-  else
-  {
-    v12 = [[APReceiverMediaRemoteCommunicationChannel alloc] initWithDictionary:a2];
-    CFDictionaryAddValue(*(v4 + 8), v5, v12);
-    if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
-    {
-      v19 = *(v4 + 8);
-      LogPrintF();
+      goto LABEL_37;
     }
   }
 
-  pthread_mutex_unlock((v4 + 24));
-  [*v4 didReceiveData:v6 fromCommunicationChannel:v12];
-  if (v12)
+  else if (CFEqual(cf1, @"failedToSetupReverseCommChannel"))
   {
-LABEL_37:
-    v15 = v12;
-    goto LABEL_38;
+    Int64Ranged = CFDictionaryGetInt64Ranged();
+    v16 = CFDictionaryGetValue(a2, @"clientUUID");
+    if (gLogCategory_APReceiverMediaRemoteXPCClient <= 90 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleEvents(CFStringRef, CFDictionaryRef)", 33554522, "### Reverse communication channel creation for UUID %@ failed with err %m\n", v16, Int64Ranged);
+    }
+
+    v18 = *v4;
+
+    [v18 failedToSetupReverseCommunicationChannel:v16];
+  }
+
+  else if (!CFEqual(cf1, @"connectAck") && gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleEvents(CFStringRef, CFDictionaryRef)", 33554482, "Event %@ not supported\n", cf1);
   }
 }
 
 uint64_t __APReceiverMediaRemoteXPCClientGetShared_block_invoke()
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v0 = malloc_type_calloc(1uLL, 0x58uLL, 0x10A004096F084F8uLL);
   if (v0)
   {
@@ -1018,13 +999,12 @@ uint64_t __APReceiverMediaRemoteXPCClientGetShared_block_invoke()
 
   if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
   {
-    v14 = @"com.apple.airplay.receiver.mediaremote.agent.services";
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void _StartAgentService(void)", 33554482, "Starting %@ server", @"com.apple.airplay.receiver.mediaremote.agent.services");
   }
 
-  v15 = *MEMORY[0x277CEA3A0];
-  v16[0] = @"com.apple.airplay.receiver.mediaremote.agent.services.allow";
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:{1, v14}];
+  v13 = *MEMORY[0x277CEA3A0];
+  v14[0] = @"com.apple.airplay.receiver.mediaremote.agent.services.allow";
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   result = APSXPCServerStart();
   if (result)
   {
@@ -1032,15 +1012,15 @@ uint64_t __APReceiverMediaRemoteXPCClientGetShared_block_invoke()
     {
       if (gLogCategory_APReceiverMediaRemoteXPCClient != -1)
       {
-        goto LABEL_16;
+        return LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void _StartAgentService(void)", 33554522, "Failed to start %@ with err: %d", @"com.apple.airplay.receiver.mediaremote.agent.services", result);
       }
 
-      v10 = result;
-      v11 = _LogCategory_Initialize();
-      result = v10;
-      if (v11)
+      v9 = result;
+      v10 = _LogCategory_Initialize();
+      result = v9;
+      if (v10)
       {
-        goto LABEL_16;
+        return LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void _StartAgentService(void)", 33554522, "Failed to start %@ with err: %d", @"com.apple.airplay.receiver.mediaremote.agent.services", result);
       }
     }
   }
@@ -1052,16 +1032,22 @@ uint64_t __APReceiverMediaRemoteXPCClientGetShared_block_invoke()
     {
       if (gLogCategory_APReceiverMediaRemoteXPCClient <= 90)
       {
-        if (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || (v12 = result, v13 = _LogCategory_Initialize(), result = v12, v13))
+        if (gLogCategory_APReceiverMediaRemoteXPCClient != -1)
         {
-LABEL_16:
-          result = LogPrintF();
+          return LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void _StartAgentService(void)", 33554522, "Failed to add command handler for %@ command with err: %d", @"connect", result);
+        }
+
+        v11 = result;
+        v12 = _LogCategory_Initialize();
+        result = v11;
+        if (v12)
+        {
+          return LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void _StartAgentService(void)", 33554522, "Failed to add command handler for %@ command with err: %d", @"connect", result);
         }
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1071,31 +1057,31 @@ uint64_t _HandleReceiverProcessConnect(uint64_t a1, uint64_t a2, void *a3)
   {
     if (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "OSStatus _HandleReceiverProcessConnect(CFStringRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "Agent server received %'@ from the receiver process\n", a1);
     }
 
     if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "OSStatus _HandleReceiverProcessConnect(CFStringRef, CFDictionaryRef, CFDictionaryRef *)", 33554482, "Sending %'@ to %@\n", @"connect", @"com.apple.airplay.receiver.mediaremote.services");
     }
   }
 
-  v4 = APSXPCClientSendCommandCreatingReply();
-  if (v4 && gLogCategory_APReceiverMediaRemoteXPCClient <= 90 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
+  v5 = APSXPCClientSendCommandCreatingReply();
+  if (v5 && gLogCategory_APReceiverMediaRemoteXPCClient <= 90 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "OSStatus _HandleReceiverProcessConnect(CFStringRef, CFDictionaryRef, CFDictionaryRef *)", 33554522, "Connect to %@ failed with error: %#m\n", @"com.apple.airplay.receiver.mediaremote.services", v5);
   }
 
   *a3 = 0;
-  return v4;
+  return v5;
 }
 
-void aprmrc_handleServerDeath()
+void aprmrc_handleServerDeath(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
   {
-    getprogname();
-    LogPrintF();
+    v4 = getprogname();
+    LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleServerDeath(CFNotificationCenterRef, void *, CFStringRef, const void *, CFDictionaryRef)", 33554482, "### %s: got '%@' notification.\n", v4, a3);
   }
 
   global_queue = dispatch_get_global_queue(0, 0);
@@ -1145,23 +1131,28 @@ uint64_t __aprmrc_handleServerDeath_block_invoke()
 
   else if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleServerDeath(CFNotificationCenterRef, void *, CFStringRef, const void *, CFDictionaryRef)_block_invoke", 33554482, "No commChannels created until now.\n");
   }
 
   result = pthread_mutex_unlock((v0 + 24));
   if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50)
   {
-    if (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APReceiverMediaRemoteXPCClient != -1)
     {
-      v9 = *(v0 + 8);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleServerDeath(CFNotificationCenterRef, void *, CFStringRef, const void *, CFDictionaryRef)_block_invoke", 33554482, "Client communication channels dictionary after comm channel closure: %@\n", *(v0 + 8));
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void aprmrc_handleServerDeath(CFNotificationCenterRef, void *, CFStringRef, const void *, CFDictionaryRef)_block_invoke", 33554482, "Client communication channels dictionary after comm channel closure: %@\n", *(v0 + 8));
     }
   }
 
   return result;
 }
 
-uint64_t APReceiverMediaRemoteXPCClient_CopyProperty(const void *a1, int *a2)
+const void *APReceiverMediaRemoteXPCClient_CopyProperty(const void *a1, int *a2)
 {
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v5 = Mutable;
@@ -1170,7 +1161,7 @@ uint64_t APReceiverMediaRemoteXPCClient_CopyProperty(const void *a1, int *a2)
     CFDictionarySetValue(Mutable, @"propertyKey", a1);
     if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "CFTypeRef  _Nonnull APReceiverMediaRemoteXPCClient_CopyProperty(CFStringRef _Nonnull, OSStatus * _Nonnull)", 33554482, "Copy property %@ from server\n", a1);
     }
 
     v6 = APSXPCClientSendCommandCreatingReply();
@@ -1221,7 +1212,7 @@ uint64_t APReceiverMediaRemoteXPCClient_SetProperty(const void *a1, const void *
       CFDictionarySetValue(v5, @"propertyValue", a2);
       if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "OSStatus APReceiverMediaRemoteXPCClient_SetProperty(CFStringRef _Nonnull, CFTypeRef _Nonnull)", 33554482, "Set property %@ to value %@\n", a1, a2);
       }
 
       v6 = APSXPCClientSendCommandCreatingReply();
@@ -1258,7 +1249,7 @@ void APReceiverMediaRemoteXPCClient_SetupReverseRemoteCommunicationChannel(const
     CFDictionarySetValue(Mutable, @"clientUUID", a1);
     if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "void APReceiverMediaRemoteXPCClient_SetupReverseRemoteCommunicationChannel(CFStringRef _Nonnull)", 33554482, "SetupReverseRemoteControlChannel with UUID %@ from server\n", a1);
     }
 
     if (APSXPCClientSendCommandCreatingReply())
@@ -1304,7 +1295,7 @@ uint64_t APReceiverMediaRemoteXPCClient_TeardownReverseRemoteCommunicationChanne
         CFDictionarySetValue(Mutable, @"objectID", v4);
         if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "OSStatus APReceiverMediaRemoteXPCClient_TeardownReverseRemoteCommunicationChannel(APReceiverMediaRemoteCommunicationChannel * _Nonnull)", 33554482, "Teardown with objectID %@ from server\n", v4);
         }
 
         v8 = APSXPCClientSendCommandCreatingReply();

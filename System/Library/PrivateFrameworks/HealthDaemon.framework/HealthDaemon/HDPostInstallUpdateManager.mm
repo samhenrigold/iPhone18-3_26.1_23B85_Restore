@@ -34,7 +34,7 @@
 
 - (void)start
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (_HDIsUnitTesting)
   {
     _HKInitializeLogging();
@@ -43,7 +43,7 @@
     {
       v4 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v16 = v4;
+      v15 = v4;
       _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "note: skipping %@ because we're unit testing", buf, 0xCu);
     }
   }
@@ -55,20 +55,18 @@
     v7 = HKLogInfrastructure();
     WeakRetained = objc_loadWeakRetained(&self->_daemon);
     systemScheduler = [WeakRetained systemScheduler];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __35__HDPostInstallUpdateManager_start__block_invoke;
-    v13[3] = &unk_278620518;
-    objc_copyWeak(&v14, buf);
-    v10 = [v6 initWithName:@"com.apple.healthd.post-install-update.fastpass" loggingCategory:v7 scheduler:systemScheduler handler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __35__HDPostInstallUpdateManager_start__block_invoke;
+    v12[3] = &unk_278620518;
+    objc_copyWeak(&v13, buf);
+    v10 = [v6 initWithName:@"com.apple.healthd.post-install-update.fastpass" loggingCategory:v7 scheduler:systemScheduler handler:v12];
     fastPassTask = self->_fastPassTask;
     self->_fastPassTask = v10;
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __35__HDPostInstallUpdateManager_start__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -84,7 +82,7 @@ void __35__HDPostInstallUpdateManager_start__block_invoke(uint64_t a1, void *a2,
 
 - (void)_postInstallUpdateHandlerDidFire:(id)fire completion:(id)completion
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   completionCopy = completion;
   _HKInitializeLogging();
@@ -99,43 +97,43 @@ void __35__HDPostInstallUpdateManager_start__block_invoke(uint64_t a1, void *a2,
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Updated to %{public}@; performing post-install update tasks.", &buf, 0xCu);
   }
 
-  v48 = objc_alloc_init(MEMORY[0x277D10BB0]);
-  v72[0] = 0;
-  v72[1] = v72;
-  v72[2] = 0x2020000000;
-  v73 = 0;
-  v69[0] = MEMORY[0x277D85DD0];
-  v69[1] = 3221225472;
-  v69[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke;
-  v69[3] = &unk_278620568;
-  v69[4] = self;
-  v71 = v72;
-  v46 = completionCopy;
-  v70 = v46;
-  [v48 setDidFinish:v69];
+  v47 = objc_alloc_init(MEMORY[0x277D10BB0]);
+  v71[0] = 0;
+  v71[1] = v71;
+  v71[2] = 0x2020000000;
+  v72 = 0;
+  v68[0] = MEMORY[0x277D85DD0];
+  v68[1] = 3221225472;
+  v68[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke;
+  v68[3] = &unk_278620568;
+  v68[4] = self;
+  v70 = v71;
+  v45 = completionCopy;
+  v69 = v45;
+  [v47 setDidFinish:v68];
   v10 = objc_loadWeakRetained(&self->_daemon);
   behavior2 = [v10 behavior];
   isDeviceSupported = [behavior2 isDeviceSupported];
 
   if (isDeviceSupported)
   {
-    [v48 beginTask];
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_306;
-    v66[3] = &unk_278620590;
-    v66[4] = self;
-    v68 = v72;
-    v67 = v46;
-    [fireCopy addExpirationHandler:v66];
-    [v48 beginTask];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_3;
-    v64[3] = &unk_278613968;
-    v13 = v48;
-    v65 = v13;
-    v14 = v64;
+    [v47 beginTask];
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_306;
+    v65[3] = &unk_278620590;
+    v65[4] = self;
+    v67 = v71;
+    v66 = v45;
+    [fireCopy addExpirationHandler:v65];
+    [v47 beginTask];
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_3;
+    v63[3] = &unk_278613968;
+    v13 = v47;
+    v64 = v13;
+    v14 = v63;
     v15 = v14;
     if (!self)
     {
@@ -148,18 +146,18 @@ void __35__HDPostInstallUpdateManager_start__block_invoke(uint64_t a1, void *a2,
     medicalIDDataManager = [primaryProfile medicalIDDataManager];
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v77 = __76__HDPostInstallUpdateManager__migrateEmergencySOSIfNecessaryWithCompletion___block_invoke;
-    v78 = &unk_2786130D8;
+    v76 = __76__HDPostInstallUpdateManager__migrateEmergencySOSIfNecessaryWithCompletion___block_invoke;
+    v77 = &unk_2786130D8;
     v19 = v15;
-    v79 = v19;
+    v78 = v19;
     [medicalIDDataManager runEmergencyContactConsolidationWithCompletion:&buf];
 
     v20 = objc_loadWeakRetained(&self->_daemon);
     primaryProfile2 = [v20 primaryProfile];
     medicalIDDataManager2 = [primaryProfile2 medicalIDDataManager];
-    v74 = 0;
-    v23 = [medicalIDDataManager2 fetchMedicalIDWithError:&v74];
-    v24 = v74;
+    v73 = 0;
+    v23 = [medicalIDDataManager2 fetchMedicalIDWithError:&v73];
+    v24 = v73;
 
     if (!v23)
     {
@@ -189,50 +187,50 @@ LABEL_17:
         v31 = objc_loadWeakRetained(&self->_daemon);
         profileManager = [v31 profileManager];
 
-        v62 = 0u;
-        v63 = 0u;
-        v60 = 0u;
         v61 = 0u;
+        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
         allProfileIdentifiers = [profileManager allProfileIdentifiers];
-        v34 = [allProfileIdentifiers countByEnumeratingWithState:&v60 objects:v75 count:16];
+        v34 = [allProfileIdentifiers countByEnumeratingWithState:&v59 objects:v74 count:16];
         if (v34)
         {
-          v35 = *v61;
+          v35 = *v60;
           do
           {
             v36 = 0;
             do
             {
-              if (*v61 != v35)
+              if (*v60 != v35)
               {
                 objc_enumerationMutation(allProfileIdentifiers);
               }
 
-              v37 = [profileManager profileForIdentifier:*(*(&v60 + 1) + 8 * v36)];
+              v37 = [profileManager profileForIdentifier:*(*(&v59 + 1) + 8 * v36)];
               if (v37)
               {
                 [v13 beginTask];
-                v58[0] = MEMORY[0x277D85DD0];
-                v58[1] = 3221225472;
-                v58[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_4;
-                v58[3] = &unk_278613968;
+                v57[0] = MEMORY[0x277D85DD0];
+                v57[1] = 3221225472;
+                v57[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_4;
+                v57[3] = &unk_278613968;
                 v38 = v13;
-                v59 = v38;
-                [(HDPostInstallUpdateManager *)self _triggerMigrationForProfile:v37 protected:0 completion:v58];
+                v58 = v38;
+                [(HDPostInstallUpdateManager *)self _triggerMigrationForProfile:v37 protected:0 completion:v57];
                 [v38 beginTask];
-                v56[0] = MEMORY[0x277D85DD0];
-                v56[1] = 3221225472;
-                v56[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_5;
-                v56[3] = &unk_278613968;
-                v57 = v38;
-                [(HDPostInstallUpdateManager *)self _triggerMigrationForProfile:v37 protected:1 completion:v56];
+                v55[0] = MEMORY[0x277D85DD0];
+                v55[1] = 3221225472;
+                v55[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_5;
+                v55[3] = &unk_278613968;
+                v56 = v38;
+                [(HDPostInstallUpdateManager *)self _triggerMigrationForProfile:v37 protected:1 completion:v55];
               }
 
               ++v36;
             }
 
             while (v34 != v36);
-            v34 = [allProfileIdentifiers countByEnumeratingWithState:&v60 objects:v75 count:16];
+            v34 = [allProfileIdentifiers countByEnumeratingWithState:&v59 objects:v74 count:16];
           }
 
           while (v34);
@@ -241,23 +239,23 @@ LABEL_17:
         v39 = dispatch_group_create();
         [v13 beginTask];
         observers = self->_observers;
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_6;
-        v52[3] = &unk_2786205B8;
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_6;
+        v51[3] = &unk_2786205B8;
         v41 = v13;
-        v53 = v41;
+        v52 = v41;
         selfCopy = self;
         v42 = v39;
-        v55 = v42;
-        [(HKObserverSet *)observers notifyObserversInGroup:v42 handler:v52];
+        v54 = v42;
+        [(HKObserverSet *)observers notifyObserversInGroup:v42 handler:v51];
         v43 = dispatch_get_global_queue(0, 0);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_310;
         block[3] = &unk_278613968;
         v44 = v41;
-        v51 = v44;
+        v50 = v44;
         dispatch_group_notify(v42, v43, block);
 
         [v44 finishTask];
@@ -283,17 +281,16 @@ LABEL_17:
     _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_DEFAULT, "Current device is not supported; skipping post-install update since profiles are not available.", &buf, 2u);
   }
 
-  [v48 beginTask];
-  [v48 finishTask];
+  [v47 beginTask];
+  [v47 finishTask];
 LABEL_27:
 
-  _Block_object_dispose(v72, 8);
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v71, 8);
 }
 
 void __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -302,15 +299,15 @@ void __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completio
     v4 = [WeakRetained behavior];
     v5 = [v4 currentOSBuild];
     *buf = 138543362;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "Finished post-install update tasks after updating to %{public}@.", buf, 0xCu);
   }
 
   v6 = MEMORY[0x277CF07F0];
   v7 = [MEMORY[0x277CBEAA8] date];
-  v16 = 0;
-  [v6 reportFeatureCheckpoint:50 forFeature:600 atDate:v7 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  [v6 reportFeatureCheckpoint:50 forFeature:600 atDate:v7 error:&v15];
+  v8 = v15;
 
   if (v8)
   {
@@ -319,7 +316,7 @@ void __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completio
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to inform DAS that post-install update tasks were completed due to %{public}@.", buf, 0xCu);
     }
   }
@@ -329,12 +326,10 @@ void __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completio
   block[1] = 3221225472;
   block[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_303;
   block[3] = &unk_278620540;
-  v13 = *(a1 + 40);
-  v11 = v13;
-  v15 = v13;
+  v12 = *(a1 + 40);
+  v11 = v12;
+  v14 = v12;
   dispatch_async(v10, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_303(uint64_t result)
@@ -394,7 +389,7 @@ uint64_t __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_compl
 
 void __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_6(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) beginTask];
   _HKInitializeLogging();
@@ -402,27 +397,25 @@ void __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completio
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "Notifying %{public}@ for post-install update", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_307;
-  v8[3] = &unk_278616020;
-  v9 = v3;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_307;
+  v7[3] = &unk_278616020;
+  v8 = v3;
   v5 = *(a1 + 40);
-  v10 = *(a1 + 32);
+  v9 = *(a1 + 32);
   v6 = v3;
-  [v6 performPostInstallUpdateTaskForManager:v5 completion:v8];
+  [v6 performPostInstallUpdateTaskForManager:v5 completion:v7];
   dispatch_group_leave(*(a1 + 48));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completion___block_invoke_307(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2B0];
@@ -432,30 +425,28 @@ void __74__HDPostInstallUpdateManager__postInstallUpdateHandlerDidFire_completio
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Received successful post-install update completion from %{public}@.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Received successful post-install update completion from %{public}@.", &v10, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v11 = 138543618;
-    v12 = v10;
-    v13 = 2114;
-    v14 = v5;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Post install update failed for %{public}@: %{public}@", &v11, 0x16u);
+    v9 = *(a1 + 32);
+    v10 = 138543618;
+    v11 = v9;
+    v12 = 2114;
+    v13 = v5;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Post install update failed for %{public}@: %{public}@", &v10, 0x16u);
   }
 
   [*(a1 + 40) finishTask];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HDPostInstallUpdateManager__triggerMigrationForProfile_protected_completion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48))
   {
     v2 = @"protected";
@@ -476,9 +467,9 @@ void __79__HDPostInstallUpdateManager__triggerMigrationForProfile_protected_comp
     v7 = v5;
     v8 = [v6 profileIdentifier];
     *buf = 138543618;
-    v22 = v3;
-    v23 = 2114;
-    v24 = v8;
+    v21 = v3;
+    v22 = 2114;
+    v23 = v8;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Performing %{public}@ Health database migration for %{public}@...", buf, 0x16u);
   }
 
@@ -493,9 +484,9 @@ void __79__HDPostInstallUpdateManager__triggerMigrationForProfile_protected_comp
   }
   v9 = ;
   v10 = [*(a1 + 32) database];
-  v20 = 0;
-  v11 = [v10 performTransactionWithContext:v9 error:&v20 block:&__block_literal_global_95 inaccessibilityHandler:0];
-  v12 = v20;
+  v19 = 0;
+  v11 = [v10 performTransactionWithContext:v9 error:&v19 block:&__block_literal_global_95 inaccessibilityHandler:0];
+  v12 = v19;
 
   _HKInitializeLogging();
   v13 = *v4;
@@ -507,15 +498,15 @@ void __79__HDPostInstallUpdateManager__triggerMigrationForProfile_protected_comp
       goto LABEL_14;
     }
 
-    v19 = *(a1 + 32);
+    v18 = *(a1 + 32);
     v16 = v13;
-    v17 = [v19 profileIdentifier];
+    v17 = [v18 profileIdentifier];
     *buf = 138543874;
-    v22 = v3;
-    v23 = 2114;
-    v24 = v17;
-    v25 = 2114;
-    v26 = v12;
+    v21 = v3;
+    v22 = 2114;
+    v23 = v17;
+    v24 = 2114;
+    v25 = v12;
     _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "Failed %{public}@ Health database migration for %{public}@: %{public}@", buf, 0x20u);
     goto LABEL_12;
   }
@@ -526,22 +517,20 @@ void __79__HDPostInstallUpdateManager__triggerMigrationForProfile_protected_comp
     v16 = v13;
     v17 = [v15 profileIdentifier];
     *buf = 138543618;
-    v22 = v3;
-    v23 = 2114;
-    v24 = v17;
+    v21 = v3;
+    v22 = 2114;
+    v23 = v17;
     _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "Finished %{public}@ Health database migration for %{public}@.", buf, 0x16u);
 LABEL_12:
   }
 
 LABEL_14:
   (*(*(a1 + 40) + 16))();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HDPostInstallUpdateManager__migrateEmergencySOSIfNecessaryWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E0];
@@ -550,21 +539,19 @@ void __76__HDPostInstallUpdateManager__migrateEmergencySOSIfNecessaryWithComplet
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Migrated Emergency SOS completed successfully", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Migrated Emergency SOS completed successfully", &v8, 2u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Migration for Emergency SOS failed: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Migration for Emergency SOS failed: %{public}@", &v8, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HDDaemon)daemon

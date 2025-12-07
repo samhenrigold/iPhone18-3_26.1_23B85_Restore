@@ -472,7 +472,7 @@ LABEL_23:
     v11 = [viewCopy dequeueReusableCellWithReuseIdentifier:collectionView forIndexPath:pathCopy];
 
     [(_UICollectionViewShadowUpdatesController *)self _updateCellIfNeeded:v11 atIndexPath:pathCopy];
-    if ([collectionView isEqualToString:@"com.apple.UIKit.shadowReuseCellIdentifier"])
+    if (objc_msgSend_isEqualToString_(collectionView))
     {
       [v11 _setHiddenForReordering:1];
     }
@@ -2737,14 +2737,14 @@ LABEL_3:
     v7 = [(NSMutableArray *)shadowUpdates objectAtIndexedSubscript:0];
     if ([v7 updateAction])
     {
-      v8 = 0;
+      isEqual = 0;
 LABEL_13:
 
       goto LABEL_14;
     }
 
     _indexPath = [(UICollectionViewUpdateItem *)v7 _indexPath];
-    v8 = [_indexPath isEqual:pathCopy];
+    isEqual = objc_msgSend_isEqual_(_indexPath);
 LABEL_12:
 
     goto LABEL_13;
@@ -2756,32 +2756,32 @@ LABEL_12:
     _indexPath = [(NSMutableArray *)self->__shadowUpdates objectAtIndexedSubscript:1];
     if ([v7 updateAction] || objc_msgSend(_indexPath, "updateAction") != 3)
     {
-      v8 = 0;
+      isEqual = 0;
     }
 
     else
     {
       _indexPath2 = [(UICollectionViewUpdateItem *)v7 _indexPath];
       indexPathBeforeUpdate = [_indexPath indexPathBeforeUpdate];
-      if ([_indexPath2 isEqual:indexPathBeforeUpdate])
+      if (objc_msgSend_isEqual_(_indexPath2))
       {
         indexPathAfterUpdate = [_indexPath indexPathAfterUpdate];
-        v8 = [pathCopy isEqual:indexPathAfterUpdate];
+        isEqual = objc_msgSend_isEqual_(pathCopy);
       }
 
       else
       {
-        v8 = 0;
+        isEqual = 0;
       }
     }
 
     goto LABEL_12;
   }
 
-  v8 = 0;
+  isEqual = 0;
 LABEL_14:
 
-  return v8;
+  return isEqual;
 }
 
 - (id)_rebasedShadowUpdatesForUpdate:(id)update initialSnapshot:(id)snapshot shadowUpdates:(id)updates
@@ -2889,7 +2889,7 @@ LABEL_21:
         v24 = v23;
         [(UIBackgroundConfiguration *)v22 _setStrokeColor:v24];
 
-        if (([(UICollectionViewUpdateItem *)v22 isNOOP]& 1) == 0)
+        if (![(UICollectionViewUpdateItem *)v22 isNOOP])
         {
           [v35 addObject:v22];
         }
@@ -3012,9 +3012,9 @@ LABEL_3:
       v13 = indexPathBeforeUpdate;
       if (v6)
       {
-        v14 = [indexPathBeforeUpdate isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(indexPathBeforeUpdate);
 
-        if (!v14)
+        if (!isEqual)
         {
           break;
         }

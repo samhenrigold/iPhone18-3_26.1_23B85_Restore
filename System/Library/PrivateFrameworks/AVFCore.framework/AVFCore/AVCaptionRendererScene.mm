@@ -91,14 +91,14 @@ LABEL_9:
     return CMTimeRangeEqual(&range1, &v8) != 0;
   }
 
-  [(AVCaptionRendererScene *)self timeRange];
+  objc_msgSend_timeRange(self);
   if (!equal)
   {
     goto LABEL_9;
   }
 
 LABEL_5:
-  [equal timeRange];
+  objc_msgSend_timeRange(equal);
   return CMTimeRangeEqual(&range1, &v8) != 0;
 }
 
@@ -108,7 +108,7 @@ LABEL_5:
   v5 = 0u;
   if (self)
   {
-    [(AVCaptionRendererScene *)self timeRange];
+    objc_msgSend_timeRange(self, a2);
   }
 
   *&v4.value = v5;
@@ -133,7 +133,7 @@ LABEL_5:
   v3 = *MEMORY[0x1E695E480];
   if (self)
   {
-    [(AVCaptionRendererScene *)self timeRange];
+    objc_msgSend_timeRange(self, a2);
   }
 
   else

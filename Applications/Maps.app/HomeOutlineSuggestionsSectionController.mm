@@ -236,8 +236,8 @@ LABEL_9:
 
     [HomeAnalyticsManager captureTapActionWithEntry:entry];
     +[HomeAnalyticsManager captureRatingSuggestionTapAction];
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
+    firstObject = objc_msgSend_configuration(self);
+    actionCoordinator = [firstObject actionCoordinator];
     geoMapItem = [entry geoMapItem];
     [actionCoordinator addRatingsForMapItem:geoMapItem];
     goto LABEL_7;
@@ -252,11 +252,11 @@ LABEL_9:
   {
     entry = [cellModel3 sharedTripSummary];
     sharedTrips = [entry sharedTrips];
-    configuration = [sharedTrips firstObject];
+    firstObject = [sharedTrips firstObject];
 
-    actionCoordinator = [(HomeOutlineSectionController *)self configuration];
+    actionCoordinator = objc_msgSend_configuration(self);
     geoMapItem = [actionCoordinator actionCoordinator];
-    [geoMapItem presentSharedTrip:configuration inPopoverFromView:tappedCopy];
+    [geoMapItem presentSharedTrip:firstObject inPopoverFromView:tappedCopy];
 LABEL_7:
 
 LABEL_8:
@@ -275,9 +275,9 @@ LABEL_9:
     sectionIdentifierPath = [(HomeOutlineSectionController *)self sectionIdentifierPath];
     identifierCache = [(HomeOutlineSectionController *)self identifierCache];
     v22 = [identifierCache identifierForObject:entry];
-    configuration = [sectionIdentifierPath identifierPathByAppendingIdentifier:v22];
+    firstObject = [sectionIdentifierPath identifierPathByAppendingIdentifier:v22];
 
-    [(HomeOutlineSectionController *)self toggleElementAtIdentifierPath:configuration];
+    [(HomeOutlineSectionController *)self toggleElementAtIdentifierPath:firstObject];
     goto LABEL_8;
   }
 
@@ -304,8 +304,8 @@ LABEL_10:
   if (groupIdentifier)
   {
     objc_initWeak(&location, self);
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
+    v12 = objc_msgSend_configuration(self);
+    actionCoordinator = [v12 actionCoordinator];
     v14[0] = _NSConcreteStackBlock;
     v14[1] = 3221225472;
     v14[2] = sub_10064C950;
@@ -325,8 +325,8 @@ LABEL_10:
   deletionCopy = deletion;
   entryCopy = entry;
   objc_initWeak(&location, self);
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  actionCoordinator = [configuration actionCoordinator];
+  v8 = objc_msgSend_configuration(self);
+  actionCoordinator = [v8 actionCoordinator];
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
   v15[2] = sub_10064CBD4;
@@ -528,8 +528,8 @@ LABEL_11:
     viewModel2 = [snapshotCopy viewModel];
     collection = [viewModel2 collection];
     v7 = [[HomeCollectionContentInjector alloc] initWithCollection:collection];
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
+    v10 = objc_msgSend_configuration(self);
+    actionCoordinator = [v10 actionCoordinator];
     [(HomeCollectionContentInjector *)v7 setActionCoordinator:actionCoordinator];
   }
 
@@ -651,8 +651,8 @@ LABEL_8:
     while (v11);
   }
 
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  sectionIdentifier = [configuration sectionIdentifier];
+  v15 = objc_msgSend_configuration(self);
+  sectionIdentifier = [v15 sectionIdentifier];
   expanded = [(HomeOutlineSectionController *)self expanded];
   v28[0] = _NSConcreteStackBlock;
   v28[1] = 3221225472;

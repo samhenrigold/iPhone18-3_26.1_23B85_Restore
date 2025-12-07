@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10009CA00();
+  sub_10009CA00(selfCopy);
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
@@ -106,17 +106,16 @@ LABEL_15:
 {
   v6 = sub_1000AB97C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6, v9);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB93C();
   viewCopy = view;
   selfCopy = self;
-  v14 = sub_10009DB0C(viewCopy, v11);
+  v12 = sub_10009DB0C(viewCopy, v9);
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v14;
+  return v12;
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section
@@ -148,26 +147,24 @@ LABEL_15:
 {
   v6 = sub_1000AB97C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6, v9);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB93C();
   viewCopy = view;
   selfCopy = self;
-  sub_10009E3A8(viewCopy, v11);
+  sub_10009E3A8(viewCopy, v9);
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (id)tableView:(id)view willDeselectRowAtIndexPath:(id)path
 {
   v4 = sub_1000AB97C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB93C();
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 
   return 0;
 }

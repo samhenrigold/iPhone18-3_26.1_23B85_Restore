@@ -9,41 +9,38 @@
 
 + (id)notificationForLearnHypertensionRiskWithIdentifier:(id)identifier dueDate:(id)date isFollowUp:(BOOL)up measurementIndex:(int64_t)index measurementCount:(int64_t)count measurementWindowType:(int64_t)type
 {
-  v23[4] = *MEMORY[0x277D85DE8];
-  v22[0] = @"BloodPressureJournalNotificationMeasurementIndexKey";
+  v22[4] = *MEMORY[0x277D85DE8];
+  v21[0] = @"BloodPressureJournalNotificationMeasurementIndexKey";
   v12 = MEMORY[0x277CCABB0];
   dateCopy = date;
   identifierCopy = identifier;
   v15 = [v12 numberWithInteger:index];
-  v23[0] = v15;
-  v22[1] = @"BloodPressureJournalNotificationMeasurementCountKey";
+  v22[0] = v15;
+  v21[1] = @"BloodPressureJournalNotificationMeasurementCountKey";
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-  v23[1] = v16;
-  v22[2] = @"BloodPressureJournalNotificationMeasurementWindowTypeKey";
+  v22[1] = v16;
+  v21[2] = @"BloodPressureJournalNotificationMeasurementWindowTypeKey";
   v17 = [MEMORY[0x277CCABB0] numberWithInteger:type];
-  v22[3] = @"BloodPressureJournalNotificationJournalTypeKey";
-  v23[2] = v17;
-  v23[3] = &unk_283BE0DE0;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
+  v21[3] = @"BloodPressureJournalNotificationJournalTypeKey";
+  v22[2] = v17;
+  v22[3] = &unk_283BE0DE0;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
 
   v19 = [[HKHRBloodPressureJournalNotification alloc] initWithIdentifier:identifierCopy dueDate:dateCopy category:@"BloodPressureJournalNotificationCategoryLearnHypertensionRisk" userInfo:v18];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 + (id)notificationToMonitorHypertensionWithIdentifier:(id)identifier dueDate:(id)date isFollowUp:(BOOL)up
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13 = @"BloodPressureJournalNotificationJournalTypeKey";
-  v14[0] = &unk_283BE0DF8;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12 = @"BloodPressureJournalNotificationJournalTypeKey";
+  v13[0] = &unk_283BE0DF8;
   v6 = MEMORY[0x277CBEAC0];
   dateCopy = date;
   identifierCopy = identifier;
-  v9 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [[HKHRBloodPressureJournalNotification alloc] initWithIdentifier:identifierCopy dueDate:dateCopy category:@"BloodPressureJournalNotificationCategoryMonitorHypertension" userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -71,11 +68,10 @@
 
 + (id)allBloodPressureJournalNotificationCategoryIdentifiers
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"BloodPressureJournalNotificationCategoryLearnHypertensionRisk";
-  v5[1] = @"BloodPressureJournalNotificationCategoryMonitorHypertension";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"BloodPressureJournalNotificationCategoryLearnHypertensionRisk";
+  v4[1] = @"BloodPressureJournalNotificationCategoryMonitorHypertension";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

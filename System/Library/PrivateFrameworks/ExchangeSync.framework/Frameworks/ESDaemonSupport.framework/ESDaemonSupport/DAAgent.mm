@@ -48,15 +48,15 @@
 
 - (void)_reachabilityChanged:(id)changed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v5, v6))
   {
-    v15 = 138412290;
-    v16 = changedCopy;
-    _os_log_impl(&dword_24A184000, v5, v6, "Reachability changed notification %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = changedCopy;
+    _os_log_impl(&dword_24A184000, v5, v6, "Reachability changed notification %@", &v14, 0xCu);
   }
 
   name = [changedCopy name];
@@ -83,8 +83,6 @@
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeReachabilityWithBlock:(id)block

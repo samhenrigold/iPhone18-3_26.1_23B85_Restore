@@ -3656,7 +3656,7 @@ LABEL_332:
   return v5;
 }
 
-void sub_10004971C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, char a31, char *a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
+void sub_10004971C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char *a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
 {
   if (a39 < 0)
   {
@@ -4559,7 +4559,7 @@ LABEL_282:
   return v10;
 }
 
-void sub_10004AB30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, void *a18, void *a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27, char *a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
+void sub_10004AB30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, void *a18, void *a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, char *a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
 {
   if (a35 < 0)
   {
@@ -4680,10 +4680,10 @@ size_t CAMetricsHandlers_handle_getprop_threadmle(void *a1, void *a2)
   }
 
   v23 = [v4 objectForKey:@"disabled_role_count"];
-  dword_10052A92C = [v23 unsignedIntValue];
+  LODWORD(qword_10052A92C) = [v23 unsignedIntValue];
 
   v24 = [v4 objectForKey:@"detached_role_count"];
-  dword_10052A930 = [v24 unsignedIntValue];
+  HIDWORD(qword_10052A92C) = [v24 unsignedIntValue];
 
   v25 = [v4 objectForKey:@"child_role_count"];
   dword_10052A934 = [v25 unsignedIntValue];
@@ -6124,7 +6124,7 @@ LABEL_121:
   return v5;
 }
 
-uint64_t convertTriggerIdToString@<X0>(uint64_t result@<X0>, char *a2@<X8>)
+char *convertTriggerIdToString@<X0>(char *result@<X0>, char *a2@<X8>)
 {
   if (result == 1)
   {
@@ -7464,7 +7464,7 @@ LABEL_40:
   return count;
 }
 
-void sub_10004F7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, char *a18)
+void sub_10004F7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char *a18)
 {
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&a17, a18);
 
@@ -9127,7 +9127,7 @@ LABEL_631:
   return v5;
 }
 
-void sub_100051988(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, void *a29, void *a30, void *a31, void *a32, void *a33, uint64_t a34, uint64_t a35, void *a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, char *a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51)
+void sub_100051988(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, void *a20, void *a21, void *a22, void *a23, void *a24, void *a25, void *a26, void *a27, void *a28, void *a29, void *a30, void *a31, void *a32, void *a33, uint64_t a34, uint64_t a35, void *a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, char *a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51)
 {
   if (a42 < 0)
   {
@@ -9370,7 +9370,7 @@ LABEL_102:
   return count;
 }
 
-void sub_100052238(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, char *a23)
+void sub_100052238(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char *a23)
 {
   if (a21 < 0)
   {
@@ -9382,33 +9382,33 @@ void sub_100052238(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void populatePreviousDbAccessoryInfoForTriggerBasedMetrics()
+void populatePreviousDbAccessoryInfoForTriggerBasedMetrics(uint64_t result)
 {
   if (*(&s_CATriggerBasedInternalDB + 3462 * byte_10052A8F2 + 61))
   {
-    v3[0] = 0;
-    v3[1] = 0;
-    v2 = v3;
-    v1[7] = 6;
+    v4[0] = 0;
+    v4[1] = 0;
+    v3 = v4;
+    v2[7] = 6;
     strcpy(__p, "RLOC16");
-    v3[3] = __p;
-    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v2, __p);
+    v5 = __p;
+    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v3, __p, &std::piecewise_construct, &v5);
     operator new();
   }
 }
 
 void CAMetricsHandlers_handle_getprop_allTriggerMetrics_accessory_specific(uint64_t a1, void *a2, void *a3)
 {
-  v156 = a2;
-  v4 = a3;
-  v5 = byte_10052A8F2;
-  xdict = v4;
-  type = xpc_get_type(v4);
-  populatePreviousDbAccessoryInfoForTriggerBasedMetrics();
+  v157 = a2;
+  v5 = a3;
+  v6 = byte_10052A8F2;
+  xdict = v5;
+  type = xpc_get_type(v5);
+  populatePreviousDbAccessoryInfoForTriggerBasedMetrics(a1);
   if (type != &_xpc_type_array)
   {
-    v7 = log_get_logging_obg("com.apple.wpantund.tnm", "default");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = log_get_logging_obg("com.apple.wpantund.tnm", "default");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       CAMetricsHandlers_handle_getprop_allTriggerMetrics_accessory_specific();
     }
@@ -9419,8 +9419,8 @@ void CAMetricsHandlers_handle_getprop_allTriggerMetrics_accessory_specific(uint6
   xarray = xpc_dictionary_get_array(xdict, "PropVal");
   if (xarray)
   {
-    v7 = 0;
-    v158 = &s_CATriggerBasedInternalDB + 13848 * ((v5 & 1) == 0);
+    v8 = 0;
+    v159 = &s_CATriggerBasedInternalDB + 13848 * ((v6 & 1) == 0);
     for (i = 0; ; ++i)
     {
       if (i >= xpc_array_get_count(xarray))
@@ -9430,8 +9430,8 @@ void CAMetricsHandlers_handle_getprop_allTriggerMetrics_accessory_specific(uint6
 
       if (xpc_get_type(xarray) != &_xpc_type_array)
       {
-        v155 = log_get_logging_obg("com.apple.wpantund.tnm", "default");
-        if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
+        v156 = log_get_logging_obg("com.apple.wpantund.tnm", "default");
+        if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
         {
           CAMetricsHandlers_handle_getprop_allTriggerMetrics_accessory_specific();
         }
@@ -9439,45 +9439,45 @@ void CAMetricsHandlers_handle_getprop_allTriggerMetrics_accessory_specific(uint6
         goto LABEL_309;
       }
 
-      v8 = xpc_dictionary_get_array(xarray, "PropVal");
-      v9 = v8;
-      if (!v8)
+      v9 = xpc_dictionary_get_array(xarray, "PropVal");
+      v10 = v9;
+      if (!v9)
       {
         goto LABEL_309;
       }
 
-      v10 = 0;
-      v11 = v158;
-      *(v158 + 61) = xpc_array_get_count(v8);
-      while (v10 < xpc_array_get_count(v9))
+      v11 = 0;
+      v12 = v159;
+      *(v159 + 61) = xpc_array_get_count(v9);
+      while (v11 < xpc_array_get_count(v10))
       {
-        v14 = xpc_array_get_dictionary(v9, v10);
+        v15 = xpc_array_get_dictionary(v10, v11);
 
-        string = xpc_dictionary_get_string(v14, "key");
-        v16 = strlen(string);
-        if (v16 > 0x7FFFFFFFFFFFFFF7)
+        string = xpc_dictionary_get_string(v15, "key");
+        v17 = strlen(string);
+        if (v17 > 0x7FFFFFFFFFFFFFF7)
         {
           std::string::__throw_length_error[abi:ne200100]();
         }
 
-        v17 = v16;
-        if (v16 >= 0x17)
+        v18 = v17;
+        if (v17 >= 0x17)
         {
           operator new();
         }
 
-        v162 = v16;
-        if (v16)
+        v163 = v17;
+        if (v17)
         {
-          memmove(__dst, string, v16);
-          __dst[v17] = 0;
-          v18 = v162;
-          if ((v162 & 0x80000000) == 0)
+          memmove(__dst, string, v17);
+          __dst[v18] = 0;
+          v19 = v163;
+          if ((v163 & 0x80000000) == 0)
           {
 LABEL_20:
-            if (v18 <= 10)
+            if (v19 <= 10)
             {
-              if (v18 == 6)
+              if (v19 == 6)
               {
                 if (*__dst == 1129270354 && *&__dst[4] == 13873)
                 {
@@ -9487,12 +9487,12 @@ LABEL_20:
                 goto LABEL_189;
               }
 
-              if (v18 == 8)
+              if (v19 == 8)
               {
                 goto LABEL_117;
               }
 
-              if (v18 != 10)
+              if (v19 != 10)
               {
                 goto LABEL_189;
               }
@@ -9500,36 +9500,36 @@ LABEL_20:
               if (*__dst == 0x6572646441747845 && *&__dst[8] == 29555)
               {
 LABEL_68:
-                v27 = xpc_dictionary_get_string(v14, "value");
-                v28 = strlen(v27);
-                if (v28 > 0x7FFFFFFFFFFFFFF7)
+                v28 = xpc_dictionary_get_string(v15, "value");
+                v29 = strlen(v28);
+                if (v29 > 0x7FFFFFFFFFFFFFF7)
                 {
                   std::string::__throw_length_error[abi:ne200100]();
                 }
 
-                v29 = v28;
-                if (v28 >= 0x17)
+                v30 = v29;
+                if (v29 >= 0x17)
                 {
                   operator new();
                 }
 
-                *(&__str.__r_.__value_.__s + 23) = v28;
-                if (v28)
+                *(&__str.__r_.__value_.__s + 23) = v29;
+                if (v29)
                 {
-                  memmove(&__str, v27, v28);
+                  memmove(&__str, v28, v29);
                 }
 
-                __str.__r_.__value_.__s.__data_[v29] = 0;
-                std::string::operator=((v11 + 248), &__str);
+                __str.__r_.__value_.__s.__data_[v30] = 0;
+                std::string::operator=((v12 + 248), &__str);
                 goto LABEL_221;
               }
 
               goto LABEL_131;
             }
 
-            if (v18 <= 13)
+            if (v19 <= 13)
             {
-              if (v18 == 11)
+              if (v19 == 11)
               {
                 if (*__dst == 0x5265676172657641 && *&__dst[3] == 0x6973735265676172)
                 {
@@ -9537,7 +9537,7 @@ LABEL_68:
                 }
               }
 
-              else if (v18 == 13)
+              else if (v19 == 13)
               {
 LABEL_24:
                 if (*__dst == 0x6C6175516B6E694CLL && *&__dst[5] == 0x6E497974696C6175)
@@ -9549,400 +9549,400 @@ LABEL_24:
 LABEL_189:
               if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "rx_total"))
               {
-                uint64 = xpc_dictionary_get_uint64(v14, "value");
-                v65 = uint64;
+                uint64 = xpc_dictionary_get_uint64(v15, "value");
+                v66 = uint64;
                 if (uint64)
                 {
-                  v66 = log10(uint64) + 1.0;
-                  v67 = v66 - 3;
-                  if (v66 <= 3)
+                  v67 = log10(uint64) + 1.0;
+                  v68 = v67 - 3;
+                  if (v67 <= 3)
                   {
-                    v67 = 0;
+                    v68 = 0;
                   }
 
-                  v12 = v67;
+                  v13 = v68;
                 }
 
                 else
                 {
-                  v12 = 0.0;
+                  v13 = 0.0;
                 }
 
-                v13 = __exp10(v12);
-                *(v11 + 84) = (v13 * (v65 / v13));
+                v14 = __exp10(v13);
+                *(v12 + 84) = (v14 * (v66 / v14));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "rx_success_perc"))
               {
-                v68 = xpc_dictionary_get_uint64(v14, "value");
-                v69 = v68;
-                if (v68)
+                v69 = xpc_dictionary_get_uint64(v15, "value");
+                v70 = v69;
+                if (v69)
                 {
-                  v70 = log10(v68) + 1.0;
-                  v71 = v70 - 3;
-                  if (v70 <= 3)
+                  v71 = log10(v69) + 1.0;
+                  v72 = v71 - 3;
+                  if (v71 <= 3)
                   {
-                    v71 = 0;
+                    v72 = 0;
                   }
 
-                  v72 = v71;
+                  v73 = v72;
                 }
 
                 else
                 {
-                  v72 = 0.0;
+                  v73 = 0.0;
                 }
 
-                v83 = __exp10(v72);
-                *(v11 + 87) = (v83 * (v69 / v83));
+                v84 = __exp10(v73);
+                *(v12 + 87) = (v84 * (v70 / v84));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_failure"))
               {
-                v73 = xpc_dictionary_get_uint64(v14, "value");
-                v74 = v73;
-                if (v73)
+                v74 = xpc_dictionary_get_uint64(v15, "value");
+                v75 = v74;
+                if (v74)
                 {
-                  v75 = log10(v73) + 1.0;
-                  v76 = v75 - 3;
-                  if (v75 <= 3)
+                  v76 = log10(v74) + 1.0;
+                  v77 = v76 - 3;
+                  if (v76 <= 3)
                   {
-                    v76 = 0;
+                    v77 = 0;
                   }
 
-                  v77 = v76;
+                  v78 = v77;
                 }
 
                 else
                 {
-                  v77 = 0.0;
+                  v78 = 0.0;
                 }
 
-                v89 = __exp10(v77);
-                *(v11 + 78) = (v89 * (v74 / v89));
+                v90 = __exp10(v78);
+                *(v12 + 78) = (v90 * (v75 / v90));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_success"))
               {
-                v78 = xpc_dictionary_get_uint64(v14, "value");
-                v79 = v78;
-                if (v78)
+                v79 = xpc_dictionary_get_uint64(v15, "value");
+                v80 = v79;
+                if (v79)
                 {
-                  v80 = log10(v78) + 1.0;
-                  v81 = v80 - 3;
-                  if (v80 <= 3)
+                  v81 = log10(v79) + 1.0;
+                  v82 = v81 - 3;
+                  if (v81 <= 3)
                   {
-                    v81 = 0;
+                    v82 = 0;
                   }
 
-                  v82 = v81;
+                  v83 = v82;
                 }
 
                 else
                 {
-                  v82 = 0.0;
+                  v83 = 0.0;
                 }
 
-                v96 = __exp10(v82);
-                *(v11 + 77) = (v96 * (v79 / v96));
+                v97 = __exp10(v83);
+                *(v12 + 77) = (v97 * (v80 / v97));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_total"))
               {
-                v84 = xpc_dictionary_get_uint64(v14, "value");
-                v85 = v84;
-                if (v84)
+                v85 = xpc_dictionary_get_uint64(v15, "value");
+                v86 = v85;
+                if (v85)
                 {
-                  v86 = log10(v84) + 1.0;
-                  v87 = v86 - 3;
-                  if (v86 <= 3)
+                  v87 = log10(v85) + 1.0;
+                  v88 = v87 - 3;
+                  if (v87 <= 3)
                   {
-                    v87 = 0;
+                    v88 = 0;
                   }
 
-                  v88 = v87;
+                  v89 = v88;
                 }
 
                 else
                 {
-                  v88 = 0.0;
+                  v89 = 0.0;
                 }
 
-                v102 = __exp10(v88);
-                *(v11 + 76) = (v102 * (v85 / v102));
+                v103 = __exp10(v89);
+                *(v12 + 76) = (v103 * (v86 / v103));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_success_perc"))
               {
-                v91 = xpc_dictionary_get_uint64(v14, "value");
-                v92 = v91;
-                if (v91)
+                v92 = xpc_dictionary_get_uint64(v15, "value");
+                v93 = v92;
+                if (v92)
                 {
-                  v93 = log10(v91) + 1.0;
-                  v94 = v93 - 3;
-                  if (v93 <= 3)
+                  v94 = log10(v92) + 1.0;
+                  v95 = v94 - 3;
+                  if (v94 <= 3)
                   {
-                    v94 = 0;
+                    v95 = 0;
                   }
 
-                  v95 = v94;
+                  v96 = v95;
                 }
 
                 else
                 {
-                  v95 = 0.0;
+                  v96 = 0.0;
                 }
 
-                v108 = __exp10(v95);
-                *(v11 + 79) = (v108 * (v92 / v108));
+                v109 = __exp10(v96);
+                *(v12 + 79) = (v109 * (v93 / v109));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_app_pkt_success"))
               {
-                v97 = xpc_dictionary_get_uint64(v14, "value");
-                v98 = v97;
-                if (v97)
+                v98 = xpc_dictionary_get_uint64(v15, "value");
+                v99 = v98;
+                if (v98)
                 {
-                  v99 = log10(v97) + 1.0;
-                  v100 = v99 - 3;
-                  if (v99 <= 3)
+                  v100 = log10(v98) + 1.0;
+                  v101 = v100 - 3;
+                  if (v100 <= 3)
                   {
-                    v100 = 0;
+                    v101 = 0;
                   }
 
-                  v101 = v100;
+                  v102 = v101;
                 }
 
                 else
                 {
-                  v101 = 0.0;
+                  v102 = 0.0;
                 }
 
-                v114 = __exp10(v101);
-                *(v11 + 81) = (v114 * (v98 / v114));
+                v115 = __exp10(v102);
+                *(v12 + 81) = (v115 * (v99 / v115));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_app_total"))
               {
-                v103 = xpc_dictionary_get_uint64(v14, "value");
-                v104 = v103;
-                if (v103)
+                v104 = xpc_dictionary_get_uint64(v15, "value");
+                v105 = v104;
+                if (v104)
                 {
-                  v105 = log10(v103) + 1.0;
-                  v106 = v105 - 3;
-                  if (v105 <= 3)
+                  v106 = log10(v104) + 1.0;
+                  v107 = v106 - 3;
+                  if (v106 <= 3)
                   {
-                    v106 = 0;
+                    v107 = 0;
                   }
 
-                  v107 = v106;
+                  v108 = v107;
                 }
 
                 else
                 {
-                  v107 = 0.0;
+                  v108 = 0.0;
                 }
 
-                v120 = __exp10(v107);
-                *(v11 + 80) = (v120 * (v104 / v120));
+                v121 = __exp10(v108);
+                *(v12 + 80) = (v121 * (v105 / v121));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_app_pkt_failure"))
               {
-                v109 = xpc_dictionary_get_uint64(v14, "value");
-                v110 = v109;
-                if (v109)
+                v110 = xpc_dictionary_get_uint64(v15, "value");
+                v111 = v110;
+                if (v110)
                 {
-                  v111 = log10(v109) + 1.0;
-                  v112 = v111 - 3;
-                  if (v111 <= 3)
+                  v112 = log10(v110) + 1.0;
+                  v113 = v112 - 3;
+                  if (v112 <= 3)
                   {
-                    v112 = 0;
+                    v113 = 0;
                   }
 
-                  v113 = v112;
+                  v114 = v113;
                 }
 
                 else
                 {
-                  v113 = 0.0;
+                  v114 = 0.0;
                 }
 
-                v126 = __exp10(v113);
-                *(v11 + 82) = (v126 * (v110 / v126));
+                v127 = __exp10(v114);
+                *(v12 + 82) = (v127 * (v111 / v127));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_app_success_perc"))
               {
-                v115 = xpc_dictionary_get_uint64(v14, "value");
-                v116 = v115;
-                if (v115)
+                v116 = xpc_dictionary_get_uint64(v15, "value");
+                v117 = v116;
+                if (v116)
                 {
-                  v117 = log10(v115) + 1.0;
-                  v118 = v117 - 3;
-                  if (v117 <= 3)
+                  v118 = log10(v116) + 1.0;
+                  v119 = v118 - 3;
+                  if (v118 <= 3)
                   {
-                    v118 = 0;
+                    v119 = 0;
                   }
 
-                  v119 = v118;
+                  v120 = v119;
                 }
 
                 else
                 {
-                  v119 = 0.0;
+                  v120 = 0.0;
                 }
 
-                v132 = __exp10(v119);
-                *(v11 + 83) = (v132 * (v116 / v132));
+                v133 = __exp10(v120);
+                *(v12 + 83) = (v133 * (v117 / v133));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_icmp_err"))
               {
-                v121 = xpc_dictionary_get_uint64(v14, "value");
-                v122 = v121;
-                if (v121)
+                v122 = xpc_dictionary_get_uint64(v15, "value");
+                v123 = v122;
+                if (v122)
                 {
-                  v123 = log10(v121) + 1.0;
-                  v124 = v123 - 3;
-                  if (v123 <= 3)
+                  v124 = log10(v122) + 1.0;
+                  v125 = v124 - 3;
+                  if (v124 <= 3)
                   {
-                    v124 = 0;
+                    v125 = 0;
                   }
 
-                  v125 = v124;
+                  v126 = v125;
                 }
 
                 else
                 {
-                  v125 = 0.0;
+                  v126 = 0.0;
                 }
 
-                v138 = __exp10(v125);
-                *(v11 + 91) = (v138 * (v122 / v138));
+                v139 = __exp10(v126);
+                *(v12 + 91) = (v139 * (v123 / v139));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "rx_icmp_err"))
               {
-                v127 = xpc_dictionary_get_uint64(v14, "value");
-                v128 = v127;
-                if (v127)
+                v128 = xpc_dictionary_get_uint64(v15, "value");
+                v129 = v128;
+                if (v128)
                 {
-                  v129 = log10(v127) + 1.0;
-                  v130 = v129 - 3;
-                  if (v129 <= 3)
+                  v130 = log10(v128) + 1.0;
+                  v131 = v130 - 3;
+                  if (v130 <= 3)
                   {
-                    v130 = 0;
+                    v131 = 0;
                   }
 
-                  v131 = v130;
+                  v132 = v131;
                 }
 
                 else
                 {
-                  v131 = 0.0;
+                  v132 = 0.0;
                 }
 
-                v144 = __exp10(v131);
-                *(v11 + 92) = (v144 * (v128 / v144));
+                v145 = __exp10(v132);
+                *(v12 + 92) = (v145 * (v129 / v145));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_delaymin"))
               {
-                v133 = xpc_dictionary_get_uint64(v14, "value");
-                v134 = v133;
-                if (v133)
+                v134 = xpc_dictionary_get_uint64(v15, "value");
+                v135 = v134;
+                if (v134)
                 {
-                  v135 = log10(v133) + 1.0;
-                  v136 = v135 - 3;
-                  if (v135 <= 3)
+                  v136 = log10(v134) + 1.0;
+                  v137 = v136 - 3;
+                  if (v136 <= 3)
                   {
-                    v136 = 0;
+                    v137 = 0;
                   }
 
-                  v137 = v136;
+                  v138 = v137;
                 }
 
                 else
                 {
-                  v137 = 0.0;
+                  v138 = 0.0;
                 }
 
-                v150 = __exp10(v137);
-                *(v11 + 89) = (v150 * (v134 / v150));
+                v151 = __exp10(v138);
+                *(v12 + 89) = (v151 * (v135 / v151));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_delaymax"))
               {
-                v139 = xpc_dictionary_get_uint64(v14, "value");
-                v140 = v139;
-                if (v139)
+                v140 = xpc_dictionary_get_uint64(v15, "value");
+                v141 = v140;
+                if (v140)
                 {
-                  v141 = log10(v139) + 1.0;
-                  v142 = v141 - 3;
-                  if (v141 <= 3)
+                  v142 = log10(v140) + 1.0;
+                  v143 = v142 - 3;
+                  if (v142 <= 3)
                   {
-                    v142 = 0;
+                    v143 = 0;
                   }
 
-                  v143 = v142;
+                  v144 = v143;
                 }
 
                 else
                 {
-                  v143 = 0.0;
+                  v144 = 0.0;
                 }
 
-                v152 = __exp10(v143);
-                *(v11 + 90) = (v152 * (v140 / v152));
+                v153 = __exp10(v144);
+                *(v12 + 90) = (v153 * (v141 / v153));
               }
 
               else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__dst, "tx_delayavg"))
               {
-                v145 = xpc_dictionary_get_uint64(v14, "value");
-                v146 = v145;
-                if (v145)
+                v146 = xpc_dictionary_get_uint64(v15, "value");
+                v147 = v146;
+                if (v146)
                 {
-                  v147 = log10(v145) + 1.0;
-                  v148 = v147 - 3;
-                  if (v147 <= 3)
+                  v148 = log10(v146) + 1.0;
+                  v149 = v148 - 3;
+                  if (v148 <= 3)
                   {
-                    v148 = 0;
+                    v149 = 0;
                   }
 
-                  v149 = v148;
+                  v150 = v149;
                 }
 
                 else
                 {
-                  v149 = 0.0;
+                  v150 = 0.0;
                 }
 
-                v153 = __exp10(v149);
-                *(v11 + 88) = (v153 * (v146 / v153));
+                v154 = __exp10(v150);
+                *(v12 + 88) = (v154 * (v147 / v154));
               }
 
               else
               {
-                v151 = log_get_logging_obg("com.apple.wpantund.awd", "default");
-                if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
+                v152 = log_get_logging_obg("com.apple.wpantund.awd", "default");
+                if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
                 {
-                  v154 = __dst;
-                  if ((v162 & 0x80u) != 0)
+                  v155 = __dst;
+                  if ((v163 & 0x80u) != 0)
                   {
-                    v154 = *__dst;
+                    v155 = *__dst;
                   }
 
                   LODWORD(__str.__r_.__value_.__l.__data_) = 136315138;
-                  *(__str.__r_.__value_.__r.__words + 4) = v154;
-                  _os_log_error_impl(&_mh_execute_header, v151, OS_LOG_TYPE_ERROR, "CAMetrics : CAMetricsHandlers_handle_getprop_allTriggerMetrics_accessory_specific - ERROR : Unhandled key=%s", &__str, 0xCu);
+                  *(__str.__r_.__value_.__r.__words + 4) = v155;
+                  _os_log_error_impl(&_mh_execute_header, v152, OS_LOG_TYPE_ERROR, "CAMetrics : CAMetricsHandlers_handle_getprop_allTriggerMetrics_accessory_specific - ERROR : Unhandled key=%s", &__str, 0xCu);
                 }
               }
 
               goto LABEL_12;
             }
 
-            if (v18 == 14)
+            if (v19 == 14)
             {
               if (*__dst == 0x765F646165726874 && *&__dst[6] == 0x6E6F69737265765FLL)
               {
@@ -9958,7 +9958,7 @@ LABEL_189:
             }
 
 LABEL_73:
-            if (v18 != 22)
+            if (v19 != 22)
             {
               goto LABEL_189;
             }
@@ -9981,8 +9981,8 @@ LABEL_81:
         else
         {
           __dst[0] = 0;
-          v18 = v162;
-          if ((v162 & 0x80000000) == 0)
+          v19 = v163;
+          if ((v163 & 0x80000000) == 0)
           {
             goto LABEL_20;
           }
@@ -9991,7 +9991,7 @@ LABEL_81:
         if (*&__dst[8] == 6 && **__dst == 1129270354 && *(*__dst + 4) == 13873)
         {
 LABEL_94:
-          *(v11 + 148) = xpc_dictionary_get_uint64(v14, "value");
+          *(v12 + 148) = xpc_dictionary_get_uint64(v15, "value");
           goto LABEL_12;
         }
 
@@ -10000,40 +10000,40 @@ LABEL_94:
           goto LABEL_68;
         }
 
-        v22 = *&__dst[8];
+        v23 = *&__dst[8];
         if (*&__dst[8] == 14)
         {
           if (**__dst == 0x765F646165726874 && *(*__dst + 6) == 0x6E6F69737265765FLL)
           {
 LABEL_111:
-            v11[376] = xpc_dictionary_get_uint64(v14, "value");
+            v12[376] = xpc_dictionary_get_uint64(v15, "value");
             goto LABEL_12;
           }
 
           if (**__dst == 0x63657269645F7369 && *(*__dst + 6) == 0x6B6E696C5F746365)
           {
 LABEL_112:
-            v11[372] = xpc_dictionary_get_BOOL(v14, "value");
+            v12[372] = xpc_dictionary_get_BOOL(v15, "value");
             goto LABEL_12;
           }
 
-          v22 = *&__dst[8];
+          v23 = *&__dst[8];
         }
 
-        if (v22 == 11)
+        if (v23 == 11)
         {
           if (**__dst == 0x5265676172657641 && *(*__dst + 3) == 0x6973735265676172)
           {
 LABEL_110:
-            *(v11 + 149) = xpc_dictionary_get_int64(v14, "value");
+            *(v12 + 149) = xpc_dictionary_get_int64(v15, "value");
             goto LABEL_12;
           }
 
-          if ((v18 & 0x80) == 0)
+          if ((v19 & 0x80) == 0)
           {
-            if (v18 <= 12)
+            if (v19 <= 12)
             {
-              if (v18 == 8)
+              if (v19 == 8)
               {
 LABEL_117:
                 if (*__dst == 0x697373527473614CLL)
@@ -10045,7 +10045,7 @@ LABEL_117:
               }
 
 LABEL_130:
-              if (v18 != 10)
+              if (v19 != 10)
               {
                 goto LABEL_189;
               }
@@ -10054,7 +10054,7 @@ LABEL_130:
             }
 
 LABEL_103:
-            if (v18 == 13)
+            if (v19 == 13)
             {
               goto LABEL_24;
             }
@@ -10062,19 +10062,19 @@ LABEL_103:
             goto LABEL_73;
           }
 
-          v22 = *&__dst[8];
+          v23 = *&__dst[8];
         }
 
-        if (v22 == 8)
+        if (v23 == 8)
         {
           if (**__dst == 0x697373527473614CLL)
           {
 LABEL_145:
-            *(v11 + 150) = xpc_dictionary_get_int64(v14, "value");
+            *(v12 + 150) = xpc_dictionary_get_int64(v15, "value");
             goto LABEL_12;
           }
 
-          if ((v18 & 0x80) == 0)
+          if ((v19 & 0x80) == 0)
           {
             goto LABEL_189;
           }
@@ -10085,15 +10085,15 @@ LABEL_145:
           if (**__dst == 0x65727275635F7369 && *(*__dst + 8) == 0x5F65646F6E5F746ELL && *(*__dst + 14) == 0x746E657261705F65)
           {
 LABEL_161:
-            v11[375] = xpc_dictionary_get_BOOL(v14, "value");
+            v12[375] = xpc_dictionary_get_BOOL(v15, "value");
             goto LABEL_12;
           }
 
-          if ((v18 & 0x80) == 0)
+          if ((v19 & 0x80) == 0)
           {
-            if (v18 != 10)
+            if (v19 != 10)
             {
-              if (v18 != 22)
+              if (v19 != 22)
               {
                 goto LABEL_189;
               }
@@ -10116,43 +10116,43 @@ LABEL_131:
           if (**__dst == 0x6C6175516B6E694CLL && *(*__dst + 5) == 0x6E497974696C6175)
           {
 LABEL_146:
-            v11[302] = xpc_dictionary_get_uint64(v14, "value");
+            v12[302] = xpc_dictionary_get_uint64(v15, "value");
             goto LABEL_12;
           }
 
-          if ((v18 & 0x80) == 0)
+          if ((v19 & 0x80) == 0)
           {
             goto LABEL_130;
           }
         }
 
-        v52 = *&__dst[8];
+        v53 = *&__dst[8];
         if (*&__dst[8] == 22)
         {
           if (**__dst == 0x6F6E6B5F7473616CLL && *(*__dst + 8) == 0x63697665645F6E77 && *(*__dst + 14) == 0x656C6F725F656369)
           {
 LABEL_183:
-            v61 = xpc_dictionary_get_string(v14, "value");
-            v62 = strlen(v61);
-            if (v62 > 0x7FFFFFFFFFFFFFF7)
+            v62 = xpc_dictionary_get_string(v15, "value");
+            v63 = strlen(v62);
+            if (v63 > 0x7FFFFFFFFFFFFFF7)
             {
               std::string::__throw_length_error[abi:ne200100]();
             }
 
-            v63 = v62;
-            if (v62 >= 0x17)
+            v64 = v63;
+            if (v63 >= 0x17)
             {
               operator new();
             }
 
-            *(&__str.__r_.__value_.__s + 23) = v62;
-            if (v62)
+            *(&__str.__r_.__value_.__s + 23) = v63;
+            if (v63)
             {
-              memmove(&__str, v61, v62);
+              memmove(&__str, v62, v63);
             }
 
-            __str.__r_.__value_.__s.__data_[v63] = 0;
-            std::string::operator=((v11 + 272), &__str);
+            __str.__r_.__value_.__s.__data_[v64] = 0;
+            std::string::operator=((v12 + 272), &__str);
 LABEL_221:
             if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -10162,10 +10162,10 @@ LABEL_221:
             goto LABEL_12;
           }
 
-          v52 = *&__dst[8];
+          v53 = *&__dst[8];
         }
 
-        if (v52 != 10)
+        if (v53 != 10)
         {
           goto LABEL_187;
         }
@@ -10173,31 +10173,31 @@ LABEL_221:
         if (**__dst == 0x756C6961665F7872 && *(*__dst + 8) == 25970)
         {
 LABEL_179:
-          v56 = xpc_dictionary_get_uint64(v14, "value");
-          v57 = v56;
-          if (v56)
+          v57 = xpc_dictionary_get_uint64(v15, "value");
+          v58 = v57;
+          if (v57)
           {
-            v58 = log10(v56) + 1.0;
-            v59 = v58 - 3;
-            if (v58 <= 3)
+            v59 = log10(v57) + 1.0;
+            v60 = v59 - 3;
+            if (v59 <= 3)
             {
-              v59 = 0;
+              v60 = 0;
             }
 
-            v60 = v59;
+            v61 = v60;
           }
 
           else
           {
-            v60 = 0.0;
+            v61 = 0.0;
           }
 
-          v90 = __exp10(v60);
-          *(v11 + 86) = (v90 * (v57 / v90));
+          v91 = __exp10(v61);
+          *(v12 + 86) = (v91 * (v58 / v91));
           goto LABEL_12;
         }
 
-        if ((v18 & 0x80) != 0)
+        if ((v19 & 0x80) != 0)
         {
 LABEL_187:
           if (*&__dst[8] != 10)
@@ -10205,60 +10205,60 @@ LABEL_187:
             goto LABEL_189;
           }
 
-          v40 = *__dst;
+          v41 = *__dst;
           goto LABEL_136;
         }
 
-        if (v18 != 10)
+        if (v19 != 10)
         {
           goto LABEL_189;
         }
 
 LABEL_135:
-        v40 = __dst;
+        v41 = __dst;
 LABEL_136:
-        v41 = *v40;
-        v42 = *(v40 + 4);
-        if (v41 != 0x65636375735F7872 || v42 != 29555)
+        v42 = *v41;
+        v43 = *(v41 + 4);
+        if (v42 != 0x65636375735F7872 || v43 != 29555)
         {
           goto LABEL_189;
         }
 
-        v44 = xpc_dictionary_get_uint64(v14, "value");
-        v45 = v44;
-        if (v44)
+        v45 = xpc_dictionary_get_uint64(v15, "value");
+        v46 = v45;
+        if (v45)
         {
-          v46 = log10(v44) + 1.0;
-          v47 = v46 - 3;
-          if (v46 <= 3)
+          v47 = log10(v45) + 1.0;
+          v48 = v47 - 3;
+          if (v47 <= 3)
           {
-            v47 = 0;
+            v48 = 0;
           }
 
-          v48 = v47;
+          v49 = v48;
         }
 
         else
         {
-          v48 = 0.0;
+          v49 = 0.0;
         }
 
-        v49 = __exp10(v48);
-        *(v11 + 85) = (v49 * (v45 / v49));
+        v50 = __exp10(v49);
+        *(v12 + 85) = (v50 * (v46 / v50));
 LABEL_12:
-        if (v162 < 0)
+        if (v163 < 0)
         {
           operator delete(*__dst);
         }
 
-        ++v10;
-        v11 += 136;
-        v7 = v14;
+        ++v11;
+        v12 += 136;
+        v8 = v15;
       }
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_309:
 
 LABEL_310:

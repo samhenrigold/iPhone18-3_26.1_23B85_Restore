@@ -63,9 +63,11 @@ uint64_t __53__ICCameraDeviceRemovedItemsCoalescer_coalesceItems___block_invoke_
     v4 = 8;
   }
 
-  *(*(a1 + 32) + v4) = v3;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + v4);
+  *(v5 + v4) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v6);
 }
 
 - (ICCameraDeviceRemovedItemsCoalescer)initWithSource:(id)source block:(id)block

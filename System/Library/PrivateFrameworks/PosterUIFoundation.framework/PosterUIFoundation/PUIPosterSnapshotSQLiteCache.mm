@@ -1,6 +1,5 @@
 @interface PUIPosterSnapshotSQLiteCache
 - (BOOL)checkCacheIsReachableWithError:(id *)error;
-- (BOOL)hasSnapshotsWithError:(uint64_t)error;
 - (PUIPosterSnapshotSQLiteCache)initWithURL:(id)l fileManager:(id)manager options:(int64_t)options error:(id *)error;
 - (_PUIPosterSnapshotSQLiteCacheInstance)_accessCacheImplementationSyncWithReason:(void *)reason outError:;
 - (id)_accessCacheImplementationWithReason:(uint64_t)reason;
@@ -18,8 +17,9 @@
 - (id)snapshotBundlesMatchingPredicate:(void *)predicate orderedBy:(void *)by limit:;
 - (id)snapshotBundlesMatchingPredicate:(void *)predicate orderedBy:(void *)by limit:(void *)limit outError:;
 - (id)snapshotDestinationFutureForPath:(id)path clientAuditToken:(id)token;
-- (uint64_t)_invalidateReason:(uint64_t)result;
+- (uint64_t)hasSnapshotsWithError:(uint64_t)error;
 - (void)_cacheImplementationLock_teardownSync:(uint64_t)sync;
+- (void)_invalidateReason:(void *)result;
 - (void)dealloc;
 - (void)invalidate;
 @end
@@ -503,7 +503,7 @@ id __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_orderedBy
 void __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_orderedBy_limit___block_invoke_58(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PUILogSnapshotCache();
+  v4 = PUILogSnapshotCache(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_orderedBy_limit___block_invoke_58_cold_1(a1, v3, v4);
@@ -515,7 +515,7 @@ void __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_ordered
 void __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_orderedBy_limit___block_invoke_59(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PUILogSnapshotCache();
+  v4 = PUILogSnapshotCache(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_orderedBy_limit___block_invoke_59_cold_1(a1, v3);
@@ -856,8 +856,7 @@ uint64_t __82__PUIPosterSnapshotSQLiteCache__accessCacheImplementationSyncWithRe
   v18 = *MEMORY[0x1E69E9840];
   if (sync)
   {
-    [*(sync + 56) assertOwner];
-    v4 = PUILogSnapshotCache();
+    v4 = PUILogSnapshotCache([*(sync + 56) assertOwner]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218240;
@@ -899,7 +898,7 @@ uint64_t __82__PUIPosterSnapshotSQLiteCache__accessCacheImplementationSyncWithRe
   }
 }
 
-- (BOOL)hasSnapshotsWithError:(uint64_t)error
+- (uint64_t)hasSnapshotsWithError:(uint64_t)error
 {
   errorCopy = error;
   if (error)
@@ -977,22 +976,22 @@ uint64_t __82__PUIPosterSnapshotSQLiteCache__accessCacheImplementationSyncWithRe
   return v11;
 }
 
-- (uint64_t)_invalidateReason:(uint64_t)result
+- (void)_invalidateReason:(void *)result
 {
   if (result)
   {
     v2 = result;
-    v3 = *(result + 56);
+    v3 = result[7];
     v4 = a2;
     [v3 lock];
-    [*(v2 + 80) removeObject:v4];
+    [v2[10] removeObject:v4];
 
-    if (![*(v2 + 80) count])
+    if (![v2[10] count])
     {
       [(PUIPosterSnapshotSQLiteCache *)v2 _cacheImplementationLock_teardownSync:?];
     }
 
-    v5 = *(v2 + 56);
+    v5 = v2[7];
 
     return [v5 unlock];
   }
@@ -1093,14 +1092,14 @@ uint64_t __82__PUIPosterSnapshotSQLiteCache__accessCacheImplementationSyncWithRe
 
     if (!v15)
     {
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"__obj"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v18 = NSStringFromSelector(a2);
         v19 = objc_opt_class();
         v20 = NSStringFromClass(v19);
         OUTLINED_FUNCTION_2_1();
-        OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v21, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v22, v23, v24, v25, @"__obj", v26, v27);
+        OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v21, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v22, v23, v24, v25, v26, v27);
       }
 
       [v17 UTF8String];
@@ -1123,7 +1122,7 @@ uint64_t __82__PUIPosterSnapshotSQLiteCache__accessCacheImplementationSyncWithRe
 
 - (id)cacheSnapshotBundle:(id)bundle options:(id)options outError:(id *)error
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   optionsCopy = options;
   v11 = NSStringFromSelector(a2);
@@ -1136,9 +1135,9 @@ uint64_t __82__PUIPosterSnapshotSQLiteCache__accessCacheImplementationSyncWithRe
   }
 
   bundleURL = [bundleCopy bundleURL];
-  v37 = 0;
-  v14 = [bundleURL checkResourceIsReachableAndReturnError:&v37];
-  v15 = v37;
+  v38[0] = 0;
+  v14 = [bundleURL checkResourceIsReachableAndReturnError:v38];
+  v15 = v38[0];
 
   if (v14)
   {
@@ -1167,21 +1166,21 @@ uint64_t __82__PUIPosterSnapshotSQLiteCache__accessCacheImplementationSyncWithRe
 
     if (!v22)
     {
-      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"__obj"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v28 = NSStringFromSelector(a2);
         v29 = objc_opt_class();
         v30 = NSStringFromClass(v29);
         OUTLINED_FUNCTION_2_1();
-        selfCopy = self;
-        v40 = v31;
-        v41 = @"PUIPosterSnapshotSQLiteCache.m";
-        v42 = 1024;
-        v43 = 563;
-        v44 = v31;
-        v45 = v27;
-        OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v32, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v33, v34, v35, v36, @"__obj", v37, v38);
+        v38[4] = self;
+        v39 = v31;
+        v40 = @"PUIPosterSnapshotSQLiteCache.m";
+        v41 = 1024;
+        v42 = 563;
+        v43 = v31;
+        v44 = v27;
+        OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v32, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v33, v34, v35, v36, v37, v38[0]);
       }
 
       [v27 UTF8String];
@@ -1205,9 +1204,9 @@ uint64_t __82__PUIPosterSnapshotSQLiteCache__accessCacheImplementationSyncWithRe
   if (!v15)
   {
     v23 = MEMORY[0x1E696ABC0];
-    v46 = *MEMORY[0x1E696A588];
-    v47[0] = @"Snapshot bundle is not valid.";
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v45 = *MEMORY[0x1E696A588];
+    v46[0] = @"Snapshot bundle is not valid.";
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     v25 = [v23 pui_errorWithCode:3 userInfo:v24];
     *error = v25;
 
@@ -1228,7 +1227,7 @@ LABEL_17:
 
 - (void)initWithURL:(char *)a1 fileManager:options:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"cacheURL"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1236,7 +1235,7 @@ LABEL_17:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"cacheURL", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1246,14 +1245,14 @@ LABEL_17:
 
 void __75__PUIPosterSnapshotSQLiteCache_discardSnapshotBundlesMatchingSQLPredicate___block_invoke_cold_1(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"__obj"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v3 = NSStringFromSelector(*(a1 + 48));
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"__obj", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v2 UTF8String];
@@ -1263,7 +1262,7 @@ void __75__PUIPosterSnapshotSQLiteCache_discardSnapshotBundlesMatchingSQLPredica
 
 - (void)cacheSnapshotBundle:(char *)a1 options:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"incomingSnapshotBundle"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1271,7 +1270,7 @@ void __75__PUIPosterSnapshotSQLiteCache_discardSnapshotBundlesMatchingSQLPredica
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"incomingSnapshotBundle", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1281,14 +1280,14 @@ void __75__PUIPosterSnapshotSQLiteCache_discardSnapshotBundlesMatchingSQLPredica
 
 void __60__PUIPosterSnapshotSQLiteCache_cacheSnapshotBundle_options___block_invoke_cold_1(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"__obj"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v3 = NSStringFromSelector(*(a1 + 56));
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"__obj", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v2 UTF8String];
@@ -1298,14 +1297,14 @@ void __60__PUIPosterSnapshotSQLiteCache_cacheSnapshotBundle_options___block_invo
 
 void __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_orderedBy_limit___block_invoke_cold_1(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"__obj"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v3 = NSStringFromSelector(*(a1 + 64));
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"__obj", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v2 UTF8String];
@@ -1326,14 +1325,17 @@ void __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_ordered
 
 void __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_orderedBy_limit___block_invoke_59_cold_1(uint64_t a1, void *a2)
 {
-  v2 = [a2 localizedDescription];
+  v2 = *(a1 + 32);
+  v3 = [a2 localizedDescription];
+  LODWORD(v10) = 134218242;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_9(&dword_1A8C85000, v3, v4, "<%p> no result found: %@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_9(&dword_1A8C85000, v4, v5, "<%p> no result found: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)snapshotBundlesMatchingPredicate:(char *)a1 orderedBy:limit:outError:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"__obj"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1341,7 +1343,7 @@ void __81__PUIPosterSnapshotSQLiteCache_snapshotBundlesMatchingPredicate_ordered
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"__obj", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

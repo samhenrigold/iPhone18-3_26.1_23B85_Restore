@@ -1,14 +1,19 @@
 @interface BRCFSDownloader
+- (BOOL)_createDownloadingJobForItem:(id)item state:(int)state kind:(int)kind etag:(id)etag stageFileName:(id)name error:(id *)error;
 - (BOOL)makeContentLive:(id)live;
 - (BOOL)scheduleContentDownloadForItem:(id)item serverItem:(id)serverItem options:(unint64_t)options etagIfLoser:(id)loser stageFileName:(id)name error:(id *)error;
 - (BRCFSDownloader)initWithAccountSession:(id)session;
+- (id)_buildDownloadActiveJobsResultSetForThrottleID:(unint64_t)d etag:(id)etag kind:(int)kind;
 - (id)_getCancelErrorFromCancelReason:(int)reason;
 - (id)_sanitizeRecord:(id)record;
 - (id)descriptionForItem:(id)item context:(id)context;
 - (id)generateContentStageFileNameForItem:(id)item etag:(id)etag;
 - (id)getDownloadEtagForItem:(id)item etagIfLoser:(id)loser;
+- (int64_t)nextAllowedScheduleForItem:(id)item withDownloadKind:(int)kind;
 - (unint64_t)_bumpThrottleForDownload:(id)download throttle:(id)throttle;
 - (unint64_t)sizeOfActiveDownloads;
+- (void)_cancelJobs:(id)jobs state:(int)state;
+- (void)_cancelJobs:(id)jobs state:(int)state cancelError:(id)error;
 - (void)_clearDownloadErrorForDocument:(id)document;
 - (void)_close;
 - (void)_finishDownloadCleanup:(id)cleanup;
@@ -19,6 +24,8 @@
 - (void)_transferStreamOfSyncContext:(id)context didBecomeReadyWithMaxRecordsCount:(unint64_t)count sizeHint:(unint64_t)hint priority:(int64_t)priority supportedKinds:(id)kinds;
 - (void)_willDownload:(id)download operationID:(id)d;
 - (void)cancel;
+- (void)cancelAndCleanupItemDownload:(id)download kind:(int)kind;
+- (void)cancelAndCleanupItemDownload:(id)download kind:(int)kind etag:(id)etag andNotifyDownloadTrackers:(BOOL)trackers cancelReason:(int)reason;
 - (void)cancelAndCleanupItemDownloads:(id)downloads;
 - (void)cancelOngoingDownloadsDueToMoreRecentServerVersionForItem:(id)item;
 - (void)close;
@@ -30,6 +37,7 @@
 - (void)suspend;
 - (void)transferStreamOfSyncContext:(id)context didBecomeReadyWithMaxRecordsCount:(unint64_t)count sizeHint:(unint64_t)hint priority:(int64_t)priority supportedKinds:(id)kinds completionBlock:(id)block;
 - (void)updateContentDownloadForMetaOnlyChange:(id)change fromEtag:(id)etag toEtag:(id)toEtag;
+- (void)updateLoserNotificationOfItem:(id)item etag:(id)etag downloadKind:(int)kind notification:(id)notification;
 @end
 
 @implementation BRCFSDownloader
@@ -278,32 +286,198 @@ LABEL_11:
 LABEL_13:
 }
 
+- (BOOL)_createDownloadingJobForItem:(id)item state:(int)state kind:(int)kind etag:(id)etag stageFileName:(id)name error:(id *)error
+{
+  v10 = *&kind;
+  v85 = *MEMORY[0x277D85DE8];
+  itemCopy = item;
+  etagCopy = etag;
+  nameCopy = name;
+  serverZone = [itemCopy serverZone];
+  appLibrary = [itemCopy appLibrary];
+  syncContextUsedForTransfers = [itemCopy syncContextUsedForTransfers];
+  v72 = etagCopy;
+  v73 = -[BRCDownloadJobIdentifier initWithDBRowID:etag:kind:]([BRCDownloadJobIdentifier alloc], "initWithDBRowID:etag:kind:", [itemCopy dbRowID], etagCopy, v10);
+  v16 = brc_current_date_nsec();
+  v17 = 17;
+  if (!v10)
+  {
+    v17 = 25;
+  }
+
+  v60 = v17;
+  v61 = v16;
+  if (v10 == 3 && ![serverZone hasFetchedRecentsAndFavorites])
+  {
+    state = 40;
+  }
+
+  stateCopy = state;
+  v68 = itemCopy;
+  currentVersion = [itemCopy currentVersion];
+  v66 = [currentVersion size];
+
+  downloadThrottle = [syncContextUsedForTransfers downloadThrottle];
+  v55 = [MEMORY[0x277D82C18] rawInjection:"app_library_rowid length:{transfer_queue, transfer_size, transfer_record, transfer_stage, transfer_operation, download_kind, download_etag, download_priority, download_request_stamp, download_error, zone_rowid", 202}];
+  v19 = MEMORY[0x277D82C08];
+  dbRowID = [appLibrary dbRowID];
+  contextIdentifier = [syncContextUsedForTransfers contextIdentifier];
+  dbRowID2 = [serverZone dbRowID];
+  v53 = v10;
+  v54 = [v19 formatInjection:{@"%@, %@, %lld, %@, %@, %@, %u, %@, %ld, %lld, %@, %@", dbRowID, contextIdentifier, v66, 0, nameCopy, 0, v10, etagCopy, v60, v61, 0, dbRowID2}];
+  v20 = MEMORY[0x277D82C08];
+  dbRowID3 = [appLibrary dbRowID];
+  v65 = syncContextUsedForTransfers;
+  contextIdentifier2 = [syncContextUsedForTransfers contextIdentifier];
+  v67 = serverZone;
+  dbRowID4 = [serverZone dbRowID];
+  v24 = [v20 formatInjection:{@"app_library_rowid = %@, transfer_queue = %@, download_priority = %ld, download_request_stamp = %lld, transfer_stage = %@, zone_rowid = %@", dbRowID3, contextIdentifier2, v60, v61, nameCopy, dbRowID4}];
+
+  v74 = 0;
+  v25 = [(BRCFSSchedulerBase *)self insertOrUpdateJobID:v73 throttle:downloadThrottle withState:stateCopy insertedSQLColumn:v55 insertedSQLValues:v54 updatedSQLValues:v24 error:&v74];
+  v63 = v26;
+  v27 = v74;
+
+  v28 = v27;
+  if (error)
+  {
+    v29 = v27 == 0;
+  }
+
+  else
+  {
+    v29 = 1;
+  }
+
+  v30 = v29;
+  if (!v29)
+  {
+    v39 = v27;
+    v40 = brc_bread_crumbs();
+    v41 = brc_default_log();
+    if (os_log_type_enabled(v41, 0x90u))
+    {
+      [BRCFSDownloader _createDownloadingJobForItem:v39 state:v40 kind:v41 etag:? stageFileName:? error:?];
+    }
+
+    v43 = v39;
+    *error = v39;
+    v31 = itemCopy;
+    v32 = v72;
+    v44 = v65;
+LABEL_30:
+
+    goto LABEL_31;
+  }
+
+  v31 = itemCopy;
+  v32 = v72;
+  if (stateCopy != v25)
+  {
+    v33 = v25;
+    selfCopy2 = self;
+    activeDownloadsSize = self->_activeDownloadsSize;
+    clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
+    v37 = [clientDB numberWithSQL:{@"SELECT transfer_size FROM client_downloads WHERE throttle_id = %lld AND download_kind = %u AND download_etag = %@", objc_msgSend(v68, "dbRowID"), v53, v72}];
+
+    if (stateCopy == 1)
+    {
+      v38 = self->_activeDownloadsSize + [v37 longLongValue];
+    }
+
+    else
+    {
+      if (v33 != 1)
+      {
+LABEL_23:
+        v45 = brc_bread_crumbs();
+        v46 = brc_default_log();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+        {
+          itemID = [v68 itemID];
+          v51 = self->_activeDownloadsSize;
+          *buf = 138413314;
+          v76 = v73;
+          v77 = 2112;
+          v78 = itemID;
+          v79 = 2048;
+          v80 = activeDownloadsSize;
+          v81 = 2048;
+          v82 = v51;
+          v83 = 2112;
+          v84 = v45;
+          _os_log_debug_impl(&dword_223E7A000, v46, OS_LOG_TYPE_DEBUG, "[DEBUG] Downloader[%@]: %@ (%llu -> %llu)%@", buf, 0x34u);
+        }
+
+        v28 = v27;
+        goto LABEL_26;
+      }
+
+      selfCopy2 = self;
+      v38 = self->_activeDownloadsSize - [v37 longLongValue];
+    }
+
+    selfCopy2->_activeDownloadsSize = v38;
+    goto LABEL_23;
+  }
+
+LABEL_26:
+  v44 = v65;
+  serverZone = v67;
+  if (stateCopy == 1)
+  {
+    v39 = [v65 downloadStreamForKind:v53];
+    v47 = brc_bread_crumbs();
+    v48 = brc_default_log();
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    {
+      contextIdentifier3 = [v65 contextIdentifier];
+      *buf = 138413058;
+      v76 = v39;
+      v77 = 2112;
+      v78 = contextIdentifier3;
+      v79 = 2048;
+      v80 = v63;
+      v81 = 2112;
+      v82 = v47;
+      _os_log_debug_impl(&dword_223E7A000, v48, OS_LOG_TYPE_DEBUG, "[DEBUG] Signaling downloadStream %@ , context identifier = %@, with nextTry = %lld%@", buf, 0x2Au);
+    }
+
+    [(BRCDownloadJobIdentifier *)v39 signalWithDeadline:v63];
+    goto LABEL_30;
+  }
+
+LABEL_31:
+
+  return v30;
+}
+
 - (id)_sanitizeRecord:(id)record
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v4 = [recordCopy copy];
   [v4 setTrackChanges:0];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allKeys = [recordCopy allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [recordCopy objectForKeyedSubscript:v10];
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -312,21 +486,20 @@ LABEL_13:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   [v4 setTrackChanges:1];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)_finishedDownload:(id)download syncContext:(id)context operationID:(id)d error:(id)error
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   downloadCopy = download;
   contextCopy = context;
   dCopy = d;
@@ -342,36 +515,36 @@ LABEL_13:
   clientZone = [downloadCopy clientZone];
   stageID = [downloadCopy stageID];
   kind = [downloadCopy kind];
-  memset(v74, 0, sizeof(v74));
-  __brc_create_section(0, "[BRCFSDownloader _finishedDownload:syncContext:operationID:error:]", 547, 0, v74);
+  memset(v73, 0, sizeof(v73));
+  __brc_create_section(0, "[BRCFSDownloader _finishedDownload:syncContext:operationID:error:]", 547, 0, v73);
   v13 = brc_bread_crumbs();
   v14 = brc_default_log();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v41 = v74[0];
+    v40 = v73[0];
     transferID = [downloadCopy transferID];
     [downloadCopy kind];
-    v43 = BRCPrettyPrintEnum();
+    v42 = BRCPrettyPrintEnum();
     etag = [downloadCopy etag];
-    v45 = etag;
-    v46 = @"failed";
+    v44 = etag;
+    v45 = @"failed";
     *buf = 134219266;
-    v76 = v41;
-    v77 = 2112;
+    v75 = v40;
+    v76 = 2112;
     if (!errorCopy)
     {
-      v46 = @"done";
+      v45 = @"done";
     }
 
-    v78 = transferID;
-    v79 = 2080;
-    v80 = v43;
-    v81 = 2112;
-    v82 = etag;
-    v83 = 2112;
-    v84 = v46;
-    v85 = 2112;
-    v86 = v13;
+    v77 = transferID;
+    v78 = 2080;
+    v79 = v42;
+    v80 = 2112;
+    v81 = etag;
+    v82 = 2112;
+    v83 = v45;
+    v84 = 2112;
+    v85 = v13;
     _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Downloader[%@-%s-%@]: download %@%@", buf, 0x3Eu);
   }
 
@@ -426,28 +599,28 @@ LABEL_22:
       }
 
       v34 = [(BRCAccountSession *)self->super.super._session clientReadWriteDatabaseFacade:0];
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___block_invoke_212;
-      v55[3] = &unk_278501FD8;
-      v55[4] = self;
-      v56 = downloadCopy;
-      v66 = v21;
-      v57 = contextCopy;
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___block_invoke_212;
+      v54[3] = &unk_278501FD8;
+      v54[4] = self;
+      v55 = downloadCopy;
+      v65 = v21;
+      v56 = contextCopy;
       v35 = v34;
-      v58 = v35;
-      v59 = stageID;
-      v64 = kind;
+      v57 = v35;
+      v58 = stageID;
+      v63 = kind;
       asDocument = asDocument;
-      v60 = asDocument;
-      v63 = v32;
-      v65 = v33;
+      v59 = asDocument;
+      v62 = v32;
+      v64 = v33;
       v36 = applyScheduler;
-      v61 = v36;
-      v62 = clientZone;
-      [v35 groupInBatch:v55];
+      v60 = v36;
+      v61 = clientZone;
+      [v35 groupInBatch:v54];
 
-      errorCopy = v49;
+      errorCopy = v48;
       goto LABEL_32;
     }
 
@@ -464,22 +637,8 @@ LABEL_22:
 
   if (([clientZone handleZoneLevelErrorIfNeeded:errorCopy forItemCreation:0] & 1) == 0)
   {
-    if ([errorCopy brc_isCloudKitCancellationError])
+    if (([errorCopy brc_isCloudKitCancellationError] & 1) != 0 || (objc_msgSend(contextCopy, "downloadThrottle"), v24 = objc_claimAutoreleasedReturnValue(), v25 = -[BRCFSDownloader _bumpThrottleForDownload:throttle:](self, "_bumpThrottleForDownload:throttle:", downloadCopy, v24), v24, objc_msgSend(asDocument, "appLibrary"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "mangledID"), v27 = objc_claimAutoreleasedReturnValue(), +[BRCUserDefaults defaultsForMangledID:](BRCUserDefaults, "defaultsForMangledID:", v27), v28 = objc_claimAutoreleasedReturnValue(), LODWORD(v25) = v25 > objc_msgSend(v28, "downloadRetryCountForFailure"), v28, v27, v26, !v25))
     {
-      goto LABEL_26;
-    }
-
-    downloadThrottle = [contextCopy downloadThrottle];
-    v25 = [(BRCFSDownloader *)self _bumpThrottleForDownload:downloadCopy throttle:downloadThrottle];
-
-    appLibrary = [asDocument appLibrary];
-    mangledID = [appLibrary mangledID];
-    v28 = [BRCUserDefaults defaultsForMangledID:mangledID];
-    LODWORD(v25) = v25 > [v28 downloadRetryCountForFailure];
-
-    if (!v25)
-    {
-LABEL_26:
       v29 = 0;
     }
 
@@ -493,14 +652,14 @@ LABEL_26:
     v38 = brc_default_log();
     if (os_log_type_enabled(v38, 0x90u))
     {
-      v47 = [asDocument st];
-      displayName = [v47 displayName];
+      v46 = [asDocument st];
+      displayName = [v46 displayName];
       *buf = 138412802;
-      v76 = displayName;
-      v77 = 2112;
-      v78 = errorCopy;
-      v79 = 2112;
-      v80 = v37;
+      v75 = displayName;
+      v76 = 2112;
+      v77 = errorCopy;
+      v78 = 2112;
+      v79 = v37;
       _os_log_error_impl(&dword_223E7A000, v38, 0x90u, "[ERROR] Got error when downloading %@: %@%@", buf, 0x20u);
     }
 
@@ -510,25 +669,23 @@ LABEL_26:
     }
 
     clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___block_invoke;
-    v67[3] = &unk_278501E10;
-    v72 = 41;
-    v67[4] = self;
-    v68 = downloadCopy;
-    v69 = errorCopy;
-    v73 = kind;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___block_invoke;
+    v66[3] = &unk_278501E10;
+    v71 = 41;
+    v66[4] = self;
+    v67 = downloadCopy;
+    v68 = errorCopy;
+    v72 = kind;
     asDocument = asDocument;
-    v70 = asDocument;
-    v71 = clientZone;
-    [clientDB groupInBatch:v67];
+    v69 = asDocument;
+    v70 = clientZone;
+    [clientDB groupInBatch:v66];
   }
 
 LABEL_32:
-  __brc_leave_section(v74);
-
-  v40 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v73);
 }
 
 void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___block_invoke(uint64_t a1, void *a2)
@@ -601,7 +758,7 @@ void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___blo
 
 void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___block_invoke_212(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) record];
   v4 = [v2 _sanitizeRecord:v3];
@@ -622,23 +779,12 @@ void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___blo
   v9 = *(a1 + 64);
   v10 = *(a1 + 104);
   v11 = [*(a1 + 40) etag];
-  LODWORD(v25) = v5;
-  [v7 finishDownloadJobForThrottleID:v8 stageID:v9 record:v4 downloadError:0 downloadKind:v10 etag:v11 newState:v25 newTransferQueue:v6];
+  LODWORD(v23) = v5;
+  [v7 finishDownloadJobForThrottleID:v8 stageID:v9 record:v4 downloadError:0 downloadKind:v10 etag:v11 newState:v23 newTransferQueue:v6];
 
   [*(a1 + 72) saveToDB];
-  if (*(a1 + 112))
+  if (*(a1 + 112) & 1) != 0 || ([*(*(a1 + 32) + 8) downloadTrackers], v12 = objc_claimAutoreleasedReturnValue(), v13 = *(a1 + 72), objc_msgSend(*(a1 + 40), "etagIfLoser"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "document:didCompleteDownloadEtagIfLoser:kind:withError:", v13, v14, objc_msgSend(*(a1 + 40), "kind"), 0), v14, v12, (*(a1 + 112)))
   {
-    goto LABEL_6;
-  }
-
-  v12 = [*(*(a1 + 32) + 8) downloadTrackers];
-  v13 = *(a1 + 72);
-  v14 = [*(a1 + 40) etagIfLoser];
-  [v12 document:v13 didCompleteDownloadEtagIfLoser:v14 kind:objc_msgSend(*(a1 + 40) withError:{"kind"), 0}];
-
-  if (*(a1 + 112))
-  {
-LABEL_6:
     v15 = [*(a1 + 48) downloadStreamForKind:{objc_msgSend(*(a1 + 40), "kind")}];
     [v15 signal];
   }
@@ -650,33 +796,31 @@ LABEL_6:
       goto LABEL_8;
     }
 
-    v17 = brc_bread_crumbs();
-    v18 = brc_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v16 = brc_bread_crumbs();
+    v17 = brc_default_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v22 = *(a1 + 96);
-      v23 = [*(a1 + 40) itemID];
-      v24 = *(a1 + 108);
+      v21 = *(a1 + 96);
+      v22 = [*(a1 + 40) itemID];
       *buf = 134218754;
+      v25 = v21;
+      v26 = 2112;
       v27 = v22;
-      v28 = 2112;
-      v29 = v23;
-      v30 = 2080;
-      v31 = BRCPrettyPrintEnum();
-      v32 = 2112;
-      v33 = v17;
-      _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] Apply Changes[%lld]: %@ state is %s%@", buf, 0x2Au);
+      v28 = 2080;
+      v29 = BRCPrettyPrintEnum();
+      v30 = 2112;
+      v31 = v16;
+      _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] Apply Changes[%lld]: %@ state is %s%@", buf, 0x2Au);
     }
 
-    v19 = *(a1 + 108);
-    v20 = *(a1 + 96);
-    v21 = *(a1 + 80);
+    v18 = *(a1 + 108);
+    v19 = *(a1 + 96);
+    v20 = *(a1 + 80);
     v15 = [*(a1 + 88) dbRowID];
-    [v21 setState:v19 andApplyKind:2 forRank:v20 zoneRowID:v15];
+    [v20 setState:v18 andApplyKind:2 forRank:v19 zoneRowID:v15];
   }
 
 LABEL_8:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rescheduleJobsPendingWinnerForItem:(id)item
@@ -742,6 +886,127 @@ LABEL_8:
   }
 }
 
+- (void)_cancelJobs:(id)jobs state:(int)state
+{
+  v4 = *&state;
+  v6 = MEMORY[0x277CCA9B8];
+  jobsCopy = jobs;
+  brc_errorOperationCancelled = [v6 brc_errorOperationCancelled];
+  [(BRCFSDownloader *)self _cancelJobs:jobsCopy state:v4 cancelError:brc_errorOperationCancelled];
+}
+
+- (void)_cancelJobs:(id)jobs state:(int)state cancelError:(id)error
+{
+  v36 = *&state;
+  v54 = *MEMORY[0x277D85DE8];
+  jobsCopy = jobs;
+  errorCopy = error;
+  if ([jobsCopy next])
+  {
+    do
+    {
+      context = objc_autoreleasePoolPush();
+      v41 = [jobsCopy numberAtIndex:0];
+      v8 = [jobsCopy intAtIndex:1];
+      v42 = [jobsCopy stringAtIndex:2];
+      v9 = [jobsCopy uuidAtIndex:3];
+      v10 = [jobsCopy stringAtIndex:4];
+      v11 = [jobsCopy numberAtIndex:5];
+      v12 = [jobsCopy numberAtIndex:6];
+      v13 = [jobsCopy intAtIndex:7];
+      v14 = [jobsCopy longLongAtIndex:8];
+      v39 = v11;
+      v15 = [(BRCAccountSession *)self->super.super._session appLibraryByRowID:v11];
+      v37 = [(BRCAccountSession *)self->super.super._session serverZoneByRowID:v12];
+      v38 = v15;
+      v16 = [BRCSyncContext transferContextForServerZone:"transferContextForServerZone:appLibrary:" appLibrary:?];
+      v43 = v9;
+      if (v13 == 1)
+      {
+        v17 = brc_bread_crumbs();
+        v18 = brc_default_log();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        {
+          v34 = BRCPrettyPrintEnum();
+          *buf = 138413058;
+          v45 = v41;
+          v46 = 2080;
+          v47 = v34;
+          v48 = 2112;
+          v49 = v42;
+          v50 = 2112;
+          v51 = v17;
+          _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] Downloader[%@-%s-%@]: Cancelling download%@", buf, 0x2Au);
+        }
+
+        self->_activeDownloadsSize -= v14;
+        v9 = v43;
+        if (v8 == 3 || !v8)
+        {
+          itemFetcher = [(BRCAccountSession *)self->super.super._session itemFetcher];
+          v20 = [itemFetcher itemByRowID:{objc_msgSend(v41, "unsignedIntegerValue")}];
+          asDocument = [v20 asDocument];
+
+          session = self->super.super._session;
+          v23 = 0;
+          downloadTrackers = [(BRCAccountSession *)session downloadTrackers];
+          [downloadTrackers document:asDocument didCompleteDownloadEtagIfLoser:v23 kind:v8 withError:errorCopy];
+
+          v9 = v43;
+        }
+      }
+
+      if (v9)
+      {
+        v25 = [v16 downloadStreamForKind:v8];
+        [v25 cancelTransferID:v41 operationID:v9];
+      }
+
+      if (v10)
+      {
+        clientReadWriteDatabaseFacade = [(BRCAccountSession *)self->super.super._session clientReadWriteDatabaseFacade];
+        v27 = [clientReadWriteDatabaseFacade itemIDByRowID:{objc_msgSend(v41, "unsignedIntegerValue")}];
+
+        v28 = brc_bread_crumbs();
+        v29 = brc_default_log();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        {
+          v33 = BRCPrettyPrintEnum();
+          *buf = 138413314;
+          v45 = v41;
+          v46 = 2080;
+          v47 = v33;
+          v48 = 2112;
+          v49 = v42;
+          v50 = 2112;
+          v51 = v10;
+          v52 = 2112;
+          v53 = v28;
+          _os_log_debug_impl(&dword_223E7A000, v29, OS_LOG_TYPE_DEBUG, "[DEBUG] Downloader[%@-%s-%@]: Cleaning up download stage: %@%@", buf, 0x34u);
+        }
+
+        stageRegistry = [(BRCAccountSession *)self->super.super._session stageRegistry];
+        [stageRegistry cleanupStagedDownloadWithID:v10 forItemID:v27];
+
+        v9 = v43;
+      }
+
+      if (v16)
+      {
+        v31 = [jobsCopy db];
+        contextIdentifier = [v16 contextIdentifier];
+        [v31 execute:{@"UPDATE client_downloads SET  throttle_state = %d, transfer_queue = %@, transfer_record = NULL, transfer_stage = NULL, transfer_operation = NULL, unit_count_completed = 0 WHERE throttle_id = %@ AND download_kind = %u AND download_etag = %@", v36, contextIdentifier, v41, v8, v42}];
+      }
+
+      objc_autoreleasePoolPop(context);
+    }
+
+    while (([jobsCopy next] & 1) != 0);
+  }
+
+  [jobsCopy close];
+}
+
 - (void)_finishDownloadCleanup:(id)cleanup
 {
   cleanupCopy = cleanup;
@@ -757,39 +1022,37 @@ LABEL_8:
 
 - (void)cancelOngoingDownloadsDueToMoreRecentServerVersionForItem:(id)item
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   itemCopy = item;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = +[BRCFSDownloaderUtil cancellableDownloadKinds];
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        -[BRCFSDownloader cancelAndCleanupItemDownload:kind:etag:andNotifyDownloadTrackers:cancelReason:](self, "cancelAndCleanupItemDownload:kind:etag:andNotifyDownloadTrackers:cancelReason:", itemCopy, [*(*(&v11 + 1) + 8 * v9++) intValue], 0, 1, 1);
+        -[BRCFSDownloader cancelAndCleanupItemDownload:kind:etag:andNotifyDownloadTrackers:cancelReason:](self, "cancelAndCleanupItemDownload:kind:etag:andNotifyDownloadTrackers:cancelReason:", itemCopy, [*(*(&v10 + 1) + 8 * v9++) intValue], 0, 1, 1);
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getCancelErrorFromCancelReason:(int)reason
@@ -815,6 +1078,122 @@ LABEL_8:
   }
 
   return brc_errorRescheduleDownloadForMoreRecentServerVersion;
+}
+
+- (id)_buildDownloadActiveJobsResultSetForThrottleID:(unint64_t)d etag:(id)etag kind:(int)kind
+{
+  v5 = *&kind;
+  etagCopy = etag;
+  v9 = etagCopy;
+  if (etagCopy && v5 != -1)
+  {
+    clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
+    v11 = [clientDB fetch:{@"SELECT throttle_id, download_kind, download_etag, transfer_operation, transfer_stage, app_library_rowid, zone_rowid, throttle_state, transfer_size FROM client_downloads WHERE throttle_id = %lld AND download_kind = %u AND download_etag = %@   AND throttle_state != 0", d, v5, v9}];
+LABEL_13:
+    v12 = v11;
+
+    goto LABEL_14;
+  }
+
+  if (etagCopy && v5 == -1)
+  {
+    clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
+    v11 = [clientDB fetch:{@"SELECT throttle_id, download_kind, download_etag, transfer_operation, transfer_stage, app_library_rowid, zone_rowid, throttle_state, transfer_size FROM client_downloads WHERE throttle_id = %lld AND download_etag = %@   AND throttle_state != 0", d, v9, v15}];
+    goto LABEL_13;
+  }
+
+  if (!etagCopy && v5 != -1)
+  {
+    clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
+    v11 = [clientDB fetch:{@"SELECT throttle_id, download_kind, download_etag, transfer_operation, transfer_stage, app_library_rowid, zone_rowid, throttle_state, transfer_size FROM client_downloads WHERE throttle_id = %lld AND download_kind = %u   AND throttle_state != 0", d, v5, v15}];
+    goto LABEL_13;
+  }
+
+  v12 = 0;
+  if (!etagCopy && v5 == -1)
+  {
+    clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
+    v11 = [clientDB fetch:{@"SELECT throttle_id, download_kind, download_etag, transfer_operation, transfer_stage, app_library_rowid, zone_rowid, throttle_state, transfer_size FROM client_downloads WHERE throttle_id = %lld    AND throttle_state != 0", d, v14, v15}];
+    goto LABEL_13;
+  }
+
+LABEL_14:
+
+  return v12;
+}
+
+- (void)cancelAndCleanupItemDownload:(id)download kind:(int)kind etag:(id)etag andNotifyDownloadTrackers:(BOOL)trackers cancelReason:(int)reason
+{
+  v7 = *&reason;
+  trackersCopy = trackers;
+  v9 = *&kind;
+  downloadCopy = download;
+  etagCopy = etag;
+  v13 = etagCopy;
+  if (v7 == 1)
+  {
+    if (etagCopy)
+    {
+      [BRCFSDownloader cancelAndCleanupItemDownload:kind:etag:andNotifyDownloadTrackers:cancelReason:];
+    }
+
+    v14 = +[BRCFSDownloaderUtil cancellableDownloadKinds];
+    v15 = [MEMORY[0x277CCABB0] numberWithInt:v9];
+    v16 = [v14 containsObject:v15];
+
+    if ((v16 & 1) == 0)
+    {
+      [BRCFSDownloader cancelAndCleanupItemDownload:kind:etag:andNotifyDownloadTrackers:cancelReason:];
+    }
+  }
+
+  v17 = -[BRCFSDownloader _buildDownloadActiveJobsResultSetForThrottleID:etag:kind:](self, "_buildDownloadActiveJobsResultSetForThrottleID:etag:kind:", [downloadCopy dbRowID], v13, v9);
+  v18 = [(BRCFSDownloader *)self _getCancelErrorFromCancelReason:v7];
+  [(BRCFSDownloader *)self _cancelJobs:v17 state:0 cancelError:v18];
+  v19 = +[BRCFSDownloaderUtil cancellableDownloadKinds];
+  v20 = [MEMORY[0x277CCABB0] numberWithInt:v9];
+  v21 = [v19 containsObject:v20];
+
+  if (v21)
+  {
+    [(BRCFSDownloader *)self _finishDownloadCleanup:downloadCopy];
+    if (trackersCopy)
+    {
+      downloadTrackers = [(BRCAccountSession *)self->super.super._session downloadTrackers];
+      v23 = downloadTrackers;
+      v24 = downloadCopy;
+      v25 = 0;
+      v26 = v9;
+LABEL_12:
+      [downloadTrackers document:v24 didCompleteDownloadEtagIfLoser:v25 kind:v26 withError:v18];
+    }
+  }
+
+  else if (v9 == 2 && trackersCopy)
+  {
+    downloadTrackers = [(BRCAccountSession *)self->super.super._session downloadTrackers];
+    v23 = downloadTrackers;
+    v24 = downloadCopy;
+    v25 = v13;
+    v26 = 2;
+    goto LABEL_12;
+  }
+}
+
+- (void)cancelAndCleanupItemDownload:(id)download kind:(int)kind
+{
+  v4 = *&kind;
+  downloadCopy = download;
+  v6 = -[BRCFSDownloader _buildDownloadActiveJobsResultSetForThrottleID:etag:kind:](self, "_buildDownloadActiveJobsResultSetForThrottleID:etag:kind:", [downloadCopy dbRowID], 0, v4);
+  [(BRCFSDownloader *)self _cancelJobs:v6 state:0];
+  v7 = +[BRCFSDownloaderUtil cancellableDownloadKinds];
+  v8 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  v9 = [v7 containsObject:v8];
+
+  if (v9)
+  {
+    [(BRCFSDownloader *)self _finishDownloadCleanup:downloadCopy];
+  }
 }
 
 - (void)cancelAndCleanupItemDownloads:(id)downloads
@@ -853,58 +1232,54 @@ LABEL_8:
 
 - (unint64_t)sizeOfActiveDownloads
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   v4 = date;
   if (!self->_lastDownloadRefresh || ([date timeIntervalSinceDate:?], v5 > self->_activeDownloadSizeRefreshInterval))
   {
     clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__13;
-    v25 = __Block_byref_object_dispose__13;
-    v26 = 0;
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __40__BRCFSDownloader_sizeOfActiveDownloads__block_invoke;
-    v18 = &unk_278502000;
-    v20 = &v21;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__13;
+    v24 = __Block_byref_object_dispose__13;
+    v25 = 0;
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __40__BRCFSDownloader_sizeOfActiveDownloads__block_invoke;
+    v17 = &unk_278502000;
+    v19 = &v20;
     v7 = clientDB;
-    v19 = v7;
-    [v7 disableProfilingForQueriesInBlock:&v15];
+    v18 = v7;
+    [v7 disableProfilingForQueriesInBlock:&v14];
     objc_storeStrong(&self->_lastDownloadRefresh, v4);
     v8 = brc_bread_crumbs();
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       activeDownloadsSize = self->_activeDownloadsSize;
-      longLongValue = [v22[5] longLongValue];
+      longLongValue = [v21[5] longLongValue];
       *buf = 134218498;
-      v28 = activeDownloadsSize;
-      v29 = 2048;
-      v30 = longLongValue;
-      v31 = 2112;
-      v32 = v8;
+      v27 = activeDownloadsSize;
+      v28 = 2048;
+      v29 = longLongValue;
+      v30 = 2112;
+      v31 = v8;
       _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Refreshed active download size %llu -> %llu%@", buf, 0x20u);
     }
 
-    self->_activeDownloadsSize = [v22[5] longLongValue];
-    _Block_object_dispose(&v21, 8);
+    self->_activeDownloadsSize = [v21[5] longLongValue];
+    _Block_object_dispose(&v20, 8);
   }
 
   v10 = self->_activeDownloadsSize;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t __40__BRCFSDownloader_sizeOfActiveDownloads__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) numberWithSQL:@"SELECT SUM(transfer_size) FROM client_downloads WHERE throttle_state = 1"];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) numberWithSQL:@"SELECT SUM(transfer_size) FROM client_downloads WHERE throttle_state = 1"];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -927,7 +1302,7 @@ uint64_t __40__BRCFSDownloader_sizeOfActiveDownloads__block_invoke(uint64_t a1)
 
 uint64_t __35__BRCFSDownloader_makeContentLive___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 execute:{@"DELETE FROM client_pkg_upload_items WHERE item_rowid = %llu", objc_msgSend(*(a1 + 32), "dbRowID")}];
   if (v4)
@@ -936,14 +1311,14 @@ uint64_t __35__BRCFSDownloader_makeContentLive___block_invoke(uint64_t a1, void 
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v15 = [v3 changes];
-      v16 = [*(a1 + 32) fileObjectID];
+      v14 = [v3 changes];
+      v15 = [*(a1 + 32) fileObjectID];
       *buf = 134218498;
-      v18 = v15;
-      v19 = 2112;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v5;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v5;
       _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] removed %lld items in pkg:%@%@", buf, 0x20u);
     }
 
@@ -956,36 +1331,35 @@ uint64_t __35__BRCFSDownloader_makeContentLive___block_invoke(uint64_t a1, void 
     [v8 cancelAndCleanupItemDownload:v7 kind:0 etag:v12];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)scheduleContentDownloadForItem:(id)item serverItem:(id)serverItem options:(unint64_t)options etagIfLoser:(id)loser stageFileName:(id)name error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   serverItemCopy = serverItem;
   loserCopy = loser;
   nameCopy = name;
-  memset(v31, 0, sizeof(v31));
-  __brc_create_section(0, "[BRCFSDownloader scheduleContentDownloadForItem:serverItem:options:etagIfLoser:stageFileName:error:]", 999, 0, v31);
+  memset(v30, 0, sizeof(v30));
+  __brc_create_section(0, "[BRCFSDownloader scheduleContentDownloadForItem:serverItem:options:etagIfLoser:stageFileName:error:]", 999, 0, v30);
   v18 = brc_bread_crumbs();
   v19 = brc_default_log();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v28 = v31[0];
+    v27 = v30[0];
     itemID = [itemCopy itemID];
     *buf = 134219010;
-    v33 = v28;
-    v34 = 2112;
-    v35 = itemID;
-    v36 = 2112;
-    v37 = itemCopy;
-    v38 = 2112;
-    v39 = serverItemCopy;
-    v40 = 2112;
-    v41 = v18;
-    v30 = itemID;
+    v32 = v27;
+    v33 = 2112;
+    v34 = itemID;
+    v35 = 2112;
+    v36 = itemCopy;
+    v37 = 2112;
+    v38 = serverItemCopy;
+    v39 = 2112;
+    v40 = v18;
+    v29 = itemID;
     _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx scheduling content download for %@\nlocal: %@\nserver: %@%@", buf, 0x34u);
   }
 
@@ -1009,8 +1383,7 @@ uint64_t __35__BRCFSDownloader_makeContentLive___block_invoke(uint64_t a1, void 
     v25 = [(BRCFSDownloader *)self _createDownloadingJobForItem:itemCopy state:1 kind:v21 etag:v20 stageFileName:nameCopy error:error];
   }
 
-  __brc_leave_section(v31);
-  v26 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v30);
   return v25;
 }
 
@@ -1031,7 +1404,7 @@ uint64_t __35__BRCFSDownloader_makeContentLive___block_invoke(uint64_t a1, void 
 
 void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 numberAtIndex:a3];
   v7 = [v5 numberAtIndex:(a3 + 1)];
@@ -1041,10 +1414,10 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
   v11 = [*(*(a1 + 32) + 8) appLibraryByRowID:v8];
   v12 = [*(*(a1 + 32) + 8) serverZoneByRowID:v9];
   v13 = [BRCSyncContext transferContextForServerZone:v12 appLibrary:v11];
-  v23 = [v13 contextIdentifier];
+  v22 = [v13 contextIdentifier];
   if (v11)
   {
-    v22 = v7;
+    v21 = v7;
     v14 = [v5 db];
     v15 = [v13 contextIdentifier];
     [v14 execute:{@"UPDATE client_downloads SET transfer_queue = %@ WHERE rowid = %@", v15, v6}];
@@ -1054,17 +1427,17 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v25 = v22;
-      v26 = 2112;
-      v27 = v23;
-      v28 = 2112;
-      v29 = v16;
+      v24 = v21;
+      v25 = 2112;
+      v26 = v22;
+      v27 = 2112;
+      v28 = v16;
       _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] Downloader[%@]: job has been put back in queue %@%@", buf, 0x20u);
     }
 
     v18 = [v13 downloadStreamForKind:v10];
     [v18 signal];
-    v7 = v22;
+    v7 = v21;
   }
 
   else
@@ -1074,21 +1447,19 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       *buf = 138413058;
-      v25 = v7;
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = v6;
-      v30 = 2112;
-      v31 = v19;
+      v24 = v7;
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = v6;
+      v29 = 2112;
+      v30 = v19;
       _os_log_fault_impl(&dword_223E7A000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Downloader[%@]: failed to find app library with id %@, dropping the download %@%@", buf, 0x2Au);
     }
 
     v18 = [v5 db];
     [v18 execute:{@"DELETE FROM client_downloads WHERE rowid = %@", v6}];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateContentStageFileNameForItem:(id)item etag:(id)etag
@@ -1122,7 +1493,7 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
 
 - (void)_sendContentsBatch:(id)batch sizeHint:(int64_t)hint maxRecordsCount:(unint64_t)count kind:(int)kind
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   v8 = +[BRCAccountsManager sharedManager];
   isInSyncBubble = [v8 isInSyncBubble];
@@ -1145,14 +1516,14 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
 
   v11 = 0;
   nextDocumentItem = 0;
-  v76 = 0;
+  v75 = 0;
   v13 = 0;
   v14 = 0;
   v15 = 0;
   *&v10 = 138412546;
-  v69 = v10;
+  v68 = v10;
   countCopy = count;
-  v70 = batchCopy;
+  v69 = batchCopy;
   while (1)
   {
     v16 = nextDocumentItem;
@@ -1169,7 +1540,7 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
     etag = [batchCopy etag];
 
     completedUnitCount = [batchCopy completedUnitCount];
-    v78 = [batchCopy transferQOS] > 24;
+    v77 = [batchCopy transferQOS] > 24;
     v19 = stageID;
     selfCopy2 = self;
     if (!stageID)
@@ -1179,17 +1550,17 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v86 = v21;
+        v85 = v21;
         _os_log_debug_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] No stage ID, createing a new one%@", buf, 0xCu);
       }
 
       v19 = [(BRCFSDownloader *)self generateContentStageFileNameForItem:nextDocumentItem etag:etag];
     }
 
-    v80 = v19;
+    v79 = v19;
     if (v11)
     {
-      v77 = v11;
+      v76 = v11;
     }
 
     else
@@ -1202,17 +1573,17 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
 
       operationID = [(_BRCOperation *)v27 operationID];
 
-      v82[0] = MEMORY[0x277D85DD0];
-      v82[1] = 3221225472;
-      v82[2] = __68__BRCFSDownloader__sendContentsBatch_sizeHint_maxRecordsCount_kind___block_invoke;
-      v82[3] = &unk_278502050;
-      v82[4] = self;
+      v81[0] = MEMORY[0x277D85DD0];
+      v81[1] = 3221225472;
+      v81[2] = __68__BRCFSDownloader__sendContentsBatch_sizeHint_maxRecordsCount_kind___block_invoke;
+      v81[3] = &unk_278502050;
+      v81[4] = self;
       selfCopy2 = self;
-      v83 = syncContext;
-      v76 = operationID;
-      v77 = v27;
-      v84 = v76;
-      [(BRCDownloadContentsBatchOperation *)v27 setPerDownloadCompletionBlock:v82];
+      v82 = syncContext;
+      v75 = operationID;
+      v76 = v27;
+      v83 = v75;
+      [(BRCDownloadContentsBatchOperation *)v27 setPerDownloadCompletionBlock:v81];
     }
 
     v29 = [BRCDownloadContent alloc];
@@ -1230,7 +1601,7 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
     stageRegistry = [(BRCAccountSession *)selfCopy2->super.super._session stageRegistry];
     v33 = v30;
     v34 = etag;
-    v35 = [(BRCDownloadContent *)v29 initWithDocument:nextDocumentItem stageID:v80 etagIfLoser:v33 downloadKind:kind downloadStager:stageRegistry];
+    v35 = [(BRCDownloadContent *)v29 initWithDocument:nextDocumentItem stageID:v79 etagIfLoser:v33 downloadKind:kind downloadStager:stageRegistry];
 
     if (kind != 2)
     {
@@ -1252,14 +1623,14 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
           {
             v55 = brc_bread_crumbs();
             v56 = brc_default_log();
-            v11 = v77;
+            v11 = v76;
             v54 = countCopy;
             if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v69;
-              v86 = nextDocumentItem;
-              v87 = 2112;
-              v88 = v55;
+              *buf = v68;
+              v85 = nextDocumentItem;
+              v86 = 2112;
+              v87 = v55;
               _os_log_debug_impl(&dword_223E7A000, v56, OS_LOG_TYPE_DEBUG, "[DEBUG] Seems that item %@ has started a czm after requesting a download%@", buf, 0x16u);
             }
           }
@@ -1268,16 +1639,16 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
           {
             v55 = brc_bread_crumbs();
             v56 = brc_default_log();
-            v11 = v77;
+            v11 = v76;
             v54 = countCopy;
             if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v86 = v35;
-              v87 = 2112;
-              v88 = v34;
-              v89 = 2112;
-              v90 = v55;
+              v85 = v35;
+              v86 = 2112;
+              v87 = v34;
+              v88 = 2112;
+              v89 = v55;
               _os_log_impl(&dword_223E7A000, v56, OS_LOG_TYPE_DEFAULT, "[WARNING] item download %@ etag changed from %@%@", buf, 0x20u);
             }
           }
@@ -1305,16 +1676,16 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
         v47 = brc_default_log();
         if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v69;
-          v86 = v43;
-          v87 = 2112;
-          v88 = v46;
+          *buf = v68;
+          v85 = v43;
+          v86 = 2112;
+          v87 = v46;
           _os_log_debug_impl(&dword_223E7A000, v47, OS_LOG_TYPE_DEBUG, "[DEBUG] Re-use progress %@%@", buf, 0x16u);
         }
 
         v34 = etag;
         selfCopy5 = self;
-        batchCopy = v70;
+        batchCopy = v69;
       }
 
       else
@@ -1324,7 +1695,7 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
 
         v50 = completedUnitCount;
         v34 = etag;
-        batchCopy = v70;
+        batchCopy = v69;
         if (completedUnitCount > v49)
         {
           v51 = brc_bread_crumbs();
@@ -1332,7 +1703,7 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
           if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v86 = v51;
+            v85 = v51;
             _os_log_impl(&dword_223E7A000, v52, OS_LOG_TYPE_DEFAULT, "[WARNING] Completed unit count is greater than version size; ignoring value%@", buf, 0xCu);
           }
 
@@ -1340,17 +1711,17 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
         }
 
         selfCopy5 = self;
-        v43 = [(NSMutableDictionary *)self->_pendingOperationProgress objectForKeyedSubscript:v80];
+        v43 = [(NSMutableDictionary *)self->_pendingOperationProgress objectForKeyedSubscript:v79];
         if (!v43 && (![(BRCDownloadContent *)v35 kind]|| [(BRCDownloadContent *)v35 kind]== 3))
         {
-          v74 = brc_bread_crumbs();
+          v73 = brc_bread_crumbs();
           v53 = brc_default_log();
           if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
           {
-            *buf = v69;
-            v86 = v80;
-            v87 = 2112;
-            v88 = v74;
+            *buf = v68;
+            v85 = v79;
+            v86 = 2112;
+            v87 = v73;
             _os_log_fault_impl(&dword_223E7A000, v53, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed finding a progress for stageID: %@%@", buf, 0x16u);
           }
 
@@ -1363,17 +1734,17 @@ void __27__BRCFSDownloader_schedule__block_invoke(uint64_t a1, void *a2, uint64_
       [(BRCDownloadContent *)v35 setProgress:v43];
     }
 
-    v11 = v77;
-    [(BRCDownloadContentsBatchOperation *)v77 addDownload:v35];
-    [(BRCFSDownloader *)selfCopy5 _willDownload:v35 operationID:v76];
+    v11 = v76;
+    [(BRCDownloadContentsBatchOperation *)v76 addDownload:v35];
+    [(BRCFSDownloader *)selfCopy5 _willDownload:v35 operationID:v75];
     [(BRCDownloadContent *)nextDocumentItem triggerNotificationIfNeeded];
     v54 = countCopy;
 LABEL_38:
-    v15 |= v78;
+    v15 |= v77;
 
     objc_autoreleasePoolPop(context);
     v14 = v34;
-    v13 = v80;
+    v13 = v79;
     if ([(BRCTransferBatchOperation *)v11 itemsCount]>= v54)
     {
       goto LABEL_48;
@@ -1421,9 +1792,9 @@ LABEL_54:
       }
     }
 
-    [(BRCDownloadContentsBatchOperation *)v59 setQueuePriority:v60, v69];
+    [(BRCDownloadContentsBatchOperation *)v59 setQueuePriority:v60, v68];
 LABEL_56:
-    [(_BRCOperation *)v11 setNonDiscretionary:1, v69];
+    [(_BRCOperation *)v11 setNonDiscretionary:1, v68];
     [(_BRCOperation *)v11 setGroup:br_downloadSpeculative];
     v61 = brc_bread_crumbs();
     v62 = brc_default_log();
@@ -1434,12 +1805,12 @@ LABEL_56:
       [syncContext contextIdentifier];
       v66 = v65 = v34;
       *buf = 134218498;
-      v86 = itemsCount;
+      v85 = itemsCount;
       v11 = v63;
-      v87 = 2112;
-      v88 = v66;
-      v89 = 2112;
-      v90 = v61;
+      v86 = 2112;
+      v87 = v66;
+      v88 = 2112;
+      v89 = v61;
       _os_log_impl(&dword_223E7A000, v62, OS_LOG_TYPE_DEFAULT, "[NOTICE] downloading %ld documents in %@%@", buf, 0x20u);
 
       v34 = v65;
@@ -1449,15 +1820,13 @@ LABEL_56:
     [v67 addBatchOperation:v11];
   }
 
-  v57 = v76;
+  v57 = v75;
 LABEL_60:
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postponeLoserForWinner:(int64_t)winner etag:(id)etag
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   etagCopy = etag;
   clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
   [clientDB execute:{@"UPDATE client_downloads    SET throttle_state = %u  WHERE throttle_id = %lld AND download_kind = %u AND download_etag = %@", 42, winner, 2, etagCopy}];
@@ -1468,16 +1837,14 @@ LABEL_60:
   {
     *buf = 134218754;
     winnerCopy = winner;
-    v13 = 2080;
-    v14 = BRCPrettyPrintEnum();
-    v15 = 2112;
-    v16 = etagCopy;
-    v17 = 2112;
-    v18 = v8;
+    v12 = 2080;
+    v13 = BRCPrettyPrintEnum();
+    v14 = 2112;
+    v15 = etagCopy;
+    v16 = 2112;
+    v17 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Downloader[%lld-%s-%@]: postpone because loser is more recent than live item%@", buf, 0x2Au);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transferStreamOfSyncContext:(id)context didBecomeReadyWithMaxRecordsCount:(unint64_t)count sizeHint:(unint64_t)hint priority:(int64_t)priority supportedKinds:(id)kinds
@@ -1559,61 +1926,60 @@ LABEL_60:
 
 - (void)transferStreamOfSyncContext:(id)context didBecomeReadyWithMaxRecordsCount:(unint64_t)count sizeHint:(unint64_t)hint priority:(int64_t)priority supportedKinds:(id)kinds completionBlock:(id)block
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   kindsCopy = kinds;
   blockCopy = block;
   clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
   serialQueue = [clientDB serialQueue];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __130__BRCFSDownloader_transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority_supportedKinds_completionBlock___block_invoke;
-  v32[3] = &unk_278502078;
-  v32[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __130__BRCFSDownloader_transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority_supportedKinds_completionBlock___block_invoke;
+  v31[3] = &unk_278502078;
+  v31[4] = self;
   v18 = contextCopy;
-  v33 = v18;
+  v32 = v18;
   countCopy = count;
   hintCopy = hint;
   priorityCopy = priority;
   v19 = kindsCopy;
-  v34 = v19;
+  v33 = v19;
   v20 = blockCopy;
-  v35 = v20;
+  v34 = v20;
   v21 = serialQueue;
-  v22 = v32;
+  v22 = v31;
   v23 = objc_autoreleasePoolPush();
-  v39 = 0uLL;
-  v40 = 0;
-  __brc_create_section(0, "dispatch_async_with_logs", 283, 0, &v39);
+  v38 = 0uLL;
+  v39 = 0;
+  __brc_create_section(0, "dispatch_async_with_logs", 283, 0, &v38);
   v24 = brc_bread_crumbs();
   v25 = brc_default_log();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    v29 = v39;
+    v28 = v38;
     label = dispatch_queue_get_label(v21);
     *block = 134218498;
-    *&block[4] = v29;
+    *&block[4] = v28;
     *&block[12] = 2080;
     *&block[14] = label;
     *&block[22] = 2112;
-    v42 = v24;
+    v41 = v24;
     _os_log_debug_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx dispatching to %s%@", block, 0x20u);
   }
 
+  v44 = v38;
   v45 = v39;
-  v46 = v40;
   *block = MEMORY[0x277D85DD0];
   *&block[8] = 3221225472;
   *&block[16] = __dispatch_async_with_logs_block_invoke_7;
-  v42 = &unk_2784FF568;
+  v41 = &unk_2784FF568;
   v26 = v21;
-  v43 = v26;
+  v42 = v26;
   v27 = v22;
-  v44 = v27;
+  v43 = v27;
   dispatch_async(v26, block);
 
   objc_autoreleasePoolPop(v23);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __130__BRCFSDownloader_transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority_supportedKinds_completionBlock___block_invoke(uint64_t a1)
@@ -1645,32 +2011,76 @@ uint64_t __130__BRCFSDownloader_transferStreamOfSyncContext_didBecomeReadyWithMa
   [localItemSyncErrorReporter clearDownloadErrorForItemWithRowID:dbRowID];
 }
 
-void __25__BRCFSDownloader_resume__block_invoke_cold_1()
+- (void)updateLoserNotificationOfItem:(id)item etag:(id)etag downloadKind:(int)kind notification:(id)notification
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Resuming downloader on FPFS, clearing the client downloads table%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *&kind;
+  etagCopy = etag;
+  notificationCopy = notification;
+  session = self->super.super._session;
+  itemCopy = item;
+  clientDB = [(BRCAccountSession *)session clientDB];
+  dbRowID = [itemCopy dbRowID];
+
+  v16 = [clientDB fetch:{@"SELECT transfer_record  FROM client_downloads  WHERE throttle_id = %lld AND download_kind = %u AND download_etag = %@", dbRowID, v7, etagCopy}];
+  if ([v16 next])
+  {
+    v17 = [v16 unarchivedObjectOfClass:objc_opt_class() atIndex:0];
+    if ([v17 brc_currentUserOwnsLastEditorDeviceWithSessionContext:self->super.super._session])
+    {
+      brc_lastEditorDeviceName = [v17 brc_lastEditorDeviceName];
+      v19 = 0;
+    }
+
+    else
+    {
+      cachedCurrentUserRecordName = [(BRCAccountSession *)self->super.super._session cachedCurrentUserRecordName];
+      v26 = 0;
+      v21 = [v17 brc_lastModifiedUserRecordNameWithCurrentUserRecordName:cachedCurrentUserRecordName personNameComponents:&v26];
+      v19 = v26;
+
+      brc_lastEditorDeviceName = 0;
+    }
+
+    v24 = 0;
+    v25 = 0;
+    [v17 deserializeModifiedTime:&v25 size:&v24 error:0];
+    v22 = v25;
+    v23 = v24;
+    [notificationCopy markAsLoserVersionWithEtag:etagCopy modificationDate:v22 editorNameComponents:v19 lastEditorDeviceName:brc_lastEditorDeviceName size:v23];
+  }
+}
+
+- (int64_t)nextAllowedScheduleForItem:(id)item withDownloadKind:(int)kind
+{
+  v4 = *&kind;
+  itemCopy = item;
+  serverZone = [itemCopy serverZone];
+  appLibrary = [itemCopy appLibrary];
+
+  v8 = [BRCSyncContext transferContextForServerZone:serverZone appLibrary:appLibrary];
+
+  v9 = [v8 downloadStreamForKind:v4];
+  minSignalTime = [v9 minSignalTime];
+
+  return minSignalTime;
 }
 
 - (void)_createDownloadingJobForItem:(os_log_t)log state:kind:etag:stageFileName:error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = 136315906;
-  v5 = "[BRCFSDownloader _createDownloadingJobForItem:state:kind:etag:stageFileName:error:]";
-  v6 = 2080;
-  v7 = "(passed to caller)";
-  v8 = 2112;
-  v9 = a1;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] %s: %s error: %@%@", &v4, 0x2Au);
-  v3 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = 136315906;
+  v4 = "[BRCFSDownloader _createDownloadingJobForItem:state:kind:etag:stageFileName:error:]";
+  v5 = 2080;
+  v6 = "(passed to caller)";
+  v7 = 2112;
+  v8 = a1;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_223E7A000, log, 0x90u, "[ERROR] %s: %s error: %@%@", &v3, 0x2Au);
 }
 
 - (void)_finishedDownload:syncContext:operationID:error:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1678,47 +2088,19 @@ void __25__BRCFSDownloader_resume__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: ![[BRCAccountsManager sharedManager] isInSyncBubble]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: ![[BRCAccountsManager sharedManager] isInSyncBubble]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] The error is for an unknown item, check if the zone hasn't been wiped%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] We failed downloading a conflict loser so kicking the apply scheduler in case it was blocked for download%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)rescheduleJobsPendingWinnerForItem:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Downloader: scheduling %lld suspended throttles%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getCancelErrorFromCancelReason:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: New cancel reasons should be mapped to errors%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: New cancel reasons should be mapped to errors%@", v1, 0xCu);
 }
 
 - (void)cancelAndCleanupItemDownload:kind:etag:andNotifyDownloadTrackers:cancelReason:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1726,15 +2108,12 @@ void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___blo
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: etag == nil%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: etag == nil%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAndCleanupItemDownload:kind:etag:andNotifyDownloadTrackers:cancelReason:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1742,23 +2121,12 @@ void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___blo
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: [[BRCFSDownloaderUtil cancellableDownloadKinds] containsObject:@(kind)]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: [[BRCFSDownloaderUtil cancellableDownloadKinds] containsObject:@(kind)]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)scheduleContentDownloadForItem:serverItem:options:etagIfLoser:stageFileName:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] no need to schedule anything, we're already actively downloading that same etag%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendContentsBatch:sizeHint:maxRecordsCount:kind:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1766,10 +2134,8 @@ void __67__BRCFSDownloader__finishedDownload_syncContext_operationID_error___blo
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: ![[BRCAccountsManager sharedManager] isInSyncBubble]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: ![[BRCAccountsManager sharedManager] isInSyncBubble]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

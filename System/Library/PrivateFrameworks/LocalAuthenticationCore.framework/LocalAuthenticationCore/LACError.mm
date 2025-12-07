@@ -25,33 +25,29 @@
 
 + (id)errorWithCode:(int64_t)code subcode:(int64_t)subcode
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11 = @"Subcode";
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10 = @"Subcode";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:subcode];
-  v12[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [self _errorWithCode:code userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)errorWithCode:(int64_t)code subcode:(int64_t)subcode debugDescription:(id)description
 {
-  v16[2] = *MEMORY[0x1E69E9840];
-  v15[0] = @"Subcode";
+  v15[2] = *MEMORY[0x1E69E9840];
+  v14[0] = @"Subcode";
   v8 = MEMORY[0x1E696AD98];
   descriptionCopy = description;
   v10 = [v8 numberWithInteger:subcode];
-  v15[1] = *MEMORY[0x1E696A278];
-  v16[0] = v10;
-  v16[1] = descriptionCopy;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[1] = *MEMORY[0x1E696A278];
+  v15[0] = v10;
+  v15[1] = descriptionCopy;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   v12 = [self _errorWithCode:code userInfo:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -79,51 +75,47 @@
 
 + (id)errorWithCode:(int64_t)code debugDescription:(id)description
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  v12 = *MEMORY[0x1E696A278];
-  v13[0] = description;
+  v12[1] = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A278];
+  v12[0] = description;
   v6 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [self _errorWithCode:code userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)errorWithCode:(int64_t)code localizedDescription:(id)description
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  v12 = *MEMORY[0x1E696A578];
-  v13[0] = description;
+  v12[1] = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = description;
   v6 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [self _errorWithCode:code userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)errorWithCode:(int64_t)code localizedDescription:(id)description underlyingError:(id)error
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v9 = errorCopy;
   if (errorCopy)
   {
     v10 = *MEMORY[0x1E696AA08];
-    v18[0] = *MEMORY[0x1E696A578];
-    v18[1] = v10;
-    v19[0] = description;
-    v19[1] = errorCopy;
+    v17[0] = *MEMORY[0x1E696A578];
+    v17[1] = v10;
+    v18[0] = description;
+    v18[1] = errorCopy;
     v11 = MEMORY[0x1E695DF20];
     descriptionCopy = description;
-    v13 = [v11 dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v13 = [v11 dictionaryWithObjects:v18 forKeys:v17 count:2];
 
     v14 = [self _errorWithCode:code userInfo:v13];
   }
@@ -134,21 +126,19 @@
     v14 = [self errorWithCode:code localizedDescription:descriptionCopy2];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v7 = errorCopy;
   if (errorCopy)
   {
-    v12 = *MEMORY[0x1E696AA08];
-    v13[0] = errorCopy;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696AA08];
+    v12[0] = errorCopy;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [self _errorWithCode:code userInfo:v8];
   }
 
@@ -157,26 +147,24 @@
     v9 = [self errorWithCode:code];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error debugDescription:(id)description
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v9 = errorCopy;
   if (errorCopy)
   {
     v10 = *MEMORY[0x1E696AA08];
-    v18[0] = *MEMORY[0x1E696A278];
-    v18[1] = v10;
-    v19[0] = description;
-    v19[1] = errorCopy;
+    v17[0] = *MEMORY[0x1E696A278];
+    v17[1] = v10;
+    v18[0] = description;
+    v18[1] = errorCopy;
     v11 = MEMORY[0x1E695DF20];
     descriptionCopy = description;
-    v13 = [v11 dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v13 = [v11 dictionaryWithObjects:v18 forKeys:v17 count:2];
 
     v14 = [self _errorWithCode:code userInfo:v13];
   }
@@ -186,8 +174,6 @@
     descriptionCopy2 = description;
     v14 = [self errorWithCode:code debugDescription:descriptionCopy2];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

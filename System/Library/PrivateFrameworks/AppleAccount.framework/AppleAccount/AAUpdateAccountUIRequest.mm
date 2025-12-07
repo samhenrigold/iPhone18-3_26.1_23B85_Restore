@@ -7,19 +7,19 @@
 
 - (AAUpdateAccountUIRequest)initWithAccount:(id)account termsEntries:(id)entries deviceOSVersion:(id)version
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   entriesCopy = entries;
   versionCopy = version;
   v11 = versionCopy;
   if (versionCopy)
   {
-    v20 = versionCopy;
-    v21 = @"iOS";
-    v19 = @"version";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v22[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v19 = versionCopy;
+    v20 = @"iOS";
+    v18 = @"version";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v21[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   }
 
   else
@@ -28,11 +28,10 @@
   }
 
   v14 = [(AAGenericTermsUIRequest *)self _requestParamsForTermsEntries:entriesCopy additionalInfo:v13];
-  v18.receiver = self;
-  v18.super_class = AAUpdateAccountUIRequest;
-  v15 = [(AAGenericTermsUIRequest *)&v18 initWithAccount:accountCopy parameters:v14];
+  v17.receiver = self;
+  v17.super_class = AAUpdateAccountUIRequest;
+  v15 = [(AAGenericTermsUIRequest *)&v17 initWithAccount:accountCopy parameters:v14];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

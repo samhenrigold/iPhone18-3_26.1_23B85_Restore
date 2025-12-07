@@ -212,8 +212,8 @@ void __100__PXPhotoKitMoveToPersonalLibraryActionPerformer__moveAssetsToPersonal
   aBlock[3] = &unk_1E7749FF8;
   v6 = v5;
   selfCopy = self;
-  v14 = a2;
-  v12 = v6;
+  v15 = a2;
+  v13 = v6;
   v7 = _Block_copy(aBlock);
   assetsFetchResult2 = [(PXPhotoKitAssetActionPerformer *)self assetsFetchResult];
   photoLibrary = [assetsFetchResult2 photoLibrary];
@@ -221,7 +221,8 @@ void __100__PXPhotoKitMoveToPersonalLibraryActionPerformer__moveAssetsToPersonal
   v10 = [PXSharedLibraryStatusProvider sharedLibraryStatusProviderWithPhotoLibrary:photoLibrary];
   if (-[PXPhotoKitMoveToPersonalLibraryActionPerformer shouldShowConfirmation](self, "shouldShowConfirmation") && PXSharedLibraryShouldDisplayMoveToPersonalLibraryConfirmation([v10 hasPreview]))
   {
-    PXSharedLibraryGetMoveToPersonalLibraryConfirmationTitleAndMessage(v6);
+    v11 = 0;
+    PXSharedLibraryGetMoveToPersonalLibraryConfirmationTitleAndMessage(v6, 0, &v11);
   }
 
   v7[2](v7);

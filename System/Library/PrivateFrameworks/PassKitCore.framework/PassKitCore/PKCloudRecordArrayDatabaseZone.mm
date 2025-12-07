@@ -303,9 +303,9 @@ LABEL_15:
           continue;
         }
 
-        v16 = [v12 isEqualToString:v13];
+        isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-        if (v16)
+        if (isEqualToString)
         {
           goto LABEL_15;
         }

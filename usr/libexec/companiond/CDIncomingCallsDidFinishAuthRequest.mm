@@ -61,9 +61,8 @@
   v4 = [(NSError *)self->_error description];
   [v3 appendString:v4 withName:@"error" skipIfEmpty:1];
 
-  deviceFlags = self->_deviceFlags;
-  v6 = CUPrintFlags64();
-  [v3 appendString:v6 withName:@"deviceFlags"];
+  v5 = CUPrintFlags64();
+  [v3 appendString:v5 withName:@"deviceFlags"];
 
   [v3 appendString:self->_deviceModel withName:@"deviceModel" skipIfEmpty:1];
   [v3 appendString:self->_deviceName withName:@"deviceName" skipIfEmpty:1];

@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPMapCollectionPublisherMetadata)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = _BlastDoorLPMapCollectionPublisherMetadata;
-  v5 = [(_BlastDoorLPMapCollectionPublisherMetadata *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = _BlastDoorLPMapCollectionPublisherMetadata;
+  v5 = [(_BlastDoorLPMapCollectionPublisherMetadata *)&v13 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"name");
@@ -30,7 +30,6 @@
     v11 = v5;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -65,11 +64,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v11.receiver = self;
-  v11.super_class = _BlastDoorLPMapCollectionPublisherMetadata;
-  if ([(_BlastDoorLPMapCollectionPublisherMetadata *)&v11 isEqual:equalCopy])
+  v10.receiver = self;
+  v10.super_class = _BlastDoorLPMapCollectionPublisherMetadata;
+  if ([(_BlastDoorLPMapCollectionPublisherMetadata *)&v10 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -107,7 +106,6 @@
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

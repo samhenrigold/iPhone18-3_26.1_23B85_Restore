@@ -21,6 +21,8 @@
 - (void)setDeletionNotificationEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)setParentController:(id)controller;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MSSSharedLibrarySettingsController
@@ -42,6 +44,17 @@
   v3 = [NSURL URLWithString:v2];
 
   return v3;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = MSSSharedLibrarySettingsController;
+  [(MSSSharedLibrarySettingsController *)&v7 viewDidAppear:appear];
+  paneTitleLocalizedResource = [(MSSSharedLibrarySettingsController *)self paneTitleLocalizedResource];
+  pathComponentsLocalizedResource = [(MSSSharedLibrarySettingsController *)self pathComponentsLocalizedResource];
+  deepLinkURL = [(MSSSharedLibrarySettingsController *)self deepLinkURL];
+  [(MSSSharedLibrarySettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobileslideshow" title:paneTitleLocalizedResource localizedNavigationComponents:pathComponentsLocalizedResource deepLink:deepLinkURL];
 }
 
 - (void)_stopObservingPhotosAppPrefs
@@ -202,6 +215,15 @@ LABEL_11:
       observableCopy = v13;
     }
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MSSSharedLibrarySettingsController;
+  [(MSSSharedLibrarySettingsController *)&v5 viewWillAppear:appear];
+  navigationItem = [(MSSSharedLibrarySettingsController *)self navigationItem];
+  [navigationItem setBackButtonDisplayMode:0];
 }
 
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path

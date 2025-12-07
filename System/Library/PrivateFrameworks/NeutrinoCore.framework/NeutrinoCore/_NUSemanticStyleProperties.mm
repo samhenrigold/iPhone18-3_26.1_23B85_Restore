@@ -30,7 +30,7 @@
 
   [(_NUSemanticStyleProperties *)v4 setStyleDataIsFloat16:[(_NUSemanticStyleProperties *)self styleDataIsFloat16]];
   [(_NUSemanticStyleProperties *)v4 setIsVideo:[(_NUSemanticStyleProperties *)self isVideo]];
-  [(_NUSemanticStyleProperties *)self keyTime];
+  objc_msgSend_keyTime(self);
   v22 = v24;
   v23 = v25;
   [(_NUSemanticStyleProperties *)v4 setKeyTime:&v22];
@@ -87,11 +87,11 @@
   v32 = objc_opt_class();
   version = [(_NUSemanticStyleProperties *)self version];
   isVideo = [(_NUSemanticStyleProperties *)self isVideo];
-  [(_NUSemanticStyleProperties *)self keyTime];
+  objc_msgSend_keyTime(self);
   if (v40)
   {
     v4 = MEMORY[0x1E696AD98];
-    [(_NUSemanticStyleProperties *)self keyTime];
+    objc_msgSend_keyTime(self);
     v36 = [v4 numberWithLongLong:v39];
   }
 
@@ -100,12 +100,12 @@
     v36 = @"-";
   }
 
-  [(_NUSemanticStyleProperties *)self keyTime];
+  objc_msgSend_keyTime(self);
   v34 = version;
   if (v38)
   {
     v5 = MEMORY[0x1E696AD98];
-    [(_NUSemanticStyleProperties *)self keyTime];
+    objc_msgSend_keyTime(self);
     v35 = [v5 numberWithInt:v37];
   }
 

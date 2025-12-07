@@ -47,7 +47,7 @@
 
 - (void)_setUpContentBodyText
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   contentView = [(_ASPasskeysLearnMoreContentViewController *)self contentView];
   v4 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   _contentBodyAttributedString = [(_ASPasskeysLearnMoreContentViewController *)self _contentBodyAttributedString];
@@ -62,32 +62,30 @@
   [v4 setNumberOfLines:0];
   [v4 setTranslatesAutoresizingMaskIntoConstraints:0];
   [contentView addSubview:v4];
-  v18 = MEMORY[0x1E696ACD8];
+  v17 = MEMORY[0x1E696ACD8];
   topAnchor = [v4 topAnchor];
   topAnchor2 = [contentView topAnchor];
-  v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v24[0] = v21;
+  v20 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v23[0] = v20;
   bottomAnchor = [v4 bottomAnchor];
   bottomAnchor2 = [contentView bottomAnchor];
   v9 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v24[1] = v9;
+  v23[1] = v9;
   leadingAnchor = [v4 leadingAnchor];
   leadingAnchor2 = [contentView leadingAnchor];
   v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v24[2] = v12;
+  v23[2] = v12;
   trailingAnchor = [v4 trailingAnchor];
   trailingAnchor2 = [contentView trailingAnchor];
   v15 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v24[3] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
-  [v18 activateConstraints:v16];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v23[3] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
+  [v17 activateConstraints:v16];
 }
 
 - (id)_contentBodyAttributedString
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.up"];
   v3 = [MEMORY[0x1E69DCAD8] configurationWithScale:-1];
   v4 = [v2 imageWithConfiguration:v3];
@@ -102,12 +100,10 @@
   v11 = +[_ASPasskeysLearnMoreContent bodyString];
   v12 = [v10 initWithString:v11];
 
-  v16 = @"{square.and.arrow.up}";
-  v17[0] = v9;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v15 = @"{square.and.arrow.up}";
+  v16[0] = v9;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   [v12 safari_replaceCharactersWithStringBindings:v13];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

@@ -113,7 +113,7 @@
 
 uint64_t __72__CSSiriMobileBluetoothDeviceDataSource_getBTLocalDeviceWithCompletion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 16))
   {
@@ -128,20 +128,19 @@ uint64_t __72__CSSiriMobileBluetoothDeviceDataSource_getBTLocalDeviceWithComplet
   v4 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriMobileBluetoothDeviceDataSource getBTLocalDeviceWithCompletion:]_block_invoke";
-    v9 = 2048;
-    v10 = v3;
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s BTLocalDevice %p", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriMobileBluetoothDeviceDataSource getBTLocalDeviceWithCompletion:]_block_invoke";
+    v8 = 2048;
+    v9 = v3;
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s BTLocalDevice %p", &v6, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, v3);
+    return (*(result + 16))(result, v3);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -165,67 +164,65 @@ uint64_t __72__CSSiriMobileBluetoothDeviceDataSource_getBTLocalDeviceWithComplet
 
 uint64_t __77__CSSiriMobileBluetoothDeviceDataSource_getBTDeviceWithDeviceUID_completion___block_invoke(uint64_t a1)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CEF0A0];
   if (*(*(a1 + 32) + 16))
   {
-    v18[0] = 0;
-    v18[1] = 0;
-    [*(a1 + 40) getUUIDBytes:v18];
-    v3 = *(*(a1 + 32) + 16);
-    v4 = BTDeviceFromIdentifier();
-    if (v4)
+    v16[0] = 0;
+    v16[1] = 0;
+    [*(a1 + 40) getUUIDBytes:v16];
+    v3 = BTDeviceFromIdentifier();
+    if (v3)
     {
-      v5 = v4;
-      v6 = *v2;
+      v4 = v3;
+      v5 = *v2;
       if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithDeviceUID:completion:]_block_invoke";
-        v14 = 1024;
-        LODWORD(v15) = v5;
-        _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s Failed getting device from deviceUID %d", buf, 0x12u);
+        v11 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithDeviceUID:completion:]_block_invoke";
+        v12 = 1024;
+        LODWORD(v13) = v4;
+        _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s Failed getting device from deviceUID %d", buf, 0x12u);
       }
     }
 
-    v7 = *(*(a1 + 32) + 32);
+    v6 = *(*(a1 + 32) + 32);
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *v2;
+  v7 = *v2;
   if (os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
   {
-    v9 = *(a1 + 40);
+    v8 = *(a1 + 40);
     *buf = 136315650;
-    v13 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithDeviceUID:completion:]_block_invoke";
-    v14 = 2048;
-    v15 = 0;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s BTDevice %p for deviceUID %@", buf, 0x20u);
-    v8 = *v2;
+    v11 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithDeviceUID:completion:]_block_invoke";
+    v12 = 2048;
+    v13 = 0;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s BTDevice %p for deviceUID %@", buf, 0x20u);
+    v7 = *v2;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithDeviceUID:completion:]_block_invoke";
-    v14 = 2048;
-    v15 = v7;
-    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s BTAccessoryManager %p", buf, 0x16u);
+    v11 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithDeviceUID:completion:]_block_invoke";
+    v12 = 2048;
+    v13 = v6;
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s BTAccessoryManager %p", buf, 0x16u);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, 0, v7);
+    return (*(result + 16))(result, 0, v6);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -249,7 +246,7 @@ uint64_t __77__CSSiriMobileBluetoothDeviceDataSource_getBTDeviceWithDeviceUID_co
 
 uint64_t __75__CSSiriMobileBluetoothDeviceDataSource_getBTDeviceWithAddress_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CEF0A0];
   if (!*(*(a1 + 32) + 16))
   {
@@ -257,20 +254,19 @@ uint64_t __75__CSSiriMobileBluetoothDeviceDataSource_getBTDeviceWithAddress_comp
     goto LABEL_9;
   }
 
-  WORD2(v15) = 0;
-  LODWORD(v15) = 0;
+  WORD2(v13) = 0;
+  LODWORD(v13) = 0;
   [*(a1 + 40) UTF8String];
   v3 = BTDeviceAddressFromString();
   if (!v3)
   {
-    v8 = *(*(a1 + 32) + 16);
-    v9 = BTDeviceFromAddress();
-    if (!v9)
+    v8 = BTDeviceFromAddress();
+    if (!v8)
     {
       goto LABEL_8;
     }
 
-    v10 = v9;
+    v9 = v8;
     v5 = *v2;
     if (!os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
     {
@@ -278,9 +274,9 @@ uint64_t __75__CSSiriMobileBluetoothDeviceDataSource_getBTDeviceWithAddress_comp
     }
 
     *buf = 136315394;
-    v17 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithAddress:completion:]_block_invoke";
-    v18 = 1024;
-    LODWORD(v19) = v10;
+    v15 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithAddress:completion:]_block_invoke";
+    v16 = 1024;
+    LODWORD(v17) = v9;
     v6 = "%s Failed getting device from address %d";
     goto LABEL_17;
   }
@@ -290,9 +286,9 @@ uint64_t __75__CSSiriMobileBluetoothDeviceDataSource_getBTDeviceWithAddress_comp
   if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v17 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithAddress:completion:]_block_invoke";
-    v18 = 1024;
-    LODWORD(v19) = v4;
+    v15 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithAddress:completion:]_block_invoke";
+    v16 = 1024;
+    LODWORD(v17) = v4;
     v6 = "%s Failed getting device address from string %d";
 LABEL_17:
     _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, v6, buf, 0x12u);
@@ -301,36 +297,35 @@ LABEL_17:
 LABEL_8:
   v7 = *(*(a1 + 32) + 32);
 LABEL_9:
-  v11 = *v2;
+  v10 = *v2;
   if (os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
   {
-    v12 = *(a1 + 40);
+    v11 = *(a1 + 40);
     *buf = 136315650;
-    v17 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithAddress:completion:]_block_invoke";
-    v18 = 2048;
-    v19 = 0;
-    v20 = 2112;
-    v21 = v12;
-    _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s BTDevice %p for address %@", buf, 0x20u);
-    v11 = *v2;
+    v15 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithAddress:completion:]_block_invoke";
+    v16 = 2048;
+    v17 = 0;
+    v18 = 2112;
+    v19 = v11;
+    _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s BTDevice %p for address %@", buf, 0x20u);
+    v10 = *v2;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithAddress:completion:]_block_invoke";
-    v18 = 2048;
-    v19 = v7;
-    _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s BTAccessoryManager %p", buf, 0x16u);
+    v15 = "[CSSiriMobileBluetoothDeviceDataSource getBTDeviceWithAddress:completion:]_block_invoke";
+    v16 = 2048;
+    v17 = v7;
+    _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s BTAccessoryManager %p", buf, 0x16u);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, 0, v7);
+    return (*(result + 16))(result, 0, v7);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -356,51 +351,49 @@ LABEL_9:
 
 - (void)_reloadForDevice:(BTDeviceImpl *)device
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = _CSSiriBTDeviceGetAddress(device);
   if (v4)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     _deviceProxies = [(CSSiriMobileBluetoothDeviceDataSource *)self _deviceProxies];
-    v6 = [_deviceProxies countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [_deviceProxies countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(_deviceProxies);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * v9);
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __58__CSSiriMobileBluetoothDeviceDataSource__reloadForDevice___block_invoke;
-          v12[3] = &unk_2784C5C90;
-          v13 = v4;
-          v14 = v10;
-          [v10 getDeviceInfo:v12];
+          v10 = *(*(&v14 + 1) + 8 * v9);
+          v11[0] = MEMORY[0x277D85DD0];
+          v11[1] = 3221225472;
+          v11[2] = __58__CSSiriMobileBluetoothDeviceDataSource__reloadForDevice___block_invoke;
+          v11[3] = &unk_2784C5C90;
+          v12 = v4;
+          v13 = v10;
+          [v10 getDeviceInfo:v11];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [_deviceProxies countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [_deviceProxies countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CSSiriMobileBluetoothDeviceDataSource__reloadForDevice___block_invoke(uint64_t a1, void *a2)
@@ -418,34 +411,33 @@ void __58__CSSiriMobileBluetoothDeviceDataSource__reloadForDevice___block_invoke
 
 - (void)accessoryManager:(BTAccessoryManagerImpl *)manager event:(int)event device:(BTDeviceImpl *)device state:(int)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v11 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v17 = "[CSSiriMobileBluetoothDeviceDataSource accessoryManager:event:device:state:]";
-    v18 = 2048;
+    v16 = "[CSSiriMobileBluetoothDeviceDataSource accessoryManager:event:device:state:]";
+    v17 = 2048;
     managerCopy = manager;
-    v20 = 1024;
+    v19 = 1024;
     eventCopy = event;
-    v22 = 2048;
+    v21 = 2048;
     deviceCopy = device;
-    v24 = 1024;
+    v23 = 1024;
     stateCopy = state;
     _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s accessoryManager = %p, accessoryEvent = %d, device = %p, state = %d", buf, 0x2Cu);
   }
 
   queue = self->_queue;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __77__CSSiriMobileBluetoothDeviceDataSource_accessoryManager_event_device_state___block_invoke;
-  v14[3] = &unk_2784C5C68;
-  v14[4] = self;
-  v14[5] = manager;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __77__CSSiriMobileBluetoothDeviceDataSource_accessoryManager_event_device_state___block_invoke;
+  v13[3] = &unk_2784C5C68;
+  v13[4] = self;
+  v13[5] = manager;
   eventCopy2 = event;
-  v14[6] = device;
-  dispatch_async(queue, v14);
-  v13 = *MEMORY[0x277D85DE8];
+  v13[6] = device;
+  dispatch_async(queue, v13);
 }
 
 void *__77__CSSiriMobileBluetoothDeviceDataSource_accessoryManager_event_device_state___block_invoke(uint64_t a1)
@@ -470,91 +462,86 @@ void *__77__CSSiriMobileBluetoothDeviceDataSource_accessoryManager_event_device_
 
 - (void)_setUpAccessoryManager
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [(CSSiriMobileBluetoothDeviceDataSource *)self _tearDownAccessoryManager];
-  if (self->_session)
-  {
-    Default = BTAccessoryManagerGetDefault();
-    if (Default)
-    {
-      v4 = Default;
-      v5 = *MEMORY[0x277CEF0A0];
-      if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
-      {
-        session = self->_session;
-        v18 = 136315650;
-        v19 = "[CSSiriMobileBluetoothDeviceDataSource _setUpAccessoryManager]";
-        v20 = 2048;
-        v21 = session;
-        v22 = 1024;
-        LODWORD(v23) = v4;
-        v7 = "%s Failed getting default accessory manager from session %p (result = %d).";
-        v8 = v5;
-        v9 = 28;
-LABEL_10:
-        _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, v7, &v18, v9);
-      }
-    }
-
-    else
-    {
-      accessoryManager = self->_accessoryManager;
-      v12 = BTAccessoryManagerAddCallbacks();
-      if (v12)
-      {
-        v13 = v12;
-        v14 = *MEMORY[0x277CEF0A0];
-        if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
-        {
-          v15 = self->_accessoryManager;
-          v16 = self->_session;
-          v18 = 136315906;
-          v19 = "[CSSiriMobileBluetoothDeviceDataSource _setUpAccessoryManager]";
-          v20 = 2048;
-          v21 = v15;
-          v22 = 2048;
-          v23 = v16;
-          v24 = 1024;
-          v25 = v13;
-          v7 = "%s Failed adding callbacks to accessory manager %p from session %p (result = %d).";
-          v8 = v14;
-          v9 = 38;
-          goto LABEL_10;
-        }
-      }
-    }
-  }
-
-  else
+  if (!self->_session)
   {
     v10 = *MEMORY[0x277CEF0A0];
-    if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315138;
-      v19 = "[CSSiriMobileBluetoothDeviceDataSource _setUpAccessoryManager]";
-      v7 = "%s Session is NULL.";
-      v8 = v10;
-      v9 = 12;
-      goto LABEL_10;
+      return;
     }
+
+    v16 = 136315138;
+    v17 = "[CSSiriMobileBluetoothDeviceDataSource _setUpAccessoryManager]";
+    v7 = "%s Session is NULL.";
+    v8 = v10;
+    v9 = 12;
+    goto LABEL_10;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  Default = BTAccessoryManagerGetDefault();
+  if (Default)
+  {
+    v4 = Default;
+    v5 = *MEMORY[0x277CEF0A0];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    session = self->_session;
+    v16 = 136315650;
+    v17 = "[CSSiriMobileBluetoothDeviceDataSource _setUpAccessoryManager]";
+    v18 = 2048;
+    v19 = session;
+    v20 = 1024;
+    LODWORD(v21) = v4;
+    v7 = "%s Failed getting default accessory manager from session %p (result = %d).";
+    v8 = v5;
+    v9 = 28;
+    goto LABEL_10;
+  }
+
+  v11 = BTAccessoryManagerAddCallbacks();
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *MEMORY[0x277CEF0A0];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
+    {
+      accessoryManager = self->_accessoryManager;
+      v15 = self->_session;
+      v16 = 136315906;
+      v17 = "[CSSiriMobileBluetoothDeviceDataSource _setUpAccessoryManager]";
+      v18 = 2048;
+      v19 = accessoryManager;
+      v20 = 2048;
+      v21 = v15;
+      v22 = 1024;
+      v23 = v12;
+      v7 = "%s Failed adding callbacks to accessory manager %p from session %p (result = %d).";
+      v8 = v13;
+      v9 = 38;
+LABEL_10:
+      _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, v7, &v16, v9);
+    }
+  }
 }
 
 - (void)localDevice:(BTLocalDeviceImpl *)device event:(int)event result:(int)result
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v9 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v15 = "[CSSiriMobileBluetoothDeviceDataSource localDevice:event:result:]";
-    v16 = 2048;
+    v14 = "[CSSiriMobileBluetoothDeviceDataSource localDevice:event:result:]";
+    v15 = 2048;
     deviceCopy = device;
-    v18 = 1024;
+    v17 = 1024;
     eventCopy = event;
-    v20 = 1024;
+    v19 = 1024;
     resultCopy = result;
     _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s localDevice = %p, event = %d, result = %d", buf, 0x22u);
   }
@@ -568,7 +555,6 @@ LABEL_10:
   block[5] = device;
   eventCopy2 = event;
   dispatch_async(queue, block);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void *__66__CSSiriMobileBluetoothDeviceDataSource_localDevice_event_result___block_invoke(uint64_t a1)
@@ -593,89 +579,84 @@ void *__66__CSSiriMobileBluetoothDeviceDataSource_localDevice_event_result___blo
 
 - (void)_setUpLocalDevice
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [(CSSiriMobileBluetoothDeviceDataSource *)self _tearDownLocalDevice];
-  if (self->_session)
-  {
-    Default = BTLocalDeviceGetDefault();
-    if (Default)
-    {
-      v4 = Default;
-      v5 = *MEMORY[0x277CEF0A0];
-      if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
-      {
-        session = self->_session;
-        v18 = 136315650;
-        v19 = "[CSSiriMobileBluetoothDeviceDataSource _setUpLocalDevice]";
-        v20 = 2048;
-        v21 = session;
-        v22 = 1024;
-        LODWORD(v23) = v4;
-        v7 = "%s Failed getting default local device from session %p (result = %d).";
-        v8 = v5;
-        v9 = 28;
-LABEL_10:
-        _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, v7, &v18, v9);
-      }
-    }
-
-    else
-    {
-      localDevice = self->_localDevice;
-      v12 = BTLocalDeviceAddCallbacks();
-      if (v12)
-      {
-        v13 = v12;
-        v14 = *MEMORY[0x277CEF0A0];
-        if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
-        {
-          v16 = self->_session;
-          v15 = self->_localDevice;
-          v18 = 136315906;
-          v19 = "[CSSiriMobileBluetoothDeviceDataSource _setUpLocalDevice]";
-          v20 = 2048;
-          v21 = v15;
-          v22 = 2048;
-          v23 = v16;
-          v24 = 1024;
-          v25 = v13;
-          v7 = "%s Failed adding callbacks to local device %p from session %p (result = %d).";
-          v8 = v14;
-          v9 = 38;
-          goto LABEL_10;
-        }
-      }
-    }
-  }
-
-  else
+  if (!self->_session)
   {
     v10 = *MEMORY[0x277CEF0A0];
-    if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315138;
-      v19 = "[CSSiriMobileBluetoothDeviceDataSource _setUpLocalDevice]";
-      v7 = "%s Session is NULL.";
-      v8 = v10;
-      v9 = 12;
-      goto LABEL_10;
+      return;
     }
+
+    v16 = 136315138;
+    v17 = "[CSSiriMobileBluetoothDeviceDataSource _setUpLocalDevice]";
+    v7 = "%s Session is NULL.";
+    v8 = v10;
+    v9 = 12;
+    goto LABEL_10;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  Default = BTLocalDeviceGetDefault();
+  if (Default)
+  {
+    v4 = Default;
+    v5 = *MEMORY[0x277CEF0A0];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    session = self->_session;
+    v16 = 136315650;
+    v17 = "[CSSiriMobileBluetoothDeviceDataSource _setUpLocalDevice]";
+    v18 = 2048;
+    v19 = session;
+    v20 = 1024;
+    LODWORD(v21) = v4;
+    v7 = "%s Failed getting default local device from session %p (result = %d).";
+    v8 = v5;
+    v9 = 28;
+    goto LABEL_10;
+  }
+
+  v11 = BTLocalDeviceAddCallbacks();
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *MEMORY[0x277CEF0A0];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
+    {
+      v15 = self->_session;
+      localDevice = self->_localDevice;
+      v16 = 136315906;
+      v17 = "[CSSiriMobileBluetoothDeviceDataSource _setUpLocalDevice]";
+      v18 = 2048;
+      v19 = localDevice;
+      v20 = 2048;
+      v21 = v15;
+      v22 = 1024;
+      v23 = v12;
+      v7 = "%s Failed adding callbacks to local device %p from session %p (result = %d).";
+      v8 = v13;
+      v9 = 38;
+LABEL_10:
+      _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, v7, &v16, v9);
+    }
+  }
 }
 
 - (void)_sessionTerminated:(BTSessionImpl *)terminated
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriMobileBluetoothDeviceDataSource _sessionTerminated:]";
-    v9 = 2048;
+    v6 = 136315394;
+    v7 = "[CSSiriMobileBluetoothDeviceDataSource _sessionTerminated:]";
+    v8 = 2048;
     terminatedCopy = terminated;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s session = %p", &v7, 0x16u);
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s session = %p", &v6, 0x16u);
   }
 
   if (self->_session == terminated)
@@ -690,21 +671,19 @@ LABEL_10:
 
     [(CSSiriMobileBluetoothDeviceDataSource *)self _attachToSession];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sessionDetached:(BTSessionImpl *)detached
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriMobileBluetoothDeviceDataSource _sessionDetached:]";
-    v9 = 2048;
+    v6 = 136315394;
+    v7 = "[CSSiriMobileBluetoothDeviceDataSource _sessionDetached:]";
+    v8 = 2048;
     detachedCopy = detached;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s session = %p", &v7, 0x16u);
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s session = %p", &v6, 0x16u);
   }
 
   if (self->_session == detached)
@@ -718,21 +697,19 @@ LABEL_10:
       self->_session = 0;
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sessionAttached:(BTSessionImpl *)attached result:(int)result
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v20 = "[CSSiriMobileBluetoothDeviceDataSource _sessionAttached:result:]";
-    v21 = 2048;
+    v19 = "[CSSiriMobileBluetoothDeviceDataSource _sessionAttached:result:]";
+    v20 = 2048;
     attachedCopy = attached;
-    v23 = 1024;
+    v22 = 1024;
     resultCopy = result;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s session = %p, result = %d", buf, 0x1Cu);
   }
@@ -749,31 +726,31 @@ LABEL_10:
 
     [(CSSiriMobileBluetoothDeviceDataSource *)self _setUpLocalDevice];
     [(CSSiriMobileBluetoothDeviceDataSource *)self _setUpAccessoryManager];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     _deviceProxies = [(CSSiriMobileBluetoothDeviceDataSource *)self _deviceProxies];
-    v9 = [_deviceProxies countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [_deviceProxies countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(_deviceProxies);
           }
 
-          [*(*(&v14 + 1) + 8 * v12++) reload];
+          [*(*(&v13 + 1) + 8 * v12++) reload];
         }
 
         while (v10 != v12);
-        v10 = [_deviceProxies countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [_deviceProxies countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -781,69 +758,64 @@ LABEL_10:
   }
 
   dispatch_group_leave(self->_sessionSetupGroup);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_attachToSession
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_attachingToSession)
   {
     v2 = *MEMORY[0x277CEF0A0];
-    if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CSSiriMobileBluetoothDeviceDataSource _attachToSession]";
-      v3 = "%s Already attaching to session!";
-      v4 = v2;
-      v5 = 12;
+      return;
+    }
+
+    v10 = 136315138;
+    v11 = "[CSSiriMobileBluetoothDeviceDataSource _attachToSession]";
+    v3 = "%s Already attaching to session!";
+    v4 = v2;
+    v5 = 12;
 LABEL_7:
-      _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, v3, &v12, v5);
-    }
+    _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, v3, &v10, v5);
+    return;
   }
 
-  else
+  [(CSSiriMobileBluetoothDeviceDataSource *)self _detachFromSession];
+  v7 = BTSessionAttachWithQueue();
+  v8 = *MEMORY[0x277CEF0A0];
+  if (v7)
   {
-    [(CSSiriMobileBluetoothDeviceDataSource *)self _detachFromSession];
-    queue = self->_queue;
-    v8 = BTSessionAttachWithQueue();
-    v9 = *MEMORY[0x277CEF0A0];
-    if (v8)
+    v9 = v7;
+    if (!os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
-      v10 = v8;
-      if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
-      {
-        v12 = 136315394;
-        v13 = "[CSSiriMobileBluetoothDeviceDataSource _attachToSession]";
-        v14 = 1024;
-        v15 = v10;
-        v3 = "%s Failed attaching to bt session %d";
-        v4 = v9;
-        v5 = 18;
-        goto LABEL_7;
-      }
+      return;
     }
 
-    else
-    {
-      if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
-      {
-        v12 = 136315138;
-        v13 = "[CSSiriMobileBluetoothDeviceDataSource _attachToSession]";
-        _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s Attaching to session", &v12, 0xCu);
-      }
-
-      self->_attachingToSession = 1;
-      dispatch_group_enter(self->_sessionSetupGroup);
-    }
+    v10 = 136315394;
+    v11 = "[CSSiriMobileBluetoothDeviceDataSource _attachToSession]";
+    v12 = 1024;
+    v13 = v9;
+    v3 = "%s Failed attaching to bt session %d";
+    v4 = v8;
+    v5 = 18;
+    goto LABEL_7;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
+  {
+    v10 = 136315138;
+    v11 = "[CSSiriMobileBluetoothDeviceDataSource _attachToSession]";
+    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s Attaching to session", &v10, 0xCu);
+  }
+
+  self->_attachingToSession = 1;
+  dispatch_group_enter(self->_sessionSetupGroup);
 }
 
 - (void)_detachFromSession
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [(CSSiriMobileBluetoothDeviceDataSource *)self _tearDownAccessoryManager];
   [(CSSiriMobileBluetoothDeviceDataSource *)self _tearDownLocalDevice];
   session = self->_session;
@@ -855,28 +827,26 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
     {
       v6 = *p_session;
-      v8 = 136315394;
-      v9 = "[CSSiriMobileBluetoothDeviceDataSource _detachFromSession]";
-      v10 = 2048;
-      v11 = v6;
-      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Detaching from session %p", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CSSiriMobileBluetoothDeviceDataSource _detachFromSession]";
+      v9 = 2048;
+      v10 = v6;
+      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s Detaching from session %p", &v7, 0x16u);
     }
 
     BTSessionDetachWithQueue();
     *p_session = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUpDeviceProxies
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v28 = "[CSSiriMobileBluetoothDeviceDataSource _cleanUpDeviceProxies]";
+    v27 = "[CSSiriMobileBluetoothDeviceDataSource _cleanUpDeviceProxies]";
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -886,67 +856,65 @@ LABEL_7:
   allValues2 = [(NSMutableDictionary *)self->_deviceProxiesByDeviceUID allValues];
   [(NSMutableDictionary *)self->_deviceProxiesByDeviceUID removeAllObjects];
   os_unfair_lock_unlock(&self->_deviceProxiesLock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v21 + 1) + 8 * v10++) invalidate];
+        [*(*(&v20 + 1) + 8 * v10++) invalidate];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v8);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = allValues2;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v17 + 1) + 8 * v15++) invalidate];
+        [*(*(&v16 + 1) + 8 * v15++) invalidate];
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -1026,19 +994,17 @@ void __45__CSSiriMobileBluetoothDeviceDataSource_init__block_invoke(uint64_t a1)
 
 void __45__CSSiriMobileBluetoothDeviceDataSource_init__block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Queue %s did not respond to watchdog and is likely blocked.", dispatch_queue_get_label(*(a1 + 32))];
   v2 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v5 = "[CSSiriMobileBluetoothDeviceDataSource init]_block_invoke_2";
-    v6 = 2112;
-    v7 = v1;
+    v4 = "[CSSiriMobileBluetoothDeviceDataSource init]_block_invoke_2";
+    v5 = 2112;
+    v6 = v1;
     _os_log_fault_impl(&dword_222E4D000, v2, OS_LOG_TYPE_FAULT, "%s %@", buf, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

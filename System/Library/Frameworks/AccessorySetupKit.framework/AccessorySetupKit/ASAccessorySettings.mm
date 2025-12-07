@@ -120,55 +120,70 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v23 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v22 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v22, &v23, "%@", v5);
+    v6 = v22;
   }
 
   displayName = self->_displayName;
   if (displayName)
   {
-    v14 = displayName;
-    CUAppendF();
-    v6 = v4;
+    v21 = v6;
+    v8 = displayName;
+    CUAppendF(&v21, &v23, "name '%@'", v8);
+    v9 = v21;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   SSID = self->_SSID;
   if (SSID)
   {
-    v15 = SSID;
-    CUAppendF();
-    v8 = v4;
+    v20 = v6;
+    v11 = SSID;
+    CUAppendF(&v20, &v23, "SSID %@", v11);
+    v12 = v20;
 
-    v4 = v8;
+    v6 = v12;
   }
 
   bluetoothTransportBridgingIdentifier = self->_bluetoothTransportBridgingIdentifier;
   if (bluetoothTransportBridgingIdentifier)
   {
-    v16 = bluetoothTransportBridgingIdentifier;
-    CUAppendF();
-    v10 = v4;
+    v19 = v6;
+    v14 = bluetoothTransportBridgingIdentifier;
+    CUAppendF(&v19, &v23, "bridingID %@", v14);
+    v15 = v19;
 
-    v4 = v10;
+    v6 = v15;
   }
 
-  v11 = &stru_28499D698;
-  if (v4)
+  v16 = &stru_28499D698;
+  if (v6)
   {
-    v11 = v4;
+    v16 = v6;
   }
 
-  v12 = v11;
+  v17 = v16;
 
-  return v12;
+  return v17;
 }
 
 - (ASAccessorySettings)initWithXPCObject:(id)object error:(id *)error
@@ -179,8 +194,8 @@
   {
     if (error)
     {
-      v16 = [objc_opt_class() description];
-      *error = ASErrorF(-6756, "%@ init failed", v17, v18, v19, v20, v21, v22, v16);
+      v10 = [objc_opt_class() description];
+      *error = ASErrorF(-6756, "%@ init failed", v10);
     }
 
     goto LABEL_12;
@@ -190,13 +205,13 @@
   {
     if (error)
     {
-      ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v23);
-      *error = v14 = 0;
+      ASErrorF(-6756, "XPC non-dict");
+      *error = v8 = 0;
       goto LABEL_7;
     }
 
 LABEL_12:
-    v14 = 0;
+    v8 = 0;
     goto LABEL_7;
   }
 
@@ -205,10 +220,10 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v14 = v7;
+  v8 = v7;
 LABEL_7:
 
-  return v14;
+  return v8;
 }
 
 @end

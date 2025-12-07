@@ -137,99 +137,98 @@
 
 - (void)writeTo:(id)to
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v6 = self->_cardAIDs;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v7)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v5 = self->_cardAIDs;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v28;
+    v7 = v6;
+    v8 = *v22;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v9 = 0;
+      do
       {
-        if (*v28 != v9)
+        if (*v22 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
         PBDataWriterWriteStringField();
+        ++v9;
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_lifecycleStates.count)
   {
-    v12 = 0;
+    v10 = 0;
     do
     {
-      v13 = self->_lifecycleStates.list[v12];
       PBDataWriterWriteUint32Field();
-      ++v12;
+      ++v10;
     }
 
-    while (v12 < self->_lifecycleStates.count);
+    while (v10 < self->_lifecycleStates.count);
   }
 
   if (self->_activationStates.count)
   {
-    v14 = 0;
+    v11 = 0;
     do
     {
-      v15 = self->_activationStates.list[v14];
       PBDataWriterWriteUint32Field();
-      ++v14;
+      ++v11;
     }
 
-    while (v14 < self->_activationStates.count);
+    while (v11 < self->_activationStates.count);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v16 = self->_appletsBytes;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v17)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v12 = self->_appletsBytes;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v13)
   {
-    v18 = v17;
-    v19 = *v24;
+    v14 = v13;
+    v15 = *v18;
     do
     {
-      for (j = 0; j != v18; ++j)
+      v16 = 0;
+      do
       {
-        if (*v24 != v19)
+        if (*v18 != v15)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v12);
         }
 
-        v21 = *(*(&v23 + 1) + 8 * j);
         PBDataWriterWriteDataField();
+        ++v16;
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      while (v14 != v16);
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v18);
+    while (v14);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -303,7 +302,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -312,34 +311,34 @@
     *(v5 + 76) |= 1u;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v7 = self->_cardAIDs;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v25 + 1) + 8 * v11) copyWithZone:zone];
+        v12 = [*(*(&v24 + 1) + 8 * v11) copyWithZone:zone];
         [v6 addCardAIDs:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v9);
@@ -347,40 +346,39 @@
 
   PBRepeatedUInt32Copy();
   PBRepeatedUInt32Copy();
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = self->_appletsBytes;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v21 + 1) + 8 * v17) copyWithZone:{zone, v21}];
+        v18 = [*(*(&v20 + 1) + 8 * v17) copyWithZone:{zone, v20}];
         [v6 addAppletsBytes:v18];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v15);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -465,7 +463,7 @@ LABEL_12:
 
 - (void)mergeFrom:(id)from
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (*(fromCopy + 76))
@@ -474,31 +472,31 @@ LABEL_12:
     *&self->_has |= 1u;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v6 = *(fromCopy + 8);
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       v10 = 0;
       do
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(NPKProtoSecureElementGetAppletsResponse *)self addCardAIDs:*(*(&v27 + 1) + 8 * v10++)];
+        [(NPKProtoSecureElementGetAppletsResponse *)self addCardAIDs:*(*(&v26 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v8);
@@ -524,37 +522,35 @@ LABEL_12:
     }
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v17 = v5[7];
-  v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v24;
+    v20 = *v23;
     do
     {
       v21 = 0;
       do
       {
-        if (*v24 != v20)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        [(NPKProtoSecureElementGetAppletsResponse *)self addAppletsBytes:*(*(&v23 + 1) + 8 * v21++), v23];
+        [(NPKProtoSecureElementGetAppletsResponse *)self addAppletsBytes:*(*(&v22 + 1) + 8 * v21++), v22];
       }
 
       while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v19);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

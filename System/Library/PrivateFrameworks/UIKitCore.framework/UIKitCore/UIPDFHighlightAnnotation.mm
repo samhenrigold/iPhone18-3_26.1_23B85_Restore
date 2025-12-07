@@ -141,7 +141,7 @@
       {
         v10 = numberOfRectangles;
         memset(&v11[1], 0, sizeof(CGAffineTransform));
-        [(UIPDFSelection *)v8 transform];
+        objc_msgSend_transform(v8);
         v11[0] = v11[1];
         if (CGAffineTransformIsIdentity(v11))
         {
@@ -188,7 +188,7 @@
       memset(&v12[1], 0, sizeof(CGAffineTransform));
       if (selection)
       {
-        [(UIPDFSelection *)selection transform];
+        objc_msgSend_transform(selection);
       }
 
       v12[0] = v12[1];

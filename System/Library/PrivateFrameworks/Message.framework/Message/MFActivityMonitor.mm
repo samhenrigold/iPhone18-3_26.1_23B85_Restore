@@ -29,6 +29,7 @@
 - (void)setPercentDone:(double)done withKey:(int)key;
 - (void)setPercentDoneOfCurrentItem:(double)item;
 - (void)setShouldCancel:(BOOL)cancel;
+- (void)setStatusMessage:(id)message percentDone:(double)done withKey:(int)key;
 - (void)setStatusMessage:(id)message withKey:(int)key;
 - (void)startActivity;
 @end
@@ -226,7 +227,7 @@
 
 - (void)reset
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   +[MFActivityMonitor mf_lock];
   self->_maxCount = 0;
   self->_currentCount = 0;
@@ -238,13 +239,11 @@
   +[MFActivityMonitor mf_unlock];
   if (self->_mailbox)
   {
-    v6 = @"MonitoredActivityReset";
-    v7[0] = @"RESET";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = @"MonitoredActivityReset";
+    v6[0] = @"RESET";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
     [(MFActivityMonitor *)self postDidChangeWithUserInfo:v4];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setGotNewMessagesState:(unint64_t)state
@@ -433,6 +432,14 @@
   }
 
   +[MFActivityMonitor mf_unlock];
+}
+
+- (void)setStatusMessage:(id)message percentDone:(double)done withKey:(int)key
+{
+  v5 = *&key;
+  messageCopy = message;
+  [MFActivityMonitor setStatusMessage:"setStatusMessage:withKey:" withKey:?];
+  [(MFActivityMonitor *)self setPercentDone:v5 withKey:done];
 }
 
 - (void)setStatusMessage:(id)message withKey:(int)key

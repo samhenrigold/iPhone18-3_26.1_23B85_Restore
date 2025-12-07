@@ -7,7 +7,7 @@
 
 - (void)sendInvitationToDestinations:(id)destinations callerID:(id)d completion:(id)completion
 {
-  v7 = sub_100140278(&qword_1008E1760);
+  v7 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v7 - 8);
   v9 = &v19 - v8;
   v10 = _Block_copy(completion);
@@ -33,7 +33,7 @@
 
 - (void)fetchReachableDestinationsFor:(id)for completion:(id)completion
 {
-  v5 = sub_100140278(&qword_1008E1760);
+  v5 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);

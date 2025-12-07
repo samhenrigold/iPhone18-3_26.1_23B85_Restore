@@ -111,7 +111,7 @@
 
 - (id)stringFromSchedule:(id)schedule
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [(SCLScheduleFormatter *)self formatterItemsForSchedule:scheduleCopy];
@@ -130,35 +130,35 @@
 
     else
     {
-      v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
       timeIntervalsFormatter3 = [(SCLScheduleFormatter *)self timeIntervalsFormatter];
       [timeIntervalsFormatter3 setPrefersHoursOnly:1];
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v15 = v6;
-      v16 = [v15 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v16)
       {
         v17 = v16;
-        v33 = v6;
-        v34 = v5;
-        v35 = scheduleCopy;
+        v32 = v6;
+        v33 = v5;
+        v34 = scheduleCopy;
         obj = v15;
         v18 = 0;
-        v19 = *v39;
+        v19 = *v38;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v39 != v19)
+            if (*v38 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v38 + 1) + 8 * i);
+            v21 = *(*(&v37 + 1) + 8 * i);
             v22 = [(SCLScheduleFormatter *)self stringForWeekdaysInItem:v21];
             timeIntervalsFormatter4 = [(SCLScheduleFormatter *)self timeIntervalsFormatter];
             timeIntervals2 = [v21 timeIntervals];
@@ -171,10 +171,10 @@
             locale = [(SCLScheduleFormatter *)self locale];
             v28 = [(SCLScheduleFormatter *)self _formattedCustomDailyScheduleForLocale:locale, v22, v25];
 
-            [v37 addObject:v28];
+            [v36 addObject:v28];
           }
 
-          v17 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v17 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
         }
 
         while (v17);
@@ -189,9 +189,9 @@
           v29 = @"CustomScheduleDetailTextCommaSeparator";
         }
 
-        v5 = v34;
-        scheduleCopy = v35;
-        v6 = v33;
+        v5 = v33;
+        scheduleCopy = v34;
+        v6 = v32;
       }
 
       else
@@ -201,8 +201,8 @@
       }
 
       v30 = [v5 localizedStringForKey:v29 value:&stru_287622948 table:@"SchoolTimeFormatters"];
-      firstObject = v37;
-      v13 = [v37 componentsJoinedByString:v30];
+      firstObject = v36;
+      v13 = [v36 componentsJoinedByString:v30];
     }
   }
 
@@ -210,8 +210,6 @@
   {
     v13 = [v5 localizedStringForKey:@"ScheduleOff" value:&stru_287622948 table:@"SchoolTimeFormatters"];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -229,30 +227,30 @@
 
 - (id)stringForWeekdaysInItem:(id)item
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v26 = itemCopy;
+  v25 = itemCopy;
   obj = [itemCopy dayRanges];
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v29;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
+        v9 = *(*(&v28 + 1) + 8 * i);
         if ([v9 count] == 1)
         {
           calendar = [(NSDateFormatter *)self->_standaloneWeekdayFormatter calendar];
@@ -262,7 +260,7 @@
           date = [MEMORY[0x277CBEAA8] date];
           v14 = [calendar nextDateAfterDate:date matchingUnit:512 value:integerValue options:1024];
           v15 = [(NSDateFormatter *)self->_standaloneWeekdayFormatter stringFromDate:v14];
-          [v28 addObject:v15];
+          [v27 addObject:v15];
         }
 
         else
@@ -279,20 +277,18 @@
           v15 = [calendar nextDateAfterDate:v14 matchingUnit:512 value:integerValue3 options:1024];
           v20 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v14 endDate:v15];
           v21 = [(NSDateIntervalFormatter *)self->_weekdayIntervalFormatter stringFromDateInterval:v20];
-          [v28 addObject:v21];
+          [v27 addObject:v21];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v6);
   }
 
   listFormatter = [(SCLScheduleFormatter *)self listFormatter];
-  v23 = [listFormatter stringFromItems:v28];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = [listFormatter stringFromItems:v27];
 
   return v23;
 }

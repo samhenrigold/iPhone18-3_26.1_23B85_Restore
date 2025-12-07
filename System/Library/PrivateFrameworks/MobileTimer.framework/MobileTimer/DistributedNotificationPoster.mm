@@ -8,15 +8,15 @@
 {
   notificationsCopy = notifications;
   preferencesCopy = preferences;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
   if (bundleIdentifier)
   {
-    v13 = @"bundleIdentifier";
-    v14[0] = bundleIdentifier;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"bundleIdentifier";
+    v13[0] = bundleIdentifier;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     if (preferencesCopy)
     {
       goto LABEL_6;
@@ -58,7 +58,6 @@ LABEL_6:
   [defaultCenter postNotificationName:v10 object:0 userInfo:v8 deliverImmediately:1];
 
 LABEL_12:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

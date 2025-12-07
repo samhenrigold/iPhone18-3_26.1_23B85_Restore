@@ -345,7 +345,7 @@ LABEL_9:
 
 - (id)getBundleRelativeDate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dayNameFormatterInEnglish = [MEMORY[0x1E695DF00] dayNameFormatterInEnglish];
   v3 = [dayNameFormatterInEnglish stringFromDate:self];
 
@@ -356,11 +356,11 @@ LABEL_9:
   v7 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412546;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_1CEE74000, v7, OS_LOG_TYPE_INFO, "bundleDay: %@, nowDay: %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v6;
+    _os_log_impl(&dword_1CEE74000, v7, OS_LOG_TYPE_INFO, "bundleDay: %@, nowDay: %@", &v13, 0x16u);
   }
 
   [self timeIntervalSinceNow];
@@ -379,8 +379,6 @@ LABEL_9:
   {
     v11 = v3;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

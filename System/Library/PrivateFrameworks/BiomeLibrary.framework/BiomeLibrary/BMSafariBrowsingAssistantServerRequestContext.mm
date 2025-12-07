@@ -126,7 +126,7 @@ LABEL_24:
 
 - (id)jsonDictionary
 {
-  v27[5] = *MEMORY[0x1E69E9840];
+  v26[5] = *MEMORY[0x1E69E9840];
   webpageViewIdentifier = [(BMSafariBrowsingAssistantServerRequestContext *)self webpageViewIdentifier];
   v4 = [webpageViewIdentifier base64EncodedStringWithOptions:0];
 
@@ -140,48 +140,48 @@ LABEL_24:
   failed = [(BMSafariBrowsingAssistantServerRequestContext *)self failed];
   jsonDictionary3 = [failed jsonDictionary];
 
-  v22 = @"webpageViewIdentifier";
+  v21 = @"webpageViewIdentifier";
   null = v4;
   if (!v4)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v27[0] = null;
-  v23 = @"requestIdentifier";
+  v19 = null;
+  v26[0] = null;
+  v22 = @"requestIdentifier";
   null2 = requestIdentifier;
   if (!requestIdentifier)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[1] = null2;
-  v24 = @"started";
+  v26[1] = null2;
+  v23 = @"started";
   null3 = jsonDictionary;
   if (!jsonDictionary)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[2] = null3;
-  v25 = @"ended";
+  v26[2] = null3;
+  v24 = @"ended";
   null4 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[3] = null4;
-  v26 = @"failed";
+  v26[3] = null4;
+  v25 = @"failed";
   null5 = jsonDictionary3;
   if (!jsonDictionary3)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[4] = null5;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v22 count:{5, v20}];
+  v26[4] = null5;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v21 count:{5, v19}];
   if (jsonDictionary3)
   {
     if (jsonDictionary2)
@@ -239,14 +239,13 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (BMSafariBrowsingAssistantServerRequestContext)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v62[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"webpageViewIdentifier"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -266,14 +265,14 @@ LABEL_4:
         }
 
         v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v46 = v8;
+        v45 = v8;
         v27 = *MEMORY[0x1E698F240];
-        v58 = *MEMORY[0x1E696A578];
+        v57 = *MEMORY[0x1E696A578];
         v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"requestIdentifier"];
-        v59 = v16;
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        v58 = v16;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
         v28 = v27;
-        v8 = v46;
+        v8 = v45;
         v29 = [v26 initWithDomain:v28 code:2 userInfo:v18];
         v15 = 0;
         *error = v29;
@@ -281,12 +280,12 @@ LABEL_4:
         goto LABEL_56;
       }
 
-      v43 = v9;
+      v42 = v9;
     }
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"started"];
@@ -299,24 +298,24 @@ LABEL_4:
         if (!error)
         {
           v15 = 0;
-          error = v43;
+          error = v42;
           goto LABEL_57;
         }
 
         v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v47 = v8;
+        v46 = v8;
         v33 = *MEMORY[0x1E698F240];
-        v56 = *MEMORY[0x1E696A578];
+        v55 = *MEMORY[0x1E696A578];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"started"];
-        v57 = v18;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+        v56 = v18;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
         v35 = v33;
-        v8 = v47;
+        v8 = v46;
         *error = [v32 initWithDomain:v35 code:2 userInfo:v34];
 
         v15 = 0;
         v16 = v10;
-        error = v43;
+        error = v42;
 LABEL_56:
 
         v10 = v16;
@@ -326,9 +325,9 @@ LABEL_57:
       }
 
       v16 = v10;
-      v51 = 0;
-      v44 = [[BMSafariBrowsingAssistantServerRequestContextStarted alloc] initWithJSONDictionary:v16 error:&v51];
-      v17 = v51;
+      v50 = 0;
+      v43 = [[BMSafariBrowsingAssistantServerRequestContextStarted alloc] initWithJSONDictionary:v16 error:&v50];
+      v17 = v50;
       if (v17)
       {
         if (error)
@@ -338,19 +337,19 @@ LABEL_57:
         }
 
         v15 = 0;
-        error = v43;
-        v18 = v44;
+        error = v42;
+        v18 = v43;
         goto LABEL_56;
       }
     }
 
     else
     {
-      v44 = 0;
+      v43 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"ended"];
-    v45 = v8;
+    v44 = v8;
     if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -359,29 +358,29 @@ LABEL_57:
         if (!error)
         {
           v15 = 0;
-          error = v43;
-          v18 = v44;
+          error = v42;
+          v18 = v43;
           goto LABEL_55;
         }
 
-        v41 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v40 = objc_alloc(MEMORY[0x1E696ABC0]);
         v36 = *MEMORY[0x1E698F240];
-        v54 = *MEMORY[0x1E696A578];
+        v53 = *MEMORY[0x1E696A578];
         v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"ended"];
-        v55 = v12;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+        v54 = v12;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
         v15 = 0;
-        *error = [v41 initWithDomain:v36 code:2 userInfo:v13];
+        *error = [v40 initWithDomain:v36 code:2 userInfo:v13];
         goto LABEL_68;
       }
 
       v13 = v11;
-      v50 = 0;
-      v12 = [[BMSafariBrowsingAssistantServerRequestContextEnded alloc] initWithJSONDictionary:v13 error:&v50];
-      v19 = v50;
+      v49 = 0;
+      v12 = [[BMSafariBrowsingAssistantServerRequestContextEnded alloc] initWithJSONDictionary:v13 error:&v49];
+      v19 = v49;
       if (v19)
       {
-        v18 = v44;
+        v18 = v43;
         if (error)
         {
           v19 = v19;
@@ -389,7 +388,7 @@ LABEL_57:
         }
 
         v15 = 0;
-        error = v43;
+        error = v42;
         goto LABEL_54;
       }
     }
@@ -404,16 +403,16 @@ LABEL_57:
     {
       v14 = 0;
 LABEL_16:
-      error = v43;
-      v15 = [(BMSafariBrowsingAssistantServerRequestContext *)selfCopy initWithWebpageViewIdentifier:v45 requestIdentifier:v43 started:v44 ended:v12 failed:v14];
+      error = v42;
+      v15 = [(BMSafariBrowsingAssistantServerRequestContext *)selfCopy initWithWebpageViewIdentifier:v44 requestIdentifier:v42 started:v43 ended:v12 failed:v14];
       selfCopy = v15;
 LABEL_52:
 
 LABEL_53:
-      v18 = v44;
+      v18 = v43;
 LABEL_54:
 
-      v8 = v45;
+      v8 = v44;
 LABEL_55:
 
       v16 = v10;
@@ -425,9 +424,9 @@ LABEL_55:
     if (objc_opt_isKindOfClass())
     {
       v30 = v13;
-      v49 = 0;
-      v14 = [[BMSafariBrowsingAssistantServerRequestContextFailed alloc] initWithJSONDictionary:v30 error:&v49];
-      v31 = v49;
+      v48 = 0;
+      v14 = [[BMSafariBrowsingAssistantServerRequestContextFailed alloc] initWithJSONDictionary:v30 error:&v48];
+      v31 = v48;
       if (!v31)
       {
 
@@ -442,25 +441,25 @@ LABEL_55:
 
 LABEL_51:
       v15 = 0;
-      error = v43;
+      error = v42;
       goto LABEL_52;
     }
 
     if (error)
     {
-      v42 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v40 = *MEMORY[0x1E698F240];
-      v52 = *MEMORY[0x1E696A578];
+      v41 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v39 = *MEMORY[0x1E698F240];
+      v51 = *MEMORY[0x1E696A578];
       v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"failed"];
-      v53 = v14;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-      *error = [v42 initWithDomain:v40 code:2 userInfo:v30];
+      v52 = v14;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+      *error = [v41 initWithDomain:v39 code:2 userInfo:v30];
       goto LABEL_51;
     }
 
     v15 = 0;
 LABEL_68:
-    error = v43;
+    error = v42;
     goto LABEL_53;
   }
 
@@ -478,12 +477,12 @@ LABEL_68:
     {
       v20 = objc_alloc(MEMORY[0x1E696ABC0]);
       v21 = *MEMORY[0x1E698F240];
-      v60 = *MEMORY[0x1E696A578];
+      v59 = *MEMORY[0x1E696A578];
       v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"webpageViewIdentifier"];
-      v61 = v22;
+      v60 = v22;
       v23 = MEMORY[0x1E695DF20];
-      v24 = &v61;
-      v25 = &v60;
+      v24 = &v60;
+      v25 = &v59;
       goto LABEL_48;
     }
 
@@ -506,12 +505,12 @@ LABEL_63:
 
   v20 = objc_alloc(MEMORY[0x1E696ABC0]);
   v21 = *MEMORY[0x1E698F240];
-  v62 = *MEMORY[0x1E696A578];
+  v61 = *MEMORY[0x1E696A578];
   v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"webpageViewIdentifier"];
-  v63[0] = v22;
+  v62[0] = v22;
   v23 = MEMORY[0x1E695DF20];
-  v24 = v63;
-  v25 = &v62;
+  v24 = v62;
+  v25 = &v61;
 LABEL_48:
   v9 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:1];
   v37 = [v20 initWithDomain:v21 code:2 userInfo:v9];
@@ -522,7 +521,6 @@ LABEL_48:
 LABEL_58:
 
 LABEL_59:
-  v38 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -784,71 +782,67 @@ LABEL_41:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"webpageViewIdentifier" number:1 type:14 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"requestIdentifier" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"started" number:3 type:14 subMessageClass:objc_opt_class()];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"ended" number:4 type:14 subMessageClass:objc_opt_class()];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"failed" number:5 type:14 subMessageClass:objc_opt_class()];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"webpageViewIdentifier" dataType:4 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"requestIdentifier" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"started_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_764];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"ended_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_766];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"failed_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_768];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __56__BMSafariBrowsingAssistantServerRequestContext_columns__block_invoke_3(uint64_t a1, void *a2)
+id __56__BMSafariBrowsingAssistantServerRequestContext_columns__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 failed];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 failed];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __56__BMSafariBrowsingAssistantServerRequestContext_columns__block_invoke_2(uint64_t a1, void *a2)
+id __56__BMSafariBrowsingAssistantServerRequestContext_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 ended];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 ended];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __56__BMSafariBrowsingAssistantServerRequestContext_columns__block_invoke(uint64_t a1, void *a2)
+id __56__BMSafariBrowsingAssistantServerRequestContext_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 started];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 started];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

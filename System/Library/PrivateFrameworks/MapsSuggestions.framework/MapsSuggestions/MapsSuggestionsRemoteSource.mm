@@ -178,7 +178,7 @@
     {
       uniqueName = [self uniqueName];
       OUTLINED_FUNCTION_1();
-      OUTLINED_FUNCTION_2_0(&dword_1C5126000, v4, v5, "{MSgDebug} OBJECT{%@} %s BEGIN", v6, v7, v8, v9, v21[0]);
+      OUTLINED_FUNCTION_2_0(&dword_1C5126000, v4, v5, "{MSgDebug} OBJECT{%@} %s BEGIN", v6, v7, v8, v9);
     }
 
     v10 = GEOFindOrCreateLog();
@@ -200,7 +200,7 @@
     {
       uniqueName2 = [self uniqueName];
       OUTLINED_FUNCTION_1();
-      OUTLINED_FUNCTION_2_0(&dword_1C5126000, v14, v15, "{MSgDebug} OBJECT{%@} %s END", v16, v17, v18, v19, v21[0]);
+      OUTLINED_FUNCTION_2_0(&dword_1C5126000, v14, v15, "{MSgDebug} OBJECT{%@} %s END", v16, v17, v18, v19);
     }
 
     v20 = GEOFindOrCreateLog();

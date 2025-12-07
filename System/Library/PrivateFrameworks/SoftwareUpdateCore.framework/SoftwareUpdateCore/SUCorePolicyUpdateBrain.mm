@@ -45,7 +45,7 @@
 
 - (id)constructSoftwareUpdateMAAssetQueryWithPurpose:(id)purpose
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D64460];
   purposeCopy = purpose;
   sharedLogger = [v4 sharedLogger];
@@ -58,9 +58,9 @@
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[POLICY_UPDATE_BRAIN] constructSoftwareUpdateMAAssetQuery for policy: %{public}@", buf, 0xCu);
   }
 
-  v17.receiver = self;
-  v17.super_class = SUCorePolicyUpdateBrain;
-  v8 = [(SUCorePolicy *)&v17 constructSoftwareUpdateMAAssetQueryWithPurpose:purposeCopy];
+  v16.receiver = self;
+  v16.super_class = SUCorePolicyUpdateBrain;
+  v8 = [(SUCorePolicy *)&v16 constructSoftwareUpdateMAAssetQueryWithPurpose:purposeCopy];
 
   compatibilityVersion = [(SUCorePolicyUpdateBrain *)self compatibilityVersion];
 
@@ -82,14 +82,12 @@
     _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[POLICY_UPDATE_BRAIN] querying SU metadata: compatibilityVersion=%{public}@", buf, 0xCu);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)selectSoftwareUpdatePrimaryAsset:(id *)asset secondaryAsset:(id *)secondaryAsset fromAssetQuery:(id)query
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
@@ -120,30 +118,30 @@
       }
 
       assetCopy = asset;
-      v47 = queryCopy;
+      v46 = queryCopy;
 
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       oslog2 = [(SUCorePolicy *)self policyExtensions];
-      v16 = [oslog2 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v16 = [oslog2 countByEnumeratingWithState:&v47 objects:v55 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v49;
+        v18 = *v48;
         while (2)
         {
           v19 = 0;
           v20 = sUCoreBorder_results;
           do
           {
-            if (*v49 != v18)
+            if (*v48 != v18)
             {
               objc_enumerationMutation(oslog2);
             }
 
-            v21 = *(*(&v48 + 1) + 8 * v19);
+            v21 = *(*(&v47 + 1) + 8 * v19);
             sUCoreBorder_results = [v21 filterSoftwareUpdateAssetArray:v20];
 
             mEMORY[0x277D64460]3 = [MEMORY[0x277D64460] sharedLogger];
@@ -155,8 +153,8 @@
               extensionName = [v21 extensionName];
               *buf = 134218242;
               selfCopy = v24;
-              v54 = 2114;
-              v55 = extensionName;
+              v53 = 2114;
+              v54 = extensionName;
               _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[POLICY_UPDATE_BRAIN] %lu assets left after filtering from SUCorePolicyExtension %{public}@", buf, 0x16u);
             }
 
@@ -171,7 +169,7 @@
                 _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "[POLICY_UPDATE_BRAIN] 0 assets found, stopping filtering early", buf, 2u);
               }
 
-              queryCopy = v47;
+              queryCopy = v46;
               goto LABEL_39;
             }
 
@@ -180,7 +178,7 @@
           }
 
           while (v17 != v19);
-          v17 = [oslog2 countByEnumeratingWithState:&v48 objects:v56 count:16];
+          v17 = [oslog2 countByEnumeratingWithState:&v47 objects:v55 count:16];
           if (v17)
           {
             continue;
@@ -223,7 +221,7 @@
       v37 = os_log_type_enabled(oslog7, OS_LOG_TYPE_DEFAULT);
       if (v34)
       {
-        queryCopy = v47;
+        queryCopy = v46;
         if (v37)
         {
           v38 = [oslog2 count];
@@ -254,7 +252,7 @@
 
       else
       {
-        queryCopy = v47;
+        queryCopy = v46;
         if (v37)
         {
           *buf = 0;
@@ -277,8 +275,6 @@ LABEL_39:
     sUCoreBorder_results = [MEMORY[0x277D64428] sharedDiag];
     [sUCoreBorder_results trackError:@"[POLICY_UPDATE_BRAIN] SELECT_UPDATE_ASSET" forReason:@"selectSoftwareUpdatePrimaryAsset called with unexpected nil primaryAsset param" withResult:8102 withError:0];
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __90__SUCorePolicyUpdateBrain_selectSoftwareUpdatePrimaryAsset_secondaryAsset_fromAssetQuery___block_invoke(uint64_t a1, void *a2, void *a3)

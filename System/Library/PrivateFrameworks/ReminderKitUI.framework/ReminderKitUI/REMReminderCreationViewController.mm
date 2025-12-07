@@ -1,6 +1,7 @@
 @interface REMReminderCreationViewController
 - (REMReminderCreationViewController)initWithDelegate:(id)delegate;
 - (void)remoteViewControllerDidLoad:(id)load setupCompletion:(id)completion;
+- (void)sendDidCreate:(BOOL)create error:(id)error;
 - (void)viewServiceDidCancel;
 - (void)viewServiceDidFailWithError:(id)error;
 - (void)viewServiceDidFinish;
@@ -21,6 +22,20 @@
   }
 
   return v7;
+}
+
+- (void)sendDidCreate:(BOOL)create error:(id)error
+{
+  createCopy = create;
+  errorCopy = error;
+  delegate = [(REMReminderCreationViewController *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [(REMReminderCreationViewController *)self delegate];
+    [delegate2 reminderCreationViewController:self didCreateReminder:createCopy error:errorCopy];
+  }
 }
 
 - (void)remoteViewControllerDidLoad:(id)load setupCompletion:(id)completion

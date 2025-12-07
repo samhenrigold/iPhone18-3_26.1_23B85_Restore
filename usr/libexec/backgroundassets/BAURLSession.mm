@@ -14,9 +14,9 @@
   directoryCopy = directory;
   handlerCopy = handler;
   responseHandlerCopy = responseHandler;
-  v53.receiver = self;
-  v53.super_class = BAURLSession;
-  v20 = [(BAURLSession *)&v53 init];
+  v54.receiver = self;
+  v54.super_class = BAURLSession;
+  v20 = [(BAURLSession *)&v54 init];
   if (v20)
   {
     objc_opt_class();
@@ -24,29 +24,29 @@
     {
       backgroundCopy = background;
       dataCopy2 = data;
-      v49 = dataCopy;
-      v50 = requestCopy;
+      v50 = dataCopy;
+      v51 = requestCopy;
       if (([directoryCopy isFileURL] & 1) == 0)
       {
         v21 = [NSException exceptionWithName:NSInvalidArgumentException reason:@"Destination directory must be a file URL." userInfo:0];
         [v21 raise];
       }
 
-      v52 = 0;
+      v53 = 0;
       v22 = +[NSFileManager defaultManager];
       path = [directoryCopy path];
       stringByStandardizingPath = [path stringByStandardizingPath];
-      v25 = [v22 fileExistsAtPath:stringByStandardizingPath isDirectory:&v52];
-      v26 = v52;
+      v25 = [v22 fileExistsAtPath:stringByStandardizingPath isDirectory:&v53];
+      v26 = v53;
 
       if (!v25 || (v26 & 1) != 0)
       {
         v28 = +[NSFileManager defaultManager];
         path2 = [directoryCopy path];
         stringByStandardizingPath2 = [path2 stringByStandardizingPath];
-        v51 = 0;
-        v31 = [v28 createDirectoryAtPath:stringByStandardizingPath2 withIntermediateDirectories:1 attributes:0 error:&v51];
-        v46 = v51;
+        v52 = 0;
+        v31 = [v28 createDirectoryAtPath:stringByStandardizingPath2 withIntermediateDirectories:1 attributes:0 error:&v52];
+        v47 = v52;
 
         if (v31)
         {
@@ -55,8 +55,8 @@
           destinationDirectory = v20->_destinationDirectory;
           v20->_destinationDirectory = stringByStandardizingPath3;
 
-          dataCopy = v49;
-          requestCopy = v50;
+          dataCopy = v50;
+          requestCopy = v51;
           data = dataCopy2;
         }
 
@@ -67,44 +67,44 @@
           v37 = v20->_destinationDirectory;
           v20->_destinationDirectory = v36;
 
-          v38 = sub_100010694();
+          v39 = sub_100010694(v38);
           data = dataCopy2;
-          dataCopy = v49;
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          dataCopy = v50;
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            sub_100048C54(v46, v38);
+            sub_100048C54(v47, v39);
           }
 
-          requestCopy = v50;
+          requestCopy = v51;
         }
 
         background = backgroundCopy;
-        v27 = v46;
+        v27 = v47;
       }
 
       else
       {
         v27 = [NSException exceptionWithName:NSInvalidArgumentException reason:@"Destination directory must exist and be a valid directory." userInfo:0];
         [v27 raise];
-        dataCopy = v49;
-        requestCopy = v50;
+        dataCopy = v50;
+        requestCopy = v51;
         data = dataCopy2;
         background = backgroundCopy;
       }
     }
 
-    v39 = objc_opt_new();
+    v40 = objc_opt_new();
     connectionLock = v20->_connectionLock;
-    v20->_connectionLock = v39;
+    v20->_connectionLock = v40;
 
     objc_storeStrong(&v20->_urlRequest, request);
-    v41 = [handlerCopy copy];
+    v42 = [handlerCopy copy];
     challengeBlock = v20->_challengeBlock;
-    v20->_challengeBlock = v41;
+    v20->_challengeBlock = v42;
 
-    v43 = [responseHandlerCopy copy];
+    v44 = [responseHandlerCopy copy];
     redirectResponseBlock = v20->_redirectResponseBlock;
-    v20->_redirectResponseBlock = v43;
+    v20->_redirectResponseBlock = v44;
 
     v20->_inBackground = background;
     objc_storeStrong(&v20->_resumeData, data);

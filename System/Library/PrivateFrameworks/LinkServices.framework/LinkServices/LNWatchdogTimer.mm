@@ -4,6 +4,7 @@
 - (BOOL)isCanceled;
 - (BOOL)isStopped;
 - (LNWatchdogTimer)initWithTimeoutInterval:(double)interval onQueue:(id)queue singleUse:(BOOL)use timeoutHandler:(id)handler;
+- (LNWatchdogTimer)initWithTimeoutInterval:(double)interval singleUse:(BOOL)use timeoutHandler:(id)handler;
 - (LNWatchdogTimer)initWithTimeoutInterval:(double)interval timeoutHandler:(id)handler;
 - (void)_cancel;
 - (void)_reset;
@@ -144,7 +145,7 @@
   return v3;
 }
 
-uint64_t __28__LNWatchdogTimer_isStopped__block_invoke(uint64_t a1)
+void *__28__LNWatchdogTimer_isStopped__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isStopped];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -170,7 +171,7 @@ uint64_t __28__LNWatchdogTimer_isStopped__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __29__LNWatchdogTimer_isCanceled__block_invoke(uint64_t a1)
+void *__29__LNWatchdogTimer_isCanceled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isCanceled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -196,7 +197,7 @@ uint64_t __29__LNWatchdogTimer_isCanceled__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __45__LNWatchdogTimer_cancelIfNotAlreadyCanceled__block_invoke(uint64_t a1)
+void *__45__LNWatchdogTimer_cancelIfNotAlreadyCanceled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cancelIfNotAlreadyCanceled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -308,6 +309,15 @@ void __76__LNWatchdogTimer_initWithTimeoutInterval_onQueue_singleUse_timeoutHand
   }
 
   (*(*(a1 + 32) + 16))();
+}
+
+- (LNWatchdogTimer)initWithTimeoutInterval:(double)interval singleUse:(BOOL)use timeoutHandler:(id)handler
+{
+  useCopy = use;
+  v9 = dispatch_get_global_queue(17, 0);
+  v10 = [(LNWatchdogTimer *)self initWithTimeoutInterval:v9 onQueue:useCopy singleUse:handler timeoutHandler:interval];
+
+  return v10;
 }
 
 - (LNWatchdogTimer)initWithTimeoutInterval:(double)interval timeoutHandler:(id)handler

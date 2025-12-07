@@ -22,7 +22,7 @@
 
 - (void)readingHistory:(id)history didChangeFeaturesForArticles:(id)articles
 {
-  sub_2186C6148(0, &qword_280E8DA20);
+  sub_2186C6148(0, &qword_280E8DA20, 0x277CCABB0);
   v6 = sub_219BF5214();
   historyCopy = history;
   selfCopy = self;

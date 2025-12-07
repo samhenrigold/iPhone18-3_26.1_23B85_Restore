@@ -15,19 +15,18 @@
 
 - (NSArray)sectionViews
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUHikingTipSectionController__sectionViews);
   sub_1C570CB68();
 
-  v3 = sub_1C584F750();
+  v2 = sub_1C584F750();
 
-  return v3;
+  return v2;
 }
 
 - (MUHikingTipSectionController)initWithPlaceItem:(id)item tipDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  return HikingTipSectionController.init(placeItem:tipDelegate:)(item);
+  return HikingTipSectionController.init(placeItem:tipDelegate:)(item, delegate);
 }
 
 - (BOOL)hasContentBeforePersonalizedSuggestionArbitration
@@ -63,11 +62,6 @@
     v6 = *(&selfCopy->super.super.isa + OBJC_IVAR___MUHikingTipSectionController__sectionViews);
     if (v6 >> 62)
     {
-      if (v6 < 0)
-      {
-        v8 = *(&selfCopy->super.super.isa + OBJC_IVAR___MUHikingTipSectionController__sectionViews);
-      }
-
       v7 = sub_1C584FB90();
     }
 

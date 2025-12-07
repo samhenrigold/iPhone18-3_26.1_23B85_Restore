@@ -2238,7 +2238,7 @@ LABEL_7:
   return v3;
 }
 
-uint64_t __31__TIUserModelDataStore_isValid__block_invoke(uint64_t a1)
+void *__31__TIUserModelDataStore_isValid__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isDatabaseValid];
   *(*(*(a1 + 40) + 8) + 24) = result;

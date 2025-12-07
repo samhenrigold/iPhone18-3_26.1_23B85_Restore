@@ -51,9 +51,9 @@
 - (uint64_t)setSelectionWithPoint:()UITextInputAdditions
 {
   WebThreadLock();
-  v6 = vcvtd_n_f64_s32([objc_msgSend(objc_msgSend(self "ownerDocument")], 1uLL);
+  v7 = vcvtd_n_f64_s32([objc_msgSend(objc_msgSend(self "ownerDocument")], 1uLL);
 
-  return [self setSelectionWithPoint:a2 inset:{a3, v6}];
+  return [self setSelectionWithPoint:a3 inset:{a4, v7}];
 }
 
 @end

@@ -261,9 +261,9 @@ LABEL_13:
       goto LABEL_20;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_21;
     }
@@ -284,7 +284,7 @@ LABEL_13:
       goto LABEL_20;
     }
 
-    v13 = [(NSString *)v6 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v6);
 
     if (!v13)
     {
@@ -300,7 +300,7 @@ LABEL_13:
   {
     if (v6 && v15)
     {
-      v16 = [(NSString *)v6 isEqualToString:v15];
+      v16 = objc_msgSend_isEqualToString_(v6);
 
       if (!v16)
       {

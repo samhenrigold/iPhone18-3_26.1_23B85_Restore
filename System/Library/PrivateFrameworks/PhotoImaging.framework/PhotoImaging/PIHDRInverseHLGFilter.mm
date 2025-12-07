@@ -33,7 +33,7 @@ uint64_t __53__PIHDRInverseHLGFilter_inverseHLGLumaBlendingKernel__block_invoke(
   v3 = [MEMORY[0x1E69B3A10] colorSpaceFromColorPrimaries:*MEMORY[0x1E6965DB0] transferFunction:*MEMORY[0x1E6965F60] yccMatrix:*MEMORY[0x1E6965FB0]];
   v4 = [inputImage imageByColorMatchingWorkingSpaceToColorSpace:{objc_msgSend(v3, "CGColorSpace")}];
   inverseHLGLumaBlendingKernel = [objc_opt_class() inverseHLGLumaBlendingKernel];
-  [v4 extent];
+  objc_msgSend_extent(v4);
   v7 = v6;
   v9 = v8;
   v11 = v10;

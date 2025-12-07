@@ -11,9 +11,8 @@
 {
   v4 = sub_A92C(&qword_1A258, "26");
   v5 = *(v4 - 8);
-  v6 = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v8 = &v11[-1] - v7;
+  v7 = &v10[-1] - v6;
   sub_B6BC();
   sub_B6AC();
   sub_B69C();
@@ -25,14 +24,14 @@
   selfCopy = self;
   [(CalendarPlacardCell *)selfCopy setSelectionStyle:0];
   sub_A92C(&qword_1A260, &qword_E180);
-  sub_A9BC(&qword_1A268, &qword_1A260, &qword_E180);
+  sub_A9BC(&qword_1A268, &qword_1A260, &qword_E180, &protocol conformance descriptor for SettingsPlacardView<A>);
   sub_B5EC();
   sub_B5FC();
-  v11[3] = v4;
-  v11[4] = sub_A9BC(&qword_1A270, &qword_1A258, "26");
-  sub_AA04(v11);
+  v10[3] = v4;
+  v10[4] = sub_A9BC(&qword_1A270, &qword_1A258, "26", &protocol conformance descriptor for UIHostingConfiguration<A, B>);
+  sub_AA04(v10);
   sub_B5DC();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   sub_B6CC();
 }
 

@@ -13,31 +13,31 @@
 {
   v2 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 72];
   v3 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 104];
-  v27 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 88];
-  v28 = v3;
+  v20 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 88];
+  v21 = v3;
   v4 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 8];
   v5 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 40];
-  v23 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 24];
-  v24 = v5;
+  v16 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 24];
+  v17 = v5;
   v6 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 40];
   v7 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 72];
-  v25 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 56];
-  v26 = v7;
+  v18 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 56];
+  v19 = v7;
   v8 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 8];
-  v22[0] = *(&self->super.isa + OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart);
-  v22[1] = v8;
+  v15[0] = *(&self->super.isa + OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart);
+  v15[1] = v8;
   v9 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 104];
-  v19 = v27;
-  v20 = v9;
-  v15 = v23;
-  v16 = v6;
-  v17 = v25;
-  v18 = v2;
-  v29 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 120];
-  v21 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 120];
-  v13 = v22[0];
-  v14 = v4;
-  sub_214308AB8(v22, v12);
+  v13[6] = v20;
+  v13[7] = v9;
+  v13[2] = v16;
+  v13[3] = v6;
+  v13[4] = v18;
+  v13[5] = v2;
+  v22 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 120];
+  v14 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 120];
+  v13[0] = v15[0];
+  v13[1] = v4;
+  sub_214308AB8(v15, v12);
   sub_2146D9608();
   v10 = sub_2146D9588();
 
@@ -96,11 +96,10 @@
     }
 
     v4 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 80];
-    v5 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 88];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else
@@ -113,21 +112,17 @@
 
 - (NSAttributedString)translatedText
 {
-  v3 = self + OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart;
   if (*&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 104])
   {
-    v6 = *&self->translatedMessagePart[OBJC_IVAR___BlastDoorTranslatedMessagePart_translatedMessagePart + 104];
-    v7 = *(v3 + 15);
-    v8 = *(v3 + 16);
-    v4 = sub_214664BB8();
+    v3 = sub_214664BB8();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (BlastDoorTranslatedMessagePart)init

@@ -58,7 +58,11 @@
 - (void)removeAppRuleWithParameters:(void *)parameters errorStr:;
 - (void)removePathRuleWithParameters:(void *)parameters errorStr:;
 - (void)setAlwaysOnParameters:(__CFString *)parameters errorStr:;
+- (void)setDisconnectOnDemandEnabled:(BOOL)enabled;
+- (void)setEnabled:(BOOL)enabled;
+- (void)setOnDemandEnabled:(BOOL)enabled;
 - (void)setOnDemandRules:(id)rules;
+- (void)setOnDemandUserOverrideDisabled:(BOOL)disabled;
 - (void)setPathControllerWithParameters:(void *)parameters errorStr:;
 - (void)setURLFilterPluginWithParameters:(void *)parameters errorStr:;
 - (void)swapConfigurationTypeWithParameters:(void *)parameters errorStr:;
@@ -70,21 +74,21 @@
 
 - (void)handleCommand:(int)command forConfigWithName:(id)name withParameters:(id)parameters completionHandler:(id)handler
 {
-  v105 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   parametersCopy = parameters;
   handlerCopy = handler;
   v11 = handlerCopy;
   if (command == 37)
   {
-    v90[0] = MEMORY[0x1E69E9820];
-    v90[1] = 3221225472;
-    v90[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke;
-    v90[3] = &unk_1E7F0B588;
-    v90[4] = self;
+    v89[0] = MEMORY[0x1E69E9820];
+    v89[1] = 3221225472;
+    v89[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke;
+    v89[3] = &unk_1E7F0B588;
+    v89[4] = self;
     v13 = handlerCopy;
-    v91 = handlerCopy;
-    v15 = v90;
+    v90 = handlerCopy;
+    v15 = v89;
     if (self)
     {
       objc_setProperty_atomic(self, v14, 0, 48);
@@ -92,9 +96,9 @@
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __69__NEUtilConfigurationClient_reloadIdentityListWithCompletionHandler___block_invoke;
-      v99 = &unk_1E7F0AC30;
+      v98 = &unk_1E7F0AC30;
       selfCopy3 = self;
-      v101 = v15;
+      v100 = v15;
       [Property copyIdentities:0 fromDomain:0 withCompletionQueue:MEMORY[0x1E69E96A0] handler:buf];
     }
 
@@ -105,35 +109,35 @@
   {
     if ((command & 0xFFFFFFFE) == 0x1E)
     {
-      v74 = handlerCopy;
+      v73 = handlerCopy;
       v18 = [parametersCopy objectForKeyedSubscript:@"configuration-file-path"];
-      v73 = v18;
+      v72 = v18;
       v19 = v18;
-      v11 = v74;
+      v11 = v73;
       if (v18)
       {
         if (([v18 hasPrefix:@"/"] & 1) == 0)
         {
-          v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Configuration file path must be an absolute file path.", 0}];
-          (v74)[2](v74, v41);
+          v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"Configuration file path must be an absolute file path.", 0}];
+          (v73)[2](v73, v40);
 
 LABEL_70:
-          v11 = v74;
+          v11 = v73;
           goto LABEL_33;
         }
 
-        v83[0] = MEMORY[0x1E69E9820];
-        v83[1] = 3221225472;
-        v84 = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_2;
-        v85 = &unk_1E7F0AC58;
+        v82[0] = MEMORY[0x1E69E9820];
+        v82[1] = 3221225472;
+        v83 = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_2;
+        v84 = &unk_1E7F0AC58;
         commandCopy = command;
         v20 = nameCopy;
-        v86 = v20;
+        v85 = v20;
         selfCopy2 = self;
-        v88 = v74;
-        v69 = v19;
-        v75 = v20;
-        v68 = v83;
+        v87 = v73;
+        v68 = v19;
+        v74 = v20;
+        v67 = v82;
         if (!self)
         {
 LABEL_69:
@@ -141,133 +145,133 @@ LABEL_69:
           goto LABEL_70;
         }
 
-        v72 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:0];
-        v71 = v69;
+        v71 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:0];
+        v70 = v68;
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-        v22 = [defaultManager isReadableFileAtPath:v71];
+        v22 = [defaultManager isReadableFileAtPath:v70];
 
         if (!v22)
         {
           defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-          v43 = [defaultManager2 fileExistsAtPath:v71];
+          v42 = [defaultManager2 fileExistsAtPath:v70];
 
-          if (v43)
+          if (v42)
           {
-            [MEMORY[0x1E696AEC0] stringWithFormat:@"File %@ is unreadable\n", v71];
+            [MEMORY[0x1E696AEC0] stringWithFormat:@"File %@ is unreadable\n", v70];
           }
 
           else
           {
-            [MEMORY[0x1E696AEC0] stringWithFormat:@"File %@ not found\n", v71];
+            [MEMORY[0x1E696AEC0] stringWithFormat:@"File %@ not found\n", v70];
           }
-          v44 = ;
-          v45 = 0;
-          v70 = 0;
-          v67 = 0;
+          v43 = ;
+          v44 = 0;
+          v69 = 0;
+          v66 = 0;
           goto LABEL_47;
         }
 
-        v96[0] = 0;
-        v66 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v71 options:0 error:v96];
-        v65 = v96[0];
-        if (!v66)
+        v95[0] = 0;
+        v65 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v70 options:0 error:v95];
+        v64 = v95[0];
+        if (!v65)
         {
-          v46 = ne_log_obj();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v45 = ne_log_obj();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
             *&buf[4] = self;
             *&buf[12] = 2112;
-            *&buf[14] = v71;
-            _os_log_error_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_ERROR, "%@ Failed to read data from %@", buf, 0x16u);
+            *&buf[14] = v70;
+            _os_log_error_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_ERROR, "%@ Failed to read data from %@", buf, 0x16u);
           }
 
-          v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to read data from %@\n", v71];
-          v67 = 0;
+          v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to read data from %@\n", v70];
+          v66 = 0;
 
-          v45 = 0;
-          v70 = 0;
+          v44 = 0;
+          v69 = 0;
           goto LABEL_47;
         }
 
-        v23 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v66 error:0];
+        v23 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v65 error:0];
         [v23 setClass:objc_opt_class() forClassName:@"NEVPNAppRule"];
         [v23 setClass:objc_opt_class() forClassName:@"NEVPNProtocolPlugin"];
-        v64 = [v23 decodeInt64ForKey:@"Version"];
+        v63 = [v23 decodeInt64ForKey:@"Version"];
         v24 = MEMORY[0x1E695DFD8];
         v25 = objc_opt_class();
         v26 = objc_opt_class();
         v27 = objc_opt_class();
         v28 = objc_opt_class();
         v29 = [v24 setWithObjects:{v25, v26, v27, v28, objc_opt_class(), 0}];
-        v70 = [v23 decodeObjectOfClasses:v29 forKey:@"Index"];
-        v67 = v23;
+        v69 = [v23 decodeObjectOfClasses:v29 forKey:@"Index"];
+        v66 = v23;
 
-        if (!v70 || v64)
+        if (!v69 || v63)
         {
 LABEL_46:
 
-          v47 = v67;
-          v44 = 0;
-          v45 = v67;
+          v46 = v66;
+          v43 = 0;
+          v44 = v66;
 LABEL_47:
-          v48 = v44;
+          v47 = v43;
 
+          v48 = v43;
           v49 = v44;
-          v50 = v45;
-          if (v49)
+          if (v48)
           {
+            v50 = 0;
             v51 = 0;
-            v52 = 0;
           }
 
           else
           {
-            if (v70)
+            if (v69)
             {
-              v52 = [v70 objectForKeyedSubscript:@"AppGroupMap"];
-              v94 = 0u;
-              v95 = 0u;
-              v92 = 0u;
+              v51 = [v69 objectForKeyedSubscript:@"AppGroupMap"];
               v93 = 0u;
-              v53 = [v70 objectForKeyedSubscript:@"ConfigurationProperties"];
-              v54 = [v53 countByEnumeratingWithState:&v92 objects:buf count:16];
-              if (v54)
+              v94 = 0u;
+              v91 = 0u;
+              v92 = 0u;
+              v52 = [v69 objectForKeyedSubscript:@"ConfigurationProperties"];
+              v53 = [v52 countByEnumeratingWithState:&v91 objects:buf count:16];
+              if (v53)
               {
-                v55 = *v93;
+                v54 = *v92;
 LABEL_52:
-                v56 = 0;
+                v55 = 0;
                 while (1)
                 {
-                  if (*v93 != v55)
+                  if (*v92 != v54)
                   {
-                    objc_enumerationMutation(v53);
+                    objc_enumerationMutation(v52);
                   }
 
-                  v57 = *(*(&v92 + 1) + 8 * v56);
-                  v58 = v50;
-                  v59 = objc_opt_class();
-                  uUIDString = [v57 UUIDString];
-                  v51 = [v58 decodeObjectOfClass:v59 forKey:uUIDString];
+                  v56 = *(*(&v91 + 1) + 8 * v55);
+                  v57 = v49;
+                  v58 = objc_opt_class();
+                  uUIDString = [v56 UUIDString];
+                  v50 = [v57 decodeObjectOfClass:v58 forKey:uUIDString];
 
-                  if (v51)
+                  if (v50)
                   {
-                    if (!v75 || ![v75 length] || (objc_msgSend(v51, "name"), v61 = objc_claimAutoreleasedReturnValue(), v62 = objc_msgSend(v75, "isEqualToString:", v61), v61, v62))
+                    if (!v74 || ![v74 length] || (objc_msgSend(v50, "name"), v60 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v74), v60, isEqualToString))
                     {
-                      identifier = [v51 identifier];
-                      [v72 setObject:v51 forKeyedSubscript:identifier];
+                      identifier = [v50 identifier];
+                      [v71 setObject:v50 forKeyedSubscript:identifier];
 
-                      if ([v75 length])
+                      if ([v74 length])
                       {
                         break;
                       }
                     }
                   }
 
-                  if (v54 == ++v56)
+                  if (v53 == ++v55)
                   {
-                    v54 = [v53 countByEnumeratingWithState:&v92 objects:buf count:16];
-                    if (v54)
+                    v53 = [v52 countByEnumeratingWithState:&v91 objects:buf count:16];
+                    if (v53)
                     {
                       goto LABEL_52;
                     }
@@ -280,57 +284,57 @@ LABEL_52:
               else
               {
 LABEL_62:
-                v51 = 0;
+                v50 = 0;
               }
 
-              v49 = 0;
+              v48 = 0;
             }
 
             else
             {
-              v53 = ne_log_obj();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+              v52 = ne_log_obj();
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
                 *&buf[4] = self;
-                _os_log_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_INFO, "%@ empty configurations", buf, 0xCu);
+                _os_log_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_INFO, "%@ empty configurations", buf, 0xCu);
               }
 
+              v50 = 0;
               v51 = 0;
-              v52 = 0;
-              v49 = @"Empty configuration";
+              v48 = @"Empty configuration";
             }
           }
 
-          v84(v68, v49, v72, v51, v52);
+          v83(v67, v48, v71, v50, v51);
 
           goto LABEL_69;
         }
 
-        v94 = 0u;
-        v95 = 0u;
-        v92 = 0u;
         v93 = 0u;
-        v30 = v70;
-        v31 = [v30 countByEnumeratingWithState:&v92 objects:buf count:16];
+        v94 = 0u;
+        v91 = 0u;
+        v92 = 0u;
+        v30 = v69;
+        v31 = [v30 countByEnumeratingWithState:&v91 objects:buf count:16];
         if (v31)
         {
           v32 = 0;
           v33 = 0;
-          v34 = *v93;
+          v34 = *v92;
           do
           {
             for (i = 0; i != v31; ++i)
             {
-              if (*v93 != v34)
+              if (*v92 != v34)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v36 = *(*(&v92 + 1) + 8 * i);
+              v36 = *(*(&v91 + 1) + 8 * i);
               if (!v32)
               {
-                v32 = [v30 objectForKeyedSubscript:*(*(&v92 + 1) + 8 * i)];
+                v32 = [v30 objectForKeyedSubscript:*(*(&v91 + 1) + 8 * i)];
               }
 
               allKeys = [v32 allKeys];
@@ -342,29 +346,29 @@ LABEL_62:
               [v33 setObject:allKeys forKeyedSubscript:v36];
             }
 
-            v31 = [v30 countByEnumeratingWithState:&v92 objects:buf count:16];
+            v31 = [v30 countByEnumeratingWithState:&v91 objects:buf count:16];
           }
 
           while (v31);
 
           if (!v32 || !v33)
           {
-            v70 = v30;
+            v69 = v30;
             goto LABEL_45;
           }
 
-          v97[0] = @"ConfigurationProperties";
-          v97[1] = @"UserMap";
-          *v103 = v32;
-          v104 = v33;
-          v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v103 forKeys:v97 count:2];
+          v96[0] = @"ConfigurationProperties";
+          v96[1] = @"UserMap";
+          *v102 = v32;
+          v103 = v33;
+          v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v96 count:2];
         }
 
         else
         {
           v33 = 0;
           v32 = 0;
-          v70 = v30;
+          v69 = v30;
         }
 
 LABEL_45:
@@ -372,27 +376,27 @@ LABEL_45:
       }
     }
 
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_3;
-    v78[3] = &unk_1E7F0AD28;
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_3;
+    v77[3] = &unk_1E7F0AD28;
     v13 = v11;
-    v81 = v11;
-    v78[4] = self;
+    v80 = v11;
+    v77[4] = self;
     commandCopy2 = command;
-    v79 = parametersCopy;
-    v80 = nameCopy;
-    v38 = v80;
-    v39 = v78;
+    v78 = parametersCopy;
+    v79 = nameCopy;
+    v38 = v79;
+    v39 = v77;
     if (self)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __73__NEUtilConfigurationClient_loadConfigurationWithName_completionHandler___block_invoke;
-      v99 = &unk_1E7F0AC08;
+      v98 = &unk_1E7F0AC08;
       selfCopy3 = self;
-      v101 = v38;
-      v102 = v39;
+      v100 = v38;
+      v101 = v39;
       [(NEUtilConfigurationClient *)self loadConfigurationsForceRefresh:buf completionHandler:?];
     }
 
@@ -406,14 +410,12 @@ LABEL_32:
 
   v11[2](v11, MEMORY[0x1E695E0F0]);
 LABEL_33:
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke(uint64_t a1)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v23 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%-5s %-100s %-9s %-6s\n", "ID", "Subject Summary", "Validity", "Domain"];
+  v22[1] = *MEMORY[0x1E69E9840];
+  v21 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%-5s %-100s %-9s %-6s\n", "ID", "Subject Summary", "Validity", "Domain"];
   v3 = 0;
   v4 = *MEMORY[0x1E695E480];
   while (1)
@@ -452,14 +454,13 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
         if (v15)
         {
           v17 = [(__CFString *)v15 UTF8String];
-          v18 = off_1E7F0ADC8[IsValid - 1];
-          v19 = "user";
+          v18 = "user";
           if (!v14)
           {
-            v19 = "system";
+            v18 = "system";
           }
 
-          [v23 appendFormat:@"%-5lu %-100s %-9s %-6s\n", v3, v17, off_1E7F0ADC8[IsValid - 1], v19];
+          [v21 appendFormat:@"%-5lu %-100s %-9s %-6s\n", v3, v17, off_1E7F0ADC8[IsValid - 1], v18];
         }
 
         CFRelease(v11);
@@ -469,17 +470,15 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
     ++v3;
   }
 
-  v20 = *(a1 + 40);
-  v24[0] = v23;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
-  (*(v20 + 16))(v20, v21);
-
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *(a1 + 40);
+  v22[0] = v21;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  (*(v19 + 16))(v19, v20);
 }
 
 void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -490,17 +489,17 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
     goto LABEL_2;
   }
 
-  v15 = *(a1 + 56);
-  if (v15 != 31)
+  v14 = *(a1 + 56);
+  if (v14 != 31)
   {
-    if (v15 != 30)
+    if (v14 != 30)
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported command", v39];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported command", v38];
       goto LABEL_21;
     }
 
-    v16 = *(a1 + 32);
-    if (v16 && [v16 length])
+    v15 = *(a1 + 32);
+    if (v15 && [v15 length])
     {
       if (v11)
       {
@@ -525,22 +524,22 @@ LABEL_2:
     {
       if (*(a1 + 40))
       {
-        v26 = MEMORY[0x1E696AD60];
-        v27 = v12;
-        v28 = [[v26 alloc] initWithCapacity:0];
-        [v28 appendString:@"{"];
-        [v28 appendPrettyObject:v27 withName:@"app-group-map" andIndent:0 options:0];
+        v25 = MEMORY[0x1E696AD60];
+        v26 = v12;
+        v27 = [[v25 alloc] initWithCapacity:0];
+        [v27 appendString:@"{"];
+        [v27 appendPrettyObject:v26 withName:@"app-group-map" andIndent:0 options:0];
 
-        [v28 appendString:@"\n}"];
+        [v27 appendString:@"\n}"];
       }
 
       else
       {
-        v28 = 0;
+        v27 = 0;
       }
 
-      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", v28];
-      [v13 addObject:v29];
+      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", v27];
+      [v13 addObject:v28];
     }
 
     if (!v10 || ![v10 count])
@@ -549,84 +548,84 @@ LABEL_2:
       goto LABEL_2;
     }
 
-    v40 = v12;
-    v41 = v11;
-    v42 = a1;
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
+    v39 = v12;
+    v40 = v11;
+    v41 = a1;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v29 = v10;
     v30 = v10;
-    v31 = v10;
-    v32 = [v31 countByEnumeratingWithState:&v47 objects:v52 count:16];
-    if (v32)
+    v31 = [v30 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    if (v31)
     {
-      v33 = v32;
-      v34 = *v48;
+      v32 = v31;
+      v33 = *v47;
       do
       {
-        for (i = 0; i != v33; ++i)
+        for (i = 0; i != v32; ++i)
         {
-          if (*v48 != v34)
+          if (*v47 != v33)
           {
-            objc_enumerationMutation(v31);
+            objc_enumerationMutation(v30);
           }
 
-          v36 = MEMORY[0x1E696AEC0];
-          v37 = [v31 objectForKeyedSubscript:*(*(&v47 + 1) + 8 * i)];
-          v38 = [v36 stringWithFormat:@"%@\n", v37];
-          [v13 addObject:v38];
+          v35 = MEMORY[0x1E696AEC0];
+          v36 = [v30 objectForKeyedSubscript:*(*(&v46 + 1) + 8 * i)];
+          v37 = [v35 stringWithFormat:@"%@\n", v36];
+          [v13 addObject:v37];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
 
-    v10 = v30;
+    v10 = v29;
 LABEL_37:
-    v11 = v41;
-    a1 = v42;
-    v12 = v40;
+    v11 = v40;
+    a1 = v41;
+    v12 = v39;
     goto LABEL_3;
   }
 
   if (v10 && [v10 count])
   {
-    v40 = v12;
-    v41 = v11;
-    v42 = a1;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
+    v39 = v12;
+    v40 = v11;
+    v41 = a1;
     v44 = 0u;
-    v17 = v10;
-    v18 = [v17 countByEnumeratingWithState:&v43 objects:v51 count:16];
-    if (v18)
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v16 = v10;
+    v17 = [v16 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    if (v17)
     {
-      v19 = v18;
-      v20 = *v44;
+      v18 = v17;
+      v19 = *v43;
       do
       {
-        for (j = 0; j != v19; ++j)
+        for (j = 0; j != v18; ++j)
         {
-          if (*v44 != v20)
+          if (*v43 != v19)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v16);
           }
 
-          v22 = [v17 objectForKeyedSubscript:*(*(&v43 + 1) + 8 * j)];
-          v23 = MEMORY[0x1E696AEC0];
-          v24 = [v22 name];
-          v25 = [v23 stringWithFormat:@"%@\n", v24];
-          [v13 addObject:v25];
+          v21 = [v16 objectForKeyedSubscript:*(*(&v42 + 1) + 8 * j)];
+          v22 = MEMORY[0x1E696AEC0];
+          v23 = [v21 name];
+          v24 = [v22 stringWithFormat:@"%@\n", v23];
+          [v13 addObject:v24];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
-      while (v19);
+      while (v18);
     }
 
     goto LABEL_37;
@@ -634,28 +633,26 @@ LABEL_37:
 
 LABEL_3:
   (*(*(a1 + 48) + 16))();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v303[1] = *MEMORY[0x1E69E9840];
+  v302[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v293 = 0;
-  v294 = &v293;
-  v295 = 0x3032000000;
-  v296 = __Block_byref_object_copy__24640;
-  v297 = __Block_byref_object_dispose__24641;
-  v298 = 0;
+  v292 = 0;
+  v293 = &v292;
+  v294 = 0x3032000000;
+  v295 = __Block_byref_object_copy__24640;
+  v296 = __Block_byref_object_dispose__24641;
+  v297 = 0;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   newValue = v5;
   if (v6)
   {
     v9 = *(a1 + 56);
-    v303[0] = v6;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v303 count:1];
+    v302[0] = v6;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v302 count:1];
     (*(v9 + 16))(v9, v10);
 
     goto LABEL_188;
@@ -673,18 +670,18 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
       if (v5)
       {
         v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Configuration with name %@ already exists", *(a1 + 48)];
-        v13 = v294[5];
-        v294[5] = v12;
+        v13 = v293[5];
+        v293[5] = v12;
       }
 
       else
       {
         v221 = *(a1 + 32);
         v222 = *(a1 + 40);
-        v223 = (v294 + 5);
-        v292 = v294[5];
-        [v221 createConfigurationWithParameters:v222 errorStr:&v292];
-        objc_storeStrong(v223, v292);
+        v223 = (v293 + 5);
+        v291 = v293[5];
+        [v221 createConfigurationWithParameters:v222 errorStr:&v291];
+        objc_storeStrong(v223, v291);
       }
 
       goto LABEL_185;
@@ -696,10 +693,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v80 = *(a1 + 32);
       v81 = *(a1 + 40);
-      v82 = (v294 + 5);
-      v284 = v294[5];
-      [v80 setProtocolWithParameters:v81 errorStr:&v284];
-      objc_storeStrong(v82, v284);
+      v82 = (v293 + 5);
+      v283 = v293[5];
+      [v80 setProtocolWithParameters:v81 errorStr:&v283];
+      objc_storeStrong(v82, v283);
       goto LABEL_185;
     case 3:
       if (!v5)
@@ -709,10 +706,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v115 = *(a1 + 32);
       v116 = *(a1 + 40);
-      v117 = (v294 + 5);
-      v283 = v294[5];
-      [v115 setFilterPluginWithParameters:v116 errorStr:&v283];
-      objc_storeStrong(v117, v283);
+      v117 = (v293 + 5);
+      v282 = v293[5];
+      [v115 setFilterPluginWithParameters:v116 errorStr:&v282];
+      objc_storeStrong(v117, v282);
       goto LABEL_185;
     case 4:
       if (!v5)
@@ -722,10 +719,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v77 = *(a1 + 32);
       v78 = *(a1 + 40);
-      v79 = (v294 + 5);
-      v282 = v294[5];
-      [v77 unsetFilterPluginParameters:v78 errorStr:&v282];
-      objc_storeStrong(v79, v282);
+      v79 = (v293 + 5);
+      v281 = v293[5];
+      [v77 unsetFilterPluginParameters:v78 errorStr:&v281];
+      objc_storeStrong(v79, v281);
       goto LABEL_185;
     case 5:
       if (!v5)
@@ -735,10 +732,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v101 = *(a1 + 32);
       v102 = *(a1 + 40);
-      v103 = (v294 + 5);
-      v279 = v294[5];
-      [v101 setDNSProxyWithParameters:v102 errorStr:&v279];
-      objc_storeStrong(v103, v279);
+      v103 = (v293 + 5);
+      v278 = v293[5];
+      [v101 setDNSProxyWithParameters:v102 errorStr:&v278];
+      objc_storeStrong(v103, v278);
       goto LABEL_185;
     case 6:
       if (!v5)
@@ -748,10 +745,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v112 = *(a1 + 32);
       v113 = *(a1 + 40);
-      v114 = (v294 + 5);
-      v278 = v294[5];
-      [v112 unsetDNSProxyWithParameters:v113 errorStr:&v278];
-      objc_storeStrong(v114, v278);
+      v114 = (v293 + 5);
+      v277 = v293[5];
+      [v112 unsetDNSProxyWithParameters:v113 errorStr:&v277];
+      objc_storeStrong(v114, v277);
       goto LABEL_185;
     case 7:
       if (!v5)
@@ -761,10 +758,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v133 = *(a1 + 32);
       v134 = *(a1 + 40);
-      v135 = (v294 + 5);
-      v277 = v294[5];
-      [v133 setCommonParameters:v134 errorStr:&v277];
-      objc_storeStrong(v135, v277);
+      v135 = (v293 + 5);
+      v276 = v293[5];
+      [v133 setCommonParameters:v134 errorStr:&v276];
+      objc_storeStrong(v135, v276);
       goto LABEL_185;
     case 8:
       if (!v5)
@@ -774,10 +771,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v136 = *(a1 + 32);
       v137 = *(a1 + 40);
-      v138 = (v294 + 5);
-      v276 = v294[5];
-      [v136 unsetCommonParameters:v137 errorStr:&v276];
-      objc_storeStrong(v138, v276);
+      v138 = (v293 + 5);
+      v275 = v293[5];
+      [v136 unsetCommonParameters:v137 errorStr:&v275];
+      objc_storeStrong(v138, v275);
       goto LABEL_185;
     case 9:
       if (!v5)
@@ -787,10 +784,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v59 = *(a1 + 32);
       v60 = *(a1 + 40);
-      v61 = (v294 + 5);
-      v275 = v294[5];
-      [v59 setIPSecParameters:v60 errorStr:&v275];
-      objc_storeStrong(v61, v275);
+      v61 = (v293 + 5);
+      v274 = v293[5];
+      [v59 setIPSecParameters:v60 errorStr:&v274];
+      objc_storeStrong(v61, v274);
       goto LABEL_185;
     case 0xA:
       if (!v5)
@@ -800,10 +797,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v139 = *(a1 + 32);
       v140 = *(a1 + 40);
-      v141 = (v294 + 5);
-      v274 = v294[5];
-      [v139 unsetIPSecParameters:v140 errorStr:&v274];
-      objc_storeStrong(v141, v274);
+      v141 = (v293 + 5);
+      v273 = v293[5];
+      [v139 unsetIPSecParameters:v140 errorStr:&v273];
+      objc_storeStrong(v141, v273);
       goto LABEL_185;
     case 0xB:
       if (!v5)
@@ -813,10 +810,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v68 = *(a1 + 32);
       v69 = *(a1 + 40);
-      v70 = (v294 + 5);
-      v273 = v294[5];
-      [(NEUtilConfigurationClient *)v68 setPPPParameters:v69 errorStr:&v273];
-      objc_storeStrong(v70, v273);
+      v70 = (v293 + 5);
+      v272 = v293[5];
+      [(NEUtilConfigurationClient *)v68 setPPPParameters:v69 errorStr:&v272];
+      objc_storeStrong(v70, v272);
       goto LABEL_185;
     case 0xC:
       if (!v5)
@@ -826,10 +823,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v104 = *(a1 + 32);
       v105 = *(a1 + 40);
-      v106 = (v294 + 5);
-      v272 = v294[5];
-      [(NEUtilConfigurationClient *)v104 unsetPPPParameters:v105 errorStr:&v272];
-      objc_storeStrong(v106, v272);
+      v106 = (v293 + 5);
+      v271 = v293[5];
+      [(NEUtilConfigurationClient *)v104 unsetPPPParameters:v105 errorStr:&v271];
+      objc_storeStrong(v106, v271);
       goto LABEL_185;
     case 0xD:
       if (!v5)
@@ -839,10 +836,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v95 = *(a1 + 32);
       v96 = *(a1 + 40);
-      v97 = (v294 + 5);
-      v271 = v294[5];
-      [v95 addOnDemandRuleWithParameters:v96 errorStr:&v271];
-      objc_storeStrong(v97, v271);
+      v97 = (v293 + 5);
+      v270 = v293[5];
+      [v95 addOnDemandRuleWithParameters:v96 errorStr:&v270];
+      objc_storeStrong(v97, v270);
       goto LABEL_185;
     case 0xE:
       if (!v5)
@@ -852,10 +849,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v55 = *(a1 + 32);
       v56 = *(a1 + 40);
-      v57 = (v294 + 5);
-      v270 = v294[5];
-      [v55 removeOnDemandRuleWithParameters:v56 errorStr:&v270];
-      objc_storeStrong(v57, v270);
+      v57 = (v293 + 5);
+      v269 = v293[5];
+      [v55 removeOnDemandRuleWithParameters:v56 errorStr:&v269];
+      objc_storeStrong(v57, v269);
       goto LABEL_185;
     case 0xF:
       if (!v5)
@@ -865,10 +862,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v127 = *(a1 + 32);
       v128 = *(a1 + 40);
-      v129 = (v294 + 5);
-      v239 = v294[5];
-      [v127 setProxyParameters:v128 errorStr:&v239];
-      objc_storeStrong(v129, v239);
+      v129 = (v293 + 5);
+      v238 = v293[5];
+      [v127 setProxyParameters:v128 errorStr:&v238];
+      objc_storeStrong(v129, v238);
       goto LABEL_185;
     case 0x10:
       if (!v5)
@@ -878,10 +875,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v130 = *(a1 + 32);
       v131 = *(a1 + 40);
-      v132 = (v294 + 5);
-      v238 = v294[5];
-      [v130 unsetProxyParameters:v131 errorStr:&v238];
-      objc_storeStrong(v132, v238);
+      v132 = (v293 + 5);
+      v237 = v293[5];
+      [v130 unsetProxyParameters:v131 errorStr:&v237];
+      objc_storeStrong(v132, v237);
       goto LABEL_185;
     case 0x11:
       if (!v5)
@@ -891,10 +888,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v165 = *(a1 + 32);
       v166 = *(a1 + 40);
-      v167 = (v294 + 5);
-      v237 = v294[5];
-      [v165 setProxyServer:v166 errorStr:&v237];
-      objc_storeStrong(v167, v237);
+      v167 = (v293 + 5);
+      v236 = v293[5];
+      [v165 setProxyServer:v166 errorStr:&v236];
+      objc_storeStrong(v167, v236);
       goto LABEL_185;
     case 0x12:
       if (!v5)
@@ -904,10 +901,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v162 = *(a1 + 32);
       v163 = *(a1 + 40);
-      v164 = (v294 + 5);
-      v236 = v294[5];
-      [v162 unsetProxyServer:v163 errorStr:&v236];
-      objc_storeStrong(v164, v236);
+      v164 = (v293 + 5);
+      v235 = v293[5];
+      [v162 unsetProxyServer:v163 errorStr:&v235];
+      objc_storeStrong(v164, v235);
       goto LABEL_185;
     case 0x13:
       if (!v5)
@@ -917,10 +914,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v35 = *(a1 + 32);
       v36 = *(a1 + 40);
-      v37 = (v294 + 5);
-      v241 = v294[5];
-      [v35 setDNSParameters:v36 errorStr:&v241];
-      objc_storeStrong(v37, v241);
+      v37 = (v293 + 5);
+      v240 = v293[5];
+      [v35 setDNSParameters:v36 errorStr:&v240];
+      objc_storeStrong(v37, v240);
       goto LABEL_185;
     case 0x14:
       if (!v5)
@@ -930,10 +927,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v98 = *(a1 + 32);
       v99 = *(a1 + 40);
-      v100 = (v294 + 5);
-      v240 = v294[5];
-      [v98 unsetDNSParameters:v99 errorStr:&v240];
-      objc_storeStrong(v100, v240);
+      v100 = (v293 + 5);
+      v239 = v293[5];
+      [v98 unsetDNSParameters:v99 errorStr:&v239];
+      objc_storeStrong(v100, v239);
       goto LABEL_185;
     case 0x19:
       if (!v5)
@@ -943,10 +940,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v171 = *(a1 + 32);
       v172 = *(a1 + 40);
-      v173 = (v294 + 5);
-      v265 = v294[5];
-      [(NEUtilConfigurationClient *)v171 addAppRuleWithParameters:v172 errorStr:&v265];
-      objc_storeStrong(v173, v265);
+      v173 = (v293 + 5);
+      v264 = v293[5];
+      [(NEUtilConfigurationClient *)v171 addAppRuleWithParameters:v172 errorStr:&v264];
+      objc_storeStrong(v173, v264);
       goto LABEL_185;
     case 0x1A:
       if (!v5)
@@ -956,10 +953,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v52 = *(a1 + 32);
       v53 = *(a1 + 40);
-      v54 = (v294 + 5);
-      v264 = v294[5];
-      [(NEUtilConfigurationClient *)v52 removeAppRuleWithParameters:v53 errorStr:&v264];
-      objc_storeStrong(v54, v264);
+      v54 = (v293 + 5);
+      v263 = v293[5];
+      [(NEUtilConfigurationClient *)v52 removeAppRuleWithParameters:v53 errorStr:&v263];
+      objc_storeStrong(v54, v263);
       goto LABEL_185;
     case 0x1B:
       if (!v5)
@@ -969,10 +966,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v92 = *(a1 + 32);
       v93 = *(a1 + 40);
-      v94 = (v294 + 5);
-      v263 = v294[5];
-      [(NEUtilConfigurationClient *)v92 setPathControllerWithParameters:v93 errorStr:&v263];
-      objc_storeStrong(v94, v263);
+      v94 = (v293 + 5);
+      v262 = v293[5];
+      [(NEUtilConfigurationClient *)v92 setPathControllerWithParameters:v93 errorStr:&v262];
+      objc_storeStrong(v94, v262);
       goto LABEL_185;
     case 0x1C:
       if (!v5)
@@ -982,10 +979,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v62 = *(a1 + 32);
       v63 = *(a1 + 40);
-      v64 = (v294 + 5);
-      v262 = v294[5];
-      [(NEUtilConfigurationClient *)v62 addPathRuleWithParameters:v63 errorStr:&v262];
-      objc_storeStrong(v64, v262);
+      v64 = (v293 + 5);
+      v261 = v293[5];
+      [(NEUtilConfigurationClient *)v62 addPathRuleWithParameters:v63 errorStr:&v261];
+      objc_storeStrong(v64, v261);
       goto LABEL_185;
     case 0x1D:
       if (!v5)
@@ -995,10 +992,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v118 = *(a1 + 32);
       v119 = *(a1 + 40);
-      v120 = (v294 + 5);
-      v261 = v294[5];
-      [(NEUtilConfigurationClient *)v118 removePathRuleWithParameters:v119 errorStr:&v261];
-      objc_storeStrong(v120, v261);
+      v120 = (v293 + 5);
+      v260 = v293[5];
+      [(NEUtilConfigurationClient *)v118 removePathRuleWithParameters:v119 errorStr:&v260];
+      objc_storeStrong(v120, v260);
       goto LABEL_185;
     case 0x1E:
       if (v5)
@@ -1039,10 +1036,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
             if (!v200)
             {
-              v259 = 0u;
-              v260 = 0u;
-              v257 = 0u;
               v258 = 0u;
+              v259 = 0u;
+              v256 = 0u;
+              v257 = 0u;
               v201 = *(a1 + 32);
               if (v201)
               {
@@ -1050,24 +1047,24 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
               }
 
               v202 = v201;
-              v203 = [v202 countByEnumeratingWithState:&v257 objects:v302 count:16];
+              v203 = [v202 countByEnumeratingWithState:&v256 objects:v301 count:16];
               if (v203)
               {
-                v204 = *v258;
+                v204 = *v257;
                 do
                 {
                   for (i = 0; i != v203; ++i)
                   {
-                    if (*v258 != v204)
+                    if (*v257 != v204)
                     {
                       objc_enumerationMutation(v202);
                     }
 
-                    v206 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", *(*(&v257 + 1) + 8 * i)];
+                    v206 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", *(*(&v256 + 1) + 8 * i)];
                     [v8 addObject:v206];
                   }
 
-                  v203 = [v202 countByEnumeratingWithState:&v257 objects:v302 count:16];
+                  v203 = [v202 countByEnumeratingWithState:&v256 objects:v301 count:16];
                 }
 
                 while (v203);
@@ -1094,10 +1091,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
               if (!v213)
               {
                 [v8 addObject:@"New Configurations:\n"];
-                v255 = 0u;
-                v256 = 0u;
-                v253 = 0u;
                 v254 = 0u;
+                v255 = 0u;
+                v252 = 0u;
+                v253 = 0u;
                 v215 = *(a1 + 32);
                 if (v215)
                 {
@@ -1105,24 +1102,24 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
                 }
 
                 v216 = v215;
-                v217 = [v216 countByEnumeratingWithState:&v253 objects:v301 count:16];
+                v217 = [v216 countByEnumeratingWithState:&v252 objects:v300 count:16];
                 if (v217)
                 {
-                  v218 = *v254;
+                  v218 = *v253;
                   do
                   {
                     for (j = 0; j != v217; ++j)
                     {
-                      if (*v254 != v218)
+                      if (*v253 != v218)
                       {
                         objc_enumerationMutation(v216);
                       }
 
-                      v220 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", *(*(&v253 + 1) + 8 * j)];
+                      v220 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", *(*(&v252 + 1) + 8 * j)];
                       [v8 addObject:v220];
                     }
 
-                    v217 = [v216 countByEnumeratingWithState:&v253 objects:v301 count:16];
+                    v217 = [v216 countByEnumeratingWithState:&v252 objects:v300 count:16];
                   }
 
                   while (v217);
@@ -1138,14 +1135,14 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
       v29 = +[NEConfigurationManager sharedManagerForAllUsers];
       v30 = MEMORY[0x1E69E96A0];
       v31 = MEMORY[0x1E69E96A0];
-      v250[0] = MEMORY[0x1E69E9820];
-      v250[1] = 3221225472;
-      v250[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_2_996;
-      v250[3] = &unk_1E7F0ACA8;
-      v250[4] = *(a1 + 32);
-      v251 = v8;
-      v252 = *(a1 + 56);
-      [v29 loadIndexWithFilter:0 completionQueue:v30 handler:v250];
+      v249[0] = MEMORY[0x1E69E9820];
+      v249[1] = 3221225472;
+      v249[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_2_996;
+      v249[3] = &unk_1E7F0ACA8;
+      v249[4] = *(a1 + 32);
+      v250 = v8;
+      v251 = *(a1 + 56);
+      [v29 loadIndexWithFilter:0 completionQueue:v30 handler:v249];
 
       goto LABEL_188;
     case 0x20:
@@ -1163,18 +1160,18 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
       v175 = v174;
       v176 = MEMORY[0x1E69E96A0];
       v177 = MEMORY[0x1E69E96A0];
-      v244[0] = MEMORY[0x1E69E9820];
-      v244[1] = 3221225472;
-      v244[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_3_1013;
-      v244[3] = &unk_1E7F0ACD0;
-      v245 = *(a1 + 48);
+      v243[0] = MEMORY[0x1E69E9820];
+      v243[1] = 3221225472;
+      v243[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_3_1013;
+      v243[3] = &unk_1E7F0ACD0;
+      v244 = *(a1 + 48);
       v178 = v8;
       v179 = *(a1 + 32);
-      v246 = v178;
-      v247 = v179;
-      v248 = v5;
-      v249 = *(a1 + 56);
-      [v175 saveConfiguration:v248 withCompletionQueue:v176 handler:v244];
+      v245 = v178;
+      v246 = v179;
+      v247 = v5;
+      v248 = *(a1 + 56);
+      [v175 saveConfiguration:v247 withCompletionQueue:v176 handler:v243];
 
       goto LABEL_188;
     case 0x21:
@@ -1192,18 +1189,18 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
       v72 = v71;
       v73 = MEMORY[0x1E69E96A0];
       v74 = MEMORY[0x1E69E96A0];
-      v285[0] = MEMORY[0x1E69E9820];
-      v285[1] = 3221225472;
-      v285[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_988;
-      v285[3] = &unk_1E7F0AC80;
-      v290 = &v293;
+      v284[0] = MEMORY[0x1E69E9820];
+      v284[1] = 3221225472;
+      v284[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_988;
+      v284[3] = &unk_1E7F0AC80;
+      v289 = &v292;
       v75 = *(a1 + 48);
       v76 = *(a1 + 32);
-      v286 = v75;
-      v287 = v76;
-      v288 = v5;
-      v289 = *(a1 + 56);
-      [v72 removeConfiguration:v288 withCompletionQueue:v73 handler:v285];
+      v285 = v75;
+      v286 = v76;
+      v287 = v5;
+      v288 = *(a1 + 56);
+      [v72 removeConfiguration:v287 withCompletionQueue:v73 handler:v284];
 
       goto LABEL_188;
     case 0x22:
@@ -1212,7 +1209,7 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
       if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v300 = v83;
+        v299 = v83;
         _os_log_debug_impl(&dword_1BA83C000, v84, OS_LOG_TYPE_DEBUG, "process ingestion command, path %@", buf, 0xCu);
       }
 
@@ -1236,10 +1233,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v124 = *(a1 + 32);
       v125 = *(a1 + 40);
-      v126 = (v294 + 5);
-      v243 = v294[5];
-      [(NEUtilConfigurationClient *)v124 setAlwaysOnParameters:v125 errorStr:&v243];
-      objc_storeStrong(v126, v243);
+      v126 = (v293 + 5);
+      v242 = v293[5];
+      [(NEUtilConfigurationClient *)v124 setAlwaysOnParameters:v125 errorStr:&v242];
+      objc_storeStrong(v126, v242);
       goto LABEL_185;
     case 0x27:
       if (!v5)
@@ -1249,10 +1246,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v89 = *(a1 + 32);
       v90 = *(a1 + 40);
-      v91 = (v294 + 5);
-      v242 = v294[5];
-      [(NEUtilConfigurationClient *)v89 unsetAlwaysOnParameters:v90 errorStr:&v242];
-      objc_storeStrong(v91, v242);
+      v91 = (v293 + 5);
+      v241 = v293[5];
+      [(NEUtilConfigurationClient *)v89 unsetAlwaysOnParameters:v90 errorStr:&v241];
+      objc_storeStrong(v91, v241);
       goto LABEL_185;
     case 0x28:
       if (!v5)
@@ -1262,10 +1259,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       v17 = *(a1 + 32);
       v18 = *(a1 + 40);
-      v19 = (v294 + 5);
-      v291 = v294[5];
-      [(NEUtilConfigurationClient *)v17 swapConfigurationTypeWithParameters:v18 errorStr:&v291];
-      objc_storeStrong(v19, v291);
+      v19 = (v293 + 5);
+      v290 = v293[5];
+      [(NEUtilConfigurationClient *)v17 swapConfigurationTypeWithParameters:v18 errorStr:&v290];
+      objc_storeStrong(v19, v290);
       goto LABEL_185;
     case 0x2A:
       v38 = MEMORY[0x1E695DF20];
@@ -1277,8 +1274,8 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
         v183 = MEMORY[0x1E696AEC0];
         v42 = [*(a1 + 40) objectForKeyedSubscript:@"profile-file-path"];
         v184 = [v183 stringWithFormat:@"Failed to read from %@", v42];
-        v185 = v294[5];
-        v294[5] = v184;
+        v185 = v293[5];
+        v293[5] = v184;
 LABEL_183:
 
         goto LABEL_184;
@@ -1290,8 +1287,8 @@ LABEL_183:
         v224 = MEMORY[0x1E696AEC0];
         v185 = [*(a1 + 40) objectForKeyedSubscript:@"profile-file-path"];
         v225 = [v224 stringWithFormat:@"Failed to create a configuration from profile payload at %@. Make sure that the file only contains the configuration payload.", v185];
-        v226 = v294[5];
-        v294[5] = v225;
+        v226 = v293[5];
+        v293[5] = v225;
 
         v42 = 0;
         goto LABEL_183;
@@ -1326,7 +1323,7 @@ LABEL_183:
 LABEL_184:
 
 LABEL_185:
-      if (v294[5])
+      if (v293[5])
       {
         [v8 addObject:?];
       }
@@ -1334,8 +1331,7 @@ LABEL_185:
       (*(*(a1 + 56) + 16))();
 LABEL_188:
 
-      _Block_object_dispose(&v293, 8);
-      v227 = *MEMORY[0x1E69E9840];
+      _Block_object_dispose(&v292, 8);
       return;
     case 0x2B:
       v142 = [NEConfiguration alloc];
@@ -1370,14 +1366,14 @@ LABEL_188:
       v158 = +[NEConfigurationManager sharedManager];
       v159 = MEMORY[0x1E69E96A0];
       v160 = MEMORY[0x1E69E96A0];
-      v233[0] = MEMORY[0x1E69E9820];
-      v233[1] = 3221225472;
-      v233[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_1025;
-      v233[3] = &unk_1E7F0AD00;
+      v232[0] = MEMORY[0x1E69E9820];
+      v232[1] = 3221225472;
+      v232[2] = __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_1025;
+      v232[3] = &unk_1E7F0AD00;
       v161 = v146;
-      v234 = v161;
-      v235 = &v293;
-      [v158 saveConfiguration:v161 withCompletionQueue:v159 handler:v233];
+      v233 = v161;
+      v234 = &v292;
+      [v158 saveConfiguration:v161 withCompletionQueue:v159 handler:v232];
 
       goto LABEL_185;
     case 0x2C:
@@ -1388,10 +1384,10 @@ LABEL_188:
 
       v180 = *(a1 + 32);
       v181 = *(a1 + 40);
-      v182 = (v294 + 5);
-      v232 = v294[5];
-      [v180 setAppPushParameters:v181 errorStr:&v232];
-      objc_storeStrong(v182, v232);
+      v182 = (v293 + 5);
+      v231 = v293[5];
+      [v180 setAppPushParameters:v181 errorStr:&v231];
+      objc_storeStrong(v182, v231);
       goto LABEL_185;
     case 0x2D:
       if (!v5)
@@ -1401,10 +1397,10 @@ LABEL_188:
 
       v26 = *(a1 + 32);
       v27 = *(a1 + 40);
-      v28 = (v294 + 5);
-      v231 = v294[5];
-      [v26 unsetAppPushParameters:v27 errorStr:&v231];
-      objc_storeStrong(v28, v231);
+      v28 = (v293 + 5);
+      v230 = v293[5];
+      [v26 unsetAppPushParameters:v27 errorStr:&v230];
+      objc_storeStrong(v28, v230);
       goto LABEL_185;
     case 0x2E:
       if (!v5)
@@ -1414,10 +1410,10 @@ LABEL_188:
 
       v121 = *(a1 + 32);
       v122 = *(a1 + 40);
-      v123 = (v294 + 5);
-      v269 = v294[5];
-      [v121 addRelayWithParameters:v122 errorStr:&v269];
-      objc_storeStrong(v123, v269);
+      v123 = (v293 + 5);
+      v268 = v293[5];
+      [v121 addRelayWithParameters:v122 errorStr:&v268];
+      objc_storeStrong(v123, v268);
       goto LABEL_185;
     case 0x2F:
       if (!v5)
@@ -1427,10 +1423,10 @@ LABEL_188:
 
       v23 = *(a1 + 32);
       v24 = *(a1 + 40);
-      v25 = (v294 + 5);
-      v268 = v294[5];
-      [v23 removeRelayWithParameters:v24 errorStr:&v268];
-      objc_storeStrong(v25, v268);
+      v25 = (v293 + 5);
+      v267 = v293[5];
+      [v23 removeRelayWithParameters:v24 errorStr:&v267];
+      objc_storeStrong(v25, v267);
       goto LABEL_185;
     case 0x30:
       if (!v5)
@@ -1440,10 +1436,10 @@ LABEL_188:
 
       v20 = *(a1 + 32);
       v21 = *(a1 + 40);
-      v22 = (v294 + 5);
-      v267 = v294[5];
-      [v20 setRelayConditionsWithParameters:v21 errorStr:&v267];
-      objc_storeStrong(v22, v267);
+      v22 = (v293 + 5);
+      v266 = v293[5];
+      [v20 setRelayConditionsWithParameters:v21 errorStr:&v266];
+      objc_storeStrong(v22, v266);
       goto LABEL_185;
     case 0x31:
       if (!v5)
@@ -1453,10 +1449,10 @@ LABEL_188:
 
       v65 = *(a1 + 32);
       v66 = *(a1 + 40);
-      v67 = (v294 + 5);
-      v266 = v294[5];
-      [v65 unsetRelayConditionsWithParameters:v66 errorStr:&v266];
-      objc_storeStrong(v67, v266);
+      v67 = (v293 + 5);
+      v265 = v293[5];
+      [v65 unsetRelayConditionsWithParameters:v66 errorStr:&v265];
+      objc_storeStrong(v67, v265);
       goto LABEL_185;
     case 0x32:
       if (!v5)
@@ -1466,10 +1462,10 @@ LABEL_188:
 
       v107 = *(a1 + 32);
       v108 = *(a1 + 40);
-      v109 = (v294 + 5);
-      v281 = v294[5];
-      [(NEUtilConfigurationClient *)v107 setURLFilterPluginWithParameters:v108 errorStr:&v281];
-      objc_storeStrong(v109, v281);
+      v109 = (v293 + 5);
+      v280 = v293[5];
+      [(NEUtilConfigurationClient *)v107 setURLFilterPluginWithParameters:v108 errorStr:&v280];
+      objc_storeStrong(v109, v280);
       goto LABEL_185;
     case 0x33:
       if (!v5)
@@ -1479,10 +1475,10 @@ LABEL_188:
 
       v168 = *(a1 + 32);
       v169 = *(a1 + 40);
-      v170 = (v294 + 5);
-      v280 = v294[5];
-      [(NEUtilConfigurationClient *)v168 unsetURLFilterPluginParameters:v169 errorStr:&v280];
-      objc_storeStrong(v170, v280);
+      v170 = (v293 + 5);
+      v279 = v293[5];
+      [(NEUtilConfigurationClient *)v168 unsetURLFilterPluginParameters:v169 errorStr:&v279];
+      objc_storeStrong(v170, v279);
       goto LABEL_185;
     case 0x34:
       if (!v5)
@@ -1492,8 +1488,8 @@ LABEL_188:
 
       v14 = *(a1 + 32);
       v15 = *(a1 + 40);
-      v16 = (v294 + 5);
-      obj = v294[5];
+      v16 = (v293 + 5);
+      obj = v293[5];
       [v14 setHotspotProviderParameters:v15 errorStr:&obj];
       objc_storeStrong(v16, obj);
       goto LABEL_185;
@@ -1502,52 +1498,52 @@ LABEL_188:
       {
         v32 = *(a1 + 32);
         v33 = *(a1 + 40);
-        v34 = (v294 + 5);
-        v229 = v294[5];
-        [v32 unsetHotspotProviderParameters:v33 errorStr:&v229];
-        objc_storeStrong(v34, v229);
+        v34 = (v293 + 5);
+        v228 = v293[5];
+        [v32 unsetHotspotProviderParameters:v33 errorStr:&v228];
+        objc_storeStrong(v34, v228);
       }
 
       else
       {
 LABEL_112:
         v186 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Configuration with name %@ does not exist", *(a1 + 48)];
-        v187 = v294[5];
-        v294[5] = v186;
+        v187 = v293[5];
+        v293[5] = v186;
       }
 
       goto LABEL_185;
     default:
       v110 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown command"];
-      v111 = v294[5];
-      v294[5] = v110;
+      v111 = v293[5];
+      v293[5] = v110;
 
       goto LABEL_185;
   }
 }
 
-void __73__NEUtilConfigurationClient_loadConfigurationWithName_completionHandler___block_invoke(uint64_t a1, void *a2)
+void __73__NEUtilConfigurationClient_loadConfigurationWithName_completionHandler___block_invoke(void *a1, void *a2)
 {
   v8 = a2;
-  Property = *(a1 + 32);
+  Property = a1[4];
   if (Property)
   {
     Property = objc_getProperty(Property, v3, 40, 1);
   }
 
-  v6 = find_config_by_name(Property, *(a1 + 40));
+  v6 = find_config_by_name(Property, a1[5]);
   if (!v6)
   {
-    v7 = *(a1 + 32);
+    v7 = a1[4];
     if (v7)
     {
       v7 = objc_getProperty(v7, v5, 32, 1);
     }
 
-    v6 = find_config_by_name(v7, *(a1 + 40));
+    v6 = find_config_by_name(v7, a1[5]);
   }
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[6] + 16))();
 }
 
 - (void)loadConfigurationsForceRefresh:(void *)refresh completionHandler:
@@ -1583,7 +1579,7 @@ void __73__NEUtilConfigurationClient_loadConfigurationWithName_completionHandler
 
 void __78__NEUtilConfigurationClient_loadConfigurationsForceRefresh_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1606,26 +1602,26 @@ void __78__NEUtilConfigurationClient_loadConfigurationsForceRefresh_completionHa
     objc_setProperty_atomic(v13, v11, v12, 40);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v14 = v5;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v15)
   {
     v17 = v15;
-    v18 = *v26;
+    v18 = *v25;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * i);
+        v20 = *(*(&v24 + 1) + 8 * i);
         Property = *(a1 + 32);
         if (Property)
         {
@@ -1637,14 +1633,13 @@ void __78__NEUtilConfigurationClient_loadConfigurationsForceRefresh_completionHa
         [v22 addObject:v23];
       }
 
-      v17 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v17 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v17);
   }
 
   (*(*(a1 + 40) + 16))();
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)swapConfigurationTypeWithParameters:(void *)parameters errorStr:
@@ -1655,9 +1650,9 @@ void __78__NEUtilConfigurationClient_loadConfigurationsForceRefresh_completionHa
   }
 
   v20 = [a2 objectForKeyedSubscript:@"type"];
-  if (![v20 isEqualToString:@"vpn"])
+  if (!objc_msgSend_isEqualToString_(v20))
   {
-    if ([v20 isEqualToString:@"appvpn"])
+    if (objc_msgSend_isEqualToString_(v20))
     {
       v14 = [objc_getProperty(self v13];
       if (v14)
@@ -1718,7 +1713,7 @@ LABEL_13:
 
 void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_988(void *a1, void *a2)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (v3)
@@ -1753,8 +1748,8 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
   v15 = a1[7];
   if (*(*(a1[8] + 8) + 40))
   {
-    v18[0] = *(*(a1[8] + 8) + 40);
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = *(*(a1[8] + 8) + 40);
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
     (*(v15 + 16))(v15, v16);
   }
 
@@ -1762,8 +1757,6 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
   {
     (*(v15 + 16))(a1[7], 0);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setURLFilterPluginWithParameters:(void *)parameters errorStr:
@@ -2014,29 +2007,29 @@ LABEL_109:
     if (v8)
     {
       v10 = [v109 objectForKeyedSubscript:@"authentication-method"];
-      if ([v10 isEqualToString:@"password"])
+      if (objc_msgSend_isEqualToString_(v10))
       {
         v11 = 1;
       }
 
-      else if ([v10 isEqualToString:@"securID"])
+      else if (objc_msgSend_isEqualToString_(v10))
       {
         v11 = 2;
       }
 
-      else if ([v10 isEqualToString:@"certificate"])
+      else if (objc_msgSend_isEqualToString_(v10))
       {
         v11 = 3;
       }
 
-      else if ([v10 isEqualToString:@"kerberos"])
+      else if (objc_msgSend_isEqualToString_(v10))
       {
         v11 = 4;
       }
 
       else
       {
-        if (([v10 isEqualToString:@"cryptocard"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
         {
           *parametersCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid %@, valid values are password, securID, certificate, kerberos, and cryptocard", @"authentication-method"];
 
@@ -2107,32 +2100,20 @@ LABEL_29:
       }
 
       iPv4Settings = [v7 IPv4Settings];
-      if (!iPv4Settings)
-      {
-        goto LABEL_43;
-      }
-
-      v36 = iPv4Settings;
-      iPv4Settings2 = [v7 IPv4Settings];
-      v38 = v16;
-      configMethod = [iPv4Settings2 configMethod];
-
-      v40 = configMethod == 3;
-      v16 = v38;
-      if (v40)
+      if (iPv4Settings && (v36 = iPv4Settings, [v7 IPv4Settings], v37 = objc_claimAutoreleasedReturnValue(), v38 = v16, v39 = objc_msgSend(v37, "configMethod"), v37, v36, v40 = v39 == 3, v16 = v38, v40))
       {
         v41 = [[NEIPv4Settings alloc] initWithAddresses:v107 subnetMasks:v38];
         [v7 setIPv4Settings:v41];
 
-        iPv4Settings3 = [v7 IPv4Settings];
-        [iPv4Settings3 setConfigMethod:3];
+        iPv4Settings2 = [v7 IPv4Settings];
+        [iPv4Settings2 setConfigMethod:3];
 
         v15 = v108;
         if (v108)
         {
           v43 = [v109 objectForKeyedSubscript:@"ipv4-router"];
-          iPv4Settings4 = [v7 IPv4Settings];
-          [iPv4Settings4 setRouter:v43];
+          iPv4Settings3 = [v7 IPv4Settings];
+          [iPv4Settings3 setRouter:v43];
 
           v16 = v38;
         }
@@ -2140,7 +2121,6 @@ LABEL_29:
 
       else
       {
-LABEL_43:
         v15 = v108;
         if (v107 || v16 || v108)
         {
@@ -2157,9 +2137,9 @@ LABEL_43:
 
       if (v45)
       {
-        iPv4Settings5 = [v7 IPv4Settings];
+        iPv4Settings4 = [v7 IPv4Settings];
 
-        if (!iPv4Settings5)
+        if (!iPv4Settings4)
         {
           v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ cannot be specified, %@ is not manual or ppp", @"send-all-traffic", @"ipv4-config-method"];
           v12 = 0;
@@ -2172,8 +2152,8 @@ LABEL_107:
 
         v47 = [v109 objectForKeyedSubscript:@"send-all-traffic"];
         bOOLValue = [v47 BOOLValue];
-        iPv4Settings6 = [v7 IPv4Settings];
-        [iPv4Settings6 setOverridePrimary:bOOLValue];
+        iPv4Settings5 = [v7 IPv4Settings];
+        [iPv4Settings5 setOverridePrimary:bOOLValue];
       }
 
       v50 = [v109 objectForKeyedSubscript:@"ipv6-config-method"];
@@ -2190,19 +2170,19 @@ LABEL_107:
           [v7 setIPv6Settings:v54];
         }
 
-        if ([v52 isEqualToString:@"automatic"])
+        if (objc_msgSend_isEqualToString_(v52))
         {
           v55 = 1;
         }
 
-        else if ([v52 isEqualToString:@"manual"])
+        else if (objc_msgSend_isEqualToString_(v52))
         {
           v55 = 2;
         }
 
         else
         {
-          if (([v52 isEqualToString:@"link-local"] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v52) & 1) == 0)
           {
             *parametersCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid %@, valid values are automatic, manual, and link-local", @"ipv6-config-method"];
 
@@ -2406,14 +2386,14 @@ LABEL_106:
       if ([v7 type] == 2)
       {
         v76 = [v109 objectForKeyedSubscript:@"machine-authentication-method"];
-        if ([v76 isEqualToString:@"shared-secret"])
+        if (objc_msgSend_isEqualToString_(v76))
         {
           v77 = 1;
         }
 
         else
         {
-          if (([v76 isEqualToString:@"certificate"] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v76) & 1) == 0)
           {
             *parametersCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid %@, valid values are shared-secret and certificate", @"machine-authentication-method"];
 
@@ -2436,44 +2416,44 @@ LABEL_88:
     }
 
     v22 = [v109 objectForKeyedSubscript:@"ipv4-config-method"];
-    iPv4Settings7 = [v7 IPv4Settings];
+    iPv4Settings6 = [v7 IPv4Settings];
 
-    if (!iPv4Settings7)
+    if (!iPv4Settings6)
     {
       v24 = [[NEIPv4Settings alloc] initWithConfigMethod:2];
       [v7 setIPv4Settings:v24];
     }
 
-    if ([v22 isEqualToString:@"ppp"])
+    if (objc_msgSend_isEqualToString_(v22))
     {
-      iPv4Settings8 = [v7 IPv4Settings];
-      v26 = iPv4Settings8;
+      iPv4Settings7 = [v7 IPv4Settings];
+      v26 = iPv4Settings7;
       v27 = 2;
 LABEL_27:
-      [iPv4Settings8 setConfigMethod:v27];
+      [iPv4Settings7 setConfigMethod:v27];
 
 LABEL_28:
       v21 = v109;
       goto LABEL_29;
     }
 
-    if ([v22 isEqualToString:@"manual"])
+    if (objc_msgSend_isEqualToString_(v22))
     {
-      iPv4Settings8 = [v7 IPv4Settings];
-      v26 = iPv4Settings8;
+      iPv4Settings7 = [v7 IPv4Settings];
+      v26 = iPv4Settings7;
       v27 = 3;
       goto LABEL_27;
     }
 
-    if ([v22 isEqualToString:@"automatic"])
+    if (objc_msgSend_isEqualToString_(v22))
     {
-      iPv4Settings8 = [v7 IPv4Settings];
-      v26 = iPv4Settings8;
+      iPv4Settings7 = [v7 IPv4Settings];
+      v26 = iPv4Settings7;
       v27 = 1;
       goto LABEL_27;
     }
 
-    if ([v22 isEqualToString:@"off"])
+    if (objc_msgSend_isEqualToString_(v22))
     {
       [v7 setIPv4Settings:0];
       goto LABEL_28;
@@ -2758,7 +2738,7 @@ LABEL_60:
 
 - (void)addAppRuleWithParameters:(void *)parameters errorStr:
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v55[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v5 = a2;
@@ -2844,7 +2824,7 @@ LABEL_17:
       *parameters = @"No perApp configuration present to apply app rules to";
 LABEL_41:
 
-      goto LABEL_42;
+      return;
     }
 
     if (v11)
@@ -2874,8 +2854,8 @@ LABEL_27:
 
         else if (isa_nsstring(v8))
         {
-          v56[0] = v8;
-          v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:1];
+          v55[0] = v8;
+          v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
           [(NEAppRule *)v42 setMatchDomains:v44];
         }
 
@@ -2886,8 +2866,8 @@ LABEL_27:
 
         else if (isa_nsstring(v9))
         {
-          v55 = v9;
-          v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
+          v54 = v9;
+          v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
           [(NEAppRule *)v42 setMatchAccountIdentifiers:v45];
         }
 
@@ -2934,14 +2914,11 @@ LABEL_27:
     v43 = relay;
     goto LABEL_27;
   }
-
-LABEL_42:
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAppRuleWithParameters:(void *)parameters errorStr:
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (self)
@@ -2998,7 +2975,7 @@ LABEL_39:
     }
 
     parametersCopy = parameters;
-    v45 = v6;
+    v44 = v6;
     v21 = objc_alloc(MEMORY[0x1E695DF70]);
     if (v9)
     {
@@ -3013,33 +2990,33 @@ LABEL_39:
     appRules = [v22 appRules];
     v24 = [v21 initWithArray:appRules];
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v25 = v24;
-    v26 = [v25 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v26)
     {
       v27 = v26;
-      v42 = relay;
-      v43 = v9;
+      v41 = relay;
+      v42 = v9;
       v28 = 0;
-      v29 = *v47;
+      v29 = *v46;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v47 != v29)
+          if (*v46 != v29)
           {
             objc_enumerationMutation(v25);
           }
 
-          v31 = *(*(&v46 + 1) + 8 * i);
+          v31 = *(*(&v45 + 1) + 8 * i);
           matchSigningIdentifier = [v31 matchSigningIdentifier];
-          v33 = [matchSigningIdentifier isEqualToString:v7];
+          isEqualToString = objc_msgSend_isEqualToString_(matchSigningIdentifier);
 
-          if (v33)
+          if (isEqualToString)
           {
             v34 = v31;
 
@@ -3047,26 +3024,26 @@ LABEL_39:
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v27);
 
-      relay = v42;
-      v9 = v43;
+      relay = v41;
+      v9 = v42;
       if (v28)
       {
         [v25 removeObject:v28];
         if ([v25 count])
         {
-          if (v43)
+          if (v42)
           {
-            v35 = v43;
+            v35 = v42;
           }
 
           else
           {
-            v35 = v42;
+            v35 = v41;
           }
 
           [v35 setAppRules:v25];
@@ -3074,19 +3051,19 @@ LABEL_39:
 
         else
         {
-          if (v43)
-          {
-            v36 = v43;
-          }
-
-          else
+          if (v42)
           {
             v36 = v42;
           }
 
+          else
+          {
+            v36 = v41;
+          }
+
           [v36 setAppRules:0];
           v38 = [objc_getProperty(self v37];
-          v39 = [v38 isEqualToString:@"NEUTIL-PERAPP-UUID"];
+          v39 = objc_msgSend_isEqualToString_(v38);
 
           if (v39)
           {
@@ -3106,13 +3083,11 @@ LABEL_39:
     *parametersCopy = @"No matched rule";
 LABEL_38:
 
-    v6 = v45;
+    v6 = v44;
     goto LABEL_39;
   }
 
 LABEL_40:
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPathControllerWithParameters:(void *)parameters errorStr:
@@ -3142,29 +3117,29 @@ LABEL_18:
     }
 
     v13 = [v17 objectForKeyedSubscript:@"cellular-fallback"];
-    if ([v13 isEqualToString:@"default"])
+    if (objc_msgSend_isEqualToString_(v13))
     {
       v15 = 0;
     }
 
-    else if ([v13 isEqualToString:@"none"])
+    else if (objc_msgSend_isEqualToString_(v13))
     {
       v15 = 1;
     }
 
-    else if ([v13 isEqualToString:@"foreground"])
+    else if (objc_msgSend_isEqualToString_(v13))
     {
       v15 = 3;
     }
 
-    else if ([v13 isEqualToString:@"background"])
+    else if (objc_msgSend_isEqualToString_(v13))
     {
       v15 = 7;
     }
 
     else
     {
-      if (![v13 isEqualToString:@"all"])
+      if (!objc_msgSend_isEqualToString_(v13))
       {
 LABEL_17:
 
@@ -3185,7 +3160,7 @@ LABEL_19:
 
 - (void)addPathRuleWithParameters:(__CFString *)parameters errorStr:
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v5 = a2;
@@ -3215,8 +3190,8 @@ LABEL_19:
 
     else if (isa_nsstring(v8))
     {
-      v39[0] = v8;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+      v38[0] = v8;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
       [(NEAppRule *)v14 setMatchDomains:v17];
     }
 
@@ -3227,26 +3202,26 @@ LABEL_19:
 
     else if (isa_nsstring(v9))
     {
-      v38 = v9;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+      v37 = v9;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
       [(NEAppRule *)v14 setMatchAccountIdentifiers:v19];
     }
 
     if (v10)
     {
-      if ([v10 isEqualToString:@"allow"])
+      if (objc_msgSend_isEqualToString_(v10))
       {
         v20 = 0;
       }
 
-      else if ([v10 isEqualToString:@"deny"])
+      else if (objc_msgSend_isEqualToString_(v10))
       {
         v20 = 1;
       }
 
       else
       {
-        if (([v10 isEqualToString:@"allow-while-roaming"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
         {
           v35 = @"Cellular behavior value not recognized";
           goto LABEL_31;
@@ -3260,19 +3235,19 @@ LABEL_19:
 
     if (v11)
     {
-      if ([v11 isEqualToString:@"allow"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         v21 = 0;
       }
 
-      else if ([v11 isEqualToString:@"deny"])
+      else if (objc_msgSend_isEqualToString_(v11))
       {
         v21 = 1;
       }
 
       else
       {
-        if (([v11 isEqualToString:@"allow-while-roaming"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v11) & 1) == 0)
         {
           v35 = @"WiFi behavior value not recognized";
           goto LABEL_31;
@@ -3291,7 +3266,7 @@ LABEL_19:
       v23 = objc_alloc(MEMORY[0x1E695DF70]);
       v25 = [objc_getProperty(self v24];
       [v25 pathRules];
-      v37 = v9;
+      v36 = v9;
       v26 = v10;
       v27 = v11;
       v28 = v8;
@@ -3308,10 +3283,10 @@ LABEL_19:
       v8 = v28;
       v11 = v27;
       v10 = v26;
-      v9 = v37;
+      v9 = v36;
 
 LABEL_32:
-      goto LABEL_33;
+      return;
     }
 
     v35 = @"No Path Controller configuration present to apply path rules to";
@@ -3319,14 +3294,11 @@ LABEL_31:
     *parameters = v35;
     goto LABEL_32;
   }
-
-LABEL_33:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePathRuleWithParameters:(void *)parameters errorStr:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v5 = [a2 objectForKeyedSubscript:@"match-signing-identifier"];
@@ -3341,38 +3313,38 @@ LABEL_33:
 
       if ([v12 count])
       {
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v14 = [objc_getProperty(self v13];
         pathRules2 = [v14 pathRules];
 
-        v16 = [pathRules2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v16 = [pathRules2 countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v30;
+          v18 = *v29;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v30 != v18)
+              if (*v29 != v18)
               {
                 objc_enumerationMutation(pathRules2);
               }
 
-              v20 = *(*(&v29 + 1) + 8 * i);
+              v20 = *(*(&v28 + 1) + 8 * i);
               matchSigningIdentifier = [v20 matchSigningIdentifier];
-              v22 = [matchSigningIdentifier isEqualToString:v5];
+              isEqualToString = objc_msgSend_isEqualToString_(matchSigningIdentifier);
 
-              if (v22)
+              if (isEqualToString)
               {
                 [v12 removeObject:v20];
               }
             }
 
-            v17 = [pathRules2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+            v17 = [pathRules2 countByEnumeratingWithState:&v28 objects:v32 count:16];
           }
 
           while (v17);
@@ -3405,14 +3377,12 @@ LABEL_33:
       *parameters = @"No Path Controller configuration present to apply app rules to";
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_2_996(uint64_t a1, void *a2)
 {
-  v89 = *MEMORY[0x1E69E9840];
-  v62 = [a2 objectForKeyedSubscript:@"UserMap"];
+  v87 = *MEMORY[0x1E69E9840];
+  v60 = [a2 objectForKeyedSubscript:@"UserMap"];
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -3430,10 +3400,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
       if (v9)
       {
-        v81 = 0u;
-        v82 = 0u;
         v79 = 0u;
         v80 = 0u;
+        v77 = 0u;
+        v78 = 0u;
         v10 = *(a1 + 32);
         if (v10)
         {
@@ -3441,93 +3411,93 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
         }
 
         obj = v10;
-        v63 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
-        if (v63)
+        v61 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
+        if (v61)
         {
-          v60 = *v80;
-          v61 = a1;
+          v58 = *v78;
+          v59 = a1;
           do
           {
             v11 = 0;
             do
             {
-              if (*v80 != v60)
+              if (*v78 != v58)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v64 = v11;
-              v12 = *(*(&v79 + 1) + 8 * v11);
+              v62 = v11;
+              v12 = *(*(&v77 + 1) + 8 * v11);
               v13 = MEMORY[0x1E696AEC0];
               v14 = [v12 name];
               v15 = objc_msgSend(v13, "stringWithFormat:", @"%@ (Users:"), v14;
 
-              v65 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v63 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v73 = 0u;
+              v74 = 0u;
               v75 = 0u;
               v76 = 0u;
-              v77 = 0u;
-              v78 = 0u;
-              v16 = v62;
-              v17 = [v16 countByEnumeratingWithState:&v75 objects:v87 count:16];
+              v16 = v60;
+              v17 = [v16 countByEnumeratingWithState:&v73 objects:v85 count:16];
               if (v17)
               {
                 v18 = v17;
-                v19 = *v76;
+                v19 = *v74;
                 do
                 {
                   for (i = 0; i != v18; ++i)
                   {
-                    if (*v76 != v19)
+                    if (*v74 != v19)
                     {
                       objc_enumerationMutation(v16);
                     }
 
-                    v21 = *(*(&v75 + 1) + 8 * i);
+                    v21 = *(*(&v73 + 1) + 8 * i);
                     v22 = [v16 objectForKeyedSubscript:v21];
                     v23 = [v12 identifier];
                     v24 = [v22 containsObject:v23];
 
                     if (v24)
                     {
-                      [v65 addObject:v21];
+                      [v63 addObject:v21];
                     }
                   }
 
-                  v18 = [v16 countByEnumeratingWithState:&v75 objects:v87 count:16];
+                  v18 = [v16 countByEnumeratingWithState:&v73 objects:v85 count:16];
                 }
 
                 while (v18);
               }
 
-              v25 = v65;
-              if ([v65 count])
+              v25 = v63;
+              if ([v63 count])
               {
-                v73 = 0u;
-                v74 = 0u;
                 v71 = 0u;
                 v72 = 0u;
-                v26 = v65;
-                v27 = [v26 countByEnumeratingWithState:&v71 objects:v86 count:16];
-                a1 = v61;
+                v69 = 0u;
+                v70 = 0u;
+                v26 = v63;
+                v27 = [v26 countByEnumeratingWithState:&v69 objects:v84 count:16];
+                a1 = v59;
                 if (v27)
                 {
                   v28 = v27;
-                  v29 = *v72;
+                  v29 = *v70;
                   do
                   {
                     v30 = 0;
                     v31 = v15;
                     do
                     {
-                      if (*v72 != v29)
+                      if (*v70 != v29)
                       {
                         objc_enumerationMutation(v26);
                       }
 
-                      v32 = *(*(&v71 + 1) + 8 * v30);
+                      v32 = *(*(&v69 + 1) + 8 * v30);
                       *id_type = 0;
                       *uu = 0;
-                      v85 = 0;
+                      v83 = 0;
                       [v32 getUUIDBytes:uu];
                       mbr_uuid_to_id(uu, id_type, &id_type[1]);
                       if (id_type[0] && (v33 = getpwuid(id_type[0])) != 0 && (pw_name = v33->pw_name) != 0 && *pw_name)
@@ -3541,7 +3511,7 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
                       {
                         v37 = id_type[0];
                         v36 = [v32 UUIDString];
-                        [v31 stringByAppendingFormat:@" %d[%@]", v37, v36, v58];
+                        [v31 stringByAppendingFormat:@" %d[%@]", v37, v36, v56];
                       }
                       v15 = ;
 
@@ -3550,31 +3520,31 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
                     }
 
                     while (v28 != v30);
-                    v28 = [v26 countByEnumeratingWithState:&v71 objects:v86 count:16];
+                    v28 = [v26 countByEnumeratingWithState:&v69 objects:v84 count:16];
                   }
 
                   while (v28);
                 }
 
                 v38 = [v15 stringByAppendingString:@"\n"]);
-                v25 = v65;
+                v25 = v63;
               }
 
               else
               {
                 v38 = [v15 stringByAppendingString:@" None\n"]);
-                a1 = v61;
+                a1 = v59;
               }
 
               [*(a1 + 40) addObject:v38];
-              v11 = v64 + 1;
+              v11 = v62 + 1;
             }
 
-            while (v64 + 1 != v63);
-            v63 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
+            while (v62 + 1 != v61);
+            v61 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
           }
 
-          while (v63);
+          while (v61);
         }
       }
     }
@@ -3597,10 +3567,10 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
         if (v44)
         {
           [*(a1 + 40) addObject:@"New Configurations:\n"];
-          v68 = 0u;
-          v69 = 0u;
           v66 = 0u;
           v67 = 0u;
+          v64 = 0u;
+          v65 = 0u;
           v46 = *(a1 + 32);
           if (v46)
           {
@@ -3608,28 +3578,28 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
           }
 
           v47 = v46;
-          v48 = [v47 countByEnumeratingWithState:&v66 objects:v83 count:16];
+          v48 = [v47 countByEnumeratingWithState:&v64 objects:v81 count:16];
           if (v48)
           {
             v49 = v48;
-            v50 = *v67;
+            v50 = *v65;
             do
             {
               for (j = 0; j != v49; ++j)
               {
-                if (*v67 != v50)
+                if (*v65 != v50)
                 {
                   objc_enumerationMutation(v47);
                 }
 
                 v52 = *(a1 + 40);
                 v53 = MEMORY[0x1E696AEC0];
-                v54 = [*(*(&v66 + 1) + 8 * j) name];
+                v54 = [*(*(&v64 + 1) + 8 * j) name];
                 v55 = [v53 stringWithFormat:@"%@\n", v54];
                 [v52 addObject:v55];
               }
 
-              v49 = [v47 countByEnumeratingWithState:&v66 objects:v83 count:16];
+              v49 = [v47 countByEnumeratingWithState:&v64 objects:v81 count:16];
             }
 
             while (v49);
@@ -3639,16 +3609,13 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
     }
   }
 
-  v56 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_3_1013(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v13 = v3;
+  v12 = v3;
   if (v3)
   {
     v5 = MEMORY[0x1E696AEC0];
@@ -3677,7 +3644,6 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
     [v11 addObject:*(a1 + 56)];
   }
 
-  v12 = *(a1 + 40);
   (*(*(a1 + 64) + 16))();
 }
 
@@ -3709,24 +3675,24 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
     }
 
     v10 = [v42 objectForKeyedSubscript:@"service-exception-name"];
-    if (([v10 isEqualToString:@"AirPlay"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
     {
       v11 = [v42 objectForKeyedSubscript:@"service-exception-name"];
-      if (([v11 isEqualToString:@"AirPrint"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v11) & 1) == 0)
       {
         v12 = [v42 objectForKeyedSubscript:@"service-exception-name"];
-        if (([v12 isEqualToString:@"AirDrop"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v12) & 1) == 0)
         {
           v13 = [v42 objectForKeyedSubscript:@"service-exception-name"];
-          if (([v13 isEqualToString:@"VoiceMail"] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(v13) & 1) == 0)
           {
             v14 = [v42 objectForKeyedSubscript:@"service-exception-name"];
-            if (([v14 isEqualToString:@"CellularServices"] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(v14) & 1) == 0)
             {
               v40 = [v42 objectForKeyedSubscript:@"service-exception-name"];
-              v41 = [v40 isEqualToString:@"DeviceCommunication"];
+              isEqualToString = objc_msgSend_isEqualToString_(v40);
 
-              if ((v41 & 1) == 0)
+              if ((isEqualToString & 1) == 0)
               {
                 v9 = 0;
                 v18 = 0;
@@ -3754,7 +3720,7 @@ LABEL_40:
     }
 
     v15 = [v42 objectForKeyedSubscript:@"service-exception-action"];
-    v16 = [v15 isEqualToString:@"Allow"];
+    v16 = objc_msgSend_isEqualToString_(v15);
 
     if (v16)
     {
@@ -3764,7 +3730,7 @@ LABEL_40:
     else
     {
       v20 = [v42 objectForKeyedSubscript:@"service-exception-action"];
-      v21 = [v20 isEqualToString:@"Drop"];
+      v21 = objc_msgSend_isEqualToString_(v20);
 
       if ((v21 & 1) == 0)
       {
@@ -3993,7 +3959,7 @@ LABEL_27:
 
 void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParameters_completionHandler___block_invoke_1025(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4002,9 +3968,9 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
     {
       v5 = *(a1 + 32);
       *buf = 138412546;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v5;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v5;
       _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, "Save error: %@ for %@", buf, 0x16u);
     }
 
@@ -4015,8 +3981,6 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)urlFilterConfiguration
@@ -4028,23 +3992,23 @@ void __94__NEUtilConfigurationClient_handleCommand_forConfigWithName_withParamet
 
 void __69__NEUtilConfigurationClient_reloadIdentityListWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       v6 = 0;
       do
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(obj);
         }
@@ -4053,7 +4017,7 @@ void __69__NEUtilConfigurationClient_reloadIdentityListWithCompletionHandler___b
         if (v7)
         {
           v8 = MEMORY[0x1E695DF90];
-          v9 = *(*(&v18 + 1) + 8 * v6);
+          v9 = *(*(&v17 + 1) + 8 * v6);
           v10 = [[v8 alloc] initWithDictionary:v9];
 
           v11 = [MEMORY[0x1E696AD98] numberWithInteger:0];
@@ -4072,15 +4036,13 @@ void __69__NEUtilConfigurationClient_reloadIdentityListWithCompletionHandler___b
       }
 
       while (v4 != v6);
-      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)unsetHotspotProviderParameters:(id)parameters errorStr:(id *)str
@@ -4151,31 +4113,31 @@ void __69__NEUtilConfigurationClient_reloadIdentityListWithCompletionHandler___b
     if (proxySettings)
     {
       v10 = proxySettings;
-      if ([v7 isEqualToString:@"http"])
+      if (objc_msgSend_isEqualToString_(v7))
       {
         [v10 setHTTPServer:0];
         [v10 setHTTPEnabled:0];
       }
 
-      else if ([v7 isEqualToString:@"https"])
+      else if (objc_msgSend_isEqualToString_(v7))
       {
         [v10 setHTTPSServer:0];
         [v10 setHTTPSEnabled:0];
       }
 
-      else if ([v7 isEqualToString:@"ftp"])
+      else if (objc_msgSend_isEqualToString_(v7))
       {
         [v10 setFTPServer:0];
         [v10 setFTPEnabled:0];
       }
 
-      else if ([v7 isEqualToString:@"rtsp"])
+      else if (objc_msgSend_isEqualToString_(v7))
       {
         [v10 setRTSPServer:0];
         [v10 setRTSPEnabled:0];
       }
 
-      else if ([v7 isEqualToString:@"gopher"])
+      else if (objc_msgSend_isEqualToString_(v7))
       {
         [v10 setGopherServer:0];
         [v10 setGopherEnabled:0];
@@ -4183,7 +4145,7 @@ void __69__NEUtilConfigurationClient_reloadIdentityListWithCompletionHandler___b
 
       else
       {
-        if (![v7 isEqualToString:@"socks"])
+        if (!objc_msgSend_isEqualToString_(v7))
         {
           *str = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid proxy type: %@, valid values are http, https, ftp, rtsp, gopher, and socks", v7];
 
@@ -4229,34 +4191,34 @@ LABEL_18:
     proxySettings = objc_alloc_init(NEProxySettings);
   }
 
-  if ([v7 isEqualToString:@"http"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = 1;
   }
 
-  else if ([v7 isEqualToString:@"https"])
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = 2;
   }
 
-  else if ([v7 isEqualToString:@"ftp"])
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = 3;
   }
 
-  else if ([v7 isEqualToString:@"rtsp"])
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = 4;
   }
 
-  else if ([v7 isEqualToString:@"gopher"])
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = 6;
   }
 
   else
   {
-    if (([v7 isEqualToString:@"socks"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v7) & 1) == 0)
     {
       *str = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid proxy type: %@, valid values are http, https, ftp, rtsp, gopher, and socks", v7];
 
@@ -4425,7 +4387,7 @@ LABEL_39:
 
 - (BOOL)setProxyParameters:(id)parameters errorStr:(id *)str
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v7 = [(NEUtilConfigurationClient *)self protocolForParameters:parametersCopy];
   v8 = v7;
@@ -4479,8 +4441,8 @@ LABEL_39:
     v22 = v21;
     if (v20)
     {
-      v32[0] = v21;
-      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+      v31[0] = v21;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
       [(NEProxySettings *)proxySettings setExceptionList:v23];
 
 LABEL_16:
@@ -4514,15 +4476,14 @@ LABEL_17:
 
   else if (isa_nsstring(v27))
   {
-    v31 = v27;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+    v30 = v27;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
     [(NEProxySettings *)proxySettings setMatchDomains:v28];
   }
 
   [v8 setProxySettings:proxySettings];
 
 LABEL_24:
-  v29 = *MEMORY[0x1E69E9840];
   return v8 != 0;
 }
 
@@ -4568,7 +4529,7 @@ LABEL_24:
 
 - (BOOL)setRelayConditionsWithParameters:(id)parameters errorStr:(id *)str
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   relayConfiguration = [(NEUtilConfigurationClient *)self relayConfiguration];
   if (relayConfiguration)
@@ -4581,8 +4542,8 @@ LABEL_24:
 
     else if (isa_nsstring(v9))
     {
-      v16[0] = v9;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+      v15[0] = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
       [relayConfiguration setMatchDomains:v10];
     }
 
@@ -4594,8 +4555,8 @@ LABEL_24:
 
     else if (isa_nsstring(v11))
     {
-      v15 = v11;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+      v14 = v11;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
       [relayConfiguration setExcludedDomains:v12];
     }
   }
@@ -4605,7 +4566,6 @@ LABEL_24:
     *str = @"Missing relay configuration";
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return relayConfiguration != 0;
 }
 
@@ -4649,7 +4609,7 @@ LABEL_7:
 
 - (BOOL)addRelayWithParameters:(id)parameters errorStr:(id *)str
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v48[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   relayConfiguration = [(NEUtilConfigurationClient *)self relayConfiguration];
   if (relayConfiguration)
@@ -4665,7 +4625,7 @@ LABEL_7:
       [(NERelay *)v9 setHTTP3RelayURL:v12];
     }
 
-    v48 = stringByRemovingPercentEncoding;
+    v47 = stringByRemovingPercentEncoding;
     v13 = [parametersCopy objectForKeyedSubscript:@"http2-url"];
     stringByRemovingPercentEncoding2 = [v13 stringByRemovingPercentEncoding];
 
@@ -4675,7 +4635,7 @@ LABEL_7:
       [(NERelay *)v9 setHTTP2RelayURL:v15];
     }
 
-    v47 = stringByRemovingPercentEncoding2;
+    v46 = stringByRemovingPercentEncoding2;
     v16 = [parametersCopy objectForKeyedSubscript:@"doh-url"];
     stringByRemovingPercentEncoding3 = [v16 stringByRemovingPercentEncoding];
 
@@ -4695,8 +4655,8 @@ LABEL_7:
 
       if (v22)
       {
-        v49[0] = v22;
-        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
+        v48[0] = v22;
+        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
         [(NERelay *)v9 setRawPublicKeys:v23];
       }
     }
@@ -4770,7 +4730,6 @@ LABEL_27:
   *str = @"Missing relay configuration";
 LABEL_28:
 
-  v44 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -4800,7 +4759,7 @@ LABEL_28:
 
 - (BOOL)setAppPushParameters:(id)parameters errorStr:(id *)str
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   appPush = [(NEUtilConfigurationClient *)self appPush];
   if (appPush)
@@ -4816,8 +4775,8 @@ LABEL_28:
 
       else if (isa_nsstring(v9))
       {
-        v18[0] = v9;
-        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+        v17[0] = v9;
+        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
         [appPush setMatchSSIDs:v11];
       }
 
@@ -4857,7 +4816,6 @@ LABEL_28:
     *str = @"Missing app push provider configuration";
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -4891,7 +4849,7 @@ LABEL_6:
 
 - (BOOL)setDNSParameters:(id)parameters errorStr:(id *)str
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v7 = [(NEUtilConfigurationClient *)self protocolForParameters:parametersCopy];
   dnsSettingsBundle = [(NEUtilConfigurationClient *)self dnsSettingsBundle];
@@ -4900,24 +4858,24 @@ LABEL_6:
   {
     v10 = [parametersCopy objectForKeyedSubscript:@"protocol"];
     v11 = [parametersCopy objectForKeyedSubscript:@"servers"];
-    v31 = v10;
+    v30 = v10;
     if (v11)
     {
       v12 = v11;
       if (isa_nsstring(v11))
       {
-        v34[0] = v12;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+        v33[0] = v12;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
 
         v12 = v13;
       }
 
-      if ([v10 isEqualToString:@"tls"])
+      if (objc_msgSend_isEqualToString_(v10))
       {
         v14 = NEDNSOverTLSSettings;
       }
 
-      else if ([v10 isEqualToString:@"https"])
+      else if (objc_msgSend_isEqualToString_(v10))
       {
         v14 = NEDNSOverHTTPSSettings;
       }
@@ -4932,12 +4890,12 @@ LABEL_6:
 
     else
     {
-      if ([v10 isEqualToString:@"tls"])
+      if (objc_msgSend_isEqualToString_(v10))
       {
         v15 = NEDNSOverTLSSettings;
       }
 
-      else if ([v10 isEqualToString:@"https"])
+      else if (objc_msgSend_isEqualToString_(v10))
       {
         v15 = NEDNSOverHTTPSSettings;
       }
@@ -4962,8 +4920,8 @@ LABEL_6:
 
       else if (isa_nsstring(v18))
       {
-        v33 = v18;
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+        v32 = v18;
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
         [v16 setSearchDomains:v19];
       }
     }
@@ -4979,8 +4937,8 @@ LABEL_6:
 
       else if (isa_nsstring(v21))
       {
-        v32 = v21;
-        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+        v31 = v21;
+        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
         [v16 setMatchDomains:v22];
       }
     }
@@ -5009,10 +4967,10 @@ LABEL_6:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v28 = MEMORY[0x1E695DFF8];
-          v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"https://%@%@", v24, v25];
-          v29 = [v28 URLWithString:v30];
-          [v16 setServerURL:v29];
+          v27 = MEMORY[0x1E695DFF8];
+          v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"https://%@%@", v24, v25];
+          v28 = [v27 URLWithString:v29];
+          [v16 setServerURL:v28];
         }
       }
     }
@@ -5035,7 +4993,6 @@ LABEL_6:
     *str = @"Missing DNS settings or VPN protocol";
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -5088,27 +5045,27 @@ LABEL_6:
 
 - (BOOL)addOnDemandRuleWithParameters:(id)parameters errorStr:(id *)str
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v7 = [parametersCopy objectForKeyedSubscript:@"action"];
-  if ([v7 isEqualToString:@"connect"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = off_1E7F04CF0;
   }
 
-  else if ([v7 isEqualToString:@"disconnect"])
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = off_1E7F04CF8;
   }
 
-  else if ([v7 isEqualToString:@"ignore"])
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = off_1E7F04D08;
   }
 
   else
   {
-    if (([v7 isEqualToString:@"evaluateconnection"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v7) & 1) == 0)
     {
       v38 = 0;
       *str = @"Invalid action";
@@ -5127,8 +5084,8 @@ LABEL_6:
   v13 = v12;
   if (isKindOfClass)
   {
-    v43[0] = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
+    v42[0] = v12;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
     [v9 setDNSSearchDomainMatch:v14];
   }
 
@@ -5145,8 +5102,8 @@ LABEL_6:
   v18 = v17;
   if (v16)
   {
-    v42 = v17;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+    v41 = v17;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
     [v9 setDNSServerAddressMatch:v19];
   }
 
@@ -5157,9 +5114,9 @@ LABEL_6:
 
   v20 = [parametersCopy objectForKeyedSubscript:@"interface-type"];
   v21 = v20;
-  if (v20 && ([v20 isEqualToString:@"ethernet"] & 1) == 0)
+  if (v20 && (objc_msgSend_isEqualToString_(v20) & 1) == 0)
   {
-    if ([v21 isEqualToString:@"cellular"])
+    if (objc_msgSend_isEqualToString_(v21))
     {
       v22 = 3;
 LABEL_21:
@@ -5167,7 +5124,7 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    if ([v21 isEqualToString:@"wifi"])
+    if (objc_msgSend_isEqualToString_(v21))
     {
       v22 = 2;
       goto LABEL_21;
@@ -5183,8 +5140,8 @@ LABEL_22:
   v26 = v25;
   if (v24)
   {
-    v41 = v25;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v40 = v25;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
     [v9 setSSIDMatch:v27];
   }
 
@@ -5239,7 +5196,6 @@ LABEL_22:
   [(NEUtilConfigurationClient *)self setOnDemandRules:v34];
 
 LABEL_36:
-  v39 = *MEMORY[0x1E69E9840];
   return v38;
 }
 
@@ -5625,19 +5581,19 @@ LABEL_10:
   if (v10)
   {
     v11 = [parametersCopy objectForKeyedSubscript:@"authentication-method"];
-    if ([v11 isEqualToString:@"none"])
+    if (objc_msgSend_isEqualToString_(v11))
     {
       v12 = 0;
     }
 
-    else if ([v11 isEqualToString:@"certificate"])
+    else if (objc_msgSend_isEqualToString_(v11))
     {
       v12 = 1;
     }
 
     else
     {
-      if (([v11 isEqualToString:@"shared-secret"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v11) & 1) == 0)
       {
         *str = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid %@, valid values are none, certificate, and shared-secret", @"authentication-method"];
 
@@ -5662,29 +5618,29 @@ LABEL_84:
   if (v16 && [v7 type] == 5)
   {
     v17 = [parametersCopy objectForKeyedSubscript:@"certificate-type"];
-    if ([v17 isEqualToString:@"RSA"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v18 = 1;
     }
 
-    else if ([v17 isEqualToString:@"ECDSA256"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v18 = 2;
     }
 
-    else if ([v17 isEqualToString:@"ECDSA384"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v18 = 3;
     }
 
-    else if ([v17 isEqualToString:@"ECDSA521"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v18 = 4;
     }
 
     else
     {
-      if (([v17 isEqualToString:@"Ed25519"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v17) & 1) == 0)
       {
         [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid %@, valid values are RSA, ECDSA256, ECDSA384, ECDSA521, and Ed25519", @"certificate-type", v84, v85, v86, v87, v88];
         goto LABEL_83;
@@ -5758,19 +5714,19 @@ LABEL_84:
   {
     v32 = @"tls-minimum-version";
     v17 = [parametersCopy objectForKeyedSubscript:@"tls-minimum-version"];
-    if ([v17 isEqualToString:@"1.0"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v33 = 1;
     }
 
-    else if ([v17 isEqualToString:@"1.1"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v33 = 2;
     }
 
     else
     {
-      if (([v17 isEqualToString:@"1.2"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v17) & 1) == 0)
       {
         goto LABEL_82;
       }
@@ -5787,7 +5743,7 @@ LABEL_84:
   {
     v32 = @"tls-maximum-version";
     v17 = [parametersCopy objectForKeyedSubscript:@"tls-maximum-version"];
-    if ([v17 isEqualToString:@"1.0"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v35 = 1;
 LABEL_69:
@@ -5796,13 +5752,13 @@ LABEL_69:
       goto LABEL_70;
     }
 
-    if ([v17 isEqualToString:@"1.1"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v35 = 2;
       goto LABEL_69;
     }
 
-    if ([v17 isEqualToString:@"1.2"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v35 = 3;
       goto LABEL_69;
@@ -5849,7 +5805,7 @@ LABEL_70:
     }
 
     v17 = [parametersCopy objectForKeyedSubscript:@"dead-peer-detection-rate"];
-    if ([v17 isEqualToString:@"none"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v44 = 0;
 LABEL_89:
@@ -5858,19 +5814,19 @@ LABEL_89:
       goto LABEL_90;
     }
 
-    if ([v17 isEqualToString:@"low"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v44 = 1;
       goto LABEL_89;
     }
 
-    if ([v17 isEqualToString:@"medium"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v44 = 2;
       goto LABEL_89;
     }
 
-    if ([v17 isEqualToString:@"high"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v44 = 3;
       goto LABEL_89;
@@ -5911,29 +5867,29 @@ LABEL_90:
 
     v50 = @"encryption-algorithm";
     v17 = [parametersCopy objectForKeyedSubscript:@"encryption-algorithm"];
-    if ([v17 isEqualToString:@"AES-128"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v51 = 3;
     }
 
-    else if ([v17 isEqualToString:@"AES-256"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v51 = 4;
     }
 
-    else if ([v17 isEqualToString:@"AES-128-GCM"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v51 = 5;
     }
 
-    else if ([v17 isEqualToString:@"AES-256-GCM"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v51 = 6;
     }
 
     else
     {
-      if (([v17 isEqualToString:@"ChaCha20Poly1305"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v17) & 1) == 0)
       {
 LABEL_150:
         [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid %@, valid values are %@, %@, %@, %@, and %@", v50, @"AES-128", @"AES-256", @"AES-128-GCM", @"AES-256-GCM", @"ChaCha20Poly1305"];
@@ -5959,19 +5915,19 @@ LABEL_150:
 
     v54 = @"integrity-algorithm";
     v17 = [parametersCopy objectForKeyedSubscript:@"integrity-algorithm"];
-    if ([v17 isEqualToString:@"SHA2-256"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v55 = 3;
     }
 
-    else if ([v17 isEqualToString:@"SHA2-384"])
+    else if (objc_msgSend_isEqualToString_(v17))
     {
       v55 = 4;
     }
 
     else
     {
-      if (([v17 isEqualToString:@"SHA2-512"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v17) & 1) == 0)
       {
 LABEL_172:
         [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid %@, valid values are %@, %@, and %@", v54, @"SHA2-256", @"SHA2-384", @"SHA2-512", v87, v88];
@@ -6052,27 +6008,27 @@ LABEL_128:
 
   v50 = @"child-encryption-algorithm";
   v17 = [parametersCopy objectForKeyedSubscript:@"child-encryption-algorithm"];
-  if (([v17 isEqualToString:@"AES-128"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v17) & 1) == 0)
   {
-    if ([v17 isEqualToString:@"AES-256"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v67 = 4;
       goto LABEL_143;
     }
 
-    if ([v17 isEqualToString:@"AES-128-GCM"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v67 = 5;
       goto LABEL_143;
     }
 
-    if ([v17 isEqualToString:@"AES-256-GCM"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v67 = 6;
       goto LABEL_143;
     }
 
-    if ([v17 isEqualToString:@"ChaCha20Poly1305"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v67 = 7;
       goto LABEL_143;
@@ -6102,15 +6058,15 @@ LABEL_144:
 
   v54 = @"child-integrity-algorithm";
   v17 = [parametersCopy objectForKeyedSubscript:@"child-integrity-algorithm"];
-  if (([v17 isEqualToString:@"SHA2-256"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v17) & 1) == 0)
   {
-    if ([v17 isEqualToString:@"SHA2-384"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v70 = 4;
       goto LABEL_153;
     }
 
-    if ([v17 isEqualToString:@"SHA2-512"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v70 = 5;
       goto LABEL_153;
@@ -6419,9 +6375,9 @@ LABEL_47:
   }
 
   v14 = [parametersCopy objectForKeyedSubscript:@"provider-type"];
-  if (![v14 isEqualToString:@"app-proxy"])
+  if (!objc_msgSend_isEqualToString_(v14))
   {
-    if (![v14 isEqualToString:@"packet-tunnel"])
+    if (!objc_msgSend_isEqualToString_(v14))
     {
       *str = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid %@, must be either app-proxy or packet-tunnel", @"provider-type"];
 
@@ -7011,22 +6967,22 @@ LABEL_75:
 {
   parametersCopy = parameters;
   v7 = [parametersCopy objectForKeyedSubscript:@"type"];
-  if ([v7 isEqualToString:@"ikev1"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = NEVPNProtocolIPSec;
     goto LABEL_7;
   }
 
-  if ([v7 isEqualToString:@"ikev2"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     goto LABEL_4;
   }
 
-  if (![v7 isEqualToString:@"l2tp"])
+  if (!objc_msgSend_isEqualToString_(v7))
   {
-    if (![v7 isEqualToString:@"aovpn"])
+    if (!objc_msgSend_isEqualToString_(v7))
     {
-      if ([v7 isEqualToString:@"plugin"])
+      if (objc_msgSend_isEqualToString_(v7))
       {
         v44 = [parametersCopy objectForKeyedSubscript:@"plugin-type"];
         if (v44)
@@ -7325,16 +7281,16 @@ LABEL_53:
   v8 = [parametersCopy objectForKeyedSubscript:@"type"];
   v9 = [parametersCopy objectForKeyedSubscript:@"grade"];
 
-  if (v9 && ([v9 isEqualToString:@"enterprise"] & 1) == 0)
+  if (v9 && (objc_msgSend_isEqualToString_(v9) & 1) == 0)
   {
-    if ([v9 isEqualToString:@"personal"])
+    if (objc_msgSend_isEqualToString_(v9))
     {
       v10 = 2;
     }
 
     else
     {
-      if (([v9 isEqualToString:@"system"] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v9) & 1) == 0)
       {
         [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid configuration grade: %@", v9];
         *str = v13 = 0;
@@ -7351,61 +7307,61 @@ LABEL_53:
   }
 
   v11 = [[NEConfiguration alloc] initWithName:v7 grade:v10];
-  if ([v8 isEqualToString:@"vpn"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEVPN);
     [(NEConfiguration *)v11 setVPN:v12];
   }
 
-  else if ([v8 isEqualToString:@"aovpn"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEAOVPN);
     [(NEConfiguration *)v11 setAlwaysOnVPN:v12];
   }
 
-  else if ([v8 isEqualToString:@"appvpn"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEVPNApp);
     [(NEConfiguration *)v11 setAppVPN:v12];
   }
 
-  else if ([v8 isEqualToString:@"contentfilter"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEContentFilter);
     [(NEConfiguration *)v11 setContentFilter:v12];
   }
 
-  else if ([v8 isEqualToString:@"pathcontroller"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEPathController);
     [(NEConfiguration *)v11 setPathController:v12];
   }
 
-  else if ([v8 isEqualToString:@"dnsproxy"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEDNSProxy);
     [(NEConfiguration *)v11 setDnsProxy:v12];
   }
 
-  else if ([v8 isEqualToString:@"dnssettings"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEDNSSettingsBundle);
     [(NEConfiguration *)v11 setDnsSettings:v12];
   }
 
-  else if ([v8 isEqualToString:@"appPush"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEAppPush);
     [(NEConfiguration *)v11 setAppPush:v12];
   }
 
-  else if ([v8 isEqualToString:@"relay"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NERelayConfiguration);
     [(NEConfiguration *)v11 setRelay:v12];
   }
 
-  else if ([v8 isEqualToString:@"urlfilter"])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     v12 = objc_alloc_init(NEURLFilterConfiguration);
     [(NEConfiguration *)v11 setUrlFilter:v12];
@@ -7413,7 +7369,7 @@ LABEL_53:
 
   else
   {
-    if (![v8 isEqualToString:@"hotspot"])
+    if (!objc_msgSend_isEqualToString_(v8))
     {
       *str = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid configuration type: %@", v8];
 
@@ -7807,6 +7763,66 @@ LABEL_20:
   return dnsSettings;
 }
 
+- (void)setDisconnectOnDemandEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  selfCopy = self;
+  if (self)
+  {
+    self = objc_getProperty(self, a2, 56, 1);
+  }
+
+  v5 = [(NEUtilConfigurationClient *)self VPN];
+
+  if (v5)
+  {
+    if (selfCopy)
+    {
+      Property = objc_getProperty(selfCopy, v6, 56, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    appVPN2 = [Property VPN];
+LABEL_13:
+    v13 = appVPN2;
+    [appVPN2 setDisconnectOnDemandEnabled:enabledCopy];
+
+    return;
+  }
+
+  if (selfCopy)
+  {
+    v9 = objc_getProperty(selfCopy, v6, 56, 1);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  appVPN = [v9 appVPN];
+
+  if (appVPN)
+  {
+    if (selfCopy)
+    {
+      v12 = objc_getProperty(selfCopy, v11, 56, 1);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    appVPN2 = [v12 appVPN];
+    goto LABEL_13;
+  }
+}
+
 - (BOOL)disconnectOnDemandEnabled
 {
   selfCopy = self;
@@ -7868,6 +7884,56 @@ LABEL_13:
   return 0;
 }
 
+- (void)setOnDemandUserOverrideDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  selfCopy = self;
+  if (self)
+  {
+    self = objc_getProperty(self, a2, 56, 1);
+  }
+
+  v6 = [(NEUtilConfigurationClient *)self VPN];
+  if (v6)
+  {
+    if (selfCopy)
+    {
+      Property = objc_getProperty(selfCopy, v5, 56, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    appVPN = [Property VPN];
+  }
+
+  else
+  {
+    if (selfCopy)
+    {
+      v9 = objc_getProperty(selfCopy, v5, 56, 1);
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    appVPN = [v9 appVPN];
+  }
+
+  v11 = appVPN;
+
+  v10 = v11;
+  if (v11)
+  {
+    [v11 setOnDemandUserOverrideDisabled:disabledCopy];
+    v10 = v11;
+  }
+}
+
 - (BOOL)onDemandUserOverrideDisabled
 {
   selfCopy = self;
@@ -7911,6 +7977,66 @@ LABEL_13:
 
   isOnDemandUserOverrideDisabled = [v8 isOnDemandUserOverrideDisabled];
   return isOnDemandUserOverrideDisabled;
+}
+
+- (void)setOnDemandEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  selfCopy = self;
+  if (self)
+  {
+    self = objc_getProperty(self, a2, 56, 1);
+  }
+
+  v5 = [(NEUtilConfigurationClient *)self VPN];
+
+  if (v5)
+  {
+    if (selfCopy)
+    {
+      Property = objc_getProperty(selfCopy, v6, 56, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    appVPN2 = [Property VPN];
+LABEL_13:
+    v13 = appVPN2;
+    [appVPN2 setOnDemandEnabled:enabledCopy];
+
+    return;
+  }
+
+  if (selfCopy)
+  {
+    v9 = objc_getProperty(selfCopy, v6, 56, 1);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  appVPN = [v9 appVPN];
+
+  if (appVPN)
+  {
+    if (selfCopy)
+    {
+      v12 = objc_getProperty(selfCopy, v11, 56, 1);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    appVPN2 = [v12 appVPN];
+    goto LABEL_13;
+  }
 }
 
 - (BOOL)onDemandEnabled
@@ -7972,6 +8098,262 @@ LABEL_13:
   }
 
   return 0;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  selfCopy = self;
+  if (self)
+  {
+    self = objc_getProperty(self, a2, 56, 1);
+  }
+
+  v5 = [(NEUtilConfigurationClient *)self VPN];
+
+  if (v5)
+  {
+    if (selfCopy)
+    {
+      Property = objc_getProperty(selfCopy, v6, 56, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    appVPN2 = [Property VPN];
+LABEL_55:
+    v41 = appVPN2;
+    [appVPN2 setEnabled:enabledCopy];
+
+    return;
+  }
+
+  if (selfCopy)
+  {
+    v9 = objc_getProperty(selfCopy, v6, 56, 1);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  appVPN = [v9 appVPN];
+
+  if (appVPN)
+  {
+    if (selfCopy)
+    {
+      v12 = objc_getProperty(selfCopy, v11, 56, 1);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    appVPN2 = [v12 appVPN];
+    goto LABEL_55;
+  }
+
+  if (selfCopy)
+  {
+    v13 = objc_getProperty(selfCopy, v11, 56, 1);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  contentFilter = [v13 contentFilter];
+
+  if (contentFilter)
+  {
+    if (selfCopy)
+    {
+      v16 = objc_getProperty(selfCopy, v15, 56, 1);
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    appVPN2 = [v16 contentFilter];
+    goto LABEL_55;
+  }
+
+  if (selfCopy)
+  {
+    v17 = objc_getProperty(selfCopy, v15, 56, 1);
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  alwaysOnVPN = [v17 alwaysOnVPN];
+
+  if (alwaysOnVPN)
+  {
+    if (selfCopy)
+    {
+      v20 = objc_getProperty(selfCopy, v19, 56, 1);
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    appVPN2 = [v20 alwaysOnVPN];
+    goto LABEL_55;
+  }
+
+  if (selfCopy)
+  {
+    v21 = objc_getProperty(selfCopy, v19, 56, 1);
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  dnsSettings = [v21 dnsSettings];
+
+  if (dnsSettings)
+  {
+    if (selfCopy)
+    {
+      v24 = objc_getProperty(selfCopy, v23, 56, 1);
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    appVPN2 = [v24 dnsSettings];
+    goto LABEL_55;
+  }
+
+  if (selfCopy)
+  {
+    v25 = objc_getProperty(selfCopy, v23, 56, 1);
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  dnsProxy = [v25 dnsProxy];
+
+  if (dnsProxy)
+  {
+    if (selfCopy)
+    {
+      v28 = objc_getProperty(selfCopy, v27, 56, 1);
+    }
+
+    else
+    {
+      v28 = 0;
+    }
+
+    appVPN2 = [v28 dnsProxy];
+    goto LABEL_55;
+  }
+
+  if (selfCopy)
+  {
+    v29 = objc_getProperty(selfCopy, v27, 56, 1);
+  }
+
+  else
+  {
+    v29 = 0;
+  }
+
+  pathController = [v29 pathController];
+
+  if (pathController)
+  {
+    if (selfCopy)
+    {
+      v32 = objc_getProperty(selfCopy, v31, 56, 1);
+    }
+
+    else
+    {
+      v32 = 0;
+    }
+
+    appVPN2 = [v32 pathController];
+    goto LABEL_55;
+  }
+
+  if (selfCopy)
+  {
+    v33 = objc_getProperty(selfCopy, v31, 56, 1);
+  }
+
+  else
+  {
+    v33 = 0;
+  }
+
+  relay = [v33 relay];
+
+  if (relay)
+  {
+    if (selfCopy)
+    {
+      v36 = objc_getProperty(selfCopy, v35, 56, 1);
+    }
+
+    else
+    {
+      v36 = 0;
+    }
+
+    appVPN2 = [v36 relay];
+    goto LABEL_55;
+  }
+
+  if (selfCopy)
+  {
+    v37 = objc_getProperty(selfCopy, v35, 56, 1);
+  }
+
+  else
+  {
+    v37 = 0;
+  }
+
+  urlFilter = [v37 urlFilter];
+
+  if (urlFilter)
+  {
+    if (selfCopy)
+    {
+      v40 = objc_getProperty(selfCopy, v39, 56, 1);
+    }
+
+    else
+    {
+      v40 = 0;
+    }
+
+    appVPN2 = [v40 urlFilter];
+    goto LABEL_55;
+  }
 }
 
 - (BOOL)enabled
@@ -8284,9 +8666,9 @@ void __48__NEUtilConfigurationClient_initWithClientName___block_invoke(uint64_t 
     dispatch_once(&allClients_g_initClients, &__block_literal_global_25478);
   }
 
-  v0 = allClients_g_clients;
+  v1 = allClients_g_clients;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __39__NEUtilConfigurationClient_allClients__block_invoke()

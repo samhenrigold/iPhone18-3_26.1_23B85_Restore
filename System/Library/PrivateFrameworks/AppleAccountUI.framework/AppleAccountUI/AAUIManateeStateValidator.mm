@@ -48,7 +48,7 @@
 - (void)verifyAndRepairManateeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -71,24 +71,25 @@
 void __66__AAUIManateeStateValidator_verifyAndRepairManateeWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  if ([v4 cdp_isCDPErrorWithCode:5903])
+  v5 = [v4 cdp_isCDPErrorWithCode:5903];
+  if (v5)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Manatee state validation completed. Already in good-state", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Manatee state validation completed. Already in good-state", v8, 2u);
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 @end

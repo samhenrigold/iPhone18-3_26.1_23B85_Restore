@@ -57,7 +57,7 @@
   return reason;
 }
 
-uint64_t __80__SUUIAdornedImageViewReuseView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__80__SUUIAdornedImageViewReuseView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -565,7 +565,7 @@ LABEL_16:
 void __58__SUUIAdornedImageViewReuseView_viewForElementIdentifier___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
   v11 = [a2 itmlID];
-  if ([v11 isEqualToString:*(a1 + 32)])
+  if (objc_msgSend_isEqualToString_(v11))
   {
     v7 = [*(a1 + 40) count];
 
@@ -892,7 +892,7 @@ uint64_t __62__SUUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___bloc
   }
 }
 
-uint64_t __62__SUUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___block_invoke_2(uint64_t a1)
+void *__62__SUUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) playState];
   if (result != 5)

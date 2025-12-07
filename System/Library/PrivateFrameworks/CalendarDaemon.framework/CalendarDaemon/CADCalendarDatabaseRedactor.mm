@@ -183,7 +183,7 @@ LABEL_16:
 
 - (BOOL)_specialRedactions:(sqlite3 *)redactions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sqlite3_exec(redactions, "BEGIN", 0, 0, 0);
   sqlite3_exec(redactions, "UPDATE location SET latitude = 0, longitude = 0", 0, 0, 0);
   v4 = strdup("SELECT rowid, key from _SqliteDatabaseProperties where key like '%-CalDAVInfo'");
@@ -198,7 +198,7 @@ LABEL_16:
     v7 = sqlite3_column_text(ppStmt, 1);
     strlen(v7);
     ICSRedactBytes();
-    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v14 length:20 encoding:4];
+    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v13 length:20 encoding:4];
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%d-CalDAVInfo", v8, v6];
     sqlite3_bind_text(pStmt, 1, [v9 UTF8String], -1, 0);
     sqlite3_bind_int(pStmt, 2, v6);
@@ -211,7 +211,6 @@ LABEL_16:
   free(v4);
   free(v5);
   sqlite3_exec(redactions, "COMMIT", 0, 0, 0);
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

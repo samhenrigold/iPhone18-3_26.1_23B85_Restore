@@ -127,13 +127,14 @@
   attributeType = [(PRPosterMetadata *)self attributeType];
   [dictionary bs_setSafeObject:attributeType forKey:@"attributeType"];
 
-  v10 = 0;
-  v6 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v10];
-  v7 = v10;
+  v11 = 0;
+  v6 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v11];
+  v7 = v11;
+  v8 = v7;
   if (v7)
   {
-    v8 = PRLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PRLogCommon(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(PRPosterMetadata *)self encodeJSON];
     }
@@ -144,28 +145,29 @@
 
 + (id)decodeObjectWithJSON:(id)n
 {
-  v9 = 0;
-  v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:n options:0 error:&v9];
-  v4 = v9;
-  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && !v4)
+  v10 = 0;
+  v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:n options:0 error:&v10];
+  isKindOfClass = v10;
+  v5 = isKindOfClass;
+  if (v3 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0) && !v5)
   {
-    v5 = [PRPosterMetadata alloc];
-    v6 = [v3 objectForKeyedSubscript:@"displayNameLocalizationKey"];
-    v7 = [(PRPosterMetadata *)v5 initWithDisplayNameLocalizationKey:v6];
+    v6 = [PRPosterMetadata alloc];
+    v7 = [v3 objectForKeyedSubscript:@"displayNameLocalizationKey"];
+    v8 = [(PRPosterMetadata *)v6 initWithDisplayNameLocalizationKey:v7];
   }
 
   else
   {
-    v6 = PRLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PRLogCommon(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(PRPosterMetadata *)v4 decodeObjectWithJSON:v6];
+      [(PRPosterMetadata *)v5 decodeObjectWithJSON:v7];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)encodeJSON

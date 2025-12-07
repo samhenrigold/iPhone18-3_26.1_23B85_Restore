@@ -1327,7 +1327,7 @@ LABEL_13:
   return v4 & 1;
 }
 
-uint64_t __51__OKNavigatorViewControllerProxy_canPerformAction___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__51__OKNavigatorViewControllerProxy_canPerformAction___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 intValue];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -1694,7 +1694,7 @@ uint64_t __57__OKNavigatorViewControllerProxy_setupJavascriptContext___block_inv
   return [v0 name];
 }
 
-id __57__OKNavigatorViewControllerProxy_setupJavascriptContext___block_invoke_2()
+OKCollectionProxy *__57__OKNavigatorViewControllerProxy_setupJavascriptContext___block_invoke_2()
 {
   v0 = objc_opt_new();
   [v0 setTag:1];
@@ -1703,7 +1703,7 @@ id __57__OKNavigatorViewControllerProxy_setupJavascriptContext___block_invoke_2(
   return v0;
 }
 
-id __57__OKNavigatorViewControllerProxy_setupJavascriptContext___block_invoke_3()
+OKCollectionProxy *__57__OKNavigatorViewControllerProxy_setupJavascriptContext___block_invoke_3()
 {
   v0 = objc_opt_new();
   [v0 setTag:2];

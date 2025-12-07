@@ -117,11 +117,10 @@
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (*&self->_has)
   {
-    isActive = self->_isActive;
     PBDataWriterWriteBOOLField();
   }
 
@@ -150,71 +149,67 @@
     PBDataWriterWriteStringField();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v6 = self->_participantHandles;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v24;
-    do
-    {
-      v10 = 0;
-      do
-      {
-        if (*v24 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v11 = *(*(&v23 + 1) + 8 * v10);
-        PBDataWriterWriteStringField();
-        ++v10;
-      }
-
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
-    }
-
-    while (v8);
-  }
-
   v21 = 0u;
   v22 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v12 = self->_memberHandles;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
-  if (v13)
+  v5 = self->_participantHandles;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  if (v6)
   {
-    v14 = v13;
-    v15 = *v20;
+    v7 = v6;
+    v8 = *v20;
     do
     {
-      v16 = 0;
+      v9 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v20 != v8)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v5);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * v16);
         PBDataWriterWriteStringField();
-        ++v16;
+        ++v9;
       }
 
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
-    while (v14);
+    while (v7);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_memberHandles;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v16;
+    do
+    {
+      v14 = 0;
+      do
+      {
+        if (*v16 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        PBDataWriterWriteStringField();
+        ++v14;
+      }
+
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    }
+
+    while (v12);
+  }
 }
 
 - (void)copyTo:(id)to
@@ -285,7 +280,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -314,73 +309,72 @@
   v16 = v6[3];
   v6[3] = v15;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v17 = self->_participantHandles;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v36;
+    v20 = *v35;
     do
     {
       v21 = 0;
       do
       {
-        if (*v36 != v20)
+        if (*v35 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [*(*(&v35 + 1) + 8 * v21) copyWithZone:zone];
+        v22 = [*(*(&v34 + 1) + 8 * v21) copyWithZone:zone];
         [v6 addParticipantHandles:v22];
 
         ++v21;
       }
 
       while (v19 != v21);
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v19);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v23 = self->_memberHandles;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v32;
+    v26 = *v31;
     do
     {
       v27 = 0;
       do
       {
-        if (*v32 != v26)
+        if (*v31 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [*(*(&v31 + 1) + 8 * v27) copyWithZone:{zone, v31}];
+        v28 = [*(*(&v30 + 1) + 8 * v27) copyWithZone:{zone, v30}];
         [v6 addMemberHandles:v28];
 
         ++v27;
       }
 
       while (v25 != v27);
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v25);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -513,7 +507,7 @@ LABEL_20:
 
 - (void)mergeFrom:(id)from
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[68])
@@ -547,63 +541,61 @@ LABEL_20:
     [(BMPBGroupActivitySessionEvent *)self setExperienceType:?];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = *(v5 + 6);
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(BMPBGroupActivitySessionEvent *)self addParticipantHandles:*(*(&v21 + 1) + 8 * i)];
+        [(BMPBGroupActivitySessionEvent *)self addParticipantHandles:*(*(&v20 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v8);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = *(v5 + 4);
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(BMPBGroupActivitySessionEvent *)self addMemberHandles:*(*(&v17 + 1) + 8 * j), v17];
+        [(BMPBGroupActivitySessionEvent *)self addMemberHandles:*(*(&v16 + 1) + 8 * j), v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

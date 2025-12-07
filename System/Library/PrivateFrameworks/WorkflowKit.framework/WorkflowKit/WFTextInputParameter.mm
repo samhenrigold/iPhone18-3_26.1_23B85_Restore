@@ -34,18 +34,18 @@
 {
   type metadata accessor for WFUserVisibleString();
   sub_1CA3434EC();
-  sub_1CA94C1C8();
+  v6 = sub_1CA94C1C8();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = WFTextInputParameter.rewrite(_:withStrings:)(state);
+  v8 = WFTextInputParameter.rewrite(_:withStrings:)(state, v6);
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (id)parameterStateFromDialogResponse:(id)response
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   responseCopy = response;
   if (responseCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -57,8 +57,8 @@
     if ([(WFParameter *)self allowsMultipleValues])
     {
       v9 = [WFMultipleValueParameterState alloc];
-      v14[0] = v8;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+      v13[0] = v8;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
       v11 = [(WFMultipleValueParameterState *)v9 initWithParameterStates:v10];
     }
 
@@ -73,8 +73,6 @@
 
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -205,9 +203,9 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v7 = [v5 isEqualToString:v4];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (!v7)
+    if (!isEqualToString)
     {
       goto LABEL_9;
     }
@@ -257,9 +255,9 @@ LABEL_10:
         goto LABEL_13;
       }
 
-      v11 = [(NSString *)definition isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(definition);
 
-      if (!v11)
+      if (!isEqualToString)
       {
         goto LABEL_14;
       }
@@ -437,19 +435,19 @@ LABEL_7:
     v56 = objc_opt_class();
     v57 = WFEnforceClass_1501(v55, v56);
 
-    v5->_syntaxHighlightingType = [v57 isEqualToString:@"JavaScript"];
+    v5->_syntaxHighlightingType = objc_msgSend_isEqualToString_(v57);
     v58 = [definitionCopy objectForKey:@"HintDisplayMode"];
     v59 = objc_opt_class();
     v60 = WFEnforceClass_1501(v58, v59);
 
-    if ([v60 isEqualToString:@"WhileProcessing"])
+    if (objc_msgSend_isEqualToString_(v60))
     {
       v61 = 1;
     }
 
     else
     {
-      if (![v60 isEqualToString:@"Never"])
+      if (!objc_msgSend_isEqualToString_(v60))
       {
         v5->_hintDisplayMode = 0;
         goto LABEL_22;

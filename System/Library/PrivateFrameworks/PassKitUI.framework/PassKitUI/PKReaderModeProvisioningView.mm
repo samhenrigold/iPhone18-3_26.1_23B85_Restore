@@ -231,30 +231,34 @@ uint64_t __65__PKReaderModeProvisioningView_setTransferringProgress_duration___b
   v4 = objc_alloc_init(PKWatchHeroImageView);
   [(PKWatchHeroImageView *)v4 setHideDoneLabel:1];
   [(PKWatchHeroImageView *)v4 sizeThatFits:1.79769313e308, 1.79769313e308];
-  v6 = v5;
-  PKSizeAlignedInRect();
-  v23 = CGRectInset(v22, 23.0, 0.0);
-  y = v23.origin.y;
-  width = v23.size.width;
-  height = v23.size.height;
-  v10 = v23.origin.x + 1.5;
-  [(PKWatchHeroImageView *)v4 setFrame:v23.origin.x + 1.5, v23.origin.y];
+  v6 = v5.n128_f64[0];
+  v7.n128_u64[0] = 0;
+  v8.n128_u64[0] = 0;
+  v9.n128_u64[0] = v5.n128_u64[0];
+  v10.n128_u64[0] = v5.n128_u64[0];
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v11, v5, v7, v8, v9, v10, v12);
+  v29 = CGRectInset(v28, 23.0, 0.0);
+  y = v29.origin.y;
+  width = v29.size.width;
+  height = v29.size.height;
+  v16 = v29.origin.x + 1.5;
+  [(PKWatchHeroImageView *)v4 setFrame:v29.origin.x + 1.5, v29.origin.y];
   [(PKWatchHeroImageView *)v4 setNeedsLayout];
   [(PKWatchHeroImageView *)v4 layoutIfNeeded];
-  v11 = PKUIScreenScale();
-  v20.width = width;
-  v20.height = height;
-  UIGraphicsBeginImageContextWithOptions(v20, 0, v11);
+  v17 = PKUIScreenScale();
+  v26.width = width;
+  v26.height = height;
+  UIGraphicsBeginImageContextWithOptions(v26, 0, v17);
   CurrentContext = UIGraphicsGetCurrentContext();
   layer = [(PKWatchHeroImageView *)v4 layer];
   [layer renderInContext:CurrentContext];
 
-  v14 = UIGraphicsGetImageFromCurrentImageContext();
+  v20 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
-  v21.width = v6;
-  v21.height = v6;
-  UIGraphicsBeginImageContextWithOptions(v21, 0, v11);
-  v15 = UIGraphicsGetCurrentContext();
+  v27.width = v6;
+  v27.height = v6;
+  UIGraphicsBeginImageContextWithOptions(v27, 0, v17);
+  v21 = UIGraphicsGetCurrentContext();
   if (image)
   {
     [MEMORY[0x1E69DC888] blackColor];
@@ -264,18 +268,18 @@ uint64_t __65__PKReaderModeProvisioningView_setTransferringProgress_duration___b
   {
     [MEMORY[0x1E69DC888] whiteColor];
   }
-  v16 = ;
-  [v16 setFill];
-  v24.origin.x = 0.0;
-  v24.origin.y = 0.0;
-  v24.size.width = v6;
-  v24.size.height = v6;
-  CGContextFillRect(v15, v24);
-  [v14 drawInRect:{v10, y, width, height}];
-  v17 = UIGraphicsGetImageFromCurrentImageContext();
+  v22 = ;
+  [v22 setFill];
+  v30.origin.x = 0.0;
+  v30.origin.y = 0.0;
+  v30.size.width = v6;
+  v30.size.height = v6;
+  CGContextFillRect(v21, v30);
+  [v20 drawInRect:{v16, y, width, height}];
+  v23 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  return v17;
+  return v23;
 }
 
 @end

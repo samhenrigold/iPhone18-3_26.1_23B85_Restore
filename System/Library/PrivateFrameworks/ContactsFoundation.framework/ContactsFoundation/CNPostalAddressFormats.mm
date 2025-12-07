@@ -1,9 +1,31 @@
 @interface CNPostalAddressFormats
++ (id)_unitTestableLocalizedStringForPostalAddressString:(id)string returningNilIfNotFound:(BOOL)found;
++ (id)localizedStringForPostalAddressString:(id)string returningNilIfNotFound:(BOOL)found;
 + (id)makeLocalizer;
 + (id)sharedLocalizer;
 @end
 
 @implementation CNPostalAddressFormats
+
++ (id)localizedStringForPostalAddressString:(id)string returningNilIfNotFound:(BOOL)found
+{
+  foundCopy = found;
+  stringCopy = string;
+  sharedLocalizer = [self sharedLocalizer];
+  v8 = [sharedLocalizer localizedStringForPostalAddressString:stringCopy returningNilIfNotFound:foundCopy];
+
+  return v8;
+}
+
++ (id)_unitTestableLocalizedStringForPostalAddressString:(id)string returningNilIfNotFound:(BOOL)found
+{
+  foundCopy = found;
+  stringCopy = string;
+  makeLocalizer = [self makeLocalizer];
+  v8 = [makeLocalizer localizedStringForPostalAddressString:stringCopy returningNilIfNotFound:foundCopy];
+
+  return v8;
+}
 
 + (id)sharedLocalizer
 {
@@ -34,18 +56,11 @@ uint64_t __41__CNPostalAddressFormats_sharedLocalizer__block_invoke(uint64_t a1)
 + (id)makeLocalizer
 {
   v2 = +[(CNEnvironmentBase *)CNEnvironment];
-  isExtendedGreenTeaDevice = [v2 isExtendedGreenTeaDevice];
+  [v2 isExtendedGreenTeaDevice];
 
-  v4 = off_1E6ED4B20;
-  if (!isExtendedGreenTeaDevice)
-  {
-    v4 = &off_1E6ED4B28;
-  }
+  v3 = objc_opt_new();
 
-  v5 = *v4;
-  v6 = objc_opt_new();
-
-  return v6;
+  return v3;
 }
 
 @end

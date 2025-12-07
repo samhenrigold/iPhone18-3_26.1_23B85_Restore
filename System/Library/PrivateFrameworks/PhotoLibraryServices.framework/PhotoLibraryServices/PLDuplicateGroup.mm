@@ -19,12 +19,12 @@
   v23 = *MEMORY[0x1E69E9840];
   p_mutableSubGroups = &self->_mutableSubGroups;
   v4 = self->_mutableSubGroups;
-  if ([(NSMutableSet *)v4 count]== 1)
+  if (objc_msgSend_count(v4) == 1)
   {
     [(NSMutableSet *)*p_mutableSubGroups removeAllObjects];
   }
 
-  else if ([(NSMutableSet *)v4 count]>= 2)
+  else if (objc_msgSend_count(v4) >= 2)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v16 = 0u;
@@ -47,7 +47,7 @@
           }
 
           v11 = *(*(&v16 + 1) + 8 * i);
-          if ([v11 count] == 1)
+          if (objc_msgSend_count(v11, v16) == 1)
           {
             mutableExcludedGroup = self->_mutableExcludedGroup;
             anyObject = [v11 anyObject];
@@ -67,7 +67,7 @@
     }
 
     objc_storeStrong(p_mutableSubGroups, v5);
-    if (![(NSMutableSet *)*p_mutableSubGroups count])
+    if (!objc_msgSend_count(*p_mutableSubGroups))
     {
       [(NSMutableSet *)self->_mutableGroup minusSet:self->_mutableExcludedGroup];
     }

@@ -225,31 +225,31 @@
 
 - (void)updateCheckmarkForFile:(id)file
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fileCopy = file;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   tableView = [(WFRemoteFileListView *)self tableView];
   indexPathsForVisibleRows = [tableView indexPathsForVisibleRows];
 
   obj = indexPathsForVisibleRows;
-  v7 = [indexPathsForVisibleRows countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [indexPathsForVisibleRows countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         filesBySection = [(WFRemoteFileListView *)self filesBySection];
         v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v11, "section")}];
         v14 = [filesBySection objectForKeyedSubscript:v13];
@@ -270,7 +270,7 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         continue;
@@ -281,40 +281,38 @@
   }
 
 LABEL_11:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFiles:(id)files
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   filesCopy = files;
   collation = [(WFRemoteFileListView *)self collation];
   if (collation)
   {
     selfCopy = self;
     v6 = objc_opt_new();
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v28 = filesCopy;
+    v27 = filesCopy;
     obj = filesCopy;
-    v7 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v7 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v35;
+      v9 = *v34;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v35 != v9)
+          if (*v34 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v33 + 1) + 8 * i);
           v12 = [collation sectionForObject:v11 collationStringSelector:sel_wfName];
           v13 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
           v14 = [v6 objectForKeyedSubscript:v13];
@@ -329,53 +327,53 @@ LABEL_11:
           [v14 addObject:v11];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v8 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v8);
     }
 
     v16 = objc_opt_new();
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v17 = v6;
-    v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * j);
+          v22 = *(*(&v29 + 1) + 8 * j);
           v23 = [v17 objectForKeyedSubscript:v22];
           v24 = [collation sortedArrayFromArray:v23 collationStringSelector:sel_wfName];
           [v16 setObject:v24 forKeyedSubscript:v22];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v19);
     }
 
     [(WFRemoteFileListView *)selfCopy setFilesBySection:v16];
-    filesCopy = v28;
+    filesCopy = v27;
   }
 
   else if (filesCopy)
   {
-    v40 = &unk_2850AB3C0;
-    v41[0] = filesCopy;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v39 = &unk_2850AB3C0;
+    v40[0] = filesCopy;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
     [(WFRemoteFileListView *)self setFilesBySection:v25];
   }
 
@@ -383,8 +381,6 @@ LABEL_11:
   {
     [(WFRemoteFileListView *)self setFilesBySection:0];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (UIEdgeInsets)verticalScrollIndicatorInsets

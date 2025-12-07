@@ -69,7 +69,7 @@
           }
 
           v74 = objc_msgSend_topTranscription(v45, v69, v70, v71, v72, v73);
-          v79 = objc_msgSend_componentsSeparatedByString_(v74, v75, @"\\\\"", v76, v77, v78);
+          v79 = objc_msgSend_componentsSeparatedByString_(v74, v75, @"\\\", v76, v77, v78);
           v85 = objc_msgSend_count(v79, v80, v81, v82, v83, v84);
 
           v91 = objc_msgSend_topTranscription(v45, v86, v87, v88, v89, v90);
@@ -271,7 +271,7 @@
               v144 = objc_msgSend_objectAtIndexedSubscript_(v134, v140, v139, v141, v142, v143);
               v149 = objc_msgSend_objectAtIndexedSubscript_(v144, v145, 0, v146, v147, v148);
               v155 = objc_msgSend_string(v149, v150, v151, v152, v153, v154);
-              isEqualToString = objc_msgSend_isEqualToString_(v155, v156, @"\\\\"", v157, v158, v159);
+              isEqualToString = objc_msgSend_isEqualToString_(v155, v156, @"\\\", v157, v158, v159);
 
               if (isEqualToString)
               {

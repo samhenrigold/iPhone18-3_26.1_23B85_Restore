@@ -25,7 +25,11 @@
 - (void)tableView:(id)view accessoryButtonTappedForRowWithIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)toggleDev;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation FBADevicePairingViewController
@@ -58,6 +62,63 @@
 
   tableView4 = [(FBADevicePairingViewController *)self tableView];
   [tableView4 setSectionHeaderHeight:UITableViewAutomaticDimension];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = FBADevicePairingViewController;
+  [(FBADevicePairingViewController *)&v8 viewWillAppear:appear];
+  [(FBADevicePairingViewController *)self setupBarButtonItems];
+  v4 = +[NSBundle mainBundle];
+  v5 = [v4 localizedStringForKey:@"PAIRING_VIEW_TITLE" value:&stru_1000E2210 table:0];
+  navigationItem = [(FBADevicePairingViewController *)self navigationItem];
+  [navigationItem setTitle:v5];
+
+  v7 = +[NSNotificationCenter defaultCenter];
+  [v7 addObserver:self selector:"reload" name:FBKDeviceListDidChangeNotification object:0];
+
+  [(FBADevicePairingViewController *)self _showInternalUIIfNeeded];
+  [(FBADevicePairingViewController *)self reload];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = FBADevicePairingViewController;
+  [(FBADevicePairingViewController *)&v5 viewDidAppear:appear];
+  if ([(FBADevicePairingViewController *)self pinPairingInProgress])
+  {
+    [(FBADevicePairingViewController *)self setPinPairingInProgress:0];
+    [(FBADevicePairingViewController *)self reload];
+  }
+
+  else
+  {
+    v4 = +[FBKDeviceManager sharedInstance];
+    [v4 beginScanning];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = FBADevicePairingViewController;
+  [(FBADevicePairingViewController *)&v5 viewWillDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = FBADevicePairingViewController;
+  [(FBADevicePairingViewController *)&v5 viewDidDisappear:disappear];
+  if (![(FBADevicePairingViewController *)self pinPairingInProgress])
+  {
+    v4 = +[FBKDeviceManager sharedInstance];
+    [v4 stopScanning];
+  }
 }
 
 - (void)didReceiveMemoryWarning

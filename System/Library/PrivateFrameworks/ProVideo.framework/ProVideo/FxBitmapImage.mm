@@ -41,7 +41,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7, v10.receiver);
+  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7);
   priv = self->_priv;
   if (priv)
   {
@@ -114,7 +114,7 @@
   if (!priv->var5)
   {
     var3 = priv->var3;
-    if (FxDebugAssert(var3 == 0, &cfstr_32BitFloatRgba.isa, v2, v3, v4, v5, v6, v7, v15))
+    if (FxDebugAssert(var3 == 0, &cfstr_32BitFloatRgba.isa, v2, v3, v4, v5, v6, v7))
     {
       v11 = var3 == 0;
       if (var3)
@@ -151,7 +151,7 @@
   if (!priv->var6)
   {
     var3 = priv->var3;
-    v11 = FxDebugAssert(var3 == 0, &cfstr_32BitFloatRgba.isa, v2, v3, v4, v5, v6, v7, decode);
+    v11 = FxDebugAssert(var3 == 0, &cfstr_32BitFloatRgba.isa, v2, v3, v4, v5, v6, v7);
     priv = self->_priv;
     if (v11)
     {

@@ -34,10 +34,10 @@
   v4 = v7.receiver;
   [(WorkoutPlanReviewViewController *)&v7 viewDidAppear:appearCopy];
   type metadata accessor for WorkoutPlanReviewPageDataProvider(0);
-  sub_20B79AE9C(&qword_27C7651A8, 255, type metadata accessor for WorkoutPlanReviewPageDataProvider);
+  sub_20B79AE9C(&qword_27C7651A8, 255, type metadata accessor for WorkoutPlanReviewPageDataProvider, &unk_20C17B518);
   sub_20C138C54();
-  sub_20B79AE9C(&qword_27C7651B0, v5, type metadata accessor for WorkoutPlanReviewViewController);
-  sub_20B79AE9C(&qword_27C7651B8, v6, type metadata accessor for WorkoutPlanReviewViewController);
+  sub_20B79AE9C(&qword_27C7651B0, v5, type metadata accessor for WorkoutPlanReviewViewController, &protocol conformance descriptor for WorkoutPlanReviewViewController);
+  sub_20B79AE9C(&qword_27C7651B8, v6, type metadata accessor for WorkoutPlanReviewViewController, &protocol conformance descriptor for WorkoutPlanReviewViewController);
   sub_20C139364();
 }
 
@@ -54,8 +54,8 @@
   v7.super_class = swift_getObjectType();
   v4 = v7.receiver;
   [(WorkoutPlanReviewViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20B79AE9C(&qword_27C7651B0, v5, type metadata accessor for WorkoutPlanReviewViewController);
-  sub_20B79AE9C(&qword_27C7651B8, v6, type metadata accessor for WorkoutPlanReviewViewController);
+  sub_20B79AE9C(&qword_27C7651B0, v5, type metadata accessor for WorkoutPlanReviewViewController, &protocol conformance descriptor for WorkoutPlanReviewViewController);
+  sub_20B79AE9C(&qword_27C7651B8, v6, type metadata accessor for WorkoutPlanReviewViewController, &protocol conformance descriptor for WorkoutPlanReviewViewController);
   sub_20C139374();
 }
 

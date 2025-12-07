@@ -9,13 +9,12 @@
 
 - (id)itemsFor:(int64_t)for
 {
-  v3 = *self->modulesMetadata;
 
-  sub_1D8F61420(v4);
+  sub_1D8F61420(v3);
 
-  v5 = sub_1D91785DC();
+  v4 = sub_1D91785DC();
 
-  return v5;
+  return v4;
 }
 
 - (id)itemInSection:(int64_t)section row:(int64_t)row

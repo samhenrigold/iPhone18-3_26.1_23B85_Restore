@@ -54,153 +54,153 @@
   self->_filterMatches = objc_alloc_init(NSMutableArray);
   if (-[NSArray count](self->_sidecarDeletes, "count") && [v6 count])
   {
-    v32 = v4;
-    v30 = a2;
-    v31 = v6;
+    v33 = v4;
+    v31 = a2;
+    v32 = v6;
     v7 = [v6 arrayOfDictionariesSortedByKey:@"Path"];
     v8 = [(NSArray *)self->_sidecarDeletes sortedArrayUsingSelector:"compare:"];
     v9 = [(NSArray *)v8 count];
     v10 = [(NSArray *)v8 objectAtIndex:0];
     obj = v7;
-    v36 = +[NSMutableArray array];
-    v37 = 0u;
+    v37 = +[NSMutableArray array];
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v11 = [v7 countByEnumeratingWithState:&v37 objects:v49 count:16];
+    v41 = 0u;
+    v11 = [v7 countByEnumeratingWithState:&v38 objects:v50 count:16];
     if (v11)
     {
-      v12 = v11;
-      v34 = 0;
-      v13 = 0;
-      v14 = *v38;
+      v13 = v11;
+      v35 = 0;
+      v14 = 0;
+      v15 = *v39;
       do
       {
-        v15 = 0;
+        v16 = 0;
         do
         {
-          if (*v38 != v14)
+          if (*v39 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v37 + 1) + 8 * v15);
-          v17 = objc_opt_class();
-          v18 = BCDynamicCast(v17, v16);
-          v19 = objc_opt_class();
-          v20 = BCDynamicCast(v19, [v18 objectForKey:@"Path"]);
-          if ([v20 length])
+          v17 = *(*(&v38 + 1) + 8 * v16);
+          v18 = objc_opt_class();
+          v19 = BCDynamicCast(v18, v17);
+          v20 = objc_opt_class();
+          v21 = BCDynamicCast(v20, [v19 objectForKey:@"Path"]);
+          if ([v21 length])
           {
-            v21 = v10 == 0;
+            v22 = v10 == 0;
           }
 
           else
           {
-            v21 = 1;
+            v22 = 1;
           }
 
-          if (v21)
+          if (v22)
           {
 LABEL_20:
-            [v36 addObject:v18];
+            [v37 addObject:v19];
           }
 
           else
           {
             while (1)
             {
-              v22 = [v10 compare:v20];
-              if (v22 != -1)
+              v23 = [v10 compare:v21];
+              if (v23 != -1)
               {
                 break;
               }
 
-              if (++v13 >= v9)
+              if (++v14 >= v9)
               {
                 v10 = 0;
                 goto LABEL_20;
               }
 
-              v10 = [(NSArray *)v8 objectAtIndex:v13];
+              v10 = [(NSArray *)v8 objectAtIndex:v14];
             }
 
-            if (v22 == &dword_0 + 1)
+            if (v23 == &dword_0 + 1)
             {
               goto LABEL_20;
             }
 
-            if (!v22)
+            if (!v23)
             {
-              [(NSMutableArray *)selfCopy->_filterMatches addObject:v20];
-              ++v34;
-              if (++v13 >= v9)
+              [(NSMutableArray *)selfCopy->_filterMatches addObject:v21];
+              ++v35;
+              if (++v14 >= v9)
               {
                 v10 = 0;
               }
 
               else
               {
-                v10 = [(NSArray *)v8 objectAtIndex:v13];
+                v10 = [(NSArray *)v8 objectAtIndex:v14];
               }
             }
           }
 
-          v15 = v15 + 1;
+          v16 = v16 + 1;
         }
 
-        while (v15 != v12);
-        v23 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
-        v12 = v23;
+        while (v16 != v13);
+        v24 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
+        v13 = v24;
       }
 
-      while (v23);
+      while (v24);
     }
 
     else
     {
-      v34 = 0;
+      v35 = 0;
     }
 
-    v24 = BCDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = BCDefaultLog(0, v12);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [v31 count];
-      v26 = [(NSArray *)selfCopy->_sidecarDeletes count];
-      v27 = [v36 count];
+      v26 = [v32 count];
+      v27 = [(NSArray *)selfCopy->_sidecarDeletes count];
+      v28 = [v37 count];
       *buf = 134218752;
-      v42 = v25;
-      v43 = 2048;
-      v44 = v26;
-      v45 = 2048;
-      v46 = v27;
-      v47 = 2048;
-      v48 = v34;
-      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Unfiltered: %lu; Filter: %lu; Filtered: %lu; Filter Hit: %lu", buf, 0x2Au);
+      v43 = v26;
+      v44 = 2048;
+      v45 = v27;
+      v46 = 2048;
+      v47 = v28;
+      v48 = 2048;
+      v49 = v35;
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Unfiltered: %lu; Filter: %lu; Filtered: %lu; Filter Hit: %lu", buf, 0x2Au);
     }
 
-    v28 = [v36 count] + v34;
-    if (v28 == [v31 count])
+    v29 = [v37 count] + v35;
+    if (v29 == [v32 count])
     {
-      if (v34)
+      if (v35)
       {
 LABEL_32:
-        v4 = v32;
-        [(NSMutableDictionary *)v32 setObject:v36 forKey:@"Books"];
+        v4 = v33;
+        [(NSMutableDictionary *)v33 setObject:v37 forKey:@"Books"];
         return v4;
       }
     }
 
     else
     {
-      -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](+[NSAssertionHandler currentHandler](NSAssertionHandler, "currentHandler"), "handleFailureInMethod:object:file:lineNumber:description:", v30, selfCopy, @"BCIngestSidecarPlistProducer.m", 143, @"Unexpected Counts: Unfiltered: %lu; Filter: %lu; Filtered: %lu; Filter Hit: %lu", [v31 count], -[NSArray count](selfCopy->_sidecarDeletes, "count"), objc_msgSend(v36, "count"), v34);
-      if (v34)
+      -[NSAssertionHandler handleFailureInMethod:object:file:lineNumber:description:](+[NSAssertionHandler currentHandler](NSAssertionHandler, "currentHandler"), "handleFailureInMethod:object:file:lineNumber:description:", v31, selfCopy, @"BCIngestSidecarPlistProducer.m", 143, @"Unexpected Counts: Unfiltered: %lu; Filter: %lu; Filtered: %lu; Filter Hit: %lu", [v32 count], -[NSArray count](selfCopy->_sidecarDeletes, "count"), objc_msgSend(v37, "count"), v35);
+      if (v35)
       {
         goto LABEL_32;
       }
     }
 
     selfCopy->super._dataUnchanged = 1;
-    return v32;
+    return v33;
   }
 
   self->super._dataUnchanged = 1;

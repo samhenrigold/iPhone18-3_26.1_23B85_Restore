@@ -61,7 +61,7 @@ void __51__ML3QueryResultSet_updateToLibraryCurrentRevision__block_invoke_3(uint
   dispatch_async(*(*(a1 + 32) + 56), v8);
 }
 
-uint64_t __51__ML3QueryResultSet_updateToLibraryCurrentRevision__block_invoke_4(uint64_t a1)
+void *__51__ML3QueryResultSet_updateToLibraryCurrentRevision__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) _updateToLibraryCurrentRevision];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -301,7 +301,7 @@ void *__62__ML3QueryResultSet_BackingStore_enumerateSectionsUsingBlock___block_i
   return v4;
 }
 
-uint64_t __41__ML3QueryResultSet_persistentIDAtIndex___block_invoke(void *a1)
+void *__41__ML3QueryResultSet_persistentIDAtIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) persistentIDAtIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -375,33 +375,32 @@ uint64_t __52__ML3QueryResultSet__updateToLibraryCurrentRevision__block_invoke(u
   return 1;
 }
 
-void *__52__ML3QueryResultSet__updateToLibraryCurrentRevision__block_invoke_2(uint64_t a1, unint64_t *a2, uint64_t a3)
+void __52__ML3QueryResultSet__updateToLibraryCurrentRevision__block_invoke_2(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v6 = *(a1 + 64);
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  v10 = [*(*(a1 + 56) + 16) options];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __52__ML3QueryResultSet__updateToLibraryCurrentRevision__block_invoke_3;
-  v14[3] = &__block_descriptor_40_e12_v24__0q8_B16l;
-  v14[4] = *(a1 + 72);
-  result = [v6 enumeratePersistentIDsInLibrary:v7 matchingPredicate:v8 orderingTerms:v9 persistentIDs:a2 count:a3 options:v10 usingBlock:v14];
+  v6 = a1[8];
+  v7 = a1[4];
+  v8 = a1[5];
+  v9 = a1[6];
+  v10 = [*(a1[7] + 16) options];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __52__ML3QueryResultSet__updateToLibraryCurrentRevision__block_invoke_3;
+  v13[3] = &__block_descriptor_40_e12_v24__0q8_B16l;
+  v13[4] = a1[9];
+  [v6 enumeratePersistentIDsInLibrary:v7 matchingPredicate:v8 orderingTerms:v9 persistentIDs:a2 count:a3 options:v10 usingBlock:v13];
   if (a3)
   {
-    v12 = a2;
+    v11 = a2;
     do
     {
-      v13 = *v12++;
-      result = std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(*(a1 + 80), v13);
+      v12 = *v11++;
+      std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(a1[10], v12, a2);
+      a2 = v11;
       --a3;
     }
 
     while (a3);
   }
-
-  return result;
 }
 
 - (void)_onQueueInvokeAndClearUpdateFinishedBlocksWithDidUpdateResult:(BOOL)result

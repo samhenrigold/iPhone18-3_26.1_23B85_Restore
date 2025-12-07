@@ -3,7 +3,7 @@
 
 @implementation AXSNocturneAccessibilityModeEnabled
 
-uint64_t ___AXSNocturneAccessibilityModeEnabled_block_invoke()
+void *___AXSNocturneAccessibilityModeEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

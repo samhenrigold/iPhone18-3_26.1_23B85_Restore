@@ -14,7 +14,6 @@
 - (id)newTextureViewWithPixelFormat:(unint64_t)format resourceIndex:(unint64_t)index;
 - (id)newTextureViewWithPixelFormat:(unint64_t)format textureType:(unint64_t)type levels:(_NSRange)levels slices:(_NSRange)slices resourceIndex:(unint64_t)index;
 - (id)newTextureViewWithPixelFormat:(unint64_t)format textureType:(unint64_t)type levels:(_NSRange)levels slices:(_NSRange)slices swizzle:(id)swizzle resourceIndex:(unint64_t)index;
-- (uint64_t)dealloc;
 - (unint64_t)setPurgeableState:(unint64_t)state;
 - (void)addUsedRenderTarget:(unint64_t)target slices:(_NSRange)slices;
 - (void)dealloc;
@@ -294,8 +293,7 @@
   *v18 = *&region->var0.var0;
   *&v18[16] = region->var0.var2;
   var1 = region->var1;
-  _validateReplaceRegion(self, v18, &var1, slice, level, bytes, row, 1, image, v17);
-  [(MTLToolsResource *)self validateCPUWriteable];
+  [(MTLToolsResource *)self validateCPUWriteable:_validateReplaceRegion(self];
   baseObject = [(MTLToolsObject *)self baseObject];
   v16 = *&region->var0.var2;
   *v18 = *&region->var0.var0;
@@ -309,8 +307,7 @@
   *v14 = *&region->var0.var0;
   *&v14[16] = region->var0.var2;
   var1 = region->var1;
-  _validateReplaceRegion(self, v14, &var1, 0, level, bytes, row, 0, 0, v13);
-  [(MTLToolsResource *)self validateCPUWriteable];
+  [(MTLToolsResource *)self validateCPUWriteable:_validateReplaceRegion(self];
   baseObject = [(MTLToolsObject *)self baseObject];
   v12 = *&region->var0.var2;
   *v14 = *&region->var0.var0;
@@ -324,8 +321,7 @@
   *v18 = *&region->var0.var0;
   *&v18[16] = region->var0.var2;
   var1 = region->var1;
-  _validateGetBytes(self, v18, &var1, slice, level, bytes, row, 1, image, v17);
-  [(MTLToolsResource *)self validateCPUReadable];
+  [(MTLToolsResource *)self validateCPUReadable:_validateGetBytes(self];
   baseObject = [(MTLToolsObject *)self baseObject];
   v16 = *&region->var0.var2;
   *v18 = *&region->var0.var0;
@@ -339,8 +335,7 @@
   *v14 = *&region->var0.var0;
   *&v14[16] = region->var0.var2;
   var1 = region->var1;
-  _validateGetBytes(self, v14, &var1, 0, level, bytes, row, 0, 0, v13);
-  [(MTLToolsResource *)self validateCPUReadable];
+  [(MTLToolsResource *)self validateCPUReadable:_validateGetBytes(self];
   baseObject = [(MTLToolsObject *)self baseObject];
   v12 = *&region->var0.var2;
   *v14 = *&region->var0.var0;
@@ -351,16 +346,15 @@
 
 - (id)newTextureViewWithPixelFormat:(unint64_t)format resourceIndex:(unint64_t)index
 {
-  _validateTextureView(self, format, [(MTLToolsTexture *)self textureType]);
-  baseObject = [(MTLToolsObject *)self baseObject];
+  v7 = [(MTLToolsObject *)self baseObject:_validateTextureView(self];
   if (index)
   {
-    v8 = [baseObject newTextureViewWithPixelFormat:format resourceIndex:index];
+    v8 = [v7 newTextureViewWithPixelFormat:format resourceIndex:index];
   }
 
   else
   {
-    v8 = [baseObject newTextureViewWithPixelFormat:format];
+    v8 = [v7 newTextureViewWithPixelFormat:format];
   }
 
   v9 = v8;
@@ -380,16 +374,15 @@
   location = slices.location;
   v9 = levels.length;
   v10 = levels.location;
-  _validateTextureView(self, format, type);
-  baseObject = [(MTLToolsObject *)self baseObject];
+  v14 = [(MTLToolsObject *)self baseObject:_validateTextureView(self];
   if (index)
   {
-    index = [baseObject newTextureViewWithPixelFormat:format textureType:type levels:v10 slices:v9 resourceIndex:location, length, index];
+    index = [v14 newTextureViewWithPixelFormat:format textureType:type levels:v10 slices:v9 resourceIndex:location, length, index];
   }
 
   else
   {
-    index = [baseObject newTextureViewWithPixelFormat:format textureType:type levels:v10 slices:v9, location, length];
+    index = [v14 newTextureViewWithPixelFormat:format textureType:type levels:v10 slices:v9, location, length];
   }
 
   v16 = index;
@@ -409,16 +402,15 @@
   location = slices.location;
   v10 = levels.length;
   v11 = levels.location;
-  _validateTextureView(self, format, type);
-  baseObject = [(MTLToolsObject *)self baseObject];
+  v15 = [(MTLToolsObject *)self baseObject:_validateTextureView(self];
   if (index)
   {
-    index = [baseObject newTextureViewWithPixelFormat:format textureType:type levels:v11 slices:v10 swizzle:location resourceIndex:length, *&swizzle, index];
+    index = [v15 newTextureViewWithPixelFormat:format textureType:type levels:v11 slices:v10 swizzle:location resourceIndex:length, *&swizzle, index];
   }
 
   else
   {
-    index = [baseObject newTextureViewWithPixelFormat:format textureType:type levels:v11 slices:v10 swizzle:location, length, *&swizzle];
+    index = [v15 newTextureViewWithPixelFormat:format textureType:type levels:v11 slices:v10 swizzle:location, length, *&swizzle];
   }
 
   v17 = index;
@@ -434,8 +426,7 @@
 
 - (id)newCompressedTextureViewWithPixelFormat:(unint64_t)format textureType:(unint64_t)type level:(unint64_t)level slice:(unint64_t)slice
 {
-  _validateTextureView(self, format, type);
-  result = [-[MTLToolsObject baseObject](self "baseObject")];
+  result = [-[MTLToolsObject baseObject](self baseObject];
   if (result)
   {
     v12 = result;
@@ -540,11 +531,11 @@
     v9 = selfCopy;
   }
 
-  v11[0] = target;
-  v11[1] = location;
-  v11[2] = length;
+  v12[0] = target;
+  v12[1] = location;
+  v12[2] = length;
   std::mutex::lock((v9 + 152));
-  v10 = std::__hash_table<std::__hash_value_type<SubView,unsigned long>,std::__unordered_map_hasher<SubView,std::__hash_value_type<SubView,unsigned long>,SubView::hash_t,SubView::equal_t,true>,std::__unordered_map_equal<SubView,std::__hash_value_type<SubView,unsigned long>,SubView::equal_t,SubView::hash_t,true>,std::allocator<std::__hash_value_type<SubView,unsigned long>>>::find<SubView>(v9 + 27, v11);
+  v10 = std::__hash_table<std::__hash_value_type<SubView,unsigned long>,std::__unordered_map_hasher<SubView,std::__hash_value_type<SubView,unsigned long>,SubView::hash_t,SubView::equal_t,true>,std::__unordered_map_equal<SubView,std::__hash_value_type<SubView,unsigned long>,SubView::equal_t,SubView::hash_t,true>,std::allocator<std::__hash_value_type<SubView,unsigned long>>>::find<SubView>(v9 + 27, v12);
   if (v10)
   {
     ++v10[5];
@@ -552,7 +543,8 @@
 
   else
   {
-    std::__hash_table<std::__hash_value_type<SubView,unsigned long>,std::__unordered_map_hasher<SubView,std::__hash_value_type<SubView,unsigned long>,SubView::hash_t,SubView::equal_t,true>,std::__unordered_map_equal<SubView,std::__hash_value_type<SubView,unsigned long>,SubView::equal_t,SubView::hash_t,true>,std::allocator<std::__hash_value_type<SubView,unsigned long>>>::__emplace_unique_key_args<SubView,SubView const&,int>(v9 + 27, v11);
+    v11 = 1;
+    std::__hash_table<std::__hash_value_type<SubView,unsigned long>,std::__unordered_map_hasher<SubView,std::__hash_value_type<SubView,unsigned long>,SubView::hash_t,SubView::equal_t,true>,std::__unordered_map_equal<SubView,std::__hash_value_type<SubView,unsigned long>,SubView::equal_t,SubView::hash_t,true>,std::allocator<std::__hash_value_type<SubView,unsigned long>>>::__emplace_unique_key_args<SubView,SubView const&,int>(v9 + 27, v12, v12, &v11);
   }
 
   std::mutex::unlock((v9 + 152));
@@ -612,13 +604,6 @@
   *(self + 232) = 0u;
   *(self + 62) = 1065353216;
   return self;
-}
-
-- (uint64_t)dealloc
-{
-  [self usage];
-  v4 = *a2;
-  return MTLReportFailure();
 }
 
 @end

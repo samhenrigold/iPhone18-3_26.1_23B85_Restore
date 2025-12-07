@@ -12,7 +12,7 @@
 
 - (CTStewieIMessageLiteMessageIncoming)initWithTimestamp:(id)timestamp pendingTotalCount:(int64_t)count pendingCount:(int64_t)pendingCount myShortHandle:(id)handle otherShortHandle:(id)shortHandle partNumber:(int64_t)number totalParts:(int64_t)parts payload:(id)self0 isRelay:(BOOL)self1 error:(id *)self2
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   handleCopy = handle;
   shortHandleCopy = shortHandle;
@@ -21,9 +21,9 @@
     if (error)
     {
       v24 = MEMORY[0x1E696ABC0];
-      v49 = *MEMORY[0x1E696A578];
-      v50[0] = @"Invalid myShortHandle";
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:{1, timestampCopy}];
+      v48 = *MEMORY[0x1E696A578];
+      v49[0] = @"Invalid myShortHandle";
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:{1, timestampCopy}];
       [v24 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v25];
       *error = selfCopy = self;
 
@@ -40,9 +40,9 @@ LABEL_19:
     if (error)
     {
       v26 = MEMORY[0x1E696ABC0];
-      v47 = *MEMORY[0x1E696A578];
-      v48 = @"Invalid otherShortHandle";
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:{1, timestampCopy}];
+      v46 = *MEMORY[0x1E696A578];
+      v47 = @"Invalid otherShortHandle";
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:{1, timestampCopy}];
       [v26 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v27];
       *error = selfCopy = self;
 
@@ -57,9 +57,9 @@ LABEL_19:
     if (error)
     {
       v28 = MEMORY[0x1E696ABC0];
-      v45 = *MEMORY[0x1E696A578];
-      v46 = @"Invalid partNumber";
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:{1, timestampCopy}];
+      v44 = *MEMORY[0x1E696A578];
+      v45 = @"Invalid partNumber";
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:{1, timestampCopy}];
       [v28 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v29];
       *error = selfCopy = self;
 
@@ -74,9 +74,9 @@ LABEL_19:
     if (error)
     {
       v30 = MEMORY[0x1E696ABC0];
-      v43 = *MEMORY[0x1E696A578];
-      v44 = @"Invalid totalParts";
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:{1, timestampCopy}];
+      v42 = *MEMORY[0x1E696A578];
+      v43 = @"Invalid totalParts";
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:{1, timestampCopy}];
       [v30 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v31];
       *error = selfCopy = self;
 
@@ -91,9 +91,9 @@ LABEL_19:
     if (error)
     {
       v32 = MEMORY[0x1E696ABC0];
-      v41 = *MEMORY[0x1E696A578];
-      v42 = @"Payload is missing";
-      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:{1, timestampCopy}];
+      v40 = *MEMORY[0x1E696A578];
+      v41 = @"Payload is missing";
+      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:{1, timestampCopy}];
       [v32 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v33];
       *error = selfCopy = self;
 
@@ -103,9 +103,9 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v40.receiver = self;
-  v40.super_class = CTStewieIMessageLiteMessageIncoming;
-  v21 = [(CTStewieIMessageLiteMessageIncoming *)&v40 init:timestampCopy];
+  v39.receiver = self;
+  v39.super_class = CTStewieIMessageLiteMessageIncoming;
+  v21 = [(CTStewieIMessageLiteMessageIncoming *)&v39 init:timestampCopy];
   selfCopy = v21;
   if (!v21)
   {
@@ -127,7 +127,6 @@ LABEL_18:
   v23 = selfCopy;
 LABEL_20:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

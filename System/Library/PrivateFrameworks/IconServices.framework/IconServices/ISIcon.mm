@@ -111,7 +111,7 @@ uint64_t __24__ISIcon_allocWithZone___block_invoke(uint64_t a1)
 
   else
   {
-    v8 = _ISDefaultLog();
+    v8 = _ISDefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ISIcon CGImageForImageDescriptor:];
@@ -150,7 +150,7 @@ uint64_t __24__ISIcon_allocWithZone___block_invoke(uint64_t a1)
 
   else
   {
-    v8 = _ISDefaultLog();
+    v8 = _ISDefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ISIcon CGImageForImageDescriptor:];
@@ -200,89 +200,89 @@ uint64_t __50__ISIcon_getCGImageForImageDescriptor_completion___block_invoke(uin
 
 - (id)_beginPrepareISIconSignpost:(id)signpost funcName:(const char *)name
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   signpostCopy = signpost;
   array = [MEMORY[0x1E695DF70] array];
-  if ([signpostCopy count])
+  v7 = [signpostCopy count];
+  if (v7)
   {
-    v7 = _ISPrepareISIconSignpostLog();
-    v8 = os_signpost_enabled(v7);
+    v8 = _ISPrepareISIconSignpostLog(v7);
+    v9 = os_signpost_enabled(v8);
 
-    if (v8)
+    if (v9)
     {
-      v9 = [MEMORY[0x1E695DFA8] set];
-      v44 = 0u;
+      v10 = [MEMORY[0x1E695DFA8] set];
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v37 = signpostCopy;
-      v10 = signpostCopy;
-      v43 = [v10 countByEnumeratingWithState:&v44 objects:v72 count:16];
-      if (v43)
+      v48 = 0u;
+      v38 = signpostCopy;
+      v11 = signpostCopy;
+      v44 = [v11 countByEnumeratingWithState:&v45 objects:v73 count:16];
+      if (v44)
       {
-        v11 = *v45;
-        v38 = array;
-        v42 = *v45;
+        v12 = *v46;
+        v39 = array;
+        v43 = *v46;
         do
         {
-          for (i = 0; i != v43; ++i)
+          for (i = 0; i != v44; ++i)
           {
-            if (*v45 != v11)
+            if (*v46 != v12)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(v11);
             }
 
-            v13 = *(*(&v44 + 1) + 8 * i);
-            digest = [v13 digest];
-            if (([v9 containsObject:digest] & 1) == 0)
+            v14 = *(*(&v45 + 1) + 8 * i);
+            digest = [v14 digest];
+            if (([v10 containsObject:digest] & 1) == 0)
             {
-              [v9 addObject:digest];
-              v15 = _ISPrepareISIconSignpostLog();
-              v16 = os_signpost_id_generate(v15);
+              v16 = _ISPrepareISIconSignpostLog([v10 addObject:digest]);
+              v17 = os_signpost_id_generate(v16);
 
-              if (v16)
+              if (v17)
               {
-                v17 = _ISPrepareISIconSignpostLog();
-                v18 = v17;
-                if (v16 != -1 && os_signpost_enabled(v17))
+                v19 = _ISPrepareISIconSignpostLog(v18);
+                v20 = v19;
+                if (v17 != -1 && os_signpost_enabled(v19))
                 {
-                  [v13 size];
-                  v20 = v19;
-                  [v13 size];
+                  [v14 size];
                   v22 = v21;
-                  [v13 scale];
+                  [v14 size];
                   v24 = v23;
-                  variantOptions = [v13 variantOptions];
-                  appearance = [v13 appearance];
-                  appearanceVariant = [v13 appearanceVariant];
-                  platformStyle = [v13 platformStyle];
-                  v27 = [v10 count];
+                  [v14 scale];
+                  v26 = v25;
+                  variantOptions = [v14 variantOptions];
+                  appearance = [v14 appearance];
+                  appearanceVariant = [v14 appearanceVariant];
+                  platformStyle = [v14 platformStyle];
+                  v29 = [v11 count];
                   *buf = 138415106;
                   selfCopy = self;
-                  v50 = 2048;
-                  v51 = v13;
-                  v52 = 2048;
-                  v53 = v20;
-                  v54 = 2048;
-                  v55 = v22;
-                  v56 = 2048;
-                  v57 = v24;
-                  v58 = 2048;
-                  v59 = variantOptions;
-                  v60 = 2048;
-                  v61 = appearance;
-                  v62 = 2048;
-                  v63 = appearanceVariant;
-                  v64 = 2048;
-                  v65 = platformStyle;
-                  v66 = 2080;
-                  array = v38;
+                  v51 = 2048;
+                  v52 = v14;
+                  v53 = 2048;
+                  v54 = v22;
+                  v55 = 2048;
+                  v56 = v24;
+                  v57 = 2048;
+                  v58 = v26;
+                  v59 = 2048;
+                  v60 = variantOptions;
+                  v61 = 2048;
+                  v62 = appearance;
+                  v63 = 2048;
+                  v64 = appearanceVariant;
+                  v65 = 2048;
+                  v66 = platformStyle;
+                  v67 = 2080;
+                  array = v39;
                   nameCopy = name;
-                  v68 = 2112;
-                  v69 = digest;
-                  v70 = 2048;
-                  v71 = v27;
-                  _os_signpost_emit_with_name_impl(&dword_1A77B8000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "PrepareISIcon", "ISIcon: %@, descriptor: <ISImageDescriptor: %p> s (%0.2f, %0.2f)@%.0fx v:%lx a:%ld:%ld ps:%ld , func: %s, Digest=%{signpost.telemetry:string1}@, NumDescriptors=%{signpost.telemetry:number1}lu enableTelemetry=YES ", buf, 0x7Au);
+                  v69 = 2112;
+                  v70 = digest;
+                  v71 = 2048;
+                  v72 = v29;
+                  _os_signpost_emit_with_name_impl(&dword_1A77B8000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "PrepareISIcon", "ISIcon: %@, descriptor: <ISImageDescriptor: %p> s (%0.2f, %0.2f)@%.0fx v:%lx a:%ld:%ld ps:%ld , func: %s, Digest=%{signpost.telemetry:string1}@, NumDescriptors=%{signpost.telemetry:number1}lu enableTelemetry=YES ", buf, 0x7Au);
                 }
 
                 os_unfair_lock_lock(&self->_lock);
@@ -295,89 +295,89 @@ uint64_t __50__ISIcon_getCGImageForImageDescriptor_completion___block_invoke(uin
                 }
 
                 prepareISIconDigestToSignpostIDs2 = [(ISIcon *)self prepareISIconDigestToSignpostIDs];
-                v31 = [prepareISIconDigestToSignpostIDs2 objectForKeyedSubscript:digest];
+                v33 = [prepareISIconDigestToSignpostIDs2 objectForKeyedSubscript:digest];
 
-                if (!v31)
+                if (!v33)
                 {
-                  v31 = [MEMORY[0x1E695DFA8] set];
+                  v33 = [MEMORY[0x1E695DFA8] set];
                   prepareISIconDigestToSignpostIDs3 = [(ISIcon *)self prepareISIconDigestToSignpostIDs];
-                  [prepareISIconDigestToSignpostIDs3 setObject:v31 forKeyedSubscript:digest];
+                  [prepareISIconDigestToSignpostIDs3 setObject:v33 forKeyedSubscript:digest];
                 }
 
-                v33 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v16];
-                [v31 addObject:v33];
+                v35 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v17];
+                [v33 addObject:v35];
 
-                v34 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v16];
-                [array addObject:v34];
+                v36 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v17];
+                [array addObject:v36];
 
                 os_unfair_lock_unlock(&self->_lock);
-                v11 = v42;
+                v12 = v43;
               }
             }
           }
 
-          v43 = [v10 countByEnumeratingWithState:&v44 objects:v72 count:16];
+          v44 = [v11 countByEnumeratingWithState:&v45 objects:v73 count:16];
         }
 
-        while (v43);
+        while (v44);
       }
 
-      signpostCopy = v37;
+      signpostCopy = v38;
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (void)_endPrepareISIconSignpost:(id)signpost
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   signpostCopy = signpost;
-  if ([signpostCopy count])
+  v5 = [signpostCopy count];
+  if (v5)
   {
-    v5 = _ISPrepareISIconSignpostLog();
-    v6 = os_signpost_enabled(v5);
+    v6 = _ISPrepareISIconSignpostLog(v5);
+    v7 = os_signpost_enabled(v6);
 
-    if (v6)
+    if (v7)
     {
+      v40 = 0u;
+      v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v27 = signpostCopy;
+      v29 = signpostCopy;
       obj = signpostCopy;
-      v30 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-      if (v30)
+      v32 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      if (v32)
       {
-        v29 = *v37;
+        v31 = *v39;
         do
         {
-          for (i = 0; i != v30; ++i)
+          for (i = 0; i != v32; ++i)
           {
-            if (*v37 != v29)
+            if (*v39 != v31)
             {
               objc_enumerationMutation(obj);
             }
 
-            v8 = *(*(&v36 + 1) + 8 * i);
-            if ([v8 unsignedLongLongValue])
+            v9 = *(*(&v38 + 1) + 8 * i);
+            unsignedLongLongValue = [v9 unsignedLongLongValue];
+            if (unsignedLongLongValue)
             {
-              v9 = _ISPrepareISIconSignpostLog();
-              v10 = os_signpost_enabled(v9);
+              v11 = _ISPrepareISIconSignpostLog(unsignedLongLongValue);
+              v12 = os_signpost_enabled(v11);
 
-              if (v10)
+              if (v12)
               {
-                v11 = _ISPrepareISIconSignpostLog();
-                unsignedLongLongValue = [v8 unsignedLongLongValue];
-                if ((unsignedLongLongValue - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+                v14 = _ISPrepareISIconSignpostLog(v13);
+                unsignedLongLongValue2 = [v9 unsignedLongLongValue];
+                if ((unsignedLongLongValue2 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
                 {
-                  v13 = unsignedLongLongValue;
-                  if (os_signpost_enabled(v11))
+                  v16 = unsignedLongLongValue2;
+                  if (os_signpost_enabled(v14))
                   {
                     *buf = 0;
-                    _os_signpost_emit_with_name_impl(&dword_1A77B8000, v11, OS_SIGNPOST_INTERVAL_END, v13, "PrepareISIcon", "", buf, 2u);
+                    _os_signpost_emit_with_name_impl(&dword_1A77B8000, v14, OS_SIGNPOST_INTERVAL_END, v16, "PrepareISIcon", "", buf, 2u);
                   }
                 }
               }
@@ -386,86 +386,85 @@ uint64_t __50__ISIcon_getCGImageForImageDescriptor_completion___block_invoke(uin
             os_unfair_lock_lock(&self->_lock);
             prepareISIconDigestToSignpostIDs = [(ISIcon *)self prepareISIconDigestToSignpostIDs];
             allKeys = [prepareISIconDigestToSignpostIDs allKeys];
-            v16 = [allKeys copy];
+            v19 = [allKeys copy];
 
+            v35 = 0u;
+            v36 = 0u;
             v33 = 0u;
             v34 = 0u;
-            v31 = 0u;
-            v32 = 0u;
-            v17 = v16;
-            v18 = [v17 countByEnumeratingWithState:&v31 objects:v40 count:16];
-            if (v18)
+            v20 = v19;
+            v21 = [v20 countByEnumeratingWithState:&v33 objects:v42 count:16];
+            if (v21)
             {
-              v19 = v18;
-              v20 = *v32;
+              v22 = v21;
+              v23 = *v34;
               do
               {
-                for (j = 0; j != v19; ++j)
+                for (j = 0; j != v22; ++j)
                 {
-                  if (*v32 != v20)
+                  if (*v34 != v23)
                   {
-                    objc_enumerationMutation(v17);
+                    objc_enumerationMutation(v20);
                   }
 
-                  v22 = *(*(&v31 + 1) + 8 * j);
+                  v25 = *(*(&v33 + 1) + 8 * j);
                   prepareISIconDigestToSignpostIDs2 = [(ISIcon *)self prepareISIconDigestToSignpostIDs];
-                  v24 = [prepareISIconDigestToSignpostIDs2 objectForKeyedSubscript:v22];
+                  v27 = [prepareISIconDigestToSignpostIDs2 objectForKeyedSubscript:v25];
 
-                  [v24 removeObject:v8];
-                  if (![v24 count])
+                  [v27 removeObject:v9];
+                  if (![v27 count])
                   {
                     prepareISIconDigestToSignpostIDs3 = [(ISIcon *)self prepareISIconDigestToSignpostIDs];
-                    [prepareISIconDigestToSignpostIDs3 removeObjectForKey:v22];
+                    [prepareISIconDigestToSignpostIDs3 removeObjectForKey:v25];
                   }
                 }
 
-                v19 = [v17 countByEnumeratingWithState:&v31 objects:v40 count:16];
+                v22 = [v20 countByEnumeratingWithState:&v33 objects:v42 count:16];
               }
 
-              while (v19);
+              while (v22);
             }
 
             os_unfair_lock_unlock(&self->_lock);
           }
 
-          v30 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v32 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
         }
 
-        while (v30);
+        while (v32);
       }
 
-      signpostCopy = v27;
+      signpostCopy = v29;
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_activeSignpostsForDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  if (descriptorCopy && (_ISPrepareISIconSignpostLog(), v5 = objc_claimAutoreleasedReturnValue(), v6 = os_signpost_enabled(v5), v5, v6))
+  v5 = descriptorCopy;
+  if (descriptorCopy && (_ISPrepareISIconSignpostLog(descriptorCopy), v6 = objc_claimAutoreleasedReturnValue(), v7 = os_signpost_enabled(v6), v6, v7))
   {
     os_unfair_lock_lock(&self->_lock);
     prepareISIconDigestToSignpostIDs = [(ISIcon *)self prepareISIconDigestToSignpostIDs];
-    digest = [descriptorCopy digest];
-    v9 = [prepareISIconDigestToSignpostIDs objectForKey:digest];
-    v10 = [v9 copy];
+    digest = [v5 digest];
+    v10 = [prepareISIconDigestToSignpostIDs objectForKey:digest];
+    v11 = [v10 copy];
 
     os_unfair_lock_unlock(&self->_lock);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)_prepareImagesForImageDescriptors:(id)descriptors
 {
-  v4 = _ISDefaultLog();
+  v4 = _ISDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(ISIcon *)self _prepareImagesForImageDescriptors:v4];
@@ -474,37 +473,37 @@ uint64_t __50__ISIcon_getCGImageForImageDescriptor_completion___block_invoke(uin
 
 - (void)prepareImagesForImageDescriptors:(id)descriptors
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(descriptorsCopy, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = descriptorsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) copy];
+        v11 = [*(*(&v13 + 1) + 8 * v10) copy];
         [v5 addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -514,43 +513,41 @@ uint64_t __50__ISIcon_getCGImageForImageDescriptor_completion___block_invoke(uin
   v12 = [(ISIcon *)self _beginPrepareISIconSignpost:v5 funcName:"[ISIcon prepareImagesForImageDescriptors:]"];
   [(ISIcon *)self _prepareImagesForImageDescriptors:v5];
   [(ISIcon *)self _endPrepareISIconSignpost:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareImagesForDescriptors:(id)descriptors
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(descriptorsCopy, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = descriptorsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) copyWithZone:{0, v14}];
+        v11 = [*(*(&v13 + 1) + 8 * v10) copyWithZone:{0, v13}];
         [v5 addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -560,20 +557,18 @@ uint64_t __50__ISIcon_getCGImageForImageDescriptor_completion___block_invoke(uin
   v12 = [(ISIcon *)self _beginPrepareISIconSignpost:v5 funcName:"[ISIcon prepareImagesForDescriptors:]"];
   [(ISIcon *)self _prepareImagesForImageDescriptors:v5];
   [(ISIcon *)self _endPrepareISIconSignpost:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)prepareImageForDescriptor:(id)descriptor
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = [descriptorCopy copyWithZone:0];
-    v13[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     v7 = [(ISIcon *)self _beginPrepareISIconSignpost:v6 funcName:"[ISIcon prepareImageForDescriptor:]"];
     v8 = [(ISIcon *)self imageForDescriptor:v5];
     v9 = v8;
@@ -594,15 +589,13 @@ uint64_t __50__ISIcon_getCGImageForImageDescriptor_completion___block_invoke(uin
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)imageForImageDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  v5 = _ISDefaultLog();
+  v5 = _ISDefaultLog(descriptorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [ISIcon imageForImageDescriptor:v5];
@@ -640,16 +633,14 @@ LABEL_7:
 
 - (ISIconIdentity)_identity
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = [[ISImageDescriptor alloc] initWithSize:32.0 scale:32.0, 1.0];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   [(ISIcon *)self prepareImagesForImageDescriptors:v4];
 
   v5 = [(ISIcon *)self imageForImageDescriptor:v3];
   uuid = [v5 uuid];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return uuid;
 }
@@ -667,7 +658,7 @@ LABEL_7:
 - (id)_prepareImageForImageDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  v5 = _ISDefaultLog();
+  v5 = _ISDefaultLog(descriptorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [ISIcon(Workaround) _prepareImageForImageDescriptor:v5];
@@ -686,15 +677,13 @@ LABEL_7:
 
 - (id)imageForSize:(CGSize)size scale:(double)scale
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   scale = [[ISImageDescriptor alloc] initWithSize:size.width scale:size.height, scale];
-  v10[0] = scale;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = scale;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   [(ISIcon *)self prepareImagesForImageDescriptors:v6];
 
   v7 = [(ISIcon *)self imageForImageDescriptor:scale];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -704,7 +693,7 @@ LABEL_7:
   setCopy = set;
   if (set >= 5)
   {
-    v8 = _ISDefaultLog();
+    v8 = _ISDefaultLog(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [ISIcon(LIIconVariant) variantInfoForSet:setCopy count:v8];
@@ -728,55 +717,48 @@ LABEL_7:
 {
   height = size.height;
   width = size.width;
-  v29 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v10 = [ISIcon variantInfoForSet:set count:&v20];
-  v11 = v20;
-  if (v20)
+  v28 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v10 = [ISIcon variantInfoForSet:set count:&v19];
+  v11 = v19;
+  if (!v19)
   {
-    v12 = 0;
-    p_var2 = &v10->var2;
-    while (1)
-    {
-      if ((p_var2[1] & idiom) != 0 && *p_var2 == scale)
-      {
-        v12 = *(p_var2 - 6);
-        if (*(p_var2 - 1) >= height || *(p_var2 - 2) >= width)
-        {
-          break;
-        }
-      }
+    return 0;
+  }
 
-      p_var2 += 6;
-      if (!--v11)
+  v12 = 0;
+  for (i = &v10->var2; ; i += 6)
+  {
+    if ((i[1] & idiom) != 0 && *i == scale)
+    {
+      v12 = *(i - 6);
+      if (*(i - 1) >= height || *(i - 2) >= width)
       {
-        goto LABEL_16;
+        break;
       }
     }
 
-    v15 = _ISDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    if (!--v11)
     {
-      v19 = *(p_var2 + 2);
-      *buf = 136315906;
-      v22 = v19;
-      v23 = 2048;
-      v24 = width;
-      v25 = 2048;
-      v26 = height;
-      v27 = 2048;
-      scaleCopy = scale;
-      _os_log_debug_impl(&dword_1A77B8000, v15, OS_LOG_TYPE_DEBUG, "Picked %s for size: (%lf, %lf) scale: %lf", buf, 0x2Au);
+      return v12;
     }
   }
 
-  else
+  v15 = _ISDefaultLog(v10);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 0;
+    v18 = *(i + 2);
+    *buf = 136315906;
+    v21 = v18;
+    v22 = 2048;
+    v23 = width;
+    v24 = 2048;
+    v25 = height;
+    v26 = 2048;
+    scaleCopy = scale;
+    _os_log_debug_impl(&dword_1A77B8000, v15, OS_LOG_TYPE_DEBUG, "Picked %s for size: (%lf, %lf) scale: %lf", buf, 0x2Au);
   }
 
-LABEL_16:
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -854,22 +836,19 @@ LABEL_16:
 
 - (void)CGImageForImageDescriptor:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1A77B8000, v0, OS_LOG_TYPE_ERROR, "Failed to create icon image for %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A77B8000, v0, OS_LOG_TYPE_ERROR, "Failed to create icon image for %@", v1, 0xCu);
 }
 
 - (void)_prepareImagesForImageDescriptors:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   [v4 UTF8String];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Should not be here. -_prepareImagesForImageDescriptors: should be overridden by: %s", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Should not be here. -_prepareImagesForImageDescriptors: should be overridden by: %s", v5, 0xCu);
 }
 
 @end

@@ -102,33 +102,33 @@ LABEL_7:
 
 - (id)fetchAssetWithID:(id)d
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_wrappedLibrary librarySpecificFetchOptions];
-  [librarySpecificFetchOptions setIncludeGuestAssets:1];
-  PHAssetClass = getPHAssetClass();
-  v13[0] = dCopy;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-  v8 = [(objc_class *)PHAssetClass fetchAssetsWithUUIDs:v7 options:librarySpecificFetchOptions];
-  firstObject = [v8 firstObject];
+  v6 = [librarySpecificFetchOptions setIncludeGuestAssets:1];
+  PHAssetClass = getPHAssetClass(v6);
+  v14[0] = dCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v9 = [PHAssetClass fetchAssetsWithUUIDs:v8 options:librarySpecificFetchOptions];
+  firstObject = [v9 firstObject];
 
   if (firstObject)
   {
-    v10 = [[CNUIPHAsset alloc] initWithWrappedAsset:firstObject];
+    v11 = [[CNUIPHAsset alloc] initWithWrappedAsset:firstObject];
   }
 
   else
   {
-    v11 = +[CNUICoreLogProvider photos_os_log];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = +[CNUICoreLogProvider photos_os_log];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CNUIPHPhotoLibrary fetchAssetWithID:];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (id)fetchSuggestedAssetsOfType:(int64_t)type
@@ -151,18 +151,18 @@ LABEL_7:
 
   v9 = [(objc_class *)getPHSuggestionClass() fetchSuggestionsWithOptions:librarySpecificFetchOptions];
   librarySpecificFetchOptions2 = [(PHPhotoLibrary *)self->_wrappedLibrary librarySpecificFetchOptions];
-  [librarySpecificFetchOptions2 setFetchLimit:10];
-  v11 = [(objc_class *)getPHAssetClass() fetchKeyAssetForEachSuggestion:v9 options:librarySpecificFetchOptions2 useSuggestionsSortOrder:0];
+  v11 = [librarySpecificFetchOptions2 setFetchLimit:10];
+  v12 = [getPHAssetClass(v11) fetchKeyAssetForEachSuggestion:v9 options:librarySpecificFetchOptions2 useSuggestionsSortOrder:0];
   array = [MEMORY[0x1E695DF70] array];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __49__CNUIPHPhotoLibrary_fetchSuggestedAssetsOfType___block_invoke;
-  v15[3] = &unk_1E76E8078;
-  v13 = array;
-  v16 = v13;
-  [v11 enumerateObjectsUsingBlock:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __49__CNUIPHPhotoLibrary_fetchSuggestedAssetsOfType___block_invoke;
+  v16[3] = &unk_1E76E8078;
+  v14 = array;
+  v17 = v14;
+  [v12 enumerateObjectsUsingBlock:v16];
 
-  return v13;
+  return v14;
 }
 
 void __49__CNUIPHPhotoLibrary_fetchSuggestedAssetsOfType___block_invoke(uint64_t a1, void *a2)
@@ -206,7 +206,7 @@ void __49__CNUIPHPhotoLibrary_fetchSuggestedAssetsOfType___block_invoke(uint64_t
 
 void __61__CNUIPHPhotoLibrary_createAssetFromImage_completionHandler___block_invoke(uint64_t a1)
 {
-  v6 = [getPHAssetChangeRequestClass[0]() creationRequestForAssetFromImage:*(a1 + 32)];
+  v6 = [(objc_class *)getPHAssetChangeRequestClass() creationRequestForAssetFromImage:*(a1 + 32)];
   v2 = [v6 placeholderForCreatedAsset];
   v3 = [v2 uuid];
   v4 = *(*(a1 + 40) + 8);

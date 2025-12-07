@@ -60,7 +60,7 @@
   v13 = v12;
   [(PUTileLayoutInfo *)self alpha];
   v15 = v14;
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   [(PUTileLayoutInfo *)self zPosition];
   v17 = v16;
   coordinateSystem = [(PUTileLayoutInfo *)self coordinateSystem];

@@ -20,7 +20,7 @@
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x10, @"Please initialize the %@ class with initWithDevice:weights:\n", v4, v5, v6, v7);
   }
 
   return 0;
@@ -32,7 +32,7 @@
   {
     v9 = objc_opt_class();
     NSStringFromClass(v9);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x1C, @"Please initialize the %@ class with initWithDevice:weights:\n", v10, v11, v12, v13);
   }
 
   return 0;
@@ -44,7 +44,7 @@
   {
     v6 = objc_opt_class();
     NSStringFromClass(v6);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x26, @"Please initialize the %@ class with initWithDevice:weights:\n", v7, v8, v9, v10);
   }
 
   return 0;
@@ -55,49 +55,70 @@
   if (convolutionDescriptor->_groups != 1)
   {
     selfCopy = self;
-    v23 = convolutionDescriptor;
-    v24 = MTLReportFailureTypeEnabled();
-    convolutionDescriptor = v23;
-    v25 = v24;
+    v23 = flags;
+    v24 = biasTerms;
+    v25 = kernelWeights;
+    v26 = convolutionDescriptor;
+    v27 = MTLReportFailureTypeEnabled();
+    convolutionDescriptor = v26;
+    kernelWeights = v25;
+    biasTerms = v24;
+    flags = v23;
+    v29 = v27;
     self = selfCopy;
-    if (v25)
+    if (v29)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x31, @"Number of groups for inner product should be 1", v25, v24, v23, v28);
       self = selfCopy;
-      convolutionDescriptor = v23;
+      convolutionDescriptor = v26;
+      kernelWeights = v25;
+      biasTerms = v24;
+      flags = v23;
     }
   }
 
   if (convolutionDescriptor->_strideInPixelsX != 1)
   {
     selfCopy2 = self;
-    v27 = convolutionDescriptor;
-    v28 = MTLReportFailureTypeEnabled();
-    convolutionDescriptor = v27;
-    v29 = v28;
+    v31 = flags;
+    v32 = biasTerms;
+    v33 = kernelWeights;
+    v34 = convolutionDescriptor;
+    v35 = MTLReportFailureTypeEnabled();
+    convolutionDescriptor = v34;
+    kernelWeights = v33;
+    biasTerms = v32;
+    flags = v31;
+    v37 = v35;
     self = selfCopy2;
-    if (v29)
+    if (v37)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x32, @"strideX for inner product should be 1", v33, v32, v31, v36);
       self = selfCopy2;
-      convolutionDescriptor = v27;
+      convolutionDescriptor = v34;
+      kernelWeights = v33;
+      biasTerms = v32;
+      flags = v31;
     }
   }
 
   if (convolutionDescriptor->_strideInPixelsY != 1)
   {
     selfCopy3 = self;
-    v31 = MTLReportFailureTypeEnabled();
+    v39 = flags;
+    v40 = biasTerms;
+    v41 = kernelWeights;
+    v43 = MTLReportFailureTypeEnabled();
     self = selfCopy3;
-    if (v31)
+    if (v43)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x33, @"strideY for inner product should be 1", v41, v40, v39, v42);
       self = selfCopy3;
     }
   }
 
-  v32.receiver = self;
-  v32.super_class = MPSCNNFullyConnected;
+  v44.receiver = self;
+  v44.super_class = MPSCNNFullyConnected;
   v13 = [MPSCNNConvolution initWithDevice:sel_initWithDevice_convolutionDescriptor_kernelWeights_biasTerms_flags_fullyConnected_ convolutionDescriptor:? kernelWeights:? biasTerms:? flags:? fullyConnected:?];
   if (v13)
   {
@@ -129,35 +150,35 @@
   if (v11[8] != 1)
   {
     v27 = v11;
-    v28 = MTLReportFailureTypeEnabled();
+    v32 = MTLReportFailureTypeEnabled();
     v11 = v27;
-    if (v28)
+    if (v32)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x54, @"Number of groups for inner product should be 1", v28, v29, v30, v31);
       v11 = v27;
     }
   }
 
   if (v11[6] != 1)
   {
-    v29 = v11;
-    v30 = MTLReportFailureTypeEnabled();
-    v11 = v29;
-    if (v30)
+    v33 = v11;
+    v38 = MTLReportFailureTypeEnabled();
+    v11 = v33;
+    if (v38)
     {
-      MTLReportFailure();
-      v11 = v29;
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x55, @"strideX for inner product should be 1", v34, v35, v36, v37);
+      v11 = v33;
     }
   }
 
   if (v11[7] != 1 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x56, @"strideY for inner product should be 1", v39, v40, v41, v42);
   }
 
-  v31.receiver = self;
-  v31.super_class = MPSCNNFullyConnected;
-  v12 = [(MPSCNNConvolution *)&v31 initWithDevice:device weights:weights fullyConnected:1];
+  v43.receiver = self;
+  v43.super_class = MPSCNNFullyConnected;
+  v12 = [(MPSCNNConvolution *)&v43 initWithDevice:device weights:weights fullyConnected:1];
   v19 = objc_msgSend_paddingWithMethod_(MPSNNDefaultPadding, v13, 0, v14, v15, v16, v17, v18);
   objc_msgSend_setPadding_(v12, v20, v19, v21, v22, v23, v24, v25);
   v12->super.super._encode = sub_239D4F434;
@@ -170,7 +191,7 @@
   {
     v8 = objc_opt_class();
     NSStringFromClass(v8);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x66, @"Please initialize the %@ class with initWithDevice:weights:\n", v9, v10, v11, v12);
   }
 
   return 0;
@@ -182,7 +203,7 @@
   {
     v5 = objc_opt_class();
     NSStringFromClass(v5);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNInnerProduct.mm", 0x6E, @"Please initialize the %@ class with initWithDevice:weights:\n", v6, v7, v8, v9);
   }
 
   return 0;

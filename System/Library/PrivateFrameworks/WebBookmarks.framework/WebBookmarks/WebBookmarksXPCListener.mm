@@ -58,45 +58,43 @@ void __54__WebBookmarksXPCListener_initListenerForMachService___block_invoke(uin
 
 - (void)_handleIncomingConnection:(id)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v5 = connectionCopy;
+  v6 = connectionCopy;
   if (connectionCopy)
   {
-    v6 = MEMORY[0x2743D6E50](connectionCopy);
-    if (v6 == MEMORY[0x277D86450])
+    v7 = MEMORY[0x2743D6E50](connectionCopy);
+    if (v7 == MEMORY[0x277D86450])
     {
-      v11 = [[WebBookmarksXPCConnection alloc] initWithConnection:v5];
-      [(WebBookmarksXPCConnection *)v11 setDelegate:self];
-      [(WebBookmarksXPCConnection *)v11 setMessageHandlers:self->_messageHandlers];
-      [(NSMutableArray *)self->_clientConnections addObject:v11];
+      v13 = [[WebBookmarksXPCConnection alloc] initWithConnection:v6];
+      [(WebBookmarksXPCConnection *)v13 setDelegate:self];
+      [(WebBookmarksXPCConnection *)v13 setMessageHandlers:self->_messageHandlers];
+      [(NSMutableArray *)self->_clientConnections addObject:v13];
     }
 
     else
     {
-      v7 = v6;
-      v8 = WBS_LOG_CHANNEL_PREFIXWebBookmarkServer();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = v7;
+      v10 = WBS_LOG_CHANNEL_PREFIXWebBookmarkServer(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v9 = v8;
-        v13 = 136446210;
-        name = xpc_type_get_name(v7);
-        _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Ignoring incoming message because the message type is %{public}s", &v13, 0xCu);
+        v11 = v10;
+        v14 = 136446210;
+        name = xpc_type_get_name(v9);
+        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Ignoring incoming message because the message type is %{public}s", &v14, 0xCu);
       }
     }
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXWebBookmarkServer();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = WBS_LOG_CHANNEL_PREFIXWebBookmarkServer(0, v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_272C20000, v10, OS_LOG_TYPE_INFO, "Ignoring incoming message because the message is nil.", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Ignoring incoming message because the message is nil.", &v14, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHandler:(id)handler forMessageNamed:(const char *)named

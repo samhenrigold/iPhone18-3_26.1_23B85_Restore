@@ -9,7 +9,7 @@
 
 + (id)getFixedBitSetOrNullWithOrgApacheLuceneSearchDocIdSetIterator:(id)iterator
 {
-  v4 = OrgApacheLuceneUtilFixedBitSet_class_();
+  v4 = OrgApacheLuceneUtilFixedBitSet_class_(self, a2);
 
   return sub_100021FDC(iterator, v4);
 }

@@ -232,48 +232,41 @@
         v24 = *(*(&v40 + 1) + 8 * i);
         isEqualToNumber = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA8078);
         v26 = @"RefinedDisparity";
-        if (isEqualToNumber)
+        if ((isEqualToNumber & 1) == 0)
         {
-          goto LABEL_18;
-        }
-
-        v27 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA8090, @"RefinedDisparity");
-        v26 = @"Matte";
-        if (v27)
-        {
-          goto LABEL_18;
-        }
-
-        v28 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA80A8, @"Matte");
-        v26 = @"Hair";
-        if (v28)
-        {
-          goto LABEL_18;
-        }
-
-        v29 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA80C0, @"Hair");
-        v26 = @"Skin";
-        if ((v29 & 1) == 0)
-        {
-          v30 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA80D8, @"Skin");
-          v26 = @"Teeth";
-          if ((v30 & 1) == 0)
+          v27 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA8090, @"RefinedDisparity");
+          v26 = @"Matte";
+          if ((v27 & 1) == 0)
           {
-            v31 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA80F0, @"Teeth");
-            v26 = @"Glasses";
-            if ((v31 & 1) == 0)
+            v28 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA80A8, @"Matte");
+            v26 = @"Hair";
+            if ((v28 & 1) == 0)
             {
-              v32 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA8108, @"Glasses");
-              v26 = @"Sky";
-              if (!v32)
+              v29 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA80C0, @"Hair");
+              v26 = @"Skin";
+              if ((v29 & 1) == 0)
               {
-                continue;
+                v30 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA80D8, @"Skin");
+                v26 = @"Teeth";
+                if ((v30 & 1) == 0)
+                {
+                  v31 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA80F0, @"Teeth");
+                  v26 = @"Glasses";
+                  if ((v31 & 1) == 0)
+                  {
+                    v32 = objc_msgSend_isEqualToNumber_(v24, v20, &unk_2A1CA8108, @"Glasses");
+                    v26 = @"Sky";
+                    if (!v32)
+                    {
+                      continue;
+                    }
+                  }
+                }
               }
             }
           }
         }
 
-LABEL_18:
         v33 = *&configuration->var4;
         v38[0] = *&configuration->var0;
         v38[1] = v33;

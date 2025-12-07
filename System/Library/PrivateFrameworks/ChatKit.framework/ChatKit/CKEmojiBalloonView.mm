@@ -49,7 +49,7 @@
   memset(&v17, 0, sizeof(v17));
   if (layer)
   {
-    [layer contentsTransform];
+    objc_msgSend_contentsTransform(layer);
   }
 
   v11 = 1.0;

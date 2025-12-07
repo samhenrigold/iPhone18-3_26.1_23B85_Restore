@@ -5,7 +5,7 @@
 
 void ___UIUpdateCycleNotifyIdle_block_invoke(void *a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = mach_absolute_time();
   v3 = a1[4];
   v4 = v2 - v3;
@@ -16,7 +16,7 @@ void ___UIUpdateCycleNotifyIdle_block_invoke(void *a1)
     {
       v6 = a1[6];
       *buf = 134217984;
-      v33 = v4 / v6;
+      v31 = v4 / v6;
       _os_signpost_emit_with_name_impl(&dword_188A29000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SkipNotify", "After scheduling, elapsed=%.2f", buf, 0xCu);
     }
 
@@ -33,7 +33,7 @@ void ___UIUpdateCycleNotifyIdle_block_invoke(void *a1)
   if (os_signpost_enabled(v10))
   {
     *buf = 134217984;
-    v33 = (v9 - v3) / v7;
+    v31 = (v9 - v3) / v7;
     _os_signpost_emit_with_name_impl(&dword_188A29000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "NotifyIdleObservers", "elapsedAtStart=%.2f", buf, 0xCu);
   }
 
@@ -59,14 +59,12 @@ void ___UIUpdateCycleNotifyIdle_block_invoke(void *a1)
   v14 = qword_1ED49A938;
   if (![v13 count])
   {
-    v24 = 0;
     v23 = 0;
     v15 = 0;
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
-  v30 = v3;
-  v31 = 0;
+  v29 = v3;
   v15 = 0;
   v16 = 0;
   v17 = v14 + 1;
@@ -82,7 +80,7 @@ void ___UIUpdateCycleNotifyIdle_block_invoke(void *a1)
     v20 = v19;
     if (!v15)
     {
-      v31 = _UIQOSProcessingBegin("IdleObservers", 0, v9, v8);
+      _UIQOSProcessingBegin("IdleObservers", 0, v9, v8);
     }
 
     [v20 _updateCycleIdleUntil:v8];
@@ -105,38 +103,36 @@ LABEL_19:
     if (++v16 >= [v13 count])
     {
       v23 = 0;
-      v3 = v30;
+      v3 = v29;
       goto LABEL_26;
     }
   }
 
 LABEL_23:
-  v3 = v30;
-  v25 = _UIInternalPreferenceUsesDefault(&unk_1ED48B280, @"IdleSchedulerMinimumFramesBetweenNotify", _UIInternalPreferenceUpdateDouble);
-  v26 = *&qword_1ED48B288;
-  if (v25)
+  v3 = v29;
+  v24 = _UIInternalPreferenceUsesDefault(&unk_1ED48B280, @"IdleSchedulerMinimumFramesBetweenNotify", _UIInternalPreferenceUpdateDouble);
+  v25 = *&qword_1ED48B288;
+  if (v24)
   {
-    v26 = 2.0;
+    v25 = 2.0;
   }
 
-  qword_1ED49A940 = (v11 * v26 + v30);
+  qword_1ED49A940 = (v11 * v25 + v29);
   v23 = 1;
 LABEL_26:
-  v24 = v31;
-LABEL_27:
   _isNotifyingIdleObservers = 0;
-  v27 = *(__UILogGetCategoryCachedImpl("UpdateCycleIdleScheduler", &qword_1ED49A948) + 8);
-  if (os_signpost_enabled(v27))
+  v26 = *(__UILogGetCategoryCachedImpl("UpdateCycleIdleScheduler", &qword_1ED49A948) + 8);
+  if (os_signpost_enabled(v26))
   {
-    v28 = v27;
-    v29 = mach_absolute_time();
+    v27 = v26;
+    v28 = mach_absolute_time();
     *buf = 134218496;
-    v33 = (v29 - v3) / v11;
+    v31 = (v28 - v3) / v11;
+    v32 = 2048;
+    v33 = v15;
     v34 = 2048;
-    v35 = v15;
-    v36 = 2048;
-    v37 = v23;
-    _os_signpost_emit_with_name_impl(&dword_188A29000, v28, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NotifyIdleObservers", "elapsedAtEnd=%.2f, notifiedObservers=%ld, didPerformSignificantWork=%ld", buf, 0x20u);
+    v35 = v23;
+    _os_signpost_emit_with_name_impl(&dword_188A29000, v27, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "NotifyIdleObservers", "elapsedAtEnd=%.2f, notifiedObservers=%ld, didPerformSignificantWork=%ld", buf, 0x20u);
   }
 
   if ([MEMORY[0x1E6979518] currentState])
@@ -144,7 +140,7 @@ LABEL_27:
     [UIApp _performBlockAfterCATransactionCommits:&__block_literal_global_331];
     if (!v15)
     {
-      goto LABEL_35;
+      goto LABEL_34;
     }
   }
 
@@ -153,17 +149,17 @@ LABEL_27:
     dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_331);
     if (!v15)
     {
-      goto LABEL_35;
+      goto LABEL_34;
     }
   }
 
-  _UIQOSProcessingEnd(v24);
+  _UIQOSProcessingEnd();
   if (_UIUpdateCycleEnabled())
   {
     [MEMORY[0x1E6979518] flush];
   }
 
-LABEL_35:
+LABEL_34:
 }
 
 @end

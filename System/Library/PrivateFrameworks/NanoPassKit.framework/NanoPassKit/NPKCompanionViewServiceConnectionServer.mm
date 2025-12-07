@@ -13,22 +13,22 @@
   requestCopy = request;
   contactCopy = contact;
   completionCopy = completion;
-  v11 = pk_Payment_log();
+  v11 = pk_Payment_log(completionCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = _Block_copy(completionCopy);
+      v15 = _Block_copy(completionCopy);
       v18 = 138412802;
       v19 = requestCopy;
       v20 = 2112;
       v21 = contactCopy;
       v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: Requested present remote pass action entry view controller for request: %@ contact: %@ completion %@", &v18, 0x20u);
+      v23 = v15;
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: Requested present remote pass action entry view controller for request: %@ contact: %@ completion %@", &v18, 0x20u);
     }
   }
 
@@ -43,8 +43,6 @@
     delegate = [(NPKCompanionViewServiceConnectionServer *)self delegate];
     [delegate viewServiceConnectionServer:self didRequestPresentRemotePassValueEntryViewControllerForRequest:requestCopy contact:contactCopy completion:completionCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentRemotePassItemSelectionViewControllerForRequest:(id)request contact:(id)contact completion:(id)completion
@@ -53,22 +51,22 @@
   requestCopy = request;
   contactCopy = contact;
   completionCopy = completion;
-  v11 = pk_Payment_log();
+  v11 = pk_Payment_log(completionCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = _Block_copy(completionCopy);
+      v15 = _Block_copy(completionCopy);
       v18 = 138412802;
       v19 = requestCopy;
       v20 = 2112;
       v21 = contactCopy;
       v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: Requested present remote pass action selection view controller for request: %@ contact: %@ completion %@", &v18, 0x20u);
+      v23 = v15;
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: Requested present remote pass action selection view controller for request: %@ contact: %@ completion %@", &v18, 0x20u);
     }
   }
 
@@ -83,8 +81,6 @@
     delegate = [(NPKCompanionViewServiceConnectionServer *)self delegate];
     [delegate viewServiceConnectionServer:self didRequestPresentRemotePassItemSelectionViewControllerForRequest:requestCopy contact:contactCopy completion:completionCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_checkCompanionViewServiceConnectionEntitlement

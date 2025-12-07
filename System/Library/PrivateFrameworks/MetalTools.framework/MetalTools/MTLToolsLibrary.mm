@@ -25,6 +25,7 @@
 - (void)newIntersectionFunctionWithDescriptor:(id)descriptor completionHandler:(id)handler;
 - (void)setLabel:(id)label;
 - (void)setOverrideTriple:(id)triple;
+- (void)setShaderValidationEnabled:(BOOL)enabled;
 @end
 
 @implementation MTLToolsLibrary
@@ -42,6 +43,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject shaderValidationEnabled];
+}
+
+- (void)setShaderValidationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setShaderValidationEnabled:enabledCopy];
 }
 
 - (NSString)overrideTriple
@@ -74,7 +83,6 @@
 
 - (MTLDevice)device
 {
-  parent = self->super._parent;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   result = self->super._parent;

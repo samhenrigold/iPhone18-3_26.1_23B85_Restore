@@ -86,24 +86,24 @@ id __83__WFRunWorkflowAction_fetchSuggestedEntitiesForParameterWithKey_completio
   v5 = keyCopy;
   if (keyCopy == @"WFWorkflow")
   {
-    v6 = 1;
+    isEqualToString = 1;
   }
 
   else if (keyCopy)
   {
-    v6 = [(__CFString *)keyCopy isEqualToString:@"WFWorkflow"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
   v7 = [(WFAction *)self systemEntityCollectionIdentifierForDisambiguatingParameterWithKey:v5];
 
   if (v7)
   {
-    v8 = v6;
+    v8 = isEqualToString;
   }
 
   else
@@ -246,21 +246,21 @@ id __83__WFRunWorkflowAction_fetchSuggestedEntitiesForParameterWithKey_completio
   }
 }
 
-id __89__WFRunWorkflowAction_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke()
+id __89__WFRunWorkflowAction_workflowController_prepareToRunAction_withInput_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  if ([MEMORY[0x1E69E0C68] hasExtensionForResourceClassName:v1])
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  if ([MEMORY[0x1E69E0C68] hasExtensionForResourceClassName:v3])
   {
-    v2 = v1;
+    v4 = v3;
   }
 
   else
   {
-    v2 = 0;
+    v4 = 0;
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)getHandoffWorkflowControllerState:(id)state
@@ -307,7 +307,7 @@ id __89__WFRunWorkflowAction_workflowController_prepareToRunAction_withInput_com
 
 - (id)getWorkflowWithError:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = [(WFAction *)self parameterValueForKey:@"WFWorkflow" ofClass:objc_opt_class()];
   if (!v4)
   {
@@ -317,13 +317,13 @@ id __89__WFRunWorkflowAction_workflowController_prepareToRunAction_withInput_com
     }
 
     v10 = MEMORY[0x1E696ABC0];
-    v25[0] = *MEMORY[0x1E696A588];
+    v24[0] = *MEMORY[0x1E696A588];
     v5 = WFLocalizedString(@"Shortcut Not Found");
-    v26[0] = v5;
-    v25[1] = *MEMORY[0x1E696A578];
+    v25[0] = v5;
+    v24[1] = *MEMORY[0x1E696A578];
     v9 = WFLocalizedString(@"Make sure a valid shortcut is selected in the Run Shortcut action.");
-    v26[1] = v9;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v25[1] = v9;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
     *error = [v10 errorWithDomain:@"WFActionErrorDomain" code:5 userInfo:v11];
 
 LABEL_14:
@@ -341,14 +341,14 @@ LABEL_14:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v28 = "WFEnforceClass";
-      v29 = 2114;
-      v30 = v8;
-      v31 = 2114;
-      v32 = objc_opt_class();
-      v33 = 2114;
-      v34 = v7;
-      v13 = v32;
+      v27 = "WFEnforceClass";
+      v28 = 2114;
+      v29 = v8;
+      v30 = 2114;
+      v31 = objc_opt_class();
+      v32 = 2114;
+      v33 = v7;
+      v13 = v31;
       _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s Returning nil to avoid prompting for recursion.", buf, 0x2Au);
     }
 
@@ -369,16 +369,16 @@ LABEL_14:
     }
 
     v14 = MEMORY[0x1E696ABC0];
-    v23[0] = *MEMORY[0x1E696A588];
+    v22[0] = *MEMORY[0x1E696A588];
     v15 = WFLocalizedString(@"Shortcut Not Found");
-    v24[0] = v15;
-    v23[1] = *MEMORY[0x1E696A578];
+    v23[0] = v15;
+    v22[1] = *MEMORY[0x1E696A578];
     v16 = MEMORY[0x1E696AEC0];
     v17 = WFLocalizedString(@"An occurred while preparing “%@” to run.");
     name = [v4 name];
     v19 = [v16 stringWithFormat:v17, name];
-    v24[1] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v23[1] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
     *error = [v14 errorWithDomain:@"WFActionErrorDomain" code:5 userInfo:v20];
 
     v9 = 0;
@@ -389,7 +389,6 @@ LABEL_14:
 LABEL_15:
 
 LABEL_16:
-  v21 = *MEMORY[0x1E69E9840];
 
   return error;
 }
@@ -417,7 +416,7 @@ LABEL_16:
 
 - (void)endPersistentModeWithError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(WFRunWorkflowAction *)self hasBegunPersistentMode])
   {
     userInterfaceForPersistentMode = [(WFRunWorkflowAction *)self userInterfaceForPersistentMode];
@@ -427,139 +426,129 @@ LABEL_16:
     workflowController = [(WFRunWorkflowAction *)self workflowController];
     runningContext = [workflowController runningContext];
     [userInterfacePresenter completePersistentModeWithSuccess:v7 runningContext:runningContext completionHandler:&__block_literal_global_60950];
-
-    v10 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v11 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "[WFRunWorkflowAction endPersistentModeWithError:]";
-      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s Persistent mode has not begun yet, so can't be ended.", buf, 0xCu);
+      v13 = "[WFRunWorkflowAction endPersistentModeWithError:]";
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Persistent mode has not begun yet, so can't be ended.", buf, 0xCu);
     }
-
-    v12 = *MEMORY[0x1E69E9840];
   }
 }
 
 void __50__WFRunWorkflowAction_endPersistentModeWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = getWFGeneralLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "[WFRunWorkflowAction endPersistentModeWithError:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to complete persistent mode: %@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[WFRunWorkflowAction endPersistentModeWithError:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to complete persistent mode: %@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginPersistentModeIfReady
 {
-  v26 = *MEMORY[0x1E69E9840];
-  if (![(WFRunWorkflowAction *)self spotlightReadyForPersistentMode])
+  v24 = *MEMORY[0x1E69E9840];
+  if ([(WFRunWorkflowAction *)self spotlightReadyForPersistentMode])
   {
-    goto LABEL_7;
-  }
-
-  if ([(WFRunWorkflowAction *)self hasBegunPersistentMode])
-  {
-    v3 = getWFGeneralLogObject();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if ([(WFRunWorkflowAction *)self hasBegunPersistentMode])
     {
+      v3 = getWFGeneralLogObject();
+      if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      {
 LABEL_6:
 
-LABEL_7:
-      v7 = *MEMORY[0x1E69E9840];
-      return;
-    }
+        return;
+      }
 
-    *buf = 136315138;
-    v25 = "[WFRunWorkflowAction beginPersistentModeIfReady]";
-    v4 = "%s Persistent mode has already been started.";
-    v5 = v3;
-    v6 = OS_LOG_TYPE_INFO;
+      *buf = 136315138;
+      v23 = "[WFRunWorkflowAction beginPersistentModeIfReady]";
+      v4 = "%s Persistent mode has already been started.";
+      v5 = v3;
+      v6 = OS_LOG_TYPE_INFO;
 LABEL_5:
-    _os_log_impl(&dword_1CA256000, v5, v6, v4, buf, 0xCu);
-    goto LABEL_6;
-  }
-
-  if (![(WFAction *)self runningViaSpotlight]&& [(WFRunWorkflowAction *)self spotlightReadyForPersistentMode])
-  {
-    v3 = getWFGeneralLogObject();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
+      _os_log_impl(&dword_1CA256000, v5, v6, v4, buf, 0xCu);
       goto LABEL_6;
     }
 
-    *buf = 136315138;
-    v25 = "[WFRunWorkflowAction beginPersistentModeIfReady]";
-    v4 = "%s Persistent mode via WFRunWorkflowAction is currently only supported when running via Spotlight.";
-    v5 = v3;
-    v6 = OS_LOG_TYPE_ERROR;
-    goto LABEL_5;
-  }
-
-  userInterface = [(WFAction *)self userInterface];
-  dialogTransformer = [userInterface dialogTransformer];
-  if (dialogTransformer)
-  {
-    v9 = dialogTransformer;
-    workflowController = [(WFRunWorkflowAction *)self workflowController];
-    runningContext = [workflowController runningContext];
-
-    if (runningContext)
+    if (![(WFAction *)self runningViaSpotlight]&& [(WFRunWorkflowAction *)self spotlightReadyForPersistentMode])
     {
-      userInterface2 = [(WFAction *)self userInterface];
-      [(WFRunWorkflowAction *)self setUserInterfaceForPersistentMode:userInterface2];
+      v3 = getWFGeneralLogObject();
+      if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_6;
+      }
 
-      userInterfaceForPersistentMode = [(WFRunWorkflowAction *)self userInterfaceForPersistentMode];
-      dialogTransformer2 = [userInterfaceForPersistentMode dialogTransformer];
-      userInterfacePresenter = [dialogTransformer2 userInterfacePresenter];
-      workflowController2 = [(WFRunWorkflowAction *)self workflowController];
-      runningContext2 = [workflowController2 runningContext];
-      userInterface3 = [(WFAction *)self userInterface];
-      dialogTransformer3 = [userInterface3 dialogTransformer];
-      standaloneActionAttribution = [dialogTransformer3 standaloneActionAttribution];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __49__WFRunWorkflowAction_beginPersistentModeIfReady__block_invoke;
-      v23[3] = &unk_1E837E5E0;
-      v23[4] = self;
-      [userInterfacePresenter beginPersistentModeWithRunningContext:runningContext2 attribution:standaloneActionAttribution completionHandler:v23];
+      *buf = 136315138;
+      v23 = "[WFRunWorkflowAction beginPersistentModeIfReady]";
+      v4 = "%s Persistent mode via WFRunWorkflowAction is currently only supported when running via Spotlight.";
+      v5 = v3;
+      v6 = OS_LOG_TYPE_ERROR;
+      goto LABEL_5;
     }
 
-    goto LABEL_7;
-  }
+    userInterface = [(WFAction *)self userInterface];
+    dialogTransformer = [userInterface dialogTransformer];
+    if (dialogTransformer)
+    {
+      v8 = dialogTransformer;
+      workflowController = [(WFRunWorkflowAction *)self workflowController];
+      runningContext = [workflowController runningContext];
 
-  v21 = *MEMORY[0x1E69E9840];
+      if (runningContext)
+      {
+        userInterface2 = [(WFAction *)self userInterface];
+        [(WFRunWorkflowAction *)self setUserInterfaceForPersistentMode:userInterface2];
+
+        userInterfaceForPersistentMode = [(WFRunWorkflowAction *)self userInterfaceForPersistentMode];
+        dialogTransformer2 = [userInterfaceForPersistentMode dialogTransformer];
+        userInterfacePresenter = [dialogTransformer2 userInterfacePresenter];
+        workflowController2 = [(WFRunWorkflowAction *)self workflowController];
+        runningContext2 = [workflowController2 runningContext];
+        userInterface3 = [(WFAction *)self userInterface];
+        dialogTransformer3 = [userInterface3 dialogTransformer];
+        standaloneActionAttribution = [dialogTransformer3 standaloneActionAttribution];
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __49__WFRunWorkflowAction_beginPersistentModeIfReady__block_invoke;
+        v21[3] = &unk_1E837E5E0;
+        v21[4] = self;
+        [userInterfacePresenter beginPersistentModeWithRunningContext:runningContext2 attribution:standaloneActionAttribution completionHandler:v21];
+      }
+    }
+
+    else
+    {
+    }
+  }
 }
 
 void __49__WFRunWorkflowAction_beginPersistentModeIfReady__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = getWFXPCRunnerLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[WFRunWorkflowAction beginPersistentModeIfReady]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Failed to begin persistent mode: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[WFRunWorkflowAction beginPersistentModeIfReady]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Failed to begin persistent mode: %@", &v5, 0x16u);
     }
   }
 
@@ -567,8 +556,6 @@ void __49__WFRunWorkflowAction_beginPersistentModeIfReady__block_invoke(uint64_t
   {
     [*(a1 + 32) setHasBegunPersistentMode:1];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginPersistentModeForSpotlightWhenReady
@@ -580,7 +567,7 @@ void __49__WFRunWorkflowAction_beginPersistentModeIfReady__block_invoke(uint64_t
 
 - (id)contentDestinationWithError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = [(WFAction *)self parameterValueForKey:@"WFWorkflow" ofClass:objc_opt_class()];
   if (!v4 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -599,14 +586,14 @@ void __49__WFRunWorkflowAction_beginPersistentModeIfReady__block_invoke(uint64_t
     v9 = [runningDelegate2 currentRunningContextForAction:self];
     workflowIdentifier = [v9 workflowIdentifier];
 
-    if ([identifier isEqualToString:workflowIdentifier])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
       v11 = getWFSecurityLogObject();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v19 = 136315138;
-        v20 = "[WFRunWorkflowAction contentDestinationWithError:]";
-        _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEBUG, "%s Returning nil to avoid prompting for recursion.", &v19, 0xCu);
+        v18 = 136315138;
+        v19 = "[WFRunWorkflowAction contentDestinationWithError:]";
+        _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEBUG, "%s Returning nil to avoid prompting for recursion.", &v18, 0xCu);
       }
 
       v12 = 0;
@@ -623,7 +610,6 @@ void __49__WFRunWorkflowAction_beginPersistentModeIfReady__block_invoke(uint64_t
 
 LABEL_11:
 LABEL_12:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

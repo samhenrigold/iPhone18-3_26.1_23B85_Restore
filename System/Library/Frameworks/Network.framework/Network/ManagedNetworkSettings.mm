@@ -10,59 +10,59 @@
 
 - (void)reloadMNS
 {
-  *(&v108[15] + 2) = *MEMORY[0x1E69E9840];
+  *(&v109[15] + 2) = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v3 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.networkd.sysctl.plist"];
   v4 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:@"/Library/Managed Preferences/mobile/com.apple.networkd.sysctl.plist"];
-  v91 = 0u;
   v92 = 0u;
   v93 = 0u;
   v94 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v91 objects:&v105 count:16];
+  v95 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v92 objects:&v106 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v92;
+    v7 = *v93;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v92 != v7)
+        if (*v93 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v91 + 1) + 8 * i);
+        v9 = *(*(&v92 + 1) + 8 * i);
         v10 = [v4 objectForKeyedSubscript:v9];
         [dictionary setObject:v10 forKeyedSubscript:v9];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v91 objects:&v105 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v92 objects:&v106 count:16];
     }
 
     while (v6);
   }
 
-  v89 = 0u;
   v90 = 0u;
-  v87 = 0u;
+  v91 = 0u;
   v88 = 0u;
+  v89 = 0u;
   v11 = v3;
-  v12 = [v11 countByEnumeratingWithState:&v87 objects:type count:16];
+  v12 = [v11 countByEnumeratingWithState:&v88 objects:type count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v88;
+    v14 = *v89;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v88 != v14)
+        if (*v89 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v87 + 1) + 8 * j);
+        v17 = *(*(&v88 + 1) + 8 * j);
         v18 = [dictionary objectForKeyedSubscript:v17];
         if (v18)
         {
@@ -80,13 +80,13 @@
               v23 = [v4 objectForKeyedSubscript:v17];
               v24 = [v11 objectForKeyedSubscript:v17];
               buf = 136446978;
-              v97 = "copyNetworkdCombinedSysctlSettingsDict";
-              v98 = 2114;
-              v99 = v17;
-              v100 = 2114;
-              v101 = v23;
-              v102 = 2114;
-              v103 = v24;
+              v98 = "copyNetworkdCombinedSysctlSettingsDict";
+              v99 = 2114;
+              v100 = v17;
+              v101 = 2114;
+              v102 = v23;
+              v103 = 2114;
+              v104 = v24;
               _os_log_impl(&dword_181A37000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s MNS sysctl %{public}@ : ignoring managed value %{public}@ since it is in settings with value %{public}@", &buf, 0x2Au);
             }
           }
@@ -96,47 +96,48 @@
         [dictionary setObject:v16 forKeyedSubscript:v17];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v87 objects:type count:16];
+      v13 = [v11 countByEnumeratingWithState:&v88 objects:type count:16];
     }
 
     while (v13);
   }
 
-  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
   v86 = 0u;
+  v87 = 0u;
   v25 = dictionary;
-  v26 = [v25 countByEnumeratingWithState:&v83 objects:v95 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v84 objects:v96 count:16];
   v27 = &qword_1ED411000;
   if (v26)
   {
     v28 = v26;
-    v29 = *v84;
+    v29 = *v85;
     StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    v81 = v25;
+    v82 = v25;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v84 != v29)
+        if (*v85 != v29)
         {
           objc_enumerationMutation(v25);
         }
 
-        v31 = *(*(&v83 + 1) + 8 * k);
+        v31 = *(*(&v84 + 1) + 8 * k);
         if (!v31)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
           v36 = v27[275];
-          v105 = 136446210;
-          v106 = "isSysctlAllowlisted";
-          v37 = _os_log_send_and_compose_impl();
+          v106 = 136446210;
+          v107 = "isSysctlAllowlisted";
+          LODWORD(v77) = 12;
+          v37 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v36, 16, "%{public}s called with null name", &v106, v77);
 
           LOBYTE(type[0]) = 16;
-          LOBYTE(v91) = 0;
-          if (__nwlog_fault(v37, type, &v91))
+          LOBYTE(v92) = 0;
+          if (__nwlog_fault(v37, type, &v92))
           {
             if (LOBYTE(type[0]) == 17)
             {
@@ -146,8 +147,8 @@
               v39 = type[0];
               if (os_log_type_enabled(v38, type[0]))
               {
-                v105 = 136446210;
-                v106 = "isSysctlAllowlisted";
+                v106 = 136446210;
+                v107 = "isSysctlAllowlisted";
                 v40 = v38;
                 v41 = v39;
                 v42 = "%{public}s called with null name";
@@ -157,7 +158,7 @@
               goto LABEL_50;
             }
 
-            if (v91 == 1)
+            if (v92 == 1)
             {
               backtrace_string = __nw_create_backtrace_string();
               pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -169,11 +170,11 @@
               {
                 if (v47)
                 {
-                  v105 = 136446466;
-                  v106 = "isSysctlAllowlisted";
-                  v107 = 2082;
-                  v108[0] = backtrace_string;
-                  _os_log_impl(&dword_181A37000, v45, v46, "%{public}s called with null name, dumping backtrace:%{public}s", &v105, 0x16u);
+                  v106 = 136446466;
+                  v107 = "isSysctlAllowlisted";
+                  v108 = 2082;
+                  v109[0] = backtrace_string;
+                  _os_log_impl(&dword_181A37000, v45, v46, "%{public}s called with null name, dumping backtrace:%{public}s", &v106, 0x16u);
                 }
 
                 free(backtrace_string);
@@ -183,13 +184,13 @@
               {
                 if (v47)
                 {
-                  v105 = 136446210;
-                  v106 = "isSysctlAllowlisted";
-                  _os_log_impl(&dword_181A37000, v45, v46, "%{public}s called with null name, no backtrace", &v105, 0xCu);
+                  v106 = 136446210;
+                  v107 = "isSysctlAllowlisted";
+                  _os_log_impl(&dword_181A37000, v45, v46, "%{public}s called with null name, no backtrace", &v106, 0xCu);
                 }
               }
 
-              v25 = v81;
+              v25 = v82;
               if (!v37)
               {
                 goto LABEL_53;
@@ -203,11 +204,11 @@ LABEL_53:
               v33 = v27[275];
               if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
-                v105 = 136446466;
-                v106 = "[ManagedNetworkSettings reloadMNS]";
-                v107 = 2114;
-                v108[0] = v31;
-                _os_log_impl(&dword_181A37000, v33, OS_LOG_TYPE_ERROR, "%{public}s MNS sysctl name %{public}@ is not allowlisted", &v105, 0x16u);
+                v106 = 136446466;
+                v107 = "[ManagedNetworkSettings reloadMNS]";
+                v108 = 2114;
+                v109[0] = v31;
+                _os_log_impl(&dword_181A37000, v33, OS_LOG_TYPE_ERROR, "%{public}s MNS sysctl name %{public}@ is not allowlisted", &v106, 0x16u);
               }
 
               goto LABEL_25;
@@ -219,13 +220,13 @@ LABEL_53:
             v48 = type[0];
             if (os_log_type_enabled(v38, type[0]))
             {
-              v105 = 136446210;
-              v106 = "isSysctlAllowlisted";
+              v106 = 136446210;
+              v107 = "isSysctlAllowlisted";
               v40 = v38;
               v41 = v48;
               v42 = "%{public}s called with null name, backtrace limit exceeded";
 LABEL_49:
-              _os_log_impl(&dword_181A37000, v40, v41, v42, &v105, 0xCu);
+              _os_log_impl(&dword_181A37000, v40, v41, v42, &v106, 0xCu);
             }
 
 LABEL_50:
@@ -241,13 +242,13 @@ LABEL_50:
           goto LABEL_53;
         }
 
-        if (([*(*(&v83 + 1) + 8 * k) hasPrefix:@"net."] & 1) == 0)
+        if (([*(*(&v84 + 1) + 8 * k) hasPrefix:@"net."] & 1) == 0)
         {
           goto LABEL_53;
         }
 
         v32 = [v25 objectForKeyedSubscript:v31];
-        LODWORD(v91) = 0;
+        LODWORD(v92) = 0;
         v33 = v32;
         if (v33 && (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector() & 1) != 0)
         {
@@ -266,35 +267,35 @@ LABEL_50:
             }
           }
 
-          LODWORD(v91) = intValue;
+          LODWORD(v92) = intValue;
 
           uTF8String = [v31 UTF8String];
-          LODWORD(v87) = 0;
+          LODWORD(v88) = 0;
           type[0] = 4;
-          if (!sysctlbyname(uTF8String, &v87, type, 0, 0) && type[0] == 4)
+          if (!sysctlbyname(uTF8String, &v88, type, 0, 0) && type[0] == 4)
           {
-            if (v91 == v87)
+            if (v92 == v88)
             {
               goto LABEL_107;
             }
 
 LABEL_83:
-            if (!sysctlbyname(uTF8String, 0, 0, &v91, 4uLL))
+            if (!sysctlbyname(uTF8String, 0, 0, &v92, 4uLL))
             {
               pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
               networkd_settings_init();
               v66 = v27[275];
               if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
               {
-                v105 = 136446978;
-                v106 = "[ManagedNetworkSettings reloadMNS]";
-                v107 = 2114;
-                v108[0] = v31;
-                LOWORD(v108[1]) = 1024;
-                *(&v108[1] + 2) = v87;
-                HIWORD(v108[1]) = 1024;
-                LODWORD(v108[2]) = v91;
-                _os_log_impl(&dword_181A37000, v66, OS_LOG_TYPE_DEFAULT, "%{public}s MNS successfully set sysctl %{public}@ from %d to %d", &v105, 0x22u);
+                v106 = 136446978;
+                v107 = "[ManagedNetworkSettings reloadMNS]";
+                v108 = 2114;
+                v109[0] = v31;
+                LOWORD(v109[1]) = 1024;
+                *(&v109[1] + 2) = v88;
+                HIWORD(v109[1]) = 1024;
+                LODWORD(v109[2]) = v92;
+                _os_log_impl(&dword_181A37000, v66, OS_LOG_TYPE_DEFAULT, "%{public}s MNS successfully set sysctl %{public}@ from %d to %d", &v106, 0x22u);
               }
 
               goto LABEL_107;
@@ -310,33 +311,34 @@ LABEL_83:
             {
               if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
               {
-                v105 = 136446978;
-                v106 = "[ManagedNetworkSettings reloadMNS]";
-                v107 = 1024;
-                LODWORD(v108[0]) = v91;
-                WORD2(v108[0]) = 2114;
-                *(v108 + 6) = v31;
-                HIWORD(v108[1]) = 1024;
-                LODWORD(v108[2]) = 45;
-                _os_log_impl(&dword_181A37000, v65, OS_LOG_TYPE_ERROR, "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d", &v105, 0x22u);
+                v106 = 136446978;
+                v107 = "[ManagedNetworkSettings reloadMNS]";
+                v108 = 1024;
+                LODWORD(v109[0]) = v92;
+                WORD2(v109[0]) = 2114;
+                *(v109 + 6) = v31;
+                HIWORD(v109[1]) = 1024;
+                LODWORD(v109[2]) = 45;
+                _os_log_impl(&dword_181A37000, v65, OS_LOG_TYPE_ERROR, "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d", &v106, 0x22u);
               }
 
               goto LABEL_106;
             }
 
-            v105 = 136446978;
-            v106 = "[ManagedNetworkSettings reloadMNS]";
-            v107 = 1024;
-            LODWORD(v108[0]) = v91;
-            WORD2(v108[0]) = 2114;
-            *(v108 + 6) = v31;
-            HIWORD(v108[1]) = 1024;
-            LODWORD(v108[2]) = v63;
-            v67 = _os_log_send_and_compose_impl();
+            v106 = 136446978;
+            v107 = "[ManagedNetworkSettings reloadMNS]";
+            v108 = 1024;
+            LODWORD(v109[0]) = v92;
+            WORD2(v109[0]) = 2114;
+            *(v109 + 6) = v31;
+            HIWORD(v109[1]) = 1024;
+            LODWORD(v109[2]) = v63;
+            LODWORD(v77) = 34;
+            v67 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v64, 16, "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d", &v106, v77);
 
             LOBYTE(buf) = 16;
-            v82 = 0;
-            if (__nwlog_fault(v67, &buf, &v82))
+            v83 = 0;
+            if (__nwlog_fault(v67, &buf, &v83))
             {
               if (buf == 17)
               {
@@ -346,14 +348,14 @@ LABEL_83:
                 v69 = buf;
                 if (os_log_type_enabled(v68, buf))
                 {
-                  v105 = 136446978;
-                  v106 = "[ManagedNetworkSettings reloadMNS]";
-                  v107 = 1024;
-                  LODWORD(v108[0]) = v91;
-                  WORD2(v108[0]) = 2114;
-                  *(v108 + 6) = v31;
-                  HIWORD(v108[1]) = 1024;
-                  LODWORD(v108[2]) = v63;
+                  v106 = 136446978;
+                  v107 = "[ManagedNetworkSettings reloadMNS]";
+                  v108 = 1024;
+                  LODWORD(v109[0]) = v92;
+                  WORD2(v109[0]) = 2114;
+                  *(v109 + 6) = v31;
+                  HIWORD(v109[1]) = 1024;
+                  LODWORD(v109[2]) = v63;
                   v70 = v68;
                   v71 = v69;
                   v72 = "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d";
@@ -363,29 +365,29 @@ LABEL_83:
                 goto LABEL_103;
               }
 
-              if (v82 == 1)
+              if (v83 == 1)
               {
                 v73 = __nw_create_backtrace_string();
                 pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
                 networkd_settings_init();
                 v74 = gLogObj;
-                v79 = buf;
+                v80 = buf;
                 v75 = os_log_type_enabled(v74, buf);
                 if (v73)
                 {
                   if (v75)
                   {
-                    v105 = 136447234;
-                    v106 = "[ManagedNetworkSettings reloadMNS]";
-                    v107 = 1024;
-                    LODWORD(v108[0]) = v91;
-                    WORD2(v108[0]) = 2114;
-                    *(v108 + 6) = v31;
-                    HIWORD(v108[1]) = 1024;
-                    LODWORD(v108[2]) = v63;
-                    WORD2(v108[2]) = 2082;
-                    *(&v108[2] + 6) = v73;
-                    _os_log_impl(&dword_181A37000, v74, v79, "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d, dumping backtrace:%{public}s", &v105, 0x2Cu);
+                    v106 = 136447234;
+                    v107 = "[ManagedNetworkSettings reloadMNS]";
+                    v108 = 1024;
+                    LODWORD(v109[0]) = v92;
+                    WORD2(v109[0]) = 2114;
+                    *(v109 + 6) = v31;
+                    HIWORD(v109[1]) = 1024;
+                    LODWORD(v109[2]) = v63;
+                    WORD2(v109[2]) = 2082;
+                    *(&v109[2] + 6) = v73;
+                    _os_log_impl(&dword_181A37000, v74, v80, "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d, dumping backtrace:%{public}s", &v106, 0x2Cu);
                   }
 
                   free(v73);
@@ -394,15 +396,15 @@ LABEL_83:
 
                 if (v75)
                 {
-                  v105 = 136446978;
-                  v106 = "[ManagedNetworkSettings reloadMNS]";
-                  v107 = 1024;
-                  LODWORD(v108[0]) = v91;
-                  WORD2(v108[0]) = 2114;
-                  *(v108 + 6) = v31;
-                  HIWORD(v108[1]) = 1024;
-                  LODWORD(v108[2]) = v63;
-                  _os_log_impl(&dword_181A37000, v74, v79, "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d, no backtrace", &v105, 0x22u);
+                  v106 = 136446978;
+                  v107 = "[ManagedNetworkSettings reloadMNS]";
+                  v108 = 1024;
+                  LODWORD(v109[0]) = v92;
+                  WORD2(v109[0]) = 2114;
+                  *(v109 + 6) = v31;
+                  HIWORD(v109[1]) = 1024;
+                  LODWORD(v109[2]) = v63;
+                  _os_log_impl(&dword_181A37000, v74, v80, "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d, no backtrace", &v106, 0x22u);
                 }
 
                 if (!v67)
@@ -415,7 +417,7 @@ LABEL_105:
 LABEL_106:
                 v27 = &qword_1ED411000;
 LABEL_107:
-                v25 = v81;
+                v25 = v82;
                 goto LABEL_25;
               }
 
@@ -425,19 +427,19 @@ LABEL_107:
               v76 = buf;
               if (os_log_type_enabled(v68, buf))
               {
-                v105 = 136446978;
-                v106 = "[ManagedNetworkSettings reloadMNS]";
-                v107 = 1024;
-                LODWORD(v108[0]) = v91;
-                WORD2(v108[0]) = 2114;
-                *(v108 + 6) = v31;
-                HIWORD(v108[1]) = 1024;
-                LODWORD(v108[2]) = v63;
+                v106 = 136446978;
+                v107 = "[ManagedNetworkSettings reloadMNS]";
+                v108 = 1024;
+                LODWORD(v109[0]) = v92;
+                WORD2(v109[0]) = 2114;
+                *(v109 + 6) = v31;
+                HIWORD(v109[1]) = 1024;
+                LODWORD(v109[2]) = v63;
                 v70 = v68;
                 v71 = v76;
                 v72 = "%{public}s MNS error writing %d to sysctl %{public}@ %{darwin.errno}d, backtrace limit exceeded";
 LABEL_102:
-                _os_log_impl(&dword_181A37000, v70, v71, v72, &v105, 0x22u);
+                _os_log_impl(&dword_181A37000, v70, v71, v72, &v106, 0x22u);
               }
 
 LABEL_103:
@@ -456,43 +458,44 @@ LABEL_104:
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
           v51 = v27[275];
-          v105 = 136446722;
-          v106 = "[ManagedNetworkSettings reloadMNS]";
-          v107 = 2114;
-          v108[0] = v31;
-          LOWORD(v108[1]) = 1024;
-          *v78 = v50;
-          *(&v108[1] + 2) = v50;
-          v52 = _os_log_send_and_compose_impl();
+          v106 = 136446722;
+          v107 = "[ManagedNetworkSettings reloadMNS]";
+          v108 = 2114;
+          v109[0] = v31;
+          LOWORD(v109[1]) = 1024;
+          *v79 = v50;
+          *(&v109[1] + 2) = v50;
+          LODWORD(v77) = 28;
+          v52 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v51, 16, "%{public}s MNS error reading sysctl %{public}@ %{darwin.errno}d", &v106, v77);
 
           LOBYTE(buf) = 16;
-          v82 = 0;
-          if (__nwlog_fault(v52, &buf, &v82))
+          v83 = 0;
+          if (__nwlog_fault(v52, &buf, &v83))
           {
             if (buf != 17)
             {
-              if (v82 == 1)
+              if (v83 == 1)
               {
                 v58 = __nw_create_backtrace_string();
                 pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
                 networkd_settings_init();
                 v59 = v58;
                 v53 = gLogObj;
-                v77 = buf;
+                v78 = buf;
                 v60 = os_log_type_enabled(v53, buf);
                 if (v59)
                 {
                   if (v60)
                   {
-                    v105 = 136446978;
-                    v106 = "[ManagedNetworkSettings reloadMNS]";
-                    v107 = 2114;
-                    v108[0] = v31;
-                    LOWORD(v108[1]) = 1024;
-                    *(&v108[1] + 2) = *v78;
-                    HIWORD(v108[1]) = 2082;
-                    v108[2] = v59;
-                    _os_log_impl(&dword_181A37000, v53, v77, "%{public}s MNS error reading sysctl %{public}@ %{darwin.errno}d, dumping backtrace:%{public}s", &v105, 0x26u);
+                    v106 = 136446978;
+                    v107 = "[ManagedNetworkSettings reloadMNS]";
+                    v108 = 2114;
+                    v109[0] = v31;
+                    LOWORD(v109[1]) = 1024;
+                    *(&v109[1] + 2) = *v79;
+                    HIWORD(v109[1]) = 2082;
+                    v109[2] = v59;
+                    _os_log_impl(&dword_181A37000, v53, v78, "%{public}s MNS error reading sysctl %{public}@ %{darwin.errno}d, dumping backtrace:%{public}s", &v106, 0x26u);
                   }
 
                   free(v59);
@@ -504,14 +507,14 @@ LABEL_104:
                   goto LABEL_79;
                 }
 
-                v105 = 136446722;
-                v106 = "[ManagedNetworkSettings reloadMNS]";
-                v107 = 2114;
-                v108[0] = v31;
-                LOWORD(v108[1]) = 1024;
-                *(&v108[1] + 2) = *v78;
+                v106 = 136446722;
+                v107 = "[ManagedNetworkSettings reloadMNS]";
+                v108 = 2114;
+                v109[0] = v31;
+                LOWORD(v109[1]) = 1024;
+                *(&v109[1] + 2) = *v79;
                 v55 = v53;
-                v56 = v77;
+                v56 = v78;
                 v57 = "%{public}s MNS error reading sysctl %{public}@ %{darwin.errno}d, no backtrace";
               }
 
@@ -526,19 +529,19 @@ LABEL_104:
                   goto LABEL_79;
                 }
 
-                v105 = 136446722;
-                v106 = "[ManagedNetworkSettings reloadMNS]";
-                v107 = 2114;
-                v108[0] = v31;
-                LOWORD(v108[1]) = 1024;
-                *(&v108[1] + 2) = *v78;
+                v106 = 136446722;
+                v107 = "[ManagedNetworkSettings reloadMNS]";
+                v108 = 2114;
+                v109[0] = v31;
+                LOWORD(v109[1]) = 1024;
+                *(&v109[1] + 2) = *v79;
                 v55 = v53;
                 v56 = v61;
                 v57 = "%{public}s MNS error reading sysctl %{public}@ %{darwin.errno}d, backtrace limit exceeded";
               }
 
 LABEL_78:
-              _os_log_impl(&dword_181A37000, v55, v56, v57, &v105, 0x1Cu);
+              _os_log_impl(&dword_181A37000, v55, v56, v57, &v106, 0x1Cu);
               goto LABEL_79;
             }
 
@@ -548,12 +551,12 @@ LABEL_78:
             v54 = buf;
             if (os_log_type_enabled(v53, buf))
             {
-              v105 = 136446722;
-              v106 = "[ManagedNetworkSettings reloadMNS]";
-              v107 = 2114;
-              v108[0] = v31;
-              LOWORD(v108[1]) = 1024;
-              *(&v108[1] + 2) = *v78;
+              v106 = 136446722;
+              v107 = "[ManagedNetworkSettings reloadMNS]";
+              v108 = 2114;
+              v109[0] = v31;
+              LOWORD(v109[1]) = 1024;
+              *(&v109[1] + 2) = *v79;
               v55 = v53;
               v56 = v54;
               v57 = "%{public}s MNS error reading sysctl %{public}@ %{darwin.errno}d";
@@ -578,19 +581,19 @@ LABEL_80:
         v43 = v27[275];
         if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          v105 = 136446722;
-          v106 = "[ManagedNetworkSettings reloadMNS]";
-          v107 = 2114;
-          v108[0] = v33;
-          LOWORD(v108[1]) = 2114;
-          *(&v108[1] + 2) = v31;
-          _os_log_impl(&dword_181A37000, v43, OS_LOG_TYPE_ERROR, "%{public}s MNS observed invalid value %{public}@ for key %{public}@", &v105, 0x20u);
+          v106 = 136446722;
+          v107 = "[ManagedNetworkSettings reloadMNS]";
+          v108 = 2114;
+          v109[0] = v33;
+          LOWORD(v109[1]) = 2114;
+          *(&v109[1] + 2) = v31;
+          _os_log_impl(&dword_181A37000, v43, OS_LOG_TYPE_ERROR, "%{public}s MNS observed invalid value %{public}@ for key %{public}@", &v106, 0x20u);
         }
 
 LABEL_25:
       }
 
-      v28 = [v25 countByEnumeratingWithState:&v83 objects:v95 count:16];
+      v28 = [v25 countByEnumeratingWithState:&v84 objects:v96 count:16];
     }
 
     while (v28);
@@ -687,7 +690,7 @@ LABEL_25:
     v8 = gLogObj;
     *buf = 136446210;
     v22 = "[ManagedNetworkSettings handleEvent:]";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null event", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v19 = 0;
@@ -842,7 +845,7 @@ LABEL_34:
     v5 = gLogObj;
     *buf = 136446210;
     v20 = "[ManagedNetworkSettings init]";
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s super init failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v16 = 0;

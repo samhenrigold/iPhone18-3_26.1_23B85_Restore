@@ -127,18 +127,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    serviceType = self->_serviceType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_config)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -188,7 +187,6 @@
     goto LABEL_9;
   }
 
-  v8 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_serviceType != *(equalCopy + 4))
@@ -205,10 +203,10 @@ LABEL_9:
   }
 
   config = self->_config;
-  v10 = equalCopy[1];
-  if (config | v10)
+  v9 = equalCopy[1];
+  if (config | v9)
   {
-    isEqual = objc_msgSend_isEqual_(config, v7, v10);
+    isEqual = objc_msgSend_isEqual_(config, v7, v9);
   }
 
   else

@@ -395,104 +395,101 @@ LABEL_7:
 
 + (void)_populateConstraintInfosArray:(id)array forViewHierarchy:(id)hierarchy
 {
+  v27 = 0u;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
   obj = [hierarchy constraints];
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = DebugHierarchyTargetHub_ptr;
-    v9 = *v30;
+    v8 = *v28;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v30 != v9)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * v10);
-        v12 = v8[27];
+        v10 = *(*(&v27 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = +[NSMutableDictionary dictionary];
-          [v13 setObject:+[NSString stringWithFormat:](NSString forKey:{"stringWithFormat:", @"%p", v11), @"address"}];
-          [v13 setObject:+[NSString stringWithFormat:](NSString forKey:{"stringWithFormat:", @"%p", objc_msgSend(v11, "firstItem")), @"firstItem"}];
-          [v13 setObject:+[NSNumber numberWithUnsignedLong:](NSNumber forKey:{"numberWithUnsignedLong:", objc_msgSend(v11, "firstAttribute")), @"firstAttribute"}];
-          [v13 setObject:+[NSString stringWithFormat:](NSString forKey:{"stringWithFormat:", @"%p", objc_msgSend(v11, "secondItem")), @"secondItem"}];
-          [v13 setObject:+[NSNumber numberWithUnsignedLong:](NSNumber forKey:{"numberWithUnsignedLong:", objc_msgSend(v11, "secondAttribute")), @"secondAttribute"}];
-          [v13 setObject:+[NSNumber numberWithUnsignedLong:](NSNumber forKey:{"numberWithUnsignedLong:", hierarchy), @"container"}];
-          [v13 setObject:+[NSNumber numberWithUnsignedLong:](NSNumber forKey:{"numberWithUnsignedLong:", objc_msgSend(v11, "relation")), @"relation"}];
-          [v11 constant];
-          [v13 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"constant"}];
-          [v11 multiplier];
-          [v13 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"multiplier"}];
-          [v11 priority];
-          [v13 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v14), @"priority"}];
-          v15 = objc_opt_class();
-          [v13 setObject:NSStringFromClass(v15) forKey:@"class"];
-          identifier = [v11 identifier];
+          v11 = +[NSMutableDictionary dictionary];
+          [v11 setObject:+[NSString stringWithFormat:](NSString forKey:{"stringWithFormat:", @"%p", v10), @"address"}];
+          [v11 setObject:+[NSString stringWithFormat:](NSString forKey:{"stringWithFormat:", @"%p", objc_msgSend(v10, "firstItem")), @"firstItem"}];
+          [v11 setObject:+[NSNumber numberWithUnsignedLong:](NSNumber forKey:{"numberWithUnsignedLong:", objc_msgSend(v10, "firstAttribute")), @"firstAttribute"}];
+          [v11 setObject:+[NSString stringWithFormat:](NSString forKey:{"stringWithFormat:", @"%p", objc_msgSend(v10, "secondItem")), @"secondItem"}];
+          [v11 setObject:+[NSNumber numberWithUnsignedLong:](NSNumber forKey:{"numberWithUnsignedLong:", objc_msgSend(v10, "secondAttribute")), @"secondAttribute"}];
+          [v11 setObject:+[NSNumber numberWithUnsignedLong:](NSNumber forKey:{"numberWithUnsignedLong:", hierarchy), @"container"}];
+          [v11 setObject:+[NSNumber numberWithUnsignedLong:](NSNumber forKey:{"numberWithUnsignedLong:", objc_msgSend(v10, "relation")), @"relation"}];
+          [v10 constant];
+          [v11 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"constant"}];
+          [v10 multiplier];
+          [v11 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"multiplier"}];
+          [v10 priority];
+          [v11 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v12), @"priority"}];
+          v13 = objc_opt_class();
+          [v11 setObject:NSStringFromClass(v13) forKey:@"class"];
+          identifier = [v10 identifier];
           if (identifier)
           {
-            v17 = identifier;
+            v15 = identifier;
           }
 
           else
           {
-            v17 = &stru_3C768;
+            v15 = &stru_3C768;
           }
 
-          [v13 setObject:v17 forKey:@"identifier"];
-          v8 = DebugHierarchyTargetHub_ptr;
-          [array addObject:v13];
+          [v11 setObject:v15 forKey:@"identifier"];
+          [array addObject:v11];
           [self addPathForClass:objc_opt_class()];
         }
 
-        v10 = v10 + 1;
+        v9 = v9 + 1;
       }
 
-      while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      while (v7 != v9);
+      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  v27 = 0u;
-  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   subviews = [hierarchy subviews];
-  v19 = [subviews countByEnumeratingWithState:&v25 objects:v33 count:16];
-  if (v19)
+  v17 = [subviews countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v17)
   {
-    v20 = v19;
-    v21 = *v26;
+    v18 = v17;
+    v19 = *v24;
     do
     {
-      v22 = 0;
+      v20 = 0;
       do
       {
-        if (*v26 != v21)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(subviews);
         }
 
-        [self _populateConstraintInfosArray:array forViewHierarchy:*(*(&v25 + 1) + 8 * v22)];
-        v22 = v22 + 1;
+        [self _populateConstraintInfosArray:array forViewHierarchy:*(*(&v23 + 1) + 8 * v20)];
+        v20 = v20 + 1;
       }
 
-      while (v20 != v22);
-      v20 = [subviews countByEnumeratingWithState:&v25 objects:v33 count:16];
+      while (v18 != v20);
+      v18 = [subviews countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
-    while (v20);
+    while (v18);
   }
 }
 
@@ -595,20 +592,22 @@ LABEL_7:
     v10 = objc_opt_class();
     [dict setObject:NSStringFromClass(v10) forKey:@"layerClass"];
     [dict setObject:+[NSNumber numberWithBool:](NSNumber forKey:{"numberWithBool:", objc_msgSend(v8, "masksToBounds")), @"masksToBounds"}];
-    [dict setObject:__50__DBGViewDebuggerSupport_addViewLayerInfo_toDict___block_invoke(objc_msgSend(v8 forKey:{"transform"), &v15), @"transform"}];
-    [dict setObject:__50__DBGViewDebuggerSupport_addViewLayerInfo_toDict___block_invoke(objc_msgSend(v8 forKey:{"sublayerTransform"), &v15), @"sublayerTransform"}];
+    v11 = objc_msgSend_transform(v8);
+    [dict setObject:__50__DBGViewDebuggerSupport_addViewLayerInfo_toDict___block_invoke(v11 forKey:{&v17), @"transform"}];
+    v12 = objc_msgSend_sublayerTransform(v8);
+    [dict setObject:__50__DBGViewDebuggerSupport_addViewLayerInfo_toDict___block_invoke(v12 forKey:{&v17), @"sublayerTransform"}];
     [v8 position];
-    v12 = v11;
-    v15 = [NSNumber numberWithDouble:?];
-    v16 = [NSNumber numberWithDouble:v12];
-    [dict setObject:+[NSArray arrayWithObjects:count:](NSArray forKey:{"arrayWithObjects:count:", &v15, 2), @"position"}];
+    v14 = v13;
+    v17 = [NSNumber numberWithDouble:?];
+    v18 = [NSNumber numberWithDouble:v14];
+    [dict setObject:+[NSArray arrayWithObjects:count:](NSArray forKey:{"arrayWithObjects:count:", &v17, 2), @"position"}];
     [v8 zPosition];
     [dict setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"zPosition"}];
     [v8 anchorPoint];
-    v14 = v13;
-    v15 = [NSNumber numberWithDouble:?];
-    v16 = [NSNumber numberWithDouble:v14];
-    [dict setObject:+[NSArray arrayWithObjects:count:](NSArray forKey:{"arrayWithObjects:count:", &v15, 2), @"anchorPoint"}];
+    v16 = v15;
+    v17 = [NSNumber numberWithDouble:?];
+    v18 = [NSNumber numberWithDouble:v16];
+    [dict setObject:+[NSArray arrayWithObjects:count:](NSArray forKey:{"arrayWithObjects:count:", &v17, 2), @"anchorPoint"}];
     [v8 anchorPointZ];
     [dict setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), @"anchorPointZ"}];
     [dict setObject:+[NSNumber numberWithBool:](NSNumber forKey:{"numberWithBool:", objc_msgSend(v8, "isDoubleSided")), @"isDoubleSided"}];
@@ -638,7 +637,7 @@ NSArray *__50__DBGViewDebuggerSupport_addViewLayerInfo_toDict___block_invoke(uin
 
 void *__52__DBGViewDebuggerSupport_iOS_addFrameBasics_toDict___block_invoke(double a1, double a2, double a3, double a4)
 {
-  v7 = [NSNumber numberWithDouble:?];
+  v7 = [NSNumber numberWithDouble:a1];
   v14[0] = v7;
   v8 = [NSNumber numberWithDouble:a2];
   v14[1] = v8;

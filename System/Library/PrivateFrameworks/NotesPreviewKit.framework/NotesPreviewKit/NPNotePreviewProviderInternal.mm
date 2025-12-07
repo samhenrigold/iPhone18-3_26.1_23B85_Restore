@@ -28,7 +28,7 @@
   sub_25C770D14();
 
   type metadata accessor for __NPNotePreviewKey(0);
-  sub_25C770484(&qword_27FC12A98, type metadata accessor for __NPNotePreviewKey);
+  sub_25C770484(&qword_27FC12A98, type metadata accessor for __NPNotePreviewKey, &unk_25C7729D8);
   v9 = sub_25C771868();
 
   return v9;

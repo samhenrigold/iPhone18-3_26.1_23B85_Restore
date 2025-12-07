@@ -261,7 +261,7 @@ LABEL_7:
   self->_isUpdatingTimeline = isUpdatingTimeline;
 }
 
-uint64_t __41__PXStoryTimelineManager__updateTimeline__block_invoke(uint64_t a1, uint64_t a2)
+void *__41__PXStoryTimelineManager__updateTimeline__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) identifierOfSegmentClosestToSegmentWithIdentifier:a2 inTimeline:*(a1 + 40)];
   if (result)
@@ -313,7 +313,7 @@ uint64_t __41__PXStoryTimelineManager__updateTimeline__block_invoke(uint64_t a1,
   [(NSMutableArray *)self->_targetTimelineResultsPaperTrail px_addObject:v5 removingFirstObjectIfNeededToKeepMaximumCount:self->_paperTrailLength, v6, v7, v8, v9, selfCopy];
 }
 
-uint64_t __61__PXStoryTimelineManager__handleUpdatedTargetTimelineResult___block_invoke(uint64_t a1)
+void *__61__PXStoryTimelineManager__handleUpdatedTargetTimelineResult___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setTargetTimelineResult:*(a1 + 40)];
   result = [*(a1 + 40) isDegraded];
@@ -329,7 +329,7 @@ uint64_t __61__PXStoryTimelineManager__handleUpdatedTargetTimelineResult___block
 
 - (void)_updateTargetTimeline
 {
-  if (([(PXStoryTimelineManager *)self timelineAttributes]& 2) == 0 || ([(PXStoryTimelineManager *)self options]& 1) == 0)
+  if (([(PXStoryTimelineManager *)self timelineAttributes]& 2) == 0 || (objc_msgSend_options(self) & 1) == 0)
   {
     v5[0] = 0;
     v5[1] = v5;
@@ -531,9 +531,9 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  options = [(PXStoryTimelineManager *)self options];
+  v16 = objc_msgSend_options(self);
 
-  if ((options & 4) != 0)
+  if ((v16 & 4) != 0)
   {
     goto LABEL_11;
   }
@@ -720,15 +720,15 @@ LABEL_12:
   styleManagerCopy = styleManager;
   managerCopy = manager;
   producerCopy = producer;
-  options = [configurationCopy options];
-  if (([configurationCopy options] & 0xC) != 0)
+  v20 = objc_msgSend_options(configurationCopy);
+  if ((objc_msgSend_options(configurationCopy) & 0xC) != 0)
   {
-    v21 = options & 3 | 8;
+    v21 = v20 & 3 | 8;
   }
 
   else
   {
-    v21 = options & 3;
+    v21 = v20 & 3;
   }
 
   v22 = [PXStoryTimelineManager alloc];
@@ -774,7 +774,7 @@ LABEL_12:
     memset(&v24, 0, sizeof(v24));
     v21 = 0u;
     v22 = 0u;
-    [clipCopy durationInfo];
+    objc_msgSend_durationInfo(clipCopy);
     var1 = info->var4.var1;
     *&v19.value = v21;
     v19.epoch = v22;
@@ -990,7 +990,7 @@ LABEL_6:
   {
     if (timeline)
     {
-      [timeline timeRange];
+      objc_msgSend_timeRange(timeline);
     }
 
     else
@@ -1063,7 +1063,7 @@ void __76__PXStoryTimelineManager_Diagnostics__diagnosticTextForHUDType_displayS
   }
 }
 
-void __76__PXStoryTimelineManager_Diagnostics__diagnosticTextForHUDType_displaySize___block_invoke_2(uint64_t a1, uint64_t a2)
+void __76__PXStoryTimelineManager_Diagnostics__diagnosticTextForHUDType_displaySize___block_invoke_2(uint64_t a1, const char *a2)
 {
   v11 = 0u;
   v12 = 0u;
@@ -1071,7 +1071,7 @@ void __76__PXStoryTimelineManager_Diagnostics__diagnosticTextForHUDType_displayS
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 timeRangeForSegmentWithIdentifier:a2];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(v4, a2, a2);
   }
 
   v5 = *(a1 + 64);

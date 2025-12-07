@@ -38,7 +38,7 @@
 {
   downloadCopy = download;
   downloadingCopy = downloading;
-  v44[4] = *MEMORY[0x1E69E9840];
+  v47[4] = *MEMORY[0x1E69E9840];
   if (![(VUIDownloadButtonActionHandler *)self ignoreDownloadActionIfInRetailDemoMode])
   {
     if (action)
@@ -72,20 +72,20 @@
       }
     }
 
-    v43[0] = @"actionType";
-    v43[1] = @"targetType";
-    v44[0] = @"Download";
-    v44[1] = @"DownloadButton";
-    v44[2] = v9;
-    v43[2] = @"targetId";
-    v43[3] = @"actionDetails";
-    v41 = @"CurrentState";
+    v46[0] = @"actionType";
+    v46[1] = @"targetType";
+    v47[0] = @"Download";
+    v47[1] = @"DownloadButton";
+    v47[2] = v9;
+    v46[2] = @"targetId";
+    v46[3] = @"actionDetails";
+    v44 = @"CurrentState";
     viewModel3 = [(VUIDownloadButtonActionHandler *)self viewModel];
     downloadStateStringValue = [viewModel3 downloadStateStringValue];
-    v42 = downloadStateStringValue;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-    v44[3] = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:4];
+    v45 = downloadStateStringValue;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v47[3] = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:4];
 
     viewModel4 = [(VUIDownloadButtonActionHandler *)self viewModel];
     locationPosition = [viewModel4 locationPosition];
@@ -107,11 +107,11 @@
 
     if (downloadType == 1)
     {
-      v29 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v30 = VUIDefaultLogObject(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        *v40 = 0;
-        _os_log_impl(&dword_1E323F000, v29, OS_LOG_TYPE_DEFAULT, "Showing seasons list.", v40, 2u);
+        *v43 = 0;
+        _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "Showing seasons list.", v43, 2u);
       }
 
       [(VUIDownloadButtonActionHandler *)self _presentSeasonsDownloadList];
@@ -123,7 +123,7 @@
 
     if (downloadType2 == 2)
     {
-      viewModel9 = VUIDefaultLogObject();
+      viewModel9 = VUIDefaultLogObject(v33);
       if (!os_log_type_enabled(viewModel9, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_31:
@@ -131,10 +131,10 @@ LABEL_31:
         goto LABEL_32;
       }
 
-      *v40 = 0;
-      v33 = "Requested to show episode list but this is an error condition.";
+      *v43 = 0;
+      v35 = "Requested to show episode list but this is an error condition.";
 LABEL_19:
-      _os_log_impl(&dword_1E323F000, viewModel9, OS_LOG_TYPE_DEFAULT, v33, v40, 2u);
+      _os_log_impl(&dword_1E323F000, viewModel9, OS_LOG_TYPE_DEFAULT, v35, v43, 2u);
       goto LABEL_31;
     }
 
@@ -163,20 +163,21 @@ LABEL_19:
           goto LABEL_32;
         }
 
-        if (!+[VUIUtilities isInRetailDemoMode])
+        v42 = +[VUIUtilities isInRetailDemoMode];
+        if ((v42 & 1) == 0)
         {
           [(VUIDownloadButtonActionHandler *)self _askUserAndDeleteIfNeeded];
           goto LABEL_32;
         }
 
-        viewModel9 = VUIDefaultLogObject();
+        viewModel9 = VUIDefaultLogObject(v42);
         if (!os_log_type_enabled(viewModel9, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_31;
         }
 
-        *v40 = 0;
-        v33 = "application running in demo mode so not showing delete menu from download button.";
+        *v43 = 0;
+        v35 = "application running in demo mode so not showing delete menu from download button.";
         goto LABEL_19;
       }
 
@@ -672,26 +673,27 @@ void __124__VUIDownloadButtonActionHandler__startDownloadIfPossibleRemovingFromU
 - (void)_checkForAccountSignInWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  if (+[VUIAuthenticationManager userHasActiveAccount])
+  v4 = +[VUIAuthenticationManager userHasActiveAccount];
+  if (v4)
   {
     handlerCopy[2](handlerCopy, 1);
   }
 
   else
   {
-    v4 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "User not logged in, asking to Auth before downloading", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "User not logged in, asking to Auth before downloading", buf, 2u);
     }
 
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __78__VUIDownloadButtonActionHandler__checkForAccountSignInWithCompletionHandler___block_invoke;
-    v5[3] = &unk_1E872E470;
-    v6 = handlerCopy;
-    [VUIAuthenticationManager requestAuthenticationAlwaysPrompt:1 withCompletionHandler:v5];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __78__VUIDownloadButtonActionHandler__checkForAccountSignInWithCompletionHandler___block_invoke;
+    v6[3] = &unk_1E872E470;
+    v7 = handlerCopy;
+    [VUIAuthenticationManager requestAuthenticationAlwaysPrompt:1 withCompletionHandler:v6];
   }
 }
 

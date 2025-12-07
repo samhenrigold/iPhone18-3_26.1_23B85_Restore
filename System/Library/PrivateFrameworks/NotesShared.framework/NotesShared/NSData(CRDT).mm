@@ -1,11 +1,11 @@
 @interface NSData(CRDT)
 - (uint64_t)initWithICCRCoder:()CRDT;
-- (uint64_t)mergeWith:()CRDT;
+- (void)mergeWith:()CRDT;
 @end
 
 @implementation NSData(CRDT)
 
-- (uint64_t)mergeWith:()CRDT
+- (void)mergeWith:()CRDT
 {
   result = [self isEqual:?];
   if ((result & 1) == 0)

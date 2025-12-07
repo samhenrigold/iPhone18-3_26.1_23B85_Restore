@@ -44,9 +44,9 @@
 - (_TtP34SiriCrossDeviceArbitrationFeedback7Globals_)globals
 {
   selfCopy = self;
-  v3 = sub_266A9D630();
+  v4 = sub_266A9D630(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setGlobals:(id)globals
@@ -60,14 +60,13 @@
 {
   v2 = sub_266ABD634();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static FeedbackServiceImpl.receivedArbitrationsDirectoryURL.getter();
-  v7 = sub_266ABD5F4();
-  (*(v3 + 8))(v6, v2);
+  v6 = sub_266ABD5F4();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 - (void)addWithParticipation:(id)participation directoryPath:(id)path

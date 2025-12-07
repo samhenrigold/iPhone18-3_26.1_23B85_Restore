@@ -205,13 +205,13 @@
   v8 = [(HMDCloudZoneInformation *)&v16 init];
   if (v8)
   {
-    v9 = [nameCopy copy];
+    v9 = objc_msgSend_copy(nameCopy);
     ownerName = v8->_ownerName;
     v8->_ownerName = v9;
 
     if (uuidCopy)
     {
-      uUID = [uuidCopy copy];
+      uUID = objc_msgSend_copy(uuidCopy);
     }
 
     else
@@ -253,73 +253,71 @@
 
 + (id)cloudZonesArrayWithCloudZones:(id)zones
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(zonesCopy, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = zonesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        uuid = [*(*(&v14 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v13 + 1) + 8 * i) uuid];
         uUIDString = [uuid UUIDString];
 
         [v4 addObject:uUIDString];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)cloudZoneInformationWithCloudZones:(id)zones
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
-  v28 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(zonesCopy, "count")}];
+  v27 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(zonesCopy, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v4 = zonesCopy;
-  v5 = [v4 countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v30;
+    v8 = *v29;
     *&v6 = 138543618;
-    v25 = v6;
-    v26 = v4;
+    v24 = v6;
+    v25 = v4;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         uuid = [v10 uuid];
         uUIDString = [uuid UUIDString];
 
@@ -344,13 +342,13 @@
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             v20 = HMFGetLogIdentifier();
-            *buf = v25;
-            v34 = v20;
-            v35 = 2112;
-            v36 = v10;
+            *buf = v24;
+            v33 = v20;
+            v34 = 2112;
+            v35 = v10;
             _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Cannot convert zone information to zone information dictionary, %@", buf, 0x16u);
 
-            v4 = v26;
+            v4 = v25;
           }
 
           objc_autoreleasePoolPop(v17);
@@ -359,54 +357,52 @@
 
         else
         {
-          v37[0] = @"HM.zoneOwner";
-          v37[1] = @"HM.zoneHandlesRecord";
-          v38[0] = ownerName;
-          v38[1] = MEMORY[0x277CBEC38];
-          v37[2] = @"HM.zoneSchemaVersion";
+          v36[0] = @"HM.zoneOwner";
+          v36[1] = @"HM.zoneHandlesRecord";
+          v37[0] = ownerName;
+          v37[1] = MEMORY[0x277CBEC38];
+          v36[2] = @"HM.zoneSchemaVersion";
           v21 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v10, "schemaVersion")}];
-          v38[2] = v21;
-          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
-          [v28 setObject:v22 forKeyedSubscript:uUIDString];
+          v37[2] = v21;
+          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
+          [v27 setObject:v22 forKeyedSubscript:uUIDString];
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v7);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 + (id)cloudZonesWithDictionary:(id)dictionary
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [dictionaryCopy allKeys];
-  v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
         v10 = [dictionaryCopy objectForKeyedSubscript:v9];
         v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v9];
         v12 = [v10 objectForKeyedSubscript:@"HM.zoneOwner"];
@@ -441,13 +437,11 @@
         [v4 addObject:v13];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

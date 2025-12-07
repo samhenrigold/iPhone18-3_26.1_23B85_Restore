@@ -59,9 +59,9 @@ void __51__VCPVideoCNNAnalyzer_isVideoSegmentCaptionEnabled__block_invoke()
   interetCopy = interet;
   facesCopy = faces;
   embeddingsCopy = embeddings;
-  v105.receiver = self;
-  v105.super_class = VCPVideoCNNAnalyzer;
-  v16 = [(VCPVideoCNNAnalyzer *)&v105 init];
+  v108.receiver = self;
+  v108.super_class = VCPVideoCNNAnalyzer;
+  v16 = [(VCPVideoCNNAnalyzer *)&v108 init];
   v17 = v16;
   v18 = v16;
   if (!v16)
@@ -193,8 +193,8 @@ LABEL_10:
   *&buf.start.value = *&range->var0.var0;
   *&buf.start.epoch = v56;
   *&buf.duration.timescale = *&range->var1.var1;
-  CMTimeRangeGetEnd(&v103, &buf);
-  buf.start = v103;
+  CMTimeRangeGetEnd(&v106, &buf);
+  buf.start = v106;
   v57 = *v27;
   rhs.epoch = *(v27 + 2);
   *&rhs.value = v57;
@@ -211,7 +211,7 @@ LABEL_10:
     rhs = time;
     if (CMTimeCompare(&buf.start, &rhs) < 1)
     {
-      v103 = *v59;
+      v106 = *v59;
     }
 
     else
@@ -220,11 +220,11 @@ LABEL_10:
       buf.start.epoch = *(v27 + 2);
       *&buf.start.value = v61;
       rhs = time;
-      CMTimeSubtract(&v103, &buf.start, &rhs);
+      CMTimeSubtract(&v106, &buf.start, &rhs);
     }
 
-    v62 = *&v103.value;
-    *(v27 + 2) = v103.epoch;
+    v62 = *&v106.value;
+    *(v27 + 2) = v106.epoch;
     *v27 = v62;
   }
 
@@ -244,8 +244,8 @@ LABEL_10:
   *&buf.start.value = *&range->var0.var0;
   *&buf.start.epoch = v65;
   *&buf.duration.timescale = *&range->var1.var1;
-  CMTimeRangeGetEnd(&v103, &buf);
-  buf.start = v103;
+  CMTimeRangeGetEnd(&v106, &buf);
+  buf.start = v106;
   v66 = *v27;
   rhs.epoch = *(v27 + 2);
   *&rhs.value = v66;
@@ -337,9 +337,9 @@ LABEL_10:
       [*v40 addObject:?];
       if (!*(v18 + 34))
       {
-        v95 = objc_alloc_init(VCPVideoCNNQuality);
-        v96 = *(v18 + 34);
-        *(v18 + 34) = v95;
+        v98 = objc_alloc_init(VCPVideoCNNQuality);
+        v99 = *(v18 + 34);
+        *(v18 + 34) = v98;
 
         if (!*(v18 + 34))
         {
@@ -352,13 +352,14 @@ LABEL_47:
     }
   }
 
-  v82 = !+[VCPVideoCNNAnalyzer isMUBackboneEnabled];
+  v82 = +[VCPVideoCNNAnalyzer isMUBackboneEnabled];
+  v84 = v82 ^ 1;
   if ((analyses & 0x80000000000) == 0)
   {
-    LOBYTE(v82) = 1;
+    v84 = 1;
   }
 
-  if (v82)
+  if (v84)
   {
 LABEL_62:
     v18[57] = 0;
@@ -366,48 +367,48 @@ LABEL_62:
     if (![v18 configForAspectRatio:v83])
     {
 LABEL_63:
-      v90 = v18;
+      v93 = v18;
       goto LABEL_66;
     }
 
 LABEL_65:
-    v90 = 0;
+    v93 = 0;
     goto LABEL_66;
   }
 
-  v84 = VCPSignPostLog();
-  v85 = os_signpost_id_generate(v84);
+  v85 = VCPSignPostLog(v82);
+  v86 = os_signpost_id_generate(v85);
 
-  v86 = VCPSignPostLog();
-  v87 = v86;
-  if (v85 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v86))
+  v88 = VCPSignPostLog(v87);
+  v89 = v88;
+  if (v86 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v88))
   {
     LOWORD(buf.start.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v87, OS_SIGNPOST_INTERVAL_BEGIN, v85, "VCPMovieAnalyzer_Video_VCPVideoBackboneInit", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v89, OS_SIGNPOST_INTERVAL_BEGIN, v86, "VCPMovieAnalyzer_Video_VCPVideoBackboneInit", "", &buf, 2u);
   }
 
-  v88 = [[VCPVideoTransformerBackbone alloc] initWithConfig:*(v18 + 31)];
-  v89 = *(v18 + 2);
-  *(v18 + 2) = v88;
+  v90 = [[VCPVideoTransformerBackbone alloc] initWithConfig:*(v18 + 31)];
+  v91 = *(v18 + 2);
+  *(v18 + 2) = v90;
 
-  v90 = *(v18 + 2);
-  if (v90)
+  v93 = *(v18 + 2);
+  if (v93)
   {
-    v91 = VCPSignPostLog();
-    v92 = v91;
-    if (v85 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v91))
+    v94 = VCPSignPostLog(v92);
+    v95 = v94;
+    if (v86 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v94))
     {
       LOWORD(buf.start.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v92, OS_SIGNPOST_INTERVAL_END, v85, "VCPMovieAnalyzer_Video_VCPVideoBackboneInit", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v95, OS_SIGNPOST_INTERVAL_END, v86, "VCPMovieAnalyzer_Video_VCPVideoBackboneInit", "", &buf, 2u);
     }
 
     goto LABEL_62;
   }
 
 LABEL_66:
-  v93 = v90;
+  v96 = v93;
 
-  return v93;
+  return v96;
 }
 
 - (void)dealloc
@@ -733,41 +734,41 @@ LABEL_66:
   {
     if (LOBYTE(self->_validFramesSettling) == 1)
     {
-      v18 = LOBYTE(self->_timeEnd.epoch) ^ 1;
+      v19 = LOBYTE(self->_timeEnd.epoch) ^ 1;
     }
 
     else
     {
-      v18 = 1;
+      v19 = 1;
     }
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v19 = Seconds > (*&self->_postInference + -0.5) && (self->_validFramesSettling & 0x100) == 0 && LOBYTE(self->_timeEnd.epoch) == 1 && self->_inputDataSettling != 0;
-  if (((v18 | v19) & 1) == 0)
+  v20 = Seconds > (*&self->_postInference + -0.5) && (self->_validFramesSettling & 0x100) == 0 && LOBYTE(self->_timeEnd.epoch) == 1 && self->_inputDataSettling != 0;
+  if (((v19 | v20) & 1) == 0)
   {
     return 0;
   }
 
   if ((self->_timeLastDetection.timescale & 1) == 0)
   {
-    v20 = *&timestamp->var0;
+    v21 = *&timestamp->var0;
     *&self->_timeLastDetection.flags = timestamp->var3;
-    *(&self->_timeLastProcess.epoch + 4) = v20;
+    *(&self->_timeLastProcess.epoch + 4) = v21;
   }
 
-  v21 = Width;
-  v22 = Height;
+  v22 = Width;
+  v23 = Height;
   if ((Height * 1.2) >= Width)
   {
-    if ((v21 * 1.2) < v22)
+    if ((v22 * 1.2) < v23)
     {
-      v13 = ((Height - Width) / (v22 + v22));
-      v15 = (v21 / v22);
+      v13 = ((Height - Width) / (v23 + v23));
+      v15 = (v22 / v23);
       v14 = 1.0;
       v12 = 0.0;
     }
@@ -775,102 +776,103 @@ LABEL_66:
 
   else
   {
-    v12 = ((Width - Height) / (v21 + v21));
-    v14 = (v22 / v21);
+    v12 = ((Width - Height) / (v22 + v22));
+    v14 = (v23 / v22);
     v15 = 1.0;
     v13 = 0.0;
   }
 
-  v24 = VCPSignPostLog();
-  v25 = os_signpost_id_generate(v24);
+  v25 = VCPSignPostLog(v17);
+  v26 = os_signpost_id_generate(v25);
 
-  v26 = VCPSignPostLog();
-  v27 = v26;
-  if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  v28 = VCPSignPostLog(v27);
+  v29 = v28;
+  if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
   {
     LOWORD(lhs.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "VCPMovieAnalyzer_Video_VCPVideoBackbonePreProcess", "", &lhs, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v26, "VCPMovieAnalyzer_Video_VCPVideoBackbonePreProcess", "", &lhs, 2u);
   }
 
-  v28 = [(VCPTransforms *)self->_transformImage cropAndScale:frame regionCrop:v12, v13, v14, v15];
-  if (!v28)
+  v30 = [(VCPTransforms *)self->_transformImage cropAndScale:frame regionCrop:v12, v13, v14, v15];
+  if (!v30)
   {
     return -18;
   }
 
-  v29 = v28;
-  v54 = (&self->_timeLastProcess.epoch + 4);
+  v31 = v30;
+  v57 = (&self->_timeLastProcess.epoch + 4);
   transformImageMUBB = self->_transformImageMUBB;
   if (transformImageMUBB)
   {
-    v31 = [(VCPTransforms *)transformImageMUBB cropAndScale:frame regionCrop:v12, v13, v14, v15];
-    if (!v31)
+    transformImageMUBB = [(VCPTransforms *)transformImageMUBB cropAndScale:frame regionCrop:v12, v13, v14, v15];
+    v33 = transformImageMUBB;
+    if (!transformImageMUBB)
     {
-      v23 = -18;
-      v31 = v29;
+      v24 = -18;
+      v33 = v31;
 LABEL_65:
-      CFRelease(v31);
-      return v23;
+      CFRelease(v33);
+      return v24;
     }
   }
 
   else
   {
-    v31 = 0;
+    v33 = 0;
   }
 
-  v55 = v19;
-  v32 = VCPSignPostLog();
-  v33 = v32;
-  if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+  v58 = v20;
+  v34 = VCPSignPostLog(transformImageMUBB);
+  v35 = v34;
+  if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
   {
     LOWORD(lhs.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_END, v25, "VCPMovieAnalyzer_Video_VCPVideoBackbonePreProcess", "", &lhs, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v26, "VCPMovieAnalyzer_Video_VCPVideoBackbonePreProcess", "", &lhs, 2u);
   }
 
-  if (v18)
+  if (v19)
   {
-    v34 = [(VCPVideoCNNAnalyzer *)self copyImage:v29 withChannels:3 settling:0];
-    if (v34)
+    v36 = [(VCPVideoCNNAnalyzer *)self copyImage:v31 withChannels:3 settling:0];
+    if (v36)
     {
       goto LABEL_60;
     }
 
-    v35 = VCPSignPostLog();
-    v36 = os_signpost_id_generate(v35);
+    v37 = VCPSignPostLog(v36);
+    v38 = os_signpost_id_generate(v37);
 
-    v37 = VCPSignPostLog();
-    v38 = v37;
-    if (v36 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
-    {
-      LOWORD(lhs.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_BEGIN, v36, "VCPMovieAnalyzer_Video_VCPVideoBackbonePreProcess", "", &lhs, 2u);
-    }
-
-    v39 = self->_transformImageMUBB ? v31 : v29;
-    v34 = [(VCPVideoCNNAnalyzer *)self copyMUBBImage:v39 withChannels:3];
-    if (v34)
-    {
-      goto LABEL_60;
-    }
-
-    v40 = VCPSignPostLog();
+    v40 = VCPSignPostLog(v39);
     v41 = v40;
-    if (v36 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
+    if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
     {
       LOWORD(lhs.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v41, OS_SIGNPOST_INTERVAL_END, v36, "VCPMovieAnalyzer_Video_VCPVideoBackbonePreProcess", "", &lhs, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v41, OS_SIGNPOST_INTERVAL_BEGIN, v38, "VCPMovieAnalyzer_Video_VCPVideoBackbonePreProcess", "", &lhs, 2u);
     }
 
-    v42 = *&self->_enoughFrames;
-    if (v42)
+    v42 = self->_transformImageMUBB ? v33 : v31;
+    v36 = [(VCPVideoCNNAnalyzer *)self copyMUBBImage:v42 withChannels:3];
+    if (v36)
+    {
+      goto LABEL_60;
+    }
+
+    v43 = VCPSignPostLog(v36);
+    v44 = v43;
+    if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+    {
+      LOWORD(lhs.value) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v44, OS_SIGNPOST_INTERVAL_END, v38, "VCPMovieAnalyzer_Video_VCPVideoBackbonePreProcess", "", &lhs, 2u);
+    }
+
+    v45 = *&self->_enoughFrames;
+    if (v45)
     {
       if (HIDWORD(self->_timeStart.epoch) == 8)
       {
         lhs = *timestamp;
         rhs = *duration;
-        v34 = [v42 analyzeFrame:v29 withTimestamp:&lhs andDuration:&rhs flags:flags];
-        if (v34)
+        LODWORD(v36) = [v45 analyzeFrame:v31 withTimestamp:&lhs andDuration:&rhs flags:flags];
+        if (v36)
         {
           goto LABEL_60;
         }
@@ -883,19 +885,19 @@ LABEL_65:
     {
       LOBYTE(self->_validFramesSettling) = 1;
       BYTE2(self->_validFramesSettling) = 1;
-      v44 = *&timestamp->var0;
+      v47 = *&timestamp->var0;
       *&self->_timeEnd.timescale = timestamp->var3;
-      *&self->_regionCrop.size.height = v44;
+      *&self->_regionCrop.size.height = v47;
       *&self->_highlight = v12;
       self->_regionCrop.origin.x = v13;
       self->_regionCrop.origin.y = v14;
       self->_regionCrop.size.width = v15;
       if ((self->_timeEnd.epoch & 1) == 0)
       {
-        v45 = *&self->_enoughFrames;
-        if (v45)
+        v48 = *&self->_enoughFrames;
+        if (v48)
         {
-          persons = [v45 persons];
+          persons = [v48 persons];
         }
 
         else
@@ -903,50 +905,50 @@ LABEL_65:
           persons = 0;
         }
 
-        *&time.value = *v54;
+        *&time.value = *v57;
         time.epoch = *&self->_timeLastDetection.flags;
         lhs = *timestamp;
-        *&rhs.value = *v54;
+        *&rhs.value = *v57;
         rhs.epoch = *&self->_timeLastDetection.flags;
-        CMTimeSubtract(&v58, &lhs, &rhs);
-        v23 = [(VCPVideoCNNAnalyzer *)self runTasks:&time duration:&v58 persons:persons regionCrop:v12, v13, v14, v15];
-        if (v23)
+        CMTimeSubtract(&v61, &lhs, &rhs);
+        v24 = [(VCPVideoCNNAnalyzer *)self runTasks:&time duration:&v61 persons:persons regionCrop:v12, v13, v14, v15];
+        if (v24)
         {
 
           goto LABEL_64;
         }
 
         HIDWORD(self->_timeStart.epoch) = 0;
-        v47 = *&timestamp->var0;
+        v50 = *&timestamp->var0;
         *&self->_timeLastDetection.flags = timestamp->var3;
-        *v54 = v47;
-        v57 = persons;
-        v48 = self->_inputDataBackup;
+        *v57 = v50;
+        v60 = persons;
+        v51 = self->_inputDataBackup;
         objc_storeStrong(&self->_inputDataBackup, self->_inputDataForTransformer);
         inputDataForTransformer = self->_inputDataForTransformer;
-        self->_inputDataForTransformer = v48;
-        v50 = v48;
+        self->_inputDataForTransformer = v51;
+        v53 = v51;
 
         LOBYTE(self->_validFramesSettling) = 0;
         BYTE2(self->_validFramesSettling) = 0;
       }
     }
 
-    v51 = *&timestamp->var0;
+    v54 = *&timestamp->var0;
     *&self->_timeLastProcess.flags = timestamp->var3;
-    *(&self->_mubbSampleScale + 1) = v51;
+    *(&self->_mubbSampleScale + 1) = v54;
   }
 
-  if (!v55)
+  if (!v58)
   {
     goto LABEL_63;
   }
 
-  v34 = [(VCPVideoCNNAnalyzer *)self copyImage:v29 withChannels:3 settling:1];
-  if (v34)
+  LODWORD(v36) = [(VCPVideoCNNAnalyzer *)self copyImage:v31 withChannels:3 settling:1];
+  if (v36)
   {
 LABEL_60:
-    v23 = v34;
+    v24 = v36;
     goto LABEL_64;
   }
 
@@ -954,24 +956,24 @@ LABEL_60:
   self->_validFrames = validFrames + 1;
   if (validFrames >= 15)
   {
-    v23 = 0;
+    v24 = 0;
     BYTE1(self->_validFramesSettling) = 1;
   }
 
   else
   {
 LABEL_63:
-    v23 = 0;
+    v24 = 0;
   }
 
 LABEL_64:
-  CFRelease(v29);
-  if (v31)
+  CFRelease(v31);
+  if (v33)
   {
     goto LABEL_65;
   }
 
-  return v23;
+  return v24;
 }
 
 - (int)loadAnalysisResultsFrom:(id)from actionAnalyzer:(id)analyzer atTime:(id *)time
@@ -1127,46 +1129,48 @@ LABEL_11:
   width = crop.size.width;
   y = crop.origin.y;
   x = crop.origin.x;
-  v55 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   personsCopy = persons;
+  v14 = personsCopy;
   if (!self->_backbone)
   {
-    v14 = [[VCPVideoCNNBackbone alloc] initWithConfig:self->_personDetector];
+    v15 = [[VCPVideoCNNBackbone alloc] initWithConfig:self->_personDetector];
     backbone = self->_backbone;
-    self->_backbone = v14;
+    self->_backbone = v15;
 
     if (!self->_backbone)
     {
-      v20 = -108;
+      v23 = -108;
       goto LABEL_42;
     }
   }
 
   if (BYTE2(self->_validFramesSettling) == 1 && self->_videoTransformerBackbone)
   {
-    v16 = VCPSignPostLog();
-    v17 = os_signpost_id_generate(v16);
+    v17 = VCPSignPostLog(personsCopy);
+    v18 = os_signpost_id_generate(v17);
 
-    v18 = VCPSignPostLog();
-    v19 = v18;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v20 = VCPSignPostLog(v19);
+    v21 = v20;
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VCPMovieAnalyzer_Video_VCPVideoBackboneInference", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v18, "VCPMovieAnalyzer_Video_VCPVideoBackboneInference", "", buf, 2u);
     }
 
-    v20 = [(VCPVideoTransformerBackbone *)self->_videoTransformerBackbone inference:self->_inputDataForTransformer];
-    if (v20)
+    v22 = [(VCPVideoTransformerBackbone *)self->_videoTransformerBackbone inference:self->_inputDataForTransformer];
+    v23 = v22;
+    if (v22)
     {
       goto LABEL_42;
     }
 
-    v21 = VCPSignPostLog();
-    v22 = v21;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v24 = VCPSignPostLog(v22);
+    v25 = v24;
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v17, "VCPMovieAnalyzer_Video_VCPVideoBackboneInference", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v18, "VCPMovieAnalyzer_Video_VCPVideoBackboneInference", "", buf, 2u);
     }
 
     videoEmbeddings = self->_videoEmbeddings;
@@ -1175,9 +1179,9 @@ LABEL_11:
       embedding = [(VCPVideoTransformerBackbone *)self->_videoTransformerBackbone embedding];
       *buf = *&tasks->var0;
       var3 = tasks->var3;
-      v49 = *&duration->var0;
-      v50 = duration->var3;
-      [(VCPVideoEmbeddings *)videoEmbeddings addEmbeddings:embedding startTime:buf duration:&v49];
+      v52 = *&duration->var0;
+      v53 = duration->var3;
+      [(VCPVideoEmbeddings *)videoEmbeddings addEmbeddings:embedding startTime:buf duration:&v52];
     }
 
     videoCaptionAnalyzer = self->_videoCaptionAnalyzer;
@@ -1186,16 +1190,16 @@ LABEL_11:
       spatialEmbedding = [(VCPVideoTransformerBackbone *)self->_videoTransformerBackbone spatialEmbedding];
       *buf = *&tasks->var0;
       var3 = tasks->var3;
-      v49 = *&duration->var0;
-      v50 = duration->var3;
-      [(VCPVideoCaptionAnalyzer *)videoCaptionAnalyzer generateCaptionWithEmbedding:spatialEmbedding startTime:buf duration:&v49];
+      v52 = *&duration->var0;
+      v53 = duration->var3;
+      [(VCPVideoCaptionAnalyzer *)videoCaptionAnalyzer generateCaptionWithEmbedding:spatialEmbedding startTime:buf duration:&v52];
     }
   }
 
   if (LOBYTE(self->_validFramesSettling) == 1)
   {
-    v20 = [(VCPVideoCNNBackbone *)self->_backbone inference:self->_inputData settling:0];
-    if (v20)
+    v23 = [(VCPVideoCNNBackbone *)self->_backbone inference:self->_inputData settling:0];
+    if (v23)
     {
       goto LABEL_42;
     }
@@ -1206,45 +1210,45 @@ LABEL_11:
       tensorBeforeTemporalPooling = [(VCPVideoCNNBackbone *)self->_backbone tensorBeforeTemporalPooling];
       *buf = *&tasks->var0;
       var3 = tasks->var3;
-      v49 = *&duration->var0;
-      v50 = duration->var3;
-      [(VCPVideoEmbeddings *)videoEmbeddingsX3D addEmbeddings:tensorBeforeTemporalPooling startTime:buf duration:&v49];
+      v52 = *&duration->var0;
+      v53 = duration->var3;
+      [(VCPVideoEmbeddings *)videoEmbeddingsX3D addEmbeddings:tensorBeforeTemporalPooling startTime:buf duration:&v52];
     }
 
-    v47 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v29 = self->_tasks;
-    v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v45 objects:v54 count:16];
-    if (v30)
+    v49 = 0u;
+    v32 = self->_tasks;
+    v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v48 objects:v57 count:16];
+    if (v33)
     {
-      v31 = *v46;
+      v34 = *v49;
 LABEL_22:
-      v32 = 0;
+      v35 = 0;
       while (1)
       {
-        if (*v46 != v31)
+        if (*v49 != v34)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v32);
         }
 
-        v33 = *(*(&v45 + 1) + 8 * v32);
-        v34 = self->_backbone;
+        v36 = *(*(&v48 + 1) + 8 * v35);
+        v37 = self->_backbone;
         *buf = *&tasks->var0;
         var3 = tasks->var3;
-        v49 = *&duration->var0;
-        v50 = duration->var3;
-        v20 = [v33 run:v34 withPersons:personsCopy andRegionCrop:buf atTime:&v49 andDuration:{x, y, width, height}];
-        if (v20)
+        v52 = *&duration->var0;
+        v53 = duration->var3;
+        v23 = [v36 run:v37 withPersons:v14 andRegionCrop:buf atTime:&v52 andDuration:{x, y, width, height}];
+        if (v23)
         {
           goto LABEL_41;
         }
 
-        if (v30 == ++v32)
+        if (v33 == ++v35)
         {
-          v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v45 objects:v54 count:16];
-          if (v30)
+          v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v48 objects:v57 count:16];
+          if (v33)
           {
             goto LABEL_22;
           }
@@ -1254,40 +1258,40 @@ LABEL_22:
       }
     }
 
-    v43 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v29 = self->_privateTasks;
-    v35 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v41 objects:v53 count:16];
-    if (v35)
+    v45 = 0u;
+    v32 = self->_privateTasks;
+    v38 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v44 objects:v56 count:16];
+    if (v38)
     {
-      v36 = *v42;
+      v39 = *v45;
 LABEL_30:
-      v37 = 0;
+      v40 = 0;
       while (1)
       {
-        if (*v42 != v36)
+        if (*v45 != v39)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v32);
         }
 
-        v38 = *(*(&v41 + 1) + 8 * v37);
-        v39 = self->_backbone;
+        v41 = *(*(&v44 + 1) + 8 * v40);
+        v42 = self->_backbone;
         *buf = *&tasks->var0;
         var3 = tasks->var3;
-        v49 = *&duration->var0;
-        v50 = duration->var3;
-        v20 = [v38 run:v39 withPersons:personsCopy andRegionCrop:buf atTime:&v49 andDuration:{x, y, width, height, v41}];
-        if (v20)
+        v52 = *&duration->var0;
+        v53 = duration->var3;
+        v23 = [v41 run:v42 withPersons:v14 andRegionCrop:buf atTime:&v52 andDuration:{x, y, width, height, v44}];
+        if (v23)
         {
           break;
         }
 
-        if (v35 == ++v37)
+        if (v38 == ++v40)
         {
-          v35 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v41 objects:v53 count:16];
-          if (v35)
+          v38 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v44 objects:v56 count:16];
+          if (v38)
           {
             goto LABEL_30;
           }
@@ -1306,17 +1310,17 @@ LABEL_36:
 
   if (BYTE1(self->_validFramesSettling) == 1)
   {
-    v20 = [(VCPVideoCNNBackbone *)self->_backbone inference:self->_inputDataSettling settling:1];
+    v23 = [(VCPVideoCNNBackbone *)self->_backbone inference:self->_inputDataSettling settling:1];
   }
 
   else
   {
-    v20 = 0;
+    v23 = 0;
   }
 
 LABEL_42:
 
-  return v20;
+  return v23;
 }
 
 - (void)copyFrames

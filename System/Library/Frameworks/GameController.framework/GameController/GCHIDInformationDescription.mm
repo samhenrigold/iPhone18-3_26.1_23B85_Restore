@@ -39,22 +39,23 @@
 - (GCHIDInformationDescription)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = GCHIDInformationDescription;
-  v5 = [(GCHIDInformationDescription *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = GCHIDInformationDescription;
+  v5 = [(GCHIDInformationDescription *)&v13 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = GCIPCObjectIdentifier_Classes();
-    v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
-    identifier = v5->_identifier;
-    v5->_identifier = v7;
+    v7 = GCIPCObjectIdentifier_Classes(v5);
+    v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"identifier"];
+    identifier = v6->_identifier;
+    v6->_identifier = v8;
 
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"registryID"];
-    registryID = v5->_registryID;
-    v5->_registryID = v9;
+    v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"registryID"];
+    registryID = v6->_registryID;
+    v6->_registryID = v10;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

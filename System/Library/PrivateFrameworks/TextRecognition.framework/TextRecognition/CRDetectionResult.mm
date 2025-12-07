@@ -12,7 +12,7 @@
 
 - (NSArray)lines
 {
-  sub_1B40E27B4(0, &unk_1ED95E680);
+  sub_1B40E27B4(0, &unk_1ED95E680, off_1E7BC0D68);
 
   v2 = sub_1B429FDE8();
 
@@ -27,7 +27,7 @@
 
   os_unfair_lock_unlock(v2);
 
-  sub_1B40E27B4(0, &qword_1ED95E6D0);
+  sub_1B40E27B4(0, &qword_1ED95E6D0, off_1E7BC0FF8);
   v4 = sub_1B429FDE8();
 
   return v4;
@@ -35,7 +35,7 @@
 
 - (void)setTableRegions:(id)regions
 {
-  sub_1B40E27B4(0, &qword_1ED95E6D0);
+  sub_1B40E27B4(0, &qword_1ED95E6D0, off_1E7BC0FF8);
   v4 = sub_1B429FDF8();
   v5 = (self + OBJC_IVAR___CRDetectionResult_tableRegionsMutex);
   selfCopy = self;
@@ -52,7 +52,7 @@
   if (*(self + v3))
   {
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8853B0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8853B0, &qword_1B42ADCA8);
     v4 = sub_1B429FDE8();
   }
 
@@ -69,7 +69,7 @@
   featuresCopy = features;
   if (features)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8853B0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8853B0, &qword_1B42ADCA8);
     featuresCopy = sub_1B429FDF8();
   }
 
@@ -80,7 +80,7 @@
 
 - (CRDetectionResult)initWithLines:(id)lines
 {
-  sub_1B40E27B4(0, &unk_1ED95E680);
+  sub_1B40E27B4(0, &unk_1ED95E680, off_1E7BC0D68);
   v3 = sub_1B429FDF8();
   return sub_1B4143978(v3);
 }

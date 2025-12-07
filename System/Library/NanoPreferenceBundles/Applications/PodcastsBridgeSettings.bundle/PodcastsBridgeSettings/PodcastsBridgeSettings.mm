@@ -59,20 +59,19 @@ void sub_24E0(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v12 = *(a1 + 32);
-    v13 = a3;
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v16 = [NSString stringWithFormat:@"Failed to resize existing original for key: %@", v13, NSDebugDescriptionErrorKey];
+    v12 = a3;
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v15 = [NSString stringWithFormat:@"Failed to resize existing original for key: %@", v12, NSDebugDescriptionErrorKey];
 
-    v21 = v16;
-    v17 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v18 = [NSError errorWithDomain:v15 code:1 userInfo:v17];
+    v20 = v15;
+    v16 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v17 = [NSError errorWithDomain:v14 code:1 userInfo:v16];
 
-    v19 = *(a1 + 48);
-    if (v19)
+    v18 = *(a1 + 48);
+    if (v18)
     {
-      (*(v19 + 16))(v19, 0, v18);
+      (*(v18 + 16))(v18, 0, v17);
     }
   }
 }
@@ -81,26 +80,24 @@ void sub_26C8(void *a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = a1[6];
-    v4 = *(a1[6] + 16);
+    v3 = *(a1[6] + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = a1[4];
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = [NSString stringWithFormat:@"Failed to download original for key: %@", a1[5], NSDebugDescriptionErrorKey];
-    v13 = v8;
-    v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-    v10 = [NSError errorWithDomain:v7 code:2 userInfo:v9];
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = [NSString stringWithFormat:@"Failed to download original for key: %@", a1[5], NSDebugDescriptionErrorKey];
+    v11 = v6;
+    v7 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v8 = [NSError errorWithDomain:v5 code:2 userInfo:v7];
 
-    v11 = a1[7];
-    if (v11)
+    v9 = a1[7];
+    if (v9)
     {
-      (*(v11 + 16))(v11, 0, v10);
+      (*(v9 + 16))(v9, 0, v8);
     }
   }
 }
@@ -225,9 +222,9 @@ void sub_6CAC(id a1)
   [v5 setMaximumFractionDigits:0];
 }
 
-void sub_8F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_8F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -290,9 +287,9 @@ void sub_8F3C(uint64_t a1)
   }
 }
 
-void sub_9334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_9334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

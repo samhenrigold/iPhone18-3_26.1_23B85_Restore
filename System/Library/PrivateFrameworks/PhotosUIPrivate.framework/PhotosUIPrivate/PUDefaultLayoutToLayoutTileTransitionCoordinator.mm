@@ -156,10 +156,10 @@ LABEL_13:
       }
     }
 
-    indexPath = [disappearanceCopy indexPath];
+    v20 = objc_msgSend_indexPath(disappearanceCopy);
     v21 = +[PUAssetsDataSourceConverter defaultConverter];
     v39 = @"PUTileKindItemContent";
-    v40 = indexPath;
+    v40 = v20;
     v22 = [v21 convertIndexPath:&v40 tileKind:&v39 fromDataSource:dataSource2 toDataSource:dataSource4];
     v23 = v40;
 
@@ -249,9 +249,9 @@ LABEL_7:
   dataSourceIdentifier2 = [infoCopy dataSourceIdentifier];
   if ([dataSourceIdentifier isEqual:dataSourceIdentifier2])
   {
-    indexPath = [anchorAssetReference indexPath];
-    indexPath2 = [infoCopy indexPath];
-    v13 = [indexPath isEqual:indexPath2];
+    v11 = objc_msgSend_indexPath(anchorAssetReference);
+    v12 = objc_msgSend_indexPath(infoCopy);
+    v13 = [v11 isEqual:v12];
   }
 
   else
@@ -263,7 +263,7 @@ LABEL_7:
   {
     v31 = controllerCopy;
     dataSourceIdentifier3 = [infoCopy dataSourceIdentifier];
-    indexPath3 = [infoCopy indexPath];
+    v15 = objc_msgSend_indexPath(infoCopy);
     tileKind = [infoCopy tileKind];
     toLayout = [(PUDefaultLayoutToLayoutTileTransitionCoordinator *)self toLayout];
     dataSource = [toLayout dataSource];
@@ -273,7 +273,7 @@ LABEL_7:
     if (v20)
     {
       v21 = 0;
-      if (!indexPath3)
+      if (!v15)
       {
         controllerCopy = v31;
 LABEL_14:
@@ -293,7 +293,7 @@ LABEL_14:
       }
 
       toLayout2 = [(PUDefaultLayoutToLayoutTileTransitionCoordinator *)self toLayout];
-      fromLayout = [toLayout2 layoutInfoForTileWithIndexPath:indexPath3 kind:tileKind];
+      fromLayout = [toLayout2 layoutInfoForTileWithIndexPath:v15 kind:tileKind];
 
       if (!fromLayout)
       {
@@ -345,9 +345,9 @@ LABEL_18:
   dataSourceIdentifier2 = [infoCopy dataSourceIdentifier];
   if ([dataSourceIdentifier isEqual:dataSourceIdentifier2])
   {
-    indexPath = [anchorAssetReference indexPath];
-    indexPath2 = [infoCopy indexPath];
-    v13 = [indexPath isEqual:indexPath2];
+    v11 = objc_msgSend_indexPath(anchorAssetReference);
+    v12 = objc_msgSend_indexPath(infoCopy);
+    v13 = [v11 isEqual:v12];
   }
 
   else
@@ -390,11 +390,11 @@ LABEL_18:
         dataSource4 = 0;
       }
 
-      indexPath3 = [infoCopy indexPath];
+      v23 = objc_msgSend_indexPath(infoCopy);
       tileKind = [infoCopy tileKind];
       v25 = +[PUAssetsDataSourceConverter defaultConverter];
       v41 = tileKind;
-      v42 = indexPath3;
+      v42 = v23;
       v26 = [v25 convertIndexPath:&v42 tileKind:&v41 fromDataSource:dataSource4 toDataSource:dataSource2];
       v27 = v42;
 
@@ -485,8 +485,8 @@ LABEL_28:
 
   if (v12)
   {
-    indexPath = [infoCopy indexPath];
-    v14 = [dataSource2 assetReferenceAtIndexPath:indexPath];
+    v13 = objc_msgSend_indexPath(infoCopy);
+    v14 = [dataSource2 assetReferenceAtIndexPath:v13];
     anchorAssetReference = [(PUDefaultLayoutToLayoutTileTransitionCoordinator *)self anchorAssetReference];
     v16 = [v14 isEqual:anchorAssetReference];
 

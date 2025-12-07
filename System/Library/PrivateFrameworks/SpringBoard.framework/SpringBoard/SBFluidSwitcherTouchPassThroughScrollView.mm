@@ -50,14 +50,14 @@
   return superclassRespondsToSetVelocityScaleFactor_superclassRespondsToSetVelocityScaleFactor;
 }
 
-uint64_t __84__SBFluidSwitcherTouchPassThroughScrollView_superclassRespondsToVelocityScaleFactor__block_invoke(uint64_t a1)
+void *__84__SBFluidSwitcherTouchPassThroughScrollView_superclassRespondsToVelocityScaleFactor__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "superclass")];
   superclassRespondsToVelocityScaleFactor_superclassRespondsToVelocityScaleFactor = result;
   return result;
 }
 
-uint64_t __87__SBFluidSwitcherTouchPassThroughScrollView_superclassRespondsToSetVelocityScaleFactor__block_invoke(uint64_t a1)
+void *__87__SBFluidSwitcherTouchPassThroughScrollView_superclassRespondsToSetVelocityScaleFactor__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "superclass")];
   superclassRespondsToSetVelocityScaleFactor_superclassRespondsToSetVelocityScaleFactor = result;

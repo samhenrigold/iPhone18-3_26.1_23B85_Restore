@@ -444,34 +444,34 @@ LABEL_12:
   v15 = namedCopy;
   v16 = serviceNamedCopy;
   v17 = identifierCopy;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = sub_100001E2C;
-  v70 = sub_100001E3C;
-  v71 = 0;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = sub_100001E2C;
+  v68 = sub_100001E3C;
+  v69 = 0;
   sub_10000433C(v15, v16, v17);
-  v63[0] = _NSConcreteStackBlock;
-  v63[1] = 3221225472;
-  v63[2] = sub_100004448;
-  v63[3] = &unk_1000106B8;
-  v18 = v65 = &v66;
-  v64 = v18;
-  sub_100004498(v63);
-  v19 = v67[5];
+  v61[0] = _NSConcreteStackBlock;
+  v61[1] = 3221225472;
+  v61[2] = sub_100004448;
+  v61[3] = &unk_1000106B8;
+  v18 = v63 = &v64;
+  v62 = v18;
+  sub_100004498(v61);
+  v19 = v65[5];
 
-  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v64, 8);
   if (!v19)
   {
-    v47 = objc_opt_new();
+    v45 = objc_opt_new();
     v20 = v16;
     uTF8String = [v16 UTF8String];
     v22 = geteuid();
     if (v22 != 92 && v22 != 203)
     {
-      v29 = xpc_connection_create(uTF8String, targetq);
-      v30 = *(v47 + 24);
-      *(v47 + 24) = v29;
+      v28 = xpc_connection_create(uTF8String, targetq);
+      v29 = *(v45 + 24);
+      *(v45 + 24) = v28;
 
       goto LABEL_10;
     }
@@ -489,65 +489,63 @@ LABEL_12:
         {
           NSLog(@"%@ working around rdar://problem/35553241", self);
           mach_service = xpc_connection_create_mach_service(uTF8String, targetq, 0);
-          v27 = *(v47 + 24);
-          *(v47 + 24) = mach_service;
+          v27 = *(v45 + 24);
+          *(v45 + 24) = mach_service;
 
-          v28 = *(v47 + 24);
           xpc_connection_set_target_uid();
 LABEL_10:
           if (v17)
           {
-            v66 = 0;
-            v67 = 0;
-            [v17 getUUIDBytes:&v66];
-            v31 = *(v47 + 24);
+            v64 = 0;
+            v65 = 0;
+            [v17 getUUIDBytes:&v64];
             xpc_connection_set_oneshot_instance();
           }
 
-          v32 = v15;
-          v33 = xpc_string_create([v15 UTF8String]);
-          v34 = *(v47 + 32);
-          *(v47 + 32) = v33;
+          v30 = v15;
+          v31 = xpc_string_create([v15 UTF8String]);
+          v32 = *(v45 + 32);
+          *(v45 + 32) = v31;
 
-          v35 = xpc_dictionary_create(&off_100015118, (v47 + 32), 1uLL);
-          v36 = *(v47 + 40);
-          *(v47 + 40) = v35;
+          v33 = xpc_dictionary_create(&off_100015118, (v45 + 32), 1uLL);
+          v34 = *(v45 + 40);
+          *(v45 + 40) = v33;
 
-          v37 = *(v47 + 24);
+          v35 = *(v45 + 24);
           handler[0] = _NSConcreteStackBlock;
           handler[1] = 3221225472;
           handler[2] = sub_100004544;
           handler[3] = &unk_100010730;
-          v38 = v47;
+          v36 = v45;
+          v56 = v36;
+          v37 = v15;
+          v57 = v37;
+          v38 = v16;
           v58 = v38;
-          v39 = v15;
-          v59 = v39;
-          v40 = v16;
-          v60 = v40;
-          xpc_connection_set_event_handler(v37, handler);
-          xpc_connection_resume(*(v47 + 24));
-          v50[0] = _NSConcreteStackBlock;
-          v50[1] = 3221225472;
-          v50[2] = sub_100004624;
-          v50[3] = &unk_1000107C0;
-          v51 = v38;
+          xpc_connection_set_event_handler(v35, handler);
+          xpc_connection_resume(*(v45 + 24));
+          v48[0] = _NSConcreteStackBlock;
+          v48[1] = 3221225472;
+          v48[2] = sub_100004624;
+          v48[3] = &unk_1000107C0;
+          v49 = v36;
           selfCopy = self;
-          v52 = v39;
-          v53 = v40;
-          v54 = v17;
-          v55 = completionCopy;
-          v41 = objc_retainBlock(v50);
-          v42 = *(v47 + 24);
-          v43 = *(v47 + 40);
+          v50 = v37;
+          v51 = v38;
+          v52 = v17;
+          v53 = completionCopy;
+          v39 = objc_retainBlock(v48);
+          v40 = *(v45 + 24);
+          v41 = *(v45 + 40);
           if (asyncCopy)
           {
-            xpc_connection_send_message_with_reply(v42, v43, targetq, v41);
+            xpc_connection_send_message_with_reply(v40, v41, targetq, v39);
           }
 
           else
           {
-            v44 = xpc_connection_send_message_with_reply_sync(v42, v43);
-            (v41[2])(v41, v44);
+            v42 = xpc_connection_send_message_with_reply_sync(v40, v41);
+            (v39[2])(v39, v42);
           }
 
           goto LABEL_21;
@@ -561,7 +559,7 @@ LABEL_18:
           block[1] = 3221225472;
           block[2] = sub_10000452C;
           block[3] = &unk_1000106E0;
-          v62 = completionCopy;
+          v60 = completionCopy;
           dispatch_async(targetq, block);
         }
 

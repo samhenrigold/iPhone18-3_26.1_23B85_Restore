@@ -1,3 +1,715 @@
+void WebCore::ContactInfo::~ContactInfo(WebCore::ContactInfo *this, WTF::StringImpl *a2)
+{
+  v3 = *(this + 11);
+  v4 = *(this + 4);
+  if (v3)
+  {
+    v5 = 8 * v3;
+    do
+    {
+      v6 = *v4;
+      *v4 = 0;
+      if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v6, a2);
+      }
+
+      v4 = (v4 + 8);
+      v5 -= 8;
+    }
+
+    while (v5);
+    v4 = *(this + 4);
+  }
+
+  if (v4)
+  {
+    *(this + 4) = 0;
+    *(this + 10) = 0;
+    WTF::fastFree(v4, a2);
+  }
+
+  v7 = *(this + 7);
+  v8 = *(this + 2);
+  if (v7)
+  {
+    v9 = 8 * v7;
+    do
+    {
+      v10 = *v8;
+      *v8 = 0;
+      if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v10, a2);
+      }
+
+      v8 = (v8 + 8);
+      v9 -= 8;
+    }
+
+    while (v9);
+    v8 = *(this + 2);
+  }
+
+  if (v8)
+  {
+    *(this + 2) = 0;
+    *(this + 6) = 0;
+    WTF::fastFree(v8, a2);
+  }
+
+  v11 = *(this + 3);
+  v12 = *this;
+  if (v11)
+  {
+    v13 = 8 * v11;
+    do
+    {
+      v14 = *v12;
+      *v12 = 0;
+      if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v14, a2);
+      }
+
+      v12 = (v12 + 8);
+      v13 -= 8;
+    }
+
+    while (v13);
+    v12 = *this;
+  }
+
+  if (v12)
+  {
+    *this = 0;
+    *(this + 2) = 0;
+    WTF::fastFree(v12, a2);
+  }
+}
+
+uint64_t std::experimental::fundamentals_v3::expected<WebCore::DigitalCredentialsResponseData,WebCore::ExceptionData>::~expected(uint64_t result, WTF::StringImpl *a2)
+{
+  if (*(result + 16) != 255)
+  {
+    v2 = *(result + 8);
+    *(result + 8) = 0;
+    if (v2)
+    {
+      if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        v3 = result;
+        WTF::StringImpl::destroy(v2, a2);
+        result = v3;
+      }
+    }
+  }
+
+  *(result + 16) = -1;
+  return result;
+}
+
+uint64_t WTF::CompletionHandler<void ()(WebCore::RequestStorageAccessResult)>::operator()(uint64_t *a1, __int16 *a2)
+{
+  v2 = *a1;
+  *a1 = 0;
+  v8 = *a2;
+  v9 = *(a2 + 2);
+  v3 = *(a2 + 4);
+  *(a2 + 4) = 0u;
+  *v10 = v3;
+  (*(*v2 + 16))(v2, &v8);
+  v5 = v10[1];
+  v10[1] = 0;
+  if (v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v5, v4);
+  }
+
+  v6 = v10[0];
+  v10[0] = 0;
+  if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v6, v4);
+  }
+
+  return (*(*v2 + 8))(v2);
+}
+
+void sub_1C7AC430C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  WebCore::SocketStreamError::~SocketStreamError(va, a2);
+  WebCore::SocketStreamError::~SocketStreamError(&a9, v13);
+  (*(*v11 + 8))(v11);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WebCore::DocumentFullscreen::deref(uint64_t this)
+{
+  if (this)
+  {
+    if (*(this + 28) == 2)
+    {
+      return WebCore::Node::removedLastRef(this);
+    }
+
+    else
+    {
+      *(this + 28) -= 2;
+    }
+  }
+
+  else
+  {
+    this = 92;
+    __break(0xC471u);
+  }
+
+  return this;
+}
+
+_DWORD *WTF::RefCounted<WebCore::Page>::deref(_DWORD *result)
+{
+  if (*result == 1)
+  {
+    v2 = MEMORY[0x1CCA673C0](result - 2);
+
+    return bmalloc::api::tzoneFree(v2, v3);
+  }
+
+  else
+  {
+    --*result;
+  }
+
+  return result;
+}
+
+WebCore::Icon *WTF::RefCounted<WebCore::Icon>::deref(WebCore::Icon *result)
+{
+  if (*result == 1)
+  {
+    WebCore::Icon::~Icon(result);
+
+    return WTF::fastFree(v2, v3);
+  }
+
+  else
+  {
+    --*result;
+  }
+
+  return result;
+}
+
+void *WTF::Detail::CallableWrapper<WebChromeClient::enterFullScreenForElement(WebCore::Element &,unsigned int,WTF::CompletionHandler<void ()(WebCore::ExceptionOr<void>)> &&,WTF::CompletionHandler<BOOL ()(BOOL)> &&)::$_0,void,BOOL>::~CallableWrapper(void *result)
+{
+  v1 = result[1];
+  *result = &unk_1F472CC90;
+  result[1] = 0;
+  if (v1)
+  {
+    v2 = result;
+    (*(*v1 + 8))(v1);
+    return v2;
+  }
+
+  return result;
+}
+
+uint64_t WTF::Detail::CallableWrapper<WebChromeClient::enterFullScreenForElement(WebCore::Element &,unsigned int,WTF::CompletionHandler<void ()(WebCore::ExceptionOr<void>)> &&,WTF::CompletionHandler<BOOL ()(BOOL)> &&)::$_0,void,BOOL>::~CallableWrapper(WTF *a1, void *a2)
+{
+  v3 = *(a1 + 1);
+  *a1 = &unk_1F472CC90;
+  *(a1 + 1) = 0;
+  if (v3)
+  {
+    v4 = a1;
+    (*(*v3 + 8))(v3, a2);
+    a1 = v4;
+    v2 = vars8;
+  }
+
+  return WTF::fastFree(a1, a2);
+}
+
+uint64_t WTF::Detail::CallableWrapper<WebChromeClient::enterFullScreenForElement(WebCore::Element &,unsigned int,WTF::CompletionHandler<void ()(WebCore::ExceptionOr<void>)> &&,WTF::CompletionHandler<BOOL ()(BOOL)> &&)::$_0,void,BOOL>::call(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  *(a1 + 8) = 0;
+  (*(*v1 + 16))(v1);
+  v2 = *(*v1 + 8);
+
+  return v2(v1);
+}
+
+void *WTF::Detail::CallableWrapper<WebChromeClient::exitFullScreenForElement(WebCore::Element *,WTF::CompletionHandler<void ()(void)> &&)::$_0,void,WebCore::ExceptionOr<void>>::~CallableWrapper(void *result)
+{
+  v1 = result[1];
+  *result = &unk_1F472CCB8;
+  result[1] = 0;
+  if (v1)
+  {
+    v2 = result;
+    (*(*v1 + 8))(v1);
+    return v2;
+  }
+
+  return result;
+}
+
+uint64_t WTF::Detail::CallableWrapper<WebChromeClient::exitFullScreenForElement(WebCore::Element *,WTF::CompletionHandler<void ()(void)> &&)::$_0,void,WebCore::ExceptionOr<void>>::~CallableWrapper(WTF *a1, void *a2)
+{
+  v3 = *(a1 + 1);
+  *a1 = &unk_1F472CCB8;
+  *(a1 + 1) = 0;
+  if (v3)
+  {
+    v4 = a1;
+    (*(*v3 + 8))(v3, a2);
+    a1 = v4;
+    v2 = vars8;
+  }
+
+  return WTF::fastFree(a1, a2);
+}
+
+uint64_t WTF::Detail::CallableWrapper<WebChromeClient::exitFullScreenForElement(WebCore::Element *,WTF::CompletionHandler<void ()(void)> &&)::$_0,void,WebCore::ExceptionOr<void>>::call(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 16);
+  if (v3 == 1)
+  {
+    v2 = *(a2 + 8);
+    *(a2 + 8) = 0;
+  }
+
+  v4 = *(a1 + 8);
+  *(a1 + 8) = 0;
+  (*(*v4 + 16))(v4);
+  result = (*(*v4 + 8))(v4);
+  if (v3)
+  {
+    v7 = v2 == 0;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (!v7 && atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+
+    return WTF::StringImpl::destroy(v2, v6);
+  }
+
+  return result;
+}
+
+void sub_1C7AC4774(_Unwind_Exception *a1)
+{
+  v4 = v3;
+  (*(*v2 + 8))(v2);
+  if (v4)
+  {
+    v7 = v1 == 0;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (!v7 && atomic_fetch_add_explicit(v1, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v1, v6);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t WebChromeClientIOS::setWindowRect(id *this, const WebCore::FloatRect *a2)
+{
+  v3 = [objc_loadWeak(this + 2) _UIDelegateForwarder];
+  Weak = objc_loadWeak(this + 2);
+  WebCore::FloatRect::operator CGRect();
+
+  return [v3 webView:Weak setFrame:?];
+}
+
+float WebChromeClientIOS::windowRect(id *this)
+{
+  v2 = [objc_loadWeak(this + 2) _UIDelegateForwarder];
+  [v2 webViewFrame:objc_loadWeak(this + 2)];
+  v9[0] = v3;
+  v9[1] = v4;
+  v9[2] = v5;
+  v9[3] = v6;
+  WebCore::enclosingIntRect(v9, v7);
+  WebCore::FloatRect::FloatRect();
+  return v10;
+}
+
+uint64_t WebChromeClientIOS::focus(id *this)
+{
+  v2 = [objc_loadWeak(this + 2) _UIDelegateForwarder];
+  Weak = objc_loadWeak(this + 2);
+
+  return [v2 webViewFocus:Weak];
+}
+
+uint64_t WebChromeClientIOS::runJavaScriptAlert(id *this, WebCore::LocalFrame *a2, atomic_uint **a3)
+{
+  WebThreadLockPushModal();
+  v6 = [objc_loadWeak(this + 2) _UIDelegateForwarder];
+  Weak = objc_loadWeak(this + 2);
+  v8 = *a3;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v16, v8);
+    if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v8, v9);
+    }
+  }
+
+  else
+  {
+    v16 = &stru_1F472E7E8;
+    v15 = &stru_1F472E7E8;
+  }
+
+  v10 = v16;
+  v11 = *(*(a2 + 26) + 16);
+  if ((*(*v11 + 1032))(v11))
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v11[3];
+  }
+
+  [v6 webView:Weak runJavaScriptAlertPanelWithMessage:v10 initiatedByFrame:v12];
+  v13 = v16;
+  v16 = 0;
+  if (v13)
+  {
+  }
+
+  return WebThreadLockPopModal();
+}
+
+void sub_1C7AC4A18(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+{
+  if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v10, a2);
+    _Unwind_Resume(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t WebChromeClientIOS::runJavaScriptConfirm(id *this, WebCore::LocalFrame *a2, atomic_uint **a3)
+{
+  WebThreadLockPushModal();
+  v6 = [objc_loadWeak(this + 2) _UIDelegateForwarder];
+  Weak = objc_loadWeak(this + 2);
+  v8 = *a3;
+  if (v8)
+  {
+    atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v17, v8);
+    if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v8, v9);
+    }
+  }
+
+  else
+  {
+    v17 = &stru_1F472E7E8;
+    v16 = &stru_1F472E7E8;
+  }
+
+  v10 = v17;
+  v11 = *(*(a2 + 26) + 16);
+  if ((*(*v11 + 1032))(v11))
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v11[3];
+  }
+
+  v13 = [v6 webView:Weak runJavaScriptConfirmPanelWithMessage:v10 initiatedByFrame:v12];
+  v14 = v17;
+  v17 = 0;
+  if (v14)
+  {
+  }
+
+  WebThreadLockPopModal();
+  return v13;
+}
+
+void sub_1C7AC4B78(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+{
+  if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v10, a2);
+    _Unwind_Resume(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL WebChromeClientIOS::runJavaScriptPrompt(id *this, WebCore::LocalFrame *a2, atomic_uint **a3, atomic_uint **a4, WTF::StringImpl **a5)
+{
+  WebThreadLockPushModal();
+  v10 = [objc_loadWeak(this + 2) _UIDelegateForwarder];
+  Weak = objc_loadWeak(this + 2);
+  v12 = *a3;
+  if (v12)
+  {
+    atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v30, v12);
+    if (atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v12, v13);
+    }
+
+    v14 = v30;
+    v15 = *a4;
+    if (v15)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_22:
+    v29 = &stru_1F472E7E8;
+    v28 = &stru_1F472E7E8;
+    goto LABEL_7;
+  }
+
+  v30 = &stru_1F472E7E8;
+  v27 = &stru_1F472E7E8;
+  v14 = &stru_1F472E7E8;
+  v15 = *a4;
+  if (!v15)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_5:
+  atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed);
+  MEMORY[0x1CCA63450](&v29, v15);
+  if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v15, v16);
+  }
+
+LABEL_7:
+  v17 = v29;
+  v18 = *(*(a2 + 26) + 16);
+  if ((*(*v18 + 1032))(v18))
+  {
+    v19 = 0;
+  }
+
+  else
+  {
+    v19 = v18[3];
+  }
+
+  MEMORY[0x1CCA63A40](&v31, [v10 webView:Weak runJavaScriptTextInputPanelWithPrompt:v14 defaultText:v17 initiatedByFrame:v19]);
+  v21 = v31;
+  v31 = 0;
+  v22 = *a5;
+  *a5 = v21;
+  if (v22)
+  {
+    if (atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v22, v20);
+    }
+
+    v23 = v31;
+    v31 = 0;
+    if (v23 && atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v23, v20);
+    }
+  }
+
+  v24 = v29;
+  v29 = 0;
+  if (v24)
+  {
+  }
+
+  v25 = v30;
+  v30 = 0;
+  if (v25)
+  {
+  }
+
+  WebThreadLockPopModal();
+  return *a5 != 0;
+}
+
+void sub_1C7AC4DA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11)
+{
+  if (!a11)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void WebChromeClientIOS::runOpenPanel(id *this, WebCore::LocalFrame *a2, WebCore::FileChooser *a3)
+{
+  v21[3] = *MEMORY[0x1E69E9840];
+  v5 = *(a3 + 17);
+  v6 = [[WebOpenPanelResultListener alloc] initWithChooser:a3];
+  v7 = *(a3 + 72);
+  if (v7 == 2)
+  {
+    v8 = 2;
+  }
+
+  else
+  {
+    v8 = v7 == 1;
+  }
+
+  v20[0] = @"WebOpenPanelConfigurationAllowMultipleFilesKey";
+  v21[0] = [MEMORY[0x1E696AD98] numberWithBool:v5];
+  v20[1] = @"WebOpenPanelConfigurationMimeTypesKey";
+  WTF::createNSArray<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(a3 + 24, &v16);
+  v21[1] = v16;
+  v20[2] = @"WebOpenPanelConfigurationMediaCaptureTypeKey";
+  v21[2] = [MEMORY[0x1E696AD98] numberWithInteger:v8];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v10 = v16;
+  v16 = 0;
+  if (v10)
+  {
+  }
+
+  IsCurrent = WebThreadIsCurrent();
+  if (IsCurrent)
+  {
+    WTF::RunLoop::mainSingleton(IsCurrent);
+    v16 = this;
+    v17 = v6;
+    v18 = v9;
+    if (v9)
+    {
+      v12 = v9;
+    }
+
+    v13 = WTF::fastMalloc(0x20);
+    *v13 = &unk_1F472D4F0;
+    v13[1] = this;
+    v13[2] = v6;
+    v13[3] = v9;
+    v17 = 0;
+    v18 = 0;
+    v19 = v13;
+    WTF::RunLoop::dispatch();
+    v14 = v19;
+    v19 = 0;
+    if (v14)
+    {
+      (*(*v14 + 8))(v14);
+    }
+  }
+
+  else
+  {
+    v15 = [objc_loadWeak(this + 2) _UIKitDelegateForwarder];
+    [v15 webView:objc_loadWeak(this + 2) runOpenPanelForFileButtonWithResultListener:v6 configuration:v9];
+    if (v6)
+    {
+    }
+  }
+}
+
+void sub_1C7AC5010(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+{
+  if (v13)
+  {
+
+    _Unwind_Resume(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void WTF::createNSArray<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(a1 + 12)];
+  *a2 = v4;
+  v6 = *(a1 + 12);
+  if (v6)
+  {
+    v7 = v4;
+    v8 = *a1;
+    v9 = 8 * v6;
+    do
+    {
+      WTF::makeNSArrayElement(&v11, v8, v5);
+      if (v11)
+      {
+        [v7 addObject:?];
+        v10 = v11;
+        v11 = 0;
+        if (v10)
+        {
+        }
+      }
+
+      v8 = (v8 + 8);
+      v9 -= 8;
+    }
+
+    while (v9);
+  }
+}
+
+void sub_1C7AC514C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
+{
+  if (a10)
+  {
+
+    *v10 = 0;
+    if (!v11)
+    {
+LABEL_3:
+      _Unwind_Resume(exception_object);
+    }
+  }
+
+  else
+  {
+    *v10 = 0;
+    if (!v11)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 uint64_t WebChromeClientIOS::runOpenPanel(WebCore::LocalFrame &,WebCore::FileChooser &)::$_0::~$_0(uint64_t a1)
 {
   v2 = *(a1 + 16);
@@ -23,13 +735,13 @@ uint64_t WebChromeClientIOS::didPreventDefaultForEvent(id *this)
   return [v2 webViewDidPreventDefaultForEvent:Weak];
 }
 
-uint64_t WebChromeClientIOS::didReceiveMobileDocType(uint64_t this, int a2)
+id *WebChromeClientIOS::didReceiveMobileDocType(id *this, int a2)
 {
   if (a2)
   {
     v2 = this;
-    v3 = [objc_loadWeak((this + 16)) _UIKitDelegateForwarder];
-    Weak = objc_loadWeak((v2 + 16));
+    v3 = [objc_loadWeak(this + 2) _UIKitDelegateForwarder];
+    Weak = objc_loadWeak(v2 + 2);
 
     return [v3 webViewDidReceiveMobileDocType:Weak];
   }
@@ -56,13 +768,13 @@ uint64_t WebChromeClientIOS::setNeedsScrollNotifications(id *this, WebCore::Loca
   return [v6 webView:Weak needsScrollNotifications:v8 forFrame:v10];
 }
 
-uint64_t WebChromeClientIOS::didFinishContentChangeObserving(uint64_t result, uint64_t a2, uint64_t a3)
+id *WebChromeClientIOS::didFinishContentChangeObserving(id *result, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 224))
   {
     v5 = result;
-    v6 = [objc_loadWeak((result + 16)) _UIKitDelegateForwarder];
-    Weak = objc_loadWeak((v5 + 16));
+    v6 = [objc_loadWeak(result + 2) _UIKitDelegateForwarder];
+    Weak = objc_loadWeak(v5 + 2);
     v8 = *(*(a2 + 208) + 16);
     if ((*(*v8 + 1032))(v8))
     {
@@ -194,13 +906,13 @@ uint64_t WebChromeClientIOS::restoreFormNotifications(uint64_t this)
   return this;
 }
 
-uint64_t WebChromeClientIOS::elementDidFocus(uint64_t result, WebCore::Node *a2)
+id *WebChromeClientIOS::elementDidFocus(id *result, WebCore::Node *a2)
 {
-  if (*(result + 24) <= 0)
+  if (*(result + 6) <= 0)
   {
     v4 = result;
-    v5 = [objc_loadWeak((result + 16)) _UIKitDelegateForwarder];
-    Weak = objc_loadWeak((v4 + 16));
+    v5 = [objc_loadWeak(result + 2) _UIKitDelegateForwarder];
+    Weak = objc_loadWeak(v4 + 2);
     v7 = kit(a2);
 
     return [v5 webView:Weak elementDidFocusNode:v7];
@@ -209,13 +921,13 @@ uint64_t WebChromeClientIOS::elementDidFocus(uint64_t result, WebCore::Node *a2)
   return result;
 }
 
-uint64_t WebChromeClientIOS::elementDidBlur(uint64_t this, WebCore::Element *a2)
+id *WebChromeClientIOS::elementDidBlur(id *this, WebCore::Element *a2)
 {
-  if (*(this + 24) <= 0)
+  if (*(this + 6) <= 0)
   {
     v4 = this;
-    v5 = [objc_loadWeak((this + 16)) _UIKitDelegateForwarder];
-    Weak = objc_loadWeak((v4 + 16));
+    v5 = [objc_loadWeak(this + 2) _UIKitDelegateForwarder];
+    Weak = objc_loadWeak(v4 + 2);
     v7 = kit(a2);
 
     return [v5 webView:Weak elementDidBlurNode:v7];
@@ -224,7 +936,7 @@ uint64_t WebChromeClientIOS::elementDidBlur(uint64_t this, WebCore::Element *a2)
   return this;
 }
 
-uint64_t WebChromeClientIOS::createPopupMenu@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X8>)
+uint64_t WebChromeClientIOS::createPopupMenu@<X0>(unint64_t a1@<X1>, uint64_t *a2@<X8>)
 {
   result = WTF::fastMalloc(0x18);
   *(result + 8) = 1;
@@ -234,7 +946,7 @@ uint64_t WebChromeClientIOS::createPopupMenu@<X0>(uint64_t a1@<X1>, uint64_t *a2
   return result;
 }
 
-uint64_t WebChromeClientIOS::createSearchPopupMenu@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X8>)
+uint64_t WebChromeClientIOS::createSearchPopupMenu@<X0>(unint64_t a1@<X1>, uint64_t *a2@<X8>)
 {
   v4 = WTF::fastMalloc(0x18);
   *(v4 + 8) = 1;
@@ -273,7 +985,7 @@ uint64_t WebChromeClientIOS::didFlushCompositingLayers(id *this)
   return [v2 webViewDidCommitCompositingLayerChanges:Weak];
 }
 
-uint64_t WebChromeClientIOS::fetchCustomFixedPositionLayoutRect(uint64_t a1, uint64_t *a2)
+void *WebChromeClientIOS::fetchCustomFixedPositionLayoutRect(uint64_t a1, uint64_t *a2)
 {
   result = [objc_loadWeak((a1 + 16)) _fetchCustomFixedPositionLayoutRect:v8];
   if (result)
@@ -439,7 +1151,7 @@ void sub_1C7AC63F4(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t createNSCountedSet(uint64_t *a1, uint64_t *a2)
+void *createNSCountedSet(void *a1, uint64_t *a2)
 {
   v4 = objc_alloc(MEMORY[0x1E696AB50]);
   if (*a2)
@@ -590,12 +1302,12 @@ WTF **std::unique_ptr<WTF::HashCountedSet<WTF::ASCIILiteral,WTF::DefaultHash<WTF
   return result;
 }
 
-void sub_1C7AC66C0(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_1C7AC66C0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, WTF *);
-  v6 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
+  v5 = va_arg(va1, WTF *);
+  v7 = va_arg(va1, void);
   std::unique_ptr<WTF::HashCountedSet<WTF::ASCIILiteral,WTF::DefaultHash<WTF::ASCIILiteral>,WTF::HashTraits<WTF::ASCIILiteral>>>::~unique_ptr[abi:sn200100](va, a2);
   MEMORY[0x1CCA63200](va1);
   _Unwind_Resume(a1);
@@ -678,47 +1390,47 @@ void sub_1C7AC7018(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7AC715C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C7AC715C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   WebCore::GraphicsContextCG::~GraphicsContextCG(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t WebCryptoClient::serializeAndWrapCryptoKey@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+unint64_t WebCryptoClient::serializeAndWrapCryptoKey@<X0>(uint64_t a1@<X0>, uint64_t a3@<X8>)
 {
   WebCore::CryptoKey::create();
-  result = v30;
-  if (!v30)
+  result = v31;
+  if (!v31)
   {
-    *a2 = 0;
-    *(a2 + 16) = 0;
+    *a3 = 0;
+    *(a3 + 16) = 0;
     return result;
   }
 
   WebCore::SerializedScriptValue::serializeCryptoKey();
-  v34 = 0;
   v35 = 0;
+  v36 = 0;
   [objc_loadWeak((a1 + 8)) UIDelegate];
-  v5 = objc_opt_respondsToSelector();
-  if (v5)
+  v6 = objc_opt_respondsToSelector();
+  if (v6)
   {
     Weak = objc_loadWeak((a1 + 8));
-    v7 = CallUIDelegate(Weak, sel_webCryptoMasterKeyForWebView_);
-    v8 = v7;
-    if (!v7)
+    v8 = CallUIDelegate(Weak, sel_webCryptoMasterKeyForWebView_);
+    v9 = v8;
+    if (!v8)
     {
-      v31 = 0;
       v32 = 0;
+      v33 = 0;
       goto LABEL_30;
     }
 
-    v9 = [v7 bytes];
-    result = [v8 length];
-    v10 = result;
-    v31 = 0;
-    LODWORD(v32) = 0;
-    HIDWORD(v32) = result;
+    v10 = [v8 bytes];
+    result = [v9 length];
+    v11 = result;
+    v32 = 0;
+    LODWORD(v33) = 0;
+    HIDWORD(v33) = result;
     if (result)
     {
       if (HIDWORD(result))
@@ -727,66 +1439,66 @@ unint64_t WebCryptoClient::serializeAndWrapCryptoKey@<X0>(uint64_t a1@<X0>, uint
         return result;
       }
 
-      v11 = WTF::fastMalloc(result);
-      LODWORD(v32) = v10;
-      v31 = v11;
-      if (v10 < 8)
+      v12 = WTF::fastMalloc(result);
+      LODWORD(v33) = v11;
+      v32 = v12;
+      if (v11 < 8)
       {
-        v12 = v9;
+        v13 = v10;
         goto LABEL_29;
       }
 
-      v12 = v9;
-      if (v11 - v9 < 0x20)
+      v13 = v10;
+      if (v12 - v10 < 0x20)
       {
         goto LABEL_29;
       }
 
-      if (v10 < 0x20)
+      if (v11 < 0x20)
       {
-        v13 = 0;
+        v14 = 0;
         goto LABEL_24;
       }
 
-      v13 = v10 & 0xFFFFFFE0;
-      v16 = (v9 + 16);
-      v17 = (v11 + 16);
-      v18 = v13;
+      v14 = v11 & 0xFFFFFFE0;
+      v17 = (v10 + 16);
+      v18 = (v12 + 16);
+      v19 = v14;
       do
       {
-        v19 = *v16;
-        *(v17 - 1) = *(v16 - 1);
-        *v17 = v19;
-        v16 += 2;
+        v20 = *v17;
+        *(v18 - 1) = *(v17 - 1);
+        *v18 = v20;
         v17 += 2;
-        v18 -= 32;
+        v18 += 2;
+        v19 -= 32;
       }
 
-      while (v18);
-      if (v10 != v13)
+      while (v19);
+      if (v11 != v14)
       {
-        if ((v10 & 0x18) == 0)
+        if ((v11 & 0x18) == 0)
         {
-          v12 = (v9 + v13);
-          v11 = (v11 + v13);
+          v13 = (v10 + v14);
+          v12 = (v12 + v14);
           goto LABEL_29;
         }
 
 LABEL_24:
-        v12 = (v9 + (v10 & 0xFFFFFFF8));
-        v20 = (v9 + v13);
-        v21 = (v11 + v13);
-        v22 = v13 - (v10 & 0xFFFFFFF8);
+        v13 = (v10 + (v11 & 0xFFFFFFF8));
+        v21 = (v10 + v14);
+        v22 = (v12 + v14);
+        v23 = v14 - (v11 & 0xFFFFFFF8);
         do
         {
-          v23 = *v20++;
-          *v21++ = v23;
-          v22 += 8;
+          v24 = *v21++;
+          *v22++ = v24;
+          v23 += 8;
         }
 
-        while (v22);
-        v11 = (v11 + (v10 & 0xFFFFFFF8));
-        if (v10 == (v10 & 0xFFFFFFF8))
+        while (v23);
+        v12 = (v12 + (v11 & 0xFFFFFFF8));
+        if (v11 == (v11 & 0xFFFFFFF8))
         {
           goto LABEL_30;
         }
@@ -794,55 +1506,55 @@ LABEL_24:
         do
         {
 LABEL_29:
-          v24 = *v12++;
-          *v11 = v24;
-          v11 = (v11 + 1);
+          v25 = *v13++;
+          *v12 = v25;
+          v12 = (v12 + 1);
         }
 
-        while (v12 != (v9 + v10));
+        while (v13 != (v10 + v11));
       }
     }
 
 LABEL_30:
     if (WebCore::wrapSerializedCryptoKey())
     {
-      *a2 = v34;
-      v25 = v35;
-      v34 = 0;
+      *a3 = v35;
+      v26 = v36;
       v35 = 0;
-      *(a2 + 8) = v25;
-      v26 = 1;
+      v36 = 0;
+      *(a3 + 8) = v26;
+      v27 = 1;
     }
 
     else
     {
-      v26 = 0;
-      *a2 = 0;
+      v27 = 0;
+      *a3 = 0;
     }
 
-    *(a2 + 16) = v26;
+    *(a3 + 16) = v27;
 LABEL_34:
-    v27 = v31;
-    if (v31)
+    v28 = v32;
+    if (v32)
     {
-      v31 = 0;
-      LODWORD(v32) = 0;
-      WTF::fastFree(v27, v14);
+      v32 = 0;
+      LODWORD(v33) = 0;
+      WTF::fastFree(v28, v15);
     }
 
     goto LABEL_36;
   }
 
-  WebCore::defaultWebCryptoMasterKey(&v31, v5);
-  if (v33 & 1) != 0 && (WebCore::wrapSerializedCryptoKey())
+  WebCore::defaultWebCryptoMasterKey(&v32, v6);
+  if (v34 & 1) != 0 && (WebCore::wrapSerializedCryptoKey())
   {
-    *a2 = v34;
-    v15 = v35;
-    v34 = 0;
+    *a3 = v35;
+    v16 = v36;
     v35 = 0;
-    *(a2 + 8) = v15;
-    *(a2 + 16) = 1;
-    if (v33 == 1)
+    v36 = 0;
+    *(a3 + 8) = v16;
+    *(a3 + 16) = 1;
+    if (v34 == 1)
     {
       goto LABEL_34;
     }
@@ -850,39 +1562,39 @@ LABEL_34:
 
   else
   {
-    *a2 = 0;
-    *(a2 + 16) = 0;
-    if (v33 == 1)
+    *a3 = 0;
+    *(a3 + 16) = 0;
+    if (v34 == 1)
     {
       goto LABEL_34;
     }
   }
 
 LABEL_36:
-  v28 = v34;
-  if (v34)
+  v29 = v35;
+  if (v35)
   {
-    v34 = 0;
-    LODWORD(v35) = 0;
-    WTF::fastFree(v28, v14);
+    v35 = 0;
+    LODWORD(v36) = 0;
+    WTF::fastFree(v29, v15);
   }
 
-  if (v29)
+  if (v30)
   {
-    WTF::fastFree(v29, v14);
+    WTF::fastFree(v30, v15);
   }
 
-  result = v30;
-  if (atomic_fetch_add(v30 + 2, 0xFFFFFFFF) == 1)
+  result = v31;
+  if (atomic_fetch_add(v31 + 2, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, v30 + 2);
-    return (*(*v30 + 8))();
+    atomic_store(1u, v31 + 2);
+    return (*(*v31 + 8))();
   }
 
   return result;
 }
 
-void sub_1C7AC745C(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9, int a10, unsigned int *a11, WTF *a12, int a13, int a14, char a15, WTF *a16, int a17)
+void sub_1C7AC745C(_Unwind_Exception *exception_object, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF *a9, int a10, unsigned int *a11, WTF *a12, int a13, int a14, char a15, WTF *a16, int a17)
 {
   if (a15 == 1 && a12)
   {
@@ -926,7 +1638,7 @@ LABEL_10:
   if (atomic_fetch_add(v19 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v19 + 2);
-    (*(*v19 + 8))(v19);
+    (*(*v19 + 8))(v19, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -934,35 +1646,35 @@ LABEL_11:
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WebCryptoClient::unwrapCryptoKey@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+unint64_t WebCryptoClient::unwrapCryptoKey@<X0>(uint64_t a1@<X0>, _BYTE *a3@<X8>)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   result = WebCore::readSerializedCryptoKey();
-  if ((v27 & 1) == 0)
+  if ((v28 & 1) == 0)
   {
     goto LABEL_14;
   }
 
   [objc_loadWeak((a1 + 8)) UIDelegate];
-  v6 = objc_opt_respondsToSelector();
-  if (v6)
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
     Weak = objc_loadWeak((a1 + 8));
     result = CallUIDelegate(Weak, sel_webCryptoMasterKeyForWebView_);
-    v8 = result;
+    v9 = result;
     if (!result)
     {
-      v22 = 0;
       v23 = 0;
+      v24 = 0;
       goto LABEL_27;
     }
 
-    v9 = [result bytes];
-    result = [v8 length];
-    v10 = result;
-    v22 = 0;
-    LODWORD(v23) = 0;
-    HIDWORD(v23) = result;
+    v10 = [result bytes];
+    result = [v9 length];
+    v11 = result;
+    v23 = 0;
+    LODWORD(v24) = 0;
+    HIDWORD(v24) = result;
     if (!result)
     {
       goto LABEL_27;
@@ -975,50 +1687,50 @@ unint64_t WebCryptoClient::unwrapCryptoKey@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>
     }
 
     result = WTF::fastMalloc(result);
-    LODWORD(v23) = v10;
-    v22 = result;
-    if (v10 < 8)
+    LODWORD(v24) = v11;
+    v23 = result;
+    if (v11 < 8)
     {
-      v11 = v9;
+      v12 = v10;
       goto LABEL_26;
     }
 
-    v11 = v9;
-    if (result - v9 < 0x20)
+    v12 = v10;
+    if (result - v10 < 0x20)
     {
       goto LABEL_26;
     }
 
-    if (v10 >= 0x20)
+    if (v11 >= 0x20)
     {
-      v12 = v10 & 0xFFFFFFE0;
-      v13 = (v9 + 16);
-      v14 = (result + 16);
-      v15 = v12;
+      v13 = v11 & 0xFFFFFFE0;
+      v14 = (v10 + 16);
+      v15 = (result + 16);
+      v16 = v13;
       do
       {
-        v16 = *v13;
-        *(v14 - 1) = *(v13 - 1);
-        *v14 = v16;
-        v13 += 2;
+        v17 = *v14;
+        *(v15 - 1) = *(v14 - 1);
+        *v15 = v17;
         v14 += 2;
-        v15 -= 32;
+        v15 += 2;
+        v16 -= 32;
       }
 
-      while (v15);
-      if (v10 == v12)
+      while (v16);
+      if (v11 == v13)
       {
 LABEL_27:
-        if (v27)
+        if (v28)
         {
           WebCore::unwrapCryptoKey();
 LABEL_29:
-          result = v22;
-          if (v22)
+          result = v23;
+          if (v23)
           {
-            v22 = 0;
-            LODWORD(v23) = 0;
-            result = WTF::fastFree(result, v5);
+            v23 = 0;
+            LODWORD(v24) = 0;
+            result = WTF::fastFree(result, v6);
           }
 
           goto LABEL_31;
@@ -1029,33 +1741,33 @@ LABEL_36:
         return result;
       }
 
-      if ((v10 & 0x18) == 0)
+      if ((v11 & 0x18) == 0)
       {
-        v11 = (v9 + v12);
-        result += v12;
+        v12 = (v10 + v13);
+        result += v13;
         goto LABEL_26;
       }
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    v11 = (v9 + (v10 & 0xFFFFFFF8));
-    v17 = (v9 + v12);
-    v18 = (result + v12);
-    v19 = v12 - (v10 & 0xFFFFFFF8);
+    v12 = (v10 + (v11 & 0xFFFFFFF8));
+    v18 = (v10 + v13);
+    v19 = (result + v13);
+    v20 = v13 - (v11 & 0xFFFFFFF8);
     do
     {
-      v20 = *v17++;
-      *v18++ = v20;
-      v19 += 8;
+      v21 = *v18++;
+      *v19++ = v21;
+      v20 += 8;
     }
 
-    while (v19);
-    result += v10 & 0xFFFFFFF8;
-    if (v10 == (v10 & 0xFFFFFFF8))
+    while (v20);
+    result += v11 & 0xFFFFFFF8;
+    if (v11 == (v11 & 0xFFFFFFF8))
     {
       goto LABEL_27;
     }
@@ -1063,24 +1775,24 @@ LABEL_36:
     do
     {
 LABEL_26:
-      v21 = *v11++;
-      *result++ = v21;
+      v22 = *v12++;
+      *result++ = v22;
     }
 
-    while (v11 != (v9 + v10));
+    while (v12 != (v10 + v11));
     goto LABEL_27;
   }
 
-  result = WebCore::defaultWebCryptoMasterKey(&v22, v6);
-  if (v24 == 1)
+  result = WebCore::defaultWebCryptoMasterKey(&v23, v7);
+  if (v25 == 1)
   {
-    if ((v27 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       goto LABEL_36;
     }
 
     result = WebCore::unwrapCryptoKey();
-    if (v24 == 1)
+    if (v25 == 1)
     {
       goto LABEL_29;
     }
@@ -1089,19 +1801,19 @@ LABEL_26:
   else
   {
 LABEL_14:
-    *a2 = 0;
-    a2[16] = 0;
+    *a3 = 0;
+    a3[16] = 0;
   }
 
 LABEL_31:
-  if (v27 == 1)
+  if (v28 == 1)
   {
-    result = v25;
-    if (v25)
+    result = v26;
+    if (v26)
     {
-      v25 = 0;
       v26 = 0;
-      return WTF::fastFree(result, v5);
+      v27 = 0;
+      return WTF::fastFree(result, v6);
     }
   }
 
@@ -1158,26 +1870,26 @@ void sub_1C7AC7C00(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AC7C18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7AC7C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
-  if (v2)
+  if (v3)
   {
   }
 
-  WTF::Vector<WebCore::SecurityOriginData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v5);
+  WTF::Vector<WebCore::SecurityOriginData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, v6);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AC7D78(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, ...)
+void sub_1C7AC7D78(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AC7D90(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, void *a12)
+void sub_1C7AC7D90(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
 {
   v14 = a12;
   a12 = 0;
@@ -1201,16 +1913,17 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AC7FB4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_1C7AC7FB4(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a9);
+  if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v10, a2);
-    WebCore::DatabaseDetails::~DatabaseDetails(&a10, v12);
+    WTF::StringImpl::destroy(v9, a2);
+    WebCore::DatabaseDetails::~DatabaseDetails(va, v11);
     _Unwind_Resume(a1);
   }
 
-  WebCore::DatabaseDetails::~DatabaseDetails(&a10, a2);
+  WebCore::DatabaseDetails::~DatabaseDetails(va, a2);
   _Unwind_Resume(a1);
 }
 
@@ -1400,9 +2113,9 @@ void WebKit::WebDatabaseManagerClient::dispatchDidModifyOrigin(WebKit::WebDataba
   }
 }
 
-void sub_1C7AC864C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, ...)
+void sub_1C7AC864C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   WTF::Ref<WebCore::SecurityOrigin,WTF::RawPtrTraits<WebCore::SecurityOrigin>,WTF::DefaultRefDerefTraits<WebCore::SecurityOrigin>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
@@ -1455,7 +2168,7 @@ void sub_1C7AC874C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, ...)
   v10 = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
     WebKit::DidModifyOriginData::dispatchToMainThread(WebKit::WebDatabaseManagerClient &,WebCore::SecurityOriginData const&)::{lambda(void)#1}::~SecurityOriginData(va, v5);
     WebKit::DidModifyOriginData::dispatchToMainThread(WebKit::WebDatabaseManagerClient &,WebCore::SecurityOriginData const&)::{lambda(void)#1}::~SecurityOriginData(va1, v6);
     _Unwind_Resume(a1);
@@ -1712,7 +2425,7 @@ void WebDatabaseProvider::~WebDatabaseProvider(WebDatabaseProvider *this, void *
             if (atomic_fetch_add(v6 + 7, 0xFFFFFFFF) == 1)
             {
               atomic_store(1u, v6 + 7);
-              (*(*v6 + 8))(v6);
+              (*(*v6 + 8))(v6, a2);
             }
           }
         }
@@ -1750,7 +2463,7 @@ void WebDatabaseProvider::~WebDatabaseProvider(WebDatabaseProvider *this, void *
             if (atomic_fetch_add(v6 + 7, 0xFFFFFFFF) == 1)
             {
               atomic_store(1u, v6 + 7);
-              (*(*v6 + 8))(v6);
+              (*(*v6 + 8))(v6, a2);
             }
           }
         }
@@ -1781,7 +2494,7 @@ uint64_t WebDatabaseProvider::idbConnectionToServerForSession(WebDatabaseProvide
   v4 = *(this + 2);
   if (!v4)
   {
-    WTF::HashTable<PAL::SessionID,WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>>,WTF::DefaultHash<PAL::SessionID>,WTF::HashMap<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>,WTF::DefaultHash<PAL::SessionID>,WTF::HashTraits<PAL::SessionID>,WTF::HashTraits<WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<PAL::SessionID>,WTF::FastMalloc>::rehash(this + 2, 8u, 0);
+    WTF::HashTable<PAL::SessionID,WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>>,WTF::DefaultHash<PAL::SessionID>,WTF::HashMap<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>,WTF::DefaultHash<PAL::SessionID>,WTF::HashTraits<PAL::SessionID>,WTF::HashTraits<WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<PAL::SessionID>,WTF::FastMalloc>::rehash(this + 2, 8uLL, 0);
     v4 = *(this + 2);
   }
 
@@ -1871,7 +2584,7 @@ LABEL_29:
       }
 
 LABEL_28:
-      v25 = v24 << (6 * v22 >= (2 * v24));
+      v25 = (v24 << (6 * v22 >= (2 * v24)));
       goto LABEL_29;
     }
 
@@ -1914,20 +2627,20 @@ LABEL_27:
   return *(v10[1] + 48);
 }
 
-void *WebDatabaseProvider::deleteAllDatabases(void *this)
+void *WebDatabaseProvider::deleteAllDatabases(void *this, unint64_t a2)
 {
-  v1 = this[2];
-  if (!v1)
+  v2 = this[2];
+  if (!v2)
   {
+    v4 = 0;
     v3 = 0;
-    v2 = 0;
 LABEL_10:
-    v5 = v3;
-    v3 = (v1 + 16 * v2);
-    if (!v1)
+    v6 = v4;
+    v4 = (v2 + 16 * v3);
+    if (!v2)
     {
-      v7 = 0;
-      if (!v5)
+      v8 = 0;
+      if (!v6)
       {
         return this;
       }
@@ -1938,38 +2651,38 @@ LABEL_10:
     goto LABEL_8;
   }
 
-  v2 = *(v1 - 4);
-  v3 = (v1 + 16 * v2);
-  if (!*(v1 - 12))
+  v3 = *(v2 - 4);
+  v4 = (v2 + 16 * v3);
+  if (!*(v2 - 12))
   {
     goto LABEL_10;
   }
 
-  if (v2)
+  if (v3)
   {
-    v4 = 16 * v2;
-    v5 = this[2];
-    while ((*v5 + 1) <= 1)
+    v5 = 16 * v3;
+    v6 = this[2];
+    while ((*v6 + 1) <= 1)
     {
-      v5 += 2;
-      v4 -= 16;
-      if (!v4)
+      v6 += 2;
+      v5 -= 16;
+      if (!v5)
       {
-        v5 = v3;
+        v6 = v4;
         break;
       }
     }
 
 LABEL_8:
-    v6 = *(v1 - 4);
+    v7 = *(v2 - 4);
     goto LABEL_14;
   }
 
-  v6 = 0;
-  v5 = this[2];
+  v7 = 0;
+  v6 = this[2];
 LABEL_14:
-  v7 = (v1 + 16 * v6);
-  if (v5 == v7)
+  v8 = (v2 + 16 * v7);
+  if (v6 == v8)
   {
     return this;
   }
@@ -1977,17 +2690,17 @@ LABEL_14:
   do
   {
 LABEL_17:
-    v8 = v5[1];
-    atomic_fetch_add((v8 + 28), 1u);
-    v9 = WTF::fastMalloc(0x20);
-    *v9 = &unk_1F472A710;
-    v9[1] = v8;
-    v9[2] = v8;
-    v9[3] = 0xFFF0000000000000;
-    v10 = v9;
-    (*(**(v8 + 64) + 48))(*(v8 + 64), &v10);
-    this = v10;
-    v10 = 0;
+    v9 = v6[1];
+    atomic_fetch_add((v9 + 28), 1u);
+    v10 = WTF::fastMalloc(0x20);
+    *v10 = &unk_1F472A710;
+    v10[1] = v9;
+    v10[2] = v9;
+    v10[3] = 0xFFF0000000000000;
+    v11 = v10;
+    (*(**(v9 + 64) + 48))(*(v9 + 64), &v11);
+    this = v11;
+    v11 = 0;
     if (this)
     {
       this = (*(*this + 8))(this);
@@ -1995,18 +2708,19 @@ LABEL_17:
 
     do
     {
-      v5 += 2;
+      v6 += 2;
     }
 
-    while (v5 != v3 && (*v5 + 1) <= 1);
+    while (v6 != v4 && (*v6 + 1) <= 1);
   }
 
-  while (v5 != v7);
+  while (v6 != v8);
   return this;
 }
 
-void *WTF::HashTable<PAL::SessionID,WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>>,WTF::DefaultHash<PAL::SessionID>,WTF::HashMap<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>,WTF::DefaultHash<PAL::SessionID>,WTF::HashTraits<PAL::SessionID>,WTF::HashTraits<WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<PAL::SessionID>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t *WTF::HashTable<PAL::SessionID,WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>>,WTF::DefaultHash<PAL::SessionID>,WTF::HashMap<PAL::SessionID,WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>,WTF::DefaultHash<PAL::SessionID>,WTF::HashTraits<PAL::SessionID>,WTF::HashTraits<WTF::RefPtr<InProcessIDBServer,WTF::RawPtrTraits<InProcessIDBServer>,WTF::DefaultRefDerefTraits<InProcessIDBServer>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<PAL::SessionID>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -2015,7 +2729,7 @@ void *WTF::HashTable<PAL::SessionID,WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr
     v9 = 16 * a2;
     v11 = WTF::fastMalloc((v9 + 16));
     v12 = v11 + 4;
-    if (!a2)
+    if (!v4)
     {
       goto LABEL_4;
     }
@@ -2028,7 +2742,7 @@ void *WTF::HashTable<PAL::SessionID,WTF::KeyValuePair<PAL::SessionID,WTF::RefPtr
   v9 = 16 * a2;
   v11 = WTF::fastMalloc((v9 + 16));
   v12 = v11 + 4;
-  if (a2)
+  if (v4)
   {
 LABEL_3:
     bzero(v12, v9);
@@ -2036,8 +2750,8 @@ LABEL_3:
 
 LABEL_4:
   *a1 = v12;
-  v11[2] = a2 - 1;
-  v11[3] = a2;
+  v11[2] = v4 - 1;
+  v11[3] = v4;
   *v11 = 0;
   v11[1] = v8;
   if (v7)
@@ -2156,20 +2870,20 @@ LABEL_29:
   return result;
 }
 
-void WebDatabaseProvider::indexedDatabaseDirectoryPath(uint64_t a1@<X8>)
+void WebDatabaseProvider::indexedDatabaseDirectoryPath(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = [MEMORY[0x1E695E000] standardUserDefaults];
-  v4 = v3;
-  if (v3)
+  v2 = [MEMORY[0x1E695E000] standardUserDefaults];
+  v3 = v2;
+  if (v2)
   {
-    v5 = v3;
+    v4 = v2;
   }
 
-  v6 = [v4 objectForKey:WebDatabaseDirectoryDefaultsKey];
-  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v5 = [v3 objectForKey:WebDatabaseDirectoryDefaultsKey];
+  if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v7 = v6;
-    MEMORY[0x1CCA63A40](&v22, v6);
+    v6 = v5;
+    MEMORY[0x1CCA63A40](&v22, v5);
     WTF::FileSystemImpl::pathByAppendingComponent();
     v13 = v23;
     if (v23)
@@ -2216,7 +2930,8 @@ void WebDatabaseProvider::indexedDatabaseDirectoryPath(uint64_t a1@<X8>)
 
   else
   {
-    MEMORY[0x1CCA63A40](&v22, [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")]);
+    v7 = objc_msgSend_bundleIdentifier([MEMORY[0x1E696AAE8] mainBundle]);
+    MEMORY[0x1CCA63A40](&v22, v7);
     WTF::FileSystemImpl::pathByAppendingComponent();
     v8 = v23;
     if (v23)
@@ -2257,7 +2972,7 @@ void WebDatabaseProvider::indexedDatabaseDirectoryPath(uint64_t a1@<X8>)
   {
   }
 
-  if (v4)
+  if (v3)
   {
   }
 }
@@ -2593,7 +3308,7 @@ id CallFrameLoadDelegate(void (*a1)(void), WebView *a2, objc_selector *a3, objc_
   return result;
 }
 
-uint64_t CallDelegate(void (*a1)(void), WebView *a2, objc_object *a3, objc_selector *a4, objc_object *a5, objc_object *a6)
+void *CallDelegate(void (*a1)(void), WebView *a2, objc_object *a3, objc_selector *a4, objc_object *a5, objc_object *a6)
 {
   v10 = a4;
   v11 = a1;
@@ -2619,7 +3334,7 @@ uint64_t CallDelegate(void (*a1)(void), WebView *a2, objc_object *a3, objc_selec
   return result;
 }
 
-uint64_t CallDelegate(void (*a1)(void), WebView *a2, objc_object *a3, objc_selector *a4, objc_object *a5, objc_object *a6, objc_object *a7)
+void *CallDelegate(void (*a1)(void), WebView *a2, objc_object *a3, objc_selector *a4, objc_object *a5, objc_object *a6, objc_object *a7)
 {
   v13 = a1;
   v11 = a5;
@@ -2647,7 +3362,7 @@ uint64_t CallDelegate(void (*a1)(void), WebView *a2, objc_object *a3, objc_selec
   return result;
 }
 
-uint64_t CallDelegate(void (*a1)(void), WebView *a2, objc_object *a3, objc_selector *a4, objc_object *a5, objc_object *a6, objc_object *a7, objc_object *a8)
+void *CallDelegate(void (*a1)(void), WebView *a2, objc_object *a3, objc_selector *a4, objc_object *a5, objc_object *a6, objc_object *a7, objc_object *a8)
 {
   v15 = a1;
   v13 = a5;
@@ -3121,7 +3836,7 @@ uint64_t *WebDocumentLoaderMac::increaseLoadCount(uint64_t *result, uint64_t a2)
   if (!v3)
   {
 LABEL_9:
-    result = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(result + 455, &v12, &v11);
+    result = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(result + 455, &v12, v11);
     if ((v2[452] & 1) == 0)
     {
       result = v2[451];
@@ -3523,7 +4238,7 @@ uint64_t *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIde
   if (!*result)
   {
     v7 = a2;
-    result = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(result, 8u, 0);
+    result = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(result, 8uLL, 0);
     a2 = v7;
     v6 = *v5;
     v4 = *v7;
@@ -3609,7 +4324,7 @@ LABEL_15:
   {
     if (!v21)
     {
-      result = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(v5, 8u, v13);
+      result = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(v5, 8uLL, v13);
       v13 = result;
       v17 = *v5;
       if (!*v5)
@@ -3625,7 +4340,7 @@ LABEL_23:
     }
 
 LABEL_22:
-    result = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(v5, v21 << (6 * v19 >= (2 * v21)), v13);
+    result = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(v5, (v21 << (6 * v19 >= (2 * v21))), v13);
     v13 = result;
     v17 = *v5;
     if (!*v5)
@@ -3643,8 +4358,9 @@ LABEL_24:
   return result;
 }
 
-void *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -3660,8 +4376,8 @@ void *WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentif
 
   v9 = WTF::fastZeroedMalloc((8 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -3727,11 +4443,11 @@ void sub_1C7ACD4C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7ACD668(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_1C7ACD668(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
     v15 = a9;
     if (!a9)
     {
@@ -3778,11 +4494,11 @@ void sub_1C7ACD928(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7ACDAB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_1C7ACDAB0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3947,21 +4663,21 @@ LABEL_16:
   }
 }
 
-void sub_1C7ACEBEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1C7ACEBEC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v10[4] == 1)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -4116,7 +4832,7 @@ uint64_t WebEditorClient::shouldDeleteRange(uint64_t a1)
   return [v2 webView:v3 shouldDeleteDOMRange:v4];
 }
 
-void sub_1C7ACF29C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10)
+void sub_1C7ACF29C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   if (a10)
   {
@@ -4126,21 +4842,21 @@ void sub_1C7ACF29C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       _Unwind_Resume(exception_object);
     }
 
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void *WebEditorClient::smartInsertDeleteEnabled(WebEditorClient *this)
+void *WebEditorClient::smartInsertDeleteEnabled(WebEditorClient *this, const char *a2)
 {
   result = *(this + 4);
   if (result)
   {
-    [result page];
-    if (v2)
+    objc_msgSend_page(result, a2);
+    if (v3)
     {
-      return ((*(*(v2 + 120) + 720) >> 4) & 1);
+      return ((*(*(v3 + 120) + 720) >> 4) & 1);
     }
 
     else
@@ -4152,15 +4868,15 @@ void *WebEditorClient::smartInsertDeleteEnabled(WebEditorClient *this)
   return result;
 }
 
-void *WebEditorClient::isSelectTrailingWhitespaceEnabled(WebEditorClient *this)
+void *WebEditorClient::isSelectTrailingWhitespaceEnabled(WebEditorClient *this, const char *a2)
 {
   result = *(this + 4);
   if (result)
   {
-    [result page];
-    if (v2)
+    objc_msgSend_page(result, a2);
+    if (v3)
     {
-      return (*(*(v2 + 120) + 715) >> 7);
+      return (*(*(v3 + 120) + 715) >> 7);
     }
 
     else
@@ -4172,7 +4888,7 @@ void *WebEditorClient::isSelectTrailingWhitespaceEnabled(WebEditorClient *this)
   return result;
 }
 
-uint64_t WebEditorClient::shouldApplyStyle(uint64_t a1, WebCore::StyleProperties *a2)
+void *WebEditorClient::shouldApplyStyle(uint64_t a1, WebCore::StyleProperties *a2)
 {
   v4 = [*(a1 + 32) _editingDelegateForwarder];
   v5 = *(a1 + 32);
@@ -4226,7 +4942,7 @@ void sub_1C7ACF4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (v11[2] == 1)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v11 + 8))(v11, a2, a3, a4, a5, a6, a7, a8);
       WTF::Ref<WebCore::MutableStyleProperties,WTF::RawPtrTraits<WebCore::MutableStyleProperties>,WTF::DefaultRefDerefTraits<WebCore::MutableStyleProperties>>::~Ref(&a9);
       _Unwind_Resume(a1);
     }
@@ -4240,7 +4956,7 @@ void sub_1C7ACF4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t WebEditorClient::shouldMoveRangeAfterDelete(id *this, WebCore::Node **a2, WebCore::Node **a3)
+void *WebEditorClient::shouldMoveRangeAfterDelete(id *this, WebCore::Node **a2, WebCore::Node **a3)
 {
   v6 = [this[4] _editingDelegateForwarder];
   v7 = this[4];
@@ -4367,27 +5083,27 @@ LABEL_22:
   return result;
 }
 
-void sub_1C7ACF7B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7ACF7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, WebCore::Node *);
-  v7 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, WebCore::Node *);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
-  v4 = *(v2 - 40);
-  *(v2 - 40) = 0;
-  if (v4)
+  v11 = va_arg(va1, void);
+  v5 = *(v3 - 40);
+  *(v3 - 40) = 0;
+  if (v5)
   {
-    if (v4[2] == 1)
+    if (v5[2] == 1)
     {
-      (*(*v4 + 8))(v4);
+      (*(*v5 + 8))(v5, a2);
     }
 
     else
     {
-      --v4[2];
+      --v5[2];
     }
   }
 
@@ -4396,7 +5112,7 @@ void sub_1C7ACF7B0(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t WebEditorClient::shouldBeginEditing(id *this, WebCore::Node **a2)
+void *WebEditorClient::shouldBeginEditing(id *this, WebCore::Node **a2)
 {
   v4 = [this[4] _editingDelegateForwarder];
   v5 = this[4];
@@ -4472,7 +5188,7 @@ void sub_1C7ACFA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (v15[2] == 1)
     {
-      (*(*v15 + 8))(v15);
+      (*(*v15 + 8))(v15, a2, a3, a4, a5, a6, a7, a8);
       std::optional<WebCore::SimpleRange>::~optional(&a9);
       _Unwind_Resume(a1);
     }
@@ -4486,7 +5202,7 @@ void sub_1C7ACFA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t WebEditorClient::shouldEndEditing(id *this, WebCore::Node **a2)
+void *WebEditorClient::shouldEndEditing(id *this, WebCore::Node **a2)
 {
   v4 = [this[4] _editingDelegateForwarder];
   v5 = this[4];
@@ -4562,7 +5278,7 @@ void sub_1C7ACFBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (v15[2] == 1)
     {
-      (*(*v15 + 8))(v15);
+      (*(*v15 + 8))(v15, a2, a3, a4, a5, a6, a7, a8);
       std::optional<WebCore::SimpleRange>::~optional(&a9);
       _Unwind_Resume(a1);
     }
@@ -4576,7 +5292,7 @@ void sub_1C7ACFBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t WebEditorClient::shouldInsertText(uint64_t a1, atomic_uint **a2, uint64_t a3, int a4)
+void *WebEditorClient::shouldInsertText(uint64_t a1, atomic_uint **a2, uint64_t a3, int a4)
 {
   v6 = *(a1 + 32);
   v7 = [v6 _editingDelegateForwarder];
@@ -4673,7 +5389,7 @@ uint64_t WebEditorClient::shouldChangeSelectedRange(uint64_t a1, uint64_t a2, ui
   return [v7 _shouldChangeSelectedDOMRange:v8 toDOMRange:v9 affinity:a4 stillSelecting:a5];
 }
 
-void sub_1C7ACFF5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10)
+void sub_1C7ACFF5C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   if (a10)
   {
@@ -4683,7 +5399,7 @@ void sub_1C7ACFF5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       _Unwind_Resume(exception_object);
     }
 
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4820,7 +5536,7 @@ uint64_t WebEditorClient::shouldInsertNode(uint64_t a1, WebCore::Node *a2, uint6
   return [v7 webView:v8 shouldInsertNode:v9 replacingDOMRange:v10 givenAction:a4];
 }
 
-void sub_1C7AD0320(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _DWORD *a10)
+void sub_1C7AD0320(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
   if (a10)
   {
@@ -4830,7 +5546,7 @@ void sub_1C7AD0320(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
       _Unwind_Resume(exception_object);
     }
 
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4976,17 +5692,17 @@ uint64_t WebEditorClient::updateEditorStateAfterLayoutIfEditabilityChanged(uint6
   return this;
 }
 
-uint64_t WebEditorClient::clearUndoRedoOperations(uint64_t this)
+id *WebEditorClient::clearUndoRedoOperations(id *this)
 {
   if (*(this + 48) == 1)
   {
     v1 = this;
-    v2 = [*(this + 32) undoManager];
+    v2 = [this[4] undoManager];
     v3 = [v2 groupingLevel];
     v4 = v3;
     if (v3 < 1)
     {
-      this = [v2 removeAllActionsWithTarget:*(v1 + 40)];
+      this = [v2 removeAllActionsWithTarget:v1[5]];
     }
 
     else
@@ -4999,7 +5715,7 @@ uint64_t WebEditorClient::clearUndoRedoOperations(uint64_t this)
       }
 
       while (v5);
-      [v2 removeAllActionsWithTarget:*(v1 + 40)];
+      [v2 removeAllActionsWithTarget:v1[5]];
       do
       {
         this = [v2 beginUndoGrouping];
@@ -5029,7 +5745,7 @@ uint64_t WebEditorClient::canRedo(id *this)
   return [v1 canRedo];
 }
 
-uint64_t WebEditorClient::undo(id *this)
+void *WebEditorClient::undo(id *this)
 {
   result = [objc_msgSend(this[4] "undoManager")];
   if (result)
@@ -5042,7 +5758,7 @@ uint64_t WebEditorClient::undo(id *this)
   return result;
 }
 
-uint64_t WebEditorClient::redo(id *this)
+void *WebEditorClient::redo(id *this)
 {
   result = [objc_msgSend(this[4] "undoManager")];
   if (result)
@@ -5097,7 +5813,7 @@ objc_object *WebEditorClient::textFieldDidBeginEditing(objc_object *this, WebCor
     {
       v4 = a2;
       v5 = this;
-      v6 = *(v2 + 32);
+      isa = v2[4].isa;
       v7 = *(*(*(v4 + 6) + 8) + 552);
       if (v7 && (v8 = *(v7 + 8)) != 0 && (v9 = *(*(v8 + 208) + 16), ((*(*v9 + 1032))(v9) & 1) == 0))
       {
@@ -5109,7 +5825,7 @@ objc_object *WebEditorClient::textFieldDidBeginEditing(objc_object *this, WebCor
         v10 = 0;
       }
 
-      return CallFormDelegate(v6, sel_textFieldDidBeginEditing_inFrame_, v5, v10);
+      return CallFormDelegate(isa, sel_textFieldDidBeginEditing_inFrame_, v5, v10);
     }
   }
 
@@ -5126,7 +5842,7 @@ objc_object *WebEditorClient::textFieldDidEndEditing(objc_object *this, WebCore:
     {
       v4 = a2;
       v5 = this;
-      v6 = *(v2 + 32);
+      isa = v2[4].isa;
       v7 = *(*(*(v4 + 6) + 8) + 552);
       if (v7 && (v8 = *(v7 + 8)) != 0 && (v9 = *(*(v8 + 208) + 16), ((*(*v9 + 1032))(v9) & 1) == 0))
       {
@@ -5138,7 +5854,7 @@ objc_object *WebEditorClient::textFieldDidEndEditing(objc_object *this, WebCore:
         v10 = 0;
       }
 
-      return CallFormDelegate(v6, sel_textFieldDidEndEditing_inFrame_, v5, v10);
+      return CallFormDelegate(isa, sel_textFieldDidEndEditing_inFrame_, v5, v10);
     }
   }
 
@@ -5155,7 +5871,7 @@ objc_object *WebEditorClient::textDidChangeInTextField(objc_object *this, WebCor
     {
       v4 = a2;
       v5 = this;
-      v6 = *(v2 + 32);
+      isa = v2[4].isa;
       v7 = *(*(*(v4 + 6) + 8) + 552);
       if (v7 && (v8 = *(v7 + 8)) != 0 && (v9 = *(*(v8 + 208) + 16), ((*(*v9 + 1032))(v9) & 1) == 0))
       {
@@ -5167,7 +5883,7 @@ objc_object *WebEditorClient::textDidChangeInTextField(objc_object *this, WebCor
         v10 = 0;
       }
 
-      return CallFormDelegate(v6, sel_textDidChangeInTextField_inFrame_, v5, v10);
+      return CallFormDelegate(isa, sel_textDidChangeInTextField_inFrame_, v5, v10);
     }
   }
 
@@ -5262,7 +5978,7 @@ objc_object *WebEditorClient::textWillBeDeletedInTextField(objc_object *this, We
     {
       v4 = a2;
       v5 = this;
-      v6 = *(v2 + 32);
+      isa = v2[4].isa;
       v7 = *(*(*(v4 + 6) + 8) + 552);
       if (v7 && (v8 = *(v7 + 8)) != 0 && (v9 = *(*(v8 + 208) + 16), ((*(*v9 + 1032))(v9) & 1) == 0))
       {
@@ -5274,7 +5990,7 @@ objc_object *WebEditorClient::textWillBeDeletedInTextField(objc_object *this, We
         v10 = 0;
       }
 
-      return CallFormDelegateReturningBoolean(0, v6, sel_textField_doCommandBySelector_inFrame_, v5, sel_deleteBackward_, v10);
+      return CallFormDelegateReturningBoolean(0, isa, sel_textField_doCommandBySelector_inFrame_, v5, sel_deleteBackward_, v10);
     }
   }
 
@@ -5291,7 +6007,7 @@ objc_object *WebEditorClient::textDidChangeInTextArea(objc_object *this, WebCore
     {
       v4 = a2;
       v5 = this;
-      v6 = *(v2 + 32);
+      isa = v2[4].isa;
       v7 = *(*(*(v4 + 6) + 8) + 552);
       if (v7 && (v8 = *(v7 + 8)) != 0 && (v9 = *(*(v8 + 208) + 16), ((*(*v9 + 1032))(v9) & 1) == 0))
       {
@@ -5303,7 +6019,7 @@ objc_object *WebEditorClient::textDidChangeInTextArea(objc_object *this, WebCore
         v10 = 0;
       }
 
-      return CallFormDelegate(v6, sel_textDidChangeInTextArea_inFrame_, v5, v10);
+      return CallFormDelegate(isa, sel_textDidChangeInTextArea_inFrame_, v5, v10);
     }
   }
 
@@ -5400,7 +6116,7 @@ uint64_t WebEditorClient::performsTwoStepPaste(uint64_t a1, WebCore::Node *a2)
   return [v4 performsTwoStepPaste:v5];
 }
 
-uint64_t WebEditorClient::performTwoStepDrop(uint64_t a1, WebCore::Node *a2, uint64_t a3, uint64_t a4)
+void *WebEditorClient::performTwoStepDrop(uint64_t a1, WebCore::Node *a2, uint64_t a3, uint64_t a4)
 {
   [*(a1 + 32) _UIKitDelegateForwarder];
   if ((objc_opt_respondsToSelector() & 1) == 0)
@@ -5482,7 +6198,7 @@ void sub_1C7AD14BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (v15[2] == 1)
     {
-      (*(*v15 + 8))(v15);
+      (*(*v15 + 8))(v15, a2, a3, a4, a5, a6, a7, a8);
       std::optional<WebCore::SimpleRange>::~optional(&a9);
       _Unwind_Resume(a1);
     }
@@ -5496,13 +6212,13 @@ void sub_1C7AD14BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t WebEditorClient::checkTextOfParagraph@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void *WebEditorClient::checkTextOfParagraph@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
 {
   v64 = *MEMORY[0x1E69E9840];
   v62[0] = a2;
   v62[1] = a3;
   *a4 = 0;
-  *(a4 + 8) = 0;
+  a4[1] = 0;
   v5 = [*(a1 + 32) _UIKitDelegateForwarder];
   WTF::StringView::createNSStringWithoutCopying(v55, v62);
   obj = [v5 checkSpellingOfString:*v55];
@@ -5541,11 +6257,11 @@ uint64_t WebEditorClient::checkTextOfParagraph@<X0>(uint64_t a1@<X0>, uint64_t a
         v55[0] = 1;
         *&v55[8] = [v11 rangeValue];
         *&v55[16] = v12;
-        if (v9 == *(a4 + 8))
+        if (v9 == *(a4 + 2))
         {
           v13 = WTF::Vector<WebCore::TextCheckingResult,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(a4, v9 + 1, v55);
           v53 = *a4;
-          v14 = *a4 + 48 * *(a4 + 12);
+          v14 = *a4 + 48 * *(a4 + 3);
           v15 = *v13;
           *(v14 + 16) = *(v13 + 16);
           *v14 = v15;
@@ -5725,8 +6441,8 @@ LABEL_69:
 
 LABEL_42:
         *(v14 + 40) = v29;
-        v9 = *(a4 + 12) + 1;
-        *(a4 + 12) = v9;
+        v9 = *(a4 + 3) + 1;
+        *(a4 + 3) = v9;
         v43 = v57;
         v57 = 0;
         if (v43 && atomic_fetch_add_explicit(v43, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -5790,7 +6506,7 @@ LABEL_42:
           WTF::fastFree(v44, v12);
         }
 
-        ++v10;
+        v10 = v10 + 1;
       }
 
       while (v10 != v8);
@@ -5956,12 +6672,12 @@ uint64_t WTF::Vector<WebCore::TextCheckingResult,0ul,WTF::CrashOnOverflow,16ul,W
   return a1;
 }
 
-unint64_t WTF::Vector<WebCore::TextCheckingResult,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WebCore::TextCheckingResult,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v4 = *a1;
-  if (*a1 > a3 || v4 + 48 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v4 + 48 * *(a1 + 3) <= a3)
   {
-    v11 = *(a1 + 8);
+    v11 = *(a1 + 2);
     if (v11 + (v11 >> 1) <= v11 + 1)
     {
       v12 = v11 + 1;
@@ -5994,7 +6710,7 @@ unint64_t WTF::Vector<WebCore::TextCheckingResult,0ul,WTF::CrashOnOverflow,16ul,
   else
   {
     v5 = a3 - v4;
-    v6 = *(a1 + 8);
+    v6 = *(a1 + 2);
     if (v6 + (v6 >> 1) <= v6 + 1)
     {
       v7 = v6 + 1;
@@ -6282,7 +6998,7 @@ WTF **std::unique_ptr<ViewportConstrainedLayerData>::~unique_ptr[abi:sn200100](W
     *(v2 + 1) = 0;
     if (v4)
     {
-      (*(*v4 + 8))(v4);
+      (*(*v4 + 8))(v4, a2);
     }
 
     WTF::fastFree(v2, a2);
@@ -6292,8 +7008,9 @@ WTF **std::unique_ptr<ViewportConstrainedLayerData>::~unique_ptr[abi:sn200100](W
   return result;
 }
 
-_DWORD *WTF::HashTable<WTF::RetainPtr<CALayer>,WTF::KeyValuePair<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>>>,WTF::DefaultHash<WTF::RetainPtr<CALayer>>,WTF::HashMap<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>,WTF::DefaultHash<WTF::RetainPtr<CALayer>>,WTF::HashTraits<WTF::RetainPtr<CALayer>>,WTF::HashTraits<std::unique_ptr<ViewportConstrainedLayerData>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<CALayer>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::RetainPtr<CALayer>,WTF::KeyValuePair<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>>>,WTF::DefaultHash<WTF::RetainPtr<CALayer>>,WTF::HashMap<WTF::RetainPtr<CALayer>,std::unique_ptr<ViewportConstrainedLayerData>,WTF::DefaultHash<WTF::RetainPtr<CALayer>>,WTF::HashTraits<WTF::RetainPtr<CALayer>>,WTF::HashTraits<std::unique_ptr<ViewportConstrainedLayerData>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<CALayer>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -6309,8 +7026,8 @@ _DWORD *WTF::HashTable<WTF::RetainPtr<CALayer>,WTF::KeyValuePair<WTF::RetainPtr<
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -6536,8 +7253,9 @@ void sub_1C7AD4BD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7AD521C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, WebCore::Node *a12, uint64_t a13, uint64_t a14, WebCore::Node *a15, uint64_t a16, uint64_t a17, WTF *a18, int a19, WebCore::Node *a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1C7AD521C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, WebCore::Node *a12, uint64_t a13, uint64_t a14, WebCore::Node *a15, uint64_t a16, uint64_t a17, WTF *a18, int a19, WebCore::Node *a20, uint64_t a21, uint64_t a22, ...)
 {
+  va_start(va, a22);
   if (a12)
   {
     if (*(a12 + 7) == 2)
@@ -6582,26 +7300,27 @@ void sub_1C7AD521C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
     WTF::fastFree(a18, a2);
   }
 
-  WebCore::VisibleSelection::~VisibleSelection(&a23);
-  std::optional<WebCore::SimpleRange>::~optional((v23 - 120));
+  WebCore::VisibleSelection::~VisibleSelection(va);
+  std::optional<WebCore::SimpleRange>::~optional((v22 - 120));
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AD5310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, WebCore::Node *a20, uint64_t a21, uint64_t a22, char a23)
+void sub_1C7AD5310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, WebCore::Node *a20, uint64_t a21, uint64_t a22, ...)
 {
+  va_start(va, a22);
   if (a20)
   {
     if (*(a20 + 7) == 2)
     {
       WebCore::Node::removedLastRef(a20);
-      WebCore::VisibleSelection::~VisibleSelection(&a23);
-      std::optional<WebCore::SimpleRange>::~optional((v23 - 120));
+      WebCore::VisibleSelection::~VisibleSelection(va);
+      std::optional<WebCore::SimpleRange>::~optional((v22 - 120));
       _Unwind_Resume(a1);
     }
 
     *(a20 + 7) -= 2;
-    WebCore::VisibleSelection::~VisibleSelection(&a23);
-    std::optional<WebCore::SimpleRange>::~optional((v23 - 120));
+    WebCore::VisibleSelection::~VisibleSelection(va);
+    std::optional<WebCore::SimpleRange>::~optional((v22 - 120));
     _Unwind_Resume(a1);
   }
 
@@ -6679,21 +7398,21 @@ void sub_1C7AD5880(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AD59A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7AD59A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AD5AA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7AD5AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<WebCore::SimpleRange>::~optional(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AD5C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10, uint64_t a11, uint64_t a12, WebCore::Node *a13, uint64_t a14, uint64_t a15, WebCore::Node *a16)
+void sub_1C7AD5C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WebCore::Node *a10, uint64_t a11, uint64_t a12, WebCore::Node *a13, uint64_t a14, uint64_t a15, WebCore::Node *a16)
 {
   v18 = *(v16 - 24);
   *(v16 - 24) = 0;
@@ -6701,7 +7420,7 @@ void sub_1C7AD5C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   {
     if (v18[2] == 1)
     {
-      (*(*v18 + 8))(v18);
+      (*(*v18 + 8))(v18, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -6769,8 +7488,9 @@ void sub_1C7AD5DF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7AD60CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WebCore::Node *a9, uint64_t a10, uint64_t a11, WebCore::Node *a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1C7AD60CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WebCore::Node *a9, uint64_t a10, uint64_t a11, WebCore::Node *a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (a12)
   {
     if (*(a12 + 7) == 2)
@@ -6784,25 +7504,26 @@ void sub_1C7AD60CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  WebCore::VisibleSelection::~VisibleSelection(&a15);
-  v17 = *(v15 - 72);
-  *(v15 - 72) = 0;
-  if (v17)
+  WebCore::VisibleSelection::~VisibleSelection(va);
+  v16 = *(v14 - 72);
+  *(v14 - 72) = 0;
+  if (v16)
   {
-    if (*(v17 + 7) == 2)
+    if (*(v16 + 7) == 2)
     {
-      WebCore::Node::removedLastRef(v17);
+      WebCore::Node::removedLastRef(v16);
       _Unwind_Resume(a1);
     }
 
-    *(v17 + 7) -= 2;
+    *(v16 + 7) -= 2;
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AD6970(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WebCore::Node *a13, uint64_t a14, uint64_t a15, WebCore::Node *a16, uint64_t a17, uint64_t a18, WebCore::Node *a19, uint64_t a20, uint64_t a21, WebCore::Node *a22, uint64_t a23, uint64_t a24, WebCore::Node *a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1C7AD6970(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, WebCore::Node *a13, uint64_t a14, uint64_t a15, WebCore::Node *a16, uint64_t a17, uint64_t a18, WebCore::Node *a19, uint64_t a20, uint64_t a21, WebCore::Node *a22, uint64_t a23, uint64_t a24, WebCore::Node *a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   if (a13)
   {
     if (*(a13 + 7) == 2)
@@ -6860,14 +7581,14 @@ void sub_1C7AD6970(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     if (*(a25 + 7) == 2)
     {
       WebCore::Node::removedLastRef(a25);
-      WebCore::VisibleSelection::~VisibleSelection(&a28);
+      WebCore::VisibleSelection::~VisibleSelection(va);
       _Unwind_Resume(a1);
     }
 
     *(a25 + 7) -= 2;
   }
 
-  WebCore::VisibleSelection::~VisibleSelection(&a28);
+  WebCore::VisibleSelection::~VisibleSelection(va);
   _Unwind_Resume(a1);
 }
 
@@ -7424,30 +8145,31 @@ void WebCore::RenderObject::SelectionGeometries::~SelectionGeometries(WebCore::R
 
 uint64_t WebFrameNetworkingContext::ensurePrivateBrowsingSession(WebFrameNetworkingContext *this)
 {
-  MEMORY[0x1CCA63A40](&v9, [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")]);
-  v1.m_identifier = &v9;
-  NetworkStorageSessionMap::ensureSession(0x8000000000000001, v1, v2);
-  v4 = v9;
-  v9 = 0;
-  if (v4 && atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v1 = objc_msgSend_bundleIdentifier([MEMORY[0x1E696AAE8] mainBundle]);
+  MEMORY[0x1CCA63A40](&v10, v1);
+  v2.m_identifier = &v10;
+  NetworkStorageSessionMap::ensureSession(0x8000000000000001, v2, v3);
+  v5 = v10;
+  v10 = 0;
+  if (v5 && atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v4, v3);
+    WTF::StringImpl::destroy(v5, v4);
   }
 
-  v5 = *(globalSessionMap(void)::map - 8);
-  v6 = v5 & 0xA6721BA;
-  if (*(globalSessionMap(void)::map + 16 * v6) != 0x8000000000000001)
+  v6 = *(globalSessionMap(void)::map - 8);
+  v7 = v6 & 0xA6721BA;
+  if (*(globalSessionMap(void)::map + 16 * v7) != 0x8000000000000001)
   {
-    v7 = 1;
+    v8 = 1;
     do
     {
-      v6 = (v6 + v7++) & v5;
+      v7 = (v7 + v8++) & v6;
     }
 
-    while (*(globalSessionMap(void)::map + 16 * v6) != 0x8000000000000001);
+    while (*(globalSessionMap(void)::map + 16 * v7) != 0x8000000000000001);
   }
 
-  return *(globalSessionMap(void)::map + 16 * v6 + 8);
+  return *(globalSessionMap(void)::map + 16 * v7 + 8);
 }
 
 void sub_1C7AD9900(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10)
@@ -7524,13 +8246,13 @@ uint64_t WebFrameNetworkingContext::sourceApplicationAuditData@<X0>(uint64_t thi
 
 void WebFrameNetworkingContext::sourceApplicationIdentifier(atomic_uint **a1@<X8>)
 {
-  v2 = *MEMORY[0x1E696EBA8];
+  v1 = *MEMORY[0x1E696EBA8];
   if (*MEMORY[0x1E696EBA8])
   {
-    atomic_fetch_add_explicit(v2, 2u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v1, 2u, memory_order_relaxed);
   }
 
-  *a1 = v2;
+  *a1 = v1;
 }
 
 uint64_t WebFrameNetworkingContext::storageSession(uint64_t this, void *a2)
@@ -7705,12 +8427,12 @@ void sub_1C7AD9FD8(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   objc_end_catch();
 }
 
-uint64_t WebGeolocationClient::lastPosition@<X0>(id *this@<X0>, uint64_t a2@<X8>)
+void *WebGeolocationClient::lastPosition@<X0>(id *this@<X0>, uint64_t a2@<X8>)
 {
   result = [objc_msgSend(this[2] "_geolocationProvider")];
   if (result)
   {
-    v4 = *(result + 8);
+    v4 = result[1];
     v5 = *(v4 + 56);
     v6 = *(v4 + 88);
     *(a2 + 64) = *(v4 + 72);
@@ -7919,22 +8641,22 @@ LABEL_3:
   return result;
 }
 
-void sub_1C7ADB834(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_1C7ADB834(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1C7ADBA24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_1C7ADBA24(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -7998,11 +8720,11 @@ LABEL_8:
   return 1;
 }
 
-void sub_1C7ADBC68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_1C7ADBC68(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -8070,9 +8792,9 @@ void *WTF::HashMap<WTF::RetainPtr<WebView>,WTF::RetainPtr<objc_object  {objcprot
   return result;
 }
 
-void sub_1C7ADC2F8(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_1C7ADC2F8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   WTF::HashMap<WTF::RetainPtr<WebView>,WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>,WTF::DefaultHash<WTF::RetainPtr<WebView>>,WTF::HashTraits<WTF::RetainPtr<WebView>>,WTF::DefaultHash<WTF::RetainPtr<WebView>><objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::~HashMap(va, a2);
   _Unwind_Resume(a1);
 }
@@ -8097,13 +8819,13 @@ LABEL_3:
   _Unwind_Resume(exception_object);
 }
 
-uint64_t __copy_helper_block_e8_40c46_ZTSN3WTF9RetainPtrI22WebGeolocationPositionEE(uint64_t result, uint64_t a2)
+uint64_t __copy_helper_block_e8_40c46_ZTSN3WTF9RetainPtrI22WebGeolocationPositionEE(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a2 + 40);
-  *(result + 40) = v2;
-  if (v2)
+  v3 = *(a2 + 40);
+  *(result + 40) = v3;
+  if (v3)
   {
-    return MEMORY[0x1EEE66C98]();
+    return MEMORY[0x1EEE66C98](result, v3, a3);
   }
 
   return result;
@@ -8132,7 +8854,7 @@ uint64_t *WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::Default
   if (!*result)
   {
     v7 = a2;
-    result = WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::rehash(result, 8u, 0);
+    result = WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::rehash(result, 8uLL, 0);
     a2 = v7;
     v6 = *v5;
     v4 = *v7;
@@ -8218,7 +8940,7 @@ LABEL_15:
   {
     if (!v21)
     {
-      result = WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::rehash(v5, 8u, v13);
+      result = WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::rehash(v5, 8uLL, v13);
       v13 = result;
       v17 = *v5;
       if (!*v5)
@@ -8234,7 +8956,7 @@ LABEL_23:
     }
 
 LABEL_22:
-    result = WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::rehash(v5, v21 << (6 * v19 >= (2 * v21)), v13);
+    result = WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::rehash(v5, (v21 << (6 * v19 >= (2 * v21))), v13);
     v13 = result;
     v17 = *v5;
     if (!*v5)
@@ -8252,8 +8974,9 @@ LABEL_24:
   return result;
 }
 
-void *WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+uint64_t *WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -8269,8 +8992,8 @@ void *WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash
 
   v9 = WTF::fastZeroedMalloc((8 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -8325,8 +9048,9 @@ void *WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash
   return v12;
 }
 
-_DWORD *WTF::HashTable<WTF::RetainPtr<WebView>,WTF::KeyValuePair<WTF::RetainPtr<WebView>,WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>>,WTF::KeyValuePairKeyExtractor<WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>>,WTF::DefaultHash<WTF::RetainPtr<WebView>>,WTF::HashMap<WTF::RetainPtr<WebView>,objc_object  {objcproto44WebGeolocationProviderInitializationListener}*,WTF::DefaultHash,WTF::HashTraits<WTF::RetainPtr<WebView>>,WTF::HashMap<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::RetainPtr<WebView>,WTF::KeyValuePair<WTF::RetainPtr<WebView>,WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>>,WTF::KeyValuePairKeyExtractor<WTF::RetainPtr<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>>,WTF::DefaultHash<WTF::RetainPtr<WebView>>,WTF::HashMap<WTF::RetainPtr<WebView>,objc_object  {objcproto44WebGeolocationProviderInitializationListener}*,WTF::DefaultHash,WTF::HashTraits<WTF::RetainPtr<WebView>>,WTF::HashMap<objc_object  {objcproto44WebGeolocationProviderInitializationListener}*>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits,WTF::ShouldValidateKey>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -8342,8 +9066,8 @@ _DWORD *WTF::HashTable<WTF::RetainPtr<WebView>,WTF::KeyValuePair<WTF::RetainPtr<
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -8444,24 +9168,24 @@ _DWORD *WTF::HashTable<WTF::RetainPtr<WebView>,WTF::KeyValuePair<WTF::RetainPtr<
   return WTF::fastFree((v4 - 16), v8);
 }
 
-void sub_1C7ADE460(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C7ADE460(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a11);
+  va_start(va, a17);
   WTF::Vector<WTF::RetainPtr<NSMutableArray>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7ADE474(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C7ADE474(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a11);
+  va_start(va, a17);
   WTF::Vector<WTF::RetainPtr<NSMutableArray>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7ADE488(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C7ADE488(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a11);
-  if (v11)
+  va_start(va, a17);
+  if (v17)
   {
   }
 
@@ -8592,16 +9316,16 @@ void sub_1C7ADF96C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WebHistoryWriter::writeHistoryItems(uint64_t result, uint64_t a2)
+uint64_t **WebHistoryWriter::writeHistoryItems(uint64_t **result, uint64_t a2)
 {
-  v2 = *(result + 92);
+  v2 = *(result + 23);
   v3 = (v2 - 1);
   if (v2 - 1 >= 0)
   {
     v5 = result;
-    while (v3 < *(v5 + 92))
+    while (v3 < *(v5 + 23))
     {
-      WTF::HashMap<long long,WTF::RetainPtr<NSMutableArray>,WTF::DefaultHash<long long>,WTF::HashTraits<long long>,WTF::HashTraits<WTF::RetainPtr<NSMutableArray>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<long long,WTF::RetainPtr<NSMutableArray>,WTF::DefaultHash<long long>,WTF::HashTraits<long long>,WTF::HashTraits<WTF::RetainPtr<NSMutableArray>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<long long>>,long long>(&v10, *(v5 + 72), *(*(v5 + 80) + 4 * v3));
+      WTF::HashMap<long long,WTF::RetainPtr<NSMutableArray>,WTF::DefaultHash<long long>,WTF::HashTraits<long long>,WTF::HashTraits<WTF::RetainPtr<NSMutableArray>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<long long,WTF::RetainPtr<NSMutableArray>,WTF::DefaultHash<long long>,WTF::HashTraits<long long>,WTF::HashTraits<WTF::RetainPtr<NSMutableArray>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<long long>>,long long>(&v10, v5[9], *(v5[10] + v3));
       v7 = v10;
       if (v10)
       {
@@ -8611,7 +9335,7 @@ uint64_t WebHistoryWriter::writeHistoryItems(uint64_t result, uint64_t a2)
       if (result)
       {
         v8 = result;
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v8; i = (i + 1))
         {
           result = HistoryPropertyListWriter::writeHistoryItem(v5, a2, [v7 objectAtIndex:i]);
         }
@@ -8752,9 +9476,9 @@ void sub_1C7AE0860(_Unwind_Exception *a1, void *a2)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AE08A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7AE08A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -8888,16 +9612,16 @@ LABEL_15:
   return v11;
 }
 
-void sub_1C7AE1078(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7AE1078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7AE108C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7AE108C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -8949,711 +9673,6 @@ void sub_1C7AE1770(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
     {
       WTF::StringImpl::destroy(a10, a2);
     }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE1C7C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, WTF::StringImpl *a18)
-{
-  if (a18)
-  {
-    if (atomic_fetch_add_explicit(a18, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a18, a2);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE1CBC(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7AE1CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  WTF::Ref<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>::~Ref(va);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7AE1D98(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10)
-{
-  if (a10)
-  {
-    if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a10, a2);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE21FC(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
-{
-  if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v10, a2);
-    _Unwind_Resume(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void WTF::createNSArray<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(uint64_t *a1, uint64_t a2)
-{
-  v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:*(a2 + 12)];
-  *a1 = v4;
-  v6 = *(a2 + 12);
-  if (v6)
-  {
-    v7 = v4;
-    v8 = *a2;
-    v9 = 8 * v6;
-    do
-    {
-      WTF::makeNSArrayElement(&v11, v8, v5);
-      if (v11)
-      {
-        [v7 addObject:?];
-        v10 = v11;
-        v11 = 0;
-        if (v10)
-        {
-        }
-      }
-
-      v8 = (v8 + 8);
-      v9 -= 8;
-    }
-
-    while (v9);
-  }
-}
-
-void sub_1C7AE2328(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
-{
-  if (a10)
-  {
-
-    *v10 = 0;
-    if (!v11)
-    {
-LABEL_3:
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  else
-  {
-    *v10 = 0;
-    if (!v11)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE247C(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10)
-{
-  if (a10)
-  {
-    if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a10, a2);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE2560(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE2650(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, WTF::StringImpl *a10)
-{
-  if (a9)
-  {
-  }
-
-  if (a10)
-  {
-    if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a10, a2);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t WTF::HashTable<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *>>,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashMap<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>,WebHistoryItem *,WTF::DefaultHash<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::HashTraits<WebHistoryItem *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::WeakRef<WebCore::HistoryItem,WTF::DefaultWeakPtrImpl>>,WTF::FastMalloc>::rehash(unsigned int a1)
-{
-  v2 = qword_1ED6A6220;
-  if (qword_1ED6A6220)
-  {
-    v3 = *(qword_1ED6A6220 - 4);
-    v4 = *(qword_1ED6A6220 - 12);
-  }
-
-  else
-  {
-    v3 = 0;
-    v4 = 0;
-  }
-
-  result = WTF::fastZeroedMalloc((16 * a1 + 16));
-  qword_1ED6A6220 = result + 16;
-  *(result + 8) = a1 - 1;
-  *(result + 12) = a1;
-  *result = 0;
-  *(result + 4) = v4;
-  if (v3)
-  {
-    v7 = 0;
-    while (1)
-    {
-      v8 = (v2 + 16 * v7);
-      v9 = *v8;
-      if (*v8 != -1)
-      {
-        if (v9)
-        {
-          if (qword_1ED6A6220)
-          {
-            v10 = *(qword_1ED6A6220 - 8);
-            v11 = *(v9 + 1);
-            if (!v11)
-            {
-              goto LABEL_25;
-            }
-          }
-
-          else
-          {
-            v10 = 0;
-            v11 = *(v9 + 1);
-            if (!v11)
-            {
-LABEL_25:
-              result = 92;
-              __break(0xC471u);
-              return result;
-            }
-          }
-
-          v12 = (~(v11 << 32) + v11) ^ ((~(v11 << 32) + v11) >> 22);
-          v13 = 9 * ((v12 + ~(v12 << 13)) ^ ((v12 + ~(v12 << 13)) >> 8));
-          v14 = (v13 ^ (v13 >> 15)) + ~((v13 ^ (v13 >> 15)) << 27);
-          v15 = v10 & ((v14 >> 31) ^ v14);
-          v16 = 1;
-          do
-          {
-            v17 = v15;
-            v18 = *(qword_1ED6A6220 + 16 * v15);
-            v15 = (v15 + v16++) & v10;
-          }
-
-          while (v18);
-          v19 = (qword_1ED6A6220 + 16 * v17);
-          *v8 = 0;
-          *v19 = v9;
-          v20 = *v8;
-          v19[1] = v8[1];
-          *v8 = 0;
-          if (v20 && atomic_fetch_add(v20, 0xFFFFFFFF) == 1)
-          {
-            atomic_store(1u, v20);
-            WTF::fastFree(v20, v6);
-          }
-        }
-
-        else
-        {
-          *v8 = 0;
-        }
-      }
-
-      if (++v7 == v3)
-      {
-        goto LABEL_21;
-      }
-    }
-  }
-
-  if (v2)
-  {
-LABEL_21:
-
-    return WTF::fastFree((v2 - 16), v6);
-  }
-
-  return result;
-}
-
-void WTF::createNSArray<WTF::HashSet<WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1> const&>(void **a1, WTF **a2)
-{
-  v4 = objc_alloc(MEMORY[0x1E695DF70]);
-  if (*a2)
-  {
-    *a1 = [v4 initWithCapacity:*(*a2 - 3)];
-    v6 = *a2;
-    if (*a2)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_12:
-    v8 = 0;
-    v7 = 0;
-LABEL_13:
-    v10 = v8;
-    v8 = (v6 + 8 * v7);
-    if (v6)
-    {
-      goto LABEL_10;
-    }
-
-LABEL_14:
-    v12 = 0;
-    goto LABEL_22;
-  }
-
-  *a1 = [v4 initWithCapacity:0];
-  v6 = *a2;
-  if (!*a2)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_3:
-  v7 = *(v6 - 1);
-  v8 = (v6 + 8 * v7);
-  if (!*(v6 - 3))
-  {
-    goto LABEL_13;
-  }
-
-  if (!v7)
-  {
-    v11 = 0;
-    v10 = v6;
-    goto LABEL_16;
-  }
-
-  v9 = 8 * v7;
-  v10 = v6;
-  while ((*v10 + 1) <= 1)
-  {
-    v10 = (v10 + 8);
-    v9 -= 8;
-    if (!v9)
-    {
-      v10 = v8;
-      break;
-    }
-  }
-
-  if (!v6)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_10:
-  v11 = *(v6 - 1);
-LABEL_16:
-  v12 = (v6 + 8 * v11);
-LABEL_22:
-  while (v10 != v12)
-  {
-    v13 = *a1;
-    WTF::makeNSArrayElement(&v15, v10, v5);
-    if (v15)
-    {
-      [v13 addObject:?];
-      v14 = v15;
-      v15 = 0;
-      if (v14)
-      {
-      }
-    }
-
-    do
-    {
-      v10 = (v10 + 8);
-    }
-
-    while (v10 != v8 && (*v10 + 1) <= 1);
-  }
-}
-
-void sub_1C7AE2E24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
-{
-  if (a10)
-  {
-
-    v12 = *v10;
-    *v10 = 0;
-    if (!v12)
-    {
-LABEL_3:
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  else
-  {
-    v12 = *v10;
-    *v10 = 0;
-    if (!v12)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void WTF::createNSArray<WTF::HashSet<WTF::String,WTF::ASCIICaseInsensitiveHash,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1> &>(void **a1, WTF **a2)
-{
-  v4 = objc_alloc(MEMORY[0x1E695DF70]);
-  if (*a2)
-  {
-    *a1 = [v4 initWithCapacity:*(*a2 - 3)];
-    v6 = *a2;
-    if (*a2)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_12:
-    v8 = 0;
-    v7 = 0;
-LABEL_13:
-    v10 = v8;
-    v8 = (v6 + 8 * v7);
-    if (v6)
-    {
-      goto LABEL_10;
-    }
-
-LABEL_14:
-    v12 = 0;
-    goto LABEL_22;
-  }
-
-  *a1 = [v4 initWithCapacity:0];
-  v6 = *a2;
-  if (!*a2)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_3:
-  v7 = *(v6 - 1);
-  v8 = (v6 + 8 * v7);
-  if (!*(v6 - 3))
-  {
-    goto LABEL_13;
-  }
-
-  if (!v7)
-  {
-    v11 = 0;
-    v10 = v6;
-    goto LABEL_16;
-  }
-
-  v9 = 8 * v7;
-  v10 = v6;
-  while ((*v10 + 1) <= 1)
-  {
-    v10 = (v10 + 8);
-    v9 -= 8;
-    if (!v9)
-    {
-      v10 = v8;
-      break;
-    }
-  }
-
-  if (!v6)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_10:
-  v11 = *(v6 - 1);
-LABEL_16:
-  v12 = (v6 + 8 * v11);
-LABEL_22:
-  while (v10 != v12)
-  {
-    v13 = *a1;
-    WTF::makeNSArrayElement(&v15, v10, v5);
-    if (v15)
-    {
-      [v13 addObject:?];
-      v14 = v15;
-      v15 = 0;
-      if (v14)
-      {
-      }
-    }
-
-    do
-    {
-      v10 = (v10 + 8);
-    }
-
-    while (v10 != v8 && (*v10 + 1) <= 1);
-  }
-}
-
-void sub_1C7AE301C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
-{
-  if (a10)
-  {
-
-    v12 = *v10;
-    *v10 = 0;
-    if (!v12)
-    {
-LABEL_3:
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  else
-  {
-    v12 = *v10;
-    *v10 = 0;
-    if (!v12)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE30F4(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9)
-{
-  if (a9)
-  {
-    WTF::fastFree(a9, a2);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-WTF::StringImpl *WTF::createNSArray<WTF::FixedVector<WTF::ASCIILiteral,WTF::FastMalloc>>(WTF::StringImpl **a1, unsigned int **a2)
-{
-  v4 = objc_alloc(MEMORY[0x1E695DF70]);
-  if (*a2)
-  {
-    v5 = **a2;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  result = [v4 initWithCapacity:v5];
-  v8 = result;
-  *a1 = result;
-  v9 = *a2;
-  v10 = (*a2 + 2);
-  if (*a2)
-  {
-    v11 = (*a2 + 2);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  if (v9)
-  {
-    v12 = v10 + 16 * *v9;
-    if (v11 == v12)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-    if (!v11)
-    {
-      return result;
-    }
-  }
-
-  v13 = MEMORY[0x1E696EB88];
-  do
-  {
-    v14 = *(v11 + 8);
-    if (v14)
-    {
-      v7 = (v14 - 1);
-      if (v14 == 1)
-      {
-        atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
-        v15 = v13;
-      }
-
-      else
-      {
-        WTF::StringImpl::createWithoutCopyingNonEmpty();
-        v15 = v18[1];
-      }
-
-      v17 = v15;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    WTF::makeNSArrayElement(v18, &v17, v7);
-    if (v18[0])
-    {
-      [(WTF::StringImpl *)v8 addObject:?];
-      v16 = v18[0];
-      v18[0] = 0;
-      if (v16)
-      {
-      }
-    }
-
-    result = v17;
-    v17 = 0;
-    if (result)
-    {
-      if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
-      {
-        result = WTF::StringImpl::destroy(result, v7);
-      }
-    }
-
-    v11 += 16;
-  }
-
-  while (v11 != v12);
-  return result;
-}
-
-void sub_1C7AE3258(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11)
-{
-  *v11 = 0;
-  if (v12)
-  {
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE3334(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF *a9)
-{
-  if (a9)
-  {
-    WTF::fastFree(a9, a2);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE3648(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  WebCore::ResourceError::~ResourceError(&a9, a2);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7AE379C(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    if (*(v1 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(v1);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(v1 + 7) -= 2;
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE3A30(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10, uint64_t a11)
-{
-  if (a10)
-  {
-    if (atomic_fetch_add_explicit(a10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(a10, a2);
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1C7AE3D34(_Unwind_Exception *a1, WTF::StringImpl *a2)
-{
-  if (*(v3 + 7) == 2)
-  {
-    WebCore::Node::removedLastRef(v3);
-  }
-
-  else
-  {
-    *(v3 + 7) -= 2;
-  }
-
-  if (v2)
-  {
-    if (atomic_fetch_add_explicit(v2, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v2, a2);
-    }
-  }
-
-  --*v4;
-  _Unwind_Resume(a1);
-}
-
-void sub_1C7AE3FA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WebCore::Node *a10)
-{
-  if (a10)
-  {
-    if (*(a10 + 7) == 2)
-    {
-      WebCore::Node::removedLastRef(a10);
-      _Unwind_Resume(exception_object);
-    }
-
-    *(a10 + 7) -= 2;
   }
 
   _Unwind_Resume(exception_object);

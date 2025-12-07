@@ -28,10 +28,16 @@
 - (void)removeAllSoundDetectionTypes;
 - (void)removeSoundDetectionType:(id)type;
 - (void)retrainModelWithIdentifier:(id)identifier;
+- (void)setForceMedinaSupport:(BOOL)support;
+- (void)setIsActivelyTrainingAKShotModel:(BOOL)model;
+- (void)setKShotShouldSaveCurrentSound:(BOOL)sound;
 - (void)setLatestSettingsEvents:(id)events;
+- (void)setMicDisabled:(BOOL)disabled;
 - (void)setSoundDetectionKShotListeningState:(int64_t)state;
 - (void)setSoundDetectionState:(int64_t)state;
 - (void)setSoundDetectionState:(int64_t)state source:(id)source;
+- (void)setUltronIsRunning:(BOOL)running;
+- (void)setUltronSupportEnabled:(BOOL)enabled;
 @end
 
 @implementation AXSDSettings
@@ -108,6 +114,18 @@ void __41__AXSDSettings_preferenceKeyForSelector___block_invoke()
   preferenceKeyForSelector__SelectorMap = v8;
 }
 
+- (void)setUltronIsRunning:(BOOL)running
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:running];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"AXSUltronV2RunningStatus"];
+}
+
+- (void)setUltronSupportEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"AXSUltronV2Enabled"];
+}
+
 - (void)_setSoundDetectionState:(int64_t)state
 {
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:state];
@@ -174,6 +192,24 @@ void __41__AXSDSettings_preferenceKeyForSelector___block_invoke()
   [(HCSettings *)self setValue:v4 forPreferenceKey:@"AXSSoundDetectionKShotListeningStateIdentifier"];
 }
 
+- (void)setKShotShouldSaveCurrentSound:(BOOL)sound
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:sound];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"AXSSoundDetectionKShotShouldSaveCurrentSoundIdentifier"];
+}
+
+- (void)setIsActivelyTrainingAKShotModel:(BOOL)model
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:model];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"AXSSoundDetectionKShotisActivelyTrainingAKShotModelIdentifier"];
+}
+
+- (void)setMicDisabled:(BOOL)disabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:disabled];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"AXSSoundDetectionMicDisabled"];
+}
+
 - (NSString)pipedInFile
 {
   v3 = objc_opt_class();
@@ -190,6 +226,12 @@ void __41__AXSDSettings_preferenceKeyForSelector___block_invoke()
   v5 = [(HCSettings *)self objectValueForKey:@"AXSSoundDetectionRetrainModelIdentifier" withClass:v3 andDefaultValue:string];
 
   return v5;
+}
+
+- (void)setForceMedinaSupport:(BOOL)support
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:support];
+  [(HCSettings *)self setValue:v4 forPreferenceKey:@"AXSSoundDetectionMedinaSupportForced"];
 }
 
 - (NSArray)latestSettingsEventsDictionaries
@@ -504,7 +546,7 @@ uint64_t __50__AXSDSettings_sortedSupportedSoundDetectionTypes__block_invoke(uin
 
 - (void)pipeFile:(id)file
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   absoluteString = [fileCopy absoluteString];
   [(AXSDSettings *)self setPipedInFile:absoluteString];
@@ -513,33 +555,29 @@ uint64_t __50__AXSDSettings_sortedSupportedSoundDetectionTypes__block_invoke(uin
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     pipedInFile = [(AXSDSettings *)self pipedInFile];
-    v9 = 138412546;
-    v10 = fileCopy;
-    v11 = 2112;
-    v12 = pipedInFile;
-    _os_log_impl(&dword_23D624000, v6, OS_LOG_TYPE_INFO, "Setting pipe file to %@ -> %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = fileCopy;
+    v10 = 2112;
+    v11 = pipedInFile;
+    _os_log_impl(&dword_23D624000, v6, OS_LOG_TYPE_INFO, "Setting pipe file to %@ -> %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrainModelWithIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   [(AXSDSettings *)self setRetrainModelIdentifier:identifierCopy];
   v5 = AXLogUltron();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     retrainModelIdentifier = [(AXSDSettings *)self retrainModelIdentifier];
-    v8 = 138412546;
-    v9 = identifierCopy;
-    v10 = 2112;
-    v11 = retrainModelIdentifier;
-    _os_log_impl(&dword_23D624000, v5, OS_LOG_TYPE_INFO, "Setting model to retrain to %@ -> %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = identifierCopy;
+    v9 = 2112;
+    v10 = retrainModelIdentifier;
+    _os_log_impl(&dword_23D624000, v5, OS_LOG_TYPE_INFO, "Setting model to retrain to %@ -> %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)latestSettingsEvents
@@ -611,11 +649,10 @@ uint64_t __39__AXSDSettings_keysMonitoredForUpdates__block_invoke()
 
 - (void)logMessage:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_23D624000, a2, OS_LOG_TYPE_DEBUG, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_23D624000, a2, OS_LOG_TYPE_DEBUG, "%@", &v2, 0xCu);
 }
 
 @end

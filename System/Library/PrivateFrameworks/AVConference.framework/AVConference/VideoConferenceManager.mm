@@ -418,6 +418,7 @@
 
 - (void)createSIPWithPacketMultiplexMode:(int)mode
 {
+  v3 = *&mode;
   v23 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -467,7 +468,7 @@
       }
     }
 
-    SIPCloseHandle();
+    SIPCloseHandle(*p_hSIP);
     *p_hSIP = 0xFFFFFFFFLL;
   }
 
@@ -490,7 +491,7 @@
     }
   }
 
-  SIPSetPacketMultiplexMode(self->hSIP, mode);
+  SIPSetPacketMultiplexMode(self->hSIP, v3);
   SIPSetAllowSameSourceDestination(self->hSIP, 1);
   SIPSetCellConditionChangeHandler(self->hSIP, CellConditionChangeCallback, self);
   self->sipRefCount = 0;
@@ -535,7 +536,7 @@
         }
       }
 
-      SIPCloseHandle();
+      SIPCloseHandle(self->hSIP);
       self->hSIP = 0xFFFFFFFFLL;
     }
 
@@ -723,7 +724,7 @@ void __51__VideoConferenceManager_stopSIPWithTransportType___block_invoke(uint64
   v14 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(SnapshotTimer);
   [(SnapshotTimer *)v2 checkinWithTimeout:@"Closing SIP Handle" forTask:45.0];
-  SIPCloseHandle();
+  SIPCloseHandle(*(a1 + 40));
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v3 = VRTraceErrorLogLevelToCSTR();

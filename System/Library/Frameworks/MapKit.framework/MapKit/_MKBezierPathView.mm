@@ -18,10 +18,10 @@
   y = point.y;
   x = point.x;
   layer = [(_MKBezierPathView *)self layer];
-  path = [layer path];
+  v6 = objc_msgSend_path(layer);
   v9.x = x;
   v9.y = y;
-  v7 = CGPathContainsPoint(path, 0, v9, 0);
+  v7 = CGPathContainsPoint(v6, 0, v9, 0);
 
   return v7;
 }
@@ -69,30 +69,31 @@
 - (void)setPath:(CGPath *)path duration:(double)duration
 {
   layer = [(_MKBezierPathView *)self layer];
-  v10 = layer;
+  v11 = layer;
   if (duration <= 0.0)
   {
     [layer removeAnimationForKey:@"path"];
-    [v10 setPath:path];
+    [v11 setPath:path];
   }
 
   else
   {
     currentLayer = [layer currentLayer];
-    v8 = CGPathRetain([currentLayer path]);
+    v8 = objc_msgSend_path(currentLayer);
+    v9 = CGPathRetain(v8);
 
-    [v10 removeAnimationForKey:@"path"];
-    v9 = [MEMORY[0x1E6979318] animationWithKeyPath:@"path"];
-    [v9 setFromValue:v8];
-    [v9 setToValue:path];
-    [v9 setDuration:duration];
-    [v9 setRemovedOnCompletion:1];
-    [v10 addAnimation:v9 forKey:@"path"];
+    [v11 removeAnimationForKey:@"path"];
+    v10 = [MEMORY[0x1E6979318] animationWithKeyPath:@"path"];
+    [v10 setFromValue:v9];
+    [v10 setToValue:path];
+    [v10 setDuration:duration];
+    [v10 setRemovedOnCompletion:1];
+    [v11 addAnimation:v10 forKey:@"path"];
 
-    [v10 setPath:path];
-    if (v8)
+    [v11 setPath:path];
+    if (v9)
     {
-      CGPathRelease(v8);
+      CGPathRelease(v9);
     }
   }
 }

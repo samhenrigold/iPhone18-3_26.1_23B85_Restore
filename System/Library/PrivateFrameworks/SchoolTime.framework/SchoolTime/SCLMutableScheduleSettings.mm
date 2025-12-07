@@ -20,7 +20,6 @@
     scheduleCopy = objc_alloc_init(SCLSchedule);
   }
 
-  schedule = self->super._schedule;
   self->super._schedule = scheduleCopy;
 
   MEMORY[0x2821F96F8]();

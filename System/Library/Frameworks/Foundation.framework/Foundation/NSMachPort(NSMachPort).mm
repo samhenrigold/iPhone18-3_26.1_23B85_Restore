@@ -6,16 +6,16 @@
 - (BOOL)isEqual:()NSMachPort;
 - (BOOL)isValid;
 - (CFHashCode)hash;
-- (CFIndex)retainCount;
-- (uint64_t)delegate;
-- (uint64_t)init;
+- (char)retainCount;
 - (uint64_t)isKindOfClass:()NSMachPort;
 - (uint64_t)isMemberOfClass:()NSMachPort;
-- (uint64_t)machPort;
 - (uint64_t)sendBeforeDate:()NSMachPort components:from:reserved:;
 - (uint64_t)sendBeforeDate:()NSMachPort msgid:components:from:reserved:;
 - (uint64_t)sendBeforeTime:()NSMachPort streamData:components:from:msgid:;
+- (unint64_t)machPort;
 - (unint64_t)retain;
+- (void)delegate;
+- (void)init;
 - (void)initWithMachPort:()NSMachPort options:;
 - (void)invalidate;
 - (void)release;
@@ -112,7 +112,7 @@
   }
 }
 
-- (uint64_t)machPort
+- (unint64_t)machPort
 {
   v2 = objc_opt_class();
   if (v2 == objc_opt_class() && (v4 = atomic_load(self + 1)) != 0)
@@ -184,17 +184,17 @@
   return CFHash(self);
 }
 
-- (CFIndex)retainCount
+- (char)retainCount
 {
   v2 = objc_opt_class();
   if (v2 != objc_opt_class())
   {
-    return [self _retainCount] + 1;
+    return ([self _retainCount] + 1);
   }
 
   if (!atomic_load(self + 1))
   {
-    return [self _retainCount] + 1;
+    return ([self _retainCount] + 1);
   }
 
   return CFGetRetainCount(self);
@@ -284,7 +284,7 @@
   }
 }
 
-- (uint64_t)delegate
+- (void)delegate
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
@@ -639,17 +639,18 @@ LABEL_64:
   {
     v16.receiver = self;
     v16.super_class = &off_1EEF97EB0;
-    objc_msgSendSuper2(&v16, sel_dealloc);
+    objc_msgSendSuper2(&v16, sel_dealloc, a3, a4);
     return 0;
   }
 
+  v5 = a4;
   v7 = objc_opt_class();
   if (v7 != objc_opt_class())
   {
     v12.receiver = self;
     v12.super_class = &off_1EEF97EB0;
     v8 = objc_msgSendSuper2(&v12, sel_init);
-    [v8 _setFlags:a4 & 3];
+    [v8 _setFlags:v5 & 3];
     [v8 _setMachPort:a3];
     return v8;
   }
@@ -662,7 +663,7 @@ LABEL_64:
 
   v11 = v10;
   *(v10 + 8) = 0;
-  *(v10 + 16) = a4 & 3;
+  *(v10 + 16) = v5 & 3;
   *(v10 + 24) = ~v10;
   *(v10 + 32) = v10;
   *(v10 + 40) = a3;
@@ -690,7 +691,7 @@ LABEL_64:
   return v8;
 }
 
-- (uint64_t)init
+- (void)init
 {
   v6 = *MEMORY[0x1E69E9840];
   name = 0;

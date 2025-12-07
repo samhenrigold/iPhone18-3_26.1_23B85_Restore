@@ -233,7 +233,7 @@ LABEL_21:
 
 + (id)attributesForRun:(const void *)run
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v5 = v4;
   v6 = *(run + 8);
@@ -334,26 +334,26 @@ LABEL_21:
       components = *(*(v25 + 11) + 40);
       if (!v24)
       {
-        v38 = topotext::AttributeRun::default_instance(v25);
+        v37 = topotext::AttributeRun::default_instance(v25);
         v24 = *(run + 11);
-        v42 = *(*(v38 + 11) + 44);
+        v41 = *(*(v37 + 11) + 44);
         if (!v24)
         {
-          v39 = topotext::AttributeRun::default_instance(v38);
+          v38 = topotext::AttributeRun::default_instance(v37);
           v24 = *(run + 11);
-          v43 = *(*(v39 + 11) + 48);
+          v42 = *(*(v38 + 11) + 48);
           if (!v24)
           {
-            v24 = *(topotext::AttributeRun::default_instance(v39) + 88);
+            v24 = *(topotext::AttributeRun::default_instance(v38) + 88);
           }
 
           goto LABEL_29;
         }
 
 LABEL_28:
-        v43 = v24[12];
+        v42 = v24[12];
 LABEL_29:
-        v44 = v24[13];
+        v43 = v24[13];
         if (TSUDeviceRGBColorSpace(void)::sDeviceRGBDispatchOnce != -1)
         {
           +[TTMergeableAttributedString(TTAttributedStringPersistenceAdditions) attributesForRun:];
@@ -367,7 +367,7 @@ LABEL_29:
       }
     }
 
-    v42 = v24[11];
+    v41 = v24[11];
     goto LABEL_28;
   }
 
@@ -375,8 +375,8 @@ LABEL_32:
   if ((v6 & 0x200) != 0)
   {
     v27 = [MEMORY[0x1E696AD98] numberWithInteger:{+[TTMergeableAttributedString writingDirectionForAttribute:](TTMergeableAttributedString, "writingDirectionForAttribute:", *(run + 21))}];
-    v40 = v27;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+    v39 = v27;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
     [(topotext::AttributeRun *)v5 setObject:v28 forKeyedSubscript:@"NSWritingDirection"];
 
     v6 = *(run + 8);
@@ -427,8 +427,6 @@ LABEL_46:
 
   v32 = 0;
 LABEL_47:
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
@@ -682,14 +680,14 @@ LABEL_23:
     v7 = 0;
     do
     {
-      v8 = [stringCopy attributesAtIndex:v7 longestEffectiveRange:&v14 inRange:{0, v6}];
+      v8 = [stringCopy attributesAtIndex:v7 longestEffectiveRange:v14 inRange:{0, v6}];
       v9 = *(archive + 23);
       v10 = *(archive + 22);
       if (v10 >= v9)
       {
         if (v9 == *(archive + 24))
         {
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 10, v9 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 20, v9 + 1);
         }
 
         google::protobuf::internal::GenericTypeHandler<topotext::AttributeRun>::New();
@@ -698,11 +696,11 @@ LABEL_23:
       v11 = *(archive + 10);
       *(archive + 22) = v10 + 1;
       v12 = *(v11 + 8 * v10);
-      v13 = TTBoundedCheckedCastNSUIntegerToUInt32(v15);
+      TTBoundedCheckedCastNSUIntegerToUInt32();
       *(v12 + 32) |= 1u;
       *(v12 + 48) = v13;
       [TTMergeableAttributedString saveAttributes:v8 toArchive:v12];
-      v7 += v15;
+      v7 += v14[1];
     }
 
     while (v7 < v6);
@@ -711,13 +709,14 @@ LABEL_23:
 
 - (id)serialize
 {
-  topotext::String::String(v5);
-  [(TTMergeableAttributedString *)self saveToArchive:v5];
-  v3 = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:topotext::String::ByteSize(v5)];
-  google::protobuf::MessageLite::SerializeToArray(v5, [v3 mutableBytes], objc_msgSend(v3, "length"));
-  topotext::String::~String(v5);
+  topotext::String::String(v7);
+  [(TTMergeableAttributedString *)self saveToArchive:v7];
+  v3 = objc_alloc(MEMORY[0x1E695DF88]);
+  v5 = [v3 initWithLength:{topotext::String::ByteSize(v7, v4)}];
+  google::protobuf::MessageLite::SerializeToArray(v7, [v5 mutableBytes], objc_msgSend(v5, "length"));
+  topotext::String::~String(v7);
 
-  return v3;
+  return v5;
 }
 
 - (void)saveDeltaSinceTimestamp:(id)timestamp toArchive:(void *)archive
@@ -747,16 +746,14 @@ LABEL_23:
 
 void __60__TTMergeableAttributedString_allowlistedAttributesForModel__block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v5[2] = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) allowlistedTypingAttributes];
-  v6[0] = @"NSAttachment";
-  v6[1] = @"_TTREMHashtag";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  v5[0] = @"NSAttachment";
+  v5[1] = @"_TTREMHashtag";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
   v3 = [v1 setByAddingObjectsFromArray:v2];
   v4 = +[TTMergeableAttributedString allowlistedAttributesForModel]::attributeAllowList;
   +[TTMergeableAttributedString allowlistedAttributesForModel]::attributeAllowList = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)allowlistedAttributesForStyle
@@ -778,21 +775,19 @@ void __60__TTMergeableAttributedString_allowlistedAttributesForModel__block_invo
 
 void __60__TTMergeableAttributedString_allowlistedAttributesForStyle__block_invoke(uint64_t a1)
 {
-  v7[6] = *MEMORY[0x1E69E9840];
+  v6[6] = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) allowlistedTypingAttributes];
   v2 = *MEMORY[0x1E6999A70];
-  v7[0] = @"NSAttachment";
-  v7[1] = v2;
-  v7[2] = kDDFoundExistingLinkAttributeName;
-  v7[3] = kUITextInputDictationResultMetadataAttributeName;
-  v7[4] = TTPresentationAttributeNameApproxMaxItemNumber;
-  v7[5] = @"NSTextAlternatives";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:6];
+  v6[0] = @"NSAttachment";
+  v6[1] = v2;
+  v6[2] = kDDFoundExistingLinkAttributeName;
+  v6[3] = kUITextInputDictationResultMetadataAttributeName;
+  v6[4] = TTPresentationAttributeNameApproxMaxItemNumber;
+  v6[5] = @"NSTextAlternatives";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:6];
   v4 = [v1 setByAddingObjectsFromArray:v3];
   v5 = +[TTMergeableAttributedString allowlistedAttributesForStyle]::attributeAllowList;
   +[TTMergeableAttributedString allowlistedAttributesForStyle]::attributeAllowList = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)allowlistedTypingAttributes
@@ -809,24 +804,22 @@ void __60__TTMergeableAttributedString_allowlistedAttributesForStyle__block_invo
 
 void __58__TTMergeableAttributedString_allowlistedTypingAttributes__block_invoke()
 {
-  v5[10] = *MEMORY[0x1E69E9840];
+  v4[10] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = TTAttributeNameFont;
-  v5[1] = TTAttributeNameFontHints;
-  v5[2] = TTAttributeNameUnderline;
-  v5[3] = TTAttributeNameStrikethrough;
-  v5[4] = TTAttributeNameForegroundColor;
-  v5[5] = TTAttributeNameParagraphStyle;
-  v5[6] = @"NSLink";
-  v5[7] = TTAttributeNameSuperscript;
-  v5[8] = @"NSWritingDirection";
-  v5[9] = TTAttributeNameTimestamp;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:10];
+  v4[0] = TTAttributeNameFont;
+  v4[1] = TTAttributeNameFontHints;
+  v4[2] = TTAttributeNameUnderline;
+  v4[3] = TTAttributeNameStrikethrough;
+  v4[4] = TTAttributeNameForegroundColor;
+  v4[5] = TTAttributeNameParagraphStyle;
+  v4[6] = @"NSLink";
+  v4[7] = TTAttributeNameSuperscript;
+  v4[8] = @"NSWritingDirection";
+  v4[9] = TTAttributeNameTimestamp;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:10];
   v2 = [v0 setWithArray:v1];
   v3 = +[TTMergeableAttributedString allowlistedTypingAttributes]::typingAllowList;
   +[TTMergeableAttributedString allowlistedTypingAttributes]::typingAllowList = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replaceCharactersInRange:(_NSRange)range withString:(id)string
@@ -880,19 +873,19 @@ void __58__TTMergeableAttributedString_allowlistedTypingAttributes__block_invoke
 {
   length = range.length;
   location = range.location;
-  v39 = *MEMORY[0x1E69E9840];
+  *&v38 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   if (length)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __51__TTMergeableAttributedString_setAttributes_range___block_invoke;
-    v36[3] = &unk_1E7509E08;
-    v36[4] = self;
-    v28 = v8;
-    v37 = v28;
-    [attributesCopy enumerateKeysAndObjectsUsingBlock:v36];
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __51__TTMergeableAttributedString_setAttributes_range___block_invoke;
+    v35[3] = &unk_1E7509E08;
+    v35[4] = self;
+    v27 = v8;
+    v36 = v27;
+    [attributesCopy enumerateKeysAndObjectsUsingBlock:v35];
     v9 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E6999A70]];
     if (v9)
     {
@@ -903,12 +896,12 @@ void __58__TTMergeableAttributedString_allowlistedTypingAttributes__block_invoke
 
       else
       {
-        v11 = [v28 objectForKeyedSubscript:@"NSLink"];
+        v11 = [v27 objectForKeyedSubscript:@"NSLink"];
         v12 = v11 == 0;
 
         if (!v12)
         {
-          [v28 removeObjectForKey:@"NSLink"];
+          [v27 removeObjectForKey:@"NSLink"];
         }
       }
     }
@@ -924,16 +917,16 @@ void __58__TTMergeableAttributedString_allowlistedTypingAttributes__block_invoke
 
       if (v18)
       {
-        [v28 removeObjectForKey:TTAttributeNameParagraphStyle];
+        [v27 removeObjectForKey:TTAttributeNameParagraphStyle];
       }
     }
 
-    v19 = v28;
+    v19 = v27;
 
     attributesCopy = v19;
-    v35 = 0;
-    v20 = [(TTMergeableAttributedString *)self attributesEqual:v19 toRange:location modelEqual:length, &v35];
-    if (v35 == 1)
+    v34 = 0;
+    v20 = [(TTMergeableAttributedString *)self attributesEqual:v19 toRange:location modelEqual:length, &v34];
+    if (v34 == 1)
     {
       if (!v20)
       {
@@ -951,18 +944,18 @@ void __58__TTMergeableAttributedString_allowlistedTypingAttributes__block_invoke
       [delegate2 beginEditing];
 
       [(TTMergeableString *)self beginEditing];
+      v31 = 0;
       v32 = 0;
       v33 = 0;
-      v34 = 0;
-      v38[0] = location;
-      v38[1] = length;
+      *&v37 = location;
+      *(&v37 + 1) = length;
+      v29 = 0;
       v30 = 0;
-      v31 = 0;
       __p = 0;
-      std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(&__p, v38, &v39, 1uLL);
-      [(TTMergeableString *)self getSubstrings:&v32 forCharacterRange:location, length];
-      v24 = v32;
-      v25 = v33;
+      std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(&__p, &v37, &v38, 1uLL);
+      [(TTMergeableString *)self getSubstrings:&v31 forCharacterRange:location, length];
+      v24 = v31;
+      v25 = v32;
       while (v24 != v25)
       {
         [(TTMergeableAttributedString *)self setAttributes:attributesCopy substring:*v24++];
@@ -974,32 +967,29 @@ void __58__TTMergeableAttributedString_allowlistedTypingAttributes__block_invoke
 
       if (__p)
       {
-        v30 = __p;
+        v29 = __p;
         operator delete(__p);
       }
 
-      if (v32)
+      if (v31)
       {
-        v33 = v32;
-        operator delete(v32);
+        v32 = v31;
+        operator delete(v31);
       }
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __51__TTMergeableAttributedString_setAttributes_range___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v8 = a2;
   v5 = a3;
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() allowlistedAttributesForModel];
-  v8 = [v7 containsObject:v9];
+  v6 = [objc_opt_class() allowlistedAttributesForModel];
+  v7 = [v6 containsObject:v8];
 
-  if (v8)
+  if (v7)
   {
-    [*(a1 + 40) setObject:v5 forKeyedSubscript:v9];
+    [*(a1 + 40) setObject:v5 forKeyedSubscript:v8];
   }
 }
 
@@ -1031,35 +1021,35 @@ void __51__TTMergeableAttributedString_setAttributes_range___block_invoke(uint64
 
 - (BOOL)attributesEqual:(id)equal to:(id)to modelEqual:(BOOL *)modelEqual
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   toCopy = to;
   *modelEqual = 1;
-  v28 = equalCopy;
+  v27 = equalCopy;
   v9 = [equalCopy count];
   if (v9 == [toCopy count])
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     keyEnumerator = [equalCopy keyEnumerator];
-    v11 = [keyEnumerator countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v11 = [keyEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v30;
+      v12 = *v29;
       v13 = 1;
       obj = keyEnumerator;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * i);
+          v15 = *(*(&v28 + 1) + 8 * i);
           v16 = [toCopy objectForKeyedSubscript:{v15, obj}];
           v17 = [toCopy objectForKeyedSubscript:v15];
           v18 = v17 == 0;
@@ -1074,7 +1064,7 @@ LABEL_18:
             goto LABEL_19;
           }
 
-          v19 = [v28 objectForKeyedSubscript:v15];
+          v19 = [v27 objectForKeyedSubscript:v15];
           v20 = [v19 isEqual:v16];
           v21 = [v19 conformsToProtocol:&unk_1F0DB83D8];
           v22 = v20;
@@ -1099,7 +1089,7 @@ LABEL_18:
         }
 
         keyEnumerator = obj;
-        v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v11)
         {
           continue;
@@ -1123,19 +1113,18 @@ LABEL_19:
     *modelEqual = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
 - (void)setAttributes:(id)attributes substring:(void *)substring
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   if (substring && (*(substring + 44) & 1) == 0)
   {
-    v40 = 0;
-    v7 = [(TTMergeableAttributedString *)self attributesEqual:attributesCopy toRange:*(substring + 10) modelEqual:*(substring + 4), &v40];
-    if ((v40 & 1) == 0)
+    v39 = 0;
+    v7 = [(TTMergeableAttributedString *)self attributesEqual:attributesCopy toRange:*(substring + 10) modelEqual:*(substring + 4), &v39];
+    if ((v39 & 1) == 0)
     {
       delegate = [(TTMergeableString *)self delegate];
       if (delegate)
@@ -1158,16 +1147,16 @@ LABEL_19:
 
           v13 = *(substring + 10);
           attributedString = [(TTMergeableString *)self attributedString];
-          v35[0] = MEMORY[0x1E69E9820];
-          v35[1] = 3221225472;
-          v35[2] = __55__TTMergeableAttributedString_setAttributes_substring___block_invoke;
-          v35[3] = &unk_1E7509E30;
+          v34[0] = MEMORY[0x1E69E9820];
+          v34[1] = 3221225472;
+          v34[2] = __55__TTMergeableAttributedString_setAttributes_substring___block_invoke;
+          v34[3] = &unk_1E7509E30;
           substringCopy = substring;
-          v38 = v13;
-          v39 = v12;
+          v37 = v13;
+          v38 = v12;
           v15 = v11;
-          v36 = v15;
-          [attributedString enumerateAttributesInRange:v13 options:v12 usingBlock:{0, v35}];
+          v35 = v15;
+          [attributedString enumerateAttributesInRange:v13 options:v12 usingBlock:{0, v34}];
 
           [(TTMergeableUndoString *)self addUndoCommand:v15];
         }
@@ -1191,7 +1180,7 @@ LABEL_19:
       [attributedString2 setAttributes:attributesCopy range:{*(substring + 10), v18}];
     }
 
-    if ((v40 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
       v19 = +[TTMergeableString unserialisedReplicaID];
       v20 = *(substring + 3);
@@ -1202,17 +1191,17 @@ LABEL_19:
 
       if (!v22)
       {
+        v31 = 0;
         v32 = 0;
         v33 = 0;
-        v34 = 0;
         substringCopy2 = substring;
+        v29 = 0;
         v30 = 0;
-        v31 = 0;
         __p = 0;
-        std::vector<TopoSubstring *>::__init_with_size[abi:ne200100]<TopoSubstring * const*,TopoSubstring * const*>(&__p, &substringCopy2, &v42, 1uLL);
-        [(TTMergeableString *)self getCharacterRanges:&v32 forSubstrings:&__p];
-        v23 = v32;
-        v24 = v33;
+        std::vector<TopoSubstring *>::__init_with_size[abi:ne200100]<TopoSubstring * const*,TopoSubstring * const*>(&__p, &substringCopy2, &v41, 1uLL);
+        [(TTMergeableString *)self getCharacterRanges:&v31 forSubstrings:&__p];
+        v23 = v31;
+        v24 = v32;
         while (v23 != v24)
         {
           v25 = *v23;
@@ -1225,40 +1214,40 @@ LABEL_19:
 
         if (__p)
         {
-          v30 = __p;
+          v29 = __p;
           operator delete(__p);
         }
 
-        if (v32)
+        if (v31)
         {
-          v33 = v32;
-          operator delete(v32);
+          v32 = v31;
+          operator delete(v31);
         }
       }
 
       [(TTMergeableString *)self setHasLocalChanges:1];
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
-void __55__TTMergeableAttributedString_setAttributes_substring___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void __55__TTMergeableAttributedString_setAttributes_substring___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v8 = *(a1 + 40);
-  LODWORD(a3) = TTBoundedCheckedCastNSUIntegerToUInt32(a3 - *(a1 + 48));
-  v9 = TTBoundedCheckedCastNSUIntegerToUInt32(a4);
-  v10 = *v8;
-  v11 = *(v8 + 8);
-  v12 = [*(a1 + 32) attributeRanges];
-  v13 = v10;
-  v15 = v13;
-  v16 = v11 + a3;
-  v17 = v9;
-  v14 = v7;
-  v18 = v14;
-  std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::push_back[abi:ne200100](v12, &v15);
+  v3 = a2;
+  v4 = *(a1 + 40);
+  TTBoundedCheckedCastNSUIntegerToUInt32();
+  v6 = v5;
+  TTBoundedCheckedCastNSUIntegerToUInt32();
+  v8 = v7;
+  v9 = *v4;
+  v10 = *(v4 + 8);
+  v11 = [*(a1 + 32) attributeRanges];
+  v12 = v9;
+  v18 = v12;
+  v19 = v10 + v6;
+  v20 = v8;
+  v13 = v3;
+  v21 = v13;
+  std::vector<std::pair<TopoIDRange,NSDictionary * {__strong}>>::push_back[abi:ne200100](v11, &v18, v14, v15, v16, v17);
 }
 
 @end

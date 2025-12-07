@@ -600,7 +600,7 @@ LABEL_29:
   [(MainWindowRootViewController *)&v53 willTransitionToTraitCollection:collectionCopy withTransitionCoordinator:v40];
   if (v40)
   {
-    [v40 targetTransform];
+    objc_msgSend_targetTransform(v40);
   }
 
   else
@@ -643,22 +643,20 @@ LABEL_29:
   v8 = coordinatorCopy;
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
-    IsIdentity = CGAffineTransformIsIdentity(&v47);
-    [v8 targetTransform];
-    v10 = *(&v44 + 1);
-    [v8 targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
+    IsIdentity = CGAffineTransformIsIdentity(&v45);
+    objc_msgSend_targetTransform(v8);
+    v10 = v44[1];
+    objc_msgSend_targetTransform(v8);
     v11 = *&v41;
   }
 
   else
   {
-    memset(&v47, 0, sizeof(v47));
-    IsIdentity = CGAffineTransformIsIdentity(&v47);
+    memset(&v45, 0, sizeof(v45));
+    IsIdentity = CGAffineTransformIsIdentity(&v45);
     v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
+    memset(v44, 0, sizeof(v44));
     v41 = 0u;
     v42 = 0u;
     v11 = 0.0;

@@ -8,17 +8,17 @@
 - (ASTConnectionSession)initWithIdentities:(id)identities ticket:(id)ticket requestQueuedSuiteInfo:(BOOL)info
 {
   infoCopy = info;
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
   ticketCopy = ticket;
-  v31.receiver = self;
-  v31.super_class = ASTConnectionSession;
-  v10 = [(ASTMaterializedConnection *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = ASTConnectionSession;
+  v10 = [(ASTMaterializedConnection *)&v30 init];
   v11 = v10;
   if (v10)
   {
-    v27 = v10;
-    v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v26 = v10;
+    v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if ([identitiesCopy count])
     {
       v12 = 0;
@@ -50,29 +50,29 @@
           [dictionary setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"queuedSuiteInfo"];
         }
 
-        [v29 addObject:dictionary];
+        [v28 addObject:dictionary];
       }
 
       while ([identitiesCopy count] > v12);
     }
 
-    v32 = @"devices";
-    v33[0] = v29;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:{1, v27}];
-    v30 = 0;
-    v22 = [ASTEncodingUtilities jsonSerializeObject:v21 error:&v30];
-    v23 = v30;
+    v31 = @"devices";
+    v32[0] = v28;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:{1, v26}];
+    v29 = 0;
+    v22 = [ASTEncodingUtilities jsonSerializeObject:v21 error:&v29];
+    v23 = v29;
 
     if (v22)
     {
-      v11 = v28;
-      [(ASTMaterializedConnection *)v28 addBody:v22 gzip:+[ASTConnectionUtilities isGzipEnabled]];
+      v11 = v27;
+      [(ASTMaterializedConnection *)v27 addBody:v22 gzip:+[ASTConnectionUtilities isGzipEnabled]];
     }
 
     else
     {
       v24 = ASTLogHandleForCategory(0);
-      v11 = v28;
+      v11 = v27;
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [ASTConnectionSession initWithIdentities:v23 ticket:v24 requestQueuedSuiteInfo:?];
@@ -82,13 +82,12 @@
     [(ASTConnectionSession *)v11 _addTokenToHeaderField];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)_addTokenToHeaderField
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CF97E8] isCheckerBoardActive])
   {
     proxyServer = [MEMORY[0x277CF97E8] proxyServer];
@@ -111,9 +110,9 @@
             if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
               token2 = [v4 token];
-              v15 = 138412290;
-              v16 = token2;
-              _os_log_impl(&dword_240F3C000, v10, OS_LOG_TYPE_DEFAULT, "Set token for session's header: %@", &v15, 0xCu);
+              v14 = 138412290;
+              v15 = token2;
+              _os_log_impl(&dword_240F3C000, v10, OS_LOG_TYPE_DEFAULT, "Set token for session's header: %@", &v14, 0xCu);
             }
 
             request = [(ASTMaterializedConnection *)self request];
@@ -128,17 +127,14 @@
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithIdentities:(uint64_t)a1 ticket:(NSObject *)a2 requestQueuedSuiteInfo:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "JSON serialization failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "JSON serialization failed with error: %@", &v2, 0xCu);
 }
 
 @end

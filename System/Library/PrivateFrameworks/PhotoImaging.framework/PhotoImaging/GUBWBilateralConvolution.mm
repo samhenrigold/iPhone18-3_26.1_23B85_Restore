@@ -186,7 +186,7 @@ uint64_t __46__GUBWBilateralConvolution_BWBilateralKernels__block_invoke()
       bilateralLoop11Kernel = [objc_opt_class() bilateralLoop2Kernel];
 LABEL_7:
       v64 = bilateralLoop11Kernel;
-      [loopCopy extent];
+      objc_msgSend_extent(loopCopy);
       v65 = [v64 applyWithExtent:v18 roiCallback:v26 arguments:?];
 
       goto LABEL_9;

@@ -127,44 +127,42 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v27 = *MEMORY[0x1E69E9840];
-  *&v20 = 0;
+  v26 = *MEMORY[0x1E69E9840];
+  *&v19 = 0;
   fRecordId = self->fRecordId;
   fStartDate = self->fStartDate;
-  v19 = fRecordId;
+  v18 = fRecordId;
   objc_msgSend_timeIntervalSinceReferenceDate(fStartDate, a2, zone);
   fSessionId = self->fSessionId;
-  DWORD2(v21) = self->fWorkoutType;
-  *&v24[24] = self->fSessionType;
-  v24[28] = self->fEligibleForHealthKit;
-  v24[29] = self->fEligibleForCalorimetry;
-  *v25 = self->fNumWorkoutsContrToEstimate;
+  DWORD2(v20) = self->fWorkoutType;
+  *&v23[24] = self->fSessionType;
+  v23[28] = self->fEligibleForHealthKit;
+  v23[29] = self->fEligibleForCalorimetry;
+  *v24 = self->fNumWorkoutsContrToEstimate;
   fEstimatedVo2Max = self->fEstimatedVo2Max;
-  *(&v20 + 1) = v9;
-  *&v21 = fEstimatedVo2Max;
-  v22 = *&self->fDurationInSeconds;
-  v23 = *&self->fHRMin;
-  *v24 = 0;
-  *&v24[8] = *&self->fVariance;
-  *&v25[8] = *&self->fEstimatedHRResponseParam;
-  *&v25[24] = self->fSessionVo2Max;
-  LODWORD(v26) = 0;
-  objc_msgSend_getUUIDBytes_(fSessionId, v10, &v23 + 8);
+  *(&v19 + 1) = v9;
+  *&v20 = fEstimatedVo2Max;
+  v21 = *&self->fDurationInSeconds;
+  v22 = *&self->fHRMin;
+  *v23 = 0;
+  *&v23[8] = *&self->fVariance;
+  *&v24[8] = *&self->fEstimatedHRResponseParam;
+  *&v24[24] = self->fSessionVo2Max;
+  LODWORD(v25) = 0;
+  objc_msgSend_getUUIDBytes_(fSessionId, v10, &v22 + 8);
   v11 = objc_opt_class();
   v13 = objc_msgSend_allocWithZone_(v11, v12, zone);
-  v17[6] = *&v24[16];
-  v17[7] = *v25;
-  v17[8] = *&v25[16];
-  v18 = v26;
-  v17[2] = v21;
-  v17[3] = v22;
-  v17[4] = v23;
-  v17[5] = *v24;
-  v17[0] = v19;
-  v17[1] = v20;
-  result = objc_msgSend_initWithSample_(v13, v14, v17);
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  v16[6] = *&v23[16];
+  v16[7] = *v24;
+  v16[8] = *&v24[16];
+  v17 = v25;
+  v16[2] = v20;
+  v16[3] = v21;
+  v16[4] = v22;
+  v16[5] = *v23;
+  v16[0] = v18;
+  v16[1] = v19;
+  return objc_msgSend_initWithSample_(v13, v14, v16);
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -199,87 +197,7 @@
   }
 
   v7 = objc_msgSend_recordId(self, v5, v6);
-  if (v7 != objc_msgSend_recordId(equal, v8, v9))
-  {
-    goto LABEL_23;
-  }
-
-  if (objc_msgSend_startDate(self, v10, v11) || objc_msgSend_startDate(equal, v10, v11))
-  {
-    started = objc_msgSend_startDate(self, v10, v11);
-    v15 = objc_msgSend_startDate(equal, v13, v14);
-    if (!objc_msgSend_isEqualToDate_(started, v16, v15))
-    {
-      goto LABEL_23;
-    }
-  }
-
-  v17 = objc_msgSend_workoutType(self, v10, v11);
-  if (v17 != objc_msgSend_workoutType(equal, v18, v19))
-  {
-    goto LABEL_23;
-  }
-
-  if (objc_msgSend_sessionId(self, v10, v11) || objc_msgSend_sessionId(equal, v10, v11))
-  {
-    v20 = objc_msgSend_sessionId(self, v10, v11);
-    v23 = objc_msgSend_sessionId(equal, v21, v22);
-    if (!objc_msgSend_isEqual_(v20, v24, v23))
-    {
-      goto LABEL_23;
-    }
-  }
-
-  objc_msgSend_estimatedVo2Max(self, v10, v11);
-  v26 = v25;
-  objc_msgSend_estimatedVo2Max(equal, v27, v28);
-  if (v26 != v29)
-  {
-    goto LABEL_23;
-  }
-
-  objc_msgSend_durationInSeconds(self, v10, v11);
-  v31 = v30;
-  objc_msgSend_durationInSeconds(equal, v32, v33);
-  if (v31 != v34)
-  {
-    goto LABEL_23;
-  }
-
-  objc_msgSend_hrMax(self, v10, v11);
-  v36 = v35;
-  objc_msgSend_hrMax(equal, v37, v38);
-  if (v36 != v39)
-  {
-    goto LABEL_23;
-  }
-
-  objc_msgSend_hrMin(self, v10, v11);
-  v41 = v40;
-  objc_msgSend_hrMin(equal, v42, v43);
-  if (v41 != v44)
-  {
-    goto LABEL_23;
-  }
-
-  objc_msgSend_variance(self, v10, v11);
-  v46 = v45;
-  objc_msgSend_variance(equal, v47, v48);
-  if (v46 != v49)
-  {
-    goto LABEL_23;
-  }
-
-  objc_msgSend_filteredVo2Max(self, v10, v11);
-  v51 = v50;
-  objc_msgSend_filteredVo2Max(equal, v52, v53);
-  if (v51 != v54)
-  {
-    goto LABEL_23;
-  }
-
-  v55 = objc_msgSend_sessionType(self, v10, v11);
-  if (v55 == objc_msgSend_sessionType(equal, v56, v57) && (v58 = objc_msgSend_eligibleForHealthKit(self, v10, v11), v58 == objc_msgSend_eligibleForHealthKit(equal, v59, v60)) && (v61 = objc_msgSend_eligibleForCalorimetry(self, v10, v11), v61 == objc_msgSend_eligibleForCalorimetry(equal, v62, v63)) && (v64 = objc_msgSend_numWorkoutsContrToEstimate(self, v10, v11), v64 == objc_msgSend_numWorkoutsContrToEstimate(equal, v65, v66)) && (objc_msgSend_estimatedHRResponseParam(self, v10, v11), v68 = v67, objc_msgSend_estimatedHRResponseParam(equal, v69, v70), v68 == v71))
+  if (v7 == objc_msgSend_recordId(equal, v8, v9) && (!objc_msgSend_startDate(self, v10, v11) && !objc_msgSend_startDate(equal, v10, v11) || (started = objc_msgSend_startDate(self, v10, v11), v15 = objc_msgSend_startDate(equal, v13, v14), objc_msgSend_isEqualToDate_(started, v16, v15))) && (v17 = objc_msgSend_workoutType(self, v10, v11), v17 == objc_msgSend_workoutType(equal, v18, v19)) && (!objc_msgSend_sessionId(self, v10, v11) && !objc_msgSend_sessionId(equal, v10, v11) || (v20 = objc_msgSend_sessionId(self, v10, v11), v23 = objc_msgSend_sessionId(equal, v21, v22), objc_msgSend_isEqual_(v20, v24, v23))) && (objc_msgSend_estimatedVo2Max(self, v10, v11), v26 = v25, objc_msgSend_estimatedVo2Max(equal, v27, v28), v26 == v29) && (objc_msgSend_durationInSeconds(self, v10, v11), v31 = v30, objc_msgSend_durationInSeconds(equal, v32, v33), v31 == v34) && (objc_msgSend_hrMax(self, v10, v11), v36 = v35, objc_msgSend_hrMax(equal, v37, v38), v36 == v39) && (objc_msgSend_hrMin(self, v10, v11), v41 = v40, objc_msgSend_hrMin(equal, v42, v43), v41 == v44) && (objc_msgSend_variance(self, v10, v11), v46 = v45, objc_msgSend_variance(equal, v47, v48), v46 == v49) && (objc_msgSend_filteredVo2Max(self, v10, v11), v51 = v50, objc_msgSend_filteredVo2Max(equal, v52, v53), v51 == v54) && (v55 = objc_msgSend_sessionType(self, v10, v11), v55 == objc_msgSend_sessionType(equal, v56, v57)) && (v58 = objc_msgSend_eligibleForHealthKit(self, v10, v11), v58 == objc_msgSend_eligibleForHealthKit(equal, v59, v60)) && (v61 = objc_msgSend_eligibleForCalorimetry(self, v10, v11), v61 == objc_msgSend_eligibleForCalorimetry(equal, v62, v63)) && (v64 = objc_msgSend_numWorkoutsContrToEstimate(self, v10, v11), v64 == objc_msgSend_numWorkoutsContrToEstimate(equal, v65, v66)) && (objc_msgSend_estimatedHRResponseParam(self, v10, v11), v68 = v67, objc_msgSend_estimatedHRResponseParam(equal, v69, v70), v68 == v71))
   {
     objc_msgSend_estimatedHRRecoveryParam(self, v10, v11);
     v73 = v72;
@@ -289,7 +207,6 @@
 
   else
   {
-LABEL_23:
     v77 = 0;
   }
 
@@ -406,14 +323,14 @@ LABEL_23:
 
 - (id)sr_dictionaryRepresentation
 {
-  v62[8] = *MEMORY[0x1E69E9840];
+  v61[8] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DF90];
-  v61[0] = @"startTime";
+  v60[0] = @"startTime";
   v5 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startDate(self, a2, v2);
   objc_msgSend_timeIntervalSinceReferenceDate(started, v7, v8);
-  v62[0] = objc_msgSend_numberWithDouble_(v5, v9, v10);
-  v61[1] = @"sessionId";
+  v61[0] = objc_msgSend_numberWithDouble_(v5, v9, v10);
+  v60[1] = @"sessionId";
   v13 = objc_msgSend_sessionId(self, v11, v12);
   v16 = objc_msgSend_UUIDString(v13, v14, v15);
   v19 = &stru_1F0E3D7A0;
@@ -422,38 +339,37 @@ LABEL_23:
     v19 = v16;
   }
 
-  v62[1] = v19;
-  v61[2] = @"estimatedVo2Max";
+  v61[1] = v19;
+  v60[2] = @"estimatedVo2Max";
   v20 = MEMORY[0x1E696AD98];
   objc_msgSend_estimatedVo2Max(self, v17, v18);
-  v62[2] = objc_msgSend_numberWithDouble_(v20, v21, v22);
-  v61[3] = @"durationInSeconds";
+  v61[2] = objc_msgSend_numberWithDouble_(v20, v21, v22);
+  v60[3] = @"durationInSeconds";
   v23 = MEMORY[0x1E696AD98];
   objc_msgSend_durationInSeconds(self, v24, v25);
-  v62[3] = objc_msgSend_numberWithDouble_(v23, v26, v27);
-  v61[4] = @"hrMax";
+  v61[3] = objc_msgSend_numberWithDouble_(v23, v26, v27);
+  v60[4] = @"hrMax";
   v28 = MEMORY[0x1E696AD98];
   objc_msgSend_hrMax(self, v29, v30);
-  v62[4] = objc_msgSend_numberWithDouble_(v28, v31, v32);
-  v61[5] = @"hrMin";
+  v61[4] = objc_msgSend_numberWithDouble_(v28, v31, v32);
+  v60[5] = @"hrMin";
   v33 = MEMORY[0x1E696AD98];
   objc_msgSend_hrMin(self, v34, v35);
-  v62[5] = objc_msgSend_numberWithDouble_(v33, v36, v37);
-  v61[6] = @"sessionType";
+  v61[5] = objc_msgSend_numberWithDouble_(v33, v36, v37);
+  v60[6] = @"sessionType";
   v38 = MEMORY[0x1E696AD98];
   v41 = objc_msgSend_sessionType(self, v39, v40);
-  v62[6] = objc_msgSend_numberWithInteger_(v38, v42, v41);
-  v61[7] = @"numWorkoutsContrToEstimate";
+  v61[6] = objc_msgSend_numberWithInteger_(v38, v42, v41);
+  v60[7] = @"numWorkoutsContrToEstimate";
   v43 = MEMORY[0x1E696AD98];
   v46 = objc_msgSend_numWorkoutsContrToEstimate(self, v44, v45);
-  v62[7] = objc_msgSend_numberWithUnsignedInteger_(v43, v47, v46);
-  v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v48, v62, v61, 8);
+  v61[7] = objc_msgSend_numberWithUnsignedInteger_(v43, v47, v46);
+  v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v48, v61, v60, 8);
   v51 = objc_msgSend_dictionaryWithDictionary_(v4, v50, v49);
   v52 = MEMORY[0x1E696AD98];
   objc_msgSend_sessionVo2Max(self, v53, v54);
   v57 = objc_msgSend_numberWithDouble_(v52, v55, v56);
   objc_msgSend_setObject_forKeyedSubscript_(v51, v58, v57, @"sessionVo2Max");
-  v59 = *MEMORY[0x1E69E9840];
   return v51;
 }
 

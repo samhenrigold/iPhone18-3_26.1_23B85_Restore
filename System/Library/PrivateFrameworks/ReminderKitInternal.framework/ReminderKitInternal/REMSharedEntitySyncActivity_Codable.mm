@@ -8,7 +8,7 @@
 {
   typeCopy = type;
   selfCopy = self;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14800);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14800, &unk_230316810);
   MEMORY[0x28223BE20](v13 - 8);
   v15 = &v36 - v14;
   v16 = sub_23030EB58();

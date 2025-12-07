@@ -34,7 +34,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  sub_24BA2BB90();
+  sub_24BA2BB90(serviceCopy);
 }
 
 @end

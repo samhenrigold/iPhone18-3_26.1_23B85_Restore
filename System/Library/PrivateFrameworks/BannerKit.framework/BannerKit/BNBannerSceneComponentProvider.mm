@@ -48,9 +48,11 @@
 
 uint64_t __94__BNBannerSceneComponentProvider_registerDelegate_forSceneForPresentableWithUniqueIdentifier___block_invoke()
 {
-  __presentableUniqueIDsToDelegates = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
+  v0 = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
+  v1 = __presentableUniqueIDsToDelegates;
+  __presentableUniqueIDsToDelegates = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)unregisterDelegateForSceneForPresentableWithUniqueIdentifier:(id)identifier

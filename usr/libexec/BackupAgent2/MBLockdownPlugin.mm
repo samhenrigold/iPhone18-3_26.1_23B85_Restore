@@ -20,7 +20,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Backing up lockdown keys", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Backing up lockdown keys");
   }
 
   v4 = MBGetDefaultLog();
@@ -28,40 +28,40 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Connecting to lockdown", buf, 2u);
-    _MBLog();
+    _MBLog(@"Db", "Connecting to lockdown");
   }
 
-  v57 = +[MBLockdown connect];
-  if (v57)
+  v55 = +[MBLockdown connect];
+  if (v55)
   {
-    v56 = [NSMutableDictionary dictionaryWithCapacity:0];
+    v54 = [NSMutableDictionary dictionaryWithCapacity:0];
     v5 = MBGetDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Copying lockdown keys", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Copying lockdown keys");
     }
 
-    v76 = 0u;
-    v77 = 0u;
     v74 = 0u;
     v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
     v6 = sub_100041020();
-    v7 = [v6 countByEnumeratingWithState:&v74 objects:v86 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v72 objects:v84 count:16];
     if (v7)
     {
-      v8 = *v75;
+      v8 = *v73;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v75 != v8)
+          if (*v73 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v74 + 1) + 8 * i);
+          v10 = *(*(&v72 + 1) + 8 * i);
           v11 = sub_100041020();
           v12 = [v11 objectForKeyedSubscript:v10];
 
@@ -70,20 +70,20 @@
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v83 = v10;
-            v84 = 2112;
-            v85 = v13;
+            v81 = v10;
+            v82 = 2112;
+            v83 = v13;
             _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
-            _MBLog();
+            _MBLog(@"Df", "%@: %@", v10, v13);
           }
 
           if (v13)
           {
-            [v56 setObject:v13 forKeyedSubscript:v10];
+            [v54 setObject:v13 forKeyedSubscript:v10];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v74 objects:v86 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v72 objects:v84 count:16];
       }
 
       while (v7);
@@ -91,82 +91,79 @@
 
     if ([engineCopy backsUpPrimaryAccount])
     {
-      v72 = 0u;
-      v73 = 0u;
       v70 = 0u;
       v71 = 0u;
+      v68 = 0u;
+      v69 = 0u;
       obj = [NSSet setWithObjects:@"com.apple.Accessibility", @"com.apple.mobile.data_sync", @"com.apple.mobile.iTunes.accessories", @"com.apple.MobileDeviceCrashCopy", @"com.apple.TerminalFlashr", 0];
-      v49 = [obj countByEnumeratingWithState:&v70 objects:v81 count:16];
-      if (v49)
+      v47 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
+      if (v47)
       {
-        v48 = *v71;
+        v46 = *v69;
         do
         {
-          for (j = 0; j != v49; j = j + 1)
+          for (j = 0; j != v47; j = j + 1)
           {
-            if (*v71 != v48)
+            if (*v69 != v46)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v70 + 1) + 8 * j);
+            v15 = *(*(&v68 + 1) + 8 * j);
             v16 = MBGetDefaultLog();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v83 = v15;
+              v81 = v15;
               _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Copying lockdown domain %{public}@", buf, 0xCu);
-              v44 = v15;
-              _MBLog();
+              _MBLog(@"Df", "Copying lockdown domain %{public}@", v15);
             }
 
-            v50 = v15;
+            v48 = v15;
 
-            v17 = [v57 objectForDomain:v15 andKey:0];
-            v52 = v17;
+            v17 = [v55 objectForDomain:v15 andKey:0];
+            v50 = v17;
             if (v17)
             {
-              v68 = 0u;
-              v69 = 0u;
               v66 = 0u;
               v67 = 0u;
+              v64 = 0u;
+              v65 = 0u;
               v18 = v17;
-              v19 = [v18 countByEnumeratingWithState:&v66 objects:v80 count:16];
+              v19 = [v18 countByEnumeratingWithState:&v64 objects:v78 count:16];
               if (v19)
               {
-                v20 = *v67;
+                v20 = *v65;
                 do
                 {
                   for (k = 0; k != v19; k = k + 1)
                   {
-                    if (*v67 != v20)
+                    if (*v65 != v20)
                     {
                       objc_enumerationMutation(v18);
                     }
 
-                    v22 = *(*(&v66 + 1) + 8 * k);
-                    v23 = [v18 objectForKeyedSubscript:{v22, v44, v45}];
+                    v22 = *(*(&v64 + 1) + 8 * k);
+                    v23 = [v18 objectForKeyedSubscript:v22];
                     v24 = MBGetDefaultLog();
                     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412546;
-                      v83 = v22;
-                      v84 = 2112;
-                      v85 = v23;
+                      v81 = v22;
+                      v82 = 2112;
+                      v83 = v23;
                       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
-                      v44 = v22;
-                      v45 = v23;
-                      _MBLog();
+                      _MBLog(@"Df", "%@: %@", v22, v23);
                     }
                   }
 
-                  v19 = [v18 countByEnumeratingWithState:&v66 objects:v80 count:16];
+                  v19 = [v18 countByEnumeratingWithState:&v64 objects:v78 count:16];
                 }
 
                 while (v19);
               }
 
-              [v56 setObject:v18 forKeyedSubscript:v50];
+              [v54 setObject:v18 forKeyedSubscript:v48];
             }
 
             else
@@ -177,10 +174,9 @@
                 if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138412290;
-                  v83 = v15;
+                  v81 = v15;
                   _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "Failed to copy lockdown domain: %@", buf, 0xCu);
-                  v44 = v15;
-                  _MBLog();
+                  _MBLog(@"F ", "Failed to copy lockdown domain: %@", v15);
                 }
               }
 
@@ -188,80 +184,76 @@
               if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v83 = v15;
+                v81 = v15;
                 _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to copy lockdown domain %{public}@", buf, 0xCu);
-                v44 = v15;
-                _MBLog();
+                _MBLog(@"E ", "Failed to copy lockdown domain %{public}@", v15);
               }
             }
           }
 
-          v49 = [obj countByEnumeratingWithState:&v70 objects:v81 count:16];
+          v47 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
         }
 
-        while (v49);
+        while (v47);
       }
 
-      v64 = 0u;
-      v65 = 0u;
       v62 = 0u;
       v63 = 0u;
-      v53 = [&off_100109600 countByEnumeratingWithState:&v62 objects:v79 count:16];
-      if (v53)
+      v60 = 0u;
+      v61 = 0u;
+      v51 = [&off_100109600 countByEnumeratingWithState:&v60 objects:v77 count:16];
+      if (v51)
       {
-        v51 = *v63;
+        v49 = *v61;
         do
         {
-          for (m = 0; m != v53; m = m + 1)
+          for (m = 0; m != v51; m = m + 1)
           {
-            if (*v63 != v51)
+            if (*v61 != v49)
             {
               objc_enumerationMutation(&off_100109600);
             }
 
-            v27 = *(*(&v62 + 1) + 8 * m);
+            v27 = *(*(&v60 + 1) + 8 * m);
             v28 = MBGetDefaultLog();
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v83 = v27;
+              v81 = v27;
               _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Copying keys from lockdown domain %{public}@", buf, 0xCu);
-              v44 = v27;
-              _MBLog();
+              _MBLog(@"Df", "Copying keys from lockdown domain %{public}@", v27);
             }
 
             v29 = +[NSMutableDictionary dictionary];
-            v60 = 0u;
-            v61 = 0u;
             v58 = 0u;
             v59 = 0u;
+            v56 = 0u;
+            v57 = 0u;
             v30 = [&off_100109600 objectForKeyedSubscript:v27];
-            v31 = [v30 countByEnumeratingWithState:&v58 objects:v78 count:16];
+            v31 = [v30 countByEnumeratingWithState:&v56 objects:v76 count:16];
             if (v31)
             {
-              v32 = *v59;
+              v32 = *v57;
               do
               {
                 for (n = 0; n != v31; n = n + 1)
                 {
-                  if (*v59 != v32)
+                  if (*v57 != v32)
                   {
                     objc_enumerationMutation(v30);
                   }
 
-                  v34 = *(*(&v58 + 1) + 8 * n);
-                  v35 = [v57 objectForDomain:v27 andKey:{v34, v44, v45}];
+                  v34 = *(*(&v56 + 1) + 8 * n);
+                  v35 = [v55 objectForDomain:v27 andKey:v34];
                   v36 = MBGetDefaultLog();
                   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v83 = v34;
-                    v84 = 2112;
-                    v85 = v35;
+                    v81 = v34;
+                    v82 = 2112;
+                    v83 = v35;
                     _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
-                    v44 = v34;
-                    v45 = v35;
-                    _MBLog();
+                    _MBLog(@"Df", "%@: %@", v34, v35);
                   }
 
                   if (v35)
@@ -270,19 +262,19 @@
                   }
                 }
 
-                v31 = [v30 countByEnumeratingWithState:&v58 objects:v78 count:16];
+                v31 = [v30 countByEnumeratingWithState:&v56 objects:v76 count:16];
               }
 
               while (v31);
             }
 
-            [v56 setObject:v29 forKeyedSubscript:v27];
+            [v54 setObject:v29 forKeyedSubscript:v27];
           }
 
-          v53 = [&off_100109600 countByEnumeratingWithState:&v62 objects:v79 count:16];
+          v51 = [&off_100109600 countByEnumeratingWithState:&v60 objects:v77 count:16];
         }
 
-        while (v53);
+        while (v51);
       }
     }
 
@@ -291,21 +283,21 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "Disconnecting from lockdown", buf, 2u);
-      _MBLog();
+      _MBLog(@"Db", "Disconnecting from lockdown");
     }
 
-    [v57 disconnect];
+    [v55 disconnect];
     v41 = MBGetDefaultLog();
     if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v83 = v56;
+      v81 = v54;
       _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Saving lockdown keys in manifest properties: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "Saving lockdown keys in manifest properties: %@", v54);
     }
 
     properties = [engineCopy properties];
-    [properties setLockdownKeys:v56];
+    [properties setLockdownKeys:v54];
 
     v38 = 0;
   }
@@ -319,7 +311,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_FAULT, "Failed to connect to lockdown", buf, 2u);
-        _MBLog();
+        _MBLog(@"F ", "Failed to connect to lockdown");
       }
     }
 
@@ -384,18 +376,18 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Connecting to lockdown", buf, 2u);
-      _MBLog();
+      _MBLog(@"Db", "Connecting to lockdown");
     }
 
     v9 = +[MBLockdown connect];
     if (v9)
     {
       *buf = 0;
-      v31 = buf;
-      v32 = 0x3032000000;
-      v33 = sub_1000418CC;
-      v34 = sub_1000418DC;
-      v35 = 0;
+      v30 = buf;
+      v31 = 0x3032000000;
+      v32 = sub_1000418CC;
+      v33 = sub_1000418DC;
+      v34 = 0;
       if (errorCopy && ([MBError isError:errorCopy withCode:500]& 1) == 0)
       {
         self = 0;
@@ -412,19 +404,19 @@
           v12 = MBGetDefaultLog();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
-            *v36 = 0;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Getting last backup date from the CloudKit engine", v36, 2u);
-            _MBLog();
+            *v35 = 0;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Getting last backup date from the CloudKit engine", v35, 2u);
+            _MBLog(@"Db", "Getting last backup date from the CloudKit engine");
           }
 
           v13 = engineCopy;
           cache = [v13 cache];
-          v29[0] = _NSConcreteStackBlock;
-          v29[1] = 3221225472;
-          v29[2] = sub_1000418E4;
-          v29[3] = &unk_1000FDBA0;
-          v29[4] = buf;
-          v15 = [cache enumerateSnapshots:v29];
+          v28[0] = _NSConcreteStackBlock;
+          v28[1] = 3221225472;
+          v28[2] = sub_1000418E4;
+          v28[3] = &unk_1000FDBA0;
+          v28[4] = buf;
+          v15 = [cache enumerateSnapshots:v28];
           v16 = @"LastCloudBackupDate";
           v17 = @"LastCloudBackupTZ";
         }
@@ -434,38 +426,37 @@
           v19 = MBGetDefaultLog();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
-            *v36 = 0;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Using the current date as the last backup", v36, 2u);
-            _MBLog();
+            *v35 = 0;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Using the current date as the last backup", v35, 2u);
+            _MBLog(@"Db", "Using the current date as the last backup");
           }
 
           v13 = +[NSDate date];
           [v13 timeIntervalSinceReferenceDate];
           v21 = [NSNumber numberWithUnsignedLongLong:v20];
-          cache = *(v31 + 5);
-          *(v31 + 5) = v21;
+          cache = *(v30 + 5);
+          *(v30 + 5) = v21;
           v16 = @"LastiTunesBackupDate";
           v17 = @"LastiTunesBackupTZ";
         }
 
-        if (*(v31 + 5))
+        if (*(v30 + 5))
         {
           v22 = MBGetDefaultLog();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
-            v23 = *(v31 + 5);
-            *v36 = 138412802;
-            v37 = v23;
-            v38 = 2112;
-            v39 = abbreviation;
-            v40 = 2112;
-            v41 = v16;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Setting last backup date to %@/%@ for key %@", v36, 0x20u);
-            v28 = *(v31 + 5);
-            _MBLog();
+            v23 = *(v30 + 5);
+            *v35 = 138412802;
+            v36 = v23;
+            v37 = 2112;
+            v38 = abbreviation;
+            v39 = 2112;
+            v40 = v16;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Setting last backup date to %@/%@ for key %@", v35, 0x20u);
+            _MBLog(@"I ", "Setting last backup date to %@/%@ for key %@", *(v30 + 5), abbreviation, v16);
           }
 
-          v24 = [(MBLockdownPlugin *)self _setLockdownValue:*(v31 + 5) forDomain:@"com.apple.mobile.backup" key:v16 connection:v9];
+          v24 = [(MBLockdownPlugin *)self _setLockdownValue:*(v30 + 5) forDomain:@"com.apple.mobile.backup" key:v16 connection:v9];
 
           if (v24 || ([(MBLockdownPlugin *)self _setLockdownValue:abbreviation forDomain:@"com.apple.mobile.backup" key:v17 connection:v9], (v24 = objc_claimAutoreleasedReturnValue()) != 0))
           {
@@ -490,9 +481,9 @@
       v26 = MBGetDefaultLog();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        *v36 = 0;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "Disconnecting from lockdown", v36, 2u);
-        _MBLog();
+        *v35 = 0;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "Disconnecting from lockdown", v35, 2u);
+        _MBLog(@"Db", "Disconnecting from lockdown");
       }
 
       [v9 disconnect];
@@ -511,7 +502,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Unable to connect to lockdown to set PurpleBuddy keys", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "Unable to connect to lockdown to set PurpleBuddy keys");
       }
 
       self = 0;
@@ -535,13 +526,11 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v31 = v7;
-    v32 = 2114;
-    v33 = stateCopy;
+    v27 = v7;
+    v28 = 2114;
+    v29 = stateCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Saving the PurpleBuddy restore state at %{public}@: %{public}@", buf, 0x16u);
-    v24 = v7;
-    v26 = stateCopy;
-    _MBLog();
+    _MBLog(@"Df", "Saving the PurpleBuddy restore state at %{public}@: %{public}@", v7, stateCopy);
   }
 
   v9 = [NSMutableDictionary dictionaryWithContentsOfFile:v7];
@@ -572,9 +561,9 @@
 
   stringByDeletingLastPathComponent = [v7 stringByDeletingLastPathComponent];
   v14 = +[NSFileManager defaultManager];
-  v29 = 0;
-  v15 = [v14 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v29];
-  v16 = v29;
+  v25 = 0;
+  v15 = [v14 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v25];
+  v16 = v25;
 
   if ((v15 & 1) == 0)
   {
@@ -582,20 +571,18 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v31 = stringByDeletingLastPathComponent;
-      v32 = 2114;
-      v33 = v16;
+      v27 = stringByDeletingLastPathComponent;
+      v28 = 2114;
+      v29 = v16;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to create the directory at %{public}@: %{public}@", buf, 0x16u);
-      v25 = stringByDeletingLastPathComponent;
-      v27 = v16;
-      _MBLog();
+      _MBLog(@"E ", "Failed to create the directory at %{public}@: %{public}@", stringByDeletingLastPathComponent, v16);
     }
   }
 
-  v18 = [NSURL fileURLWithPath:v7 isDirectory:0, v25, v27];
-  v28 = v16;
-  v19 = [v12 writeToURL:v18 error:&v28];
-  v20 = v28;
+  v18 = [NSURL fileURLWithPath:v7 isDirectory:0];
+  v24 = v16;
+  v19 = [v12 writeToURL:v18 error:&v24];
+  v20 = v24;
 
   if (v19)
   {
@@ -608,11 +595,11 @@
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v31 = v7;
-      v32 = 2114;
-      v33 = v20;
+      v27 = v7;
+      v28 = 2114;
+      v29 = v20;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to saved the PurpleBuddy plist at %{public}@: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to saved the PurpleBuddy plist at %{public}@: %{public}@", v7, v20);
     }
 
     v21 = v20;
@@ -630,7 +617,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Connecting to lockdown", buf, 2u);
-    _MBLog();
+    _MBLog(@"Db", "Connecting to lockdown");
   }
 
   v9 = +[MBLockdown connect];
@@ -646,7 +633,7 @@
       v21 = 2112;
       v22 = stateCopy;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Setting %@ %@ to %@", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"Df", "Setting %@ %@ to %@", @"com.apple.purplebuddy", @"SetupState", stateCopy);
     }
 
     v11 = [(MBLockdownPlugin *)self _setLockdownValue:stateCopy forDomain:@"com.apple.purplebuddy" key:@"SetupState" connection:v9];
@@ -662,7 +649,7 @@
         v21 = 2112;
         v22 = stateCopy;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Setting %@ %@ to %@", buf, 0x20u);
-        _MBLog();
+        _MBLog(@"Df", "Setting %@ %@ to %@", @"com.apple.purplebuddy", @"RestoreState", stateCopy);
       }
 
       v11 = [(MBLockdownPlugin *)self _setLockdownValue:stateCopy forDomain:@"com.apple.purplebuddy" key:@"RestoreState" connection:v9];
@@ -686,7 +673,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Disconnecting from lockdown", buf, 2u);
-      _MBLog();
+      _MBLog(@"Db", "Disconnecting from lockdown");
     }
 
     [v9 disconnect];
@@ -699,7 +686,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to connect to lockdown to set PurpleBuddy keys", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to connect to lockdown to set PurpleBuddy keys");
     }
 
     v11 = [MBError errorWithCode:1 format:@"Unable to connect to lockdown to set PurpleBuddy keys"];
@@ -737,10 +724,9 @@
       if (v12)
       {
         *buf = 134217984;
-        v21 = v10;
+        v20 = v10;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[FMDFMIPManager lockdownShouldDisableDeviceRestore] failed: %ld", buf, 0xCu);
-        v18 = v10;
-        _MBLog();
+        _MBLog(@"Df", "[FMDFMIPManager lockdownShouldDisableDeviceRestore] failed: %ld", v10);
       }
 
       v6 = 0;
@@ -749,7 +735,7 @@
         v13 = @"Failed to determine the Find My iPhone state";
         v14 = 1;
 LABEL_13:
-        v15 = [MBError errorWithCode:v14 format:v13, v18];
+        v15 = [MBError errorWithCode:v14 format:v13];
         goto LABEL_16;
       }
     }
@@ -758,10 +744,9 @@ LABEL_13:
     if (v12)
     {
       *buf = 67109120;
-      LODWORD(v21) = lockdownShouldDisableDeviceRestore;
+      LODWORD(v20) = lockdownShouldDisableDeviceRestore;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[FMDFMIPManager lockdownShouldDisableDeviceRestore] returned %d", buf, 8u);
-      v18 = lockdownShouldDisableDeviceRestore;
-      _MBLog();
+      _MBLog(@"Df", "[FMDFMIPManager lockdownShouldDisableDeviceRestore] returned %d", lockdownShouldDisableDeviceRestore);
     }
 
     if (lockdownShouldDisableDeviceRestore)
@@ -849,9 +834,9 @@ LABEL_12:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v85 = lockdownKeys;
+        v83 = lockdownKeys;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Loaded saved lockdown keys: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Loaded saved lockdown keys: %@", lockdownKeys);
       }
 
       v7 = MBGetDefaultLog();
@@ -859,7 +844,7 @@ LABEL_12:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Connecting to lockdown", buf, 2u);
-        _MBLog();
+        _MBLog(@"Db", "Connecting to lockdown");
       }
 
       v8 = +[MBLockdown connect];
@@ -870,47 +855,45 @@ LABEL_12:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Restoring lockdown domains", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Restoring lockdown domains");
         }
 
-        v80 = 0u;
-        v81 = 0u;
         v78 = 0u;
         v79 = 0u;
+        v76 = 0u;
+        v77 = 0u;
         v10 = [NSSet setWithObjects:@"com.apple.Accessibility", @"com.apple.mobile.data_sync", @"com.apple.mobile.iTunes.accessories", @"com.apple.MobileDeviceCrashCopy", @"com.apple.TerminalFlashr", 0];
-        v51 = [v10 countByEnumeratingWithState:&v78 objects:v90 count:16];
-        if (v51)
+        v49 = [v10 countByEnumeratingWithState:&v76 objects:v88 count:16];
+        if (v49)
         {
-          v53 = *v79;
-          v52 = v10;
+          v51 = *v77;
+          v50 = v10;
           while (2)
           {
-            for (i = 0; i != v51; i = i + 1)
+            for (i = 0; i != v49; i = i + 1)
             {
-              if (*v79 != v53)
+              if (*v77 != v51)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v11 = *(*(&v78 + 1) + 8 * i);
+              v11 = *(*(&v76 + 1) + 8 * i);
               v12 = MBGetDefaultLog();
               if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v85 = v11;
+                v83 = v11;
                 _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Restoring lockdown domain %@", buf, 0xCu);
-                v49 = v11;
-                _MBLog();
+                _MBLog(@"I ", "Restoring lockdown domain %@", v11);
               }
 
               v13 = MBGetDefaultLog();
               if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v85 = v11;
+                v83 = v11;
                 _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Clearing lockdown domain %@", buf, 0xCu);
-                v49 = v11;
-                _MBLog();
+                _MBLog(@"I ", "Clearing lockdown domain %@", v11);
               }
 
               v14 = [v8 objectForDomain:v11 andKey:0];
@@ -924,38 +907,37 @@ LABEL_74:
                 goto LABEL_75;
               }
 
-              v76 = 0u;
-              v77 = 0u;
               v74 = 0u;
               v75 = 0u;
+              v72 = 0u;
+              v73 = 0u;
               v15 = v14;
-              v16 = [v15 countByEnumeratingWithState:&v74 objects:v89 count:16];
+              v16 = [v15 countByEnumeratingWithState:&v72 objects:v87 count:16];
               if (v16)
               {
-                v17 = *v75;
+                v17 = *v73;
                 while (2)
                 {
                   for (j = 0; j != v16; j = j + 1)
                   {
-                    if (*v75 != v17)
+                    if (*v73 != v17)
                     {
                       objc_enumerationMutation(v15);
                     }
 
-                    v19 = *(*(&v74 + 1) + 8 * j);
+                    v19 = *(*(&v72 + 1) + 8 * j);
                     v20 = MBGetDefaultLog();
                     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412290;
-                      v85 = v19;
+                      v83 = v19;
                       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
-                      v49 = v19;
-                      _MBLog();
+                      _MBLog(@"I ", "%@", v19);
                     }
 
-                    v73 = 0;
-                    v21 = [v8 removeObjectWithDomain:v11 andKey:v19 withError:&v73];
-                    v22 = v73;
+                    v71 = 0;
+                    v21 = [v8 removeObjectWithDomain:v11 andKey:v19 withError:&v71];
+                    v22 = v71;
                     v23 = v22;
                     if ((v21 & 1) == 0)
                     {
@@ -967,7 +949,7 @@ LABEL_73:
                     }
                   }
 
-                  v16 = [v15 countByEnumeratingWithState:&v74 objects:v89 count:16];
+                  v16 = [v15 countByEnumeratingWithState:&v72 objects:v87 count:16];
                   if (v16)
                   {
                     continue;
@@ -981,45 +963,42 @@ LABEL_73:
               if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v85 = v11;
+                v83 = v11;
                 _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Setting lockdown keys for domain %@", buf, 0xCu);
-                v49 = v11;
-                _MBLog();
+                _MBLog(@"I ", "Setting lockdown keys for domain %@", v11);
               }
 
               v25 = [lockdownKeys objectForKeyedSubscript:v11];
 
-              v71 = 0u;
-              v72 = 0u;
               v69 = 0u;
               v70 = 0u;
+              v67 = 0u;
+              v68 = 0u;
               v15 = v25;
-              v26 = [v15 countByEnumeratingWithState:&v69 objects:v88 count:16];
+              v26 = [v15 countByEnumeratingWithState:&v67 objects:v86 count:16];
               if (v26)
               {
-                v27 = *v70;
+                v27 = *v68;
                 while (2)
                 {
                   for (k = 0; k != v26; k = k + 1)
                   {
-                    if (*v70 != v27)
+                    if (*v68 != v27)
                     {
                       objc_enumerationMutation(v15);
                     }
 
-                    v29 = *(*(&v69 + 1) + 8 * k);
-                    v23 = [v15 objectForKeyedSubscript:{v29, v49, v50}];
+                    v29 = *(*(&v67 + 1) + 8 * k);
+                    v23 = [v15 objectForKeyedSubscript:v29];
                     v30 = MBGetDefaultLog();
                     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138412546;
-                      v85 = v29;
-                      v86 = 2112;
-                      v87 = v23;
+                      v83 = v29;
+                      v84 = 2112;
+                      v85 = v23;
                       _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%@: %@", buf, 0x16u);
-                      v49 = v29;
-                      v50 = v23;
-                      _MBLog();
+                      _MBLog(@"I ", "%@: %@", v29, v23);
                     }
 
                     v31 = [(MBLockdownPlugin *)self _setLockdownValue:v23 forDomain:v11 key:v29 connection:v8];
@@ -1031,7 +1010,7 @@ LABEL_73:
                     }
                   }
 
-                  v26 = [v15 countByEnumeratingWithState:&v69 objects:v88 count:16];
+                  v26 = [v15 countByEnumeratingWithState:&v67 objects:v86 count:16];
                   if (v26)
                   {
                     continue;
@@ -1041,11 +1020,11 @@ LABEL_73:
                 }
               }
 
-              v10 = v52;
+              v10 = v50;
             }
 
-            v51 = [v52 countByEnumeratingWithState:&v78 objects:v90 count:16];
-            if (v51)
+            v49 = [v50 countByEnumeratingWithState:&v76 objects:v88 count:16];
+            if (v49)
             {
               continue;
             }
@@ -1054,68 +1033,65 @@ LABEL_73:
           }
         }
 
-        v67 = 0u;
-        v68 = 0u;
         v65 = 0u;
         v66 = 0u;
-        v54 = [&off_100109600 countByEnumeratingWithState:&v65 objects:v83 count:16];
-        if (v54)
+        v63 = 0u;
+        v64 = 0u;
+        v52 = [&off_100109600 countByEnumeratingWithState:&v63 objects:v81 count:16];
+        if (v52)
         {
-          v56 = *v66;
+          v54 = *v64;
           do
           {
-            for (m = 0; m != v54; m = m + 1)
+            for (m = 0; m != v52; m = m + 1)
             {
-              if (*v66 != v56)
+              if (*v64 != v54)
               {
                 objc_enumerationMutation(&off_100109600);
               }
 
-              v32 = *(*(&v65 + 1) + 8 * m);
+              v32 = *(*(&v63 + 1) + 8 * m);
               v33 = MBGetDefaultLog();
               if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v85 = v32;
+                v83 = v32;
                 _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "Restoring lockdown keys for domain %@", buf, 0xCu);
-                v49 = v32;
-                _MBLog();
+                _MBLog(@"I ", "Restoring lockdown keys for domain %@", v32);
               }
 
               v34 = [lockdownKeys objectForKeyedSubscript:v32];
-              v63 = 0u;
-              v64 = 0u;
               v61 = 0u;
               v62 = 0u;
+              v59 = 0u;
+              v60 = 0u;
               v35 = [&off_100109600 objectForKeyedSubscript:v32];
-              v36 = [v35 countByEnumeratingWithState:&v61 objects:v82 count:16];
+              v36 = [v35 countByEnumeratingWithState:&v59 objects:v80 count:16];
               if (v36)
               {
-                v37 = *v62;
+                v37 = *v60;
                 while (2)
                 {
                   for (n = 0; n != v36; n = n + 1)
                   {
-                    if (*v62 != v37)
+                    if (*v60 != v37)
                     {
                       objc_enumerationMutation(v35);
                     }
 
-                    v39 = *(*(&v61 + 1) + 8 * n);
-                    v40 = [v34 objectForKeyedSubscript:{v39, v49, v50}];
+                    v39 = *(*(&v59 + 1) + 8 * n);
+                    v40 = [v34 objectForKeyedSubscript:v39];
                     if (v40)
                     {
                       v41 = MBGetDefaultLog();
                       if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412546;
-                        v85 = v39;
-                        v86 = 2112;
-                        v87 = v40;
+                        v83 = v39;
+                        v84 = 2112;
+                        v85 = v40;
                         _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "%@: %@", buf, 0x16u);
-                        v49 = v39;
-                        v50 = v40;
-                        _MBLog();
+                        _MBLog(@"I ", "%@: %@", v39, v40);
                       }
 
                       v42 = [(MBLockdownPlugin *)self _setLockdownValue:v40 forDomain:v32 key:v39 connection:v8];
@@ -1129,7 +1105,7 @@ LABEL_73:
                     }
                   }
 
-                  v36 = [v35 countByEnumeratingWithState:&v61 objects:v82 count:16];
+                  v36 = [v35 countByEnumeratingWithState:&v59 objects:v80 count:16];
                   if (v36)
                   {
                     continue;
@@ -1142,10 +1118,10 @@ LABEL_73:
 
             v43 = 0;
             v44 = 0;
-            v54 = [&off_100109600 countByEnumeratingWithState:&v65 objects:v83 count:16];
+            v52 = [&off_100109600 countByEnumeratingWithState:&v63 objects:v81 count:16];
           }
 
-          while (v54);
+          while (v52);
         }
 
         else
@@ -1160,7 +1136,7 @@ LABEL_75:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEBUG, "Disconnecting from lockdown", buf, 2u);
-          _MBLog();
+          _MBLog(@"Db", "Disconnecting from lockdown");
         }
 
         [v8 disconnect];
@@ -1189,7 +1165,7 @@ LABEL_75:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "Not restoring lockdown keys since system files weren't restored", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Not restoring lockdown keys since system files weren't restored");
       v43 = 0;
       v46 = v45;
     }

@@ -20,6 +20,7 @@
 - (void)logAutocorrections:(id)autocorrections trace:(id)trace forKeyboardState:(id)state requestToken:(id)token;
 - (void)logCandidateResultSet:(id)set trace:(id)trace forKeyboardState:(id)state requestToken:(id)token;
 - (void)logHitKeyCode:(int64_t)code forTouchEvent:(id)event keyboardState:(id)state;
+- (void)logKeyboardConfig:(id)config forAdjustedPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity keyboardState:(id)state;
 - (void)logKeyboardConfig:(id)config forSyncToKeyboardState:(id)state;
 - (void)logKeyboardConfig:(id)config textToCommit:(id)commit forAcceptedCandidate:(id)candidate keyboardState:(id)state;
 - (void)logKeyboardLayout:(id)layout name:(id)name;
@@ -66,7 +67,7 @@
 
 - (void)logKeyboardLayout:(id)layout name:(id)name
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D6F4F0];
   nameCopy = name;
   layoutCopy = layout;
@@ -89,22 +90,20 @@
       v11 = TIOSLogFacility();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v13 = MEMORY[0x277CCACA8];
+        v12 = MEMORY[0x277CCACA8];
         shortDescription = [v9 shortDescription];
-        v15 = [v13 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardLayout:name:]", shortDescription];
+        v14 = [v12 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardLayout:name:]", shortDescription];
         *buf = 138412290;
-        v17 = v15;
+        v16 = v14;
         _os_log_debug_impl(&dword_22CA55000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logReceivedLastAcceptedCandidateCorrected
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D6F4F8]);
   typologyLog = [(TIKeyboardInputManagerLogger *)self typologyLog];
   [typologyLog logRecord:v3];
@@ -124,22 +123,20 @@
       v6 = TIOSLogFacility();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v8 = MEMORY[0x277CCACA8];
+        v7 = MEMORY[0x277CCACA8];
         shortDescription = [v3 shortDescription];
-        v10 = [v8 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedLastAcceptedCandidateCorrected]", shortDescription];
+        v9 = [v7 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedLastAcceptedCandidateCorrected]", shortDescription];
         *buf = 138412290;
-        v12 = v10;
+        v11 = v9;
         _os_log_debug_impl(&dword_22CA55000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logReceivedCandidateRejected:(id)rejected
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D6F4C8];
   rejectedCopy = rejected;
   v6 = objc_alloc_init(v4);
@@ -163,22 +160,20 @@
       v9 = TIOSLogFacility();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v11 = MEMORY[0x277CCACA8];
+        v10 = MEMORY[0x277CCACA8];
         shortDescription = [v6 shortDescription];
-        v13 = [v11 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedCandidateRejected:]", shortDescription];
+        v12 = [v10 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedCandidateRejected:]", shortDescription];
         *buf = 138412290;
-        v15 = v13;
+        v14 = v12;
         _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logReceivedTextAccepted:(id)accepted
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D6F530];
   acceptedCopy = accepted;
   v6 = objc_alloc_init(v4);
@@ -202,22 +197,20 @@
       v9 = TIOSLogFacility();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v11 = MEMORY[0x277CCACA8];
+        v10 = MEMORY[0x277CCACA8];
         shortDescription = [v6 shortDescription];
-        v13 = [v11 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedTextAccepted:]", shortDescription];
+        v12 = [v10 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedTextAccepted:]", shortDescription];
         *buf = 138412290;
-        v15 = v13;
+        v14 = v12;
         _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logReceivedSetOriginalInput:(id)input
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D6F518];
   inputCopy = input;
   v6 = objc_alloc_init(v4);
@@ -241,22 +234,64 @@
       v9 = TIOSLogFacility();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v11 = MEMORY[0x277CCACA8];
+        v10 = MEMORY[0x277CCACA8];
         shortDescription = [v6 shortDescription];
-        v13 = [v11 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedSetOriginalInput:]", shortDescription];
+        v12 = [v10 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedSetOriginalInput:]", shortDescription];
         *buf = 138412290;
-        v15 = v13;
+        v14 = v12;
         _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)logKeyboardConfig:(id)config forAdjustedPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity keyboardState:(id)state
+{
+  v6 = *&granularity;
+  directionCopy = direction;
+  v21 = *MEMORY[0x277D85DE8];
+  stateCopy = state;
+  configCopy = config;
+  [(TIKeyboardInputManagerLogger *)self disableTypologyLogIfNecessaryForKeyboardState:stateCopy];
+  v12 = objc_alloc_init(MEMORY[0x277D6F500]);
+  [v12 setKeyboardConfig:configCopy];
+
+  [v12 setForwardAdjustment:directionCopy];
+  [v12 setGranularity:v6];
+  [v12 setKeyboardState:stateCopy];
+  typologyLog = [(TIKeyboardInputManagerLogger *)self typologyLog];
+  [typologyLog logRecord:v12];
+
+  typologyStatistic = [(TIKeyboardInputManagerLogger *)self typologyStatistic];
+  [typologyStatistic visitRecordPhraseBoundaryAdjustment:v12];
+
+  LODWORD(self) = [(TIKeyboardInputManagerLogger *)self shouldWriteToSyslogForKeyboardState:stateCopy];
+  if (self)
+  {
+    if (TICanLogMessageAtLevel_onceToken != -1)
+    {
+      dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
+    }
+
+    if (TICanLogMessageAtLevel_logLevel >= 2)
+    {
+      v15 = TIOSLogFacility();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        v16 = MEMORY[0x277CCACA8];
+        shortDescription = [v12 shortDescription];
+        v18 = [v16 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardConfig:forAdjustedPhraseBoundaryInForwardDirection:granularity:keyboardState:]", shortDescription];
+        *buf = 138412290;
+        v20 = v18;
+        _os_log_debug_impl(&dword_22CA55000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
 }
 
 - (void)logReceivedSkipHitTestForTouchEvent:(id)event forKeyboardState:(id)state
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   stateCopy = state;
   [(TIKeyboardInputManagerLogger *)self disableTypologyLogIfNecessaryForKeyboardState:stateCopy];
@@ -298,22 +333,20 @@
       v16 = TIOSLogFacility();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v18 = MEMORY[0x277CCACA8];
+        v17 = MEMORY[0x277CCACA8];
         shortDescription = [v13 shortDescription];
-        v20 = [v18 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedSkipHitTestForTouchEvent:forKeyboardState:]", shortDescription];
+        v19 = [v17 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReceivedSkipHitTestForTouchEvent:forKeyboardState:]", shortDescription];
         *buf = 138412290;
-        v22 = v20;
+        v21 = v19;
         _os_log_debug_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logHitKeyCode:(int64_t)code forTouchEvent:(id)event keyboardState:(id)state
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   stateCopy = state;
   [(TIKeyboardInputManagerLogger *)self disableTypologyLogIfNecessaryForKeyboardState:stateCopy];
@@ -356,22 +389,20 @@
       v18 = TIOSLogFacility();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        v20 = MEMORY[0x277CCACA8];
+        v19 = MEMORY[0x277CCACA8];
         shortDescription = [v15 shortDescription];
-        v22 = [v20 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logHitKeyCode:forTouchEvent:keyboardState:]", shortDescription];
+        v21 = [v19 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logHitKeyCode:forTouchEvent:keyboardState:]", shortDescription];
         *buf = 138412290;
-        v24 = v22;
+        v23 = v21;
         _os_log_debug_impl(&dword_22CA55000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logRefinements:(id)refinements forCandidate:(id)candidate keyboardState:(id)state
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   candidateCopy = candidate;
   refinementsCopy = refinements;
@@ -400,22 +431,20 @@
       v14 = TIOSLogFacility();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v16 = MEMORY[0x277CCACA8];
+        v15 = MEMORY[0x277CCACA8];
         shortDescription = [v11 shortDescription];
-        v18 = [v16 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logRefinements:forCandidate:keyboardState:]", shortDescription];
+        v17 = [v15 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logRefinements:forCandidate:keyboardState:]", shortDescription];
         *buf = 138412290;
-        v20 = v18;
+        v19 = v17;
         _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logReplacements:(id)replacements forString:(id)string keyLayout:(id)layout
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277D6F510];
   layoutCopy = layout;
   stringCopy = string;
@@ -444,22 +473,20 @@
       v15 = TIOSLogFacility();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v17 = MEMORY[0x277CCACA8];
+        v16 = MEMORY[0x277CCACA8];
         shortDescription = [v12 shortDescription];
-        v19 = [v17 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReplacements:forString:keyLayout:]", shortDescription];
+        v18 = [v16 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logReplacements:forString:keyLayout:]", shortDescription];
         *buf = 138412290;
-        v21 = v19;
+        v20 = v18;
         _os_log_debug_impl(&dword_22CA55000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logKeyboardConfig:(id)config textToCommit:(id)commit forAcceptedCandidate:(id)candidate keyboardState:(id)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   candidateCopy = candidate;
   commitCopy = commit;
@@ -498,22 +525,20 @@
       v19 = TIOSLogFacility();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v21 = MEMORY[0x277CCACA8];
+        v20 = MEMORY[0x277CCACA8];
         shortDescription = [v16 shortDescription];
-        v23 = [v21 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardConfig:textToCommit:forAcceptedCandidate:keyboardState:]", shortDescription];
+        v22 = [v20 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardConfig:textToCommit:forAcceptedCandidate:keyboardState:]", shortDescription];
         *buf = 138412290;
-        v25 = v23;
+        v24 = v22;
         _os_log_debug_impl(&dword_22CA55000, v19, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logCandidateResultSet:(id)set trace:(id)trace forKeyboardState:(id)state requestToken:(id)token
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   traceCopy = trace;
   tokenCopy = token;
   stateCopy = state;
@@ -544,11 +569,11 @@
       v17 = TIOSLogFacility();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v19 = MEMORY[0x277CCACA8];
+        v18 = MEMORY[0x277CCACA8];
         shortDescription = [v14 shortDescription];
-        v21 = [v19 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logCandidateResultSet:trace:forKeyboardState:requestToken:]", shortDescription];
+        v20 = [v18 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logCandidateResultSet:trace:forKeyboardState:requestToken:]", shortDescription];
         *buf = 138412290;
-        v23 = v21;
+        v22 = v20;
         _os_log_debug_impl(&dword_22CA55000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -558,13 +583,11 @@
       [(TIKeyboardInputManagerLogger *)self _tryWriteToSyslogWithTrace:traceCopy];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logAutocorrections:(id)autocorrections trace:(id)trace forKeyboardState:(id)state requestToken:(id)token
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   traceCopy = trace;
   tokenCopy = token;
   stateCopy = state;
@@ -596,11 +619,11 @@
       v17 = TIOSLogFacility();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v19 = MEMORY[0x277CCACA8];
+        v18 = MEMORY[0x277CCACA8];
         shortDescription = [v14 shortDescription];
-        v21 = [v19 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logAutocorrections:trace:forKeyboardState:requestToken:]", shortDescription];
+        v20 = [v18 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logAutocorrections:trace:forKeyboardState:requestToken:]", shortDescription];
         *buf = 138412290;
-        v23 = v21;
+        v22 = v20;
         _os_log_debug_impl(&dword_22CA55000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -610,13 +633,11 @@
       [(TIKeyboardInputManagerLogger *)self _tryWriteToSyslogWithTrace:traceCopy];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logKeyboardOutput:(id)output keyboardConfiguration:(id)configuration trace:(id)trace forKeyboardInput:(id)input keyboardState:(id)state
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   traceCopy = trace;
   inputCopy = input;
   stateCopy = state;
@@ -657,11 +678,11 @@
       v23 = TIOSLogFacility();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
-        v25 = MEMORY[0x277CCACA8];
+        v24 = MEMORY[0x277CCACA8];
         shortDescription = [v20 shortDescription];
-        v27 = [v25 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardOutput:keyboardConfiguration:trace:forKeyboardInput:keyboardState:]", shortDescription];
+        v26 = [v24 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardOutput:keyboardConfiguration:trace:forKeyboardInput:keyboardState:]", shortDescription];
         *buf = 138412290;
-        v29 = v27;
+        v28 = v26;
         _os_log_debug_impl(&dword_22CA55000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -671,13 +692,11 @@
       [(TIKeyboardInputManagerLogger *)self _tryWriteToSyslogWithTrace:traceCopy];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logKeyboardConfig:(id)config forSyncToKeyboardState:(id)state
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   configCopy = config;
   [(TIKeyboardInputManagerLogger *)self disableTypologyLogIfNecessaryForKeyboardState:stateCopy];
@@ -717,17 +736,15 @@
       v15 = TIOSLogFacility();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v17 = MEMORY[0x277CCACA8];
+        v16 = MEMORY[0x277CCACA8];
         shortDescription = [v10 shortDescription];
-        v19 = [v17 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardConfig:forSyncToKeyboardState:]", shortDescription];
+        v18 = [v16 stringWithFormat:@"%s %@", "-[TIKeyboardInputManagerLogger logKeyboardConfig:forSyncToKeyboardState:]", shortDescription];
         *buf = 138412290;
-        v21 = v19;
+        v20 = v18;
         _os_log_debug_impl(&dword_22CA55000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tryWriteToSyslogWithTrace:(id)trace
@@ -750,7 +767,7 @@
 
 void __59__TIKeyboardInputManagerLogger__tryWriteToSyslogWithTrace___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (TICanLogMessageAtLevel_onceToken != -1)
   {
@@ -762,22 +779,20 @@ void __59__TIKeyboardInputManagerLogger__tryWriteToSyslogWithTrace___block_invok
     v3 = TIOSLogFacility();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = MEMORY[0x277CCACA8];
-      v6 = [(__CFString *)v2 length];
-      v7 = @" ";
-      if (v6)
+      v4 = MEMORY[0x277CCACA8];
+      v5 = [(__CFString *)v2 length];
+      v6 = @" ";
+      if (v5)
       {
-        v7 = v2;
+        v6 = v2;
       }
 
-      v8 = [v5 stringWithFormat:@"%s %@\n", "-[TIKeyboardInputManagerLogger _tryWriteToSyslogWithTrace:]_block_invoke", v7];
+      v7 = [v4 stringWithFormat:@"%s %@\n", "-[TIKeyboardInputManagerLogger _tryWriteToSyslogWithTrace:]_block_invoke", v6];
       *buf = 138412290;
-      v10 = v8;
+      v9 = v7;
       _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConfig:(id)config
@@ -916,7 +931,7 @@ LABEL_6:
   }
 
   clientIdentifier = [v5 clientIdentifier];
-  if ([clientIdentifier isEqualToString:@"com.apple.mobilesafari"])
+  if (objc_msgSend_isEqualToString_(clientIdentifier))
   {
     wordLearningEnabled = [v5 wordLearningEnabled];
 
@@ -970,18 +985,18 @@ LABEL_10:
 
 - (TIKeyboardInputManagerLogger)initWithTypologyPreferences:(id)preferences
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
-  v15.receiver = self;
-  v15.super_class = TIKeyboardInputManagerLogger;
-  v6 = [(TIKeyboardInputManagerLogger *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = TIKeyboardInputManagerLogger;
+  v6 = [(TIKeyboardInputManagerLogger *)&v14 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_typologyPreferences, preferences);
     statistic = [MEMORY[0x277D6F540] statistic];
-    v16[0] = statistic;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = statistic;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
 
     v10 = [MEMORY[0x277D6F538] statisticCompositeWithStatistics:v9];
     typologyStatistic = v7->_typologyStatistic;
@@ -991,65 +1006,64 @@ LABEL_10:
   typologyStatistic = [(TIKeyboardInputManagerLogger *)v7 typologyStatistic];
   [typologyStatistic prepareForComputation];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (void)pruneTypologyLogsAtDirectoryURL:(id)l toMaxNumBytes:(int64_t)bytes expirationInterval:(double)interval satisfyingPredicate:(id)predicate
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   predicateCopy = predicate;
   v11 = *MEMORY[0x277CBE7B0];
   v12 = *MEMORY[0x277CBE838];
-  v45[0] = *MEMORY[0x277CBE7B0];
-  v45[1] = v12;
-  v34 = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+  v44[0] = *MEMORY[0x277CBE7B0];
+  v44[1] = v12;
+  v33 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v32 = v13;
-  v33 = lCopy;
+  v31 = v13;
+  v32 = lCopy;
   v15 = [defaultManager contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:v13 options:4 error:0];
 
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __117__TIKeyboardInputManagerLogger_pruneTypologyLogsAtDirectoryURL_toMaxNumBytes_expirationInterval_satisfyingPredicate___block_invoke;
-  v42[3] = &unk_2787325A8;
-  v31 = predicateCopy;
-  v43 = v31;
-  v30 = [v15 indexesOfObjectsPassingTest:v42];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __117__TIKeyboardInputManagerLogger_pruneTypologyLogsAtDirectoryURL_toMaxNumBytes_expirationInterval_satisfyingPredicate___block_invoke;
+  v41[3] = &unk_2787325A8;
+  v30 = predicateCopy;
+  v42 = v30;
+  v29 = [v15 indexesOfObjectsPassingTest:v41];
   v16 = [v15 objectsAtIndexes:?];
 
   v17 = [v16 sortedArrayUsingComparator:&__block_literal_global_97_16891];
 
-  v35 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-interval];
+  v34 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-interval];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v19)
   {
     v20 = v19;
     v21 = 0;
-    v22 = *v39;
+    v22 = *v38;
     do
     {
       v23 = 0;
       do
       {
-        if (*v39 != v22)
+        if (*v38 != v22)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v38 + 1) + 8 * v23);
-        v37 = 0;
-        [v24 getResourceValue:&v37 forKey:v11 error:0];
-        v25 = v37;
+        v24 = *(*(&v37 + 1) + 8 * v23);
+        v36 = 0;
+        [v24 getResourceValue:&v36 forKey:v11 error:0];
+        v25 = v36;
         v26 = v25;
-        if (v21 > bytes || ([v25 earlierDate:v35], v27 = objc_claimAutoreleasedReturnValue(), v27, v27 == v26))
+        if (v21 > bytes || ([v25 earlierDate:v34], v27 = objc_claimAutoreleasedReturnValue(), v27, v27 == v26))
         {
           defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
           [defaultManager2 removeItemAtURL:v24 error:0];
@@ -1057,22 +1071,20 @@ LABEL_10:
 
         else
         {
-          v36 = 0;
-          [v24 getResourceValue:&v36 forKey:v34 error:0];
-          v21 += [v36 integerValue];
+          v35 = 0;
+          [v24 getResourceValue:&v35 forKey:v33 error:0];
+          v21 += [v35 integerValue];
         }
 
         ++v23;
       }
 
       while (v20 != v23);
-      v20 = [v18 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v20);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __117__TIKeyboardInputManagerLogger_pruneTypologyLogsAtDirectoryURL_toMaxNumBytes_expirationInterval_satisfyingPredicate___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1114,23 +1126,22 @@ void __85__TIKeyboardInputManagerLogger_submitAggregrateDictionaryReport_inputMo
 
 void __85__TIKeyboardInputManagerLogger_submitAggregrateDictionaryReport_inputModeIdentifier___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
-  v5 = a3;
-  if ([v8 length])
+  v6 = a2;
+  v4 = a3;
+  if ([v6 length])
   {
-    v6 = *(a1 + 32);
-    v7 = TIStatisticGetKeyForInputMode();
-    if (v7)
+    v5 = TIStatisticGetKeyForInputMode();
+    if (v5)
     {
-      if ([v8 containsString:@".distr"])
+      if ([v6 containsString:@".distr"])
       {
-        [v5 doubleValue];
+        [v4 doubleValue];
         TIStatisticDistributionPushValue();
       }
 
       else
       {
-        [v5 longLongValue];
+        [v4 longLongValue];
         TIStatisticScalarAddValue();
       }
     }
@@ -1151,13 +1162,13 @@ void __85__TIKeyboardInputManagerLogger_submitAggregrateDictionaryReport_inputMo
   TIDispatchAsync();
 }
 
-uint64_t __68__TIKeyboardInputManagerLogger__backgroundPruneLogsWithPreferences___block_invoke(uint64_t result)
+double *__68__TIKeyboardInputManagerLogger__backgroundPruneLogsWithPreferences___block_invoke(double *result)
 {
   v1 = result;
-  v2 = *(result + 40);
+  v2 = *(result + 5);
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    result = [TIKeyboardInputManagerLogger pruneTypologyLogsAtDirectoryURL:*(result + 32) toMaxNumBytes:v2 expirationInterval:&__block_literal_global_87_16900 satisfyingPredicate:*(result + 48)];
+    result = [TIKeyboardInputManagerLogger pruneTypologyLogsAtDirectoryURL:*(result + 4) toMaxNumBytes:v2 expirationInterval:&__block_literal_global_87_16900 satisfyingPredicate:result[6]];
   }
 
   if (*(v1 + 7) != 0x7FFFFFFFFFFFFFFFLL)
@@ -1206,15 +1217,14 @@ uint64_t __68__TIKeyboardInputManagerLogger__backgroundPruneLogsWithPreferences_
 
 void __75__TIKeyboardInputManagerLogger__backgroundWriteLog_preferences_completion___block_invoke(uint64_t a1)
 {
-  v4 = [*(a1 + 32) typologyDirectoryURL];
-  v2 = [TIKeyboardInputManagerLogger _writeToFileWithTypologyLog:*(a1 + 40) directoryURL:v4 requireDeviceUnlocked:1];
-  v3 = *(a1 + 32);
+  v3 = [*(a1 + 32) typologyDirectoryURL];
+  v2 = [TIKeyboardInputManagerLogger _writeToFileWithTypologyLog:*(a1 + 40) directoryURL:v3 requireDeviceUnlocked:1];
   (*(*(a1 + 48) + 16))();
 }
 
 + (void)_writeHumanReadableTraceForTypologyLog:(id)log directoryURL:(id)l
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   logCopy = log;
   lCopy = l;
   if (TI_DEVICE_UNLOCKED() && [objc_opt_class() createTypologyDirectoryAtURL:lCopy])
@@ -1235,9 +1245,9 @@ void __75__TIKeyboardInputManagerLogger__backgroundWriteLog_preferences_completi
     v16 = [v15 stringByReplacingOccurrencesOfString:@".plist" withString:@".log" options:12 range:{0, objc_msgSend(v15, "length")}];
 
     v17 = [lCopy URLByAppendingPathComponent:v16];
-    v37 = *MEMORY[0x277CCA1B0];
-    v38[0] = *MEMORY[0x277CCA190];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v36 = *MEMORY[0x277CCA1B0];
+    v37[0] = *MEMORY[0x277CCA190];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     path = [v17 path];
     v21 = [v11 dataUsingEncoding:4];
@@ -1245,23 +1255,23 @@ void __75__TIKeyboardInputManagerLogger__backgroundWriteLog_preferences_completi
 
     if (v22)
     {
-      v34 = 0;
-      v23 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v17 error:&v34];
-      v24 = v34;
+      v33 = 0;
+      v23 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v17 error:&v33];
+      v24 = v33;
       v25 = v24;
       if (v23 && !v24)
       {
         [v23 seekToEndOfFile];
         [v11 setString:&stru_283FDFAF8];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __84__TIKeyboardInputManagerLogger__writeHumanReadableTraceForTypologyLog_directoryURL___block_invoke;
-        v31[3] = &unk_278732510;
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __84__TIKeyboardInputManagerLogger__writeHumanReadableTraceForTypologyLog_directoryURL___block_invoke;
+        v30[3] = &unk_278732510;
         v26 = v11;
-        v32 = v26;
-        v33 = v23;
+        v31 = v26;
+        v32 = v23;
         v27 = v23;
-        [logCopy enumerateTraceRecordsWithBlock:v31];
+        [logCopy enumerateTraceRecordsWithBlock:v30];
         v28 = [v26 dataUsingEncoding:4];
         [v27 writeData:v28];
 
@@ -1281,9 +1291,9 @@ LABEL_12:
     v27 = TIOSLogFacility();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to write trace", "+[TIKeyboardInputManagerLogger _writeHumanReadableTraceForTypologyLog:directoryURL:]"];
+      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to write trace", "+[TIKeyboardInputManagerLogger _writeHumanReadableTraceForTypologyLog:directoryURL:]"];
       *buf = 138412290;
-      v36 = v30;
+      v35 = v29;
       _os_log_debug_impl(&dword_22CA55000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -1291,8 +1301,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __84__TIKeyboardInputManagerLogger__writeHumanReadableTraceForTypologyLog_directoryURL___block_invoke(uint64_t a1, void *a2)
@@ -1372,7 +1380,7 @@ void __84__TIKeyboardInputManagerLogger__writeHumanReadableTraceForTypologyLog_d
 + (id)_writeToFileWithTypologyLog:(id)log directoryURL:(id)l requireDeviceUnlocked:(BOOL)unlocked
 {
   unlockedCopy = unlocked;
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   logCopy = log;
   lCopy = l;
   if (logCopy && (!unlockedCopy || TI_DEVICE_UNLOCKED()) && [objc_opt_class() createTypologyDirectoryAtURL:lCopy])
@@ -1384,15 +1392,15 @@ void __84__TIKeyboardInputManagerLogger__writeHumanReadableTraceForTypologyLog_d
     v13 = [lCopy URLByAppendingPathComponent:recommendedTraceLogFilename];
 
     accessibilityConfigInfo = [self accessibilityConfigInfo];
-    v24 = 0;
-    v15 = [logCopy writeToTypologyLogFile:v11 andTraceLogFile:v13 withAccessibilityInfo:accessibilityConfigInfo error:&v24];
-    v16 = v24;
+    v23 = 0;
+    v15 = [logCopy writeToTypologyLogFile:v11 andTraceLogFile:v13 withAccessibilityInfo:accessibilityConfigInfo error:&v23];
+    v16 = v23;
 
     if (v15)
     {
-      v27[0] = v11;
-      v27[1] = v13;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+      v26[0] = v11;
+      v26[1] = v13;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     }
 
     else
@@ -1405,11 +1413,11 @@ void __84__TIKeyboardInputManagerLogger__writeHumanReadableTraceForTypologyLog_d
       v18 = TIOSLogFacility();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        v21 = MEMORY[0x277CCACA8];
+        v20 = MEMORY[0x277CCACA8];
         filename = [logCopy filename];
-        v23 = [v21 stringWithFormat:@"%s Error serializing and writing property list %@: %@", "+[TIKeyboardInputManagerLogger _writeToFileWithTypologyLog:directoryURL:requireDeviceUnlocked:]", filename, v16];
+        v22 = [v20 stringWithFormat:@"%s Error serializing and writing property list %@: %@", "+[TIKeyboardInputManagerLogger _writeToFileWithTypologyLog:directoryURL:requireDeviceUnlocked:]", filename, v16];
         *buf = 138412290;
-        v26 = v23;
+        v25 = v22;
         _os_log_debug_impl(&dword_22CA55000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -1422,21 +1430,19 @@ void __84__TIKeyboardInputManagerLogger__writeHumanReadableTraceForTypologyLog_d
     v17 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 + (BOOL)createTypologyDirectoryAtURL:(id)l
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAA00];
   lCopy = l;
   defaultManager = [v3 defaultManager];
-  v12 = 0;
-  v6 = [defaultManager createDirectoryAtURL:lCopy withIntermediateDirectories:1 attributes:0 error:&v12];
+  v11 = 0;
+  v6 = [defaultManager createDirectoryAtURL:lCopy withIntermediateDirectories:1 attributes:0 error:&v11];
 
-  v7 = v12;
+  v7 = v11;
   if ((v6 & 1) == 0)
   {
     if (TICanLogMessageAtLevel_onceToken != -1)
@@ -1447,14 +1453,13 @@ void __84__TIKeyboardInputManagerLogger__writeHumanReadableTraceForTypologyLog_d
     v8 = TIOSLogFacility();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to create typology directory: %@", "+[TIKeyboardInputManagerLogger createTypologyDirectoryAtURL:]", v7];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed to create typology directory: %@", "+[TIKeyboardInputManagerLogger createTypologyDirectoryAtURL:]", v7];
       *buf = 138412290;
-      v14 = v11;
+      v13 = v10;
       _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -10,31 +10,30 @@
 
 + (id)labels
 {
-  v8[13] = *MEMORY[0x277D85DE8];
+  v7[13] = *MEMORY[0x277D85DE8];
   p_name = &OBJC_PROTOCOL___SKDEventInfo.name;
   {
-    v6 = MEMORY[0x277CBEB98];
-    v8[0] = SKGPeoplePersonUser;
-    v8[1] = SKGPeoplePersonIdentifier;
-    v8[2] = SKGPeopleContactIdentifier;
-    v8[3] = SKGPeoplePhotoPersonIdentifier;
-    v8[4] = SKGPeopleEntityIdentifier;
-    v8[5] = SKGPeopleDisplayName;
-    v8[6] = SKGPeopleName;
-    v8[7] = SKGPeopleNameKey;
-    v8[8] = SKGPeopleEmailAddress;
-    v8[9] = SKGPeoplePhoneNumber;
-    v8[10] = SKGContentReferenceIdentifier;
-    v8[11] = SKGContentPersonaIdentifier;
-    v8[12] = SKGContentDomainIdentifier;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:13];
-    +[SKGEdges labels]::sEdgeLabels = [v6 setWithArray:v7];
+    v5 = MEMORY[0x277CBEB98];
+    v7[0] = SKGPeoplePersonUser;
+    v7[1] = SKGPeoplePersonIdentifier;
+    v7[2] = SKGPeopleContactIdentifier;
+    v7[3] = SKGPeoplePhotoPersonIdentifier;
+    v7[4] = SKGPeopleEntityIdentifier;
+    v7[5] = SKGPeopleDisplayName;
+    v7[6] = SKGPeopleName;
+    v7[7] = SKGPeopleNameKey;
+    v7[8] = SKGPeopleEmailAddress;
+    v7[9] = SKGPeoplePhoneNumber;
+    v7[10] = SKGContentReferenceIdentifier;
+    v7[11] = SKGContentPersonaIdentifier;
+    v7[12] = SKGContentDomainIdentifier;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:13];
+    +[SKGEdges labels]::sEdgeLabels = [v5 setWithArray:v6];
 
     p_name = (&OBJC_PROTOCOL___SKDEventInfo + 8);
   }
 
   v3 = p_name[441];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

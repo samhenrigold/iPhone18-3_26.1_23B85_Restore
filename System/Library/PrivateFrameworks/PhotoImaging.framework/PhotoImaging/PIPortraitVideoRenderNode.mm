@@ -108,7 +108,7 @@ LABEL_38:
 
     v51 = [sourceTransferFunction isEqualToString:*MEMORY[0x1E6987DF0]];
     memset(buf, 0, sizeof(buf));
-    [(PIPortraitVideoRenderNode *)self renderTime];
+    objc_msgSend_renderTime(self);
     if ((buf[12] & 1) == 0)
     {
       v15 = MEMORY[0x1E69B3A48];
@@ -544,7 +544,7 @@ LABEL_20:
       settingsCopy = v61;
       if (v64)
       {
-        [v64 time];
+        objc_msgSend_time(v64);
       }
 
       else
@@ -607,7 +607,7 @@ LABEL_20:
         v58 = v37;
         if (v38)
         {
-          [v38 time];
+          objc_msgSend_time(v38);
         }
 
         else
@@ -794,7 +794,7 @@ LABEL_31:
       v16 = [(PIPortraitVideoRenderNode *)self _targetScaleForScale:scale, v15];
       v18 = v17;
       v19 = objc_alloc(MEMORY[0x1E69B3B18]);
-      [v10 extent];
+      objc_msgSend_extent(v10);
       v20 = [v19 initWithExtent:buf renderScale:v16 orientation:{v18, objc_msgSend(v10, "orientation")}];
       device = [v7 device];
       v22 = device != 0;

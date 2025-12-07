@@ -174,7 +174,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -194,7 +193,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  totalNumberOfFolders = self->_totalNumberOfFolders;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -209,7 +207,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  numberOfPagesInRootFolder = self->_numberOfPagesInRootFolder;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -224,12 +221,10 @@ LABEL_5:
   }
 
 LABEL_14:
-  totalNumberOfIconsInDock = self->_totalNumberOfIconsInDock;
   PBDataWriterWriteUint64Field();
   if (*&self->_has)
   {
 LABEL_6:
-    numberOfFoldersInDock = self->_numberOfFoldersInDock;
     PBDataWriterWriteUint64Field();
   }
 
@@ -237,15 +232,14 @@ LABEL_7:
   p_numberOfFoldersPerPages = &self->_numberOfFoldersPerPages;
   if (p_numberOfFoldersPerPages->count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = p_numberOfFoldersPerPages->list[v7];
       PBDataWriterWriteUint64Field();
-      ++v7;
+      ++v6;
     }
 
-    while (v7 < p_numberOfFoldersPerPages->count);
+    while (v6 < p_numberOfFoldersPerPages->count);
   }
 }
 
@@ -407,7 +401,6 @@ LABEL_7:
     return 0;
   }
 
-  v5 = *(equal + 72);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equal + 72) & 4) == 0 || self->_timestamp != *(equal + 6))

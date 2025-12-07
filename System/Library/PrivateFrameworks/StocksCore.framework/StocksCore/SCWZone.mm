@@ -22,46 +22,44 @@
 
 - (SCWZoneDiff)clientDiff
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = [SCWZoneModificationSilo alloc];
   schema = [(SCWZone *)self schema];
   store = [(SCWZone *)self store];
   serverRecords = [store serverRecords];
   v7 = [(SCWZoneModificationSilo *)v3 initWithZoneSchema:schema contents:serverRecords];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   store2 = [(SCWZone *)self store];
   pendingCommands = [store2 pendingCommands];
 
-  v10 = [pendingCommands countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [pendingCommands countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(pendingCommands);
         }
 
-        [*(*(&v17 + 1) + 8 * i) executeWithZone:v7];
+        [*(*(&v16 + 1) + 8 * i) executeWithZone:v7];
       }
 
-      v11 = [pendingCommands countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [pendingCommands countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
   diff = [(SCWZoneModificationSilo *)v7 diff];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return diff;
 }

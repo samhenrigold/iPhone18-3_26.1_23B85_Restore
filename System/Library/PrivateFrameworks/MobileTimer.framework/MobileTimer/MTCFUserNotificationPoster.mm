@@ -45,7 +45,7 @@ uint64_t __44__MTCFUserNotificationPoster_sharedInstance__block_invoke()
 
 + (void)postNotificationWithIdentifier:(id)identifier title:(id)title message:(id)message defaultButtonTitle:(id)buttonTitle otherButtonTitle:(id)otherButtonTitle bypassDND:(BOOL)d handler:(id)handler
 {
-  v41[4] = *MEMORY[0x1E69E9840];
+  v40[4] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   titleCopy = title;
   messageCopy = message;
@@ -53,16 +53,16 @@ uint64_t __44__MTCFUserNotificationPoster_sharedInstance__block_invoke()
   otherButtonTitleCopy = otherButtonTitle;
   handlerCopy = handler;
   v19 = *MEMORY[0x1E695EE60];
-  v40[0] = *MEMORY[0x1E695EE58];
-  v40[1] = v19;
-  v41[0] = titleCopy;
-  v41[1] = messageCopy;
+  v39[0] = *MEMORY[0x1E695EE58];
+  v39[1] = v19;
+  v40[0] = titleCopy;
+  v40[1] = messageCopy;
   v20 = *MEMORY[0x1E695EE70];
-  v40[2] = *MEMORY[0x1E695EE78];
-  v40[3] = v20;
-  v41[2] = buttonTitleCopy;
-  v41[3] = otherButtonTitleCopy;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:4];
+  v39[2] = *MEMORY[0x1E695EE78];
+  v39[3] = v20;
+  v40[2] = buttonTitleCopy;
+  v40[3] = otherButtonTitleCopy;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:4];
   error = 0;
   v22 = CFUserNotificationCreate(0, 0.0, 3uLL, &error, v21);
   if (v22)
@@ -76,8 +76,8 @@ uint64_t __44__MTCFUserNotificationPoster_sharedInstance__block_invoke()
       {
         *buf = 138543618;
         selfCopy = self;
-        v38 = 2114;
-        v39 = identifierCopy;
+        v37 = 2114;
+        v38 = identifierCopy;
         _os_log_impl(&dword_1B1F9F000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ posting CFUserNotification for %{public}@", buf, 0x16u);
       }
 
@@ -112,8 +112,6 @@ uint64_t __44__MTCFUserNotificationPoster_sharedInstance__block_invoke()
 
     CFRelease(v22);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (void)cancelNotificationsWithIdentifiers:(id)identifiers
@@ -132,7 +130,7 @@ uint64_t __44__MTCFUserNotificationPoster_sharedInstance__block_invoke()
 
 void __65__MTCFUserNotificationPoster_cancelNotificationsWithIdentifiers___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[MTCFUserNotificationPoster sharedInstance];
   v5 = [v4 notifications];
@@ -145,11 +143,11 @@ void __65__MTCFUserNotificationPoster_cancelNotificationsWithIdentifiers___block
     {
       v8 = *(a1 + 32);
       v9 = [v6 identifier];
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v9;
-      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ cancelling CFUserNotification for %{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
+      _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ cancelling CFUserNotification for %{public}@", &v12, 0x16u);
     }
 
     CFUserNotificationCancel([v6 notification]);
@@ -157,17 +155,14 @@ void __65__MTCFUserNotificationPoster_cancelNotificationsWithIdentifiers___block
     v11 = [v10 notifications];
     [v11 removeObjectForKey:v3];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)postNotificationWithIdentifier:(uint64_t)a1 title:(NSObject *)a2 message:defaultButtonTitle:otherButtonTitle:bypassDND:handler:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ failed to post CFUserNotification", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ failed to post CFUserNotification", &v2, 0xCu);
 }
 
 @end

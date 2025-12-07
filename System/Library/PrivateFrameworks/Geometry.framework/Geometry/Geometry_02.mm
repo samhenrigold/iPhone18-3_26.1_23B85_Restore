@@ -57,53 +57,55 @@ double _ZNK4geom19interpolating_curveIDv4_dE18evaluate_length_atEd(uint64_t a1, 
 
 double _ZNK4geom20interpolating_splineIDv4_dE18evaluate_length_atEd(uint64_t a1, double a2)
 {
-  geom::interpolating_spline<double>::find_span(a1, v11, a2);
-  v4 = v11[0];
-  v5 = *(a1 + 72);
-  if (*(a1 + 80) == v5)
+  geom::interpolating_spline<double>::find_span(a1, v12, a2);
+  v5 = LOWORD(v12[0]);
+  v6 = *(a1 + 72);
+  if (*(a1 + 80) == v6)
   {
-    if (v11[0])
+    if (LOWORD(v12[0]))
     {
-      v7 = 0;
-      v6 = 0.0;
+      v8 = 0;
+      v7 = 0.0;
       do
       {
-        v6 = v6 + _ZNK4geom20interpolating_splineIDv4_dE20evaluate_span_lengthEj(a1, v7++);
+        v4.n128_f64[0] = _ZNK4geom20interpolating_splineIDv4_dE20evaluate_span_lengthEj(a1, v8, v4);
+        v7 = v7 + v4.n128_f64[0];
+        ++v8;
       }
 
-      while (v4 != v7);
+      while (v5 != v8);
       goto LABEL_9;
     }
   }
 
-  else if (v11[0])
+  else if (LOWORD(v12[0]))
   {
-    v6 = *(v5 + 8 * (v11[0] - 1));
+    v7 = *(v6 + 8 * (LOWORD(v12[0]) - 1));
     goto LABEL_9;
   }
 
-  v6 = 0.0;
+  v7 = 0.0;
 LABEL_9:
   if (*(a1 + 66) == 1)
   {
-    v8 = *(a1 + 64);
-    if (v8 == v4)
+    v9 = *(a1 + 64);
+    if (v9 == v5)
     {
-      v9 = *(a1 + 56);
+      v10 = *(a1 + 56);
     }
 
     else
     {
-      v9 = *(a1 + 48) + v4 * ((*(a1 + 56) - *(a1 + 48)) / v8);
+      v10 = *(a1 + 48) + v5 * ((*(a1 + 56) - *(a1 + 48)) / v9);
     }
   }
 
   else
   {
-    v9 = *(*(a1 + 24) + 8 * v4);
+    v10 = *(*(a1 + 24) + 8 * v5);
   }
 
-  return v6 + _ZNK4geom20interpolating_splineIDv4_dE24evaluate_length_betweeenEdd(a1, v9, a2);
+  return v7 + _ZNK4geom20interpolating_splineIDv4_dE24evaluate_length_betweeenEdd(a1, v10, a2);
 }
 
 void _ZNK4geom19interpolating_curveIDv4_dE10span_knotsEtRdS3_(uint64_t a1, unsigned int a2, double *a3, double *a4, double a5, double a6, double a7)
@@ -158,9 +160,9 @@ void _ZNK4geom19interpolating_curveIDv4_dE10span_knotsEtRdS3_(uint64_t a1, unsig
 
     else
     {
-      v17 = *(v12 + 24) + 8 * v10;
+      v17 = (*(v12 + 24) + 8 * v10);
       *a3 = *v17;
-      v16 = *(v17 + 8);
+      v16 = v17[1];
     }
   }
 
@@ -270,14 +272,14 @@ uint64_t _ZNK4geom19interpolating_curveIDv4_dE31calculate_bezier_basis_for_spanE
 
 uint64_t _ZN4geom19interpolating_curveIDv4_dE13append_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(uint64_t a1, int **a2)
 {
-  memset(v51, 0, 24);
-  memset(v49, 0, 48);
+  memset(v52, 0, 24);
+  memset(v50, 0, 48);
   v4 = **a2;
   if (v4 > 1)
   {
     if (v4 == 2)
     {
-      _ZN4geom19interpolating_curveIDv4_dE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v41);
+      _ZN4geom19interpolating_curveIDv4_dE24build_catmull_rom_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v42);
     }
 
     else
@@ -287,7 +289,7 @@ uint64_t _ZN4geom19interpolating_curveIDv4_dE13append_splineERKNS_5sliceINS_17in
         goto LABEL_15;
       }
 
-      _ZN4geom19interpolating_curveIDv4_dE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v41);
+      _ZN4geom19interpolating_curveIDv4_dE20build_natural_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v42);
     }
   }
 
@@ -300,25 +302,25 @@ uint64_t _ZN4geom19interpolating_curveIDv4_dE13append_splineERKNS_5sliceINS_17in
 
     v5 = *(a2 + 4);
     v6 = v5 - 1;
-    v47 = 0;
     v48 = 0;
-    v46 = 0;
-    memset(v41, 0, sizeof(v41));
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm(v41, (3 * v5 - 2));
-    v44 = v6;
-    if ((v45 & 1) == 0)
+    v49 = 0;
+    v47 = 0;
+    memset(v42, 0, sizeof(v42));
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm(v42, (3 * v5 - 2));
+    v45 = v6;
+    if ((v46 & 1) == 0)
     {
-      std::vector<double>::resize(&v41[1] + 1, v6 + 1);
+      std::vector<double>::resize(&v42[1] + 1, v6 + 1);
     }
 
-    v52 = 0;
     v53 = 0;
     v54 = 0;
-    std::vector<double>::resize(&v52, v6 + 1);
+    v55 = 0;
+    std::vector<double>::resize(&v53, v6 + 1);
     v7 = 0;
     v8 = 0;
-    v9 = v52;
-    *v52 = *(*a2 + 1);
+    v9 = v53;
+    *v53 = *(*a2 + 1);
     v10 = 8;
     __asm { FMOV            V0.2D, #3.0 }
 
@@ -332,19 +334,19 @@ uint64_t _ZN4geom19interpolating_curveIDv4_dE13append_splineERKNS_5sliceINS_17in
       v20 = v16[11];
       v21 = vmulq_n_f64(v16[6], v18);
       v22 = v16[2];
-      v23 = (*&v41[0] + 32 * v8);
+      v23 = (*&v42[0] + 32 * v8);
       v24 = vmulq_n_f64(v16[10], v18);
       *v23 = v16[1];
       v23[1] = v22;
       v25 = vaddq_f64(vdivq_f64(v21, _Q0), v16[2]);
-      v26 = *&v41[0] + 32 * (v8 + 1);
+      v26 = *&v42[0] + 32 * (v8 + 1);
       *v26 = vaddq_f64(vdivq_f64(v19, _Q0), v16[1]);
       *(v26 + 16) = v25;
       v27 = vsubq_f64(v16[8], vdivq_f64(v24, _Q0));
       v28 = vsubq_f64(v16[9], vdivq_f64(vmulq_n_f64(v20, v18), _Q0));
       v29 = (v8 + 2);
       v8 += 3;
-      v30 = (*&v41[0] + 32 * v29);
+      v30 = (*&v42[0] + 32 * v29);
       *v30 = v27;
       v30[1] = v28;
       v7 += 28;
@@ -354,56 +356,57 @@ uint64_t _ZN4geom19interpolating_curveIDv4_dE13append_splineERKNS_5sliceINS_17in
     while (28 * v6 != v7);
     v31 = &(*a2)[28 * a2[1]];
     v32 = *(v31 - 80);
-    v33 = (*&v41[0] + 32 * v8);
+    v33 = (*&v42[0] + 32 * v8);
     *v33 = *(v31 - 96);
     v33[1] = v32;
-    v45 = 0;
-    std::vector<double>::__assign_with_size[abi:nn200100]<double *,double *>(&v41[1] + 1, v9, v53, (v53 - v9) >> 3);
-    v42 = *v52;
-    v43 = *(v53 - 1);
-    v53 = v52;
-    operator delete(v52);
+    v46 = 0;
+    std::vector<double>::__assign_with_size[abi:nn200100]<double *,double *>(&v42[1] + 1, v9, v54, (v54 - v9) >> 3);
+    v43 = *v53;
+    v44 = *(v54 - 1);
+    v54 = v53;
+    operator delete(v53);
   }
 
   else
   {
-    _ZN4geom19interpolating_curveIDv4_dE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v41);
+    _ZN4geom19interpolating_curveIDv4_dE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(a2, v42);
   }
 
-  geom::interpolating_spline<double>::operator=(v49, v41);
-  geom::interpolating_spline<double>::~interpolating_spline(v41);
+  geom::interpolating_spline<double>::operator=(v50, v42);
+  geom::interpolating_spline<double>::~interpolating_spline(v42);
 LABEL_15:
-  v34 = v50;
-  std::vector<double>::resize(v51, v50);
+  v34 = v51;
+  std::vector<double>::resize(v52, v51);
   if (v34)
   {
-    v35 = 0;
-    v36 = 0.0;
+    v36 = 0;
+    v37 = 0.0;
     do
     {
-      v36 = v36 + _ZNK4geom20interpolating_splineIDv4_dE20evaluate_span_lengthEj(v49, v35);
-      *(v51[0] + 8 * v35++) = v36;
+      v35.n128_f64[0] = _ZNK4geom20interpolating_splineIDv4_dE20evaluate_span_lengthEj(v50, v36, v35);
+      v37 = v37 + v35.n128_f64[0];
+      *(v52[0] + 8 * v36++) = v37;
     }
 
-    while (v34 != v35);
+    while (v34 != v36);
   }
 
-  v37 = _ZNK4geom20interpolating_splineIDv4_dE21evaluate_total_lengthEv(v49);
-  v38 = *(a1 + 80) - *(a1 + 72);
-  if (v38)
+  v38 = _ZNK4geom20interpolating_splineIDv4_dE21evaluate_total_lengthEv(v50);
+  v39 = *(a1 + 80) - *(a1 + 72);
+  if (v39)
   {
-    v39 = *(*(a1 + 48) - 0x5555555555555555 * (v38 >> 2) - 8);
+    v40 = *(*(a1 + 48) - 0x5555555555555555 * (v39 >> 2) - 8);
   }
 
   else
   {
-    v39 = 0.0;
+    v40 = 0.0;
   }
 
-  *v41 = v37 + v39;
-  std::vector<double>::push_back[abi:nn200100]((a1 + 48), v41);
-  _ZNSt3__16vectorIN4geom20interpolating_splineIDv3_dEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v49);
-  return geom::interpolating_spline<double>::~interpolating_spline(v49);
+  *v42 = v38 + v40;
+  std::vector<double>::push_back[abi:nn200100]((a1 + 48), v42);
+  _ZNSt3__16vectorIN4geom20interpolating_splineIDv3_dEENS_9allocatorIS4_EEE9push_backB8nn200100ERKS4_((a1 + 72), v50);
+  return geom::interpolating_spline<double>::~interpolating_spline(v50);
 }
 
 void _ZN4geom19interpolating_curveIDv4_dE19build_linear_splineERKNS_5sliceINS_17interpolating_keyIS1_EEEE(_WORD *a1@<X1>, uint64_t a2@<X8>)
@@ -551,9 +554,9 @@ void _ZN4geom19interpolating_curveIDv4_dE24build_catmull_rom_splineERKNS_5sliceI
     v21 = v13 + 32;
     do
     {
-      v22 = &v15[v18];
-      v23 = v22[2];
-      *v21 = v22[1];
+      v22 = v15 + v18 * 16;
+      v23 = *(v22 + 32);
+      *v21 = *(v22 + 16);
       v21[1] = v23;
       v21 += 2;
       v15 = *a1;
@@ -568,7 +571,7 @@ void _ZN4geom19interpolating_curveIDv4_dE24build_catmull_rom_splineERKNS_5sliceI
     while (7 * (v4 - 1) != v18);
   }
 
-  v27 = &v15[7 * v20];
+  v27 = (v15 + 112 * v20);
   v28 = v27[1];
   v29 = v27[2];
   v30 = &v13[32 * v6 - 64];
@@ -703,9 +706,9 @@ void _ZN4geom19interpolating_curveIDv4_dE24build_catmull_rom_splineERKNS_5sliceI
   }
 
   v116 = &(*a1)[7 * v20];
-  v117 = *(v116 + 32);
+  v117 = v116[2];
   v118 = (*a2 + 32 * v38);
-  *v118 = *(v116 + 16);
+  *v118 = v116[1];
   v118[1] = v117;
   v119 = a1[1];
   v124 = 0;
@@ -1349,36 +1352,36 @@ LABEL_8:
   }
 }
 
-float geom::interpolating_spline<float>::evaluate_span_length(uint64_t a1, unsigned __int16 a2)
+float geom::interpolating_spline<float>::evaluate_span_length(uint64_t a1, unsigned __int16 a2, __n128 a3)
 {
   if (*(a1 + 58) == 1)
   {
-    v2 = *(a1 + 56);
-    v3 = *(a1 + 52);
-    if (v2 == a2)
+    v3 = *(a1 + 56);
+    v4 = *(a1 + 52);
+    if (v3 == a2)
     {
-      v4 = *(a1 + 52);
+      v5 = *(a1 + 52);
     }
 
     else
     {
-      v4 = *(a1 + 48) + (a2 * ((v3 - *(a1 + 48)) / v2));
+      v5 = *(a1 + 48) + (a2 * ((v4 - *(a1 + 48)) / v3));
     }
 
-    if (v2 != (a2 + 1))
+    if (v3 != (a2 + 1))
     {
-      v3 = *(a1 + 48) + ((a2 + 1) * ((v3 - *(a1 + 48)) / v2));
+      v4 = *(a1 + 48) + ((a2 + 1) * ((v4 - *(a1 + 48)) / v3));
     }
   }
 
   else
   {
-    v5 = *(a1 + 24);
-    v4 = *(v5 + 4 * a2);
-    v3 = *(v5 + 4 * (a2 + 1));
+    v6 = *(a1 + 24);
+    v5 = *(v6 + 4 * a2);
+    v4 = *(v6 + 4 * (a2 + 1));
   }
 
-  return geom::interpolating_spline<float>::evaluate_length_betweeen(a1, v4, v3);
+  return geom::interpolating_spline<float>::evaluate_length_betweeen(a1, v5, v4);
 }
 
 float geom::interpolating_spline<float>::evaluate_length_betweeen(void *a1, float a2, float a3)
@@ -1557,7 +1560,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned short>>(uint
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-void geom::anonymous namespace::fit_function_with_spline_recursively<geom::interpolating_curve<float>::build_helper(std::vector<geom::interpolating_key<float>> const&,BOOL)::{lambda(float)#1},float>(uint64_t *a1, uint64_t a2, float *a3, uint64_t a4, double a5, double a6, float64x2_t a7)
+void geom::anonymous namespace::fit_function_with_spline_recursively<geom::interpolating_curve<float>::build_helper(std::vector<geom::interpolating_key<float>> const&,BOOL)::{lambda(float)#1},float>(uint64_t *a1, uint64_t a2, float *a3, uint64_t a4, double a5, double a6, float32x4_t a7)
 {
   v10 = *(a2 + 8);
   v11 = *(a2 + 12);
@@ -1571,58 +1574,60 @@ void geom::anonymous namespace::fit_function_with_spline_recursively<geom::inter
   if (v18 == 1)
   {
     v19 = (v16 + v17 * 2.0) * 0.333333333;
-    *a7.f64 = (v17 + v16 * 2.0) * 0.333333333;
+    a7.f32[0] = (v17 + v16 * 2.0) * 0.333333333;
     v20 = (v11 - v10) / (v12 - v10);
     v21 = (v13 - v10) / (v12 - v10);
     v22 = v20;
     v23 = 1.0 - v20;
     v24 = 1.0 - v21;
     v25 = -(v20 * v20);
-    *a7.f64 = (*a7.f64 + (-((v23 * v23) * v23) * v15)) + ((v20 * v25) * v14);
-    *(a7.f64 + 1) = (v19 + ((v24 * -(v24 * v24)) * v15)) + (-((v21 * v21) * v21) * v14);
+    a7.f32[0] = (a7.f32[0] + (-((v23 * v23) * v23) * v15)) + ((v20 * v25) * v14);
+    a7.f32[1] = (v19 + ((v24 * -(v24 * v24)) * v15)) + (-((v21 * v21) * v21) * v14);
     v26.f32[0] = (v21 * v21) * (1.0 - v21);
     v26.f32[1] = v25 * (1.0 - v20);
     v27.f32[0] = (1.0 - v21) * -(v21 * (1.0 - v21));
     v28 = v20 * (1.0 - v20);
     v27.f32[1] = v23 * v28;
     v29 = 1.0 / (v22 * 3.0 * v21 * ((v24 * -(v28 * v24)) + ((v21 * (v23 * v23)) * v24)));
-    v30 = vmul_f32(v26, *&a7.f64[0]);
-    *&a7.f64[0] = vmul_f32(v27, *&a7.f64[0]);
-    *&a7.f64[0] = vmul_n_f32(vadd_f32(vzip1_s32(v30, *&a7.f64[0]), vzip2_s32(v30, *&a7.f64[0])), v29);
-    v86 = a7;
-    v87 = *(a2 + 4);
-    LODWORD(a7.f64[0]) = *a2;
+    v30 = vmul_f32(v26, *a7.f32);
+    *a7.f32 = vmul_f32(v27, *a7.f32);
+    *a7.f32 = vmul_n_f32(vadd_f32(vzip1_s32(v30, *a7.f32), vzip2_s32(v30, *a7.f32)), v29);
+    v82 = a7;
+    v83 = *(a2 + 4);
+    a7.i32[0] = *a2;
   }
 
   else
   {
     a7 = vmulq_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(xmmword_2500C2050, v12), xmmword_2500C2060, v10), xmmword_2500C2070, v11), xmmword_2500C2080, v13), vdupq_n_s64(0x3FC5555555555555uLL));
-    *&a7.f64[0] = vcvt_f32_f64(a7);
-    v86 = a7;
-    v87 = *(a2 + 20);
-    LODWORD(a7.f64[0]) = *(a2 + 8);
+    *a7.f32 = vcvt_f32_f64(a7);
+    v82 = a7;
+    v83 = *(a2 + 20);
+    a7.i32[0] = *(a2 + 8);
   }
 
-  v85 = a7;
+  v81 = a7;
   v31 = *(a2 + 24);
   if (v31 >= *(a3 + 1))
   {
     goto LABEL_78;
   }
 
+  a7.i64[0] = 5.0;
   v32 = (v17 + v16 * 5.0) * 0.166666667;
   v33 = (v15 + v14) * 0.5;
-  v34 = (v16 + v17 * 5.0) * 0.166666667;
+  v38 = (v16 + v17 * 5.0) * 0.166666667;
+  v34 = v38;
   v35 = *a1;
   v36 = v33;
   v37 = v32;
-  v38 = v34;
+  *&v38 = v34;
   if ((*(*a1 + 192) & 1) == 0)
   {
     v39 = *(v35 + 72);
     v40 = 0x2E8BA2E8BA2E8BA3 * ((*(v35 + 80) - v39) >> 3);
-    v83 = *(a2 + 12);
-    v84 = *(a2 + 16);
+    v79 = *(a2 + 12);
+    v80 = *(a2 + 16);
     if ((v40 & 0xFFFE) != 0 && *(v35 + 184) < v32)
     {
       LOWORD(v40) = v40 - 1;
@@ -1662,19 +1667,19 @@ void geom::anonymous namespace::fit_function_with_spline_recursively<geom::inter
     v46 = geom::interpolating_spline<float>::evaluate_length_at(v39 + 88 * v40, v32);
     if (v45)
     {
-      v47 = *(*(v35 + 48) + 4 * (v44 - 1));
+      v17 = *(*(v35 + 48) + 4 * (v44 - 1));
     }
 
     else
     {
-      v47 = 0.0;
+      v17 = 0.0;
     }
 
-    v11 = v83;
-    v13 = v84;
-    v48 = v47 + v46;
-    v37 = v48;
-    v49 = *a1;
+    v11 = v79;
+    v13 = v80;
+    v38 = v17 + v46;
+    v37 = v38;
+    v47 = *a1;
     if (*(*a1 + 192))
     {
       v36 = (v15 + v14) * 0.5;
@@ -1682,191 +1687,207 @@ void geom::anonymous namespace::fit_function_with_spline_recursively<geom::inter
 
     else
     {
-      v50 = *(v49 + 72);
-      v51 = 0x2E8BA2E8BA2E8BA3 * ((*(v49 + 80) - v50) >> 3);
-      v82 = v48;
-      if ((v51 & 0xFFFE) != 0 && *(v49 + 184) < v33)
+      v48 = *(v47 + 72);
+      v49 = 0x2E8BA2E8BA2E8BA3 * ((*(v47 + 80) - v48) >> 3);
+      v78 = v38;
+      if ((v49 & 0xFFFE) != 0 && *(v47 + 184) < v33)
       {
-        LOWORD(v51) = v51 - 1;
-        if (*(v49 + 188) > v33)
+        LOWORD(v49) = v49 - 1;
+        if (*(v47 + 188) > v33)
         {
-          for (j = 0; ; j = v53 + 1)
+          for (j = 0; ; j = v51 + 1)
           {
             while (1)
             {
-              v53 = (j + v51) >> 1;
-              v54 = v50 + 88 * v53;
-              if (*(v54 + 48) <= v33)
+              v51 = (j + v49) >> 1;
+              v52 = v48 + 88 * v51;
+              if (*(v52 + 48) <= v33)
               {
                 break;
               }
 
-              LOWORD(v51) = v53 - 1;
+              LOWORD(v49) = v51 - 1;
             }
 
-            if (*(v54 + 52) > v33)
+            if (*(v52 + 52) > v33)
             {
               break;
             }
           }
 
-          LODWORD(v51) = (j + v51) >> 1;
+          LODWORD(v49) = (j + v49) >> 1;
         }
       }
 
       else
       {
-        LOWORD(v51) = 0;
+        LOWORD(v49) = 0;
       }
 
-      v55 = v51;
-      v56 = v51;
-      v57 = geom::interpolating_spline<float>::evaluate_length_at(v50 + 88 * v51, (v15 + v14) * 0.5);
-      if (v56)
+      v53 = v49;
+      v54 = v49;
+      v55 = geom::interpolating_spline<float>::evaluate_length_at(v48 + 88 * v49, (v15 + v14) * 0.5);
+      if (v54)
       {
-        v58 = *(*(v49 + 48) + 4 * (v55 - 1));
+        v17 = *(*(v47 + 48) + 4 * (v53 - 1));
       }
 
       else
       {
-        v58 = 0.0;
+        v17 = 0.0;
       }
 
-      v11 = v83;
-      v13 = v84;
-      v37 = v82;
-      v36 = v58 + v57;
-      v59 = *a1;
+      v11 = v79;
+      v13 = v80;
+      v37 = v78;
+      v38 = v17 + v55;
+      v36 = v38;
+      v56 = *a1;
       if ((*(*a1 + 192) & 1) == 0)
       {
-        v60 = *(v59 + 72);
-        v61 = 0x2E8BA2E8BA2E8BA3 * ((*(v59 + 80) - v60) >> 3);
-        if ((v61 & 0xFFFE) != 0 && *(v59 + 184) < v34)
+        v57 = *(v56 + 72);
+        v58 = 0x2E8BA2E8BA2E8BA3 * ((*(v56 + 80) - v57) >> 3);
+        if ((v58 & 0xFFFE) != 0 && *(v56 + 184) < v34)
         {
-          LOWORD(v61) = v61 - 1;
-          if (*(v59 + 188) > v34)
+          LOWORD(v58) = v58 - 1;
+          if (*(v56 + 188) > v34)
           {
-            for (k = 0; ; k = v63 + 1)
+            for (k = 0; ; k = v60 + 1)
             {
               while (1)
               {
-                v63 = (k + v61) >> 1;
-                v64 = v60 + 88 * v63;
-                if (*(v64 + 48) <= v34)
+                v60 = (k + v58) >> 1;
+                v61 = v57 + 88 * v60;
+                if (*(v61 + 48) <= v34)
                 {
                   break;
                 }
 
-                LOWORD(v61) = v63 - 1;
+                LOWORD(v58) = v60 - 1;
               }
 
-              if (*(v64 + 52) > v34)
+              if (*(v61 + 52) > v34)
               {
                 break;
               }
             }
 
-            LODWORD(v61) = (k + v61) >> 1;
+            LODWORD(v58) = (k + v58) >> 1;
           }
         }
 
         else
         {
-          LOWORD(v61) = 0;
+          LOWORD(v58) = 0;
         }
 
-        v65 = v61;
-        v66 = v61;
-        v67 = geom::interpolating_spline<float>::evaluate_length_at(v60 + 88 * v61, v34);
-        if (v66)
+        v62 = v58;
+        v63 = v58;
+        v64 = geom::interpolating_spline<float>::evaluate_length_at(v57 + 88 * v58, v34);
+        if (v63)
         {
-          v68 = *(*(v59 + 48) + 4 * (v65 - 1));
+          v17 = *(*(v56 + 48) + 4 * (v62 - 1));
         }
 
         else
         {
-          v68 = 0.0;
+          v17 = 0.0;
         }
 
-        v11 = v83;
-        v13 = v84;
-        v37 = v82;
-        v38 = v68 + v67;
+        v11 = v79;
+        v13 = v80;
+        v37 = v78;
+        v38 = v17 + v64;
+        *&v38 = v38;
         goto LABEL_48;
       }
     }
 
-    v38 = v34;
+    *&v38 = v34;
   }
 
 LABEL_48:
   if (v31 < *a3)
   {
 LABEL_49:
-    v90 = v15;
-    v91 = (v15 + v14) * 0.5;
-    v92 = v10;
-    v93 = v37;
-    v94 = v11;
-    v95 = v36;
-    v96 = v31 + 1;
-    v88[0] = v91;
-    v88[1] = v14;
-    v88[2] = v36;
-    v88[3] = v13;
-    v88[4] = v38;
-    v88[5] = v12;
-    v89 = v31 + 1;
+    v86 = v15;
+    v87 = (v15 + v14) * 0.5;
+    v88 = v10;
+    v89 = v37;
+    v90 = v11;
+    v91 = v36;
+    v92 = v31 + 1;
+    v84[0] = v87;
+    v84[1] = v14;
+    v84[2] = v36;
+    v84[3] = v13;
+    v84[4] = *&v38;
+    v84[5] = v12;
+    v85 = v31 + 1;
     return;
   }
 
-  v69 = vextq_s8(vextq_s8(v85, v85, 4uLL), v86, 0xCuLL);
-  v69.i32[3] = v87;
-  v70 = vmulq_f32(v69, xmmword_2500C2090);
-  v71 = vaddv_f32(vadd_f32(*v70.i8, *&vextq_s8(v70, v70, 8uLL)));
-  v72 = vmulq_f32(v69, xmmword_2500C20A0);
-  v73 = vaddv_f32(vadd_f32(*v72.i8, *&vextq_s8(v72, v72, 8uLL)));
-  v74 = vmulq_f32(v69, xmmword_2500C20B0);
-  v75 = vaddv_f32(vadd_f32(*v74.i8, *&vextq_s8(v74, v74, 8uLL)));
+  v68 = vextq_s8(vextq_s8(v81, v81, 4uLL), v82, 0xCuLL);
+  v68.i32[3] = v83;
+  v69 = vmulq_f32(v68, xmmword_2500C2090);
+  v70 = vaddv_f32(vadd_f32(*v69.i8, *&vextq_s8(v69, v69, 8uLL)));
+  a7 = vmulq_f32(v68, xmmword_2500C20A0);
+  *a7.f32 = vadd_f32(*a7.f32, *&vextq_s8(a7, a7, 8uLL));
+  a7.f32[0] = vaddv_f32(*a7.f32);
+  v71 = vmulq_f32(v68, xmmword_2500C20B0);
+  v17 = COERCE_DOUBLE(vadd_f32(*v71.i8, *&vextq_s8(v71, v71, 8uLL)));
+  *&v17 = vaddv_f32(*&v17);
   if (*(a3 + 8) == 1)
   {
     if (fabsf(v32) <= 0.00001)
     {
-      if (fabsf(v71) > 0.00001)
+      if (fabsf(v70) > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v32 - v71) / v32) > a3[1])
+    else if (fabsf((v32 - v70) / v32) > a3[1])
     {
       goto LABEL_49;
     }
 
     if (fabsf(v33) <= 0.00001)
     {
-      if (fabsf(v73) > 0.00001)
+      a7.f32[0] = fabsf(a7.f32[0]);
+      if (a7.f32[0] > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v33 - v73) / v33) > a3[1])
+    else
     {
-      goto LABEL_49;
-    }
-
-    if (fabsf(v34) <= 0.00001)
-    {
-      if (fabsf(v75) > 0.00001)
+      a7.f32[0] = fabsf((v33 - a7.f32[0]) / v33);
+      if (a7.f32[0] > a3[1])
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v34 - v75) / v34) > a3[1])
+    a7.f32[0] = fabsf(v34);
+    if (a7.f32[0] <= 0.00001)
     {
-      goto LABEL_49;
+      *&v17 = fabsf(*&v17);
+      if (*&v17 > 0.00001)
+      {
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      *&v17 = fabsf((v34 - *&v17) / v34);
+      a7.f32[0] = a3[1];
+      if (*&v17 > a7.f32[0])
+      {
+        goto LABEL_49;
+      }
     }
 
     v18 = 1;
@@ -1876,52 +1897,64 @@ LABEL_49:
   {
     if (fabsf(v37) <= 0.00001)
     {
-      if (fabsf(v71) > 0.00001)
+      if (fabsf(v70) > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v37 - v71) / v37) > a3[1])
+    else if (fabsf((v37 - v70) / v37) > a3[1])
     {
       goto LABEL_49;
     }
 
     if (fabsf(v36) <= 0.00001)
     {
-      if (fabsf(v73) > 0.00001)
+      a7.f32[0] = fabsf(a7.f32[0]);
+      if (a7.f32[0] > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v36 - v73) / v36) > a3[1])
+    else
     {
-      goto LABEL_49;
-    }
-
-    if (fabsf(v38) <= 0.00001)
-    {
-      if (fabsf(v75) > 0.00001)
+      a7.f32[0] = fabsf((v36 - a7.f32[0]) / v36);
+      if (a7.f32[0] > a3[1])
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v38 - v75) / v38) > a3[1])
+    a7.f32[0] = fabsf(*&v38);
+    if (a7.f32[0] <= 0.00001)
     {
-      goto LABEL_49;
+      *&v17 = fabsf(*&v17);
+      if (*&v17 > 0.00001)
+      {
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      *&v17 = fabsf((*&v38 - *&v17) / *&v38);
+      a7.f32[0] = a3[1];
+      if (*&v17 > a7.f32[0])
+      {
+        goto LABEL_49;
+      }
     }
 
     v18 = 0;
   }
 
 LABEL_78:
-  v76 = *(a4 + 56);
-  v77 = v76 + 1;
+  v72 = *(a4 + 56);
+  v73 = v72 + 1;
   if (v18)
   {
-    if (v76 == 0xFFFF)
+    if (v72 == 0xFFFF)
     {
       *(a4 + 8) = *a4;
       *(a4 + 56) = 0;
@@ -1933,36 +1966,36 @@ LABEL_78:
 
     else
     {
-      std::vector<float>::resize(a4, (3 * v77 + 1));
-      *(a4 + 56) = v77;
+      std::vector<float>::resize(a4, (3 * v73 + 1));
+      *(a4 + 56) = v73;
       if ((*(a4 + 58) & 1) == 0)
       {
-        std::vector<float>::resize((a4 + 24), (v76 + 1) + 1);
+        std::vector<float>::resize((a4 + 24), (v72 + 1) + 1);
       }
     }
 
-    v78 = *a4;
-    if (v76)
+    v74 = *a4;
+    if (v72)
     {
-      v79 = *(a4 + 24);
+      v75 = *(a4 + 24);
     }
 
     else
     {
-      *v78 = v85.i32[0];
-      v79 = *(a4 + 24);
-      *v79 = v10;
+      *v74 = v81.i32[0];
+      v75 = *(a4 + 24);
+      *v75 = v10;
     }
 
-    v78[(3 * v76 + 1)] = v86.i32[0];
-    v78[(3 * v76 + 2)] = v86.i32[1];
-    v78[(3 * v76 + 3)] = v87;
-    v79[v77] = v12;
+    v74[(3 * v72 + 1)] = v82.i32[0];
+    v74[(3 * v72 + 2)] = v82.i32[1];
+    v74[(3 * v72 + 3)] = v83;
+    v75[v73] = v12;
   }
 
   else
   {
-    if (v76 == 0xFFFF)
+    if (v72 == 0xFFFF)
     {
       *(a4 + 8) = *a4;
       *(a4 + 56) = 0;
@@ -1974,31 +2007,31 @@ LABEL_78:
 
     else
     {
-      std::vector<float>::resize(a4, (3 * v77 + 1));
-      *(a4 + 56) = v77;
+      std::vector<float>::resize(a4, (3 * v73 + 1));
+      *(a4 + 56) = v73;
       if ((*(a4 + 58) & 1) == 0)
       {
-        std::vector<float>::resize((a4 + 24), (v76 + 1) + 1);
+        std::vector<float>::resize((a4 + 24), (v72 + 1) + 1);
       }
     }
 
-    v80 = *a4;
-    if (v76)
+    v76 = *a4;
+    if (v72)
     {
-      v81 = *(a4 + 24);
+      v77 = *(a4 + 24);
     }
 
     else
     {
-      *v80 = v85.i32[0];
-      v81 = *(a4 + 24);
-      *v81 = v15;
+      *v76 = v81.i32[0];
+      v77 = *(a4 + 24);
+      *v77 = v15;
     }
 
-    v80[(3 * v76 + 1)] = v86.i32[0];
-    v80[(3 * v76 + 2)] = v86.i32[1];
-    v80[(3 * v76 + 3)] = v87;
-    v81[v77] = v14;
+    v76[(3 * v72 + 1)] = v82.i32[0];
+    v76[(3 * v72 + 2)] = v82.i32[1];
+    v76[(3 * v72 + 3)] = v83;
+    v77[v73] = v14;
   }
 }
 
@@ -2062,21 +2095,21 @@ uint64_t geom::interpolating_spline<float>::interpolating_spline(uint64_t a1, ui
   return a1;
 }
 
-void *std::vector<float>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<float>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<float>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 2);
+    std::vector<float>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<float>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -2147,7 +2180,7 @@ void std::vector<float>::__append(std::vector<unsigned int> *this, std::vector<u
   }
 }
 
-void *std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:nn200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2330,36 +2363,36 @@ LABEL_23:
   return result;
 }
 
-double geom::interpolating_spline<double>::evaluate_span_length(uint64_t a1, unsigned __int16 a2)
+double geom::interpolating_spline<double>::evaluate_span_length(uint64_t a1, unsigned __int16 a2, __n128 a3)
 {
   if (*(a1 + 66) == 1)
   {
-    v2 = *(a1 + 64);
-    v3 = *(a1 + 56);
-    if (v2 == a2)
+    v3 = *(a1 + 64);
+    v4 = *(a1 + 56);
+    if (v3 == a2)
     {
-      v4 = *(a1 + 56);
+      v5 = *(a1 + 56);
     }
 
     else
     {
-      v4 = *(a1 + 48) + a2 * ((v3 - *(a1 + 48)) / v2);
+      v5 = *(a1 + 48) + a2 * ((v4 - *(a1 + 48)) / v3);
     }
 
-    if (v2 != (a2 + 1))
+    if (v3 != (a2 + 1))
     {
-      v3 = *(a1 + 48) + (a2 + 1) * ((v3 - *(a1 + 48)) / v2);
+      v4 = *(a1 + 48) + (a2 + 1) * ((v4 - *(a1 + 48)) / v3);
     }
   }
 
   else
   {
-    v5 = *(a1 + 24);
-    v4 = *(v5 + 8 * a2);
-    v3 = *(v5 + 8 * (a2 + 1));
+    v6 = *(a1 + 24);
+    v5 = *(v6 + 8 * a2);
+    v4 = *(v6 + 8 * (a2 + 1));
   }
 
-  return geom::interpolating_spline<double>::evaluate_length_betweeen(a1, v4, v3);
+  return geom::interpolating_spline<double>::evaluate_length_betweeen(a1, v5, v4);
 }
 
 double geom::interpolating_spline<double>::evaluate_length_betweeen(void *a1, double a2, double a3)
@@ -2987,21 +3020,21 @@ uint64_t geom::interpolating_spline<double>::interpolating_spline(uint64_t a1, u
   return a1;
 }
 
-void *std::vector<double>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<double>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<double>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<double>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<double>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3072,7 +3105,7 @@ void std::vector<double>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::vector<double>::__assign_with_size[abi:nn200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<double>::__assign_with_size[abi:nn200100]<double *,double *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3147,36 +3180,36 @@ void *std::vector<double>::__assign_with_size[abi:nn200100]<double *,double *>(v
   return result;
 }
 
-float _ZNK4geom20interpolating_splineIDv2_fE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2)
+float _ZNK4geom20interpolating_splineIDv2_fE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2, __n128 a3)
 {
   if (*(a1 + 58) == 1)
   {
-    v2 = *(a1 + 56);
-    v3 = *(a1 + 52);
-    if (v2 == a2)
+    v3 = *(a1 + 56);
+    v4 = *(a1 + 52);
+    if (v3 == a2)
     {
-      v4 = *(a1 + 52);
+      v5 = *(a1 + 52);
     }
 
     else
     {
-      v4 = *(a1 + 48) + (a2 * ((v3 - *(a1 + 48)) / v2));
+      v5 = *(a1 + 48) + (a2 * ((v4 - *(a1 + 48)) / v3));
     }
 
-    if (v2 != (a2 + 1))
+    if (v3 != (a2 + 1))
     {
-      v3 = *(a1 + 48) + ((a2 + 1) * ((v3 - *(a1 + 48)) / v2));
+      v4 = *(a1 + 48) + ((a2 + 1) * ((v4 - *(a1 + 48)) / v3));
     }
   }
 
   else
   {
-    v5 = *(a1 + 24);
-    v4 = *(v5 + 4 * a2);
-    v3 = *(v5 + 4 * (a2 + 1));
+    v6 = *(a1 + 24);
+    v5 = *(v6 + 4 * a2);
+    v4 = *(v6 + 4 * (a2 + 1));
   }
 
-  return _ZNK4geom20interpolating_splineIDv2_fE24evaluate_length_betweeenEff(a1, v4, v3);
+  return _ZNK4geom20interpolating_splineIDv2_fE24evaluate_length_betweeenEff(a1, v5, v4);
 }
 
 float _ZNK4geom20interpolating_splineIDv2_fE24evaluate_length_betweeenEff(void *a1, float a2, float a3)
@@ -3202,7 +3235,7 @@ float _ZNK4geom20interpolating_splineIDv2_fE24evaluate_length_betweeenEff(void *
   return v5 * v6;
 }
 
-void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(uint64_t *a1, uint64_t a2, float *a3, uint64_t a4, double a5, double a6, float64x2_t a7)
+void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(uint64_t *a1, uint64_t a2, float *a3, uint64_t a4, double a5, double a6, float32x4_t a7)
 {
   v10 = *(a2 + 8);
   v11 = *(a2 + 12);
@@ -3216,58 +3249,60 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
   if (v18 == 1)
   {
     v19 = (v16 + v17 * 2.0) * 0.333333333;
-    *a7.f64 = (v17 + v16 * 2.0) * 0.333333333;
+    a7.f32[0] = (v17 + v16 * 2.0) * 0.333333333;
     v20 = (v11 - v10) / (v12 - v10);
     v21 = (v13 - v10) / (v12 - v10);
     v22 = v20;
     v23 = 1.0 - v20;
     v24 = 1.0 - v21;
     v25 = -(v20 * v20);
-    *a7.f64 = (*a7.f64 + (-((v23 * v23) * v23) * v15)) + ((v20 * v25) * v14);
-    *(a7.f64 + 1) = (v19 + ((v24 * -(v24 * v24)) * v15)) + (-((v21 * v21) * v21) * v14);
+    a7.f32[0] = (a7.f32[0] + (-((v23 * v23) * v23) * v15)) + ((v20 * v25) * v14);
+    a7.f32[1] = (v19 + ((v24 * -(v24 * v24)) * v15)) + (-((v21 * v21) * v21) * v14);
     v26.f32[0] = (v21 * v21) * (1.0 - v21);
     v26.f32[1] = v25 * (1.0 - v20);
     v27.f32[0] = (1.0 - v21) * -(v21 * (1.0 - v21));
     v28 = v20 * (1.0 - v20);
     v27.f32[1] = v23 * v28;
     v29 = 1.0 / (v22 * 3.0 * v21 * ((v24 * -(v28 * v24)) + ((v21 * (v23 * v23)) * v24)));
-    v30 = vmul_f32(v26, *&a7.f64[0]);
-    *&a7.f64[0] = vmul_f32(v27, *&a7.f64[0]);
-    *&a7.f64[0] = vmul_n_f32(vadd_f32(vzip1_s32(v30, *&a7.f64[0]), vzip2_s32(v30, *&a7.f64[0])), v29);
-    v86 = a7;
-    v87 = *(a2 + 4);
-    LODWORD(a7.f64[0]) = *a2;
+    v30 = vmul_f32(v26, *a7.f32);
+    *a7.f32 = vmul_f32(v27, *a7.f32);
+    *a7.f32 = vmul_n_f32(vadd_f32(vzip1_s32(v30, *a7.f32), vzip2_s32(v30, *a7.f32)), v29);
+    v82 = a7;
+    v83 = *(a2 + 4);
+    a7.i32[0] = *a2;
   }
 
   else
   {
     a7 = vmulq_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(xmmword_2500C2050, v12), xmmword_2500C2060, v10), xmmword_2500C2070, v11), xmmword_2500C2080, v13), vdupq_n_s64(0x3FC5555555555555uLL));
-    *&a7.f64[0] = vcvt_f32_f64(a7);
-    v86 = a7;
-    v87 = *(a2 + 20);
-    LODWORD(a7.f64[0]) = *(a2 + 8);
+    *a7.f32 = vcvt_f32_f64(a7);
+    v82 = a7;
+    v83 = *(a2 + 20);
+    a7.i32[0] = *(a2 + 8);
   }
 
-  v85 = a7;
+  v81 = a7;
   v31 = *(a2 + 24);
   if (v31 >= *(a3 + 1))
   {
     goto LABEL_78;
   }
 
+  a7.i64[0] = 5.0;
   v32 = (v17 + v16 * 5.0) * 0.166666667;
   v33 = (v15 + v14) * 0.5;
-  v34 = (v16 + v17 * 5.0) * 0.166666667;
+  v38 = (v16 + v17 * 5.0) * 0.166666667;
+  v34 = v38;
   v35 = *a1;
   v36 = v33;
   v37 = v32;
-  v38 = v34;
+  *&v38 = v34;
   if ((*(*a1 + 192) & 1) == 0)
   {
     v39 = *(v35 + 72);
     v40 = 0x2E8BA2E8BA2E8BA3 * ((*(v35 + 80) - v39) >> 3);
-    v83 = *(a2 + 12);
-    v84 = *(a2 + 16);
+    v79 = *(a2 + 12);
+    v80 = *(a2 + 16);
     if ((v40 & 0xFFFE) != 0 && *(v35 + 184) < v32)
     {
       LOWORD(v40) = v40 - 1;
@@ -3307,19 +3342,19 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
     v46 = _ZNK4geom20interpolating_splineIDv2_fE18evaluate_length_atEf(v39 + 88 * v40, v32);
     if (v45)
     {
-      v47 = *(*(v35 + 48) + 4 * (v44 - 1));
+      v17 = *(*(v35 + 48) + 4 * (v44 - 1));
     }
 
     else
     {
-      v47 = 0.0;
+      v17 = 0.0;
     }
 
-    v11 = v83;
-    v13 = v84;
-    v48 = v47 + v46;
-    v37 = v48;
-    v49 = *a1;
+    v11 = v79;
+    v13 = v80;
+    v38 = v17 + v46;
+    v37 = v38;
+    v47 = *a1;
     if (*(*a1 + 192))
     {
       v36 = (v15 + v14) * 0.5;
@@ -3327,193 +3362,209 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
 
     else
     {
-      v50 = *(v49 + 72);
-      v51 = 0x2E8BA2E8BA2E8BA3 * ((*(v49 + 80) - v50) >> 3);
-      v82 = v48;
-      if ((v51 & 0xFFFE) != 0 && *(v49 + 184) < v33)
+      v48 = *(v47 + 72);
+      v49 = 0x2E8BA2E8BA2E8BA3 * ((*(v47 + 80) - v48) >> 3);
+      v78 = v38;
+      if ((v49 & 0xFFFE) != 0 && *(v47 + 184) < v33)
       {
-        LOWORD(v51) = v51 - 1;
-        if (*(v49 + 188) > v33)
+        LOWORD(v49) = v49 - 1;
+        if (*(v47 + 188) > v33)
         {
-          for (j = 0; ; j = v53 + 1)
+          for (j = 0; ; j = v51 + 1)
           {
             while (1)
             {
-              v53 = (j + v51) >> 1;
-              v54 = v50 + 88 * v53;
-              if (*(v54 + 48) <= v33)
+              v51 = (j + v49) >> 1;
+              v52 = v48 + 88 * v51;
+              if (*(v52 + 48) <= v33)
               {
                 break;
               }
 
-              LOWORD(v51) = v53 - 1;
+              LOWORD(v49) = v51 - 1;
             }
 
-            if (*(v54 + 52) > v33)
+            if (*(v52 + 52) > v33)
             {
               break;
             }
           }
 
-          LODWORD(v51) = (j + v51) >> 1;
+          LODWORD(v49) = (j + v49) >> 1;
         }
       }
 
       else
       {
-        LOWORD(v51) = 0;
+        LOWORD(v49) = 0;
       }
 
-      v55 = v51;
-      v56 = v51;
-      v57 = _ZNK4geom20interpolating_splineIDv2_fE18evaluate_length_atEf(v50 + 88 * v51, (v15 + v14) * 0.5);
-      if (v56)
+      v53 = v49;
+      v54 = v49;
+      v55 = _ZNK4geom20interpolating_splineIDv2_fE18evaluate_length_atEf(v48 + 88 * v49, (v15 + v14) * 0.5);
+      if (v54)
       {
-        v58 = *(*(v49 + 48) + 4 * (v55 - 1));
+        v17 = *(*(v47 + 48) + 4 * (v53 - 1));
       }
 
       else
       {
-        v58 = 0.0;
+        v17 = 0.0;
       }
 
-      v11 = v83;
-      v13 = v84;
-      v37 = v82;
-      v36 = v58 + v57;
-      v59 = *a1;
+      v11 = v79;
+      v13 = v80;
+      v37 = v78;
+      v38 = v17 + v55;
+      v36 = v38;
+      v56 = *a1;
       if ((*(*a1 + 192) & 1) == 0)
       {
-        v60 = *(v59 + 72);
-        v61 = 0x2E8BA2E8BA2E8BA3 * ((*(v59 + 80) - v60) >> 3);
-        if ((v61 & 0xFFFE) != 0 && *(v59 + 184) < v34)
+        v57 = *(v56 + 72);
+        v58 = 0x2E8BA2E8BA2E8BA3 * ((*(v56 + 80) - v57) >> 3);
+        if ((v58 & 0xFFFE) != 0 && *(v56 + 184) < v34)
         {
-          LOWORD(v61) = v61 - 1;
-          if (*(v59 + 188) > v34)
+          LOWORD(v58) = v58 - 1;
+          if (*(v56 + 188) > v34)
           {
-            for (k = 0; ; k = v63 + 1)
+            for (k = 0; ; k = v60 + 1)
             {
               while (1)
               {
-                v63 = (k + v61) >> 1;
-                v64 = v60 + 88 * v63;
-                if (*(v64 + 48) <= v34)
+                v60 = (k + v58) >> 1;
+                v61 = v57 + 88 * v60;
+                if (*(v61 + 48) <= v34)
                 {
                   break;
                 }
 
-                LOWORD(v61) = v63 - 1;
+                LOWORD(v58) = v60 - 1;
               }
 
-              if (*(v64 + 52) > v34)
+              if (*(v61 + 52) > v34)
               {
                 break;
               }
             }
 
-            LODWORD(v61) = (k + v61) >> 1;
+            LODWORD(v58) = (k + v58) >> 1;
           }
         }
 
         else
         {
-          LOWORD(v61) = 0;
+          LOWORD(v58) = 0;
         }
 
-        v65 = v61;
-        v66 = v61;
-        v67 = _ZNK4geom20interpolating_splineIDv2_fE18evaluate_length_atEf(v60 + 88 * v61, v34);
-        if (v66)
+        v62 = v58;
+        v63 = v58;
+        v64 = _ZNK4geom20interpolating_splineIDv2_fE18evaluate_length_atEf(v57 + 88 * v58, v34);
+        if (v63)
         {
-          v68 = *(*(v59 + 48) + 4 * (v65 - 1));
+          v17 = *(*(v56 + 48) + 4 * (v62 - 1));
         }
 
         else
         {
-          v68 = 0.0;
+          v17 = 0.0;
         }
 
-        v11 = v83;
-        v13 = v84;
-        v37 = v82;
-        v38 = v68 + v67;
+        v11 = v79;
+        v13 = v80;
+        v37 = v78;
+        v38 = v17 + v64;
+        *&v38 = v38;
         goto LABEL_48;
       }
     }
 
-    v38 = v34;
+    *&v38 = v34;
   }
 
 LABEL_48:
   if (v31 < *a3)
   {
 LABEL_49:
-    v90 = v15;
-    v91 = (v15 + v14) * 0.5;
-    v92 = v10;
-    v93 = v37;
-    v94 = v11;
-    v95 = v36;
-    v96 = v31 + 1;
-    v88[0] = v91;
-    v88[1] = v14;
-    v88[2] = v36;
-    v88[3] = v13;
-    v88[4] = v38;
-    v88[5] = v12;
-    v89 = v31 + 1;
-    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, &v90, a3, a4);
-    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, v88, a3, a4);
+    v86 = v15;
+    v87 = (v15 + v14) * 0.5;
+    v88 = v10;
+    v89 = v37;
+    v90 = v11;
+    v91 = v36;
+    v92 = v31 + 1;
+    v84[0] = v87;
+    v84[1] = v14;
+    v84[2] = v36;
+    v84[3] = v13;
+    v84[4] = *&v38;
+    v84[5] = v12;
+    v85 = v31 + 1;
+    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, &v86, a3, a4, v38, v17, a7);
+    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv2_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, v84, a3, a4, v65, v66, v67);
     return;
   }
 
-  v69 = vextq_s8(vextq_s8(v85, v85, 4uLL), v86, 0xCuLL);
-  v69.i32[3] = v87;
-  v70 = vmulq_f32(v69, xmmword_2500C2090);
-  v71 = vaddv_f32(vadd_f32(*v70.i8, *&vextq_s8(v70, v70, 8uLL)));
-  v72 = vmulq_f32(v69, xmmword_2500C20A0);
-  v73 = vaddv_f32(vadd_f32(*v72.i8, *&vextq_s8(v72, v72, 8uLL)));
-  v74 = vmulq_f32(v69, xmmword_2500C20B0);
-  v75 = vaddv_f32(vadd_f32(*v74.i8, *&vextq_s8(v74, v74, 8uLL)));
+  v68 = vextq_s8(vextq_s8(v81, v81, 4uLL), v82, 0xCuLL);
+  v68.i32[3] = v83;
+  v69 = vmulq_f32(v68, xmmword_2500C2090);
+  v70 = vaddv_f32(vadd_f32(*v69.i8, *&vextq_s8(v69, v69, 8uLL)));
+  a7 = vmulq_f32(v68, xmmword_2500C20A0);
+  *a7.f32 = vadd_f32(*a7.f32, *&vextq_s8(a7, a7, 8uLL));
+  a7.f32[0] = vaddv_f32(*a7.f32);
+  v71 = vmulq_f32(v68, xmmword_2500C20B0);
+  v17 = COERCE_DOUBLE(vadd_f32(*v71.i8, *&vextq_s8(v71, v71, 8uLL)));
+  *&v17 = vaddv_f32(*&v17);
   if (*(a3 + 8) == 1)
   {
     if (fabsf(v32) <= 0.00001)
     {
-      if (fabsf(v71) > 0.00001)
+      if (fabsf(v70) > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v32 - v71) / v32) > a3[1])
+    else if (fabsf((v32 - v70) / v32) > a3[1])
     {
       goto LABEL_49;
     }
 
     if (fabsf(v33) <= 0.00001)
     {
-      if (fabsf(v73) > 0.00001)
+      a7.f32[0] = fabsf(a7.f32[0]);
+      if (a7.f32[0] > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v33 - v73) / v33) > a3[1])
+    else
     {
-      goto LABEL_49;
-    }
-
-    if (fabsf(v34) <= 0.00001)
-    {
-      if (fabsf(v75) > 0.00001)
+      a7.f32[0] = fabsf((v33 - a7.f32[0]) / v33);
+      if (a7.f32[0] > a3[1])
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v34 - v75) / v34) > a3[1])
+    a7.f32[0] = fabsf(v34);
+    if (a7.f32[0] <= 0.00001)
     {
-      goto LABEL_49;
+      *&v17 = fabsf(*&v17);
+      if (*&v17 > 0.00001)
+      {
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      *&v17 = fabsf((v34 - *&v17) / v34);
+      a7.f32[0] = a3[1];
+      if (*&v17 > a7.f32[0])
+      {
+        goto LABEL_49;
+      }
     }
 
     v18 = 1;
@@ -3523,52 +3574,64 @@ LABEL_49:
   {
     if (fabsf(v37) <= 0.00001)
     {
-      if (fabsf(v71) > 0.00001)
+      if (fabsf(v70) > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v37 - v71) / v37) > a3[1])
+    else if (fabsf((v37 - v70) / v37) > a3[1])
     {
       goto LABEL_49;
     }
 
     if (fabsf(v36) <= 0.00001)
     {
-      if (fabsf(v73) > 0.00001)
+      a7.f32[0] = fabsf(a7.f32[0]);
+      if (a7.f32[0] > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v36 - v73) / v36) > a3[1])
+    else
     {
-      goto LABEL_49;
-    }
-
-    if (fabsf(v38) <= 0.00001)
-    {
-      if (fabsf(v75) > 0.00001)
+      a7.f32[0] = fabsf((v36 - a7.f32[0]) / v36);
+      if (a7.f32[0] > a3[1])
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v38 - v75) / v38) > a3[1])
+    a7.f32[0] = fabsf(*&v38);
+    if (a7.f32[0] <= 0.00001)
     {
-      goto LABEL_49;
+      *&v17 = fabsf(*&v17);
+      if (*&v17 > 0.00001)
+      {
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      *&v17 = fabsf((*&v38 - *&v17) / *&v38);
+      a7.f32[0] = a3[1];
+      if (*&v17 > a7.f32[0])
+      {
+        goto LABEL_49;
+      }
     }
 
     v18 = 0;
   }
 
 LABEL_78:
-  v76 = *(a4 + 56);
-  v77 = v76 + 1;
+  v72 = *(a4 + 56);
+  v73 = v72 + 1;
   if (v18)
   {
-    if (v76 == 0xFFFF)
+    if (v72 == 0xFFFF)
     {
       *(a4 + 8) = *a4;
       *(a4 + 56) = 0;
@@ -3580,36 +3643,36 @@ LABEL_78:
 
     else
     {
-      std::vector<float>::resize(a4, (3 * v77 + 1));
-      *(a4 + 56) = v77;
+      std::vector<float>::resize(a4, (3 * v73 + 1));
+      *(a4 + 56) = v73;
       if ((*(a4 + 58) & 1) == 0)
       {
-        std::vector<float>::resize((a4 + 24), (v76 + 1) + 1);
+        std::vector<float>::resize((a4 + 24), (v72 + 1) + 1);
       }
     }
 
-    v78 = *a4;
-    if (v76)
+    v74 = *a4;
+    if (v72)
     {
-      v79 = *(a4 + 24);
+      v75 = *(a4 + 24);
     }
 
     else
     {
-      *v78 = v85.i32[0];
-      v79 = *(a4 + 24);
-      *v79 = v10;
+      *v74 = v81.i32[0];
+      v75 = *(a4 + 24);
+      *v75 = v10;
     }
 
-    v78[(3 * v76 + 1)] = v86.i32[0];
-    v78[(3 * v76 + 2)] = v86.i32[1];
-    v78[(3 * v76 + 3)] = v87;
-    v79[v77] = v12;
+    v74[(3 * v72 + 1)] = v82.i32[0];
+    v74[(3 * v72 + 2)] = v82.i32[1];
+    v74[(3 * v72 + 3)] = v83;
+    v75[v73] = v12;
   }
 
   else
   {
-    if (v76 == 0xFFFF)
+    if (v72 == 0xFFFF)
     {
       *(a4 + 8) = *a4;
       *(a4 + 56) = 0;
@@ -3621,31 +3684,31 @@ LABEL_78:
 
     else
     {
-      std::vector<float>::resize(a4, (3 * v77 + 1));
-      *(a4 + 56) = v77;
+      std::vector<float>::resize(a4, (3 * v73 + 1));
+      *(a4 + 56) = v73;
       if ((*(a4 + 58) & 1) == 0)
       {
-        std::vector<float>::resize((a4 + 24), (v76 + 1) + 1);
+        std::vector<float>::resize((a4 + 24), (v72 + 1) + 1);
       }
     }
 
-    v80 = *a4;
-    if (v76)
+    v76 = *a4;
+    if (v72)
     {
-      v81 = *(a4 + 24);
+      v77 = *(a4 + 24);
     }
 
     else
     {
-      *v80 = v85.i32[0];
-      v81 = *(a4 + 24);
-      *v81 = v15;
+      *v76 = v81.i32[0];
+      v77 = *(a4 + 24);
+      *v77 = v15;
     }
 
-    v80[(3 * v76 + 1)] = v86.i32[0];
-    v80[(3 * v76 + 2)] = v86.i32[1];
-    v80[(3 * v76 + 3)] = v87;
-    v81[v77] = v14;
+    v76[(3 * v72 + 1)] = v82.i32[0];
+    v76[(3 * v72 + 2)] = v82.i32[1];
+    v76[(3 * v72 + 3)] = v83;
+    v77[v73] = v14;
   }
 }
 
@@ -3772,36 +3835,36 @@ void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEm(uint64_t a1, unint64_
   }
 }
 
-float _ZNK4geom20interpolating_splineIDv3_fE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2)
+float _ZNK4geom20interpolating_splineIDv3_fE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2, __n128 a3)
 {
   if (*(a1 + 58) == 1)
   {
-    v2 = *(a1 + 56);
-    v3 = *(a1 + 52);
-    if (v2 == a2)
+    v3 = *(a1 + 56);
+    v4 = *(a1 + 52);
+    if (v3 == a2)
     {
-      v4 = *(a1 + 52);
+      v5 = *(a1 + 52);
     }
 
     else
     {
-      v4 = *(a1 + 48) + (a2 * ((v3 - *(a1 + 48)) / v2));
+      v5 = *(a1 + 48) + (a2 * ((v4 - *(a1 + 48)) / v3));
     }
 
-    if (v2 != (a2 + 1))
+    if (v3 != (a2 + 1))
     {
-      v3 = *(a1 + 48) + ((a2 + 1) * ((v3 - *(a1 + 48)) / v2));
+      v4 = *(a1 + 48) + ((a2 + 1) * ((v4 - *(a1 + 48)) / v3));
     }
   }
 
   else
   {
-    v5 = *(a1 + 24);
-    v4 = *(v5 + 4 * a2);
-    v3 = *(v5 + 4 * (a2 + 1));
+    v6 = *(a1 + 24);
+    v5 = *(v6 + 4 * a2);
+    v4 = *(v6 + 4 * (a2 + 1));
   }
 
-  return _ZNK4geom20interpolating_splineIDv3_fE24evaluate_length_betweeenEff(a1, v4, v3);
+  return _ZNK4geom20interpolating_splineIDv3_fE24evaluate_length_betweeenEff(a1, v5, v4);
 }
 
 float _ZNK4geom20interpolating_splineIDv3_fE24evaluate_length_betweeenEff(void *a1, float a2, float a3)
@@ -3828,7 +3891,7 @@ float _ZNK4geom20interpolating_splineIDv3_fE24evaluate_length_betweeenEff(void *
   return v5 * v6;
 }
 
-void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(uint64_t *a1, uint64_t a2, float *a3, uint64_t a4, double a5, double a6, float64x2_t a7)
+void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(uint64_t *a1, uint64_t a2, float *a3, uint64_t a4, double a5, double a6, float32x4_t a7)
 {
   v10 = *(a2 + 8);
   v11 = *(a2 + 12);
@@ -3842,58 +3905,60 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
   if (v18 == 1)
   {
     v19 = (v16 + v17 * 2.0) * 0.333333333;
-    *a7.f64 = (v17 + v16 * 2.0) * 0.333333333;
+    a7.f32[0] = (v17 + v16 * 2.0) * 0.333333333;
     v20 = (v11 - v10) / (v12 - v10);
     v21 = (v13 - v10) / (v12 - v10);
     v22 = v20;
     v23 = 1.0 - v20;
     v24 = 1.0 - v21;
     v25 = -(v20 * v20);
-    *a7.f64 = (*a7.f64 + (-((v23 * v23) * v23) * v15)) + ((v20 * v25) * v14);
-    *(a7.f64 + 1) = (v19 + ((v24 * -(v24 * v24)) * v15)) + (-((v21 * v21) * v21) * v14);
+    a7.f32[0] = (a7.f32[0] + (-((v23 * v23) * v23) * v15)) + ((v20 * v25) * v14);
+    a7.f32[1] = (v19 + ((v24 * -(v24 * v24)) * v15)) + (-((v21 * v21) * v21) * v14);
     v26.f32[0] = (v21 * v21) * (1.0 - v21);
     v26.f32[1] = v25 * (1.0 - v20);
     v27.f32[0] = (1.0 - v21) * -(v21 * (1.0 - v21));
     v28 = v20 * (1.0 - v20);
     v27.f32[1] = v23 * v28;
     v29 = 1.0 / (v22 * 3.0 * v21 * ((v24 * -(v28 * v24)) + ((v21 * (v23 * v23)) * v24)));
-    v30 = vmul_f32(v26, *&a7.f64[0]);
-    *&a7.f64[0] = vmul_f32(v27, *&a7.f64[0]);
-    *&a7.f64[0] = vmul_n_f32(vadd_f32(vzip1_s32(v30, *&a7.f64[0]), vzip2_s32(v30, *&a7.f64[0])), v29);
-    v86 = a7;
-    v87 = *(a2 + 4);
-    LODWORD(a7.f64[0]) = *a2;
+    v30 = vmul_f32(v26, *a7.f32);
+    *a7.f32 = vmul_f32(v27, *a7.f32);
+    *a7.f32 = vmul_n_f32(vadd_f32(vzip1_s32(v30, *a7.f32), vzip2_s32(v30, *a7.f32)), v29);
+    v82 = a7;
+    v83 = *(a2 + 4);
+    a7.i32[0] = *a2;
   }
 
   else
   {
     a7 = vmulq_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(xmmword_2500C2050, v12), xmmword_2500C2060, v10), xmmword_2500C2070, v11), xmmword_2500C2080, v13), vdupq_n_s64(0x3FC5555555555555uLL));
-    *&a7.f64[0] = vcvt_f32_f64(a7);
-    v86 = a7;
-    v87 = *(a2 + 20);
-    LODWORD(a7.f64[0]) = *(a2 + 8);
+    *a7.f32 = vcvt_f32_f64(a7);
+    v82 = a7;
+    v83 = *(a2 + 20);
+    a7.i32[0] = *(a2 + 8);
   }
 
-  v85 = a7;
+  v81 = a7;
   v31 = *(a2 + 24);
   if (v31 >= *(a3 + 1))
   {
     goto LABEL_78;
   }
 
+  a7.i64[0] = 5.0;
   v32 = (v17 + v16 * 5.0) * 0.166666667;
   v33 = (v15 + v14) * 0.5;
-  v34 = (v16 + v17 * 5.0) * 0.166666667;
+  v38 = (v16 + v17 * 5.0) * 0.166666667;
+  v34 = v38;
   v35 = *a1;
   v36 = v33;
   v37 = v32;
-  v38 = v34;
+  *&v38 = v34;
   if ((*(*a1 + 192) & 1) == 0)
   {
     v39 = *(v35 + 72);
     v40 = 0x2E8BA2E8BA2E8BA3 * ((*(v35 + 80) - v39) >> 3);
-    v83 = *(a2 + 12);
-    v84 = *(a2 + 16);
+    v79 = *(a2 + 12);
+    v80 = *(a2 + 16);
     if ((v40 & 0xFFFE) != 0 && *(v35 + 184) < v32)
     {
       LOWORD(v40) = v40 - 1;
@@ -3933,19 +3998,19 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
     v46 = _ZNK4geom20interpolating_splineIDv3_fE18evaluate_length_atEf(v39 + 88 * v40, v32);
     if (v45)
     {
-      v47 = *(*(v35 + 48) + 4 * (v44 - 1));
+      v17 = *(*(v35 + 48) + 4 * (v44 - 1));
     }
 
     else
     {
-      v47 = 0.0;
+      v17 = 0.0;
     }
 
-    v11 = v83;
-    v13 = v84;
-    v48 = v47 + v46;
-    v37 = v48;
-    v49 = *a1;
+    v11 = v79;
+    v13 = v80;
+    v38 = v17 + v46;
+    v37 = v38;
+    v47 = *a1;
     if (*(*a1 + 192))
     {
       v36 = (v15 + v14) * 0.5;
@@ -3953,193 +4018,209 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
 
     else
     {
-      v50 = *(v49 + 72);
-      v51 = 0x2E8BA2E8BA2E8BA3 * ((*(v49 + 80) - v50) >> 3);
-      v82 = v48;
-      if ((v51 & 0xFFFE) != 0 && *(v49 + 184) < v33)
+      v48 = *(v47 + 72);
+      v49 = 0x2E8BA2E8BA2E8BA3 * ((*(v47 + 80) - v48) >> 3);
+      v78 = v38;
+      if ((v49 & 0xFFFE) != 0 && *(v47 + 184) < v33)
       {
-        LOWORD(v51) = v51 - 1;
-        if (*(v49 + 188) > v33)
+        LOWORD(v49) = v49 - 1;
+        if (*(v47 + 188) > v33)
         {
-          for (j = 0; ; j = v53 + 1)
+          for (j = 0; ; j = v51 + 1)
           {
             while (1)
             {
-              v53 = (j + v51) >> 1;
-              v54 = v50 + 88 * v53;
-              if (*(v54 + 48) <= v33)
+              v51 = (j + v49) >> 1;
+              v52 = v48 + 88 * v51;
+              if (*(v52 + 48) <= v33)
               {
                 break;
               }
 
-              LOWORD(v51) = v53 - 1;
+              LOWORD(v49) = v51 - 1;
             }
 
-            if (*(v54 + 52) > v33)
+            if (*(v52 + 52) > v33)
             {
               break;
             }
           }
 
-          LODWORD(v51) = (j + v51) >> 1;
+          LODWORD(v49) = (j + v49) >> 1;
         }
       }
 
       else
       {
-        LOWORD(v51) = 0;
+        LOWORD(v49) = 0;
       }
 
-      v55 = v51;
-      v56 = v51;
-      v57 = _ZNK4geom20interpolating_splineIDv3_fE18evaluate_length_atEf(v50 + 88 * v51, (v15 + v14) * 0.5);
-      if (v56)
+      v53 = v49;
+      v54 = v49;
+      v55 = _ZNK4geom20interpolating_splineIDv3_fE18evaluate_length_atEf(v48 + 88 * v49, (v15 + v14) * 0.5);
+      if (v54)
       {
-        v58 = *(*(v49 + 48) + 4 * (v55 - 1));
+        v17 = *(*(v47 + 48) + 4 * (v53 - 1));
       }
 
       else
       {
-        v58 = 0.0;
+        v17 = 0.0;
       }
 
-      v11 = v83;
-      v13 = v84;
-      v37 = v82;
-      v36 = v58 + v57;
-      v59 = *a1;
+      v11 = v79;
+      v13 = v80;
+      v37 = v78;
+      v38 = v17 + v55;
+      v36 = v38;
+      v56 = *a1;
       if ((*(*a1 + 192) & 1) == 0)
       {
-        v60 = *(v59 + 72);
-        v61 = 0x2E8BA2E8BA2E8BA3 * ((*(v59 + 80) - v60) >> 3);
-        if ((v61 & 0xFFFE) != 0 && *(v59 + 184) < v34)
+        v57 = *(v56 + 72);
+        v58 = 0x2E8BA2E8BA2E8BA3 * ((*(v56 + 80) - v57) >> 3);
+        if ((v58 & 0xFFFE) != 0 && *(v56 + 184) < v34)
         {
-          LOWORD(v61) = v61 - 1;
-          if (*(v59 + 188) > v34)
+          LOWORD(v58) = v58 - 1;
+          if (*(v56 + 188) > v34)
           {
-            for (k = 0; ; k = v63 + 1)
+            for (k = 0; ; k = v60 + 1)
             {
               while (1)
               {
-                v63 = (k + v61) >> 1;
-                v64 = v60 + 88 * v63;
-                if (*(v64 + 48) <= v34)
+                v60 = (k + v58) >> 1;
+                v61 = v57 + 88 * v60;
+                if (*(v61 + 48) <= v34)
                 {
                   break;
                 }
 
-                LOWORD(v61) = v63 - 1;
+                LOWORD(v58) = v60 - 1;
               }
 
-              if (*(v64 + 52) > v34)
+              if (*(v61 + 52) > v34)
               {
                 break;
               }
             }
 
-            LODWORD(v61) = (k + v61) >> 1;
+            LODWORD(v58) = (k + v58) >> 1;
           }
         }
 
         else
         {
-          LOWORD(v61) = 0;
+          LOWORD(v58) = 0;
         }
 
-        v65 = v61;
-        v66 = v61;
-        v67 = _ZNK4geom20interpolating_splineIDv3_fE18evaluate_length_atEf(v60 + 88 * v61, v34);
-        if (v66)
+        v62 = v58;
+        v63 = v58;
+        v64 = _ZNK4geom20interpolating_splineIDv3_fE18evaluate_length_atEf(v57 + 88 * v58, v34);
+        if (v63)
         {
-          v68 = *(*(v59 + 48) + 4 * (v65 - 1));
+          v17 = *(*(v56 + 48) + 4 * (v62 - 1));
         }
 
         else
         {
-          v68 = 0.0;
+          v17 = 0.0;
         }
 
-        v11 = v83;
-        v13 = v84;
-        v37 = v82;
-        v38 = v68 + v67;
+        v11 = v79;
+        v13 = v80;
+        v37 = v78;
+        v38 = v17 + v64;
+        *&v38 = v38;
         goto LABEL_48;
       }
     }
 
-    v38 = v34;
+    *&v38 = v34;
   }
 
 LABEL_48:
   if (v31 < *a3)
   {
 LABEL_49:
-    v90 = v15;
-    v91 = (v15 + v14) * 0.5;
-    v92 = v10;
-    v93 = v37;
-    v94 = v11;
-    v95 = v36;
-    v96 = v31 + 1;
-    v88[0] = v91;
-    v88[1] = v14;
-    v88[2] = v36;
-    v88[3] = v13;
-    v88[4] = v38;
-    v88[5] = v12;
-    v89 = v31 + 1;
-    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, &v90, a3, a4);
-    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, v88, a3, a4);
+    v86 = v15;
+    v87 = (v15 + v14) * 0.5;
+    v88 = v10;
+    v89 = v37;
+    v90 = v11;
+    v91 = v36;
+    v92 = v31 + 1;
+    v84[0] = v87;
+    v84[1] = v14;
+    v84[2] = v36;
+    v84[3] = v13;
+    v84[4] = *&v38;
+    v84[5] = v12;
+    v85 = v31 + 1;
+    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, &v86, a3, a4, v38, v17, a7);
+    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv3_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, v84, a3, a4, v65, v66, v67);
     return;
   }
 
-  v69 = vextq_s8(vextq_s8(v85, v85, 4uLL), v86, 0xCuLL);
-  v69.i32[3] = v87;
-  v70 = vmulq_f32(v69, xmmword_2500C2090);
-  v71 = vaddv_f32(vadd_f32(*v70.i8, *&vextq_s8(v70, v70, 8uLL)));
-  v72 = vmulq_f32(v69, xmmword_2500C20A0);
-  v73 = vaddv_f32(vadd_f32(*v72.i8, *&vextq_s8(v72, v72, 8uLL)));
-  v74 = vmulq_f32(v69, xmmword_2500C20B0);
-  v75 = vaddv_f32(vadd_f32(*v74.i8, *&vextq_s8(v74, v74, 8uLL)));
+  v68 = vextq_s8(vextq_s8(v81, v81, 4uLL), v82, 0xCuLL);
+  v68.i32[3] = v83;
+  v69 = vmulq_f32(v68, xmmword_2500C2090);
+  v70 = vaddv_f32(vadd_f32(*v69.i8, *&vextq_s8(v69, v69, 8uLL)));
+  a7 = vmulq_f32(v68, xmmword_2500C20A0);
+  *a7.f32 = vadd_f32(*a7.f32, *&vextq_s8(a7, a7, 8uLL));
+  a7.f32[0] = vaddv_f32(*a7.f32);
+  v71 = vmulq_f32(v68, xmmword_2500C20B0);
+  v17 = COERCE_DOUBLE(vadd_f32(*v71.i8, *&vextq_s8(v71, v71, 8uLL)));
+  *&v17 = vaddv_f32(*&v17);
   if (*(a3 + 8) == 1)
   {
     if (fabsf(v32) <= 0.00001)
     {
-      if (fabsf(v71) > 0.00001)
+      if (fabsf(v70) > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v32 - v71) / v32) > a3[1])
+    else if (fabsf((v32 - v70) / v32) > a3[1])
     {
       goto LABEL_49;
     }
 
     if (fabsf(v33) <= 0.00001)
     {
-      if (fabsf(v73) > 0.00001)
+      a7.f32[0] = fabsf(a7.f32[0]);
+      if (a7.f32[0] > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v33 - v73) / v33) > a3[1])
+    else
     {
-      goto LABEL_49;
-    }
-
-    if (fabsf(v34) <= 0.00001)
-    {
-      if (fabsf(v75) > 0.00001)
+      a7.f32[0] = fabsf((v33 - a7.f32[0]) / v33);
+      if (a7.f32[0] > a3[1])
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v34 - v75) / v34) > a3[1])
+    a7.f32[0] = fabsf(v34);
+    if (a7.f32[0] <= 0.00001)
     {
-      goto LABEL_49;
+      *&v17 = fabsf(*&v17);
+      if (*&v17 > 0.00001)
+      {
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      *&v17 = fabsf((v34 - *&v17) / v34);
+      a7.f32[0] = a3[1];
+      if (*&v17 > a7.f32[0])
+      {
+        goto LABEL_49;
+      }
     }
 
     v18 = 1;
@@ -4149,52 +4230,64 @@ LABEL_49:
   {
     if (fabsf(v37) <= 0.00001)
     {
-      if (fabsf(v71) > 0.00001)
+      if (fabsf(v70) > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v37 - v71) / v37) > a3[1])
+    else if (fabsf((v37 - v70) / v37) > a3[1])
     {
       goto LABEL_49;
     }
 
     if (fabsf(v36) <= 0.00001)
     {
-      if (fabsf(v73) > 0.00001)
+      a7.f32[0] = fabsf(a7.f32[0]);
+      if (a7.f32[0] > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v36 - v73) / v36) > a3[1])
+    else
     {
-      goto LABEL_49;
-    }
-
-    if (fabsf(v38) <= 0.00001)
-    {
-      if (fabsf(v75) > 0.00001)
+      a7.f32[0] = fabsf((v36 - a7.f32[0]) / v36);
+      if (a7.f32[0] > a3[1])
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v38 - v75) / v38) > a3[1])
+    a7.f32[0] = fabsf(*&v38);
+    if (a7.f32[0] <= 0.00001)
     {
-      goto LABEL_49;
+      *&v17 = fabsf(*&v17);
+      if (*&v17 > 0.00001)
+      {
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      *&v17 = fabsf((*&v38 - *&v17) / *&v38);
+      a7.f32[0] = a3[1];
+      if (*&v17 > a7.f32[0])
+      {
+        goto LABEL_49;
+      }
     }
 
     v18 = 0;
   }
 
 LABEL_78:
-  v76 = *(a4 + 56);
-  v77 = v76 + 1;
+  v72 = *(a4 + 56);
+  v73 = v72 + 1;
   if (v18)
   {
-    if (v76 == 0xFFFF)
+    if (v72 == 0xFFFF)
     {
       *(a4 + 8) = *a4;
       *(a4 + 56) = 0;
@@ -4206,36 +4299,36 @@ LABEL_78:
 
     else
     {
-      std::vector<float>::resize(a4, (3 * v77 + 1));
-      *(a4 + 56) = v77;
+      std::vector<float>::resize(a4, (3 * v73 + 1));
+      *(a4 + 56) = v73;
       if ((*(a4 + 58) & 1) == 0)
       {
-        std::vector<float>::resize((a4 + 24), (v76 + 1) + 1);
+        std::vector<float>::resize((a4 + 24), (v72 + 1) + 1);
       }
     }
 
-    v78 = *a4;
-    if (v76)
+    v74 = *a4;
+    if (v72)
     {
-      v79 = *(a4 + 24);
+      v75 = *(a4 + 24);
     }
 
     else
     {
-      *v78 = v85.i32[0];
-      v79 = *(a4 + 24);
-      *v79 = v10;
+      *v74 = v81.i32[0];
+      v75 = *(a4 + 24);
+      *v75 = v10;
     }
 
-    v78[(3 * v76 + 1)] = v86.i32[0];
-    v78[(3 * v76 + 2)] = v86.i32[1];
-    v78[(3 * v76 + 3)] = v87;
-    v79[v77] = v12;
+    v74[(3 * v72 + 1)] = v82.i32[0];
+    v74[(3 * v72 + 2)] = v82.i32[1];
+    v74[(3 * v72 + 3)] = v83;
+    v75[v73] = v12;
   }
 
   else
   {
-    if (v76 == 0xFFFF)
+    if (v72 == 0xFFFF)
     {
       *(a4 + 8) = *a4;
       *(a4 + 56) = 0;
@@ -4247,31 +4340,31 @@ LABEL_78:
 
     else
     {
-      std::vector<float>::resize(a4, (3 * v77 + 1));
-      *(a4 + 56) = v77;
+      std::vector<float>::resize(a4, (3 * v73 + 1));
+      *(a4 + 56) = v73;
       if ((*(a4 + 58) & 1) == 0)
       {
-        std::vector<float>::resize((a4 + 24), (v76 + 1) + 1);
+        std::vector<float>::resize((a4 + 24), (v72 + 1) + 1);
       }
     }
 
-    v80 = *a4;
-    if (v76)
+    v76 = *a4;
+    if (v72)
     {
-      v81 = *(a4 + 24);
+      v77 = *(a4 + 24);
     }
 
     else
     {
-      *v80 = v85.i32[0];
-      v81 = *(a4 + 24);
-      *v81 = v15;
+      *v76 = v81.i32[0];
+      v77 = *(a4 + 24);
+      *v77 = v15;
     }
 
-    v80[(3 * v76 + 1)] = v86.i32[0];
-    v80[(3 * v76 + 2)] = v86.i32[1];
-    v80[(3 * v76 + 3)] = v87;
-    v81[v77] = v14;
+    v76[(3 * v72 + 1)] = v82.i32[0];
+    v76[(3 * v72 + 2)] = v82.i32[1];
+    v76[(3 * v72 + 3)] = v83;
+    v77[v73] = v14;
   }
 }
 
@@ -4335,50 +4428,50 @@ uint64_t _ZN4geom20interpolating_splineIDv3_fEC2ERKS2_(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8nn200100ERKS4_(void *result, void *a2)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8nn200100ERKS4_(uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(result, (v2 - *a2) >> 4);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(a1, (v2 - *a2) >> 4);
   }
 
-  return result;
+  return a1;
 }
 
-float _ZNK4geom20interpolating_splineIDv4_fE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2)
+float _ZNK4geom20interpolating_splineIDv4_fE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2, __n128 a3)
 {
   if (*(a1 + 58) == 1)
   {
-    v2 = *(a1 + 56);
-    v3 = *(a1 + 52);
-    if (v2 == a2)
+    v3 = *(a1 + 56);
+    v4 = *(a1 + 52);
+    if (v3 == a2)
     {
-      v4 = *(a1 + 52);
+      v5 = *(a1 + 52);
     }
 
     else
     {
-      v4 = *(a1 + 48) + (a2 * ((v3 - *(a1 + 48)) / v2));
+      v5 = *(a1 + 48) + (a2 * ((v4 - *(a1 + 48)) / v3));
     }
 
-    if (v2 != (a2 + 1))
+    if (v3 != (a2 + 1))
     {
-      v3 = *(a1 + 48) + ((a2 + 1) * ((v3 - *(a1 + 48)) / v2));
+      v4 = *(a1 + 48) + ((a2 + 1) * ((v4 - *(a1 + 48)) / v3));
     }
   }
 
   else
   {
-    v5 = *(a1 + 24);
-    v4 = *(v5 + 4 * a2);
-    v3 = *(v5 + 4 * (a2 + 1));
+    v6 = *(a1 + 24);
+    v5 = *(v6 + 4 * a2);
+    v4 = *(v6 + 4 * (a2 + 1));
   }
 
-  return _ZNK4geom20interpolating_splineIDv4_fE24evaluate_length_betweeenEff(a1, v4, v3);
+  return _ZNK4geom20interpolating_splineIDv4_fE24evaluate_length_betweeenEff(a1, v5, v4);
 }
 
 float _ZNK4geom20interpolating_splineIDv4_fE24evaluate_length_betweeenEff(void *a1, float a2, float a3)
@@ -4405,7 +4498,7 @@ float _ZNK4geom20interpolating_splineIDv4_fE24evaluate_length_betweeenEff(void *
   return v5 * v6;
 }
 
-void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(uint64_t *a1, uint64_t a2, float *a3, uint64_t a4, double a5, double a6, float64x2_t a7)
+void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(uint64_t *a1, uint64_t a2, float *a3, uint64_t a4, double a5, double a6, float32x4_t a7)
 {
   v10 = *(a2 + 8);
   v11 = *(a2 + 12);
@@ -4419,58 +4512,60 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
   if (v18 == 1)
   {
     v19 = (v16 + v17 * 2.0) * 0.333333333;
-    *a7.f64 = (v17 + v16 * 2.0) * 0.333333333;
+    a7.f32[0] = (v17 + v16 * 2.0) * 0.333333333;
     v20 = (v11 - v10) / (v12 - v10);
     v21 = (v13 - v10) / (v12 - v10);
     v22 = v20;
     v23 = 1.0 - v20;
     v24 = 1.0 - v21;
     v25 = -(v20 * v20);
-    *a7.f64 = (*a7.f64 + (-((v23 * v23) * v23) * v15)) + ((v20 * v25) * v14);
-    *(a7.f64 + 1) = (v19 + ((v24 * -(v24 * v24)) * v15)) + (-((v21 * v21) * v21) * v14);
+    a7.f32[0] = (a7.f32[0] + (-((v23 * v23) * v23) * v15)) + ((v20 * v25) * v14);
+    a7.f32[1] = (v19 + ((v24 * -(v24 * v24)) * v15)) + (-((v21 * v21) * v21) * v14);
     v26.f32[0] = (v21 * v21) * (1.0 - v21);
     v26.f32[1] = v25 * (1.0 - v20);
     v27.f32[0] = (1.0 - v21) * -(v21 * (1.0 - v21));
     v28 = v20 * (1.0 - v20);
     v27.f32[1] = v23 * v28;
     v29 = 1.0 / (v22 * 3.0 * v21 * ((v24 * -(v28 * v24)) + ((v21 * (v23 * v23)) * v24)));
-    v30 = vmul_f32(v26, *&a7.f64[0]);
-    *&a7.f64[0] = vmul_f32(v27, *&a7.f64[0]);
-    *&a7.f64[0] = vmul_n_f32(vadd_f32(vzip1_s32(v30, *&a7.f64[0]), vzip2_s32(v30, *&a7.f64[0])), v29);
-    v86 = a7;
-    v87 = *(a2 + 4);
-    LODWORD(a7.f64[0]) = *a2;
+    v30 = vmul_f32(v26, *a7.f32);
+    *a7.f32 = vmul_f32(v27, *a7.f32);
+    *a7.f32 = vmul_n_f32(vadd_f32(vzip1_s32(v30, *a7.f32), vzip2_s32(v30, *a7.f32)), v29);
+    v82 = a7;
+    v83 = *(a2 + 4);
+    a7.i32[0] = *a2;
   }
 
   else
   {
     a7 = vmulq_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(xmmword_2500C2050, v12), xmmword_2500C2060, v10), xmmword_2500C2070, v11), xmmword_2500C2080, v13), vdupq_n_s64(0x3FC5555555555555uLL));
-    *&a7.f64[0] = vcvt_f32_f64(a7);
-    v86 = a7;
-    v87 = *(a2 + 20);
-    LODWORD(a7.f64[0]) = *(a2 + 8);
+    *a7.f32 = vcvt_f32_f64(a7);
+    v82 = a7;
+    v83 = *(a2 + 20);
+    a7.i32[0] = *(a2 + 8);
   }
 
-  v85 = a7;
+  v81 = a7;
   v31 = *(a2 + 24);
   if (v31 >= *(a3 + 1))
   {
     goto LABEL_78;
   }
 
+  a7.i64[0] = 5.0;
   v32 = (v17 + v16 * 5.0) * 0.166666667;
   v33 = (v15 + v14) * 0.5;
-  v34 = (v16 + v17 * 5.0) * 0.166666667;
+  v38 = (v16 + v17 * 5.0) * 0.166666667;
+  v34 = v38;
   v35 = *a1;
   v36 = v33;
   v37 = v32;
-  v38 = v34;
+  *&v38 = v34;
   if ((*(*a1 + 192) & 1) == 0)
   {
     v39 = *(v35 + 72);
     v40 = 0x2E8BA2E8BA2E8BA3 * ((*(v35 + 80) - v39) >> 3);
-    v83 = *(a2 + 12);
-    v84 = *(a2 + 16);
+    v79 = *(a2 + 12);
+    v80 = *(a2 + 16);
     if ((v40 & 0xFFFE) != 0 && *(v35 + 184) < v32)
     {
       LOWORD(v40) = v40 - 1;
@@ -4510,19 +4605,19 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
     v46 = _ZNK4geom20interpolating_splineIDv4_fE18evaluate_length_atEf(v39 + 88 * v40, v32);
     if (v45)
     {
-      v47 = *(*(v35 + 48) + 4 * (v44 - 1));
+      v17 = *(*(v35 + 48) + 4 * (v44 - 1));
     }
 
     else
     {
-      v47 = 0.0;
+      v17 = 0.0;
     }
 
-    v11 = v83;
-    v13 = v84;
-    v48 = v47 + v46;
-    v37 = v48;
-    v49 = *a1;
+    v11 = v79;
+    v13 = v80;
+    v38 = v17 + v46;
+    v37 = v38;
+    v47 = *a1;
     if (*(*a1 + 192))
     {
       v36 = (v15 + v14) * 0.5;
@@ -4530,193 +4625,209 @@ void _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpol
 
     else
     {
-      v50 = *(v49 + 72);
-      v51 = 0x2E8BA2E8BA2E8BA3 * ((*(v49 + 80) - v50) >> 3);
-      v82 = v48;
-      if ((v51 & 0xFFFE) != 0 && *(v49 + 184) < v33)
+      v48 = *(v47 + 72);
+      v49 = 0x2E8BA2E8BA2E8BA3 * ((*(v47 + 80) - v48) >> 3);
+      v78 = v38;
+      if ((v49 & 0xFFFE) != 0 && *(v47 + 184) < v33)
       {
-        LOWORD(v51) = v51 - 1;
-        if (*(v49 + 188) > v33)
+        LOWORD(v49) = v49 - 1;
+        if (*(v47 + 188) > v33)
         {
-          for (j = 0; ; j = v53 + 1)
+          for (j = 0; ; j = v51 + 1)
           {
             while (1)
             {
-              v53 = (j + v51) >> 1;
-              v54 = v50 + 88 * v53;
-              if (*(v54 + 48) <= v33)
+              v51 = (j + v49) >> 1;
+              v52 = v48 + 88 * v51;
+              if (*(v52 + 48) <= v33)
               {
                 break;
               }
 
-              LOWORD(v51) = v53 - 1;
+              LOWORD(v49) = v51 - 1;
             }
 
-            if (*(v54 + 52) > v33)
+            if (*(v52 + 52) > v33)
             {
               break;
             }
           }
 
-          LODWORD(v51) = (j + v51) >> 1;
+          LODWORD(v49) = (j + v49) >> 1;
         }
       }
 
       else
       {
-        LOWORD(v51) = 0;
+        LOWORD(v49) = 0;
       }
 
-      v55 = v51;
-      v56 = v51;
-      v57 = _ZNK4geom20interpolating_splineIDv4_fE18evaluate_length_atEf(v50 + 88 * v51, (v15 + v14) * 0.5);
-      if (v56)
+      v53 = v49;
+      v54 = v49;
+      v55 = _ZNK4geom20interpolating_splineIDv4_fE18evaluate_length_atEf(v48 + 88 * v49, (v15 + v14) * 0.5);
+      if (v54)
       {
-        v58 = *(*(v49 + 48) + 4 * (v55 - 1));
+        v17 = *(*(v47 + 48) + 4 * (v53 - 1));
       }
 
       else
       {
-        v58 = 0.0;
+        v17 = 0.0;
       }
 
-      v11 = v83;
-      v13 = v84;
-      v37 = v82;
-      v36 = v58 + v57;
-      v59 = *a1;
+      v11 = v79;
+      v13 = v80;
+      v37 = v78;
+      v38 = v17 + v55;
+      v36 = v38;
+      v56 = *a1;
       if ((*(*a1 + 192) & 1) == 0)
       {
-        v60 = *(v59 + 72);
-        v61 = 0x2E8BA2E8BA2E8BA3 * ((*(v59 + 80) - v60) >> 3);
-        if ((v61 & 0xFFFE) != 0 && *(v59 + 184) < v34)
+        v57 = *(v56 + 72);
+        v58 = 0x2E8BA2E8BA2E8BA3 * ((*(v56 + 80) - v57) >> 3);
+        if ((v58 & 0xFFFE) != 0 && *(v56 + 184) < v34)
         {
-          LOWORD(v61) = v61 - 1;
-          if (*(v59 + 188) > v34)
+          LOWORD(v58) = v58 - 1;
+          if (*(v56 + 188) > v34)
           {
-            for (k = 0; ; k = v63 + 1)
+            for (k = 0; ; k = v60 + 1)
             {
               while (1)
               {
-                v63 = (k + v61) >> 1;
-                v64 = v60 + 88 * v63;
-                if (*(v64 + 48) <= v34)
+                v60 = (k + v58) >> 1;
+                v61 = v57 + 88 * v60;
+                if (*(v61 + 48) <= v34)
                 {
                   break;
                 }
 
-                LOWORD(v61) = v63 - 1;
+                LOWORD(v58) = v60 - 1;
               }
 
-              if (*(v64 + 52) > v34)
+              if (*(v61 + 52) > v34)
               {
                 break;
               }
             }
 
-            LODWORD(v61) = (k + v61) >> 1;
+            LODWORD(v58) = (k + v58) >> 1;
           }
         }
 
         else
         {
-          LOWORD(v61) = 0;
+          LOWORD(v58) = 0;
         }
 
-        v65 = v61;
-        v66 = v61;
-        v67 = _ZNK4geom20interpolating_splineIDv4_fE18evaluate_length_atEf(v60 + 88 * v61, v34);
-        if (v66)
+        v62 = v58;
+        v63 = v58;
+        v64 = _ZNK4geom20interpolating_splineIDv4_fE18evaluate_length_atEf(v57 + 88 * v58, v34);
+        if (v63)
         {
-          v68 = *(*(v59 + 48) + 4 * (v65 - 1));
+          v17 = *(*(v56 + 48) + 4 * (v62 - 1));
         }
 
         else
         {
-          v68 = 0.0;
+          v17 = 0.0;
         }
 
-        v11 = v83;
-        v13 = v84;
-        v37 = v82;
-        v38 = v68 + v67;
+        v11 = v79;
+        v13 = v80;
+        v37 = v78;
+        v38 = v17 + v64;
+        *&v38 = v38;
         goto LABEL_48;
       }
     }
 
-    v38 = v34;
+    *&v38 = v34;
   }
 
 LABEL_48:
   if (v31 < *a3)
   {
 LABEL_49:
-    v90 = v15;
-    v91 = (v15 + v14) * 0.5;
-    v92 = v10;
-    v93 = v37;
-    v94 = v11;
-    v95 = v36;
-    v96 = v31 + 1;
-    v88[0] = v91;
-    v88[1] = v14;
-    v88[2] = v36;
-    v88[3] = v13;
-    v88[4] = v38;
-    v88[5] = v12;
-    v89 = v31 + 1;
-    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, &v90, a3, a4);
-    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, v88, a3, a4);
+    v86 = v15;
+    v87 = (v15 + v14) * 0.5;
+    v88 = v10;
+    v89 = v37;
+    v90 = v11;
+    v91 = v36;
+    v92 = v31 + 1;
+    v84[0] = v87;
+    v84[1] = v14;
+    v84[2] = v36;
+    v84[3] = v13;
+    v84[4] = *&v38;
+    v84[5] = v12;
+    v85 = v31 + 1;
+    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, &v86, a3, a4, v38, v17, a7);
+    _ZN4geom12_GLOBAL__N_136fit_function_with_spline_recursivelyIZNS_19interpolating_curveIDv4_fE12build_helperERKNSt3__16vectorINS_17interpolating_keyIS3_EENS5_9allocatorIS8_EEEEbEUlfE_fEEvRKT_RKNS0_17fit_function_dataIT0_EERKNS0_20fit_function_optionsERNS_20interpolating_splineISJ_EE(a1, v84, a3, a4, v65, v66, v67);
     return;
   }
 
-  v69 = vextq_s8(vextq_s8(v85, v85, 4uLL), v86, 0xCuLL);
-  v69.i32[3] = v87;
-  v70 = vmulq_f32(v69, xmmword_2500C2090);
-  v71 = vaddv_f32(vadd_f32(*v70.i8, *&vextq_s8(v70, v70, 8uLL)));
-  v72 = vmulq_f32(v69, xmmword_2500C20A0);
-  v73 = vaddv_f32(vadd_f32(*v72.i8, *&vextq_s8(v72, v72, 8uLL)));
-  v74 = vmulq_f32(v69, xmmword_2500C20B0);
-  v75 = vaddv_f32(vadd_f32(*v74.i8, *&vextq_s8(v74, v74, 8uLL)));
+  v68 = vextq_s8(vextq_s8(v81, v81, 4uLL), v82, 0xCuLL);
+  v68.i32[3] = v83;
+  v69 = vmulq_f32(v68, xmmword_2500C2090);
+  v70 = vaddv_f32(vadd_f32(*v69.i8, *&vextq_s8(v69, v69, 8uLL)));
+  a7 = vmulq_f32(v68, xmmword_2500C20A0);
+  *a7.f32 = vadd_f32(*a7.f32, *&vextq_s8(a7, a7, 8uLL));
+  a7.f32[0] = vaddv_f32(*a7.f32);
+  v71 = vmulq_f32(v68, xmmword_2500C20B0);
+  v17 = COERCE_DOUBLE(vadd_f32(*v71.i8, *&vextq_s8(v71, v71, 8uLL)));
+  *&v17 = vaddv_f32(*&v17);
   if (*(a3 + 8) == 1)
   {
     if (fabsf(v32) <= 0.00001)
     {
-      if (fabsf(v71) > 0.00001)
+      if (fabsf(v70) > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v32 - v71) / v32) > a3[1])
+    else if (fabsf((v32 - v70) / v32) > a3[1])
     {
       goto LABEL_49;
     }
 
     if (fabsf(v33) <= 0.00001)
     {
-      if (fabsf(v73) > 0.00001)
+      a7.f32[0] = fabsf(a7.f32[0]);
+      if (a7.f32[0] > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v33 - v73) / v33) > a3[1])
+    else
     {
-      goto LABEL_49;
-    }
-
-    if (fabsf(v34) <= 0.00001)
-    {
-      if (fabsf(v75) > 0.00001)
+      a7.f32[0] = fabsf((v33 - a7.f32[0]) / v33);
+      if (a7.f32[0] > a3[1])
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v34 - v75) / v34) > a3[1])
+    a7.f32[0] = fabsf(v34);
+    if (a7.f32[0] <= 0.00001)
     {
-      goto LABEL_49;
+      *&v17 = fabsf(*&v17);
+      if (*&v17 > 0.00001)
+      {
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      *&v17 = fabsf((v34 - *&v17) / v34);
+      a7.f32[0] = a3[1];
+      if (*&v17 > a7.f32[0])
+      {
+        goto LABEL_49;
+      }
     }
 
     v18 = 1;
@@ -4726,52 +4837,64 @@ LABEL_49:
   {
     if (fabsf(v37) <= 0.00001)
     {
-      if (fabsf(v71) > 0.00001)
+      if (fabsf(v70) > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v37 - v71) / v37) > a3[1])
+    else if (fabsf((v37 - v70) / v37) > a3[1])
     {
       goto LABEL_49;
     }
 
     if (fabsf(v36) <= 0.00001)
     {
-      if (fabsf(v73) > 0.00001)
+      a7.f32[0] = fabsf(a7.f32[0]);
+      if (a7.f32[0] > 0.00001)
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v36 - v73) / v36) > a3[1])
+    else
     {
-      goto LABEL_49;
-    }
-
-    if (fabsf(v38) <= 0.00001)
-    {
-      if (fabsf(v75) > 0.00001)
+      a7.f32[0] = fabsf((v36 - a7.f32[0]) / v36);
+      if (a7.f32[0] > a3[1])
       {
         goto LABEL_49;
       }
     }
 
-    else if (fabsf((v38 - v75) / v38) > a3[1])
+    a7.f32[0] = fabsf(*&v38);
+    if (a7.f32[0] <= 0.00001)
     {
-      goto LABEL_49;
+      *&v17 = fabsf(*&v17);
+      if (*&v17 > 0.00001)
+      {
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      *&v17 = fabsf((*&v38 - *&v17) / *&v38);
+      a7.f32[0] = a3[1];
+      if (*&v17 > a7.f32[0])
+      {
+        goto LABEL_49;
+      }
     }
 
     v18 = 0;
   }
 
 LABEL_78:
-  v76 = *(a4 + 56);
-  v77 = v76 + 1;
+  v72 = *(a4 + 56);
+  v73 = v72 + 1;
   if (v18)
   {
-    if (v76 == 0xFFFF)
+    if (v72 == 0xFFFF)
     {
       *(a4 + 8) = *a4;
       *(a4 + 56) = 0;
@@ -4783,36 +4906,36 @@ LABEL_78:
 
     else
     {
-      std::vector<float>::resize(a4, (3 * v77 + 1));
-      *(a4 + 56) = v77;
+      std::vector<float>::resize(a4, (3 * v73 + 1));
+      *(a4 + 56) = v73;
       if ((*(a4 + 58) & 1) == 0)
       {
-        std::vector<float>::resize((a4 + 24), (v76 + 1) + 1);
+        std::vector<float>::resize((a4 + 24), (v72 + 1) + 1);
       }
     }
 
-    v78 = *a4;
-    if (v76)
+    v74 = *a4;
+    if (v72)
     {
-      v79 = *(a4 + 24);
+      v75 = *(a4 + 24);
     }
 
     else
     {
-      *v78 = v85.i32[0];
-      v79 = *(a4 + 24);
-      *v79 = v10;
+      *v74 = v81.i32[0];
+      v75 = *(a4 + 24);
+      *v75 = v10;
     }
 
-    v78[(3 * v76 + 1)] = v86.i32[0];
-    v78[(3 * v76 + 2)] = v86.i32[1];
-    v78[(3 * v76 + 3)] = v87;
-    v79[v77] = v12;
+    v74[(3 * v72 + 1)] = v82.i32[0];
+    v74[(3 * v72 + 2)] = v82.i32[1];
+    v74[(3 * v72 + 3)] = v83;
+    v75[v73] = v12;
   }
 
   else
   {
-    if (v76 == 0xFFFF)
+    if (v72 == 0xFFFF)
     {
       *(a4 + 8) = *a4;
       *(a4 + 56) = 0;
@@ -4824,64 +4947,64 @@ LABEL_78:
 
     else
     {
-      std::vector<float>::resize(a4, (3 * v77 + 1));
-      *(a4 + 56) = v77;
+      std::vector<float>::resize(a4, (3 * v73 + 1));
+      *(a4 + 56) = v73;
       if ((*(a4 + 58) & 1) == 0)
       {
-        std::vector<float>::resize((a4 + 24), (v76 + 1) + 1);
+        std::vector<float>::resize((a4 + 24), (v72 + 1) + 1);
       }
     }
 
-    v80 = *a4;
-    if (v76)
+    v76 = *a4;
+    if (v72)
     {
-      v81 = *(a4 + 24);
+      v77 = *(a4 + 24);
     }
 
     else
     {
-      *v80 = v85.i32[0];
-      v81 = *(a4 + 24);
-      *v81 = v15;
+      *v76 = v81.i32[0];
+      v77 = *(a4 + 24);
+      *v77 = v15;
     }
 
-    v80[(3 * v76 + 1)] = v86.i32[0];
-    v80[(3 * v76 + 2)] = v86.i32[1];
-    v80[(3 * v76 + 3)] = v87;
-    v81[v77] = v14;
+    v76[(3 * v72 + 1)] = v82.i32[0];
+    v76[(3 * v72 + 2)] = v82.i32[1];
+    v76[(3 * v72 + 3)] = v83;
+    v77[v73] = v14;
   }
 }
 
-double _ZNK4geom20interpolating_splineIDv2_dE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2)
+double _ZNK4geom20interpolating_splineIDv2_dE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2, __n128 a3)
 {
   if (*(a1 + 66) == 1)
   {
-    v2 = *(a1 + 64);
-    v3 = *(a1 + 56);
-    if (v2 == a2)
+    v3 = *(a1 + 64);
+    v4 = *(a1 + 56);
+    if (v3 == a2)
     {
-      v4 = *(a1 + 56);
+      v5 = *(a1 + 56);
     }
 
     else
     {
-      v4 = *(a1 + 48) + a2 * ((v3 - *(a1 + 48)) / v2);
+      v5 = *(a1 + 48) + a2 * ((v4 - *(a1 + 48)) / v3);
     }
 
-    if (v2 != (a2 + 1))
+    if (v3 != (a2 + 1))
     {
-      v3 = *(a1 + 48) + (a2 + 1) * ((v3 - *(a1 + 48)) / v2);
+      v4 = *(a1 + 48) + (a2 + 1) * ((v4 - *(a1 + 48)) / v3);
     }
   }
 
   else
   {
-    v5 = *(a1 + 24);
-    v4 = *(v5 + 8 * a2);
-    v3 = *(v5 + 8 * (a2 + 1));
+    v6 = *(a1 + 24);
+    v5 = *(v6 + 8 * a2);
+    v4 = *(v6 + 8 * (a2 + 1));
   }
 
-  return _ZNK4geom20interpolating_splineIDv2_dE24evaluate_length_betweeenEdd(a1, v4, v3);
+  return _ZNK4geom20interpolating_splineIDv2_dE24evaluate_length_betweeenEdd(a1, v5, v4);
 }
 
 double _ZNK4geom20interpolating_splineIDv2_dE24evaluate_length_betweeenEdd(void *a1, double a2, double a3)
@@ -5430,36 +5553,36 @@ uint64_t _ZN4geom20interpolating_splineIDv2_dEC2ERKS2_(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-double _ZNK4geom20interpolating_splineIDv3_dE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2)
+double _ZNK4geom20interpolating_splineIDv3_dE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2, __n128 a3)
 {
   if (*(a1 + 66) == 1)
   {
-    v2 = *(a1 + 64);
-    v3 = *(a1 + 56);
-    if (v2 == a2)
+    v3 = *(a1 + 64);
+    v4 = *(a1 + 56);
+    if (v3 == a2)
     {
-      v4 = *(a1 + 56);
+      v5 = *(a1 + 56);
     }
 
     else
     {
-      v4 = *(a1 + 48) + a2 * ((v3 - *(a1 + 48)) / v2);
+      v5 = *(a1 + 48) + a2 * ((v4 - *(a1 + 48)) / v3);
     }
 
-    if (v2 != (a2 + 1))
+    if (v3 != (a2 + 1))
     {
-      v3 = *(a1 + 48) + (a2 + 1) * ((v3 - *(a1 + 48)) / v2);
+      v4 = *(a1 + 48) + (a2 + 1) * ((v4 - *(a1 + 48)) / v3);
     }
   }
 
   else
   {
-    v5 = *(a1 + 24);
-    v4 = *(v5 + 8 * a2);
-    v3 = *(v5 + 8 * (a2 + 1));
+    v6 = *(a1 + 24);
+    v5 = *(v6 + 8 * a2);
+    v4 = *(v6 + 8 * (a2 + 1));
   }
 
-  return _ZNK4geom20interpolating_splineIDv3_dE24evaluate_length_betweeenEdd(a1, v4, v3);
+  return _ZNK4geom20interpolating_splineIDv3_dE24evaluate_length_betweeenEdd(a1, v5, v4);
 }
 
 double _ZNK4geom20interpolating_splineIDv3_dE24evaluate_length_betweeenEdd(void *a1, double a2, double a3)
@@ -6021,50 +6144,50 @@ uint64_t _ZN4geom20interpolating_splineIDv3_dEC2ERKS2_(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *_ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEEC2B8nn200100ERKS4_(void *result, void *a2)
+uint64_t *_ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEEC2B8nn200100ERKS4_(uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(result, (v2 - *a2) >> 5);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(a1, (v2 - *a2) >> 5);
   }
 
-  return result;
+  return a1;
 }
 
-double _ZNK4geom20interpolating_splineIDv4_dE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2)
+double _ZNK4geom20interpolating_splineIDv4_dE20evaluate_span_lengthEj(uint64_t a1, unsigned __int16 a2, __n128 a3)
 {
   if (*(a1 + 66) == 1)
   {
-    v2 = *(a1 + 64);
-    v3 = *(a1 + 56);
-    if (v2 == a2)
+    v3 = *(a1 + 64);
+    v4 = *(a1 + 56);
+    if (v3 == a2)
     {
-      v4 = *(a1 + 56);
+      v5 = *(a1 + 56);
     }
 
     else
     {
-      v4 = *(a1 + 48) + a2 * ((v3 - *(a1 + 48)) / v2);
+      v5 = *(a1 + 48) + a2 * ((v4 - *(a1 + 48)) / v3);
     }
 
-    if (v2 != (a2 + 1))
+    if (v3 != (a2 + 1))
     {
-      v3 = *(a1 + 48) + (a2 + 1) * ((v3 - *(a1 + 48)) / v2);
+      v4 = *(a1 + 48) + (a2 + 1) * ((v4 - *(a1 + 48)) / v3);
     }
   }
 
   else
   {
-    v5 = *(a1 + 24);
-    v4 = *(v5 + 8 * a2);
-    v3 = *(v5 + 8 * (a2 + 1));
+    v6 = *(a1 + 24);
+    v5 = *(v6 + 8 * a2);
+    v4 = *(v6 + 8 * (a2 + 1));
   }
 
-  return _ZNK4geom20interpolating_splineIDv4_dE24evaluate_length_betweeenEdd(a1, v4, v3);
+  return _ZNK4geom20interpolating_splineIDv4_dE24evaluate_length_betweeenEdd(a1, v5, v4);
 }
 
 double _ZNK4geom20interpolating_splineIDv4_dE24evaluate_length_betweeenEdd(void *a1, double a2, double a3)
@@ -6557,31 +6680,37 @@ LABEL_82:
   }
 }
 
-float geom::convex_hull_triangulated_3<float>(unint64_t a1, const void *a2, void *a3)
+float geom::convex_hull_triangulated_3<float>(unint64_t a1, float32x4_t *a2, void *a3, uint64_t a4, float a5)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   if (a1)
   {
-    if (a1 <= 3)
+    if (a1 > 3)
+    {
+      v8 = a1;
+    }
+
+    else
     {
       memcpy(__dst, a2, 16 * a1);
-      v4 = __dst[0];
-      v5 = a1;
+      v7 = __dst[0];
+      v8 = 4;
+      v9 = a1;
       do
       {
-        __dst[v5++] = v4;
+        __dst[v9++] = v7;
       }
 
-      while (v5 != 4);
+      while (v9 != 4);
+      a2 = __dst;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0.0;
 }
 
-void geom::anonymous namespace::hull_mesh<float>::hull_mesh(_OWORD *a1)
+void geom::anonymous namespace::hull_mesh<float>::hull_mesh(_OWORD *a1, float32x4_t *a2, uint64_t a3, float a4)
 {
   a1[6] = 0u;
   a1[10] = 0u;
@@ -6598,56 +6727,44 @@ void geom::anonymous namespace::hull_mesh<float>::hull_mesh(_OWORD *a1)
   operator new();
 }
 
-void geom::anonymous namespace::hull_mesh<float>::compute_hull(float32x4_t *a1)
+void geom::anonymous namespace::hull_mesh<float>::compute_hull(float32x4_t *a1, unsigned int a2)
 {
   v106 = *MEMORY[0x277D85DE8];
-  v2 = a1[6].i64[0];
-  v3 = a1[6].i64[1];
-  v4 = *v2;
-  v5 = v3 - v2;
-  if (v5 < 2)
+  v3 = a1[6].i64[0];
+  v4 = a1[6].i64[1];
+  v5 = *v3;
+  v6 = v4 - v3;
+  if (v6 < 2)
   {
-    v7 = 0;
-    v6 = 0;
     v8 = 0;
-    v15 = *v2;
-    v13 = *v2;
-    v12 = *v2;
-    v11 = *v2;
-    v14 = 0;
-    v10 = *v2;
+    v7 = 0;
+    v9 = 0;
+    v16 = *v3;
+    v14 = *v3;
+    v13 = *v3;
+    v12 = *v3;
+    v15 = 0;
+    v11 = *v3;
   }
 
   else
   {
-    v6 = 0;
     v7 = 0;
     v8 = 0;
-    v9 = 1;
-    v10 = *v2;
-    v11 = *v2;
-    v12 = *v2;
-    v13 = *v2;
-    v14 = 0;
-    v15 = *v2;
+    v9 = 0;
+    v10 = 1;
+    v11 = *v3;
+    v12 = *v3;
+    v13 = *v3;
+    v14 = *v3;
+    v15 = 0;
+    v16 = *v3;
     do
     {
-      v16 = v2[v9];
-      if (vmovn_s32(vcgtq_f32(v10, v16)).u8[0])
+      v17 = v3[v10];
+      if (vmovn_s32(vcgtq_f32(v11, v17)).u8[0])
       {
-        v7 = v9;
-        v17 = -1;
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-
-      v10 = vbslq_s8(vdupq_n_s32(v17), v16, v10);
-      if (vmovn_s32(vcgtq_f32(v16, v11)).u8[0])
-      {
-        v6 = v9;
+        v8 = v10;
         v18 = -1;
       }
 
@@ -6656,250 +6773,261 @@ void geom::anonymous namespace::hull_mesh<float>::compute_hull(float32x4_t *a1)
         v18 = 0;
       }
 
-      v11 = vbslq_s8(vdupq_n_s32(v18), v16, v11);
-      v19 = vcgt_f32(vzip2_s32(*v12.i8, *v16.f32), vzip2_s32(*v16.f32, *v13.i8));
-      v12 = vbslq_s8(vmovl_s16(vdup_lane_s16(v19, 0)), v16, v12);
-      v20 = vdup_n_s32(v9);
-      v8 = vbsl_s8(v19, v20, v8);
-      v13 = vbslq_s8(vmovl_s16(vdup_lane_s16(v19, 2)), v16, v13);
-      v21 = vextq_s8(v16, v16, 8uLL).u64[0];
-      v22 = vcgt_f32(vzip1_s32(*&vextq_s8(v4, v4, 8uLL), v21), vzip1_s32(v21, *&vextq_s8(v15, v15, 8uLL)));
-      v4 = vbslq_s8(vmovl_s16(vdup_lane_s16(v22, 0)), v16, v4);
-      v15 = vbslq_s8(vmovl_s16(vdup_lane_s16(v22, 2)), v16, v15);
-      v14 = vbsl_s8(v22, v20, v14);
-      v9 = (v9 + 1);
+      v11 = vbslq_s8(vdupq_n_s32(v18), v17, v11);
+      if (vmovn_s32(vcgtq_f32(v17, v12)).u8[0])
+      {
+        v7 = v10;
+        v19 = -1;
+      }
+
+      else
+      {
+        v19 = 0;
+      }
+
+      v12 = vbslq_s8(vdupq_n_s32(v19), v17, v12);
+      v20 = vcgt_f32(vzip2_s32(*v13.i8, *v17.i8), vzip2_s32(*v17.i8, *v14.i8));
+      v13 = vbslq_s8(vmovl_s16(vdup_lane_s16(v20, 0)), v17, v13);
+      v21 = vdup_n_s32(v10);
+      v9 = vbsl_s8(v20, v21, v9);
+      v14 = vbslq_s8(vmovl_s16(vdup_lane_s16(v20, 2)), v17, v14);
+      v22 = vextq_s8(v17, v17, 8uLL).u64[0];
+      v23 = vcgt_f32(vzip1_s32(*&vextq_s8(v5, v5, 8uLL), v22), vzip1_s32(v22, *&vextq_s8(v16, v16, 8uLL)));
+      v5 = vbslq_s8(vmovl_s16(vdup_lane_s16(v23, 0)), v17, v5);
+      v16 = vbslq_s8(vmovl_s16(vdup_lane_s16(v23, 2)), v17, v16);
+      v15 = vbsl_s8(v23, v21, v15);
+      v10 = (v10 + 1);
     }
 
-    while (v5 > v9);
+    while (v6 > v10);
   }
 
-  v23 = 0;
   v24 = 0;
   v25 = 0;
   v26 = 0;
-  v102 = v10;
-  v103 = v11;
-  v27 = v104;
-  v104[0] = v12;
-  v104[1] = v13;
-  v104[2] = v4;
-  v104[3] = v15;
-  v105.__begin_ = __PAIR64__(v6, v7);
+  v27 = 0;
+  v102 = v11;
+  v103 = v12;
+  v28 = v104;
+  v104[0] = v13;
+  v104[1] = v14;
+  v104[2] = v5;
+  v104[3] = v16;
+  v105.__begin_ = __PAIR64__(v7, v8);
   p_end = &v105.__end_;
-  v29 = -1.0;
-  v30 = 1;
-  v105.__end_ = v8;
-  v105.__end_cap_.__value_ = v14;
+  v30 = -1.0;
+  v31 = 1;
+  v105.__end_ = v9;
+  v105.__end_cap_.__value_ = v15;
   do
   {
-    if (v26 <= 4)
+    if (v27 <= 4)
     {
-      v31 = *(&v102 + v26);
-      v32 = v27;
-      v33 = p_end;
-      v34 = v30;
+      v32 = *(&v102 + v27);
+      v33 = v28;
+      v34 = p_end;
+      v35 = v31;
       do
       {
-        if (v34 <= 4)
+        if (v35 <= 4)
         {
-          v35 = 0;
-          v36 = vsubq_f32(*(&v102 + v34), v31);
-          v37 = vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL);
-          v38 = vnegq_f32(v36);
+          v36 = 0;
+          v37 = vsubq_f32(*(&v102 + v35), v32);
+          v38 = vextq_s8(vuzp1q_s32(v37, v37), v37, 0xCuLL);
+          v39 = vnegq_f32(v37);
           do
           {
-            v39 = vsubq_f32(v32[v35], v31);
-            v40 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL), v38), v39, v37);
-            v41 = vmulq_f32(v40, v40);
-            v42 = v41.f32[1] + (v41.f32[2] + v41.f32[0]);
-            if (v42 > v29)
+            v40 = vsubq_f32(v33[v36], v32);
+            v41 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v40, v40), v40, 0xCuLL), v39), v40, v38);
+            v42 = vmulq_f32(v41, v41);
+            v43 = v42.f32[1] + (v42.f32[2] + v42.f32[0]);
+            if (v43 > v30)
             {
-              v25 = *(&v105.__begin_ + v26);
-              v24 = *(&v105.__begin_ + v34);
-              v29 = v42;
-              v23 = *(v33 + v35);
+              v26 = *(&v105.__begin_ + v27);
+              v25 = *(&v105.__begin_ + v35);
+              v30 = v43;
+              v24 = *(v34 + v36);
             }
 
-            ++v35;
+            ++v36;
           }
 
-          while (v34 + v35 < 5);
+          while (v35 + v36 < 5);
         }
 
-        ++v34;
-        v33 = (v33 + 4);
-        ++v32;
+        ++v35;
+        v34 = (v34 + 4);
+        ++v33;
       }
 
-      while (v34 != 6);
+      while (v35 != 6);
     }
 
-    ++v26;
-    ++v30;
-    p_end = (p_end + 4);
     ++v27;
+    ++v31;
+    p_end = (p_end + 4);
+    ++v28;
   }
 
-  while (v26 != 6);
-  if (v25 != v24 && v24 != v23 && v25 != v23)
+  while (v27 != 6);
+  if (v26 != v25 && v25 != v24 && v26 != v24)
   {
-    v99 = v25;
+    v99 = v26;
     goto LABEL_50;
   }
 
-  v43 = 0;
-  v44 = -1.0;
-  v45 = 1;
+  v44 = 0;
+  v45 = -1.0;
+  v46 = 1;
   do
   {
-    if (v43 <= 4)
+    if (v44 <= 4)
     {
-      v46 = v45;
+      v47 = v46;
       do
       {
-        v47 = vsubq_f32(*(&v102 + v43), *(&v102 + v46));
-        v48 = vmulq_f32(v47, v47);
-        v49 = sqrtf(v48.f32[2] + vaddv_f32(*v48.f32));
-        if (v49 > v44)
+        v48 = vsubq_f32(*(&v102 + v44), *(&v102 + v47));
+        v49 = vmulq_f32(v48, v48);
+        v50 = sqrtf(v49.f32[2] + vaddv_f32(*v49.f32));
+        if (v50 > v45)
         {
-          v25 = *(&v105.__begin_ + v43);
-          v24 = *(&v105.__begin_ + v46);
-          v44 = v49;
+          v26 = *(&v105.__begin_ + v44);
+          v25 = *(&v105.__begin_ + v47);
+          v45 = v50;
         }
 
-        ++v46;
+        ++v47;
       }
 
-      while (v46 != 6);
+      while (v47 != 6);
     }
 
-    ++v43;
-    ++v45;
+    ++v44;
+    ++v46;
   }
 
-  while (v43 != 6);
-  v99 = v25;
-  if (v3 == v2)
+  while (v44 != 6);
+  v99 = v26;
+  if (v4 == v3)
   {
-    v56 = 0.0;
+    v57 = 0.0;
 LABEL_48:
-    if (fabsf(v56) <= 0.00001)
+    if (fabsf(v57) <= 0.00001)
     {
-      v23 = v25;
+      v24 = v26;
     }
 
 LABEL_50:
     a1[33].f32[0] = fmaxf(a1[33].f32[0], 0.0000011921);
-    v69 = a1[3].i64[0];
-    v70 = (v69 + 16 * v98);
-    v71 = (v69 + 16 * v97);
-    v72 = v65;
-    v73 = (v69 + 16 * v65);
-    v74 = (v69 + 16 * v66);
-    v75 = v67;
-    v76 = (v69 + 16 * v67);
-    v77 = (v69 + 16 * v68);
-    v78 = a1[4].i64[1];
-    v79 = (v78 + 80 * v101);
-    v80 = (v78 + 80 * v100);
-    v70[2] = v97;
-    v70[3] = v25;
-    v71[2] = v72;
-    v71[3] = v24;
-    v73[2] = v98;
-    v73[3] = v23;
-    v74[2] = v68;
+    v70 = a1[3].i64[0];
+    v71 = (v70 + 16 * v98);
+    v72 = (v70 + 16 * v97);
+    v73 = v66;
+    v74 = (v70 + 16 * v66);
+    v75 = (v70 + 16 * v67);
+    v76 = v68;
+    v77 = (v70 + 16 * v68);
+    v78 = (v70 + 16 * v69);
+    v79 = a1[4].i64[1];
+    v80 = (v79 + 80 * v101);
+    v81 = (v79 + 80 * v100);
+    v71[2] = v97;
+    v71[3] = v26;
+    v72[2] = v73;
+    v72[3] = v25;
+    v74[2] = v98;
     v74[3] = v24;
-    v76[2] = v66;
-    v76[3] = v23;
-    v77[2] = v75;
-    v77[3] = v25;
-    *v70 = v101;
-    v70[1] = v66;
+    v75[2] = v69;
+    v75[3] = v25;
+    v77[2] = v67;
+    v77[3] = v24;
+    v78[2] = v76;
+    v78[3] = v26;
     *v71 = v101;
-    v71[1] = v75;
-    *v73 = v101;
-    v73[1] = v68;
-    *v74 = v100;
-    v74[1] = v98;
-    *v76 = v100;
-    v76[1] = v97;
+    v71[1] = v67;
+    *v72 = v101;
+    v72[1] = v76;
+    *v74 = v101;
+    v74[1] = v69;
+    *v75 = v100;
+    v75[1] = v98;
     *v77 = v100;
-    v77[1] = v72;
-    v79->i32[0] = v98;
-    v80->i32[0] = v66;
-    v81 = a1[6].i64[0];
-    v82 = *(v81 + 16 * v99);
-    v83 = *(v81 + 16 * v24);
-    v84 = *(v81 + 16 * v23);
-    v85 = vextq_s8(vuzp1q_s32(v82, v82), v82, 0xCuLL);
+    v77[1] = v97;
+    *v78 = v100;
+    v78[1] = v73;
+    v80->i32[0] = v98;
+    v81->i32[0] = v67;
+    v82 = a1[6].i64[0];
+    v83 = *(v82 + 16 * v99);
+    v84 = *(v82 + 16 * v25);
+    v85 = *(v82 + 16 * v24);
     v86 = vextq_s8(vuzp1q_s32(v83, v83), v83, 0xCuLL);
     v87 = vextq_s8(vuzp1q_s32(v84, v84), v84, 0xCuLL);
-    v88 = vaddq_f32(vmlaq_f32(vmulq_f32(v85, vnegq_f32(v84)), v82, v87), vaddq_f32(vmlaq_f32(vmulq_f32(v86, vnegq_f32(v82)), v83, v85), vmlaq_f32(vmulq_f32(v87, vnegq_f32(v83)), v84, v86)));
-    v89 = vextq_s8(vuzp1q_s32(v88, v88), v88, 0xCuLL);
-    v79[1] = v89;
-    v90 = vmulq_f32(v88, v88);
-    v90.f32[0] = sqrtf(v90.f32[1] + (v90.f32[2] + v90.f32[0]));
-    v79[2].i32[0] = v90.i32[0];
-    v79[2].i8[4] = v90.f32[0] <= 0.00000011921;
-    v80[1] = vnegq_f32(v89);
-    v80[2].i32[0] = v90.i32[0];
-    v80[2].i8[4] = v90.f32[0] <= 0.00000011921;
-    v91 = vaddq_f32(vaddq_f32(v82, v83), v84);
-    v79[3] = v91;
-    v79[4].i32[0] = 3;
-    v80[3] = v91;
+    v88 = vextq_s8(vuzp1q_s32(v85, v85), v85, 0xCuLL);
+    v89 = vaddq_f32(vmlaq_f32(vmulq_f32(v86, vnegq_f32(v85)), v83, v88), vaddq_f32(vmlaq_f32(vmulq_f32(v87, vnegq_f32(v83)), v84, v86), vmlaq_f32(vmulq_f32(v88, vnegq_f32(v84)), v85, v87)));
+    v90 = vextq_s8(vuzp1q_s32(v89, v89), v89, 0xCuLL);
+    v80[1] = v90;
+    v91 = vmulq_f32(v89, v89);
+    v91.f32[0] = sqrtf(v91.f32[1] + (v91.f32[2] + v91.f32[0]));
+    v80[2].i32[0] = v91.i32[0];
+    v80[2].i8[4] = v91.f32[0] <= 0.00000011921;
+    v81[1] = vnegq_f32(v90);
+    v81[2].i32[0] = v91.i32[0];
+    v81[2].i8[4] = v91.f32[0] <= 0.00000011921;
+    v92 = vaddq_f32(vaddq_f32(v83, v84), v85);
+    v80[3] = v92;
     v80[4].i32[0] = 3;
+    v81[3] = v92;
+    v81[4].i32[0] = 3;
     __asm { FMOV            V1.4S, #3.0 }
 
-    a1[20] = vdivq_f32(v91, _Q1);
-    v96 = (v79[2].i8[4] | v80[2].i8[4]) & 1;
+    a1[20] = vdivq_f32(v92, _Q1);
     operator new();
   }
 
-  v50 = 0;
-  v51 = vsubq_f32(v2[v24], v2[v25]);
-  v52 = vmulq_f32(v51, v51);
-  *&v53 = v52.f32[2] + vaddv_f32(*v52.f32);
-  *v52.f32 = vrsqrte_f32(v53);
-  *v52.f32 = vmul_f32(*v52.f32, vrsqrts_f32(v53, vmul_f32(*v52.f32, *v52.f32)));
-  v54 = vmulq_n_f32(v51, vmul_f32(*v52.f32, vrsqrts_f32(v53, vmul_f32(*v52.f32, *v52.f32))).f32[0]);
-  v51.f32[0] = v25;
-  v55 = vdupq_lane_s32(*v51.f32, 0);
-  v56 = 0.0;
+  v51 = 0;
+  v52 = vsubq_f32(v3[v25], v3[v26]);
+  v53 = vmulq_f32(v52, v52);
+  *&v54 = v53.f32[2] + vaddv_f32(*v53.f32);
+  *v53.f32 = vrsqrte_f32(v54);
+  *v53.f32 = vmul_f32(*v53.f32, vrsqrts_f32(v54, vmul_f32(*v53.f32, *v53.f32)));
+  v55 = vmulq_n_f32(v52, vmul_f32(*v53.f32, vrsqrts_f32(v54, vmul_f32(*v53.f32, *v53.f32))).f32[0]);
+  v52.f32[0] = v26;
+  v56 = vdupq_lane_s32(*v52.f32, 0);
+  v57 = 0.0;
   while (1)
   {
-    v57 = vsubq_f32(v2[v50], v55);
-    v58 = vmulq_f32(v54, v57);
-    v58.f32[0] = v58.f32[2] + vaddv_f32(*v58.f32);
-    v59 = vmlsq_lane_f32(v57, v54, *v58.f32, 0);
-    v60 = vmulq_f32(v59, v59);
-    v61 = sqrtf(v60.f32[2] + vaddv_f32(*v60.f32));
-    if (v61 != v56)
+    v58 = vsubq_f32(v3[v51], v56);
+    v59 = vmulq_f32(v55, v58);
+    v59.f32[0] = v59.f32[2] + vaddv_f32(*v59.f32);
+    v60 = vmlsq_lane_f32(v58, v55, *v59.f32, 0);
+    v61 = vmulq_f32(v60, v60);
+    v62 = sqrtf(v61.f32[2] + vaddv_f32(*v61.f32));
+    if (v62 != v57)
     {
-      v62 = fabsf(v61);
-      v63 = fabsf(v56);
-      if (v62 != INFINITY && v63 != INFINITY)
+      v63 = fabsf(v62);
+      v64 = fabsf(v57);
+      if (v63 != INFINITY && v64 != INFINITY)
       {
-        if ((v56 + (((v63 + v62) + 1.0) * 0.00001)) > v61)
+        if ((v57 + (((v64 + v63) + 1.0) * 0.00001)) > v62)
         {
           goto LABEL_40;
         }
 
 LABEL_39:
-        v23 = v50;
-        v56 = v61;
+        v24 = v51;
+        v57 = v62;
         goto LABEL_40;
       }
 
-      if (v61 > v56)
+      if (v62 > v57)
       {
         goto LABEL_39;
       }
     }
 
 LABEL_40:
-    if (v5 <= ++v50)
+    if (v6 <= ++v51)
     {
       goto LABEL_48;
     }
@@ -7031,35 +7159,41 @@ uint64_t geom::anonymous namespace::hull_mesh<float>::~hull_mesh(uint64_t a1)
   return a1;
 }
 
-double geom::convex_hull_triangulated_3<double>(unint64_t a1, const void *a2, void *a3)
+double geom::convex_hull_triangulated_3<double>(unint64_t a1, float64x2_t *a2, void *a3, uint64_t a4, double a5)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   if (a1)
   {
-    if (a1 <= 3)
+    if (a1 > 3)
+    {
+      v9 = a1;
+    }
+
+    else
     {
       memcpy(__dst, a2, 32 * a1);
-      v5 = __dst[0];
-      v4 = __dst[1];
-      v6 = a1;
+      v8 = __dst[0];
+      v7 = __dst[1];
+      v9 = 4;
+      v10 = a1;
       do
       {
-        v7 = &__dst[2 * v6];
-        *v7 = v5;
-        v7[1] = v4;
-        ++v6;
+        v11 = &__dst[2 * v10];
+        *v11 = v8;
+        v11[1] = v7;
+        ++v10;
       }
 
-      while (v6 != 4);
+      while (v10 != 4);
+      a2 = __dst;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0.0;
 }
 
-void geom::anonymous namespace::hull_mesh<double>::hull_mesh(_OWORD *a1)
+void geom::anonymous namespace::hull_mesh<double>::hull_mesh(_OWORD *a1, float64x2_t *a2, uint64_t a3, double a4)
 {
   a1[6] = 0u;
   a1[10] = 0u;
@@ -7076,368 +7210,367 @@ void geom::anonymous namespace::hull_mesh<double>::hull_mesh(_OWORD *a1)
   operator new();
 }
 
-void geom::anonymous namespace::hull_mesh<double>::compute_hull(uint64_t a1)
+void geom::anonymous namespace::hull_mesh<double>::compute_hull(uint64_t a1, unsigned int a2)
 {
   v151 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 96);
-  v3 = *(a1 + 104);
-  v4 = *v2;
-  v5 = v2[1];
-  v6 = (v3 - v2) >> 5;
-  if (v6 < 2)
+  v3 = *(a1 + 96);
+  v4 = *(a1 + 104);
+  v5 = *v3;
+  v6 = v3[1];
+  v7 = (v4 - v3) >> 5;
+  if (v7 < 2)
   {
+    v9 = 0;
     v8 = 0;
-    v7 = 0;
-    v9 = 0uLL;
-    v19 = *v2;
-    v36 = v2[1];
-    v17 = *v2;
-    v18 = v36;
-    v15 = *v2;
-    v16 = v36;
-    v13 = *v2;
-    v14 = v36;
-    v11 = *v2;
-    v12 = v36;
+    v10 = 0uLL;
+    v20 = *v3;
+    v37 = v3[1];
+    v18 = *v3;
+    v19 = v37;
+    v16 = *v3;
+    v17 = v37;
+    v14 = *v3;
+    v15 = v37;
+    v12 = *v3;
+    v13 = v37;
   }
 
   else
   {
-    v7 = 0;
     v8 = 0;
-    v9 = 0uLL;
-    v10 = 1;
-    v11 = *v2;
-    v12 = v2[1];
-    v13 = *v2;
-    v14 = v12;
-    v15 = *v2;
-    v16 = v12;
-    v17 = *v2;
-    v18 = v12;
-    v19 = *v2;
-    v20 = v12;
-    v21 = v12;
+    v9 = 0;
+    v10 = 0uLL;
+    v11 = 1;
+    v12 = *v3;
+    v13 = v3[1];
+    v14 = *v3;
+    v15 = v13;
+    v16 = *v3;
+    v17 = v13;
+    v18 = *v3;
+    v19 = v13;
+    v20 = *v3;
+    v21 = v13;
+    v22 = v13;
     do
     {
-      v22 = &v2[2 * v10];
-      v23 = vuzp1q_s32(vcgtq_f64(vzip1q_s64(v11, *v22), vzip1q_s64(*v22, v13)), vcgtq_f64(vzip2q_s64(v15, *v22), vzip2q_s64(*v22, v17)));
-      v24 = vmovn_s32(v23);
-      v25 = vdup_n_s32(v24.u16[0]);
-      v26 = v22[1];
-      v27.i64[0] = v25.u32[0];
-      v27.i64[1] = v25.u32[1];
-      v28 = vcltzq_s64(vshlq_n_s64(v27, 0x3FuLL));
-      v12 = vbslq_s8(v28, v26, v12);
-      v11 = vbslq_s8(v28, *v22, v11);
-      *v28.i8 = vdup_n_s32(v24.u16[1]);
-      v27.i64[0] = v28.u32[0];
-      v27.i64[1] = v28.u32[1];
-      v29 = vcltzq_s64(vshlq_n_s64(v27, 0x3FuLL));
-      v14 = vbslq_s8(v29, v26, v14);
-      v30 = vdup_n_s32(v24.u16[2]);
-      v13 = vbslq_s8(v29, *v22, v13);
-      v27.i64[0] = v30.u32[0];
-      v27.i64[1] = v30.u32[1];
-      v31 = vcltzq_s64(vshlq_n_s64(v27, 0x3FuLL));
-      v16 = vbslq_s8(v31, v26, v16);
-      v15 = vbslq_s8(v31, *v22, v15);
-      v32 = vdup_n_s32(v24.u16[3]);
-      v9 = vbslq_s8(v23, vdupq_n_s32(v10), v9);
-      v27.i64[0] = v32.u32[0];
-      v27.i64[1] = v32.u32[1];
-      v33 = vcltzq_s64(vshlq_n_s64(v27, 0x3FuLL));
-      v18 = vbslq_s8(v33, v26, v18);
-      v17 = vbslq_s8(v33, *v22, v17);
-      v34 = vdupq_lane_s64(vcgtq_f64(v21, v26).i64[0], 0);
-      v5 = vbslq_s8(v34, v26, v21);
-      v4 = vbslq_s8(v34, *v22, v4);
-      if (v26.f64[0] < v21.f64[0])
+      v23 = &v3[2 * v11];
+      v24 = vuzp1q_s32(vcgtq_f64(vzip1q_s64(v12, *v23), vzip1q_s64(*v23, v14)), vcgtq_f64(vzip2q_s64(v16, *v23), vzip2q_s64(*v23, v18)));
+      v25 = vmovn_s32(v24);
+      v26 = vdup_n_s32(v25.u16[0]);
+      v27 = v23[1];
+      v28.i64[0] = v26.u32[0];
+      v28.i64[1] = v26.u32[1];
+      v29 = vcltzq_s64(vshlq_n_s64(v28, 0x3FuLL));
+      v13 = vbslq_s8(v29, v27, v13);
+      v12 = vbslq_s8(v29, *v23, v12);
+      *v29.i8 = vdup_n_s32(v25.u16[1]);
+      v28.i64[0] = v29.u32[0];
+      v28.i64[1] = v29.u32[1];
+      v30 = vcltzq_s64(vshlq_n_s64(v28, 0x3FuLL));
+      v15 = vbslq_s8(v30, v27, v15);
+      v31 = vdup_n_s32(v25.u16[2]);
+      v14 = vbslq_s8(v30, *v23, v14);
+      v28.i64[0] = v31.u32[0];
+      v28.i64[1] = v31.u32[1];
+      v32 = vcltzq_s64(vshlq_n_s64(v28, 0x3FuLL));
+      v17 = vbslq_s8(v32, v27, v17);
+      v16 = vbslq_s8(v32, *v23, v16);
+      v33 = vdup_n_s32(v25.u16[3]);
+      v10 = vbslq_s8(v24, vdupq_n_s32(v11), v10);
+      v28.i64[0] = v33.u32[0];
+      v28.i64[1] = v33.u32[1];
+      v34 = vcltzq_s64(vshlq_n_s64(v28, 0x3FuLL));
+      v19 = vbslq_s8(v34, v27, v19);
+      v18 = vbslq_s8(v34, *v23, v18);
+      v35 = vdupq_lane_s64(vcgtq_f64(v22, v27).i64[0], 0);
+      v6 = vbslq_s8(v35, v27, v22);
+      v5 = vbslq_s8(v35, *v23, v5);
+      if (*v27.i64 < *v22.i64)
       {
-        v8 = v10;
+        v9 = v11;
       }
 
-      v35 = vdupq_lane_s64(vcgtq_f64(v26, v20).i64[0], 0);
-      v36 = vbslq_s8(v35, v26, v20);
-      v19 = vbslq_s8(v35, *v22, v19);
-      if (v26.f64[0] > v20.f64[0])
+      v36 = vdupq_lane_s64(vcgtq_f64(v27, v21).i64[0], 0);
+      v37 = vbslq_s8(v36, v27, v21);
+      v20 = vbslq_s8(v36, *v23, v20);
+      if (*v27.i64 > *v21.i64)
       {
-        v7 = v10;
+        v8 = v11;
       }
 
-      v10 = (v10 + 1);
-      v20 = v36;
-      v21 = v5;
+      v11 = (v11 + 1);
+      v21 = v37;
+      v22 = v6;
     }
 
-    while (v6 > v10);
+    while (v7 > v11);
   }
 
-  v37 = 0;
   v38 = 0;
   v39 = 0;
   v40 = 0;
-  *__p = v11;
-  v146 = v12;
-  v147 = v13;
-  v148 = v14;
-  v41 = v149;
-  v149[0] = v15;
-  v149[1] = v16;
-  v149[2] = v17;
-  v149[3] = v18;
-  v149[4] = v4;
-  v149[5] = v5;
-  v149[6] = v19;
-  v149[7] = v36;
-  v150.__end_cap_.__value_ = __PAIR64__(v7, v8);
+  v41 = 0;
+  *__p = v12;
+  v146 = v13;
+  v147 = v14;
+  v148 = v15;
+  v42 = v149;
+  v149[0] = v16;
+  v149[1] = v17;
+  v149[2] = v18;
+  v149[3] = v19;
+  v149[4] = v5;
+  v149[5] = v6;
+  v149[6] = v20;
+  v149[7] = v37;
+  v150.__end_cap_.__value_ = __PAIR64__(v8, v9);
   p_end = &v150.__end_;
-  v43 = -1.0;
-  v44 = 1;
-  *&v150.__begin_ = v9;
+  v44 = -1.0;
+  v45 = 1;
+  *&v150.__begin_ = v10;
   while (1)
   {
-    if (v40 <= 4)
+    if (v41 <= 4)
     {
-      v45 = &__p[4 * v40];
-      v47 = *v45;
-      v46 = *(v45 + 1);
-      v48 = v41;
-      v49 = p_end;
-      v50 = v44;
+      v46 = &__p[4 * v41];
+      v48 = *v46;
+      v47 = *(v46 + 1);
+      v49 = v42;
+      v50 = p_end;
+      v51 = v45;
       do
       {
-        if (v50 <= 4)
+        if (v51 <= 4)
         {
-          v51 = 0;
-          v52 = &__p[4 * v50];
-          v53 = vsubq_f64(*v52, v47);
-          v57 = vsubq_f64(v52[1], v46);
-          v54 = vnegq_f64(v57);
-          v57.f64[1] = v53.f64[0];
-          v55 = vextq_s8(v53, v53, 8uLL);
-          v56 = vnegq_f64(v53);
-          *&v56.f64[1] = vextq_s8(v56, v56, 8uLL).u64[0];
-          *&v57.f64[1] = vextq_s8(v57, v57, 8uLL).u64[0];
+          v52 = 0;
+          v53 = &__p[4 * v51];
+          v54 = vsubq_f64(*v53, v48);
+          v58 = vsubq_f64(v53[1], v47);
+          v55 = vnegq_f64(v58);
+          v58.i64[1] = v54.i64[0];
+          v56 = vextq_s8(v54, v54, 8uLL);
+          v57 = vnegq_f64(v54);
+          v57.i64[1] = vextq_s8(v57, v57, 8uLL).u64[0];
+          v58.i64[1] = vextq_s8(v58, v58, 8uLL).u64[0];
           do
           {
-            v58 = &v48[2 * v51];
-            v59 = vsubq_f64(*v58, v47);
-            v60 = vsubq_f64(v58[1], v46);
-            v61 = vmlaq_f64(vmulq_laneq_f64(v54, v59, 1), v60, v55);
-            v60.f64[1] = v59.f64[0];
-            v62 = vmlaq_f64(vmulq_f64(v60, v56), v59, v57);
-            v63 = vmulq_f64(v62, v62);
-            v64 = v63.f64[1] + vmulq_f64(v61, v61).f64[0] + v63.f64[0];
-            if (v64 > v43)
+            v59 = &v49[2 * v52];
+            v60 = vsubq_f64(*v59, v48);
+            v61 = vsubq_f64(v59[1], v47);
+            v62 = vmlaq_f64(vmulq_laneq_f64(v55, v60, 1), v61, v56);
+            v61.f64[1] = v60.f64[0];
+            v63 = vmlaq_f64(vmulq_f64(v61, v57), v60, v58);
+            v64 = vmulq_f64(v63, v63);
+            v65 = v64.f64[1] + vmulq_f64(v62, v62).f64[0] + v64.f64[0];
+            if (v65 > v44)
             {
-              v39 = *(&v150.__begin_ + v40);
-              v38 = *(&v150.__begin_ + v50);
-              v43 = v64;
-              v37 = *(v49 + v51);
+              v40 = *(&v150.__begin_ + v41);
+              v39 = *(&v150.__begin_ + v51);
+              v44 = v65;
+              v38 = *(v50 + v52);
             }
 
-            ++v51;
+            ++v52;
           }
 
-          while (v50 + v51 < 5);
+          while (v51 + v52 < 5);
         }
 
-        ++v50;
-        v49 = (v49 + 4);
-        v48 += 2;
+        ++v51;
+        v50 = (v50 + 4);
+        v49 += 2;
       }
 
-      while (v50 != 6);
+      while (v51 != 6);
     }
 
-    ++v40;
-    ++v44;
+    ++v41;
+    ++v45;
     p_end = (p_end + 4);
-    v41 += 2;
-    if (v40 == 6)
+    v42 += 2;
+    if (v41 == 6)
     {
-      if (v39 == v38 || v38 == v37 || v39 == v37)
+      if (v40 == v39 || v39 == v38 || v40 == v38)
       {
-        v65 = 0;
-        v66 = -1.0;
-        v67 = 1;
+        v66 = 0;
+        v67 = -1.0;
+        v68 = 1;
         do
         {
-          if (v65 <= 4)
+          if (v66 <= 4)
           {
-            v68 = &__p[4 * v65];
-            v70 = *v68;
-            v69 = *(v68 + 1);
-            v71 = v67;
+            v69 = &__p[4 * v66];
+            v71 = *v69;
+            v70 = *(v69 + 1);
+            v72 = v68;
             do
             {
-              v72 = &__p[4 * v71];
-              v73 = vsubq_f64(v70, *v72);
-              v74 = vsubq_f64(v69, v72[1]);
-              v75 = sqrt(vmulq_f64(v74, v74).f64[0] + vaddvq_f64(vmulq_f64(v73, v73)));
-              if (v75 > v66)
+              v73 = &__p[4 * v72];
+              v74 = vsubq_f64(v71, *v73);
+              v75 = vsubq_f64(v70, v73[1]);
+              v76 = sqrt(vmulq_f64(v75, v75).f64[0] + vaddvq_f64(vmulq_f64(v74, v74)));
+              if (v76 > v67)
               {
-                v39 = *(&v150.__begin_ + v65);
-                v38 = *(&v150.__begin_ + v71);
-                v66 = v75;
+                v40 = *(&v150.__begin_ + v66);
+                v39 = *(&v150.__begin_ + v72);
+                v67 = v76;
               }
 
-              ++v71;
+              ++v72;
             }
 
-            while (v71 != 6);
+            while (v72 != 6);
           }
 
-          ++v65;
-          ++v67;
+          ++v66;
+          ++v68;
         }
 
-        while (v65 != 6);
-        v142 = v39;
-        if (v3 == v2)
+        while (v66 != 6);
+        v142 = v40;
+        if (v4 == v3)
         {
-          v86 = 0.0;
+          v87 = 0.0;
         }
 
         else
         {
-          v76 = 0;
-          v77 = &v2[2 * v38];
-          v79 = *v77;
-          v78 = v77[1];
-          v80 = &v2[2 * v39];
-          v81 = vsubq_f64(v79, *v80);
-          v82 = vsubq_f64(v78, v80[1]);
-          v83 = vmulq_f64(v82, v82);
-          v84 = vmulq_f64(v81, v81);
-          v83.f64[0] = 1.0 / sqrt(v83.f64[0] + vaddvq_f64(v84));
-          v85 = vmulq_f64(v82, v83);
-          v88 = vmulq_n_f64(v81, v83.f64[0]);
-          v86 = 0.0;
-          *&v88.f64[1] = vextq_s8(v88, v88, 8uLL).u64[0];
+          v77 = 0;
+          v78 = &v3[2 * v39];
+          v80 = *v78;
+          v79 = v78[1];
+          v81 = &v3[2 * v40];
+          v82 = vsubq_f64(v80, *v81);
+          v83 = vsubq_f64(v79, v81[1]);
+          v84 = vmulq_f64(v83, v83);
+          v85 = vmulq_f64(v82, v82);
+          v84.f64[0] = 1.0 / sqrt(v84.f64[0] + vaddvq_f64(v85));
+          v86 = vmulq_f64(v83, v84);
+          v89 = vmulq_n_f64(v82, v84.f64[0]);
+          v87 = 0.0;
+          v89.i64[1] = vextq_s8(v89, v89, 8uLL).u64[0];
           do
           {
-            v89 = &v2[2 * v76];
-            v84.f64[0] = v39;
-            v90 = vsubq_f64(v89[1], v84);
-            v87.f64[1] = v39;
-            v87.f64[0] = v39;
-            v91 = vsubq_f64(*v89, v87);
-            v92 = vmulq_f64(v88, v91);
-            v92.f64[0] = vmulq_f64(v85, v90).f64[0] + vaddvq_f64(v92);
-            v93 = vmlsq_lane_f64(v91, v88, v92.f64[0], 0);
-            v94 = vmlsq_f64(v90, v85, v92);
-            v95 = sqrt(vmulq_f64(v94, v94).f64[0] + vaddvq_f64(vmulq_f64(v93, v93)));
-            if (v95 != v86 && v86 + 0.000001 <= v95)
+            v90 = &v3[2 * v77];
+            v85.f64[0] = v40;
+            v91 = vsubq_f64(v90[1], v85);
+            v88.f64[1] = v40;
+            v88.f64[0] = v40;
+            v92 = vsubq_f64(*v90, v88);
+            v93 = vmulq_f64(v89, v92);
+            v93.f64[0] = vmulq_f64(v86, v91).f64[0] + vaddvq_f64(v93);
+            v94 = vmlsq_lane_f64(v92, v89, v93.f64[0], 0);
+            v95 = vmlsq_f64(v91, v86, v93);
+            v96 = sqrt(vmulq_f64(v95, v95).f64[0] + vaddvq_f64(vmulq_f64(v94, v94)));
+            if (v96 != v87 && v87 + 0.000001 <= v96)
             {
-              v37 = v76;
-              v86 = v95;
+              v38 = v77;
+              v87 = v96;
             }
 
-            ++v76;
+            ++v77;
           }
 
-          while (v6 > v76);
+          while (v7 > v77);
         }
 
-        if (fabs(v86) <= 0.000001)
+        if (fabs(v87) <= 0.000001)
         {
-          v37 = v39;
+          v38 = v40;
         }
       }
 
       else
       {
-        v142 = v39;
+        v142 = v40;
       }
 
       *(a1 + 544) = fmax(*(a1 + 544), 2.22044605e-15);
-      v101 = *(a1 + 48);
-      v102 = (v101 + 16 * v141);
-      v103 = v96;
-      v104 = (v101 + 16 * v96);
-      v105 = v97;
-      v106 = (v101 + 16 * v97);
-      v107 = (v101 + 16 * v98);
-      v108 = (v101 + 16 * v99);
-      v109 = (v101 + 16 * v100);
-      v110 = *(a1 + 72);
-      v111 = v110 + 112 * v144;
-      v112 = v110 + 112 * v143;
-      v102[2] = v103;
-      v102[3] = v39;
-      v104[2] = v105;
-      v104[3] = v38;
-      v106[2] = v141;
-      v106[3] = v37;
-      v107[2] = v100;
+      v102 = *(a1 + 48);
+      v103 = (v102 + 16 * v141);
+      v104 = v97;
+      v105 = (v102 + 16 * v97);
+      v106 = v98;
+      v107 = (v102 + 16 * v98);
+      v108 = (v102 + 16 * v99);
+      v109 = (v102 + 16 * v100);
+      v110 = (v102 + 16 * v101);
+      v111 = *(a1 + 72);
+      v112 = v111 + 112 * v144;
+      v113 = v111 + 112 * v143;
+      v103[2] = v104;
+      v103[3] = v40;
+      v105[2] = v106;
+      v105[3] = v39;
+      v107[2] = v141;
       v107[3] = v38;
-      v108[2] = v98;
-      v108[3] = v37;
+      v108[2] = v101;
+      v108[3] = v39;
       v109[2] = v99;
-      v109[3] = v39;
-      *v102 = v144;
-      v102[1] = v98;
-      *v104 = v144;
-      v104[1] = v99;
-      *v106 = v144;
-      v106[1] = v100;
-      *v107 = v143;
-      v107[1] = v141;
+      v109[3] = v38;
+      v110[2] = v100;
+      v110[3] = v40;
+      *v103 = v144;
+      v103[1] = v99;
+      *v105 = v144;
+      v105[1] = v100;
+      *v107 = v144;
+      v107[1] = v101;
       *v108 = v143;
-      v108[1] = v103;
+      v108[1] = v141;
       *v109 = v143;
-      v109[1] = v105;
-      *v111 = v141;
-      *v112 = v98;
-      v113 = *(a1 + 96);
-      v114 = (v113 + 32 * v142);
-      v115 = *v114;
-      v116 = v114[1];
-      v117 = (v113 + 32 * v38);
-      v118 = *v117;
-      v119 = v117[1];
-      v120 = (v113 + 32 * v37);
-      v121 = *v120;
-      v122 = v120[1];
-      v123 = vnegq_f64(v116);
-      v124 = vmlaq_laneq_f64(vmulq_laneq_f64(vnegq_f64(v122), v115, 1), v116, *v120, 1);
-      v125 = vaddq_f64(v116, v119);
-      v116.f64[1] = v115.f64[0];
-      v126 = vmlaq_laneq_f64(vmulq_laneq_f64(v123, *v117, 1), v119, v115, 1);
-      v127 = vnegq_f64(v119);
-      v119.f64[1] = v117->f64[0];
-      v128 = vmlaq_laneq_f64(vmulq_laneq_f64(v127, *v120, 1), v122, *v117, 1);
-      v129 = vaddq_f64(v125, v122);
-      v122.f64[1] = v120->f64[0];
-      v130 = vaddq_f64(vmlaq_f64(vmulq_f64(v116, vnegq_f64(*v120)), v115, v122), vaddq_f64(vmlaq_f64(vmulq_f64(v119, vnegq_f64(v115)), v118, v116), vmlaq_f64(vmulq_f64(v122, vnegq_f64(v118)), *v120, v119)));
-      v131 = vaddq_f64(v124, vaddq_f64(v126, v128));
-      v132 = vdupq_laneq_s64(v130, 1);
-      v126.f64[0] = vmulq_f64(v131, v131).f64[0];
-      v131.f64[1] = v130.f64[0];
-      *(v111 + 16) = v131;
-      *(v111 + 32) = v132;
-      v133 = vmulq_f64(v130, v130);
-      v133.f64[0] = sqrt(v133.f64[1] + v126.f64[0] + v133.f64[0]);
-      *(v111 + 48) = v133.f64[0];
-      *(v111 + 56) = v133.f64[0] <= 2.22044605e-16;
-      *(v112 + 16) = vnegq_f64(v131);
-      *(v112 + 32) = vnegq_f64(v132);
-      *(v112 + 48) = v133.f64[0];
-      *(v112 + 56) = v133.f64[0] <= 2.22044605e-16;
-      v134 = vaddq_f64(vaddq_f64(v115, v118), v121);
-      *(v111 + 64) = v134;
-      *(v111 + 80) = v129;
-      *(v111 + 96) = 3;
-      *(v112 + 64) = v134;
-      *(v112 + 80) = v129;
+      v109[1] = v104;
+      *v110 = v143;
+      v110[1] = v106;
+      *v112 = v141;
+      *v113 = v99;
+      v114 = *(a1 + 96);
+      v115 = (v114 + 32 * v142);
+      v116 = *v115;
+      v117 = v115[1];
+      v118 = (v114 + 32 * v39);
+      v119 = *v118;
+      v120 = v118[1];
+      v121 = (v114 + 32 * v38);
+      v122 = *v121;
+      v123 = v121[1];
+      v124 = vnegq_f64(v117);
+      v125 = vmlaq_laneq_f64(vmulq_laneq_f64(vnegq_f64(v123), v116, 1), v117, *v121, 1);
+      v126 = vaddq_f64(v117, v120);
+      v117.f64[1] = v116.f64[0];
+      v127 = vmlaq_laneq_f64(vmulq_laneq_f64(v124, *v118, 1), v120, v116, 1);
+      v128 = vnegq_f64(v120);
+      v120.f64[1] = v118->f64[0];
+      v129 = vmlaq_laneq_f64(vmulq_laneq_f64(v128, *v121, 1), v123, *v118, 1);
+      v130 = vaddq_f64(v126, v123);
+      v123.f64[1] = v121->f64[0];
+      v131 = vaddq_f64(vmlaq_f64(vmulq_f64(v117, vnegq_f64(*v121)), v116, v123), vaddq_f64(vmlaq_f64(vmulq_f64(v120, vnegq_f64(v116)), v119, v117), vmlaq_f64(vmulq_f64(v123, vnegq_f64(v119)), *v121, v120)));
+      v132 = vaddq_f64(v125, vaddq_f64(v127, v129));
+      v133 = vdupq_laneq_s64(v131, 1);
+      v127.f64[0] = vmulq_f64(v132, v132).f64[0];
+      v132.f64[1] = v131.f64[0];
+      *(v112 + 16) = v132;
+      *(v112 + 32) = v133;
+      v134 = vmulq_f64(v131, v131);
+      v134.f64[0] = sqrt(v134.f64[1] + v127.f64[0] + v134.f64[0]);
+      *(v112 + 48) = v134.f64[0];
+      *(v112 + 56) = v134.f64[0] <= 2.22044605e-16;
+      *(v113 + 16) = vnegq_f64(v132);
+      *(v113 + 32) = vnegq_f64(v133);
+      *(v113 + 48) = v134.f64[0];
+      *(v113 + 56) = v134.f64[0] <= 2.22044605e-16;
+      v135 = vaddq_f64(vaddq_f64(v116, v119), v122);
+      *(v112 + 64) = v135;
+      *(v112 + 80) = v130;
       *(v112 + 96) = 3;
+      *(v113 + 64) = v135;
+      *(v113 + 80) = v130;
+      *(v113 + 96) = 3;
       __asm { FMOV            V1.2D, #3.0 }
 
-      *(a1 + 320) = vdivq_f64(v134, _Q1);
-      *(a1 + 336) = vdivq_f64(v129, _Q1);
-      v140 = (*(v111 + 56) | *(v112 + 56)) & 1;
+      *(a1 + 320) = vdivq_f64(v135, _Q1);
+      *(a1 + 336) = vdivq_f64(v130, _Q1);
       operator new();
     }
   }
@@ -7568,14 +7701,13 @@ uint64_t geom::anonymous namespace::hull_mesh<double>::~hull_mesh(uint64_t a1)
   return a1;
 }
 
-uint64_t geom::half_plane_intersection_3<float>(unint64_t a1)
+uint64_t geom::half_plane_intersection_3<float>(unint64_t a1, float32x4_t *a2, uint64_t a3, const void **a4, uint64_t a5)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a1 >= 4)
   {
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -7585,7 +7717,6 @@ void std::vector<float>::reserve(std::vector<unsigned int> *this, std::vector<un
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:nn200100]<std::allocator<float>>(this, __n);
     }
 
@@ -7593,58 +7724,43 @@ void std::vector<float>::reserve(std::vector<unsigned int> *this, std::vector<un
   }
 }
 
-__n128 geom::plane_intersection_finder<float>::find_plane_intersection_point(std::vector<unsigned int> *a1, int64_t a2, const void *a3, const void *a4, const void *a5)
+double geom::plane_intersection_finder<float>::find_plane_intersection_point(std::vector<unsigned int> *a1, int64_t a2, const void *a3, const void *a4, const void *a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
   std::vector<float>::resize(a1 + 1, 3 * a2);
-  begin = a1[1].__begin_;
   if (a2)
   {
     memmove(a1[1].__begin_, a3, 4 * a2);
     memmove(&a1[1].__begin_[a2], a4, 4 * a2);
     memmove(&a1[1].__begin_[2 * a2], a5, 4 * a2);
-    v11 = a1[1].__begin_;
   }
 
   sgeqrf_NEWLAPACK();
   std::vector<float>::resize(a1 + 2, 0.0);
-  v12 = a1[1].__begin_;
-  v13 = a1[2].__begin_;
   sgeqrf_NEWLAPACK();
   std::vector<float>::resize(a1, a2);
-  v14 = a1->__begin_;
   if (a2 >= 1)
   {
     memset_pattern16(a1->__begin_, &unk_2500C2120, 4 * a2);
   }
 
-  v15 = a1[1].__begin_;
   sormqr_NEWLAPACK();
   std::vector<float>::resize(a1 + 2, 0.0);
-  v16 = a1[1].__begin_;
-  v22 = a1[2].__begin_;
-  v21 = a1->__begin_;
   sormqr_NEWLAPACK();
-  v17 = a1[1].__begin_;
-  v18 = a1->__begin_;
   cblas_strsv_NEWLAPACK();
-  result.n128_u64[0] = *a1->__begin_;
-  result.n128_u32[2] = a1->__begin_[2];
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return *a1->__begin_;
 }
 
-void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
+void std::vector<BOOL>::resize(uint64_t *result, unint64_t a2, int a3)
 {
-  v4 = *(a1 + 8);
+  v4 = result[1];
   v5 = a2 - v4;
   if (a2 <= v4)
   {
-    *(a1 + 8) = a2;
+    result[1] = a2;
     return;
   }
 
-  v7 = *(a1 + 16);
+  v7 = result[2];
   v8 = v7 << 6;
   if (v7 << 6 < v5 || v4 > (v7 << 6) - v5)
   {
@@ -7672,19 +7788,19 @@ void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
     }
 
     std::vector<BOOL>::reserve(&v20, v11);
-    v12 = *a1;
-    v13 = *(a1 + 8);
+    v12 = *result;
+    v13 = result[1];
     *&v21 = v13 + v5;
     v22 = v20;
     v23 = 0;
-    std::__copy_aligned[abi:nn200100]<std::vector<BOOL>,true>(v12, 0, &v12[v13 >> 6], v13 & 0x3F, &v22, &v18);
+    std::__copy_aligned[abi:nn200100]<std::vector<BOOL>,true>(&v18, v12, 0, &v12[v13 >> 6], v13 & 0x3F, &v22);
     v14 = v18;
     LODWORD(v15) = v19;
-    v16 = *a1;
-    *a1 = v20;
+    v16 = *result;
+    *result = v20;
     v20 = v16;
-    v17 = *(a1 + 8);
-    *(a1 + 8) = v21;
+    v17 = *(result + 1);
+    *(result + 1) = v21;
     v21 = v17;
     if (v16)
     {
@@ -7703,9 +7819,9 @@ LABEL_16:
     return;
   }
 
-  v14 = *a1 + 8 * (v4 >> 6);
-  v15 = *(a1 + 8) & 0x3FLL;
-  *(a1 + 8) = a2;
+  v14 = (*result + 8 * (v4 >> 6));
+  v15 = result[1] & 0x3F;
+  result[1] = a2;
   if (a3)
   {
     goto LABEL_16;
@@ -7717,133 +7833,141 @@ LABEL_19:
   std::__fill_n_BOOL[abi:nn200100]<false,std::vector<BOOL>>(&v20, v5);
 }
 
-uint64_t geom::half_plane_intersection_3<double>(unint64_t a1)
+uint64_t geom::half_plane_intersection_3<double>(unint64_t a1, float64x2_t *a2, uint64_t a3, const void **a4, const void **a5)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a1 >= 4)
   {
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:nn200100]<std::allocator<double>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<double>>(a1, a2);
     }
 
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
-
-  return result;
 }
 
-float geom_convex_hull_3f(unint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
+float geom_convex_hull_3f(unint64_t a1, float32x4_t *a2, uint64_t a3, uint64_t a4)
 {
   v7 = geom::collection_to_vector<float>(a3);
   v8 = geom::collection_to_vector<float>(a4);
 
-  return geom::convex_hull_3<float>(a1, a2, v7, v8);
+  return geom::convex_hull_3<float>(a1, a2, v7, v8, 0xFFFFFFFF, 0.0);
 }
 
-float geom::convex_hull_3<float>(unint64_t a1, const void *a2, void *a3, void *a4)
+float geom::convex_hull_3<float>(unint64_t a1, float32x4_t *a2, void *a3, void *a4, unsigned int a5, float a6)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4[1] = *a4;
   if (a1)
   {
-    if (a1 <= 3)
+    if (a1 > 3)
+    {
+      v9 = a1;
+    }
+
+    else
     {
       memcpy(__dst, a2, 16 * a1);
-      v5 = __dst[0];
-      v6 = a1;
+      v8 = __dst[0];
+      v9 = 4;
+      v10 = a1;
       do
       {
-        __dst[v6++] = v5;
+        __dst[v10++] = v8;
       }
 
-      while (v6 != 4);
+      while (v10 != 4);
+      a2 = __dst;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0.0;
 }
 
-double geom_convex_hull_3d(unint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
+double geom_convex_hull_3d(unint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4)
 {
   v7 = geom::collection_to_vector<float>(a3);
   v8 = geom::collection_to_vector<float>(a4);
 
-  return geom::convex_hull_3<double>(a1, a2, v7, v8);
+  return geom::convex_hull_3<double>(a1, a2, v7, v8, 0xFFFFFFFF, 0.0);
 }
 
-double geom::convex_hull_3<double>(unint64_t a1, const void *a2, void *a3, void *a4)
+double geom::convex_hull_3<double>(unint64_t a1, float64x2_t *a2, void *a3, void *a4, unsigned int a5, double a6)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4[1] = *a4;
   if (a1)
   {
-    if (a1 <= 3)
+    if (a1 > 3)
+    {
+      v10 = a1;
+    }
+
+    else
     {
       memcpy(__dst, a2, 32 * a1);
-      v6 = __dst[0];
-      v5 = __dst[1];
-      v7 = a1;
+      v9 = __dst[0];
+      v8 = __dst[1];
+      v10 = 4;
+      v11 = a1;
       do
       {
-        v8 = &__dst[2 * v7];
-        *v8 = v6;
-        v8[1] = v5;
-        ++v7;
+        v12 = &__dst[2 * v11];
+        *v12 = v9;
+        v12[1] = v8;
+        ++v11;
       }
 
-      while (v7 != 4);
+      while (v11 != 4);
+      a2 = __dst;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0.0;
 }
 
-float geom_convex_hull_approx_3f(unint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
+float geom_convex_hull_approx_3f(unint64_t a1, float32x4_t *a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v7 = geom::collection_to_vector<float>(a3);
-  v8 = geom::collection_to_vector<float>(a4);
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
 
-  return geom::convex_hull_3<float>(a1, a2, v7, v8);
+  return geom::convex_hull_3<float>(a1, a2, v9, v10, a5, 0.0);
 }
 
-double geom_convex_hull_approx_3d(unint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
+double geom_convex_hull_approx_3d(unint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v7 = geom::collection_to_vector<float>(a3);
-  v8 = geom::collection_to_vector<float>(a4);
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
 
-  return geom::convex_hull_3<double>(a1, a2, v7, v8);
+  return geom::convex_hull_3<double>(a1, a2, v9, v10, a5, 0.0);
 }
 
-float geom_convex_hull_approx_with_tolerance_3f(unint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
+float geom_convex_hull_approx_with_tolerance_3f(unint64_t a1, float32x4_t *a2, uint64_t a3, uint64_t a4, unsigned int a5, float a6)
 {
-  v7 = geom::collection_to_vector<float>(a3);
-  v8 = geom::collection_to_vector<float>(a4);
+  v11 = geom::collection_to_vector<float>(a3);
+  v12 = geom::collection_to_vector<float>(a4);
 
-  return geom::convex_hull_3<float>(a1, a2, v7, v8);
+  return geom::convex_hull_3<float>(a1, a2, v11, v12, a5, a6);
 }
 
-double geom_convex_hull_approx_with_tolerance_3d(unint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
+double geom_convex_hull_approx_with_tolerance_3d(unint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, unsigned int a5, double a6)
 {
-  v7 = geom::collection_to_vector<float>(a3);
-  v8 = geom::collection_to_vector<float>(a4);
+  v11 = geom::collection_to_vector<float>(a3);
+  v12 = geom::collection_to_vector<float>(a4);
 
-  return geom::convex_hull_3<double>(a1, a2, v7, v8);
+  return geom::convex_hull_3<double>(a1, a2, v11, v12, a5, a6);
 }
 
 uint64_t std::deque<unsigned int>::~deque[abi:nn200100](void *a1)
@@ -7910,20 +8034,17 @@ uint64_t std::__split_buffer<unsigned int *>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(result, a2);
+      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, a2);
     }
 
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
-
-  return result;
 }
 
 void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(uint64_t a1, _OWORD *a2)
@@ -8432,7 +8553,7 @@ void geom::anonymous namespace::max_heap<geom::anonymous namespace::hull_mesh<fl
     v21 = 4 * (end - a1->__begin_);
     *v21 = v12;
     *(v21 + 4) = v13;
-    v15 = 12 * v17 + 12;
+    v15 = (12 * v17 + 12);
     v22 = (12 * v17 - (end - v16));
     memcpy(v22, v16, end - v16);
     a1->__begin_ = v22;
@@ -8448,7 +8569,7 @@ void geom::anonymous namespace::max_heap<geom::anonymous namespace::hull_mesh<fl
   {
     *end = v12;
     *(end + 1) = v13;
-    v15 = (end + 3);
+    v15 = end + 3;
   }
 
   v23 = v7;
@@ -8483,221 +8604,218 @@ void geom::anonymous namespace::max_heap<geom::anonymous namespace::hull_mesh<fl
   }
 }
 
-uint64_t geom::anonymous namespace::hull_mesh<float>::dissolve_edge_if_coplanar(uint64_t a1, int a2, unsigned int **a3, const void **a4)
+void geom::anonymous namespace::hull_mesh<float>::dissolve_edge_if_coplanar(uint64_t a1, int a2, unsigned int **a3, const void **a4)
 {
-  v94 = a2;
-  result = std::deque<unsigned int>::push_back((a1 + 400), &v94);
+  v95 = a2;
+  std::deque<unsigned int>::push_back((a1 + 400), &v95);
   for (i = *(a1 + 440); i; i = *(a1 + 440))
   {
-    v7 = *(*(*(a1 + 408) + ((*(a1 + 432) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (*(a1 + 432) & 0x3FFLL));
+    v6 = *(*(*(a1 + 408) + ((*(a1 + 432) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (*(a1 + 432) & 0x3FFLL));
     ++*(a1 + 432);
     *(a1 + 440) = i - 1;
-    result = std::deque<unsigned int>::__maybe_remove_front_spare[abi:nn200100](a1 + 400, 1);
-    v9 = *(a1 + 48);
-    v10 = (v9 + 16 * v7);
-    v11 = *v10;
-    if (v11 != -1)
+    std::deque<unsigned int>::__maybe_remove_front_spare[abi:nn200100](a1 + 400, 1);
+    v8 = *(a1 + 48);
+    v9 = (v8 + 16 * v6);
+    v10 = *v9;
+    if (v10 != -1)
     {
-      v12 = v10[1];
-      v13 = (v9 + 16 * v12);
-      v14 = *v13;
-      if (*v13 != -1 && v14 != v11)
+      v11 = v9[1];
+      v12 = (v8 + 16 * v11);
+      v13 = *v12;
+      if (*v12 != -1 && v13 != v10)
       {
-        v16 = *(a1 + 72);
-        v17 = (v16 + 80 * v11);
-        if ((v17[2].i8[4] & 1) == 0)
+        v15 = *(a1 + 72);
+        v16 = (v15 + 80 * v10);
+        if ((v16[2].i8[4] & 1) == 0)
         {
-          v18 = (v16 + 80 * v14);
-          if ((v18[2].i8[4] & 1) == 0)
+          v17 = (v15 + 80 * v13);
+          if ((v17[2].i8[4] & 1) == 0)
           {
-            f32 = v18[2].f32;
-            v20 = vld1q_dup_f32(f32);
-            v21 = vdivq_f32(v18[1], v20);
-            v22 = v17[2].f32;
-            v23 = vld1q_dup_f32(v22);
-            v24 = vdivq_f32(v17[1], v23);
-            v25 = vmulq_f32(v21, v24);
-            if ((v25.f32[2] + vaddv_f32(*v25.f32)) > 0.0)
+            f32 = v17[2].f32;
+            v19 = vld1q_dup_f32(f32);
+            v20 = vdivq_f32(v17[1], v19);
+            v21 = v16[2].f32;
+            v22 = vld1q_dup_f32(v21);
+            v23 = vdivq_f32(v16[1], v22);
+            v24 = vmulq_f32(v20, v23);
+            if ((v24.f32[2] + vaddv_f32(*v24.f32)) > 0.0)
             {
-              v25.f32[0] = v18[4].u32[0];
-              v26 = vdivq_f32(v18[3], vdupq_lane_s32(*v25.f32, 0));
-              *v8.i32 = v17[4].u32[0];
-              v27 = vdivq_f32(v17[3], vdupq_lane_s32(v8, 0));
-              v28 = vmulq_f32(vsubq_f32(v26, v27), v24);
-              *&v29 = -*(a1 + 528);
-              v30 = vmulq_f32(vsubq_f32(v27, v26), v21);
-              v31 = vzip2_s32(*v30.i8, *v28.i8);
-              *v26.f32 = vadd_f32(vzip1_s32(*v30.i8, *v28.i8), v31);
-              v32 = vextq_s8(v30, v30, 8uLL);
-              *v32.i8 = vadd_f32(vzip1_s32(*v32.i8, *&vextq_s8(v28, v28, 8uLL)), *v26.f32);
-              HIDWORD(v29) = *(a1 + 528);
-              v33 = vzip1q_s32(v32, v32);
-              v34 = vdupq_lane_s64(v29, 0);
-              v35 = vmovn_s32(vmvnq_s8(vcgtq_f32(v34, v33)));
-              *v33.f32 = vmovn_s32(vcgtq_f32(v33, v34));
-              v36 = vrev32_s16(v35);
-              v37 = vtrn2_s16(v36, *v33.f32);
-              v37.i16[0] = vmaxv_u16(v37);
-              if (v37.i8[0])
+              v24.f32[0] = v17[4].u32[0];
+              v25 = vdivq_f32(v17[3], vdupq_lane_s32(*v24.f32, 0));
+              *v7.i32 = v16[4].u32[0];
+              v26 = vdivq_f32(v16[3], vdupq_lane_s32(v7, 0));
+              v27 = vmulq_f32(vsubq_f32(v25, v26), v23);
+              *&v28 = -*(a1 + 528);
+              v29 = vmulq_f32(vsubq_f32(v26, v25), v20);
+              v30 = vzip2_s32(*v29.i8, *v27.i8);
+              *v25.f32 = vadd_f32(vzip1_s32(*v29.i8, *v27.i8), v30);
+              v31 = vextq_s8(v29, v29, 8uLL);
+              *v31.i8 = vadd_f32(vzip1_s32(*v31.i8, *&vextq_s8(v27, v27, 8uLL)), *v25.f32);
+              HIDWORD(v28) = *(a1 + 528);
+              v32 = vzip1q_s32(v31, v31);
+              v33 = vdupq_lane_s64(v28, 0);
+              v34 = vmovn_s32(vmvnq_s8(vcgtq_f32(v33, v32)));
+              *v32.f32 = vmovn_s32(vcgtq_f32(v32, v33));
+              v35 = vrev32_s16(v34);
+              v36 = vtrn2_s16(v35, *v32.f32);
+              v36.i16[0] = vmaxv_u16(v36);
+              if (v36.i8[0])
               {
-                v90 = v17[4].i32[0];
-                v88 = v18[1];
-                v89 = v17[3];
-                v87 = v18[4].i32[0];
-                v85 = v18[3];
-                v86 = v17[1];
-                if (is_halfedge_dissolvable)
+                v91 = v16[4].i32[0];
+                v89 = v17[1];
+                v90 = v16[3];
+                v88 = v17[4].i32[0];
+                v86 = v17[3];
+                v87 = v16[1];
+                if (is_halfedge_dissolvable && v41)
                 {
-                  if (result)
+                  v42 = v9[2];
+                  v43 = v12[2];
+                  v83 = *(v8 + 16 * *(v8 + 16 * v43 + 4) + 8);
+                  v85 = *(v8 + 16 * *(v8 + 16 * v42 + 4) + 8);
+                  v44 = v6;
+                  do
                   {
-                    v42 = v10[2];
-                    v43 = v13[2];
-                    v82 = *(v9 + 16 * *(v9 + 16 * v43 + 4) + 8);
-                    v84 = *(v9 + 16 * *(v9 + 16 * v42 + 4) + 8);
-                    v44 = v7;
-                    do
-                    {
-                      v45 = v9 + 16 * v44;
-                      v47 = *(v45 + 8);
-                      v46 = (v45 + 8);
-                      v44 = v47;
-                    }
+                    v45 = v8 + 16 * v44;
+                    v47 = *(v45 + 8);
+                    v46 = (v45 + 8);
+                    v44 = v47;
+                  }
 
-                    while (v47 != v7);
-                    v48 = v12;
-                    do
-                    {
-                      v49 = v9 + 16 * v48;
-                      v51 = *(v49 + 8);
-                      v50 = (v49 + 8);
-                      v48 = v51;
-                    }
+                  while (v47 != v6);
+                  v48 = v11;
+                  do
+                  {
+                    v49 = v8 + 16 * v48;
+                    v51 = *(v49 + 8);
+                    v50 = (v49 + 8);
+                    v48 = v51;
+                  }
 
-                    while (v51 != v12);
-                    v52 = v10[3];
-                    v53 = *(a1 + 96);
-                    v54 = v13[3];
-                    v55 = vaddq_f32(v88, v86);
-                    v17[1] = v55;
-                    v56 = vmulq_f32(v55, v55);
-                    v56.f32[0] = sqrtf(v56.f32[2] + vaddv_f32(*v56.f32));
-                    v17[2].i32[0] = v56.i32[0];
-                    v17[2].i8[4] = v56.f32[0] <= 0.00000011921;
-                    v17[3] = vaddq_f32(v89, vsubq_f32(v85, vaddq_f32(*(v53 + 16 * v52), *(v53 + 16 * v54))));
-                    v17[4].i32[0] = v90 + v87 - 2;
-                    v57 = v10[1];
-                    v58 = *(a1 + 48);
-                    v59 = v57;
-                    do
-                    {
-                      v60 = (v58 + 16 * v59);
-                      *v60 = v11;
-                      v59 = v60[2];
-                    }
+                  while (v51 != v11);
+                  v52 = v9[3];
+                  v53 = *(a1 + 96);
+                  v54 = v12[3];
+                  v55 = vaddq_f32(v89, v87);
+                  v16[1] = v55;
+                  v56 = vmulq_f32(v55, v55);
+                  v56.f32[0] = sqrtf(v56.f32[2] + vaddv_f32(*v56.f32));
+                  v16[2].i32[0] = v56.i32[0];
+                  v16[2].i8[4] = v56.f32[0] <= 0.00000011921;
+                  v16[3] = vaddq_f32(v90, vsubq_f32(v86, vaddq_f32(*(v53 + 16 * v52), *(v53 + 16 * v54))));
+                  v16[4].i32[0] = v91 + v88 - 2;
+                  v57 = v9[1];
+                  v58 = *(a1 + 48);
+                  v59 = v57;
+                  do
+                  {
+                    v60 = (v58 + 16 * v59);
+                    *v60 = v10;
+                    v59 = v60[2];
+                  }
 
-                    while (v59 != v57);
-                    *v46 = v43;
-                    *v50 = v42;
-                    v17->i32[0] = v42;
-                    if (v17[4].i32[1] != -1)
-                    {
-                      std::vector<unsigned int>::push_back[abi:nn200100](a4, &v17[4].i32[1]);
-                      v17[4].i32[1] = -1;
-                    }
+                  while (v59 != v57);
+                  *v46 = v43;
+                  *v50 = v42;
+                  v16->i32[0] = v42;
+                  if (v16[4].i32[1] != -1)
+                  {
+                    std::vector<unsigned int>::push_back[abi:nn200100](a4, &v16[4].i32[1]);
+                    v16[4].i32[1] = -1;
+                  }
 
-                    v62 = v18[4].i32[1];
-                    v61 = &v18[4].i32[1];
-                    if (v62 != -1)
-                    {
-                      std::vector<unsigned int>::push_back[abi:nn200100](a4, v61);
-                      *v61 = -1;
-                    }
+                  v62 = v17[4].i32[1];
+                  v61 = &v17[4].i32[1];
+                  if (v62 != -1)
+                  {
+                    std::vector<unsigned int>::push_back[abi:nn200100](a4, v61);
+                    *v61 = -1;
+                  }
 
-                    v95[0] = v7;
-                    v63 = (*(a1 + 48) + 16 * v7);
-                    *v63 = -1;
-                    v63[1] = -1;
-                    std::vector<unsigned int>::push_back[abi:nn200100](a1, v95);
-                    v95[0] = v12;
-                    v64 = (*(a1 + 48) + 16 * v12);
-                    *v64 = -1;
-                    v64[1] = -1;
-                    std::vector<unsigned int>::push_back[abi:nn200100](a1, v95);
-                    if ((v17[2].i8[4] & 1) == 0)
+                  v96[0] = v6;
+                  v63 = (*(a1 + 48) + 16 * v6);
+                  *v63 = -1;
+                  v63[1] = -1;
+                  std::vector<unsigned int>::push_back[abi:nn200100](a1, v96);
+                  v96[0] = v11;
+                  v64 = (*(a1 + 48) + 16 * v11);
+                  *v64 = -1;
+                  v64[1] = -1;
+                  std::vector<unsigned int>::push_back[abi:nn200100](a1, v96);
+                  if ((v16[2].i8[4] & 1) == 0)
+                  {
+                    v65 = *(a1 + 168);
+                    if (v10 < (*(a1 + 176) - v65) >> 2)
                     {
-                      v65 = *(a1 + 168);
-                      if (v11 < (*(a1 + 176) - v65) >> 2)
+                      v66 = *(v65 + 4 * v10);
+                      if (v66)
                       {
-                        v66 = *(v65 + 4 * v11);
-                        if (v66)
+                        v67 = *(a1 + 144);
+                        v68 = (v67 + 12 * v66);
+                        *(v65 + 4 * *v68) = 0;
+                        v69 = *(a1 + 152);
+                        v71 = *(v69 - 12);
+                        v69 -= 12;
+                        v70 = v71;
+                        v72 = *(v69 + 4);
+                        *(a1 + 152) = v69;
+                        if (0xAAAAAAAAAAAAAAABLL * ((v69 - v67) >> 2) != v66)
                         {
-                          v67 = *(a1 + 144);
-                          v68 = (v67 + 12 * v66);
-                          *(v65 + 4 * *v68) = 0;
-                          v69 = *(a1 + 152);
-                          v71 = *(v69 - 12);
-                          v69 -= 12;
-                          v70 = v71;
-                          v72 = *(v69 + 4);
-                          *(a1 + 152) = v69;
-                          if (0xAAAAAAAAAAAAAAABLL * ((v69 - v67) >> 2) != v66)
+                          *v68 = v70;
+                          *(v68 + 1) = v72;
+                          *(*(a1 + 168) + 4 * v70) = v66;
+                          v74 = (2 * v66);
+                          v75 = *(a1 + 144);
+                          v76 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 152) - v75) >> 2);
+                          while (v76 > v74)
                           {
-                            *v68 = v70;
-                            *(v68 + 1) = v72;
-                            *(*(a1 + 168) + 4 * v70) = v66;
-                            v73 = (2 * v66);
-                            v74 = *(a1 + 144);
-                            v75 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 152) - v74) >> 2);
-                            while (v75 > v73)
+                            v77 = v74 | 1;
+                            if (v76 <= v77)
                             {
-                              v76 = v73 | 1;
-                              if (v75 <= v76)
-                              {
-                                LODWORD(v76) = v73;
-                              }
-
-                              else if (*(v74 + 12 * v73 + 8) >= *(v74 + 12 * v76 + 8))
-                              {
-                                LODWORD(v76) = v73;
-                              }
-
-                              v77 = (v74 + 12 * v76);
-                              v78 = (v74 + 12 * v66);
-                              if (*(v77 + 2) < *(v78 + 2))
-                              {
-                                break;
-                              }
-
-                              v79 = *v78;
-                              *v78 = *v77;
-                              *v77 = v79;
-                              v80 = *(v78 + 1);
-                              *(v78 + 1) = *(v77 + 1);
-                              *(v77 + 1) = v80;
-                              v74 = *(a1 + 144);
-                              v81 = *(a1 + 168);
-                              *(v81 + 4 * *(v74 + 12 * v66)) = v66;
-                              *(v81 + 4 * *(v74 + 12 * v76)) = v76;
-                              v73 = (2 * v76);
-                              v75 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 152) - v74) >> 2);
-                              LODWORD(v66) = v76;
+                              LODWORD(v77) = v74;
                             }
+
+                            else if (*(v75 + 12 * v74 + 8) >= *(v75 + 12 * v77 + 8))
+                            {
+                              LODWORD(v77) = v74;
+                            }
+
+                            v78 = (v75 + 12 * v77);
+                            v79 = (v75 + 12 * v66);
+                            if (*(v78 + 2) < *(v79 + 2))
+                            {
+                              break;
+                            }
+
+                            v80 = *v79;
+                            *v79 = *v78;
+                            *v78 = v80;
+                            v81 = *(v79 + 1);
+                            *(v79 + 1) = *(v78 + 1);
+                            *(v78 + 1) = v81;
+                            v75 = *(a1 + 144);
+                            v82 = *(a1 + 168);
+                            *(v82 + 4 * *(v75 + 12 * v66)) = v66;
+                            *(v82 + 4 * *(v75 + 12 * v77)) = v77;
+                            v74 = (2 * v77);
+                            v76 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 152) - v75) >> 2);
+                            LODWORD(v66) = v77;
                           }
                         }
                       }
                     }
+                  }
 
-                    v93 = result;
-                    if (v95[0] != -1)
-                    {
-                      std::deque<unsigned int>::push_back((a1 + 400), v95);
-                      result = v93;
-                    }
+                  v94 = v73;
+                  if (v96[0] != -1)
+                  {
+                    std::deque<unsigned int>::push_back((a1 + 400), v96);
+                    v73 = v94;
+                  }
 
-                    if (result != -1)
-                    {
-                      result = std::deque<unsigned int>::push_back((a1 + 400), &v93);
-                    }
+                  if (v73 != -1)
+                  {
+                    std::deque<unsigned int>::push_back((a1 + 400), &v94);
                   }
                 }
               }
@@ -8707,8 +8825,6 @@ uint64_t geom::anonymous namespace::hull_mesh<float>::dissolve_edge_if_coplanar(
       }
     }
   }
-
-  return result;
 }
 
 void geom::anonymous namespace::integer_hashset::populate(unsigned int *a1, std::vector<unsigned int> *this)
@@ -8728,7 +8844,7 @@ void geom::anonymous namespace::integer_hashset::populate(unsigned int *a1, std:
   }
 }
 
-uint64_t geom::partitioned_set::init(std::vector<int> *this, unsigned int a2, uint64_t a3, unint64_t a4)
+void geom::partitioned_set::init(std::vector<int> *this, unsigned int a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8848,7 +8964,7 @@ uint64_t geom::partitioned_set::init(std::vector<int> *this, unsigned int a2, ui
     while (v29 > v28);
   }
 
-  return geom::bvh<float,(unsigned char)2>::invariant_check(this);
+  geom::bvh<float,(unsigned char)2>::invariant_check();
 }
 
 __n128 std::__function::__func<geom::anonymous namespace::hull_mesh<float>::build_initial_hull(void)::{lambda(unsigned int)#1},std::allocator<geom::anonymous namespace::hull_mesh<float>::build_initial_hull(void)::{lambda(unsigned int)#1}>,unsigned int ()(unsigned int const&)>::__clone(uint64_t a1, uint64_t a2)
@@ -8955,15 +9071,15 @@ uint64_t std::__function::__value_func<unsigned int ()(unsigned int const&)>::__
   return a1;
 }
 
-uint64_t std::__function::__value_func<unsigned int ()(unsigned int)>::__value_func[abi:nn200100]<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>>(uint64_t result, uint64_t a2)
+uint64_t std::__function::__value_func<unsigned int ()(unsigned int)>::__value_func[abi:nn200100]<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>>(uint64_t a1, uint64_t a2)
 {
-  *(result + 24) = 0;
+  *(a1 + 24) = 0;
   if (*(a2 + 24))
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void *std::__function::__func<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>,unsigned int ()(unsigned int)>::~__func(void *a1)
@@ -8981,27 +9097,27 @@ void std::__function::__func<std::function<unsigned int ()(unsigned int const&)>
   JUMPOUT(0x25305E3F0);
 }
 
-void std::__function::__func<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>,unsigned int ()(unsigned int)>::destroy_deallocate(void *a1)
+void std::__function::__func<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>,unsigned int ()(unsigned int)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<unsigned int ()(unsigned int const&)>::~__value_func[abi:nn200100](a1 + 8);
+  std::__function::__value_func<unsigned int ()(unsigned int const&)>::~__value_func[abi:nn200100]((a1 + 8));
 
   operator delete(a1);
 }
 
-uint64_t std::__function::__func<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>,unsigned int ()(unsigned int)>::operator()(uint64_t a1)
+uint64_t std::__function::__func<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>,unsigned int ()(unsigned int)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = *(*v2 + 48);
+    v4 = *(*v3 + 48);
 
-    return v3();
+    return v4();
   }
 
   else
   {
-    v5 = std::__throw_bad_function_call[abi:nn200100]();
-    return std::__function::__func<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>,unsigned int ()>::target(v5);
+    v6 = std::__throw_bad_function_call[abi:nn200100]();
+    return std::__function::__func<std::function<unsigned int ()(unsigned int const&)>,std::allocator<std::function<unsigned int ()(unsigned int const&)>>,unsigned int ()>::target(v6, v7);
   }
 }
 
@@ -9358,83 +9474,85 @@ BOOL geom::anonymous namespace::hull_mesh<float>::is_halfedge_dissolvable(uint64
   v11 = (v6 + 16 * v10[2]);
   v12 = v11[1];
   v13 = (v6 + 16 * v12);
-  if (v13[2] != a2)
+  result = 1;
+  if (v13[2] == a2)
   {
-    return 1;
+    if (*(v6 + 16 * *(v6 + 16 * *(v6 + 16 * *(v6 + 16 * *(v6 + 16 * v10[1] + 8) + 4) + 8) + 4) + 8) == v9)
+    {
+      return 0;
+    }
+
+    if (*(v6 + 16 * *(v6 + 16 * *(v6 + 16 * *(v6 + 16 * *(v6 + 16 * v13[1] + 8) + 4) + 8) + 4) + 8) == v12)
+    {
+      return 0;
+    }
+
+    v14 = *(a1 + 72);
+    v15 = (v14 + 80 * *v11);
+    v16 = v15[4].i32[0];
+    if (v16 == 3)
+    {
+      return 0;
+    }
+
+    v17 = (v6 + 16 * a2);
+    v18 = (v14 + 80 * *v17);
+    v19 = v18[4].i32[0];
+    if (v19 == 3)
+    {
+      return 0;
+    }
+
+    v21 = v15[1];
+    v22 = vaddq_f32(v21, v18[1]);
+    v23 = vmulq_f32(v22, v22);
+    *&a6 = sqrtf(v23.f32[2] + vaddv_f32(*v23.f32));
+    if (fabsf(*&a6) > 0.00000011921)
+    {
+      v24 = *(a1 + 96);
+      v25 = *(v24 + 16 * v17[3]);
+      v26 = (v14 + 80 * *v8);
+      v27 = v18[3];
+      v28 = vaddq_f32(v26[3], v27);
+      v27.f32[0] = (v19 + v26[4].i32[0] - 3);
+      v29.i64[0] = 0xC0000000C0000000;
+      v29.i64[1] = 0xC0000000C0000000;
+      v30 = vdupq_lane_s32(*v27.f32, 0);
+      v31 = vmulq_f32(vdivq_f32(v22, vdupq_lane_s32(*&a6, 0)), vsubq_f32(v25, vdivq_f32(vmlaq_f32(vsubq_f32(v28, *(v24 + 16 * *(v7 + 12))), v29, v25), v30)));
+      v32 = v31.f32[2] + vaddv_f32(*v31.f32);
+      v33 = *(a1 + 528);
+      v34 = -v33;
+      if (v32 > v33 || v32 < v34)
+      {
+        return 0;
+      }
+
+      v30.f32[0] = (v16 - 1);
+      v36 = *(v24 + 16 * v13[3]);
+      v37 = vdivq_f32(vsubq_f32(v15[3], v25), vdupq_lane_s32(*v30.f32, 0));
+      v38 = *(v24 + 16 * v10[3]);
+      v39 = vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL);
+      v40 = vextq_s8(vuzp1q_s32(v38, v38), v38, 0xCuLL);
+      v41 = vnegq_f32(v36);
+      v42 = vmlaq_f32(vmulq_f32(v40, v41), v38, v39);
+      v43 = vaddq_f32(v21, vextq_s8(vuzp1q_s32(v42, v42), v42, 0xCuLL));
+      v44 = vextq_s8(vuzp1q_s32(v25, v25), v25, 0xCuLL);
+      v45 = vmlaq_f32(vmulq_f32(v44, v41), v25, v39);
+      v46 = vsubq_f32(v43, vextq_s8(vuzp1q_s32(v45, v45), v45, 0xCuLL));
+      v47 = vmlaq_f32(vmulq_f32(v40, vnegq_f32(v25)), v38, v44);
+      v48 = vsubq_f32(v46, vextq_s8(vuzp1q_s32(v47, v47), v47, 0xCuLL));
+      v49 = vmulq_f32(v48, v48);
+      v49.f32[0] = sqrtf(v49.f32[2] + vaddv_f32(*v49.f32));
+      v50 = vmulq_f32(vdivq_f32(v48, vdupq_lane_s32(*v49.f32, 0)), vsubq_f32(v25, v37));
+      v51 = v50.f32[2] + vaddv_f32(*v50.f32);
+      if (v51 > v33 || v51 < v34)
+      {
+        return 0;
+      }
+    }
   }
 
-  if (*(v6 + 16 * *(v6 + 16 * *(v6 + 16 * *(v6 + 16 * *(v6 + 16 * v10[1] + 8) + 4) + 8) + 4) + 8) == v9)
-  {
-    return 0;
-  }
-
-  if (*(v6 + 16 * *(v6 + 16 * *(v6 + 16 * *(v6 + 16 * *(v6 + 16 * v13[1] + 8) + 4) + 8) + 4) + 8) == v12)
-  {
-    return 0;
-  }
-
-  v14 = *(a1 + 72);
-  v15 = (v14 + 80 * *v11);
-  v16 = v15[4].i32[0];
-  if (v16 == 3)
-  {
-    return 0;
-  }
-
-  v17 = (v6 + 16 * a2);
-  v18 = (v14 + 80 * *v17);
-  v19 = v18[4].i32[0];
-  if (v19 == 3)
-  {
-    return 0;
-  }
-
-  v21 = v15[1];
-  v22 = vaddq_f32(v21, v18[1]);
-  v23 = vmulq_f32(v22, v22);
-  *&a6 = sqrtf(v23.f32[2] + vaddv_f32(*v23.f32));
-  if (fabsf(*&a6) <= 0.00000011921)
-  {
-    return 1;
-  }
-
-  v24 = *(a1 + 96);
-  v25 = *(v24 + 16 * v17[3]);
-  v26 = (v14 + 80 * *v8);
-  v27 = v18[3];
-  v28 = vaddq_f32(v26[3], v27);
-  v27.f32[0] = (v19 + v26[4].i32[0] - 3);
-  v29.i64[0] = 0xC0000000C0000000;
-  v29.i64[1] = 0xC0000000C0000000;
-  v30 = vdupq_lane_s32(*v27.f32, 0);
-  v31 = vmulq_f32(vdivq_f32(v22, vdupq_lane_s32(*&a6, 0)), vsubq_f32(v25, vdivq_f32(vmlaq_f32(vsubq_f32(v28, *(v24 + 16 * *(v7 + 12))), v29, v25), v30)));
-  v32 = v31.f32[2] + vaddv_f32(*v31.f32);
-  v33 = *(a1 + 528);
-  v34 = -v33;
-  if (v32 > v33 || v32 < v34)
-  {
-    return 0;
-  }
-
-  v30.f32[0] = (v16 - 1);
-  v36 = *(v24 + 16 * v13[3]);
-  v37 = vdivq_f32(vsubq_f32(v15[3], v25), vdupq_lane_s32(*v30.f32, 0));
-  v38 = *(v24 + 16 * v10[3]);
-  v39 = vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL);
-  v40 = vextq_s8(vuzp1q_s32(v38, v38), v38, 0xCuLL);
-  v41 = vnegq_f32(v36);
-  v42 = vmlaq_f32(vmulq_f32(v40, v41), v38, v39);
-  v43 = vaddq_f32(v21, vextq_s8(vuzp1q_s32(v42, v42), v42, 0xCuLL));
-  v44 = vextq_s8(vuzp1q_s32(v25, v25), v25, 0xCuLL);
-  v45 = vmlaq_f32(vmulq_f32(v44, v41), v25, v39);
-  v46 = vsubq_f32(v43, vextq_s8(vuzp1q_s32(v45, v45), v45, 0xCuLL));
-  v47 = vmlaq_f32(vmulq_f32(v40, vnegq_f32(v25)), v38, v44);
-  v48 = vsubq_f32(v46, vextq_s8(vuzp1q_s32(v47, v47), v47, 0xCuLL));
-  v49 = vmulq_f32(v48, v48);
-  v49.f32[0] = sqrtf(v49.f32[2] + vaddv_f32(*v49.f32));
-  v50 = vmulq_f32(vdivq_f32(v48, vdupq_lane_s32(*v49.f32, 0)), vsubq_f32(v25, v37));
-  v51 = v50.f32[2] + vaddv_f32(*v50.f32);
-  return v51 <= v33 && v51 >= v34;
+  return result;
 }
 
 uint64_t geom::anonymous namespace::hull_mesh<float>::dissolve_vertex_if_redundant(uint64_t a1, unsigned int a2, unsigned int **a3, const void **a4)

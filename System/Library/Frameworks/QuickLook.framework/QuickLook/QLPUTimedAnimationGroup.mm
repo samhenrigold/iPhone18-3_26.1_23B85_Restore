@@ -17,7 +17,7 @@
   v3 = v2;
   if (v2)
   {
-    [(QLPUTimedAnimationGroup *)v2 currentTime];
+    objc_msgSend_currentTime(v2);
     v3->_beginTime = v4;
   }
 
@@ -31,7 +31,7 @@
     return self->_pausedElapsedTime;
   }
 
-  [(QLPUTimedAnimationGroup *)self currentTime];
+  objc_msgSend_currentTime(self);
   v5 = v4;
   [(QLPUTimedAnimationGroup *)self beginTime];
   return v5 - v6;
@@ -51,7 +51,7 @@
   v6.receiver = self;
   v6.super_class = QLPUTimedAnimationGroup;
   [(QLPUAnimationGroup *)&v6 pauseAnimations];
-  [(QLPUTimedAnimationGroup *)self currentTime];
+  objc_msgSend_currentTime(self);
   v4 = v3;
   [(QLPUTimedAnimationGroup *)self beginTime];
   self->_pausedElapsedTime = v4 - v5;
@@ -63,7 +63,7 @@
   v4.receiver = self;
   v4.super_class = QLPUTimedAnimationGroup;
   [(QLPUAnimationGroup *)&v4 resumeAnimations];
-  [(QLPUTimedAnimationGroup *)self currentTime];
+  objc_msgSend_currentTime(self);
   self->_beginTime = v3 - self->_pausedElapsedTime;
   [(QLPUTimedAnimationGroup *)self _update];
 }

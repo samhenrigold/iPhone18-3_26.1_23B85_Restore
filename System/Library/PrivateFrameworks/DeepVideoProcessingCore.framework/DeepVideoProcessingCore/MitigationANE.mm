@@ -1152,8 +1152,8 @@ LABEL_8:
   CVPixelBufferGetPixelFormatType(a2);
   CVPixelBufferGetPixelFormatType(a2);
   CVPixelBufferGetPixelFormatType(a2);
-  OUTLINED_FUNCTION_2_16();
-  OUTLINED_FUNCTION_10_4(&dword_24874B000, v4, v5, "Pixel buffer %c%c%c%c format not supported", v6, v7, v8, v9, v10);
+  v4 = OUTLINED_FUNCTION_2_16();
+  OUTLINED_FUNCTION_10_4(&dword_24874B000, v5, v6, "Pixel buffer %c%c%c%c format not supported", v7, v8, v9, v10, v4);
 }
 
 - (void)_cachedTexturesFromPixelBuffer:usage:.cold.5()

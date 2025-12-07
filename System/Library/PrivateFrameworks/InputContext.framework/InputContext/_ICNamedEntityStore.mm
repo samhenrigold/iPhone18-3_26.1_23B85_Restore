@@ -175,7 +175,7 @@
 
 - (USet)_exemplarSetForCustomLocales:(id)locales
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   localesCopy = locales;
   if (!_exemplarSetForCustomLocales__cachedExemplarSets)
   {
@@ -194,8 +194,8 @@
 
   else
   {
-    v13 = 0;
-    pointerValue = _createExemplarSetForLocales(localesCopy, &v13);
+    v12 = 0;
+    pointerValue = _createExemplarSetForLocales(localesCopy, &v12);
     if (pointerValue)
     {
       v10 = [MEMORY[0x277CCAE60] valueWithPointer:pointerValue];
@@ -204,17 +204,16 @@
 
     else
     {
-      v10 = _ICPersNamedEntityOSLogFacility();
+      v10 = _ICPersNamedEntityOSLogFacility(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v15 = v13;
+        v14 = v12;
         _os_log_impl(&dword_254BD0000, v10, OS_LOG_TYPE_DEFAULT, "Unable to create exemplar set for given languages (UErrorCode=%d)", buf, 8u);
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return pointerValue;
 }
 
@@ -350,111 +349,100 @@ LABEL_10:
 {
   durableCopy = durable;
   entityCopy = entity;
-  if (isTransientLexiconIngestionV2Enabled() && ([entityCopy passesFilters] & 1) == 0)
+  if (isTransientLexiconIngestionV2Enabled() && (v7 = [entityCopy passesFilters], (v7 & 1) == 0))
   {
-    v8 = _ICPersNamedEntityOSLogFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _ICPersNamedEntityOSLogFacility(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [_ICNamedEntityStore addEntity:entityCopy isDurable:v8];
+      [_ICNamedEntityStore addEntity:entityCopy isDurable:v9];
     }
   }
 
   else
   {
-    v7 = 64;
+    v8 = 64;
     if (durableCopy)
     {
-      v7 = 56;
+      v8 = 56;
     }
 
-    ++*(&self->super.isa + v7);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __43___ICNamedEntityStore_addEntity_isDurable___block_invoke;
-    v32[3] = &unk_2797ADEB8;
-    v32[4] = self;
-    v8 = MEMORY[0x259C27030](v32);
+    ++*(&self->super.isa + v8);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __43___ICNamedEntityStore_addEntity_isDurable___block_invoke;
+    v35[3] = &unk_2797ADEB8;
+    v35[4] = self;
+    v9 = MEMORY[0x259C27030](v35);
     name = [entityCopy name];
-    v31 = 0;
-    v10 = [(_ICNamedEntityStore *)self isValidNamedEntity:name explanation:&v31];
-    v11 = v31;
+    v34 = 0;
+    v11 = [(_ICNamedEntityStore *)self isValidNamedEntity:name explanation:&v34];
+    v12 = v34;
 
-    if (v10)
+    if (v11)
     {
-      v12 = objc_opt_class();
+      v14 = objc_opt_class();
       name2 = [entityCopy name];
-      v14 = [v12 tokenize:name2];
+      v16 = [v14 tokenize:name2];
 
-      v30 = 0;
-      v15 = [(_ICNamedEntityStore *)self _adjustWordsForHyphenationIfNeeded:v14 didAdjust:&v30];
+      v33 = 0;
+      v17 = [(_ICNamedEntityStore *)self _adjustWordsForHyphenationIfNeeded:v16 didAdjust:&v33];
 
-      if ([v15 count])
+      if ([v17 count])
       {
-        v28 = [v15 count];
-        v17 = 88;
-        if (v28 > 1)
+        v31 = [v17 count];
+        v19 = 88;
+        if (v31 > 1)
         {
-          v17 = 96;
+          v19 = 96;
         }
 
-        v16 = [*(&self->super.isa + v17) sortKeyEquivalents:entityCopy];
+        v18 = [*(&self->super.isa + v19) sortKeyEquivalents:entityCopy];
         name3 = [entityCopy name];
-        v19 = __43___ICNamedEntityStore_addEntity_isDurable___block_invoke_2(name3, v16, name3);
+        v21 = __43___ICNamedEntityStore_addEntity_isDurable___block_invoke_2(name3, v18, name3);
 
-        if (!v19)
+        if (v21 && ([entityCopy name], v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "name"), v32 = v21, v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "isEqualToString:", v23), v23, v21 = v32, v22, !v24))
         {
-          goto LABEL_20;
-        }
+          name4 = [entityCopy name];
+          name5 = [v32 name];
+          v30 = [(_ICNamedEntityStore *)self isCloserToTitleCase:name4 than:name5];
 
-        name4 = [entityCopy name];
-        [v19 name];
-        v21 = v29 = v19;
-        v22 = [name4 isEqualToString:v21];
-
-        v19 = v29;
-        if (!v22)
-        {
-          name5 = [entityCopy name];
-          name6 = [v29 name];
-          v27 = [(_ICNamedEntityStore *)self isCloserToTitleCase:name5 than:name6];
-
-          v25 = _ICPersNamedEntityOSLogFacility();
-          v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG);
-          if (v27)
+          v28 = _ICPersNamedEntityOSLogFacility(v27);
+          v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+          if (v30)
           {
-            v19 = v29;
-            if (v26)
+            v21 = v32;
+            if (v29)
             {
-              [_ICNamedEntityStore addEntity:v29 isDurable:entityCopy];
+              [_ICNamedEntityStore addEntity:v32 isDurable:entityCopy];
             }
 
-            [(_ICTransientLexicon *)self->_phraseLexiconImpl removeEntity:v29];
-            [(_ICTransientLexicon *)self->_wordLexiconImpl removeEntity:v29];
-            [(_ICNamedEntityStore *)self _addEntity:entityCopy tokens:v15];
-            [(_ICNamedEntityStore *)self _addEntity:v29 asAliasOfEntity:entityCopy isPhrase:v28 > 1];
+            [(_ICTransientLexicon *)self->_phraseLexiconImpl removeEntity:v32];
+            [(_ICTransientLexicon *)self->_wordLexiconImpl removeEntity:v32];
+            [(_ICNamedEntityStore *)self _addEntity:entityCopy tokens:v17];
+            [(_ICNamedEntityStore *)self _addEntity:v32 asAliasOfEntity:entityCopy isPhrase:v31 > 1];
             if (!durableCopy)
             {
-              [(NSMutableOrderedSet *)self->_leastRecentlyAddedEntities removeObject:v29];
-              (*(v8 + 16))(v8, entityCopy);
+              [(NSMutableOrderedSet *)self->_leastRecentlyAddedEntities removeObject:v32];
+              (*(v9 + 16))(v9, entityCopy);
             }
           }
 
           else
           {
-            v19 = v29;
-            if (v26)
+            v21 = v32;
+            if (v29)
             {
-              [_ICNamedEntityStore addEntity:entityCopy isDurable:v29];
+              [_ICNamedEntityStore addEntity:entityCopy isDurable:v32];
             }
 
-            [(_ICNamedEntityStore *)self _addEntity:entityCopy asAliasOfEntity:v29 isPhrase:v28 > 1];
+            [(_ICNamedEntityStore *)self _addEntity:entityCopy asAliasOfEntity:v32 isPhrase:v31 > 1];
             if (!durableCopy)
             {
-              (*(v8 + 16))(v8, v29);
+              (*(v9 + 16))(v9, v32);
             }
           }
 
-          if (v30 == 1)
+          if (v33 == 1)
           {
             [(_ICTransientLexicon *)self->_wordLexiconImpl setIsHyphenatedWord:1 forEntity:entityCopy];
           }
@@ -462,24 +450,23 @@ LABEL_10:
 
         else
         {
-LABEL_20:
-          [(_ICNamedEntityStore *)self _addEntity:entityCopy tokens:v15];
-          if (v30 == 1)
+          [(_ICNamedEntityStore *)self _addEntity:entityCopy tokens:v17];
+          if (v33 == 1)
           {
             [(_ICTransientLexicon *)self->_wordLexiconImpl setIsHyphenatedWord:1 forEntity:entityCopy];
           }
 
           if (!durableCopy)
           {
-            (*(v8 + 16))(v8, entityCopy);
+            (*(v9 + 16))(v9, entityCopy);
           }
         }
       }
 
       else
       {
-        v16 = _ICPersNamedEntityOSLogFacility();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v18 = _ICPersNamedEntityOSLogFacility(0);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           [_ICNamedEntityStore addEntity:entityCopy isDurable:?];
         }
@@ -488,8 +475,8 @@ LABEL_20:
 
     else
     {
-      v15 = _ICPersNamedEntityOSLogFacility();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v17 = _ICPersNamedEntityOSLogFacility(v13);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         [_ICNamedEntityStore addEntity:entityCopy isDurable:?];
       }
@@ -499,48 +486,46 @@ LABEL_20:
 
 - (void)reloadRecents
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = self->_leastRecentlyAddedEntities;
-  v4 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = objc_opt_class();
         name = [v8 name];
         v11 = [v9 tokenize:name];
 
-        v14 = 0;
-        v12 = [(_ICNamedEntityStore *)self _adjustWordsForHyphenationIfNeeded:v11 didAdjust:&v14];
+        v13 = 0;
+        v12 = [(_ICNamedEntityStore *)self _adjustWordsForHyphenationIfNeeded:v11 didAdjust:&v13];
 
         [(_ICNamedEntityStore *)self _addEntity:v8 tokens:v12];
-        if (v14 == 1)
+        if (v13 == 1)
         {
           [(_ICTransientLexicon *)self->_wordLexiconImpl setIsHyphenatedWord:1 forEntity:v8];
         }
       }
 
-      v5 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSMutableOrderedSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllEntities
@@ -594,7 +579,7 @@ LABEL_20:
 
 - (void)_addEntity:(void *)entity tokens:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   entityCopy = entity;
   v7 = entityCopy;
@@ -607,93 +592,78 @@ LABEL_20:
       [v8 addEntity:v5 forEntry:name];
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * i);
+          v15 = *(*(&v16 + 1) + 8 * i);
           if ([v15 length] >= *(self + 72))
           {
             [*(self + 88) addEntity:v5 forEntry:v15];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEntity:(uint64_t)a1 isDurable:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_254BD0000, a2, OS_LOG_TYPE_DEBUG, "Rejecting named entity %@ (does not pass local filters)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_254BD0000, a2, OS_LOG_TYPE_DEBUG, "Rejecting named entity %@ (does not pass local filters)", &v2, 0xCu);
 }
 
 - (void)addEntity:(void *)a1 isDurable:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEntity:(void *)a1 isDurable:(void *)a2 .cold.3(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 name];
   v4 = [a2 name];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEntity:(void *)a1 isDurable:(void *)a2 .cold.4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 name];
   v4 = [a2 name];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEntity:(void *)a1 isDurable:.cold.5(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 name];
+  v6 = [a1 name];
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

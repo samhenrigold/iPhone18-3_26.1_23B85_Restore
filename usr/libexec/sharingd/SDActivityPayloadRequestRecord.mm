@@ -28,15 +28,14 @@
 
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  advertisementPayload = self->_advertisementPayload;
-  v8 = SFHexStringForData();
+  v7 = SFHexStringForData();
   command = self->_command;
-  v13.receiver = self;
-  v13.super_class = SDActivityPayloadRequestRecord;
-  v10 = [(SDActivityRequestRecord *)&v13 description];
-  v11 = [NSString stringWithFormat:@"<%@: %p, advertisementPayload:%@, command:%@, %@%@>", v6, self, v8, command, linkClient, v10];
+  v12.receiver = self;
+  v12.super_class = SDActivityPayloadRequestRecord;
+  v9 = [(SDActivityRequestRecord *)&v12 description];
+  v10 = [NSString stringWithFormat:@"<%@: %p, advertisementPayload:%@, command:%@, %@%@>", v6, self, v7, command, linkClient, v9];
 
-  return v11;
+  return v10;
 }
 
 @end

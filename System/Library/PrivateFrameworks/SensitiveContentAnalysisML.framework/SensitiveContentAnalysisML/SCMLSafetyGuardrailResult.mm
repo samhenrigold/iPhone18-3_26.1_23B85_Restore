@@ -7,11 +7,10 @@
 
 - (NSArray)labels
 {
-  v2 = *(self + OBJC_IVAR____TtC26SensitiveContentAnalysisML25SCMLSafetyGuardrailResult_labels);
 
-  v3 = sub_1B8AF0808();
+  v2 = sub_1B8AF0808();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC26SensitiveContentAnalysisML25SCMLSafetyGuardrailResult)init

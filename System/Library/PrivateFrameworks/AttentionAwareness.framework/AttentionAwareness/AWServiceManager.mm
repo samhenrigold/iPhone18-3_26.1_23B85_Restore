@@ -63,35 +63,35 @@
 
 - (id)invokeWithService:(id)service
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__1130;
-  v26 = __Block_byref_object_dispose__1131;
-  v27 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__1130;
-  v20 = __Block_byref_object_dispose__1131;
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__1130;
+  v25 = __Block_byref_object_dispose__1131;
+  v26 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__1130;
+  v19 = __Block_byref_object_dispose__1131;
+  v20 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __38__AWServiceManager_invokeWithService___block_invoke;
   block[3] = &unk_1E7F378C8;
   block[4] = self;
-  block[5] = &v16;
-  block[6] = &v22;
+  block[5] = &v15;
+  block[6] = &v21;
   dispatch_sync(queue, block);
-  if (v17[5])
+  if (v16[5])
   {
     v6 = serviceCopy[2](serviceCopy);
     if (!v6)
     {
-      v7 = v23[5];
+      v7 = v22[5];
       if (v7)
       {
         v6 = v7;
@@ -111,34 +111,33 @@
       v8 = _AALog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v13 = absTimeNS();
-        if (v13 == -1)
+        v12 = absTimeNS();
+        if (v12 == -1)
         {
-          v14 = INFINITY;
+          v13 = INFINITY;
         }
 
         else
         {
-          v14 = v13 / 1000000000.0;
+          v13 = v12 / 1000000000.0;
         }
 
         *buf = 134217984;
-        v31 = v14;
+        v30 = v13;
         _os_log_error_impl(&dword_1BB2EF000, v8, OS_LOG_TYPE_ERROR, "%13.5f: couldn't fetch the scheduler", buf, 0xCu);
       }
     }
 
     v9 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
-    v29 = @" Unable to fetch scheduler";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A578];
+    v28 = @" Unable to fetch scheduler";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     v6 = [v9 errorWithDomain:*MEMORY[0x1E696A798] code:57 userInfo:v10];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
-  _Block_object_dispose(&v22, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v21, 8);
 
   return v6;
 }
@@ -159,7 +158,7 @@ void __38__AWServiceManager_invokeWithService___block_invoke(void *a1)
 
 void __38__AWServiceManager_invokeWithService___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (currentLogLevel == 5)
   {
@@ -177,15 +176,15 @@ void __38__AWServiceManager_invokeWithService___block_invoke_2(uint64_t a1, void
         v6 = v5 / 1000000000.0;
       }
 
-      v17 = 134218242;
-      v18 = v6;
-      v19 = 2112;
-      *v20 = v3;
+      v16 = 134218242;
+      v17 = v6;
+      v18 = 2112;
+      *v19 = v3;
       v11 = "%13.5f: IPC error %@";
       v12 = v4;
       v13 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, &v17, v13);
+      _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, &v16, v13);
     }
 
 LABEL_20:
@@ -219,14 +218,14 @@ LABEL_20:
             v10 = v9 / 1000000000.0;
           }
 
-          v17 = 136315906;
-          v18 = *&v7;
-          v19 = 1024;
-          *v20 = 98;
-          *&v20[4] = 2048;
-          *&v20[6] = v10;
-          v21 = 2112;
-          v22 = v3;
+          v16 = 136315906;
+          v17 = *&v7;
+          v18 = 1024;
+          *v19 = 98;
+          *&v19[4] = 2048;
+          *&v19[6] = v10;
+          v20 = 2112;
+          v21 = v3;
           v11 = "%30s:%-4d: %13.5f: IPC error %@";
           v12 = v4;
           v13 = 38;
@@ -242,8 +241,6 @@ LABEL_21:
   v14 = *(*(a1 + 32) + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v3;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (AWServiceManager)init
@@ -299,61 +296,59 @@ void __24__AWServiceManager_init__block_invoke(uint64_t a1)
 
 void __24__AWServiceManager_init__block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 24);
   if (currentLogLevel >= 3)
   {
     v2 = _AALog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v9 = absTimeNS();
-      if (v9 == -1)
+      v8 = absTimeNS();
+      if (v8 == -1)
       {
-        v10 = INFINITY;
+        v9 = INFINITY;
       }
 
       else
       {
-        v10 = v9 / 1000000000.0;
+        v9 = v8 / 1000000000.0;
       }
 
       *buf = 134218240;
-      v17 = v10;
-      v18 = 2048;
-      v19 = [v1 count];
+      v16 = v9;
+      v17 = 2048;
+      v18 = [v1 count];
       _os_log_error_impl(&dword_1BB2EF000, v2, OS_LOG_TYPE_ERROR, "%13.5f: XPC interruption: notifying %lu observers", buf, 0x16u);
     }
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v11 + 1) + 8 * i) serviceInterrupted];
+        [*(*(&v10 + 1) + 8 * i) serviceInterrupted];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removeObserver:(id)observer

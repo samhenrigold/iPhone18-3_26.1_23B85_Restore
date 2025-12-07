@@ -6,8 +6,6 @@
 - (id)lastFiredEventDateForIdentifier:(id)identifier;
 - (id)scheduledEventIdentifiers;
 - (void)clearScheduledEventIdentifiers;
-- (void)currentConfiguration;
-- (void)scheduledEventIdentifiers;
 - (void)storeCurrentConfiguration:(id)configuration;
 - (void)storeFiredEventDate:(id)date identifier:(id)identifier;
 - (void)storeScheduledEventIdentifiers:(id)identifiers;
@@ -79,13 +77,13 @@ LABEL_7:
 
 - (void)storeFiredEventDate:(id)date identifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   identifierCopy = identifier;
   _legacyDefaultsDomain = [(FCGoalProgressStore *)self _legacyDefaultsDomain];
-  v12 = 0;
-  [_legacyDefaultsDomain setDate:dateCopy forKey:identifierCopy error:&v12];
-  v9 = v12;
+  v11 = 0;
+  [_legacyDefaultsDomain setDate:dateCopy forKey:identifierCopy error:&v11];
+  v9 = v11;
   if (v9)
   {
     _HKInitializeLogging();
@@ -93,16 +91,14 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v14 = dateCopy;
-      v15 = 2112;
-      v16 = identifierCopy;
-      v17 = 2112;
-      v18 = v9;
+      v13 = dateCopy;
+      v14 = 2112;
+      v15 = identifierCopy;
+      v16 = 2112;
+      v17 = v9;
       _os_log_error_impl(&dword_24B55B000, v10, OS_LOG_TYPE_ERROR, "Failed to store goal progress event date %@ identifier %@, error %@", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)lastFiredEventDateForIdentifier:(id)identifier
@@ -228,46 +224,6 @@ void __44__FCGoalProgressStore__legacyDefaultsDomain__block_invoke(uint64_t a1)
   v4 = [v2 initWithCategory:1 domainName:v3 profile:WeakRetained];
   v5 = _legacyDefaultsDomain_defaultsDomain;
   _legacyDefaultsDomain_defaultsDomain = v4;
-}
-
-- (void)storeCurrentConfiguration:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_24B55B000, v0, v1, "Failed to store current goal progress configuration %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)currentConfiguration
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_24B55B000, v0, v1, "Failed to fetch current goal progress configuration %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)lastFiredEventDateForIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_24B55B000, v0, v1, "Failed to fetch last fired date for goal progress event: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)storeScheduledEventIdentifiers:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_24B55B000, v0, v1, "Failed to store scheduled goal progress event identifiers %{public}@, error %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)scheduledEventIdentifiers
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_24B55B000, v0, v1, "Failed to fetch scheduled goal progress event identifiers %{public}@, error %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

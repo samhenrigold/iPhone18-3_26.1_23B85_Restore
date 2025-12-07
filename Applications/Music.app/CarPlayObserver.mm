@@ -8,7 +8,7 @@
 - (void)setPlayerState:(int64_t)state
 {
   selfCopy = self;
-  sub_100647604(state);
+  sub_100647604(state, selfCopy);
 }
 
 + (_TtC5Music15CarPlayObserver)shared

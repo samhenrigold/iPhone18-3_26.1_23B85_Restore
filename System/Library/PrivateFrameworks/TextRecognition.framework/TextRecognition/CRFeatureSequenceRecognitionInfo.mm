@@ -1,5 +1,5 @@
 @interface CRFeatureSequenceRecognitionInfo
-+ (id)infoForRegion:(double)region scale:(double)scale bounds:(double)bounds featureImageSize:(double)size rotatedROI:(double)i;
++ (CRFeatureSequenceRecognitionInfo)infoForRegion:(float)region scale:(double)scale bounds:(double)bounds featureImageSize:(double)size rotatedROI:(double)i;
 - (double)bounds;
 - (double)featureImageSize;
 - (double)orientationConfidence;
@@ -14,43 +14,43 @@
 
 @implementation CRFeatureSequenceRecognitionInfo
 
-+ (id)infoForRegion:(double)region scale:(double)scale bounds:(double)bounds featureImageSize:(double)size rotatedROI:(double)i
++ (CRFeatureSequenceRecognitionInfo)infoForRegion:(float)region scale:(double)scale bounds:(double)bounds featureImageSize:(double)size rotatedROI:(double)i
 {
-  v27 = a9;
+  v22 = a2;
   objc_opt_self();
-  v28 = objc_opt_new();
-  v29 = v28;
-  if (v28)
+  v23 = objc_opt_new();
+  v24 = v23;
+  if (v23)
   {
-    objc_storeStrong((v28 + 16), a9);
+    objc_storeStrong((v23 + 16), a2);
 
-    *(v29 + 8) = self;
-    src = a2;
-    iCopy = region;
-    scaleCopy = scale;
+    *(v24 + 8) = region;
+    src = scale;
     boundsCopy = bounds;
-    objc_copyStruct((v29 + 104), &src, 32, 1, 0);
-    src = size;
+    sizeCopy = size;
     iCopy = i;
-    objc_copyStruct((v29 + 88), &src, 16, 1, 0);
+    objc_copyStruct((v24 + 104), &src, 32, 1, 0);
+    src = a8;
+    boundsCopy = a9;
+    objc_copyStruct((v24 + 88), &src, 16, 1, 0);
     src = a11;
-    iCopy = a12;
-    scaleCopy = a13;
-    boundsCopy = a14;
-    objc_copyStruct((v29 + 136), &src, 32, 1, 0);
-    *(v29 + 24) = 0;
-    objc_setProperty_atomic(v29, v30, 0, 40);
-    objc_setProperty_atomic(v29, v31, 0, 48);
-    objc_setProperty_atomic(v29, v32, 0, 56);
-    *(v29 + 72) = 0;
-    objc_setProperty_atomic(v29, v33, 0, 80);
+    boundsCopy = a12;
+    sizeCopy = a13;
+    iCopy = a14;
+    objc_copyStruct((v24 + 136), &src, 32, 1, 0);
+    *(v24 + 24) = 0;
+    objc_setProperty_atomic(v24, v25, 0, 40);
+    objc_setProperty_atomic(v24, v26, 0, 48);
+    objc_setProperty_atomic(v24, v27, 0, 56);
+    *(v24 + 72) = 0;
+    objc_setProperty_atomic(v24, v28, 0, 80);
   }
 
   else
   {
   }
 
-  return v29;
+  return v24;
 }
 
 - (double)bounds

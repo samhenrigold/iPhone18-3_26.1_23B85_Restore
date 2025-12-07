@@ -1,7 +1,7 @@
 @interface SABinary
 + (SABinary)binaryWithUUID:(id)d;
 + (SABinary)binaryWithUUID:(id)d absolutePath:(id)path;
-+ (id)binaryWithPath:(uint64_t)path architecture:(void *)architecture additionalCSSymbolicatorFlags:(uint64_t)flags;
++ (id)binaryWithPath:(uint64_t)path architecture:(int)architecture additionalCSSymbolicatorFlags:;
 + (id)binaryWithSymbolOwner:(uint64_t)owner fromDisk:(uint64_t)disk;
 + (id)dataFillingQueue;
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length;
@@ -32,12 +32,12 @@
 - (id)instructionAtOffsetIntoTextSegment:(unint64_t)segment;
 - (id)segmentAtOffsetIntoBinary:(int)binary createFakeSegmentIfNeeded:;
 - (id)segmentWithCSSegment:(uint64_t)segment symbolOwnerLayoutMatchesDisk:(int)disk symbolOwnerBaseAddress:(uint64_t)address;
-- (id)segmentWithCleanName:(NSObject *)name length:(uint64_t)length offsetIntoBinary:;
-- (id)segmentWithName:(NSObject *)name length:(uint64_t)length offsetIntoBinary:;
+- (id)segmentWithCleanName:(NSObject *)name length:(void *)length offsetIntoBinary:;
+- (id)segmentWithName:(NSObject *)name length:(void *)length offsetIntoBinary:;
 - (id)segmentWithName:(id)name;
 - (id)symbolOwnerWrapperWithOptions:(int)options pid:(int)pid checkExclave:(int)exclave additionalCSSymbolicatorFlags:;
 - (unint64_t)textSegmentLength;
-- (void)addInfoFromSymbolOwner:(uint64_t)owner fromDisk:(uint64_t)disk includeExpensiveInfo:(int)info;
+- (void)addInfoFromSymbolOwner:(uint64_t)owner fromDisk:(char)disk includeExpensiveInfo:(int)info;
 - (void)addPath:(id)path;
 - (void)addSelfToSerializationDictionary:(id)dictionary;
 - (void)clearCoreSymbolicationCache;
@@ -86,9 +86,9 @@
     dispatch_once(&qword_1EDD03208, &__block_literal_global_154);
   }
 
-  v0 = qword_1EDD03200;
+  v1 = qword_1EDD03200;
 
-  return v0;
+  return v1;
 }
 
 - (NSString)name
@@ -193,12 +193,12 @@ void __23__SABinary_clearCaches__block_invoke(uint64_t a1, void *a2)
     v9 = _sa_logt();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v16 = 0;
-      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "global doesn't match local", v16, 2u);
+      *v10 = 0;
+      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "global doesn't match local", v10, 2u);
     }
 
     *__error() = v8;
-    _SASetCrashLogMessage(1146, "global doesn't match local", v10, v11, v12, v13, v14, v15, v16[0]);
+    _SASetCrashLogMessage(1146, "global doesn't match local");
     _os_crash();
     __break(1u);
   }
@@ -206,38 +206,36 @@ void __23__SABinary_clearCaches__block_invoke(uint64_t a1, void *a2)
 
 void __23__SABinary_clearCaches__block_invoke_102(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = a3;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) clearSymbolCache];
+        [*(*(&v8 + 1) + 8 * v7++) clearSymbolCache];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)clearSymbolCaches
@@ -268,38 +266,36 @@ void __29__SABinary_clearSymbolCaches__block_invoke(uint64_t a1, void *a2)
 
 void __29__SABinary_clearSymbolCaches__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = a3;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) clearSymbolCache];
+        [*(*(&v8 + 1) + 8 * v7++) clearSymbolCache];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)clearCoreSymbolicationCaches
@@ -330,38 +326,36 @@ void __40__SABinary_clearCoreSymbolicationCaches__block_invoke(uint64_t a1, void
 
 void __40__SABinary_clearCoreSymbolicationCaches__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = a3;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) clearCoreSymbolicationCache];
+        [*(*(&v8 + 1) + 8 * v7++) clearCoreSymbolicationCache];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (uint64_t)haveMultipleBinariesWithUUID:(uint64_t)d
@@ -391,43 +385,42 @@ void __41__SABinary_haveMultipleBinariesWithUUID___block_invoke(uint64_t a1, voi
 
 + (SABinary)binaryWithUUID:(id)d absolutePath:(id)path
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (path)
   {
     if (([path isAbsolutePath] & 1) == 0)
     {
-      v10 = *__error();
-      v11 = _sa_logt();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v9 = *__error();
+      v10 = _sa_logt();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 136315138;
         *(&buf + 4) = [path UTF8String];
-        _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "path %s is not absolute", &buf, 0xCu);
+        _os_log_error_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_ERROR, "path %s is not absolute", &buf, 0xCu);
       }
 
-      *__error() = v10;
+      *__error() = v9;
       pathCopy = path;
-      uTF8String = [path UTF8String];
-      _SASetCrashLogMessage(1200, "path %s is not absolute", v14, v15, v16, v17, v18, v19, uTF8String);
+      _SASetCrashLogMessage(1200, "path %s is not absolute", [path UTF8String]);
       _os_crash();
       __break(1u);
     }
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__2;
-    v24 = __Block_byref_object_dispose__2;
-    v25 = 0;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __40__SABinary_binaryWithUUID_absolutePath___block_invoke;
-    v20[3] = &unk_1E86F68B0;
-    v20[4] = d;
-    v20[5] = path;
-    v20[6] = &buf;
-    v20[7] = self;
-    [(SABinary *)self _doCachedBinariesWork:v20];
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy__2;
+    v16 = __Block_byref_object_dispose__2;
+    v17 = 0;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __40__SABinary_binaryWithUUID_absolutePath___block_invoke;
+    v12[3] = &unk_1E86F68B0;
+    v12[4] = d;
+    v12[5] = path;
+    v12[6] = &buf;
+    v12[7] = self;
+    [(SABinary *)self _doCachedBinariesWork:v12];
     v7 = *(*(&buf + 1) + 40);
     _Block_object_dispose(&buf, 8);
   }
@@ -437,37 +430,35 @@ void __41__SABinary_haveMultipleBinariesWithUUID___block_invoke(uint64_t a1, voi
     v7 = [self binaryWithUUID:d];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 void __40__SABinary_binaryWithUUID_absolutePath___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   [a2 objectForKeyedSubscript:*(a1 + 32)];
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v4 = v39 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v4 = v31 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v37;
+    v7 = *v29;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v37 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v36 + 1) + 8 * i);
-        v35 = 0;
+        v9 = *(*(&v28 + 1) + 8 * i);
+        v27 = 0;
         v10 = [v9 path];
-        v11 = SAFilepathMatches(v10, *(a1 + 40), &v35);
+        v11 = SAFilepathMatches(v10, *(a1 + 40), &v27);
 
         if (v11)
         {
@@ -478,27 +469,26 @@ void __40__SABinary_binaryWithUUID_absolutePath___block_invoke(uint64_t a1, void
 
           else if ([v4 count] != 1)
           {
-            v23 = *__error();
-            v24 = _sa_logt();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+            v22 = *__error();
+            v23 = _sa_logt();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              v25 = [*(a1 + 32) UUIDString];
-              v26 = [v25 UTF8String];
+              v24 = [*(a1 + 32) UUIDString];
+              v25 = [v24 UTF8String];
               *buf = 136315138;
-              v41 = v26;
-              _os_log_error_impl(&dword_1E0E2F000, v24, OS_LOG_TYPE_ERROR, "Multiple binaries for %s, but no path", buf, 0xCu);
+              v33 = v25;
+              _os_log_error_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_ERROR, "Multiple binaries for %s, but no path", buf, 0xCu);
             }
 
-            *__error() = v23;
-            v27 = [*(a1 + 32) UUIDString];
-            v28 = [v27 UTF8String];
-            _SASetCrashLogMessage(1209, "Multiple binaries for %s, but no path", v29, v30, v31, v32, v33, v34, v28);
+            *__error() = v22;
+            v26 = [*(a1 + 32) UUIDString];
+            _SASetCrashLogMessage(1209, "Multiple binaries for %s, but no path", [v26 UTF8String]);
 
             _os_crash();
             __break(1u);
           }
 
-          if (v35 == 1)
+          if (v27 == 1)
           {
             v14 = SACachedNSString(*(a1 + 40));
             if (v9)
@@ -512,7 +502,7 @@ void __40__SABinary_binaryWithUUID_absolutePath___block_invoke(uint64_t a1, void
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (v6)
       {
         continue;
@@ -545,8 +535,6 @@ LABEL_18:
       [a2 setObject:v21 forKeyedSubscript:*(a1 + 32)];
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (SABinary)binaryWithUUID:(id)d
@@ -573,7 +561,7 @@ LABEL_18:
 
 void __27__SABinary_binaryWithUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = [a2 objectForKeyedSubscript:*(a1 + 32)];
   v5 = [a2 objectForKeyedSubscript:*(a1 + 32)];
   v6 = [v5 firstObject];
@@ -592,9 +580,9 @@ void __27__SABinary_binaryWithUUID___block_invoke(uint64_t a1, void *a2)
         v11 = *(a1 + 32);
         v12 = [*(*(*(a1 + 40) + 8) + 40) path];
         *buf = 138412546;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v12;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v12;
         _os_log_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_DEFAULT, "WARNING: Multiple binaries with UUID %@ exist, using %@", buf, 0x16u);
       }
 
@@ -612,31 +600,30 @@ void __27__SABinary_binaryWithUUID___block_invoke(uint64_t a1, void *a2)
     v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{*(*(*(a1 + 40) + 8) + 40), 0}];
     [a2 setObject:v16 forKeyedSubscript:*(a1 + 32)];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-+ (id)binaryWithPath:(uint64_t)path architecture:(void *)architecture additionalCSSymbolicatorFlags:(uint64_t)flags
++ (id)binaryWithPath:(uint64_t)path architecture:(int)architecture additionalCSSymbolicatorFlags:
 {
-  v5 = objc_opt_self();
-  SymbolOwnerForArchitectureAtPath = CreateSymbolOwnerForArchitectureAtPath(flags, architecture);
-  v8 = v7;
+  v7 = objc_opt_self();
+  SymbolOwnerForArchitectureAtPath = CreateSymbolOwnerForArchitectureAtPath(path, a2, architecture);
+  v10 = v9;
   if (CSIsNull())
   {
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v9 = [(SABinary *)v5 binaryWithSymbolOwner:v8 fromDisk:1];
+    v11 = [(SABinary *)v7 binaryWithSymbolOwner:v10 fromDisk:1];
     CSRelease();
   }
 
-  return v9;
+  return v11;
 }
 
 + (id)binaryWithSymbolOwner:(uint64_t)owner fromDisk:(uint64_t)disk
 {
+  diskCopy = disk;
   v7 = objc_opt_self();
   CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
   if (CSSymbolOwnerIsDsym())
@@ -692,7 +679,7 @@ void __27__SABinary_binaryWithUUID___block_invoke(uint64_t a1, void *a2)
   {
     objc_setProperty_atomic_copy(v14, v16, v9, 80);
 LABEL_17:
-    [(SABinary *)v14 addInfoFromSymbolOwner:a2 fromDisk:owner includeExpensiveInfo:disk, 0];
+    [(SABinary *)v14 addInfoFromSymbolOwner:a2 fromDisk:owner includeExpensiveInfo:diskCopy, 0];
   }
 
 LABEL_19:
@@ -732,7 +719,7 @@ void __29__SABinary__doDsymPathsWork___block_invoke()
   [(SABinary *)v3 _doDsymPathsWork:v4];
 }
 
-uint64_t __25__SABinary__addDsymPath___block_invoke(uint64_t a1, void *a2)
+void *__25__SABinary__addDsymPath___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*(a1 + 32)];
   if ((result & 1) == 0)
@@ -755,30 +742,30 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
 
 + (void)addDsymPaths:(id)paths
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = paths;
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v20;
+    v7 = *v19;
     *&v5 = 138412546;
-    v17 = v5;
+    v16 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
-        v10 = [v9 rangeOfString:{@".dSYM", v17}];
+        v9 = *(*(&v18 + 1) + 8 * i);
+        v10 = [v9 rangeOfString:{@".dSYM", v16}];
         if (v10 == 0x7FFFFFFFFFFFFFFFLL)
         {
           [(SABinary *)self _addDsymPath:v9];
@@ -799,10 +786,10 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
           v15 = _sa_logt();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v17;
-            v24 = v9;
-            v25 = 2112;
-            v26 = stringByDeletingLastPathComponent;
+            *buf = v16;
+            v23 = v9;
+            v24 = 2112;
+            v25 = stringByDeletingLastPathComponent;
             _os_log_debug_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_DEBUG, "Replaced %@ with %@", buf, 0x16u);
           }
 
@@ -811,13 +798,11 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v6 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)addPath:(id)path forBinaryWithUUID:(id)d
@@ -836,16 +821,16 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
 
 + (void)addSymbolsFromTailspin:(id)tailspin
 {
-  v60 = *MEMORY[0x1E69E9840];
-  v52 = DictGetString(tailspin, 0x1F5BBFC60);
+  v59 = *MEMORY[0x1E69E9840];
+  v51 = DictGetString(tailspin, 0x1F5BBFC60);
   v4 = DictGetString(tailspin, 0x1F5BBFC80);
   v5 = DictGetNumber(tailspin, 0x1F5BBFCA0);
   unsignedLongLongValue = [v5 unsignedLongLongValue];
 
   v7 = DictGetString(tailspin, 0x1F5BBFCE0);
   newValue = DictGetString(tailspin, 0x1F5BBFD20);
-  v50 = DictGetString(tailspin, 0x1F5BBFD40);
-  v49 = DictGetString(tailspin, 0x1F5BBFD60);
+  v49 = DictGetString(tailspin, 0x1F5BBFD40);
+  v48 = DictGetString(tailspin, 0x1F5BBFD60);
   v8 = DictGetString(tailspin, 0x1F5BBFD80);
   v9 = DictGetNumber(tailspin, 0x1F5BBFCC0);
   bOOLValue = [v9 BOOLValue];
@@ -877,7 +862,7 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
         v15 = @"__TEXT";
       }
 
-      v48 = [(SABinary *)v13 segmentWithCleanName:v15 length:unsignedLongLongValue offsetIntoBinary:0x7FFFFFFFFFFFFFFFLL];
+      v47 = [(SABinary *)v13 segmentWithCleanName:v15 length:unsignedLongLongValue offsetIntoBinary:0x7FFFFFFFFFFFFFFFLL];
       path = [v14 path];
       if (path)
       {
@@ -897,12 +882,12 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
       {
       }
 
-      else if ([v52 length])
+      else if ([v51 length])
       {
         path2 = [v14 path];
-        if (!path2 || ([v14 path], v25 = objc_claimAutoreleasedReturnValue(), Path = -[NSString copyLastPathComponent](v25), v27 = objc_msgSend(Path, "hasPrefix:", v52), Path, v25, path2, (v27 & 1) == 0))
+        if (!path2 || ([v14 path], v25 = objc_claimAutoreleasedReturnValue(), Path = -[NSString copyLastPathComponent](v25), v27 = objc_msgSend(Path, "hasPrefix:", v51), Path, v25, path2, (v27 & 1) == 0))
         {
-          [(SABinary *)v14 setName:v52];
+          [(SABinary *)v14 setName:v51];
         }
       }
 
@@ -927,10 +912,10 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
 
       else
       {
-        v32 = [v50 length];
+        v32 = [v49 length];
         if (v14 && v32)
         {
-          objc_setProperty_atomic_copy(v14, v33, v50, 96);
+          objc_setProperty_atomic_copy(v14, v33, v49, 96);
         }
       }
 
@@ -941,10 +926,10 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
 
       else
       {
-        v35 = [v49 length];
+        v35 = [v48 length];
         if (v14 && v35)
         {
-          objc_setProperty_atomic_copy(v14, v36, v49, 104);
+          objc_setProperty_atomic_copy(v14, v36, v48, 104);
         }
       }
 
@@ -963,41 +948,41 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
       }
 
       v40 = DictGetDict(tailspin, 0x1F5BBFD00);
-      if (v40 && v48)
+      if (v40 && v47)
       {
-        v41 = v48;
+        v41 = v47;
         objc_sync_enter(v41);
-        v57[0] = MEMORY[0x1E69E9820];
-        v57[1] = 3221225472;
-        v57[2] = __32__SASegment_addTailspinSymbols___block_invoke;
-        v57[3] = &unk_1E86F66C0;
-        v57[4] = v41;
-        [v40 enumerateKeysAndObjectsUsingBlock:v57];
+        v56[0] = MEMORY[0x1E69E9820];
+        v56[1] = 3221225472;
+        v56[2] = __32__SASegment_addTailspinSymbols___block_invoke;
+        v56[3] = &unk_1E86F66C0;
+        v56[4] = v41;
+        [v40 enumerateKeysAndObjectsUsingBlock:v56];
         allValues = [v41[7] allValues];
         objc_sync_exit(v41);
 
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
         v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         v43 = allValues;
-        v44 = [v43 countByEnumeratingWithState:&v53 objects:buf count:16];
+        v44 = [v43 countByEnumeratingWithState:&v52 objects:buf count:16];
         if (v44)
         {
-          v45 = *v54;
+          v45 = *v53;
           do
           {
             for (i = 0; i != v44; ++i)
             {
-              if (*v54 != v45)
+              if (*v53 != v45)
               {
                 objc_enumerationMutation(v43);
               }
 
-              [(SAInstruction *)*(*(&v53 + 1) + 8 * i) checkForNewSymbol];
+              [(SAInstruction *)*(*(&v52 + 1) + 8 * i) checkForNewSymbol];
             }
 
-            v44 = [v43 countByEnumeratingWithState:&v53 objects:buf count:16];
+            v44 = [v43 countByEnumeratingWithState:&v52 objects:buf count:16];
           }
 
           while (v44);
@@ -1012,7 +997,7 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v59 = v7;
+        v58 = v7;
         _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "Unable to convert %@ into uuid", buf, 0xCu);
       }
 
@@ -1027,19 +1012,17 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v59 = v52;
+      v58 = v51;
       _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "No uuid in tailspin symbol chunk for %@", buf, 0xCu);
     }
 
     *__error() = v17;
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
-- (id)segmentWithCleanName:(NSObject *)name length:(uint64_t)length offsetIntoBinary:
+- (id)segmentWithCleanName:(NSObject *)name length:(void *)length offsetIntoBinary:
 {
-  v229 = *MEMORY[0x1E69E9840];
+  v222 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     goto LABEL_156;
@@ -1047,29 +1030,29 @@ void __22__SABinary__dsymPaths__block_invoke(uint64_t a1, void *a2)
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v174 = 0u;
-  v175 = 0u;
-  v176 = 0u;
-  v177 = 0u;
-  v158 = selfCopy;
+  v167 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v170 = 0u;
+  v151 = selfCopy;
   v8 = selfCopy[7];
-  v9 = [v8 countByEnumeratingWithState:&v174 objects:v204 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v167 objects:v197 count:16];
   if (!v9)
   {
     goto LABEL_10;
   }
 
-  v10 = *v175;
+  v10 = *v168;
 LABEL_4:
   v11 = 0;
   while (1)
   {
-    if (*v175 != v10)
+    if (*v168 != v10)
     {
       objc_enumerationMutation(v8);
     }
 
-    v12 = *(*(&v174 + 1) + 8 * v11);
+    v12 = *(*(&v167 + 1) + 8 * v11);
     name = [v12 name];
     v14 = [name isEqualToString:a2];
 
@@ -1080,7 +1063,7 @@ LABEL_4:
 
     if (v9 == ++v11)
     {
-      v9 = [v8 countByEnumeratingWithState:&v174 objects:v204 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v167 objects:v197 count:16];
       if (!v9)
       {
 LABEL_10:
@@ -1092,24 +1075,24 @@ LABEL_10:
     }
   }
 
-  v159 = v12;
+  v152 = v12;
 
-  if (!v159)
+  if (!v152)
   {
 LABEL_14:
-    v159 = [SASegment segmentWithBinary:v158 name:a2 length:name offsetIntoBinary:length];
-    v16 = v158[7];
+    v152 = [SASegment segmentWithBinary:v151 name:a2 length:name offsetIntoBinary:length];
+    v16 = v151[7];
     if (!v16)
     {
       v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:1];
-      v18 = v158[7];
-      v158[7] = v17;
+      v18 = v151[7];
+      v151[7] = v17;
 
-      v16 = v158[7];
+      v16 = v151[7];
     }
 
-    [v16 addObject:v159];
-    [v158[7] sortUsingComparator:&__block_literal_global_130];
+    [v16 addObject:v152];
+    [v151[7] sortUsingComparator:&__block_literal_global_130];
     goto LABEL_24;
   }
 
@@ -1118,9 +1101,9 @@ LABEL_14:
     goto LABEL_13;
   }
 
-  if ([v159 hasOffsetIntoBinary])
+  if ([v152 hasOffsetIntoBinary])
   {
-    if ([v159 offsetIntoBinary] == length)
+    if ([v152 offsetIntoBinary] == length)
     {
 LABEL_13:
       v15 = 0;
@@ -1131,14 +1114,14 @@ LABEL_13:
     v20 = _sa_logt();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v131 = [v159 debugDescription];
-      *v223 = 138412802;
-      v224 = v131;
-      v225 = 2048;
+      v130 = [v152 debugDescription];
+      *v216 = 138412802;
+      v217 = v130;
+      v218 = 2048;
       lengthCopy = length;
-      v227 = 2048;
+      v220 = 2048;
       nameCopy = name;
-      _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "Segment %@ mismatched offsetIntoBinary 0x%llx (with length 0x%llx) - possibly due to two segments with the same name which is unsupported. Symbols may be incorrect", v223, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "Segment %@ mismatched offsetIntoBinary 0x%llx (with length 0x%llx) - possibly due to two segments with the same name which is unsupported. Symbols may be incorrect", v216, 0x20u);
     }
 
     v15 = 0;
@@ -1147,72 +1130,72 @@ LABEL_13:
 
   else
   {
-    v159[5] = length;
+    v152[5] = length;
     v15 = 1;
   }
 
 LABEL_23:
-  if ((v15 | [(SASegment *)v159 applyLength:name]) != 1)
+  if ((v15 | [(SASegment *)v152 applyLength:name]) != 1)
   {
 LABEL_149:
-    objc_sync_exit(v158);
+    objc_sync_exit(v151);
 
     goto LABEL_150;
   }
 
 LABEL_24:
-  if (!v158[6])
+  if (!v151[6])
   {
     goto LABEL_149;
   }
 
-  v162 = v158[6];
-  if (!v159)
+  v155 = v151[6];
+  if (!v152)
   {
 LABEL_147:
-    if ([(SASegment *)v158[6] isEmpty])
+    if ([(SASegment *)v151[6] isEmpty])
     {
-      v128 = v158[6];
-      v158[6] = 0;
+      v128 = v151[6];
+      v151[6] = 0;
     }
 
     goto LABEL_149;
   }
 
-  WeakRetained = objc_loadWeakRetained(v159 + 6);
-  v22 = objc_loadWeakRetained(v162 + 6);
+  WeakRetained = objc_loadWeakRetained(v152 + 6);
+  v22 = objc_loadWeakRetained(v155 + 6);
   v23 = WeakRetained == v22;
 
   if (v23)
   {
-    if ([v159 hasOffsetIntoBinary] && objc_msgSend(v162, "hasOffsetIntoBinary") && (objc_msgSend(v162[7], "count") || objc_msgSend(v162[1], "count")))
+    if ([v152 hasOffsetIntoBinary] && objc_msgSend(v155, "hasOffsetIntoBinary") && (objc_msgSend(v155[7], "count") || objc_msgSend(v155[1], "count")))
     {
-      offsetIntoBinary = [v162 offsetIntoBinary];
-      v25 = v159;
+      offsetIntoBinary = [v155 offsetIntoBinary];
+      v25 = v152;
       objc_sync_enter(v25);
-      allKeys = [v162[7] allKeys];
+      allKeys = [v155[7] allKeys];
       v27 = [allKeys sortedArrayUsingSelector:?];
 
-      v202 = 0u;
-      v203 = 0u;
-      v200 = 0u;
-      v201 = 0u;
+      v195 = 0u;
+      v196 = 0u;
+      v193 = 0u;
+      v194 = 0u;
       obj = v27;
-      v170 = [obj countByEnumeratingWithState:&v200 objects:v223 count:16];
-      if (v170)
+      v163 = [obj countByEnumeratingWithState:&v193 objects:v216 count:16];
+      if (v163)
       {
-        v28 = *v201;
-        v165 = *v201;
+        v28 = *v194;
+        v158 = *v194;
         do
         {
-          for (i = 0; i != v170; i = i + 1)
+          for (i = 0; i != v163; i = i + 1)
           {
-            if (*v201 != v28)
+            if (*v194 != v28)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*(&v200 + 1) + 8 * i);
+            v30 = *(*(&v193 + 1) + 8 * i);
             v31 = [v30 unsignedLongLongValue] + offsetIntoBinary;
             v32 = v25[5];
             v33 = v31 - v32;
@@ -1223,11 +1206,11 @@ LABEL_147:
                 goto LABEL_51;
               }
 
-              v34 = [v162[7] objectForKeyedSubscript:v30];
+              v34 = [v155[7] objectForKeyedSubscript:v30];
               v35 = v25[7];
               if (!v35)
               {
-                v36 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v162[7], "count")}];
+                v36 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v155[7], "count")}];
                 v37 = v25[7];
                 v25[7] = v36;
 
@@ -1243,18 +1226,18 @@ LABEL_147:
                 v41 = _sa_logt();
                 if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                 {
-                  v167 = [v25 debugDescription];
+                  v160 = [v25 debugDescription];
                   v42 = [v39 debugDescription];
                   v43 = [v34 debugDescription];
                   *buf = 138412802;
-                  v218 = v167;
-                  v219 = 2112;
-                  v220 = v42;
-                  v221 = 2112;
-                  v222 = v43;
+                  v211 = v160;
+                  v212 = 2112;
+                  v213 = v42;
+                  v214 = 2112;
+                  v215 = v43;
                   _os_log_impl(&dword_1E0E2F000, v41, OS_LOG_TYPE_DEFAULT, "WARNING: %@: have existing instruction %@ when grabbing %@, dropping grabbed instruction", buf, 0x20u);
 
-                  v28 = v165;
+                  v28 = v158;
                 }
 
                 *__error() = v40;
@@ -1278,78 +1261,78 @@ LABEL_147:
                 [v44 setObject:v34 forKeyedSubscript:v45];
               }
 
-              [v162[7] setObject:0 forKeyedSubscript:v30];
+              [v155[7] setObject:0 forKeyedSubscript:v30];
             }
           }
 
-          v170 = [obj countByEnumeratingWithState:&v200 objects:v223 count:16];
+          v163 = [obj countByEnumeratingWithState:&v193 objects:v216 count:16];
         }
 
-        while (v170);
+        while (v163);
       }
 
 LABEL_51:
 
-      v46 = v162[1];
+      v46 = v155[1];
       if (v46)
       {
-        v199[0] = MEMORY[0x1E69E9820];
-        v199[1] = 3221225472;
-        v199[2] = __46__SASegment_grabInstructionsFromOtherSegment___block_invoke;
-        v199[3] = &unk_1E86F6670;
-        v199[5] = offsetIntoBinary;
-        v199[4] = v25;
-        v47 = SABinarySearchArray(v46, 1280, v199);
-        v48 = v162[1];
-        v198[0] = MEMORY[0x1E69E9820];
-        v198[1] = 3221225472;
-        v198[2] = __46__SASegment_grabInstructionsFromOtherSegment___block_invoke_2;
-        v198[3] = &unk_1E86F6670;
-        v198[5] = offsetIntoBinary;
-        v198[4] = v25;
-        v49 = SABinarySearchArray(v48, 1280, v198);
-        if (v47 < [v162[1] count])
+        v192[0] = MEMORY[0x1E69E9820];
+        v192[1] = 3221225472;
+        v192[2] = __46__SASegment_grabInstructionsFromOtherSegment___block_invoke;
+        v192[3] = &unk_1E86F6670;
+        v192[5] = offsetIntoBinary;
+        v192[4] = v25;
+        v47 = SABinarySearchArray(v46, 1280, v192);
+        v48 = v155[1];
+        v191[0] = MEMORY[0x1E69E9820];
+        v191[1] = 3221225472;
+        v191[2] = __46__SASegment_grabInstructionsFromOtherSegment___block_invoke_2;
+        v191[3] = &unk_1E86F6670;
+        v191[5] = offsetIntoBinary;
+        v191[4] = v25;
+        v49 = SABinarySearchArray(v48, 1280, v191);
+        if (v47 < [v155[1] count])
         {
           if (v49)
           {
             v50 = v49 - v47;
-            v51 = [v162[1] subarrayWithRange:{v47, v50}];
-            [v162[1] removeObjectsInRange:{v47, v50}];
-            v153 = v51;
+            v51 = [v155[1] subarrayWithRange:{v47, v50}];
+            [v155[1] removeObjectsInRange:{v47, v50}];
+            v146 = v51;
             if (v25[1])
             {
-              v196 = 0u;
-              v197 = 0u;
-              v194 = 0u;
-              v195 = 0u;
+              v189 = 0u;
+              v190 = 0u;
+              v187 = 0u;
+              v188 = 0u;
               v52 = v51;
-              v53 = [v52 countByEnumeratingWithState:&v194 objects:buf count:16];
+              v53 = [v52 countByEnumeratingWithState:&v187 objects:buf count:16];
               if (!v53)
               {
                 goto LABEL_108;
               }
 
-              v156 = v52;
+              v149 = v52;
               v54 = 0;
-              v160 = *v195;
+              v153 = *v188;
               while (1)
               {
                 v55 = 0;
-                v163 = v53;
+                v156 = v53;
                 do
                 {
-                  if (*v195 != v160)
+                  if (*v188 != v153)
                   {
-                    objc_enumerationMutation(v156);
+                    objc_enumerationMutation(v149);
                   }
 
-                  v56 = *(*(&v194 + 1) + 8 * v55);
+                  v56 = *(*(&v187 + 1) + 8 * v55);
                   offsetIntoSegment = [v56 offsetIntoSegment];
                   v58 = [v56 length];
                   v60 = offsetIntoSegment + offsetIntoBinary;
                   v61 = v25[5];
                   v62 = v61 + v25[3];
-                  v171 = v55;
+                  v164 = v55;
                   if (v58 + offsetIntoSegment + offsetIntoBinary <= v62)
                   {
                     v63 = v60 - v61;
@@ -1367,12 +1350,12 @@ LABEL_51:
                       v63 = v60 - v25[5];
 LABEL_64:
                       v56[1] = v63;
-                      v192 = 0u;
-                      v193 = 0u;
-                      v190 = 0u;
-                      v191 = 0u;
+                      v185 = 0u;
+                      v186 = 0u;
+                      v183 = 0u;
+                      v184 = 0u;
                       Property = objc_getProperty(v56, v59, 32, 1);
-                      v168 = 0;
+                      v161 = 0;
                       goto LABEL_65;
                     }
 
@@ -1380,27 +1363,27 @@ LABEL_64:
                   }
 
                   Property = 0;
-                  v192 = 0u;
-                  v193 = 0u;
-                  v168 = 1;
-                  v190 = 0u;
-                  v191 = 0u;
+                  v185 = 0u;
+                  v186 = 0u;
+                  v161 = 1;
+                  v183 = 0u;
+                  v184 = 0u;
 LABEL_65:
                   v65 = Property;
-                  v66 = [v65 countByEnumeratingWithState:&v190 objects:v216 count:16];
+                  v66 = [v65 countByEnumeratingWithState:&v183 objects:v209 count:16];
                   if (v66)
                   {
-                    v67 = *v191;
+                    v67 = *v184;
                     do
                     {
                       for (j = 0; j != v66; ++j)
                       {
-                        if (*v191 != v67)
+                        if (*v184 != v67)
                         {
                           objc_enumerationMutation(v65);
                         }
 
-                        v69 = *(*(&v190 + 1) + 8 * j);
+                        v69 = *(*(&v183 + 1) + 8 * j);
                         offsetIntoSegment2 = [v69 offsetIntoSegment];
                         if (v69)
                         {
@@ -1408,7 +1391,7 @@ LABEL_65:
                         }
                       }
 
-                      v66 = [v65 countByEnumeratingWithState:&v190 objects:v216 count:16];
+                      v66 = [v65 countByEnumeratingWithState:&v183 objects:v209 count:16];
                     }
 
                     while (v66);
@@ -1487,7 +1470,7 @@ LABEL_65:
 
                     else
                     {
-                      v81 = v168;
+                      v81 = v161;
                     }
 
                     if ((v81 & 1) == 0)
@@ -1498,15 +1481,15 @@ LABEL_65:
                     [v25[1] insertObject:v56 atIndex:v54++];
                   }
 
-                  v55 = v171 + 1;
+                  v55 = v164 + 1;
                 }
 
-                while (v171 + 1 != v163);
-                v86 = [v156 countByEnumeratingWithState:&v194 objects:buf count:16];
+                while (v164 + 1 != v156);
+                v86 = [v149 countByEnumeratingWithState:&v187 objects:buf count:16];
                 v53 = v86;
                 if (!v86)
                 {
-                  v52 = v156;
+                  v52 = v149;
                   goto LABEL_108;
                 }
               }
@@ -1517,31 +1500,31 @@ LABEL_65:
             v25[1] = v87;
 LABEL_108:
 
-            v188 = 0u;
-            v189 = 0u;
-            v186 = 0u;
-            v187 = 0u;
-            allKeys2 = [v162[2] allKeys];
-            v161 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
+            v181 = 0u;
+            v182 = 0u;
+            v179 = 0u;
+            v180 = 0u;
+            allKeys2 = [v155[2] allKeys];
+            v154 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
 
-            v89 = [v161 countByEnumeratingWithState:&v186 objects:v215 count:16];
+            v89 = [v154 countByEnumeratingWithState:&v179 objects:v208 count:16];
             if (v89)
             {
-              v90 = *v187;
-              v154 = *v187;
+              v90 = *v180;
+              v147 = *v180;
               do
               {
-                v169 = 0;
-                v157 = v89;
+                v162 = 0;
+                v150 = v89;
                 do
                 {
-                  if (*v187 != v90)
+                  if (*v180 != v90)
                   {
-                    objc_enumerationMutation(v161);
+                    objc_enumerationMutation(v154);
                   }
 
-                  v166 = *(*(&v186 + 1) + 8 * v169);
-                  v91 = [v166 unsignedLongLongValue] + offsetIntoBinary;
+                  v159 = *(*(&v179 + 1) + 8 * v162);
+                  v91 = [v159 unsignedLongLongValue] + offsetIntoBinary;
                   v92 = v25[5];
                   if (v91 >= v92)
                   {
@@ -1550,7 +1533,7 @@ LABEL_108:
                       goto LABEL_145;
                     }
 
-                    v164 = [v162[2] objectForKeyedSubscript:v166];
+                    v157 = [v155[2] objectForKeyedSubscript:v159];
                     v93 = v25[5];
                     v94 = v25[2];
                     if (!v94)
@@ -1562,7 +1545,7 @@ LABEL_108:
                       v94 = v25[2];
                     }
 
-                    v97 = v91 - v93;
+                    v97 = (v91 - v93);
                     v98 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v91 - v93];
                     v99 = [v94 objectForKeyedSubscript:v98];
                     v100 = v99 == 0;
@@ -1571,63 +1554,63 @@ LABEL_108:
                     {
                       v103 = v25[2];
                       v104 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v97];
-                      [v103 setObject:v164 forKeyedSubscript:v104];
+                      [v103 setObject:v157 forKeyedSubscript:v104];
 
-                      v184 = 0u;
-                      v185 = 0u;
-                      v182 = 0u;
-                      v183 = 0u;
-                      v172 = v164;
-                      v105 = [v172 countByEnumeratingWithState:&v182 objects:v214 count:16];
+                      v177 = 0u;
+                      v178 = 0u;
+                      v175 = 0u;
+                      v176 = 0u;
+                      v165 = v157;
+                      v105 = [v165 countByEnumeratingWithState:&v175 objects:v207 count:16];
                       if (v105)
                       {
-                        v106 = *v183;
+                        v106 = *v176;
                         do
                         {
                           v107 = 0;
                           do
                           {
-                            if (*v183 != v106)
+                            if (*v176 != v106)
                             {
-                              objc_enumerationMutation(v172);
+                              objc_enumerationMutation(v165);
                             }
 
-                            v108 = *(*(&v182 + 1) + 8 * v107);
+                            v108 = *(*(&v175 + 1) + 8 * v107);
                             offsetIntoSegment6 = [v108 offsetIntoSegment];
                             if (v108)
                             {
                               v108[1] = offsetIntoSegment6 + offsetIntoBinary - v25[5];
-                              v180 = 0u;
-                              v181 = 0u;
-                              v178 = 0u;
-                              v179 = 0u;
+                              v173 = 0u;
+                              v174 = 0u;
+                              v171 = 0u;
+                              v172 = 0u;
                               v111 = objc_getProperty(v108, v110, 32, 1);
                             }
 
                             else
                             {
                               v111 = 0;
-                              v180 = 0u;
-                              v181 = 0u;
-                              v178 = 0u;
-                              v179 = 0u;
+                              v173 = 0u;
+                              v174 = 0u;
+                              v171 = 0u;
+                              v172 = 0u;
                             }
 
                             v112 = v111;
-                            v113 = [v112 countByEnumeratingWithState:&v178 objects:v213 count:16];
+                            v113 = [v112 countByEnumeratingWithState:&v171 objects:v206 count:16];
                             if (v113)
                             {
-                              v114 = *v179;
+                              v114 = *v172;
                               do
                               {
                                 for (k = 0; k != v113; ++k)
                                 {
-                                  if (*v179 != v114)
+                                  if (*v172 != v114)
                                   {
                                     objc_enumerationMutation(v112);
                                   }
 
-                                  v116 = *(*(&v178 + 1) + 8 * k);
+                                  v116 = *(*(&v171 + 1) + 8 * k);
                                   offsetIntoSegment7 = [v116 offsetIntoSegment];
                                   if (v116)
                                   {
@@ -1635,7 +1618,7 @@ LABEL_108:
                                   }
                                 }
 
-                                v113 = [v112 countByEnumeratingWithState:&v178 objects:v213 count:16];
+                                v113 = [v112 countByEnumeratingWithState:&v171 objects:v206 count:16];
                               }
 
                               while (v113);
@@ -1645,7 +1628,7 @@ LABEL_108:
                           }
 
                           while (v107 != v105);
-                          v118 = [v172 countByEnumeratingWithState:&v182 objects:v214 count:16];
+                          v118 = [v165 countByEnumeratingWithState:&v175 objects:v207 count:16];
                           v105 = v118;
                         }
 
@@ -1662,7 +1645,7 @@ LABEL_108:
                         v119 = [v25 debugDescription];
                         v120 = v119;
                         uTF8String = [v119 UTF8String];
-                        v152 = [v164 count];
+                        v145 = [v157 count];
                         v121 = [(SASegment *)v25 nonInlineSymbolAtOffsetIntoSegment:v97];
                         v122 = [v121 debugDescription];
                         v123 = v122;
@@ -1671,31 +1654,31 @@ LABEL_108:
                         v125 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v97];
                         v126 = [v124 objectForKeyedSubscript:v125];
                         v127 = [v126 count];
-                        *v205 = 136315906;
-                        v206 = uTF8String;
-                        v207 = 2048;
-                        v208 = v152;
-                        v209 = 2080;
-                        v210 = uTF8String2;
-                        v211 = 2048;
-                        v212 = v127;
-                        _os_log_debug_impl(&dword_1E0E2F000, v102, OS_LOG_TYPE_DEBUG, "%s: throwing out %lu duplicate inline symbols for %s (already have %lu)", v205, 0x2Au);
+                        *v198 = 136315906;
+                        v199 = uTF8String;
+                        v200 = 2048;
+                        v201 = v145;
+                        v202 = 2080;
+                        v203 = uTF8String2;
+                        v204 = 2048;
+                        v205 = v127;
+                        _os_log_debug_impl(&dword_1E0E2F000, v102, OS_LOG_TYPE_DEBUG, "%s: throwing out %lu duplicate inline symbols for %s (already have %lu)", v198, 0x2Au);
                       }
 
                       *__error() = v101;
                     }
 
-                    [v162[2] setObject:0 forKeyedSubscript:v166];
+                    [v155[2] setObject:0 forKeyedSubscript:v159];
 
-                    v90 = v154;
-                    v89 = v157;
+                    v90 = v147;
+                    v89 = v150;
                   }
 
-                  ++v169;
+                  ++v162;
                 }
 
-                while (v169 != v89);
-                v89 = [v161 countByEnumeratingWithState:&v186 objects:v215 count:16];
+                while (v162 != v89);
+                v89 = [v154 countByEnumeratingWithState:&v179 objects:v208 count:16];
               }
 
               while (v89);
@@ -1712,40 +1695,38 @@ LABEL_145:
     goto LABEL_147;
   }
 
-  v132 = *__error();
-  v133 = _sa_logt();
-  if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
+  v131 = *__error();
+  v132 = _sa_logt();
+  if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
   {
-    v134 = [v159 debugDescription];
-    v135 = v134;
-    uTF8String3 = [v134 UTF8String];
-    v137 = [v162 debugDescription];
-    v138 = v137;
-    uTF8String4 = [v137 UTF8String];
-    *v223 = 136315394;
-    v224 = uTF8String3;
-    v225 = 2080;
+    v133 = [v152 debugDescription];
+    v134 = v133;
+    uTF8String3 = [v133 UTF8String];
+    v136 = [v155 debugDescription];
+    v137 = v136;
+    uTF8String4 = [v136 UTF8String];
+    *v216 = 136315394;
+    v217 = uTF8String3;
+    v218 = 2080;
     lengthCopy = uTF8String4;
-    _os_log_error_impl(&dword_1E0E2F000, v133, OS_LOG_TYPE_ERROR, "%s grabbing from %s", v223, 0x16u);
+    _os_log_error_impl(&dword_1E0E2F000, v132, OS_LOG_TYPE_ERROR, "%s grabbing from %s", v216, 0x16u);
   }
 
-  *__error() = v132;
-  v140 = [v159 debugDescription];
-  v141 = v140;
-  uTF8String5 = [v140 UTF8String];
-  v143 = [v162 debugDescription];
-  v144 = v143;
-  [v143 UTF8String];
-  _SASetCrashLogMessage(195, "%s grabbing from %s", v145, v146, v147, v148, v149, v150, uTF8String5);
+  *__error() = v131;
+  v139 = [v152 debugDescription];
+  v140 = v139;
+  uTF8String5 = [v139 UTF8String];
+  v142 = [v155 debugDescription];
+  v143 = v142;
+  _SASetCrashLogMessage(195, "%s grabbing from %s", uTF8String5, [v142 UTF8String]);
 
   _os_crash();
   __break(1u);
 LABEL_156:
-  v159 = 0;
+  v152 = 0;
 LABEL_150:
-  v129 = *MEMORY[0x1E69E9840];
 
-  return v159;
+  return v152;
 }
 
 - (void)setName:(void *)name
@@ -1779,13 +1760,13 @@ LABEL_150:
 
 - (void)addPath:(id)path
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v14 = 0;
-  if (SAFilepathMatches(selfCopy->_path, path, &v14))
+  v13 = 0;
+  if (SAFilepathMatches(selfCopy->_path, path, &v13))
   {
-    if (v14 == 1)
+    if (v13 == 1)
     {
       v5 = SACachedNSString(path);
       path = selfCopy->_path;
@@ -1797,9 +1778,9 @@ LABEL_150:
         v8 = _sa_logt();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v13 = [(SABinary *)selfCopy debugDescription];
+          v12 = [(SABinary *)selfCopy debugDescription];
           *buf = 138412290;
-          pathCopy = v13;
+          pathCopy = v12;
           _os_log_debug_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_DEBUG, "%@ set relative path", buf, 0xCu);
         }
 
@@ -1817,8 +1798,8 @@ LABEL_150:
       v11 = [(SABinary *)selfCopy debugDescription];
       *buf = 138412546;
       pathCopy = path;
-      v17 = 2112;
-      v18 = v11;
+      v16 = 2112;
+      v17 = v11;
       _os_log_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_DEFAULT, "WARNING: Tried to set mismatched path %@ on binary %@", buf, 0x16u);
     }
 
@@ -1826,8 +1807,6 @@ LABEL_150:
   }
 
   objc_sync_exit(selfCopy);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)segmentAtOffsetIntoBinary:(void *)binary
@@ -1843,7 +1822,7 @@ LABEL_150:
 
 - (id)segmentAtOffsetIntoBinary:(int)binary createFakeSegmentIfNeeded:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self && (a2 < 0 || self[5] - 1 >= a2))
   {
     selfCopy = self;
@@ -1851,26 +1830,26 @@ LABEL_150:
     v7 = selfCopy[7];
     if (v7)
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v8 = v7;
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         v10 = 0;
-        v11 = *v19;
+        v11 = *v18;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v19 != v11)
+            if (*v18 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v18 + 1) + 8 * i);
+            v13 = *(*(&v17 + 1) + 8 * i);
             if ([v13 hasOffsetIntoBinary] && objc_msgSend(v13, "offsetIntoBinary") <= a2)
             {
               if ([v13 length])
@@ -1895,7 +1874,7 @@ LABEL_150:
             }
           }
 
-          v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v9)
           {
             continue;
@@ -1934,8 +1913,6 @@ LABEL_28:
     createFakeEntireBinarySegment = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return createFakeEntireBinarySegment;
 }
 
@@ -1949,7 +1926,7 @@ LABEL_28:
 
 - (id)checkForSegmentWithCleanName:(void *)name
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (name)
   {
     nameCopy = name;
@@ -1957,25 +1934,25 @@ LABEL_28:
     v4 = nameCopy[7];
     if (v4)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
-        v7 = *v16;
+        v7 = *v15;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v16 != v7)
+            if (*v15 != v7)
             {
               objc_enumerationMutation(v5);
             }
 
-            v9 = *(*(&v15 + 1) + 8 * i);
+            v9 = *(*(&v14 + 1) + 8 * i);
             name = [v9 name];
             v11 = [name isEqualToString:a2];
 
@@ -1986,7 +1963,7 @@ LABEL_28:
             }
           }
 
-          v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
           if (v6)
           {
             continue;
@@ -2013,8 +1990,6 @@ LABEL_13:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
@@ -2033,7 +2008,7 @@ uint64_t __57__SABinary_segmentWithCleanName_length_offsetIntoBinary___block_inv
   }
 }
 
-- (id)segmentWithName:(NSObject *)name length:(uint64_t)length offsetIntoBinary:
+- (id)segmentWithName:(NSObject *)name length:(void *)length offsetIntoBinary:
 {
   if (self)
   {
@@ -2059,7 +2034,7 @@ uint64_t __57__SABinary_segmentWithCleanName_length_offsetIntoBinary___block_inv
 
 - (id)symbolOwnerWrapperWithOptions:(int)options pid:(int)pid checkExclave:(int)exclave additionalCSSymbolicatorFlags:
 {
-  v140 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -2077,7 +2052,7 @@ uint64_t __57__SABinary_segmentWithCleanName_length_offsetIntoBinary___block_inv
 
     v10 = (~a2 & 0x22) != 0 || v9;
     optionsCopy = options;
-    v119 = v10;
+    v100 = v10;
     v11 = selfCopy + 10;
     isAbsolutePath = [selfCopy[10] isAbsolutePath];
     if ((a2 & 4) != 0)
@@ -2124,19 +2099,19 @@ LABEL_24:
             *dest = 0;
             *&dest[8] = dest;
             *&dest[16] = 0x3032000000;
-            v137 = __Block_byref_object_copy__2;
-            v138 = __Block_byref_object_dispose__2;
-            v139 = 0;
+            v118 = __Block_byref_object_copy__2;
+            v119 = __Block_byref_object_dispose__2;
+            v120 = 0;
             *buf = MEMORY[0x1E69E9820];
-            *&v133 = 3221225472;
-            *(&v133 + 1) = __22__SABinary__dsymPaths__block_invoke;
-            v134 = &unk_1E86F6928;
-            v135 = dest;
+            *&v114 = 3221225472;
+            *(&v114 + 1) = __22__SABinary__dsymPaths__block_invoke;
+            v115 = &unk_1E86F6928;
+            v116 = dest;
             [(SABinary *)v19 _doDsymPathsWork:buf];
             v20 = *(*&dest[8] + 40);
             _Block_object_dispose(dest, 8);
 
-            v116 = CSIsNull() ^ 1;
+            v97 = CSIsNull() ^ 1;
             goto LABEL_30;
           }
         }
@@ -2153,7 +2128,7 @@ LABEL_24:
       }
     }
 
-    v116 = 0;
+    v97 = 0;
 LABEL_30:
     if (CSIsNull() && selfCopy[1])
     {
@@ -2197,7 +2172,7 @@ LABEL_49:
 
     else
     {
-      SymbolOwnerForExclaveUUID = CreateSymbolOwnerForExclaveUUID(selfCopy[9]);
+      SymbolOwnerForExclaveUUID = CreateSymbolOwnerForExclaveUUID(selfCopy[9], exclave);
       v27 = v26;
       v28 = CSIsNull();
       if ((~a2 & 5) != 0)
@@ -2233,7 +2208,7 @@ LABEL_49:
       goto LABEL_55;
     }
 
-    v36 = v119;
+    v36 = v100;
     if (*v11)
     {
       v36 = 1;
@@ -2250,14 +2225,14 @@ LABEL_55:
       *dest = 0;
       *&dest[8] = dest;
       *&dest[16] = 0x2020000000;
-      LOBYTE(v137) = 0;
-      v125 = MEMORY[0x1E69E9820];
-      v126 = 3221225472;
-      v127 = __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additionalCSSymbolicatorFlags___block_invoke;
-      v128 = &unk_1E86F69E8;
-      v129 = selfCopy;
-      v130 = dest;
-      v131 = optionsCopy;
+      LOBYTE(v118) = 0;
+      v106 = MEMORY[0x1E69E9820];
+      v107 = 3221225472;
+      v108 = __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additionalCSSymbolicatorFlags___block_invoke;
+      v109 = &unk_1E86F69E8;
+      v110 = selfCopy;
+      v111 = dest;
+      v112 = optionsCopy;
       dyld_process_snapshot_for_each_image();
       if (*v11)
       {
@@ -2265,12 +2240,12 @@ LABEL_55:
         v60 = _sa_logt();
         if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
         {
-          v89 = [selfCopy debugDescription];
+          v88 = [selfCopy debugDescription];
           *buf = 67109378;
           *&buf[4] = optionsCopy;
-          LOWORD(v133) = 2112;
-          *(&v133 + 2) = v89;
-          v114 = v89;
+          LOWORD(v114) = 2112;
+          *(&v114 + 2) = v88;
+          v95 = v88;
           _os_log_debug_impl(&dword_1E0E2F000, v60, OS_LOG_TYPE_DEBUG, "Found path via dyld inspection of [%d] for %@", buf, 0x12u);
         }
 
@@ -2286,35 +2261,35 @@ LABEL_55:
 
       else
       {
-        v83 = *__error();
-        v84 = _sa_logt();
-        if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+        v82 = *__error();
+        v83 = _sa_logt();
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
         {
-          v115 = v83;
-          v85 = [selfCopy debugDescription];
+          v96 = v82;
+          v84 = [selfCopy debugDescription];
           *buf = 67109378;
           *&buf[4] = optionsCopy;
-          LOWORD(v133) = 2112;
-          *(&v133 + 2) = v85;
-          v86 = v85;
-          _os_log_impl(&dword_1E0E2F000, v84, OS_LOG_TYPE_DEFAULT, "WARNING: Unable to find binary via dyld inspection of [%d] for %@", buf, 0x12u);
+          LOWORD(v114) = 2112;
+          *(&v114 + 2) = v84;
+          v85 = v84;
+          _os_log_impl(&dword_1E0E2F000, v83, OS_LOG_TYPE_DEFAULT, "WARNING: Unable to find binary via dyld inspection of [%d] for %@", buf, 0x12u);
 
-          v83 = v115;
+          v82 = v96;
         }
 
-        *__error() = v83;
+        *__error() = v82;
         v37 = 1;
       }
 
-      v87 = +[SABinary dataFillingQueue];
-      v123[0] = MEMORY[0x1E69E9820];
-      v123[1] = 3221225472;
-      v123[2] = __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additionalCSSymbolicatorFlags___block_invoke_143;
-      v123[3] = &__block_descriptor_52_e5_v8__0l;
-      v124 = optionsCopy;
-      v123[4] = v58;
-      v123[5] = a2 & 0x26D;
-      dispatch_async(v87, v123);
+      v86 = +[SABinary dataFillingQueue];
+      v104[0] = MEMORY[0x1E69E9820];
+      v104[1] = 3221225472;
+      v104[2] = __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additionalCSSymbolicatorFlags___block_invoke_143;
+      v104[3] = &__block_descriptor_52_e5_v8__0l;
+      v105 = optionsCopy;
+      v104[4] = v58;
+      v104[5] = a2 & 0x26D;
+      dispatch_async(v86, v104);
 
       _Block_object_dispose(dest, 8);
     }
@@ -2324,7 +2299,7 @@ LABEL_55:
       goto LABEL_61;
     }
 
-    LODWORD(v114) = 1;
+    LODWORD(v95) = 1;
     if ((a2 & 0x20) == 0)
     {
       goto LABEL_62;
@@ -2340,7 +2315,7 @@ LABEL_55:
     if ((v39 & 0x20) != 0)
     {
 LABEL_61:
-      LODWORD(v114) = 1;
+      LODWORD(v95) = 1;
     }
 
     else
@@ -2348,14 +2323,14 @@ LABEL_61:
       selfCopy[2] = (v39 | 0x20);
       SymbolOwnerForExclaveUUID = CreateSymbolOwnerForUUIDAtPath(selfCopy[9], v38, exclave);
       v27 = v40;
-      LODWORD(v114) = 0;
-      v116 |= CSIsNull() ^ 1;
+      LODWORD(v95) = 0;
+      v97 |= CSIsNull() ^ 1;
     }
 
 LABEL_62:
     if ((v23 & v35 & CSIsNull()) == 1)
     {
-      SymbolOwnerForExclaveUUID = CreateSymbolOwnerForExclaveUUID(selfCopy[9]);
+      SymbolOwnerForExclaveUUID = CreateSymbolOwnerForExclaveUUID(selfCopy[9], exclave);
       v27 = v41;
       v42 = CSIsNull();
       v43 = (~a2 & 5) != 0 ? 1 : v42;
@@ -2375,7 +2350,7 @@ LABEL_62:
       }
     }
 
-    if (((v119 | v37 | CSIsNull() ^ 1) & 1) == 0 && !kill(optionsCopy, 0))
+    if (((v100 | v37 | CSIsNull() ^ 1) & 1) == 0 && !kill(optionsCopy, 0))
     {
       if (optionsCopy)
       {
@@ -2399,7 +2374,7 @@ LABEL_62:
       if ((CSIsNull() & 1) == 0)
       {
         *buf = 0;
-        *&v133 = 0;
+        *&v114 = 0;
         [selfCopy[9] getUUIDBytes:buf];
         SymbolOwnerForExclaveUUID = CSSymbolicatorGetSymbolOwnerWithCFUUIDBytesAtTime();
         v27 = v55;
@@ -2409,11 +2384,11 @@ LABEL_62:
           v57 = _sa_logt();
           if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
           {
-            v88 = [selfCopy debugDescription];
+            v87 = [selfCopy debugDescription];
             *dest = 67109378;
             *&dest[4] = optionsCopy;
             *&dest[8] = 2112;
-            *&dest[10] = v88;
+            *&dest[10] = v87;
             _os_log_debug_impl(&dword_1E0E2F000, v57, OS_LOG_TYPE_DEBUG, "Process [%d] didn't have symbol owner for %@", dest, 0x12u);
           }
 
@@ -2426,8 +2401,8 @@ LABEL_62:
           v63 = SAFilepathForCString(v62);
           if (v63)
           {
-            v122 = 0;
-            if (!(v114 & 1 | ((*(selfCopy + 66) & 1) == 0)) || SAFilepathMatches(*v11, v63, &v122) && v122 == 1)
+            v103 = 0;
+            if (!(v95 & 1 | ((*(selfCopy + 66) & 1) == 0)) || SAFilepathMatches(*v11, v63, &v103) && v103 == 1)
             {
               objc_storeStrong(selfCopy + 10, v63);
               *(selfCopy + 66) = 0;
@@ -2442,9 +2417,9 @@ LABEL_62:
             if ((v64 & 1) == 0)
             {
               v65 = +[SABinaryLocator sharedBinaryLocator];
-              if (!(v114 & 1 | ((*(selfCopy + 66) & 1) == 0)))
+              if (!(v95 & 1 | ((*(selfCopy + 66) & 1) == 0)))
               {
-                v120 = *__error();
+                v101 = *__error();
                 v66 = _sa_logt();
                 if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
                 {
@@ -2455,11 +2430,11 @@ LABEL_62:
                   *&dest[12] = 2112;
                   *&dest[14] = v68;
                   *&dest[22] = 2112;
-                  v137 = v63;
+                  v118 = v63;
                   _os_log_impl(&dword_1E0E2F000, v66, OS_LOG_TYPE_INFO, "%{public}@ moved: replacing %@ with %@", dest, 0x20u);
                 }
 
-                *__error() = v120;
+                *__error() = v101;
                 [(SABinaryLocator *)v65 removeURLForUUID:?];
               }
 
@@ -2491,29 +2466,29 @@ LABEL_62:
 
     if (CSIsNull())
     {
-      v90 = *__error();
-      v91 = _sa_logt();
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+      v89 = *__error();
+      v90 = _sa_logt();
+      if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
       {
         *dest = 0;
-        _os_log_error_impl(&dword_1E0E2F000, v91, OS_LOG_TYPE_ERROR, "CSSymbolOwner is NULL", dest, 2u);
+        _os_log_error_impl(&dword_1E0E2F000, v90, OS_LOG_TYPE_ERROR, "CSSymbolOwner is NULL", dest, 2u);
       }
 
-      *__error() = v90;
-      _SASetCrashLogMessage(1991, "CSSymbolOwner is NULL", v92, v93, v94, v95, v96, v97, v114);
+      *__error() = v89;
+      _SASetCrashLogMessage(1991, "CSSymbolOwner is NULL");
       _os_crash();
       __break(1u);
 LABEL_132:
-      v98 = *__error();
-      v99 = _sa_logt();
-      if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+      v91 = *__error();
+      v92 = _sa_logt();
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
       {
         *dest = 0;
-        _os_log_error_impl(&dword_1E0E2F000, v99, OS_LOG_TYPE_ERROR, "_symbolOwnerWrapper is nil after setting CSSymbolOwner", dest, 2u);
+        _os_log_error_impl(&dword_1E0E2F000, v92, OS_LOG_TYPE_ERROR, "_symbolOwnerWrapper is nil after setting CSSymbolOwner", dest, 2u);
       }
 
-      *__error() = v98;
-      _SASetCrashLogMessage(2300, "_symbolOwnerWrapper is nil after setting CSSymbolOwner", v100, v101, v102, v103, v104, v105, v114);
+      *__error() = v91;
+      _SASetCrashLogMessage(2300, "_symbolOwnerWrapper is nil after setting CSSymbolOwner");
       _os_crash();
       __break(1u);
       goto LABEL_135;
@@ -2538,16 +2513,16 @@ LABEL_107:
           if (CSIsNull())
           {
 LABEL_135:
-            v106 = *__error();
-            v107 = _sa_logt();
-            if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+            v93 = *__error();
+            v94 = _sa_logt();
+            if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
             {
               *dest = 0;
-              _os_log_error_impl(&dword_1E0E2F000, v107, OS_LOG_TYPE_ERROR, "CSSymbolOwner is NULL", dest, 2u);
+              _os_log_error_impl(&dword_1E0E2F000, v94, OS_LOG_TYPE_ERROR, "CSSymbolOwner is NULL", dest, 2u);
             }
 
-            *__error() = v106;
-            _SASetCrashLogMessage(50, "CSSymbolOwner is NULL", v108, v109, v110, v111, v112, v113, v114);
+            *__error() = v93;
+            _SASetCrashLogMessage(50, "CSSymbolOwner is NULL");
             _os_crash();
             __break(1u);
             goto LABEL_138;
@@ -2560,14 +2535,14 @@ LABEL_135:
           {
             v72->_symbolOwner._opaque_1 = CSRetain();
             v72->_symbolOwner._opaque_2 = v73;
-            v72->_isDiskLayout = v116 & 1;
+            v72->_isDiskLayout = v97 & 1;
           }
         }
 
         v74 = v71[1];
         v71[1] = v72;
 
-        [(SABinary *)v71 addInfoFromSymbolOwner:v27 fromDisk:v116 & 1 includeExpensiveInfo:0];
+        [(SABinary *)v71 addInfoFromSymbolOwner:v27 fromDisk:v97 & 1 includeExpensiveInfo:0];
       }
     }
 
@@ -2605,14 +2580,13 @@ LABEL_115:
 LABEL_138:
   v80 = 0;
 LABEL_120:
-  v81 = *MEMORY[0x1E69E9840];
 
   return v80;
 }
 
 - (id)instructionAtOffsetIntoBinary:(int64_t)binary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = [(SABinary *)selfCopy segmentAtOffsetIntoBinary:binary createFakeSegmentIfNeeded:1];
@@ -2624,21 +2598,20 @@ LABEL_120:
 
   if (![(SASegment *)v5 hasOffsetIntoBinary])
   {
-    v12 = *__error();
-    v13 = _sa_logt();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = *__error();
+    v12 = _sa_logt();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = [(SASegment *)v6 debugDescription];
+      v13 = [(SASegment *)v6 debugDescription];
       *buf = 136315138;
-      uTF8String = [v14 UTF8String];
-      _os_log_error_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_ERROR, "%s: no offset into binary", buf, 0xCu);
+      uTF8String = [v13 UTF8String];
+      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: no offset into binary", buf, 0xCu);
     }
 
-    *__error() = v12;
-    v15 = [(SASegment *)v6 debugDescription];
-    v16 = v15;
-    uTF8String2 = [v15 UTF8String];
-    _SASetCrashLogMessage(1787, "%s: no offset into binary", v18, v19, v20, v21, v22, v23, uTF8String2);
+    *__error() = v11;
+    v14 = [(SASegment *)v6 debugDescription];
+    v15 = v14;
+    _SASetCrashLogMessage(1787, "%s: no offset into binary", [v14 UTF8String]);
 
     _os_crash();
     __break(1u);
@@ -2647,11 +2620,11 @@ LABEL_120:
   offsetIntoBinary = [(SASegment *)v6 offsetIntoBinary];
   if ([(SASegment *)v6 length]- 1 >= binary - offsetIntoBinary)
   {
-    v11 = [(SASegment *)v6 instructionAtOffsetIntoSegment:?];
-    v8 = v11;
-    if (v6 == selfCopy->_fakeEntireBinarySegment && v11)
+    v10 = [(SASegment *)v6 instructionAtOffsetIntoSegment:?];
+    v8 = v10;
+    if (v6 == selfCopy->_fakeEntireBinarySegment && v10)
     {
-      objc_storeWeak((v11 + 32), 0);
+      objc_storeWeak((v10 + 32), 0);
     }
   }
 
@@ -2662,7 +2635,6 @@ LABEL_4:
   }
 
   objc_sync_exit(selfCopy);
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2730,71 +2702,67 @@ uint64_t __33__SABinary_addInfoFromDyldImage___block_invoke(void *a1, const char
 
 - (BOOL)applyLength:(void *)length
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if (length)
+  v19 = *MEMORY[0x1E69E9840];
+  if (!length)
   {
-    lengthCopy = length;
-    objc_sync_enter(lengthCopy);
-    v4 = *(lengthCopy + 5);
-    v5 = v4 < a2;
-    if (v4 < a2)
+    return 0;
+  }
+
+  lengthCopy = length;
+  objc_sync_enter(lengthCopy);
+  v4 = *(lengthCopy + 5);
+  v5 = v4 < a2;
+  if (v4 < a2)
+  {
+    if (v4)
     {
-      if (v4)
+      v6 = *__error();
+      v7 = _sa_logt();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v6 = *__error();
-        v7 = _sa_logt();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-        {
-          v12 = [lengthCopy debugDescription];
-          v16 = 138412546;
-          v17 = v12;
-          v18 = 2048;
-          v19 = a2;
-          _os_log_debug_impl(&dword_1E0E2F000, v7, OS_LOG_TYPE_DEBUG, "%@ updating length to 0x%llx", &v16, 0x16u);
-        }
-
-        *__error() = v6;
+        v11 = [lengthCopy debugDescription];
+        v15 = 138412546;
+        v16 = v11;
+        v17 = 2048;
+        v18 = a2;
+        _os_log_debug_impl(&dword_1E0E2F000, v7, OS_LOG_TYPE_DEBUG, "%@ updating length to 0x%llx", &v15, 0x16u);
       }
 
-      *(lengthCopy + 5) = a2;
-      if (a2 >> 28)
-      {
-        v13 = *__error();
-        v14 = _sa_logt();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
-        {
-          v15 = [lengthCopy debugDescription];
-          v16 = 138412546;
-          v17 = v15;
-          v18 = 2048;
-          v19 = a2;
-          _os_log_fault_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_FAULT, "%@ has length above max: 0x%llx", &v16, 0x16u);
-        }
-
-        *__error() = v13;
-      }
-
-      v8 = *(lengthCopy + 6);
-      if (v8)
-      {
-        [(SASegment *)v8 applyLength:?];
-        if ([(SASegment *)*(lengthCopy + 6) isEmpty])
-        {
-          v9 = *(lengthCopy + 6);
-          *(lengthCopy + 6) = 0;
-        }
-      }
+      *__error() = v6;
     }
 
-    objc_sync_exit(lengthCopy);
+    *(lengthCopy + 5) = a2;
+    if (a2 >> 28)
+    {
+      v12 = *__error();
+      v13 = _sa_logt();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      {
+        v14 = [lengthCopy debugDescription];
+        v15 = 138412546;
+        v16 = v14;
+        v17 = 2048;
+        v18 = a2;
+        _os_log_fault_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_FAULT, "%@ has length above max: 0x%llx", &v15, 0x16u);
+      }
+
+      *__error() = v12;
+    }
+
+    v8 = *(lengthCopy + 6);
+    if (v8)
+    {
+      [(SASegment *)v8 applyLength:?];
+      if ([(SASegment *)*(lengthCopy + 6) isEmpty])
+      {
+        v9 = *(lengthCopy + 6);
+        *(lengthCopy + 6) = 0;
+      }
+    }
   }
 
-  else
-  {
-    v5 = 0;
-  }
+  objc_sync_exit(lengthCopy);
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -2802,35 +2770,35 @@ void __33__SABinary_addInfoFromDyldImage___block_invoke_2(uint64_t a1, uint64_t 
 {
   v7 = *(a1 + 32);
   v9 = SANSStringForCString(a2);
-  v8 = [(SABinary *)v7 segmentWithName:v9 length:a4 offsetIntoBinary:a3 - *(*(*(a1 + 40) + 8) + 24)];
+  v8 = [(SABinary *)v7 segmentWithName:v9 length:a4 offsetIntoBinary:(a3 - *(*(*(a1 + 40) + 8) + 24))];
 }
 
 + (void)binaryForDyldImage:(int)image options:
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v4 = objc_autoreleasePoolPush();
+  v5 = objc_autoreleasePoolPush();
   *uu = 0;
-  v55 = 0;
+  v56 = 0;
   if (!dyld_image_copy_uuid() || uuid_is_null(uu))
   {
-    v5 = *__error();
-    v6 = _sa_logt();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = *__error();
+    v7 = _sa_logt();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v20 = DyldImagePath();
+      v20 = DyldImagePath(a2);
       *buf = 136315138;
       *&buf[4] = v20;
-      _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "No UUID for dyld_image %s", buf, 0xCu);
+      _os_log_error_impl(&dword_1E0E2F000, v7, OS_LOG_TYPE_ERROR, "No UUID for dyld_image %s", buf, 0xCu);
     }
 
-    v7 = 0;
-    *__error() = v5;
+    v8 = 0;
+    *__error() = v6;
     goto LABEL_6;
   }
 
   v10 = uuidForBytes(uu);
-  v11 = DyldImagePath();
+  v11 = DyldImagePath(a2);
   if (v11 && *v11)
   {
     v12 = SANSStringForCString(v11);
@@ -2902,7 +2870,7 @@ LABEL_28:
         *&buf[12] = 2112;
         *&buf[14] = path4;
         *&buf[22] = 2112;
-        v57 = v12;
+        v58 = v12;
         _os_log_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_INFO, "%{public}@ moved: replacing %@ with %@", buf, 0x20u);
       }
 
@@ -2929,59 +2897,65 @@ LABEL_30:
   }
 
   v27 = [SABinary binaryWithUUID:v10 absolutePath:v26];
-  v7 = v27;
+  v8 = v27;
   if (v27 && (!*(v27 + 80) || !*(v27 + 40) || ![*(v27 + 56) count]))
   {
-    v28 = v7;
+    v28 = v8;
     objc_sync_enter(v28);
-    if (!v7[10])
+    if (!v8[10])
     {
-      v32 = DyldImagePath();
+      v32 = DyldImagePath(a2);
       if (v32)
       {
         if (*v32)
         {
           v33 = SANSStringForCString(v32);
-          v34 = v7[10];
-          v7[10] = v33;
+          v34 = v8[10];
+          v8[10] = v33;
         }
       }
     }
 
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2020000000;
+    v54 = -1;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x2020000000;
     v50 = 0;
-    v51 = &v50;
-    v52 = 0x2020000000;
-    v53 = -1;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
     v46 = 0;
-    v47 = &v46;
-    v48 = 0x2020000000;
-    v49 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
     v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v45 = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __33__SABinary_addInfoFromDyldImage___block_invoke;
-    v57 = &unk_1E86F6970;
-    v58 = v28;
-    v59 = &v46;
-    v60 = &v50;
-    v61 = &v42;
-    v62 = &v38;
-    DyldImageEnumerateSegments();
-    v29 = v39[3];
-    if (v29 == v51[3])
+    v58 = &unk_1E86F6970;
+    v59 = v28;
+    v60 = &v47;
+    v61 = &v51;
+    v62 = &v43;
+    v63 = &v39;
+    DyldImageEnumerateSegments(a2, buf);
+    v29 = v40[3];
+    if (v29 == v52[3])
     {
-      v30 = v47[3] - v29;
-      if (v30 == v43[3])
+      v30 = v48[3] - v29;
+      if (v30 == v44[3])
       {
         [(SABinary *)v28 applyLength:v30];
-        DyldImageEnumerateSegments();
+        v38[0] = MEMORY[0x1E69E9820];
+        v38[1] = 3221225472;
+        v38[2] = __33__SABinary_addInfoFromDyldImage___block_invoke_2;
+        v38[3] = &unk_1E86F6998;
+        v38[4] = v28;
+        v38[5] = &v39;
+        DyldImageEnumerateSegments(a2, v38);
       }
     }
 
@@ -2991,65 +2965,73 @@ LABEL_30:
       v28[6] = 0;
     }
 
-    _Block_object_dispose(&v38, 8);
-    _Block_object_dispose(&v42, 8);
-    _Block_object_dispose(&v46, 8);
-    _Block_object_dispose(&v50, 8);
+    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v43, 8);
+    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v51, 8);
     objc_sync_exit(v28);
   }
 
 LABEL_6:
-  objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v5);
 
-  return v7;
+  return v8;
 }
 
-- (void)addInfoFromSymbolOwner:(uint64_t)owner fromDisk:(uint64_t)disk includeExpensiveInfo:(int)info
+- (void)addInfoFromSymbolOwner:(uint64_t)owner fromDisk:(char)disk includeExpensiveInfo:(int)info
 {
   if (self && ((info & 1) != 0 || ![*(self + 80) isAbsolutePath] || !*(self + 40)))
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v10 = selfCopy + 10;
+    v11 = selfCopy + 10;
     if (([selfCopy[10] isAbsolutePath] & 1) == 0 && (CSSymbolOwnerIsDsym() & 1) == 0)
     {
       Path = CSSymbolOwnerGetPath();
-      v12 = SAFilepathForCString(Path);
-      LOBYTE(v23) = 0;
-      if (v12 && SAFilepathMatches(*v10, v12, &v23) && v23 == 1)
+      v13 = SAFilepathForCString(Path);
+      LOBYTE(v27) = 0;
+      if (v13 && SAFilepathMatches(*v11, v13, &v27) && v27 == 1)
       {
-        objc_storeStrong(selfCopy + 10, v12);
+        objc_storeStrong(selfCopy + 10, v13);
       }
     }
 
-    if (!selfCopy[3] && !*v10)
+    if (!selfCopy[3] && !*v11)
     {
       Name = CSSymbolOwnerGetName();
-      v14 = SAFilepathForCString(Name);
-      v15 = selfCopy[3];
-      selfCopy[3] = v14;
+      v15 = SAFilepathForCString(Name);
+      v16 = selfCopy[3];
+      selfCopy[3] = v15;
     }
 
-    v23 = 0;
-    v24 = 0;
-    v22 = 0;
-    IsContiguous = SASymbolOwnerIsContiguous(a2, owner, &v23, &v22);
-    v17 = v22;
-    if (v17 > [selfCopy[7] count])
+    v27 = 0;
+    v28 = 0;
+    v26 = 0;
+    IsContiguous = SASymbolOwnerIsContiguous(a2, owner, &v27, &v26);
+    v18 = v26;
+    if (v18 > [selfCopy[7] count])
     {
-      SASymbolOwnerForeachSegment();
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __65__SABinary_addInfoFromSymbolOwner_fromDisk_includeExpensiveInfo___block_invoke;
+      v23[3] = &unk_1E86F69C0;
+      v24 = IsContiguous | disk;
+      v23[4] = selfCopy;
+      v23[5] = a2;
+      v23[6] = owner;
+      infoCopy = info;
+      SASymbolOwnerForeachSegment(a2, owner, v23);
     }
 
     if ([(SASegment *)selfCopy[6] isEmpty])
     {
-      v18 = selfCopy[6];
+      v19 = selfCopy[6];
       selfCopy[6] = 0;
     }
 
     if (IsContiguous)
     {
-      [(SABinary *)selfCopy applyLength:v24];
+      [(SABinary *)selfCopy applyLength:v28];
     }
 
     if (info && !selfCopy[14])
@@ -3057,9 +3039,9 @@ LABEL_6:
       Version = CSSymbolOwnerGetVersion();
       if (Version)
       {
-        v20 = SANSStringForCString(Version);
-        v21 = selfCopy[14];
-        selfCopy[14] = v20;
+        v21 = SANSStringForCString(Version);
+        v22 = selfCopy[14];
+        selfCopy[14] = v21;
       }
     }
 
@@ -3069,69 +3051,65 @@ LABEL_6:
 
 void __65__SABinary_addInfoFromSymbolOwner_fromDisk_includeExpensiveInfo___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 56);
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v9 = *(a1 + 48);
+  v7 = *(a1 + 32);
   BaseAddress = CSSymbolOwnerGetBaseAddress();
-  v21 = [(SABinary *)v8 segmentWithCSSegment:a2 symbolOwnerLayoutMatchesDisk:a3 symbolOwnerBaseAddress:v6, BaseAddress];
-  if (v21 && *(a1 + 57) == 1)
+  v18 = [(SABinary *)v7 segmentWithCSSegment:a2 symbolOwnerLayoutMatchesDisk:a3 symbolOwnerBaseAddress:v6, BaseAddress];
+  if (v18 && *(a1 + 57) == 1)
   {
-    v11 = v21;
-    objc_sync_enter(v11);
+    v9 = v18;
+    objc_sync_enter(v9);
     Range = CSRegionGetRange();
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __34__SASegment_addInfoFromCSSegment___block_invoke;
-    v31[3] = &unk_1E86F6750;
-    v31[5] = Range;
-    v31[6] = v13;
-    v31[4] = v11;
-    v14 = MEMORY[0x1E12EBE50](v31);
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = __34__SASegment_addInfoFromCSSegment___block_invoke_2;
-    v29 = &unk_1E86F67A0;
-    v30 = v14;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __34__SASegment_addInfoFromCSSegment___block_invoke;
+    v28[3] = &unk_1E86F6750;
+    v28[5] = Range;
+    v28[6] = v11;
+    v28[4] = v9;
+    v12 = MEMORY[0x1E12EBE50](v28);
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = __34__SASegment_addInfoFromCSSegment___block_invoke_2;
+    v26 = &unk_1E86F67A0;
+    v27 = v12;
     CSRegionForeachSymbol();
-    v15 = [v11[7] allValues];
+    v13 = [v9[7] allValues];
 
-    objc_sync_exit(v11);
-    v24 = 0u;
-    v25 = 0u;
+    objc_sync_exit(v9);
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v22 objects:v32 count:16];
-    if (v17)
+    v19 = 0u;
+    v20 = 0u;
+    v14 = v13;
+    v15 = [v14 countByEnumeratingWithState:&v19 objects:v29 count:16];
+    if (v15)
     {
-      v18 = *v23;
+      v16 = *v20;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v18)
+          if (*v20 != v16)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v14);
           }
 
-          [(SAInstruction *)*(*(&v22 + 1) + 8 * i) checkForNewSymbol];
+          [(SAInstruction *)*(*(&v19 + 1) + 8 * i) checkForNewSymbol];
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v19 objects:v29 count:16];
       }
 
-      while (v17);
+      while (v15);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)findPathViaBinaryLocator
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -3150,10 +3128,10 @@ void __65__SABinary_addInfoFromSymbolOwner_fromDisk_includeExpensiveInfo___block
           path = [v4 path];
           if (path)
           {
-            v14 = 0;
-            if (SAFilepathMatches(selfCopy[10], path, &v14))
+            v13 = 0;
+            if (SAFilepathMatches(selfCopy[10], path, &v13))
             {
-              if (v14 == 1)
+              if (v13 == 1)
               {
                 v7 = SACachedNSString(path);
                 v8 = selfCopy[10];
@@ -3170,13 +3148,13 @@ void __65__SABinary_addInfoFromSymbolOwner_fromDisk_includeExpensiveInfo___block
               if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
               {
                 uUIDString = [selfCopy[9] UUIDString];
-                v13 = selfCopy[10];
+                v12 = selfCopy[10];
                 *buf = 138543874;
-                v16 = uUIDString;
-                v17 = 2112;
-                v18 = path;
-                v19 = 2112;
-                v20 = v13;
+                v15 = uUIDString;
+                v16 = 2112;
+                v17 = path;
+                v18 = 2112;
+                v19 = v12;
                 _os_log_debug_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_DEBUG, "%{public}@: found path %@ via binary locator, but doesn't match existing partial path %@", buf, 0x20u);
               }
 
@@ -3191,8 +3169,6 @@ void __65__SABinary_addInfoFromSymbolOwner_fromDisk_includeExpensiveInfo___block
 
     objc_sync_exit(selfCopy);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)gatherBundleInfo
@@ -3201,10 +3177,10 @@ void __65__SABinary_addInfoFromSymbolOwner_fromDisk_includeExpensiveInfo___block
   {
     obj = self;
     objc_sync_enter(obj);
-    if (!obj[11] && !obj[12] && !obj[13] && (obj[8] & 1) == 0 && ([obj[10] isAbsolutePath] & 1) != 0)
+    if (*(obj + 88) == 0 && !*(obj + 13) && (obj[64] & 1) == 0 && ([*(obj + 10) isAbsolutePath] & 1) != 0)
     {
-      *(obj + 64) |= 1u;
-      v1 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:obj[10] isDirectory:0];
+      obj[64] |= 1u;
+      v1 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:*(obj + 10) isDirectory:0];
       if (v1)
       {
         v2 = _CFBundleCreateWithExecutableURLIfLooksLikeBundle();
@@ -3226,67 +3202,60 @@ void __65__SABinary_addInfoFromSymbolOwner_fromDisk_includeExpensiveInfo___block
   }
 }
 
-void __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additionalCSSymbolicatorFlags___block_invoke(uint64_t a1)
+void __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additionalCSSymbolicatorFlags___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!*(*(a1 + 32) + 80))
   {
     *uu2 = 0;
-    v17 = 0;
+    v18 = 0;
     dyld_image_copy_uuid();
     *uu1 = 0;
-    v15 = 0;
+    v16 = 0;
     [*(*(a1 + 32) + 72) getUUIDBytes:uu1];
     if (!uuid_compare(uu1, uu2))
     {
       *(*(*(a1 + 40) + 8) + 24) = 1;
-      v2 = DyldImagePath();
-      if (v2)
+      v4 = DyldImagePath(a2);
+      if (v4)
       {
-        v3 = SANSStringForCString(v2);
-        v4 = *(a1 + 32);
-        v5 = *(v4 + 80);
-        *(v4 + 80) = v3;
+        v5 = SANSStringForCString(v4);
+        v6 = *(a1 + 32);
+        v7 = *(v6 + 80);
+        *(v6 + 80) = v5;
       }
 
       else
       {
-        v6 = *__error();
-        v7 = _sa_logt();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = *__error();
+        v9 = _sa_logt();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          v9 = *(a1 + 48);
-          v10 = [*(a1 + 32) debugDescription];
-          v11[0] = 67109378;
-          v11[1] = v9;
-          v12 = 2112;
-          v13 = v10;
-          _os_log_error_impl(&dword_1E0E2F000, v7, OS_LOG_TYPE_ERROR, "dyld image has no installname in [%d] for %@", v11, 0x12u);
+          v10 = *(a1 + 48);
+          v11 = [*(a1 + 32) debugDescription];
+          v12[0] = 67109378;
+          v12[1] = v10;
+          v13 = 2112;
+          v14 = v11;
+          _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "dyld image has no installname in [%d] for %@", v12, 0x12u);
         }
 
-        *__error() = v6;
+        *__error() = v8;
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additionalCSSymbolicatorFlags___block_invoke_143(uint64_t a1)
 {
   _CopyLoadInfosForDyldSnapshot(*(a1 + 32), *(a1 + 48), 1, *(a1 + 40), 0, 0, 0, 0);
-  v2 = *(a1 + 32);
 
   return dyld_process_snapshot_dispose();
 }
 
 uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additionalCSSymbolicatorFlags___block_invoke_145(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
   CSSymbolicatorForeachSymbolOwnerAtTime();
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
 
   return CSRelease();
 }
@@ -3297,9 +3266,9 @@ uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additiona
   {
     obj = url;
     objc_sync_enter(obj);
-    if ((obj[64] & 2) == 0)
+    if ((obj[8] & 2) == 0)
     {
-      obj[64] |= 2u;
+      *(obj + 64) |= 2u;
     }
 
     objc_sync_exit(obj);
@@ -3312,22 +3281,22 @@ uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additiona
   {
     bundleCopy = bundle;
     objc_sync_enter(bundleCopy);
-    if (!bundleCopy[11] && !bundleCopy[12] && !bundleCopy[13])
+    if (*(bundleCopy + 88) == 0 && !*(bundleCopy + 13))
     {
-      *(bundleCopy + 64) |= 1u;
+      bundleCopy[64] |= 1u;
       v4 = CFBundleGetIdentifier(a2);
-      v5 = bundleCopy[11];
-      bundleCopy[11] = v4;
+      v5 = *(bundleCopy + 11);
+      *(bundleCopy + 11) = v4;
 
       v6 = SACFBundleCopyStringForKey(a2, *MEMORY[0x1E695E148]);
-      v7 = bundleCopy[13];
-      bundleCopy[13] = v6;
+      v7 = *(bundleCopy + 13);
+      *(bundleCopy + 13) = v6;
 
       v8 = SACFBundleCopyStringForKey(a2, *MEMORY[0x1E695E500]);
-      v9 = bundleCopy[12];
-      bundleCopy[12] = v8;
+      v9 = *(bundleCopy + 12);
+      *(bundleCopy + 12) = v8;
 
-      if (!bundleCopy[10])
+      if (!*(bundleCopy + 10))
       {
         v10 = CFBundleCopyExecutableURL(a2);
         v11 = v10;
@@ -3338,13 +3307,13 @@ uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additiona
           if (path)
           {
             v16 = 0;
-            if (SAFilepathMatches(bundleCopy[10], path, &v16))
+            if (SAFilepathMatches(*(bundleCopy + 10), path, &v16))
             {
               if (v16 == 1)
               {
                 v13 = SACachedNSString(path);
-                v14 = bundleCopy[10];
-                bundleCopy[10] = v13;
+                v14 = *(bundleCopy + 10);
+                *(bundleCopy + 10) = v13;
               }
             }
           }
@@ -3406,7 +3375,7 @@ uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additiona
     selfCopy = self;
     objc_sync_enter(selfCopy);
     v8 = [(SABinary *)selfCopy segmentAtOffsetIntoBinary:a2 createFakeSegmentIfNeeded:1];
-    v9 = a2 - [v8 offsetIntoBinary];
+    v9 = (a2 - [v8 offsetIntoBinary]);
     v10 = [(SASegment *)v8 nonInlineSymbolAtOffsetIntoSegment:v9];
     v11 = v10;
     if (v10)
@@ -3450,7 +3419,7 @@ uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additiona
 
 - (void)symbolicateAllInstructionsWithOptions:(int)options pid:(int)pid checkExclave:(int)exclave onlyDsym:(int)dsym additionalCSSymbolicatorFlags:
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   if (self)
   {
     selfCopy = self;
@@ -3460,8 +3429,8 @@ uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additiona
       goto LABEL_76;
     }
 
-    v74 = a2 & 0x66F;
-    v9 = v74 & ~*(selfCopy + 4);
+    v66 = a2 & 0x66F;
+    v9 = v66 & ~*(selfCopy + 4);
     if (*(selfCopy + 65))
     {
       goto LABEL_5;
@@ -3475,10 +3444,10 @@ uint64_t __89__SABinary_symbolOwnerWrapperWithOptions_pid_checkExclave_additiona
     if ((*(selfCopy + 64) & 4) == 0)
     {
 LABEL_5:
-      v70 = a2 & 0x66F & ~*(selfCopy + 4);
-      v72 = a2;
+      v62 = a2 & 0x66F & ~*(selfCopy + 4);
+      v64 = a2;
       exclaveCopy2 = exclave;
-      v73 = 0;
+      v65 = 0;
     }
 
     else
@@ -3488,29 +3457,29 @@ LABEL_5:
 LABEL_76:
         objc_sync_exit(selfCopy);
 
-        goto LABEL_77;
+        return;
       }
 
-      v70 = a2 & 0x66F & ~*(selfCopy + 4);
-      v72 = a2;
+      v62 = a2 & 0x66F & ~*(selfCopy + 4);
+      v64 = a2;
       exclaveCopy2 = exclave;
-      v73 = 1;
+      v65 = 1;
     }
 
-    v93 = 0;
-    v94 = &v93;
-    v95 = 0x2020000000;
-    v96 = 1;
-    v89 = 0;
-    v90 = &v89;
-    v91 = 0x2020000000;
-    v92 = 1;
-    v84[0] = MEMORY[0x1E69E9820];
-    v84[1] = 3221225472;
-    v85 = __106__SABinary_symbolicateAllInstructionsWithOptions_pid_checkExclave_onlyDsym_additionalCSSymbolicatorFlags___block_invoke;
-    v86 = &unk_1E86F6A70;
-    v87 = &v93;
-    v88 = &v89;
+    v85 = 0;
+    v86 = &v85;
+    v87 = 0x2020000000;
+    v88 = 1;
+    v81 = 0;
+    v82 = &v81;
+    v83 = 0x2020000000;
+    v84 = 1;
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v77 = __106__SABinary_symbolicateAllInstructionsWithOptions_pid_checkExclave_onlyDsym_additionalCSSymbolicatorFlags___block_invoke;
+    v78 = &unk_1E86F6A70;
+    v79 = &v85;
+    v80 = &v81;
     v10 = objc_alloc(MEMORY[0x1E695DF70]);
     v11 = selfCopy;
     objc_sync_enter(v11);
@@ -3524,25 +3493,25 @@ LABEL_76:
     v14 = Property;
     v15 = [v14 count];
 
-    v109 = 0u;
-    v110 = 0u;
-    v107 = 0u;
-    v108 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
     v16 = v11[7];
-    v18 = [v16 countByEnumeratingWithState:&v107 objects:&dest count:16];
+    v18 = [v16 countByEnumeratingWithState:&v99 objects:&dest count:16];
     if (v18)
     {
-      v19 = *v108;
+      v19 = *v100;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v108 != v19)
+          if (*v100 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v107 + 1) + 8 * i);
+          v21 = *(*(&v99 + 1) + 8 * i);
           if (v21)
           {
             v21 = objc_getProperty(v21, v17, 56, 1);
@@ -3554,7 +3523,7 @@ LABEL_76:
           v15 += v23;
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v107 objects:&dest count:16];
+        v18 = [v16 countByEnumeratingWithState:&v99 objects:&dest count:16];
       }
 
       while (v18);
@@ -3563,8 +3532,8 @@ LABEL_76:
     objc_sync_exit(obj);
     v24 = [v10 initWithCapacity:v15];
     v25 = obj;
-    v75 = obj;
-    objc_sync_enter(v75);
+    v67 = obj;
+    objc_sync_enter(v67);
     v26 = obj[6];
     if (v26)
     {
@@ -3588,26 +3557,26 @@ LABEL_76:
       v25 = obj;
     }
 
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
-    v103 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
     v32 = v25[7];
-    v33 = [v32 countByEnumeratingWithState:&v102 objects:&dest count:16];
+    v33 = [v32 countByEnumeratingWithState:&v94 objects:&dest count:16];
     if (v33)
     {
-      v34 = *v103;
+      v34 = *v95;
       do
       {
         v35 = 0;
         do
         {
-          if (*v103 != v34)
+          if (*v95 != v34)
           {
             objc_enumerationMutation(v32);
           }
 
-          v36 = *(*(&v102 + 1) + 8 * v35);
+          v36 = *(*(&v94 + 1) + 8 * v35);
           objc_sync_enter(v36);
           if (v36)
           {
@@ -3632,42 +3601,42 @@ LABEL_76:
         }
 
         while (v33 != v35);
-        v41 = [v32 countByEnumeratingWithState:&v102 objects:&dest count:16];
+        v41 = [v32 countByEnumeratingWithState:&v94 objects:&dest count:16];
         v33 = v41;
       }
 
       while (v41);
     }
 
-    objc_sync_exit(v75);
-    v101 = 0;
-    v97 = 0u;
-    v98 = 0u;
-    v99 = 0u;
-    v100 = 0u;
+    objc_sync_exit(v67);
+    v93 = 0;
+    v89 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v92 = 0u;
     v42 = v24;
-    v43 = [v42 countByEnumeratingWithState:&v97 objects:&v107 count:16];
+    v43 = [v42 countByEnumeratingWithState:&v89 objects:&v99 count:16];
     if (v43)
     {
-      v44 = *v98;
+      v44 = *v90;
 LABEL_38:
       v45 = 0;
       while (1)
       {
-        if (*v98 != v44)
+        if (*v90 != v44)
         {
           objc_enumerationMutation(v42);
         }
 
-        v85(v84, *(*(&v97 + 1) + 8 * v45), &v101);
-        if (v101)
+        v77(v76, *(*(&v89 + 1) + 8 * v45), &v93);
+        if (v93)
         {
           break;
         }
 
         if (v43 == ++v45)
         {
-          v43 = [v42 countByEnumeratingWithState:&v97 objects:&v107 count:16];
+          v43 = [v42 countByEnumeratingWithState:&v89 objects:&v99 count:16];
           if (v43)
           {
             goto LABEL_38;
@@ -3678,48 +3647,47 @@ LABEL_38:
       }
     }
 
-    if (*(v90 + 24) == 1)
+    if (*(v82 + 24) == 1)
     {
-      if (*(v94 + 24) == 1 || (v73 = 1, (v75[8] & 8) == 0) && (v70 & 0x48) == 0)
+      if (*(v86 + 24) == 1 || (v65 = 1, (v67[8] & 8) == 0) && (v62 & 0x48) == 0)
       {
         *(selfCopy + 65) = 0;
 LABEL_75:
-        _Block_object_dispose(&v89, 8);
-        _Block_object_dispose(&v93, 8);
+        _Block_object_dispose(&v81, 8);
+        _Block_object_dispose(&v85, 8);
         goto LABEL_76;
       }
     }
 
-    *(selfCopy + 4) = v74;
-    v46 = [(SABinary *)v75 symbolOwnerWrapperWithOptions:v72 pid:options checkExclave:pid additionalCSSymbolicatorFlags:dsym];
+    *(selfCopy + 4) = v66;
+    v46 = [(SABinary *)v67 symbolOwnerWrapperWithOptions:v64 pid:options checkExclave:pid additionalCSSymbolicatorFlags:dsym];
     if (v46)
     {
       objc_copyStruct(&dest, (v46 + 16), 16, 1, 0);
       if (CSIsNull())
       {
-        v56 = *__error();
-        v57 = _sa_logt();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v55 = *__error();
+        v56 = _sa_logt();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
-          v58 = [v75 debugDescription];
-          v59 = v58;
-          uTF8String = [v58 UTF8String];
+          v57 = [v67 debugDescription];
+          v58 = v57;
+          uTF8String = [v57 UTF8String];
           dest = 136315138;
           dest_4 = uTF8String;
-          _os_log_error_impl(&dword_1E0E2F000, v57, OS_LOG_TYPE_ERROR, "%s: null symbol owner in symbol owner wrapper", &dest, 0xCu);
+          _os_log_error_impl(&dword_1E0E2F000, v56, OS_LOG_TYPE_ERROR, "%s: null symbol owner in symbol owner wrapper", &dest, 0xCu);
         }
 
-        *__error() = v56;
-        v61 = [v75 debugDescription];
-        v62 = v61;
-        uTF8String2 = [v61 UTF8String];
-        _SASetCrashLogMessage(2606, "%s: null symbol owner in symbol owner wrapper", v64, v65, v66, v67, v68, v69, uTF8String2);
+        *__error() = v55;
+        v60 = [v67 debugDescription];
+        v61 = v60;
+        _SASetCrashLogMessage(2606, "%s: null symbol owner in symbol owner wrapper", [v60 UTF8String]);
 
         _os_crash();
         __break(1u);
       }
 
-      *(v75 + 64) |= 4u;
+      *(v67 + 64) |= 4u;
       if (CSSymbolOwnerIsDsym())
       {
         v47 = 8;
@@ -3730,44 +3698,44 @@ LABEL_75:
         v47 = 0;
       }
 
-      *(v75 + 64) = v75[8] & 0xF7 | v47;
-      if (v73 | exclaveCopy2) != 1 || (CSSymbolOwnerIsDsym())
+      *(v67 + 64) = v67[8] & 0xF7 | v47;
+      if (v65 | exclaveCopy2) != 1 || (CSSymbolOwnerIsDsym())
       {
         *(selfCopy + 65) = 0;
-        if (!v75[14])
+        if (!v67[14])
         {
           Version = CSSymbolOwnerGetVersion();
           if (Version)
           {
             v49 = SANSStringForCString(Version);
-            v50 = v75[14];
-            v75[14] = v49;
+            v50 = v67[14];
+            v67[14] = v49;
           }
         }
 
         [(SASegment *)obj[6] symbolicateWithSymbolOwnerWrapper:v46];
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
+        v74 = 0u;
+        v75 = 0u;
+        v72 = 0u;
+        v73 = 0u;
         v51 = obj[7];
-        v52 = [v51 countByEnumeratingWithState:&v80 objects:v106 count:16];
+        v52 = [v51 countByEnumeratingWithState:&v72 objects:v98 count:16];
         if (v52)
         {
-          v53 = *v81;
+          v53 = *v73;
           do
           {
             for (j = 0; j != v52; ++j)
             {
-              if (*v81 != v53)
+              if (*v73 != v53)
               {
                 objc_enumerationMutation(v51);
               }
 
-              [(SASegment *)*(*(&v80 + 1) + 8 * j) symbolicateWithSymbolOwnerWrapper:v46];
+              [(SASegment *)*(*(&v72 + 1) + 8 * j) symbolicateWithSymbolOwnerWrapper:v46];
             }
 
-            v52 = [v51 countByEnumeratingWithState:&v80 objects:v106 count:16];
+            v52 = [v51 countByEnumeratingWithState:&v72 objects:v98 count:16];
           }
 
           while (v52);
@@ -3776,7 +3744,7 @@ LABEL_75:
         goto LABEL_74;
       }
 
-      if ((v73 | exclaveCopy2 ^ 1) != 1)
+      if ((v65 | exclaveCopy2 ^ 1) != 1)
       {
 LABEL_74:
 
@@ -3786,15 +3754,12 @@ LABEL_74:
 
     else
     {
-      *(v75 + 64) &= 0xF3u;
+      *(v67 + 64) &= 0xF3u;
     }
 
     *(selfCopy + 65) = 0;
     goto LABEL_74;
   }
-
-LABEL_77:
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __106__SABinary_symbolicateAllInstructionsWithOptions_pid_checkExclave_onlyDsym_additionalCSSymbolicatorFlags___block_invoke(uint64_t result, uint64_t a2, _BYTE *a3)
@@ -3823,32 +3788,32 @@ LABEL_7:
 
 - (void)clearSymbolCache
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   fakeEntireBinarySegment = selfCopy->_fakeEntireBinarySegment;
   selfCopy->_fakeEntireBinarySegment = 0;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = selfCopy->_segments;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         if (v8)
         {
           v9 = v8;
@@ -3869,7 +3834,7 @@ LABEL_7:
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -3880,8 +3845,6 @@ LABEL_7:
   *(selfCopy + 64) &= 0xF3u;
   [(SABinary *)selfCopy clearCoreSymbolicationCache];
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __28__SABinary_dataFillingQueue__block_invoke()
@@ -4043,34 +4006,31 @@ void __28__SABinary_dataFillingQueue__block_invoke()
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
   selfCopy = self;
-  v58 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if ([(SABinary *)self sizeInBytesForSerializedVersion]> length)
   {
-    v16 = *__error();
-    v17 = _sa_logt();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v15 = *__error();
+    v16 = _sa_logt();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = [selfCopy debugDescription];
-      uTF8String = [v18 UTF8String];
+      v17 = [selfCopy debugDescription];
+      uTF8String = [v17 UTF8String];
       sizeInBytesForSerializedVersion = [selfCopy sizeInBytesForSerializedVersion];
-      v20 = [*(selfCopy + 56) count];
+      v19 = [*(selfCopy + 56) count];
       *buf = 136315906;
-      v55 = uTF8String;
-      v56 = 2048;
-      *v57 = sizeInBytesForSerializedVersion;
-      *&v57[8] = 2048;
-      *&v57[10] = v20;
-      *&v57[18] = 2048;
-      *&v57[20] = length;
-      _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "%s: size %lu (%lu segments) > buffer length %lu", buf, 0x2Au);
+      v32 = uTF8String;
+      v33 = 2048;
+      *v34 = sizeInBytesForSerializedVersion;
+      *&v34[8] = 2048;
+      *&v34[10] = v19;
+      *&v34[18] = 2048;
+      *&v34[20] = length;
+      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "%s: size %lu (%lu segments) > buffer length %lu", buf, 0x2Au);
     }
 
-    *__error() = v16;
-    v21 = [selfCopy debugDescription];
-    uTF8String2 = [v21 UTF8String];
-    [selfCopy sizeInBytesForSerializedVersion];
-    [*(selfCopy + 56) count];
-    _SASetCrashLogMessage(4780, "%s: size %lu (%lu segments) > buffer length %lu", v23, v24, v25, v26, v27, v28, uTF8String2);
+    *__error() = v15;
+    v20 = [selfCopy debugDescription];
+    _SASetCrashLogMessage(4780, "%s: size %lu (%lu segments) > buffer length %lu", [v20 UTF8String], objc_msgSend(selfCopy, "sizeInBytesForSerializedVersion"), objc_msgSend(*(selfCopy + 56), "count"), length);
 
     _os_crash();
     __break(1u);
@@ -4099,52 +4059,48 @@ void __28__SABinary_dataFillingQueue__block_invoke()
   if ([*(selfCopy + 56) count] >= 0xFFFF)
   {
 LABEL_11:
-    v29 = *__error();
+    v21 = *__error();
     buffer = _sa_logt();
     if (os_log_type_enabled(buffer, OS_LOG_TYPE_ERROR))
     {
-      v30 = [selfCopy debugDescription];
-      uTF8String3 = [v30 UTF8String];
+      v22 = [selfCopy debugDescription];
+      uTF8String2 = [v22 UTF8String];
       *buf = 136315394;
-      v55 = uTF8String3;
-      v56 = 1024;
-      *v57 = 0xFFFF;
+      v32 = uTF8String2;
+      v33 = 1024;
+      *v34 = 0xFFFF;
       _os_log_error_impl(&dword_1E0E2F000, buffer, OS_LOG_TYPE_ERROR, "%s: more than %d segments", buf, 0x12u);
     }
 
-    *__error() = v29;
+    *__error() = v21;
     selfCopy = [selfCopy debugDescription];
-    uTF8String4 = [selfCopy UTF8String];
-    _SASetCrashLogMessage(4800, "%s: more than %d segments", v33, v34, v35, v36, v37, v38, uTF8String4);
+    _SASetCrashLogMessage(4800, "%s: more than %d segments", [selfCopy UTF8String], 0xFFFF);
 
     _os_crash();
     __break(1u);
 LABEL_14:
-    v39 = *__error();
-    v40 = _sa_logt();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v24 = *__error();
+    v25 = _sa_logt();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v41 = [selfCopy debugDescription];
-      uTF8String5 = [v41 UTF8String];
-      v43 = *(&buffer->var9 + 3);
+      v26 = [selfCopy debugDescription];
+      uTF8String3 = [v26 UTF8String];
+      v28 = *(&buffer->var9 + 3);
       sizeInBytesForSerializedVersion2 = [selfCopy sizeInBytesForSerializedVersion];
       *buf = 136315906;
-      v55 = uTF8String5;
-      v56 = 1024;
-      *v57 = v43;
-      *&v57[4] = 2048;
-      *&v57[6] = sizeInBytesForSerializedVersion;
-      *&v57[14] = 2048;
-      *&v57[16] = sizeInBytesForSerializedVersion2;
-      _os_log_error_impl(&dword_1E0E2F000, v40, OS_LOG_TYPE_ERROR, "%s: after serializing with %u segments, ended with length %ld, should be %lu", buf, 0x26u);
+      v32 = uTF8String3;
+      v33 = 1024;
+      *v34 = v28;
+      *&v34[4] = 2048;
+      *&v34[6] = sizeInBytesForSerializedVersion;
+      *&v34[14] = 2048;
+      *&v34[16] = sizeInBytesForSerializedVersion2;
+      _os_log_error_impl(&dword_1E0E2F000, v25, OS_LOG_TYPE_ERROR, "%s: after serializing with %u segments, ended with length %ld, should be %lu", buf, 0x26u);
     }
 
-    *__error() = v39;
-    v45 = [selfCopy debugDescription];
-    uTF8String6 = [v45 UTF8String];
-    v47 = *(&buffer->var9 + 3);
-    [selfCopy sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(4807, "%s: after serializing with %u segments, ended with length %ld, should be %lu", v48, v49, v50, v51, v52, v53, uTF8String6);
+    *__error() = v24;
+    v30 = [selfCopy debugDescription];
+    _SASetCrashLogMessage(4807, "%s: after serializing with %u segments, ended with length %ld, should be %lu", [v30 UTF8String], *(&buffer->var9 + 3), sizeInBytesForSerializedVersion, objc_msgSend(selfCopy, "sizeInBytesForSerializedVersion"));
 
     _os_crash();
     __break(1u);
@@ -4163,13 +4119,12 @@ LABEL_14:
   v13 = (&buffer->var9 + 8 * v12 + 5);
   *v13 = SASerializableIndexForPointerFromSerializationDictionary(*(selfCopy + 120), dictionary);
   v13[1] = SASerializableIndexForPointerFromSerializationDictionary(*(selfCopy + 128), dictionary);
-  v14 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)addSelfToSerializationDictionary:(id)dictionary
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   classDictionaryKey = [objc_opt_class() classDictionaryKey];
   v6 = SASerializableAddInstanceToSerializationDictionaryWithClassKey(dictionary, self, classDictionaryKey);
 
@@ -4184,38 +4139,36 @@ LABEL_14:
     [(NSString *)self->_codesigningID addSelfToSerializationDictionary:dictionary];
     [(NSString *)self->_teamID addSelfToSerializationDictionary:dictionary];
     [(SASegment *)self->_fakeEntireBinarySegment addSelfToSerializationDictionary:dictionary];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = self->_segments;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) addSelfToSerializationDictionary:{dictionary, v13}];
+          [*(*(&v12 + 1) + 8 * v11++) addSelfToSerializationDictionary:{dictionary, v12}];
         }
 
         while (v9 != v11);
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
@@ -4224,12 +4177,12 @@ LABEL_14:
   v5 = _sa_logt();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    *v13 = 0;
-    _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "Called without dict/buff though it's defined", v13, 2u);
+    *v7 = 0;
+    _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "Called without dict/buff though it's defined", v7, 2u);
   }
 
   *__error() = v4;
-  _SASetCrashLogMessage(4835, "Called without dict/buff though it's defined", v6, v7, v8, v9, v10, v11, v13[0]);
+  _SASetCrashLogMessage(4835, "Called without dict/buff though it's defined");
   result = _os_crash();
   __break(1u);
   return result;
@@ -4237,7 +4190,7 @@ LABEL_14:
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_21;
@@ -4245,24 +4198,24 @@ LABEL_14:
 
   if (length <= 0x4A)
   {
-    v22 = *__error();
-    v23 = _sa_logt();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = *__error();
+    v22 = _sa_logt();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v33 = 2048;
-      v34 = 75;
-      _os_log_error_impl(&dword_1E0E2F000, v23, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct %lu", buf, 0x16u);
+      v26 = 2048;
+      v27 = 75;
+      _os_log_error_impl(&dword_1E0E2F000, v22, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct %lu", buf, 0x16u);
     }
 
-    *__error() = v22;
-    _SASetCrashLogMessage(4843, "bufferLength %lu < serialized SABinary struct %lu", v24, v25, v26, v27, v28, v29, length);
+    *__error() = v21;
+    _SASetCrashLogMessage(4843, "bufferLength %lu < serialized SABinary struct %lu", length, 75);
     _os_crash();
     __break(1u);
 LABEL_21:
-    v30 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SABinary version" userInfo:0];
-    objc_exception_throw(v30);
+    v23 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SABinary version" userInfo:0];
+    objc_exception_throw(v23);
   }
 
   v10 = uuidForBytes(buffer + 2);
@@ -4319,13 +4272,12 @@ LABEL_21:
     [(SABinary *)v15 applyLength:?];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  *&v93[13] = *MEMORY[0x1E69E9840];
+  *&v66[13] = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_53;
@@ -4333,35 +4285,35 @@ LABEL_21:
 
   if (length <= 0x4A)
   {
-    v53 = *__error();
-    v54 = _sa_logt();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v52 = *__error();
+    v53 = _sa_logt();
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy3 = length;
-      v92 = 2048;
-      *v93 = 75;
-      _os_log_error_impl(&dword_1E0E2F000, v54, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct %lu", buf, 0x16u);
+      v65 = 2048;
+      *v66 = 75;
+      _os_log_error_impl(&dword_1E0E2F000, v53, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct %lu", buf, 0x16u);
     }
 
-    *__error() = v53;
-    _SASetCrashLogMessage(4880, "bufferLength %lu < serialized SABinary struct %lu", v55, v56, v57, v58, v59, v60, length);
+    *__error() = v52;
+    _SASetCrashLogMessage(4880, "bufferLength %lu < serialized SABinary struct %lu", length, 75);
     _os_crash();
     __break(1u);
 LABEL_44:
-    v61 = *__error();
-    v62 = _sa_logt();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v54 = *__error();
+    v55 = _sa_logt();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy3 = length;
-      v92 = 2048;
-      *v93 = 77;
-      _os_log_error_impl(&dword_1E0E2F000, v62, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct %lu", buf, 0x16u);
+      v65 = 2048;
+      *v66 = 77;
+      _os_log_error_impl(&dword_1E0E2F000, v55, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct %lu", buf, 0x16u);
     }
 
-    *__error() = v61;
-    _SASetCrashLogMessage(4920, "bufferLength %lu < serialized SABinary struct %lu", v63, v64, v65, v66, v67, v68, length);
+    *__error() = v54;
+    _SASetCrashLogMessage(4920, "bufferLength %lu < serialized SABinary struct %lu", length, 77);
     _os_crash();
     __break(1u);
     goto LABEL_47;
@@ -4391,8 +4343,8 @@ LABEL_44:
         v21 = [(SABinary *)self debugDescription];
         *buf = 138412546;
         lengthCopy3 = v15;
-        v92 = 2112;
-        *v93 = v21;
+        v65 = 2112;
+        *v66 = v21;
         _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "Decoded SABinary path %@ doesn't match %@, not filling in bundle/codesign info", buf, 0x16u);
       }
 
@@ -4409,8 +4361,8 @@ LABEL_38:
         v21 = [(SABinary *)self debugDescription];
         *buf = 138412546;
         lengthCopy3 = v15;
-        v92 = 2112;
-        *v93 = v21;
+        v65 = 2112;
+        *v66 = v21;
         _os_log_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_INFO, "Decoded SABinary path %@ doesn't match %@", buf, 0x16u);
       }
 
@@ -4489,59 +4441,57 @@ LABEL_38:
   if (p_path > length)
   {
 LABEL_47:
-    v69 = *__error();
-    v70 = _sa_logt();
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+    v56 = *__error();
+    v57 = _sa_logt();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
-      v71 = *(bufferCopy + 75);
+      v58 = *(bufferCopy + 75);
       *buf = 134218496;
       lengthCopy3 = length;
-      v92 = 1024;
-      *v93 = v71;
-      v93[2] = 2048;
-      *&v93[3] = p_path;
-      _os_log_error_impl(&dword_1E0E2F000, v70, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct plus %u segments %llu", buf, 0x1Cu);
+      v65 = 1024;
+      *v66 = v58;
+      v66[2] = 2048;
+      *&v66[3] = p_path;
+      _os_log_error_impl(&dword_1E0E2F000, v57, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct plus %u segments %llu", buf, 0x1Cu);
     }
 
-    *__error() = v69;
-    v88 = *(bufferCopy + 75);
-    _SASetCrashLogMessage(4923, "bufferLength %lu < serialized SABinary struct plus %u segments %llu", v72, v73, v74, v75, v76, v77, length);
+    *__error() = v56;
+    _SASetCrashLogMessage(4923, "bufferLength %lu < serialized SABinary struct plus %u segments %llu", length, *(bufferCopy + 75), p_path);
     _os_crash();
     __break(1u);
 LABEL_50:
-    v78 = *__error();
-    v79 = _sa_logt();
-    if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+    v59 = *__error();
+    v60 = _sa_logt();
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
-      v80 = *(bufferCopy + 75);
+      v61 = *(bufferCopy + 75);
       *buf = 134218240;
       lengthCopy3 = lengthCopy4;
-      v92 = 1024;
-      *v93 = v80;
-      _os_log_error_impl(&dword_1E0E2F000, v79, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct v3 with %u segments", buf, 0x12u);
+      v65 = 1024;
+      *v66 = v61;
+      _os_log_error_impl(&dword_1E0E2F000, v60, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SABinary struct v3 with %u segments", buf, 0x12u);
     }
 
-    *__error() = v78;
-    v89 = *(bufferCopy + 75);
-    _SASetCrashLogMessage(4935, "bufferLength %lu < serialized SABinary struct v3 with %u segments", v81, v82, v83, v84, v85, v86, lengthCopy4);
+    *__error() = v59;
+    _SASetCrashLogMessage(4935, "bufferLength %lu < serialized SABinary struct v3 with %u segments", lengthCopy4, *(bufferCopy + 75));
     _os_crash();
     __break(1u);
 LABEL_53:
-    v87 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SABinary version" userInfo:0];
-    objc_exception_throw(v87);
+    v62 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SABinary version" userInfo:0];
+    objc_exception_throw(v62);
   }
 
   v40 = gSASerializationEncodedVersionBeingDecoded();
   if (*v40 <= 30)
   {
-    *gBinaryBeingDecoded() = self;
+    *gBinaryBeingDecoded(&gBinaryBeingDecoded) = self;
   }
 
   v41 = objc_opt_class();
   v42 = SASerializableNewMutableArrayFromIndexList((bufferCopy + 77), lengthCopy4, dictionary, bufferDictionary, v41);
   if (*v40 <= 30)
   {
-    *gBinaryBeingDecoded() = 0;
+    *gBinaryBeingDecoded(&gBinaryBeingDecoded) = 0;
   }
 
   lengthCopy4 = length;
@@ -4575,8 +4525,6 @@ LABEL_53:
   }
 
 LABEL_39:
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 @end

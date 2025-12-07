@@ -271,21 +271,21 @@
 
 - (void)valueChangedForGEOConfigKey:(id)key
 {
-  if (key.var0 == NavigationConfig_SpokenGuidanceLevel_Driving && key.var1 == *(&NavigationConfig_SpokenGuidanceLevel_Driving + 1))
+  if (key.var0 == LODWORD(NavigationConfig_SpokenGuidanceLevel_Driving[0]) && key.var1 == NavigationConfig_SpokenGuidanceLevel_Driving[1])
   {
     Integer = GEOConfigGetInteger();
 
     [(AudioPreferences *)self setDrivingVoiceGuidance:Integer];
   }
 
-  else if (key.var0 == NavigationConfig_SpokenGuidanceLevel_Walking && key.var1 == *(&NavigationConfig_SpokenGuidanceLevel_Walking + 1))
+  else if (key.var0 == LODWORD(NavigationConfig_SpokenGuidanceLevel_Walking[0]) && key.var1 == NavigationConfig_SpokenGuidanceLevel_Walking[1])
   {
     v8 = GEOConfigGetInteger();
 
     [(AudioPreferences *)self setWalkingVoiceGuidance:v8];
   }
 
-  else if (key.var0 == NavigationConfig_SpokenGuidanceLevel_Cycling && key.var1 == *(&NavigationConfig_SpokenGuidanceLevel_Cycling + 1))
+  else if (key.var0 == LODWORD(NavigationConfig_SpokenGuidanceLevel_Cycling[0]) && key.var1 == NavigationConfig_SpokenGuidanceLevel_Cycling[1])
   {
     v9 = GEOConfigGetInteger();
 

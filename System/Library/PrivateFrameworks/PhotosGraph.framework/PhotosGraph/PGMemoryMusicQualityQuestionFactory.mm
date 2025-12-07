@@ -6,27 +6,27 @@
 
 - (id)generateQuestionsWithLimit:(unint64_t)limit progressBlock:(id)block
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v7 = _Block_copy(blockCopy);
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
   v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
   if (v7)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v39[3] >= 0.01)
+    if (Current - v38[3] >= 0.01)
     {
-      v39[3] = Current;
-      v37 = 0;
-      v7[2](v7, &v37, 0.0);
-      v9 = *(v43 + 24) | v37;
-      *(v43 + 24) = v9;
+      v38[3] = Current;
+      v36 = 0;
+      v7[2](v7, &v36, 0.0);
+      v9 = *(v42 + 24) | v36;
+      *(v42 + 24) = v9;
       if (v9)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -37,9 +37,9 @@ LABEL_17:
         }
 
         *buf = 67109378;
-        v47 = 41;
-        v48 = 2080;
-        v49 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicQuality/PGMemoryMusicQualityQuestionFactory.m";
+        v46 = 41;
+        v47 = 2080;
+        v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicQuality/PGMemoryMusicQualityQuestionFactory.m";
         v10 = MEMORY[0x277D86220];
 LABEL_11:
         _os_log_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -50,25 +50,25 @@ LABEL_11:
     if (!limit)
     {
       v11 = CFAbsoluteTimeGetCurrent();
-      if (v11 - v39[3] < 0.01)
+      if (v11 - v38[3] < 0.01)
       {
         goto LABEL_17;
       }
 
-      v39[3] = v11;
-      v37 = 0;
-      v7[2](v7, &v37, 1.0);
-      v12 = *(v43 + 24) | v37;
-      *(v43 + 24) = v12;
+      v38[3] = v11;
+      v36 = 0;
+      v7[2](v7, &v36, 1.0);
+      v12 = *(v42 + 24) | v36;
+      *(v42 + 24) = v12;
       if ((v12 & 1) == 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_17;
       }
 
       *buf = 67109378;
-      v47 = 45;
-      v48 = 2080;
-      v49 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicQuality/PGMemoryMusicQualityQuestionFactory.m";
+      v46 = 45;
+      v47 = 2080;
+      v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicQuality/PGMemoryMusicQualityQuestionFactory.m";
       v10 = MEMORY[0x277D86220];
       goto LABEL_11;
     }
@@ -87,7 +87,7 @@ LABEL_11:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v47 = v15;
+    v46 = v15;
     _os_log_impl(&dword_22F0FC000, v16, OS_LOG_TYPE_DEBUG, "[MusicQualityQuestion] isAppleMusicSubscriber = %d", buf, 8u);
   }
 
@@ -95,19 +95,19 @@ LABEL_11:
   {
     workingContext = [(PGSurveyQuestionFactory *)self workingContext];
     photoLibrary = [workingContext photoLibrary];
-    v25 = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __80__PGMemoryMusicQualityQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke;
-    v28 = &unk_2788888F8;
-    v36 = v15;
+    v24 = MEMORY[0x277D85DD0];
+    v25 = 3221225472;
+    v26 = __80__PGMemoryMusicQualityQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke;
+    v27 = &unk_2788888F8;
+    v35 = v15;
     selfCopy = self;
-    v30 = v13;
+    v29 = v13;
     limitCopy = limit;
-    v31 = v7;
-    v32 = &v38;
-    v35 = 0x3F847AE147AE147BLL;
-    v33 = &v42;
-    [PGMemoryMusicQuestionUtils enumerateMemoryMusicSuggestionsInPhotoLibrary:photoLibrary block:&v25];
+    v30 = v7;
+    v31 = &v37;
+    v34 = 0x3F847AE147AE147BLL;
+    v32 = &v41;
+    [PGMemoryMusicQuestionUtils enumerateMemoryMusicSuggestionsInPhotoLibrary:photoLibrary block:&v24];
   }
 
   else
@@ -120,14 +120,14 @@ LABEL_11:
     }
   }
 
-  if (v7 && (v21 = CFAbsoluteTimeGetCurrent(), v21 - v39[3] >= 0.01) && (v39[3] = v21, v37 = 0, v7[2](v7, &v37, 1.0), v22 = *(v43 + 24) | v37, *(v43 + 24) = v22, (v22 & 1) != 0))
+  if (v7 && (v21 = CFAbsoluteTimeGetCurrent(), v21 - v38[3] >= 0.01) && (v38[3] = v21, v36 = 0, v7[2](v7, &v36, 1.0), v22 = *(v42 + 24) | v36, *(v42 + 24) = v22, (v22 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v47 = 81;
-      v48 = 2080;
-      v49 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicQuality/PGMemoryMusicQualityQuestionFactory.m";
+      v46 = 81;
+      v47 = 2080;
+      v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicQuality/PGMemoryMusicQualityQuestionFactory.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -140,17 +140,15 @@ LABEL_11:
   }
 
 LABEL_29:
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v42, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v41, 8);
 
   return allObjects;
 }
 
 void __80__PGMemoryMusicQualityQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = objc_autoreleasePoolPush();
@@ -165,9 +163,9 @@ void __80__PGMemoryMusicQualityQuestionFactory_generateQuestionsWithLimit_progre
     }
 
     v16 = [v7 uuid];
-    v25 = 138412290;
-    v26 = v16;
-    _os_log_impl(&dword_22F0FC000, &v14->super.super, OS_LOG_TYPE_INFO, "[MusicQualityQuestion] Skipping question for memory %@ since it's customized (song selected changed from system curated)", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v16;
+    _os_log_impl(&dword_22F0FC000, &v14->super.super, OS_LOG_TYPE_INFO, "[MusicQualityQuestion] Skipping question for memory %@ since it's customized (song selected changed from system curated)", &v24, 0xCu);
 LABEL_11:
 
     goto LABEL_12;
@@ -211,9 +209,9 @@ LABEL_12:
     if (Current - *(v23 + 24) >= *(a1 + 80))
     {
       *(v23 + 24) = Current;
-      LOBYTE(v25) = 0;
+      LOBYTE(v24) = 0;
       (*(*(a1 + 48) + 16))(v20 / v21);
-      *(*(*(a1 + 64) + 8) + 24) |= v25;
+      *(*(*(a1 + 64) + 8) + 24) |= v24;
       if (*(*(*(a1 + 64) + 8) + 24) == 1)
       {
         *a4 = 1;
@@ -222,7 +220,6 @@ LABEL_12:
   }
 
   objc_autoreleasePoolPop(v9);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

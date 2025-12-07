@@ -15,33 +15,34 @@
   factoryCopy = factory;
   managerCopy = manager;
   optionsCopy = options;
-  v27.receiver = self;
-  v27.super_class = TUIFeedRenderer;
-  v18 = [(TUIFeedRenderer *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = TUIFeedRenderer;
+  v18 = [(TUIFeedRenderer *)&v28 init];
   if (v18)
   {
-    v18->_feedId.uniqueIdentifier = TUIFeedIdentifierGenerate();
-    v19 = TUIDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v19 = TUIFeedIdentifierGenerate();
+    v18->_feedId.uniqueIdentifier = v19;
+    v20 = TUIDefaultLog(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       uniqueIdentifier = v18->_feedId.uniqueIdentifier;
       *buf = 134218242;
-      v29 = uniqueIdentifier;
-      v30 = 2112;
-      v31 = v18;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "[fid:%lu] created feed renderer: %@", buf, 0x16u);
+      v30 = uniqueIdentifier;
+      v31 = 2112;
+      v32 = v18;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "[fid:%lu] created feed renderer: %@", buf, 0x16u);
     }
 
     objc_storeStrong(&v18->_content, content);
     [environmentCopy contentsScale];
-    v18->_contentScale = v21;
+    v18->_contentScale = v22;
     objc_storeStrong(&v18->_options, options);
-    v22 = [[TUIFeedLayoutController alloc] initWithFeedId:v18->_feedId.uniqueIdentifier environment:environmentCopy factory:factoryCopy manager:managerCopy renderMode:1];
+    v23 = [[TUIFeedLayoutController alloc] initWithFeedId:v18->_feedId.uniqueIdentifier environment:environmentCopy factory:factoryCopy manager:managerCopy renderMode:1];
     layoutController = v18->_layoutController;
-    v18->_layoutController = v22;
+    v18->_layoutController = v23;
 
     layerUpdateController = [(TUIFeedLayoutController *)v18->_layoutController layerUpdateController];
-    v25 = [layerUpdateController registerDelegate:v18];
+    v26 = [layerUpdateController registerDelegate:v18];
   }
 
   return v18;

@@ -47,9 +47,9 @@
     +[UITraitCollection(MobileSafariExtras) safari_traitsAffectingTextAppearance];
   }
 
-  v1 = safari_traitsAffectingTextAppearance_traits;
+  v2 = safari_traitsAffectingTextAppearance_traits;
 
-  return v1;
+  return v2;
 }
 
 - (id)sf_traitCollectionWithAlternateUserInterfaceColorAsPrimary

@@ -13,13 +13,13 @@
 
 - (HMAccessorySetupCompletedInfo)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"homeuuid"];
   v6 = MEMORY[0x1E695DFD8];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"uuids"];
 
@@ -37,20 +37,19 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543874;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v9;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded homeUUID: %@ addedAccessoryUUIDs: %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v9;
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded homeUUID: %@ addedAccessoryUUIDs: %@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -66,18 +65,16 @@
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   homeUUID = [(HMAccessorySetupCompletedInfo *)self homeUUID];
   v5 = [v3 initWithName:@"Home UUID" value:homeUUID];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   addedAccessoryUUIDs = [(HMAccessorySetupCompletedInfo *)self addedAccessoryUUIDs];
   v8 = [v6 initWithName:@"Added Accessory UUIDs" value:addedAccessoryUUIDs];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }

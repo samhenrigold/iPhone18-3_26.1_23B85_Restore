@@ -45,8 +45,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v20[6] = *MEMORY[0x1E69E9840];
-  v19[0] = @"nickname";
+  v19[6] = *MEMORY[0x1E69E9840];
+  v18[0] = @"nickname";
   nickname = self->_nickname;
   null = nickname;
   if (!nickname)
@@ -54,9 +54,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null;
-  v20[0] = null;
-  v19[1] = @"accountNumber";
+  v17 = null;
+  v19[0] = null;
+  v18[1] = @"accountNumber";
   accountNumber = self->_accountNumber;
   null2 = accountNumber;
   if (!accountNumber)
@@ -64,12 +64,12 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17 = null2;
-  v20[1] = null2;
-  v19[2] = @"accountType";
+  v16 = null2;
+  v19[1] = null2;
+  v18[2] = @"accountType";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_accountType];
-  v20[2] = v7;
-  v19[3] = @"organizationName";
+  v19[2] = v7;
+  v18[3] = @"organizationName";
   organizationName = self->_organizationName;
   null3 = organizationName;
   if (!organizationName)
@@ -77,8 +77,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[3] = null3;
-  v19[4] = @"balance";
+  v19[3] = null3;
+  v18[4] = @"balance";
   balance = self->_balance;
   null4 = balance;
   if (!balance)
@@ -86,8 +86,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[4] = null4;
-  v19[5] = @"secondaryBalance";
+  v19[4] = null4;
+  v18[5] = @"secondaryBalance";
   secondaryBalance = self->_secondaryBalance;
   null5 = secondaryBalance;
   if (!secondaryBalance)
@@ -95,8 +95,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20[5] = null5;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v19[5] = null5;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
   if (secondaryBalance)
   {
     if (balance)
@@ -146,7 +146,6 @@ LABEL_14:
   }
 
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

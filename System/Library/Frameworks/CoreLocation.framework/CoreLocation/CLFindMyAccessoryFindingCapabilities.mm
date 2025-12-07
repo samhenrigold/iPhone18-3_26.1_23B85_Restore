@@ -11,13 +11,12 @@
 
 - (CLFindMyAccessoryFindingCapabilities)initWithData:(id)data
 {
-  v20 = *MEMORY[0x1E69E9840];
-  if ([data length] == 4)
+  v28 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_length(data, a2, data, v3) == 4)
   {
-    v5 = *[data bytes];
-    v6 = *MEMORY[0x1E69E9840];
+    v9 = *objc_msgSend_bytes(data, v6, v7, v8);
 
-    return MEMORY[0x1EEE66B58](self, sel_initWithSupportsFC1ND_supportsNBAMMS_supportsUnii5_capabilities_supportsSimultaneousRanging_);
+    return MEMORY[0x1EEE66B58](self, sel_initWithSupportsFC1ND_supportsNBAMMS_supportsUnii5_capabilities_supportsSimultaneousRanging_, v9 & 1, (v9 >> 1) & 1);
   }
 
   else
@@ -27,40 +26,39 @@
       dispatch_once(&qword_1EAFE46C8, &unk_1F0E6D830);
     }
 
-    v7 = qword_1EAFE4700;
+    v10 = qword_1EAFE4700;
     if (os_log_type_enabled(qword_1EAFE4700, OS_LOG_TYPE_ERROR))
     {
-      v12 = 68289538;
-      v13 = 0;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2050;
-      v17 = [data length];
-      v18 = 2114;
+      v20 = 68289538;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2050;
+      v25 = objc_msgSend_length(data, v11, v12, v13);
+      v26 = 2114;
       dataCopy2 = data;
-      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#durian CLFindMyAccessoryFindingCapabilities Unexpected data size, size:%{public}ld, data:%{public, location:escape_only}@}", &v12, 0x26u);
+      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#durian CLFindMyAccessoryFindingCapabilities Unexpected data size, size:%{public}ld, data:%{public, location:escape_only}@}", &v20, 0x26u);
       if (qword_1EAFE46C8 != -1)
       {
         dispatch_once(&qword_1EAFE46C8, &unk_1F0E6D830);
       }
     }
 
-    v8 = qword_1EAFE4700;
+    v14 = qword_1EAFE4700;
     if (os_signpost_enabled(qword_1EAFE4700))
     {
-      v9 = [data length];
-      v12 = 68289538;
-      v13 = 0;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2050;
-      v17 = v9;
-      v18 = 2114;
+      v18 = objc_msgSend_length(data, v15, v16, v17);
+      v20 = 68289538;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2050;
+      v25 = v18;
+      v26 = 2114;
       dataCopy2 = data;
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#durian CLFindMyAccessoryFindingCapabilities Unexpected data size", "{msg%{public}.0s:#durian CLFindMyAccessoryFindingCapabilities Unexpected data size, size:%{public}ld, data:%{public, location:escape_only}@}", &v12, 0x26u);
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#durian CLFindMyAccessoryFindingCapabilities Unexpected data size", "{msg%{public}.0s:#durian CLFindMyAccessoryFindingCapabilities Unexpected data size, size:%{public}ld, data:%{public, location:escape_only}@}", &v20, 0x26u);
     }
 
-    v10 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }
@@ -91,66 +89,67 @@
 
 - (id)capabilitiesString
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = "NO";
-  if ([(CLFindMyAccessoryFindingCapabilities *)self supportsFC1ND])
+  v5 = MEMORY[0x1E696AEC0];
+  v9 = "NO";
+  if (objc_msgSend_supportsFC1ND(self, a2, v2, v3))
   {
-    v5 = "YES";
+    v10 = "YES";
   }
 
   else
   {
-    v5 = "NO";
+    v10 = "NO";
   }
 
-  if ([(CLFindMyAccessoryFindingCapabilities *)self supportsNBAMMS])
+  if (objc_msgSend_supportsNBAMMS(self, v6, v7, v8))
   {
-    v6 = "YES";
+    v14 = "YES";
   }
 
   else
   {
-    v6 = "NO";
+    v14 = "NO";
   }
 
-  if ([(CLFindMyAccessoryFindingCapabilities *)self supportsUnii5])
+  if (objc_msgSend_supportsUnii5(self, v11, v12, v13))
   {
-    v7 = "YES";
+    v18 = "YES";
   }
 
   else
   {
-    v7 = "NO";
+    v18 = "NO";
   }
 
-  if ([(CLFindMyAccessoryFindingCapabilities *)self supportsSimultaneousRanging])
+  if (objc_msgSend_supportsSimultaneousRanging(self, v15, v16, v17))
   {
-    v4 = "YES";
+    v9 = "YES";
   }
 
-  return [v3 stringWithFormat:@"\n supportsFC1ND %s\n supportsNBAMMS %s\n supportsUnii5 %s\n supportsSimultaneousRanging %s\n capabilities %u\n", v5, v6, v7, v4, -[CLFindMyAccessoryFindingCapabilities capabilities](self, "capabilities")];
+  v22 = objc_msgSend_capabilities(self, v19, v20, v21);
+  return objc_msgSend_stringWithFormat_(v5, v23, @"\n supportsFC1ND %s\n supportsNBAMMS %s\n supportsUnii5 %s\n supportsSimultaneousRanging %s\n capabilities %u\n", v24, v10, v14, v18, v9, v22);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeBool:self->_supportsFC1ND forKey:@"FC1ND"];
-  [coder encodeBool:self->_supportsNBAMMS forKey:@"NBAMMS"];
-  [coder encodeBool:self->_supportsUnii5 forKey:@"Unii-5"];
-  [coder encodeBool:self->_supportsSimultaneousRanging forKey:@"simultaneous_ranging"];
+  objc_msgSend_encodeBool_forKey_(coder, a2, self->_supportsFC1ND, @"FC1ND");
+  objc_msgSend_encodeBool_forKey_(coder, v5, self->_supportsNBAMMS, @"NBAMMS");
+  objc_msgSend_encodeBool_forKey_(coder, v6, self->_supportsUnii5, @"Unii-5");
+  objc_msgSend_encodeBool_forKey_(coder, v7, self->_supportsSimultaneousRanging, @"simultaneous_ranging");
   capabilities = self->_capabilities;
 
-  MEMORY[0x1EEE66B58](coder, sel_encodeInt32_forKey_);
+  MEMORY[0x1EEE66B58](coder, sel_encodeInt32_forKey_, capabilities, @"capabilities");
 }
 
 - (CLFindMyAccessoryFindingCapabilities)initWithCoder:(id)coder
 {
-  [coder decodeBoolForKey:@"FC1ND"];
-  [coder decodeBoolForKey:@"NBAMMS"];
-  [coder decodeBoolForKey:@"Unii-5"];
-  [coder decodeInt32ForKey:@"capabilities"];
-  [coder decodeBoolForKey:@"simultaneous_ranging"];
+  v6 = objc_msgSend_decodeBoolForKey_(coder, a2, @"FC1ND", v3);
+  v9 = objc_msgSend_decodeBoolForKey_(coder, v7, @"NBAMMS", v8);
+  objc_msgSend_decodeBoolForKey_(coder, v10, @"Unii-5", v11);
+  objc_msgSend_decodeInt32ForKey_(coder, v12, @"capabilities", v13);
+  objc_msgSend_decodeBoolForKey_(coder, v14, @"simultaneous_ranging", v15);
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithSupportsFC1ND_supportsNBAMMS_supportsUnii5_capabilities_supportsSimultaneousRanging_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithSupportsFC1ND_supportsNBAMMS_supportsUnii5_capabilities_supportsSimultaneousRanging_, v6, v9);
 }
 
 @end

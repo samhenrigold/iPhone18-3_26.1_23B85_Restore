@@ -73,19 +73,19 @@ void __38__SBSSystemApertureLayoutMonitor_init__block_invoke(uint64_t a1, void *
   [v5 setInterruptionHandler:&__block_literal_global_16];
 }
 
-void __38__SBSSystemApertureLayoutMonitor_init__block_invoke_2()
+void __38__SBSSystemApertureLayoutMonitor_init__block_invoke_2(uint64_t a1)
 {
-  v0 = SBLogSystemApertureHosting();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = SBLogSystemApertureHosting(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __38__SBSSystemApertureLayoutMonitor_init__block_invoke_2_cold_1(v0);
+    __38__SBSSystemApertureLayoutMonitor_init__block_invoke_2_cold_1(v1);
   }
 }
 
 void __38__SBSSystemApertureLayoutMonitor_init__block_invoke_14(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogSystemApertureHosting();
+  v3 = SBLogSystemApertureHosting(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __38__SBSSystemApertureLayoutMonitor_init__block_invoke_14_cold_1(v3);

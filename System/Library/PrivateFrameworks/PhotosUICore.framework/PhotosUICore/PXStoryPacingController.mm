@@ -88,7 +88,7 @@
     {
       v38 = 0uLL;
       v39 = 0;
-      [v9 currentTime];
+      objc_msgSend_currentTime(v9);
       pacingDecisionHistory = [(PXStoryPacingController *)self pacingDecisionHistory];
       v13 = pacingDecisionHistory;
       v36 = 0u;
@@ -103,7 +103,7 @@
       {
         v25 = v38;
         *&v26 = v39;
-        [pacingDecisionHistory firstPacingDecisionAfterTime:&v25];
+        objc_msgSend_firstPacingDecisionAfterTime_(pacingDecisionHistory);
         v14 = v36;
         if (v36 > 0xAu)
         {
@@ -135,7 +135,7 @@ LABEL_9:
 
           if (v13)
           {
-            [v13 currentError];
+            objc_msgSend_currentError(v13);
           }
 
           else
@@ -366,14 +366,14 @@ LABEL_8:
   memset(&v16, 0, sizeof(v16));
   if (model)
   {
-    [model nominalPlaybackTime];
+    objc_msgSend_nominalPlaybackTime(model);
   }
 
   timeline = [v4 timeline];
   v6 = timeline;
   if (timeline)
   {
-    [timeline timeRange];
+    objc_msgSend_timeRange(timeline);
   }
 
   else
@@ -393,7 +393,7 @@ LABEL_8:
   v8 = cueSource;
   if (cueSource)
   {
-    [cueSource currentTime];
+    objc_msgSend_currentTime(cueSource);
   }
 
   else
@@ -438,7 +438,7 @@ LABEL_8:
   memset(&v91[1], 0, sizeof(CMTime));
   if (model)
   {
-    [model timeIntoCurrentSegment];
+    objc_msgSend_timeIntoCurrentSegment(model);
   }
 
   v8 = +[PXStorySettings sharedInstance];
@@ -447,7 +447,7 @@ LABEL_8:
   v90 = 0;
   if (model)
   {
-    [model timeLeftInCurrentSegment];
+    objc_msgSend_timeLeftInCurrentSegment(model);
   }
 
   if ([(PXStoryPacingController *)self canChangePlaybackTime])
@@ -466,7 +466,7 @@ LABEL_8:
     memset(v85, 0, sizeof(v85));
     v84 = 0u;
     memset(rhs, 0, sizeof(rhs));
-    [(PXStoryPacingController *)self currentPacingDecision];
+    objc_msgSend_currentPacingDecision(self);
     if (*rhs == currentSegmentIdentifier)
     {
       if (cueSource)
@@ -562,7 +562,7 @@ LABEL_8:
     {
       if (timeline)
       {
-        [timeline timeRangeForSegmentWithIdentifier:currentSegmentIdentifier];
+        objc_msgSend_timeRangeForSegmentWithIdentifier_(timeline);
       }
 
       else
@@ -625,7 +625,7 @@ LABEL_8:
       v71 = 0u;
       if (timeline)
       {
-        [timeline timeRangeForSegmentWithIdentifier:currentSegmentIdentifier];
+        objc_msgSend_timeRangeForSegmentWithIdentifier_(timeline);
       }
 
       v67 = 0;
@@ -656,7 +656,7 @@ LABEL_8:
       memset(time2, 0, sizeof(time2));
       if (timeline)
       {
-        [timeline infoForSegmentWithIdentifier:currentSegmentIdentifier];
+        objc_msgSend_infoForSegmentWithIdentifier_(timeline);
         v21 = v59[0];
       }
 
@@ -771,7 +771,7 @@ LABEL_8:
   memset(time2, 0, 24);
   if (model)
   {
-    [model elapsedTime];
+    objc_msgSend_elapsedTime(model);
   }
 
   *lhs = *time2;
@@ -848,7 +848,7 @@ void __57__PXStoryPacingController_timeSource_didIncrementByTime___block_invoke_
     v8 = cueSource;
     if (cueSource)
     {
-      [cueSource currentTime];
+      objc_msgSend_currentTime(cueSource);
     }
 
     else

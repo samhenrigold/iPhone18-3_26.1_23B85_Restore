@@ -1,41 +1,72 @@
-void sub_242498628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_242493048(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id obj, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, __int128 buf)
 {
-  va_start(va, a7);
+  if (a2)
+  {
+    if (a2 == 2)
+    {
+      v31 = objc_begin_catch(a1);
+      v32 = DALoggingwithCategory();
+      v33 = *(MEMORY[0x277CF3AF0] + 3);
+      if (os_log_type_enabled(v32, v33))
+      {
+        v34 = [obj accountID];
+        LODWORD(buf) = 138412546;
+        *(&buf + 4) = v34;
+        WORD6(buf) = 2112;
+        *(&buf + 14) = v31;
+        _os_log_impl(&dword_242490000, v32, v33, "Caught an exception while trying to get the calendars for account %@: %@", &buf, 0x16u);
+      }
+
+      objc_end_catch();
+      JUMPOUT(0x242492FE0);
+    }
+
+    objc_begin_catch(a1);
+
+    objc_exception_rethrow();
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_242498628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_24249A504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24249A504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_24249A60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24249A60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2424A4424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2424A4424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2424A47C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2424A47C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2424A94C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2424A94C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -47,38 +78,36 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2424AAD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2424AA6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  va_start(va, a13);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2424AAD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t OUTLINED_FUNCTION_2()
 {
-  v3 = *(v1 + 88);
-  v4 = *(v1 + 32);
 
   return [v0 count];
 }
 
-uint64_t OUTLINED_FUNCTION_3()
-{
-  v3 = *v2;
-  v4 = *v1;
-  return v0;
-}
-
-id mobileCalDAVProdID()
+id mobileCalDAVProdID(uint64_t a1)
 {
   if (mobileCalDAVProdID_onceToken != -1)
   {
     mobileCalDAVProdID_cold_1();
   }
 
-  v1 = mobileCalDAVProdID__sProdID;
+  v2 = mobileCalDAVProdID__sProdID;
 
-  return v1;
+  return v2;
 }
 
 void __mobileCalDAVProdID_block_invoke()
@@ -132,7 +161,7 @@ uint64_t checkOrCreatePath(void *a1)
   if (![v3 fileExistsAtPath:v4 isDirectory:&v8] || v8 != 1)
   {
     v6 = [v4 stringByDeletingLastPathComponent];
-    if (checkOrCreatePath())
+    if (checkOrCreatePath(v6))
     {
       v5 = [v3 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:0];
 
@@ -214,6 +243,13 @@ void sub_2424B0E34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_2424B2BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -221,24 +257,24 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2424B2DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2424B2DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2424B2F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2424B2F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id rem_reminderFromICSTodoWithOptions(void *a1, void *a2, void *a3, void *a4, _BYTE *a5, uint64_t a6, void *a7)
 {
-  v157 = *MEMORY[0x277D85DE8];
-  v137 = a1;
+  v156 = *MEMORY[0x277D85DE8];
+  v136 = a1;
   v12 = a2;
   v13 = a3;
   v14 = a4;
@@ -248,13 +284,13 @@ id rem_reminderFromICSTodoWithOptions(void *a1, void *a2, void *a3, void *a4, _B
     *a5 = 0;
   }
 
-  if (!v137)
+  if (!v136)
   {
     v30 = 0;
     goto LABEL_91;
   }
 
-  v126 = a5;
+  v125 = a5;
   v16 = [v13 principal];
   v17 = [v16 account];
 
@@ -266,17 +302,17 @@ id rem_reminderFromICSTodoWithOptions(void *a1, void *a2, void *a3, void *a4, _B
     if (os_log_type_enabled(v18, v19))
     {
       *buf = 138543362;
-      v145 = v13;
+      v144 = v13;
       _os_log_impl(&dword_242490000, v18, v19, "ERROR: mobileCalendar object is not an instance of MobileCalDAVAccount: %{public}@", buf, 0xCu);
     }
   }
 
   objc_opt_class();
   REMDynamicCast();
-  v132 = v131 = v14;
-  v133 = v15;
-  v129 = v17;
-  v130 = v13;
+  v131 = v130 = v14;
+  v132 = v15;
+  v128 = v17;
+  v129 = v13;
   if ((a6 & 0x2000000) != 0)
   {
 LABEL_82:
@@ -287,15 +323,15 @@ LABEL_82:
     v105 = *(MEMORY[0x277CF3AF0] + 5);
     if (os_log_type_enabled(v104, v105))
     {
-      v106 = [v137 uid];
+      v106 = [v136 uid];
       v107 = [v30 objectID];
       *buf = 138543618;
-      v145 = v106;
-      v146 = 2114;
-      v147 = v107;
+      v144 = v106;
+      v145 = 2114;
+      v146 = v107;
       _os_log_impl(&dword_242490000, v104, v105, "Couldn't find a task with UID %{public}@ in the reminders database. Creating a new one {reminder: %{public}@}.", buf, 0x16u);
 
-      v15 = v133;
+      v15 = v132;
     }
 
     v25 = 0;
@@ -311,7 +347,7 @@ LABEL_85:
     v110 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a6];
     v111 = [v109 dictionaryWithObject:v110 forKey:@"ItemBridgeOptions"];
 
-    v112 = [v132 backingAccountInfo];
+    v112 = [v131 backingAccountInfo];
     v113 = [v112 displayAccount];
     v114 = [v113 accountType];
     v115 = [v114 identifier];
@@ -323,23 +359,23 @@ LABEL_85:
       [v111 setObject:&unk_2854BF738 forKey:*MEMORY[0x277D44CD0]];
     }
 
-    v15 = v133;
-    [v133 updateReminderChangeItem:v30 fromICSTodo:v137 icsCalendar:v26 isNew:v31 withOptions:v111];
-    v14 = v131;
+    v15 = v132;
+    [v132 updateReminderChangeItem:v30 fromICSTodo:v136 icsCalendar:v26 isNew:v31 withOptions:v111];
+    v14 = v130;
     v25 = v108;
-    if (v126)
+    if (v125)
     {
-      *v126 = 1;
+      *v125 = 1;
     }
 
     goto LABEL_89;
   }
 
   v20 = [v15 store];
-  v21 = [v137 uid];
-  v143 = 0;
-  v22 = [v20 fetchReminderWithDACalendarItemUniqueIdentifier:v21 inList:v14 error:&v143];
-  v23 = v143;
+  v21 = [v136 uid];
+  v142 = 0;
+  v22 = [v20 fetchReminderWithDACalendarItemUniqueIdentifier:v21 inList:v14 error:&v142];
+  v23 = v142;
 
   if (v22)
   {
@@ -356,21 +392,21 @@ LABEL_85:
   }
 
   v35 = DALoggingwithCategory();
-  v121 = *(MEMORY[0x277CF3AF0] + 5);
-  v124 = v23;
-  if (os_log_type_enabled(v35, v121))
+  v120 = *(MEMORY[0x277CF3AF0] + 5);
+  v123 = v23;
+  if (os_log_type_enabled(v35, v120))
   {
-    v36 = [v137 uid];
+    v36 = [v136 uid];
     v37 = MEMORY[0x277CCABB0];
     v38 = [v13 rem_cachedFetchedRemindersForMergeSync];
     v39 = [v37 numberWithUnsignedInteger:{objc_msgSend(v38, "count")}];
     *buf = 138543874;
-    v145 = v36;
-    v146 = 2114;
-    v147 = v39;
-    v148 = 2114;
-    v149 = v13;
-    _os_log_impl(&dword_242490000, v35, v121, "k_REM_CalCalendarMergeFields: trying to match local reminder {uid: %{public}@, cache.count: %{public}@, calendar: %{public}@}", buf, 0x20u);
+    v144 = v36;
+    v145 = 2114;
+    v146 = v39;
+    v147 = 2114;
+    v148 = v13;
+    _os_log_impl(&dword_242490000, v35, v120, "k_REM_CalCalendarMergeFields: trying to match local reminder {uid: %{public}@, cache.count: %{public}@, calendar: %{public}@}", buf, 0x20u);
   }
 
   v40 = [v13 rem_cachedFetchedRemindersForMergeSync];
@@ -381,13 +417,13 @@ LABEL_85:
     if (os_log_type_enabled(v41, v42))
     {
       *buf = 138543362;
-      v145 = v13;
+      v144 = v13;
       _os_log_impl(&dword_242490000, v41, v42, "k_REM_CalCalendarMergeFields: mobileCalendar.rem_cachedFetchedRemindersForMergeSync is unexpectedly nil {calendar: %{public}@}", buf, 0xCu);
     }
 
-    v142 = 0;
-    v40 = [v14 fetchRemindersWithError:&v142];
-    v43 = v142;
+    v141 = 0;
+    v40 = [v14 fetchRemindersWithError:&v141];
+    v43 = v141;
     if (v40)
     {
       [v13 setRem_cachedFetchedRemindersForMergeSync:v40];
@@ -402,15 +438,15 @@ LABEL_85:
         v46 = [v13 guid];
         v47 = [v14 objectID];
         *buf = 138543874;
-        v145 = v46;
-        v146 = 2114;
-        v147 = v47;
-        v148 = 2114;
-        v149 = v43;
+        v144 = v46;
+        v145 = 2114;
+        v146 = v47;
+        v147 = 2114;
+        v148 = v43;
         _os_log_impl(&dword_242490000, v45, v42, "k_REM_CalCalendarMergeFields: ERROR: Couldn't fetch all reminders for {guid: %{public}@, listID: %{public}@, error: %{public}@}", buf, 0x20u);
 
-        v14 = v131;
-        v15 = v133;
+        v14 = v130;
+        v15 = v132;
       }
     }
   }
@@ -422,87 +458,87 @@ LABEL_85:
     goto LABEL_81;
   }
 
-  v140 = 0u;
-  v141 = 0u;
-  v138 = 0u;
   v139 = 0u;
-  v120 = v48;
+  v140 = 0u;
+  v137 = 0u;
+  v138 = 0u;
+  v119 = v48;
   obj = v48;
-  v128 = [obj countByEnumeratingWithState:&v138 objects:v156 count:16];
-  if (!v128)
+  v127 = [obj countByEnumeratingWithState:&v137 objects:v155 count:16];
+  if (!v127)
   {
-    v125 = 0;
+    v124 = 0;
     goto LABEL_78;
   }
 
-  v119 = v20;
-  v125 = 0;
-  v127 = *v139;
+  v118 = v20;
+  v124 = 0;
+  v126 = *v138;
   type = *(MEMORY[0x277CF3AF0] + 7);
-  v123 = v12;
+  v122 = v12;
   v49 = obj;
   while (2)
   {
-    for (i = 0; i != v128; ++i)
+    for (i = 0; i != v127; ++i)
     {
-      if (*v139 != v127)
+      if (*v138 != v126)
       {
         objc_enumerationMutation(v49);
       }
 
-      v51 = *(*(&v138 + 1) + 8 * i);
+      v51 = *(*(&v137 + 1) + 8 * i);
       v52 = DALoggingwithCategory();
       if (os_log_type_enabled(v52, type))
       {
         v53 = [v51 objectID];
-        v54 = [v137 uid];
+        v54 = [v136 uid];
         *buf = 138543618;
-        v145 = v53;
-        v146 = 2114;
-        v147 = v54;
+        v144 = v53;
+        v145 = 2114;
+        v146 = v54;
         _os_log_impl(&dword_242490000, v52, type, "k_REM_CalCalendarMergeFields: Considering candidate title {candidate: %{public}@, uid: %{public}@}", buf, 0x16u);
       }
 
       v55 = [v51 titleAsString];
-      v56 = [v137 summary];
+      v56 = [v136 summary];
       v57 = [v55 isEqualToString:v56];
 
       if (v57)
       {
-        v58 = [v125 dueDateComponents];
+        v58 = [v124 dueDateComponents];
         if (v58)
         {
         }
 
         else
         {
-          v59 = [v137 due];
+          v59 = [v136 due];
 
           if (!v59)
           {
             v84 = v51;
 
-            v125 = v84;
+            v124 = v84;
             goto LABEL_63;
           }
         }
 
-        v60 = [v137 due];
+        v60 = [v136 due];
         v61 = [v60 components];
 
-        v62 = [v137 due];
+        v62 = [v136 due];
         v63 = [v12 systemTimeZoneForDate:v62];
 
         v64 = MEMORY[0x277CBEAB8];
         if (v63)
         {
-          v134 = [MEMORY[0x277CBEAB8] rem_dateWithDateComponents:v61 timeZone:v63];
+          v133 = [MEMORY[0x277CBEAB8] rem_dateWithDateComponents:v61 timeZone:v63];
         }
 
         else
         {
           v65 = [MEMORY[0x277CBEBB0] defaultTimeZone];
-          v134 = [v64 rem_dateWithDateComponents:v61 timeZone:v65];
+          v133 = [v64 rem_dateWithDateComponents:v61 timeZone:v65];
         }
 
         v66 = v61;
@@ -520,47 +556,47 @@ LABEL_85:
           v72 = [MEMORY[0x277CBEBB0] defaultTimeZone];
           v71 = [v67 rem_dateWithDateComponents:v68 timeZone:v72];
 
-          v23 = v124;
+          v23 = v123;
         }
 
         v73 = DALoggingwithCategory();
         if (os_log_type_enabled(v73, type))
         {
           v74 = [v51 objectID];
-          v75 = [v137 uid];
+          v75 = [v136 uid];
           v76 = [v51 timeZone];
           v77 = [v63 name];
           *buf = 138544642;
-          v145 = v74;
-          v146 = 2114;
-          v147 = v75;
-          v148 = 2112;
-          v149 = v71;
-          v150 = 2112;
-          v151 = v134;
-          v152 = 2112;
-          v153 = v76;
-          v154 = 2112;
-          v155 = v77;
+          v144 = v74;
+          v145 = 2114;
+          v146 = v75;
+          v147 = 2112;
+          v148 = v71;
+          v149 = 2112;
+          v150 = v133;
+          v151 = 2112;
+          v152 = v76;
+          v153 = 2112;
+          v154 = v77;
           _os_log_impl(&dword_242490000, v73, type, "k_REM_CalCalendarMergeFields: Considering candidate due {candidate: %{public}@, uid: %{public}@, candidate.due: '%@', ics.due: '%@', candidate.timezone: %@, ics.timezone: %@}", buf, 0x3Eu);
 
-          v23 = v124;
+          v23 = v123;
           v49 = obj;
         }
 
-        if ([v71 isEqualToDate:v134])
+        if ([v71 isEqualToDate:v133])
         {
           v78 = [v51 timeZone];
           v79 = [v63 name];
           v80 = [v78 isEqualToString:v79];
 
-          v14 = v131;
+          v14 = v130;
           if (v80)
           {
             v81 = v51;
 
             v82 = 0;
-            v125 = v81;
+            v124 = v81;
           }
 
           else
@@ -568,17 +604,17 @@ LABEL_85:
             v82 = 1;
           }
 
-          v23 = v124;
+          v23 = v123;
         }
 
         else
         {
           v82 = 1;
-          v14 = v131;
+          v14 = v130;
         }
 
-        v12 = v123;
-        v15 = v133;
+        v12 = v122;
+        v15 = v132;
         if (!v82)
         {
           goto LABEL_63;
@@ -586,8 +622,8 @@ LABEL_85:
       }
     }
 
-    v128 = [v49 countByEnumeratingWithState:&v138 objects:v156 count:16];
-    if (v128)
+    v127 = [v49 countByEnumeratingWithState:&v137 objects:v155 count:16];
+    if (v127)
     {
       continue;
     }
@@ -597,38 +633,38 @@ LABEL_85:
 
 LABEL_63:
 
-  if (v125)
+  if (v124)
   {
     v85 = DALoggingwithCategory();
-    v20 = v119;
-    if (os_log_type_enabled(v85, v121))
+    v20 = v118;
+    if (os_log_type_enabled(v85, v120))
     {
-      v86 = [v137 uid];
-      v87 = [v125 objectID];
+      v86 = [v136 uid];
+      v87 = [v124 objectID];
       v88 = [v14 objectID];
       *buf = 138543874;
-      v145 = v86;
-      v146 = 2114;
-      v147 = v87;
-      v148 = 2114;
-      v149 = v88;
-      _os_log_impl(&dword_242490000, v85, v121, "k_REM_CalCalendarMergeFields: Found identity match of reminder {uid: %{public}@, reminder:%{public}@, list: %{public}@}", buf, 0x20u);
+      v144 = v86;
+      v145 = 2114;
+      v146 = v87;
+      v147 = 2114;
+      v148 = v88;
+      _os_log_impl(&dword_242490000, v85, v120, "k_REM_CalCalendarMergeFields: Found identity match of reminder {uid: %{public}@, reminder:%{public}@, list: %{public}@}", buf, 0x20u);
 
-      v23 = v124;
+      v23 = v123;
     }
 
-    v13 = v130;
+    v13 = v129;
     if ((a6 & 0x4000000) == 0)
     {
       goto LABEL_79;
     }
 
-    v89 = [v137 last_modified];
+    v89 = [v136 last_modified];
     v90 = [v89 rem_dateAsUTC];
 
     if (v90)
     {
-      v91 = [v125 lastModifiedDate];
+      v91 = [v124 lastModifiedDate];
       v92 = [v91 earlierDate:v90];
       v93 = v92 == v90;
     }
@@ -642,63 +678,63 @@ LABEL_63:
     v95 = *(MEMORY[0x277CF3AF0] + 6);
     if (os_log_type_enabled(v94, v95))
     {
-      v96 = [v125 lastModifiedDate];
-      v97 = [v137 uid];
-      v98 = [v125 objectID];
+      v96 = [v124 lastModifiedDate];
+      v97 = [v136 uid];
+      v98 = [v124 objectID];
       *buf = 138413058;
-      v145 = v96;
-      v146 = 2112;
-      v147 = v90;
-      v148 = 2114;
-      v149 = v97;
-      v150 = 2114;
-      v151 = v98;
+      v144 = v96;
+      v145 = 2112;
+      v146 = v90;
+      v147 = 2114;
+      v148 = v97;
+      v149 = 2114;
+      v150 = v98;
       _os_log_impl(&dword_242490000, v94, v95, "k_REM_CalCalendarMergeFields: Comparing if local reminder is more recent {localLastMod: %@, remoteLastMod: %@, uid: %{public}@, reminder:%{public}@}", buf, 0x2Au);
 
-      v15 = v133;
+      v15 = v132;
     }
 
-    v23 = v124;
+    v23 = v123;
     if (v93)
     {
       v99 = DALoggingwithCategory();
-      if (os_log_type_enabled(v99, v121))
+      if (os_log_type_enabled(v99, v120))
       {
-        v100 = [v137 uid];
-        v101 = [v125 objectID];
+        v100 = [v136 uid];
+        v101 = [v124 objectID];
         *buf = 138543618;
-        v145 = v100;
-        v146 = 2114;
-        v147 = v101;
-        _os_log_impl(&dword_242490000, v99, v121, "k_REM_CalCalendarMergeFields: Local reminder is more recent. Refusing to update the reminder. {uid: %{public}@, reminder:%{public}@}", buf, 0x16u);
+        v144 = v100;
+        v145 = 2114;
+        v146 = v101;
+        _os_log_impl(&dword_242490000, v99, v120, "k_REM_CalCalendarMergeFields: Local reminder is more recent. Refusing to update the reminder. {uid: %{public}@, reminder:%{public}@}", buf, 0x16u);
       }
 
-      v30 = [v15 updateReminder:v125];
-      v102 = [v137 uid];
+      v30 = [v15 updateReminder:v124];
+      v102 = [v136 uid];
       [v30 setDaCalendarItemUniqueIdentifier:v102];
 
-      v25 = v125;
-      v14 = v131;
-      v32 = v124;
+      v25 = v124;
+      v14 = v130;
+      v32 = v123;
       goto LABEL_90;
     }
 
     obj = v90;
-    v14 = v131;
+    v14 = v130;
 LABEL_78:
 
 LABEL_79:
-    v83 = v125;
+    v83 = v124;
     goto LABEL_80;
   }
 
   v83 = 0;
-  v20 = v119;
+  v20 = v118;
 LABEL_80:
-  v48 = v120;
+  v48 = v119;
 LABEL_81:
 
-  v24 = v121;
+  v24 = v120;
   v25 = v83;
   if (!v83)
   {
@@ -710,12 +746,12 @@ LABEL_11:
   v27 = DALoggingwithCategory();
   if (os_log_type_enabled(v27, v24))
   {
-    v28 = [v137 uid];
+    v28 = [v136 uid];
     v29 = [v25 objectID];
     *buf = 138543618;
-    v145 = v28;
-    v146 = 2114;
-    v147 = v29;
+    v144 = v28;
+    v145 = 2114;
+    v146 = v29;
     _os_log_impl(&dword_242490000, v27, v24, "Updating existing reminder with UID id %{public}@ from ICS {reminder: %{public}@}.", buf, 0x16u);
   }
 
@@ -731,26 +767,25 @@ LABEL_14:
   v33 = *(MEMORY[0x277CF3AF0] + 3);
   if (os_log_type_enabled(v32, v33))
   {
-    v34 = [v137 uid];
+    v34 = [v136 uid];
     *buf = 138543362;
-    v145 = v34;
+    v144 = v34;
     _os_log_impl(&dword_242490000, v32, v33, "ERROR: Couldn't create a reminder change item for ICS with UID id %{public}@.", buf, 0xCu);
   }
 
 LABEL_89:
   v12 = v26;
-  v13 = v130;
+  v13 = v129;
 LABEL_90:
 
 LABEL_91:
-  v117 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
 
 uint64_t rem_ReminderSetPropertiesWithBlock(void *a1, void *a2, NSObject **a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = MEMORY[0x277CF3AA8];
   v7 = a2;
@@ -766,9 +801,9 @@ uint64_t rem_ReminderSetPropertiesWithBlock(void *a1, void *a2, NSObject **a3)
 
   if (v13)
   {
-    v26 = 0;
-    v14 = [v10 saveSynchronouslyWithError:&v26];
-    v15 = v26;
+    v25 = 0;
+    v14 = [v10 saveSynchronouslyWithError:&v25];
+    v15 = v25;
     if ((v14 & 1) == 0)
     {
       v16 = DALoggingwithCategory();
@@ -776,17 +811,17 @@ uint64_t rem_ReminderSetPropertiesWithBlock(void *a1, void *a2, NSObject **a3)
       if (os_log_type_enabled(v16, v17))
       {
         [v5 objectID];
-        v18 = v25 = a3;
+        v18 = v24 = a3;
         v19 = [MEMORY[0x277CCACC8] callStackSymbols];
         *buf = 138543874;
-        v28 = v18;
-        v29 = 2114;
-        v30 = v15;
-        v31 = 2112;
-        v32 = v19;
+        v27 = v18;
+        v28 = 2114;
+        v29 = v15;
+        v30 = 2112;
+        v31 = v19;
         _os_log_impl(&dword_242490000, v16, v17, "DACalDAViCalItem: ERROR: Save reminder %{public}@ property failed: %{public}@. (stack=%@)", buf, 0x20u);
 
-        a3 = v25;
+        a3 = v24;
       }
 
       if (a3)
@@ -805,20 +840,19 @@ uint64_t rem_ReminderSetPropertiesWithBlock(void *a1, void *a2, NSObject **a3)
     {
       v22 = [v5 objectID];
       *buf = 138543362;
-      v28 = v22;
+      v27 = v22;
       _os_log_impl(&dword_242490000, v15, v21, "DACalDAViCalItem: ChangedKeys is empty, no effective changes to this reminder change item, skipping -save {reminderID: %{public}@}.", buf, 0xCu);
     }
 
     v14 = 1;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-void sub_2424BA238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2424BA238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

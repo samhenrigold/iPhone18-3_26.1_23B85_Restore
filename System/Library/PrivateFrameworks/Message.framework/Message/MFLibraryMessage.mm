@@ -57,12 +57,15 @@
 - (void)setFlags:(unint64_t)flags;
 - (void)setFollowUp:(id)up;
 - (void)setHasTemporaryUid:(BOOL)uid;
+- (void)setIsPartial:(BOOL)partial;
 - (void)setMailboxID:(int64_t)d;
+- (void)setMessageData:(id)data isPartial:(BOOL)partial summary:(id)summary;
 - (void)setMessageFlags:(unint64_t)flags;
 - (void)setMessageFlagsWithoutCommitting:(unint64_t)committing;
 - (void)setMessageSize:(unint64_t)size;
 - (void)setMutableInfoFromMessage:(id)message;
 - (void)setOriginalMailboxID:(int64_t)d;
+- (void)setPreferredEncoding:(unsigned int)encoding;
 - (void)setReadLater:(id)later;
 - (void)setReferences:(id)references;
 - (void)setRemoteID:(id)d;
@@ -224,23 +227,22 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
 
 - (EMMessageObjectID)objectID
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E699AD28];
   mailbox = [(MFLibraryMessage *)self mailbox];
   objectID = [mailbox objectID];
-  v11[0] = objectID;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = objectID;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v7 = [v3 mailboxScopeForMailboxObjectIDs:v6 forExclusion:0];
 
   v8 = [objc_alloc(MEMORY[0x1E699ADA8]) initWithGlobalMessageID:-[MFLibraryMessage globalMessageID](self mailboxScope:{"globalMessageID"), v7}];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)setMailboxID:(int64_t)d
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [(MFLibraryMessage *)self mf_lock];
   self->_mailboxID = d;
   [(MFLibraryMessage *)self mf_unlock];
@@ -250,11 +252,9 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       ef_publicDescription = [(MFLibraryMessage *)self ef_publicDescription];
-      [(MFLibraryMessage *)ef_publicDescription setMailboxID:v8, v5];
+      [(MFLibraryMessage *)ef_publicDescription setMailboxID:v7, v5];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)originalMailboxID
@@ -400,6 +400,13 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
   return v3;
 }
 
+- (void)setIsPartial:(BOOL)partial
+{
+  partialCopy = partial;
+  library = [(MFLibraryMessage *)self library];
+  [library setMessage:self isPartial:partialCopy];
+}
+
 - (BOOL)isMessageContentsLocallyAvailable
 {
   selfCopy = self;
@@ -407,6 +414,18 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
   LOBYTE(selfCopy) = [library areMessageContentsLocallyAvailable:selfCopy fullContentsAvailble:0];
 
   return selfCopy;
+}
+
+- (void)setPreferredEncoding:(unsigned int)encoding
+{
+  v3 = *&encoding;
+  v5 = encoding != -1;
+  [(MFLibraryMessage *)self mf_lock];
+  self->super._messageFlags = self->super._messageFlags & 0xFFFFFFF7FFFFFFFFLL | (v5 << 35);
+  [(MFLibraryMessage *)self mf_unlock];
+  v6.receiver = self;
+  v6.super_class = MFLibraryMessage;
+  [(MFLibraryMessage *)&v6 setPreferredEncoding:v3];
 }
 
 - (BOOL)hasTemporaryUid
@@ -576,108 +595,96 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
 
 - (void)markAsViewed
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (([(MFMailMessage *)self messageFlags]& 1) == 0)
   {
     messageStore = [(MFLibraryMessage *)self messageStore];
-    v9 = @"MessageIsRead";
-    v10[0] = MEMORY[0x1E695E118];
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"MessageIsRead";
+    v9[0] = MEMORY[0x1E695E118];
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     selfCopy = self;
     v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
     v6 = [messageStore setFlagsFromDictionary:v4 forMessages:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAsNotViewed
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (([(MFMailMessage *)self messageFlags]& 1) != 0)
   {
     messageStore = [(MFLibraryMessage *)self messageStore];
-    v9 = @"MessageIsRead";
-    v10[0] = MEMORY[0x1E695E110];
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"MessageIsRead";
+    v9[0] = MEMORY[0x1E695E110];
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     selfCopy = self;
     v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
     v6 = [messageStore setFlagsFromDictionary:v4 forMessages:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAsFlagged
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (([(MFMailMessage *)self messageFlags]& 0x10) == 0)
   {
     messageStore = [(MFLibraryMessage *)self messageStore];
-    v9 = @"MessageIsFlagged";
-    v10[0] = MEMORY[0x1E695E118];
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"MessageIsFlagged";
+    v9[0] = MEMORY[0x1E695E118];
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     selfCopy = self;
     v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
     v6 = [messageStore setFlagsFromDictionary:v4 forMessages:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAsNotFlagged
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (([(MFMailMessage *)self messageFlags]& 0x10) != 0)
   {
     messageStore = [(MFLibraryMessage *)self messageStore];
-    v9 = @"MessageIsFlagged";
-    v10[0] = MEMORY[0x1E695E110];
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"MessageIsFlagged";
+    v9[0] = MEMORY[0x1E695E110];
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     selfCopy = self;
     v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
     v6 = [messageStore setFlagsFromDictionary:v4 forMessages:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAsReplied
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   if (([(MFMailMessage *)self messageFlags]& 4) == 0)
   {
     messageStore = [(MFLibraryMessage *)self messageStore];
-    v9[0] = @"MessageWasRepliedTo";
-    v9[1] = @"MessageChangeReason";
-    v10[0] = MEMORY[0x1E695E118];
-    v10[1] = &unk_1F27757A8;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v8[0] = @"MessageWasRepliedTo";
+    v8[1] = @"MessageChangeReason";
+    v9[0] = MEMORY[0x1E695E118];
+    v9[1] = &unk_1F27757A8;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
     selfCopy = self;
     v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
     v6 = [messageStore setFlagsFromDictionary:v4 forMessages:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAsForwarded
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   if (([(MFMailMessage *)self messageFlags]& 0x100) == 0)
   {
     messageStore = [(MFLibraryMessage *)self messageStore];
-    v9[0] = @"MessageWasForwarded";
-    v9[1] = @"MessageChangeReason";
-    v10[0] = MEMORY[0x1E695E118];
-    v10[1] = &unk_1F27757A8;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v8[0] = @"MessageWasForwarded";
+    v8[1] = @"MessageChangeReason";
+    v9[0] = MEMORY[0x1E695E118];
+    v9[1] = &unk_1F27757A8;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
     selfCopy = self;
     v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&selfCopy count:1];
     v6 = [messageStore setFlagsFromDictionary:v4 forMessages:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)preferredAccountToUseForReplying
@@ -691,14 +698,14 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
 
 - (id)sendersWithError:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   sendersIfCached = [(MFLibraryMessage *)self sendersIfCached];
   if (!sendersIfCached)
   {
     library = [(MFLibraryMessage *)self library];
-    v14 = 0;
-    v7 = [library senderForMessageWithLibraryID:-[MFLibraryMessage libraryID](self error:{"libraryID"), &v14}];
-    v8 = v14;
+    v13 = 0;
+    v7 = [library senderForMessageWithLibraryID:-[MFLibraryMessage libraryID](self error:{"libraryID"), &v13}];
+    v8 = v13;
 
     if (v8)
     {
@@ -721,8 +728,8 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
       v11 = stringValue;
       if (stringValue)
       {
-        v15[0] = stringValue;
-        sendersIfCached = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+        v14[0] = stringValue;
+        sendersIfCached = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
         [(MFLibraryMessage *)self setSender:sendersIfCached];
       }
 
@@ -732,8 +739,6 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return sendersIfCached;
 }
@@ -771,7 +776,7 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
 
 - (void)setRemoteID:(id)d flags:(unint64_t)flags size:(unsigned int)size mailboxID:(int64_t)iD originalMailboxID:(int64_t)mailboxID
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -790,11 +795,9 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       ef_publicDescription = [(MFLibraryMessage *)self ef_publicDescription];
-      [(MFLibraryMessage *)ef_publicDescription setMailboxID:v16, v13];
+      [(MFLibraryMessage *)ef_publicDescription setMailboxID:v15, v13];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)messageIDHeader
@@ -827,6 +830,15 @@ void __23__MFLibraryMessage_log__block_invoke(uint64_t a1)
   }
 
   return v5;
+}
+
+- (void)setMessageData:(id)data isPartial:(BOOL)partial summary:(id)summary
+{
+  partialCopy = partial;
+  dataCopy = data;
+  summaryCopy = summary;
+  messageStore = [(MFLibraryMessage *)self messageStore];
+  [messageStore setData:dataCopy summary:summaryCopy forMessage:self isPartial:partialCopy];
 }
 
 - (id)downloadedMessageData
@@ -1106,11 +1118,10 @@ LABEL_4:
 
 - (void)storageLocationForAttachment:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Missing either a MIME part number or Mail Drop remote URL for attachment %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Missing either a MIME part number or Mail Drop remote URL for attachment %@", &v2, 0xCu);
 }
 
 @end

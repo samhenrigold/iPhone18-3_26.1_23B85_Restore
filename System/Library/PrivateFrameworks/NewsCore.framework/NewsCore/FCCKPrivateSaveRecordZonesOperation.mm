@@ -8,39 +8,28 @@
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = FCCKPrivateSaveRecordZonesOperation;
-  validateOperation = [(FCCKPrivateDatabaseOperation *)&v9 validateOperation];
+  v17 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = FCCKPrivateSaveRecordZonesOperation;
+  validateOperation = [(FCCKPrivateDatabaseOperation *)&v8 validateOperation];
   recordZonesToSave = [(FCCKPrivateSaveRecordZonesOperation *)self recordZonesToSave];
   v5 = [recordZonesToSave count];
 
   if (!v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't save zones without zones to save"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't save zones without zones to save"];
     *buf = 136315906;
-    v11 = "[FCCKPrivateSaveRecordZonesOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCCKPrivateSaveRecordZonesOperation.m";
-    v14 = 1024;
-    v15 = 27;
-    v16 = 2114;
-    v17 = v8;
+    v10 = "[FCCKPrivateSaveRecordZonesOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCCKPrivateSaveRecordZonesOperation.m";
+    v13 = 1024;
+    v14 = 27;
+    v15 = 2114;
+    v16 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  if (v5)
-  {
-    result = validateOperation;
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 && validateOperation;
 }
 
 - (void)performOperation
@@ -109,21 +98,21 @@ void __55__FCCKPrivateSaveRecordZonesOperation_performOperation__block_invoke(ui
 
 void __55__FCCKPrivateSaveRecordZonesOperation_performOperation__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a2;
   if ([a3 count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't have any deleted zones when saving zones"];
-    v14 = 136315906;
-    v15 = "[FCCKPrivateSaveRecordZonesOperation performOperation]_block_invoke_2";
-    v16 = 2080;
-    v17 = "FCCKPrivateSaveRecordZonesOperation.m";
-    v18 = 1024;
-    v19 = 58;
-    v20 = 2114;
-    v21 = v13;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v14, 0x26u);
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't have any deleted zones when saving zones"];
+    v13 = 136315906;
+    v14 = "[FCCKPrivateSaveRecordZonesOperation performOperation]_block_invoke_2";
+    v15 = 2080;
+    v16 = "FCCKPrivateSaveRecordZonesOperation.m";
+    v17 = 1024;
+    v18 = 58;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v13, 0x26u);
   }
 
   v9 = *(a1 + 32);
@@ -136,7 +125,6 @@ void __55__FCCKPrivateSaveRecordZonesOperation_performOperation__block_invoke_2(
   v11 = [v10 fc_arrayByTransformingWithBlock:&__block_literal_global_180];
 
   [*(a1 + 40) operationDidFinishWithItemIDs:v11 resultItems:v8 error:v7];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __55__FCCKPrivateSaveRecordZonesOperation_performOperation__block_invoke_2_11(uint64_t a1, uint64_t a2, void *a3)

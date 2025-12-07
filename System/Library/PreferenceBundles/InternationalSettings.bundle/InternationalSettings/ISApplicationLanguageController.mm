@@ -4,6 +4,8 @@
 - (id)specifiers;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ISApplicationLanguageController
@@ -404,6 +406,46 @@ LABEL_15:
   }
 
   return v7;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ISApplicationLanguageController;
+  [(ISApplicationLanguageController *)&v5 viewDidAppear:appear];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    bundleIdentifier = [(ISApplicationLanguageController *)self bundleIdentifier];
+    *buf = 138543362;
+    v7 = bundleIdentifier;
+    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[ISApplicationLanguageController] Per-app language setting did appear for [%{public}@].", buf, 0xCu);
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v11.receiver = self;
+  v11.super_class = ISApplicationLanguageController;
+  [(ISApplicationLanguageController *)&v11 viewWillDisappear:disappear];
+  bundleIdentifier = [(ISApplicationLanguageController *)self bundleIdentifier];
+  v5 = [IntlUtility preferredLanguageForBundleID:bundleIdentifier];
+
+  if ([v5 length])
+  {
+    v6 = [NSLocale localeWithLocaleIdentifier:v5];
+    regionCode = [v6 regionCode];
+
+    if (!regionCode)
+    {
+      v8 = +[NSLocale currentLocale];
+      regionCode2 = [v8 regionCode];
+      v10 = [NSLocale languageFromLanguage:v5 byReplacingRegion:regionCode2];
+
+      v5 = v10;
+    }
+
+    [NSLocale registerPreferredLanguageForAddedKeyboardLanguage:v5];
+  }
 }
 
 @end

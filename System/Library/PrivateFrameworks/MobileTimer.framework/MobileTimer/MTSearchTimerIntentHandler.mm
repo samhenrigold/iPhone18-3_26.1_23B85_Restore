@@ -6,16 +6,16 @@
 
 - (void)handleSearchForTimers:(id)timers completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   timersCopy = timers;
   completionCopy = completion;
   v8 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v19 = "[MTSearchTimerIntentHandler handleSearchForTimers:completion:]";
-    v20 = 2112;
-    v21 = timersCopy;
+    v18 = "[MTSearchTimerIntentHandler handleSearchForTimers:completion:]";
+    v19 = 2112;
+    v20 = timersCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
@@ -35,22 +35,20 @@
     v11 = objc_alloc(MEMORY[0x1E696EAC0]);
     [timersCopy duration];
     v13 = [v11 initWithLabel:label duration:0 remainingTime:objc_msgSend(timersCopy identifier:"state") state:v10 type:{v12, -1.0}];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __63__MTSearchTimerIntentHandler_handleSearchForTimers_completion___block_invoke;
-    v15[3] = &unk_1E7B0F810;
-    v15[4] = self;
-    v16 = timersCopy;
-    v17 = completionCopy;
-    [(MTTimerIntentHandler *)self _matchTimersFromIntentsTimer:v13 excludeStoppedTimers:1 completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __63__MTSearchTimerIntentHandler_handleSearchForTimers_completion___block_invoke;
+    v14[3] = &unk_1E7B0F810;
+    v14[4] = self;
+    v15 = timersCopy;
+    v16 = completionCopy;
+    [(MTTimerIntentHandler *)self _matchTimersFromIntentsTimer:v13 excludeStoppedTimers:1 completion:v14];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __63__MTSearchTimerIntentHandler_handleSearchForTimers_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -102,11 +100,11 @@ LABEL_11:
       {
         v22 = *(a1 + 40);
         *buf = 136315650;
-        v25 = "[MTSearchTimerIntentHandler handleSearchForTimers:completion:]_block_invoke_2";
-        v26 = 2112;
-        v27 = v22;
-        v28 = 2112;
-        v29 = v20;
+        v24 = "[MTSearchTimerIntentHandler handleSearchForTimers:completion:]_block_invoke_2";
+        v25 = 2112;
+        v26 = v22;
+        v27 = 2112;
+        v28 = v20;
         _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_INFO, "%s Successfully handled search timers intent: %@ with response %@", buf, 0x20u);
       }
 
@@ -137,22 +135,19 @@ LABEL_11:
 
   (*(*(a1 + 48) + 16))();
 LABEL_23:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __63__MTSearchTimerIntentHandler_handleSearchForTimers_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
-  v5 = 136315650;
-  v6 = "[MTSearchTimerIntentHandler handleSearchForTimers:completion:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%s Failed to handle search timers with intent: %@ due to error %@", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315650;
+  v5 = "[MTSearchTimerIntentHandler handleSearchForTimers:completion:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%s Failed to handle search timers with intent: %@ due to error %@", &v4, 0x20u);
 }
 
 @end

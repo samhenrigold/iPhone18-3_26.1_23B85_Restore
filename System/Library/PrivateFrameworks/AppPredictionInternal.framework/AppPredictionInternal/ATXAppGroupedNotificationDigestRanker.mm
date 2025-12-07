@@ -36,15 +36,15 @@
 
 - (id)createDigestForAppGroupedNotificationStacks:(id)stacks maxGlobalMarqueeGroups:(unint64_t)groups maxAppMarqueeGroups:(unint64_t)marqueeGroups outError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   stacksCopy = stacks;
-  v11 = __atxlog_handle_notification_management();
+  v11 = __atxlog_handle_notification_management(stacksCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = objc_opt_class();
     v13 = NSStringFromClass(v12);
     *buf = 138412290;
-    v39 = v13;
+    v38 = v13;
     _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "[%@] Generating a notification digest", buf, 0xCu);
   }
 
@@ -62,30 +62,30 @@
     }
 
     v22 = objc_opt_new();
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v16 = v18;
-    v23 = [v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v23 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v32;
+      v25 = *v31;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v32 != v25)
+          if (*v31 != v25)
           {
             objc_enumerationMutation(v16);
           }
 
-          groupsWithComms = [*(*(&v31 + 1) + 8 * i) groupsWithComms];
+          groupsWithComms = [*(*(&v30 + 1) + 8 * i) groupsWithComms];
           [v22 addObjectsFromArray:groupsWithComms];
         }
 
-        v24 = [v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v24 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v24);
@@ -99,14 +99,12 @@
   {
     v14 = MEMORY[0x277CCA9B8];
     v15 = *MEMORY[0x277CCA5B8];
-    v36 = *MEMORY[0x277CCA068];
-    v37 = @"Missing argument. Notification stacks were nil.";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v35 = *MEMORY[0x277CCA068];
+    v36 = @"Missing argument. Notification stacks were nil.";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
     [v14 errorWithDomain:v15 code:22 userInfo:v16];
     *error = v17 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -174,33 +172,32 @@ id __137__ATXAppGroupedNotificationDigestRanker_createDigestForAppGroupedNotific
   v17 = [v15 setWithArray:v16];
 
   v18 = [v17 count];
-  if (v18 != [v8 count])
+  v19 = [v8 count];
+  if (v18 != v19)
   {
-    v19 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v20 = __atxlog_handle_notification_management(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = [v17 count];
-      v23 = [v8 count];
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = [v17 count];
+      v24 = [v8 count];
       *buf = 138412802;
-      v32 = v21;
+      v32 = v22;
       v33 = 2048;
-      v34 = v22;
+      v34 = v23;
       v35 = 2048;
-      v36 = v23;
-      _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_INFO, "[%@] Found %lu bundleIds for %lu apps. # of bundle IDs should equal # of apps. Proceeding anyway.", buf, 0x20u);
+      v36 = v24;
+      _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_INFO, "[%@] Found %lu bundleIds for %lu apps. # of bundle IDs should equal # of apps. Proceeding anyway.", buf, 0x20u);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 _App *__107__ATXAppGroupedNotificationDigestRanker_getRankedAppsFromAppGroupedNotificationStacks_maxAppMarqueeGroups___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -209,21 +206,18 @@ _App *__107__ATXAppGroupedNotificationDigestRanker_getRankedAppsFromAppGroupedNo
 
   else
   {
-    v5 = __atxlog_handle_notification_management();
+    v5 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "[%@] notificationsStacks == nil. Skipping.", &v11, 0xCu);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "[%@] notificationsStacks == nil. Skipping.", &v9, 0xCu);
     }
 
     v4 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -238,7 +232,7 @@ uint64_t __107__ATXAppGroupedNotificationDigestRanker_getRankedAppsFromAppGroupe
 
 - (id)bfsSelectGlobalMarqueeGroupsFromApps:(id)apps maxCount:(unint64_t)count groupFilter:(id)filter
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   filterCopy = filter;
   v8 = objc_opt_new();
@@ -248,27 +242,27 @@ uint64_t __107__ATXAppGroupedNotificationDigestRanker_getRankedAppsFromAppGroupe
     v9 = 0;
     do
     {
-      v20 = [v8 count];
+      v19 = [v8 count];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       v10 = appsCopy;
-      v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v23;
+        v13 = *v22;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v23 != v13)
+            if (*v22 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = filterCopy[2](filterCopy, *(*(&v22 + 1) + 8 * i));
+            v15 = filterCopy[2](filterCopy, *(*(&v21 + 1) + 8 * i));
             if (v9 < [v15 count])
             {
               if ([v8 count] == countCopy)
@@ -282,7 +276,7 @@ uint64_t __107__ATXAppGroupedNotificationDigestRanker_getRankedAppsFromAppGroupe
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v12)
           {
             continue;
@@ -299,7 +293,7 @@ LABEL_15:
         break;
       }
 
-      if (v20 == [v8 count])
+      if (v19 == [v8 count])
       {
         break;
       }
@@ -309,8 +303,6 @@ LABEL_15:
 
     while (v9 != countCopy);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -131,7 +131,6 @@ LABEL_9:
   toCopy = to;
   if (*&self->_has)
   {
-    announceSetting = self->_announceSetting;
     PBDataWriterWriteInt32Field();
   }
 
@@ -143,7 +142,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timeSensitiveSetting = self->_timeSensitiveSetting;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -163,12 +161,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  userConfiguredTimeSensitiveSetting = self->_userConfiguredTimeSensitiveSetting;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    scheduledDeliverySetting = self->_scheduledDeliverySetting;
     PBDataWriterWriteInt32Field();
   }
 
@@ -287,7 +283,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 36);
   if (has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_announceSetting != *(equalCopy + 2))
@@ -333,7 +328,7 @@ LABEL_6:
     }
 
 LABEL_22:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_23;
   }
 
@@ -342,7 +337,6 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v10 = *(equalCopy + 32);
   if (self->_userConfiguredTimeSensitiveSetting)
   {
     if ((*(equalCopy + 32) & 1) == 0)
@@ -357,7 +351,7 @@ LABEL_22:
   }
 
 LABEL_17:
-  v8 = (*(equalCopy + 36) & 2) == 0;
+  v7 = (*(equalCopy + 36) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 36) & 2) == 0 || self->_scheduledDeliverySetting != *(equalCopy + 6))
@@ -365,12 +359,12 @@ LABEL_17:
       goto LABEL_22;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_23:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -444,7 +438,7 @@ LABEL_7:
     }
 
     v9 = v5;
-    [(BLTPBMuteAssertion *)muteAssertion mergeFrom:?];
+    muteAssertion = [(BLTPBMuteAssertion *)muteAssertion mergeFrom:?];
   }
 
   else
@@ -455,7 +449,7 @@ LABEL_7:
     }
 
     v9 = v5;
-    [(BLTPBSectionInfoSettings *)self setMuteAssertion:?];
+    muteAssertion = [(BLTPBSectionInfoSettings *)self setMuteAssertion:?];
   }
 
   v5 = v9;
@@ -494,7 +488,7 @@ LABEL_12:
 
 LABEL_13:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](muteAssertion, v5);
 }
 
 @end

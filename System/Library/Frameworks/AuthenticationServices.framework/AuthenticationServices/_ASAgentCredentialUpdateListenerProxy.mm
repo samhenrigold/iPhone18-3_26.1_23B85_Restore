@@ -32,25 +32,24 @@
 - (void)_setUpConnection:(id)connection
 {
   connectionCopy = connection;
-  objc_initWeak(&location, self);
-  v5 = _ASAgentCredentialUpdateListenerInterface();
-  [connectionCopy setRemoteObjectInterface:v5];
+  inited = objc_initWeak(&location, self);
+  v6 = _ASAgentCredentialUpdateListenerInterface(inited);
+  [connectionCopy setRemoteObjectInterface:v6];
 
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __58___ASAgentCredentialUpdateListenerProxy__setUpConnection___block_invoke;
-  v11 = &unk_1E7AF75E0;
-  objc_copyWeak(&v12, &location);
-  v6 = _Block_copy(&v8);
-  [connectionCopy setInvalidationHandler:{v6, v8, v9, v10, v11}];
-  [connectionCopy setInterruptionHandler:v6];
-  v7 = _ASAgentCredentialUpdateListenerInterface();
-  [connectionCopy setExportedInterface:v7];
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __58___ASAgentCredentialUpdateListenerProxy__setUpConnection___block_invoke;
+  v12 = &unk_1E7AF75E0;
+  objc_copyWeak(&v13, &location);
+  v7 = _Block_copy(&v9);
+  [connectionCopy setInvalidationHandler:{v7, v9, v10, v11, v12}];
+  v8 = _ASAgentCredentialUpdateListenerInterface([connectionCopy setInterruptionHandler:v7]);
+  [connectionCopy setExportedInterface:v8];
 
   [connectionCopy setExportedObject:self];
   [connectionCopy resume];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 }
 
@@ -76,32 +75,32 @@
 {
   handlerCopy = handler;
   _reconnectIfNecessary = [(_ASAgentCredentialUpdateListenerProxy *)self _reconnectIfNecessary];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __76___ASAgentCredentialUpdateListenerProxy__remoteObjectProxyWithErrorHandler___block_invoke;
-  v13[3] = &unk_1E7AF85E8;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __76___ASAgentCredentialUpdateListenerProxy__remoteObjectProxyWithErrorHandler___block_invoke;
+  v14[3] = &unk_1E7AF85E8;
   v6 = handlerCopy;
-  v14 = v6;
-  v7 = [_reconnectIfNecessary remoteObjectProxyWithErrorHandler:v13];
-  v8 = v7;
+  v15 = v6;
+  v7 = [_reconnectIfNecessary remoteObjectProxyWithErrorHandler:v14];
+  v9 = v7;
   if (v7)
   {
-    v9 = v7;
+    v10 = v7;
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(0, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [_ASAgentCredentialUpdateListenerProxy _remoteObjectProxyWithErrorHandler:v10];
+      [_ASAgentCredentialUpdateListenerProxy _remoteObjectProxyWithErrorHandler:v11];
     }
 
-    v11 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A798] code:14 privacyPreservingDescription:@"Failed to acquire remote object proxy."];
-    (*(v6 + 2))(v6, v11);
+    v12 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A798] code:14 privacyPreservingDescription:@"Failed to acquire remote object proxy."];
+    (*(v6 + 2))(v6, v12);
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)reportPublicKeyCredentialUpdateForRelyingParty:(id)party userHandle:(id)handle newName:(id)name credentialUpdaterOptions:(id)options completionHandler:(id)handler

@@ -183,7 +183,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v12 = 1;
+    isEqual = 1;
   }
 
   else
@@ -193,26 +193,26 @@
     {
       v5 = equalCopy;
       contextID = [(UIKBArbiterClientFocusContext *)self contextID];
-      if (contextID == -[UIKBArbiterClientFocusContext contextID](v5, "contextID") && (-[UIKBArbiterClientFocusContext sceneIdentity](self, "sceneIdentity"), v7 = objc_claimAutoreleasedReturnValue(), -[UIKBArbiterClientFocusContext sceneIdentity](v5, "sceneIdentity"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 isEqual:v8], v8, v7, v9))
+      if (contextID == [(UIKBArbiterClientFocusContext *)v5 contextID]&& ([(UIKBArbiterClientFocusContext *)self sceneIdentity], v7 = objc_claimAutoreleasedReturnValue(), [(UIKBArbiterClientFocusContext *)v5 sceneIdentity], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend_isEqual_(v7), v8, v7, v9))
       {
         layeringSceneIdentity = [(UIKBArbiterClientFocusContext *)self layeringSceneIdentity];
         layeringSceneIdentity2 = [(UIKBArbiterClientFocusContext *)v5 layeringSceneIdentity];
-        v12 = [layeringSceneIdentity isEqual:layeringSceneIdentity2];
+        isEqual = objc_msgSend_isEqual_(layeringSceneIdentity);
       }
 
       else
       {
-        v12 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v12 = 0;
+      isEqual = 0;
     }
   }
 
-  return v12;
+  return isEqual;
 }
 
 @end

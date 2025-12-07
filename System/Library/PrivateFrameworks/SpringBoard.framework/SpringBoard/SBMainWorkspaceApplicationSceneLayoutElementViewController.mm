@@ -341,7 +341,7 @@
 
 - (BOOL)_shouldDisplayLayoutElementBecomeActive
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   sceneHandle = [(SBAppContainerViewController *)self sceneHandle];
   v4 = sceneHandle;
   if (sceneHandle)
@@ -358,47 +358,47 @@
       v7 = [v6 isSuspendedUnderLock] ^ 1;
     }
 
-    v14 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogAppSwitcher(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       layoutElement = [(SBLayoutElementViewController *)self layoutElement];
       uniqueIdentifier = [layoutElement uniqueIdentifier];
-      v18 = NSStringFromBOOL();
-      [v4 isEffectivelyForeground];
       v19 = NSStringFromBOOL();
-      v20 = +[SBSceneManagerCoordinator mainDisplaySceneManager];
-      [v20 isSuspendedUnderLock];
-      v21 = NSStringFromBOOL();
+      [v4 isEffectivelyForeground];
+      v20 = NSStringFromBOOL();
+      v21 = +[SBSceneManagerCoordinator mainDisplaySceneManager];
+      [v21 isSuspendedUnderLock];
+      v22 = NSStringFromBOOL();
       sceneIfExists2 = [v4 sceneIfExists];
       *buf = 138544642;
-      v26 = v16;
-      v27 = 2114;
-      v28 = uniqueIdentifier;
+      v28 = v17;
       v29 = 2114;
-      v30 = v18;
+      v30 = uniqueIdentifier;
       v31 = 2114;
       v32 = v19;
       v33 = 2114;
-      v34 = v21;
+      v34 = v20;
       v35 = 2114;
-      v36 = sceneIfExists2;
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@-%{public}@ shouldDisplayLayoutElementBecomeActive=%{public}@ because isEffectivelyForeground=%{public}@ isSuspendedUnderLock=%{public}@ sceneIfExists=%{public}@", buf, 0x3Eu);
+      v36 = v22;
+      v37 = 2114;
+      v38 = sceneIfExists2;
+      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@-%{public}@ shouldDisplayLayoutElementBecomeActive=%{public}@ because isEffectivelyForeground=%{public}@ isSuspendedUnderLock=%{public}@ sceneIfExists=%{public}@", buf, 0x3Eu);
     }
 
-    v8 = SBLogAppSwitcher();
+    v8 = SBLogAppSwitcher(v24);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v26 = v4;
+      v28 = v4;
       _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "sceneHandle=%{public}@", buf, 0xCu);
     }
   }
 
   else
   {
-    v8 = SBLogAppSwitcher();
+    v8 = SBLogAppSwitcher(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = objc_opt_class();
@@ -407,11 +407,11 @@
       uniqueIdentifier2 = [layoutElement2 uniqueIdentifier];
       layoutState = [(SBLayoutElementViewController *)self layoutState];
       *buf = 138543874;
-      v26 = v10;
-      v27 = 2114;
-      v28 = uniqueIdentifier2;
+      v28 = v10;
       v29 = 2114;
-      v30 = layoutState;
+      v30 = uniqueIdentifier2;
+      v31 = 2114;
+      v32 = layoutState;
       _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@-%{public}@ shouldDisplayLayoutElementBecomeActive=NO because there is no scene handle. layout state %{public}@", buf, 0x20u);
     }
 

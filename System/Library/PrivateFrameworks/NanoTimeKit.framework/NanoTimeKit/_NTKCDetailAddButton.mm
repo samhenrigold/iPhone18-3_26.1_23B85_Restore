@@ -110,57 +110,59 @@
     {
       BPSBridgeTintColor();
     }
-    v12 = ;
+    v13 = ;
     [(_NTKCDetailAddButton *)self setTintColor:?];
     goto LABEL_16;
   }
 
-  if (([(_NTKCDetailAddButton *)self isHighlighted]& 1) != 0)
+  isHighlighted = [(_NTKCDetailAddButton *)self isHighlighted];
+  if (isHighlighted)
   {
-    isSelected = 1;
+    v4 = 1;
   }
 
   else
   {
-    isSelected = [(_NTKCDetailAddButton *)self isSelected];
+    isHighlighted = [(_NTKCDetailAddButton *)self isSelected];
+    v4 = isHighlighted;
   }
 
   if (!self->_disabled)
   {
-    v7 = NTKCActionColor();
-    v5 = v7;
-    if (isSelected)
+    v8 = NTKCActionColor(isHighlighted);
+    v6 = v8;
+    if (v4)
     {
-      v13 = v7;
-      v8 = NTKCActionColor();
-      v5 = v13;
-      v6 = v8;
+      v14 = v8;
+      v9 = NTKCActionColor(v8);
+      v6 = v14;
+      v7 = v9;
       goto LABEL_15;
     }
 
 LABEL_14:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_15;
   }
 
   systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
-  v5 = systemGrayColor;
-  if (!isSelected)
+  v6 = systemGrayColor;
+  if (!v4)
   {
     goto LABEL_14;
   }
 
-  v6 = systemGrayColor;
-  v5 = v6;
+  v7 = systemGrayColor;
+  v6 = v7;
 LABEL_15:
-  v12 = v5;
-  [(_NTKCDetailAddButton *)self setTitleColor:v5 forState:0];
-  v9 = v12;
-  cGColor = [v12 CGColor];
+  v13 = v6;
+  [(_NTKCDetailAddButton *)self setTitleColor:v6 forState:0];
+  v10 = v13;
+  cGColor = [v13 CGColor];
   layer = [(_NTKCDetailAddButton *)self layer];
   [layer setBorderColor:cGColor];
 
-  [(_NTKCDetailAddButton *)self setBackgroundColor:v6];
+  [(_NTKCDetailAddButton *)self setBackgroundColor:v7];
 LABEL_16:
 }
 

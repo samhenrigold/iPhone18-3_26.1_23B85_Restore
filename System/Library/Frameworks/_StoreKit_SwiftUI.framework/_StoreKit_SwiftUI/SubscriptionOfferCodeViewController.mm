@@ -68,7 +68,7 @@
   }
 
   selfCopy = self;
-  sub_23BADEDE0(v4);
+  sub_23BADEDE0(v4, v6, v7, v8, v9, v10, v11, v12);
 }
 
 @end

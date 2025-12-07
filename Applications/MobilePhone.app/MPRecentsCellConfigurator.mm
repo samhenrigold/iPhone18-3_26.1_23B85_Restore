@@ -37,7 +37,7 @@
   serviceCopy = service;
   settingsCopy = settings;
   viewControllerCopy = viewController;
-  v29 = specialized RecentsCellConfigurator.init(tableView:recentsController:featureFlags:tapTargets:callReportingViewModel:reportFlowPresenter:contactsService:avatarViewControllerSettings:placeCallAction:removeCallsAtIndexPaths:presentingViewController:)(viewCopy, controllerCopy, flagsCopy, targets, modelCopy, presenterCopy, serviceCopy, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned CHRecentCall) -> (), v20, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSArray) -> (), v21);
+  v29 = specialized RecentsCellConfigurator.init(tableView:recentsController:featureFlags:tapTargets:callReportingViewModel:reportFlowPresenter:contactsService:avatarViewControllerSettings:placeCallAction:removeCallsAtIndexPaths:presentingViewController:)(viewCopy, controllerCopy, flagsCopy, targets, modelCopy, presenterCopy, serviceCopy, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned CHRecentCall) -> (), v20, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSArray) -> (), v21, viewController);
 
   return v29;
 }

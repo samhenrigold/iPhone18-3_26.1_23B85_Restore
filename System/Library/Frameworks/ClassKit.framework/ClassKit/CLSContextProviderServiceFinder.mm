@@ -9,18 +9,18 @@
 
 - (CLSContextProviderServiceFinder)initWithDelegate:(id)delegate
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v20.receiver = self;
-  v20.super_class = CLSContextProviderServiceFinder;
-  v5 = [(CLSContextProviderServiceFinder *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = CLSContextProviderServiceFinder;
+  v5 = [(CLSContextProviderServiceFinder *)&v19 init];
   v6 = v5;
   if (v5)
   {
     objc_storeWeak(&v5->_delegate, delegateCopy);
-    v21 = *MEMORY[0x277CCA0F8];
-    v22[0] = 0x284A094C8;
-    v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v22, &v21, 1);
+    v20 = *MEMORY[0x277CCA0F8];
+    v21[0] = 0x284A094C8;
+    v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v21, &v20, 1);
     extensionAttributes = v6->_extensionAttributes;
     v6->_extensionAttributes = v8;
 
@@ -36,7 +36,6 @@
     v6->_servicesQueue = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

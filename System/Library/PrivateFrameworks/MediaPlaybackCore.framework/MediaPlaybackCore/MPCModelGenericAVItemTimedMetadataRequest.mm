@@ -687,7 +687,7 @@ void __77__MPCModelGenericAVItemTimedMetadataRequest_newOperationWithResponseHan
   _Block_object_dispose(&v18, 8);
 }
 
-uint64_t __77__MPCModelGenericAVItemTimedMetadataRequest_newOperationWithResponseHandler___block_invoke_6(uint64_t a1)
+void *__77__MPCModelGenericAVItemTimedMetadataRequest_newOperationWithResponseHandler___block_invoke_6(uint64_t a1)
 {
   result = [*(a1 + 32) year];
   *(*(*(a1 + 40) + 8) + 24) = result == 0;

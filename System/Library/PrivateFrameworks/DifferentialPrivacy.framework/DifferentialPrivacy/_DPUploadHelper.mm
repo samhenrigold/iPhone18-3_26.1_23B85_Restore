@@ -1,4 +1,5 @@
 @interface _DPUploadHelper
++ (id)ipsFilePathForDate:(id)date useGMT:(BOOL)t;
 + (id)submissionFilePathInDirectory:(id)directory uploadName:(id)name forDate:(id)date useGMT:(BOOL)t suffix:(id)suffix;
 + (id)writeDediscoSubmission:(id)submission withReportName:(id)name inDirectory:(id)directory;
 + (id)writeFileForDA:(id)a;
@@ -8,6 +9,16 @@
 @end
 
 @implementation _DPUploadHelper
+
++ (id)ipsFilePathForDate:(id)date useGMT:(BOOL)t
+{
+  tCopy = t;
+  dateCopy = date;
+  v7 = +[_DPStrings ipsDirectoryPath];
+  v8 = [self submissionFilePathInDirectory:v7 uploadName:@"DifferentialPrivacy" forDate:dateCopy useGMT:tCopy suffix:@"diff_privacy.anon"];
+
+  return v8;
+}
 
 + (id)writeFileForDA:(id)a
 {

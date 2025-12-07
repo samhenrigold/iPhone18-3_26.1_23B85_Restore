@@ -41,7 +41,7 @@ LABEL_8:
 
 - (void)start
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   objc_initWeak(&location, self);
   if (!self->_queue)
   {
@@ -79,17 +79,17 @@ LABEL_8:
   v24 = [stream DSLPublisherWithUseCase:@"SpotlightEngagementData"];
 
   v25 = [v24 subscribeOn:self->_scheduler];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __23__SSBaseConsumer_start__block_invoke;
-  v33[3] = &unk_1E8595F70;
-  v33[4] = self;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __23__SSBaseConsumer_start__block_invoke_99;
-  v31[3] = &unk_1E8595F98;
-  objc_copyWeak(&v32, &location);
-  v26 = [v25 sinkWithCompletion:v33 receiveInput:v31];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __23__SSBaseConsumer_start__block_invoke;
+  v32[3] = &unk_1E8595F70;
+  v32[4] = self;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __23__SSBaseConsumer_start__block_invoke_99;
+  v30[3] = &unk_1E8595F98;
+  objc_copyWeak(&v31, &location);
+  v26 = [v25 sinkWithCompletion:v32 receiveInput:v30];
   sink = self->_sink;
   self->_sink = v26;
 
@@ -98,18 +98,17 @@ LABEL_8:
   {
     identifier4 = [(SSBaseConsumer *)self identifier];
     *buf = 138412290;
-    v36 = identifier4;
+    v35 = identifier4;
     _os_log_impl(&dword_1D9F69000, v28, OS_LOG_TYPE_DEFAULT, "%@: start listening.", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(&location);
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __23__SSBaseConsumer_start__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 state];
   v5 = SSGeneralLog();
@@ -125,12 +124,10 @@ void __23__SSBaseConsumer_start__block_invoke(uint64_t a1, void *a2)
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(a1 + 32) identifier];
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1D9F69000, v6, OS_LOG_TYPE_DEFAULT, "%@: done listening.", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1D9F69000, v6, OS_LOG_TYPE_DEFAULT, "%@: done listening.", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __23__SSBaseConsumer_start__block_invoke_99(uint64_t a1, void *a2)
@@ -151,7 +148,7 @@ void __23__SSBaseConsumer_start__block_invoke_99(uint64_t a1, void *a2)
 
 - (void)stop
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(BMBiomeScheduler *)self->_scheduler cancel];
   [(BPSSink *)self->_sink cancel];
   sink = self->_sink;
@@ -164,12 +161,10 @@ void __23__SSBaseConsumer_start__block_invoke_99(uint64_t a1, void *a2)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(SSBaseConsumer *)self identifier];
-    v8 = 138412290;
-    v9 = identifier;
-    _os_log_impl(&dword_1D9F69000, v5, OS_LOG_TYPE_DEFAULT, "%@: finished listening.", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = identifier;
+    _os_log_impl(&dword_1D9F69000, v5, OS_LOG_TYPE_DEFAULT, "%@: finished listening.", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)indexItems:(id)items protectionClass:(id)class bundleID:(id)d
@@ -228,43 +223,41 @@ void __23__SSBaseConsumer_start__block_invoke_99(uint64_t a1, void *a2)
 
 void __60__SSBaseConsumer_queryWithString_bundleIDs_fetchAttributes___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         v8 = *(*(*(a1 + 32) + 8) + 40);
         objc_sync_enter(v8);
-        [*(*(*(a1 + 32) + 8) + 40) addObject:{v7, v10}];
+        [*(*(*(a1 + 32) + 8) + 40) addObject:{v7, v9}];
         objc_sync_exit(v8);
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

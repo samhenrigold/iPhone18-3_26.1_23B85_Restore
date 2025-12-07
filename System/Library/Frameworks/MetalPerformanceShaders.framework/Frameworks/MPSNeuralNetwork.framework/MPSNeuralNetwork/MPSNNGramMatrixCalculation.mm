@@ -75,8 +75,8 @@
 
 - (MPSNNGramMatrixCalculation)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v44.receiver = self;
-  v44.super_class = MPSNNGramMatrixCalculation;
+  v48.receiver = self;
+  v48.super_class = MPSNNGramMatrixCalculation;
   v6 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v13 = v6;
   if (v6)
@@ -110,7 +110,7 @@
       {
         v42 = objc_opt_class();
         NSStringFromClass(v42);
-        MTLReportFailure();
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNGramMatrix.mm", 0x10A, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v43, v44, v45, v46);
       }
 
       return 0;

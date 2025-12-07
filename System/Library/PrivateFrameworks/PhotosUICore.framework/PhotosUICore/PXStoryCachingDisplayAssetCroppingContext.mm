@@ -59,16 +59,16 @@
   objc_sync_exit(selfCopy);
 }
 
-uint64_t __101__PXStoryCachingDisplayAssetCroppingContext_requestIndividualFaceRectsInAsset_options_resultHandler___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t __101__PXStoryCachingDisplayAssetCroppingContext_requestIndividualFaceRectsInAsset_options_resultHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  *(*(result + 32) + 32) = a2;
-  *(*(result + 32) + 40) = a4;
+  *(*(a1 + 32) + 32) = a2;
+  *(*(a1 + 32) + 40) = a4;
   if (a2 >= 1)
   {
     _PXGArrayResize();
   }
 
-  return result;
+  return a1;
 }
 
 - (void)dealloc

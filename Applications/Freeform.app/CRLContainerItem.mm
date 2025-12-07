@@ -25,7 +25,7 @@
 {
   type metadata accessor for UUID();
   type metadata accessor for CRLBoardItem(0);
-  sub_10097AF90(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10097AF90(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
 
   v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -36,7 +36,7 @@
 {
   type metadata accessor for UUID();
   type metadata accessor for CRLBoardItem(0);
-  sub_10097AF90(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10097AF90(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_10096C5C8(v4);
@@ -45,12 +45,12 @@
 - (NSArray)allNestedChildrenItemsIncludingContainers
 {
   selfCopy = self;
-  sub_10096C644();
+  sub_10096C644(v3);
 
   type metadata accessor for CRLBoardItem(0);
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v4.super.isa;
 }
 
 - (NSSet)unorderedItemUUIDs
@@ -63,7 +63,7 @@
   }
 
   type metadata accessor for UUID();
-  sub_10097AF90(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10097AF90(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v4.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -102,7 +102,7 @@
 
   sub_10067F2E8(v6);
 
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v7.super.isa;
@@ -249,7 +249,7 @@
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v19[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v12 = sub_1005B981C(&qword_1019F6990);
+  v12 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v12 - 8);
   v14 = &v19[-v13];
   if (d)
@@ -267,7 +267,7 @@
   helperCopy = helper;
   selfCopy = self;
   v17 = sub_100972F14(v14, helperCopy);
-  sub_10000CAAC(v14, &qword_1019F6990);
+  sub_10000CAAC(v14, &qword_1019F6990, &qword_10146D2F0);
 
   return v17;
 }
@@ -278,7 +278,7 @@
   sub_10096C300(children);
 
   type metadata accessor for UUID();
-  sub_10097AF90(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10097AF90(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v5.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

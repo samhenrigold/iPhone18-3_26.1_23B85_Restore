@@ -90,7 +90,7 @@ void *RB::GlassHighlightEffect::encode(RB::GlassHighlightEffect *this, RB::Encod
   return result;
 }
 
-unint64_t RB::GlassHighlightEffect::decode(RB::GlassHighlightEffect *this, RB::Decoder *a2)
+uint64_t RB::GlassHighlightEffect::decode(RB::GlassHighlightEffect *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -237,10 +237,11 @@ float RB::GlassDisplacementEffect::mix(RB::GlassDisplacementEffect *this, const 
   return result;
 }
 
-int32x2_t *RB::GlassDisplacementEffect::render(int32x2_t *result, uint64_t a2, uint64_t a3, float32x2_t *a4, RB::Texture *a5, int a6, float64x2_t *a7, float32x2_t *a8, char a9, unsigned int a10)
+int32x2_t *RB::GlassDisplacementEffect::render(int32x2_t *result, uint64_t a2, uint64_t a3, float32x2_t *a4, RB::Texture *a5, uint64_t a6, int8x16_t *a7, float32x2_t *a8, char a9, unsigned int a10)
 {
   if (a5)
   {
+    v12 = a6;
     v16 = result;
     if (RB::may_discard_alpha(a10))
     {
@@ -346,7 +347,7 @@ int32x2_t *RB::GlassDisplacementEffect::render(int32x2_t *result, uint64_t a2, u
     }
 
     v47 = v46 | v44 | v45;
-    if (a6)
+    if (v12)
     {
       v48 = 2;
     }
@@ -447,7 +448,7 @@ int *RB::GlassDisplacementEffect::encode(int *this, RB::Encoder *a2)
   return this;
 }
 
-unint64_t RB::GlassDisplacementEffect::decode(RB::GlassDisplacementEffect *this, RB::Decoder *a2)
+uint64_t RB::GlassDisplacementEffect::decode(RB::GlassDisplacementEffect *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -774,7 +775,7 @@ RB::Device *RBInvalidateCachedMTLTexture(RB::Device *result, uint64_t a2)
 
 BOOL RBProjectVersion(int a1, int a2, int a3)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_4, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_4, memory_order_acquire) & 1) == 0)
   {
     v7 = a3;
     v5 = a2;
@@ -910,13 +911,13 @@ void *RB::Animation::encode(void *this, RB::Encoder *a2)
     v4 = 0;
     do
     {
-      v5 = *(v3 + 24);
+      v5 = v3[3];
       if (!v5)
       {
         v5 = v3;
       }
 
-      v6 = (v5 + 4 * v4);
+      v6 = v5 + v4;
       RB::ProtobufEncoder::encode_varint(a2, 0xAuLL);
       RB::ProtobufEncoder::begin_length_delimited(a2);
       v7 = *v6;
@@ -964,7 +965,7 @@ void *RB::Animation::encode(void *this, RB::Encoder *a2)
       v4 += v14 + 1;
     }
 
-    while (v4 < *(v3 + 32));
+    while (v4 < *(v3 + 8));
   }
 
   return this;
@@ -1004,7 +1005,7 @@ uint64_t RB::Animation::decode(RB::Animation *this, RB::Decoder *a2)
               v11 = RB::ProtobufDecoder::float_field(a2, field);
               v12 = v28;
               v13 = v28 + 1;
-              if (v29 < v28 + 1)
+              if (v29 < (v28 + 1))
               {
                 RB::vector<unsigned int,8ul,unsigned long>::reserve_slow(v26, v13);
                 v12 = v28;
@@ -1017,7 +1018,7 @@ uint64_t RB::Animation::decode(RB::Animation *this, RB::Decoder *a2)
                 v14 = v26;
               }
 
-              *&v14[4 * v12] = v11;
+              *(v14 + v12) = v11;
               v28 = v13;
             }
 
@@ -1128,7 +1129,7 @@ uint64_t RB::Animation::decode(RB::Animation *this, RB::Decoder *a2)
                   *(v25 + v20) = v24;
                   v20 = *(this + 8) + 1;
                   *(this + 8) = v20;
-                  ++v22;
+                  v22 = (v22 + 4);
                   v23 -= 4;
                 }
 
@@ -1369,7 +1370,7 @@ void *RB::AnimationSequencer::encode(RB::AnimationSequencer *this, RB::Encoder *
   return RB::ProtobufEncoder::end_length_delimited(a2);
 }
 
-unint64_t RB::AnimationSequencer::decode(RB::AnimationSequencer *this, RB::Decoder *a2)
+uint64_t RB::AnimationSequencer::decode(RB::AnimationSequencer *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -1498,7 +1499,7 @@ int *RB::AnimationSequencer::Effects::encode(int *this, RB::Encoder *a2)
   return this;
 }
 
-unint64_t RB::AnimationSequencer::Effects::decode(RB::AnimationSequencer::Effects *this, RB::Decoder *a2)
+uint64_t RB::AnimationSequencer::Effects::decode(RB::AnimationSequencer::Effects *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -1607,7 +1608,7 @@ BOOL RB::ProjectionMatrix::invert(RB::ProjectionMatrix *this)
   return result;
 }
 
-float RB::operator*@<S0>(uint64_t a1@<X0>, float32x4_t *a2@<X1>, float32x4_t *a3@<X8>, int32x4_t a4@<Q0>, int32x4_t a5@<Q2>, int32x4_t a6@<Q4>, int32x4_t a7@<Q5>, int8x16_t a8@<Q7>)
+float RB::operator*@<S0>(uint64_t a1@<X0>, int8x16_t *a2@<X1>, float32x4_t *a3@<X8>, int32x4_t a4@<Q0>, int32x4_t a5@<Q2>, int32x4_t a6@<Q4>, int32x4_t a7@<Q5>, int8x16_t a8@<Q7>)
 {
   v8.i64[0] = *(a1 + 4);
   a7.i64[0] = *(a1 + 16);
@@ -1651,36 +1652,36 @@ float RB::operator*@<S0>(uint64_t a1@<X0>, float32x4_t *a2@<X1>, float32x4_t *a3
   *&a5.i32[1] = v9;
   *a3 = vmlaq_f32(vmlaq_f32(v19, v14, v10), v13, v12);
   a3[1] = vmlaq_f32(v21, vzip1q_s32(a5, a5), v23);
-  *a4.i32 = (vmuls_lane_f32(v14.f32[2], *a4.i8, 1) + (v18 * *a4.i32)) + (v13.f32[2] * v9);
+  *a4.i32 = (vmuls_lane_f32(v14.f32[2], *a4.i8, 1) + (v18 * *a4.i32)) + (*&v13.i32[2] * v9);
   a3[2].i32[0] = a4.i32[0];
   return *a4.i32;
 }
 
-float RB::operator*@<S0>(float64x2_t *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
+float RB::operator*@<S0>(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *a2;
   v5 = *a1;
-  v4 = a1[1];
+  v4 = *(a1 + 16);
   v6 = vextq_s8(v4, v4, 8uLL);
-  v7 = a1[2];
+  v7 = *(a1 + 32);
   v8 = *(a2 + 4);
   v9.f64[0] = *(a2 + 7);
   DWORD1(v3) = *(a2 + 4);
   v10 = vcvtq_f64_f32(*&v3);
   v11 = vcvtq_f64_f32(*(a2 + 8));
-  v12.f64[0] = vmuld_lane_f64(a1[2].f64[1], v10, 1);
+  v12.f64[0] = vmuld_lane_f64(*(a1 + 40), v10, 1);
   v13 = vextq_s8(*a1, v4, 8uLL);
-  v14 = vdupq_lane_s64(*&v10.f64[0], 0);
+  v14 = vdupq_lane_s64(v10.i64[0], 0);
   v8.i32[1] = *(a2 + 5);
   v15 = vcvtq_f64_f32(v8);
   v16 = vmlaq_f64(vmulq_f64(vextq_s8(v5, v5, 8uLL), vzip1q_s64(vdupq_laneq_s64(v11, 1), v15)), v10, *a1);
-  v5.f64[1] = a1[1].f64[1];
+  v5.i64[1] = *(a1 + 24);
   v14.f64[0] = v15.f64[1];
   v17 = vmulq_f64(v4, v15);
   v18 = vmulq_f64(v7, v15);
   v15.f64[1] = v11.f64[1];
   v12.f64[1] = *(a2 + 6);
-  v9.f64[1] = vmuld_n_f64(v7.f64[0], v10.f64[0]);
+  v9.f64[1] = vmuld_n_f64(v7.f64[0], *v10.i64);
   *a3 = vcvt_hight_f32_f64(vcvt_f32_f64(v16), vmlaq_f64(vmulq_f64(v13, v14), v11, v5));
   *(a3 + 16) = vcvt_f32_f64(vmlaq_f64(v17, vextq_s8(v10, v11, 8uLL), v6));
   *(a3 + 24) = vrev64_s32(vcvt_f32_f64(vaddq_f64(vmlaq_f64(v12, v15, v7), v9)));
@@ -1710,13 +1711,13 @@ float RB::operator*@<S0>(float *a1@<X0>, float64x2_t *a2@<X1>, uint64_t a3@<X8>)
   return result;
 }
 
-uint64_t RB::operator*=(uint64_t a1, float32x4_t *a2, int32x4_t a3, double a4, int32x4_t a5, double a6, int32x4_t a7, int32x4_t a8, double a9, int8x16_t a10)
+float32x4_t *RB::operator*=(float32x4_t *a1, int8x16_t *a2, int32x4_t a3, double a4, int32x4_t a5, double a6, int32x4_t a7, int32x4_t a8, double a9, int8x16_t a10)
 {
   RB::operator*(a1, a2, v13, a3, a5, a7, a8, a10);
   v11 = v13[1];
   *a1 = v13[0];
-  *(a1 + 16) = v11;
-  *(a1 + 32) = v14;
+  a1[1] = v11;
+  a1[2].i32[0] = v14;
   return a1;
 }
 
@@ -1737,19 +1738,19 @@ __n64 RB::ProjectionMatrix::translate_right(RB::ProjectionMatrix *this, __n64 re
   return result;
 }
 
-float32x2_t RB::operator*(uint64_t a1, double _D0, float32x2_t a3)
+float32x2_t RB::operator*(uint64_t a1, double _D0, __n128 _Q1)
 {
   _S4 = *(a1 + 20);
   if (*(a1 + 8) == 0.0 && (_S4 == 0.0 ? (_ZF = *(a1 + 32) == 1.0) : (_ZF = 0), _ZF))
   {
-    v46 = v3;
-    v47 = v4;
+    v45 = v3;
+    v46 = v4;
     v7 = vcvtq_f64_f32(*(a1 + 12));
     v8 = vcvtq_f64_f32(*(a1 + 24));
-    v45[0] = vcvtq_f64_f32(*a1);
-    v45[1] = v7;
-    v45[2] = v8;
-    return RB::operator*(v45, *&_D0, a3);
+    v44[0] = vcvtq_f64_f32(*a1);
+    v44[1] = v7;
+    v44[2] = v8;
+    return RB::operator*(v44, *&_D0, _Q1);
   }
 
   else
@@ -1774,7 +1775,7 @@ float32x2_t RB::operator*(uint64_t a1, double _D0, float32x2_t a3)
       }
     }
 
-    _D7 = vadd_f32(a3.u32[0], *&_D0);
+    _D7 = vadd_f32(_Q1.n128_u32[0], *&_D0);
     __asm { FMLA            S16, S4, V7.S[1] }
 
     if (_S16 != 1.0)
@@ -1793,7 +1794,7 @@ float32x2_t RB::operator*(uint64_t a1, double _D0, float32x2_t a3)
       }
     }
 
-    _D17 = vadd_f32(a3, *&_D0);
+    _D17 = vadd_f32(_Q1.n128_u64[0], *&_D0);
     __asm { FMLA            S18, S4, V17.S[1] }
 
     v26 = 1.0;
@@ -1817,8 +1818,8 @@ float32x2_t RB::operator*(uint64_t a1, double _D0, float32x2_t a3)
     v31 = *a1;
     v32 = *(a1 + 12);
     v33 = *(a1 + 24);
-    a3.i32[0] = 0;
-    _D1 = vadd_f32(a3, *&_D0);
+    _Q1.n128_u32[0] = 0;
+    _Q1.n128_u64[0] = vadd_f32(_Q1.n128_u64[0], *&_D0);
     __asm { FMLA            S5, S4, V1.S[1] }
 
     if (_S5 != 1.0)
@@ -1830,21 +1831,21 @@ float32x2_t RB::operator*(uint64_t a1, double _D0, float32x2_t a3)
 
       else
       {
-        v36 = _S5;
-        v37 = vrecpe_f32(LODWORD(_S5));
-        v38 = vmul_f32(vrecps_f32(LODWORD(v36), v37), v37);
-        LODWORD(v26) = vmul_f32(v38, vrecps_f32(LODWORD(v36), v38)).u32[0];
+        v35 = _S5;
+        v36 = vrecpe_f32(LODWORD(_S5));
+        v37 = vmul_f32(vrecps_f32(LODWORD(v35), v36), v36);
+        LODWORD(v26) = vmul_f32(v37, vrecps_f32(LODWORD(v35), v37)).u32[0];
       }
     }
 
-    v39 = vmul_n_f32(vmla_lane_f32(vmla_n_f32(v33, v31, _D17.f32[0]), v32, _D17, 1), v27);
-    v40 = vmul_n_f32(vmla_lane_f32(vmla_n_f32(v33, v31, _D7.f32[0]), v32, _D7, 1), v14);
-    v41 = vmul_n_f32(vmla_lane_f32(vmla_n_f32(v33, v31, *&_D0), v32, *&_D0, 1), v15);
-    v42 = vmul_n_f32(vmla_lane_f32(vmla_n_f32(v33, v31, _D1.f32[0]), v32, _D1, 1), v26);
-    v43 = vminnm_f32(vminnm_f32(v41, v40), vminnm_f32(v39, v42));
-    v44 = vmaxnm_f32(vmaxnm_f32(v41, v40), vmaxnm_f32(v39, v42));
+    v38 = vmul_n_f32(vmla_lane_f32(vmla_n_f32(v33, v31, _D17.f32[0]), v32, _D17, 1), v27);
+    v39 = vmul_n_f32(vmla_lane_f32(vmla_n_f32(v33, v31, _D7.f32[0]), v32, _D7, 1), v14);
+    v40 = vmul_n_f32(vmla_lane_f32(vmla_n_f32(v33, v31, *&_D0), v32, *&_D0, 1), v15);
+    v41 = vmul_n_f32(vmla_lane_f32(vmla_n_f32(v33, v31, _Q1.n128_f32[0]), v32, _Q1.n128_u64[0], 1), v26);
+    v42 = vminnm_f32(vminnm_f32(v40, v39), vminnm_f32(v38, v41));
+    v43 = vmaxnm_f32(vmaxnm_f32(v40, v39), vmaxnm_f32(v38, v41));
 
-    *&result = RB::Rect::from_bounds(v43, v44);
+    *&result = RB::Rect::from_bounds(v42, v43);
   }
 
   return result;
@@ -1891,60 +1892,61 @@ BOOL RB::unapply(float32x2_t *this, RB::Rect *a2, const RB::ProjectionMatrix *a3
   {
     v5 = vcvtq_f64_f32(*(a2 + 12));
     v6 = vcvtq_f64_f32(*(a2 + 24));
-    *v21 = vcvtq_f64_f32(*a2);
-    *&v21[16] = v5;
-    *&v21[32] = v6;
-    v7 = RB::AffineTransform::invert(v21);
+    *v22 = vcvtq_f64_f32(*a2);
+    *&v22[16] = v5;
+    *&v22[32] = v6;
+    v7 = RB::AffineTransform::invert(v22);
     if (v7)
     {
-      *this = RB::operator*(v21, *this, this[1]);
-      this[1] = v8;
+      v8.n128_u64[0] = this[1];
+      *this = RB::operator*(v22, *this, v8);
+      this[1] = v9;
     }
   }
 
   else
   {
-    *v21 = &v20;
-    v9 = *(a2 + 1);
-    *&v21[8] = *a2;
-    *&v21[24] = v9;
-    *&v21[40] = *(a2 + 8);
-    v22 = *this;
-    v10 = v22;
-    v20 = (RB::unapply(&v22, &v21[8]) & 1) == 0;
-    v11 = v22;
-    v19 = this[1];
-    v22 = vadd_f32(v19.u32[0], v10);
-    if ((RB::unapply(&v22, &v21[8]) & 1) == 0)
+    *v22 = &v21;
+    v10 = *(a2 + 1);
+    *&v22[8] = *a2;
+    *&v22[24] = v10;
+    *&v22[40] = *(a2 + 8);
+    v23 = *this;
+    v11 = v23;
+    v21 = (RB::unapply(&v23, &v22[8]) & 1) == 0;
+    v12 = v23;
+    v20 = this[1];
+    v23 = vadd_f32(v20.u32[0], v11);
+    if ((RB::unapply(&v23, &v22[8]) & 1) == 0)
     {
-      v20 = 1;
+      v21 = 1;
     }
 
-    v12 = v22;
-    v22 = vadd_f32(v10, v19);
-    if ((RB::unapply(&v22, &v21[8]) & 1) == 0)
+    v13 = v23;
+    v23 = vadd_f32(v11, v20);
+    if ((RB::unapply(&v23, &v22[8]) & 1) == 0)
     {
-      v20 = 1;
+      v21 = 1;
     }
 
-    v13 = v22;
-    v14.i32[1] = v19.i32[1];
-    v14.i32[0] = 0;
-    v22 = vadd_f32(v14, v10);
-    if ((RB::unapply(&v22, &v21[8]) & 1) == 0)
+    v14 = v23;
+    v15.i32[1] = v20.i32[1];
+    v15.i32[0] = 0;
+    v23 = vadd_f32(v15, v11);
+    if ((RB::unapply(&v23, &v22[8]) & 1) == 0)
     {
-      v20 = 1;
+      v21 = 1;
     }
 
-    v15 = RB::Rect::from_bounds(vminnm_f32(vminnm_f32(v11, v12), vminnm_f32(v13, v22)), vmaxnm_f32(vmaxnm_f32(v11, v12), vmaxnm_f32(v13, v22)));
-    v17 = v20;
-    if (!v20)
+    v16 = RB::Rect::from_bounds(vminnm_f32(vminnm_f32(v12, v13), vminnm_f32(v14, v23)), vmaxnm_f32(vmaxnm_f32(v12, v13), vmaxnm_f32(v14, v23)));
+    v18 = v21;
+    if (!v21)
     {
-      *this = v15;
-      this[1] = v16;
+      *this = v16;
+      this[1] = v17;
     }
 
-    return !v17;
+    return !v18;
   }
 
   return v7;
@@ -1983,7 +1985,7 @@ void *RB::ProjectionMatrix::encode(void *this, RB::Encoder *a2)
   return this;
 }
 
-unint64_t RB::ProjectionMatrix::decode(RB::ProjectionMatrix *this, RB::Decoder *a2)
+uint64_t RB::ProjectionMatrix::decode(RB::ProjectionMatrix *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -2011,7 +2013,7 @@ unint64_t RB::ProjectionMatrix::decode(RB::ProjectionMatrix *this, RB::Decoder *
   return result;
 }
 
-void RB::Drawable::statistics_handler(os_unfair_lock_s *this@<X0>, void *a2@<X8>)
+void RB::Drawable::statistics_handler(uint64_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
   os_unfair_lock_lock(this + 5);
   v4 = *&this[12]._os_unfair_lock_opaque;
@@ -2020,7 +2022,7 @@ void RB::Drawable::statistics_handler(os_unfair_lock_s *this@<X0>, void *a2@<X8>
     atomic_fetch_add_explicit((v4 + 8), 1u, memory_order_relaxed);
   }
 
-  *a2 = v4;
+  *a1 = v4;
 
   os_unfair_lock_unlock(this + 5);
 }
@@ -3323,7 +3325,7 @@ void sub_195DC6270(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t RB::Refcount<RB::Drawable,std::atomic<unsigned int>>::release(uint64_t result)
+uint64_t RB::Refcount<RB::Drawable,std::atomic<unsigned int>>::release(uint64_t result, uint64_t a2)
 {
   if (atomic_fetch_add_explicit((result + 8), 0xFFFFFFFF, memory_order_release) == 1)
   {
@@ -4067,61 +4069,61 @@ uint64_t CG::dasher::add_path_dash_segment<CG::Quadratic>(uint64_t a1, uint64_t 
 uint64_t CG::dasher::add_path_dash_segment<CG::Cubic>(uint64_t a1, uint64_t a2, double a3, double a4)
 {
   v8 = *(a2 + 16);
-  v28 = *a2;
-  v29 = v8;
+  v36 = *a2;
+  v37 = v8;
   v9 = *(a2 + 80);
-  v32 = *(a2 + 64);
-  v33 = v9;
-  v34 = *(a2 + 96);
+  v40 = *(a2 + 64);
+  v41 = v9;
+  v42 = *(a2 + 96);
   v10 = *(a2 + 48);
-  v30 = *(a2 + 32);
-  v31 = v10;
+  v38 = *(a2 + 32);
+  v39 = v10;
   v11 = *(a1 + 72);
   v12 = *(a1 + 88);
-  v21 = vmlaq_n_f64(vmulq_n_f64(v11, v28.f64[0]), v12, v28.f64[1]);
-  *&v45[0].v = vmlaq_n_f64(vmulq_n_f64(v11, *&v29), v12, *(&v29 + 1));
-  *&v43[0].v = vmlaq_n_f64(vmulq_n_f64(v11, *&v10), v12, *(&v10 + 1));
-  *&v44[0].v = vmlaq_n_f64(vmulq_n_f64(v11, *&v30), v12, *(&v30 + 1));
-  CG::Cubic::Cubic(&v28, &v21, v45, v44, v43);
-  CG::Cubic::index(&v28, a3, 0.5);
-  CG::Cubic::split(a2, v13, &v28);
+  v29 = vmlaq_n_f64(vmulq_n_f64(v11, v36.f64[0]), v12, v36.f64[1]);
+  *&v53[0].v = vmlaq_n_f64(vmulq_n_f64(v11, *&v37), v12, *(&v37 + 1));
+  *&v51[0].v = vmlaq_n_f64(vmulq_n_f64(v11, *&v10), v12, *(&v10 + 1));
+  *&v52[0].v = vmlaq_n_f64(vmulq_n_f64(v11, *&v38), v12, *(&v38 + 1));
+  CG::Cubic::Cubic(&v36, &v29, v53, v52, v51);
+  CG::Cubic::index(&v36, a3, 0.5, v13, v14, v15, v16);
+  CG::Cubic::split(&v36, a2, v17);
   if (*(a1 + 184) == 1)
   {
-    (*(**(a1 + 8) + 16))(*(a1 + 8), v35);
+    (*(**(a1 + 8) + 16))(*(a1 + 8), v43);
   }
 
   if (a3 == a4)
   {
-    v14 = CG::Cubic::derivative(&v35, 0.0);
-    v16.f64[0] = v14;
-    v16.f64[1] = v15;
-    if (v14 != 0.0 || v15 != 0.0)
+    v18 = CG::Cubic::derivative(&v43, 0.0);
+    v20.f64[0] = v18;
+    v20.f64[1] = v19;
+    if (v18 != 0.0 || v19 != 0.0)
     {
-      v16 = vdivq_f64(v16, vdupq_lane_s64(COERCE__INT64(sqrt(v14 * v14 + v15 * v15)), 0));
+      v20 = vdivq_f64(v20, vdupq_lane_s64(COERCE__INT64(sqrt(v18 * v18 + v19 * v19)), 0));
     }
 
-    return (*(**(a1 + 8) + 24))(*(a1 + 8), vmlaq_f64(v35, vdupq_n_s64(0x3EF0000000000000uLL), v16));
+    return (*(**(a1 + 8) + 24))(*(a1 + 8), vmlaq_f64(v43, vdupq_n_s64(0x3EF0000000000000uLL), v20));
   }
 
   else
   {
-    v21 = v35;
-    v22 = v36;
-    v25 = v39;
-    v26 = v40;
-    v27 = v41;
-    v23 = v37;
-    v24 = v38;
-    v18 = *(a1 + 72);
-    v19 = *(a1 + 88);
-    *&v45[0].v = vmlaq_n_f64(vmulq_n_f64(v18, v35.f64[0]), v19, v35.f64[1]);
-    *&v44[0].v = vmlaq_n_f64(vmulq_n_f64(v18, v36.n128_f64[0]), v19, v36.n128_f64[1]);
-    *&v43[0].v = vmlaq_n_f64(vmulq_n_f64(v18, v37.n128_f64[0]), v19, v37.n128_f64[1]);
-    *&v42[0].v = vmlaq_n_f64(vmulq_n_f64(v18, v38.n128_f64[0]), v19, v38.n128_f64[1]);
-    CG::Cubic::Cubic(&v21, v45, v44, v43, v42);
-    CG::Cubic::index(&v21, a4 - a3, 0.5);
-    CG::Cubic::split(&v35, v20, &v21);
-    return (*(**(a1 + 8) + 40))(*(a1 + 8), v22, v23, v24);
+    v29 = v43;
+    v30 = v44;
+    v33 = v47;
+    v34 = v48;
+    v35 = v49;
+    v31 = v45;
+    v32 = v46;
+    v22 = *(a1 + 72);
+    v23 = *(a1 + 88);
+    *&v53[0].v = vmlaq_n_f64(vmulq_n_f64(v22, v43.f64[0]), v23, v43.f64[1]);
+    *&v52[0].v = vmlaq_n_f64(vmulq_n_f64(v22, v44.n128_f64[0]), v23, v44.n128_f64[1]);
+    *&v51[0].v = vmlaq_n_f64(vmulq_n_f64(v22, v45.n128_f64[0]), v23, v45.n128_f64[1]);
+    *&v50[0].v = vmlaq_n_f64(vmulq_n_f64(v22, v46.n128_f64[0]), v23, v46.n128_f64[1]);
+    CG::Cubic::Cubic(&v29, v53, v52, v51, v50);
+    CG::Cubic::index(&v29, a4 - a3, 0.5, v24, v25, v26, v27);
+    CG::Cubic::split(&v29, &v43, v28);
+    return (*(**(a1 + 8) + 40))(*(a1 + 8), v30, v31, v32);
   }
 }
 
@@ -4175,7 +4177,7 @@ void sub_195DC75C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *std::ostringstream::str[abi:nn200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::ostringstream::str[abi:nn200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:nn200100](a1 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4189,13 +4191,13 @@ const void *std::ostringstream::str[abi:nn200100]@<X0>(uint64_t a1@<X0>, _BYTE *
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -4393,16 +4395,16 @@ void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4702,7 +4704,7 @@ void *RB::Filter::Distance::encode(RB::Filter::Distance *this, RB::Encoder *a2)
   return result;
 }
 
-unint64_t RB::Filter::Distance::decode(RB::Filter::Distance *this, RB::Decoder *a2)
+uint64_t RB::Filter::Distance::decode(RB::Filter::Distance *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -4820,18 +4822,18 @@ void *RB::Coverage::Primitive::encode(float32x4_t *this, RB::Encoder *a2)
       RB::ProtobufEncoder::float4_field(a2, 4, v9);
     }
 
-    v10 = this[2].i32[0];
-    if (*&v10 != 1.0)
+    v10 = this[2].f32[0];
+    if (v10 != 1.0)
     {
       RB::ProtobufEncoder::encode_varint(a2, 0x2DuLL);
-      RB::ProtobufEncoder::encode_fixed32(a2, v10);
+      RB::ProtobufEncoder::encode_fixed32(a2, SLODWORD(v10));
     }
 
-    v11 = this[2].i32[1];
-    if (*&v11 != 0.0)
+    v11 = this[2].f32[1];
+    if (v11 != 0.0)
     {
       RB::ProtobufEncoder::encode_varint(a2, 0x35uLL);
-      RB::ProtobufEncoder::encode_fixed32(a2, v11);
+      RB::ProtobufEncoder::encode_fixed32(a2, SLODWORD(v11));
     }
 
     if ((this[2].i8[14] & 4) != 0)
@@ -4883,7 +4885,7 @@ LABEL_16:
   return result;
 }
 
-unint64_t RB::Coverage::Primitive::decode(RB::Coverage::Primitive *this, RB::Decoder *a2)
+uint64_t RB::Coverage::Primitive::decode(RB::Coverage::Primitive *this, RB::Decoder *a2)
 {
   result = RB::ProtobufDecoder::next_field(a2);
   if (result)
@@ -5046,104 +5048,190 @@ LABEL_37:
   return result;
 }
 
-void RB::Coverage::Primitive::attributes(float32x4_t *this, RB::XML::Element *a2, double a3, double a4, int8x16_t a5)
+void *RB::Coverage::Primitive::attributes(float32x2_t *this, RB::XML::Element *a2, double a3, double a4, int8x16_t a5)
 {
-  v6 = this[2].u8[12];
-  if (v6 <= 4)
+  v7 = this[5].u8[4];
+  if (v7 <= 4)
   {
-    if (this[2].u8[12] <= 1u)
+    if (this[5].u8[4] <= 1u)
     {
-      goto LABEL_32;
-    }
-
-    if (v6 != 2)
-    {
-      if (v6 != 3)
+      if (this[5].i8[4])
       {
-        if (v6 == 4)
-        {
-          RB::XML::Element::set<RB::XML::Value::ConstantString>();
-        }
-
-        goto LABEL_24;
+        v31 = &unk_1F0A38C90;
+        LOBYTE(v32.f64[0]) = 1;
+        v18 = "infinite";
       }
 
-      v7 = this[1];
-      v8 = vmvnq_s8(vceqzq_f32(v7));
-      v8.i32[0] = vmaxvq_u32(v8);
-      if (v8.i32[0] < 0)
+      else
       {
-        v8.i8[0] = this[2].i8[12];
-        a5.i32[0] = 4;
-        v9 = vbslq_s8(vdupq_lane_s8(*&vceqq_s8(v8, a5), 0), vmulq_f32(v7, vdupq_n_s32(0x3F48C8C9u)), v7);
-        if ((vminvq_u32(vceqq_f32(v9, vdupq_lane_s32(*v9.f32, 0))) & 0x80000000) == 0)
+        v31 = &unk_1F0A38C90;
+        LOBYTE(v32.f64[0]) = 1;
+        v18 = "empty";
+      }
+
+LABEL_44:
+      RB::XML::Element::set<RB::XML::Value::Bool>(a2, v18, &v31);
+    }
+
+    if (v7 != 2)
+    {
+      if (v7 != 3)
+      {
+        if (v7 == 4)
         {
-          RB::XML::Element::set<RB::XML::Value::Vec4>();
+          v31 = &unk_1F0A38D58;
+          *&v32.f64[0] = "continuous";
+          RB::XML::Element::set<RB::XML::Value::ConstantString>(a2, "corner-style", &v31);
         }
 
-        if (this[2].f32[0] == 1.0)
+        goto LABEL_35;
+      }
+
+      v8 = *this[2].f32;
+      v9 = vmvnq_s8(vceqzq_f32(v8));
+      v9.i32[0] = vmaxvq_u32(v9);
+      if (v9.i32[0] < 0)
+      {
+        v9.i8[0] = this[5].i8[4];
+        a5.i32[0] = 4;
+        v10 = vbslq_s8(vdupq_lane_s8(*&vceqq_s8(v9, a5), 0), vmulq_f32(v8, vdupq_n_s32(0x3F48C8C9u)), v8);
+        if ((vminvq_u32(vceqq_f32(v10, vdupq_lane_s32(*v10.f32, 0))) & 0x80000000) == 0)
         {
-          RB::XML::Element::set<RB::XML::Value::Float>();
+          v31 = &unk_1F0A38BA0;
+          v32 = vcvtq_f64_f32(*v10.f32);
+          v33 = vcvt_hight_f64_f32(v10);
+          RB::XML::Element::set<RB::XML::Value::Vec4>(a2, "corner-radius", &v31);
+        }
+
+        if (this[4].f32[0] == 1.0)
+        {
+          v31 = &unk_1F0A38B28;
+          v32.f64[0] = v10.f32[0];
+          RB::XML::Element::set<RB::XML::Value::Float>(a2, "corner-radius", &v31);
         }
 
         __asm { FMOV            V2.2S, #1.0 }
 
-        RB::XML::Element::set<RB::XML::Value::Vec2>();
+        _D2.i32[0] = this[4].i32[0];
+        v31 = &unk_1F0A38BF0;
+        v32 = vcvtq_f64_f32(vmul_n_f32(_D2, v10.f32[0]));
+        RB::XML::Element::set<RB::XML::Value::Vec2>(a2, "corner-radius", &v31);
       }
+    }
+
+    if (this[4].f32[1] <= 0.0)
+    {
+      v22 = "rect";
+    }
+
+    else
+    {
+      v22 = "stroked-rect";
     }
 
     __asm { FMOV            V2.2S, #1.0 }
 
-LABEL_23:
-    RB::XML::Element::set<RB::XML::Value::Vec4>();
+    _D2.i32[0] = this[4].i32[0];
+    v24 = vmul_f32(*this, _D2);
+    v25 = vmul_f32(this[1], _D2);
+LABEL_34:
+    v31 = &unk_1F0A38BA0;
+    v32 = vcvtq_f64_f32(v24);
+    v33 = vcvtq_f64_f32(v25);
+    RB::XML::Element::set<RB::XML::Value::Vec4>(a2, v22, &v31);
   }
 
-  if (v6 - 6 < 3)
+  if (v7 - 6 < 3)
   {
+    v11 = this[1];
     __asm { FMOV            V2.2S, #1.0 }
 
-    RB::XML::Element::set<RB::XML::Value::Vec4>();
+    _D2.i32[0] = this[4].i32[0];
+    v17 = vmul_f32(*this, _D2);
+    v31 = &unk_1F0A38BA0;
+    v32 = vcvtq_f64_f32(v17);
+    v33 = vcvtq_f64_f32(vmla_f32(v17, _D2, v11));
+    RB::XML::Element::set<RB::XML::Value::Vec4>(a2, "stroked-line", &v31);
   }
 
-  if (v6 == 5)
+  if (v7 == 5)
   {
-    if (this[2].f32[0] == 1.0)
+    v19 = this[4].f32[1];
+    if (this[4].f32[0] == 1.0)
     {
-      RB::XML::Element::set<RB::XML::Value::Vec2>();
+      if (v19 <= 0.0)
+      {
+        v20 = "circle";
+      }
+
+      else
+      {
+        v20 = "stroked-circle";
+      }
+
+      v21 = vmla_f32(*this, 0x3F0000003F000000, this[1]);
+      v31 = &unk_1F0A38BF0;
+      v32 = vcvtq_f64_f32(v21);
+      RB::XML::Element::set<RB::XML::Value::Vec2>(a2, v20, &v31);
+    }
+
+    if (v19 <= 0.0)
+    {
+      v22 = "ellipse";
+    }
+
+    else
+    {
+      v22 = "stroked-ellipse";
     }
 
     __asm { FMOV            V3.2S, #1.0 }
 
-    goto LABEL_23;
+    _D3.i32[0] = this[4].i32[0];
+    v24 = vmul_f32(*this, _D3);
+    v25 = vmul_f32(this[1], _D3);
+    goto LABEL_34;
   }
 
-  if (v6 - 9 < 3)
+  if (v7 - 9 < 3)
   {
     abort();
   }
 
-LABEL_24:
-  if (this[2].f32[1] > 0.0)
+LABEL_35:
+  v28 = this[4].f32[1];
+  if (v28 > 0.0)
   {
-    RB::XML::Element::set<RB::XML::Value::Float>();
+    v31 = &unk_1F0A38B28;
+    v32.f64[0] = v28;
+    RB::XML::Element::set<RB::XML::Value::Float>(a2, "line-width", &v31);
   }
 
-  if ((this[2].i8[14] & 4) != 0)
+  if ((this[5].i8[6] & 4) != 0)
   {
-    RB::XML::Element::set<RB::XML::Value::Float>();
+    v30 = this[5].f32[0];
+    v31 = &unk_1F0A38B28;
+    v32.f64[0] = v30;
+    RB::XML::Element::set<RB::XML::Value::Float>(a2, "blur-radius", &v31);
   }
 
-  RB::XML::Element::set_rendering_mode(a2, this[2].u8[13]);
-  if (this[2].i8[14])
+  result = RB::XML::Element::set_rendering_mode(a2, this[5].u8[5], this[5].f32[0]);
+  if (this[5].i8[6])
   {
-    RB::XML::Element::set<RB::XML::Value::Bool>();
+    v31 = &unk_1F0A38C90;
+    LOBYTE(v32.f64[0]) = 1;
+    RB::XML::Element::set<RB::XML::Value::Bool>(a2, "inverse", &v31);
   }
 
-  if ((this[2].i8[14] & 2) != 0)
+  if ((this[5].i8[6] & 2) != 0)
   {
-LABEL_32:
-    RB::XML::Element::set<RB::XML::Value::Bool>();
+    v31 = &unk_1F0A38C90;
+    LOBYTE(v32.f64[0]) = 1;
+    v18 = "shape-is-alpha";
+    goto LABEL_44;
   }
+
+  return result;
 }
 
 void RB::Coverage::Primitive::mix(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5234,7 +5322,7 @@ LABEL_4:
 
   if ((this[5].i8[6] & 4) != 0 || (this[5].i8[6] & 1) != 0 || (v9 = this[5].u8[5], v9 >= 2))
   {
-    RB::Coverage::Primitive::make_image_mask(this, a2, &mask);
+    RB::Coverage::Primitive::make_image_mask(&mask, this, a2);
     v10 = mask;
     if (mask)
     {
@@ -5262,8 +5350,8 @@ LABEL_4:
 
   if (this[5].i8[4] == 2)
   {
-    LODWORD(v12) = this[4].i32[1];
-    if (*&v12 == 0.0)
+    v12.n128_u32[0] = this[4].u32[1];
+    if (v12.n128_f32[0] == 0.0)
     {
       __asm { FMOV            V2.2S, #1.0 }
 
@@ -5291,25 +5379,25 @@ LABEL_4:
   CGContextClip(v27);
 }
 
-void RB::Coverage::Primitive::make_image_mask(float32x2_t *this@<X0>, RB::CGContext *a2@<X1>, CGImageRef *a3@<X8>)
+void RB::Coverage::Primitive::make_image_mask(CGImageRef *__return_ptr a1@<X8>, float32x2_t *this@<X0>, RB::CGContext *a3@<X1>)
 {
   v46 = *MEMORY[0x1E69E9840];
-  *(&v9 - 8) = CGContextGetClipBoundingBox(*a2);
-  *&v10.f64[1] = v9.i64[0];
-  v8.f64[1] = v47.size.height;
+  *(&v9 - 8) = CGContextGetClipBoundingBox(*a3);
+  v10.i64[1] = v9.i64[0];
+  v8.i64[1] = *&v47.size.height;
   *v9.i8 = vcvt_f32_f64(v10);
-  *&v10.f64[0] = vcvt_f32_f64(v8);
+  *v10.i8 = vcvt_f32_f64(v8);
   *&v41 = v9.i64[0];
-  *(&v41 + 1) = *&v10.f64[0];
+  *(&v41 + 1) = v10.i64[0];
   if (this[5].u8[5] >= 2u)
   {
-    LODWORD(v8.f64[0]) = this[5].i32[0];
-    *&v47.size.height = vcgt_f32(vneg_f32(0x80000000800000), *&v10.f64[0]);
-    *v6.i8 = vsub_f32(*v9.i8, vdup_lane_s32(*&v8.f64[0], 0));
+    v8.i32[0] = this[5].i32[0];
+    *&v47.size.height = vcgt_f32(vneg_f32(0x80000000800000), *v10.i8);
+    *v6.i8 = vsub_f32(*v9.i8, vdup_lane_s32(*v8.i8, 0));
     *&v47.size.height = vcltzq_s32(*&v47.size.height);
     *&v11 = vbslq_s8(*&v47.size.height, v6, v9).u64[0];
     v6.i64[0] = 0x4000000040000000;
-    *v7.i8 = vmla_n_f32(*&v10.f64[0], 0x4000000040000000, *v8.f64);
+    *v7.i8 = vmla_n_f32(*v10.i8, 0x4000000040000000, *v8.i32);
     *(&v11 + 1) = vbslq_s8(*&v47.size.height, v7, v10).u64[0];
     v41 = v11;
   }
@@ -5317,7 +5405,7 @@ void RB::Coverage::Primitive::make_image_mask(float32x2_t *this@<X0>, RB::CGCont
   *v42 = xmmword_195E42760;
   v43 = xmmword_195E42770;
   v44 = 0uLL;
-  *&v12 = RB::Coverage::Primitive::bounds(this, v42, xmmword_195E42760, xmmword_195E42770, v8, *&v47.size.height, v6, v7);
+  v12 = RB::Coverage::Primitive::bounds(this, v42, xmmword_195E42760, xmmword_195E42770, v8, *&v47.size.height, v6, v7);
   RB::Rect::intersect(&v41, v12, v13);
   v14 = vceqz_f32(*(&v41 + 8));
   if ((vpmax_u32(v14, v14).u32[0] & 0x80000000) != 0)
@@ -5339,17 +5427,17 @@ void RB::Coverage::Primitive::make_image_mask(float32x2_t *this@<X0>, RB::CGCont
     }
   }
 
-  v16 = *(a2 + 10);
+  v16 = *(a3 + 10);
   if (v16)
   {
-    *&v17 = RB::operator*(v16, a2 + 2);
+    *&v17 = RB::operator*(v16, a3 + 2);
   }
 
   else
   {
-    v17 = *(a2 + 2);
-    v18 = *(a2 + 3);
-    v19 = *(a2 + 4);
+    v17 = *(a3 + 2);
+    v18 = *(a3 + 3);
+    v19 = *(a3 + 4);
   }
 
   *v42 = v17;
@@ -5359,18 +5447,18 @@ void RB::Coverage::Primitive::make_image_mask(float32x2_t *this@<X0>, RB::CGCont
   v38 = v20;
   *&v41 = vmul_n_f32(*&v41, *v20.i32);
   *(&v41 + 1) = vmul_n_f32(*(&v41 + 8), *v20.i32);
-  RB::CGContext::begin_bitmap(a2, &v41, 0x100000000, 0, &c, v21);
+  RB::CGContext::begin_bitmap(a3, &v41, 0x100000000, 0, &c, v21);
   if (!c)
   {
 LABEL_16:
-    *a3 = 0;
-    a3[1] = 0;
-    a3[2] = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     return;
   }
 
   CGContextScaleCTM(c, *v38.i32, *v38.i32);
-  RB::CGContext::CGContext(v42, c, *(a2 + 8), *(a2 + 2));
+  RB::CGContext::CGContext(v42, c, *(a3 + 8), *(a3 + 2));
   v22 = rb_clip_mode(this[5].u8[5]);
   if (v45 != v22)
   {
@@ -5415,7 +5503,7 @@ LABEL_16:
     goto LABEL_30;
   }
 
-  RB::CGContext::begin_bitmap(a2, &v41, 0x100000000, 0, &v39, v38);
+  RB::CGContext::begin_bitmap(a3, &v41, 0x100000000, 0, &v39, v38);
   if (v39)
   {
     RB::CGContext::apply_scale(v42, v39, COERCE_DOUBLE(vdup_lane_s32(v37, 0)));
@@ -5429,14 +5517,14 @@ LABEL_16:
     }
 
 LABEL_30:
-    *a3 = CGBitmapContextCreateImage(c);
-    *(a3 + 1) = v41;
+    *a1 = CGBitmapContextCreateImage(c);
+    *(a1 + 1) = v41;
     goto LABEL_31;
   }
 
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
 LABEL_31:
   RB::CGContext::~CGContext(v42);
   if (c)
@@ -5445,14 +5533,15 @@ LABEL_31:
   }
 }
 
-void sub_195DC9648(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, CFTypeRef cf, CFTypeRef a14, uint64_t a15, uint64_t a16, char a17)
+void sub_195DC9648(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, CFTypeRef cf, CFTypeRef a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  RB::CGContext::~CGContext(&a17);
+  RB::CGContext::~CGContext(va);
   if (a14)
   {
     CFRelease(a14);
@@ -5461,31 +5550,31 @@ void sub_195DC9648(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void RB::Coverage::Primitive::add_path(float32x2_t *this, CGContextRef *a2, double a3, double a4, double a5, double a6, double a7, int32x4_t a8)
+void RB::Coverage::Primitive::add_path(float32x2_t *this, CGContextRef *a2, __n128 a3, __n128 a4, double a5, __n128 a6, double a7, int32x4_t a8)
 {
-  v10 = this[4].f32[0];
+  a3.n128_u32[0] = this[4].u32[0];
   __asm { FMOV            V3.2S, #1.0 }
 
-  _D3.f32[0] = v10;
-  v16 = vmul_f32(*this, _D3);
-  v17 = vmul_f32(this[1], _D3);
-  v18 = this[5].u8[4];
-  if (v18 > 4)
+  _D3.i32[0] = a3.n128_u32[0];
+  a4.n128_u64[0] = vmul_f32(*this, _D3);
+  a6.n128_u64[0] = vmul_f32(this[1], _D3);
+  v15 = this[5].u8[4];
+  if (v15 > 4)
   {
-    if (v18 - 6 >= 3)
+    if (v15 - 6 >= 3)
     {
-      if (v18 == 5)
+      if (v15 == 5)
       {
-        v38 = *a2;
-        v39 = v16.f32[0];
-        v40 = v16.f32[1];
-        v41 = v17.f32[0];
-        v42 = v17.f32[1];
+        v36 = *a2;
+        v37 = a4.n128_f32[0];
+        v38 = a4.n128_f32[1];
+        v39 = a6.n128_f32[0];
+        v40 = a6.n128_f32[1];
 
-        CGContextAddEllipseInRect(v38, *&v39);
+        CGContextAddEllipseInRect(v36, *&v37);
       }
 
-      else if (v18 - 9 < 3)
+      else if (v15 - 9 < 3)
       {
         abort();
       }
@@ -5493,35 +5582,35 @@ void RB::Coverage::Primitive::add_path(float32x2_t *this, CGContextRef *a2, doub
 
     else
     {
-      v19 = *a2;
-      if (v18 == 7)
+      v16 = *a2;
+      if (v15 == 7)
       {
-        v20 = 1;
+        v17 = 1;
       }
 
       else
       {
-        v20 = 2;
+        v17 = 2;
       }
 
-      if (v18 == 6)
+      if (v15 == 6)
       {
-        v21 = kCGLineCapButt;
+        v18 = kCGLineCapButt;
       }
 
       else
       {
-        v21 = v20;
+        v18 = v17;
       }
 
-      CGContextSetLineCap(v19, v21);
+      CGContextSetLineCap(v16, v18);
       CGContextMoveToPoint(*a2, COERCE_FLOAT(*this), COERCE_FLOAT(HIDWORD(*this)));
-      v22 = *a2;
-      v23 = vadd_f32(this[1], *this);
-      v24 = v23.f32[0];
-      v25 = v23.f32[1];
+      v19 = *a2;
+      v20 = vadd_f32(this[1], *this);
+      v21 = v20.f32[0];
+      v22 = v20.f32[1];
 
-      CGContextAddLineToPoint(v22, v24, v25);
+      CGContextAddLineToPoint(v19, v21, v22);
     }
   }
 
@@ -5531,69 +5620,74 @@ void RB::Coverage::Primitive::add_path(float32x2_t *this, CGContextRef *a2, doub
     {
       if (!this[5].i8[4])
       {
-        v33 = *a2;
-        v34 = *MEMORY[0x1E695F050];
-        v35 = *(MEMORY[0x1E695F050] + 8);
-        v36 = *(MEMORY[0x1E695F050] + 16);
-        v37 = *(MEMORY[0x1E695F050] + 24);
+        v31 = *a2;
+        v32 = *MEMORY[0x1E695F050];
+        v33 = *(MEMORY[0x1E695F050] + 8);
+        v34 = *(MEMORY[0x1E695F050] + 16);
+        v35 = *(MEMORY[0x1E695F050] + 24);
         goto LABEL_26;
       }
 
-      if (v18 == 1)
+      if (v15 == 1)
       {
-        v43 = *a2;
-        *&v34 = CGContextGetClipBoundingBox(*a2);
-        v33 = v43;
+        v41 = *a2;
+        *&v32 = CGContextGetClipBoundingBox(*a2);
+        v31 = v41;
         goto LABEL_26;
       }
 
 LABEL_19:
-      v33 = *a2;
-      v34 = v16.f32[0];
-      v35 = v16.f32[1];
-      v36 = v17.f32[0];
-      v37 = v17.f32[1];
+      v31 = *a2;
+      v32 = a4.n128_f32[0];
+      v33 = a4.n128_f32[1];
+      v34 = a6.n128_f32[0];
+      v35 = a6.n128_f32[1];
 LABEL_26:
 
-      CGContextAddRect(v33, *&v34);
+      CGContextAddRect(v31, *&v32);
       return;
     }
 
-    v26 = *this[2].f32;
-    v27 = vceqzq_f32(v26);
-    if ((vminvq_u32(v27) & 0x80000000) != 0)
+    v23 = *this[2].f32;
+    v24 = vceqzq_f32(v23);
+    if ((vminvq_u32(v24) & 0x80000000) != 0)
     {
       goto LABEL_19;
     }
 
-    v27.i32[0] = 3;
+    v24.i32[0] = 3;
     a8.i32[0] = this[5].u8[4];
-    v28 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_s32(a8, v27)), 0), vmulq_f32(v26, vdupq_n_s32(0x3F48C8C9u)), v26);
-    v29 = v18 != 3;
-    if (v10 != 1.0 || (vminvq_u32(vceqq_f32(v28, vdupq_lane_s32(*v28.f32, 0))) & 0x80000000) != 0)
+    v25 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_s32(a8, v24)), 0), vmulq_f32(v23, vdupq_n_s32(0x3F48C8C9u)), v23);
+    v26 = v15 != 3;
+    if (a3.n128_f32[0] != 1.0 || (v23 = vceqq_f32(v25, vdupq_lane_s32(*v25.f32, 0)), (vminvq_u32(v23) & 0x80000000) != 0))
     {
-      RoundedRect = RBPathMakeRoundedRect(v16.f32[0], v16.f32[1], v17.f32[0], v17.f32[1], (v10 * v28.f32[0]), v28.f32[0], v29, 0);
-      v32 = v31;
+      v27 = (a3.n128_f32[0] * v25.f32[0]);
+      a3.n128_f64[0] = a4.n128_f32[0];
+      a4.n128_f64[0] = a4.n128_f32[1];
+      v23.n128_f64[0] = a6.n128_f32[0];
+      a6.n128_f64[0] = a6.n128_f32[1];
+      RoundedRect = RBPathMakeRoundedRect(v26, 0, a3, a4, v23, a6, v27, v25.f32[0]);
+      v30 = v29;
       RBPathRelease(0, 0x195E47920);
     }
 
     else
     {
-      RoundedRect = RBPathMakeUnevenRoundedRect(v16.f32[0], v16.f32[1], v17.f32[0], v17.f32[1], v28.f32[0], v28.f32[1], v28.f32[2], v28.f32[3], v29, 0);
-      v32 = v44;
+      RoundedRect = RBPathMakeUnevenRoundedRect(v26, 0, a4.n128_f32[0], a4.n128_f32[1], a6.n128_f32[0], a6.n128_f32[1], v25.f32[0], v25.f32[1], v25.f32[2], v25.f32[3]);
+      v30 = v42;
       RBPathRelease(0, 0x195E47920);
     }
 
-    v45 = RoundedRect;
-    v46 = *a2;
-    v47 = RBPathCopyCGPath(v45, v32);
-    CGContextAddPath(v46, v47);
-    if (v47)
+    v43 = RoundedRect;
+    v44 = *a2;
+    v45 = RBPathCopyCGPath(v43, v30);
+    CGContextAddPath(v44, v45);
+    if (v45)
     {
-      CFRelease(v47);
+      CFRelease(v45);
     }
 
-    RBPathRelease(v45, v32);
+    RBPathRelease(v43, v30);
   }
 }
 
@@ -5607,10 +5701,10 @@ void RB::Coverage::anonymous namespace::set_stroke(CGContextRef *this, RB::CGCon
   CGContextSetMiterLimit(v4, 10.0);
 }
 
-void RB::Coverage::Primitive::fill(float32x2_t *this, CGContextRef *a2, const RB::Fill::Color *a3, float32x4_t a4, float16x4_t a5)
+void RB::Coverage::Primitive::fill(CGContextRef *this, CGContextRef *a2, const RB::Fill::Color *a3, float32x4_t a4, __n128 a5)
 {
-  v5 = this[5].u8[4];
-  if (!this[5].i8[4])
+  v5 = *(this + 44);
+  if (!*(this + 44))
   {
     return;
   }
@@ -5639,7 +5733,7 @@ void RB::Coverage::Primitive::fill(float32x2_t *this, CGContextRef *a2, const RB
 LABEL_30:
       RB::CGContext::set_fill_color_slow(a2, a3, a4, a5);
 LABEL_31:
-      if ((this[5].i8[6] & 2) != 0 || this[5].u8[5] >= 2u)
+      if ((*(this + 46) & 2) != 0 || *(this + 45) >= 2u)
       {
         CGContextBeginTransparencyLayer(*a2, 0);
       }
@@ -5647,7 +5741,7 @@ LABEL_31:
       v18 = *a2;
       ClipBoundingBox = CGContextGetClipBoundingBox(*a2);
       CGContextFillRect(v18, ClipBoundingBox);
-      if ((this[5].i8[6] & 2) != 0 || this[5].u8[5] >= 2u)
+      if ((*(this + 46) & 2) != 0 || *(this + 45) >= 2u)
       {
         CGContextEndTransparencyLayer(*a2);
       }
@@ -5657,28 +5751,28 @@ LABEL_31:
 
 LABEL_24:
     a4.i16[0] = *(a2 + 56);
-    a5.i16[0] = *a3;
+    a5.n128_u16[0] = *a3;
     if (*a4.i16 == *a3)
     {
       a4.i16[0] = *(a2 + 57);
-      a5.i16[0] = *(a3 + 1);
-      if (*a4.i16 == *a5.i16)
+      a5.n128_u16[0] = *(a3 + 1);
+      if (*a4.i16 == *a5.n128_u16)
       {
         a4.i16[0] = *(a2 + 58);
-        a5.i16[0] = *(a3 + 2);
-        if (*a4.i16 == *a5.i16)
+        a5.n128_u16[0] = *(a3 + 2);
+        if (*a4.i16 == *a5.n128_u16)
         {
           a4.i16[0] = *(a2 + 59);
-          a5.i16[0] = *(a3 + 3);
-          if (*a4.i16 == *a5.i16)
+          a5.n128_u16[0] = *(a3 + 3);
+          if (*a4.i16 == *a5.n128_u16)
           {
             a4.i16[0] = *(a2 + 60);
-            a5.i16[0] = *(a3 + 4);
-            if (*a4.i16 == *a5.i16)
+            a5.n128_u16[0] = *(a3 + 4);
+            if (*a4.i16 == *a5.n128_u16)
             {
               a4.i16[0] = *(a2 + 61);
-              a5.i16[0] = *(a3 + 5);
-              if (*a4.i16 == *a5.i16)
+              a5.n128_u16[0] = *(a3 + 5);
+              if (*a4.i16 == *a5.n128_u16)
               {
                 goto LABEL_31;
               }
@@ -5691,9 +5785,9 @@ LABEL_24:
     goto LABEL_30;
   }
 
-  if ((this[5].i8[6] & 4) != 0 || (this[5].i8[6] & 1) != 0 || this[5].u8[5] >= 2u)
+  if ((*(this + 46) & 4) != 0 || (*(this + 46) & 1) != 0 || *(this + 45) >= 2u)
   {
-    RB::Coverage::Primitive::make_image_mask(this, a2, &v34);
+    RB::Coverage::Primitive::make_image_mask(&v34, this, a2);
     v15 = v34;
     if (!v34)
     {
@@ -5720,7 +5814,7 @@ LABEL_24:
 LABEL_46:
       RB::CGContext::set_fill_color_slow(a2, a3, v13, v14);
 LABEL_47:
-      if ((this[5].i8[6] & 2) != 0 || this[5].u8[5] >= 2u)
+      if ((*(this + 46) & 2) != 0 || *(this + 45) >= 2u)
       {
         CGContextBeginTransparencyLayer(*a2, 0);
       }
@@ -5741,7 +5835,7 @@ LABEL_47:
       v42.size.height = v22;
       CGContextFillRect(*a2, v42);
       CGContextRestoreGState(*a2);
-      if ((this[5].i8[6] & 2) != 0 || this[5].u8[5] >= 2u)
+      if ((*(this + 46) & 2) != 0 || *(this + 45) >= 2u)
       {
         CGContextEndTransparencyLayer(*a2);
       }
@@ -5752,28 +5846,28 @@ LABEL_47:
 
 LABEL_40:
     v13.i16[0] = *(a2 + 56);
-    v14.i16[0] = *a3;
+    v14.n128_u16[0] = *a3;
     if (*v13.i16 == *a3)
     {
       v13.i16[0] = *(a2 + 57);
-      v14.i16[0] = *(a3 + 1);
-      if (*v13.i16 == *v14.i16)
+      v14.n128_u16[0] = *(a3 + 1);
+      if (*v13.i16 == *v14.n128_u16)
       {
         v13.i16[0] = *(a2 + 58);
-        v14.i16[0] = *(a3 + 2);
-        if (*v13.i16 == *v14.i16)
+        v14.n128_u16[0] = *(a3 + 2);
+        if (*v13.i16 == *v14.n128_u16)
         {
           v13.i16[0] = *(a2 + 59);
-          v14.i16[0] = *(a3 + 3);
-          if (*v13.i16 == *v14.i16)
+          v14.n128_u16[0] = *(a3 + 3);
+          if (*v13.i16 == *v14.n128_u16)
           {
             v13.i16[0] = *(a2 + 60);
-            v14.i16[0] = *(a3 + 4);
-            if (*v13.i16 == *v14.i16)
+            v14.n128_u16[0] = *(a3 + 4);
+            if (*v13.i16 == *v14.n128_u16)
             {
               v13.i16[0] = *(a2 + 61);
-              v14.i16[0] = *(a3 + 5);
-              if (*v13.i16 == *v14.i16)
+              v14.n128_u16[0] = *(a3 + 5);
+              if (*v13.i16 == *v14.n128_u16)
               {
                 goto LABEL_47;
               }
@@ -5786,7 +5880,7 @@ LABEL_40:
     goto LABEL_46;
   }
 
-  a4.i32[0] = this[4].i32[1];
+  a4.i32[0] = *(this + 9);
   if (a4.f32[0] == 0.0)
   {
     v23 = *(a2 + 125);
@@ -5815,28 +5909,28 @@ LABEL_71:
 
 LABEL_64:
     a4.i16[0] = *(a2 + 56);
-    a5.i16[0] = *a3;
+    a5.n128_u16[0] = *a3;
     if (*a4.i16 == *a3)
     {
       a4.i16[0] = *(a2 + 57);
-      a5.i16[0] = *(a3 + 1);
-      if (*a4.i16 == *a5.i16)
+      a5.n128_u16[0] = *(a3 + 1);
+      if (*a4.i16 == *a5.n128_u16)
       {
         a4.i16[0] = *(a2 + 58);
-        a5.i16[0] = *(a3 + 2);
-        if (*a4.i16 == *a5.i16)
+        a5.n128_u16[0] = *(a3 + 2);
+        if (*a4.i16 == *a5.n128_u16)
         {
           a4.i16[0] = *(a2 + 59);
-          a5.i16[0] = *(a3 + 3);
-          if (*a4.i16 == *a5.i16)
+          a5.n128_u16[0] = *(a3 + 3);
+          if (*a4.i16 == *a5.n128_u16)
           {
             a4.i16[0] = *(a2 + 60);
-            a5.i16[0] = *(a3 + 4);
-            if (*a4.i16 == *a5.i16)
+            a5.n128_u16[0] = *(a3 + 4);
+            if (*a4.i16 == *a5.n128_u16)
             {
               a4.i16[0] = *(a2 + 61);
-              a5.i16[0] = *(a3 + 5);
-              if (*a4.i16 == *a5.i16)
+              a5.n128_u16[0] = *(a3 + 5);
+              if (*a4.i16 == *a5.n128_u16)
               {
                 goto LABEL_71;
               }
@@ -5852,13 +5946,13 @@ LABEL_64:
   RB::CGContext::set_stroke_color(a2, a3, a4, a5);
   v26 = kCGPathStroke;
 LABEL_72:
-  v27 = rb_clip_mode(this[5].u8[5]);
+  v27 = rb_clip_mode(*(this + 45));
   if (*(a2 + 148) != v27)
   {
     RB::CGContext::set_aliasing_mode_slow(a2, v27);
   }
 
-  if (this[5].i8[4] == 2)
+  if (*(this + 44) == 2)
   {
     RB::Coverage::Primitive::fill(RB::CGContext &,RB::Fill::Color const&)const::$_1::operator()<RB::Coverage::Primitive::fill(RB::CGContext &,RB::Fill::Color const&)::$_3>(v39, this);
   }
@@ -5870,7 +5964,7 @@ LABEL_72:
   }
 }
 
-void RB::CGContext::set_stroke_color(RB::CGContext *this, const RB::Fill::Color *a2, float32x4_t a3, float16x4_t a4)
+void RB::CGContext::set_stroke_color(uint64_t this, const RB::Fill::Color *a2, float32x4_t a3, __n128 a4)
 {
   v4 = *(this + 139);
   v5 = *(a2 + 13);
@@ -5895,44 +5989,44 @@ LABEL_20:
   }
 
 LABEL_14:
-  a3.i16[0] = *(this + 63);
-  a4.i16[0] = *a2;
+  a3.i16[0] = *(this + 126);
+  a4.n128_u16[0] = *a2;
   if (*a3.i16 != *a2)
   {
     goto LABEL_20;
   }
 
-  a3.i16[0] = *(this + 64);
-  a4.i16[0] = *(a2 + 1);
-  if (*a3.i16 != *a4.i16)
+  a3.i16[0] = *(this + 128);
+  a4.n128_u16[0] = *(a2 + 1);
+  if (*a3.i16 != *a4.n128_u16)
   {
     goto LABEL_20;
   }
 
-  a3.i16[0] = *(this + 65);
-  a4.i16[0] = *(a2 + 2);
-  if (*a3.i16 != *a4.i16)
+  a3.i16[0] = *(this + 130);
+  a4.n128_u16[0] = *(a2 + 2);
+  if (*a3.i16 != *a4.n128_u16)
   {
     goto LABEL_20;
   }
 
-  a3.i16[0] = *(this + 66);
-  a4.i16[0] = *(a2 + 3);
-  if (*a3.i16 != *a4.i16)
+  a3.i16[0] = *(this + 132);
+  a4.n128_u16[0] = *(a2 + 3);
+  if (*a3.i16 != *a4.n128_u16)
   {
     goto LABEL_20;
   }
 
-  a3.i16[0] = *(this + 67);
-  a4.i16[0] = *(a2 + 4);
-  if (*a3.i16 != *a4.i16)
+  a3.i16[0] = *(this + 134);
+  a4.n128_u16[0] = *(a2 + 4);
+  if (*a3.i16 != *a4.n128_u16)
   {
     goto LABEL_20;
   }
 
-  a3.i16[0] = *(this + 68);
-  a4.i16[0] = *(a2 + 5);
-  if (*a3.i16 != *a4.i16)
+  a3.i16[0] = *(this + 136);
+  a4.n128_u16[0] = *(a2 + 5);
+  if (*a3.i16 != *a4.n128_u16)
   {
     goto LABEL_20;
   }
@@ -5941,7 +6035,7 @@ LABEL_14:
 void RB::Coverage::Primitive::fill(RB::CGContext &,RB::Fill::Color const&)const::$_1::operator()<RB::Coverage::Primitive::fill(RB::CGContext &,RB::Fill::Color const&)::$_3>(CGContextRef **a1, float32x2_t *a2)
 {
   v4 = *a1;
-  if ((*(*a1 + 46) & 2) != 0 || *(v4 + 45) >= 2u)
+  if ((*(*a1 + 46) & 2) != 0 || v4[45] >= 2u)
   {
     CGContextBeginTransparencyLayer(*a1[1], 0);
   }
@@ -5966,7 +6060,7 @@ void RB::Coverage::Primitive::fill(RB::CGContext &,RB::Fill::Color const&)const:
     CGContextStrokeRect(v12, *&v13);
   }
 
-  if ((*(v4 + 46) & 2) != 0 || *(v4 + 45) >= 2u)
+  if ((v4[46] & 2) != 0 || v4[45] >= 2u)
   {
     v17 = *a1[1];
 
@@ -5977,13 +6071,13 @@ void RB::Coverage::Primitive::fill(RB::CGContext &,RB::Fill::Color const&)const:
 void RB::Coverage::Primitive::fill(RB::CGContext &,RB::Fill::Color const&)const::$_1::operator()<RB::Coverage::Primitive::fill(RB::CGContext &,RB::Fill::Color const&)::$_4>(CGContextRef **a1, CGPathDrawingMode mode)
 {
   v4 = *a1;
-  if ((*(*a1 + 46) & 2) != 0 || *(v4 + 45) >= 2u)
+  if ((*(*a1 + 46) & 2) != 0 || v4[45] >= 2u)
   {
     CGContextBeginTransparencyLayer(*a1[1], 0);
   }
 
   CGContextDrawPath(*a1[1], mode);
-  if ((*(v4 + 46) & 2) != 0 || *(v4 + 45) >= 2u)
+  if ((v4[46] & 2) != 0 || v4[45] >= 2u)
   {
     v5 = *a1[1];
 
@@ -6246,8 +6340,8 @@ uint64_t CG::stroker::add_cubic_segment(CG::stroker *this, float64x2_t *a2)
 
   else
   {
-    v9.f64[0] = CG::Cubic::derivative(a2, 0.0);
-    v43.f64[0] = v9.f64[0];
+    *v9.i64 = CG::Cubic::derivative(a2, 0.0);
+    *&v43.f64[0] = v9.i64[0];
     v43.f64[1] = v10;
     v11 = *(this + 8);
     v12 = *(this + 24);
@@ -6267,7 +6361,7 @@ uint64_t CG::stroker::add_cubic_segment(CG::stroker *this, float64x2_t *a2)
       v14 = vextq_s8(v12, v11, 8uLL);
     }
 
-    v9.f64[1] = v10;
+    *&v9.i64[1] = v10;
     v17 = vmlaq_f64(vmulq_f64(v15, vextq_s8(v9, v9, 8uLL)), v9, v14);
     if (v17.f64[0] != 0.0 || v17.f64[1] != 0.0)
     {
@@ -6339,7 +6433,7 @@ uint64_t CG::stroker::add_cubic_segment(CG::stroker *this, float64x2_t *a2)
 
     else
     {
-      CG::Cubic::split(a2, v31, v40);
+      CG::Cubic::split(v40, a2, v31);
       CG::stroker::path_stroke_round_cube(this, v40);
       if (v34 == -1.0)
       {
@@ -6348,7 +6442,7 @@ uint64_t CG::stroker::add_cubic_segment(CG::stroker *this, float64x2_t *a2)
 
       else
       {
-        CG::Cubic::split(v41, (v34 - v33) / (1.0 - v33), v38);
+        CG::Cubic::split(v38, v41, (v34 - v33) / (1.0 - v33));
         CG::stroker::path_stroke_round_cube(this, v38);
         v36 = &v39;
       }
@@ -6767,8 +6861,8 @@ uint64_t CG::stroker::add_miter_join(CG::stroker *this, float64x2_t *a2, float64
         v24 = *a3;
         v34 = vaddq_f64(v21, v18);
         v35 = v24;
-        CG::intersection(v36, &v34, v38);
-        if (v38[0] != 1)
+        CG::intersection(v36, &v34, &v38);
+        if (v38 != 1)
         {
           return (*(**(this + 10) + 24))(*(this + 10), vaddq_f64(*a2, v33));
         }
@@ -6786,8 +6880,8 @@ uint64_t CG::stroker::add_miter_join(CG::stroker *this, float64x2_t *a2, float64
         v29 = *a3;
         v34 = vsubq_f64(v27, v33);
         v35 = v29;
-        CG::intersection(v36, &v34, v38);
-        if (v38[0] == 1)
+        CG::intersection(v36, &v34, &v38);
+        if (v38 == 1)
         {
           CG::stroker::push_opposite_element(this, kCGPathElementAddLineToPoint, &v39);
         }
@@ -6993,8 +7087,8 @@ void CG::stroker::path_stroke_round_cube_offset(CG::stroker *this, float64x2_t *
     v46 = v70;
     v50 = v65;
     v51 = v66;
-    CG::intersection(&v45, &v50, v63);
-    if (v63[0])
+    CG::intersection(&v45, &v50, &v63);
+    if (v63)
     {
       v26 = &v64;
     }
@@ -7009,8 +7103,8 @@ void CG::stroker::path_stroke_round_cube_offset(CG::stroker *this, float64x2_t *
     v46 = v68;
     v50 = v65;
     v51 = v66;
-    CG::intersection(&v45, &v50, v60);
-    if (v60[0])
+    CG::intersection(&v45, &v50, &v60);
+    if (v60)
     {
       v27 = &v61;
     }
@@ -7080,7 +7174,7 @@ LABEL_33:
         }
       }
 
-      CG::Cubic::split(a2, 0.5, &v45);
+      CG::Cubic::split(&v45, a2, 0.5);
       if (a4 < 0)
       {
         CG::stroker::path_stroke_round_cube_offset(this, v47, v29, a4);
@@ -7147,13 +7241,49 @@ double CG::stroker::path_stroke_round_cube(CG::stroker *this, float64x2_t *a2)
 
   else
   {
-    CG::Cubic::split(a2, 0.5, &v17);
+    CG::Cubic::split(&v17, a2, 0.5);
     if (a2->f64[0] != v17.f64[0] || a2->f64[1] != v17.f64[1] || *&v4->v != v18 || a2[1].f64[1] != v19 || *&v7->v != v20 || a2[2].f64[1] != v21 || *&v10->v != v22 || (result = v23, a2[3].f64[1] != v23))
     {
       CG::stroker::path_stroke_round_cube(this, &v17);
-      if (a2->f64[0] != v24[0] || a2->f64[1] != v24[1] || *&v4->v != v24[2] || a2[1].f64[1] != v24[3] || *&v7->v != v24[4] || a2[2].f64[1] != v24[5] || *&v10->v != v24[6] || (result = v25, a2[3].f64[1] != v25))
+      if (a2->f64[0] != v24.f64[0])
       {
-        CG::stroker::path_stroke_round_cube(this, v24);
+        return CG::stroker::path_stroke_round_cube(this, &v24);
+      }
+
+      if (a2->f64[1] != v24.f64[1])
+      {
+        return CG::stroker::path_stroke_round_cube(this, &v24);
+      }
+
+      if (*&v4->v != v25)
+      {
+        return CG::stroker::path_stroke_round_cube(this, &v24);
+      }
+
+      if (a2[1].f64[1] != v26)
+      {
+        return CG::stroker::path_stroke_round_cube(this, &v24);
+      }
+
+      if (*&v7->v != v27)
+      {
+        return CG::stroker::path_stroke_round_cube(this, &v24);
+      }
+
+      if (a2[2].f64[1] != v28)
+      {
+        return CG::stroker::path_stroke_round_cube(this, &v24);
+      }
+
+      if (*&v10->v != v29)
+      {
+        return CG::stroker::path_stroke_round_cube(this, &v24);
+      }
+
+      result = v30;
+      if (a2[3].f64[1] != v30)
+      {
+        return CG::stroker::path_stroke_round_cube(this, &v24);
       }
     }
   }
@@ -7465,7 +7595,7 @@ void RB::Fill::Gradient::mix(RB::Fill::Gradient *this, const RB::Fill::Gradient 
         v105 = *(v39 + v32);
         v106 = 0;
         v107 = v41;
-        RB::Fill::Color::mix(&__dst, &v105, 0, v95);
+        RB::Fill::Color::mix(v95, &__dst, &v105, 0);
         *(v38 + v32) = __dst;
         v42 = *(this + 59);
         if (*(&__dst + 3) != COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0)))
@@ -7621,7 +7751,7 @@ LABEL_41:
               *a3.f32 = vmul_f32(vrecps_f32(v74, *a3.f32), *a3.f32);
               *a3.f32 = vmul_f32(*a3.f32, vrecps_f32(v74, *a3.f32));
               a3.f32[0] = v73 * a3.f32[0];
-              RB::Fill::Color::mix(&v105, &v102, v94, a3);
+              RB::Fill::Color::mix(a3, &v105, &v102, v94);
             }
 
             goto LABEL_56;
@@ -7670,7 +7800,7 @@ LABEL_56:
             *a3.f32 = vmul_f32(vrecps_f32(v80, *a3.f32), *a3.f32);
             *a3.f32 = vmul_f32(*a3.f32, vrecps_f32(v80, *a3.f32));
             a3.f32[0] = v79 * a3.f32[0];
-            RB::Fill::Color::mix(&v105, &v102, v94, a3);
+            RB::Fill::Color::mix(a3, &v105, &v102, v94);
           }
 
           goto LABEL_59;
@@ -7712,7 +7842,7 @@ LABEL_59:
     ++v59;
     ++v60;
 LABEL_60:
-    RB::Fill::Color::mix(&v99, &v96, 0, v95);
+    RB::Fill::Color::mix(v95, &v99, &v96, 0);
     v86 = *(&v99 + 3) == COERCE_SHORT_FLOAT(COERCE_UNSIGNED_INT(1.0));
     v87 = *&v112 + 1;
     if (*&v112 != -1 && v113 < v87)
@@ -7931,7 +8061,7 @@ unint64_t RB::Fill::Gradient::sample(RB::Fill::Gradient *this, float a2, double 
         v18 = *v12;
         v19 = 0;
         v20 = 0;
-        RB::Fill::Color::mix(&v21, &v18, (0x3010200u >> ((*(this + 13) >> 3) & 0x18)) & 3, v11);
+        RB::Fill::Color::mix(v11, &v21, &v18, (0x3010200u >> ((*(this + 13) >> 3) & 0x18)) & 3);
         v13 = v21;
         goto LABEL_10;
       }
@@ -8042,7 +8172,7 @@ void RB::Fill::anonymous namespace::subdivide_cubic_stops(uint64_t a1, uint64_t 
 {
   v9 = a5;
   a6.i64[0] = 0;
-  RB::ColorSpace::Conversion::Conversion(v68, a4, a5, a6, 0.0);
+  RB::ColorSpace::Conversion::Conversion(v69, a4, a5, a6, 0.0);
   if (a1)
   {
     v10 = 0;
@@ -8054,91 +8184,91 @@ void RB::Fill::anonymous namespace::subdivide_cubic_stops(uint64_t a1, uint64_t 
     do
     {
       v19 = a2 + 16 * v10;
-      if (v10 < a1 - 1 && (v20 = *(v19 + 8), v21 = *(v19 + 24), v21 > v20) && (v22.i32[0] = *(v19 + 12), v22.i32[1] = *(v19 + 13), v23 = vmul_f32(vcvt_f32_u32(v22), v13), v22.i32[0] = *(v19 + 14), v22.i32[1] = *(v19 + 15), v24 = vorn_s8(vmvn_s8(vceq_f32(vmul_f32(vcvt_f32_u32(v22), v13), _D8)), vceqz_f32(v23)), (vpmax_u32(v24, v24).u32[0] & 0x80000000) != 0))
+      if (v10 < a1 - 1 && (v20 = *(v19 + 8), v21 = *(v19 + 24), v21 > v20) && (v22.i32[0] = *(v19 + 12), v22.i32[1] = *(v19 + 13), v23 = vmul_f32(vcvt_f32_u32(v22), v13), v22.i32[0] = *(v19 + 14), v22.i32[1] = *(v19 + 15), v24 = vmul_f32(vcvt_f32_u32(v22), v13), v25 = vorn_s8(vmvn_s8(vceq_f32(v24, *&_D8)), vceqz_f32(v23)), (vpmax_u32(v25, v25).u32[0] & 0x80000000) != 0))
       {
-        _ZN2RB13CubicIteratorIDv2_fEC1ES1_S1_S1_S1_i(&v64, 8, 0);
-        v57 = HIWORD(*v19);
-        *v27.f32 = RB::ColorSpace::Conversion::operator()(v68, *v19);
-        v49 = v27;
-        v55 = HIWORD(*(v19 + 16));
-        v28 = RB::ColorSpace::Conversion::operator()(v68, *(v19 + 16));
-        v28.i16[3] = v55;
-        v61 = v28;
-        v62 = 0;
-        v63 = v12;
-        v32 = v21 - v20;
-        v33 = v20 + (v64.f32[0] * (v21 - v20));
-        v26 = v11 + 4;
-        v34 = v49;
-        v34.i16[3] = v57;
-        v50 = v34;
-        v35 = (a3 + 12 + 16 * v11);
-        v36 = 4;
+        _ZN2RB13CubicIteratorIDv2_fEC1ES1_S1_S1_S1_i(&v65, 8, 0.0, *&v23, *&v24, _D8);
+        v58 = HIWORD(*v19);
+        *v28.f32 = RB::ColorSpace::Conversion::operator()(v69, *v19);
+        v50 = v28;
+        v56 = HIWORD(*(v19 + 16));
+        v29 = RB::ColorSpace::Conversion::operator()(v69, *(v19 + 16));
+        v29.i16[3] = v56;
+        v62 = v29;
+        v63 = 0;
+        v64 = v12;
+        v33 = v21 - v20;
+        v34 = v20 + (v65.f32[0] * (v21 - v20));
+        v27 = v11 + 4;
+        v35 = v50;
+        v35.i16[3] = v58;
+        v51 = v35;
+        v36 = (a3 + 12 + 16 * v11);
+        v37 = 4;
         do
         {
-          *&v30 = v64;
-          *&v29 = v65;
-          v56 = vadd_f32(v65, v64);
-          v52 = v29;
+          *&v31 = v65;
+          *&v30 = v66;
+          v57 = vadd_f32(v66, v65);
           v53 = v30;
-          *&v29 = vadd_f32(v66, v65);
-          v37 = vadd_f32(v67, v66);
-          *&v31 = vadd_f32(*&v29, v56);
           v54 = v31;
-          v51 = v29;
-          v64 = v31;
-          v65 = vadd_f32(v37, *&v29);
-          v66 = vadd_f32(v37, v67);
-          v38 = v50;
-          v58 = v50.i64[0];
-          v59 = 0;
-          v60 = v12;
-          v39 = *(&v30 + 1);
-          v38.i32[0] = DWORD1(v30);
-          RB::Fill::Color::mix(&v58, &v61, 0, v38);
-          *(&v31 + 1) = *(&v54 + 1);
-          *(v35 - 3) = v58;
-          *(v35 - 1) = v33;
-          v40 = (*(&v54 + 1) - v39) * 0.5;
-          if ((v40 + v39) >= v56.f32[1])
+          *&v30 = vadd_f32(v67, v66);
+          v38 = vadd_f32(v68, v67);
+          *&v32 = vadd_f32(*&v30, v57);
+          v55 = v32;
+          v52 = v30;
+          v65 = v32;
+          v66 = vadd_f32(v38, *&v30);
+          v67 = vadd_f32(v38, v68);
+          v39 = v51;
+          v59 = v51.i64[0];
+          v60 = 0;
+          v61 = v12;
+          v40 = *(&v31 + 1);
+          v39.i32[0] = DWORD1(v31);
+          RB::Fill::Color::mix(v39, &v59, &v62, 0);
+          *(&v32 + 1) = *(&v55 + 1);
+          *(v36 - 3) = v59;
+          *(v36 - 1) = v34;
+          v41 = (*(&v55 + 1) - v40) * 0.5;
+          if ((v41 + v40) >= v57.f32[1])
           {
-            v44 = vrecpe_f32(COERCE_UNSIGNED_INT(*(&v54 + 1) - v56.f32[1]));
-            v45 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT(*(&v54 + 1) - v56.f32[1]), v44), v44);
-            *(&v29 + 1) = *(&v51 + 1);
-            v43 = v56.f32[0] + ((((v40 + v39) - v56.f32[1]) * *&v51) * vmul_f32(v45, vrecps_f32(COERCE_UNSIGNED_INT(*(&v54 + 1) - v56.f32[1]), v45)).f32[0]);
+            v45 = vrecpe_f32(COERCE_UNSIGNED_INT(*(&v55 + 1) - v57.f32[1]));
+            v46 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT(*(&v55 + 1) - v57.f32[1]), v45), v45);
+            *(&v30 + 1) = *(&v52 + 1);
+            v44 = v57.f32[0] + ((((v41 + v40) - v57.f32[1]) * *&v52) * vmul_f32(v46, vrecps_f32(COERCE_UNSIGNED_INT(*(&v55 + 1) - v57.f32[1]), v46)).f32[0]);
           }
 
           else
           {
-            v41 = vrecpe_f32(COERCE_UNSIGNED_INT(v56.f32[1] - v39));
-            v42 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT(v56.f32[1] - v39), v41), v41);
-            *(&v30 + 1) = *(&v52 + 1);
-            *(&v29 + 1) = *(&v53 + 1);
-            v43 = *&v53 + ((v40 * *&v52) * vmul_f32(v42, vrecps_f32(COERCE_UNSIGNED_INT(v56.f32[1] - v39), v42)).f32[0]);
+            v42 = vrecpe_f32(COERCE_UNSIGNED_INT(v57.f32[1] - v40));
+            v43 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT(v57.f32[1] - v40), v42), v42);
+            *(&v31 + 1) = *(&v53 + 1);
+            *(&v30 + 1) = *(&v54 + 1);
+            v44 = *&v54 + ((v41 * *&v53) * vmul_f32(v43, vrecps_f32(COERCE_UNSIGNED_INT(v57.f32[1] - v40), v43)).f32[0]);
           }
 
-          v46 = v20 + (*&v54 * v32);
-          v47 = vrecpe_f32(COERCE_UNSIGNED_INT(v46 - v33));
-          v48 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT(v46 - v33), v47), v47);
-          *v35 = ((v20 - v33) + (v43 * v32)) * vmul_f32(v48, vrecps_f32(COERCE_UNSIGNED_INT(v46 - v33), v48)).f32[0];
-          v35 += 4;
-          v33 = v46;
-          --v36;
+          v47 = v20 + (*&v55 * v33);
+          v48 = vrecpe_f32(COERCE_UNSIGNED_INT(v47 - v34));
+          v49 = vmul_f32(vrecps_f32(COERCE_UNSIGNED_INT(v47 - v34), v48), v48);
+          *v36 = ((v20 - v34) + (v44 * v33)) * vmul_f32(v49, vrecps_f32(COERCE_UNSIGNED_INT(v47 - v34), v49)).f32[0];
+          v36 += 4;
+          v34 = v47;
+          --v37;
         }
 
-        while (v36);
+        while (v37);
       }
 
       else
       {
-        v25 = a3 + 16 * v11;
-        *v25 = *v19;
-        *(v25 + 12) = 1056964608;
-        v26 = v11 + 1;
+        v26 = a3 + 16 * v11;
+        *v26 = *v19;
+        *(v26 + 12) = 1056964608;
+        v27 = v11 + 1;
       }
 
       ++v10;
-      v11 = v26;
+      v11 = v27;
     }
 
     while (v10 != a1);
@@ -8188,131 +8318,131 @@ float RB::Fill::Gradient::angular_location_function(RB::Fill::Gradient *this)
   return v10 - v9;
 }
 
-void RB::Fill::Gradient::set_gradient_color(RB::Shader::GradientGlobals::Color &,float,RB::RenderPass &)const::$_1::operator()(uint64_t *a1, float16x4_t *a2, uint64_t a3, float16x4_t *a4)
+void RB::Fill::Gradient::set_gradient_color(RB::Shader::GradientGlobals::Color &,float,RB::RenderPass &)const::$_1::operator()(uint64_t *a1, float16x4_t *a2, uint64_t a3, float16x4_t *a4, __n128 a5)
 {
-  v6 = a2;
-  v8 = a1[1];
-  if (v8)
+  v7 = a2;
+  v9 = a1[1];
+  if (v9)
   {
-    v9 = 0;
     v10 = 0;
-    v11 = a2 + 2;
+    v11 = 0;
+    v12 = a2 + 2;
     do
     {
-      v12 = *a1;
-      v43 = HIWORD(*(a1[2] + v9));
-      v13 = RB::ColorSpace::Conversion::operator()(*(*a1 + 8), *(a1[2] + v9));
-      v13.i16[3] = v43;
-      if (*(v12 + 16) == 1)
+      v13 = *a1;
+      v44 = HIWORD(*(a1[2] + v10));
+      v14 = RB::ColorSpace::Conversion::operator()(*(*a1 + 8), *(a1[2] + v10));
+      v14.i16[3] = v44;
+      if (*(v13 + 16) == 1)
       {
-        *v45[0].f32 = v13;
-        v45[0].i32[2] = 0;
-        v45[0].i16[6] = 0;
-        RB::Fill::Color::convert_to_oklab(v45);
-        v13 = *v45[0].f32;
+        *v46[0].f32 = v14;
+        v46[0].i32[2] = 0;
+        v46[0].i16[6] = 0;
+        RB::Fill::Color::convert_to_oklab(v46);
+        v14 = *v46[0].f32;
       }
 
-      _H1 = v13.i16[3];
+      _H1 = v14.i16[3];
       __asm { FCVT            S1, H1 }
 
-      _S1 = *v12 * _S1;
+      _S1 = *v13 * _S1;
       __asm { FCVT            H1, S1 }
 
-      v21 = vmul_n_f16(v13, *&_S1);
-      *(v11 - 1) = v21.i32[0];
-      *v11 = v21.i16[2];
-      v11[1] = LOWORD(_S1);
-      ++v10;
-      v8 = a1[1];
-      v9 += 16;
-      v11 = (v11 + a3);
+      v22 = vmul_n_f16(v14, *&_S1);
+      *(v12 - 1) = v22.i32[0];
+      *v12 = v22.i16[2];
+      v12[1] = LOWORD(_S1);
+      ++v11;
+      v9 = a1[1];
+      v10 += 16;
+      v12 = (v12 + a3);
     }
 
-    while (v10 < v8);
+    while (v11 < v9);
   }
 
-  v22 = *a1;
-  v42 = HIDWORD(*(a1[2] + 16 * v8));
-  v23 = RB::ColorSpace::Conversion::operator()(*(*a1 + 8), *(a1[2] + 16 * v8));
-  if (*(v22 + 16) == 1)
+  v23 = *a1;
+  v43 = HIDWORD(*(a1[2] + 16 * v9));
+  v24 = RB::ColorSpace::Conversion::operator()(*(*a1 + 8), *(a1[2] + 16 * v9));
+  if (*(v23 + 16) == 1)
   {
-    v23.i16[3] = HIWORD(v42);
-    *v45[0].f32 = v23;
-    v45[0].i32[2] = 0;
-    v45[0].i16[6] = 0;
-    RB::Fill::Color::convert_to_oklab(v45);
-    v23 = *v45[0].f32;
+    v24.i16[3] = HIWORD(v43);
+    *v46[0].f32 = v24;
+    v46[0].i32[2] = 0;
+    v46[0].i16[6] = 0;
+    RB::Fill::Color::convert_to_oklab(v46);
+    v24 = *v46[0].f32;
   }
 
   else
   {
-    v25.i32[1] = v42;
-    v23.i16[3] = HIWORD(v42);
+    v26.i32[1] = v43;
+    v24.i16[3] = HIWORD(v43);
   }
 
-  _H1 = v23.i16[3];
+  _H1 = v24.i16[3];
   __asm { FCVT            S1, H1 }
 
-  _S1 = *v22 * _S1;
+  _S1 = *v23 * _S1;
   __asm { FCVT            H1, S1 }
 
-  v29 = vmul_n_f16(v23, *&_S1);
-  v29.i16[3] = LOWORD(_S1);
-  v41 = v29;
-  v30 = a1[1];
-  if (v30)
+  v30 = vmul_n_f16(v24, *&_S1);
+  v30.i16[3] = LOWORD(_S1);
+  v42 = v30;
+  v31 = a1[1];
+  if (v31)
   {
-    v31 = 0;
-    v25.i32[0] = 2;
-    v24.i32[0] = a1[3] & 7;
-    v32 = vdup_lane_s32(vceq_s32(v24, v25), 0);
+    v32 = 0;
+    v26.i32[0] = 2;
+    v25.i32[0] = a1[3] & 7;
+    v33 = vdup_lane_s32(vceq_s32(v25, v26), 0);
     do
     {
-      v33 = v31 + 1;
-      v34 = v41;
-      if (v31 + 1 < v30)
+      v34 = v32 + 1;
+      v35 = v42;
+      if (v32 + 1 < v31)
       {
-        v34 = *(v6 + a3);
+        v35 = *(v7 + a3);
       }
 
-      v35 = *v6;
-      if (v31)
+      v36 = *v7;
+      if (v32)
       {
-        v36 = *(v6 - a3);
+        v37 = *(v7 - a3);
       }
 
       else
       {
-        v36 = COERCE_DOUBLE(vbsl_s8(v32, v34, v35));
+        v37 = COERCE_DOUBLE(vbsl_s8(v33, v35, v36));
       }
 
-      v45[0] = v37;
-      v45[1] = v38;
-      v45[2] = v39;
-      v45[3] = v40;
-      v44[0] = v6;
-      v44[1] = v6 + 1;
-      v44[2] = v6 + 2;
-      v44[3] = v6 + 3;
-      _ZNSt3__127__memberwise_forward_assignB8nn200100INS_5tupleIJRN2RB12packed_half4ES4_S4_S4_EEENS1_IJDv4_fS6_S6_S6_EEEJS6_S6_S6_S6_EJLm0ELm1ELm2ELm3EEEEvRT_OT0_NS_13__tuple_typesIJDpT1_EEENS_15__tuple_indicesIJXspT2_EEEE(v44, v45);
-      v30 = a1[1];
-      v6 = (v6 + a3);
-      v31 = v33;
+      v46[0] = v38;
+      v46[1] = v39;
+      v46[2] = v40;
+      v46[3] = v41;
+      v45[0] = v7;
+      v45[1] = v7 + 1;
+      v45[2] = v7 + 2;
+      v45[3] = v7 + 3;
+      _ZNSt3__127__memberwise_forward_assignB8nn200100INS_5tupleIJRN2RB12packed_half4ES4_S4_S4_EEENS1_IJDv4_fS6_S6_S6_EEEJS6_S6_S6_S6_EJLm0ELm1ELm2ELm3EEEEvRT_OT0_NS_13__tuple_typesIJDpT1_EEENS_15__tuple_indicesIJXspT2_EEEE(v45, v46);
+      v31 = a1[1];
+      v7 = (v7 + a3);
+      v32 = v34;
     }
 
-    while (v33 < v30);
+    while (v34 < v31);
   }
 
   if (a4)
   {
-    *a4 = v41;
+    *a4 = v42;
   }
 }
 
 void RB::Fill::Gradient::fill(float32x2_t *a1, RB::CGContext *a2, float32x4_t a3)
 {
   v3 = a1;
-  v128 = *MEMORY[0x1E69E9840];
+  v127 = *MEMORY[0x1E69E9840];
   v5 = *a1;
   v4 = a1[1];
   v6 = a1[6].u32[1];
@@ -8328,8 +8458,8 @@ void RB::Fill::Gradient::fill(float32x2_t *a1, RB::CGContext *a2, float32x4_t a3
   }
 
   v9 = *v8;
-  v111 = a2;
-  v113 = a1;
+  v110 = a2;
+  v112 = a1;
   if (v5 >= 2)
   {
     if ((v6 & 0xF00) != 0x400)
@@ -8337,205 +8467,205 @@ void RB::Fill::Gradient::fill(float32x2_t *a1, RB::CGContext *a2, float32x4_t a3
       if ((v6 & 0xF00) == 0x200)
       {
         v10 = a2 + 8;
-        if (v11 == v5 || (v13 = v11, v11 >> 60))
+        if (v11 == v5 || (v12 = v11, v11 >> 60))
         {
+          v13 = 0;
           v14 = 0;
-          v15 = 0;
           v6 = 0;
 LABEL_111:
           x = *&v10;
           goto LABEL_11;
         }
 
-        v105 = 16 * v11;
-        v15 = 16 * v11 > 0x1000;
+        v104 = 16 * v11;
+        v14 = 16 * v11 > 0x1000;
         if (16 * v11 > 0x1000)
         {
-          v106 = malloc_type_malloc(16 * v11, 0x1000040451B5BE8uLL);
-          if (!v106)
+          v105 = malloc_type_malloc(16 * v11, 0x1000040451B5BE8uLL);
+          if (!v105)
           {
-            v14 = 0;
+            v13 = 0;
             v6 = 0;
-            v15 = 1;
+            v14 = 1;
 LABEL_110:
-            v3 = v113;
+            v3 = v112;
             goto LABEL_111;
           }
         }
 
         else
         {
-          MEMORY[0x1EEE9AC00](v11, v12);
-          v106 = &v110 - ((v105 + 15) & 0xFFFFFFFFFFFFFFF0);
-          bzero(v106, 16 * v13);
+          MEMORY[0x1EEE9AC00](v11);
+          v105 = &v109 - ((v104 + 15) & 0xFFFFFFFFFFFFFFF0);
+          bzero(v105, 16 * v12);
         }
 
         v9 = *v10;
         v6 = 65792;
-        v5 = v13;
-        v4 = v106;
-        v14 = v106;
+        v5 = v12;
+        v4 = v105;
+        v13 = v105;
         goto LABEL_110;
       }
 
       goto LABEL_10;
     }
 
-    v99 = 0;
-    v100 = v4[2];
-    v101 = v5 - 1;
-    v102 = 6;
+    v98 = 0;
+    v99 = v4[2];
+    v100 = v5 - 1;
+    v101 = 6;
     do
     {
-      v103 = v4[v102];
-      if (v103 <= v100)
+      v102 = v4[v101];
+      if (v102 <= v99)
       {
-        ++v99;
+        ++v98;
       }
 
       else
       {
-        v99 += 16;
+        v98 += 16;
       }
 
-      v102 += 4;
-      v100 = v103;
-      --v101;
+      v101 += 4;
+      v99 = v102;
+      --v100;
     }
 
-    while (v101);
-    v104 = v99 + 1;
-    if (v99 + 1 == v5 || v104 >> 60)
+    while (v100);
+    v103 = v98 + 1;
+    if (v98 + 1 == v5 || v103 >> 60)
     {
+      v13 = 0;
       v14 = 0;
-      v15 = 0;
       v6 = 0;
       goto LABEL_11;
     }
 
-    *&v115.x = a2 + 8;
-    v15 = 16 * v104 > 0x1000;
-    if (16 * v104 > 0x1000)
+    *&v114.x = a2 + 8;
+    v14 = 16 * v103 > 0x1000;
+    if (16 * v103 > 0x1000)
     {
-      v107 = malloc_type_malloc(16 * v104, 0x1000040451B5BE8uLL);
-      if (!v107)
+      v106 = malloc_type_malloc(16 * v103, 0x1000040451B5BE8uLL);
+      if (!v106)
       {
-        v14 = 0;
+        v13 = 0;
         v6 = 0;
-        v15 = 1;
+        v14 = 1;
         goto LABEL_115;
       }
     }
 
     else
     {
-      MEMORY[0x1EEE9AC00](a1, a2);
-      v107 = &v110 - ((16 * v104 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v107, 16 * v104);
+      MEMORY[0x1EEE9AC00](a1);
+      v106 = &v109 - ((16 * v103 + 15) & 0xFFFFFFFFFFFFFFF0);
+      bzero(v106, 16 * v103);
     }
 
-    v108 = **&v115.x;
-    v110 = v107;
+    v107 = **&v114.x;
+    v109 = v106;
     v6 = 0;
-    if (v109)
+    if (v108)
     {
-      x = v115.x;
-      v9 = **&v115.x;
-      v5 = v104;
-      v14 = v110;
-      v4 = v110;
+      x = v114.x;
+      v9 = **&v114.x;
+      v5 = v103;
+      v13 = v109;
+      v4 = v109;
       goto LABEL_11;
     }
 
-    v14 = v110;
+    v13 = v109;
 LABEL_115:
-    x = v115.x;
+    x = v114.x;
     goto LABEL_11;
   }
 
 LABEL_10:
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
 LABEL_11:
-  v114.i32[0] = v3[6].i32[1];
-  v16 = (v114.i32[0] >> 3) & 0x18;
+  v113.i32[0] = v3[6].i32[1];
+  v15 = (v113.i32[0] >> 3) & 0x18;
+  v123 = 0;
   v124 = 0;
   v125 = 0;
-  v126 = 0;
+  v120 = 0;
   v121 = 0;
   v122 = 0;
-  v123 = 0;
-  v119[0] = &v124;
-  v119[1] = &v121;
-  v120 = **&x;
-  v17 = v3[7].u8[0];
-  v110 = v14;
-  v112 = v15;
-  if (v17 == 4)
+  v118[0] = &v123;
+  v118[1] = &v120;
+  v119 = **&x;
+  v16 = v3[7].u8[0];
+  v109 = v13;
+  v111 = v14;
+  if (v16 == 4)
   {
-    v18 = RB::Fill::Gradient::angular_location_function(v3);
-    v20 = v19;
+    v17 = RB::Fill::Gradient::angular_location_function(v3);
+    v19 = v18;
   }
 
   else
   {
-    v20 = 0.0;
-    v18 = 1.0;
+    v19 = 0.0;
+    v17 = 1.0;
   }
 
-  LODWORD(v115.x) = 0x3010200u >> v16;
+  LODWORD(v114.x) = 0x3010200u >> v15;
   if (!v5)
   {
     goto LABEL_49;
   }
 
-  v21 = 0;
-  v22 = v9 | 0x100;
-  v23 = v5 - 2;
-  v24 = v6 & 0xF00;
+  v20 = 0;
+  v21 = v9 | 0x100;
+  v22 = v5 - 2;
+  v23 = v6 & 0xF00;
   for (i = 1; ; ++i)
   {
-    v26 = i - 1;
-    if (v18 <= 0.0)
+    v25 = i - 1;
+    if (v17 <= 0.0)
     {
-      v26 = v5 + v21 - 1;
+      v25 = v5 + v20 - 1;
     }
 
-    v27 = &v4[4 * v26];
-    v28 = v27[2] * v18;
-    a3.f32[0] = v28 + v20;
-    v29 = *v27;
-    *&v127[0].a = v28 + v20;
-    *(&v127[0].a + 4) = v29;
-    HIDWORD(v127[0].b) = 0;
-    LOWORD(v127[0].c) = v22;
-    if ((v28 + v20) >= 0.0)
+    v26 = &v4[4 * v25];
+    v27 = v26[2] * v17;
+    a3.f32[0] = v27 + v19;
+    v28 = *v26;
+    *&v126[0].a = v27 + v19;
+    *(&v126[0].a + 4) = v28;
+    HIDWORD(v126[0].b) = 0;
+    LOWORD(v126[0].c) = v21;
+    if ((v27 + v19) >= 0.0)
     {
       if (a3.f32[0] > 1.0)
       {
         if (i != 1)
         {
-          v34 = i - 2;
-          if (v18 <= 0.0)
+          v33 = i - 2;
+          if (v17 <= 0.0)
           {
-            v34 = v5 + v21;
+            v33 = v5 + v20;
           }
 
-          v35 = &v4[4 * v34];
-          a3.f32[0] = v35[2] * v18;
-          v36 = *v35;
-          *&v117 = a3.f32[0] + v20;
-          *(&v117 + 4) = v36;
-          HIDWORD(v117) = 0;
-          v118 = v22;
-          if ((a3.f32[0] + v20) <= 1.0)
+          v34 = &v4[4 * v33];
+          a3.f32[0] = v34[2] * v17;
+          v35 = *v34;
+          *&v116 = a3.f32[0] + v19;
+          *(&v116 + 4) = v35;
+          HIDWORD(v116) = 0;
+          v117 = v21;
+          if ((a3.f32[0] + v19) <= 1.0)
           {
-            a3.f32[0] = (((a3.f32[0] + v20) - 1.0) / (v28 - a3.f32[0])) + 1.0;
-            RB::Fill::Color::mix(&v127[0].a + 4, &v117 + 4, LOBYTE(v115.x), a3);
+            a3.f32[0] = (((a3.f32[0] + v19) - 1.0) / (v27 - a3.f32[0])) + 1.0;
+            RB::Fill::Color::mix(a3, &v126[0].a + 4, &v116 + 4, LOBYTE(v114.x));
           }
         }
 
-        LODWORD(v127[0].a) = 1065353216;
+        LODWORD(v126[0].a) = 1065353216;
         a3.i32[0] = 1.0;
       }
     }
@@ -8544,46 +8674,46 @@ LABEL_11:
     {
       if (i < v5)
       {
-        v30 = v5 + v21 - 2;
-        if (v18 > 0.0)
+        v29 = v5 + v20 - 2;
+        if (v17 > 0.0)
         {
-          v30 = i;
+          v29 = i;
         }
 
-        v31 = &v4[4 * v30];
-        v32 = v31[2] * v18;
-        v33 = *v31;
-        *&v117 = v32 + v20;
-        *(&v117 + 4) = v33;
-        HIDWORD(v117) = 0;
-        v118 = v22;
-        if ((v32 + v20) >= 0.0)
+        v30 = &v4[4 * v29];
+        v31 = v30[2] * v17;
+        v32 = *v30;
+        *&v116 = v31 + v19;
+        *(&v116 + 4) = v32;
+        HIDWORD(v116) = 0;
+        v117 = v21;
+        if ((v31 + v19) >= 0.0)
         {
-          a3.f32[0] = a3.f32[0] / (v28 - v32);
-          RB::Fill::Color::mix(&v127[0].a + 4, &v117 + 4, LOBYTE(v115.x), a3);
+          a3.f32[0] = a3.f32[0] / (v27 - v31);
+          RB::Fill::Color::mix(a3, &v126[0].a + 4, &v116 + 4, LOBYTE(v114.x));
         }
       }
 
-      LODWORD(v127[0].a) = 0;
+      LODWORD(v126[0].a) = 0;
       a3.i64[0] = 0;
     }
 
-    v6 = v6 & 0xFFFF000000000000 | HIDWORD(v127[0].b) | (LOWORD(v127[0].c) << 32);
-    *a3.i64 = RB::Fill::Gradient::fill(RB::CGContext &,RB::Bounds)const::$_0::operator()(v119, *(&v127[0].a + 4), v6, a3);
-    if (v24 != 256 || i >= v5)
+    v6 = v6 & 0xFFFF000000000000 | HIDWORD(v126[0].b) | (LOWORD(v126[0].c) << 32);
+    *a3.i64 = RB::Fill::Gradient::fill(RB::CGContext &,RB::Bounds)const::$_0::operator()(v118, *(&v126[0].a + 4), v6, a3);
+    if (v23 != 256 || i >= v5)
     {
       break;
     }
 
-    a3.i32[0] = LODWORD(v127[0].a);
-    *a3.i64 = RB::Fill::Gradient::fill(RB::CGContext &,RB::Bounds)const::$_0::operator()(v119, 0, 0, a3);
+    a3.i32[0] = LODWORD(v126[0].a);
+    *a3.i64 = RB::Fill::Gradient::fill(RB::CGContext &,RB::Bounds)const::$_0::operator()(v118, 0, 0, a3);
     if (v5 == i)
     {
       goto LABEL_40;
     }
 
 LABEL_37:
-    --v21;
+    --v20;
   }
 
   if (v5 != i)
@@ -8591,280 +8721,280 @@ LABEL_37:
     goto LABEL_37;
   }
 
-  if (v24 != 256 || v5 == 1)
+  if (v23 != 256 || v5 == 1)
   {
     goto LABEL_49;
   }
 
 LABEL_40:
-  v37 = v5 - 1;
-  if (v18 > 0.0)
+  v36 = v5 - 1;
+  if (v17 > 0.0)
   {
-    v37 = 0;
+    v36 = 0;
   }
 
-  v38 = v20 + (v4[4 * v37 + 2] * v18);
-  v39 = v121 + 1;
-  v40 = (v124 + 6);
-  v41 = 1;
+  v37 = v19 + (v4[4 * v36 + 2] * v17);
+  v38 = v120 + 1;
+  v39 = (v123 + 6);
+  v40 = 1;
   __asm { FMOV            V0.2D, #0.5 }
 
   do
   {
-    v47 = v41 - 1;
-    if (v18 <= 0.0)
+    v46 = v40 - 1;
+    if (v17 <= 0.0)
     {
-      v48 = v23;
+      v47 = v22;
     }
 
     else
     {
-      v48 = v41;
+      v47 = v40;
     }
 
-    if (v18 <= 0.0)
+    if (v17 <= 0.0)
     {
-      v47 = v23 + 1;
+      v46 = v22 + 1;
     }
 
-    v49 = v20 + (v4[4 * v48 + 2] * v18);
-    *v39 = (v38 + ((v49 - v38) * v4[4 * v47 + 3]));
-    v39 += 2;
-    v50 = vmlaq_f64(v40[-2], _Q0, vsubq_f64(v40[2], v40[-2]));
-    v40[-1] = vmlaq_f64(v40[-3], _Q0, vsubq_f64(v40[1], v40[-3]));
-    *v40 = v50;
-    --v23;
-    v40 += 4;
-    ++v41;
-    v38 = v49;
+    v48 = v19 + (v4[4 * v47 + 2] * v17);
+    *v38 = (v37 + ((v48 - v37) * v4[4 * v46 + 3]));
+    v38 += 2;
+    v49 = vmlaq_f64(v39[-2], _Q0, vsubq_f64(v39[2], v39[-2]));
+    v39[-1] = vmlaq_f64(v39[-3], _Q0, vsubq_f64(v39[1], v39[-3]));
+    *v39 = v49;
+    --v22;
+    v39 += 4;
+    ++v40;
+    v37 = v48;
   }
 
-  while (v41 != v5);
+  while (v40 != v5);
 LABEL_49:
-  if ((v114.i8[0] & 0x40) != 0)
+  if ((v113.i8[0] & 0x40) != 0)
   {
-    v51 = v124;
-    v125 = 0;
-    v126 = 0;
-    v123 = 0;
+    v50 = v123;
     v124 = 0;
-    v53 = v121;
-    v52 = v122;
-    v121 = 0;
+    v125 = 0;
     v122 = 0;
-    if (v52)
+    v123 = 0;
+    v52 = v120;
+    v51 = v121;
+    v120 = 0;
+    v121 = 0;
+    if (v51)
     {
-      v54 = 1;
-      v55.i64[1] = 48;
-      v114 = xmmword_195E44460;
-      v56 = v51;
-      v57 = v53;
-      v58 = v52;
+      v53 = 1;
+      v54.i64[1] = 48;
+      v113 = xmmword_195E44460;
+      v55 = v50;
+      v56 = v52;
+      v57 = v51;
       do
       {
-        if (v54 >= v52)
+        if (v53 >= v51)
         {
-          v55.i64[0] = *v57;
-          v55.f32[0] = *v57;
-          _D1 = *v56;
-          _D2 = *(v56 + 1);
+          v54.i64[0] = *v56;
+          v54.f32[0] = *v56;
+          _D1 = *v55;
+          _D2 = *(v55 + 1);
           __asm
           {
             FCVT            H2, D2
             FCVT            H1, D1
           }
 
-          v64 = _D1;
-          v65 = _D2;
-          v66 = *(v56 + 2);
-          *v66.f32 = vcvtx_f32_f64(v66);
-          v66.i64[0] = vmovl_u16(vcvt_f16_f32(v66)).u64[0];
-          v67.i64[0] = v66.u32[0];
-          v67.i64[1] = v66.u32[1];
-          v68.i64[0] = 0xFFFFLL;
-          v68.i64[1] = 0xFFFFLL;
-          v69 = vshlq_u64(vandq_s8(v67, v68), v114);
+          v63 = _D1;
+          v64 = _D2;
+          v65 = *(v55 + 2);
+          *&v65.f64[0] = vcvtx_f32_f64(v65);
+          *&v65.f64[0] = vmovl_u16(vcvt_f16_f32(v65)).u64[0];
+          v66.i64[0] = LODWORD(v65.f64[0]);
+          v66.i64[1] = HIDWORD(v65.f64[0]);
+          v67.i64[0] = 0xFFFFLL;
+          v67.i64[1] = 0xFFFFLL;
+          v68 = vshlq_u64(vandq_s8(v66, v67), v113);
           v6 = v6 & 0xFFFF000000000000 | (**&x << 32) | 0x10000000000;
-          RB::Fill::Gradient::fill(RB::CGContext &,RB::Bounds)const::$_0::operator()(v119, vorrq_s8(vdupq_laneq_s64(v69, 1), v69).u64[0] | (v65 << 16) | v64, v6, v55);
+          RB::Fill::Gradient::fill(RB::CGContext &,RB::Bounds)const::$_0::operator()(v118, vorrq_s8(vdupq_laneq_s64(v68, 1), v68).u64[0] | (v64 << 16) | v63, v6, v54);
         }
 
         else
         {
-          v59 = **&x | 0x100;
-          *&v127[0].a = vcvt_f16_f32(vcvtx_hight_f32_f64(vcvtx_f32_f64(*v56), *(v56 + 2)));
-          LODWORD(v127[0].b) = 0;
-          WORD2(v127[0].b) = v59;
-          v60 = *(v56 + 6);
-          *&v117 = vcvt_f16_f32(vcvtx_hight_f32_f64(vcvtx_f32_f64(*(v56 + 4)), v60));
-          DWORD2(v117) = 0;
-          WORD6(v117) = v59;
-          v60.i64[0] = *v57;
-          v60.f32[0] = *v57;
-          v61 = v57[1];
+          v58 = **&x | 0x100;
+          *&v126[0].a = vcvt_f16_f32(vcvtx_hight_f32_f64(vcvtx_f32_f64(*v55), *(v55 + 2)));
+          LODWORD(v126[0].b) = 0;
+          WORD2(v126[0].b) = v58;
+          v59 = *(v55 + 6);
+          *&v116 = vcvt_f16_f32(vcvtx_hight_f32_f64(vcvtx_f32_f64(*(v55 + 4)), v59));
+          DWORD2(v116) = 0;
+          WORD6(v116) = v58;
+          v59.f64[0] = *v56;
+          *v59.f64 = *v56;
+          v60 = v56[1];
         }
 
-        ++v54;
-        ++v57;
-        v56 += 4;
-        --v58;
+        ++v53;
+        ++v56;
+        v55 += 4;
+        --v57;
       }
 
-      while (v58);
+      while (v57);
 LABEL_58:
-      free(v53);
+      free(v52);
     }
 
-    else if (v53)
+    else if (v52)
     {
       goto LABEL_58;
     }
 
-    if (v51)
+    if (v50)
     {
-      free(v51);
+      free(v50);
     }
   }
 
-  v70 = v111;
-  v71 = RB::CGContext::printing_context(v111);
-  LOBYTE(v127[0].a) = **&x;
-  v72 = RB::ColorSpace::cg_color_space(v127, !v71);
-  v73 = v113;
-  v74 = v112;
-  v75 = CGGradientCreateWithColorComponents(v72, v124, v121, v122);
-  if (v73[2])
+  v69 = v110;
+  v70 = RB::CGContext::printing_context(v110);
+  LOBYTE(v126[0].a) = **&x;
+  v71 = RB::ColorSpace::cg_color_space(v126, !v70);
+  v72 = v112;
+  v73 = v111;
+  v74 = CGGradientCreateWithColorComponents(v71, v123, v120, v121);
+  if (v72[2])
   {
-    RB::CGContext::save(v70);
-    v76 = *v70;
-    v77 = v73[2];
-    v78 = v77[1];
-    *&v127[0].a = *v77;
-    *&v127[0].c = v78;
-    *&v127[0].tx = v77[2];
-    CGContextConcatCTM(v76, v127);
+    RB::CGContext::save(v69);
+    v75 = *v69;
+    v76 = v72[2];
+    v77 = v76[1];
+    *&v126[0].a = *v76;
+    *&v126[0].c = v77;
+    *&v126[0].tx = v76[2];
+    CGContextConcatCTM(v75, v126);
   }
 
-  v79 = v73[7].u8[0];
-  if (v79 > 1)
+  v78 = v72[7].u8[0];
+  if (v78 > 1)
   {
-    if (v79 == 2)
+    if (v78 == 2)
     {
-      v85 = v73[5].f32[0];
+      v84 = v72[5].f32[0];
     }
 
     else
     {
-      if (v79 != 4)
+      if (v78 != 4)
       {
         goto LABEL_82;
       }
 
-      v84 = v73[5].f32[0];
-      v85 = v73[5].f32[1];
-      v86 = vabds_f32(v85, v84);
-      if (v86 <= 6.2832)
+      v83 = v72[5].f32[0];
+      v84 = v72[5].f32[1];
+      v85 = vabds_f32(v84, v83);
+      if (v85 <= 6.2832)
       {
-        if (v85 < v84)
+        if (v84 < v83)
         {
-          v84 = v73[5].f32[1];
+          v83 = v72[5].f32[1];
         }
 
-        v85 = (v84 + -3.1416) + (v86 * 0.5);
+        v84 = (v83 + -3.1416) + (v85 * 0.5);
       }
     }
 
-    v91 = v73[3];
-    v92 = RB::CGContext::printing_context(v70);
-    v93 = v85;
-    v94 = vcvtq_f64_f32(v91);
-    if (v92)
+    v90 = v72[3];
+    v91 = RB::CGContext::printing_context(v69);
+    v92 = v84;
+    v93 = vcvtq_f64_f32(v90);
+    if (v91)
     {
-      v115 = v94;
-      ClipBoundingBox = CGContextGetClipBoundingBox(*v70);
+      v114 = v93;
+      ClipBoundingBox = CGContextGetClipBoundingBox(*v69);
       y = ClipBoundingBox.origin.y;
       height = ClipBoundingBox.size.height;
-      *&v117 = vcvt_f32_f64(ClipBoundingBox.origin);
-      *(&v117 + 1) = vcvt_f32_f64(ClipBoundingBox.size);
-      RB::CGContext::begin_bitmap(v70, &v117, 0, 0, &v116, *&ClipBoundingBox.size.height);
-      if (v116)
+      *&v116 = vcvt_f32_f64(ClipBoundingBox.origin);
+      *(&v116 + 1) = vcvt_f32_f64(ClipBoundingBox.size);
+      RB::CGContext::begin_bitmap(v69, &v116, 0, 0, &v115, *&ClipBoundingBox.size.height);
+      if (v115)
       {
-        RB::CGContext::CGContext(v127, v116, *(v70 + 8), *(v70 + 2));
-        CGContextDrawConicGradient(*&v127[0].a, v75, v115, v93);
-        Image = CGBitmapContextCreateImage(*&v127[0].a);
+        RB::CGContext::CGContext(v126, v115, *(v69 + 8), *(v69 + 2));
+        CGContextDrawConicGradient(*&v126[0].a, v74, v114, v92);
+        Image = CGBitmapContextCreateImage(*&v126[0].a);
         if (Image)
         {
-          v130.origin.x = *&v117;
-          v130.origin.y = *(&v117 + 1);
-          v130.size.width = *(&v117 + 2);
-          v130.size.height = *(&v117 + 3);
-          CGContextDrawImage(*v70, v130, Image);
+          v129.origin.x = *&v116;
+          v129.origin.y = *(&v116 + 1);
+          v129.size.width = *(&v116 + 2);
+          v129.size.height = *(&v116 + 3);
+          CGContextDrawImage(*v69, v129, Image);
           CFRelease(Image);
         }
 
-        RB::CGContext::~CGContext(v127);
-        if (v116)
+        RB::CGContext::~CGContext(v126);
+        if (v115)
         {
-          CFRelease(v116);
+          CFRelease(v115);
         }
       }
     }
 
     else
     {
-      v98 = v94.y;
-      CGContextDrawConicGradient(*v70, v75, v94, v93);
+      v97 = v93.y;
+      CGContextDrawConicGradient(*v69, v74, v93, v92);
     }
   }
 
-  else if (v73[7].i8[0])
+  else if (v72[7].i8[0])
   {
-    if (v79 == 1)
+    if (v78 == 1)
     {
-      v80 = vcvtq_f64_f32(v73[3]);
-      v81 = vcvtq_f64_f32(v73[4]);
+      v79 = vcvtq_f64_f32(v72[3]);
+      v80 = vcvtq_f64_f32(v72[4]);
+      v81 = v79.y;
       v82 = v80.y;
-      v83 = v81.y;
-      CGContextDrawRadialGradient(*v70, v75, v80, v73[5].f32[0], v81, v73[5].f32[1], 3u);
+      CGContextDrawRadialGradient(*v69, v74, v79, v72[5].f32[0], v80, v72[5].f32[1], 3u);
     }
   }
 
   else
   {
-    v87 = vcvtq_f64_f32(v73[3]);
-    v88 = vcvtq_f64_f32(v73[4]);
+    v86 = vcvtq_f64_f32(v72[3]);
+    v87 = vcvtq_f64_f32(v72[4]);
+    v88 = v86.y;
     v89 = v87.y;
-    v90 = v88.y;
-    CGContextDrawLinearGradient(*v70, v75, v87, v88, 3u);
+    CGContextDrawLinearGradient(*v69, v74, v86, v87, 3u);
   }
 
 LABEL_82:
-  if (v73[2])
+  if (v72[2])
   {
-    RB::CGContext::restore(v70);
-  }
-
-  if (v75)
-  {
-    CFRelease(v75);
-  }
-
-  if (v121)
-  {
-    free(v121);
-  }
-
-  if (v124)
-  {
-    free(v124);
+    RB::CGContext::restore(v69);
   }
 
   if (v74)
   {
-    free(v110);
+    CFRelease(v74);
+  }
+
+  if (v120)
+  {
+    free(v120);
+  }
+
+  if (v123)
+  {
+    free(v123);
+  }
+
+  if (v73)
+  {
+    free(v109);
   }
 }
 
-uint64_t RB::Fill::anonymous namespace::subdivide_smooth_stops(unint64_t a1, void *a2, uint64_t a3, unsigned __int8 a4, unsigned __int8 a5, __int32 a6)
+uint64_t RB::Fill::anonymous namespace::subdivide_smooth_stops(unint64_t a1, unint64_t *a2, uint64_t a3, unsigned __int8 a4, unsigned __int8 a5, __int32 a6)
 {
   v43 = *MEMORY[0x1E69E9840];
   if (a1 >> 61)
@@ -8875,8 +9005,8 @@ uint64_t RB::Fill::anonymous namespace::subdivide_smooth_stops(unint64_t a1, voi
   v13 = 8 * a1;
   if (8 * a1 <= 0x1000)
   {
-    MEMORY[0x1EEE9AC00](a1, a2);
-    v14 = &v42[-4] - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+    MEMORY[0x1EEE9AC00](a1);
+    v14 = &v42[-8] - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v14, v13);
   }
 
@@ -8932,7 +9062,7 @@ LABEL_16:
       goto LABEL_23;
     }
 
-    v25 = v24[2];
+    v25 = *(v24 + 2);
     v26 = v21 + 1;
     v27 = *&a2[2 * v21 + 3];
     if (v27 <= v25)
@@ -9108,25 +9238,25 @@ double RB::Fill::anonymous namespace::subdivide_stop<RB::Fill::Gradient::fill(RB
   v10 = a7 - a6.f32[0];
   if ((LODWORD(v10) & 0x7FFFFFFFu) > 0x7F7FFFFF || (v10 > 0.0624 ? (v13 = a5 >= 8) : (v13 = 1), v13))
   {
-    v17 = *a1;
-    v18 = *(a1 + 8) | (*(a1 + 12) << 32);
+    v19 = *a1;
+    v20 = *(a1 + 8) | (*(a1 + 12) << 32);
     a6.f32[0] = v8;
 
-    return RB::Fill::Gradient::fill(RB::CGContext &,RB::Bounds)const::$_0::operator()(a4, v17, v18, a6);
+    return RB::Fill::Gradient::fill(RB::CGContext &,RB::Bounds)const::$_0::operator()(a4, v19, v20, a6);
   }
 
   else
   {
-    *v19 = *a1;
-    *&v19[6] = *(a1 + 6);
+    *v21 = *a1;
+    *&v21[6] = *(a1 + 6);
     a6.i32[0] = 0.5;
-    RB::Fill::Color::mix(v19, a2, a3, a6);
+    RB::Fill::Color::mix(a6, v21, a2, a3);
+    v16.n128_f32[0] = v8;
+    v17.n128_f32[0] = (a7 + v8) * 0.5;
   }
-
-  return result;
 }
 
-void RB::Fill::Gradient::map_component(RB::Fill::Gradient *this, uint64_t a2, unsigned int a3, double a4, double a5, double a6, double a7, float a8)
+void RB::Fill::Gradient::map_component(RB::Fill::Gradient *this, RB::CGContext *a2, unsigned int a3, double a4, double a5, double a6, double a7, float a8)
 {
   v11 = 0;
   v34 = *MEMORY[0x1E69E9840];
@@ -9154,11 +9284,11 @@ void RB::Fill::Gradient::map_component(RB::Fill::Gradient *this, uint64_t a2, un
     LODWORD(a6) = vextq_s8(v25, v25, 8uLL).i32[1];
     v26 = v25.i32[0];
     *v25.i8 = vshl_u32(*&a6, 0x800000018);
-    v33.i32[v11++] = v25.i32[2] | (v26 << 16) | v25.i32[0] | v25.i32[1];
+    v33[v11++] = v25.i32[2] | (v26 << 16) | v25.i32[0] | v25.i32[1];
   }
 
   while (v11 != 256);
-  RB::CGContext::apply_component_lut(a2, a3, &v33);
+  RB::CGContext::apply_component_lut(a2, a3, v33);
 }
 
 void *RB::Fill::Gradient::encode(RB::Fill::Gradient *this, RB::Encoder *a2)
@@ -9171,7 +9301,7 @@ void *RB::Fill::Gradient::encode(RB::Fill::Gradient *this, RB::Encoder *a2)
     v5 = 8 * v4;
     if ((8 * v4) <= 0x1000)
     {
-      MEMORY[0x1EEE9AC00](this, a2);
+      MEMORY[0x1EEE9AC00](this);
       v6 = &v49 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v6, v5);
     }
@@ -9222,7 +9352,7 @@ LABEL_13:
       v11 = 4 * v10;
       if ((4 * v10) <= 0x1000)
       {
-        MEMORY[0x1EEE9AC00](this, a2);
+        MEMORY[0x1EEE9AC00](this);
         v12 = &v49 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
         bzero(v12, v11);
       }
@@ -9295,7 +9425,7 @@ LABEL_24:
   v22 = 4 * v21;
   if (4 * v21 <= 0x1000)
   {
-    MEMORY[0x1EEE9AC00](this, a2);
+    MEMORY[0x1EEE9AC00](this);
     v23 = &v49 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v23, v22);
   }

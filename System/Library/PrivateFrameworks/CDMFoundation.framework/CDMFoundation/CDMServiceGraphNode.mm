@@ -202,14 +202,14 @@
 
 void __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_cancellationBlock_requestId_dataDispatcherContext_serviceMetricsArray___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = dispatch_time(0, 3000000000);
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__3717;
-  v30 = __Block_byref_object_dispose__3718;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__3717;
+  v29 = __Block_byref_object_dispose__3718;
+  v30 = 0;
   v3 = [CDMSELFLogUtil stringNodeNameToEnum:*(a1 + 32)];
   if (!v3 && ([*(a1 + 32) isEqualToString:@"metricsNode"] & 1) == 0)
   {
@@ -228,21 +228,21 @@ void __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v39 = __Block_byref_object_copy__3717;
-  v40 = __Block_byref_object_dispose__3718;
-  v41 = objc_alloc_init(MEMORY[0x1E69CF160]);
+  v38 = __Block_byref_object_copy__3717;
+  v39 = __Block_byref_object_dispose__3718;
+  v40 = objc_alloc_init(MEMORY[0x1E69CF160]);
   [*(*&buf[8] + 40) setServiceName:v3];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_cancellationBlock_requestId_dataDispatcherContext_serviceMetricsArray___block_invoke_360;
   block[3] = &unk_1E862EF98;
-  v25[1] = *(a1 + 80);
-  v20 = *(a1 + 32);
-  v23 = buf;
-  v22 = *(a1 + 56);
-  objc_copyWeak(v25, (a1 + 72));
-  v21 = *(a1 + 40);
-  v24 = &v26;
+  v24[1] = *(a1 + 80);
+  v19 = *(a1 + 32);
+  v22 = buf;
+  v21 = *(a1 + 56);
+  objc_copyWeak(v24, (a1 + 72));
+  v20 = *(a1 + 40);
+  v23 = &v25;
   v6 = dispatch_block_create(0, block);
   dispatch_block_perform(0, v6);
   if (dispatch_block_wait(v6, v2))
@@ -251,26 +251,26 @@ void __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_
     v8 = CDMOSLoggerForCategory(2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *v32 = 136315394;
-      *&v32[4] = "+[CDMServiceGraphNode initWithName:forHandler:usingFunction:withError:cancellationBlock:requestId:dataDispatcherContext:serviceMetricsArray:]_block_invoke";
-      *&v32[12] = 2112;
-      *&v32[14] = v7;
-      _os_log_error_impl(&dword_1DC287000, v8, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", v32, 0x16u);
+      *v31 = 136315394;
+      *&v31[4] = "+[CDMServiceGraphNode initWithName:forHandler:usingFunction:withError:cancellationBlock:requestId:dataDispatcherContext:serviceMetricsArray:]_block_invoke";
+      *&v31[12] = 2112;
+      *&v31[14] = v7;
+      _os_log_error_impl(&dword_1DC287000, v8, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", v31, 0x16u);
     }
 
     v9 = MEMORY[0x1E696ABC0];
     v10 = *(a1 + 32);
-    v36 = *MEMORY[0x1E696A578];
-    v37 = v7;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v35 = *MEMORY[0x1E696A578];
+    v36 = v7;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
     v12 = [v9 errorWithDomain:v10 code:0 userInfo:v11];
-    v13 = v27[5];
-    v27[5] = v12;
+    v13 = v26[5];
+    v26[5] = v12;
 
     [*(*&buf[8] + 40) setFailureReason:4];
   }
 
-  if (v27[5] && (v14 = *(a1 + 64)) != 0)
+  if (v26[5] && (v14 = *(a1 + 64)) != 0)
   {
     (*(v14 + 16))();
   }
@@ -280,35 +280,34 @@ void __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_
     v15 = *(a1 + 48);
     if (v15)
     {
-      *v32 = 0;
-      *&v32[8] = v32;
-      *&v32[16] = 0x3032000000;
-      v33 = __Block_byref_object_copy__3717;
-      v34 = __Block_byref_object_dispose__3718;
-      v35 = v15;
+      *v31 = 0;
+      *&v31[8] = v31;
+      *&v31[16] = 0x3032000000;
+      v32 = __Block_byref_object_copy__3717;
+      v33 = __Block_byref_object_dispose__3718;
+      v34 = v15;
       v16 = +[CDMDataDispatcherCompletionQueue getDataDispatcherCompletionQueue];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_cancellationBlock_requestId_dataDispatcherContext_serviceMetricsArray___block_invoke_374;
-      v18[3] = &unk_1E862EFC0;
-      v18[4] = v32;
-      v18[5] = buf;
-      dispatch_async(v16, v18);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_cancellationBlock_requestId_dataDispatcherContext_serviceMetricsArray___block_invoke_374;
+      v17[3] = &unk_1E862EFC0;
+      v17[4] = v31;
+      v17[5] = buf;
+      dispatch_async(v16, v17);
 
-      _Block_object_dispose(v32, 8);
+      _Block_object_dispose(v31, 8);
     }
   }
 
-  objc_destroyWeak(v25);
+  objc_destroyWeak(v24);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v26, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 }
 
 uint64_t __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_cancellationBlock_requestId_dataDispatcherContext_serviceMetricsArray___block_invoke_360(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(4);
   v3 = v2;
   v4 = *(a1 + 80);
@@ -316,20 +315,20 @@ uint64_t __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withEr
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v15 = v5;
+    v14 = v5;
     _os_signpost_emit_with_name_impl(&dword_1DC287000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v4, "ServiceGraphNodeExecution", "%@ handle", buf, 0xCu);
   }
 
   mach_absolute_time();
   [*(*(*(a1 + 56) + 8) + 40) setStartLogicalTimestampInNs:SiriAnalyticsMachAbsoluteTimeGetNanoseconds()];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_cancellationBlock_requestId_dataDispatcherContext_serviceMetricsArray___block_invoke_362;
-  v11[3] = &unk_1E862EF70;
-  v12 = *(a1 + 48);
-  objc_copyWeak(&v13, (a1 + 72));
-  [CDMExceptionUtils runWrappingCppExceptions:v11];
-  objc_destroyWeak(&v13);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_cancellationBlock_requestId_dataDispatcherContext_serviceMetricsArray___block_invoke_362;
+  v10[3] = &unk_1E862EF70;
+  v11 = *(a1 + 48);
+  objc_copyWeak(&v12, (a1 + 72));
+  [CDMExceptionUtils runWrappingCppExceptions:v10];
+  objc_destroyWeak(&v12);
 
   if (*(*(*(a1 + 64) + 8) + 40))
   {
@@ -346,9 +345,7 @@ uint64_t __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withEr
   }
 
   mach_absolute_time();
-  result = [*(*(*(a1 + 56) + 8) + 40) setEndLogicalTimestampInNs:SiriAnalyticsMachAbsoluteTimeGetNanoseconds()];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(*(a1 + 56) + 8) + 40) setEndLogicalTimestampInNs:SiriAnalyticsMachAbsoluteTimeGetNanoseconds()];
 }
 
 void __141__CDMServiceGraphNode_initWithName_forHandler_usingFunction_withError_cancellationBlock_requestId_dataDispatcherContext_serviceMetricsArray___block_invoke_362(uint64_t a1)

@@ -48,7 +48,7 @@
   deviceCopy = device;
   configurationCopy = configuration;
   keyCopy = key;
-  v9 = STSupportedConfigurations();
+  v9 = STSupportedConfigurations(keyCopy);
   v10 = [v9 objectForKeyedSubscript:configurationCopy];
 
   if (!v10)

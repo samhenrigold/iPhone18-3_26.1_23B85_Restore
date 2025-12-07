@@ -74,7 +74,7 @@
 - (void)setOrientationEventsEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -93,12 +93,12 @@
 
 - (void)accelerometer:(id)accelerometer didChangeDeviceOrientation:(int64_t)orientation
 {
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
     currentOrientation = [(PHInCallOrientationMonitor *)self currentOrientation];
-    v18 = 2048;
+    v19 = 2048;
     orientationCopy2 = orientation;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "accelerometer orientation change from %ld to %ld", buf, 0x16u);
   }
@@ -107,26 +107,27 @@
   v7 = +[PHPIPController defaultPIPController];
   isPipped = [v7 isPipped];
 
-  if (![(PHInCallOrientationMonitor *)self isOrientationLocked]|| isPipped)
+  isOrientationLocked = [(PHInCallOrientationMonitor *)self isOrientationLocked];
+  if (!isOrientationLocked || isPipped)
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(isOrientationLocked);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       currentOrientation = @"PHInCallOrientationEventNotification";
-      v18 = 2048;
+      v19 = 2048;
       orientationCopy2 = orientation;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "posting %@ for orientation: %ld", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "posting %@ for orientation: %ld", buf, 0x16u);
     }
 
-    v10 = +[NSNotificationCenter defaultCenter];
-    v11 = [NSNumber numberWithInteger:orientation, @"kPHInCallOrientationType"];
-    v14[1] = @"kPHLastValidInCallOrientationType";
-    v15[0] = v11;
-    v12 = [NSNumber numberWithInteger:[(PHInCallOrientationMonitor *)self lastValidOrientation]];
-    v15[1] = v12;
-    v13 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
-    [v10 postNotificationName:@"PHInCallOrientationEventNotification" object:0 userInfo:v13];
+    v11 = +[NSNotificationCenter defaultCenter];
+    v12 = [NSNumber numberWithInteger:orientation, @"kPHInCallOrientationType"];
+    v15[1] = @"kPHLastValidInCallOrientationType";
+    v16[0] = v12;
+    v13 = [NSNumber numberWithInteger:[(PHInCallOrientationMonitor *)self lastValidOrientation]];
+    v16[1] = v13;
+    v14 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
+    [v11 postNotificationName:@"PHInCallOrientationEventNotification" object:0 userInfo:v14];
   }
 }
 
@@ -203,31 +204,33 @@
 
 - (int64_t)activeInterfaceOrientation
 {
-  if (+[PHUIConfiguration canAutoRotateInCallUIForFaceTime])
+  v3 = +[PHUIConfiguration canAutoRotateInCallUIForFaceTime];
+  if (v3)
   {
-    if ([(PHInCallOrientationMonitor *)self isOrientationLocked])
+    isOrientationLocked = [(PHInCallOrientationMonitor *)self isOrientationLocked];
+    if (isOrientationLocked)
     {
       lockedOrientation = self->_lockedOrientation;
-      v4 = sub_100004F84();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004F84(isOrientationLocked);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 67109120;
-        v8 = lockedOrientation;
-        v5 = "activeInterfaceOrientation: device allows UI rotation and is orientation locked to %d";
+        v9 = 67109120;
+        v10 = lockedOrientation;
+        v7 = "activeInterfaceOrientation: device allows UI rotation and is orientation locked to %d";
 LABEL_10:
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v5, &v7, 8u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v7, &v9, 8u);
       }
     }
 
     else
     {
       lockedOrientation = BKHIDServicesGetNonFlatDeviceOrientation();
-      v4 = sub_100004F84();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100004F84(lockedOrientation);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 67109120;
-        v8 = lockedOrientation;
-        v5 = "activeInterfaceOrientation: device allows UI rotation and the last flat orientation was %d";
+        v9 = 67109120;
+        v10 = lockedOrientation;
+        v7 = "activeInterfaceOrientation: device allows UI rotation and the last flat orientation was %d";
         goto LABEL_10;
       }
     }
@@ -235,11 +238,11 @@ LABEL_10:
 
   else
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "activeInterfaceOrientation: we'll default to UIInterfaceOrientationPortrait", &v7, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "activeInterfaceOrientation: we'll default to UIInterfaceOrientationPortrait", &v9, 2u);
     }
 
     lockedOrientation = 1;
@@ -306,7 +309,7 @@ LABEL_7:
   if (self->_isOrientationLocked != locked)
   {
     lockedCopy = locked;
-    v5 = sub_100004F84();
+    v5 = sub_100004F84(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;

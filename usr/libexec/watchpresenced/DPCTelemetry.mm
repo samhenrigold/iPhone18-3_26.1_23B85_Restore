@@ -38,46 +38,42 @@
 
 - (void)registerWatchEvent:(unint64_t)event rssiValue:(int64_t)value
 {
-  v14[0] = @"Timestamp";
-  v7 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
-  v8 = v7;
-  v9 = @"WatchPresence";
+  v11[0] = @"Timestamp";
+  v6 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
+  v7 = v6;
+  v8 = @"WatchPresence";
   if (event == 2)
   {
-    v9 = @"WatchAbsence";
+    v8 = @"WatchAbsence";
   }
 
-  v15[0] = v7;
-  v15[1] = v9;
-  v14[1] = @"Event";
-  v14[2] = @"RSSI";
-  v10 = [NSNumber numberWithInteger:value];
-  v15[2] = v10;
-  v11 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v12[0] = v6;
+  v12[1] = v8;
+  v11[1] = @"Event";
+  v11[2] = @"RSSI";
+  v9 = [NSNumber numberWithInteger:value];
+  v12[2] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:3];
 
-  plClientID = self->_plClientID;
-  plEventName = self->_plEventName;
   PLLogRegisteredEvent();
 }
 
 - (void)registerWatchConnectivity:(BOOL)connectivity
 {
   connectivityCopy = connectivity;
-  v10[0] = @"Timestamp";
-  v5 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
-  v10[1] = @"Event";
-  v11[0] = v5;
-  v6 = @"WatchDisconnected";
+  v7[0] = @"Timestamp";
+  v4 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
+  v7[1] = @"Event";
+  v8[0] = v4;
+  v5 = @"WatchDisconnected";
   if (connectivityCopy)
   {
-    v6 = @"WatchConnected";
+    v5 = @"WatchConnected";
   }
 
-  v11[1] = v6;
-  v7 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v8[1] = v5;
+  v6 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
 
-  plClientID = self->_plClientID;
-  plEventName = self->_plEventName;
   PLLogRegisteredEvent();
 }
 
@@ -85,29 +81,27 @@
 {
   if (error == 4)
   {
-    v4 = @"WatchUnreachable";
+    v3 = @"WatchUnreachable";
   }
 
   else
   {
-    v4 = @"Unknown";
+    v3 = @"Unknown";
   }
 
   if (error == 2)
   {
-    v4 = @"WatchUnavailable";
+    v3 = @"WatchUnavailable";
   }
 
-  v10[0] = @"Timestamp";
-  v5 = v4;
-  v6 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
-  v10[1] = @"Event";
-  v11[0] = v6;
-  v11[1] = v5;
-  v7 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v7[0] = @"Timestamp";
+  v4 = v3;
+  v5 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
+  v7[1] = @"Event";
+  v8[0] = v5;
+  v8[1] = v4;
+  v6 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
 
-  plClientID = self->_plClientID;
-  plEventName = self->_plEventName;
   PLLogRegisteredEvent();
 }
 
@@ -115,48 +109,44 @@
 {
   if (event == 3)
   {
-    v4 = @"WatchWristStatusOnWrist";
+    v3 = @"WatchWristStatusOnWrist";
   }
 
   else
   {
-    v4 = @"WatchWristStatusUnknown";
+    v3 = @"WatchWristStatusUnknown";
   }
 
   if (event == 2)
   {
-    v4 = @"WatchWristStatusOffWrist";
+    v3 = @"WatchWristStatusOffWrist";
   }
 
   if (event == 1)
   {
-    v4 = @"WatchWristStatusDisabled";
+    v3 = @"WatchWristStatusDisabled";
   }
 
-  v10[0] = @"Timestamp";
-  v5 = v4;
-  v6 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
-  v10[1] = @"Event";
-  v11[0] = v6;
-  v11[1] = v5;
-  v7 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v7[0] = @"Timestamp";
+  v4 = v3;
+  v5 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
+  v7[1] = @"Event";
+  v8[0] = v5;
+  v8[1] = v4;
+  v6 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
 
-  plClientID = self->_plClientID;
-  plEventName = self->_plEventName;
   PLLogRegisteredEvent();
 }
 
 - (void)registerWatchSwitch
 {
-  v7[0] = @"Timestamp";
-  v3 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
-  v7[1] = @"Event";
-  v8[0] = v3;
-  v8[1] = @"WatchSwitched";
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v4[0] = @"Timestamp";
+  v2 = [NSNumber numberWithDouble:CFAbsoluteTimeGetCurrent()];
+  v4[1] = @"Event";
+  v5[0] = v2;
+  v5[1] = @"WatchSwitched";
+  v3 = [NSDictionary dictionaryWithObjects:v5 forKeys:v4 count:2];
 
-  plClientID = self->_plClientID;
-  plEventName = self->_plEventName;
   PLLogRegisteredEvent();
 }
 

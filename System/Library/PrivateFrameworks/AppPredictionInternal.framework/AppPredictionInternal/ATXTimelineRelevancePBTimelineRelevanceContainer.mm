@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)widgetFamilyAsString:(int)string;
 - (int)StringAsWidgetFamily:(id)family;
 - (unint64_t)hash;
 - (void)addRotation:(id)rotation;
@@ -18,6 +19,21 @@
 @end
 
 @implementation ATXTimelineRelevancePBTimelineRelevanceContainer
+
+- (id)widgetFamilyAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859D2A8[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsWidgetFamily:(id)family
 {
@@ -184,7 +200,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   widgetBundleId = self->_widgetBundleId;
@@ -236,30 +252,30 @@
   if ([(NSMutableArray *)self->_timelineRelevanceScores count])
   {
     v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_timelineRelevanceScores, "count")}];
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     v14 = self->_timelineRelevanceScores;
-    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v59 objects:v66 count:16];
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v58 objects:v65 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v60;
+      v17 = *v59;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v60 != v17)
+          if (*v59 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation = [*(*(&v59 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v58 + 1) + 8 * i) dictionaryRepresentation];
           [v13 addObject:dictionaryRepresentation];
         }
 
-        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v59 objects:v66 count:16];
+        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v58 objects:v65 count:16];
       }
 
       while (v16);
@@ -271,30 +287,30 @@
   if ([(NSMutableArray *)self->_timelineRelevanceSuggestions count])
   {
     v20 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_timelineRelevanceSuggestions, "count")}];
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     v21 = self->_timelineRelevanceSuggestions;
-    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v55 objects:v65 count:16];
+    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v54 objects:v64 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v56;
+      v24 = *v55;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v56 != v24)
+          if (*v55 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          dictionaryRepresentation2 = [*(*(&v55 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v54 + 1) + 8 * j) dictionaryRepresentation];
           [v20 addObject:dictionaryRepresentation2];
         }
 
-        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v55 objects:v65 count:16];
+        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v54 objects:v64 count:16];
       }
 
       while (v23);
@@ -306,30 +322,30 @@
   if ([(NSMutableArray *)self->_rotations count])
   {
     v27 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_rotations, "count")}];
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v28 = self->_rotations;
-    v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v51 objects:v64 count:16];
+    v29 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v50 objects:v63 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v52;
+      v31 = *v51;
       do
       {
         for (k = 0; k != v30; ++k)
         {
-          if (*v52 != v31)
+          if (*v51 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          dictionaryRepresentation3 = [*(*(&v51 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v50 + 1) + 8 * k) dictionaryRepresentation];
           [v27 addObject:dictionaryRepresentation3];
         }
 
-        v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v51 objects:v64 count:16];
+        v30 = [(NSMutableArray *)v28 countByEnumeratingWithState:&v50 objects:v63 count:16];
       }
 
       while (v30);
@@ -347,30 +363,30 @@
   if ([(NSMutableArray *)self->_stackConfigSummarys count])
   {
     v35 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_stackConfigSummarys, "count")}];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v36 = self->_stackConfigSummarys;
-    v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v47 objects:v63 count:16];
+    v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v46 objects:v62 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v48;
+      v39 = *v47;
       do
       {
         for (m = 0; m != v38; ++m)
         {
-          if (*v48 != v39)
+          if (*v47 != v39)
           {
             objc_enumerationMutation(v36);
           }
 
-          dictionaryRepresentation4 = [*(*(&v47 + 1) + 8 * m) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v46 + 1) + 8 * m) dictionaryRepresentation];
           [v35 addObject:dictionaryRepresentation4];
         }
 
-        v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v47 objects:v63 count:16];
+        v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v46 objects:v62 count:16];
       }
 
       while (v38);
@@ -392,14 +408,12 @@
     [v4 setObject:dictionaryRepresentation5 forKey:@"featureVector"];
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (!self->_widgetBundleId)
   {
@@ -419,142 +433,134 @@
     PBDataWriterWriteStringField();
   }
 
-  widgetFamily = self->_widgetFamily;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if (has)
   {
-    timelineDonationNilCount = self->_timelineDonationNilCount;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    atLeastOnePositiveTimelineRelevanceScore = self->_atLeastOnePositiveTimelineRelevanceScore;
     PBDataWriterWriteBOOLField();
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v10 = self->_timelineRelevanceScores;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v48 objects:v55 count:16];
-  if (v11)
-  {
-    v12 = v11;
-    v13 = *v49;
-    do
-    {
-      for (i = 0; i != v12; ++i)
-      {
-        if (*v49 != v13)
-        {
-          objc_enumerationMutation(v10);
-        }
-
-        v15 = *(*(&v48 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v48 objects:v55 count:16];
-    }
-
-    while (v12);
-  }
-
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v16 = self->_timelineRelevanceSuggestions;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
-  if (v17)
-  {
-    v18 = v17;
-    v19 = *v45;
-    do
-    {
-      for (j = 0; j != v18; ++j)
-      {
-        if (*v45 != v19)
-        {
-          objc_enumerationMutation(v16);
-        }
-
-        v21 = *(*(&v44 + 1) + 8 * j);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
-    }
-
-    while (v18);
-  }
-
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v22 = self->_rotations;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v40 objects:v53 count:16];
-  if (v23)
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v7 = self->_timelineRelevanceScores;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v39 objects:v46 count:16];
+  if (v8)
   {
-    v24 = v23;
-    v25 = *v41;
+    v9 = v8;
+    v10 = *v40;
     do
     {
-      for (k = 0; k != v24; ++k)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v25)
+        if (*v40 != v10)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v7);
         }
 
-        v27 = *(*(&v40 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v40 objects:v53 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v39 objects:v46 count:16];
     }
 
-    while (v24);
+    while (v9);
+  }
+
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v12 = self->_timelineRelevanceSuggestions;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v35 objects:v45 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v36;
+    do
+    {
+      for (j = 0; j != v14; ++j)
+      {
+        if (*v36 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v35 objects:v45 count:16];
+    }
+
+    while (v14);
+  }
+
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v17 = self->_rotations;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v31 objects:v44 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = *v32;
+    do
+    {
+      for (k = 0; k != v19; ++k)
+      {
+        if (*v32 != v20)
+        {
+          objc_enumerationMutation(v17);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v31 objects:v44 count:16];
+    }
+
+    while (v19);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteInt64Field();
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v29 = self->_stackConfigSummarys;
-  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v36 objects:v52 count:16];
-  if (v30)
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v22 = self->_stackConfigSummarys;
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v27 objects:v43 count:16];
+  if (v23)
   {
-    v31 = v30;
-    v32 = *v37;
+    v24 = v23;
+    v25 = *v28;
     do
     {
-      for (m = 0; m != v31; ++m)
+      for (m = 0; m != v24; ++m)
       {
-        if (*v37 != v32)
+        if (*v28 != v25)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v22);
         }
 
-        v34 = *(*(&v36 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v36 objects:v52 count:16];
+      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v27 objects:v43 count:16];
     }
 
-    while (v31);
+    while (v24);
   }
 
   if (self->_abGroup)
@@ -566,8 +572,6 @@
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -676,7 +680,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_widgetBundleId copyWithZone:zone];
   v7 = *(v5 + 80);
@@ -705,88 +709,88 @@
     *(v5 + 108) |= 4u;
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v13 = self->_timelineRelevanceScores;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v55 objects:v62 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v54 objects:v61 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v56;
+    v16 = *v55;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v56 != v16)
+        if (*v55 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v55 + 1) + 8 * i) copyWithZone:zone];
+        v18 = [*(*(&v54 + 1) + 8 * i) copyWithZone:zone];
         [v5 addTimelineRelevanceScore:v18];
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v55 objects:v62 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v54 objects:v61 count:16];
     }
 
     while (v15);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v19 = self->_timelineRelevanceSuggestions;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v51 objects:v61 count:16];
+  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v50 objects:v60 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v52;
+    v22 = *v51;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v52 != v22)
+        if (*v51 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = [*(*(&v51 + 1) + 8 * j) copyWithZone:zone];
+        v24 = [*(*(&v50 + 1) + 8 * j) copyWithZone:zone];
         [v5 addTimelineRelevanceSuggestion:v24];
       }
 
-      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v51 objects:v61 count:16];
+      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v50 objects:v60 count:16];
     }
 
     while (v21);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v25 = self->_rotations;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v47 objects:v60 count:16];
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v46 objects:v59 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v48;
+    v28 = *v47;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v48 != v28)
+        if (*v47 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = [*(*(&v47 + 1) + 8 * k) copyWithZone:zone];
+        v30 = [*(*(&v46 + 1) + 8 * k) copyWithZone:zone];
         [v5 addRotation:v30];
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v47 objects:v60 count:16];
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v46 objects:v59 count:16];
     }
 
     while (v27);
@@ -798,30 +802,30 @@
     *(v5 + 108) |= 2u;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v31 = self->_stackConfigSummarys;
-  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v43 objects:v59 count:16];
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v42 objects:v58 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v44;
+    v34 = *v43;
     do
     {
       for (m = 0; m != v33; ++m)
       {
-        if (*v44 != v34)
+        if (*v43 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = [*(*(&v43 + 1) + 8 * m) copyWithZone:{zone, v43}];
+        v36 = [*(*(&v42 + 1) + 8 * m) copyWithZone:{zone, v42}];
         [v5 addStackConfigSummary:v36];
       }
 
-      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v43 objects:v59 count:16];
+      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v42 objects:v58 count:16];
     }
 
     while (v33);
@@ -835,7 +839,6 @@
   v40 = *(v5 + 40);
   *(v5 + 40) = v39;
 
-  v41 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -879,7 +882,6 @@
     goto LABEL_26;
   }
 
-  v8 = *(equalCopy + 108);
   if (*&self->_has)
   {
     if ((*(equalCopy + 108) & 1) == 0 || self->_timelineDonationNilCount != *(equalCopy + 1))
@@ -900,7 +902,6 @@
       goto LABEL_26;
     }
 
-    v15 = *(equalCopy + 104);
     if (self->_atLeastOnePositiveTimelineRelevanceScore)
     {
       if ((*(equalCopy + 104) & 1) == 0)
@@ -944,7 +945,6 @@
     }
   }
 
-  v12 = *(equalCopy + 108);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 108) & 2) == 0)
@@ -953,7 +953,7 @@
     }
 
 LABEL_26:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_27;
   }
 
@@ -981,17 +981,17 @@ LABEL_35:
   featureVector = self->_featureVector;
   if (featureVector | *(equalCopy + 5))
   {
-    v13 = [(ATXTimelineRelevancePBFeatureVector *)featureVector isEqual:?];
+    v11 = [(ATXTimelineRelevancePBFeatureVector *)featureVector isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_27:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash
@@ -1041,7 +1041,7 @@ LABEL_27:
 
 - (void)mergeFrom:(id)from
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 10))
   {
@@ -1073,85 +1073,85 @@ LABEL_27:
     *&self->_has |= 4u;
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v6 = *(fromCopy + 8);
-  v7 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v42;
+    v9 = *v41;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v42 != v9)
+        if (*v41 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self addTimelineRelevanceScore:*(*(&v41 + 1) + 8 * i)];
+        [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self addTimelineRelevanceScore:*(*(&v40 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
     }
 
     while (v8);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v11 = *(fromCopy + 9);
-  v12 = [v11 countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v36 objects:v46 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v38;
+    v14 = *v37;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v38 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self addTimelineRelevanceSuggestion:*(*(&v37 + 1) + 8 * j)];
+        [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self addTimelineRelevanceSuggestion:*(*(&v36 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v36 objects:v46 count:16];
     }
 
     while (v13);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v16 = *(fromCopy + 6);
-  v17 = [v16 countByEnumeratingWithState:&v33 objects:v46 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v32 objects:v45 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v34;
+    v19 = *v33;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v34 != v19)
+        if (*v33 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self addRotation:*(*(&v33 + 1) + 8 * k)];
+        [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self addRotation:*(*(&v32 + 1) + 8 * k)];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v33 objects:v46 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v32 objects:v45 count:16];
     }
 
     while (v18);
@@ -1163,29 +1163,29 @@ LABEL_27:
     *&self->_has |= 2u;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v21 = *(fromCopy + 7);
-  v22 = [v21 countByEnumeratingWithState:&v29 objects:v45 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v28 objects:v44 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v30;
+    v24 = *v29;
     do
     {
       for (m = 0; m != v23; ++m)
       {
-        if (*v30 != v24)
+        if (*v29 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self addStackConfigSummary:*(*(&v29 + 1) + 8 * m), v29];
+        [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self addStackConfigSummary:*(*(&v28 + 1) + 8 * m), v28];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v29 objects:v45 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v28 objects:v44 count:16];
     }
 
     while (v23);
@@ -1210,8 +1210,6 @@ LABEL_27:
   {
     [(ATXTimelineRelevancePBTimelineRelevanceContainer *)self setFeatureVector:?];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

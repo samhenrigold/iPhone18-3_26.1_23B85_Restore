@@ -32,9 +32,11 @@
 
 uint64_t __48__VSUserAccountManager_sharedUserAccountManager__block_invoke()
 {
-  sharedUserAccountManager___vs_lazy_init_variable = objc_alloc_init(VSUserAccountManager);
+  v0 = objc_alloc_init(VSUserAccountManager);
+  v1 = sharedUserAccountManager___vs_lazy_init_variable;
+  sharedUserAccountManager___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (VSUserAccountManager)init
@@ -82,7 +84,7 @@ uint64_t __48__VSUserAccountManager_sharedUserAccountManager__block_invoke()
 void __53__VSUserAccountManager_updateUserAccount_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __53__VSUserAccountManager_updateUserAccount_completion___block_invoke_cold_1();
@@ -113,7 +115,7 @@ void __53__VSUserAccountManager_updateUserAccount_completion___block_invoke(uint
 void __53__VSUserAccountManager_deleteUserAccount_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __53__VSUserAccountManager_updateUserAccount_completion___block_invoke_cold_1();
@@ -228,7 +230,7 @@ LABEL_13:
 void __63__VSUserAccountManager_forceRefreshUserAccount_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __53__VSUserAccountManager_updateUserAccount_completion___block_invoke_cold_1();
@@ -258,7 +260,7 @@ void __63__VSUserAccountManager_forceRefreshUserAccount_withCompletion___block_i
 void __64__VSUserAccountManager_queryUserAccountsWithOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __53__VSUserAccountManager_updateUserAccount_completion___block_invoke_cold_1();
@@ -291,7 +293,7 @@ void __64__VSUserAccountManager_queryUserAccountsWithOptions_completion___block_
 void __109__VSUserAccountManager_queryUserAccountsWithOptions_sourceIdentifier_sourceType_deviceIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __53__VSUserAccountManager_updateUserAccount_completion___block_invoke_cold_1();
@@ -500,7 +502,7 @@ uint64_t __67__VSUserAccountManager_deleteAutoSignInTokenWithCompletionHandler__
 void __83__VSUserAccountManager__runAutoSignInServiceCallWithSuccessHandler_failureHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __53__VSUserAccountManager_updateUserAccount_completion___block_invoke_cold_1();
@@ -512,7 +514,7 @@ void __83__VSUserAccountManager__runAutoSignInServiceCallWithSuccessHandler_fail
 uint64_t __83__VSUserAccountManager__runAutoSignInServiceCallWithSuccessHandler_failureHandler___block_invoke_14(uint64_t a1, unint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     if (a2 > 2)

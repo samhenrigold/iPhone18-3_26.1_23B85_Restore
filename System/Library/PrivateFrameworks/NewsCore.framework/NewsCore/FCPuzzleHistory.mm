@@ -54,7 +54,7 @@
 
 void __43__FCPuzzleHistory_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionary];
   v3 = *(a1 + 32);
   if (v3)
@@ -63,117 +63,108 @@ void __43__FCPuzzleHistory_loadLocalCachesFromStore__block_invoke(uint64_t a1)
   }
 
   v4 = [*(a1 + 32) localStore];
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v5 = [v4 allKeys];
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
-    v9 = 0x1E695D000uLL;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
-        v12 = *(a1 + 32);
-        if (([objc_opt_class() isLocalStoreKeyInternal:v11] & 1) == 0)
+        v10 = *(*(&v24 + 1) + 8 * i);
+        if (([objc_opt_class() isLocalStoreKeyInternal:v10] & 1) == 0)
         {
-          v13 = *(v9 + 3872);
           objc_opt_class();
-          v14 = [v4 objectForKey:v11];
-          if (v14)
+          v11 = [v4 objectForKey:v10];
+          if (v11)
           {
             if (objc_opt_isKindOfClass())
             {
-              v15 = v14;
+              v12 = v11;
             }
 
             else
             {
-              v15 = 0;
+              v12 = 0;
             }
           }
 
           else
           {
-            v15 = 0;
+            v12 = 0;
           }
 
-          v16 = v15;
+          v13 = v12;
 
-          if (v16)
+          if (v13)
           {
-            v17 = [[FCPuzzleHistoryItem alloc] initWithEntryID:v11 dictionaryRepresentation:v16];
-            if (v17)
+            v14 = [[FCPuzzleHistoryItem alloc] initWithEntryID:v10 dictionaryRepresentation:v13];
+            if (v14)
             {
-              v18 = *(a1 + 32);
-              if (v18)
+              v15 = *(a1 + 32);
+              if (v15)
               {
-                v18 = v18[12];
+                v15 = v15[12];
               }
 
-              v19 = v18;
-              v20 = [v17 puzzleID];
-              [v19 setObject:v17 forKey:v20];
-
-              v9 = 0x1E695D000;
+              v16 = v15;
+              v17 = [v14 puzzleID];
+              [v16 setObject:v14 forKey:v17];
             }
 
             else
             {
-              v25 = FCPuzzleLog;
+              v22 = FCPuzzleLog;
               if (os_log_type_enabled(FCPuzzleLog, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v33 = v16;
-                _os_log_error_impl(&dword_1B63EF000, v25, OS_LOG_TYPE_ERROR, "FCPuzzleHistory: Failed to load item from cache for %{public}@", buf, 0xCu);
+                v29 = v13;
+                _os_log_error_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_ERROR, "FCPuzzleHistory: Failed to load item from cache for %{public}@", buf, 0xCu);
               }
             }
           }
 
           else
           {
-            v21 = FCPuzzleLog;
+            v18 = FCPuzzleLog;
             if (os_log_type_enabled(FCPuzzleLog, OS_LOG_TYPE_ERROR))
             {
-              v22 = v21;
-              v23 = objc_opt_class();
-              v24 = NSStringFromClass(v23);
+              v19 = v18;
+              v20 = objc_opt_class();
+              v21 = NSStringFromClass(v20);
               *buf = 138412546;
-              v33 = v24;
-              v34 = 2114;
-              v35 = v11;
-              _os_log_error_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_ERROR, "ERROR: Object of type %@ is not dictionary for key %{public}@", buf, 0x16u);
-
-              v9 = 0x1E695D000;
+              v29 = v21;
+              v30 = 2114;
+              v31 = v10;
+              _os_log_error_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_ERROR, "ERROR: Object of type %@ is not dictionary for key %{public}@", buf, 0x16u);
             }
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __43__FCPuzzleHistory_loadLocalCachesFromStore__block_invoke_35;
-  v27[3] = &unk_1E7C36EA0;
-  v27[4] = *(a1 + 32);
-  [FCTaskScheduler scheduleLowPriorityBlockForMainThread:v27];
-
-  v26 = *MEMORY[0x1E69E9840];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __43__FCPuzzleHistory_loadLocalCachesFromStore__block_invoke_35;
+  v23[3] = &unk_1E7C36EA0;
+  v23[4] = *(a1 + 32);
+  [FCTaskScheduler scheduleLowPriorityBlockForMainThread:v23];
 }
 
 - (id)_allSortedItemsInPuzzleHistory
@@ -315,13 +306,13 @@ void __43__FCPuzzleHistory__allItemsInPuzzleHistory__block_invoke(uint64_t a1)
 
 - (void)_updatePuzzle:(void *)puzzle puzzleTypeID:(void *)d progressData:(void *)data progressLevel:(void *)level score:(void *)score scoreType:(void *)type rankID:(unsigned __int8)iD usedReveal:(void *)self0 playDuration:(void *)self1 lastPlayedDate:(void *)self2 completedDate:(void *)self3 progressMovesDescription:(void *)self4 difficulty:(void *)self5 publishDate:(void *)self6 behaviorFlags:
 {
-  v149 = *MEMORY[0x1E69E9840];
+  v148 = *MEMORY[0x1E69E9840];
   v23 = a2;
   puzzleCopy = puzzle;
   dCopy = d;
   dataCopy = data;
   selfCopy = self;
-  v133 = dataCopy;
+  v132 = dataCopy;
   levelCopy = level;
   scoreCopy = score;
   typeCopy = type;
@@ -340,7 +331,7 @@ void __43__FCPuzzleHistory__allItemsInPuzzleHistory__block_invoke(uint64_t a1)
   [MEMORY[0x1E696AF00] isMainThread];
   if (v23)
   {
-    v114 = selfCopy;
+    v113 = selfCopy;
     v34 = [*(selfCopy + 96) objectForKey:v23];
     v35 = v34;
     if (puzzleCopy)
@@ -353,7 +344,7 @@ void __43__FCPuzzleHistory__allItemsInPuzzleHistory__block_invoke(uint64_t a1)
       puzzleTypeID = [v34 puzzleTypeID];
     }
 
-    v129 = puzzleTypeID;
+    v128 = puzzleTypeID;
     if (dCopy)
     {
       progressData = dCopy;
@@ -364,11 +355,11 @@ void __43__FCPuzzleHistory__allItemsInPuzzleHistory__block_invoke(uint64_t a1)
       progressData = [v35 progressData];
     }
 
-    v125 = progressData;
-    v113 = descriptionCopy;
-    if (v133)
+    v124 = progressData;
+    v112 = descriptionCopy;
+    if (v132)
     {
-      v124 = v133;
+      v123 = v132;
     }
 
     else
@@ -384,15 +375,15 @@ void __43__FCPuzzleHistory__allItemsInPuzzleHistory__block_invoke(uint64_t a1)
         v46 = v44;
       }
 
-      v124 = v46;
+      v123 = v46;
 
       typeCopy = v43;
       dateCopy = v42;
       completedDateCopy = v41;
-      descriptionCopy = v113;
+      descriptionCopy = v112;
     }
 
-    v109 = typeCopy;
+    v108 = typeCopy;
     if (typeCopy)
     {
       rankID = typeCopy;
@@ -403,7 +394,7 @@ void __43__FCPuzzleHistory__allItemsInPuzzleHistory__block_invoke(uint64_t a1)
       rankID = [v35 rankID];
     }
 
-    v123 = rankID;
+    v122 = rankID;
     usedReveal = [v35 usedReveal];
     if ([usedReveal BOOLValue])
     {
@@ -414,11 +405,11 @@ void __43__FCPuzzleHistory__allItemsInPuzzleHistory__block_invoke(uint64_t a1)
     {
       [MEMORY[0x1E696AD98] numberWithBool:iD];
     }
-    v128 = ;
+    v127 = ;
 
     if (revealCopy)
     {
-      v126 = revealCopy;
+      v125 = revealCopy;
     }
 
     else
@@ -431,12 +422,12 @@ void __43__FCPuzzleHistory__allItemsInPuzzleHistory__block_invoke(uint64_t a1)
         v51 = v49;
       }
 
-      v126 = v51;
+      v125 = v51;
     }
 
     if (durationCopy)
     {
-      v122 = durationCopy;
+      v121 = durationCopy;
       if (descriptionCopy)
       {
 LABEL_29:
@@ -459,7 +450,7 @@ LABEL_29:
         date = [MEMORY[0x1E695DF00] date];
       }
 
-      v122 = date;
+      v121 = date;
 
       if (descriptionCopy)
       {
@@ -469,7 +460,7 @@ LABEL_29:
 
     difficulty = [v35 difficulty];
 LABEL_35:
-    v121 = difficulty;
+    v120 = difficulty;
     if (difficultyCopy)
     {
       publishDate = difficultyCopy;
@@ -480,7 +471,7 @@ LABEL_35:
       publishDate = [v35 publishDate];
     }
 
-    v120 = publishDate;
+    v119 = publishDate;
     if (publishDateCopy)
     {
       behaviorFlags = publishDateCopy;
@@ -491,7 +482,7 @@ LABEL_35:
       behaviorFlags = [v35 behaviorFlags];
     }
 
-    v119 = behaviorFlags;
+    v118 = behaviorFlags;
     if (completedDateCopy)
     {
       progressMovesDescription = completedDateCopy;
@@ -502,8 +493,8 @@ LABEL_35:
       progressMovesDescription = [v35 progressMovesDescription];
     }
 
-    v118 = progressMovesDescription;
-    v112 = dCopy;
+    v117 = progressMovesDescription;
+    v111 = dCopy;
     if (levelCopy)
     {
       score = levelCopy;
@@ -516,8 +507,8 @@ LABEL_35:
       scoreType = [v35 scoreType];
     }
 
-    v117 = scoreType;
-    v108 = revealCopy;
+    v116 = scoreType;
+    v107 = revealCopy;
     if (dateCopy)
     {
       completedDate = [v35 completedDate];
@@ -540,20 +531,20 @@ LABEL_35:
       v64 = 0;
     }
 
-    v110 = scoreCopy;
-    bOOLValue = [v128 BOOLValue];
+    v109 = scoreCopy;
+    bOOLValue = [v127 BOOLValue];
     firstCompletedDate = [v35 firstCompletedDate];
     v67 = firstCompletedDate;
-    v111 = levelCopy;
+    v110 = levelCopy;
     if (bOOLValue)
     {
       firstPlayDuration = [v35 firstPlayDuration];
 LABEL_68:
       bestScore = [v35 bestScore];
-      v74 = [(FCPuzzleHistory *)v114 puzzleTypeTraitsForPuzzleTypeID:v129];
-      v107 = dateCopy;
-      v115 = v67;
-      v116 = v64;
+      v74 = [(FCPuzzleHistory *)v113 puzzleTypeTraitsForPuzzleTypeID:v128];
+      v106 = dateCopy;
+      v114 = v67;
+      v115 = v64;
       if ((v74 & 0x80000) == 0)
       {
         goto LABEL_72;
@@ -631,93 +622,93 @@ LABEL_84:
       v80 = v78;
       v81 = [FCPuzzleHistoryItem alloc];
       v82 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ph-%@", v23];
-      v106 = v80;
-      v83 = -[FCPuzzleHistoryItem initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:](v81, "initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:", v82, v23, v129, v125, [v124 intValue], v79, v117, v123, v128, objc_msgSend(v126, "intValue"), v122, v64, v115, firstPlayDuration, v80, v118, v121, v120, v119);
+      v105 = v80;
+      v83 = -[FCPuzzleHistoryItem initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:](v81, "initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:", v82, v23, v128, v124, [v123 intValue], v79, v116, v122, v127, objc_msgSend(v125, "intValue"), v121, v64, v114, firstPlayDuration, v80, v117, v120, v119, v118);
 
       v84 = v79;
       if (v83)
       {
-        v103 = v79;
-        v104 = v75;
+        v102 = v79;
+        v103 = v75;
         dictionaryRepresentation = [(FCPuzzleHistoryItem *)v83 dictionaryRepresentation];
-        v86 = v114[15];
-        v135[0] = MEMORY[0x1E69E9820];
-        v135[1] = 3221225472;
-        v135[2] = __211__FCPuzzleHistory__updatePuzzle_puzzleTypeID_progressData_progressLevel_score_scoreType_rankID_usedReveal_playDuration_lastPlayedDate_completedDate_progressMovesDescription_difficulty_publishDate_behaviorFlags___block_invoke;
-        v135[3] = &unk_1E7C376A0;
-        v135[4] = v114;
+        v86 = v113[15];
+        v134[0] = MEMORY[0x1E69E9820];
+        v134[1] = 3221225472;
+        v134[2] = __211__FCPuzzleHistory__updatePuzzle_puzzleTypeID_progressData_progressLevel_score_scoreType_rankID_usedReveal_playDuration_lastPlayedDate_completedDate_progressMovesDescription_difficulty_publishDate_behaviorFlags___block_invoke;
+        v134[3] = &unk_1E7C376A0;
+        v134[4] = v113;
         v87 = v83;
-        v136 = v87;
-        v105 = v23;
+        v135 = v87;
+        v104 = v23;
         v88 = v23;
-        v137 = v88;
-        [v86 performWriteSync:v135];
-        localStore = [v114 localStore];
+        v136 = v88;
+        [v86 performWriteSync:v134];
+        localStore = [v113 localStore];
         identifier = [(FCPuzzleHistoryItem *)v87 identifier];
         v91 = dictionaryRepresentation;
         [localStore setObject:dictionaryRepresentation forKey:identifier];
 
         if (v35)
         {
-          v140 = v88;
-          v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v140 count:1];
+          v139 = v88;
+          v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v139 count:1];
           v93 = MEMORY[0x1E695E0F0];
-          v94 = v114;
+          v94 = v113;
           v95 = v92;
         }
 
         else
         {
-          v139 = v88;
-          v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v139 count:1];
+          v138 = v88;
+          v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v138 count:1];
           v95 = MEMORY[0x1E695E0F0];
-          v94 = v114;
+          v94 = v113;
           v93 = v92;
         }
 
         [(FCPuzzleHistory *)v94 _addedPuzzleIDs:v93 modifiedPuzzleIDs:v95 removedPuzzleIDs:MEMORY[0x1E695E0F0]];
-        v96 = v115;
+        v96 = v114;
 
         v98 = [FCModifyPuzzleHistoryCommand alloc];
-        v138 = v87;
-        v99 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v138 count:1];
+        v137 = v87;
+        v99 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:1];
         v100 = [(FCModifyPuzzleHistoryCommand *)v98 initWithPuzzleHistoryItems:v99 merge:0];
 
-        allPuzzleTypeTraits = [(FCPuzzleHistory *)v114 allPuzzleTypeTraits];
+        allPuzzleTypeTraits = [(FCPuzzleHistory *)v113 allPuzzleTypeTraits];
         [(FCModifyPuzzleHistoryCommand *)v100 setPuzzleTypeTraitsDict:allPuzzleTypeTraits];
 
-        [v114 addCommandToCommandQueue:v100];
-        completedDateCopy = v104;
-        v23 = v105;
-        v84 = v103;
+        [v113 addCommandToCommandQueue:v100];
+        completedDateCopy = v103;
+        v23 = v104;
+        v84 = v102;
       }
 
       else
       {
         completedDateCopy = v75;
-        v96 = v115;
+        v96 = v114;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           v97 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "updatedItem"];
           *buf = 136315906;
-          v142 = "[FCPuzzleHistory _updatePuzzle:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
-          v143 = 2080;
-          v144 = "FCPuzzleHistory.m";
-          v145 = 1024;
-          v146 = 448;
-          v147 = 2114;
-          v148 = v97;
+          v141 = "[FCPuzzleHistory _updatePuzzle:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
+          v142 = 2080;
+          v143 = "FCPuzzleHistory.m";
+          v144 = 1024;
+          v145 = 448;
+          v146 = 2114;
+          v147 = v97;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
       }
 
-      levelCopy = v111;
-      dCopy = v112;
-      typeCopy = v109;
-      scoreCopy = v110;
-      dateCopy = v107;
-      revealCopy = v108;
-      descriptionCopy = v113;
+      levelCopy = v110;
+      dCopy = v111;
+      typeCopy = v108;
+      scoreCopy = v109;
+      dateCopy = v106;
+      revealCopy = v107;
+      descriptionCopy = v112;
       goto LABEL_92;
     }
 
@@ -749,9 +740,9 @@ LABEL_65:
         goto LABEL_68;
       }
 
-      if ([v126 integerValue] >= 1)
+      if ([v125 integerValue] >= 1)
       {
-        firstPlayDuration3 = v126;
+        firstPlayDuration3 = v125;
         goto LABEL_65;
       }
 
@@ -768,13 +759,13 @@ LABEL_65:
     v38 = typeCopy;
     v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleID != nil"];
     *buf = 136315906;
-    v142 = "[FCPuzzleHistory _updatePuzzle:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
-    v143 = 2080;
-    v144 = "FCPuzzleHistory.m";
-    v145 = 1024;
-    v146 = 330;
-    v147 = 2114;
-    v148 = v39;
+    v141 = "[FCPuzzleHistory _updatePuzzle:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
+    v142 = 2080;
+    v143 = "FCPuzzleHistory.m";
+    v144 = 1024;
+    v145 = 330;
+    v146 = 2114;
+    v147 = v39;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     typeCopy = v38;
@@ -782,8 +773,6 @@ LABEL_65:
   }
 
 LABEL_92:
-
-  v102 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePuzzle:(id)puzzle puzzleTypeID:(id)d progressData:(id)data progressLevel:(int64_t)level score:(id)score scoreType:(id)type rankID:(id)iD usedReveal:(BOOL)self0 playDuration:(int64_t)self1 isSolved:(BOOL)self2 progressMovesDescription:(id)self3 difficulty:(id)self4 publishDate:(id)self5 behaviorFlags:(id)self6
@@ -816,7 +805,7 @@ LABEL_92:
 
 - (void)removePuzzleFromPuzzleHistory:(id)history
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   [MEMORY[0x1E696AF00] isMainThread];
   if (historyCopy)
@@ -846,73 +835,73 @@ LABEL_92:
         itemsLock = 0;
       }
 
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __49__FCPuzzleHistory_removePuzzleFromPuzzleHistory___block_invoke;
-      v29[3] = &unk_1E7C36C58;
-      v29[4] = self;
-      v24 = historyCopy;
-      v30 = historyCopy;
-      [(FCMTWriterLock *)itemsLock performWriteSync:v29];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __49__FCPuzzleHistory_removePuzzleFromPuzzleHistory___block_invoke;
+      v28[3] = &unk_1E7C36C58;
+      v28[4] = self;
+      v23 = historyCopy;
+      v29 = historyCopy;
+      [(FCMTWriterLock *)itemsLock performWriteSync:v28];
       identifier = [v7 identifier];
       localStore = [(FCPrivateDataController *)self localStore];
       [localStore removeObjectForKey:identifier];
 
-      v23 = identifier;
-      v22 = [[FCRemoveFromPuzzleHistoryCommand alloc] initWithEntryID:identifier];
+      v22 = identifier;
+      v21 = [[FCRemoveFromPuzzleHistoryCommand alloc] initWithEntryID:identifier];
       [(FCPrivateDataController *)self addCommandToCommandQueue:?];
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       observers = [(FCPrivateDataController *)self observers];
       v12 = [observers copy];
 
-      v13 = [v12 countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v24 objects:v31 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v26;
+        v15 = *v25;
         v16 = MEMORY[0x1E695E0F0];
         do
         {
           v17 = 0;
           do
           {
-            if (*v26 != v15)
+            if (*v25 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v25 + 1) + 8 * v17);
-            v31 = v7;
-            v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+            v18 = *(*(&v24 + 1) + 8 * v17);
+            v30 = v7;
+            v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
             [v18 puzzleHistory:self didAddPuzzleItems:v16 modifiedPuzzleItems:v16 removedPuzzleItems:v19];
 
             ++v17;
           }
 
           while (v14 != v17);
-          v14 = [v12 countByEnumeratingWithState:&v25 objects:v32 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v24 objects:v31 count:16];
         }
 
         while (v14);
       }
 
-      historyCopy = v24;
+      historyCopy = v23;
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "item"];
+      v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "item"];
       *buf = 136315906;
-      v34 = "[FCPuzzleHistory removePuzzleFromPuzzleHistory:]";
-      v35 = 2080;
-      v36 = "FCPuzzleHistory.m";
-      v37 = 1024;
-      v38 = 162;
-      v39 = 2114;
-      v40 = v21;
+      v33 = "[FCPuzzleHistory removePuzzleFromPuzzleHistory:]";
+      v34 = 2080;
+      v35 = "FCPuzzleHistory.m";
+      v36 = 1024;
+      v37 = 162;
+      v38 = 2114;
+      v39 = v20;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -923,18 +912,16 @@ LABEL_92:
   {
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleID != nil"];
     *buf = 136315906;
-    v34 = "[FCPuzzleHistory removePuzzleFromPuzzleHistory:]";
-    v35 = 2080;
-    v36 = "FCPuzzleHistory.m";
-    v37 = 1024;
-    v38 = 158;
-    v39 = 2114;
-    v40 = v7;
+    v33 = "[FCPuzzleHistory removePuzzleFromPuzzleHistory:]";
+    v34 = 2080;
+    v35 = "FCPuzzleHistory.m";
+    v36 = 1024;
+    v37 = 158;
+    v38 = 2114;
+    v39 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 LABEL_19:
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__FCPuzzleHistory_removePuzzleFromPuzzleHistory___block_invoke(uint64_t a1)
@@ -950,23 +937,23 @@ uint64_t __49__FCPuzzleHistory_removePuzzleFromPuzzleHistory___block_invoke(uint
 
 - (void)setFirstCompletedDate:(id)date forPuzzleID:(id)d puzzleTypeID:(id)iD
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   dCopy = d;
   iDCopy = iD;
   [MEMORY[0x1E696AF00] isMainThread];
-  v52 = dCopy;
+  v51 = dCopy;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleID != nil"];
+    v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleID != nil"];
     *buf = 136315906;
-    v60 = "[FCPuzzleHistory setFirstCompletedDate:forPuzzleID:puzzleTypeID:]";
-    v61 = 2080;
-    v62 = "FCPuzzleHistory.m";
-    v63 = 1024;
-    v64 = 192;
-    v65 = 2114;
-    v66 = v35;
+    v59 = "[FCPuzzleHistory setFirstCompletedDate:forPuzzleID:puzzleTypeID:]";
+    v60 = 2080;
+    v61 = "FCPuzzleHistory.m";
+    v62 = 1024;
+    v63 = 192;
+    v64 = 2114;
+    v65 = v34;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (iDCopy)
@@ -982,23 +969,23 @@ uint64_t __49__FCPuzzleHistory_removePuzzleFromPuzzleHistory___block_invoke(uint
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleTypeID != nil"];
+    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleTypeID != nil"];
     *buf = 136315906;
-    v60 = "[FCPuzzleHistory setFirstCompletedDate:forPuzzleID:puzzleTypeID:]";
-    v61 = 2080;
-    v62 = "FCPuzzleHistory.m";
-    v63 = 1024;
-    v64 = 193;
-    v65 = 2114;
-    v66 = v36;
+    v59 = "[FCPuzzleHistory setFirstCompletedDate:forPuzzleID:puzzleTypeID:]";
+    v60 = 2080;
+    v61 = "FCPuzzleHistory.m";
+    v62 = 1024;
+    v63 = 193;
+    v64 = 2114;
+    v65 = v35;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (dCopy)
   {
-    v50 = iDCopy;
-    v51 = dateCopy;
+    v49 = iDCopy;
+    v50 = dateCopy;
     selfCopy = self;
     if (self)
     {
@@ -1011,8 +998,8 @@ LABEL_6:
     }
 
     v12 = [(NSMutableDictionary *)itemsByPuzzleID objectForKey:dCopy];
-    v47 = [FCPuzzleHistoryItem alloc];
-    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ph-%@", v52];
+    v46 = [FCPuzzleHistoryItem alloc];
+    v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ph-%@", v51];
     progressData = [v12 progressData];
     progressLevel = [v12 progressLevel];
     score = [v12 score];
@@ -1020,7 +1007,7 @@ LABEL_6:
     rankID = [v12 rankID];
     usedReveal = [v12 usedReveal];
     playDuration = [v12 playDuration];
-    v40 = [MEMORY[0x1E695DF00] now];
+    v39 = [MEMORY[0x1E695DF00] now];
     completedDate = [v12 completedDate];
     firstPlayDuration = [v12 firstPlayDuration];
     bestScore = [v12 bestScore];
@@ -1028,7 +1015,7 @@ LABEL_6:
     difficulty = [v12 difficulty];
     publishDate = [v12 publishDate];
     behaviorFlags = [v12 behaviorFlags];
-    v18 = [(FCPuzzleHistoryItem *)v47 initWithEntryID:v46 puzzleID:v52 puzzleTypeID:v50 progressData:progressData progressLevel:progressLevel score:score scoreType:scoreType rankID:rankID usedReveal:usedReveal playDuration:playDuration lastPlayedDate:v40 completedDate:completedDate firstCompletedDate:v51 firstPlayDuration:firstPlayDuration bestScore:bestScore progressMovesDescription:progressMovesDescription difficulty:difficulty publishDate:publishDate behaviorFlags:behaviorFlags];
+    v18 = [(FCPuzzleHistoryItem *)v46 initWithEntryID:v45 puzzleID:v51 puzzleTypeID:v49 progressData:progressData progressLevel:progressLevel score:score scoreType:scoreType rankID:rankID usedReveal:usedReveal playDuration:playDuration lastPlayedDate:v39 completedDate:completedDate firstCompletedDate:v50 firstPlayDuration:firstPlayDuration bestScore:bestScore progressMovesDescription:progressMovesDescription difficulty:difficulty publishDate:publishDate behaviorFlags:behaviorFlags];
 
     if (v18)
     {
@@ -1043,24 +1030,24 @@ LABEL_6:
         itemsLock = 0;
       }
 
-      v53[0] = MEMORY[0x1E69E9820];
-      v53[1] = 3221225472;
-      v53[2] = __66__FCPuzzleHistory_setFirstCompletedDate_forPuzzleID_puzzleTypeID___block_invoke;
-      v53[3] = &unk_1E7C376A0;
-      v53[4] = self;
+      v52[0] = MEMORY[0x1E69E9820];
+      v52[1] = 3221225472;
+      v52[2] = __66__FCPuzzleHistory_setFirstCompletedDate_forPuzzleID_puzzleTypeID___block_invoke;
+      v52[3] = &unk_1E7C376A0;
+      v52[4] = self;
       v21 = v18;
-      v54 = v21;
-      v22 = v52;
-      v55 = v22;
-      [(FCMTWriterLock *)itemsLock performWriteSync:v53];
+      v53 = v21;
+      v22 = v51;
+      v54 = v22;
+      [(FCMTWriterLock *)itemsLock performWriteSync:v52];
       localStore = [(FCPrivateDataController *)self localStore];
       identifier = [(FCPuzzleHistoryItem *)v21 identifier];
       [localStore setObject:dictionaryRepresentation forKey:identifier];
 
       if (v12)
       {
-        v58 = v22;
-        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+        v57 = v22;
+        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
         v26 = MEMORY[0x1E695E0F0];
         v27 = selfCopy;
         v28 = v25;
@@ -1068,8 +1055,8 @@ LABEL_6:
 
       else
       {
-        v57 = v22;
-        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
+        v56 = v22;
+        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
         v28 = MEMORY[0x1E695E0F0];
         v27 = selfCopy;
         v26 = v25;
@@ -1078,39 +1065,37 @@ LABEL_6:
       [(FCPuzzleHistory *)v27 _addedPuzzleIDs:v26 modifiedPuzzleIDs:v28 removedPuzzleIDs:MEMORY[0x1E695E0F0]];
 
       v30 = [FCModifyPuzzleHistoryCommand alloc];
-      v56 = v21;
-      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
+      v55 = v21;
+      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
       v32 = [(FCModifyPuzzleHistoryCommand *)v30 initWithPuzzleHistoryItems:v31 merge:0];
 
       allPuzzleTypeTraits = [(FCPuzzleHistory *)&selfCopy->super.super.isa allPuzzleTypeTraits];
       [(FCModifyPuzzleHistoryCommand *)v32 setPuzzleTypeTraitsDict:allPuzzleTypeTraits];
 
       [(FCPrivateDataController *)selfCopy addCommandToCommandQueue:v32];
-      dateCopy = v51;
+      dateCopy = v50;
     }
 
     else
     {
-      dateCopy = v51;
+      dateCopy = v50;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "updatedItem"];
         *buf = 136315906;
-        v60 = "[FCPuzzleHistory setFirstCompletedDate:forPuzzleID:puzzleTypeID:]";
-        v61 = 2080;
-        v62 = "FCPuzzleHistory.m";
-        v63 = 1024;
-        v64 = 220;
-        v65 = 2114;
-        v66 = v29;
+        v59 = "[FCPuzzleHistory setFirstCompletedDate:forPuzzleID:puzzleTypeID:]";
+        v60 = 2080;
+        v61 = "FCPuzzleHistory.m";
+        v62 = 1024;
+        v63 = 220;
+        v64 = 2114;
+        v65 = v29;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
 
-    iDCopy = v50;
+    iDCopy = v49;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __66__FCPuzzleHistory_setFirstCompletedDate_forPuzzleID_puzzleTypeID___block_invoke(void *a1)
@@ -1126,7 +1111,7 @@ uint64_t __66__FCPuzzleHistory_setFirstCompletedDate_forPuzzleID_puzzleTypeID___
 
 - (void)_addedPuzzleIDs:(void *)ds modifiedPuzzleIDs:(void *)iDs removedPuzzleIDs:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dsCopy = ds;
   iDsCopy = iDs;
@@ -1138,15 +1123,15 @@ uint64_t __66__FCPuzzleHistory_setFirstCompletedDate_forPuzzleID_puzzleTypeID___
   [MEMORY[0x1E696AF00] isMainThread];
   if (!v7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "addedPuzzleIDs"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "addedPuzzleIDs"];
     *buf = 136315906;
-    v35 = "[FCPuzzleHistory _addedPuzzleIDs:modifiedPuzzleIDs:removedPuzzleIDs:]";
-    v36 = 2080;
-    v37 = "FCPuzzleHistory.m";
-    v38 = 1024;
-    v39 = 937;
-    v40 = 2114;
-    v41 = v22;
+    v34 = "[FCPuzzleHistory _addedPuzzleIDs:modifiedPuzzleIDs:removedPuzzleIDs:]";
+    v35 = 2080;
+    v36 = "FCPuzzleHistory.m";
+    v37 = 1024;
+    v38 = 937;
+    v39 = 2114;
+    v40 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!dsCopy)
@@ -1154,15 +1139,15 @@ uint64_t __66__FCPuzzleHistory_setFirstCompletedDate_forPuzzleID_puzzleTypeID___
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "modifiedPuzzleIDs"];
+        v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "modifiedPuzzleIDs"];
         *buf = 136315906;
-        v35 = "[FCPuzzleHistory _addedPuzzleIDs:modifiedPuzzleIDs:removedPuzzleIDs:]";
-        v36 = 2080;
-        v37 = "FCPuzzleHistory.m";
-        v38 = 1024;
-        v39 = 938;
-        v40 = 2114;
-        v41 = v23;
+        v34 = "[FCPuzzleHistory _addedPuzzleIDs:modifiedPuzzleIDs:removedPuzzleIDs:]";
+        v35 = 2080;
+        v36 = "FCPuzzleHistory.m";
+        v37 = 1024;
+        v38 = 938;
+        v39 = 2114;
+        v40 = v22;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -1175,77 +1160,75 @@ LABEL_5:
 
   if (!iDsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "removedPuzzleIDs"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "removedPuzzleIDs"];
     *buf = 136315906;
-    v35 = "[FCPuzzleHistory _addedPuzzleIDs:modifiedPuzzleIDs:removedPuzzleIDs:]";
-    v36 = 2080;
-    v37 = "FCPuzzleHistory.m";
-    v38 = 1024;
-    v39 = 939;
-    v40 = 2114;
-    v41 = v24;
+    v34 = "[FCPuzzleHistory _addedPuzzleIDs:modifiedPuzzleIDs:removedPuzzleIDs:]";
+    v35 = 2080;
+    v36 = "FCPuzzleHistory.m";
+    v37 = 1024;
+    v38 = 939;
+    v39 = 2114;
+    v40 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __70__FCPuzzleHistory__addedPuzzleIDs_modifiedPuzzleIDs_removedPuzzleIDs___block_invoke;
-  v32[3] = &unk_1E7C38BD8;
-  v32[4] = self;
-  v25 = v7;
-  v10 = [v7 fc_arrayByTransformingWithBlock:v32];
   v31[0] = MEMORY[0x1E69E9820];
   v31[1] = 3221225472;
-  v31[2] = __70__FCPuzzleHistory__addedPuzzleIDs_modifiedPuzzleIDs_removedPuzzleIDs___block_invoke_2;
+  v31[2] = __70__FCPuzzleHistory__addedPuzzleIDs_modifiedPuzzleIDs_removedPuzzleIDs___block_invoke;
   v31[3] = &unk_1E7C38BD8;
   v31[4] = self;
-  v11 = dsCopy;
-  v12 = [dsCopy fc_arrayByTransformingWithBlock:v31];
+  v24 = v7;
+  v10 = [v7 fc_arrayByTransformingWithBlock:v31];
   v30[0] = MEMORY[0x1E69E9820];
   v30[1] = 3221225472;
-  v30[2] = __70__FCPuzzleHistory__addedPuzzleIDs_modifiedPuzzleIDs_removedPuzzleIDs___block_invoke_3;
+  v30[2] = __70__FCPuzzleHistory__addedPuzzleIDs_modifiedPuzzleIDs_removedPuzzleIDs___block_invoke_2;
   v30[3] = &unk_1E7C38BD8;
   v30[4] = self;
+  v11 = dsCopy;
+  v12 = [dsCopy fc_arrayByTransformingWithBlock:v30];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __70__FCPuzzleHistory__addedPuzzleIDs_modifiedPuzzleIDs_removedPuzzleIDs___block_invoke_3;
+  v29[3] = &unk_1E7C38BD8;
+  v29[4] = self;
   v13 = iDsCopy;
-  v14 = [iDsCopy fc_arrayByTransformingWithBlock:v30];
+  v14 = [iDsCopy fc_arrayByTransformingWithBlock:v29];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   observers = [self observers];
   v16 = [observers copy];
 
-  v17 = [v16 countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:v32 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       v20 = 0;
       do
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [*(*(&v26 + 1) + 8 * v20++) puzzleHistory:self didAddPuzzleItems:v10 modifiedPuzzleItems:v12 removedPuzzleItems:v14];
+        [*(*(&v25 + 1) + 8 * v20++) puzzleHistory:self didAddPuzzleItems:v10 modifiedPuzzleItems:v12 removedPuzzleItems:v14];
       }
 
       while (v18 != v20);
-      v18 = [v16 countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v25 objects:v32 count:16];
     }
 
     while (v18);
   }
 
-  v7 = v25;
+  v7 = v24;
   dsCopy = v11;
   iDsCopy = v13;
 LABEL_18:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allPuzzleTypeTraits
@@ -1277,7 +1260,7 @@ LABEL_18:
 
 - (void)updatePuzzle:(id)puzzle difficulty:(id)difficulty publishDate:(id)date behaviorFlags:(id)flags
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   puzzleCopy = puzzle;
   difficultyCopy = difficulty;
   dateCopy = date;
@@ -1299,7 +1282,7 @@ LABEL_18:
     if (v15)
     {
       selfCopy = self;
-      v48 = [FCPuzzleHistoryItem alloc];
+      v47 = [FCPuzzleHistoryItem alloc];
       puzzleCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"ph-%@", puzzleCopy];
       puzzleTypeID = [v15 puzzleTypeID];
       progressData = [v15 progressData];
@@ -1317,10 +1300,10 @@ LABEL_18:
       progressMovesDescription = [v15 progressMovesDescription];
       v20 = flagsCopy;
       v21 = progressMovesDescription;
-      v49 = v20;
-      v50 = dateCopy;
-      v51 = difficultyCopy;
-      v22 = [(FCPuzzleHistoryItem *)v48 initWithEntryID:puzzleCopy puzzleID:puzzleCopy puzzleTypeID:puzzleTypeID progressData:progressData progressLevel:progressLevel score:score scoreType:scoreType rankID:rankID usedReveal:usedReveal playDuration:playDuration lastPlayedDate:lastPlayedDate completedDate:completedDate firstCompletedDate:firstCompletedDate firstPlayDuration:firstPlayDuration bestScore:bestScore progressMovesDescription:progressMovesDescription difficulty:difficultyCopy publishDate:dateCopy behaviorFlags:v20];
+      v48 = v20;
+      v49 = dateCopy;
+      v50 = difficultyCopy;
+      v22 = [(FCPuzzleHistoryItem *)v47 initWithEntryID:puzzleCopy puzzleID:puzzleCopy puzzleTypeID:puzzleTypeID progressData:progressData progressLevel:progressLevel score:score scoreType:scoreType rankID:rankID usedReveal:usedReveal playDuration:playDuration lastPlayedDate:lastPlayedDate completedDate:completedDate firstCompletedDate:firstCompletedDate firstPlayDuration:firstPlayDuration bestScore:bestScore progressMovesDescription:progressMovesDescription difficulty:difficultyCopy publishDate:dateCopy behaviorFlags:v20];
 
       v23 = v22;
       if (v22)
@@ -1336,27 +1319,27 @@ LABEL_18:
           itemsLock = 0;
         }
 
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = __69__FCPuzzleHistory_updatePuzzle_difficulty_publishDate_behaviorFlags___block_invoke;
-        v55[3] = &unk_1E7C376A0;
-        v55[4] = selfCopy;
+        v54[0] = MEMORY[0x1E69E9820];
+        v54[1] = 3221225472;
+        v54[2] = __69__FCPuzzleHistory_updatePuzzle_difficulty_publishDate_behaviorFlags___block_invoke;
+        v54[3] = &unk_1E7C376A0;
+        v54[4] = selfCopy;
         v26 = v22;
-        v56 = v26;
+        v55 = v26;
         v27 = puzzleCopy;
-        v57 = v27;
-        [(FCMTWriterLock *)itemsLock performWriteSync:v55];
+        v56 = v27;
+        [(FCMTWriterLock *)itemsLock performWriteSync:v54];
         localStore = [(FCPrivateDataController *)selfCopy localStore];
         identifier = [(FCPuzzleHistoryItem *)v26 identifier];
         [localStore setObject:dictionaryRepresentation forKey:identifier];
 
-        v59 = v27;
-        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
+        v58 = v27;
+        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
         [(FCPuzzleHistory *)selfCopy _addedPuzzleIDs:v30 modifiedPuzzleIDs:MEMORY[0x1E695E0F0] removedPuzzleIDs:?];
 
         v31 = [FCModifyPuzzleHistoryCommand alloc];
-        v58 = v26;
-        v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+        v57 = v26;
+        v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
         v33 = [(FCModifyPuzzleHistoryCommand *)v31 initWithPuzzleHistoryItems:v32 merge:0];
 
         allPuzzleTypeTraits = [(FCPuzzleHistory *)&selfCopy->super.super.isa allPuzzleTypeTraits];
@@ -1367,21 +1350,21 @@ LABEL_18:
 
       else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "updatedItem"];
+        v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "updatedItem"];
         *buf = 136315906;
-        v61 = "[FCPuzzleHistory updatePuzzle:difficulty:publishDate:behaviorFlags:]";
-        v62 = 2080;
-        v63 = "FCPuzzleHistory.m";
-        v64 = 1024;
-        v65 = 286;
-        v66 = 2114;
-        v67 = v38;
+        v60 = "[FCPuzzleHistory updatePuzzle:difficulty:publishDate:behaviorFlags:]";
+        v61 = 2080;
+        v62 = "FCPuzzleHistory.m";
+        v63 = 1024;
+        v64 = 286;
+        v65 = 2114;
+        v66 = v37;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
-      dateCopy = v50;
-      difficultyCopy = v51;
-      flagsCopy = v49;
+      dateCopy = v49;
+      difficultyCopy = v50;
+      flagsCopy = v48;
     }
 
     else
@@ -1390,7 +1373,7 @@ LABEL_18:
       if (os_log_type_enabled(FCPuzzleLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v61 = puzzleCopy;
+        v60 = puzzleCopy;
         _os_log_error_impl(&dword_1B63EF000, v36, OS_LOG_TYPE_ERROR, "FCPuzzleHistory: Failed to update stats info: history item for %{public}@ not found", buf, 0xCu);
       }
     }
@@ -1400,17 +1383,15 @@ LABEL_18:
   {
     v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "puzzleID != nil"];
     *buf = 136315906;
-    v61 = "[FCPuzzleHistory updatePuzzle:difficulty:publishDate:behaviorFlags:]";
-    v62 = 2080;
-    v63 = "FCPuzzleHistory.m";
-    v64 = 1024;
-    v65 = 253;
-    v66 = 2114;
-    v67 = v35;
+    v60 = "[FCPuzzleHistory updatePuzzle:difficulty:publishDate:behaviorFlags:]";
+    v61 = 2080;
+    v62 = "FCPuzzleHistory.m";
+    v63 = 1024;
+    v64 = 253;
+    v65 = 2114;
+    v66 = v35;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__FCPuzzleHistory_updatePuzzle_difficulty_publishDate_behaviorFlags___block_invoke(void *a1)
@@ -1711,39 +1692,39 @@ uint64_t __43__FCPuzzleHistory_loadLocalCachesFromStore__block_invoke_35(uint64_
 void __67__FCPuzzleHistory_handleSyncWithChangedRecords_deletedRecordNames___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v142 = *MEMORY[0x1E69E9840];
+  v141 = *MEMORY[0x1E69E9840];
+  v127 = 0u;
   v128 = 0u;
   v129 = 0u;
   v130 = 0u;
-  v131 = 0u;
   obj = *(a1 + 32);
-  v102 = [obj countByEnumeratingWithState:&v128 objects:v141 count:16];
-  if (v102)
+  v101 = [obj countByEnumeratingWithState:&v127 objects:v140 count:16];
+  if (v101)
   {
-    v101 = *v129;
+    v100 = *v128;
     *&v2 = 138543618;
-    v97 = v2;
-    v99 = v1;
+    v96 = v2;
+    v98 = v1;
     do
     {
       v3 = 0;
       do
       {
-        if (*v129 != v101)
+        if (*v128 != v100)
         {
           objc_enumerationMutation(obj);
         }
 
-        v108 = v3;
-        v4 = *(*(&v128 + 1) + 8 * v3);
+        v107 = v3;
+        v4 = *(*(&v127 + 1) + 8 * v3);
         v5 = [v4 recordID];
         v6 = [v5 recordName];
 
-        v107 = v6;
+        v106 = v6;
         v7 = [*(v1 + 40) objectForKey:v6];
         v8 = [v4 objectForKeyedSubscript:@"puzzleID"];
-        v105 = [v4 objectForKeyedSubscript:@"puzzleTypeID"];
-        v120 = [v4 objectForKeyedSubscript:@"progressData"];
+        v104 = [v4 objectForKeyedSubscript:@"puzzleTypeID"];
+        v119 = [v4 objectForKeyedSubscript:@"progressData"];
         v9 = [v4 objectForKeyedSubscript:@"progressLevel"];
         v10 = v9;
         if (v9)
@@ -1756,7 +1737,7 @@ void __67__FCPuzzleHistory_handleSyncWithChangedRecords_deletedRecordNames___blo
           v11 = &unk_1F2E70ED8;
         }
 
-        v119 = v11;
+        v118 = v11;
 
         v12 = [v4 objectForKeyedSubscript:@"score"];
         v13 = v12;
@@ -1770,10 +1751,10 @@ void __67__FCPuzzleHistory_handleSyncWithChangedRecords_deletedRecordNames___blo
           v14 = &unk_1F2E70ED8;
         }
 
-        v118 = v14;
+        v117 = v14;
 
-        v117 = [v4 objectForKeyedSubscript:@"scoreType"];
-        v116 = [v4 objectForKeyedSubscript:@"rankID"];
+        v116 = [v4 objectForKeyedSubscript:@"scoreType"];
+        v115 = [v4 objectForKeyedSubscript:@"rankID"];
         v15 = [v4 objectForKeyedSubscript:@"usedReveal"];
         v16 = v15;
         if (v15)
@@ -1786,7 +1767,7 @@ void __67__FCPuzzleHistory_handleSyncWithChangedRecords_deletedRecordNames___blo
           v17 = &unk_1F2E70ED8;
         }
 
-        v115 = v17;
+        v114 = v17;
 
         v18 = [v4 objectForKeyedSubscript:@"playDuration"];
         v19 = v18;
@@ -1800,23 +1781,23 @@ void __67__FCPuzzleHistory_handleSyncWithChangedRecords_deletedRecordNames___blo
           v20 = &unk_1F2E70ED8;
         }
 
-        v121 = v20;
+        v120 = v20;
 
         v21 = v7;
-        v123 = [v4 objectForKeyedSubscript:@"lastPlayedDate"];
-        v114 = [v4 objectForKeyedSubscript:@"completedDate"];
-        v113 = [v4 objectForKeyedSubscript:@"firstCompletedDate"];
-        v112 = [v4 objectForKeyedSubscript:@"firstPlayDuration"];
+        v122 = [v4 objectForKeyedSubscript:@"lastPlayedDate"];
+        v113 = [v4 objectForKeyedSubscript:@"completedDate"];
+        v112 = [v4 objectForKeyedSubscript:@"firstCompletedDate"];
+        v111 = [v4 objectForKeyedSubscript:@"firstPlayDuration"];
         v22 = [v4 objectForKeyedSubscript:@"bestScore"];
-        v122 = [v4 objectForKeyedSubscript:@"difficulty"];
-        v111 = [v4 objectForKeyedSubscript:@"publishDate"];
-        v110 = [v4 objectForKeyedSubscript:@"behaviorFlags"];
-        v109 = [v4 objectForKeyedSubscript:@"progressMovesDescription"];
-        v106 = v7;
+        v121 = [v4 objectForKeyedSubscript:@"difficulty"];
+        v110 = [v4 objectForKeyedSubscript:@"publishDate"];
+        v109 = [v4 objectForKeyedSubscript:@"behaviorFlags"];
+        v108 = [v4 objectForKeyedSubscript:@"progressMovesDescription"];
+        v105 = v7;
         if (v7)
         {
-          v103 = v22;
-          v104 = v8;
+          v102 = v22;
+          v103 = v8;
           v23 = [v7 mutableCopy];
           v24 = *(v1 + 48);
           v25 = v21;
@@ -1829,7 +1810,7 @@ void __67__FCPuzzleHistory_handleSyncWithChangedRecords_deletedRecordNames___blo
           v27 = [v25 objectForKeyedSubscript:@"puzzleTypeID"];
           v28 = [(FCPuzzleHistory *)v24 puzzleTypeTraitsForPuzzleTypeID:v27];
           v29 = [v25 objectForKeyedSubscript:@"progressLevel"];
-          v100 = [v29 intValue];
+          v99 = [v29 intValue];
 
           v30 = [v25 objectForKeyedSubscript:@"score"];
           v31 = [v30 intValue];
@@ -1850,7 +1831,7 @@ void __67__FCPuzzleHistory_handleSyncWithChangedRecords_deletedRecordNames___blo
             if (v31 && (!v35 || v35 > v31))
             {
               v45 = FCPuzzleLog;
-              v1 = v99;
+              v1 = v98;
               if (os_log_type_enabled(FCPuzzleLog, OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_60;
@@ -1861,23 +1842,23 @@ void __67__FCPuzzleHistory_handleSyncWithChangedRecords_deletedRecordNames___blo
 
 LABEL_21:
             v36 = [v24 allowLowerProgressOnCompletedPuzzles];
-            v37 = v104;
+            v37 = v103;
             if ((v36 & 1) != 0 || ([v25 objectForKeyedSubscript:@"completedDate"], (v38 = objc_claimAutoreleasedReturnValue()) == 0))
             {
 
-              v1 = v99;
+              v1 = v98;
             }
 
             else
             {
-              if (v33 < v100)
+              if (v33 < v99)
               {
 
-                v1 = v99;
+                v1 = v98;
                 goto LABEL_61;
               }
 
-              v1 = v99;
+              v1 = v98;
               if ((v28 & 0x80000) != 0)
               {
 
@@ -1897,62 +1878,62 @@ LABEL_21:
               }
             }
 
-            v39 = v105;
-            v40 = v121;
+            v39 = v104;
+            v40 = v120;
+            if (v103)
+            {
+              [v23 setObject:v103 forKeyedSubscript:@"puzzleID"];
+            }
+
             if (v104)
             {
-              [v23 setObject:v104 forKeyedSubscript:@"puzzleID"];
+              [v23 setObject:v104 forKeyedSubscript:@"puzzleTypeID"];
             }
 
-            if (v105)
+            if (v119)
             {
-              [v23 setObject:v105 forKeyedSubscript:@"puzzleTypeID"];
-            }
-
-            if (v120)
-            {
-              [v23 setObject:v120 forKeyedSubscript:@"progressData"];
-            }
-
-            if (([v119 intValue] & 0x80000000) == 0)
-            {
-              [v23 setObject:v119 forKeyedSubscript:@"progressLevel"];
+              [v23 setObject:v119 forKeyedSubscript:@"progressData"];
             }
 
             if (([v118 intValue] & 0x80000000) == 0)
             {
-              [v23 setObject:v118 forKeyedSubscript:@"score"];
+              [v23 setObject:v118 forKeyedSubscript:@"progressLevel"];
             }
 
-            if (([v121 intValue] & 0x80000000) == 0)
+            if (([v117 intValue] & 0x80000000) == 0)
             {
-              [v23 setObject:v121 forKeyedSubscript:@"playDuration"];
+              [v23 setObject:v117 forKeyedSubscript:@"score"];
+            }
+
+            if (([v120 intValue] & 0x80000000) == 0)
+            {
+              [v23 setObject:v120 forKeyedSubscript:@"playDuration"];
+            }
+
+            if (v115)
+            {
+              [v23 setObject:v115 forKeyedSubscript:@"rankID"];
+            }
+
+            if (v108)
+            {
+              [v23 setObject:v108 forKeyedSubscript:@"progressMovesDescription"];
             }
 
             if (v116)
             {
-              [v23 setObject:v116 forKeyedSubscript:@"rankID"];
+              [v23 setObject:v116 forKeyedSubscript:@"scoreType"];
             }
 
-            if (v109)
-            {
-              [v23 setObject:v109 forKeyedSubscript:@"progressMovesDescription"];
-            }
-
-            if (v117)
-            {
-              [v23 setObject:v117 forKeyedSubscript:@"scoreType"];
-            }
-
-            [v23 setObject:v123 forKeyedSubscript:@"lastPlayedDate"];
-            [v23 setObject:v114 forKeyedSubscript:@"completedDate"];
-            [v23 setObject:v115 forKeyedSubscript:@"usedReveal"];
-            if (v113)
+            [v23 setObject:v122 forKeyedSubscript:@"lastPlayedDate"];
+            [v23 setObject:v113 forKeyedSubscript:@"completedDate"];
+            [v23 setObject:v114 forKeyedSubscript:@"usedReveal"];
+            if (v112)
             {
               v53 = [v23 objectForKeyedSubscript:@"firstCompletedDate"];
               if (v53)
               {
-                v54 = [v113 earlierDate:v53];
+                v54 = [v112 earlierDate:v53];
                 [v23 setObject:v54 forKeyedSubscript:@"firstCompletedDate"];
 
                 v55 = [v23 objectForKeyedSubscript:@"firstCompletedDate"];
@@ -1961,7 +1942,7 @@ LABEL_21:
 
               else
               {
-                [v23 setObject:v113 forKeyedSubscript:@"firstCompletedDate"];
+                [v23 setObject:v112 forKeyedSubscript:@"firstCompletedDate"];
                 v56 = 1;
               }
             }
@@ -1971,7 +1952,7 @@ LABEL_21:
               v56 = 0;
             }
 
-            if (v112)
+            if (v111)
             {
               v57 = [v23 objectForKeyedSubscript:@"firstPlayDuration"];
               v58 = v57;
@@ -1987,7 +1968,7 @@ LABEL_21:
 
               if (v59)
               {
-                v60 = v112;
+                v60 = v111;
               }
 
               else
@@ -1998,7 +1979,7 @@ LABEL_21:
               [v23 setObject:v60 forKeyedSubscript:@"firstPlayDuration"];
             }
 
-            if (v110)
+            if (v109)
             {
               v61 = [v23 objectForKeyedSubscript:@"behaviorFlags"];
               if ([v61 integerValue])
@@ -2008,22 +1989,22 @@ LABEL_21:
 
               else
               {
-                v62 = v110;
+                v62 = v109;
               }
 
               [v23 setObject:v62 forKeyedSubscript:@"behaviorFlags"];
             }
 
-            v22 = v103;
-            v63 = v122;
-            if (v103)
+            v22 = v102;
+            v63 = v121;
+            if (v102)
             {
               v64 = [v23 objectForKeyedSubscript:@"bestScore"];
-              v65 = [(FCPuzzleHistory *)*(v1 + 48) puzzleTypeTraitsForPuzzleTypeID:v105];
+              v65 = [(FCPuzzleHistory *)*(v1 + 48) puzzleTypeTraitsForPuzzleTypeID:v104];
               if (v64)
               {
                 v66 = v65;
-                v67 = [v103 integerValue];
+                v67 = [v102 integerValue];
                 v68 = [v64 integerValue];
                 if (v67 >= v68)
                 {
@@ -2061,11 +2042,11 @@ LABEL_21:
 
               else
               {
-                [v23 setObject:v103 forKeyedSubscript:@"bestScore"];
+                [v23 setObject:v102 forKeyedSubscript:@"bestScore"];
               }
 
-              v40 = v121;
-              v63 = v122;
+              v40 = v120;
+              v63 = v121;
             }
 
             if (v63)
@@ -2085,7 +2066,7 @@ LABEL_21:
               [v23 setObject:v75 forKeyedSubscript:@"difficulty"];
             }
 
-            if (v111)
+            if (v110)
             {
               v76 = [v23 objectForKeyedSubscript:@"publishDate"];
               v77 = v76;
@@ -2096,17 +2077,17 @@ LABEL_21:
 
               else
               {
-                v78 = v111;
+                v78 = v110;
               }
 
               [v23 setObject:v78 forKeyedSubscript:@"publishDate"];
             }
 
-            v6 = v107;
-            [*(v1 + 40) setObject:v23 forKey:v107];
-            if (v104)
+            v6 = v106;
+            [*(v1 + 40) setObject:v23 forKey:v106];
+            if (v103)
             {
-              v47 = [[FCPuzzleHistoryItem alloc] initWithEntryID:v107 dictionaryRepresentation:v23];
+              v47 = [[FCPuzzleHistoryItem alloc] initWithEntryID:v106 dictionaryRepresentation:v23];
               v79 = *(v1 + 48);
               if (v79)
               {
@@ -2118,8 +2099,8 @@ LABEL_21:
                 v80 = 0;
               }
 
-              [v80 setObject:v47 forKey:v104];
-              [*(v1 + 64) addObject:v104];
+              [v80 setObject:v47 forKey:v103];
+              [*(v1 + 64) addObject:v103];
               goto LABEL_141;
             }
           }
@@ -2132,29 +2113,29 @@ LABEL_21:
             }
 
             v45 = FCPuzzleLog;
-            v1 = v99;
+            v1 = v98;
             if (os_log_type_enabled(FCPuzzleLog, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_60:
               *buf = 67109376;
-              *v135 = v31;
-              *&v135[4] = 1024;
-              *&v135[6] = v35;
+              *v134 = v31;
+              *&v134[4] = 1024;
+              *&v134[6] = v35;
               _os_log_impl(&dword_1B63EF000, v45, OS_LOG_TYPE_DEFAULT, "FCPuzzleHistory: Invalid progress update localScore=%d, remoteScore=%d.", buf, 0xEu);
             }
 
 LABEL_61:
 
 LABEL_62:
-            v37 = v104;
+            v37 = v103;
 LABEL_63:
             v46 = FCPuzzleLog;
-            v39 = v105;
-            v40 = v121;
+            v39 = v104;
+            v40 = v120;
             if (os_log_type_enabled(FCPuzzleLog, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              *v135 = v37;
+              *v134 = v37;
               _os_log_impl(&dword_1B63EF000, v46, OS_LOG_TYPE_DEFAULT, "FCPuzzleHistory: Received update with a lower score/progress for %{public}@. Replacing with local record.", buf, 0xCu);
             }
 
@@ -2162,8 +2143,8 @@ LABEL_63:
             if (v47)
             {
               v48 = [FCModifyPuzzleHistoryCommand alloc];
-              v133 = v47;
-              v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v133 count:1];
+              v132 = v47;
+              v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v132 count:1];
               v50 = [(FCModifyPuzzleHistoryCommand *)v48 initWithPuzzleHistoryItems:v49 merge:0];
 
               v51 = [(FCPuzzleHistory *)*(v1 + 48) allPuzzleTypeTraits];
@@ -2172,8 +2153,8 @@ LABEL_63:
               [*(v1 + 48) addCommandToCommandQueue:v50];
             }
 
-            v6 = v107;
-            v22 = v103;
+            v6 = v106;
+            v22 = v102;
 LABEL_141:
           }
 
@@ -2183,41 +2164,41 @@ LABEL_141:
         v37 = v8;
         if (v8)
         {
-          v39 = v105;
-          v40 = v121;
-          if (v123)
+          v39 = v104;
+          v40 = v120;
+          if (v122)
           {
             v41 = [MEMORY[0x1E695DF90] dictionary];
             [v41 fc_safelySetObject:v37 forKey:@"puzzleID"];
-            [v41 fc_safelySetObject:v105 forKey:@"puzzleTypeID"];
-            if (v120)
+            [v41 fc_safelySetObject:v104 forKey:@"puzzleTypeID"];
+            if (v119)
             {
-              [v41 fc_safelySetObject:v120 forKey:@"progressData"];
+              [v41 fc_safelySetObject:v119 forKey:@"progressData"];
             }
 
-            [v41 fc_safelySetObject:v119 forKey:@"progressLevel"];
-            [v41 fc_safelySetObject:v118 forKey:@"score"];
-            [v41 fc_safelySetObject:v115 forKey:@"usedReveal"];
-            [v41 fc_safelySetObject:v121 forKey:@"playDuration"];
-            [v41 fc_safelySetObject:v123 forKey:@"lastPlayedDate"];
-            if (v116)
+            [v41 fc_safelySetObject:v118 forKey:@"progressLevel"];
+            [v41 fc_safelySetObject:v117 forKey:@"score"];
+            [v41 fc_safelySetObject:v114 forKey:@"usedReveal"];
+            [v41 fc_safelySetObject:v120 forKey:@"playDuration"];
+            [v41 fc_safelySetObject:v122 forKey:@"lastPlayedDate"];
+            if (v115)
             {
-              [v41 fc_safelySetObject:v116 forKey:@"rankID"];
-            }
-
-            if (v114)
-            {
-              [v41 fc_safelySetObject:v114 forKey:@"completedDate"];
+              [v41 fc_safelySetObject:v115 forKey:@"rankID"];
             }
 
             if (v113)
             {
-              [v41 fc_safelySetObject:v113 forKey:@"firstCompletedDate"];
+              [v41 fc_safelySetObject:v113 forKey:@"completedDate"];
             }
 
             if (v112)
             {
-              [v41 fc_safelySetObject:v112 forKey:@"firstPlayDuration"];
+              [v41 fc_safelySetObject:v112 forKey:@"firstCompletedDate"];
+            }
+
+            if (v111)
+            {
+              [v41 fc_safelySetObject:v111 forKey:@"firstPlayDuration"];
             }
 
             if (v22)
@@ -2225,29 +2206,29 @@ LABEL_141:
               [v41 fc_safelySetObject:v22 forKey:@"bestScore"];
             }
 
-            if (v122)
+            if (v121)
             {
-              [v41 fc_safelySetObject:v122 forKey:@"difficulty"];
-            }
-
-            if (v111)
-            {
-              [v41 fc_safelySetObject:v111 forKey:@"publishDate"];
+              [v41 fc_safelySetObject:v121 forKey:@"difficulty"];
             }
 
             if (v110)
             {
-              [v41 fc_safelySetObject:v110 forKey:@"behaviorFlags"];
+              [v41 fc_safelySetObject:v110 forKey:@"publishDate"];
             }
 
             if (v109)
             {
-              [v41 fc_safelySetObject:v109 forKey:@"progressMovesDescription"];
+              [v41 fc_safelySetObject:v109 forKey:@"behaviorFlags"];
             }
 
-            if (v117)
+            if (v108)
             {
-              [v41 fc_safelySetObject:v117 forKey:@"scoreType"];
+              [v41 fc_safelySetObject:v108 forKey:@"progressMovesDescription"];
+            }
+
+            if (v116)
+            {
+              [v41 fc_safelySetObject:v116 forKey:@"scoreType"];
             }
 
             v42 = [[FCPuzzleHistoryItem alloc] initWithEntryID:v6 dictionaryRepresentation:v41];
@@ -2266,32 +2247,32 @@ LABEL_141:
             [*(v1 + 40) setObject:v41 forKey:v6];
             [*(v1 + 56) addObject:v37];
 
-            v40 = v121;
+            v40 = v120;
             goto LABEL_143;
           }
         }
 
         else
         {
-          v39 = v105;
-          v40 = v121;
+          v39 = v104;
+          v40 = v120;
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v81 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a puzzleHistoryItem without a puzzleID"];
             *buf = 136315906;
-            *v135 = "[FCPuzzleHistory handleSyncWithChangedRecords:deletedRecordNames:]_block_invoke";
-            *&v135[8] = 2080;
-            v136 = "FCPuzzleHistory.m";
-            v137 = 1024;
-            v138 = 621;
-            v139 = 2114;
-            v140 = v81;
+            *v134 = "[FCPuzzleHistory handleSyncWithChangedRecords:deletedRecordNames:]_block_invoke";
+            *&v134[8] = 2080;
+            v135 = "FCPuzzleHistory.m";
+            v136 = 1024;
+            v137 = 621;
+            v138 = 2114;
+            v139 = v81;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-            v40 = v121;
+            v40 = v120;
           }
 
-          if (v123)
+          if (v122)
           {
             goto LABEL_73;
           }
@@ -2301,63 +2282,63 @@ LABEL_141:
         {
           v82 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a puzzleHistoryItem without a lastPlayedDate"];
           *buf = 136315906;
-          *v135 = "[FCPuzzleHistory handleSyncWithChangedRecords:deletedRecordNames:]_block_invoke";
-          *&v135[8] = 2080;
-          v136 = "FCPuzzleHistory.m";
-          v137 = 1024;
-          v138 = 622;
-          v139 = 2114;
-          v140 = v82;
+          *v134 = "[FCPuzzleHistory handleSyncWithChangedRecords:deletedRecordNames:]_block_invoke";
+          *&v134[8] = 2080;
+          v135 = "FCPuzzleHistory.m";
+          v136 = 1024;
+          v137 = 622;
+          v138 = 2114;
+          v139 = v82;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-          v40 = v121;
+          v40 = v120;
         }
 
 LABEL_73:
         v52 = FCPuzzleLog;
         if (os_log_type_enabled(FCPuzzleLog, OS_LOG_TYPE_ERROR))
         {
-          *buf = v97;
-          *v135 = v37;
-          *&v135[8] = 2114;
-          v136 = v123;
+          *buf = v96;
+          *v134 = v37;
+          *&v134[8] = 2114;
+          v135 = v122;
           _os_log_error_impl(&dword_1B63EF000, v52, OS_LOG_TYPE_ERROR, "FCPuzzleHistory: Received invalid new changed record puzzleID=%{public}@ lastPlayedDate=%{public}@", buf, 0x16u);
         }
 
 LABEL_143:
 
-        v3 = v108 + 1;
+        v3 = v107 + 1;
       }
 
-      while (v102 != v108 + 1);
-      v83 = [obj countByEnumeratingWithState:&v128 objects:v141 count:16];
-      v102 = v83;
+      while (v101 != v107 + 1);
+      v83 = [obj countByEnumeratingWithState:&v127 objects:v140 count:16];
+      v101 = v83;
     }
 
     while (v83);
   }
 
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
   v125 = 0u;
+  v126 = 0u;
+  v123 = 0u;
+  v124 = 0u;
   v84 = *(v1 + 72);
-  v85 = [v84 countByEnumeratingWithState:&v124 objects:v132 count:16];
+  v85 = [v84 countByEnumeratingWithState:&v123 objects:v131 count:16];
   if (v85)
   {
     v86 = v85;
-    v87 = *v125;
+    v87 = *v124;
     do
     {
       v88 = 0;
       do
       {
-        if (*v125 != v87)
+        if (*v124 != v87)
         {
           objc_enumerationMutation(v84);
         }
 
-        v89 = *(*(&v124 + 1) + 8 * v88);
+        v89 = *(*(&v123 + 1) + 8 * v88);
         v90 = [*(v1 + 40) objectForKey:v89];
         v91 = v90;
         if (v90)
@@ -2383,14 +2364,12 @@ LABEL_143:
       }
 
       while (v86 != v88);
-      v95 = [v84 countByEnumeratingWithState:&v124 objects:v132 count:16];
+      v95 = [v84 countByEnumeratingWithState:&v123 objects:v131 count:16];
       v86 = v95;
     }
 
     while (v95);
   }
-
-  v96 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allKnownRecordNamesWithinRecordZoneWithID:(id)d
@@ -2414,42 +2393,40 @@ LABEL_143:
 
 + (id)backingRecordZoneIDs
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695BA90]);
   v3 = [v2 initWithZoneName:@"PuzzleHistory" ownerName:*MEMORY[0x1E695B728]];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }
 
 + (id)commandsToMergeLocalDataToCloud:(id)cloud privateDataDirectory:(id)directory
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allKeys = [cloudCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         if (([self isLocalStoreKeyInternal:v12] & 1) == 0)
         {
           v13 = [cloudCopy objectForKey:v12];
@@ -2458,17 +2435,15 @@ LABEL_143:
         }
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v15 = [[FCModifyPuzzleHistoryCommand alloc] initWithPuzzleHistoryItems:array merge:1];
-  v23 = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v22 = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
 
   return v16;
 }

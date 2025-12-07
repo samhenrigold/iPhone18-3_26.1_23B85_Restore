@@ -121,14 +121,12 @@ void __109__SFActivityScanner_activityPayloadFromDevice_forAdvertisementPayload_
 
 uint64_t __55__SFActivityScanner_scanManager_receivedAdvertisement___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v5 activityScanner:? receivedAdvertisement:?];
+    return [v3 activityScanner:? receivedAdvertisement:?];
   }
 
   return result;
@@ -149,14 +147,12 @@ uint64_t __55__SFActivityScanner_scanManager_receivedAdvertisement___block_invok
 
 uint64_t __55__SFActivityScanner_scanManager_foundDeviceWithDevice___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v5 activityScanner:? foundDeviceWithDevice:?];
+    return [v3 activityScanner:? foundDeviceWithDevice:?];
   }
 
   return result;
@@ -177,14 +173,12 @@ uint64_t __55__SFActivityScanner_scanManager_foundDeviceWithDevice___block_invok
 
 uint64_t __54__SFActivityScanner_scanManager_lostDeviceWithDevice___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v5 activityScanner:? lostDeviceWithDevice:?];
+    return [v3 activityScanner:? lostDeviceWithDevice:?];
   }
 
   return result;
@@ -205,14 +199,12 @@ uint64_t __54__SFActivityScanner_scanManager_lostDeviceWithDevice___block_invoke
 
 uint64_t __54__SFActivityScanner_scanManager_pairedDevicesChanged___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 8);
+    v3 = *(*(a1 + 32) + 8);
 
-    return [v5 activityScanner:? pairedDevicesChanged:?];
+    return [v3 activityScanner:? pairedDevicesChanged:?];
   }
 
   return result;

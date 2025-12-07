@@ -19,7 +19,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_10000B4E8(&qword_10001F9C0, type metadata accessor for LaunchOptionsKey);
+    sub_10000B4E8(&qword_10001F9C0, type metadata accessor for LaunchOptionsKey, &unk_100013C44);
     options = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -53,19 +53,19 @@
 
 - (void)killSpringBoard
 {
-  v3 = (*(*(sub_10000AA2C(&qword_10001F6F8, &qword_1000139A0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_10000AA2C(&qword_10001F6F8, &qword_1000139A0);
   __chkstk_darwin();
-  v5 = &v10 - v4;
-  v6 = type metadata accessor for TaskPriority();
-  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v4 = &v9 - v3;
+  v5 = type metadata accessor for TaskPriority();
+  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
   type metadata accessor for MainActor();
   selfCopy = self;
-  v8 = static MainActor.shared.getter();
-  v9 = swift_allocObject();
-  v9[2] = v8;
-  v9[3] = &protocol witness table for MainActor;
-  v9[4] = selfCopy;
-  sub_100008460(0, 0, v5, &unk_100013A68, v9);
+  v7 = static MainActor.shared.getter();
+  v8 = swift_allocObject();
+  v8[2] = v7;
+  v8[3] = &protocol witness table for MainActor;
+  v8[4] = selfCopy;
+  sub_100008460(0, 0, v4, &unk_100013A68, v8);
 }
 
 @end

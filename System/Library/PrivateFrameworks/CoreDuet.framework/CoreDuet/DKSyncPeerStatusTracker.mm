@@ -126,44 +126,42 @@ void __42___DKSyncPeerStatusTracker_sharedInstance__block_invoke(uint64_t a1)
 
 void __53___DKSyncPeerStatusTracker_syncPeerTransportsStrings__block_invoke()
 {
-  v4[16] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F05EEFD0;
-  v3[1] = &unk_1F05EEFE8;
-  v4[0] = @"none";
-  v4[1] = @"Rapport(Pull)";
-  v3[2] = &unk_1F05EF000;
-  v3[3] = &unk_1F05EF018;
-  v4[2] = @"Cloud(Down)";
-  v4[3] = @"Cloud(Up)";
-  v3[4] = &unk_1F05EF030;
-  v3[5] = &unk_1F05EF048;
-  v4[4] = @"Rapport(Pull) & Cloud(Down)";
-  v4[5] = @"Rapport(Pull) & Cloud(Up)";
-  v3[6] = &unk_1F05EF060;
-  v3[7] = &unk_1F05EF078;
-  v4[6] = @"Cloud(Down) & Cloud(Up)";
-  v4[7] = @"Rapport(Pull), Cloud(Down) & Cloud(Up)";
-  v3[8] = &unk_1F05EF090;
-  v3[9] = &unk_1F05EF0A8;
-  v4[8] = @"Rapport(Push)";
-  v4[9] = @"Rapport(Pull) & Rapport(Push)";
-  v3[10] = &unk_1F05EF0C0;
-  v3[11] = &unk_1F05EF0D8;
-  v4[10] = @"Rapport(Push) & Cloud(Down)";
-  v4[11] = @"Rapport(Push) & Cloud(Up)";
-  v3[12] = &unk_1F05EF0F0;
-  v3[13] = &unk_1F05EF108;
-  v4[12] = @"Rapport(Pull), Rapport(Push) & Cloud(Down)";
-  v4[13] = @"Rapport(Pull), Rapport(Push) & Cloud(Up)";
-  v3[14] = &unk_1F05EF120;
-  v3[15] = &unk_1F05EF138;
-  v4[14] = @"Rapport(Push), Cloud(Down) & Cloud(Up)";
-  v4[15] = @"Rapport(Pull), Rapport(Push), Cloud(Down) & Cloud(Up)";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:16];
+  v3[16] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F05EEFD0;
+  v2[1] = &unk_1F05EEFE8;
+  v3[0] = @"none";
+  v3[1] = @"Rapport(Pull)";
+  v2[2] = &unk_1F05EF000;
+  v2[3] = &unk_1F05EF018;
+  v3[2] = @"Cloud(Down)";
+  v3[3] = @"Cloud(Up)";
+  v2[4] = &unk_1F05EF030;
+  v2[5] = &unk_1F05EF048;
+  v3[4] = @"Rapport(Pull) & Cloud(Down)";
+  v3[5] = @"Rapport(Pull) & Cloud(Up)";
+  v2[6] = &unk_1F05EF060;
+  v2[7] = &unk_1F05EF078;
+  v3[6] = @"Cloud(Down) & Cloud(Up)";
+  v3[7] = @"Rapport(Pull), Cloud(Down) & Cloud(Up)";
+  v2[8] = &unk_1F05EF090;
+  v2[9] = &unk_1F05EF0A8;
+  v3[8] = @"Rapport(Push)";
+  v3[9] = @"Rapport(Pull) & Rapport(Push)";
+  v2[10] = &unk_1F05EF0C0;
+  v2[11] = &unk_1F05EF0D8;
+  v3[10] = @"Rapport(Push) & Cloud(Down)";
+  v3[11] = @"Rapport(Push) & Cloud(Up)";
+  v2[12] = &unk_1F05EF0F0;
+  v2[13] = &unk_1F05EF108;
+  v3[12] = @"Rapport(Pull), Rapport(Push) & Cloud(Down)";
+  v3[13] = @"Rapport(Pull), Rapport(Push) & Cloud(Up)";
+  v2[14] = &unk_1F05EF120;
+  v2[15] = &unk_1F05EF138;
+  v3[14] = @"Rapport(Push), Cloud(Down) & Cloud(Up)";
+  v3[15] = @"Rapport(Pull), Rapport(Push), Cloud(Down) & Cloud(Up)";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:16];
   v1 = syncPeerTransportsStrings_strings;
   syncPeerTransportsStrings_strings = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -6,6 +6,7 @@
 - (id)accessibilityLabel;
 - (id)automationElements;
 - (unint64_t)accessibilityTraits;
+- (void)setExpanded:(BOOL)expanded;
 @end
 
 @implementation MTEpisodeCellAccessibility
@@ -18,6 +19,15 @@
   [validationsCopy validateClass:@"MTEpisodeCell" isKindOfClass:@"UITableViewCell"];
   [validationsCopy validateClass:@"MTEpisodeCell" hasInstanceMethod:@"episodeLockup" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"UITableViewCell" hasInstanceMethod:@"isSelected" withFullSignature:{"B", 0}];
+}
+
+- (void)setExpanded:(BOOL)expanded
+{
+  v4.receiver = self;
+  v4.super_class = MTEpisodeCellAccessibility;
+  [(MTEpisodeCellAccessibility *)&v4 setExpanded:expanded];
+  [(MTEpisodeCellAccessibility *)self _accessibilityClearChildren];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 - (id)_axLockup

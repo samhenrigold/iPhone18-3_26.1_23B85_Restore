@@ -140,23 +140,24 @@
 
 - (CGPoint)positionOfHyperlinkKnob
 {
-  v12.receiver = self;
-  v12.super_class = TSDMediaRep;
-  [(TSDRep *)&v12 positionOfHyperlinkKnob];
+  v14.receiver = self;
+  v14.super_class = TSDMediaRep;
+  [(TSDRep *)&v14 positionOfHyperlinkKnob];
   v4 = v3;
   v6 = v5;
-  if ([(TSDMediaRep *)self shouldShowMediaReplaceUI])
+  shouldShowMediaReplaceUI = [(TSDMediaRep *)self shouldShowMediaReplaceUI];
+  if (shouldShowMediaReplaceUI)
   {
-    [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:@"sf-mac_canvas_btn_placeholder-small-N" inBundle:{TSDBundle()), "size"}];
-    v8 = v7;
+    [objc_msgSend(MEMORY[0x277D6C2F8] imageNamed:@"sf-mac_canvas_btn_placeholder-small-N" inBundle:{TSDBundle(shouldShowMediaReplaceUI, v8)), "size"}];
+    v10 = v9;
     [(TSDCanvas *)[(TSDRep *)self canvas] viewScale];
-    v4 = v4 - v8 / v9;
+    v4 = v4 - v10 / v11;
   }
 
-  v10 = v4;
-  v11 = v6;
-  result.y = v11;
-  result.x = v10;
+  v12 = v4;
+  v13 = v6;
+  result.y = v13;
+  result.x = v12;
   return result;
 }
 
@@ -219,7 +220,7 @@
 - (id)currentReplaceButtonImage
 {
   v2 = MEMORY[0x277D6C2F8];
-  v3 = TSDBundle();
+  v3 = TSDBundle(self, a2);
 
   return [v2 imageNamed:@"sf-canvas-placeholder" inBundle:v3];
 }
@@ -227,7 +228,7 @@
 - (id)currentReplaceButtonHighlightedImage
 {
   v2 = MEMORY[0x277D6C2F8];
-  v3 = TSDBundle();
+  v3 = TSDBundle(self, a2);
 
   return [v2 imageNamed:@"sf-canvas-placeholder-P" inBundle:v3];
 }
@@ -322,19 +323,19 @@
   v11 = v10;
   [(TSDCanvas *)[(TSDRep *)self canvas] viewScale];
   v13 = v12;
-  v43.origin.x = v5;
-  v43.origin.y = v7;
-  v43.size.width = v9;
-  v43.size.height = v11;
-  MaxX = CGRectGetMaxX(v43);
+  v46.origin.x = v5;
+  v46.origin.y = v7;
+  v46.size.width = v9;
+  v46.size.height = v11;
+  MaxX = CGRectGetMaxX(v46);
   [(TSDMediaRep *)self p_replaceButtonSize];
   v16 = -1.0 / v13;
   v17 = MaxX + -1.0 / v13 * (v15 * 0.5 + 3.0);
-  v44.origin.x = v5;
-  v44.origin.y = v7;
-  v44.size.width = v9;
-  v44.size.height = v11;
-  MaxY = CGRectGetMaxY(v44);
+  v47.origin.x = v5;
+  v47.origin.y = v7;
+  v47.size.width = v9;
+  v47.size.height = v11;
+  MaxY = CGRectGetMaxY(v47);
   [(TSDMediaRep *)self p_replaceButtonSize];
   [(TSDRep *)self convertNaturalPointToUnscaledCanvas:v17, MaxY + v16 * (v19 * 0.5 + 3.0)];
   v21 = v20;
@@ -353,12 +354,12 @@
   [(TSDMediaRep *)self p_replaceButtonSize];
   v32 = TSDRectWithSize();
   v36 = TSDCenterOfRect(v32, v33, v34, v35);
-  TSDSubtractPoints(v25, v27, v36);
-  v37 = TSDRoundedPoint();
+  v37 = TSDSubtractPoints(v25, v27, v36);
+  v40 = TSDRoundedPoint(v38, v37, v39);
 
-  v39 = TSDAddPoints(v37, v38, v36);
-  result.y = v40;
-  result.x = v39;
+  v42 = TSDAddPoints(v40, v41, v36);
+  result.y = v43;
+  result.x = v42;
   return result;
 }
 
@@ -375,7 +376,7 @@
     parent = [(TSDAbstractLayout *)[(TSDRep *)self layout] parent];
     if (parent)
     {
-      [(TSDAbstractLayout *)parent transformInRoot];
+      objc_msgSend_transformInRoot(parent);
       v6 = v13;
       v7 = v14;
       v8 = v15;

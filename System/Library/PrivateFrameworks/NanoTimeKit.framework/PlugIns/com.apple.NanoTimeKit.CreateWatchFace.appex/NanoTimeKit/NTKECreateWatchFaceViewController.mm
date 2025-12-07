@@ -15,7 +15,7 @@
 {
   nameCopy = name;
   bundleCopy = bundle;
-  v9 = sub_100004914();
+  v9 = sub_100004914(bundleCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);
@@ -151,7 +151,7 @@ LABEL_15:
 
 - (void)viewDidLoad
 {
-  v3 = sub_100004914();
+  v3 = sub_100004914(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     assetsLoaded = self->_assetsLoaded;
@@ -229,7 +229,7 @@ LABEL_15:
 
 - (void)_loadImages
 {
-  v3 = sub_100004914();
+  v3 = sub_100004914(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -247,7 +247,8 @@ LABEL_15:
 
 - (void)_finishedLoadingAssets
 {
-  if ([(NTKECreateWatchFaceViewController *)self isViewLoaded])
+  isViewLoaded = [(NTKECreateWatchFaceViewController *)self isViewLoaded];
+  if (isViewLoaded)
   {
 
     [(NTKECreateWatchFaceViewController *)self _displayChooser];
@@ -255,11 +256,11 @@ LABEL_15:
 
   else
   {
-    v3 = sub_100004914();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004914(isViewLoaded);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "waiting for viewDidLoad", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "waiting for viewDidLoad", v5, 2u);
     }
 
     [(NTKECreateWatchFaceViewController *)self setAssetsLoaded:1];

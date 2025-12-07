@@ -11,7 +11,7 @@
 
 + (id)accessGrantForNodeID:(id)d privilege:(unsigned __int8)privilege
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   unsignedLongLongValue = [dCopy unsignedLongLongValue];
   if ((unsignedLongLongValue - 1) >= 0xFFFFFFEFFFFFFFFFLL)
@@ -20,13 +20,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v14 = unsignedLongLongValue;
+      v13 = unsignedLongLongValue;
       _os_log_impl(&dword_238DAE000, v10, OS_LOG_TYPE_ERROR, "MTRAccessGrant provided non-operational node ID: 0x%llx", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRAccessGrant provided non-operational node ID: 0x%llx", unsignedLongLongValue);
     }
 
     v9 = 0;
@@ -39,14 +39,12 @@
     v9 = sub_239215B7C(v7, v8, privilege, 2);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)accessGrantForCASEAuthenticatedTag:(id)tag privilege:(unsigned __int8)privilege
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   tagCopy = tag;
   unsignedLongLongValue = [tagCopy unsignedLongLongValue];
   v7 = unsignedLongLongValue;
@@ -56,53 +54,50 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_ERROR, "MTRAccessGrant provided too-large CAT value: 0x%llx", buf, 0xCu);
     }
 
-    if (!sub_2393D5398(1u))
+    if (sub_2393D5398(1u))
     {
-      goto LABEL_12;
+      sub_2393D5320(0, 1, "MTRAccessGrant provided too-large CAT value: 0x%llx", v7);
+    }
+  }
+
+  else
+  {
+    if (unsignedLongLongValue)
+    {
+      v8 = [MTRAccessGrant alloc];
+      0xFFFFFFFD00000000 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v7 | 0xFFFFFFFD00000000];
+      v10 = sub_239215B7C(v8, 0xFFFFFFFD00000000, privilege, 2);
+
+      goto LABEL_13;
     }
 
-    goto LABEL_11;
+    v12 = sub_2393D9044(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      LODWORD(v15) = v7;
+      _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "MTRAccessGrant provided invalid CAT value: 0x%x", buf, 8u);
+    }
+
+    if (sub_2393D5398(1u))
+    {
+      sub_2393D5320(0, 1, "MTRAccessGrant provided invalid CAT value: 0x%x", v7);
+    }
   }
 
-  if (unsignedLongLongValue)
-  {
-    v8 = [MTRAccessGrant alloc];
-    0xFFFFFFFD00000000 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v7 | 0xFFFFFFFD00000000];
-    v10 = sub_239215B7C(v8, 0xFFFFFFFD00000000, privilege, 2);
-
-    goto LABEL_13;
-  }
-
-  v12 = sub_2393D9044(0);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 67109120;
-    LODWORD(v16) = v7;
-    _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "MTRAccessGrant provided invalid CAT value: 0x%x", buf, 8u);
-  }
-
-  if (sub_2393D5398(1u))
-  {
-LABEL_11:
-    sub_2393D5320(0, 1);
-  }
-
-LABEL_12:
   v10 = 0;
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)accessGrantForGroupID:(id)d privilege:(unsigned __int8)privilege
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   unsignedLongLongValue = [dCopy unsignedLongLongValue];
   v7 = unsignedLongLongValue;
@@ -112,46 +107,43 @@ LABEL_13:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_ERROR, "MTRAccessGrant provided too-large group id: 0x%llx", buf, 0xCu);
     }
 
-    if (!sub_2393D5398(1u))
+    if (sub_2393D5398(1u))
     {
-      goto LABEL_12;
+      sub_2393D5320(0, 1, "MTRAccessGrant provided too-large group id: 0x%llx", v7);
+    }
+  }
+
+  else
+  {
+    if (unsignedLongLongValue)
+    {
+      v8 = [MTRAccessGrant alloc];
+      0xFFFFFFFFFFFF0000 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v7 | 0xFFFFFFFFFFFF0000];
+      v10 = sub_239215B7C(v8, 0xFFFFFFFFFFFF0000, privilege, 3);
+
+      goto LABEL_13;
     }
 
-    goto LABEL_11;
+    v12 = sub_2393D9044(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      LODWORD(v15) = 0;
+      _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "MTRAccessGrant provided invalid group id: 0x%x", buf, 8u);
+    }
+
+    if (sub_2393D5398(1u))
+    {
+      sub_2393D5320(0, 1, "MTRAccessGrant provided invalid group id: 0x%x", 0);
+    }
   }
 
-  if (unsignedLongLongValue)
-  {
-    v8 = [MTRAccessGrant alloc];
-    0xFFFFFFFFFFFF0000 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v7 | 0xFFFFFFFFFFFF0000];
-    v10 = sub_239215B7C(v8, 0xFFFFFFFFFFFF0000, privilege, 3);
-
-    goto LABEL_13;
-  }
-
-  v12 = sub_2393D9044(0);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 67109120;
-    LODWORD(v16) = 0;
-    _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "MTRAccessGrant provided invalid group id: 0x%x", buf, 8u);
-  }
-
-  if (sub_2393D5398(1u))
-  {
-LABEL_11:
-    sub_2393D5320(0, 1);
-  }
-
-LABEL_12:
   v10 = 0;
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

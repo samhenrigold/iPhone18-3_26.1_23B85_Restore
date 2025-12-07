@@ -934,62 +934,62 @@ LABEL_8:
 - (int64_t)calculateOrientations:(id)orientations withCounterBuffer:(id)buffer waitForComplete:(BOOL)complete ind:(int)ind
 {
   completeCopy = complete;
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   orientationsCopy = orientations;
   bufferCopy = buffer;
   v12 = bufferCopy;
   v13 = 12;
-  v31 = orientationsCopy;
+  v32 = orientationsCopy;
   if (orientationsCopy && bufferCopy)
   {
-    HIDWORD(v27) = completeCopy;
+    HIDWORD(v28) = completeCopy;
     commandBuffer = [(MTLCommandQueue *)self->super._commandQueue commandBuffer];
-    v15 = commandBuffer;
-    v30 = 7036;
+    v16 = commandBuffer;
+    v31 = 7036;
     if (self->_num_octaves < 1)
     {
 LABEL_13:
-      [v15 commit];
-      [(VEMetalBase *)self commandBufferWait:v15 flag:HIDWORD(v27)];
+      [v16 commit];
+      [(VEMetalBase *)self commandBufferWait:v16 flag:HIDWORD(v28)];
       v13 = 0;
     }
 
     else
     {
-      v16 = 0;
-      v28 = commandBuffer;
-      v29 = 5 * ind;
+      v17 = 0;
+      v29 = commandBuffer;
+      indCopy = ind;
       while (1)
       {
-        v17.i32[1] = 0;
-        v17.i64[1] = 0;
-        v34 = 0u;
+        v18.i32[1] = 0;
+        v18.i64[1] = 0;
         v35 = 0u;
+        v36 = 0u;
         *location = 0u;
-        v33 = 0u;
+        v34 = 0u;
         LODWORD(num_intervals) = self->_num_intervals;
         if (num_intervals > 0)
         {
-          v19 = v12;
-          v20 = 0;
-          v21 = location;
+          v20 = v12;
+          v21 = 0;
+          v22 = location;
           do
           {
-            objc_storeStrong(v21, *(&self->_gaussPyrImagesTexture[ind][v20++] + v16 * num_intervals));
+            objc_storeStrong(v22, *(&self->_gaussPyrImagesTexture[ind][v21++] + v17 * num_intervals));
             num_intervals = self->_num_intervals;
-            ++v21;
+            ++v22;
           }
 
-          while (v20 < num_intervals);
-          v12 = v19;
-          v15 = v28;
+          while (v21 < num_intervals);
+          v12 = v20;
+          v16 = v29;
         }
 
-        v17.i32[0] = LODWORD(self->imageScale);
-        *(&v25 + 1) = __PAIR64__(num_intervals, v16);
-        *&v25 = *(&self->_keyPointsCount[0][2 * v29] + v16);
-        EncodeCalculateOrientationsOptimized2(v15, self->_calculateOrientation, 32, location, *(&self->_keyPoints[0][2 * v29] + v16), v31, self->nOctaveLayers, v12, v25, v26, v27, v28, v17, v29, SHIDWORD(v29), v30, v31, location[0], location[1], v33, *(&v33 + 1), v34, *(&v34 + 1), v35, *(&v35 + 1), v36, v37, v38, v39, v40, v41, v42);
-        v13 = v22;
+        v18.i32[0] = LODWORD(self->imageScale);
+        *(&v26 + 1) = __PAIR64__(num_intervals, v17);
+        *&v26 = self->_keyPointsCount[indCopy][v17];
+        EncodeCalculateOrientationsOptimized2(v16, self->_calculateOrientation, 32, location, self->_keyPoints[indCopy][v17], v32, self->nOctaveLayers, v12, v18, v26, v27, v28, v29, v15, indCopy * 5, v31, v32, location[0], location[1], v34, *(&v34 + 1), v35, *(&v35 + 1), v36, *(&v36 + 1), v37, v38, v39, v40, v41, v42, v43);
+        v13 = v23;
         for (i = 7; i != -1; --i)
         {
         }
@@ -999,7 +999,7 @@ LABEL_13:
           break;
         }
 
-        if (++v16 >= *(&self->super.super.isa + v30))
+        if (++v17 >= *(&self->super.super.isa + v31))
         {
           goto LABEL_13;
         }

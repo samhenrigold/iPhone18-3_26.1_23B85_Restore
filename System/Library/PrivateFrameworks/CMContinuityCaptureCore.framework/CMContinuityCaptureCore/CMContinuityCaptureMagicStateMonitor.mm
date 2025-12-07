@@ -28,7 +28,7 @@
   objectCopy = object;
   changeCopy = change;
   objc_initWeak(&location, self);
-  if (([pathCopy isEqualToString:@"wired"] & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", @"nearby") & 1) != 0 || objc_msgSend(pathCopy, "isEqualToString:", @"usable"))
+  if (([pathCopy isEqualToString:?] & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:") & 1) != 0 || objc_msgSend(pathCopy, "isEqualToString:"))
   {
     queue = self->_queue;
     v13[0] = MEMORY[0x277D85DD0];
@@ -67,7 +67,7 @@ void __87__CMContinuityCaptureMagicStateMonitor_observeValueForKeyPath_ofObject_
   dispatch_async_and_wait(queue, v6);
 }
 
-uint64_t __64__CMContinuityCaptureMagicStateMonitor_holdMagicStateAssertion___block_invoke(uint64_t a1)
+void *__64__CMContinuityCaptureMagicStateMonitor_holdMagicStateAssertion___block_invoke(uint64_t a1)
 {
   v2 = CMContinuityCaptureLog(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -82,8 +82,8 @@ uint64_t __64__CMContinuityCaptureMagicStateMonitor_holdMagicStateAssertion___bl
   }
 
   v5 = *(*(a1 + 32) + 16);
-  v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  [v5 addObject:v6];
+  v6 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  [v5 addObject:?];
 
   v7 = *(*(a1 + 32) + 40);
   if (v7)
@@ -94,16 +94,16 @@ uint64_t __64__CMContinuityCaptureMagicStateMonitor_holdMagicStateAssertion___bl
     *(v8 + 40) = 0;
   }
 
-  result = [CMContinuityCaptureMagicStateMonitor shouldForceMagicForAssertionType:*(a1 + 40)];
+  result = [CMContinuityCaptureMagicStateMonitor shouldForceMagicForAssertionType:?];
   if (result)
   {
-    [*(a1 + 32) willChangeValueForKey:@"magic"];
+    [*(a1 + 32) willChangeValueForKey:?];
     v11 = *(a1 + 32);
     objc_sync_enter(v11);
     *(*(a1 + 32) + 8) = 1;
     objc_sync_exit(v11);
 
-    return [*(a1 + 32) didChangeValueForKey:@"magic"];
+    return [*(a1 + 32) didChangeValueForKey:?];
   }
 
   return result;
@@ -122,7 +122,7 @@ uint64_t __64__CMContinuityCaptureMagicStateMonitor_holdMagicStateAssertion___bl
   dispatch_async_and_wait(queue, v6);
 }
 
-uint64_t __67__CMContinuityCaptureMagicStateMonitor_holdNonMagicStateAssertion___block_invoke(uint64_t a1)
+void *__67__CMContinuityCaptureMagicStateMonitor_holdNonMagicStateAssertion___block_invoke(uint64_t a1)
 {
   v2 = CMContinuityCaptureLog(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -137,8 +137,8 @@ uint64_t __67__CMContinuityCaptureMagicStateMonitor_holdNonMagicStateAssertion__
   }
 
   v5 = *(*(a1 + 32) + 24);
-  v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  [v5 addObject:v6];
+  v6 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  [v5 addObject:?];
 
   v7 = *(*(a1 + 32) + 32);
   if (v7)
@@ -149,16 +149,16 @@ uint64_t __67__CMContinuityCaptureMagicStateMonitor_holdNonMagicStateAssertion__
     *(v8 + 32) = 0;
   }
 
-  result = [CMContinuityCaptureMagicStateMonitor shouldForceNonMagicForAssertionType:*(a1 + 40)];
+  result = [CMContinuityCaptureMagicStateMonitor shouldForceNonMagicForAssertionType:?];
   if (result)
   {
-    [*(a1 + 32) willChangeValueForKey:@"magic"];
+    [*(a1 + 32) willChangeValueForKey:?];
     v11 = *(a1 + 32);
     objc_sync_enter(v11);
     *(*(a1 + 32) + 8) = 0;
     objc_sync_exit(v11);
 
-    return [*(a1 + 32) didChangeValueForKey:@"magic"];
+    return [*(a1 + 32) didChangeValueForKey:?];
   }
 
   return result;
@@ -188,8 +188,8 @@ void __95__CMContinuityCaptureMagicStateMonitor_releaseMagicStateAssertion_state
   if (WeakRetained)
   {
     v4 = WeakRetained[2];
-    v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-    LODWORD(v4) = [v4 containsObject:v5];
+    v5 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    LODWORD(v4) = [v4 containsObject:?];
 
     if (v4)
     {
@@ -206,8 +206,8 @@ void __95__CMContinuityCaptureMagicStateMonitor_releaseMagicStateAssertion_state
       }
 
       v9 = *(v3 + 2);
-      v10 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-      [v9 removeObject:v10];
+      v10 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      [v9 removeObject:?];
 
       if (![*(v3 + 2) count])
       {
@@ -272,8 +272,8 @@ void __98__CMContinuityCaptureMagicStateMonitor_releaseNonMagicStateAssertion_st
   if (WeakRetained)
   {
     v4 = WeakRetained[3];
-    v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-    LODWORD(v4) = [v4 containsObject:v5];
+    v5 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    LODWORD(v4) = [v4 containsObject:?];
 
     if (v4)
     {
@@ -290,8 +290,8 @@ void __98__CMContinuityCaptureMagicStateMonitor_releaseNonMagicStateAssertion_st
       }
 
       v9 = *(v3 + 3);
-      v10 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-      [v9 removeObject:v10];
+      v10 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      [v9 removeObject:?];
 
       if (![*(v3 + 3) count])
       {
@@ -338,7 +338,7 @@ void __98__CMContinuityCaptureMagicStateMonitor_releaseNonMagicStateAssertion_st
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   WeakRetained = objc_loadWeakRetained(&self->_device);
-  v7 = [v3 stringWithFormat:@"%@: %@ [%p]", v5, WeakRetained, self];
+  v7 = [v3 stringWithFormat:v5, WeakRetained, self];
 
   return v7;
 }
@@ -441,13 +441,13 @@ void __98__CMContinuityCaptureMagicStateMonitor_releaseNonMagicStateAssertion_st
 
     if (v12 != wifiP2pActive)
     {
-      [(CMContinuityCaptureMagicStateMonitor *)selfCopy2 willChangeValueForKey:@"magic"];
+      [(CMContinuityCaptureMagicStateMonitor *)selfCopy2 willChangeValueForKey:?];
       v13 = selfCopy2;
       objc_sync_enter(v13);
       selfCopy2->_magic = wifiP2pActive;
       objc_sync_exit(v13);
 
-      [(CMContinuityCaptureMagicStateMonitor *)v13 didChangeValueForKey:@"magic"];
+      [(CMContinuityCaptureMagicStateMonitor *)v13 didChangeValueForKey:?];
     }
   }
 

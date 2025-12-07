@@ -1,5 +1,6 @@
 @interface SIRINLUINTERNALSNLCSNLCParserResponse
 - (BOOL)isEqual:(id)equal;
+- (id)classificationLabelAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -163,20 +164,18 @@ LABEL_12:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    classificationLabel = self->_classificationLabel;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    classificationProbability = self->_classificationProbability;
     PBDataWriterWriteFloatField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -258,6 +257,29 @@ LABEL_12:
   else
   {
     v4 = [labelCopy isEqualToString:@"SNLC_CLASS_DEVICE"];
+  }
+
+  return v4;
+}
+
+- (id)classificationLabelAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SNLC_CLASS_DEVICE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SNLC_CLASS_SERVER";
   }
 
   return v4;

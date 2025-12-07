@@ -13,7 +13,7 @@
 {
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy PKStringForKey:@"shelfType"];
-  if ([@"textBlock" isEqualToString:v4])
+  if (objc_msgSend_isEqualToString_(@"textBlock"))
   {
     v5 = off_1E79BFB38;
 LABEL_7:
@@ -23,21 +23,21 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ([@"inlineMedia" isEqualToString:v4])
+  if (objc_msgSend_isEqualToString_(@"inlineMedia"))
   {
     v5 = off_1E79BFAD8;
     goto LABEL_7;
   }
 
-  if ([@"spacer" isEqualToString:v4])
+  if (objc_msgSend_isEqualToString_(@"spacer"))
   {
     v5 = off_1E79BFB30;
     goto LABEL_7;
   }
 
-  v8 = [@"callToAction" isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(@"callToAction");
 
-  if (v8)
+  if (isEqualToString)
   {
     v5 = off_1E79BFAB0;
     goto LABEL_8;

@@ -420,7 +420,7 @@
   v14 = v13;
   v16 = v15;
   v27 = [OAITOrientedBounds relativeOrientedBoundsOfDrawable:v7];
-  v17 = [CMShapeUtils transformFromBounds:v27 toOrientedBounds:v10, v12, v14, v16];
+  v17 = objc_msgSend_transformFromBounds_toOrientedBounds_(CMShapeUtils, v10, v12, v14, v16);
   drawingContext = [(PMDrawableMapper *)self drawingContext];
   [drawingContext addTransform:v17];
 
@@ -732,7 +732,7 @@ LABEL_7:
       {
         *&v18 = v14;
         *&v22 = v16;
-        [equivalentCustomGeometry2 geometryCoordSpace];
+        objc_msgSend_geometryCoordSpace(equivalentCustomGeometry2, v22, v23, v18, v19, *&v25, v21, *&v24, v20);
       }
 
       v26 = vsub_f32(__PAIR64__(LODWORD(v38), LODWORD(v40)), __PAIR64__(LODWORD(v39), LODWORD(v42)));

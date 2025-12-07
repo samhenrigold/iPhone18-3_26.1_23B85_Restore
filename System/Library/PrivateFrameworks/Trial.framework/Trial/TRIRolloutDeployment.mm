@@ -1,9 +1,11 @@
 @interface TRIRolloutDeployment
++ (id)deploymentWithRolloutId:(id)id deploymentId:(int)deploymentId;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToDeployment:(id)deployment;
 - (NSString)shortDesc;
 - (TRIRolloutDeployment)initWithCoder:(id)coder;
 - (TRIRolloutDeployment)initWithRolloutId:(id)id deploymentId:(int)deploymentId;
+- (id)copyWithReplacementDeploymentId:(int)id;
 - (id)copyWithReplacementRolloutId:(id)id;
 - (id)description;
 - (id)taskTag;
@@ -34,6 +36,15 @@
   return v10;
 }
 
++ (id)deploymentWithRolloutId:(id)id deploymentId:(int)deploymentId
+{
+  v4 = *&deploymentId;
+  idCopy = id;
+  v7 = [[self alloc] initWithRolloutId:idCopy deploymentId:v4];
+
+  return v7;
+}
+
 - (id)copyWithReplacementRolloutId:(id)id
 {
   idCopy = id;
@@ -42,22 +53,21 @@
   return v5;
 }
 
+- (id)copyWithReplacementDeploymentId:(int)id
+{
+  v3 = *&id;
+  v5 = objc_alloc(objc_opt_class());
+  rolloutId = self->_rolloutId;
+
+  return [v5 initWithRolloutId:rolloutId deploymentId:v3];
+}
+
 - (BOOL)isEqualToDeployment:(id)deployment
 {
   deploymentCopy = deployment;
   v5 = deploymentCopy;
-  if (!deploymentCopy)
+  if (!deploymentCopy || (v6 = self->_rolloutId == 0, [deploymentCopy rolloutId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (rolloutId = self->_rolloutId) != 0 && (objc_msgSend(v5, "rolloutId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](rolloutId, "isEqual:", v10), v10, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v6 = self->_rolloutId == 0;
-  rolloutId = [deploymentCopy rolloutId];
-  v8 = rolloutId != 0;
-
-  if (v6 == v8 || (rolloutId = self->_rolloutId) != 0 && ([v5 rolloutId], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](rolloutId, "isEqual:", v10), v10, !v11))
-  {
-LABEL_6:
     v13 = 0;
   }
 
@@ -89,7 +99,7 @@ LABEL_6:
 
 - (TRIRolloutDeployment)initWithCoder:(id)coder
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rolloutId"];
   if (!v5)
@@ -98,9 +108,9 @@ LABEL_6:
 
     if (!error)
     {
-      v18 = *MEMORY[0x277CCA450];
-      v19[0] = @"Retrieved nil serialized value for nonnull TRIRolloutDeployment.rolloutId";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x277CCA450];
+      v18[0] = @"Retrieved nil serialized value for nonnull TRIRolloutDeployment.rolloutId";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       v10 = objc_alloc(MEMORY[0x277CCA9B8]);
       v11 = 2;
 LABEL_9:
@@ -125,9 +135,9 @@ LABEL_10:
         goto LABEL_3;
       }
 
-      v16 = *MEMORY[0x277CCA450];
-      v17 = @"Missing serialized value for TRIRolloutDeployment.deploymentId";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x277CCA450];
+      v16 = @"Missing serialized value for TRIRolloutDeployment.deploymentId";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
       v10 = objc_alloc(MEMORY[0x277CCA9B8]);
       v11 = 1;
       goto LABEL_9;
@@ -141,7 +151,6 @@ LABEL_3:
   selfCopy = self;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

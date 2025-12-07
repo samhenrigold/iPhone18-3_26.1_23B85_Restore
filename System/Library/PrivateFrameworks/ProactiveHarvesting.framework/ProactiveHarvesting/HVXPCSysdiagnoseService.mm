@@ -66,17 +66,15 @@ void __54__HVXPCSysdiagnoseService_sysdiagnoseStringWithError___block_invoke(uin
 
 void __43__HVXPCSysdiagnoseService_synchronousProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = hv_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_2321EC000, v3, OS_LOG_TYPE_ERROR, "HVXPCSysdiagnoseService: error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_2321EC000, v3, OS_LOG_TYPE_ERROR, "HVXPCSysdiagnoseService: error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (HVXPCSysdiagnoseService)init
@@ -104,30 +102,26 @@ void __43__HVXPCSysdiagnoseService_synchronousProxy__block_invoke(uint64_t a1, v
 
 void __31__HVXPCSysdiagnoseService_init__block_invoke_14()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = hv_default_log_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.proactive.ProactiveHarvesting.Sysdiagnose";
-    _os_log_impl(&dword_2321EC000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ invalidated", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.proactive.ProactiveHarvesting.Sysdiagnose";
+    _os_log_impl(&dword_2321EC000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ invalidated", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __31__HVXPCSysdiagnoseService_init__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = hv_default_log_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.proactive.ProactiveHarvesting.Sysdiagnose";
-    _os_log_impl(&dword_2321EC000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ interrupted", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.proactive.ProactiveHarvesting.Sysdiagnose";
+    _os_log_impl(&dword_2321EC000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ interrupted", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

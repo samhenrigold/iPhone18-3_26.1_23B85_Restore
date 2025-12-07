@@ -8,7 +8,7 @@
 - (_TtC8AppStore35SmallSearchLockupCollectionViewCell)initWithCoder:(id)coder
 {
   v3 = OBJC_IVAR____TtC8AppStore35SmallSearchLockupCollectionViewCell_lockupView;
-  *(&self->super.super.super.super.super.isa + v3) = [objc_allocWithZone(type metadata accessor for SmallLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v3) = [objc_allocWithZone(type metadata accessor for SmallLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;

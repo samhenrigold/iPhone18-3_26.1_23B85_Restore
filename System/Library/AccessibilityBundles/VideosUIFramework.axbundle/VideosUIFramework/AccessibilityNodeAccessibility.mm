@@ -16,11 +16,10 @@ __CFString *__81__AccessibilityNodeAccessibility__VideosUI__SwiftUI_accessibilit
 
 uint64_t __72__AccessibilityNodeAccessibility__VideosUI__SwiftUI_accessibilityTraits__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 _accessibilityViewController];
-  v4 = *(a1 + 32);
-  LOBYTE(a1) = objc_opt_isKindOfClass();
+  v2 = [a2 _accessibilityViewController];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  return a1 & 1;
+  return isKindOfClass & 1;
 }
 
 uint64_t __77__AccessibilityNodeAccessibility__VideosUI__SwiftUI__axEpisodeViewController__block_invoke()

@@ -114,17 +114,17 @@
 {
   *self->super._prv = [*(self->super._prv + 4) vshMask];
   *(self->super._prv + 2) = [*(self->super._prv + 4) fshMask];
-  v3 = &_staticFshMasks_0;
-  v4 = &_staticVshMasks_1;
+  v3 = _staticFshMasks_0;
+  v4 = _staticVshMasks_1;
   if (self->_specularColor.x == 0.0 && self->_specularColor.y == 0.0 && self->_specularColor.z == 0.0 && self->_specularColor.w == 1.0)
   {
     v5 = &qword_27DF408A8;
     v6 = &qword_27DF40898;
-    v7 = &_staticFshMasks_0;
+    v7 = _staticFshMasks_0;
     v3 = &qword_27DF408A0;
     v8 = &qword_27DF40888;
     v9 = &qword_27DF40878;
-    v10 = &_staticVshMasks_1;
+    v10 = _staticVshMasks_1;
     v4 = &qword_27DF40880;
   }
 
@@ -170,9 +170,9 @@
     self->_specularColor.y = v8;
     self->_specularColor.z = v9;
     self->_specularColor.w = v10;
-    v14 = &_staticFshMasks_0;
+    v14 = _staticFshMasks_0;
     v15 = &qword_27DF408A8;
-    v16 = &_staticVshMasks_1;
+    v16 = _staticVshMasks_1;
     v17 = &qword_27DF408A0;
     v18 = &qword_27DF40888;
     v19 = &qword_27DF40880;
@@ -180,9 +180,9 @@
     v21 = &qword_27DF40878;
     if (v7 == 0.0 && v8 == 0.0 && v9 == 0.0 && v10 == 1.0)
     {
-      v19 = &_staticVshMasks_1;
+      v19 = _staticVshMasks_1;
       v18 = &qword_27DF40878;
-      v17 = &_staticFshMasks_0;
+      v17 = _staticFshMasks_0;
       v15 = &qword_27DF40898;
       v16 = &qword_27DF40880;
       v21 = &qword_27DF40888;
@@ -309,27 +309,11 @@
 - (id)description
 {
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  *&v21.x = [v3 appendFormat:@"%@ = %p\n{\n", objc_msgSend(objc_opt_class(), "description"), self];
-  x = self->_ambientColor.x;
-  y = self->_ambientColor.y;
-  z = self->_ambientColor.z;
-  w = self->_ambientColor.w;
-  *&v22.x = [v3 appendFormat:@"\tambientColor =   %@\n", NSStringFromGLKVector4(v21)];
-  v8 = self->_diffuseColor.x;
-  v9 = self->_diffuseColor.y;
-  v10 = self->_diffuseColor.z;
-  v11 = self->_diffuseColor.w;
-  *&v23.x = [v3 appendFormat:@"\tdiffuseColor =   %@\n", NSStringFromGLKVector4(v22)];
-  v12 = self->_specularColor.x;
-  v13 = self->_specularColor.y;
-  v14 = self->_specularColor.z;
-  v15 = self->_specularColor.w;
-  *&v24.x = [v3 appendFormat:@"\tspecularColor =  %@\n", NSStringFromGLKVector4(v23)];
-  v16 = self->_emissiveColor.x;
-  v17 = self->_emissiveColor.y;
-  v18 = self->_emissiveColor.z;
-  v19 = self->_emissiveColor.w;
-  [v3 appendFormat:@"\temissiveColor =  %@\n", NSStringFromGLKVector4(v24)];
+  *&v5.x = [v3 appendFormat:@"%@ = %p\n{\n", objc_msgSend(objc_opt_class(), "description"), self];
+  *&v6.x = [v3 appendFormat:@"\tambientColor =   %@\n", NSStringFromGLKVector4(v5)];
+  *&v7.x = [v3 appendFormat:@"\tdiffuseColor =   %@\n", NSStringFromGLKVector4(v6)];
+  *&v8.x = [v3 appendFormat:@"\tspecularColor =  %@\n", NSStringFromGLKVector4(v7)];
+  [v3 appendFormat:@"\temissiveColor =  %@\n", NSStringFromGLKVector4(v8)];
   [v3 appendFormat:@"\tshininess =      %6.4f\n", self->_shininess];
   [v3 appendFormat:@"}"];
   return v3;
@@ -344,10 +328,6 @@
 
 - (GLKVector4)ambientColor
 {
-  x = self->_ambientColor.x;
-  y = self->_ambientColor.y;
-  z = self->_ambientColor.z;
-  w = self->_ambientColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -355,10 +335,6 @@
 
 - (GLKVector4)diffuseColor
 {
-  x = self->_diffuseColor.x;
-  y = self->_diffuseColor.y;
-  z = self->_diffuseColor.z;
-  w = self->_diffuseColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -366,10 +342,6 @@
 
 - (GLKVector4)specularColor
 {
-  x = self->_specularColor.x;
-  y = self->_specularColor.y;
-  z = self->_specularColor.z;
-  w = self->_specularColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;
@@ -377,10 +349,6 @@
 
 - (GLKVector4)emissiveColor
 {
-  x = self->_emissiveColor.x;
-  y = self->_emissiveColor.y;
-  z = self->_emissiveColor.z;
-  w = self->_emissiveColor.w;
   *&result.v[2] = a2;
   *&result.x = self;
   return result;

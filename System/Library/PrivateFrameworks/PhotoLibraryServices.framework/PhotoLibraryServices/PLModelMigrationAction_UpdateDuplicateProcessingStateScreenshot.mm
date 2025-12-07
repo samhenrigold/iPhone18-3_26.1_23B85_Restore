@@ -43,7 +43,7 @@
 
   if (v11 == 1)
   {
-    if ([v9 count])
+    if (objc_msgSend_count(v9))
     {
       v13 = objc_autoreleasePoolPush();
       v20 = v12;

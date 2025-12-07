@@ -21,7 +21,7 @@
 
   if (v3)
   {
-    sub_10000A7C4(0, &qword_100ADA970);
+    sub_10000A7C4(0, &qword_100ADA970, UIKeyCommand_ptr);
     v4.super.isa = sub_1007A25D4().super.isa;
   }
 
@@ -53,14 +53,14 @@
   {
     sub_100226F6C();
 
-    sub_100007840(v6, &unk_100AD5B40);
+    sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
     swift_unknownObjectRelease();
   }
 
   else
   {
 
-    sub_100007840(v6, &unk_100AD5B40);
+    sub_100007840(v6, &unk_100AD5B40, &unk_100811300);
   }
 }
 
@@ -85,14 +85,14 @@
     v6 = sub_1004A8620();
     sub_1004A8804((v6 & 1) == 0);
 
-    sub_100007840(v7, &unk_100AD5B40);
+    sub_100007840(v7, &unk_100AD5B40, &unk_100811300);
     swift_unknownObjectRelease();
   }
 
   else
   {
 
-    sub_100007840(v7, &unk_100AD5B40);
+    sub_100007840(v7, &unk_100AD5B40, &unk_100811300);
   }
 }
 
@@ -124,12 +124,12 @@
   {
   }
 
-  sub_100007840(v8, &unk_100AD5B40);
+  sub_100007840(v8, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_toggleTheme:(id)theme
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = v15 - v6;
   if (theme)
@@ -159,12 +159,12 @@
   *(v14 + 40) = v10;
   sub_1003457A0(0, 0, v7, &unk_10082CA38, v14);
 
-  sub_100007840(v15, &unk_100AD5B40);
+  sub_100007840(v15, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_enableTheme:(id)theme
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = v15 - v6;
   if (theme)
@@ -194,12 +194,12 @@
   *(v14 + 40) = v10;
   sub_1003457A0(0, 0, v7, &unk_10082CA30, v14);
 
-  sub_100007840(v15, &unk_100AD5B40);
+  sub_100007840(v15, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_disableTheme:(id)theme
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = v14 - v6;
   if (theme)
@@ -228,7 +228,7 @@
   *(v13 + 40) = 0;
   sub_1003457A0(0, 0, v7, &unk_10082CA28, v13);
 
-  sub_100007840(v14, &unk_100AD5B40);
+  sub_100007840(v14, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_editTheme:(id)theme
@@ -260,7 +260,7 @@
     (*(v6 + 8))(v8, v5);
   }
 
-  sub_100007840(v11, &unk_100AD5B40);
+  sub_100007840(v11, &unk_100AD5B40, &unk_100811300);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -281,7 +281,7 @@
 
   v8 = sub_1004E5EA8(action, v10);
 
-  sub_100007840(v10, &unk_100AD5B40);
+  sub_100007840(v10, &unk_100AD5B40, &unk_100811300);
   return v8 & 1;
 }
 

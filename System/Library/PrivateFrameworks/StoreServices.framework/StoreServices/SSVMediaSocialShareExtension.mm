@@ -24,85 +24,83 @@
 {
   v28 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v5 = blockCopy;
+  v6 = blockCopy;
   if (!self->_connection)
   {
-    v20 = MEMORY[0x1E695DF30];
-    v21 = *MEMORY[0x1E695D930];
-    v22 = @"Send -init before checking visibility";
+    v21 = MEMORY[0x1E695DF30];
+    v22 = *MEMORY[0x1E695D930];
+    v23 = @"Send -init before checking visibility";
 LABEL_21:
-    [v20 raise:v21 format:v22];
+    [v21 raise:v22 format:v23];
     goto LABEL_22;
   }
 
   if (!blockCopy)
   {
-    v20 = MEMORY[0x1E695DF30];
-    v21 = *MEMORY[0x1E695D940];
-    v22 = @"No completion block";
+    v21 = MEMORY[0x1E695DF30];
+    v22 = *MEMORY[0x1E695D940];
+    v23 = @"No completion block";
     goto LABEL_21;
   }
 
-  if (!SSIsInternalBuild() || !_os_feature_enabled_impl())
+  if (!SSIsInternalBuild(blockCopy, v5) || !_os_feature_enabled_impl())
   {
     goto LABEL_18;
   }
 
-  v6 = +[SSLogConfig sharedStoreServicesConfig];
-  if (!v6)
+  v7 = +[SSLogConfig sharedStoreServicesConfig];
+  if (!v7)
   {
-    v6 = +[SSLogConfig sharedConfig];
+    v7 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v6 shouldLog];
-  if ([v6 shouldLogToDisk])
+  shouldLog = [v7 shouldLog];
+  if ([v7 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    v9 = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    v9 = shouldLog;
   }
 
-  oSLogObject = [v6 OSLogObject];
+  oSLogObject = [v7 OSLogObject];
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
   {
-    v10 = v8;
+    v11 = v9;
   }
 
   else
   {
-    v10 = v8 & 2;
+    v11 = v9 & 2;
   }
 
-  if (!v10)
+  if (!v11)
   {
     goto LABEL_16;
   }
 
   v26 = 136446210;
   v27 = "[SSVMediaSocialShareExtension getVisibilityWithCompletionBlock:]";
-  LODWORD(v23) = 12;
-  v11 = _os_log_send_and_compose_impl();
 
-  if (v11)
+  if (v12)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v26, v23}];
-    free(v11);
-    SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+    free(v12);
+    SSFileLog(v7, @"%@", v13, v14, v15, v16, v17, v18, oSLogObject);
 LABEL_16:
   }
 
 LABEL_18:
-  v18 = SSXPCCreateMessageDictionary(160);
+  v19 = SSXPCCreateMessageDictionary(160);
   connection = self->_connection;
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
   v24[2] = __65__SSVMediaSocialShareExtension_getVisibilityWithCompletionBlock___block_invoke;
   v24[3] = &unk_1E84AE2D8;
-  v25 = v5;
-  [(SSXPCConnection *)connection sendMessage:v18 withReply:v24];
+  v25 = v6;
+  [(SSXPCConnection *)connection sendMessage:v19 withReply:v24];
 
 LABEL_22:
 }

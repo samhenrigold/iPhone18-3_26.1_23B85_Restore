@@ -153,19 +153,17 @@
 
 - (void)initWithFeedItem:cacheExpirationDate:surfacedByChannelID:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "feedItem"];
   *buf = 136315906;
-  v3 = "[NTFeedTransformationFeedItem initWithFeedItem:cacheExpirationDate:surfacedByChannelID:]";
-  v4 = 2080;
-  v5 = "NTFeedTransformationFeedItem.m";
-  v6 = 1024;
-  v7 = 34;
-  v8 = 2114;
-  v9 = v0;
+  v2 = "[NTFeedTransformationFeedItem initWithFeedItem:cacheExpirationDate:surfacedByChannelID:]";
+  v3 = 2080;
+  v4 = "NTFeedTransformationFeedItem.m";
+  v5 = 1024;
+  v6 = 34;
+  v7 = 2114;
+  v8 = v0;
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

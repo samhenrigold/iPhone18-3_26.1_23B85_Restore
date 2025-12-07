@@ -115,7 +115,7 @@
     [(AAController *)v6 setAccessoryUsageSummaryMessageHandler:v10];
     if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EE1A0();
+      sub_1001EE1A0(v6);
     }
 
     v7[0] = _NSConcreteStackBlock;
@@ -132,27 +132,31 @@
 - (id)_getUsageSummary:(id)summary
 {
   summaryCopy = summary;
+  v7 = summaryCopy;
   if (summaryCopy)
   {
-    v5 = [(NSMutableDictionary *)self->_wxSummaryDeviceMap objectForKeyedSubscript:summaryCopy];
-    if (!v5)
+    v8 = [(NSMutableDictionary *)self->_wxSummaryDeviceMap objectForKeyedSubscript:summaryCopy];
+    if (!v8)
     {
-      v5 = objc_alloc_init(AAAccessoryUsageSummary);
-      [(NSMutableDictionary *)self->_wxSummaryDeviceMap setObject:v5 forKeyedSubscript:summaryCopy];
+      v8 = objc_alloc_init(AAAccessoryUsageSummary);
+      [(NSMutableDictionary *)self->_wxSummaryDeviceMap setObject:v8 forKeyedSubscript:v7];
     }
   }
 
   else
   {
-    if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6998 <= 30)
     {
-      sub_1001EE258();
+      if (dword_1002F6998 != -1 || (summaryCopy = _LogCategory_Initialize(), summaryCopy))
+      {
+        sub_1001EE258(summaryCopy, v5, v6);
+      }
     }
 
-    v5 = 0;
+    v8 = 0;
   }
 
-  return v5;
+  return v8;
 }
 
 - (void)_accessoryDiscoveryEnsureStarted
@@ -184,7 +188,7 @@
     [(AADeviceManager *)v4 setDeviceLostHandler:v10];
     if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EE274();
+      sub_1001EE274(v4);
     }
 
     v7[0] = _NSConcreteStackBlock;
@@ -215,22 +219,22 @@
   bluetoothAddress = [foundCopy bluetoothAddress];
   if (bluetoothAddress)
   {
-    v5 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:bluetoothAddress];
-    if (([v5 devicedConnected] & 1) == 0 && dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+    v7 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:bluetoothAddress];
+    if (([v7 devicedConnected] & 1) == 0 && dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EE370();
+      sub_1001EE370(bluetoothAddress);
     }
 
-    [v5 setAaDevice:foundCopy];
+    [v7 setAaDevice:foundCopy];
     [(AAAccessoryUsageSummaryManager *)self _updateBasicInfo:foundCopy];
-    [v5 _updateInEarState:0];
-    [v5 _updateListeningMode:0];
-    [v5 setDevicedConnected:1];
+    [v7 _updateInEarState:0];
+    [v7 _updateListeningMode:0];
+    [v7 setDevicedConnected:1];
   }
 
   else
   {
-    sub_1001EE3B0();
+    sub_1001EE3B0(0, v4, v5);
   }
 }
 
@@ -239,32 +243,32 @@
   bluetoothAddress = [lost bluetoothAddress];
   if (bluetoothAddress)
   {
-    v5 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:bluetoothAddress];
-    if ([v5 devicedConnected] && dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+    v7 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:bluetoothAddress];
+    if ([v7 devicedConnected] && dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EE410();
+      sub_1001EE410(bluetoothAddress);
     }
 
-    [v5 _updateInEarState:1];
-    [v5 _updateListeningMode:1];
-    [v5 setDevicedConnected:0];
+    [v7 _updateInEarState:1];
+    [v7 _updateListeningMode:1];
+    [v7 setDevicedConnected:0];
     if (![(AAAccessoryUsageSummaryManager *)self _isConnectedToAnyAirPods])
     {
-      v6 = +[BGSystemTaskScheduler sharedScheduler];
-      v9 = 0;
-      v7 = [v6 resumeScheduling:@"com.apple.audioaccessoryd.AAAccessoryUsageSummary" error:&v9];
-      v8 = v9;
+      v8 = +[BGSystemTaskScheduler sharedScheduler];
+      v11 = 0;
+      v9 = [v8 resumeScheduling:@"com.apple.audioaccessoryd.AAAccessoryUsageSummary" error:&v11];
+      v10 = v11;
 
-      if ((v7 & 1) == 0 && dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+      if ((v9 & 1) == 0 && dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EE450();
+        sub_1001EE450(v10);
       }
     }
   }
 
   else
   {
-    sub_1001EE490();
+    sub_1001EE490(0, v4, v5);
   }
 }
 
@@ -312,7 +316,7 @@
 
   if (dword_1002F6998 <= 90 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EE558();
+    sub_1001EE558(v7);
   }
 
 LABEL_21:
@@ -331,39 +335,50 @@ LABEL_21:
 
 - (void)_cleanupAirPodsUsageSummary
 {
-  if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6998 <= 30)
   {
-    sub_1001EE5C4();
+    if (dword_1002F6998 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EE5C4(self, a2, v2);
+    }
   }
 
-  [(NSMutableDictionary *)self->_wxSummaryDeviceMap removeAllObjects];
-  wxSummaryDeviceMap = self->_wxSummaryDeviceMap;
-  self->_wxSummaryDeviceMap = 0;
+  [(NSMutableDictionary *)selfCopy->_wxSummaryDeviceMap removeAllObjects];
+  wxSummaryDeviceMap = selfCopy->_wxSummaryDeviceMap;
+  selfCopy->_wxSummaryDeviceMap = 0;
 }
 
 - (void)_createPowerLogIdentifier
 {
   p_powerLogStreamID = &self->_powerLogStreamID;
-  if (self->_powerLogStreamID)
+  powerLogStreamID = self->_powerLogStreamID;
+  if (powerLogStreamID)
   {
-    sub_1001EE5E0(&self->_powerLogStreamID);
+    sub_1001EE5E0(&self->_powerLogStreamID, powerLogStreamID);
   }
 
   else
   {
-    v3 = PPSCreateTelemetryIdentifier();
-    *p_powerLogStreamID = v3;
-    if (v3)
+    v4 = PPSCreateTelemetryIdentifier();
+    *p_powerLogStreamID = v4;
+    if (v4)
     {
-      if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+      if (dword_1002F6998 <= 30)
       {
-        sub_1001EE664();
+        if (dword_1002F6998 != -1 || (v4 = _LogCategory_Initialize(), v4))
+        {
+          sub_1001EE664(v4, v5, v6);
+        }
       }
     }
 
-    else if (dword_1002F6998 <= 90 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+    else if (dword_1002F6998 <= 90)
     {
-      sub_1001EE680();
+      if (dword_1002F6998 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001EE680(v4, v5, v6);
+      }
     }
   }
 }
@@ -484,9 +499,9 @@ LABEL_27:
   [taskCopy setExpirationHandler:&stru_1002B9398];
   if ([(AAAccessoryUsageSummaryManager *)self _isConnectedToAnyAirPods])
   {
-    v7 = 0;
-    v5 = [taskCopy setTaskExpiredWithRetryAfter:&v7 error:64000000.0];
-    v6 = v7;
+    v10 = 0;
+    v5 = [taskCopy setTaskExpiredWithRetryAfter:&v10 error:64000000.0];
+    v6 = v10;
     if (v5)
     {
       if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
@@ -499,7 +514,7 @@ LABEL_27:
     {
       if (dword_1002F6998 <= 90 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EE7BC();
+        sub_1001EE7BC(v6);
       }
 
       [taskCopy setTaskCompleted];
@@ -508,10 +523,13 @@ LABEL_27:
 
   else
   {
-    [(AAAccessoryUsageSummaryManager *)self _submitAllAirPodsSummary];
-    if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+    _submitAllAirPodsSummary = [(AAAccessoryUsageSummaryManager *)self _submitAllAirPodsSummary];
+    if (dword_1002F6998 <= 30)
     {
-      sub_1001EE7A0();
+      if (dword_1002F6998 != -1 || (_submitAllAirPodsSummary = _LogCategory_Initialize(), _submitAllAirPodsSummary))
+      {
+        sub_1001EE7A0(_submitAllAirPodsSummary, v8, v9);
+      }
     }
 
     [taskCopy setTaskCompleted];
@@ -522,25 +540,28 @@ LABEL_27:
 - (unsigned)_getUsageTypeWithData:(id)data
 {
   dataCopy = data;
-  v4 = dataCopy;
+  v6 = dataCopy;
   if (dataCopy)
   {
-    v7 = 0;
-    [dataCopy getBytes:&v7 length:1];
-    v5 = v7;
+    v9 = 0;
+    [dataCopy getBytes:&v9 length:1];
+    v7 = v9;
   }
 
   else
   {
-    if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6998 <= 30)
     {
-      sub_1001EE84C();
+      if (dword_1002F6998 != -1 || (dataCopy = _LogCategory_Initialize(), dataCopy))
+      {
+        sub_1001EE84C(dataCopy, v4, v5);
+      }
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
 }
 
 - (void)invalidate
@@ -601,7 +622,7 @@ LABEL_27:
 
       else if (dword_1002F6998 <= 90 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EE8E0();
+        sub_1001EE8E0(v11);
       }
     }
   }
@@ -689,253 +710,258 @@ LABEL_27:
   {
     if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001EE964();
+      sub_1001EE964(logCopy);
     }
 
-    [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:logCopy];
-    v5 = v91 = self;
-    accessoryPID = [v5 accessoryPID];
-    v92 = logCopy;
-    v112 = logCopy;
-    totalNumberOfConnections = [v5 totalNumberOfConnections];
-    connectionErroReasonrMap = [v5 connectionErroReasonrMap];
-    v7 = [connectionErroReasonrMap objectForKeyedSubscript:@"ACL Connect Failed"];
-    intValue = [v7 intValue];
+    v7 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:logCopy];
+    accessoryPID = [v7 accessoryPID];
+    v99 = logCopy;
+    v119 = logCopy;
+    totalNumberOfConnections = [v7 totalNumberOfConnections];
+    connectionErroReasonrMap = [v7 connectionErroReasonrMap];
+    v9 = [connectionErroReasonrMap objectForKeyedSubscript:@"ACL Connect Failed"];
+    intValue = [v9 intValue];
 
-    connectionErroReasonrMap2 = [v5 connectionErroReasonrMap];
-    v9 = [connectionErroReasonrMap2 objectForKeyedSubscript:@"Magic Pairing failed due to OPERATION_TIMED_OUT"];
-    intValue2 = [v9 intValue];
+    connectionErroReasonrMap2 = [v7 connectionErroReasonrMap];
+    v11 = [connectionErroReasonrMap2 objectForKeyedSubscript:@"Magic Pairing failed due to OPERATION_TIMED_OUT"];
+    intValue2 = [v11 intValue];
 
-    connectionErroReasonrMap3 = [v5 connectionErroReasonrMap];
-    v11 = [connectionErroReasonrMap3 objectForKeyedSubscript:@"Peer device has no pairing keys BT_MAGIC_PAIRING_KEY_NOT_FOUND"];
-    intValue3 = [v11 intValue];
+    connectionErroReasonrMap3 = [v7 connectionErroReasonrMap];
+    v13 = [connectionErroReasonrMap3 objectForKeyedSubscript:@"Peer device has no pairing keys BT_MAGIC_PAIRING_KEY_NOT_FOUND"];
+    intValue3 = [v13 intValue];
 
-    connectionErroReasonrMap4 = [v5 connectionErroReasonrMap];
-    v13 = [connectionErroReasonrMap4 objectForKeyedSubscript:@"HFP Connect Failed"];
-    intValue4 = [v13 intValue];
+    connectionErroReasonrMap4 = [v7 connectionErroReasonrMap];
+    v15 = [connectionErroReasonrMap4 objectForKeyedSubscript:@"HFP Connect Failed"];
+    intValue4 = [v15 intValue];
 
-    connectionErrorGeneralCount = [v5 connectionErrorGeneralCount];
-    pairingCount = [v5 pairingCount];
-    pairingErrorMap = [v5 pairingErrorMap];
-    v15 = [pairingErrorMap objectForKeyedSubscript:&off_1002CB768];
-    intValue5 = [v15 intValue];
+    connectionErrorGeneralCount = [v7 connectionErrorGeneralCount];
+    pairingCount = [v7 pairingCount];
+    pairingErrorMap = [v7 pairingErrorMap];
+    v17 = [pairingErrorMap objectForKeyedSubscript:&off_1002CB768];
+    intValue5 = [v17 intValue];
 
-    pairingErrorMap2 = [v5 pairingErrorMap];
-    v17 = [pairingErrorMap2 objectForKeyedSubscript:&off_1002CB780];
-    intValue6 = [v17 intValue];
+    pairingErrorMap2 = [v7 pairingErrorMap];
+    v19 = [pairingErrorMap2 objectForKeyedSubscript:&off_1002CB780];
+    intValue6 = [v19 intValue];
 
-    pairingErrorMap3 = [v5 pairingErrorMap];
-    v19 = [pairingErrorMap3 objectForKeyedSubscript:&off_1002CB798];
-    intValue7 = [v19 intValue];
+    pairingErrorMap3 = [v7 pairingErrorMap];
+    v21 = [pairingErrorMap3 objectForKeyedSubscript:&off_1002CB798];
+    intValue7 = [v21 intValue];
 
-    pairingErrorMap4 = [v5 pairingErrorMap];
-    v21 = [pairingErrorMap4 objectForKeyedSubscript:&off_1002CB7B0];
-    intValue8 = [v21 intValue];
+    pairingErrorMap4 = [v7 pairingErrorMap];
+    v23 = [pairingErrorMap4 objectForKeyedSubscript:&off_1002CB7B0];
+    intValue8 = [v23 intValue];
 
-    pairingGeneralErrorCount = [v5 pairingGeneralErrorCount];
-    disconnectionErrorMap = [v5 disconnectionErrorMap];
-    v25 = [disconnectionErrorMap objectForKeyedSubscript:&off_1002CB7C8];
-    intValue9 = [v25 intValue];
+    pairingGeneralErrorCount = [v7 pairingGeneralErrorCount];
+    disconnectionErrorMap = [v7 disconnectionErrorMap];
+    v27 = [disconnectionErrorMap objectForKeyedSubscript:&off_1002CB7C8];
+    intValue9 = [v27 intValue];
 
-    disconnectionErrorMap2 = [v5 disconnectionErrorMap];
-    v28 = [disconnectionErrorMap2 objectForKeyedSubscript:&off_1002CB7E0];
-    intValue10 = [v28 intValue];
+    disconnectionErrorMap2 = [v7 disconnectionErrorMap];
+    v30 = [disconnectionErrorMap2 objectForKeyedSubscript:&off_1002CB7E0];
+    intValue10 = [v30 intValue];
 
-    disconnectionErrorGeneralCount = [v5 disconnectionErrorGeneralCount];
-    singleBudDuration = [v5 singleBudDuration];
-    bothBudDuration = [v5 bothBudDuration];
-    listeningModeANCDuration = [v5 listeningModeANCDuration];
-    listeningModeTransparencyDuration = [v5 listeningModeTransparencyDuration];
-    listeningModeAutoAncDuration = [v5 listeningModeAutoAncDuration];
-    v97 = [v5 totalDurationA2dp] / 0x3CuLL;
-    v56 = [v5 a2dpTotalSpatialDuration] / 0x3CuLL;
-    v51 = [v5 a2dpTotalGameDuration] / 0x3CuLL;
-    v96 = [v5 totalDurationHfp] / 0x3CuLL;
-    a2dpRssiPoorCount = [v5 a2dpRssiPoorCount];
-    a2dpRssiMidCount = [v5 a2dpRssiMidCount];
-    a2dpRssiGoodCount = [v5 a2dpRssiGoodCount];
-    a2dpRetxPoorCount = [v5 a2dpRetxPoorCount];
-    a2dpRetxMidCount = [v5 a2dpRetxMidCount];
-    a2dpRetxGoodCount = [v5 a2dpRetxGoodCount];
-    a2dpSnrPoorCount = [v5 a2dpSnrPoorCount];
-    a2dpSnrGoodCount = [v5 a2dpSnrGoodCount];
-    a2dpOverwaitAbove50msCount = [v5 a2dpOverwaitAbove50msCount];
-    v95 = &a2dpOverwaitAbove50msCount[[v5 a2dpPacketFlushCount]];
-    a2dpPacketFlushPoorRssiCount = [v5 a2dpPacketFlushPoorRssiCount];
-    a2dpOverwaitAbove50msCount2 = [v5 a2dpOverwaitAbove50msCount];
-    a2dpPacketFlushCount = [v5 a2dpPacketFlushCount];
-    volumeChangeAudioVideoCount = [v5 volumeChangeAudioVideoCount];
-    volumeChnagePhoneCallCount = [v5 volumeChnagePhoneCallCount];
-    v113[0] = @"ProductID";
-    v90 = [NSNumber numberWithUnsignedInt:accessoryPID];
-    v114[0] = v90;
-    v114[1] = v112;
-    v113[1] = @"Address";
-    v113[2] = @"ConnectionCount";
-    v89 = [NSNumber numberWithUnsignedInt:totalNumberOfConnections];
-    v114[2] = v89;
-    v113[3] = @"ConnectionError1Count";
-    v88 = [NSNumber numberWithUnsignedInt:intValue];
-    v114[3] = v88;
-    v113[4] = @"ConnectionError2Count";
-    v87 = [NSNumber numberWithUnsignedInt:intValue2];
-    v114[4] = v87;
-    v113[5] = @"ConnectionError3Count";
-    v86 = [NSNumber numberWithUnsignedInt:intValue3];
-    v114[5] = v86;
-    v113[6] = @"ConnectionError4Count";
-    v85 = [NSNumber numberWithUnsignedInt:intValue4];
-    v114[6] = v85;
-    v113[7] = @"ConnectionErrorGeneralCount";
-    v84 = [NSNumber numberWithUnsignedInt:connectionErrorGeneralCount];
-    v114[7] = v84;
-    v113[8] = @"PairingError1Count";
-    v83 = [NSNumber numberWithUnsignedInt:intValue5];
-    v114[8] = v83;
-    v113[9] = @"PairingError2Count";
-    v82 = [NSNumber numberWithUnsignedInt:intValue6];
-    v114[9] = v82;
-    v113[10] = @"PairingError3Count";
-    v81 = [NSNumber numberWithUnsignedInt:intValue7];
-    v114[10] = v81;
-    v113[11] = @"PairingError4Count";
-    v80 = [NSNumber numberWithUnsignedInt:intValue8];
-    v114[11] = v80;
-    v113[12] = @"PairingErrorGeneralCount";
-    v79 = [NSNumber numberWithUnsignedInt:pairingGeneralErrorCount];
-    v114[12] = v79;
-    v113[13] = @"DisconnectionError1Count";
-    v78 = [NSNumber numberWithUnsignedInt:intValue9];
-    v114[13] = v78;
-    v113[14] = @"DisconnectionError2Count";
-    v75 = [NSNumber numberWithUnsignedInt:intValue10];
-    v114[14] = v75;
-    v113[15] = @"DisconnectionError3Count";
-    v72 = [NSNumber numberWithUnsignedInt:0];
-    v114[15] = v72;
-    v113[16] = @"DisconnectionError4Count";
-    v69 = [NSNumber numberWithUnsignedInt:0];
-    v114[16] = v69;
-    v113[17] = @"DisconnectionGeneralCount";
-    v62 = [NSNumber numberWithUnsignedInt:disconnectionErrorGeneralCount];
-    v114[17] = v62;
-    v113[18] = @"PairingCount";
-    v53 = [NSNumber numberWithUnsignedInt:pairingCount];
-    v114[18] = v53;
-    v113[19] = @"SingleBudTotalDuration";
-    v50 = [NSNumber numberWithUnsignedInt:singleBudDuration];
-    v114[19] = v50;
-    v113[20] = @"BothBudTotalDuration";
-    v49 = [NSNumber numberWithUnsignedInt:bothBudDuration];
-    v114[20] = v49;
-    v113[21] = @"ANCTotalDuration";
-    v48 = [NSNumber numberWithUnsignedInt:listeningModeANCDuration];
-    v114[21] = v48;
-    v113[22] = @"TransparencyTotalDuration";
-    v47 = [NSNumber numberWithUnsignedInt:listeningModeTransparencyDuration];
-    v114[22] = v47;
-    v113[23] = @"AdaptiveTotalDuration";
-    v46 = [NSNumber numberWithUnsignedInt:listeningModeAutoAncDuration];
-    v114[23] = v46;
-    v113[24] = @"A2DPTotalDuration";
-    v45 = [NSNumber numberWithUnsignedInt:v97];
-    v114[24] = v45;
-    v113[25] = @"SpatialTotalDuration";
-    v57 = [NSNumber numberWithUnsignedInt:v56];
-    v114[25] = v57;
-    v113[26] = @"GameTotalDuration";
-    v52 = [NSNumber numberWithUnsignedInt:v51];
-    v114[26] = v52;
-    v113[27] = @"HFPTotalDuration";
-    v44 = [NSNumber numberWithUnsignedInt:v96];
-    v114[27] = v44;
-    v113[28] = @"A2DPRSSIPoor";
-    v55 = [NSNumber numberWithUnsignedInt:a2dpRssiPoorCount];
-    v114[28] = v55;
-    v113[29] = @"A2DPRSSIMiddle";
-    v59 = [NSNumber numberWithUnsignedInt:a2dpRssiMidCount];
-    v114[29] = v59;
-    v113[30] = @"A2DPRSSIHigh";
-    v61 = [NSNumber numberWithUnsignedInt:a2dpRssiGoodCount];
-    v114[30] = v61;
-    v113[31] = @"A2DPRetransLow";
-    v64 = [NSNumber numberWithUnsignedInt:a2dpRetxPoorCount];
-    v114[31] = v64;
-    v113[32] = @"A2DPRetransMiddle";
-    v66 = [NSNumber numberWithUnsignedInt:a2dpRetxMidCount];
-    v114[32] = v66;
-    v113[33] = @"A2DPRetransHigh";
-    v68 = [NSNumber numberWithUnsignedInt:a2dpRetxGoodCount];
-    v114[33] = v68;
-    v113[34] = @"A2DPSNRLow";
-    v71 = [NSNumber numberWithUnsignedInt:a2dpSnrPoorCount];
-    v114[34] = v71;
-    v113[35] = @"A2DPSNRMiddle";
-    v34 = [NSNumber numberWithUnsignedInt:0];
-    v114[35] = v34;
-    v113[36] = @"A2DPSNRHigh";
-    v35 = [NSNumber numberWithUnsignedInt:a2dpSnrGoodCount];
-    v114[36] = v35;
-    v113[37] = @"AudioDropCount";
-    v36 = [NSNumber numberWithUnsignedLongLong:v95];
-    v114[37] = v36;
-    v113[38] = @"AudioDropPoorRSSICount";
-    v37 = [NSNumber numberWithUnsignedInt:a2dpPacketFlushPoorRssiCount];
-    v114[38] = v37;
-    v113[39] = @"AudioDropOverWaitCount";
-    v38 = [NSNumber numberWithUnsignedLongLong:a2dpOverwaitAbove50msCount2];
-    v114[39] = v38;
-    v113[40] = @"AudioDropPacketFlushCount";
-    v39 = [NSNumber numberWithUnsignedLongLong:a2dpPacketFlushCount];
-    v114[40] = v39;
-    v113[41] = @"VolumeChangeAudioVideoCount";
-    v40 = [NSNumber numberWithUnsignedInt:volumeChangeAudioVideoCount];
-    v114[41] = v40;
-    v113[42] = @"VolumeChangePhoneCallCount";
-    v41 = [NSNumber numberWithUnsignedInt:volumeChnagePhoneCallCount];
-    v114[42] = v41;
-    v42 = [NSDictionary dictionaryWithObjects:v114 forKeys:v113 count:43];
+    disconnectionErrorGeneralCount = [v7 disconnectionErrorGeneralCount];
+    singleBudDuration = [v7 singleBudDuration];
+    bothBudDuration = [v7 bothBudDuration];
+    listeningModeANCDuration = [v7 listeningModeANCDuration];
+    listeningModeTransparencyDuration = [v7 listeningModeTransparencyDuration];
+    listeningModeAutoAncDuration = [v7 listeningModeAutoAncDuration];
+    v104 = [v7 totalDurationA2dp] / 0x3CuLL;
+    v64 = [v7 a2dpTotalSpatialDuration] / 0x3CuLL;
+    v59 = [v7 a2dpTotalGameDuration] / 0x3CuLL;
+    v103 = [v7 totalDurationHfp] / 0x3CuLL;
+    a2dpRssiPoorCount = [v7 a2dpRssiPoorCount];
+    a2dpRssiMidCount = [v7 a2dpRssiMidCount];
+    a2dpRssiGoodCount = [v7 a2dpRssiGoodCount];
+    a2dpRetxPoorCount = [v7 a2dpRetxPoorCount];
+    a2dpRetxMidCount = [v7 a2dpRetxMidCount];
+    a2dpRetxGoodCount = [v7 a2dpRetxGoodCount];
+    a2dpSnrPoorCount = [v7 a2dpSnrPoorCount];
+    a2dpSnrGoodCount = [v7 a2dpSnrGoodCount];
+    a2dpOverwaitAbove50msCount = [v7 a2dpOverwaitAbove50msCount];
+    v102 = &a2dpOverwaitAbove50msCount[[v7 a2dpPacketFlushCount]];
+    a2dpPacketFlushPoorRssiCount = [v7 a2dpPacketFlushPoorRssiCount];
+    a2dpOverwaitAbove50msCount2 = [v7 a2dpOverwaitAbove50msCount];
+    a2dpPacketFlushCount = [v7 a2dpPacketFlushCount];
+    volumeChangeAudioVideoCount = [v7 volumeChangeAudioVideoCount];
+    volumeChnagePhoneCallCount = [v7 volumeChnagePhoneCallCount];
+    v120[0] = @"ProductID";
+    v98 = [NSNumber numberWithUnsignedInt:accessoryPID];
+    v121[0] = v98;
+    v121[1] = v119;
+    v120[1] = @"Address";
+    v120[2] = @"ConnectionCount";
+    v97 = [NSNumber numberWithUnsignedInt:totalNumberOfConnections];
+    v121[2] = v97;
+    v120[3] = @"ConnectionError1Count";
+    v96 = [NSNumber numberWithUnsignedInt:intValue];
+    v121[3] = v96;
+    v120[4] = @"ConnectionError2Count";
+    v95 = [NSNumber numberWithUnsignedInt:intValue2];
+    v121[4] = v95;
+    v120[5] = @"ConnectionError3Count";
+    v94 = [NSNumber numberWithUnsignedInt:intValue3];
+    v121[5] = v94;
+    v120[6] = @"ConnectionError4Count";
+    v93 = [NSNumber numberWithUnsignedInt:intValue4];
+    v121[6] = v93;
+    v120[7] = @"ConnectionErrorGeneralCount";
+    v92 = [NSNumber numberWithUnsignedInt:connectionErrorGeneralCount];
+    v121[7] = v92;
+    v120[8] = @"PairingError1Count";
+    v91 = [NSNumber numberWithUnsignedInt:intValue5];
+    v121[8] = v91;
+    v120[9] = @"PairingError2Count";
+    v90 = [NSNumber numberWithUnsignedInt:intValue6];
+    v121[9] = v90;
+    v120[10] = @"PairingError3Count";
+    v89 = [NSNumber numberWithUnsignedInt:intValue7];
+    v121[10] = v89;
+    v120[11] = @"PairingError4Count";
+    v51 = intValue8;
+    v88 = [NSNumber numberWithUnsignedInt:intValue8];
+    v121[11] = v88;
+    v120[12] = @"PairingErrorGeneralCount";
+    v50 = pairingGeneralErrorCount;
+    v87 = [NSNumber numberWithUnsignedInt:pairingGeneralErrorCount];
+    v121[12] = v87;
+    v120[13] = @"DisconnectionError1Count";
+    v48 = intValue9;
+    v86 = [NSNumber numberWithUnsignedInt:intValue9];
+    v121[13] = v86;
+    v120[14] = @"DisconnectionError2Count";
+    v46 = intValue10;
+    v83 = [NSNumber numberWithUnsignedInt:intValue10];
+    v121[14] = v83;
+    v120[15] = @"DisconnectionError3Count";
+    v80 = [NSNumber numberWithUnsignedInt:0];
+    v121[15] = v80;
+    v120[16] = @"DisconnectionError4Count";
+    v77 = [NSNumber numberWithUnsignedInt:0];
+    v121[16] = v77;
+    v120[17] = @"DisconnectionGeneralCount";
+    v45 = disconnectionErrorGeneralCount;
+    v70 = [NSNumber numberWithUnsignedInt:disconnectionErrorGeneralCount];
+    v121[17] = v70;
+    v120[18] = @"PairingCount";
+    v61 = [NSNumber numberWithUnsignedInt:pairingCount];
+    v121[18] = v61;
+    v120[19] = @"SingleBudTotalDuration";
+    v49 = singleBudDuration;
+    v58 = [NSNumber numberWithUnsignedInt:singleBudDuration];
+    v121[19] = v58;
+    v120[20] = @"BothBudTotalDuration";
+    v47 = bothBudDuration;
+    v57 = [NSNumber numberWithUnsignedInt:bothBudDuration];
+    v121[20] = v57;
+    v120[21] = @"ANCTotalDuration";
+    v56 = [NSNumber numberWithUnsignedInt:listeningModeANCDuration];
+    v121[21] = v56;
+    v120[22] = @"TransparencyTotalDuration";
+    v55 = [NSNumber numberWithUnsignedInt:listeningModeTransparencyDuration];
+    v121[22] = v55;
+    v120[23] = @"AdaptiveTotalDuration";
+    v54 = [NSNumber numberWithUnsignedInt:listeningModeAutoAncDuration];
+    v121[23] = v54;
+    v120[24] = @"A2DPTotalDuration";
+    v53 = [NSNumber numberWithUnsignedInt:v104];
+    v121[24] = v53;
+    v120[25] = @"SpatialTotalDuration";
+    v65 = [NSNumber numberWithUnsignedInt:v64];
+    v121[25] = v65;
+    v120[26] = @"GameTotalDuration";
+    v60 = [NSNumber numberWithUnsignedInt:v59];
+    v121[26] = v60;
+    v120[27] = @"HFPTotalDuration";
+    v52 = [NSNumber numberWithUnsignedInt:v103];
+    v121[27] = v52;
+    v120[28] = @"A2DPRSSIPoor";
+    v63 = [NSNumber numberWithUnsignedInt:a2dpRssiPoorCount];
+    v121[28] = v63;
+    v120[29] = @"A2DPRSSIMiddle";
+    v67 = [NSNumber numberWithUnsignedInt:a2dpRssiMidCount];
+    v121[29] = v67;
+    v120[30] = @"A2DPRSSIHigh";
+    v69 = [NSNumber numberWithUnsignedInt:a2dpRssiGoodCount];
+    v121[30] = v69;
+    v120[31] = @"A2DPRetransLow";
+    v72 = [NSNumber numberWithUnsignedInt:a2dpRetxPoorCount];
+    v121[31] = v72;
+    v120[32] = @"A2DPRetransMiddle";
+    v74 = [NSNumber numberWithUnsignedInt:a2dpRetxMidCount];
+    v121[32] = v74;
+    v120[33] = @"A2DPRetransHigh";
+    v76 = [NSNumber numberWithUnsignedInt:a2dpRetxGoodCount];
+    v121[33] = v76;
+    v120[34] = @"A2DPSNRLow";
+    v79 = [NSNumber numberWithUnsignedInt:a2dpSnrPoorCount];
+    v121[34] = v79;
+    v120[35] = @"A2DPSNRMiddle";
+    v36 = [NSNumber numberWithUnsignedInt:0];
+    v121[35] = v36;
+    v120[36] = @"A2DPSNRHigh";
+    v37 = [NSNumber numberWithUnsignedInt:a2dpSnrGoodCount];
+    v121[36] = v37;
+    v120[37] = @"AudioDropCount";
+    v38 = [NSNumber numberWithUnsignedLongLong:v102];
+    v121[37] = v38;
+    v120[38] = @"AudioDropPoorRSSICount";
+    v39 = [NSNumber numberWithUnsignedInt:a2dpPacketFlushPoorRssiCount];
+    v121[38] = v39;
+    v120[39] = @"AudioDropOverWaitCount";
+    v40 = [NSNumber numberWithUnsignedLongLong:a2dpOverwaitAbove50msCount2];
+    v121[39] = v40;
+    v120[40] = @"AudioDropPacketFlushCount";
+    v41 = [NSNumber numberWithUnsignedLongLong:a2dpPacketFlushCount];
+    v121[40] = v41;
+    v120[41] = @"VolumeChangeAudioVideoCount";
+    v42 = [NSNumber numberWithUnsignedInt:volumeChangeAudioVideoCount];
+    v121[41] = v42;
+    v120[42] = @"VolumeChangePhoneCallCount";
+    v43 = [NSNumber numberWithUnsignedInt:volumeChnagePhoneCallCount];
+    v121[42] = v43;
+    v44 = [NSDictionary dictionaryWithObjects:v121 forKeys:v120 count:43];
 
-    powerLogStreamID = v91->_powerLogStreamID;
     PPSSendTelemetry();
     if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummaryManager _submitDeviceSummaryToPowerLog:]", 30, "SubmitDeviceSummaryToPowerLog: Done Wx %@ product %u a2dpDuration %um singleBudDuration %um bothBudDuration %um ancDuration %um transparencyDuration %um adaptiveDuration %um hfpDuration %um connectionCount %d connError1Count %d connError2Count %d connError3Count %d connError4Count %d connErrorGeneralCount %d pairingCount %d pairingError1Count %d pairingError2Count %d pairingError3Count %d pairingError4Count %d pairingErrorGeneralCount %d discError1Count %d discError2Count %d discError3Count %d discError4Count %d discErrorGeneralCount %d audioDropCount %d overwaitCount %d packetFlushCount %d", v119, accessoryPID, v104, v49, v47, listeningModeANCDuration, listeningModeTransparencyDuration, listeningModeAutoAncDuration, v103, totalNumberOfConnections, intValue, intValue2, intValue3, intValue4, connectionErrorGeneralCount, pairingCount, intValue5, intValue6, intValue7, v51, v50, v48, v46, 0, 0, v45, v102, a2dpOverwaitAbove50msCount2, a2dpPacketFlushCount);
     }
 
-    logCopy = v92;
+    logCopy = v99;
   }
 
   else
   {
-    sub_1001EE9A4(dword_1002F6998);
+    sub_1001EE9A4(dword_1002F6998, v4, v5);
   }
 }
 
 - (void)_updateBasicInfo:(id)info
 {
   infoCopy = info;
-  v8 = infoCopy;
+  v12 = infoCopy;
   if (infoCopy)
   {
     bluetoothAddress = [infoCopy bluetoothAddress];
     if (bluetoothAddress)
     {
-      v6 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:bluetoothAddress];
-      [v6 setAccessoryPID:{objc_msgSend(v8, "productID")}];
-      name = [v8 name];
-      [v6 setName:name];
+      v10 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:bluetoothAddress];
+      [v10 setAccessoryPID:{objc_msgSend(v12, "productID")}];
+      name = [v12 name];
+      [v10 setName:name];
     }
 
     else
     {
-      sub_1001EE9FC();
+      sub_1001EE9FC(0, v7, v8);
     }
   }
 
   else
   {
-    sub_1001EEA5C();
+    sub_1001EEA5C(0, v5, v6);
   }
 }
 
@@ -943,28 +969,28 @@ LABEL_27:
 {
   summaryCopy = summary;
   addressCopy = address;
-  v8 = addressCopy;
+  v10 = addressCopy;
   if (!summaryCopy)
   {
-    sub_1001EEB7C();
+    sub_1001EEB7C(addressCopy, v8, v9);
     goto LABEL_10;
   }
 
   if (!addressCopy)
   {
-    sub_1001EEB1C();
+    sub_1001EEB1C(0, v8, v9);
     goto LABEL_10;
   }
 
-  v9 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
+  v11 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
+  v20 = 0;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  [summaryCopy getBytes:&v19 length:72];
-  v10 = v20;
-  if (!v20)
+  v16 = 0u;
+  v17 = 0u;
+  [summaryCopy getBytes:&v16 length:72];
+  v12 = v17;
+  if (!v17)
   {
     sub_1001EEABC(dword_1002F6998);
     goto LABEL_9;
@@ -979,28 +1005,23 @@ LABEL_27:
         goto LABEL_8;
       }
 
-      v10 = v20;
+      v12 = v17;
     }
 
-    v17 = DWORD1(v19);
-    v18 = DWORD2(v19);
-    v15 = v10;
-    v16 = *(&v22 + 1);
-    v14 = v8;
-    LogPrintF();
+    LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummaryManager _updateA2DPSummary:wxAddress:]", 30, "UpdateA2DPSummary: wx %@ duration %llus overwaitCount %llu rssiAvg %d retxAvg %u", v10, v12, *(&v19 + 1), DWORD1(v16), DWORD2(v16));
   }
 
 LABEL_8:
-  [v9 addA2DPRssi:{DWORD1(v19), v14, v15, v16, v17, v18}];
-  [v9 addA2DPRetx:DWORD2(v19)];
-  [v9 adda2DPSnr:v22];
-  [v9 addA2DPDuration:v20 audioCategory:v21];
-  a2dpAudioCategory = [v9 a2dpAudioCategory];
-  v12 = [NSNumber numberWithUnsignedLongLong:v21];
-  [a2dpAudioCategory addObject:v12];
+  [v11 addA2DPRssi:DWORD1(v16)];
+  [v11 addA2DPRetx:DWORD2(v16)];
+  [v11 adda2DPSnr:v19];
+  [v11 addA2DPDuration:v17 audioCategory:v18];
+  a2dpAudioCategory = [v11 a2dpAudioCategory];
+  v14 = [NSNumber numberWithUnsignedLongLong:v18];
+  [a2dpAudioCategory addObject:v14];
 
-  a2dpOverwaitAbove50msCount = [v9 a2dpOverwaitAbove50msCount];
-  [v9 setA2dpOverwaitAbove50msCount:&a2dpOverwaitAbove50msCount[*(&v22 + 1)]];
+  a2dpOverwaitAbove50msCount = [v11 a2dpOverwaitAbove50msCount];
+  [v11 setA2dpOverwaitAbove50msCount:&a2dpOverwaitAbove50msCount[*(&v19 + 1)]];
 LABEL_9:
 
 LABEL_10:
@@ -1010,36 +1031,33 @@ LABEL_10:
 {
   summaryCopy = summary;
   addressCopy = address;
-  v8 = addressCopy;
+  v10 = addressCopy;
   if (summaryCopy)
   {
     if (addressCopy)
     {
-      v9 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
-      memset(v14, 0, 108);
-      [summaryCopy getBytes:v14 length:108];
+      v11 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
+      memset(v13, 0, 108);
+      [summaryCopy getBytes:v13 length:108];
       if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
       {
-        v12 = DWORD1(v14[0]);
-        v13 = v14 + 8;
-        v11 = v8;
-        LogPrintF();
+        LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummaryManager _updateAirPodsConnectionSummary:wxAddress:]", 30, "UpdateAirPodsConnectionSummary: wx %@ errorCode %d errorReason %s", v10, DWORD1(v13[0]), v13 + 8);
       }
 
-      [v9 addConnectionError:{DWORD1(v14[0]), v11, v12, v13}];
-      v10 = [NSString stringWithUTF8String:v14 + 8];
-      [v9 updateConnectionErrorReason:v10];
+      [v11 addConnectionError:DWORD1(v13[0])];
+      v12 = [NSString stringWithUTF8String:v13 + 8];
+      [v11 updateConnectionErrorReason:v12];
     }
 
     else
     {
-      sub_1001EEBDC();
+      sub_1001EEBDC(0, v8, v9);
     }
   }
 
   else
   {
-    sub_1001EEC3C();
+    sub_1001EEC3C(addressCopy, v8, v9);
   }
 }
 
@@ -1051,26 +1069,24 @@ LABEL_10:
   {
     if (summary)
     {
-      v7 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
+      v9 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
       if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
       {
-        v8 = v10;
-        summaryCopy = summary;
-        LogPrintF();
+        LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummaryManager _updateAirPodsDisconnectionSummary:wxAddress:]", 30, "UpdateAirPodsDisconnectionSummary: Wx %@ error %llu", v10, summary);
       }
 
-      [v7 addDisconnectionErrors:{summary, v8, summaryCopy}];
+      [v9 addDisconnectionErrors:summary];
     }
 
     else
     {
-      sub_1001EEC9C();
+      sub_1001EEC9C(addressCopy, v7, v8);
     }
   }
 
   else
   {
-    sub_1001EECFC();
+    sub_1001EECFC(0, v7, v8);
   }
 }
 
@@ -1092,34 +1108,31 @@ LABEL_10:
 {
   summaryCopy = summary;
   addressCopy = address;
-  v8 = addressCopy;
+  v10 = addressCopy;
   if (summaryCopy)
   {
     if (addressCopy)
     {
-      v9 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
-      v23 = 0;
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      [summaryCopy getBytes:&v19 length:72];
-      v10 = v20;
-      if (v20)
+      v11 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
+      v18 = 0;
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      [summaryCopy getBytes:&v14 length:72];
+      v12 = v15;
+      if (v15)
       {
-        if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || (v11 = _LogCategory_Initialize(), v10 = v20, v11)))
+        if (dword_1002F6998 <= 30)
         {
-          v16 = DWORD1(v19);
-          v18 = DWORD2(v19);
-          v14 = v10;
-          LogPrintF();
-          [v9 addHFPDuration:{v20, v8, v14, v16, v18}];
+          if (dword_1002F6998 != -1 || (v13 = _LogCategory_Initialize(), v12 = v15, v13))
+          {
+            LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummaryManager _updateHFPSummary:wxAddress:]", 30, "UpdateHFPSummary: wx %@ duration %llus rssiAvg %d retxAvg %u", v10, v12, DWORD1(v14), DWORD2(v14));
+            v12 = v15;
+          }
         }
 
-        else
-        {
-          [v9 addHFPDuration:{v10, v12, v13, v15, v17}];
-        }
+        [v11 addHFPDuration:v12];
       }
 
       else
@@ -1130,13 +1143,13 @@ LABEL_10:
 
     else
     {
-      sub_1001EEE80();
+      sub_1001EEE80(0, v8, v9);
     }
   }
 
   else
   {
-    sub_1001EEEE0();
+    sub_1001EEEE0(addressCopy, v8, v9);
   }
 }
 
@@ -1179,7 +1192,7 @@ LABEL_10:
   [summaryCopy getBytes:&v11 length:8];
   if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummaryManager _updatemMagicPairingSummary:wxAddress:]", 30, "UpdatemMagicPairingSummary: Skip, wx %@ errorCode %d", addressCopy, HIDWORD(v11));
   }
 
 LABEL_7:
@@ -1192,34 +1205,34 @@ LABEL_7:
 {
   summaryCopy = summary;
   addressCopy = address;
-  v8 = addressCopy;
+  v10 = addressCopy;
   if (summaryCopy)
   {
     if (addressCopy)
     {
-      v9 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
-      v11 = 0;
-      memset(v10, 0, sizeof(v10));
-      [summaryCopy getBytes:v10 length:72];
+      v11 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
+      v13 = 0;
+      memset(v12, 0, sizeof(v12));
+      [summaryCopy getBytes:v12 length:72];
       if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001EEF40(v10);
+        sub_1001EEF40(v12, v10);
       }
 
-      [v9 addA2DPPacketFlushRssi:DWORD1(v10[0])];
-      [v9 addA2DPPacketFlushRetx:DWORD2(v10[0])];
-      [v9 setA2dpPacketFlushCount:{objc_msgSend(v9, "a2dpPacketFlushCount") + 1}];
+      [v11 addA2DPPacketFlushRssi:DWORD1(v12[0])];
+      [v11 addA2DPPacketFlushRetx:DWORD2(v12[0])];
+      [v11 setA2dpPacketFlushCount:{objc_msgSend(v11, "a2dpPacketFlushCount") + 1}];
     }
 
     else
     {
-      sub_1001EEF88();
+      sub_1001EEF88(0, v8, v9);
     }
   }
 
   else
   {
-    sub_1001EEFE8();
+    sub_1001EEFE8(addressCopy, v8, v9);
   }
 }
 
@@ -1227,33 +1240,31 @@ LABEL_7:
 {
   summaryCopy = summary;
   addressCopy = address;
-  v8 = addressCopy;
+  v10 = addressCopy;
   if (summaryCopy)
   {
     if (addressCopy)
     {
-      v9 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
+      v11 = [(AAAccessoryUsageSummaryManager *)self _getUsageSummary:addressCopy];
       v12 = 0;
       [summaryCopy getBytes:&v12 length:8];
       if (dword_1002F6998 <= 30 && (dword_1002F6998 != -1 || _LogCategory_Initialize()))
       {
-        v10 = v8;
-        v11 = HIDWORD(v12);
-        LogPrintF();
+        LogPrintF(&dword_1002F6998, "[AAAccessoryUsageSummaryManager _updatePairingSummary:wxAddress:]", 30, "UpdatemPairingSummary: wx %@ errorCode %d", v10, HIDWORD(v12));
       }
 
-      [v9 _updatePairingError:{HIDWORD(v12), v10, v11}];
+      [v11 _updatePairingError:HIDWORD(v12)];
     }
 
     else
     {
-      sub_1001EF048();
+      sub_1001EF048(0, v8, v9);
     }
   }
 
   else
   {
-    sub_1001EF0A8();
+    sub_1001EF0A8(addressCopy, v8, v9);
   }
 }
 

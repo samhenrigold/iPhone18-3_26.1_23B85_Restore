@@ -10,11 +10,11 @@
 - (WDBuddyFlowContinueFooterView)initWithTarget:(id)target action:(SEL)action bottomInset:(double)inset width:(double)width isLastScreen:(BOOL)screen
 {
   screenCopy = screen;
-  v41[3] = *MEMORY[0x277D85DE8];
+  v40[3] = *MEMORY[0x277D85DE8];
   targetCopy = target;
-  v40.receiver = self;
-  v40.super_class = WDBuddyFlowContinueFooterView;
-  v13 = [(WDBuddyFlowContinueFooterView *)&v40 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v39.receiver = self;
+  v39.super_class = WDBuddyFlowContinueFooterView;
+  v13 = [(WDBuddyFlowContinueFooterView *)&v39 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   if (v13)
   {
     v14 = WDBundle();
@@ -61,10 +61,10 @@
     topAnchor = [(OBBoldTrayButton *)v13->_continueTrayButton topAnchor];
     topAnchor2 = [(WDBuddyFlowContinueFooterView *)v13 topAnchor];
     v36 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v41[0] = v36;
-    v41[1] = v13->_continueTrayButtonLeadingConstraint;
-    v41[2] = v13->_continueTrayButtonTrailingConstraint;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+    v40[0] = v36;
+    v40[1] = v13->_continueTrayButtonLeadingConstraint;
+    v40[2] = v13->_continueTrayButtonTrailingConstraint;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
     [v33 activateConstraints:v37];
 
     v13->_bottomInset = inset;
@@ -72,7 +72,6 @@
     [(WDBuddyFlowContinueFooterView *)v13 _updateForCurrentSizeCategory];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

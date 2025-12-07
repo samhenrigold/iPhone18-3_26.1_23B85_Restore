@@ -69,7 +69,7 @@
 
 - (void)performOperation
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D30B40];
   if (os_log_type_enabled(*MEMORY[0x277D30B40], OS_LOG_TYPE_DEFAULT))
   {
@@ -77,9 +77,9 @@
     shortOperationDescription = [(FCOperation *)self shortOperationDescription];
     widgetConfigID = [(NTTodayConfigOperation *)self widgetConfigID];
     *buf = 138543618;
-    v33 = shortOperationDescription;
-    v34 = 2112;
-    v35 = widgetConfigID;
+    v32 = shortOperationDescription;
+    v33 = 2112;
+    v34 = widgetConfigID;
     _os_log_impl(&dword_25BF21000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will request config with ID %@", buf, 0x16u);
   }
 
@@ -91,51 +91,49 @@
   [v7 setEdgeCacheHint:edgeCacheHintForWidgetConfig];
 
   widgetConfigID2 = [(NTTodayConfigOperation *)self widgetConfigID];
-  v31 = widgetConfigID2;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v30 = widgetConfigID2;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
   [v7 setTopLevelRecordIDs:v11];
 
   [v7 setShouldReturnErrorWhenSomeRecordsMissing:1];
   [v7 setShouldBypassRecordSourcePersistence:1];
-  v29[0] = *MEMORY[0x277D307F8];
+  v28[0] = *MEMORY[0x277D307F8];
   v12 = *MEMORY[0x277D30720];
-  v28[0] = *MEMORY[0x277D30728];
-  v28[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-  v30[0] = v13;
-  v29[1] = *MEMORY[0x277D305A8];
-  v27 = *MEMORY[0x277D305A0];
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
-  v30[1] = v14;
-  v29[2] = *MEMORY[0x277D305C0];
+  v27[0] = *MEMORY[0x277D30728];
+  v27[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v29[0] = v13;
+  v28[1] = *MEMORY[0x277D305A8];
+  v26 = *MEMORY[0x277D305A0];
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+  v29[1] = v14;
+  v28[2] = *MEMORY[0x277D305C0];
   v15 = *MEMORY[0x277D305B0];
-  v26[0] = *MEMORY[0x277D305D8];
-  v26[1] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
-  v30[2] = v16;
+  v25[0] = *MEMORY[0x277D305D8];
+  v25[1] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v29[2] = v16;
   v17 = *MEMORY[0x277D30618];
-  v29[3] = *MEMORY[0x277D30660];
-  v29[4] = v17;
-  v30[3] = MEMORY[0x277CBEBF8];
-  v30[4] = MEMORY[0x277CBEBF8];
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:5];
+  v28[3] = *MEMORY[0x277D30660];
+  v28[4] = v17;
+  v29[3] = MEMORY[0x277CBEBF8];
+  v29[4] = MEMORY[0x277CBEBF8];
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:5];
   [v7 setLinkKeysByRecordType:v18];
 
   [v7 setDynamicCachePolicyBlock:&__block_literal_global_12];
   objc_initWeak(buf, v7);
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __42__NTTodayConfigOperation_performOperation__block_invoke_2;
-  v23 = &unk_279983828;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __42__NTTodayConfigOperation_performOperation__block_invoke_2;
+  v22 = &unk_279983828;
   selfCopy = self;
-  objc_copyWeak(&v25, buf);
-  [v7 setRecordChainCompletionHandler:&v20];
-  [(FCOperation *)self associateChildOperation:v7, v20, v21, v22, v23, selfCopy];
+  objc_copyWeak(&v24, buf);
+  [v7 setRecordChainCompletionHandler:&v19];
+  [(FCOperation *)self associateChildOperation:v7, v19, v20, v21, v22, selfCopy];
   [v7 start];
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(buf);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __42__NTTodayConfigOperation_performOperation__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -240,7 +238,7 @@ void __42__NTTodayConfigOperation_performOperation__block_invoke_2(uint64_t a1, 
 
 - (id)_todayConfigWithConfigJSON:(id)n articleListIDs:(id)ds articleIDs:(id)iDs error:(id *)error
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   nCopy = n;
   dsCopy = ds;
   iDsCopy = iDs;
@@ -250,15 +248,15 @@ void __42__NTTodayConfigOperation_performOperation__block_invoke_2(uint64_t a1, 
     v13 = v12;
     shortOperationDescription = [(FCOperation *)self shortOperationDescription];
     *buf = 138543618;
-    v73 = shortOperationDescription;
-    v74 = 2114;
-    v75 = nCopy;
+    v72 = shortOperationDescription;
+    v73 = 2114;
+    v74 = nCopy;
     _os_log_impl(&dword_25BF21000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ received config JSON %{public}@", buf, 0x16u);
   }
 
-  v70 = 0;
-  v15 = [MEMORY[0x277CBEAC0] fc_dictionaryFromJSON:nCopy error:&v70];
-  v16 = v70;
+  v69 = 0;
+  v15 = [MEMORY[0x277CBEAC0] fc_dictionaryFromJSON:nCopy error:&v69];
+  v16 = v69;
   v17 = v16;
   if (v16)
   {
@@ -272,125 +270,125 @@ void __42__NTTodayConfigOperation_performOperation__block_invoke_2(uint64_t a1, 
     goto LABEL_5;
   }
 
-  v23 = [v15 objectForKeyedSubscript:*MEMORY[0x277D30918]];
-  if (v23)
+  v22 = [v15 objectForKeyedSubscript:*MEMORY[0x277D30918]];
+  if (v22)
   {
-    v57 = v15;
-    v58 = dsCopy;
+    v56 = v15;
+    v57 = dsCopy;
     errorCopy = error;
-    v56 = nCopy;
-    v24 = objc_opt_new();
-    v62 = objc_opt_new();
+    v55 = nCopy;
+    v23 = objc_opt_new();
     v61 = objc_opt_new();
+    v60 = objc_opt_new();
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v54 = v23;
-    obj = v23;
-    v25 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
-    if (v25)
+    v53 = v22;
+    obj = v22;
+    v24 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v67;
+      v25 = v24;
+      v26 = *v66;
       do
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v67 != v27)
+          if (*v66 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = [MEMORY[0x277D35568] sectionConfigWithJSONDictionary:*(*(&v66 + 1) + 8 * i)];
-          if (v29)
+          v28 = [MEMORY[0x277D35568] sectionConfigWithJSONDictionary:*(*(&v65 + 1) + 8 * i)];
+          if (v28)
           {
-            [(NTTodayConfigOperation *)self _collectRecordIDsReferencedBySectionConfig:v29 withArticleListIDs:v62 articleIDs:v61];
-            if ([v29 queueMembershipsCount])
+            [(NTTodayConfigOperation *)self _collectRecordIDsReferencedBySectionConfig:v28 withArticleListIDs:v61 articleIDs:v60];
+            if ([v28 queueMembershipsCount])
             {
-              v30 = 0;
+              v29 = 0;
               do
               {
-                v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v29, "queueMembershipAtIndex:", v30)}];
-                v32 = [v24 objectForKeyedSubscript:v31];
-                if (!v32)
+                v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v28, "queueMembershipAtIndex:", v29)}];
+                v31 = [v23 objectForKeyedSubscript:v30];
+                if (!v31)
                 {
-                  v32 = objc_opt_new();
-                  [v24 setObject:v32 forKeyedSubscript:v31];
+                  v31 = objc_opt_new();
+                  [v23 setObject:v31 forKeyedSubscript:v30];
                 }
 
-                [v32 addObject:v29];
+                [v31 addObject:v28];
 
-                ++v30;
+                ++v29;
               }
 
-              while (v30 < [v29 queueMembershipsCount]);
+              while (v29 < [v28 queueMembershipsCount]);
             }
           }
         }
 
-        v26 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
+        v25 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
 
-    v33 = [MEMORY[0x277CBEB98] setWithArray:v58];
-    v34 = [MEMORY[0x277CBEB98] setWithArray:iDsCopy];
-    obja = v33;
-    if (([v62 isSubsetOfSet:v33] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v32 = [MEMORY[0x277CBEB98] setWithArray:v57];
+    v33 = [MEMORY[0x277CBEB98] setWithArray:iDsCopy];
+    obja = v32;
+    if (([v61 isSubsetOfSet:v32] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       [NTTodayConfigOperation _todayConfigWithConfigJSON:articleListIDs:articleIDs:error:];
     }
 
-    v53 = v34;
-    if (([v61 isSubsetOfSet:v34] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v52 = v33;
+    if (([v60 isSubsetOfSet:v33] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       [NTTodayConfigOperation _todayConfigWithConfigJSON:articleListIDs:articleIDs:error:];
     }
 
-    allKeys = [v24 allKeys];
-    v36 = [allKeys sortedArrayUsingSelector:sel_compare_];
+    allKeys = [v23 allKeys];
+    v35 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __85__NTTodayConfigOperation__todayConfigWithConfigJSON_articleListIDs_articleIDs_error___block_invoke;
-    v64[3] = &unk_2799837E0;
-    v51 = v24;
-    v52 = v36;
-    v65 = v51;
-    v37 = [v36 fc_arrayByTransformingWithBlock:v64];
-    v38 = [v57 objectForKeyedSubscript:*MEMORY[0x277D307C0]];
-    v39 = [v57 objectForKeyedSubscript:*MEMORY[0x277D30760]];
-    v40 = [v57 objectForKeyedSubscript:*MEMORY[0x277D30758]];
-    v41 = [v57 objectForKeyedSubscript:*MEMORY[0x277D30750]];
-    v42 = *MEMORY[0x277D306A8];
-    v43 = [v57 objectForKeyedSubscript:*MEMORY[0x277D306A8]];
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __85__NTTodayConfigOperation__todayConfigWithConfigJSON_articleListIDs_articleIDs_error___block_invoke;
+    v63[3] = &unk_2799837E0;
+    v50 = v23;
+    v51 = v35;
+    v64 = v50;
+    v36 = [v35 fc_arrayByTransformingWithBlock:v63];
+    v37 = [v56 objectForKeyedSubscript:*MEMORY[0x277D307C0]];
+    v38 = [v56 objectForKeyedSubscript:*MEMORY[0x277D30760]];
+    v39 = [v56 objectForKeyedSubscript:*MEMORY[0x277D30758]];
+    v40 = [v56 objectForKeyedSubscript:*MEMORY[0x277D30750]];
+    v41 = *MEMORY[0x277D306A8];
+    v42 = [v56 objectForKeyedSubscript:*MEMORY[0x277D306A8]];
 
-    if (v43)
+    if (v42)
     {
-      v44 = MEMORY[0x277D35530];
-      v45 = [v57 objectForKeyedSubscript:v42];
-      v46 = [v44 bannerConfigWithJSONDictionary:v45];
+      v43 = MEMORY[0x277D35530];
+      v44 = [v56 objectForKeyedSubscript:v41];
+      v45 = [v43 bannerConfigWithJSONDictionary:v44];
     }
 
     else
     {
-      v46 = 0;
+      v45 = 0;
     }
 
-    nCopy = v56;
+    nCopy = v55;
     configuration = [(NTTodayConfigOperation *)self configuration];
-    v48 = v38;
-    v49 = v38;
-    v50 = v37;
-    v19 = [configuration todayConfigWithIdentifier:v48 queueConfigs:v37 backgroundColorLight:v39 backgroundColorDark:v40 audioIndicatorColor:v41 widgetBannerConfig:v46];
+    v47 = v37;
+    v48 = v37;
+    v49 = v36;
+    v19 = [configuration todayConfigWithIdentifier:v47 queueConfigs:v36 backgroundColorLight:v38 backgroundColorDark:v39 audioIndicatorColor:v40 widgetBannerConfig:v45];
 
     v18 = 0;
     error = errorCopy;
-    v15 = v57;
-    dsCopy = v58;
-    v23 = v54;
+    v15 = v56;
+    dsCopy = v57;
+    v22 = v53;
     v17 = 0;
   }
 
@@ -409,53 +407,49 @@ LABEL_5:
 
 LABEL_6:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 id __85__NTTodayConfigOperation__todayConfigWithConfigJSON_articleListIDs_articleIDs_error___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
   [v4 setWidgetVisibleSectionsLimit:1];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = [*(a1 + 32) objectForKeyedSubscript:{v3, 0}];
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 addTodaySectionConfigs:*(*(&v12 + 1) + 8 * i)];
+        [v4 addTodaySectionConfigs:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)_collectRecordIDsReferencedBySectionConfig:(id)config withArticleListIDs:(id)ds articleIDs:(id)iDs
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   configCopy = config;
   dsCopy = ds;
   iDsCopy = iDs;
@@ -485,59 +479,59 @@ LABEL_6:
     if (sectionType == 4)
     {
       personalizedTodaySectionConfig = [configCopy personalizedTodaySectionConfig];
+      v46 = 0u;
       v47 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v50 = 0u;
       mandatoryArticles = [personalizedTodaySectionConfig mandatoryArticles];
-      v28 = [mandatoryArticles countByEnumeratingWithState:&v47 objects:v57 count:16];
+      v28 = [mandatoryArticles countByEnumeratingWithState:&v46 objects:v56 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v48;
+        v30 = *v47;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v48 != v30)
+            if (*v47 != v30)
             {
               objc_enumerationMutation(mandatoryArticles);
             }
 
-            articleID = [*(*(&v47 + 1) + 8 * i) articleID];
+            articleID = [*(*(&v46 + 1) + 8 * i) articleID];
             [iDsCopy addObject:articleID];
           }
 
-          v29 = [mandatoryArticles countByEnumeratingWithState:&v47 objects:v57 count:16];
+          v29 = [mandatoryArticles countByEnumeratingWithState:&v46 objects:v56 count:16];
         }
 
         while (v29);
       }
 
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       personalizedArticles = [personalizedTodaySectionConfig personalizedArticles];
-      v33 = [personalizedArticles countByEnumeratingWithState:&v43 objects:v56 count:16];
+      v33 = [personalizedArticles countByEnumeratingWithState:&v42 objects:v55 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v44;
+        v35 = *v43;
         do
         {
           for (j = 0; j != v34; ++j)
           {
-            if (*v44 != v35)
+            if (*v43 != v35)
             {
               objc_enumerationMutation(personalizedArticles);
             }
 
-            articleID2 = [*(*(&v43 + 1) + 8 * j) articleID];
+            articleID2 = [*(*(&v42 + 1) + 8 * j) articleID];
             [iDsCopy addObject:articleID2];
           }
 
-          v34 = [personalizedArticles countByEnumeratingWithState:&v43 objects:v56 count:16];
+          v34 = [personalizedArticles countByEnumeratingWithState:&v42 objects:v55 count:16];
         }
 
         while (v34);
@@ -552,26 +546,26 @@ LABEL_6:
       }
 
       personalizedTodaySectionConfig = [configCopy itemsTodaySectionConfig];
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
       personalizedArticles = [personalizedTodaySectionConfig items];
-      v19 = [personalizedArticles countByEnumeratingWithState:&v39 objects:v55 count:16];
+      v19 = [personalizedArticles countByEnumeratingWithState:&v38 objects:v54 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v40;
+        v21 = *v39;
         do
         {
           for (k = 0; k != v20; ++k)
           {
-            if (*v40 != v21)
+            if (*v39 != v21)
             {
               objc_enumerationMutation(personalizedArticles);
             }
 
-            v23 = *(*(&v39 + 1) + 8 * k);
+            v23 = *(*(&v38 + 1) + 8 * k);
             if (![v23 itemType])
             {
               article = [v23 article];
@@ -580,7 +574,7 @@ LABEL_6:
             }
           }
 
-          v20 = [personalizedArticles countByEnumeratingWithState:&v39 objects:v55 count:16];
+          v20 = [personalizedArticles countByEnumeratingWithState:&v38 objects:v54 count:16];
         }
 
         while (v20);
@@ -602,32 +596,32 @@ LABEL_45:
 
   if (sectionType == 3)
   {
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     articleIDsTodaySectionConfig = [configCopy articleIDsTodaySectionConfig];
     personalizedTodaySectionConfig = [articleIDsTodaySectionConfig articles];
 
-    v13 = [personalizedTodaySectionConfig countByEnumeratingWithState:&v51 objects:v58 count:16];
+    v13 = [personalizedTodaySectionConfig countByEnumeratingWithState:&v50 objects:v57 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v52;
+      v15 = *v51;
       do
       {
         for (m = 0; m != v14; ++m)
         {
-          if (*v52 != v15)
+          if (*v51 != v15)
           {
             objc_enumerationMutation(personalizedTodaySectionConfig);
           }
 
-          articleID4 = [*(*(&v51 + 1) + 8 * m) articleID];
+          articleID4 = [*(*(&v50 + 1) + 8 * m) articleID];
           [iDsCopy addObject:articleID4];
         }
 
-        v14 = [personalizedTodaySectionConfig countByEnumeratingWithState:&v51 objects:v58 count:16];
+        v14 = [personalizedTodaySectionConfig countByEnumeratingWithState:&v50 objects:v57 count:16];
       }
 
       while (v14);
@@ -637,74 +631,62 @@ LABEL_45:
   }
 
 LABEL_46:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateOperation
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Today config operation requires a single tag config handler."];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_todayConfigWithConfigJSON:articleListIDs:articleIDs:error:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"articleListRecords must be in sync!"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_todayConfigWithConfigJSON:articleListIDs:articleIDs:error:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"articleRecords must be in sync!"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_collectRecordIDsReferencedBySectionConfig:withArticleListIDs:articleIDs:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "articleListIDs"];
   *buf = 136315906;
-  v3 = "[NTTodayConfigOperation _collectRecordIDsReferencedBySectionConfig:withArticleListIDs:articleIDs:]";
-  v4 = 2080;
-  v5 = "NTTodayConfigOperation.m";
-  v6 = 1024;
+  v2 = "[NTTodayConfigOperation _collectRecordIDsReferencedBySectionConfig:withArticleListIDs:articleIDs:]";
+  v3 = 2080;
+  v4 = "NTTodayConfigOperation.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_collectRecordIDsReferencedBySectionConfig:withArticleListIDs:articleIDs:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "articleIDs"];
   *buf = 136315906;
-  v3 = "[NTTodayConfigOperation _collectRecordIDsReferencedBySectionConfig:withArticleListIDs:articleIDs:]";
-  v4 = 2080;
-  v5 = "NTTodayConfigOperation.m";
-  v6 = 1024;
+  v2 = "[NTTodayConfigOperation _collectRecordIDsReferencedBySectionConfig:withArticleListIDs:articleIDs:]";
+  v3 = 2080;
+  v4 = "NTTodayConfigOperation.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -140,7 +140,7 @@ LABEL_6:
         v12 = 2114;
         v13 = v6;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to set %{public}@: %{public}@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to set %{public}@: %{public}@", @"MegaBackupTurnOniCloudBackup", v6);
       }
     }
   }
@@ -172,7 +172,7 @@ LABEL_6:
       v13 = 2114;
       v14 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to set %{public}@: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set %{public}@: %{public}@", @"MegaBackupTurnOniCloudBackup", v8);
     }
   }
 }

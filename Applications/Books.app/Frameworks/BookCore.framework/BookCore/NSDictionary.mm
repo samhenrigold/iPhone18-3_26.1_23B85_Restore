@@ -124,7 +124,7 @@ LABEL_3:
 
   if (!v4)
   {
-    v11 = 0;
+    v12 = 0;
     goto LABEL_14;
   }
 
@@ -138,40 +138,40 @@ LABEL_3:
     v7 = [v6 objectForKeyedSubscript:@"price"];
     v8 = BUDynamicCast();
 
-    if (v8 && ([v8 isEqualToNumber:&off_2E5840] & 1) != 0)
+    if (v8 && (v9 = [v8 isEqualToNumber:&off_2E5840], (v9 & 1) != 0))
     {
-      v9 = IMCommonCoreBundle();
-      v10 = [v9 localizedStringForKey:@"GET" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+      v10 = IMCommonCoreBundle(v9);
+      v11 = [v10 localizedStringForKey:@"GET" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
     }
 
     else
     {
       objc_opt_class();
-      v12 = [v6 objectForKeyedSubscript:@"priceFormatted"];
-      v9 = BUDynamicCast();
+      v13 = [v6 objectForKeyedSubscript:@"priceFormatted"];
+      v10 = BUDynamicCast();
 
-      if (!v9)
+      if (!v10)
       {
-        v11 = 0;
+        v12 = 0;
         goto LABEL_12;
       }
 
-      v10 = v9;
-      v9 = v10;
+      v11 = v10;
+      v10 = v11;
     }
 
-    v11 = v10;
+    v12 = v11;
 LABEL_12:
 
     goto LABEL_13;
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_13:
 
 LABEL_14:
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)hasSeriesTypes

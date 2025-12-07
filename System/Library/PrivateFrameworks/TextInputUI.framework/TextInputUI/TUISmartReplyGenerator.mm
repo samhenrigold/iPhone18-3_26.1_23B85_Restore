@@ -45,9 +45,11 @@
 
 uint64_t __40__TUISmartReplyGenerator_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(TUISmartReplyGenerator);
+  v0 = objc_alloc_init(TUISmartReplyGenerator);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (TUISmartReplyGenerator)init

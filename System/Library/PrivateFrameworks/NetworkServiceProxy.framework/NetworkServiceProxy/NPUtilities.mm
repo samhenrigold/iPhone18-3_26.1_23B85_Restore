@@ -24,6 +24,7 @@
 + (id)mergeHTTPHeaders:(id)headers headerOverrides:(id)overrides;
 + (id)parseXHost:(id)host;
 + (id)sharedEmphemeralSession;
++ (id)stringFromLinkQualityValue:(int)value;
 + (id)stripWhitespace:(id)whitespace;
 + (id)timestampIdentifierToName:(unint64_t)name;
 + (int64_t)certificateDateIsValid:(__SecCertificate *)valid;
@@ -66,24 +67,24 @@ void __38__NPUtilities_sharedEmphemeralSession__block_invoke()
 
 + (id)copyDataFromKeychainWithIdentifier:(id)identifier accountName:(id)name
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   v7 = *MEMORY[0x1E697B008];
   v8 = *MEMORY[0x1E697AE88];
-  v22[0] = *MEMORY[0x1E697AFF8];
-  v22[1] = v8;
-  v23[0] = v7;
-  v23[1] = identifierCopy;
+  v21[0] = *MEMORY[0x1E697AFF8];
+  v21[1] = v8;
+  v22[0] = v7;
+  v22[1] = identifierCopy;
   v9 = *MEMORY[0x1E697B260];
-  v22[2] = *MEMORY[0x1E697AC30];
-  v22[3] = v9;
+  v21[2] = *MEMORY[0x1E697AC30];
+  v21[3] = v9;
   v10 = *MEMORY[0x1E697B270];
-  v23[2] = nameCopy;
-  v23[3] = v10;
-  v22[4] = *MEMORY[0x1E697B318];
-  v23[4] = MEMORY[0x1E695E118];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:5];
+  v22[2] = nameCopy;
+  v22[3] = v10;
+  v21[4] = *MEMORY[0x1E697B318];
+  v22[4] = MEMORY[0x1E695E118];
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:5];
   result = 0;
   v12 = SecItemCopyMatching(v11, &result);
   if (v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -92,9 +93,9 @@ void __38__NPUtilities_sharedEmphemeralSession__block_invoke()
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109378;
-      v19 = v12;
-      v20 = 2112;
-      v21 = identifierCopy;
+      v18 = v12;
+      v19 = 2112;
+      v20 = identifierCopy;
       _os_log_debug_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_DEBUG, "SecItemCopyMatching returned %d for %@", buf, 0x12u);
     }
 
@@ -106,39 +107,38 @@ void __38__NPUtilities_sharedEmphemeralSession__block_invoke()
     v13 = result;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (void)saveDataToKeychain:(id)keychain withIdentifier:(id)identifier accountName:(id)name
 {
-  v32[3] = *MEMORY[0x1E69E9840];
+  v31[3] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   v9 = *MEMORY[0x1E697AFF8];
   v10 = *MEMORY[0x1E697B008];
   v11 = *MEMORY[0x1E697AE88];
-  v30[0] = *MEMORY[0x1E697AFF8];
-  v30[1] = v11;
-  v32[0] = v10;
-  v32[1] = identifierCopy;
-  v31 = *MEMORY[0x1E697AC30];
-  v12 = v31;
-  v32[2] = nameCopy;
+  v29[0] = *MEMORY[0x1E697AFF8];
+  v29[1] = v11;
+  v31[0] = v10;
+  v31[1] = identifierCopy;
+  v30 = *MEMORY[0x1E697AC30];
+  v12 = v30;
+  v31[2] = nameCopy;
   v13 = MEMORY[0x1E695DF20];
   keychainCopy = keychain;
-  v15 = [v13 dictionaryWithObjects:v32 forKeys:v30 count:3];
-  v28[0] = v11;
-  v28[1] = v12;
-  v29[0] = identifierCopy;
-  v29[1] = nameCopy;
+  v15 = [v13 dictionaryWithObjects:v31 forKeys:v29 count:3];
+  v27[0] = v11;
+  v27[1] = v12;
+  v28[0] = identifierCopy;
+  v28[1] = nameCopy;
   v16 = *MEMORY[0x1E697ABD8];
-  v28[2] = *MEMORY[0x1E697B3C0];
-  v28[3] = v16;
+  v27[2] = *MEMORY[0x1E697B3C0];
+  v27[3] = v16;
   v17 = *MEMORY[0x1E697ABE8];
-  v29[2] = keychainCopy;
-  v29[3] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:4];
+  v28[2] = keychainCopy;
+  v28[3] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:4];
 
   v19 = SecItemUpdate(v15, v18);
   if (v19 == -25300)
@@ -154,35 +154,33 @@ void __38__NPUtilities_sharedEmphemeralSession__block_invoke()
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v25 = identifierCopy;
-      v26 = 1024;
-      v27 = v19;
+      v24 = identifierCopy;
+      v25 = 1024;
+      v26 = v19;
       _os_log_error_impl(&dword_1AE7E2000, v21, OS_LOG_TYPE_ERROR, "Failed to save %@ to the keychain: %d", buf, 0x12u);
     }
 
     [self removeDataFromKeychainWithIdentifier:identifierCopy accountName:nameCopy];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (unint64_t)totalDataInKeychainWithIdentifier:(id)identifier
 {
-  v27[4] = *MEMORY[0x1E69E9840];
+  v26[4] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697AE88];
-  v26[0] = *MEMORY[0x1E697AFF8];
-  v26[1] = v5;
-  v27[0] = v4;
-  v27[1] = identifierCopy;
+  v25[0] = *MEMORY[0x1E697AFF8];
+  v25[1] = v5;
+  v26[0] = v4;
+  v26[1] = identifierCopy;
   v6 = *MEMORY[0x1E697B268];
   v7 = *MEMORY[0x1E697B318];
-  v26[2] = *MEMORY[0x1E697B260];
-  v26[3] = v7;
-  v27[2] = v6;
-  v27[3] = MEMORY[0x1E695E118];
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v25[2] = *MEMORY[0x1E697B260];
+  v25[3] = v7;
+  v26[2] = v6;
+  v26[3] = MEMORY[0x1E695E118];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:4];
   result = 0;
   v9 = SecItemCopyMatching(v8, &result);
   v10 = result;
@@ -207,27 +205,27 @@ LABEL_2:
 
   else
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
       v11 = 0;
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v20 + 1) + 8 * i);
+          v17 = *(*(&v19 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -235,7 +233,7 @@ LABEL_2:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v14);
@@ -249,21 +247,20 @@ LABEL_2:
 
 LABEL_18:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (void)removeDataFromKeychainWithIdentifier:(id)identifier
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697AE88];
-  v16[0] = *MEMORY[0x1E697AFF8];
-  v16[1] = v5;
-  v17[0] = v4;
-  v17[1] = identifierCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = *MEMORY[0x1E697AFF8];
+  v15[1] = v5;
+  v16[0] = v4;
+  v16[1] = identifierCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v7 = SecItemDelete(v6);
   if (v7 != -25300 && v7 != 0)
   {
@@ -271,32 +268,30 @@ LABEL_18:
     v10 = nplog_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
-      v13 = identifierCopy;
-      v14 = 1024;
-      v15 = v9;
-      _os_log_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEFAULT, "Failed to delete %@ from the keychain: %d", &v12, 0x12u);
+      v11 = 138412546;
+      v12 = identifierCopy;
+      v13 = 1024;
+      v14 = v9;
+      _os_log_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEFAULT, "Failed to delete %@ from the keychain: %d", &v11, 0x12u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removeDataFromKeychainWithIdentifier:(id)identifier accountName:(id)name
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = *MEMORY[0x1E697B008];
   v7 = *MEMORY[0x1E697AE88];
-  v20[0] = *MEMORY[0x1E697AFF8];
-  v20[1] = v7;
-  v21[0] = v6;
-  v21[1] = identifierCopy;
-  v20[2] = *MEMORY[0x1E697AC30];
-  v21[2] = name;
+  v19[0] = *MEMORY[0x1E697AFF8];
+  v19[1] = v7;
+  v20[0] = v6;
+  v20[1] = identifierCopy;
+  v19[2] = *MEMORY[0x1E697AC30];
+  v20[2] = name;
   v8 = MEMORY[0x1E695DF20];
   nameCopy = name;
-  v10 = [v8 dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v10 = [v8 dictionaryWithObjects:v20 forKeys:v19 count:3];
 
   v11 = SecItemDelete(v10);
   if (v11 != -25300 && v11 != 0)
@@ -305,34 +300,32 @@ LABEL_18:
     v14 = nplog_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = identifierCopy;
-      v18 = 1024;
-      v19 = v13;
-      _os_log_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_DEFAULT, "Failed to delete %@ from the keychain: %d", &v16, 0x12u);
+      v15 = 138412546;
+      v16 = identifierCopy;
+      v17 = 1024;
+      v18 = v13;
+      _os_log_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_DEFAULT, "Failed to delete %@ from the keychain: %d", &v15, 0x12u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (__SecKey)copyKeyFromKeychainWithIdentifier:(id)identifier
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = *MEMORY[0x1E697B020];
   v5 = *MEMORY[0x1E697AC40];
-  v20[0] = *MEMORY[0x1E697AFF8];
-  v20[1] = v5;
-  v21[0] = v4;
-  v21[1] = identifierCopy;
+  v19[0] = *MEMORY[0x1E697AFF8];
+  v19[1] = v5;
+  v20[0] = v4;
+  v20[1] = identifierCopy;
   v6 = *MEMORY[0x1E697B270];
   v7 = *MEMORY[0x1E697B328];
-  v20[2] = *MEMORY[0x1E697B260];
-  v20[3] = v7;
-  v21[2] = v6;
-  v21[3] = MEMORY[0x1E695E118];
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v19[2] = *MEMORY[0x1E697B260];
+  v19[3] = v7;
+  v20[2] = v6;
+  v20[3] = MEMORY[0x1E695E118];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
   result = 0;
   v9 = SecItemCopyMatching(v8, &result);
   if (v9 || (v10 = CFGetTypeID(result), v10 != SecKeyGetTypeID()))
@@ -341,9 +334,9 @@ LABEL_18:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109378;
-      v17 = v9;
-      v18 = 2112;
-      v19 = identifierCopy;
+      v16 = v9;
+      v17 = 2112;
+      v18 = identifierCopy;
       _os_log_debug_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_DEBUG, "SecItemCopyMatching returned %d for %@", buf, 0x12u);
     }
 
@@ -360,27 +353,26 @@ LABEL_18:
     v11 = result;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (void)saveKeyToKeychain:(__SecKey *)keychain withIdentifier:(id)identifier
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = *MEMORY[0x1E697B020];
   v7 = *MEMORY[0x1E697AC40];
-  v19[0] = *MEMORY[0x1E697AFF8];
-  v19[1] = v7;
+  v18[0] = *MEMORY[0x1E697AFF8];
+  v18[1] = v7;
   v8 = *MEMORY[0x1E697ABD8];
-  v19[2] = *MEMORY[0x1E697B3D0];
-  v19[3] = v8;
-  v20[0] = v6;
-  v20[1] = identifierCopy;
+  v18[2] = *MEMORY[0x1E697B3D0];
+  v18[3] = v8;
+  v19[0] = v6;
+  v19[1] = identifierCopy;
   v9 = *MEMORY[0x1E697ABE8];
-  v20[2] = keychain;
-  v20[3] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v19[2] = keychain;
+  v19[3] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
   v11 = SecItemAdd(v10, 0);
   if (v11)
   {
@@ -388,28 +380,26 @@ LABEL_18:
     v13 = nplog_obj();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412546;
-      v16 = identifierCopy;
-      v17 = 1024;
-      v18 = v12;
-      _os_log_error_impl(&dword_1AE7E2000, v13, OS_LOG_TYPE_ERROR, "Failed to save key %@ to the keychain: %d", &v15, 0x12u);
+      v14 = 138412546;
+      v15 = identifierCopy;
+      v16 = 1024;
+      v17 = v12;
+      _os_log_error_impl(&dword_1AE7E2000, v13, OS_LOG_TYPE_ERROR, "Failed to save key %@ to the keychain: %d", &v14, 0x12u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removeKeyFromKeychainWithIdentifier:(id)identifier
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = *MEMORY[0x1E697B020];
   v5 = *MEMORY[0x1E697AC40];
-  v16[0] = *MEMORY[0x1E697AFF8];
-  v16[1] = v5;
-  v17[0] = v4;
-  v17[1] = identifierCopy;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = *MEMORY[0x1E697AFF8];
+  v15[1] = v5;
+  v16[0] = v4;
+  v16[1] = identifierCopy;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v7 = SecItemDelete(v6);
   if (v7 != -25300 && v7 != 0)
   {
@@ -417,34 +407,32 @@ LABEL_18:
     v10 = nplog_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
-      v13 = identifierCopy;
-      v14 = 1024;
-      v15 = v9;
-      _os_log_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEFAULT, "Failed to delete key %@ from the keychain: %d", &v12, 0x12u);
+      v11 = 138412546;
+      v12 = identifierCopy;
+      v13 = 1024;
+      v14 = v9;
+      _os_log_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEFAULT, "Failed to delete key %@ from the keychain: %d", &v11, 0x12u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)copyItemIdentifiersFromKeychainWithAccountName:(id)name
 {
-  v34[4] = *MEMORY[0x1E69E9840];
+  v33[4] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697AC30];
-  v33[0] = *MEMORY[0x1E697AFF8];
-  v33[1] = v5;
-  v34[0] = v4;
-  v34[1] = nameCopy;
+  v32[0] = *MEMORY[0x1E697AFF8];
+  v32[1] = v5;
+  v33[0] = v4;
+  v33[1] = nameCopy;
   v6 = *MEMORY[0x1E697B268];
   v7 = *MEMORY[0x1E697B310];
-  v33[2] = *MEMORY[0x1E697B260];
-  v33[3] = v7;
-  v34[2] = v6;
-  v34[3] = MEMORY[0x1E695E118];
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:4];
+  v32[2] = *MEMORY[0x1E697B260];
+  v32[3] = v7;
+  v33[2] = v6;
+  v33[3] = MEMORY[0x1E695E118];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:4];
   result = 0;
   v9 = SecItemCopyMatching(v8, &result);
   if (v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -453,9 +441,9 @@ LABEL_18:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109378;
-      v29 = v9;
-      v30 = 2112;
-      v31 = nameCopy;
+      v28 = v9;
+      v29 = 2112;
+      v30 = nameCopy;
       _os_log_debug_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_DEBUG, "SecItemCopyMatching returned %d for %@", buf, 0x12u);
     }
 
@@ -463,11 +451,11 @@ LABEL_18:
   }
 
   v10 = result;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v32 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v31 count:16];
   if (!v11)
   {
 LABEL_19:
@@ -476,21 +464,21 @@ LABEL_19:
   }
 
   v12 = v11;
-  v21 = v8;
-  v22 = nameCopy;
+  v20 = v8;
+  v21 = nameCopy;
   v13 = 0;
-  v14 = *v24;
+  v14 = *v23;
   v15 = *MEMORY[0x1E697AE88];
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v24 != v14)
+      if (*v23 != v14)
       {
         objc_enumerationMutation(v10);
       }
 
-      v17 = *(*(&v23 + 1) + 8 * i);
+      v17 = *(*(&v22 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -503,17 +491,17 @@ LABEL_19:
             v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
           }
 
-          [v13 addObject:{v18, v21, v22}];
+          [v13 addObject:{v18, v20, v21}];
         }
       }
     }
 
-    v12 = [v10 countByEnumeratingWithState:&v23 objects:v32 count:16];
+    v12 = [v10 countByEnumeratingWithState:&v22 objects:v31 count:16];
   }
 
   while (v12);
-  v8 = v21;
-  nameCopy = v22;
+  v8 = v20;
+  nameCopy = v21;
 LABEL_20:
 
   if (result)
@@ -521,7 +509,6 @@ LABEL_20:
     CFRelease(result);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -630,34 +617,34 @@ LABEL_16:
 
 + (BOOL)hasPacketDrop:(id)drop
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dropCopy = drop;
   v4 = dropCopy;
   if (dropCopy && [dropCopy state] && objc_msgSend(v4, "state") != 5)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     tCPInfo = [v4 TCPInfo];
-    v5 = [tCPInfo countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [tCPInfo countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
-      v9 = *v15;
+      v8 = *v14;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(tCPInfo);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           tCPInfo2 = [v4 TCPInfo];
-          v13 = [tCPInfo2 objectForKeyedSubscript:v11];
+          v12 = [tCPInfo2 objectForKeyedSubscript:v10];
 
-          if ([v13 length] == 424 && *(objc_msgSend(v13, "bytes") + 84))
+          if ([v12 length] == 424 && *(objc_msgSend(v12, "bytes") + 84))
           {
 
             LOBYTE(v5) = 1;
@@ -665,7 +652,7 @@ LABEL_16:
           }
         }
 
-        v5 = [tCPInfo countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [tCPInfo countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v5)
         {
           continue;
@@ -683,7 +670,6 @@ LABEL_17:
     LOBYTE(v5) = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -773,7 +759,7 @@ LABEL_17:
 
 + (id)parseXHost:(id)host
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   hostCopy = host;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [hostCopy length])
@@ -784,10 +770,10 @@ LABEL_17:
     {
       v7 = 0;
       *&v5 = 138412290;
-      v14 = v5;
+      v13 = v5;
       do
       {
-        v8 = [v4 objectAtIndexedSubscript:{v7, v14}];
+        v8 = [v4 objectAtIndexedSubscript:{v7, v13}];
         v9 = [NPUtilities endpointFromString:v8 defaultPortString:0];
 
         if (v9)
@@ -806,8 +792,8 @@ LABEL_17:
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             v11 = [v4 objectAtIndexedSubscript:v7];
-            *buf = v14;
-            v16 = v11;
+            *buf = v13;
+            v15 = v11;
             _os_log_error_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_ERROR, "Invalid host specification: %@", buf, 0xCu);
           }
         }
@@ -823,8 +809,6 @@ LABEL_17:
   {
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -874,7 +858,7 @@ LABEL_17:
 
 + (id)copyCurrentNetworkCharacteristicsForPath:(id)path
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy status] == 1)
   {
@@ -893,15 +877,15 @@ LABEL_17:
           nwi_ifstate_get_signature();
           [v7 appendBytes:"default_signature" length:18];
           v8 = (nwi_ifstate_get_flags() >> 1) & 1;
-          v14[0] = v7;
-          v13[0] = @"Signature";
-          v13[1] = @"InterfaceType";
+          v13[0] = v7;
+          v12[0] = @"Signature";
+          v12[1] = @"InterfaceType";
           v9 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(interface, "type")}];
-          v14[1] = v9;
-          v13[2] = @"HasIPv6";
+          v13[1] = v9;
+          v12[2] = @"HasIPv6";
           v10 = [MEMORY[0x1E696AD98] numberWithBool:v8];
-          v14[2] = v10;
-          ifstate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+          v13[2] = v10;
+          ifstate = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
         }
 
         else
@@ -924,19 +908,18 @@ LABEL_17:
     ifstate = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return ifstate;
 }
 
 + (id)connectionInfoToDict:(id)dict dictionary:(id)dictionary
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   dictionaryCopy = dictionary;
   v7 = dictionaryCopy;
-  *v79 = 0;
+  *v78 = 0;
+  v79 = 0;
   v80 = 0;
-  v81 = 0;
   if (!dictCopy)
   {
     v10 = 0;
@@ -1051,9 +1034,9 @@ LABEL_21:
   }
 
   [v7 setObject:v27 forKeyedSubscript:@"IsTFOProbeSucceeded"];
-  if (if_indextoname([dictCopy multipathPrimarySubflowInterfaceIndex], v79))
+  if (if_indextoname([dictCopy multipathPrimarySubflowInterfaceIndex], v78))
   {
-    v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v79];
+    v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v78];
     [v7 setObject:v28 forKeyedSubscript:@"PrimarySubflowInterface"];
   }
 
@@ -1113,61 +1096,61 @@ LABEL_21:
 
     if (v47)
     {
-      v67 = v7;
-      v70 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v66 = v7;
+      v69 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v71 = 0u;
       v72 = 0u;
       v73 = 0u;
       v74 = 0u;
-      v75 = 0u;
       obj = [dictCopy TCPInfo];
-      v71 = [obj countByEnumeratingWithState:&v72 objects:v78 count:16];
-      if (v71)
+      v70 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
+      if (v70)
       {
-        v69 = *v73;
+        v68 = *v72;
         do
         {
-          for (i = 0; i != v71; ++i)
+          for (i = 0; i != v70; ++i)
           {
-            if (*v73 != v69)
+            if (*v72 != v68)
             {
               objc_enumerationMutation(obj);
             }
 
-            v49 = *(*(&v72 + 1) + 8 * i);
+            v49 = *(*(&v71 + 1) + 8 * i);
             tCPInfo3 = [dictCopy TCPInfo];
             [tCPInfo3 objectForKeyedSubscript:v49];
             v52 = v51 = dictCopy;
 
             bytes = [v52 bytes];
-            v76[0] = @"TxBytes";
+            v75[0] = @"TxBytes";
             v54 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(bytes + 76)];
-            v77[0] = v54;
-            v76[1] = @"TxPackets";
+            v76[0] = v54;
+            v75[1] = @"TxPackets";
             v55 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(bytes + 68)];
-            v77[1] = v55;
-            v76[2] = @"RxBytes";
+            v76[1] = v55;
+            v75[2] = @"RxBytes";
             v56 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(bytes + 108)];
-            v77[2] = v56;
-            v76[3] = @"RxPackets";
+            v76[2] = v56;
+            v75[3] = @"RxPackets";
             v57 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(bytes + 100)];
-            v77[3] = v57;
-            v76[4] = @"Resend";
+            v76[3] = v57;
+            v75[4] = @"Resend";
             v58 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(bytes + 284)];
-            v77[4] = v58;
-            v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:5];
+            v76[4] = v58;
+            v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:5];
 
-            [v70 setObject:v59 forKeyedSubscript:v49];
+            [v69 setObject:v59 forKeyedSubscript:v49];
             dictCopy = v51;
           }
 
-          v71 = [obj countByEnumeratingWithState:&v72 objects:v78 count:16];
+          v70 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
         }
 
-        while (v71);
+        while (v70);
       }
 
-      v7 = v67;
-      [v67 setObject:v70 forKeyedSubscript:@"TCPMetrics"];
+      v7 = v66;
+      [v66 setObject:v69 forKeyedSubscript:@"TCPMetrics"];
     }
   }
 
@@ -1197,8 +1180,6 @@ LABEL_21:
   v7 = v7;
   v10 = v7;
 LABEL_57:
-
-  v65 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1238,35 +1219,35 @@ LABEL_7:
 
 + (id)endpointFromString:(id)string defaultPortString:(id)portString
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   portStringCopy = portString;
   v6 = [NPUtilities stripWhitespace:string];
   v7 = [v6 componentsSeparatedByString:@"@"];
   v8 = [v6 componentsSeparatedByString:@"."];
   if ([v8 count] >= 3)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v27;
+      v12 = *v26;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          if ([*(*(&v26 + 1) + 8 * i) isEqualToString:@"_tcp"])
+          if ([*(*(&v25 + 1) + 8 * i) isEqualToString:@"_tcp"])
           {
-            v25 = [v9 objectAtIndexedSubscript:0];
+            v24 = [v9 objectAtIndexedSubscript:0];
             v18 = [v9 objectAtIndexedSubscript:{objc_msgSend(v9, "count") - 1}];
             v19 = [v9 objectAtIndexedSubscript:1];
             if (([v9 count] - 4) > 0xFFFFFFFFFFFFFFFCLL)
@@ -1289,13 +1270,13 @@ LABEL_7:
               while (v20 < [v9 count] - 1);
             }
 
-            v17 = [MEMORY[0x1E6977E10] endpointWithName:v25 type:v22 domain:v18];
+            v17 = [MEMORY[0x1E6977E10] endpointWithName:v24 type:v22 domain:v18];
 
             goto LABEL_22;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v11)
         {
           continue;
@@ -1328,8 +1309,6 @@ LABEL_7:
   }
 
 LABEL_22:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1396,7 +1375,7 @@ LABEL_18:
 
 + (BOOL)rollDiceWithSuccessRatio:(id)ratio
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   ratioCopy = ratio;
   bytes = 0;
   if (SecRandomCopyBytes(*MEMORY[0x1E697B308], 4uLL, &bytes) < 0)
@@ -1418,7 +1397,7 @@ LABEL_18:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v13 = v4;
+      v12 = v4;
       _os_log_debug_impl(&dword_1AE7E2000, v5, OS_LOG_TYPE_DEBUG, "Random ratio %f", buf, 0xCu);
     }
 
@@ -1426,7 +1405,6 @@ LABEL_18:
     v7 = v4 < v6;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1445,14 +1423,14 @@ LABEL_18:
 
 + (id)copyDataHexString:(id)string
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy length])
   {
-    v4 = v13;
-    memset(v13, 0, sizeof(v13));
+    v4 = v12;
+    memset(v12, 0, sizeof(v12));
     bytes = [stringCopy bytes];
-    v12 = 60;
+    v11 = 60;
     if ([stringCopy length])
     {
       v6 = 0;
@@ -1460,12 +1438,12 @@ LABEL_18:
       {
         snprintf(v4, 3uLL, "%02x", *(bytes + v6));
         v7 = v4 + 2;
-        v8 = v4 + 2 - &v12;
+        v8 = v4 + 2 - &v11;
         if (v6 && (v6 & 3) == 0 && v8 <= 254)
         {
           v4[2] = 32;
           v7 = v4 + 3;
-          v8 = v4 + 3 - &v12;
+          v8 = v4 + 3 - &v11;
         }
 
         if (++v6 >= [stringCopy length])
@@ -1485,20 +1463,19 @@ LABEL_18:
 
     else
     {
-      v7 = v13;
+      v7 = v12;
     }
 
     *v7++ = 62;
 LABEL_15:
     *v7 = 0;
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:&v12];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:&v11];
     goto LABEL_16;
   }
 
   v9 = &stru_1F2438480;
 LABEL_16:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1518,7 +1495,7 @@ LABEL_16:
 
 + (int64_t)certificateDateIsValid:(__SecCertificate *)valid
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (valid)
   {
     SecCertificateNotValidBefore();
@@ -1576,44 +1553,44 @@ LABEL_16:
 
 LABEL_23:
 
-          v21 = 0;
-          v22 = 0;
           v20 = 0;
+          v21 = 0;
+          v19 = 0;
           v14 = CFCalendarCreateWithIdentifier(*MEMORY[0x1E695E480], *MEMORY[0x1E695E678]);
           if (v14)
           {
             v15 = v14;
-            CFCalendarDecomposeAbsoluteTime(v14, v4, "yMdHm", &v22 + 4, &v22, &v21 + 4, &v21, &v20);
+            CFCalendarDecomposeAbsoluteTime(v14, v4, "yMdHm", &v21 + 4, &v21, &v20 + 4, &v20, &v19);
             v16 = nplog_obj();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
               *buf = 67110144;
-              v24 = HIDWORD(v22);
-              v25 = 1024;
-              v26 = v22;
-              v27 = 1024;
-              v28 = HIDWORD(v21);
-              v29 = 1024;
-              v30 = v21;
-              v31 = 1024;
-              v32 = v20;
+              v23 = HIDWORD(v21);
+              v24 = 1024;
+              v25 = v21;
+              v26 = 1024;
+              v27 = HIDWORD(v20);
+              v28 = 1024;
+              v29 = v20;
+              v30 = 1024;
+              v31 = v19;
               _os_log_impl(&dword_1AE7E2000, v16, OS_LOG_TYPE_INFO, "Certificate not valid before yr %d, mon %d, days %d, hours %d, min %d\n", buf, 0x20u);
             }
 
-            CFCalendarDecomposeAbsoluteTime(v15, v8, "yMdHm", &v22 + 4, &v22, &v21 + 4, &v21, &v20);
+            CFCalendarDecomposeAbsoluteTime(v15, v8, "yMdHm", &v21 + 4, &v21, &v20 + 4, &v20, &v19);
             v17 = nplog_obj();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 67110144;
-              v24 = HIDWORD(v22);
-              v25 = 1024;
-              v26 = v22;
-              v27 = 1024;
-              v28 = HIDWORD(v21);
-              v29 = 1024;
-              v30 = v21;
-              v31 = 1024;
-              v32 = v20;
+              v23 = HIDWORD(v21);
+              v24 = 1024;
+              v25 = v21;
+              v26 = 1024;
+              v27 = HIDWORD(v20);
+              v28 = 1024;
+              v29 = v20;
+              v30 = 1024;
+              v31 = v19;
               _os_log_impl(&dword_1AE7E2000, v17, OS_LOG_TYPE_INFO, "Certificate not valid after yr %d, mon %d, days %d, hours %d, min %d\n", buf, 0x20u);
             }
 
@@ -1644,13 +1621,10 @@ LABEL_29:
     CFRelease(v5);
     CFRelease(v9);
     CFRelease(v12);
-    goto LABEL_30;
+    return v6;
   }
 
-  v6 = 4;
-LABEL_30:
-  v18 = *MEMORY[0x1E69E9840];
-  return v6;
+  return 4;
 }
 
 + (void)postNotification:(id)notification value:(unint64_t)value
@@ -1678,27 +1652,24 @@ LABEL_30:
 
 + (id)copyTrueClientIPAddressFromPreferences
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (os_variant_allows_internal_security_policies())
+  v8 = *MEMORY[0x1E69E9840];
+  if (!os_variant_allows_internal_security_policies())
   {
-    v2 = CFPreferencesCopyAppValue(@"NSPTrueClientIPAddress", *MEMORY[0x1E695E8A8]);
-    if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-    {
-      v3 = nplog_obj();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-      {
-        v7 = 138543362;
-        v8 = v2;
-        _os_log_impl(&dword_1AE7E2000, v3, OS_LOG_TYPE_DEFAULT, "Detected true client ip address in preferences file: %{public}@", &v7, 0xCu);
-      }
+    return 0;
+  }
 
-      v4 = v2;
+  v2 = CFPreferencesCopyAppValue(@"NSPTrueClientIPAddress", *MEMORY[0x1E695E8A8]);
+  if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v3 = nplog_obj();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = 138543362;
+      v7 = v2;
+      _os_log_impl(&dword_1AE7E2000, v3, OS_LOG_TYPE_DEFAULT, "Detected true client ip address in preferences file: %{public}@", &v6, 0xCu);
     }
 
-    else
-    {
-      v4 = 0;
-    }
+    v4 = v2;
   }
 
   else
@@ -1706,14 +1677,64 @@ LABEL_30:
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
+}
+
++ (id)stringFromLinkQualityValue:(int)value
+{
+  v3 = @"Invalid";
+  v4 = @"Minimally Viable";
+  v5 = @"Poor";
+  v6 = @"Good";
+  if (value != 100)
+  {
+    v6 = @"Invalid";
+  }
+
+  if (value != 50)
+  {
+    v5 = v6;
+  }
+
+  if (value != 20)
+  {
+    v4 = v5;
+  }
+
+  if (value == 10)
+  {
+    v3 = @"Bad";
+  }
+
+  if (value == -1)
+  {
+    v3 = @"Unknown";
+  }
+
+  if (value == -2)
+  {
+    v3 = @"Off";
+  }
+
+  if (value <= 19)
+  {
+    v7 = v3;
+  }
+
+  else
+  {
+    v7 = v4;
+  }
+
+  v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ (%d)", v7, *&value];
+
+  return v8;
 }
 
 + (id)machoUUIDFromPID:(int)d
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = 0;
   memset(buffer, 0, sizeof(buffer));
   v4 = 0;
   if (proc_pidinfo(d, 17, 1uLL, buffer, 56) == 56)
@@ -1724,21 +1745,19 @@ LABEL_30:
   v5 = nplog_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8[0] = 67109378;
-    v8[1] = d;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_debug_impl(&dword_1AE7E2000, v5, OS_LOG_TYPE_DEBUG, "Mach-O UUID for process PID=%d is %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = d;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_debug_impl(&dword_1AE7E2000, v5, OS_LOG_TYPE_DEBUG, "Mach-O UUID for process PID=%d is %@", v7, 0x12u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)createAddressStringFromBuffer:(unint64_t)buffer addressLen:(uint64_t)len family:
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (!a2)
   {
@@ -1750,8 +1769,8 @@ LABEL_30:
   {
     v7 = 2;
 LABEL_8:
-    inet_ntop(v7, a2, v11, 0x40u);
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
+    inet_ntop(v7, a2, v10, 0x40u);
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v10];
     goto LABEL_9;
   }
 
@@ -1763,14 +1782,13 @@ LABEL_8:
   }
 
 LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)createMaskedIPv4Address:(id)address prefix:(unint64_t)prefix
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (address)
   {
     addressCopy = address;
@@ -1797,11 +1815,11 @@ LABEL_9:
       v7 = [NPUtilities createAddressStringFromBuffer:4uLL addressLen:2 family:?];
       if (v7)
       {
-        v12 = 0;
+        v11 = 0;
         __b = 0;
         inet_pton(2, [addressCopy UTF8String], &__b);
-        inet_pton(2, [v7 UTF8String], &v12);
-        __b &= v12;
+        inet_pton(2, [v7 UTF8String], &v11);
+        __b &= v11;
         v9 = [NPUtilities createAddressStringFromBuffer:4uLL addressLen:2 family:?];
         goto LABEL_14;
       }
@@ -1819,7 +1837,7 @@ LABEL_9:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       __b = 136315138;
-      v14 = "+[NPUtilities createMaskedIPv4Address:prefix:]";
+      v13 = "+[NPUtilities createMaskedIPv4Address:prefix:]";
       _os_log_fault_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_FAULT, "%s called with null address", &__b, 0xCu);
     }
   }
@@ -1827,14 +1845,12 @@ LABEL_9:
   v9 = 0;
 LABEL_14:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)createMaskedIPv6Address:(id)address prefix:(unint64_t)prefix
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   if (addressCopy)
   {
@@ -1856,10 +1872,10 @@ LABEL_14:
     if (v7)
     {
       __b = 0uLL;
-      v11 = 0uLL;
+      v10 = 0uLL;
       inet_pton(30, [addressCopy UTF8String], &__b);
-      inet_pton(30, [v7 UTF8String], &v11);
-      __b = vandq_s8(v11, __b);
+      inet_pton(30, [v7 UTF8String], &v10);
+      __b = vandq_s8(v10, __b);
       v8 = [NPUtilities createAddressStringFromBuffer:0x10uLL addressLen:30 family:?];
       goto LABEL_11;
     }
@@ -1878,8 +1894,6 @@ LABEL_14:
 
   v8 = 0;
 LABEL_11:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1943,12 +1957,12 @@ uint64_t __60__NPUtilities_copyUUIDsForSigningIdentifier_executablePath___block_
 
 + (id)mergeHTTPHeaders:(id)headers headerOverrides:(id)overrides
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   headersCopy = headers;
   overridesCopy = overrides;
   if (overridesCopy)
   {
-    v24 = headersCopy;
+    v23 = headersCopy;
     if (headersCopy)
     {
       v7 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:headersCopy];
@@ -1961,25 +1975,25 @@ uint64_t __60__NPUtilities_copyUUIDsForSigningIdentifier_executablePath___block_
 
     v8 = v7;
     v9 = [overridesCopy componentsSeparatedByString:{@";", overridesCopy}];;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v27;
+      v12 = *v26;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [*(*(&v26 + 1) + 8 * i) componentsSeparatedByString:@"="];
+          v14 = [*(*(&v25 + 1) + 8 * i) componentsSeparatedByString:@"="];
           if ([v14 count]<= 2 && [v14 count])
           {
             firstObject = [v14 firstObject];
@@ -1997,11 +2011,11 @@ uint64_t __60__NPUtilities_copyUUIDsForSigningIdentifier_executablePath___block_
               v20 = nplog_obj();
               if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
               {
-                v25 = [v8 objectForKey:firstObject2];
+                v24 = [v8 objectForKey:firstObject2];
                 *buf = 138412546;
-                v31 = firstObject2;
-                v32 = 2112;
-                v33 = v25;
+                v30 = firstObject2;
+                v31 = 2112;
+                v32 = v24;
                 _os_log_debug_impl(&dword_1AE7E2000, v20, OS_LOG_TYPE_DEBUG, "Removing header %@ due to user-configured headers, current value is %@", buf, 0x16u);
               }
 
@@ -2015,9 +2029,9 @@ uint64_t __60__NPUtilities_copyUUIDsForSigningIdentifier_executablePath___block_
               if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
-                v31 = firstObject2;
-                v32 = 2112;
-                v33 = lastObject;
+                v30 = firstObject2;
+                v31 = 2112;
+                v32 = lastObject;
                 _os_log_debug_impl(&dword_1AE7E2000, v19, OS_LOG_TYPE_DEBUG, "Adding/replacing header %@ with value %@ due to user-configured headers", buf, 0x16u);
               }
             }
@@ -2029,7 +2043,7 @@ uint64_t __60__NPUtilities_copyUUIDsForSigningIdentifier_executablePath___block_
             if (os_log_type_enabled(firstObject2, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v31 = v14;
+              v30 = v14;
               _os_log_error_impl(&dword_1AE7E2000, firstObject2, OS_LOG_TYPE_ERROR, "Skipping malformed header override: %@", buf, 0xCu);
             }
           }
@@ -2037,22 +2051,20 @@ uint64_t __60__NPUtilities_copyUUIDsForSigningIdentifier_executablePath___block_
 LABEL_26:
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v11);
     }
 
-    overridesCopy = v23;
-    headersCopy = v24;
+    overridesCopy = v22;
+    headersCopy = v23;
   }
 
   else
   {
     v8 = headersCopy;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

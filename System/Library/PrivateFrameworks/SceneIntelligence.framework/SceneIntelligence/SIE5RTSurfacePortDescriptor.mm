@@ -20,186 +20,186 @@
 
 - (SIE5RTSurfacePortDescriptor)initWithE5RTPort:(e5rt_io_port *)port portType:(int64_t)type
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v23.receiver = self;
-  v23.super_class = SIE5RTSurfacePortDescriptor;
-  v5 = [(SIE5RTSurfacePortDescriptor *)&v23 init:port];
+  v34 = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = SIE5RTSurfacePortDescriptor;
+  v5 = [(SIE5RTSurfacePortDescriptor *)&v27 init:port];
   if (v5)
   {
-    if (e5rt_io_port_retain_surface_desc())
+    v6 = e5rt_io_port_retain_surface_desc();
+    if (v6)
     {
-      v6 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = __SceneIntelligenceLogSharedInstance(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v7 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 39);
+        v8 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 39);
         *buf = 136381187;
-        v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-        v26 = 1025;
-        v27 = 39;
-        v28 = 2113;
-        v29 = v7;
-        _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v29 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+        v30 = 1025;
+        v31 = 39;
+        v32 = 2113;
+        v33 = v8;
+        _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v8 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = __SceneIntelligenceLogSharedInstance(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v9 = "YES";
-        v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+        v11 = "YES";
+        v29 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
         *buf = 136381187;
         if (!port)
         {
-          v9 = "NO";
+          v11 = "NO";
         }
 
-        v26 = 1025;
-        v27 = 39;
-        v28 = 2081;
-        v29 = v9;
-        _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the descriptor for surface port. port is init: %{private}s ***", buf, 0x1Cu);
+        v30 = 1025;
+        v31 = 39;
+        v32 = 2081;
+        v33 = v11;
+        _os_log_impl(&dword_21DE0D000, v10, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the descriptor for surface port. port is init: %{private}s ***", buf, 0x1Cu);
       }
     }
 
     else
     {
       v5->_port = port;
-      desc = v5->_desc;
-      if (e5rt_surface_desc_get_width())
+      width = e5rt_surface_desc_get_width();
+      if (width)
       {
-        v11 = __SceneIntelligenceLogSharedInstance();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-        {
-          v12 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 44);
-          *buf = 136381187;
-          v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-          v26 = 1025;
-          v27 = 44;
-          v28 = 2113;
-          v29 = v12;
-          _os_log_impl(&dword_21DE0D000, v11, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
-        }
-
-        v13 = __SceneIntelligenceLogSharedInstance();
+        v13 = __SceneIntelligenceLogSharedInstance(width);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
+          v14 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 44);
+          *buf = 136381187;
+          v29 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+          v30 = 1025;
+          v31 = 44;
+          v32 = 2113;
+          v33 = v14;
+          _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        }
+
+        v16 = __SceneIntelligenceLogSharedInstance(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
           *buf = 136380931;
-          v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-          v26 = 1025;
-          v27 = 44;
-          _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the width surface port. ***", buf, 0x12u);
+          v29 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+          v30 = 1025;
+          v31 = 44;
+          _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the width surface port. ***", buf, 0x12u);
         }
       }
 
       else
       {
-        v14 = v5->_desc;
-        if (e5rt_surface_desc_get_height())
+        height = e5rt_surface_desc_get_height();
+        if (height)
         {
-          v15 = __SceneIntelligenceLogSharedInstance();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v18 = __SceneIntelligenceLogSharedInstance(height);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            v16 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 47);
+            v19 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 47);
             *buf = 136381187;
-            v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-            v26 = 1025;
-            v27 = 47;
-            v28 = 2113;
-            v29 = v16;
-            _os_log_impl(&dword_21DE0D000, v15, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+            v29 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+            v30 = 1025;
+            v31 = 47;
+            v32 = 2113;
+            v33 = v19;
+            _os_log_impl(&dword_21DE0D000, v18, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
           }
 
-          v13 = __SceneIntelligenceLogSharedInstance();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v16 = __SceneIntelligenceLogSharedInstance(v20);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 136380931;
-            v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-            v26 = 1025;
-            v27 = 47;
-            _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the height surface port. ***", buf, 0x12u);
+            v29 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+            v30 = 1025;
+            v31 = 47;
+            _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the height surface port. ***", buf, 0x12u);
           }
         }
 
         else
         {
-          v17 = v5->_desc;
-          if (!e5rt_surface_desc_get_format())
+          format = e5rt_surface_desc_get_format();
+          if (!format)
           {
-            v20 = v5;
+            v25 = v5;
             goto LABEL_29;
           }
 
-          v18 = __SceneIntelligenceLogSharedInstance();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v22 = __SceneIntelligenceLogSharedInstance(format);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v19 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 50);
+            v23 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 50);
             *buf = 136381187;
-            v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-            v26 = 1025;
-            v27 = 50;
-            v28 = 2113;
-            v29 = v19;
-            _os_log_impl(&dword_21DE0D000, v18, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+            v29 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+            v30 = 1025;
+            v31 = 50;
+            v32 = 2113;
+            v33 = v23;
+            _os_log_impl(&dword_21DE0D000, v22, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
           }
 
-          v13 = __SceneIntelligenceLogSharedInstance();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v16 = __SceneIntelligenceLogSharedInstance(v24);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 136380931;
-            v25 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-            v26 = 1025;
-            v27 = 50;
-            _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the format surface port. ***", buf, 0x12u);
+            v29 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+            v30 = 1025;
+            v31 = 50;
+            _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to get the format surface port. ***", buf, 0x12u);
           }
         }
       }
     }
   }
 
-  v20 = 0;
+  v25 = 0;
 LABEL_29:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v25;
 }
 
 - (int64_t)bindSurface:(id)surface
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   surfaceCopy = surface;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   createE5RTSurface = [surfaceCopy createE5RTSurface];
-  if (v17[3])
+  if (v16[3])
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v13 = __43__SIE5RTSurfacePortDescriptor_bindSurface___block_invoke;
-    v14 = &unk_27833C320;
-    v15 = &v16;
-    port = self->_port;
-    if (e5rt_io_port_bind_surface_object())
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v12 = __43__SIE5RTSurfacePortDescriptor_bindSurface___block_invoke;
+    v13 = &unk_27833C320;
+    v14 = &v15;
+    v4 = e5rt_io_port_bind_surface_object();
+    if (v4)
     {
-      v6 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = __SceneIntelligenceLogSharedInstance(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 66);
+        v6 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm", 66);
         *buf = 136381187;
-        v21 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-        v22 = 1025;
-        v23 = 66;
-        v24 = 2113;
-        v25 = v7;
-        _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v20 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+        v21 = 1025;
+        v22 = 66;
+        v23 = 2113;
+        v24 = v6;
+        _os_log_impl(&dword_21DE0D000, v5, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v8 = __SceneIntelligenceLogSharedInstance();
+      v8 = __SceneIntelligenceLogSharedInstance(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136380931;
-        v21 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-        v22 = 1025;
-        v23 = 66;
+        v20 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+        v21 = 1025;
+        v22 = 66;
         _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to bind the internal iosurface for output port. ***", buf, 0x12u);
       }
 
@@ -211,7 +211,7 @@ LABEL_29:
       v9 = 0;
     }
 
-    v13(v12);
+    v12(v11);
   }
 
   else
@@ -219,212 +219,198 @@ LABEL_29:
     v9 = 7;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)bindRawPointer:(const void *)pointer
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 86;
-    _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 86;
+    _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)getBatchnum
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 92;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 92;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (unint64_t)getChannels
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 98;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 98;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)getDataPtr
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 104;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 104;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (unint64_t)getNumberOfElements
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 110;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 110;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (unint64_t)getRank
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 116;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 116;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (unint64_t)getRowElements
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 122;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 122;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (const)getShape
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 128;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 128;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (unint64_t)getBytePerRow
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 133;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 133;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (unint64_t)getComponentSize
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 139;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 139;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (unint64_t)getSizeInBytes
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 144;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 144;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)getSurface
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __SceneIntelligenceLogSharedInstance();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = __SceneIntelligenceLogSharedInstance(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136380931;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
-    v7 = 1025;
-    v8 = 149;
-    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v5, 0x12u);
+    v4 = 136380931;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTSurfacePortDescriptor.mm";
+    v6 = 1025;
+    v7 = 149;
+    _os_log_impl(&dword_21DE0D000, v2, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Low-level attribute access is not allowed in surface descriptor ***", &v4, 0x12u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

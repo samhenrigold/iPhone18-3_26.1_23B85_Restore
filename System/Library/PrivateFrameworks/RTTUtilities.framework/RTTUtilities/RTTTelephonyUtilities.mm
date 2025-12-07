@@ -35,7 +35,9 @@
 - (BOOL)contactIsTTYContact:(id)contact;
 - (BOOL)contactPathIsMe:(id)me;
 - (BOOL)emergencyRelayRTTIsSupported;
+- (BOOL)isEmergencyRTTSupportedForContext:(id)context excludeRelay:(BOOL)relay;
 - (BOOL)isRTTCallHoldSupportedForContext:(id)context;
+- (BOOL)isRTTSupportedForContext:(id)context excludeRelay:(BOOL)relay;
 - (BOOL)isTTYOverIMSSupportedForContext:(id)context excludeRelay:(BOOL)relay;
 - (BOOL)isTTYSupportedForContext:(id)context;
 - (BOOL)relayRTTIsSupported;
@@ -75,6 +77,7 @@
 - (void)reloadDefaultVoiceContext;
 - (void)resetCloudSupportStore;
 - (void)setCallCapabilitiesSupportsTelephonyCalls:(id)calls;
+- (void)setTTYDictionaryAvailability:(BOOL)availability;
 - (void)updateHeadphoneState;
 @end
 
@@ -94,7 +97,7 @@
 
 - (void)updateHeadphoneState
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   currentPreferredTransportMethod = [(RTTTelephonyUtilities *)self currentPreferredTransportMethod];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   v5 = [mEMORY[0x277D26E58] attributeForKey:*MEMORY[0x277D26C08]];
@@ -107,22 +110,22 @@
   v9 = AXLogRTT();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v17 = 67109376;
-    v18 = bOOLValue;
-    v19 = 1024;
-    v20 = bOOLValue2 & 1;
-    _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Headphone state changed [%d, %d]", &v17, 0xEu);
+    v16 = 67109376;
+    v17 = bOOLValue;
+    v18 = 1024;
+    v19 = bOOLValue2 & 1;
+    _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Headphone state changed [%d, %d]", &v16, 0xEu);
   }
 
   v10 = AXLogRTT();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     currentPreferredTransportMethod2 = [(RTTTelephonyUtilities *)self currentPreferredTransportMethod];
-    v17 = 67109376;
-    v18 = currentPreferredTransportMethod;
-    v19 = 1024;
-    v20 = currentPreferredTransportMethod2;
-    _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Current method %d, preferred method %d", &v17, 0xEu);
+    v16 = 67109376;
+    v17 = currentPreferredTransportMethod;
+    v18 = 1024;
+    v19 = currentPreferredTransportMethod2;
+    _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Current method %d, preferred method %d", &v16, 0xEu);
   }
 
   if (currentPreferredTransportMethod != [(RTTTelephonyUtilities *)self currentPreferredTransportMethod])
@@ -131,23 +134,21 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       currentPreferredTransportMethod3 = [(RTTTelephonyUtilities *)self currentPreferredTransportMethod];
-      v17 = 67109120;
-      v18 = currentPreferredTransportMethod3;
-      _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Preferred TTY method changed to %d", &v17, 8u);
+      v16 = 67109120;
+      v17 = currentPreferredTransportMethod3;
+      _os_log_impl(&dword_261754000, v12, OS_LOG_TYPE_INFO, "Preferred TTY method changed to %d", &v16, 8u);
     }
 
     v14 = AXLogRTT();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_261754000, v14, OS_LOG_TYPE_INFO, "Posting transport changed because headphone state changed", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_261754000, v14, OS_LOG_TYPE_INFO, "Posting transport changed because headphone state changed", &v16, 2u);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"AXTTYPreferredTransportMethodChangedNotification" object:0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)currentPreferredTransportMethod
@@ -160,7 +161,7 @@
 
 - (NSNumber)callCapabilitiesSupportsTelephonyCalls
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   callCapabilitiesSupportsTelephonyCalls = selfCopy->_callCapabilitiesSupportsTelephonyCalls;
@@ -174,9 +175,9 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = selfCopy->_callCapabilitiesSupportsTelephonyCalls;
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Retrieving new telephony supports calling: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Retrieving new telephony supports calling: %@", &v10, 0xCu);
     }
 
     callCapabilitiesSupportsTelephonyCalls = selfCopy->_callCapabilitiesSupportsTelephonyCalls;
@@ -185,14 +186,12 @@
   v8 = [(NSNumber *)callCapabilitiesSupportsTelephonyCalls copy];
   objc_sync_exit(selfCopy);
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (BOOL)relayRTTIsSupported
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D6EDE8] supportsTelephonyRelayCalling])
   {
     outgoingRelayCallerID = [MEMORY[0x277D6EDE8] outgoingRelayCallerID];
@@ -202,11 +201,11 @@
     v6 = AXLogRTT();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v10 = 138478083;
-      v11 = outgoingRelayCallerID;
-      v12 = 2113;
-      v13 = v5;
-      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Checking %{private}@ in %{private}@", &v10, 0x16u);
+      v9 = 138478083;
+      v10 = outgoingRelayCallerID;
+      v11 = 2113;
+      v12 = v5;
+      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Checking %{private}@ in %{private}@", &v9, 0x16u);
     }
 
     v7 = [(RTTTelephonyUtilities *)self _relayNumbers:v5 containsNumber:outgoingRelayCallerID];
@@ -217,20 +216,19 @@
     outgoingRelayCallerID = AXLogRTT();
     if (os_log_type_enabled(outgoingRelayCallerID, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_261754000, outgoingRelayCallerID, OS_LOG_TYPE_INFO, "Device doesn't support relay calls", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_261754000, outgoingRelayCallerID, OS_LOG_TYPE_INFO, "Device doesn't support relay calls", &v9, 2u);
     }
 
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)emergencyRelayRTTIsSupported
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D6EDE8] supportsTelephonyRelayCalling])
   {
     outgoingRelayCallerID = [MEMORY[0x277D6EDE8] outgoingRelayCallerID];
@@ -240,11 +238,11 @@
     v5 = AXLogRTT();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v10 = 138478083;
-      v11 = outgoingRelayCallerID;
-      v12 = 2113;
-      v13 = v4;
-      _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "[Emergency Relay] Checking %{private}@ in %{private}@", &v10, 0x16u);
+      v9 = 138478083;
+      v10 = outgoingRelayCallerID;
+      v11 = 2113;
+      v12 = v4;
+      _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "[Emergency Relay] Checking %{private}@ in %{private}@", &v9, 0x16u);
     }
 
     v6 = [v4 objectForKey:outgoingRelayCallerID];
@@ -256,54 +254,52 @@
     outgoingRelayCallerID = AXLogRTT();
     if (os_log_type_enabled(outgoingRelayCallerID, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_261754000, outgoingRelayCallerID, OS_LOG_TYPE_INFO, "[Emergency Relay] Device doesn't support relay calls", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_261754000, outgoingRelayCallerID, OS_LOG_TYPE_INFO, "[Emergency Relay] Device doesn't support relay calls", &v9, 2u);
     }
 
     bOOLValue = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 + (BOOL)softwareTTYIsSupported
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = +[RTTTelephonyUtilities sharedUtilityProvider];
   allVoiceContexts = [v3 allVoiceContexts];
 
-  v5 = [allVoiceContexts countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [allVoiceContexts countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allVoiceContexts);
         }
 
-        if ([RTTTelephonyUtilities softwareTTYIsSupportedForContext:*(*(&v11 + 1) + 8 * v8)])
+        if ([RTTTelephonyUtilities softwareTTYIsSupportedForContext:*(*(&v10 + 1) + 8 * v8)])
         {
 
-          result = 1;
-          goto LABEL_11;
+          return 1;
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [allVoiceContexts countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allVoiceContexts countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -313,15 +309,12 @@
     }
   }
 
-  result = [self isRelayRTTSupported];
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [self isRelayRTTSupported];
 }
 
 + (BOOL)isRelayRTTSupported
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = +[RTTSettings sharedInstance];
   if ([v2 supportsRelayCalling])
   {
@@ -340,30 +333,27 @@ LABEL_11:
   v7 = AXLogRTT();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109376;
-    v10[1] = isRelayCallingEnabled;
-    v11 = 1024;
-    v12 = continuityRTTIsSupported;
-    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Relay supported: TU supports: %d, continuity: %d", v10, 0xEu);
+    v9[0] = 67109376;
+    v9[1] = isRelayCallingEnabled;
+    v10 = 1024;
+    v11 = continuityRTTIsSupported;
+    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Relay supported: TU supports: %d, continuity: %d", v9, 0xEu);
   }
 
   if (isRelayCallingEnabled)
   {
-    result = continuityRTTIsSupported;
+    return continuityRTTIsSupported;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_processiCloudAccountForRTT
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   supportsPrimaryCalling = [MEMORY[0x277D6EDE8] supportsPrimaryCalling];
   if ([MEMORY[0x277D12B60] currentProcessIsHeard])
   {
@@ -378,11 +368,11 @@ LABEL_11:
   v5 = AXLogRTT();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v22 = 67109376;
-    *v23 = supportsPrimaryCalling;
-    *&v23[4] = 1024;
-    *&v23[6] = currentProcessIsPreferences;
-    _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "iCloud changed: pushing changes: primary calling supported: %d for right process: %d", &v22, 0xEu);
+    v21 = 67109376;
+    *v22 = supportsPrimaryCalling;
+    *&v22[4] = 1024;
+    *&v22[6] = currentProcessIsPreferences;
+    _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "iCloud changed: pushing changes: primary calling supported: %d for right process: %d", &v21, 0xEu);
   }
 
   if ((supportsPrimaryCalling & currentProcessIsPreferences) == 1)
@@ -404,11 +394,11 @@ LABEL_11:
     v17 = AXLogRTT();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v22 = 138412546;
-      *v23 = v16;
-      *&v23[8] = 2112;
-      v24 = uUIDString;
-      _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Phone num: %@ for %@", &v22, 0x16u);
+      v21 = 138412546;
+      *v22 = v16;
+      *&v22[8] = 2112;
+      v23 = uUIDString;
+      _os_log_impl(&dword_261754000, v17, OS_LOG_TYPE_INFO, "Phone num: %@ for %@", &v21, 0x16u);
     }
 
     if ([v16 length])
@@ -422,11 +412,11 @@ LABEL_11:
       v20 = AXLogRTT();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138412546;
-        *v23 = v9;
-        *&v23[8] = 2112;
-        v24 = v12;
-        _os_log_impl(&dword_261754000, v20, OS_LOG_TYPE_DEFAULT, "Storing relay phones: %@ for RTT, %@ for Emergency RTT", &v22, 0x16u);
+        v21 = 138412546;
+        *v22 = v9;
+        *&v22[8] = 2112;
+        v23 = v12;
+        _os_log_impl(&dword_261754000, v20, OS_LOG_TYPE_DEFAULT, "Storing relay phones: %@ for RTT, %@ for Emergency RTT", &v21, 0x16u);
       }
 
       [defaultStore setObject:v9 forKey:@"RTTCloudRelayNumberKey"];
@@ -434,13 +424,11 @@ LABEL_11:
       [defaultStore synchronize];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)subscriptionContexts
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   cachedSubscriptionContexts = [(RTTTelephonyUtilities *)self cachedSubscriptionContexts];
 
   if (cachedSubscriptionContexts)
@@ -451,9 +439,9 @@ LABEL_11:
   else
   {
     telephonyClient = [(RTTTelephonyUtilities *)self telephonyClient];
-    v14 = 0;
-    v6 = [telephonyClient getSubscriptionInfoWithError:&v14];
-    v7 = v14;
+    v13 = 0;
+    v6 = [telephonyClient getSubscriptionInfoWithError:&v13];
+    v7 = v13;
 
     if (v7)
     {
@@ -461,7 +449,7 @@ LABEL_11:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v16 = v7;
+        v15 = v7;
         _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Error getting subscriptionInfo %@", buf, 0xCu);
       }
     }
@@ -474,21 +462,19 @@ LABEL_11:
     {
       cachedSubscriptionContexts3 = [(RTTTelephonyUtilities *)self cachedSubscriptionContexts];
       *buf = 138412290;
-      v16 = cachedSubscriptionContexts3;
+      v15 = cachedSubscriptionContexts3;
       _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Caching subscription contexts %@", buf, 0xCu);
     }
 
     cachedSubscriptionContexts2 = [(RTTTelephonyUtilities *)self cachedSubscriptionContexts];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return cachedSubscriptionContexts2;
 }
 
 + (BOOL)isRTTSupported
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = +[RTTTelephonyUtilities sharedUtilityProvider];
   v4 = +[RTTTelephonyUtilities sharedUtilityProvider];
   defaultVoiceContext = [v4 defaultVoiceContext];
@@ -498,14 +484,13 @@ LABEL_11:
   v8 = AXLogRTT();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11[0] = 67109376;
-    v11[1] = v6;
-    v12 = 1024;
-    v13 = isRelayRTTSupported;
-    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "isRTTSupported: %d, relay: %d", v11, 0xEu);
+    v10[0] = 67109376;
+    v10[1] = v6;
+    v11 = 1024;
+    v12 = isRelayRTTSupported;
+    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "isRTTSupported: %d, relay: %d", v10, 0xEu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return (v6 | isRelayRTTSupported) & 1;
 }
 
@@ -748,7 +733,7 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
 
 + (BOOL)isRTTSupportedByCarrierBundle
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[RTTTelephonyUtilities sharedUtilityProvider];
   v3 = +[RTTTelephonyUtilities sharedUtilityProvider];
   defaultVoiceContext = [v3 defaultVoiceContext];
@@ -757,18 +742,17 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
   v6 = AXLogRTT();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9[0] = 67109120;
-    v9[1] = v5;
-    _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "isRTTSupportedByCarrierBundle: %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = v5;
+    _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "isRTTSupportedByCarrierBundle: %d", v8, 8u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (BOOL)isEmergencyRTTSupported
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = +[RTTTelephonyUtilities sharedUtilityProvider];
   v4 = +[RTTTelephonyUtilities sharedUtilityProvider];
   defaultVoiceContext = [v4 defaultVoiceContext];
@@ -778,20 +762,19 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
   v8 = AXLogRTT();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11[0] = 67109376;
-    v11[1] = v6;
-    v12 = 1024;
-    v13 = isEmergencyRelayRTTSupported;
-    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "isEmergencyRTTSupported: %d, relay: %d", v11, 0xEu);
+    v10[0] = 67109376;
+    v10[1] = v6;
+    v11 = 1024;
+    v12 = isEmergencyRelayRTTSupported;
+    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "isEmergencyRTTSupported: %d, relay: %d", v10, 0xEu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return (v6 | isEmergencyRelayRTTSupported) & 1;
 }
 
 + (BOOL)isEmergencyRTTSupportedByCarrierBundle
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[RTTTelephonyUtilities sharedUtilityProvider];
   v3 = +[RTTTelephonyUtilities sharedUtilityProvider];
   defaultVoiceContext = [v3 defaultVoiceContext];
@@ -800,18 +783,17 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
   v6 = AXLogRTT();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9[0] = 67109120;
-    v9[1] = v5;
-    _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "isEmergencyRTTSupportedByCarrierBundle: %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = v5;
+    _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "isEmergencyRTTSupportedByCarrierBundle: %d", v8, 8u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (BOOL)isOnlyRTTSupported
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = +[RTTTelephonyUtilities sharedUtilityProvider];
   defaultVoiceContext = [v2 defaultVoiceContext];
   v4 = [RTTTelephonyUtilities isOnlyRTTSupportedForContext:defaultVoiceContext];
@@ -819,12 +801,11 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
   v5 = AXLogRTT();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8[0] = 67109120;
-    v8[1] = v4;
-    _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "checking only RTT: %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = v4;
+    _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "checking only RTT: %d", v7, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -856,7 +837,7 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
 
 + (int64_t)currentSupportedTextingType
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (+[RTTTelephonyUtilities hardwareTTYIsSupported](RTTTelephonyUtilities, "hardwareTTYIsSupported") || +[RTTTelephonyUtilities softwareTTYIsSupported])
   {
     if (+[RTTTelephonyUtilities isOnlyRTTSupported])
@@ -888,12 +869,11 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
   v3 = AXLogRTT();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v6 = 134217984;
-    v7 = v2;
-    _os_log_impl(&dword_261754000, v3, OS_LOG_TYPE_INFO, "currentSupportedTextingType: %ld", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v2;
+    _os_log_impl(&dword_261754000, v3, OS_LOG_TYPE_INFO, "currentSupportedTextingType: %ld", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -907,35 +887,35 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
 
 + (BOOL)hardwareTTYIsSupported
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = +[RTTTelephonyUtilities sharedUtilityProvider];
   allVoiceContexts = [v2 allVoiceContexts];
 
-  v4 = [allVoiceContexts countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [allVoiceContexts countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(allVoiceContexts);
         }
 
-        if ([RTTTelephonyUtilities hardwareTTYIsSupportedForContext:*(*(&v9 + 1) + 8 * i)])
+        if ([RTTTelephonyUtilities hardwareTTYIsSupportedForContext:*(*(&v8 + 1) + 8 * i)])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [allVoiceContexts countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [allVoiceContexts countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -947,13 +927,12 @@ void __62__RTTTelephonyUtilities_TTYSoftwareEnabledForAnyActiveContext__block_in
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (BOOL)isEmergencyRelayRTTSupported
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = +[RTTSettings sharedInstance];
   if ([v2 supportsRelayCalling])
   {
@@ -972,25 +951,22 @@ LABEL_11:
   v7 = AXLogRTT();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109376;
-    v10[1] = isRelayCallingEnabled;
-    v11 = 1024;
-    v12 = continuityEmergencyRTTIsSupported;
-    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Emergency relay supported: TU supports: %d, continuity: %d", v10, 0xEu);
+    v9[0] = 67109376;
+    v9[1] = isRelayCallingEnabled;
+    v10 = 1024;
+    v11 = continuityEmergencyRTTIsSupported;
+    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "Emergency relay supported: TU supports: %d, continuity: %d", v9, 0xEu);
   }
 
   if (isRelayCallingEnabled)
   {
-    result = continuityEmergencyRTTIsSupported;
+    return continuityEmergencyRTTIsSupported;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 + (BOOL)isTTYSupportedForContext:(id)context
@@ -1049,7 +1025,7 @@ LABEL_11:
 
 + (BOOL)softwareTTYIsSupportedForContext:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = objc_autoreleasePoolPush();
   if ([MEMORY[0x277D12B60] isInternalInstall] && (+[RTTSettings sharedInstance](RTTSettings, "sharedInstance"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "internalOverrideTTYAvailability"), v5, (v6 & 1) != 0))
@@ -1059,7 +1035,7 @@ LABEL_11:
 
   else
   {
-    v19 = v4;
+    v18 = v4;
     v8 = [RTTTelephonyUtilities isTTYSupportedForContext:contextCopy];
     supportsPrimaryCalling = [MEMORY[0x277D6EDE8] supportsPrimaryCalling];
     isThumperCallingEnabled = [MEMORY[0x277D6EDE8] isThumperCallingEnabled];
@@ -1072,31 +1048,30 @@ LABEL_11:
     {
       thumperCallingCapabilityInfo = [MEMORY[0x277D6EDE8] thumperCallingCapabilityInfo];
       *buf = 67110912;
-      v21 = v8;
-      v22 = 1024;
-      v23 = supportsPrimaryCalling;
-      v24 = 1024;
-      v25 = isThumperCallingEnabled;
-      v26 = 1024;
-      v27 = isDirectTelephonyCallingCurrentlyAvailable;
-      v28 = 1024;
-      v29 = isRelayCallingEnabled;
-      v30 = 1024;
-      v31 = v14;
-      v32 = 1024;
-      v33 = v13;
-      v34 = 1024;
+      v20 = v8;
+      v21 = 1024;
+      v22 = supportsPrimaryCalling;
+      v23 = 1024;
+      v24 = isThumperCallingEnabled;
+      v25 = 1024;
+      v26 = isDirectTelephonyCallingCurrentlyAvailable;
+      v27 = 1024;
+      v28 = isRelayCallingEnabled;
+      v29 = 1024;
+      v30 = v14;
+      v31 = 1024;
+      v32 = v13;
+      v33 = 1024;
       provisioningStatus = [thumperCallingCapabilityInfo provisioningStatus];
       _os_log_impl(&dword_261754000, v15, OS_LOG_TYPE_INFO, "SW TTY enabled=%d, Primary calling: %d, Thumper: %d, Direct: %d, Relay: %d, RTTRelay: %d, RTT supported %d, Thumper provisioning: %d", buf, 0x32u);
     }
 
     v7 = v8 & supportsPrimaryCalling | v14 | (supportsPrimaryCalling | isThumperCallingEnabled | isDirectTelephonyCallingCurrentlyAvailable | isRelayCallingEnabled) & v13;
-    v4 = v19;
+    v4 = v18;
   }
 
   objc_autoreleasePoolPop(v4);
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
@@ -1167,6 +1142,30 @@ void __29__RTTTelephonyUtilities_init__block_invoke_2()
   [(RTTTelephonyUtilities *)&v5 dealloc];
 }
 
+- (void)setTTYDictionaryAvailability:(BOOL)availability
+{
+  availabilityCopy = availability;
+  v5 = objc_alloc_init(RTTDictionaryManager);
+  if ([MEMORY[0x277D12B60] currentProcessIsHeard])
+  {
+    if (availabilityCopy)
+    {
+      [(RTTDictionaryManager *)v5 downloadIfNeeded];
+    }
+
+    else
+    {
+      [(RTTDictionaryManager *)v5 deleteIfNeeded];
+    }
+  }
+
+  else
+  {
+    v4 = +[RTTServer sharedInstance];
+    [v4 setTTYDictionaryAvailability:availabilityCopy];
+  }
+}
+
 - (void)didChangeTelephonyCallingSupport
 {
   [(RTTTelephonyUtilities *)self setCallCapabilitiesSupportsTelephonyCalls:0];
@@ -1192,16 +1191,16 @@ void __29__RTTTelephonyUtilities_init__block_invoke_2()
 
 - (void)registerNotifications
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   v4 = MEMORY[0x277D26C10];
   v5 = MEMORY[0x277D26B10];
   v6 = *MEMORY[0x277D26B10];
-  v16[0] = *MEMORY[0x277D26C10];
-  v16[1] = v6;
+  v15[0] = *MEMORY[0x277D26C10];
+  v15[1] = v6;
   v7 = MEMORY[0x277D26D40];
-  v16[2] = *MEMORY[0x277D26D40];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[2] = *MEMORY[0x277D26D40];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   [mEMORY[0x277D26E58] setAttribute:v8 forKey:*MEMORY[0x277D26DD0] error:0];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -1217,8 +1216,6 @@ void __29__RTTTelephonyUtilities_init__block_invoke_2()
 
   defaultCenter4 = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter4 addObserver:self selector:sel__callDidConnect name:*MEMORY[0x277D6EFD8] object:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mediaServerDied
@@ -1251,7 +1248,7 @@ void __29__RTTTelephonyUtilities_init__block_invoke_2()
 
 - (unint64_t)currentPreferredTransportMethodForContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (![MEMORY[0x277D12B60] deviceIsPhone])
   {
@@ -1289,9 +1286,9 @@ LABEL_8:
     v14 = AXLogRTT();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412290;
-      *v18 = contextCopy;
-      _os_log_impl(&dword_261754000, v14, OS_LOG_TYPE_INFO, "No TTY transport method support, so not migrating or priming server: %@", &v17, 0xCu);
+      v16 = 138412290;
+      *v17 = contextCopy;
+      _os_log_impl(&dword_261754000, v14, OS_LOG_TYPE_INFO, "No TTY transport method support, so not migrating or priming server: %@", &v16, 0xCu);
     }
 
     v8 = 0;
@@ -1306,13 +1303,13 @@ LABEL_10:
   v13 = AXLogRTT();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v17 = 67109634;
-    *v18 = v8;
-    *&v18[4] = 1024;
-    *&v18[6] = shouldMigrateSettings;
-    v19 = 2112;
-    v20 = contextCopy;
-    _os_log_impl(&dword_261754000, v13, OS_LOG_TYPE_INFO, "Current preferred transport is : %d - %d = %@", &v17, 0x18u);
+    v16 = 67109634;
+    *v17 = v8;
+    *&v17[4] = 1024;
+    *&v17[6] = shouldMigrateSettings;
+    v18 = 2112;
+    v19 = contextCopy;
+    _os_log_impl(&dword_261754000, v13, OS_LOG_TYPE_INFO, "Current preferred transport is : %d - %d = %@", &v16, 0x18u);
   }
 
   if (shouldMigrateSettings)
@@ -1322,7 +1319,6 @@ LABEL_10:
 LABEL_17:
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1350,24 +1346,24 @@ LABEL_17:
 
 - (BOOL)_contactIsEmergencyServices:(id)services
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   array = [MEMORY[0x277CBEB18] array];
   v6 = *MEMORY[0x277CBD098];
-  v28[0] = *MEMORY[0x277CBD098];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = *MEMORY[0x277CBD098];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   v8 = [servicesCopy areKeysAvailable:v7];
 
   if (v8)
   {
     phoneNumbers = [servicesCopy phoneNumbers];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __53__RTTTelephonyUtilities__contactIsEmergencyServices___block_invoke;
-    v24[3] = &unk_279AE79C0;
-    v10 = &v25;
-    v25 = array;
-    [phoneNumbers enumerateObjectsUsingBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __53__RTTTelephonyUtilities__contactIsEmergencyServices___block_invoke;
+    v23[3] = &unk_279AE79C0;
+    v10 = &v24;
+    v24 = array;
+    [phoneNumbers enumerateObjectsUsingBlock:v23];
   }
 
   else
@@ -1375,19 +1371,19 @@ LABEL_17:
     phoneNumbers = [(RTTTelephonyUtilities *)self contactStore];
     v11 = MEMORY[0x277CBDA58];
     identifier = [servicesCopy identifier];
-    v27 = identifier;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+    v26 = identifier;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
     v14 = [v11 predicateForContactsWithIdentifiers:v13];
-    v26 = v6;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v25 = v6;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     v16 = [phoneNumbers unifiedContactsMatchingPredicate:v14 keysToFetch:v15 error:0];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __53__RTTTelephonyUtilities__contactIsEmergencyServices___block_invoke_2;
-    v22[3] = &unk_279AE79E8;
-    v10 = &v23;
-    v23 = array;
-    [v16 enumerateObjectsUsingBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __53__RTTTelephonyUtilities__contactIsEmergencyServices___block_invoke_2;
+    v21[3] = &unk_279AE79E8;
+    v10 = &v22;
+    v22 = array;
+    [v16 enumerateObjectsUsingBlock:v21];
   }
 
   if ([array count] == 1)
@@ -1402,7 +1398,6 @@ LABEL_17:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1443,7 +1438,7 @@ void __53__RTTTelephonyUtilities__contactIsEmergencyServices___block_invoke_3(ui
 
 - (id)phoneNumberForContext:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (contextCopy)
   {
@@ -1470,17 +1465,17 @@ void __53__RTTTelephonyUtilities__contactIsEmergencyServices___block_invoke_3(ui
     else
     {
       telephonyClient = [(RTTTelephonyUtilities *)self telephonyClient];
-      v24 = 0;
-      v12 = [telephonyClient getPhoneNumber:contextCopy error:&v24];
-      v16 = v24;
+      v23 = 0;
+      v12 = [telephonyClient getPhoneNumber:contextCopy error:&v23];
+      v16 = v23;
 
       v18 = AXLogRTT();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v26 = v12;
-        v27 = 2112;
-        v28 = contextCopy;
+        v25 = v12;
+        v26 = 2112;
+        v27 = contextCopy;
         _os_log_impl(&dword_261754000, v18, OS_LOG_TYPE_INFO, "Retrieved phone number %@ from context %@ for caching", buf, 0x16u);
       }
 
@@ -1513,9 +1508,9 @@ LABEL_15:
     if (os_log_type_enabled(uuid3, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v26 = contextCopy;
-      v27 = 2112;
-      v28 = v16;
+      v25 = contextCopy;
+      v26 = 2112;
+      v27 = v16;
       _os_log_impl(&dword_261754000, uuid3, OS_LOG_TYPE_INFO, "Cached blank phone number for context %@. Error? %@", buf, 0x16u);
     }
 
@@ -1532,14 +1527,12 @@ LABEL_15:
   number = 0;
 LABEL_19:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return number;
 }
 
 - (id)ttyMeContact
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   if (_AXSInUnitTestMode())
   {
     if (ttyMeContact_onceToken != -1)
@@ -1554,20 +1547,18 @@ LABEL_19:
   {
     v3 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
     v4 = *MEMORY[0x277CBCFC0];
-    v12[0] = v3;
-    v12[1] = v4;
-    v12[2] = *MEMORY[0x277CBD098];
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+    v11[0] = v3;
+    v11[1] = v4;
+    v11[2] = *MEMORY[0x277CBD098];
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
 
     v6 = +[RTTTelephonyUtilities sharedUtilityProvider];
     contactStore = [v6 contactStore];
-    v11 = 0;
-    v8 = [contactStore _ios_meContactWithKeysToFetch:v5 error:&v11];
+    v10 = 0;
+    v8 = [contactStore _ios_meContactWithKeysToFetch:v5 error:&v10];
 
     v2 = v8;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -1581,7 +1572,7 @@ uint64_t __37__RTTTelephonyUtilities_ttyMeContact__block_invoke()
 
 - (BOOL)contactPathIsMe:(id)me
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   meCopy = me;
   decimalDigitCharacterSet = [MEMORY[0x277CCAB50] decimalDigitCharacterSet];
   [decimalDigitCharacterSet invert];
@@ -1601,30 +1592,29 @@ uint64_t __37__RTTTelephonyUtilities_ttyMeContact__block_invoke()
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v20 = 0;
+  v19 = 0;
   subscriptionContexts = [(RTTTelephonyUtilities *)self subscriptionContexts];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __41__RTTTelephonyUtilities_contactPathIsMe___block_invoke;
-  v15[3] = &unk_279AE7A10;
-  v15[4] = self;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __41__RTTTelephonyUtilities_contactPathIsMe___block_invoke;
+  v14[3] = &unk_279AE7A10;
+  v14[4] = self;
   v10 = decimalDigitCharacterSet;
-  v16 = v10;
+  v15 = v10;
   v11 = meCopy;
-  v17 = v11;
-  v18 = buf;
-  [subscriptionContexts enumerateObjectsUsingBlock:v15];
+  v16 = v11;
+  v17 = buf;
+  [subscriptionContexts enumerateObjectsUsingBlock:v14];
 
   v12 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 
 void __41__RTTTelephonyUtilities_contactPathIsMe___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [*(a1 + 32) phoneNumberForContext:v6];
   v8 = [v7 componentsSeparatedByCharactersInSet:*(a1 + 40)];
@@ -1633,11 +1623,11 @@ void __41__RTTTelephonyUtilities_contactPathIsMe___block_invoke(uint64_t a1, voi
   v10 = AXLogRTT();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Finding own contact path from context %@ with phone number %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Finding own contact path from context %@ with phone number %@", &v12, 0x16u);
   }
 
   if ([v7 isEqualToString:*(a1 + 48)])
@@ -1647,12 +1637,10 @@ void __41__RTTTelephonyUtilities_contactPathIsMe___block_invoke(uint64_t a1, voi
     v11 = AXLogRTT();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Yes it's my phone number!", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Yes it's my phone number!", &v12, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)contactPathForCall:(id)call
@@ -1779,7 +1767,7 @@ void __39__RTTTelephonyUtilities_labelFromUUID___block_invoke(uint64_t a1, void 
 
 - (BOOL)answerRTTCallAsMutedForCall:(id)call
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   callCopy = call;
   v4 = +[RTTSettings sharedInstance];
   tTYSoftwareEnabled = [v4 TTYSoftwareEnabled];
@@ -1794,18 +1782,17 @@ void __39__RTTTelephonyUtilities_labelFromUUID___block_invoke(uint64_t a1, void 
   v11 = isEmergency ^ 1;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v14[0] = 67109888;
-    v14[1] = answerRTTCallsAsMuted;
-    v15 = 1024;
-    v16 = v11;
-    v17 = 1024;
-    v18 = supportsTTYWithVoice;
-    v19 = 1024;
-    v20 = tTYSoftwareEnabled;
-    _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Mute call on answer? Preference: %d Not emergency: %d Supports RTT: %d RTT Enabled: %d", v14, 0x1Au);
+    v13[0] = 67109888;
+    v13[1] = answerRTTCallsAsMuted;
+    v14 = 1024;
+    v15 = v11;
+    v16 = 1024;
+    v17 = supportsTTYWithVoice;
+    v18 = 1024;
+    v19 = tTYSoftwareEnabled;
+    _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Mute call on answer? Preference: %d Not emergency: %d Supports RTT: %d RTT Enabled: %d", v13, 0x1Au);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return (answerRTTCallsAsMuted | ~tTYSoftwareEnabled) & v11 & supportsTTYWithVoice & 1;
 }
 
@@ -1857,7 +1844,7 @@ void __39__RTTTelephonyUtilities_labelFromUUID___block_invoke(uint64_t a1, void 
 
 - (id)activeContexts
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   cachedActiveContexts = [(RTTTelephonyUtilities *)self cachedActiveContexts];
 
   if (cachedActiveContexts)
@@ -1868,9 +1855,9 @@ void __39__RTTTelephonyUtilities_labelFromUUID___block_invoke(uint64_t a1, void 
   else
   {
     telephonyClient = [(RTTTelephonyUtilities *)self telephonyClient];
-    v13 = 0;
-    v6 = [telephonyClient getActiveContexts:&v13];
-    v7 = v13;
+    v12 = 0;
+    v6 = [telephonyClient getActiveContexts:&v12];
+    v7 = v12;
 
     if (v7)
     {
@@ -1878,7 +1865,7 @@ void __39__RTTTelephonyUtilities_labelFromUUID___block_invoke(uint64_t a1, void 
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v15 = v7;
+        v14 = v7;
         _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Error getting contexts %@", buf, 0xCu);
       }
     }
@@ -1889,30 +1876,28 @@ void __39__RTTTelephonyUtilities_labelFromUUID___block_invoke(uint64_t a1, void 
     {
       cachedActiveContexts3 = [(RTTTelephonyUtilities *)self cachedActiveContexts];
       *buf = 138412290;
-      v15 = cachedActiveContexts3;
+      v14 = cachedActiveContexts3;
       _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Caching active contexts %@", buf, 0xCu);
     }
 
     cachedActiveContexts2 = [(RTTTelephonyUtilities *)self cachedActiveContexts];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return cachedActiveContexts2;
 }
 
 - (id)contextForCall:(id)call
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   callCopy = call;
   subscriptionContexts = [(RTTTelephonyUtilities *)self subscriptionContexts];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __40__RTTTelephonyUtilities_contextForCall___block_invoke;
-  v12[3] = &unk_279AE7A60;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __40__RTTTelephonyUtilities_contextForCall___block_invoke;
+  v11[3] = &unk_279AE7A60;
   v6 = callCopy;
-  v13 = v6;
-  v7 = [subscriptionContexts indexOfObjectPassingTest:v12];
+  v12 = v6;
+  v7 = [subscriptionContexts indexOfObjectPassingTest:v11];
 
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -1920,7 +1905,7 @@ void __39__RTTTelephonyUtilities_labelFromUUID___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(subscriptionContexts2, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v15 = v6;
+      v14 = v6;
       _os_log_impl(&dword_261754000, subscriptionContexts2, OS_LOG_TYPE_INFO, "No context found for call %@", buf, 0xCu);
     }
 
@@ -1932,8 +1917,6 @@ void __39__RTTTelephonyUtilities_labelFromUUID___block_invoke(uint64_t a1, void 
     subscriptionContexts2 = [(RTTTelephonyUtilities *)self subscriptionContexts];
     v9 = [subscriptionContexts2 objectAtIndex:v7];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1980,7 +1963,7 @@ uint64_t __40__RTTTelephonyUtilities_contextForCall___block_invoke(uint64_t a1, 
 
 void __48__RTTTelephonyUtilities_reloadRelayPhoneNumbers__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 context];
@@ -1999,11 +1982,11 @@ void __48__RTTTelephonyUtilities_reloadRelayPhoneNumbers__block_invoke(uint64_t 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = [v3 context];
-        v16 = 138412546;
-        v17 = v6;
-        v18 = 2112;
-        v19 = v12;
-        _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "setting relay number: %@ for context: %@", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v6;
+        v17 = 2112;
+        v18 = v12;
+        _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "setting relay number: %@ for context: %@", &v15, 0x16u);
       }
 
       v13 = +[RTTSettings sharedInstance];
@@ -2013,22 +1996,19 @@ void __48__RTTTelephonyUtilities_reloadRelayPhoneNumbers__block_invoke(uint64_t 
       *(*(*(a1 + 40) + 8) + 24) = 1;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadDefaultVoiceContext
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_261754000, a2, OS_LOG_TYPE_ERROR, "Could not retrieve subscription info: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_261754000, a2, OS_LOG_TYPE_ERROR, "Could not retrieve subscription info: %@", &v2, 0xCu);
 }
 
 void __50__RTTTelephonyUtilities_reloadDefaultVoiceContext__block_invoke(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = a1[4];
@@ -2048,9 +2028,9 @@ void __50__RTTTelephonyUtilities_reloadDefaultVoiceContext__block_invoke(void *a
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = *(*(a1[6] + 8) + 40);
-        v20 = 138412290;
-        v21 = v12;
-        _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Checking voice preferred context %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v12;
+        _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Checking voice preferred context %@", &v19, 0xCu);
       }
     }
   }
@@ -2071,19 +2051,17 @@ void __50__RTTTelephonyUtilities_reloadDefaultVoiceContext__block_invoke(void *a
     v18 = [v4 context];
     [v17 addObject:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCarrierValueForKey:(id)key andContext:(id)context
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   contextCopy = context;
   if ([keyCopy length])
   {
-    v12[0] = keyCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = keyCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v9 = [(RTTTelephonyUtilities *)self getCarrierValueForKeyHierarchy:v8 andContext:contextCopy];
   }
 
@@ -2091,8 +2069,6 @@ void __50__RTTTelephonyUtilities_reloadDefaultVoiceContext__block_invoke(void *a
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2136,10 +2112,120 @@ LABEL_9:
   return v9;
 }
 
-- (BOOL)isTTYOverIMSSupportedForContext:(id)context excludeRelay:(BOOL)relay
+- (BOOL)isRTTSupportedForContext:(id)context excludeRelay:(BOOL)relay
+{
+  relayCopy = relay;
+  v22 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  if ([(RTTTelephonyUtilities *)self isTTYOverIMSSupportedForContext:contextCopy excludeRelay:relayCopy])
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v8 = [(RTTTelephonyUtilities *)self getCarrierValueForKeyHierarchy:&unk_2873FFE78 andContext:contextCopy];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      bOOLValue = [v8 BOOLValue];
+    }
+
+    else
+    {
+      bOOLValue = 0;
+    }
+
+    v10 = AXLogRTT();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v12 = 138413314;
+      v13 = contextCopy;
+      v14 = 1024;
+      v15 = bOOLValue;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 1024;
+      v19 = +[RTTTelephonyUtilities isRelayRTTSupported];
+      v20 = 1024;
+      v21 = relayCopy;
+      _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "RTT (RTTSupported) supported %@ - %d = %@ -- %d (%d)", &v12, 0x28u);
+    }
+
+    if (relayCopy | bOOLValue)
+    {
+      v7 = !relayCopy | bOOLValue;
+    }
+
+    else
+    {
+      v7 = +[RTTTelephonyUtilities isRelayRTTSupported];
+    }
+  }
+
+  return v7 & 1;
+}
+
+- (BOOL)isEmergencyRTTSupportedForContext:(id)context excludeRelay:(BOOL)relay
 {
   relayCopy = relay;
   v23 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  v7 = [(RTTTelephonyUtilities *)self getCarrierValueForKeyHierarchy:&unk_2873FFE90 andContext:contextCopy];
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) != 0 && ([v7 BOOLValue] & 1) != 0 || !-[RTTTelephonyUtilities isTTYOverIMSSupportedForContext:excludeRelay:](self, "isTTYOverIMSSupportedForContext:excludeRelay:", contextCopy, relayCopy))
+  {
+    v9 = [(RTTTelephonyUtilities *)self getCarrierValueForKeyHierarchy:&unk_2873FFEA8 andContext:contextCopy];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      bOOLValue = [v9 BOOLValue];
+    }
+
+    else
+    {
+      bOOLValue = 0;
+    }
+
+    v11 = AXLogRTT();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v13 = 138413314;
+      v14 = contextCopy;
+      v15 = 1024;
+      v16 = bOOLValue;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 1024;
+      v20 = +[RTTTelephonyUtilities isEmergencyRelayRTTSupported];
+      v21 = 1024;
+      v22 = relayCopy;
+      _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Emergency RTT (EmergencyRTTSupported) supported %@ - %d = %@ -- %d (%d)", &v13, 0x28u);
+    }
+
+    if (relayCopy | bOOLValue)
+    {
+      v8 = !relayCopy | bOOLValue;
+    }
+
+    else
+    {
+      v8 = +[RTTTelephonyUtilities isEmergencyRelayRTTSupported];
+    }
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  return v8 & 1;
+}
+
+- (BOOL)isTTYOverIMSSupportedForContext:(id)context excludeRelay:(BOOL)relay
+{
+  relayCopy = relay;
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = [(RTTTelephonyUtilities *)self getCarrierValueForKeyHierarchy:&unk_2873FFEC0 andContext:contextCopy];
   objc_opt_class();
@@ -2156,17 +2242,17 @@ LABEL_9:
   v9 = AXLogRTT();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v13 = 138413314;
-    v14 = contextCopy;
-    v15 = 1024;
-    v16 = bOOLValue;
-    v17 = 2112;
-    v18 = v7;
-    v19 = 1024;
-    v20 = +[RTTTelephonyUtilities isRelayRTTSupported];
-    v21 = 1024;
-    v22 = relayCopy;
-    _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "RTT (ttyIMSSupported) supported %@ - %d = %@ -- %d (%d)", &v13, 0x28u);
+    v12 = 138413314;
+    v13 = contextCopy;
+    v14 = 1024;
+    v15 = bOOLValue;
+    v16 = 2112;
+    v17 = v7;
+    v18 = 1024;
+    v19 = +[RTTTelephonyUtilities isRelayRTTSupported];
+    v20 = 1024;
+    v21 = relayCopy;
+    _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "RTT (ttyIMSSupported) supported %@ - %d = %@ -- %d (%d)", &v12, 0x28u);
   }
 
   if ((relayCopy | bOOLValue))
@@ -2179,13 +2265,12 @@ LABEL_9:
     v10 = +[RTTTelephonyUtilities isRelayRTTSupported];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
 - (BOOL)isTTYSupportedForContext:(id)context
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = [(RTTTelephonyUtilities *)self getCarrierValueForKey:@"ShowTTY" andContext:contextCopy];
   objc_opt_class();
@@ -2202,20 +2287,19 @@ LABEL_9:
   v7 = AXLogRTT();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = contextCopy;
-    v12 = 1024;
-    v13 = bOOLValue;
-    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "TTY supported %@ - %d", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = contextCopy;
+    v11 = 1024;
+    v12 = bOOLValue;
+    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "TTY supported %@ - %d", &v9, 0x12u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (id)relayNumberForContext:(id)context
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = [(RTTTelephonyUtilities *)self getCarrierValueForKey:@"TTYRelayNumber" andContext:contextCopy];
   objc_opt_class();
@@ -2249,20 +2333,18 @@ LABEL_9:
     v9 = AXLogRTT();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Checking IMSConfig for relay number %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "Checking IMSConfig for relay number %@", &v11, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (BOOL)isRTTCallHoldSupportedForContext:(id)context
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = [(RTTTelephonyUtilities *)self getCarrierValueForKeyHierarchy:&unk_2873FFEF0 andContext:contextCopy];
   objc_opt_class();
@@ -2279,26 +2361,25 @@ LABEL_9:
   v7 = AXLogRTT();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 2112;
-    v13 = contextCopy;
-    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "RTT call hold supported %@ for context %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 2112;
+    v12 = contextCopy;
+    _os_log_impl(&dword_261754000, v7, OS_LOG_TYPE_INFO, "RTT call hold supported %@ for context %@", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (void)listenForCloudRelayChanges
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   currentProcessHandlesCloudRelay = [(RTTTelephonyUtilities *)self currentProcessHandlesCloudRelay];
   v4 = AXLogRTT();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v15 = currentProcessHandlesCloudRelay;
+    v14 = currentProcessHandlesCloudRelay;
     _os_log_impl(&dword_261754000, v4, OS_LOG_TYPE_INFO, "Listening for cloud relay changes: %d", buf, 8u);
   }
 
@@ -2320,15 +2401,13 @@ LABEL_9:
     block[4] = self;
     dispatch_async(telephonyUpdateQueue, block);
     accountStoreQueue = [(RTTTelephonyUtilities *)self accountStoreQueue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_151;
-    v12[3] = &unk_279AE7738;
-    v12[4] = self;
-    dispatch_async(accountStoreQueue, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_151;
+    v11[3] = &unk_279AE7738;
+    v11[4] = self;
+    dispatch_async(accountStoreQueue, v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke(uint64_t a1)
@@ -2346,7 +2425,7 @@ uint64_t __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke(ui
 
 void __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_151(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = AXLogRTT();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -2367,14 +2446,11 @@ void __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_151(ui
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v13 = v8;
+    v11 = v8;
     _os_log_impl(&dword_261754000, v9, OS_LOG_TYPE_INFO, "retrieved accounts: %@", buf, 0xCu);
   }
 
-  v11 = *(a1 + 32);
   AXPerformBlockAsynchronouslyOnMainThread();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_153(uint64_t a1)
@@ -2400,7 +2476,7 @@ void __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_153(ui
 
 - (void)didChangeRelayCallingCapabilities
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(RTTTelephonyUtilities *)self currentProcessHandlesCloudRelay])
   {
     supportsRelayCalling = [MEMORY[0x277D6EDE8] supportsRelayCalling];
@@ -2414,20 +2490,18 @@ void __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_153(ui
     v6 = AXLogRTT();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8[0] = 67109376;
-      v8[1] = supportsRelayCalling;
-      v9 = 1024;
-      v10 = isRelayCallingEnabled;
-      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Did change relay calling capibilities %d %d", v8, 0xEu);
+      v7[0] = 67109376;
+      v7[1] = supportsRelayCalling;
+      v8 = 1024;
+      v9 = isRelayCallingEnabled;
+      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Did change relay calling capibilities %d %d", v7, 0xEu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didChangeRelayCallingAvailability
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(RTTTelephonyUtilities *)self currentProcessHandlesCloudRelay])
   {
     supportsRelayCalling = [MEMORY[0x277D6EDE8] supportsRelayCalling];
@@ -2441,15 +2515,13 @@ void __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_153(ui
     v6 = AXLogRTT();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8[0] = 67109376;
-      v8[1] = supportsRelayCalling;
-      v9 = 1024;
-      v10 = isRelayCallingEnabled;
-      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Did change relay calling availability %d %d", v8, 0xEu);
+      v7[0] = 67109376;
+      v7[1] = supportsRelayCalling;
+      v8 = 1024;
+      v9 = isRelayCallingEnabled;
+      _os_log_impl(&dword_261754000, v6, OS_LOG_TYPE_INFO, "Did change relay calling availability %d %d", v7, 0xEu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iCloudRTTRelayDidChange:(id)change
@@ -2472,7 +2544,7 @@ void __51__RTTTelephonyUtilities_listenForCloudRelayChanges__block_invoke_153(ui
 
 uint64_t __49__RTTTelephonyUtilities_iCloudRTTRelayDidChange___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAD80] defaultStore];
   [v2 synchronize];
 
@@ -2481,11 +2553,11 @@ uint64_t __49__RTTTelephonyUtilities_iCloudRTTRelayDidChange___block_invoke(uint
   v5 = AXLogRTT();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11[0] = 67109376;
-    v11[1] = v3;
-    v12 = 1024;
-    v13 = v4;
-    _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "Relay supported? %d, Emergency relay supported? %d", v11, 0xEu);
+    v10[0] = 67109376;
+    v10[1] = v3;
+    v11 = 1024;
+    v12 = v4;
+    _os_log_impl(&dword_261754000, v5, OS_LOG_TYPE_INFO, "Relay supported? %d, Emergency relay supported? %d", v10, 0xEu);
   }
 
   v6 = +[RTTSettings sharedInstance];
@@ -2500,9 +2572,7 @@ uint64_t __49__RTTTelephonyUtilities_iCloudRTTRelayDidChange___block_invoke(uint
     [v8 setTTYSoftwareEnabled:0];
   }
 
-  result = [*(a1 + 32) headphoneStateChangedNotification:0];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) headphoneStateChangedNotification:0];
 }
 
 - (void)iCloudAccountDidChange:(id)change
@@ -2521,31 +2591,29 @@ uint64_t __49__RTTTelephonyUtilities_iCloudRTTRelayDidChange___block_invoke(uint
 
 uint64_t __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = AXLogRTT();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_261754000, v2, OS_LOG_TYPE_INFO, "iCloud Account did change: %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = *(v4 + 24);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke_156;
-  v8[3] = &unk_279AE7738;
-  v8[4] = v4;
-  result = [v5 afterDelay:v8 processBlock:3.0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke_156;
+  v7[3] = &unk_279AE7738;
+  v7[4] = v4;
+  return [v5 afterDelay:v7 processBlock:3.0];
 }
 
 - (BOOL)_relayNumbers:(id)numbers containsNumber:(id)number
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   numberCopy = number;
   v7 = [numbersCopy objectForKey:numberCopy];
@@ -2556,7 +2624,7 @@ uint64_t __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke(uint6
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v42 = numberCopy;
+      v41 = numberCopy;
       _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Found exact match for %{private}@", buf, 0xCu);
     }
 
@@ -2578,12 +2646,12 @@ uint64_t __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke(uint6
   v16 = [numberCopy componentsSeparatedByCharactersInSet:invertedSet];
   v17 = [v16 componentsJoinedByString:&stru_2873FC590];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = numbersCopy;
-  v18 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v18 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (!v18)
   {
     bOOLValue = 0;
@@ -2591,21 +2659,21 @@ uint64_t __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke(uint6
   }
 
   v19 = v18;
-  v20 = *v38;
-  v33 = numbersCopy;
-  v34 = numberCopy;
-  v32 = allKeys;
+  v20 = *v37;
+  v32 = numbersCopy;
+  v33 = numberCopy;
+  v31 = allKeys;
   while (2)
   {
     for (i = 0; i != v19; ++i)
     {
-      if (*v38 != v20)
+      if (*v37 != v20)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v37 + 1) + 8 * i);
-      v23 = [MEMORY[0x277D6EEE8] normalizedPhoneNumberHandleForValue:v22 isoCountryCode:{regionCode, v32}];
+      v22 = *(*(&v36 + 1) + 8 * i);
+      v23 = [MEMORY[0x277D6EEE8] normalizedPhoneNumberHandleForValue:v22 isoCountryCode:{regionCode, v31}];
       normalizedValue2 = [v23 normalizedValue];
 
       if ([normalizedValue isEqualToString:normalizedValue2])
@@ -2614,9 +2682,9 @@ uint64_t __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke(uint6
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 138478083;
-          v42 = v34;
-          v43 = 2113;
-          v44 = v22;
+          v41 = v33;
+          v42 = 2113;
+          v43 = v22;
           _os_log_impl(&dword_261754000, v27, OS_LOG_TYPE_INFO, "Matching %{private}@ to %{private}@ with locale normalization", buf, 0x16u);
         }
 
@@ -2634,9 +2702,9 @@ uint64_t __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke(uint6
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           *buf = 138478083;
-          v42 = v34;
-          v43 = 2113;
-          v44 = v22;
+          v41 = v33;
+          v42 = 2113;
+          v43 = v22;
           _os_log_impl(&dword_261754000, v28, OS_LOG_TYPE_INFO, "Matching %{private}@ to %{private}@ with non-numeric character stripping", buf, 0x16u);
         }
 
@@ -2644,19 +2712,19 @@ uint64_t __48__RTTTelephonyUtilities_iCloudAccountDidChange___block_invoke(uint6
         bOOLValue = [v29 BOOLValue];
 
 LABEL_22:
-        numbersCopy = v33;
+        numbersCopy = v32;
 
-        numberCopy = v34;
-        allKeys = v32;
+        numberCopy = v33;
+        allKeys = v31;
         goto LABEL_23;
       }
     }
 
-    v19 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v19 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
     bOOLValue = 0;
-    numbersCopy = v33;
-    numberCopy = v34;
-    allKeys = v32;
+    numbersCopy = v32;
+    numberCopy = v33;
+    allKeys = v31;
     if (v19)
     {
       continue;
@@ -2668,13 +2736,12 @@ LABEL_22:
 LABEL_23:
 
 LABEL_24:
-  v30 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (void)resetCloudSupportStore
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D12B60] isInternalInstall])
   {
     if ([(RTTTelephonyUtilities *)self currentProcessHandlesCloudRelay])
@@ -2682,8 +2749,8 @@ LABEL_24:
       v3 = AXLogRTT();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_261754000, v3, OS_LOG_TYPE_INFO, "Resetting cloud storage for device RTT support", v7, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_261754000, v3, OS_LOG_TYPE_INFO, "Resetting cloud storage for device RTT support", v6, 2u);
       }
 
       defaultStore = [MEMORY[0x277CCAD80] defaultStore];
@@ -2691,33 +2758,32 @@ LABEL_24:
       [defaultStore removeObjectForKey:@"RTTCloudRelayNumberKey"];
       [defaultStore removeObjectForKey:@"RTTEmergencyCloudRelayNumberKey"];
       [defaultStore synchronize];
-      goto LABEL_8;
     }
 
-    if (AXProcessIsAxctl())
+    else
     {
-      defaultStore = +[RTTServer sharedInstance];
-      v8 = @"axtty_reset_cloud_support_store_action";
-      v9[0] = MEMORY[0x277CBEC38];
-      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-      [defaultStore sendMessageWithPayload:v5 andIdentifier:0x800000000];
+      if (!AXProcessIsAxctl())
+      {
+        return;
+      }
 
-LABEL_8:
+      defaultStore = +[RTTServer sharedInstance];
+      v7 = @"axtty_reset_cloud_support_store_action";
+      v8[0] = MEMORY[0x277CBEC38];
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+      [defaultStore sendMessageWithPayload:v5 andIdentifier:0x800000000];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCarrierValueForKeyHierarchy:(os_log_t)log andContext:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_261754000, log, OS_LOG_TYPE_ERROR, "Error getting carrier key %@ - %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_261754000, log, OS_LOG_TYPE_ERROR, "Error getting carrier key %@ - %@", &v3, 0x16u);
 }
 
 @end

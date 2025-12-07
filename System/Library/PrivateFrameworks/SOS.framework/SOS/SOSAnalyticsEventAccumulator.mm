@@ -36,9 +36,9 @@
 
 - (void)noteEvent:(id)event
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v5 = sos_aea_log();
+  v5 = sos_aea_log(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     name = [(SOSAnalyticsEventAccumulator *)self name];
@@ -49,17 +49,15 @@
       v8 = name;
     }
 
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2114;
-    v14 = eventCopy;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_INFO, "noteEvent [%{public}@]: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2114;
+    v13 = eventCopy;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_INFO, "noteEvent [%{public}@]: %{public}@", &v10, 0x16u);
   }
 
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{-[SOSAnalyticsEventAccumulator _countForEventName:](self, "_countForEventName:", eventCopy) + 1}];
   [(NSMutableDictionary *)self->_accumulatedEventsDict setObject:v9 forKeyedSubscript:eventCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addSummaryKeys:(id)keys toAnalyticsDict:(id)dict
@@ -98,31 +96,31 @@
 
 - (id)analyticsDataDictForAccumulatedKeys:(id)keys outputKeyPrefix:(id)prefix summaryKeysDict:(id)dict
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   prefixCopy = prefix;
   dictCopy = dict;
   v10 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(dictCopy, "count") + objc_msgSend(keysCopy, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = keysCopy;
-  v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         if ([prefixCopy length])
         {
           v16 = [prefixCopy stringByAppendingString:v15];
@@ -138,14 +136,13 @@
         [v10 setObject:v18 forKeyedSubscript:v17];
       }
 
-      v12 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
   }
 
   [(SOSAnalyticsEventAccumulator *)self _addSummaryKeys:dictCopy toAnalyticsDict:v10];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

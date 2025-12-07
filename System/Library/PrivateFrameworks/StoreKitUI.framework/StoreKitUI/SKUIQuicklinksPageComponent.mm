@@ -94,7 +94,7 @@
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A4A0]] & 1) != 0 || (objc_msgSend(fieldCopy, "isEqualToString:", *MEMORY[0x277D6A4A8]))
+  if (objc_msgSend_isEqualToString_(fieldCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SKUIQuicklinksPageComponent *)self title];
     if (title)
@@ -103,7 +103,7 @@
     }
   }
 
-  else if ([fieldCopy isEqualToString:*MEMORY[0x277D6A498]])
+  else if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = &unk_2828D2EB8;
     goto LABEL_8;

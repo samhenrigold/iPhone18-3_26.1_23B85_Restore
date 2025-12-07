@@ -141,7 +141,7 @@
   else if (gLogCategory_STCV <= 50 && (gLogCategory_STCV != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_STCV, "[VPSpatialTutorialContentView startPlayers]", 50, "VPST: Players are not ready\n");
   }
 }
 
@@ -157,29 +157,29 @@
   else if (gLogCategory_STCV <= 50 && (gLogCategory_STCV != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_STCV, "[VPSpatialTutorialContentView stopPlayers]", 50, "VPST: Players are not playing\n");
   }
 }
 
 - (void)syncPlayersWithRate:(float)rate
 {
-  memset(&v20, 0, sizeof(v20));
-  HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v20, HostTimeClock);
   memset(&v19, 0, sizeof(v19));
+  HostTimeClock = CMClockGetHostTimeClock();
+  CMClockGetTime(&v19, HostTimeClock);
+  memset(&v18, 0, sizeof(v18));
   CMTimeMakeWithSeconds(&rhs, 0.1, 1000);
-  lhs = v20;
-  CMTimeAdd(&v19, &lhs, &rhs);
+  lhs = v19;
+  CMTimeAdd(&v18, &lhs, &rhs);
   playerStereo = self->_playerStereo;
   if (playerStereo)
   {
-    [(AVQueuePlayer *)playerStereo currentTime];
-    if ((v15 & 0x100000000) != 0)
+    objc_msgSend_currentTime(playerStereo);
+    if ((v14 & 0x100000000) != 0)
     {
       v7 = self->_playerStereo;
       if (v7)
       {
-        [(AVQueuePlayer *)v7 currentTime];
+        objc_msgSend_currentTime(v7);
       }
 
       else
@@ -195,9 +195,9 @@
 
   else
   {
+    v13 = 0;
     v14 = 0;
     v15 = 0;
-    v16 = 0;
   }
 
   *&rhs.value = *MEMORY[0x277CC08F0];
@@ -208,18 +208,17 @@ LABEL_9:
   {
     lhs = rhs;
     Seconds = CMTimeGetSeconds(&lhs);
-    rateCopy = rate;
-    LogPrintF();
+    LogPrintF(&gLogCategory_STCV, "[VPSpatialTutorialContentView syncPlayersWithRate:]", 50, "VPST: Setting playback time to %f with rate %f\n", Seconds, rate);
   }
 
-  v9 = self->_playerStereo;
+  v10 = self->_playerStereo;
   lhs = rhs;
-  v13 = v19;
-  [(AVQueuePlayer *)v9 setRate:&lhs time:&v13 atHostTime:COERCE_DOUBLE(__PAIR64__(HIDWORD(v19.value), LODWORD(rate))), *&Seconds, *&rateCopy];
+  v12 = v18;
+  [(AVQueuePlayer *)v10 setRate:&lhs time:&v12 atHostTime:COERCE_DOUBLE(__PAIR64__(HIDWORD(v18.value), LODWORD(rate)))];
   playerSpatial = self->_playerSpatial;
   lhs = rhs;
-  v13 = v19;
-  [(AVQueuePlayer *)playerSpatial setRate:&lhs time:&v13 atHostTime:COERCE_DOUBLE(__PAIR64__(HIDWORD(v19.value), LODWORD(rate)))];
+  v12 = v18;
+  [(AVQueuePlayer *)playerSpatial setRate:&lhs time:&v12 atHostTime:COERCE_DOUBLE(__PAIR64__(HIDWORD(v18.value), LODWORD(rate)))];
   self->_playersPlaying = rate == 1.0;
 }
 
@@ -262,7 +261,7 @@ _BYTE *__79__VPSpatialTutorialContentView_observeValueForKeyPath_ofObject_change
     {
       if (gLogCategory_STCV <= 50 && (gLogCategory_STCV != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_STCV, "[VPSpatialTutorialContentView observeValueForKeyPath:ofObject:change:context:]_block_invoke", 50, "VPST: Stereo player status changed to %ld\n", v5);
       }
 
       if (v5 != 1)
@@ -282,7 +281,7 @@ _BYTE *__79__VPSpatialTutorialContentView_observeValueForKeyPath_ofObject_change
 
       if (gLogCategory_STCV <= 50 && (gLogCategory_STCV != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_STCV, "[VPSpatialTutorialContentView observeValueForKeyPath:ofObject:change:context:]_block_invoke", 50, "VPST: Spatial player status changed to %ld\n", v5);
       }
 
       if (v5 != 1)
@@ -317,7 +316,7 @@ _BYTE *__79__VPSpatialTutorialContentView_observeValueForKeyPath_ofObject_change
     {
       if (gLogCategory_STCV <= 50 && (gLogCategory_STCV != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_STCV, "[VPSpatialTutorialContentView observeValueForKeyPath:ofObject:change:context:]_block_invoke", 50, "VPST: Stereo looper status changed to %ld\n", v8);
       }
 
       if (v8 != 1)
@@ -337,7 +336,7 @@ _BYTE *__79__VPSpatialTutorialContentView_observeValueForKeyPath_ofObject_change
 
       if (gLogCategory_STCV <= 50 && (gLogCategory_STCV != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_STCV, "[VPSpatialTutorialContentView observeValueForKeyPath:ofObject:change:context:]_block_invoke", 50, "VPST: Spatial looper status changed to %ld\n", v8);
       }
 
       if (v8 != 1)
@@ -356,7 +355,7 @@ LABEL_46:
 
   if (gLogCategory_STCV <= 90 && (gLogCategory_STCV != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_STCV, "[VPSpatialTutorialContentView observeValueForKeyPath:ofObject:change:context:]_block_invoke", 90, "VPST: Invalid context\n");
   }
 
 LABEL_47:

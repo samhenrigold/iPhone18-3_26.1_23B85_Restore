@@ -9,11 +9,11 @@
 
 + (uint64_t)ITUCountryCodeForISOCountryCode:()PhoneNumbers
 {
-  v0 = _PNCopyInternationalCodeForCountry();
-  v1 = v0;
-  if (v0 && [v0 integerValue] >= 1)
+  v3 = _PNCopyInternationalCodeForCountry();
+  v4 = v3;
+  if (v3 && [v3 integerValue] >= 1)
   {
-    integerValue = [v1 integerValue];
+    integerValue = [v4 integerValue];
   }
 
   else
@@ -26,10 +26,9 @@
 
 + (id)nationalDirectDialingPrefixForISOCountryCode:()PhoneNumbers
 {
-  v0 = *MEMORY[0x277CBECE8];
-  v1 = _PNCopyNationalDirectDialingPrefixForCountry();
+  v3 = _PNCopyNationalDirectDialingPrefixForCountry();
 
-  return v1;
+  return v3;
 }
 
 - (uint64_t)ITUCountryCode

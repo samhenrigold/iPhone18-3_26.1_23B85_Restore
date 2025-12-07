@@ -3,6 +3,7 @@
 - (NSArray)unsavedReminderIDsForCategorization;
 - (REMListAutoCategorizeContextChangeItem)initWithListChangeItem:(id)item;
 - (void)categorizeAutoCategorizationItemsWithReminderIDs:(id)ds;
+- (void)setShouldAutoCategorizeItems:(BOOL)items;
 @end
 
 @implementation REMListAutoCategorizeContextChangeItem
@@ -33,6 +34,13 @@
   shouldAutoCategorizeItems = [listChangeItem shouldAutoCategorizeItems];
 
   return shouldAutoCategorizeItems;
+}
+
+- (void)setShouldAutoCategorizeItems:(BOOL)items
+{
+  itemsCopy = items;
+  listChangeItem = [(REMListAutoCategorizeContextChangeItem *)self listChangeItem];
+  [listChangeItem setShouldAutoCategorizeItems:itemsCopy];
 }
 
 - (NSArray)unsavedReminderIDsForCategorization

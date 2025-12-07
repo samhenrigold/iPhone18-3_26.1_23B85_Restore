@@ -4,6 +4,7 @@
 - (void)resetMetrics;
 - (void)submitIntervalData;
 - (void)submitToCA:(id)a;
+- (void)updateMetric:(id)metric withTimestamp:(id)timestamp forEvent:(signed __int16)event withValue:(int)value;
 @end
 
 @implementation PLIntervalData
@@ -63,7 +64,66 @@
   }
 }
 
-uint64_t __64__PLIntervalData_updateMetric_withTimestamp_forEvent_withValue___block_invoke(uint64_t a1)
+- (void)updateMetric:(id)metric withTimestamp:(id)timestamp forEvent:(signed __int16)event withValue:(int)value
+{
+  v6 = *&value;
+  eventCopy = event;
+  v30 = *MEMORY[0x277D85DE8];
+  metricCopy = metric;
+  timestampCopy = timestamp;
+  metrics = [(PLIntervalData *)self metrics];
+  if (metrics)
+  {
+    v13 = metrics;
+    metrics2 = [(PLIntervalData *)self metrics];
+    v15 = [metrics2 objectForKeyedSubscript:metricCopy];
+
+    if (v15)
+    {
+      metrics3 = [(PLIntervalData *)self metrics];
+      v17 = [metrics3 objectForKeyedSubscript:metricCopy];
+
+      if ([MEMORY[0x277D3F180] debugEnabled])
+      {
+        v18 = objc_opt_class();
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __64__PLIntervalData_updateMetric_withTimestamp_forEvent_withValue___block_invoke;
+        block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        block[4] = v18;
+        if (qword_2811F4ED0 != -1)
+        {
+          dispatch_once(&qword_2811F4ED0, block);
+        }
+
+        if (byte_2811F4EAB == 1)
+        {
+          v19 = MEMORY[0x277CCACA8];
+          metricKey = [v17 metricKey];
+          v21 = [v19 stringWithFormat:@"Updating Metric : %@ Time : %@ Event : %d Value : %d", metricKey, timestampCopy, eventCopy, v6];
+
+          v22 = MEMORY[0x277D3F178];
+          v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
+          lastPathComponent = [v23 lastPathComponent];
+          v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLIntervalData updateMetric:withTimestamp:forEvent:withValue:]"];
+          [v22 logMessage:v21 fromFile:lastPathComponent fromFunction:v25 fromLineNumber:326];
+
+          v26 = PLLogCommon();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v29 = v21;
+            _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          }
+        }
+      }
+
+      [v17 updateMetricWithTimestamp:timestampCopy forEvent:eventCopy withValue:v6];
+    }
+  }
+}
+
+void *__64__PLIntervalData_updateMetric_withTimestamp_forEvent_withValue___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EAB = result;
@@ -72,32 +132,32 @@ uint64_t __64__PLIntervalData_updateMetric_withTimestamp_forEvent_withValue___bl
 
 - (void)resetMetrics
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   metrics = [(PLIntervalData *)self metrics];
 
   if (metrics)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     metrics2 = [(PLIntervalData *)self metrics];
-    v5 = [metrics2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [metrics2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         v8 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(metrics2);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * v8);
+          v9 = *(*(&v12 + 1) + 8 * v8);
           metrics3 = [(PLIntervalData *)self metrics];
           v11 = [metrics3 objectForKeyedSubscript:v9];
 
@@ -106,44 +166,42 @@ uint64_t __64__PLIntervalData_updateMetric_withTimestamp_forEvent_withValue___bl
         }
 
         while (v6 != v8);
-        v6 = [metrics2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [metrics2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitIntervalData
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   metrics = [(PLIntervalData *)self metrics];
 
   if (metrics)
   {
     v4 = objc_opt_new();
+    v31 = 0u;
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
     metrics2 = [(PLIntervalData *)self metrics];
-    v6 = [metrics2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v6 = [metrics2 countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v34;
+      v8 = *v32;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v34 != v8)
+          if (*v32 != v8)
           {
             objc_enumerationMutation(metrics2);
           }
 
-          v10 = *(*(&v33 + 1) + 8 * i);
+          v10 = *(*(&v31 + 1) + 8 * i);
           metrics3 = [(PLIntervalData *)self metrics];
           v12 = [metrics3 objectForKeyedSubscript:v10];
 
@@ -159,7 +217,7 @@ uint64_t __64__PLIntervalData_updateMetric_withTimestamp_forEvent_withValue___bl
           [v12 updateMetricWithTimestamp:currentInterval forEvent:2 withValue:0];
         }
 
-        v7 = [metrics2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+        v7 = [metrics2 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v7);
@@ -193,29 +251,26 @@ uint64_t __64__PLIntervalData_updateMetric_withTimestamp_forEvent_withValue___bl
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v38 = v21;
+          v36 = v21;
           _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    aggdValue = self->_aggdValue;
     ADClientSetValueForScalarKey();
-    v28 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v18, "intValue")}];
-    [v4 setObject:v28 forKeyedSubscript:@"TimeInterval"];
+    v27 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v18, "intValue")}];
+    [v4 setObject:v27 forKeyedSubscript:@"TimeInterval"];
 
     [(PLIntervalData *)self submitToCA:v4];
-    v29 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:self->_currentInterval sinceDate:self->_intervalDuration];
-    v30 = self->_currentInterval;
-    self->_currentInterval = v29;
+    v28 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:self->_currentInterval sinceDate:self->_intervalDuration];
+    v29 = self->_currentInterval;
+    self->_currentInterval = v28;
 
     self->_aggdValue = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __36__PLIntervalData_submitIntervalData__block_invoke(uint64_t a1)
+void *__36__PLIntervalData_submitIntervalData__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EAC = result;
@@ -234,75 +289,69 @@ uint64_t __36__PLIntervalData_submitIntervalData__block_invoke(uint64_t a1)
 
 id __29__PLIntervalData_submitToCA___block_invoke(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"TimeInterval";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"TimeInterval";
   v2 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v10[0] = v2;
-  v9[1] = @"ScreenOnDuration";
+  v9[0] = v2;
+  v8[1] = @"ScreenOnDuration";
   v3 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v10[1] = v3;
-  v9[2] = @"WakeDuration";
+  v9[1] = v3;
+  v8[2] = @"WakeDuration";
   v4 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v10[2] = v4;
-  v9[3] = @"AudioOnDuration";
+  v9[2] = v4;
+  v8[3] = @"AudioOnDuration";
   v5 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
 
 id __29__PLIntervalData_submitToCA___block_invoke_2(uint64_t a1)
 {
-  v14[8] = *MEMORY[0x277D85DE8];
-  v13[0] = @"TimeInterval";
+  v13[8] = *MEMORY[0x277D85DE8];
+  v12[0] = @"TimeInterval";
   v2 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v14[0] = v2;
-  v13[1] = @"BatteryLevel";
+  v13[0] = v2;
+  v12[1] = @"BatteryLevel";
   v3 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v14[1] = v3;
-  v13[2] = @"ConnectedState";
+  v13[1] = v3;
+  v12[2] = @"ConnectedState";
   v4 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v14[2] = v4;
-  v13[3] = @"ChargingState";
+  v13[2] = v4;
+  v12[3] = @"ChargingState";
   v5 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v14[3] = v5;
-  v13[4] = @"AdapterType";
+  v13[3] = v5;
+  v12[4] = @"AdapterType";
   v6 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v14[4] = v6;
-  v13[5] = @"BatteryTemperature";
+  v13[4] = v6;
+  v12[5] = @"BatteryTemperature";
   v7 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v14[5] = v7;
-  v13[6] = @"ChargerCurrent";
+  v13[5] = v7;
+  v12[6] = @"ChargerCurrent";
   v8 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v14[6] = v8;
-  v13[7] = @"ChargerVoltage";
+  v13[6] = v8;
+  v12[7] = @"ChargerVoltage";
   v9 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v14[7] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:8];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[7] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:8];
 
   return v10;
 }
 
 id __29__PLIntervalData_submitToCA___block_invoke_3(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"TimeInterval";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"TimeInterval";
   v2 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v9[0] = v2;
-  v8[1] = @"PowerlogInit";
+  v8[0] = v2;
+  v7[1] = @"PowerlogInit";
   v3 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v9[1] = v3;
-  v8[2] = @"LockState";
+  v8[1] = v3;
+  v7[2] = @"LockState";
   v4 = [*(a1 + 32) objectForKeyedSubscript:?];
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }

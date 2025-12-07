@@ -115,7 +115,7 @@
   v6 = _displayNameWithAbbreviation;
   if (!_displayNameWithAbbreviation)
   {
-    v7 = CKFrameworkBundle();
+    v7 = CKFrameworkBundle(0);
     v6 = [v7 localizedStringForKey:@"NO_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 

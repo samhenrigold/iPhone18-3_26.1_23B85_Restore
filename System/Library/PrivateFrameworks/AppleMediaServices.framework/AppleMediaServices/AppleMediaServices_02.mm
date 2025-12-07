@@ -1,2142 +1,3 @@
-void sub_1000404B8(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = +[AMSLogConfig sharedAccountsDaemonConfig];
-  if (!v4)
-  {
-    v4 = +[AMSLogConfig sharedConfig];
-  }
-
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = AMSLogableError();
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v9;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] TSDataSync account change handled with error %{public}@", &v10, 0x20u);
-  }
-}
-
-void sub_100040880(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (v3)
-  {
-    v4 = +[AMSLogConfig sharedConfig];
-    if (!v4)
-    {
-      v4 = +[AMSLogConfig sharedConfig];
-    }
-
-    v5 = [v4 OSLogObject];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v6 = *(a1 + 32);
-      v7 = objc_opt_class();
-      v8 = AMSLogKey();
-      v9 = *(a1 + 40);
-      v10 = 138544130;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Error during sign-out in amsaccountsd for: %{public}@ is %{public}@", &v10, 0x2Au);
-    }
-  }
-}
-
-void sub_1000409B0(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (v3)
-  {
-    v4 = +[AMSLogConfig sharedConfig];
-    if (!v4)
-    {
-      v4 = +[AMSLogConfig sharedConfig];
-    }
-
-    v5 = [v4 OSLogObject];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v6 = *(a1 + 32);
-      v7 = objc_opt_class();
-      v8 = AMSLogKey();
-      v9 = *(a1 + 40);
-      v10 = 138544130;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Error during sign-out in amsaccountsd for: %{public}@ is %{public}@", &v10, 0x2Au);
-    }
-  }
-}
-
-BOOL sub_10004198C(uint64_t a1, void *a2)
-{
-  v5 = +[AMSLogConfig sharedBiometricsConfig];
-  if (!v5)
-  {
-    v5 = +[AMSLogConfig sharedConfig];
-  }
-
-  v6 = [v5 OSLogObject];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = v8;
-    v10 = AMSLogKey();
-    v2 = [*(a1 + 32) account];
-    v11 = [v2 ams_DSID];
-    AMSHashIfNeeded();
-    v13 = v12 = a2;
-    *buf = 138543874;
-    v81 = v8;
-    v82 = 2114;
-    v83 = v10;
-    v84 = 2114;
-    v85 = v13;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Performing token update. DSID: %{public}@", buf, 0x20u);
-
-    a2 = v12;
-  }
-
-  v14 = *(a1 + 32);
-  v79 = 0;
-  v15 = [v14 _isSupported:&v79];
-  v16 = v79;
-  if (v15)
-  {
-    if ([*(a1 + 32) isUserInitiated])
-    {
-      goto LABEL_9;
-    }
-
-    v17 = *(a1 + 32);
-    v78 = v16;
-    v18 = [v17 _canAttemptTokenUpdate:&v78];
-    v19 = v78;
-
-    if (v18)
-    {
-      v16 = v19;
-LABEL_9:
-      v20 = &_s18AppleMediaServices16RemoteSignInTaskC7performSDySSSbGyYaKFTjTu_ptr;
-      v21 = [*(a1 + 32) account];
-      v22 = [AMSBiometrics stateForAccount:v21];
-
-      v77 = v22;
-      v23 = +[AMSLogConfig sharedBiometricsConfig];
-      if (!v23)
-      {
-        v23 = +[AMSLogConfig sharedConfig];
-      }
-
-      v24 = [v23 OSLogObject];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-      {
-        v73 = a2;
-        v25 = AMSLogKey();
-        v26 = *(a1 + 32);
-        v27 = objc_opt_class();
-        v28 = v27;
-        if (v25)
-        {
-          v2 = AMSLogKey();
-          [NSString stringWithFormat:@"%@: [%@] ", v28, v2];
-        }
-
-        else
-        {
-          [NSString stringWithFormat:@"%@: ", v27];
-        }
-        v29 = ;
-        *buf = 138543618;
-        v81 = v29;
-        v82 = 2048;
-        v83 = v22;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Current biometrics state = %ld", buf, 0x16u);
-        a2 = v73;
-        if (v25)
-        {
-
-          v29 = v2;
-        }
-
-        v20 = &_s18AppleMediaServices16RemoteSignInTaskC7performSDySSSbGyYaKFTjTu_ptr;
-      }
-
-      v45 = *(a1 + 32);
-      v76 = v16;
-      [v45 _presentConfirmation:&v76 currentBiometricsState:&v77];
-      v46 = v76;
-
-      if (!v46 && v77 != 2)
-      {
-        v77 = 1;
-        [AMSDefaults setDeviceBiometricsState:1];
-      }
-
-      v47 = *(a1 + 32);
-      v75 = v46;
-      [v47 _updateTokens:&v75 currentBiometricsState:&v77];
-      v16 = v75;
-
-      v48 = v77;
-      v49 = [*(a1 + 32) account];
-      v50 = [AMSBiometrics setState:v48 forAccount:v49];
-      v74[0] = _NSConcreteStackBlock;
-      v74[1] = 3221225472;
-      v74[2] = sub_10004221C;
-      v74[3] = &unk_1002AFF90;
-      v74[4] = *(a1 + 32);
-      v74[5] = v77;
-      [v50 resultWithCompletion:v74];
-
-      v51 = +[AMSLogConfig sharedBiometricsConfig];
-      if (!v51)
-      {
-        v51 = +[AMSLogConfig sharedConfig];
-      }
-
-      v52 = [v51 OSLogObject];
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
-      {
-        v53 = AMSLogKey();
-        v54 = *(a1 + 32);
-        v55 = objc_opt_class();
-        v56 = v55;
-        if (v53)
-        {
-          v20 = AMSLogKey();
-          [NSString stringWithFormat:@"%@: [%@] ", v56, v20];
-        }
-
-        else
-        {
-          [NSString stringWithFormat:@"%@: ", v55];
-        }
-        v57 = ;
-        *buf = 138543618;
-        v81 = v57;
-        v82 = 2048;
-        v83 = v77;
-        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "%{public}@Set biometrics state = %ld", buf, 0x16u);
-        if (v53)
-        {
-
-          v57 = v20;
-        }
-      }
-
-      v37 = v16 == 0;
-      v58 = +[AMSLogConfig sharedBiometricsConfig];
-      v59 = v58;
-      if (v16)
-      {
-        if (!v58)
-        {
-          v59 = +[AMSLogConfig sharedConfig];
-        }
-
-        v60 = [v59 OSLogObject];
-        if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_52;
-        }
-
-        v61 = *(a1 + 32);
-        v62 = objc_opt_class();
-        v63 = v62;
-        v64 = AMSLogKey();
-        *buf = 138543874;
-        v81 = v62;
-        v82 = 2114;
-        v83 = v64;
-        v84 = 2114;
-        v85 = v16;
-        v65 = "%{public}@: [%{public}@] Completed with error: %{public}@";
-        v66 = v60;
-        v67 = OS_LOG_TYPE_ERROR;
-      }
-
-      else
-      {
-        if (!v58)
-        {
-          v59 = +[AMSLogConfig sharedConfig];
-        }
-
-        v60 = [v59 OSLogObject];
-        if (!os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_52;
-        }
-
-        v68 = *(a1 + 32);
-        v69 = objc_opt_class();
-        v63 = v69;
-        v64 = AMSLogKey();
-        *buf = 138543874;
-        v81 = v69;
-        v82 = 2114;
-        v83 = v64;
-        v84 = 2048;
-        v85 = v77;
-        v65 = "%{public}@: [%{public}@] Completed token update task with biometricsState: %lu";
-        v66 = v60;
-        v67 = OS_LOG_TYPE_DEFAULT;
-      }
-
-      _os_log_impl(&_mh_execute_header, v66, v67, v65, buf, 0x20u);
-
-LABEL_52:
-      [*(a1 + 32) _sendMetricsForUpdate];
-      v70 = v16;
-      goto LABEL_53;
-    }
-
-    v38 = +[AMSLogConfig sharedBiometricsConfig];
-    if (!v38)
-    {
-      v38 = +[AMSLogConfig sharedConfig];
-    }
-
-    v39 = [v38 OSLogObject];
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-    {
-      v40 = AMSLogKey();
-      v41 = *(a1 + 32);
-      v42 = objc_opt_class();
-      v43 = v42;
-      if (v40)
-      {
-        a1 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v43, a1];
-      }
-
-      else
-      {
-        [NSString stringWithFormat:@"%@: ", v42];
-      }
-      v44 = ;
-      *buf = 138543362;
-      v81 = v44;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "%{public}@We did not attempt to create a new token.", buf, 0xCu);
-      if (v40)
-      {
-
-        v44 = a1;
-      }
-    }
-
-    if (a2)
-    {
-      v72 = v19;
-      v37 = 0;
-      *a2 = v19;
-    }
-
-    else
-    {
-      v37 = 0;
-    }
-
-    v16 = v19;
-  }
-
-  else
-  {
-    v30 = +[AMSLogConfig sharedBiometricsConfig];
-    if (!v30)
-    {
-      v30 = +[AMSLogConfig sharedConfig];
-    }
-
-    v31 = [v30 OSLogObject];
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-    {
-      v32 = *(a1 + 32);
-      v33 = objc_opt_class();
-      v34 = v33;
-      v35 = AMSLogKey();
-      *buf = 138543874;
-      v81 = v33;
-      v82 = 2114;
-      v83 = v35;
-      v84 = 2114;
-      v85 = v16;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@]Biometrics Update Failed with error: %{public}@", buf, 0x20u);
-    }
-
-    if (a2)
-    {
-      v36 = v16;
-      v37 = 0;
-LABEL_53:
-      *a2 = v16;
-      goto LABEL_54;
-    }
-
-    v37 = 0;
-  }
-
-LABEL_54:
-
-  return v37;
-}
-
-void sub_10004221C(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  if (v5)
-  {
-    v6 = +[AMSLogConfig sharedBiometricsConfig];
-    if (!v6)
-    {
-      v6 = +[AMSLogConfig sharedConfig];
-    }
-
-    v7 = [v6 OSLogObject];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v3 = v9;
-      v10 = AMSLogKey();
-      *buf = 138543874;
-      v32 = v9;
-      v33 = 2114;
-      v34 = v10;
-      v35 = 2114;
-      v36 = v5;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@]Setting biometric state completed with error: %{public}@", buf, 0x20u);
-    }
-
-    v11 = [v5 domain];
-    if (![v11 isEqualToString:ACErrorDomain])
-    {
-      goto LABEL_18;
-    }
-
-    v12 = [v5 code];
-
-    if (v12 == 5)
-    {
-      v13 = +[AMSLogConfig sharedBiometricsConfig];
-      if (!v13)
-      {
-        v13 = +[AMSLogConfig sharedConfig];
-      }
-
-      v14 = [v13 OSLogObject];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-      {
-        v15 = AMSLogKey();
-        v16 = *(a1 + 32);
-        v17 = objc_opt_class();
-        v18 = v17;
-        if (v15)
-        {
-          v3 = AMSLogKey();
-          [NSString stringWithFormat:@"%@: [%@] ", v18, v3];
-        }
-
-        else
-        {
-          [NSString stringWithFormat:@"%@: ", v17];
-        }
-        v19 = ;
-        *buf = 138543362;
-        v32 = v19;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Will attempt to set biometrics on existing account", buf, 0xCu);
-        if (v15)
-        {
-
-          v19 = v3;
-        }
-      }
-
-      v11 = +[ACAccountStore ams_sharedAccountStore];
-      v30 = [*(a1 + 32) account];
-      v28 = [v30 ams_altDSID];
-      v29 = [*(a1 + 32) account];
-      v20 = [v29 ams_DSID];
-      v21 = [*(a1 + 32) account];
-      v22 = [v21 username];
-      v23 = [*(a1 + 32) account];
-      v24 = [v23 accountType];
-      v25 = [v24 identifier];
-      v26 = [v11 ams_accountWithAltDSID:v28 DSID:v20 username:v22 accountTypeIdentifier:v25];
-
-      v27 = [AMSBiometrics setState:*(a1 + 40) forAccount:v26];
-LABEL_18:
-    }
-  }
-}
-
-void sub_1000438F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_100043918(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_100043930(double *a1, void *a2)
-{
-  v4 = a2;
-  v5 = [v4 objectForKeyedSubscript:*(a1 + 4)];
-  v6 = v5;
-  if (v5 && (v7 = a1[8], [v5 doubleValue], v7 - v8 < 15.0))
-  {
-    v9 = +[AMSLogConfig sharedBiometricsConfig];
-    if (!v9)
-    {
-      v9 = +[AMSLogConfig sharedConfig];
-    }
-
-    v10 = [v9 OSLogObject];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      v11 = AMSLogKey();
-      v12 = *(a1 + 5);
-      v13 = objc_opt_class();
-      v14 = v13;
-      if (v11)
-      {
-        v2 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v14, v2];
-      }
-
-      else
-      {
-        [NSString stringWithFormat:@"%@: ", v13];
-      }
-      v15 = ;
-      v26 = *(a1 + 8);
-      v27 = *(a1 + 4);
-      [v6 doubleValue];
-      *buf = 138544386;
-      v35 = v15;
-      v36 = 2048;
-      v37 = v26;
-      v38 = 2114;
-      v39 = v27;
-      v40 = 2048;
-      v41 = 0x402E000000000000;
-      v42 = 2048;
-      v43 = v28;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to take token update lock. Current uptime (%f) for %{public}@ is within %f seconds of existing lock uptime, %f.", buf, 0x34u);
-      if (v11)
-      {
-
-        v15 = v2;
-      }
-    }
-
-    *(*(*(a1 + 6) + 8) + 24) = 0;
-    v32 = @"errorIsResultOfLockTimeout";
-    v33 = &__kCFBooleanTrue;
-    v25 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-    v29 = AMSCustomError();
-    v30 = *(*(a1 + 7) + 8);
-    v31 = *(v30 + 40);
-    *(v30 + 40) = v29;
-  }
-
-  else
-  {
-    v16 = +[AMSLogConfig sharedBiometricsConfig];
-    if (!v16)
-    {
-      v16 = +[AMSLogConfig sharedConfig];
-    }
-
-    v17 = [v16 OSLogObject];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-    {
-      v18 = AMSLogKey();
-      v19 = *(a1 + 5);
-      v20 = objc_opt_class();
-      v21 = v20;
-      if (v18)
-      {
-        v2 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v21, v2];
-      }
-
-      else
-      {
-        [NSString stringWithFormat:@"%@: ", v20];
-      }
-      v22 = ;
-      v23 = *(a1 + 4);
-      v24 = *(a1 + 8);
-      *buf = 138543874;
-      v35 = v22;
-      v36 = 2114;
-      v37 = v23;
-      v38 = 2048;
-      v39 = v24;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Updated lock uptime for %{public}@ to %f.", buf, 0x20u);
-      if (v18)
-      {
-
-        v22 = v2;
-      }
-    }
-
-    v25 = [NSNumber numberWithDouble:a1[8]];
-    [v4 setObject:v25 forKeyedSubscript:*(a1 + 4)];
-  }
-}
-
-id sub_1000448A8(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = +[AMSProcessInfo currentProcess];
-  v5 = [NSURLSessionConfiguration ams_configurationWithProcessInfo:v4 bag:*(a1 + 32)];
-
-  v6 = [[AMSURLSession alloc] initWithConfiguration:v5];
-  [*(a1 + 40) setSession:v6];
-
-  v7 = *(a1 + 40);
-  v8 = [v7 session];
-  [v8 setDelegate:v7];
-
-  v9 = [*(a1 + 40) session];
-  v10 = [*(a1 + 40) activity];
-  v11 = [v9 dataTaskPromiseWithRequest:v3 activity:v10];
-
-  return v11;
-}
-
-void sub_100044BC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100044BF0(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v8 = +[AMSLogConfig sharedBiometricsConfig];
-  if (!v8)
-  {
-    v8 = +[AMSLogConfig sharedConfig];
-  }
-
-  v9 = [v8 OSLogObject];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = objc_opt_class();
-    v11 = v10;
-    v12 = AMSLogKey();
-    v13 = 138544130;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
-    v19 = 2114;
-    v20 = v6;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Recevied dialog result from delegate. Result: %{public}@, error: %{public}@", &v13, 0x2Au);
-  }
-
-  [*(a1 + 32) finishWithResult:v5 error:v6];
-}
-
-void sub_100044FE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100045014(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v8 = +[AMSLogConfig sharedBiometricsConfig];
-  if (!v8)
-  {
-    v8 = +[AMSLogConfig sharedConfig];
-  }
-
-  v9 = [v8 OSLogObject];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = objc_opt_class();
-    v14 = v10;
-    v11 = AMSLogKey();
-    v12 = AMSHashIfNeeded();
-    v13 = AMSLogableError();
-    *buf = 138544130;
-    v16 = v10;
-    v17 = 2114;
-    v18 = v11;
-    v19 = 2114;
-    v20 = v12;
-    v21 = 2114;
-    v22 = v13;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received authenticate result from delegate. Result: %{public}@, error: %{public}@", buf, 0x2Au);
-  }
-
-  (*(*(a1 + 32) + 16))();
-}
-
-void sub_10004547C(id a1)
-{
-  qword_1002E31B0 = objc_alloc_init(AMSThreadSafeDictionary);
-
-  _objc_release_x1();
-}
-
-uint64_t sub_100045638(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() _sharedTokenLock];
-  [v5 lock];
-
-  v6 = [*(a1 + 32) token];
-  v71 = [v6 base64EncodedStringWithOptions:0];
-
-  v7 = +[AMSLogConfig sharedAccountsDaemonConfig];
-  if (!v7)
-  {
-    v7 = +[AMSLogConfig sharedConfig];
-  }
-
-  v8 = [v7 OSLogObject];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = *(a1 + 32);
-    v70 = a2;
-    v10 = objc_opt_class();
-    v11 = AMSLogKey();
-    v12 = [*(a1 + 32) account];
-    v13 = [v12 ams_DSID];
-    v14 = AMSHashIfNeeded();
-    v15 = [*(a1 + 32) environment];
-    v16 = AMSHashIfNeeded();
-    *buf = 138544386;
-    v75 = v10;
-    a2 = v70;
-    v76 = 2114;
-    v77 = v11;
-    v78 = 2114;
-    v79 = v14;
-    v80 = 2114;
-    v81 = v15;
-    v82 = 2114;
-    v83 = v16;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Performing token registration. (account: %{public}@; environment: %{public}@; token: %{public}@)", buf, 0x34u);
-  }
-
-  v17 = [*(a1 + 32) token];
-  if (!v17 || (v18 = v17, [*(a1 + 32) bag], v19 = objc_claimAutoreleasedReturnValue(), v19, v18, !v19))
-  {
-    v20 = [*(a1 + 32) bag];
-    v21 = v20 ? @"true" : @"false";
-    v22 = [*(a1 + 32) token];
-    v23 = v22 ? @"true" : @"false";
-    v68 = v21;
-    v69 = v23;
-    v24 = AMSErrorWithFormat();
-
-    if (v24)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  v25 = *(a1 + 32);
-  v26 = objc_opt_class();
-  v27 = [*(a1 + 32) account];
-  v28 = [*(a1 + 32) environment];
-  v29 = [*(a1 + 32) token];
-  LOBYTE(v26) = [v26 shouldPerformForAccount:v27 environment:v28 token:v29];
-
-  if ((v26 & 1) == 0)
-  {
-    v30 = AMSError();
-    if (v30)
-    {
-      v24 = v30;
-LABEL_17:
-      v31 = 0;
-      v32 = 0;
-      goto LABEL_23;
-    }
-  }
-
-  v33 = objc_alloc_init(NSMutableDictionary);
-  v34 = +[AMSDevice serialNumber];
-  [v33 setObject:v34 forKeyedSubscript:@"serial-number"];
-
-  [v33 setObject:v71 forKeyedSubscript:@"token"];
-  v35 = [*(a1 + 32) bag];
-  v36 = [*(a1 + 32) account];
-  v37 = [v35 URLForKey:@"registerHardwareAsset" account:v36];
-
-  v38 = [AMSURLRequestEncoder alloc];
-  v39 = [*(a1 + 32) bag];
-  v40 = [v38 initWithBag:v39];
-
-  [v40 setRequestEncoding:3];
-  v41 = [*(a1 + 32) account];
-  [v40 setAccount:v41];
-
-  v42 = [v40 requestWithMethod:4 bagURL:v37 parameters:v33];
-  v73 = 0;
-  v31 = [v42 resultWithError:&v73];
-  v24 = v73;
-
-  if (!v24 && v31)
-  {
-    v43 = +[AMSURLSession defaultSession];
-    v44 = [v43 dataTaskPromiseWithRequest:v31];
-
-    v72 = 0;
-    v45 = [v44 resultWithError:&v72];
-    v24 = v72;
-  }
-
-  if (!v24)
-  {
-    v54 = *(a1 + 32);
-    v55 = [v54 token];
-    [v54 _updateCachedCriteriaWithToken:v55];
-
-    v56 = +[AMSLogConfig sharedAccountsDaemonConfig];
-    if (!v56)
-    {
-      v56 = +[AMSLogConfig sharedConfig];
-    }
-
-    v57 = [v56 OSLogObject];
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
-    {
-      v58 = *(a1 + 32);
-      v59 = objc_opt_class();
-      v60 = AMSLogKey();
-      *buf = 138543618;
-      v75 = v59;
-      v76 = 2114;
-      v77 = v60;
-      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Token registration succeeded", buf, 0x16u);
-    }
-
-    v24 = 0;
-    v52 = 1;
-    goto LABEL_34;
-  }
-
-  v32 = 1;
-LABEL_23:
-  v46 = [AMSLogConfig sharedAccountsDaemonConfig:v68];
-  if (!v46)
-  {
-    v46 = +[AMSLogConfig sharedConfig];
-  }
-
-  v47 = [v46 OSLogObject];
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-  {
-    v48 = *(a1 + 32);
-    v49 = objc_opt_class();
-    v50 = AMSLogKey();
-    *buf = 138543874;
-    v75 = v49;
-    v76 = 2114;
-    v77 = v50;
-    v78 = 2114;
-    v79 = v24;
-    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Token registration failed. %{public}@", buf, 0x20u);
-  }
-
-  v51 = v24;
-  v52 = 0;
-  v53 = 0;
-  *a2 = v24;
-  if (v32)
-  {
-LABEL_34:
-    v61 = *(a1 + 32);
-    v62 = objc_opt_class();
-    v63 = [*(a1 + 32) account];
-    v64 = [*(a1 + 32) environment];
-    [v62 _updateThrottleForAccount:v63 environment:v64];
-
-    v53 = v52;
-  }
-
-  v65 = *(a1 + 32);
-  v66 = [objc_opt_class() _sharedTokenLock];
-  [v66 unlock];
-
-  return v53;
-}
-
-void sub_100046274(id a1)
-{
-  qword_1002E31C0 = objc_alloc_init(NSLock);
-
-  _objc_release_x1();
-}
-
-void sub_1000469D4(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() _task];
-  v4 = [v3 perform];
-  v20 = 0;
-  v5 = [v4 resultWithError:&v20];
-  v6 = v20;
-
-  if (v6)
-  {
-    v7 = +[AMSLogConfig sharedAccountsDaemonConfig];
-    if (!v7)
-    {
-      v7 = +[AMSLogConfig sharedConfig];
-    }
-
-    v8 = [v7 OSLogObject];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = AMSLogKey();
-      v12 = AMSLogableError();
-      *buf = 138543874;
-      v22 = v10;
-      v23 = 2114;
-      v24 = v11;
-      v25 = 2114;
-      v26 = v12;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to perform registration from polling. Error: %{public}@", buf, 0x20u);
-    }
-  }
-
-  if (v5)
-  {
-    v13 = +[AMSLogConfig sharedAccountsDaemonConfig];
-    if (!v13)
-    {
-      v13 = +[AMSLogConfig sharedConfig];
-    }
-
-    v14 = [v13 OSLogObject];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = *(a1 + 32);
-      v16 = objc_opt_class();
-      v17 = AMSLogKey();
-      v18 = [v5 BOOLValue];
-      *buf = 138543874;
-      v22 = v16;
-      v23 = 2114;
-      v24 = v17;
-      v25 = 1024;
-      LODWORD(v26) = v18;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Polled registration complete. Did register: %i", buf, 0x1Cu);
-    }
-
-    v19 = +[NSDate now];
-    [AMSDefaults setLastCarrierOfferRegistrationDate:v19];
-  }
-
-  [*(a1 + 32) _registerForNextAttemptWithScheduler:*(a1 + 40)];
-}
-
-void sub_100047230(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v2 - 24));
-  _Unwind_Resume(a1);
-}
-
-void sub_100047254(uint64_t a1, void *a2)
-{
-  v4 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = +[AMSLogConfig sharedConfig];
-  if (!v6)
-  {
-    v6 = +[AMSLogConfig sharedConfig];
-  }
-
-  v7 = [v6 OSLogObject];
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    v8 = AMSLogKey();
-    v9 = objc_opt_class();
-    v10 = v9;
-    if (v8)
-    {
-      v2 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v10, v2];
-    }
-
-    else
-    {
-      [NSString stringWithFormat:@"%@: ", v9];
-    }
-    v11 = ;
-    LODWORD(buf) = 138543362;
-    *(&buf + 4) = v11;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Starting cert task", &buf, 0xCu);
-    if (v8)
-    {
-
-      v11 = v2;
-    }
-  }
-
-  *&buf = 0;
-  *(&buf + 1) = &buf;
-  v18 = 0x3032000000;
-  v19 = sub_10004751C;
-  v20 = sub_10004752C;
-  v21 = 0;
-  v12 = [WeakRetained options];
-  v13 = (*(&buf + 1) + 40);
-  obj = *(*(&buf + 1) + 40);
-  v14 = [WeakRetained _baaOptionsWithOptions:v12 error:&obj];
-  objc_storeStrong(v13, obj);
-
-  if (*(*(&buf + 1) + 40))
-  {
-    [v4 finishWithError:?];
-  }
-
-  else
-  {
-    v15 = v4;
-    DeviceIdentityIssueClientCertificateWithCompletion();
-  }
-
-  _Block_object_dispose(&buf, 8);
-}
-
-void sub_1000474FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_10004751C(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_100047534(uint64_t a1, uint64_t a2, void *a3, void *a4)
-{
-  v7 = a3;
-  v48 = a4;
-  objc_storeStrong((*(*(a1 + 48) + 8) + 40), a4);
-  v8 = +[AMSLogConfig sharedConfig];
-  if (!v8)
-  {
-    v8 = +[AMSLogConfig sharedConfig];
-  }
-
-  v9 = [v8 OSLogObject];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = *(a1 + 32);
-    v11 = objc_opt_class();
-    v12 = v11;
-    v13 = AMSLogKey();
-    *buf = 138544130;
-    *&buf[4] = v11;
-    *&buf[12] = 2114;
-    *&buf[14] = v13;
-    *&buf[22] = 1024;
-    LODWORD(v61[0]) = a2 != 0;
-    WORD2(v61[0]) = 2048;
-    *(v61 + 6) = [v7 count];
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received certs. (hasRefKey: %d; certCount: %ld)", buf, 0x26u);
-  }
-
-  v14 = *(*(*(a1 + 48) + 8) + 40);
-  if (!(a2 | v14))
-  {
-    v15 = AMSError();
-    v16 = *(*(a1 + 48) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
-
-    v14 = *(*(*(a1 + 48) + 8) + 40);
-  }
-
-  if (!v14 && ![v7 count])
-  {
-    v18 = AMSError();
-    v19 = *(*(a1 + 48) + 8);
-    v20 = *(v19 + 40);
-    *(v19 + 40) = v18;
-  }
-
-  if (*(*(*(a1 + 48) + 8) + 40))
-  {
-    v21 = 0;
-LABEL_17:
-    v35 = +[AMSLogConfig sharedConfig];
-    if (!v35)
-    {
-      v35 = +[AMSLogConfig sharedConfig];
-    }
-
-    v36 = [v35 OSLogObject];
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-    {
-      v37 = *(a1 + 32);
-      v38 = objc_opt_class();
-      v39 = v38;
-      v40 = AMSLogKey();
-      v41 = *(*(*(a1 + 48) + 8) + 40);
-      *buf = 138543874;
-      *&buf[4] = v38;
-      *&buf[12] = 2114;
-      *&buf[14] = v40;
-      *&buf[22] = 2114;
-      v61[0] = v41;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Cert task finished with error: %{public}@", buf, 0x20u);
-    }
-
-    v23 = 0;
-    goto LABEL_22;
-  }
-
-  v22 = AMSSetLogKeyIfNeeded();
-  *buf = 0;
-  *&buf[8] = buf;
-  *&buf[16] = 0x2020000000;
-  v61[0] = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
-  v51[0] = _NSConcreteStackBlock;
-  v51[1] = 3221225472;
-  v51[2] = sub_100047B3C;
-  v51[3] = &unk_1002B0110;
-  v54 = buf;
-  v23 = objc_alloc_init(NSMutableArray);
-  v52 = v23;
-  v55 = &v56;
-  v24 = v22;
-  v53 = v24;
-  [v7 enumerateObjectsUsingBlock:v51];
-  v25 = [*(a1 + 32) account];
-  v26 = [AMSCertificateManager shouldUseAccountSpecificCertificatesForAccount:v25];
-
-  if (v26)
-  {
-    v27 = [*(a1 + 32) account];
-    v28 = *(*&buf[8] + 24);
-    v29 = v57[3];
-    v30 = [*(a1 + 32) options];
-    +[AMSCertificateManager saveCertificatesForAccount:leafCertificate:intermediateCertificate:privateKey:forSignaturePurpose:](AMSCertificateManager, "saveCertificatesForAccount:leafCertificate:intermediateCertificate:privateKey:forSignaturePurpose:", v27, v28, v29, a2, [v30 purpose]);
-  }
-
-  else
-  {
-    v31 = *(*&buf[8] + 24);
-    v32 = v57[3];
-    v27 = [*(a1 + 32) options];
-    v33 = *(*(a1 + 48) + 8);
-    v50 = *(v33 + 40);
-    [AMSKeychain storePrimaryCert:v31 intermediateCert:v32 privateKey:a2 options:v27 error:&v50];
-    v34 = v50;
-    v30 = *(v33 + 40);
-    *(v33 + 40) = v34;
-  }
-
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(buf, 8);
-
-  if (*(*(*(a1 + 48) + 8) + 40))
-  {
-    v21 = v23;
-    goto LABEL_17;
-  }
-
-  v21 = +[AMSLogConfig sharedConfig];
-  if (!v21)
-  {
-    v21 = +[AMSLogConfig sharedConfig];
-  }
-
-  v35 = [v21 OSLogObject];
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
-  {
-    v44 = *(a1 + 32);
-    v45 = objc_opt_class();
-    v46 = v45;
-    v47 = AMSLogKey();
-    *buf = 138543618;
-    *&buf[4] = v45;
-    *&buf[12] = 2114;
-    *&buf[14] = v47;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Cert task finished successfully", buf, 0x16u);
-  }
-
-LABEL_22:
-
-  v42 = *(a1 + 40);
-  v43 = [v23 copy];
-  [v42 finishWithResult:v43 error:*(*(*(a1 + 48) + 8) + 40)];
-}
-
-void sub_100047B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_100047B3C(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  v6 = v5;
-  if (a3 == 1)
-  {
-    *(*(*(a1 + 56) + 8) + 24) = v5;
-    v7 = *(a1 + 56);
-    goto LABEL_5;
-  }
-
-  if (!a3)
-  {
-    *(*(*(a1 + 48) + 8) + 24) = v5;
-    v7 = *(a1 + 48);
-LABEL_5:
-    v8 = SecCertificateCopyData(*(*(v7 + 8) + 24));
-    [*(a1 + 32) addObject:v8];
-    goto LABEL_11;
-  }
-
-  v8 = +[AMSLogConfig sharedAttestationConfig];
-  if (!v8)
-  {
-    v8 = +[AMSLogConfig sharedConfig];
-  }
-
-  v9 = [v8 OSLogObject];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    v10 = *(a1 + 40);
-    v11 = [NSNumber numberWithUnsignedInteger:a3];
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2114;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "AMSClientCertificateTask: [%{public}@] Processing more certificates than expected: %{public}@", &v12, 0x16u);
-  }
-
-LABEL_11:
-}
-
-id sub_100048564(void *a1)
-{
-  v1 = a1;
-  v2 = v1;
-  if (v1)
-  {
-    if (([v1 amsd_isCKChangeTokenExpiredError] & 1) == 0 && (objc_msgSend(v2, "amsd_isCKManateeUnavailable") & 1) == 0 && (objc_msgSend(v2, "amsd_isCKMissingManateeIdentity") & 1) == 0 && (objc_msgSend(v2, "amsd_isCKPartialFailureError") & 1) == 0 && (objc_msgSend(v2, "amsd_isCKServerRecordChangedError") & 1) == 0 && (objc_msgSend(v2, "amsd_isCKThrottledError") & 1) == 0)
-    {
-      [v2 amsd_isCKUnknownItemError];
-    }
-
-    v4 = objc_alloc_init(NSMutableDictionary);
-    v5 = [v2 userInfo];
-    v6 = [v5 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v7 = v6;
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    if (v7)
-    {
-      v8 = [v7 ams_mapWithTransform:&stru_1002B01A0];
-      [v4 setObject:v8 forKeyedSubscript:@"AMSDCloudDataPartialFailureErrorsKey"];
-    }
-
-    v9 = [v2 userInfo];
-    v10 = [v9 objectForKeyedSubscript:CKErrorRetryAfterKey];
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v11 = v10;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    if (v11)
-    {
-      [v4 setObject:v11 forKeyedSubscript:@"AMSDCloudDataRetryAfterKey"];
-    }
-
-    v12 = [v2 ams_title];
-    v13 = [v2 ams_message];
-    v3 = AMSCustomError();
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3;
-}
-
-AMSPair *__cdecl sub_1000487D0(id a1, id a2, NSError *a3)
-{
-  v4 = a3;
-  v5 = a2;
-  v6 = [AMSPair alloc];
-  v7 = sub_100048564(v4);
-
-  v8 = [v6 initWithFirst:v5 second:v7];
-
-  return v8;
-}
-
-uint64_t sub_100048954(void *a1)
-{
-  v1 = a1;
-  v2 = 1;
-  if (([v1 ams_hasDomain:@"AMSDCloudDataErrorDomain" code:1] & 1) == 0)
-  {
-    if ([v1 ams_hasDomain:@"AMSDCloudDataErrorDomain" code:3] & 1) != 0 || (objc_msgSend(v1, "ams_hasDomain:code:", @"AMSDCloudDataErrorDomain", 5))
-    {
-      v2 = 1;
-    }
-
-    else
-    {
-      v2 = [v1 ams_hasDomain:@"AMSDCloudDataErrorDomain" code:6];
-    }
-  }
-
-  return v2;
-}
-
-id sub_100048B28(uint64_t a1)
-{
-  v2 = +[AMSLogConfig sharedConfig];
-  if (!v2)
-  {
-    v2 = +[AMSLogConfig sharedConfig];
-  }
-
-  v3 = [v2 OSLogObject];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v7 = [*(a1 + 32) identifiers];
-    *buf = 138543874;
-    v36 = v5;
-    v37 = 2114;
-    v38 = v6;
-    v39 = 2048;
-    v40 = [v7 count];
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetching changed records using %lu zone identifiers.", buf, 0x20u);
-  }
-
-  v8 = objc_alloc_init(NSMutableArray);
-  v9 = [*(a1 + 32) identifiers];
-  v10 = [v9 count];
-
-  if (v10)
-  {
-    v11 = 0;
-    do
-    {
-      if ([*(a1 + 32) isCancelled])
-      {
-        break;
-      }
-
-      v12 = [*(a1 + 32) batchSize];
-      v13 = v12 >= v10 ? v10 : v12;
-      v14 = [*(a1 + 32) identifiers];
-      v15 = [v14 subarrayWithRange:{v11, v13}];
-
-      v16 = [*(a1 + 32) database];
-      v17 = [v16 fetchChangedRecordsInRecordZonesWithRecordZoneIdentifiers:v15];
-
-      [v8 addObject:v17];
-      v10 -= v13;
-      v11 += v13;
-    }
-
-    while (v10);
-  }
-
-  if ([*(a1 + 32) isCancelled])
-  {
-    v18 = +[AMSLogConfig sharedConfig];
-    if (!v18)
-    {
-      v18 = +[AMSLogConfig sharedConfig];
-    }
-
-    v19 = [v18 OSLogObject];
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-    {
-      v20 = *(a1 + 32);
-      v21 = objc_opt_class();
-      v22 = AMSLogKey();
-      *buf = 138543618;
-      v36 = v21;
-      v37 = 2114;
-      v38 = v22;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Task ended early while batching.", buf, 0x16u);
-    }
-
-    v23 = AMSError();
-    v24 = [AMSPromise promiseWithError:v23];
-  }
-
-  else
-  {
-    v25 = objc_alloc_init(AMSMutablePromise);
-    v26 = [AMSPromise promiseWithAll:v8];
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_100048EE4;
-    v31[3] = &unk_1002B0220;
-    v27 = v25;
-    v28 = *(a1 + 32);
-    v32 = v27;
-    v33 = v28;
-    v34 = v8;
-    [v26 addFinishBlock:v31];
-
-    v29 = v34;
-    v23 = v27;
-
-    v24 = v23;
-  }
-
-  return v24;
-}
-
-void sub_100048EE4(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  v6 = v5;
-  if (a3)
-  {
-    [*(a1 + 32) finishWithError:a3];
-  }
-
-  else if ([v5 count] == 1)
-  {
-    v7 = *(a1 + 32);
-    v8 = [v6 firstObject];
-    [v7 finishWithResult:v8];
-  }
-
-  else
-  {
-    v9 = +[AMSLogConfig sharedConfig];
-    if (!v9)
-    {
-      v9 = +[AMSLogConfig sharedConfig];
-    }
-
-    v10 = [v9 OSLogObject];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = *(a1 + 40);
-      v12 = objc_opt_class();
-      v13 = AMSLogKey();
-      v14 = [*(a1 + 48) count];
-      *buf = 138543874;
-      v42 = v12;
-      v43 = 2114;
-      v44 = v13;
-      v45 = 2048;
-      v46 = v14;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Processing changes with %lu batches.", buf, 0x20u);
-    }
-
-    v34 = a1;
-
-    v15 = objc_alloc_init(NSMutableDictionary);
-    v16 = objc_alloc_init(NSMutableDictionary);
-    v17 = objc_alloc_init(NSMutableDictionary);
-    v18 = objc_alloc_init(NSMutableDictionary);
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v35 = v6;
-    v19 = v6;
-    v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
-    if (v20)
-    {
-      v21 = v20;
-      v22 = *v37;
-      do
-      {
-        for (i = 0; i != v21; i = i + 1)
-        {
-          if (*v37 != v22)
-          {
-            objc_enumerationMutation(v19);
-          }
-
-          v24 = *(*(&v36 + 1) + 8 * i);
-          v25 = [v24 changedRecords];
-
-          if (v25)
-          {
-            v26 = [v24 changedRecords];
-            [v15 addEntriesFromDictionary:v26];
-          }
-
-          v27 = [v24 deletedRecords];
-
-          if (v27)
-          {
-            v28 = [v24 deletedRecords];
-            [v16 addEntriesFromDictionary:v28];
-          }
-
-          v29 = [v24 errors];
-
-          if (v29)
-          {
-            v30 = [v24 errors];
-            [v17 addEntriesFromDictionary:v30];
-          }
-
-          v31 = [v24 changeTokens];
-
-          if (v31)
-          {
-            v32 = [v24 changeTokens];
-            [v18 addEntriesFromDictionary:v32];
-          }
-        }
-
-        v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
-      }
-
-      while (v21);
-    }
-
-    v33 = [[AMSDCloudDataChangedRecordsResult alloc] initWithChangedRecords:v15 deletedRecords:v16 errors:v17 changeTokens:v18];
-    [*(v34 + 32) finishWithResult:v33];
-
-    v6 = v35;
-  }
-}
-
-id sub_100049A50(uint64_t a1, void *a2)
-{
-  v3 = [a2 identifier];
-  v4 = [*(a1 + 32) second];
-  v5 = [v3 isEqual:v4];
-
-  return v5;
-}
-
-id sub_10004A908(uint64_t a1)
-{
-  v3 = +[AMSLogConfig sharedAccountsDaemonConfig];
-  if (!v3)
-  {
-    v3 = +[AMSLogConfig sharedConfig];
-  }
-
-  v4 = [v3 OSLogObject];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = AMSLogKey();
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = v7;
-    if (v5)
-    {
-      v1 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v8, v1];
-    }
-
-    else
-    {
-      [NSString stringWithFormat:@"%@: ", v7];
-    }
-    v9 = ;
-    v10 = [*(a1 + 32) database];
-    v11 = AMSHashIfNeeded();
-    *buf = 138543618;
-    v27 = v9;
-    v28 = 2114;
-    v29 = v11;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Setting up a database subscription. database = %{public}@", buf, 0x16u);
-
-    if (v5)
-    {
-
-      v9 = v1;
-    }
-  }
-
-  v12 = *(a1 + 32);
-  v13 = [v12 identifier];
-  LOBYTE(v12) = [v12 _shouldRenewSubscriptionForIdentifier:v13];
-
-  if (v12)
-  {
-    v14 = *(a1 + 32);
-    v15 = [v14 identifier];
-    v16 = [v14 _subscribeWithIdentifier:v15 attempt:0];
-  }
-
-  else
-  {
-    v17 = +[AMSLogConfig sharedAccountsDaemonConfig];
-    if (!v17)
-    {
-      v17 = +[AMSLogConfig sharedConfig];
-    }
-
-    v18 = [v17 OSLogObject];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-    {
-      v19 = AMSLogKey();
-      v20 = *(a1 + 32);
-      v21 = objc_opt_class();
-      v22 = v21;
-      if (v19)
-      {
-        v1 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v22, v1];
-      }
-
-      else
-      {
-        [NSString stringWithFormat:@"%@: ", v21];
-      }
-      v23 = ;
-      v24 = [*(a1 + 32) identifier];
-      *buf = 138543618;
-      v27 = v23;
-      v28 = 2114;
-      v29 = v24;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Subscription for %{public}@ is still valid. Skipping renewal.", buf, 0x16u);
-
-      if (v19)
-      {
-
-        v23 = v1;
-      }
-    }
-
-    v16 = [AMSPromise promiseWithResult:&off_1002C66D8];
-  }
-
-  return v16;
-}
-
-id sub_10004ADA4(uint64_t a1, uint64_t a2, void *a3)
-{
-  v6 = a3;
-  v7 = +[AMSLogConfig sharedAccountsDaemonConfig];
-  v8 = v7;
-  if (a2)
-  {
-    if (!v7)
-    {
-      v8 = +[AMSLogConfig sharedConfig];
-    }
-
-    v9 = [v8 OSLogObject];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = AMSLogKey();
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v13 = v12;
-      if (v10)
-      {
-        v3 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v13, v3];
-      }
-
-      else
-      {
-        [NSString stringWithFormat:@"%@: ", v12];
-      }
-      v14 = ;
-      *buf = 138543362;
-      v55 = v14;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully setup the database subscription.", buf, 0xCu);
-      if (v10)
-      {
-
-        v14 = v3;
-      }
-    }
-
-    [*(a1 + 32) _writeSubscriptionDateForIdentifier:*(a1 + 40)];
-    v21 = [NSNumber numberWithUnsignedInteger:*(a1 + 48) + 1];
-    v22 = [AMSPromise promiseWithResult:v21];
-  }
-
-  else
-  {
-    if (!v7)
-    {
-      v8 = +[AMSLogConfig sharedConfig];
-    }
-
-    v15 = [v8 OSLogObject];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      v16 = AMSLogKey();
-      v17 = *(a1 + 32);
-      v18 = objc_opt_class();
-      v19 = v18;
-      if (v16)
-      {
-        v3 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v19, v3];
-      }
-
-      else
-      {
-        [NSString stringWithFormat:@"%@: ", v18];
-      }
-      v20 = ;
-      v23 = AMSLogableError();
-      *buf = 138543618;
-      v55 = v20;
-      v56 = 2114;
-      v57 = *&v23;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to setup the database subscription. error = %{public}@", buf, 0x16u);
-      if (v16)
-      {
-
-        v20 = v3;
-      }
-    }
-
-    v24 = *(a1 + 48);
-    if (v24 >= [*(a1 + 32) maxRetries])
-    {
-      v34 = +[AMSLogConfig sharedAccountsDaemonConfig];
-      if (!v34)
-      {
-        v34 = +[AMSLogConfig sharedConfig];
-      }
-
-      v35 = [v34 OSLogObject];
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-      {
-        v36 = AMSLogKey();
-        v37 = *(a1 + 32);
-        v38 = objc_opt_class();
-        v39 = v38;
-        if (v36)
-        {
-          a1 = AMSLogKey();
-          [NSString stringWithFormat:@"%@: [%@] ", v39, a1];
-        }
-
-        else
-        {
-          [NSString stringWithFormat:@"%@: ", v38];
-        }
-        v40 = ;
-        *buf = 138543362;
-        v55 = v40;
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "%{public}@Attempted to setup the database subscription too many times. Refusing to try again.", buf, 0xCu);
-        if (v36)
-        {
-
-          v40 = a1;
-        }
-      }
-
-      v22 = [AMSPromise promiseWithError:v6];
-    }
-
-    else
-    {
-      v25 = *(a1 + 48) + 1;
-      v26 = exp2(v25);
-      v27 = +[AMSLogConfig sharedAccountsDaemonConfig];
-      if (!v27)
-      {
-        v27 = +[AMSLogConfig sharedConfig];
-      }
-
-      v28 = [v27 OSLogObject];
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
-      {
-        v29 = AMSLogKey();
-        v30 = *(a1 + 32);
-        v31 = objc_opt_class();
-        v32 = v31;
-        if (v29)
-        {
-          v3 = AMSLogKey();
-          [NSString stringWithFormat:@"%@: [%@] ", v32, v3];
-        }
-
-        else
-        {
-          [NSString stringWithFormat:@"%@: ", v31];
-        }
-        v33 = ;
-        *buf = 138543618;
-        v55 = v33;
-        v56 = 2048;
-        v57 = v26;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Scheduling another attempt to setup the database subscription. timeInterval = %f", buf, 0x16u);
-        if (v29)
-        {
-
-          v33 = v3;
-        }
-      }
-
-      v41 = objc_alloc_init(AMSMutablePromise);
-      v42 = dispatch_time(0, (v26 * 1000000000.0));
-      v43 = dispatch_get_global_queue(0, 0);
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_10004B3B0;
-      block[3] = &unk_1002B0298;
-      v44 = v41;
-      v45 = *(a1 + 32);
-      v46 = *(a1 + 40);
-      v50 = v44;
-      v51 = v45;
-      v52 = v46;
-      v53 = v25;
-      dispatch_after(v42, v43, block);
-
-      v47 = v52;
-      v22 = v44;
-    }
-  }
-
-  return v22;
-}
-
-void sub_10004B3B0(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = [*(a1 + 40) _subscribeWithIdentifier:*(a1 + 48) attempt:*(a1 + 56)];
-  [v1 finishWithPromise:v2];
-}
-
-void sub_10004B700(uint64_t a1, void *a2, uint64_t a3, void *a4)
-{
-  v7 = a2;
-  v8 = a4;
-  v9 = +[AMSLogConfig sharedAccountsDaemonConfig];
-  if (!v9)
-  {
-    v9 = +[AMSLogConfig sharedConfig];
-  }
-
-  v10 = [v9 OSLogObject];
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    v11 = AMSLogKey();
-    v12 = *(a1 + 32);
-    v13 = objc_opt_class();
-    v14 = v13;
-    if (v11)
-    {
-      v4 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v14, v4];
-    }
-
-    else
-    {
-      [NSString stringWithFormat:@"%@: ", v13];
-    }
-    v15 = ;
-    v16 = AMSHashIfNeeded();
-    v17 = AMSLogableError();
-    *buf = 138543874;
-    v22 = v15;
-    v23 = 2114;
-    v24 = v16;
-    v25 = 2114;
-    v26 = v17;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Subscription modification completed. saved = %{public}@ | error = %{public}@", buf, 0x20u);
-    if (v11)
-    {
-
-      v15 = v4;
-    }
-  }
-
-  v18 = [v7 count];
-  v19 = *(a1 + 40);
-  if (v18)
-  {
-    v20 = [v7 firstObject];
-    [v19 finishWithResult:v20];
-  }
-
-  else
-  {
-    if (v8)
-    {
-      [v19 finishWithError:v8];
-      goto LABEL_15;
-    }
-
-    v20 = AMSError();
-    [v19 finishWithError:v20];
-  }
-
-LABEL_15:
-}
-
-id sub_10004CAEC(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = objc_alloc_init(NSMutableSet);
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  obj = v3;
-  v23 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-  if (v23)
-  {
-    v22 = *v34;
-    do
-    {
-      v5 = 0;
-      do
-      {
-        if (*v34 != v22)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v24 = v5;
-        v6 = *(*(&v33 + 1) + 8 * v5);
-        v29 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v7 = v6;
-        v8 = [v7 countByEnumeratingWithState:&v29 objects:v38 count:16];
-        if (v8)
-        {
-          v9 = v8;
-          v10 = *v30;
-          do
-          {
-            for (i = 0; i != v9; i = i + 1)
-            {
-              if (*v30 != v10)
-              {
-                objc_enumerationMutation(v7);
-              }
-
-              v12 = *(*(&v29 + 1) + 8 * i);
-              v25 = 0u;
-              v26 = 0u;
-              v27 = 0u;
-              v28 = 0u;
-              v13 = [*(a1 + 32) _uniqueIdentifiersForAccount:v12 error:0];
-              v14 = [v13 countByEnumeratingWithState:&v25 objects:v37 count:16];
-              if (v14)
-              {
-                v15 = v14;
-                v16 = *v26;
-                do
-                {
-                  for (j = 0; j != v15; j = j + 1)
-                  {
-                    if (*v26 != v16)
-                    {
-                      objc_enumerationMutation(v13);
-                    }
-
-                    [v4 addObject:*(*(&v25 + 1) + 8 * j)];
-                  }
-
-                  v15 = [v13 countByEnumeratingWithState:&v25 objects:v37 count:16];
-                }
-
-                while (v15);
-              }
-            }
-
-            v9 = [v7 countByEnumeratingWithState:&v29 objects:v38 count:16];
-          }
-
-          while (v9);
-        }
-
-        v5 = v24 + 1;
-      }
-
-      while ((v24 + 1) != v23);
-      v23 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-    }
-
-    while (v23);
-  }
-
-  v18 = [v4 copy];
-  v19 = [AMSPromise promiseWithResult:v18];
-
-  return v19;
-}
-
-void sub_10004ED30(id a1)
-{
-  qword_1002E31D0 = objc_alloc_init(AMSDCookieService);
-
-  _objc_release_x1();
-}
-
-void sub_10004EF78(uint64_t a1)
-{
-  v3 = +[AMSLogConfig sharedAccountsCookiesConfig];
-  if (!v3)
-  {
-    v3 = +[AMSLogConfig sharedConfig];
-  }
-
-  v4 = [v3 OSLogObject];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    v5 = AMSLogKey();
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = v7;
-    if (v5)
-    {
-      v1 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v8, v1];
-    }
-
-    else
-    {
-      [NSString stringWithFormat:@"%@: ", v7];
-    }
-    v9 = ;
-    v10 = NSStringFromSelector(*(a1 + 40));
-    *buf = 138543618;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v10;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@ - performing block", buf, 0x16u);
-    if (v5)
-    {
-
-      v9 = v1;
-    }
-  }
-
-  [*(a1 + 32) _clearAllCachedCookieProperties];
-  v11 = +[AMSLogConfig sharedAccountsCookiesConfig];
-  if (!v11)
-  {
-    v11 = +[AMSLogConfig sharedConfig];
-  }
-
-  v12 = [v11 OSLogObject];
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-  {
-    v13 = AMSLogKey();
-    v14 = *(a1 + 32);
-    v15 = objc_opt_class();
-    v16 = v15;
-    if (v13)
-    {
-      v1 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v16, v1];
-    }
-
-    else
-    {
-      [NSString stringWithFormat:@"%@: ", v15];
-    }
-    v17 = ;
-    v18 = NSStringFromSelector(*(a1 + 40));
-    *buf = 138543618;
-    v20 = v17;
-    v21 = 2114;
-    v22 = v18;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@ - finishing block", buf, 0x16u);
-    if (v13)
-    {
-
-      v17 = v1;
-    }
-  }
-}
-
 id sub_10004F358(id *a1, void *a2)
 {
   v3 = a2;
@@ -2162,19 +23,18 @@ id sub_10004F358(id *a1, void *a2)
 
 void sub_10004F464(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = AMSSetLogKey();
-  v4 = *(a1 + 40);
-  v5 = +[NSFileManager defaultManager];
-  v6 = [AMSCookieDatabase cleanUpCookieDatabasesWithValidIdentifiers:v4 fileManager:v5];
+  v2 = AMSSetLogKey();
+  v3 = *(a1 + 40);
+  v4 = +[NSFileManager defaultManager];
+  v5 = [AMSCookieDatabase cleanUpCookieDatabasesWithValidIdentifiers:v3 fileManager:v4];
 
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_10004F55C;
-  v7[3] = &unk_1002AFD88;
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 56);
-  [v6 addFinishBlock:v7];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10004F55C;
+  v6[3] = &unk_1002AFD88;
+  v7 = *(a1 + 48);
+  v8 = *(a1 + 56);
+  [v5 addFinishBlock:v6];
 }
 
 id sub_10004F55C(uint64_t a1, uint64_t a2, void *a3)
@@ -2221,51 +81,50 @@ void sub_10004FACC(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = AMSLogKey();
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = v6;
+    v5 = objc_opt_class();
+    v6 = v5;
     if (v4)
     {
-      v8 = AMSLogKey();
-      v9 = [NSString stringWithFormat:@"%@: [%@] ", v7, v8];
+      v7 = AMSLogKey();
+      v8 = [NSString stringWithFormat:@"%@: [%@] ", v6, v7];
     }
 
     else
     {
-      v9 = [NSString stringWithFormat:@"%@: ", v6];
-      v8 = v9;
+      v8 = [NSString stringWithFormat:@"%@: ", v5];
+      v7 = v8;
     }
 
-    v10 = NSStringFromSelector(*(a1 + 56));
+    v9 = NSStringFromSelector(*(a1 + 56));
     *buf = 138543618;
-    v23 = v9;
-    v24 = 2114;
-    v25 = v10;
+    v22 = v8;
+    v23 = 2114;
+    v24 = v9;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@ - performing block", buf, 0x16u);
     if (v4)
     {
     }
   }
 
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_10004FD60;
-  v21[3] = &unk_1002B0358;
-  v11 = *(a1 + 56);
-  v21[4] = *(a1 + 32);
-  v21[5] = v11;
-  v12 = objc_retainBlock(v21);
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  v15 = *(a1 + 64);
-  v20 = 0;
-  v16 = [v13 getCookiePropertiesForAccount:v14 cookieDatabaseOnly:v15 error:&v20];
-  v17 = v20;
-  v18 = *(a1 + 48);
-  v19 = [v17 ams_sanitizedForSecureCoding];
-  (*(v18 + 16))(v18, v16, v19);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10004FD60;
+  v20[3] = &unk_1002B0358;
+  v10 = *(a1 + 56);
+  v20[4] = *(a1 + 32);
+  v20[5] = v10;
+  v11 = objc_retainBlock(v20);
+  v12 = *(a1 + 32);
+  v13 = *(a1 + 40);
+  v14 = *(a1 + 64);
+  v19 = 0;
+  v15 = [v12 getCookiePropertiesForAccount:v13 cookieDatabaseOnly:v14 error:&v19];
+  v16 = v19;
+  v17 = *(a1 + 48);
+  v18 = [v16 ams_sanitizedForSecureCoding];
+  (*(v17 + 16))(v17, v15, v18);
 
-  (v12[2])(v12);
+  (v11[2])(v11);
 }
 
 void sub_10004FD60(uint64_t a1)
@@ -2280,38 +139,38 @@ void sub_10004FD60(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = AMSLogKey();
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = v7;
+    v6 = objc_opt_class();
+    v7 = v6;
     if (v5)
     {
       v1 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v8, v1];
+      [NSString stringWithFormat:@"%@: [%@] ", v7, v1];
     }
 
     else
     {
-      [NSString stringWithFormat:@"%@: ", v7];
+      [NSString stringWithFormat:@"%@: ", v6];
     }
-    v9 = ;
-    v10 = NSStringFromSelector(*(a1 + 40));
+    v8 = ;
+    v9 = NSStringFromSelector(*(a1 + 40));
     *buf = 138543618;
-    v12 = v9;
-    v13 = 2114;
-    v14 = v10;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@ - finishing block", buf, 0x16u);
     if (v5)
     {
 
-      v9 = v1;
+      v8 = v1;
     }
   }
 }
 
-void sub_10005097C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_10005097C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose((v31 - 176), 8);
-  _Block_object_dispose(&a31, 8);
+  va_start(va, a30);
+  _Block_object_dispose((v30 - 176), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2334,79 +193,78 @@ void sub_1000509C0(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = AMSLogKey();
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = v6;
+    v5 = objc_opt_class();
+    v6 = v5;
     if (v4)
     {
-      v8 = AMSLogKey();
-      v9 = [NSString stringWithFormat:@"%@: [%@] ", v7, v8];
+      v7 = AMSLogKey();
+      v8 = [NSString stringWithFormat:@"%@: [%@] ", v6, v7];
     }
 
     else
     {
-      v9 = [NSString stringWithFormat:@"%@: ", v6];
-      v8 = v9;
+      v8 = [NSString stringWithFormat:@"%@: ", v5];
+      v7 = v8;
     }
 
-    v10 = NSStringFromSelector(*(a1 + 80));
+    v9 = NSStringFromSelector(*(a1 + 80));
     *buf = 138543618;
-    v33 = v9;
-    v34 = 2114;
-    v35 = v10;
+    v32 = v8;
+    v33 = 2114;
+    v34 = v9;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@ - performing block", buf, 0x16u);
     if (v4)
     {
     }
   }
 
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_100050CC4;
-  v31[3] = &unk_1002B0358;
-  v11 = *(a1 + 80);
-  v31[4] = *(a1 + 32);
-  v31[5] = v11;
-  v12 = objc_retainBlock(v31);
-  v13 = [*(a1 + 40) identifier];
-  v14 = v13 == 0;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100050CC4;
+  v30[3] = &unk_1002B0358;
+  v10 = *(a1 + 80);
+  v30[4] = *(a1 + 32);
+  v30[5] = v10;
+  v11 = objc_retainBlock(v30);
+  v12 = [*(a1 + 40) identifier];
+  v13 = v12 == 0;
 
-  if (!v14)
+  if (!v13)
   {
-    v15 = *(a1 + 32);
-    v16 = [*(a1 + 40) identifier];
-    [v15 _cacheCookieProperties:0 forIdentifier:v16];
+    v14 = *(a1 + 32);
+    v15 = [*(a1 + 40) identifier];
+    [v14 _cacheCookieProperties:0 forIdentifier:v15];
   }
 
-  v17 = *(a1 + 32);
-  v18 = *(a1 + 40);
-  v30 = 0;
-  v19 = [v17 _cookieDatabaseForAccount:v18 error:&v30];
-  v20 = v30;
-  v21 = v20;
-  if (v19)
+  v16 = *(a1 + 32);
+  v17 = *(a1 + 40);
+  v29 = 0;
+  v18 = [v16 _cookieDatabaseForAccount:v17 error:&v29];
+  v19 = v29;
+  v20 = v19;
+  if (v18)
   {
-    v22 = *(a1 + 48);
-    v23 = *(a1 + 56);
-    v29 = v20;
-    v24 = [v19 updateCookiesWithCookiePropertiesToAdd:v22 cookiePropertiesToRemove:v23 error:&v29];
-    v25 = v29;
+    v21 = *(a1 + 48);
+    v22 = *(a1 + 56);
+    v28 = v19;
+    v23 = [v18 updateCookiesWithCookiePropertiesToAdd:v21 cookiePropertiesToRemove:v22 error:&v28];
+    v24 = v28;
 
-    v21 = v25;
+    v20 = v24;
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  *(*(*(a1 + 64) + 8) + 24) = v24;
-  v26 = *(*(a1 + 72) + 8);
-  v27 = *(v26 + 40);
-  *(v26 + 40) = v21;
-  v28 = v21;
+  *(*(*(a1 + 64) + 8) + 24) = v23;
+  v25 = *(*(a1 + 72) + 8);
+  v26 = *(v25 + 40);
+  *(v25 + 40) = v20;
+  v27 = v20;
 
-  (v12[2])(v12);
+  (v11[2])(v11);
 }
 
 void sub_100050CC4(uint64_t a1)
@@ -2421,30 +279,29 @@ void sub_100050CC4(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = AMSLogKey();
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = v7;
+    v6 = objc_opt_class();
+    v7 = v6;
     if (v5)
     {
       v1 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v8, v1];
+      [NSString stringWithFormat:@"%@: [%@] ", v7, v1];
     }
 
     else
     {
-      [NSString stringWithFormat:@"%@: ", v7];
+      [NSString stringWithFormat:@"%@: ", v6];
     }
-    v9 = ;
-    v10 = NSStringFromSelector(*(a1 + 40));
+    v8 = ;
+    v9 = NSStringFromSelector(*(a1 + 40));
     *buf = 138543618;
-    v12 = v9;
-    v13 = 2114;
-    v14 = v10;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@ - finishing block", buf, 0x16u);
     if (v5)
     {
 
-      v9 = v1;
+      v8 = v1;
     }
   }
 }
@@ -2459,26 +316,24 @@ void sub_100050E50(void *a1)
 
 void sub_100051514(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
-  v3 = [*(a1 + 32) connections];
-  [v3 removeObject:*(a1 + 40)];
+  v2 = [*(a1 + 32) connections];
+  [v2 removeObject:*(a1 + 40)];
 
-  v4 = (*(a1 + 32) + 24);
+  v3 = (*(a1 + 32) + 24);
 
-  os_unfair_lock_unlock(v4);
+  os_unfair_lock_unlock(v3);
 }
 
 void sub_100051578(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
-  v3 = [*(a1 + 32) connections];
-  [v3 removeObject:*(a1 + 40)];
+  v2 = [*(a1 + 32) connections];
+  [v2 removeObject:*(a1 + 40)];
 
-  v4 = (*(a1 + 32) + 24);
+  v3 = (*(a1 + 32) + 24);
 
-  os_unfair_lock_unlock(v4);
+  os_unfair_lock_unlock(v3);
 }
 
 void sub_1000517D0(uint64_t a1, int a2, void *a3)
@@ -2497,27 +352,26 @@ void sub_1000517D0(uint64_t a1, int a2, void *a3)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = AMSLogKey();
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v13 = v12;
+      v11 = objc_opt_class();
+      v12 = v11;
       if (v10)
       {
         v3 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v13, v3];
+        [NSString stringWithFormat:@"%@: [%@] ", v12, v3];
       }
 
       else
       {
-        [NSString stringWithFormat:@"%@: ", v12];
+        [NSString stringWithFormat:@"%@: ", v11];
       }
-      v14 = ;
+      v13 = ;
       *buf = 138543362;
-      v22 = v14;
+      v20 = v13;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully cleared dangling cookie databases", buf, 0xCu);
       if (v10)
       {
 
-        v14 = v3;
+        v13 = v3;
       }
     }
   }
@@ -2532,31 +386,30 @@ void sub_1000517D0(uint64_t a1, int a2, void *a3)
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v15 = AMSLogKey();
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v18 = v17;
-      if (v15)
+      v14 = AMSLogKey();
+      v15 = objc_opt_class();
+      v16 = v15;
+      if (v14)
       {
         v3 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v18, v3];
+        [NSString stringWithFormat:@"%@: [%@] ", v16, v3];
       }
 
       else
       {
-        [NSString stringWithFormat:@"%@: ", v17];
+        [NSString stringWithFormat:@"%@: ", v15];
       }
-      v19 = ;
-      v20 = AMSLogableError();
+      v17 = ;
+      v18 = AMSLogableError();
       *buf = 138543618;
-      v22 = v19;
-      v23 = 2114;
-      v24 = v20;
+      v20 = v17;
+      v21 = 2114;
+      v22 = v18;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@Error clearing dangling cookie databases: %{public}@", buf, 0x16u);
-      if (v15)
+      if (v14)
       {
 
-        v19 = v3;
+        v17 = v3;
       }
     }
   }
@@ -2588,47 +441,46 @@ void sub_100051BE8(uint64_t a1)
     v7 = [v6 OSLogObject];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = AMSLogKey();
+      v8 = objc_opt_class();
+      v9 = AMSLogKey();
       *buf = 138543618;
-      *&buf[4] = v9;
+      *&buf[4] = v8;
       *&buf[12] = 2114;
-      *&buf[14] = v10;
+      *&buf[14] = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running clean install tasks", buf, 0x16u);
     }
 
     +[AMSUniversalLinks update];
   }
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100051EDC;
-  v20[3] = &unk_1002B04C0;
-  v20[4] = *(a1 + 32);
-  v11 = v20;
-  v12 = AMSLogKey();
-  v13 = dispatch_get_global_queue(0, 0);
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100051EDC;
+  v19[3] = &unk_1002B04C0;
+  v19[4] = *(a1 + 32);
+  v10 = v19;
+  v11 = AMSLogKey();
+  v12 = dispatch_get_global_queue(0, 0);
   *buf = _NSConcreteStackBlock;
   *&buf[8] = 3221225472;
   *&buf[16] = sub_100053760;
-  v22 = &unk_1002B05B8;
-  v23 = v12;
-  v24 = v11;
-  v14 = v12;
-  dispatch_async(v13, buf);
+  v21 = &unk_1002B05B8;
+  v22 = v11;
+  v23 = v10;
+  v13 = v11;
+  dispatch_async(v12, buf);
 
-  v15 = *(a1 + 32);
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100051EE4;
-  v19[3] = &unk_1002B04C0;
-  v19[4] = v15;
-  [v15 _clearDanglingCookieDatabasesWithCompletion:v19];
-  v16 = [AMSDPrivateIdentifiersXPCServerCreator serverWithError:0];
-  v17 = *(a1 + 32);
-  v18 = *(v17 + 16);
-  *(v17 + 16) = v16;
+  v14 = *(a1 + 32);
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100051EE4;
+  v18[3] = &unk_1002B04C0;
+  v18[4] = v14;
+  [v14 _clearDanglingCookieDatabasesWithCompletion:v18];
+  v15 = [AMSDPrivateIdentifiersXPCServerCreator serverWithError:0];
+  v16 = *(a1 + 32);
+  v17 = *(v16 + 16);
+  *(v16 + 16) = v15;
 }
 
 void sub_100051EE4(uint64_t a1)
@@ -2643,48 +495,47 @@ void sub_100051EE4(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = AMSLogKey();
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = v7;
+    v6 = objc_opt_class();
+    v7 = v6;
     if (v5)
     {
       v1 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v8, v1];
+      [NSString stringWithFormat:@"%@: [%@] ", v7, v1];
     }
 
     else
     {
-      [NSString stringWithFormat:@"%@: ", v7];
+      [NSString stringWithFormat:@"%@: ", v6];
     }
-    v9 = ;
+    v8 = ;
     *buf = 138543362;
-    v15 = v9;
+    v14 = v8;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Complete cookie database cleanup and start XPC", buf, 0xCu);
     if (v5)
     {
 
-      v9 = v1;
+      v8 = v1;
     }
   }
 
   [*(a1 + 32) _setupNotifications];
   [*(a1 + 32) _setupPollJobs];
-  v10 = +[AMSDDeviceMessengerService sharedService];
-  v11 = +[AMSDPushService sharedService];
+  v9 = +[AMSDDeviceMessengerService sharedService];
+  v10 = +[AMSDPushService sharedService];
   [*(a1 + 32) _startXPC];
   [*(a1 + 32) _setupAccountDataSync];
   [*(a1 + 32) _setupTSDataSync];
   [*(a1 + 32) _updateRegulatoryEligibility];
-  v12 = +[AssetsJetpackFetcherWrapper shared];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100052114;
-  v13[3] = &unk_1002AFDD8;
-  v13[4] = *(a1 + 32);
-  [v12 performOnStartupWithCompletionHandler:v13];
+  v11 = +[AssetsJetpackFetcherWrapper shared];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100052114;
+  v12[3] = &unk_1002AFDD8;
+  v12[4] = *(a1 + 32);
+  [v11 performOnStartupWithCompletionHandler:v12];
 }
 
-void sub_100052114(uint64_t a1, void *a2)
+void sub_100052114(void *a1, void *a2)
 {
   v3 = a2;
   v4 = +[AMSLogConfig sharedAccountsDaemonConfig];
@@ -2697,30 +548,29 @@ void sub_100052114(uint64_t a1, void *a2)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = AMSLogKey();
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = v8;
+    v7 = objc_opt_class();
+    v8 = v7;
     if (v6)
     {
       a1 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v9, a1];
+      [NSString stringWithFormat:@"%@: [%@] ", v8, a1];
     }
 
     else
     {
-      [NSString stringWithFormat:@"%@: ", v8];
+      [NSString stringWithFormat:@"%@: ", v7];
     }
-    v10 = ;
-    v11 = AMSLogableError();
+    v9 = ;
+    v10 = AMSLogableError();
     *buf = 138543618;
-    v13 = v10;
-    v14 = 2114;
-    v15 = v11;
+    v12 = v9;
+    v13 = 2114;
+    v14 = v10;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Scheduled assets Jetpack fetcher; error %{public}@", buf, 0x16u);
     if (v6)
     {
 
-      v10 = a1;
+      v9 = a1;
     }
   }
 }
@@ -2758,7 +608,7 @@ BOOL sub_10005244C(id a1, NSHTTPCookie *a2)
   return v3;
 }
 
-void sub_100052C0C(uint64_t a1, int a2, void *a3)
+void sub_100052C0C(void *a1, int a2, void *a3)
 {
   v5 = a3;
   v6 = +[AMSLogConfig sharedAccountsDaemonConfig];
@@ -2771,42 +621,41 @@ void sub_100052C0C(uint64_t a1, int a2, void *a3)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = AMSLogKey();
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = v10;
+    v9 = objc_opt_class();
+    v10 = v9;
     if (v8)
     {
       a1 = AMSLogKey();
-      [NSString stringWithFormat:@"%@: [%@] ", v11, a1];
+      [NSString stringWithFormat:@"%@: [%@] ", v10, a1];
     }
 
     else
     {
-      [NSString stringWithFormat:@"%@: ", v10];
+      [NSString stringWithFormat:@"%@: ", v9];
     }
-    v12 = ;
+    v11 = ;
     if (a2)
     {
-      v13 = @"YES";
+      v12 = @"YES";
     }
 
     else
     {
-      v13 = @"NO";
+      v12 = @"NO";
     }
 
-    v14 = AMSLogableError();
+    v13 = AMSLogableError();
     *buf = 138543874;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v13;
-    v19 = 2114;
-    v20 = v14;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v13;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Daemon startup completed Multi-User Databse Notification Subscriptin check. success = %{public}@ | error = %{public}@", buf, 0x20u);
     if (v8)
     {
 
-      v12 = a1;
+      v11 = a1;
     }
   }
 }
@@ -2822,14 +671,13 @@ id sub_100052EB4(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Acting on first device unlock notification", &v8, 0x16u);
+    v4 = objc_opt_class();
+    v5 = AMSLogKey();
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Acting on first device unlock notification", &v7, 0x16u);
   }
 
   return [*(a1 + 32) _updateRegulatoryEligibility];
@@ -2837,27 +685,26 @@ id sub_100052EB4(uint64_t a1)
 
 void sub_100053108(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[AMSLogConfig sharedAccountsDaemonConfig];
-  if (!v4)
+  v2 = a2;
+  v3 = +[AMSLogConfig sharedAccountsDaemonConfig];
+  if (!v3)
   {
-    v4 = +[AMSLogConfig sharedConfig];
+    v3 = +[AMSLogConfig sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = AMSLogableError();
-    v10 = 138543874;
-    v11 = v7;
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = AMSLogableError();
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
     v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v9;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] TSDataSync started with error %{public}@", &v10, 0x20u);
+    v13 = v7;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] TSDataSync started with error %{public}@", &v8, 0x20u);
   }
 }
 
@@ -2872,29 +719,27 @@ uint64_t sub_1000532F0(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Received SIGTERM...", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Received SIGTERM...", &v6, 0xCu);
   }
 
   dispatch_source_cancel(*(*(a1 + 32) + 8));
   [*(a1 + 32) _tearDownMultiUser];
   +[AMSLiveTransactionStore shutdown];
   +[AMSDTransactionStore shutdown];
-  v5 = [*(a1 + 32) listener];
-  [v5 invalidate];
+  v4 = [*(a1 + 32) listener];
+  [v4 invalidate];
 
   return xpc_transaction_exit_clean();
 }
 
 uint64_t sub_100053760(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = AMSSetLogKey();
-  v4 = *(*(a1 + 40) + 16);
+  v2 = AMSSetLogKey();
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 void sub_1000537F0(id a1)
@@ -2948,16 +793,15 @@ void sub_1000541E0(uint64_t a1, void *a2, void *a3)
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = [*(a1 + 40) logKey];
-      v17 = 138543874;
+      v10 = objc_opt_class();
+      v11 = [*(a1 + 40) logKey];
+      v15 = 138543874;
+      v16 = v10;
+      v17 = 2114;
       v18 = v11;
       v19 = 2114;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v6;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Error sending message. Error: %{public}@", &v17, 0x20u);
+      v20 = v6;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Error sending message. Error: %{public}@", &v15, 0x20u);
 LABEL_10:
     }
   }
@@ -2972,20 +816,19 @@ LABEL_10:
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
-      v14 = objc_opt_class();
-      v12 = [*(a1 + 40) logKey];
-      v15 = [v5 origin];
-      v16 = [v15 identifier];
-      v17 = 138544130;
-      v18 = v14;
+      v12 = objc_opt_class();
+      v11 = [*(a1 + 40) logKey];
+      v13 = [v5 origin];
+      v14 = [v13 identifier];
+      v15 = 138544130;
+      v16 = v12;
+      v17 = 2114;
+      v18 = v11;
       v19 = 2114;
-      v20 = v12;
+      v20 = v5;
       v21 = 2114;
-      v22 = v5;
-      v23 = 2114;
-      v24 = v16;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received reply for: %{public}@ from: %{public}@", &v17, 0x2Au);
+      v22 = v14;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Received reply for: %{public}@ from: %{public}@", &v15, 0x2Au);
 
       goto LABEL_10;
     }
@@ -3010,24 +853,23 @@ void sub_100057384(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = v5;
-    v7 = AMSLogKey();
-    v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] QR code dialog start listening for push notifications with identifier: %@", &v11, 0x20u);
+    v4 = objc_opt_class();
+    v5 = v4;
+    v6 = AMSLogKey();
+    v7 = *(a1 + 40);
+    v10 = 138543874;
+    v11 = v4;
+    v12 = 2114;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] QR code dialog start listening for push notifications with identifier: %@", &v10, 0x20u);
   }
 
   os_unfair_lock_lock((*(a1 + 32) + 8));
-  v9 = objc_retainBlock(*(a1 + 48));
-  v10 = [*(a1 + 32) dismissalCompletionQueue];
-  [v10 setObject:v9 forKeyedSubscript:*(a1 + 40)];
+  v8 = objc_retainBlock(*(a1 + 48));
+  v9 = [*(a1 + 32) dismissalCompletionQueue];
+  [v9 setObject:v8 forKeyedSubscript:*(a1 + 40)];
 
   os_unfair_lock_unlock((*(a1 + 32) + 8));
 }
@@ -3043,23 +885,22 @@ uint64_t sub_1000575E8(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = v5;
-    v7 = AMSLogKey();
-    v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] QR code dialog stop listening for push notifications with identifier: %@", &v11, 0x20u);
+    v4 = objc_opt_class();
+    v5 = v4;
+    v6 = AMSLogKey();
+    v7 = *(a1 + 40);
+    v10 = 138543874;
+    v11 = v4;
+    v12 = 2114;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] QR code dialog stop listening for push notifications with identifier: %@", &v10, 0x20u);
   }
 
   os_unfair_lock_lock((*(a1 + 32) + 8));
-  v9 = [*(a1 + 32) dismissalCompletionQueue];
-  [v9 setObject:0 forKeyedSubscript:*(a1 + 40)];
+  v8 = [*(a1 + 32) dismissalCompletionQueue];
+  [v8 setObject:0 forKeyedSubscript:*(a1 + 40)];
 
   os_unfair_lock_unlock((*(a1 + 32) + 8));
   return (*(*(a1 + 48) + 16))();
@@ -3076,32 +917,31 @@ void sub_100057820(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = v5;
-    v7 = AMSLogKey();
-    v8 = *(a1 + 40);
-    v13 = 138543874;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] QR code dialog notified for dismissal with identifier: %@", &v13, 0x20u);
+    v4 = objc_opt_class();
+    v5 = v4;
+    v6 = AMSLogKey();
+    v7 = *(a1 + 40);
+    v12 = 138543874;
+    v13 = v4;
+    v14 = 2114;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v7;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] QR code dialog notified for dismissal with identifier: %@", &v12, 0x20u);
   }
 
   os_unfair_lock_lock((*(a1 + 32) + 8));
-  v9 = [*(a1 + 32) dismissalCompletionQueue];
-  v10 = [v9 objectForKeyedSubscript:*(a1 + 40)];
-  v11 = [v10 copy];
+  v8 = [*(a1 + 32) dismissalCompletionQueue];
+  v9 = [v8 objectForKeyedSubscript:*(a1 + 40)];
+  v10 = [v9 copy];
 
-  v12 = [*(a1 + 32) dismissalCompletionQueue];
-  [v12 setObject:0 forKeyedSubscript:*(a1 + 40)];
+  v11 = [*(a1 + 32) dismissalCompletionQueue];
+  [v11 setObject:0 forKeyedSubscript:*(a1 + 40)];
 
   os_unfair_lock_unlock((*(a1 + 32) + 8));
-  if (v11)
+  if (v10)
   {
-    v11[2](v11);
+    v10[2](v10);
   }
 }
 
@@ -3116,94 +956,92 @@ id sub_100057C3C(uint64_t a1, void *a2)
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v46 = objc_opt_class();
-    v7 = AMSLogKey();
-    v8 = [*(a1 + 32) home];
-    v9 = AMSHashIfNeeded();
-    v10 = [*(a1 + 32) user];
+    v43 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = [*(a1 + 32) home];
+    v8 = AMSHashIfNeeded();
+    v9 = [*(a1 + 32) user];
     AMSHashIfNeeded();
-    v11 = v48 = a2;
-    v12 = [*(a1 + 32) database];
-    v13 = AMSHashIfNeeded();
-    v14 = [*(a1 + 32) createIfMissing];
+    v10 = v45 = a2;
+    v11 = [*(a1 + 32) database];
+    v12 = AMSHashIfNeeded();
+    v13 = [*(a1 + 32) createIfMissing];
     *buf = 138544642;
-    v15 = @"false";
-    v53 = v46;
-    v54 = 2114;
-    if (v14)
+    v14 = @"false";
+    v50 = v43;
+    v51 = 2114;
+    if (v13)
     {
-      v15 = @"true";
+      v14 = @"true";
     }
 
-    v55 = v7;
-    v56 = 2114;
-    v57 = v9;
-    v58 = 2114;
-    v59 = v11;
-    v60 = 2114;
-    v61 = v13;
-    v62 = 2114;
-    v63 = v15;
+    v52 = v6;
+    v53 = 2114;
+    v54 = v8;
+    v55 = 2114;
+    v56 = v10;
+    v57 = 2114;
+    v58 = v12;
+    v59 = 2114;
+    v60 = v14;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Fetching a record zone. home = %{public}@ | user = %{public}@ | database = %{public}@ | createIfMissing = %{public}@", buf, 0x3Eu);
 
-    a2 = v48;
+    a2 = v45;
   }
 
   [*(a1 + 32) enqueBeginMetrics];
-  v16 = *(a1 + 32);
-  v51 = 0;
-  v17 = [v16 _fetchRecordZoneWithError:&v51];
-  v18 = v51;
-  v19 = v18;
-  if (v17)
+  v15 = *(a1 + 32);
+  v48 = 0;
+  v16 = [v15 _fetchRecordZoneWithError:&v48];
+  v17 = v48;
+  v18 = v17;
+  if (v16)
   {
-    v20 = v17;
+    v19 = v16;
     goto LABEL_31;
   }
 
-  if ([v18 ams_hasDomain:@"AMSDCloudDataErrorDomain" code:7])
+  if ([v17 ams_hasDomain:@"AMSDCloudDataErrorDomain" code:7])
   {
     if ([*(a1 + 32) createIfMissing])
     {
-      v21 = [*(a1 + 32) database];
-      v22 = [v21 isPrivateDatabase];
+      v20 = [*(a1 + 32) database];
+      v21 = [v20 isPrivateDatabase];
 
-      if (v22)
+      if (v21)
       {
-        v23 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-        if (!v23)
+        v22 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+        if (!v22)
         {
-          v23 = +[AMSLogConfig sharedConfig];
+          v22 = +[AMSLogConfig sharedConfig];
         }
 
-        v24 = [v23 OSLogObject];
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        v23 = [v22 OSLogObject];
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
-          v25 = *(a1 + 32);
-          v26 = objc_opt_class();
-          v27 = AMSLogKey();
+          v24 = objc_opt_class();
+          v25 = AMSLogKey();
           *buf = 138543618;
-          v53 = v26;
-          v54 = 2114;
-          v55 = v27;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] The record zone doesn't exist. Creating it.", buf, 0x16u);
+          v50 = v24;
+          v51 = 2114;
+          v52 = v25;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] The record zone doesn't exist. Creating it.", buf, 0x16u);
         }
 
-        v28 = *(a1 + 32);
-        v50 = 0;
-        v20 = [v28 _createRecordZoneWithError:&v50];
-        v29 = v50;
-        v30 = v29;
-        if (v29)
+        v26 = *(a1 + 32);
+        v47 = 0;
+        v19 = [v26 _createRecordZoneWithError:&v47];
+        v27 = v47;
+        v28 = v27;
+        if (v27)
         {
           if (a2)
           {
-            v31 = v29;
-            *a2 = v30;
+            v29 = v27;
+            *a2 = v28;
           }
 
-          [*(a1 + 32) enqueFailedMetrics:v30];
+          [*(a1 + 32) enqueFailedMetrics:v28];
         }
 
         goto LABEL_31;
@@ -3213,61 +1051,60 @@ id sub_100057C3C(uint64_t a1, void *a2)
 
   else
   {
-    v32 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-    if (!v32)
+    v30 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+    if (!v30)
     {
-      v32 = +[AMSLogConfig sharedConfig];
+      v30 = +[AMSLogConfig sharedConfig];
     }
 
-    v33 = [v32 OSLogObject];
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v31 = [v30 OSLogObject];
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v34 = *(a1 + 32);
-      v44 = objc_opt_class();
-      v35 = AMSLogKey();
-      v47 = [*(a1 + 32) home];
+      v41 = objc_opt_class();
+      v32 = AMSLogKey();
+      v44 = [*(a1 + 32) home];
+      v33 = AMSHashIfNeeded();
+      v42 = [*(a1 + 32) user];
+      v34 = AMSHashIfNeeded();
+      v35 = [*(a1 + 32) database];
       v36 = AMSHashIfNeeded();
-      v45 = [*(a1 + 32) user];
-      v37 = AMSHashIfNeeded();
-      v38 = [*(a1 + 32) database];
-      v39 = AMSHashIfNeeded();
-      v49 = a2;
-      v40 = v39;
+      v46 = a2;
+      v37 = v36;
       *buf = 138544642;
-      v41 = @"true";
-      v53 = v44;
-      v54 = 2114;
-      if (!v19)
+      v38 = @"true";
+      v50 = v41;
+      v51 = 2114;
+      if (!v18)
       {
-        v41 = @"false";
+        v38 = @"false";
       }
 
-      v55 = v35;
-      v56 = 2114;
-      v57 = v36;
-      v58 = 2114;
-      v59 = v37;
-      v60 = 2114;
-      v61 = v39;
-      v62 = 2114;
-      v63 = v41;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch a record zone. home = %{public}@ | user = %{public}@ | database = %{public}@ | error = %{public}@", buf, 0x3Eu);
+      v52 = v32;
+      v53 = 2114;
+      v54 = v33;
+      v55 = 2114;
+      v56 = v34;
+      v57 = 2114;
+      v58 = v36;
+      v59 = 2114;
+      v60 = v38;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch a record zone. home = %{public}@ | user = %{public}@ | database = %{public}@ | error = %{public}@", buf, 0x3Eu);
 
-      a2 = v49;
+      a2 = v46;
     }
   }
 
   if (a2)
   {
-    v42 = v19;
-    *a2 = v19;
+    v39 = v18;
+    *a2 = v18;
   }
 
-  [*(a1 + 32) enqueFailedMetrics:{v19, v44}];
-  v20 = 0;
+  [*(a1 + 32) enqueFailedMetrics:{v18, v41}];
+  v19 = 0;
 LABEL_31:
 
-  return v20;
+  return v19;
 }
 
 id sub_100058FB4(uint64_t a1, void *a2)
@@ -3282,9 +1119,9 @@ id sub_100058FB4(uint64_t a1, void *a2)
   {
     v5 = [*(a1 + 32) database];
     v6 = +[AMSDHomeManager identifiersForRecordZone:inDatabase:qualityOfService:](AMSDHomeManager, "identifiersForRecordZone:inDatabase:qualityOfService:", v3, v5, [*(a1 + 32) qualityOfService]);
-    v21 = 0;
-    v7 = [v6 resultWithError:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [v6 resultWithError:&v20];
+    v8 = v20;
 
     if (v7)
     {
@@ -3316,19 +1153,18 @@ id sub_100058FB4(uint64_t a1, void *a2)
       v10 = [v9 OSLogObject];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v15 = *(a1 + 32);
-        v16 = objc_opt_class();
-        v17 = AMSLogKey();
+        v15 = objc_opt_class();
+        v16 = AMSLogKey();
+        v17 = AMSHashIfNeeded();
         v18 = AMSHashIfNeeded();
-        v19 = AMSHashIfNeeded();
         *buf = 138544130;
-        v23 = v16;
-        v24 = 2114;
-        v25 = v17;
-        v26 = 2114;
-        v27 = v18;
-        v28 = 2114;
-        v29 = v19;
+        v22 = v15;
+        v23 = 2114;
+        v24 = v16;
+        v25 = 2114;
+        v26 = v17;
+        v27 = 2114;
+        v28 = v18;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch home/home user identifiers for a record zone. recordZone = %{public}@ | error = %{public}@", buf, 0x2Au);
       }
 
@@ -3377,7 +1213,7 @@ uint64_t sub_1000597F8()
   v1 = v3[0];
   if (!qword_1002E3208)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -3392,7 +1228,6 @@ LABEL_7:
 
 uint64_t sub_1000598F8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1002E3208 = result;
   return result;
@@ -3407,67 +1242,66 @@ void *sub_10005996C(uint64_t a1)
   return result;
 }
 
-id sub_100059B48(uint64_t a1)
+id sub_100059B48(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = AMSSetLogKeyIfNeeded();
-  v3 = +[AMSLogConfig sharedFraudReportConfig];
-  if (!v3)
+  v4 = AMSSetLogKeyIfNeeded();
+  v5 = +[AMSLogConfig sharedFraudReportConfig];
+  if (!v5)
   {
-    v3 = +[AMSLogConfig sharedConfig];
+    v5 = +[AMSLogConfig sharedConfig];
   }
 
-  v4 = [v3 OSLogObject];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = [v5 OSLogObject];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = *(a1 + 40);
+    v7 = objc_opt_class();
+    v8 = *(a1 + 40);
     *buf = 138543874;
-    v33 = v6;
-    v34 = 2114;
-    v35 = v2;
-    v36 = 2112;
-    v37 = v7;
-    v8 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running fraud report blinding message task. (transactionId: %@)", buf, 0x20u);
+    v34 = v7;
+    v35 = 2114;
+    v36 = v4;
+    v37 = 2112;
+    v38 = v8;
+    v9 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running fraud report blinding message task. (transactionId: %@)", buf, 0x20u);
   }
 
-  v9 = [*(a1 + 32) bag];
-  v10 = [v9 URLForKey:AMSBagKeyFraudReportPKSService];
-  v11 = [v10 valuePromise];
+  v10 = [*(a1 + 32) bag];
+  v11 = [v10 URLForKey:AMSBagKeyFraudReportPKSService];
+  v12 = [v11 valuePromise];
 
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100059E50;
-  v28[3] = &unk_1002B0788;
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 32);
-  v29 = v12;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100059E50;
+  v29[3] = &unk_1002B0788;
+  v13 = *(a1 + 48);
+  v14 = *(a1 + 32);
   v30 = v13;
-  v14 = v2;
   v31 = v14;
-  v15 = [v11 continueWithBlock:v28];
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_10005A078;
-  v26[3] = &unk_1002B07B0;
-  v26[4] = *(a1 + 32);
-  v16 = v14;
-  v27 = v16;
-  v17 = [v15 continueWithBlock:v26];
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10005A1F4;
-  v22[3] = &unk_1002B07D8;
-  v18 = *(a1 + 40);
-  v22[4] = *(a1 + 32);
-  v23 = v16;
-  v24 = v18;
-  v25 = *(a1 + 48);
-  v19 = v16;
-  v20 = [v17 continueWithBlock:v22];
+  v15 = v4;
+  v32 = v15;
+  v16 = [v12 continueWithBlock:v29];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10005A078;
+  v27[3] = &unk_1002B07B0;
+  v27[4] = *(a1 + 32);
+  v17 = v15;
+  v28 = v17;
+  v18 = [v16 continueWithBlock:v27];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10005A1F4;
+  v23[3] = &unk_1002B07D8;
+  v19 = *(a1 + 40);
+  v23[4] = *(a1 + 32);
+  v24 = v17;
+  v25 = v19;
+  v26 = *(a1 + 48);
+  v20 = v17;
+  v21 = [v18 continueWithBlock:v23];
 
-  return v20;
+  return v21;
 }
 
 id sub_100059E50(uint64_t a1, void *a2, void *a3)
@@ -3493,36 +1327,35 @@ id sub_100059E50(uint64_t a1, void *a2, void *a3)
     v10 = [v9 OSLogObject];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 40);
-      v12 = objc_opt_class();
-      v13 = *(a1 + 48);
+      v11 = objc_opt_class();
+      v12 = *(a1 + 48);
       *buf = 138543618;
-      v23 = v12;
-      v24 = 2114;
-      v25 = v13;
-      v14 = v12;
+      v22 = v11;
+      v23 = 2114;
+      v24 = v12;
+      v13 = v11;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fraud report blinding message - obtaining keys", buf, 0x16u);
     }
 
-    v15 = [AMSURLRequestEncoder alloc];
-    v16 = [*(a1 + 40) bag];
-    v17 = [v15 initWithBag:v16];
+    v14 = [AMSURLRequestEncoder alloc];
+    v15 = [*(a1 + 40) bag];
+    v16 = [v14 initWithBag:v15];
 
-    [v17 setDialogOptions:1];
-    [v17 setRequestEncoding:1];
-    [v17 setUrlKnownToBeTrusted:1];
-    [v17 setLogUUID:*(a1 + 48)];
-    v18 = [v17 requestWithMethod:2 URL:v5 parameters:0];
+    [v16 setDialogOptions:1];
+    [v16 setRequestEncoding:1];
+    [v16 setUrlKnownToBeTrusted:1];
+    [v16 setLogUUID:*(a1 + 48)];
+    v17 = [v16 requestWithMethod:2 URL:v5 parameters:0];
   }
 
   else
   {
-    v21 = v6;
-    v19 = AMSErrorWithFormat();
-    v18 = [AMSPromise promiseWithError:v19, v21];
+    v20 = v6;
+    v18 = AMSErrorWithFormat();
+    v17 = [AMSPromise promiseWithError:v18, v20];
   }
 
-  return v18;
+  return v17;
 }
 
 id sub_10005A078(uint64_t a1, void *a2, void *a3)
@@ -3546,16 +1379,15 @@ id sub_10005A078(uint64_t a1, void *a2, void *a3)
     v10 = [v9 OSLogObject];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v13 = *(a1 + 40);
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v6;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@ [%{public}@] Error fraud report blinding message, cannot create request: %{public}@", &v15, 0x20u);
+      v11 = objc_opt_class();
+      v12 = *(a1 + 40);
+      v14 = 138543874;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v6;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@ [%{public}@] Error fraud report blinding message, cannot create request: %{public}@", &v14, 0x20u);
     }
 
     v8 = [AMSPromise promiseWithError:v6];
@@ -3580,34 +1412,33 @@ id sub_10005A1F4(void *a1, void *a2, void *a3)
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = a1[4];
-      v11 = objc_opt_class();
-      v12 = a1[5];
+      v10 = objc_opt_class();
+      v11 = a1[5];
       *buf = 138543618;
+      v25 = v10;
+      v26 = 2114;
       v27 = v11;
-      v28 = 2114;
-      v29 = v12;
-      v13 = v11;
+      v12 = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fraud report blinding message - obtaining keys success", buf, 0x16u);
     }
 
-    v14 = a1[6];
-    v15 = [v5 data];
-    v16 = a1[7];
-    v25 = 0;
-    v17 = [AMSDFraudReportPrivacyTask _blindedTransactionWithTransactionID:v14 pks:v15 keyID:v16 error:&v25];
-    v18 = v25;
+    v13 = a1[6];
+    v14 = [v5 data];
+    v15 = a1[7];
+    v23 = 0;
+    v16 = [AMSDFraudReportPrivacyTask _blindedTransactionWithTransactionID:v13 pks:v14 keyID:v15 error:&v23];
+    v17 = v23;
 
-    if (v17)
+    if (v16)
     {
-      [AMSPromise promiseWithResult:v17];
+      [AMSPromise promiseWithResult:v16];
     }
 
     else
     {
-      [AMSPromise promiseWithError:v18];
+      [AMSPromise promiseWithError:v17];
     }
-    v23 = ;
+    v21 = ;
   }
 
   else
@@ -3617,25 +1448,24 @@ id sub_10005A1F4(void *a1, void *a2, void *a3)
       v8 = +[AMSLogConfig sharedConfig];
     }
 
-    v19 = [v8 OSLogObject];
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = [v8 OSLogObject];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = a1[4];
-      v21 = objc_opt_class();
-      v22 = a1[5];
+      v19 = objc_opt_class();
+      v20 = a1[5];
       *buf = 138543874;
-      v27 = v21;
+      v25 = v19;
+      v26 = 2114;
+      v27 = v20;
       v28 = 2114;
-      v29 = v22;
-      v30 = 2114;
-      v31 = v6;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@ [%{public}@] Error fraud report blinding message, cannot fetch the pks key: %{public}@", buf, 0x20u);
+      v29 = v6;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}@ [%{public}@] Error fraud report blinding message, cannot fetch the pks key: %{public}@", buf, 0x20u);
     }
 
-    v23 = [AMSPromise promiseWithError:v6];
+    v21 = [AMSPromise promiseWithError:v6];
   }
 
-  return v23;
+  return v21;
 }
 
 void sub_10005AC0C(uint64_t a1, void *a2, void *a3)
@@ -3651,131 +1481,128 @@ void sub_10005AC0C(uint64_t a1, void *a2, void *a3)
   v8 = [v7 OSLogObject];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = v10;
-    v12 = AMSLogKey();
+    v9 = objc_opt_class();
+    v10 = v9;
+    v11 = AMSLogKey();
     *buf = 138543618;
-    v53 = v10;
-    v54 = 2114;
-    v55 = v12;
+    v50 = v9;
+    v51 = 2114;
+    v52 = v11;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Finished blinding transaction.", buf, 0x16u);
   }
 
   if (v5)
   {
-    v13 = [*(a1 + 40) fsrData];
-    v51 = 0;
-    v14 = [AMSDFraudReportService _reportedScoreFromFSRDataString:v13 error:&v51];
-    v15 = v51;
+    v12 = [*(a1 + 40) fsrData];
+    v48 = 0;
+    v13 = [AMSDFraudReportService _reportedScoreFromFSRDataString:v12 error:&v48];
+    v14 = v48;
 
-    if (v14)
+    if (v13)
     {
-      v16 = [AMSDFraudReportServiceRequest alloc];
-      v17 = [*(a1 + 40) nameSpace];
-      v18 = [v14 unsignedCharValue];
+      v15 = [AMSDFraudReportServiceRequest alloc];
+      v16 = [*(a1 + 40) nameSpace];
+      v17 = [v13 unsignedCharValue];
       [v5 blindedMessage];
-      v46 = v15;
-      v19 = v14;
-      v21 = v20 = v6;
-      v22 = [v5 keyID];
-      v23 = -[AMSDFraudReportServiceRequest initWithNameSpace:reportedScore:blindedMessage:keyID:authenticationTokenType:shouldIncludeODIAssessment:](v16, "initWithNameSpace:reportedScore:blindedMessage:keyID:authenticationTokenType:shouldIncludeODIAssessment:", v17, v18, v21, v22, [*(a1 + 40) authenticationTokenType], objc_msgSend(*(a1 + 40), "shouldIncludeODIAssessment"));
+      v43 = v14;
+      v18 = v13;
+      v20 = v19 = v6;
+      v21 = [v5 keyID];
+      v22 = -[AMSDFraudReportServiceRequest initWithNameSpace:reportedScore:blindedMessage:keyID:authenticationTokenType:shouldIncludeODIAssessment:](v15, "initWithNameSpace:reportedScore:blindedMessage:keyID:authenticationTokenType:shouldIncludeODIAssessment:", v16, v17, v20, v21, [*(a1 + 40) authenticationTokenType], objc_msgSend(*(a1 + 40), "shouldIncludeODIAssessment"));
 
-      v6 = v20;
-      v14 = v19;
-      v15 = v46;
+      v6 = v19;
+      v13 = v18;
+      v14 = v43;
 
-      v24 = [AMSDFraudReportServiceTask alloc];
-      v25 = [*(a1 + 40) account];
-      v26 = [(AMSDFraudReportServiceTask *)v24 initWithAccount:v25 bag:*(a1 + 48)];
+      v23 = [AMSDFraudReportServiceTask alloc];
+      v24 = [*(a1 + 40) account];
+      v25 = [(AMSDFraudReportServiceTask *)v23 initWithAccount:v24 bag:*(a1 + 48)];
 
-      v27 = [(AMSDFraudReportServiceTask *)v26 performReceiveFraudReportForServiceRequest:v23];
-      v48[0] = _NSConcreteStackBlock;
-      v48[1] = 3221225472;
-      v48[2] = sub_10005B1A0;
-      v48[3] = &unk_1002B0828;
-      v50 = *(a1 + 56);
-      v49 = v5;
-      [v27 resultWithCompletion:v48];
+      v26 = [(AMSDFraudReportServiceTask *)v25 performReceiveFraudReportForServiceRequest:v22];
+      v45[0] = _NSConcreteStackBlock;
+      v45[1] = 3221225472;
+      v45[2] = sub_10005B1A0;
+      v45[3] = &unk_1002B0828;
+      v47 = *(a1 + 56);
+      v46 = v5;
+      [v26 resultWithCompletion:v45];
     }
 
     else
     {
-      v29 = +[AMSUnitTests isRunningUnitTests];
-      v30 = +[AMSLogConfig sharedFraudReportConfig];
-      v31 = v30;
-      if (v29)
+      v28 = +[AMSUnitTests isRunningUnitTests];
+      v29 = +[AMSLogConfig sharedFraudReportConfig];
+      v30 = v29;
+      if (v28)
       {
-        if (!v30)
+        if (!v29)
         {
-          v31 = +[AMSLogConfig sharedConfig];
+          v30 = +[AMSLogConfig sharedConfig];
         }
 
-        v32 = [v31 OSLogObject];
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = [v30 OSLogObject];
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v33 = *(a1 + 32);
-          v34 = objc_opt_class();
-          v45 = v34;
-          v35 = AMSLogKey();
-          [v15 ams_title];
-          v37 = v36 = v6;
+          v32 = objc_opt_class();
+          v42 = v32;
+          v33 = AMSLogKey();
+          [v14 ams_title];
+          v35 = v34 = v6;
           *buf = 138543874;
-          v53 = v34;
-          v54 = 2114;
-          v55 = v35;
-          v56 = 2114;
-          v57 = v37;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unable to parse reported score from fsrData: %{public}@", buf, 0x20u);
+          v50 = v32;
+          v51 = 2114;
+          v52 = v33;
+          v53 = 2114;
+          v54 = v35;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unable to parse reported score from fsrData: %{public}@", buf, 0x20u);
 
-          v6 = v36;
-          v14 = 0;
+          v6 = v34;
+          v13 = 0;
         }
 
-        v31 = +[NSNotificationCenter defaultCenter];
-        v38 = +[AMSLogConfig sharedFraudReportConfig];
-        [v31 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v38 userInfo:0];
+        v30 = +[NSNotificationCenter defaultCenter];
+        v36 = +[AMSLogConfig sharedFraudReportConfig];
+        [v30 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v36 userInfo:0];
       }
 
       else
       {
-        if (!v30)
+        if (!v29)
         {
-          v31 = +[AMSLogConfig sharedConfig];
+          v30 = +[AMSLogConfig sharedConfig];
         }
 
-        v38 = [v31 OSLogObject];
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+        v36 = [v30 OSLogObject];
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
         {
-          v39 = *(a1 + 32);
-          v40 = objc_opt_class();
-          v47 = v40;
-          v41 = AMSLogKey();
-          [v15 ams_title];
-          v43 = v42 = v6;
+          v37 = objc_opt_class();
+          v44 = v37;
+          v38 = AMSLogKey();
+          [v14 ams_title];
+          v40 = v39 = v6;
           *buf = 138543874;
-          v53 = v40;
-          v54 = 2114;
-          v55 = v41;
-          v56 = 2114;
-          v57 = v43;
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_FAULT, "%{public}@: [%{public}@] Unable to parse reported score from fsrData: %{public}@", buf, 0x20u);
+          v50 = v37;
+          v51 = 2114;
+          v52 = v38;
+          v53 = 2114;
+          v54 = v40;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_FAULT, "%{public}@: [%{public}@] Unable to parse reported score from fsrData: %{public}@", buf, 0x20u);
 
-          v6 = v42;
+          v6 = v39;
         }
       }
 
-      v44 = *(a1 + 56);
-      v23 = AMSError();
-      (*(v44 + 16))(v44, 0, v23);
+      v41 = *(a1 + 56);
+      v22 = AMSError();
+      (*(v41 + 16))(v41, 0, v22);
     }
   }
 
   else
   {
-    v28 = *(a1 + 56);
-    v15 = [v6 ams_sanitizedForSecureCoding];
-    (*(v28 + 16))(v28, 0, v15);
+    v27 = *(a1 + 56);
+    v14 = [v6 ams_sanitizedForSecureCoding];
+    (*(v27 + 16))(v27, 0, v14);
   }
 }
 
@@ -3875,50 +1702,49 @@ id sub_10005BA6C(uint64_t a1, void *a2, void *a3)
   return v10;
 }
 
-id sub_10005BBF4(uint64_t a1)
+id sub_10005BBF4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = AMSSetLogKeyIfNeeded();
-  v3 = +[AMSLogConfig sharedFraudReportConfig];
-  if (!v3)
+  v4 = AMSSetLogKeyIfNeeded();
+  v5 = +[AMSLogConfig sharedFraudReportConfig];
+  if (!v5)
   {
-    v3 = +[AMSLogConfig sharedConfig];
+    v5 = +[AMSLogConfig sharedConfig];
   }
 
-  v4 = [v3 OSLogObject];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = [v5 OSLogObject];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
     *buf = 138543618;
-    v24 = objc_opt_class();
-    v25 = 2114;
-    v26 = v2;
-    v6 = v24;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running fraud report service request.", buf, 0x16u);
+    v25 = objc_opt_class();
+    v26 = 2114;
+    v27 = v4;
+    v7 = v25;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running fraud report service request.", buf, 0x16u);
   }
 
-  v7 = [*(a1 + 32) bag];
-  v8 = [v7 URLForKey:AMSBagKeyFraudReportService];
+  v8 = [*(a1 + 32) bag];
+  v9 = [v8 URLForKey:AMSBagKeyFraudReportService];
 
-  v9 = +[AMSDFraudReportServiceTask grandSlamTokenIdentifierForAuthenticationTokenType:](AMSDFraudReportServiceTask, "grandSlamTokenIdentifierForAuthenticationTokenType:", [*(a1 + 40) authenticationTokenType]);
-  v10 = [*(a1 + 32) account];
-  v11 = [AMSDFraudReportServiceTask determineAccountForAccount:v10];
+  v10 = +[AMSDFraudReportServiceTask grandSlamTokenIdentifierForAuthenticationTokenType:](AMSDFraudReportServiceTask, "grandSlamTokenIdentifierForAuthenticationTokenType:", [*(a1 + 40) authenticationTokenType]);
+  v11 = [*(a1 + 32) account];
+  v12 = [AMSDFraudReportServiceTask determineAccountForAccount:v11];
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_10005BE48;
-  v18[3] = &unk_1002B0A30;
-  v12 = *(a1 + 40);
-  v18[4] = *(a1 + 32);
-  v19 = v8;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10005BE48;
+  v19[3] = &unk_1002B0A30;
+  v13 = *(a1 + 40);
+  v19[4] = *(a1 + 32);
   v20 = v9;
-  v21 = v12;
-  v22 = v2;
-  v13 = v2;
-  v14 = v9;
-  v15 = v8;
-  v16 = [v11 thenWithBlock:v18];
+  v21 = v10;
+  v22 = v13;
+  v23 = v4;
+  v14 = v4;
+  v15 = v10;
+  v16 = v9;
+  v17 = [v12 thenWithBlock:v19];
 
-  return v16;
+  return v17;
 }
 
 id sub_10005BE48(uint64_t a1, void *a2)
@@ -4046,13 +1872,12 @@ id sub_10005C360(uint64_t a1, void *a2)
 
 id sub_10005C484(uint64_t a1, void *a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = a2;
-  v8 = AMSSetLogKey();
-  v9 = [*(a1 + 40) handleExpiredAuthenticationTokenErrorWithResult:v7 error:v6 forRequest:*(a1 + 48) account:*(a1 + 56) tokenIdentifier:*(a1 + 64)];
+  v5 = a3;
+  v6 = a2;
+  v7 = AMSSetLogKey();
+  v8 = [*(a1 + 40) handleExpiredAuthenticationTokenErrorWithResult:v6 error:v5 forRequest:*(a1 + 48) account:*(a1 + 56) tokenIdentifier:*(a1 + 64)];
 
-  return v9;
+  return v8;
 }
 
 id sub_10005C50C(uint64_t a1, void *a2, void *a3)
@@ -4084,114 +1909,111 @@ id sub_10005C50C(uint64_t a1, void *a2, void *a3)
 
       if (v12)
       {
-        v24 = [AMSFraudReportResponse alloc];
-        v25 = [*(a1 + 32) nameSpace];
-        v26 = [*(a1 + 32) reportedScore];
-        v27 = [*(a1 + 32) keyID];
-        v54 = 0;
-        v28 = [v24 initWithResponseDictionary:v12 expectedNamespace:v25 expectedReportedScore:v26 keyID:v27 error:&v54];
-        v29 = v54;
+        v23 = [AMSFraudReportResponse alloc];
+        v24 = [*(a1 + 32) nameSpace];
+        v25 = [*(a1 + 32) reportedScore];
+        v26 = [*(a1 + 32) keyID];
+        v50 = 0;
+        v27 = [v23 initWithResponseDictionary:v12 expectedNamespace:v24 expectedReportedScore:v25 keyID:v26 error:&v50];
+        v28 = v50;
 
-        if (v28)
+        if (v27)
         {
-          v30 = +[AMSLogConfig sharedFraudReportConfig];
-          if (!v30)
+          v29 = +[AMSLogConfig sharedFraudReportConfig];
+          if (!v29)
           {
-            v30 = +[AMSLogConfig sharedConfig];
+            v29 = +[AMSLogConfig sharedConfig];
           }
 
-          v31 = [v30 OSLogObject];
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v30 = [v29 OSLogObject];
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            v32 = *(a1 + 40);
-            v33 = objc_opt_class();
-            v34 = *(a1 + 48);
+            v31 = objc_opt_class();
+            v32 = *(a1 + 48);
             *buf = 138543618;
-            v56 = v33;
-            v57 = 2114;
-            v58 = v34;
-            v35 = v33;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fraud report received service result", buf, 0x16u);
+            v52 = v31;
+            v53 = 2114;
+            v54 = v32;
+            v33 = v31;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fraud report received service result", buf, 0x16u);
           }
 
-          v22 = [AMSPromise promiseWithResult:v28];
+          v21 = [AMSPromise promiseWithResult:v27];
         }
 
         else
         {
-          v37 = +[AMSUnitTests isRunningUnitTests];
-          v38 = +[AMSLogConfig sharedFraudReportConfig];
-          v39 = v38;
-          if (v37)
+          v35 = +[AMSUnitTests isRunningUnitTests];
+          v36 = +[AMSLogConfig sharedFraudReportConfig];
+          v37 = v36;
+          if (v35)
           {
-            if (!v38)
+            if (!v36)
             {
-              v39 = +[AMSLogConfig sharedConfig];
+              v37 = +[AMSLogConfig sharedConfig];
             }
 
-            v40 = [v39 OSLogObject];
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            v38 = [v37 OSLogObject];
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              v41 = *(a1 + 40);
-              v42 = objc_opt_class();
-              v50 = *(a1 + 48);
-              v52 = v42;
-              v43 = [v29 ams_title];
+              v39 = objc_opt_class();
+              v46 = *(a1 + 48);
+              v48 = v39;
+              v40 = [v28 ams_title];
               *buf = 138543874;
-              v56 = v42;
-              v57 = 2114;
-              v58 = v50;
-              v59 = 2114;
-              v60 = v43;
-              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to parse fraud report response: %{public}@", buf, 0x20u);
+              v52 = v39;
+              v53 = 2114;
+              v54 = v46;
+              v55 = 2114;
+              v56 = v40;
+              _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to parse fraud report response: %{public}@", buf, 0x20u);
             }
 
-            v39 = +[NSNotificationCenter defaultCenter];
-            v44 = +[AMSLogConfig sharedFraudReportConfig];
-            [v39 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v44 userInfo:0];
+            v37 = +[NSNotificationCenter defaultCenter];
+            v41 = +[AMSLogConfig sharedFraudReportConfig];
+            [v37 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v41 userInfo:0];
           }
 
           else
           {
-            if (!v38)
+            if (!v36)
             {
-              v39 = +[AMSLogConfig sharedConfig];
+              v37 = +[AMSLogConfig sharedConfig];
             }
 
-            v44 = [v39 OSLogObject];
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+            v41 = [v37 OSLogObject];
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
             {
-              v45 = *(a1 + 40);
-              v46 = objc_opt_class();
-              v51 = *(a1 + 48);
-              v53 = v46;
-              v47 = [v29 ams_title];
+              v42 = objc_opt_class();
+              v47 = *(a1 + 48);
+              v49 = v42;
+              v43 = [v28 ams_title];
               *buf = 138543874;
-              v56 = v46;
-              v57 = 2114;
-              v58 = v51;
-              v59 = 2114;
-              v60 = v47;
-              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, "%{public}@: [%{public}@] Failed to parse fraud report response: %{public}@", buf, 0x20u);
+              v52 = v42;
+              v53 = 2114;
+              v54 = v47;
+              v55 = 2114;
+              v56 = v43;
+              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_FAULT, "%{public}@: [%{public}@] Failed to parse fraud report response: %{public}@", buf, 0x20u);
             }
           }
 
-          v48 = AMSError();
-          v22 = [AMSPromise promiseWithError:v48];
+          v44 = AMSError();
+          v21 = [AMSPromise promiseWithError:v44];
         }
       }
 
       else
       {
-        v36 = AMSError();
-        v22 = [AMSPromise promiseWithError:v36];
+        v34 = AMSError();
+        v21 = [AMSPromise promiseWithError:v34];
       }
     }
 
     else
     {
-      v23 = AMSError();
-      v22 = [AMSPromise promiseWithError:v23];
+      v22 = AMSError();
+      v21 = [AMSPromise promiseWithError:v22];
     }
   }
 
@@ -4206,29 +2028,28 @@ id sub_10005C50C(uint64_t a1, void *a2, void *a3)
     v14 = [v13 OSLogObject];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 40);
-      v16 = objc_opt_class();
-      v17 = *(a1 + 48);
-      v18 = v16;
-      v19 = AMSLogableError();
+      v15 = objc_opt_class();
+      v16 = *(a1 + 48);
+      v17 = v15;
+      v18 = AMSLogableError();
       *buf = 138543874;
-      v56 = v16;
-      v57 = 2114;
-      v58 = v17;
-      v59 = 2114;
-      v60 = v19;
+      v52 = v15;
+      v53 = 2114;
+      v54 = v16;
+      v55 = 2114;
+      v56 = v18;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Fraud report request failed with error: %{public}@", buf, 0x20u);
     }
 
     [*(*(*(a1 + 56) + 8) + 40) provideFeedbackWithOutcome:1];
-    v20 = *(*(a1 + 56) + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = 0;
+    v19 = *(*(a1 + 56) + 8);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = 0;
 
-    v22 = [AMSPromise promiseWithError:v6];
+    v21 = [AMSPromise promiseWithError:v6];
   }
 
-  return v22;
+  return v21;
 }
 
 id sub_10005CE54(uint64_t a1, void *a2, void *a3)
@@ -4247,21 +2068,20 @@ id sub_10005CE54(uint64_t a1, void *a2, void *a3)
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = *(a1 + 40);
-      v24 = 138543618;
+      v10 = objc_opt_class();
+      v11 = *(a1 + 40);
+      v22 = 138543618;
+      v23 = v10;
+      v24 = 2114;
       v25 = v11;
-      v26 = 2114;
-      v27 = v12;
-      v13 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%{public}@: [%{public}@] Retrieved new authentication token after silent auth, retrying fraud report request.", &v24, 0x16u);
+      v12 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%{public}@: [%{public}@] Retrieved new authentication token after silent auth, retrying fraud report request.", &v22, 0x16u);
     }
 
-    v14 = [*(a1 + 56) mutableCopy];
-    [v14 setValue:v5 forHTTPHeaderField:AMSHTTPHeaderAuthorization];
-    v15 = +[AMSURLSession defaultSession];
-    v16 = [v15 dataTaskPromiseWithRequest:v14];
+    v13 = [*(a1 + 56) mutableCopy];
+    [v13 setValue:v5 forHTTPHeaderField:AMSHTTPHeaderAuthorization];
+    v14 = +[AMSURLSession defaultSession];
+    v15 = [v14 dataTaskPromiseWithRequest:v13];
   }
 
   else
@@ -4271,27 +2091,26 @@ id sub_10005CE54(uint64_t a1, void *a2, void *a3)
       v8 = +[AMSLogConfig sharedConfig];
     }
 
-    v17 = [v8 OSLogObject];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = [v8 OSLogObject];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(a1 + 32);
-      v19 = objc_opt_class();
-      v20 = *(a1 + 40);
-      v21 = v19;
-      v22 = AMSLogableError();
-      v24 = 138543874;
-      v25 = v19;
+      v17 = objc_opt_class();
+      v18 = *(a1 + 40);
+      v19 = v17;
+      v20 = AMSLogableError();
+      v22 = 138543874;
+      v23 = v17;
+      v24 = 2114;
+      v25 = v18;
       v26 = 2114;
       v27 = v20;
-      v28 = 2114;
-      v29 = v22;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to retrieve updated authentication token after silent auth, not retrying request. Error: %{public}@.", &v24, 0x20u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to retrieve updated authentication token after silent auth, not retrying request. Error: %{public}@.", &v22, 0x20u);
     }
 
-    v16 = [AMSPromise promiseWithError:*(a1 + 48)];
+    v15 = [AMSPromise promiseWithError:*(a1 + 48)];
   }
 
-  return v16;
+  return v15;
 }
 
 id sub_10005D1F8(uint64_t a1, uint64_t a2, void *a3)
@@ -4383,13 +2202,13 @@ id sub_10005D98C(void *a1, void *a2)
       v6 = a1[4];
       v7 = a1[5];
       v8 = a1[6];
-      v14 = 138543874;
-      v15 = v6;
+      v12 = 138543874;
+      v13 = v6;
+      v14 = 2114;
+      v15 = v7;
       v16 = 2114;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Token with identifier '%{public}@' found without authentication", &v14, 0x20u);
+      v17 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Token with identifier '%{public}@' found without authentication", &v12, 0x20u);
     }
 
     v9 = [AMSPromise promiseWithResult:v3];
@@ -4397,14 +2216,12 @@ id sub_10005D98C(void *a1, void *a2)
 
   else
   {
-    v11 = a1[6];
-    v10 = a1[7];
     v9 = (*(*(a1[4] + 16) + 16))();
   }
 
-  v12 = v9;
+  v10 = v9;
 
-  return v12;
+  return v10;
 }
 
 id sub_10005DD2C(id *a1)
@@ -4508,11 +2325,11 @@ void sub_10005E448(uint64_t a1, void *a2, void *a3)
     {
       v10 = *(a1 + 56);
       v11 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2114;
-      v20 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] ODI assessment successfully obtained.", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2114;
+      v19 = v11;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] ODI assessment successfully obtained.", &v16, 0x16u);
     }
   }
 
@@ -4526,18 +2343,17 @@ void sub_10005E448(uint64_t a1, void *a2, void *a3)
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 56);
-      v13 = objc_opt_class();
-      v14 = *(a1 + 32);
-      v15 = v13;
-      v16 = AMSLogableError();
-      v17 = 138543874;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v14;
-      v21 = 2114;
-      v22 = v16;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to obtain ODI assessment, proceeding without one: %{public}@.", &v17, 0x20u);
+      v12 = objc_opt_class();
+      v13 = *(a1 + 32);
+      v14 = v12;
+      v15 = AMSLogableError();
+      v16 = 138543874;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v13;
+      v20 = 2114;
+      v21 = v15;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to obtain ODI assessment, proceeding without one: %{public}@.", &v16, 0x20u);
     }
   }
 
@@ -5095,35 +2911,34 @@ id sub_100060068(uint64_t a1, void *a2)
       v8 = [v7 OSLogObject];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v10 = objc_opt_class();
-        v11 = AMSLogKey();
-        v15 = 138543618;
-        v16 = v10;
-        v17 = 2114;
-        v18 = v11;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Removing the home owner as a share participant.", &v15, 0x16u);
+        v9 = objc_opt_class();
+        v10 = AMSLogKey();
+        v14 = 138543618;
+        v15 = v9;
+        v16 = 2114;
+        v17 = v10;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Removing the home owner as a share participant.", &v14, 0x16u);
       }
 
       [v4 removeParticipant:v6];
-      v12 = [*(a1 + 32) _saveRecord:v4 database:*(a1 + 40)];
+      v11 = [*(a1 + 32) _saveRecord:v4 database:*(a1 + 40)];
     }
 
     else
     {
-      v12 = [AMSPromise promiseWithResult:v4];
+      v11 = [AMSPromise promiseWithResult:v4];
     }
   }
 
   else
   {
     v6 = AMSCustomError();
-    v12 = [AMSPromise promiseWithError:v6];
+    v11 = [AMSPromise promiseWithError:v6];
   }
 
-  v13 = v12;
+  v12 = v11;
 
-  return v13;
+  return v12;
 }
 
 id sub_1000602B8(uint64_t a1, void *a2)
@@ -5207,9 +3022,9 @@ void sub_100060910(uint64_t a1, uint64_t a2, void *a3)
   v5 = [v4 enqueueCloudKitSaveRecordFinishEventWithError:v6];
 }
 
-void sub_100060C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100060C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5285,80 +3100,79 @@ void sub_100061ACC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_100061AF8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = AMSSetLogKey();
+  v4 = AMSSetLogKey();
   if (!v3)
   {
-    v9 = +[AMSLogConfig sharedAccountsDaemonConfig];
-    if (!v9)
+    v8 = +[AMSLogConfig sharedAccountsDaemonConfig];
+    if (!v8)
     {
-      v9 = +[AMSLogConfig sharedConfig];
+      v8 = +[AMSLogConfig sharedConfig];
     }
 
-    v10 = [v9 OSLogObject];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = [v8 OSLogObject];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       WeakRetained = objc_loadWeakRetained((a1 + 40));
-      v16 = objc_opt_class();
-      v17 = *(a1 + 32);
+      v15 = objc_opt_class();
+      v16 = *(a1 + 32);
       *buf = 138543618;
-      *&buf[4] = v16;
+      *&buf[4] = v15;
       *&buf[12] = 2114;
-      *&buf[14] = v17;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully registered to receive CloudKit shares via HomeKit.", buf, 0x16u);
+      *&buf[14] = v16;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully registered to receive CloudKit shares via HomeKit.", buf, 0x16u);
     }
 
     goto LABEL_14;
   }
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v6 = qword_1002E3230;
-  v21 = qword_1002E3230;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v5 = qword_1002E3230;
+  v20 = qword_1002E3230;
   if (!qword_1002E3230)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_100063F58;
-    v23 = &unk_1002B0728;
-    v24 = &v18;
-    v7 = sub_100063DE4();
-    v8 = dlsym(v7, "HMErrorDomain");
-    *(v24[1] + 24) = v8;
-    qword_1002E3230 = *(v24[1] + 24);
-    v6 = v19[3];
+    v22 = &unk_1002B0728;
+    v23 = &v17;
+    v6 = sub_100063DE4();
+    v7 = dlsym(v6, "HMErrorDomain");
+    *(v23[1] + 24) = v7;
+    qword_1002E3230 = *(v23[1] + 24);
+    v5 = v18[3];
   }
 
-  _Block_object_dispose(&v18, 8);
-  if (!v6)
+  _Block_object_dispose(&v17, 8);
+  if (!v5)
   {
     sub_10021B19C();
     __break(1u);
   }
 
-  if (([v3 ams_hasDomain:*v6 code:{1, v18}] & 1) == 0)
+  if (([v3 ams_hasDomain:*v5 code:{1, v17}] & 1) == 0)
   {
-    v9 = +[AMSLogConfig sharedAccountsDaemonConfig];
-    if (!v9)
+    v8 = +[AMSLogConfig sharedAccountsDaemonConfig];
+    if (!v8)
     {
-      v9 = +[AMSLogConfig sharedConfig];
+      v8 = +[AMSLogConfig sharedConfig];
     }
 
-    v10 = [v9 OSLogObject];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = [v8 OSLogObject];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_loadWeakRetained((a1 + 40));
-      v12 = objc_opt_class();
-      v13 = *(a1 + 32);
-      v14 = AMSLogableError();
+      v10 = objc_loadWeakRetained((a1 + 40));
+      v11 = objc_opt_class();
+      v12 = *(a1 + 32);
+      v13 = AMSLogableError();
       *buf = 138543874;
-      *&buf[4] = v12;
+      *&buf[4] = v11;
       *&buf[12] = 2114;
-      *&buf[14] = v13;
+      *&buf[14] = v12;
       *&buf[22] = 2114;
-      v23 = v14;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to register to accept CloudKit shares. error = %{public}@", buf, 0x20u);
+      v22 = v13;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to register to accept CloudKit shares. error = %{public}@", buf, 0x20u);
     }
 
 LABEL_14:
@@ -5478,9 +3292,9 @@ void sub_100063018(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10006316C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006316C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5582,7 +3396,7 @@ uint64_t sub_100063DE4()
   v1 = v3[0];
   if (!qword_1002E3228)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -5597,7 +3411,6 @@ LABEL_7:
 
 uint64_t sub_100063EE4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1002E3228 = result;
   return result;
@@ -5624,7 +3437,7 @@ AMSDHomeKitHome *sub_100063FA8(uint64_t a1)
 
   else
   {
-    v3 = sub_10021B210();
+    sub_10021B210();
     return [(AMSDHomeKitHome *)v3 initWithHome:v4 dataSource:v5, v6];
   }
 
@@ -6007,12 +3820,12 @@ id sub_100068034(uint64_t a1)
 
 id sub_100068084(uint64_t a1, void *a2)
 {
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_100068374;
-  v21[3] = &unk_1002B1038;
-  v21[4] = *(a1 + 32);
-  v3 = [a2 ams_filterUsingTest:v21];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100068374;
+  v19[3] = &unk_1002B1038;
+  v19[4] = *(a1 + 32);
+  v3 = [a2 ams_filterUsingTest:v19];
   v4 = [*(a1 + 40) copy];
   if (([v4 shouldUseCloudData] & 1) == 0)
   {
@@ -6028,156 +3841,151 @@ id sub_100068084(uint64_t a1, void *a2)
       v6 = [v5 OSLogObject];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
-        v8 = objc_opt_class();
-        v9 = AMSLogKey();
+        v7 = objc_opt_class();
+        v8 = AMSLogKey();
         *buf = 138543618;
+        v21 = v7;
+        v22 = 2114;
         v23 = v8;
-        v24 = 2114;
-        v25 = v9;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Overriding shouldUseCloudData with true.", buf, 0x16u);
       }
     }
   }
 
-  v10 = [*(a1 + 32) _isCloudDataAvailable];
-  v11 = [v10 resultWithError:0];
+  v9 = [*(a1 + 32) _isCloudDataAvailable];
+  v10 = [v9 resultWithError:0];
 
-  if ([v4 shouldUseCloudData] && (v11 & 1) == 0)
+  if ([v4 shouldUseCloudData] && (v10 & 1) == 0)
   {
     [v4 setShouldUseCloudData:0];
-    v12 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-    if (!v12)
+    v11 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+    if (!v11)
     {
-      v12 = +[AMSLogConfig sharedConfig];
+      v11 = +[AMSLogConfig sharedConfig];
     }
 
-    v13 = [v12 OSLogObject];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = [v11 OSLogObject];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 32);
-      v15 = objc_opt_class();
-      v16 = AMSLogKey();
+      v13 = objc_opt_class();
+      v14 = AMSLogKey();
       *buf = 138543618;
-      v23 = v15;
-      v24 = 2114;
-      v25 = v16;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Overriding shouldUseCloudData with false. isCloudDataAvailable = false", buf, 0x16u);
+      v21 = v13;
+      v22 = 2114;
+      v23 = v14;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Overriding shouldUseCloudData with false. isCloudDataAvailable = false", buf, 0x16u);
     }
   }
 
-  v17 = [[AMSDRefreshMultiUserTask alloc] initWithMultiUserController:*(a1 + 32) homes:v3 options:v4];
-  v18 = v17;
+  v15 = [[AMSDRefreshMultiUserTask alloc] initWithMultiUserController:*(a1 + 32) homes:v3 options:v4];
+  v16 = v15;
   if (*(a1 + 48))
   {
-    [(AMSDRefreshMultiUserTask *)v17 setMetrics:?];
+    [(AMSDRefreshMultiUserTask *)v15 setMetrics:?];
   }
 
-  v19 = [(AMSDRefreshMultiUserTask *)v18 performTask];
+  v17 = [(AMSDRefreshMultiUserTask *)v16 performTask];
 
-  return v19;
+  return v17;
 }
 
 uint64_t sub_100068374(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (([v3 isMultiUserEnabled] & 1) == 0)
+  v2 = a2;
+  if (([v2 isMultiUserEnabled] & 1) == 0)
   {
-    v4 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-    if (!v4)
+    v3 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+    if (!v3)
     {
-      v4 = +[AMSLogConfig sharedConfig];
+      v3 = +[AMSLogConfig sharedConfig];
     }
 
-    v5 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = [v3 OSLogObject];
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
-    v13 = *(a1 + 32);
-    v14 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = AMSHashIfNeeded();
-    v19 = 138543874;
-    v20 = v14;
-    v21 = 2114;
-    v22 = v8;
-    v23 = 2114;
-    v24 = v9;
-    v10 = "%{public}@: [%{public}@] Skipping a home. Multi-User isn't enabled. home = %{public}@";
+    v11 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = AMSHashIfNeeded();
+    v15 = 138543874;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v7;
+    v8 = "%{public}@: [%{public}@] Skipping a home. Multi-User isn't enabled. home = %{public}@";
 LABEL_13:
-    v11 = v5;
-    v12 = OS_LOG_TYPE_DEFAULT;
+    v9 = v4;
+    v10 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_14;
   }
 
-  if (+[AMSDMultiUserController deviceSupportsMultipleUsers](AMSDMultiUserController, "deviceSupportsMultipleUsers") && ([v3 isCurrentDeviceAccessory] & 1) == 0)
+  if (+[AMSDMultiUserController deviceSupportsMultipleUsers](AMSDMultiUserController, "deviceSupportsMultipleUsers") && ([v2 isCurrentDeviceAccessory] & 1) == 0)
   {
-    v4 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-    if (!v4)
+    v3 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+    if (!v3)
     {
-      v4 = +[AMSLogConfig sharedConfig];
+      v3 = +[AMSLogConfig sharedConfig];
     }
 
-    v5 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = [v3 OSLogObject];
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_15;
     }
 
-    v17 = *(a1 + 32);
-    v18 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = AMSHashIfNeeded();
-    v19 = 138543874;
-    v20 = v18;
-    v21 = 2114;
-    v22 = v8;
-    v23 = 2114;
-    v24 = v9;
-    v10 = "%{public}@: [%{public}@] Skipping a home. The current device isn't an accessory of it. home = %{public}@";
+    v14 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = AMSHashIfNeeded();
+    v15 = 138543874;
+    v16 = v14;
+    v17 = 2114;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v7;
+    v8 = "%{public}@: [%{public}@] Skipping a home. The current device isn't an accessory of it. home = %{public}@";
     goto LABEL_13;
   }
 
-  if (![v3 isCurrentUserRestrictedGuest])
+  if (![v2 isCurrentUserRestrictedGuest])
   {
-    v15 = 1;
+    v12 = 1;
     goto LABEL_16;
   }
 
-  v4 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-  if (!v4)
+  v3 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+  if (!v3)
   {
-    v4 = +[AMSLogConfig sharedConfig];
+    v3 = +[AMSLogConfig sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = AMSHashIfNeeded();
-    v19 = 138543874;
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = AMSHashIfNeeded();
+    v15 = 138543874;
+    v16 = v5;
+    v17 = 2114;
+    v18 = v6;
+    v19 = 2114;
     v20 = v7;
-    v21 = 2114;
-    v22 = v8;
-    v23 = 2114;
-    v24 = v9;
-    v10 = "%{public}@: [%{public}@] Current user is Restricted Guest in home, not updating multi-user token for home = %{public}@";
-    v11 = v5;
-    v12 = OS_LOG_TYPE_ERROR;
+    v8 = "%{public}@: [%{public}@] Current user is Restricted Guest in home, not updating multi-user token for home = %{public}@";
+    v9 = v4;
+    v10 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-    _os_log_impl(&_mh_execute_header, v11, v12, v10, &v19, 0x20u);
+    _os_log_impl(&_mh_execute_header, v9, v10, v8, &v15, 0x20u);
   }
 
 LABEL_15:
 
-  v15 = 0;
+  v12 = 0;
 LABEL_16:
 
-  return v15;
+  return v12;
 }
 
 id sub_10006863C(uint64_t a1, void *a2, void *a3)
@@ -6196,21 +4004,20 @@ id sub_10006863C(uint64_t a1, void *a2, void *a3)
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = AMSLogKey();
-      v13 = AMSHashIfNeeded();
-      *v44 = 138543874;
-      *&v44[4] = v11;
-      *&v44[12] = 2114;
-      *&v44[14] = v12;
-      *&v44[22] = 2114;
-      v45 = v13;
-      v14 = "%{public}@: [%{public}@] The refresh finished. result = %{public}@";
-      v15 = v9;
-      v16 = OS_LOG_TYPE_DEFAULT;
+      v10 = objc_opt_class();
+      v11 = AMSLogKey();
+      v12 = AMSHashIfNeeded();
+      *v41 = 138543874;
+      *&v41[4] = v10;
+      *&v41[12] = 2114;
+      *&v41[14] = v11;
+      *&v41[22] = 2114;
+      v42 = v12;
+      v13 = "%{public}@: [%{public}@] The refresh finished. result = %{public}@";
+      v14 = v9;
+      v15 = OS_LOG_TYPE_DEFAULT;
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v15, v16, v14, v44, 0x20u);
+      _os_log_impl(&_mh_execute_header, v14, v15, v13, v41, 0x20u);
     }
   }
 
@@ -6224,106 +4031,104 @@ LABEL_10:
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
-      v18 = objc_opt_class();
-      v12 = AMSLogKey();
-      v13 = AMSHashIfNeeded();
-      *v44 = 138543874;
-      *&v44[4] = v18;
-      *&v44[12] = 2114;
-      *&v44[14] = v12;
-      *&v44[22] = 2114;
-      v45 = v13;
-      v14 = "%{public}@: [%{public}@] The refresh failed. error = %{public}@";
-      v15 = v9;
-      v16 = OS_LOG_TYPE_ERROR;
+      v16 = objc_opt_class();
+      v11 = AMSLogKey();
+      v12 = AMSHashIfNeeded();
+      *v41 = 138543874;
+      *&v41[4] = v16;
+      *&v41[12] = 2114;
+      *&v41[14] = v11;
+      *&v41[22] = 2114;
+      v42 = v12;
+      v13 = "%{public}@: [%{public}@] The refresh failed. error = %{public}@";
+      v14 = v9;
+      v15 = OS_LOG_TYPE_ERROR;
       goto LABEL_10;
     }
   }
 
-  if (v6 || ([v5 errors], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "count"), v19, v20))
+  if (v6 || ([v5 errors], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "count"), v17, v18))
   {
-    v21 = [v5 errors];
-    v22 = [v21 ams_firstObjectPassingTest:&stru_1002B10F0];
+    v19 = [v5 errors];
+    v20 = [v19 ams_firstObjectPassingTest:&stru_1002B10F0];
 
-    v23 = [(AMSDBackgroundActivityScheduler *)v22 userInfo];
-    v24 = [v23 objectForKeyedSubscript:@"AMSDCloudDataRetryAfterKey"];
+    v21 = [(AMSDBackgroundActivityScheduler *)v20 userInfo];
+    v22 = [v21 objectForKeyedSubscript:@"AMSDCloudDataRetryAfterKey"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v25 = v24;
+      v23 = v22;
     }
 
     else
     {
-      v25 = 0;
+      v23 = 0;
     }
 
-    [v25 doubleValue];
-    v27 = v26;
+    [v23 doubleValue];
+    v25 = v24;
 
-    if (v27 == 0.0)
+    if (v25 == 0.0)
     {
-      v28 = 86400.0;
+      v26 = 86400.0;
     }
 
     else
     {
-      v28 = v27;
+      v26 = v25;
     }
 
-    if (v27 == 0.0)
+    if (v25 == 0.0)
     {
-      v27 = 0.0;
+      v25 = 0.0;
     }
 
-    v29 = [[AMSDRefreshMultiUserOptions alloc] initWithReason:@"A previous refresh failed."];
-    [(AMSDRefreshMultiUserOptions *)v29 setSchedulingInterval:v28];
-    [(AMSDRefreshMultiUserOptions *)v29 setThrottlingInterval:v27];
-    v30 = [v5 errors];
-    v32 = sub_100048940(v30, v31);
+    v27 = [[AMSDRefreshMultiUserOptions alloc] initWithReason:@"A previous refresh failed."];
+    [(AMSDRefreshMultiUserOptions *)v27 setSchedulingInterval:v26];
+    [(AMSDRefreshMultiUserOptions *)v27 setThrottlingInterval:v25];
+    v28 = [v5 errors];
+    v30 = sub_100048940(v28, v29);
 
-    if (v32)
+    if (v30)
     {
-      v33 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-      if (!v33)
+      v31 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+      if (!v31)
       {
-        v33 = +[AMSLogConfig sharedConfig];
+        v31 = +[AMSLogConfig sharedConfig];
       }
 
-      v34 = [v33 OSLogObject];
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v32 = [v31 OSLogObject];
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
-        v36 = objc_opt_class();
-        v37 = AMSLogKey();
-        *v44 = 138543618;
-        *&v44[4] = v36;
-        *&v44[12] = 2114;
-        *&v44[14] = v37;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] The refresh encountered a fatal cloud data error.", v44, 0x16u);
+        v33 = objc_opt_class();
+        v34 = AMSLogKey();
+        *v41 = 138543618;
+        *&v41[4] = v33;
+        *&v41[12] = 2114;
+        *&v41[14] = v34;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] The refresh encountered a fatal cloud data error.", v41, 0x16u);
       }
 
       [AMSStorage _setValue:0 forKey:@"AMSDLastMultiUserRefresh"];
     }
 
-    v38 = [*(a1 + 32) refreshWithOptions:v29];
+    v35 = [*(a1 + 32) refreshWithOptions:v27];
 
     goto LABEL_28;
   }
 
-  v41 = *(a1 + 32);
-  v42 = [v5 homes];
-  [v41 _setLastSuccessfulRefreshDateWithHomes:v42];
+  v38 = *(a1 + 32);
+  v39 = [v5 homes];
+  [v38 _setLastSuccessfulRefreshDateWithHomes:v39];
 
-  v43 = [v5 options];
-  LODWORD(v42) = [v43 shouldUseCloudData];
+  v40 = [v5 options];
+  LODWORD(v39) = [v40 shouldUseCloudData];
 
-  if (v42)
+  if (v39)
   {
-    v22 = [[AMSDBackgroundActivityScheduler alloc] initWithIdentifier:@"com.apple.amsaccountsd.refresh"];
-    [(AMSDBackgroundActivityScheduler *)v22 invalidate];
+    v20 = [[AMSDBackgroundActivityScheduler alloc] initWithIdentifier:@"com.apple.amsaccountsd.refresh"];
+    [(AMSDBackgroundActivityScheduler *)v20 invalidate];
 LABEL_28:
   }
 
@@ -6336,34 +4141,33 @@ LABEL_28:
   {
     [AMSPromise promiseWithError:v6];
   }
-  v39 = ;
+  v36 = ;
 
-  return v39;
+  return v36;
 }
 
 void sub_100068E7C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-  if (!v4)
+  v2 = a2;
+  v3 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+  if (!v3)
   {
-    v4 = +[AMSLogConfig sharedConfig];
+    v3 = +[AMSLogConfig sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = AMSHashIfNeeded();
-    v10 = 138543874;
-    v11 = v7;
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = AMSHashIfNeeded();
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
     v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v9;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch a cloud container's status. error = %{public}@", &v10, 0x20u);
+    v13 = v7;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch a cloud container's status. error = %{public}@", &v8, 0x20u);
   }
 }
 
@@ -6400,22 +4204,21 @@ void *sub_10006906C(uint64_t a1, void *a2)
       v6 = [v5 OSLogObject];
       if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 40);
-        v8 = objc_opt_class();
-        v9 = AMSLogKey();
-        v10 = *(a1 + 48);
-        v11 = [v3 unsignedLongValue];
-        v12 = [*(a1 + 32) unsignedLongValue];
+        v7 = objc_opt_class();
+        v8 = AMSLogKey();
+        v9 = *(a1 + 48);
+        v10 = [v3 unsignedLongValue];
+        v11 = [*(a1 + 32) unsignedLongValue];
         *buf = 138544386;
+        v24 = v7;
+        v25 = 2114;
         v26 = v8;
-        v27 = 2114;
+        v27 = 2048;
         v28 = v9;
         v29 = 2048;
         v30 = v10;
         v31 = 2048;
         v32 = v11;
-        v33 = 2048;
-        v34 = v12;
         _os_log_impl(&_mh_execute_header, &v6->super, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Ignoring a cloud data manager change. changeType = %lu | previousCloudContainerStatus = %lu | cloudContainerStatus = %lu", buf, 0x34u);
       }
 
@@ -6425,63 +4228,62 @@ void *sub_10006906C(uint64_t a1, void *a2)
     v4 = *(a1 + 32);
   }
 
-  v13 = &_s18AppleMediaServices16RemoteSignInTaskC7performSDySSSbGyYaKFTjTu_ptr;
+  v12 = &_s18AppleMediaServices16RemoteSignInTaskC7performSDySSSbGyYaKFTjTu_ptr;
   v5 = [NSString stringWithFormat:@"Cloud data manager changed. changeType = %lu | previousCloudContainerStatus = %@ | cloudContainerStatus = %@", *(a1 + 48), v3, v4];
   v6 = [[AMSDRefreshMultiUserOptions alloc] initWithReason:v5];
   [(AMSDRefreshMultiUserOptions *)v6 setShouldUseCloudData:1];
   if ([*(a1 + 40) multiUserRefreshThrottlingActive])
   {
-    v14 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-    if (!v14)
+    v13 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+    if (!v13)
     {
-      v14 = +[AMSLogConfig sharedConfig];
+      v13 = +[AMSLogConfig sharedConfig];
     }
 
-    v15 = [v14 OSLogObject];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = [v13 OSLogObject];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = AMSLogKey();
-      v17 = *(a1 + 40);
-      v18 = objc_opt_class();
-      v19 = v18;
-      if (v16)
+      v15 = AMSLogKey();
+      v16 = objc_opt_class();
+      v17 = v16;
+      if (v15)
       {
-        v13 = AMSLogKey();
-        [NSString stringWithFormat:@"%@: [%@] ", v19, v13];
+        v12 = AMSLogKey();
+        [NSString stringWithFormat:@"%@: [%@] ", v17, v12];
       }
 
       else
       {
-        [NSString stringWithFormat:@"%@: ", v18];
+        [NSString stringWithFormat:@"%@: ", v16];
       }
-      v20 = ;
+      v18 = ;
       *buf = 138543362;
-      v26 = v20;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Dropping cloud data manager changed Notification, throttled", buf, 0xCu);
-      if (v16)
+      v24 = v18;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Dropping cloud data manager changed Notification, throttled", buf, 0xCu);
+      if (v15)
       {
 
-        v20 = v13;
+        v18 = v12;
       }
     }
   }
 
   else
   {
-    v21 = [*(a1 + 40) refreshWithOptions:v6];
+    v19 = [*(a1 + 40) refreshWithOptions:v6];
   }
 
 LABEL_21:
 
-  v22 = *(a1 + 32);
-  v23 = v22;
+  v20 = *(a1 + 32);
+  v21 = v20;
 
-  return v22;
+  return v20;
 }
 
-void sub_1000699F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000699F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6512,33 +4314,31 @@ void sub_100069A88(uint64_t a1, void *a2)
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v9 = *(a1 + 40);
-    v10 = AMSHashIfNeeded();
+    v6 = objc_opt_class();
+    v7 = AMSLogKey();
+    v8 = AMSHashIfNeeded();
     *buf = 138543874;
+    v17 = v6;
+    v18 = 2114;
     v19 = v7;
     v20 = 2114;
     v21 = v8;
-    v22 = 2114;
-    v23 = v10;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Beginning queued cloud data repair request. home = %{public}@", buf, 0x20u);
   }
 
-  v11 = [v3 performTask];
+  v9 = [v3 performTask];
 
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_100069C68;
-  v15[3] = &unk_1002B11B0;
-  v14 = *(a1 + 32);
-  v12 = *(&v14 + 1);
-  *&v13 = *(a1 + 48);
-  *(&v13 + 1) = *(a1 + 56);
-  v16 = v14;
-  v17 = v13;
-  [v11 resultWithCompletion:v15];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100069C68;
+  v13[3] = &unk_1002B11B0;
+  v12 = *(a1 + 32);
+  v10 = *(&v12 + 1);
+  *&v11 = *(a1 + 48);
+  *(&v11 + 1) = *(a1 + 56);
+  v14 = v12;
+  v15 = v11;
+  [v9 resultWithCompletion:v13];
 }
 
 void sub_100069C68(uint64_t a1, void *a2, void *a3)
@@ -6556,21 +4356,19 @@ void sub_100069C68(uint64_t a1, void *a2, void *a3)
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = AMSLogKey();
-      v12 = *(a1 + 40);
-      v13 = AMSHashIfNeeded();
-      v14 = AMSHashIfNeeded();
-      v18 = 138544130;
+      v9 = objc_opt_class();
+      v10 = AMSLogKey();
+      v11 = AMSHashIfNeeded();
+      v12 = AMSHashIfNeeded();
+      v16 = 138544130;
+      v17 = v9;
+      v18 = 2114;
       v19 = v10;
       v20 = 2114;
       v21 = v11;
       v22 = 2114;
-      v23 = v13;
-      v24 = 2114;
-      v25 = v14;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Repair request failed with error. home = %{public}@ error = %{public}@", &v18, 0x2Au);
+      v23 = v12;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Repair request failed with error. home = %{public}@ error = %{public}@", &v16, 0x2Au);
     }
   }
 
@@ -6578,16 +4376,16 @@ void sub_100069C68(uint64_t a1, void *a2, void *a3)
   [*(a1 + 48) removeObjectAtIndex:0];
   if ([*(a1 + 48) count])
   {
-    v15 = [*(a1 + 48) objectAtIndexedSubscript:0];
+    v13 = [*(a1 + 48) objectAtIndexedSubscript:0];
     os_unfair_lock_unlock(&unk_1002E3260);
     (*(*(*(*(a1 + 56) + 8) + 40) + 16))();
   }
 
   else
   {
-    v16 = *(*(a1 + 56) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = 0;
+    v14 = *(*(a1 + 56) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = 0;
 
     os_unfair_lock_unlock(&unk_1002E3260);
   }
@@ -6600,13 +4398,13 @@ id sub_10006A1AC(uint64_t a1, void *a2, void *a3)
   if (v5)
   {
     v7 = [*(a1 + 32) previousCloudContainerStatus];
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_10006A4F8;
-    v25[3] = &unk_1002B1200;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10006A4F8;
+    v23[3] = &unk_1002B1200;
     v8 = v5;
-    v26 = v8;
-    [v7 readWrite:v25];
+    v24 = v8;
+    [v7 readWrite:v23];
 
     v9 = [v8 unsignedIntegerValue];
     if (v9 == 1)
@@ -6620,19 +4418,18 @@ id sub_10006A1AC(uint64_t a1, void *a2, void *a3)
       v11 = [v10 OSLogObject];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 32);
-        v13 = objc_opt_class();
-        v14 = AMSLogKey();
+        v12 = objc_opt_class();
+        v13 = AMSLogKey();
         *buf = 138543874;
+        v26 = v12;
+        v27 = 2114;
         v28 = v13;
-        v29 = 2114;
-        v30 = v14;
-        v31 = 2048;
-        v32 = 1;
+        v29 = 2048;
+        v30 = 1;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Cloud data is available. status = %ld", buf, 0x20u);
       }
 
-      v15 = [AMSPromise promiseWithResult:&__kCFBooleanTrue];
+      v14 = [AMSPromise promiseWithResult:&__kCFBooleanTrue];
       goto LABEL_14;
     }
   }
@@ -6642,37 +4439,36 @@ id sub_10006A1AC(uint64_t a1, void *a2, void *a3)
     v9 = 0;
   }
 
-  v16 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-  if (!v16)
+  v15 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+  if (!v15)
   {
-    v16 = +[AMSLogConfig sharedConfig];
+    v15 = +[AMSLogConfig sharedConfig];
   }
 
-  v17 = [v16 OSLogObject];
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v16 = [v15 OSLogObject];
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v18 = *(a1 + 32);
-    v19 = objc_opt_class();
-    v20 = AMSLogKey();
-    v21 = AMSHashIfNeeded();
+    v17 = objc_opt_class();
+    v18 = AMSLogKey();
+    v19 = AMSHashIfNeeded();
     *buf = 138544130;
-    v28 = v19;
-    v29 = 2114;
-    v30 = v20;
-    v31 = 2048;
-    v32 = v9;
-    v33 = 2114;
-    v34 = v21;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Cloud data is unavailable. status = %ld | error = %{public}@", buf, 0x2Au);
+    v26 = v17;
+    v27 = 2114;
+    v28 = v18;
+    v29 = 2048;
+    v30 = v9;
+    v31 = 2114;
+    v32 = v19;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Cloud data is unavailable. status = %ld | error = %{public}@", buf, 0x2Au);
   }
 
-  v22 = [NSString stringWithFormat:@"Cloud data is unavailable. status = %ld", v9];
-  v23 = AMSCustomError();
-  v15 = [AMSPromise promiseWithError:v23];
+  v20 = [NSString stringWithFormat:@"Cloud data is unavailable. status = %ld", v9];
+  v21 = AMSCustomError();
+  v14 = [AMSPromise promiseWithError:v21];
 
 LABEL_14:
 
-  return v15;
+  return v14;
 }
 
 id sub_10006A8C0(id a1, AMSDHome *a2)
@@ -6727,32 +4523,30 @@ void sub_10006AB88(id a1, id a2)
 
 uint64_t sub_10006B0DC(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = AMSSetLogKey();
-  v4 = *(*(a1 + 40) + 16);
+  v2 = AMSSetLogKey();
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 void sub_10006B2D0(uint64_t a1)
 {
-  v2 = +[AMSLogConfig sharedAccountsConfig];
-  if (!v2)
+  v1 = +[AMSLogConfig sharedAccountsConfig];
+  if (!v1)
   {
-    v2 = +[AMSLogConfig sharedConfig];
+    v1 = +[AMSLogConfig sharedConfig];
   }
 
-  v3 = [v2 OSLogObject];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v2 = [v1 OSLogObject];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v6;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Flushing Multi-User Metrics", &v7, 0x16u);
+    v3 = objc_opt_class();
+    v4 = AMSLogKey();
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Flushing Multi-User Metrics", &v5, 0x16u);
   }
 }
 
@@ -6787,39 +4581,38 @@ void sub_10006CBE4(uint64_t a1, void *a2, uint64_t a3)
     v7 = [v6 OSLogObject];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 40);
-      v9 = objc_opt_class();
-      v10 = AMSLogKey();
-      v11 = *(a1 + 48);
+      v8 = objc_opt_class();
+      v9 = AMSLogKey();
+      v10 = *(a1 + 48);
       *buf = 138544130;
-      v22 = v9;
-      v23 = 2114;
-      v24 = v10;
-      v25 = 2114;
-      v26 = v5;
-      v27 = 2114;
-      v28 = v11;
+      v21 = v8;
+      v22 = 2114;
+      v23 = v9;
+      v24 = 2114;
+      v25 = v5;
+      v26 = 2114;
+      v27 = v10;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Queue Metrics Event for topic = %{public}@ | userId namespace %{public}@", buf, 0x2Au);
     }
 
-    v12 = [*(a1 + 40) _userIdForBagNamespace:*(a1 + 48)];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_10006CE1C;
-    v17[3] = &unk_1002B1380;
-    v16 = *(a1 + 32);
-    v13 = v16.i64[0];
-    v18 = vextq_s8(v16, v16, 8uLL);
-    v19 = *(a1 + 56);
-    v20 = v5;
-    [v12 resultWithCompletion:v17];
+    v11 = [*(a1 + 40) _userIdForBagNamespace:*(a1 + 48)];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10006CE1C;
+    v16[3] = &unk_1002B1380;
+    v15 = *(a1 + 32);
+    v12 = v15.i64[0];
+    v17 = vextq_s8(v15, v15, 8uLL);
+    v18 = *(a1 + 56);
+    v19 = v5;
+    [v11 resultWithCompletion:v16];
   }
 
   else
   {
-    v14 = *(a1 + 32);
-    v15 = AMSError();
-    [v14 finishWithError:v15];
+    v13 = *(a1 + 32);
+    v14 = AMSError();
+    [v13 finishWithError:v14];
   }
 }
 
@@ -6838,22 +4631,21 @@ void sub_10006CE1C(uint64_t a1, uint64_t a2, void *a3)
     v15 = [v14 OSLogObject];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v18 = AMSLogKey();
-      v19 = AMSLogableError();
-      v22 = 138543874;
-      v23 = v17;
-      v24 = 2114;
-      v25 = v18;
-      v26 = 2114;
-      v27 = v19;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to create metrics event due to an error while fetching userId. error = %{public}@", &v22, 0x20u);
+      v16 = objc_opt_class();
+      v17 = AMSLogKey();
+      v18 = AMSLogableError();
+      v21 = 138543874;
+      v22 = v16;
+      v23 = 2114;
+      v24 = v17;
+      v25 = 2114;
+      v26 = v18;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to create metrics event due to an error while fetching userId. error = %{public}@", &v21, 0x20u);
     }
 
-    v20 = *(a1 + 40);
-    v21 = AMSError();
-    [v20 finishWithError:v21];
+    v19 = *(a1 + 40);
+    v20 = AMSError();
+    [v19 finishWithError:v20];
   }
 
   else
@@ -6899,72 +4691,71 @@ id sub_10006D9E4(uint64_t a1, void *a2, void *a3)
       v9 = [v8 OSLogObject];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 32);
-        v11 = objc_opt_class();
-        v12 = AMSLogKey();
+        v10 = objc_opt_class();
+        v11 = AMSLogKey();
         *buf = 138543874;
-        v32 = v11;
-        v33 = 2114;
-        v34 = v12;
-        v35 = 2114;
-        v36 = v7;
+        v31 = v10;
+        v32 = 2114;
+        v33 = v11;
+        v34 = 2114;
+        v35 = v7;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Restricted Guest Error: %{public}@", buf, 0x20u);
       }
 
-      v13 = [AMSPromise promiseWithError:v7];
+      v12 = [AMSPromise promiseWithError:v7];
     }
 
     else
     {
-      v19 = [*(a1 + 40) cloudContainer];
-      v20 = [v19 privateDatabase];
+      v18 = [*(a1 + 40) cloudContainer];
+      v19 = [v18 privateDatabase];
 
-      v21 = [AMSDFetchMultiUserRecordZoneTask alloc];
-      v22 = [v5 currentUser];
-      v7 = [(AMSDFetchMultiUserRecordZoneTask *)v21 initWithHome:v5 homeUser:v22 database:v20 metrics:0];
+      v20 = [AMSDFetchMultiUserRecordZoneTask alloc];
+      v21 = [v5 currentUser];
+      v7 = [(AMSDFetchMultiUserRecordZoneTask *)v20 initWithHome:v5 homeUser:v21 database:v19 metrics:0];
 
       [(AMSDFetchMultiUserRecordZoneTask *)v7 setCreateIfMissing:0];
-      v23 = [(AMSDFetchMultiUserRecordZoneTask *)v7 performTask];
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_10006DD84;
-      v26[3] = &unk_1002B1440;
-      v27 = v20;
-      v28 = v5;
-      v30 = *(a1 + 48);
-      v29 = *(a1 + 40);
-      v24 = v20;
-      v13 = [v23 continueWithBlock:v26];
+      v22 = [(AMSDFetchMultiUserRecordZoneTask *)v7 performTask];
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_10006DD84;
+      v25[3] = &unk_1002B1440;
+      v26 = v19;
+      v27 = v5;
+      v29 = *(a1 + 48);
+      v28 = *(a1 + 40);
+      v23 = v19;
+      v12 = [v22 continueWithBlock:v25];
     }
   }
 
   else
   {
-    v14 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-    if (!v14)
+    v13 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+    if (!v13)
     {
-      v14 = +[AMSLogConfig sharedConfig];
+      v13 = +[AMSLogConfig sharedConfig];
     }
 
-    v15 = [v14 OSLogObject];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = [v13 OSLogObject];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = objc_opt_class();
-      v17 = AMSLogKey();
-      v18 = AMSLogableError();
+      v15 = objc_opt_class();
+      v16 = AMSLogKey();
+      v17 = AMSLogableError();
       *buf = 138543874;
-      v32 = v16;
-      v33 = 2114;
-      v34 = v17;
-      v35 = 2114;
-      v36 = v18;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unable to export the multi-user token. Failed to find a home matching the given identifier. error = %{public}@", buf, 0x20u);
+      v31 = v15;
+      v32 = 2114;
+      v33 = v16;
+      v34 = 2114;
+      v35 = v17;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unable to export the multi-user token. Failed to find a home matching the given identifier. error = %{public}@", buf, 0x20u);
     }
 
-    v13 = [AMSPromise promiseWithError:v6];
+    v12 = [AMSPromise promiseWithError:v6];
   }
 
-  return v13;
+  return v12;
 }
 
 id sub_10006DD84(uint64_t a1, void *a2, void *a3)
@@ -8459,29 +6250,2278 @@ AMSPromise *__cdecl sub_1000730E4(id a1, AMSDHome *a2)
 
 void sub_10007314C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[AMSLogConfig sharedAccountsMultiUserConfig];
-  if (!v4)
+  v2 = a2;
+  v3 = +[AMSLogConfig sharedAccountsMultiUserConfig];
+  if (!v3)
   {
-    v4 = +[AMSLogConfig sharedConfig];
+    v3 = +[AMSLogConfig sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = objc_opt_class();
-    v7 = AMSLogKey();
-    v8 = *(a1 + 32);
-    v9 = AMSHashIfNeeded();
-    v10 = AMSHashIfNeeded();
-    v11 = 138544130;
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = AMSHashIfNeeded();
+    v8 = AMSHashIfNeeded();
+    v9 = 138544130;
+    v10 = v5;
+    v11 = 2114;
     v12 = v6;
     v13 = 2114;
     v14 = v7;
     v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch the home participant record. recordZone = %{public}@ | error = %{public}@", &v11, 0x2Au);
+    v16 = v8;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch the home participant record. recordZone = %{public}@ | error = %{public}@", &v9, 0x2Au);
+  }
+}
+
+id sub_1000732A8(uint64_t a1, void *a2)
+{
+  v3 = [a2 value];
+  if (v3)
+  {
+    v4 = [[AMSDUpdateMultiUserTokenTask alloc] initWithController:*(a1 + 32) account:*(a1 + 40) home:v3];
+    v5 = [(AMSDUpdateMultiUserTokenTask *)v4 performTask];
+    v6 = [v5 thenWithBlock:&stru_1002B1740];
+  }
+
+  else
+  {
+    v4 = +[AMSOptional optionalWithNil];
+    v6 = [AMSPromise promiseWithResult:v4];
+  }
+
+  return v6;
+}
+
+AMSPromise *__cdecl sub_100073374(id a1, NSString *a2)
+{
+  v2 = [AMSOptional optionalWithValue:a2];
+  v3 = [AMSPromise promiseWithResult:v2];
+
+  return v3;
+}
+
+void sub_1000733DC(uint64_t a1, uint64_t a2, void *a3)
+{
+  v4 = a3;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1000734AC;
+  v8[3] = &unk_1002B17B8;
+  v5 = *(a1 + 56);
+  v9 = v4;
+  v12 = v5;
+  v6 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  v7 = v4;
+  [v6 readWrite:v8];
+}
+
+id sub_1000734AC(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = v3;
+  if (*(a1 + 32))
+  {
+    [v3 addObject:?];
+  }
+
+  v5 = ++*(*(*(a1 + 56) + 8) + 24);
+  if (v5 == [*(a1 + 40) count])
+  {
+    [*(a1 + 48) finishWithResult:v4];
+  }
+
+  return v4;
+}
+
+void sub_10007353C(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  if (v6)
+  {
+    v7 = +[AMSLogConfig sharedAccountsDaemonConfig];
+    if (!v7)
+    {
+      v7 = +[AMSLogConfig sharedConfig];
+    }
+
+    v8 = [v7 OSLogObject];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = objc_opt_class();
+      v10 = AMSLogKey();
+      v11 = AMSHashIfNeeded();
+      v27 = 138543874;
+      v28 = v9;
+      v29 = 2114;
+      v30 = v10;
+      v31 = 2114;
+      v32 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Error occurred before attempt to update multi-user tokens. error = %{public}@", &v27, 0x20u);
+    }
+
+    v12 = *(a1 + 40);
+    v13 = [AMSDMultiUserService _sanitizeError:v6];
+    (*(v12 + 16))(v12, 0, v13);
+  }
+
+  else
+  {
+    v14 = [v5 count];
+    v15 = +[AMSLogConfig sharedAccountsDaemonConfig];
+    v16 = v15;
+    if (v14)
+    {
+      if (!v15)
+      {
+        v16 = +[AMSLogConfig sharedConfig];
+      }
+
+      v17 = [v16 OSLogObject];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v18 = objc_opt_class();
+        v19 = AMSLogKey();
+        v20 = AMSHashIfNeeded();
+        v27 = 138543874;
+        v28 = v18;
+        v29 = 2114;
+        v30 = v19;
+        v31 = 2114;
+        v32 = v20;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to update one or more multi-user tokens. errors = %{public}@", &v27, 0x20u);
+      }
+
+      v21 = AMSErrorWithMultipleUnderlyingErrors();
+      v22 = *(a1 + 40);
+      v23 = [AMSDMultiUserService _sanitizeError:v21];
+      (*(v22 + 16))(v22, 0, v23);
+    }
+
+    else
+    {
+      if (!v15)
+      {
+        v16 = +[AMSLogConfig sharedConfig];
+      }
+
+      v24 = [v16 OSLogObject];
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        v25 = objc_opt_class();
+        v26 = AMSLogKey();
+        v27 = 138543618;
+        v28 = v25;
+        v29 = 2114;
+        v30 = v26;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully updated all multi-user tokens.", &v27, 0x16u);
+      }
+
+      (*(*(a1 + 40) + 16))();
+    }
+  }
+
+  [AMSDTransactionStore releaseKeepAliveTransaction:*(a1 + 32)];
+}
+
+void sub_100074DD0(uint64_t a1, char a2, void *a3)
+{
+  v4 = a3;
+  if ((a2 & 1) == 0)
+  {
+    v5 = +[AMSLogConfig sharedAccountsDaemonConfig];
+    if (!v5)
+    {
+      v5 = +[AMSLogConfig sharedConfig];
+    }
+
+    v6 = [v5 OSLogObject];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = objc_opt_class();
+      v8 = AMSLogKey();
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v8;
+      v13 = 2114;
+      v14 = v4;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Error posting notification: %{public}@", &v9, 0x20u);
+    }
+  }
+}
+
+id sub_10007526C()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = qword_1002E32A8;
+  v7 = qword_1002E32A8;
+  if (!qword_1002E32A8)
+  {
+    v3[0] = _NSConcreteStackBlock;
+    v3[1] = 3221225472;
+    v3[2] = sub_100076494;
+    v3[3] = &unk_1002B0728;
+    v3[4] = &v4;
+    sub_100076494(v3);
+    v0 = v5[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
+
+  return v1;
+}
+
+void sub_100075334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_10007534C(uint64_t a1, void *a2)
+{
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1000755D4;
+  v16[3] = &unk_1002B18B0;
+  v17 = *(a1 + 32);
+  v4 = [a2 ams_firstObjectPassingTest:v16];
+  v5 = +[AMSLogConfig sharedAccountsDaemonConfig];
+  v6 = v5;
+  if (v4)
+  {
+    if (!v5)
+    {
+      v6 = +[AMSLogConfig sharedConfig];
+    }
+
+    v7 = [v6 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = objc_opt_class();
+      v9 = AMSLogKey();
+      v10 = [v4 familyID];
+      *buf = 138543874;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v9;
+      v22 = 2114;
+      v23 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Arcade entitlement found, user is a subscriber. Entitlement.familyID = %{public}@", buf, 0x20u);
+    }
+
+    [*(a1 + 48) finishWithResult:&__kCFBooleanTrue];
+  }
+
+  else
+  {
+    if (!v5)
+    {
+      v6 = +[AMSLogConfig sharedConfig];
+    }
+
+    v11 = [v6 OSLogObject];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = objc_opt_class();
+      v13 = AMSLogKey();
+      *buf = 138543618;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v13;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No Arcade entitlement found, user is not subscribed.", buf, 0x16u);
+    }
+
+    v14 = *(a1 + 48);
+    v15 = AMSError();
+    [v14 finishWithError:v15];
+  }
+}
+
+uint64_t sub_1000755D4(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [v3 familyID];
+  v5 = [v4 stringValue];
+  v6 = [v5 isEqualToString:*(a1 + 32)];
+
+  v7 = [v3 expiryDate];
+
+  v8 = +[NSDate date];
+  v9 = [v7 compare:v8];
+
+  if (v9 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v6;
+  }
+}
+
+void sub_100075844(uint64_t a1, void *a2)
+{
+  v3 = [a2 ams_firstObjectPassingTest:&stru_1002B1918];
+  v4 = +[AMSLogConfig sharedAccountsDaemonConfig];
+  v5 = v4;
+  if (v3)
+  {
+    if (!v4)
+    {
+      v5 = +[AMSLogConfig sharedConfig];
+    }
+
+    v6 = [v5 OSLogObject];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = objc_opt_class();
+      v8 = AMSLogKey();
+      v9 = [v3 familyID];
+      v15 = 138543874;
+      v16 = v7;
+      v17 = 2114;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fitness+ entitlement found, user is a subscriber. Entitlement.familyID = %{public}@", &v15, 0x20u);
+    }
+
+    [*(a1 + 40) finishWithResult:&__kCFBooleanTrue];
+  }
+
+  else
+  {
+    if (!v4)
+    {
+      v5 = +[AMSLogConfig sharedConfig];
+    }
+
+    v10 = [v5 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = objc_opt_class();
+      v12 = AMSLogKey();
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2114;
+      v18 = v12;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] No Fitness+ entitlement found, user is not subscribed.", &v15, 0x16u);
+    }
+
+    v13 = *(a1 + 40);
+    v14 = AMSError();
+    [v13 finishWithError:v14];
+  }
+}
+
+BOOL sub_100075A74(id a1, ASDSubscriptionEntitlement *a2)
+{
+  v2 = [(ASDSubscriptionEntitlement *)a2 expiryDate];
+  v3 = +[NSDate date];
+  v4 = [v2 compare:v3] != -1;
+
+  return v4;
+}
+
+void sub_100075D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100075D48(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [v3 statusType];
+  v5 = +[AMSLogConfig sharedAccountsDaemonConfig];
+  v6 = v5;
+  if (v4 == 1)
+  {
+    if (!v5)
+    {
+      v6 = +[AMSLogConfig sharedConfig];
+    }
+
+    v7 = [v6 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = objc_opt_class();
+      v9 = AMSLogKey();
+      v10 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v3 statusType]);
+      v17 = 138543874;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v9;
+      v21 = 2114;
+      v22 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Music subscription enabled, user is a subscriber. StatusType = %{public}@", &v17, 0x20u);
+    }
+
+    [*(a1 + 40) finishWithResult:&__kCFBooleanTrue];
+  }
+
+  else
+  {
+    if (!v5)
+    {
+      v6 = +[AMSLogConfig sharedConfig];
+    }
+
+    v11 = [v6 OSLogObject];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = objc_opt_class();
+      v13 = AMSLogKey();
+      v14 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v3 statusType]);
+      v17 = 138543874;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2114;
+      v22 = v14;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Music subscription not enabled, user is not subscribed. StatusType = %{public}@", &v17, 0x20u);
+    }
+
+    v15 = *(a1 + 40);
+    v16 = AMSError();
+    [v15 finishWithError:v16];
+  }
+}
+
+void sub_100076208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100076228(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [v3 isTVPlusSubscriber];
+  v5 = +[AMSLogConfig sharedAccountsDaemonConfig];
+  v6 = v5;
+  if (v4)
+  {
+    if (!v5)
+    {
+      v6 = +[AMSLogConfig sharedConfig];
+    }
+
+    v7 = [v6 OSLogObject];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = objc_opt_class();
+      v9 = AMSLogKey();
+      v10 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v3 isTVPlusSubscriber]);
+      v17 = 138543874;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v9;
+      v21 = 2114;
+      v22 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] TV subscription enabled, user is a subscriber. SubscriptionData.isTVPlusSubscriber = %{public}@", &v17, 0x20u);
+    }
+
+    [*(a1 + 40) finishWithResult:&__kCFBooleanTrue];
+  }
+
+  else
+  {
+    if (!v5)
+    {
+      v6 = +[AMSLogConfig sharedConfig];
+    }
+
+    v11 = [v6 OSLogObject];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = objc_opt_class();
+      v13 = AMSLogKey();
+      v14 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v3 isTVPlusSubscriber]);
+      v17 = 138543874;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2114;
+      v22 = v14;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] TV subscription not enabled, user is not subscribed. SubscriptionData.isTVPlusSubscriber = %{public}@", &v17, 0x20u);
+    }
+
+    v15 = *(a1 + 40);
+    v16 = AMSError();
+    [v15 finishWithError:v16];
+  }
+}
+
+Class sub_100076494(uint64_t a1)
+{
+  v4[0] = 0;
+  if (!qword_1002E32B0)
+  {
+    v4[1] = _NSConcreteStackBlock;
+    v4[2] = 3221225472;
+    v4[3] = sub_1000765D8;
+    v4[4] = &unk_1002B0760;
+    v4[5] = v4;
+    v5 = off_1002B19B0;
+    v6 = 0;
+    qword_1002E32B0 = _sl_dlopen();
+    v2 = v4[0];
+    if (qword_1002E32B0)
+    {
+      if (!v4[0])
+      {
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      v2 = abort_report_np("%s", v4[0]);
+    }
+
+    free(v2);
+  }
+
+LABEL_4:
+  result = objc_getClass("ASDSubscriptionEntitlements");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    sub_10021B2C4();
+  }
+
+  qword_1002E32A8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t sub_1000765D8(uint64_t a1)
+{
+  result = _sl_dlopen();
+  qword_1002E32B0 = result;
+  return result;
+}
+
+Class sub_10007664C(uint64_t a1)
+{
+  v4[0] = 0;
+  if (!qword_1002E32C0)
+  {
+    v4[1] = _NSConcreteStackBlock;
+    v4[2] = 3221225472;
+    v4[3] = sub_100076790;
+    v4[4] = &unk_1002B0760;
+    v4[5] = v4;
+    v5 = off_1002B19C8;
+    v6 = 0;
+    qword_1002E32C0 = _sl_dlopen();
+    v2 = v4[0];
+    if (qword_1002E32C0)
+    {
+      if (!v4[0])
+      {
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      v2 = abort_report_np("%s", v4[0]);
+    }
+
+    free(v2);
+  }
+
+LABEL_4:
+  result = objc_getClass("ICMusicSubscriptionStatusController");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    sub_10021B2EC();
+  }
+
+  qword_1002E32B8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t sub_100076790(uint64_t a1)
+{
+  result = _sl_dlopen();
+  qword_1002E32C0 = result;
+  return result;
+}
+
+Class sub_100076804(uint64_t a1)
+{
+  v4[0] = 0;
+  if (!qword_1002E32D0)
+  {
+    v4[1] = _NSConcreteStackBlock;
+    v4[2] = 3221225472;
+    v4[3] = sub_100076948;
+    v4[4] = &unk_1002B0760;
+    v4[5] = v4;
+    v5 = off_1002B19E0;
+    v6 = 0;
+    qword_1002E32D0 = _sl_dlopen();
+    v2 = v4[0];
+    if (qword_1002E32D0)
+    {
+      if (!v4[0])
+      {
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      v2 = abort_report_np("%s", v4[0]);
+    }
+
+    free(v2);
+  }
+
+LABEL_4:
+  result = objc_getClass("WLKSubscriptionStore");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    sub_10021B314();
+  }
+
+  qword_1002E32C8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t sub_100076948(uint64_t a1)
+{
+  result = _sl_dlopen();
+  qword_1002E32D0 = result;
+  return result;
+}
+
+void sub_100076B00(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 32);
+  if (a2)
+  {
+    v5 = [a2 ams_sanitizedForSecureCoding];
+    (*(v2 + 16))(v2, 0, v5);
+  }
+
+  else
+  {
+    v3 = *(v2 + 16);
+    v4 = *(a1 + 32);
+
+    v3(v4, 1, 0);
+  }
+}
+
+void sub_100076BE4(id a1)
+{
+  qword_1002E32E0 = objc_alloc_init(AMSDPaymentValidationService);
+
+  _objc_release_x1();
+}
+
+void sub_100076C64(id a1)
+{
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v1 = dispatch_queue_create("com.apple.AppleMediaServices.AMSDPaymentValidationService", v3);
+  v2 = qword_1002E32F0;
+  qword_1002E32F0 = v1;
+}
+
+void sub_100076E0C(uint64_t a1)
+{
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2050000000;
+  v2 = qword_1002E32F8;
+  v12 = qword_1002E32F8;
+  if (!qword_1002E32F8)
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_1000772AC;
+    v8[3] = &unk_1002B0728;
+    v8[4] = &v9;
+    sub_1000772AC(v8);
+    v2 = v10[3];
+  }
+
+  v3 = v2;
+  _Block_object_dispose(&v9, 8);
+  v4 = objc_alloc_init(v2);
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100076F5C;
+  v6[3] = &unk_1002B1A40;
+  v5 = *(a1 + 40);
+  v6[4] = *(a1 + 32);
+  v7 = v5;
+  [v4 paymentHardwareStatusWithType:1 completion:v6];
+}
+
+void sub_100076F5C(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    v4 = [a2 canMakeAMPPayments];
+    v5 = +[AMSLogConfig sharedPurchaseConfig];
+    if (!v5)
+    {
+      v5 = +[AMSLogConfig sharedConfig];
+    }
+
+    v6 = [v5 OSLogObject];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = AMSLogKey();
+      v8 = objc_opt_class();
+      v9 = v8;
+      if (v7)
+      {
+        v2 = AMSLogKey();
+        [NSString stringWithFormat:@"%@: [%@] ", v9, v2];
+      }
+
+      else
+      {
+        [NSString stringWithFormat:@"%@: ", v8];
+      }
+      v10 = ;
+      v17 = AMSLogKey();
+      v18 = [NSNumber numberWithBool:v4];
+      *buf = 138543874;
+      v25 = v10;
+      v26 = 2114;
+      v27 = v17;
+      v28 = 2114;
+      v29 = v18;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Get payment hardware status. canUseApplePay = %{public}@", buf, 0x20u);
+
+      if (v7)
+      {
+
+        v10 = v2;
+      }
+    }
+
+    v19 = +[AMSDPaymentValidationService paymentHardwareType];
+    v16 = v19;
+    v20 = @"false";
+    if (v4)
+    {
+      v20 = @"true";
+    }
+
+    v22[0] = AMSHTTPHeaderPaymentHardwareStatus;
+    v22[1] = AMSHTTPHeaderPaymentHardwareType;
+    v23[0] = v20;
+    v23[1] = v19;
+    v21 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
+    (*(*(a1 + 40) + 16))();
+  }
+
+  else
+  {
+    v11 = +[AMSLogConfig sharedPurchaseConfig];
+    if (!v11)
+    {
+      v11 = +[AMSLogConfig sharedConfig];
+    }
+
+    v12 = [v11 OSLogObject];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v13 = objc_opt_class();
+      v14 = v13;
+      v15 = AMSLogKey();
+      *buf = 138543618;
+      v25 = v13;
+      v26 = 2114;
+      v27 = v15;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to get paymentHardwareStatus", buf, 0x16u);
+    }
+
+    v16 = AMSError();
+    (*(*(a1 + 40) + 16))();
+  }
+}
+
+Class sub_1000772AC(uint64_t a1)
+{
+  v4[0] = 0;
+  if (!qword_1002E3300)
+  {
+    v4[1] = _NSConcreteStackBlock;
+    v4[2] = 3221225472;
+    v4[3] = sub_1000773F0;
+    v4[4] = &unk_1002B0760;
+    v4[5] = v4;
+    v5 = off_1002B1A60;
+    v6 = 0;
+    qword_1002E3300 = _sl_dlopen();
+    v2 = v4[0];
+    if (qword_1002E3300)
+    {
+      if (!v4[0])
+      {
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      v2 = abort_report_np("%s", v4[0]);
+    }
+
+    free(v2);
+  }
+
+LABEL_4:
+  result = objc_getClass("PKInAppPaymentService");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    sub_10021B364();
+  }
+
+  qword_1002E32F8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t sub_1000773F0(uint64_t a1)
+{
+  result = _sl_dlopen();
+  qword_1002E3300 = result;
+  return result;
+}
+
+void sub_1000774A8(id a1)
+{
+  qword_1002E3310 = objc_alloc_init(AMSDPaymentViewService);
+
+  _objc_release_x1();
+}
+
+void sub_100077844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100077864(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_10007787C(void *a1)
+{
+  v5 = [objc_opt_class() _fdsResultCache];
+  v2 = [v5 objectForKeyedSubscript:a1[5]];
+  v3 = *(a1[6] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
+}
+
+void sub_100077B2C(void *a1)
+{
+  v2 = a1[6];
+  v3 = [objc_opt_class() _fdsResultCache];
+  [v3 setObject:v2 forKeyedSubscript:a1[5]];
+}
+
+void sub_100077E28(uint64_t a1)
+{
+  v2 = [objc_opt_class() _fdsConsumedCache];
+  [v2 setObject:&off_1002C6738 forKey:*(a1 + 40)];
+}
+
+void sub_1000781C4(uint64_t a1)
+{
+  v3 = [objc_opt_class() _fdsConsumedCache];
+  v2 = [*(a1 + 40) purchaseIdentifier];
+  [v3 setObject:&off_1002C6750 forKey:v2];
+}
+
+void sub_10007823C(uint64_t a1, void *a2, void *a3)
+{
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = [a3 ams_sanitizedForSecureCoding];
+  (*(v4 + 16))(v4, v5, v6);
+}
+
+void sub_1000782B8(uint64_t a1, void *a2, void *a3)
+{
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = [a3 ams_sanitizedForSecureCoding];
+  (*(v4 + 16))(v4, v5, v6);
+}
+
+void sub_10007870C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100078748(uint64_t a1)
+{
+  v2 = [objc_opt_class() _odiSessionCache];
+  v3 = [*(a1 + 40) purchaseIdentifier];
+  v4 = [v2 objectForKey:v3];
+
+  if (v4)
+  {
+    v5 = [v4 availablePartialAssessment];
+    v6 = *(a1 + 48);
+  }
+
+  else
+  {
+    v7 = +[AMSLogConfig sharedConfig];
+    if (!v7)
+    {
+      v7 = +[AMSLogConfig sharedConfig];
+    }
+
+    v8 = [v7 OSLogObject];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = objc_opt_class();
+      v10 = AMSLogKey();
+      v11 = [*(a1 + 40) purchaseIdentifier];
+      v12 = AMSHashIfNeeded();
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to get ODI assessment, no matching session for id: %@", &v15, 0x20u);
+    }
+
+    v5 = AMSError();
+    v6 = *(a1 + 56);
+  }
+
+  v13 = *(v6 + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = v5;
+}
+
+void sub_100078D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100078D58(void *a1)
+{
+  v2 = [objc_opt_class() _odiSessionCache];
+  [v2 setObject:a1[5] forKey:a1[6]];
+}
+
+void sub_100078FD0(uint64_t a1)
+{
+  v2 = [objc_opt_class() _odiSessionCache];
+  v3 = [v2 objectForKey:*(a1 + 40)];
+
+  if (v3)
+  {
+    v4 = objc_alloc_init(AMSPromise);
+    v5 = [v4 completionHandlerAdapter];
+    [v3 getAssessment:v5];
+
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100079224;
+    v13[3] = &unk_1002B1B40;
+    v6 = *(a1 + 40);
+    v13[4] = *(a1 + 32);
+    v14 = v6;
+    v15 = *(a1 + 48);
+    [v4 addFinishBlock:v13];
+  }
+
+  else
+  {
+    v7 = +[AMSLogConfig sharedConfig];
+    if (!v7)
+    {
+      v7 = +[AMSLogConfig sharedConfig];
+    }
+
+    v8 = [v7 OSLogObject];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = objc_opt_class();
+      v10 = AMSLogKey();
+      v11 = AMSHashIfNeeded();
+      *buf = 138543874;
+      v17 = v9;
+      v18 = 2114;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to get ODI assessment, no matching session for cache identifier: %@", buf, 0x20u);
+    }
+
+    v4 = AMSError();
+    v12 = *(a1 + 48);
+    if (v12)
+    {
+      (*(v12 + 16))(v12, 0, v4);
+    }
+  }
+}
+
+void sub_100079224(void *a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = +[AMSLogConfig sharedConfig];
+  v8 = v7;
+  if (v6)
+  {
+    if (!v7)
+    {
+      v8 = +[AMSLogConfig sharedConfig];
+    }
+
+    v9 = [v8 OSLogObject];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = objc_opt_class();
+      v11 = AMSLogKey();
+      v12 = AMSHashIfNeeded();
+      v18 = 138544130;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v12;
+      v24 = 2114;
+      v25 = v6;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] ODI evaluation failed for cache identifier: %@, with error: %{public}@", &v18, 0x2Au);
+    }
+
+    (*(a1[6] + 16))();
+  }
+
+  else
+  {
+    if (!v7)
+    {
+      v8 = +[AMSLogConfig sharedConfig];
+    }
+
+    v13 = [v8 OSLogObject];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = objc_opt_class();
+      v15 = AMSLogKey();
+      v16 = AMSHashIfNeeded();
+      v18 = 138543874;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v16;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successful ODI evaluation for cache identifier: %@", &v18, 0x20u);
+    }
+
+    v17 = [[AMSODIAssessment alloc] initWithStringValue:v5];
+    (*(a1[6] + 16))();
+  }
+}
+
+void sub_10007972C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100079758(uint64_t a1)
+{
+  v2 = [objc_opt_class() _odiSessionCache];
+  v3 = [v2 objectForKey:*(a1 + 40)];
+
+  if (v3)
+  {
+    [v3 provideFeedbackOnPayloadOutcome:{objc_msgSend(*(a1 + 32), "_outcomeTypeForOutcome:", *(a1 + 56))}];
+    if (*(a1 + 64) == 1)
+    {
+      v4 = [objc_opt_class() _odiSessionCache];
+      [v4 setObject:0 forKey:*(a1 + 40)];
+    }
+  }
+
+  else
+  {
+    v5 = +[AMSLogConfig sharedConfig];
+    if (!v5)
+    {
+      v5 = +[AMSLogConfig sharedConfig];
+    }
+
+    v6 = [v5 OSLogObject];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = objc_opt_class();
+      v8 = AMSLogKey();
+      v9 = AMSHashIfNeeded();
+      v13 = 138543874;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to provide ODI assessment, no matching session for id: %@", &v13, 0x20u);
+    }
+
+    v10 = AMSError();
+    v11 = *(*(a1 + 48) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
+  }
+}
+
+void sub_100079BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100079C14(uint64_t a1)
+{
+  v2 = [objc_opt_class() _odiSessionCache];
+  v3 = [v2 objectForKey:*(a1 + 40)];
+
+  if (v3)
+  {
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2050000000;
+    v4 = qword_1002E33A8;
+    v18 = qword_1002E33A8;
+    if (!qword_1002E33A8)
+    {
+      *buf = _NSConcreteStackBlock;
+      *&buf[8] = 3221225472;
+      *&buf[16] = sub_10007D0AC;
+      v20 = &unk_1002B0728;
+      v21 = &v15;
+      sub_10007D0AC(buf);
+      v4 = v16[3];
+    }
+
+    v5 = v4;
+    _Block_object_dispose(&v15, 8);
+    v6 = objc_alloc_init(v4);
+    v7 = [*(a1 + 48) attributes];
+    [v6 setAttributes:v7];
+
+    [v3 updateWithAdditionalAttributes:v6];
+  }
+
+  else
+  {
+    v8 = +[AMSLogConfig sharedConfig];
+    if (!v8)
+    {
+      v8 = +[AMSLogConfig sharedConfig];
+    }
+
+    v9 = [v8 OSLogObject];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = objc_opt_class();
+      v11 = AMSLogKey();
+      v12 = AMSHashIfNeeded();
+      *buf = 138412802;
+      *&buf[4] = v10;
+      *&buf[12] = 2114;
+      *&buf[14] = v11;
+      *&buf[22] = 2112;
+      v20 = v12;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%@{public}@: [%{public}@] Failed to update ODI attributes, no matching session for id: %@", buf, 0x20u);
+    }
+
+    v13 = AMSError();
+    v14 = *(*(a1 + 56) + 8);
+    v6 = *(v14 + 40);
+    *(v14 + 40) = v13;
+  }
+}
+
+void sub_10007A21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 128), 8);
+  _Block_object_dispose((v36 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_10007A258(void *a1)
+{
+  v2 = [objc_opt_class() _fdsConsumedCache];
+  v4 = [v2 objectForKey:a1[5]];
+
+  v3 = v4;
+  if (v4)
+  {
+    *(*(a1[6] + 8) + 24) = [v4 BOOLValue];
+    v3 = v4;
+    *(*(a1[7] + 8) + 24) = 1;
+  }
+}
+
+void sub_10007A2E8(uint64_t a1)
+{
+  v4 = [objc_opt_class() _odiSessionCache];
+  v2 = [*(a1 + 40) stringValue];
+  v3 = [v4 objectForKey:v2];
+  *(*(*(a1 + 48) + 8) + 24) = v3 != 0;
+}
+
+void sub_10007A374(void *a1)
+{
+  v2 = [objc_opt_class() _fdsEvaluatorCache];
+  v3 = [v2 objectForKey:a1[5]];
+
+  if (v3)
+  {
+    v4 = +[AMSLogConfig sharedConfig];
+    if (!v4)
+    {
+      v4 = +[AMSLogConfig sharedConfig];
+    }
+
+    v5 = [v4 OSLogObject];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = objc_opt_class();
+      v7 = a1[6];
+      v8 = [NSNumber numberWithBool:*(*(a1[7] + 8) + 24)];
+      v10 = 138543874;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Invoking FDS completion SPI with consumption state: %{public}@", &v10, 0x20u);
+    }
+
+    v9 = objc_alloc_init(L1vrniCr6VjgMaLl);
+    [(L1vrniCr6VjgMaLl *)v9 setConsumed:*(*(a1[7] + 8) + 24)];
+    [v3 eVZ8hjC0Tuzwvnqc:v9];
+  }
+}
+
+void sub_10007A504(uint64_t a1)
+{
+  v2 = [objc_opt_class() _fdsConsumedCache];
+  [v2 setObject:0 forKey:*(a1 + 40)];
+}
+
+void sub_10007A560(uint64_t a1)
+{
+  v2 = [objc_opt_class() _fdsEvaluatorCache];
+  [v2 setObject:0 forKey:*(a1 + 40)];
+}
+
+void sub_10007AE40(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  if (!v6)
+  {
+    v8 = objc_alloc_init(NSMutableDictionary);
+    v9 = [*(a1 + 32) account];
+    v10 = [v9 ams_firstName];
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v11 = qword_1002E33B0;
+    v43 = qword_1002E33B0;
+    if (!qword_1002E33B0)
+    {
+      v35 = _NSConcreteStackBlock;
+      v36 = 3221225472;
+      v37 = sub_10007D104;
+      v38 = &unk_1002B0728;
+      v39 = &v40;
+      v12 = sub_10007CF38();
+      v41[3] = dlsym(v12, "ODIAttributeKeyUserFirstName");
+      qword_1002E33B0 = *(v39[1] + 24);
+      v11 = v41[3];
+    }
+
+    _Block_object_dispose(&v40, 8);
+    if (v11)
+    {
+      [v8 setObject:v10 forKeyedSubscript:*v11];
+
+      v13 = [*(a1 + 32) account];
+      v14 = [v13 ams_lastName];
+      v40 = 0;
+      v41 = &v40;
+      v42 = 0x2020000000;
+      v15 = qword_1002E33B8;
+      v43 = qword_1002E33B8;
+      if (!qword_1002E33B8)
+      {
+        v35 = _NSConcreteStackBlock;
+        v36 = 3221225472;
+        v37 = sub_10007D154;
+        v38 = &unk_1002B0728;
+        v39 = &v40;
+        v16 = sub_10007CF38();
+        v41[3] = dlsym(v16, "ODIAttributeKeyUserLastName");
+        qword_1002E33B8 = *(v39[1] + 24);
+        v15 = v41[3];
+      }
+
+      _Block_object_dispose(&v40, 8);
+      if (v15)
+      {
+        [v8 setObject:v14 forKeyedSubscript:*v15];
+
+        v17 = +[AMSDevice phoneNumber];
+        v40 = 0;
+        v41 = &v40;
+        v42 = 0x2020000000;
+        v18 = qword_1002E33C0;
+        v43 = qword_1002E33C0;
+        if (!qword_1002E33C0)
+        {
+          v35 = _NSConcreteStackBlock;
+          v36 = 3221225472;
+          v37 = sub_10007D1A4;
+          v38 = &unk_1002B0728;
+          v39 = &v40;
+          v19 = sub_10007CF38();
+          v41[3] = dlsym(v19, "ODIAttributeKeyUserPhoneNumber");
+          qword_1002E33C0 = *(v39[1] + 24);
+          v18 = v41[3];
+        }
+
+        _Block_object_dispose(&v40, 8);
+        if (v18)
+        {
+          [v8 setObject:v17 forKeyedSubscript:*v18];
+
+          v20 = [*(a1 + 32) account];
+          v21 = [v20 username];
+          v40 = 0;
+          v41 = &v40;
+          v42 = 0x2020000000;
+          v22 = qword_1002E33C8;
+          v43 = qword_1002E33C8;
+          if (!qword_1002E33C8)
+          {
+            v35 = _NSConcreteStackBlock;
+            v36 = 3221225472;
+            v37 = sub_10007D1F4;
+            v38 = &unk_1002B0728;
+            v39 = &v40;
+            v23 = sub_10007CF38();
+            v41[3] = dlsym(v23, "ODIAttributeKeyUserEmail");
+            qword_1002E33C8 = *(v39[1] + 24);
+            v22 = v41[3];
+          }
+
+          _Block_object_dispose(&v40, 8);
+          if (v22)
+          {
+            [v8 setObject:v21 forKeyedSubscript:*v22];
+
+            v24 = [*(a1 + 32) options];
+            v25 = [v24 bundleIdentifier];
+            v40 = 0;
+            v41 = &v40;
+            v42 = 0x2020000000;
+            v26 = qword_1002E33D0;
+            v43 = qword_1002E33D0;
+            if (!qword_1002E33D0)
+            {
+              v35 = _NSConcreteStackBlock;
+              v36 = 3221225472;
+              v37 = sub_10007D244;
+              v38 = &unk_1002B0728;
+              v39 = &v40;
+              v27 = sub_10007CF38();
+              v41[3] = dlsym(v27, "ODIAttributeKeyCallerID");
+              qword_1002E33D0 = *(v39[1] + 24);
+              v26 = v41[3];
+            }
+
+            _Block_object_dispose(&v40, 8);
+            if (v26)
+            {
+              [v8 setObject:v25 forKeyedSubscript:*v26];
+
+              v28 = [[AMSODIAdditionalAttributes alloc] initWithAttributes:v8];
+              v29 = *(a1 + 40);
+              v31[0] = _NSConcreteStackBlock;
+              v31[1] = 3221225472;
+              v31[2] = sub_10007B41C;
+              v31[3] = &unk_1002B1BE0;
+              v31[4] = v29;
+              v32 = v5;
+              v34 = *(a1 + 48);
+              v33 = *(a1 + 32);
+              [v29 updateODIWithAttributes:v28 forCacheIdentifier:v32 completion:v31];
+
+              goto LABEL_20;
+            }
+
+LABEL_25:
+            v30 = sub_10021B19C();
+            _Block_object_dispose(&v40, 8);
+            _Unwind_Resume(v30);
+          }
+
+LABEL_24:
+          sub_10021B19C();
+          goto LABEL_25;
+        }
+
+LABEL_23:
+        sub_10021B19C();
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+      sub_10021B19C();
+    }
+
+    sub_10021B19C();
+    goto LABEL_23;
+  }
+
+  v7 = *(a1 + 48);
+  if (v7)
+  {
+    (*(v7 + 16))(v7, 0, v6);
+  }
+
+LABEL_20:
+}
+
+void sub_10007B41C(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (v3)
+  {
+    v4 = *(a1 + 56);
+    if (v4)
+    {
+      (*(v4 + 16))(v4, 0, v3);
+    }
+  }
+
+  else
+  {
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10007B500;
+    v7[3] = &unk_1002B1BB8;
+    v9 = *(a1 + 56);
+    v8 = *(a1 + 48);
+    [v5 getODIAssessmentForCacheIdentifier:v6 clearCache:0 completion:v7];
+  }
+}
+
+void sub_10007B500(uint64_t a1, void *a2, void *a3)
+{
+  if (*(a1 + 40))
+  {
+    v5 = a3;
+    v6 = a2;
+    v7 = [AMSFDSResult alloc];
+    v8 = [v6 stringValue];
+
+    v9 = [*(a1 + 32) options];
+    v10 = [v7 initWithValue:v8 action:{objc_msgSend(v9, "action")}];
+
+    (*(*(a1 + 40) + 16))();
+  }
+}
+
+void sub_10007BA2C(uint64_t a1)
+{
+  v4 = [objc_opt_class() _fdsEvaluatorCache];
+  v2 = *(a1 + 40);
+  v3 = [*(a1 + 48) purchaseIdentifier];
+  [v4 setObject:v2 forKey:v3];
+}
+
+void sub_10007BAA0(uint64_t a1, uint64_t a2, void *a3, void *a4)
+{
+  v6 = a3;
+  v7 = a4;
+  v8 = +[AMSLogConfig sharedConfig];
+  v9 = v8;
+  if (v6)
+  {
+    if (!v8)
+    {
+      v9 = +[AMSLogConfig sharedConfig];
+    }
+
+    v10 = [v9 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = [*(a1 + 32) logKey];
+      v17 = 138543362;
+      v18 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "AMSDSecurityService: [%{public}@] Successfully generated FDS.", &v17, 0xCu);
+    }
+
+    [*(a1 + 40) finishWithResult:v6];
+  }
+
+  else
+  {
+    if (!v8)
+    {
+      v9 = +[AMSLogConfig sharedConfig];
+    }
+
+    v12 = [v9 OSLogObject];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v13 = [*(a1 + 32) logKey];
+      v14 = AMSHashIfNeeded();
+      v17 = 138543618;
+      v18 = v13;
+      v19 = 2114;
+      v20 = v14;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "AMSDSecurityService: [%{public}@] Failed to generate FDS, error = %{public}@", &v17, 0x16u);
+    }
+
+    v15 = *(a1 + 40);
+    if (v7)
+    {
+      [v15 finishWithError:v7];
+    }
+
+    else
+    {
+      v16 = AMSError();
+      [v15 finishWithError:v16];
+    }
+  }
+}
+
+void sub_10007BCBC(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = +[AMSLogConfig sharedConfig];
+  if (!v7)
+  {
+    v7 = +[AMSLogConfig sharedConfig];
+  }
+
+  v8 = [v7 OSLogObject];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = objc_opt_class();
+    v10 = AMSLogKey();
+    *buf = 138543618;
+    v39 = v9;
+    v40 = 2114;
+    v41 = v10;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Generating base64-encoded AFDS", buf, 0x16u);
+  }
+
+  v11 = objc_alloc_init(NSMutableString);
+  v12 = [v5 bytes];
+  if ([v5 length])
+  {
+    v13 = 0;
+    do
+    {
+      [v11 appendFormat:@"%02x", v12[v13++]];
+    }
+
+    while ([v5 length] > v13);
+  }
+
+  if (*(a1 + 56))
+  {
+    if (v6)
+    {
+      v14 = +[AMSLogConfig sharedConfig];
+      if (!v14)
+      {
+        v14 = +[AMSLogConfig sharedConfig];
+      }
+
+      v15 = [v14 OSLogObject];
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v16 = objc_opt_class();
+        v17 = AMSLogKey();
+        *buf = 138543874;
+        v39 = v16;
+        v40 = 2114;
+        v41 = v17;
+        v42 = 2114;
+        v43 = v6;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] FDS evaluation failed with error: %{public}@", buf, 0x20u);
+      }
+
+      (*(*(a1 + 56) + 16))();
+      goto LABEL_35;
+    }
+
+    if ([v11 length])
+    {
+      v26 = +[AMSLogConfig sharedConfig];
+      if (!v26)
+      {
+        v26 = +[AMSLogConfig sharedConfig];
+      }
+
+      v27 = [v26 OSLogObject];
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        v28 = objc_opt_class();
+        v29 = AMSLogKey();
+        v30 = AMSHashIfNeeded();
+        *buf = 138543874;
+        v39 = v28;
+        v40 = 2114;
+        v41 = v29;
+        v42 = 2114;
+        v43 = v30;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully generated AFDS = %{public}@", buf, 0x20u);
+      }
+
+      v31 = [AMSFDSResult alloc];
+      v32 = [v11 copy];
+      v33 = [*(a1 + 40) options];
+      v20 = [v31 initWithValue:v32 action:{objc_msgSend(v33, "action")}];
+
+      v34 = *(*(a1 + 56) + 16);
+    }
+
+    else
+    {
+      v20 = AMSError();
+      v34 = *(*(a1 + 56) + 16);
+    }
+
+    v34();
+LABEL_34:
+
+    goto LABEL_35;
+  }
+
+  v18 = +[AMSUnitTests isRunningUnitTests];
+  v19 = +[AMSLogConfig sharedConfig];
+  v20 = v19;
+  if (!v18)
+  {
+    if (!v19)
+    {
+      v20 = +[AMSLogConfig sharedConfig];
+    }
+
+    v35 = [v20 OSLogObject];
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+    {
+      v36 = objc_opt_class();
+      v37 = AMSLogKey();
+      *buf = 138543618;
+      v39 = v36;
+      v40 = 2114;
+      v41 = v37;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_FAULT, "%{public}@: [%{public}@] No completion block, this is probably a programmer error", buf, 0x16u);
+    }
+
+    goto LABEL_34;
+  }
+
+  if (!v19)
+  {
+    v20 = +[AMSLogConfig sharedConfig];
+  }
+
+  v21 = [v20 OSLogObject];
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    v22 = objc_opt_class();
+    v23 = AMSLogKey();
+    *buf = 138543618;
+    v39 = v22;
+    v40 = 2114;
+    v41 = v23;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] No completion block, this is probably a programmer error", buf, 0x16u);
+  }
+
+  v24 = +[NSNotificationCenter defaultCenter];
+  v25 = +[AMSLogConfig sharedConfig];
+  [v24 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v25 userInfo:0];
+
+LABEL_35:
+}
+
+void sub_10007C290(id a1)
+{
+  qword_1002E3320 = [[AMSLRUCache alloc] initWithMaxSize:5];
+
+  _objc_release_x1();
+}
+
+void sub_10007C318(id a1)
+{
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v1 = dispatch_queue_create("com.apple.AMSDPurchaseService.FDSConsumedCache", v3);
+  v2 = qword_1002E3330;
+  qword_1002E3330 = v1;
+}
+
+void sub_10007C3C0(id a1)
+{
+  qword_1002E3340 = [[AMSLRUCache alloc] initWithMaxSize:5];
+
+  _objc_release_x1();
+}
+
+void sub_10007C448(id a1)
+{
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v1 = dispatch_queue_create("com.apple.AMSDPurchaseService.FDSEvaluatorCache", v3);
+  v2 = qword_1002E3350;
+  qword_1002E3350 = v1;
+}
+
+void sub_10007C4F0(id a1)
+{
+  qword_1002E3360 = objc_alloc_init(NSMutableDictionary);
+
+  _objc_release_x1();
+}
+
+void sub_10007C570(id a1)
+{
+  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v1 = dispatch_queue_create("com.apple.AMSDPurchaseService.FDSResultCache", v3);
+  v2 = qword_1002E3370;
+  qword_1002E3370 = v1;
+}
+
+id sub_10007CCD0(uint64_t a1)
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_1002E3400;
+  v9 = qword_1002E3400;
+  if (!qword_1002E3400)
+  {
+    v2 = sub_10007CF38();
+    v7[3] = dlsym(v2, "ODIServiceProviderIdTDMTrustedInference");
+    qword_1002E3400 = v7[3];
+    v1 = v7[3];
+  }
+
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
+  {
+    v5 = sub_10021B19C();
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
+  }
+
+  v3 = *v1;
+
+  return v3;
+}
+
+void sub_10007CE18(id a1)
+{
+  qword_1002E3380 = [[AMSLRUCache alloc] initWithMaxSize:5];
+
+  _objc_release_x1();
+}
+
+void sub_10007CEA0(id a1)
+{
+  qword_1002E3390 = dispatch_queue_create("com.apple.AMSDPurchaseService.ODISessionCache", 0);
+
+  _objc_release_x1();
+}
+
+Class sub_10007CEE0(uint64_t a1)
+{
+  sub_10007CF38();
+  result = objc_getClass("ODISession");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    qword_1002E3398 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    sub_10021B1C0();
+    return sub_10007CF38();
+  }
+
+  return result;
+}
+
+uint64_t sub_10007CF38()
+{
+  v3[0] = 0;
+  if (!qword_1002E33A0)
+  {
+    v3[1] = _NSConcreteStackBlock;
+    v3[2] = 3221225472;
+    v3[3] = sub_10007D038;
+    v3[4] = &unk_1002B0760;
+    v3[5] = v3;
+    v4 = off_1002B1D50;
+    v5 = 0;
+    qword_1002E33A0 = _sl_dlopen();
+  }
+
+  v0 = qword_1002E33A0;
+  v1 = v3[0];
+  if (!qword_1002E33A0)
+  {
+    v1 = abort_report_np("%s", v3[0]);
+    goto LABEL_7;
+  }
+
+  if (v3[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+uint64_t sub_10007D038(uint64_t a1)
+{
+  result = _sl_dlopen();
+  qword_1002E33A0 = result;
+  return result;
+}
+
+Class sub_10007D0AC(uint64_t a1)
+{
+  sub_10007CF38();
+  result = objc_getClass("ODIAdditionalAttributes");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    qword_1002E33A8 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v3 = sub_10021B440();
+    return sub_10007D104(v3);
+  }
+
+  return result;
+}
+
+void *sub_10007D104(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIAttributeKeyUserFirstName");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33B0 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D154(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIAttributeKeyUserLastName");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33B8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D1A4(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIAttributeKeyUserPhoneNumber");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33C0 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D1F4(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIAttributeKeyUserEmail");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33C8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D244(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIAttributeKeyCallerID");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33D0 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D294(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIServiceProviderIdAmpFreeBuy");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33D8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D2E4(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIServiceProviderIdAmpPaidBuy");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33E0 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D334(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIServiceProviderIdApplicationCreate");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33E8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D384(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIServiceProviderIdApplicationSubmit");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33F0 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D3D4(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIServiceProviderIdIdUpdate");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E33F8 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *sub_10007D424(uint64_t a1)
+{
+  v2 = sub_10007CF38();
+  result = dlsym(v2, "ODIServiceProviderIdTDMTrustedInference");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_1002E3400 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void sub_10007E298(void *a1, void *a2, void *a3)
+{
+  v6 = a2;
+  v7 = a3;
+  if (v6)
+  {
+    [v6 doubleValue];
+    v9 = v8;
+  }
+
+  else
+  {
+    v10 = +[AMSLogConfig sharedPushNotificationConfig];
+    if (!v10)
+    {
+      v10 = +[AMSLogConfig sharedConfig];
+    }
+
+    v11 = [v10 OSLogObject];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = AMSLogKey();
+      v13 = objc_opt_class();
+      v14 = v13;
+      if (v12)
+      {
+        v3 = AMSLogKey();
+        [NSString stringWithFormat:@"%@: [%@] ", v14, v3];
+      }
+
+      else
+      {
+        [NSString stringWithFormat:@"%@: ", v13];
+      }
+      v15 = ;
+      *buf = 138543618;
+      *&buf[4] = v15;
+      *&buf[12] = 2112;
+      *&buf[14] = v7;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch timeout value from the bag. Will proceed without a timeout. error = %@", buf, 0x16u);
+      if (v12)
+      {
+
+        v15 = v3;
+      }
+    }
+
+    v9 = 0.0;
+  }
+
+  v16 = [[AMSDelegatePurchaseRequest alloc] initWithCacheKey:a1[4] challenge:a1[5]];
+  [v16 setDeviceName:a1[6]];
+  [v16 setRequiresDelegateToken:0];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2050000000;
+  v17 = qword_1002E3410;
+  v35 = qword_1002E3410;
+  if (!qword_1002E3410)
+  {
+    *buf = _NSConcreteStackBlock;
+    *&buf[8] = 3221225472;
+    *&buf[16] = sub_10007EF00;
+    v37 = &unk_1002B0728;
+    v38 = &v32;
+    sub_10007EF00(buf);
+    v17 = v33[3];
+  }
+
+  v18 = v17;
+  _Block_object_dispose(&v32, 8);
+  v19 = objc_alloc_init(v17);
+  [v19 setAccount:a1[7]];
+  [v19 setPurchaseRequest:v16];
+  [v19 setDeviceName:a1[6]];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2050000000;
+  v20 = qword_1002E3420;
+  v35 = qword_1002E3420;
+  if (!qword_1002E3420)
+  {
+    *buf = _NSConcreteStackBlock;
+    *&buf[8] = 3221225472;
+    *&buf[16] = sub_10007F0C8;
+    v37 = &unk_1002B0728;
+    v38 = &v32;
+    sub_10007F0C8(buf);
+    v20 = v33[3];
+  }
+
+  v21 = v20;
+  _Block_object_dispose(&v32, 8);
+  v22 = [[v20 alloc] initWithRequest:v19];
+  v23 = [[AMSPromise alloc] initWithTimeout:v9];
+  v24 = [v23 completionHandlerAdapter];
+  [v22 setSessionCompletionHandler:v24];
+
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v26 = a1[8];
+  v25 = (a1 + 8);
+  v28[2] = sub_10007E6D4;
+  v28[3] = &unk_1002B1DB0;
+  v29 = v22;
+  v31 = v26;
+  v30 = *(v25 - 4);
+  v27 = v22;
+  [v23 addFinishBlock:v28];
+  [*v25 _saveSession:v27 forKey:*(v25 - 4)];
+  [v27 start];
+}
+
+void sub_10007E6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_10007E6D4(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = a3;
+  v6 = v5;
+  if (v5)
+  {
+    if ([v5 ams_isTimeoutError])
+    {
+      [*(a1 + 32) cancel];
+    }
+
+    v7 = +[AMSLogConfig sharedPushNotificationConfig];
+    if (!v7)
+    {
+      v7 = +[AMSLogConfig sharedConfig];
+    }
+
+    v8 = [v7 OSLogObject];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = AMSLogKey();
+      v10 = objc_opt_class();
+      v11 = v10;
+      if (v9)
+      {
+        v3 = AMSLogKey();
+        [NSString stringWithFormat:@"%@: [%@] ", v11, v3];
+      }
+
+      else
+      {
+        [NSString stringWithFormat:@"%@: ", v10];
+      }
+      v12 = ;
+      *buf = 138543618;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v6;
+      v15 = "%{public}@Delegate auth session failed with error: %{public}@";
+      v16 = v8;
+      v17 = OS_LOG_TYPE_ERROR;
+      v18 = 22;
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    v7 = +[AMSLogConfig sharedPushNotificationConfig];
+    if (!v7)
+    {
+      v7 = +[AMSLogConfig sharedConfig];
+    }
+
+    v8 = [v7 OSLogObject];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = AMSLogKey();
+      v13 = objc_opt_class();
+      v14 = v13;
+      if (v9)
+      {
+        v3 = AMSLogKey();
+        [NSString stringWithFormat:@"%@: [%@] ", v14, v3];
+      }
+
+      else
+      {
+        [NSString stringWithFormat:@"%@: ", v13];
+      }
+      v12 = ;
+      *buf = 138543362;
+      v20 = v12;
+      v15 = "%{public}@Delegate auth session succeeded";
+      v16 = v8;
+      v17 = OS_LOG_TYPE_DEFAULT;
+      v18 = 12;
+LABEL_18:
+      _os_log_impl(&_mh_execute_header, v16, v17, v15, buf, v18);
+      if (v9)
+      {
+
+        v12 = v3;
+      }
+    }
+  }
+
+  [*(a1 + 48) _removeSessionForKey:*(a1 + 40)];
+}
+
+void sub_10007EF00(uint64_t a1)
+{
+  sub_10007EF58();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("CPSStorePurchaseRequest");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    qword_1002E3410 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    sub_10021B468();
+    sub_10007EF58();
+  }
+}
+
+void sub_10007EF58()
+{
+  v1[0] = 0;
+  if (!qword_1002E3418)
+  {
+    v1[1] = _NSConcreteStackBlock;
+    v1[2] = 3221225472;
+    v1[3] = sub_10007F054;
+    v1[4] = &unk_1002B0760;
+    v1[5] = v1;
+    v2 = off_1002B1DF8;
+    v3 = 0;
+    qword_1002E3418 = _sl_dlopen();
+  }
+
+  v0 = v1[0];
+  if (!qword_1002E3418)
+  {
+    v0 = abort_report_np("%s", v1[0]);
+    goto LABEL_7;
+  }
+
+  if (v1[0])
+  {
+LABEL_7:
+    free(v0);
   }
 }

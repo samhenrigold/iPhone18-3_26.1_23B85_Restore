@@ -385,7 +385,7 @@ LABEL_23:
   if ([valueCopy length])
   {
     v10 = [urlCopy bu_setExtendedAttributeNamed:namedCopy value:valueCopy iCloudSyncable:1];
-    v11 = BCUbiquityMetadataHelperLog();
+    v11 = BCUbiquityMetadataHelperLog(v10);
     v12 = v11;
     if (v10)
     {
@@ -423,7 +423,7 @@ LABEL_23:
 
   else
   {
-    v10 = 0;
+    LOBYTE(v10) = 0;
   }
 
   return v10;
@@ -437,26 +437,27 @@ LABEL_23:
   v10 = [[QLThumbnailGenerationRequest alloc] initWithFileAtURL:urlCopy size:6 scale:1024.0 representationTypes:{1024.0, 1.0}];
   v11 = +[QLThumbnailGenerator sharedGenerator];
   v12 = dispatch_semaphore_create(0);
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_14B778;
-  v19[3] = &unk_2CE260;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_14B778;
+  v20[3] = &unk_2CE260;
   v13 = urlCopy;
-  v20 = v13;
-  v21 = dictionaryCopy;
-  v22 = keyCopy;
+  v21 = v13;
+  v22 = dictionaryCopy;
+  v23 = keyCopy;
   v14 = v12;
-  v23 = v14;
+  v24 = v14;
   v15 = keyCopy;
   v16 = dictionaryCopy;
-  [v11 generateBestRepresentationForRequest:v10 completionHandler:v19];
+  [v11 generateBestRepresentationForRequest:v10 completionHandler:v20];
   v17 = dispatch_time(0, 500000000);
-  if (dispatch_semaphore_wait(v14, v17))
+  v18 = dispatch_semaphore_wait(v14, v17);
+  if (v18)
   {
-    v18 = BCUbiquityMetadataHelperLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = BCUbiquityMetadataHelperLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_1EB7E4(v13, v18);
+      sub_1EB7E4(v13, v19);
     }
   }
 }
@@ -507,14 +508,14 @@ LABEL_23:
   metadataCopy = metadata;
   v11 = a4;
   blockCopy = block;
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x2020000000;
-  v40 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 1;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v41 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 1;
   if (v11)
   {
     v13 = [v11 mutableCopy];
@@ -541,42 +542,42 @@ LABEL_23:
   stringValue = [v17 stringValue];
   [v14 setObject:stringValue forKeyedSubscript:@"com.apple.iBooks.generation"];
 
-  v41[0] = @"BCUbiqityFileChangedKeyURL";
-  v41[1] = @"BCUbiqityFileChangedKeyGeneration";
-  v42[0] = metadataCopy;
+  v42[0] = @"BCUbiqityFileChangedKeyURL";
+  v42[1] = @"BCUbiqityFileChangedKeyGeneration";
+  v43[0] = metadataCopy;
   v19 = [NSNumber numberWithUnsignedLongLong:v16];
-  v42[1] = v19;
-  v20 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:2];
+  v43[1] = v19;
+  v20 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:2];
 
   v21 = +[NSNotificationCenter defaultCenter];
   [v21 postNotificationName:@"BCUbiqityFileGenerationDidChangeNotification" object:self userInfo:v20];
 
   v22 = [[NSFileCoordinator alloc] initWithFilePresenter:0];
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_14BDCC;
-  v28[3] = &unk_2CE2D0;
-  v32 = &v35;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_14BDCC;
+  v29[3] = &unk_2CE2D0;
+  v33 = &v36;
   v23 = blockCopy;
-  v31 = v23;
-  v33 = v39;
+  v32 = v23;
+  v34 = v40;
   v24 = v14;
-  v29 = v24;
+  v30 = v24;
   selfCopy = self;
   v25 = metadataCopy;
-  v30 = v25;
-  [v22 coordinateWritingItemAtURL:v25 options:0 error:error byAccessor:v28];
-  if (*(v36 + 24) == 1)
+  v31 = v25;
+  v26 = [v22 coordinateWritingItemAtURL:v25 options:0 error:error byAccessor:v29];
+  if (*(v37 + 24) == 1)
   {
-    v26 = BCUbiquityMetadataHelperLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = BCUbiquityMetadataHelperLog(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_1EB8FC();
     }
   }
 
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(v39, 8);
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(v40, 8);
 
   return error == 0;
 }

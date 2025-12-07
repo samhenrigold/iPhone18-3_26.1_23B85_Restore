@@ -38,7 +38,6 @@
 {
   if (*&self->_has)
   {
-    countdown = self->_countdown;
     PBDataWriterWriteInt32Field();
   }
 }

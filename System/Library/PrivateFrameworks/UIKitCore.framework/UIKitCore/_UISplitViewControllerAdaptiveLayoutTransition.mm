@@ -136,11 +136,11 @@ LABEL_3:
   v11 = sub_188B17524;
 LABEL_6:
   selfCopy = self;
-  v13 = sub_188C1CCEC(v6, v9, v11, v10);
-  sub_188A55B8C(v11);
-  sub_188A55B8C(v6);
+  v14 = sub_188C1CCEC(v6, v9, v11, v10, v13);
+  sub_188A55B8C(v11, v10);
+  sub_188A55B8C(v6, v9);
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 - (BOOL)animateAlongsideTransitionInView:(id)view animation:(id)animation completion:(id)completion
@@ -177,8 +177,8 @@ LABEL_6:
   viewCopy = view;
   selfCopy = self;
   v15 = sub_188C1CF7C(v8, v11, v10, v12);
-  sub_188A55B8C(v10);
-  sub_188A55B8C(v8);
+  sub_188A55B8C(v10, v12);
+  sub_188A55B8C(v8, v11);
 
   return v15 & 1;
 }
@@ -186,7 +186,7 @@ LABEL_6:
 - (NSSet)viewControllersWithSuspendedAppearanceTransitions
 {
   swift_beginAccess();
-  sub_188A34624(0, &qword_1ED48D5A0);
+  sub_188A34624(0, &qword_1ED48D5A0, off_1E70EAD90);
   sub_188FEB360();
 
   v2 = sub_18A4A7798();

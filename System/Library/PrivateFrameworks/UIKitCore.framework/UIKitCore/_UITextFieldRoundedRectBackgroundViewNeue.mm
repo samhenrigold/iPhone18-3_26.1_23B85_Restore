@@ -203,9 +203,9 @@
     goto LABEL_8;
   }
 
-  v8 = [(UIColor *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_strokeColor, color);
@@ -233,9 +233,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v8 = [(UIColor *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_fillColor, color);
@@ -378,7 +378,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  v8 = +[UIColor blackColor];
+  v8 = objc_msgSend_blackColor(UIColor);
   v7 = [v8 colorWithAlphaComponent:0.15];
 
 LABEL_7:

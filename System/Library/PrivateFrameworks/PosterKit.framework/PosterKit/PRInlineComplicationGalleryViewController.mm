@@ -31,9 +31,9 @@
 {
   setCopy = set;
   complicationCopy = complication;
-  v23.receiver = self;
-  v23.super_class = PRInlineComplicationGalleryViewController;
-  v10 = [(PRInlineComplicationGalleryViewController *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = PRInlineComplicationGalleryViewController;
+  v10 = [(PRInlineComplicationGalleryViewController *)&v24 init];
   if (v10)
   {
     v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -45,12 +45,12 @@
     if (setCopy)
     {
       complications = [setCopy complications];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __109__PRInlineComplicationGalleryViewController_initWithSuggestionSet_selectedComplication_alternateDateEnabled___block_invoke;
-      v21[3] = &unk_1E78461F0;
-      v22 = v10;
-      v14 = [complications bs_compactMap:v21];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __109__PRInlineComplicationGalleryViewController_initWithSuggestionSet_selectedComplication_alternateDateEnabled___block_invoke;
+      v22[3] = &unk_1E78461F0;
+      v23 = v10;
+      v14 = [complications bs_compactMap:v22];
     }
 
     else
@@ -69,13 +69,13 @@
     }
 
     objc_storeStrong(&v10->_suggestionItems, v15);
-    v16 = PRSharedWidgetExtensionProvider();
-    [v16 registerObserver:v10];
+    v17 = PRSharedWidgetExtensionProvider(v16);
+    [v17 registerObserver:v10];
 
     subjectMonitorRegistry = [MEMORY[0x1E698B0F0] subjectMonitorRegistry];
-    v18 = [subjectMonitorRegistry addMonitor:v10 subjectMask:1 subscriptionOptions:1];
+    v19 = [subjectMonitorRegistry addMonitor:v10 subjectMask:1 subscriptionOptions:1];
     appProtectionSubjectMonitorSubscription = v10->_appProtectionSubjectMonitorSubscription;
-    v10->_appProtectionSubjectMonitorSubscription = v18;
+    v10->_appProtectionSubjectMonitorSubscription = v19;
   }
 
   return v10;
@@ -90,17 +90,18 @@ id __109__PRInlineComplicationGalleryViewController_initWithSuggestionSet_select
   {
     v6 = [v4 supportedFamilies];
     [v3 widgetFamily];
-    if ((CHSWidgetFamilyMaskFromWidgetFamily() & v6) != 0)
+    v7 = CHSWidgetFamilyMaskFromWidgetFamily();
+    if ((v7 & v6) != 0)
     {
-      v7 = *(a1 + 32);
-      v8 = [v3 intent];
-      v9 = [v7 _galleryItemForWidgetDescriptor:v5 intent:v8 family:objc_msgSend(v3 iconImageHidden:"widgetFamily") suggestedComplication:{0, v3}];
+      v8 = *(a1 + 32);
+      v9 = [v3 intent];
+      v10 = [v8 _galleryItemForWidgetDescriptor:v5 intent:v9 family:objc_msgSend(v3 iconImageHidden:"widgetFamily") suggestedComplication:{0, v3}];
 
       goto LABEL_9;
     }
 
-    v10 = PRLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PRLogCommon(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __127__PRComplicationGalleryViewController_initWithSuggestionSets_applicationWidgetCollections_listLayoutProvider_iconViewProvider___block_invoke_2_cold_1(v5, v3);
     }
@@ -108,22 +109,22 @@ id __109__PRInlineComplicationGalleryViewController_initWithSuggestionSet_select
 
   else
   {
-    v10 = PRLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PRLogCommon(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2_cold_2(v10);
+      __133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2_cold_2(v11);
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_9:
 
-  return v9;
+  return v10;
 }
 
 - (void)dealloc
 {
-  v3 = PRSharedWidgetExtensionProvider();
+  v3 = PRSharedWidgetExtensionProvider(self);
   [v3 unregisterObserver:self];
 
   [(APSubjectMonitorSubscription *)self->_appProtectionSubjectMonitorSubscription invalidate];
@@ -147,54 +148,54 @@ LABEL_9:
 
 - (void)viewDidLoad
 {
-  v32.receiver = self;
-  v32.super_class = PRInlineComplicationGalleryViewController;
-  [(PRInlineComplicationGalleryViewController *)&v32 viewDidLoad];
-  v3 = PRBundle();
-  v4 = [v3 localizedStringForKey:@"INLINE_COMPLICATION_GALLERY_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
-  [(PRInlineComplicationGalleryViewController *)self setTitle:v4];
+  v33.receiver = self;
+  v33.super_class = PRInlineComplicationGalleryViewController;
+  viewDidLoad = [(PRInlineComplicationGalleryViewController *)&v33 viewDidLoad];
+  v4 = PRBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"INLINE_COMPLICATION_GALLERY_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
+  [(PRInlineComplicationGalleryViewController *)self setTitle:v5];
 
   objc_initWeak(&location, self);
-  v5 = MEMORY[0x1E69DC800];
-  v6 = objc_opt_class();
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __56__PRInlineComplicationGalleryViewController_viewDidLoad__block_invoke;
-  v29[3] = &unk_1E7846218;
-  objc_copyWeak(&v30, &location);
-  v7 = [v5 registrationWithCellClass:v6 configurationHandler:v29];
+  v6 = MEMORY[0x1E69DC800];
+  v7 = objc_opt_class();
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __56__PRInlineComplicationGalleryViewController_viewDidLoad__block_invoke;
+  v30[3] = &unk_1E7846218;
+  objc_copyWeak(&v31, &location);
+  v8 = [v6 registrationWithCellClass:v7 configurationHandler:v30];
   _makeSectionHeaderRegistration = [(PRInlineComplicationGalleryViewController *)self _makeSectionHeaderRegistration];
   collectionView = [(PRInlineComplicationGalleryView *)self->_complicationGalleryView collectionView];
   [collectionView setDelegate:self];
-  v10 = objc_alloc(MEMORY[0x1E69DC820]);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __56__PRInlineComplicationGalleryViewController_viewDidLoad__block_invoke_2;
-  v26[3] = &unk_1E78432D8;
-  v11 = collectionView;
-  v27 = v11;
-  v12 = v7;
+  v11 = objc_alloc(MEMORY[0x1E69DC820]);
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __56__PRInlineComplicationGalleryViewController_viewDidLoad__block_invoke_2;
+  v27[3] = &unk_1E78432D8;
+  v12 = collectionView;
   v28 = v12;
-  v13 = [v10 initWithCollectionView:v11 cellProvider:v26];
+  v13 = v8;
+  v29 = v13;
+  v14 = [v11 initWithCollectionView:v12 cellProvider:v27];
   dataSource = self->_dataSource;
-  self->_dataSource = v13;
+  self->_dataSource = v14;
 
-  v15 = self->_dataSource;
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __56__PRInlineComplicationGalleryViewController_viewDidLoad__block_invoke_3;
-  v23 = &unk_1E7846240;
-  v16 = v11;
-  v24 = v16;
-  v17 = _makeSectionHeaderRegistration;
+  v16 = self->_dataSource;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __56__PRInlineComplicationGalleryViewController_viewDidLoad__block_invoke_3;
+  v24 = &unk_1E7846240;
+  v17 = v12;
   v25 = v17;
-  [(UICollectionViewDiffableDataSource *)v15 setSupplementaryViewProvider:&v20];
-  [v16 setContentInset:{8.0, 0.0, 16.0, 0.0, v20, v21, v22, v23}];
-  v18 = self->_dataSource;
+  v18 = _makeSectionHeaderRegistration;
+  v26 = v18;
+  [(UICollectionViewDiffableDataSource *)v16 setSupplementaryViewProvider:&v21];
+  [v17 setContentInset:{8.0, 0.0, 16.0, 0.0, v21, v22, v23, v24}];
+  v19 = self->_dataSource;
   _buildSnapshot = [(PRInlineComplicationGalleryViewController *)self _buildSnapshot];
-  [(UICollectionViewDiffableDataSource *)v18 applySnapshot:_buildSnapshot animatingDifferences:0];
+  [(UICollectionViewDiffableDataSource *)v19 applySnapshot:_buildSnapshot animatingDifferences:0];
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(&location);
 }
 
@@ -265,45 +266,45 @@ void __56__PRInlineComplicationGalleryViewController_viewDidLoad__block_invoke(u
 
 - (id)_buildSnapshot
 {
-  v81[1] = *MEMORY[0x1E69E9840];
+  v82[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69955A0]);
   suggestionItems = self->_suggestionItems;
   if (suggestionItems && [(NSArray *)suggestionItems count])
   {
-    v81[0] = @"PRInlineComplicationSuggestionsSectionIdentifier";
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:1];
+    v82[0] = @"PRInlineComplicationSuggestionsSectionIdentifier";
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:1];
     [v3 appendSectionsWithIdentifiers:v5];
 
     [v3 appendItemsWithIdentifiers:self->_suggestionItems];
   }
 
   selfCopy = self;
-  v53 = v3;
-  v59 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v65 = 0u;
+  v54 = v3;
+  v60 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v6 = PRSharedWidgetExtensionProvider();
+  v69 = 0u;
+  v6 = PRSharedWidgetExtensionProvider(v60);
   extensions = [v6 extensions];
 
-  obj = [extensions countByEnumeratingWithState:&v65 objects:v80 count:16];
+  obj = [extensions countByEnumeratingWithState:&v66 objects:v81 count:16];
   if (obj)
   {
-    v8 = *v66;
-    v54 = *v66;
-    v55 = extensions;
+    v8 = *v67;
+    v55 = *v67;
+    v56 = extensions;
     do
     {
       v9 = 0;
       do
       {
-        if (*v66 != v8)
+        if (*v67 != v8)
         {
           objc_enumerationMutation(extensions);
         }
 
-        v10 = *(*(&v65 + 1) + 8 * v9);
+        v10 = *(*(&v66 + 1) + 8 * v9);
         orderedDescriptors = [v10 orderedDescriptors];
         v12 = [orderedDescriptors bs_filter:&__block_literal_global_58];
         if ([v12 count])
@@ -317,49 +318,49 @@ void __56__PRInlineComplicationGalleryViewController_viewDidLoad__block_invoke(u
             v16 = objc_alloc(MEMORY[0x1E69635D0]);
             identity2 = [v10 identity];
             extensionBundleIdentifier = [identity2 extensionBundleIdentifier];
-            v64 = 0;
-            v19 = [v16 initWithBundleIdentifier:extensionBundleIdentifier error:&v64];
-            v56 = v64;
+            v65 = 0;
+            v19 = [v16 initWithBundleIdentifier:extensionBundleIdentifier error:&v65];
+            v57 = v65;
 
             if (v19)
             {
               containingBundleRecord = [v19 containingBundleRecord];
               if (containingBundleRecord)
               {
-                v21 = [v59 objectForKeyedSubscript:containingBundleRecord];
-                v22 = v21;
-                if (!v21)
+                v22 = [v60 objectForKeyedSubscript:containingBundleRecord];
+                v23 = v22;
+                if (!v22)
                 {
-                  v21 = MEMORY[0x1E695E0F0];
+                  v22 = MEMORY[0x1E695E0F0];
                 }
 
-                extensionBundleIdentifier2 = [v21 arrayByAddingObjectsFromArray:orderedDescriptors];
+                extensionBundleIdentifier2 = [v22 arrayByAddingObjectsFromArray:orderedDescriptors];
 
-                [v59 setObject:extensionBundleIdentifier2 forKeyedSubscript:containingBundleRecord];
+                [v60 setObject:extensionBundleIdentifier2 forKeyedSubscript:containingBundleRecord];
 LABEL_17:
               }
             }
 
             else
             {
-              containingBundleRecord = PRLogCommon();
+              containingBundleRecord = PRLogCommon(v20);
               if (os_log_type_enabled(containingBundleRecord, OS_LOG_TYPE_ERROR))
               {
                 identity3 = [v10 identity];
                 extensionBundleIdentifier2 = [identity3 extensionBundleIdentifier];
                 *buf = 138412546;
-                v77 = extensionBundleIdentifier2;
-                v78 = 2112;
-                v79 = v56;
+                v78 = extensionBundleIdentifier2;
+                v79 = 2112;
+                v80 = v57;
                 _os_log_error_impl(&dword_1A8AA7000, containingBundleRecord, OS_LOG_TYPE_ERROR, "Failed to get application extension record for widget bundle identifier %@: %@", buf, 0x16u);
 
                 goto LABEL_17;
               }
             }
 
-            v8 = v54;
+            v8 = v55;
 
-            extensions = v55;
+            extensions = v56;
           }
         }
 
@@ -367,96 +368,96 @@ LABEL_17:
       }
 
       while (obj != v9);
-      v25 = [extensions countByEnumeratingWithState:&v65 objects:v80 count:16];
-      obj = v25;
+      v26 = [extensions countByEnumeratingWithState:&v66 objects:v81 count:16];
+      obj = v26;
     }
 
-    while (v25);
+    while (v26);
   }
 
-  allKeys = [v59 allKeys];
-  v27 = [allKeys sortedArrayUsingComparator:&__block_literal_global_57];
+  allKeys = [v60 allKeys];
+  v28 = [allKeys sortedArrayUsingComparator:&__block_literal_global_57];
 
-  v29 = selfCopy;
-  v28 = v53;
-  if (([v27 bs_containsObjectPassingTest:&__block_literal_global_60_0] & 1) == 0)
+  v30 = selfCopy;
+  v29 = v54;
+  if (([v28 bs_containsObjectPassingTest:&__block_literal_global_60_0] & 1) == 0)
   {
-    v75 = @"PRDateOptionsSectionIdentifier";
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
-    [v53 appendSectionsWithIdentifiers:v30];
+    v76 = @"PRDateOptionsSectionIdentifier";
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+    [v54 appendSectionsWithIdentifiers:v31];
 
     _dateGalleryItem = [(PRInlineComplicationGalleryViewController *)selfCopy _dateGalleryItem];
-    v74 = _dateGalleryItem;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v74 count:1];
-    [v53 appendItemsWithIdentifiers:v32];
+    v75 = _dateGalleryItem;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
+    [v54 appendItemsWithIdentifiers:v33];
 
     _alternateCalendarGalleryItem = [(PRInlineComplicationGalleryViewController *)selfCopy _alternateCalendarGalleryItem];
-    v34 = _alternateCalendarGalleryItem;
+    v35 = _alternateCalendarGalleryItem;
     if (_alternateCalendarGalleryItem)
     {
-      v73 = _alternateCalendarGalleryItem;
-      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
-      [v53 appendItemsWithIdentifiers:v35];
+      v74 = _alternateCalendarGalleryItem;
+      v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v74 count:1];
+      [v54 appendItemsWithIdentifiers:v36];
     }
   }
 
-  v62 = 0u;
   v63 = 0u;
-  v60 = 0u;
+  v64 = 0u;
   v61 = 0u;
-  obja = v27;
-  v36 = [obja countByEnumeratingWithState:&v60 objects:v72 count:16];
-  if (v36)
+  v62 = 0u;
+  obja = v28;
+  v37 = [obja countByEnumeratingWithState:&v61 objects:v73 count:16];
+  if (v37)
   {
-    v37 = v36;
-    v38 = *v61;
+    v38 = v37;
+    v39 = *v62;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        if (*v61 != v38)
+        if (*v62 != v39)
         {
           objc_enumerationMutation(obja);
         }
 
-        v40 = *(*(&v60 + 1) + 8 * i);
-        bundleIdentifier = [v40 bundleIdentifier];
-        v71 = bundleIdentifier;
-        v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v71 count:1];
-        [v28 appendSectionsWithIdentifiers:v42];
+        v41 = *(*(&v61 + 1) + 8 * i);
+        bundleIdentifier = [v41 bundleIdentifier];
+        v72 = bundleIdentifier;
+        v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
+        [v29 appendSectionsWithIdentifiers:v43];
 
-        bundleIdentifier2 = [v40 bundleIdentifier];
-        LODWORD(v42) = [bundleIdentifier2 isEqual:@"com.apple.mobilecal"];
+        bundleIdentifier2 = [v41 bundleIdentifier];
+        LODWORD(v43) = [bundleIdentifier2 isEqual:@"com.apple.mobilecal"];
 
-        if (v42)
+        if (v43)
         {
-          _dateGalleryItem2 = [(PRInlineComplicationGalleryViewController *)v29 _dateGalleryItem];
-          v70 = _dateGalleryItem2;
-          v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v70 count:1];
-          [v28 appendItemsWithIdentifiers:v45];
+          _dateGalleryItem2 = [(PRInlineComplicationGalleryViewController *)v30 _dateGalleryItem];
+          v71 = _dateGalleryItem2;
+          v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v71 count:1];
+          [v29 appendItemsWithIdentifiers:v46];
 
-          _alternateCalendarGalleryItem2 = [(PRInlineComplicationGalleryViewController *)v29 _alternateCalendarGalleryItem];
-          v47 = _alternateCalendarGalleryItem2;
+          _alternateCalendarGalleryItem2 = [(PRInlineComplicationGalleryViewController *)v30 _alternateCalendarGalleryItem];
+          v48 = _alternateCalendarGalleryItem2;
           if (_alternateCalendarGalleryItem2)
           {
-            v69 = _alternateCalendarGalleryItem2;
-            v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v69 count:1];
-            [v28 appendItemsWithIdentifiers:v48];
+            v70 = _alternateCalendarGalleryItem2;
+            v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v70 count:1];
+            [v29 appendItemsWithIdentifiers:v49];
           }
         }
 
-        v49 = [v59 objectForKeyedSubscript:v40];
-        v50 = [(PRInlineComplicationGalleryViewController *)v29 _inlineGalleryItemsForWidgetDescriptors:v49 iconImageHidden:1 isSuggestion:0];
-        [v28 appendItemsWithIdentifiers:v50];
+        v50 = [v60 objectForKeyedSubscript:v41];
+        v51 = [(PRInlineComplicationGalleryViewController *)v30 _inlineGalleryItemsForWidgetDescriptors:v50 iconImageHidden:1 isSuggestion:0];
+        [v29 appendItemsWithIdentifiers:v51];
       }
 
-      v37 = [obja countByEnumeratingWithState:&v60 objects:v72 count:16];
+      v38 = [obja countByEnumeratingWithState:&v61 objects:v73 count:16];
     }
 
-    while (v37);
+    while (v38);
   }
 
-  return v28;
+  return v29;
 }
 
 uint64_t __59__PRInlineComplicationGalleryViewController__buildSnapshot__block_invoke(uint64_t a1, void *a2)
@@ -592,7 +593,7 @@ uint64_t __65__PRInlineComplicationGalleryViewController__alternateDateString__b
   v5 = [v3 stringFromDate:date];
 
   v6 = [PRComplicationGalleryWidgetItem alloc];
-  v7 = PRBundle();
+  v7 = PRBundle(v6);
   v8 = [v7 localizedStringForKey:@"COMPLICATION_GALLERY_DATE_ITEM_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
   if (self->_selectedComplication)
   {
@@ -620,7 +621,7 @@ void __61__PRInlineComplicationGalleryViewController__dateGalleryItem__block_inv
   [_dateGalleryItem_dateFormatter setFormattingContext:2];
   v8 = [MEMORY[0x1E695DF58] autoupdatingCurrentLocale];
   v2 = [MEMORY[0x1E696AB78] dateFormatFromTemplate:@"EEE MMM d" options:0 locale:?];
-  v3 = PRBundle();
+  v3 = PRBundle(v2);
   v4 = [v3 localizedStringForKey:@"DATE_FORMAT_CHARACTERS_TO_OMIT" value:&stru_1F1C13D90 table:@"PosterKit"];
 
   if ([v4 length])
@@ -641,7 +642,7 @@ void __61__PRInlineComplicationGalleryViewController__dateGalleryItem__block_inv
   if (_alternateDateString)
   {
     v4 = [PRComplicationGalleryWidgetItem alloc];
-    v5 = PRBundle();
+    v5 = PRBundle(v4);
     v6 = [v5 localizedStringForKey:@"COMPLICATION_GALLERY_ALTERNATE_DATE_ITEM_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
     if (self->_selectedComplication)
     {
@@ -744,58 +745,61 @@ void __75__PRInlineComplicationGalleryViewController__makeSectionHeaderRegistrat
     v11 = [v10 sectionIdentifiers];
     v12 = [v11 objectAtIndexedSubscript:{objc_msgSend(v7, "section")}];
 
-    if ([v12 isEqualToString:@"PRInlineComplicationSuggestionsSectionIdentifier"])
+    v13 = [v12 isEqualToString:@"PRInlineComplicationSuggestionsSectionIdentifier"];
+    if (v13)
     {
-      v13 = PRBundle();
-      v14 = v13;
-      v15 = @"COMPLICATION_GALLERY_SUGGESTIONS_TITLE";
+      v14 = PRBundle(v13);
+      v15 = v14;
+      v16 = @"COMPLICATION_GALLERY_SUGGESTIONS_TITLE";
     }
 
     else
     {
-      if (![v12 isEqualToString:@"PRDateOptionsSectionIdentifier"])
+      v17 = [v12 isEqualToString:@"PRDateOptionsSectionIdentifier"];
+      if (!v17)
       {
-        v28 = 0;
-        v17 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v12 allowPlaceholder:1 error:&v28];
-        v18 = v28;
-        if (v18)
+        v31 = 0;
+        v19 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v12 allowPlaceholder:1 error:&v31];
+        v20 = v31;
+        v21 = v20;
+        if (v20)
         {
-          v19 = PRLogCommon();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v22 = PRLogCommon(v20);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            __75__PRInlineComplicationGalleryViewController__makeSectionHeaderRegistration__block_invoke_cold_1(v12, v18, v19);
+            __75__PRInlineComplicationGalleryViewController__makeSectionHeaderRegistration__block_invoke_cold_1(v12, v21, v22);
           }
         }
 
         else
         {
-          v20 = [v17 localizedName];
-          [v6 setTitle:v20];
+          v23 = [v19 localizedName];
+          [v6 setTitle:v23];
 
-          v21 = [v9[124] collectionView];
+          v24 = [v9[124] collectionView];
           +[PRComplicationGallerySectionHeaderView iconImageSize];
-          v23 = v22;
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = __75__PRInlineComplicationGalleryViewController__makeSectionHeaderRegistration__block_invoke_113;
-          v24[3] = &unk_1E7843348;
-          v25 = v6;
-          v26 = v21;
-          v27 = v7;
-          v19 = v21;
-          [PRComplicationGalleryIconProvider loadIconImageForApplicationBundleIdentifier:v12 atWidth:v24 completion:v23];
+          v26 = v25;
+          v27[0] = MEMORY[0x1E69E9820];
+          v27[1] = 3221225472;
+          v27[2] = __75__PRInlineComplicationGalleryViewController__makeSectionHeaderRegistration__block_invoke_113;
+          v27[3] = &unk_1E7843348;
+          v28 = v6;
+          v29 = v24;
+          v30 = v7;
+          v22 = v24;
+          [PRComplicationGalleryIconProvider loadIconImageForApplicationBundleIdentifier:v12 atWidth:v27 completion:v26];
         }
 
         goto LABEL_12;
       }
 
-      v13 = PRBundle();
-      v14 = v13;
-      v15 = @"COMPLICATION_GALLERY_DATE_SECTION_TITLE";
+      v14 = PRBundle(v17);
+      v15 = v14;
+      v16 = @"COMPLICATION_GALLERY_DATE_SECTION_TITLE";
     }
 
-    v16 = [v13 localizedStringForKey:v15 value:&stru_1F1C13D90 table:@"PosterKit"];
-    [v6 setTitle:v16];
+    v18 = [v14 localizedStringForKey:v16 value:&stru_1F1C13D90 table:@"PosterKit"];
+    [v6 setTitle:v18];
 
     [v6 setIconImage:0];
 LABEL_12:
@@ -1004,7 +1008,7 @@ void __86__PRInlineComplicationGalleryViewController__configureWidgetCell_forIte
 {
   controllerCopy = controller;
   widget = [descriptor widget];
-  v7 = PRSharedWidgetExtensionProvider();
+  v7 = PRSharedWidgetExtensionProvider(widget);
   v8 = [v7 widgetDescriptorForWidget:widget];
 
   intentType = [v8 intentType];
@@ -1027,26 +1031,26 @@ void __86__PRInlineComplicationGalleryViewController__configureWidgetCell_forIte
 
 void __100__PRInlineComplicationGalleryViewController__configureWidgetHostViewController_forWidgetDescriptor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRLogCommon();
+  v4 = PRLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) extensionBundleIdentifier];
     v6 = [*(a1 + 32) kind];
-    v10 = 138412802;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_1A8AA7000, v4, OS_LOG_TYPE_DEFAULT, "Loaded new default intent for widget(%@ - %@): %@", &v10, 0x20u);
+    v11 = 138412802;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_1A8AA7000, v4, OS_LOG_TYPE_DEFAULT, "Loaded new default intent for widget(%@ - %@): %@", &v11, 0x20u);
   }
 
   if (!v3)
   {
-    v9 = PRLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PRLogCommon(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __100__PRInlineComplicationGalleryViewController__configureWidgetHostViewController_forWidgetDescriptor___block_invoke_cold_1(a1);
     }
@@ -1054,13 +1058,13 @@ void __100__PRInlineComplicationGalleryViewController__configureWidgetHostViewCo
     goto LABEL_8;
   }
 
-  v7 = [*(a1 + 40) widget];
-  v8 = *(a1 + 32);
+  v8 = [*(a1 + 40) widget];
+  v9 = *(a1 + 32);
 
-  if (v7 == v8)
+  if (v8 == v9)
   {
-    v9 = [*(a1 + 32) widgetByReplacingIntent:v3];
-    [*(a1 + 40) setWidget:v9];
+    v10 = [*(a1 + 32) widgetByReplacingIntent:v3];
+    [*(a1 + 40) setWidget:v10];
 LABEL_8:
   }
 }
@@ -1284,8 +1288,12 @@ void __75__PRInlineComplicationGalleryViewController__makeSectionHeaderRegistrat
 void __100__PRInlineComplicationGalleryViewController__configureWidgetHostViewController_forWidgetDescriptor___block_invoke_cold_1(uint64_t a1)
 {
   v2 = [*(a1 + 32) extensionBundleIdentifier];
-  v9 = [*(a1 + 32) kind];
-  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v3, v4, "Default intent asked for but not provided: %@ - %@", v5, v6, v7, v8, 2u);
+  v3 = [*(a1 + 32) kind];
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v4, v5, "Default intent asked for but not provided: %@ - %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

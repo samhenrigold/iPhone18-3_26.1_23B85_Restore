@@ -11,27 +11,27 @@
 {
   phonemesCopy = phonemes;
   v6 = MEMORY[0x1E696AEC0];
-  v11 = objc_msgSend_xmlEscaped(string, v7, v8, v9, v10);
-  v15 = objc_msgSend_stringWithFormat_(v6, v12, @"<phoneme alphabet=ipa ph=%@>%@</phoneme>", v13, v14, phonemesCopy, v11);
+  xmlEscaped = [string xmlEscaped];
+  v8 = [v6 stringWithFormat:@"<phoneme alphabet=ipa ph=%@>%@</phoneme>", phonemesCopy, xmlEscaped];
 
-  return v15;
+  return v8;
 }
 
 + (id)genericMarkerMarkupWithName:(id)name
 {
-  v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"<mark name=%@ />", v3, v4, name);
+  name = [MEMORY[0x1E696AEC0] stringWithFormat:@"<mark name=%@ />", name];
 
-  return v5;
+  return name;
 }
 
 + (id)speechMarkupStringForType:(int64_t)type string:(id)string
 {
   stringCopy = string;
-  v10 = stringCopy;
+  v6 = stringCopy;
   if ((type - 1) < 2)
   {
 LABEL_6:
-    v13 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v6, @"<say-as interpret-as=characters>%@</say-as>", v8, v9, v10);
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<say-as interpret-as=characters>%@</say-as>", v6];
     goto LABEL_9;
   }
 
@@ -39,27 +39,27 @@ LABEL_6:
   {
     if (type == 3)
     {
-      if (objc_msgSend_length(stringCopy, v6, v7, v8, v9) == 1)
+      if ([stringCopy length] == 1)
       {
-        v12 = objc_msgSend_lowercaseString(v10, v6, v11, v8, v9);
+        lowercaseString = [v6 lowercaseString];
 
-        v10 = v12;
+        v6 = lowercaseString;
       }
 
       goto LABEL_6;
     }
 
-    v13 = &stru_1F1CFF8D8;
+    v8 = &stru_1F1CFF8D8;
   }
 
   else
   {
-    v13 = @"<break time=%dms />";
+    v8 = @"<break time=%dms />";
   }
 
 LABEL_9:
 
-  return v13;
+  return v8;
 }
 
 + (id)combinedProsodyMarkupForString:(id)string rate:(id)rate pitch:(id)pitch volume:(id)volume
@@ -68,22 +68,22 @@ LABEL_9:
   rateCopy = rate;
   pitchCopy = pitch;
   volumeCopy = volume;
-  v17 = objc_msgSend_shared(_TtC12TextToSpeech12SSMLServices, v13, v14, v15, v16);
-  v19 = objc_msgSend_makeProsodySnippetWithString_rate_pitch_volume_(v17, v18, stringCopy, rateCopy, pitchCopy, volumeCopy);
+  v13 = +[_TtC12TextToSpeech12SSMLServices shared];
+  v14 = [v13 makeProsodySnippetWithString:stringCopy rate:rateCopy pitch:pitchCopy volume:volumeCopy];
 
-  if (objc_msgSend_isEqual_(v19, v20, stringCopy, v21, v22))
+  if ([v14 isEqual:stringCopy])
   {
-    v23 = stringCopy;
+    v15 = stringCopy;
   }
 
   else
   {
-    v23 = v19;
+    v15 = v14;
   }
 
-  v24 = v23;
+  v16 = v15;
 
-  return v23;
+  return v15;
 }
 
 @end

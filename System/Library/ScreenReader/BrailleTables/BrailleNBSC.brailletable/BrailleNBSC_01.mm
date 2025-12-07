@@ -40,13 +40,13 @@ uint64_t ktoau::SetBuf(uint64_t a1, _DWORD *a2, _WORD *a3, int *a4, __int16 a5)
 
 uint64_t ktoau::IsSetsubi(uint64_t a1, const __int32 *a2)
 {
-  if (!dword_30488)
+  if (!dword_30488[0])
   {
     return 0;
   }
 
   v3 = 1;
-  for (i = &dword_30488; ; i += 20)
+  for (i = dword_30488; ; i += 20)
   {
     v5 = wcslen(i);
     if (!wcsncmp(a2, i, v5))
@@ -4064,10 +4064,10 @@ uint64_t ktoau::IsHenSuushi(uint64_t a1, __int32 *a2)
 
   IsKanjiNa = ktoau::IsKanjiNa(a1, a2, 0);
   v6 = 0;
-  if (!IsKanjiNa && dword_3A184)
+  if (!IsKanjiNa && dword_3A184[0])
   {
     v6 = 1;
-    for (i = &dword_3A184; wcsncmp(i, a2, 1uLL); i += 3)
+    for (i = dword_3A184; wcsncmp(i, a2, 1uLL); i += 3)
     {
       v8 = i[3];
       v6 = (v6 + 1);
@@ -6004,7 +6004,7 @@ LABEL_78:
                 }
 
                 v80 = *v75;
-                a2 = (v75 + 1);
+                a2 = v75 + 1;
                 v79 = v80;
                 v12 = v76 + 1;
                 v81 = 12356;
@@ -7089,121 +7089,11 @@ LABEL_381:
 
                         if ((v202 & 0x80) == 0 || (result = ktoau::IsJoshi(result, a2, v373), v202 = *v9, !result))
                         {
-                          if ((v202 & 0x20) == 0)
+                          if ((v202 & 0x20) == 0 && ((v280 = (v202 >> 1) & 0xF, v280 == 5) || v280 == 9) || (v202 & 0x1E) == 0x1A && (*a2 == 12375 || (result = wcsncmp(a2, dword_288E4, 2uLL), !result) || (result = wcsncmp(a2, dword_288F0, 2uLL), !result)) || *(a2 - 1) == 12367 && (result = wcsncmp(a2, dword_288FC, 2uLL), !result) || (result = ktoau::IsJoshi(result, a2 - 1, v373), result) && ((result = wcsncmp(a2, dword_28908, 2uLL), !result) || (result = wcsncmp(a2, dword_28914, 2uLL), !result) || (result = wcsncmp(a2, dword_28920, 2uLL), !result) || (result = wcsncmp(a2, dword_252DC, 2uLL), !result) || (result = wcsncmp(a2, dword_2892C, 2uLL), !result) || (result = wcsncmp(a2, dword_28938, 2uLL), !result) || (result = wcsncmp(a2, dword_28944, 2uLL), !result) || (result = wcsncmp(a2, dword_288F0, 2uLL), !result) || (result = wcsncmp(a2, dword_288E4, 2uLL), !result) || (result = wcsncmp(a2, dword_28950, 2uLL), !result) || (result = wcsncmp(a2, dword_2895C, 2uLL), !result) || (result = wcsncmp(a2, dword_28968, 2uLL), !result) || (result = wcsncmp(a2, dword_288FC, 2uLL), !result) || (result = wcsncmp(a2, dword_28974, 2uLL), !result) || (result = wcsncmp(a2, dword_28980, 2uLL), !result) || (result = wcsncmp(a2, dword_2898C, 2uLL), !result) || (result = wcsncmp(a2, dword_28998, 2uLL), !result) || (result = wcsncmp(a2, dword_289A4, 2uLL), !result) || (result = wcsncmp(a2, dword_289B0, 2uLL), !result)))
                           {
-                            v280 = (v202 >> 1) & 0xF;
-                            if (v280 == 5 || v280 == 9)
-                            {
-                              goto LABEL_574;
-                            }
-                          }
-
-                          if ((v202 & 0x1E) == 0x1A)
-                          {
-                            if (*a2 == 12375)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_288E4, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_288F0, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-                          }
-
-                          if (*(a2 - 1) == 12367)
-                          {
-                            result = wcsncmp(a2, dword_288FC, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-                          }
-
-                          result = ktoau::IsJoshi(result, a2 - 1, v373);
-                          if (result)
-                          {
-                            result = wcsncmp(a2, dword_28908, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_28914, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_28920, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_252DC, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_2892C, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_28938, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_28944, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_288F0, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_288E4, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_28950, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_2895C, 2uLL);
-                            if (!result)
-                            {
-                              goto LABEL_574;
-                            }
-
-                            result = wcsncmp(a2, dword_28968, 2uLL);
-                            if (!result || (result = wcsncmp(a2, dword_288FC, 2uLL), !result) || (result = wcsncmp(a2, dword_28974, 2uLL), !result) || (result = wcsncmp(a2, dword_28980, 2uLL), !result) || (result = wcsncmp(a2, dword_2898C, 2uLL), !result) || (result = wcsncmp(a2, dword_28998, 2uLL), !result) || (result = wcsncmp(a2, dword_289A4, 2uLL), !result) || (result = wcsncmp(a2, dword_289B0, 2uLL), !result))
-                            {
-LABEL_574:
-                              *v6++ = 32;
-                              v7->i16[0] = v12;
-                              v7 = (v7 + 2);
-                            }
+                            *v6++ = 32;
+                            v7->i16[0] = v12;
+                            v7 = (v7 + 2);
                           }
 
                           result = ktoau::ZenToHan(result, a2, v6);
@@ -8771,14 +8661,14 @@ uint64_t EChk1(char *a1)
 
 uint64_t EChk2(char *a1)
 {
-  if (!byte_3E850)
+  if (!byte_3E850[0])
   {
     return 0;
   }
 
   v2 = strlen(a1);
   v3 = 1;
-  for (i = &byte_3E850; memcmp(a1, i, v2) || strlen(i) != v2; i += 40)
+  for (i = byte_3E850; memcmp(a1, i, v2) || strlen(i) != v2; i += 40)
   {
     v5 = i[40];
     v3 = (v3 + 2);
@@ -9012,12 +8902,12 @@ uint64_t Is1To2Inyou(int *a1)
   return 1;
 }
 
-BOOL IsInyouTozi(const __int32 *a1)
+BOOL IsInyouTozi(unsigned int *a1)
 {
   while (1)
   {
     v1 = *a1;
-    if (*a1 > 0x29u || ((1 << *a1) & 0x30100000000) == 0)
+    if (*a1 > 0x29 || ((1 << *a1) & 0x30100000000) == 0)
     {
       break;
     }
@@ -9025,7 +8915,7 @@ BOOL IsInyouTozi(const __int32 *a1)
     ++a1;
   }
 
-  if ((v1 - 33) < 0x5F)
+  if (v1 - 33 < 0x5F)
   {
     return 0;
   }
@@ -9073,7 +8963,7 @@ size_t ZenToHan(const __int32 *a1, __int32 *a2)
   return wcslen(a2);
 }
 
-size_t Eiji1To2(size_t result, __int32 *a2, __int16 *a3, __int16 *a4)
+size_t Eiji1To2(size_t result, int *a2, __int16 *a3, __int16 *a4)
 {
   v5 = *result;
   if (*result)
@@ -9119,7 +9009,7 @@ LABEL_8:
 
             v54 = *v12++;
             v53 = v54;
-            if ((v54 - 65377) < 0x3F)
+            if (v54 - 65377 < 0x3F)
             {
               v11 = 1;
             }
@@ -9144,9 +9034,9 @@ LABEL_8:
             do
             {
               v15 = v12[v13];
-              if ((v15 - 65) > 0x19)
+              if (v15 - 65 > 0x19)
               {
-                if ((v15 - 97) > 0x19)
+                if (v15 - 97 > 0x19)
                 {
                   break;
                 }
@@ -9563,4 +9453,196 @@ uint64_t IsMoji(int *a1)
   }
 
   return 1;
+}
+
+uint64_t IsShortLen(unsigned __int16 *a1)
+{
+  if (!*a1)
+  {
+    return 0;
+  }
+
+  result = 0;
+  v3 = a1 + 1;
+    ;
+  }
+
+  return result;
+}
+
+uint64_t IsLap(unsigned int a1, int a2)
+{
+  v3 = m_cStrBuf;
+  v4 = IsMoji((m_cStrBuf + 4 * a1 - 4));
+  v5 = m_sPinKeyBuf;
+  v6 = m_iPinBlockCount * a2;
+  v7 = (m_sPinKeyBuf + 2 * v6);
+  if (*v7)
+  {
+    v8 = 0;
+      ;
+    }
+  }
+
+  else
+  {
+    LODWORD(v8) = 0;
+  }
+
+  v10 = *(m_sPinKeyBuf + 2 * (v8 + v6) - 2);
+  v11 = IsMoji((v3 + 4 * *(m_sPinKeyBuf + 2 * (v8 + v6) - 2) - 4));
+  if (v11 == 2 || (!v11 ? (v12 = (v4 & 5) == 1) : (v12 = 0), v12))
+  {
+    v22 = 0;
+    v23 = 0;
+    while (v8 + v22 >= 6)
+    {
+      v24 = *(2 * v6 + 2 * v8 + v5 - 4 + 2 * v22);
+      ++v23;
+      --v22;
+      if (v10 != v24)
+      {
+        if (v8 - 5 == v23)
+        {
+          return 0;
+        }
+
+        if (IsMoji((v3 + 4 * *(v5 + 2 * (v8 + v6 - v23) - 2) - 4)) != 2)
+        {
+          return v8 - v23;
+        }
+
+        v25 = v8 - 1 - v23;
+        while (*(v5 + 2 * (~v23 + v8 + v6) - 2) == v7[v25 - 1])
+        {
+          v26 = v25 - 1;
+          v21 = v25-- <= 5;
+          if (v21)
+          {
+            goto LABEL_53;
+          }
+        }
+
+        v26 = v25;
+LABEL_53:
+        if (v26 >= 6)
+        {
+          return v26;
+        }
+
+        else
+        {
+          return 0;
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  if (v11 == 6)
+  {
+    if (v4 <= 6 && ((1 << v4) & 0x5A) != 0)
+    {
+      v28 = v8;
+      v29 = v7 - 1;
+      v16 = -v8;
+      v30 = v7 - 2;
+      while (v28 >= 6)
+      {
+        v31 = v28 - 1;
+        v32 = IsMoji((v3 - 4 + 4 * v30[v28]));
+        ++v16;
+        v28 = v31;
+        if (v32 != 6)
+        {
+          if (v31 == 5)
+          {
+            return 0;
+          }
+
+          v33 = *(v5 + 2 * (v6 - v16) - 2);
+          if (IsMoji((v3 + 4 * v33 - 4)) != 2)
+          {
+            return -v16;
+          }
+
+          v34 = -v16;
+          while (v33 == v29[v34])
+          {
+            v21 = v34-- <= 5;
+            if (v21)
+            {
+              return 0;
+            }
+          }
+
+          result = v34;
+          if (v34 <= 5)
+          {
+            return 0;
+          }
+
+          return result;
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  if (v11 != 5)
+  {
+    return 0;
+  }
+
+  result = 0;
+  if (v4 <= 5 && ((1 << v4) & 0x3A) != 0)
+  {
+    v14 = v8;
+    v15 = v7 - 1;
+    v16 = -v8;
+    v17 = v7 - 2;
+    while (v14 >= 6)
+    {
+      v18 = v14 - 1;
+      v19 = IsMoji((v3 - 4 + 4 * v17[v14]));
+      ++v16;
+      v14 = v18;
+      if (v19 != 5)
+      {
+        if (v18 == 5)
+        {
+          return 0;
+        }
+
+        v20 = *(v5 + 2 * (v6 - v16) - 2);
+        if (IsMoji((v3 + 4 * v20 - 4)) != 2)
+        {
+          return -v16;
+        }
+
+        result = -v16;
+        while (v20 == v15[result])
+        {
+          v21 = result-- <= 5;
+          if (v21)
+          {
+            return 0;
+          }
+        }
+
+        if (result <= 5)
+        {
+          return 0;
+        }
+
+        return result;
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
 }

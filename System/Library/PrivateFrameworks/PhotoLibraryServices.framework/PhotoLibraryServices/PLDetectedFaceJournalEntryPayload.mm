@@ -146,23 +146,22 @@ LABEL_11:
     if (!(valueCopy | personUUID))
     {
       v14 = 1;
-LABEL_16:
+LABEL_15:
 
-      goto LABEL_17;
+      goto LABEL_16;
     }
 
-    v15 = personUUID;
-    v16 = valueCopy;
-    goto LABEL_14;
+    isEqualToString = objc_msgSend_isEqualToString_(personUUID);
+LABEL_14:
+    v14 = isEqualToString;
+    goto LABEL_15;
   }
 
   if (([propertyCopy isEqualToKey:@"rejectedPersons"] & 1) != 0 || objc_msgSend(propertyCopy, "isEqualToKey:", @"clusterRejectedPersons"))
   {
     personUUID = [MEMORY[0x1E695DFD8] setWithArray:dictionaryValueCopy];
-    v13 = [personUUID isEqualToSet:valueCopy];
-LABEL_15:
-    v14 = v13;
-    goto LABEL_16;
+    isEqualToString = [personUUID isEqualToSet:valueCopy];
+    goto LABEL_14;
   }
 
   if ([propertyCopy isEqualToKey:@"personBeingKeyFace"])
@@ -170,31 +169,28 @@ LABEL_15:
     if (![valueCopy BOOLValue])
     {
       v14 = 0;
-      goto LABEL_17;
+      goto LABEL_16;
     }
 
     personUUID = [(PLDetectedFaceJournalEntryPayload *)self personUUID];
-    v15 = dictionaryValueCopy;
-    v16 = personUUID;
-LABEL_14:
-    v13 = [v15 isEqualToString:v16];
-    goto LABEL_15;
+    isEqualToString = objc_msgSend_isEqualToString_(dictionaryValueCopy);
+    goto LABEL_14;
   }
 
   if ([propertyCopy isEqualToKey:@"person"])
   {
-    v18 = [dictionaryValueCopy isEqualToString:valueCopy];
+    v16 = objc_msgSend_isEqualToString_(dictionaryValueCopy);
   }
 
   else
   {
-    v19.receiver = self;
-    v19.super_class = PLDetectedFaceJournalEntryPayload;
-    v18 = [(PLManagedObjectJournalEntryPayload *)&v19 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
+    v17.receiver = self;
+    v17.super_class = PLDetectedFaceJournalEntryPayload;
+    v16 = [(PLManagedObjectJournalEntryPayload *)&v17 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
   }
 
-  v14 = v18;
-LABEL_17:
+  v14 = v16;
+LABEL_16:
 
   return v14;
 }
@@ -235,7 +231,7 @@ LABEL_5:
   keyCopy = key;
   valueCopy = value;
   builderCopy = builder;
-  if (([keyCopy isEqualToString:@"asset"] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", @"person"))
+  if ((objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self UUIDStringForData:valueCopy];
     v14.receiver = self;
@@ -245,7 +241,7 @@ LABEL_5:
 
   else
   {
-    if (([keyCopy isEqualToString:@"rejectedPersons"] & 1) == 0 && !objc_msgSend(keyCopy, "isEqualToString:", @"clusterRejectedPersons"))
+    if ((objc_msgSend_isEqualToString_(keyCopy) & 1) == 0 && !objc_msgSend_isEqualToString_(keyCopy))
     {
       v12.receiver = self;
       v12.super_class = PLDetectedFaceJournalEntryPayload;
@@ -596,34 +592,33 @@ LABEL_17:
     v9 = v8;
   }
 
-  else
+  else if (deferred)
   {
-    if (deferred)
+    if (*deferred)
     {
-      if (*deferred)
-      {
-        v9 = [(PLDetectedFaceJournalEntryPayload *)self _insertDeferredRebuildFacesFromDataInManagedObjectContext:contextCopy];
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      *deferred = [v9 count] != 0;
+      v9 = [(PLDetectedFaceJournalEntryPayload *)self _insertDeferredRebuildFacesFromDataInManagedObjectContext:contextCopy];
+      v10 = objc_msgSend_count(v9);
     }
 
     else
     {
       v9 = 0;
+      v10 = objc_msgSend_count(0);
     }
 
-    v8 = [v9 count];
+    *deferred = v10 != 0;
+    v8 = objc_msgSend_count(v9);
   }
 
-  v10 = v8 != 0;
+  else
+  {
+    v9 = 0;
+    v8 = objc_msgSend_count(0);
+  }
 
-  return v10;
+  v11 = v8 != 0;
+
+  return v11;
 }
 
 - (id)_insertDeferredRebuildFacesFromDataInManagedObjectContext:(id)context

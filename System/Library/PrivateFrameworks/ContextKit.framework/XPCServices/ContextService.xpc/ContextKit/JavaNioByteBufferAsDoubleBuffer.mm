@@ -6,8 +6,10 @@
 - (id)asReadOnlyBuffer;
 - (id)compact;
 - (id)duplicate;
+- (id)getWithDoubleArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)order;
 - (id)putWithDouble:(double)double;
+- (id)putWithDoubleArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)putWithInt:(int)int withDouble:(double)double;
 - (id)slice;
 - (void)dealloc;
@@ -110,6 +112,32 @@
   return result;
 }
 
+- (id)getWithDoubleArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  byteBuffer = self->byteBuffer_;
+  if (!byteBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v7 = *&withInt;
+  v8 = *&int;
+  [(JavaNioBuffer *)byteBuffer limitWithInt:(8 * self->super.super.limit_)];
+  [(JavaNioBuffer *)self->byteBuffer_ positionWithInt:(8 * self->super.super.position_)];
+  objc_opt_class();
+  objc_opt_isKindOfClass();
+  v10 = self->byteBuffer_;
+  objc_opt_class();
+  if (v10 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  [(JavaNioByteBuffer *)v10 getWithDoubleArray:array withInt:v8 withInt:v7];
+  self->super.super.position_ += v7;
+  return self;
+}
+
 - (BOOL)isDirect
 {
   byteBuffer = self->byteBuffer_;
@@ -173,6 +201,32 @@
   }
 
   [(JavaNioByteBuffer *)byteBuffer putDoubleWithInt:(8 * int) withDouble:double];
+  return self;
+}
+
+- (id)putWithDoubleArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  byteBuffer = self->byteBuffer_;
+  if (!byteBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v7 = *&withInt;
+  v8 = *&int;
+  [(JavaNioBuffer *)byteBuffer limitWithInt:(8 * self->super.super.limit_)];
+  [(JavaNioBuffer *)self->byteBuffer_ positionWithInt:(8 * self->super.super.position_)];
+  objc_opt_class();
+  objc_opt_isKindOfClass();
+  v10 = self->byteBuffer_;
+  objc_opt_class();
+  if (v10 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+    JreThrowClassCastException();
+  }
+
+  [(JavaNioByteBuffer *)v10 putWithDoubleArray:array withInt:v8 withInt:v7];
+  self->super.super.position_ += v7;
   return self;
 }
 

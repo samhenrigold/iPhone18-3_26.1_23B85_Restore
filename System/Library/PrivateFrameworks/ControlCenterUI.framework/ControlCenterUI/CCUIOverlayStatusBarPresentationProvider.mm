@@ -67,7 +67,7 @@
 
 - (void)layoutViews
 {
-  v164 = *MEMORY[0x277D85DE8];
+  v168 = *MEMORY[0x277D85DE8];
   viewProvider = [(CCUIOverlayStatusBarPresentationProvider *)self viewProvider];
   metricsProvider = [(CCUIOverlayStatusBarPresentationProvider *)self metricsProvider];
   overlayInterfaceOrientation = [metricsProvider overlayInterfaceOrientation];
@@ -99,8 +99,8 @@
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-  v149 = 0.0;
-  v144 = v9;
+  v153 = 0.0;
+  v148 = v9;
   if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -108,29 +108,29 @@
 
     if (userInterfaceLayoutDirection != 1)
     {
-      v165.origin.x = v14;
-      v165.origin.y = v16;
-      v165.size.width = v18;
-      v165.size.height = v20;
-      MaxX = CGRectGetMaxX(v165);
-      v166.origin.x = v23;
-      v166.origin.y = v25;
-      v166.size.width = v27;
-      v166.size.height = rect_16;
-      v149 = MaxX - CGRectGetWidth(v166);
+      v169.origin.x = v14;
+      v169.origin.y = v16;
+      v169.size.width = v18;
+      v169.size.height = v20;
+      MaxX = CGRectGetMaxX(v169);
+      v170.origin.x = v23;
+      v170.origin.y = v25;
+      v170.size.width = v27;
+      v170.size.height = rect_16;
+      v153 = MaxX - CGRectGetWidth(v170);
     }
   }
 
-  v148 = v25;
+  v152 = v25;
   CCUILayoutEdgeInsetsForInterfaceOrientation(overlayInterfaceOrientation);
   CCUIEdgeInsetsRTLSwap();
   v35 = v34;
   v37 = v36;
-  v146 = v39;
-  v147 = v38;
+  v150 = v39;
+  v151 = v38;
   rect_8 = v27;
-  v156 = v16;
-  v157 = v14;
+  v160 = v16;
+  v161 = v14;
   rect_24 = v18;
   [(CCUIOverlayStatusBarPresentationProvider *)self _edgeInsetsForContentSize:overlayInterfaceOrientation withinBounds:v27 contentEdgeInsets:rect_16 orientation:v14, v16, v18, v20, v34, *&v38, v36, *&v39];
   v41 = v40;
@@ -161,8 +161,8 @@
   }
 
   [metricsProvider setOverlayContentLayoutOffset:{*MEMORY[0x277CBF348], v51, v53}];
-  v143 = v41;
-  [(CCUIOverlayStatusBarPresentationProvider *)self _headerViewFrameForContentSize:overlayInterfaceOrientation withinBounds:rect_8 contentInset:rect_16 contentEdgeInsets:v157 orientation:v156, rect_24, v20, *&v41, *&v43, *&v45, *&v47, v35, *&v147, v37, *&v146];
+  v147 = v41;
+  [(CCUIOverlayStatusBarPresentationProvider *)self _headerViewFrameForContentSize:overlayInterfaceOrientation withinBounds:rect_8 contentInset:rect_16 contentEdgeInsets:v161 orientation:v160, rect_24, v20, *&v41, *&v43, *&v45, *&v47, v35, *&v151, v37, *&v150];
   v56 = v55;
   v58 = v57;
   v60 = v59;
@@ -184,208 +184,208 @@
 
   [(CCUIOverlayStatusBarPresentationProvider *)self _effectiveTransitionHeight];
   v65 = v64;
-  v167.origin.x = v56;
-  v167.origin.y = v61;
-  v167.size.width = v58;
-  v167.size.height = v60;
-  Height = CGRectGetHeight(v167);
-  v67 = fmin(v65, Height - CCUIStatusBarHeight());
+  v171.origin.x = v56;
+  v171.origin.y = v61;
+  v171.size.width = v58;
+  v171.size.height = v60;
+  Height = CGRectGetHeight(v171);
+  v69 = fmin(v65, Height - CCUIStatusBarHeight(v67, v68));
   overlayHeaderView4 = [viewProvider overlayHeaderView];
-  [overlayHeaderView4 setEdgeInsets:{v67, 0.0, 0.0, 0.0}];
+  [overlayHeaderView4 setEdgeInsets:{v69, 0.0, 0.0, 0.0}];
 
-  v161 = 0u;
-  v162 = 0u;
-  v159 = 0u;
-  v160 = 0u;
+  v165 = 0u;
+  v166 = 0u;
+  v163 = 0u;
+  v164 = 0u;
   overlayHeaderLayers = [viewProvider overlayHeaderLayers];
-  v70 = [overlayHeaderLayers countByEnumeratingWithState:&v159 objects:v163 count:16];
-  if (v70)
+  v72 = [overlayHeaderLayers countByEnumeratingWithState:&v163 objects:v167 count:16];
+  if (v72)
   {
-    v71 = v70;
-    v72 = *v160;
+    v73 = v72;
+    v74 = *v164;
     do
     {
-      for (i = 0; i != v71; ++i)
+      for (i = 0; i != v73; ++i)
       {
-        if (*v160 != v72)
+        if (*v164 != v74)
         {
           objc_enumerationMutation(overlayHeaderLayers);
         }
 
-        [*(*(&v159 + 1) + 8 * i) setFrame:{v56, v61, v58, v60}];
+        [*(*(&v163 + 1) + 8 * i) setFrame:{v56, v61, v58, v60}];
       }
 
-      v71 = [overlayHeaderLayers countByEnumeratingWithState:&v159 objects:v163 count:16];
+      v73 = [overlayHeaderLayers countByEnumeratingWithState:&v163 objects:v167 count:16];
     }
 
-    while (v71);
+    while (v73);
   }
 
   overlayStatusBarStyle = [metricsProvider overlayStatusBarStyle];
   [overlayStatusBarStyle statusBarInsets];
-  v76 = v75;
   v78 = v77;
   v80 = v79;
   v82 = v81;
+  v84 = v83;
 
   overlayHeaderView5 = [viewProvider overlayHeaderView];
   statusBar2 = [overlayHeaderView5 statusBar];
-  [statusBar2 setCompactEdgeInsets:{v76, v147 + v78 + 4.0 + 35.0, 0.0, v82}];
+  [statusBar2 setCompactEdgeInsets:{v78, v151 + v80 + 4.0 + 35.0, 0.0, v84}];
 
-  v168.origin.y = v156;
-  v168.origin.x = v157;
-  v168.size.width = rect_24;
-  v168.size.height = v20;
-  Width = CGRectGetWidth(v168);
-  v145 = v20;
-  v86 = rect + v76;
-  v87 = CCUIStatusBarHeight() - (v76 + v80);
+  v172.origin.y = v160;
+  v172.origin.x = v161;
+  v172.size.width = rect_24;
+  v172.size.height = v20;
+  Width = CGRectGetWidth(v172);
+  v149 = v20;
+  v90 = rect + v78;
+  v91 = CCUIStatusBarHeight(v88, v89) - (v78 + v82);
   overlayLeadingStatusBar = [viewProvider overlayLeadingStatusBar];
-  [overlayLeadingStatusBar setFrame:{v78 + 0.0, v86, Width - (v78 + v82), v87}];
+  [overlayLeadingStatusBar setFrame:{v80 + 0.0, v90, Width - (v80 + v84), v91}];
 
   overlayHeaderView6 = [viewProvider overlayHeaderView];
   statusBar3 = [overlayHeaderView6 statusBar];
-  [statusBar3 setExpandedEdgeInsets:{0.0, v147, 0.0, v146}];
+  [statusBar3 setExpandedEdgeInsets:{0.0, v151, 0.0, v150}];
 
   overlayHeaderView7 = [viewProvider overlayHeaderView];
-  [overlayHeaderView7 setSensorAttributionEdgeInsets:{0.0, v147, 0.0, v146}];
+  [overlayHeaderView7 setSensorAttributionEdgeInsets:{0.0, v151, 0.0, v150}];
 
   overlayStatusLabelViewController = [viewProvider overlayStatusLabelViewController];
-  [overlayStatusLabelViewController setEdgeInsets:{0.0, v147, 0.0, v146}];
+  [overlayStatusLabelViewController setEdgeInsets:{0.0, v151, 0.0, v150}];
 
   _isEditing = [(CCUIOverlayStatusBarPresentationProvider *)self _isEditing];
   currentDevice3 = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom3 = [currentDevice3 userInterfaceIdiom];
 
-  v96 = 0.0;
+  v100 = 0.0;
   if ((userInterfaceIdiom3 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    v97 = 0.0;
+    v101 = 0.0;
   }
 
   else
   {
-    v97 = v149;
+    v101 = v153;
   }
 
   if ((userInterfaceIdiom3 & 0xFFFFFFFFFFFFFFFBLL) != 1)
   {
-    v96 = v25;
+    v100 = v25;
   }
 
-  v98 = v97;
-  v99 = rect_8;
-  v100 = rect_16;
-  v101 = v143 + CGRectGetHeight(*(&v96 - 1));
+  v102 = v101;
+  v103 = rect_8;
+  v104 = rect_16;
+  v105 = v147 + CGRectGetHeight(*(&v100 - 1));
   [(CCUIOverlayStatusBarPresentationProvider *)self _additionalHeaderOffsetForEditing:!_isEditing];
-  v169.origin.y = v156;
-  v169.origin.x = v157;
-  v169.size.width = rect_24;
-  v169.size.height = v145;
-  CGRectGetHeight(v169);
-  v170.origin.x = v97;
-  v170.origin.y = v101;
-  v170.size.width = rect_8;
-  v170.size.height = rect_16;
-  CGRectGetMinY(v170);
+  v173.origin.y = v160;
+  v173.origin.x = v161;
+  v173.size.width = rect_24;
+  v173.size.height = v149;
+  CGRectGetHeight(v173);
+  v174.origin.x = v101;
+  v174.origin.y = v105;
+  v174.size.width = rect_8;
+  v174.size.height = rect_16;
+  CGRectGetMinY(v174);
   UIRectInsetEdges();
-  v103 = v102;
-  v105 = v104;
   v107 = v106;
   v109 = v108;
+  v111 = v110;
+  v113 = v112;
   editingAccessoryView = [viewProvider editingAccessoryView];
-  [editingAccessoryView sizeThatFits:{v107, v109}];
+  [editingAccessoryView sizeThatFits:{v111, v113}];
 
   BSRectWithSize();
   UIRectCenteredIntegralRectScale();
-  x = v171.origin.x;
-  v112 = v171.size.width;
-  v113 = v171.size.height;
-  MinY = CGRectGetMinY(v171);
-  v172.origin.x = v103;
-  v172.origin.y = v105;
-  v172.size.width = v107;
-  v172.size.height = v109;
-  v115 = fmin(MinY, CGRectGetMinY(v172) + 30.0);
+  x = v175.origin.x;
+  v116 = v175.size.width;
+  v117 = v175.size.height;
+  MinY = CGRectGetMinY(v175);
+  v176.origin.x = v107;
+  v176.origin.y = v109;
+  v176.size.width = v111;
+  v176.size.height = v113;
+  v119 = fmin(MinY, CGRectGetMinY(v176) + 30.0);
   editingAccessoryView2 = [viewProvider editingAccessoryView];
   recta = x;
-  v117 = x;
-  v118 = v112;
-  v119 = v115;
-  rect_16a = v113;
-  [editingAccessoryView2 setFrame:{v117, v115, v118, v113}];
+  v121 = x;
+  v122 = v116;
+  v123 = v119;
+  rect_16a = v117;
+  [editingAccessoryView2 setFrame:{v121, v119, v122, v117}];
 
   currentDevice4 = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom4 = [currentDevice4 userInterfaceIdiom];
 
   if ((userInterfaceIdiom4 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    v122 = v149;
+    v126 = v153;
   }
 
   else
   {
-    v122 = v157;
+    v126 = v161;
   }
 
   if ((userInterfaceIdiom4 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    v123 = v148;
+    v127 = v152;
   }
 
   else
   {
-    v123 = v156;
+    v127 = v160;
   }
 
   if ((userInterfaceIdiom4 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    v124 = rect_8;
+    v128 = rect_8;
   }
 
   else
   {
-    v124 = rect_24;
+    v128 = rect_24;
   }
 
   pagingView2 = [viewProvider pagingView];
-  v158 = v124;
-  [pagingView2 setFrame:{v122, v123, v124, v145}];
+  v162 = v128;
+  [pagingView2 setFrame:{v126, v127, v128, v149}];
 
   [metricsProvider overlayBackgroundFrame];
-  v127 = v126;
-  v129 = v128;
   v131 = v130;
   v133 = v132;
+  v135 = v134;
+  v137 = v136;
   if (v52 <= 1)
   {
     UIRectInset();
-    v127 = v134;
-    v129 = v135;
-    v131 = v136;
-    v133 = v137;
+    v131 = v138;
+    v133 = v139;
+    v135 = v140;
+    v137 = v141;
   }
 
   overlayBackgroundView = [viewProvider overlayBackgroundView];
-  [overlayBackgroundView setFrame:{v127, v129, v131, v133}];
+  [overlayBackgroundView setFrame:{v131, v133, v135, v137}];
   currentDevice5 = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom5 = [currentDevice5 userInterfaceIdiom];
 
   if ((userInterfaceIdiom5 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
     [(CCUIOverlayStatusBarPresentationProvider *)self _additionalHeaderOffsetForEditing:!_isEditing];
-    v142 = v141;
-    v173.origin.x = recta;
-    v173.origin.y = v119;
-    v173.size.width = v118;
-    v173.size.height = rect_16a;
-    v133 = v142 + CGRectGetMaxY(v173) + 30.0;
-    v127 = v122;
-    v129 = v123;
-    v131 = v158;
+    v146 = v145;
+    v177.origin.x = recta;
+    v177.origin.y = v123;
+    v177.size.width = v122;
+    v177.size.height = rect_16a;
+    v137 = v146 + CGRectGetMaxY(v177) + 30.0;
+    v131 = v126;
+    v133 = v127;
+    v135 = v162;
   }
 
-  [overlayBackgroundView setContentFrame:{v127, v129, v131, v133}];
+  [overlayBackgroundView setContentFrame:{v131, v133, v135, v137}];
 }
 
 - (CCUIOverlayViewProvider)viewProvider
@@ -431,17 +431,17 @@
 
 - (double)_effectiveHeaderViewHeight
 {
-  v3 = CCUIPortraitHeaderHeight();
+  v3 = CCUIPortraitHeaderHeight(self);
   [(CCUIOverlayStatusBarPresentationProvider *)self _additionalHeaderHeight];
   return v3 + v4;
 }
 
 - (double)_effectiveTransitionHeight
 {
-  v3 = CCUIPortraitHeaderHeight();
-  v4 = v3 - CCUIStatusBarHeight();
+  v3 = CCUIPortraitHeaderHeight(self);
+  v6 = v3 - CCUIStatusBarHeight(v4, v5);
   [(CCUIOverlayStatusBarPresentationProvider *)self _additionalHeaderHeight];
-  return v4 + v5;
+  return v6 + v7;
 }
 
 - (id)transitionStateForType:(unint64_t)type interactive:(BOOL)interactive translation:(CGPoint)translation
@@ -943,7 +943,7 @@ void __68__CCUIOverlayStatusBarPresentationProvider_transitionBetweenEditing__bl
   result = 0.0;
   if (editing)
   {
-    v5 = -CCUIStatusBarHeight();
+    v5 = -CCUIStatusBarHeight(self, a2);
     [(CCUIOverlayStatusBarPresentationProvider *)self _additionalHeaderHeight];
     return v5 - v6;
   }
@@ -1463,105 +1463,94 @@ void __143__CCUIOverlayStatusBarPresentationProvider__addHeaderContentTransformA
   }
 
   v3 = *(a1 + 64);
-  v38 = 1.0;
+  v36 = 1.0;
   v4 = [*(a1 + 48) viewProvider];
   v5 = [v4 overlayHeaderView];
 
-  v36 = 0u;
-  v37 = 0u;
+  v34 = 0u;
   v35 = 0u;
+  v33 = 0u;
   v6 = *(a1 + 48);
   if (v6)
   {
-    if (IsOne)
-    {
-      v7 = &v38;
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    [v6 _headerViewTransformForTransitionState:*(a1 + 32) rubberBandSlope:v7];
+    objc_msgSend__headerViewTransformForTransitionState_rubberBandSlope_(v6);
   }
 
   if (IsOne)
   {
-    v8 = [objc_opt_class() invokeSettings];
-    v9 = v3 * v38;
+    v7 = [objc_opt_class() invokeSettings];
     if (v5)
     {
-      [v5 contentTransformVelocity];
+      objc_msgSend_contentTransformVelocity(v5);
     }
 
     else
     {
-      v33 = 0u;
-      v34 = 0u;
       v31 = 0u;
       v32 = 0u;
       v29 = 0u;
       v30 = 0u;
       v27 = 0u;
       v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
     }
 
-    [v8 velocityInjectionMaxPercentageOfExpectedVelocityThreshold];
+    [v7 velocityInjectionMaxPercentageOfExpectedVelocityThreshold];
     if (BSFloatLessThanFloat())
     {
-      v10 = *(MEMORY[0x277CD9DE8] + 80);
-      v22 = *(MEMORY[0x277CD9DE8] + 64);
-      v23 = v10;
-      v24 = *(MEMORY[0x277CD9DE8] + 96);
-      v11 = *(MEMORY[0x277CD9DE8] + 16);
-      v18 = *MEMORY[0x277CD9DE8];
-      v19 = v11;
-      v12 = *(MEMORY[0x277CD9DE8] + 48);
-      v20 = *(MEMORY[0x277CD9DE8] + 32);
-      v21 = v12;
-      v26 = *(MEMORY[0x277CD9DE8] + 112);
-      v25 = v9;
-      [v5 setContentTransformVelocity:&v18];
+      v8 = *(MEMORY[0x277CD9DE8] + 80);
+      v20 = *(MEMORY[0x277CD9DE8] + 64);
+      v21 = v8;
+      v22 = *(MEMORY[0x277CD9DE8] + 96);
+      v9 = *(MEMORY[0x277CD9DE8] + 16);
+      v16 = *MEMORY[0x277CD9DE8];
+      v17 = v9;
+      v10 = *(MEMORY[0x277CD9DE8] + 48);
+      v18 = *(MEMORY[0x277CD9DE8] + 32);
+      v19 = v10;
+      v24 = *(MEMORY[0x277CD9DE8] + 112);
+      v23 = v3 * v36;
+      [v5 setContentTransformVelocity:&v16];
     }
   }
 
+  v16 = v33;
+  v17 = v34;
   v18 = v35;
-  v19 = v36;
-  v20 = v37;
-  [v5 setContentTransform:&v18];
-  v13 = [*(a1 + 48) viewProvider];
-  v14 = [v13 overlayHeaderView];
-  v15 = [v14 statusBar];
+  [v5 setContentTransform:&v16];
+  v11 = [*(a1 + 48) viewProvider];
+  v12 = [v11 overlayHeaderView];
+  v13 = [v12 statusBar];
 
-  v19 = 0u;
-  v20 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v16 = *(a1 + 48);
-  if (v16)
+  v16 = 0u;
+  v14 = *(a1 + 48);
+  if (v14)
   {
-    [v16 _compactStatusBar:v15 transformForTransitionState:*(a1 + 32)];
+    objc_msgSend__compactStatusBar_transformForTransitionState_(v14);
   }
 
-  v17[0] = v18;
-  v17[1] = v19;
-  v17[2] = v20;
-  [v5 setCompactScaleTransform:v17];
+  v15[0] = v16;
+  v15[1] = v17;
+  v15[2] = v18;
+  [v5 setCompactScaleTransform:v15];
 }
 
 - (CGAffineTransform)_compactStatusBar:(SEL)bar transformForTransitionState:(id)state
 {
   [a5 clampedPresentationProgress];
   v8 = v7;
-  [(CCUIOverlayStatusBarPresentationProvider *)self _effectiveTransitionHeight];
-  v10 = fmin(v8 * (v9 / (CCUIStatusBarHeight() * 0.75)), 1.0);
+  _effectiveTransitionHeight = [(CCUIOverlayStatusBarPresentationProvider *)self _effectiveTransitionHeight];
+  v12 = fmin(v8 * (v11 / (CCUIStatusBarHeight(_effectiveTransitionHeight, v10) * 0.75)), 1.0);
   viewProvider = [(CCUIOverlayStatusBarPresentationProvider *)self viewProvider];
   overlayHeaderView = [viewProvider overlayHeaderView];
   statusBar = [overlayHeaderView statusBar];
   [statusBar maxCompactScaleFactor];
-  v15 = v14;
+  v17 = v16;
 
-  return CGAffineTransformMakeScale(retstr, (v15 + -1.0) * v10 + 1.0, (v15 + -1.0) * v10 + 1.0);
+  return CGAffineTransformMakeScale(retstr, (v17 + -1.0) * v12 + 1.0, (v17 + -1.0) * v12 + 1.0);
 }
 
 - (CGAffineTransform)_headerViewTransformForTransitionState:(SEL)state rubberBandSlope:(id)slope
@@ -1578,7 +1567,7 @@ void __143__CCUIOverlayStatusBarPresentationProvider__addHeaderContentTransformA
     {
 LABEL_7:
       UIAccessibilityIsReduceMotionEnabled();
-      v17 = 184.0;
+      v18 = 184.0;
       goto LABEL_8;
     }
   }
@@ -1593,10 +1582,10 @@ LABEL_7:
 
       if (!userInterfaceIdiom)
       {
-        [(CCUIOverlayStatusBarPresentationProvider *)self _effectiveTransitionHeight];
+        _effectiveTransitionHeight = [(CCUIOverlayStatusBarPresentationProvider *)self _effectiveTransitionHeight];
         v13 = v12;
-        v14 = CCUIStatusBarHeight();
-        CGAffineTransformMakeTranslation(retstr, 0.0, -(v13 + v14 * 0.5));
+        v15 = CCUIStatusBarHeight(_effectiveTransitionHeight, v14);
+        CGAffineTransformMakeTranslation(retstr, 0.0, -(v13 + v15 * 0.5));
         goto LABEL_9;
       }
     }
@@ -1605,14 +1594,14 @@ LABEL_7:
   currentDevice2 = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom2 = [currentDevice2 userInterfaceIdiom];
 
-  v17 = 24.0;
+  v18 = 24.0;
   if ((userInterfaceIdiom2 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
     goto LABEL_7;
   }
 
 LABEL_8:
-  [(CCUIOverlayStatusBarPresentationProvider *)self _transformForTransitionState:slopeCopy rubberBandingHeight:a5 rubberBandSlope:v17];
+  objc_msgSend__transformForTransitionState_rubberBandingHeight_rubberBandSlope_(self, v18);
 LABEL_9:
 
   return result;
@@ -1844,20 +1833,20 @@ void __108__CCUIOverlayStatusBarPresentationProvider__addReducedMotionStatusBarS
   stateCopy = state;
   transitionStateCopy = transitionState;
   viewProvider = [(CCUIOverlayStatusBarPresentationProvider *)self viewProvider];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __137__CCUIOverlayStatusBarPresentationProvider__addModuleTransformAnimationsToBatch_transitionState_previousTransitionState_gestureVelocity___block_invoke;
-  v30[3] = &unk_278381F28;
-  v30[4] = self;
-  v31 = batchCopy;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __137__CCUIOverlayStatusBarPresentationProvider__addModuleTransformAnimationsToBatch_transitionState_previousTransitionState_gestureVelocity___block_invoke;
+  v29[3] = &unk_278381F28;
+  v29[4] = self;
+  v30 = batchCopy;
   v15 = stateCopy;
-  v32 = v15;
+  v31 = v15;
   v16 = transitionStateCopy;
-  v33 = v16;
-  v34 = x;
-  v35 = y;
+  v32 = v16;
+  v33 = x;
+  v34 = y;
   v17 = batchCopy;
-  [viewProvider enumerateOverlayModuleViewsWithBlock:v30];
+  [viewProvider enumerateOverlayModuleViewsWithBlock:v29];
 
   if (([v15 isInteractive] & 1) != 0 || !objc_msgSend(v16, "isInteractive"))
   {
@@ -1870,37 +1859,27 @@ void __108__CCUIOverlayStatusBarPresentationProvider__addReducedMotionStatusBarS
     IsOne = BSFloatIsOne();
   }
 
-  v29 = 0x3FF0000000000000;
-  memset(&v28, 0, sizeof(v28));
+  v28 = 0x3FF0000000000000;
+  memset(&v27, 0, sizeof(v27));
   [(CCUIOverlayStatusBarPresentationProvider *)self _moduleViewRubberBandingHeight];
   v19 = IsOne & 1;
-  if (IsOne)
-  {
-    v20 = &v29;
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  [(CCUIOverlayStatusBarPresentationProvider *)self _transformForTransitionState:v15 rubberBandingHeight:v20 rubberBandSlope:?];
-  transform = v28;
-  memset(&v27, 0, sizeof(v27));
-  CGAffineTransformDecompose(&v27, &transform);
-  dy = v27.translation.dy;
-  v22 = [(CCUIOverlayStatusBarPresentationProvider *)self _moduleTranslationAnimationParametersForTransitionState:v15 previousTransitionState:v16];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __137__CCUIOverlayStatusBarPresentationProvider__addModuleTransformAnimationsToBatch_transitionState_previousTransitionState_gestureVelocity___block_invoke_2;
-  v24[3] = &unk_278381F50;
-  v24[4] = self;
-  v25 = v19;
-  *&v24[5] = y;
-  v24[6] = v29;
-  *&v24[7] = dy;
-  v23 = [CCUIAnimation animationWithParameters:v22 animations:v24];
-  [v17 addAnimation:v23];
+  objc_msgSend__transformForTransitionState_rubberBandingHeight_rubberBandSlope_(self);
+  transform = v27;
+  memset(&v26, 0, sizeof(v26));
+  CGAffineTransformDecompose(&v26, &transform);
+  dy = v26.translation.dy;
+  v21 = [(CCUIOverlayStatusBarPresentationProvider *)self _moduleTranslationAnimationParametersForTransitionState:v15 previousTransitionState:v16];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __137__CCUIOverlayStatusBarPresentationProvider__addModuleTransformAnimationsToBatch_transitionState_previousTransitionState_gestureVelocity___block_invoke_2;
+  v23[3] = &unk_278381F50;
+  v23[4] = self;
+  v24 = v19;
+  *&v23[5] = y;
+  v23[6] = v28;
+  *&v23[7] = dy;
+  v22 = [CCUIAnimation animationWithParameters:v21 animations:v23];
+  [v17 addAnimation:v22];
 }
 
 uint64_t __137__CCUIOverlayStatusBarPresentationProvider__addModuleTransformAnimationsToBatch_transitionState_previousTransitionState_gestureVelocity___block_invoke(uint64_t a1, uint64_t a2, _OWORD *a3)
@@ -1974,98 +1953,87 @@ void __137__CCUIOverlayStatusBarPresentationProvider__addModuleTransformAnimatio
 
 void __159__CCUIOverlayStatusBarPresentationProvider__addModuleTransformAnimationsToBatch_transitionState_previousTransitionState_moduleView_layoutRect_gestureVelocity___block_invoke(uint64_t a1)
 {
-  v33 = 1.0;
-  memset(&v32, 0, sizeof(v32));
+  v31 = 1.0;
+  memset(&v30, 0, sizeof(v30));
   v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
   [v2 _moduleViewRubberBandingHeight];
   if (v2)
   {
-    if (*(a1 + 64))
-    {
-      v4 = &v33;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    [v2 _transformForTransitionState:v3 rubberBandingHeight:v4 rubberBandSlope:?];
+    objc_msgSend__transformForTransitionState_rubberBandingHeight_rubberBandSlope_(v2);
   }
 
   else
   {
-    memset(&v32, 0, sizeof(v32));
+    memset(&v30, 0, sizeof(v30));
   }
 
-  memset(&v31, 0, sizeof(v31));
-  transform = v32;
-  CGAffineTransformDecompose(&v31, &transform);
-  v5 = [*(a1 + 48) c2AnimationContainerView];
+  memset(&v29, 0, sizeof(v29));
+  transform = v30;
+  CGAffineTransformDecompose(&v29, &transform);
+  v3 = [*(a1 + 48) c2AnimationContainerView];
   if (*(a1 + 64) == 1)
   {
-    v6 = [objc_opt_class() invokeSettings];
-    v7 = *(a1 + 56) * v33;
-    v8 = [v5 _velocityForKey:@"transform"];
-    v9 = v8;
-    if (v8)
+    v4 = [objc_opt_class() invokeSettings];
+    v5 = *(a1 + 56) * v31;
+    v6 = [v3 _velocityForKey:@"transform"];
+    v7 = v6;
+    if (v6)
     {
-      [v8 CATransform3DValue];
+      objc_msgSend_CATransform3DValue(v6);
     }
 
     else
     {
-      v29 = 0u;
-      v30 = 0u;
       v27 = 0u;
       v28 = 0u;
       v25 = 0u;
       v26 = 0u;
       v23 = 0u;
       v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
     }
 
-    [v6 velocityInjectionMaxPercentageOfExpectedVelocityThreshold];
+    [v4 velocityInjectionMaxPercentageOfExpectedVelocityThreshold];
     if (BSFloatLessThanFloat())
     {
-      v10 = *(MEMORY[0x277CD9DE8] + 80);
-      v18 = *(MEMORY[0x277CD9DE8] + 64);
-      v19 = v10;
-      v20 = *(MEMORY[0x277CD9DE8] + 96);
-      v11 = *(MEMORY[0x277CD9DE8] + 16);
+      v8 = *(MEMORY[0x277CD9DE8] + 80);
+      v16 = *(MEMORY[0x277CD9DE8] + 64);
+      v17 = v8;
+      v18 = *(MEMORY[0x277CD9DE8] + 96);
+      v9 = *(MEMORY[0x277CD9DE8] + 16);
       *&transform.a = *MEMORY[0x277CD9DE8];
-      *&transform.c = v11;
-      v12 = *(MEMORY[0x277CD9DE8] + 48);
+      *&transform.c = v9;
+      v10 = *(MEMORY[0x277CD9DE8] + 48);
       *&transform.tx = *(MEMORY[0x277CD9DE8] + 32);
-      v17 = v12;
-      v22 = *(MEMORY[0x277CD9DE8] + 112);
-      v21 = v7;
-      v13 = [MEMORY[0x277CCAE60] valueWithCATransform3D:&transform];
-      [v5 _setVelocity:v13 forKey:@"transform"];
+      v15 = v10;
+      v20 = *(MEMORY[0x277CD9DE8] + 112);
+      v19 = v5;
+      v11 = [MEMORY[0x277CCAE60] valueWithCATransform3D:&transform];
+      [v3 _setVelocity:v11 forKey:@"transform"];
     }
   }
 
   memset(&transform, 0, sizeof(transform));
-  if (v5)
+  if (v3)
   {
-    [v5 transform];
+    objc_msgSend_transform(v3);
   }
 
   else
   {
-    memset(&v15, 0, sizeof(v15));
+    memset(&v13, 0, sizeof(v13));
   }
 
-  CGAffineTransformDecompose(&transform, &v15);
-  *&transform.tx = v31.translation;
-  *&v14.tx = v31.translation;
-  memset(&v15, 0, sizeof(v15));
-  *&v14.a = *&transform.a;
-  *&v14.c = *&transform.c;
-  CGAffineTransformMakeWithComponents(&v15, &v14);
-  v14 = v15;
-  [v5 setTransform:&v14];
+  CGAffineTransformDecompose(&transform, &v13);
+  *&transform.tx = v29.translation;
+  *&v12.tx = v29.translation;
+  memset(&v13, 0, sizeof(v13));
+  *&v12.a = *&transform.a;
+  *&v12.c = *&transform.c;
+  CGAffineTransformMakeWithComponents(&v13, &v12);
+  v12 = v13;
+  [v3 setTransform:&v12];
 }
 
 - (double)_moduleViewRubberBandingHeight
@@ -2239,25 +2207,25 @@ void __115__CCUIOverlayStatusBarPresentationProvider__addModuleAlphaAnimationsTo
   [batchCopy addAnimation:v15];
 }
 
-uint64_t __96__CCUIOverlayStatusBarPresentationProvider__addAccessoryScaleAnimationsToBatch_transitionState___block_invoke(void *a1)
+uint64_t __96__CCUIOverlayStatusBarPresentationProvider__addAccessoryScaleAnimationsToBatch_transitionState___block_invoke(void *a1, const char *a2)
 {
-  v10 = 0u;
   v11 = 0u;
-  v9 = 0u;
-  v2 = a1[4];
-  if (v2)
+  v12 = 0u;
+  v10 = 0u;
+  v3 = a1[4];
+  if (v3)
   {
-    v3 = a1[5];
-    v6 = xmmword_21EAB54E0;
-    v7 = xmmword_21EAB54F0;
-    [v2 _accessoryScaleTransformForTransitionState:v3 layoutRect:&v6];
+    v4 = a1[5];
+    v7 = xmmword_21EAB54E0;
+    v8 = xmmword_21EAB54F0;
+    objc_msgSend__accessoryScaleTransformForTransitionState_layoutRect_(v3, a2, v4, &v7);
   }
 
-  v4 = a1[6];
-  v6 = v9;
+  v5 = a1[6];
   v7 = v10;
   v8 = v11;
-  return [v4 setTransform:&v6];
+  v9 = v12;
+  return [v5 setTransform:&v7];
 }
 
 - (void)_addAccessoryAlphaAnimationsToBatch:(id)batch transitionState:(id)state

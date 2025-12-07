@@ -13,66 +13,68 @@
 + (NSData)dataWithHexString:(id)string
 {
   v3 = [NSString sanitizedHexString:string];
-  if ([v3 length])
+  v4 = [v3 length];
+  if (v4)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = sub_100002880(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      sub_10022811C(v3, v9);
+      sub_10022811C(v3, v10);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
     lowercaseString = [v3 lowercaseString];
 
-    v5 = objc_opt_new();
-    v6 = [lowercaseString length];
-    if (v6 >= 2)
+    v6 = objc_opt_new();
+    v7 = [lowercaseString length];
+    if (v7 >= 2)
     {
-      v7 = 0;
-      v8 = v6 - 1;
+      v8 = 0;
+      v9 = v7 - 1;
       do
       {
-        __str[0] = [lowercaseString characterAtIndex:v7];
-        __str[1] = [lowercaseString characterAtIndex:v7 + 1];
-        HIBYTE(v12) = strtol(__str, 0, 16);
-        [v5 appendBytes:&v12 + 1 length:1];
-        v7 += 2;
+        __str[0] = [lowercaseString characterAtIndex:v8];
+        __str[1] = [lowercaseString characterAtIndex:v8 + 1];
+        HIBYTE(v13) = strtol(__str, 0, 16);
+        [v6 appendBytes:&v13 + 1 length:1];
+        v8 += 2;
       }
 
-      while (v8 > v7);
+      while (v9 > v8);
     }
 
     v3 = lowercaseString;
   }
 
-  return v5;
+  return v6;
 }
 
 + (NSData)dataWithMACAddressString:(id)string
 {
   v3 = [NSString sanitizedHexString:string];
-  if ([v3 length] == 12)
+  v4 = [v3 length];
+  if (v4 == 12)
   {
-    v4 = [NSData dataWithHexString:v3];
+    v5 = [NSData dataWithHexString:v3];
   }
 
   else
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = sub_100002880(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      sub_100228194(v3, v5);
+      sub_100228194(v3, v6);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)hexString
@@ -124,7 +126,7 @@
     {
       v19 = v18;
       v7 = [NSError errorWithDomain:@"kFMDEncryptableErrorDomain" code:2 userInfo:0, v13, mutableBytes, mutableBytes2, v15];
-      v20 = sub_100002880();
+      v20 = sub_100002880(v7);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_100228AE8(v19, v20, v21, v22, v23, v24, v25, v26);
@@ -174,7 +176,7 @@
   if (v18)
   {
     v19 = v18;
-    v20 = sub_100002880();
+    v20 = sub_100002880(v18);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_100228B54(v19, v20, v21, v22, v23, v24, v25, v26);
@@ -246,7 +248,7 @@ LABEL_8:
   if (Bytes)
   {
     v8 = Bytes;
-    v9 = sub_100002880();
+    v9 = sub_100002880(Bytes);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100228BC0(v8, v9, v10, v11, v12, v13, v14, v15);

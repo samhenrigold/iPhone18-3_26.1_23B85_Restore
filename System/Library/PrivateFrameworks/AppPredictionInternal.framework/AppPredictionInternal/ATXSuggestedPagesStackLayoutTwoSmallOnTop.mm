@@ -8,37 +8,37 @@
 
 - (id)makeStacksFromWidgets:(id)widgets pageType:(int64_t)type environment:(id)environment
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   widgetsCopy = widgets;
   environmentCopy = environment;
   v8 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v9 = widgetsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         if (![v14 size])
         {
           [v8 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v11);
@@ -50,23 +50,21 @@
     v17 = +[ATXSuggestedPagesUtils createSmallStack];
     v18 = [ATXSuggestedPagesUtils sortWidgetsByDescendingScore:v8 limit:0];
     v19 = [v18 count];
-    v29[0] = v16;
-    v29[1] = v17;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = v16;
+    v28[1] = v17;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
     tunableConstants = [environmentCopy tunableConstants];
     +[ATXSuggestedPagesUtils evenlyDistributeWidgets:inRange:amongStacks:usedPersonalities:maxWidgetsInStack:](ATXSuggestedPagesUtils, "evenlyDistributeWidgets:inRange:amongStacks:usedPersonalities:maxWidgetsInStack:", v18, 0, v19, v20, 0, [tunableConstants maxWidgetsInStack]);
 
-    v28[0] = v16;
-    v28[1] = v17;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[0] = v16;
+    v27[1] = v17;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
   }
 
   else
   {
     v15 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

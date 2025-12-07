@@ -1,43 +1,8 @@
-uint64_t acc_manager_disableLockoutForAllTransportTypes()
-{
-  _tryWRLock("acc_manager_disableLockoutForAllTransportTypes", 960);
-  qword_100245FB0 = 0;
-  xmmword_100245F90 = 0u;
-  unk_100245FA0 = 0u;
-  xmmword_100245F70 = 0u;
-  unk_100245F80 = 0u;
-  xmmword_100245F50 = 0u;
-  unk_100245F60 = 0u;
-  xmmword_100245F30 = 0u;
-  unk_100245F40 = 0u;
-  if (gLogObjects && gNumLogObjects >= 13)
-  {
-    v0 = *(gLogObjects + 96);
-  }
-
-  else
-  {
-    v0 = &_os_log_default;
-    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      platform_connectionInfo_configStreamGetCategories_cold_2();
-    }
-  }
-
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Disabled lockout for all transport types!", v2, 2u);
-  }
-
-  return pthread_rwlock_unlock(&_gAccManagerLock);
-}
-
 uint64_t acc_manager_findAdapterForConnection(const void *a1)
 {
   if (a1)
   {
-    acc_manager_findAdapterForConnection_cold_1(a1, &v13, v6);
+    acc_manager_findAdapterForConnection_cold_1(a1, v13, v6);
     v2 = *v6;
   }
 
@@ -95,7 +60,7 @@ uint64_t acc_manager_findConnectionsThroughAdapter(const void *a1)
 {
   if (a1)
   {
-    acc_manager_findConnectionsThroughAdapter_cold_1(a1, &v13, v6);
+    acc_manager_findConnectionsThroughAdapter_cold_1(a1, v13, v6);
     v2 = *v6;
   }
 
@@ -188,22 +153,25 @@ void ___initSharedManager_block_invoke(id a1)
   }
 }
 
-void OUTLINED_FUNCTION_10_8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_10_8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void OUTLINED_FUNCTION_28_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_28_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void OUTLINED_FUNCTION_39_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_39_0(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void OUTLINED_FUNCTION_41_0(uint64_t a1, uint64_t a2, void *a3)
@@ -329,7 +297,7 @@ uint64_t iAP2MsgAddCFU32Param(uint64_t a1, uint64_t a2, __int16 a3, CFNumberRef 
   }
 }
 
-uint64_t iAP2MsgAddCFU16Param(uint64_t a1, uint64_t a2, __int16 a3, CFNumberRef number)
+uint64_t iAP2MsgAddCFU16Param(uint64_t a1, uint64_t a2, uint64_t a3, CFNumberRef number)
 {
   if (!number)
   {
@@ -392,34 +360,34 @@ unint64_t _compareBufferIDAndFeatureType(unsigned __int8 *a1, unsigned __int8 *a
   return result;
 }
 
-void iap2_sessionFileTransfer_deleteFileTransfer(void *a1)
+void iap2_sessionFileTransfer_deleteFileTransfer(void *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = gLogObjects;
+  v4 = gLogObjects;
   if (gLogObjects)
   {
-    v3 = gNumLogObjects < 24;
+    v5 = gNumLogObjects < 24;
   }
 
   else
   {
-    v3 = 1;
+    v5 = 1;
   }
 
-  if (v3)
+  if (v5)
   {
-    v4 = &_os_log_default;
+    v6 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      iap2_sessionFileTransfer_deleteFileTransfer_cold_1(v2);
+      iap2_sessionFileTransfer_deleteFileTransfer_cold_1(v4);
     }
   }
 
   else
   {
-    v4 = *(gLogObjects + 184);
+    v6 = *(gLogObjects + 184);
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     iap2_sessionFileTransfer_deleteFileTransfer_cold_2();
     if (!a1)
@@ -522,7 +490,7 @@ __darwin_time_t iAP2TimeGetCurTimeMsInt64()
   return 1000 * v1.tv_sec + v1.tv_usec / 1000;
 }
 
-uint64_t iAP2TimeCreate(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t iAP2TimeCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a5)
   {
@@ -559,15 +527,15 @@ uint64_t iAP2TimeCreate(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t 
   return a5;
 }
 
-void iAP2TimeDelete(uint64_t a1)
+void iAP2TimeDelete(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    *(a1 + 56) = -1;
-    _iAP2TimeCancelCallback(a1);
-    iAP2ListArrayCleanup(*(a1 + 48), 0);
+    *(result + 56) = -1;
+    _iAP2TimeCancelCallback(result);
+    iAP2ListArrayCleanup(*(result + 48), 0);
 
-    _iAP2TimeCleanupCallback(a1);
+    _iAP2TimeCleanupCallback(result);
   }
 }
 
@@ -626,7 +594,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         v8 = "<Undefined>";
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_modules_block_invoke_cold_1(v15, v4, &v16);
+          __init_logging_modules_block_invoke_cold_1(v15, v4, &v15[4]);
           v8 = "<Undefined>";
         }
       }
@@ -792,7 +760,7 @@ uint64_t _audioProductCerts_endpoint_initSession(uint64_t a1)
   return 1;
 }
 
-uint64_t audioProductCerts_endpoint_publish(uint64_t *a1, __int128 *a2)
+uint64_t audioProductCerts_endpoint_publish(pthread_mutex_t **a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -800,13 +768,13 @@ uint64_t audioProductCerts_endpoint_publish(uint64_t *a1, __int128 *a2)
   }
 
   v3 = *a1;
-  if (!*a1 || !*v3)
+  if (!*a1 || !v3->__sig)
   {
     goto LABEL_55;
   }
 
   Protocol = acc_endpoint_getProtocol(v3);
-  v6 = acc_policies_allowAudioProductCertsOnTransport(*(*a1 + 24));
+  v6 = acc_policies_allowAudioProductCertsOnTransport(*&(*a1)->__opaque[16]);
   if (gLogObjects && gNumLogObjects >= 58)
   {
     v7 = *(gLogObjects + 456);
@@ -823,7 +791,7 @@ uint64_t audioProductCerts_endpoint_publish(uint64_t *a1, __int128 *a2)
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(*a1 + 24);
+    v8 = *&(*a1)->__opaque[16];
     v30 = 67109376;
     v31 = v8;
     v32 = 1024;
@@ -838,7 +806,7 @@ uint64_t audioProductCerts_endpoint_publish(uint64_t *a1, __int128 *a2)
     v11 = Mutable;
     if (*a1)
     {
-      v12 = *(*a1 + 16);
+      v12 = *&(*a1)->__opaque[8];
     }
 
     else
@@ -918,8 +886,8 @@ uint64_t audioProductCerts_endpoint_publish(uint64_t *a1, __int128 *a2)
 
         if (v20)
         {
-          CFDictionaryAddValue(v20, CFACCTransportPlugin_PropertiesDidChangeNotification_ConnectionUUID, *(*a1 + 8));
-          CFDictionaryAddValue(v20, CFACCTransportPlugin_EndpointPropertiesDidChangeNotification_EndpointUUID, *(*a1 + 16));
+          CFDictionaryAddValue(v20, CFACCTransportPlugin_PropertiesDidChangeNotification_ConnectionUUID, *(*a1)->__opaque);
+          CFDictionaryAddValue(v20, CFACCTransportPlugin_EndpointPropertiesDidChangeNotification_EndpointUUID, *&(*a1)->__opaque[8]);
           CFDictionaryAddValue(v20, CFACCTransportPlugin_PropertiesDidChangeNotification_PropertiesNew, v18);
           if (gLogObjects && gNumLogObjects >= 58)
           {
@@ -990,7 +958,7 @@ LABEL_55:
     {
       if (a1 && *a1)
       {
-        v29 = *(*a1 + 24);
+        v29 = *&(*a1)->__opaque[16];
       }
 
       else
@@ -1148,7 +1116,7 @@ void __audioProductCerts_endpoint_processIncomingData_block_invoke(uint64_t a1)
   }
 }
 
-uint64_t _audioProductCerts_endpoint_handleMissingCertList(uint64_t *a1, CFTypeRef cf, const void *a3)
+uint64_t _audioProductCerts_endpoint_handleMissingCertList(CFArrayRef *a1, CFTypeRef cf, const void *a3)
 {
   if (!a1)
   {
@@ -1210,7 +1178,7 @@ uint64_t _audioProductCerts_endpoint_handleMissingCertList(uint64_t *a1, CFTypeR
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v9 = *(*a1 + 16);
+    v9 = *(*a1 + 2);
     v10 = *(a1 + 10);
     *buf = 136316162;
     v50 = "_audioProductCerts_endpoint_handleMissingCertList";
@@ -1481,7 +1449,7 @@ LABEL_38:
         return 1;
       }
 
-      v35 = *(*a1 + 16);
+      v35 = *(*a1 + 2);
       *buf = 136315394;
       v50 = "_audioProductCerts_endpoint_handleMissingCertList";
       v51 = 2112;
@@ -1510,7 +1478,7 @@ LABEL_38:
         return 1;
       }
 
-      v33 = *(*a1 + 16);
+      v33 = *(*a1 + 2);
       *buf = 136315394;
       v50 = "_audioProductCerts_endpoint_handleMissingCertList";
       v51 = 2112;
@@ -1565,7 +1533,7 @@ LABEL_38:
   return 0;
 }
 
-uint64_t _audioProductCerts_endpoint_handleAuthResponseWithMissingCert(CFDictionaryRef *a1, CFTypeRef cf, const void *a3)
+uint64_t _audioProductCerts_endpoint_handleAuthResponseWithMissingCert(void *a1, CFTypeRef cf, const void *a3)
 {
   if (!a1)
   {
@@ -1627,22 +1595,22 @@ uint64_t _audioProductCerts_endpoint_handleAuthResponseWithMissingCert(CFDiction
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v9 = *(*a1 + 2);
+    v9 = *(*a1 + 16);
     v10 = *(a1 + 10);
     *buf = 136316162;
-    v35 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
-    v36 = 2112;
-    v37 = v9;
-    v38 = 1024;
-    *v39 = v10;
-    *&v39[4] = 2112;
-    *&v39[6] = cf;
-    *&v39[14] = 2112;
-    *&v39[16] = a3;
+    *v49 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
+    *&v49[8] = 2112;
+    *&v49[10] = v9;
+    *&v49[18] = 1024;
+    *v50 = v10;
+    *&v50[4] = 2112;
+    *&v50[6] = cf;
+    *&v50[14] = 2112;
+    *&v50[16] = a3;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s: ENTER %@, state %d, %@ : %@", buf, 0x30u);
   }
 
-  v33 = *a1;
+  *(&v46 + 1) = *a1;
   if (gLogObjects && gNumLogObjects >= 58)
   {
     v11 = *(gLogObjects + 456);
@@ -1659,43 +1627,44 @@ uint64_t _audioProductCerts_endpoint_handleAuthResponseWithMissingCert(CFDiction
 
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v26 = *(v33 + 2);
+    v33 = *(*(&v46 + 1) + 16);
     *buf = 136315906;
-    v35 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
-    v36 = 2112;
-    v37 = v26;
-    v38 = 2112;
-    *v39 = cf;
-    *&v39[8] = 2112;
-    *&v39[10] = a3;
+    *v49 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
+    *&v49[8] = 2112;
+    *&v49[10] = v33;
+    *&v49[18] = 2112;
+    *v50 = cf;
+    *&v50[8] = 2112;
+    *&v50[10] = a3;
     _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%s: %@, %@ : %@", buf, 0x2Au);
   }
 
   if (acc_userDefaults_BOOLForKey(@"DisableAACPAuth"))
   {
-    v29 = logObjectForModule_10();
-    result = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+    v42 = logObjectForModule_10();
+    result = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      v30 = *(v33 + 2);
+      v43 = *(*(&v46 + 1) + 16);
       *buf = 136315906;
-      v35 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
-      v36 = 2112;
-      v37 = v30;
-      v38 = 2112;
-      *v39 = cf;
-      *&v39[8] = 2112;
-      *&v39[10] = a3;
-      v31 = "%s: %@, Auth not supported! %@ : %@";
+      *v49 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
+      *&v49[8] = 2112;
+      *&v49[10] = v43;
+      *&v49[18] = 2112;
+      *v50 = cf;
+      *&v50[8] = 2112;
+      *&v50[10] = a3;
+      v44 = "%s: %@, Auth not supported! %@ : %@";
 LABEL_66:
-      _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, v31, buf, 0x2Au);
+      _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, v44, buf, 0x2Au);
       return 0;
     }
   }
 
   else
   {
-    Value = CFDictionaryGetValue(*(*a1 + 10), kCFACCProperties_Endpoint_AudioProduct_AuthResponse);
+    v12 = kCFACCProperties_Endpoint_AudioProduct_AuthResponse;
+    Value = CFDictionaryGetValue(*(*a1 + 80), kCFACCProperties_Endpoint_AudioProduct_AuthResponse);
     if (CFArrayGetCount(Value) <= 0)
     {
       _audioProductCerts_endpoint_handleAuthResponseWithMissingCert_cold_8();
@@ -1706,6 +1675,7 @@ LABEL_66:
     AuthChallenge = _audioProductCerts_endpoint_generateAuthChallenge(a1);
     if (AuthChallenge)
     {
+      *&v46 = v12;
       PropertyDescription = _audioProductCerts_endpoint_createPropertyDescription(AuthChallenge, 1, cf, a3);
       acc_platform_packetLogging_logParsedData(*a1, cf, @"AudioProductCerts", PropertyDescription, 1);
       if (PropertyDescription)
@@ -1715,33 +1685,33 @@ LABEL_66:
 
       if (gLogObjects && gNumLogObjects >= 58)
       {
-        v16 = *(gLogObjects + 456);
+        v17 = *(gLogObjects + 456);
       }
 
       else
       {
-        v16 = &_os_log_default;
+        v17 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v17 = *(v33 + 2);
-        v18 = *(a1 + 10);
+        v18 = *(*(&v46 + 1) + 16);
+        v19 = *(a1 + 10);
         *buf = 136316162;
-        v35 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
-        v36 = 2112;
-        v37 = v17;
-        v38 = 2112;
-        *v39 = cf;
-        *&v39[8] = 1024;
-        *&v39[10] = v18;
-        *&v39[14] = 1024;
-        *&v39[16] = 6;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s: %@, %@, state %d -> %d", buf, 0x2Cu);
+        *v49 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
+        *&v49[8] = 2112;
+        *&v49[10] = v18;
+        *&v49[18] = 2112;
+        *v50 = cf;
+        *&v50[8] = 1024;
+        *&v50[10] = v19;
+        *&v50[14] = 1024;
+        *&v50[16] = 6;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s: %@, %@, state %d -> %d", buf, 0x2Cu);
       }
 
       if (acc_userDefaults_BOOLForKey(@"DisableAACPAuth"))
@@ -1749,40 +1719,40 @@ LABEL_66:
         goto LABEL_44;
       }
 
-      v19 = kCFACCProperties_Endpoint_AACP_CertificateInfo_Type;
-      v20 = CFDictionaryGetValue(a1[12], kCFACCProperties_Endpoint_AACP_CertificateInfo_Type);
-      v21 = CFDictionaryGetValue(ValueAtIndex, v19);
-      if (CFNumberCompare(v20, v21, 0))
+      v20 = kCFACCProperties_Endpoint_AACP_CertificateInfo_Type;
+      v21 = CFDictionaryGetValue(a1[12], kCFACCProperties_Endpoint_AACP_CertificateInfo_Type);
+      v22 = CFDictionaryGetValue(ValueAtIndex, v20);
+      if (CFNumberCompare(v21, v22, 0))
       {
         if (gLogObjects && gNumLogObjects >= 58)
         {
-          v22 = *(gLogObjects + 456);
+          v23 = *(gLogObjects + 456);
         }
 
         else
         {
-          v22 = &_os_log_default;
+          v23 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
         }
 
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = *(v33 + 2);
-          v24 = CFDictionaryGetValue(a1[12], kCFACCProperties_Endpoint_AACP_CertificateInfo_Data);
+          v24 = *(*(&v46 + 1) + 16);
+          v25 = CFDictionaryGetValue(a1[12], kCFACCProperties_Endpoint_AACP_CertificateInfo_Data);
           *buf = 136316162;
-          v35 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
-          v36 = 2112;
-          v37 = v23;
-          v38 = 2112;
-          *v39 = cf;
-          *&v39[8] = 2112;
-          *&v39[10] = a3;
-          *&v39[18] = 2112;
-          *&v39[20] = v24;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s: %@, %@ : %@, cert %@", buf, 0x34u);
+          *v49 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
+          *&v49[8] = 2112;
+          *&v49[10] = v24;
+          *&v49[18] = 2112;
+          *v50 = cf;
+          *&v50[8] = 2112;
+          *&v50[10] = a3;
+          *&v50[18] = 2112;
+          *&v50[20] = v25;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s: %@, %@ : %@, cert %@", buf, 0x34u);
         }
 
         goto LABEL_43;
@@ -1793,22 +1763,22 @@ LABEL_66:
 LABEL_43:
         if ((acc_userDefaults_BOOLForKey(@"KeepAACPAuthData") & 1) == 0)
         {
-          v27 = a1[12];
-          if (v27)
+          v34 = a1[12];
+          if (v34)
           {
-            CFRelease(v27);
+            CFRelease(v34);
             a1[12] = 0;
           }
 
-          v28 = a1[13];
-          if (v28)
+          v35 = a1[13];
+          if (v35)
           {
-            CFRelease(v28);
+            CFRelease(v35);
             a1[13] = 0;
           }
 
-          audioProductCerts_endpoint_removeProperty(a1);
-          audioProductCerts_endpoint_removeProperty(a1);
+          audioProductCerts_endpoint_removeProperty(a1, kCFACCProperties_Endpoint_AudioProduct_AuthChallenge, v26, v27, v28, v29, v30, v31, v46, *buf, *v49, *&v49[4], *&v49[12], *v50, *&v50[8], *&v50[16], *&v50[24], v51, v52, v53, v54, v55, v56, v57, v58, v59);
+          audioProductCerts_endpoint_removeProperty(a1, v12, v36, v37, v38, v39, v40, v41, v47, *buf, *v49, *&v49[4], *&v49[12], *v50, *&v50[8], *&v50[16], *&v50[24], v51, v52, v53, v54, v55, v56, v57, v58, v59);
         }
 
 LABEL_44:
@@ -1820,20 +1790,20 @@ LABEL_44:
       return buf[0];
     }
 
-    v29 = logObjectForModule_10();
-    result = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+    v42 = logObjectForModule_10();
+    result = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      v32 = *(v33 + 2);
+      v45 = *(*(&v46 + 1) + 16);
       *buf = 136315906;
-      v35 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
-      v36 = 2112;
-      v37 = v32;
-      v38 = 2112;
-      *v39 = cf;
-      *&v39[8] = 2112;
-      *&v39[10] = a3;
-      v31 = "%s: %@, Unable to generate auth challenge! %@ : %@";
+      *v49 = "_audioProductCerts_endpoint_handleAuthResponseWithMissingCert";
+      *&v49[8] = 2112;
+      *&v49[10] = v45;
+      *&v49[18] = 2112;
+      *v50 = cf;
+      *&v50[8] = 2112;
+      *&v50[10] = a3;
+      v44 = "%s: %@, Unable to generate auth challenge! %@ : %@";
       goto LABEL_66;
     }
   }
@@ -1878,10 +1848,10 @@ __CFString *_audioProductCerts_endpoint_createPropertyDescription(uint64_t a1, i
 
 void __audioProductCerts_endpoint_setProperty_block_invoke(uint64_t a1)
 {
-  EndpointWithUUID = acc_manager_getEndpointWithUUID(*(a1 + 40));
-  if (EndpointWithUUID)
+  if (acc_manager_getEndpointWithUUID(*(a1 + 40)))
   {
-    *(*(*(a1 + 32) + 8) + 24) = acc_endpoint_setProperty(EndpointWithUUID, *(a1 + 48), *(a1 + 56));
+    acc_endpoint_setProperty();
+    *(*(*(a1 + 32) + 8) + 24) = v2;
   }
 
   else
@@ -1944,55 +1914,54 @@ void _audioProductCerts_endpoint_cleanupSession(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 56);
-    v11 = 134217984;
-    v12 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "audioProductCerts cleanupSession: attachTimestamp %f", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "audioProductCerts cleanupSession: attachTimestamp %f", &v10, 0xCu);
   }
 
-  v4 = *(a1 + 32);
   platform_auth_deallocCertificateCache();
   *(a1 + 8) = 0;
   *(a1 + 112) = 0;
   *(a1 + 80) = 5;
-  v5 = *(a1 + 16);
-  if (v5)
+  v4 = *(a1 + 16);
+  if (v4)
   {
-    CFRelease(v5);
+    CFRelease(v4);
     *(a1 + 16) = 0;
   }
 
-  v6 = *(a1 + 24);
-  if (v6)
+  v5 = *(a1 + 24);
+  if (v5)
   {
-    CFRelease(v6);
+    CFRelease(v5);
     *(a1 + 24) = 0;
   }
 
-  v7 = *(a1 + 88);
-  if (v7)
+  v6 = *(a1 + 88);
+  if (v6)
   {
-    CFRelease(v7);
+    CFRelease(v6);
     *(a1 + 88) = 0;
   }
 
-  v8 = *(a1 + 96);
-  if (v8)
+  v7 = *(a1 + 96);
+  if (v7)
   {
-    CFRelease(v8);
+    CFRelease(v7);
     *(a1 + 96) = 0;
   }
 
-  v9 = *(a1 + 104);
-  if (v9)
+  v8 = *(a1 + 104);
+  if (v8)
   {
-    CFRelease(v9);
+    CFRelease(v8);
     *(a1 + 104) = 0;
   }
 
-  v10 = *(a1 + 64);
-  if (v10)
+  v9 = *(a1 + 64);
+  if (v9)
   {
-    CFRelease(v10);
+    CFRelease(v9);
     *(a1 + 64) = 0;
   }
 }
@@ -2040,9 +2009,9 @@ void _CFArrayApplierFunction_handleSerialList(CFTypeRef cf, uint64_t *a2)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    *v35 = Value;
-    *&v35[8] = 2112;
-    *v36 = v7;
+    *v32 = Value;
+    *&v32[8] = 2112;
+    *v33 = v7;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: type %@, serial %@", buf, 0x16u);
   }
 
@@ -2059,123 +2028,162 @@ void _CFArrayApplierFunction_handleSerialList(CFTypeRef cf, uint64_t *a2)
   v10 = !v9;
   if (!v9)
   {
-    if (*(a2 + 9) == 1)
+    if (*(a2 + 9) == 1 && (platform_auth_removeCertDataEntryFromCache() & 1) == 0)
     {
-      v15 = a2[4];
-      if ((platform_auth_removeCertDataEntryFromCache() & 1) == 0)
+      if (gLogObjects && gNumLogObjects >= 58)
       {
-        if (gLogObjects && gNumLogObjects >= 58)
-        {
-          v16 = *(gLogObjects + 456);
-        }
+        v15 = *(gLogObjects + 456);
+      }
 
-        else
+      else
+      {
+        v15 = &_os_log_default;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          v16 = &_os_log_default;
-          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-          {
-            platform_connectionInfo_configStreamGetCategories_cold_2();
-          }
+          platform_connectionInfo_configStreamGetCategories_cold_2();
         }
+      }
 
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: failed to remove certificate from cache!", buf, 2u);
-        }
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: failed to remove certificate from cache!", buf, 2u);
       }
     }
 
     CertDataFromSerialNumber = platform_auth_createCertDataFromSerialNumber(a2[4], v7);
     if (CertDataFromSerialNumber)
     {
-      v20 = CertDataFromSerialNumber;
-      v30 = acc_userDefaults_BOOLForKey(@"DisableCertVerification");
-      v31 = v20;
-      v32 = platform_auth_verifyPublicCertificate();
+      v19 = CertDataFromSerialNumber;
+      v27 = acc_userDefaults_BOOLForKey(@"DisableCertVerification");
+      v28 = v19;
+      v29 = platform_auth_verifyPublicCertificate();
       if (gLogObjects && gNumLogObjects >= 58)
       {
-        v21 = *(gLogObjects + 456);
+        v20 = *(gLogObjects + 456);
       }
 
       else
       {
-        v21 = &_os_log_default;
+        v20 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v35 = v32;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: initial verify, valid %d", buf, 8u);
+        *v32 = v29;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: initial verify, valid %d", buf, 8u);
       }
 
-      if (v32)
+      if (v29)
       {
-        v33 = 1;
+        v30 = 1;
       }
 
       else
       {
-        v33 = platform_auth_verifyCertificateChain(v31, 0, 4u);
+        v30 = platform_auth_verifyCertificateChain(v28, 0, 4u);
         if (gLogObjects && gNumLogObjects >= 58)
         {
-          v22 = *(gLogObjects + 456);
+          v21 = *(gLogObjects + 456);
         }
 
         else
         {
-          v22 = &_os_log_default;
+          v21 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
         }
 
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v35 = v33;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: second verify, valid %d", buf, 8u);
+          *v32 = v30;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: second verify, valid %d", buf, 8u);
         }
       }
 
       if (gLogObjects && gNumLogObjects >= 58)
       {
-        v23 = *(gLogObjects + 456);
+        v22 = *(gLogObjects + 456);
       }
 
       else
       {
-        v23 = &_os_log_default;
+        v22 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v35 = v30;
-        *&v35[4] = 1024;
-        *&v35[6] = v33;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: cached certData, skip %d, valid %d", buf, 0xEu);
+        *v32 = v27;
+        *&v32[4] = 1024;
+        *&v32[6] = v30;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: cached certData, skip %d, valid %d", buf, 0xEu);
       }
 
-      if ((v30 | v33))
+      if ((v27 | v30))
       {
-        v24 = Value;
-        v25 = v31;
-        _audioProductCerts_endpoint_addCertEntryToList(a2, v24, v7, v31);
+        v23 = v28;
+        _audioProductCerts_endpoint_addCertEntryToList();
       }
 
       else
       {
+        if (gLogObjects && gNumLogObjects >= 58)
+        {
+          v24 = *(gLogObjects + 456);
+        }
+
+        else
+        {
+          v24 = &_os_log_default;
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            platform_connectionInfo_configStreamGetCategories_cold_2();
+          }
+        }
+
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          *v32 = v7;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleSerialList: invalid cached certData, remove cert from cache! %@", buf, 0xCu);
+        }
+
+        if ((platform_auth_removeCertDataEntryFromCache() & 1) == 0)
+        {
+          if (gLogObjects && gNumLogObjects >= 58)
+          {
+            v25 = *(gLogObjects + 456);
+          }
+
+          else
+          {
+            v25 = &_os_log_default;
+            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              platform_connectionInfo_configStreamGetCategories_cold_2();
+            }
+          }
+
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: failed to remove certificate from cache!", buf, 2u);
+          }
+        }
+
         if (gLogObjects && gNumLogObjects >= 58)
         {
           v26 = *(gLogObjects + 456);
@@ -2192,91 +2200,46 @@ void _CFArrayApplierFunction_handleSerialList(CFTypeRef cf, uint64_t *a2)
 
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          *buf = 138412290;
-          *v35 = v7;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleSerialList: invalid cached certData, remove cert from cache! %@", buf, 0xCu);
-        }
-
-        v27 = a2[4];
-        if ((platform_auth_removeCertDataEntryFromCache() & 1) == 0)
-        {
-          if (gLogObjects && gNumLogObjects >= 58)
-          {
-            v28 = *(gLogObjects + 456);
-          }
-
-          else
-          {
-            v28 = &_os_log_default;
-            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-            {
-              platform_connectionInfo_configStreamGetCategories_cold_2();
-            }
-          }
-
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleSerialList: failed to remove certificate from cache!", buf, 2u);
-          }
-        }
-
-        if (gLogObjects && gNumLogObjects >= 58)
-        {
-          v29 = *(gLogObjects + 456);
-        }
-
-        else
-        {
-          v29 = &_os_log_default;
-          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-          {
-            platform_connectionInfo_configStreamGetCategories_cold_2();
-          }
-        }
-
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
-        {
           *buf = 138412546;
-          *v35 = Value;
-          *&v35[8] = 2112;
-          *v36 = v7;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleSerialList: call _addCertEntryToList, typeObj %@, serialObj %@", buf, 0x16u);
+          *v32 = Value;
+          *&v32[8] = 2112;
+          *v33 = v7;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleSerialList: call _addCertEntryToList, typeObj %@, serialObj %@", buf, 0x16u);
         }
 
-        _audioProductCerts_endpoint_addCertEntryToList(a2, Value, v7, 0);
-        v25 = v31;
+        _audioProductCerts_endpoint_addCertEntryToList();
+        v23 = v28;
       }
 
-      CFRelease(v25);
+      CFRelease(v23);
     }
 
     else
     {
       if (gLogObjects && gNumLogObjects >= 58)
       {
-        v19 = *(gLogObjects + 456);
+        v18 = *(gLogObjects + 456);
       }
 
       else
       {
-        v19 = &_os_log_default;
+        v18 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        *v35 = Value;
-        *&v35[8] = 2112;
-        *v36 = v7;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleSerialList: missing cached certData, call _addCertEntryToList, typeObj %@, serialObj %@", buf, 0x16u);
+        *v32 = Value;
+        *&v32[8] = 2112;
+        *v33 = v7;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleSerialList: missing cached certData, call _addCertEntryToList, typeObj %@, serialObj %@", buf, 0x16u);
       }
 
-      _audioProductCerts_endpoint_addCertEntryToList(a2, Value, v7, 0);
+      _audioProductCerts_endpoint_addCertEntryToList();
     }
   }
 
@@ -2299,11 +2262,11 @@ void _CFArrayApplierFunction_handleSerialList(CFTypeRef cf, uint64_t *a2)
     v12 = *(v5 + 16);
     v13 = *(a2 + 10);
     *buf = 138412802;
-    *v35 = v12;
-    *&v35[8] = 1024;
-    *v36 = v13;
-    *&v36[4] = 1024;
-    *&v36[6] = v10;
+    *v32 = v12;
+    *&v32[8] = 1024;
+    *v33 = v13;
+    *&v33[4] = 1024;
+    *&v33[6] = v10;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleSerialList: %@, state %d, success %d", buf, 0x18u);
   }
 
@@ -2333,11 +2296,11 @@ LABEL_42:
     return;
   }
 
-  v17 = *(v5 + 16);
+  v16 = *(v5 + 16);
   *buf = 138412546;
-  *v35 = v17;
-  *&v35[8] = 2112;
-  *v36 = cf;
+  *v32 = v16;
+  *&v32[8] = 2112;
+  *v33 = cf;
   _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "_CFArrayApplierFunction_handleSerialList: %@, value %@", buf, 0x16u);
   if ((v10 & 1) == 0)
   {
@@ -2345,7 +2308,7 @@ LABEL_42:
   }
 }
 
-void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
+void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t *a2)
 {
   if (!cf)
   {
@@ -2371,9 +2334,9 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
 
   key = kCFACCProperties_Endpoint_AACP_CertificateInfo_Type;
   Value = CFDictionaryGetValue(cf, kCFACCProperties_Endpoint_AACP_CertificateInfo_Type);
-  v54 = kCFACCProperties_Endpoint_AACP_CertificateInfo_Serial;
+  v53 = kCFACCProperties_Endpoint_AACP_CertificateInfo_Serial;
   v7 = CFDictionaryGetValue(cf, kCFACCProperties_Endpoint_AACP_CertificateInfo_Serial);
-  v53 = kCFACCProperties_Endpoint_AACP_CertificateInfo_Data;
+  v52 = kCFACCProperties_Endpoint_AACP_CertificateInfo_Data;
   v8 = CFDictionaryGetValue(cf, kCFACCProperties_Endpoint_AACP_CertificateInfo_Data);
   v9 = &audioProductCerts_endpoint_publish_onceToken;
   if (gLogObjects && gNumLogObjects >= 58)
@@ -2393,11 +2356,11 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    *v59 = Value;
-    *&v59[8] = 2112;
-    *&v59[10] = v7;
-    *&v59[18] = 2112;
-    v60 = v8;
+    *v58 = Value;
+    *&v58[8] = 2112;
+    *&v58[10] = v7;
+    *&v58[18] = 2112;
+    v59 = v8;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: type %@, serial %@, data %@", buf, 0x20u);
   }
 
@@ -2406,12 +2369,12 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
   {
     if (CFDataGetLength(v8) >= 1 && (Length = CFDataGetLength(v8)) != 0)
     {
-      v51 = Length;
+      v50 = Length;
       if (acc_userDefaults_BOOLForKey(@"DisableCertVerification"))
       {
         v13 = 0;
         v14 = 1;
-        v52 = 1;
+        v51 = 1;
       }
 
       else
@@ -2434,7 +2397,7 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v59 = v26;
+          *v58 = v26;
           _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: initial verify, valid %d", buf, 8u);
         }
 
@@ -2442,7 +2405,7 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
         if (v26)
         {
           v14 = 0;
-          v52 = 1;
+          v51 = 1;
           v13 = 1;
         }
 
@@ -2466,12 +2429,12 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            *v59 = v13;
+            *v58 = v13;
             _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: second verify, valid %d", buf, 8u);
           }
 
           v14 = 0;
-          v52 = 1;
+          v51 = 1;
           v9 = &audioProductCerts_endpoint_publish_onceToken;
         }
       }
@@ -2479,13 +2442,13 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
 
     else
     {
+      v50 = 0;
       v51 = 0;
-      v52 = 0;
       v13 = 0;
       v14 = 1;
     }
 
-    v56 = v14;
+    v55 = v14;
     v15 = v9[491];
     if (v15 && gNumLogObjects >= 58)
     {
@@ -2504,9 +2467,9 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v59 = v56;
-      *&v59[4] = 1024;
-      *&v59[6] = v13;
+      *v58 = v55;
+      *&v58[4] = 1024;
+      *&v58[6] = v13;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: skip %d, valid %d", buf, 0xEu);
     }
 
@@ -2528,7 +2491,7 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
       CFRelease(v18);
     }
 
-    if (((v56 | v13) & 1) == 0)
+    if (((v55 | v13) & 1) == 0)
     {
       if (gLogObjects && gNumLogObjects >= 58)
       {
@@ -2555,19 +2518,18 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
       goto LABEL_40;
     }
 
-    if (v52)
+    if (v51)
     {
-      v30 = *(a2 + 32);
       if ((platform_auth_addCertDataEntryToCacheForSerialNumber() & 1) == 0)
       {
         if (gLogObjects && gNumLogObjects >= 58)
         {
-          v31 = *(gLogObjects + 456);
+          v30 = *(gLogObjects + 456);
         }
 
         else
         {
-          v31 = &_os_log_default;
+          v30 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -2575,72 +2537,72 @@ void _CFArrayApplierFunction_handleCertList(CFTypeRef cf, uint64_t a2)
         }
 
         v9 = &audioProductCerts_endpoint_publish_onceToken;
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: failed to save certificate to cache!", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: failed to save certificate to cache!", buf, 2u);
         }
       }
 
       if (gLogObjects)
       {
-        v35 = gNumLogObjects <= 57;
+        v34 = gNumLogObjects <= 57;
       }
 
       else
       {
-        v35 = 1;
+        v34 = 1;
       }
 
-      v36 = !v35;
-      if (v56)
+      v35 = !v34;
+      if (v55)
       {
-        if (v36)
+        if (v35)
         {
-          v37 = *(gLogObjects + 456);
+          v36 = *(gLogObjects + 456);
         }
 
         else
         {
-          v37 = &_os_log_default;
+          v36 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
         }
 
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *v59 = cf;
-          v33 = "_CFArrayApplierFunction_handleCertList: got certificate for certificateList, entry %@";
+          *v58 = cf;
+          v32 = "_CFArrayApplierFunction_handleCertList: got certificate for certificateList, entry %@";
 LABEL_109:
-          v34 = v37;
+          v33 = v36;
           goto LABEL_110;
         }
       }
 
       else
       {
-        if (v36)
+        if (v35)
         {
-          v37 = *(gLogObjects + 456);
+          v36 = *(gLogObjects + 456);
         }
 
         else
         {
-          v37 = &_os_log_default;
+          v36 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
         }
 
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *v59 = cf;
-          v33 = "_CFArrayApplierFunction_handleCertList: got valid certificate for certificateList, entry %@";
+          *v58 = cf;
+          v32 = "_CFArrayApplierFunction_handleCertList: got valid certificate for certificateList, entry %@";
           goto LABEL_109;
         }
       }
@@ -2650,12 +2612,12 @@ LABEL_109:
     {
       if (gLogObjects && gNumLogObjects >= 58)
       {
-        v32 = *(gLogObjects + 456);
+        v31 = *(gLogObjects + 456);
       }
 
       else
       {
-        v32 = &_os_log_default;
+        v31 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -2663,143 +2625,143 @@ LABEL_109:
       }
 
       v9 = &audioProductCerts_endpoint_publish_onceToken;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v59 = cf;
-        v33 = "_CFArrayApplierFunction_handleCertList: got empty certificate data for certificateList, entry %@";
-        v34 = v32;
+        *v58 = cf;
+        v32 = "_CFArrayApplierFunction_handleCertList: got empty certificate data for certificateList, entry %@";
+        v33 = v31;
 LABEL_110:
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, v33, buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, v32, buf, 0xCu);
       }
     }
 
-    SerialEntryIndexInCertList = _audioProductCerts_endpoint_getSerialEntryIndexInCertList(*(a2 + 24), v7);
+    SerialEntryIndexInCertList = _audioProductCerts_endpoint_getSerialEntryIndexInCertList(a2[3], v7);
     if ((SerialEntryIndexInCertList & 0x8000000000000000) == 0)
     {
-      v39 = SerialEntryIndexInCertList;
-      v40 = v9[491];
-      if (v40 && gNumLogObjects >= 58)
+      v38 = SerialEntryIndexInCertList;
+      v39 = v9[491];
+      if (v39 && gNumLogObjects >= 58)
       {
-        v41 = *(v40 + 456);
+        v40 = *(v39 + 456);
       }
 
       else
       {
-        v41 = &_os_log_default;
+        v40 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
-          v41 = &_os_log_default;
+          v40 = &_os_log_default;
         }
       }
 
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        *v59 = v7;
-        *&v59[8] = 2048;
-        *&v59[10] = v39;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleCertList: certificate already in certificateList for %@ at index %ld", buf, 0x16u);
+        *v58 = v7;
+        *&v58[8] = 2048;
+        *&v58[10] = v38;
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleCertList: certificate already in certificateList for %@ at index %ld", buf, 0x16u);
       }
 
-      CFArrayRemoveValueAtIndex(*(a2 + 24), v39);
+      CFArrayRemoveValueAtIndex(a2[3], v38);
       v9 = &audioProductCerts_endpoint_publish_onceToken;
     }
 
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 3, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     CFDictionaryAddValue(Mutable, key, Value);
-    CFDictionaryAddValue(Mutable, v54, v7);
-    if (v52)
+    CFDictionaryAddValue(Mutable, v53, v7);
+    if (v51)
     {
-      CFDictionaryAddValue(Mutable, v53, v8);
+      CFDictionaryAddValue(Mutable, v52, v8);
     }
 
-    v43 = v9[491];
-    if (v43)
+    v42 = v9[491];
+    if (v42)
     {
-      v44 = gNumLogObjects <= 57;
+      v43 = gNumLogObjects <= 57;
     }
 
     else
     {
-      v44 = 1;
+      v43 = 1;
     }
 
-    v45 = !v44;
-    if (v56)
+    v44 = !v43;
+    if (v55)
     {
-      if (v45)
+      if (v44)
       {
-        v46 = *(v43 + 456);
+        v45 = *(v42 + 456);
       }
 
       else
       {
-        v46 = &_os_log_default;
+        v45 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (!os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
       {
         goto LABEL_142;
       }
 
       *buf = 138412290;
-      *v59 = cf;
-      v47 = "_CFArrayApplierFunction_handleCertList: add certificate to certificateList, entry %@";
+      *v58 = cf;
+      v46 = "_CFArrayApplierFunction_handleCertList: add certificate to certificateList, entry %@";
     }
 
     else
     {
-      if (v45)
+      if (v44)
       {
-        v46 = *(v43 + 456);
+        v45 = *(v42 + 456);
       }
 
       else
       {
-        v46 = &_os_log_default;
+        v45 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (!os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
       {
         goto LABEL_142;
       }
 
       *buf = 138412290;
-      *v59 = cf;
-      v47 = "_CFArrayApplierFunction_handleCertList: add valid certificate to certificateList, entry %@";
+      *v58 = cf;
+      v46 = "_CFArrayApplierFunction_handleCertList: add valid certificate to certificateList, entry %@";
     }
 
-    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, v47, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, v46, buf, 0xCu);
 LABEL_142:
-    CFArrayAppendValue(*(a2 + 24), Mutable);
+    CFArrayAppendValue(a2[3], Mutable);
     valuePtr = 0;
     CFNumberGetValue(Value, kCFNumberIntType, &valuePtr);
     v9 = &audioProductCerts_endpoint_publish_onceToken;
-    if ((v52 & (acc_userDefaults_BOOLForKey(@"DisableAACPAuth") ^ 1)) == 1 && *(a2 + valuePtr + 72) == 1 || (v52 & (acc_userDefaults_BOOLForKey(@"DisableAACPAuth") ^ 1)) == 1 && *(a2 + 80) == valuePtr)
+    if ((v51 & (acc_userDefaults_BOOLForKey(@"DisableAACPAuth") ^ 1)) == 1 && *(a2 + valuePtr + 72) == 1 || (v51 & (acc_userDefaults_BOOLForKey(@"DisableAACPAuth") ^ 1)) == 1 && *(a2 + 20) == valuePtr)
     {
-      CFArrayAppendValue(*(a2 + 88), Mutable);
+      CFArrayAppendValue(a2[11], Mutable);
     }
 
     else
     {
       if (gLogObjects && gNumLogObjects >= 58)
       {
-        v48 = *(gLogObjects + 456);
+        v47 = *(gLogObjects + 456);
       }
 
       else
       {
-        v48 = &_os_log_default;
+        v47 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -2807,17 +2769,17 @@ LABEL_142:
       }
 
       v9 = &audioProductCerts_endpoint_publish_onceToken;
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
-        v49 = acc_userDefaults_BOOLForKey(@"DisableAACPAuth");
-        v50 = *(a2 + valuePtr + 72);
+        v48 = acc_userDefaults_BOOLForKey(@"DisableAACPAuth");
+        v49 = *(a2 + valuePtr + 72);
         *buf = 67109632;
-        *v59 = v49 ^ 1;
-        *&v59[4] = 2048;
-        *&v59[6] = v51;
-        *&v59[14] = 1024;
-        *&v59[16] = v50;
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: skip adding to pendingList, enable %d, len %zu, supported %d", buf, 0x18u);
+        *v58 = v48 ^ 1;
+        *&v58[4] = 2048;
+        *&v58[6] = v50;
+        *&v58[14] = 1024;
+        *&v58[16] = v49;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "_CFArrayApplierFunction_handleCertList: skip adding to pendingList, enable %d, len %zu, supported %d", buf, 0x18u);
       }
     }
 
@@ -2848,13 +2810,13 @@ LABEL_40:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     v22 = *(v5 + 16);
-    v23 = *(a2 + 40);
+    v23 = *(a2 + 10);
     *buf = 138412802;
-    *v59 = v22;
-    *&v59[8] = 1024;
-    *&v59[10] = v23;
-    *&v59[14] = 1024;
-    *&v59[16] = v11;
+    *v58 = v22;
+    *&v58[8] = 1024;
+    *&v58[10] = v23;
+    *&v58[14] = 1024;
+    *&v58[16] = v11;
     _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "_CFArrayApplierFunction_handleCertList: %@, state %d, success %d", buf, 0x18u);
   }
 
@@ -2887,9 +2849,9 @@ LABEL_59:
 
   v28 = *(v5 + 16);
   *buf = 138412546;
-  *v59 = v28;
-  *&v59[8] = 2112;
-  *&v59[10] = cf;
+  *v58 = v28;
+  *&v58[8] = 2112;
+  *&v58[10] = cf;
   _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "_CFArrayApplierFunction_handleCertList: %@, value %@", buf, 0x16u);
   if ((v11 & 1) == 0)
   {
@@ -3079,10 +3041,11 @@ void OUTLINED_FUNCTION_82_0(void *a1, NSObject *a2, uint64_t a3, const char *a4,
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0x2Au);
 }
 
-void OUTLINED_FUNCTION_2_16(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_16(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
 uint64_t loggingProtocol_getCurrentTimeInNanoseconds()
@@ -3129,7 +3092,7 @@ unint64_t systemInfo_getCurrentUnixTimeMS()
   }
 }
 
-uint64_t systemInfo_systemSupportsWAPI()
+uint64_t systemInfo_systemSupportsWAPI(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_systemSupportsWAPI_onceToken != -1)
   {
@@ -3663,35 +3626,35 @@ void platform_navigation_objectDetectionInfoSetEgoYawRate(__CFDictionary *a1, fl
   }
 }
 
-void platform_navigation_objectDetectionInfoAddRoadSign(const __CFDictionary *a1, const void *a2)
+void platform_navigation_objectDetectionInfoAddRoadSign(const __CFDictionary *result, const void *a2)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      _addDictionaryArrayEntryValue(a1, ACCNav_RODUpdate_RoadSign, a2);
+      _addDictionaryArrayEntryValue(result, ACCNav_RODUpdate_RoadSign, a2);
     }
   }
 }
 
-void platform_navigation_objectDetectionInfoAddRoadLane(const __CFDictionary *a1, const void *a2)
+void platform_navigation_objectDetectionInfoAddRoadLane(const __CFDictionary *result, const void *a2)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      _addDictionaryArrayEntryValue(a1, ACCNav_RODUpdate_RoadLane, a2);
+      _addDictionaryArrayEntryValue(result, ACCNav_RODUpdate_RoadLane, a2);
     }
   }
 }
 
-void platform_navigation_objectDetectionInfoAddRoadObject(const __CFDictionary *a1, const void *a2)
+void platform_navigation_objectDetectionInfoAddRoadObject(const __CFDictionary *result, const void *a2)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      _addDictionaryArrayEntryValue(a1, ACCNav_RODUpdate_RoadObject, a2);
+      _addDictionaryArrayEntryValue(result, ACCNav_RODUpdate_RoadObject, a2);
     }
   }
 }
@@ -3939,7 +3902,7 @@ id _supportedAppLinksEAProtocols(uint64_t a1)
   return v2;
 }
 
-id logObjectForModule_11(int a1)
+id logObjectForModule_11(unsigned int a1)
 {
   if (gLogObjects)
   {
@@ -3977,14 +3940,14 @@ void sub_10003DDF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10003E618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003E618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10003EFF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41)
+void sub_10003EFF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41)
 {
   objc_destroyWeak(&location);
   objc_destroyWeak(&a25);
@@ -4443,10 +4406,11 @@ void platform_blePairing_accessoryPairingInfo(uint64_t a1, uint64_t a2, int a3, 
   [v10 accessoryBLEPairingInfoUpdate:a1 blePairingUUID:a2 pairType:a3 pairInfoList:a4];
 }
 
-void platform_blePairing_accessoryPairingData(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsigned int a5)
+void platform_blePairing_accessoryPairingData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
+  v5 = a3;
   v8 = [NSData dataWithBytes:a4 length:a5];
-  platform_blePairing_accessoryPairingCFData(a1, a2, a3, v8);
+  platform_blePairing_accessoryPairingCFData(a1, a2, v5, v8);
 }
 
 void platform_blePairing_accessoryPairingCFData(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
@@ -5744,7 +5708,7 @@ LABEL_267:
 
         if (inited)
         {
-          mfi4Auth_protocol_handle_NVMReadResponse_cold_1(&inited);
+          mfi4Auth_protocol_handle_NVMReadResponse_cold_1();
           goto LABEL_261;
         }
 
@@ -5949,7 +5913,7 @@ LABEL_119:
       _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "_handleNvmReadUserPublicKey", buf, 2u);
     }
 
-    _handleNvmReadUserPublicKey(v4, v8 & 1u | v60);
+    _handleNvmReadUserPublicKey();
     if (v59)
     {
 LABEL_152:
@@ -6453,24 +6417,24 @@ void _handleNvmReadAccessoryInfo(uint64_t a1, int a2)
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "_handleNvmReadAccessoryInfo", buf, 2u);
   }
 
-  v144 = 0xAAAAAAAAAAAAAAAALL;
+  v153 = 0xAAAAAAAAAAAAAAAALL;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v142 = v6;
-  v143 = v6;
+  v151 = v6;
+  v152 = v6;
   *buf = v6;
-  v141 = v6;
+  v150 = v6;
   if (!a1)
   {
     _handleNvmReadAccessoryInfo_cold_16();
 LABEL_255:
     v25 = 0;
     v26 = 0;
-    v130 = 0;
-    v131 = 0;
+    v138 = 0;
+    v139 = 0;
     v27 = 0;
     v28 = 0;
-    v132 = 0;
+    v140 = 0;
     cf = 0;
     goto LABEL_246;
   }
@@ -6482,18 +6446,18 @@ LABEL_255:
   }
 
   MutableCopy = 0;
-  v161 = 0u;
+  v170 = 0u;
+  v171 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v166 = 0u;
+  v167 = 0u;
+  v164 = 0u;
+  v165 = 0u;
   v162 = 0u;
-  v159 = 0u;
-  v160 = 0u;
-  v157 = 0u;
-  v158 = 0u;
-  v155 = 0u;
-  v156 = 0u;
-  v153 = 0u;
-  v154 = 0u;
-  v152 = 0u;
-  v125 = a2;
+  v163 = 0u;
+  v161 = 0u;
+  HIDWORD(v133) = a2;
   v8 = *(a1 + 712);
   if (a2)
   {
@@ -6534,6 +6498,7 @@ LABEL_255:
   }
 
   while (v10);
+  alloc = kCFAllocatorDefault;
   if (!MutableCopy)
   {
     goto LABEL_26;
@@ -6551,11 +6516,11 @@ LABEL_26:
     v24 = 0;
     v25 = 0;
     v26 = 0;
-    v130 = 0;
-    v131 = 0;
+    v138 = 0;
+    v139 = 0;
     v27 = 0;
     v28 = 0;
-    v132 = 0;
+    v140 = 0;
     cf = 0;
     goto LABEL_27;
   }
@@ -6602,21 +6567,25 @@ LABEL_26:
     _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "_handleNvmReadAccessoryInfo: pMessage", valuePtr, 2u);
   }
 
-  v139 = 1;
-  v138 = 0;
+  v148 = 1;
+  v147 = 0;
   FirstParam = iAP2MsgGetFirstParam(v35, 0);
-  v127 = 0;
-  v128 = 0;
-  v124 = 0;
-  v130 = 0;
-  v131 = 0;
-  v122 = 0;
-  v28 = 0;
+  v135 = 0;
+  v136 = 0;
   v132 = 0;
+  v138 = 0;
+  v139 = 0;
+  v128 = 0;
+  v28 = 0;
+  v140 = 0;
   cf = 0;
+  *&v50 = 67109120;
+  v131 = v50;
+  *&v50 = 67109376;
+  v142 = v50;
   *&v50 = 134218240;
-  v120 = v50;
-  v121 = a1;
+  v125 = v50;
+  v127 = a1;
   while (FirstParam)
   {
     ParamID = iAP2MsgGetParamID(FirstParam);
@@ -6631,7 +6600,7 @@ LABEL_26:
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(valuePtr[0]) = v120;
+        LODWORD(valuePtr[0]) = v125;
         *(valuePtr + 4) = v52;
         WORD2(valuePtr[1]) = 1024;
         *(&valuePtr[1] + 6) = v53;
@@ -6644,8 +6613,7 @@ LABEL_26:
 
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(valuePtr[0]) = 67109120;
-      HIDWORD(valuePtr[0]) = ParamID;
+      *&valuePtr[0] = __PAIR64__(ParamID, v131);
       _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "_handleNvmReadAccessoryInfo: paramID: %d", valuePtr, 8u);
     }
 
@@ -6659,12 +6627,12 @@ LABEL_26:
       if (((1 << ParamID) & 0x3000000000) != 0)
       {
         memset(valuePtr, 0, sizeof(valuePtr));
-        v151 = 1.0;
+        v160 = 1.0;
         v62 = iAP2MsgGetFirstParam(v35, FirstParam);
         if (v62)
         {
           NextParam = v62;
-          v123 = v28;
+          v129 = v28;
           v64 = 0;
           do
           {
@@ -6672,8 +6640,8 @@ LABEL_26:
             if (v65 <= 3)
             {
               v66 = v65;
-              DataAsU16 = iAP2MsgGetDataAsU16(NextParam, &v139);
-              if (v139)
+              DataAsU16 = iAP2MsgGetDataAsU16(NextParam, &v148);
+              if (v148)
               {
                 goto LABEL_160;
               }
@@ -6695,11 +6663,11 @@ LABEL_26:
               {
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                 {
-                  *v163 = v120;
-                  *v164 = v69;
-                  *&v164[8] = 1024;
-                  v165 = v70;
-                  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v163, 0x12u);
+                  *v172 = v125;
+                  *v173 = v69;
+                  *&v173[8] = 1024;
+                  v174 = v70;
+                  _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v172, 0x12u);
                 }
 
                 v72 = &_os_log_default;
@@ -6708,11 +6676,11 @@ LABEL_26:
 
               if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
               {
-                *v163 = 67109376;
-                *v164 = v66;
-                *&v164[4] = 1024;
-                *&v164[6] = v68;
-                _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "_handleNvmReadAccessoryInfo: subParamID:%d, 0x%x", v163, 0xEu);
+                *v172 = v142;
+                *v173 = v66;
+                *&v173[4] = 1024;
+                *&v173[6] = v68;
+                _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "_handleNvmReadAccessoryInfo: subParamID:%d, 0x%x", v172, 0xEu);
               }
 
               if (v66 > 1)
@@ -6724,7 +6692,7 @@ LABEL_26:
 
                 else
                 {
-                  v151 = v68 / 1000.0;
+                  v160 = v68 / 1000.0;
                 }
               }
 
@@ -6748,16 +6716,16 @@ LABEL_26:
           if ((~v64 & 3) == 0)
           {
             v76 = [NSData dataWithBytes:valuePtr length:32];
-            v77 = v128;
-            v78 = v124;
+            v77 = v136;
+            v78 = v132;
             if (ParamID == 36)
             {
-              v79 = v124;
+              v79 = v132;
             }
 
             else
             {
-              v79 = v128;
+              v79 = v136;
             }
 
             if (ParamID != 36)
@@ -6765,18 +6733,18 @@ LABEL_26:
               v77 = v76;
             }
 
-            v128 = v77;
+            v136 = v77;
             if (ParamID == 36)
             {
               v78 = v76;
             }
 
-            v124 = v78;
+            v132 = v78;
           }
 
 LABEL_160:
-          a1 = v121;
-          v28 = v123;
+          a1 = v127;
+          v28 = v129;
         }
 
         goto LABEL_165;
@@ -6785,14 +6753,14 @@ LABEL_160:
 LABEL_147:
       if (ParamID == 242)
       {
-        DataAsU64 = iAP2MsgGetDataAsU64(FirstParam, &v139);
-        v75 = v127;
-        if (!v139)
+        DataAsU64 = iAP2MsgGetDataAsU64(FirstParam, &v148);
+        v75 = v135;
+        if (!v148)
         {
           v75 = DataAsU64;
         }
 
-        v127 = v75;
+        v135 = v75;
       }
 
       goto LABEL_165;
@@ -6803,8 +6771,8 @@ LABEL_147:
     if (v57)
     {
       v58 = v57;
-      DataAsArrayU8 = iAP2MsgGetDataAsArrayU8(FirstParam, &v139, v57, ParamValueLen);
-      if (!v139 && ParamValueLen == DataAsArrayU8)
+      DataAsArrayU8 = iAP2MsgGetDataAsArrayU8(FirstParam, &v148, v57, ParamValueLen);
+      if (!v148 && ParamValueLen == DataAsArrayU8)
       {
         if (ParamID <= 1)
         {
@@ -6812,7 +6780,7 @@ LABEL_147:
           if (ParamID)
           {
 
-            v132 = v73;
+            v140 = v73;
           }
 
           else
@@ -6834,20 +6802,20 @@ LABEL_147:
             case 3:
               v81 = [NSString stringWithUTF8String:v58];
 
-              v122 = v81;
+              v128 = v81;
               break;
             case 35:
               v60 = [NSString stringWithUTF8String:v58];
 
-              v61 = v131;
-              if (!v131)
+              v61 = v139;
+              if (!v139)
               {
                 v61 = [NSMutableArray arrayWithCapacity:1];
               }
 
-              v131 = v61;
-              [v61 addObject:{v60, v120}];
-              v130 = v60;
+              v139 = v61;
+              [v61 addObject:{v60, v125}];
+              v138 = v60;
               break;
           }
         }
@@ -6857,12 +6825,12 @@ LABEL_147:
     }
 
 LABEL_165:
-    FirstParam = iAP2MsgGetNextParamWithError(v35, 0, FirstParam, &v138);
-    if (v138)
+    FirstParam = iAP2MsgGetNextParamWithError(v35, 0, FirstParam, &v147);
+    if (v147)
     {
-      v25 = v128;
-      v26 = v124;
-      v27 = v122;
+      v25 = v136;
+      v26 = v132;
+      v27 = v128;
       goto LABEL_246;
     }
   }
@@ -6870,25 +6838,25 @@ LABEL_165:
   if (gLogObjects && gNumLogObjects >= 56)
   {
     v82 = *(gLogObjects + 440);
-    v24 = v127;
-    v25 = v128;
-    v26 = v124;
-    v27 = v122;
+    v24 = v135;
+    v25 = v136;
+    v26 = v132;
+    v27 = v128;
   }
 
   else
   {
-    v24 = v127;
-    v25 = v128;
-    v26 = v124;
-    v27 = v122;
+    v24 = v135;
+    v25 = v136;
+    v26 = v132;
+    v27 = v128;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
     v82 = &_os_log_default;
-    v119 = &_os_log_default;
+    v124 = &_os_log_default;
   }
 
   if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
@@ -6898,8 +6866,8 @@ LABEL_165:
   }
 
 LABEL_27:
-  v126 = v24;
-  if (!v125)
+  v134 = v24;
+  if (!HIDWORD(v133))
   {
     v31 = v27;
     v32 = v26;
@@ -6963,10 +6931,10 @@ LABEL_27:
 
     v29[7] = cf;
     CFRetain(cf);
-    *&v152 = v29[7];
+    *&v161 = v29[7];
   }
 
-  if (v132)
+  if (v140)
   {
     if (gLogObjects && gNumLogObjects >= 56)
     {
@@ -6987,13 +6955,13 @@ LABEL_27:
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(valuePtr[0]) = 138412290;
-      *(valuePtr + 4) = v132;
+      *(valuePtr + 4) = v140;
       _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "modelIdentifierString %@", valuePtr, 0xCu);
     }
 
-    v29[8] = v132;
-    CFRetain(v132);
-    *&v153 = v29[8];
+    v29[8] = v140;
+    CFRetain(v140);
+    *&v162 = v29[8];
   }
 
   if (v28)
@@ -7023,7 +6991,7 @@ LABEL_27:
 
     v29[9] = v28;
     CFRetain(v28);
-    *(&v152 + 1) = v29[9];
+    *(&v161 + 1) = v29[9];
   }
 
   if (v27)
@@ -7053,7 +7021,7 @@ LABEL_27:
 
     v29[10] = v27;
     CFRetain(v27);
-    *(&v153 + 1) = v29[10];
+    *(&v162 + 1) = v29[10];
   }
 
   if (v26)
@@ -7113,10 +7081,10 @@ LABEL_27:
     }
   }
 
-  if (!v27 && !v28 && !v132 && !cf && !v130 || !*a1)
+  if (!v27 && !v28 && !v140 && !cf && !v138 || !*a1)
   {
 LABEL_185:
-    v129 = v25;
+    v137 = v25;
     if (v26 && *a1)
     {
       Copy = CFStringCreateCopy(kCFAllocatorDefault, *a1);
@@ -7158,32 +7126,32 @@ LABEL_185:
         if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(valuePtr[0]) = 67109120;
-          HIDWORD(valuePtr[0]) = v129 != 0;
+          HIDWORD(valuePtr[0]) = v137 != 0;
           _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "acc_endpoint_setProperties: primaryColorData:1, secondaryColorData:%d", valuePtr, 8u);
         }
 
-        if (v129)
+        if (v137)
         {
-          v148[0] = kACCProperties_Endpoint_NFC_DisplayP3Rgb;
-          v148[1] = kACCProperties_Endpoint_NFC_DisplayP3RgbSecondary;
-          v149[0] = v26;
-          v149[1] = v129;
-          v96 = v149;
-          v97 = v148;
+          v157[0] = kACCProperties_Endpoint_NFC_DisplayP3Rgb;
+          v157[1] = kACCProperties_Endpoint_NFC_DisplayP3RgbSecondary;
+          v158[0] = v26;
+          v158[1] = v137;
+          v96 = v158;
+          v97 = v157;
           v98 = 2;
         }
 
         else
         {
-          v146 = kACCProperties_Endpoint_NFC_DisplayP3Rgb;
-          v147 = v26;
-          v96 = &v147;
-          v97 = &v146;
+          v155 = kACCProperties_Endpoint_NFC_DisplayP3Rgb;
+          v156 = v26;
+          v96 = &v156;
+          v97 = &v155;
           v98 = 1;
         }
 
-        v99 = [NSDictionary dictionaryWithObjects:v96 forKeys:v97 count:v98, v120];
-        acc_endpoint_setProperties(v90, v99);
+        v99 = [NSDictionary dictionaryWithObjects:v96 forKeys:v97 count:v98, v125];
+        acc_endpoint_setProperties(v90, v99, v100, v101, v102, v103, v104, v105, v126, v127, SHIDWORD(v127), v128, v129, kCFAllocatorDefault, v131, *(&v131 + 1), v132, v133, v134, v137, v138, v139, v140, cf, v142, *(&v142 + 1));
 
         if (v93)
         {
@@ -7192,20 +7160,20 @@ LABEL_185:
       }
 
       CFRelease(v88);
-      v25 = v129;
+      v25 = v137;
       v27 = v91;
     }
 
     v31 = v27;
     v32 = v26;
-    if (!v131)
+    if (!v139)
     {
       goto LABEL_237;
     }
 
     if (gLogObjects && gNumLogObjects >= 56)
     {
-      v100 = *(gLogObjects + 440);
+      v106 = *(gLogObjects + 440);
     }
 
     else
@@ -7215,24 +7183,24 @@ LABEL_185:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v100 = &_os_log_default;
-      v101 = &_os_log_default;
+      v106 = &_os_log_default;
+      v107 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(valuePtr[0]) = 138412290;
-      *(valuePtr + 4) = v131;
-      _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, "deviceCompatibilityArray %@", valuePtr, 0xCu);
+      *(valuePtr + 4) = v139;
+      _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, "deviceCompatibilityArray %@", valuePtr, 0xCu);
     }
 
-    v29[12] = v131;
-    CFRetain(v131);
-    *&v157 = v29[12];
-    v102 = systemInfo_copyProductType();
+    v29[12] = v139;
+    CFRetain(v139);
+    *&v166 = v29[12];
+    v108 = systemInfo_copyProductType();
     if (gLogObjects && gNumLogObjects >= 56)
     {
-      v103 = *(gLogObjects + 440);
+      v109 = *(gLogObjects + 440);
     }
 
     else
@@ -7242,108 +7210,107 @@ LABEL_185:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v103 = &_os_log_default;
-      v104 = &_os_log_default;
+      v109 = &_os_log_default;
+      v110 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(valuePtr[0]) = 138412290;
-      *(valuePtr + 4) = v102;
-      _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "productType %@", valuePtr, 0xCu);
+      *(valuePtr + 4) = v108;
+      _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "productType %@", valuePtr, 0xCu);
     }
 
-    v136 = 0u;
-    v137 = 0u;
-    v134 = 0u;
-    v135 = 0u;
-    v105 = v131;
-    v106 = [v105 countByEnumeratingWithState:&v134 objects:v145 count:16];
-    if (v106)
+    v145 = 0u;
+    v146 = 0u;
+    v143 = 0u;
+    v144 = 0u;
+    v111 = v139;
+    v112 = [v111 countByEnumeratingWithState:&v143 objects:v154 count:16];
+    if (v112)
     {
-      v107 = v106;
-      v108 = 0;
-      v109 = *v135;
+      v113 = v112;
+      v114 = 0;
+      v115 = *v144;
       do
       {
-        for (i = 0; i != v107; i = i + 1)
+        for (i = 0; i != v113; i = i + 1)
         {
-          if (*v135 != v109)
+          if (*v144 != v115)
           {
-            objc_enumerationMutation(v105);
+            objc_enumerationMutation(v111);
           }
 
-          v108 = v108 || CFStringCompare(v102, *(*(&v134 + 1) + 8 * i), 0) == kCFCompareEqualTo;
+          v114 = v114 || CFStringCompare(v108, *(*(&v143 + 1) + 8 * i), 0) == kCFCompareEqualTo;
         }
 
-        v107 = [v105 countByEnumeratingWithState:&v134 objects:v145 count:16];
+        v113 = [v111 countByEnumeratingWithState:&v143 objects:v154 count:16];
       }
 
-      while (v107);
+      while (v113);
 
-      v111 = *a1 != 0 && v108;
-      v25 = v129;
-      if (v111 != 1)
+      v117 = *a1 != 0 && v114;
+      v25 = v137;
+      if (v117 != 1)
       {
         goto LABEL_237;
       }
 
-      v112 = CFStringCreateCopy(kCFAllocatorDefault, *a1);
-      if (v112)
+      v118 = CFStringCreateCopy(alloc, *a1);
+      if (v118)
       {
-        v113 = v112;
-        v114 = acc_manager_getEndpointWithUUID(v112);
-        if (v114)
+        v119 = v118;
+        if (acc_manager_getEndpointWithUUID(v118))
         {
-          acc_endpoint_setProperty(v114, kCFACCProperties_Endpoint_NFC_DisplayUI, kCFBooleanTrue);
-          CFRelease(v113);
+          acc_endpoint_setProperty();
+          CFRelease(v119);
           goto LABEL_237;
         }
 
-        CFRelease(v113);
+        CFRelease(v119);
       }
 
-      v131 = v105;
+      v139 = v111;
       v26 = v32;
       v27 = v31;
       goto LABEL_246;
     }
 
-    v25 = v129;
+    v25 = v137;
 LABEL_237:
     if (gLogObjects && gNumLogObjects >= 56)
     {
-      v115 = *(gLogObjects + 440);
+      v120 = *(gLogObjects + 440);
       v26 = v32;
       v27 = v31;
-      v116 = v126;
+      v121 = v134;
     }
 
     else
     {
-      v116 = v126;
+      v121 = v134;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v115 = &_os_log_default;
-      v117 = &_os_log_default;
+      v120 = &_os_log_default;
+      v122 = &_os_log_default;
       v26 = v32;
       v27 = v31;
     }
 
-    if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
     {
-      v118 = *(a1 + 72);
+      v123 = *(a1 + 72);
       LODWORD(valuePtr[0]) = 134218240;
-      *(valuePtr + 4) = v118;
+      *(valuePtr + 4) = v123;
       WORD2(valuePtr[1]) = 2048;
-      *(&valuePtr[1] + 6) = v116;
-      _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_DEFAULT, "supportedSecureTunnelCapabilitiesMask: 0x%llx -> 0x%llx", valuePtr, 0x16u);
+      *(&valuePtr[1] + 6) = v121;
+      _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "supportedSecureTunnelCapabilitiesMask: 0x%llx -> 0x%llx", valuePtr, 0x16u);
     }
 
-    *(a1 + 72) = v116;
+    *(a1 + 72) = v121;
     *(a1 + 32) = 0;
     goto LABEL_246;
   }
@@ -8284,7 +8251,7 @@ LABEL_11:
   return v7;
 }
 
-void mfi4Auth_protocol_handle_NVMPublicKeyChallenge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void mfi4Auth_protocol_handle_NVMPublicKeyChallenge(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   inited = 1;
   if (!a1)
@@ -8311,9 +8278,9 @@ void mfi4Auth_protocol_handle_NVMPublicKeyChallenge(uint64_t a1, uint64_t a2, ui
     goto LABEL_143;
   }
 
-  v61 = 0;
+  v59 = 0;
   bytes = 0uLL;
-  v57 = *(a1 + 712);
+  v55 = *(a1 + 712);
   FirstParam = iAP2MsgGetFirstParam(a3, 0);
   DataAsU16 = 0;
   LOBYTE(v7) = 0;
@@ -8453,8 +8420,8 @@ void mfi4Auth_protocol_handle_NVMPublicKeyChallenge(uint64_t a1, uint64_t a2, ui
         break;
     }
 
-    FirstParam = iAP2MsgGetNextParamWithError(a3, 0, FirstParam, &v61);
-    if (v61)
+    FirstParam = iAP2MsgGetNextParamWithError(a3, 0, FirstParam, &v59);
+    if (v59)
     {
       goto LABEL_143;
     }
@@ -8483,7 +8450,7 @@ void mfi4Auth_protocol_handle_NVMPublicKeyChallenge(uint64_t a1, uint64_t a2, ui
         }
 
         v32 = &_os_log_default;
-        v53 = &_os_log_default;
+        v52 = &_os_log_default;
       }
 
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
@@ -8492,31 +8459,30 @@ void mfi4Auth_protocol_handle_NVMPublicKeyChallenge(uint64_t a1, uint64_t a2, ui
         _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "handle_NVMPublicKeyChallenge: kMfi4Auth_Action_BeginVendorKeyErase", buf, 2u);
       }
 
-      v54 = *(a1 + 64);
-      if (!v54)
+      v53 = *(a1 + 64);
+      if (!v53)
       {
         mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_10();
         goto LABEL_143;
       }
 
-      v55 = objc_retainBlock(v54);
-      v45 = v55;
+      v44 = objc_retainBlock(v53);
       if (DataAsU16 != 20992)
       {
-        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_7(v55);
+        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_7();
         goto LABEL_136;
       }
 
       if (!v7)
       {
-        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_8(v55);
+        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_8();
         goto LABEL_136;
       }
 
-      v46 = CFDataCreate(kCFAllocatorDefault, &bytes, 16);
-      if (!v46)
+      v45 = CFDataCreate(kCFAllocatorDefault, &bytes, 16);
+      if (!v45)
       {
-        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_9(v45);
+        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_9();
         goto LABEL_136;
       }
     }
@@ -8558,23 +8524,22 @@ void mfi4Auth_protocol_handle_NVMPublicKeyChallenge(uint64_t a1, uint64_t a2, ui
       }
 
       v44 = objc_retainBlock(v43);
-      v45 = v44;
       if (DataAsU16 != 21248)
       {
-        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_2(v44);
+        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_2();
         goto LABEL_136;
       }
 
       if (!v7)
       {
-        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_3(v44);
+        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_3();
         goto LABEL_136;
       }
 
-      v46 = CFDataCreate(kCFAllocatorDefault, &bytes, 16);
-      if (!v46)
+      v45 = CFDataCreate(kCFAllocatorDefault, &bytes, 16);
+      if (!v45)
       {
-        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_4(v45);
+        mfi4Auth_protocol_handle_NVMPublicKeyChallenge_cold_4();
 LABEL_136:
 
         goto LABEL_143;
@@ -8582,7 +8547,7 @@ LABEL_136:
     }
 
     *a5 = 1;
-    (v45)[2](v45, v46, 0);
+    (*(v44 + 2))(v44, v45, 0);
     *(a1 + 64) = 0;
     *(a1 + 32) = 0;
 
@@ -8604,7 +8569,7 @@ LABEL_136:
       }
 
       v31 = &_os_log_default;
-      v47 = &_os_log_default;
+      v46 = &_os_log_default;
     }
 
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
@@ -8624,16 +8589,16 @@ LABEL_136:
       {
         memset(buf, 170, 16);
         arc4random_buf(buf, 0x10uLL);
-        v48 = *(v57 + 80);
-        if (v48)
+        v47 = *(v55 + 80);
+        if (v47)
         {
-          UserPublicKeyForSerialNumber = _copyOrCreateUserPublicKeyForSerialNumber(v48);
-          if (UserPublicKeyForSerialNumber && (v50 = UserPublicKeyForSerialNumber, (v51 = _generateUserSignature(UserPublicKeyForSerialNumber, &bytes, buf)) != 0))
+          UserPublicKeyForSerialNumber = _copyOrCreateUserPublicKeyForSerialNumber(v47);
+          if (UserPublicKeyForSerialNumber && (v49 = UserPublicKeyForSerialNumber, (v50 = _generateUserSignature(UserPublicKeyForSerialNumber, &bytes, buf)) != 0))
           {
-            v52 = v51;
-            if (_extractPublicKey(v50))
+            v51 = v50;
+            if (_extractPublicKey(v49))
             {
-              CFDataGetBytePtr(v52);
+              CFDataGetBytePtr(v51);
               inited = mfi4Auth_protocol_initMessage_RequestNVMWritePublicKey(a1);
               if (!inited)
               {
@@ -8707,10 +8672,10 @@ LABEL_136:
       goto LABEL_142;
     }
 
-    *v60 = 0;
+    *v58 = 0;
     v41 = "handle_NVMPublicKeyChallenge: !kMFi4_Area51_NVM_User_PublicKey";
 LABEL_141:
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, v41, v60, 2u);
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, v41, v58, 2u);
     goto LABEL_142;
   }
 
@@ -8722,12 +8687,12 @@ LABEL_141:
       goto LABEL_142;
     }
 
-    *v60 = 0;
+    *v58 = 0;
     v41 = "handle_NVMPublicKeyChallenge: !isProgrammed";
     goto LABEL_141;
   }
 
-  v34 = *(v57 + 80);
+  v34 = *(v55 + 80);
   if (!v34)
   {
     inited = -1;
@@ -8737,7 +8702,7 @@ LABEL_141:
       goto LABEL_142;
     }
 
-    *v60 = 0;
+    *v58 = 0;
     v41 = "handle_NVMPublicKeyChallenge: EraseUserKey: !serialNumberString";
     goto LABEL_141;
   }
@@ -8752,7 +8717,7 @@ LABEL_141:
       goto LABEL_142;
     }
 
-    *v60 = 0;
+    *v58 = 0;
     v41 = "handle_NVMPublicKeyChallenge: EraseUserKey: _copyOrCreateUserPublicKeyForSerialNumber failed";
     goto LABEL_141;
   }
@@ -8768,7 +8733,7 @@ LABEL_141:
       goto LABEL_142;
     }
 
-    *v60 = 0;
+    *v58 = 0;
     v41 = "handle_NVMPublicKeyChallenge: EraseUserKey: _generateUserSignature failed";
     goto LABEL_141;
   }
@@ -8790,7 +8755,7 @@ LABEL_141:
       goto LABEL_142;
     }
 
-    *v60 = 0;
+    *v58 = 0;
     v41 = "handle_NVMPublicKeyChallenge: EraseUserKey: initMessage_RequestNVMErasePublicKey error";
     goto LABEL_141;
   }
@@ -8799,7 +8764,7 @@ LABEL_141:
   v40 = logObjectForModule_12();
   if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    *v60 = 0;
+    *v58 = 0;
     v41 = "handle_NVMPublicKeyChallenge: EraseUserKey: !userPublicKey";
     goto LABEL_141;
   }
@@ -9043,7 +9008,7 @@ void printSessionKeys(uint64_t a1, int a2)
   while (v4);
 }
 
-uint64_t mfi4Auth_protocol_parse(uint64_t a1, uint64_t a2, CFDataRef theData, __int16 a4)
+uint64_t mfi4Auth_protocol_parse(uint64_t a1, uint64_t a2, CFDataRef theData, uint64_t a4)
 {
   if (!a1)
   {
@@ -9091,10 +9056,11 @@ LABEL_19:
     return 0;
   }
 
+  v7 = a4;
   Length = CFDataGetLength(theData);
   BytePtr = CFDataGetBytePtr(theData);
-  iAP2MsgInitWithSom(a2, a4, 0, 0, 0, 0, 0);
-  v10 = iAP2MsgParserInit(0xFFFF, *(a1 + 8), 0, a4);
+  iAP2MsgInitWithSom(a2, v7, 0, 0, 0, 0, 0);
+  v10 = iAP2MsgParserInit(0xFFFF, *(a1 + 8), 0, v7);
   v11 = Length;
   if (!Length)
   {
@@ -9414,26 +9380,27 @@ LABEL_40:
   return v29;
 }
 
-__n128 OUTLINED_FUNCTION_1_11(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a13)
+__n128 OUTLINED_FUNCTION_1_11(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a13, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a14)
 {
-  result = a13;
-  *(v13 - 128) = a13.n128_u32[0];
-  *(v13 - 116) = 1024;
+  result = a14;
+  *(v14 - 128) = a14.n128_u32[0];
+  *(v14 - 116) = 1024;
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_3_15(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __n128 a19, uint64_t a20, uint64_t a21, uint64_t a22, int a23)
+__n128 OUTLINED_FUNCTION_3_15(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a19, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __n128 a20, uint64_t a22, int a23, uint64_t _70, int a24)
 {
-  result = a19;
-  *(v23 - 128) = a19.n128_u32[0];
-  *(v23 - 124) = a23;
+  result = a20;
+  *(v24 - 128) = a20.n128_u32[0];
+  *(v24 - 124) = a24;
   return result;
 }
 
-void OUTLINED_FUNCTION_15_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_15_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 uint64_t OUTLINED_FUNCTION_27_2()
@@ -9444,7 +9411,7 @@ uint64_t OUTLINED_FUNCTION_27_2()
   return iAP2MsgAddU16Param(v4, 0, v2, v5);
 }
 
-uint64_t OUTLINED_FUNCTION_29_1(uint64_t a1, __int16 a2, __int16 a3, uint64_t a4, int a5)
+uint64_t OUTLINED_FUNCTION_29_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return iAP2MsgInitWithSom(a1, a2, a3, a4, a5, 0, 0);
@@ -9464,10 +9431,10 @@ void *OUTLINED_FUNCTION_41_1(void *a1, int a2, int a3, int a4, int a5, int a6, i
   return memcpy(a1, v24, v22);
 }
 
-uint64_t OUTLINED_FUNCTION_42_1()
+uint64_t OUTLINED_FUNCTION_42_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
 
-  return mfi4Auth_protocol_initMessage_RequestNVMOperation(v0);
+  return mfi4Auth_protocol_initMessage_RequestNVMOperation(v11);
 }
 
 void acc_platform_audioProductCerts_accessoryAttach(uint64_t a1, uint64_t a2)
@@ -9572,7 +9539,7 @@ void acc_platform_audioProductCerts_processAudioProductCerts(uint64_t a1, uint64
 uint64_t _checkIdentificationInfo_1(uint64_t a1)
 {
   v10 = 0;
-  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo__kMsgDigitalAudioList, 3u, &v10);
+  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo__kMsgDigitalAudioList, 3, &v10);
   v3 = v2;
   if (v10 == 1 && v2 == 0)
   {
@@ -9681,4 +9648,86 @@ const __CFDictionary *_getEndpointSampleRates(uint64_t a1)
   }
 
   return v2;
+}
+
+BOOL _checkRequiredSampleRates(uint64_t a1)
+{
+  v2 = iap2_identification_transportComponents(a1);
+  if (v2 && (v3 = v2, (Count = CFDictionaryGetCount(v2)) != 0))
+  {
+    v5 = Count;
+    v20 = &v19;
+    __chkstk_darwin(Count);
+    v7 = (&v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+    memset(v7, 170, v6);
+    CFDictionaryGetKeysAndValues(v3, 0, v7);
+    if (v5 >= 1)
+    {
+      v9 = 1;
+      *&v8 = 134218240;
+      v19 = v8;
+      v10 = v5;
+      v11 = 1;
+      while (1)
+      {
+        v12 = *v7;
+        if (*v7)
+        {
+          if (*(v12 + 20) == 1)
+          {
+            v13 = *(*a1 + 24);
+            v14 = !v13 || v13 == 8;
+            if ((v14 || v13 == 6 && !*(v12 + 16)) && (~*(v12 + 48) & 0x1C0) == 0)
+            {
+              return v11;
+            }
+          }
+        }
+
+        else
+        {
+          v15 = gLogObjects;
+          v16 = gNumLogObjects;
+          if (gLogObjects && gNumLogObjects >= 38)
+          {
+            v17 = *(gLogObjects + 296);
+          }
+
+          else
+          {
+            v17 = &_os_log_default;
+            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              *buf = v19;
+              v24 = v15;
+              v25 = 1024;
+              v26 = v16;
+              _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+              v17 = &_os_log_default;
+            }
+          }
+
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          {
+            _getEndpointSampleRates_cold_1(&v21, v22, v17);
+          }
+        }
+
+        v11 = v5 > v9;
+        ++v7;
+        ++v9;
+        if (!--v10)
+        {
+          return v11;
+        }
+      }
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    return 0;
+  }
 }

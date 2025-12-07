@@ -2,6 +2,7 @@
 - (ConfigurationParams)init;
 - (id)extractStringFromKey:(id)key defaultTo:(id)to;
 - (int)extractKey:(id)key toBOOL:(BOOL *)l defaultTo:(BOOL)to;
+- (int)extractKey:(id)key toBool:(BOOL *)bool defaultTo:(BOOL)to;
 - (int)extractKey:(id)key toDouble:(double *)double defaultTo:(double)to;
 - (int)extractKey:(id)key toNSUInteger:(unint64_t *)integer defaultTo:(unint64_t)to;
 - (int)extractKey:(id)key toUint32:(unsigned int *)uint32 defaultTo:(unsigned int)to;
@@ -12,7 +13,7 @@
 
 - (int)extractKey:(id)key toDouble:(double *)double defaultTo:(double)to
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v9 = [(NSDictionary *)self->_underlyingDictionary objectForKeyedSubscript:keyCopy];
   if (!v9)
@@ -34,13 +35,13 @@ LABEL_4:
       if (v13)
       {
         v20 = *double;
-        *v24 = 138412802;
-        *&v24[4] = keyCopy;
-        v25 = 2048;
+        *v23 = 138412802;
+        *&v23[4] = keyCopy;
+        v24 = 2048;
         toCopy = v11;
-        v27 = 2048;
-        v28 = v20;
-        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %f, was %f", v24, 0x20u);
+        v26 = 2048;
+        v27 = v20;
+        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %f, was %f", v23, 0x20u);
       }
 
       to = v11;
@@ -48,11 +49,11 @@ LABEL_4:
 
     else if (v13)
     {
-      *v24 = 138412546;
-      *&v24[4] = keyCopy;
-      v25 = 2048;
+      *v23 = 138412546;
+      *&v23[4] = keyCopy;
+      v24 = 2048;
       toCopy = to;
-      _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %f", v24, 0x16u);
+      _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %f", v23, 0x16u);
     }
 
     *double = to;
@@ -68,9 +69,9 @@ LABEL_4:
     if (uTF8String)
     {
       v17 = uTF8String;
-      *v24 = uTF8String;
-      v11 = strtod(uTF8String, v24);
-      v18 = *v24;
+      *v23 = uTF8String;
+      v11 = strtod(uTF8String, v23);
+      v18 = *v23;
 
       if (v11 != 0.0 || v18 != v17)
       {
@@ -86,23 +87,22 @@ LABEL_4:
   v21 = self->_logHandle;
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    *v24 = 138412546;
-    *&v24[4] = keyCopy;
-    v25 = 2112;
+    *v23 = 138412546;
+    *&v23[4] = keyCopy;
+    v24 = 2112;
     toCopy = *&v9;
-    _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Unable to parse key %@ value %@", v24, 0x16u);
+    _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Unable to parse key %@ value %@", v23, 0x16u);
   }
 
   v14 = -1;
 LABEL_24:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (int)extractKey:(id)key toUint64:(unint64_t *)uint64 defaultTo:(unint64_t)to
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v9 = [(NSDictionary *)self->_underlyingDictionary objectForKeyedSubscript:keyCopy];
   if (!v9)
@@ -123,13 +123,13 @@ LABEL_4:
       if (v12)
       {
         v13 = *uint64;
-        v20 = 138412802;
-        v21 = keyCopy;
-        v22 = 2048;
+        v19 = 138412802;
+        v20 = keyCopy;
+        v21 = 2048;
         toCopy = unsignedLongLongValue;
-        v24 = 2048;
-        v25 = v13;
-        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %llu, was %llu", &v20, 0x20u);
+        v23 = 2048;
+        v24 = v13;
+        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %llu, was %llu", &v19, 0x20u);
       }
 
       to = unsignedLongLongValue;
@@ -137,11 +137,11 @@ LABEL_4:
 
     else if (v12)
     {
-      v20 = 138412546;
-      v21 = keyCopy;
-      v22 = 2048;
+      v19 = 138412546;
+      v20 = keyCopy;
+      v21 = 2048;
       toCopy = to;
-      _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %llu", &v20, 0x16u);
+      _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %llu", &v19, 0x16u);
     }
 
     *uint64 = to;
@@ -168,23 +168,22 @@ LABEL_4:
   v17 = self->_logHandle;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v20 = 138412546;
-    v21 = keyCopy;
-    v22 = 2112;
+    v19 = 138412546;
+    v20 = keyCopy;
+    v21 = 2112;
     toCopy = v9;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Unable to parse key %@ value %@", &v20, 0x16u);
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Unable to parse key %@ value %@", &v19, 0x16u);
   }
 
   v14 = -1;
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (int)extractKey:(id)key toUint32:(unsigned int *)uint32 defaultTo:(unsigned int)to
 {
-  *&v23[5] = *MEMORY[0x277D85DE8];
+  *&v22[5] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v9 = [(NSDictionary *)self->_underlyingDictionary objectForKeyedSubscript:keyCopy];
   if (!v9)
@@ -205,13 +204,13 @@ LABEL_4:
       if (v12)
       {
         v13 = *uint32;
-        v20 = 138412802;
-        v21 = keyCopy;
-        v22 = 1024;
-        *v23 = unsignedIntValue;
-        v23[2] = 1024;
-        *&v23[3] = v13;
-        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %u, was %u", &v20, 0x18u);
+        v19 = 138412802;
+        v20 = keyCopy;
+        v21 = 1024;
+        *v22 = unsignedIntValue;
+        v22[2] = 1024;
+        *&v22[3] = v13;
+        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %u, was %u", &v19, 0x18u);
       }
 
       to = unsignedIntValue;
@@ -219,11 +218,11 @@ LABEL_4:
 
     else if (v12)
     {
-      v20 = 138412546;
-      v21 = keyCopy;
-      v22 = 1024;
-      *v23 = to;
-      _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %u", &v20, 0x12u);
+      v19 = 138412546;
+      v20 = keyCopy;
+      v21 = 1024;
+      *v22 = to;
+      _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %u", &v19, 0x12u);
     }
 
     *uint32 = to;
@@ -250,23 +249,22 @@ LABEL_4:
   v17 = self->_logHandle;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v20 = 138412546;
-    v21 = keyCopy;
-    v22 = 2112;
-    *v23 = v9;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Unable to parse key %@ value %@", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = keyCopy;
+    v21 = 2112;
+    *v22 = v9;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Unable to parse key %@ value %@", &v19, 0x16u);
   }
 
   v14 = -1;
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (int)extractKey:(id)key toNSUInteger:(unint64_t *)integer defaultTo:(unint64_t)to
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v9 = [(NSDictionary *)self->_underlyingDictionary objectForKeyedSubscript:keyCopy];
   if (!v9)
@@ -287,13 +285,13 @@ LABEL_4:
       if (v12)
       {
         v13 = *integer;
-        v20 = 138412802;
-        v21 = keyCopy;
-        v22 = 2048;
+        v19 = 138412802;
+        v20 = keyCopy;
+        v21 = 2048;
         toCopy = unsignedIntegerValue;
-        v24 = 2048;
-        v25 = v13;
-        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %llu, was %llu", &v20, 0x20u);
+        v23 = 2048;
+        v24 = v13;
+        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %llu, was %llu", &v19, 0x20u);
       }
 
       to = unsignedIntegerValue;
@@ -301,11 +299,11 @@ LABEL_4:
 
     else if (v12)
     {
-      v20 = 138412546;
-      v21 = keyCopy;
-      v22 = 2048;
+      v19 = 138412546;
+      v20 = keyCopy;
+      v21 = 2048;
       toCopy = to;
-      _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %llu", &v20, 0x16u);
+      _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %llu", &v19, 0x16u);
     }
 
     *integer = to;
@@ -332,24 +330,23 @@ LABEL_4:
   v17 = self->_logHandle;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v20 = 138412546;
-    v21 = keyCopy;
-    v22 = 2112;
+    v19 = 138412546;
+    v20 = keyCopy;
+    v21 = 2112;
     toCopy = v9;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Unable to parse key %@ value %@", &v20, 0x16u);
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Unable to parse key %@ value %@", &v19, 0x16u);
   }
 
   v14 = -1;
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (int)extractKey:(id)key toBOOL:(BOOL *)l defaultTo:(BOOL)to
 {
   toCopy = to;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v9 = [(NSDictionary *)self->_underlyingDictionary objectForKeyedSubscript:keyCopy];
   if (v9)
@@ -363,11 +360,11 @@ LABEL_19:
         logHandle = self->_logHandle;
         if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 138412546;
-          v22 = keyCopy;
-          v23 = 2048;
-          v24 = toCopy;
-          _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %llu", &v21, 0x16u);
+          v20 = 138412546;
+          v21 = keyCopy;
+          v22 = 2048;
+          v23 = toCopy;
+          _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %llu", &v20, 0x16u);
         }
 
 LABEL_13:
@@ -381,13 +378,13 @@ LABEL_10:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         v17 = *l;
-        v21 = 138412802;
-        v22 = keyCopy;
-        v23 = 2048;
-        v24 = longValue;
-        v25 = 2048;
-        v26 = v17;
-        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %llu, was %llu", &v21, 0x20u);
+        v20 = 138412802;
+        v21 = keyCopy;
+        v22 = 2048;
+        v23 = longValue;
+        v24 = 2048;
+        v25 = v17;
+        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %llu, was %llu", &v20, 0x20u);
       }
 
       LOBYTE(toCopy) = longValue;
@@ -414,11 +411,11 @@ LABEL_10:
     v18 = self->_logHandle;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412546;
-      v22 = keyCopy;
-      v23 = 2112;
-      v24 = v9;
-      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "extractKey:toBOOL: Unable to parse key %@ value %@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = keyCopy;
+      v22 = 2112;
+      v23 = v9;
+      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "extractKey:toBOOL: Unable to parse key %@ value %@", &v20, 0x16u);
     }
 
     v12 = -1;
@@ -431,13 +428,24 @@ LABEL_10:
 
 LABEL_18:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
+}
+
+- (int)extractKey:(id)key toBool:(BOOL *)bool defaultTo:(BOOL)to
+{
+  v7 = 0;
+  result = [(ConfigurationParams *)self extractKey:key toBOOL:&v7 defaultTo:to];
+  if (result >= 1)
+  {
+    *bool = v7;
+  }
+
+  return result;
 }
 
 - (id)extractStringFromKey:(id)key defaultTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   toCopy = to;
   v8 = [(NSDictionary *)self->_underlyingDictionary objectForKeyedSubscript:keyCopy];
@@ -449,11 +457,11 @@ LABEL_18:
       logHandle = self->_logHandle;
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412546;
-        v16 = keyCopy;
-        v17 = 2112;
-        v18 = v9;
-        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %@", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = keyCopy;
+        v16 = 2112;
+        v17 = v9;
+        _os_log_impl(&dword_23255B000, logHandle, OS_LOG_TYPE_DEFAULT, "Set key %@ to new value %@", &v14, 0x16u);
       }
 
       v11 = v9;
@@ -463,14 +471,14 @@ LABEL_18:
     {
       v11 = toCopy;
 
-      v14 = self->_logHandle;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v13 = self->_logHandle;
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412546;
-        v16 = keyCopy;
-        v17 = 2112;
-        v18 = v11;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %@", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = keyCopy;
+        v16 = 2112;
+        v17 = v11;
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Reset key %@ to default value %@", &v14, 0x16u);
       }
     }
   }
@@ -479,8 +487,6 @@ LABEL_18:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

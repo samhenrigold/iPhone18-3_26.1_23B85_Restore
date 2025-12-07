@@ -10,54 +10,55 @@
 - (NCNotificationManagementPriorityFeedbackSuggestionContentProvider)initWithNotificationRequest:(id)request bundleDisplayName:(id)name managementDelegate:(id)delegate suggestionDelegate:(id)suggestionDelegate
 {
   nameCopy = name;
-  v17.receiver = self;
-  v17.super_class = NCNotificationManagementPriorityFeedbackSuggestionContentProvider;
-  v11 = [(NCNotificationManagementSuggestionContentProvider *)&v17 initWithNotificationRequest:request bundleDisplayName:nameCopy managementDelegate:delegate suggestionDelegate:suggestionDelegate];
+  v18.receiver = self;
+  v18.super_class = NCNotificationManagementPriorityFeedbackSuggestionContentProvider;
+  v11 = [(NCNotificationManagementSuggestionContentProvider *)&v18 initWithNotificationRequest:request bundleDisplayName:nameCopy managementDelegate:delegate suggestionDelegate:suggestionDelegate];
+  v12 = v11;
   if (v11)
   {
-    v12 = MEMORY[0x277CCACA8];
-    v13 = NCUserNotificationsUIKitFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_PRIORITY_FEEDBACK_SUGGESTION" value:&stru_282FE84F8 table:0];
-    nameCopy = [v12 stringWithFormat:v14, nameCopy, nameCopy];
-    [(NCNotificationManagementSuggestionContentProvider *)v11 setAuxiliaryOptionsSummaryText:nameCopy];
+    v13 = MEMORY[0x277CCACA8];
+    v14 = NCUserNotificationsUIKitFrameworkBundle(v11);
+    v15 = [v14 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_PRIORITY_FEEDBACK_SUGGESTION" value:&stru_282FE84F8 table:0];
+    nameCopy = [v13 stringWithFormat:v15, nameCopy, nameCopy];
+    [(NCNotificationManagementSuggestionContentProvider *)v12 setAuxiliaryOptionsSummaryText:nameCopy];
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)auxiliaryOptionActions
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_PRIORITY_FEEDBACK_SUGGESTION_YES" value:&stru_282FE84F8 table:0];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __91__NCNotificationManagementPriorityFeedbackSuggestionContentProvider_auxiliaryOptionActions__block_invoke;
-  v17[3] = &unk_27836F428;
+  v22[2] = *MEMORY[0x277D85DE8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_PRIORITY_FEEDBACK_SUGGESTION_YES" value:&stru_282FE84F8 table:0];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __91__NCNotificationManagementPriorityFeedbackSuggestionContentProvider_auxiliaryOptionActions__block_invoke;
+  v19[3] = &unk_27836F428;
+  objc_copyWeak(&v20, &location);
+  v6 = [v3 actionWithTitle:v5 image:0 identifier:@"notification-management-priority-feedback-suggestion-positive" handler:v19];
+
+  v7 = MEMORY[0x277D750C8];
+  v9 = NCUserNotificationsUIKitFrameworkBundle(v8);
+  v10 = [v9 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_PRIORITY_FEEDBACK_SUGGESTION_NO" value:&stru_282FE84F8 table:0];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __91__NCNotificationManagementPriorityFeedbackSuggestionContentProvider_auxiliaryOptionActions__block_invoke_2;
+  v17 = &unk_27836F428;
   objc_copyWeak(&v18, &location);
-  v5 = [v2 actionWithTitle:v4 image:0 identifier:@"notification-management-priority-feedback-suggestion-positive" handler:v17];
+  v11 = [v7 actionWithTitle:v10 image:0 identifier:@"notification-management-priority-feedback-suggestion-negative" handler:&v14];
 
-  v6 = MEMORY[0x277D750C8];
-  v7 = NCUserNotificationsUIKitFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_PRIORITY_FEEDBACK_SUGGESTION_NO" value:&stru_282FE84F8 table:0];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __91__NCNotificationManagementPriorityFeedbackSuggestionContentProvider_auxiliaryOptionActions__block_invoke_2;
-  v15 = &unk_27836F428;
-  objc_copyWeak(&v16, &location);
-  v9 = [v6 actionWithTitle:v8 image:0 identifier:@"notification-management-priority-feedback-suggestion-negative" handler:&v12];
+  v22[0] = v6;
+  v22[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:{2, v14, v15, v16, v17}];
 
-  v20[0] = v5;
-  v20[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:{2, v12, v13, v14, v15}];
-
-  objc_destroyWeak(&v16);
   objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
 
-  return v10;
+  return v12;
 }
 
 void __91__NCNotificationManagementPriorityFeedbackSuggestionContentProvider_auxiliaryOptionActions__block_invoke(uint64_t a1, void *a2)

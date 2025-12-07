@@ -126,187 +126,176 @@ LABEL_21:
 
 - (id)describeProperties
 {
-  v52.receiver = self;
-  v52.super_class = AAProximityPairingAccessoryStatusPayload;
-  describeProperties = [(AAProximityPairingPayload *)&v52 describeProperties];
-  lidOpenCount = [(AAProximityPairingAccessoryStatusPayload *)self lidOpenCount];
-  NSAppendPrintF_safe();
-  v3 = describeProperties;
+  v46.receiver = self;
+  v46.super_class = AAProximityPairingAccessoryStatusPayload;
+  describeProperties = [(AAProximityPairingPayload *)&v46 describeProperties];
+  v45 = describeProperties;
+  NSAppendPrintF_safe(&v45, ", lid open count: %d", [(AAProximityPairingAccessoryStatusPayload *)self lidOpenCount]);
+  v4 = v45;
 
-  v50 = v3;
+  v44 = v4;
   if ([(AAProximityPairingAccessoryStatusPayload *)self lidClosed])
   {
-    v4 = "yes";
+    v5 = "yes";
   }
 
   else
   {
-    v4 = "no";
+    v5 = "no";
   }
 
-  v30 = v4;
-  NSAppendPrintF_safe();
-  v5 = v50;
+  NSAppendPrintF_safe(&v44, ", lid closed: %s", v5);
+  v6 = v44;
 
-  v49 = v5;
+  v43 = v6;
   if ([(AAProximityPairingAccessoryStatusPayload *)self needsConnection])
   {
-    v6 = "yes";
+    v7 = "yes";
   }
 
   else
   {
-    v6 = "no";
+    v7 = "no";
   }
 
-  v31 = v6;
-  NSAppendPrintF_safe();
-  v7 = v49;
+  NSAppendPrintF_safe(&v43, ", need conn: %s", v7);
+  v8 = v43;
 
-  v48 = v7;
+  v42 = v8;
   if ([(AAProximityPairingAccessoryStatusPayload *)self soundEnabled])
   {
-    v8 = "yes";
+    v9 = "yes";
   }
 
   else
   {
-    v8 = "no";
+    v9 = "no";
   }
 
-  v32 = v8;
-  NSAppendPrintF_safe();
-  v9 = v48;
+  NSAppendPrintF_safe(&v42, ", sound En: %s", v9);
+  v10 = v42;
 
-  v47 = v9;
+  v41 = v10;
   if ([(AAProximityPairingAccessoryStatusPayload *)self connected])
   {
-    v10 = "yes";
+    v11 = "yes";
   }
 
   else
   {
-    v10 = "no";
+    v11 = "no";
   }
 
-  v33 = v10;
-  NSAppendPrintF_safe();
-  v11 = v47;
+  NSAppendPrintF_safe(&v41, ", connected: %s", v11);
+  v12 = v41;
 
-  v46 = v11;
+  v40 = v12;
   if ([(AAProximityPairingAccessoryStatusPayload *)self faultDetected])
   {
-    v12 = "yes";
+    v13 = "yes";
   }
 
   else
   {
-    v12 = "no";
+    v13 = "no";
   }
 
-  v34 = v12;
-  NSAppendPrintF_safe();
-  v13 = v46;
+  NSAppendPrintF_safe(&v40, ", fault detect: %s", v13);
+  v14 = v40;
 
   if ([(AAProximityPairingAccessoryStatusPayload *)self caseBatteryValid])
   {
-    if ([(AAProximityPairingAccessoryStatusPayload *)self caseBatteryCharging])
-    {
-      v14 = "+";
-    }
-
-    else
-    {
-      v14 = "-";
-    }
-
-    v45 = v13;
-    v35 = v14;
-    caseBatteryLevel = [(AAProximityPairingAccessoryStatusPayload *)self caseBatteryLevel];
-    v15 = &v45;
+    [(AAProximityPairingAccessoryStatusPayload *)self caseBatteryCharging];
+    v39 = v14;
+    [(AAProximityPairingAccessoryStatusPayload *)self caseBatteryLevel];
+    v15 = &v39;
+    NSAppendPrintF_safe(&v39, ", C Batt: %s%d%%");
   }
 
   else
   {
-    v44 = v13;
-    v15 = &v44;
+    v38 = v14;
+    v15 = &v38;
+    NSAppendPrintF_safe(&v38, ", C Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
   v16 = *v15;
 
   if ([(AAProximityPairingAccessoryStatusPayload *)self leftBatteryValid])
   {
-    if ([(AAProximityPairingAccessoryStatusPayload *)self leftBatteryCharging])
-    {
-      v17 = "+";
-    }
-
-    else
-    {
-      v17 = "-";
-    }
-
-    v43 = v16;
-    v18 = [(AAProximityPairingAccessoryStatusPayload *)self leftBatteryLevel:v35];
-    v35 = v17;
-    caseBatteryLevel = v18;
-    v19 = &v43;
+    [(AAProximityPairingAccessoryStatusPayload *)self leftBatteryCharging];
+    v37 = v16;
+    [(AAProximityPairingAccessoryStatusPayload *)self leftBatteryLevel];
+    v17 = &v37;
+    NSAppendPrintF_safe(&v37, ", L Batt: %s%d%%");
   }
 
   else
   {
-    v42 = v16;
-    v19 = &v42;
+    v36 = v16;
+    v17 = &v36;
+    NSAppendPrintF_safe(&v36, ", L Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
-  v20 = *v19;
+  v18 = *v17;
 
   if ([(AAProximityPairingAccessoryStatusPayload *)self rightBatteryValid])
   {
     [(AAProximityPairingAccessoryStatusPayload *)self rightBatteryCharging];
-    v41 = v20;
-    [(AAProximityPairingAccessoryStatusPayload *)self rightBatteryLevel:v35];
-    v21 = &v41;
+    v35 = v18;
+    [(AAProximityPairingAccessoryStatusPayload *)self rightBatteryLevel];
+    v19 = &v35;
+    NSAppendPrintF_safe(&v35, ", R Batt: %s%d%%");
   }
 
   else
   {
-    v40 = v20;
-    v21 = &v40;
+    v34 = v18;
+    v19 = &v34;
+    NSAppendPrintF_safe(&v34, ", R Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
-  v22 = *v21;
+  v20 = *v19;
 
+  v33 = v20;
   firmwareVersion = [(AAProximityPairingAccessoryStatusPayload *)self firmwareVersion];
-  NSAppendPrintF_safe();
-  v23 = v22;
+  NSAppendPrintF_safe(&v33, ", fw ver: %@", firmwareVersion);
+  v22 = v33;
 
-  timeUntilCharged = [(AAProximityPairingAccessoryStatusPayload *)self timeUntilCharged];
-  NSAppendPrintF_safe();
-  v24 = v23;
+  v32 = v22;
+  NSAppendPrintF_safe(&v32, ", time till charged: %d", [(AAProximityPairingAccessoryStatusPayload *)self timeUntilCharged]);
+  v23 = v32;
 
+  v31 = v23;
   if ([(AAProximityPairingAccessoryStatusPayload *)self chargingOBC])
   {
-    v25 = "yes";
+    v24 = "yes";
   }
 
   else
   {
-    v25 = "no";
+    v24 = "no";
   }
 
-  v38 = v25;
-  NSAppendPrintF_safe();
-  v26 = v24;
+  NSAppendPrintF_safe(&v31, ", OBC on: %s", v24);
+  v25 = v31;
 
-  [(AAProximityPairingAccessoryStatusPayload *)self chargingDEOC];
-  NSAppendPrintF_safe();
-  v27 = v26;
+  v30 = v25;
+  if ([(AAProximityPairingAccessoryStatusPayload *)self chargingDEOC])
+  {
+    v26 = "yes";
+  }
 
-  return v26;
+  else
+  {
+    v26 = "no";
+  }
+
+  NSAppendPrintF_safe(&v30, ", DEOC on: %s", v26);
+  v27 = v30;
+  v28 = v30;
+
+  return v27;
 }
 
 - (NSString)firmwareVersion

@@ -66,7 +66,6 @@
   }
 
   PBDataWriterWriteDataField();
-  timestamp = self->_timestamp;
   PBDataWriterWriteDoubleField();
   if (self->_tetraPreKey)
   {

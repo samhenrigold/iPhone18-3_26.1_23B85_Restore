@@ -473,10 +473,9 @@
 
       if (!powerAssertionRefCount)
       {
-        powerAssertionID = self->_powerAssertionID;
-        v9 = releasePowerAssertion();
+        v8 = releasePowerAssertion();
         self->_powerAssertionID = 0;
-        if ((v9 & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+        if ((v8 & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
         {
           sub_10001D69C();
         }
@@ -1288,20 +1287,19 @@ LABEL_25:
   block[3] = &unk_10002C598;
   block[4] = self;
   v14 = failedCopy;
-  v21 = v14;
+  v20 = v14;
   dispatch_async(uarpHIDQueue, block);
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100005418;
-    v17[3] = &unk_10002C6B0;
-    v17[4] = self;
-    v18 = v14;
-    v19 = dCopy;
-    dispatch_async(delegateQueue, v17);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100005418;
+    v16[3] = &unk_10002C6B0;
+    v16[4] = self;
+    v17 = v14;
+    v18 = dCopy;
+    dispatch_async(delegateQueue, v16);
   }
 }
 
@@ -1335,7 +1333,6 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
@@ -1344,8 +1341,8 @@ LABEL_7:
     block[2] = sub_1000055D4;
     block[3] = &unk_10002C6B0;
     block[4] = self;
-    v17 = serverCopy;
-    v18 = dCopy;
+    v16 = serverCopy;
+    v17 = dCopy;
     dispatch_async(delegateQueue, block);
   }
 
@@ -1370,27 +1367,23 @@ LABEL_8:
     {
       uarpController = self->_uarpController;
       uarpAccessory2 = [storageCopy uarpAccessory];
-      v18 = uarpAccessory2;
-      v14 = [NSArray arrayWithObjects:&v18 count:1];
-      [(UARPController *)uarpController stageFirmwareUpdateOnAccessoryList:v14 withUserIntent:1];
+      v17 = uarpAccessory2;
+      v13 = [NSArray arrayWithObjects:&v17 count:1];
+      [(UARPController *)uarpController stageFirmwareUpdateOnAccessoryList:v13 withUserIntent:1];
     }
   }
 
-  else
+  else if (objc_opt_respondsToSelector())
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
-    if (objc_opt_respondsToSelector())
-    {
-      delegateQueue = self->_delegateQueue;
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_1000057CC;
-      block[3] = &unk_10002C6B0;
-      block[4] = self;
-      v16 = storageCopy;
-      v17 = dCopy;
-      dispatch_async(delegateQueue, block);
-    }
+    delegateQueue = self->_delegateQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000057CC;
+    block[3] = &unk_10002C6B0;
+    block[4] = self;
+    v15 = storageCopy;
+    v16 = dCopy;
+    dispatch_async(delegateQueue, block);
   }
 }
 
@@ -1424,20 +1417,19 @@ LABEL_8:
   block[3] = &unk_10002C598;
   block[4] = self;
   v14 = foundCopy;
-  v21 = v14;
+  v20 = v14;
   dispatch_async(uarpHIDQueue, block);
-  goldRestoreDelegate = self->_goldRestoreDelegate;
   if (objc_opt_respondsToSelector())
   {
     delegateQueue = self->_delegateQueue;
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100005B90;
-    v17[3] = &unk_10002C6B0;
-    v17[4] = self;
-    v18 = v14;
-    v19 = dCopy;
-    dispatch_async(delegateQueue, v17);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100005B90;
+    v16[3] = &unk_10002C6B0;
+    v16[4] = self;
+    v17 = v14;
+    v18 = dCopy;
+    dispatch_async(delegateQueue, v16);
   }
 }
 
@@ -1466,12 +1458,12 @@ LABEL_8:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v26 = "[UARPHIDUpdater _firmwareStagingComplete:assetID:withStatus:]";
-    v27 = 2112;
-    v28 = completeCopy;
-    v29 = 2112;
-    v30 = dCopy;
-    v31 = 2048;
+    v25 = "[UARPHIDUpdater _firmwareStagingComplete:assetID:withStatus:]";
+    v26 = 2112;
+    v27 = completeCopy;
+    v28 = 2112;
+    v29 = dCopy;
+    v30 = 2048;
     statusCopy = status;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, assetID=%@, status=%lu", buf, 0x2Au);
   }
@@ -1496,7 +1488,7 @@ LABEL_8:
       v16 = v15;
       uarpAccessory3 = [v12 uarpAccessory];
       *buf = 138412290;
-      v26 = uarpAccessory3;
+      v25 = uarpAccessory3;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Solicit TICS/MTIC (firmware staging complete) for HID <%@>", buf, 0xCu);
     }
 
@@ -1504,7 +1496,6 @@ LABEL_8:
     uarpAccessory4 = [v12 uarpAccessory];
     [(UARPHIDUpdater *)self _solicitDynamicAssetMTICForAccessory:uarpAccessory4];
 
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
@@ -1513,7 +1504,7 @@ LABEL_8:
       block[2] = sub_100005FA4;
       block[3] = &unk_10002C6D8;
       block[4] = self;
-      v23 = v12;
+      v22 = v12;
       statusCopy2 = status;
       dispatch_async(delegateQueue, block);
     }
@@ -1521,14 +1512,14 @@ LABEL_8:
 
   else
   {
-    v21 = self->_log;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v20 = self->_log;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v26 = "[UARPHIDUpdater _firmwareStagingComplete:assetID:withStatus:]";
-      v27 = 2112;
-      v28 = completeCopy;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "%s: Unknown UARPAccessory %@, dropping it", buf, 0x16u);
+      v25 = "[UARPHIDUpdater _firmwareStagingComplete:assetID:withStatus:]";
+      v26 = 2112;
+      v27 = completeCopy;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%s: Unknown UARPAccessory %@, dropping it", buf, 0x16u);
     }
   }
 }
@@ -1676,12 +1667,12 @@ LABEL_19:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v50 = "[UARPHIDUpdater _assetSolicitationComplete:assetID:withStatus:]";
+    v48 = "[UARPHIDUpdater _assetSolicitationComplete:assetID:withStatus:]";
+    v49 = 2112;
+    v50 = completeCopy;
     v51 = 2112;
-    v52 = completeCopy;
-    v53 = 2112;
-    v54 = dCopy;
-    v55 = 2048;
+    v52 = dCopy;
+    v53 = 2048;
     statusCopy = status;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, assetID=%@, status=%lu", buf, 0x2Au);
   }
@@ -1727,7 +1718,6 @@ LABEL_19:
       }
     }
 
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
@@ -1736,53 +1726,52 @@ LABEL_19:
       block[2] = sub_100006880;
       block[3] = &unk_10002C6D8;
       block[4] = self;
-      v47 = v11;
+      v45 = v11;
       statusCopy2 = status;
       dispatch_async(delegateQueue, block);
     }
 
-    v36 = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
-      v37 = self->_delegateQueue;
-      v42[0] = _NSConcreteStackBlock;
-      v42[1] = 3221225472;
-      v42[2] = sub_1000068E0;
-      v42[3] = &unk_10002C700;
-      v42[4] = self;
-      v43 = v11;
-      v44 = dCopy;
+      v35 = self->_delegateQueue;
+      v40[0] = _NSConcreteStackBlock;
+      v40[1] = 3221225472;
+      v40[2] = sub_1000068E0;
+      v40[3] = &unk_10002C700;
+      v40[4] = self;
+      v41 = v11;
+      v42 = dCopy;
       statusCopy3 = status;
-      dispatch_async(v37, v42);
+      dispatch_async(v35, v40);
     }
 
     pendingAssets = [completeCopy pendingAssets];
-    v39 = [pendingAssets count];
+    v37 = [pendingAssets count];
 
-    if (!v39 && !self->_unregisterOnComplete)
+    if (!v37 && !self->_unregisterOnComplete)
     {
-      v40 = self->_log;
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      v38 = self->_log;
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v50 = "[UARPHIDUpdater _assetSolicitationComplete:assetID:withStatus:]";
-        v51 = 2112;
-        v52 = completeCopy;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "%s: Configured to not unregister upon completion for UARPAccessory %@", buf, 0x16u);
+        v48 = "[UARPHIDUpdater _assetSolicitationComplete:assetID:withStatus:]";
+        v49 = 2112;
+        v50 = completeCopy;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "%s: Configured to not unregister upon completion for UARPAccessory %@", buf, 0x16u);
       }
     }
   }
 
   else
   {
-    v41 = self->_log;
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    v39 = self->_log;
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v50 = "[UARPHIDUpdater _assetSolicitationComplete:assetID:withStatus:]";
-      v51 = 2112;
-      v52 = completeCopy;
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "%s: Unknown UARPAccessory %@, dropping it", buf, 0x16u);
+      v48 = "[UARPHIDUpdater _assetSolicitationComplete:assetID:withStatus:]";
+      v49 = 2112;
+      v50 = completeCopy;
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "%s: Unknown UARPAccessory %@, dropping it", buf, 0x16u);
     }
   }
 }
@@ -1814,23 +1803,22 @@ LABEL_19:
   {
     v8 = @"NO";
     *buf = 136315650;
-    v17 = "[UARPHIDUpdater _accessoryTransportNeeded:isNeeded:]";
-    v18 = 2112;
-    v19 = neededCopy;
+    v16 = "[UARPHIDUpdater _accessoryTransportNeeded:isNeeded:]";
+    v17 = 2112;
+    v18 = neededCopy;
     if (isNeededCopy)
     {
       v8 = @"YES";
     }
 
-    v20 = 2112;
-    v21 = v8;
+    v19 = 2112;
+    v20 = v8;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, isNeeded=%@", buf, 0x20u);
   }
 
   v9 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:neededCopy];
   if (v9)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
@@ -1839,22 +1827,22 @@ LABEL_19:
       block[2] = sub_100006C04;
       block[3] = &unk_10002C728;
       block[4] = self;
-      v14 = v9;
-      v15 = isNeededCopy;
+      v13 = v9;
+      v14 = isNeededCopy;
       dispatch_async(delegateQueue, block);
     }
   }
 
   else
   {
-    v12 = self->_log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = self->_log;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v17 = "[UARPHIDUpdater _accessoryTransportNeeded:isNeeded:]";
-      v18 = 2112;
-      v19 = neededCopy;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s: Unknown UARPAccessory %@, dropping it", buf, 0x16u);
+      v16 = "[UARPHIDUpdater _accessoryTransportNeeded:isNeeded:]";
+      v17 = 2112;
+      v18 = neededCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s: Unknown UARPAccessory %@, dropping it", buf, 0x16u);
     }
   }
 }
@@ -1882,18 +1870,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100006E4C;
-      v14[3] = &unk_10002C548;
-      v14[4] = self;
-      v15 = v11;
-      v16 = manufacturerCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100006E4C;
+      v13[3] = &unk_10002C548;
+      v13[4] = self;
+      v14 = v11;
+      v15 = manufacturerCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -1931,18 +1919,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_1000070D0;
-      v14[3] = &unk_10002C548;
-      v14[4] = self;
-      v15 = v11;
-      v16 = nameCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_1000070D0;
+      v13[3] = &unk_10002C548;
+      v13[4] = self;
+      v14 = v11;
+      v15 = nameCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -1980,18 +1968,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100007354;
-      v14[3] = &unk_10002C548;
-      v14[4] = self;
-      v15 = v11;
-      v16 = versionCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100007354;
+      v13[3] = &unk_10002C548;
+      v13[4] = self;
+      v14 = v11;
+      v15 = versionCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -2029,18 +2017,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_1000075D8;
-      v14[3] = &unk_10002C548;
-      v14[4] = self;
-      v15 = v11;
-      v16 = versionCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_1000075D8;
+      v13[3] = &unk_10002C548;
+      v13[4] = self;
+      v14 = v11;
+      v15 = versionCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -2076,25 +2064,18 @@ LABEL_19:
   errorCopy = error;
   v10 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:accessory];
   v11 = v10;
-  if (v10)
+  if (v10 && [v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    if ([v10 goldrestoreQueryInProgress])
-    {
-      goldRestoreDelegate = self->_goldRestoreDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        delegateQueue = self->_delegateQueue;
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_100007848;
-        v14[3] = &unk_10002C548;
-        v14[4] = self;
-        v15 = v11;
-        v16 = statsCopy;
-        v17 = errorCopy;
-        dispatch_async(delegateQueue, v14);
-      }
-    }
+    delegateQueue = self->_delegateQueue;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100007848;
+    v13[3] = &unk_10002C548;
+    v13[4] = self;
+    v14 = v11;
+    v15 = statsCopy;
+    v16 = errorCopy;
+    dispatch_async(delegateQueue, v13);
   }
 }
 
@@ -2126,18 +2107,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100007ACC;
-      v14[3] = &unk_10002C548;
-      v14[4] = self;
-      v15 = v11;
-      v16 = versionCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100007ACC;
+      v13[3] = &unk_10002C548;
+      v13[4] = self;
+      v14 = v11;
+      v15 = versionCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -2175,18 +2156,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100007D50;
-      v14[3] = &unk_10002C548;
-      v14[4] = self;
-      v15 = v11;
-      v16 = numberCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100007D50;
+      v13[3] = &unk_10002C548;
+      v13[4] = self;
+      v14 = v11;
+      v15 = numberCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -2224,18 +2205,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_100008040;
-      v18[3] = &unk_10002C548;
-      v18[4] = self;
-      v19 = v11;
-      v20 = numberCopy;
-      v21 = errorCopy;
-      dispatch_async(delegateQueue, v18);
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100008040;
+      v17[3] = &unk_10002C548;
+      v17[4] = self;
+      v18 = v11;
+      v19 = numberCopy;
+      v20 = errorCopy;
+      dispatch_async(delegateQueue, v17);
     }
 
     else
@@ -2244,9 +2225,9 @@ LABEL_19:
       {
         uarpAccessoryID = [v11 uarpAccessoryID];
         modelNumber = [uarpAccessoryID modelNumber];
-        v16 = [numberCopy isEqualToString:modelNumber];
+        v15 = [numberCopy isEqualToString:modelNumber];
 
-        if ((v16 & 1) == 0)
+        if ((v15 & 1) == 0)
         {
           log = self->_log;
           if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
@@ -2289,18 +2270,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_1000082C4;
-      v14[3] = &unk_10002C548;
-      v14[4] = self;
-      v15 = v11;
-      v16 = typeCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_1000082C4;
+      v13[3] = &unk_10002C548;
+      v13[4] = self;
+      v14 = v11;
+      v15 = typeCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -2338,18 +2319,18 @@ LABEL_19:
   v11 = v10;
   if (v10)
   {
-    if ([v10 goldrestoreQueryInProgress] && (goldRestoreDelegate = self->_goldRestoreDelegate, (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       delegateQueue = self->_delegateQueue;
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100008548;
-      v14[3] = &unk_10002C548;
-      v14[4] = self;
-      v15 = v11;
-      v16 = nameCopy;
-      v17 = errorCopy;
-      dispatch_async(delegateQueue, v14);
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100008548;
+      v13[3] = &unk_10002C548;
+      v13[4] = self;
+      v14 = v11;
+      v15 = nameCopy;
+      v16 = errorCopy;
+      dispatch_async(delegateQueue, v13);
     }
 
     else
@@ -2661,25 +2642,18 @@ LABEL_19:
   errorCopy = error;
   v10 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:d];
   v11 = v10;
-  if (v10)
+  if (v10 && [v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    if ([v10 goldrestoreQueryInProgress])
-    {
-      goldRestoreDelegate = self->_goldRestoreDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        delegateQueue = self->_delegateQueue;
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10000A810;
-        v14[3] = &unk_10002C548;
-        v14[4] = self;
-        v15 = v11;
-        v16 = numberCopy;
-        v17 = errorCopy;
-        dispatch_async(delegateQueue, v14);
-      }
-    }
+    delegateQueue = self->_delegateQueue;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10000A810;
+    v13[3] = &unk_10002C548;
+    v13[4] = self;
+    v14 = v11;
+    v15 = numberCopy;
+    v16 = errorCopy;
+    dispatch_async(delegateQueue, v13);
   }
 }
 
@@ -2709,25 +2683,18 @@ LABEL_19:
   errorCopy = error;
   v10 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:d];
   v11 = v10;
-  if (v10)
+  if (v10 && [v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    if ([v10 goldrestoreQueryInProgress])
-    {
-      goldRestoreDelegate = self->_goldRestoreDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        delegateQueue = self->_delegateQueue;
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10000AA80;
-        v14[3] = &unk_10002C548;
-        v14[4] = self;
-        v15 = v11;
-        v16 = typeCopy;
-        v17 = errorCopy;
-        dispatch_async(delegateQueue, v14);
-      }
-    }
+    delegateQueue = self->_delegateQueue;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10000AA80;
+    v13[3] = &unk_10002C548;
+    v13[4] = self;
+    v14 = v11;
+    v15 = typeCopy;
+    v16 = errorCopy;
+    dispatch_async(delegateQueue, v13);
   }
 }
 
@@ -2757,25 +2724,18 @@ LABEL_19:
   errorCopy = error;
   v10 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:d];
   v11 = v10;
-  if (v10)
+  if (v10 && [v10 goldrestoreQueryInProgress] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    if ([v10 goldrestoreQueryInProgress])
-    {
-      goldRestoreDelegate = self->_goldRestoreDelegate;
-      if (objc_opt_respondsToSelector())
-      {
-        delegateQueue = self->_delegateQueue;
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10000ACF0;
-        v14[3] = &unk_10002C548;
-        v14[4] = self;
-        v15 = v11;
-        v16 = nameCopy;
-        v17 = errorCopy;
-        dispatch_async(delegateQueue, v14);
-      }
-    }
+    delegateQueue = self->_delegateQueue;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10000ACF0;
+    v13[3] = &unk_10002C548;
+    v13[4] = self;
+    v14 = v11;
+    v15 = nameCopy;
+    v16 = errorCopy;
+    dispatch_async(delegateQueue, v13);
   }
 }
 
@@ -2811,13 +2771,13 @@ LABEL_19:
     if (v14)
     {
       *buf = 136315906;
-      v26 = "[UARPHIDUpdater _firmwareStagingProgress:assetID:bytesSent:bytesTotal:]";
-      v27 = 2112;
-      v28 = progressCopy;
-      v29 = 2112;
-      v30 = dCopy;
-      v31 = 2048;
-      v32 = ((sent / total) * 100.0);
+      v25 = "[UARPHIDUpdater _firmwareStagingProgress:assetID:bytesSent:bytesTotal:]";
+      v26 = 2112;
+      v27 = progressCopy;
+      v28 = 2112;
+      v29 = dCopy;
+      v30 = 2048;
+      v31 = ((sent / total) * 100.0);
       _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: accessory=%@, assetID=%@, progress=%f", buf, 0x2Au);
     }
 
@@ -2832,28 +2792,27 @@ LABEL_19:
       [(UARPHIDUpdater *)self qPostStagingStatusNotificationForAccessory:uarpAccessory status:1];
     }
 
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_10000B0DC;
-      v21[3] = &unk_10002C778;
-      v21[4] = self;
-      v22 = v12;
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_10000B0DC;
+      v20[3] = &unk_10002C778;
+      v20[4] = self;
+      v21 = v12;
       sentCopy = sent;
       totalCopy = total;
-      dispatch_async(delegateQueue, v21);
+      dispatch_async(delegateQueue, v20);
     }
   }
 
   else if (v14)
   {
     *buf = 136315394;
-    v26 = "[UARPHIDUpdater _firmwareStagingProgress:assetID:bytesSent:bytesTotal:]";
-    v27 = 2112;
-    v28 = progressCopy;
+    v25 = "[UARPHIDUpdater _firmwareStagingProgress:assetID:bytesSent:bytesTotal:]";
+    v26 = 2112;
+    v27 = progressCopy;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: Unknown UARPAccessory %@, dropping it", buf, 0x16u);
   }
 }
@@ -2970,27 +2929,23 @@ LABEL_19:
 {
   completeCopy = complete;
   v7 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:completeCopy];
-  if (v7)
+  if (v7 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
-    if (objc_opt_respondsToSelector())
-    {
-      delegateQueue = self->_delegateQueue;
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_10000B808;
-      block[3] = &unk_10002C6D8;
-      block[4] = self;
-      v15 = v7;
-      statusCopy = status;
-      dispatch_async(delegateQueue, block);
-    }
+    delegateQueue = self->_delegateQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10000B808;
+    block[3] = &unk_10002C6D8;
+    block[4] = self;
+    v14 = v7;
+    statusCopy = status;
+    dispatch_async(delegateQueue, block);
   }
 
   pendingAssets = [completeCopy pendingAssets];
-  v11 = [pendingAssets count];
+  v10 = [pendingAssets count];
 
-  if (!v11)
+  if (!v10)
   {
     [v7 setUpdateInProgress:0];
     uarpAccessory = [v7 uarpAccessory];
@@ -3019,21 +2974,17 @@ LABEL_19:
 - (void)_stagedFirmwareRescindComplete:(id)complete withStatus:(unint64_t)status
 {
   v6 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:complete];
-  if (v6)
+  if (v6 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    goldRestoreDelegate = self->_goldRestoreDelegate;
-    if (objc_opt_respondsToSelector())
-    {
-      delegateQueue = self->_delegateQueue;
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_10000B9E4;
-      block[3] = &unk_10002C6D8;
-      block[4] = self;
-      v10 = v6;
-      statusCopy = status;
-      dispatch_async(delegateQueue, block);
-    }
+    delegateQueue = self->_delegateQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10000B9E4;
+    block[3] = &unk_10002C6D8;
+    block[4] = self;
+    v9 = v6;
+    statusCopy = status;
+    dispatch_async(delegateQueue, block);
   }
 }
 
@@ -3872,25 +3823,24 @@ LABEL_11:
     uarpAccessory3 = [v5 uarpAccessory];
     [(UARPController *)uarpController removeAccessory:uarpAccessory3];
 
-    goldRestoreDelegate = self->_goldRestoreDelegate;
     if (objc_opt_respondsToSelector())
     {
       delegateQueue = self->_delegateQueue;
-      v13 = _NSConcreteStackBlock;
-      v14 = 3221225472;
-      v15 = sub_10000DA30;
-      v16 = &unk_10002C598;
+      v12 = _NSConcreteStackBlock;
+      v13 = 3221225472;
+      v14 = sub_10000DA30;
+      v15 = &unk_10002C598;
       selfCopy = self;
-      v18 = v5;
-      dispatch_async(delegateQueue, &v13);
+      v17 = v5;
+      dispatch_async(delegateQueue, &v12);
     }
 
-    [(UARPHIDUpdater *)self unRegisterHIDCallbacksForUARPHIDAccessory:v5, v13, v14, v15, v16, selfCopy];
+    [(UARPHIDUpdater *)self unRegisterHIDCallbacksForUARPHIDAccessory:v5, v12, v13, v14, v15, selfCopy];
     [(NSMutableSet *)self->_uarpHIDAccessories removeObject:v5];
     [v5 handleHIDDisconnect];
     if (![(NSMutableSet *)self->_uarpHIDAccessories count])
     {
-      v12 = self->_uarpController;
+      v11 = self->_uarpController;
       self->_uarpController = 0;
     }
   }
@@ -4139,81 +4089,80 @@ LABEL_9:
     goto LABEL_13;
   }
 
-  log = self->_log;
   if (sub_10000E830())
   {
     sub_10000E7A0();
-    v48 = v9;
+    v46 = v9;
     sub_10000E7DC();
-    _os_log_impl(v14, v15, v16, v17, v18, 0x16u);
+    _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
   }
 
-  v19 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:accessoryCopy];
-  if (v19)
+  v18 = [(UARPHIDUpdater *)self getUARPHIDAccessoryForUARPAccessory:accessoryCopy];
+  if (v18)
   {
-    v12 = v19;
-    if ([v19 hidDeviceScheduled])
+    v12 = v18;
+    if ([v18 hidDeviceScheduled])
     {
-      v44 = [v9 length];
+      v42 = [v9 length];
       v10 = objc_alloc_init(NSMutableData);
       transport = [v12 transport];
-      v21 = [transport containsString:@"Bluetooth"];
+      v20 = [transport containsString:@"Bluetooth"];
 
-      if (v21)
+      if (v20)
       {
         buf[0] = [v12 hidReportID];
         [v10 appendBytes:buf length:1];
       }
 
-      v43 = (self->_sessionID << 14) | 2;
-      [v10 appendBytes:&v43 length:2];
+      v41 = (self->_sessionID << 14) | 2;
+      [v10 appendBytes:&v41 length:2];
       [v12 setHidMessageID:{(objc_msgSend(v12, "hidMessageID") + 1)}];
       hidMessageID = [v12 hidMessageID];
       [v10 appendBytes:&hidMessageID length:2];
-      [v10 appendBytes:&v44 length:2];
+      [v10 appendBytes:&v42 length:2];
       [v10 appendBytes:objc_msgSend(v9 length:{"bytes"), objc_msgSend(v9, "length")}];
-      v22 = [v10 length];
+      v21 = [v10 length];
       hidReportSizeOutput = [v12 hidReportSizeOutput];
-      v24 = self->_log;
-      v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
-      if (v22 > hidReportSizeOutput)
+      log = self->_log;
+      v24 = os_log_type_enabled(log, OS_LOG_TYPE_INFO);
+      if (v21 > hidReportSizeOutput)
       {
-        if (v25)
+        if (v24)
         {
-          v37 = v24;
-          v38 = [v10 length];
+          v35 = log;
+          v36 = [v10 length];
           hidReportSizeOutput2 = [v12 hidReportSizeOutput];
           *buf = 134218240;
-          v46 = v38;
-          v47 = 1024;
-          LODWORD(v48) = hidReportSizeOutput2;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "ERROR: Size of outputReport %lu > HID Output Report Size from accessory descriptor %d", buf, 0x12u);
+          v44 = v36;
+          v45 = 1024;
+          LODWORD(v46) = hidReportSizeOutput2;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "ERROR: Size of outputReport %lu > HID Output Report Size from accessory descriptor %d", buf, 0x12u);
         }
       }
 
       else
       {
-        if (v25)
+        if (v24)
         {
           sub_10000E7A0();
-          v48 = v10;
-          sub_10000E7EC(&_mh_execute_header, v24, v26, "%s: Sending hidReport %@ to accessory", buf);
+          v46 = v10;
+          sub_10000E7EC(&_mh_execute_header, log, v25, "%s: Sending hidReport %@ to accessory", buf);
         }
 
         v11 = 1;
-        v27 = IOHIDDeviceSetReport([v12 hidDeviceRef], kIOHIDReportTypeOutput, objc_msgSend(v12, "hidReportID"), objc_msgSend(v10, "bytes"), objc_msgSend(v10, "length"));
-        if (!v27)
+        v26 = IOHIDDeviceSetReport([v12 hidDeviceRef], kIOHIDReportTypeOutput, objc_msgSend(v12, "hidReportID"), objc_msgSend(v10, "bytes"), objc_msgSend(v10, "length"));
+        if (!v26)
         {
           goto LABEL_13;
         }
 
-        v40 = v27;
-        v41 = self->_log;
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+        v38 = v26;
+        v39 = self->_log;
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          LODWORD(v46) = v40;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Failed to send HID Report status = 0x%x\n", buf, 8u);
+          LODWORD(v44) = v38;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Failed to send HID Report status = 0x%x\n", buf, 8u);
         }
       }
 
@@ -4221,12 +4170,12 @@ LABEL_9:
       goto LABEL_13;
     }
 
-    v35 = self->_log;
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    v33 = self->_log;
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
       sub_10000E7A0();
-      v48 = accessoryCopy;
-      sub_10000E7EC(&_mh_execute_header, v35, v36, "%s: Unregistered UARPAccessory %@, dropping it", buf);
+      v46 = accessoryCopy;
+      sub_10000E7EC(&_mh_execute_header, v33, v34, "%s: Unregistered UARPAccessory %@, dropping it", buf);
     }
 
     v11 = 0;
@@ -4235,13 +4184,12 @@ LABEL_9:
 
   else
   {
-    v29 = self->_log;
     if (sub_10000E830())
     {
       sub_10000E7A0();
-      v48 = accessoryCopy;
+      v46 = accessoryCopy;
       sub_10000E7DC();
-      _os_log_impl(v30, v31, v32, v33, v34, 0x16u);
+      _os_log_impl(v28, v29, v30, v31, v32, 0x16u);
     }
 
     v11 = 0;
@@ -4270,20 +4218,16 @@ LABEL_13:
       {
         uarpController = self->_uarpController;
         uarpAccessory2 = [v8 uarpAccessory];
-        v19 = 0;
-        v12 = [(UARPController *)uarpController recvDataFromAccessory:uarpAccessory2 data:messageCopy error:&v19];
-        uarpAccessory = v19;
+        v18 = 0;
+        v12 = [(UARPController *)uarpController recvDataFromAccessory:uarpAccessory2 data:messageCopy error:&v18];
+        uarpAccessory = v18;
 
-        if ((v12 & 1) == 0)
+        if ((v12 & 1) == 0 && sub_10000E830())
         {
-          log = self->_log;
-          if (sub_10000E830())
-          {
-            v20 = 138412290;
-            v21 = uarpAccessory;
-            sub_10000E7DC();
-            _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
-          }
+          v19 = 138412290;
+          v20 = uarpAccessory;
+          sub_10000E7DC();
+          _os_log_impl(v13, v14, v15, v16, v17, 0xCu);
         }
       }
     }

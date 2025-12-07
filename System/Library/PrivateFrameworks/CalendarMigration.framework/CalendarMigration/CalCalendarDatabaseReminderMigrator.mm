@@ -377,37 +377,33 @@ LABEL_17:
 
 void __108__CalCalendarDatabaseReminderMigrator__performMigrationForCalendarDatabase_inCalendarDirectory_withContext___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v15 = 0;
-  v6 = *(a1 + 32);
-  v7 = objc_opt_class();
-  v8 = *(a1 + 40);
-  v14 = 0;
-  v9 = [v7 _preCheckStoreForPossibleMigrationDisablingRemindersIfNeeded:a3 withContext:v8 accountType:&v15 identifier:&v14];
-  v10 = v14;
-  if (v9)
+  v13 = 0;
+  v6 = objc_opt_class();
+  v7 = *(a1 + 40);
+  v12 = 0;
+  v8 = [v6 _preCheckStoreForPossibleMigrationDisablingRemindersIfNeeded:a3 withContext:v7 accountType:&v13 identifier:&v12];
+  v9 = v12;
+  if (v8)
   {
     [*(a1 + 48) addObject:v5];
-    if (v15 != 1)
+    if (v13 != 1)
     {
-      v16[0] = @"identifier";
-      v16[1] = @"type";
-      v17[0] = v10;
-      v11 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-      v17[1] = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+      v14[0] = @"identifier";
+      v14[1] = @"type";
+      v15[0] = v9;
+      v10 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      v15[1] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
-      [*(a1 + 56) addObject:v12];
+      [*(a1 + 56) addObject:v11];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __108__CalCalendarDatabaseReminderMigrator__performMigrationForCalendarDatabase_inCalendarDirectory_withContext___block_invoke_2(void *a1, uint64_t a2, uint64_t a3)
+void *__108__CalCalendarDatabaseReminderMigrator__performMigrationForCalendarDatabase_inCalendarDirectory_withContext___block_invoke_2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = a1[4];
   result = [objc_opt_class() _attemptMigrationForStore:a3 withContext:a1[5]];
   *(*(a1[6] + 8) + 24) |= result;
   return result;
@@ -415,7 +411,7 @@ uint64_t __108__CalCalendarDatabaseReminderMigrator__performMigrationForCalendar
 
 + (BOOL)_preCheckStoreForPossibleMigrationDisablingRemindersIfNeeded:(void *)needed withContext:(id)context accountType:(int64_t *)type identifier:(id *)identifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   *type = 0;
   *identifier = 0;
@@ -426,11 +422,11 @@ uint64_t __108__CalCalendarDatabaseReminderMigrator__performMigrationForCalendar
     v20 = +[CalMigrationLog reminders];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138543362;
-      v25 = v11;
+      v23 = 138543362;
+      v24 = v11;
       v21 = "Skipping store %{public}@ with unknown account type";
 LABEL_11:
-      _os_log_impl(&dword_2428EA000, v20, OS_LOG_TYPE_DEFAULT, v21, &v24, 0xCu);
+      _os_log_impl(&dword_2428EA000, v20, OS_LOG_TYPE_DEFAULT, v21, &v23, 0xCu);
     }
 
 LABEL_12:
@@ -447,8 +443,8 @@ LABEL_13:
     v20 = +[CalMigrationLog reminders];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138543362;
-      v25 = v11;
+      v23 = 138543362;
+      v24 = v11;
       v21 = "Skipping store %{public}@ because it is disabled";
       goto LABEL_11;
     }
@@ -464,9 +460,9 @@ LABEL_13:
   {
     if (v16)
     {
-      v24 = 138543362;
-      v25 = v11;
-      _os_log_impl(&dword_2428EA000, v15, OS_LOG_TYPE_DEFAULT, "Skipping store %{public}@ because it does not support reminders", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v11;
+      _os_log_impl(&dword_2428EA000, v15, OS_LOG_TYPE_DEFAULT, "Skipping store %{public}@ because it does not support reminders", &v23, 0xCu);
     }
 
     goto LABEL_13;
@@ -475,11 +471,11 @@ LABEL_13:
   if (v16)
   {
     v17 = [MEMORY[0x277CCABB0] numberWithInteger:v13];
-    v24 = 138543618;
-    v25 = v11;
-    v26 = 2114;
-    v27 = v17;
-    _os_log_impl(&dword_2428EA000, v15, OS_LOG_TYPE_DEFAULT, "Including store %{public}@ with type %{public}@", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v11;
+    v25 = 2114;
+    v26 = v17;
+    _os_log_impl(&dword_2428EA000, v15, OS_LOG_TYPE_DEFAULT, "Including store %{public}@ with type %{public}@", &v23, 0x16u);
   }
 
   *type = v13;
@@ -488,7 +484,6 @@ LABEL_13:
   v19 = 1;
 LABEL_14:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -509,7 +504,7 @@ LABEL_14:
 
 + (id)_attemptAccountMigrationForStore:(void *)store withContext:(id)context accountType:(int64_t *)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   *type = 0;
   v9 = [self _identifierForStore:store];
@@ -536,9 +531,9 @@ LABEL_14:
   {
     if (v15)
     {
-      v18 = 138543362;
-      v19 = v9;
-      _os_log_impl(&dword_2428EA000, v14, OS_LOG_TYPE_INFO, "Adding %{public}@ to list of stores to disable reminders because has both data classes enabled", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v9;
+      _os_log_impl(&dword_2428EA000, v14, OS_LOG_TYPE_INFO, "Adding %{public}@ to list of stores to disable reminders because has both data classes enabled", &v17, 0xCu);
     }
 
     [contextCopy addStoreToDisableReminders:store];
@@ -548,15 +543,13 @@ LABEL_14:
   {
     if (v15)
     {
-      v18 = 138543362;
-      v19 = v9;
-      _os_log_impl(&dword_2428EA000, v14, OS_LOG_TYPE_INFO, "Adding %{public}@ to list of stores to delete because only reminders are enabled", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v9;
+      _os_log_impl(&dword_2428EA000, v14, OS_LOG_TYPE_INFO, "Adding %{public}@ to list of stores to delete because only reminders are enabled", &v17, 0xCu);
     }
 
     [contextCopy addStoreToDelete:store];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return localAccountChangeItem;
 }
@@ -608,7 +601,7 @@ LABEL_14:
   }
 }
 
-uint64_t __110__CalCalendarDatabaseReminderMigrator__migrateReminderListsInStore_withContext_accountChangeItem_accountType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__110__CalCalendarDatabaseReminderMigrator__migrateReminderListsInStore_withContext_accountChangeItem_accountType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 48) _shouldMigrateCalendarAsReminderList:?];
   if (result)
@@ -626,7 +619,7 @@ uint64_t __110__CalCalendarDatabaseReminderMigrator__migrateReminderListsInStore
 
 + (BOOL)_shouldMigrateCalendarAsReminderList:(void *)list
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (CalCalendarCanContainEntityType())
   {
     if (CalCalendarIsHidden())
@@ -635,11 +628,11 @@ uint64_t __110__CalCalendarDatabaseReminderMigrator__migrateReminderListsInStore
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = [self _identifierForCalendar:list];
-        v10 = 138543362;
-        v11 = v6;
+        v9 = 138543362;
+        v10 = v6;
         v7 = "Skipping calendar %{public}@ because it is hidden";
 LABEL_7:
-        _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, v7, &v10, 0xCu);
+        _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, v7, &v9, 0xCu);
       }
     }
 
@@ -654,8 +647,8 @@ LABEL_7:
         }
 
         v6 = [self _identifierForCalendar:list];
-        v10 = 138543362;
-        v11 = v6;
+        v9 = 138543362;
+        v10 = v6;
         v7 = "Skipping calendar %{public}@ because it is an inbox calendar";
         goto LABEL_7;
       }
@@ -669,8 +662,8 @@ LABEL_7:
         }
 
         v6 = [self _identifierForCalendar:list];
-        v10 = 138543362;
-        v11 = v6;
+        v9 = 138543362;
+        v10 = v6;
         v7 = "Skipping calendar %{public}@ because it is a notification collection";
         goto LABEL_7;
       }
@@ -684,24 +677,23 @@ LABEL_7:
         }
 
         v6 = [self _identifierForCalendar:list];
-        v10 = 138543362;
-        v11 = v6;
+        v9 = 138543362;
+        v10 = v6;
         v7 = "Skipping calendar %{public}@ because it is a sharing invitation";
         goto LABEL_7;
       }
 
       if (!CalCalendarIsSubscribed())
       {
-        result = 1;
-        goto LABEL_9;
+        return 1;
       }
 
       v5 = +[CalMigrationLog reminders];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = [self _identifierForCalendar:list];
-        v10 = 138543362;
-        v11 = v6;
+        v9 = 138543362;
+        v10 = v6;
         v7 = "Skipping calendar %{public}@ because it is a subscribed calendar";
         goto LABEL_7;
       }
@@ -714,8 +706,8 @@ LABEL_7:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = [self _identifierForCalendar:list];
-      v10 = 138543362;
-      v11 = v6;
+      v9 = 138543362;
+      v10 = v6;
       v7 = "Skipping calendar %{public}@ because it doesn't support reminders";
       goto LABEL_7;
     }
@@ -723,15 +715,12 @@ LABEL_7:
 
 LABEL_8:
 
-  result = 0;
-LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 + (void)_visitCalendarForMigrationAsReminderList:(void *)list withContext:(id)context accountChangeItem:(id)item accountType:(int64_t)type
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   [self _migrateCalendarAsReminderList:list withContext:contextCopy accountChangeItem:item accountType:type];
   v11 = [self _identifierForCalendar:list];
@@ -742,9 +731,9 @@ LABEL_9:
   {
     if (v13)
     {
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_2428EA000, v12, OS_LOG_TYPE_INFO, "Adding calendar %{public}@ to list of calendars to disable reminders because it supports both entity types", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_2428EA000, v12, OS_LOG_TYPE_INFO, "Adding calendar %{public}@ to list of calendars to disable reminders because it supports both entity types", &v14, 0xCu);
     }
 
     [contextCopy addCalendarToDisableReminders:list];
@@ -754,20 +743,18 @@ LABEL_9:
   {
     if (v13)
     {
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_2428EA000, v12, OS_LOG_TYPE_INFO, "Adding calendar %{public}@ to list of calendars to delete because it only supports reminders", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_2428EA000, v12, OS_LOG_TYPE_INFO, "Adding calendar %{public}@ to list of calendars to delete because it only supports reminders", &v14, 0xCu);
     }
 
     [contextCopy addCalendarToDelete:list];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_migrateCalendarAsReminderList:(void *)list withContext:(id)context accountChangeItem:(id)item accountType:(int64_t)type
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   itemCopy = item;
   saveRequest = [contextCopy saveRequest];
@@ -782,24 +769,24 @@ LABEL_9:
   v12 = [self _colorStringForCalendar:list];
   if (v12)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2050000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2050000000;
     v13 = getREMColorClass_softClass;
-    v33 = getREMColorClass_softClass;
+    v32 = getREMColorClass_softClass;
     if (!getREMColorClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getREMColorClass_block_invoke;
-      v35 = &unk_278D6D390;
-      v36 = &v30;
+      v34 = &unk_278D6D390;
+      v35 = &v29;
       __getREMColorClass_block_invoke(buf);
-      v13 = v31[3];
+      v13 = v30[3];
     }
 
     v14 = v13;
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
     v15 = [CalReminderMigrationReminderKitUtils hexColorStringByRemovingAlphaFromHexString:v12];
     v16 = [v13 colorWithHexString:v15];
     [v10 setColor:v16];
@@ -817,7 +804,7 @@ LABEL_9:
     *&buf[12] = 2114;
     *&buf[14] = objectID;
     *&buf[22] = 1024;
-    LODWORD(v35) = DisplayOrder;
+    LODWORD(v34) = DisplayOrder;
     _os_log_impl(&dword_2428EA000, v19, OS_LOG_TYPE_DEFAULT, "Recording migrated list %@ (%{public}@) with old order %i", buf, 0x1Cu);
   }
 
@@ -837,8 +824,6 @@ LABEL_9:
   }
 
   [self _migrateRemindersInCalendar:list withContext:contextCopy listChangeItem:v10];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_migrateRemindersInCalendar:(void *)calendar withContext:(id)context listChangeItem:(id)item
@@ -875,18 +860,18 @@ LABEL_9:
 
 + (void)_migrateReminder:(void *)reminder withContext:(id)context listChangeItem:(id)item
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v24[0] = reminder;
+  v23[0] = reminder;
   v9 = MEMORY[0x277CBEA60];
   itemCopy = item;
-  v11 = [v9 arrayWithObjects:v24 count:1];
+  v11 = [v9 arrayWithObjects:v23 count:1];
   v12 = CalCreateiCalendarDataFromCalEntities();
   saveRequest = [contextCopy saveRequest];
-  v23 = 0;
-  v14 = [saveRequest importRemindersFromICSData:v12 insertIntoListChangeItem:itemCopy error:&v23];
+  v22 = 0;
+  v14 = [saveRequest importRemindersFromICSData:v12 insertIntoListChangeItem:itemCopy error:&v22];
 
-  v15 = v23;
+  v15 = v22;
   v16 = [self _identifierForReminder:reminder];
   if (!v14)
   {
@@ -916,8 +901,6 @@ LABEL_9:
 LABEL_9:
     [v19 recordMigrationFailureWithDescription:v18 inStage:4 underlyingError:v20 relatedTo:v16];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_removeRemindersDataAfterSuccessfulMigrationFromDatabase:(CalDatabase *)database withContext:(id)context
@@ -1033,86 +1016,82 @@ LABEL_14:
 
 uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuccessfulMigrationFromDatabase_withContext___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = +[CalMigrationLog reminders];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [*(a1 + 40) _identifierForStore:a3];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Setting WasMigrated on store %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Setting WasMigrated on store %{public}@", &v8, 0xCu);
   }
 
   result = CalStoreSetWasMigrated();
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuccessfulMigrationFromDatabase_withContext___block_invoke_44(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = +[CalMigrationLog reminders];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [*(a1 + 40) _identifierForStore:a3];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Deleting store %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Deleting store %{public}@", &v8, 0xCu);
   }
 
   result = CalRemoveStore();
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuccessfulMigrationFromDatabase_withContext___block_invoke_45(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = +[CalMigrationLog reminders];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [*(a1 + 40) _identifierForCalendar:a3];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Deleting calendar %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Deleting calendar %{public}@", &v8, 0xCu);
   }
 
   result = CalRemoveCalendar();
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuccessfulMigrationFromDatabase_withContext___block_invoke_46(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = +[CalMigrationLog reminders];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [*(a1 + 40) _identifierForStore:a3];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Disabling reminders in store %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Disabling reminders in store %{public}@", &v8, 0xCu);
   }
 
   result = CalStoreSetAllowsTasksPrivate();
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuccessfulMigrationFromDatabase_withContext___block_invoke_47(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = +[CalMigrationLog reminders];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [*(a1 + 40) _identifierForCalendar:a3];
-    v12 = 138543362;
-    v13 = v6;
-    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Disabling reminders in calendar %{public}@", &v12, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Disabling reminders in calendar %{public}@", &v10, 0xCu);
   }
 
   CalCalendarSetCanContainEntityType();
@@ -1120,46 +1099,43 @@ uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuc
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [*(a1 + 40) _identifierForCalendar:a3];
-    v12 = 138543362;
-    v13 = v8;
-    _os_log_impl(&dword_2428EA000, v7, OS_LOG_TYPE_INFO, "Removing existing reminders from calendar %{public}@", &v12, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_2428EA000, v7, OS_LOG_TYPE_INFO, "Removing existing reminders from calendar %{public}@", &v10, 0xCu);
   }
 
-  v9 = *(a1 + 48);
   result = CalDatabaseRemoveAllCalendarItemsWithCalendarAndEntityType();
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuccessfulMigrationFromDatabase_withContext___block_invoke_48(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = +[CalMigrationLog reminders];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [*(a1 + 40) _identifierForCalendar:a3];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Clearing sync token in calendar %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Clearing sync token in calendar %{public}@", &v8, 0xCu);
   }
 
   result = CalCalendarSetSyncToken();
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (void)_setWasMigratedAndClearSyncTokenInAllCalendarsForStore:(void *)store withContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = +[CalMigrationLog reminders];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [self _identifierForStore:store];
     *buf = 138543362;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_2428EA000, v7, OS_LOG_TYPE_INFO, "Adding store %{public}@ to list of stores to set wasMigrated", buf, 0xCu);
   }
 
@@ -1167,14 +1143,14 @@ uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuc
   v9 = CalStoreCopyCalendars();
   if (v9)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __106__CalCalendarDatabaseReminderMigrator__setWasMigratedAndClearSyncTokenInAllCalendarsForStore_withContext___block_invoke;
-    v13[3] = &unk_278D6D558;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __106__CalCalendarDatabaseReminderMigrator__setWasMigratedAndClearSyncTokenInAllCalendarsForStore_withContext___block_invoke;
+    v12[3] = &unk_278D6D558;
     selfCopy = self;
-    v14 = contextCopy;
-    [v9 enumerateCalCalendarRefsUsingBlock:v13];
-    v10 = v14;
+    v13 = contextCopy;
+    [v9 enumerateCalCalendarRefsUsingBlock:v12];
+    v10 = v13;
   }
 
   else
@@ -1188,25 +1164,21 @@ uint64_t __108__CalCalendarDatabaseReminderMigrator__removeRemindersDataAfterSuc
 
     [contextCopy recordMigrationFailureWithDescription:@"Failed to get calendars from store" inStage:1 underlyingError:0 relatedTo:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __106__CalCalendarDatabaseReminderMigrator__setWasMigratedAndClearSyncTokenInAllCalendarsForStore_withContext___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = +[CalMigrationLog reminders];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [*(a1 + 40) _identifierForCalendar:a3];
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Adding calendar %{public}@ to list of calendars to clear sync token", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_INFO, "Adding calendar %{public}@ to list of calendars to clear sync token", &v8, 0xCu);
   }
 
-  result = [*(a1 + 32) addCalendarToClearSyncToken:a3];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) addCalendarToClearSyncToken:a3];
 }
 
 + (id)_identifierForStore:(void *)store
@@ -1257,30 +1229,23 @@ uint64_t __106__CalCalendarDatabaseReminderMigrator__setWasMigratedAndClearSyncT
 
 - (void)_attemptMigrationForDatabase:inCalendarDirectory:withContext:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
-  _os_log_fault_impl(&dword_2428EA000, v0, OS_LOG_TYPE_FAULT, "Exception thrown during migration: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2428EA000, v0, OS_LOG_TYPE_FAULT, "Exception thrown during migration: %@", v1, 0xCu);
 }
 
 - (void)_performPreMigrationTasksInCalendarDirectory:(void *)a1 withContext:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_2428EA000, v2, v3, "Failed to remove existing backup in calendar directory %@. error = %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_2428EA000, v2, v3, "Failed to remove existing backup in calendar directory %@. error = %@", v4, v5, v6, v7);
 }
 
 - (void)_performPreMigrationTasksInCalendarDirectory:(void *)a1 withContext:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_2428EA000, v2, v3, "Failed to back up calendar directory %@. error = %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_2428EA000, v2, v3, "Failed to back up calendar directory %@. error = %@", v4, v5, v6, v7);
 }
 
 - (void)_performMigrationForCalendarDatabase:inCalendarDirectory:withContext:.cold.1()
@@ -1292,38 +1257,31 @@ uint64_t __106__CalCalendarDatabaseReminderMigrator__setWasMigratedAndClearSyncT
 
 + (void)_migrateReminderListsInStore:withContext:accountChangeItem:accountType:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_migrateRemindersInCalendar:withContext:listChangeItem:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_migrateReminder:withContext:listChangeItem:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_migrateReminder:withContext:listChangeItem:.cold.2()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
-  v4 = v0;
-  _os_log_error_impl(&dword_2428EA000, v1, OS_LOG_TYPE_ERROR, "Failed to import ICS data for reminder %{public}@. error = %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_2428EA000, v1, OS_LOG_TYPE_ERROR, "Failed to import ICS data for reminder %{public}@. error = %@", v2, 0x16u);
 }
 
 + (void)_removeRemindersDataAfterSuccessfulMigrationFromDatabase:withContext:.cold.1()

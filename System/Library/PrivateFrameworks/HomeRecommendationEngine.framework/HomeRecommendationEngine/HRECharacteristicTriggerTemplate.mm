@@ -24,7 +24,7 @@
 
 - (id)_subclass_triggerBuilderForRecommendation:(id)recommendation withObjects:(id)objects
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   recommendationCopy = recommendation;
   objectsCopy = objects;
   v8 = objc_alloc_init(HRERecommendationEmptyTriggerBuilderContext);
@@ -38,19 +38,19 @@
   {
     v13 = MEMORY[0x277CBEB98];
     splitCharacteristic2 = [recommendationCopy splitCharacteristic];
-    v26[0] = splitCharacteristic2;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = splitCharacteristic2;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     v16 = [v13 setWithArray:v15];
 
 LABEL_5:
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __90__HRECharacteristicTriggerTemplate__subclass_triggerBuilderForRecommendation_withObjects___block_invoke_4;
-    v23[3] = &unk_2797766A0;
-    v23[4] = self;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __90__HRECharacteristicTriggerTemplate__subclass_triggerBuilderForRecommendation_withObjects___block_invoke_4;
+    v22[3] = &unk_2797766A0;
+    v22[4] = self;
     v17 = v11;
-    v24 = v17;
-    [v16 na_each:v23];
+    v23 = v17;
+    [v16 na_each:v22];
     characteristics = [v17 characteristics];
     v19 = [characteristics count];
 
@@ -70,19 +70,17 @@ LABEL_5:
   if ([(HRECharacteristicTriggerTemplate *)self allowMultipleEventsFeature])
   {
     splitCharacteristic2 = [objectsCopy na_flatMap:&__block_literal_global_1];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __90__HRECharacteristicTriggerTemplate__subclass_triggerBuilderForRecommendation_withObjects___block_invoke_2;
-    v25[3] = &unk_279776320;
-    v25[4] = self;
-    v16 = [splitCharacteristic2 na_filter:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __90__HRECharacteristicTriggerTemplate__subclass_triggerBuilderForRecommendation_withObjects___block_invoke_2;
+    v24[3] = &unk_279776320;
+    v24[4] = self;
+    v16 = [splitCharacteristic2 na_filter:v24];
     goto LABEL_5;
   }
 
   v20 = 0;
 LABEL_9:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

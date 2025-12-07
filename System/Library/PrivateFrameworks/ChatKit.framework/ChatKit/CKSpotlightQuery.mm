@@ -23,40 +23,22 @@
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __41__CKSpotlightQuery__processSearchResults__block_invoke(uint64_t a1)
+void __41__CKSpotlightQuery__processSearchResults__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  if (*(v1 + 8) == 1)
+  v42 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  if (*(v2 + 8) == 1)
   {
     if (IMOSLoggingEnabled())
     {
-      v2 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v3 = *(*(a1 + 32) + 56);
+        v4 = *(*(a1 + 32) + 56);
         *buf = 67109120;
-        LODWORD(v38) = v3;
-        _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Leaving group %d", buf, 8u);
+        LODWORD(v39) = v4;
+        _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Leaving group %d", buf, 8u);
       }
-    }
-
-    if (IMOSLoggingEnabled())
-    {
-      v4 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Leaving A - cancel", buf, 2u);
-      }
-    }
-  }
-
-  else
-  {
-    if (!*(v1 + 48))
-    {
-      return;
     }
 
     if (IMOSLoggingEnabled())
@@ -65,28 +47,46 @@ void __41__CKSpotlightQuery__processSearchResults__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "_processSearchResults...", buf, 2u);
+        _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "Leaving A - cancel", buf, 2u);
+      }
+    }
+  }
+
+  else
+  {
+    if (!*(v2 + 48))
+    {
+      return;
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v6 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "_processSearchResults...", buf, 2u);
       }
     }
 
-    v6 = [*(*(a1 + 32) + 40) count];
-    v8 = *(a1 + 32);
-    if (*(v8 + 32) < v6)
+    v7 = [*(*(a1 + 32) + 40) count];
+    v9 = *(a1 + 32);
+    if (*(v9 + 32) < v7)
     {
-      *&v7 = 138412290;
-      v29 = v7;
+      *&v8 = 138412290;
+      v30 = v8;
       do
       {
-        v9 = [*(v8 + 40) objectAtIndex:v29];
-        v10 = [v9 uniqueIdentifier];
-        v11 = [v9 domainIdentifier];
-        v12 = [v9 attributeSet];
-        v13 = [v12 __ck_itemContentCreationDate];
+        v10 = [*(v9 + 40) objectAtIndex:v30];
+        v11 = [v10 uniqueIdentifier];
+        v12 = [v10 domainIdentifier];
+        v13 = [v10 attributeSet];
+        v14 = [v13 __ck_itemContentCreationDate];
 
-        v14 = [v9 attributeSet];
-        v15 = [v14 __ck_spotlightItemSnippet];
+        v15 = [v10 attributeSet];
+        v16 = [v15 __ck_spotlightItemSnippet];
 
-        if (([v10 containsString:@"message_guid"] & 1) != 0 || objc_msgSend(v10, "containsString:", @"chat_guid"))
+        if (([v11 containsString:@"message_guid"] & 1) != 0 || objc_msgSend(v11, "containsString:", @"chat_guid"))
         {
           ++*(*(a1 + 32) + 32);
         }
@@ -95,14 +95,14 @@ void __41__CKSpotlightQuery__processSearchResults__block_invoke(uint64_t a1)
         {
           if (IMOSLoggingEnabled())
           {
-            v16 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+            v17 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v38 = v10;
-              v39 = 2112;
-              v40 = v11;
-              _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_INFO, "Looking for a message matching message guid: %@ or chat guid: %@", buf, 0x16u);
+              v39 = v11;
+              v40 = 2112;
+              v41 = v12;
+              _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "Looking for a message matching message guid: %@ or chat guid: %@", buf, 0x16u);
             }
           }
 
@@ -111,97 +111,97 @@ void __41__CKSpotlightQuery__processSearchResults__block_invoke(uint64_t a1)
           aBlock[2] = __41__CKSpotlightQuery__processSearchResults__block_invoke_87;
           aBlock[3] = &unk_1E72F5070;
           aBlock[4] = *(a1 + 32);
-          v34 = v13;
-          v17 = v10;
-          v35 = v17;
-          v36 = v15;
-          v18 = _Block_copy(aBlock);
-          if (v11)
+          v35 = v14;
+          v18 = v11;
+          v36 = v18;
+          v37 = v16;
+          v19 = _Block_copy(aBlock);
+          if (v12)
           {
             if (IMOSLoggingEnabled())
             {
-              v19 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+              v20 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
               {
-                *buf = v29;
-                v38 = v11;
-                _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "ChatGUID: %@", buf, 0xCu);
+                *buf = v30;
+                v39 = v12;
+                _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_INFO, "ChatGUID: %@", buf, 0xCu);
               }
             }
 
-            v20 = [*(a1 + 32) chatRegistry];
-            v21 = [v20 existingChatWithGUID:v11];
+            v21 = [*(a1 + 32) chatRegistry];
+            v22 = [v21 existingChatWithGUID:v12];
 
-            v18[2](v18, v21);
+            v19[2](v19, v22);
           }
 
-          else if (v17)
+          else if (v18)
           {
-            if (IMOSLoggingEnabled())
-            {
-              v22 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
-              {
-                *buf = v29;
-                v38 = v17;
-                _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "MessageGUID: %@", buf, 0xCu);
-              }
-            }
-
             if (IMOSLoggingEnabled())
             {
               v23 = OSLogHandleForIMFoundationCategory();
               if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
               {
+                *buf = v30;
+                v39 = v18;
+                _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "MessageGUID: %@", buf, 0xCu);
+              }
+            }
+
+            if (IMOSLoggingEnabled())
+            {
+              v24 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+              {
                 *buf = 0;
-                _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "Entering B", buf, 2u);
+                _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "Entering B", buf, 2u);
               }
             }
 
             dispatch_group_enter(*(*(a1 + 32) + 56));
-            v24 = [MEMORY[0x1E69A5AE8] sharedInstance];
-            v31[0] = MEMORY[0x1E69E9820];
-            v31[1] = 3221225472;
-            v31[2] = __41__CKSpotlightQuery__processSearchResults__block_invoke_90;
-            v31[3] = &unk_1E72F5098;
-            v31[4] = *(a1 + 32);
-            v32 = v18;
-            [v24 loadMessageWithGUID:v17 completionBlock:v31];
+            v25 = [MEMORY[0x1E69A5AE8] sharedInstance];
+            v32[0] = MEMORY[0x1E69E9820];
+            v32[1] = 3221225472;
+            v32[2] = __41__CKSpotlightQuery__processSearchResults__block_invoke_90;
+            v32[3] = &unk_1E72F5098;
+            v32[4] = *(a1 + 32);
+            v33 = v19;
+            [v25 loadMessageWithGUID:v18 completionBlock:v32];
           }
 
           ++*(*(a1 + 32) + 32);
         }
 
-        v8 = *(a1 + 32);
+        v9 = *(a1 + 32);
       }
 
-      while (*(v8 + 32) < v6);
+      while (*(v9 + 32) < v7);
     }
 
-    v25 = *(v8 + 40);
-    *(v8 + 40) = 0;
+    v26 = *(v9 + 40);
+    *(v9 + 40) = 0;
 
     if (IMOSLoggingEnabled())
     {
-      v26 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v27 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
-        v27 = *(*(a1 + 32) + 56);
+        v28 = *(*(a1 + 32) + 56);
         *buf = 134218240;
-        v38 = v6;
-        v39 = 1024;
-        LODWORD(v40) = v27;
-        _os_log_impl(&dword_19020E000, v26, OS_LOG_TYPE_INFO, "Count: %lu group: %d", buf, 0x12u);
+        v39 = v7;
+        v40 = 1024;
+        LODWORD(v41) = v28;
+        _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "Count: %lu group: %d", buf, 0x12u);
       }
     }
 
     if (IMOSLoggingEnabled())
     {
-      v28 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v29 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "Leaving A", buf, 2u);
+        _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_INFO, "Leaving A", buf, 2u);
       }
     }
   }
@@ -547,26 +547,26 @@ uint64_t __46__CKSpotlightQuery_searchQuery_statusChanged___block_invoke(uint64_
   return [v5 _processSearchResults];
 }
 
-uint64_t __46__CKSpotlightQuery_searchQuery_statusChanged___block_invoke_115(uint64_t a1)
+uint64_t __46__CKSpotlightQuery_searchQuery_statusChanged___block_invoke_115(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Notify triggered!", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Notify triggered!", v6, 2u);
     }
   }
 
-  v3 = *(a1 + 32);
-  if ((v3[8] & 1) == 0)
+  v4 = *(a1 + 32);
+  if ((v4[8] & 1) == 0)
   {
-    [v3 _callCompletion];
-    v3 = *(a1 + 32);
+    [v4 _callCompletion];
+    v4 = *(a1 + 32);
   }
 
-  return [v3 _cleanup];
+  return [v4 _cleanup];
 }
 
 - (void)searchQuery:(id)query didFailWithError:(id)error

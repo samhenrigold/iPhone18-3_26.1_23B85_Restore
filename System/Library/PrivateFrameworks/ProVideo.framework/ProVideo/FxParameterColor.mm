@@ -21,7 +21,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_colorPriv != 0, &cfstr_ColorprivNull.isa, v2, v3, v4, v5, v6, v7, v9.receiver);
+  FxDebugAssert(self->_colorPriv != 0, &cfstr_ColorprivNull.isa, v2, v3, v4, v5, v6, v7);
   free(self->_colorPriv);
   v9.receiver = self;
   v9.super_class = FxParameterColor;

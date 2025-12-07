@@ -3,6 +3,7 @@
 - (NSSConnectionHandler)initWithConnection:(id)connection delegate:(id)delegate;
 - (NSSConnectionHandlerDelegate)delegate;
 - (void)askRemoteDeviceToPasscodeLockWithCompletionHandler:(id)handler;
+- (void)enableAirplaneMode:(BOOL)mode completionHandler:(id)handler;
 - (void)getUsageData:(id)data;
 - (void)notifyRemoteDeviceOfUsageAfterSetup:(id)setup;
 @end
@@ -80,6 +81,63 @@
   }
 
   return v7;
+}
+
+- (void)enableAirplaneMode:(BOOL)mode completionHandler:(id)handler
+{
+  modeCopy = mode;
+  handlerCopy = handler;
+  connection = [(NSSConnectionHandler *)self connection];
+  v7 = [connection valueForEntitlement:@"com.apple.SystemConfiguration.SCPreferences-write-access"];
+
+  if (!v7)
+  {
+    goto LABEL_11;
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      if (([v7 isEqualToString:@"com.apple.radios.plist"] & 1) == 0)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    else
+    {
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0 || ![v7 containsObject:@"com.apple.radios.plist"])
+      {
+        goto LABEL_11;
+      }
+    }
+
+LABEL_10:
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    [WeakRetained enableAirplaneMode:modeCopy completionHandler:handlerCopy];
+    goto LABEL_13;
+  }
+
+  if ([v7 BOOLValue])
+  {
+    goto LABEL_10;
+  }
+
+LABEL_11:
+  if (!handlerCopy)
+  {
+    goto LABEL_14;
+  }
+
+  WeakRetained = [NSError errorWithDomain:@"NSSErrorDomain" code:1 userInfo:0];
+  handlerCopy[2](handlerCopy, WeakRetained);
+LABEL_13:
+
+LABEL_14:
 }
 
 - (void)getUsageData:(id)data

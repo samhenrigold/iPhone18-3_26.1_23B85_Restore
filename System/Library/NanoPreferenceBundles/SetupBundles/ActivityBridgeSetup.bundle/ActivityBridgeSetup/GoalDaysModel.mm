@@ -42,7 +42,7 @@
   goalType = [scheduleCopy goalType];
   *(&self->super.isa + OBJC_IVAR____TtC19ActivityBridgeSetup13GoalDaysModel_goalType) = goalType;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for GoalDaysModel();
+  v9.super_class = type metadata accessor for GoalDaysModel(0);
   v7 = [(GoalDaysModel *)&v9 init];
 
   return v7;

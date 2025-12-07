@@ -2,6 +2,7 @@
 - (CLVehicleSpeed)initWithClientVehicleSpeed:(id)speed;
 - (CLVehicleSpeed)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)description;
 - (id)shortDescription;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -15,12 +16,13 @@
   var2 = speed.var2;
   var1 = speed.var1;
   var0 = speed.var0;
-  v9.receiver = self;
-  v9.super_class = CLVehicleSpeed;
-  v7 = [(CLVehicleSpeed *)&v9 init];
+  v13.receiver = self;
+  v13.super_class = CLVehicleSpeed;
+  v7 = [(CLVehicleSpeed *)&v13 init];
   if (v7)
   {
-    v7->_internal = [[CLVehicleSpeedInternal alloc] initWithClientVehicleSpeed:var0, var1, var2, var3];
+    v8 = [CLVehicleSpeedInternal alloc];
+    v7->_internal = objc_msgSend_initWithClientVehicleSpeed_(v8, v9, v10, v11, var0, var1, var2, var3);
   }
 
   return v7;
@@ -28,48 +30,41 @@
 
 - (CLVehicleSpeed)initWithCoder:(id)coder
 {
-  v12 = 0u;
-  v13 = 0u;
-  if ([coder allowsKeyedCoding])
+  v21 = 0u;
+  v22 = 0u;
+  if (objc_msgSend_allowsKeyedCoding(coder, a2, coder, v3))
   {
-    [coder decodeDoubleForKey:@"kCLVehicleSpeedCodingKeySpeed"];
-    v6 = v5;
-    [coder decodeDoubleForKey:{@"kCLVehicleSpeedCodingKeyTimestamp", *&v5}];
-    v8 = v7;
-    *(&v12 + 1) = v7;
-    v9 = 0.0;
-    v10 = 0.0;
+    objc_msgSend_decodeDoubleForKey_(coder, v6, @"kCLVehicleSpeedCodingKeySpeed", v7);
+    v9 = v8;
+    objc_msgSend_decodeDoubleForKey_(coder, v10, @"kCLVehicleSpeedCodingKeyTimestamp", v11, *&v8);
+    *(&v21 + 1) = v12;
+    return objc_msgSend_initWithClientVehicleSpeed_(self, v13, v14, v15, v9, v12, 0.0, 0.0);
   }
 
   else
   {
-    [coder decodeValueOfObjCType:"d" at:&v12];
-    [coder decodeValueOfObjCType:"d" at:&v12 + 8];
-    v8 = *(&v12 + 1);
-    v6 = *&v12;
-    v9 = *(&v13 + 1);
-    v10 = *&v13;
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v6, "d", &v21);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v17, "d", &v21 + 8);
+    return objc_msgSend_initWithClientVehicleSpeed_(self, v18, v19, v20, v21, v22);
   }
-
-  return [(CLVehicleSpeed *)self initWithClientVehicleSpeed:v6, v8, v10, v9];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   internal = self->_internal;
-  if ([coder allowsKeyedCoding])
+  if (objc_msgSend_allowsKeyedCoding(coder, a2, coder, v3))
   {
-    [coder encodeDouble:@"kCLVehicleSpeedCodingKeySpeed" forKey:internal[1]];
-    v5 = internal[2];
+    objc_msgSend_encodeDouble_forKey_(coder, v6, @"kCLVehicleSpeedCodingKeySpeed", v7, internal[1]);
+    v10 = internal[2];
 
-    [coder encodeDouble:@"kCLVehicleSpeedCodingKeyTimestamp" forKey:v5];
+    objc_msgSend_encodeDouble_forKey_(coder, v8, @"kCLVehicleSpeedCodingKeyTimestamp", v9, v10);
   }
 
   else
   {
-    [coder encodeValueOfObjCType:"d" at:internal + 1];
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v6, "d", (internal + 1));
 
-    [coder encodeValueOfObjCType:"d" at:internal + 2];
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v11, "d", (internal + 2));
   }
 }
 
@@ -82,23 +77,34 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = [objc_opt_class() allocWithZone:zone];
-  v5[1] = [self->_internal copyWithZone:zone];
-  return v5;
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v8[1] = objc_msgSend_copyWithZone_(self->_internal, v9, zone, v10);
+  return v8;
+}
+
+- (id)description
+{
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = *(self->_internal + 1);
+  v6 = MEMORY[0x1E696AB78];
+  v7 = objc_msgSend_timestamp(self, a2, v2, v3);
+  v9 = objc_msgSend_localizedStringFromDate_dateStyle_timeStyle_(v6, v8, v7, 1, 4);
+  return objc_msgSend_stringWithFormat_(v4, v10, @"speed %.2f mps @ %@", v11, v5, v9);
 }
 
 - (id)shortDescription
 {
-  v2 = *(self->_internal + 1);
-  v3 = v2 * 2.23693629;
-  v4 = v2 < 0.0;
-  v5 = -1.0;
-  if (!v4)
+  v3 = *(self->_internal + 1);
+  v4 = v3 * 2.23693629;
+  v5 = v3 < 0.0;
+  v6 = -1.0;
+  if (!v5)
   {
-    v5 = v3;
+    v6 = v4;
   }
 
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%.0fmph", *&v5];
+  return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"%.0fmph", v2, *&v6);
 }
 
 @end

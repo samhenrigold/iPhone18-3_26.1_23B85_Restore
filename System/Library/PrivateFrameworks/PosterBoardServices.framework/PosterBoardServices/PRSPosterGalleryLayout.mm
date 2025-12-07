@@ -156,33 +156,33 @@
 
 - (unint64_t)hash
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   builder = [MEMORY[0x1E698E6B8] builder];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = self->_sections;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [builder appendObject:{*(*(&v15 + 1) + 8 * v8++), v15}];
+        v9 = [builder appendObject:{*(*(&v14 + 1) + 8 * v8++), v14}];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -192,38 +192,37 @@
   v11 = [builder appendInteger:self->_source];
   v12 = [builder hash];
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (id)description
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v3 = self->_sections;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        items = [*(*(&v20 + 1) + 8 * i) items];
+        items = [*(*(&v19 + 1) + 8 * i) items];
         v6 += [items count];
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -250,9 +249,7 @@
     v16 = @"Unknown";
   }
 
-  v17 = [v10 stringWithFormat:@"<%@(%p): %lu sections, %lu items, locale=%@, source=%@>", v12, self, v13, v6, localeIdentifier, v16, v20];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = [v10 stringWithFormat:@"<%@(%p): %lu sections, %lu items, locale=%@, source=%@>", v12, self, v13, v6, localeIdentifier, v16, v19];
 
   return v17;
 }

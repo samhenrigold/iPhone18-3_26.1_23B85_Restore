@@ -450,28 +450,28 @@ LABEL_10:
 uint64_t __72__WKPaymentAuthorizationDelegate_Protected___didRequestMerchantSession___block_invoke(WTF::RunLoop *a1, void *a2)
 {
   WTF::RunLoop::mainSingleton(a1);
-  v4 = *(a1 + 4);
-  if (v4)
+  v5 = *(a1 + 4);
+  if (v5)
   {
-    v5 = v4;
+    v6 = v5;
   }
 
   if (a2)
   {
-    v6 = a2;
+    v7 = a2;
   }
 
-  v7 = WTF::fastMalloc(0x20);
-  *v7 = &unk_1F10EE790;
-  v7[1] = v4;
-  v7[2] = v4;
-  v7[3] = a2;
-  v9 = v7;
+  v8 = WTF::fastMalloc(v4, 0x20);
+  *v8 = &unk_1F10EE790;
+  v8[1] = v5;
+  v8[2] = v5;
+  v8[3] = a2;
+  v10 = v8;
   WTF::RunLoop::dispatch();
-  result = v9;
-  if (v9)
+  result = v10;
+  if (v10)
   {
-    return (*(*v9 + 8))(v9);
+    return (*(*v10 + 8))(v10);
   }
 
   return result;

@@ -2152,7 +2152,7 @@ void __54__AVCRemoteVideoClient_registerBlocksForNotifications__block_invoke_85(
         [v6 checkpointVideoAttributesDidChange];
         if (v7)
         {
-          [(VideoAttributes *)v7 framePresentationTime];
+          objc_msgSend_framePresentationTime(v7);
         }
 
         else
@@ -3037,7 +3037,7 @@ LABEL_18:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d ERROR slotsForModes dictionary missing", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d ERROR slotsForModes dictionary missing", v2, v3, v4, v5);
 }
 
 - (void)initWithStreamToken:endpointID:delegate:.cold.2()
@@ -3083,21 +3083,21 @@ LABEL_18:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate CALayerHost", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate CALayerHost", v2, v3, v4, v5);
 }
 
 - (void)createCALayerHostForRootLayer:withContextId:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate layer host name", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate layer host name", v2, v3, v4, v5);
 }
 
 - (void)createCALayerHostForRootLayer:withContextId:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid rootLayer or contextId", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid rootLayer or contextId", v2, v3, v4, v5);
 }
 
 - (void)newXPCObjectForFenceHandle:(uint64_t)a1 .cold.1(uint64_t a1)
@@ -3160,28 +3160,28 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Set layer bounds xpc call failed", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Set layer bounds xpc call failed", v2, v3, v4, v5);
 }
 
 - (void)setRemoteVideoLayerBounds:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create XPC representation for fence", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create XPC representation for fence", v2, v3, v4, v5);
 }
 
 - (void)setRemoteVideoLayerBounds:.cold.4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate stream token number", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate stream token number", v2, v3, v4, v5);
 }
 
 - (void)setRemoteVideoLayerBounds:.cold.5()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d CALayerHost invalid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d CALayerHost invalid", v2, v3, v4, v5);
 }
 
 - (void)setTransformForRemoteVideoOrientationEnabled:(uint64_t)a1 .cold.1(uint64_t a1)
@@ -3230,21 +3230,21 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d CALayerHost exist already, reconfigure not supported currently", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d CALayerHost exist already, reconfigure not supported currently", v2, v3, v4, v5);
 }
 
 - (void)setVideoLayerHost:forMode:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate slotsForModes dictionary", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate slotsForModes dictionary", v2, v3, v4, v5);
 }
 
 - (void)setVideoLayerHost:forMode:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid contextIdForModes dictionary returned", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid contextIdForModes dictionary returned", v2, v3, v4, v5);
 }
 
 - (void)setVideoLayerHost:(NSObject *)a3 forMode:.cold.4(uint64_t a1, void *a2, NSObject *a3)
@@ -3265,21 +3265,21 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate args dictionary", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate args dictionary", v2, v3, v4, v5);
 }
 
 - (void)setVideoLayerHost:forMode:.cold.6()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate stream token number", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate stream token number", v2, v3, v4, v5);
 }
 
 - (void)setVideoLayerHost:forMode:.cold.7()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid rootLayer parameter", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid rootLayer parameter", v2, v3, v4, v5);
 }
 
 void __51__AVCRemoteVideoClient_setActiveVideoLayerForMode___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -3295,14 +3295,14 @@ void __54__AVCRemoteVideoClient_registerBlocksForNotifications__block_invoke_col
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCRemoteVideoClient: serverd died, notifying client", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCRemoteVideoClient: serverd died, notifying client", v2, v3, v4, v5);
 }
 
 void __54__AVCRemoteVideoClient_registerBlocksForNotifications__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCRemoteVideoClient: server died", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCRemoteVideoClient: server died", v2, v3, v4, v5);
 }
 
 - (void)observeValueForKeyPath:ofObject:change:context:.cold.1()

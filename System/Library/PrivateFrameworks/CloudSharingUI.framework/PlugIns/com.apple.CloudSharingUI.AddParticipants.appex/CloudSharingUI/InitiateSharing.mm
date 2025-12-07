@@ -22,6 +22,10 @@
   sub_10003AA00(shareCopy, infoCopy, v16, v17, type, permissionType, invite, v15);
   _Block_release(v15);
   _Block_release(v15);
+
+  v16, v21, v22, v23, v24, v25, v26, v27;
+
+  v17, v28, v29, v30, v31, v32, v33, v34;
 }
 
 - (void)callForSharingURLAddToShare:(id)share containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers accessType:(int64_t)type permissionType:(int64_t)permissionType allowOthersToInvite:(BOOL)invite reply:(id)self0
@@ -30,67 +34,67 @@
   permissionTypeCopy = permissionType;
   v12 = sub_10007AC4C();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
   __chkstk_darwin(v12);
-  v16 = &typeCopy - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = _Block_copy(reply);
+  v15 = &typeCopy - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = _Block_copy(reply);
   sub_10007AC1C();
+  v17 = sub_10007B2AC();
   v18 = sub_10007B2AC();
-  v19 = sub_10007B2AC();
-  _Block_copy(v17);
+  _Block_copy(v16);
   infoCopy = info;
   selfCopy = self;
-  sub_10003C284(v16, infoCopy, v18, v19, typeCopy, permissionTypeCopy, invite, v17);
-  _Block_release(v17);
-  _Block_release(v17);
+  sub_10003C284(v15, infoCopy, v17, v18, typeCopy, permissionTypeCopy, invite, v16);
+  _Block_release(v16);
+  _Block_release(v16);
 
-  (*(v13 + 8))(v16, v12);
+  v17, v21, v22, v23, v24, v25, v26, v27;
+  v18, v28, v29, v30, v31, v32, v33, v34;
+  (*(v13 + 8))(v15, v12);
 }
 
 - (void)callForMailContent:(id)content share:(id)share fileURL:(id)l appName:(id)name appIconData:(id)data reply:(id)reply
 {
   selfCopy = self;
   v12 = sub_1000057A0(&unk_10009ED10, &qword_10007D310);
-  v13 = *(*(v12 - 8) + 64);
   __chkstk_darwin(v12 - 8);
-  v15 = &v32 - v14;
-  v16 = sub_10007AC4C();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v16);
-  v20 = &v32 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = _Block_copy(reply);
+  v14 = &v37 - v13;
+  v15 = sub_10007AC4C();
+  v16 = *(v15 - 8);
+  __chkstk_darwin(v15);
+  v18 = &v37 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = _Block_copy(reply);
   sub_10007AC1C();
   if (l)
   {
     sub_10007AC1C();
-    v22 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v22 = 1;
+    v20 = 1;
   }
 
-  v23 = *(v17 + 56);
-  v32 = v16;
-  v23(v15, v22, 1, v16);
-  v24 = sub_10007B19C();
-  v26 = v25;
+  v21 = *(v16 + 56);
+  v37 = v15;
+  v21(v14, v20, 1, v15);
+  v22 = sub_10007B19C();
+  v24 = v23;
   shareCopy = share;
   dataCopy = data;
   selfCopy = selfCopy;
-  v29 = sub_10007AC7C();
-  v31 = v30;
+  v27 = sub_10007AC7C();
+  v29 = v28;
 
-  _Block_copy(v21);
-  sub_10003E1E0(v20, shareCopy, v15, v24, v26, v29, v31, v21);
-  _Block_release(v21);
-  _Block_release(v21);
-  sub_10003846C(v29, v31);
+  _Block_copy(v19);
+  sub_10003E1E0(v18, shareCopy, v14, v22, v24, v27, v29, v19);
+  _Block_release(v19);
+  _Block_release(v19);
+  sub_10003846C(v27, v29);
 
-  sub_100008824(v15, &unk_10009ED10, &qword_10007D310);
-  (*(v17 + 8))(v20, v32);
+  v24, v30, v31, v32, v33, v34, v35, v36;
+  sub_100008824(v14, &unk_10009ED10, &qword_10007D310);
+  (*(v16 + 8))(v18, v37);
 }
 
 - (void)callForCurrentUserSharingStatus:(id)status reply:(id)reply
@@ -116,36 +120,39 @@
   sub_100040168(shareCopy, infoCopy, v11, v12, v10);
   _Block_release(v10);
   _Block_release(v10);
+
+  v11, v16, v17, v18, v19, v20, v21, v22;
+
+  v12, v23, v24, v25, v26, v27, v28, v29;
 }
 
 - (void)callForUserNameAndEmail:(id)email containerSetupInfo:(id)info reply:(id)reply
 {
   v9 = sub_1000057A0(&unk_10009ED10, &qword_10007D310);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v18 - v11;
-  v13 = _Block_copy(reply);
+  v11 = &v17 - v10;
+  v12 = _Block_copy(reply);
   if (email)
   {
     sub_10007AC1C();
-    v14 = sub_10007AC4C();
-    (*(*(v14 - 8) + 56))(v12, 0, 1, v14);
+    v13 = sub_10007AC4C();
+    (*(*(v13 - 8) + 56))(v11, 0, 1, v13);
   }
 
   else
   {
-    v15 = sub_10007AC4C();
-    (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+    v14 = sub_10007AC4C();
+    (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
   }
 
-  _Block_copy(v13);
+  _Block_copy(v12);
   infoCopy = info;
   selfCopy = self;
-  sub_10004406C(v12, info, v13);
-  _Block_release(v13);
-  _Block_release(v13);
+  sub_10004406C(v11, info, v12);
+  _Block_release(v12);
+  _Block_release(v12);
 
-  sub_100008824(v12, &unk_10009ED10, &qword_10007D310);
+  sub_100008824(v11, &unk_10009ED10, &qword_10007D310);
 }
 
 - (_TtC40com_apple_CloudSharingUI_AddParticipants15InitiateSharing)init

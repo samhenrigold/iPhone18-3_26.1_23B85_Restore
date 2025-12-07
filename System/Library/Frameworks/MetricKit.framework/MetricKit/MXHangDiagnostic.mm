@@ -2,12 +2,40 @@
 + (int64_t)_hangTypeForHangTypeString:(id)string;
 - (MXHangDiagnostic)initWithCoder:(id)coder;
 - (MXHangDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version callStack:(id)stack hangDuration:(id)duration;
+- (MXHangDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid callStack:(id)stack hangDuration:(id)duration hangType:(int64_t)type;
 - (NSString)hangTypeString;
 - (id)toDictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation MXHangDiagnostic
+
+- (MXHangDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid callStack:(id)stack hangDuration:(id)duration hangType:(int64_t)type
+{
+  v11 = *&pid;
+  stackCopy = stack;
+  durationCopy = duration;
+  v22.receiver = self;
+  v22.super_class = MXHangDiagnostic;
+  v18 = [(MXDiagnostic *)&v22 initWithMetaData:data applicationVersion:version signpostData:signpostData andPID:v11];
+  if (v18)
+  {
+    if (!stackCopy || ([durationCopy doubleValue], v19 <= 0.0))
+    {
+      v20 = 0;
+      goto LABEL_7;
+    }
+
+    v18->_hangType = type;
+    objc_storeStrong(&v18->_callStackTree, stack);
+    objc_storeStrong(&v18->_hangDuration, duration);
+  }
+
+  v20 = v18;
+LABEL_7:
+
+  return v20;
+}
 
 - (MXHangDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version callStack:(id)stack hangDuration:(id)duration
 {

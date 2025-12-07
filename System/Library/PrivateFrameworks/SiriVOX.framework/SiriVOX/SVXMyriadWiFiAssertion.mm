@@ -40,16 +40,16 @@
 
 void __74__SVXMyriadWiFiAssertion_acquireHomeKitAccessoryWiFiAssertionWithTimeout___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _releaseAssertion];
   v2 = *MEMORY[0x277CEF0C0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0C0], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
     *buf = 136315394;
-    v16 = "[SVXMyriadWiFiAssertion acquireHomeKitAccessoryWiFiAssertionWithTimeout:]_block_invoke";
-    v17 = 2048;
-    v18 = v3;
+    v15 = "[SVXMyriadWiFiAssertion acquireHomeKitAccessoryWiFiAssertionWithTimeout:]_block_invoke";
+    v16 = 2048;
+    v17 = v3;
     _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Acquiring assertion with timeout time: %f seconds", buf, 0x16u);
   }
 
@@ -58,12 +58,12 @@ void __74__SVXMyriadWiFiAssertion_acquireHomeKitAccessoryWiFiAssertionWithTimeou
   v4 = objc_alloc(MEMORY[0x277CEF530]);
   v5 = *(a1 + 40);
   v6 = *(*(a1 + 32) + 24);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __74__SVXMyriadWiFiAssertion_acquireHomeKitAccessoryWiFiAssertionWithTimeout___block_invoke_3;
-  v13[3] = &unk_279C69088;
-  objc_copyWeak(&v14, buf);
-  v7 = [v4 initWithTimeoutInterval:v6 onQueue:v13 timeoutHandler:v5];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __74__SVXMyriadWiFiAssertion_acquireHomeKitAccessoryWiFiAssertionWithTimeout___block_invoke_3;
+  v12[3] = &unk_279C69088;
+  objc_copyWeak(&v13, buf);
+  v7 = [v4 initWithTimeoutInterval:v6 onQueue:v12 timeoutHandler:v5];
   v8 = *(a1 + 32);
   v9 = *(v8 + 32);
   *(v8 + 32) = v7;
@@ -78,9 +78,8 @@ void __74__SVXMyriadWiFiAssertion_acquireHomeKitAccessoryWiFiAssertionWithTimeou
     [v11 myriadWiFiAssertionDidAcquireAssertion:*(a1 + 32)];
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SVXMyriadWiFiAssertion_acquireHomeKitAccessoryWiFiAssertionWithTimeout___block_invoke_3(uint64_t a1)
@@ -91,15 +90,15 @@ void __74__SVXMyriadWiFiAssertion_acquireHomeKitAccessoryWiFiAssertionWithTimeou
 
 - (void)_releaseAssertion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_wifiAssertionAcquired)
   {
     v3 = *MEMORY[0x277CEF0C0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0C0], OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[SVXMyriadWiFiAssertion _releaseAssertion]";
-      _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s ", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[SVXMyriadWiFiAssertion _releaseAssertion]";
+      _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
     }
 
     self->_wifiAssertionAcquired = 0;
@@ -116,8 +115,6 @@ void __74__SVXMyriadWiFiAssertion_acquireHomeKitAccessoryWiFiAssertionWithTimeou
       [v7 myriadWiFiAssertionDidReleaseAssertion:self];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXMyriadWiFiAssertion)initWithQueue:(id)queue delegate:(id)delegate

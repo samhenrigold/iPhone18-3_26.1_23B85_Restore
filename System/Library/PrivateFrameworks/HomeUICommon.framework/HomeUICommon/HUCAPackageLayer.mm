@@ -22,16 +22,14 @@
 
 void __28__HUCAPackageLayer__allTags__block_invoke_2()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"color";
-  v5[1] = @"secondaryColor";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[0] = @"color";
+  v4[1] = @"secondaryColor";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = qword_281122538;
   qword_281122538 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_tagsForName:(id)name
@@ -96,7 +94,7 @@ void __28__HUCAPackageLayer__allTags__block_invoke_2()
 
 - (void)_applyPrimaryColorWithModifiers:(id)modifiers
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   modifiersCopy = modifiers;
   objc_opt_class();
   layer = [(HUCAPackageLayer *)self layer];
@@ -119,13 +117,13 @@ void __28__HUCAPackageLayer__allTags__block_invoke_2()
     {
       name = [(HUCAPackageLayer *)self name];
       layer2 = [(HUCAPackageLayer *)self layer];
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = 138412546;
-      v27 = name;
-      v28 = 2112;
-      v29 = v25;
-      _os_log_error_impl(&dword_254573000, v8, OS_LOG_TYPE_ERROR, "Package layer (%@) of type '%@' requested to modify primary color but isn't a valid CAShapeLayer", &v26, 0x16u);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = 138412546;
+      v26 = name;
+      v27 = 2112;
+      v28 = v24;
+      _os_log_error_impl(&dword_254573000, v8, OS_LOG_TYPE_ERROR, "Package layer (%@) of type '%@' requested to modify primary color but isn't a valid CAShapeLayer", &v25, 0x16u);
     }
   }
 
@@ -173,8 +171,6 @@ void __28__HUCAPackageLayer__allTags__block_invoke_2()
     v20 = [MEMORY[0x277D75340] colorWithHue:v15 saturation:v14 brightness:1.0 alpha:v19];
     [v7 setFillColor:{objc_msgSend(v20, "CGColor")}];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

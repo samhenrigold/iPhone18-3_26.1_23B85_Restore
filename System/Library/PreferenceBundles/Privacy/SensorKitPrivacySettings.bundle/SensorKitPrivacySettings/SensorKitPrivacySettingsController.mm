@@ -25,6 +25,8 @@
 - (void)setGlobalSwitch:(id)switch;
 - (void)showActionSheet:(id)sheet;
 - (void)showSensorKitPrivacyPage;
+- (void)updateDataCollection:(BOOL)collection;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SensorKitPrivacySettingsController
@@ -67,6 +69,16 @@
   v3.receiver = self;
   v3.super_class = SensorKitPrivacySettingsController;
   [(SensorKitPrivacySettingsController *)&v3 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = SensorKitPrivacySettingsController;
+  [(SensorKitPrivacySettingsController *)&v6 viewDidAppear:appear];
+  v4 = sub_4BC8();
+  v5 = [[_NSLocalizedStringResource alloc] initWithKey:@"SENSORKIT_SECTION_TITLE" table:0 locale:+[NSLocale currentLocale](NSLocale bundleURL:{"currentLocale"), -[NSBundle bundleURL](+[NSBundle bundleForClass:](NSBundle, "bundleForClass:", objc_opt_class()), "bundleURL")}];
+  [(SensorKitPrivacySettingsController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.research-sensor-and-usage-data" title:v5 localizedNavigationComponents:&__NSArray0__struct deepLink:v4];
 }
 
 - (void)fetchPendingApp
@@ -436,6 +448,97 @@ LABEL_13:
     {
       *v13 = 0;
       _os_log_fault_impl(&dword_0, v12, OS_LOG_TYPE_FAULT, "Failed to create an alert", v13, 2u);
+    }
+  }
+}
+
+- (void)updateDataCollection:(BOOL)collection
+{
+  collectionCopy = collection;
+  [+[SRAuthorizationClient sharedInstance](SRAuthorizationClient setDataCollectionEnabled:"setDataCollectionEnabled:", collection];
+  v5 = [(SensorKitPrivacySettingsController *)self rangeOfSpecifiersInGroupID:@"GLOBAL_SWITCH_GROUP"];
+  if (v5 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v7 = qword_10FF0;
+    if (os_log_type_enabled(qword_10FF0, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 0;
+      v8 = "Unable to find the global switch group but the switch just got toggled";
+      v9 = buf;
+LABEL_4:
+      _os_log_fault_impl(&dword_0, v7, OS_LOG_TYPE_FAULT, v8, v9, 2u);
+    }
+  }
+
+  else
+  {
+    v10 = &v5[v6];
+    if (collectionCopy)
+    {
+      [(SensorKitPrivacySettingsController *)self insertContiguousSpecifiers:[(SensorKitPrivacySettingsController *)self dataAndAppsSpecifiers] atIndex:v10 animated:1];
+      dataOptionsSpecifiers = [(SensorKitPrivacySettingsController *)self dataOptionsSpecifiers];
+      if (dataOptionsSpecifiers)
+      {
+
+        [(SensorKitPrivacySettingsController *)self addSpecifiersFromArray:dataOptionsSpecifiers animated:1];
+      }
+
+      else
+      {
+        v7 = qword_10FF0;
+        if (os_log_type_enabled(qword_10FF0, OS_LOG_TYPE_FAULT))
+        {
+          v20 = 0;
+          v8 = "Unabled to find delete all specifier";
+          v9 = &v20;
+          goto LABEL_4;
+        }
+      }
+    }
+
+    else
+    {
+      v12 = [(SensorKitPrivacySettingsController *)self rangeOfSpecifiersInGroupID:@"LEGACY_APPS_GROUP"];
+      if (v12 == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v12 = [(SensorKitPrivacySettingsController *)self rangeOfSpecifiersInGroupID:@"DATA_OPTIONS_GROUP"];
+        v15 = v14;
+        if (v12 == 0x7FFFFFFFFFFFFFFFLL)
+        {
+          v16 = qword_10FF0;
+          if (os_log_type_enabled(qword_10FF0, OS_LOG_TYPE_FAULT))
+          {
+            *v19 = 0;
+            _os_log_fault_impl(&dword_0, v16, OS_LOG_TYPE_FAULT, "Unable to find the last group ID to stop the collapse.", v19, 2u);
+          }
+
+          v12 = v10;
+        }
+      }
+
+      else
+      {
+        v15 = v13;
+      }
+
+      -[SensorKitPrivacySettingsController removeContiguousSpecifiers:animated:](self, "removeContiguousSpecifiers:animated:", [*&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers] subarrayWithRange:{v10, &v12[-v15]}], 1);
+      v17 = [(SensorKitPrivacySettingsController *)self specifierForID:@"DATA_OPTIONS_GROUP"];
+      if (v17)
+      {
+        [(SensorKitPrivacySettingsController *)self removeSpecifier:v17 animated:1];
+      }
+
+      else
+      {
+        v7 = qword_10FF0;
+        if (os_log_type_enabled(qword_10FF0, OS_LOG_TYPE_FAULT))
+        {
+          v18 = 0;
+          v8 = "Unabled to find delete all specifier";
+          v9 = &v18;
+          goto LABEL_4;
+        }
+      }
     }
   }
 }

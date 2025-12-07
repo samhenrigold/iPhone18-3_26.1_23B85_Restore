@@ -13,7 +13,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMRenameItemViewController();
+  v7.super_class = type metadata accessor for FMRenameItemViewController(0);
   v4 = v7.receiver;
   [(FMSettingsUpdateViewController *)&v7 viewWillAppear:appearCopy];
   v5 = *(*&v4[OBJC_IVAR____TtC6FindMy24FMMediatedViewController_mediator] + 24);
@@ -29,7 +29,7 @@
 {
   appearCopy = appear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for FMRenameItemViewController();
+  v6.super_class = type metadata accessor for FMRenameItemViewController(0);
   v4 = v6.receiver;
   [(FMRenameItemViewController *)&v6 viewDidAppear:appearCopy];
   v5 = *&v4[OBJC_IVAR____TtC6FindMy26FMRenameItemViewController_customRoleView];
@@ -40,7 +40,7 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1000C6170(disappear);
+  sub_1000C6170(disappear, selfCopy);
 }
 
 - (void)dismissKeyboard
@@ -54,12 +54,13 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC6FindMy26FMRenameItemViewController_scrollHandler);
   if (v3)
   {
+    v5 = *&self->super.super.mediator[OBJC_IVAR____TtC6FindMy26FMRenameItemViewController_scrollHandler];
     scrollCopy = scroll;
     selfCopy = self;
-    sub_100062900(v3);
-    v3(scrollCopy);
+    v8 = sub_100062900(v3, v5);
+    v3(scrollCopy, v8);
 
-    sub_10001835C(v3);
+    sub_10001835C(v3, v5);
   }
 }
 

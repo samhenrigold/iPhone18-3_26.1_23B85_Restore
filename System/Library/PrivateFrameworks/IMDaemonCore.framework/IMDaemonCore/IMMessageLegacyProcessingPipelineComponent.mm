@@ -2,6 +2,7 @@
 - (BOOL)_shouldUpgradeExistingMessage:(id)message input:(id)input;
 - (IMMessageLegacyProcessingPipelineComponent)initWithIDSTrustedData:(id)data messageContext:(id)context idsService:(id)service filteringContext:(id)filteringContext;
 - (id)runIndividuallyWithInput:(id)input;
+- (void)_updateChatForInput:(id)input hadChat:(BOOL)chat;
 @end
 
 @implementation IMMessageLegacyProcessingPipelineComponent
@@ -29,7 +30,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -40,7 +41,7 @@
       firstObject = [messageItems firstObject];
       guid = [firstObject guid];
       *buf = 138412290;
-      v99 = guid;
+      v96 = guid;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMMessageLegacyProcessingPipelineComponent> Started processing for Message: %@", buf, 0xCu);
     }
   }
@@ -62,13 +63,13 @@
 
     v22 = objc_alloc(MEMORY[0x277CCA9B8]);
     serviceSession = [v22 initWithDomain:*MEMORY[0x277D18DF8] code:10 userInfo:0];
-    v90 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:serviceSession];
+    v87 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:serviceSession];
   }
 
   else
   {
     serviceSession = [inputCopy serviceSession];
-    v89 = serviceSession;
+    v86 = serviceSession;
     if (serviceSession)
     {
       chat = [inputCopy chat];
@@ -90,17 +91,17 @@
       {
         if (IMOSLoggingEnabled())
         {
-          v46 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+          v45 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
           {
             gUID2 = [inputCopy GUID];
             *buf = 138412290;
-            v99 = gUID2;
-            _os_log_impl(&dword_22B4CC000, v46, OS_LOG_TYPE_INFO, "*** Bailing, we already had a finished message for this in the database (%@). ***", buf, 0xCu);
+            v96 = gUID2;
+            _os_log_impl(&dword_22B4CC000, v45, OS_LOG_TYPE_INFO, "*** Bailing, we already had a finished message for this in the database (%@). ***", buf, 0xCu);
           }
         }
 
-        v48 = im_checkpointIDSService();
+        v47 = im_checkpointIDSService();
         gUID3 = [inputCopy GUID];
         [inputCopy wantsCheckpointing];
         im_sendMessageCheckpointIfNecessary();
@@ -108,21 +109,19 @@
         [chat isBlackholed];
         if ([inputCopy wantsDeliveryReceipt])
         {
-          idsService = self->_idsService;
-          messageContext = self->_messageContext;
           gUID4 = [inputCopy GUID];
           [inputCopy wantsDeliveryReceipt];
-          LOBYTE(idsService) = im_sendCertifiedDeliveryReceiptIfPossible();
+          v50 = im_sendCertifiedDeliveryReceiptIfPossible();
 
-          if ((idsService & 1) == 0)
+          if ((v50 & 1) == 0)
           {
             if (IMOSLoggingEnabled())
             {
-              v53 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+              v51 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_22B4CC000, v53, OS_LOG_TYPE_INFO, "Wanted to send a delivery receipt, but failed to send a certified delivery receipt. This should be ok because this was a message redelivery though.", buf, 2u);
+                _os_log_impl(&dword_22B4CC000, v51, OS_LOG_TYPE_INFO, "Wanted to send a delivery receipt, but failed to send a certified delivery receipt. This should be ok because this was a message redelivery though.", buf, 2u);
               }
             }
           }
@@ -130,14 +129,14 @@
 
         if ([inputCopy isFromStorage])
         {
-          v54 = +[IMDMessageFromStorageController iMessageStorageController];
+          v52 = +[IMDMessageFromStorageController iMessageStorageController];
           isLastFromStorage = [inputCopy isLastFromStorage];
           batchContext = [inputCopy batchContext];
-          [v54 noteItemProcessed:isLastFromStorage batchContext:batchContext usingService:self->_idsService];
+          [v52 noteItemProcessed:isLastFromStorage batchContext:batchContext usingService:self->_idsService];
         }
 
         [(IMMessageLegacyProcessingPipelineComponent *)self _updateChatForInput:inputCopy hadChat:chat != 0];
-        v90 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
+        v87 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
       }
 
       else
@@ -199,16 +198,16 @@
               }
 
               *buf = 138412802;
-              v99 = balloonPluginBundleID;
-              v101 = v33;
-              v100 = 2112;
+              v96 = balloonPluginBundleID;
+              v98 = v33;
+              v97 = 2112;
               if (!combinedPayloadAttachmentDictionary)
               {
                 v32 = @"NO";
               }
 
-              v102 = 2112;
-              v103 = v32;
+              v99 = 2112;
+              v100 = v32;
               _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "Processing a balloon plugin payload (identifier: %@, payload: %@, combinedPayloadAttachmentDictionary: %@)", buf, 0x20u);
             }
           }
@@ -222,9 +221,9 @@
         }
 
         [lastObject addTelemetryMetricForKey:3];
-        v90 = objc_alloc_init(MEMORY[0x277D18E08]);
+        v87 = objc_alloc_init(MEMORY[0x277D18E08]);
         groupParticipantVersion = [inputCopy groupParticipantVersion];
-        [v89 requestGroupPhotoIfNecessary:chat incomingParticipantVersion:objc_msgSend(groupParticipantVersion incomingGroupPhotoCreationTime:"integerValue") toIdentifier:groupPhotoCreationTime fromIdentifier:fromIdentifier messageIsFromStorage:{toIdentifier, isFromStorage}];
+        [v86 requestGroupPhotoIfNecessary:chat incomingParticipantVersion:objc_msgSend(groupParticipantVersion incomingGroupPhotoCreationTime:"integerValue") toIdentifier:groupPhotoCreationTime fromIdentifier:fromIdentifier messageIsFromStorage:{toIdentifier, isFromStorage}];
 
         mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
         isTranscriptBackgroundsEnabled = [mEMORY[0x277D1A9B8] isTranscriptBackgroundsEnabled];
@@ -232,7 +231,7 @@
         if (isTranscriptBackgroundsEnabled)
         {
           transcriptBackgroundVersion = [inputCopy transcriptBackgroundVersion];
-          [v89 requestTranscriptBackgroundIfNecessary:chat incomingVersion:objc_msgSend(transcriptBackgroundVersion toIdentifier:"unsignedLongLongValue") fromIdentifier:fromIdentifier messageIsFromStorage:{toIdentifier, isFromStorage}];
+          [v86 requestTranscriptBackgroundIfNecessary:chat incomingVersion:objc_msgSend(transcriptBackgroundVersion toIdentifier:"unsignedLongLongValue") fromIdentifier:fromIdentifier messageIsFromStorage:{toIdentifier, isFromStorage}];
         }
 
         selfCopy = self;
@@ -242,9 +241,8 @@
         inlineAttachmentsDictionary = [inputCopy inlineAttachmentsDictionary];
         attributionInfoArray = [inputCopy attributionInfoArray];
         nicknameDictionary = [inputCopy nicknameDictionary];
-        v42 = self->_messageContext;
-        v66 = v42;
-        v67 = self->_idsService;
+        messageContext = self->_messageContext;
+        idsService = self->_idsService;
         isFromTrustedSender = [(IMDiMessageIDSTrustedData *)self->_idsTrustedData isFromTrustedSender];
         isFromSnapTrustedSender = [(IMDiMessageIDSTrustedData *)self->_idsTrustedData isFromSnapTrustedSender];
         wasContextUsed = [(IMFilterMessagePipelineComponentContext *)self->_filteringContext wasContextUsed];
@@ -252,28 +250,28 @@
         shouldTrackForRequery = [(IMFilterMessagePipelineComponentContext *)self->_filteringContext shouldTrackForRequery];
         isFiltered = [(IMFilterMessagePipelineComponentContext *)self->_filteringContext isFiltered];
         spamDetectionSource = [(IMFilterMessagePipelineComponentContext *)self->_filteringContext spamDetectionSource];
-        v93[0] = MEMORY[0x277D85DD0];
-        v93[1] = 3221225472;
-        v93[2] = sub_22B5A9764;
-        v93[3] = &unk_278705900;
-        v93[4] = selfCopy;
-        v94 = inputCopy;
-        v97 = chat != 0;
-        v95 = v90;
-        v96 = lastObject;
-        BYTE4(v61) = shouldTrackForRequery;
-        BYTE3(v61) = isBlackholed;
-        BYTE2(v61) = wasContextUsed;
-        BYTE1(v61) = isFromSnapTrustedSender;
-        LOBYTE(v61) = isFromTrustedSender;
-        BYTE1(v60) = wantsCheckpointing;
-        LOBYTE(v60) = 0;
-        BYTE2(v59) = isFromStorage;
-        BYTE1(v59) = isLastFromStorage2;
-        LOBYTE(v59) = isFromMe;
-        [v89 _blastDoorProcessingWithIMMessageItem:v96 chat:chat account:account fromToken:fromToken fromIDSID:fromPushID fromIdentifier:fromIdentifier toIdentifier:toIdentifier participants:participantIdentifiers groupName:currentGroupName groupID:groupID isFromMe:v59 isLastFromStorage:batchContext2 isFromStorage:v60 batchContext:v41 hideLockScreenNotification:combinedPayloadAttachmentDictionary2 wantsCheckpointing:inlineAttachmentsDictionary needsDeliveryReceipt:attributionInfoArray messageBalloonPayloadAttachmentDictionary:nicknameDictionary inlineAttachments:availabilityVerificationRecipientChannelIDPrefix attributionInfoArray:availabilityVerificationRecipientEncryptionValidationToken nicknameDictionary:availabilityOffGridRecipientSubscriptionValidationToken availabilityVerificationRecipientChannelIDPrefix:availabilityOffGridRecipientEncryptionValidationToken availabilityVerificationRecipientEncryptionValidationToken:v67 availabilityOffGridRecipientSubscriptionValidationToken:v66 availabilityOffGridRecipientEncryptionValidationToken:v61 idsService:isFiltered messageContext:spamDetectionSource isFromTrustedSender:v93 isFromSnapTrustedSender:? wasContextUsed:? isBlackholed:? shouldTrackForRequery:? isFiltered:? spamDetectionSource:? completionBlock:?];
+        v90[0] = MEMORY[0x277D85DD0];
+        v90[1] = 3221225472;
+        v90[2] = sub_22B5A9764;
+        v90[3] = &unk_278705900;
+        v90[4] = selfCopy;
+        v91 = inputCopy;
+        v94 = chat != 0;
+        v92 = v87;
+        v93 = lastObject;
+        BYTE4(v58) = shouldTrackForRequery;
+        BYTE3(v58) = isBlackholed;
+        BYTE2(v58) = wasContextUsed;
+        BYTE1(v58) = isFromSnapTrustedSender;
+        LOBYTE(v58) = isFromTrustedSender;
+        BYTE1(v57) = wantsCheckpointing;
+        LOBYTE(v57) = 0;
+        BYTE2(v56) = isFromStorage;
+        BYTE1(v56) = isLastFromStorage2;
+        LOBYTE(v56) = isFromMe;
+        [v86 _blastDoorProcessingWithIMMessageItem:v93 chat:chat account:account fromToken:fromToken fromIDSID:fromPushID fromIdentifier:fromIdentifier toIdentifier:toIdentifier participants:participantIdentifiers groupName:currentGroupName groupID:groupID isFromMe:v56 isLastFromStorage:batchContext2 isFromStorage:v57 batchContext:v41 hideLockScreenNotification:combinedPayloadAttachmentDictionary2 wantsCheckpointing:inlineAttachmentsDictionary needsDeliveryReceipt:attributionInfoArray messageBalloonPayloadAttachmentDictionary:nicknameDictionary inlineAttachments:availabilityVerificationRecipientChannelIDPrefix attributionInfoArray:availabilityVerificationRecipientEncryptionValidationToken nicknameDictionary:availabilityOffGridRecipientSubscriptionValidationToken availabilityVerificationRecipientChannelIDPrefix:availabilityOffGridRecipientEncryptionValidationToken availabilityVerificationRecipientEncryptionValidationToken:idsService availabilityOffGridRecipientSubscriptionValidationToken:messageContext availabilityOffGridRecipientEncryptionValidationToken:v58 idsService:isFiltered messageContext:spamDetectionSource isFromTrustedSender:v90 isFromSnapTrustedSender:? wasContextUsed:? isBlackholed:? shouldTrackForRequery:? isFiltered:? spamDetectionSource:? completionBlock:?];
 
-        serviceSession = v89;
+        serviceSession = v86;
       }
     }
 
@@ -290,14 +288,78 @@
       }
 
       v24 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v92 = [v24 initWithDomain:*MEMORY[0x277D18DF8] code:1 userInfo:0];
-      v90 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:v92];
+      v89 = [v24 initWithDomain:*MEMORY[0x277D18DF8] code:1 userInfo:0];
+      v87 = [objc_alloc(MEMORY[0x277D18E08]) initWithError:v89];
     }
   }
 
-  v57 = *MEMORY[0x277D85DE8];
+  return v87;
+}
 
-  return v90;
+- (void)_updateChatForInput:(id)input hadChat:(BOOL)chat
+{
+  chatCopy = chat;
+  v24 = *MEMORY[0x277D85DE8];
+  inputCopy = input;
+  [inputCopy setHadChat:chatCopy];
+  if (!chatCopy)
+  {
+    v6 = +[IMDChatRegistry sharedInstance];
+    participantIdentifiers = [inputCopy participantIdentifiers];
+    v8 = [participantIdentifiers count];
+
+    if (v8 < 3)
+    {
+      fromDisplayID = [inputCopy fromDisplayID];
+      account = [inputCopy account];
+      v19 = [v6 existingChatForID:fromDisplayID account:account];
+    }
+
+    else
+    {
+      replicationSourceServiceName = [inputCopy replicationSourceServiceName];
+      v10 = replicationSourceServiceName;
+      v11 = *MEMORY[0x277D1A620];
+      if (replicationSourceServiceName)
+      {
+        v11 = replicationSourceServiceName;
+      }
+
+      v12 = v11;
+
+      fromDisplayID = [inputCopy fromIdentifier];
+      account = [inputCopy toIdentifier];
+      currentGroupName = [inputCopy currentGroupName];
+      participantIdentifiers2 = [inputCopy participantIdentifiers];
+      _IDsFromURIs = [participantIdentifiers2 _IDsFromURIs];
+      groupID = [inputCopy groupID];
+      v19 = [IMFindChatProcessingPipelineComponent findGroupChatWithFromIdentifier:fromDisplayID toIdentifier:account groupName:currentGroupName participants:_IDsFromURIs groupID:groupID serviceName:v12 chatRegistry:v6];
+    }
+
+    if (v19)
+    {
+      [inputCopy setChat:v19];
+      if (IMOSLoggingEnabled())
+      {
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v23 = v19;
+          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Chat set: %@", buf, 0xCu);
+        }
+      }
+    }
+
+    else
+    {
+      v21 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        sub_22B7D44F8(v21);
+      }
+    }
+  }
 }
 
 - (BOOL)_shouldUpgradeExistingMessage:(id)message input:(id)input

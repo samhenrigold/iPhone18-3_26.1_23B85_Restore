@@ -15,10 +15,10 @@
 - (BKUIPearlCoachingDeviceView)initWithSheetLayout:(BOOL)layout
 {
   layoutCopy = layout;
-  v64[5] = *MEMORY[0x277D85DE8];
-  v62.receiver = self;
-  v62.super_class = BKUIPearlCoachingDeviceView;
-  v4 = [(BKUIPearlCoachingDeviceView *)&v62 init];
+  v63[5] = *MEMORY[0x277D85DE8];
+  v61.receiver = self;
+  v61.super_class = BKUIPearlCoachingDeviceView;
+  v4 = [(BKUIPearlCoachingDeviceView *)&v61 init];
   v5 = v4;
   if (v4)
   {
@@ -49,12 +49,12 @@
       v12 = @"ipad-%i-j3xx";
     }
 
-    v58 = [v9 stringWithFormat:v12, intValue];
+    v57 = [v9 stringWithFormat:v12, intValue];
 
     v13 = MEMORY[0x277D755B8];
     v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     traitCollection = [(BKUIPearlCoachingDeviceView *)v5 traitCollection];
-    v16 = [v13 imageNamed:v58 inBundle:v14 compatibleWithTraitCollection:traitCollection];
+    v16 = [v13 imageNamed:v57 inBundle:v14 compatibleWithTraitCollection:traitCollection];
     [(BKUIPearlCoachingDeviceView *)v5 setDeviceImage:v16];
 
     v17 = objc_alloc(MEMORY[0x277D755E8]);
@@ -93,46 +93,45 @@
     v37 = [widthAnchor constraintEqualToConstant:v33];
     [(BKUIPearlCoachingDeviceView *)v5 setWidthConstraint:v37];
 
-    v51 = MEMORY[0x277CCAAD0];
+    v50 = MEMORY[0x277CCAAD0];
     deviceView7 = [(BKUIPearlCoachingDeviceView *)v5 deviceView];
     centerXAnchor = [deviceView7 centerXAnchor];
     centerXAnchor2 = [(BKUIPearlCoachingDeviceView *)v5 centerXAnchor];
-    v54 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v64[0] = v54;
+    v53 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v63[0] = v53;
     deviceView8 = [(BKUIPearlCoachingDeviceView *)v5 deviceView];
     centerYAnchor = [deviceView8 centerYAnchor];
     centerYAnchor2 = [(BKUIPearlCoachingDeviceView *)v5 centerYAnchor];
     v39 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v64[1] = v39;
+    v63[1] = v39;
     deviceView9 = [(BKUIPearlCoachingDeviceView *)v5 deviceView];
     bottomAnchor = [deviceView9 bottomAnchor];
     bottomAnchor2 = [(BKUIPearlCoachingDeviceView *)v5 bottomAnchor];
     v43 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v64[2] = v43;
+    v63[2] = v43;
     heightConstraint = [(BKUIPearlCoachingDeviceView *)v5 heightConstraint];
-    v64[3] = heightConstraint;
+    v63[3] = heightConstraint;
     widthConstraint = [(BKUIPearlCoachingDeviceView *)v5 widthConstraint];
-    v64[4] = widthConstraint;
-    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:5];
-    [v51 activateConstraints:v46];
+    v63[4] = widthConstraint;
+    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:5];
+    [v50 activateConstraints:v46];
 
     objc_initWeak(&location, v5);
-    v63[0] = objc_opt_class();
-    v63[1] = objc_opt_class();
-    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __51__BKUIPearlCoachingDeviceView_initWithSheetLayout___block_invoke;
-    v59[3] = &unk_278D09928;
-    objc_copyWeak(&v60, &location);
-    v48 = [(BKUIPearlCoachingDeviceView *)v5 registerForTraitChanges:v47 withHandler:v59];
+    v62[0] = objc_opt_class();
+    v62[1] = objc_opt_class();
+    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __51__BKUIPearlCoachingDeviceView_initWithSheetLayout___block_invoke;
+    v58[3] = &unk_278D09928;
+    objc_copyWeak(&v59, &location);
+    v48 = [(BKUIPearlCoachingDeviceView *)v5 registerForTraitChanges:v47 withHandler:v58];
     [(BKUIPearlCoachingDeviceView *)v5 setTraitChangeRegistration:v48];
 
-    objc_destroyWeak(&v60);
+    objc_destroyWeak(&v59);
     objc_destroyWeak(&location);
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -201,8 +200,8 @@ void __51__BKUIPearlCoachingDeviceView_initWithSheetLayout___block_invoke(uint64
 
 - (void)startAnimation
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = _BKUILoggingFacility();
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -230,23 +229,28 @@ void __51__BKUIPearlCoachingDeviceView_initWithSheetLayout___block_invoke(uint64
       v8 = 0.0;
       if (orientation != 1)
       {
-        if ([(BKUIPearlCoachingDeviceView *)self orientation]== 4)
+        orientation = [(BKUIPearlCoachingDeviceView *)self orientation];
+        if (orientation == 4)
         {
           v8 = -1.57079633;
         }
 
-        else if ([(BKUIPearlCoachingDeviceView *)self orientation]== 3)
-        {
-          v8 = 1.57079633;
-        }
-
         else
         {
-          orientation2 = [(BKUIPearlCoachingDeviceView *)self orientation];
-          v8 = 3.14159265;
-          if (orientation2 != 2)
+          orientation = [(BKUIPearlCoachingDeviceView *)self orientation];
+          if (orientation == 3)
           {
-            v8 = 0.0;
+            v8 = 1.57079633;
+          }
+
+          else
+          {
+            orientation = [(BKUIPearlCoachingDeviceView *)self orientation];
+            v8 = 3.14159265;
+            if (orientation != 2)
+            {
+              v8 = 0.0;
+            }
           }
         }
       }
@@ -254,29 +258,27 @@ void __51__BKUIPearlCoachingDeviceView_initWithSheetLayout___block_invoke(uint64
       v7 = -v8;
     }
 
-    v10 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = _BKUILoggingFacility(orientation);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      orientation3 = [(BKUIPearlCoachingDeviceView *)self orientation];
+      orientation2 = [(BKUIPearlCoachingDeviceView *)self orientation];
       *buf = 134218240;
-      v16 = orientation3;
-      v17 = 2048;
-      v18 = v7;
-      _os_log_impl(&dword_241B0A000, v10, OS_LOG_TYPE_DEFAULT, "Coaching: self.orientation = %lu, rotation = %f", buf, 0x16u);
+      v14 = orientation2;
+      v15 = 2048;
+      v16 = v7;
+      _os_log_impl(&dword_241B0A000, v9, OS_LOG_TYPE_DEFAULT, "Coaching: self.orientation = %lu, rotation = %f", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __45__BKUIPearlCoachingDeviceView_startAnimation__block_invoke;
-    v13[3] = &unk_278D09950;
-    objc_copyWeak(&v14, buf);
-    [(BKUIPearlCoachingDeviceView *)self rotateDeviceToAngle:v7 != 0.0 animated:v13 completion:v7];
-    objc_destroyWeak(&v14);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __45__BKUIPearlCoachingDeviceView_startAnimation__block_invoke;
+    v11[3] = &unk_278D09950;
+    objc_copyWeak(&v12, buf);
+    [(BKUIPearlCoachingDeviceView *)self rotateDeviceToAngle:v7 != 0.0 animated:v11 completion:v7];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __45__BKUIPearlCoachingDeviceView_startAnimation__block_invoke(uint64_t a1)

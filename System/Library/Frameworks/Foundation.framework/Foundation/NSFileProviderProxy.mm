@@ -123,7 +123,7 @@ uint64_t __39__NSFileProviderProxy_setItemLocation___block_invoke_2(uint64_t a1,
     client = [(NSFileReactorProxy *)self client];
     if (client)
     {
-      [client auditToken];
+      objc_msgSend_auditToken(client);
     }
 
     else
@@ -133,7 +133,7 @@ uint64_t __39__NSFileProviderProxy_setItemLocation___block_invoke_2(uint64_t a1,
     }
 
     v8 = [NSFileAccessArbiter entitlementForConnection:[(NSFileReactorProxy *)self client] key:@"application-identifier"];
-    if (([v8 isEqualToString:@"com.apple.bird"] & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"com.apple.fileprovider.fileproviderd") & 1) != 0 || (*buf = v18, *&buf[16] = v19, !sandbox_check_by_audit_token()))
+    if ((objc_msgSend_isEqualToString_(v8) & 1) != 0 || (objc_msgSend_isEqualToString_(v8) & 1) != 0 || (*buf = v18, *&buf[16] = v19, !sandbox_check_by_audit_token()))
     {
       *(*&v20[8] + 24) = 1;
     }
@@ -189,7 +189,7 @@ uint64_t __39__NSFileProviderProxy_setItemLocation___block_invoke_2(uint64_t a1,
   return v7 & 1;
 }
 
-uint64_t __37__NSFileProviderProxy_allowedForURL___block_invoke(uint64_t a1, void *a2, char *a3)
+void *__37__NSFileProviderProxy_allowedForURL___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v8 = [a2 fileSystemRepresentation];
   v6 = 1;
@@ -216,7 +216,7 @@ uint64_t __37__NSFileProviderProxy_allowedForURL___block_invoke(uint64_t a1, voi
   client = [claim client];
   if (client)
   {
-    [client auditToken];
+    objc_msgSend_auditToken(client);
   }
 
   else
@@ -495,7 +495,7 @@ LABEL_7:
 - (void)observePresentationChangeOfKind:(id)kind withPresenter:(id)presenter url:(id)url newURL:(id)l
 {
   v18 = *MEMORY[0x1E69E9840];
-  if ([kind isEqualToString:@"added"])
+  if (objc_msgSend_isEqualToString_(kind, a2, @"added"))
   {
     observedUbiquityAttributes = [presenter observedUbiquityAttributes];
   }
@@ -509,7 +509,7 @@ LABEL_7:
   client = [presenter client];
   if (client)
   {
-    [client auditToken];
+    objc_msgSend_auditToken(client);
   }
 
   else

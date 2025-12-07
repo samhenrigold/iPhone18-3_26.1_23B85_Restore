@@ -73,38 +73,38 @@
 
 - (id)_anniversaryTitleWithMomentNodes:(id)nodes
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   v4 = objc_alloc_init(MEMORY[0x277CCA940]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = nodesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __60__PGTitleSpecTimeArgument__anniversaryTitleWithMomentNodes___block_invoke;
-        v21[3] = &unk_278889240;
-        v22 = v4;
-        [v10 enumerateNeighborNodesThroughEdgesWithLabel:@"ANNIVERSARY" domain:301 usingBlock:v21];
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __60__PGTitleSpecTimeArgument__anniversaryTitleWithMomentNodes___block_invoke;
+        v20[3] = &unk_278889240;
+        v21 = v4;
+        [v10 enumerateNeighborNodesThroughEdgesWithLabel:@"ANNIVERSARY" domain:301 usingBlock:v20];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
@@ -138,8 +138,6 @@
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

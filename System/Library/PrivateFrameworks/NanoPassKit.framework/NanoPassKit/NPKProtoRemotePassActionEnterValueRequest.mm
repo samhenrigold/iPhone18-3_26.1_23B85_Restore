@@ -90,7 +90,6 @@
   }
 
   PBDataWriterWriteStringField();
-  currentBalanceAmount = self->_currentBalanceAmount;
   PBDataWriterWriteSint64Field();
   if (self->_paymentPassActionData)
   {

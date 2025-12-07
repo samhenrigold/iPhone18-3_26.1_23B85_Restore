@@ -55,102 +55,96 @@ void __62__HMActionSet_HFAdditions__hf_setIconIdentifier_andTintColor___block_in
 
 void __76__HMActionSet_HFAdditions__hf_standardSystemIconIdentifierForActionSetType___block_invoke_2()
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCF198];
-  v5[0] = *MEMORY[0x277CCF1B0];
-  v5[1] = v0;
-  v6[0] = @"sun.max.fill";
-  v6[1] = @"moon.stars.fill";
+  v4[0] = *MEMORY[0x277CCF1B0];
+  v4[1] = v0;
+  v5[0] = @"sun.max.fill";
+  v5[1] = @"moon.stars.fill";
   v1 = *MEMORY[0x277CCF188];
-  v5[2] = *MEMORY[0x277CCF180];
-  v5[3] = v1;
-  v6[2] = @"figure.walk.arrival";
-  v6[3] = @"figure.walk.departure";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4[2] = *MEMORY[0x277CCF180];
+  v4[3] = v1;
+  v5[2] = @"figure.walk.arrival";
+  v5[3] = @"figure.walk.departure";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
   v3 = qword_280E030B8;
   qword_280E030B8 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMActionSet_HFAdditions__hf_mapOldIconIdentifierToNewSystemIconIdentifier___block_invoke_2()
 {
-  v4[12] = *MEMORY[0x277D85DE8];
-  v3[0] = @"HFImageIconIdentifierSceneWakeUp";
-  v3[1] = @"HFImageIconIdentifierSceneSleep";
-  v4[0] = @"sun.max.fill";
-  v4[1] = @"moon.stars.fill";
-  v3[2] = @"HFImageIconIdentifierSceneArrivingHome";
-  v3[3] = @"HFImageIconIdentifierSceneLeavingHome";
-  v4[2] = @"figure.walk.arrival";
-  v4[3] = @"figure.walk.departure";
-  v3[4] = @"HFImageIconIdentifierGeneric";
-  v3[5] = @"HFImageIconIdentifierSceneChillOut";
-  v4[4] = @"house.fill";
-  v4[5] = @"chair.lounge.fill";
-  v3[6] = @"HFImageIconIdentifierSceneMovie";
-  v3[7] = @"HFImageIconIdentifierSceneDinner";
-  v4[6] = @"popcorn.fill";
-  v4[7] = @"fork.knife";
-  v3[8] = @"HFImageIconIdentifierSceneCoffee";
-  v3[9] = @"HFImageIconIdentifierSceneBreakfast";
-  v4[8] = @"cup.and.saucer.fill";
-  v4[9] = @"frying.pan.fill";
-  v3[10] = @"HFImageIconIdentifierSceneParty";
-  v3[11] = @"HFImageIconIdentifierSceneRomance";
-  v4[10] = @"party.popper.fill";
-  v4[11] = @"heart.fill";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:12];
+  v3[12] = *MEMORY[0x277D85DE8];
+  v2[0] = @"HFImageIconIdentifierSceneWakeUp";
+  v2[1] = @"HFImageIconIdentifierSceneSleep";
+  v3[0] = @"sun.max.fill";
+  v3[1] = @"moon.stars.fill";
+  v2[2] = @"HFImageIconIdentifierSceneArrivingHome";
+  v2[3] = @"HFImageIconIdentifierSceneLeavingHome";
+  v3[2] = @"figure.walk.arrival";
+  v3[3] = @"figure.walk.departure";
+  v2[4] = @"HFImageIconIdentifierGeneric";
+  v2[5] = @"HFImageIconIdentifierSceneChillOut";
+  v3[4] = @"house.fill";
+  v3[5] = @"chair.lounge.fill";
+  v2[6] = @"HFImageIconIdentifierSceneMovie";
+  v2[7] = @"HFImageIconIdentifierSceneDinner";
+  v3[6] = @"popcorn.fill";
+  v3[7] = @"fork.knife";
+  v2[8] = @"HFImageIconIdentifierSceneCoffee";
+  v2[9] = @"HFImageIconIdentifierSceneBreakfast";
+  v3[8] = @"cup.and.saucer.fill";
+  v3[9] = @"frying.pan.fill";
+  v2[10] = @"HFImageIconIdentifierSceneParty";
+  v2[11] = @"HFImageIconIdentifierSceneRomance";
+  v3[10] = @"party.popper.fill";
+  v3[11] = @"heart.fill";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:12];
   v1 = qword_280E030C8;
   qword_280E030C8 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMActionSet_HFAdditions__hf_standardIconTintColorForIconIdentifier___block_invoke_2()
 {
-  v16[12] = *MEMORY[0x277D85DE8];
-  v15[0] = @"sun.max.fill";
-  v14 = [MEMORY[0x277D75348] systemYellowColor];
-  v16[0] = v14;
-  v15[1] = @"moon.stars.fill";
-  v13 = [MEMORY[0x277D75348] systemIndigoColor];
-  v16[1] = v13;
-  v15[2] = @"figure.walk.arrival";
+  v15[12] = *MEMORY[0x277D85DE8];
+  v14[0] = @"sun.max.fill";
+  v13 = [MEMORY[0x277D75348] systemYellowColor];
+  v15[0] = v13;
+  v14[1] = @"moon.stars.fill";
+  v12 = [MEMORY[0x277D75348] systemIndigoColor];
+  v15[1] = v12;
+  v14[2] = @"figure.walk.arrival";
   v0 = [MEMORY[0x277D75348] systemOrangeColor];
-  v16[2] = v0;
-  v15[3] = @"figure.walk.departure";
+  v15[2] = v0;
+  v14[3] = @"figure.walk.departure";
   v1 = [MEMORY[0x277D75348] systemOrangeColor];
-  v16[3] = v1;
-  v15[4] = @"house.fill";
+  v15[3] = v1;
+  v14[4] = @"house.fill";
   v2 = [MEMORY[0x277D75348] systemOrangeColor];
-  v16[4] = v2;
-  v15[5] = @"chair.lounge.fill";
+  v15[4] = v2;
+  v14[5] = @"chair.lounge.fill";
   v3 = [MEMORY[0x277D75348] systemBrownColor];
-  v16[5] = v3;
-  v15[6] = @"popcorn.fill";
+  v15[5] = v3;
+  v14[6] = @"popcorn.fill";
   v4 = [MEMORY[0x277D75348] systemRedColor];
-  v16[6] = v4;
-  v15[7] = @"fork.knife";
+  v15[6] = v4;
+  v14[7] = @"fork.knife";
   v5 = [MEMORY[0x277D75348] systemGrayColor];
-  v16[7] = v5;
-  v15[8] = @"cup.and.saucer.fill";
+  v15[7] = v5;
+  v14[8] = @"cup.and.saucer.fill";
   v6 = [MEMORY[0x277D75348] systemMintColor];
-  v16[8] = v6;
-  v15[9] = @"frying.pan.fill";
+  v15[8] = v6;
+  v14[9] = @"frying.pan.fill";
   v7 = [MEMORY[0x277D75348] systemGrayColor];
-  v16[9] = v7;
-  v15[10] = @"party.popper.fill";
+  v15[9] = v7;
+  v14[10] = @"party.popper.fill";
   v8 = [MEMORY[0x277D75348] systemYellowColor];
-  v16[10] = v8;
-  v15[11] = @"heart.fill";
+  v15[10] = v8;
+  v14[11] = @"heart.fill";
   v9 = [MEMORY[0x277D75348] systemPinkColor];
-  v16[11] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:12];
+  v15[11] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:12];
   v11 = qword_280E030D8;
   qword_280E030D8 = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__HMActionSet_HFAdditions__hf_shortcutAction__block_invoke(uint64_t a1, void *a2)
@@ -183,7 +177,7 @@ void __63__HMActionSet_HFApplicationData___hf_didUpdateApplicationData___block_i
   v4 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     [v4 home:v3 didUpdateApplicationDataForActionSet:*(a1 + 32)];
   }
 }
@@ -195,7 +189,7 @@ void __89__HMActionSet_HFApplicationData__hf_updateApplicationData_handleError_c
   v4 = [v3 homeManager];
   if ([v4 hasOptedToHH2])
   {
-    v5 = [*(a1 + 32) home];
+    v5 = objc_msgSend_home(*(a1 + 32));
     v6 = [v5 residentDevices];
     v7 = [v6 count];
 

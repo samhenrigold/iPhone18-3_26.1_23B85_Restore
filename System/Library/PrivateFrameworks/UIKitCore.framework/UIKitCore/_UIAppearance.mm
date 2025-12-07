@@ -252,7 +252,7 @@
 
             v22 = *(*(&v33 + 1) + 8 * k);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && ([v22 isEqualToString:@"_UIAppearanceKey"] & 1) == 0 && (objc_msgSend(v22, "isEqualToString:", @"_UIAppearanceHasExtendedAppearancesKey") & 1) == 0)
+            if ((objc_opt_isKindOfClass() & 1) != 0 && (objc_msgSend_isEqualToString_(v22) & 1) == 0 && (objc_msgSend_isEqualToString_(v22) & 1) == 0)
             {
               v46(v45, v22);
             }
@@ -325,22 +325,22 @@
 {
   if ([(NSMapTable *)self->_invocationSources count])
   {
-    v5 = [(NSMutableArray *)self->_appearanceInvocations count];
-    v8 = objc_alloc_init(MEMORY[0x1E696AD50]);
-    if (v5)
+    v4 = [(NSMutableArray *)self->_appearanceInvocations count];
+    v7 = objc_alloc_init(MEMORY[0x1E696AD50]);
+    if (v4)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        v7 = [(NSMutableArray *)self->_appearanceInvocations objectAtIndex:i];
-        if ([-[NSMapTable objectForKey:](self->_invocationSources objectForKey:{v7), "isEqual:", source}])
+        v6 = [(NSMutableArray *)self->_appearanceInvocations objectAtIndex:i];
+        if (objc_msgSend_isEqual_([(NSMapTable *)self->_invocationSources objectForKey:v6]))
         {
-          [v8 addIndex:i];
-          [(NSMapTable *)self->_invocationSources removeObjectForKey:v7];
+          [v7 addIndex:i];
+          [(NSMapTable *)self->_invocationSources removeObjectForKey:v6];
         }
       }
     }
 
-    [(NSMutableArray *)self->_appearanceInvocations removeObjectsAtIndexes:v8];
+    [(NSMutableArray *)self->_appearanceInvocations removeObjectsAtIndexes:v7];
   }
 }
 
@@ -634,7 +634,7 @@ LABEL_3:
     v11 = v10;
     if (v9 && (!v10 || [(objc_class *)v9 isSubclassOfClass:v10]))
     {
-      if ([[(NSString *)v6 substringToIndex:1] isEqualToString:@"_"])
+      if (objc_msgSend_isEqualToString_([(NSString *)v6 substringToIndex:1]))
       {
         v12 = [(NSString *)v6 substringFromIndex:1];
       }

@@ -14,11 +14,11 @@
 
 - (id)description
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v19.receiver = self;
-  v19.super_class = SASPresentationAggregateState;
-  v4 = [(SASPresentationAggregateState *)&v19 description];
+  v18.receiver = self;
+  v18.super_class = SASPresentationAggregateState;
+  v4 = [(SASPresentationAggregateState *)&v18 description];
   v5 = objc_alloc(MEMORY[0x1E696AEC0]);
   if (self->_canAcceptNewActivations)
   {
@@ -31,7 +31,7 @@
   }
 
   v7 = [v5 initWithFormat:@"canAcceptNewActivations = %@", v6];
-  v20[0] = v7;
+  v19[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E696AEC0]);
   if (self->_didNewActivationAcceptanceChange)
   {
@@ -44,16 +44,14 @@
   }
 
   v10 = [v8 initWithFormat:@"didNewActivationAcceptanceChange = %@", v9];
-  v20[1] = v10;
+  v19[1] = v10;
   v11 = objc_alloc(MEMORY[0x1E696AEC0]);
   v12 = [MEMORY[0x1E696AD98] numberWithInteger:self->_requestState];
   v13 = [v11 initWithFormat:@"requestState = %@", v12];
-  v20[2] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  v19[2] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
   v15 = [v14 componentsJoinedByString:{@", "}];
   v16 = [v3 initWithFormat:@"%@ {%@}", v4, v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

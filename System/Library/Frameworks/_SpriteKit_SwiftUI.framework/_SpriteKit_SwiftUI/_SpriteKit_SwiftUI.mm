@@ -359,32 +359,8 @@ id SKView.assignState(state:)(uint64_t a1)
   v9 = *(a1 + 40);
   v8 = *(a1 + 48);
   v10 = [v1 scene];
-  if (!v10)
+  if (!v10 || (v11 = v10, type metadata accessor for SKScene(), v12 = v3, v23 = v6, v13 = v3, v14 = v8, v15 = v4, v16 = v7, v17 = v5, v18 = v12, v19 = static NSObject.== infix(_:_:)(), v11, v18, v5 = v17, v7 = v16, v4 = v15, v8 = v14, v3 = v13, v6 = v23, (v19 & 1) == 0))
   {
-    goto LABEL_4;
-  }
-
-  v11 = v10;
-  type metadata accessor for SKScene();
-  v12 = v3;
-  v23 = v6;
-  v13 = v3;
-  v14 = v8;
-  v15 = v4;
-  v16 = v7;
-  v17 = v5;
-  v18 = v12;
-  v19 = static NSObject.== infix(_:_:)();
-
-  v5 = v17;
-  v7 = v16;
-  v4 = v15;
-  v8 = v14;
-  v3 = v13;
-  v6 = v23;
-  if ((v19 & 1) == 0)
-  {
-LABEL_4:
     [v2 frame];
     if (v21 != 0.0 || v20 != 0.0)
     {
@@ -615,7 +591,7 @@ uint64_t protocol witness for static View._makeViewList(view:inputs:) in conform
   return MEMORY[0x28212E358](a1, a2, a3, v6);
 }
 
-void protocol witness for View.body.getter in conformance UIKitSpriteKitView()
+void protocol witness for View.body.getter in conformance UIKitSpriteKitView(uint64_t a1)
 {
   lazy protocol witness table accessor for type UIKitSpriteKitView and conformance UIKitSpriteKitView();
   UIViewRepresentable.body.getter();
@@ -627,7 +603,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

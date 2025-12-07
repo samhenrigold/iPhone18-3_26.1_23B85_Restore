@@ -26,7 +26,7 @@
 {
   classesCopy = classes;
   encryptedValuesByKey = [(CKRecord *)self encryptedValuesByKey];
-  v6 = [encryptedValuesByKey objectForKey:@"value"];
+  v6 = objc_msgSend_objectForKey_(encryptedValuesByKey);
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())

@@ -89,32 +89,32 @@ LABEL_12:
 
 - (void)startTrackingItems:(id)items
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = itemsCopy;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v18, v26, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v17, v25, 16);
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        objc_msgSend_setObject_forKey_(selfCopy->_completedBytesByItems, v8, &unk_2838C8BF8, *(*(&v18 + 1) + 8 * i), v18);
+        objc_msgSend_setObject_forKey_(selfCopy->_completedBytesByItems, v8, &unk_2838C8BF8, *(*(&v17 + 1) + 8 * i), v17);
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v18, v26, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v17, v25, 16);
     }
 
     while (v9);
@@ -131,46 +131,44 @@ LABEL_12:
   v12 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v14 = v12;
-    v17 = objc_msgSend_trackingID(selfCopy, v15, v16);
+    v13 = v12;
+    v16 = objc_msgSend_trackingID(selfCopy, v14, v15);
     *buf = 138412546;
-    v23 = v17;
-    v24 = 2112;
-    v25 = v6;
-    _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "%@ started tracking items: %@", buf, 0x16u);
+    v22 = v16;
+    v23 = 2112;
+    v24 = v6;
+    _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "%@ started tracking items: %@", buf, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTrackingItems:(id)items
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = itemsCopy;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v18, v26, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v17, v25, 16);
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        objc_msgSend_removeObjectForKey_(selfCopy->_completedBytesByItems, v8, *(*(&v18 + 1) + 8 * i), v18);
+        objc_msgSend_removeObjectForKey_(selfCopy->_completedBytesByItems, v8, *(*(&v17 + 1) + 8 * i), v17);
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v18, v26, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v17, v25, 16);
     }
 
     while (v9);
@@ -187,16 +185,14 @@ LABEL_12:
   v12 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v14 = v12;
-    v17 = objc_msgSend_trackingID(selfCopy, v15, v16);
+    v13 = v12;
+    v16 = objc_msgSend_trackingID(selfCopy, v14, v15);
     *buf = 138412546;
-    v23 = v17;
-    v24 = 2112;
-    v25 = v6;
-    _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "%@ stopped tracking items: %@", buf, 0x16u);
+    v22 = v16;
+    v23 = 2112;
+    v24 = v6;
+    _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "%@ stopped tracking items: %@", buf, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_updateTotalBytes

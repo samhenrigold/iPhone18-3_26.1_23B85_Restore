@@ -4,6 +4,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)enqueuedSyncTypeAsString:(int)string;
+- (id)serviceTypeAsString:(int)string;
 - (int)StringAsEnqueuedSyncType:(id)type;
 - (int)StringAsServiceType:(id)type;
 - (int)serviceType;
@@ -16,6 +18,21 @@
 @end
 
 @implementation SYLogServiceState
+
+- (id)enqueuedSyncTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86CA048[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsEnqueuedSyncType:(id)type
 {
@@ -74,6 +91,21 @@
   }
 }
 
+- (id)serviceTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86CA060[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsServiceType:(id)type
 {
   typeCopy = type;
@@ -114,7 +146,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   name = self->_name;
@@ -163,30 +195,30 @@
   if ([(NSMutableArray *)self->_transportOptions count])
   {
     v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_transportOptions, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v16 = self->_transportOptions;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation4 = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
           [v15 addObject:dictionaryRepresentation4];
         }
 
-        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v18);
@@ -223,14 +255,12 @@
     [v4 setObject:v25 forKey:@"serviceType"];
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (!self->_name)
   {
@@ -249,45 +279,42 @@
     PBDataWriterWriteSubmessage();
   }
 
-  sessionQueueRunning = self->_sessionQueueRunning;
   PBDataWriterWriteBOOLField();
   if (self->_targetedDevice)
   {
     PBDataWriterWriteSubmessage();
   }
 
-  enqueuedSyncType = self->_enqueuedSyncType;
   PBDataWriterWriteInt32Field();
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = self->_transportOptions;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_transportOptions;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v17;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      v12 = 0;
+      v10 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
-        ++v12;
+        ++v10;
       }
 
-      while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_peerID)
@@ -302,11 +329,8 @@
 
   if (*&self->_has)
   {
-    serviceType = self->_serviceType;
     PBDataWriterWriteInt32Field();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -368,7 +392,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_name copyWithZone:zone];
   v7 = *(v5 + 24);
@@ -388,34 +412,34 @@
   *(v5 + 64) = v12;
 
   *(v5 + 16) = self->_enqueuedSyncType;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v14 = self->_transportOptions;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v27;
+    v17 = *v26;
     do
     {
       v18 = 0;
       do
       {
-        if (*v27 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v26 + 1) + 8 * v18) copyWithZone:{zone, v26}];
+        v19 = [*(*(&v25 + 1) + 8 * v18) copyWithZone:{zone, v25}];
         [v5 addTransportOptions:v19];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v16);
@@ -435,7 +459,6 @@
     *(v5 + 84) |= 1u;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -474,7 +497,6 @@
     }
   }
 
-  v8 = *(equalCopy + 80);
   if (self->_sessionQueueRunning)
   {
     if ((*(equalCopy + 80) & 1) == 0)
@@ -486,7 +508,7 @@
   else if (*(equalCopy + 80))
   {
 LABEL_25:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_26;
   }
 
@@ -528,7 +550,7 @@ LABEL_25:
     }
   }
 
-  v13 = (*(equalCopy + 84) & 1) == 0;
+  v12 = (*(equalCopy + 84) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 84) & 1) == 0 || self->_serviceType != *(equalCopy + 12))
@@ -536,12 +558,12 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_26:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash
@@ -570,7 +592,7 @@ LABEL_26:
 
 - (void)mergeFrom:(id)from
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 3))
   {
@@ -624,29 +646,29 @@ LABEL_26:
   }
 
   self->_enqueuedSyncType = *(fromCopy + 4);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v11 = *(fromCopy + 9);
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(SYLogServiceState *)self addTransportOptions:*(*(&v17 + 1) + 8 * i), v17];
+        [(SYLogServiceState *)self addTransportOptions:*(*(&v16 + 1) + 8 * i), v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
@@ -667,8 +689,6 @@ LABEL_26:
     self->_serviceType = *(fromCopy + 12);
     *&self->_has |= 1u;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCocoaTransportOptions:(id)options
@@ -698,43 +718,41 @@ void __59__SYLogServiceState_Convenience__setCocoaTransportOptions___block_invok
 
 - (NSDictionary)cocoaTransportOptions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DF90]);
   transportOptions = [(SYLogServiceState *)self transportOptions];
   v5 = [v3 initWithCapacity:{objc_msgSend(transportOptions, "count")}];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   transportOptions2 = [(SYLogServiceState *)self transportOptions];
-  v7 = [transportOptions2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [transportOptions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(transportOptions2);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         value = [v11 value];
         v13 = [v11 key];
         [v5 setObject:value forKeyedSubscript:v13];
       }
 
-      v8 = [transportOptions2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [transportOptions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

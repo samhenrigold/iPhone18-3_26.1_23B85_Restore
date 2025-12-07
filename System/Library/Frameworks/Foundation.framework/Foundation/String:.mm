@@ -10,7 +10,7 @@
   result = *self;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS10Foundation10MorphologyV14_CustomPronounVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySS10Foundation10MorphologyV14_CustomPronounVGMd, &_sSDySS10Foundation10MorphologyV14_CustomPronounVGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, self);
@@ -24,7 +24,7 @@
   result = lazy protocol witness table cache variable for type [String : AttributedStringKey.Type].Values and conformance [A : B].Values;
   if (!lazy protocol witness table cache variable for type [String : AttributedStringKey.Type].Values and conformance [A : B].Values)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD6ValuesVySS10Foundation19AttributedStringKey_pXp_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSD6ValuesVySS10Foundation19AttributedStringKey_pXp_GMd, &_sSD6ValuesVySS10Foundation19AttributedStringKey_pXp_GMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : AttributedStringKey.Type].Values and conformance [A : B].Values);
   }

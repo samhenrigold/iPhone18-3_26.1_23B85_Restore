@@ -23,35 +23,35 @@
 
 - (void)layoutSubviews
 {
-  v17 = *MEMORY[0x29EDCA608];
-  v15.receiver = self;
-  v15.super_class = TUIPredictionView_TFExtras;
-  [(TUIPredictionView_TFExtras *)&v15 layoutSubviews];
+  v16 = *MEMORY[0x29EDCA608];
+  v14.receiver = self;
+  v14.super_class = TUIPredictionView_TFExtras;
+  [(TUIPredictionView_TFExtras *)&v14 layoutSubviews];
   if (_AXSQuickTypePredictionFeedbackEnabled())
   {
     [(TUIPredictionView_TFExtras *)self speakTypingLoadAccessibilityInformation];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   gestureRecognizers = [(TUIPredictionView_TFExtras *)self gestureRecognizers];
-  v4 = [gestureRecognizers countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v4 = [gestureRecognizers countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(gestureRecognizers);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([v8 _accessibilityBoolValueForKey:@"SpeakCell"])
         {
           [(TUIPredictionView_TFExtras *)self frame];
@@ -59,13 +59,11 @@
         }
       }
 
-      v5 = [gestureRecognizers countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v5 = [gestureRecognizers countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)speakTypingLoadAccessibilityInformation

@@ -11,6 +11,7 @@
 - (void)resetPasscodeView;
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)options;
 - (void)showCompletionViewWithError:(id)error;
+- (void)showCompletionViewWithIssuesFound:(BOOL)found;
 - (void)showLockoutViewUntilDate:(id)date;
 - (void)showPasscodeView;
 - (void)showRebootView;
@@ -101,7 +102,7 @@
 - (void)languageViewController:(id)controller didChooseLanguageCodeWithRegion:(id)region
 {
   regionCopy = region;
-  v6 = sub_100012608();
+  v6 = sub_100012608(regionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136446210;
@@ -120,7 +121,7 @@
 {
   controllerCopy = controller;
   passcodeCopy = passcode;
-  v8 = sub_100012608();
+  v8 = sub_100012608(passcodeCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -146,7 +147,7 @@
 
 - (void)recoveryViewControllerDidBegin:(id)begin
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446210;
@@ -159,7 +160,7 @@
 
 - (void)termsViewControllerDidAgree:(id)agree
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446210;
@@ -178,7 +179,7 @@
 
 - (void)termsViewControllerDidDisagree:(id)disagree
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446210;
@@ -198,7 +199,7 @@
 - (void)userApprovalViewControllerDidCancel:(id)cancel
 {
   cancelCopy = cancel;
-  v5 = sub_100012608();
+  v5 = sub_100012608(cancelCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446210;
@@ -211,7 +212,7 @@
 
 - (void)userApprovalViewControllerDidContinue:(id)continue
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446210;
@@ -225,7 +226,7 @@
 - (void)welcomeViewControllerDidCancel:(id)cancel
 {
   cancelCopy = cancel;
-  v5 = sub_100012608();
+  v5 = sub_100012608(cancelCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446210;
@@ -239,7 +240,7 @@
 - (void)welcomeViewControllerDidChooseDisable:(id)disable
 {
   disableCopy = disable;
-  v5 = sub_100012608();
+  v5 = sub_100012608(disableCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -262,7 +263,7 @@
 
 - (void)welcomeViewControllerDidChooseLanguage:(id)language
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446210;
@@ -279,7 +280,7 @@
 - (void)welcomeViewControllerDidChooseNeRD:(id)d
 {
   dCopy = d;
-  v5 = sub_100012608();
+  v5 = sub_100012608(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446210;
@@ -292,7 +293,7 @@
 
 - (void)welcomeViewControllerDidContinue:(id)continue
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446210;
@@ -308,7 +309,7 @@
 
 - (void)wifiViewControllerDelegateDidChooseNetwork:(id)network
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446210;
@@ -322,7 +323,7 @@
 - (void)wifiViewControllerDelegateDidCancel:(id)cancel
 {
   cancelCopy = cancel;
-  v5 = sub_100012608();
+  v5 = sub_100012608(cancelCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446210;
@@ -341,9 +342,28 @@
   [topViewController enable];
 }
 
+- (void)showCompletionViewWithIssuesFound:(BOOL)found
+{
+  foundCopy = found;
+  v5 = sub_100012608(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446210;
+    v11 = "[SceneDelegate showCompletionViewWithIssuesFound:]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Pushing done screen onto stack.", buf, 0xCu);
+  }
+
+  v6 = [[DoneViewController alloc] initWithIssuesFound:foundCopy];
+  [(DoneViewController *)v6 setDelegate:self];
+  navigationController = [(SceneDelegate *)self navigationController];
+  v9 = v6;
+  v8 = [NSArray arrayWithObjects:&v9 count:1];
+  [navigationController setViewControllers:v8 animated:1];
+}
+
 - (void)showCompletionViewWithError:(id)error
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -362,7 +382,7 @@
 - (void)showLockoutViewUntilDate:(id)date
 {
   dateCopy = date;
-  v5 = sub_100012608();
+  v5 = sub_100012608(dateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136446210;
@@ -377,7 +397,7 @@
 
 - (void)showPasscodeView
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446210;
@@ -393,7 +413,7 @@
 
 - (void)showRebootView
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -410,7 +430,7 @@
 
 - (void)showRecoveryView
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -428,7 +448,7 @@
 
 - (void)showTermsView
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446210;
@@ -445,7 +465,7 @@
 - (void)showUserApprovalView:(id)view
 {
   viewCopy = view;
-  v5 = sub_100012608();
+  v5 = sub_100012608(viewCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -463,7 +483,7 @@
 
 - (void)showWiFiView
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;

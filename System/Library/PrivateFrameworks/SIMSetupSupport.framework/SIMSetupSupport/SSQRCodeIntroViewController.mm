@@ -7,13 +7,14 @@
 - (void)_otherButtonTapped:(id)tapped;
 - (void)_scanButtonTapped:(id)tapped;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SSQRCodeIntroViewController
 
 + (id)getDetail:(id)detail
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   detailCopy = detail;
   v4 = [MEMORY[0x277CBEB58] set];
   objc_opt_class();
@@ -25,25 +26,25 @@
   }
 
   v7 = v6;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -59,7 +60,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v9);
@@ -89,8 +90,6 @@
     v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v17 = [v16 localizedStringForKey:@"CELLULAR_PLAN_INTRO_QRCODE_NO_CARRIER" value:&stru_28753DF48 table:@"Localizable"];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -171,6 +170,14 @@
   [linkButton addTarget:self action:*v11 forControlEvents:64];
   buttonTray2 = [(SSQRCodeIntroViewController *)self buttonTray];
   [buttonTray2 addButton:linkButton];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SSQRCodeIntroViewController;
+  [(SSQRCodeIntroViewController *)&v4 viewWillAppear:appear];
+  [(SSQRCodeIntroViewController *)self _configureNavigationItem];
 }
 
 - (void)_configureNavigationItem

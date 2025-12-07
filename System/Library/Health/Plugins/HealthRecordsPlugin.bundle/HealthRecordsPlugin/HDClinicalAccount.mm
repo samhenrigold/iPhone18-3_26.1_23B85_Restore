@@ -470,7 +470,7 @@
     v5 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      sub_A7ED0(v5);
+      sub_A7ED0(v5, self);
     }
 
     v4 = 0;
@@ -1665,7 +1665,7 @@ LABEL_3:
     v13 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      sub_A8074(v13);
+      sub_A8074(v13, self);
     }
 
     v6 = [[HKSignedClinicalDataIssuer alloc] initWithIdentifier:@"www.example.com" title:@"Missing Endpoint" subtitle:0 wellKnownURL:0];

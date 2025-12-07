@@ -15,46 +15,46 @@
 
 - (CSUCaptioningProcUtils)initWithDecoderConfiguration:(id)configuration beamWidth:(int)width beamScorerType:(unint64_t)type error:(id *)error
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v66.receiver = self;
-  v66.super_class = CSUCaptioningProcUtils;
-  v54 = [(CSUCaptioningProcUtils *)&v66 init];
-  if (v54)
+  v65.receiver = self;
+  v65.super_class = CSUCaptioningProcUtils;
+  v53 = [(CSUCaptioningProcUtils *)&v65 init];
+  if (v53)
   {
     v11 = MEMORY[0x1E695DEF0];
     v12 = objc_msgSend_vocabularyModelPath(configurationCopy, v7, v8, v9, v10);
-    v52 = objc_msgSend_dataWithContentsOfFile_(v11, v13, v12, v14, v15);
+    v51 = objc_msgSend_dataWithContentsOfFile_(v11, v13, v12, v14, v15);
 
-    if (v52)
+    if (v51)
     {
-      v65 = 0;
-      v18 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v16, v52, 0, &v65);
-      v19 = v65;
-      v50 = v19;
+      v64 = 0;
+      v18 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v16, v51, 0, &v64);
+      v19 = v64;
+      v49 = v19;
       if (v18)
       {
-        *v62 = 0u;
-        v63 = 0u;
-        v64 = 1065353216;
+        *v61 = 0u;
+        v62 = 0u;
+        v63 = 1065353216;
+        v57 = 0u;
         v58 = 0u;
         v59 = 0u;
         v60 = 0u;
-        v61 = 0u;
         obj = v18;
-        v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v58, v68, 16);
+        v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v57, v67, 16);
         if (v21)
         {
           v22 = 0;
-          v23 = *v59;
-          for (i = *v59; ; i = *v59)
+          v23 = *v58;
+          for (i = *v58; ; i = *v58)
           {
             if (i != v23)
             {
               objc_enumerationMutation(obj);
             }
 
-            v25 = *(*(&v58 + 1) + 8 * v22);
+            v25 = *(*(&v57 + 1) + 8 * v22);
             v26 = objc_autoreleasePoolPush();
             v30 = objc_msgSend_objectForKey_(obj, v27, v25, v28, v29);
             v31 = v30;
@@ -80,9 +80,9 @@
             }
 
             __dst.__r_.__value_.__s.__data_[v44] = 0;
-            v57 = std::stoi(&__dst, 0, 10);
-            v67 = &v57;
-            v45 = sub_1AC07A364(v62, &v57);
+            v56 = std::stoi(&__dst, 0, 10);
+            v66 = &v56;
+            v45 = sub_1AC07A364(v61, &v56, &unk_1AC129258, &v66);
             sub_1AC075A84(v45 + 3, v36);
             if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -92,7 +92,7 @@
             objc_autoreleasePoolPop(v26);
             if (++v22 >= v21)
             {
-              v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v46, &v58, v68, 16);
+              v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v46, &v57, v67, 16);
               if (!v21)
               {
                 break;
@@ -109,7 +109,7 @@
       if (error)
       {
         v47 = v19;
-        *error = v50;
+        *error = v49;
       }
     }
 
@@ -119,7 +119,6 @@
     }
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

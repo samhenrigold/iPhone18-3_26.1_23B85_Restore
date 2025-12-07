@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1BA29411C();
+  sub_1BA29411C(selfCopy);
 }
 
 - (void)hxui_primaryFooterButtonTapped

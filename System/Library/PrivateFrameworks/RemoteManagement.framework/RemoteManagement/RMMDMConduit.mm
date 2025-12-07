@@ -29,6 +29,7 @@
 - (void)persistentHistoryNotifier:(id)notifier hasChanges:(id)changes;
 - (void)sendStatusData:(id)data completionHandler:(id)handler;
 - (void)startWithCompletionHandler:(id)handler;
+- (void)syncOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler;
 - (void)unenrollWithCompletionHandler:(id)handler;
 - (void)updateWithPushMessage:(id)message completionHandler:(id)handler;
 - (void)updateWithTokensResponse:(id)response completionHandler:(id)handler;
@@ -367,6 +368,69 @@
 
     _Block_object_dispose(&v20, 8);
   }
+}
+
+- (void)syncOnlyIfNeeded:(BOOL)needed completionHandler:(id)handler
+{
+  neededCopy = needed;
+  handlerCopy = handler;
+  v7 = _os_activity_create(&_mh_execute_header, "MDMConduit: syncing only if needed", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v8 = +[RMLog mdmConduit];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100051B68(neededCopy, v8, v9, v10, v11, v12, v13, v14);
+  }
+
+  if (+[RMFeatureOverrides qaMode])
+  {
+    v15 = +[RMLog mdmConduit];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100051BEC();
+    }
+
+    (*(handlerCopy + 2))(handlerCopy, 0, 0);
+  }
+
+  else
+  {
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10004DA60;
+    v31[3] = &unk_1000D1020;
+    v16 = objc_opt_new();
+    v32 = v16;
+    v17 = objc_retainBlock(v31);
+    [(RMMDMConduit *)self setMadeChangesDuringSync:0];
+    v18 = dispatch_group_create();
+    dispatch_group_enter(v18);
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_10004DAE4;
+    v26[3] = &unk_1000D1EF8;
+    v19 = v17;
+    v29 = v19;
+    v20 = v18;
+    v27 = v20;
+    selfCopy = self;
+    v30 = neededCopy;
+    [(RMMDMConduit *)self _fetchTokensOnlyIfNeeded:neededCopy completionHandler:v26];
+    v21 = dispatch_get_global_queue(21, 0);
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10004DCCC;
+    v23[3] = &unk_1000D1F20;
+    v23[4] = self;
+    v24 = v16;
+    v25 = handlerCopy;
+    v22 = v16;
+    dispatch_group_notify(v20, v21, v23);
+  }
+
+  os_activity_scope_leave(&state);
 }
 
 - (void)updateWithPushMessage:(id)message completionHandler:(id)handler

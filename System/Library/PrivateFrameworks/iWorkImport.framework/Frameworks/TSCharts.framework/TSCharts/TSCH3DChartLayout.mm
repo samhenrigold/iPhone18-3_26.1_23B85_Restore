@@ -47,7 +47,7 @@
     v16 = v11;
     if (v11)
     {
-      objc_msgSend_defaultLayoutSettings(v11, v12, v13, v14, v15);
+      objc_msgSend_defaultLayoutSettings(v11, v13, v14, v15);
     }
 
     else
@@ -82,17 +82,17 @@
     if (v13)
     {
       v27 = objc_msgSend_chartInfo(self, v23, v24, v25, v26);
-      v32 = v27;
+      v31 = v27;
       if (v27)
       {
-        objc_msgSend_defaultLayoutSettings(v27, v28, v29, v30, v31);
-        v33 = BYTE6(v87);
+        objc_msgSend_defaultLayoutSettings(v27, v28, v29, v30);
+        v32 = BYTE6(v85);
       }
 
       else
       {
-        v33 = 0;
-        v87 = 0uLL;
+        v32 = 0;
+        v85 = 0uLL;
         var9 = 0;
       }
 
@@ -101,50 +101,50 @@
 
     else
     {
-      v37 = objc_msgSend_chartInfo(self, v23, v24, v25, v26);
-      v32 = v37;
-      if (v37)
+      v36 = objc_msgSend_chartInfo(self, v23, v24, v25, v26);
+      v31 = v36;
+      if (v36)
       {
-        objc_msgSend_defaultLayoutSettings(v37, v38, v39, v40, v41);
-        v33 = HIBYTE(v84);
+        objc_msgSend_defaultLayoutSettings(v36, v37, v38, v39);
+        v32 = HIBYTE(v82);
       }
 
       else
       {
-        v33 = 0;
+        v32 = 0;
+        v82 = 0;
+        v83 = 0;
         v84 = 0;
-        v85 = 0;
-        v86 = 0;
       }
 
       var6 = settings->var7;
     }
 
-    if (v33 != var6)
+    if (v32 != var6)
     {
-      v44 = MEMORY[0x277D81150];
-      v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, v43, v35, v36, "[TSCH3DChartLayout setLayoutSettings:]");
-      v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartLayout.mm");
-      v55 = objc_msgSend_chartInfo(self, v51, v52, v53, v54);
-      v60 = v55;
-      if (v55)
+      v42 = MEMORY[0x277D81150];
+      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, v41, v34, v35, "[TSCH3DChartLayout setLayoutSettings:]");
+      v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, v45, v46, v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartLayout.mm");
+      v53 = objc_msgSend_chartInfo(self, v49, v50, v51, v52);
+      v58 = v53;
+      if (v53)
       {
-        objc_msgSend_defaultLayoutSettings(v55, v56, v57, v58, v59);
+        objc_msgSend_defaultLayoutSettings(v53, v55, v56, v57);
       }
 
       else
       {
-        v87 = 0uLL;
+        v85 = 0uLL;
         var9 = 0;
       }
 
-      v61 = sub_27635FC90(&v87, v56, v57, v58, v59);
-      v87 = *&settings->var0;
+      v59 = sub_27635FC90(&v85, v54, v55, v56, v57);
+      v85 = *&settings->var0;
       var9 = settings->var9;
-      v65 = sub_27635FC90(&v87, v62, *&v87, v63, v64);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v44, v66, v67, v68, v69, v45, v50, 204, 0, "default layout settings out of sync layout inward %lu info %@ lyaout %@", v13, v61, v65);
+      v63 = sub_27635FC90(&v85, v60, *&v85, v61, v62);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v64, v65, v66, v67, v43, v48, 204, 0, "default layout settings out of sync layout inward %lu info %@ lyaout %@", v13, v59, v63);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v70, v71, v72, v73);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v69, v70, v71);
     }
   }
 
@@ -152,33 +152,33 @@
   {
   }
 
-  v87 = *&settings->var0;
+  v85 = *&settings->var0;
   var9 = settings->var9;
-  if (objc_msgSend_p_shouldClearSceneForLayoutSettings_(self, v34, *&v87, v35, v36, &v87) && self->super._layoutTreeRoot)
+  if (objc_msgSend_p_shouldClearSceneForLayoutSettings_(self, v33, *&v85, v34, v35, &v85) && self->super._layoutTreeRoot)
   {
-    v78 = objc_msgSend_areaItem(self, v74, v75, v76, v77);
-    objc_msgSend_clearScene(v78, v79, v80, v81, v82);
+    v76 = objc_msgSend_areaItem(self, v72, v73, v74, v75);
+    objc_msgSend_clearScene(v76, v77, v78, v79, v80);
   }
 
-  v87 = *&settings->var0;
+  v85 = *&settings->var0;
   var9 = settings->var9;
-  v83.receiver = self;
-  v83.super_class = TSCH3DChartLayout;
-  [(TSCH2DChartLayout *)&v83 setLayoutSettings:&v87];
+  v81.receiver = self;
+  v81.super_class = TSCH3DChartLayout;
+  [(TSCH2DChartLayout *)&v81 setLayoutSettings:&v85];
 }
 
 - (id)p_layoutTree
 {
   v3 = self->super._layoutTreeRoot;
-  v17.receiver = self;
-  v17.super_class = TSCH3DChartLayout;
-  p_layoutTree = [(TSCH2DChartLayout *)&v17 p_layoutTree];
+  v16.receiver = self;
+  v16.super_class = TSCH3DChartLayout;
+  p_layoutTree = [(TSCH2DChartLayout *)&v16 p_layoutTree];
   if (p_layoutTree != v3)
   {
-    objc_msgSend_layoutSettings(self, v4, v6, v7, v8);
+    objc_msgSend_layoutSettings(self, v5, v6, v7);
+    v12 = v14;
     v13 = v15;
-    v14 = v16;
-    objc_msgSend_setLayoutSettings_(p_layoutTree, v9, *&v15, v10, v11, &v13);
+    objc_msgSend_setLayoutSettings_(p_layoutTree, v8, *&v14, v9, v10, &v12);
   }
 
   return p_layoutTree;
@@ -191,9 +191,9 @@
 
   if (v11)
   {
-    v45.receiver = self;
-    v45.super_class = TSCH3DChartLayout;
-    [(TSCH2DChartLayout *)&v45 p_ensureValidForInwardLayout];
+    v44.receiver = self;
+    v44.super_class = TSCH3DChartLayout;
+    [(TSCH2DChartLayout *)&v44 p_ensureValidForInwardLayout];
   }
 
   else if ((objc_msgSend_isValid(self, v12, v13, v14, v15) & 1) == 0)
@@ -206,32 +206,32 @@
     {
       v23 = objc_msgSend_chartInfo(self, v16, v20, v21, v17);
       v28 = objc_msgSend_geometry(v23, v24, v25, v26, v27);
-      objc_msgSend_size(v28, v29, v30, v31, v32);
-      width = v33;
-      height = v34;
+      objc_msgSend_size(v28, v29, v30, v31);
+      width = v32;
+      height = v33;
     }
 
     *&v20 = width;
     *&v21 = height;
-    v46 = 0;
-    v47 = LODWORD(v20);
-    v48 = LODWORD(v21);
-    v35 = objc_msgSend_areaItem(self, v16, v20, v21, v17);
-    v40 = objc_msgSend_scene(v35, v36, v37, v38, v39);
-    objc_msgSend_setLabelWrapBounds_forScene_(TSCH3DChartTitleSceneObject, v41, v42, v43, v44, &v46, v40);
+    v45 = 0;
+    v46 = LODWORD(v20);
+    v47 = LODWORD(v21);
+    v34 = objc_msgSend_areaItem(self, v16, v20, v21, v17);
+    v39 = objc_msgSend_scene(v34, v35, v36, v37, v38);
+    objc_msgSend_setLabelWrapBounds_forScene_(TSCH3DChartTitleSceneObject, v40, v41, v42, v43, &v45, v39);
   }
 }
 
 - (TSCH3DChartSceneAreaLayoutItem)areaItem
 {
   v6 = objc_msgSend_p_layoutTree(self, a2, v2, v3, v4);
-  objc_msgSend_layoutSettings(self, v7, v8, v9, v10);
+  objc_msgSend_layoutSettings(self, v7, v8, v9);
+  v19 = v21;
   v20 = v22;
-  v21 = v23;
-  objc_msgSend_setLayoutSettings_(v6, v11, *&v22, v12, v13, &v20);
-  v18 = objc_msgSend_chartAreaLayoutItem(v6, v14, v15, v16, v17);
+  objc_msgSend_setLayoutSettings_(v6, v10, *&v21, v11, v12, &v19);
+  v17 = objc_msgSend_chartAreaLayoutItem(v6, v13, v14, v15, v16);
 
-  return v18;
+  return v17;
 }
 
 - (BOOL)hasProjectedBounds
@@ -267,7 +267,7 @@
   v15 = v10;
   if (v10)
   {
-    objc_msgSend_infoChartScale(v10, v11, v12, v13, v14);
+    objc_msgSend_infoChartScale(v10, v12, v13, v14);
   }
 
   else
@@ -301,14 +301,14 @@
 {
   v6 = objc_msgSend_scene(self, a2, v2, v3, v4);
   v11 = objc_msgSend_chartInfo(self, v7, v8, v9, v10);
-  objc_msgSend_layoutSettings(self, v12, v13, v14, v15);
-  v20 = objc_msgSend_styleProvidingSource(self, v16, v17, v18, v19);
-  v25 = objc_msgSend_create3DSceneWithLayoutSettings_styleProvidingSource_(v11, v21, v22, v23, v24, v34, v20);
+  objc_msgSend_layoutSettings(self, v12, v13, v14);
+  v19 = objc_msgSend_styleProvidingSource(self, v15, v16, v17, v18);
+  v24 = objc_msgSend_create3DSceneWithLayoutSettings_styleProvidingSource_(v11, v20, v21, v22, v23, v33, v19);
 
-  if (v25)
+  if (v24)
   {
-    objc_msgSend_resetProperties(v6, v26, v27, v28, v29);
-    objc_msgSend_copyPropertiesFromScene_(v6, v30, v31, v32, v33, v25);
+    objc_msgSend_resetProperties(v6, v25, v26, v27, v28);
+    objc_msgSend_copyPropertiesFromScene_(v6, v29, v30, v31, v32, v24);
   }
 }
 

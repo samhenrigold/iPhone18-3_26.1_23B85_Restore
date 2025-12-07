@@ -92,7 +92,7 @@
 
   else
   {
-    [BWPhotoEncoderControllerInput addSampleBuffer:];
+    [(BWPhotoEncoderControllerInput *)self addSampleBuffer:a2];
   }
 }
 
@@ -138,7 +138,7 @@
     if (BWCMSampleBufferCreateCopyIncludingMetadata(sbuf, &cf))
     {
       OUTLINED_FUNCTION_1_5();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v8, v9, cf, v11, v12, v13, v14);
     }
 
     else

@@ -1,5 +1,6 @@
 @interface ATXEventTravelTimeDataSource
 - (ATXEventTravelTimeDataSource)initWithDevice:(id)device;
+- (void)travelTimeInfoForEventID:(id)d location:(id)location expectedArrivalDate:(id)date transportType:(id)type localOnlyAfterFirstUpdate:(BOOL)update callback:(id)callback;
 @end
 
 @implementation ATXEventTravelTimeDataSource
@@ -17,6 +18,18 @@
   }
 
   return v7;
+}
+
+- (void)travelTimeInfoForEventID:(id)d location:(id)location expectedArrivalDate:(id)date transportType:(id)type localOnlyAfterFirstUpdate:(BOOL)update callback:(id)callback
+{
+  updateCopy = update;
+  callbackCopy = callback;
+  typeCopy = type;
+  dateCopy = date;
+  locationCopy = location;
+  dCopy = d;
+  v19 = +[ATXEventTravelTimeDataSourceInternal sharedInstance];
+  [v19 travelTimeInfoForEventID:dCopy location:locationCopy expectedArrivalDate:dateCopy transportType:typeCopy localOnlyAfterFirstUpdate:updateCopy heuristicDevice:self->_device callback:callbackCopy];
 }
 
 @end

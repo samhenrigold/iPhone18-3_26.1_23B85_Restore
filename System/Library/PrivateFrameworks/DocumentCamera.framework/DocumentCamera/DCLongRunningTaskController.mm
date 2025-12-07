@@ -318,7 +318,7 @@ void __49__DCLongRunningTaskController_openProgressDialog__block_invoke_2(uint64
   [v4 setText:v3];
 }
 
-uint64_t __49__DCLongRunningTaskController_openProgressDialog__block_invoke_3(uint64_t a1)
+void *__49__DCLongRunningTaskController_openProgressDialog__block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) setProgressViewControllerDidFinishPresenting:1];
   result = [*(a1 + 32) shouldDismissProgressViewController];

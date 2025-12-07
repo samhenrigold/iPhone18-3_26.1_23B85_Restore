@@ -47,7 +47,7 @@
   [view setBackgroundColor:v4];
 
   v5 = [[UILabel alloc] initWithFrame:0.0, 0.0, 200.0, 50.0];
-  v6 = +[UIColor blackColor];
+  v6 = objc_msgSend_blackColor(UIColor);
   [(UILabel *)v5 setTextColor:v6];
 
   v7 = [off_1E70ECC18 systemFontOfSize:10.0];
@@ -62,7 +62,7 @@
   [view2 addSubview:v5];
 
   v11 = [[UILabel alloc] initWithFrame:0.0, 0.0, 200.0, 50.0];
-  v12 = +[UIColor blackColor];
+  v12 = objc_msgSend_blackColor(UIColor);
   [(UILabel *)v11 setTextColor:v12];
 
   v13 = [off_1E70ECC18 systemFontOfSize:10.0];
@@ -104,7 +104,7 @@
   [view6 addSubview:v23];
 
   v26 = [[UILabel alloc] initWithFrame:0.0, 0.0, 200.0, 20.0];
-  v27 = +[UIColor blackColor];
+  v27 = objc_msgSend_blackColor(UIColor);
   [(UILabel *)v26 setTextColor:v27];
 
   v28 = [off_1E70ECC18 systemFontOfSize:10.0];
@@ -527,7 +527,7 @@ LABEL_15:
   return v34;
 }
 
-uint64_t __50__UIDebuggingZoomViewController_drawLinesAtPoint___block_invoke(uint64_t a1)
+void *__50__UIDebuggingZoomViewController_drawLinesAtPoint___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 48);
   v3 = *(a1 + 56) + 1.0;
@@ -597,7 +597,7 @@ uint64_t __50__UIDebuggingZoomViewController_drawLinesAtPoint___block_invoke(uin
   return result;
 }
 
-uint64_t __50__UIDebuggingZoomViewController_drawLinesAtPoint___block_invoke_2(uint64_t a1)
+void *__50__UIDebuggingZoomViewController_drawLinesAtPoint___block_invoke_2(uint64_t a1)
 {
   Width = CGImageGetWidth(*(a1 + 48));
   Height = CGImageGetHeight(*(a1 + 48));

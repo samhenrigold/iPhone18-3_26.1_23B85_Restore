@@ -42,9 +42,7 @@
         self->lteCoexStart[condition] = ADMonotonicTimeGetCurrent();
         ++self->lteCoexCount[condition];
         self->lteCoexConditionBand[condition] = bandCopy;
-        v8 = off_10023F4F8[condition];
         ADClientAddValueForScalarKey();
-        v9 = off_10023F518[bandCopy];
 
         ADClientAddValueForScalarKey();
       }
@@ -59,7 +57,6 @@
         {
           if (lteCoexStart[i])
           {
-            v12 = off_10023F558[i];
             ADPushTimeIntervalForDistributionKeySinceStartTime();
             [(WCM_CoexMonitorIOS *)self updateCoexDurationCount:?];
             lteCoexStart[i] = 0;
@@ -70,7 +67,6 @@
 
       else if (lteCoexStart[condition])
       {
-        v13 = off_10023F558[condition];
         ADPushTimeIntervalForDistributionKeySinceStartTime();
         [(WCM_CoexMonitorIOS *)self updateCoexDurationCount:?];
         lteCoexStart[condition] = 0;
@@ -112,7 +108,6 @@
   }
 
   ++self->lteCoexDurationsCount[v3];
-  v4 = off_10023F578[v3];
   ADClientAddValueForScalarKey();
 }
 
@@ -123,12 +118,10 @@
     if (for != 4)
     {
       ++self->lteCoexConditionErrors[for];
-      v7 = off_10023F5A8[for];
       ADClientAddValueForScalarKey();
     }
 
     ++self->lteCoexBandErrors[band];
-    v8 = off_10023F5C8[band];
 
     ADClientAddValueForScalarKey();
   }

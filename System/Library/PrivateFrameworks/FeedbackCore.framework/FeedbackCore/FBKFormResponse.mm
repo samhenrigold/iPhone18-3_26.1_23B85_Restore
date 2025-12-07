@@ -22,6 +22,7 @@
 - (id)valueForQuestionID:(id)d;
 - (id)valuesForQuestionID:(id)d;
 - (void)prepareForDeletion;
+- (void)setCompleted:(BOOL)completed;
 - (void)setPropertiesFromJSONObject:(id)object;
 - (void)setValue:(id)value forQuestionID:(id)d;
 - (void)updateExtractedValuesFromAnswers;
@@ -31,7 +32,7 @@
 
 - (void)setPropertiesFromJSONObject:(id)object
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   [(FBKFormResponse *)self setRemote:1];
   v5 = [objectCopy objectForKeyedSubscript:@"created_at"];
@@ -69,14 +70,14 @@
     [(FBKFormResponse *)self setBuildString:v12];
   }
 
-  v76 = v12;
+  v75 = v12;
   v13 = [objectCopy objectForKeyedSubscript:@"form_id"];
   v14 = FBKNilIfNSNull(v13);
   [(FBKFormResponse *)self setFormID:v14];
 
   v15 = [objectCopy objectForKeyedSubscript:@"answers"];
 
-  v72 = v10;
+  v71 = v10;
   if (!v15)
   {
     updatedAt = [(FBKFormResponse *)self updatedAt];
@@ -132,41 +133,41 @@
   v23 = [(FBKManagedFeedbackObject *)FBKAnswer importFromJSONArray:v21 intoContext:managedObjectContext2];
   [(FBKFormResponse *)self setAnswers:v23];
 
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
   v79 = 0u;
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   answers2 = [(FBKFormResponse *)self answers];
-  v25 = [answers2 countByEnumeratingWithState:&v78 objects:v82 count:16];
+  v25 = [answers2 countByEnumeratingWithState:&v77 objects:v81 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v79;
+    v27 = *v78;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v79 != v27)
+        if (*v78 != v27)
         {
           objc_enumerationMutation(answers2);
         }
 
-        v29 = *(*(&v78 + 1) + 8 * i);
+        v29 = *(*(&v77 + 1) + 8 * i);
         questionID = [v29 questionID];
         v31 = [v16 questionForQuestionID:questionID];
         [v29 setQuestion:v31];
       }
 
-      v26 = [answers2 countByEnumeratingWithState:&v78 objects:v82 count:16];
+      v26 = [answers2 countByEnumeratingWithState:&v77 objects:v81 count:16];
     }
 
     while (v26);
   }
 
   [(FBKFormResponse *)self setIsStub:0];
-  v9 = v70;
-  v6 = v71;
-  v10 = v72;
+  v9 = v69;
+  v6 = v70;
+  v10 = v71;
 LABEL_29:
   [(FBKFormResponse *)self setUpdatedAt:v10];
   v40 = [objectCopy objectForKeyedSubscript:@"short_description"];
@@ -208,13 +209,13 @@ LABEL_29:
   v48 = [objectCopy objectForKeyedSubscript:@"answers_complete"];
   v49 = FBKNilIfNSNull(v48);
 
-  v77 = v49;
+  v76 = v49;
   if (v49 && [v49 BOOLValue])
   {
     [(FBKFormResponse *)self setCompleted:1];
   }
 
-  v75 = v45;
+  v74 = v45;
   v50 = [objectCopy objectForKeyedSubscript:@"area_type"];
   v51 = v50;
   if (v50)
@@ -223,7 +224,7 @@ LABEL_29:
     [(FBKFormResponse *)self setExtractedIssueType:v52];
   }
 
-  v73 = v51;
+  v72 = v51;
   v53 = [objectCopy objectForKeyedSubscript:@"followup_count"];
   if (v53)
   {
@@ -253,7 +254,7 @@ LABEL_29:
     }
   }
 
-  v74 = v47;
+  v73 = v47;
   v61 = [objectCopy objectForKeyedSubscript:@"is_complete"];
   v62 = FBKNilIfNSNull(v61);
 
@@ -279,11 +280,9 @@ LABEL_29:
 
       v6 = v66;
       v9 = v65;
-      v10 = v72;
+      v10 = v71;
     }
   }
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCompleted
@@ -296,54 +295,64 @@ LABEL_29:
   return bOOLValue;
 }
 
+- (void)setCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  [(FBKFormResponse *)self willChangeValueForKey:@"completed"];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:completedCopy];
+  [(FBKFormResponse *)self setPrimitiveCompleted:v5];
+
+  [(FBKFormResponse *)self didChangeValueForKey:@"completed"];
+}
+
 - (id)answersDictionary
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:10];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   bugForm = [(FBKFormResponse *)self bugForm];
   questionGroups = [bugForm questionGroups];
 
   obj = questionGroups;
-  v24 = [questionGroups countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v24)
+  v23 = [questionGroups countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v23)
   {
-    v23 = *v31;
+    v22 = *v30;
     do
     {
       v6 = 0;
       do
       {
-        if (*v31 != v23)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = v6;
-        v7 = *(*(&v30 + 1) + 8 * v6);
+        v24 = v6;
+        v7 = *(*(&v29 + 1) + 8 * v6);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         questions = [v7 questions];
-        v9 = [questions countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v9 = [questions countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v27;
+          v11 = *v26;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v27 != v11)
+              if (*v26 != v11)
               {
                 objc_enumerationMutation(questions);
               }
 
-              v13 = *(*(&v26 + 1) + 8 * i);
+              v13 = *(*(&v25 + 1) + 8 * i);
               v14 = objc_alloc(MEMORY[0x1E695DEC8]);
               v15 = [(FBKFormResponse *)self answerForQuestion:v13];
               values = [v15 values];
@@ -353,24 +362,23 @@ LABEL_29:
               [v3 setObject:v17 forKey:role];
             }
 
-            v10 = [questions countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v10 = [questions countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v10);
         }
 
-        v6 = v25 + 1;
+        v6 = v24 + 1;
       }
 
-      while (v25 + 1 != v24);
-      v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      while (v24 + 1 != v23);
+      v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
   v19 = [v3 copy];
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -467,29 +475,29 @@ uint64_t __37__FBKFormResponse_answerForQuestion___block_invoke(uint64_t a1, voi
 
 - (void)setValue:(id)value forQuestionID:(id)d
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   dCopy = d;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   answers = [(FBKFormResponse *)self answers];
-  v9 = [answers countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [answers countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(answers);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         questionID = [v13 questionID];
         v15 = [questionID isEqual:dCopy];
 
@@ -500,7 +508,7 @@ uint64_t __37__FBKFormResponse_answerForQuestion___block_invoke(uint64_t a1, voi
         }
       }
 
-      v10 = [answers countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [answers countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -511,8 +519,6 @@ uint64_t __37__FBKFormResponse_answerForQuestion___block_invoke(uint64_t a1, voi
   }
 
 LABEL_11:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (FBKAnswer)titleAnswer
@@ -829,82 +835,80 @@ LABEL_11:
 
 - (id)matcherPredicates
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   bugForm = [(FBKFormResponse *)self bugForm];
   filePredicates = [bugForm filePredicates];
 
   obj = filePredicates;
-  v6 = [filePredicates countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v6 = [filePredicates countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
-    v20 = *v28;
+    v8 = *v27;
+    v19 = *v27;
     do
     {
       v9 = 0;
-      v21 = v7;
+      v20 = v7;
       do
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
+        v10 = *(*(&v26 + 1) + 8 * v9);
         if ([v10 satisfiedBy:self])
         {
           selfCopy = self;
-          v25 = 0u;
-          v26 = 0u;
-          v23 = 0u;
           v24 = 0u;
+          v25 = 0u;
+          v22 = 0u;
+          v23 = 0u;
           matchers = [v10 matchers];
-          v13 = [matchers countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v13 = [matchers countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v24;
+            v15 = *v23;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v24 != v15)
+                if (*v23 != v15)
                 {
                   objc_enumerationMutation(matchers);
                 }
 
-                v17 = [[FBKMatcherPredicate alloc] initWithFileMatcher:*(*(&v23 + 1) + 8 * i) filePredicate:v10];
+                v17 = [[FBKMatcherPredicate alloc] initWithFileMatcher:*(*(&v22 + 1) + 8 * i) filePredicate:v10];
                 [v3 addObject:v17];
               }
 
-              v14 = [matchers countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v14 = [matchers countByEnumeratingWithState:&v22 objects:v30 count:16];
             }
 
             while (v14);
           }
 
           self = selfCopy;
-          v8 = v20;
-          v7 = v21;
+          v8 = v19;
+          v7 = v20;
         }
 
         ++v9;
       }
 
       while (v9 != v7);
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v7);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -919,68 +923,66 @@ LABEL_11:
 
 - (id)allFileMatchers
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] setWithCapacity:20];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   bugForm = [(FBKFormResponse *)self bugForm];
   filePredicates = [bugForm filePredicates];
 
-  v6 = [filePredicates countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [filePredicates countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(filePredicates);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         matchers = [v10 matchers];
-        v12 = [matchers countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [matchers countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(matchers);
               }
 
-              [v3 addObject:*(*(&v19 + 1) + 8 * j)];
+              [v3 addObject:*(*(&v18 + 1) + 8 * j)];
             }
 
-            v13 = [matchers countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [matchers countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v13);
         }
       }
 
-      v7 = [filePredicates countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [filePredicates countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
 
   v16 = [MEMORY[0x1E695DFD8] setWithSet:v3];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

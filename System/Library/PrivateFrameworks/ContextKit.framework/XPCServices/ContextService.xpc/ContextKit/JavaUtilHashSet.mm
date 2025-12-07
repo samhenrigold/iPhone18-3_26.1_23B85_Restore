@@ -7,6 +7,7 @@
 - (JavaUtilHashSet)initWithJavaUtilHashMap:(id)map;
 - (id)clone;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)createBackingMapWithInt:(int)int withFloat:(float)float;
 - (id)iterator;
 - (int)size;
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
@@ -212,6 +213,13 @@ LABEL_7:
 LABEL_7:
     JreThrowNullPointerException();
   }
+}
+
+- (id)createBackingMapWithInt:(int)int withFloat:(float)float
+{
+  v4 = new_JavaUtilHashMap_initWithInt_withFloat_(*&int, float);
+
+  return v4;
 }
 
 - (void)dealloc

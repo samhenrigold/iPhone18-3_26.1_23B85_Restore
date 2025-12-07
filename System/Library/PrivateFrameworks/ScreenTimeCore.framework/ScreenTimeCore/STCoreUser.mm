@@ -70,7 +70,9 @@
 - (int64_t)defaultUserPolicies;
 - (void)_contactStoreForUser;
 - (void)didChangeValueForKey:(id)key;
+- (void)notifyServerOfScreenTimeEnabled:(BOOL)enabled;
 - (void)resetPasscode;
+- (void)setAllLimitsEnabled:(BOOL)enabled;
 - (void)setAppExceptions:(id)exceptions;
 - (void)setCommunicationPolicy:(int64_t)policy;
 - (void)setCommunicationWhileLimitedPolicy:(int64_t)policy;
@@ -80,6 +82,13 @@
 - (void)setDefaultUserPolicies:(int64_t)policies;
 - (void)setEffectivePasscode:(id)passcode;
 - (void)setEffectiveRecoveryAltDSID:(id)d;
+- (void)setIsCommunicationSafetyAnalyticsEnabled:(BOOL)enabled;
+- (void)setIsCommunicationSafetyNotificationEnabled:(BOOL)enabled;
+- (void)setIsCommunicationSafetyReceivingRestricted:(BOOL)restricted;
+- (void)setIsCommunicationSafetyRestricted:(BOOL)restricted;
+- (void)setIsCommunicationSafetySendingRestricted:(BOOL)restricted;
+- (void)setIsEyeReliefEnabled:(BOOL)enabled;
+- (void)setManaged:(BOOL)managed;
 - (void)setObservableAllLimitsEnabled:(BOOL)enabled;
 - (void)setObservableCommunicationSafetyAnalyticsEnabled:(BOOL)enabled;
 - (void)setObservableCommunicationSafetyNotificationEnabled:(BOOL)enabled;
@@ -89,6 +98,9 @@
 - (void)setObservableScreenTimeEnabled:(BOOL)enabled;
 - (void)setObservableShareWebUsage:(BOOL)usage;
 - (void)setObservableSyncingEnabled:(BOOL)enabled;
+- (void)setScreenTimeEnabled:(BOOL)enabled;
+- (void)setShareWebUsage:(BOOL)usage;
+- (void)setSyncingEnabled:(BOOL)enabled;
 - (void)updateWithDescription:(id)description;
 @end
 
@@ -252,10 +264,14 @@
     familyName2 = [descriptionCopy familyName];
     v20 = [familyName isEqualToString:familyName2];
 
+    v22 = descriptionCopy;
     if ((v20 & 1) == 0)
     {
       familyName3 = [descriptionCopy familyName];
       [(STCoreUser *)self setFamilyName:familyName3];
+
+LABEL_26:
+      v22 = descriptionCopy;
     }
   }
 
@@ -293,9 +309,9 @@
     }
 
     dsid2 = [(STCoreUser *)self dsid];
-    v26 = [dsid2 isEqualToNumber:&unk_1F3059B28];
+    v28 = [dsid2 isEqualToNumber:&unk_1F3059B28];
 
-    if ((v26 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       [(STCoreUser *)self setDsid:&unk_1F3059B28];
     }
@@ -307,13 +323,16 @@
       [(STCoreUser *)self setAltDSID:0];
     }
 
-    if ([(STCoreUser *)self supportsEncryption])
+    supportsEncryption = [(STCoreUser *)self supportsEncryption];
+    v22 = descriptionCopy;
+    if (supportsEncryption)
     {
-      [(STCoreUser *)self setSupportsEncryption:0];
+      supportsEncryption = [(STCoreUser *)self setSupportsEncryption:0];
+      goto LABEL_26;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](supportsEncryption, v22);
 }
 
 - (void)didChangeValueForKey:(id)key
@@ -335,7 +354,7 @@
 
 + (id)fetchLocalUserInContext:(id)context error:(id *)error
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   fetchRequestMatchingLocalUser = [self fetchRequestMatchingLocalUser];
   v8 = [contextCopy executeFetchRequest:fetchRequestMatchingLocalUser error:error];
@@ -361,17 +380,17 @@
       {
         v17 = MEMORY[0x1E696ABC0];
         v18 = *MEMORY[0x1E696A578];
-        v27 = *MEMORY[0x1E696A578];
-        v28 = @"There must be at least one local user object.";
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+        v26 = *MEMORY[0x1E696A578];
+        v27 = @"There must be at least one local user object.";
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
         v20 = [v17 errorWithDomain:@"STErrorDomain" code:10 userInfo:v19];
 
         if (v20)
         {
           v21 = MEMORY[0x1E696ABC0];
-          v25 = v18;
-          v26 = @"There must be at least one local user object.";
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+          v24 = v18;
+          v25 = @"There must be at least one local user object.";
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
           *error = [v21 errorWithDomain:@"STErrorDomain" code:10 userInfo:v22];
         }
       }
@@ -382,19 +401,7 @@
     goto LABEL_13;
   }
 
-  if (!error)
-  {
-    goto LABEL_6;
-  }
-
-  v9 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A578];
-  v31 = *MEMORY[0x1E696A578];
-  v32[0] = @"There must be one and only one local user object.";
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-  v12 = [v9 errorWithDomain:@"STErrorDomain" code:508 userInfo:v11];
-
-  if (!v12)
+  if (!error || (v9 = MEMORY[0x1E696ABC0], v10 = *MEMORY[0x1E696A578], v30 = *MEMORY[0x1E696A578], v31[0] = @"There must be one and only one local user object.", [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "errorWithDomain:code:userInfo:", @"STErrorDomain", 508, v11), v12 = objc_claimAutoreleasedReturnValue(), v12, v11, !v12))
   {
 LABEL_6:
     v15 = 0;
@@ -402,15 +409,14 @@ LABEL_6:
   }
 
   v13 = MEMORY[0x1E696ABC0];
-  v29 = v10;
-  v30 = @"There must be one and only one local user object.";
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v28 = v10;
+  v29 = @"There must be one and only one local user object.";
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   [v13 errorWithDomain:@"STErrorDomain" code:508 userInfo:v14];
   *error = v15 = 0;
 LABEL_13:
 
 LABEL_14:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -493,17 +499,15 @@ LABEL_14:
 
 + (id)fetchRequestForFamilyMembers
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   fetchRequest = [self fetchRequest];
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K != NULL", @"familySettings"];
   [fetchRequest setPredicate:v3];
 
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"dsid" ascending:1];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   [fetchRequest setSortDescriptors:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return fetchRequest;
 }
@@ -517,6 +521,29 @@ LABEL_14:
   [fetchRequest setPredicate:dCopy];
 
   return fetchRequest;
+}
+
+- (void)notifyServerOfScreenTimeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = +[STLog persistence];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "Notify server of Screen Time state change", buf, 2u);
+  }
+
+  v6 = objc_alloc(MEMORY[0x1E699C080]);
+  dsid = [(STCoreUser *)self dsid];
+  v8 = [v6 initWithFamilyMemberDSID:dsid flag:*MEMORY[0x1E699C040] enabled:enabledCopy];
+
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __46__STCoreUser_notifyServerOfScreenTimeEnabled___block_invoke;
+  v10[3] = &unk_1E7CE74E0;
+  v11 = v8;
+  v9 = v8;
+  [v9 startRequestWithCompletionHandler:v10];
 }
 
 void __46__STCoreUser_notifyServerOfScreenTimeEnabled___block_invoke(uint64_t a1, void *a2)
@@ -534,7 +561,7 @@ void __46__STCoreUser_notifyServerOfScreenTimeEnabled___block_invoke(uint64_t a1
 
 - (id)_contactStoreForUser
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   localUserDeviceState = [(STCoreUser *)self localUserDeviceState];
 
   if (localUserDeviceState)
@@ -548,15 +575,15 @@ void __46__STCoreUser_notifyServerOfScreenTimeEnabled___block_invoke(uint64_t a1
     if (altDSID)
     {
       v6 = objc_alloc(MEMORY[0x1E699C060]);
-      v13[0] = @"member-first-name";
+      v12[0] = @"member-first-name";
       givenName = [(STCoreUser *)self givenName];
-      v14[0] = givenName;
-      v13[1] = @"member-dsid";
+      v13[0] = givenName;
+      v12[1] = @"member-dsid";
       dsid = [(STCoreUser *)self dsid];
-      v13[2] = @"member-altDSID";
-      v14[1] = dsid;
-      v14[2] = altDSID;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+      v12[2] = @"member-altDSID";
+      v13[1] = dsid;
+      v13[2] = altDSID;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
       v10 = [v6 initWithDictionaryRepresentation:v9];
 
       v4 = [MEMORY[0x1E695CE18] storeForFamilyMember:v10];
@@ -574,14 +601,12 @@ void __46__STCoreUser_notifyServerOfScreenTimeEnabled___block_invoke(uint64_t a1
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)_primaryContainerInContactStore:(id)store withError:(id *)error
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   localUserDeviceState = [(STCoreUser *)self localUserDeviceState];
 
@@ -630,8 +655,8 @@ LABEL_7:
     {
       v15 = defaultContainerIdentifier;
       v16 = MEMORY[0x1E695CE48];
-      v24[0] = defaultContainerIdentifier;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+      v23[0] = defaultContainerIdentifier;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
       v8 = [v16 predicateForContainersWithIdentifiers:v17];
 
       goto LABEL_7;
@@ -646,8 +671,6 @@ LABEL_7:
 
   firstObject = 0;
 LABEL_17:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -943,23 +966,21 @@ LABEL_9:
 
 - (NSString)effectivePasscode
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
   v3 = +[STLog screentime];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
     passcode = [unmodeledManagingOrganizationSettings passcode];
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 1024;
-    v12 = passcode != 0;
-    _os_log_impl(&dword_1B831F000, v3, OS_LOG_TYPE_INFO, "The effective passcode is from %{public}@ and is set %d", &v9, 0x12u);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 1024;
+    v11 = passcode != 0;
+    _os_log_impl(&dword_1B831F000, v3, OS_LOG_TYPE_INFO, "The effective passcode is from %{public}@ and is set %d", &v8, 0x12u);
   }
 
   passcode2 = [unmodeledManagingOrganizationSettings passcode];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return passcode2;
 }
@@ -1093,6 +1114,160 @@ LABEL_9:
   return isEyeReliefEnabled;
 }
 
+- (void)setScreenTimeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (enabled)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v21 = 0;
+    v6 = [STBlueprint deleteManagedUserBlueprintForUser:self error:&v21];
+    v5 = v21;
+    if (!v6)
+    {
+      v7 = +[STLog persistence];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        [STCoreUser(UnmodeledInternal) setScreenTimeEnabled:];
+      }
+    }
+
+    [(STCoreUser *)self setContactsEditable:1];
+  }
+
+  localUserDeviceState = [(STCoreUser *)self localUserDeviceState];
+
+  if (localUserDeviceState)
+  {
+    managedObjectContext = [(STCoreUser *)self managedObjectContext];
+    v20 = v5;
+    familySettings4 = [STScreenTimeSettings fetchScreenTimeSettingsInContext:managedObjectContext error:&v20];
+    v11 = v20;
+
+    if (familySettings4)
+    {
+      [familySettings4 setScreenTimeEnabled:enabledCopy];
+    }
+
+    else
+    {
+      v14 = +[STLog persistence];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      {
+        [STCoreUser(UnmodeledInternal) setScreenTimeEnabled:];
+      }
+    }
+
+    unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
+    cloudSettings = [(STCoreUser *)self cloudSettings];
+    if ([(STCoreUser *)self isManaged])
+    {
+      v17 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+      familySettings = [(STCoreUser *)self familySettings];
+      [familySettings setIsAppAndWebsiteActivityEnabled:v17];
+
+      familySettings2 = [(STCoreUser *)self familySettings];
+      [familySettings2 setIsDirty:1];
+    }
+
+    else
+    {
+      if (unmodeledManagingOrganizationSettings != cloudSettings)
+      {
+LABEL_20:
+
+        goto LABEL_21;
+      }
+
+      familySettings2 = [(STCoreUser *)self cloudSettings];
+      [familySettings2 setIsAppAndWebsiteActivityEnabled:enabledCopy];
+    }
+
+    goto LABEL_20;
+  }
+
+  v12 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+  familySettings3 = [(STCoreUser *)self familySettings];
+  [familySettings3 setIsAppAndWebsiteActivityEnabled:v12];
+
+  familySettings4 = [(STCoreUser *)self familySettings];
+  [familySettings4 setIsDirty:1];
+  v11 = v5;
+LABEL_21:
+}
+
+- (void)setManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  if (!managed)
+  {
+    [(STCoreUser *)self setScreenTimeEnabled:0];
+    v10 = 0;
+    v5 = [STBlueprint deleteManagedUserBlueprintForUser:self error:&v10];
+    v6 = v10;
+    if (!v5)
+    {
+      v7 = +[STLog persistence];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        [STCoreUser(UnmodeledInternal) setScreenTimeEnabled:];
+      }
+    }
+
+    [(STCoreUser *)self setContactsEditable:1];
+  }
+
+  familySettings = [(STCoreUser *)self familySettings];
+  [familySettings setIsManaged:managedCopy];
+
+  familySettings2 = [(STCoreUser *)self familySettings];
+  [familySettings2 setIsDirty:1];
+}
+
+- (void)setSyncingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  localUserDeviceState = [(STCoreUser *)self localUserDeviceState];
+
+  if (localUserDeviceState)
+  {
+    managedObjectContext = [(STCoreUser *)self managedObjectContext];
+    v10 = 0;
+    v7 = [STScreenTimeSettings fetchScreenTimeSettingsInContext:managedObjectContext error:&v10];
+    v8 = v10;
+
+    if (v7)
+    {
+      [v7 setCloudSyncEnabled:enabledCopy];
+    }
+
+    else
+    {
+      v9 = +[STLog persistence];
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      {
+        [STCoreUser(UnmodeledInternal) setScreenTimeEnabled:];
+      }
+    }
+  }
+}
+
+- (void)setAllLimitsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
+  [unmodeledManagingOrganizationSettings setAllLimitsEnabled:enabledCopy];
+  familySettings = [(STCoreUser *)self familySettings];
+  if (unmodeledManagingOrganizationSettings == familySettings)
+  {
+    [familySettings setIsDirty:1];
+  }
+}
+
 - (void)setDefaultUserPolicies:(int64_t)policies
 {
   unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
@@ -1102,6 +1277,14 @@ LABEL_9:
   {
     [familySettings setIsDirty:1];
   }
+}
+
+- (void)setShareWebUsage:(BOOL)usage
+{
+  usageCopy = usage;
+  familySettings = [(STCoreUser *)self familySettings];
+  [familySettings setShareWebUsage:usageCopy];
+  [familySettings setIsDirty:1];
 }
 
 - (void)setAppExceptions:(id)exceptions
@@ -1115,17 +1298,17 @@ LABEL_9:
 
 - (void)setEffectivePasscode:(id)passcode
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   passcodeCopy = passcode;
   unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
   v6 = +[STLog screentime];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = objc_opt_class();
-    v12 = 1024;
-    v13 = passcodeCopy != 0;
-    _os_log_impl(&dword_1B831F000, v6, OS_LOG_TYPE_DEFAULT, "The effective passcode is from %{public}@ and is being set %d", &v10, 0x12u);
+    v9 = 138543618;
+    v10 = objc_opt_class();
+    v11 = 1024;
+    v12 = passcodeCopy != 0;
+    _os_log_impl(&dword_1B831F000, v6, OS_LOG_TYPE_DEFAULT, "The effective passcode is from %{public}@ and is being set %d", &v9, 0x12u);
   }
 
   [unmodeledManagingOrganizationSettings setPasscode:passcodeCopy];
@@ -1135,8 +1318,6 @@ LABEL_9:
   {
     [familySettings setIsDirty:1];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEffectiveRecoveryAltDSID:(id)d
@@ -1248,13 +1429,13 @@ LABEL_7:
 - (void)setContactsEditable:(BOOL)editable
 {
   editableCopy = editable;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   _contactStoreForUser = [(STCoreUser *)self _contactStoreForUser];
   if (_contactStoreForUser)
   {
-    v18 = 0;
-    v6 = [(STCoreUser *)self _primaryContainerInContactStore:_contactStoreForUser withError:&v18];
-    v7 = v18;
+    v17 = 0;
+    v6 = [(STCoreUser *)self _primaryContainerInContactStore:_contactStoreForUser withError:&v17];
+    v7 = v17;
     v8 = [v6 mutableCopy];
 
     if (v8)
@@ -1264,9 +1445,9 @@ LABEL_7:
       v10 = objc_opt_new();
       [v10 setIgnoresGuardianRestrictions:1];
       [v10 updateContainer:v8];
-      v17 = v7;
-      v11 = [_contactStoreForUser executeSaveRequest:v10 error:&v17];
-      v12 = v17;
+      v16 = v7;
+      v11 = [_contactStoreForUser executeSaveRequest:v10 error:&v16];
+      v12 = v16;
 
       v13 = +[STLog persistence];
       v14 = v13;
@@ -1276,9 +1457,9 @@ LABEL_7:
         {
           identifier = [v8 identifier];
           *buf = 67109378;
-          v20 = v9;
-          v21 = 2114;
-          v22 = identifier;
+          v19 = v9;
+          v20 = 2114;
+          v21 = identifier;
           _os_log_impl(&dword_1B831F000, v14, OS_LOG_TYPE_DEFAULT, "Set guardian restricted to %d on container %{public}@", buf, 0x12u);
         }
       }
@@ -1300,8 +1481,78 @@ LABEL_7:
       v12 = v7;
     }
   }
+}
 
-  v16 = *MEMORY[0x1E69E9840];
+- (void)setIsCommunicationSafetyRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
+  [unmodeledManagingOrganizationSettings setIsCommunicationSafetyRestricted:restrictedCopy];
+  familySettings = [(STCoreUser *)self familySettings];
+  if (unmodeledManagingOrganizationSettings == familySettings)
+  {
+    [familySettings setIsDirty:1];
+  }
+}
+
+- (void)setIsCommunicationSafetySendingRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
+  [unmodeledManagingOrganizationSettings setIsCommunicationSafetySendingRestricted:restrictedCopy];
+  familySettings = [(STCoreUser *)self familySettings];
+  if (unmodeledManagingOrganizationSettings == familySettings)
+  {
+    [familySettings setIsDirty:1];
+  }
+}
+
+- (void)setIsCommunicationSafetyReceivingRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
+  [unmodeledManagingOrganizationSettings setIsCommunicationSafetyReceivingRestricted:restrictedCopy];
+  familySettings = [(STCoreUser *)self familySettings];
+  if (unmodeledManagingOrganizationSettings == familySettings)
+  {
+    [familySettings setIsDirty:1];
+  }
+}
+
+- (void)setIsCommunicationSafetyNotificationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
+  [unmodeledManagingOrganizationSettings setIsCommunicationSafetyNotificationEnabled:enabledCopy];
+  familySettings = [(STCoreUser *)self familySettings];
+  if (unmodeledManagingOrganizationSettings == familySettings)
+  {
+    [familySettings setIsDirty:1];
+  }
+}
+
+- (void)setIsCommunicationSafetyAnalyticsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
+  [unmodeledManagingOrganizationSettings setIsCommunicationSafetyAnalyticsEnabled:enabledCopy];
+  familySettings = [(STCoreUser *)self familySettings];
+  if (unmodeledManagingOrganizationSettings == familySettings)
+  {
+    [familySettings setIsDirty:1];
+  }
+}
+
+- (void)setIsEyeReliefEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  unmodeledManagingOrganizationSettings = [(STCoreUser *)self unmodeledManagingOrganizationSettings];
+  [unmodeledManagingOrganizationSettings setIsEyeReliefEnabled:enabledCopy];
+  familySettings = [(STCoreUser *)self familySettings];
+  if (unmodeledManagingOrganizationSettings == familySettings)
+  {
+    [familySettings setIsDirty:1];
+  }
 }
 
 - (BOOL)unmodeledParticipatesInSharedLedger
@@ -1457,7 +1708,7 @@ LABEL_10:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STCoreUser(Identifiers) validateForUpdate:update];
+      [STCoreUser(Identifiers) validateForUpdate:];
     }
 
     v7 = 0;
@@ -1512,7 +1763,7 @@ LABEL_15:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STCoreUser(Identifiers) validateForInsert:insert];
+      [STCoreUser(Identifiers) validateForInsert:];
     }
 
     v7 = 0;
@@ -1590,7 +1841,7 @@ LABEL_15:
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STCoreUser(Identifiers) validateForDelete:delete];
+      [STCoreUser(Identifiers) validateForDelete:];
     }
 
     v7 = 0;
@@ -1601,14 +1852,14 @@ LABEL_15:
 
 - (BOOL)_validateAppleID:(id)d
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   appleID = [(STCoreUser *)self appleID];
   v6 = [STCoreUser fetchRequestMatchingAppleID:appleID];
 
-  v20 = 0;
-  v7 = [v6 execute:&v20];
-  v8 = v20;
+  v19 = 0;
+  v7 = [v6 execute:&v19];
+  v8 = v19;
   if (!v7)
   {
     [dCopy addObject:v8];
@@ -1619,9 +1870,9 @@ LABEL_15:
   if ([v7 count] >= 2)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v24[0] = @"There are multiple users with the same Apple ID.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A578];
+    v23[0] = @"There are multiple users with the same Apple ID.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v11 = [v9 errorWithDomain:@"STErrorDomain" code:511 userInfo:v10];
     [dCopy addObject:v11];
   }
@@ -1638,9 +1889,9 @@ LABEL_15:
   if (!intValue)
   {
     v15 = MEMORY[0x1E696ABC0];
-    v21 = *MEMORY[0x1E696A578];
-    v22 = @"If the user has an Apple ID, they must have a DSID.";
-    appleID2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x1E696A578];
+    v21 = @"If the user has an Apple ID, they must have a DSID.";
+    appleID2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v16 = [v15 errorWithDomain:@"STErrorDomain" code:512 userInfo:appleID2];
     [dCopy addObject:v16];
 
@@ -1650,13 +1901,12 @@ LABEL_7:
   v17 = [dCopy count] == 0;
 LABEL_10:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (BOOL)_validateAltDSID:(id)d
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[STCoreUser fetchRequest];
   v6 = MEMORY[0x1E696AE18];
@@ -1664,9 +1914,9 @@ LABEL_10:
   v8 = [v6 predicateWithFormat:@"%K == %@", @"altDSID", altDSID];
   [v5 setPredicate:v8];
 
-  v22 = 0;
-  v9 = [v5 execute:&v22];
-  v10 = v22;
+  v21 = 0;
+  v9 = [v5 execute:&v21];
+  v10 = v21;
   if (!v9)
   {
     [dCopy addObject:v10];
@@ -1677,9 +1927,9 @@ LABEL_10:
   if ([v9 count] >= 2)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = @"There are multiple users with the same altDSID.";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25[0] = @"There are multiple users with the same altDSID.";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v13 = [v11 errorWithDomain:@"STErrorDomain" code:516 userInfo:v12];
     [dCopy addObject:v13];
   }
@@ -1696,9 +1946,9 @@ LABEL_10:
   if (!v16)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v24 = @"If the user has a DSID, they must have an altDSID.";
-    dsid = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A578];
+    v23 = @"If the user has a DSID, they must have an altDSID.";
+    dsid = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v18 = [v17 errorWithDomain:@"STErrorDomain" code:517 userInfo:dsid];
     [dCopy addObject:v18];
 
@@ -1708,28 +1958,27 @@ LABEL_7:
   v19 = [dCopy count] == 0;
 LABEL_10:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (BOOL)_validateDSID:(id)d
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   dsid = [(STCoreUser *)self dsid];
   v6 = [STCoreUser fetchRequestForUsersWithDSID:dsid];
 
-  v15 = 0;
-  v7 = [v6 execute:&v15];
-  v8 = v15;
+  v14 = 0;
+  v7 = [v6 execute:&v14];
+  v8 = v14;
   if (v7)
   {
     if ([v7 count] >= 2)
     {
       v9 = MEMORY[0x1E696ABC0];
-      v16 = *MEMORY[0x1E696A578];
-      v17[0] = @"There are multiple users with the same DSID.";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x1E696A578];
+      v16[0] = @"There are multiple users with the same DSID.";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       v11 = [v9 errorWithDomain:@"STErrorDomain" code:509 userInfo:v10];
       [dCopy addObject:v11];
     }
@@ -1743,13 +1992,12 @@ LABEL_10:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)_validateLocalUser:(id)user
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   userCopy = user;
   familyMemberType = [(STCoreUser *)self familyMemberType];
   if (familyMemberType == @"Child")
@@ -1787,9 +2035,9 @@ LABEL_7:
   if (!familySettings)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A578];
-    v19[0] = @"A local user who is a child, teen, nor non-parent adult must have family settings.";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18[0] = @"A local user who is a child, teen, nor non-parent adult must have family settings.";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v13 = [v11 errorWithDomain:@"STErrorDomain" code:514 userInfo:v12];
     [userCopy addObject:v13];
   }
@@ -1797,26 +2045,25 @@ LABEL_7:
 LABEL_10:
   v15 = [userCopy count] == 0;
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)_validateNumberOfLocalUsers:(id)users
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   usersCopy = users;
   v4 = +[STCoreUser fetchRequestMatchingLocalUser];
-  v16 = 0;
-  v5 = [v4 execute:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [v4 execute:&v15];
+  v6 = v15;
   if (v5)
   {
     if ([v5 count] >= 2)
     {
       v7 = MEMORY[0x1E696ABC0];
-      v19 = *MEMORY[0x1E696A578];
-      v20[0] = @"There must be one and only one local user.";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x1E696A578];
+      v19[0] = @"There must be one and only one local user.";
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       v9 = [v7 errorWithDomain:@"STErrorDomain" code:508 userInfo:v8];
       [usersCopy addObject:v9];
     }
@@ -1824,9 +2071,9 @@ LABEL_10:
     if (![v5 count])
     {
       v10 = MEMORY[0x1E696ABC0];
-      v17 = *MEMORY[0x1E696A578];
-      v18 = @"There must be one local user.";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+      v16 = *MEMORY[0x1E696A578];
+      v17 = @"There must be one local user.";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
       v12 = [v10 errorWithDomain:@"STErrorDomain" code:10 userInfo:v11];
       [usersCopy addObject:v12];
     }
@@ -1840,13 +2087,12 @@ LABEL_10:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)_validateRemoteUser:(id)user
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   userCopy = user;
   if (([(STCoreUser *)self isParent]& 1) == 0)
   {
@@ -1855,9 +2101,9 @@ LABEL_10:
     if (!familySettings)
     {
       v6 = MEMORY[0x1E696ABC0];
-      v21 = *MEMORY[0x1E696A578];
-      v22[0] = @"A remote user must have Family Settings.";
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x1E696A578];
+      v21[0] = @"A remote user must have Family Settings.";
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       v8 = [v6 errorWithDomain:@"STErrorDomain" code:514 userInfo:v7];
       [userCopy addObject:v8];
     }
@@ -1867,16 +2113,15 @@ LABEL_10:
   if (!familyMemberType || (v10 = familyMemberType, -[STCoreUser familyMemberType](self, "familyMemberType"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 isEqualToString:@"Unknown"], v11, v10, v12))
   {
     v13 = MEMORY[0x1E696ABC0];
-    v19 = *MEMORY[0x1E696A578];
-    v20 = @"A remote user must be family member..";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A578];
+    v19 = @"A remote user must be family member..";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v15 = [v13 errorWithDomain:@"STErrorDomain" code:513 userInfo:v14];
     [userCopy addObject:v15];
   }
 
   v16 = [userCopy count] == 0;
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -1901,7 +2146,7 @@ LABEL_10:
   return selfCopy;
 }
 
-uint64_t __53__STCoreUser_Observable__observableScreenTimeEnabled__block_invoke(uint64_t a1)
+void *__53__STCoreUser_Observable__observableScreenTimeEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) screenTimeEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1968,7 +2213,7 @@ void __57__STCoreUser_Observable__setObservableScreenTimeEnabled___block_invoke(
   return selfCopy;
 }
 
-uint64_t __53__STCoreUser_Observable__observableManagementEnabled__block_invoke(uint64_t a1)
+void *__53__STCoreUser_Observable__observableManagementEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isManaged];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2035,7 +2280,7 @@ void __57__STCoreUser_Observable__setObservableManagementEnabled___block_invoke(
   return selfCopy;
 }
 
-uint64_t __50__STCoreUser_Observable__observableSyncingEnabled__block_invoke(uint64_t a1)
+void *__50__STCoreUser_Observable__observableSyncingEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) syncingEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2102,7 +2347,7 @@ void __54__STCoreUser_Observable__setObservableSyncingEnabled___block_invoke(uin
   return selfCopy;
 }
 
-uint64_t __52__STCoreUser_Observable__observableAllLimitsEnabled__block_invoke(uint64_t a1)
+void *__52__STCoreUser_Observable__observableAllLimitsEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) allLimitsEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2169,7 +2414,7 @@ void __56__STCoreUser_Observable__setObservableAllLimitsEnabled___block_invoke(u
   return selfCopy;
 }
 
-uint64_t __50__STCoreUser_Observable__observableCanSetUpFamily__block_invoke(uint64_t a1)
+void *__50__STCoreUser_Observable__observableCanSetUpFamily__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) canSetUpFamily];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2197,7 +2442,7 @@ uint64_t __50__STCoreUser_Observable__observableCanSetUpFamily__block_invoke(uin
   return selfCopy;
 }
 
-uint64_t __49__STCoreUser_Observable__observableShareWebUsage__block_invoke(uint64_t a1)
+void *__49__STCoreUser_Observable__observableShareWebUsage__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shareWebUsage];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2284,7 +2529,7 @@ void __39__STCoreUser_Observable__resetPasscode__block_invoke(uint64_t a1, void 
   return selfCopy;
 }
 
-uint64_t __72__STCoreUser_Observable__observableCommunicationSafetySendingRestricted__block_invoke(uint64_t a1)
+void *__72__STCoreUser_Observable__observableCommunicationSafetySendingRestricted__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCommunicationSafetySendingRestricted];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2294,27 +2539,25 @@ uint64_t __72__STCoreUser_Observable__observableCommunicationSafetySendingRestri
 - (void)setObservableCommunicationSafetySendingRestricted:(BOOL)restricted
 {
   restrictedCopy = restricted;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = +[STLog communicationSafety];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240192;
-    v13 = restrictedCopy;
+    v12 = restrictedCopy;
     _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "Setting isCommunicationSafetySendingRestricted restriction to: %{public}u", buf, 8u);
   }
 
   managedObjectContext = [(STCoreUser *)self managedObjectContext];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __76__STCoreUser_Observable__setObservableCommunicationSafetySendingRestricted___block_invoke;
-  v9[3] = &unk_1E7CE7580;
-  v11 = restrictedCopy;
-  v9[4] = self;
-  v10 = managedObjectContext;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __76__STCoreUser_Observable__setObservableCommunicationSafetySendingRestricted___block_invoke;
+  v8[3] = &unk_1E7CE7580;
+  v10 = restrictedCopy;
+  v8[4] = self;
+  v9 = managedObjectContext;
   v7 = managedObjectContext;
-  [v7 performBlockAndWait:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v7 performBlockAndWait:v8];
 }
 
 void __76__STCoreUser_Observable__setObservableCommunicationSafetySendingRestricted___block_invoke(uint64_t a1)
@@ -2363,7 +2606,7 @@ void __76__STCoreUser_Observable__setObservableCommunicationSafetySendingRestric
   return selfCopy;
 }
 
-uint64_t __74__STCoreUser_Observable__observableCommunicationSafetyReceivingRestricted__block_invoke(uint64_t a1)
+void *__74__STCoreUser_Observable__observableCommunicationSafetyReceivingRestricted__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCommunicationSafetyReceivingRestricted];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2373,27 +2616,25 @@ uint64_t __74__STCoreUser_Observable__observableCommunicationSafetyReceivingRest
 - (void)setObservableCommunicationSafetyReceivingRestricted:(BOOL)restricted
 {
   restrictedCopy = restricted;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = +[STLog communicationSafety];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240192;
-    v13 = restrictedCopy;
+    v12 = restrictedCopy;
     _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "Setting isCommunicationSafetyReceivingRestricted restriction to: %{public}u", buf, 8u);
   }
 
   managedObjectContext = [(STCoreUser *)self managedObjectContext];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __78__STCoreUser_Observable__setObservableCommunicationSafetyReceivingRestricted___block_invoke;
-  v9[3] = &unk_1E7CE7580;
-  v11 = restrictedCopy;
-  v9[4] = self;
-  v10 = managedObjectContext;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __78__STCoreUser_Observable__setObservableCommunicationSafetyReceivingRestricted___block_invoke;
+  v8[3] = &unk_1E7CE7580;
+  v10 = restrictedCopy;
+  v8[4] = self;
+  v9 = managedObjectContext;
   v7 = managedObjectContext;
-  [v7 performBlockAndWait:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v7 performBlockAndWait:v8];
 }
 
 void __78__STCoreUser_Observable__setObservableCommunicationSafetyReceivingRestricted___block_invoke(uint64_t a1)
@@ -2442,7 +2683,7 @@ void __78__STCoreUser_Observable__setObservableCommunicationSafetyReceivingRestr
   return selfCopy;
 }
 
-uint64_t __74__STCoreUser_Observable__observableCommunicationSafetyNotificationEnabled__block_invoke(uint64_t a1)
+void *__74__STCoreUser_Observable__observableCommunicationSafetyNotificationEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCommunicationSafetyNotificationEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2452,27 +2693,25 @@ uint64_t __74__STCoreUser_Observable__observableCommunicationSafetyNotificationE
 - (void)setObservableCommunicationSafetyNotificationEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = +[STLog communicationSafety];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240192;
-    v13 = enabledCopy;
+    v12 = enabledCopy;
     _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "Setting isCommunicationSafetyNotificationEnabled restriction to: %{public}u", buf, 8u);
   }
 
   managedObjectContext = [(STCoreUser *)self managedObjectContext];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __78__STCoreUser_Observable__setObservableCommunicationSafetyNotificationEnabled___block_invoke;
-  v9[3] = &unk_1E7CE7580;
-  v11 = enabledCopy;
-  v9[4] = self;
-  v10 = managedObjectContext;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __78__STCoreUser_Observable__setObservableCommunicationSafetyNotificationEnabled___block_invoke;
+  v8[3] = &unk_1E7CE7580;
+  v10 = enabledCopy;
+  v8[4] = self;
+  v9 = managedObjectContext;
   v7 = managedObjectContext;
-  [v7 performBlockAndWait:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v7 performBlockAndWait:v8];
 }
 
 void __78__STCoreUser_Observable__setObservableCommunicationSafetyNotificationEnabled___block_invoke(uint64_t a1)
@@ -2521,7 +2760,7 @@ void __78__STCoreUser_Observable__setObservableCommunicationSafetyNotificationEn
   return selfCopy;
 }
 
-uint64_t __71__STCoreUser_Observable__observableCommunicationSafetyAnalyticsEnabled__block_invoke(uint64_t a1)
+void *__71__STCoreUser_Observable__observableCommunicationSafetyAnalyticsEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCommunicationSafetyAnalyticsEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2531,27 +2770,25 @@ uint64_t __71__STCoreUser_Observable__observableCommunicationSafetyAnalyticsEnab
 - (void)setObservableCommunicationSafetyAnalyticsEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = +[STLog communicationSafety];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240192;
-    v13 = enabledCopy;
+    v12 = enabledCopy;
     _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "Setting isCommunicationSafetyAnalyticsEnabled to: %{public}u", buf, 8u);
   }
 
   managedObjectContext = [(STCoreUser *)self managedObjectContext];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __75__STCoreUser_Observable__setObservableCommunicationSafetyAnalyticsEnabled___block_invoke;
-  v9[3] = &unk_1E7CE7580;
-  v11 = enabledCopy;
-  v9[4] = self;
-  v10 = managedObjectContext;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __75__STCoreUser_Observable__setObservableCommunicationSafetyAnalyticsEnabled___block_invoke;
+  v8[3] = &unk_1E7CE7580;
+  v10 = enabledCopy;
+  v8[4] = self;
+  v9 = managedObjectContext;
   v7 = managedObjectContext;
-  [v7 performBlockAndWait:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v7 performBlockAndWait:v8];
 }
 
 void __75__STCoreUser_Observable__setObservableCommunicationSafetyAnalyticsEnabled___block_invoke(uint64_t a1)
@@ -2581,100 +2818,16 @@ void __75__STCoreUser_Observable__setObservableCommunicationSafetyAnalyticsEnabl
 
 void __46__STCoreUser_notifyServerOfScreenTimeEnabled___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_contactStoreForUser
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_6();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __57__STCoreUser_Observable__setObservableScreenTimeEnabled___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save Screen Time enabled: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__STCoreUser_Observable__setObservableManagementEnabled___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save management enabled: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__STCoreUser_Observable__setObservableSyncingEnabled___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save syncing enabled: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__STCoreUser_Observable__setObservableAllLimitsEnabled___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save all limits enabled: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __53__STCoreUser_Observable__setObservableShareWebUsage___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save web usage sharing: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __39__STCoreUser_Observable__resetPasscode__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to reset passcode: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__STCoreUser_Observable__setObservableCommunicationSafetySendingRestricted___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save communication safety sending restriction: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __78__STCoreUser_Observable__setObservableCommunicationSafetyReceivingRestricted___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save communication safety receiving restriction: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __78__STCoreUser_Observable__setObservableCommunicationSafetyNotificationEnabled___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save isCommunicationSafetyNotificationEnabled restriction: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __75__STCoreUser_Observable__setObservableCommunicationSafetyAnalyticsEnabled___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_0(&dword_1B831F000, v0, v1, "Failed to save isCommunicationSafetyAnalyticsEnabled: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

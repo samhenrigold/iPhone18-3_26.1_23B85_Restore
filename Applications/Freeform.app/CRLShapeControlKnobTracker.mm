@@ -357,8 +357,8 @@
 
 - (void)p_updateHUDAtPoint:(CGPoint)point
 {
-  v33 = [(CRLShapeControlKnobTracker *)self shapeControlLayout:point.x];
-  smartPathSource = [v33 smartPathSource];
+  v34 = [(CRLShapeControlKnobTracker *)self shapeControlLayout:point.x];
+  smartPathSource = [v34 smartPathSource];
   knob = [(CRLCanvasKnobTracker *)self knob];
   v6 = [smartPathSource getFeedbackStringForKnob:{objc_msgSend(knob, "tag")}];
 
@@ -377,16 +377,16 @@
     v17 = v16;
     v19 = v18;
 
-    v35.origin.x = v13;
-    v35.origin.y = v15;
-    v35.size.width = v17;
-    v35.size.height = v19;
-    MidX = CGRectGetMidX(v35);
     v36.origin.x = v13;
     v36.origin.y = v15;
     v36.size.width = v17;
     v36.size.height = v19;
-    MinY = CGRectGetMinY(v36);
+    MidX = CGRectGetMidX(v36);
+    v37.origin.x = v13;
+    v37.origin.y = v15;
+    v37.size.width = v17;
+    v37.size.height = v19;
+    MinY = CGRectGetMinY(v37);
     v22 = [(CRLCanvasKnobTracker *)self rep];
     [v22 convertNaturalPointToUnscaledCanvas:{MidX, MinY}];
     v24 = v23;
@@ -398,7 +398,7 @@
     v30 = v29;
     v32 = v31;
 
-    [v9 showHUDForKey:self forTouchPoint:canvasView inCanvasView:sub_100122154(v30 withUpwardsNudge:v32)];
+    [v9 showHUDForKey:self forTouchPoint:canvasView inCanvasView:sub_100122154(v33 withUpwardsNudge:{v30, v32)}];
   }
 }
 

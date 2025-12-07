@@ -16,14 +16,12 @@
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"displayStyle" number:1 type:4 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"data" number:2 type:14 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -69,28 +67,28 @@
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMAppIntentInvocationImage displayStyle](self, "displayStyle")}];
   data = [(BMAppIntentInvocationImage *)self data];
   v5 = [data base64EncodedStringWithOptions:0];
 
-  v11[0] = @"displayStyle";
+  v10[0] = @"displayStyle";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"data";
-  v12[0] = null;
+  v10[1] = @"data";
+  v11[0] = null;
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (v5)
   {
     if (v3)
@@ -109,14 +107,13 @@
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMAppIntentInvocationImage)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"displayStyle"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -151,30 +148,30 @@ LABEL_12:
 
       if (error)
       {
-        v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v16 = *MEMORY[0x1E698F240];
-        v27 = *MEMORY[0x1E696A578];
-        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"data"];
-        v28 = v17;
-        v18 = MEMORY[0x1E695DF20];
-        v19 = &v28;
-        v20 = &v27;
+        v14 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v15 = *MEMORY[0x1E698F240];
+        v26 = *MEMORY[0x1E696A578];
+        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"data"];
+        v27 = v16;
+        v17 = MEMORY[0x1E695DF20];
+        v18 = &v27;
+        v19 = &v26;
 LABEL_25:
-        v24 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:1];
-        *error = [v15 initWithDomain:v16 code:2 userInfo:v24];
+        v23 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:1];
+        *error = [v14 initWithDomain:v15 code:2 userInfo:v23];
       }
     }
 
     else if (error)
     {
-      v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v16 = *MEMORY[0x1E698F240];
-      v25 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"data"];
-      v26 = v17;
-      v18 = MEMORY[0x1E695DF20];
-      v19 = &v26;
-      v20 = &v25;
+      v14 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v15 = *MEMORY[0x1E698F240];
+      v24 = *MEMORY[0x1E696A578];
+      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"data"];
+      v25 = v16;
+      v17 = MEMORY[0x1E695DF20];
+      v18 = &v25;
+      v19 = &v24;
       goto LABEL_25;
     }
 
@@ -206,20 +203,19 @@ LABEL_8:
     goto LABEL_14;
   }
 
-  v21 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v22 = *MEMORY[0x1E698F240];
-  v29 = *MEMORY[0x1E696A578];
+  v20 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v21 = *MEMORY[0x1E698F240];
+  v28 = *MEMORY[0x1E696A578];
   v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"displayStyle"];
-  v30[0] = v11;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-  v23 = [v21 initWithDomain:v22 code:2 userInfo:v10];
+  v29[0] = v11;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v22 = [v20 initWithDomain:v21 code:2 userInfo:v10];
   v8 = 0;
   selfCopy = 0;
-  *error = v23;
+  *error = v22;
 LABEL_13:
 
 LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -235,8 +231,6 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  displayStyle = self->_displayStyle;
-  v6 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_data)
   {
@@ -395,11 +389,11 @@ LABEL_39:
 
 - (BMAppIntentInvocationImage)initWithDisplayStyle:(int)style data:(id)data
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v14.receiver = self;
-  v14.super_class = BMAppIntentInvocationImage;
-  v7 = [(BMEventBase *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = BMAppIntentInvocationImage;
+  v7 = [(BMEventBase *)&v13 init];
   if (v7)
   {
     v7->_dataVersion = [objc_opt_class() latestDataVersion];
@@ -419,30 +413,27 @@ LABEL_39:
         v9 = objc_opt_class();
         v10 = [dataCopy length];
         *buf = 138543874;
-        v16 = v9;
-        v17 = 2114;
-        v18 = @"data";
-        v19 = 2048;
-        v20 = v10;
+        v15 = v9;
+        v16 = 2114;
+        v17 = @"data";
+        v18 = 2048;
+        v19 = v10;
         _os_log_fault_impl(&dword_184E8D000, p_super, OS_LOG_TYPE_FAULT, "%{public}@ dropping field '%{public}@' because %llu bytes is too large", buf, 0x20u);
       }
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"displayStyle" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"data" dataType:4 requestOnly:0 fieldNumber:2 protoDataType:14 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

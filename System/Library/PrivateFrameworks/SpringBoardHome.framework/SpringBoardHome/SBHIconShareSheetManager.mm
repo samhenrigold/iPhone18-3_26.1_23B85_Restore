@@ -85,7 +85,7 @@
     fakeSourceView = [(SBHIconShareSheetManager *)self fakeSourceView];
     popoverPresentationController = [v10 popoverPresentationController];
     [popoverPresentationController setSourceView:fakeSourceView];
-    [fakeSourceView bounds];
+    objc_msgSend_bounds(fakeSourceView);
     [popoverPresentationController setSourceRect:?];
     [popoverPresentationController setPermittedArrowDirections:15];
     [popoverPresentationController setCanOverlapSourceViewRect:1];

@@ -40,53 +40,52 @@
   v5 = equalCopy;
   if (self == equalCopy)
   {
-    v20 = 1;
+    v19 = 1;
   }
 
   else if (equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     style = self->_style;
-    v7 = v5->_style;
-    v8 = v5;
-    v32 = [(UIKeyboardCandidateViewStyle *)style isEqual:v7];
-    v9 = [(UIKeyboardCandidateViewStyle *)self->_disambiguationStyle isEqual:v8->_disambiguationStyle];
-    v31 = *&self->_disambiguationGridPosition;
-    v26 = *&v8->_primaryGridRowType;
-    v27 = *&v8->_disambiguationGridPosition;
-    v29 = *&self->_inlineTextViewPosition;
-    v30 = *&self->_primaryGridRowType;
-    v28 = *&v8->_inlineTextViewPosition;
+    v7 = v5;
+    isEqual = objc_msgSend_isEqual_(style);
+    v8 = objc_msgSend_isEqual_(self->_disambiguationStyle);
+    v30 = *&self->_disambiguationGridPosition;
+    v25 = *&v7->_primaryGridRowType;
+    v26 = *&v7->_disambiguationGridPosition;
+    v28 = *&self->_inlineTextViewPosition;
+    v29 = *&self->_primaryGridRowType;
+    v27 = *&v7->_inlineTextViewPosition;
     arrowButtonDirection = self->_arrowButtonDirection;
-    v11 = v8->_arrowButtonDirection;
-    v12 = self->_hasBackdrop == v8->_hasBackdrop;
+    v10 = v7->_arrowButtonDirection;
+    v11 = self->_hasBackdrop == v7->_hasBackdrop;
     candidateNumberEnabled = self->_candidateNumberEnabled;
-    v14 = v8->_candidateNumberEnabled;
-    v24 = *&v8->_yOffset;
-    v25 = *&self->_yOffset;
-    arrowButtonOffset = v8->_arrowButtonOffset;
-    v23 = self->_arrowButtonOffset;
+    v13 = v7->_candidateNumberEnabled;
+    v23 = *&v7->_yOffset;
+    v24 = *&self->_yOffset;
+    arrowButtonOffset = v7->_arrowButtonOffset;
+    v22 = self->_arrowButtonOffset;
     borders = self->_borders;
-    v16 = v8->_borders;
+    v15 = v7->_borders;
 
-    v17.i64[0] = arrowButtonDirection;
-    v17.i64[1] = borders;
-    v18.i64[0] = v11;
-    v18.i64[1] = v16;
-    v19 = vminv_u8(vmovn_s16(vuzp1q_s16(vuzp1q_s32(vceqq_s64(v30, v26), vceqq_s64(v31, v27)), vuzp1q_s32(vceqq_s64(v29, v28), vceqq_s64(v17, v18))))) & vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v25, v24), vceqq_f64(v23, arrowButtonOffset)))) & v12;
-    if (candidateNumberEnabled != v14)
+    v16.i64[0] = arrowButtonDirection;
+    v16.i64[1] = borders;
+    v17.i64[0] = v10;
+    v17.i64[1] = v15;
+    v18 = vminv_u8(vmovn_s16(vuzp1q_s16(vuzp1q_s32(vceqq_s64(v29, v25), vceqq_s64(v30, v26)), vuzp1q_s32(vceqq_s64(v28, v27), vceqq_s64(v16, v17))))) & vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v24, v23), vceqq_f64(v22, arrowButtonOffset)))) & v11;
+    if (candidateNumberEnabled != v13)
     {
-      v19 = 0;
+      v18 = 0;
     }
 
-    v20 = v19 & (v9 && v32);
+    v19 = v18 & v8 & isEqual;
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  return v20;
+  return v19;
 }
 
 + (BOOL)resolveInstanceMethod:(SEL)method

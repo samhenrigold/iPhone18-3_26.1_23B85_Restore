@@ -13,7 +13,7 @@ double __63___UIFloatingTabBarItemViewAccessibility_accessibilityRowRange__block
   return result;
 }
 
-uint64_t __63___UIFloatingTabBarItemViewAccessibility_accessibilityRowRange__block_invoke_2(uint64_t a1)
+void *__63___UIFloatingTabBarItemViewAccessibility_accessibilityRowRange__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _indexInDataSourceForItemAtIndexPath:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

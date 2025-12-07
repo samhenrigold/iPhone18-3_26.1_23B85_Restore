@@ -7,6 +7,7 @@
 - (NSString)appClipIdentifier;
 - (NSString)identifier;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -148,6 +149,64 @@
   stringValue = [appClipIdentifierCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000019"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    identifierCharacteristic = [(CAFAutomakerApp *)self identifierCharacteristic];
+    uniqueIdentifier2 = [identifierCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      identifier = [(CAFAutomakerApp *)self identifier];
+      [observers automakerAppService:self didUpdateIdentifier:identifier];
+LABEL_8:
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFAutomakerApp *)self name];
+      [observers2 automakerAppService:self didUpdateName:name];
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if (![observers2 isEqual:@"0x0000000070000001"])
+  {
+LABEL_9:
+
+    goto LABEL_10;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  appClipIdentifierCharacteristic = [(CAFAutomakerApp *)self appClipIdentifierCharacteristic];
+  uniqueIdentifier4 = [appClipIdentifierCharacteristic uniqueIdentifier];
+  v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v18)
+  {
+    observers = [(CAFService *)self observers];
+    identifier = [(CAFAutomakerApp *)self appClipIdentifier];
+    [observers automakerAppService:self didUpdateAppClipIdentifier:identifier];
+    goto LABEL_8;
+  }
+
+LABEL_10:
+  v20.receiver = self;
+  v20.super_class = CAFAutomakerApp;
+  [(CAFService *)&v20 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForIdentifier

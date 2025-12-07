@@ -12,20 +12,18 @@
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMPhotosPersonManagerSettings *)self isImportingFromPhotoLibraryEnabled];
   v4 = HMFBooleanToString();
   v5 = [v3 initWithName:@"Importing From Photo Library Enabled" value:v4];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMPhotosPersonManagerSettings *)self isSharingFaceClassificationsEnabled];
   v7 = HMFBooleanToString();
   v8 = [v6 initWithName:@"Sharing Face Classifications Enabled" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }

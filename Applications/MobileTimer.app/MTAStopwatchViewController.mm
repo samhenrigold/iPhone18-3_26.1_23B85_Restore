@@ -731,7 +731,8 @@
     v180 = 0u;
     v181 = 0u;
     view3 = [(MTAStopwatchViewController *)self view];
-    +[MTAUtilities controlButtonAttributesForView:buttonCircleSize:](MTAUtilities, "controlButtonAttributesForView:buttonCircleSize:", view3, [startStopButton buttonCircleSize]);
+    [startStopButton buttonCircleSize];
+    objc_msgSend_controlButtonAttributesForView_buttonCircleSize_(MTAUtilities);
 
     v176 = tableHeaderView;
     v178 = startStopButton;

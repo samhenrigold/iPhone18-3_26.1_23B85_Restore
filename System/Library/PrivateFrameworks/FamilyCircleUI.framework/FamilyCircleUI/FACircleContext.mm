@@ -146,10 +146,10 @@
 
     if (proxiedDevice)
     {
-      v7 = _FALogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = _FALogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        [(FACircleContext *)v7 urlSessionConfiguration];
+        [(FACircleContext *)v8 urlSessionConfiguration];
       }
 
       authContext3 = [(FACircleContext *)self authContext];

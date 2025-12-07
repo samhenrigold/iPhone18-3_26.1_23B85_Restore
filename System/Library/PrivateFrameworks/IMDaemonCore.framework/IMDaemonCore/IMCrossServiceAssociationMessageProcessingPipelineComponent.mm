@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if ([inputCopy crossServiceDeduplicationMechanism] == 1)
   {
@@ -63,7 +63,7 @@
   gUID3 = [inputCopy GUID];
   v20 = [messageStore3 existingChatForMessageGUID:gUID3];
 
-  v55 = v20;
+  v54 = v20;
   if ([inputCopy isFromMe])
   {
     v21 = 1;
@@ -101,7 +101,7 @@ LABEL_9:
       chatIdentifier2 = [chat2 chatIdentifier];
       v21 = [chatIdentifier isEqualToString:chatIdentifier2];
 
-      v20 = v55;
+      v20 = v54;
     }
 
     else
@@ -118,7 +118,7 @@ LABEL_9:
   isFromMe = 0;
 LABEL_20:
   v29 = (v20 != 0) & v21 & isFromMe;
-  if (v12 && ([v12 service], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "isEqualToString:", v5), v30, v20 = v55, v31))
+  if (v12 && ([v12 service], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "isEqualToString:", v5), v30, v20 = v54, v31))
   {
     if (v29)
     {
@@ -131,17 +131,17 @@ LABEL_20:
         pipelineResources4 = [(IMCrossServiceAssociationMessageProcessingPipelineComponent *)self pipelineResources];
         messageStore4 = [pipelineResources4 messageStore];
         guid = [v16 guid];
-        v58[0] = guid;
-        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:1];
-        v39 = [messageStore4 deleteMessageGUIDs:v38 inChat:v55];
+        v57[0] = guid;
+        v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
+        v39 = [messageStore4 deleteMessageGUIDs:v38 inChat:v54];
 
         if ([v39 count])
         {
           pipelineResources5 = [(IMCrossServiceAssociationMessageProcessingPipelineComponent *)self pipelineResources];
           broadcaster = [pipelineResources5 broadcaster];
           guid2 = [v16 guid];
-          v57 = guid2;
-          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+          v56 = guid2;
+          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
           [broadcaster historicalMessageGUIDsDeleted:v43 chatGUIDs:0 queryID:0];
         }
       }
@@ -154,7 +154,7 @@ LABEL_20:
     messageStore5 = [pipelineResources6 messageStore];
     v47 = [messageStore5 storeMessage:v12 forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0];
 
-    v20 = v56;
+    v20 = v55;
   }
 
   else if (v29)
@@ -168,13 +168,11 @@ LABEL_20:
     messageStore6 = [pipelineResources7 messageStore];
     v51 = [messageStore6 storeMessage:v16 forceReplace:1 modifyError:0 modifyFlags:0 flagMask:0];
 
-    v20 = v55;
+    v20 = v54;
   }
 
 LABEL_31:
   v52 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v52;
 }

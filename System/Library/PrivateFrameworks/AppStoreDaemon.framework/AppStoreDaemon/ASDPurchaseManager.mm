@@ -60,9 +60,11 @@
 
 uint64_t __35__ASDPurchaseManager_sharedManager__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_53 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_53;
+  _MergedGlobals_53 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (ASDPurchaseManager)init
@@ -120,60 +122,58 @@ uint64_t __35__ASDPurchaseManager_sharedManager__block_invoke(uint64_t a1)
 
 - (id)adoptableBundleIdentifiers
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__15;
-  v26 = __Block_byref_object_dispose__15;
-  v27 = MEMORY[0x1E695E0F0];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__15;
-  v20 = __Block_byref_object_dispose__15;
+  v31 = *MEMORY[0x1E69E9840];
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__15;
+  v25 = __Block_byref_object_dispose__15;
+  v26 = MEMORY[0x1E695E0F0];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__15;
+  v19 = __Block_byref_object_dispose__15;
+  v20 = 0;
   v2 = +[ASDServiceBroker defaultBroker];
-  v3 = (v17 + 5);
-  obj = v17[5];
+  v3 = (v16 + 5);
+  obj = v16[5];
   v4 = [v2 getPurchaseServiceWithError:&obj];
   objc_storeStrong(v3, obj);
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __48__ASDPurchaseManager_adoptableBundleIdentifiers__block_invoke;
-  v14[3] = &unk_1E7CDBB80;
-  v14[4] = &v16;
-  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v14];
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
-  v13[2] = __48__ASDPurchaseManager_adoptableBundleIdentifiers__block_invoke_2;
-  v13[3] = &unk_1E7CDD288;
-  v13[4] = &v22;
-  [v5 adoptableBundleIdentifiersWithReplyHandler:v13];
+  v13[2] = __48__ASDPurchaseManager_adoptableBundleIdentifiers__block_invoke;
+  v13[3] = &unk_1E7CDBB80;
+  v13[4] = &v15;
+  v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __48__ASDPurchaseManager_adoptableBundleIdentifiers__block_invoke_2;
+  v12[3] = &unk_1E7CDD288;
+  v12[4] = &v21;
+  [v5 adoptableBundleIdentifiersWithReplyHandler:v12];
 
-  if (v17[5])
+  if (v16[5])
   {
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = v17[5];
+      v9 = objc_opt_class();
+      v10 = v16[5];
       *buf = 138543618;
-      v29 = v10;
-      v30 = 2114;
-      v31 = v11;
-      v12 = v10;
+      v28 = v9;
+      v29 = 2114;
+      v30 = v10;
+      v11 = v9;
       _os_log_error_impl(&dword_1B8220000, v6, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to launch extension for adoptableBundleIdentifiers error: %{public}@", buf, 0x16u);
     }
   }
 
-  v7 = v23[5];
+  v7 = v22[5];
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v22, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
 
   return v7;
 }
@@ -196,27 +196,26 @@ void __54__ASDPurchaseManager_adoptionStatus_withReplyHandler___block_invoke(uin
 {
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __54__ASDPurchaseManager_adoptionStatus_withReplyHandler___block_invoke_2;
-    v10[3] = &unk_1E7CDB730;
-    v11 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __54__ASDPurchaseManager_adoptionStatus_withReplyHandler___block_invoke_2;
+    v9[3] = &unk_1E7CDB730;
+    v10 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
     v5 = *(a1 + 40);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __54__ASDPurchaseManager_adoptionStatus_withReplyHandler___block_invoke_3;
-    v8[3] = &unk_1E7CDB7F8;
-    v9 = *(a1 + 32);
-    [v4 adoptionStatus:v5 withReplyHandler:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __54__ASDPurchaseManager_adoptionStatus_withReplyHandler___block_invoke_3;
+    v7[3] = &unk_1E7CDB7F8;
+    v8 = *(a1 + 32);
+    [v4 adoptionStatus:v5 withReplyHandler:v7];
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = *(*(a1 + 32) + 16);
+    v6 = *(*(a1 + 32) + 16);
 
-    v7();
+    v6();
   }
 }
 
@@ -243,28 +242,27 @@ void __74__ASDPurchaseManager_purchaseBatch_additionalBuyParams_withResultHandle
 {
   if (a2)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __74__ASDPurchaseManager_purchaseBatch_additionalBuyParams_withResultHandler___block_invoke_2;
-    v11[3] = &unk_1E7CDB730;
-    v12 = *(a1 + 48);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __74__ASDPurchaseManager_purchaseBatch_additionalBuyParams_withResultHandler___block_invoke_2;
+    v10[3] = &unk_1E7CDB730;
+    v11 = *(a1 + 48);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __74__ASDPurchaseManager_purchaseBatch_additionalBuyParams_withResultHandler___block_invoke_3;
-    v9[3] = &unk_1E7CDD920;
-    v10 = *(a1 + 48);
-    [v4 purchaseBatch:v5 additionalBuyParams:v6 withReplyHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __74__ASDPurchaseManager_purchaseBatch_additionalBuyParams_withResultHandler___block_invoke_3;
+    v8[3] = &unk_1E7CDD920;
+    v9 = *(a1 + 48);
+    [v4 purchaseBatch:v5 additionalBuyParams:v6 withReplyHandler:v8];
   }
 
   else
   {
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -291,28 +289,27 @@ void __90__ASDPurchaseManager_purchaseBatchWithItemMetadata_additionalBuyParams_
 {
   if (a2)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __90__ASDPurchaseManager_purchaseBatchWithItemMetadata_additionalBuyParams_withResultHandler___block_invoke_2;
-    v11[3] = &unk_1E7CDB730;
-    v12 = *(a1 + 48);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __90__ASDPurchaseManager_purchaseBatchWithItemMetadata_additionalBuyParams_withResultHandler___block_invoke_2;
+    v10[3] = &unk_1E7CDB730;
+    v11 = *(a1 + 48);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __90__ASDPurchaseManager_purchaseBatchWithItemMetadata_additionalBuyParams_withResultHandler___block_invoke_3;
-    v9[3] = &unk_1E7CDD920;
-    v10 = *(a1 + 48);
-    [v4 purchaseBatchWithItemMetadata:v5 additionalBuyParams:v6 withReplyHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __90__ASDPurchaseManager_purchaseBatchWithItemMetadata_additionalBuyParams_withResultHandler___block_invoke_3;
+    v8[3] = &unk_1E7CDD920;
+    v9 = *(a1 + 48);
+    [v4 purchaseBatchWithItemMetadata:v5 additionalBuyParams:v6 withReplyHandler:v8];
   }
 
   else
   {
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -336,27 +333,26 @@ void __58__ASDPurchaseManager_processPurchase_withResponseHandler___block_invoke
 {
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __58__ASDPurchaseManager_processPurchase_withResponseHandler___block_invoke_2;
-    v10[3] = &unk_1E7CDB730;
-    v11 = *(a1 + 40);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __58__ASDPurchaseManager_processPurchase_withResponseHandler___block_invoke_3;
-    v8[3] = &unk_1E7CDD920;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __58__ASDPurchaseManager_processPurchase_withResponseHandler___block_invoke_2;
+    v9[3] = &unk_1E7CDB730;
+    v10 = *(a1 + 40);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __58__ASDPurchaseManager_processPurchase_withResponseHandler___block_invoke_3;
+    v7[3] = &unk_1E7CDD920;
     v5 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    [v4 processPurchase:v5 withReplyHandler:v8];
+    v8 = *(a1 + 40);
+    [v4 processPurchase:v5 withReplyHandler:v7];
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 
@@ -380,33 +376,32 @@ void __59__ASDPurchaseManager_processPurchases_withResponseHandler___block_invok
 {
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __59__ASDPurchaseManager_processPurchases_withResponseHandler___block_invoke_2;
-    v10[3] = &unk_1E7CDB730;
-    v11 = *(a1 + 40);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __59__ASDPurchaseManager_processPurchases_withResponseHandler___block_invoke_3;
-    v8[3] = &unk_1E7CDD920;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __59__ASDPurchaseManager_processPurchases_withResponseHandler___block_invoke_2;
+    v9[3] = &unk_1E7CDB730;
+    v10 = *(a1 + 40);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __59__ASDPurchaseManager_processPurchases_withResponseHandler___block_invoke_3;
+    v7[3] = &unk_1E7CDD920;
     v5 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    [v4 processPurchases:v5 withReplyHandler:v8];
+    v8 = *(a1 + 40);
+    [v4 processPurchases:v5 withReplyHandler:v7];
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 
 - (void)startPurchase:(id)purchase withResultHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   purchaseCopy = purchase;
   handlerCopy = handler;
   if ([ASDStoreKitService shouldProcessStoreKitPurchase:purchaseCopy])
@@ -415,63 +410,60 @@ void __59__ASDPurchaseManager_processPurchases_withResponseHandler___block_invok
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = objc_opt_class();
-      v9 = v21;
+      v20 = objc_opt_class();
+      v9 = v20;
       _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Processing ASDPurchase with StoreKit service", buf, 0xCu);
     }
 
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke;
-    v18[3] = &unk_1E7CDD998;
-    v10 = &v19;
-    v19 = handlerCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke;
+    v17[3] = &unk_1E7CDD998;
+    v10 = &v18;
+    v18 = handlerCopy;
     v11 = handlerCopy;
-    [ASDStoreKitService processStoreKitPurchase:purchaseCopy withResultHandler:v18];
+    [ASDStoreKitService processStoreKitPurchase:purchaseCopy withResultHandler:v17];
   }
 
   else
   {
     serviceBroker = self->_serviceBroker;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke_2;
-    v15[3] = &unk_1E7CDD970;
-    v10 = &v17;
-    v17 = handlerCopy;
-    v16 = purchaseCopy;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke_2;
+    v14[3] = &unk_1E7CDD970;
+    v10 = &v16;
+    v16 = handlerCopy;
+    v15 = purchaseCopy;
     v13 = handlerCopy;
-    [(ASDServiceBroker *)serviceBroker getPurchaseServiceWithCompletionHandler:v15];
+    [(ASDServiceBroker *)serviceBroker getPurchaseServiceWithCompletionHandler:v14];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke_3;
-    v10[3] = &unk_1E7CDB730;
-    v11 = *(a1 + 40);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke_4;
-    v8[3] = &unk_1E7CDD998;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke_3;
+    v9[3] = &unk_1E7CDB730;
+    v10 = *(a1 + 40);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __54__ASDPurchaseManager_startPurchase_withResultHandler___block_invoke_4;
+    v7[3] = &unk_1E7CDD998;
     v5 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    [v4 startPurchase:v5 withReplyHandler:v8];
+    v8 = *(a1 + 40);
+    [v4 startPurchase:v5 withReplyHandler:v7];
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *(*(a1 + 40) + 16);
+    v6 = *(*(a1 + 40) + 16);
 
-    v7();
+    v6();
   }
 }
 
@@ -502,21 +494,18 @@ void __49__ASDPurchaseManager_checkAutomaticDownloadQueue__block_invoke(uint64_t
 
 void __49__ASDPurchaseManager_checkAutomaticDownloadQueue__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = ASDLogHandleForCategory(13);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = ASDLogHandleForCategory(13);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Error in checkAutomaticDownloadQueue: %{public}@", &v8, 0x16u);
+    v5 = 138543618;
+    v6 = objc_opt_class();
+    v7 = 2114;
+    v8 = v2;
+    v4 = v6;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[%{public}@]: Error in checkAutomaticDownloadQueue: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkPendingQueue
@@ -546,21 +535,18 @@ void __39__ASDPurchaseManager_checkPendingQueue__block_invoke(uint64_t a1, void 
 
 void __39__ASDPurchaseManager_checkPendingQueue__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = ASDLogHandleForCategory(13);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = ASDLogHandleForCategory(13);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Error in checkPendingQueue: %{public}@", &v8, 0x16u);
+    v5 = 138543618;
+    v6 = objc_opt_class();
+    v7 = 2114;
+    v8 = v2;
+    v4 = v6;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[%{public}@]: Error in checkPendingQueue: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkPreflightForItemIdentifier:(id)identifier atURL:(id)l withReplyHandler:(id)handler
@@ -594,28 +580,27 @@ void __70__ASDPurchaseManager_installReceiptData_atBundleURL_withReplyHandler___
 {
   if (a2)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __70__ASDPurchaseManager_installReceiptData_atBundleURL_withReplyHandler___block_invoke_2;
-    v11[3] = &unk_1E7CDB730;
-    v12 = *(a1 + 48);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __70__ASDPurchaseManager_installReceiptData_atBundleURL_withReplyHandler___block_invoke_2;
+    v10[3] = &unk_1E7CDB730;
+    v11 = *(a1 + 48);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v10];
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __70__ASDPurchaseManager_installReceiptData_atBundleURL_withReplyHandler___block_invoke_3;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 48);
-    [v4 installReceiptData:v5 atBundleURL:v6 withReplyHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __70__ASDPurchaseManager_installReceiptData_atBundleURL_withReplyHandler___block_invoke_3;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 48);
+    [v4 installReceiptData:v5 atBundleURL:v6 withReplyHandler:v8];
   }
 
   else
   {
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -646,30 +631,29 @@ void __110__ASDPurchaseManager_renewReceiptForApplicationAtURL_withAppleID_passw
 {
   if (a2)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __110__ASDPurchaseManager_renewReceiptForApplicationAtURL_withAppleID_password_forceSandbox_withCompletionHandler___block_invoke_2;
-    v13[3] = &unk_1E7CDB730;
-    v14 = *(a1 + 56);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __110__ASDPurchaseManager_renewReceiptForApplicationAtURL_withAppleID_password_forceSandbox_withCompletionHandler___block_invoke_2;
+    v12[3] = &unk_1E7CDB730;
+    v13 = *(a1 + 56);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v12];
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
     v7 = *(a1 + 64);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __110__ASDPurchaseManager_renewReceiptForApplicationAtURL_withAppleID_password_forceSandbox_withCompletionHandler___block_invoke_3;
-    v11[3] = &unk_1E7CDB730;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __110__ASDPurchaseManager_renewReceiptForApplicationAtURL_withAppleID_password_forceSandbox_withCompletionHandler___block_invoke_3;
+    v10[3] = &unk_1E7CDB730;
     v8 = *(a1 + 48);
-    v12 = *(a1 + 56);
-    [v4 renewReceiptForApplicationAtURL:v5 withAppleID:v6 password:v8 forceSandbox:v7 withReplyHandler:v11];
+    v11 = *(a1 + 56);
+    [v4 renewReceiptForApplicationAtURL:v5 withAppleID:v6 password:v8 forceSandbox:v7 withReplyHandler:v10];
   }
 
   else
   {
-    v9 = *(a1 + 56);
-    v10 = *(*(a1 + 56) + 16);
+    v9 = *(*(a1 + 56) + 16);
 
-    v10();
+    v9();
   }
 }
 
@@ -690,26 +674,25 @@ void __46__ASDPurchaseManager_unadoptWithReplyHandler___block_invoke(uint64_t a1
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __46__ASDPurchaseManager_unadoptWithReplyHandler___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v4 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __46__ASDPurchaseManager_unadoptWithReplyHandler___block_invoke_3;
-    v7[3] = &unk_1E7CDB7F8;
-    v8 = *(a1 + 32);
-    [v4 unadoptWithReplyHandler:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __46__ASDPurchaseManager_unadoptWithReplyHandler___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v4 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __46__ASDPurchaseManager_unadoptWithReplyHandler___block_invoke_3;
+    v6[3] = &unk_1E7CDB7F8;
+    v7 = *(a1 + 32);
+    [v4 unadoptWithReplyHandler:v6];
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 

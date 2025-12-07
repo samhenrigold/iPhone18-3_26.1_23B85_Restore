@@ -4,6 +4,7 @@
 - (void)_cancelButtonTapped;
 - (void)_continueButtonTapped;
 - (void)_setNavigationItems;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -47,6 +48,14 @@
   [navigationItem setHidesBackButton:1 animated:0];
 
   [(SSUserConsentViewController *)self _continueButtonTapped];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SSUserConsentViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(SSUserConsentViewController *)self _setNavigationItems];
 }
 
 - (void)_continueButtonTapped

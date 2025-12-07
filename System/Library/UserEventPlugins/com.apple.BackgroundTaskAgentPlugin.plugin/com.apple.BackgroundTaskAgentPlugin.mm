@@ -29,7 +29,7 @@ id sub_FA0(id result, uint64_t a2, int a3, intptr_t a4)
   {
     if (v5 == 2 || v5 == 9)
     {
-      [result setSystemWillSleep:0];
+      [result setSystemWillSleep:{0, a4}];
       result = [v4 shouldRescheduleTimer];
       if (result)
       {
@@ -188,17 +188,14 @@ id sub_40A8(uint64_t a1, int token)
 void sub_40F8(uint64_t a1)
 {
   CTTelephonyCenterGetDefault();
-  v2 = *(a1 + 32);
   CTTelephonyCenterAddObserver();
-  v3 = *(a1 + 32);
   CTTelephonyCenterAddObserver();
   CTTelephonyCenterGetDefault();
-  v4 = *(a1 + 32);
   CTTelephonyCenterAddObserver();
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-  v6 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  CFNotificationCenterAddObserver(DarwinNotifyCenter, v6, sub_4364, @"SignificantTimeChangeNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, sub_4364, @"SignificantTimeChangeNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
 }
 
 void sub_41E4(uint64_t a1, void *a2)
@@ -441,13 +438,6 @@ void sub_644C(void *a1, void *a2)
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_64FC(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_3AB0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
 void sub_65CC()
 {
   sub_3B1C();
@@ -485,16 +475,6 @@ void sub_6984(uint64_t a1)
   _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "userEventCallback: jobRequest is not a dictionary: %s", &v1, 0xCu);
 }
 
-void sub_6A80(_DWORD *a1)
-{
-  v6 = a1[12];
-  v7 = a1[18];
-  v8 = a1[23];
-  v9 = a1[36];
-  sub_3AB0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Au);
-}
-
 void sub_6C2C(void *a1, void *a2)
 {
   [objc_msgSend(a1 "description")];
@@ -527,13 +507,6 @@ void sub_6DE8(void *a1)
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_6E6C(int *a1)
-{
-  v6 = *a1;
-  sub_3AB0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_6F68(void *a1)
 {
   [objc_msgSend(a1 "description")];
@@ -543,18 +516,11 @@ void sub_6F68(void *a1)
 
 void sub_7348()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   sub_3ABC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-}
-
-void sub_73EC(int *a1)
-{
-  v6 = *a1;
-  sub_3AB0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void xpc_event_provider_create()

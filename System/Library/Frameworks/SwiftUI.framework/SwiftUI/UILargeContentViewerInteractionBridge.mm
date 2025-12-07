@@ -43,7 +43,7 @@
   }
 
   v8 = Strong;
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIGestureRecognizer);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIGestureRecognizer, 0x1E69DCA60);
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
   selfCopy = self;

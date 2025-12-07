@@ -53,22 +53,21 @@ uint64_t __110__CRSUIClimateQuickControlRequestActionHandler__respondToActions_f
 void __110__CRSUIClimateQuickControlRequestActionHandler__respondToActions_forFBSScene_inUIScene_fromTransitionContext___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = [a2 info];
-  v6 = [v3 objectForSetting:1];
+  v5 = [v3 objectForSetting:1];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = *(a1 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = [*(a1 + 40) delegate];
-      [v5 requestQuickControl:v6];
+      v4 = [*(a1 + 40) delegate];
+      [v4 requestQuickControl:v5];
     }
 
     else
     {
-      [*(a1 + 32) requestQuickControl:v6];
+      [*(a1 + 32) requestQuickControl:v5];
     }
   }
 }

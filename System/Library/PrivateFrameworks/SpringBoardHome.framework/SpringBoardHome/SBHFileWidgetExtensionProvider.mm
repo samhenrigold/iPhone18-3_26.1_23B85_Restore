@@ -93,7 +93,7 @@
 
     else
     {
-      v22 = SBLogRecentsDocumentExtension();
+      v22 = SBLogRecentsDocumentExtension(0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [SBHRecentsDocumentExtensionProvider recentsDocumentViewControllerForBundleIdentifier:];

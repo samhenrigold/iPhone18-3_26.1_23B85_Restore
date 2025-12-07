@@ -13,9 +13,10 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = NoticePresenter.PassthroughWindow.hitTest(_:with:)(event, x, y);
+  v10.n128_f64[0] = x;
+  v11 = NoticePresenter.PassthroughWindow.hitTest(_:with:)(event, v10, y);
 
-  return v10;
+  return v11;
 }
 
 - (_TtCC11MusicCoreUI15NoticePresenterP33_D8FBFBA4851A241D976DAD2E389878C117PassthroughWindow)initWithWindowScene:(id)scene

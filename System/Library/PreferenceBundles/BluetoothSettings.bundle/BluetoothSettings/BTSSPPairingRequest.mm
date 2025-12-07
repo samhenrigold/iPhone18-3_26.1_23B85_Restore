@@ -1,5 +1,4 @@
 @interface BTSSPPairingRequest
-- (BOOL)hasLimitedSupportForHID;
 - (BTSSPPairingRequest)initWithDevice:(id)device andSpecifier:(id)specifier;
 - (id)sanitizeNameForAlert:(id)alert;
 - (void)acceptSSP:(int64_t)p;
@@ -377,21 +376,19 @@ void __50__BTSSPPairingRequest_setPairingStyle_andPasskey___block_invoke_4(uint6
 
 - (void)hidPairingResult:(id)result
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(resultCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [resultCopy name];
     name2 = [(BluetoothDevice *)self->_device name];
-    v9 = 138412546;
-    v10 = name;
-    v11 = 2112;
-    v12 = name2;
-    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "Received %@ for device %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = name;
+    v10 = 2112;
+    v11 = name2;
+    _os_log_impl(&dword_23C0F7000, v5, OS_LOG_TYPE_DEFAULT, "Received %@ for device %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acceptSSP:(int64_t)p
@@ -419,42 +416,33 @@ void __50__BTSSPPairingRequest_setPairingStyle_andPasskey___block_invoke_4(uint6
     [userInfo setObject:@"entered" forKey:@"PIN-ended"];
   }
 
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v12 = self->_delegate;
-    v13 = self->_device;
+    delegate = self->_delegate;
+    v12 = self->_device;
 
-    [v12 setSSPConfirmation:p forDevice:v13];
+    [delegate setSSPConfirmation:p forDevice:v12];
   }
 
   else
   {
     userInfo2 = [(PSSpecifier *)self->_specifier userInfo];
-    v15 = userInfo2;
+    v14 = userInfo2;
     if (p)
     {
-      v16 = @"cancelled";
+      v15 = @"cancelled";
     }
 
     else
     {
-      v16 = @"accepted";
+      v15 = @"accepted";
     }
 
-    [userInfo2 setObject:v16 forKey:@"PIN-ended"];
+    [userInfo2 setObject:v15 forKey:@"PIN-ended"];
 
     mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
     [mEMORY[0x277CF3248] acceptSSP:p forDevice:self->_device];
   }
-}
-
-- (BOOL)hasLimitedSupportForHID
-{
-  v4 = *MEMORY[0x277D85DE8];
-  result = MGIsDeviceOneOfType();
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 @end

@@ -8,6 +8,8 @@
 - (void)layoutSubviews;
 - (void)notifyTextFieldDidBeginEditing;
 - (void)notifyTextFieldDidEndEditing;
+- (void)notifyTextFieldEmptyStateChanged:(BOOL)changed;
+- (void)setChecked:(BOOL)checked;
 - (void)setShadowImage:(id)image;
 - (void)setTitle:(id)title;
 - (void)setValueChangedTarget:(id)target action:(SEL)action specifier:(id)specifier;
@@ -27,6 +29,46 @@
     [(CNFRegEditableTableCell *)self setTextFieldOffset:v5];
     [(CNFRegEditableTableCell *)self setNeedsLayout];
     v4 = v6;
+  }
+}
+
+- (void)notifyTextFieldEmptyStateChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v5 = *MEMORY[0x277D3FBF0];
+  WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v5));
+  if (WeakRetained && self->_emptyStateSelector)
+  {
+    v14 = WeakRetained;
+    v7 = *MEMORY[0x277D3FCE0];
+    v8 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v7));
+    if (v8)
+    {
+      v9 = v8;
+      skipDelegateCallback = [(CNFRegEditableTableCell *)self skipDelegateCallback];
+
+      if (skipDelegateCallback)
+      {
+        return;
+      }
+
+      v14 = [MEMORY[0x277CCABB0] numberWithBool:changedCopy];
+      v11 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v5));
+      if (self->_emptyStateSelector)
+      {
+        emptyStateSelector = self->_emptyStateSelector;
+      }
+
+      else
+      {
+        emptyStateSelector = 0;
+      }
+
+      v13 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v7));
+      [v11 performSelector:emptyStateSelector withObject:v14 withObject:v13];
+    }
+
+    WeakRetained = v14;
   }
 }
 
@@ -171,13 +213,12 @@
   WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v3));
   if (WeakRetained && self->_didBeginEditingSelector)
   {
-    didBeginEditingSelector = self->_didBeginEditingSelector;
-    v12 = WeakRetained;
-    v6 = *MEMORY[0x277D3FCE0];
-    v7 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v6));
-    if (v7)
+    v11 = WeakRetained;
+    v5 = *MEMORY[0x277D3FCE0];
+    v6 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v5));
+    if (v6)
     {
-      v8 = v7;
+      v7 = v6;
       skipDelegateCallback = [(CNFRegEditableTableCell *)self skipDelegateCallback];
 
       if (skipDelegateCallback)
@@ -185,22 +226,22 @@
         return;
       }
 
-      v12 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v3));
+      v11 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v3));
       if (self->_didBeginEditingSelector)
       {
-        v10 = self->_didBeginEditingSelector;
+        didBeginEditingSelector = self->_didBeginEditingSelector;
       }
 
       else
       {
-        v10 = 0;
+        didBeginEditingSelector = 0;
       }
 
-      v11 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v6));
-      [v12 performSelector:v10 withObject:v11];
+      v10 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v5));
+      [v11 performSelector:didBeginEditingSelector withObject:v10];
     }
 
-    WeakRetained = v12;
+    WeakRetained = v11;
   }
 }
 
@@ -210,13 +251,12 @@
   WeakRetained = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v3));
   if (WeakRetained && self->_didEndEditingSelector)
   {
-    didEndEditingSelector = self->_didEndEditingSelector;
-    v12 = WeakRetained;
-    v6 = *MEMORY[0x277D3FCE0];
-    v7 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v6));
-    if (v7)
+    v11 = WeakRetained;
+    v5 = *MEMORY[0x277D3FCE0];
+    v6 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v5));
+    if (v6)
     {
-      v8 = v7;
+      v7 = v6;
       skipDelegateCallback = [(CNFRegEditableTableCell *)self skipDelegateCallback];
 
       if (skipDelegateCallback)
@@ -224,22 +264,22 @@
         return;
       }
 
-      v12 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v3));
+      v11 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v3));
       if (self->_didEndEditingSelector)
       {
-        v10 = self->_didEndEditingSelector;
+        didEndEditingSelector = self->_didEndEditingSelector;
       }
 
       else
       {
-        v10 = 0;
+        didEndEditingSelector = 0;
       }
 
-      v11 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v6));
-      [v12 performSelector:v10 withObject:v11];
+      v10 = objc_loadWeakRetained((&self->super.super.super.super.super.super.isa + v5));
+      [v11 performSelector:didEndEditingSelector withObject:v10];
     }
 
-    WeakRetained = v12;
+    WeakRetained = v11;
   }
 }
 
@@ -273,6 +313,66 @@
     [(CNFRegEditableTableCell *)self setNeedsLayout];
     imageCopy = v7;
   }
+}
+
+- (void)setChecked:(BOOL)checked
+{
+  checkedCopy = checked;
+  customCheckmarkImage = [(CNFRegEditableTableCell *)self customCheckmarkImage];
+
+  if (!customCheckmarkImage)
+  {
+    v15.receiver = self;
+    v15.super_class = CNFRegEditableTableCell;
+    [(PSTableCell *)&v15 setChecked:checkedCopy];
+    return;
+  }
+
+  v6 = *MEMORY[0x277D3FCC8];
+  if (*(&self->super.super.super.super.super.super.isa + v6) == checkedCopy)
+  {
+    return;
+  }
+
+  *(&self->super.super.super.super.super.super.isa + v6) = checkedCopy;
+  if (checkedCopy)
+  {
+    v7 = objc_alloc(MEMORY[0x277D755E8]);
+    customCheckmarkImage2 = [(CNFRegEditableTableCell *)self customCheckmarkImage];
+    customCheckmarkImageSelected = [(CNFRegEditableTableCell *)self customCheckmarkImageSelected];
+    obj = [v7 initWithImage:customCheckmarkImage2 highlightedImage:customCheckmarkImageSelected];
+
+    if ([(CNFRegEditableTableCell *)self accessoryType]== 1 || [(CNFRegEditableTableCell *)self accessoryType]== 2)
+    {
+      v10 = *MEMORY[0x277D3FCD0];
+      objc_storeStrong((&self->super.super.super.super.super.super.isa + v10), obj);
+      contentView = [(CNFRegEditableTableCell *)self contentView];
+      [contentView addSubview:*(&self->super.super.super.super.super.super.isa + v10)];
+
+      [(CNFRegEditableTableCell *)self setNeedsLayout];
+    }
+
+    else
+    {
+      [(CNFRegEditableTableCell *)self setAccessoryView:obj];
+    }
+
+    v13 = obj;
+    goto LABEL_14;
+  }
+
+  if ([(CNFRegEditableTableCell *)self accessoryType]== 1 || [(CNFRegEditableTableCell *)self accessoryType]== 2)
+  {
+    v12 = *MEMORY[0x277D3FCD0];
+    [*(&self->super.super.super.super.super.super.isa + v12) removeFromSuperview];
+    v13 = *(&self->super.super.super.super.super.super.isa + v12);
+    *(&self->super.super.super.super.super.super.isa + v12) = 0;
+LABEL_14:
+
+    return;
+  }
+
+  [(CNFRegEditableTableCell *)self setAccessoryView:0];
 }
 
 - (void)layoutSubviews

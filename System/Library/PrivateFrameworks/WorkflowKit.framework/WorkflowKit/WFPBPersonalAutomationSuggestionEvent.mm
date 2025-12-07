@@ -178,7 +178,6 @@ LABEL_8:
       goto LABEL_35;
     }
 
-    v13 = *(equalCopy + 58);
     if (self->_visible)
     {
       if ((*(equalCopy + 58) & 1) == 0)
@@ -205,7 +204,6 @@ LABEL_8:
       goto LABEL_35;
     }
 
-    v14 = *(equalCopy + 57);
     if (self->_interacted)
     {
       if ((*(equalCopy + 57) & 1) == 0)
@@ -429,31 +427,30 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_intentType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_source)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    visible = self->_visible;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -472,34 +469,32 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  interacted = self->_interacted;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_10:
-    completed = self->_completed;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_11:
   if (self->_appBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_activityType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_triggerType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 

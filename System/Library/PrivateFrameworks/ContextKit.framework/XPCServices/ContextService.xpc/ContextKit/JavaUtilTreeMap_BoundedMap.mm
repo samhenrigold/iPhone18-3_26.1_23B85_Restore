@@ -77,7 +77,7 @@
 
 - (id)putWithId:(id)id withId:(id)withId
 {
-  if ((sub_1001E0314(self, id, self->fromBound_, self->toBound_) & 1) == 0)
+  if (!sub_1001E0314(self, id, self->fromBound_, self->toBound_))
   {
     v9 = sub_1001E01BC(self, id, self->fromBound_, self->toBound_);
     objc_exception_throw(v9);
@@ -341,7 +341,7 @@
   if (!self->ascending_)
   {
 
-    return JavaUtilCollections_reverseOrderWithJavaUtilComparator_(result);
+    return JavaUtilCollections_reverseOrderWithJavaUtilComparator_(result, v4);
   }
 
   return result;

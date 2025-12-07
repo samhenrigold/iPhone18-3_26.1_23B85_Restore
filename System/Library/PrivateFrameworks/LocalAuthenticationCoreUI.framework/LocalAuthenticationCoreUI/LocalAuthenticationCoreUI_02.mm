@@ -1,640 +1,11 @@
-double static LACUIAuthCountdownConfiguration.gracePeriod(customCancelTitle:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v37 = a2;
-  v42 = a1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v33 - v6;
-  v41 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001ALL, 0x80000002560BF0F0, 0x74656863746152, 0xE700000000000000);
-  v40 = v8;
-  v39 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001CLL, 0x80000002560BF110, 0x74656863746152, 0xE700000000000000);
-  v38 = v9;
-  v10 = type metadata accessor for LACUIAuthCountdownDelayConfiguration();
-  v11 = *(*(v10 - 8) + 56);
-  v11(v7, 1, 1, v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVGMd, &_ss23_ContiguousArrayStorageCy25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVGMR);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_2560BAC90;
-  v13 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0x435F4E4F54545542, 0xEF45554E49544E4FLL, 0x75676F6C61746143, 0xE900000000000065);
-  *(v12 + 64) = 0u;
-  *(v12 + 80) = 0u;
-  *(v12 + 96) = 255;
-  *(v12 + 32) = 0xD000000000000015;
-  *(v12 + 40) = 0x80000002560BDBA0;
-  *(v12 + 48) = v13;
-  *(v12 + 56) = v14;
-  v15 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001BLL, 0x80000002560BE780, 0x74656863746152, 0xE700000000000000);
-  *(v12 + 136) = 0u;
-  *(v12 + 152) = 0u;
-  *(v12 + 168) = 511;
-  *(v12 + 104) = 0x726F4D6E7261656CLL;
-  *(v12 + 112) = 0xE900000000000065;
-  *(v12 + 120) = v15;
-  v16 = v37;
-  *(v12 + 128) = v17;
-  if (v16)
-  {
-    v36 = 0xEC0000006C65636ELL;
-    v34 = 0x61436D6F74737563;
-    v35 = v16;
-  }
-
-  else
-  {
-    v42 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0x435F4E4F54545542, 0xED00004C45434E41, 0x75676F6C61746143, 0xE900000000000065);
-    v35 = v18;
-    v36 = 0xE600000000000000;
-    v34 = 0x6C65636E6163;
-  }
-
-  v19 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  v20 = v19[7];
-  v11((a3 + v20), 1, 1, v10);
-  v21 = v19[8];
-  v22 = a3 + v19[10];
-  *(v22 + 64) = 0;
-  *(v22 + 32) = 0u;
-  *(v22 + 48) = 0u;
-  *v22 = 0u;
-  *(v22 + 16) = 0u;
-  v23 = a3 + v19[11];
-  *(v23 + 64) = 0;
-  *(v23 + 32) = 0u;
-  *(v23 + 48) = 0u;
-  *v23 = 0u;
-  *(v23 + 16) = 0u;
-  *(a3 + v19[12]) = 1;
-  *(a3 + v19[13]) = 0;
-  *a3 = xmmword_2560BACB0;
-  *(a3 + 16) = 1;
-  v24 = v40;
-  *(a3 + 24) = v41;
-  *(a3 + 32) = v24;
-  v25 = v38;
-  *(a3 + 40) = v39;
-  *(a3 + 48) = v25;
-
-  outlined assign with take of LACUIAuthCountdownDelayConfiguration?(v7, a3 + v20);
-  *(a3 + v21) = MEMORY[0x277D84F90];
-  *(a3 + v19[9]) = v12;
-  v44 = *(v22 + 64);
-  v26 = *(v22 + 48);
-  v43[2] = *(v22 + 32);
-  v43[3] = v26;
-  v27 = *(v22 + 16);
-  v43[0] = *v22;
-  v43[1] = v27;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v43, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  v28 = v36;
-  *v22 = v34;
-  *(v22 + 8) = v28;
-  v29 = v35;
-  *(v22 + 16) = v42;
-  *(v22 + 24) = v29;
-  *(v22 + 32) = 0u;
-  *(v22 + 48) = 0u;
-  *(v22 + 64) = 767;
-  v30 = *(v23 + 48);
-  v45[2] = *(v23 + 32);
-  v45[3] = v30;
-  v46 = *(v23 + 64);
-  v31 = *(v23 + 16);
-  v45[0] = *v23;
-  v45[1] = v31;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v45, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  result = 0.0;
-  *v23 = 0u;
-  *(v23 + 16) = 0u;
-  *(v23 + 32) = 0u;
-  *(v23 + 48) = 0u;
-  *(v23 + 64) = 0;
-  return result;
-}
-
-double static LACUIAuthCountdownConfiguration.countdown(message:delayExpiration:strictModeEnabled:customCancelTitle:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v68 = a5;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v16 = (&v54 - v15);
-
-  v67 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001ELL, 0x80000002560BE820, 0x74656863746152, 0xE700000000000000);
-  v66 = v17;
-  if (a2)
-  {
-    v69 = a1;
-    v65 = a2;
-  }
-
-  else
-  {
-    v69 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD000000000000020, 0x80000002560BE840, 0x74656863746152, 0xE700000000000000);
-    v65 = v18;
-  }
-
-  v19 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001CLL, 0x80000002560BE870, 0x74656863746152, 0xE700000000000000);
-  v21 = v20;
-  v22 = type metadata accessor for LACUIAuthCountdownDelayConfiguration();
-  v23 = *(v22 + 20);
-  v24 = type metadata accessor for Date();
-  (*(*(v24 - 8) + 16))(v16 + v23, a3, v24);
-  v25 = *(v22 + 24);
-  *v16 = v19;
-  v16[1] = v21;
-  *(v16 + v25) = 0u;
-  v26 = *(*(v22 - 8) + 56);
-  v26(v16, 0, 1, v22);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVGMd, &_ss23_ContiguousArrayStorageCy25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVGMR);
-  v27 = swift_allocObject();
-  *(v27 + 16) = xmmword_2560BAC90;
-  v28 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0x445F4E4F54545542, 0xEB00000000454E4FLL, 0x75676F6C61746143, 0xE900000000000065);
-  *(v27 + 64) = 0u;
-  *(v27 + 80) = 0u;
-  *(v27 + 96) = 255;
-  *(v27 + 32) = 1701736292;
-  *(v27 + 40) = 0xE400000000000000;
-  *(v27 + 48) = v28;
-  *(v27 + 56) = v29;
-  v30 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001BLL, 0x80000002560BE780, 0x74656863746152, 0xE700000000000000);
-  v31 = 0uLL;
-  *(v27 + 136) = 0u;
-  *(v27 + 152) = 0u;
-  *(v27 + 168) = 511;
-  *(v27 + 104) = 0x726F4D6E7261656CLL;
-  *(v27 + 112) = 0xE900000000000065;
-  *(v27 + 120) = v30;
-  *(v27 + 128) = v32;
-  if (a4)
-  {
-    v63 = 0;
-    v64 = 0;
-    v60 = 0;
-    v61 = 0;
-    v62 = 0;
-  }
-
-  else
-  {
-    v33 = *MEMORY[0x277D23F20];
-    if (os_variant_allows_internal_security_policies())
-    {
-      v64 = 0x80000002560BE890;
-      outlined consume of LACUIAuthImageConfiguration?(0, 0, 255);
-      v58 = xmmword_2560BBD90;
-      v59 = xmmword_2560BBDA0;
-      v63 = 0xD000000000000032;
-      v62 = 769;
-      v61 = 0xE300000000000000;
-      v60 = 7630433;
-      goto LABEL_10;
-    }
-
-    v63 = 0;
-    v64 = 0;
-    v60 = 0;
-    v61 = 0;
-    v62 = 0;
-    v31 = 0uLL;
-  }
-
-  v59 = v31;
-  v58 = v31;
-LABEL_10:
-  if (a6)
-  {
-    v34 = 767;
-  }
-
-  else
-  {
-    v34 = 0;
-  }
-
-  v57 = v34;
-  v35 = v68;
-  if (!a6)
-  {
-    v35 = 0;
-  }
-
-  v68 = v35;
-  v36 = 0xEC0000006C65636ELL;
-  if (!a6)
-  {
-    v36 = 0;
-  }
-
-  v56 = v36;
-  v37 = 0x61436D6F74737563;
-  if (!a6)
-  {
-    v37 = 0;
-  }
-
-  v55 = v37;
-  v38 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  v39 = v38[7];
-  v26((a7 + v39), 1, 1, v22);
-  v40 = v38[8];
-  v41 = a7 + v38[10];
-  *(v41 + 64) = 0;
-  *(v41 + 32) = 0u;
-  *(v41 + 48) = 0u;
-  *v41 = 0u;
-  *(v41 + 16) = 0u;
-  v42 = a7 + v38[11];
-  *(v42 + 64) = 0;
-  *(v42 + 32) = 0u;
-  *(v42 + 48) = 0u;
-  *v42 = 0u;
-  *(v42 + 16) = 0u;
-  *(a7 + v38[12]) = 1;
-  *(a7 + v38[13]) = 0;
-  *a7 = 0xD000000000000015;
-  *(a7 + 8) = 0x80000002560BE6D0;
-  *(a7 + 16) = 1;
-  v43 = v66;
-  *(a7 + 24) = v67;
-  *(a7 + 32) = v43;
-  v44 = v65;
-  *(a7 + 40) = v69;
-  *(a7 + 48) = v44;
-  outlined assign with take of LACUIAuthCountdownDelayConfiguration?(v16, a7 + v39);
-  *(a7 + v40) = 0;
-  *(a7 + v38[9]) = v27;
-  v71 = *(v41 + 64);
-  v45 = *(v41 + 48);
-  v70[2] = *(v41 + 32);
-  v70[3] = v45;
-  v46 = *(v41 + 16);
-  v70[0] = *v41;
-  v70[1] = v46;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v70, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  v47 = v56;
-  *v41 = v55;
-  *(v41 + 8) = v47;
-  *(v41 + 16) = v68;
-  *(v41 + 24) = a6;
-  *(v41 + 32) = 0u;
-  *(v41 + 48) = 0u;
-  *(v41 + 64) = v57;
-  v48 = *(v42 + 48);
-  v72[2] = *(v42 + 32);
-  v72[3] = v48;
-  v73 = *(v42 + 64);
-  v49 = *(v42 + 16);
-  v72[0] = *v42;
-  v72[1] = v49;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v72, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  v50 = v58;
-  result = *&v59;
-  *v42 = v59;
-  *(v42 + 16) = v50;
-  v52 = v64;
-  *(v42 + 32) = v63;
-  *(v42 + 40) = v52;
-  v53 = v61;
-  *(v42 + 48) = v60;
-  *(v42 + 56) = v53;
-  *(v42 + 64) = v62;
-  return result;
-}
-
-double static LACUIAuthCountdownConfiguration.ready(message:customCancelTitle:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v40 = a1;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v37 - v11;
-  v13 = 0x61436D6F74737563;
-  if (!a4)
-  {
-    v13 = 0;
-  }
-
-  v44 = v13;
-  v14 = 0xEC0000006C65636ELL;
-  if (!a4)
-  {
-    v14 = 0;
-  }
-
-  v42 = v14;
-  if (a4)
-  {
-    v15 = a3;
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  v41 = v15;
-  if (a4)
-  {
-    v16 = 767;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v43 = v16;
-
-  v39 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001CLL, 0x80000002560BF130, 0x74656863746152, 0xE700000000000000);
-  v38 = v17;
-  v18 = type metadata accessor for LACUIAuthCountdownDelayConfiguration();
-  v19 = *(*(v18 - 8) + 56);
-  v19(v12, 1, 1, v18);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVGMd, &_ss23_ContiguousArrayStorageCy25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVGMR);
-  v20 = swift_allocObject();
-  *(v20 + 16) = xmmword_2560BAC90;
-  v21 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0x435F4E4F54545542, 0xEF45554E49544E4FLL, 0x75676F6C61746143, 0xE900000000000065);
-  *(v20 + 64) = 0u;
-  *(v20 + 80) = 0u;
-  *(v20 + 96) = 255;
-  *(v20 + 32) = 0x65756E69746E6F63;
-  *(v20 + 40) = 0xE800000000000000;
-  *(v20 + 48) = v21;
-  *(v20 + 56) = v22;
-  v23 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001BLL, 0x80000002560BE780, 0x74656863746152, 0xE700000000000000);
-  *(v20 + 136) = 0u;
-  *(v20 + 152) = 0u;
-  *(v20 + 168) = 511;
-  *(v20 + 104) = 0x726F4D6E7261656CLL;
-  *(v20 + 112) = 0xE900000000000065;
-  *(v20 + 120) = v23;
-  *(v20 + 128) = v24;
-  v25 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  v26 = v25[7];
-  v19((a5 + v26), 1, 1, v18);
-  v27 = v25[8];
-  v28 = a5 + v25[10];
-  *(v28 + 64) = 0;
-  *(v28 + 32) = 0u;
-  *(v28 + 48) = 0u;
-  *v28 = 0u;
-  *(v28 + 16) = 0u;
-  v29 = a5 + v25[11];
-  *(v29 + 64) = 0;
-  *(v29 + 32) = 0u;
-  *(v29 + 48) = 0u;
-  *v29 = 0u;
-  *(v29 + 16) = 0u;
-  *(a5 + v25[12]) = 1;
-  *(a5 + v25[13]) = 0;
-  *a5 = xmmword_2560BBDB0;
-  *(a5 + 16) = 1;
-  v30 = v38;
-  *(a5 + 24) = v39;
-  *(a5 + 32) = v30;
-  *(a5 + 40) = v40;
-  *(a5 + 48) = a2;
-
-  outlined assign with take of LACUIAuthCountdownDelayConfiguration?(v12, a5 + v26);
-  *(a5 + v27) = 0;
-  *(a5 + v25[9]) = v20;
-  v46 = *(v28 + 64);
-  v31 = *(v28 + 48);
-  v45[2] = *(v28 + 32);
-  v45[3] = v31;
-  v32 = *(v28 + 16);
-  v45[0] = *v28;
-  v45[1] = v32;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v45, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  v33 = v42;
-  *v28 = v44;
-  *(v28 + 8) = v33;
-  *(v28 + 16) = v41;
-  *(v28 + 24) = a4;
-  *(v28 + 32) = 0u;
-  *(v28 + 48) = 0u;
-  *(v28 + 64) = v43;
-  v34 = *(v29 + 48);
-  v47[2] = *(v29 + 32);
-  v47[3] = v34;
-  v48 = *(v29 + 64);
-  v35 = *(v29 + 16);
-  v47[0] = *v29;
-  v47[1] = v35;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v47, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  result = 0.0;
-  *v29 = 0u;
-  *(v29 + 16) = 0u;
-  *(v29 + 32) = 0u;
-  *(v29 + 48) = 0u;
-  *(v29 + 64) = 0;
-  return result;
-}
-
-unint64_t LACUIAuthCountdownConfiguration.ActionButtonIdentifier.rawValue.getter()
-{
-  v1 = *v0;
-  v2 = 0x726F4D6E7261656CLL;
-  v3 = 0x61436D6F74737563;
-  if (v1 != 6)
-  {
-    v3 = 0x6461526F54706174;
-  }
-
-  v4 = 0xD000000000000015;
-  if (v1 != 4)
-  {
-    v4 = 0x6C65636E6163;
-  }
-
-  if (*v0 <= 5u)
-  {
-    v3 = v4;
-  }
-
-  v5 = 1701736292;
-  if (v1 != 2)
-  {
-    v5 = 0x65756E69746E6F63;
-  }
-
-  if (!*v0)
-  {
-    v2 = 0xD000000000000012;
-  }
-
-  if (*v0 > 1u)
-  {
-    v2 = v5;
-  }
-
-  if (*v0 <= 3u)
-  {
-    return v2;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-void protocol witness for RawRepresentable.rawValue.getter in conformance LACUIAuthCountdownConfiguration.ActionButtonIdentifier(unint64_t *a1@<X8>)
-{
-  v2 = *v1;
-  v3 = 0xE900000000000065;
-  v4 = 0x726F4D6E7261656CLL;
-  v5 = 0xEC0000006C65636ELL;
-  v6 = 0x61436D6F74737563;
-  if (v2 != 6)
-  {
-    v6 = 0x6461526F54706174;
-    v5 = 0xEA00000000007261;
-  }
-
-  v7 = 0x80000002560BDBA0;
-  v8 = 0xD000000000000015;
-  if (v2 != 4)
-  {
-    v8 = 0x6C65636E6163;
-    v7 = 0xE600000000000000;
-  }
-
-  if (*v1 <= 5u)
-  {
-    v6 = v8;
-    v5 = v7;
-  }
-
-  v9 = 0xE400000000000000;
-  v10 = 1701736292;
-  if (v2 != 2)
-  {
-    v10 = 0x65756E69746E6F63;
-    v9 = 0xE800000000000000;
-  }
-
-  if (!*v1)
-  {
-    v4 = 0xD000000000000012;
-    v3 = 0x80000002560BDB70;
-  }
-
-  if (*v1 > 1u)
-  {
-    v4 = v10;
-    v3 = v9;
-  }
-
-  if (*v1 <= 3u)
-  {
-    v11 = v4;
-  }
-
-  else
-  {
-    v11 = v6;
-  }
-
-  if (*v1 > 3u)
-  {
-    v3 = v5;
-  }
-
-  *a1 = v11;
-  a1[1] = v3;
-}
-
-uint64_t LACUIAuthCountdownConfiguration.image.getter@<X0>(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 8);
-  v3 = *(v1 + 16);
-  *a1 = *v1;
-  *(a1 + 8) = v2;
-  *(a1 + 16) = v3;
-  return outlined copy of LACUIAuthImageConfiguration();
-}
-
-uint64_t LACUIAuthCountdownConfiguration.image.setter(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = *(a1 + 16);
-  v5 = *v1;
-  v6 = v1[1];
-  v7 = *(v1 + 16);
-  result = outlined consume of LACUIAuthImageConfiguration();
-  *v1 = v2;
-  v1[1] = v3;
-  *(v1 + 16) = v4;
-  return result;
-}
-
-uint64_t LACUIAuthCountdownConfiguration.title.getter()
-{
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
-
-  return v1;
-}
-
-uint64_t LACUIAuthCountdownConfiguration.title.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 32);
-
-  *(v2 + 24) = a1;
-  *(v2 + 32) = a2;
-  return result;
-}
-
-uint64_t LACUIAuthCountdownConfiguration.message.getter()
-{
-  v1 = *(v0 + 40);
-  v2 = *(v0 + 48);
-
-  return v1;
-}
-
-uint64_t LACUIAuthCountdownConfiguration.message.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(v2 + 48);
-
-  *(v2 + 40) = a1;
-  *(v2 + 48) = a2;
-  return result;
-}
-
-uint64_t LACUIAuthCountdownConfiguration.delayConfiguration.setter(uint64_t a1)
-{
-  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration() + 28);
-
-  return outlined assign with take of LACUIAuthCountdownDelayConfiguration?(a1, v3);
-}
-
-uint64_t LACUIAuthCountdownConfiguration.actionItems.getter()
-{
-  v1 = *(v0 + *(type metadata accessor for LACUIAuthCountdownConfiguration() + 32));
-}
-
-uint64_t LACUIAuthCountdownConfiguration.actionItems.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for LACUIAuthCountdownConfiguration() + 32);
-  v4 = *(v1 + v3);
-
-  *(v1 + v3) = a1;
-  return result;
-}
-
 uint64_t LACUIAuthCountdownConfiguration.actionButtons.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for LACUIAuthCountdownConfiguration() + 36));
+  type metadata accessor for LACUIAuthCountdownConfiguration(0);
 }
 
 uint64_t LACUIAuthCountdownConfiguration.actionButtons.setter(uint64_t a1)
 {
-  v3 = *(type metadata accessor for LACUIAuthCountdownConfiguration() + 36);
-  v4 = *(v1 + v3);
+  v3 = *(type metadata accessor for LACUIAuthCountdownConfiguration(0) + 36);
 
   *(v1 + v3) = a1;
   return result;
@@ -642,7 +13,7 @@ uint64_t LACUIAuthCountdownConfiguration.actionButtons.setter(uint64_t a1)
 
 uint64_t LACUIAuthCountdownConfiguration.rightBarButton.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration() + 40);
+  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration(0) + 40);
   v4 = *(v3 + 48);
   v11 = *(v3 + 32);
   v12 = v4;
@@ -662,7 +33,7 @@ uint64_t LACUIAuthCountdownConfiguration.rightBarButton.getter@<X0>(uint64_t a1@
 
 __n128 LACUIAuthCountdownConfiguration.rightBarButton.setter(uint64_t a1)
 {
-  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration() + 40);
+  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration(0) + 40);
   v4 = *(v3 + 48);
   v8[2] = *(v3 + 32);
   v8[3] = v4;
@@ -683,7 +54,7 @@ __n128 LACUIAuthCountdownConfiguration.rightBarButton.setter(uint64_t a1)
 
 uint64_t LACUIAuthCountdownConfiguration.accessoryButton.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration() + 44);
+  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration(0) + 44);
   v4 = *(v3 + 48);
   v11 = *(v3 + 32);
   v12 = v4;
@@ -703,7 +74,7 @@ uint64_t LACUIAuthCountdownConfiguration.accessoryButton.getter@<X0>(uint64_t a1
 
 __n128 LACUIAuthCountdownConfiguration.accessoryButton.setter(uint64_t a1)
 {
-  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration() + 44);
+  v3 = v1 + *(type metadata accessor for LACUIAuthCountdownConfiguration(0) + 44);
   v4 = *(v3 + 48);
   v8[2] = *(v3 + 32);
   v8[3] = v4;
@@ -724,14 +95,14 @@ __n128 LACUIAuthCountdownConfiguration.accessoryButton.setter(uint64_t a1)
 
 uint64_t LACUIAuthCountdownConfiguration.isNavigationBarOwner.setter(char a1)
 {
-  result = type metadata accessor for LACUIAuthCountdownConfiguration();
+  result = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   *(v1 + *(result + 48)) = a1;
   return result;
 }
 
 uint64_t LACUIAuthCountdownConfiguration.showNavigationBar.setter(char a1)
 {
-  result = type metadata accessor for LACUIAuthCountdownConfiguration();
+  result = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   *(v1 + *(result + 52)) = a1;
   return result;
 }
@@ -741,9 +112,9 @@ __n128 LACUIAuthCountdownConfiguration.init(image:title:message:delayConfigurati
   v12 = *a1;
   v28 = a1[1];
   v13 = *(a1 + 16);
-  v14 = type metadata accessor for LACUIAuthCountdownConfiguration();
+  v14 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   v15 = v14[7];
-  v16 = type metadata accessor for LACUIAuthCountdownDelayConfiguration();
+  v16 = type metadata accessor for LACUIAuthCountdownDelayConfiguration(0);
   (*(*(v16 - 8) + 56))(a9 + v15, 1, 1, v16);
   v17 = v14[8];
   v18 = a9 + v14[10];
@@ -824,8 +195,10 @@ uint64_t static LACUIAuthCountdownConfiguration.shouldShowTapToRadarButton(stric
     return 0;
   }
 
-  v2 = *MEMORY[0x277D23F20];
-  return os_variant_allows_internal_security_policies();
+  else
+  {
+    return os_variant_allows_internal_security_policies();
+  }
 }
 
 double static LACUIAuthCountdownConfiguration.tapToRadarButton.getter@<D0>(uint64_t a1@<X8>)
@@ -860,20 +233,18 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ25LocalAuthenticationCoreUI35LACUIAuthCou
       v5 = *(a1 + v3 + 56);
       v7 = *(a1 + v3 + 64);
       v8 = *(a1 + v3 + 72);
-      v23 = *(a1 + v3 + 80);
-      v10 = *(a2 + v3 + 48);
-      v9 = *(a2 + v3 + 56);
-      v11 = *(a2 + v3 + 64);
-      v12 = *(a2 + v3 + 72);
-      v21 = v9;
-      v22 = *(a2 + v3 + 80);
+      v21 = *(a1 + v3 + 80);
+      v9 = *(a2 + v3 + 48);
+      v10 = *(a2 + v3 + 64);
+      v11 = *(a2 + v3 + 72);
+      v19 = *(a2 + v3 + 56);
+      v20 = *(a2 + v3 + 80);
       if (*(a1 + v3 + 32) != *(a2 + v3 + 32) || *(a1 + v3 + 40) != *(a2 + v3 + 40))
       {
-        v13 = *(a2 + v3 + 72);
-        v14 = *(a2 + v3 + 64);
-        v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        v11 = v14;
-        if ((v15 & 1) == 0)
+        v12 = *(a2 + v3 + 64);
+        v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v10 = v12;
+        if ((v13 & 1) == 0)
         {
           return 0;
         }
@@ -881,27 +252,27 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ25LocalAuthenticationCoreUI35LACUIAuthCou
 
       if (v7)
       {
-        if ((v11 & 1) == 0)
+        if ((v10 & 1) == 0)
         {
           goto LABEL_25;
         }
 
-        if (v6 == v10 && v5 == v21)
+        if (v6 == v9 && v5 == v19)
         {
           goto LABEL_19;
         }
 
-        v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        outlined copy of LACUIAuthImageConfiguration();
+        outlined copy of LACUIAuthImageConfiguration(v6, v5);
 
-        outlined copy of LACUIAuthImageConfiguration();
+        outlined copy of LACUIAuthImageConfiguration(v9, v19);
 
-        outlined copy of LACUIAuthImageConfiguration();
-        outlined copy of LACUIAuthImageConfiguration();
-        outlined consume of LACUIAuthImageConfiguration();
-        outlined consume of LACUIAuthImageConfiguration();
-        if ((v17 & 1) == 0)
+        outlined copy of LACUIAuthImageConfiguration(v9, v19);
+        outlined copy of LACUIAuthImageConfiguration(v6, v5);
+        outlined consume of LACUIAuthImageConfiguration(v6, v5);
+        outlined consume of LACUIAuthImageConfiguration(v9, v19);
+        if ((v15 & 1) == 0)
         {
           goto LABEL_27;
         }
@@ -909,69 +280,69 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ25LocalAuthenticationCoreUI35LACUIAuthCou
 
       else
       {
-        if (v11)
+        if (v10)
         {
 LABEL_25:
-          outlined copy of LACUIAuthImageConfiguration();
-          outlined copy of LACUIAuthImageConfiguration();
-          outlined consume of LACUIAuthImageConfiguration();
-          outlined consume of LACUIAuthImageConfiguration();
+          outlined copy of LACUIAuthImageConfiguration(v9, v19);
+          outlined copy of LACUIAuthImageConfiguration(v6, v5);
+          outlined consume of LACUIAuthImageConfiguration(v6, v5);
+          outlined consume of LACUIAuthImageConfiguration(v9, v19);
           return 0;
         }
 
-        if (v6 == v10 && v5 == v21)
+        if (v6 == v9 && v5 == v19)
         {
 LABEL_19:
 
-          outlined copy of LACUIAuthImageConfiguration();
+          outlined copy of LACUIAuthImageConfiguration(v6, v5);
 
-          outlined copy of LACUIAuthImageConfiguration();
+          outlined copy of LACUIAuthImageConfiguration(v6, v5);
 
-          outlined copy of LACUIAuthImageConfiguration();
-          outlined copy of LACUIAuthImageConfiguration();
-          outlined consume of LACUIAuthImageConfiguration();
-          outlined consume of LACUIAuthImageConfiguration();
+          outlined copy of LACUIAuthImageConfiguration(v6, v5);
+          outlined copy of LACUIAuthImageConfiguration(v6, v5);
+          outlined consume of LACUIAuthImageConfiguration(v6, v5);
+          outlined consume of LACUIAuthImageConfiguration(v6, v5);
           goto LABEL_21;
         }
 
-        v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        outlined copy of LACUIAuthImageConfiguration();
+        outlined copy of LACUIAuthImageConfiguration(v6, v5);
 
-        outlined copy of LACUIAuthImageConfiguration();
+        outlined copy of LACUIAuthImageConfiguration(v9, v19);
 
-        outlined copy of LACUIAuthImageConfiguration();
-        outlined copy of LACUIAuthImageConfiguration();
-        outlined consume of LACUIAuthImageConfiguration();
-        outlined consume of LACUIAuthImageConfiguration();
-        if ((v18 & 1) == 0)
+        outlined copy of LACUIAuthImageConfiguration(v9, v19);
+        outlined copy of LACUIAuthImageConfiguration(v6, v5);
+        outlined consume of LACUIAuthImageConfiguration(v6, v5);
+        outlined consume of LACUIAuthImageConfiguration(v9, v19);
+        if ((v16 & 1) == 0)
         {
 LABEL_27:
 
-          outlined consume of LACUIAuthImageConfiguration();
+          outlined consume of LACUIAuthImageConfiguration(v9, v19);
 
-          outlined consume of LACUIAuthImageConfiguration();
+          outlined consume of LACUIAuthImageConfiguration(v6, v5);
 
           return 0;
         }
       }
 
 LABEL_21:
-      if (v8 == v12 && v23 == v22)
+      if (v8 == v11 && v21 == v20)
       {
 
-        outlined consume of LACUIAuthImageConfiguration();
+        outlined consume of LACUIAuthImageConfiguration(v9, v19);
 
-        outlined consume of LACUIAuthImageConfiguration();
+        outlined consume of LACUIAuthImageConfiguration(v6, v5);
       }
 
       else
       {
         v4 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        outlined consume of LACUIAuthImageConfiguration();
+        outlined consume of LACUIAuthImageConfiguration(v9, v19);
 
-        outlined consume of LACUIAuthImageConfiguration();
+        outlined consume of LACUIAuthImageConfiguration(v6, v5);
 
         if ((v4 & 1) == 0)
         {
@@ -1069,459 +440,452 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ25LocalAuthenticationCoreUI28LACUIAuthBut
 uint64_t static LACUIAuthCountdownConfiguration.empty.getter@<X0>(uint64_t a1@<X8>)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = (&v42 - v4);
-  v6 = type metadata accessor for Date();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = &v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v42 - v12;
+  v4 = (&v39 - v3);
+  v5 = type metadata accessor for Date();
+  v6 = *(v5 - 8);
+  v7 = MEMORY[0x28223BE20](v5);
+  v9 = &v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v39 - v10;
   static Date.now.getter();
   Date.addingTimeInterval(_:)();
-  v50 = *(v7 + 8);
-  v50(v11, v6);
-  v14 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001ELL, 0x80000002560BE820, 0x74656863746152, 0xE700000000000000);
-  v53 = v15;
-  v54 = v14;
-  v16 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001CLL, 0x80000002560BE870, 0x74656863746152, 0xE700000000000000);
-  v18 = v17;
-  v19 = type metadata accessor for LACUIAuthCountdownDelayConfiguration();
-  (*(v7 + 16))(v5 + *(v19 + 20), v13, v6);
-  v20 = (v5 + *(v19 + 24));
-  *v5 = v16;
-  v5[1] = v18;
-  *v20 = 0;
-  v20[1] = 0;
-  v52 = *(*(v19 - 8) + 56);
-  v52(v5, 0, 1, v19);
+  v47 = *(v6 + 8);
+  v47(v9, v5);
+  v12 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001ELL, 0x80000002560BE820, 0x74656863746152, 0xE700000000000000);
+  v50 = v13;
+  v51 = v12;
+  v14 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001CLL, 0x80000002560BE870, 0x74656863746152, 0xE700000000000000);
+  v16 = v15;
+  v17 = type metadata accessor for LACUIAuthCountdownDelayConfiguration(0);
+  (*(v6 + 16))(v4 + *(v17 + 20), v11, v5);
+  v18 = (v4 + *(v17 + 24));
+  *v4 = v14;
+  v4[1] = v16;
+  *v18 = 0;
+  v18[1] = 0;
+  v49 = *(*(v17 - 8) + 56);
+  v49(v4, 0, 1, v17);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVGMd, &_ss23_ContiguousArrayStorageCy25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVGMR);
-  v21 = swift_allocObject();
-  *(v21 + 16) = xmmword_2560BAC90;
-  v22 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0x445F4E4F54545542, 0xEB00000000454E4FLL, 0x75676F6C61746143, 0xE900000000000065);
-  *(v21 + 64) = 0u;
-  *(v21 + 80) = 0u;
-  *(v21 + 96) = 255;
-  *(v21 + 32) = 1701736292;
-  *(v21 + 40) = 0xE400000000000000;
-  *(v21 + 48) = v22;
-  *(v21 + 56) = v23;
-  v24 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001BLL, 0x80000002560BE780, 0x74656863746152, 0xE700000000000000);
-  *(v21 + 136) = 0u;
-  *(v21 + 152) = 0u;
-  *(v21 + 168) = 511;
-  *(v21 + 104) = 0x726F4D6E7261656CLL;
-  *(v21 + 112) = 0xE900000000000065;
-  *(v21 + 120) = v24;
-  *(v21 + 128) = v25;
-  v26 = *MEMORY[0x277D23F20];
+  v19 = swift_allocObject();
+  *(v19 + 16) = xmmword_2560BAC90;
+  v20 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0x445F4E4F54545542, 0xEB00000000454E4FLL, 0x75676F6C61746143, 0xE900000000000065);
+  *(v19 + 64) = 0u;
+  *(v19 + 80) = 0u;
+  *(v19 + 96) = 255;
+  *(v19 + 32) = 1701736292;
+  *(v19 + 40) = 0xE400000000000000;
+  *(v19 + 48) = v20;
+  *(v19 + 56) = v21;
+  v22 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0xD00000000000001BLL, 0x80000002560BE780, 0x74656863746152, 0xE700000000000000);
+  *(v19 + 136) = 0u;
+  *(v19 + 152) = 0u;
+  *(v19 + 168) = 511;
+  *(v19 + 104) = 0x726F4D6E7261656CLL;
+  *(v19 + 112) = 0xE900000000000065;
+  *(v19 + 120) = v22;
+  *(v19 + 128) = v23;
   if (os_variant_allows_internal_security_policies())
   {
-    v51 = 0x80000002560BE890;
-    v50(v13, v6);
+    v48 = 0x80000002560BE890;
+    v47(v11, v5);
     outlined consume of LACUIAuthImageConfiguration?(0, 0, 255);
-    v50 = 0xD000000000000032;
-    v49 = 3;
-    v48 = 1;
-    v47 = 0xE300000000000000;
-    v46 = 0xEF29796C6E4F206CLL;
-    v45 = 0x616E7265746E4928;
-    v44 = 0xEA00000000007261;
-    v43 = 0x6461526F54706174;
-    v42 = 7630433;
+    v47 = 0xD000000000000032;
+    v46 = 3;
+    v45 = 1;
+    v44 = 0xE300000000000000;
+    v43 = 0xEF29796C6E4F206CLL;
+    v42 = 0x616E7265746E4928;
+    v41 = 0xEA00000000007261;
+    v40 = 0x6461526F54706174;
+    v39 = 7630433;
   }
 
   else
   {
-    v50(v13, v6);
+    v47(v11, v5);
+    v40 = 0;
+    v41 = 0;
+    v42 = 0;
     v43 = 0;
+    v47 = 0;
+    v48 = 0;
+    v39 = 0;
     v44 = 0;
     v45 = 0;
     v46 = 0;
-    v50 = 0;
-    v51 = 0;
-    v42 = 0;
-    v47 = 0;
-    v48 = 0;
-    v49 = 0;
   }
 
-  v27 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  v28 = v27[7];
-  v52((a1 + v28), 1, 1, v19);
-  v29 = v27[8];
-  v30 = a1 + v27[10];
-  *(v30 + 64) = 0;
-  *(v30 + 32) = 0u;
-  *(v30 + 48) = 0u;
-  *v30 = 0u;
-  *(v30 + 16) = 0u;
-  v31 = a1 + v27[11];
-  *(v31 + 64) = 0;
-  *(v31 + 32) = 0u;
-  *(v31 + 48) = 0u;
-  *v31 = 0u;
-  *(v31 + 16) = 0u;
-  *(a1 + v27[12]) = 1;
-  *(a1 + v27[13]) = 0;
+  v24 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
+  v25 = v24[7];
+  v49((a1 + v25), 1, 1, v17);
+  v26 = v24[8];
+  v27 = a1 + v24[10];
+  *(v27 + 64) = 0;
+  *(v27 + 32) = 0u;
+  *(v27 + 48) = 0u;
+  *v27 = 0u;
+  *(v27 + 16) = 0u;
+  v28 = a1 + v24[11];
+  *(v28 + 64) = 0;
+  *(v28 + 32) = 0u;
+  *(v28 + 48) = 0u;
+  *v28 = 0u;
+  *(v28 + 16) = 0u;
+  *(a1 + v24[12]) = 1;
+  *(a1 + v24[13]) = 0;
   *a1 = 0xD000000000000015;
   *(a1 + 8) = 0x80000002560BE6D0;
   *(a1 + 16) = 1;
-  v32 = v53;
-  *(a1 + 24) = v54;
-  *(a1 + 32) = v32;
+  v29 = v50;
+  *(a1 + 24) = v51;
+  *(a1 + 32) = v29;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0xE000000000000000;
-  outlined assign with take of LACUIAuthCountdownDelayConfiguration?(v5, a1 + v28);
-  *(a1 + v29) = 0;
-  *(a1 + v27[9]) = v21;
-  v56 = *(v30 + 64);
-  v33 = *(v30 + 48);
-  v55[2] = *(v30 + 32);
-  v55[3] = v33;
-  v34 = *(v30 + 16);
-  v55[0] = *v30;
-  v55[1] = v34;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v55, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  *v30 = 0u;
-  *(v30 + 16) = 0u;
-  *(v30 + 32) = 0u;
-  *(v30 + 48) = 0u;
-  *(v30 + 64) = 0;
-  v35 = *(v31 + 48);
-  v57[2] = *(v31 + 32);
-  v57[3] = v35;
-  v58 = *(v31 + 64);
-  v36 = *(v31 + 16);
-  v57[0] = *v31;
-  v57[1] = v36;
-  result = outlined destroy of LACUIAuthCountdownDelayConfiguration?(v57, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  outlined assign with take of LACUIAuthCountdownDelayConfiguration?(v4, a1 + v25);
+  *(a1 + v26) = 0;
+  *(a1 + v24[9]) = v19;
+  v53 = *(v27 + 64);
+  v30 = *(v27 + 48);
+  v52[2] = *(v27 + 32);
+  v52[3] = v30;
+  v31 = *(v27 + 16);
+  v52[0] = *v27;
+  v52[1] = v31;
+  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v52, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  *v27 = 0u;
+  *(v27 + 16) = 0u;
+  *(v27 + 32) = 0u;
+  *(v27 + 48) = 0u;
+  *(v27 + 64) = 0;
+  v32 = *(v28 + 48);
+  v54[2] = *(v28 + 32);
+  v54[3] = v32;
+  v55 = *(v28 + 64);
+  v33 = *(v28 + 16);
+  v54[0] = *v28;
+  v54[1] = v33;
+  result = outlined destroy of LACUIAuthCountdownDelayConfiguration?(v54, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  v35 = v41;
+  *v28 = v40;
+  *(v28 + 8) = v35;
+  v36 = v43;
+  *(v28 + 16) = v42;
+  *(v28 + 24) = v36;
+  v37 = v48;
+  *(v28 + 32) = v47;
+  *(v28 + 40) = v37;
   v38 = v44;
-  *v31 = v43;
-  *(v31 + 8) = v38;
-  v39 = v46;
-  *(v31 + 16) = v45;
-  *(v31 + 24) = v39;
-  v40 = v51;
-  *(v31 + 32) = v50;
-  *(v31 + 40) = v40;
-  v41 = v47;
-  *(v31 + 48) = v42;
-  *(v31 + 56) = v41;
-  *(v31 + 64) = v48;
-  *(v31 + 65) = v49;
+  *(v28 + 48) = v39;
+  *(v28 + 56) = v38;
+  *(v28 + 64) = v45;
+  *(v28 + 65) = v46;
   return result;
 }
 
 uint64_t specialized static LACUIAuthCountdownConfiguration.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for LACUIAuthCountdownDelayConfiguration();
-  v71 = *(v4 - 8);
-  v5 = *(v71 + 64);
+  v4 = type metadata accessor for LACUIAuthCountdownDelayConfiguration(0);
+  v68 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v70 = (&v68 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = (&v68 - v9);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSg_ADtMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSg_ADtMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = &v68 - v13;
-  v15 = *(a1 + 8);
-  v16 = *(a1 + 16);
-  *&v110 = *a1;
-  *(&v110 + 1) = v15;
-  LOBYTE(v111) = v16;
-  v17 = *(a2 + 8);
-  v18 = *(a2 + 16);
-  *&v124 = *a2;
-  *(&v124 + 1) = v17;
-  LOBYTE(v125) = v18;
-  outlined copy of LACUIAuthImageConfiguration();
-  outlined copy of LACUIAuthImageConfiguration();
-  v19 = specialized static LACUIAuthImageConfiguration.== infix(_:_:)(&v110, &v124);
-  outlined consume of LACUIAuthImageConfiguration();
-  outlined consume of LACUIAuthImageConfiguration();
-  if ((v19 & 1) == 0 || (*(a1 + 24) != *(a2 + 24) || *(a1 + 32) != *(a2 + 32)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (*(a1 + 40) != *(a2 + 40) || *(a1 + 48) != *(a2 + 48)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  v67 = (&v65 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = (&v65 - v7);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSg_ADtMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSg_ADtMR);
+  MEMORY[0x28223BE20](v9);
+  v11 = &v65 - v10;
+  v12 = *(a1 + 8);
+  v13 = *(a1 + 16);
+  *&v107 = *a1;
+  *(&v107 + 1) = v12;
+  LOBYTE(v108) = v13;
+  v15 = *(a2 + 8);
+  v16 = *(a2 + 16);
+  *&v121 = *a2;
+  v14 = v121;
+  *(&v121 + 1) = v15;
+  LOBYTE(v122) = v16;
+  outlined copy of LACUIAuthImageConfiguration(v107, v12);
+  outlined copy of LACUIAuthImageConfiguration(v14, v15);
+  v17 = specialized static LACUIAuthImageConfiguration.== infix(_:_:)(&v107, &v121);
+  outlined consume of LACUIAuthImageConfiguration(v121, *(&v121 + 1));
+  outlined consume of LACUIAuthImageConfiguration(v107, *(&v107 + 1));
+  if ((v17 & 1) == 0 || (*(a1 + 24) != *(a2 + 24) || *(a1 + 32) != *(a2 + 32)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (*(a1 + 40) != *(a2 + 40) || *(a1 + 48) != *(a2 + 48)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     goto LABEL_15;
   }
 
-  v69 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  v20 = *(v69 + 28);
-  v21 = *(v11 + 48);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(a1 + v20, v14, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(a2 + v20, &v14[v21], &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  v22 = *(v71 + 48);
-  if (v22(v14, 1, v4) == 1)
+  v66 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
+  v18 = *(v66 + 28);
+  v19 = *(v9 + 48);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(a1 + v18, v11, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(a2 + v18, &v11[v19], &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
+  v20 = *(v68 + 48);
+  if (v20(v11, 1, v4) == 1)
   {
-    if (v22(&v14[v21], 1, v4) == 1)
+    if (v20(&v11[v19], 1, v4) == 1)
     {
-      outlined destroy of LACUIAuthCountdownDelayConfiguration?(v14, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
+      outlined destroy of LACUIAuthCountdownDelayConfiguration?(v11, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
       goto LABEL_18;
     }
 
 LABEL_13:
-    v23 = &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSg_ADtMd;
-    v24 = &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSg_ADtMR;
-    v25 = v14;
+    v21 = &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSg_ADtMd;
+    v22 = &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSg_ADtMR;
+    v23 = v11;
 LABEL_14:
-    outlined destroy of LACUIAuthCountdownDelayConfiguration?(v25, v23, v24);
+    outlined destroy of LACUIAuthCountdownDelayConfiguration?(v23, v21, v22);
     goto LABEL_15;
   }
 
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v14, v10, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  if (v22(&v14[v21], 1, v4) == 1)
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v11, v8, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
+  if (v20(&v11[v19], 1, v4) == 1)
   {
-    outlined destroy of LACUIAuthCountdownDelayConfiguration(v10);
+    outlined destroy of LACUIAuthCountdownDelayConfiguration(v8);
     goto LABEL_13;
   }
 
-  v28 = v70;
-  outlined init with take of LACUIAuthCountdownDelayConfiguration(&v14[v21], v70);
-  v29 = specialized static LACUIAuthCountdownDelayConfiguration.== infix(_:_:)(v10, v28);
-  outlined destroy of LACUIAuthCountdownDelayConfiguration(v28);
-  outlined destroy of LACUIAuthCountdownDelayConfiguration(v10);
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v14, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
-  if ((v29 & 1) == 0)
+  v26 = v67;
+  outlined init with take of LACUIAuthCountdownDelayConfiguration(&v11[v19], v67);
+  v27 = specialized static LACUIAuthCountdownDelayConfiguration.== infix(_:_:)(v8, v26);
+  outlined destroy of LACUIAuthCountdownDelayConfiguration(v26);
+  outlined destroy of LACUIAuthCountdownDelayConfiguration(v8);
+  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v11, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMd, &_s25LocalAuthenticationCoreUI36LACUIAuthCountdownDelayConfigurationVSgMR);
+  if ((v27 & 1) == 0)
   {
     goto LABEL_15;
   }
 
 LABEL_18:
-  v30 = v69;
-  v31 = *(v69 + 32);
-  v32 = a1;
-  v33 = *(a1 + v31);
-  v34 = *(a2 + v31);
-  if (v33)
+  v28 = v66;
+  v29 = *(v66 + 32);
+  v30 = a1;
+  v31 = *(a1 + v29);
+  v32 = *(a2 + v29);
+  if (v31)
   {
-    if (!v34)
+    if (!v32)
     {
       goto LABEL_15;
     }
 
-    v35 = *(a2 + v31);
+    v33 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ25LocalAuthenticationCoreUI35LACUIAuthCountdownItemConfigurationV_Tt1g5(v31, v32);
 
-    v36 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ25LocalAuthenticationCoreUI35LACUIAuthCountdownItemConfigurationV_Tt1g5(v33, v34);
-
-    if ((v36 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
       goto LABEL_15;
     }
   }
 
-  else if (v34)
+  else if (v32)
   {
     goto LABEL_15;
   }
 
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationV_Tt1g5(*(v32 + v30[9]), *(a2 + v30[9])) & 1) == 0)
+  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationV_Tt1g5(*(v30 + v28[9]), *(a2 + v28[9])) & 1) == 0)
   {
     goto LABEL_15;
   }
 
-  v37 = v32 + v30[10];
-  v38 = *(v37 + 16);
-  v39 = *(v37 + 48);
-  v121 = *(v37 + 32);
-  v122 = v39;
-  v123 = *(v37 + 64);
-  v40 = *(v37 + 16);
-  v120[0] = *v37;
-  v120[1] = v40;
-  v41 = (a2 + v30[10]);
-  v42 = v41[3];
-  v43 = v41[1];
-  v126 = v41[2];
-  v127 = v42;
-  v44 = v41[1];
-  v124 = *v41;
-  v125 = v44;
-  v77 = v38;
-  v78 = v121;
-  v79 = *(v37 + 48);
-  v45 = v41[3];
-  v73 = v126;
-  v74 = v45;
-  v128 = *(v41 + 32);
-  v46 = v120[0];
-  LOWORD(v80) = *(v37 + 64);
-  v47 = v124;
-  LOWORD(v75) = *(v41 + 32);
-  v72 = v43;
-  if (!*(&v120[0] + 1))
+  v34 = v30 + v28[10];
+  v35 = *(v34 + 16);
+  v36 = *(v34 + 48);
+  v118 = *(v34 + 32);
+  v119 = v36;
+  v120 = *(v34 + 64);
+  v37 = *(v34 + 16);
+  v117[0] = *v34;
+  v117[1] = v37;
+  v38 = (a2 + v28[10]);
+  v39 = v38[3];
+  v40 = v38[1];
+  v123 = v38[2];
+  v124 = v39;
+  v41 = v38[1];
+  v121 = *v38;
+  v122 = v41;
+  v74 = v35;
+  v75 = v118;
+  v76 = *(v34 + 48);
+  v42 = v38[3];
+  v70 = v123;
+  v71 = v42;
+  v125 = *(v38 + 32);
+  v43 = v117[0];
+  LOWORD(v77) = *(v34 + 64);
+  v44 = v121;
+  LOWORD(v72) = *(v38 + 32);
+  v69 = v40;
+  if (!*(&v117[0] + 1))
   {
-    if (!*(&v124 + 1))
+    if (!*(&v121 + 1))
     {
-      v110 = *&v120[0];
-      v52 = *(v37 + 32);
-      v111 = *(v37 + 16);
-      v112 = v52;
-      v113 = *(v37 + 48);
-      v114 = *(v37 + 64);
-      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v120, &v105, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v124, &v105, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-      outlined destroy of LACUIAuthCountdownDelayConfiguration?(&v110, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+      v107 = *&v117[0];
+      v49 = *(v34 + 32);
+      v108 = *(v34 + 16);
+      v109 = v49;
+      v110 = *(v34 + 48);
+      v111 = *(v34 + 64);
+      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v117, &v102, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v121, &v102, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+      outlined destroy of LACUIAuthCountdownDelayConfiguration?(&v107, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
       goto LABEL_33;
     }
 
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v120, &v110, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v124, &v110, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v117, &v107, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v121, &v107, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
 LABEL_31:
+    v108 = v74;
+    v109 = v75;
+    v110 = v76;
+    v113 = v69;
+    v107 = v43;
     v111 = v77;
-    v112 = v78;
-    v113 = v79;
-    v116 = v72;
-    v110 = v46;
-    v114 = v80;
-    v115 = v47;
-    v117 = v73;
-    v118 = v74;
-    v51 = v75;
+    v112 = v44;
+    v114 = v70;
+    v115 = v71;
+    v48 = v72;
 LABEL_41:
-    v119 = v51;
-    v23 = &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSg_ADtMd;
-    v24 = &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSg_ADtMR;
-    v25 = &v110;
+    v116 = v48;
+    v21 = &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSg_ADtMd;
+    v22 = &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSg_ADtMR;
+    v23 = &v107;
     goto LABEL_14;
   }
 
-  v110 = v120[0];
-  v48 = *(v37 + 32);
-  v111 = *(v37 + 16);
-  v112 = v48;
-  v113 = *(v37 + 48);
-  v114 = *(v37 + 64);
-  v107 = v48;
-  v108 = v113;
-  v109 = v114;
-  v105 = v120[0];
+  v107 = v117[0];
+  v45 = *(v34 + 32);
+  v108 = *(v34 + 16);
+  v109 = v45;
+  v110 = *(v34 + 48);
+  v111 = *(v34 + 64);
+  v104 = v45;
+  v105 = v110;
   v106 = v111;
-  if (!*(&v124 + 1))
+  v102 = v117[0];
+  v103 = v108;
+  if (!*(&v121 + 1))
   {
-    v102 = v112;
-    v103 = v113;
-    v104 = v114;
+    v99 = v109;
     v100 = v110;
     v101 = v111;
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v120, &v87, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v124, &v87, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v110, &v87, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-    outlined destroy of LACUIAuthButtonConfiguration(&v100);
+    v97 = v107;
+    v98 = v108;
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v117, &v84, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v121, &v84, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v107, &v84, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined destroy of LACUIAuthButtonConfiguration(&v97);
     goto LABEL_31;
   }
 
-  v49 = v41[2];
-  v101 = v41[1];
-  v102 = v49;
-  v103 = v41[3];
-  v104 = *(v41 + 32);
-  v100 = v124;
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v120, &v87, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v124, &v87, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v110, &v87, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  v50 = specialized static LACUIAuthButtonConfiguration.== infix(_:_:)(&v105, &v100);
-  v84 = v102;
-  v85 = v103;
-  v86 = v104;
+  v46 = v38[2];
+  v98 = v38[1];
+  v99 = v46;
+  v100 = v38[3];
+  v101 = *(v38 + 32);
+  v97 = v121;
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v117, &v84, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v121, &v84, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v107, &v84, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  v47 = specialized static LACUIAuthButtonConfiguration.== infix(_:_:)(&v102, &v97);
+  v81 = v99;
   v82 = v100;
   v83 = v101;
-  outlined destroy of LACUIAuthButtonConfiguration(&v82);
-  v89 = v107;
-  v90 = v108;
-  v91 = v109;
+  v79 = v97;
+  v80 = v98;
+  outlined destroy of LACUIAuthButtonConfiguration(&v79);
+  v86 = v104;
   v87 = v105;
   v88 = v106;
-  outlined destroy of LACUIAuthButtonConfiguration(&v87);
-  v100 = v46;
+  v84 = v102;
+  v85 = v103;
+  outlined destroy of LACUIAuthButtonConfiguration(&v84);
+  v97 = v43;
+  v98 = v74;
+  v99 = v75;
+  v100 = v76;
   v101 = v77;
-  v102 = v78;
-  v103 = v79;
-  v104 = v80;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(&v100, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  if (!v50)
+  outlined destroy of LACUIAuthCountdownDelayConfiguration?(&v97, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  if (!v47)
   {
     goto LABEL_15;
   }
 
 LABEL_33:
-  v53 = (v32 + v30[11]);
-  v54 = v53[1];
-  v55 = v53[3];
-  v102 = v53[2];
-  v103 = v55;
-  v104 = *(v53 + 32);
-  v56 = v53[1];
-  v100 = *v53;
-  v101 = v56;
-  v57 = (a2 + v30[11]);
-  v58 = v57[3];
-  v59 = v57[1];
-  v107 = v57[2];
-  v108 = v58;
-  v60 = v57[1];
-  v105 = *v57;
-  v106 = v60;
-  v96 = v54;
-  v97 = v102;
-  v98 = v53[3];
-  v61 = v57[3];
-  v93 = v107;
-  v94 = v61;
-  v109 = *(v57 + 32);
-  v62 = v100;
-  v99 = *(v53 + 32);
-  v63 = v105;
-  v95 = *(v57 + 32);
-  v92 = v59;
-  if (*(&v100 + 1))
+  v50 = v30 + v28[11];
+  v51 = *(v50 + 16);
+  v52 = *(v50 + 48);
+  v99 = *(v50 + 32);
+  v100 = v52;
+  v101 = *(v50 + 64);
+  v53 = *(v50 + 16);
+  v97 = *v50;
+  v98 = v53;
+  v54 = (a2 + v28[11]);
+  v55 = v54[3];
+  v56 = v54[1];
+  v104 = v54[2];
+  v105 = v55;
+  v57 = v54[1];
+  v102 = *v54;
+  v103 = v57;
+  v93 = v51;
+  v94 = v99;
+  v95 = *(v50 + 48);
+  v58 = v54[3];
+  v90 = v104;
+  v91 = v58;
+  v106 = *(v54 + 32);
+  v59 = v97;
+  v96 = *(v50 + 64);
+  v60 = v102;
+  v92 = *(v54 + 32);
+  v89 = v56;
+  if (*(&v97 + 1))
   {
-    v110 = v100;
-    v64 = v53[2];
-    v111 = v53[1];
-    v112 = v64;
-    v113 = v53[3];
-    v114 = *(v53 + 32);
-    v89 = v64;
-    v90 = v113;
-    v91 = v114;
-    v87 = v100;
+    v107 = v97;
+    v61 = *(v50 + 32);
+    v108 = *(v50 + 16);
+    v109 = v61;
+    v110 = *(v50 + 48);
+    v111 = *(v50 + 64);
+    v86 = v61;
+    v87 = v110;
     v88 = v111;
-    if (*(&v105 + 1))
+    v84 = v97;
+    v85 = v108;
+    if (*(&v102 + 1))
     {
-      v65 = v57[2];
-      v83 = v57[1];
-      v84 = v65;
-      v85 = v57[3];
-      v86 = *(v57 + 32);
-      v82 = v105;
-      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v100, &v77, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v105, &v77, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v110, &v77, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-      v66 = specialized static LACUIAuthButtonConfiguration.== infix(_:_:)(&v87, &v82);
-      v74 = v84;
-      v75 = v85;
-      v76 = v86;
+      v62 = v54[2];
+      v80 = v54[1];
+      v81 = v62;
+      v82 = v54[3];
+      v83 = *(v54 + 32);
+      v79 = v102;
+      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v97, &v74, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v102, &v74, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+      outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v107, &v74, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+      v63 = specialized static LACUIAuthButtonConfiguration.== infix(_:_:)(&v84, &v79);
+      v71 = v81;
       v72 = v82;
       v73 = v83;
-      outlined destroy of LACUIAuthButtonConfiguration(&v72);
-      v79 = v89;
-      v80 = v90;
-      v81 = v91;
+      v69 = v79;
+      v70 = v80;
+      outlined destroy of LACUIAuthButtonConfiguration(&v69);
+      v76 = v86;
       v77 = v87;
       v78 = v88;
-      outlined destroy of LACUIAuthButtonConfiguration(&v77);
-      v82 = v62;
+      v74 = v84;
+      v75 = v85;
+      outlined destroy of LACUIAuthButtonConfiguration(&v74);
+      v79 = v59;
+      v80 = v93;
+      v81 = v94;
+      v82 = v95;
       v83 = v96;
-      v84 = v97;
-      v85 = v98;
-      v86 = v99;
-      outlined destroy of LACUIAuthCountdownDelayConfiguration?(&v82, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-      if (!v66)
+      outlined destroy of LACUIAuthCountdownDelayConfiguration?(&v79, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+      if (!v63)
       {
         goto LABEL_15;
       }
@@ -1529,55 +893,55 @@ LABEL_33:
       goto LABEL_43;
     }
 
-    v84 = v112;
-    v85 = v113;
-    v86 = v114;
+    v81 = v109;
     v82 = v110;
     v83 = v111;
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v100, &v77, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v105, &v77, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v110, &v77, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-    outlined destroy of LACUIAuthButtonConfiguration(&v82);
+    v79 = v107;
+    v80 = v108;
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v97, &v74, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v102, &v74, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v107, &v74, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined destroy of LACUIAuthButtonConfiguration(&v79);
     goto LABEL_40;
   }
 
-  if (*(&v105 + 1))
+  if (*(&v102 + 1))
   {
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v100, &v110, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v105, &v110, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v97, &v107, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+    outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v102, &v107, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
 LABEL_40:
+    v108 = v93;
+    v109 = v94;
+    v110 = v95;
+    v113 = v89;
+    v107 = v59;
     v111 = v96;
-    v112 = v97;
-    v113 = v98;
-    v116 = v92;
-    v110 = v62;
-    v114 = v99;
-    v115 = v63;
-    v117 = v93;
-    v118 = v94;
-    v51 = v95;
+    v112 = v60;
+    v114 = v90;
+    v115 = v91;
+    v48 = v92;
     goto LABEL_41;
   }
 
-  v110 = v100;
-  v67 = v53[2];
-  v111 = v53[1];
-  v112 = v67;
-  v113 = v53[3];
-  v114 = *(v53 + 32);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v100, &v87, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v105, &v87, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(&v110, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  v107 = v97;
+  v64 = *(v50 + 32);
+  v108 = *(v50 + 16);
+  v109 = v64;
+  v110 = *(v50 + 48);
+  v111 = *(v50 + 64);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v97, &v84, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v102, &v84, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
+  outlined destroy of LACUIAuthCountdownDelayConfiguration?(&v107, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMd, &_s25LocalAuthenticationCoreUI28LACUIAuthButtonConfigurationVSgMR);
 LABEL_43:
-  if (*(v32 + v30[12]) == *(a2 + v30[12]))
+  if (*(v30 + v28[12]) == *(a2 + v28[12]))
   {
-    v26 = *(v32 + v30[13]) ^ *(a2 + v30[13]) ^ 1;
-    return v26 & 1;
+    v24 = *(v30 + v28[13]) ^ *(a2 + v28[13]) ^ 1;
+    return v24 & 1;
   }
 
 LABEL_15:
-  v26 = 0;
-  return v26 & 1;
+  v24 = 0;
+  return v24 & 1;
 }
 
 uint64_t specialized static LACUIAuthCountdownConfiguration.message(strictModeEnabled:familiarLocationsUnavailable:)(char a1, char a2)
@@ -1608,7 +972,7 @@ uint64_t specialized static LACUIAuthCountdownConfiguration.message(strictModeEn
   return specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(v4, (v2 | 0x8000000000000000), 0x74656863746152, 0xE700000000000000);
 }
 
-uint64_t type metadata accessor for LACUIAuthCountdownConfiguration()
+uint64_t type metadata accessor for LACUIAuthCountdownConfiguration(uint64_t a1)
 {
   result = type metadata singleton initialization cache for LACUIAuthCountdownConfiguration;
   if (!type metadata singleton initialization cache for LACUIAuthCountdownConfiguration)
@@ -1681,19 +1045,19 @@ uint64_t sub_2560A9D3C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void type metadata completion function for LACUIAuthCountdownConfiguration()
+void type metadata completion function for LACUIAuthCountdownConfiguration(uint64_t a1)
 {
-  type metadata accessor for LACUIAuthCountdownDelayConfiguration?();
-  if (v0 <= 0x3F)
+  type metadata accessor for LACUIAuthCountdownDelayConfiguration?(319);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for [LACUIAuthCountdownItemConfiguration]?();
-    if (v1 <= 0x3F)
+    type metadata accessor for [LACUIAuthCountdownItemConfiguration]?(319);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for [LACUIAuthButtonConfiguration](319, &lazy cache variable for type metadata for [LACUIAuthButtonConfiguration], MEMORY[0x277D83940]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for [LACUIAuthButtonConfiguration](319, &lazy cache variable for type metadata for LACUIAuthButtonConfiguration?, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -1702,28 +1066,28 @@ void type metadata completion function for LACUIAuthCountdownConfiguration()
   }
 }
 
-void type metadata accessor for LACUIAuthCountdownDelayConfiguration?()
+void type metadata accessor for LACUIAuthCountdownDelayConfiguration?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for LACUIAuthCountdownDelayConfiguration?)
   {
-    type metadata accessor for LACUIAuthCountdownDelayConfiguration();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    type metadata accessor for LACUIAuthCountdownDelayConfiguration(255);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for LACUIAuthCountdownDelayConfiguration?);
+      atomic_store(v1, &lazy cache variable for type metadata for LACUIAuthCountdownDelayConfiguration?);
     }
   }
 }
 
-void type metadata accessor for [LACUIAuthCountdownItemConfiguration]?()
+void type metadata accessor for [LACUIAuthCountdownItemConfiguration]?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for [LACUIAuthCountdownItemConfiguration]?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay25LocalAuthenticationCoreUI35LACUIAuthCountdownItemConfigurationVGMd, &_sSay25LocalAuthenticationCoreUI35LACUIAuthCountdownItemConfigurationVGMR);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [LACUIAuthCountdownItemConfiguration]?);
+      atomic_store(v1, &lazy cache variable for type metadata for [LACUIAuthCountdownItemConfiguration]?);
     }
   }
 }
@@ -1904,7 +1268,7 @@ LABEL_20:
 
 uint64_t outlined init with take of LACUIAuthCountdownDelayConfiguration(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for LACUIAuthCountdownDelayConfiguration();
+  v4 = type metadata accessor for LACUIAuthCountdownDelayConfiguration(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -2066,19 +1430,19 @@ uint64_t LACUIAuthCountdownItemConfiguration.init(image:title:)@<X0>(uint64_t *a
 uint64_t LACUIAuthCountdownItemConfiguration.id.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t LACUIAuthCountdownItemConfiguration.image.getter@<X0>(uint64_t a1@<X8>)
 {
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 32);
-  *a1 = *(v1 + 16);
-  *(a1 + 8) = v2;
-  *(a1 + 16) = v3;
-  return outlined copy of LACUIAuthImageConfiguration();
+  v2 = *(v1 + 16);
+  v3 = *(v1 + 24);
+  v4 = *(v1 + 32);
+  *a1 = v2;
+  *(a1 + 8) = v3;
+  *(a1 + 16) = v4;
+  return outlined copy of LACUIAuthImageConfiguration(v2, v3);
 }
 
 uint64_t LACUIAuthCountdownItemConfiguration.image.setter(uint64_t *a1)
@@ -2086,10 +1450,7 @@ uint64_t LACUIAuthCountdownItemConfiguration.image.setter(uint64_t *a1)
   v2 = *a1;
   v3 = a1[1];
   v4 = *(a1 + 16);
-  v5 = *(v1 + 16);
-  v6 = *(v1 + 24);
-  v7 = *(v1 + 32);
-  result = outlined consume of LACUIAuthImageConfiguration();
+  result = outlined consume of LACUIAuthImageConfiguration(*(v1 + 16), *(v1 + 24));
   *(v1 + 16) = v2;
   *(v1 + 24) = v3;
   *(v1 + 32) = v4;
@@ -2099,14 +1460,12 @@ uint64_t LACUIAuthCountdownItemConfiguration.image.setter(uint64_t *a1)
 uint64_t LACUIAuthCountdownItemConfiguration.title.getter()
 {
   v1 = *(v0 + 40);
-  v2 = *(v0 + 48);
 
   return v1;
 }
 
 uint64_t LACUIAuthCountdownItemConfiguration.title.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 48);
 
   *(v2 + 40) = a1;
   *(v2 + 48) = a2;
@@ -2120,34 +1479,34 @@ uint64_t protocol witness for Identifiable.id.getter in conformance LACUIAuthCou
   a1[1] = v2;
 }
 
-uint64_t specialized static LACUIAuthCountdownItemConfiguration.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static LACUIAuthCountdownItemConfiguration.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
+  v2 = a1[2];
+  v3 = a1[3];
   v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
+  v5 = a1[5];
+  v6 = a1[6];
   v7 = *(a2 + 16);
   v8 = *(a2 + 24);
   v9 = *(a2 + 32);
   v10 = *(a2 + 40);
   v11 = *(a2 + 48);
-  if ((*a1 != *a2 || *(a1 + 8) != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if ((*a1 != *a2 || a1[1] != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     return 0;
   }
 
-  v16[0] = v2;
-  v16[1] = v3;
-  v17 = v4;
-  v14[0] = v7;
-  v14[1] = v8;
-  v15 = v9;
-  outlined copy of LACUIAuthImageConfiguration();
-  outlined copy of LACUIAuthImageConfiguration();
-  v12 = specialized static LACUIAuthImageConfiguration.== infix(_:_:)(v16, v14);
-  outlined consume of LACUIAuthImageConfiguration();
-  outlined consume of LACUIAuthImageConfiguration();
+  v17 = v2;
+  v18 = v3;
+  v19 = v4;
+  v14 = v7;
+  v15 = v8;
+  v16 = v9;
+  outlined copy of LACUIAuthImageConfiguration(v2, v3);
+  outlined copy of LACUIAuthImageConfiguration(v7, v8);
+  v12 = specialized static LACUIAuthImageConfiguration.== infix(_:_:)(&v17, &v14);
+  outlined consume of LACUIAuthImageConfiguration(v14, v15);
+  outlined consume of LACUIAuthImageConfiguration(v17, v18);
   if ((v12 & 1) == 0)
   {
     return 0;
@@ -2513,18 +1872,17 @@ double LACUITapToRadarURLBuilder.__allocating_init()()
 uint64_t one-time initialization function for tapToRadarURL()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x28223BE20](v0 - 8);
-  v3 = &v8 - v2;
-  v4 = type metadata accessor for URL();
-  __swift_allocate_value_buffer(v4, tapToRadarURL);
-  v5 = __swift_project_value_buffer(v4, tapToRadarURL);
+  v2 = &v7 - v1;
+  v3 = type metadata accessor for URL();
+  __swift_allocate_value_buffer(v3, tapToRadarURL);
+  v4 = __swift_project_value_buffer(v3, tapToRadarURL);
   URL.init(string:)();
-  v6 = *(v4 - 8);
-  result = (*(v6 + 48))(v3, 1, v4);
+  v5 = *(v3 - 8);
+  result = (*(v5 + 48))(v2, 1, v3);
   if (result != 1)
   {
-    return (*(v6 + 32))(v5, v3, v4);
+    return (*(v5 + 32))(v4, v2, v3);
   }
 
   __break(1u);
@@ -2535,7 +1893,6 @@ uint64_t LACUITapToRadarURLBuilder.title.getter()
 {
   swift_beginAccess();
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
@@ -2543,7 +1900,6 @@ uint64_t LACUITapToRadarURLBuilder.title.getter()
 uint64_t LACUITapToRadarURLBuilder.title.setter(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
-  v5 = *(v2 + 24);
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
 }
@@ -2552,7 +1908,6 @@ uint64_t LACUITapToRadarURLBuilder.description.getter()
 {
   swift_beginAccess();
   v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
 
   return v1;
 }
@@ -2560,7 +1915,6 @@ uint64_t LACUITapToRadarURLBuilder.description.getter()
 uint64_t LACUITapToRadarURLBuilder.description.setter(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
-  v5 = *(v2 + 40);
   *(v2 + 32) = a1;
   *(v2 + 40) = a2;
 }
@@ -2572,7 +1926,7 @@ uint64_t LACUITapToRadarURLBuilder.classification.setter(char a1)
   return result;
 }
 
-uint64_t LACUITapToRadarURLBuilder.component.getter@<X0>(uint64_t *a1@<X8>)
+void LACUITapToRadarURLBuilder.component.getter(uint64_t *a1@<X8>)
 {
   swift_beginAccess();
   v3 = v1[7];
@@ -2581,17 +1935,16 @@ uint64_t LACUITapToRadarURLBuilder.component.getter@<X0>(uint64_t *a1@<X8>)
   v6 = v1[10];
   v8 = v1[11];
   v7 = v1[12];
-  result = outlined copy of (name: String, version: String, id: String)?(v3, v4);
+  outlined copy of (name: String, version: String, id: String)?(v3, v4, v5, v6, v8, v7);
   *a1 = v3;
   a1[1] = v4;
   a1[2] = v5;
   a1[3] = v6;
   a1[4] = v8;
   a1[5] = v7;
-  return result;
 }
 
-uint64_t LACUITapToRadarURLBuilder.component.setter(_OWORD *a1)
+void LACUITapToRadarURLBuilder.component.setter(_OWORD *a1)
 {
   swift_beginAccess();
   v3 = v1[7];
@@ -2604,7 +1957,7 @@ uint64_t LACUITapToRadarURLBuilder.component.setter(_OWORD *a1)
   *(v1 + 7) = *a1;
   *(v1 + 9) = v9;
   *(v1 + 11) = a1[2];
-  return outlined consume of (name: String, version: String, id: String)?(v3, v4);
+  outlined consume of (name: String, version: String, id: String)?(v3, v4, v5, v6, v7, v8);
 }
 
 uint64_t LACUITapToRadarURLBuilder.reproducibility.setter(char a1)
@@ -2614,12 +1967,11 @@ uint64_t LACUITapToRadarURLBuilder.reproducibility.setter(char a1)
   return result;
 }
 
-uint64_t LACUITapToRadarURLBuilder.with<A>(_:setTo:)(void *a1)
+uint64_t LACUITapToRadarURLBuilder.with<A>(_:setTo:)(uint64_t a1)
 {
-  v2 = *(*(*(*a1 + *MEMORY[0x277D84568] + 8) - 8) + 64);
   MEMORY[0x28223BE20](a1);
-  (*(v4 + 16))(&v6 - v3);
-  v7 = v1;
+  (*(v3 + 16))(&v5 - v2);
+  v6 = v1;
 
   swift_setAtReferenceWritableKeyPath();
 }
@@ -2639,9 +1991,19 @@ void *LACUITapToRadarURLBuilder.build()@<X0>(uint64_t a1@<X8>)
   if (v8)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMR);
-    v9 = *(type metadata accessor for URLQueryItem() - 8);
-    v10 = *(v9 + 72);
-    v11 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+    type metadata accessor for URLQueryItem();
+    v9 = swift_allocObject();
+    *(v9 + 16) = xmmword_2560BACC0;
+    URLQueryItem.init(name:value:)();
+
+    URL.append(queryItems:)(v9);
+  }
+
+  v10 = (*(*v2 + 144))(v7);
+  if (v11)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMR);
+    type metadata accessor for URLQueryItem();
     v12 = swift_allocObject();
     *(v12 + 16) = xmmword_2560BACC0;
     URLQueryItem.init(name:value:)();
@@ -2649,78 +2011,58 @@ void *LACUITapToRadarURLBuilder.build()@<X0>(uint64_t a1@<X8>)
     URL.append(queryItems:)(v12);
   }
 
-  v13 = (*(*v2 + 144))(v7);
-  if (v14)
+  v13 = (*(*v2 + 168))(v10);
+  if (v13 != 10)
+  {
+    v14 = v13;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMR);
+    type metadata accessor for URLQueryItem();
+    v15 = swift_allocObject();
+    *(v15 + 16) = xmmword_2560BACC0;
+    LACUITapToRadarURLBuilder.Classification.rawValue.getter(v14);
+    URLQueryItem.init(name:value:)();
+
+    URL.append(queryItems:)(v15);
+  }
+
+  v16 = (*(*v2 + 216))(v13);
+  if (v16 != 6)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMR);
-    v15 = *(type metadata accessor for URLQueryItem() - 8);
-    v16 = *(v15 + 72);
-    v17 = (*(v15 + 80) + 32) & ~*(v15 + 80);
-    v18 = swift_allocObject();
-    *(v18 + 16) = xmmword_2560BACC0;
+    type metadata accessor for URLQueryItem();
+    v17 = swift_allocObject();
+    *(v17 + 16) = xmmword_2560BACC0;
+    v18._rawValue = v17;
     URLQueryItem.init(name:value:)();
 
     URL.append(queryItems:)(v18);
   }
 
-  v19 = (*(*v2 + 168))(v13);
-  if (v19 != 10)
-  {
-    v20 = v19;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMR);
-    v21 = *(type metadata accessor for URLQueryItem() - 8);
-    v22 = *(v21 + 72);
-    v23 = (*(v21 + 80) + 32) & ~*(v21 + 80);
-    v24 = swift_allocObject();
-    *(v24 + 16) = xmmword_2560BACC0;
-    LACUITapToRadarURLBuilder.Classification.rawValue.getter(v20);
-    URLQueryItem.init(name:value:)();
-
-    URL.append(queryItems:)(v24);
-  }
-
-  v25 = (*(*v2 + 216))(v19);
-  if (v25 != 6)
+  result = (*(*v2 + 192))(v23, v16);
+  if (v23[1])
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMR);
-    v26 = *(type metadata accessor for URLQueryItem() - 8);
-    v27 = *(v26 + 72);
-    v28 = (*(v26 + 80) + 32) & ~*(v26 + 80);
-    v29 = swift_allocObject();
-    *(v29 + 16) = xmmword_2560BACC0;
-    v30._rawValue = v29;
-    URLQueryItem.init(name:value:)();
-
-    URL.append(queryItems:)(v30);
-  }
-
-  result = (*(*v2 + 192))(v38, v25);
-  if (v38[1])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMR);
-    v32 = *(type metadata accessor for URLQueryItem() - 8);
-    v33 = *(v32 + 72);
-    v34 = *(v32 + 80);
-    v35 = swift_allocObject();
-    *(v35 + 16) = xmmword_2560BACC0;
+    type metadata accessor for URLQueryItem();
+    v20 = swift_allocObject();
+    *(v20 + 16) = xmmword_2560BACC0;
 
     URLQueryItem.init(name:value:)();
 
-    URL.append(queryItems:)(v35);
+    URL.append(queryItems:)(v20);
 
-    v36 = swift_allocObject();
-    *(v36 + 16) = xmmword_2560BACC0;
-
-    URLQueryItem.init(name:value:)();
-
-    URL.append(queryItems:)(v36);
-
-    v37 = swift_allocObject();
-    *(v37 + 16) = xmmword_2560BACC0;
+    v21 = swift_allocObject();
+    *(v21 + 16) = xmmword_2560BACC0;
 
     URLQueryItem.init(name:value:)();
 
-    URL.append(queryItems:)(v37);
+    URL.append(queryItems:)(v21);
+
+    v22 = swift_allocObject();
+    *(v22 + 16) = xmmword_2560BACC0;
+
+    URLQueryItem.init(name:value:)();
+
+    URL.append(queryItems:)(v22);
   }
 
   return result;
@@ -2828,31 +2170,17 @@ uint64_t LACUITapToRadarURLBuilder.Reproducibility.rawValue.getter(unsigned __in
   }
 }
 
-void *LACUITapToRadarURLBuilder.deinit()
+uint64_t *LACUITapToRadarURLBuilder.deinit()
 {
-  v1 = v0[3];
 
-  v2 = v0[5];
-
-  v3 = v0[9];
-  v4 = v0[10];
-  v5 = v0[11];
-  v6 = v0[12];
-  outlined consume of (name: String, version: String, id: String)?(v0[7], v0[8]);
+  outlined consume of (name: String, version: String, id: String)?(v0[7], v0[8], v0[9], v0[10], v0[11], v0[12]);
   return v0;
 }
 
 uint64_t LACUITapToRadarURLBuilder.__deallocating_deinit()
 {
-  v1 = v0[3];
 
-  v2 = v0[5];
-
-  v3 = v0[9];
-  v4 = v0[10];
-  v5 = v0[11];
-  v6 = v0[12];
-  outlined consume of (name: String, version: String, id: String)?(v0[7], v0[8]);
+  outlined consume of (name: String, version: String, id: String)?(v0[7], v0[8], v0[9], v0[10], v0[11], v0[12]);
 
   return MEMORY[0x2821FE8D8](v0, 105, 7);
 }
@@ -2870,13 +2198,11 @@ double LACUITapToRadarURLBuilder.init()()
   return result;
 }
 
-uint64_t outlined copy of (name: String, version: String, id: String)?(uint64_t a1, uint64_t a2)
+void outlined copy of (name: String, version: String, id: String)?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a2)
   {
   }
-
-  return result;
 }
 
 uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
@@ -2917,17 +2243,17 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance LACUITa
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance LACUITapToRadarURLBuilder.Classification()
+uint64_t protocol witness for Hashable.hash(into:) in conformance LACUITapToRadarURLBuilder.Classification(uint64_t a1)
 {
-  LACUITapToRadarURLBuilder.Classification.rawValue.getter(*v0);
+  LACUITapToRadarURLBuilder.Classification.rawValue.getter(*v1);
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LACUITapToRadarURLBuilder.Classification()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LACUITapToRadarURLBuilder.Classification(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  LACUITapToRadarURLBuilder.Classification.rawValue.getter(v1);
+  LACUITapToRadarURLBuilder.Classification.rawValue.getter(v2);
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -3082,24 +2408,19 @@ LABEL_35:
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance LACUITapToRadarURLBuilder.Reproducibility()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance LACUITapToRadarURLBuilder.Reproducibility()
+uint64_t protocol witness for Hashable.hash(into:) in conformance LACUITapToRadarURLBuilder.Reproducibility(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LACUITapToRadarURLBuilder.Reproducibility()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LACUITapToRadarURLBuilder.Reproducibility(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -3604,14 +2925,11 @@ LABEL_20:
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -3667,73 +2985,72 @@ Swift::Void __swiftcall LACUIAlertScenePresentationHandler.handle(request:inCont
   isa = request.super.isa;
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((*((*MEMORY[0x277D85000] & *v2) + 0x60))(isa))
   {
-    v11 = *(v2 + OBJC_IVAR____TtC25LocalAuthenticationCoreUI34LACUIAlertScenePresentationHandler_configuration + 8);
-    v12 = *(v2 + OBJC_IVAR____TtC25LocalAuthenticationCoreUI34LACUIAlertScenePresentationHandler_configuration + 16);
-    v13 = *(v2 + OBJC_IVAR____TtC25LocalAuthenticationCoreUI34LACUIAlertScenePresentationHandler_configuration + 24);
-    v14 = *(v3 + OBJC_IVAR____TtC25LocalAuthenticationCoreUI34LACUIAlertScenePresentationHandler_configuration + 32);
-    v15 = MEMORY[0x259C58D00](v11, v12);
-    v16 = MEMORY[0x259C58D00](v13, v14);
-    v17 = [objc_opt_self() alertControllerWithTitle:v15 message:v16 preferredStyle:1];
+    v10 = *(v2 + OBJC_IVAR____TtC25LocalAuthenticationCoreUI34LACUIAlertScenePresentationHandler_configuration + 8);
+    v11 = *(v2 + OBJC_IVAR____TtC25LocalAuthenticationCoreUI34LACUIAlertScenePresentationHandler_configuration + 16);
+    v12 = *(v2 + OBJC_IVAR____TtC25LocalAuthenticationCoreUI34LACUIAlertScenePresentationHandler_configuration + 24);
+    v13 = *(v3 + OBJC_IVAR____TtC25LocalAuthenticationCoreUI34LACUIAlertScenePresentationHandler_configuration + 32);
+    v14 = MEMORY[0x259C58D00](v10, v11);
+    v15 = MEMORY[0x259C58D00](v12, v13);
+    v16 = [objc_opt_self() alertControllerWithTitle:v14 message:v15 preferredStyle:1];
 
-    v18 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0x4F5F4E4F54545542, 0xE90000000000004BLL, 0x75676F6C61746143, 0xE900000000000065);
-    v20 = v19;
-    v21 = swift_allocObject();
-    *(v21 + 16) = userInterfaceRequest;
-    v22 = userInterfaceRequest;
-    v23 = MEMORY[0x259C58D00](v18, v20);
+    v17 = specialized static LocalizedStrings.localizedString(key:value:tableSuffix:)(0x4F5F4E4F54545542, 0xE90000000000004BLL, 0x75676F6C61746143, 0xE900000000000065);
+    v19 = v18;
+    v20 = swift_allocObject();
+    *(v20 + 16) = userInterfaceRequest;
+    v21 = userInterfaceRequest;
+    v22 = MEMORY[0x259C58D00](v17, v19);
 
     aBlock[4] = partial apply for closure #1 in LACUIAlertScenePresentationHandler.handle(request:inContext:);
-    aBlock[5] = v21;
+    aBlock[5] = v20;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed NSTimer) -> ();
     aBlock[3] = &block_descriptor_2;
-    v24 = _Block_copy(aBlock);
+    v23 = _Block_copy(aBlock);
 
-    v25 = [objc_opt_self() actionWithTitle:v23 style:0 handler:v24];
-    _Block_release(v24);
+    v24 = [objc_opt_self() actionWithTitle:v22 style:0 handler:v23];
+    _Block_release(v23);
 
-    [v17 addAction_];
-    [-[LACUserInterfaceRequest presenter](v22 presenter)];
+    [v16 addAction_];
+    [-[LACUserInterfaceRequest presenter](v21 presenter)];
   }
 
   else
   {
     static LACLog.ui.getter();
-    v26 = v2;
-    v27 = isa;
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.error.getter();
+    v25 = v2;
+    v26 = isa;
+    v27 = Logger.logObject.getter();
+    v28 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v28, v29))
+    if (os_log_type_enabled(v27, v28))
     {
-      v30 = swift_slowAlloc();
-      v37 = userInterfaceRequest;
-      v31 = v30;
-      v32 = swift_slowAlloc();
-      *v31 = 138543618;
-      *(v31 + 4) = v26;
-      *(v31 + 12) = 2114;
-      *(v31 + 14) = v27;
-      *v32 = v3;
-      v32[1] = v27;
+      v29 = swift_slowAlloc();
+      v36 = userInterfaceRequest;
+      v30 = v29;
+      v31 = swift_slowAlloc();
+      *v30 = 138543618;
+      *(v30 + 4) = v25;
+      *(v30 + 12) = 2114;
+      *(v30 + 14) = v26;
+      *v31 = v3;
+      v31[1] = v26;
+      v32 = v25;
       v33 = v26;
-      v34 = v27;
-      _os_log_impl(&dword_256063000, v28, v29, "%{public}@ cannot process request %{public}@", v31, 0x16u);
+      _os_log_impl(&dword_256063000, v27, v28, "%{public}@ cannot process request %{public}@", v30, 0x16u);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       swift_arrayDestroy();
-      MEMORY[0x259C59AD0](v32, -1, -1);
-      v35 = v31;
-      userInterfaceRequest = v37;
-      MEMORY[0x259C59AD0](v35, -1, -1);
+      MEMORY[0x259C59AD0](v31, -1, -1);
+      v34 = v30;
+      userInterfaceRequest = v36;
+      MEMORY[0x259C59AD0](v34, -1, -1);
     }
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
     [-[LACUserInterfaceRequest presenter](userInterfaceRequest presenter)];
   }
 
@@ -3779,17 +3096,16 @@ id LACUIAlertScenePresentationHandler.__allocating_init()()
   return [v1 init];
 }
 
-id LACUIAlertScenePresentationHandler.__deallocating_deinit()
+id LACUIAlertScenePresentationHandler.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for LACUIAlertScenePresentationHandler();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for LACUIAlertScenePresentationHandler();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 uint64_t LACUIAlertScenePresentationHandler.Configuration.title.getter()
 {
   v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
 
   return v1;
 }
@@ -3797,7 +3113,6 @@ uint64_t LACUIAlertScenePresentationHandler.Configuration.title.getter()
 uint64_t LACUIAlertScenePresentationHandler.Configuration.message.getter()
 {
   v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
 
   return v1;
 }
@@ -3805,7 +3120,6 @@ uint64_t LACUIAlertScenePresentationHandler.Configuration.message.getter()
 uint64_t LACUIAlertScenePresentationHandler.Configuration.dismissActionTitle.getter()
 {
   v1 = *(v0 + 40);
-  v2 = *(v0 + 48);
 
   return v1;
 }
@@ -3935,14 +3249,12 @@ Swift::Int LACUIAuthButtonStyle.hashValue.getter()
 uint64_t LACUIAuthButtonConfiguration.id.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t LACUIAuthButtonConfiguration.id.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -3952,14 +3264,12 @@ uint64_t LACUIAuthButtonConfiguration.id.setter(uint64_t a1, uint64_t a2)
 uint64_t LACUIAuthButtonConfiguration.title.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t LACUIAuthButtonConfiguration.title.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
@@ -3969,14 +3279,12 @@ uint64_t LACUIAuthButtonConfiguration.title.setter(uint64_t a1, uint64_t a2)
 uint64_t LACUIAuthButtonConfiguration.text.getter()
 {
   v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
 
   return v1;
 }
 
 uint64_t LACUIAuthButtonConfiguration.text.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
 
   *(v2 + 32) = a1;
   *(v2 + 40) = a2;
@@ -4010,44 +3318,43 @@ uint64_t LACUIAuthButtonConfiguration.init(title:style:)@<X0>(uint64_t a1@<X0>, 
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = *a3;
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *a3;
   *(a4 + 32) = 0u;
   *(a4 + 48) = 0u;
   *(a4 + 64) = -1;
   UUID.init()();
-  v14 = UUID.uuidString.getter();
-  v16 = v15;
-  result = (*(v9 + 8))(v12, v8);
-  *a4 = v14;
-  *(a4 + 8) = v16;
+  v13 = UUID.uuidString.getter();
+  v15 = v14;
+  result = (*(v9 + 8))(v11, v8);
+  *a4 = v13;
+  *(a4 + 8) = v15;
   *(a4 + 16) = a1;
   *(a4 + 24) = a2;
-  *(a4 + 65) = v13;
+  *(a4 + 65) = v12;
   return result;
 }
 
-BOOL specialized static LACUIAuthButtonConfiguration.== infix(_:_:)(uint64_t a1, uint64_t a2)
+BOOL specialized static LACUIAuthButtonConfiguration.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = a1[4];
+  v5 = a1[5];
   v6 = *(a1 + 64);
   v21 = *(a1 + 65);
   v7 = *(a2 + 16);
   v8 = *(a2 + 24);
   v10 = *(a2 + 32);
   v9 = *(a2 + 40);
-  v22 = *(a1 + 48);
+  v22 = a1[6];
   v23 = *(a2 + 48);
   v24 = *(a2 + 56);
-  v25 = *(a1 + 56);
+  v25 = a1[7];
   v11 = *(a2 + 64);
   v20 = *(a2 + 65);
-  if ((*a1 != *a2 || *(a1 + 8) != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v2 != v7 || v3 != v8) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if ((*a1 != *a2 || a1[1] != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v2 != v7 || v3 != v8) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     return 0;
   }
@@ -4083,21 +3390,21 @@ LABEL_14:
     {
       v13 = v22;
       v14 = v25;
-      v28[0] = v22;
-      v28[1] = v25;
-      v29 = v6;
+      v29 = v22;
+      v30 = v25;
+      v31 = v6;
       v15 = v11;
       if (v11 != 255)
       {
-        v26[0] = v23;
-        v26[1] = v24;
-        v27 = v11 & 1;
+        v26 = v23;
+        v27 = v24;
+        v28 = v11 & 1;
         outlined copy of LACUIAuthImageConfiguration?(v22, v25, v12);
         outlined copy of LACUIAuthImageConfiguration?(v23, v24, v11);
         outlined copy of LACUIAuthImageConfiguration?(v22, v25, v12);
-        v16 = specialized static LACUIAuthImageConfiguration.== infix(_:_:)(v28, v26);
-        outlined consume of LACUIAuthImageConfiguration();
-        outlined consume of LACUIAuthImageConfiguration();
+        v16 = specialized static LACUIAuthImageConfiguration.== infix(_:_:)(&v29, &v26);
+        outlined consume of LACUIAuthImageConfiguration(v26, v27);
+        outlined consume of LACUIAuthImageConfiguration(v29, v30);
         outlined consume of LACUIAuthImageConfiguration?(v22, v25, v12);
         if ((v16 & 1) == 0)
         {
@@ -4112,7 +3419,7 @@ LABEL_14:
       v18 = v24;
       outlined copy of LACUIAuthImageConfiguration?(v23, v24, 255);
       outlined copy of LACUIAuthImageConfiguration?(v22, v25, v12);
-      outlined consume of LACUIAuthImageConfiguration();
+      outlined consume of LACUIAuthImageConfiguration(v22, v25);
     }
 
     outlined consume of LACUIAuthImageConfiguration?(v13, v14, v12);
@@ -4365,94 +3672,88 @@ LABEL_8:
 
 uint64_t GlassGroup.body.getter@<X0>(void (*a1)(void)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v34 = a1;
-  v35 = a2;
-  v37 = a5;
-  v33 = *(a3 - 8);
-  v7 = *(v33 + 64);
-  v8 = MEMORY[0x28223BE20](a1);
-  v10 = &v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v32 - v11;
-  v13 = type metadata accessor for _GlassEffectContainer();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = MEMORY[0x28223BE20](v13);
-  v18 = &v32 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v32 - v19;
-  v21 = type metadata accessor for _ConditionalContent();
-  v36 = *(v21 - 8);
-  v22 = *(v36 + 64);
-  MEMORY[0x28223BE20](v21);
-  v24 = &v32 - v23;
-  v25 = static Solarium.isEnabled.getter();
-  if (v25)
+  v31 = a1;
+  v32 = a2;
+  v34 = a5;
+  v30 = *(a3 - 8);
+  v7 = MEMORY[0x28223BE20](a1);
+  v9 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v29 - v10;
+  v12 = type metadata accessor for _GlassEffectContainer();
+  v13 = *(v12 - 8);
+  v14 = MEMORY[0x28223BE20](v12);
+  v16 = &v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v29 - v17;
+  v19 = type metadata accessor for _ConditionalContent();
+  v33 = *(v19 - 8);
+  MEMORY[0x28223BE20](v19);
+  v21 = &v29 - v20;
+  v22 = static Solarium.isEnabled.getter();
+  if (v22)
   {
-    MEMORY[0x28223BE20](v25);
-    *(&v32 - 4) = a3;
-    *(&v32 - 3) = a4;
-    v26 = v35;
-    *(&v32 - 2) = v34;
-    *(&v32 - 1) = v26;
+    MEMORY[0x28223BE20](v22);
+    *(&v29 - 4) = a3;
+    *(&v29 - 3) = a4;
+    v23 = v32;
+    *(&v29 - 2) = v31;
+    *(&v29 - 1) = v23;
     _GlassEffectContainer.init(smoothness:content:)();
     WitnessTable = swift_getWitnessTable();
-    static ViewBuilder.buildExpression<A>(_:)(v18, v13, WitnessTable);
-    v28 = *(v14 + 8);
-    v28(v18, v13);
-    static ViewBuilder.buildExpression<A>(_:)(v20, v13, WitnessTable);
-    static ViewBuilder.buildEither<A, B>(first:)(v18, v13);
-    v28(v18, v13);
-    v28(v20, v13);
+    static ViewBuilder.buildExpression<A>(_:)();
+    v25 = *(v13 + 8);
+    v25(v16, v12);
+    static ViewBuilder.buildExpression<A>(_:)();
+    static ViewBuilder.buildEither<A, B>(first:)(v16, v12, a3, WitnessTable, a4);
+    v25(v16, v12);
+    v25(v18, v12);
   }
 
   else
   {
-    v34();
-    static ViewBuilder.buildExpression<A>(_:)(v10, a3, a4);
-    v29 = *(v33 + 8);
-    v29(v10, a3);
-    static ViewBuilder.buildExpression<A>(_:)(v12, a3, a4);
-    swift_getWitnessTable();
-    static ViewBuilder.buildEither<A, B>(second:)(v10, v13, a3);
-    v29(v10, a3);
-    v29(v12, a3);
+    v31();
+    static ViewBuilder.buildExpression<A>(_:)();
+    v26 = *(v30 + 8);
+    v26(v9, a3);
+    static ViewBuilder.buildExpression<A>(_:)();
+    v27 = swift_getWitnessTable();
+    static ViewBuilder.buildEither<A, B>(second:)(v9, v12, a3, v27, a4);
+    v26(v9, a3);
+    v26(v11, a3);
   }
 
-  v38 = swift_getWitnessTable();
-  v39 = a4;
-  v30 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v24, v21, v30);
-  return (*(v36 + 8))(v24, v21);
+  v35 = swift_getWitnessTable();
+  v36 = a4;
+  swift_getWitnessTable();
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (*(v33 + 8))(v21, v19);
 }
 
 uint64_t closure #1 in GlassGroup.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a3 - 8);
-  v7 = *(v6 + 64);
-  v8 = (MEMORY[0x28223BE20])();
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x28223BE20](v8);
-  v13 = &v16 - v12;
-  v11();
-  static ViewBuilder.buildExpression<A>(_:)(v10, a3, a4);
-  v14 = *(v6 + 8);
-  v14(v10, a3);
-  static ViewBuilder.buildExpression<A>(_:)(v13, a3, a4);
-  return (v14)(v13, a3);
+  v5 = *(a3 - 8);
+  v6 = MEMORY[0x28223BE20](a1);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v6);
+  v11 = &v14 - v10;
+  v9();
+  static ViewBuilder.buildExpression<A>(_:)();
+  v12 = *(v5 + 8);
+  v12(v8, a3);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v12)(v11, a3);
 }
 
-uint64_t type metadata instantiation function for GlassGroup()
+uint64_t type metadata instantiation function for GlassGroup(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t sub_2560B04F8(uint64_t *a1)
+uint64_t sub_2560B04F8(void *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
   type metadata accessor for _GlassEffectContainer();
   type metadata accessor for _ConditionalContent();
   swift_getWitnessTable();
@@ -4461,7 +3762,6 @@ uint64_t sub_2560B04F8(uint64_t *a1)
 
 uint64_t LACUILockView_SwiftUI.viewModel.setter(uint64_t a1)
 {
-  v3 = *(v1 + 8);
 
   *(v1 + 8) = a1;
   return result;
@@ -4469,9 +3769,7 @@ uint64_t LACUILockView_SwiftUI.viewModel.setter(uint64_t a1)
 
 void LACUILockView_SwiftUI.$viewModel.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  type metadata accessor for LACUILockViewModel();
+  type metadata accessor for LACUILockViewModel(0);
   lazy protocol witness table accessor for type LACUILockViewModel and conformance LACUILockViewModel();
 
   JUMPOUT(0x259C58460);
@@ -4482,7 +3780,7 @@ unint64_t lazy protocol witness table accessor for type LACUILockViewModel and c
   result = lazy protocol witness table cache variable for type LACUILockViewModel and conformance LACUILockViewModel;
   if (!lazy protocol witness table cache variable for type LACUILockViewModel and conformance LACUILockViewModel)
   {
-    type metadata accessor for LACUILockViewModel();
+    type metadata accessor for LACUILockViewModel(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type LACUILockViewModel and conformance LACUILockViewModel);
   }
@@ -4490,21 +3788,14 @@ unint64_t lazy protocol witness table accessor for type LACUILockViewModel and c
   return result;
 }
 
-uint64_t LACUILockView_SwiftUI.init(viewModel:)@<X0>(uint64_t *a1@<X8>)
+uint64_t LACUILockView_SwiftUI.init(viewModel:)@<X0>(uint64_t *a2@<X8>)
 {
-  type metadata accessor for LACUILockViewModel();
+  type metadata accessor for LACUILockViewModel(0);
   lazy protocol witness table accessor for type LACUILockViewModel and conformance LACUILockViewModel();
   result = ObservedObject.init(wrappedValue:)();
-  *a1 = result;
-  a1[1] = v3;
+  *a2 = result;
+  a2[1] = v4;
   return result;
-}
-
-void LACUILockView_SwiftUI.updateUIView<A>(_:context:)(void *a1)
-{
-  v2 = *v1;
-  v3 = v1[1];
-  LACUILockView_SwiftUI.updateView<A>(_:context:)(a1);
 }
 
 void LACUILockView_SwiftUI.updateView<A>(_:context:)(void *a1)
@@ -4595,7 +3886,7 @@ uint64_t protocol witness for static View._makeViewList(view:inputs:) in conform
   return MEMORY[0x28212E358](a1, a2, a3, v6);
 }
 
-void protocol witness for View.body.getter in conformance LACUILockView_SwiftUI()
+void protocol witness for View.body.getter in conformance LACUILockView_SwiftUI(uint64_t a1)
 {
   lazy protocol witness table accessor for type LACUILockView_SwiftUI and conformance LACUILockView_SwiftUI();
   UIViewRepresentable.body.getter();
@@ -4605,7 +3896,6 @@ void protocol witness for View.body.getter in conformance LACUILockView_SwiftUI(
 uint64_t sub_2560B0B68(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
-  v4 = *(a2 + 8);
 
   *(a2 + 8) = v3;
   return result;
@@ -4613,56 +3903,53 @@ uint64_t sub_2560B0B68(uint64_t *a1, uint64_t a2)
 
 uint64_t specialized static LACUIAuthState.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for LACUIAuthCountdownConfiguration();
+  v4 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for LACUIAuthState();
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI14LACUIAuthStateO_ACtMd, &_s25LocalAuthenticationCoreUI14LACUIAuthStateO_ACtMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13 - 8);
-  v17 = &v22 - v16;
-  v18 = *(v15 + 56);
-  outlined init with copy of LACUIAuthState(a1, &v22 - v16);
-  outlined init with copy of LACUIAuthState(a2, &v17[v18]);
-  v19 = *(v5 + 48);
-  if (v19(v17, 1, v4) != 1)
+  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for LACUIAuthState(0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI14LACUIAuthStateO_ACtMd, &_s25LocalAuthenticationCoreUI14LACUIAuthStateO_ACtMR);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v14 = &v19 - v13;
+  v15 = *(v12 + 56);
+  outlined init with copy of LACUIAuthState(a1, &v19 - v13);
+  outlined init with copy of LACUIAuthState(a2, &v14[v15]);
+  v16 = *(v5 + 48);
+  if (v16(v14, 1, v4) != 1)
   {
-    outlined init with copy of LACUIAuthState(v17, v12);
-    if (v19(&v17[v18], 1, v4) != 1)
+    outlined init with copy of LACUIAuthState(v14, v10);
+    if (v16(&v14[v15], 1, v4) != 1)
     {
-      outlined init with take of LACUIAuthCountdownConfiguration(&v17[v18], v8);
-      v20 = specialized static LACUIAuthCountdownConfiguration.== infix(_:_:)(v12, v8);
-      outlined destroy of LACUIAuthCountdownConfiguration(v8, type metadata accessor for LACUIAuthCountdownConfiguration);
-      outlined destroy of LACUIAuthCountdownConfiguration(v12, type metadata accessor for LACUIAuthCountdownConfiguration);
-      outlined destroy of LACUIAuthCountdownConfiguration(v17, type metadata accessor for LACUIAuthState);
-      return v20 & 1;
+      outlined init with take of LACUIAuthCountdownConfiguration(&v14[v15], v7);
+      v17 = specialized static LACUIAuthCountdownConfiguration.== infix(_:_:)(v10, v7);
+      outlined destroy of LACUIAuthCountdownConfiguration(v7, type metadata accessor for LACUIAuthCountdownConfiguration);
+      outlined destroy of LACUIAuthCountdownConfiguration(v10, type metadata accessor for LACUIAuthCountdownConfiguration);
+      outlined destroy of LACUIAuthCountdownConfiguration(v14, type metadata accessor for LACUIAuthState);
+      return v17 & 1;
     }
 
-    outlined destroy of LACUIAuthCountdownConfiguration(v12, type metadata accessor for LACUIAuthCountdownConfiguration);
+    outlined destroy of LACUIAuthCountdownConfiguration(v10, type metadata accessor for LACUIAuthCountdownConfiguration);
     goto LABEL_6;
   }
 
-  if (v19(&v17[v18], 1, v4) != 1)
+  if (v16(&v14[v15], 1, v4) != 1)
   {
 LABEL_6:
-    outlined destroy of (LACUIAuthState, LACUIAuthState)(v17);
-    v20 = 0;
-    return v20 & 1;
+    outlined destroy of (LACUIAuthState, LACUIAuthState)(v14);
+    v17 = 0;
+    return v17 & 1;
   }
 
-  outlined destroy of LACUIAuthCountdownConfiguration(v17, type metadata accessor for LACUIAuthState);
-  v20 = 1;
-  return v20 & 1;
+  outlined destroy of LACUIAuthCountdownConfiguration(v14, type metadata accessor for LACUIAuthState);
+  v17 = 1;
+  return v17 & 1;
 }
 
 uint64_t sub_2560B0E64(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for LACUIAuthCountdownConfiguration();
+  v4 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   v5 = (*(*(v4 - 8) + 48))(a1, a2, v4);
   if (v5 >= 2)
   {
@@ -4687,13 +3974,13 @@ uint64_t sub_2560B0EE4(uint64_t a1, int a2, uint64_t a3)
     v5 = 0;
   }
 
-  v6 = type metadata accessor for LACUIAuthCountdownConfiguration();
+  v6 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   v7 = *(*(v6 - 8) + 56);
 
   return v7(a1, v5, a3, v6);
 }
 
-uint64_t type metadata accessor for LACUIAuthState()
+uint64_t type metadata accessor for LACUIAuthState(uint64_t a1)
 {
   result = type metadata singleton initialization cache for LACUIAuthState;
   if (!type metadata singleton initialization cache for LACUIAuthState)
@@ -4704,16 +3991,16 @@ uint64_t type metadata accessor for LACUIAuthState()
   return result;
 }
 
-uint64_t type metadata completion function for LACUIAuthState()
+uint64_t type metadata completion function for LACUIAuthState(uint64_t a1)
 {
-  v0 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  if (v1 <= 0x3F)
+  v1 = type metadata accessor for LACUIAuthCountdownConfiguration(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initEnumMetadataSinglePayloadWithLayoutString();
     return 0;
   }
 
-  return v0;
+  return v1;
 }
 
 uint64_t outlined destroy of (LACUIAuthState, LACUIAuthState)(uint64_t a1)
@@ -4730,24 +4017,17 @@ uint64_t outlined destroy of LACUIAuthCountdownConfiguration(uint64_t a1, uint64
   return a1;
 }
 
-uint64_t DynamicStack.init(spacing:content:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t DynamicStack.init(spacing:content:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  *a5 = a1;
-  *(a5 + 8) = a2 & 1;
-  *(a5 + 16) = a3;
-  *(a5 + 24) = a4;
-  v6 = *(type metadata accessor for DynamicStack() + 40);
-  *(a5 + v6) = swift_getKeyPath();
+  *a7 = a1;
+  *(a7 + 8) = a2 & 1;
+  *(a7 + 16) = a3;
+  *(a7 + 24) = a4;
+  v8 = *(type metadata accessor for DynamicStack(0, a5, a6, a4) + 40);
+  *(a7 + v8) = swift_getKeyPath();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMR);
 
   return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t DynamicStack.spacing.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
-  return result;
 }
 
 uint64_t DynamicStack.spacing.setter(uint64_t result, char a2)
@@ -4760,14 +4040,12 @@ uint64_t DynamicStack.spacing.setter(uint64_t result, char a2)
 uint64_t DynamicStack.content.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t DynamicStack.content.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
@@ -4776,7 +4054,7 @@ uint64_t DynamicStack.content.setter(uint64_t a1, uint64_t a2)
 
 uint64_t DynamicStack.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v19[1] = a2;
+  v17[1] = a2;
   v3 = *(a1 + 16);
   v4 = *(a1 + 24);
   type metadata accessor for VStack();
@@ -4784,76 +4062,71 @@ uint64_t DynamicStack.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   type metadata accessor for _ConditionalContent();
   v5 = type metadata accessor for Group();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = v19 - v11;
-  v19[4] = v3;
-  v19[5] = v4;
-  v20 = v2;
+  v7 = MEMORY[0x28223BE20](v5);
+  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = v17 - v10;
+  v17[4] = v3;
+  v17[5] = v4;
+  v18 = v2;
   WitnessTable = swift_getWitnessTable();
+  v13 = swift_getWitnessTable();
+  v20 = WitnessTable;
+  v21 = v13;
   v14 = swift_getWitnessTable();
-  v22 = WitnessTable;
-  v23 = v14;
-  v15 = swift_getWitnessTable();
   Group<A>.init(content:)();
-  v21 = v15;
-  v16 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v10, v5, v16);
-  v17 = *(v6 + 8);
-  v17(v10, v5);
-  static ViewBuilder.buildExpression<A>(_:)(v12, v5, v16);
-  return (v17)(v12, v5);
+  v19 = v14;
+  swift_getWitnessTable();
+  static ViewBuilder.buildExpression<A>(_:)();
+  v15 = *(v6 + 8);
+  v15(v9, v5);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v15)(v11, v5);
 }
 
-uint64_t closure #1 in DynamicStack.body.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t closure #1 in DynamicStack.body.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v70 = a3;
-  v5 = type metadata accessor for HStack();
-  v65 = *(v5 - 8);
-  v6 = *(v65 + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v64 = &v57 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = a4;
+  v6 = type metadata accessor for HStack();
+  v56 = *(v6 - 8);
+  v7 = MEMORY[0x28223BE20](v6);
+  v55 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = MEMORY[0x28223BE20](v7);
-  v61 = &v57 - v10;
+  v52 = &v48 - v10;
   MEMORY[0x28223BE20](v9);
-  v63 = &v57 - v11;
+  v54 = &v48 - v11;
   v12 = type metadata accessor for VStack();
-  v62 = *(v12 - 8);
-  v13 = *(v62 + 64);
-  v14 = MEMORY[0x28223BE20](v12);
-  v60 = &v57 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x28223BE20](v14);
-  v58 = &v57 - v17;
-  MEMORY[0x28223BE20](v16);
-  v59 = &v57 - v18;
-  v19 = type metadata accessor for DynamicTypeSize();
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 64);
-  v22 = MEMORY[0x28223BE20](v19);
-  v24 = &v57 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v22);
-  v26 = &v57 - v25;
-  v27 = type metadata accessor for _ConditionalContent();
-  v68 = *(v27 - 8);
-  v69 = v27;
-  v28 = *(v68 + 64);
-  MEMORY[0x28223BE20](v27);
-  v66 = a2;
-  v67 = &v57 - v29;
-  v30 = a1 + *(type metadata accessor for DynamicStack() + 40);
-  specialized Environment.wrappedValue.getter(v26);
-  (*(v20 + 104))(v24, *MEMORY[0x277CDFA10], v19);
+  v53 = *(v12 - 8);
+  v13 = MEMORY[0x28223BE20](v12);
+  v51 = &v48 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x28223BE20](v13);
+  v49 = &v48 - v16;
+  MEMORY[0x28223BE20](v15);
+  v50 = &v48 - v17;
+  v18 = type metadata accessor for DynamicTypeSize();
+  v19 = *(v18 - 8);
+  v20 = MEMORY[0x28223BE20](v18);
+  v22 = &v48 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20);
+  v24 = &v48 - v23;
+  v25 = type metadata accessor for _ConditionalContent();
+  v59 = *(v25 - 8);
+  v60 = v25;
+  MEMORY[0x28223BE20](v25);
+  v57 = a3;
+  v58 = &v48 - v26;
+  type metadata accessor for DynamicStack(0, a2, a3, v27);
+  specialized Environment.wrappedValue.getter(v24);
+  (*(v19 + 104))(v22, *MEMORY[0x277CDFA10], v18);
   lazy protocol witness table accessor for type DynamicTypeSize and conformance DynamicTypeSize();
-  LOBYTE(v30) = dispatch thunk of static Comparable.< infix(_:_:)();
-  v31 = *(v20 + 8);
-  v31(v24, v19);
-  v31(v26, v19);
-  v32 = static Solarium.isEnabled.getter();
-  if (v30)
+  v28 = dispatch thunk of static Comparable.< infix(_:_:)();
+  v29 = *(v19 + 8);
+  v29(v22, v18);
+  v29(v24, v18);
+  v30 = static Solarium.isEnabled.getter();
+  if (v28)
   {
-    if (v32)
+    if (v30)
     {
       static HorizontalAlignment.leading.getter();
     }
@@ -4863,29 +4136,25 @@ uint64_t closure #1 in DynamicStack.body.getter@<X0>(uint64_t *a1@<X0>, uint64_t
       static HorizontalAlignment.center.getter();
     }
 
-    v33 = v67;
-    v34 = *a1;
-    v35 = *(a1 + 8);
-    v36 = a1[2];
-    v37 = a1[3];
-    v38 = v58;
+    v31 = v58;
+    v32 = v49;
     VStack.init(alignment:spacing:content:)();
     WitnessTable = swift_getWitnessTable();
-    v40 = v59;
-    static ViewBuilder.buildExpression<A>(_:)(v38, v12, WitnessTable);
-    v41 = *(v62 + 8);
-    v41(v38, v12);
-    v42 = v60;
-    static ViewBuilder.buildExpression<A>(_:)(v40, v12, WitnessTable);
-    swift_getWitnessTable();
-    static ViewBuilder.buildEither<A, B>(first:)(v42, v12);
-    v41(v42, v12);
-    v41(v40, v12);
+    v34 = v50;
+    static ViewBuilder.buildExpression<A>(_:)();
+    v35 = *(v53 + 8);
+    v35(v32, v12);
+    v36 = v51;
+    static ViewBuilder.buildExpression<A>(_:)();
+    v37 = swift_getWitnessTable();
+    static ViewBuilder.buildEither<A, B>(first:)(v36, v12, v6, WitnessTable, v37);
+    v35(v36, v12);
+    v35(v34, v12);
   }
 
   else
   {
-    if (v32)
+    if (v30)
     {
       static VerticalAlignment.top.getter();
     }
@@ -4895,55 +4164,50 @@ uint64_t closure #1 in DynamicStack.body.getter@<X0>(uint64_t *a1@<X0>, uint64_t
       static VerticalAlignment.center.getter();
     }
 
-    v33 = v67;
-    v43 = *a1;
-    v44 = *(a1 + 8);
-    v45 = a1[2];
-    v46 = a1[3];
-    v47 = v61;
+    v31 = v58;
+    v38 = v52;
     HStack.init(alignment:spacing:content:)();
-    v48 = swift_getWitnessTable();
-    v49 = v63;
-    static ViewBuilder.buildExpression<A>(_:)(v47, v5, v48);
-    v50 = *(v65 + 8);
-    v50(v47, v5);
-    v51 = v64;
-    static ViewBuilder.buildExpression<A>(_:)(v49, v5, v48);
-    swift_getWitnessTable();
-    static ViewBuilder.buildEither<A, B>(second:)(v51, v12, v5);
-    v50(v51, v5);
-    v50(v49, v5);
+    v39 = swift_getWitnessTable();
+    v40 = v54;
+    static ViewBuilder.buildExpression<A>(_:)();
+    v41 = *(v56 + 8);
+    v41(v38, v6);
+    v42 = v55;
+    static ViewBuilder.buildExpression<A>(_:)();
+    v43 = swift_getWitnessTable();
+    static ViewBuilder.buildEither<A, B>(second:)(v42, v12, v6, v43, v39);
+    v41(v42, v6);
+    v41(v40, v6);
   }
 
-  v52 = swift_getWitnessTable();
-  v53 = swift_getWitnessTable();
-  v71 = v52;
-  v72 = v53;
-  v54 = v69;
-  v55 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v33, v54, v55);
-  return (*(v68 + 8))(v33, v54);
+  v44 = swift_getWitnessTable();
+  v45 = swift_getWitnessTable();
+  v62 = v44;
+  v63 = v45;
+  v46 = v60;
+  swift_getWitnessTable();
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (*(v59 + 8))(v31, v46);
 }
 
 uint64_t key path setter for EnvironmentValues.dynamicTypeSize : EnvironmentValues(uint64_t a1)
 {
   v2 = type metadata accessor for DynamicTypeSize();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2);
-  (*(v5 + 16))(&v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
+  (*(v4 + 16))(&v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
   return EnvironmentValues.dynamicTypeSize.setter();
 }
 
-void type metadata completion function for DynamicStack()
+void type metadata completion function for DynamicStack(uint64_t a1)
 {
   type metadata accessor for CGFloat?();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ()();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for Environment<DynamicTypeSize>();
-      if (v2 <= 0x3F)
+      type metadata accessor for Environment<DynamicTypeSize>(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -5018,23 +4282,21 @@ unint64_t type metadata accessor for ()()
   return result;
 }
 
-void type metadata accessor for Environment<DynamicTypeSize>()
+void type metadata accessor for Environment<DynamicTypeSize>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Environment<DynamicTypeSize>)
   {
     type metadata accessor for DynamicTypeSize();
-    v0 = type metadata accessor for Environment();
-    if (!v1)
+    v1 = type metadata accessor for Environment();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Environment<DynamicTypeSize>);
+      atomic_store(v1, &lazy cache variable for type metadata for Environment<DynamicTypeSize>);
     }
   }
 }
 
-uint64_t sub_2560B1F20(uint64_t *a1)
+uint64_t sub_2560B1F20(void *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
   type metadata accessor for VStack();
   type metadata accessor for HStack();
   type metadata accessor for _ConditionalContent();
@@ -5091,280 +4353,264 @@ uint64_t LACUIAuthCountdownItemView.configuration.getter@<X0>(uint64_t a1@<X8>)
   *(a1 + 40) = v7;
   *(a1 + 48) = v8;
 
-  outlined copy of LACUIAuthImageConfiguration();
+  outlined copy of LACUIAuthImageConfiguration(v4, v5);
 }
 
 uint64_t LACUIAuthCountdownItemView.body.getter()
 {
   v1 = type metadata accessor for AccessibilityChildBehavior();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x28223BE20](v1);
-  v5 = &v16[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v16[-v8 - 8];
+  v4 = &v14[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
+  MEMORY[0x28223BE20](v5);
+  v7 = &v14[-v6 - 8];
+  v8 = *(v0 + 16);
+  v15[0] = *v0;
+  v15[1] = v8;
+  v15[2] = *(v0 + 32);
+  v16 = *(v0 + 48);
+  v9 = swift_allocObject();
   v10 = *(v0 + 16);
-  v17[0] = *v0;
-  v17[1] = v10;
-  v17[2] = *(v0 + 32);
-  v18 = *(v0 + 48);
-  v11 = swift_allocObject();
-  v12 = *(v0 + 16);
-  *(v11 + 16) = *v0;
-  *(v11 + 32) = v12;
-  *(v11 + 48) = *(v0 + 32);
-  *(v11 + 64) = *(v0 + 48);
-  *v9 = 0;
-  v9[8] = 1;
-  *(v9 + 2) = partial apply for closure #1 in LACUIAuthCountdownItemView.body.getter;
-  *(v9 + 3) = v11;
-  v13 = *(v6 + 40);
-  *&v9[v13] = swift_getKeyPath();
+  *(v9 + 16) = *v0;
+  *(v9 + 32) = v10;
+  *(v9 + 48) = *(v0 + 32);
+  *(v9 + 64) = *(v0 + 48);
+  *v7 = 0;
+  v7[8] = 1;
+  *(v7 + 2) = partial apply for closure #1 in LACUIAuthCountdownItemView.body.getter;
+  *(v7 + 3) = v9;
+  v11 = *(v5 + 40);
+  *&v7[v11] = swift_getKeyPath();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMR);
   swift_storeEnumTagMultiPayload();
-  outlined init with copy of LACUIAuthCountdownItemView(v17, v16);
+  outlined init with copy of LACUIAuthCountdownItemView(v15, v14);
   static AccessibilityChildBehavior.combine.getter();
-  lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type DynamicStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _FlexFrameLayout>, AccessibilityAttachmentModifier>, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, _FlexFrameLayout>, _PaddingLayout>)>> and conformance DynamicStack<A>, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
+  lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type DynamicStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _FlexFrameLayout>, AccessibilityAttachmentModifier>, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, _FlexFrameLayout>, _PaddingLayout>)>> and conformance DynamicStack<A>, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR, &protocol conformance descriptor for DynamicStack<A>);
   View.accessibilityElement(children:)();
-  (*(v2 + 8))(v5, v1);
-  return outlined destroy of LACUIAuthCountdownDelayConfiguration?(v9, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
+  (*(v2 + 8))(v4, v1);
+  return outlined destroy of LACUIAuthCountdownDelayConfiguration?(v7, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
 }
 
 uint64_t closure #1 in LACUIAuthCountdownItemView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v70 = a2;
+  v63 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3);
-  v6 = &v64 - v5;
-  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMR);
-  v7 = *(*(v66 - 8) + 64);
-  MEMORY[0x28223BE20](v66);
-  v9 = &v64 - v8;
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMR);
-  v10 = *(*(v65 - 8) + 64);
-  MEMORY[0x28223BE20](v65);
-  v12 = &v64 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v64 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
-  v18 = *(*(v17 - 8) + 64);
-  v19 = MEMORY[0x28223BE20](v17 - 8);
-  v71 = &v64 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v19);
-  v67 = &v64 - v21;
-  v22 = *(a1 + 16);
-  v23 = *(a1 + 24);
-  v24 = *(a1 + 32);
-  v25 = *(a1 + 40);
-  v68 = *(a1 + 48);
-  v69 = v25;
-  if (v24)
+  v5 = &v57 - v4;
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMR);
+  MEMORY[0x28223BE20](v59);
+  v7 = &v57 - v6;
+  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMR);
+  MEMORY[0x28223BE20](v58);
+  v9 = &v57 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGMR);
+  MEMORY[0x28223BE20](v10);
+  v12 = &v57 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v64 = &v57 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v60 = &v57 - v16;
+  v17 = *(a1 + 32);
+  v18 = *(a1 + 40);
+  v61 = *(a1 + 48);
+  v62 = v18;
+  if (v17)
   {
 
-    v26 = Image.init(_internalSystemName:)();
+    v19 = Image.init(_internalSystemName:)();
   }
 
   else
   {
-    v27 = one-time initialization token for current;
+    v20 = one-time initialization token for current;
 
-    if (v27 != -1)
+    if (v20 != -1)
     {
       swift_once();
     }
 
-    v28 = static NSBundle.current;
-    v26 = Image.init(_:bundle:)();
+    v21 = static NSBundle.current;
+    v19 = Image.init(_:bundle:)();
   }
 
-  v29 = v26;
-  v30 = &v6[*(v3 + 36)];
-  v31 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGMR) + 28);
+  v22 = v19;
+  v23 = &v5[*(v3 + 36)];
+  v24 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGMR) + 28);
   static SymbolRenderingMode.monochrome.getter();
-  v32 = type metadata accessor for SymbolRenderingMode();
-  (*(*(v32 - 8) + 56))(v30 + v31, 0, 1, v32);
-  *v30 = swift_getKeyPath();
-  *v6 = v29;
-  *(v6 + 1) = 0;
-  *(v6 + 8) = 1;
-  v33 = static Color.accentColor.getter();
-  outlined init with take of DynamicStack<TupleView<(ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, Spacer, TimelineView<PeriodicTimelineSchedule, ModifiedContent<Text, AccessibilityAttachmentModifier>>)>>(v6, v9, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGMR);
-  *&v9[*(v66 + 36)] = v33;
-  v34 = static Font.title.getter();
+  v25 = type metadata accessor for SymbolRenderingMode();
+  (*(*(v25 - 8) + 56))(v23 + v24, 0, 1, v25);
+  *v23 = swift_getKeyPath();
+  *v5 = v22;
+  *(v5 + 1) = 0;
+  *(v5 + 8) = 1;
+  v26 = static Color.accentColor.getter();
+  outlined init with take of DynamicStack<TupleView<(ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, Spacer, TimelineView<PeriodicTimelineSchedule, ModifiedContent<Text, AccessibilityAttachmentModifier>>)>>(v5, v7, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGMR);
+  *&v7[*(v59 + 36)] = v26;
+  v27 = static Font.title.getter();
   KeyPath = swift_getKeyPath();
-  outlined init with take of DynamicStack<TupleView<(ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, Spacer, TimelineView<PeriodicTimelineSchedule, ModifiedContent<Text, AccessibilityAttachmentModifier>>)>>(v9, v12, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMR);
-  v36 = &v12[*(v65 + 36)];
-  *v36 = KeyPath;
-  v36[1] = v34;
+  outlined init with take of DynamicStack<TupleView<(ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, Spacer, TimelineView<PeriodicTimelineSchedule, ModifiedContent<Text, AccessibilityAttachmentModifier>>)>>(v7, v9, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMR);
+  v29 = &v9[*(v58 + 36)];
+  *v29 = KeyPath;
+  v29[1] = v27;
   static Alignment.center.getter();
   _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-  outlined init with take of DynamicStack<TupleView<(ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, Spacer, TimelineView<PeriodicTimelineSchedule, ModifiedContent<Text, AccessibilityAttachmentModifier>>)>>(v12, v16, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMR);
-  v37 = &v16[*(v13 + 36)];
-  v38 = v101;
-  v39 = v103;
-  *(v37 + 4) = v102;
-  *(v37 + 5) = v39;
-  *(v37 + 6) = v104;
-  v40 = v99;
-  *v37 = v98;
-  *(v37 + 1) = v40;
-  *(v37 + 2) = v100;
-  *(v37 + 3) = v38;
+  outlined init with take of DynamicStack<TupleView<(ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, Spacer, TimelineView<PeriodicTimelineSchedule, ModifiedContent<Text, AccessibilityAttachmentModifier>>)>>(v9, v12, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMR);
+  v30 = &v12[*(v10 + 36)];
+  v31 = v94;
+  v32 = v96;
+  *(v30 + 4) = v95;
+  *(v30 + 5) = v32;
+  *(v30 + 6) = v97;
+  v33 = v92;
+  *v30 = v91;
+  *(v30 + 1) = v33;
+  *(v30 + 2) = v93;
+  *(v30 + 3) = v31;
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
-  v41 = v67;
+  v34 = v60;
   View.accessibilityHidden(_:)();
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v16, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGMR);
-  v42 = swift_getKeyPath();
-  v66 = v42;
-  v43 = v68;
+  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v12, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGMR);
+  v35 = swift_getKeyPath();
+  v59 = v35;
+  v36 = v61;
 
   static Alignment.center.getter();
   _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-  *&v95[55] = v108;
-  *&v95[71] = v109;
-  *&v95[87] = v110;
-  *&v95[103] = v111;
-  *&v95[7] = v105;
-  *&v95[23] = v106;
-  v96 = 0;
-  *&v95[39] = v107;
-  v44 = static Edge.Set.all.getter();
+  *&v88[55] = v98[3];
+  *&v88[71] = v98[4];
+  *&v88[87] = v98[5];
+  *&v88[103] = v98[6];
+  *&v88[7] = v98[0];
+  *&v88[23] = v98[1];
+  v89 = 0;
+  *&v88[39] = v98[2];
+  v37 = static Edge.Set.all.getter();
   EdgeInsets.init(_all:)();
-  v46 = v45;
-  v48 = v47;
-  v50 = v49;
-  v52 = v51;
-  v97 = 0;
-  v53 = v71;
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v41, v71, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
-  v54 = v70;
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v53, v70, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
-  v55 = (v54 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VG_ACyACyACyAA4TextVAJyAA0X9AlignmentOGGA0_GAA08_PaddingH0VGtMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VG_ACyACyACyAA4TextVAJyAA0X9AlignmentOGGA0_GAA08_PaddingH0VGtMR) + 48));
-  v56 = v69;
-  *&v72 = v69;
-  *(&v72 + 1) = v43;
-  LOBYTE(v73) = 0;
-  *(&v73 + 1) = MEMORY[0x277D84F90];
-  *&v74[0] = v42;
-  BYTE8(v74[0]) = 0;
-  *(&v74[4] + 9) = *&v95[64];
-  *(&v74[5] + 9) = *&v95[80];
-  *(&v74[6] + 9) = *&v95[96];
-  *(&v74[7] + 1) = *&v95[111];
-  *(v74 + 9) = *v95;
-  *(&v74[1] + 9) = *&v95[16];
-  *(&v74[2] + 9) = *&v95[32];
-  *(&v74[3] + 9) = *&v95[48];
-  LOBYTE(v75) = v44;
-  *(&v75 + 1) = v46;
-  *&v76[0] = v48;
-  *(&v76[0] + 1) = v50;
-  *&v76[1] = v52;
-  BYTE8(v76[1]) = 0;
-  v57 = v74[1];
-  v55[2] = v74[0];
-  v55[3] = v57;
-  v58 = v74[5];
-  v55[6] = v74[4];
-  v55[7] = v58;
-  v59 = v74[3];
-  v55[4] = v74[2];
-  v55[5] = v59;
-  v60 = v74[7];
-  v55[8] = v74[6];
-  v55[9] = v60;
-  v61 = v73;
-  *v55 = v72;
-  v55[1] = v61;
-  *(v55 + 185) = *(v76 + 9);
-  v62 = v76[0];
-  v55[10] = v75;
-  v55[11] = v62;
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v72, v77, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVyAA0E9AlignmentOGGAA16_FlexFrameLayoutVGAA08_PaddingM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVyAA0E9AlignmentOGGAA16_FlexFrameLayoutVGAA08_PaddingM0VGMR);
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v41, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
-  v86 = *&v95[64];
-  v87 = *&v95[80];
-  *v88 = *&v95[96];
-  v82 = *v95;
-  v83 = *&v95[16];
-  v84 = *&v95[32];
-  v77[0] = v56;
-  v77[1] = v43;
-  v78 = 0;
-  v79 = MEMORY[0x277D84F90];
-  v80 = v66;
-  v81 = 0;
-  *&v88[15] = *&v95[111];
-  v85 = *&v95[48];
-  v89 = v44;
-  v90 = v46;
-  v91 = v48;
-  v92 = v50;
-  v93 = v52;
-  v94 = 0;
-  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v77, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVyAA0E9AlignmentOGGAA16_FlexFrameLayoutVGAA08_PaddingM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVyAA0E9AlignmentOGGAA16_FlexFrameLayoutVGAA08_PaddingM0VGMR);
-  return outlined destroy of LACUIAuthCountdownDelayConfiguration?(v53, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
+  v45 = v44;
+  v90 = 0;
+  v46 = v64;
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v34, v64, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
+  v47 = v63;
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(v46, v63, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
+  v48 = (v47 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VG_ACyACyACyAA4TextVAJyAA0X9AlignmentOGGA0_GAA08_PaddingH0VGtMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VG_ACyACyACyAA4TextVAJyAA0X9AlignmentOGGA0_GAA08_PaddingH0VGtMR) + 48));
+  v49 = v62;
+  *&v65 = v62;
+  *(&v65 + 1) = v36;
+  LOBYTE(v66) = 0;
+  *(&v66 + 1) = MEMORY[0x277D84F90];
+  *&v67[0] = v35;
+  BYTE8(v67[0]) = 0;
+  *(&v67[4] + 9) = *&v88[64];
+  *(&v67[5] + 9) = *&v88[80];
+  *(&v67[6] + 9) = *&v88[96];
+  *(&v67[7] + 1) = *&v88[111];
+  *(v67 + 9) = *v88;
+  *(&v67[1] + 9) = *&v88[16];
+  *(&v67[2] + 9) = *&v88[32];
+  *(&v67[3] + 9) = *&v88[48];
+  LOBYTE(v68) = v37;
+  *(&v68 + 1) = v39;
+  *&v69[0] = v41;
+  *(&v69[0] + 1) = v43;
+  *&v69[1] = v45;
+  BYTE8(v69[1]) = 0;
+  v50 = v67[1];
+  v48[2] = v67[0];
+  v48[3] = v50;
+  v51 = v67[5];
+  v48[6] = v67[4];
+  v48[7] = v51;
+  v52 = v67[3];
+  v48[4] = v67[2];
+  v48[5] = v52;
+  v53 = v67[7];
+  v48[8] = v67[6];
+  v48[9] = v53;
+  v54 = v66;
+  *v48 = v65;
+  v48[1] = v54;
+  *(v48 + 185) = *(v69 + 9);
+  v55 = v69[0];
+  v48[10] = v68;
+  v48[11] = v55;
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(&v65, v70, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVyAA0E9AlignmentOGGAA16_FlexFrameLayoutVGAA08_PaddingM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVyAA0E9AlignmentOGGAA16_FlexFrameLayoutVGAA08_PaddingM0VGMR);
+  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v34, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
+  v79 = *&v88[64];
+  v80 = *&v88[80];
+  *v81 = *&v88[96];
+  v75 = *v88;
+  v76 = *&v88[16];
+  v77 = *&v88[32];
+  v70[0] = v49;
+  v70[1] = v36;
+  v71 = 0;
+  v72 = MEMORY[0x277D84F90];
+  v73 = v59;
+  v74 = 0;
+  *&v81[15] = *&v88[111];
+  v78 = *&v88[48];
+  v82 = v37;
+  v83 = v39;
+  v84 = v41;
+  v85 = v43;
+  v86 = v45;
+  v87 = 0;
+  outlined destroy of LACUIAuthCountdownDelayConfiguration?(v70, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVyAA0E9AlignmentOGGAA16_FlexFrameLayoutVGAA08_PaddingM0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVyAA0E9AlignmentOGGAA16_FlexFrameLayoutVGAA08_PaddingM0VGMR);
+  return outlined destroy of LACUIAuthCountdownDelayConfiguration?(v46, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGAA010_FlexFrameH0VGAA023AccessibilityAttachmentL0VGMR);
 }
 
 uint64_t protocol witness for View.body.getter in conformance LACUIAuthCountdownItemView()
 {
   v1 = type metadata accessor for AccessibilityChildBehavior();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x28223BE20](v1);
-  v5 = &v16[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v16[-v8 - 8];
+  v4 = &v14[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
+  MEMORY[0x28223BE20](v5);
+  v7 = &v14[-v6 - 8];
+  v8 = *(v0 + 16);
+  v15[0] = *v0;
+  v15[1] = v8;
+  v15[2] = *(v0 + 32);
+  v16 = *(v0 + 48);
+  v9 = swift_allocObject();
   v10 = *(v0 + 16);
-  v17[0] = *v0;
-  v17[1] = v10;
-  v17[2] = *(v0 + 32);
-  v18 = *(v0 + 48);
-  v11 = swift_allocObject();
-  v12 = *(v0 + 16);
-  *(v11 + 16) = *v0;
-  *(v11 + 32) = v12;
-  *(v11 + 48) = *(v0 + 32);
-  *(v11 + 64) = *(v0 + 48);
-  *v9 = 0;
-  v9[8] = 1;
-  *(v9 + 2) = closure #1 in LACUIAuthCountdownItemView.body.getterpartial apply;
-  *(v9 + 3) = v11;
-  v13 = *(v6 + 40);
-  *&v9[v13] = swift_getKeyPath();
+  *(v9 + 16) = *v0;
+  *(v9 + 32) = v10;
+  *(v9 + 48) = *(v0 + 32);
+  *(v9 + 64) = *(v0 + 48);
+  *v7 = 0;
+  v7[8] = 1;
+  *(v7 + 2) = closure #1 in LACUIAuthCountdownItemView.body.getterpartial apply;
+  *(v7 + 3) = v9;
+  v11 = *(v5 + 40);
+  *&v7[v11] = swift_getKeyPath();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA15DynamicTypeSizeO_GMR);
   swift_storeEnumTagMultiPayload();
-  outlined init with copy of LACUIAuthCountdownItemView(v17, v16);
+  outlined init with copy of LACUIAuthCountdownItemView(v15, v14);
   static AccessibilityChildBehavior.combine.getter();
-  lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type DynamicStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _FlexFrameLayout>, AccessibilityAttachmentModifier>, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, _FlexFrameLayout>, _PaddingLayout>)>> and conformance DynamicStack<A>, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
+  lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type DynamicStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _FlexFrameLayout>, AccessibilityAttachmentModifier>, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, _FlexFrameLayout>, _PaddingLayout>)>> and conformance DynamicStack<A>, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR, &protocol conformance descriptor for DynamicStack<A>);
   View.accessibilityElement(children:)();
-  (*(v2 + 8))(v5, v1);
-  return outlined destroy of LACUIAuthCountdownDelayConfiguration?(v9, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
+  (*(v2 + 8))(v4, v1);
+  return outlined destroy of LACUIAuthCountdownDelayConfiguration?(v7, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
 }
 
 uint64_t sub_2560B2CE0()
 {
   __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
-  lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type DynamicStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _FlexFrameLayout>, AccessibilityAttachmentModifier>, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, _FlexFrameLayout>, _PaddingLayout>)>> and conformance DynamicStack<A>, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR);
+  lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type DynamicStack<TupleView<(ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>>, _FlexFrameLayout>, AccessibilityAttachmentModifier>, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<TextAlignment>>, _FlexFrameLayout>, _PaddingLayout>)>> and conformance DynamicStack<A>, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMd, &_s25LocalAuthenticationCoreUI12DynamicStackVy05SwiftD09TupleViewVyAD15ModifiedContentVyAHyAHyAHyAHyAHyAD5ImageVAD18_AspectRatioLayoutVGAD30_EnvironmentKeyWritingModifierVyAD19SymbolRenderingModeVSgGGAD016_ForegroundStyleS0VyAD5ColorVGGAOyAD4FontVSgGGAD010_FlexFrameO0VGAD023AccessibilityAttachmentS0VG_AHyAHyAHyAD4TextVAOyAD13TextAlignmentOGGA5_GAD08_PaddingO0VGtGGMR, &protocol conformance descriptor for DynamicStack<A>);
   return swift_getOpaqueTypeConformance2();
 }
 
 uint64_t objectdestroyTm_1()
 {
-  v1 = *(v0 + 24);
 
-  v2 = *(v0 + 32);
-  v3 = *(v0 + 40);
-  v4 = *(v0 + 48);
-  outlined consume of LACUIAuthImageConfiguration();
-  v5 = *(v0 + 64);
+  outlined consume of LACUIAuthImageConfiguration(*(v0 + 32), *(v0 + 40));
 
   return MEMORY[0x2821FE8E8](v0, 72, 7);
 }
@@ -5379,9 +4625,8 @@ uint64_t key path getter for EnvironmentValues.multilineTextAlignment : Environm
 uint64_t key path setter for EnvironmentValues.symbolRenderingMode : EnvironmentValues, serialized(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19SymbolRenderingModeVSgMd, &_s7SwiftUI19SymbolRenderingModeVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(a1, &v6 - v4, &_s7SwiftUI19SymbolRenderingModeVSgMd, &_s7SwiftUI19SymbolRenderingModeVSgMR);
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?(a1, &v5 - v3, &_s7SwiftUI19SymbolRenderingModeVSgMd, &_s7SwiftUI19SymbolRenderingModeVSgMR);
   return EnvironmentValues.symbolRenderingMode.setter();
 }
 
@@ -5406,7 +4651,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGAJyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, _s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, _s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5421,7 +4666,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGAA016_ForegroundStyleL0VyAA5ColorVGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMd, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMd, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMR, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5436,7 +4681,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA18_AspectRatioLayoutVGAA30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Image, _AspectRatioLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<SymbolRenderingMode?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<SymbolRenderingMode?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA19SymbolRenderingModeVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Image, _AspectRatioLayout>, _EnvironmentKeyWritingModifier<SymbolRenderingMode?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5454,80 +4699,72 @@ uint64_t sub_2560B31C8@<X0>(_BYTE *a1@<X8>)
 uint64_t LACUIDTOViewController.__allocating_init(configuration:handler:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v28 = a1;
-  v8 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  v9 = *(*(v8 - 8) + 64);
+  v23 = a1;
+  v8 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for LACUIAuthCountdownView();
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v12);
-  v17 = &v27 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15);
-  v19 = (&v27 - v18);
-  v20 = objc_allocWithZone(v4);
-  *&v20[direct field offset for LACUIDTOViewController.handler + 8] = 0;
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for LACUIAuthCountdownView(0);
+  v12 = v11 - 8;
+  v13 = MEMORY[0x28223BE20](v11);
+  v15 = &v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v17 = (&v22 - v16);
+  v18 = objc_allocWithZone(v4);
+  *&v18[direct field offset for LACUIDTOViewController.handler + 8] = 0;
   swift_unknownObjectWeakInit();
-  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(a1, v11, type metadata accessor for LACUIAuthCountdownConfiguration);
-  v21 = type metadata accessor for LACUIAuthCountdownViewModel();
-  v22 = *(v21 + 48);
-  v23 = *(v21 + 52);
+  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(a1, v10, type metadata accessor for LACUIAuthCountdownConfiguration);
+  type metadata accessor for LACUIAuthCountdownViewModel(0);
   swift_allocObject();
   swift_unknownObjectRetain();
-  LACUIAuthCountdownViewModel.init(configuration:handler:)(v11, a2, a3);
-  *(v19 + *(v13 + 28)) = swift_getKeyPath();
+  LACUIAuthCountdownViewModel.init(configuration:handler:)(v10, a2, a3);
+  *(v17 + *(v12 + 28)) = swift_getKeyPath();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   swift_storeEnumTagMultiPayload();
   lazy protocol witness table accessor for type LACUIAuthCountdownViewModel and conformance LACUIAuthCountdownViewModel();
-  *v19 = ObservedObject.init(wrappedValue:)();
-  v19[1] = v24;
-  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(v19, v17, type metadata accessor for LACUIAuthCountdownView);
-  v25 = UIHostingController.init(rootView:)();
-  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOhTm_0(v28, type metadata accessor for LACUIAuthCountdownConfiguration);
-  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOhTm_0(v19, type metadata accessor for LACUIAuthCountdownView);
-  *(v25 + direct field offset for LACUIDTOViewController.handler + 8) = a3;
+  *v17 = ObservedObject.init(wrappedValue:)();
+  v17[1] = v19;
+  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(v17, v15, type metadata accessor for LACUIAuthCountdownView);
+  v20 = UIHostingController.init(rootView:)();
+  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOhTm_0(v23, type metadata accessor for LACUIAuthCountdownConfiguration);
+  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOhTm_0(v17, type metadata accessor for LACUIAuthCountdownView);
+  *(v20 + direct field offset for LACUIDTOViewController.handler + 8) = a3;
   swift_unknownObjectWeakAssign();
   swift_unknownObjectRelease();
-  return v25;
+  return v20;
 }
 
 uint64_t LACUIDTOViewController.init(configuration:handler:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  v8 = *(*(v7 - 8) + 64);
+  v7 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for LACUIAuthCountdownView();
-  v12 = v11 - 8;
-  v13 = *(*(v11 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v11);
-  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14);
-  v18 = (&v25 - v17);
+  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for LACUIAuthCountdownView(0);
+  v11 = v10 - 8;
+  v12 = MEMORY[0x28223BE20](v10);
+  v14 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v16 = (&v20 - v15);
   *(v3 + direct field offset for LACUIDTOViewController.handler + 8) = 0;
   swift_unknownObjectWeakInit();
-  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(a1, v10, type metadata accessor for LACUIAuthCountdownConfiguration);
-  v19 = type metadata accessor for LACUIAuthCountdownViewModel();
-  v20 = *(v19 + 48);
-  v21 = *(v19 + 52);
+  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(a1, v9, type metadata accessor for LACUIAuthCountdownConfiguration);
+  type metadata accessor for LACUIAuthCountdownViewModel(0);
   swift_allocObject();
   swift_unknownObjectRetain();
-  LACUIAuthCountdownViewModel.init(configuration:handler:)(v10, a2, a3);
-  *(v18 + *(v12 + 28)) = swift_getKeyPath();
+  LACUIAuthCountdownViewModel.init(configuration:handler:)(v9, a2, a3);
+  *(v16 + *(v11 + 28)) = swift_getKeyPath();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   swift_storeEnumTagMultiPayload();
   lazy protocol witness table accessor for type LACUIAuthCountdownViewModel and conformance LACUIAuthCountdownViewModel();
-  *v18 = ObservedObject.init(wrappedValue:)();
-  v18[1] = v22;
-  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(v18, v16, type metadata accessor for LACUIAuthCountdownView);
-  v23 = UIHostingController.init(rootView:)();
+  *v16 = ObservedObject.init(wrappedValue:)();
+  v16[1] = v17;
+  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(v16, v14, type metadata accessor for LACUIAuthCountdownView);
+  v18 = UIHostingController.init(rootView:)();
   _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOhTm_0(a1, type metadata accessor for LACUIAuthCountdownConfiguration);
-  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOhTm_0(v18, type metadata accessor for LACUIAuthCountdownView);
-  *(v23 + direct field offset for LACUIDTOViewController.handler + 8) = a3;
+  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOhTm_0(v16, type metadata accessor for LACUIAuthCountdownView);
+  *(v18 + direct field offset for LACUIDTOViewController.handler + 8) = a3;
   swift_unknownObjectWeakAssign();
   swift_unknownObjectRelease();
-  return v23;
+  return v18;
 }
 
 id LACUIDTOViewController.__allocating_init(coder:)(void *a1)
@@ -5556,30 +4793,26 @@ void @objc LACUIDTOViewController.init(coder:)(uint64_t a1)
 uint64_t LACUIDTOViewController.refresh(with:)(uint64_t a1)
 {
   v2 = v1;
-  v4 = type metadata accessor for LACUIAuthCountdownConfiguration();
-  v5 = *(*(v4 - 8) + 64);
+  v4 = type metadata accessor for LACUIAuthCountdownConfiguration(0);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v19[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(a1, v7, type metadata accessor for LACUIAuthCountdownConfiguration);
-  v8 = v2 + direct field offset for LACUIDTOViewController.handler;
+  v6 = &v14[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOcTm_0(a1, v6, type metadata accessor for LACUIAuthCountdownConfiguration);
+  v7 = v2 + direct field offset for LACUIDTOViewController.handler;
   Strong = swift_unknownObjectWeakLoadStrong();
-  v10 = *(v8 + 8);
-  v11 = type metadata accessor for LACUIAuthCountdownViewModel();
-  v12 = *(v11 + 48);
-  v13 = *(v11 + 52);
+  v9 = *(v7 + 8);
+  type metadata accessor for LACUIAuthCountdownViewModel(0);
   swift_allocObject();
-  v14 = LACUIAuthCountdownViewModel.init(configuration:handler:)(v7, Strong, v10);
-  v15 = dispatch thunk of UIHostingController.rootView.modify();
-  v17 = *(v16 + 8);
-  *(v16 + 8) = v14;
+  v10 = LACUIAuthCountdownViewModel.init(configuration:handler:)(v6, Strong, v9);
+  v11 = dispatch thunk of UIHostingController.rootView.modify();
+  *(v12 + 8) = v10;
 
-  return v15(v19, 0);
+  return v11(v14, 0);
 }
 
 id LACUIDTOViewController.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for LACUIDTOViewController();
+  v2.super_class = type metadata accessor for LACUIDTOViewController(0);
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
@@ -5588,7 +4821,7 @@ unint64_t lazy protocol witness table accessor for type LACUIAuthCountdownViewMo
   result = lazy protocol witness table cache variable for type LACUIAuthCountdownViewModel and conformance LACUIAuthCountdownViewModel;
   if (!lazy protocol witness table cache variable for type LACUIAuthCountdownViewModel and conformance LACUIAuthCountdownViewModel)
   {
-    type metadata accessor for LACUIAuthCountdownViewModel();
+    type metadata accessor for LACUIAuthCountdownViewModel(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type LACUIAuthCountdownViewModel and conformance LACUIAuthCountdownViewModel);
   }
@@ -5610,7 +4843,7 @@ uint64_t _s25LocalAuthenticationCoreUI31LACUIAuthCountdownConfigurationVWOhTm_0(
   return a1;
 }
 
-uint64_t type metadata accessor for LACUIDTOViewController()
+uint64_t type metadata accessor for LACUIDTOViewController(uint64_t a1)
 {
   result = type metadata singleton initialization cache for LACUIDTOViewController;
   if (!type metadata singleton initialization cache for LACUIDTOViewController)
@@ -5621,123 +4854,116 @@ uint64_t type metadata accessor for LACUIDTOViewController()
   return result;
 }
 
-uint64_t static ViewBuilder.buildEither<A, B>(first:)(uint64_t a1, uint64_t a2)
+uint64_t static ViewBuilder.buildEither<A, B>(first:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = type metadata accessor for _ConditionalContent.Storage();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4);
-  (*(*(a2 - 8) + 16))(&v8 - v6, a1, a2);
+  v7 = type metadata accessor for _ConditionalContent.Storage();
+  MEMORY[0x28223BE20](v7);
+  (*(*(a2 - 8) + 16))(&v10 - v8, a1, a2);
   swift_storeEnumTagMultiPayload();
   return _ConditionalContent<>.init(storage:)();
 }
 
-uint64_t static ViewBuilder.buildEither<A, B>(second:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t static ViewBuilder.buildEither<A, B>(second:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = type metadata accessor for _ConditionalContent.Storage();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5);
-  (*(*(a3 - 8) + 16))(&v9 - v7, a1, a3);
+  v7 = type metadata accessor for _ConditionalContent.Storage();
+  MEMORY[0x28223BE20](v7);
+  (*(*(a3 - 8) + 16))(&v10 - v8, a1, a3);
   swift_storeEnumTagMultiPayload();
   return _ConditionalContent<>.init(storage:)();
 }
 
-uint64_t View.embedInGlassGroup()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+void View.embedInGlassGroup()(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v6 = *(a1 - 8);
   v7 = *(v6 + 64);
   MEMORY[0x28223BE20](a1);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v6 + 16))(v8, v9, a1);
-  v10 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 16) = a1;
-  *(v11 + 24) = a2;
-  (*(v6 + 32))(v11 + v10, v8, a1);
-  result = GlassGroup.init(content:)(partial apply for closure #1 in View.embedInGlassGroup(), v11, a1, a2);
-  *a3 = result;
-  a3[1] = v13;
-  return result;
+  (*(v6 + 16))(&v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v8, a1);
+  v9 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+  v10 = swift_allocObject();
+  *(v10 + 16) = a1;
+  *(v10 + 24) = a2;
+  (*(v6 + 32))(v10 + v9, &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
+  GlassGroup.init(content:)();
+  *a3 = v11;
+  a3[1] = v12;
 }
 
 uint64_t View.embedInNavigationStack(if:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  LODWORD(v34) = a1;
-  v37 = a4;
+  LODWORD(v33) = a1;
+  v36 = a4;
   v6 = *(a2 - 8);
-  v7 = v6[8];
-  v8 = MEMORY[0x28223BE20](a1);
-  v10 = &v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v33 - v11;
+  v7 = MEMORY[0x28223BE20](a1);
+  v9 = &v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v32 - v10;
   type metadata accessor for NavigationPath();
-  v38 = a3;
-  v13 = type metadata accessor for NavigationStack();
-  v14 = *(v13 - 8);
-  v15 = v14[8];
-  v16 = MEMORY[0x28223BE20](v13);
-  v18 = &v33 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v33 - v19;
-  v21 = type metadata accessor for _ConditionalContent();
-  v36 = *(v21 - 8);
-  v22 = *(v36 + 64);
-  v23 = MEMORY[0x28223BE20](v21);
-  v25 = &v33 - v24;
-  if (v34)
+  v37 = a3;
+  v12 = type metadata accessor for NavigationStack();
+  v13 = *(v12 - 8);
+  v14 = MEMORY[0x28223BE20](v12);
+  v16 = &v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v32 - v17;
+  v19 = type metadata accessor for _ConditionalContent();
+  v35 = *(v19 - 8);
+  v20 = MEMORY[0x28223BE20](v19);
+  v22 = &v32 - v21;
+  if (v33)
   {
-    MEMORY[0x28223BE20](v23);
-    v34 = v21;
-    v26 = v38;
-    *(&v33 - 4) = a2;
-    *(&v33 - 3) = v26;
-    *(&v33 - 2) = WitnessTable;
+    MEMORY[0x28223BE20](v20);
+    v33 = v19;
+    v23 = v37;
+    *(&v32 - 4) = a2;
+    *(&v32 - 3) = v23;
+    *(&v32 - 2) = WitnessTable;
     NavigationStack.init<>(root:)();
     WitnessTable = swift_getWitnessTable();
-    v27 = v14[2];
-    v27(v20, v18, v13);
-    v28 = v14[1];
-    v28(v18, v13);
-    v27(v18, v20, v13);
-    v21 = v34;
-    static ViewBuilder.buildEither<A, B>(first:)(v18, v13);
-    v28(v18, v13);
-    v28(v20, v13);
+    v24 = *(v13 + 16);
+    v24(v18, v16, v12);
+    v25 = *(v13 + 8);
+    v25(v16, v12);
+    v24(v16, v18, v12);
+    v26 = v23;
+    v19 = v33;
+    static ViewBuilder.buildEither<A, B>(first:)(v16, v12, a2, WitnessTable, v26);
+    v25(v16, v12);
+    v25(v18, v12);
   }
 
   else
   {
-    v29 = v6[2];
-    v29(v12, WitnessTable, a2);
-    v29(v10, v12, a2);
-    swift_getWitnessTable();
-    static ViewBuilder.buildEither<A, B>(second:)(v10, v13, a2);
-    v30 = v6[1];
-    v30(v10, a2);
-    v30(v12, a2);
+    v27 = *(v6 + 16);
+    v27(v11, WitnessTable, a2);
+    v27(v9, v11, a2);
+    v28 = swift_getWitnessTable();
+    static ViewBuilder.buildEither<A, B>(second:)(v9, v12, a2, v28, v37);
+    v29 = *(v6 + 8);
+    v29(v9, a2);
+    v29(v11, a2);
   }
 
-  v39 = swift_getWitnessTable();
-  v40 = v38;
+  v38 = swift_getWitnessTable();
+  v39 = v37;
   swift_getWitnessTable();
-  v31 = v36;
-  (*(v36 + 16))(v37, v25, v21);
-  return (*(v31 + 8))(v25, v21);
+  v30 = v35;
+  (*(v35 + 16))(v36, v22, v19);
+  return (*(v30 + 8))(v22, v19);
 }
 
 uint64_t EmbedInScrollViewIfNeededModifier.body(content:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, void *a3@<X8>)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v14 - v9;
-  (*(v7 + 16))(&v14 - v9, a1, v6);
-  v11 = (*(v7 + 80) + 17) & ~*(v7 + 80);
-  v12 = swift_allocObject();
-  *(v12 + 16) = a2;
-  result = (*(v7 + 32))(v12 + v11, v10, v6);
+  v9 = &v13 - v8;
+  (*(v7 + 16))(&v13 - v8, a1, v6);
+  v10 = (*(v7 + 80) + 17) & ~*(v7 + 80);
+  v11 = swift_allocObject();
+  *(v11 + 16) = a2;
+  result = (*(v7 + 32))(v11 + v10, v9, v6);
   *a3 = partial apply for closure #1 in EmbedInScrollViewIfNeededModifier.body(content:);
-  a3[1] = v12;
+  a3[1] = v11;
   return result;
 }
 
@@ -5745,22 +4971,20 @@ uint64_t closure #1 in EmbedInScrollViewIfNeededModifier.body(content:)(uint64_t
 {
   v6 = type metadata accessor for ScrollBounceBehavior();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v18[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10ScrollViewVyAA19_ConditionalContentVyAA08ModifiedF0VyAA01_d9Modifier_F0Vy023LocalAuthenticationCoreB007EmbedIncd8IfNeededH0VGAA16_FlexFrameLayoutVGAMGGMd, &_s7SwiftUI10ScrollViewVyAA19_ConditionalContentVyAA08ModifiedF0VyAA01_d9Modifier_F0Vy023LocalAuthenticationCoreB007EmbedIncd8IfNeededH0VGAA16_FlexFrameLayoutVGAMGGMR);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v18[-v14];
-  v18[16] = a2;
-  v19 = a3;
-  v20 = a1;
+  v9 = &v16[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI10ScrollViewVyAA19_ConditionalContentVyAA08ModifiedF0VyAA01_d9Modifier_F0Vy023LocalAuthenticationCoreB007EmbedIncd8IfNeededH0VGAA16_FlexFrameLayoutVGAMGGMd, &_s7SwiftUI10ScrollViewVyAA19_ConditionalContentVyAA08ModifiedF0VyAA01_d9Modifier_F0Vy023LocalAuthenticationCoreB007EmbedIncd8IfNeededH0VGAA16_FlexFrameLayoutVGAMGGMR);
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v16[-v12];
+  v16[16] = a2;
+  v17 = a3;
+  v18 = a1;
   static Axis.Set.vertical.getter();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrollf8IfNeededG0VGAA16_FlexFrameLayoutVGAKGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrollf8IfNeededG0VGAA16_FlexFrameLayoutVGAKGMR);
   lazy protocol witness table accessor for type _ConditionalContent<ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>, _ViewModifier_Content<EmbedInScrollViewIfNeededModifier>> and conformance <> _ConditionalContent<A, B>();
-  v16 = ScrollView.init(_:showsIndicators:content:)();
-  MEMORY[0x259C58800](v16);
+  v14 = ScrollView.init(_:showsIndicators:content:)();
+  MEMORY[0x259C58800](v14);
   LOBYTE(a1) = static Axis.Set.vertical.getter();
   Axis.Set.init(rawValue:)();
   Axis.Set.init(rawValue:)();
@@ -5769,58 +4993,56 @@ uint64_t closure #1 in EmbedInScrollViewIfNeededModifier.body(content:)(uint64_t
     Axis.Set.init(rawValue:)();
   }
 
-  lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ScrollView<_ConditionalContent<ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>, _ViewModifier_Content<EmbedInScrollViewIfNeededModifier>>> and conformance ScrollView<A>, &_s7SwiftUI10ScrollViewVyAA19_ConditionalContentVyAA08ModifiedF0VyAA01_d9Modifier_F0Vy023LocalAuthenticationCoreB007EmbedIncd8IfNeededH0VGAA16_FlexFrameLayoutVGAMGGMd, &_s7SwiftUI10ScrollViewVyAA19_ConditionalContentVyAA08ModifiedF0VyAA01_d9Modifier_F0Vy023LocalAuthenticationCoreB007EmbedIncd8IfNeededH0VGAA16_FlexFrameLayoutVGAMGGMR);
+  lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type ScrollView<_ConditionalContent<ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>, _ViewModifier_Content<EmbedInScrollViewIfNeededModifier>>> and conformance ScrollView<A>, &_s7SwiftUI10ScrollViewVyAA19_ConditionalContentVyAA08ModifiedF0VyAA01_d9Modifier_F0Vy023LocalAuthenticationCoreB007EmbedIncd8IfNeededH0VGAA16_FlexFrameLayoutVGAMGGMd, &_s7SwiftUI10ScrollViewVyAA19_ConditionalContentVyAA08ModifiedF0VyAA01_d9Modifier_F0Vy023LocalAuthenticationCoreB007EmbedIncd8IfNeededH0VGAA16_FlexFrameLayoutVGAMGGMR, MEMORY[0x277CDD6E0]);
   View.scrollBounceBehavior(_:axes:)();
-  (*(v7 + 8))(v10, v6);
-  return (*(v12 + 8))(v15, v11);
+  (*(v7 + 8))(v9, v6);
+  return (*(v11 + 8))(v13, v10);
 }
 
 uint64_t closure #1 in closure #1 in EmbedInScrollViewIfNeededModifier.body(content:)(char a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrollg8IfNeededH0VGAA16_FlexFrameLayoutVGAM_GMd, _s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrollg8IfNeededH0VGAA16_FlexFrameLayoutVGAM_GMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4);
-  v7 = v22 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrolle8IfNeededF0VGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrolle8IfNeededF0VGAA16_FlexFrameLayoutVGMR);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x28223BE20](v8);
-  v12 = v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = v22 - v13;
+  v6 = v20 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrolle8IfNeededF0VGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrolle8IfNeededF0VGAA16_FlexFrameLayoutVGMR);
+  v8 = MEMORY[0x28223BE20](v7);
+  v10 = v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = v20 - v11;
   if (a1)
   {
     GeometryProxy.size.getter();
     static Alignment.center.getter();
     _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
-    (*(*(v15 - 8) + 16))(v12, a2, v15);
-    v16 = &v12[*(v8 + 36)];
-    v17 = v22[6];
-    *(v16 + 4) = v22[5];
-    *(v16 + 5) = v17;
-    *(v16 + 6) = v22[7];
-    v18 = v22[2];
-    *v16 = v22[1];
-    *(v16 + 1) = v18;
-    v19 = v22[4];
-    *(v16 + 2) = v22[3];
-    *(v16 + 3) = v19;
-    outlined init with take of ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>(v12, v14);
-    outlined init with copy of ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>(v14, v7);
+    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
+    (*(*(v13 - 8) + 16))(v10, a2, v13);
+    v14 = &v10[*(v7 + 36)];
+    v15 = v20[6];
+    *(v14 + 4) = v20[5];
+    *(v14 + 5) = v15;
+    *(v14 + 6) = v20[7];
+    v16 = v20[2];
+    *v14 = v20[1];
+    *(v14 + 1) = v16;
+    v17 = v20[4];
+    *(v14 + 2) = v20[3];
+    *(v14 + 3) = v17;
+    outlined init with take of ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>(v10, v12);
+    outlined init with copy of ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>(v12, v6);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<EmbedInScrollViewIfNeededModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<EmbedInScrollViewIfNeededModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR, MEMORY[0x277CE04B0]);
     _ConditionalContent<>.init(storage:)();
-    return outlined destroy of ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>(v14);
+    return outlined destroy of ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>(v12);
   }
 
   else
   {
-    v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
-    (*(*(v21 - 8) + 16))(v7, a2, v21);
+    v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
+    (*(*(v19 - 8) + 16))(v6, a2, v19);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<EmbedInScrollViewIfNeededModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<EmbedInScrollViewIfNeededModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR, MEMORY[0x277CE04B0]);
     return _ConditionalContent<>.init(storage:)();
   }
 }
@@ -5829,17 +5051,16 @@ uint64_t protocol witness for ViewModifier.body(content:) in conformance EmbedIn
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v14 - v8;
-  v10 = *v2;
-  (*(v6 + 16))(&v14 - v8, a1, v5);
-  v11 = (*(v6 + 80) + 17) & ~*(v6 + 80);
-  v12 = swift_allocObject();
-  *(v12 + 16) = v10;
-  result = (*(v6 + 32))(v12 + v11, v9, v5);
+  v8 = &v13 - v7;
+  v9 = *v2;
+  (*(v6 + 16))(&v13 - v7, a1, v5);
+  v10 = (*(v6 + 80) + 17) & ~*(v6 + 80);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v9;
+  result = (*(v6 + 32))(v11 + v10, v8, v5);
   *a2 = closure #1 in EmbedInScrollViewIfNeededModifier.body(content:)partial apply;
-  a2[1] = v12;
+  a2[1] = v11;
   return result;
 }
 
@@ -5857,13 +5078,12 @@ uint64_t sub_2560B4C8C()
 uint64_t closure #1 in View.embedInGlassGroup()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = *(a2 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](a1);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(v5 + 16);
-  v9(v8);
-  (v9)(a3, v8, a2);
-  return (*(v5 + 8))(v8, a2);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 16);
+  v8(v7);
+  (v8)(a3, v7, a2);
+  return (*(v5 + 8))(v7, a2);
 }
 
 uint64_t getEnumTagSinglePayload for EmbedInScrollViewIfNeededModifier(unsigned __int8 *a1, unsigned int a2)
@@ -5939,28 +5159,22 @@ LABEL_17:
   return (v8 + 1);
 }
 
-uint64_t sub_2560B4F84(uint64_t *a1)
+uint64_t sub_2560B4F84(void *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
   type metadata accessor for ModifiedContent();
   lazy protocol witness table accessor for type EmbedInScrollViewIfNeededModifier and conformance EmbedInScrollViewIfNeededModifier();
   return swift_getWitnessTable();
 }
 
-uint64_t sub_2560B4FE8(uint64_t *a1)
+uint64_t sub_2560B4FE8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  type metadata accessor for GlassGroup();
+  type metadata accessor for GlassGroup(255, *a1, a1[1], a4);
 
   return swift_getWitnessTable();
 }
 
 uint64_t sub_2560B5030(uint64_t *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
   type metadata accessor for NavigationPath();
   type metadata accessor for NavigationStack();
   type metadata accessor for _ConditionalContent();
@@ -5996,7 +5210,7 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrollf8IfNeededG0VGAA16_FlexFrameLayoutVGAKGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrollf8IfNeededG0VGAA16_FlexFrameLayoutVGAKGMR);
     lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<EmbedInScrollViewIfNeededModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<EmbedInScrollViewIfNeededModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR, MEMORY[0x277CE04B0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout>, _ViewModifier_Content<EmbedInScrollViewIfNeededModifier>> and conformance <> _ConditionalContent<A, B>);
   }
@@ -6010,7 +5224,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ViewMod
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrolle8IfNeededF0VGAA16_FlexFrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA014_ViewModifier_D0Vy023LocalAuthenticationCoreB0013EmbedInScrolle8IfNeededF0VGAA16_FlexFrameLayoutVGMR);
-    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<EmbedInScrollViewIfNeededModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(<<opaque return type of View.accessibilityElement(children:)>>.0, ModifiedContent<ModifiedContent<HStack<TupleView<(Text, Spacer)>>, _PaddingLayout>, _PaddingLayout>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _ViewModifier_Content<EmbedInScrollViewIfNeededModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy023LocalAuthenticationCoreB0013EmbedInScrollc8IfNeededD0VGMR, MEMORY[0x277CE04B0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<EmbedInScrollViewIfNeededModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>);
   }

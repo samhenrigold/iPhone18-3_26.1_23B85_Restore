@@ -1,140 +1,3 @@
-void sub_1000253E0(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = [NSError errorWithDomain:ICErrorDomain code:-7002 userInfo:0];
-  (*(v1 + 16))(v1, v2);
-}
-
-void sub_100025558(void *a1)
-{
-  v2 = *(a1[4] + 56);
-  if (v2)
-  {
-    v3 = a1[8];
-    v4 = a1[9];
-    v5 = a1[5];
-    v6 = a1[6];
-    v7 = a1[7];
-
-    [v2 addStoreItemWithAdamID:v3 referral:v5 toPlaylistWithPersistentID:v4 clientIdentity:v6 completionHandler:v7];
-  }
-
-  else
-  {
-    v8 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = a1[4];
-      *buf = 138543362;
-      v15 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring addStoreItemWithAdamID as we don't have a valid SagaRequestHandler", buf, 0xCu);
-    }
-
-    v10 = a1[7];
-    if (v10)
-    {
-      v11 = *(a1[4] + 96);
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_1000256DC;
-      block[3] = &unk_1001DF5C8;
-      v13 = v10;
-      dispatch_async(v11, block);
-    }
-  }
-}
-
-void sub_1000256DC(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = [NSError errorWithDomain:ICErrorDomain code:-7002 userInfo:0];
-  (*(v1 + 16))(v1, v2);
-}
-
-void sub_10002589C(void *a1)
-{
-  v2 = *(a1[4] + 56);
-  if (v2)
-  {
-    v3 = a1[5];
-    v4 = a1[6];
-    v5 = a1[7];
-    v6 = a1[8];
-    v8 = a1[9];
-    v7 = a1[10];
-
-    [v2 addGeniusPlaylistWithPersistentID:v7 name:v3 seedItemIDs:v4 itemIDs:v5 clientIdentity:v6 completionHandler:v8];
-  }
-
-  else
-  {
-    v9 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = a1[4];
-      *buf = 138543362;
-      v16 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring addGeniusPlaylistWithPersistentID as we don't have a valid SagaRequestHandler", buf, 0xCu);
-    }
-
-    v11 = a1[9];
-    if (v11)
-    {
-      v12 = *(a1[4] + 96);
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_100025A20;
-      block[3] = &unk_1001DF5C8;
-      v14 = v11;
-      dispatch_async(v12, block);
-    }
-  }
-}
-
-void sub_100025A20(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = [NSError errorWithDomain:ICErrorDomain code:-7002 userInfo:0];
-  (*(v1 + 16))(v1, 0, v2);
-}
-
-void sub_100025B6C(void *a1)
-{
-  v2 = *(a1[4] + 56);
-  if (v2)
-  {
-    v4 = a1[6];
-    v3 = a1[7];
-    v5 = a1[5];
-
-    [v2 uploadArtworkForPlaylistWithPersistentID:v3 clientIdentity:v5 completionHandler:v4];
-  }
-
-  else
-  {
-    v6 = os_log_create("com.apple.amp.itunescloudd", "CloudLibraryCoordinator");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = a1[4];
-      *buf = 138543362;
-      v13 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - ignoring uploadArtworkForPlaylistWithPersistentID as we don't have a valid SagaRequestHandler", buf, 0xCu);
-    }
-
-    v8 = a1[6];
-    if (v8)
-    {
-      v9 = *(a1[4] + 96);
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_100025CEC;
-      block[3] = &unk_1001DF5C8;
-      v11 = v8;
-      dispatch_async(v9, block);
-    }
-  }
-}
-
 void sub_100025CEC(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -872,13 +735,12 @@ id sub_10002870C(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v4 = *(a1 + 56);
-    v5 = ICCloudClientGetStringForRequestReason();
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - Starting to update jalisco library for reason=%{public}@", &v7, 0x16u);
+    v4 = ICCloudClientGetStringForRequestReason();
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - Starting to update jalisco library for reason=%{public}@", &v6, 0x16u);
   }
 
   return [*(a1 + 32) updateJaliscoLibraryWithClientIdentity:*(a1 + 40) forReason:*(a1 + 56) completionHandler:*(a1 + 48)];
@@ -992,10 +854,11 @@ LABEL_14:
   _Block_object_dispose(&v38, 8);
 }
 
-void sub_100028C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100028C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1096,6 +959,13 @@ id sub_100029078(uint64_t a1)
 
   *(*(*(a1 + 40) + 8) + 24) = v3 & 1;
   return result;
+}
+
+void sub_100029B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
+{
+  va_start(va, a52);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100029B8C(uint64_t a1, void *a2)
@@ -1689,9 +1559,11 @@ id sub_10002B41C(uint64_t a1)
 
 void sub_10002B95C(id a1)
 {
-  qword_100213AB8 = objc_alloc_init(NSMutableDictionary);
+  v1 = objc_alloc_init(NSMutableDictionary);
+  v2 = qword_100213AB8;
+  qword_100213AB8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002C500(uint64_t a1, void *a2, void *a3)
@@ -1701,81 +1573,80 @@ void sub_10002C500(uint64_t a1, void *a2, void *a3)
   v7 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    NSStringFromClass(v9);
-    v10 = v22 = v6;
-    v11 = *(a1 + 32);
-    if ([v11 method])
+    v8 = objc_opt_class();
+    NSStringFromClass(v8);
+    v9 = v21 = v6;
+    v10 = *(a1 + 32);
+    if ([v10 method])
     {
-      v12 = @"POST";
+      v11 = @"POST";
     }
 
     else
     {
-      v12 = @"GET";
+      v11 = @"GET";
     }
 
-    v13 = [*(a1 + 32) action];
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v16 = [v5 responseCode];
-    v17 = [v5 responseData];
+    v12 = [*(a1 + 32) action];
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v15 = [v5 responseCode];
+    v16 = [v5 responseData];
     *buf = 138545154;
-    v24 = v10;
-    v25 = 2048;
-    v26 = v11;
-    v27 = 2114;
-    v28 = v12;
-    v29 = 2114;
-    v30 = v13;
-    v31 = 2114;
-    v32 = v15;
-    v33 = 2048;
-    v34 = v5;
-    v35 = 2048;
-    v36 = v16;
-    v37 = 2048;
-    v38 = [v17 length];
+    v23 = v9;
+    v24 = 2048;
+    v25 = v10;
+    v26 = 2114;
+    v27 = v11;
+    v28 = 2114;
+    v29 = v12;
+    v30 = 2114;
+    v31 = v14;
+    v32 = 2048;
+    v33 = v5;
+    v34 = 2048;
+    v35 = v15;
+    v36 = 2048;
+    v37 = [v16 length];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p method=%{public}@ action=%{public}@> received response: <%{public}@: %p code=%ld, length=%{bytes}lu>", buf, 0x52u);
 
-    v6 = v22;
+    v6 = v21;
   }
 
   if (v6)
   {
-    v18 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = v6;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "JaliscoSetItemPropertyOperation failed with error: %{public}@", buf, 0xCu);
+      v23 = v6;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "JaliscoSetItemPropertyOperation failed with error: %{public}@", buf, 0xCu);
     }
   }
 
-  v19 = *(a1 + 40);
-  v20 = [v5 responseCode];
-  if (v20 > 399)
+  v18 = *(a1 + 40);
+  v19 = [v5 responseCode];
+  if (v19 > 399)
   {
-    if (v20 != 404 && v20 != 400)
+    if (v19 != 404 && v19 != 400)
     {
       goto LABEL_17;
     }
 
-    v21 = 3;
+    v20 = 3;
   }
 
   else
   {
-    v21 = 1;
-    if (v20 != 200 && v20 != 204)
+    v20 = 1;
+    if (v19 != 200 && v19 != 204)
     {
 LABEL_17:
-      v21 = 2;
+      v20 = 2;
     }
   }
 
-  [v19 setStatus:v21];
+  [v18 setStatus:v20];
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
@@ -2094,11 +1965,11 @@ void sub_10002E024(uint64_t a1, void *a2)
   }
 }
 
-void sub_10002EE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10002EE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 160), 8);
+  _Block_object_dispose((v22 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2126,42 +1997,41 @@ void sub_10002EEA0(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_10002F964(uint64_t a1)
+void sub_10002F964(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   ICDAAPUtilitiesWriteContainer();
 }
 
 void sub_10002F9F8(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v10 + 1) + 8 * v8);
         ICDAAPUtilitiesWriteProperty();
-        v8 = v8 + 1;
+        ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -2170,14 +2040,16 @@ void sub_10002F9F8(uint64_t a1, void *a2)
 
 void sub_100031184(id a1)
 {
-  qword_100213AC8 = [[ICDDefaults alloc] _init];
+  v1 = [[ICDDefaults alloc] _init];
+  v2 = qword_100213AC8;
+  qword_100213AC8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_10003157C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003157C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2191,130 +2063,123 @@ uint64_t sub_100031594(uint64_t result, uint64_t a2)
 
 void sub_1000315AC(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v9 = [objc_opt_class() handlers];
-  v3 = [v9 allValues];
-  v4 = NSStringFromSelector("configuration");
-  v5 = [v3 valueForKeyPath:v4];
-  v6 = [v5 copy];
-  v7 = *(*(a1 + 32) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
+  v8 = [objc_opt_class() handlers];
+  v2 = [v8 allValues];
+  v3 = NSStringFromSelector("configuration");
+  v4 = [v2 valueForKeyPath:v3];
+  v5 = [v4 copy];
+  v6 = *(*(a1 + 32) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 }
 
-void sub_100031798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100031798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1000317B0(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = [objc_opt_class() handlers];
-  v4 = [*(a1 + 32) userIdentity];
-  v5 = [v4 accountDSID];
+  v2 = [objc_opt_class() handlers];
+  v3 = [*(a1 + 32) userIdentity];
+  v4 = [v3 accountDSID];
 
-  if (v5)
+  if (v4)
   {
-    v6 = [v3 objectForKeyedSubscript:v5];
-    v7 = *(*(a1 + 40) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v5 = [v2 objectForKeyedSubscript:v4];
+    v6 = *(*(a1 + 40) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
 
-    v9 = os_log_create("com.apple.amp.itunescloudd", "Accounts");
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = os_log_create("com.apple.amp.itunescloudd", "Accounts");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 48);
-      v11 = *(*(*(a1 + 40) + 8) + 40);
-      v15 = 134218754;
-      v16 = v10;
-      v17 = 2048;
-      v18 = v11;
-      v19 = 2114;
-      v20 = objc_opt_class();
-      v21 = 2114;
-      v22 = v5;
-      v12 = v20;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BaseRequestHandler %p - Deleting handler %p - class=%{public}@ dsid=%{public}@", &v15, 0x2Au);
+      v9 = *(a1 + 48);
+      v10 = *(*(*(a1 + 40) + 8) + 40);
+      v14 = 134218754;
+      v15 = v9;
+      v16 = 2048;
+      v17 = v10;
+      v18 = 2114;
+      v19 = objc_opt_class();
+      v20 = 2114;
+      v21 = v4;
+      v11 = v19;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BaseRequestHandler %p - Deleting handler %p - class=%{public}@ dsid=%{public}@", &v14, 0x2Au);
     }
 
-    [v3 setObject:0 forKeyedSubscript:v5];
+    [v2 setObject:0 forKeyedSubscript:v4];
   }
 
   else
   {
-    v13 = *(*(a1 + 40) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = 0;
+    v12 = *(*(a1 + 40) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = 0;
   }
 }
 
-void sub_100031A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100031A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100031A88(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v15 = [objc_opt_class() handlers];
-  v3 = [*(a1 + 32) userIdentity];
-  v4 = [v3 accountDSID];
+  v11 = [objc_opt_class() handlers];
+  v2 = [*(a1 + 32) userIdentity];
+  v3 = [v2 accountDSID];
 
-  if (v4)
+  if (v3)
   {
-    v5 = [v15 objectForKeyedSubscript:v4];
+    v4 = [v11 objectForKeyedSubscript:v3];
 
-    if (!v5)
+    if (!v4)
     {
-      v6 = *(a1 + 48);
-      v7 = [objc_alloc(objc_opt_class()) initWithConfiguration:*(a1 + 32)];
-      v8 = *(*(a1 + 40) + 8);
-      v9 = *(v8 + 40);
-      *(v8 + 40) = v7;
+      v5 = [objc_alloc(objc_opt_class()) initWithConfiguration:*(a1 + 32)];
+      v6 = *(*(a1 + 40) + 8);
+      v7 = *(v6 + 40);
+      *(v6 + 40) = v5;
 
-      [v15 setObject:*(*(*(a1 + 40) + 8) + 40) forKeyedSubscript:v4];
+      [v11 setObject:*(*(*(a1 + 40) + 8) + 40) forKeyedSubscript:v3];
     }
 
-    v10 = [v15 objectForKeyedSubscript:v4];
+    v8 = [v11 objectForKeyedSubscript:v3];
   }
 
   else
   {
-    v11 = *(a1 + 48);
     if (![objc_opt_class() supportsAccountlessHandling])
     {
       goto LABEL_8;
     }
 
-    v12 = *(a1 + 48);
-    v10 = [objc_opt_class() accountlessHandler];
+    v8 = [objc_opt_class() accountlessHandler];
   }
 
-  v13 = *(*(a1 + 40) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v10;
+  v9 = *(*(a1 + 40) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 
 LABEL_8:
 }
 
 void sub_100031BE4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v9 = [NSString stringWithFormat:@"com.apple.%@.global.serial.queue", v3];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v8 = [NSString stringWithFormat:@"com.apple.%@.global.serial.queue", v2];
 
-  v4 = v9;
-  v5 = [v9 UTF8String];
-  v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v7 = dispatch_queue_create(v5, v6);
-  v8 = qword_100213AD8;
-  qword_100213AD8 = v7;
+  v3 = v8;
+  v4 = [v8 UTF8String];
+  v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v6 = dispatch_queue_create(v4, v5);
+  v7 = qword_100213AD8;
+  qword_100213AD8 = v6;
 }
 
 void sub_100031E70(uint64_t a1, void *a2)
@@ -2326,47 +2191,44 @@ void sub_100031E70(uint64_t a1, void *a2)
 
   [v3 writeUInt32:v6 withCode:1836282979];
   [v3 writeUInt32:*(a1 + 40) withCode:1836413810];
-  v8 = *(a1 + 32);
-  v9 = v3;
+  v8 = v3;
   v7 = v3;
   ICDAAPUtilitiesWriteContainer();
 }
 
-void sub_100031F60(uint64_t a1)
+void sub_100031F60(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   ICDAAPUtilitiesWriteContainer();
 }
 
 void sub_100031FF8(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = *(*(a1 + 32) + 136);
+  v5 = a2;
   [*(a1 + 40) writeUInt8:DAAPPinTypeFromICLibraryPinEntityType() withCode:1835625316];
-  v4 = *(a1 + 32);
-  if (v4[13] < 1)
+  v3 = *(a1 + 32);
+  if (v3[13] < 1)
   {
-    if (v4[17] == 4)
+    if (v3[17] == 4)
     {
-      v5 = 1634353513;
+      v4 = 1634353513;
     }
 
     else
     {
-      v5 = 1634888036;
+      v4 = 1634888036;
     }
 
-    [v6 writeString:v4[15] withCode:v5];
+    [v5 writeString:v3[15] withCode:v4];
   }
 
   else
   {
-    [v6 writeUInt32:? withCode:?];
+    [v5 writeUInt32:? withCode:?];
   }
 
-  [v6 writeString:*(*(a1 + 32) + 128) withCode:1634364528];
-  [v6 writeUInt32:*(*(a1 + 32) + 144) withCode:1634366576];
+  [v5 writeString:*(*(a1 + 32) + 128) withCode:1634364528];
+  [v5 writeUInt32:*(*(a1 + 32) + 144) withCode:1634366576];
 }
 
 void sub_1000323B0(void *a1)
@@ -5393,17 +5255,17 @@ void sub_100039BA8(uint64_t a1, uint64_t a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_10003AA6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003AA6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *sub_10003AAB0(uint64_t a1)
+void *sub_10003AAB0(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_10003AB00();
-  result = dlsym(v2, "MPModelRelationshipSongArtist");
+  v3 = sub_10003AB00();
+  result = dlsym(v3, "MPModelRelationshipSongArtist");
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_100213B00 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -5469,9 +5331,9 @@ id sub_10003AC54()
   return v1;
 }
 
-void sub_10003AD1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003AD1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5578,7 +5440,6 @@ void sub_10003B004(uint64_t a1)
 
 uint64_t sub_10003B0CC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213AF0 = result;
   return result;
@@ -5615,9 +5476,9 @@ id sub_10003B614()
   return v1;
 }
 
-void sub_10003B6DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003B6DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5646,9 +5507,9 @@ id sub_10003B6F4()
   return v1;
 }
 
-void sub_10003B7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003B7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5804,11 +5665,11 @@ void sub_10003CC18(uint64_t a1, void *a2)
   }
 }
 
-void sub_10003CDA0(id *a1)
+void sub_10003CDA0(id *a1, uint64_t a2)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
+  v3 = a1[4];
+  v4 = a1[5];
+  v5 = a1[6];
   ICDAAPUtilitiesWriteContainer();
 }
 
@@ -5830,28 +5691,26 @@ void sub_10003CE60(uint64_t a1, void *a2)
 void sub_10003CF24(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v9 = [*(a1 + 32) objectAtIndexedSubscript:a3];
-  v6 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  v7 = v9;
-  v8 = v5;
+  v8 = [*(a1 + 32) objectAtIndexedSubscript:a3];
+  v9 = *(a1 + 48);
+  v6 = v8;
+  v7 = v5;
   ICDAAPUtilitiesWriteContainer();
 }
 
 void sub_10003D00C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
   ICDAAPUtilitiesWriteProperty();
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_10003D0D0;
-  v7[3] = &unk_1001DE390;
-  v5 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = v3;
-  v6 = v3;
-  [v5 enumerateKeysAndObjectsUsingBlock:v7];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10003D0D0;
+  v6[3] = &unk_1001DE390;
+  v4 = *(a1 + 40);
+  v7 = *(a1 + 48);
+  v8 = v3;
+  v5 = v3;
+  [v4 enumerateKeysAndObjectsUsingBlock:v6];
 }
 
 void sub_10003D0D0(uint64_t a1, void *a2, void *a3)
@@ -5862,20 +5721,26 @@ void sub_10003D0D0(uint64_t a1, void *a2, void *a3)
   {
     [*(a1 + 32) elementCodeForProperty:v5];
     [*(a1 + 32) valueTypeForProperty:v5];
-    v7 = *(a1 + 40);
     ICDAAPUtilitiesWriteProperty();
   }
 
   else
   {
-    v8 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "No DAAP code found for container property: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "No DAAP code found for container property: %{public}@", &v8, 0xCu);
     }
   }
+}
+
+void sub_10003E178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10003E1BC(uint64_t a1, uint64_t a2, id *a3)
@@ -6001,9 +5866,9 @@ void sub_10003FF80()
   }
 }
 
-void sub_1000400CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000400CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6086,9 +5951,9 @@ void sub_100040288()
   }
 }
 
-void sub_1000403D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000403D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6148,7 +6013,6 @@ void *sub_10004063C(uint64_t a1)
 
 uint64_t sub_10004068C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213B60 = result;
   return result;
@@ -6231,45 +6095,44 @@ void sub_100041B28(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
   if ([objc_opt_class() _isClientAllowedToRequestRestrictedInformationForConnection:v6])
   {
-    v8 = os_log_create("com.apple.amp.itunescloudd", "Default");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = os_log_create("com.apple.amp.itunescloudd", "Default");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 40);
       *buf = 138543874;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Notifying client with observation token %{public}@ of updated storefront identifier: %{public}@.", buf, 0x20u);
+      v14 = v8;
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Notifying client with observation token %{public}@ of updated storefront identifier: %{public}@.", buf, 0x20u);
     }
 
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100041D08;
-    v13[3] = &unk_1001DE828;
-    v13[4] = *(a1 + 32);
-    v11 = [v6 remoteObjectProxyWithErrorHandler:v13];
-    [v11 storefrontIdentifierDidChange:*(a1 + 40)];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100041D08;
+    v12[3] = &unk_1001DE828;
+    v12[4] = *(a1 + 32);
+    v10 = [v6 remoteObjectProxyWithErrorHandler:v12];
+    [v10 storefrontIdentifierDidChange:*(a1 + 40)];
   }
 
   else
   {
-    v11 = os_log_create("com.apple.amp.itunescloudd", "XPC");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = os_log_create("com.apple.amp.itunescloudd", "XPC");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 138543874;
-      v15 = v12;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = v6;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping notification of updated storefront identifier for client with observation token %{public}@: client connection %{public}@ is not allowed to access restricted information.", buf, 0x20u);
+      v14 = v11;
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping notification of updated storefront identifier for client with observation token %{public}@: client connection %{public}@ is not allowed to access restricted information.", buf, 0x20u);
     }
   }
 }
@@ -6291,23 +6154,21 @@ void sub_100041D08(uint64_t a1, void *a2)
 
 void sub_100042458(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v6 = a2;
   v5 = a3;
-  v6 = *(a1 + 32);
   if (([objc_opt_class() _shouldBypassEnforcementOfPrivacyAcknowledgementForClientConnection:v5 forIncomingCloudServiceCapabilitiesRequest:0] & 1) == 0)
   {
-    [*(a1 + 40) setObject:v5 forKey:v7];
+    [*(a1 + 40) setObject:v5 forKey:v6];
   }
 }
 
 void sub_1000424D4(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v6 = a2;
   v5 = a3;
-  v6 = *(a1 + 32);
   if ([objc_opt_class() _shouldBypassEnforcementOfPrivacyAcknowledgementForClientConnection:v5 forIncomingCloudServiceCapabilitiesRequest:0])
   {
-    [*(a1 + 40) setObject:v5 forKey:v7];
+    [*(a1 + 40) setObject:v5 forKey:v6];
   }
 }
 
@@ -6315,46 +6176,44 @@ void sub_100042550(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
   if ([objc_opt_class() _isClientAllowedToRequestCapabilitiesForConnection:v6])
   {
-    v8 = os_log_create("com.apple.amp.itunescloudd", "Default");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = os_log_create("com.apple.amp.itunescloudd", "Default");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v11 = ICCloudServiceCapabilitiesGetDescription();
+      v8 = *(a1 + 32);
+      v9 = ICCloudServiceCapabilitiesGetDescription();
       *buf = 138543874;
-      v16 = v10;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v5;
       v17 = 2114;
-      v18 = v5;
-      v19 = 2114;
-      v20 = v11;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Notifying client with observation token %{public}@ of updated cloud service capabilities: %{public}@.", buf, 0x20u);
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Notifying client with observation token %{public}@ of updated cloud service capabilities: %{public}@.", buf, 0x20u);
     }
 
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100042748;
-    v14[3] = &unk_1001DE828;
-    v14[4] = *(a1 + 32);
-    v12 = [v6 remoteObjectProxyWithErrorHandler:v14];
-    [v12 capabilitiesDidChange:*(a1 + 40)];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100042748;
+    v12[3] = &unk_1001DE828;
+    v12[4] = *(a1 + 32);
+    v10 = [v6 remoteObjectProxyWithErrorHandler:v12];
+    [v10 capabilitiesDidChange:*(a1 + 40)];
   }
 
   else
   {
-    v12 = os_log_create("com.apple.amp.itunescloudd", "XPC");
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v10 = os_log_create("com.apple.amp.itunescloudd", "XPC");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 138543874;
-      v16 = v13;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v5;
       v17 = 2114;
-      v18 = v5;
-      v19 = 2114;
-      v20 = v6;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping notification of updated cloud service capabilities for client with observation token %{public}@: client connection %{public}@ is not allowed to access capabilities.", buf, 0x20u);
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping notification of updated cloud service capabilities for client with observation token %{public}@: client connection %{public}@ is not allowed to access capabilities.", buf, 0x20u);
     }
   }
 }
@@ -6378,45 +6237,44 @@ void sub_100042CBC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
   if ([objc_opt_class() _isClientAllowedToRequestRestrictedInformationForConnection:v6])
   {
-    v8 = os_log_create("com.apple.amp.itunescloudd", "Default");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = os_log_create("com.apple.amp.itunescloudd", "Default");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 40);
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 40);
       *buf = 138543874;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Notifying client with observation token %{public}@ of updated storefront country code: %{public}@.", buf, 0x20u);
+      v14 = v8;
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Notifying client with observation token %{public}@ of updated storefront country code: %{public}@.", buf, 0x20u);
     }
 
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_100042E9C;
-    v13[3] = &unk_1001DE828;
-    v13[4] = *(a1 + 32);
-    v11 = [v6 remoteObjectProxyWithErrorHandler:v13];
-    [v11 storefrontCountryCodeDidChange:*(a1 + 40)];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100042E9C;
+    v12[3] = &unk_1001DE828;
+    v12[4] = *(a1 + 32);
+    v10 = [v6 remoteObjectProxyWithErrorHandler:v12];
+    [v10 storefrontCountryCodeDidChange:*(a1 + 40)];
   }
 
   else
   {
-    v11 = os_log_create("com.apple.amp.itunescloudd", "XPC");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = os_log_create("com.apple.amp.itunescloudd", "XPC");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 138543874;
-      v15 = v12;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = v6;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping notification of updated storefront country code for client with observation token %{public}@: client connection %{public}@ is not allowed to access restricted information.", buf, 0x20u);
+      v14 = v11;
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Skipping notification of updated storefront country code for client with observation token %{public}@: client connection %{public}@ is not allowed to access restricted information.", buf, 0x20u);
     }
   }
 }
@@ -6634,9 +6492,9 @@ void sub_100045118(uint64_t a1)
   }
 }
 
-void sub_1000454B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000454B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6744,7 +6602,6 @@ LABEL_7:
 
 uint64_t sub_10004589C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213B88 = result;
   return result;
@@ -6757,13 +6614,13 @@ void sub_100045BFC(uint64_t a1, void *a2, void *a3)
   v7 = v6;
   if (!v5)
   {
-    v9 = v6;
-    v11 = [v9 domain];
-    if ([v11 isEqualToString:ICErrorDomain])
+    v8 = v6;
+    v10 = [v8 domain];
+    if ([v10 isEqualToString:ICErrorDomain])
     {
-      v12 = [v9 code];
+      v11 = [v8 code];
 
-      if (v12 == -8200)
+      if (v11 == -8200)
       {
         goto LABEL_8;
       }
@@ -6773,26 +6630,25 @@ void sub_100045BFC(uint64_t a1, void *a2, void *a3)
     {
     }
 
-    v13 = [NSError msv_errorWithDomain:ICErrorDomain code:-8200 underlyingError:v9 debugDescription:@"Failed to fetch developer token."];
+    v12 = [NSError msv_errorWithDomain:ICErrorDomain code:-8200 underlyingError:v8 debugDescription:@"Failed to fetch developer token."];
 
-    v9 = v13;
+    v8 = v12;
 LABEL_8:
-    v14 = *(a1 + 48);
-    v10 = [v9 msv_errorByRemovingUnsafeUserInfo];
-    (*(v14 + 16))(v14, 0, v10);
+    v13 = *(a1 + 48);
+    v9 = [v8 msv_errorByRemovingUnsafeUserInfo];
+    (*(v13 + 16))(v13, 0, v9);
     goto LABEL_9;
   }
 
-  v8 = *(a1 + 32);
-  v9 = [objc_opt_class() _clientInfoForUserTokenRequestWithRequestingApplicationBundleIdentifier:*(a1 + 40)];
-  v10 = [[ICMusicUserTokenFetchRequest alloc] initWithDeveloperToken:v5 clientInfo:v9 options:*(a1 + 56) & 1];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_100045DC4;
-  v15[3] = &unk_1001DAB20;
-  v16 = v5;
-  v17 = *(a1 + 48);
-  [v10 performRequestWithResponseHandler:v15];
+  v8 = [objc_opt_class() _clientInfoForUserTokenRequestWithRequestingApplicationBundleIdentifier:*(a1 + 40)];
+  v9 = [[ICMusicUserTokenFetchRequest alloc] initWithDeveloperToken:v5 clientInfo:v8 options:*(a1 + 56) & 1];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100045DC4;
+  v14[3] = &unk_1001DAB20;
+  v15 = v5;
+  v16 = *(a1 + 48);
+  [v9 performRequestWithResponseHandler:v14];
 
 LABEL_9:
 }
@@ -6806,9 +6662,9 @@ void sub_100045DC4(uint64_t a1, void *a2, void *a3)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_10004795C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10004795C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6874,9 +6730,9 @@ void sub_100047D9C(uint64_t a1, uint64_t a2)
   [v2 addObject:v3];
 }
 
-void sub_1000480CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000480CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6933,26 +6789,8 @@ void sub_100048100(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
     *(*(*(a1 + 48) + 8) + 24) = v17;
     if (*(*(*(a1 + 48) + 8) + 24))
     {
-      if (*(a1 + 57) != 1)
+      if (*(a1 + 57) != 1 || (v19 = *(a1 + 32), v35[0] = &off_1001ED1C8, v35[1] = v7, v35[2] = &off_1001ED1E0, v35[3] = &off_1001ED1F8, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v35, 4), v20 = objc_claimAutoreleasedReturnValue(), v32 = v18, LOBYTE(v19) = [v19 executeUpdate:@"UPDATE item SET keep_local = ? WHERE item_pid = ? AND in_my_library = 1 AND media_type IN (? withParameters:?)" error:{v20, &v32}], v21 = v32, v18, *(*(*(a1 + 48) + 8) + 24) = v19, v20, v18 = v21, (*(*(*(a1 + 48) + 8) + 24) & 1) != 0))
       {
-        goto LABEL_11;
-      }
-
-      v19 = *(a1 + 32);
-      v35[0] = &off_1001ED1C8;
-      v35[1] = v7;
-      v35[2] = &off_1001ED1E0;
-      v35[3] = &off_1001ED1F8;
-      v20 = [NSArray arrayWithObjects:v35 count:4];
-      v32 = v18;
-      LOBYTE(v19) = [v19 executeUpdate:@"UPDATE item SET keep_local = ? WHERE item_pid = ? AND in_my_library = 1 AND media_type IN (? withParameters:?)" error:{v20, &v32}];
-      v21 = v32;
-
-      *(*(*(a1 + 48) + 8) + 24) = v19;
-      v18 = v21;
-      if (*(*(*(a1 + 48) + 8) + 24))
-      {
-LABEL_11:
         v22 = [*(a1 + 40) musicLibrary];
         +[ML3Track incrementRevisionWithLibrary:persistentID:deletionType:revisionType:usingConnection:](ML3Track, "incrementRevisionWithLibrary:persistentID:deletionType:revisionType:usingConnection:", v22, [v7 longLongValue], 0, 0, *(a1 + 32));
 
@@ -7454,11 +7292,11 @@ id *sub_10004A89C(id *result, int a2)
   return result;
 }
 
-void sub_10004B0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10004B0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 160), 8);
+  _Block_object_dispose((v22 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7469,119 +7307,115 @@ void sub_10004B120(uint64_t a1, void *a2, void *a3)
   v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = *(a1 + 32);
-    v12 = [v11 method];
-    v13 = @"POST";
-    if (!v12)
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = *(a1 + 32);
+    v11 = [v10 method];
+    v12 = @"POST";
+    if (!v11)
     {
-      v13 = @"GET";
+      v12 = @"GET";
     }
 
-    v28 = v13;
-    v14 = [*(a1 + 32) action];
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v17 = [v5 responseCode];
-    v18 = [v5 responseData];
+    v27 = v12;
+    v13 = [*(a1 + 32) action];
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    v16 = [v5 responseCode];
+    v17 = [v5 responseData];
     *buf = 138545154;
-    v30 = v10;
-    v31 = 2048;
-    v32 = v11;
-    v33 = 2114;
-    v34 = v28;
-    v35 = 2114;
-    v36 = v14;
-    v37 = 2114;
-    v38 = v16;
-    v39 = 2048;
-    v40 = v5;
-    v41 = 2048;
-    v42 = v17;
-    v43 = 2048;
-    v44 = [v18 length];
+    v29 = v9;
+    v30 = 2048;
+    v31 = v10;
+    v32 = 2114;
+    v33 = v27;
+    v34 = 2114;
+    v35 = v13;
+    v36 = 2114;
+    v37 = v15;
+    v38 = 2048;
+    v39 = v5;
+    v40 = 2048;
+    v41 = v16;
+    v42 = 2048;
+    v43 = [v17 length];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p method=%{public}@ action=%{public}@> received response: <%{public}@: %p code=%ld, length=%{bytes}lu>", buf, 0x52u);
   }
 
   if (v6)
   {
-    v19 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      v20 = *(a1 + 40);
+      v20 = *(a1 + 32);
+      v19 = *(a1 + 40);
       *buf = 138543874;
-      v30 = v20;
-      v31 = 2114;
-      v32 = v21;
-      v33 = 2114;
-      v34 = v6;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed with error: %{public}@", buf, 0x20u);
+      v29 = v19;
+      v30 = 2114;
+      v31 = v20;
+      v32 = 2114;
+      v33 = v6;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed with error: %{public}@", buf, 0x20u);
     }
   }
 
-  v22 = *(*(a1 + 56) + 8);
-  v23 = *(v22 + 40);
-  *(v22 + 40) = v5;
-  v24 = v5;
+  v21 = *(*(a1 + 56) + 8);
+  v22 = *(v21 + 40);
+  *(v21 + 40) = v5;
+  v23 = v5;
 
-  v25 = *(*(a1 + 64) + 8);
-  v26 = *(v25 + 40);
-  *(v25 + 40) = v6;
-  v27 = v6;
+  v24 = *(*(a1 + 64) + 8);
+  v25 = *(v24 + 40);
+  *(v24 + 40) = v6;
+  v26 = v6;
 
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
 void sub_10004B9D4(id a1)
 {
-  qword_100213BA0 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___ICCloudServerAvailabilityServiceProtocol];
+  v1 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___ICCloudServerAvailabilityServiceProtocol];
+  v2 = qword_100213BA0;
+  qword_100213BA0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_10004C3D8(uint64_t a1)
+void sub_10004C3D8(uint64_t a1, uint64_t a2)
 {
-  *(a1 + 40);
-  *(a1 + 40);
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   ICDAAPUtilitiesWriteContainer();
 }
 
 void sub_10004C4A0(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
-        v10 = *(a1 + 48);
-        v11 = *(a1 + 40);
         ICDAAPUtilitiesWriteProperty();
-        v8 = v8 + 1;
+        ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -7877,9 +7711,9 @@ unint64_t sub_10004E46C(void *a1)
   return v8 ^ HIDWORD(v8);
 }
 
-void sub_10004E7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004E7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7998,6 +7832,13 @@ void sub_10004EC74(uint64_t a1, void *a2)
   [v6 setLastUpdatedDate:v5];
 
   [v6 setShouldExcludeFromBackgroundRefresh:{objc_msgSend(*(a1 + 40), "shouldExcludeFromBackgroundRefresh")}];
+}
+
+void sub_10004F0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10004F0F0(uint64_t a1, uint64_t a2, void *a3)
@@ -8241,7 +8082,7 @@ void sub_10004FCF4(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100050680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
+void sub_100050680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
 {
   _Block_object_dispose((v62 - 240), 8);
   _Block_object_dispose(&a37, 8);
@@ -8511,9 +8352,9 @@ id sub_100050F44()
   return v1;
 }
 
-void sub_10005100C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10005100C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8558,25 +8399,25 @@ void sub_100051190(uint64_t a1)
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v22 = v3;
+    v21 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished gathering user state info", buf, 0xCu);
   }
 
   v4 = [ICMediaUserState alloc];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100051434;
-  v13[3] = &unk_1001DB028;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100051434;
+  v12[3] = &unk_1001DB028;
   v5 = *(a1 + 40);
-  v20 = *(a1 + 112);
+  v19 = *(a1 + 112);
   v6 = *(a1 + 32);
-  v14 = v5;
-  v15 = v6;
-  v17 = *(a1 + 64);
-  v18 = *(a1 + 80);
-  v16 = *(a1 + 48);
-  v19 = *(a1 + 88);
-  v7 = [v4 initWithBlock:v13];
+  v13 = v5;
+  v14 = v6;
+  v16 = *(a1 + 64);
+  v17 = *(a1 + 80);
+  v15 = *(a1 + 48);
+  v18 = *(a1 + 88);
+  v7 = [v4 initWithBlock:v12];
   if (*(*(*(a1 + 104) + 8) + 40))
   {
     v8 = os_log_create("com.apple.amp.itunescloudd", "UserState");
@@ -8585,11 +8426,11 @@ void sub_100051190(uint64_t a1)
       v9 = *(a1 + 32);
       v10 = [*(*(*(a1 + 104) + 8) + 40) msv_description];
       *buf = 138543874;
-      v22 = v9;
-      v23 = 2114;
-      v24 = v7;
-      v25 = 2114;
-      v26 = v10;
+      v21 = v9;
+      v22 = 2114;
+      v23 = v7;
+      v24 = 2114;
+      v25 = v10;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@ _buildUserStateFromUserIdentity completed. userState=%{public}@ error=%{public}@", buf, 0x20u);
     }
   }
@@ -8601,14 +8442,13 @@ void sub_100051190(uint64_t a1)
     {
       v11 = *(a1 + 32);
       *buf = 138543618;
-      v22 = v11;
-      v23 = 2114;
-      v24 = v7;
+      v21 = v11;
+      v22 = 2114;
+      v23 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ _buildUserStateFromUserIdentity completed. userState=%{public}@", buf, 0x16u);
     }
   }
 
-  v12 = *(*(*(a1 + 104) + 8) + 40);
   (*(*(a1 + 56) + 16))();
 }
 
@@ -9343,4 +9183,23 @@ LABEL_127:
   v159 = [v158 initWithBlock:v161];
   [v3 setMusic:v157];
   [v3 setTv:v159];
+}
+
+void sub_100052744(uint64_t a1)
+{
+  sub_100052BF4();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPHomeMonitor");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    qword_100213BD8 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = +[NSAssertionHandler currentHandler];
+    v3 = [NSString stringWithUTF8String:"Class getMPHomeMonitorClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"ICDMediaUserStateCenterServer.m" lineNumber:54 description:{@"Unable to find class %s", "MPHomeMonitor"}];
+
+    __break(1u);
+  }
 }

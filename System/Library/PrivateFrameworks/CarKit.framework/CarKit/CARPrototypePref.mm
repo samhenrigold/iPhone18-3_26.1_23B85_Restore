@@ -187,7 +187,7 @@ uint64_t __34__CARPrototypePref__qaModeLockout__block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __34__CARPrototypePref__qaModeLockout__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__34__CARPrototypePref__qaModeLockout__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 BOOLValue];
   if (result)

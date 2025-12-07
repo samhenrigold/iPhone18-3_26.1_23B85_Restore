@@ -106,7 +106,7 @@
 
 + (id)coderFromBurstTrieFile:(id)file indexTableFile:(id)tableFile
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   tableFileCopy = tableFile;
   v6 = [HCBurstTrie burstTrieFromFile:file];
   v7 = [HCIndexTable indexTableFromFile:tableFileCopy];
@@ -125,9 +125,9 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "+[HCHuffmanCoder coderFromBurstTrieFile:indexTableFile:]";
-      _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Could not load the huffman coder from the supplied file paths.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "+[HCHuffmanCoder coderFromBurstTrieFile:indexTableFile:]";
+      _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Could not load the huffman coder from the supplied file paths.", &v11, 0xCu);
     }
 
     v9 = 0;
@@ -138,30 +138,28 @@
     v9 = [[HCHuffmanCoder alloc] initWithBurstTrie:v6 indexTable:v7];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)coderMatchingName:(id)name locale:(id)locale
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   localeCopy = locale;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__5808;
-  v21 = __Block_byref_object_dispose__5809;
-  v22 = 0;
-  v16 = MEMORY[0x277D85DD0];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__5808;
+  v20 = __Block_byref_object_dispose__5809;
+  v21 = 0;
+  v15 = MEMORY[0x277D85DD0];
   LDEnumerateAssetDataItems();
-  if (v18[5])
+  if (v17[5])
   {
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.triemap", nameCopy, v16, 3221225472, __43__HCHuffmanCoder_coderMatchingName_locale___block_invoke, &unk_278730200, &v17];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.triemap", nameCopy, v15, 3221225472, __43__HCHuffmanCoder_coderMatchingName_locale___block_invoke, &unk_278730200, &v16];
     nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.htbl", nameCopy];
-    v10 = [v18[5] URLByAppendingPathComponent:v8];
-    v11 = [v18[5] URLByAppendingPathComponent:nameCopy];
+    v10 = [v17[5] URLByAppendingPathComponent:v8];
+    v11 = [v17[5] URLByAppendingPathComponent:nameCopy];
     v12 = [self coderFromBurstTrieFile:v10 indexTableFile:v11];
   }
 
@@ -171,18 +169,16 @@
     {
       localeIdentifier = [localeCopy localeIdentifier];
       *buf = 136315394;
-      v24 = "+[HCHuffmanCoder coderMatchingName:locale:]";
-      v25 = 2112;
-      v26 = localeIdentifier;
+      v23 = "+[HCHuffmanCoder coderMatchingName:locale:]";
+      v24 = 2112;
+      v25 = localeIdentifier;
       _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Couldn't find a Huffman coder for locale: '%@'", buf, 0x16u);
     }
 
     v12 = 0;
   }
 
-  _Block_object_dispose(&v17, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
 
   return v12;
 }

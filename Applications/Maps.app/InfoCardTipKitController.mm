@@ -44,7 +44,7 @@
     swift_once();
   }
 
-  v5 = sub_1000CE6B8(&qword_101914D68);
+  v5 = sub_1000CE6B8(&qword_101914D68, &qword_1011F3F58);
   sub_100021540(v5, qword_10195FD30);
   swift_beginAccess();
   Tips.Parameter.wrappedValue.setter();

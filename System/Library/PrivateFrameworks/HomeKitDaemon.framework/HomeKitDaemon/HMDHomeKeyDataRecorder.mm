@@ -33,7 +33,7 @@
   }
 
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v9 = [mutableRecords copy];
+  v9 = objc_msgSend_copy(mutableRecords);
   [standardUserDefaults setObject:v9 forKey:@"HMDHomeKeyDataRecorderRecordsKey"];
 }
 
@@ -241,13 +241,13 @@ void __50__HMDHomeKeyDataRecorder_recordInitialWalletKeys___block_invoke(uint64_
   return v3;
 }
 
-void __40__HMDHomeKeyDataRecorder_sharedRecorder__block_invoke()
+void __40__HMDHomeKeyDataRecorder_sharedRecorder__block_invoke(uint64_t a1)
 {
   if (isInternalBuild())
   {
-    v0 = objc_alloc_init(HMDHomeKeyDataRecorder);
-    v1 = sharedRecorder_sharedRecorder;
-    sharedRecorder_sharedRecorder = v0;
+    v1 = objc_alloc_init(HMDHomeKeyDataRecorder);
+    v2 = sharedRecorder_sharedRecorder;
+    sharedRecorder_sharedRecorder = v1;
   }
 }
 

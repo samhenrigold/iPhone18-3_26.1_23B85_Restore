@@ -8,6 +8,8 @@
 + (OS_os_log)signpostLog;
 + (id)tablesAndForeignKeysToResolve:(id *)resolve associationsToResolve:(id *)toResolve;
 - (BOOL)_addThreadScopeToDatabase:(id)database needsUpdate:(BOOL)update lastViewedDate:(id)date updateThreadScopeManager:(BOOL)manager;
+- (BOOL)_addThreadScopeToDatabase:(id)database withMailboxDatabaseID:(int64_t)d filterPredicate:(unint64_t)predicate needsUpdate:(BOOL)update lastViewedDate:(id)date updateThreadScopeManager:(BOOL)manager connection:(id)connection;
+- (BOOL)_addThreadScopeToDatabaseWithMailboxType:(id)type filterPredicate:(unint64_t)predicate needsUpdate:(BOOL)update lastViewedDate:(id)date connection:(id)connection;
 - (BOOL)_deleteMailboxesFromWrappedMessages:(id)messages fromThreadWithDatabaseID:(id)d messageThreadExpression:(id)expression;
 - (BOOL)_deleteRecipientsOfType:(unint64_t)type fromThreadWithDatabaseID:(id)d messageThreadExpression:(id)expression;
 - (BOOL)_deleteSendersFromThreadWithDatabaseID:(id)d messageThreadExpression:(id)expression;
@@ -19,6 +21,7 @@
 - (BOOL)_recalculateNewestReadMessageForThreadObjectID:(id)d threadScopeDatabaseID:(int64_t)iD;
 - (BOOL)_updateNewestReadMessageWithWrappedMessage:(id)message threadExpression:(id)expression;
 - (BOOL)addThreadsDuringMigration:(id)migration;
+- (BOOL)canUsePrecomputedThreadsForThreadScope:(id)scope andSortKeys:(id)keys wantsPrecomputed:(BOOL)precomputed threadScopeNeedsMigration:(BOOL *)migration;
 - (BOOL)deleteThreadsWithObjectIDs:(id)ds;
 - (BOOL)endMigratingThreadScope:(id)scope;
 - (BOOL)setPriorityForDisplayMessageSenderForThreadObjectID:(id)d;
@@ -66,6 +69,7 @@
 - (id)_senderAddressesExpressionForMessages:(id)messages;
 - (id)_sendersForThreadDatabaseID:(id)d;
 - (id)_sendersFromMessagesForThreadObjectID:(id)d;
+- (id)_statementForOldestThreadInMailbox:(id)mailbox threadScope:(id)scope createMailboxDatabaseIDIfNecessary:(BOOL)necessary;
 - (id)_threadDatabaseIDExpressionForThreadScopeDatabaseID:(int64_t)d conversation:(int64_t)conversation;
 - (id)_threadExpressionForThreadScopeDatabaseID:(int64_t)d conversation:(int64_t)conversation;
 - (id)_threadForWrappedMessages:(id)messages objectID:(id)d;
@@ -106,6 +110,7 @@
 - (void)_recomputeThreads;
 - (void)_resetThreadScope:(id)scope withDatabaseID:(id)d;
 - (void)_scheduleRecomputationForThread:(id)thread reason:(id)reason;
+- (void)_writeThreadedMessages:(id)messages withChangedKeyPaths:(id)paths journaled:(BOOL)journaled generationWindow:(id)window;
 - (void)persistenceDidAddMessages:(id)messages generationWindow:(id)window;
 - (void)persistenceDidChangeCategorizationForMessages:(id)messages userInitiated:(BOOL)initiated generationWindow:(id)window;
 - (void)persistenceDidChangeFlags:(id)flags messages:(id)messages generationWindow:(id)window;
@@ -117,6 +122,7 @@
 - (void)persistenceDidUpdateFollowUpForMessages:(id)messages generationWindow:(id)window;
 - (void)persistenceDidUpdateProperties:(id)properties message:(id)message generationWindow:(id)window;
 - (void)persistenceIsAddingMailboxWithDatabaseID:(int64_t)d objectID:(id)iD generationWindow:(id)window;
+- (void)persistenceIsAddingMessages:(id)messages journaled:(BOOL)journaled generationWindow:(id)window;
 - (void)persistenceIsChangingConversationID:(int64_t)d messages:(id)messages generationWindow:(id)window;
 - (void)persistenceIsChangingFlags:(id)flags messages:(id)messages generationWindow:(id)window;
 - (void)persistenceIsDeletingAllMessagesInMailboxWithURL:(id)l generationWindow:(id)window;
@@ -140,17 +146,15 @@
 
 - (id)_expressionForPredicateForPrimaryMessages
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v3 = [(EDThreadPersistence *)self _selectFromMessageGlobalDataColumn:@"model_high_impact"];
   v4 = [(EDThreadPersistence *)self _expressionForCategoryType:0];
-  v10[0] = v4;
+  v9[0] = v4;
   v5 = [(EDThreadPersistence *)self _expressionFromSelect:v3 equalTo:&unk_1F45E6C10];
-  v10[1] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
 
   v7 = [MEMORY[0x1E699B928] combined:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -215,7 +219,7 @@ void __34__EDThreadPersistence_signpostLog__block_invoke(uint64_t a1)
 
 + (id)tablesAndForeignKeysToResolve:(id *)resolve associationsToResolve:(id *)toResolve
 {
-  v39[6] = *MEMORY[0x1E69E9840];
+  v38[6] = *MEMORY[0x1E69E9840];
   threadScopesTableSchema = [self threadScopesTableSchema];
   threadsTableSchema = [self threadsTableSchema];
   threadMailboxesTableSchema = [self threadMailboxesTableSchema];
@@ -225,26 +229,26 @@ void __34__EDThreadPersistence_signpostLog__block_invoke(uint64_t a1)
   aBlock[1] = 3221225472;
   aBlock[2] = __75__EDThreadPersistence_tablesAndForeignKeysToResolve_associationsToResolve___block_invoke_2;
   aBlock[3] = &unk_1E82501C0;
-  v36 = &__block_literal_global_92;
+  v35 = &__block_literal_global_92;
   v6 = _Block_copy(aBlock);
   v6[2](v6, threadsTableSchema, @"scope", threadScopesTableSchema);
   v6[2](v6, threadMailboxesTableSchema, @"thread", threadsTableSchema);
   v6[2](v6, threadSendersTableSchema, @"thread", threadsTableSchema);
   v6[2](v6, threadRecipientsTableSchema, @"thread", threadsTableSchema);
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __75__EDThreadPersistence_tablesAndForeignKeysToResolve_associationsToResolve___block_invoke_4;
-  v33[3] = &unk_1E82580B0;
-  v34 = &__block_literal_global_155_0;
-  v7 = _Block_copy(v33);
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __75__EDThreadPersistence_tablesAndForeignKeysToResolve_associationsToResolve___block_invoke_4;
+  v32[3] = &unk_1E82580B0;
+  v33 = &__block_literal_global_155_0;
+  v7 = _Block_copy(v32);
   v8 = +[EDPersistenceDatabaseSchema mailboxesTableName];
-  v28 = v7[2](v7, threadScopesTableSchema, @"mailbox", v8);
+  v27 = v7[2](v7, threadScopesTableSchema, @"mailbox", v8);
 
   v9 = +[EDConversationPersistence conversationsTableName];
-  v27 = v7[2](v7, threadsTableSchema, @"conversation", v9);
+  v26 = v7[2](v7, threadsTableSchema, @"conversation", v9);
 
   v10 = +[EDMessagePersistence messagesTableName];
-  v26 = __75__EDThreadPersistence_tablesAndForeignKeysToResolve_associationsToResolve___block_invoke_3(v10, threadsTableSchema, @"newest_read_message", v10, 3);
+  v25 = __75__EDThreadPersistence_tablesAndForeignKeysToResolve_associationsToResolve___block_invoke_3(v10, threadsTableSchema, @"newest_read_message", v10, 3);
 
   v11 = +[EDMessagePersistence messagesTableName];
   v12 = __75__EDThreadPersistence_tablesAndForeignKeysToResolve_associationsToResolve___block_invoke_3(v11, threadsTableSchema, @"newest_message", v11, 3);
@@ -261,24 +265,22 @@ void __34__EDThreadPersistence_signpostLog__block_invoke(uint64_t a1)
   v19 = +[EDMessagePersistence addressesTableName];
   v20 = __75__EDThreadPersistence_tablesAndForeignKeysToResolve_associationsToResolve___block_invoke_5(v19, threadRecipientsTableSchema, @"address", v19);
 
-  v39[0] = v28;
-  v39[1] = v27;
-  v39[2] = v26;
-  v39[3] = v12;
-  v39[4] = v14;
-  v39[5] = v16;
-  *resolve = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:6];
-  v38[0] = v18;
-  v38[1] = v20;
-  *toResolve = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
-  v37[0] = threadScopesTableSchema;
-  v37[1] = threadsTableSchema;
-  v37[2] = threadMailboxesTableSchema;
-  v37[3] = threadSendersTableSchema;
-  v37[4] = threadRecipientsTableSchema;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:5];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v38[0] = v27;
+  v38[1] = v26;
+  v38[2] = v25;
+  v38[3] = v12;
+  v38[4] = v14;
+  v38[5] = v16;
+  *resolve = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:6];
+  v37[0] = v18;
+  v37[1] = v20;
+  *toResolve = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+  v36[0] = threadScopesTableSchema;
+  v36[1] = threadsTableSchema;
+  v36[2] = threadMailboxesTableSchema;
+  v36[3] = threadSendersTableSchema;
+  v36[4] = threadRecipientsTableSchema;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:5];
 
   return v21;
 }
@@ -317,339 +319,331 @@ EDPersistenceAssociationPlaceholder *__75__EDThreadPersistence_tablesAndForeignK
 
 + (EFSQLTableSchema)threadScopesTableSchema
 {
-  v85[5] = *MEMORY[0x1E69E9840];
-  v71 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox" nullable:1];
-  v68 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox_type" nullable:1];
-  v69 = [MEMORY[0x1E699B8D0] blobColumnWithName:@"filter_predicate" nullable:1];
+  v84[5] = *MEMORY[0x1E69E9840];
+  v70 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox" nullable:1];
+  v67 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox_type" nullable:1];
+  v68 = [MEMORY[0x1E699B8D0] blobColumnWithName:@"filter_predicate" nullable:1];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
-  v85[0] = v71;
-  v85[1] = v68;
-  v85[2] = v69;
+  v84[0] = v70;
+  v84[1] = v67;
+  v84[2] = v68;
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"needs_update" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v85[3] = v3;
+  v84[3] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"last_viewed" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v85[4] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:5];
+  v84[4] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:5];
   v6 = [v2 initWithName:@"thread_scopes" rowIDType:2 columns:v5];
 
-  columnExpression = [v71 columnExpression];
-  columnExpression2 = [v68 columnExpression];
-  columnExpression3 = [v69 columnExpression];
+  columnExpression = [v70 columnExpression];
+  columnExpression2 = [v67 columnExpression];
+  columnExpression3 = [v68 columnExpression];
   v7 = objc_alloc(MEMORY[0x1E699B898]);
   isNotNull = [columnExpression isNotNull];
-  v84[0] = isNotNull;
+  v83[0] = isNotNull;
   isNull = [columnExpression2 isNull];
-  v84[1] = isNull;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:2];
-  v65 = [v7 initWithExpressions:v10];
+  v83[1] = isNull;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:2];
+  v64 = [v7 initWithExpressions:v10];
 
   v11 = objc_alloc(MEMORY[0x1E699B898]);
   isNull2 = [columnExpression isNull];
-  v83[0] = isNull2;
+  v82[0] = isNull2;
   isNotNull2 = [columnExpression2 isNotNull];
-  v83[1] = isNotNull2;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:2];
-  v64 = [v11 initWithExpressions:v14];
+  v82[1] = isNotNull2;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:2];
+  v63 = [v11 initWithExpressions:v14];
 
   v15 = objc_alloc(MEMORY[0x1E699B928]);
-  v82[0] = v65;
-  v82[1] = v64;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:2];
-  v63 = [v15 initWithExpressions:v16];
+  v81[0] = v64;
+  v81[1] = v63;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:2];
+  v62 = [v15 initWithExpressions:v16];
 
-  [v6 addCheckConstraintForExpression:v63];
+  [v6 addCheckConstraintForExpression:v62];
   v17 = objc_alloc(MEMORY[0x1E699B898]);
   isNotNull3 = [columnExpression isNotNull];
-  v81[0] = isNotNull3;
+  v80[0] = isNotNull3;
   isNull3 = [columnExpression3 isNull];
-  v81[1] = isNull3;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:2];
+  v80[1] = isNull3;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:2];
   v21 = [v17 initWithExpressions:v20];
 
   v22 = objc_alloc(MEMORY[0x1E699B900]);
   name = [v6 name];
-  name2 = [v71 name];
-  v80 = name2;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v80 count:1];
-  v62 = [v22 initWithTableName:name columnNames:v25 where:v21 unique:1];
+  name2 = [v70 name];
+  v79 = name2;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:1];
+  v61 = [v22 initWithTableName:name columnNames:v25 where:v21 unique:1];
 
-  [v6 addIndex:v62];
+  [v6 addIndex:v61];
   v26 = objc_alloc(MEMORY[0x1E699B898]);
   isNotNull4 = [columnExpression isNotNull];
-  v79[0] = isNotNull4;
+  v78[0] = isNotNull4;
   isNotNull5 = [columnExpression3 isNotNull];
-  v79[1] = isNotNull5;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:2];
+  v78[1] = isNotNull5;
+  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:2];
   v30 = [v26 initWithExpressions:v29];
 
   v31 = objc_alloc(MEMORY[0x1E699B900]);
   name3 = [v6 name];
-  name4 = [v71 name];
-  v78[0] = name4;
-  name5 = [v69 name];
-  v78[1] = name5;
-  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:2];
+  name4 = [v70 name];
+  v77[0] = name4;
+  name5 = [v68 name];
+  v77[1] = name5;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:2];
   v36 = [v31 initWithTableName:name3 columnNames:v35 where:v30 unique:1];
 
   [v6 addIndex:v36];
   v37 = objc_alloc(MEMORY[0x1E699B898]);
   isNotNull6 = [columnExpression2 isNotNull];
-  v77[0] = isNotNull6;
+  v76[0] = isNotNull6;
   isNull4 = [columnExpression3 isNull];
-  v77[1] = isNull4;
-  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:2];
+  v76[1] = isNull4;
+  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:2];
   v41 = [v37 initWithExpressions:v40];
 
   v42 = objc_alloc(MEMORY[0x1E699B900]);
   name6 = [v6 name];
-  name7 = [v68 name];
-  v76 = name7;
-  v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+  name7 = [v67 name];
+  v75 = name7;
+  v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
   v46 = [v42 initWithTableName:name6 columnNames:v45 where:v41 unique:1];
 
   [v6 addIndex:v46];
   v47 = objc_alloc(MEMORY[0x1E699B898]);
   isNotNull7 = [columnExpression2 isNotNull];
-  v75[0] = isNotNull7;
+  v74[0] = isNotNull7;
   isNotNull8 = [columnExpression3 isNotNull];
-  v75[1] = isNotNull8;
-  v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:2];
+  v74[1] = isNotNull8;
+  v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:2];
   v51 = [v47 initWithExpressions:v50];
 
   v52 = objc_alloc(MEMORY[0x1E699B900]);
   name8 = [v6 name];
-  name9 = [v68 name];
-  v74[0] = name9;
-  name10 = [v69 name];
-  v74[1] = name10;
-  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:2];
+  name9 = [v67 name];
+  v73[0] = name9;
+  name10 = [v68 name];
+  v73[1] = name10;
+  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:2];
   v57 = [v52 initWithTableName:name8 columnNames:v56 where:v51 unique:1];
 
   [v6 addIndex:v57];
-  v73 = @"needs_update";
-  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
+  v72 = @"needs_update";
+  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
   [v6 addIndexForColumns:v58];
 
-  v72 = @"last_viewed";
-  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
+  v71 = @"last_viewed";
+  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v71 count:1];
   [v6 addIndexForColumns:v59];
-
-  v60 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (EFSQLTableSchema)threadsTableSchema
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
-  v48 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"scope" nullable:0];
-  v58 = v48;
-  v59 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"conversation" nullable:0];
-  v47 = v59;
-  v60 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"newest_read_message" nullable:1];
-  v46 = v60;
-  v45 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"newest_message" nullable:1];
-  v61 = v45;
-  v44 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"display_message" nullable:1];
-  v62 = v44;
-  v43 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date" nullable:0];
-  v63 = v43;
-  v42 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"display_date" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v64 = v42;
-  v41 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"read_later_date" nullable:1];
-  v65 = v41;
-  v40 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"read" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v66 = v40;
-  v39 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flagged" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v67 = v39;
-  v38 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_red_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v68 = v38;
-  v37 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_orange_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v69 = v37;
-  v36 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_yellow_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v70 = v36;
-  v35 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_green_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v71 = v35;
-  v34 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_blue_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v72 = v34;
-  v33 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_purple_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v73 = v33;
-  v32 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_gray_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v74 = v32;
-  v31 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"draft" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v75 = v31;
-  v30 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"replied" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v76 = v30;
-  v29 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"forwarded" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v77 = v29;
-  v28 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"redirected" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v78 = v28;
-  v27 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"junk_level_set_by_user" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v79 = v27;
+  v47 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"scope" nullable:0];
+  v57 = v47;
+  v58 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"conversation" nullable:0];
+  v46 = v58;
+  v59 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"newest_read_message" nullable:1];
+  v45 = v59;
+  v44 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"newest_message" nullable:1];
+  v60 = v44;
+  v43 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"display_message" nullable:1];
+  v61 = v43;
+  v42 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date" nullable:0];
+  v62 = v42;
+  v41 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"display_date" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v63 = v41;
+  v40 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"read_later_date" nullable:1];
+  v64 = v40;
+  v39 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"read" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v65 = v39;
+  v38 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flagged" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v66 = v38;
+  v37 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_red_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v67 = v37;
+  v36 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_orange_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v68 = v36;
+  v35 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_yellow_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v69 = v35;
+  v34 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_green_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v70 = v34;
+  v33 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_blue_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v71 = v33;
+  v32 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_purple_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v72 = v32;
+  v31 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_gray_flag" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v73 = v31;
+  v30 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"draft" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v74 = v30;
+  v29 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"replied" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v75 = v29;
+  v28 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"forwarded" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v76 = v28;
+  v27 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"redirected" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v77 = v27;
+  v26 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"junk_level_set_by_user" nullable:0 defaultValue:&unk_1F45E6BF8];
+  v78 = v26;
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"junk_level" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v80 = v3;
+  v79 = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_unflagged" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v81 = v4;
+  v80 = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"has_attachments" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v82 = v5;
+  v81 = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"count" nullable:0];
-  v83 = v6;
+  v82 = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"journaled" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v84 = v7;
+  v83 = v7;
   v8 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"is_icloud_cleanup" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v85 = v8;
+  v84 = v8;
   v9 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"is_urgent" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v86 = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:29];
+  v85 = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:29];
   v11 = [v2 initWithName:@"threads" rowIDType:2 columns:v10];
 
-  v57[0] = @"scope";
-  v57[1] = @"conversation";
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
+  v56[0] = @"scope";
+  v56[1] = @"conversation";
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
   [v11 addUniquenessConstraintForColumns:v12 conflictResolution:1];
 
-  v56[0] = @"scope";
-  v56[1] = @"date";
-  v56[2] = @"conversation";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:3];
+  v55[0] = @"scope";
+  v55[1] = @"date";
+  v55[2] = @"conversation";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:3];
   [v11 addIndexForColumns:v13];
 
-  v55[0] = @"scope";
-  v55[1] = @"display_date";
-  v55[2] = @"conversation";
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:3];
+  v54[0] = @"scope";
+  v54[1] = @"display_date";
+  v54[2] = @"conversation";
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:3];
   [v11 addIndexForColumns:v14];
 
-  v54[0] = @"scope";
-  v54[1] = @"is_urgent";
-  v54[2] = @"display_date";
-  v54[3] = @"conversation";
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:4];
+  v53[0] = @"scope";
+  v53[1] = @"is_urgent";
+  v53[2] = @"display_date";
+  v53[3] = @"conversation";
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:4];
   [v11 addIndexForColumns:v15];
 
-  v53[0] = @"journaled";
-  v53[1] = @"scope";
-  v53[2] = @"date";
-  v53[3] = @"conversation";
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:4];
+  v52[0] = @"journaled";
+  v52[1] = @"scope";
+  v52[2] = @"date";
+  v52[3] = @"conversation";
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:4];
   [v11 addIndexForColumns:v16];
 
-  v52 = @"newest_read_message";
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+  v51 = @"newest_read_message";
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
   [v11 addIndexForColumns:v17];
 
-  v51 = @"newest_message";
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
+  v50 = @"newest_message";
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
   [v11 addIndexForColumns:v18];
 
-  v50 = @"display_message";
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
+  v49 = @"display_message";
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
   [v11 addIndexForColumns:v19];
 
   v20 = objc_alloc(MEMORY[0x1E699B900]);
-  v49[0] = @"journaled";
-  v49[1] = @"date";
-  v49[2] = @"scope";
-  v49[3] = @"conversation";
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:4];
+  v48[0] = @"journaled";
+  v48[1] = @"date";
+  v48[2] = @"scope";
+  v48[3] = @"conversation";
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:4];
   v22 = [MEMORY[0x1E699B8C8] column:@"journaled"];
   v23 = [v22 equalTo:&unk_1F45E6C10];
   v24 = [v20 initWithTableName:@"threads" columnNames:v21 where:v23 unique:0];
 
   [v11 addIndex:v24];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (EFSQLTableSchema)threadMailboxesTableSchema
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"thread" nullable:0];
-  v11[0] = v3;
+  v10[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox" nullable:0];
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
-  v10[0] = @"thread";
-  v10[1] = @"mailbox";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v10[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[0] = @"thread";
+  v9[1] = @"mailbox";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v7 = [v2 initWithName:@"thread_mailboxes" columns:v5 primaryKeyColumns:v6];
 
   [v7 addIndexForColumns:&unk_1F45E7048];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (EFSQLTableSchema)threadSendersTableSchema
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"thread" nullable:0];
-  v17[0] = v3;
+  v16[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"address" nullable:0];
-  v17[1] = v4;
+  v16[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date" nullable:0];
-  v17[2] = v5;
+  v16[2] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"priority" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v17[3] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
-  v16[0] = @"thread";
-  v16[1] = @"address";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v16[3] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:4];
+  v15[0] = @"thread";
+  v15[1] = @"address";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v9 = [v2 initWithName:@"thread_senders" columns:v7 primaryKeyColumns:v8 conflictResolution:5];
 
-  v15[0] = @"address";
-  v15[1] = @"thread";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = @"address";
+  v14[1] = @"thread";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   [v9 addIndexForColumns:v10];
 
-  v14[0] = @"thread";
-  v14[1] = @"priority";
-  v14[2] = @"date";
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
+  v13[0] = @"thread";
+  v13[1] = @"priority";
+  v13[2] = @"date";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
   [v9 addIndexForColumns:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (EFSQLTableSchema)threadRecipientsTableSchema
 {
-  v18[5] = *MEMORY[0x1E69E9840];
+  v17[5] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"thread" nullable:0];
-  v18[0] = v3;
+  v17[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"address" nullable:0];
-  v18[1] = v4;
+  v17[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"type" nullable:0];
-  v18[2] = v5;
+  v17[2] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date" nullable:0];
-  v18[3] = v6;
+  v17[3] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"priority" nullable:0 defaultValue:&unk_1F45E6BF8];
-  v18[4] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:5];
-  v17[0] = @"thread";
-  v17[1] = @"type";
-  v17[2] = @"address";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
+  v17[4] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:5];
+  v16[0] = @"thread";
+  v16[1] = @"type";
+  v16[2] = @"address";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:3];
   v10 = [v2 initWithName:@"thread_recipients" columns:v8 primaryKeyColumns:v9 conflictResolution:5];
 
-  v16[0] = @"address";
-  v16[1] = @"thread";
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = @"address";
+  v15[1] = @"thread";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   [v10 addIndexForColumns:v11];
 
-  v15[0] = @"thread";
-  v15[1] = @"priority";
-  v15[2] = @"date";
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
+  v14[0] = @"thread";
+  v14[1] = @"priority";
+  v14[2] = @"date";
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
   [v10 addIndexForColumns:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -796,16 +790,55 @@ void __56__EDThreadPersistence__enumerateThreadScopesUsingBlock___block_invoke(v
   [consistencyCheckScheduler performSyncBlock:&__block_literal_global_202];
 }
 
+- (BOOL)canUsePrecomputedThreadsForThreadScope:(id)scope andSortKeys:(id)keys wantsPrecomputed:(BOOL)precomputed threadScopeNeedsMigration:(BOOL *)migration
+{
+  precomputedCopy = precomputed;
+  v19 = *MEMORY[0x1E69E9840];
+  scopeCopy = scope;
+  if ([(EDThreadPersistence *)self sortKeysAreSupportedForPrecomputedThreads:keys])
+  {
+    LOBYTE(v17) = 0;
+    v11 = [(EDThreadPersistence *)self _isThreadScopePrecomputed:scopeCopy wantsPrecomputed:precomputedCopy shouldMigrate:&v17];
+    v12 = v17;
+    if (migration)
+    {
+      *migration = v17;
+    }
+
+    v13 = v11 | v12;
+  }
+
+  else
+  {
+    v14 = +[EDThreadPersistence log];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      ef_publicDescription = [scopeCopy ef_publicDescription];
+      v17 = 138543362;
+      v18 = ef_publicDescription;
+      _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Thread scope %{public}@ ineligible for precomputed threads due to sort keys", &v17, 0xCu);
+    }
+
+    v13 = 0;
+    if (migration)
+    {
+      *migration = 0;
+    }
+  }
+
+  return v13 & 1;
+}
+
 - (BOOL)_isThreadScopePrecomputed:(id)precomputed wantsPrecomputed:(BOOL)wantsPrecomputed shouldMigrate:(BOOL *)migrate
 {
   wantsPrecomputedCopy = wantsPrecomputed;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   precomputedCopy = precomputed;
-  v15 = 0;
-  v9 = [(EDThreadPersistence *)self _isThreadScopePrecomputed:precomputedCopy shouldMigrate:&v15];
+  v14 = 0;
+  v9 = [(EDThreadPersistence *)self _isThreadScopePrecomputed:precomputedCopy shouldMigrate:&v14];
   if (!v9)
   {
-    if (v15)
+    if (v14)
     {
       os_unfair_lock_lock(&self->_migratingThreadScopesLock);
       if ([(NSMutableArray *)self->_migratingThreadScopes containsObject:precomputedCopy])
@@ -814,11 +847,11 @@ void __56__EDThreadPersistence__enumerateThreadScopesUsingBlock___block_invoke(v
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v17 = precomputedCopy;
+          v16 = precomputedCopy;
           _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Migration in progress for threadscope: %{public}@", buf, 0xCu);
         }
 
-        v15 = 0;
+        v14 = 0;
       }
 
       else
@@ -827,7 +860,7 @@ void __56__EDThreadPersistence__enumerateThreadScopesUsingBlock___block_invoke(v
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v17 = precomputedCopy;
+          v16 = precomputedCopy;
           _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Migration requested for threadscope: %{public}@", buf, 0xCu);
         }
 
@@ -849,10 +882,9 @@ void __56__EDThreadPersistence__enumerateThreadScopesUsingBlock___block_invoke(v
 
   if (migrate)
   {
-    *migrate = v15;
+    *migrate = v14;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -965,21 +997,21 @@ uint64_t __58__EDThreadPersistence_updateLastViewedDateForThreadScope___block_in
 
 uint64_t __52__EDThreadPersistence_updateIsUrgentForThreadScope___block_invoke(uint64_t a1, void *a2)
 {
-  v45[2] = *MEMORY[0x1E69E9840];
+  v44[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"threads"];
   [v4 setObject:MEMORY[0x1E695E110] forKeyedSubscript:@"is_urgent"];
   v5 = [MEMORY[0x1E699B8C8] column:@"scope"];
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:*(a1 + 48)];
-  v40 = [v5 equalTo:v6];
+  v39 = [v5 equalTo:v6];
 
   v7 = [MEMORY[0x1E699B8C8] column:@"is_urgent"];
   v8 = [v7 equalTo:MEMORY[0x1E695E118]];
 
   v9 = objc_alloc(MEMORY[0x1E699B898]);
-  v45[0] = v40;
-  v45[1] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+  v44[0] = v39;
+  v44[1] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
   v11 = [v9 initWithExpressions:v10];
   [v4 setWhereClause:v11];
 
@@ -988,15 +1020,15 @@ uint64_t __52__EDThreadPersistence_updateIsUrgentForThreadScope___block_invoke(u
     v12 = MEMORY[0x1E699B8C8];
     v13 = +[EDMessagePersistence messagesIsUrgentColumnName];
     v14 = [v12 column:v13];
-    v39 = [v14 equalTo:MEMORY[0x1E695E118]];
+    v38 = [v14 equalTo:MEMORY[0x1E695E118]];
 
-    v38 = [*(a1 + 32) _expressionForThreadScope:*(a1 + 40)];
+    v37 = [*(a1 + 32) _expressionForThreadScope:*(a1 + 40)];
     v15 = MEMORY[0x1E699B8F8];
     v16 = MEMORY[0x1E699B8C8];
     v17 = +[EDMessagePersistence messagesTableName];
     v18 = [v16 table:v17 column:@"deleted"];
     v19 = [v18 equalTo:&unk_1F45E6BF8];
-    v37 = [v15 likely:v19];
+    v36 = [v15 likely:v19];
 
     v20 = objc_alloc(MEMORY[0x1E699B948]);
     v21 = +[EDMessagePersistence messagesTableName];
@@ -1004,21 +1036,21 @@ uint64_t __52__EDThreadPersistence_updateIsUrgentForThreadScope___block_invoke(u
 
     [v22 setDistinct:1];
     v23 = objc_alloc(MEMORY[0x1E699B898]);
-    v44[0] = v39;
-    v44[1] = v38;
-    v44[2] = v37;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
+    v43[0] = v38;
+    v43[1] = v37;
+    v43[2] = v36;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:3];
     v25 = [v23 initWithExpressions:v24];
     [v22 setWhere:v25];
 
     v26 = objc_opt_new();
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __52__EDThreadPersistence_updateIsUrgentForThreadScope___block_invoke_2;
-    v41[3] = &unk_1E8250300;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __52__EDThreadPersistence_updateIsUrgentForThreadScope___block_invoke_2;
+    v40[3] = &unk_1E8250300;
     v27 = v26;
-    v42 = v27;
-    [v3 executeSelectStatement:v22 withBlock:v41 error:0];
+    v41 = v27;
+    [v3 executeSelectStatement:v22 withBlock:v40 error:0];
     if ([v27 count])
     {
       v28 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"threads"];
@@ -1027,9 +1059,9 @@ uint64_t __52__EDThreadPersistence_updateIsUrgentForThreadScope___block_invoke(u
       v30 = [v29 in:v27];
 
       v31 = objc_alloc(MEMORY[0x1E699B898]);
-      v43[0] = v40;
-      v43[1] = v30;
-      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+      v42[0] = v39;
+      v42[1] = v30;
+      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
       v33 = [v31 initWithExpressions:v32];
       [v28 setWhereClause:v33];
 
@@ -1047,7 +1079,6 @@ uint64_t __52__EDThreadPersistence_updateIsUrgentForThreadScope___block_invoke(u
     v34 = 0;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v34;
 }
 
@@ -1264,35 +1295,34 @@ uint64_t __109__EDThreadPersistence_threadObjectIDsForThreadScope_sortKeys_initi
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __109__EDThreadPersistence_threadObjectIDsForThreadScope_sortKeys_initialBatchSize_journaledObjectIDs_batchBlock___block_invoke_2;
-  v25[3] = &unk_1E8258100;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __109__EDThreadPersistence_threadObjectIDsForThreadScope_sortKeys_initialBatchSize_journaledObjectIDs_batchBlock___block_invoke_2;
+  v24[3] = &unk_1E8258100;
   v11 = v5;
-  v26 = v11;
-  v21 = *(a1 + 64);
-  v12 = v21;
-  v27 = v21;
-  v13 = [v8 _enumerateThreadObjectIDsForThreadScope:v9 filterClause:v7 sortKeys:v10 batchBlock:v25];
-  v24 = 0;
+  v25 = v11;
+  v20 = *(a1 + 64);
+  v12 = v20;
+  v26 = v20;
+  v13 = [v8 _enumerateThreadObjectIDsForThreadScope:v9 filterClause:v7 sortKeys:v10 batchBlock:v24];
+  v23 = 0;
   if ([v11 count])
   {
-    v14 = *(*(a1 + 72) + 8);
     (*(*(a1 + 64) + 16))();
   }
 
-  v15 = [MEMORY[0x1E699B8C8] column:{@"journaled", v21}];
-  v16 = [v15 equalTo:&unk_1F45E6C10];
+  v14 = [MEMORY[0x1E699B8C8] column:{@"journaled", v20}];
+  v15 = [v14 equalTo:&unk_1F45E6C10];
 
-  v17 = *(a1 + 32);
-  v18 = *(a1 + 40);
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __109__EDThreadPersistence_threadObjectIDsForThreadScope_sortKeys_initialBatchSize_journaledObjectIDs_batchBlock___block_invoke_3;
-  v22[3] = &unk_1E8258128;
-  v19 = *(a1 + 48);
-  v23 = *(a1 + 56);
-  v4 = v13 & [v17 _enumerateThreadObjectIDsForThreadScope:v18 filterClause:v16 sortKeys:v19 batchBlock:v22];
+  v16 = *(a1 + 32);
+  v17 = *(a1 + 40);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __109__EDThreadPersistence_threadObjectIDsForThreadScope_sortKeys_initialBatchSize_journaledObjectIDs_batchBlock___block_invoke_3;
+  v21[3] = &unk_1E8258128;
+  v18 = *(a1 + 48);
+  v22 = *(a1 + 56);
+  v4 = v13 & [v16 _enumerateThreadObjectIDsForThreadScope:v17 filterClause:v15 sortKeys:v18 batchBlock:v21];
 
   return v4;
 }
@@ -1347,7 +1377,7 @@ void __109__EDThreadPersistence_threadObjectIDsForThreadScope_sortKeys_initialBa
 
 uint64_t __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filterClause_sortKeys_batchBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) threadScopeManager];
   v5 = [v4 databaseIDForThreadScope:*(a1 + 40)];
@@ -1368,9 +1398,9 @@ uint64_t __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filte
     {
       v11 = objc_alloc(MEMORY[0x1E699B898]);
       v12 = *(a1 + 48);
-      v20[0] = v10;
-      v20[1] = v12;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+      v19[0] = v10;
+      v19[1] = v12;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
       v14 = [v11 initWithExpressions:v13];
       [v7 setWhere:v14];
     }
@@ -1381,17 +1411,16 @@ uint64_t __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filte
     }
 
     [*(a1 + 32) _addOrderByToThreadSelect:v7 forSortKeys:*(a1 + 56)];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filterClause_sortKeys_batchBlock___block_invoke_2;
-    v17[3] = &unk_1E8258178;
-    v18 = *(a1 + 40);
-    v19 = *(a1 + 64);
-    *(*(*(a1 + 72) + 8) + 24) = [v3 executeSelectStatement:v7 withBlock:v17 error:0];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filterClause_sortKeys_batchBlock___block_invoke_2;
+    v16[3] = &unk_1E8258178;
+    v17 = *(a1 + 40);
+    v18 = *(a1 + 64);
+    *(*(*(a1 + 72) + 8) + 24) = [v3 executeSelectStatement:v7 withBlock:v16 error:0];
     v6 = *(*(*(a1 + 72) + 8) + 24);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
@@ -1406,56 +1435,56 @@ void __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filterCla
 
 - (id)threadForObjectID:(id)d originatingQuery:(id)query error:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dCopy = d;
   queryCopy = query;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__47;
-  v52 = __Block_byref_object_dispose__47;
-  v53 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__47;
-  v46 = __Block_byref_object_dispose__47;
   v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__47;
+  v51 = __Block_byref_object_dispose__47;
+  v52 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__47;
+  v45 = __Block_byref_object_dispose__47;
+  v46 = 0;
   database = [(EDThreadPersistence *)self database];
   v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence threadForObjectID:originatingQuery:error:]"];
-  v33 = MEMORY[0x1E69E9820];
-  v34 = 3221225472;
-  v35 = __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke;
-  v36 = &unk_1E8258218;
+  v32 = MEMORY[0x1E69E9820];
+  v33 = 3221225472;
+  v34 = __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke;
+  v35 = &unk_1E8258218;
   selfCopy = self;
   v12 = dCopy;
-  v38 = v12;
-  v40 = &v42;
+  v37 = v12;
+  v39 = &v41;
   v13 = queryCopy;
-  v39 = v13;
-  v41 = &v48;
-  [database __performReadWithCaller:v11 usingBlock:&v33];
+  v38 = v13;
+  v40 = &v47;
+  [database __performReadWithCaller:v11 usingBlock:&v32];
 
   if (error)
   {
-    v14 = v43;
-    if (!v49[5] && !v43[5])
+    v14 = v42;
+    if (!v48[5] && !v42[5])
     {
       v15 = MEMORY[0x1E696ABC0];
       v16 = MEMORY[0x1E696AEC0];
       ef_publicDescription = [v12 ef_publicDescription];
-      v18 = [v16 stringWithFormat:@"Failed to get thread with objectID: %@", ef_publicDescription, v33, v34, v35, v36, selfCopy, v38];
+      v18 = [v16 stringWithFormat:@"Failed to get thread with objectID: %@", ef_publicDescription, v32, v33, v34, v35, selfCopy, v37];
       v19 = [v15 em_internalErrorWithReason:v18];
-      v20 = v43[5];
-      v43[5] = v19;
+      v20 = v42[5];
+      v42[5] = v19;
 
-      v14 = v43;
+      v14 = v42;
     }
 
     *error = v14[5];
   }
 
-  v21 = v49[5];
+  v21 = v48[5];
   if (v21)
   {
     subject = [v21 subject];
@@ -1466,7 +1495,7 @@ void __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filterCla
       v24 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [v49[5] ef_publicDescription];
+        [v48[5] ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         [EDThreadPersistence threadForObjectID:originatingQuery:error:];
       }
@@ -1474,7 +1503,7 @@ void __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filterCla
       EFSaveTailspin();
     }
 
-    senderList = [v49[5] senderList];
+    senderList = [v48[5] senderList];
     v26 = [senderList count] == 0;
 
     if (v26)
@@ -1482,7 +1511,7 @@ void __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filterCla
       v27 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        [v49[5] ef_publicDescription];
+        [v48[5] ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         [EDThreadPersistence threadForObjectID:originatingQuery:error:];
       }
@@ -1496,21 +1525,19 @@ void __96__EDThreadPersistence__enumerateThreadObjectIDsForThreadScope_filterCla
     v28 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      ef_publicDescription2 = [v43[5] ef_publicDescription];
+      ef_publicDescription2 = [v42[5] ef_publicDescription];
       *buf = 138543618;
-      v55 = v12;
-      v56 = 2114;
-      v57 = ef_publicDescription2;
+      v54 = v12;
+      v55 = 2114;
+      v56 = ef_publicDescription2;
       _os_log_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEFAULT, "Unable to return thread for objectID %{public}@ due to error: %{public}@", buf, 0x16u);
     }
   }
 
-  v30 = v49[5];
+  v30 = v48[5];
 
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v48, 8);
-
-  v31 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v47, 8);
 
   return v30;
 }
@@ -1524,7 +1551,7 @@ uint64_t __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___bl
     v5 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_cold_2((a1 + 40));
+      __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_cold_2();
     }
 
     v6 = [MEMORY[0x1E696ABC0] em_itemNotFoundErrorWithItemID:*(a1 + 40)];
@@ -1541,7 +1568,7 @@ LABEL_11:
     v11 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_cold_1((a1 + 40));
+      __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_cold_1();
     }
 
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
@@ -1743,16 +1770,16 @@ uint64_t __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___bl
 
 void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v47[1] = *MEMORY[0x1E69E9840];
-  v30 = a2;
+  v46[1] = *MEMORY[0x1E69E9840];
+  v29 = a2;
   v3 = objc_alloc(MEMORY[0x1E699B308]);
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_3;
-  v45[3] = &unk_1E8257A00;
-  v4 = v30;
-  v46 = v4;
-  v31 = [v3 initWithBuilder:v45];
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_3;
+  v44[3] = &unk_1E8257A00;
+  v4 = v29;
+  v45 = v4;
+  v30 = [v3 initWithBuilder:v44];
   v5 = [v4 objectForKeyedSubscript:@"global_message_id"];
   v6 = [v5 int64Value];
 
@@ -1762,43 +1789,43 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
     v8 = *(a1 + 40);
     if (!*(a1 + 40))
     {
-      v29 = v7;
+      v28 = v7;
       v9 = [*(a1 + 32) threadScope];
       v10 = [MEMORY[0x1E699ADA0] predicateForMessagesWithThreadScope:v9];
       v11 = [MEMORY[0x1E699ADA0] sortDescriptorForDateAscending:0];
       v12 = objc_alloc(MEMORY[0x1E699AE28]);
       v13 = objc_opt_class();
-      v47[0] = v11;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
+      v46[0] = v11;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
       v15 = [v12 initWithTargetClass:v13 predicate:v10 sortDescriptors:v14];
 
       v8 = v15;
-      v7 = v29;
+      v7 = v28;
     }
 
     v16 = objc_alloc(MEMORY[0x1E699AEE8]);
     v17 = *(a1 + 32);
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_320;
-    v32[3] = &unk_1E82581C8;
-    v33 = v4;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_320;
+    v31[3] = &unk_1E82581C8;
+    v32 = v4;
     v18 = v7;
-    v34 = v18;
+    v33 = v18;
     v19 = *(a1 + 32);
     v20 = *(a1 + 48);
     v21 = *(a1 + 56);
-    v35 = v19;
-    v36 = v20;
-    v37 = v21;
-    v38 = *(a1 + 64);
-    v39 = *(a1 + 72);
-    v40 = *(a1 + 80);
-    v41 = v31;
-    v44 = *(a1 + 120);
-    v42 = *(a1 + 88);
-    v43 = *(a1 + 96);
-    v22 = [v16 initWithObjectID:v17 originatingQuery:v8 builder:v32];
+    v34 = v19;
+    v35 = v20;
+    v36 = v21;
+    v37 = *(a1 + 64);
+    v38 = *(a1 + 72);
+    v39 = *(a1 + 80);
+    v40 = v30;
+    v43 = *(a1 + 120);
+    v41 = *(a1 + 88);
+    v42 = *(a1 + 96);
+    v22 = [v16 initWithObjectID:v17 originatingQuery:v8 builder:v31];
     v23 = *(*(a1 + 112) + 8);
     v24 = *(v23 + 40);
     *(v23 + 40) = v22;
@@ -1809,7 +1836,7 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
     v25 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_2_cold_1(a1);
+      __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_2_cold_1();
     }
 
     v26 = [MEMORY[0x1E696ABC0] em_itemNotFoundErrorWithItemID:*(a1 + 32)];
@@ -1817,8 +1844,6 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
     v18 = *(v27 + 40);
     *(v27 + 40) = v26;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_3(uint64_t a1, void *a2)
@@ -1855,7 +1880,7 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
 
 void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_320(uint64_t a1, void *a2)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) objectForKeyedSubscript:@"date"];
   v5 = [v4 dateValue];
@@ -1868,7 +1893,7 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
   v8 = [*(a1 + 32) objectForKeyedSubscript:@"read_later_date"];
   v9 = [v8 dateValue];
 
-  v75 = v9;
+  v74 = v9;
   if (v9)
   {
     v10 = [objc_alloc(MEMORY[0x1E699AE30]) initWithDate:v9];
@@ -1876,7 +1901,7 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
   }
 
   v11 = [*(a1 + 32) objectForKeyedSubscript:@"subject_prefix"];
-  v76 = [v11 stringValue];
+  v75 = [v11 stringValue];
 
   v12 = [*(a1 + 32) objectForKeyedSubscript:@"subject"];
   v13 = [v12 stringValue];
@@ -1892,16 +1917,16 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
       v17 = *(a1 + 40);
       v18 = *(a1 + 48);
       *buf = 138543618;
-      v78 = v17;
-      v79 = 2114;
-      v80 = v18;
+      v77 = v17;
+      v78 = 2114;
+      v79 = v18;
       _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Unable to find subject from display message %{public}@ for journaled thread %{public}@", buf, 0x16u);
     }
 
     v13 = [*(a1 + 56) _nonJournaledSubjectForThreadWithObjectID:*(a1 + 48) connection:*(a1 + 64)];
   }
 
-  v19 = [objc_alloc(MEMORY[0x1E699B328]) initWithPrefix:v76 subjectWithoutPrefix:v13];
+  v19 = [objc_alloc(MEMORY[0x1E699B328]) initWithPrefix:v75 subjectWithoutPrefix:v13];
   [v3 setSubject:v19];
 
   v20 = [*(a1 + 32) objectForKeyedSubscript:@"summary"];
@@ -2005,16 +2030,16 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
   if (_os_feature_enabled_impl() && EMIsGreymatterSupported())
   {
     v50 = [*(a1 + 32) objectForKeyedSubscript:@"generated_summary"];
-    v74 = [v50 dataValue];
+    v73 = [v50 dataValue];
 
-    if ([v74 length])
+    if ([v73 length])
     {
       v51 = [*(a1 + 32) objectForKeyedSubscript:@"urgent"];
-      v71 = [v51 BOOLValue];
+      v70 = [v51 BOOLValue];
 
-      v73 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v74 error:0];
-      v52 = [v73 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x1E699A8D0]];
-      v72 = [v73 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x1E699A8C8]];
+      v72 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v73 error:0];
+      v52 = [v72 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x1E699A8D0]];
+      v71 = [v72 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x1E699A8C8]];
       if (v52)
       {
         v53 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 112)];
@@ -2030,7 +2055,7 @@ void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_
           v55 = 0;
         }
 
-        v56 = [objc_alloc(MEMORY[0x1E699ACB8]) initWithTopLine:v52 synopsis:v72 urgent:v71 messageItemID:v55];
+        v56 = [objc_alloc(MEMORY[0x1E699ACB8]) initWithTopLine:v52 synopsis:v71 urgent:v70 messageItemID:v55];
         [v3 setGeneratedSummary:v56];
       }
     }
@@ -2109,8 +2134,6 @@ LABEL_51:
   }
 
 LABEL_52:
-
-  v70 = *MEMORY[0x1E69E9840];
 }
 
 - (id)firstObjectIDNotMatchingSortKey:(id)key otherSortKeys:(id)keys inThreadScope:(id)scope
@@ -2160,7 +2183,7 @@ LABEL_52:
 
 uint64_t __83__EDThreadPersistence_firstObjectIDNotMatchingSortKey_otherSortKeys_inThreadScope___block_invoke(uint64_t a1, void *a2)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) threadScopeManager];
   v5 = [v4 databaseIDForThreadScope:*(a1 + 40)];
@@ -2174,22 +2197,21 @@ uint64_t __83__EDThreadPersistence_firstObjectIDNotMatchingSortKey_otherSortKeys
   v11 = [v9 equalTo:v10];
 
   v12 = objc_alloc(MEMORY[0x1E699B898]);
-  v19[0] = v11;
-  v19[1] = v8;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = v11;
+  v18[1] = v8;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v14 = [v12 initWithExpressions:v13];
   [v6 setWhere:v14];
 
   [*(a1 + 32) _addOrderByToThreadSelect:v6 forSortKeys:*(a1 + 48)];
   [v6 setLimit:1];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __83__EDThreadPersistence_firstObjectIDNotMatchingSortKey_otherSortKeys_inThreadScope___block_invoke_2;
-  v18[3] = &unk_1E8250418;
-  v18[4] = *(a1 + 56);
-  v15 = [v3 executeSelectStatement:v6 withBlock:v18 error:0];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __83__EDThreadPersistence_firstObjectIDNotMatchingSortKey_otherSortKeys_inThreadScope___block_invoke_2;
+  v17[3] = &unk_1E8250418;
+  v17[4] = *(a1 + 56);
+  v15 = [v3 executeSelectStatement:v6 withBlock:v17 error:0];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -2202,7 +2224,7 @@ void __83__EDThreadPersistence_firstObjectIDNotMatchingSortKey_otherSortKeys_inT
 
 - (id)_nonJournaledSubjectForThreadWithObjectID:(id)d connection:(id)connection
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   connectionCopy = connection;
   v8 = [(EDThreadPersistence *)self _messageThreadExpressionForThreadObjectID:dCopy];
@@ -2214,9 +2236,9 @@ void __83__EDThreadPersistence_firstObjectIDNotMatchingSortKey_otherSortKeys_inT
   v13 = [v11 initWithResultColumn:@"subject" table:v12];
 
   v14 = objc_alloc(MEMORY[0x1E699B898]);
-  v31[0] = v8;
-  v31[1] = v10;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v30[0] = v8;
+  v30[1] = v10;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v16 = [v14 initWithExpressions:v15];
   [v13 setWhere:v16];
 
@@ -2229,22 +2251,20 @@ void __83__EDThreadPersistence_firstObjectIDNotMatchingSortKey_otherSortKeys_inT
   v20 = [v19 in:v13];
   [v18 setWhere:v20];
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__47;
-  v29 = __Block_byref_object_dispose__47;
-  v30 = 0;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __76__EDThreadPersistence__nonJournaledSubjectForThreadWithObjectID_connection___block_invoke;
-  v24[3] = &unk_1E8250418;
-  v24[4] = &v25;
-  [connectionCopy executeSelectStatement:v18 withBlock:v24 error:0];
-  v21 = v26[5];
-  _Block_object_dispose(&v25, 8);
-
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__47;
+  v28 = __Block_byref_object_dispose__47;
+  v29 = 0;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __76__EDThreadPersistence__nonJournaledSubjectForThreadWithObjectID_connection___block_invoke;
+  v23[3] = &unk_1E8250418;
+  v23[4] = &v24;
+  [connectionCopy executeSelectStatement:v18 withBlock:v23 error:0];
+  v21 = v25[5];
+  _Block_object_dispose(&v24, 8);
 
   return v21;
 }
@@ -3064,7 +3084,7 @@ id __53__EDThreadPersistence__mailboxesForThreadDatabaseID___block_invoke_3(uint
 
 - (id)_recipientsOfType:(unint64_t)type forThreadDatabaseID:(id)d
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"address" table:@"addresses"];
   [v7 addResultColumn:@"comment"];
@@ -3077,17 +3097,15 @@ id __53__EDThreadPersistence__mailboxesForThreadDatabaseID___block_invoke_3(uint
   v13 = [v11 equalTo:v12];
 
   v14 = objc_alloc(MEMORY[0x1E699B898]);
-  v20[0] = v10;
-  v20[1] = v13;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+  v19[0] = v10;
+  v19[1] = v13;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
   v16 = [v14 initWithExpressions:v15];
   [v7 setWhere:v16];
 
   [v8 orderByColumn:@"priority" ascending:0];
   [v8 orderByColumn:@"date" ascending:0];
   v17 = [(EDThreadPersistence *)self _addressesFromSelectStatement:v7 additionalRowHandling:0];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -3194,7 +3212,7 @@ void __75__EDThreadPersistence__addressesFromSelectStatement_additionalRowHandli
 
 - (id)nextExistingThreadObjectIDForThreadObjectID:(id)d forSortKeys:(id)keys journaledThreadsToCheck:(id)check excluding:(id)excluding
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   keysCopy = keys;
   checkCopy = check;
@@ -3207,9 +3225,9 @@ void __75__EDThreadPersistence__addressesFromSelectStatement_additionalRowHandli
     *&buf[12] = 2114;
     *&buf[14] = keysCopy;
     *&buf[22] = 2114;
-    v38 = checkCopy;
-    LOWORD(v39) = 2114;
-    *(&v39 + 2) = excludingCopy;
+    v37 = checkCopy;
+    LOWORD(v38) = 2114;
+    *(&v38 + 2) = excludingCopy;
     _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Looking up thread before thread: %{public}@, sort keys: %{public}@, journaled threads: %{public}@, excluding: %{public}@", buf, 0x2Au);
   }
 
@@ -3221,41 +3239,39 @@ void __75__EDThreadPersistence__addressesFromSelectStatement_additionalRowHandli
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v38 = __Block_byref_object_copy__47;
-  *&v39 = __Block_byref_object_dispose__47;
-  *(&v39 + 1) = 0;
+  v37 = __Block_byref_object_copy__47;
+  *&v38 = __Block_byref_object_dispose__47;
+  *(&v38 + 1) = 0;
   database = [(EDThreadPersistence *)self database];
   v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence nextExistingThreadObjectIDForThreadObjectID:forSortKeys:journaledThreadsToCheck:excluding:]"];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forSortKeys_journaledThreadsToCheck_excluding___block_invoke;
-  v29[3] = &unk_1E8258290;
-  v29[4] = self;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forSortKeys_journaledThreadsToCheck_excluding___block_invoke;
+  v28[3] = &unk_1E8258290;
+  v28[4] = self;
   v19 = keysCopy;
-  v30 = v19;
+  v29 = v19;
   v20 = dCopy;
-  v31 = v20;
+  v30 = v20;
   v21 = v16;
-  v32 = v21;
-  v36 = v15;
+  v31 = v21;
+  v35 = v15;
   v22 = excludingCopy;
-  v33 = v22;
+  v32 = v22;
   v23 = checkCopy;
-  v34 = v23;
-  v35 = buf;
-  [database __performReadWithCaller:v18 usingBlock:v29];
+  v33 = v23;
+  v34 = buf;
+  [database __performReadWithCaller:v18 usingBlock:v28];
 
   v24 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
 
 uint64_t __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forSortKeys_journaledThreadsToCheck_excluding___block_invoke(uint64_t a1, void *a2)
 {
-  v46[4] = *MEMORY[0x1E69E9840];
+  v45[4] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"conversation" table:@"threads"];
   v5 = [*(a1 + 32) _comparisonExpressionForSortKeys:*(a1 + 40) conversationID:objc_msgSend(*(a1 + 48) threadExpression:"conversationID") threadScopeDatabaseID:*(a1 + 56) connection:{*(a1 + 88), v3}];
@@ -3266,7 +3282,7 @@ uint64_t __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_
     v8 = [v6 equalTo:v7];
 
     v9 = [MEMORY[0x1E699B8C8] column:@"journaled"];
-    v35 = [v9 equalTo:&unk_1F45E6BF8];
+    v34 = [v9 equalTo:&unk_1F45E6BF8];
 
     if ([*(a1 + 64) count])
     {
@@ -3274,19 +3290,19 @@ uint64_t __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_
       v11 = [*(a1 + 64) ef_compactMap:&__block_literal_global_362];
       v12 = [v10 notIn:v11];
 
-      v46[0] = v8;
-      v46[1] = v12;
-      v46[2] = v35;
-      v46[3] = v5;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:4];
+      v45[0] = v8;
+      v45[1] = v12;
+      v45[2] = v34;
+      v45[3] = v5;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:4];
     }
 
     else
     {
-      v45[0] = v8;
-      v45[1] = v35;
-      v45[2] = v5;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
+      v44[0] = v8;
+      v44[1] = v34;
+      v44[2] = v5;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
     }
 
     v15 = [objc_alloc(MEMORY[0x1E699B898]) initWithExpressions:v13];
@@ -3294,16 +3310,16 @@ uint64_t __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_
 
     [*(a1 + 32) _addOrderByToThreadSelect:v4 forSortKeys:*(a1 + 40)];
     [v4 setLimit:1];
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forSortKeys_journaledThreadsToCheck_excluding___block_invoke_2;
-    v37[3] = &unk_1E8250418;
-    v37[4] = &v38;
-    if (![v3 executeSelectStatement:v4 withBlock:v37 error:0])
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forSortKeys_journaledThreadsToCheck_excluding___block_invoke_2;
+    v36[3] = &unk_1E8250418;
+    v36[4] = &v37;
+    if (![v3 executeSelectStatement:v4 withBlock:v36 error:0])
     {
       v20 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -3318,35 +3334,35 @@ uint64_t __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_
     v16 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v39[3];
+      v17 = v38[3];
       *buf = 134217984;
-      v44 = v17;
+      v43 = v17;
       _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Found next unjournaled conversation ID: %lld", buf, 0xCu);
     }
 
     if ([*(a1 + 72) count])
     {
       v18 = [*(a1 + 72) ef_compactMap:&__block_literal_global_365];
-      v19 = [MEMORY[0x1E696AD98] numberWithLongLong:v39[3]];
+      v19 = [MEMORY[0x1E696AD98] numberWithLongLong:v38[3]];
       v20 = [v18 arrayByAddingObject:v19];
 
       v21 = [MEMORY[0x1E699B8C8] column:@"conversation"];
       v22 = [v21 in:v20];
 
-      v42[0] = v8;
-      v42[1] = v22;
-      v42[2] = v5;
-      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:3];
+      v41[0] = v8;
+      v41[1] = v22;
+      v41[2] = v5;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:3];
 
       v24 = [objc_alloc(MEMORY[0x1E699B898]) initWithExpressions:v23];
       [v4 setWhere:v24];
 
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forSortKeys_journaledThreadsToCheck_excluding___block_invoke_2_366;
-      v36[3] = &unk_1E8250418;
-      v36[4] = &v38;
-      if (![v3 executeSelectStatement:v4 withBlock:v36 error:0])
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forSortKeys_journaledThreadsToCheck_excluding___block_invoke_2_366;
+      v35[3] = &unk_1E8250418;
+      v35[4] = &v37;
+      if (![v3 executeSelectStatement:v4 withBlock:v35 error:0])
       {
         v32 = +[EDThreadPersistence log];
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -3362,23 +3378,23 @@ uint64_t __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_
       v25 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = v39[3];
+        v26 = v38[3];
         *buf = 134217984;
-        v44 = v26;
+        v43 = v26;
         _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "Found next conversation ID, including journaled: %lld", buf, 0xCu);
       }
 
       v13 = v23;
     }
 
-    if (!v39[3])
+    if (!v38[3])
     {
       v14 = 1;
       goto LABEL_25;
     }
 
     v27 = objc_alloc(MEMORY[0x1E699AEF8]);
-    v28 = v39[3];
+    v28 = v38[3];
     v20 = [*(a1 + 48) threadScope];
     v29 = [v27 initWithConversationID:v28 threadScope:v20];
     v30 = *(*(a1 + 80) + 8);
@@ -3389,7 +3405,7 @@ uint64_t __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_
 LABEL_24:
 
 LABEL_25:
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
 
     goto LABEL_26;
   }
@@ -3403,7 +3419,6 @@ LABEL_25:
   v14 = 1;
 LABEL_26:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -3439,41 +3454,41 @@ void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forS
 
 - (id)threadObjectIDsByNextExistingForThreadObjectIDs:(id)ds forSortKeys:(id)keys journaledThreadsToCheck:(id)check
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   keysCopy = keys;
   checkCopy = check;
   v7 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    -[EDThreadPersistence threadObjectIDsByNextExistingForThreadObjectIDs:forSortKeys:journaledThreadsToCheck:].cold.1(dsCopy, v71, [dsCopy count]);
+    -[EDThreadPersistence threadObjectIDsByNextExistingForThreadObjectIDs:forSortKeys:journaledThreadsToCheck:].cold.1(dsCopy, v70, [dsCopy count]);
   }
 
   if ([dsCopy count])
   {
-    v42 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndexesInRange:{0, objc_msgSend(dsCopy, "count")}];
+    v41 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndexesInRange:{0, objc_msgSend(dsCopy, "count")}];
+    v42 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v43 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v44 = objc_alloc_init(MEMORY[0x1E695DF90]);
     firstObject = [dsCopy firstObject];
     v9 = [(EDThreadPersistence *)self nextExistingThreadObjectIDForThreadObjectID:firstObject forSortKeys:keysCopy journaledThreadsToCheck:checkCopy excluding:dsCopy];
 
     if (v9)
     {
-      [v43 setObject:v9 forKeyedSubscript:&unk_1F45E6BF8];
-      v63 = 0;
-      v64 = &v63;
-      v65 = 0x3032000000;
-      v66 = __Block_byref_object_copy__47;
-      v67 = __Block_byref_object_dispose__47;
+      [v42 setObject:v9 forKeyedSubscript:&unk_1F45E6BF8];
+      v62 = 0;
+      v63 = &v62;
+      v64 = 0x3032000000;
+      v65 = __Block_byref_object_copy__47;
+      v66 = __Block_byref_object_dispose__47;
       v10 = objc_alloc(MEMORY[0x1E695DF70]);
       firstObject2 = [dsCopy firstObject];
-      v68 = [v10 initWithObjects:{firstObject2, 0}];
+      v67 = [v10 initWithObjects:{firstObject2, 0}];
 
-      [v42 removeIndex:0];
-      [v44 setObject:v64[5] forKeyedSubscript:v9];
+      [v41 removeIndex:0];
+      [v43 setObject:v63[5] forKeyedSubscript:v9];
       if ([dsCopy count] == 1)
       {
-        v12 = v44;
+        v12 = v43;
       }
 
       else
@@ -3482,15 +3497,15 @@ void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forS
         aBlock[1] = 3221225472;
         aBlock[2] = __107__EDThreadPersistence_threadObjectIDsByNextExistingForThreadObjectIDs_forSortKeys_journaledThreadsToCheck___block_invoke;
         aBlock[3] = &unk_1E82582B8;
-        v45 = v43;
-        v58 = v45;
-        v15 = v42;
-        v59 = v15;
-        v62 = &v63;
-        v41 = v44;
-        v60 = v41;
+        v44 = v42;
+        v57 = v44;
+        v15 = v41;
+        v58 = v15;
+        v61 = &v62;
+        v40 = v43;
+        v59 = v40;
         v16 = dsCopy;
-        v61 = v16;
+        v60 = v16;
         v17 = _Block_copy(aBlock);
         lastObject = [v16 lastObject];
         v19 = [(EDThreadPersistence *)self nextExistingThreadObjectIDForThreadObjectID:lastObject forSortKeys:keysCopy journaledThreadsToCheck:checkCopy excluding:v16];
@@ -3508,7 +3523,7 @@ void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forS
         v22 = null;
 
         v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v16, "count") - 1}];
-        [v45 setObject:v22 forKeyedSubscript:v23];
+        [v44 setObject:v22 forKeyedSubscript:v23];
 
         if ((v17[2](v17, v22, [v16 count] - 1, 0) & 1) == 0)
         {
@@ -3516,25 +3531,25 @@ void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forS
           v24 = objc_alloc(MEMORY[0x1E695DF70]);
           lastObject2 = [v16 lastObject];
           v26 = [v24 initWithObjects:{lastObject2, 0}];
-          v27 = v64[5];
-          v64[5] = v26;
+          v27 = v63[5];
+          v63[5] = v26;
 
-          [v41 setObject:v64[5] forKeyedSubscript:v22];
+          [v40 setObject:v63[5] forKeyedSubscript:v22];
         }
 
-        v52 = 0;
-        v53 = &v52;
-        v54 = 0x3010000000;
-        v55 = "";
-        v56 = xmmword_1C6472040;
-        v51[0] = MEMORY[0x1E69E9820];
-        v51[1] = 3221225472;
-        v51[2] = __107__EDThreadPersistence_threadObjectIDsByNextExistingForThreadObjectIDs_forSortKeys_journaledThreadsToCheck___block_invoke_2;
-        v51[3] = &unk_1E82582E0;
-        v51[4] = &v52;
-        [v15 enumerateRangesUsingBlock:v51];
-        v28 = v53;
-        v29 = v53[4];
+        v51 = 0;
+        v52 = &v51;
+        v53 = 0x3010000000;
+        v54 = "";
+        v55 = xmmword_1C6472040;
+        v50[0] = MEMORY[0x1E69E9820];
+        v50[1] = 3221225472;
+        v50[2] = __107__EDThreadPersistence_threadObjectIDsByNextExistingForThreadObjectIDs_forSortKeys_journaledThreadsToCheck___block_invoke_2;
+        v50[3] = &unk_1E82582E0;
+        v50[4] = &v51;
+        [v15 enumerateRangesUsingBlock:v50];
+        v28 = v52;
+        v29 = v52[4];
         if (v29 == 0x7FFFFFFFFFFFFFFFLL)
         {
           v9 = v22;
@@ -3561,50 +3576,50 @@ void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forS
             v9 = null2;
 
             v35 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v30];
-            [v45 setObject:v9 forKeyedSubscript:v35];
+            [v44 setObject:v9 forKeyedSubscript:v35];
 
-            if ((v17[2](v17, v9, v30, v53[4] - 1) & 1) == 0 && (v17[2](v17, v9, v30, v53[5] + v53[4]) & 1) == 0)
+            if ((v17[2](v17, v9, v30, v52[4] - 1) & 1) == 0 && (v17[2](v17, v9, v30, v52[5] + v52[4]) & 1) == 0)
             {
               [v15 removeIndex:v30];
               v36 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v31, 0}];
-              v37 = v64[5];
-              v64[5] = v36;
+              v37 = v63[5];
+              v63[5] = v36;
 
-              [v41 setObject:v64[5] forKeyedSubscript:v9];
+              [v40 setObject:v63[5] forKeyedSubscript:v9];
             }
 
-            *(v53 + 2) = xmmword_1C6472040;
-            v50[0] = MEMORY[0x1E69E9820];
-            v50[1] = 3221225472;
-            v50[2] = __107__EDThreadPersistence_threadObjectIDsByNextExistingForThreadObjectIDs_forSortKeys_journaledThreadsToCheck___block_invoke_3;
-            v50[3] = &unk_1E82582E0;
-            v50[4] = &v52;
-            [v15 enumerateRangesUsingBlock:v50];
+            *(v52 + 2) = xmmword_1C6472040;
+            v49[0] = MEMORY[0x1E69E9820];
+            v49[1] = 3221225472;
+            v49[2] = __107__EDThreadPersistence_threadObjectIDsByNextExistingForThreadObjectIDs_forSortKeys_journaledThreadsToCheck___block_invoke_3;
+            v49[3] = &unk_1E82582E0;
+            v49[4] = &v51;
+            [v15 enumerateRangesUsingBlock:v49];
 
-            v28 = v53;
-            v29 = v53[4];
+            v28 = v52;
+            v29 = v52[4];
             v22 = v9;
           }
 
           while (v29 != 0x7FFFFFFFFFFFFFFFLL);
         }
 
-        v38 = v41;
-        _Block_object_dispose(&v52, 8);
+        v38 = v40;
+        _Block_object_dispose(&v51, 8);
       }
 
-      _Block_object_dispose(&v63, 8);
+      _Block_object_dispose(&v62, 8);
 
       null3 = v9;
-      v13 = v44;
+      v13 = v43;
     }
 
     else
     {
       null3 = [MEMORY[0x1E695DFB0] null];
-      v69 = null3;
-      v70 = dsCopy;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+      v68 = null3;
+      v69 = dsCopy;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
     }
   }
 
@@ -3612,8 +3627,6 @@ void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forS
   {
     v13 = MEMORY[0x1E695E0F8];
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -3813,34 +3826,34 @@ LABEL_9:
 
 - (BOOL)sortKeysAreSupportedForPrecomputedThreads:(id)threads
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   threadsCopy = threads;
-  v4 = [threadsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [threadsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(threadsCopy);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        if (([v7 isEqualToString:{@"DateAscending", v11}] & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"DateDescending") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"DisplayDateAscending") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"DisplayDateDescending") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"UrgentDescending") & 1) == 0)
+        v7 = *(*(&v10 + 1) + 8 * i);
+        if (([v7 isEqualToString:{@"DateAscending", v10}] & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"DateDescending") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"DisplayDateAscending") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"DisplayDateDescending") & 1) == 0 && (objc_msgSend(v7, "isEqualToString:", @"UrgentDescending") & 1) == 0)
         {
           v8 = 0;
           goto LABEL_15;
         }
       }
 
-      v4 = [threadsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [threadsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -3853,35 +3866,34 @@ LABEL_9:
   v8 = 1;
 LABEL_15:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)_addOrderByToThreadSelect:(id)select forSortKeys:(id)keys
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   selectCopy = select;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   keysCopy = keys;
-  v7 = [keysCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [keysCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
-        if ([v10 isEqualToString:{@"DateAscending", v15}])
+        v10 = *(*(&v14 + 1) + 8 * v9);
+        if ([v10 isEqualToString:{@"DateAscending", v14}])
         {
           v11 = 1;
 LABEL_10:
@@ -3928,7 +3940,7 @@ LABEL_11:
       }
 
       while (v7 != v9);
-      v13 = [keysCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v13 = [keysCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       v7 = v13;
     }
 
@@ -3936,51 +3948,50 @@ LABEL_11:
   }
 
   [selectCopy orderByColumn:@"conversation" fromTable:@"threads" ascending:1];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_comparisonExpressionForSortKeys:(id)keys conversationID:(int64_t)d threadExpression:(id)expression threadScopeDatabaseID:(int64_t)iD connection:(id)connection
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   expressionCopy = expression;
   connectionCopy = connection;
-  v37 = keysCopy;
+  v36 = keysCopy;
   if (![(EDThreadPersistence *)self sortKeysAreSupportedForPrecomputedThreads:keysCopy])
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"EDThreadPersistence.m" lineNumber:1618 description:{@"Cannot generate expression for unsupported sort keys: %@", keysCopy}];
   }
 
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __121__EDThreadPersistence__comparisonExpressionForSortKeys_conversationID_threadExpression_threadScopeDatabaseID_connection___block_invoke;
-  v53[3] = &unk_1E8255B10;
-  v53[4] = self;
-  v36 = [keysCopy ef_map:v53];
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __121__EDThreadPersistence__comparisonExpressionForSortKeys_conversationID_threadExpression_threadScopeDatabaseID_connection___block_invoke;
+  v52[3] = &unk_1E8255B10;
+  v52[4] = self;
+  v35 = [keysCopy ef_map:v52];
   v13 = [objc_alloc(MEMORY[0x1E699B948]) initWithTable:@"threads"];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
-  v14 = v36;
-  v15 = [v14 countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v14 = v35;
+  v15 = [v14 countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v15)
   {
-    v16 = *v50;
+    v16 = *v49;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v50 != v16)
+        if (*v49 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        [v13 addResultColumn:*(*(&v49 + 1) + 8 * i)];
+        [v13 addResultColumn:*(*(&v48 + 1) + 8 * i)];
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
     while (v15);
@@ -3988,32 +3999,32 @@ LABEL_11:
 
   [v13 setWhere:expressionCopy];
   v18 = objc_opt_new();
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __121__EDThreadPersistence__comparisonExpressionForSortKeys_conversationID_threadExpression_threadScopeDatabaseID_connection___block_invoke_2;
-  v46[3] = &unk_1E82511B8;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __121__EDThreadPersistence__comparisonExpressionForSortKeys_conversationID_threadExpression_threadScopeDatabaseID_connection___block_invoke_2;
+  v45[3] = &unk_1E82511B8;
   v19 = v14;
-  v47 = v19;
+  v46 = v19;
   v20 = v18;
-  v48 = v20;
-  [connectionCopy executeSelectStatement:v13 withBlock:v46 error:0];
+  v47 = v20;
+  [connectionCopy executeSelectStatement:v13 withBlock:v45 error:0];
   v21 = objc_opt_new();
   v22 = objc_opt_new();
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __121__EDThreadPersistence__comparisonExpressionForSortKeys_conversationID_threadExpression_threadScopeDatabaseID_connection___block_invoke_3;
-  v40[3] = &unk_1E8258350;
-  v40[4] = self;
-  v45 = a2;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __121__EDThreadPersistence__comparisonExpressionForSortKeys_conversationID_threadExpression_threadScopeDatabaseID_connection___block_invoke_3;
+  v39[3] = &unk_1E8258350;
+  v39[4] = self;
+  v44 = a2;
   v23 = v19;
-  v41 = v23;
+  v40 = v23;
   v24 = v20;
-  v42 = v24;
+  v41 = v24;
   v25 = v22;
-  v43 = v25;
+  v42 = v25;
   v26 = v21;
-  v44 = v26;
-  [v37 enumerateObjectsUsingBlock:v40];
+  v43 = v26;
+  [v36 enumerateObjectsUsingBlock:v39];
   v27 = [MEMORY[0x1E699B8C8] table:@"threads" column:@"conversation"];
   v28 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
   v29 = [v27 greaterThan:v28];
@@ -4023,7 +4034,6 @@ LABEL_11:
   [v26 addObject:v31];
 
   v32 = [objc_alloc(MEMORY[0x1E699B928]) initWithExpressions:v26];
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
@@ -4171,17 +4181,17 @@ LABEL_8:
 
 - (void)_scheduleRecomputationForThread:(id)thread reason:(id)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   threadCopy = thread;
   reasonCopy = reason;
   v8 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = threadCopy;
-    v14 = 2114;
-    v15 = reasonCopy;
-    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Scheduling recomputation for %{public}@: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = threadCopy;
+    v13 = 2114;
+    v14 = reasonCopy;
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Scheduling recomputation for %{public}@: %{public}@", &v11, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_threadRecomputationLock);
@@ -4192,13 +4202,11 @@ LABEL_8:
 
   v10 = [@"Precomputed thread (recoverable) - " stringByAppendingString:reasonCopy];
   EFSaveTailspin();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_recomputeThreads
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_threadRecomputationLock);
   v3 = [(NSMutableSet *)self->_threadObjectIDsToRecompute copy];
   [(NSMutableSet *)self->_threadObjectIDsToRecompute removeAllObjects];
@@ -4207,23 +4215,21 @@ LABEL_8:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v10 = [v3 count];
-    v11 = 2114;
-    v12 = v3;
+    v9 = [v3 count];
+    v10 = 2114;
+    v11 = v3;
     _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Recomputing %lu threads: %{public}@", buf, 0x16u);
   }
 
   allObjects = [v3 allObjects];
   v6 = [allObjects ef_groupBy:&__block_literal_global_389_0];
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __40__EDThreadPersistence__recomputeThreads__block_invoke_2;
-  v8[3] = &unk_1E82583C0;
-  v8[4] = self;
-  [v6 enumerateKeysAndObjectsUsingBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __40__EDThreadPersistence__recomputeThreads__block_invoke_2;
+  v7[3] = &unk_1E82583C0;
+  v7[4] = self;
+  [v6 enumerateKeysAndObjectsUsingBlock:v7];
 }
 
 id __40__EDThreadPersistence__recomputeThreads__block_invoke(uint64_t a1, void *a2)
@@ -4248,20 +4254,20 @@ void __40__EDThreadPersistence__recomputeThreads__block_invoke_2(uint64_t a1, vo
 
 void __40__EDThreadPersistence__recomputeThreads__block_invoke_3(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) database];
   v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence _recomputeThreads]_block_invoke_3"];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __40__EDThreadPersistence__recomputeThreads__block_invoke_4;
-  v12[3] = &unk_1E8250440;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __40__EDThreadPersistence__recomputeThreads__block_invoke_4;
+  v11[3] = &unk_1E8250440;
   v6 = *(a1 + 40);
-  v12[4] = *(a1 + 32);
-  v13 = v6;
+  v11[4] = *(a1 + 32);
+  v12 = v6;
   v7 = v3;
-  v14 = v7;
-  v8 = [v4 __performWriteWithCaller:v5 usingBlock:v12];
+  v13 = v7;
+  v8 = [v4 __performWriteWithCaller:v5 usingBlock:v11];
 
   if (v8)
   {
@@ -4270,9 +4276,9 @@ void __40__EDThreadPersistence__recomputeThreads__block_invoke_3(uint64_t a1, vo
     {
       v10 = [v7 count];
       *buf = 134218242;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v7;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v7;
       _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Successfully recomputed %lu threads: %{public}@", buf, 0x16u);
     }
   }
@@ -4285,8 +4291,6 @@ void __40__EDThreadPersistence__recomputeThreads__block_invoke_3(uint64_t a1, vo
       __40__EDThreadPersistence__recomputeThreads__block_invoke_3_cold_1(v7, buf, [v7 count]);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__EDThreadPersistence__recomputeThreads__block_invoke_4(uint64_t a1, void *a2)
@@ -4434,48 +4438,46 @@ void __75__EDThreadPersistence__persistedMessagesForMailboxScope_messageExpressi
 
 - (id)resetThreadScopesForAccount:(id)account
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  [(EDThreadPersistence *)self _getIndividualMailboxScopes:&v19 unifiedMailboxThreadScopes:&v18 forAccount:account];
-  v4 = v19;
-  v5 = v18;
+  [(EDThreadPersistence *)self _getIndividualMailboxScopes:&v18 unifiedMailboxThreadScopes:&v17 forAccount:account];
+  v4 = v18;
+  v5 = v17;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(EDThreadPersistence *)self resetThreadScopesForMailboxScope:*(*(&v14 + 1) + 8 * i)];
+        [(EDThreadPersistence *)self resetThreadScopesForMailboxScope:*(*(&v13 + 1) + 8 * i)];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v7);
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __51__EDThreadPersistence_resetThreadScopesForAccount___block_invoke;
-  v13[3] = &unk_1E82583E8;
-  v13[4] = self;
-  [v5 enumerateKeysAndObjectsUsingBlock:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __51__EDThreadPersistence_resetThreadScopesForAccount___block_invoke;
+  v12[3] = &unk_1E82583E8;
+  v12[4] = self;
+  [v5 enumerateKeysAndObjectsUsingBlock:v12];
   allKeys = [v5 allKeys];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return allKeys;
 }
@@ -4657,11 +4659,11 @@ LABEL_23:
 
 uint64_t __90__EDThreadPersistence_persistenceIsAddingMailboxWithDatabaseID_objectID_generationWindow___block_invoke(void *a1, void *a2)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E699AD28];
-  v14[0] = a1[4];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = a1[4];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v6 = [v4 mailboxScopeForMailboxObjectIDs:v5 forExclusion:0];
 
   v7 = [objc_alloc(MEMORY[0x1E699AF08]) initWithMailboxScope:v6 filterPredicate:0];
@@ -4670,8 +4672,24 @@ uint64_t __90__EDThreadPersistence_persistenceIsAddingMailboxWithDatabaseID_obje
   v10 = [MEMORY[0x1E695DF00] date];
   v11 = [v9 _addThreadScopeToDatabase:v7 withMailboxDatabaseID:v8 filterPredicate:7 needsUpdate:0 lastViewedDate:v10 updateThreadScopeManager:1 connection:v3];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
+- (void)persistenceIsAddingMessages:(id)messages journaled:(BOOL)journaled generationWindow:(id)window
+{
+  journaledCopy = journaled;
+  v13 = *MEMORY[0x1E69E9840];
+  messagesCopy = messages;
+  windowCopy = window;
+  v10 = +[EDThreadPersistence log];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 134217984;
+    v12 = [messagesCopy count];
+    _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Persistence is adding %lu messages", &v11, 0xCu);
+  }
+
+  [(EDThreadPersistence *)self _addPersistedMessages:messagesCopy journaled:journaledCopy generationWindow:windowCopy];
 }
 
 - (void)_addPersistedMessages:(id)messages journaled:(BOOL)journaled generationWindow:(id)window
@@ -4691,36 +4709,135 @@ uint64_t __90__EDThreadPersistence_persistenceIsAddingMailboxWithDatabaseID_obje
   [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v10 messageFilter:0 writeBlock:v12];
 }
 
+- (void)_writeThreadedMessages:(id)messages withChangedKeyPaths:(id)paths journaled:(BOOL)journaled generationWindow:(id)window
+{
+  journaledCopy = journaled;
+  v33 = *MEMORY[0x1E69E9840];
+  messagesCopy = messages;
+  pathsCopy = paths;
+  windowCopy = window;
+  thread = [messagesCopy thread];
+  hookRegistry = [(EDThreadPersistence *)self hookRegistry];
+  if ([messagesCopy addThreadReplacingExisting:0 journaled:journaledCopy])
+  {
+    v14 = +[EDThreadPersistence log];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = &stru_1F45B4608;
+      if (journaledCopy)
+      {
+        v15 = @"journaled ";
+      }
+
+      *buf = 138412546;
+      v28 = v15;
+      v29 = 2114;
+      v30 = thread;
+      _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Adding %@thread (new messages): %{public}@", buf, 0x16u);
+    }
+
+    [hookRegistry persistenceIsAddingThread:thread journaled:journaledCopy generationWindow:windowCopy];
+  }
+
+  else
+  {
+    v16 = +[EDThreadPersistence log];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = &stru_1F45B4608;
+      if (journaledCopy)
+      {
+        v17 = @"journaled ";
+      }
+
+      *buf = 138412546;
+      v28 = v17;
+      v29 = 2114;
+      v30 = thread;
+      _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Updating %@thread (new messages): %{public}@", buf, 0x16u);
+    }
+
+    v18 = [messagesCopy updateThreadTableWithJournaled:journaledCopy];
+    threadObjectID = [messagesCopy threadObjectID];
+    v20 = -[EDThreadPersistence _recalculateNewestMessageForThreadObjectID:threadScopeDatabaseID:](self, "_recalculateNewestMessageForThreadObjectID:threadScopeDatabaseID:", threadObjectID, [messagesCopy threadScopeDatabaseID]);
+
+    if (v20)
+    {
+      [v18 addObject:*MEMORY[0x1E699A8C0]];
+    }
+
+    if (v18)
+    {
+      if ([pathsCopy count])
+      {
+        [v18 ef_addAbsentObjectsFromArrayAccordingToEquals:pathsCopy];
+      }
+
+      v21 = v18;
+
+      pathsCopy = v21;
+    }
+
+    if ([pathsCopy count])
+    {
+      v22 = +[EDThreadPersistence log];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        v23 = &stru_1F45B4608;
+        *buf = 138412802;
+        if (journaledCopy)
+        {
+          v23 = @"journaled ";
+        }
+
+        v28 = v23;
+        v29 = 2114;
+        v30 = thread;
+        v31 = 2114;
+        v32 = pathsCopy;
+        _os_log_impl(&dword_1C61EF000, v22, OS_LOG_TYPE_DEFAULT, "Changing %@thread (new messages): %{public}@\nkey paths: %{public}@", buf, 0x20u);
+      }
+
+      if (journaledCopy)
+      {
+        threadObjectID2 = [messagesCopy threadObjectID];
+        [hookRegistry persistenceIsMarkingThreadAsJournaledWithObjectID:threadObjectID2 generationWindow:windowCopy];
+      }
+
+      threadObjectID3 = [messagesCopy threadObjectID];
+      [hookRegistry persistenceIsChangingThreadWithObjectID:threadObjectID3 changedKeyPaths:pathsCopy generationWindow:windowCopy];
+    }
+  }
+}
+
 - (void)persistenceDidAddMessages:(id)messages generationWindow:(id)window
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v6 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 67109120;
-    v12 = [MEMORY[0x1E699B858] bucketMessageCount:{objc_msgSend(messagesCopy, "count")}];
-    _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Persistence did add %u messages", &v11, 8u);
+    v10 = 67109120;
+    v11 = [MEMORY[0x1E699B858] bucketMessageCount:{objc_msgSend(messagesCopy, "count")}];
+    _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Persistence did add %u messages", &v10, 8u);
   }
 
   v7 = EFFetchSignpostLog();
   if (os_signpost_enabled(v7))
   {
     v8 = [MEMORY[0x1E699B858] bucketMessageCount:{objc_msgSend(messagesCopy, "count")}];
-    v11 = 67109120;
-    v12 = v8;
-    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ThreadPersistenceDidAddMessages", "count=%u ", &v11, 8u);
+    v10 = 67109120;
+    v11 = v8;
+    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ThreadPersistenceDidAddMessages", "count=%u ", &v10, 8u);
   }
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
   [hookRegistry persistenceDidFinishThreadUpdates];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistenceIsChangingFlags:(id)flags messages:(id)messages generationWindow:(id)window
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   flagsCopy = flags;
   messagesCopy = messages;
   windowCopy = window;
@@ -4731,11 +4848,11 @@ uint64_t __90__EDThreadPersistence_persistenceIsAddingMailboxWithDatabaseID_obje
       v11 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134218242;
-        v16 = [messagesCopy count];
-        v17 = 2114;
-        v18 = flagsCopy;
-        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Persistence is setting deleted flag for %lu messages: %{public}@", &v15, 0x16u);
+        v14 = 134218242;
+        v15 = [messagesCopy count];
+        v16 = 2114;
+        v17 = flagsCopy;
+        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Persistence is setting deleted flag for %lu messages: %{public}@", &v14, 0x16u);
       }
 
       [(EDThreadPersistence *)self _persistenceIsDeletingMessages:messagesCopy generationWindow:windowCopy];
@@ -4746,11 +4863,11 @@ uint64_t __90__EDThreadPersistence_persistenceIsAddingMailboxWithDatabaseID_obje
       v13 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134218242;
-        v16 = [messagesCopy count];
-        v17 = 2114;
-        v18 = flagsCopy;
-        _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Persistence is unsetting deleted flag for %lu messages: %{public}@", &v15, 0x16u);
+        v14 = 134218242;
+        v15 = [messagesCopy count];
+        v16 = 2114;
+        v17 = flagsCopy;
+        _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Persistence is unsetting deleted flag for %lu messages: %{public}@", &v14, 0x16u);
       }
 
       [(EDThreadPersistence *)self _addPersistedMessages:messagesCopy journaled:0 generationWindow:windowCopy];
@@ -4762,17 +4879,15 @@ uint64_t __90__EDThreadPersistence_persistenceIsAddingMailboxWithDatabaseID_obje
     v12 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 134218242;
-      v16 = [messagesCopy count];
-      v17 = 2114;
-      v18 = flagsCopy;
-      _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Persistence is changing flags for %lu messages: %{public}@", &v15, 0x16u);
+      v14 = 134218242;
+      v15 = [messagesCopy count];
+      v16 = 2114;
+      v17 = flagsCopy;
+      _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Persistence is changing flags for %lu messages: %{public}@", &v14, 0x16u);
     }
 
     [(EDThreadPersistence *)self _persistenceIsChangingFlags:flagsCopy messages:messagesCopy generationWindow:windowCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_persistenceIsChangingFlags:(id)flags messages:(id)messages generationWindow:(id)window
@@ -4799,7 +4914,7 @@ uint64_t __90__EDThreadPersistence_persistenceIsAddingMailboxWithDatabaseID_obje
 
 void __77__EDThreadPersistence__persistenceIsChangingFlags_messages_generationWindow___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = [*(a1 + 32) _persistenceIsChangingFlags:*(a1 + 40) wrappedMessages:v8 threadObjectID:v7 threadScopeDatabaseID:a2];
@@ -4809,24 +4924,22 @@ void __77__EDThreadPersistence__persistenceIsChangingFlags_messages_generationWi
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [*(a1 + 40) ef_publicDescription];
-      v13 = 138543874;
-      v14 = v7;
-      v15 = 2114;
-      v16 = v9;
-      v17 = 2114;
-      v18 = v11;
-      _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Changing thread (flag change): %{public}@\nkey paths: %{public}@\n updated flags: %{public}@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v11;
+      _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Changing thread (flag change): %{public}@\nkey paths: %{public}@\n updated flags: %{public}@", &v12, 0x20u);
     }
 
     [*(a1 + 48) persistenceIsChangingThreadWithObjectID:v7 changedKeyPaths:v9 generationWindow:*(a1 + 56)];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistenceDidChangeFlags:(id)flags messages:(id)messages generationWindow:(id)window
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   flagsCopy = flags;
   messagesCopy = messages;
   v9 = +[EDThreadPersistence log];
@@ -4834,17 +4947,15 @@ void __77__EDThreadPersistence__persistenceIsChangingFlags_messages_generationWi
   {
     v10 = [messagesCopy count];
     ef_publicDescription = [flagsCopy ef_publicDescription];
-    v14 = 134218242;
-    v15 = v10;
-    v16 = 2114;
-    v17 = ef_publicDescription;
-    _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Persistence did change flags for %lu messages: %{public}@", &v14, 0x16u);
+    v13 = 134218242;
+    v14 = v10;
+    v15 = 2114;
+    v16 = ef_publicDescription;
+    _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Persistence did change flags for %lu messages: %{public}@", &v13, 0x16u);
   }
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
   [hookRegistry persistenceDidFinishThreadUpdates];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_persistenceIsChangingFlags:(id)flags wrappedMessages:(id)messages threadObjectID:(id)d threadScopeDatabaseID:(int64_t)iD
@@ -4883,11 +4994,11 @@ void __77__EDThreadPersistence__persistenceIsChangingFlags_messages_generationWi
 
 uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_threadObjectID_threadScopeDatabaseID___block_invoke(uint64_t a1, void *a2)
 {
-  v202[2] = *MEMORY[0x1E69E9840];
-  v182 = a2;
+  v201[2] = *MEMORY[0x1E69E9840];
+  v181 = a2;
   v3 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"threads"];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v184 = [*(a1 + 32) _messageThreadExpressionForThreadObjectID:*(a1 + 40)];
+  v183 = [*(a1 + 32) _messageThreadExpressionForThreadObjectID:*(a1 + 40)];
   if ([*(a1 + 48) readChanged])
   {
     v5 = [MEMORY[0x1E699B8C8] column:@"read"];
@@ -4898,11 +5009,11 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v8 = [v6 initWithResult:&unk_1F45E6BF8 table:v7];
 
       v9 = objc_alloc(MEMORY[0x1E699B898]);
-      v202[0] = v184;
+      v201[0] = v183;
       v10 = [MEMORY[0x1E699B8C8] column:@"read"];
       v11 = [v10 equalTo:&unk_1F45E6BF8];
-      v202[1] = v11;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v202 count:2];
+      v201[1] = v11;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v201 count:2];
       v13 = [v9 initWithExpressions:v12];
       [v8 setWhere:v13];
 
@@ -4939,11 +5050,11 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v18 = [v19 initWithResult:&unk_1F45E6C10 table:v20];
 
       v21 = objc_alloc(MEMORY[0x1E699B898]);
-      v201[0] = v184;
+      v200[0] = v183;
       v22 = [MEMORY[0x1E699B8C8] column:@"flagged"];
       v23 = [v22 equalTo:&unk_1F45E6C10];
-      v201[1] = v23;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v201 count:2];
+      v200[1] = v23;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v200 count:2];
       v25 = [v21 initWithExpressions:v24];
       [v18 setWhere:v25];
 
@@ -4974,10 +5085,10 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v30 = [v31 initWithResult:&unk_1F45E6C10 table:v32];
 
       v33 = objc_alloc(MEMORY[0x1E699B898]);
-      v200[0] = v184;
+      v199[0] = v183;
       v34 = [v28 matchesMask:&unk_1F45E6C40];
-      v200[1] = v34;
-      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v200 count:2];
+      v199[1] = v34;
+      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v199 count:2];
       v36 = [v33 initWithExpressions:v35];
       [v30 setWhere:v36];
 
@@ -5007,10 +5118,10 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v40 = [v41 initWithResult:&unk_1F45E6C10 table:v42];
 
       v43 = objc_alloc(MEMORY[0x1E699B898]);
-      v199[0] = v184;
+      v198[0] = v183;
       v44 = [v28 matchesMask:&unk_1F45E6C58];
-      v199[1] = v44;
-      v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v199 count:2];
+      v198[1] = v44;
+      v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v198 count:2];
       v46 = [v43 initWithExpressions:v45];
       [v40 setWhere:v46];
 
@@ -5040,10 +5151,10 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v50 = [v51 initWithResult:&unk_1F45E6C10 table:v52];
 
       v53 = objc_alloc(MEMORY[0x1E699B898]);
-      v198[0] = v184;
+      v197[0] = v183;
       v54 = [v28 matchesMask:&unk_1F45E6C70];
-      v198[1] = v54;
-      v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v198 count:2];
+      v197[1] = v54;
+      v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v197 count:2];
       v56 = [v53 initWithExpressions:v55];
       [v50 setWhere:v56];
 
@@ -5073,10 +5184,10 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v60 = [v61 initWithResult:&unk_1F45E6C10 table:v62];
 
       v63 = objc_alloc(MEMORY[0x1E699B898]);
-      v197[0] = v184;
+      v196[0] = v183;
       v64 = [v28 matchesMask:&unk_1F45E6C88];
-      v197[1] = v64;
-      v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:v197 count:2];
+      v196[1] = v64;
+      v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:v196 count:2];
       v66 = [v63 initWithExpressions:v65];
       [v60 setWhere:v66];
 
@@ -5102,9 +5213,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v74 = [v73 equalTo:&unk_1F45E6CA0];
 
       v75 = objc_alloc(MEMORY[0x1E699B898]);
-      v196[0] = v184;
-      v196[1] = v74;
-      v76 = [MEMORY[0x1E695DEC8] arrayWithObjects:v196 count:2];
+      v195[0] = v183;
+      v195[1] = v74;
+      v76 = [MEMORY[0x1E695DEC8] arrayWithObjects:v195 count:2];
       v77 = [v75 initWithExpressions:v76];
       [v72 setWhere:v77];
 
@@ -5141,9 +5252,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v85 = [v84 equalTo:&unk_1F45E6CB8];
 
       v86 = objc_alloc(MEMORY[0x1E699B898]);
-      v195[0] = v184;
-      v195[1] = v85;
-      v87 = [MEMORY[0x1E695DEC8] arrayWithObjects:v195 count:2];
+      v194[0] = v183;
+      v194[1] = v85;
+      v87 = [MEMORY[0x1E695DEC8] arrayWithObjects:v194 count:2];
       v88 = [v86 initWithExpressions:v87];
       [v81 setWhere:v88];
 
@@ -5173,9 +5284,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v96 = [v95 equalTo:&unk_1F45E6CD0];
 
       v97 = objc_alloc(MEMORY[0x1E699B898]);
-      v194[0] = v184;
-      v194[1] = v96;
-      v98 = [MEMORY[0x1E695DEC8] arrayWithObjects:v194 count:2];
+      v193[0] = v183;
+      v193[1] = v96;
+      v98 = [MEMORY[0x1E695DEC8] arrayWithObjects:v193 count:2];
       v99 = [v97 initWithExpressions:v98];
       [v92 setWhere:v99];
 
@@ -5205,9 +5316,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v107 = [v106 equalTo:&unk_1F45E6CE8];
 
       v108 = objc_alloc(MEMORY[0x1E699B898]);
-      v193[0] = v184;
-      v193[1] = v107;
-      v109 = [MEMORY[0x1E695DEC8] arrayWithObjects:v193 count:2];
+      v192[0] = v183;
+      v192[1] = v107;
+      v109 = [MEMORY[0x1E695DEC8] arrayWithObjects:v192 count:2];
       v110 = [v108 initWithExpressions:v109];
       [v103 setWhere:v110];
 
@@ -5237,9 +5348,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v118 = [v117 equalTo:&unk_1F45E6D00];
 
       v119 = objc_alloc(MEMORY[0x1E699B898]);
-      v192[0] = v184;
-      v192[1] = v118;
-      v120 = [MEMORY[0x1E695DEC8] arrayWithObjects:v192 count:2];
+      v191[0] = v183;
+      v191[1] = v118;
+      v120 = [MEMORY[0x1E695DEC8] arrayWithObjects:v191 count:2];
       v121 = [v119 initWithExpressions:v120];
       [v114 setWhere:v121];
 
@@ -5269,9 +5380,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v129 = [v128 equalTo:&unk_1F45E6D18];
 
       v130 = objc_alloc(MEMORY[0x1E699B898]);
-      v191[0] = v184;
-      v191[1] = v129;
-      v131 = [MEMORY[0x1E695DEC8] arrayWithObjects:v191 count:2];
+      v190[0] = v183;
+      v190[1] = v129;
+      v131 = [MEMORY[0x1E695DEC8] arrayWithObjects:v190 count:2];
       v132 = [v130 initWithExpressions:v131];
       [v125 setWhere:v132];
 
@@ -5301,9 +5412,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v140 = [v139 equalTo:&unk_1F45E6D30];
 
       v141 = objc_alloc(MEMORY[0x1E699B898]);
-      v190[0] = v184;
-      v190[1] = v140;
-      v142 = [MEMORY[0x1E695DEC8] arrayWithObjects:v190 count:2];
+      v189[0] = v183;
+      v189[1] = v140;
+      v142 = [MEMORY[0x1E695DEC8] arrayWithObjects:v189 count:2];
       v143 = [v141 initWithExpressions:v142];
       [v136 setWhere:v143];
 
@@ -5327,9 +5438,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
 
       v150 = [v28 matchesMask:&unk_1F45E6D48];
       v151 = objc_alloc(MEMORY[0x1E699B898]);
-      v189[0] = v184;
-      v189[1] = v150;
-      v152 = [MEMORY[0x1E695DEC8] arrayWithObjects:v189 count:2];
+      v188[0] = v183;
+      v188[1] = v150;
+      v152 = [MEMORY[0x1E695DEC8] arrayWithObjects:v188 count:2];
       v153 = [v151 initWithExpressions:v152];
       [v149 setWhere:v153];
 
@@ -5362,9 +5473,9 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
       v161 = [v160 equalTo:&unk_1F45E6BF8];
 
       v162 = objc_alloc(MEMORY[0x1E699B898]);
-      v188[0] = v184;
-      v188[1] = v161;
-      v163 = [MEMORY[0x1E695DEC8] arrayWithObjects:v188 count:2];
+      v187[0] = v183;
+      v187[1] = v161;
+      v163 = [MEMORY[0x1E695DEC8] arrayWithObjects:v187 count:2];
       v164 = [v162 initWithExpressions:v163];
       [v159 setWhere:v164];
 
@@ -5387,23 +5498,23 @@ uint64_t __104__EDThreadPersistence__persistenceIsChangingFlags_wrappedMessages_
   if ([v4 count])
   {
     v167 = objc_alloc(MEMORY[0x1E699B898]);
-    v187[0] = *(a1 + 56);
+    v186[0] = *(a1 + 56);
     v168 = [objc_alloc(MEMORY[0x1E699B928]) initWithExpressions:v4];
-    v187[1] = v168;
-    v169 = [MEMORY[0x1E695DEC8] arrayWithObjects:v187 count:2];
+    v186[1] = v168;
+    v169 = [MEMORY[0x1E695DEC8] arrayWithObjects:v186 count:2];
     v170 = [v167 initWithExpressions:v169];
     [v3 setWhereClause:v170];
 
-    v185 = 0;
-    v171 = [v183 executeUpdateStatement:v3 rowsChanged:&v185];
-    if (v185)
+    v184 = 0;
+    v171 = [v182 executeUpdateStatement:v3 rowsChanged:&v184];
+    if (v184)
     {
       v172 = *(a1 + 64);
       v173 = *MEMORY[0x1E699A898];
-      v186[0] = *MEMORY[0x1E699A8A0];
-      v186[1] = v173;
-      v186[2] = *MEMORY[0x1E699A8E8];
-      v174 = [MEMORY[0x1E695DEC8] arrayWithObjects:v186 count:3];
+      v185[0] = *MEMORY[0x1E699A8A0];
+      v185[1] = v173;
+      v185[2] = *MEMORY[0x1E699A8E8];
+      v174 = [MEMORY[0x1E695DEC8] arrayWithObjects:v185 count:3];
       [v172 addObjectsFromArray:v174];
     }
   }
@@ -5446,13 +5557,12 @@ LABEL_88:
 
 LABEL_91:
 
-  v180 = *MEMORY[0x1E69E9840];
   return v171;
 }
 
 - (void)persistenceIsUpdatingIsUrgentForMessage:(id)message generationWindow:(id)window
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   windowCopy = window;
   v8 = +[EDThreadPersistence log];
@@ -5464,25 +5574,24 @@ LABEL_91:
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
   *buf = 0;
-  v19 = buf;
-  v20 = 0x2020000000;
-  v21 = -86;
-  v22[0] = messageCopy;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __80__EDThreadPersistence_persistenceIsUpdatingIsUrgentForMessage_generationWindow___block_invoke;
-  v14[3] = &unk_1E82584B0;
-  v14[4] = self;
-  v17 = buf;
+  v18 = buf;
+  v19 = 0x2020000000;
+  v20 = -86;
+  v21[0] = messageCopy;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __80__EDThreadPersistence_persistenceIsUpdatingIsUrgentForMessage_generationWindow___block_invoke;
+  v13[3] = &unk_1E82584B0;
+  v13[4] = self;
+  v16 = buf;
   v11 = hookRegistry;
-  v15 = v11;
+  v14 = v11;
   v12 = windowCopy;
-  v16 = v12;
-  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v10 block:v14];
+  v15 = v12;
+  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v10 block:v13];
 
   _Block_object_dispose(buf, 8);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __80__EDThreadPersistence_persistenceIsUpdatingIsUrgentForMessage_generationWindow___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -5509,51 +5618,49 @@ void __80__EDThreadPersistence_persistenceIsUpdatingIsUrgentForMessage_generatio
 
 uint64_t __80__EDThreadPersistence_persistenceIsUpdatingIsUrgentForMessage_generationWindow___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20[3] = *MEMORY[0x1E69E9840];
-  v18 = a2;
+  v19[3] = *MEMORY[0x1E69E9840];
+  v17 = a2;
   v3 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"threads"];
   [v3 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"is_urgent"];
   v4 = objc_alloc(MEMORY[0x1E699B898]);
-  v17 = [MEMORY[0x1E699B8C8] column:@"is_urgent"];
-  v16 = [v17 equalTo:MEMORY[0x1E695E110]];
-  v20[0] = v16;
+  v16 = [MEMORY[0x1E699B8C8] column:@"is_urgent"];
+  v15 = [v16 equalTo:MEMORY[0x1E695E110]];
+  v19[0] = v15;
   v5 = [MEMORY[0x1E699B8C8] column:@"scope"];
   v6 = [MEMORY[0x1E696AD98] numberWithLongLong:*(a1 + 48)];
   v7 = [v5 equalTo:v6];
-  v20[1] = v7;
+  v19[1] = v7;
   v8 = [MEMORY[0x1E699B8C8] column:@"conversation"];
   v9 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(a1 + 32), "conversationID")}];
   v10 = [v8 equalTo:v9];
-  v20[2] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  v19[2] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
   v12 = [v4 initWithExpressions:v11];
   [v3 setWhereClause:v12];
 
-  v19 = 0;
-  v13 = [v18 executeUpdateStatement:v3 rowsChanged:&v19];
-  *(*(*(a1 + 40) + 8) + 24) = [v18 rowsChanged] != 0;
+  v18 = 0;
+  v13 = [v17 executeUpdateStatement:v3 rowsChanged:&v18];
+  *(*(*(a1 + 40) + 8) + 24) = [v17 rowsChanged] != 0;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (void)persistenceIsDeletingMessages:(id)messages generationWindow:(id)window
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   windowCopy = window;
   v8 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = [messagesCopy count];
-    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Persistence is deleting %lu messages", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = [messagesCopy count];
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Persistence is deleting %lu messages", &v10, 0xCu);
   }
 
   v9 = [(EDThreadPersistence *)self _filteredPersistedMessagesForPersistedMessages:messagesCopy];
 
   [(EDThreadPersistence *)self _persistenceIsDeletingMessages:v9 generationWindow:windowCopy];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_persistenceIsDeletingMessages:(id)messages generationWindow:(id)window
@@ -5575,7 +5682,7 @@ uint64_t __80__EDThreadPersistence_persistenceIsUpdatingIsUrgentForMessage_gener
 
 void __71__EDThreadPersistence__persistenceIsDeletingMessages_generationWindow___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = [*(a1 + 32) _deleteWrappedMessages:v8 fromThreadWithObjectID:v7 threadScopeDatabaseID:a2 generationWindow:*(a1 + 40)];
@@ -5584,35 +5691,31 @@ void __71__EDThreadPersistence__persistenceIsDeletingMessages_generationWindow__
     v10 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2114;
-      v15 = v9;
-      _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Changing thread (deleted messages): %{public}@\nkey paths: %{public}@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v7;
+      v13 = 2114;
+      v14 = v9;
+      _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Changing thread (deleted messages): %{public}@\nkey paths: %{public}@", &v11, 0x16u);
     }
 
     [*(a1 + 48) persistenceIsChangingThreadWithObjectID:v7 changedKeyPaths:v9 generationWindow:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistenceDidDeleteMessages:(id)messages generationWindow:(id)window
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v6 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = [messagesCopy count];
-    _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Persistence did delete %lu messages", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = [messagesCopy count];
+    _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Persistence did delete %lu messages", &v8, 0xCu);
   }
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
   [hookRegistry persistenceDidFinishThreadUpdates];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_deleteWrappedMessages:(id)messages fromThreadWithObjectID:(id)d threadScopeDatabaseID:(int64_t)iD generationWindow:(id)window
@@ -5685,7 +5788,7 @@ void __71__EDThreadPersistence__persistenceIsDeletingMessages_generationWindow__
 
 uint64_t __97__EDThreadPersistence__updateThreadForDeleteWithObjectID_threadScopeDatabaseID_generationWindow___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _databaseIDForThreadObjectID:*(a1 + 40)];
   [*(a1 + 48) insertGeneration:{objc_msgSend(v3, "transactionGeneration")}];
@@ -5714,14 +5817,14 @@ uint64_t __97__EDThreadPersistence__updateThreadForDeleteWithObjectID_threadScop
     [v10 setLimit:1];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v26 = 0x2020000000;
-    v27 = 0;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __97__EDThreadPersistence__updateThreadForDeleteWithObjectID_threadScopeDatabaseID_generationWindow___block_invoke_457;
-    v22[3] = &unk_1E8250418;
-    v22[4] = &buf;
-    if ([v3 executeSelectStatement:v10 withBlock:v22 error:0])
+    v25 = 0x2020000000;
+    v26 = 0;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __97__EDThreadPersistence__updateThreadForDeleteWithObjectID_threadScopeDatabaseID_generationWindow___block_invoke_457;
+    v21[3] = &unk_1E8250418;
+    v21[4] = &buf;
+    if ([v3 executeSelectStatement:v10 withBlock:v21 error:0])
     {
       v11 = *(a1 + 32);
       if (*(*(&buf + 1) + 24) == 1)
@@ -5770,9 +5873,9 @@ uint64_t __97__EDThreadPersistence__updateThreadForDeleteWithObjectID_threadScop
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           v18 = *(a1 + 40);
-          *v23 = 138543362;
-          v24 = v18;
-          _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Deleting thread: %{public}@", v23, 0xCu);
+          *v22 = 138543362;
+          v23 = v18;
+          _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Deleting thread: %{public}@", v22, 0xCu);
         }
 
         v19 = [*(a1 + 32) hookRegistry];
@@ -5788,7 +5891,6 @@ uint64_t __97__EDThreadPersistence__updateThreadForDeleteWithObjectID_threadScop
     _Block_object_dispose(&buf, 8);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -5820,122 +5922,122 @@ uint64_t __97__EDThreadPersistence__updateThreadForDeleteWithObjectID_threadScop
 
 uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObjectID_threadScopeDatabaseID___block_invoke(uint64_t a1, void *a2)
 {
-  v194[2] = *MEMORY[0x1E69E9840];
-  v134 = a2;
+  v193[2] = *MEMORY[0x1E69E9840];
+  v133 = a2;
   v3 = [*(a1 + 32) _messageThreadExpressionForThreadObjectID:*(a1 + 40)];
-  v179 = 0;
-  v180 = &v179;
-  v181 = 0x3032000000;
-  v182 = __Block_byref_object_copy__47;
-  v183 = __Block_byref_object_dispose__47;
-  v184 = 0;
-  v173 = 0;
-  v174 = &v173;
-  v175 = 0x3032000000;
-  v176 = __Block_byref_object_copy__47;
-  v177 = __Block_byref_object_dispose__47;
   v178 = 0;
-  v167 = 0;
-  v168 = &v167;
-  v169 = 0x3032000000;
-  v170 = __Block_byref_object_copy__47;
-  v171 = __Block_byref_object_dispose__47;
+  v179 = &v178;
+  v180 = 0x3032000000;
+  v181 = __Block_byref_object_copy__47;
+  v182 = __Block_byref_object_dispose__47;
+  v183 = 0;
   v172 = 0;
-  v161 = 0;
-  v162 = &v161;
-  v163 = 0x3032000000;
-  v164 = __Block_byref_object_copy__47;
-  v165 = __Block_byref_object_dispose__47;
+  v173 = &v172;
+  v174 = 0x3032000000;
+  v175 = __Block_byref_object_copy__47;
+  v176 = __Block_byref_object_dispose__47;
+  v177 = 0;
   v166 = 0;
-  v155 = 0;
-  v156 = &v155;
-  v157 = 0x3032000000;
-  v158 = __Block_byref_object_copy__47;
-  v159 = __Block_byref_object_dispose__47;
+  v167 = &v166;
+  v168 = 0x3032000000;
+  v169 = __Block_byref_object_copy__47;
+  v170 = __Block_byref_object_dispose__47;
+  v171 = 0;
   v160 = 0;
-  v149 = 0;
-  v150 = &v149;
-  v151 = 0x3032000000;
-  v152 = __Block_byref_object_copy__47;
-  v153 = __Block_byref_object_dispose__47;
+  v161 = &v160;
+  v162 = 0x3032000000;
+  v163 = __Block_byref_object_copy__47;
+  v164 = __Block_byref_object_dispose__47;
+  v165 = 0;
   v154 = 0;
-  v143 = 0;
-  v144 = &v143;
-  v145 = 0x3032000000;
-  v146 = __Block_byref_object_copy__47;
-  v147 = __Block_byref_object_dispose__47;
+  v155 = &v154;
+  v156 = 0x3032000000;
+  v157 = __Block_byref_object_copy__47;
+  v158 = __Block_byref_object_dispose__47;
+  v159 = 0;
   v148 = 0;
-  v137 = 0;
-  v138 = &v137;
-  v139 = 0x3032000000;
-  v140 = __Block_byref_object_copy__47;
-  v141 = __Block_byref_object_dispose__47;
+  v149 = &v148;
+  v150 = 0x3032000000;
+  v151 = __Block_byref_object_copy__47;
+  v152 = __Block_byref_object_dispose__47;
+  v153 = 0;
   v142 = 0;
+  v143 = &v142;
+  v144 = 0x3032000000;
+  v145 = __Block_byref_object_copy__47;
+  v146 = __Block_byref_object_dispose__47;
+  v147 = 0;
+  v136 = 0;
+  v137 = &v136;
+  v138 = 0x3032000000;
+  v139 = __Block_byref_object_copy__47;
+  v140 = __Block_byref_object_dispose__47;
+  v141 = 0;
   v4 = objc_alloc(MEMORY[0x1E699B948]);
   v5 = +[EDMessagePersistence messagesTableName];
-  v133 = [v4 initWithResultColumn:@"flags" table:v5];
+  v132 = [v4 initWithResultColumn:@"flags" table:v5];
 
-  [v133 addResultColumn:@"is_urgent"];
-  [v133 setWhere:v3];
-  v136[0] = MEMORY[0x1E69E9820];
-  v136[1] = 3221225472;
-  v136[2] = __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObjectID_threadScopeDatabaseID___block_invoke_2;
-  v136[3] = &unk_1E8258528;
-  v136[4] = &v179;
-  v136[5] = &v173;
-  v136[6] = &v167;
-  v136[7] = &v161;
-  v136[8] = &v155;
-  v136[9] = &v149;
-  v136[10] = &v137;
-  v136[11] = &v143;
-  if ([v134 executeSelectStatement:v133 withBlock:v136 error:0])
+  [v132 addResultColumn:@"is_urgent"];
+  [v132 setWhere:v3];
+  v135[0] = MEMORY[0x1E69E9820];
+  v135[1] = 3221225472;
+  v135[2] = __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObjectID_threadScopeDatabaseID___block_invoke_2;
+  v135[3] = &unk_1E8258528;
+  v135[4] = &v178;
+  v135[5] = &v172;
+  v135[6] = &v166;
+  v135[7] = &v160;
+  v135[8] = &v154;
+  v135[9] = &v148;
+  v135[10] = &v136;
+  v135[11] = &v142;
+  if ([v133 executeSelectStatement:v132 withBlock:v135 error:0])
   {
     v6 = [*(a1 + 32) _updateForThreadsWithThreadScopeDatabaseID:*(a1 + 56) conversation:*(a1 + 64)];
     v7 = MEMORY[0x1E699B890];
     v8 = MEMORY[0x1E699B8C8];
     v9 = +[EDMessagePersistence messagesDateReceivedColumnName];
     v10 = [v8 column:v9];
-    v131 = [v7 max:v10];
+    v130 = [v7 max:v10];
 
     v11 = objc_alloc(MEMORY[0x1E699B948]);
     v12 = +[EDMessagePersistence messagesTableName];
-    v130 = [v11 initWithResult:v131 table:v12];
+    v129 = [v11 initWithResult:v130 table:v12];
 
-    [v130 setWhere:v3];
-    [v6 setObject:v130 forKeyedSubscript:@"date"];
+    [v129 setWhere:v3];
+    [v6 setObject:v129 forKeyedSubscript:@"date"];
     v13 = MEMORY[0x1E699B890];
     v14 = MEMORY[0x1E699B8C8];
     v15 = +[EDMessagePersistence messagesDisplayDateColumnName];
     v16 = [v14 column:v15];
-    v127 = [v13 max:v16];
+    v126 = [v13 max:v16];
 
     v17 = objc_alloc(MEMORY[0x1E699B948]);
     v18 = +[EDMessagePersistence messagesTableName];
-    v128 = [v17 initWithResult:v127 table:v18];
+    v127 = [v17 initWithResult:v126 table:v18];
 
-    [v128 setWhere:v3];
-    [v6 setObject:v128 forKeyedSubscript:@"display_date"];
+    [v127 setWhere:v3];
+    [v6 setObject:v127 forKeyedSubscript:@"display_date"];
     v19 = MEMORY[0x1E699B890];
     v20 = [MEMORY[0x1E699B8C8] table:@"message_global_data" column:@"read_later_date"];
-    v129 = [v19 min:v20];
+    v128 = [v19 min:v20];
 
-    v132 = [objc_alloc(MEMORY[0x1E699B948]) initWithResult:v129 table:@"message_global_data"];
+    v131 = [objc_alloc(MEMORY[0x1E699B948]) initWithResult:v128 table:@"message_global_data"];
     v21 = +[EDMessagePersistence messagesTableName];
-    v22 = [v132 join:v21 sourceColumn:*MEMORY[0x1E699B768] targetColumn:@"global_message_id"];
+    v22 = [v131 join:v21 sourceColumn:*MEMORY[0x1E699B768] targetColumn:@"global_message_id"];
 
-    [v132 setWhere:v3];
-    [v6 setObject:v132 forKeyedSubscript:@"read_later_date"];
+    [v131 setWhere:v3];
+    [v6 setObject:v131 forKeyedSubscript:@"read_later_date"];
     v23 = objc_alloc(MEMORY[0x1E699B948]);
     v24 = +[EDMessagePersistence messagesTableName];
     v25 = [v23 initWithResult:MEMORY[0x1E695E110] table:v24];
 
     v26 = objc_alloc(MEMORY[0x1E699B898]);
-    v194[0] = v3;
+    v193[0] = v3;
     v27 = [MEMORY[0x1E699B8C8] column:@"read"];
     v28 = [v27 equalTo:&unk_1F45E6BF8];
-    v194[1] = v28;
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v194 count:2];
+    v193[1] = v28;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v193 count:2];
     v30 = [v26 initWithExpressions:v29];
     [v25 setWhere:v30];
 
@@ -5948,11 +6050,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v34 = [v32 initWithResult:MEMORY[0x1E695E118] table:v33];
 
     v35 = objc_alloc(MEMORY[0x1E699B898]);
-    v193[0] = v3;
+    v192[0] = v3;
     v36 = [MEMORY[0x1E699B8C8] column:@"flagged"];
     v37 = [v36 equalTo:&unk_1F45E6C10];
-    v193[1] = v37;
-    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v193 count:2];
+    v192[1] = v37;
+    v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v192 count:2];
     v39 = [v35 initWithExpressions:v38];
     [v34 setWhere:v39];
 
@@ -5965,11 +6067,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v43 = [v41 initWithResult:MEMORY[0x1E695E118] table:v42];
 
     v44 = objc_alloc(MEMORY[0x1E699B898]);
-    v192[0] = v3;
+    v191[0] = v3;
     v45 = [MEMORY[0x1E699B8C8] column:@"flag_color"];
     v46 = [v45 equalTo:&unk_1F45E6CA0];
-    v192[1] = v46;
-    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v192 count:2];
+    v191[1] = v46;
+    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v191 count:2];
     v48 = [v44 initWithExpressions:v47];
     [v43 setWhere:v48];
 
@@ -5982,11 +6084,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v52 = [v50 initWithResult:MEMORY[0x1E695E118] table:v51];
 
     v53 = objc_alloc(MEMORY[0x1E699B898]);
-    v191[0] = v3;
+    v190[0] = v3;
     v54 = [MEMORY[0x1E699B8C8] column:@"flag_color"];
     v55 = [v54 equalTo:&unk_1F45E6CB8];
-    v191[1] = v55;
-    v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v191 count:2];
+    v190[1] = v55;
+    v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v190 count:2];
     v57 = [v53 initWithExpressions:v56];
     [v52 setWhere:v57];
 
@@ -5999,11 +6101,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v61 = [v59 initWithResult:MEMORY[0x1E695E118] table:v60];
 
     v62 = objc_alloc(MEMORY[0x1E699B898]);
-    v190[0] = v3;
+    v189[0] = v3;
     v63 = [MEMORY[0x1E699B8C8] column:@"flag_color"];
     v64 = [v63 equalTo:&unk_1F45E6CD0];
-    v190[1] = v64;
-    v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:v190 count:2];
+    v189[1] = v64;
+    v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:v189 count:2];
     v66 = [v62 initWithExpressions:v65];
     [v61 setWhere:v66];
 
@@ -6016,11 +6118,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v70 = [v68 initWithResult:MEMORY[0x1E695E118] table:v69];
 
     v71 = objc_alloc(MEMORY[0x1E699B898]);
-    v189[0] = v3;
+    v188[0] = v3;
     v72 = [MEMORY[0x1E699B8C8] column:@"flag_color"];
     v73 = [v72 equalTo:&unk_1F45E6CE8];
-    v189[1] = v73;
-    v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v189 count:2];
+    v188[1] = v73;
+    v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v188 count:2];
     v75 = [v71 initWithExpressions:v74];
     [v70 setWhere:v75];
 
@@ -6033,11 +6135,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v79 = [v77 initWithResult:MEMORY[0x1E695E118] table:v78];
 
     v80 = objc_alloc(MEMORY[0x1E699B898]);
-    v188[0] = v3;
+    v187[0] = v3;
     v81 = [MEMORY[0x1E699B8C8] column:@"flag_color"];
     v82 = [v81 equalTo:&unk_1F45E6D00];
-    v188[1] = v82;
-    v83 = [MEMORY[0x1E695DEC8] arrayWithObjects:v188 count:2];
+    v187[1] = v82;
+    v83 = [MEMORY[0x1E695DEC8] arrayWithObjects:v187 count:2];
     v84 = [v80 initWithExpressions:v83];
     [v79 setWhere:v84];
 
@@ -6050,11 +6152,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v88 = [v86 initWithResult:MEMORY[0x1E695E118] table:v87];
 
     v89 = objc_alloc(MEMORY[0x1E699B898]);
-    v187[0] = v3;
+    v186[0] = v3;
     v90 = [MEMORY[0x1E699B8C8] column:@"flag_color"];
     v91 = [v90 equalTo:&unk_1F45E6D18];
-    v187[1] = v91;
-    v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:v187 count:2];
+    v186[1] = v91;
+    v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:v186 count:2];
     v93 = [v89 initWithExpressions:v92];
     [v88 setWhere:v93];
 
@@ -6067,11 +6169,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v97 = [v95 initWithResult:MEMORY[0x1E695E118] table:v96];
 
     v98 = objc_alloc(MEMORY[0x1E699B898]);
-    v186[0] = v3;
+    v185[0] = v3;
     v99 = [MEMORY[0x1E699B8C8] column:@"flag_color"];
     v100 = [v99 equalTo:&unk_1F45E6D30];
-    v186[1] = v100;
-    v101 = [MEMORY[0x1E695DEC8] arrayWithObjects:v186 count:2];
+    v185[1] = v100;
+    v101 = [MEMORY[0x1E695DEC8] arrayWithObjects:v185 count:2];
     v102 = [v98 initWithExpressions:v101];
     [v97 setWhere:v102];
 
@@ -6084,11 +6186,11 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v106 = [v104 initWithResult:MEMORY[0x1E695E118] table:v105];
 
     v107 = objc_alloc(MEMORY[0x1E699B898]);
-    v185[0] = v3;
+    v184[0] = v3;
     v108 = [MEMORY[0x1E699B8C8] column:@"flagged"];
     v109 = [v108 equalTo:&unk_1F45E6BF8];
-    v185[1] = v109;
-    v110 = [MEMORY[0x1E695DEC8] arrayWithObjects:v185 count:2];
+    v184[1] = v109;
+    v110 = [MEMORY[0x1E695DEC8] arrayWithObjects:v184 count:2];
     v111 = [v107 initWithExpressions:v110];
     [v106 setWhere:v111];
 
@@ -6097,9 +6199,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     [v6 setObject:v112 forKeyedSubscript:@"has_unflagged"];
 
     v113 = MEMORY[0x1E695E110];
-    if (v180[5])
+    if (v179[5])
     {
-      v114 = v180[5];
+      v114 = v179[5];
     }
 
     else
@@ -6108,9 +6210,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     }
 
     [v6 setObject:v114 forKeyedSubscript:@"draft"];
-    if (v174[5])
+    if (v173[5])
     {
-      v115 = v174[5];
+      v115 = v173[5];
     }
 
     else
@@ -6119,9 +6221,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     }
 
     [v6 setObject:v115 forKeyedSubscript:@"replied"];
-    if (v168[5])
+    if (v167[5])
     {
-      v116 = v168[5];
+      v116 = v167[5];
     }
 
     else
@@ -6130,9 +6232,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     }
 
     [v6 setObject:v116 forKeyedSubscript:@"forwarded"];
-    if (v162[5])
+    if (v161[5])
     {
-      v117 = v162[5];
+      v117 = v161[5];
     }
 
     else
@@ -6141,9 +6243,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     }
 
     [v6 setObject:v117 forKeyedSubscript:@"redirected"];
-    if (v156[5])
+    if (v155[5])
     {
-      v118 = v156[5];
+      v118 = v155[5];
     }
 
     else
@@ -6152,9 +6254,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     }
 
     [v6 setObject:v118 forKeyedSubscript:@"has_attachments"];
-    if (v144[5])
+    if (v143[5])
     {
-      v119 = v144[5];
+      v119 = v143[5];
     }
 
     else
@@ -6163,9 +6265,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     }
 
     [v6 setObject:v119 forKeyedSubscript:@"is_icloud_cleanup"];
-    if (v150[5])
+    if (v149[5])
     {
-      v120 = v150[5];
+      v120 = v149[5];
     }
 
     else
@@ -6174,9 +6276,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     }
 
     [v6 setObject:v120 forKeyedSubscript:@"junk_level"];
-    if (v138[5])
+    if (v137[5])
     {
-      v121 = v138[5];
+      v121 = v137[5];
     }
 
     else
@@ -6189,9 +6291,9 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v123 = [*(a1 + 32) _countMessagesForExpression:v122];
     [v6 setObject:v123 forKeyedSubscript:@"count"];
 
-    v135 = 0;
-    v124 = [v134 executeUpdateStatement:v6 rowsChanged:&v135];
-    if (v135)
+    v134 = 0;
+    v124 = [v133 executeUpdateStatement:v6 rowsChanged:&v134];
+    if (v134)
     {
       [*(a1 + 32) _addKeyPathsForBasicPropertiesChangeToKeyPaths:*(a1 + 48)];
     }
@@ -6202,19 +6304,18 @@ uint64_t __96__EDThreadPersistence__updateBasicPropertiesAfterDeleteForThreadObj
     v124 = 0;
   }
 
-  _Block_object_dispose(&v137, 8);
-  _Block_object_dispose(&v143, 8);
+  _Block_object_dispose(&v136, 8);
+  _Block_object_dispose(&v142, 8);
 
-  _Block_object_dispose(&v149, 8);
-  _Block_object_dispose(&v155, 8);
+  _Block_object_dispose(&v148, 8);
+  _Block_object_dispose(&v154, 8);
 
-  _Block_object_dispose(&v161, 8);
-  _Block_object_dispose(&v167, 8);
+  _Block_object_dispose(&v160, 8);
+  _Block_object_dispose(&v166, 8);
 
-  _Block_object_dispose(&v173, 8);
-  _Block_object_dispose(&v179, 8);
+  _Block_object_dispose(&v172, 8);
+  _Block_object_dispose(&v178, 8);
 
-  v125 = *MEMORY[0x1E69E9840];
   return v124;
 }
 
@@ -6347,8 +6448,8 @@ LABEL_6:
 
 uint64_t __108__EDThreadPersistence__deleteMailboxesFromWrappedMessages_fromThreadWithDatabaseID_messageThreadExpression___block_invoke(uint64_t a1, void *a2)
 {
-  v21[3] = *MEMORY[0x1E69E9840];
-  v20 = a2;
+  v20[3] = *MEMORY[0x1E69E9840];
+  v19 = a2;
   v3 = objc_alloc(MEMORY[0x1E699B948]);
   v4 = +[EDMessagePersistence messagesTableName];
   v5 = [v3 initWithResultColumn:@"mailbox" table:v4];
@@ -6356,23 +6457,22 @@ uint64_t __108__EDThreadPersistence__deleteMailboxesFromWrappedMessages_fromThre
   [v5 setDistinct:1];
   [v5 setWhere:*(a1 + 32)];
   v6 = objc_alloc(MEMORY[0x1E699B898]);
-  v19 = [MEMORY[0x1E699B8C8] column:@"thread"];
-  v7 = [v19 equalTo:*(a1 + 40)];
-  v21[0] = v7;
+  v18 = [MEMORY[0x1E699B8C8] column:@"thread"];
+  v7 = [v18 equalTo:*(a1 + 40)];
+  v20[0] = v7;
   v8 = [MEMORY[0x1E699B8C8] column:@"mailbox"];
   v9 = [*(a1 + 48) _mailboxDatabaseIDsForWrappedMessages:*(a1 + 56)];
   v10 = [v8 in:v9];
-  v21[1] = v10;
+  v20[1] = v10;
   v11 = [MEMORY[0x1E699B8C8] column:@"mailbox"];
   v12 = [v11 notIn:v5];
-  v21[2] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+  v20[2] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
   v14 = [v6 initWithExpressions:v13];
 
   v15 = [objc_alloc(MEMORY[0x1E699B8E8]) initWithTable:@"thread_mailboxes" where:v14];
-  v16 = [v20 executeDeleteStatement:v15 rowsChanged:*(*(a1 + 64) + 8) + 24];
+  v16 = [v19 executeDeleteStatement:v15 rowsChanged:*(*(a1 + 64) + 8) + 24];
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -6406,23 +6506,22 @@ uint64_t __108__EDThreadPersistence__deleteMailboxesFromWrappedMessages_fromThre
 
 uint64_t __86__EDThreadPersistence__deleteSendersFromThreadWithDatabaseID_messageThreadExpression___block_invoke(uint64_t a1, void *a2)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _senderAddressesExpressionForMessages:*(a1 + 40)];
   v5 = objc_alloc(MEMORY[0x1E699B898]);
   v6 = [MEMORY[0x1E699B8C8] column:@"thread"];
   v7 = [v6 equalTo:*(a1 + 48)];
-  v16[0] = v7;
+  v15[0] = v7;
   v8 = [MEMORY[0x1E699B8C8] column:@"address"];
   v9 = [v8 notIn:v4];
-  v16[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v11 = [v5 initWithExpressions:v10];
 
   v12 = [objc_alloc(MEMORY[0x1E699B8E8]) initWithTable:@"thread_senders" where:v11];
   v13 = [v3 executeDeleteStatement:v12 rowsChanged:*(*(a1 + 56) + 8) + 24];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -6457,40 +6556,39 @@ uint64_t __86__EDThreadPersistence__deleteSendersFromThreadWithDatabaseID_messag
 
 uint64_t __96__EDThreadPersistence__deleteRecipientsOfType_fromThreadWithDatabaseID_messageThreadExpression___block_invoke(uint64_t a1, void *a2)
 {
-  v19[3] = *MEMORY[0x1E69E9840];
-  v17 = a2;
-  v18 = [*(a1 + 32) _recipientAddressesExpressionForRecipientType:*(a1 + 64) messages:*(a1 + 40)];
+  v18[3] = *MEMORY[0x1E69E9840];
+  v16 = a2;
+  v17 = [*(a1 + 32) _recipientAddressesExpressionForRecipientType:*(a1 + 64) messages:*(a1 + 40)];
   v3 = objc_alloc(MEMORY[0x1E699B898]);
   v4 = [MEMORY[0x1E699B8C8] column:@"thread"];
   v5 = [v4 equalTo:*(a1 + 48)];
-  v19[0] = v5;
+  v18[0] = v5;
   v6 = [MEMORY[0x1E699B8C8] column:@"type"];
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 64)];
   v8 = [v6 equalTo:v7];
-  v19[1] = v8;
+  v18[1] = v8;
   v9 = [MEMORY[0x1E699B8C8] column:@"address"];
-  v10 = [v9 notIn:v18];
-  v19[2] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
+  v10 = [v9 notIn:v17];
+  v18[2] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
   v12 = [v3 initWithExpressions:v11];
 
   v13 = [objc_alloc(MEMORY[0x1E699B8E8]) initWithTable:@"thread_recipients" where:v12];
-  v14 = [v17 executeDeleteStatement:v13 rowsChanged:*(*(a1 + 56) + 8) + 24];
+  v14 = [v16 executeDeleteStatement:v13 rowsChanged:*(*(a1 + 56) + 8) + 24];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)persistenceIsDeletingAllMessagesInMailboxWithURL:(id)l generationWindow:(id)window
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v6 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [MEMORY[0x1E699B858] ec_redactedStringForMailboxURL:lCopy];
     *buf = 138543362;
-    v19 = v7;
+    v18 = v7;
     _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Persistence is deleting all messages in mailbox %{public}@", buf, 0xCu);
   }
 
@@ -6498,18 +6596,16 @@ uint64_t __96__EDThreadPersistence__deleteRecipientsOfType_fromThreadWithDatabas
   messagePersistence = [(EDThreadPersistence *)self messagePersistence];
   mailboxPersistence = [messagePersistence mailboxPersistence];
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __89__EDThreadPersistence_persistenceIsDeletingAllMessagesInMailboxWithURL_generationWindow___block_invoke;
-  v14[3] = &unk_1E82585A0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __89__EDThreadPersistence_persistenceIsDeletingAllMessagesInMailboxWithURL_generationWindow___block_invoke;
+  v13[3] = &unk_1E82585A0;
   v11 = v8;
-  v15 = v11;
-  v16 = mailboxPersistence;
+  v14 = v11;
+  v15 = mailboxPersistence;
   selfCopy = self;
   v12 = mailboxPersistence;
-  [(EDThreadPersistence *)self _enumerateThreadScopesUsingBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(EDThreadPersistence *)self _enumerateThreadScopesUsingBlock:v13];
 }
 
 void __89__EDThreadPersistence_persistenceIsDeletingAllMessagesInMailboxWithURL_generationWindow___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -6525,18 +6621,18 @@ void __89__EDThreadPersistence_persistenceIsDeletingAllMessagesInMailboxWithURL_
 
 - (void)_resetThreadScope:(id)scope withDatabaseID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   dCopy = d;
   database = [(EDThreadPersistence *)self database];
   v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence _resetThreadScope:withDatabaseID:]"];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __56__EDThreadPersistence__resetThreadScope_withDatabaseID___block_invoke;
-  v16[3] = &unk_1E8251CB8;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __56__EDThreadPersistence__resetThreadScope_withDatabaseID___block_invoke;
+  v15[3] = &unk_1E8251CB8;
   v10 = dCopy;
-  v17 = v10;
-  v11 = [database __performWriteWithCaller:v9 usingBlock:v16];
+  v16 = v10;
+  v11 = [database __performWriteWithCaller:v9 usingBlock:v15];
 
   if (v11)
   {
@@ -6544,7 +6640,7 @@ void __89__EDThreadPersistence_persistenceIsDeletingAllMessagesInMailboxWithURL_
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v19 = scopeCopy;
+      v18 = scopeCopy;
       _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Successfully reset thread scope: %{public}@", buf, 0xCu);
     }
 
@@ -6561,12 +6657,10 @@ void __89__EDThreadPersistence_persistenceIsDeletingAllMessagesInMailboxWithURL_
     if (os_log_type_enabled(hookRegistry, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v19 = scopeCopy;
+      v18 = scopeCopy;
       _os_log_impl(&dword_1C61EF000, hookRegistry, OS_LOG_TYPE_DEFAULT, "Failed to reset thread scope: %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__EDThreadPersistence__resetThreadScope_withDatabaseID___block_invoke(uint64_t a1, void *a2)
@@ -6583,21 +6677,19 @@ uint64_t __56__EDThreadPersistence__resetThreadScope_withDatabaseID___block_invo
 
 - (void)persistenceDidDeleteAllMessagesInMailboxesWithURLs:(id)ls generationWindow:(id)window
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   lsCopy = ls;
   v6 = [lsCopy ef_map:&__block_literal_global_461];
   v7 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Persistence did delete all messages in mailbox %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Persistence did delete all messages in mailbox %{public}@", &v9, 0xCu);
   }
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
   [hookRegistry persistenceDidFinishThreadUpdates];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 id __91__EDThreadPersistence_persistenceDidDeleteAllMessagesInMailboxesWithURLs_generationWindow___block_invoke(uint64_t a1, uint64_t a2)
@@ -6609,15 +6701,15 @@ id __91__EDThreadPersistence_persistenceDidDeleteAllMessagesInMailboxesWithURLs_
 
 - (void)persistenceIsChangingConversationID:(int64_t)d messages:(id)messages generationWindow:(id)window
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   windowCopy = window;
   v10 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v21 = [messagesCopy count];
-    v22 = 2048;
+    v20 = [messagesCopy count];
+    v21 = 2048;
     dCopy = d;
     _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Persistence is changing conversation ID for %lu messages from %lld", buf, 0x16u);
   }
@@ -6625,24 +6717,22 @@ id __91__EDThreadPersistence_persistenceDidDeleteAllMessagesInMailboxesWithURLs_
   v11 = [(EDThreadPersistence *)self _filteredPersistedMessagesForPersistedMessages:messagesCopy];
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __85__EDThreadPersistence_persistenceIsChangingConversationID_messages_generationWindow___block_invoke;
-  v16[3] = &unk_1E82585C8;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __85__EDThreadPersistence_persistenceIsChangingConversationID_messages_generationWindow___block_invoke;
+  v15[3] = &unk_1E82585C8;
   dCopy2 = d;
-  v16[4] = self;
+  v15[4] = self;
   v13 = windowCopy;
-  v17 = v13;
-  v18 = hookRegistry;
+  v16 = v13;
+  v17 = hookRegistry;
   v14 = hookRegistry;
-  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v11 messageFilter:0 writeBlock:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v11 messageFilter:0 writeBlock:v15];
 }
 
 void __85__EDThreadPersistence_persistenceIsChangingConversationID_messages_generationWindow___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x1E699AEF8]);
   v5 = *(a1 + 56);
@@ -6674,11 +6764,11 @@ void __85__EDThreadPersistence_persistenceIsChangingConversationID_messages_gene
         v20 = @"journaled ";
       }
 
-      v30 = 138412546;
-      v31 = v20;
-      v32 = 2114;
-      v33 = v15;
-      _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "Adding %@thread (conversation change): %{public}@", &v30, 0x16u);
+      v29 = 138412546;
+      v30 = v20;
+      v31 = 2114;
+      v32 = v15;
+      _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "Adding %@thread (conversation change): %{public}@", &v29, 0x16u);
     }
 
     [*(a1 + 48) persistenceIsAddingThread:v15 journaled:v18 generationWindow:*(a1 + 40)];
@@ -6695,11 +6785,11 @@ void __85__EDThreadPersistence_persistenceIsChangingConversationID_messages_gene
         v22 = @"journaled ";
       }
 
-      v30 = 138412546;
-      v31 = v22;
-      v32 = 2114;
-      v33 = v15;
-      _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Updating %@thread (conversation change): %{public}@", &v30, 0x16u);
+      v29 = 138412546;
+      v30 = v22;
+      v31 = 2114;
+      v32 = v15;
+      _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Updating %@thread (conversation change): %{public}@", &v29, 0x16u);
     }
 
     v23 = [v3 updateThreadTableWithJournaled:v18];
@@ -6714,19 +6804,17 @@ void __85__EDThreadPersistence_persistenceIsChangingConversationID_messages_gene
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       v26 = [v3 threadObjectID];
-      v30 = 138543618;
-      v31 = v26;
-      v32 = 2114;
-      v33 = v11;
-      _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "Changing thread (conversation change): %{public}@\nkey paths: %{public}@", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v26;
+      v31 = 2114;
+      v32 = v11;
+      _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "Changing thread (conversation change): %{public}@\nkey paths: %{public}@", &v29, 0x16u);
     }
 
     v27 = *(a1 + 48);
     v28 = [v3 threadObjectID];
     [v27 persistenceIsChangingThreadWithObjectID:v28 changedKeyPaths:v11 generationWindow:*(a1 + 40)];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistenceDidChangeGlobalMessageID:(int64_t)d orConversationID:(int64_t)iD message:(id)message generationWindow:(id)window
@@ -6769,7 +6857,7 @@ void __85__EDThreadPersistence_persistenceIsChangingConversationID_messages_gene
 
 uint64_t __66__EDThreadPersistence__messagesAreJournaledForThreadWithObjectID___block_invoke(uint64_t a1, void *a2)
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x1E699B948]);
   v5 = +[EDMessagePersistence messagesTableName];
@@ -6780,27 +6868,26 @@ uint64_t __66__EDThreadPersistence__messagesAreJournaledForThreadWithObjectID___
   v9 = [v8 equalTo:&unk_1F45E6C10];
 
   v10 = objc_alloc(MEMORY[0x1E699B898]);
-  v17[0] = v7;
-  v17[1] = v9;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = v7;
+  v16[1] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v12 = [v10 initWithExpressions:v11];
   [v6 setWhere:v12];
 
   [v6 setLimit:1];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __66__EDThreadPersistence__messagesAreJournaledForThreadWithObjectID___block_invoke_2;
-  v16[3] = &unk_1E8250418;
-  v16[4] = *(a1 + 48);
-  v13 = [v3 executeSelectStatement:v6 withBlock:v16 error:0];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __66__EDThreadPersistence__messagesAreJournaledForThreadWithObjectID___block_invoke_2;
+  v15[3] = &unk_1E8250418;
+  v15[4] = *(a1 + 48);
+  v13 = [v3 executeSelectStatement:v6 withBlock:v15 error:0];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (void)persistenceDidChangeReadLaterDate:(id)date messages:(id)messages changeIsRemote:(BOOL)remote generationWindow:(id)window
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   messagesCopy = messages;
   windowCopy = window;
@@ -6809,76 +6896,73 @@ uint64_t __66__EDThreadPersistence__messagesAreJournaledForThreadWithObjectID___
   {
     v14 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v25 = v14;
+    v24 = v14;
     _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   [(EDThreadPersistence *)self _persistenceDidUpdateReadLaterForMessages:messagesCopy generationWindow:windowCopy];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __98__EDThreadPersistence_persistenceDidChangeReadLaterDate_messages_changeIsRemote_generationWindow___block_invoke;
-  v21[3] = &unk_1E82584D8;
-  v21[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __98__EDThreadPersistence_persistenceDidChangeReadLaterDate_messages_changeIsRemote_generationWindow___block_invoke;
+  v20[3] = &unk_1E82584D8;
+  v20[4] = self;
   v15 = windowCopy;
-  v22 = v15;
+  v21 = v15;
   v16 = dateCopy;
-  v23 = v16;
-  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:messagesCopy block:v21];
+  v22 = v16;
+  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:messagesCopy block:v20];
   v17 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = [MEMORY[0x1E699B858] bucketMessageCount:{objc_msgSend(messagesCopy, "count")}];
     *buf = 67109120;
-    LODWORD(v25) = v18;
+    LODWORD(v24) = v18;
     _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Persistence did update read later date for %u messages", buf, 8u);
   }
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
   [hookRegistry persistenceDidFinishThreadUpdates];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __98__EDThreadPersistence_persistenceDidChangeReadLaterDate_messages_changeIsRemote_generationWindow___block_invoke(id *a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [a1[4] _threadExpressionForThreadScopeDatabaseID:a2 conversation:{objc_msgSend(v5, "conversationID")}];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   v7 = [a1[4] database];
   v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence persistenceDidChangeReadLaterDate:messages:changeIsRemote:generationWindow:]_block_invoke"];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __98__EDThreadPersistence_persistenceDidChangeReadLaterDate_messages_changeIsRemote_generationWindow___block_invoke_2;
-  v14[3] = &unk_1E82530F8;
-  v15 = a1[5];
-  v16 = a1[6];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __98__EDThreadPersistence_persistenceDidChangeReadLaterDate_messages_changeIsRemote_generationWindow___block_invoke_2;
+  v13[3] = &unk_1E82530F8;
+  v14 = a1[5];
+  v15 = a1[6];
   v9 = v6;
-  v17 = v9;
-  v18 = &v19;
-  [v7 __performWriteWithCaller:v8 usingBlock:v14];
+  v16 = v9;
+  v17 = &v18;
+  [v7 __performWriteWithCaller:v8 usingBlock:v13];
 
-  if (v20[3])
+  if (v19[3])
   {
     v10 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Changing thread (readLaterDate change): %{public}@", buf, 0xCu);
     }
 
     v11 = [a1[4] hookRegistry];
-    v23 = *MEMORY[0x1E699A958];
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+    v22 = *MEMORY[0x1E699A958];
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
     [v11 persistenceIsChangingThreadWithObjectID:v5 changedKeyPaths:v12 generationWindow:a1[5]];
   }
 
-  _Block_object_dispose(&v19, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __98__EDThreadPersistence_persistenceDidChangeReadLaterDate_messages_changeIsRemote_generationWindow___block_invoke_2(uint64_t a1, void *a2)
@@ -6906,17 +6990,15 @@ uint64_t __98__EDThreadPersistence_persistenceDidChangeReadLaterDate_messages_ch
 
 - (void)_persistenceDidUpdateReadLaterForMessages:(id)messages generationWindow:(id)window
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   windowCopy = window;
   v8 = *MEMORY[0x1E699A960];
-  v12[0] = *MEMORY[0x1E699A958];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[0] = *MEMORY[0x1E699A958];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   predicateForFiredReadLaterMessages = [MEMORY[0x1E699ADA0] predicateForFiredReadLaterMessages];
   [(EDThreadPersistence *)self _persistenceDidUpdateMessages:messagesCopy forFilterPredicate:2 changedKeyPaths:v9 predicateToIgnore:predicateForFiredReadLaterMessages loggingString:@"read later" generationWindow:windowCopy messageTest:&__block_literal_global_467];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __82__EDThreadPersistence__persistenceDidUpdateReadLaterForMessages_generationWindow___block_invoke(uint64_t a1, void *a2)
@@ -6929,18 +7011,16 @@ uint64_t __82__EDThreadPersistence__persistenceDidUpdateReadLaterForMessages_gen
 
 - (void)persistenceDidUpdateFollowUpForMessages:(id)messages generationWindow:(id)window
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   windowCopy = window;
   v8 = *MEMORY[0x1E699A8A8];
-  v12[0] = *MEMORY[0x1E699A8B8];
-  v12[1] = v8;
-  v12[2] = *MEMORY[0x1E699A8B0];
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[0] = *MEMORY[0x1E699A8B8];
+  v11[1] = v8;
+  v11[2] = *MEMORY[0x1E699A8B0];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   predicateForMessagesWithActiveFollowUp = [MEMORY[0x1E699ADA0] predicateForMessagesWithActiveFollowUp];
   [(EDThreadPersistence *)self _persistenceDidUpdateMessages:messagesCopy forFilterPredicate:1 changedKeyPaths:v9 predicateToIgnore:predicateForMessagesWithActiveFollowUp loggingString:@"follow up" generationWindow:windowCopy messageTest:&__block_literal_global_472];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __80__EDThreadPersistence_persistenceDidUpdateFollowUpForMessages_generationWindow___block_invoke(uint64_t a1, void *a2)
@@ -6953,7 +7033,7 @@ uint64_t __80__EDThreadPersistence_persistenceDidUpdateFollowUpForMessages_gener
 
 - (void)persistenceIsUpdatingDisplayDateForMessage:(id)message fromDate:(id)date generation:(int64_t)generation
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dateCopy = date;
   v11 = +[EDThreadPersistence log];
@@ -6961,73 +7041,71 @@ uint64_t __80__EDThreadPersistence_persistenceDidUpdateFollowUpForMessages_gener
   {
     v12 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v24 = v12;
+    v23 = v12;
     _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   displayDate = [messageCopy displayDate];
-  v22 = messageCopy;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDate_generation___block_invoke;
-  v18[3] = &unk_1E8258640;
-  v18[4] = self;
+  v21 = messageCopy;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDate_generation___block_invoke;
+  v17[3] = &unk_1E8258640;
+  v17[4] = self;
   v15 = dateCopy;
-  v19 = v15;
+  v18 = v15;
   v16 = displayDate;
-  v20 = v16;
+  v19 = v16;
   generationCopy = generation;
-  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v14 block:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v14 block:v17];
 }
 
 void __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDate_generation___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = [*(a1 + 32) _threadExpressionForThreadScopeDatabaseID:a2 conversation:{objc_msgSend(v7, "conversationID")}];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDate_generation___block_invoke_2;
-  v35[3] = &unk_1E82585F0;
-  v36 = *(a1 + 40);
-  v37 = *(a1 + 48);
-  v10 = [v8 ef_all:v35];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDate_generation___block_invoke_2;
+  v34[3] = &unk_1E82585F0;
+  v35 = *(a1 + 40);
+  v36 = *(a1 + 48);
+  v10 = [v8 ef_all:v34];
   v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   v12 = [*(a1 + 32) database];
   v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence persistenceIsUpdatingDisplayDateForMessage:fromDate:generation:]_block_invoke"];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDate_generation___block_invoke_3;
-  v22[3] = &unk_1E8258618;
-  v30 = v10;
-  v23 = *(a1 + 48);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDate_generation___block_invoke_3;
+  v21[3] = &unk_1E8258618;
+  v29 = v10;
+  v22 = *(a1 + 48);
   v14 = v9;
   v15 = *(a1 + 32);
-  v24 = v14;
-  v25 = v15;
+  v23 = v14;
+  v24 = v15;
   v16 = v7;
-  v26 = v16;
-  v28 = &v31;
+  v25 = v16;
+  v27 = &v30;
   v17 = v11;
-  v27 = v17;
-  v29 = a2;
-  [v12 __performWriteWithCaller:v13 usingBlock:v22];
+  v26 = v17;
+  v28 = a2;
+  [v12 __performWriteWithCaller:v13 usingBlock:v21];
 
-  if (v32[3])
+  if (v31[3])
   {
     v18 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v39 = v16;
+      v38 = v16;
       _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_DEFAULT, "Changing thread (displayDate change): %{public}@", buf, 0xCu);
     }
 
@@ -7037,13 +7115,12 @@ void __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDa
     [v20 persistenceIsChangingThreadWithObjectID:v16 changedKeyPaths:v17 generationWindow:v19];
   }
 
-  _Block_object_dispose(&v31, 8);
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 }
 
 uint64_t __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fromDate_generation___block_invoke_3(uint64_t a1, void *a2)
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"threads"];
   v5 = v4;
@@ -7054,9 +7131,9 @@ uint64_t __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fr
     v7 = [v6 lessThan:*(a1 + 32)];
 
     v8 = objc_alloc(MEMORY[0x1E699B898]);
-    v24[0] = *(a1 + 40);
-    v24[1] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = *(a1 + 40);
+    v23[1] = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v10 = [v8 initWithExpressions:v9];
     [v5 setWhereClause:v10];
   }
@@ -7091,31 +7168,28 @@ uint64_t __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fr
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (void)persistenceDidUpdateDisplayDateForMessages:(id)messages changeIsRemote:(BOOL)remote generation:(int64_t)generation
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v7 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109120;
-    v10[1] = [MEMORY[0x1E699B858] bucketMessageCount:{objc_msgSend(messagesCopy, "count")}];
-    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Persistence did update display date for %u messages", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [MEMORY[0x1E699B858] bucketMessageCount:{objc_msgSend(messagesCopy, "count")}];
+    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Persistence did update display date for %u messages", v9, 8u);
   }
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
   [hookRegistry persistenceDidFinishThreadUpdates];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistenceDidUpdateProperties:(id)properties message:(id)message generationWindow:(id)window
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   messageCopy = message;
   windowCopy = window;
@@ -7128,21 +7202,21 @@ uint64_t __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fr
     {
       if ([messageCopy numberOfAttachments])
       {
-        v26[0] = messageCopy;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-        v18 = MEMORY[0x1E69E9820];
-        v19 = 3221225472;
-        v20 = __79__EDThreadPersistence_persistenceDidUpdateProperties_message_generationWindow___block_invoke;
-        v21 = &unk_1E8258668;
+        v25[0] = messageCopy;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+        v17 = MEMORY[0x1E69E9820];
+        v18 = 3221225472;
+        v19 = __79__EDThreadPersistence_persistenceDidUpdateProperties_message_generationWindow___block_invoke;
+        v20 = &unk_1E8258668;
         selfCopy = self;
-        v23 = windowCopy;
-        [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v13 block:&v18];
+        v22 = windowCopy;
+        [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:v13 block:&v17];
 
-        v14 = [EDThreadPersistence log:v18];
+        v14 = [EDThreadPersistence log:v17];
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v25 = propertiesCopy;
+          v24 = propertiesCopy;
           _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Persistence did update properties for message: %{public}@", buf, 0xCu);
         }
 
@@ -7157,49 +7231,46 @@ uint64_t __86__EDThreadPersistence_persistenceIsUpdatingDisplayDateForMessage_fr
       [hookRegistry2 persistenceDidFinishThreadUpdates];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __79__EDThreadPersistence_persistenceDidUpdateProperties_message_generationWindow___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [*(a1 + 32) _threadExpressionForThreadScopeDatabaseID:a2 conversation:{objc_msgSend(v5, "conversationID")}];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v7 = [*(a1 + 32) database];
   v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence persistenceDidUpdateProperties:message:generationWindow:]_block_invoke"];
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __79__EDThreadPersistence_persistenceDidUpdateProperties_message_generationWindow___block_invoke_2;
-  v17 = &unk_1E8250288;
-  v18 = *(a1 + 40);
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __79__EDThreadPersistence_persistenceDidUpdateProperties_message_generationWindow___block_invoke_2;
+  v16 = &unk_1E8250288;
+  v17 = *(a1 + 40);
   v9 = v6;
-  v19 = v9;
-  v20 = &v21;
-  [v7 __performWriteWithCaller:v8 usingBlock:&v14];
+  v18 = v9;
+  v19 = &v20;
+  [v7 __performWriteWithCaller:v8 usingBlock:&v13];
 
-  if (v22[3])
+  if (v21[3])
   {
-    v10 = [EDThreadPersistence log:v14];
+    v10 = [EDThreadPersistence log:v13];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = v5;
+      v26 = v5;
       _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Changing thread (hasAttachments change): %{public}@", buf, 0xCu);
     }
 
     v11 = [*(a1 + 32) hookRegistry];
-    v25 = *MEMORY[0x1E699A8E0];
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+    v24 = *MEMORY[0x1E699A8E0];
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
     [v11 persistenceIsChangingThreadWithObjectID:v5 changedKeyPaths:v12 generationWindow:*(a1 + 40)];
   }
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __79__EDThreadPersistence_persistenceDidUpdateProperties_message_generationWindow___block_invoke_2(uint64_t a1, void *a2)
@@ -7216,17 +7287,15 @@ uint64_t __79__EDThreadPersistence_persistenceDidUpdateProperties_message_genera
 
 - (void)persistenceDidChangeCategorizationForMessages:(id)messages userInitiated:(BOOL)initiated generationWindow:(id)window
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   windowCopy = window;
   v9 = *MEMORY[0x1E699A848];
-  v13[0] = *MEMORY[0x1E699A850];
-  v13[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = *MEMORY[0x1E699A850];
+  v12[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   predicateForPrimaryMessages = [MEMORY[0x1E699ADA0] predicateForPrimaryMessages];
   [(EDThreadPersistence *)self _persistenceDidUpdateMessages:messagesCopy forFilterPredicate:4 changedKeyPaths:v10 predicateToIgnore:predicateForPrimaryMessages loggingString:@"categorization" generationWindow:windowCopy messageTest:&__block_literal_global_479];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __100__EDThreadPersistence_persistenceDidChangeCategorizationForMessages_userInitiated_generationWindow___block_invoke(uint64_t a1, void *a2)
@@ -7239,7 +7308,7 @@ uint64_t __100__EDThreadPersistence_persistenceDidChangeCategorizationForMessage
 
 - (void)_persistenceDidUpdateMessages:(id)messages forFilterPredicate:(unint64_t)predicate changedKeyPaths:(id)paths predicateToIgnore:(id)ignore loggingString:(id)string generationWindow:(id)window messageTest:(id)test
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   pathsCopy = paths;
   ignoreCopy = ignore;
@@ -7251,92 +7320,90 @@ uint64_t __100__EDThreadPersistence_persistenceDidChangeCategorizationForMessage
   {
     v17 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v63 = v17;
-    v64 = 2114;
-    v65 = stringCopy;
+    v62 = v17;
+    v63 = 2114;
+    v64 = stringCopy;
     _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ - %{public}@", buf, 0x16u);
   }
 
   hookRegistry = [(EDThreadPersistence *)self hookRegistry];
-  v45 = [messagesCopy ef_partition:testCopy];
+  v44 = [messagesCopy ef_partition:testCopy];
   messagePersistence = [(EDThreadPersistence *)self messagePersistence];
   mailboxPersistence = [messagePersistence mailboxPersistence];
   mailboxProvider = [mailboxPersistence mailboxProvider];
 
-  first = [v45 first];
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke;
-  v55[3] = &unk_1E8258690;
-  v55[4] = self;
+  first = [v44 first];
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke;
+  v54[3] = &unk_1E8258690;
+  v54[4] = self;
   v21 = mailboxProvider;
-  v56 = v21;
+  v55 = v21;
   predicateCopy = predicate;
   v22 = pathsCopy;
-  v57 = v22;
+  v56 = v22;
   v23 = windowCopy;
-  v58 = v23;
+  v57 = v23;
   v24 = stringCopy;
-  v59 = v24;
+  v58 = v24;
   v25 = hookRegistry;
-  v60 = v25;
-  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:first messageFilter:0 writeBlock:v55];
+  v59 = v25;
+  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:first messageFilter:0 writeBlock:v54];
 
-  second = [v45 second];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke_480;
-  v53[3] = &unk_1E82586B8;
+  second = [v44 second];
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke_480;
+  v52[3] = &unk_1E82586B8;
   v27 = ignoreCopy;
-  v54 = v27;
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke_2;
-  v46[3] = &unk_1E8258690;
-  v46[4] = self;
+  v53 = v27;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke_2;
+  v45[3] = &unk_1E8258690;
+  v45[4] = self;
   v28 = v21;
-  v47 = v28;
+  v46 = v28;
   predicateCopy2 = predicate;
   v29 = v23;
-  v48 = v29;
+  v47 = v29;
   v30 = v22;
-  v49 = v30;
+  v48 = v30;
   v31 = v24;
-  v50 = v31;
+  v49 = v31;
   v32 = v25;
-  v51 = v32;
-  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:second messageFilter:v53 writeBlock:v46];
+  v50 = v32;
+  [(EDThreadPersistence *)self _iterateWrappedMessagesByConversationForPersistedMessages:second messageFilter:v52 writeBlock:v45];
 
   v33 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     v34 = [MEMORY[0x1E699B858] bucketMessageCount:{objc_msgSend(messagesCopy, "count")}];
     *buf = 138543618;
-    v63 = v31;
-    v64 = 1024;
-    LODWORD(v65) = v34;
+    v62 = v31;
+    v63 = 1024;
+    LODWORD(v64) = v34;
     _os_log_impl(&dword_1C61EF000, v33, OS_LOG_TYPE_DEFAULT, "Persistence did update (%{public}@) for %u messages", buf, 0x12u);
   }
 
   hookRegistry2 = [(EDThreadPersistence *)self hookRegistry];
   [hookRegistry2 persistenceDidFinishThreadUpdates];
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 thread];
   v5 = [v4 objectID];
   v6 = [v5 threadScope];
 
-  v15 = 0;
+  v14 = 0;
   v7 = [*(a1 + 32) threadScopeManager];
-  v8 = [v7 precomputedMailboxScopeForThreadScope:v6 mailboxTypeResolver:*(a1 + 40) foundPredicates:&v15];
+  v8 = [v7 precomputedMailboxScopeForThreadScope:v6 mailboxTypeResolver:*(a1 + 40) foundPredicates:&v14];
 
-  if ((*(a1 + 80) & v15) != 0)
+  if ((*(a1 + 80) & v14) != 0)
   {
     [*(a1 + 32) _writeThreadedMessages:v3 withChangedKeyPaths:*(a1 + 48) journaled:0 generationWindow:*(a1 + 56)];
   }
@@ -7349,11 +7416,11 @@ void __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate
       v10 = *(a1 + 64);
       v11 = *(a1 + 48);
       *buf = 138543874;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v4;
-      v20 = 2114;
-      v21 = v11;
+      v16 = v10;
+      v17 = 2114;
+      v18 = v4;
+      v19 = 2114;
+      v20 = v11;
       _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Changing thread (%{public}@): %{public}@\nkey paths: %{public}@", buf, 0x20u);
     }
 
@@ -7361,38 +7428,35 @@ void __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate
     v13 = [v3 threadObjectID];
     [v12 persistenceIsChangingThreadWithObjectID:v13 changedKeyPaths:*(a1 + 48) generationWindow:*(a1 + 56)];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke_480(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x1E699ADA0];
-  v13[0] = *(a1 + 32);
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = *(a1 + 32);
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v9 = [v7 predicateFromPredicate:v5 ignoringPredicates:v8];
 
   v10 = [v9 evaluateWithObject:v6];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 void __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate_changedKeyPaths_predicateToIgnore_loggingString_generationWindow_messageTest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 thread];
   v5 = [v4 objectID];
   v6 = [v5 threadScope];
 
-  v24 = 0;
+  v23 = 0;
   v7 = [*(a1 + 32) threadScopeManager];
-  v8 = [v7 precomputedMailboxScopeForThreadScope:v6 mailboxTypeResolver:*(a1 + 40) foundPredicates:&v24];
+  v8 = [v7 precomputedMailboxScopeForThreadScope:v6 mailboxTypeResolver:*(a1 + 40) foundPredicates:&v23];
 
-  if ((*(a1 + 80) & v24) != 0)
+  if ((*(a1 + 80) & v23) != 0)
   {
     v9 = *(a1 + 32);
     v10 = [v3 wrappedMessages];
@@ -7409,11 +7473,11 @@ void __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate
         v15 = *(a1 + 64);
         v16 = [v3 threadObjectID];
         *buf = 138543874;
-        v26 = v15;
-        v27 = 2114;
-        v28 = v16;
-        v29 = 2114;
-        v30 = v13;
+        v25 = v15;
+        v26 = 2114;
+        v27 = v16;
+        v28 = 2114;
+        v29 = v13;
         _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Changing thread (%{public}@): %{public}@\nkey paths: %{public}@", buf, 0x20u);
       }
 
@@ -7431,11 +7495,11 @@ void __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate
       v21 = *(a1 + 56);
       v20 = *(a1 + 64);
       *buf = 138543874;
-      v26 = v20;
-      v27 = 2114;
-      v28 = v4;
-      v29 = 2114;
-      v30 = v21;
+      v25 = v20;
+      v26 = 2114;
+      v27 = v4;
+      v28 = 2114;
+      v29 = v21;
       _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "Changing thread (%{public}@): %{public}@\nkey paths: %{public}@", buf, 0x20u);
     }
 
@@ -7443,8 +7507,6 @@ void __149__EDThreadPersistence__persistenceDidUpdateMessages_forFilterPredicate
     v12 = [v3 threadObjectID];
     [v22 persistenceIsChangingThreadWithObjectID:v12 changedKeyPaths:*(a1 + 56) generationWindow:*(a1 + 48)];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_filteredPersistedMessagesForPersistedMessages:(id)messages
@@ -7473,31 +7535,29 @@ uint64_t __70__EDThreadPersistence__filteredPersistedMessagesForPersistedMessage
 
 - (void)_iterateWrappedMessagesByConversationForPersistedMessages:(id)messages messageFilter:(id)filter writeBlock:(id)block
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   filterCopy = filter;
   blockCopy = block;
   v11 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"dateReceived" ascending:0];
-  v24[0] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   v13 = [messagesCopy sortedArrayUsingDescriptors:v12];
 
   database = [(EDThreadPersistence *)self database];
   v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence _iterateWrappedMessagesByConversationForPersistedMessages:messageFilter:writeBlock:]"];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_messageFilter_writeBlock___block_invoke;
-  v20[3] = &unk_1E8258730;
-  v20[4] = self;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_messageFilter_writeBlock___block_invoke;
+  v19[3] = &unk_1E8258730;
+  v19[4] = self;
   v16 = v13;
-  v21 = v16;
+  v20 = v16;
   v17 = filterCopy;
-  v22 = v17;
+  v21 = v17;
   v18 = blockCopy;
-  v23 = v18;
-  [database __performWriteWithCaller:v15 usingBlock:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v22 = v18;
+  [database __performWriteWithCaller:v15 usingBlock:v19];
 }
 
 uint64_t __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_messageFilter_writeBlock___block_invoke(uint64_t a1, void *a2)
@@ -7527,54 +7587,54 @@ uint64_t __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPers
 
 void __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_messageFilter_writeBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v26 = a3;
-  v30 = v5;
+  v25 = a3;
+  v29 = v5;
   v6 = [*(a1 + 32) threadScopeManager];
   v7 = [v6 databaseIDForThreadScope:v5];
 
-  v27 = [*(a1 + 32) _expressionForThreadScope:v5];
+  v26 = [*(a1 + 32) _expressionForThreadScope:v5];
   v8 = [_EDThreadPersistence_ThreadScope alloc];
   v9 = *(a1 + 40);
   v10 = [*(a1 + 32) messagePersistence];
-  v28 = [(_EDThreadPersistence_ThreadScope *)v8 initWithCache:v9 messagePersistence:v10 threadScopeDatabaseID:v7 threadScopeExpression:v27];
+  v27 = [(_EDThreadPersistence_ThreadScope *)v8 initWithCache:v9 messagePersistence:v10 threadScopeDatabaseID:v7 threadScopeExpression:v26];
 
   v11 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_messageFilter_writeBlock___block_invoke_3;
-  v36[3] = &unk_1E82586E0;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_messageFilter_writeBlock___block_invoke_3;
+  v35[3] = &unk_1E82586E0;
   v12 = v11;
-  v37 = v12;
-  v13 = [v26 ef_groupBy:v36];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
+  v36 = v12;
+  v13 = [v25 ef_groupBy:v35];
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = v12;
-  v14 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v14 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v14)
   {
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * i);
+        v17 = *(*(&v31 + 1) + 8 * i);
         v18 = [v13 objectForKeyedSubscript:v17];
-        v19 = [objc_alloc(MEMORY[0x1E699AEF8]) initWithConversationID:objc_msgSend(v17 threadScope:{"longLongValue"), v30}];
+        v19 = [objc_alloc(MEMORY[0x1E699AEF8]) initWithConversationID:objc_msgSend(v17 threadScope:{"longLongValue"), v29}];
         v20 = *(*(a1 + 56) + 8);
         if (*(v20 + 24))
         {
-          v31 = 0;
-          v21 = [(_EDThreadPersistence_ThreadScope *)v28 createMessagesWithThreadObjectID:v19 wrappedMessages:v18 threadMessages:&v31];
-          v22 = v31;
+          v30 = 0;
+          v21 = [(_EDThreadPersistence_ThreadScope *)v27 createMessagesWithThreadObjectID:v19 wrappedMessages:v18 threadMessages:&v30];
+          v22 = v30;
           *(*(*(a1 + 56) + 8) + 24) = v21;
           if (v22)
           {
@@ -7593,7 +7653,7 @@ void __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersiste
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v39 = v19;
+          v38 = v19;
           _os_log_error_impl(&dword_1C61EF000, v24, OS_LOG_TYPE_ERROR, "Failed to create messages for threadObjectID: %{public}@", buf, 0xCu);
         }
 
@@ -7601,13 +7661,11 @@ void __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersiste
 LABEL_13:
       }
 
-      v14 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v14 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v14);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 id __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_messageFilter_writeBlock___block_invoke_3(uint64_t a1, void *a2)
@@ -7623,74 +7681,70 @@ id __106__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedM
 
 - (void)_iterateWrappedMessagesByConversationForPersistedMessages:(id)messages block:(id)block
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   blockCopy = block;
   v8 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"dateReceived" ascending:0];
-  v16[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   v10 = [messagesCopy sortedArrayUsingDescriptors:v9];
 
   v11 = [(EDThreadPersistence *)self _wrappedMessagesByThreadScopeForPersistedMessages:v10 messageFilter:0];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __87__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_block___block_invoke;
-  v14[3] = &unk_1E8258758;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __87__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_block___block_invoke;
+  v13[3] = &unk_1E8258758;
+  v13[4] = self;
   v12 = blockCopy;
-  v15 = v12;
-  [v11 enumerateKeysAndObjectsUsingBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = v12;
+  [v11 enumerateKeysAndObjectsUsingBlock:v13];
 }
 
 void __87__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_block___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v17 = a3;
+  v16 = a3;
   v6 = [*(a1 + 32) threadScopeManager];
   [v6 databaseIDForThreadScope:v5];
 
   v7 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __87__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_block___block_invoke_2;
-  v23[3] = &unk_1E82586E0;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __87__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_block___block_invoke_2;
+  v22[3] = &unk_1E82586E0;
   v8 = v7;
-  v24 = v8;
-  v9 = [v17 ef_groupBy:v23];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v23 = v8;
+  v9 = [v16 ef_groupBy:v22];
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = v8;
-  v10 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v10 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v10)
   {
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [v9 objectForKeyedSubscript:v13];
         v15 = [objc_alloc(MEMORY[0x1E699AEF8]) initWithConversationID:objc_msgSend(v13 threadScope:{"longLongValue"), v5}];
         (*(*(a1 + 40) + 16))();
       }
 
-      v10 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v10 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 id __87__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMessages_block___block_invoke_2(uint64_t a1, void *a2)
@@ -7733,19 +7787,17 @@ id __87__EDThreadPersistence__iterateWrappedMessagesByConversationForPersistedMe
 
 void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages_messageFilter___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = a2;
-  v6 = *(a1 + 48);
-  v8 = v5;
-  v7 = [*(a1 + 32) _wrappedMessageForPersistedMessages:a3 threadScope:? messageFilter:?];
-  if ([v7 count])
+  v6 = a2;
+  v5 = [*(a1 + 32) _wrappedMessageForPersistedMessages:a3 threadScope:? messageFilter:?];
+  if ([v5 count])
   {
-    [*(a1 + 40) setObject:v7 forKeyedSubscript:v8];
+    [*(a1 + 40) setObject:v5 forKeyedSubscript:v6];
   }
 }
 
 - (id)_persistedMessagesByPossibleThreadScopeForPersistedMessages:(id)messages
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   messagePersistence = [(EDThreadPersistence *)self messagePersistence];
@@ -7754,95 +7806,95 @@ void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages
   threadScopeManager = [(EDThreadPersistence *)self threadScopeManager];
   threadScopes = [threadScopeManager threadScopes];
 
-  v32 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
+  v31 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = messagesCopy;
-  v34 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-  if (v34)
+  v33 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+  if (v33)
   {
-    v33 = *v48;
+    v32 = *v47;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v48 != v33)
+        if (*v47 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v47 + 1) + 8 * i);
+        v7 = *(*(&v46 + 1) + 8 * i);
         mailbox = [v7 mailbox];
         if (mailbox)
         {
-          v9 = [v32 objectForKeyedSubscript:mailbox];
-          v35 = mailbox;
+          v9 = [v31 objectForKeyedSubscript:mailbox];
+          v34 = mailbox;
           if (!v9)
           {
-            v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
             v10 = objc_alloc(MEMORY[0x1E699AD20]);
-            v11 = [v35 URL];
+            v11 = [v34 URL];
             v12 = [v10 initWithURL:v11];
 
-            v45 = 0u;
-            v46 = 0u;
-            v43 = 0u;
             v44 = 0u;
+            v45 = 0u;
+            v42 = 0u;
+            v43 = 0u;
             v13 = threadScopes;
-            v14 = [v13 countByEnumeratingWithState:&v43 objects:v52 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v42 objects:v51 count:16];
             if (v14)
             {
-              v15 = *v44;
+              v15 = *v43;
               do
               {
                 for (j = 0; j != v14; ++j)
                 {
-                  if (*v44 != v15)
+                  if (*v43 != v15)
                   {
                     objc_enumerationMutation(v13);
                   }
 
-                  v17 = *(*(&v43 + 1) + 8 * j);
+                  v17 = *(*(&v42 + 1) + 8 * j);
                   mailboxScope = [v17 mailboxScope];
                   v19 = [mailboxScope scopeContainsMailboxObjectID:v12 mailboxTypeResolver:mailboxPersistence];
 
                   if (v19)
                   {
-                    [v37 addObject:v17];
+                    [v36 addObject:v17];
                   }
                 }
 
-                v14 = [v13 countByEnumeratingWithState:&v43 objects:v52 count:16];
+                v14 = [v13 countByEnumeratingWithState:&v42 objects:v51 count:16];
               }
 
               while (v14);
             }
 
-            [v32 setObject:v37 forKeyedSubscript:v35];
-            v9 = v37;
+            [v31 setObject:v36 forKeyedSubscript:v34];
+            v9 = v36;
           }
 
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           v20 = v9;
-          v21 = [v20 countByEnumeratingWithState:&v39 objects:v51 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v38 objects:v50 count:16];
           if (v21)
           {
-            v22 = *v40;
+            v22 = *v39;
             do
             {
               for (k = 0; k != v21; ++k)
               {
-                if (*v40 != v22)
+                if (*v39 != v22)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                v24 = *(*(&v39 + 1) + 8 * k);
+                v24 = *(*(&v38 + 1) + 8 * k);
                 v25 = [v4 objectForKeyedSubscript:v24];
                 v26 = v25;
                 if (v25)
@@ -7857,53 +7909,51 @@ void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages
                 }
               }
 
-              v21 = [v20 countByEnumeratingWithState:&v39 objects:v51 count:16];
+              v21 = [v20 countByEnumeratingWithState:&v38 objects:v50 count:16];
             }
 
             while (v21);
           }
 
-          mailbox = v35;
+          mailbox = v34;
         }
       }
 
-      v34 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v33 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)_wrappedMessageForPersistedMessages:(id)messages threadScope:(id)scope messageFilter:(id)filter
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   scopeCopy = scope;
   filterCopy = filter;
   v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = messagesCopy;
-  v10 = [obj countByEnumeratingWithState:&v47 objects:v52 count:{16, messagesCopy}];
+  v10 = [obj countByEnumeratingWithState:&v46 objects:v51 count:{16, messagesCopy}];
   if (v10)
   {
-    v11 = *v48;
+    v11 = *v47;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v48 != v11)
+        if (*v47 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v47 + 1) + 8 * i);
+        v13 = *(*(&v46 + 1) + 8 * i);
         v14 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v13, "globalMessageID")}];
         v15 = [v9 objectForKeyedSubscript:v14];
         v16 = v15 == 0;
@@ -7915,7 +7965,7 @@ void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v10 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v10);
@@ -7923,43 +7973,43 @@ void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages
 
   messagePersistence = [(EDThreadPersistence *)self messagePersistence];
   mailboxScope = [scopeCopy mailboxScope];
-  v37 = [messagePersistence messagesForPersistedMessages:obj mailboxScope:mailboxScope];
+  v36 = [messagePersistence messagesForPersistedMessages:obj mailboxScope:mailboxScope];
 
   filterPredicate = [scopeCopy filterPredicate];
-  v34 = filterPredicate;
+  v33 = filterPredicate;
   if (filterPredicate)
   {
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __85__EDThreadPersistence__wrappedMessageForPersistedMessages_threadScope_messageFilter___block_invoke;
-    v44[3] = &unk_1E82587C8;
-    v46 = filterCopy;
-    v45 = filterPredicate;
-    v21 = [v37 ef_filter:v44];
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __85__EDThreadPersistence__wrappedMessageForPersistedMessages_threadScope_messageFilter___block_invoke;
+    v43[3] = &unk_1E82587C8;
+    v45 = filterCopy;
+    v44 = filterPredicate;
+    v21 = [v36 ef_filter:v43];
 
-    v37 = v21;
+    v36 = v21;
   }
 
   v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v38 = v37;
-  v23 = [v38 countByEnumeratingWithState:&v40 objects:v51 count:16];
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = v36;
+  v23 = [v37 countByEnumeratingWithState:&v39 objects:v50 count:16];
   if (v23)
   {
-    v24 = *v41;
+    v24 = *v40;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v41 != v24)
+        if (*v40 != v24)
         {
-          objc_enumerationMutation(v38);
+          objc_enumerationMutation(v37);
         }
 
-        v26 = *(*(&v40 + 1) + 8 * j);
+        v26 = *(*(&v39 + 1) + 8 * j);
         objectID = [v26 objectID];
         v28 = [_EDWrappedMessage alloc];
         v29 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(objectID, "globalMessageID")}];
@@ -7969,13 +8019,11 @@ void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages
         [v22 addObject:v31];
       }
 
-      v23 = [v38 countByEnumeratingWithState:&v40 objects:v51 count:16];
+      v23 = [v37 countByEnumeratingWithState:&v39 objects:v50 count:16];
     }
 
     while (v23);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -7997,33 +8045,33 @@ void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages
 
 - (id)_mailboxDatabaseIDsForWrappedMessages:(id)messages
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = messagesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        message = [*(*(&v18 + 1) + 8 * i) message];
+        message = [*(*(&v17 + 1) + 8 * i) message];
         mailboxObjectIDs = [message mailboxObjectIDs];
         [v5 addObjectsFromArray:mailboxObjectIDs];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -8034,45 +8082,39 @@ void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages
   v14 = [mailboxPersistence mailboxDatabaseIDsForMailboxObjectIDs:v5 createIfNecessary:0];
   allObjects = [v14 allObjects];
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return allObjects;
 }
 
 - (void)_addKeyPathsForBasicPropertiesChangeToKeyPaths:(id)paths
 {
-  v10[8] = *MEMORY[0x1E69E9840];
+  v9[8] = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v4 = *MEMORY[0x1E699A888];
-  v10[0] = *MEMORY[0x1E699A880];
-  v10[1] = v4;
+  v9[0] = *MEMORY[0x1E699A880];
+  v9[1] = v4;
   v5 = *MEMORY[0x1E699A8A0];
-  v10[2] = *MEMORY[0x1E699A958];
-  v10[3] = v5;
+  v9[2] = *MEMORY[0x1E699A958];
+  v9[3] = v5;
   v6 = *MEMORY[0x1E699A8E8];
-  v10[4] = *MEMORY[0x1E699A898];
-  v10[5] = v6;
+  v9[4] = *MEMORY[0x1E699A898];
+  v9[5] = v6;
   v7 = *MEMORY[0x1E699A878];
-  v10[6] = *MEMORY[0x1E699A8E0];
-  v10[7] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:8];
+  v9[6] = *MEMORY[0x1E699A8E0];
+  v9[7] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:8];
   [pathsCopy addObjectsFromArray:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addKeyPathsForDisplayMessageChangeToKeyPaths:(id)paths
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v4 = *MEMORY[0x1E699A9A8];
-  v7[0] = *MEMORY[0x1E699A9A0];
-  v7[1] = v4;
-  v7[2] = *MEMORY[0x1E699A890];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+  v6[0] = *MEMORY[0x1E699A9A0];
+  v6[1] = v4;
+  v6[2] = *MEMORY[0x1E699A890];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
   [pathsCopy ef_addAbsentObjectsFromArrayAccordingToEquals:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_updateNewestReadMessageWithWrappedMessage:(id)message threadExpression:(id)expression
@@ -8116,18 +8158,18 @@ void __87__EDThreadPersistence__wrappedMessagesByThreadScopeForPersistedMessages
 
 uint64_t __83__EDThreadPersistence__updateNewestReadMessageWithWrappedMessage_threadExpression___block_invoke(void *a1, void *a2)
 {
-  v29[2] = *MEMORY[0x1E69E9840];
-  v26 = a2;
+  v28[2] = *MEMORY[0x1E69E9840];
+  v25 = a2;
   v3 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"threads" conflictResolution:4];
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:a1[7]];
   [v3 setObject:v4 forKeyedSubscript:@"newest_read_message"];
 
-  v27 = +[EDMessagePersistence messagesTableName];
+  v26 = +[EDMessagePersistence messagesTableName];
   v5 = objc_alloc(MEMORY[0x1E699B948]);
   v6 = +[EDMessagePersistence messagesDateReceivedColumnName];
-  v7 = [v5 initWithResultColumn:v6 table:v27];
+  v7 = [v5 initWithResultColumn:v6 table:v26];
 
-  v8 = [MEMORY[0x1E699B8C8] table:v27 column:*MEMORY[0x1E699B768]];
+  v8 = [MEMORY[0x1E699B8C8] table:v26 column:*MEMORY[0x1E699B768]];
   v9 = [MEMORY[0x1E699B8C8] table:@"threads" column:@"newest_read_message"];
   v10 = [v8 equalTo:v9];
   [v7 setWhere:v10];
@@ -8135,24 +8177,23 @@ uint64_t __83__EDThreadPersistence__updateNewestReadMessageWithWrappedMessage_th
   v11 = objc_alloc(MEMORY[0x1E699B928]);
   v12 = [MEMORY[0x1E699B8C8] column:@"newest_read_message"];
   v13 = [v12 isNull];
-  v29[0] = v13;
+  v28[0] = v13;
   v14 = objc_alloc(MEMORY[0x1E699B8A8]);
   v15 = a1[4];
   v16 = [v7 ef_SQLIsolatedExpression];
   v17 = [v14 initWithLeft:v15 operator:2 right:v16];
-  v29[1] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+  v28[1] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
   v19 = [v11 initWithExpressions:v18];
 
   v20 = objc_alloc(MEMORY[0x1E699B898]);
-  v28[0] = a1[5];
-  v28[1] = v19;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[0] = a1[5];
+  v27[1] = v19;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v22 = [v20 initWithExpressions:v21];
   [v3 setWhereClause:v22];
 
-  v23 = [v26 executeUpdateStatement:v3 rowsChanged:*(a1[6] + 8) + 24];
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = [v25 executeUpdateStatement:v3 rowsChanged:*(a1[6] + 8) + 24];
   return v23;
 }
 
@@ -8243,7 +8284,7 @@ uint64_t __88__EDThreadPersistence__recalculateNewestMessageForThreadObjectID_th
 
 uint64_t __92__EDThreadPersistence__recalculateNewestReadMessageForThreadObjectID_threadScopeDatabaseID___block_invoke(uint64_t a1, void *a2)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _upsertForThreadsWithThreadScopeDatabaseID:*(a1 + 72) conversation:{objc_msgSend(*(a1 + 40), "conversationID")}];
   v5 = objc_alloc(MEMORY[0x1E699B948]);
@@ -8252,9 +8293,9 @@ uint64_t __92__EDThreadPersistence__recalculateNewestReadMessageForThreadObjectI
   v8 = [v7 equalTo:&unk_1F45E6C10];
 
   v9 = objc_alloc(MEMORY[0x1E699B898]);
-  v19[0] = *(a1 + 56);
-  v19[1] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = *(a1 + 56);
+  v18[1] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v11 = [v9 initWithExpressions:v10];
   [v6 setWhere:v11];
 
@@ -8269,47 +8310,46 @@ uint64_t __92__EDThreadPersistence__recalculateNewestReadMessageForThreadObjectI
   [v4 setWhereClause:v15];
 
   v16 = [v3 executeUpsertStatement:v4 rowsChanged:*(*(a1 + 64) + 8) + 24];
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (id)_recalculateDisplayMessageForThreadObjectID:(id)d threadScopeDatabaseID:(int64_t)iD
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = +[EDMessagePersistence messagesTableName];
   conversationID = [dCopy conversationID];
   v9 = [(EDThreadPersistence *)self _threadExpressionForThreadScopeDatabaseID:iD conversation:conversationID];
   v10 = [(EDThreadPersistence *)self _messageThreadExpressionForThreadObjectID:dCopy];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   database = [(EDThreadPersistence *)self database];
   v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence _recalculateDisplayMessageForThreadObjectID:threadScopeDatabaseID:]"];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __89__EDThreadPersistence__recalculateDisplayMessageForThreadObjectID_threadScopeDatabaseID___block_invoke;
-  v20[3] = &unk_1E8258500;
-  v20[4] = self;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __89__EDThreadPersistence__recalculateDisplayMessageForThreadObjectID_threadScopeDatabaseID___block_invoke;
+  v19[3] = &unk_1E8258500;
+  v19[4] = self;
   iDCopy = iD;
-  v26 = conversationID;
+  v25 = conversationID;
   v13 = v7;
-  v21 = v13;
+  v20 = v13;
   v14 = v9;
-  v22 = v14;
+  v21 = v14;
   v15 = v10;
-  v23 = v15;
-  v24 = &v27;
-  [database __performWriteWithCaller:v12 usingBlock:v20];
+  v22 = v15;
+  v23 = &v26;
+  [database __performWriteWithCaller:v12 usingBlock:v19];
 
-  if (v28[3])
+  if (v27[3])
   {
     v16 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v32 = conversationID;
+      v31 = conversationID;
       _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Thread with conversationID %lld display message updated", buf, 0xCu);
     }
 
@@ -8326,16 +8366,15 @@ uint64_t __92__EDThreadPersistence__recalculateNewestReadMessageForThreadObjectI
     v17 = MEMORY[0x1E695E0F0];
   }
 
-  _Block_object_dispose(&v27, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v26, 8);
 
   return v17;
 }
 
 uint64_t __89__EDThreadPersistence__recalculateDisplayMessageForThreadObjectID_threadScopeDatabaseID___block_invoke(uint64_t a1, void *a2)
 {
-  v29[2] = *MEMORY[0x1E69E9840];
-  v27 = a2;
+  v28[2] = *MEMORY[0x1E69E9840];
+  v26 = a2;
   v3 = [*(a1 + 32) _upsertForThreadsWithThreadScopeDatabaseID:*(a1 + 72) conversation:*(a1 + 80)];
   v4 = objc_alloc(MEMORY[0x1E699B948]);
   v5 = +[EDMessagePersistence messagesDateReceivedColumnName];
@@ -8344,18 +8383,18 @@ uint64_t __89__EDThreadPersistence__recalculateDisplayMessageForThreadObjectID_t
   v7 = *MEMORY[0x1E699B768];
   v8 = [v6 join:@"threads" sourceColumn:*MEMORY[0x1E699B768] targetColumn:@"newest_read_message"];
   [v6 setWhere:*(a1 + 48)];
-  v28 = [MEMORY[0x1E699B8F8] ifNull:v6 second:&unk_1F45E6BF8];
+  v27 = [MEMORY[0x1E699B8F8] ifNull:v6 second:&unk_1F45E6BF8];
   v9 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:v7 table:*(a1 + 40)];
   v10 = MEMORY[0x1E699B8C8];
   v11 = *(a1 + 40);
   v12 = +[EDMessagePersistence messagesDateReceivedColumnName];
   v13 = [v10 table:v11 column:v12];
-  v14 = [v13 greaterThan:v28];
+  v14 = [v13 greaterThan:v27];
 
   v15 = objc_alloc(MEMORY[0x1E699B898]);
-  v29[0] = *(a1 + 56);
-  v29[1] = v14;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+  v28[0] = *(a1 + 56);
+  v28[1] = v14;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
   v17 = [v15 initWithExpressions:v16];
   [v9 setWhere:v17];
 
@@ -8373,8 +8412,7 @@ uint64_t __89__EDThreadPersistence__recalculateDisplayMessageForThreadObjectID_t
   v23 = [v22 isNot:v21];
   [v3 setWhereClause:v23];
 
-  v24 = [v27 executeUpsertStatement:v3 rowsChanged:*(*(a1 + 64) + 8) + 24];
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = [v26 executeUpsertStatement:v3 rowsChanged:*(*(a1 + 64) + 8) + 24];
   return v24;
 }
 
@@ -8407,90 +8445,90 @@ uint64_t __89__EDThreadPersistence__recalculateDisplayMessageForThreadObjectID_t
 
 uint64_t __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadObjectID___block_invoke(void *a1, void *a2)
 {
-  v50[2] = *MEMORY[0x1E69E9840];
-  v37 = a2;
+  v49[2] = *MEMORY[0x1E69E9840];
+  v36 = a2;
   v3 = [MEMORY[0x1E699B8C8] column:@"thread"];
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:a1[6]];
   v5 = [v3 equalTo:v4];
 
   v6 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"address" table:@"thread_senders"];
   v7 = [MEMORY[0x1E699B8C8] column:@"priority"];
-  v36 = [v7 equalTo:&unk_1F45E6D60];
+  v35 = [v7 equalTo:&unk_1F45E6D60];
 
   v8 = objc_alloc(MEMORY[0x1E699B898]);
-  v50[0] = v5;
-  v50[1] = v36;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+  v49[0] = v5;
+  v49[1] = v35;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
   v10 = [v8 initWithExpressions:v9];
   [v6 setWhere:v10];
 
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v11 = *MEMORY[0x1E699A728];
-  v47 = *MEMORY[0x1E699A728];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadObjectID___block_invoke_500;
-  v43[3] = &unk_1E8250418;
-  v43[4] = &v44;
-  if ([v37 executeSelectStatement:v6 withBlock:v43 error:0])
+  v46 = *MEMORY[0x1E699A728];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadObjectID___block_invoke_500;
+  v42[3] = &unk_1E8250418;
+  v42[4] = &v43;
+  if ([v36 executeSelectStatement:v6 withBlock:v42 error:0])
   {
-    v35 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"display_message" table:@"threads"];
+    v34 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"display_message" table:@"threads"];
     v12 = *MEMORY[0x1E699B768];
     v13 = [MEMORY[0x1E699B8C8] column:*MEMORY[0x1E699B768]];
     v14 = [MEMORY[0x1E696AD98] numberWithLongLong:a1[6]];
     v15 = [v13 equalTo:v14];
-    [v35 setWhere:v15];
+    [v34 setWhere:v15];
 
     v16 = objc_alloc(MEMORY[0x1E699B948]);
     v17 = +[EDMessagePersistence messagesSenderColumnName];
     v18 = [v16 initWithResultColumn:v17 table:a1[4]];
 
     v19 = [MEMORY[0x1E699B8C8] column:v12];
-    v20 = [v19 in:v35];
+    v20 = [v19 in:v34];
     [v18 setWhere:v20];
 
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
-    v42 = v11;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadObjectID___block_invoke_2;
-    v38[3] = &unk_1E8250418;
-    v38[4] = &v39;
-    if ([v37 executeSelectStatement:v18 withBlock:v38 error:0])
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2020000000;
+    v41 = v11;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadObjectID___block_invoke_2;
+    v37[3] = &unk_1E8250418;
+    v37[4] = &v38;
+    if ([v36 executeSelectStatement:v18 withBlock:v37 error:0])
     {
       v21 = 1;
-      if (v45[3] != v40[3])
+      if (v44[3] != v39[3])
       {
         *(*(a1[5] + 8) + 24) = 1;
         v22 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"thread_senders"];
         [v22 setObject:&unk_1F45E6D78 forKeyedSubscript:@"priority"];
         v23 = objc_alloc(MEMORY[0x1E699B898]);
-        v49[0] = v5;
-        v49[1] = v36;
-        v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
+        v48[0] = v5;
+        v48[1] = v35;
+        v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
         v25 = [v23 initWithExpressions:v24];
         [v22 setWhereClause:v25];
 
-        if ([v37 executeUpdateStatement:v22 error:0])
+        if ([v36 executeUpdateStatement:v22 error:0])
         {
           v26 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"thread_senders"];
           [v26 setObject:&unk_1F45E6D60 forKeyedSubscript:@"priority"];
           v27 = [MEMORY[0x1E699B8C8] column:@"address"];
-          v28 = [MEMORY[0x1E696AD98] numberWithLongLong:v40[3]];
+          v28 = [MEMORY[0x1E696AD98] numberWithLongLong:v39[3]];
           v29 = [v27 equalTo:v28];
 
           v30 = objc_alloc(MEMORY[0x1E699B898]);
-          v48[0] = v5;
-          v48[1] = v29;
-          v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
+          v47[0] = v5;
+          v47[1] = v29;
+          v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
           v32 = [v30 initWithExpressions:v31];
           [v26 setWhereClause:v32];
 
-          v21 = [v37 executeUpdateStatement:v26 error:0];
+          v21 = [v36 executeUpdateStatement:v26 error:0];
         }
 
         else
@@ -8505,7 +8543,7 @@ uint64_t __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadOb
       v21 = 0;
     }
 
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v38, 8);
   }
 
   else
@@ -8513,9 +8551,8 @@ uint64_t __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadOb
     v21 = 0;
   }
 
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v43, 8);
 
-  v33 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -8551,31 +8588,29 @@ void __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadObject
 
 - (id)_threadExpressionForThreadScopeDatabaseID:(int64_t)d conversation:(int64_t)conversation
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v6 = [MEMORY[0x1E699B8C8] table:@"threads" column:@"scope"];
   v7 = [MEMORY[0x1E699B8C8] table:@"threads" column:@"conversation"];
   v8 = objc_alloc(MEMORY[0x1E699B898]);
   v9 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
   v10 = [v6 equalTo:v9];
-  v17[0] = v10;
+  v16[0] = v10;
   v11 = [MEMORY[0x1E696AD98] numberWithLongLong:conversation];
   v12 = [v7 equalTo:v11];
-  v17[1] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[1] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v14 = [v8 initWithExpressions:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (id)_upsertForThreadsWithThreadScopeDatabaseID:(int64_t)d conversation:(int64_t)conversation
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v6 = objc_alloc(MEMORY[0x1E699B968]);
-  v15[0] = @"scope";
-  v15[1] = @"conversation";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = @"scope";
+  v14[1] = @"conversation";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v8 = [v6 initWithTable:@"threads" conflictTarget:v7];
 
   v9 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
@@ -8590,29 +8625,25 @@ void __75__EDThreadPersistence_setPriorityForDisplayMessageSenderForThreadObject
   insertValue2 = [v8 insertValue];
   [insertValue2 setObject:&unk_1F45E6BF8 forKeyedSubscript:@"count"];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)_updateForThreadsWithThreadScopeDatabaseID:(int64_t)d conversation:(int64_t)conversation
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v6 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"threads"];
   v7 = objc_alloc(MEMORY[0x1E699B898]);
   v8 = [MEMORY[0x1E699B8C8] column:@"scope"];
   v9 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
   v10 = [v8 equalTo:v9];
-  v18[0] = v10;
+  v17[0] = v10;
   v11 = [MEMORY[0x1E699B8C8] column:@"conversation"];
   v12 = [MEMORY[0x1E696AD98] numberWithLongLong:conversation];
   v13 = [v11 equalTo:v12];
-  v18[1] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[1] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v15 = [v7 initWithExpressions:v14];
   [v6 setWhereClause:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -8671,7 +8702,7 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
 
 - (id)_messageThreadExpressionForThreadScope:(id)scope conversationExpression:(id)expression
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   expressionCopy = expression;
   v8 = [(EDThreadPersistence *)self _expressionForThreadScope:scopeCopy];
@@ -8683,20 +8714,18 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
   v14 = [v9 likely:v13];
 
   v15 = objc_alloc(MEMORY[0x1E699B898]);
-  v20[0] = v14;
-  v20[1] = expressionCopy;
-  v20[2] = v8;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  v19[0] = v14;
+  v19[1] = expressionCopy;
+  v19[2] = v8;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
   v17 = [v15 initWithExpressions:v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (id)_expressionForThreadScope:(id)scope
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   filterPredicate = [scopeCopy filterPredicate];
   v6 = [(EDThreadPersistence *)self _messageFilterExpressionForFilterPredicate:filterPredicate];
@@ -8715,9 +8744,9 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
     {
       v9 = [(EDThreadPersistence *)self _messageMailboxesExpressionForMailboxScope:mailboxScope];
       v10 = objc_alloc(MEMORY[0x1E699B898]);
-      v16[0] = v9;
-      v16[1] = v6;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+      v15[0] = v9;
+      v15[1] = v6;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
       v12 = [v10 initWithExpressions:v11];
     }
   }
@@ -8727,8 +8756,6 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
     mailboxScope2 = [scopeCopy mailboxScope];
     v12 = [(EDThreadPersistence *)self _messageMailboxesExpressionForMailboxScope:mailboxScope2];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -8788,31 +8815,31 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
 
 - (id)_messageMailboxesExpressionForAccountObjectIDs:(id)ds
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   messagePersistence = [(EDThreadPersistence *)self messagePersistence];
   mailboxPersistence = [messagePersistence mailboxPersistence];
   allMailboxes = [mailboxPersistence allMailboxes];
 
-  v9 = [allMailboxes countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [allMailboxes countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(allMailboxes);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         accountIdentifier = [v12 accountIdentifier];
         v14 = [dsCopy containsObject:accountIdentifier];
 
@@ -8823,7 +8850,7 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
         }
       }
 
-      v9 = [allMailboxes countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [allMailboxes countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v9);
@@ -8836,14 +8863,12 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
   v19 = [MEMORY[0x1E699B8C8] column:@"mailbox"];
   v20 = [v19 in:v18];
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (id)_messageActiveFollowUpExpressionForSentMailboxObjectIDs:(id)ds
 {
-  v30[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v4 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"follow_up_start_date" table:@"message_global_data"];
   v5 = *MEMORY[0x1E699B768];
@@ -8870,23 +8895,21 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
   if ([dsCopy count] && (-[EDThreadPersistence _messageMailboxesExpressionForMailboxObjectIDs:](self, "_messageMailboxesExpressionForMailboxObjectIDs:", dsCopy), v20 = objc_claimAutoreleasedReturnValue(), (v21 = v20) != 0))
   {
     v22 = MEMORY[0x1E699B898];
-    v30[0] = v18;
-    v30[1] = v19;
-    v30[2] = v20;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
+    v29[0] = v18;
+    v29[1] = v19;
+    v29[2] = v20;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
     v24 = [v22 combined:v23];
   }
 
   else
   {
     v25 = MEMORY[0x1E699B898];
-    v29[0] = v18;
-    v29[1] = v19;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = v18;
+    v28[1] = v19;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v24 = [v25 combined:v21];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -8909,7 +8932,7 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
 
 - (id)_messageFiredReadLaterExpression:(id)expression
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   expressionCopy = expression;
   v5 = [(EDThreadPersistence *)self _selectFromMessageGlobalDataColumn:@"read_later_date"];
   v6 = [MEMORY[0x1E699B8C8] column:@"display_date"];
@@ -8917,21 +8940,19 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
   if ([expressionCopy count] && (-[EDThreadPersistence _messageMailboxesExpressionForAccountObjectIDs:](self, "_messageMailboxesExpressionForAccountObjectIDs:", expressionCopy), v8 = objc_claimAutoreleasedReturnValue(), (v9 = v8) != 0))
   {
     v10 = MEMORY[0x1E699B898];
-    v17[0] = v7;
-    v17[1] = v8;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    v16[0] = v7;
+    v16[1] = v8;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     v12 = [v10 combined:v11];
   }
 
   else
   {
     v13 = MEMORY[0x1E699B898];
-    v16 = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
     v12 = [v13 combined:v9];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -8961,7 +8982,7 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
 
 - (id)_expressionForCategoryType:(unint64_t)type
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   v4 = [(EDThreadPersistence *)self _selectFromMessageGlobalDataColumn:@"model_category"];
   v5 = objc_alloc(MEMORY[0x1E699B948]);
   v6 = +[EDBusinessPersistence businessAddressesCategoryColumnName];
@@ -8981,17 +9002,15 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
 
   [v8 setLimit:1];
   v18 = MEMORY[0x1E699B8F8];
-  v26[0] = v8;
-  v26[1] = v4;
-  v26[2] = &unk_1F45E6CA0;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+  v25[0] = v8;
+  v25[1] = v4;
+  v25[2] = &unk_1F45E6CA0;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
   v20 = [v18 coalesce:v19];
 
   v21 = objc_alloc(MEMORY[0x1E699B8A8]);
   v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
   v23 = [v21 initWithLeft:v20 operator:0 right:v22];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -9011,23 +9030,21 @@ id __72__EDThreadPersistence__messageThreadExpressionForThreadScope_objectIDs___
 
 - (id)_recipientAddressesExpressionForRecipientType:(unint64_t)type messages:(id)messages
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v6 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"address" table:@"recipients"];
   v7 = +[EDMessagePersistence messagesTableName];
   v8 = [v6 join:v7 sourceColumn:@"message" targetColumn:*MEMORY[0x1E699B768]];
 
   v9 = objc_alloc(MEMORY[0x1E699B898]);
-  v17[0] = messagesCopy;
+  v16[0] = messagesCopy;
   v10 = [MEMORY[0x1E699B8C8] table:@"recipients" column:@"type"];
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
   v12 = [v10 equalTo:v11];
-  v17[1] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[1] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v14 = [v9 initWithExpressions:v13];
   [v6 setWhere:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -9208,28 +9225,26 @@ id __66__EDThreadPersistence__messageFilterExpressionForFilterPredicate___block_
 
 - (id)_threadQueryForThreadScope:(id)scope
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E699ADA0] predicateForMessagesWithThreadScope:scope];
   v4 = [MEMORY[0x1E699ADA0] sortDescriptorForDateAscending:0];
   v5 = objc_alloc(MEMORY[0x1E699AE28]);
   v6 = objc_opt_class();
-  v11[0] = v4;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v8 = [v5 initWithTargetClass:v6 predicate:v3 sortDescriptors:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)beginMigratingThreadScope:(id)scope
 {
-  v35[4] = *MEMORY[0x1E69E9840];
+  v34[4] = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   database = [(EDThreadPersistence *)self database];
-  v35[0] = 0;
-  v6 = [database requestProtectedDatabaseBackgroundProcessingForDuration:v35 error:1200.0];
-  v7 = v35[0];
+  v34[0] = 0;
+  v6 = [database requestProtectedDatabaseBackgroundProcessingForDuration:v34 error:1200.0];
+  v7 = v34[0];
 
   if (!v6)
   {
@@ -9242,10 +9257,10 @@ id __66__EDThreadPersistence__messageFilterExpressionForFilterPredicate___block_
     }
   }
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 1;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 1;
   threadScopeManager = [(EDThreadPersistence *)self threadScopeManager];
   v10 = [threadScopeManager databaseIDForThreadScope:scopeCopy];
   v11 = v10 == *MEMORY[0x1E699A728];
@@ -9254,7 +9269,7 @@ id __66__EDThreadPersistence__messageFilterExpressionForFilterPredicate___block_
   {
     date = [MEMORY[0x1E695DF00] date];
     v13 = [(EDThreadPersistence *)self _addThreadScopeToDatabase:scopeCopy needsUpdate:1 lastViewedDate:date updateThreadScopeManager:1];
-    *(v32 + 24) = v13;
+    *(v31 + 24) = v13;
   }
 
   else
@@ -9264,37 +9279,37 @@ id __66__EDThreadPersistence__messageFilterExpressionForFilterPredicate___block_
 
     date = [(EDThreadPersistence *)self database];
     v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence beginMigratingThreadScope:]"];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke;
-    v30[3] = &unk_1E8250150;
-    v30[4] = &v31;
-    v30[5] = v15;
-    [date __performWriteWithCaller:v16 usingBlock:v30];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke;
+    v29[3] = &unk_1E8250150;
+    v29[4] = &v30;
+    v29[5] = v15;
+    [date __performWriteWithCaller:v16 usingBlock:v29];
   }
 
-  if (*(v32 + 24) == 1)
+  if (*(v31 + 24) == 1)
   {
     objc_initWeak(&location, self);
     v17 = MEMORY[0x1E699B7F8];
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2;
-    v26 = &unk_1E8250098;
-    objc_copyWeak(&v28, &location);
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2;
+    v25 = &unk_1E8250098;
+    objc_copyWeak(&v27, &location);
     v18 = scopeCopy;
-    v27 = v18;
-    v19 = [v17 tokenWithCancelationBlock:&v23];
+    v26 = v18;
+    v19 = [v17 tokenWithCancelationBlock:&v22];
     v20 = v19;
     if (v6)
     {
-      [v19 addCancelable:{v6, v23, v24, v25, v26}];
+      [v19 addCancelable:{v6, v22, v23, v24, v25}];
       os_unfair_lock_lock(&self->_migratingThreadScopesLock);
       [(NSMutableDictionary *)self->_backgroundProcessingAssertionsByMigratingThreadScope setObject:v6 forKeyedSubscript:v18];
       os_unfair_lock_unlock(&self->_migratingThreadScopesLock);
     }
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 
@@ -9308,9 +9323,7 @@ id __66__EDThreadPersistence__messageFilterExpressionForFilterPredicate___block_
     v20 = 0;
   }
 
-  _Block_object_dispose(&v31, 8);
-
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 
   return v20;
 }
@@ -9331,7 +9344,7 @@ uint64_t __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke(uint
 
 void __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -9339,9 +9352,9 @@ void __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2(uint64
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v6 = 138543362;
-      v7 = v4;
-      _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Migration cancelled or reset for threadscope - %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Migration cancelled or reset for threadscope - %{public}@", &v5, 0xCu);
     }
 
     os_unfair_lock_lock(WeakRetained + 10);
@@ -9349,13 +9362,11 @@ void __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2(uint64
     [*(WeakRetained + 4) removeObjectForKey:*(a1 + 32)];
     os_unfair_lock_unlock(WeakRetained + 10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)endMigratingThreadScope:(id)scope
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   threadScopeManager = [(EDThreadPersistence *)self threadScopeManager];
   v6 = [threadScopeManager databaseIDForThreadScope:scopeCopy];
@@ -9375,21 +9386,21 @@ void __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2(uint64
 
   else
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = 1;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 1;
     database = [(EDThreadPersistence *)self database];
     v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence endMigratingThreadScope:]"];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __47__EDThreadPersistence_endMigratingThreadScope___block_invoke;
-    v16[3] = &unk_1E8250150;
-    v16[4] = &v19;
-    v16[5] = v6;
-    [database __performWriteWithCaller:v10 usingBlock:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __47__EDThreadPersistence_endMigratingThreadScope___block_invoke;
+    v15[3] = &unk_1E8250150;
+    v15[4] = &v18;
+    v15[5] = v6;
+    [database __performWriteWithCaller:v10 usingBlock:v15];
 
-    if (*(v20 + 24) == 1)
+    if (*(v19 + 24) == 1)
     {
       threadScopeManager2 = [(EDThreadPersistence *)self threadScopeManager];
       [threadScopeManager2 setNeedsUpdate:0 forThreadScope:scopeCopy];
@@ -9398,7 +9409,7 @@ void __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2(uint64
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v18 = scopeCopy;
+        v17 = scopeCopy;
         _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Migration finished for threadscope - %{public}@", buf, 0xCu);
       }
 
@@ -9409,7 +9420,7 @@ void __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2(uint64
       os_unfair_lock_unlock(&self->_migratingThreadScopesLock);
       [v13 cancel];
 
-      v8 = *(v20 + 24);
+      v8 = *(v19 + 24);
     }
 
     else
@@ -9417,10 +9428,9 @@ void __49__EDThreadPersistence_beginMigratingThreadScope___block_invoke_2(uint64
       v8 = 0;
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v18, 8);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 
@@ -9597,7 +9607,7 @@ id __50__EDThreadPersistence_deleteThreadsWithObjectIDs___block_invoke(uint64_t 
 
 uint64_t __50__EDThreadPersistence_deleteThreadsWithObjectIDs___block_invoke_2(void *a1, void *a2)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E699B8C8] column:@"scope"];
   v5 = [MEMORY[0x1E696AD98] numberWithLongLong:a1[6]];
@@ -9608,16 +9618,15 @@ uint64_t __50__EDThreadPersistence_deleteThreadsWithObjectIDs___block_invoke_2(v
 
   v9 = objc_alloc(MEMORY[0x1E699B8E8]);
   v10 = objc_alloc(MEMORY[0x1E699B898]);
-  v16[0] = v6;
-  v16[1] = v8;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = v6;
+  v15[1] = v8;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v12 = [v10 initWithExpressions:v11];
   v13 = [v9 initWithTable:@"threads" where:v12];
 
   *(*(a1[5] + 8) + 24) = [v3 executeDeleteStatement:v13 error:0];
   LOBYTE(a1) = *(*(a1[5] + 8) + 24);
 
-  v14 = *MEMORY[0x1E69E9840];
   return a1 & 1;
 }
 
@@ -9729,7 +9738,6 @@ uint64_t __66__EDThreadPersistence_oldestThreadObjectIDForMailbox_threadScope___
 
 uint64_t __66__EDThreadPersistence_oldestThreadObjectIDForMailbox_threadScope___block_invoke_4(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _statementForOldestThreadInMailbox:*(a1 + 40) threadScope:*(a1 + 48) createMailboxDatabaseIDIfNecessary:1];
   if (v4)
@@ -9750,8 +9758,55 @@ uint64_t __66__EDThreadPersistence_oldestThreadObjectIDForMailbox_threadScope___
     v5 = 1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
+}
+
+- (id)_statementForOldestThreadInMailbox:(id)mailbox threadScope:(id)scope createMailboxDatabaseIDIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  v30[2] = *MEMORY[0x1E69E9840];
+  mailboxCopy = mailbox;
+  scopeCopy = scope;
+  threadScopeManager = [(EDThreadPersistence *)self threadScopeManager];
+  v11 = [threadScopeManager databaseIDForThreadScope:scopeCopy];
+
+  messagePersistence = [(EDThreadPersistence *)self messagePersistence];
+  mailboxPersistence = [messagePersistence mailboxPersistence];
+  v14 = [MEMORY[0x1E695DFD8] setWithObject:mailboxCopy];
+  v15 = [mailboxPersistence mailboxDatabaseIDsForMailboxObjectIDs:v14 createIfNecessary:necessaryCopy];
+  anyObject = [v15 anyObject];
+
+  if (anyObject)
+  {
+    v17 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"conversation" table:@"threads"];
+    v18 = [v17 join:@"thread_mailboxes" sourceColumn:*MEMORY[0x1E699B768] targetColumn:@"thread"];
+    v19 = [MEMORY[0x1E699B8C8] table:@"threads" column:@"scope"];
+    v20 = [MEMORY[0x1E696AD98] numberWithLongLong:v11];
+    v21 = [v19 equalTo:v20];
+
+    v22 = [MEMORY[0x1E699B8C8] table:@"thread_mailboxes" column:@"mailbox"];
+    v23 = [v22 equalTo:anyObject];
+
+    v24 = objc_alloc(MEMORY[0x1E699B898]);
+    v30[0] = v21;
+    v30[1] = v23;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+    v26 = [v24 initWithExpressions:v25];
+    [v17 setWhere:v26];
+
+    v29 = @"DateAscending";
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+    [(EDThreadPersistence *)self _addOrderByToThreadSelect:v17 forSortKeys:v27];
+
+    [v17 setLimit:1];
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
 }
 
 - (void)verifyConsistencyOfThreadScope:(id)scope
@@ -9770,136 +9825,134 @@ uint64_t __66__EDThreadPersistence_oldestThreadObjectIDForMailbox_threadScope___
 
 void __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) threadScopeManager];
   v3 = [v2 databaseIDForThreadScope:*(a1 + 40)];
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 1;
   v4 = [*(a1 + 32) database];
   v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDThreadPersistence verifyConsistencyOfThreadScope:]_block_invoke"];
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2;
-  v22 = &unk_1E8253058;
-  v25 = &v27;
-  v26 = v3;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2;
+  v20 = &unk_1E8253058;
+  v23 = &v25;
+  v24 = v3;
   v6 = *(a1 + 40);
   v7 = *(a1 + 32);
-  v23 = v6;
-  v24 = v7;
-  [v4 __performReadWithCaller:v5 usingBlock:&v19];
+  v21 = v6;
+  v22 = v7;
+  [v4 __performReadWithCaller:v5 usingBlock:&v17];
 
-  if ((v28[3] & 1) == 0)
+  if ((v26[3] & 1) == 0)
   {
-    v8 = [EDThreadPersistence signpostLog:v19];
+    v8 = [EDThreadPersistence signpostLog:v17];
     v9 = [*(a1 + 32) signpostID];
     if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
       v10 = *(a1 + 40);
       *buf = 138543362;
-      v32 = v10;
+      v30 = v10;
       _os_signpost_emit_with_name_impl(&dword_1C61EF000, v8, OS_SIGNPOST_EVENT, v9, "THREAD MIGRATION PERSISTENCE", "Thread scope is inconsistent, resetting thread scope:%{public}@", buf, 0xCu);
     }
 
     [*(a1 + 32) sendEventForCoreAnalytics:@"Inconsistent"];
     v11 = [MEMORY[0x1E699B780] sharedReporter];
-    v12 = *(a1 + 32);
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    [v11 reportIssueType:v14 description:@"Inconsistent thread scope"];
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    [v11 reportIssueType:v13 description:@"Inconsistent thread scope"];
 
-    v16 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v17 = [MEMORY[0x1E696AD98] numberWithLongLong:v3];
-    [v16 _resetThreadScope:v15 withDatabaseID:v17];
+    v15 = *(a1 + 32);
+    v14 = *(a1 + 40);
+    v16 = [MEMORY[0x1E696AD98] numberWithLongLong:v3];
+    [v15 _resetThreadScope:v14 withDatabaseID:v16];
   }
 
-  _Block_object_dispose(&v27, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 }
 
 uint64_t __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2(uint64_t a1, void *a2)
 {
-  v77[2] = *MEMORY[0x1E69E9840];
-  v56 = a2;
+  v68[2] = *MEMORY[0x1E69E9840];
+  v50 = a2;
   v3 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"conversation" table:@"threads"];
   [v3 addResultColumn:@"display_message"];
   [v3 addResultColumn:@"count"];
   v4 = [MEMORY[0x1E699B8C8] column:@"display_message"];
-  v54 = [v4 isNull];
+  v48 = [v4 isNull];
 
   v5 = [MEMORY[0x1E699B8C8] column:@"count"];
   v6 = [v5 equalTo:&unk_1F45E6BF8];
 
   v7 = MEMORY[0x1E699B928];
-  v77[0] = v54;
-  v77[1] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:2];
-  v53 = [v7 combined:v8];
+  v68[0] = v48;
+  v68[1] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
+  v47 = [v7 combined:v8];
 
   v9 = [MEMORY[0x1E699B8C8] column:@"scope"];
   v10 = [MEMORY[0x1E696AD98] numberWithLongLong:*(a1 + 56)];
-  v55 = [v9 equalTo:v10];
+  v49 = [v9 equalTo:v10];
 
   v11 = MEMORY[0x1E699B898];
-  v76[0] = v55;
-  v76[1] = v53;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:2];
+  v67[0] = v49;
+  v67[1] = v47;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:2];
   v13 = [v11 combined:v12];
   [v3 setWhere:v13];
 
   [v3 setLimit:1];
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x2020000000;
-  v72 = *MEMORY[0x1E699A728];
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x2020000000;
-  v68 = 1;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
-  v64 = 1;
-  v60[0] = MEMORY[0x1E69E9820];
-  v60[1] = 3221225472;
-  v60[2] = __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_3;
-  v60[3] = &unk_1E8258908;
-  v60[4] = &v69;
-  v60[5] = &v65;
+  v63[0] = 0;
+  v63[1] = v63;
+  v63[2] = 0x2020000000;
+  v63[3] = *MEMORY[0x1E699A728];
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 1;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 1;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_3;
+  v54[3] = &unk_1E8258908;
+  v54[4] = v63;
+  v54[5] = &v59;
   v14 = *(a1 + 48);
-  v60[6] = &v61;
-  v60[7] = v14;
-  [v56 executeSelectStatement:v3 withBlock:v60 error:0];
+  v54[6] = &v55;
+  v54[7] = v14;
+  [v50 executeSelectStatement:v3 withBlock:v54 error:0];
   if (*(*(*(a1 + 48) + 8) + 24))
   {
     v15 = objc_alloc(MEMORY[0x1E699B948]);
     v16 = [MEMORY[0x1E699B890] count:0];
     v17 = [v15 initWithResult:v16 table:@"threads"];
 
-    [v17 setWhere:v55];
-    v18 = [v56 countForSelectStatement:v17];
+    [v17 setWhere:v49];
+    v18 = [v50 countForSelectStatement:v17];
     v19 = objc_alloc(MEMORY[0x1E699B948]);
     v20 = MEMORY[0x1E699B890];
     v21 = [MEMORY[0x1E699B8C8] column:@"conversation_id"];
     v22 = [v20 countDistinct:v21];
     v23 = +[EDMessagePersistence messagesTableName];
-    v50 = [v19 initWithResult:v22 table:v23];
+    v44 = [v19 initWithResult:v22 table:v23];
 
-    v51 = [*(a1 + 40) _expressionForThreadScope:*(a1 + 32)];
+    v45 = [*(a1 + 40) _expressionForThreadScope:*(a1 + 32)];
     v24 = [*(a1 + 40) _messageIsNotDeletedExpression];
     v25 = MEMORY[0x1E699B898];
-    v75[0] = v51;
-    v75[1] = v24;
-    v49 = v24;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:2];
-    v52 = [v25 combined:v26];
+    v66[0] = v45;
+    v66[1] = v24;
+    v43 = v24;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
+    v46 = [v25 combined:v26];
 
-    [v50 setWhere:v52];
-    v27 = [v56 countForSelectStatement:v50];
+    [v44 setWhere:v46];
+    v27 = [v50 countForSelectStatement:v44];
     if (v18 == v27)
     {
       v28 = +[EDThreadPersistence log];
@@ -9914,36 +9967,36 @@ uint64_t __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke
 
     else
     {
-      v33 = +[EDThreadPersistence log];
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v30 = +[EDThreadPersistence log];
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v47 = [*(a1 + 32) ef_publicDescription];
+        v41 = [*(a1 + 32) ef_publicDescription];
         *buf = 134218498;
         *&buf[4] = v27;
         *&buf[12] = 2048;
         *&buf[14] = v18;
         *&buf[22] = 2114;
-        v74 = v47;
-        _os_log_error_impl(&dword_1C61EF000, v33, OS_LOG_TYPE_ERROR, "Thread scope is inconsistent - expected %lu threads but %lu threads exist: %{public}@", buf, 0x20u);
+        v65 = v41;
+        _os_log_error_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_ERROR, "Thread scope is inconsistent - expected %lu threads but %lu threads exist: %{public}@", buf, 0x20u);
       }
 
       v28 = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"conversation" table:@"threads"];
-      [v28 setWhere:v55];
-      v48 = [v56 databaseIDsForSelectStatement:v28];
-      v34 = objc_alloc(MEMORY[0x1E699B948]);
-      v35 = +[EDMessagePersistence messagesTableName];
-      v36 = [v34 initWithResultColumn:@"conversation_id" table:v35];
+      [v28 setWhere:v49];
+      v42 = [v50 databaseIDsForSelectStatement:v28];
+      v31 = objc_alloc(MEMORY[0x1E699B948]);
+      v32 = +[EDMessagePersistence messagesTableName];
+      v33 = [v31 initWithResultColumn:@"conversation_id" table:v32];
 
-      [v36 setWhere:v52];
-      v37 = [v56 databaseIDsForSelectStatement:v36];
-      v38 = *(a1 + 40);
+      [v33 setWhere:v46];
+      v34 = [v50 databaseIDsForSelectStatement:v33];
+      v35 = *(a1 + 40);
       if (v18 <= v27)
       {
-        v39 = [v38 _int64SetFromSet:v37 byRemovingIndexesFromSet:v48 andLimitingTo:50];
-        v40 = +[EDThreadPersistence log];
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v36 = [v35 _int64SetFromSet:v34 byRemovingIndexesFromSet:v42 andLimitingTo:50];
+        v37 = +[EDThreadPersistence log];
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          [v39 commaSeparatedString];
+          [v36 commaSeparatedString];
           objc_claimAutoreleasedReturnValue();
           __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_5();
         }
@@ -9951,75 +10004,46 @@ uint64_t __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke
 
       else
       {
-        v39 = [v38 _int64SetFromSet:v48 byRemovingIndexesFromSet:v37 andLimitingTo:50];
-        v40 = +[EDThreadPersistence log];
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v36 = [v35 _int64SetFromSet:v42 byRemovingIndexesFromSet:v34 andLimitingTo:50];
+        v37 = +[EDThreadPersistence log];
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          [v39 commaSeparatedString];
+          [v36 commaSeparatedString];
           objc_claimAutoreleasedReturnValue();
           __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_6();
         }
       }
 
-      v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
+      v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v74 = 0;
-      v57[0] = MEMORY[0x1E69E9820];
-      v57[1] = 3221225472;
-      v57[2] = __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_538;
-      v57[3] = &unk_1E8258930;
-      v44 = v43;
-      v58 = v44;
-      v59 = buf;
-      [v39 enumerateIndexesUsingBlock:v57];
-      [*(a1 + 40) _logFailedVerifyConsistencyForConversationIDs:v44];
+      v65 = 0;
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_538;
+      v51[3] = &unk_1E8258930;
+      v39 = v38;
+      v52 = v39;
+      v53 = buf;
+      [v36 enumerateIndexesUsingBlock:v51];
+      [*(a1 + 40) _logFailedVerifyConsistencyForConversationIDs:v39];
       *(*(*(a1 + 48) + 8) + 24) = 0;
 
       _Block_object_dispose(buf, 8);
     }
   }
 
-  else
+  else if (v60[3])
   {
-    v30 = *(v62 + 24);
-    if (v66[3])
-    {
-      if (v62[3])
-      {
-        v17 = +[EDThreadPersistence log];
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-        {
-          v31 = v70[3];
-          [*(a1 + 32) ef_publicDescription];
-          objc_claimAutoreleasedReturnValue();
-          __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_4();
-        }
-      }
-
-      else
-      {
-        v17 = +[EDThreadPersistence log];
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-        {
-          v41 = v70[3];
-          [*(a1 + 32) ef_publicDescription];
-          objc_claimAutoreleasedReturnValue();
-          __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_3();
-        }
-      }
-    }
-
-    else if (v62[3])
+    if (v56[3])
     {
       v17 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v32 = v70[3];
         [*(a1 + 32) ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
-        __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_2();
+        __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_4();
       }
     }
 
@@ -10028,19 +10052,39 @@ uint64_t __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke
       v17 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v42 = v70[3];
         [*(a1 + 32) ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
-        __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_1();
+        __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_3();
       }
     }
   }
 
-  _Block_object_dispose(&v61, 8);
-  _Block_object_dispose(&v65, 8);
-  _Block_object_dispose(&v69, 8);
+  else if (v56[3])
+  {
+    v17 = +[EDThreadPersistence log];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      [*(a1 + 32) ef_publicDescription];
+      objc_claimAutoreleasedReturnValue();
+      __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_2();
+    }
+  }
 
-  v45 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v17 = +[EDThreadPersistence log];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      [*(a1 + 32) ef_publicDescription];
+      objc_claimAutoreleasedReturnValue();
+      __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_2_cold_1();
+    }
+  }
+
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(v63, 8);
+
   return 1;
 }
 
@@ -10098,7 +10142,7 @@ void __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_538
 
 - (void)_logFailedVerifyConsistencyForConversationIDs:(id)ds
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -10109,31 +10153,31 @@ void __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_538
   }
 
   messagePersistence = [(EDThreadPersistence *)self messagePersistence];
-  v22 = [messagePersistence persistedMessageIDsForMessagesForConversationIDs:dsCopy];
+  v21 = [messagePersistence persistedMessageIDsForMessagesForConversationIDs:dsCopy];
 
   messagePersistence2 = [(EDThreadPersistence *)self messagePersistence];
-  v8 = [messagePersistence2 persistedMessagesForDatabaseIDs:v22 requireProtectedData:0 temporarilyUnavailableDatabaseIDs:0];
+  v8 = [messagePersistence2 persistedMessagesForDatabaseIDs:v21 requireProtectedData:0 temporarilyUnavailableDatabaseIDs:0];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v24 objects:v40 count:16];
+  v9 = [obj countByEnumeratingWithState:&v23 objects:v39 count:16];
   if (v9)
   {
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
+        v12 = *(*(&v23 + 1) + 8 * v11);
         v13 = +[EDThreadPersistence log];
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
@@ -10144,17 +10188,17 @@ void __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_538
           readLater = [v12 readLater];
           followUp = [v12 followUp];
           *buf = 134219266;
-          v29 = globalMessageID;
-          v30 = 2048;
-          v31 = conversationID;
-          v32 = 2114;
-          v33 = displayDate;
-          v34 = 2114;
-          v35 = dateReceived;
-          v36 = 2114;
-          v37 = readLater;
-          v38 = 2114;
-          v39 = followUp;
+          v28 = globalMessageID;
+          v29 = 2048;
+          v30 = conversationID;
+          v31 = 2114;
+          v32 = displayDate;
+          v33 = 2114;
+          v34 = dateReceived;
+          v35 = 2114;
+          v36 = readLater;
+          v37 = 2114;
+          v38 = followUp;
           _os_log_error_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_ERROR, "\tmessage globalMessageID:%lld, conversationID:%lld, displayDate:%{public}@, dateReceived:%{public}@, readLater:%{public}@, followUp:%{public}@", buf, 0x3Eu);
         }
 
@@ -10162,13 +10206,11 @@ void __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_538
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v40 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v39 count:16];
     }
 
     while (v9);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_int64SetFromSet:(id)set byRemovingIndexesFromSet:(id)fromSet andLimitingTo:(unint64_t)to
@@ -10214,16 +10256,16 @@ void __54__EDThreadPersistence_verifyConsistencyOfThreadScope___block_invoke_538
 
 uint64_t __101__EDThreadPersistence__addThreadScopeToDatabase_needsUpdate_lastViewedDate_updateThreadScopeManager___block_invoke(uint64_t a1, void *a2)
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v20[0] = 0;
-  v4 = [*(a1 + 32) _mailboxScopeForThreadScope:*(a1 + 40) andFilterPredicate:v20];
+  v19[0] = 0;
+  v4 = [*(a1 + 32) _mailboxScopeForThreadScope:*(a1 + 40) andFilterPredicate:v19];
   v5 = [v4 mailboxTypes];
   v6 = [v5 anyObject];
 
   if (v6)
   {
-    *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) _addThreadScopeToDatabaseWithMailboxType:v6 filterPredicate:v20[0] needsUpdate:*(a1 + 72) lastViewedDate:*(a1 + 48) connection:v3];
+    *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) _addThreadScopeToDatabaseWithMailboxType:v6 filterPredicate:v19[0] needsUpdate:*(a1 + 72) lastViewedDate:*(a1 + 48) connection:v3];
     if (*(*(*(a1 + 56) + 8) + 24) == 1)
     {
       v7 = [*(a1 + 32) threadScopeManager];
@@ -10256,11 +10298,11 @@ uint64_t __101__EDThreadPersistence__addThreadScopeToDatabase_needsUpdate_lastVi
 
     if (v12 == *MEMORY[0x1E699A728])
     {
-      v19 = [MEMORY[0x1E696AAA8] currentHandler];
-      [v19 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"EDThreadPersistence.m" lineNumber:3741 description:@"No mailbox database ID for migrating thread scope"];
+      v18 = [MEMORY[0x1E696AAA8] currentHandler];
+      [v18 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"EDThreadPersistence.m" lineNumber:3741 description:@"No mailbox database ID for migrating thread scope"];
     }
 
-    *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) _addThreadScopeToDatabase:*(a1 + 40) withMailboxDatabaseID:v12 filterPredicate:v20[0] needsUpdate:*(a1 + 72) lastViewedDate:*(a1 + 48) updateThreadScopeManager:*(a1 + 73) connection:v3];
+    *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) _addThreadScopeToDatabase:*(a1 + 40) withMailboxDatabaseID:v12 filterPredicate:v19[0] needsUpdate:*(a1 + 72) lastViewedDate:*(a1 + 48) updateThreadScopeManager:*(a1 + 73) connection:v3];
     if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
     {
       v13 = +[EDThreadPersistence log];
@@ -10277,7 +10319,6 @@ uint64_t __101__EDThreadPersistence__addThreadScopeToDatabase_needsUpdate_lastVi
   }
 
   v16 = *(*(*(a1 + 56) + 8) + 24);
-  v17 = *MEMORY[0x1E69E9840];
   return v16 & 1;
 }
 
@@ -10298,6 +10339,66 @@ uint64_t __101__EDThreadPersistence__addThreadScopeToDatabase_needsUpdate_lastVi
   }
 
   return v11;
+}
+
+- (BOOL)_addThreadScopeToDatabaseWithMailboxType:(id)type filterPredicate:(unint64_t)predicate needsUpdate:(BOOL)update lastViewedDate:(id)date connection:(id)connection
+{
+  updateCopy = update;
+  typeCopy = type;
+  dateCopy = date;
+  connectionCopy = connection;
+  v14 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"thread_scopes"];
+  [v14 setObject:typeCopy forKeyedSubscript:@"mailbox_type"];
+  v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:predicate];
+  [v14 setObject:v15 forKeyedSubscript:@"filter_predicate"];
+
+  v16 = [MEMORY[0x1E696AD98] numberWithBool:updateCopy];
+  [v14 setObject:v16 forKeyedSubscript:@"needs_update"];
+
+  [v14 setObject:dateCopy forKeyedSubscript:@"last_viewed"];
+  LOBYTE(updateCopy) = [connectionCopy executeInsertStatement:v14 error:0];
+
+  return updateCopy;
+}
+
+- (BOOL)_addThreadScopeToDatabase:(id)database withMailboxDatabaseID:(int64_t)d filterPredicate:(unint64_t)predicate needsUpdate:(BOOL)update lastViewedDate:(id)date updateThreadScopeManager:(BOOL)manager connection:(id)connection
+{
+  managerCopy = manager;
+  updateCopy = update;
+  databaseCopy = database;
+  dateCopy = date;
+  connectionCopy = connection;
+  v18 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"thread_scopes"];
+  v19 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
+  [v18 setObject:v19 forKeyedSubscript:@"mailbox"];
+
+  v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:predicate];
+  [v18 setObject:v20 forKeyedSubscript:@"filter_predicate"];
+
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:updateCopy];
+  [v18 setObject:v21 forKeyedSubscript:@"needs_update"];
+
+  [v18 setObject:dateCopy forKeyedSubscript:@"last_viewed"];
+  v27 = 0;
+  v22 = [connectionCopy executeInsertStatement:v18 rowsChanged:&v27];
+  v23 = v22;
+  if (v27)
+  {
+    v24 = v22;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  if (v24 == 1 && managerCopy)
+  {
+    threadScopeManager = [(EDThreadPersistence *)self threadScopeManager];
+    [threadScopeManager addThreadScope:databaseCopy withDatabaseID:objc_msgSend(connectionCopy needsUpdate:"lastInsertedDatabaseID") lastViewedDate:{updateCopy, dateCopy}];
+  }
+
+  return v23;
 }
 
 - (id)statisticsForThreadScopesWithDatabaseIDs:(id)ds
@@ -10394,16 +10495,16 @@ uint64_t __72__EDThreadPersistence_threadScopeManager_populateThreadScopesWithBl
 
 void __72__EDThreadPersistence_threadScopeManager_populateThreadScopesWithBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x1E699B768]];
-  v27 = [v4 databaseIDValue];
+  v26 = [v4 databaseIDValue];
 
   v5 = [v3 objectForKeyedSubscript:@"url"];
   v6 = [v5 stringValue];
 
   v7 = [v3 objectForKeyedSubscript:@"mailbox_type"];
-  v29 = [v7 numberValue];
+  v28 = [v7 numberValue];
 
   v8 = [v3 objectForKeyedSubscript:@"filter_predicate"];
   v9 = [v8 numberValue];
@@ -10414,9 +10515,9 @@ void __72__EDThreadPersistence_threadScopeManager_populateThreadScopesWithBlock_
   [v12 BOOLValue];
 
   v13 = [v3 objectForKeyedSubscript:@"last_viewed"];
-  v28 = [v13 dateValue];
+  v27 = [v13 dateValue];
 
-  if ((v6 == 0) != (v29 != 0))
+  if ((v6 == 0) != (v28 != 0))
   {
     v19 = [MEMORY[0x1E696AAA8] currentHandler];
     [v19 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"EDThreadPersistence.m" lineNumber:3832 description:@"Pre-computed thread scope should have exactly one mailbox or mailbox type"];
@@ -10428,8 +10529,8 @@ void __72__EDThreadPersistence_threadScopeManager_populateThreadScopesWithBlock_
 
 LABEL_5:
     v20 = MEMORY[0x1E699AD28];
-    v30 = v29;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:{1, v27}];
+    v29 = v28;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:{1, v26}];
     v18 = [v20 mailboxScopeForMailboxTypes:v14 forExclusion:0];
     goto LABEL_6;
   }
@@ -10443,8 +10544,8 @@ LABEL_3:
   v14 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v6];
   v15 = [objc_alloc(MEMORY[0x1E699AD20]) initWithURL:v14];
   v16 = MEMORY[0x1E699AD28];
-  v31[0] = v15;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+  v30[0] = v15;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
   v18 = [v16 mailboxScopeForMailboxObjectIDs:v17 forExclusion:0];
 
 LABEL_6:
@@ -10455,7 +10556,6 @@ LABEL_6:
   v25 = [v21 threadScopeFromPrecomputedMailboxScope:v18 predicates:v10 mailboxProvider:v24];
 
   (*(*(a1 + 40) + 16))();
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)threadScopeManager:(id)manager gatherStatisticsForThreadScopesWithDatabaseIDs:(id)ds block:(id)block
@@ -10503,23 +10603,23 @@ uint64_t __95__EDThreadPersistence_threadScopeManager_gatherStatisticsForThreadS
 
 void __95__EDThreadPersistence_threadScopeManager_gatherStatisticsForThreadScopesWithDatabaseIDs_block___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
-  v26 = [*(a1 + 32) _expressionForThreadScope:v7];
+  v25 = [*(a1 + 32) _expressionForThreadScope:v7];
   v9 = [MEMORY[0x1E699B8C8] column:@"last_viewed"];
   v10 = [MEMORY[0x1E699B8C8] column:@"date_received"];
   v11 = [v10 greaterThan:v9];
-  v25 = a4;
+  v24 = a4;
   v12 = objc_alloc(MEMORY[0x1E699B948]);
   v13 = [MEMORY[0x1E699B890] count:0];
   v14 = +[EDMessagePersistence messagesTableName];
   v15 = [v12 initWithResult:v13 table:v14];
 
   v16 = objc_alloc(MEMORY[0x1E699B898]);
-  v30[0] = v26;
-  v30[1] = v11;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+  v29[0] = v25;
+  v29[1] = v11;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
   v18 = [v16 initWithExpressions:v17];
   [v15 setWhere:v18];
 
@@ -10529,21 +10629,19 @@ void __95__EDThreadPersistence_threadScopeManager_gatherStatisticsForThreadScope
   v21 = [v20 equalTo:v8];
   [v19 setWhere:v21];
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __95__EDThreadPersistence_threadScopeManager_gatherStatisticsForThreadScopesWithDatabaseIDs_block___block_invoke_3;
-  v27[3] = &unk_1E82589F8;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __95__EDThreadPersistence_threadScopeManager_gatherStatisticsForThreadScopesWithDatabaseIDs_block___block_invoke_3;
+  v26[3] = &unk_1E82589F8;
   v22 = *(a1 + 40);
-  v29 = *(a1 + 48);
+  v28 = *(a1 + 48);
   v23 = v8;
-  v28 = v23;
-  *(*(*(a1 + 56) + 8) + 24) = [v22 executeSelectStatement:v19 withBlock:v27 error:0];
+  v27 = v23;
+  *(*(*(a1 + 56) + 8) + 24) = [v22 executeSelectStatement:v19 withBlock:v26 error:0];
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
-    *v25 = 1;
+    *v24 = 1;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __95__EDThreadPersistence_threadScopeManager_gatherStatisticsForThreadScopesWithDatabaseIDs_block___block_invoke_3(uint64_t a1, void *a2)
@@ -10593,11 +10691,10 @@ uint64_t __91__EDThreadPersistence_threadScopeManager_evictThreadScopesWithDatab
 
   v6 = [objc_alloc(MEMORY[0x1E699B8E8]) initWithTable:@"thread_scopes" where:v5];
   *(*(a1[6] + 8) + 24) = [v3 executeDeleteStatement:v6 error:0];
-  v7 = *(*(a1[6] + 8) + 24);
   (*(a1[5] + 16))();
-  v8 = *(*(a1[6] + 8) + 24);
+  v7 = *(*(a1[6] + 8) + 24);
 
-  return v8;
+  return v7;
 }
 
 id __55___EDThreadPersistence_ThreadMessages_debugDescription__block_invoke(uint64_t a1, void *a2)
@@ -10769,7 +10866,6 @@ void __76___EDThreadPersistence_ThreadMessages_addThreadReplacingExisting_journa
 
 void __76___EDThreadPersistence_ThreadMessages_addThreadReplacingExisting_journaled___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
@@ -10782,11 +10878,9 @@ void __76___EDThreadPersistence_ThreadMessages_addThreadReplacingExisting_journa
   if ([v3 code] == 19)
   {
     [*(a1 + 32) _collectDebuggingInfo];
-    v6 = [MEMORY[0x1E695DF30] exceptionWithName:@"SQLITE_CONSTRAINT" reason:0 userInfo:0];
-    objc_exception_throw(v6);
+    v5 = [MEMORY[0x1E695DF30] exceptionWithName:@"SQLITE_CONSTRAINT" reason:0 userInfo:0];
+    objc_exception_throw(v5);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_2(uint64_t a1, void *a2)
@@ -10801,7 +10895,6 @@ void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invo
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_136(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -10813,7 +10906,6 @@ void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invo
   }
 
   ++*(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_144(uint64_t a1, void *a2)
@@ -10837,7 +10929,6 @@ void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invo
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_148(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -10849,7 +10940,6 @@ void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invo
   }
 
   ++*(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_155(id *a1, void *a2)
@@ -10895,7 +10985,6 @@ void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invo
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_159(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -10907,7 +10996,6 @@ void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invo
   }
 
   ++*(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke(uint64_t a1, void *a2)
@@ -11044,7 +11132,6 @@ void __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___
 
 void __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11053,8 +11140,6 @@ void __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___
     objc_claimAutoreleasedReturnValue();
     __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke_2_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke_168(uint64_t a1, void *a2)
@@ -11112,7 +11197,6 @@ void __64___EDThreadPersistence_PersistedThread_updateNewestReadMessage___block_
 
 void __64___EDThreadPersistence_PersistedThread_updateNewestReadMessage___block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11121,8 +11205,6 @@ void __64___EDThreadPersistence_PersistedThread_updateNewestReadMessage___block_
     objc_claimAutoreleasedReturnValue();
     __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke_2_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke(uint64_t a1, void *a2)
@@ -11134,7 +11216,6 @@ void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWr
 
 void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11143,8 +11224,6 @@ void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWr
     objc_claimAutoreleasedReturnValue();
     __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke_2_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke_249(uint64_t a1, void *a2)
@@ -11188,7 +11267,6 @@ void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWr
 
 void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke_4(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11197,8 +11275,6 @@ void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWr
     objc_claimAutoreleasedReturnValue();
     __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke_4_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke_261(uint64_t a1, void *a2)
@@ -11210,7 +11286,6 @@ void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWr
 
 void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke_2_262(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11219,8 +11294,6 @@ void __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWr
     objc_claimAutoreleasedReturnValue();
     __86___EDThreadPersistence_PersistedThread_updateDisplayMessageWithUnreadWrappedMessages___block_invoke_4_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __52___EDThreadPersistence_PersistedThread_addMailboxes__block_invoke(uint64_t a1, void *a2)
@@ -11234,7 +11307,6 @@ void __52___EDThreadPersistence_PersistedThread_addMailboxes__block_invoke(uint6
 
 void __52___EDThreadPersistence_PersistedThread_addMailboxes__block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11243,8 +11315,6 @@ void __52___EDThreadPersistence_PersistedThread_addMailboxes__block_invoke_2(uin
     objc_claimAutoreleasedReturnValue();
     __52___EDThreadPersistence_PersistedThread_addMailboxes__block_invoke_2_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __59___EDThreadPersistence_PersistedThread_currentSenderCounts__block_invoke(uint64_t a1, void *a2)
@@ -11256,7 +11326,6 @@ void __59___EDThreadPersistence_PersistedThread_currentSenderCounts__block_invok
 
 void __59___EDThreadPersistence_PersistedThread_currentSenderCounts__block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11265,8 +11334,6 @@ void __59___EDThreadPersistence_PersistedThread_currentSenderCounts__block_invok
     objc_claimAutoreleasedReturnValue();
     __59___EDThreadPersistence_PersistedThread_currentSenderCounts__block_invoke_2_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __59___EDThreadPersistence_PersistedThread_currentSenderCounts__block_invoke_279(uint64_t a1, void *a2)
@@ -11344,7 +11411,6 @@ void __51___EDThreadPersistence_PersistedThread_addSenders___block_invoke_2(uint
 
 void __51___EDThreadPersistence_PersistedThread_addSenders___block_invoke_3(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11353,8 +11419,6 @@ void __51___EDThreadPersistence_PersistedThread_addSenders___block_invoke_3(uint
     objc_claimAutoreleasedReturnValue();
     __51___EDThreadPersistence_PersistedThread_addSenders___block_invoke_3_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke(uint64_t a1, void *a2)
@@ -11366,7 +11430,6 @@ void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSend
 
 void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11375,8 +11438,6 @@ void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSend
     objc_claimAutoreleasedReturnValue();
     __59___EDThreadPersistence_PersistedThread_currentSenderCounts__block_invoke_2_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_309(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -11397,7 +11458,6 @@ void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSend
 
 void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_3(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11406,8 +11466,6 @@ void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSend
     objc_claimAutoreleasedReturnValue();
     __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_3_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_316(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -11428,7 +11486,6 @@ void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSend
 
 void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_3_321(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11437,8 +11494,6 @@ void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSend
     objc_claimAutoreleasedReturnValue();
     __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_3_321_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_327(uint64_t a1, void *a2)
@@ -11453,7 +11508,6 @@ void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSend
 
 void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_2_328(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11462,8 +11516,6 @@ void __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSend
     objc_claimAutoreleasedReturnValue();
     __74___EDThreadPersistence_PersistedThread_setPriorityForDisplayMessageSender__block_invoke_2_328_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __96___EDThreadPersistence_PersistedThread_recipientDatabaseIDsAndDatesForRecipientType_recipients___block_invoke(uint64_t a1, void *a2)
@@ -11475,7 +11527,6 @@ void __96___EDThreadPersistence_PersistedThread_recipientDatabaseIDsAndDatesForR
 
 void __96___EDThreadPersistence_PersistedThread_recipientDatabaseIDsAndDatesForRecipientType_recipients___block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11484,8 +11535,6 @@ void __96___EDThreadPersistence_PersistedThread_recipientDatabaseIDsAndDatesForR
     objc_claimAutoreleasedReturnValue();
     __96___EDThreadPersistence_PersistedThread_recipientDatabaseIDsAndDatesForRecipientType_recipients___block_invoke_2_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __96___EDThreadPersistence_PersistedThread_recipientDatabaseIDsAndDatesForRecipientType_recipients___block_invoke_340(uint64_t a1, void *a2)
@@ -11547,7 +11596,6 @@ void __61___EDThreadPersistence_PersistedThread_addRecipients_ofType___block_inv
 
 void __61___EDThreadPersistence_PersistedThread_addRecipients_ofType___block_invoke_3(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11556,8 +11604,6 @@ void __61___EDThreadPersistence_PersistedThread_addRecipients_ofType___block_inv
     objc_claimAutoreleasedReturnValue();
     __61___EDThreadPersistence_PersistedThread_addRecipients_ofType___block_invoke_3_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_invoke(uint64_t a1, void *a2)
@@ -11571,7 +11617,6 @@ void __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_i
 
 void __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_invoke_2(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -11580,8 +11625,6 @@ void __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_i
     objc_claimAutoreleasedReturnValue();
     __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_invoke_2_cold_1();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_invoke_357(uint64_t a1, void *a2)
@@ -11595,10 +11638,9 @@ void __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_i
 
 - (void)_isThreadScopePrecomputed:wantsPrecomputed:shouldMigrate:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
-  _os_log_fault_impl(&dword_1C61EF000, v0, OS_LOG_TYPE_FAULT, "Client wants to precompute, but we're unable to do so for threadscope: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1C61EF000, v0, OS_LOG_TYPE_FAULT, "Client wants to precompute, but we're unable to do so for threadscope: %{public}@", v1, 0xCu);
 }
 
 - (void)threadForObjectID:originatingQuery:error:.cold.1()
@@ -11613,33 +11655,6 @@ void __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_i
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_10(v1, v2, 5.8381e-34);
   OUTLINED_FUNCTION_7(&dword_1C61EF000, v3, v4, "Thread has no sender: %{public}@", v5);
-}
-
-void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__EDThreadPersistence_threadForObjectID_originatingQuery_error___block_invoke_2_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forSortKeys_journaledThreadsToCheck_excluding___block_invoke_cold_1()
@@ -11665,20 +11680,16 @@ void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forS
 
 - (void)_databaseIDForThreadObjectID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_databaseIDForThreadObjectID:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistenceIsInitializingDatabaseWithConnection:.cold.1()
@@ -11690,11 +11701,9 @@ void __113__EDThreadPersistence_nextExistingThreadObjectIDForThreadObjectID_forS
 
 void __89__EDThreadPersistence__getIndividualMailboxScopes_unifiedMailboxThreadScopes_forAccount___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_writeThreadedMessages:withChangedKeyPaths:journaled:generationWindow:.cold.1()
@@ -11706,11 +11715,9 @@ void __89__EDThreadPersistence__getIndividualMailboxScopes_unifiedMailboxThreadS
 
 - (void)_messageFilterExpressionForFilterPredicate:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginMigratingThreadScope:.cold.1()
@@ -11729,10 +11736,9 @@ void __89__EDThreadPersistence__getIndividualMailboxScopes_unifiedMailboxThreadS
 
 - (void)addThreadsDuringMigration:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
-  _os_log_fault_impl(&dword_1C61EF000, v0, OS_LOG_TYPE_FAULT, "Exception adding threads during migration: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1C61EF000, v0, OS_LOG_TYPE_FAULT, "Exception adding threads during migration: %{public}@", v1, 0xCu);
 }
 
 void __66__EDThreadPersistence_oldestThreadObjectIDForMailbox_threadScope___block_invoke_4_cold_1()
@@ -11807,9 +11813,9 @@ void __76___EDThreadPersistence_ThreadMessages_addThreadReplacingExisting_journa
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11_0(&dword_1C61EF000, a2, a3, "Failed to query thread_scopes: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_11_0(&dword_1C61EF000, a2, a3, "Failed to query thread_scopes: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_136_cold_1()
@@ -11821,9 +11827,9 @@ void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invo
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_2_145_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11_0(&dword_1C61EF000, a2, a3, "Failed to query conversations: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_11_0(&dword_1C61EF000, a2, a3, "Failed to query conversations: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_148_cold_1()
@@ -11835,9 +11841,9 @@ void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invo
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_2_156_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11_0(&dword_1C61EF000, a2, a3, "Failed to query messages: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_11_0(&dword_1C61EF000, a2, a3, "Failed to query messages: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __60___EDThreadPersistence_ThreadMessages__collectDebuggingInfo__block_invoke_159_cold_1()

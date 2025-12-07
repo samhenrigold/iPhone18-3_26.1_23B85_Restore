@@ -6,6 +6,7 @@
 - (id)initSingleton;
 - (void)dealloc;
 - (void)iCloudAccountChanged:(id)changed;
+- (void)requestAuthenticationShouldForce:(BOOL)force completion:(id)completion;
 - (void)syncFMFAccountInfo;
 @end
 
@@ -21,7 +22,7 @@
   v2 = qword_1000702E8;
   if (!qword_1000702E8)
   {
-    v3 = sub_100002830();
+    v3 = sub_100002830(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -36,7 +37,7 @@
 
 - (AppleAccountManager)init
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100038558(v3);
@@ -62,7 +63,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100036958(self, v3);
@@ -82,68 +83,69 @@
   v3 = iCloudACAccount;
   if (iCloudACAccount)
   {
-    if ([iCloudACAccount isProvisionedForDataclass:@"com.apple.Dataclass.ShareLocation"])
+    v4 = [iCloudACAccount isProvisionedForDataclass:@"com.apple.Dataclass.ShareLocation"];
+    if (v4)
     {
-      v4 = +[AccountManager sharedInstance];
-      v5 = [v4 allAccountsOfType:objc_opt_class()];
+      v5 = +[AccountManager sharedInstance];
+      v6 = [v5 allAccountsOfType:objc_opt_class()];
 
-      if ([v5 count])
+      if ([v6 count])
       {
-        v6 = [v5 objectAtIndexedSubscript:0];
-        v7 = v6;
-        if (v6)
+        v7 = [v6 objectAtIndexedSubscript:0];
+        v8 = v7;
+        if (v7)
         {
-          dsid = [v6 dsid];
+          dsid = [v7 dsid];
           aa_personID = [v3 aa_personID];
-          v10 = [dsid isEqualToString:aa_personID];
+          v11 = [dsid isEqualToString:aa_personID];
 
-          if (v10)
+          if (v11)
           {
 LABEL_15:
-            v15 = objc_alloc_init(FMFAccount);
-            [(FMFAccount *)v15 copyInfoFromAccount:v7];
-            [(FMFAccount *)v15 applyPropertiesFromACAccount:v3 includingTokens:1];
-            v16 = +[AccountManager sharedInstance];
-            [v16 addAccount:v15];
+            v16 = objc_alloc_init(FMFAccount);
+            [(FMFAccount *)v16 copyInfoFromAccount:v8];
+            [(FMFAccount *)v16 applyPropertiesFromACAccount:v3 includingTokens:1];
+            v17 = +[AccountManager sharedInstance];
+            [v17 addAccount:v16];
 
             goto LABEL_16;
           }
 
-          v11 = +[StartupRegisterManager sharedInstance];
-          [v11 eventDidOccur:1];
+          v12 = +[StartupRegisterManager sharedInstance];
+          [v12 eventDidOccur:1];
         }
       }
 
       else
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v14 = +[StartupRegisterManager sharedInstance];
-      [v14 eventDidOccur:0];
+      v15 = +[StartupRegisterManager sharedInstance];
+      [v15 eventDidOccur:0];
 
       goto LABEL_15;
     }
 
-    v13 = sub_100002830();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = sub_100002830(v4);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "ShareLocation is not provisioned in the iCloud account", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "ShareLocation is not provisioned in the iCloud account", v18, 2u);
     }
   }
 
   else
   {
-    v12 = sub_100002830();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = sub_100002830(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Deleting FMF acount", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Deleting FMF acount", buf, 2u);
     }
 
-    v13 = +[AccountManager sharedInstance];
-    [v13 deactivateAllAccountsOfType:objc_opt_class()];
+    v14 = +[AccountManager sharedInstance];
+    [v14 deactivateAllAccountsOfType:objc_opt_class()];
   }
 
 LABEL_16:
@@ -176,7 +178,7 @@ LABEL_16:
 
 - (void)iCloudAccountChanged:(id)changed
 {
-  v3 = sub_100002830();
+  v3 = sub_100002830(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -192,6 +194,24 @@ LABEL_16:
   v8 = v4;
   v6 = v4;
   dispatch_after(v5, &_dispatch_main_q, block);
+}
+
+- (void)requestAuthenticationShouldForce:(BOOL)force completion:(id)completion
+{
+  forceCopy = force;
+  completionCopy = completion;
+  iCloudACAccount = [(AppleAccountManager *)self iCloudACAccount];
+  if (iCloudACAccount)
+  {
+    accountStore = [(AppleAccountManager *)self accountStore];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10001F0BC;
+    v9[3] = &unk_10005DF88;
+    v9[4] = self;
+    v10 = completionCopy;
+    [accountStore renewCredentialsForAccount:iCloudACAccount force:forceCopy reason:0 completion:v9];
+  }
 }
 
 @end

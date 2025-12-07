@@ -60,36 +60,36 @@
 
 + (id)dataPackageForCurrentSettings
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v32 = objc_alloc_init(self);
-  v34 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v45 = *MEMORY[0x1E69E9840];
+  v34 = objc_alloc_init(self);
+  v36 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v2 = +[AXSettings sharedInstance];
   keysToIgnoreDuringBuddyTransfer = [v2 keysToIgnoreDuringBuddyTransfer];
 
+  v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
   v4 = objc_alloc(MEMORY[0x1E695DEC8]);
   obj = [v4 initWithObjects:{*MEMORY[0x1E69E4BB0], *MEMORY[0x1E69E4F30], *MEMORY[0x1E69E4C70], *MEMORY[0x1E69E4D78], *MEMORY[0x1E69E4F78], *MEMORY[0x1E69E4F60], *MEMORY[0x1E69E4FA8], *MEMORY[0x1E69E4E90], *MEMORY[0x1E69E4F20], *MEMORY[0x1E69E4F10], *MEMORY[0x1E69E4E18], 0}];
-  v5 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
-  v33 = keysToIgnoreDuringBuddyTransfer;
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v35 = keysToIgnoreDuringBuddyTransfer;
   if (v5)
   {
     v6 = v5;
-    v7 = *v37;
+    v7 = *v39;
     v8 = *MEMORY[0x1E695E8B8];
     v9 = *MEMORY[0x1E695E8B0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v37 != v7)
+        if (*v39 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
+        v11 = *(*(&v38 + 1) + 8 * i);
         v12 = CFPreferencesCopyKeyList(v11, v8, v9);
         if (v12)
         {
@@ -104,34 +104,34 @@
             {
               v17 = [(__CFDictionary *)v14 objectForKey:@"AXSIgnoreTrackpad"];
               *buf = 138412290;
-              v41 = v17;
+              v43 = v17;
               _os_log_impl(&dword_18B15E000, v16, OS_LOG_TYPE_DEFAULT, "Transferring ignore trackpad setting: %@", buf, 0xCu);
 
-              keysToIgnoreDuringBuddyTransfer = v33;
+              keysToIgnoreDuringBuddyTransfer = v35;
             }
           }
 
           [(__CFDictionary *)v14 removeObjectsForKeys:keysToIgnoreDuringBuddyTransfer];
           if (v14)
           {
-            [v34 setObject:v14 forKey:v11];
+            [v36 setObject:v14 forKey:v11];
           }
 
           CFRelease(v13);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v6 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v6);
   }
 
-  [v32 setAccessibilityOptions:v34];
+  [v34 setAccessibilityOptions:v36];
   v18 = _AXSCopyPreferredContentSizeCategoryName();
-  [v32 setAxPreferredContentSizeCategoryName:v18];
+  [v34 setAxPreferredContentSizeCategoryName:v18];
 
-  [v32 setUsesExtendedSlider:_AXSLargeTextUsesExtendedRange() != 0];
+  [v34 setUsesExtendedSlider:_AXSLargeTextUsesExtendedRange() != 0];
   testData = [objc_opt_class() testData];
 
   if (testData)
@@ -141,35 +141,35 @@
     {
       testData2 = [objc_opt_class() testData];
       *buf = 138412290;
-      v41 = testData2;
+      v43 = testData2;
       _os_log_impl(&dword_18B15E000, v20, OS_LOG_TYPE_INFO, "Using test data mode settings: %@", buf, 0xCu);
     }
 
     testData3 = [objc_opt_class() testData];
     v23 = [testData3 objectForKey:@"AXSOSVersion"];
-    [v32 setAxOSVersion:v23];
+    [v34 setAxOSVersion:v23];
 
     testData4 = [objc_opt_class() testData];
     v25 = [testData4 objectForKey:@"AXSModel"];
-    [v32 setAxModel:v25];
+    [v34 setAxModel:v25];
 
     testData5 = [objc_opt_class() testData];
     v27 = [testData5 objectForKey:@"AXSUsesExtendedRange"];
-    [v32 setUsesExtendedSlider:{objc_msgSend(v27, "BOOLValue")}];
+    [v34 setUsesExtendedSlider:{objc_msgSend(v27, "BOOLValue")}];
   }
 
   else
   {
     productVersionForBuddy = [self productVersionForBuddy];
-    [v32 setAxOSVersion:productVersionForBuddy];
+    [v34 setAxOSVersion:productVersionForBuddy];
 
     deviceClassForBuddy = [self deviceClassForBuddy];
-    [v32 setAxModel:deviceClassForBuddy];
+    [v34 setAxModel:deviceClassForBuddy];
 
-    [v32 setHasHomeButton:AXDeviceHasHomeButton()];
+    [v34 setHasHomeButton:{AXDeviceHasHomeButton(v30, v31)}];
   }
 
-  return v32;
+  return v34;
 }
 
 + (void)setTestData:(id)data forModel:(id)model hasHomeButton:(BOOL)button largeTextUsesExtendedRange:(BOOL)range
@@ -299,69 +299,69 @@
 
 - (void)processDomainDictionary:(id)dictionary
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = +[AXBuddyDataPackage deviceClassForBuddy];
   v6 = +[AXBuddyDataPackage productVersionForBuddy];
-  v7 = [MEMORY[0x1E696AD98] numberWithBool:AXDeviceHasHomeButton()];
+  v8 = [MEMORY[0x1E696AD98] numberWithBool:{AXDeviceHasHomeButton(v6, v7)}];
   testData = [objc_opt_class() testData];
   if (testData)
   {
-    v9 = testData;
-    v10 = _AXSInUnitTestMode();
+    v10 = testData;
+    v11 = _AXSInUnitTestMode();
 
-    if (v10)
+    if (v11)
     {
       testData2 = [objc_opt_class() testData];
-      v12 = [testData2 objectForKey:@"AXSOSVersion"];
+      v13 = [testData2 objectForKey:@"AXSOSVersion"];
 
       testData3 = [objc_opt_class() testData];
-      v14 = [testData3 objectForKey:@"AXSModel"];
+      v15 = [testData3 objectForKey:@"AXSModel"];
 
       testData4 = [objc_opt_class() testData];
-      v16 = [testData4 objectForKey:@"AXSHasHomeButton"];
+      v17 = [testData4 objectForKey:@"AXSHasHomeButton"];
 
-      v7 = v16;
-      v6 = v12;
-      v5 = v14;
+      v8 = v17;
+      v6 = v13;
+      v5 = v15;
     }
   }
 
   axModel = [(AXBuddyDataPackage *)self axModel];
   if (axModel)
   {
-    v18 = axModel;
+    v19 = axModel;
     axModel2 = [(AXBuddyDataPackage *)self axModel];
-    v20 = [v5 isEqualToString:axModel2];
+    v21 = [v5 isEqualToString:axModel2];
 
-    if ((v20 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
       [dictionaryCopy removeObjectForKey:*MEMORY[0x1E6988708]];
     }
   }
 
-  v21 = MEMORY[0x1E69E4F40];
-  v22 = [dictionaryCopy objectForKey:*MEMORY[0x1E69E4F40]];
-  if (!v22 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (![v22 count] || objc_msgSend(v22, "count") == 1 && objc_msgSend(v22, "containsObject:", &unk_1EFE96BF8)))
-  {
-    v23 = AXLogSettings();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-    {
-      v25 = 138412290;
-      v26 = v22;
-      _os_log_impl(&dword_18B15E000, v23, OS_LOG_TYPE_DEFAULT, "Removing TC options because its empty or only has buddy settings: %@", &v25, 0xCu);
-    }
-
-    [dictionaryCopy removeObjectForKey:*v21];
-  }
-
-  if (([v7 BOOLValue] & 1) == 0 && -[AXBuddyDataPackage hasHomeButton](self, "hasHomeButton") || objc_msgSend(v7, "BOOLValue") && !-[AXBuddyDataPackage hasHomeButton](self, "hasHomeButton"))
+  v22 = MEMORY[0x1E69E4F40];
+  v23 = [dictionaryCopy objectForKey:*MEMORY[0x1E69E4F40]];
+  if (!v23 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (![v23 count] || objc_msgSend(v23, "count") == 1 && objc_msgSend(v23, "containsObject:", &unk_1EFE96BF8)))
   {
     v24 = AXLogSettings();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_18B15E000, v24, OS_LOG_TYPE_DEFAULT, "Removing Reduce motion preference from domain dict because home button changed", &v25, 2u);
+      v26 = 138412290;
+      v27 = v23;
+      _os_log_impl(&dword_18B15E000, v24, OS_LOG_TYPE_DEFAULT, "Removing TC options because its empty or only has buddy settings: %@", &v26, 0xCu);
+    }
+
+    [dictionaryCopy removeObjectForKey:*v22];
+  }
+
+  if (([v8 BOOLValue] & 1) == 0 && -[AXBuddyDataPackage hasHomeButton](self, "hasHomeButton") || objc_msgSend(v8, "BOOLValue") && !-[AXBuddyDataPackage hasHomeButton](self, "hasHomeButton"))
+  {
+    v25 = AXLogSettings();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_18B15E000, v25, OS_LOG_TYPE_DEFAULT, "Removing Reduce motion preference from domain dict because home button changed", &v26, 2u);
     }
 
     [dictionaryCopy removeObjectForKey:*MEMORY[0x1E69E4EC0]];

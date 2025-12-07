@@ -11,11 +11,10 @@
 
 - (NSSet)meaningLabels
 {
-  v2 = *(self + OBJC_IVAR___PGEventLabelingConfiguration_meaningLabels);
 
-  v3 = sub_22F741410();
+  v2 = sub_22F741410();
 
-  return v3;
+  return v2;
 }
 
 - (id)thresholdsBy:(id)by

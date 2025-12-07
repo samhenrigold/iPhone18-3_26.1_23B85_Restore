@@ -4,12 +4,14 @@
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (id)appendWithJavaLangCharSequence:(id)sequence;
+- (id)appendWithJavaLangCharSequence:(id)sequence withInt:(int)int withInt:(int)withInt;
 - (id)getWithCharArray:(id)array;
 - (id)getWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)putWithCharArray:(id)array;
 - (id)putWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (id)putWithJavaNioCharBuffer:(id)buffer;
 - (id)putWithNSString:(id)string;
+- (id)putWithNSString:(id)string withInt:(int)int withInt:(int)withInt;
 - (int)compareToWithId:(id)id;
 - (int)readWithJavaNioCharBuffer:(id)buffer;
 - (unint64_t)hash;
@@ -187,7 +189,7 @@ LABEL_10:
   }
 
   withIntCopy = withInt;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   if ([(JavaNioBuffer *)self remaining]< withIntCopy)
   {
     v14 = new_JavaNioBufferUnderflowException_init();
@@ -259,7 +261,7 @@ LABEL_10:
   }
 
   withIntCopy = withInt;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   if ([(JavaNioBuffer *)self remaining]< withIntCopy)
   {
     v13 = new_JavaNioBufferOverflowException_init();
@@ -341,9 +343,64 @@ LABEL_7:
   return [(JavaNioCharBuffer *)self putWithNSString:string withInt:0 withInt:v5];
 }
 
+- (id)putWithNSString:(id)string withInt:(int)int withInt:(int)withInt
+{
+  v6 = *&int;
+  if ([(JavaNioBuffer *)self isReadOnly])
+  {
+    OnlyBufferException_init = new_JavaNioReadOnlyBufferException_init();
+    goto LABEL_15;
+  }
+
+  if ((v6 & 0x80000000) != 0 || withInt < v6)
+  {
+    if (string)
+    {
+      goto LABEL_12;
+    }
+
+LABEL_13:
+    JreThrowNullPointerException();
+  }
+
+  if (!string)
+  {
+    goto LABEL_13;
+  }
+
+  if ([string length] < withInt)
+  {
+LABEL_12:
+    [string length];
+    v18 = JreStrcat("$I$I$I", v11, v12, v13, v14, v15, v16, v17, @"str.length()=");
+    OnlyBufferException_init = new_JavaLangIndexOutOfBoundsException_initWithNSString_(v18);
+    goto LABEL_15;
+  }
+
+  if (withInt - v6 > [(JavaNioBuffer *)self remaining])
+  {
+    OnlyBufferException_init = new_JavaNioBufferOverflowException_init();
+LABEL_15:
+    objc_exception_throw(OnlyBufferException_init);
+  }
+
+  if (withInt > v6)
+  {
+    do
+    {
+      -[JavaNioCharBuffer putWithChar:](self, "putWithChar:", [string charAtWithInt:v6]);
+      v6 = (v6 + 1);
+    }
+
+    while (withInt != v6);
+  }
+
+  return self;
+}
+
 - (NSString)description
 {
-  v3 = new_JavaLangStringBuilder_initWithInt_(self->super.limit_ - self->super.position_);
+  v3 = new_JavaLangStringBuilder_initWithInt_((self->super.limit_ - self->super.position_));
   for (i = self->super.position_; i < self->super.limit_; i = (i + 1))
   {
     [(JavaLangStringBuilder *)v3 appendWithChar:[(JavaNioCharBuffer *)self getWithInt:i]];
@@ -371,6 +428,43 @@ LABEL_7:
   v5 = [(__CFString *)v4 length];
 
   return [(JavaNioCharBuffer *)self putWithNSString:v4 withInt:0 withInt:v5];
+}
+
+- (id)appendWithJavaLangCharSequence:(id)sequence withInt:(int)int withInt:(int)withInt
+{
+  if (sequence)
+  {
+    sequenceCopy = sequence;
+  }
+
+  else
+  {
+    sequenceCopy = @"null";
+  }
+
+  v7 = [(__CFString *)sequenceCopy subSequenceFrom:*&int to:*&withInt];
+  if (!v7)
+  {
+    goto LABEL_11;
+  }
+
+  v8 = v7;
+  if ([v7 length] < 1)
+  {
+    return self;
+  }
+
+  v9 = [v8 description];
+  if (!v9)
+  {
+LABEL_11:
+    JreThrowNullPointerException();
+  }
+
+  v10 = v9;
+  v11 = [v9 length];
+
+  return [(JavaNioCharBuffer *)self putWithNSString:v10 withInt:0 withInt:v11];
 }
 
 - (int)readWithJavaNioCharBuffer:(id)buffer

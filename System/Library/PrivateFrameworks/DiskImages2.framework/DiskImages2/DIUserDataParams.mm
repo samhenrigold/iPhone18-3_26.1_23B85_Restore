@@ -78,32 +78,40 @@
   if (v8)
   {
     v9 = *__error();
-    if (DIForwardLogs())
+    v10 = DIForwardLogs();
+    if (v10)
     {
       v16 = 0;
-      v10 = getDIOSLog();
-      os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      v12 = getDIOSLog(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
       *buf = 68158210;
       v20 = 36;
       v21 = 2080;
       v22 = "[DIUserDataParams encodeWithCoder:]";
       v23 = 2114;
       v24 = v8;
-      LODWORD(v15) = 28;
-      v14 = buf;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v13, &v16, 0, 0, &dword_248DE0000, v12, 16, "%.*s: Error encoding user dictionary: %{public}@", buf, 28);
 
-      if (v11)
+      if (v14)
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v11);
-        free(v11);
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v14);
+        free(v14);
       }
     }
 
     else
     {
-      v12 = getDIOSLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = getDIOSLog(v10, v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 68158210;
         v20 = 36;
@@ -111,290 +119,322 @@
         v22 = "[DIUserDataParams encodeWithCoder:]";
         v23 = 2114;
         v24 = v8;
-        _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_ERROR, "%.*s: Error encoding user dictionary: %{public}@", buf, 0x1Cu);
+        _os_log_impl(&dword_248DE0000, v15, OS_LOG_TYPE_ERROR, "%.*s: Error encoding user dictionary: %{public}@", buf, 0x1Cu);
       }
     }
 
     *__error() = v9;
   }
 
-  [coderCopy encodeObject:v7 forKey:{@"userData", v14, v15, v16}];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [coderCopy encodeObject:v7 forKey:@"userData"];
 }
 
 - (BOOL)retrieveWithError:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
-  if ([(DIBaseParams *)self openExistingImageWithFlags:0 error:error])
+  v41 = *MEMORY[0x277D85DE8];
+  if (![(DIBaseParams *)self openExistingImageWithFlags:0 error:error])
   {
-    v5 = *__error();
-    if (DIForwardLogs())
-    {
-      v29 = 0;
-      v6 = getDIOSLog();
-      os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-      *buf = 68158210;
-      v31 = 38;
-      v32 = 2080;
-      v33 = "[DIUserDataParams retrieveWithError:]";
-      v34 = 2114;
-      selfCopy2 = self;
-      LODWORD(v27) = 28;
-      v26 = buf;
-      v7 = _os_log_send_and_compose_impl();
+    return 0;
+  }
 
-      if (v7)
-      {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v7);
-        free(v7);
-      }
+  v5 = *__error();
+  v6 = DIForwardLogs();
+  if (v6)
+  {
+    v34 = 0;
+    v8 = getDIOSLog(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 3;
     }
 
     else
     {
-      v9 = getDIOSLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 68158210;
-        v31 = 38;
-        v32 = 2080;
-        v33 = "[DIUserDataParams retrieveWithError:]";
-        v34 = 2114;
-        selfCopy2 = self;
-        _os_log_impl(&dword_248DE0000, v9, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
-      }
+      v9 = 2;
     }
 
-    *__error() = v5;
-    v10 = objc_alloc_init(DIClient2Controller_XPCHandler);
-    if ([(DIClient2Controller_XPCHandler *)v10 connectWithError:error]&& [(DIBaseParams *)self prepareImageWithXpcHandler:v10 fileMode:2 error:error])
+    *buf = 68158210;
+    v36 = 38;
+    v37 = 2080;
+    v38 = "[DIUserDataParams retrieveWithError:]";
+    v39 = 2114;
+    selfCopy2 = self;
+    v10 = _os_log_send_and_compose_impl(v9, &v34, 0, 0, &dword_248DE0000, v8, 0, "%.*s: entry: %{public}@", buf, 28);
+
+    if (v10)
     {
-      diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
-      shadowChain = [(DIBaseParams *)self shadowChain];
-      shouldValidate = [shadowChain shouldValidate];
-      if (diskImageParamsXPC)
-      {
-        [diskImageParamsXPC createDiskImageWithCache:0 shadowValidation:shouldValidate];
-      }
-
-      else
-      {
-        v29 = 0;
-      }
-
-      (*(*v29 + 112))(&cf);
-      v14 = cf;
-      CFRetain(cf);
-      [(DIUserDataParams *)self setUserDict:v14];
-
-      v15 = *__error();
-      if (DIForwardLogs())
-      {
-        v16 = getDIOSLog();
-        os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-        v17 = [(DIUserDataParams *)self userDict:v26];
-        v18 = [v17 count];
-        *buf = 68158210;
-        v31 = 38;
-        v32 = 2080;
-        v33 = "[DIUserDataParams retrieveWithError:]";
-        v34 = 1024;
-        LODWORD(selfCopy2) = v18;
-        v19 = _os_log_send_and_compose_impl();
-
-        if (v19)
-        {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v19);
-          free(v19);
-        }
-      }
-
-      else
-      {
-        v20 = getDIOSLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-        {
-          userDict = [(DIUserDataParams *)self userDict];
-          v22 = [userDict count];
-          *buf = 68158210;
-          v31 = 38;
-          v32 = 2080;
-          v33 = "[DIUserDataParams retrieveWithError:]";
-          v34 = 1024;
-          LODWORD(selfCopy2) = v22;
-          _os_log_impl(&dword_248DE0000, v20, OS_LOG_TYPE_DEFAULT, "%.*s: User data retrieving passed, %d value(s) found", buf, 0x18u);
-        }
-      }
-
-      *__error() = v15;
-      CFAutoRelease<__CFDictionary const*>::~CFAutoRelease(&cf);
-      v23 = v29;
-      v29 = 0;
-      if (v23)
-      {
-        (*(*v23 + 16))(v23);
-      }
-
-      v8 = 1;
-    }
-
-    else
-    {
-      v8 = 0;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v10);
+      free(v10);
     }
   }
 
   else
   {
-    v8 = 0;
+    v12 = getDIOSLog(v6, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68158210;
+      v36 = 38;
+      v37 = 2080;
+      v38 = "[DIUserDataParams retrieveWithError:]";
+      v39 = 2114;
+      selfCopy2 = self;
+      _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
+    }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v8;
+  *__error() = v5;
+  v13 = objc_alloc_init(DIClient2Controller_XPCHandler);
+  if ([(DIClient2Controller_XPCHandler *)v13 connectWithError:error]&& [(DIBaseParams *)self prepareImageWithXpcHandler:v13 fileMode:2 error:error])
+  {
+    diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
+    shadowChain = [(DIBaseParams *)self shadowChain];
+    [shadowChain shouldValidate];
+    if (diskImageParamsXPC)
+    {
+      objc_msgSend_createDiskImageWithCache_shadowValidation_(diskImageParamsXPC);
+    }
+
+    else
+    {
+      v34 = 0;
+    }
+
+    (*(*v34 + 112))(&cf);
+    v16 = cf;
+    CFRetain(cf);
+    [(DIUserDataParams *)self setUserDict:v16];
+
+    v17 = *__error();
+    v18 = DIForwardLogs();
+    if (v18)
+    {
+      v32 = 0;
+      v20 = getDIOSLog(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = 3;
+      }
+
+      else
+      {
+        v21 = 2;
+      }
+
+      userDict = [(DIUserDataParams *)self userDict];
+      v23 = [userDict count];
+      *buf = 68158210;
+      v36 = 38;
+      v37 = 2080;
+      v38 = "[DIUserDataParams retrieveWithError:]";
+      v39 = 1024;
+      LODWORD(selfCopy2) = v23;
+      LODWORD(v30) = 24;
+      v24 = _os_log_send_and_compose_impl(v21, &v32, 0, 0, &dword_248DE0000, v20, 0, "%.*s: User data retrieving passed, %d value(s) found", buf, v30, v31);
+
+      if (v24)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v24);
+        free(v24);
+      }
+    }
+
+    else
+    {
+      v25 = getDIOSLog(v18, v19);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        userDict2 = [(DIUserDataParams *)self userDict];
+        v27 = [userDict2 count];
+        *buf = 68158210;
+        v36 = 38;
+        v37 = 2080;
+        v38 = "[DIUserDataParams retrieveWithError:]";
+        v39 = 1024;
+        LODWORD(selfCopy2) = v27;
+        _os_log_impl(&dword_248DE0000, v25, OS_LOG_TYPE_DEFAULT, "%.*s: User data retrieving passed, %d value(s) found", buf, 0x18u);
+      }
+    }
+
+    *__error() = v17;
+    CFAutoRelease<__CFDictionary const*>::~CFAutoRelease(&cf);
+    v28 = v34;
+    v34 = 0;
+    if (v28)
+    {
+      (*(*v28 + 16))(v28);
+    }
+
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (BOOL)embedWithError:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   userDict = [(DIUserDataParams *)self userDict];
   if (!userDict || (-[DIUserDataParams userDict](self, "userDict"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 count], v6, userDict, !v7))
   {
-    v13 = @"userDict cannot be nil or empty";
-LABEL_12:
-    v14 = [DIError failWithPOSIXCode:22 verboseInfo:v13 error:error];
-    goto LABEL_13;
+    v16 = @"userDict cannot be nil or empty";
+    return [DIError failWithPOSIXCode:22 verboseInfo:v16 error:error];
   }
 
   diskImageParamsXPC = [(DIBaseParams *)self diskImageParamsXPC];
   if (diskImageParamsXPC)
   {
-    [(DIBaseParams *)self backend];
+    objc_msgSend_backend(self);
     v9 = (*(**buf + 48))(*buf);
-    if (*v31)
+    if (*v39)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*v31);
+      std::__shared_weak_count::__release_shared[abi:ne200100](*v39);
     }
 
     if ((v9 & 1) == 0)
     {
-      v13 = @"The image was unlocked before setting userData";
-      goto LABEL_12;
+      v16 = @"The image was unlocked before setting userData";
+      return [DIError failWithPOSIXCode:22 verboseInfo:v16 error:error];
     }
   }
 
-  if ([(DIBaseParams *)self openExistingImageWithFlags:2 error:error])
+  if (![(DIBaseParams *)self openExistingImageWithFlags:2 error:error])
   {
-    v10 = *__error();
-    if (DIForwardLogs())
-    {
-      v29 = 0;
-      v11 = getDIOSLog();
-      os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      *buf = 68158210;
-      *&buf[4] = 35;
-      *v31 = 2080;
-      *&v31[2] = "[DIUserDataParams embedWithError:]";
-      v32 = 2114;
-      selfCopy2 = self;
-      v12 = _os_log_send_and_compose_impl();
+    return 0;
+  }
 
-      if (v12)
-      {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
-        free(v12);
-      }
+  v10 = *__error();
+  v11 = DIForwardLogs();
+  if (v11)
+  {
+    v37 = 0;
+    v13 = getDIOSLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 3;
     }
 
     else
     {
-      v17 = getDIOSLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 68158210;
-        *&buf[4] = 35;
-        *v31 = 2080;
-        *&v31[2] = "[DIUserDataParams embedWithError:]";
-        v32 = 2114;
-        selfCopy2 = self;
-        _os_log_impl(&dword_248DE0000, v17, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
-      }
+      v14 = 2;
     }
 
-    *__error() = v10;
-    v18 = objc_alloc_init(DIClient2Controller_XPCHandler);
-    if (-[DIClient2Controller_XPCHandler connectWithError:](v18, "connectWithError:", error) && -[DIBaseParams prepareImageWithXpcHandler:fileMode:error:](self, "prepareImageWithXpcHandler:fileMode:error:", v18, 4, error) && (-[DIBaseParams diskImageParamsXPC](self, "diskImageParamsXPC"), v19 = objc_claimAutoreleasedReturnValue(), v20 = [v19 lockBackendsWithError:error], v19, (v20 & 1) != 0))
+    *buf = 68158210;
+    *&buf[4] = 35;
+    *v39 = 2080;
+    *&v39[2] = "[DIUserDataParams embedWithError:]";
+    v40 = 2114;
+    selfCopy2 = self;
+    v15 = _os_log_send_and_compose_impl(v14, &v37, 0, 0, &dword_248DE0000, v13, 0, "%.*s: entry: %{public}@", buf, 28);
+
+    if (v15)
     {
-      diskImageParamsXPC2 = [(DIBaseParams *)self diskImageParamsXPC];
-      shadowChain = [(DIBaseParams *)self shadowChain];
-      shouldValidate = [shadowChain shouldValidate];
-      if (diskImageParamsXPC2)
-      {
-        [diskImageParamsXPC2 createDiskImageWithCache:0 shadowValidation:shouldValidate];
-      }
-
-      else
-      {
-        v29 = 0;
-      }
-
-      userDict2 = [(DIUserDataParams *)self userDict];
-      (*(*v29 + 120))(v29, userDict2);
-
-      v25 = *__error();
-      if (DIForwardLogs())
-      {
-        v26 = getDIOSLog();
-        os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-        *buf = 68157954;
-        *&buf[4] = 35;
-        *v31 = 2080;
-        *&v31[2] = "[DIUserDataParams embedWithError:]";
-        v27 = _os_log_send_and_compose_impl();
-
-        if (v27)
-        {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v27);
-          free(v27);
-        }
-      }
-
-      else
-      {
-        v28 = getDIOSLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 68157954;
-          *&buf[4] = 35;
-          *v31 = 2080;
-          *&v31[2] = "[DIUserDataParams embedWithError:]";
-          _os_log_impl(&dword_248DE0000, v28, OS_LOG_TYPE_DEFAULT, "%.*s: User data embedding passed", buf, 0x12u);
-        }
-      }
-
-      *__error() = v25;
-      if (v29)
-      {
-        (*(*v29 + 16))(v29);
-      }
-
-      v14 = 1;
-    }
-
-    else
-    {
-      v14 = 0;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v15);
+      free(v15);
     }
   }
 
   else
   {
-    v14 = 0;
+    v19 = getDIOSLog(v11, v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68158210;
+      *&buf[4] = 35;
+      *v39 = 2080;
+      *&v39[2] = "[DIUserDataParams embedWithError:]";
+      v40 = 2114;
+      selfCopy2 = self;
+      _os_log_impl(&dword_248DE0000, v19, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
+    }
   }
 
-LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  *__error() = v10;
+  v20 = objc_alloc_init(DIClient2Controller_XPCHandler);
+  if (-[DIClient2Controller_XPCHandler connectWithError:](v20, "connectWithError:", error) && -[DIBaseParams prepareImageWithXpcHandler:fileMode:error:](self, "prepareImageWithXpcHandler:fileMode:error:", v20, 4, error) && (-[DIBaseParams diskImageParamsXPC](self, "diskImageParamsXPC"), v21 = objc_claimAutoreleasedReturnValue(), v22 = [v21 lockBackendsWithError:error], v21, (v22 & 1) != 0))
+  {
+    diskImageParamsXPC2 = [(DIBaseParams *)self diskImageParamsXPC];
+    shadowChain = [(DIBaseParams *)self shadowChain];
+    [shadowChain shouldValidate];
+    if (diskImageParamsXPC2)
+    {
+      objc_msgSend_createDiskImageWithCache_shadowValidation_(diskImageParamsXPC2);
+    }
+
+    else
+    {
+      v37 = 0;
+    }
+
+    v25 = v37;
+    userDict2 = [(DIUserDataParams *)self userDict];
+    (*(*v25 + 120))(v25, userDict2);
+
+    v27 = *__error();
+    v28 = DIForwardLogs();
+    if (v28)
+    {
+      v36 = 0;
+      v30 = getDIOSLog(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        v31 = 3;
+      }
+
+      else
+      {
+        v31 = 2;
+      }
+
+      *buf = 68157954;
+      *&buf[4] = 35;
+      *v39 = 2080;
+      *&v39[2] = "[DIUserDataParams embedWithError:]";
+      LODWORD(v35) = 18;
+      v32 = _os_log_send_and_compose_impl(v31, &v36, 0, 0, &dword_248DE0000, v30, 0, "%.*s: User data embedding passed", buf, v35);
+
+      if (v32)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v32);
+        free(v32);
+      }
+    }
+
+    else
+    {
+      v33 = getDIOSLog(v28, v29);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68157954;
+        *&buf[4] = 35;
+        *v39 = 2080;
+        *&v39[2] = "[DIUserDataParams embedWithError:]";
+        _os_log_impl(&dword_248DE0000, v33, OS_LOG_TYPE_DEFAULT, "%.*s: User data embedding passed", buf, 0x12u);
+      }
+    }
+
+    *__error() = v27;
+    v34 = v37;
+    v37 = 0;
+    if (v34)
+    {
+      (*(*v34 + 16))(v34);
+    }
+
+    v17 = 1;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
 }
 
 - (BOOL)openExistingImageWithError:(id *)error

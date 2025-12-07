@@ -75,21 +75,19 @@ void __40__UAFPreinstalledAssetsCache_initCache___block_invoke()
 
 uint64_t __40__UAFPreinstalledAssetsCache_initCache___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) name];
-    v6 = 136315394;
-    v7 = "+[UAFPreinstalledAssetsCache initCache:]_block_invoke_2";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Invalidating preinstalled asset cache due to root installation for %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[UAFPreinstalledAssetsCache initCache:]_block_invoke_2";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s Invalidating preinstalled asset cache due to root installation for %{public}@", &v5, 0x16u);
   }
 
-  result = +[UAFPreinstalledAssetsCache invalidateCache];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return +[UAFPreinstalledAssetsCache invalidateCache];
 }
 
 + (void)invalidateCache
@@ -103,7 +101,7 @@ uint64_t __40__UAFPreinstalledAssetsCache_initCache___block_invoke_2(uint64_t a1
 
 + (void)populateCache:(id)cache
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   v4 = qword_1ED7D1068;
   if (!qword_1ED7D1068)
@@ -122,18 +120,16 @@ uint64_t __40__UAFPreinstalledAssetsCache_initCache___block_invoke_2(uint64_t a1
     v8 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "+[UAFPreinstalledAssetsCache populateCache:]";
-      v13 = 2114;
-      v14 = cacheCopy;
-      _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Querying for %{public}@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "+[UAFPreinstalledAssetsCache populateCache:]";
+      v12 = 2114;
+      v13 = cacheCopy;
+      _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s Querying for %{public}@", &v10, 0x16u);
     }
 
     v9 = [UAFPreinstalledAssetsCache queryAssetType:cacheCopy];
     [qword_1ED7D1068 setObject:v9 forKeyedSubscript:cacheCopy];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)assetSpecifier:(id)specifier assetSetConfiguration:(id)configuration
@@ -204,7 +200,7 @@ void __67__UAFPreinstalledAssetsCache_assetSpecifier_assetSetConfiguration___blo
 
 + (BOOL)checkForAssetTypePath:(id)path
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v4 = qword_1ED7D1070;
   if (!qword_1ED7D1070)
@@ -235,75 +231,75 @@ void __67__UAFPreinstalledAssetsCache_assetSpecifier_assetSetConfiguration___blo
     v15 = [UAFCommonUtilities getMAPath:2];
     [array addObject:v15];
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v16 = array;
-    v45 = [v16 countByEnumeratingWithState:&v52 objects:v72 count:16];
-    if (v45)
+    v44 = [v16 countByEnumeratingWithState:&v51 objects:v71 count:16];
+    if (v44)
     {
-      v18 = *v53;
-      v43 = *MEMORY[0x1E695DC30];
+      v18 = *v52;
+      v42 = *MEMORY[0x1E695DC30];
       *&v17 = 136315394;
-      v38 = v17;
+      v37 = v17;
       context = v10;
-      v41 = v16;
-      v42 = v11;
-      v39 = *v53;
+      v40 = v16;
+      v41 = v11;
+      v38 = *v52;
       do
       {
         v19 = 0;
         do
         {
-          if (*v53 != v18)
+          if (*v52 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = [*(*(&v52 + 1) + 8 * v19) stringByAppendingPathComponent:{v11, v38}];
-          v70 = 0u;
-          v71 = 0u;
-          v68 = 0u;
+          v20 = [*(*(&v51 + 1) + 8 * v19) stringByAppendingPathComponent:{v11, v37}];
           v69 = 0u;
-          v66 = 0u;
+          v70 = 0u;
           v67 = 0u;
+          v68 = 0u;
           v65 = 0u;
-          memset(v64, 0, sizeof(v64));
-          if (![*(v13 + 2584) stat:v20 withBuf:v64 error:0])
+          v66 = 0u;
+          v64 = 0u;
+          memset(v63, 0, sizeof(v63));
+          if (![*(v13 + 2584) stat:v20 withBuf:v63 error:0])
           {
             defaultManager = [MEMORY[0x1E696AC08] defaultManager];
             v22 = [MEMORY[0x1E695DFF8] URLWithString:v20];
-            v63 = v43;
-            v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
-            v50[0] = MEMORY[0x1E69E9820];
-            v50[1] = 3221225472;
-            v50[2] = __52__UAFPreinstalledAssetsCache_checkForAssetTypePath___block_invoke;
-            v50[3] = &unk_1E7FFD790;
-            v44 = v20;
-            v51 = v44;
-            v24 = [defaultManager enumeratorAtURL:v22 includingPropertiesForKeys:v23 options:1 errorHandler:v50];
+            v62 = v42;
+            v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
+            v49[0] = MEMORY[0x1E69E9820];
+            v49[1] = 3221225472;
+            v49[2] = __52__UAFPreinstalledAssetsCache_checkForAssetTypePath___block_invoke;
+            v49[3] = &unk_1E7FFD790;
+            v43 = v20;
+            v50 = v43;
+            v24 = [defaultManager enumeratorAtURL:v22 includingPropertiesForKeys:v23 options:1 errorHandler:v49];
 
-            v48 = 0u;
-            v49 = 0u;
-            v46 = 0u;
             v47 = 0u;
+            v48 = 0u;
+            v45 = 0u;
+            v46 = 0u;
             v25 = v24;
-            v26 = [v25 countByEnumeratingWithState:&v46 objects:v62 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v45 objects:v61 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v47;
+              v28 = *v46;
               while (2)
               {
                 for (i = 0; i != v27; ++i)
                 {
-                  if (*v47 != v28)
+                  if (*v46 != v28)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  path = [*(*(&v46 + 1) + 8 * i) path];
+                  path = [*(*(&v45 + 1) + 8 * i) path];
                   v31 = [path hasSuffix:@".asset"];
 
                   if (v31)
@@ -312,11 +308,11 @@ void __67__UAFPreinstalledAssetsCache_assetSpecifier_assetSetConfiguration___blo
                     if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
                     {
                       *buf = 136315650;
-                      v57 = "+[UAFPreinstalledAssetsCache checkForAssetTypePath:]";
-                      v58 = 2114;
-                      v59 = pathCopy;
-                      v60 = 2114;
-                      v61 = v44;
+                      v56 = "+[UAFPreinstalledAssetsCache checkForAssetTypePath:]";
+                      v57 = 2114;
+                      v58 = pathCopy;
+                      v59 = 2114;
+                      v60 = v43;
                       _os_log_impl(&dword_1BCF2C000, v35, OS_LOG_TYPE_INFO, "%s Root for asset type %{public}@ found at %{public}@", buf, 0x20u);
                     }
 
@@ -328,7 +324,7 @@ void __67__UAFPreinstalledAssetsCache_assetSpecifier_assetSetConfiguration___blo
                   }
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v46 objects:v62 count:16];
+                v27 = [v25 countByEnumeratingWithState:&v45 objects:v61 count:16];
                 if (v27)
                 {
                   continue;
@@ -341,27 +337,27 @@ void __67__UAFPreinstalledAssetsCache_assetSpecifier_assetSetConfiguration___blo
             v32 = UAFGetLogCategory(&UAFLogContextClient);
             if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
             {
-              *buf = v38;
-              v57 = "+[UAFPreinstalledAssetsCache checkForAssetTypePath:]";
-              v58 = 2112;
-              v59 = v44;
+              *buf = v37;
+              v56 = "+[UAFPreinstalledAssetsCache checkForAssetTypePath:]";
+              v57 = 2112;
+              v58 = v43;
               _os_log_impl(&dword_1BCF2C000, v32, OS_LOG_TYPE_INFO, "%s %@ exists but does not contain any assets", buf, 0x16u);
             }
 
-            v16 = v41;
-            v11 = v42;
+            v16 = v40;
+            v11 = v41;
             v13 = 0x1E7FFC000;
-            v18 = v39;
+            v18 = v38;
           }
 
           ++v19;
         }
 
-        while (v19 != v45);
-        v33 = [v16 countByEnumeratingWithState:&v52 objects:v72 count:16];
+        while (v19 != v44);
+        v33 = [v16 countByEnumeratingWithState:&v51 objects:v71 count:16];
         v10 = context;
         v8 = 0;
-        v45 = v33;
+        v44 = v33;
       }
 
       while (v33);
@@ -370,11 +366,11 @@ void __67__UAFPreinstalledAssetsCache_assetSpecifier_assetSetConfiguration___blo
     v34 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
-      *v64 = 136315394;
-      *&v64[4] = "+[UAFPreinstalledAssetsCache checkForAssetTypePath:]";
-      *&v64[12] = 2114;
-      *&v64[14] = pathCopy;
-      _os_log_impl(&dword_1BCF2C000, v34, OS_LOG_TYPE_INFO, "%s No root asset type path found for %{public}@", v64, 0x16u);
+      *v63 = 136315394;
+      *&v63[4] = "+[UAFPreinstalledAssetsCache checkForAssetTypePath:]";
+      *&v63[12] = 2114;
+      *&v63[14] = pathCopy;
+      _os_log_impl(&dword_1BCF2C000, v34, OS_LOG_TYPE_INFO, "%s No root asset type path found for %{public}@", v63, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -384,37 +380,35 @@ void __67__UAFPreinstalledAssetsCache_assetSpecifier_assetSetConfiguration___blo
 
 LABEL_31:
 
-  v36 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 uint64_t __52__UAFPreinstalledAssetsCache_checkForAssetTypePath___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = *(a1 + 32);
-    v11 = 136315906;
-    v12 = "+[UAFPreinstalledAssetsCache checkForAssetTypePath:]_block_invoke";
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_INFO, "%s Error encountered while enumerating contents of %@.  URL: %@, error: %@", &v11, 0x2Au);
+    v10 = 136315906;
+    v11 = "+[UAFPreinstalledAssetsCache checkForAssetTypePath:]_block_invoke";
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_INFO, "%s Error encountered while enumerating contents of %@.  URL: %@, error: %@", &v10, 0x2Au);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (id)queryAssetType:(id)type
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v4 = objc_autoreleasePoolPush();
   v5 = [objc_alloc(MEMORY[0x1E69B18E8]) initWithType:typeCopy];
@@ -425,9 +419,9 @@ uint64_t __52__UAFPreinstalledAssetsCache_checkForAssetTypePath___block_invoke(u
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "+[UAFPreinstalledAssetsCache queryAssetType:]";
-      v20 = 2112;
-      v21 = typeCopy;
+      v18 = "+[UAFPreinstalledAssetsCache queryAssetType:]";
+      v19 = 2112;
+      v20 = typeCopy;
       _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s Error creating MAAssetQuery for asset type %@", buf, 0x16u);
     }
 
@@ -446,11 +440,11 @@ uint64_t __52__UAFPreinstalledAssetsCache_checkForAssetTypePath___block_invoke(u
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v19 = "+[UAFPreinstalledAssetsCache queryAssetType:]";
-      v20 = 2112;
-      v21 = typeCopy;
-      v22 = 2048;
-      v23 = v8;
+      v18 = "+[UAFPreinstalledAssetsCache queryAssetType:]";
+      v19 = 2112;
+      v20 = typeCopy;
+      v21 = 2048;
+      v22 = v8;
       _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s MA query for %@ failed with result: %ld", buf, 0x20u);
     }
 
@@ -465,24 +459,24 @@ LABEL_7:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v19 = "+[UAFPreinstalledAssetsCache queryAssetType:]";
-    v20 = 2114;
-    v21 = typeCopy;
-    v22 = 1024;
-    LODWORD(v23) = [results count];
+    v18 = "+[UAFPreinstalledAssetsCache queryAssetType:]";
+    v19 = 2114;
+    v20 = typeCopy;
+    v21 = 1024;
+    LODWORD(v22) = [results count];
     _os_log_debug_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEBUG, "%s Query for %{public}@ returned %d assets", buf, 0x1Cu);
   }
 
   if ([results count])
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __45__UAFPreinstalledAssetsCache_queryAssetType___block_invoke;
-    v16[3] = &unk_1E7FFD7B8;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __45__UAFPreinstalledAssetsCache_queryAssetType___block_invoke;
+    v15[3] = &unk_1E7FFD7B8;
     v10 = dictionary;
-    v17 = v10;
-    [results enumerateObjectsUsingBlock:v16];
+    v16 = v10;
+    [results enumerateObjectsUsingBlock:v15];
   }
 
   else
@@ -493,14 +487,12 @@ LABEL_7:
 LABEL_14:
   objc_autoreleasePoolPop(v4);
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 void __45__UAFPreinstalledAssetsCache_queryAssetType___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 assetProperty:@"AssetSpecifier"];
   if (v4)
@@ -513,15 +505,13 @@ void __45__UAFPreinstalledAssetsCache_queryAssetType___block_invoke(uint64_t a1,
     v5 = UAFGetLogCategory(&UAFLogContextClient);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 136315394;
-      v8 = "+[UAFPreinstalledAssetsCache queryAssetType:]_block_invoke";
-      v9 = 2114;
-      v10 = v3;
-      _os_log_debug_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEBUG, "%s MAAsset without specifier: %{public}@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "+[UAFPreinstalledAssetsCache queryAssetType:]_block_invoke";
+      v8 = 2114;
+      v9 = v3;
+      _os_log_debug_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEBUG, "%s MAAsset without specifier: %{public}@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)assetSpecifiersFromRoots:(id)roots
@@ -632,35 +622,35 @@ void __55__UAFPreinstalledAssetsCache_assetSpecifiersFromRoots___block_invoke(ui
 void __38__UAFPreinstalledAssetsCache_summary___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   [UAFPreinstalledAssetsCache populateCache:*(a1 + 32)];
   v2 = &getAFPreferencesClass_softClass;
   v3 = [qword_1ED7D1068 objectForKeyedSubscript:*(v1 + 32)];
   if (v3 && (v4 = v3, [qword_1ED7D1068 objectForKeyedSubscript:*(v1 + 32)], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v4, v6))
   {
-    v27 = objc_opt_new();
+    v25 = objc_opt_new();
     context = objc_autoreleasePoolPush();
+    v26 = 0u;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
     obj = [qword_1ED7D1068 objectForKeyedSubscript:*(v1 + 32)];
-    v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v29;
+      v9 = *v27;
       do
       {
         v10 = 0;
         do
         {
-          if (*v29 != v9)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v28 + 1) + 8 * v10);
+          v11 = *(*(&v26 + 1) + 8 * v10);
           v12 = MEMORY[0x1E696AEC0];
           [v2[13] objectForKeyedSubscript:*(v1 + 32)];
           v13 = v1;
@@ -668,7 +658,7 @@ void __38__UAFPreinstalledAssetsCache_summary___block_invoke(uint64_t a1)
           v16 = [v15 objectForKeyedSubscript:v11];
           v17 = [v16 assetId];
           v18 = [v12 stringWithFormat:@"%@#%@", v11, v17];
-          [v27 addObject:v18];
+          [v25 addObject:v18];
 
           v2 = v14;
           v1 = v13;
@@ -676,7 +666,7 @@ void __38__UAFPreinstalledAssetsCache_summary___block_invoke(uint64_t a1)
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v8);
@@ -685,17 +675,14 @@ void __38__UAFPreinstalledAssetsCache_summary___block_invoke(uint64_t a1)
     objc_autoreleasePoolPop(context);
     v19 = *(*(v1 + 40) + 8);
     v20 = *(v19 + 40);
-    *(v19 + 40) = v27;
-
-    v21 = *MEMORY[0x1E69E9840];
+    *(v19 + 40) = v25;
   }
 
   else
   {
-    v22 = *(*(v1 + 40) + 8);
-    v23 = *(v22 + 40);
-    *(v22 + 40) = 0;
-    v24 = *MEMORY[0x1E69E9840];
+    v21 = *(*(v1 + 40) + 8);
+    v22 = *(v21 + 40);
+    *(v21 + 40) = 0;
   }
 }
 

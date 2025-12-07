@@ -22,6 +22,7 @@
 - (NUIContainerView)initWithCoder:(id)coder;
 - (NUIContainerView)initWithFrame:(CGRect)frame;
 - (UIEdgeInsets)effectiveLayoutMargins;
+- (_BYTE)_addAsSubviewIfNeeded:(_BYTE *)result;
 - (double)_intrinsicSizeWithinSize:(double)size;
 - (id).cxx_construct;
 - (id)arrangedDebugDescription;
@@ -35,18 +36,17 @@
 - (id)viewForFirstBaselineLayout;
 - (id)viewForLastBaselineLayout;
 - (int64_t)alignmentForView:(id)view inAxis:(int64_t)axis;
-- (uint64_t)_addAsSubviewIfNeeded:(uint64_t)result;
 - (uint64_t)_countHiddenArrangesSubviews;
-- (uint64_t)_updateDebugBoundingBoxesIfNeeded;
 - (uint64_t)_verifyInternalConsistencyWarningOnly:(uint64_t)result;
-- (uint64_t)endBatchUpdates;
 - (uint64_t)visibleArrangedSubviews;
 - (unint64_t)indexOfArrangedSubview:(id)subview;
 - (void)_assertNotInLayoutPass:(uint64_t)pass;
 - (void)_intrinsicContentSizeInvalidatedForChildView:(id)view;
+- (void)_updateDebugBoundingBoxesIfNeeded;
 - (void)addArrangedSubview:(id)subview;
 - (void)beginBatchUpdates;
 - (void)dealloc;
+- (void)endBatchUpdates;
 - (void)insertArrangedSubview:(id)subview atIndex:(unint64_t)index;
 - (void)intrinsicContentSizeDidInvalidateForArrangedSubview:(id)subview;
 - (void)layoutArrangedSubviewsInBounds:(CGRect)bounds;
@@ -104,7 +104,7 @@
 
 - (void)beginBatchUpdates
 {
-  if (self)
+  if (result)
   {
     OUTLINED_FUNCTION_18();
     if ((~v4 & 0xF000000) == 0)
@@ -118,34 +118,34 @@
     *(v1 + v3) = v5 | v4 & 0xFFFFFFFFF0FFFFFFLL;
     if (v5 == 0x1000000)
     {
-      OUTLINED_FUNCTION_8();
-      v6 = *(v1 + 448);
-      v15 = OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46);
-      if (v15)
+      v6 = OUTLINED_FUNCTION_8();
+      v7 = *(v1 + 448);
+      v16 = OUTLINED_FUNCTION_2_0(v8, v9, v10, v11, v12, v13, v14, v15, v29, v31, v33, v35, v37, v39, v41, v43, v45, v6);
+      if (v16)
       {
-        v16 = v15;
-        v17 = *v33;
+        v17 = v16;
+        v18 = *v34;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v33 != v17)
+            if (*v34 != v18)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v7);
             }
 
-            v19 = *(v31 + 8 * i);
-            _isContainerView = [v19 _isContainerView];
+            v20 = *(v32 + 8 * i);
+            _isContainerView = [v20 _isContainerView];
             if (_isContainerView)
             {
-              _isContainerView = [(NUIContainerView *)v19 beginBatchUpdates];
+              _isContainerView = [(NUIContainerView *)v20 beginBatchUpdates];
             }
           }
 
-          v16 = OUTLINED_FUNCTION_2_0(_isContainerView, v21, v22, v23, v24, v25, v26, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47);
+          v17 = OUTLINED_FUNCTION_2_0(_isContainerView, v22, v23, v24, v25, v26, v27, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46);
         }
 
-        while (v16);
+        while (v17);
       }
     }
   }
@@ -177,43 +177,43 @@
   return v5;
 }
 
-- (uint64_t)endBatchUpdates
+- (void)endBatchUpdates
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 536);
-    *(result + 536) = (v2 + 251658240) & 0xF000000 | v2 & 0xFFFFFFFFF0FFFFFFLL;
+    v2 = result[67];
+    result[67] = (v2 + 251658240) & 0xF000000 | v2 & 0xFFFFFFFFF0FFFFFFLL;
     if (((v2 + 251658240) & 0xF000000) == 0)
     {
-      OUTLINED_FUNCTION_8();
-      v3 = v1[56];
-      v12 = OUTLINED_FUNCTION_21(v4, v5, v6, v7, v8, v9, v10, v11, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43);
-      if (v12)
+      v3 = OUTLINED_FUNCTION_8();
+      v4 = v1[56];
+      v13 = OUTLINED_FUNCTION_21(v5, v6, v7, v8, v9, v10, v11, v12, v26, v28, v30, v32, v34, v36, v38, v40, v42, v3);
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v30;
+        v14 = v13;
+        v15 = *v31;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v30 != v14)
+            if (*v31 != v15)
             {
-              objc_enumerationMutation(v3);
+              objc_enumerationMutation(v4);
             }
 
-            v16 = *(v28 + 8 * i);
-            _isContainerView = [v16 _isContainerView];
+            v17 = *(v29 + 8 * i);
+            _isContainerView = [v17 _isContainerView];
             if (_isContainerView)
             {
-              _isContainerView = [(NUIContainerView *)v16 endBatchUpdates];
+              _isContainerView = [(NUIContainerView *)v17 endBatchUpdates];
             }
           }
 
-          v13 = OUTLINED_FUNCTION_21(_isContainerView, v18, v19, v20, v21, v22, v23, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44);
+          v14 = OUTLINED_FUNCTION_21(_isContainerView, v19, v20, v21, v22, v23, v24, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43);
         }
 
-        while (v13);
+        while (v14);
       }
 
       return [v1 setNeedsInvalidation:(v1[67] << 40) >> 56];
@@ -423,14 +423,14 @@ LABEL_14:
   return result;
 }
 
-- (uint64_t)_updateDebugBoundingBoxesIfNeeded
+- (void)_updateDebugBoundingBoxesIfNeeded
 {
   v56 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    v2 = *(result + 512);
-    v3 = *(result + 520);
+    v2 = result[64];
+    v3 = result[65];
     if (v2 != v3)
     {
       do
@@ -440,10 +440,10 @@ LABEL_14:
       }
 
       while (v2 != v3);
-      v2 = *(v1 + 512);
+      v2 = v1[64];
     }
 
-    *(v1 + 520) = v2;
+    v1[65] = v2;
     if ((*(v1 + 541) & 2) != 0)
     {
       layer = [MEMORY[0x277CD9ED0] layer];
@@ -453,7 +453,7 @@ LABEL_14:
       [layer setBorderColor:{objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277D75348], "purpleColor"), "colorWithAlphaComponent:", 0.699999988), "CGColor")}];
       [layer setBorderWidth:1.0];
       [objc_msgSend(v1 "layer")];
-      std::vector<CALayer *>::push_back[abi:nn200100](v1 + 512, &layer);
+      std::vector<CALayer *>::push_back[abi:nn200100]((v1 + 64), &layer);
       if ((*(v1 + 541) & 0x18) != 0)
       {
         [v1 effectiveLayoutBounds];
@@ -467,7 +467,7 @@ LABEL_14:
           [layer2 setBorderColor:{objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277D75348], "purpleColor"), "colorWithAlphaComponent:", 0.400000006), "CGColor")}];
           [layer2 setBorderWidth:1.0];
           [objc_msgSend(v1 "layer")];
-          std::vector<CALayer *>::push_back[abi:nn200100](v1 + 512, &layer2);
+          std::vector<CALayer *>::push_back[abi:nn200100]((v1 + 64), &layer2);
         }
       }
 
@@ -518,7 +518,7 @@ LABEL_14:
               [layer2 setBorderWidth:1.0];
               layer3 = [v1 layer];
               [layer3 insertSublayer:layer2 above:{objc_msgSend(v13, "layer")}];
-              std::vector<CALayer *>::push_back[abi:nn200100](v1 + 512, &layer2);
+              std::vector<CALayer *>::push_back[abi:nn200100]((v1 + 64), &layer2);
               [v13 effectiveAlignmentRectInsets];
               v29.f64[0] = v25;
               v29.f64[1] = v26;
@@ -543,7 +543,7 @@ LABEL_14:
                 [layer4 setBorderWidth:1.0];
                 layer5 = [v1 layer];
                 [layer5 insertSublayer:layer4 below:layer2];
-                std::vector<CALayer *>::push_back[abi:nn200100](v1 + 512, &layer4);
+                std::vector<CALayer *>::push_back[abi:nn200100]((v1 + 64), &layer4);
               }
 
               if ([v1 needsBaselineDebugBoundingBoxesForArrangedSubview:v13])
@@ -561,12 +561,12 @@ LABEL_14:
                   [layer4 setBorderWidth:1.0];
                   layer6 = [v1 layer];
                   [layer6 insertSublayer:layer4 above:layer2];
-                  std::vector<CALayer *>::push_back[abi:nn200100](v1 + 512, &layer4);
+                  std::vector<CALayer *>::push_back[abi:nn200100]((v1 + 64), &layer4);
                 }
               }
             }
 
-            ++v12;
+            v12 = (v12 + 1);
           }
 
           while (v9 != v12);
@@ -736,35 +736,35 @@ LABEL_30:
     OUTLINED_FUNCTION_3_0(*(v2 + 3024));
   }
 
-  OUTLINED_FUNCTION_8();
-  v5 = *(v1 + 448);
-  v14 = OUTLINED_FUNCTION_2_0(v6, v7, v8, v9, v10, v11, v12, v13, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46);
-  if (!v14)
+  v5 = OUTLINED_FUNCTION_8();
+  v6 = *(v1 + 448);
+  v15 = OUTLINED_FUNCTION_2_0(v7, v8, v9, v10, v11, v12, v13, v14, v29, v31, v33, v35, v37, v39, v41, v43, v45, v5);
+  if (!v15)
   {
     return 0;
   }
 
-  v15 = v14;
-  LODWORD(v16) = 0;
-  v17 = *v33;
+  v16 = v15;
+  LODWORD(v17) = 0;
+  v18 = *v34;
   do
   {
-    for (i = 0; i != v15; ++i)
+    for (i = 0; i != v16; ++i)
     {
-      if (*v33 != v17)
+      if (*v34 != v18)
       {
-        objc_enumerationMutation(v5);
+        objc_enumerationMutation(v6);
       }
 
-      isHidden = [*(v31 + 8 * i) isHidden];
-      v16 = (v16 + isHidden);
+      isHidden = [*(v32 + 8 * i) isHidden];
+      v17 = (v17 + isHidden);
     }
 
-    v15 = OUTLINED_FUNCTION_2_0(isHidden, v20, v21, v22, v23, v24, v25, v26, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47);
+    v16 = OUTLINED_FUNCTION_2_0(isHidden, v21, v22, v23, v24, v25, v26, v27, v30, v32, v34, v36, v38, v40, v42, v44, v46);
   }
 
-  while (v15);
-  return v16;
+  while (v16);
+  return v17;
 }
 
 - (void)dealloc
@@ -863,16 +863,16 @@ LABEL_30:
 
 - (NUIContainerView)initWithFrame:(CGRect)frame
 {
-  v6.receiver = self;
-  v6.super_class = NUIContainerView;
-  v3 = [(NUIContainerView *)&v6 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
-  v4 = v3;
+  v7.receiver = self;
+  v7.super_class = NUIContainerView;
+  v3 = [(NUIContainerView *)&v7 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v5 = v3;
   if (v3)
   {
-    _NUIContainerViewCommonInit(v3);
+    _NUIContainerViewCommonInit(v3, v4);
   }
 
-  return v4;
+  return v5;
 }
 
 - (NUIContainerView)initWithArrangedSubviews:(id)subviews
@@ -881,29 +881,29 @@ LABEL_30:
   v5 = *(MEMORY[0x277CBF3A0] + 8);
   v6 = *(MEMORY[0x277CBF3A0] + 16);
   v7 = *(MEMORY[0x277CBF3A0] + 24);
-  v12.receiver = self;
-  v12.super_class = NUIContainerView;
-  v8 = [(NUIContainerView *)&v12 initWithFrame:v4, v5, v6, v7];
-  v9 = v8;
+  v13.receiver = self;
+  v13.super_class = NUIContainerView;
+  v8 = [(NUIContainerView *)&v13 initWithFrame:v4, v5, v6, v7];
+  v10 = v8;
   if (v8)
   {
-    _NUIContainerViewCommonInit(v8);
+    _NUIContainerViewCommonInit(v8, v9);
     if (subviews)
     {
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __45__NUIContainerView_initWithArrangedSubviews___block_invoke;
-      v11[3] = &unk_278329528;
-      v11[4] = subviews;
-      v11[5] = v9;
-      [(NUIContainerView *)v9 performBatchUpdates:v11];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __45__NUIContainerView_initWithArrangedSubviews___block_invoke;
+      v12[3] = &unk_278329528;
+      v12[4] = subviews;
+      v12[5] = v10;
+      [(NUIContainerView *)v10 performBatchUpdates:v12];
     }
   }
 
-  return v9;
+  return v10;
 }
 
-uint64_t __45__NUIContainerView_initWithArrangedSubviews___block_invoke(uint64_t a1)
+void *__45__NUIContainerView_initWithArrangedSubviews___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   v7 = 0u;
@@ -926,7 +926,8 @@ uint64_t __45__NUIContainerView_initWithArrangedSubviews___block_invoke(uint64_t
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) addArrangedSubview:*(*(&v7 + 1) + 8 * v6++)];
+        [*(a1 + 40) addArrangedSubview:*(*(&v7 + 1) + 8 * v6)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -2074,46 +2075,46 @@ LABEL_6:
 
 - (uint64_t)_verifyInternalConsistencyWarningOnly:(uint64_t)result
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
     v4 = [MEMORY[0x277CCA940] setWithArray:*(result + 448)];
     string = [MEMORY[0x277CCAB68] string];
-    v7 = OUTLINED_FUNCTION_22(string, v6);
-    if (v7)
+    v9 = OUTLINED_FUNCTION_22(string, v6, v7, v8);
+    if (v9)
     {
-      v8 = v7;
-      v9 = MEMORY[0];
+      v10 = v9;
+      v11 = MEMORY[0];
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (MEMORY[0] != v9)
+          if (MEMORY[0] != v11)
           {
             objc_enumerationMutation(v4);
           }
 
-          v11 = *(8 * i);
-          if ([v11 superview] == v3)
+          v13 = *(8 * i);
+          if ([v13 superview] == v3)
           {
-            v12 = [v4 countForObject:v11];
-            if (v12 >= 2)
+            v14 = [v4 countForObject:v13];
+            if (v14 >= 2)
             {
-              v12 = [string appendFormat:@"View is represented %lu times: %@\n", objc_msgSend(v4, "countForObject:", v11), v11];
+              v14 = [string appendFormat:@"View is represented %lu times: %@\n", objc_msgSend(v4, "countForObject:", v13), v13];
             }
           }
 
           else
           {
-            v12 = [string appendFormat:@"View is not a subview: %@\n", v11, v15];
+            v14 = [string appendFormat:@"View is not a subview: %@\n", v13, v19];
           }
         }
 
-        v8 = OUTLINED_FUNCTION_22(v12, v13);
+        v10 = OUTLINED_FUNCTION_22(v14, v15, v16, v17);
       }
 
-      while (v8);
+      while (v10);
     }
 
     if (![string length])
@@ -2132,13 +2133,13 @@ LABEL_6:
       dispatch_once(&qword_280AC30F8, &__block_literal_global_2);
     }
 
-    v14 = qword_280AC30F0;
+    v18 = qword_280AC30F0;
     result = os_log_type_enabled(qword_280AC30F0, OS_LOG_TYPE_ERROR);
     if (result)
     {
       *buf = 138412290;
-      v17 = string;
-      _os_log_error_impl(&dword_21D09E000, v14, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      v21 = string;
+      _os_log_error_impl(&dword_21D09E000, v18, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       return 0;
     }
   }
@@ -2177,7 +2178,7 @@ LABEL_6:
 
 - (void)setArrangedSubviews:(id)subviews
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   [NUIContainerView _assertNotInLayoutPass:?];
   containerFlags = self->_containerFlags;
   v14 = containerFlags;
@@ -2208,7 +2209,7 @@ LABEL_6:
   v41 = 0u;
   v42 = 0u;
   arrangedSubviews = self->_arrangedSubviews;
-  v16 = OUTLINED_FUNCTION_23(ensureArrangedSubviewsAreValid, v6, v7, v8, v9, v10, v11, v12, v33, v34, v35, v36, selfCopy, v38, 0, 0, 0, 0, 0, 0, 0, 0, v43, v44, 0, &v45, 0x4812000000, __Block_byref_object_copy__0, __Block_byref_object_dispose__0, &unk_21D0C1D49, &v52, 0, 0, v54);
+  v16 = OUTLINED_FUNCTION_23(ensureArrangedSubviewsAreValid, v6, v7, v8, v9, v10, v11, v12, v33, v34, v35, v36, selfCopy, v38, 0, 0, 0, 0, 0, 0, 0, 0, v43, v44, 0, &v45, 0x4812000000, __Block_byref_object_copy__0, __Block_byref_object_dispose__0, &unk_21D0C1D49, &v52, 0, 0);
   if (v16)
   {
     v17 = *v40;
@@ -2223,10 +2224,10 @@ LABEL_6:
 
         v44 = 0;
         v44 = *(*(&v39 + 1) + 8 * i);
-        v19 = std::__tree<UIView *>::__emplace_unique_key_args<UIView *,UIView *&>((v46 + 6), &v44);
+        v19 = std::__tree<UIView *>::__emplace_unique_key_args<UIView *,UIView *&>((v46 + 6), &v44, &v44);
       }
 
-      v16 = OUTLINED_FUNCTION_23(v19, v20, v21, v22, v23, v24, v25, v26, v33, v34, v35, v36, selfCopy, v38, v39, *(&v39 + 1), v40, *(&v40 + 1), v41, *(&v41 + 1), v42, *(&v42 + 1), v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54);
+      v16 = OUTLINED_FUNCTION_23(v19, v20, v21, v22, v23, v24, v25, v26, v33, v34, v35, v36, selfCopy, v38, v39, *(&v39 + 1), v40, *(&v40 + 1), v41, *(&v41 + 1), v42, *(&v42 + 1), v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53);
     }
 
     while (v16);
@@ -2389,7 +2390,7 @@ LABEL_21:
   }
 }
 
-- (uint64_t)_addAsSubviewIfNeeded:(uint64_t)result
+- (_BYTE)_addAsSubviewIfNeeded:(_BYTE *)result
 {
   if (result)
   {
@@ -2413,7 +2414,7 @@ LABEL_21:
 
 - (void)insertArrangedSubview:(id)subview atIndex:(unint64_t)index
 {
-  v18[0] = subview;
+  subviewCopy = subview;
   [NUIContainerView _assertNotInLayoutPass:?];
   if (_NUIEnableAPIMisuseAssertions)
   {
@@ -2508,15 +2509,15 @@ LABEL_25:
   [subview addObserver:self forKeyPath:@"hidden" options:3 context:0];
   OUTLINED_FUNCTION_16();
   [v9 insertObject:? atIndex:?];
-  v18[2] = v18;
-  std::__tree<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::__map_value_compare<UIView *,std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(&self->_arrangedSubviewInfo, v18);
-  if ((*(&self->_containerFlags + 3) & 0xF) != 0 && [v18[0] _isContainerView])
+  v19 = &subviewCopy;
+  std::__tree<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::__map_value_compare<UIView *,std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(&self->_arrangedSubviewInfo, &subviewCopy, &std::piecewise_construct, &v19);
+  if ((*(&self->_containerFlags + 3) & 0xF) != 0 && [subviewCopy _isContainerView])
   {
-    [(NUIContainerView *)v18[0] beginBatchUpdates];
+    [(NUIContainerView *)subviewCopy beginBatchUpdates];
   }
 
-  [(NUIContainerView *)self didInsertArrangedSubview:v18[0] atIndex:index];
-  if (![v18[0] isHidden])
+  [(NUIContainerView *)self didInsertArrangedSubview:subviewCopy atIndex:index];
+  if (![subviewCopy isHidden])
   {
     goto LABEL_25;
   }
@@ -2641,7 +2642,7 @@ LABEL_12:
   }
 
   v8 = [*(v4 + 448) objectAtIndex:index];
-  v22[0] = v8;
+  v22 = v8;
   v9 = 0x27CE55000uLL;
   if (v8 != view)
   {
@@ -2651,13 +2652,13 @@ LABEL_12:
     [view addObserver:v4 forKeyPath:@"hidden" options:3 context:0];
     OUTLINED_FUNCTION_16();
     [v13 replaceObjectAtIndex:? withObject:?];
-    std::__tree<UIView *>::__erase_unique<UIView *>((v4 + 424), v22);
-    [v4 didRemoveArrangedSubview:v22[0] atIndex:index];
+    std::__tree<UIView *>::__erase_unique<UIView *>((v4 + 424), &v22);
+    [v4 didRemoveArrangedSubview:v22 atIndex:index];
     viewCopy = view;
-    v22[2] = &viewCopy;
-    std::__tree<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::__map_value_compare<UIView *,std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(v4 + 424, &viewCopy);
+    v23 = &viewCopy;
+    std::__tree<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::__map_value_compare<UIView *,std::__value_type<UIView *,_NUIContainerViewArrangedSubview>,std::less<UIView *>,true>,std::allocator<std::__value_type<UIView *,_NUIContainerViewArrangedSubview>>>::__emplace_unique_key_args<UIView *,std::piecewise_construct_t const&,std::tuple<UIView * const&>,std::tuple<>>(v4 + 424, &viewCopy, &std::piecewise_construct, &v23);
     [OUTLINED_FUNCTION_17() didInsertArrangedSubview:? atIndex:?];
-    isHidden = [v22[0] isHidden];
+    isHidden = [v22 isHidden];
     if (isHidden != [view isHidden])
     {
       if ([view isHidden])
@@ -2673,7 +2674,7 @@ LABEL_12:
       *(v4 + 536) = *(v4 + 536) + v15;
     }
 
-    if (![v22[0] isHidden] || (v16 = objc_msgSend(view, "isHidden"), v9 = 0x27CE55000, (v16 & 1) == 0))
+    if (![v22 isHidden] || (v16 = objc_msgSend(view, "isHidden"), v9 = 0x27CE55000, (v16 & 1) == 0))
     {
 
       OUTLINED_FUNCTION_14();

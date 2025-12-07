@@ -412,14 +412,14 @@ void __86__CalLocationAuthorization_authorizationForBundleIdentifier_bundle_crea
 
 - (CalLocationAuthorization)initWithBundleID:(id)d bundle:(id)bundle queue:(id)queue
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   bundleCopy = bundle;
   queueCopy = queue;
   dispatch_assert_queue_V2(queueCopy);
-  v30.receiver = self;
-  v30.super_class = CalLocationAuthorization;
-  v11 = [(CalLocationAuthorization *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = CalLocationAuthorization;
+  v11 = [(CalLocationAuthorization *)&v29 init];
   v12 = v11;
   if (v11)
   {
@@ -463,9 +463,9 @@ void __86__CalLocationAuthorization_authorizationForBundleIdentifier_bundle_crea
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v32 = dCopy;
-      v33 = 1024;
-      v34 = v18;
+      v31 = dCopy;
+      v32 = 1024;
+      v33 = v18;
       _os_log_impl(&dword_1B990D000, logHandle, OS_LOG_TYPE_DEFAULT, "Got initial location auth status for %{public}@ = %d", buf, 0x12u);
     }
 
@@ -488,7 +488,6 @@ void __86__CalLocationAuthorization_authorizationForBundleIdentifier_bundle_crea
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -503,7 +502,7 @@ void __86__CalLocationAuthorization_authorizationForBundleIdentifier_bundle_crea
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   authorizationStatus = [authorizationCopy authorizationStatus];
   logHandle = [objc_opt_class() logHandle];
@@ -511,9 +510,9 @@ void __86__CalLocationAuthorization_authorizationForBundleIdentifier_bundle_crea
   {
     bundleOrBundleIdentifier = self->_bundleOrBundleIdentifier;
     *buf = 138543618;
-    v29 = *&bundleOrBundleIdentifier;
-    v30 = 1024;
-    v31 = authorizationStatus;
+    v27 = *&bundleOrBundleIdentifier;
+    v28 = 1024;
+    v29 = authorizationStatus;
     _os_log_impl(&dword_1B990D000, logHandle, OS_LOG_TYPE_DEFAULT, "Got updated location auth status for %{public}@ = %d", buf, 0x12u);
   }
 
@@ -557,7 +556,7 @@ void __86__CalLocationAuthorization_authorizationForBundleIdentifier_bundle_crea
     if (os_log_type_enabled(v16, v15))
     {
       *buf = 134217984;
-      v29 = v14;
+      v27 = v14;
       _os_log_impl(&dword_1B990D000, v16, v15, "It took %f seconds for CLLocationManager to deliver its first callback", buf, 0xCu);
     }
   }
@@ -585,34 +584,32 @@ void __86__CalLocationAuthorization_authorizationForBundleIdentifier_bundle_crea
     [CalLocationAuthorization locationManagerDidChangeAuthorization:];
   }
 
-  v17 = self->_bundleOrBundleIdentifier;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v18 = @"CalLocationAuthorizationBundleIdentifierKey";
+    v17 = @"CalLocationAuthorizationBundleIdentifierKey";
   }
 
   else
   {
-    v18 = @"CalLocationAuthorizationBundleKey";
+    v17 = @"CalLocationAuthorizationBundleKey";
   }
 
-  v19 = self->_bundleOrBundleIdentifier;
-  v26 = v18;
-  v27 = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-  v21 = locationManagerDidChangeAuthorization__notificationQueue;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __66__CalLocationAuthorization_locationManagerDidChangeAuthorization___block_invoke_2;
-  v24[3] = &unk_1E7EC6528;
-  v24[4] = self;
-  v25 = v20;
-  v22 = v20;
-  dispatch_async(v21, v24);
+  v18 = self->_bundleOrBundleIdentifier;
+  v24 = v17;
+  v25 = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v20 = locationManagerDidChangeAuthorization__notificationQueue;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __66__CalLocationAuthorization_locationManagerDidChangeAuthorization___block_invoke_2;
+  v22[3] = &unk_1E7EC6528;
+  v22[4] = self;
+  v23 = v19;
+  v21 = v19;
+  dispatch_async(v20, v22);
 
 LABEL_25:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __66__CalLocationAuthorization_locationManagerDidChangeAuthorization___block_invoke()
@@ -727,25 +724,23 @@ uint64_t __60__CalLocationAuthorization_ttlLocationStatusWithCompletion___block_
 
 void __63__CalLocationAuthorization_initializeQueueAndInstancesIfNeeded__block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = @"com.apple.locationd.effective_bundle";
-  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "Need the '%{public}@' entitlement in order to determine if current process has location authorization", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = @"com.apple.locationd.effective_bundle";
+  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "Need the '%{public}@' entitlement in order to determine if current process has location authorization", &v1, 0xCu);
 }
 
 - (void)waitForPrecision
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = *(self + 8);
   v5 = CalApproximateContinuousTime();
   v6 = CalContinuousIntervalToNSTimeInterval(v5 - *(self + 48));
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2048;
-  v11 = v6;
-  _os_log_fault_impl(&dword_1B990D000, a2, OS_LOG_TYPE_FAULT, "Timed out waiting on location precision for bundle %@ (initialization was %f seconds ago)", &v8, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2048;
+  v10 = v6;
+  _os_log_fault_impl(&dword_1B990D000, a2, OS_LOG_TYPE_FAULT, "Timed out waiting on location precision for bundle %@ (initialization was %f seconds ago)", &v7, 0x16u);
 }
 
 @end

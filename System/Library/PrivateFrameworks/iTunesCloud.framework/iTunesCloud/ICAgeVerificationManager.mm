@@ -36,9 +36,11 @@
 
 uint64_t __42__ICAgeVerificationManager_defaultManager__block_invoke()
 {
-  defaultManager___sharedManager = [[ICAgeVerificationManager alloc] _init];
+  v0 = [[ICAgeVerificationManager alloc] _init];
+  v1 = defaultManager___sharedManager;
+  defaultManager___sharedManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_init

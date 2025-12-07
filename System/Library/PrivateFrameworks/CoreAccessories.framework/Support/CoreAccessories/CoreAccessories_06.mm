@@ -26,39 +26,39 @@ uint64_t _acc_auth_protocol_decompressCert(uint64_t a1, uint64_t a2)
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      _acc_auth_protocol_decompressCert_cold_2(a2);
+      _acc_auth_protocol_decompressCert_cold_2();
     }
 
-    if ((v4, platform_systemInfo_isInternalBuild()) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0 || (v6 = *(a2 + 8), (v6 - 1) > 0x18E))
+    if ((v4, platform_systemInfo_isInternalBuild(v6, v7)) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0 || (v8 = *(a2 + 8), (v8 - 1) > 0x18E))
     {
 LABEL_20:
       v3 = 0;
       goto LABEL_21;
     }
 
-    v7 = *a2;
-    v8 = *(a2 + 48);
-    if (v8)
+    v9 = *a2;
+    v10 = *(a2 + 48);
+    if (v10)
     {
       if (*(a2 + 56))
       {
-        v9 = *a2;
+        v11 = *a2;
 LABEL_18:
-        v10 = [NSData dataWithBytes:v9 length:v6];
-        if (!v10)
+        v12 = [NSData dataWithBytes:v11 length:v8];
+        if (!v12)
         {
           v3 = 12;
           goto LABEL_21;
         }
 
-        v11 = v10;
-        [0 addObject:v10];
+        v13 = v12;
+        [0 addObject:v12];
 
         goto LABEL_20;
       }
 
       size = 0;
-      free(v8);
+      free(v10);
       *(a2 + 48) = 0;
     }
 
@@ -70,7 +70,7 @@ LABEL_18:
     *(a2 + 56) = 0;
     if (gLogObjects && gNumLogObjects >= 55)
     {
-      v16 = *(gLogObjects + 432);
+      v18 = *(gLogObjects + 432);
     }
 
     else
@@ -80,26 +80,26 @@ LABEL_18:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v16 = &_os_log_default;
-      v17 = &_os_log_default;
+      v18 = &_os_log_default;
+      v19 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 68157954;
-      v25 = v6;
-      v26 = 2096;
-      *v27 = v7;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "[AccAuth] _decompressCert: _certData <%{coreacc:bytes}.*P> \n", buf, 0x12u);
+      v27 = v8;
+      v28 = 2096;
+      *v29 = v9;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "[AccAuth] _decompressCert: _certData <%{coreacc:bytes}.*P> \n", buf, 0x12u);
     }
 
-    v18 = CTDecompressComputeBufferSize(v7, v6, &size);
-    if (v18)
+    v20 = CTDecompressComputeBufferSize(v9, v8, &size);
+    if (v20)
     {
-      v3 = v18;
+      v3 = v20;
       if (gLogObjects && gNumLogObjects >= 55)
       {
-        v19 = *(gLogObjects + 432);
+        v21 = *(gLogObjects + 432);
       }
 
       else
@@ -109,11 +109,11 @@ LABEL_18:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v19 = &_os_log_default;
-        v22 = &_os_log_default;
+        v21 = &_os_log_default;
+        v24 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         _acc_auth_protocol_decompressCert_cold_5();
       }
@@ -121,24 +121,24 @@ LABEL_18:
 
     else
     {
-      v20 = malloc_type_malloc(size, 0xA071D159uLL);
-      if (v20)
+      v22 = malloc_type_malloc(size, 0xA071D159uLL);
+      if (v22)
       {
-        v9 = v20;
-        v21 = CTDecompress(v7, v6, v20, size);
-        if (!v21)
+        v11 = v22;
+        v23 = CTDecompress(v9, v8, v22, size);
+        if (!v23)
         {
-          LODWORD(v6) = size;
+          LODWORD(v8) = size;
           *(a2 + 48) = *a2;
           *(a2 + 56) = *(a2 + 8);
-          *a2 = v9;
-          *(a2 + 8) = v6;
+          *a2 = v11;
+          *(a2 + 8) = v8;
           goto LABEL_18;
         }
 
-        v3 = v21;
-        v19 = logObjectForModule_28();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v3 = v23;
+        v21 = logObjectForModule_28();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           _acc_auth_protocol_decompressCert_cold_6();
         }
@@ -146,10 +146,10 @@ LABEL_18:
 
       else
       {
-        v19 = logObjectForModule_28();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v21 = logObjectForModule_28();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          _acc_auth_protocol_decompressCert_cold_7(&size);
+          _acc_auth_protocol_decompressCert_cold_7();
         }
 
         v3 = 0xFFFFFFFFLL;
@@ -160,7 +160,7 @@ LABEL_18:
 LABEL_21:
   if (gLogObjects && gNumLogObjects >= 55)
   {
-    v12 = *(gLogObjects + 432);
+    v14 = *(gLogObjects + 432);
   }
 
   else
@@ -170,29 +170,29 @@ LABEL_21:
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v12 = &_os_log_default;
-    v13 = &_os_log_default;
+    v14 = &_os_log_default;
+    v15 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     if (a2)
     {
-      v14 = *(a2 + 8);
+      v16 = *(a2 + 8);
     }
 
     else
     {
-      v14 = -1;
+      v16 = -1;
     }
 
     *buf = 67109632;
-    v25 = v14;
-    v26 = 1024;
-    *v27 = v3;
-    *&v27[4] = 1024;
-    *&v27[6] = v3;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[AccAuth] _decompressCert: certificateDataLen %d, errorNo %d/0x%x \n", buf, 0x14u);
+    v27 = v16;
+    v28 = 1024;
+    *v29 = v3;
+    *&v29[4] = 1024;
+    *&v29[6] = v3;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "[AccAuth] _decompressCert: certificateDataLen %d, errorNo %d/0x%x \n", buf, 0x14u);
   }
 
   return v3;
@@ -266,7 +266,7 @@ uint64_t _acc_auth_protocol_verifyChallengeResponse(uint64_t a1, const UInt8 *a2
     goto LABEL_50;
   }
 
-  v26 = CFDataCreate(kCFAllocatorDefault, *v15, v16);
+  v28 = CFDataCreate(kCFAllocatorDefault, *v15, v16);
   v17 = CFDataCreate(kCFAllocatorDefault, a2, a3);
   v18 = CFDataCreate(kCFAllocatorDefault, a6, a7);
   if (a4)
@@ -293,24 +293,24 @@ uint64_t _acc_auth_protocol_verifyChallengeResponse(uint64_t a1, const UInt8 *a2
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316418;
-    *v28 = "_acc_auth_protocol_verifyChallengeResponse";
-    *&v28[8] = 1024;
-    *v29 = 2308;
-    *&v29[4] = 2112;
-    v30 = v17;
-    v31 = 2112;
-    v32 = v18;
+    *v30 = "_acc_auth_protocol_verifyChallengeResponse";
+    *&v30[8] = 1024;
+    *v31 = 2308;
+    *&v31[4] = 2112;
+    v32 = v17;
     v33 = 2112;
-    v34 = v26;
+    v34 = v18;
     v35 = 2112;
-    v36 = a4;
+    v36 = v28;
+    v37 = 2112;
+    v38 = a4;
     _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "[AccAuth] %s:%d challenge %@, response %@, peerCertObj %@, accessoryNonceObj %@ \n", buf, 0x3Au);
   }
 
-  if (!v26 || !v17 || !v18)
+  if (!v28 || !v17 || !v18)
   {
     v9 = 12;
-    if (!v26)
+    if (!v28)
     {
       goto LABEL_44;
     }
@@ -318,7 +318,7 @@ uint64_t _acc_auth_protocol_verifyChallengeResponse(uint64_t a1, const UInt8 *a2
     goto LABEL_43;
   }
 
-  if (platform_systemInfo_isInternalBuild() && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
+  if (platform_systemInfo_isInternalBuild(v21, v22) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
   {
     v9 = 0;
     goto LABEL_38;
@@ -326,9 +326,9 @@ uint64_t _acc_auth_protocol_verifyChallengeResponse(uint64_t a1, const UInt8 *a2
 
   if (!acc_auth_protocol_negotiatedMFi4Cert(a1))
   {
-    v21 = MFAAVerifyNonceSignature();
+    v23 = MFAAVerifyNonceSignature();
 LABEL_35:
-    if (v21)
+    if (v23)
     {
       v9 = 0;
     }
@@ -341,18 +341,18 @@ LABEL_35:
 LABEL_38:
     if (acc_userDefaults_BOOLForKey(@"ForceAuthFail"))
     {
-      v22 = logObjectForModule_28();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v24 = logObjectForModule_28();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 67109888;
-        *v28 = a3;
-        *&v28[4] = 1024;
-        *&v28[6] = a7;
-        *v29 = 1024;
-        *&v29[2] = v9;
-        LOWORD(v30) = 1024;
-        *(&v30 + 2) = 80;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "[AccAuth] _verifyChallengeResponse: challengeLen %d, responseLen %d, override errorNo %d -> %d \n", buf, 0x1Au);
+        *v30 = a3;
+        *&v30[4] = 1024;
+        *&v30[6] = a7;
+        *v31 = 1024;
+        *&v31[2] = v9;
+        LOWORD(v32) = 1024;
+        *(&v32 + 2) = 80;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "[AccAuth] _verifyChallengeResponse: challengeLen %d, responseLen %d, override errorNo %d -> %d \n", buf, 0x1Au);
       }
 
       v9 = 80;
@@ -363,13 +363,13 @@ LABEL_38:
 
   if (a4)
   {
-    v21 = MFAAVerifyNonceSignatureMFi4();
+    v23 = MFAAVerifyNonceSignatureMFi4();
     goto LABEL_35;
   }
 
   v9 = 12;
 LABEL_43:
-  CFRelease(v26);
+  CFRelease(v28);
 LABEL_44:
   if (v17)
   {
@@ -389,7 +389,7 @@ LABEL_44:
 LABEL_50:
   if (gLogObjects && gNumLogObjects >= 55)
   {
-    v23 = *(gLogObjects + 432);
+    v25 = *(gLogObjects + 432);
   }
 
   else
@@ -399,19 +399,19 @@ LABEL_50:
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v23 = &_os_log_default;
-    v24 = &_os_log_default;
+    v25 = &_os_log_default;
+    v26 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 67109632;
-    *v28 = a3;
-    *&v28[4] = 1024;
-    *&v28[6] = a7;
-    *v29 = 1024;
-    *&v29[2] = v9;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "[AccAuth] _verifyChallengeResponse: challengeLen %d, responseLen %d, errorNo %d \n", buf, 0x14u);
+    *v30 = a3;
+    *&v30[4] = 1024;
+    *&v30[6] = a7;
+    *v31 = 1024;
+    *&v31[2] = v9;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "[AccAuth] _verifyChallengeResponse: challengeLen %d, responseLen %d, errorNo %d \n", buf, 0x14u);
   }
 
   return v9;
@@ -428,7 +428,7 @@ uint64_t _acc_auth_protocol_certificateCacheGetCert(uint64_t a1, const void *a2,
       goto LABEL_15;
     }
 
-    if (platform_systemInfo_isInternalBuild() && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
+    if (platform_systemInfo_isInternalBuild(a1, a2) && (acc_userDefaults_BOOLForKey(@"ACCAuthProtocolPretendAuth") & 1) != 0)
     {
       if (*(v9 + 352) >= 3u)
       {
@@ -524,7 +524,7 @@ LABEL_19:
 uint64_t _checkIdentificationInfo_9(uint64_t a1)
 {
   v6 = 0;
-  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &gskMsgAssistiveTouchList, 5u, &v6);
+  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &gskMsgAssistiveTouchList, 5, &v6);
   v3 = v2;
   if (v6 == 1 && v2 == 0)
   {
@@ -1023,7 +1023,7 @@ LABEL_69:
               if ((v59 & 4) == 0)
               {
                 *(a1 + 80) = v59 | 4;
-                mfi4Auth_relay_StartRelayForType(a1, 2u, a4, a5);
+                mfi4Auth_relay_StartRelayForType(a1, 2, a4, a5);
               }
             }
           }
@@ -1170,9 +1170,9 @@ id logObjectForModule_29()
 
 uint64_t mfi4Auth_relay_handle_iAP2RelayRemote(uint64_t a1, uint64_t a2, void *a3)
 {
-  v49 = 1;
-  v48 = 0;
+  v48 = 1;
   v47 = 0;
+  v46 = 0;
   if (!a1)
   {
     if (gLogObjects && gNumLogObjects >= 56)
@@ -1291,7 +1291,7 @@ uint64_t mfi4Auth_relay_handle_iAP2RelayRemote(uint64_t a1, uint64_t a2, void *a
   if (FirstParam)
   {
     v14 = FirstParam;
-    DataAsData = iAP2MsgGetDataAsData(FirstParam, &v49);
+    DataAsData = iAP2MsgGetDataAsData(FirstParam, &v48);
     ParamValueLen = iAP2MsgGetParamValueLen(v14);
     v4 = [NSData dataWithBytes:DataAsData length:ParamValueLen];
     if (gLogObjects && gNumLogObjects >= 56)
@@ -1343,7 +1343,7 @@ uint64_t mfi4Auth_relay_handle_iAP2RelayRemote(uint64_t a1, uint64_t a2, void *a
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "mfi4Auth_protocol_handle_iAP2RelayRemote: %@", buf, 0xCu);
     }
 
-    v23 = mfi4Auth_util_unpackFromTunnelDataiAP2Msg(v4, &v48, &v47);
+    v23 = mfi4Auth_util_unpackFromTunnelDataiAP2Msg(v4, &v47, &v46);
     if (!v23)
     {
       if (gLogObjects && gNumLogObjects >= 56)
@@ -1399,7 +1399,7 @@ uint64_t mfi4Auth_relay_handle_iAP2RelayRemote(uint64_t a1, uint64_t a2, void *a
         }
 
         v32 = &_os_log_default;
-        v38 = &_os_log_default;
+        v37 = &_os_log_default;
       }
 
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -1429,49 +1429,49 @@ uint64_t mfi4Auth_relay_handle_iAP2RelayRemote(uint64_t a1, uint64_t a2, void *a
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *&buf[4] = v47;
+        *&buf[4] = v46;
         *&buf[8] = 2048;
         *&buf[10] = v26;
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "mfi4Auth_relay_handle_iAP2RelayRemote: msgID 0x%04x, len %zu", buf, 0x12u);
       }
 
-      if (v47 == 21763)
+      if (v46 == 21763)
       {
-        v53 = 0xAAAAAAAAAAAAAAAALL;
-        *&v40 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v51 = v40;
-        v52 = v40;
-        *buf = v40;
-        *&buf[16] = v40;
-        v41 = malloc_type_calloc(1uLL, 0x1001FuLL, 0x1090040DAA7631AuLL);
-        if (v41)
+        v52 = 0xAAAAAAAAAAAAAAAALL;
+        *&v39 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v39 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v50 = v39;
+        v51 = v39;
+        *buf = v39;
+        *&buf[16] = v39;
+        v40 = malloc_type_calloc(1uLL, 0x1001FuLL, 0x1090040DAA7631AuLL);
+        if (v40)
         {
-          v42 = v41;
-          v43 = mfi4Auth_util_parseMessage(v41, buf, v24, 16448);
-          if (v43)
+          v41 = v40;
+          v42 = mfi4Auth_util_parseMessage(v40, buf, v24, 16448);
+          if (v42)
           {
-            v49 = _mfi4Auth_relay_handle_AccessoryInformationUpdate(a1, v43);
-            free(v42);
+            v48 = _mfi4Auth_relay_handle_AccessoryInformationUpdate(a1, v42);
+            free(v41);
 LABEL_108:
             CFRelease(v24);
 
-            return v49;
+            return v48;
           }
 
-          v45 = logObjectForModule_29();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v44 = logObjectForModule_29();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             mfi4Auth_relay_handle_iAP2RelayRemote_cold_7();
           }
 
-          free(v42);
+          free(v41);
         }
 
         else
         {
-          v44 = logObjectForModule_29();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v43 = logObjectForModule_29();
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
             mfi4Auth_relay_handle_iAP2RelayRemote_cold_8();
           }
@@ -1484,9 +1484,9 @@ LABEL_123:
         return -1;
       }
 
-      if (v47 == 21761)
+      if (v46 == 21761)
       {
-        if (v48 >= 3uLL)
+        if (v47 >= 3uLL)
         {
           v32 = logObjectForModule_29();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -1497,7 +1497,7 @@ LABEL_123:
 
         else
         {
-          v35 = *(a1 + 168 + 8 * v48);
+          v35 = *(a1 + 168 + 8 * v47);
           v36 = logObjectForModule_29();
           v32 = v36;
           if (v35)
@@ -1505,21 +1505,20 @@ LABEL_123:
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109378;
-              *&buf[4] = v48;
+              *&buf[4] = v47;
               *&buf[8] = 2112;
               *&buf[10] = v24;
               _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "mfi4Auth_relay_handle_iAP2RelayRemote: type %d, data %@", buf, 0x12u);
             }
 
-            v37 = *a1;
-            (*(*(a1 + 168 + 8 * v48) + 16))();
-            v49 = 0;
+            (*(*(a1 + 168 + 8 * v47) + 16))();
+            v48 = 0;
             goto LABEL_108;
           }
 
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            mfi4Auth_relay_handle_iAP2RelayRemote_cold_10(&v48);
+            mfi4Auth_relay_handle_iAP2RelayRemote_cold_10();
           }
         }
       }
@@ -1529,7 +1528,7 @@ LABEL_123:
         v32 = logObjectForModule_29();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          mfi4Auth_relay_handle_iAP2RelayRemote_cold_11(&v47);
+          mfi4Auth_relay_handle_iAP2RelayRemote_cold_11();
         }
       }
     }
@@ -1555,7 +1554,7 @@ LABEL_123:
     }
 
     v18 = &_os_log_default;
-    v39 = &_os_log_default;
+    v38 = &_os_log_default;
   }
 
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -1816,7 +1815,7 @@ LABEL_24:
   return 0;
 }
 
-uint64_t mfi4Auth_relay_StartRelayForType(const void **a1, unsigned int a2, uint64_t a3, _BYTE *a4)
+uint64_t mfi4Auth_relay_StartRelayForType(const void **a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   if (!a1)
   {
@@ -1870,6 +1869,7 @@ uint64_t mfi4Auth_relay_StartRelayForType(const void **a1, unsigned int a2, uint
     goto LABEL_73;
   }
 
+  v6 = a2;
   if (a2 < 3)
   {
     EndpointWithUUID = acc_manager_getEndpointWithUUID(*a1);
@@ -1889,7 +1889,7 @@ uint64_t mfi4Auth_relay_StartRelayForType(const void **a1, unsigned int a2, uint
         }
 
         v11 = !v10;
-        if (*(v9 + 56))
+        if (v9[7])
         {
           if (v11)
           {
@@ -1909,17 +1909,17 @@ uint64_t mfi4Auth_relay_StartRelayForType(const void **a1, unsigned int a2, uint
 
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = *(v9 + 16);
+            v20 = v9[2];
             v25 = 136315650;
             v26 = "mfi4Auth_relay_StartRelayForType";
             v27 = 2112;
             v28 = v20;
             v29 = 1024;
-            v30 = a2;
+            v30 = v6;
             _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: %@, secureTunnelType %d", &v25, 0x1Cu);
           }
 
-          if (a2 == 2)
+          if (v6 == 2)
           {
             result = mfi4Auth_relay_StartRelayForT56(a1, a3, a4);
             goto LABEL_75;
@@ -1991,7 +1991,7 @@ uint64_t mfi4Auth_relay_StartRelayForType(const void **a1, unsigned int a2, uint
 
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          mfi4Auth_relay_StartRelayForType_cold_9(v9);
+          mfi4Auth_relay_StartRelayForType_cold_9();
         }
       }
     }
@@ -2065,7 +2065,7 @@ uint64_t mfi4Auth_relay_StartRelayForT56(const void **a1, uint64_t a2, _BYTE *a3
   {
     if (gLogObjects && gNumLogObjects >= 56)
     {
-      v11 = *(gLogObjects + 440);
+      v10 = *(gLogObjects + 440);
     }
 
     else
@@ -2075,11 +2075,11 @@ uint64_t mfi4Auth_relay_StartRelayForT56(const void **a1, uint64_t a2, _BYTE *a3
         mfi4Auth_protocol_messageHandler_receiveIncomingData_cold_1();
       }
 
-      v11 = &_os_log_default;
-      v13 = &_os_log_default;
+      v10 = &_os_log_default;
+      v20 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       mfi4Auth_protocol_messageHandler_setEndpointSecureTunnelDataReceiveTypeHandler_cold_6();
     }
@@ -2091,7 +2091,7 @@ uint64_t mfi4Auth_relay_StartRelayForT56(const void **a1, uint64_t a2, _BYTE *a3
   {
     if (gLogObjects && gNumLogObjects >= 56)
     {
-      v11 = *(gLogObjects + 440);
+      v10 = *(gLogObjects + 440);
     }
 
     else
@@ -2101,11 +2101,11 @@ uint64_t mfi4Auth_relay_StartRelayForT56(const void **a1, uint64_t a2, _BYTE *a3
         mfi4Auth_protocol_messageHandler_receiveIncomingData_cold_1();
       }
 
-      v11 = &_os_log_default;
-      v14 = &_os_log_default;
+      v10 = &_os_log_default;
+      v21 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       mfi4Auth_relay_StartRelayForType_cold_13();
     }
@@ -2118,7 +2118,7 @@ uint64_t mfi4Auth_relay_StartRelayForT56(const void **a1, uint64_t a2, _BYTE *a3
   {
     if (gLogObjects && gNumLogObjects >= 56)
     {
-      v11 = *(gLogObjects + 440);
+      v10 = *(gLogObjects + 440);
     }
 
     else
@@ -2128,11 +2128,11 @@ uint64_t mfi4Auth_relay_StartRelayForT56(const void **a1, uint64_t a2, _BYTE *a3
         mfi4Auth_protocol_messageHandler_receiveIncomingData_cold_1();
       }
 
-      v11 = &_os_log_default;
-      v15 = &_os_log_default;
+      v10 = &_os_log_default;
+      v22 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       mfi4Auth_protocol_processIncomingMessageRelay_cold_19();
     }
@@ -2146,7 +2146,7 @@ uint64_t mfi4Auth_relay_StartRelayForT56(const void **a1, uint64_t a2, _BYTE *a3
   {
     if (gLogObjects && gNumLogObjects >= 56)
     {
-      v11 = *(gLogObjects + 440);
+      v10 = *(gLogObjects + 440);
     }
 
     else
@@ -2156,40 +2156,35 @@ uint64_t mfi4Auth_relay_StartRelayForT56(const void **a1, uint64_t a2, _BYTE *a3
         mfi4Auth_protocol_messageHandler_receiveIncomingData_cold_1();
       }
 
-      v11 = &_os_log_default;
-      v16 = &_os_log_default;
+      v10 = &_os_log_default;
+      v23 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      mfi4Auth_relay_StartRelayForType_cold_9(v5);
+      mfi4Auth_relay_StartRelayForType_cold_9();
     }
 
 LABEL_43:
-    v12 = 0;
+    v19 = 0;
 LABEL_44:
 
-    return v12;
+    return v19;
   }
 
-  v7 = acc_manager_newEndpointForConnection(ParentConnection, 15, 17, *(v5 + 16));
+  v7 = acc_manager_newEndpointForConnection(ParentConnection, 15, 17, *(v5 + 2));
   if (v7)
   {
     v8 = v7;
-    v10 = (v7 + 16);
     v9 = *(v7 + 16);
     if (v9)
     {
-      v20[0] = _NSConcreteStackBlock;
-      v20[1] = 3221225472;
-      v20[2] = __mfi4Auth_relay_StartRelayForT56_block_invoke;
-      v20[3] = &unk_100229398;
-      v11 = CFStringCreateCopy(kCFAllocatorDefault, v9);
-      v21 = v11;
-      acc_endpoint_setEndpointSecureTunnelDataReceiveTypeHandler(v5, 2, v20);
-      acc_endpoint_setParentEndpointUUID(v8, *(v5 + 16));
-      v12 = acc_endpoint_publish(v8);
-      if (v12)
+      v10 = CFStringCreateCopy(kCFAllocatorDefault, v9);
+      acc_endpoint_setEndpointSecureTunnelDataReceiveTypeHandler();
+      acc_endpoint_setParentEndpointUUID(v8, *(v5 + 2));
+      acc_endpoint_publish(v8, v11, v12, v13, v14, v15, v16, v17);
+      v19 = v18;
+      if (v18)
       {
         if (a3)
         {
@@ -2201,7 +2196,7 @@ LABEL_44:
       {
         if (gLogObjects && gNumLogObjects >= 56)
         {
-          v18 = *(gLogObjects + 440);
+          v25 = *(gLogObjects + 440);
         }
 
         else
@@ -2211,13 +2206,13 @@ LABEL_44:
             mfi4Auth_protocol_messageHandler_receiveIncomingData_cold_1();
           }
 
-          v18 = &_os_log_default;
-          v19 = &_os_log_default;
+          v25 = &_os_log_default;
+          v26 = &_os_log_default;
         }
 
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          mfi4Auth_relay_StartRelayForT56_cold_2(v10);
+          mfi4Auth_relay_StartRelayForT56_cold_2();
         }
       }
 
@@ -2228,8 +2223,9 @@ LABEL_44:
   return 0;
 }
 
-uint64_t mfi4Auth_protocol_setSecureTunnelDataReceiveTypeHandler(uint64_t a1, unsigned int a2, void *a3)
+uint64_t mfi4Auth_protocol_setSecureTunnelDataReceiveTypeHandler(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = v5;
   if (!a1)
@@ -2286,7 +2282,7 @@ LABEL_24:
     goto LABEL_31;
   }
 
-  if (a2 >= 3)
+  if (v3 >= 3)
   {
     if (gLogObjects && gNumLogObjects >= 56)
     {
@@ -2313,7 +2309,7 @@ LABEL_24:
   else
   {
     v7 = objc_retainBlock(v5);
-    v8 = a1 + 8 * a2;
+    v8 = a1 + 8 * v3;
     v9 = *(v8 + 168);
     *(v8 + 168) = v7;
   }
@@ -2323,9 +2319,9 @@ LABEL_31:
   return 0;
 }
 
-uint64_t mfi4Auth_protocol_processOutgoingSecureTunnelDataForClient(uint64_t a1, unsigned int a2, const __CFData *a3)
+uint64_t mfi4Auth_protocol_processOutgoingSecureTunnelDataForClient(uint64_t a1, uint64_t a2, const __CFData *a3)
 {
-  v25 = 0;
+  v24 = 0;
   if (!a1)
   {
     if (gLogObjects && gNumLogObjects >= 56)
@@ -2378,7 +2374,7 @@ uint64_t mfi4Auth_protocol_processOutgoingSecureTunnelDataForClient(uint64_t a1,
 LABEL_75:
 
 LABEL_76:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_77;
   }
 
@@ -2408,6 +2404,7 @@ LABEL_76:
     goto LABEL_75;
   }
 
+  v6 = a2;
   if (gLogObjects)
   {
     v7 = gNumLogObjects <= 55;
@@ -2434,7 +2431,7 @@ LABEL_76:
       }
 
       v12 = &_os_log_default;
-      v20 = &_os_log_default;
+      v19 = &_os_log_default;
     }
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -2463,13 +2460,13 @@ LABEL_76:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v24 = *(a1 + 200);
+    v23 = *(a1 + 200);
     *buf = 67109634;
-    v27 = v24;
-    v28 = 1024;
-    v29 = a2;
-    v30 = 2112;
-    v31 = a3;
+    v26 = v23;
+    v27 = 1024;
+    v28 = v6;
+    v29 = 2112;
+    v30 = a3;
     _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "processOutgoingSecureTunnelDataForClient: sessionID %x, type %d, dataOut %@", buf, 0x18u);
   }
 
@@ -2489,7 +2486,7 @@ LABEL_76:
       }
 
       v4 = &_os_log_default;
-      v21 = &_os_log_default;
+      v20 = &_os_log_default;
     }
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -2516,7 +2513,7 @@ LABEL_76:
       }
 
       v4 = &_os_log_default;
-      v22 = &_os_log_default;
+      v21 = &_os_log_default;
     }
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -2527,7 +2524,7 @@ LABEL_76:
     goto LABEL_75;
   }
 
-  if (!*(a1 + 8 * a2 + 168))
+  if (!*(a1 + 8 * v6 + 168))
   {
     v4 = logObjectForModule_29();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -2538,7 +2535,7 @@ LABEL_76:
     goto LABEL_75;
   }
 
-  mfi4Auth_relay_initMessage_DeviceiAP2RelayRemote_TypeData(a1, &v25, a2, a3);
+  mfi4Auth_relay_initMessage_DeviceiAP2RelayRemote_TypeData(a1, &v24, v6, a3);
   if (*(a1 + 192))
   {
     v17 = logObjectForModule_29();
@@ -2547,23 +2544,22 @@ LABEL_76:
       mfi4Auth_protocol_processOutgoingSecureTunnelDataForClient_cold_4();
     }
 
-    v18 = *a1;
     (*(*(a1 + 192) + 16))();
-    v19 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v19 = mfi4Auth_endpoint_sendOutgoingData(v16, v25);
+    v18 = mfi4Auth_endpoint_sendOutgoingData(v16, v24);
   }
 
 LABEL_77:
-  if (v25)
+  if (v24)
   {
-    free(v25);
+    free(v24);
   }
 
-  return v19;
+  return v18;
 }
 
 uint64_t mfi4Auth_relay_initMessage_DeviceiAP2RelayRemote_TypeData(uint64_t a1, uint64_t *a2, char a3, CFDataRef theData)
@@ -3182,7 +3178,7 @@ uint64_t mfi4Auth_relay_initMessage_DeviceiAP2RelayRemote(uint64_t a1, uint64_t 
   return result;
 }
 
-id getLogWriter()
+id getLogWriter(uint64_t a1, uint64_t a2)
 {
   if (__registerForLoggingPrefsNotification_onceToken != -1)
   {
@@ -3194,9 +3190,9 @@ id getLogWriter()
     openLogFileWriter();
   }
 
-  v0 = _logFileWriter;
+  v2 = _logFileWriter;
 
-  return v0;
+  return v2;
 }
 
 void acc_platform_packetLogging_logEAData(uint64_t a1, uint64_t a2, void *a3, int a4)
@@ -3239,6 +3235,7 @@ void acc_platform_packetLogging_logEAData(uint64_t a1, uint64_t a2, void *a3, in
   }
 
   v20 = [NSString stringWithFormat:@"LOG %.6f; %@; %s; %@%@; sessionUUID %@; data(len=%d)=", *&v16, v17, v18, v19, &stru_10022D360, a2, v14];;
+  v22 = v20;
   if (__registerForLoggingPrefsNotification_onceToken != -1)
   {
     acc_platform_packetLogging_isLogPacketDataAsMsg_cold_1();
@@ -3249,16 +3246,16 @@ void acc_platform_packetLogging_logEAData(uint64_t a1, uint64_t a2, void *a3, in
     goto LABEL_20;
   }
 
-  v21 = _logPacketDataSizeLimit;
+  v23 = _logPacketDataSizeLimit;
   if (!_logPacketDataSizeLimit)
   {
-    v21 = 0x10000;
+    v23 = 0x10000;
   }
 
-  if (v21 >= v14)
+  if (v23 >= v14)
   {
 LABEL_20:
-    v22 = "";
+    v24 = "";
   }
 
   else
@@ -3273,14 +3270,15 @@ LABEL_20:
       LODWORD(v14) = 0x10000;
     }
 
-    v22 = "...";
+    v24 = "...";
   }
 
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(v20, v21);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v23 = *(gLogObjects + 168);
+      v27 = *(gLogObjects + 168);
     }
 
     else
@@ -3290,47 +3288,47 @@ LABEL_20:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v23 = &_os_log_default;
       v27 = &_os_log_default;
+      v31 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
-      v35 = v20;
-      v36 = 1040;
-      v37 = v14;
-      v38 = 2098;
-      v39 = [v12 bytes];
-      v40 = 2080;
       v41 = v22;
-      v28 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
-      v29 = v23;
-      v30 = OS_LOG_TYPE_DEFAULT;
+      v42 = 1040;
+      v43 = v14;
+      v44 = 2098;
+      v45 = [v12 bytes];
+      v46 = 2080;
+      v47 = v24;
+      v32 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
+      v33 = v27;
+      v34 = OS_LOG_TYPE_DEFAULT;
 LABEL_46:
-      _os_log_impl(&_mh_execute_header, v29, v30, v28, buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v33, v34, v32, buf, 0x26u);
     }
   }
 
   else
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v26);
     if (gLogObjects)
     {
-      v25 = gNumLogObjects <= 21;
+      v29 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v25 = 1;
+      v29 = 1;
     }
 
-    v26 = !v25;
+    v30 = !v29;
     if (isInternalBuild)
     {
-      if (v26)
+      if (v30)
       {
-        v23 = *(gLogObjects + 168);
+        v27 = *(gLogObjects + 168);
       }
 
       else
@@ -3340,32 +3338,32 @@ LABEL_46:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v23 = &_os_log_default;
-        v31 = &_os_log_default;
+        v27 = &_os_log_default;
+        v35 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 138413058;
-        v35 = v20;
-        v36 = 1040;
-        v37 = v14;
-        v38 = 2096;
-        v39 = [v12 bytes];
-        v40 = 2080;
         v41 = v22;
-        v28 = "%@<%{coreacc:bytes}.*P> %s";
-        v29 = v23;
-        v30 = OS_LOG_TYPE_INFO;
+        v42 = 1040;
+        v43 = v14;
+        v44 = 2096;
+        v45 = [v12 bytes];
+        v46 = 2080;
+        v47 = v24;
+        v32 = "%@<%{coreacc:bytes}.*P> %s";
+        v33 = v27;
+        v34 = OS_LOG_TYPE_INFO;
         goto LABEL_46;
       }
     }
 
     else
     {
-      if (v26)
+      if (v30)
       {
-        v23 = *(gLogObjects + 168);
+        v27 = *(gLogObjects + 168);
       }
 
       else
@@ -3375,21 +3373,21 @@ LABEL_46:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v23 = &_os_log_default;
-        v32 = &_os_log_default;
+        v27 = &_os_log_default;
+        v36 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413058;
-        v35 = v20;
-        v36 = 1040;
-        v37 = v14;
-        v38 = 2096;
-        v39 = [v12 bytes];
-        v40 = 2080;
         v41 = v22;
-        _os_log_debug_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
+        v42 = 1040;
+        v43 = v14;
+        v44 = 2096;
+        v45 = [v12 bytes];
+        v46 = 2080;
+        v47 = v24;
+        _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
       }
     }
   }
@@ -3401,8 +3399,8 @@ LABEL_46:
 
   if (_logPacketToFile)
   {
-    v33 = getLogWriter();
-    [v33 log:v20 data:v12 limit:v14];
+    v39 = getLogWriter(v37, v38);
+    [v39 log:v22 data:v12 limit:v14];
   }
 
   objc_autoreleasePoolPop(v8);
@@ -3422,9 +3420,9 @@ void acc_platform_packetLogging_logAccAuthProtocolMsg(uint64_t a1, uint64_t a2, 
   v10 = a3;
   v11 = [v10 bytes];
   TransportTypeString = acc_endpoint_getTransportTypeString(a1);
-  v43 = 0;
+  v49 = 0;
   v13 = [v10 length];
-  v14 = acc_auth_protocol_sizeofMessage(v11, v13, &v43 + 1, &v43);
+  v14 = acc_auth_protocol_sizeofMessage(v11, v13, &v49 + 1, &v49);
   [v9 timeIntervalSinceDate:__referenceDate];
   *&v15 = v15;
   v16 = *&v15;
@@ -3452,7 +3450,7 @@ void acc_platform_packetLogging_logAccAuthProtocolMsg(uint64_t a1, uint64_t a2, 
       v18 = @"iPod-AccAuth";
     }
 
-    [NSString stringWithFormat:@"LOG; %.6f; %@; %s; %@%@; sessionID %u; msgID %#04x; ctl0 %#04x; ctl1 %#04x; payloadLen %d; data(len=%d)=", *&v16, v19, v17, v18, &stru_10022D360, a2, *v11, v11[1], v11[2], v43, v13];
+    [NSString stringWithFormat:@"LOG; %.6f; %@; %s; %@%@; sessionID %u; msgID %#04x; ctl0 %#04x; ctl1 %#04x; payloadLen %d; data(len=%d)=", *&v16, v19, v17, v18, &stru_10022D360, a2, *v11, v11[1], v11[2], v49, v13];
   }
 
   else
@@ -3477,9 +3475,10 @@ void acc_platform_packetLogging_logAccAuthProtocolMsg(uint64_t a1, uint64_t a2, 
       v18 = @"iPod-AccAuth";
     }
 
-    [NSString stringWithFormat:@"LOG; %.6f; %@; %s; %@%@; sessionID %u; %s; data(len=%d)=", *&v16, v20, v17, v18, &stru_10022D360, a2, "Unknown Message", v13, v38, v39, v40];
+    [NSString stringWithFormat:@"LOG; %.6f; %@; %s; %@%@; sessionID %u; %s; data(len=%d)=", *&v16, v20, v17, v18, &stru_10022D360, a2, "Unknown Message", v13, v44, v45, v46];
   }
   v21 = ;
+  v23 = v21;
   if (__registerForLoggingPrefsNotification_onceToken != -1)
   {
     acc_platform_packetLogging_logiAP2Packet_cold_5();
@@ -3490,16 +3489,16 @@ void acc_platform_packetLogging_logAccAuthProtocolMsg(uint64_t a1, uint64_t a2, 
     goto LABEL_30;
   }
 
-  v22 = _logPacketDataSizeLimit;
+  v24 = _logPacketDataSizeLimit;
   if (!_logPacketDataSizeLimit)
   {
-    v22 = 0x10000;
+    v24 = 0x10000;
   }
 
-  if (v22 >= v13)
+  if (v24 >= v13)
   {
 LABEL_30:
-    v23 = "";
+    v25 = "";
   }
 
   else
@@ -3514,14 +3513,15 @@ LABEL_30:
       LODWORD(v13) = 0x10000;
     }
 
-    v23 = "...";
+    v25 = "...";
   }
 
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(v21, v22);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v24 = *(gLogObjects + 168);
+      v28 = *(gLogObjects + 168);
     }
 
     else
@@ -3531,48 +3531,48 @@ LABEL_30:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v24 = &_os_log_default;
       v28 = &_os_log_default;
+      v32 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = [v10 bytes];
+      v33 = [v10 bytes];
       *buf = 138544130;
-      v45 = v21;
-      v46 = 1040;
-      v47 = v13;
-      v48 = 2098;
-      v49 = v29;
-      v50 = 2080;
       v51 = v23;
-      v30 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
-      v31 = v24;
-      v32 = OS_LOG_TYPE_DEFAULT;
+      v52 = 1040;
+      v53 = v13;
+      v54 = 2098;
+      v55 = v33;
+      v56 = 2080;
+      v57 = v25;
+      v34 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
+      v35 = v28;
+      v36 = OS_LOG_TYPE_DEFAULT;
 LABEL_56:
-      _os_log_impl(&_mh_execute_header, v31, v32, v30, buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v35, v36, v34, buf, 0x26u);
     }
   }
 
   else
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v27);
     if (gLogObjects)
     {
-      v26 = gNumLogObjects <= 21;
+      v30 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v26 = 1;
+      v30 = 1;
     }
 
-    v27 = !v26;
+    v31 = !v30;
     if (isInternalBuild)
     {
-      if (v27)
+      if (v31)
       {
-        v24 = *(gLogObjects + 168);
+        v28 = *(gLogObjects + 168);
       }
 
       else
@@ -3582,33 +3582,33 @@ LABEL_56:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v24 = &_os_log_default;
-        v33 = &_os_log_default;
+        v28 = &_os_log_default;
+        v37 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        v34 = [v10 bytes];
+        v38 = [v10 bytes];
         *buf = 138413058;
-        v45 = v21;
-        v46 = 1040;
-        v47 = v13;
-        v48 = 2096;
-        v49 = v34;
-        v50 = 2080;
         v51 = v23;
-        v30 = "%@<%{coreacc:bytes}.*P> %s";
-        v31 = v24;
-        v32 = OS_LOG_TYPE_INFO;
+        v52 = 1040;
+        v53 = v13;
+        v54 = 2096;
+        v55 = v38;
+        v56 = 2080;
+        v57 = v25;
+        v34 = "%@<%{coreacc:bytes}.*P> %s";
+        v35 = v28;
+        v36 = OS_LOG_TYPE_INFO;
         goto LABEL_56;
       }
     }
 
     else
     {
-      if (v27)
+      if (v31)
       {
-        v24 = *(gLogObjects + 168);
+        v28 = *(gLogObjects + 168);
       }
 
       else
@@ -3618,22 +3618,22 @@ LABEL_56:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v24 = &_os_log_default;
-        v35 = &_os_log_default;
+        v28 = &_os_log_default;
+        v39 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        v37 = [v10 bytes];
+        v43 = [v10 bytes];
         *buf = 138413058;
-        v45 = v21;
-        v46 = 1040;
-        v47 = v13;
-        v48 = 2096;
-        v49 = v37;
-        v50 = 2080;
         v51 = v23;
-        _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
+        v52 = 1040;
+        v53 = v13;
+        v54 = 2096;
+        v55 = v43;
+        v56 = 2080;
+        v57 = v25;
+        _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
       }
     }
   }
@@ -3645,8 +3645,8 @@ LABEL_56:
 
   if (_logPacketToFile)
   {
-    v36 = getLogWriter();
-    [v36 log:v21 data:v10 limit:v13];
+    v42 = getLogWriter(v40, v41);
+    [v42 log:v23 data:v10 limit:v13];
   }
 
   objc_autoreleasePoolPop(context);
@@ -3665,51 +3665,52 @@ void acc_platform_packetLogging_logMFi4AuthProtocolMsg(uint64_t a1, uint64_t a2,
   v13 = +[NSDate date];
   TransportTypeString = acc_endpoint_getTransportTypeString(a1);
   MsgLen = iAP2MsgGetMsgLen(a3);
-  v41 = a3;
+  v46 = a3;
   if (MsgLen)
   {
-    v16 = *(a3 + 24);
-    v17 = MsgLen;
-    v18 = [NSData dataWithBytes:v16 length:MsgLen];
+    v17 = *(a3 + 24);
+    v18 = MsgLen;
+    v19 = [NSData dataWithBytes:v17 length:MsgLen];
     [v13 timeIntervalSinceDate:__referenceDate];
-    *&v19 = v19;
-    v20 = *&v19;
+    *&v20 = v20;
+    v21 = *&v20;
     if (a1)
     {
-      v21 = *(a1 + 16);
+      v22 = *(a1 + 16);
     }
 
     else
     {
-      v21 = @"unknown";
+      v22 = @"unknown";
     }
 
-    v23 = "unknown";
+    v24 = "unknown";
     if (TransportTypeString)
     {
-      v23 = TransportTypeString;
+      v24 = TransportTypeString;
     }
 
-    v24 = @"Acc-MFi4Auth";
+    v25 = @"Acc-MFi4Auth";
     if (!a4)
     {
-      v24 = @"iPod-MFi4Auth";
+      v25 = @"iPod-MFi4Auth";
     }
 
-    v25 = @"plain";
+    v26 = @"plain";
     if (a5)
     {
-      v25 = @"raw";
+      v26 = @"raw";
     }
 
-    v22 = [NSString stringWithFormat:@"LOG %.6f; %@; %s; %@ %@; session=0x%02x; payload(len=%d)=", *&v20, v21, v23, v24, v25, a2, v17];;
+    MsgLen = [NSString stringWithFormat:@"LOG %.6f; %@; %s; %@ %@; session=0x%02x; payload(len=%d)=", *&v21, v22, v24, v25, v26, a2, v18];;
+    v23 = MsgLen;
   }
 
   else
   {
-    LODWORD(v17) = 0;
-    v18 = 0;
-    v22 = 0;
+    LODWORD(v18) = 0;
+    v19 = 0;
+    v23 = 0;
   }
 
   if (__registerForLoggingPrefsNotification_onceToken != -1)
@@ -3719,33 +3720,34 @@ void acc_platform_packetLogging_logMFi4AuthProtocolMsg(uint64_t a1, uint64_t a2,
 
   if (_logPacketDataSizeLimit < 0)
   {
-    v26 = "";
+    v27 = "";
   }
 
   else
   {
-    v26 = "";
-    if (_logPacketDataSizeLimit && _logPacketDataSizeLimit < v17)
+    v27 = "";
+    if (_logPacketDataSizeLimit && _logPacketDataSizeLimit < v18)
     {
       if (_logPacketDataSizeLimit)
       {
-        LODWORD(v17) = _logPacketDataSizeLimit;
+        LODWORD(v18) = _logPacketDataSizeLimit;
       }
 
       else
       {
-        LODWORD(v17) = 0x10000;
+        LODWORD(v18) = 0x10000;
       }
 
-      v26 = "...";
+      v27 = "...";
     }
   }
 
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(MsgLen, v16);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v27 = *(gLogObjects + 168);
+      v30 = *(gLogObjects + 168);
     }
 
     else
@@ -3755,48 +3757,48 @@ void acc_platform_packetLogging_logMFi4AuthProtocolMsg(uint64_t a1, uint64_t a2,
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v27 = &_os_log_default;
-      v31 = &_os_log_default;
+      v30 = &_os_log_default;
+      v34 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = *(v41 + 24);
+      v35 = *(v46 + 24);
       *buf = 138544130;
-      v43 = v22;
-      v44 = 1040;
-      v45 = v17;
-      v46 = 2098;
-      v47 = v32;
-      v48 = 2080;
-      v49 = v26;
-      v33 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
-      v34 = v27;
-      v35 = OS_LOG_TYPE_DEFAULT;
+      v48 = v23;
+      v49 = 1040;
+      v50 = v18;
+      v51 = 2098;
+      v52 = v35;
+      v53 = 2080;
+      v54 = v27;
+      v36 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
+      v37 = v30;
+      v38 = OS_LOG_TYPE_DEFAULT;
 LABEL_50:
-      _os_log_impl(&_mh_execute_header, v34, v35, v33, buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v37, v38, v36, buf, 0x26u);
     }
   }
 
   else
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v29);
     if (gLogObjects)
     {
-      v29 = gNumLogObjects <= 21;
+      v32 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v29 = 1;
+      v32 = 1;
     }
 
-    v30 = !v29;
+    v33 = !v32;
     if (isInternalBuild)
     {
-      if (v30)
+      if (v33)
       {
-        v27 = *(gLogObjects + 168);
+        v30 = *(gLogObjects + 168);
       }
 
       else
@@ -3806,33 +3808,33 @@ LABEL_50:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v27 = &_os_log_default;
-        v36 = &_os_log_default;
+        v30 = &_os_log_default;
+        v39 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v37 = *(v41 + 24);
+        v40 = *(v46 + 24);
         *buf = 138413058;
-        v43 = v22;
-        v44 = 1040;
-        v45 = v17;
-        v46 = 2096;
-        v47 = v37;
-        v48 = 2080;
-        v49 = v26;
-        v33 = "%@<%{coreacc:bytes}.*P> %s";
-        v34 = v27;
-        v35 = OS_LOG_TYPE_INFO;
+        v48 = v23;
+        v49 = 1040;
+        v50 = v18;
+        v51 = 2096;
+        v52 = v40;
+        v53 = 2080;
+        v54 = v27;
+        v36 = "%@<%{coreacc:bytes}.*P> %s";
+        v37 = v30;
+        v38 = OS_LOG_TYPE_INFO;
         goto LABEL_50;
       }
     }
 
     else
     {
-      if (v30)
+      if (v33)
       {
-        v27 = *(gLogObjects + 168);
+        v30 = *(gLogObjects + 168);
       }
 
       else
@@ -3842,22 +3844,22 @@ LABEL_50:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v27 = &_os_log_default;
-        v38 = &_os_log_default;
+        v30 = &_os_log_default;
+        v41 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        v40 = *(v41 + 24);
+        v45 = *(v46 + 24);
         *buf = 138413058;
-        v43 = v22;
-        v44 = 1040;
-        v45 = v17;
-        v46 = 2096;
-        v47 = v40;
-        v48 = 2080;
-        v49 = v26;
-        _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
+        v48 = v23;
+        v49 = 1040;
+        v50 = v18;
+        v51 = 2096;
+        v52 = v45;
+        v53 = 2080;
+        v54 = v27;
+        _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
       }
     }
   }
@@ -3869,8 +3871,8 @@ LABEL_50:
 
   if (_logPacketToFile)
   {
-    v39 = getLogWriter();
-    [v39 log:v22 data:v18 limit:v17];
+    v44 = getLogWriter(v42, v43);
+    [v44 log:v23 data:v19 limit:v18];
   }
 
   objc_autoreleasePoolPop(v10);
@@ -3919,25 +3921,26 @@ void acc_platform_packetLogging_logParsedData(uint64_t a1, uint64_t a2, uint64_t
   }
 
   v21 = [NSString stringWithFormat:@"LOG %.6f; %@; %s; %@; %@; data=%@", *&v18, v19, v20, v16, a2, a4];;
-  if (!acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(v21, v22);
+  if (!isLogPacketDataAsMsg)
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v24);
     if (gLogObjects)
     {
-      v24 = gNumLogObjects <= 21;
+      v27 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v24 = 1;
+      v27 = 1;
     }
 
-    v25 = !v24;
+    v28 = !v27;
     if (isInternalBuild)
     {
-      if (v25)
+      if (v28)
       {
-        v22 = *(gLogObjects + 168);
+        v25 = *(gLogObjects + 168);
       }
 
       else
@@ -3947,24 +3950,24 @@ void acc_platform_packetLogging_logParsedData(uint64_t a1, uint64_t a2, uint64_t
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v22 = &_os_log_default;
-        v29 = &_os_log_default;
+        v25 = &_os_log_default;
+        v32 = &_os_log_default;
       }
 
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         goto LABEL_43;
       }
 
       *buf = 138543362;
-      v33 = v21;
+      v38 = v21;
     }
 
     else
     {
-      if (v25)
+      if (v28)
       {
-        v22 = *(gLogObjects + 168);
+        v25 = *(gLogObjects + 168);
       }
 
       else
@@ -3974,27 +3977,27 @@ void acc_platform_packetLogging_logParsedData(uint64_t a1, uint64_t a2, uint64_t
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v22 = &_os_log_default;
-        v30 = &_os_log_default;
+        v25 = &_os_log_default;
+        v33 = &_os_log_default;
       }
 
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         goto LABEL_43;
       }
 
       *buf = 138543362;
-      v33 = v21;
+      v38 = v21;
     }
 
-    v27 = v22;
-    v28 = OS_LOG_TYPE_INFO;
+    v30 = v25;
+    v31 = OS_LOG_TYPE_INFO;
     goto LABEL_42;
   }
 
   if (gLogObjects && gNumLogObjects >= 22)
   {
-    v22 = *(gLogObjects + 168);
+    v25 = *(gLogObjects + 168);
   }
 
   else
@@ -4004,18 +4007,18 @@ void acc_platform_packetLogging_logParsedData(uint64_t a1, uint64_t a2, uint64_t
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v22 = &_os_log_default;
-    v26 = &_os_log_default;
+    v25 = &_os_log_default;
+    v29 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v33 = v21;
-    v27 = v22;
-    v28 = OS_LOG_TYPE_DEFAULT;
+    v38 = v21;
+    v30 = v25;
+    v31 = OS_LOG_TYPE_DEFAULT;
 LABEL_42:
-    _os_log_impl(&_mh_execute_header, v27, v28, "%{public}@", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v30, v31, "%{public}@", buf, 0xCu);
   }
 
 LABEL_43:
@@ -4027,8 +4030,8 @@ LABEL_43:
 
   if (_logPacketToFile)
   {
-    v31 = getLogWriter();
-    [v31 log:v21];
+    v36 = getLogWriter(v34, v35);
+    [v36 log:v21];
   }
 
   objc_autoreleasePoolPop(v10);
@@ -4079,6 +4082,7 @@ void acc_platform_packetLogging_logData(uint64_t a1, uint64_t a2, uint64_t a3, v
   }
 
   v23 = [NSString stringWithFormat:@"LOG %.6f; %@; %s; %@; %@; data(len=%d)=", *&v20, v21, v22, v17, a2, v18];;
+  v25 = v23;
   if (__registerForLoggingPrefsNotification_onceToken != -1)
   {
     acc_platform_packetLogging_isLogPacketDataAsMsg_cold_1();
@@ -4089,16 +4093,16 @@ void acc_platform_packetLogging_logData(uint64_t a1, uint64_t a2, uint64_t a3, v
     goto LABEL_21;
   }
 
-  v24 = _logPacketDataSizeLimit;
+  v26 = _logPacketDataSizeLimit;
   if (!_logPacketDataSizeLimit)
   {
-    v24 = 0x10000;
+    v26 = 0x10000;
   }
 
-  if (v24 >= v18)
+  if (v26 >= v18)
   {
 LABEL_21:
-    v25 = "";
+    v27 = "";
   }
 
   else
@@ -4113,14 +4117,15 @@ LABEL_21:
       LODWORD(v18) = 0x10000;
     }
 
-    v25 = "...";
+    v27 = "...";
   }
 
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(v23, v24);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v26 = *(gLogObjects + 168);
+      v30 = *(gLogObjects + 168);
     }
 
     else
@@ -4130,47 +4135,47 @@ LABEL_21:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v26 = &_os_log_default;
       v30 = &_os_log_default;
+      v34 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
-      v38 = v23;
-      v39 = 1040;
-      v40 = v18;
-      v41 = 2098;
-      v42 = [v14 bytes];
-      v43 = 2080;
       v44 = v25;
-      v31 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
-      v32 = v26;
-      v33 = OS_LOG_TYPE_DEFAULT;
+      v45 = 1040;
+      v46 = v18;
+      v47 = 2098;
+      v48 = [v14 bytes];
+      v49 = 2080;
+      v50 = v27;
+      v35 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
+      v36 = v30;
+      v37 = OS_LOG_TYPE_DEFAULT;
 LABEL_47:
-      _os_log_impl(&_mh_execute_header, v32, v33, v31, buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v36, v37, v35, buf, 0x26u);
     }
   }
 
   else
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v29);
     if (gLogObjects)
     {
-      v28 = gNumLogObjects <= 21;
+      v32 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v28 = 1;
+      v32 = 1;
     }
 
-    v29 = !v28;
+    v33 = !v32;
     if (isInternalBuild)
     {
-      if (v29)
+      if (v33)
       {
-        v26 = *(gLogObjects + 168);
+        v30 = *(gLogObjects + 168);
       }
 
       else
@@ -4180,32 +4185,32 @@ LABEL_47:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v26 = &_os_log_default;
-        v34 = &_os_log_default;
+        v30 = &_os_log_default;
+        v38 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 138413058;
-        v38 = v23;
-        v39 = 1040;
-        v40 = v18;
-        v41 = 2096;
-        v42 = [v14 bytes];
-        v43 = 2080;
         v44 = v25;
-        v31 = "%@<%{coreacc:bytes}.*P> %s";
-        v32 = v26;
-        v33 = OS_LOG_TYPE_INFO;
+        v45 = 1040;
+        v46 = v18;
+        v47 = 2096;
+        v48 = [v14 bytes];
+        v49 = 2080;
+        v50 = v27;
+        v35 = "%@<%{coreacc:bytes}.*P> %s";
+        v36 = v30;
+        v37 = OS_LOG_TYPE_INFO;
         goto LABEL_47;
       }
     }
 
     else
     {
-      if (v29)
+      if (v33)
       {
-        v26 = *(gLogObjects + 168);
+        v30 = *(gLogObjects + 168);
       }
 
       else
@@ -4215,21 +4220,21 @@ LABEL_47:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v26 = &_os_log_default;
-        v35 = &_os_log_default;
+        v30 = &_os_log_default;
+        v39 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413058;
-        v38 = v23;
-        v39 = 1040;
-        v40 = v18;
-        v41 = 2096;
-        v42 = [v14 bytes];
-        v43 = 2080;
         v44 = v25;
-        _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
+        v45 = 1040;
+        v46 = v18;
+        v47 = 2096;
+        v48 = [v14 bytes];
+        v49 = 2080;
+        v50 = v27;
+        _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
       }
     }
   }
@@ -4241,8 +4246,8 @@ LABEL_47:
 
   if (_logPacketToFile)
   {
-    v36 = getLogWriter();
-    [v36 log:v23 data:v14 limit:v18];
+    v42 = getLogWriter(v40, v41);
+    [v42 log:v25 data:v14 limit:v18];
   }
 
   objc_autoreleasePoolPop(v10);
@@ -4270,15 +4275,15 @@ void acc_platform_packetLogging_logEventVA(uint64_t a1, const char *a2, uint64_t
 LABEL_15:
       if (gLogObjects)
       {
-        v22 = gNumLogObjects < 22;
+        v26 = gNumLogObjects < 22;
       }
 
       else
       {
-        v22 = 1;
+        v26 = 1;
       }
 
-      if (v22)
+      if (v26)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
@@ -4286,7 +4291,7 @@ LABEL_15:
         }
 
         v11 = &_os_log_default;
-        v23 = &_os_log_default;
+        v27 = &_os_log_default;
       }
 
       else
@@ -4334,11 +4339,12 @@ LABEL_15:
   v19 = [v17 initWithFormat:v18 arguments:a4];
   v20 = [NSString stringWithFormat:@"LOG %.6f; %@; %s; Event; %s; %@", *&v14, v15, TransportTypeString, v16, v19];;
 
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(v21, v22);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v21 = *(gLogObjects + 168);
+      v25 = *(gLogObjects + 168);
     }
 
     else
@@ -4348,40 +4354,40 @@ LABEL_15:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v21 = &_os_log_default;
-      v27 = &_os_log_default;
+      v25 = &_os_log_default;
+      v31 = &_os_log_default;
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_52;
     }
 
     *buf = 138543362;
-    v35 = v20;
-    v28 = "%{public}@";
-    v29 = v21;
-    v30 = OS_LOG_TYPE_DEFAULT;
+    v41 = v20;
+    v32 = "%{public}@";
+    v33 = v25;
+    v34 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_46;
   }
 
-  isInternalBuild = platform_systemInfo_isInternalBuild();
+  isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v24);
   if (gLogObjects)
   {
-    v25 = gNumLogObjects <= 21;
+    v29 = gNumLogObjects <= 21;
   }
 
   else
   {
-    v25 = 1;
+    v29 = 1;
   }
 
-  v26 = !v25;
+  v30 = !v29;
   if (!isInternalBuild)
   {
-    if (v26)
+    if (v30)
     {
-      v21 = *(gLogObjects + 168);
+      v25 = *(gLogObjects + 168);
     }
 
     else
@@ -4391,21 +4397,21 @@ LABEL_15:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v21 = &_os_log_default;
-      v32 = &_os_log_default;
+      v25 = &_os_log_default;
+      v36 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      acc_platform_packetLogging_logEventVA_cold_2(v20, v21);
+      acc_platform_packetLogging_logEventVA_cold_2(v20, v25);
     }
 
     goto LABEL_52;
   }
 
-  if (v26)
+  if (v30)
   {
-    v21 = *(gLogObjects + 168);
+    v25 = *(gLogObjects + 168);
   }
 
   else
@@ -4415,19 +4421,19 @@ LABEL_15:
       platform_connectionInfo_configStreamGetCategories_cold_2();
     }
 
-    v21 = &_os_log_default;
-    v31 = &_os_log_default;
+    v25 = &_os_log_default;
+    v35 = &_os_log_default;
   }
 
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v35 = v20;
-    v28 = "%@";
-    v29 = v21;
-    v30 = OS_LOG_TYPE_INFO;
+    v41 = v20;
+    v32 = "%@";
+    v33 = v25;
+    v34 = OS_LOG_TYPE_INFO;
 LABEL_46:
-    _os_log_impl(&_mh_execute_header, v29, v30, v28, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v33, v34, v32, buf, 0xCu);
   }
 
 LABEL_52:
@@ -4439,8 +4445,8 @@ LABEL_52:
 
   if (_logPacketToFile)
   {
-    v33 = getLogWriter();
-    [v33 log:v20];
+    v39 = getLogWriter(v37, v38);
+    [v39 log:v20];
   }
 
 LABEL_57:
@@ -4491,7 +4497,7 @@ void acc_platform_packetLogging_logSNTPTimeSyncMsg(uint64_t a1, void *a2, int a3
       v17 = @"Time-ToAcc";
     }
 
-    [NSString stringWithFormat:@"LOG; %.6f; %@; %s; %@%@; %s; data(len=%d)=", *&v18, v20, v16, v17, &stru_10022D360, "Unknown Message", v14, v35];
+    [NSString stringWithFormat:@"LOG; %.6f; %@; %s; %@%@; %s; data(len=%d)=", *&v18, v20, v16, v17, &stru_10022D360, "Unknown Message", v14, v41];
   }
 
   else
@@ -4519,6 +4525,7 @@ void acc_platform_packetLogging_logSNTPTimeSyncMsg(uint64_t a1, void *a2, int a3
     [NSString stringWithFormat:@"LOG; %.6f; %@; %s; %@%@; SNTP BD Cmd %#04x; packetLen %#04x; data(len=%d)=", *&v18, v19, v16, v17, &stru_10022D360, v12, v11, v14];
   }
   v21 = ;
+  v23 = v21;
   if (__registerForLoggingPrefsNotification_onceToken != -1)
   {
     acc_platform_packetLogging_isLogPacketDataAsMsg_cold_1();
@@ -4529,16 +4536,16 @@ void acc_platform_packetLogging_logSNTPTimeSyncMsg(uint64_t a1, void *a2, int a3
     goto LABEL_30;
   }
 
-  v22 = _logPacketDataSizeLimit;
+  v24 = _logPacketDataSizeLimit;
   if (!_logPacketDataSizeLimit)
   {
-    v22 = 0x10000;
+    v24 = 0x10000;
   }
 
-  if (v22 >= v14)
+  if (v24 >= v14)
   {
 LABEL_30:
-    v23 = "";
+    v25 = "";
   }
 
   else
@@ -4553,14 +4560,15 @@ LABEL_30:
       LODWORD(v14) = 0x10000;
     }
 
-    v23 = "...";
+    v25 = "...";
   }
 
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(v21, v22);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v24 = *(gLogObjects + 168);
+      v28 = *(gLogObjects + 168);
     }
 
     else
@@ -4570,47 +4578,47 @@ LABEL_30:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v24 = &_os_log_default;
       v28 = &_os_log_default;
+      v32 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
-      v38 = v21;
-      v39 = 1040;
-      v40 = v14;
-      v41 = 2098;
-      v42 = [v9 bytes];
-      v43 = 2080;
       v44 = v23;
-      v29 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
-      v30 = v24;
-      v31 = OS_LOG_TYPE_DEFAULT;
+      v45 = 1040;
+      v46 = v14;
+      v47 = 2098;
+      v48 = [v9 bytes];
+      v49 = 2080;
+      v50 = v25;
+      v33 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
+      v34 = v28;
+      v35 = OS_LOG_TYPE_DEFAULT;
 LABEL_56:
-      _os_log_impl(&_mh_execute_header, v30, v31, v29, buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v34, v35, v33, buf, 0x26u);
     }
   }
 
   else
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v27);
     if (gLogObjects)
     {
-      v26 = gNumLogObjects <= 21;
+      v30 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v26 = 1;
+      v30 = 1;
     }
 
-    v27 = !v26;
+    v31 = !v30;
     if (isInternalBuild)
     {
-      if (v27)
+      if (v31)
       {
-        v24 = *(gLogObjects + 168);
+        v28 = *(gLogObjects + 168);
       }
 
       else
@@ -4620,32 +4628,32 @@ LABEL_56:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v24 = &_os_log_default;
-        v32 = &_os_log_default;
+        v28 = &_os_log_default;
+        v36 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *buf = 138413058;
-        v38 = v21;
-        v39 = 1040;
-        v40 = v14;
-        v41 = 2096;
-        v42 = [v9 bytes];
-        v43 = 2080;
         v44 = v23;
-        v29 = "%@<%{coreacc:bytes}.*P> %s";
-        v30 = v24;
-        v31 = OS_LOG_TYPE_INFO;
+        v45 = 1040;
+        v46 = v14;
+        v47 = 2096;
+        v48 = [v9 bytes];
+        v49 = 2080;
+        v50 = v25;
+        v33 = "%@<%{coreacc:bytes}.*P> %s";
+        v34 = v28;
+        v35 = OS_LOG_TYPE_INFO;
         goto LABEL_56;
       }
     }
 
     else
     {
-      if (v27)
+      if (v31)
       {
-        v24 = *(gLogObjects + 168);
+        v28 = *(gLogObjects + 168);
       }
 
       else
@@ -4655,21 +4663,21 @@ LABEL_56:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v24 = &_os_log_default;
-        v33 = &_os_log_default;
+        v28 = &_os_log_default;
+        v37 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413058;
-        v38 = v21;
-        v39 = 1040;
-        v40 = v14;
-        v41 = 2096;
-        v42 = [v9 bytes];
-        v43 = 2080;
         v44 = v23;
-        _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
+        v45 = 1040;
+        v46 = v14;
+        v47 = 2096;
+        v48 = [v9 bytes];
+        v49 = 2080;
+        v50 = v25;
+        _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
       }
     }
   }
@@ -4681,8 +4689,8 @@ LABEL_56:
 
   if (_logPacketToFile)
   {
-    v34 = getLogWriter();
-    [v34 log:v21 data:v9 limit:v14];
+    v40 = getLogWriter(v38, v39);
+    [v40 log:v23 data:v9 limit:v14];
   }
 
   objc_autoreleasePoolPop(context);
@@ -4704,18 +4712,18 @@ void acc_platform_packetLogging_logQiAuthMsg(uint64_t a1, void *a2, int a3)
   v12 = *[v10 bytes];
   TransportTypeString = acc_endpoint_getTransportTypeString(a1);
   v14 = qiAuth_protocol_msgTypeString(v12 & 0xF);
-  if (a2 && (v15 = v14, [v10 length]))
+  if (a2 && (v16 = v14, (v14 = [v10 length]) != 0))
   {
     [v9 timeIntervalSinceDate:__referenceDate];
-    v17 = v16;
+    v18 = v17;
     if (a1)
     {
-      v18 = *(a1 + 16);
+      v19 = *(a1 + 16);
     }
 
     else
     {
-      v18 = @"unknown";
+      v19 = @"unknown";
     }
 
     if (!TransportTypeString)
@@ -4725,20 +4733,21 @@ void acc_platform_packetLogging_logQiAuthMsg(uint64_t a1, void *a2, int a3)
 
     if (a3)
     {
-      v20 = @"Acc-QiAuth";
+      v21 = @"Acc-QiAuth";
     }
 
     else
     {
-      v20 = @"iPod-QiAuth";
+      v21 = @"iPod-QiAuth";
     }
 
-    v19 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"LOG %.6f; %@; %s; %@; msg %d(%s); ver %d; payload(len=%u)=", v17, v18, TransportTypeString, v20, *[v10 bytes] & 0xF, v15, *objc_msgSend(v10, "bytes") >> 4, v11);;
+    v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"LOG %.6f; %@; %s; %@; msg %d(%s); ver %d; payload(len=%u)=", v18, v19, TransportTypeString, v21, *[v10 bytes] & 0xF, v16, *objc_msgSend(v10, "bytes") >> 4, v11);;
+    v20 = v14;
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   if (__registerForLoggingPrefsNotification_onceToken != -1)
@@ -4751,16 +4760,16 @@ void acc_platform_packetLogging_logQiAuthMsg(uint64_t a1, void *a2, int a3)
     goto LABEL_25;
   }
 
-  v21 = _logPacketDataSizeLimit;
+  v22 = _logPacketDataSizeLimit;
   if (!_logPacketDataSizeLimit)
   {
-    v21 = 0x10000;
+    v22 = 0x10000;
   }
 
-  if (v21 >= v11)
+  if (v22 >= v11)
   {
 LABEL_25:
-    v22 = "";
+    v23 = "";
   }
 
   else
@@ -4775,14 +4784,15 @@ LABEL_25:
       LODWORD(v11) = 0x10000;
     }
 
-    v22 = "...";
+    v23 = "...";
   }
 
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(v14, v15);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v23 = *(gLogObjects + 168);
+      v26 = *(gLogObjects + 168);
     }
 
     else
@@ -4792,47 +4802,47 @@ LABEL_25:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v23 = &_os_log_default;
-      v27 = &_os_log_default;
+      v26 = &_os_log_default;
+      v30 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
-      v35 = v19;
-      v36 = 1040;
-      v37 = v11;
-      v38 = 2098;
-      v39 = [v10 bytes];
-      v40 = 2080;
-      v41 = v22;
-      v28 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
-      v29 = v23;
-      v30 = OS_LOG_TYPE_DEFAULT;
+      v40 = v20;
+      v41 = 1040;
+      v42 = v11;
+      v43 = 2098;
+      v44 = [v10 bytes];
+      v45 = 2080;
+      v46 = v23;
+      v31 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
+      v32 = v26;
+      v33 = OS_LOG_TYPE_DEFAULT;
 LABEL_51:
-      _os_log_impl(&_mh_execute_header, v29, v30, v28, buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v32, v33, v31, buf, 0x26u);
     }
   }
 
   else
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v25);
     if (gLogObjects)
     {
-      v25 = gNumLogObjects <= 21;
+      v28 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v25 = 1;
+      v28 = 1;
     }
 
-    v26 = !v25;
+    v29 = !v28;
     if (isInternalBuild)
     {
-      if (v26)
+      if (v29)
       {
-        v23 = *(gLogObjects + 168);
+        v26 = *(gLogObjects + 168);
       }
 
       else
@@ -4842,32 +4852,32 @@ LABEL_51:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v23 = &_os_log_default;
-        v31 = &_os_log_default;
+        v26 = &_os_log_default;
+        v34 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138413058;
-        v35 = v19;
-        v36 = 1040;
-        v37 = v11;
-        v38 = 2096;
-        v39 = [v10 bytes];
-        v40 = 2080;
-        v41 = v22;
-        v28 = "%@<%{coreacc:bytes}.*P> %s";
-        v29 = v23;
-        v30 = OS_LOG_TYPE_INFO;
+        v40 = v20;
+        v41 = 1040;
+        v42 = v11;
+        v43 = 2096;
+        v44 = [v10 bytes];
+        v45 = 2080;
+        v46 = v23;
+        v31 = "%@<%{coreacc:bytes}.*P> %s";
+        v32 = v26;
+        v33 = OS_LOG_TYPE_INFO;
         goto LABEL_51;
       }
     }
 
     else
     {
-      if (v26)
+      if (v29)
       {
-        v23 = *(gLogObjects + 168);
+        v26 = *(gLogObjects + 168);
       }
 
       else
@@ -4877,21 +4887,21 @@ LABEL_51:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v23 = &_os_log_default;
-        v32 = &_os_log_default;
+        v26 = &_os_log_default;
+        v35 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413058;
-        v35 = v19;
-        v36 = 1040;
-        v37 = v11;
-        v38 = 2096;
-        v39 = [v10 bytes];
-        v40 = 2080;
-        v41 = v22;
-        _os_log_debug_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
+        v40 = v20;
+        v41 = 1040;
+        v42 = v11;
+        v43 = 2096;
+        v44 = [v10 bytes];
+        v45 = 2080;
+        v46 = v23;
+        _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
       }
     }
   }
@@ -4903,8 +4913,8 @@ LABEL_51:
 
   if (_logPacketToFile)
   {
-    v33 = getLogWriter();
-    [v33 log:v19 data:v10 limit:v11];
+    v38 = getLogWriter(v36, v37);
+    [v38 log:v20 data:v10 limit:v11];
   }
 
   objc_autoreleasePoolPop(v6);
@@ -4926,18 +4936,18 @@ void acc_platform_packetLogging_logT56Msg(uint64_t a1, void *a2, int a3)
   v12 = *[v10 bytes];
   TransportTypeString = acc_endpoint_getTransportTypeString(a1);
   v14 = t56_protocol_msgTypeString(v12);
-  if (a2 && (v15 = v14, [v10 length]))
+  if (a2 && (v16 = v14, (v14 = [v10 length]) != 0))
   {
     [v9 timeIntervalSinceDate:__referenceDate];
-    v17 = v16;
+    v18 = v17;
     if (a1)
     {
-      v18 = *(a1 + 16);
+      v19 = *(a1 + 16);
     }
 
     else
     {
-      v18 = @"unknown";
+      v19 = @"unknown";
     }
 
     if (!TransportTypeString)
@@ -4947,20 +4957,21 @@ void acc_platform_packetLogging_logT56Msg(uint64_t a1, void *a2, int a3)
 
     if (a3)
     {
-      v20 = @"Acc-T56";
+      v21 = @"Acc-T56";
     }
 
     else
     {
-      v20 = @"iPod-T56";
+      v21 = @"iPod-T56";
     }
 
-    v19 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"LOG %.6f; %@; %s; %@; msg %d(%s); payload(len=%u)=", v17, v18, TransportTypeString, v20, *[v10 bytes], v15, v11);;
+    v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"LOG %.6f; %@; %s; %@; msg %d(%s); payload(len=%u)=", v18, v19, TransportTypeString, v21, *[v10 bytes], v16, v11);;
+    v20 = v14;
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   if (__registerForLoggingPrefsNotification_onceToken != -1)
@@ -4973,16 +4984,16 @@ void acc_platform_packetLogging_logT56Msg(uint64_t a1, void *a2, int a3)
     goto LABEL_25;
   }
 
-  v21 = _logPacketDataSizeLimit;
+  v22 = _logPacketDataSizeLimit;
   if (!_logPacketDataSizeLimit)
   {
-    v21 = 0x10000;
+    v22 = 0x10000;
   }
 
-  if (v21 >= v11)
+  if (v22 >= v11)
   {
 LABEL_25:
-    v22 = "";
+    v23 = "";
   }
 
   else
@@ -4997,14 +5008,15 @@ LABEL_25:
       LODWORD(v11) = 0x10000;
     }
 
-    v22 = "...";
+    v23 = "...";
   }
 
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(v14, v15);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v23 = *(gLogObjects + 168);
+      v26 = *(gLogObjects + 168);
     }
 
     else
@@ -5014,47 +5026,47 @@ LABEL_25:
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v23 = &_os_log_default;
-      v27 = &_os_log_default;
+      v26 = &_os_log_default;
+      v30 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
-      v35 = v19;
-      v36 = 1040;
-      v37 = v11;
-      v38 = 2098;
-      v39 = [v10 bytes];
-      v40 = 2080;
-      v41 = v22;
-      v28 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
-      v29 = v23;
-      v30 = OS_LOG_TYPE_DEFAULT;
+      v40 = v20;
+      v41 = 1040;
+      v42 = v11;
+      v43 = 2098;
+      v44 = [v10 bytes];
+      v45 = 2080;
+      v46 = v23;
+      v31 = "%{public}@<%{public,coreacc:bytes}.*P> %s";
+      v32 = v26;
+      v33 = OS_LOG_TYPE_DEFAULT;
 LABEL_51:
-      _os_log_impl(&_mh_execute_header, v29, v30, v28, buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v32, v33, v31, buf, 0x26u);
     }
   }
 
   else
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v25);
     if (gLogObjects)
     {
-      v25 = gNumLogObjects <= 21;
+      v28 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v25 = 1;
+      v28 = 1;
     }
 
-    v26 = !v25;
+    v29 = !v28;
     if (isInternalBuild)
     {
-      if (v26)
+      if (v29)
       {
-        v23 = *(gLogObjects + 168);
+        v26 = *(gLogObjects + 168);
       }
 
       else
@@ -5064,32 +5076,32 @@ LABEL_51:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v23 = &_os_log_default;
-        v31 = &_os_log_default;
+        v26 = &_os_log_default;
+        v34 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138413058;
-        v35 = v19;
-        v36 = 1040;
-        v37 = v11;
-        v38 = 2096;
-        v39 = [v10 bytes];
-        v40 = 2080;
-        v41 = v22;
-        v28 = "%@<%{coreacc:bytes}.*P> %s";
-        v29 = v23;
-        v30 = OS_LOG_TYPE_INFO;
+        v40 = v20;
+        v41 = 1040;
+        v42 = v11;
+        v43 = 2096;
+        v44 = [v10 bytes];
+        v45 = 2080;
+        v46 = v23;
+        v31 = "%@<%{coreacc:bytes}.*P> %s";
+        v32 = v26;
+        v33 = OS_LOG_TYPE_INFO;
         goto LABEL_51;
       }
     }
 
     else
     {
-      if (v26)
+      if (v29)
       {
-        v23 = *(gLogObjects + 168);
+        v26 = *(gLogObjects + 168);
       }
 
       else
@@ -5099,21 +5111,21 @@ LABEL_51:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v23 = &_os_log_default;
-        v32 = &_os_log_default;
+        v26 = &_os_log_default;
+        v35 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413058;
-        v35 = v19;
-        v36 = 1040;
-        v37 = v11;
-        v38 = 2096;
-        v39 = [v10 bytes];
-        v40 = 2080;
-        v41 = v22;
-        _os_log_debug_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
+        v40 = v20;
+        v41 = 1040;
+        v42 = v11;
+        v43 = 2096;
+        v44 = [v10 bytes];
+        v45 = 2080;
+        v46 = v23;
+        _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "%@<%{coreacc:bytes}.*P> %s", buf, 0x26u);
       }
     }
   }
@@ -5125,8 +5137,8 @@ LABEL_51:
 
   if (_logPacketToFile)
   {
-    v33 = getLogWriter();
-    [v33 log:v19 data:v10 limit:v11];
+    v38 = getLogWriter(v36, v37);
+    [v38 log:v20 data:v10 limit:v11];
   }
 
   objc_autoreleasePoolPop(v6);
@@ -5143,14 +5155,16 @@ void acc_platform_packetLogging_logGenericMFiTLV(uint64_t a1, void *a2, void *a3
   }
 
   v9 = +[NSDate date];
-  v35 = a3;
-  v32 = [v35 length];
+  v41 = a3;
+  v38 = [v41 length];
   v10 = a2;
   TransportTypeString = acc_endpoint_getTransportTypeString(a1);
+  v13 = TransportTypeString;
   if (a2)
   {
-    v12 = v10;
-    v13 = [NSString stringWithFormat:@"TLV8-Property-%@", v10];
+    v14 = v10;
+    TransportTypeString = [NSString stringWithFormat:@"TLV8-Property-%@", v10];
+    v15 = TransportTypeString;
     if (!a3)
     {
       goto LABEL_10;
@@ -5159,101 +5173,104 @@ void acc_platform_packetLogging_logGenericMFiTLV(uint64_t a1, void *a2, void *a3
 
   else
   {
-    v12 = v10;
-    v13 = @"TLV8-Message";
+    v14 = v10;
+    v15 = @"TLV8-Message";
     if (!a3)
     {
 LABEL_10:
       TLVDescription = 0;
-      v18 = 0;
+      v20 = 0;
       goto LABEL_17;
     }
   }
 
-  if (![v35 length])
+  TransportTypeString = [v41 length];
+  if (!TransportTypeString)
   {
     goto LABEL_10;
   }
 
-  TLVDescription = genericMFi_util_createTLVDescription(v35, a2 != 0);
+  TLVDescription = genericMFi_util_createTLVDescription(v41, a2 != 0);
   [v9 timeIntervalSinceDate:__referenceDate];
-  *&v15 = v15;
-  v16 = *&v15;
+  *&v17 = v17;
+  v18 = *&v17;
   if (a1)
   {
-    v17 = *(a1 + 16);
+    v19 = *(a1 + 16);
   }
 
   else
   {
-    v17 = @"unknown";
+    v19 = @"unknown";
   }
 
-  v19 = "unknown";
-  if (TransportTypeString)
+  v21 = "unknown";
+  if (v13)
   {
-    v19 = TransportTypeString;
+    v21 = v13;
   }
 
-  v20 = @"Acc-GenericMFi";
+  v22 = @"Acc-GenericMFi";
   if (!a4)
   {
-    v20 = @"iPod-GenericMFi";
+    v22 = @"iPod-GenericMFi";
   }
 
-  v18 = [NSString stringWithFormat:@"LOG %.6f; %@; %s; %@; %@; tlv(len=%u)=\n%@", *&v16, v17, v19, v20, v13, v32, TLVDescription];;
+  TransportTypeString = [NSString stringWithFormat:@"LOG %.6f; %@; %s; %@; %@; tlv(len=%u)=\n%@", *&v18, v19, v21, v22, v15, v38, TLVDescription];;
+  v20 = TransportTypeString;
 LABEL_17:
-  if (acc_platform_packetLogging_isLogPacketDataAsMsg())
+  isLogPacketDataAsMsg = acc_platform_packetLogging_isLogPacketDataAsMsg(TransportTypeString, v12);
+  if (isLogPacketDataAsMsg)
   {
     if (gLogObjects && gNumLogObjects >= 22)
     {
-      v21 = *(gLogObjects + 168);
-      v22 = v35;
+      v25 = *(gLogObjects + 168);
+      v26 = v41;
     }
 
     else
     {
-      v22 = v35;
+      v26 = v41;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
 
-      v21 = &_os_log_default;
-      v26 = &_os_log_default;
+      v25 = &_os_log_default;
+      v30 = &_os_log_default;
     }
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v37 = v18;
-      v27 = v21;
-      v28 = OS_LOG_TYPE_DEFAULT;
+      v43 = v20;
+      v31 = v25;
+      v32 = OS_LOG_TYPE_DEFAULT;
 LABEL_42:
-      _os_log_impl(&_mh_execute_header, v27, v28, "%{public}@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v31, v32, "%{public}@", buf, 0xCu);
     }
   }
 
   else
   {
-    isInternalBuild = platform_systemInfo_isInternalBuild();
+    isInternalBuild = platform_systemInfo_isInternalBuild(isLogPacketDataAsMsg, v24);
     if (gLogObjects)
     {
-      v24 = gNumLogObjects <= 21;
+      v28 = gNumLogObjects <= 21;
     }
 
     else
     {
-      v24 = 1;
+      v28 = 1;
     }
 
-    v25 = !v24;
+    v29 = !v28;
     if (isInternalBuild)
     {
-      v22 = v35;
-      if (v25)
+      v26 = v41;
+      if (v29)
       {
-        v21 = *(gLogObjects + 168);
+        v25 = *(gLogObjects + 168);
       }
 
       else
@@ -5263,26 +5280,26 @@ LABEL_42:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v21 = &_os_log_default;
-        v29 = &_os_log_default;
+        v25 = &_os_log_default;
+        v33 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v37 = v18;
-        v27 = v21;
-        v28 = OS_LOG_TYPE_INFO;
+        v43 = v20;
+        v31 = v25;
+        v32 = OS_LOG_TYPE_INFO;
         goto LABEL_42;
       }
     }
 
     else
     {
-      v22 = v35;
-      if (v25)
+      v26 = v41;
+      if (v29)
       {
-        v21 = *(gLogObjects + 168);
+        v25 = *(gLogObjects + 168);
       }
 
       else
@@ -5292,13 +5309,13 @@ LABEL_42:
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
 
-        v21 = &_os_log_default;
-        v30 = &_os_log_default;
+        v25 = &_os_log_default;
+        v34 = &_os_log_default;
       }
 
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        acc_platform_packetLogging_logGenericMFiTLV_cold_2(v18, v21);
+        acc_platform_packetLogging_logGenericMFiTLV_cold_2(v20, v25);
       }
     }
   }
@@ -5310,8 +5327,8 @@ LABEL_42:
 
   if (_logPacketToFile)
   {
-    v31 = getLogWriter();
-    [v31 log:v18];
+    v37 = getLogWriter(v35, v36);
+    [v37 log:v20];
   }
 
   objc_autoreleasePoolPop(context);
@@ -5450,7 +5467,7 @@ uint64_t iAP2BuffPoolInit(unsigned int a1, uint64_t a2, int a3, __int16 a4, uint
   return a5;
 }
 
-uint64_t iAP2BuffPoolCleanup(unsigned __int8 *a1)
+void iAP2BuffPoolCleanup(unsigned __int8 *a1)
 {
   v1 = *a1;
   if (v1 >= 3)
@@ -5458,12 +5475,11 @@ uint64_t iAP2BuffPoolCleanup(unsigned __int8 *a1)
     iAP2BuffPoolCleanup_cold_1();
   }
 
-  result = iAP2LinkRunLoopInitImplementation(a1);
+  iAP2LinkRunLoopInitImplementation();
   *a1 = 3;
   *(a1 + 1) = 0;
   *(a1 + 1) = 0;
   *(a1 + 1) = 0;
-  return result;
 }
 
 void sub_1000A2628(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, id a18)
@@ -5568,7 +5584,7 @@ void _artworkFileTransferIDSent(void *a1, int a2)
           Feature = iap2_feature_getFeature(*v4, 0xEu);
           if (Feature)
           {
-            _handleFileTransferIDSent(@"#Artwork", v4, (Feature + 64), _artworkFileTransferEndHandler);
+            _handleFileTransferIDSent(@"#Artwork", v4, Feature + 64, _artworkFileTransferEndHandler);
           }
         }
       }
@@ -5594,8 +5610,9 @@ void _artworkFileTransferIDSent(void *a1, int a2)
   }
 }
 
-void _checkMoveWindowAndRequestPBQList(int a1, unsigned int a2, uint64_t a3, uint64_t a4)
+void _checkMoveWindowAndRequestPBQList(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v6 = a2;
   v22 = -1431655766;
   started = _calculateStartIndex(a4, a2, *(a4 + 88), *(a4 + 28), *(a4 + 32), &v22);
   if (gLogObjects && gNumLogObjects >= 32)
@@ -5627,7 +5644,7 @@ void _checkMoveWindowAndRequestPBQList(int a1, unsigned int a2, uint64_t a3, uin
     v27 = 1024;
     v28 = v11;
     v29 = 1024;
-    v30 = a2;
+    v30 = v6;
     v31 = 1024;
     v32 = v12;
     v33 = 1024;
@@ -5757,7 +5774,7 @@ uint64_t _calculateStartIndex(uint64_t a1, unsigned int a2, unsigned int a3, uns
 uint64_t _checkIdentificationInfo_10(uint64_t a1)
 {
   v6 = 0;
-  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo_kMsgNowPlayingList, 4u, &v6);
+  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &_checkIdentificationInfo_kMsgNowPlayingList, 4, &v6);
   v3 = v2;
   if (v6 == 1 && v2 == 0)
   {
@@ -5806,13 +5823,6 @@ uint64_t _calculateStrParamSize(const __CFString *a1)
   v3 = strlen(CStringFromCFString) + 5;
   free(v2);
   return v3;
-}
-
-uint64_t OUTLINED_FUNCTION_35_5()
-{
-  result = v0;
-  v3 = *(v1 - 152);
-  return result;
 }
 
 void OUTLINED_FUNCTION_50_4(float a1)
@@ -5864,10 +5874,9 @@ uint64_t OUTLINED_FUNCTION_97_2()
 
 const void *OUTLINED_FUNCTION_98_1@<X0>(const void **a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v10 = *(v6 + 82);
-  v8 = *a1;
+  v7 = *a1;
 
-  return CFDictionaryGetValue(v5, v8);
+  return CFDictionaryGetValue(v5, v7);
 }
 
 void OUTLINED_FUNCTION_101_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -5876,107 +5885,107 @@ void OUTLINED_FUNCTION_101_1(void *a1, NSObject *a2, uint64_t a3, const char *a4
   _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, a5, 0x12u);
 }
 
-void __iAP2FileTransferDataSentCB(uint64_t *a1, uint64_t **a2)
+void __iAP2FileTransferDataSentCB(uint64_t *a1, uint64_t **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v4 = *(a2 + 111);
-  LOBYTE(v5) = v4;
+  v10 = *(a2 + 111);
+  LOBYTE(v11) = v10;
   if ((_iAP2LogEnableMask & 4) != 0)
   {
-    v6 = gLogObjects;
-    v7 = gNumLogObjects;
+    v12 = gLogObjects;
+    v13 = gNumLogObjects;
     if (gLogObjects)
     {
-      v8 = gNumLogObjects < 20;
+      v14 = gNumLogObjects < 20;
     }
 
     else
     {
-      v8 = 1;
+      v14 = 1;
     }
 
-    if (v8)
+    if (v14)
     {
-      v9 = &_os_log_default;
-      v5 = *(a2 + 111);
+      v15 = &_os_log_default;
+      v11 = *(a2 + 111);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v24 = 134218240;
-        v25 = v6;
-        v26 = 1024;
-        v27 = v7;
-        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v24, 0x12u);
-        v5 = *(a2 + 111);
+        v30 = 134218240;
+        v31 = v12;
+        v32 = 1024;
+        v33 = v13;
+        _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", &v30, 0x12u);
+        v11 = *(a2 + 111);
       }
     }
 
     else
     {
-      v9 = *(gLogObjects + 152);
-      v5 = *(a2 + 111);
+      v15 = *(gLogObjects + 152);
+      v11 = *(a2 + 111);
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v17 = *(a2 + 109);
-      v18 = *(a2 + 26);
-      v19 = *a2;
-      v20 = **a2;
-      v21 = *(*a2 + 96);
-      v24 = 136317698;
-      v25 = "__iAP2FileTransferDataSentCB";
-      v26 = 1024;
-      v27 = 476;
-      v28 = 2048;
-      *v29 = a1;
-      *&v29[8] = 2048;
-      v30 = a2;
-      v31 = 1024;
-      v32 = v17;
-      v33 = 1024;
-      v34 = v18;
-      v35 = 1024;
-      v36 = (v5 >> 3) & 1;
+      v23 = *(a2 + 109);
+      v24 = *(a2 + 26);
+      v25 = *a2;
+      v26 = **a2;
+      v27 = *(*a2 + 96);
+      v30 = 136317698;
+      v31 = "__iAP2FileTransferDataSentCB";
+      v32 = 1024;
+      v33 = 476;
+      v34 = 2048;
+      *v35 = a1;
+      *&v35[8] = 2048;
+      v36 = a2;
       v37 = 1024;
-      v38 = 0;
-      v39 = 2048;
-      v40 = v19;
-      v41 = 2048;
-      v42 = v20;
+      v38 = v23;
+      v39 = 1024;
+      v40 = v24;
+      v41 = 1024;
+      v42 = (v11 >> 3) & 1;
       v43 = 1024;
-      v44 = v21;
-      _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%s:%d link %p, fileXfer %p->(buffID %u, state %u, bDataSendQueued %d->%d, link %p->(linkBuffer %p, maxOutPacketSize %d))", &v24, 0x58u);
-      LOBYTE(v5) = *(a2 + 111);
+      v44 = 0;
+      v45 = 2048;
+      v46 = v25;
+      v47 = 2048;
+      v48 = v26;
+      v49 = 1024;
+      v50 = v27;
+      _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%s:%d link %p, fileXfer %p->(buffID %u, state %u, bDataSendQueued %d->%d, link %p->(linkBuffer %p, maxOutPacketSize %d))", &v30, 0x58u);
+      LOBYTE(v11) = *(a2 + 111);
     }
   }
 
-  *(a2 + 111) = v5 & 0xF7;
+  *(a2 + 111) = v11 & 0xF7;
   if (a1 && *a2 == a1)
   {
-    v11 = *(a2 + 26);
-    if (v11 > 9)
+    v17 = *(a2 + 26);
+    if (v17 > 9)
     {
       goto LABEL_38;
     }
 
-    if (((1 << v11) & 0x32A) != 0)
+    if (((1 << v17) & 0x32A) != 0)
     {
       return;
     }
 
-    if (v11 == 2)
+    if (v17 == 2)
     {
-      __iAP2FileTransferSendBufferPacket(a2, 0, 0);
+      __iAP2FileTransferSendBufferPacket(a2, 0, 0, a4, a5, a6, a7, a8);
       return;
     }
 
-    if (v11 == 4)
+    if (v17 == 4)
     {
-      if ((v4 & 8) != 0)
+      if ((v10 & 8) != 0)
       {
-        v12 = a2[7];
-        if (v12)
+        v18 = a2[7];
+        if (v18)
         {
-          (v12)(a2, a2[8]);
+          (v18)(a2, a2[8]);
         }
       }
     }
@@ -5986,19 +5995,19 @@ void __iAP2FileTransferDataSentCB(uint64_t *a1, uint64_t **a2)
 LABEL_38:
       if (_iAP2LogEnableMask)
       {
-        v22 = logObjectForModule_31();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v28 = logObjectForModule_31();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = *(a2 + 26);
-          v24 = 136315650;
-          v25 = "__iAP2FileTransferDataSentCB";
-          v26 = 1024;
-          v27 = 521;
-          v28 = 1024;
-          *v29 = v23;
-          v14 = "ERROR: %s:%d Data send callback with invalid state(%u)!";
-          v15 = v22;
-          v16 = 24;
+          v29 = *(a2 + 26);
+          v30 = 136315650;
+          v31 = "__iAP2FileTransferDataSentCB";
+          v32 = 1024;
+          v33 = 521;
+          v34 = 1024;
+          *v35 = v29;
+          v20 = "ERROR: %s:%d Data send callback with invalid state(%u)!";
+          v21 = v28;
+          v22 = 24;
           goto LABEL_30;
         }
       }
@@ -6009,7 +6018,7 @@ LABEL_38:
   {
     if (!gLogObjects || gNumLogObjects < 20)
     {
-      v13 = &_os_log_default;
+      v19 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -6018,24 +6027,24 @@ LABEL_38:
 
     else
     {
-      v13 = *(gLogObjects + 152);
+      v19 = *(gLogObjects + 152);
     }
 
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 136315906;
-      v25 = "__iAP2FileTransferDataSentCB";
-      v26 = 1024;
-      v27 = 528;
-      v28 = 1024;
-      *v29 = a1;
-      *&v29[4] = 1024;
-      *&v29[6] = a2;
-      v14 = "ERROR: %s:%d Data send callback with invalid link(%hx)/context(%hx) combo";
-      v15 = v13;
-      v16 = 30;
+      v30 = 136315906;
+      v31 = "__iAP2FileTransferDataSentCB";
+      v32 = 1024;
+      v33 = 528;
+      v34 = 1024;
+      *v35 = a1;
+      *&v35[4] = 1024;
+      *&v35[6] = a2;
+      v20 = "ERROR: %s:%d Data send callback with invalid link(%hx)/context(%hx) combo";
+      v21 = v19;
+      v22 = 30;
 LABEL_30:
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, &v24, v16);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, &v30, v22);
     }
   }
 }
@@ -6066,8 +6075,10 @@ void *logObjectForModule_31()
   return v1;
 }
 
-uint64_t __iAP2FileTransferSendBufferPacket(uint64_t a1, int a2, int a3)
+BOOL __iAP2FileTransferSendBufferPacket(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a3;
+  v9 = a2;
   if ((_iAP2LogEnableMask & 4) == 0)
   {
     goto LABEL_10;
@@ -6075,7 +6086,7 @@ uint64_t __iAP2FileTransferSendBufferPacket(uint64_t a1, int a2, int a3)
 
   if (!gLogObjects || gNumLogObjects < 20)
   {
-    v7 = &_os_log_default;
+    v12 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -6084,38 +6095,38 @@ uint64_t __iAP2FileTransferSendBufferPacket(uint64_t a1, int a2, int a3)
 
   else
   {
-    v7 = *(gLogObjects + 152);
+    v12 = *(gLogObjects + 152);
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v16 = *(a1 + 108);
-    v17 = *(a1 + 109);
-    v18 = *(a1 + 16);
-    v19 = *(a1 + 40);
-    v20 = *(a1 + 8);
-    *v96 = 136317442;
-    *&v96[4] = "__iAP2FileTransferSendBufferPacket";
-    *&v96[12] = 1024;
-    *&v96[14] = 155;
-    *&v96[18] = 1024;
-    *&v96[20] = a1;
-    *&v96[24] = 1024;
-    *v97 = v16;
-    *&v97[4] = 1024;
-    *&v97[6] = v17;
-    *&v97[10] = 1024;
-    *&v97[12] = a2;
-    *&v97[16] = 1024;
-    *&v97[18] = a3;
-    *&v97[22] = 1024;
-    *&v97[24] = v18;
-    *&v97[28] = 2048;
-    *&v97[30] = v19;
-    *&v97[38] = 1024;
-    *&v97[40] = v20;
-    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%s:%d fileXfer=%hx session=%d buffID=%d pckType=%d controlOnly=%d pBuffer=%hx buffSize=%lu curPos=%hx", v96, 0x46u);
-    if (a3)
+    v21 = *(a1 + 108);
+    v22 = *(a1 + 109);
+    v23 = *(a1 + 16);
+    v24 = *(a1 + 40);
+    v25 = *(a1 + 8);
+    *v101 = 136317442;
+    *&v101[4] = "__iAP2FileTransferSendBufferPacket";
+    *&v101[12] = 1024;
+    *&v101[14] = 155;
+    *&v101[18] = 1024;
+    *&v101[20] = a1;
+    *&v101[24] = 1024;
+    *v102 = v21;
+    *&v102[4] = 1024;
+    *&v102[6] = v22;
+    *&v102[10] = 1024;
+    *&v102[12] = v9;
+    *&v102[16] = 1024;
+    *&v102[18] = v8;
+    *&v102[22] = 1024;
+    *&v102[24] = v23;
+    *&v102[28] = 2048;
+    *&v102[30] = v24;
+    *&v102[38] = 1024;
+    *&v102[40] = v25;
+    _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%s:%d fileXfer=%hx session=%d buffID=%d pckType=%d controlOnly=%d pBuffer=%hx buffSize=%lu curPos=%hx", v101, 0x46u);
+    if (v8)
     {
       goto LABEL_11;
     }
@@ -6124,79 +6135,79 @@ uint64_t __iAP2FileTransferSendBufferPacket(uint64_t a1, int a2, int a3)
   else
   {
 LABEL_10:
-    if (a3)
+    if (v8)
     {
 LABEL_11:
-      v96[0] = *(a1 + 109);
-      v96[1] = a2;
-      v8 = *a1;
-      v9 = *(a1 + 108);
-      v10 = 2;
-      v11 = 0;
-      v12 = 0;
-      v13 = 0;
-      return iAP2LinkQueueSendData(v8, v96, v10, v9, v11, v12, v13, 0);
+      v101[0] = *(a1 + 109);
+      v101[1] = v9;
+      v13 = *a1;
+      v14 = *(a1 + 108);
+      v15 = 2;
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
+      return iAP2LinkQueueSendData(v13, v101, v15, v14, v16, v17, v18, 0);
     }
   }
 
-  v21 = *(a1 + 104);
-  if (v21 != 5)
+  v26 = *(a1 + 104);
+  if (v26 != 5)
   {
-    if (v21 != 2)
+    if (v26 != 2)
     {
-      if (v21 == 1)
+      if (v26 == 1)
       {
-        *&v97[46] = 0xAAAAAAAAAAAAAAAALL;
-        *&v22 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        *&v97[32] = v22;
-        *&v97[16] = v22;
-        *v97 = v22;
-        *&v96[10] = v22;
-        v23 = *(a1 + 110);
-        v96[0] = *(a1 + 109);
-        v96[1] = 4;
-        *&v96[2] = bswap64(*(a1 + 32));
-        if (v23 < 2)
+        *&v102[46] = 0xAAAAAAAAAAAAAAAALL;
+        *&v27 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *&v102[32] = v27;
+        *&v102[16] = v27;
+        *v102 = v27;
+        *&v101[10] = v27;
+        v28 = *(a1 + 110);
+        v101[0] = *(a1 + 109);
+        v101[1] = 4;
+        *&v101[2] = bswap64(*(a1 + 32));
+        if (v28 < 2)
         {
           if ((_iAP2LogEnableMask & 4) != 0)
           {
             if (gLogObjects && gNumLogObjects >= 20)
             {
-              v51 = *(gLogObjects + 152);
+              v56 = *(gLogObjects + 152);
             }
 
             else
             {
-              v51 = &_os_log_default;
+              v56 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
                 platform_connectionInfo_configStreamGetCategories_cold_2();
               }
             }
 
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
             {
-              __iAP2FileTransferSendBufferPacket_cold_4(a1, (a1 + 110));
+              __iAP2FileTransferSendBufferPacket_cold_4();
             }
           }
 
-          v25 = 10;
+          v30 = 10;
           goto LABEL_91;
         }
 
-        v24 = *(a1 + 120);
-        if (v24 >= 0x45)
+        v29 = *(a1 + 120);
+        if (v29 >= 0x45)
         {
           __iAP2FileTransferSendBufferPacket_cold_7();
         }
 
-        v25 = v24 + 12;
-        v26 = *(a1 + 112);
-        *&v96[10] = __rev16(v26);
-        if (v26 > 6)
+        v30 = v29 + 12;
+        v31 = *(a1 + 112);
+        *&v101[10] = __rev16(v31);
+        if (v31 > 6)
         {
-          if (v26 == 8)
+          if (v31 == 8)
           {
             __memcpy_chk();
             if ((_iAP2LogEnableMask & 4) == 0)
@@ -6204,37 +6215,37 @@ LABEL_11:
               goto LABEL_91;
             }
 
-            v27 = logObjectForModule_31();
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+            v32 = logObjectForModule_31();
+            if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_91;
             }
 
-            v61 = *(a1 + 108);
-            v62 = *(a1 + 110);
-            v63 = *(a1 + 112);
-            v64 = *(a1 + 120);
+            v66 = *(a1 + 108);
+            v67 = *(a1 + 110);
+            v68 = *(a1 + 112);
+            v69 = *(a1 + 120);
             *buf = 136316674;
-            v99 = "__iAP2FileTransferSendBufferPacket";
-            v100 = 1024;
-            v101 = 235;
-            v102 = 1024;
-            v103 = v25;
-            v104 = 1024;
-            v105 = v61;
-            v106 = 1024;
-            v107 = v62;
-            v108 = 1024;
-            v109 = v63;
-            v110 = 1024;
-            v111 = v64;
-            v32 = "%s:%d Send Buffer Setup, V2 appIcon, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u";
+            v104 = "__iAP2FileTransferSendBufferPacket";
+            v105 = 1024;
+            v106 = 235;
+            v107 = 1024;
+            v108 = v30;
+            v109 = 1024;
+            v110 = v66;
+            v111 = 1024;
+            v112 = v67;
+            v113 = 1024;
+            v114 = v68;
+            v115 = 1024;
+            v116 = v69;
+            v37 = "%s:%d Send Buffer Setup, V2 appIcon, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u";
 LABEL_112:
-            _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, v32, buf, 0x30u);
+            _os_log_debug_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, v37, buf, 0x30u);
             goto LABEL_91;
           }
 
-          if (v26 != 7)
+          if (v31 != 7)
           {
 LABEL_109:
             if ((_iAP2LogEnableMask & 4) == 0)
@@ -6242,38 +6253,38 @@ LABEL_109:
               goto LABEL_91;
             }
 
-            v27 = logObjectForModule_31();
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+            v32 = logObjectForModule_31();
+            if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_91;
             }
 
-            v65 = *(a1 + 108);
-            v66 = *(a1 + 110);
-            v67 = *(a1 + 112);
-            v68 = *(a1 + 120);
+            v70 = *(a1 + 108);
+            v71 = *(a1 + 110);
+            v72 = *(a1 + 112);
+            v73 = *(a1 + 120);
             *buf = 136316674;
-            v99 = "__iAP2FileTransferSendBufferPacket";
-            v100 = 1024;
-            v101 = 244;
-            v102 = 1024;
-            v103 = v25;
-            v104 = 1024;
-            v105 = v65;
-            v106 = 1024;
-            v107 = v66;
-            v108 = 1024;
-            v109 = v67;
-            v110 = 1024;
-            v111 = v68;
-            v32 = "%s:%d Send Buffer Setup, V2 No typeData, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u";
+            v104 = "__iAP2FileTransferSendBufferPacket";
+            v105 = 1024;
+            v106 = 244;
+            v107 = 1024;
+            v108 = v30;
+            v109 = 1024;
+            v110 = v70;
+            v111 = 1024;
+            v112 = v71;
+            v113 = 1024;
+            v114 = v72;
+            v115 = 1024;
+            v116 = v73;
+            v37 = "%s:%d Send Buffer Setup, V2 No typeData, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u";
             goto LABEL_112;
           }
         }
 
-        else if ((v26 - 4) >= 2)
+        else if ((v31 - 4) >= 2)
         {
-          if (v26 == 1)
+          if (v31 == 1)
           {
             __memcpy_chk();
             if ((_iAP2LogEnableMask & 4) == 0)
@@ -6281,162 +6292,162 @@ LABEL_109:
               goto LABEL_91;
             }
 
-            v27 = logObjectForModule_31();
-            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+            v32 = logObjectForModule_31();
+            if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_91;
             }
 
-            v28 = *(a1 + 108);
-            v29 = *(a1 + 110);
-            v30 = *(a1 + 112);
-            v31 = *(a1 + 120);
+            v33 = *(a1 + 108);
+            v34 = *(a1 + 110);
+            v35 = *(a1 + 112);
+            v36 = *(a1 + 120);
             *buf = 136316674;
-            v99 = "__iAP2FileTransferSendBufferPacket";
-            v100 = 1024;
-            v101 = 224;
-            v102 = 1024;
-            v103 = v25;
-            v104 = 1024;
-            v105 = v28;
-            v106 = 1024;
-            v107 = v29;
-            v108 = 1024;
-            v109 = v30;
-            v110 = 1024;
-            v111 = v31;
-            v32 = "%s:%d Send Buffer Setup, V2 callUUID, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u";
+            v104 = "__iAP2FileTransferSendBufferPacket";
+            v105 = 1024;
+            v106 = 224;
+            v107 = 1024;
+            v108 = v30;
+            v109 = 1024;
+            v110 = v33;
+            v111 = 1024;
+            v112 = v34;
+            v113 = 1024;
+            v114 = v35;
+            v115 = 1024;
+            v116 = v36;
+            v37 = "%s:%d Send Buffer Setup, V2 callUUID, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u";
             goto LABEL_112;
           }
 
           goto LABEL_109;
         }
 
-        if (v24 >= 9)
+        if (v29 >= 9)
         {
-          *&v96[12] = bswap64(*(a1 + 128));
+          *&v101[12] = bswap64(*(a1 + 128));
           __memcpy_chk();
         }
 
-        if ((_iAP2LogEnableMask & 4) != 0 && (v56 = logObjectForModule_31(), os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG)))
+        if ((_iAP2LogEnableMask & 4) != 0 && (v61 = logObjectForModule_31(), os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG)))
         {
-          v87 = *(a1 + 108);
-          v88 = *(a1 + 110);
-          v89 = *(a1 + 112);
-          v90 = *(a1 + 120);
+          v92 = *(a1 + 108);
+          v93 = *(a1 + 110);
+          v94 = *(a1 + 112);
+          v95 = *(a1 + 120);
           *buf = 136316674;
-          v99 = "__iAP2FileTransferSendBufferPacket";
-          v100 = 1024;
-          v101 = 213;
-          v102 = 1024;
-          v103 = v24 + 12;
-          v104 = 1024;
-          v105 = v87;
-          v106 = 1024;
-          v107 = v88;
-          v108 = 1024;
-          v109 = v89;
-          v110 = 1024;
-          v111 = v90;
-          _os_log_debug_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Setup, V2 pid+libUID, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u", buf, 0x30u);
-          if (v24 > 8)
+          v104 = "__iAP2FileTransferSendBufferPacket";
+          v105 = 1024;
+          v106 = 213;
+          v107 = 1024;
+          v108 = v29 + 12;
+          v109 = 1024;
+          v110 = v92;
+          v111 = 1024;
+          v112 = v93;
+          v113 = 1024;
+          v114 = v94;
+          v115 = 1024;
+          v116 = v95;
+          _os_log_debug_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Setup, V2 pid+libUID, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u", buf, 0x30u);
+          if (v29 > 8)
           {
             goto LABEL_91;
           }
         }
 
-        else if (v24 >= 9)
+        else if (v29 >= 9)
         {
 LABEL_91:
           if ((_iAP2LogEnableMask & 4) != 0)
           {
             if (gLogObjects && gNumLogObjects >= 20)
             {
-              v60 = *(gLogObjects + 152);
+              v65 = *(gLogObjects + 152);
             }
 
             else
             {
-              v60 = &_os_log_default;
+              v65 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
                 platform_connectionInfo_configStreamGetCategories_cold_2();
               }
             }
 
-            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
             {
-              v73 = *(a1 + 108);
-              v74 = *(a1 + 110);
-              v75 = *(a1 + 112);
-              v76 = *(a1 + 120);
+              v78 = *(a1 + 108);
+              v79 = *(a1 + 110);
+              v80 = *(a1 + 112);
+              v81 = *(a1 + 120);
               *buf = 136316674;
-              v99 = "__iAP2FileTransferSendBufferPacket";
-              v100 = 1024;
-              v101 = 261;
-              v102 = 1024;
-              v103 = v25;
-              v104 = 1024;
-              v105 = v73;
-              v106 = 1024;
-              v107 = v74;
-              v108 = 1024;
-              v109 = v75;
-              v110 = 1024;
-              v111 = v76;
-              _os_log_debug_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Setup, QueueSendData payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u", buf, 0x30u);
+              v104 = "__iAP2FileTransferSendBufferPacket";
+              v105 = 1024;
+              v106 = 261;
+              v107 = 1024;
+              v108 = v30;
+              v109 = 1024;
+              v110 = v78;
+              v111 = 1024;
+              v112 = v79;
+              v113 = 1024;
+              v114 = v80;
+              v115 = 1024;
+              v116 = v81;
+              _os_log_debug_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Setup, QueueSendData payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u", buf, 0x30u);
             }
           }
 
           *(a1 + 104) = 3;
           iAP2LinkEventNotify(*a1, 1, a1);
           iAP2FileTransferRetain(a1);
-          v8 = *a1;
-          v9 = *(a1 + 108);
-          v12 = __iAP2FileTransferDataSentCB;
-          v13 = __iAP2FileTransferContextCleanupCB;
-          v10 = v25;
-          v11 = a1;
-          return iAP2LinkQueueSendData(v8, v96, v10, v9, v11, v12, v13, 0);
+          v13 = *a1;
+          v14 = *(a1 + 108);
+          v17 = __iAP2FileTransferDataSentCB;
+          v18 = __iAP2FileTransferContextCleanupCB;
+          v15 = v30;
+          v16 = a1;
+          return iAP2LinkQueueSendData(v13, v101, v15, v14, v16, v17, v18, 0);
         }
 
         if (_iAP2LogEnableMask)
         {
           if (gLogObjects && gNumLogObjects >= 20)
           {
-            v57 = *(gLogObjects + 152);
+            v62 = *(gLogObjects + 152);
           }
 
           else
           {
-            v57 = &_os_log_default;
+            v62 = &_os_log_default;
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               platform_connectionInfo_configStreamGetCategories_cold_2();
             }
           }
 
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
           {
-            v69 = *(a1 + 108);
-            v70 = *(a1 + 110);
-            v71 = *(a1 + 112);
-            v72 = *(a1 + 120);
+            v74 = *(a1 + 108);
+            v75 = *(a1 + 110);
+            v76 = *(a1 + 112);
+            v77 = *(a1 + 120);
             *buf = 136316674;
-            v99 = "__iAP2FileTransferSendBufferPacket";
-            v100 = 1024;
-            v101 = 284;
-            v102 = 1024;
-            v103 = v25;
-            v104 = 1024;
-            v105 = v69;
-            v106 = 1024;
-            v107 = v70;
-            v108 = 1024;
-            v109 = v71;
-            v110 = 1024;
-            v111 = v72;
-            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d Send Buffer Setup FAILED, invalid setup data, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u", buf, 0x30u);
+            v104 = "__iAP2FileTransferSendBufferPacket";
+            v105 = 1024;
+            v106 = 284;
+            v107 = 1024;
+            v108 = v30;
+            v109 = 1024;
+            v110 = v74;
+            v111 = 1024;
+            v112 = v75;
+            v113 = 1024;
+            v114 = v76;
+            v115 = 1024;
+            v116 = v77;
+            _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d Send Buffer Setup FAILED, invalid setup data, payloadLen=%u fileXfer: session=%u version=%u type=%u typeDataLen=%u", buf, 0x30u);
           }
         }
       }
@@ -6444,106 +6455,106 @@ LABEL_91:
       return 0;
     }
 
-    v33 = *(a1 + 40);
-    v34 = *(a1 + 48);
+    v38 = *(a1 + 40);
+    v39 = *(a1 + 48);
     MaxPayloadSize = iAP2LinkGetMaxPayloadSize(*a1, 0);
-    v36 = v33 - v34;
-    v37 = v33 - v34 + 2;
-    if (v37 >= MaxPayloadSize)
+    v41 = v38 - v39;
+    v42 = v38 - v39 + 2;
+    if (v42 >= MaxPayloadSize)
     {
-      v38 = MaxPayloadSize;
+      v43 = MaxPayloadSize;
     }
 
     else
     {
-      v38 = v33 - v34 + 2;
+      v43 = v38 - v39 + 2;
     }
 
-    *buf = v38;
+    *buf = v43;
     EmptySendPacket = iAP2PacketCreateEmptySendPacket(*a1, buf);
-    v41 = *(EmptySendPacket + 8);
-    v40 = *(EmptySendPacket + 9);
-    v42 = iAP2LinkCurPckHdrSize(*a1);
-    v43 = iAP2LinkCurPckChksumSize(*a1);
-    *(v41 + 4) = 64;
-    *(v41 + 7) = *(a1 + 108);
-    v44 = v43 + v42 + *buf;
-    *(EmptySendPacket + 27) = v44;
-    *(EmptySendPacket + 11) = v44;
-    *v40 = *(a1 + 109);
-    v40[1] = a2;
+    v46 = *(EmptySendPacket + 8);
+    v45 = *(EmptySendPacket + 9);
+    v47 = iAP2LinkCurPckHdrSize(*a1);
+    v48 = iAP2LinkCurPckChksumSize(*a1);
+    *(v46 + 4) = 64;
+    *(v46 + 7) = *(a1 + 108);
+    v49 = v48 + v47 + *buf;
+    *(EmptySendPacket + 27) = v49;
+    *(EmptySendPacket + 11) = v49;
+    *v45 = *(a1 + 109);
+    v45[1] = v9;
     if (!*(a1 + 24))
     {
-      v40[1] = a2 | 0x80;
+      v45[1] = v9 | 0x80;
     }
 
-    if (v37 <= iAP2LinkGetMaxPayloadSize(*a1, EmptySendPacket))
+    if (v42 <= iAP2LinkGetMaxPayloadSize(*a1, EmptySendPacket))
     {
-      v48 = *(a1 + 32);
-      if (*(a1 + 24) + v36 >= v48 && (v48 || (*(a1 + 111) & 2) == 0))
+      v53 = *(a1 + 32);
+      if (*(a1 + 24) + v41 >= v53 && (v53 || (*(a1 + 111) & 2) == 0))
       {
-        v40[1] |= 0x40u;
-        if (v33 != v34)
+        v45[1] |= 0x40u;
+        if (v38 != v39)
         {
-          memcpy(v40 + 2, *(a1 + 8), v36);
+          memcpy(v45 + 2, *(a1 + 8), v41);
         }
 
         if ((_iAP2LogEnableMask & 4) != 0)
         {
-          v52 = logObjectForModule_31();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+          v57 = logObjectForModule_31();
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
           {
-            v91 = *(a1 + 108);
-            v92 = *(a1 + 24);
-            v93 = *(a1 + 32);
-            v94 = *(a1 + 56);
-            v95 = *(a1 + 64);
-            *v96 = 136317442;
-            *&v96[4] = "__iAP2FileTransferSendBufferPacket";
-            *&v96[12] = 1024;
-            *&v96[14] = 426;
-            *&v96[18] = 1024;
-            *&v96[20] = v40;
-            *&v96[24] = 2048;
-            *v97 = *buf;
-            *&v97[8] = 1024;
-            *&v97[10] = a1;
-            *&v97[14] = 1024;
-            *&v97[16] = v91;
-            *&v97[20] = 2048;
-            *&v97[22] = v92;
-            *&v97[30] = 2048;
-            *&v97[32] = v93;
-            *&v97[40] = 1024;
-            *&v97[42] = v94;
-            *&v97[46] = 1024;
-            *&v97[48] = v95;
-            _os_log_debug_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Data (final), QueueSendData payload=%hx payloadLen=%lu fileXfer=%hx session=%u sentSize=%lu totalSize=%lu (endCB=%hx userInfo=%hx)", v96, 0x4Eu);
+            v96 = *(a1 + 108);
+            v97 = *(a1 + 24);
+            v98 = *(a1 + 32);
+            v99 = *(a1 + 56);
+            v100 = *(a1 + 64);
+            *v101 = 136317442;
+            *&v101[4] = "__iAP2FileTransferSendBufferPacket";
+            *&v101[12] = 1024;
+            *&v101[14] = 426;
+            *&v101[18] = 1024;
+            *&v101[20] = v45;
+            *&v101[24] = 2048;
+            *v102 = *buf;
+            *&v102[8] = 1024;
+            *&v102[10] = a1;
+            *&v102[14] = 1024;
+            *&v102[16] = v96;
+            *&v102[20] = 2048;
+            *&v102[22] = v97;
+            *&v102[30] = 2048;
+            *&v102[32] = v98;
+            *&v102[40] = 1024;
+            *&v102[42] = v99;
+            *&v102[46] = 1024;
+            *&v102[48] = v100;
+            _os_log_debug_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Data (final), QueueSendData payload=%hx payloadLen=%lu fileXfer=%hx session=%u sentSize=%lu totalSize=%lu (endCB=%hx userInfo=%hx)", v101, 0x4Eu);
           }
         }
 
         *(a1 + 292) = iAP2TimeGetCurTimeMs();
-        v53 = *(a1 + 88);
-        if (v53)
+        v58 = *(a1 + 88);
+        if (v58)
         {
-          v53(a1, 4, *(a1 + 96));
+          v58(a1, 4, *(a1 + 96));
         }
 
         iAP2FileTransferRetain(a1);
         if (iAP2LinkQueueSendDataPacket(*a1, EmptySendPacket, *(a1 + 108), a1, __iAP2FileTransferDataSentCB, __iAP2FileTransferContextCleanupCB, 0))
         {
           *(a1 + 111) |= 8u;
-          v54 = *a1;
-          *(a1 + 8) += v36;
-          *(a1 + 24) += v36;
-          *(a1 + 48) += v36;
+          v59 = *a1;
+          *(a1 + 8) += v41;
+          *(a1 + 24) += v41;
+          *(a1 + 48) += v41;
           *(a1 + 104) = 5;
-          v14 = 1;
-          iAP2LinkEventNotify(v54, 1, a1);
-          v55 = *(a1 + 56);
-          if (v55)
+          v19 = 1;
+          iAP2LinkEventNotify(v59, 1, a1);
+          v60 = *(a1 + 56);
+          if (v60)
           {
-            v55(a1, *(a1 + 64));
+            v60(a1, *(a1 + 64));
           }
 
           goto LABEL_105;
@@ -6554,57 +6565,57 @@ LABEL_91:
           goto LABEL_104;
         }
 
-        v58 = logObjectForModule_31();
-        if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v63 = logObjectForModule_31();
+        if (!os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_104;
         }
 
-        *v96 = 136315650;
-        *&v96[4] = "__iAP2FileTransferSendBufferPacket";
-        *&v96[12] = 1024;
-        *&v96[14] = 455;
-        *&v96[18] = 1024;
-        *&v96[20] = EmptySendPacket;
-        v59 = "ERROR: %s:%d Failed to iAP2LinkQueueSendDataPAcket, delete packet=%hx";
+        *v101 = 136315650;
+        *&v101[4] = "__iAP2FileTransferSendBufferPacket";
+        *&v101[12] = 1024;
+        *&v101[14] = 455;
+        *&v101[18] = 1024;
+        *&v101[20] = EmptySendPacket;
+        v64 = "ERROR: %s:%d Failed to iAP2LinkQueueSendDataPAcket, delete packet=%hx";
         goto LABEL_103;
       }
 
-      memcpy(v40 + 2, *(a1 + 8), v36);
+      memcpy(v45 + 2, *(a1 + 8), v41);
       if ((_iAP2LogEnableMask & 4) != 0)
       {
-        v49 = logObjectForModule_31();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+        v54 = logObjectForModule_31();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
         {
-          v81 = *(a1 + 108);
-          v82 = *(a1 + 109);
-          v83 = *(a1 + 24);
-          v84 = *(a1 + 32);
-          v85 = *(a1 + 56);
-          v86 = *(a1 + 64);
-          *v96 = 136317698;
-          *&v96[4] = "__iAP2FileTransferSendBufferPacket";
-          *&v96[12] = 1024;
-          *&v96[14] = 383;
-          *&v96[18] = 1024;
-          *&v96[20] = v40;
-          *&v96[24] = 2048;
-          *v97 = *buf;
-          *&v97[8] = 1024;
-          *&v97[10] = a1;
-          *&v97[14] = 1024;
-          *&v97[16] = v81;
-          *&v97[20] = 1024;
-          *&v97[22] = v82;
-          *&v97[26] = 2048;
-          *&v97[28] = v83;
-          *&v97[36] = 2048;
-          *&v97[38] = v84;
-          *&v97[46] = 1024;
-          *&v97[48] = v85;
-          *&v97[52] = 1024;
-          *&v97[54] = v86;
-          _os_log_debug_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Data (end current buffer), QueueSendData payload=%hx payloadLen=%lu fileXfer=%hx session=%u buffID=%u sentSize=%lu totalSize=%lu (endCB=%hx userInfo=%hx)", v96, 0x54u);
+          v86 = *(a1 + 108);
+          v87 = *(a1 + 109);
+          v88 = *(a1 + 24);
+          v89 = *(a1 + 32);
+          v90 = *(a1 + 56);
+          v91 = *(a1 + 64);
+          *v101 = 136317698;
+          *&v101[4] = "__iAP2FileTransferSendBufferPacket";
+          *&v101[12] = 1024;
+          *&v101[14] = 383;
+          *&v101[18] = 1024;
+          *&v101[20] = v45;
+          *&v101[24] = 2048;
+          *v102 = *buf;
+          *&v102[8] = 1024;
+          *&v102[10] = a1;
+          *&v102[14] = 1024;
+          *&v102[16] = v86;
+          *&v102[20] = 1024;
+          *&v102[22] = v87;
+          *&v102[26] = 2048;
+          *&v102[28] = v88;
+          *&v102[36] = 2048;
+          *&v102[38] = v89;
+          *&v102[46] = 1024;
+          *&v102[48] = v90;
+          *&v102[52] = 1024;
+          *&v102[54] = v91;
+          _os_log_debug_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Data (end current buffer), QueueSendData payload=%hx payloadLen=%lu fileXfer=%hx session=%u buffID=%u sentSize=%lu totalSize=%lu (endCB=%hx userInfo=%hx)", v101, 0x54u);
         }
       }
 
@@ -6612,13 +6623,13 @@ LABEL_91:
       if (iAP2LinkQueueSendDataPacket(*a1, EmptySendPacket, *(a1 + 108), a1, __iAP2FileTransferDataSentCB, __iAP2FileTransferContextCleanupCB, 0))
       {
         *(a1 + 111) |= 8u;
-        *(a1 + 8) += v36;
-        *(a1 + 24) += v36;
-        v50 = *(a1 + 56);
-        *(a1 + 48) += v36;
-        if (v50)
+        *(a1 + 8) += v41;
+        *(a1 + 24) += v41;
+        v55 = *(a1 + 56);
+        *(a1 + 48) += v41;
+        if (v55)
         {
-          v50(a1, *(a1 + 64));
+          v55(a1, *(a1 + 64));
         }
 
         goto LABEL_82;
@@ -6626,69 +6637,69 @@ LABEL_91:
 
       if (_iAP2LogEnableMask)
       {
-        v58 = logObjectForModule_31();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v63 = logObjectForModule_31();
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
-          *v96 = 136315650;
-          *&v96[4] = "__iAP2FileTransferSendBufferPacket";
-          *&v96[12] = 1024;
-          *&v96[14] = 407;
-          *&v96[18] = 1024;
-          *&v96[20] = EmptySendPacket;
-          v59 = "ERROR: %s:%d Failed to iAP2LinkQueueSendDataPAcket, delete packet=%hx";
+          *v101 = 136315650;
+          *&v101[4] = "__iAP2FileTransferSendBufferPacket";
+          *&v101[12] = 1024;
+          *&v101[14] = 407;
+          *&v101[18] = 1024;
+          *&v101[20] = EmptySendPacket;
+          v64 = "ERROR: %s:%d Failed to iAP2LinkQueueSendDataPAcket, delete packet=%hx";
 LABEL_103:
-          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, v59, v96, 0x18u);
+          _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, v64, v101, 0x18u);
         }
       }
     }
 
     else
     {
-      v45 = (*buf - 2);
-      memcpy(v40 + 2, *(a1 + 8), v45);
+      v50 = (*buf - 2);
+      memcpy(v45 + 2, *(a1 + 8), v50);
       if ((_iAP2LogEnableMask & 4) != 0)
       {
         if (gLogObjects && gNumLogObjects >= 20)
         {
-          v46 = *(gLogObjects + 152);
+          v51 = *(gLogObjects + 152);
         }
 
         else
         {
-          v46 = &_os_log_default;
+          v51 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
         }
 
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
-          v77 = *(EmptySendPacket + 27);
-          v78 = *(a1 + 108);
-          v79 = *(a1 + 24);
-          v80 = *(a1 + 32);
-          *v96 = 136317442;
-          *&v96[4] = "__iAP2FileTransferSendBufferPacket";
-          *&v96[12] = 1024;
-          *&v96[14] = 339;
-          *&v96[18] = 1024;
-          *&v96[20] = a1;
-          *&v96[24] = 2048;
-          *v97 = *buf;
-          *&v97[8] = 2048;
-          *&v97[10] = v45;
-          *&v97[18] = 1024;
-          *&v97[20] = EmptySendPacket;
-          *&v97[24] = 1024;
-          *&v97[26] = v77;
-          *&v97[30] = 1024;
-          *&v97[32] = v78;
-          *&v97[36] = 2048;
-          *&v97[38] = v79;
-          *&v97[46] = 2048;
-          *&v97[48] = v80;
-          _os_log_debug_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Data Packet, QueueSendDataPacket fileXfer=%hx payloadLen/dataLen=%lu/%lu packet=%hx packet->packetLen=%u session=%u sentSize=%lu totalSize=%lu", v96, 0x52u);
+          v82 = *(EmptySendPacket + 27);
+          v83 = *(a1 + 108);
+          v84 = *(a1 + 24);
+          v85 = *(a1 + 32);
+          *v101 = 136317442;
+          *&v101[4] = "__iAP2FileTransferSendBufferPacket";
+          *&v101[12] = 1024;
+          *&v101[14] = 339;
+          *&v101[18] = 1024;
+          *&v101[20] = a1;
+          *&v101[24] = 2048;
+          *v102 = *buf;
+          *&v102[8] = 2048;
+          *&v102[10] = v50;
+          *&v102[18] = 1024;
+          *&v102[20] = EmptySendPacket;
+          *&v102[24] = 1024;
+          *&v102[26] = v82;
+          *&v102[30] = 1024;
+          *&v102[32] = v83;
+          *&v102[36] = 2048;
+          *&v102[38] = v84;
+          *&v102[46] = 2048;
+          *&v102[48] = v85;
+          _os_log_debug_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEBUG, "%s:%d Send Buffer Data Packet, QueueSendDataPacket fileXfer=%hx payloadLen/dataLen=%lu/%lu packet=%hx packet->packetLen=%u session=%u sentSize=%lu totalSize=%lu", v101, 0x52u);
         }
       }
 
@@ -6696,28 +6707,28 @@ LABEL_103:
       if (iAP2LinkQueueSendDataPacket(*a1, EmptySendPacket, *(a1 + 108), a1, __iAP2FileTransferDataSentCB, __iAP2FileTransferContextCleanupCB, 0))
       {
         *(a1 + 111) |= 8u;
-        *(a1 + 8) += v45;
-        *(a1 + 24) += v45;
-        *(a1 + 48) += v45;
+        *(a1 + 8) += v50;
+        *(a1 + 24) += v50;
+        *(a1 + 48) += v50;
 LABEL_82:
-        v14 = 1;
+        v19 = 1;
 LABEL_105:
         iAP2PacketRelease(EmptySendPacket);
-        return v14;
+        return v19;
       }
 
       if (_iAP2LogEnableMask)
       {
-        v58 = logObjectForModule_31();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v63 = logObjectForModule_31();
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
-          *v96 = 136315650;
-          *&v96[4] = "__iAP2FileTransferSendBufferPacket";
-          *&v96[12] = 1024;
-          *&v96[14] = 359;
-          *&v96[18] = 1024;
-          *&v96[20] = EmptySendPacket;
-          v59 = "ERROR: %s:%d Failed to iAP2LinkQueueSendDataPacket, delete packet=%hx";
+          *v101 = 136315650;
+          *&v101[4] = "__iAP2FileTransferSendBufferPacket";
+          *&v101[12] = 1024;
+          *&v101[14] = 359;
+          *&v101[18] = 1024;
+          *&v101[20] = EmptySendPacket;
+          v64 = "ERROR: %s:%d Failed to iAP2LinkQueueSendDataPacket, delete packet=%hx";
           goto LABEL_103;
         }
       }
@@ -6725,16 +6736,16 @@ LABEL_105:
 
 LABEL_104:
     EmptySendPacket = 0;
-    v14 = 0;
+    v19 = 0;
     goto LABEL_105;
   }
 
   *(a1 + 104) = 6;
   iAP2LinkEventNotify(*a1, 1, a1);
-  v47 = *(a1 + 56);
-  if (v47)
+  v52 = *(a1 + 56);
+  if (v52)
   {
-    v47(a1, *(a1 + 64));
+    v52(a1, *(a1 + 64));
   }
 
   iAP2FileTransferCleanup(a1);
@@ -6818,7 +6829,7 @@ uint64_t iAP2FileTransferRelease(uint64_t a1)
   return v1;
 }
 
-BOOL iAP2FileTransferAllocateBufferID(uint64_t a1, int a2, _BYTE *a3)
+BOOL iAP2FileTransferAllocateBufferID(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = 0;
   if (!a1 || !a3)
@@ -6826,6 +6837,7 @@ BOOL iAP2FileTransferAllocateBufferID(uint64_t a1, int a2, _BYTE *a3)
     return result;
   }
 
+  v6 = a2;
   SessionInfo = iAP2LinkGetSessionInfo(a1, a2);
   if (!SessionInfo || SessionInfo[1] != 1)
   {
@@ -6856,7 +6868,7 @@ BOOL iAP2FileTransferAllocateBufferID(uint64_t a1, int a2, _BYTE *a3)
       v21 = 1024;
       v22 = 610;
       v23 = 1024;
-      v24 = a2;
+      v24 = v6;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d Attempting to allocate buffer ID for non-buffer transfer session (%d)", &v19, 0x18u);
     }
 
@@ -7402,7 +7414,7 @@ void iAP2FileTransferDelete(uint64_t a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    iAP2FileTransferDelete_cold_2(a1);
+    iAP2FileTransferDelete_cold_2();
   }
 
   else
@@ -7457,7 +7469,7 @@ void iAP2FileTransferCleanup(uint64_t a1)
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      iAP2FileTransferCleanup_cold_2(a1);
+      iAP2FileTransferCleanup_cold_2();
     }
   }
 
@@ -7486,7 +7498,7 @@ void iAP2FileTransferCleanup(uint64_t a1)
   }
 }
 
-uint64_t iAP2FileTransferStart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8)
+BOOL iAP2FileTransferStart(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8)
 {
   if ((_iAP2LogEnableMask & 2) == 0)
   {
@@ -7509,32 +7521,32 @@ uint64_t iAP2FileTransferStart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
 
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v17 = *(a1 + 104);
+    v17 = *(a1 + 26);
     v18 = *(a1 + 108);
     *buf = 136317954;
-    v33 = "iAP2FileTransferStart";
-    v34 = 1024;
-    v35 = 1120;
-    v36 = 1024;
-    v37 = a1;
-    v38 = 1024;
-    v39 = v17;
-    v40 = 1024;
-    v41 = v18;
-    v42 = 1024;
-    v43 = a2;
-    v44 = 2048;
-    *v45 = a3;
-    *&v45[8] = 2048;
-    v46 = a4;
-    *v47 = 1024;
-    *&v47[2] = a5;
-    *v48 = 1024;
-    *&v48[2] = a6;
-    v49 = 1024;
-    v50 = a7;
-    v51 = 1024;
-    v52 = a8;
+    v38 = "iAP2FileTransferStart";
+    v39 = 1024;
+    v40 = 1120;
+    v41 = 1024;
+    v42 = a1;
+    v43 = 1024;
+    v44 = v17;
+    v45 = 1024;
+    v46 = v18;
+    v47 = 1024;
+    v48 = a2;
+    v49 = 2048;
+    *v50 = a3;
+    *&v50[8] = 2048;
+    v51 = a4;
+    *v52 = 1024;
+    *&v52[2] = a5;
+    *v53 = 1024;
+    *&v53[2] = a6;
+    v54 = 1024;
+    v55 = a7;
+    v56 = 1024;
+    v57 = a8;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx state=%d session=%u buff=%hx buffLen=%lu totalLen=%lu callback=%hx userInfo=%hx bSendAsStream=%d bDeleteBuffOnFinish=%d", buf, 0x56u);
   }
 
@@ -7547,7 +7559,7 @@ LABEL_11:
     }
   }
 
-  if (*(a1 + 104))
+  if (*(a1 + 26))
   {
     return 0;
   }
@@ -7559,7 +7571,7 @@ LABEL_11:
 
   else
   {
-    v20 = *(a1 + 120) + 12;
+    v20 = *(a1 + 60) + 12;
   }
 
   if (v20 > iAP2LinkGetMaxPayloadSize(*a1, 0))
@@ -7567,15 +7579,15 @@ LABEL_11:
     iAP2FileTransferStart_cold_3();
   }
 
-  *(a1 + 104) = 1;
+  *(a1 + 26) = 1;
   iAP2LinkEventNotify(*a1, 1, a1);
-  *(a1 + 8) = a2;
-  *(a1 + 16) = a2;
-  *(a1 + 32) = a4;
-  *(a1 + 40) = a3;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = a5;
-  *(a1 + 64) = a6;
+  a1[1] = a2;
+  a1[2] = a2;
+  a1[4] = a4;
+  a1[5] = a3;
+  a1[6] = 0;
+  a1[7] = a5;
+  a1[8] = a6;
   if (((a5 != 0) & a7) != 0)
   {
     v21 = 2;
@@ -7587,141 +7599,141 @@ LABEL_11:
   }
 
   *(a1 + 111) = v21 | a8 | *(a1 + 111) & 0xF8;
-  *(a1 + 288) = iAP2TimeGetCurTimeMs();
-  v22 = *(a1 + 88);
-  if (v22)
+  *(a1 + 72) = iAP2TimeGetCurTimeMs();
+  v27 = a1[11];
+  if (v27)
   {
-    v22(a1, 2, *(a1 + 96));
+    v27(a1, 2, a1[12]);
   }
 
   if ((_iAP2LogEnableMask & 4) != 0)
   {
     if (gLogObjects && gNumLogObjects >= 20)
     {
-      v23 = *(gLogObjects + 152);
+      v28 = *(gLogObjects + 152);
     }
 
     else
     {
-      v23 = &_os_log_default;
+      v28 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
       }
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      v24 = *(a1 + 109);
-      v25 = *(a1 + 16);
-      v26 = *(a1 + 40);
-      v27 = *(a1 + 32);
-      v28 = *(a1 + 111);
-      v29 = *(a1 + 112);
-      v30 = *(a1 + 120);
+      v29 = *(a1 + 109);
+      v30 = *(a1 + 8);
+      v31 = *(a1 + 20);
+      v32 = *(a1 + 16);
+      v33 = *(a1 + 111);
+      v34 = *(a1 + 56);
+      v35 = *(a1 + 60);
       *buf = 136317698;
-      v33 = "iAP2FileTransferStart";
-      v34 = 1024;
-      v35 = 1159;
-      v36 = 1024;
-      v37 = a1;
-      v38 = 1024;
-      v39 = v24;
-      v40 = 1024;
-      v41 = v25;
-      v42 = 1024;
-      v43 = v26;
-      v44 = 1024;
-      *v45 = v27;
-      *&v45[4] = 1024;
-      *&v45[6] = (v28 >> 1) & 1;
-      LOWORD(v46) = 1024;
-      *(&v46 + 2) = v28 & 1;
-      HIWORD(v46) = 1024;
-      *v47 = v29;
-      *&v47[4] = 1024;
-      *v48 = v30;
-      _os_log_debug_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "%s:%d fileXfer=%hx buffID=0x%X Start, send Setup, buff=%hx len=%u totalSize=%u bStream=%d bDeleteBuffOnFinish=%d type=%d typeData.len=%u", buf, 0x48u);
+      v38 = "iAP2FileTransferStart";
+      v39 = 1024;
+      v40 = 1159;
+      v41 = 1024;
+      v42 = a1;
+      v43 = 1024;
+      v44 = v29;
+      v45 = 1024;
+      v46 = v30;
+      v47 = 1024;
+      v48 = v31;
+      v49 = 1024;
+      *v50 = v32;
+      *&v50[4] = 1024;
+      *&v50[6] = (v33 >> 1) & 1;
+      LOWORD(v51) = 1024;
+      *(&v51 + 2) = v33 & 1;
+      HIWORD(v51) = 1024;
+      *v52 = v34;
+      *&v52[4] = 1024;
+      *v53 = v35;
+      _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "%s:%d fileXfer=%hx buffID=0x%X Start, send Setup, buff=%hx len=%u totalSize=%u bStream=%d bDeleteBuffOnFinish=%d type=%d typeData.len=%u", buf, 0x48u);
     }
   }
 
-  return __iAP2FileTransferSendBufferPacket(a1, 4, 0);
+  return __iAP2FileTransferSendBufferPacket(a1, 4, 0, v22, v23, v24, v25, v26);
 }
 
-uint64_t iAP2FileTransferHandleRecv(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t iAP2FileTransferHandleRecv(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = 0;
+  v8 = 0;
   if (!a1)
   {
-    return v3;
+    return v8;
   }
 
   if (!a2)
   {
-    return v3;
+    return v8;
   }
 
-  v6 = a3 - 2;
+  v11 = a3 - 2;
   if (a3 < 2)
   {
-    return v3;
+    return v8;
   }
 
-  v8 = *(a2 + 1);
-  v9 = v8 & 0xF;
-  if (v9 <= 2)
+  v13 = *(a2 + 1);
+  v14 = v13 & 0xF;
+  if (v14 <= 2)
   {
-    if ((v8 & 0xF) != 0)
+    if ((v13 & 0xF) != 0)
     {
-      if (v9 == 1)
+      if (v14 == 1)
       {
         if ((_iAP2LogEnableMask & 2) != 0)
         {
           if (gLogObjects && gNumLogObjects >= 20)
           {
-            v27 = *(gLogObjects + 152);
+            v32 = *(gLogObjects + 152);
           }
 
           else
           {
-            v27 = &_os_log_default;
+            v32 = &_os_log_default;
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               platform_connectionInfo_configStreamGetCategories_cold_2();
             }
           }
 
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
           {
-            v51 = *(a1 + 109);
-            v52 = *(a1 + 104);
-            v112 = 136316162;
-            v113 = "iAP2FileTransferHandleRecv";
-            v114 = 1024;
-            v115 = 1598;
-            v116 = 1024;
-            v117 = a1;
-            v118 = 1024;
-            v119 = v51;
-            v120 = 1024;
-            *v121 = v52;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Control Start curState=%d", &v112, 0x24u);
+            v61 = *(a1 + 109);
+            v62 = *(a1 + 26);
+            v134 = 136316162;
+            v135 = "iAP2FileTransferHandleRecv";
+            v136 = 1024;
+            v137 = 1598;
+            v138 = 1024;
+            v139 = a1;
+            v140 = 1024;
+            v141 = v61;
+            v142 = 1024;
+            *v143 = v62;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Control Start curState=%d", &v134, 0x24u);
           }
         }
 
-        *(a1 + 288) = 0;
-        v53 = *(a1 + 88);
-        if (v53)
+        *(a1 + 72) = 0;
+        v63 = a1[11];
+        if (v63)
         {
-          v53(a1, 3, *(a1 + 96));
+          v63(a1, 3, a1[12], a4, a5, a6, a7, a8);
         }
 
-        v54 = *(a1 + 104);
-        if (v54 != 1 && v54 != 3)
+        v64 = *(a1 + 26);
+        if (v64 != 1 && v64 != 3)
         {
-          if (v54 == 9)
+          if (v64 == 9)
           {
-            v37 = 8;
+            v42 = 8;
             goto LABEL_99;
           }
 
@@ -7730,47 +7742,47 @@ uint64_t iAP2FileTransferHandleRecv(uint64_t a1, uint64_t a2, unsigned int a3)
             return 0;
           }
 
-          v38 = logObjectForModule_31();
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v48 = logObjectForModule_31();
+          if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             return 0;
           }
 
-          v55 = *(a1 + 109);
-          v56 = *(a1 + 104);
-          v112 = 136316162;
-          v113 = "iAP2FileTransferHandleRecv";
-          v114 = 1024;
-          v115 = 1626;
-          v116 = 1024;
-          v117 = a1;
-          v118 = 1024;
-          v119 = v55;
-          v120 = 1024;
-          *v121 = v56;
-          v31 = "ERROR: %s:%d Wrong state for Start! fileXfer=%hx buffID=0x%X state=%d";
+          v70 = *(a1 + 109);
+          v71 = *(a1 + 26);
+          v134 = 136316162;
+          v135 = "iAP2FileTransferHandleRecv";
+          v136 = 1024;
+          v137 = 1626;
+          v138 = 1024;
+          v139 = a1;
+          v140 = 1024;
+          v141 = v70;
+          v142 = 1024;
+          *v143 = v71;
+          v36 = "ERROR: %s:%d Wrong state for Start! fileXfer=%hx buffID=0x%X state=%d";
 LABEL_153:
-          v32 = v38;
-          v33 = 36;
+          v37 = v48;
+          v38 = 36;
 LABEL_154:
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v31, &v112, v33);
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, v36, &v134, v38);
           return 0;
         }
 
-        *(a1 + 104) = 2;
+        *(a1 + 26) = 2;
         iAP2LinkEventNotify(*a1, 1, a1);
-        if ((__iAP2FileTransferSendBufferPacket(a1, 0, 0) & 1) == 0)
+        if (!__iAP2FileTransferSendBufferPacket(a1, 0, 0, v65, v66, v67, v68, v69))
         {
-          *(a1 + 104) = 7;
-          v3 = 1;
+          *(a1 + 26) = 7;
+          v8 = 1;
           iAP2LinkEventNotify(*a1, 1, a1);
-          return v3;
+          return v8;
         }
 
         return 0;
       }
 
-      if (v9 != 2)
+      if (v14 != 2)
       {
         goto LABEL_41;
       }
@@ -7779,110 +7791,110 @@ LABEL_154:
       {
         if (gLogObjects && gNumLogObjects >= 20)
         {
-          v18 = *(gLogObjects + 152);
+          v23 = *(gLogObjects + 152);
         }
 
         else
         {
-          v18 = &_os_log_default;
+          v23 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
         }
 
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v41 = *(a1 + 109);
-          v42 = *(a1 + 104);
-          v43 = *(a1 + 56);
-          v44 = *(a1 + 64);
-          v45 = *(a1 + 16);
-          v46 = *(a1 + 40);
-          v112 = 136317186;
-          v113 = "iAP2FileTransferHandleRecv";
-          v114 = 1024;
-          v115 = 1665;
-          v116 = 1024;
-          v117 = a1;
-          v118 = 1024;
-          v119 = v41;
-          v120 = 1024;
-          *v121 = v42;
-          *&v121[4] = 1024;
-          *&v121[6] = v43;
-          *&v121[10] = 1024;
-          *&v121[12] = v44;
-          *&v121[16] = 1024;
-          *&v121[18] = v45;
-          *&v121[22] = 2048;
-          *&v121[24] = v46;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Control Cancel curState=%d (endCB=%hx userInfo=%hx) pBuffer=%hx buffSize=%lu", &v112, 0x40u);
+          v51 = *(a1 + 109);
+          v52 = *(a1 + 26);
+          v53 = *(a1 + 28);
+          v54 = *(a1 + 32);
+          v55 = *(a1 + 8);
+          v56 = a1[5];
+          v134 = 136317186;
+          v135 = "iAP2FileTransferHandleRecv";
+          v136 = 1024;
+          v137 = 1665;
+          v138 = 1024;
+          v139 = a1;
+          v140 = 1024;
+          v141 = v51;
+          v142 = 1024;
+          *v143 = v52;
+          *&v143[4] = 1024;
+          *&v143[6] = v53;
+          *&v143[10] = 1024;
+          *&v143[12] = v54;
+          *&v143[16] = 1024;
+          *&v143[18] = v55;
+          *&v143[22] = 2048;
+          *&v143[24] = v56;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Control Cancel curState=%d (endCB=%hx userInfo=%hx) pBuffer=%hx buffSize=%lu", &v134, 0x40u);
         }
       }
 
-      v47 = *(a1 + 104);
-      if ((v47 - 8) >= 2)
+      v57 = *(a1 + 26);
+      if ((v57 - 8) >= 2)
       {
-        if ((v47 - 2) > 1)
+        if ((v57 - 2) > 1)
         {
           if ((_iAP2LogEnableMask & 1) == 0)
           {
             return 0;
           }
 
-          v38 = logObjectForModule_31();
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v48 = logObjectForModule_31();
+          if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             return 0;
           }
 
-          v82 = *(a1 + 109);
-          v83 = *(a1 + 104);
-          v112 = 136316162;
-          v113 = "iAP2FileTransferHandleRecv";
-          v114 = 1024;
-          v115 = 1704;
-          v116 = 1024;
-          v117 = a1;
-          v118 = 1024;
-          v119 = v82;
-          v120 = 1024;
-          *v121 = v83;
-          v31 = "ERROR: %s:%d Wrong state for Cancel! fileXfer=%hx buffID=0x%X state=%d";
+          v104 = *(a1 + 109);
+          v105 = *(a1 + 26);
+          v134 = 136316162;
+          v135 = "iAP2FileTransferHandleRecv";
+          v136 = 1024;
+          v137 = 1704;
+          v138 = 1024;
+          v139 = a1;
+          v140 = 1024;
+          v141 = v104;
+          v142 = 1024;
+          *v143 = v105;
+          v36 = "ERROR: %s:%d Wrong state for Cancel! fileXfer=%hx buffID=0x%X state=%d";
           goto LABEL_153;
         }
 
-        *(a1 + 288) = 0;
-        v48 = *(a1 + 88);
-        if (v48)
+        a1[36] = 0;
+        v58 = a1[11];
+        if (v58)
         {
-          v48(a1, 5, *(a1 + 96));
+          v58(a1, 5, a1[12], a4, a5, a6, a7, a8);
         }
 
-        v3 = 1;
-        __iAP2FileTransferSendBufferPacket(a1, 2, 1);
-        *(a1 + 104) = 4;
+        v8 = 1;
+        __iAP2FileTransferSendBufferPacket(a1, 2, 1, a4, a5, a6, a7, a8);
+        *(a1 + 26) = 4;
         iAP2LinkEventNotify(*a1, 1, a1);
-        v49 = *(a1 + 56);
-        if (!v49 || (*(a1 + 111) & 8) != 0)
+        v59 = a1[7];
+        if (!v59 || (*(a1 + 111) & 8) != 0)
         {
-          return v3;
+          return v8;
         }
 
 LABEL_88:
-        v49(a1, *(a1 + 64));
-        return v3;
+        v59(a1, a1[8]);
+        return v8;
       }
 
-      *(a1 + 288) = 0;
-      v50 = *(a1 + 88);
-      if (v50)
+      a1[36] = 0;
+      v60 = a1[11];
+      if (v60)
       {
-        v50(a1, 5, *(a1 + 96));
+        v60(a1, 5, a1[12], a4, a5, a6, a7, a8);
       }
 
-      v20 = 10;
+      v25 = 10;
       goto LABEL_87;
     }
 
@@ -7891,287 +7903,287 @@ LABEL_88:
       return 0;
     }
 
-    *(a1 + 288) = 0;
-    v21 = *(a1 + 88);
-    if (v21)
+    *(a1 + 72) = 0;
+    v26 = a1[11];
+    if (v26)
     {
-      v21(a1, 3, *(a1 + 96));
+      v26(a1, 3, a1[12], a4, a5, a6, a7, a8);
     }
 
-    if (v8 < 0)
+    if (v13 < 0)
     {
       if ((_iAP2LogEnableMask & 2) != 0)
       {
-        v57 = logObjectForModule_31();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+        v72 = logObjectForModule_31();
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
         {
-          v58 = *(a1 + 109);
-          v59 = (*(a1 + 111) >> 1) & 1;
-          v60 = *(a1 + 32);
-          v112 = 136316418;
-          v113 = "iAP2FileTransferHandleRecv";
-          v114 = 1024;
-          v115 = 1317;
-          v116 = 1024;
-          v117 = a1;
-          v118 = 1024;
-          v119 = v58;
-          v120 = 1024;
-          *v121 = v59;
-          *&v121[4] = 2048;
-          *&v121[6] = v60;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X First packet, bStream=%d totalSize=%lu", &v112, 0x2Eu);
+          v73 = *(a1 + 109);
+          v74 = (*(a1 + 111) >> 1) & 1;
+          v75 = a1[4];
+          v134 = 136316418;
+          v135 = "iAP2FileTransferHandleRecv";
+          v136 = 1024;
+          v137 = 1317;
+          v138 = 1024;
+          v139 = a1;
+          v140 = 1024;
+          v141 = v73;
+          v142 = 1024;
+          *v143 = v74;
+          *&v143[4] = 2048;
+          *&v143[6] = v75;
+          _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X First packet, bStream=%d totalSize=%lu", &v134, 0x2Eu);
         }
       }
 
-      *(a1 + 24) = 0;
-      v61 = *(a1 + 16);
-      if (v61)
+      a1[3] = 0;
+      v76 = a1[2];
+      if (v76)
       {
-        free(v61);
-        *(a1 + 8) = 0;
-        *(a1 + 16) = 0;
-        *(a1 + 40) = 0;
-        *(a1 + 48) = 0;
+        free(v76);
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[5] = 0;
+        a1[6] = 0;
       }
 
-      if (*(a1 + 32) - 1 < v6 || (*(a1 + 111) & 2) == 0)
+      if (a1[4] - 1 < v11 || (*(a1 + 111) & 2) == 0)
       {
-        v63 = *(a1 + 32);
+        v78 = a1[4];
       }
 
       else
       {
-        v63 = v6;
+        v78 = v11;
       }
 
-      *(a1 + 40) = v63;
-      v23 = malloc_type_calloc(1uLL, v63, 0x100004077774924uLL);
-      *(a1 + 16) = v23;
+      a1[5] = v78;
+      v28 = malloc_type_calloc(1uLL, v78, 0x100004077774924uLL);
+      a1[2] = v28;
     }
 
     else
     {
-      if ((*(a1 + 111) & 2) == 0 || *(a1 + 32) - 1 < v6)
+      if ((*(a1 + 111) & 2) == 0 || a1[4] - 1 < v11)
       {
 LABEL_118:
-        v64 = *(a1 + 32);
-        if (v64)
+        v79 = a1[4];
+        if (v79)
         {
-          v65 = *(a1 + 24);
-          if (v64 - v65 < v6)
+          v80 = a1[3];
+          if (v79 - v80 < v11)
           {
             if (_iAP2LogEnableMask)
             {
-              v66 = logObjectForModule_31();
-              v67 = os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT);
-              v65 = *(a1 + 24);
-              v64 = *(a1 + 32);
-              if (v67)
+              v81 = logObjectForModule_31();
+              v82 = os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT);
+              v80 = a1[3];
+              v79 = a1[4];
+              if (v82)
               {
-                v68 = *(a1 + 109);
-                v112 = 136316418;
-                v113 = "iAP2FileTransferHandleRecv";
-                v114 = 1024;
-                v115 = 1370;
-                v116 = 1024;
-                v117 = a1;
-                v118 = 1024;
-                v119 = v68;
-                v120 = 2048;
-                *v121 = v64;
-                *&v121[8] = 2048;
-                *&v121[10] = v65 + a3 - 2;
-                _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d Got too much data for fileXfer=%hx, buffID=0x%X expected %lu bytes, got %lu", &v112, 0x32u);
-                v65 = *(a1 + 24);
-                v64 = *(a1 + 32);
+                v83 = *(a1 + 109);
+                v134 = 136316418;
+                v135 = "iAP2FileTransferHandleRecv";
+                v136 = 1024;
+                v137 = 1370;
+                v138 = 1024;
+                v139 = a1;
+                v140 = 1024;
+                v141 = v83;
+                v142 = 2048;
+                *v143 = v79;
+                *&v143[8] = 2048;
+                *&v143[10] = v80 + a3 - 2;
+                _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d Got too much data for fileXfer=%hx, buffID=0x%X expected %lu bytes, got %lu", &v134, 0x32u);
+                v80 = a1[3];
+                v79 = a1[4];
               }
             }
 
-            v6 = v64 - v65;
+            v11 = v79 - v80;
           }
         }
 
-        if (v6 && *(a1 + 40) - *(a1 + 48) >= v6)
+        if (v11 && a1[5] - a1[6] >= v11)
         {
-          memcpy(*(a1 + 8), (a2 + 2), v6);
-          *(a1 + 8) += v6;
-          *(a1 + 24) += v6;
-          *(a1 + 48) += v6;
+          memcpy(a1[1], (a2 + 2), v11);
+          a1[1] += v11;
+          a1[3] += v11;
+          a1[6] += v11;
         }
 
         if ((_iAP2LogEnableMask & 2) != 0)
         {
-          v69 = logObjectForModule_31();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+          v84 = logObjectForModule_31();
+          if (os_log_type_enabled(v84, OS_LOG_TYPE_INFO))
           {
-            v70 = *(a1 + 109);
-            v71 = *(a1 + 24);
-            v72 = *(a1 + 32);
-            v112 = 136316418;
-            v113 = "iAP2FileTransferHandleRecv";
-            v114 = 1024;
-            v115 = 1390;
-            v116 = 1024;
-            v117 = a1;
-            v118 = 1024;
-            v119 = v70;
-            v120 = 2048;
-            *v121 = v71;
-            *&v121[8] = 2048;
-            *&v121[10] = v72;
-            _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Recv'd bytes %lu/%lu", &v112, 0x32u);
+            v85 = *(a1 + 109);
+            v86 = a1[3];
+            v87 = a1[4];
+            v134 = 136316418;
+            v135 = "iAP2FileTransferHandleRecv";
+            v136 = 1024;
+            v137 = 1390;
+            v138 = 1024;
+            v139 = a1;
+            v140 = 1024;
+            v141 = v85;
+            v142 = 2048;
+            *v143 = v86;
+            *&v143[8] = 2048;
+            *&v143[10] = v87;
+            _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Recv'd bytes %lu/%lu", &v134, 0x32u);
           }
         }
 
-        if ((v8 & 0x40) == 0)
+        if ((v13 & 0x40) == 0)
         {
           if ((*(a1 + 111) & 2) == 0)
           {
             return 0;
           }
 
-          v73 = *(a1 + 72);
-          if (!v73 || !v73(a1, *(a1 + 80)))
+          v88 = a1[9];
+          if (!v88 || !v88(a1, a1[10]))
           {
             return 0;
           }
 
-          free(*(a1 + 16));
-          v3 = 0;
-          *(a1 + 8) = 0;
-          *(a1 + 16) = 0;
+          free(a1[2]);
+          v8 = 0;
+          a1[1] = 0;
+          a1[2] = 0;
 LABEL_143:
-          *(a1 + 40) = 0;
-          *(a1 + 48) = 0;
-          return v3;
+          a1[5] = 0;
+          a1[6] = 0;
+          return v8;
         }
 
         if ((_iAP2LogEnableMask & 2) != 0)
         {
-          v74 = logObjectForModule_31();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+          v89 = logObjectForModule_31();
+          if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
           {
-            v75 = *(a1 + 109);
-            v76 = *(a1 + 72);
-            v77 = *(a1 + 80);
-            v78 = *(a1 + 16);
-            v79 = *(a1 + 40);
-            v112 = 136316930;
-            v113 = "iAP2FileTransferHandleRecv";
-            v114 = 1024;
-            v115 = 1399;
-            v116 = 1024;
-            v117 = a1;
-            v118 = 1024;
-            v119 = v75;
-            v120 = 1024;
-            *v121 = v76;
-            *&v121[4] = 1024;
-            *&v121[6] = v77;
-            *&v121[10] = 1024;
-            *&v121[12] = v78;
-            *&v121[16] = 2048;
-            *&v121[18] = v79;
-            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Last packet (gotCB=%hx userInfo=%hx) pBuffer=%hx buffSize=%lu", &v112, 0x3Au);
+            v90 = *(a1 + 109);
+            v91 = *(a1 + 36);
+            v92 = *(a1 + 40);
+            v93 = *(a1 + 8);
+            v94 = a1[5];
+            v134 = 136316930;
+            v135 = "iAP2FileTransferHandleRecv";
+            v136 = 1024;
+            v137 = 1399;
+            v138 = 1024;
+            v139 = a1;
+            v140 = 1024;
+            v141 = v90;
+            v142 = 1024;
+            *v143 = v91;
+            *&v143[4] = 1024;
+            *&v143[6] = v92;
+            *&v143[10] = 1024;
+            *&v143[12] = v93;
+            *&v143[16] = 2048;
+            *&v143[18] = v94;
+            _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Last packet (gotCB=%hx userInfo=%hx) pBuffer=%hx buffSize=%lu", &v134, 0x3Au);
           }
         }
 
-        *(a1 + 104) = 11;
+        *(a1 + 26) = 11;
         iAP2LinkEventNotify(*a1, 1, a1);
-        v80 = *(a1 + 72);
-        if (v80)
+        v102 = a1[9];
+        if (v102)
         {
-          if (v80(a1, *(a1 + 80)))
+          if (v102(a1, a1[10]))
           {
-            v81 = *(a1 + 16);
-            if (v81)
+            v103 = a1[2];
+            if (v103)
             {
-              free(v81);
+              free(v103);
             }
 
-            *(a1 + 8) = 0;
-            *(a1 + 16) = 0;
-            v3 = 1;
+            a1[1] = 0;
+            a1[2] = 0;
+            v8 = 1;
             goto LABEL_143;
           }
         }
 
         else
         {
-          iAP2FileTransferSuccess(a1);
+          iAP2FileTransferSuccess(a1, v95, v96, v97, v98, v99, v100, v101);
         }
 
         return 1;
       }
 
-      v22 = *(a1 + 16);
-      if (v22)
+      v27 = a1[2];
+      if (v27)
       {
-        free(v22);
-        *(a1 + 8) = 0;
-        *(a1 + 16) = 0;
-        *(a1 + 40) = 0;
-        *(a1 + 48) = 0;
+        free(v27);
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[5] = 0;
+        a1[6] = 0;
       }
 
-      v23 = malloc_type_calloc(1uLL, v6, 0x100004077774924uLL);
-      *(a1 + 16) = v23;
-      *(a1 + 40) = v6;
+      v28 = malloc_type_calloc(1uLL, v11, 0x100004077774924uLL);
+      a1[2] = v28;
+      a1[5] = v11;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v28;
     goto LABEL_118;
   }
 
-  if ((v8 & 0xFu) > 4)
+  if ((v13 & 0xFu) > 4)
   {
-    if (v9 != 5)
+    if (v14 != 5)
     {
-      if (v9 == 6)
+      if (v14 == 6)
       {
         if ((*(a1 + 109) & 0x80000000) == 0)
         {
           return 0;
         }
 
-        if (*(a1 + 104) != 5)
+        if (*(a1 + 26) != 5)
         {
           if ((_iAP2LogEnableMask & 1) == 0)
           {
             return 0;
           }
 
-          v38 = logObjectForModule_31();
-          if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v48 = logObjectForModule_31();
+          if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             return 0;
           }
 
-          v86 = *(a1 + 109);
-          v87 = *(a1 + 104);
-          v112 = 136316162;
-          v113 = "iAP2FileTransferHandleRecv";
-          v114 = 1024;
-          v115 = 1774;
-          v116 = 1024;
-          v117 = a1;
-          v118 = 1024;
-          v119 = v86;
-          v120 = 1024;
-          *v121 = v87;
-          v31 = "ERROR: %s:%d Wrong state for Failure! fileXfer=%hx buffID=0x%X state=%d";
+          v108 = *(a1 + 109);
+          v109 = *(a1 + 26);
+          v134 = 136316162;
+          v135 = "iAP2FileTransferHandleRecv";
+          v136 = 1024;
+          v137 = 1774;
+          v138 = 1024;
+          v139 = a1;
+          v140 = 1024;
+          v141 = v108;
+          v142 = 1024;
+          *v143 = v109;
+          v36 = "ERROR: %s:%d Wrong state for Failure! fileXfer=%hx buffID=0x%X state=%d";
           goto LABEL_153;
         }
 
-        *(a1 + 288) = 0;
-        v19 = *(a1 + 88);
-        if (v19)
+        a1[36] = 0;
+        v24 = a1[11];
+        if (v24)
         {
-          v19(a1, 5, *(a1 + 96));
+          v24(a1, 5, a1[12], a4, a5, a6, a7, a8);
         }
 
-        v20 = 7;
+        v25 = 7;
         goto LABEL_87;
       }
 
@@ -8183,45 +8195,45 @@ LABEL_41:
 
       if (gLogObjects && gNumLogObjects >= 20)
       {
-        v24 = *(gLogObjects + 152);
+        v29 = *(gLogObjects + 152);
       }
 
       else
       {
-        v24 = &_os_log_default;
+        v29 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         return 0;
       }
 
-      v28 = *(a1 + 109);
-      v29 = *(a1 + 16);
-      v30 = *(a1 + 40);
-      v112 = 136316930;
-      v113 = "iAP2FileTransferHandleRecv";
-      v114 = 1024;
-      v115 = 1782;
-      v116 = 1024;
-      v117 = a1;
-      v118 = 1024;
-      v119 = v28;
-      v120 = 1024;
-      *v121 = v8 & 0xF;
-      *&v121[4] = 1024;
-      *&v121[6] = *v121;
-      *&v121[10] = 1024;
-      *&v121[12] = v29;
-      *&v121[16] = 2048;
-      *&v121[18] = v30;
-      v31 = "ERROR: %s:%d fileXfer=%hx buffID=0x%X Invalid packet type! %u(0x%x) pBuffer=%hx buffSize=%lu";
-      v32 = v24;
-      v33 = 58;
+      v33 = *(a1 + 109);
+      v34 = *(a1 + 8);
+      v35 = a1[5];
+      v134 = 136316930;
+      v135 = "iAP2FileTransferHandleRecv";
+      v136 = 1024;
+      v137 = 1782;
+      v138 = 1024;
+      v139 = a1;
+      v140 = 1024;
+      v141 = v33;
+      v142 = 1024;
+      *v143 = v13 & 0xF;
+      *&v143[4] = 1024;
+      *&v143[6] = *v143;
+      *&v143[10] = 1024;
+      *&v143[12] = v34;
+      *&v143[16] = 2048;
+      *&v143[18] = v35;
+      v36 = "ERROR: %s:%d fileXfer=%hx buffID=0x%X Invalid packet type! %u(0x%x) pBuffer=%hx buffSize=%lu";
+      v37 = v29;
+      v38 = 58;
       goto LABEL_154;
     }
 
@@ -8230,100 +8242,100 @@ LABEL_41:
       return 0;
     }
 
-    if (*(a1 + 104) != 5)
+    if (*(a1 + 26) != 5)
     {
       if ((_iAP2LogEnableMask & 1) == 0)
       {
         return 0;
       }
 
-      v38 = logObjectForModule_31();
-      if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v48 = logObjectForModule_31();
+      if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         return 0;
       }
 
-      v84 = *(a1 + 109);
-      v85 = *(a1 + 104);
-      v112 = 136316162;
-      v113 = "iAP2FileTransferHandleRecv";
-      v114 = 1024;
-      v115 = 1739;
-      v116 = 1024;
-      v117 = a1;
-      v118 = 1024;
-      v119 = v84;
-      v120 = 1024;
-      *v121 = v85;
-      v31 = "ERROR: %s:%d Wrong state for Success! fileXfer=%hx buffID=0x%X state=%d";
+      v106 = *(a1 + 109);
+      v107 = *(a1 + 26);
+      v134 = 136316162;
+      v135 = "iAP2FileTransferHandleRecv";
+      v136 = 1024;
+      v137 = 1739;
+      v138 = 1024;
+      v139 = a1;
+      v140 = 1024;
+      v141 = v106;
+      v142 = 1024;
+      *v143 = v107;
+      v36 = "ERROR: %s:%d Wrong state for Success! fileXfer=%hx buffID=0x%X state=%d";
       goto LABEL_153;
     }
 
-    *(a1 + 288) = 0;
-    v26 = *(a1 + 88);
-    if (v26)
+    a1[36] = 0;
+    v31 = a1[11];
+    if (v31)
     {
-      v26(a1, 5, *(a1 + 96));
+      v31(a1, 5, a1[12], a4, a5, a6, a7, a8);
     }
 
-    v20 = 6;
+    v25 = 6;
 LABEL_87:
-    *(a1 + 104) = v20;
-    v3 = 1;
+    *(a1 + 26) = v25;
+    v8 = 1;
     iAP2LinkEventNotify(*a1, 1, a1);
-    v49 = *(a1 + 56);
-    if (!v49)
+    v59 = a1[7];
+    if (!v59)
     {
-      return v3;
+      return v8;
     }
 
     goto LABEL_88;
   }
 
-  if (v9 == 3)
+  if (v14 == 3)
   {
     if ((_iAP2LogEnableMask & 2) != 0)
     {
       if (gLogObjects && gNumLogObjects >= 20)
       {
-        v25 = *(gLogObjects + 152);
+        v30 = *(gLogObjects + 152);
       }
 
       else
       {
-        v25 = &_os_log_default;
+        v30 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v34 = *(a1 + 109);
-        v35 = *(a1 + 104);
-        v112 = 136316162;
-        v113 = "iAP2FileTransferHandleRecv";
-        v114 = 1024;
-        v115 = 1635;
-        v116 = 1024;
-        v117 = a1;
-        v118 = 1024;
-        v119 = v34;
-        v120 = 1024;
-        *v121 = v35;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Control Pause curState=%d", &v112, 0x24u);
+        v39 = *(a1 + 109);
+        v40 = *(a1 + 26);
+        v134 = 136316162;
+        v135 = "iAP2FileTransferHandleRecv";
+        v136 = 1024;
+        v137 = 1635;
+        v138 = 1024;
+        v139 = a1;
+        v140 = 1024;
+        v141 = v39;
+        v142 = 1024;
+        *v143 = v40;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx buffID=0x%X Control Pause curState=%d", &v134, 0x24u);
       }
     }
 
-    v36 = *(a1 + 104);
-    if (v36 != 2)
+    v41 = *(a1 + 26);
+    if (v41 != 2)
     {
-      if (v36 == 8)
+      if (v41 == 8)
       {
-        v37 = 9;
+        v42 = 9;
 LABEL_99:
-        *(a1 + 104) = v37;
+        *(a1 + 26) = v42;
         iAP2LinkEventNotify(*a1, 1, a1);
         return 0;
       }
@@ -8333,150 +8345,150 @@ LABEL_99:
         return 0;
       }
 
-      v38 = logObjectForModule_31();
-      if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v48 = logObjectForModule_31();
+      if (!os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         return 0;
       }
 
-      v39 = *(a1 + 109);
-      v40 = *(a1 + 104);
-      v112 = 136316162;
-      v113 = "iAP2FileTransferHandleRecv";
-      v114 = 1024;
-      v115 = 1654;
-      v116 = 1024;
-      v117 = a1;
-      v118 = 1024;
-      v119 = v39;
-      v120 = 1024;
-      *v121 = v40;
-      v31 = "ERROR: %s:%d Wrong state for Pause! fileXfer=%hx buffID=0x%X state=%d";
+      v49 = *(a1 + 109);
+      v50 = *(a1 + 26);
+      v134 = 136316162;
+      v135 = "iAP2FileTransferHandleRecv";
+      v136 = 1024;
+      v137 = 1654;
+      v138 = 1024;
+      v139 = a1;
+      v140 = 1024;
+      v141 = v49;
+      v142 = 1024;
+      *v143 = v50;
+      v36 = "ERROR: %s:%d Wrong state for Pause! fileXfer=%hx buffID=0x%X state=%d";
       goto LABEL_153;
     }
 
-    *(a1 + 104) = 3;
+    *(a1 + 26) = 3;
     iAP2LinkEventNotify(*a1, 1, a1);
-    __iAP2FileTransferSendBufferPacket(a1, 3, 1);
+    __iAP2FileTransferSendBufferPacket(a1, 3, 1, v43, v44, v45, v46, v47);
     return 0;
   }
 
-  if (v9 != 4)
+  if (v14 != 4)
   {
     goto LABEL_41;
   }
 
-  v3 = 0;
+  v8 = 0;
   if (a3 >= 0xA && (*(a1 + 109) & 0x80000000) == 0)
   {
     SessionForService = iAP2LinkGetSessionForService(*a1, 1);
     SessionInfo = iAP2LinkGetSessionInfo(*a1, SessionForService);
     *(a1 + 111) |= 4u;
     iAP2FileTransferCleanup(a1);
-    v12 = SessionInfo[2];
-    v13 = *(a2 + 6);
-    *(a1 + 110) = v12;
-    *(a1 + 32) = bswap32(v13);
-    if (v12 < 2)
+    v17 = SessionInfo[2];
+    v18 = *(a2 + 6);
+    *(a1 + 110) = v17;
+    a1[4] = bswap32(v18);
+    if (v17 < 2)
     {
       goto LABEL_171;
     }
 
-    v14 = __rev16(*(a2 + 10));
-    *(a1 + 112) = v14;
-    if (v14 <= 8)
+    v19 = __rev16(*(a2 + 10));
+    *(a1 + 56) = v19;
+    if (v19 <= 8)
     {
-      if (((1 << v14) & 0x4C) != 0)
+      if (((1 << v19) & 0x4C) != 0)
       {
 LABEL_163:
-        *(a1 + 120) = 0;
+        *(a1 + 60) = 0;
 LABEL_171:
         if ((_iAP2LogEnableMask & 2) != 0)
         {
-          v98 = logObjectForModule_31();
-          if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
+          v120 = logObjectForModule_31();
+          if (os_log_type_enabled(v120, OS_LOG_TYPE_INFO))
           {
-            v99 = SessionInfo[2];
-            v100 = *(a1 + 109);
-            v101 = *(a1 + 32);
-            v102 = *(a1 + 112);
-            v103 = *(a1 + 120);
-            v112 = 136316930;
-            v113 = "iAP2FileTransferHandleRecv";
-            v114 = 1024;
-            v115 = 1577;
-            v116 = 1024;
-            v117 = a1;
-            v118 = 1024;
-            v119 = v99;
-            v120 = 1024;
-            *v121 = v100;
-            *&v121[4] = 2048;
-            *&v121[6] = v101;
-            *&v121[14] = 1024;
-            *&v121[16] = v102;
-            *&v121[20] = 1024;
-            *&v121[22] = v103;
-            _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx ver=%u buffID=0x%X Setup size=%lu type=%u typeData.len=%u, send Resume", &v112, 0x3Au);
+            v121 = SessionInfo[2];
+            v122 = *(a1 + 109);
+            v123 = a1[4];
+            v124 = *(a1 + 56);
+            v125 = *(a1 + 60);
+            v134 = 136316930;
+            v135 = "iAP2FileTransferHandleRecv";
+            v136 = 1024;
+            v137 = 1577;
+            v138 = 1024;
+            v139 = a1;
+            v140 = 1024;
+            v141 = v121;
+            v142 = 1024;
+            *v143 = v122;
+            *&v143[4] = 2048;
+            *&v143[6] = v123;
+            *&v143[14] = 1024;
+            *&v143[16] = v124;
+            *&v143[20] = 1024;
+            *&v143[22] = v125;
+            _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_INFO, "%s:%d fileXfer=%hx ver=%u buffID=0x%X Setup size=%lu type=%u typeData.len=%u, send Resume", &v134, 0x3Au);
           }
         }
 
-        *(a1 + 104) = 9;
+        *(a1 + 26) = 9;
         iAP2LinkEventNotify(*a1, 1, a1);
-        *(a1 + 288) = iAP2TimeGetCurTimeMs();
-        v104 = *(a1 + 88);
-        if (v104)
+        *(a1 + 72) = iAP2TimeGetCurTimeMs();
+        v126 = a1[11];
+        if (v126)
         {
-          v104(a1, 2, *(a1 + 96));
+          v126(a1, 2, a1[12]);
         }
 
         iAP2FileTransferResume(a1);
         return 0;
       }
 
-      if (((1 << v14) & 0xB0) != 0)
+      if (((1 << v19) & 0xB0) != 0)
       {
-        v15 = 0;
-        v16 = 8;
-        *(a1 + 120) = 8;
-        *(a1 + 128) = bswap64(*(a2 + 12));
-        v17 = a2 + 20;
+        v20 = 0;
+        v21 = 8;
+        *(a1 + 60) = 8;
+        a1[16] = bswap64(*(a2 + 12));
+        v22 = a2 + 20;
         do
         {
-          *(a1 + 136 + v15) = *(v17 + v15);
-          *(a1 + 120) = ++v16;
-          if (!*(v17 + v15))
+          *(a1 + v20 + 136) = *(v22 + v20);
+          *(a1 + 60) = ++v21;
+          if (!*(v22 + v20))
           {
             break;
           }
 
-          ++v15;
+          ++v20;
         }
 
-        while (v15 != 60);
+        while (v20 != 60);
         goto LABEL_171;
       }
 
-      if (v14 == 8)
+      if (v19 == 8)
       {
-        v88 = 0;
-        *(a1 + 120) = 0;
-        v89 = (a1 + 129);
-        v90 = a2 + 12;
+        v110 = 0;
+        *(a1 + 60) = 0;
+        v111 = a1 + 129;
+        v112 = a2 + 12;
         while (1)
         {
-          v91 = v89;
-          *(v89 - 1) = *(v90 + v88);
-          v92 = v88 + 1;
-          *(a1 + 120) = v88 + 1;
-          if (!*(v90 + v88))
+          v113 = v111;
+          *(v111 - 1) = *(v112 + v110);
+          v114 = v110 + 1;
+          *(a1 + 60) = v110 + 1;
+          if (!*(v112 + v110))
           {
             goto LABEL_169;
           }
 
-          ++v89;
-          ++v88;
-          if (v92 == 68)
+          ++v111;
+          ++v110;
+          if (v114 == 68)
           {
             goto LABEL_168;
           }
@@ -8484,80 +8496,80 @@ LABEL_171:
       }
     }
 
-    if (v14 - 65534 >= 2)
+    if (v19 - 65534 >= 2)
     {
-      if (v14 != 1)
+      if (v19 != 1)
       {
         if (_iAP2LogEnableMask)
         {
-          v106 = logObjectForModule_31();
-          if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+          v128 = logObjectForModule_31();
+          if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
           {
-            v107 = SessionInfo[2];
-            v108 = *(a1 + 109);
-            v109 = *(a1 + 32);
-            v110 = *(a1 + 112);
-            v111 = *(a1 + 120);
-            v112 = 136316674;
-            v113 = "iAP2FileTransferHandleRecv";
-            v114 = 1024;
-            v115 = 1569;
-            v116 = 1024;
-            v117 = v107;
-            v118 = 1024;
-            v119 = v108;
-            v120 = 2048;
-            *v121 = v109;
-            *&v121[8] = 1024;
-            *&v121[10] = v110;
-            *&v121[14] = 1024;
-            *&v121[16] = v111;
-            _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d fileXfer ver=%u buffID=0x%X Setup size=%lu type=%d typeData.len=%u, ERROR: Invalid type!", &v112, 0x34u);
+            v129 = SessionInfo[2];
+            v130 = *(a1 + 109);
+            v131 = a1[4];
+            v132 = *(a1 + 56);
+            v133 = *(a1 + 60);
+            v134 = 136316674;
+            v135 = "iAP2FileTransferHandleRecv";
+            v136 = 1024;
+            v137 = 1569;
+            v138 = 1024;
+            v139 = v129;
+            v140 = 1024;
+            v141 = v130;
+            v142 = 2048;
+            *v143 = v131;
+            *&v143[8] = 1024;
+            *&v143[10] = v132;
+            *&v143[14] = 1024;
+            *&v143[16] = v133;
+            _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d fileXfer ver=%u buffID=0x%X Setup size=%lu type=%d typeData.len=%u, ERROR: Invalid type!", &v134, 0x34u);
           }
         }
 
         goto LABEL_171;
       }
 
-      v93 = 0;
-      *(a1 + 120) = 0;
-      v94 = (a1 + 129);
-      v95 = a2 + 12;
+      v115 = 0;
+      *(a1 + 60) = 0;
+      v116 = a1 + 129;
+      v117 = a2 + 12;
       while (1)
       {
-        v91 = v94;
-        *(v94 - 1) = *(v95 + v93);
-        v96 = v93 + 1;
-        *(a1 + 120) = v93 + 1;
-        if (!*(v95 + v93))
+        v113 = v116;
+        *(v116 - 1) = *(v117 + v115);
+        v118 = v115 + 1;
+        *(a1 + 60) = v115 + 1;
+        if (!*(v117 + v115))
         {
           break;
         }
 
-        ++v94;
-        ++v93;
-        if (v96 == 68)
+        ++v116;
+        ++v115;
+        if (v118 == 68)
         {
 LABEL_168:
-          v97 = *(a2 + 80);
+          v119 = *(a2 + 80);
           goto LABEL_170;
         }
       }
 
 LABEL_169:
-      v97 = 0;
+      v119 = 0;
 LABEL_170:
-      *v91 = v97;
+      *v113 = v119;
       goto LABEL_171;
     }
 
     goto LABEL_163;
   }
 
-  return v3;
+  return v8;
 }
 
-void iAP2FileTransferSuccess(uint64_t a1)
+void iAP2FileTransferSuccess(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if ((_iAP2LogEnableMask & 4) == 0)
   {
@@ -8566,7 +8578,7 @@ void iAP2FileTransferSuccess(uint64_t a1)
 
   if (!gLogObjects || gNumLogObjects < 20)
   {
-    v3 = &_os_log_default;
+    v10 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -8575,59 +8587,59 @@ void iAP2FileTransferSuccess(uint64_t a1)
 
   else
   {
-    v3 = *(gLogObjects + 152);
+    v10 = *(gLogObjects + 152);
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    iAP2FileTransferSuccess_cold_2(a1);
+    iAP2FileTransferSuccess_cold_2();
   }
 
   else
   {
 LABEL_10:
-    if (!a1)
+    if (!result)
     {
       return;
     }
   }
 
-  if (*(a1 + 104) == 11)
+  if (*(result + 104) == 11)
   {
     if ((_iAP2LogEnableMask & 4) != 0)
     {
       if (gLogObjects && gNumLogObjects >= 20)
       {
-        v4 = *(gLogObjects + 152);
+        v11 = *(gLogObjects + 152);
       }
 
       else
       {
-        v4 = &_os_log_default;
+        v11 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
         }
       }
 
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        iAP2FileTransferSuccess_cold_4(a1);
+        iAP2FileTransferSuccess_cold_4();
       }
     }
 
-    *(a1 + 288) = 0;
-    v5 = *(a1 + 88);
-    if (v5)
+    *(result + 288) = 0;
+    v12 = *(result + 88);
+    if (v12)
     {
-      v5(a1, 5, *(a1 + 96));
+      v12(result, 5, *(result + 96), a4, a5, a6, a7, a8);
     }
 
-    __iAP2FileTransferSendBufferPacket(a1, 5, 1);
+    __iAP2FileTransferSendBufferPacket(result, 5, 1, a4, a5, a6, a7, a8);
   }
 }
 
-void iAP2FileTransferResume(uint64_t a1)
+void iAP2FileTransferResume(uint64_t result)
 {
   if ((_iAP2LogEnableMask & 4) == 0)
   {
@@ -8650,19 +8662,19 @@ void iAP2FileTransferResume(uint64_t a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    iAP2FileTransferResume_cold_2(a1);
+    iAP2FileTransferResume_cold_2();
   }
 
   else
   {
 LABEL_10:
-    if (!a1)
+    if (!result)
     {
       return;
     }
   }
 
-  v4 = *(a1 + 104);
+  v4 = *(result + 104);
   if (v4 == 9)
   {
     if ((_iAP2LogEnableMask & 4) != 0)
@@ -8683,15 +8695,15 @@ LABEL_10:
 
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        iAP2FileTransferResume_cold_4(a1);
+        iAP2FileTransferResume_cold_4();
       }
     }
 
-    *(a1 + 104) = 8;
-    iAP2LinkEventNotify(*a1, 1, a1);
-    v7 = a1;
-    v8 = 1;
-    v9 = 1;
+    *(result + 104) = 8;
+    iAP2LinkEventNotify(*result, 1, result);
+    v12 = result;
+    v13 = 1;
+    v14 = 1;
   }
 
   else
@@ -8719,21 +8731,21 @@ LABEL_10:
 
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        iAP2FileTransferResume_cold_6(a1);
+        iAP2FileTransferResume_cold_6();
       }
     }
 
-    *(a1 + 104) = 2;
-    iAP2LinkEventNotify(*a1, 1, a1);
-    v7 = a1;
-    v8 = 0;
-    v9 = 0;
+    *(result + 104) = 2;
+    iAP2LinkEventNotify(*result, 1, result);
+    v12 = result;
+    v13 = 0;
+    v14 = 0;
   }
 
-  __iAP2FileTransferSendBufferPacket(v7, v8, v9);
+  __iAP2FileTransferSendBufferPacket(v12, v13, v14, v7, v8, v9, v10, v11);
 }
 
-void iAP2FileTransferCancel(uint64_t a1)
+void iAP2FileTransferCancel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
@@ -8741,17 +8753,17 @@ void iAP2FileTransferCancel(uint64_t a1)
     {
       if (gLogObjects)
       {
-        v2 = gNumLogObjects < 20;
+        v9 = gNumLogObjects < 20;
       }
 
       else
       {
-        v2 = 1;
+        v9 = 1;
       }
 
-      if (v2)
+      if (v9)
       {
-        v3 = &_os_log_default;
+        v10 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -8760,12 +8772,12 @@ void iAP2FileTransferCancel(uint64_t a1)
 
       else
       {
-        v3 = *(gLogObjects + 152);
+        v10 = *(gLogObjects + 152);
       }
 
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        iAP2FileTransferCancel_cold_2(a1);
+        iAP2FileTransferCancel_cold_2();
       }
     }
 
@@ -8773,17 +8785,17 @@ void iAP2FileTransferCancel(uint64_t a1)
     {
       if (gLogObjects)
       {
-        v4 = gNumLogObjects < 20;
+        v11 = gNumLogObjects < 20;
       }
 
       else
       {
-        v4 = 1;
+        v11 = 1;
       }
 
-      if (v4)
+      if (v11)
       {
-        v5 = &_os_log_default;
+        v12 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -8792,61 +8804,61 @@ void iAP2FileTransferCancel(uint64_t a1)
 
       else
       {
-        v5 = *(gLogObjects + 152);
+        v12 = *(gLogObjects + 152);
       }
 
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v6 = *(a1 + 104);
-        v7 = *(a1 + 108);
-        v8 = *(a1 + 24);
-        v9 = *(a1 + 32);
-        v10 = *(a1 + 56) != 0;
-        v11 = *(a1 + 64) != 0;
-        v20 = 136316930;
-        v21 = "iAP2FileTransferCancel";
-        v22 = 1024;
-        v23 = 1819;
-        v24 = 1024;
-        v25 = v6;
-        v26 = 1024;
-        v27 = v7;
-        v28 = 2048;
-        v29 = v8;
-        v30 = 2048;
-        v31 = v9;
-        v32 = 1024;
-        v33 = v10;
-        v34 = 1024;
-        v35 = v11;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s:%d fileXfer state=%d session=%u sentSize=%lu totalSize=%lu endCB(%d) userInfo(%d)", &v20, 0x3Eu);
+        v13 = *(a1 + 104);
+        v14 = *(a1 + 108);
+        v15 = *(a1 + 24);
+        v16 = *(a1 + 32);
+        v17 = *(a1 + 56) != 0;
+        v18 = *(a1 + 64) != 0;
+        v27 = 136316930;
+        v28 = "iAP2FileTransferCancel";
+        v29 = 1024;
+        v30 = 1819;
+        v31 = 1024;
+        v32 = v13;
+        v33 = 1024;
+        v34 = v14;
+        v35 = 2048;
+        v36 = v15;
+        v37 = 2048;
+        v38 = v16;
+        v39 = 1024;
+        v40 = v17;
+        v41 = 1024;
+        v42 = v18;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s:%d fileXfer state=%d session=%u sentSize=%lu totalSize=%lu endCB(%d) userInfo(%d)", &v27, 0x3Eu);
       }
     }
 
-    v12 = *(a1 + 104);
-    v2 = v12 > 9;
-    v13 = (1 << v12) & 0x32C;
-    if (v2 || v13 == 0)
+    v19 = *(a1 + 104);
+    v9 = v19 > 9;
+    v20 = (1 << v19) & 0x32C;
+    if (v9 || v20 == 0)
     {
       if ((_iAP2LogEnableMask & 4) != 0)
       {
         if (gLogObjects && gNumLogObjects >= 20)
         {
-          v19 = *(gLogObjects + 152);
+          v26 = *(gLogObjects + 152);
         }
 
         else
         {
-          v19 = &_os_log_default;
+          v26 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
         }
 
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
-          iAP2FileTransferCancel_cold_7(a1, (a1 + 104));
+          iAP2FileTransferCancel_cold_7();
         }
       }
     }
@@ -8857,48 +8869,48 @@ void iAP2FileTransferCancel(uint64_t a1)
       {
         if (gLogObjects && gNumLogObjects >= 20)
         {
-          v15 = *(gLogObjects + 152);
+          v22 = *(gLogObjects + 152);
         }
 
         else
         {
-          v15 = &_os_log_default;
+          v22 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             platform_connectionInfo_configStreamGetCategories_cold_2();
           }
         }
 
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          iAP2FileTransferCancel_cold_5(a1);
+          iAP2FileTransferCancel_cold_5();
         }
       }
 
       *(a1 + 288) = 0;
-      v16 = *(a1 + 88);
-      if (v16)
+      v23 = *(a1 + 88);
+      if (v23)
       {
-        v16(a1, 5, *(a1 + 96));
+        v23(a1, 5, *(a1 + 96), a4, a5, a6, a7, a8);
       }
 
-      __iAP2FileTransferSendBufferPacket(a1, 2, 1);
+      __iAP2FileTransferSendBufferPacket(a1, 2, 1, a4, a5, a6, a7, a8);
       if (*(a1 + 109) < 0)
       {
-        v17 = 4;
+        v24 = 4;
       }
 
       else
       {
-        v17 = 10;
+        v24 = 10;
       }
 
-      *(a1 + 104) = v17;
+      *(a1 + 104) = v24;
       iAP2LinkEventNotify(*a1, 1, a1);
-      v18 = *(a1 + 56);
-      if (v18)
+      v25 = *(a1 + 56);
+      if (v25)
       {
-        v18(a1, *(a1 + 64));
+        v25(a1, *(a1 + 64));
       }
     }
   }
@@ -8957,18 +8969,6 @@ uint64_t iAP2FileTransferRetain(uint64_t a1)
   return a1;
 }
 
-uint64_t OUTLINED_FUNCTION_1_28@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 104);
-  v4 = *(result + 108);
-  v5 = *(result + 24);
-  v6 = *(result + 32);
-  v7 = *(result + 56);
-  v8 = *(result + 64);
-  return result;
-}
-
 id logObjectForModule_32()
 {
   if (gLogObjects)
@@ -9001,10 +9001,11 @@ id logObjectForModule_32()
   return v10;
 }
 
-void OUTLINED_FUNCTION_9_21(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9_21(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_10_18(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -9439,145 +9440,137 @@ id platform_usb_setNeedOutZlp(uint64_t a1, uint64_t a2, uint64_t a3)
   return v10;
 }
 
-void sub_1000ACAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000ACAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000ACEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000ACEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AD290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AD290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AD730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AD730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000ADC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000ADC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000ADFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000ADFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AE430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000AE430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AE8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000AE8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AED0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AED0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AF1FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AF1FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AF4DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AF4DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AF7A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AF7A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AFFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AFFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000B02BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B02BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000B0528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B0528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000B081C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B081C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000B0B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B0B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000B0E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B0E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000B12C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000B12C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
-}
-
-uint64_t OUTLINED_FUNCTION_7_21@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  v4 = *(result + 40);
-  return result;
 }
 
 void *logObjectForModule_33()

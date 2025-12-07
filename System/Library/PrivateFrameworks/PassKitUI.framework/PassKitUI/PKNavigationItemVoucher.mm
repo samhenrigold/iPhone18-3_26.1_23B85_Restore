@@ -55,9 +55,9 @@ LABEL_11:
 
 - (void)invalidate
 {
-  if (self)
+  if (result)
   {
-    [(PKNavigationItemVoucher *)self _invalidateFromDisconnect:?];
+    [(PKNavigationItemVoucher *)result _invalidateFromDisconnect:?];
   }
 }
 

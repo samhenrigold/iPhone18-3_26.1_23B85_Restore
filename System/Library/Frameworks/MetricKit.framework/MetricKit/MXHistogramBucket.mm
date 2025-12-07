@@ -87,27 +87,25 @@ LABEL_6:
 
 - (id)toDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   if (self->_bucketStart && self->_bucketEnd && self->_bucketCount)
   {
-    v9[0] = @"bucketStart";
+    v8[0] = @"bucketStart";
     v3 = [(NSMeasurementFormatter *)self->_histogramBucketFormatter stringFromMeasurement:?];
-    v10[0] = v3;
-    v9[1] = @"bucketEnd";
+    v9[0] = v3;
+    v8[1] = @"bucketEnd";
     v4 = [(NSMeasurementFormatter *)self->_histogramBucketFormatter stringFromMeasurement:self->_bucketEnd];
-    v10[1] = v4;
-    v9[2] = @"bucketCount";
+    v9[1] = v4;
+    v8[2] = @"bucketCount";
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_bucketCount];
-    v10[2] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+    v9[2] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
   }
 
   else
   {
     v6 = MEMORY[0x277CBEC10];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

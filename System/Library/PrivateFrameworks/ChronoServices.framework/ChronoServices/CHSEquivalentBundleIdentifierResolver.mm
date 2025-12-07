@@ -19,7 +19,6 @@
 {
   swift_unknownObjectRetain();
   v5 = [(CHSEquivalentBundleIdentifierResolver *)self init];
-  v6 = *(&v5->super.isa + OBJC_IVAR___CHSEquivalentBundleIdentifierResolver_categoriesPrimitives);
   *(&v5->super.isa + OBJC_IVAR___CHSEquivalentBundleIdentifierResolver_categoriesPrimitives) = primitives;
   swift_unknownObjectRelease();
   return v5;

@@ -1,3 +1,49 @@
+void IR::IRDataLoader::Implementation::clearPersonalizedIRDataCache(IR::IRDataLoader::Implementation *this)
+{
+  std::recursive_mutex::lock((this + 24));
+  v2 = *this;
+  v3 = *(this + 1);
+  if (*this != v3)
+  {
+    while (!*(v2 + 12))
+    {
+      v2 += 21;
+      if (v2 == v3)
+      {
+        v2 = *(this + 1);
+        goto LABEL_11;
+      }
+    }
+
+    if (v2 != v3)
+    {
+      v4 = v2 + 21;
+      if (v2 + 21 != v3)
+      {
+        do
+        {
+          if (!*(v4 + 12))
+          {
+            std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>::operator=[abi:ne200100](v2, v4);
+            v2 += 21;
+          }
+
+          v4 += 21;
+        }
+
+        while (v4 != v3);
+        v3 = *(this + 1);
+      }
+    }
+  }
+
+LABEL_11:
+  std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::erase(this, v2, v3);
+  IR::PersonalizedIRData::ClearCache(this + 20);
+
+  std::recursive_mutex::unlock((this + 24));
+}
+
 void *applesauce::CF::URLRef::operator->(void *result)
 {
   if (!*result)
@@ -9,10 +55,10 @@ void *applesauce::CF::URLRef::operator->(void *result)
   return result;
 }
 
-uint64_t IR::IRDataLoader::Implementation::getCustomLayoutFromTag@<X0>(IR::IRDataLoader::Implementation *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+uint64_t *IR::IRDataLoader::Implementation::getCustomLayoutFromTag@<X0>(IR::IRDataLoader::Implementation *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
   v6 = *(this + 27);
-  result = this + 216;
+  result = (this + 216);
   v5 = v6;
   if (!v6)
   {
@@ -93,19 +139,19 @@ LABEL_29:
             }
 
             v7 = v5 + 3;
-            v8 = (*a2 + 3);
+            v8 = *a2 + 3;
             while (*v7 == *v8)
             {
               if (*v7 == 100)
               {
-                v9 = *v7 == *v8 && *(v7 + 1) == *(v8 + 8);
-                if (!v9 || v7[4] != *(v8 + 16))
+                v9 = *v7 == *v8 && *(v7 + 1) == *(v8 + 1);
+                if (!v9 || v7[4] != v8[4])
                 {
                   break;
                 }
               }
 
-              v8 += 20;
+              v8 += 5;
               v7 += 5;
               if (!--v6)
               {
@@ -171,7 +217,7 @@ uint64_t IR::IRDataLoader::Implementation::registerCustomLayoutIfNecessary(IR::I
     std::vector<char>::vector[abi:ne200100](__dst, 20 * mNumberChannelDescriptions + 12);
     memcpy(*__dst, a2, 20 * a2->mNumberChannelDescriptions + 12);
     __p[0] = &v30;
-    v24 = std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 208, &v30);
+    v24 = std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 208, &v30, &std::piecewise_construct, __p, &v31);
     v25 = v24[5];
     if (v25)
     {
@@ -231,7 +277,7 @@ LABEL_33:
     __p[0] = 0;
     __p[1] = 0;
     v27 = 0;
-    std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,CA::ChannelLayout>>(this + 208, __dst);
+    std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,CA::ChannelLayout>>(this + 208, __dst, __dst);
     if (*&__dst[8])
     {
       *&__dst[16] = *&__dst[8];
@@ -371,7 +417,7 @@ void sub_296BD21F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t IR::IRDataLoader::Implementation::getFilterLength(IR::IRDataLoader::Implementation *a1, int a2, float a3)
+uint64_t IR::IRDataLoader::Implementation::getFilterLength(IR::IRDataLoader::Implementation *a1, uint64_t a2, float a3)
 {
   IR::getPresetDataAttributes(a2, &v7);
   v8 = a3;
@@ -399,9 +445,9 @@ uint64_t IR::IRDataLoader::Implementation::getFilterLength(IR::IRDataLoader::Imp
   return FilterLength;
 }
 
-void sub_296BD22CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD22CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
@@ -465,7 +511,7 @@ void IR::IRDataLoader::Implementation::cacheMiss(IR::IRDataLoader::Implementatio
   }
 }
 
-uint64_t IR::IRDataLoader::Implementation::getNumSpatialPoints(IR::IRDataLoader::Implementation *a1, int a2, float a3)
+uint64_t IR::IRDataLoader::Implementation::getNumSpatialPoints(IR::IRDataLoader::Implementation *a1, uint64_t a2, float a3)
 {
   IR::getPresetDataAttributes(a2, &v7);
   v8 = a3;
@@ -493,9 +539,9 @@ uint64_t IR::IRDataLoader::Implementation::getNumSpatialPoints(IR::IRDataLoader:
   return NumSpatialPoints;
 }
 
-void sub_296BD2530(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD2530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
@@ -525,7 +571,7 @@ uint64_t IR::IRDataLoader::Implementation::getNumSpatialPoints(IR::IRDataLoader:
   return v7;
 }
 
-uint64_t IR::IRDataLoader::Implementation::getNumFiltersPerSpatialPoint(IR::IRDataLoader::Implementation *a1, int a2, float a3)
+uint64_t IR::IRDataLoader::Implementation::getNumFiltersPerSpatialPoint(IR::IRDataLoader::Implementation *a1, uint64_t a2, float a3)
 {
   IR::getPresetDataAttributes(a2, &v7);
   v8 = a3;
@@ -553,9 +599,9 @@ uint64_t IR::IRDataLoader::Implementation::getNumFiltersPerSpatialPoint(IR::IRDa
   return NumFiltersPerSpatialPoint;
 }
 
-void sub_296BD268C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD268C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
@@ -585,7 +631,7 @@ uint64_t IR::IRDataLoader::Implementation::getNumFiltersPerSpatialPoint(IR::IRDa
   return v7;
 }
 
-uint64_t IR::IRDataLoader::Implementation::getModelingDelay(IR::IRDataLoader::Implementation *a1, int a2, float a3)
+uint64_t IR::IRDataLoader::Implementation::getModelingDelay(IR::IRDataLoader::Implementation *a1, uint64_t a2, float a3)
 {
   IR::getPresetDataAttributes(a2, &v7);
   v8 = a3;
@@ -613,9 +659,9 @@ uint64_t IR::IRDataLoader::Implementation::getModelingDelay(IR::IRDataLoader::Im
   return ModelingDelay;
 }
 
-void sub_296BD27E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD27E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
@@ -645,7 +691,7 @@ uint64_t IR::IRDataLoader::Implementation::getModelingDelay(IR::IRDataLoader::Im
   return v7;
 }
 
-void IR::IRDataLoader::Implementation::getUserData(IR::IRDataLoader::Implementation *a1@<X0>, int a2@<W1>, void *a3@<X8>)
+void IR::IRDataLoader::Implementation::getUserData(IR::IRDataLoader::Implementation *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   IR::getPresetDataAttributes(a2, v5);
   IR::IRDataLoader::Implementation::getUserData(a1, v5, a3);
@@ -670,9 +716,9 @@ void IR::IRDataLoader::Implementation::getUserData(IR::IRDataLoader::Implementat
   }
 }
 
-void sub_296BD2934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD2934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
@@ -680,31 +726,31 @@ void sub_296BD2934(_Unwind_Exception *a1, uint64_t a2, ...)
 void IR::IRDataLoader::Implementation::getUserData(IR::IRDataLoader::Implementation *this@<X0>, const IR::IRDataAttributes *a2@<X1>, void *a3@<X8>)
 {
   std::recursive_mutex::lock((this + 24));
-  IR::IRDataLoader::Implementation::getLoadedIR(this, a2, &v15);
-  if (!v15)
+  IR::IRDataLoader::Implementation::getLoadedIR(this, a2, &v14);
+  if (!v14)
   {
 LABEL_15:
     IR::IRDataLoader::Implementation::cacheMiss("getUserData", v6);
-    IR::IRData::getUserData(a2, v8);
+    IR::IRData::getUserData(a2, a3);
     goto LABEL_16;
   }
 
-  IR::IRData::getFilePlistDict(v15, &cf);
-  v13 = 0;
+  IR::IRData::getFilePlistDict(v14, &cf);
+  v12 = 0;
   v7 = cf;
   if (cf)
   {
     CFRetain(cf);
   }
 
-  v11 = v7;
-  IR::IRData::extractIRDataTypePlist(&v11, *(a2 + 10), &v13, &v12);
-  if (v11)
+  v10 = v7;
+  IR::IRData::extractIRDataTypePlist(&v10, *(a2 + 10), &v12, &v11);
+  if (v10)
   {
-    CFRelease(v11);
+    CFRelease(v10);
   }
 
-  if (!v12)
+  if (!v11)
   {
     if (cf)
     {
@@ -714,17 +760,17 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v9 = 0;
-  v10 = @"UserData";
-  applesauce::CF::at_or<applesauce::CF::DictionaryRef,__CFString const*>(v12, &v10, &v9, a3);
-  if (v9)
+  v8 = 0;
+  v9 = @"UserData";
+  applesauce::CF::at_or<applesauce::CF::DictionaryRef,__CFString const*>(v11, &v9, &v8, a3);
+  if (v8)
   {
-    CFRelease(v9);
+    CFRelease(v8);
   }
 
-  if (v12)
+  if (v11)
   {
-    CFRelease(v12);
+    CFRelease(v11);
   }
 
   if (cf)
@@ -733,9 +779,9 @@ LABEL_15:
   }
 
 LABEL_16:
-  if (v16)
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
   std::recursive_mutex::unlock((this + 24));
@@ -766,87 +812,87 @@ applesauce::CF::DictionaryRef *applesauce::CF::DictionaryRef::DictionaryRef(appl
   return this;
 }
 
-void IR::IRDataLoader::Implementation::getGlobalUserData(IR::IRDataLoader::Implementation *a1, int a2)
+void IR::IRDataLoader::Implementation::getGlobalUserData(IR::IRDataLoader::Implementation *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  IR::getPresetDataAttributes(a2, v3);
-  IR::IRDataLoader::Implementation::getGlobalUserData(a1, v3);
+  IR::getPresetDataAttributes(a2, v5);
+  IR::IRDataLoader::Implementation::getGlobalUserData(a1, v5, a3);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v5)
+  if (v7)
   {
-    CFRelease(v5);
+    CFRelease(v7);
   }
 
-  if (v4)
+  if (v6)
   {
-    CFRelease(v4);
+    CFRelease(v6);
   }
 
-  if (v3[0])
+  if (v5[0])
   {
-    CFRelease(v3[0]);
+    CFRelease(v5[0]);
   }
 }
 
-void sub_296BD2B84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD2B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataLoader::Implementation::getGlobalUserData(IR::IRDataLoader::Implementation *this, const IR::IRDataAttributes *a2)
+void IR::IRDataLoader::Implementation::getGlobalUserData(IR::IRDataLoader::Implementation *this@<X0>, CFTypeRef *a2@<X1>, void *a3@<X8>)
 {
   std::recursive_mutex::lock((this + 24));
-  IR::IRData::getGlobalUserData(a2, v4);
+  IR::IRData::getGlobalUserData(a2, a3);
 
   std::recursive_mutex::unlock((this + 24));
 }
 
-void IR::IRDataLoader::Implementation::getIRDataTypes(IR::IRDataLoader::Implementation *a1, int a2)
+void IR::IRDataLoader::Implementation::getIRDataTypes(IR::IRDataLoader::Implementation *a1@<X0>, uint64_t a2@<X1>, std::vector<unsigned int> *a3@<X8>)
 {
-  IR::getPresetDataAttributes(a2, v3);
-  IR::IRDataLoader::Implementation::getIRDataTypes(a1, v3);
+  IR::getPresetDataAttributes(a2, v5);
+  IR::IRDataLoader::Implementation::getIRDataTypes(a1, v5, a3);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v5)
+  if (v7)
   {
-    CFRelease(v5);
+    CFRelease(v7);
   }
 
-  if (v4)
+  if (v6)
   {
-    CFRelease(v4);
+    CFRelease(v6);
   }
 
-  if (v3[0])
+  if (v5[0])
   {
-    CFRelease(v3[0]);
+    CFRelease(v5[0]);
   }
 }
 
-void sub_296BD2C8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD2C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataLoader::Implementation::getIRDataTypes(IR::IRDataLoader::Implementation *this, const IR::IRDataAttributes *a2)
+void IR::IRDataLoader::Implementation::getIRDataTypes(IR::IRDataLoader::Implementation *this@<X0>, CFTypeRef *a2@<X1>, std::vector<unsigned int> *a3@<X8>)
 {
   std::recursive_mutex::lock((this + 24));
-  IR::IRData::getIRDataTypes(a2, v4);
+  IR::IRData::getIRDataTypes(a2, a3);
 
   std::recursive_mutex::unlock((this + 24));
 }
 
-uint64_t IR::IRDataLoader::Implementation::getAudioChannelLayoutTag(IR::IRDataLoader::Implementation *a1, int a2)
+uint64_t IR::IRDataLoader::Implementation::getAudioChannelLayoutTag(IR::IRDataLoader::Implementation *a1, uint64_t a2)
 {
   IR::getPresetDataAttributes(a2, v5);
   AudioChannelLayoutTag = IR::IRDataLoader::Implementation::getAudioChannelLayoutTag(a1, v5, 0);
@@ -873,9 +919,9 @@ uint64_t IR::IRDataLoader::Implementation::getAudioChannelLayoutTag(IR::IRDataLo
   return AudioChannelLayoutTag;
 }
 
-void sub_296BD2D98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD2D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
@@ -968,14 +1014,15 @@ uint64_t IR::IRDataLoader::Implementation::getAudioChannelLayoutTag(uint64_t a1,
   return AudioChannelLayoutTag;
 }
 
-void sub_296BD2F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, char a10)
+void sub_296BD2F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, ...)
 {
-  IR::IRDataAttributes::~IRDataAttributes(&a10);
+  va_start(va, a9);
+  IR::IRDataAttributes::~IRDataAttributes(va);
   applesauce::CF::URLRef::~URLRef(&a9);
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRDataLoader::Implementation::isConsolidatedIR(uint64_t a1, int a2)
+uint64_t IR::IRDataLoader::Implementation::isConsolidatedIR(uint64_t a1, uint64_t a2)
 {
   IR::getPresetDataAttributes(a2, v5);
   isConsolidatedIR = IR::IRData::isConsolidatedIR(v5, v2);
@@ -1002,14 +1049,14 @@ uint64_t IR::IRDataLoader::Implementation::isConsolidatedIR(uint64_t a1, int a2)
   return isConsolidatedIR;
 }
 
-void sub_296BD300C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD300C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRDataLoader::Implementation::hasType(uint64_t a1, int a2, uint64_t a3)
+uint64_t IR::IRDataLoader::Implementation::hasType(uint64_t a1, uint64_t a2, int a3)
 {
   IR::getPresetDataAttributes(a2, v6);
   hasType = IR::IRData::hasType(v6, a3);
@@ -1036,14 +1083,14 @@ uint64_t IR::IRDataLoader::Implementation::hasType(uint64_t a1, int a2, uint64_t
   return hasType;
 }
 
-void sub_296BD30A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD30A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
 
-BOOL IR::IRDataLoader::Implementation::fileExists(uint64_t a1, int a2)
+BOOL IR::IRDataLoader::Implementation::fileExists(uint64_t a1, uint64_t a2)
 {
   IR::getPresetDataAttributes(a2, v5);
   v3 = IR::IRDataLoader::Implementation::fileExists(v2, v5);
@@ -1070,16 +1117,16 @@ BOOL IR::IRDataLoader::Implementation::fileExists(uint64_t a1, int a2)
   return v3;
 }
 
-void sub_296BD313C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD313C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
 
 BOOL IR::IRDataLoader::Implementation::fileExists(IR::IRDataLoader::Implementation *this, CFTypeRef *a2)
 {
-  IR::getFilePtr(a2, 0, v4);
+  IR::getFilePtr(v4, a2, 0);
   v2 = v4[0];
   if (v4[0])
   {
@@ -1128,17 +1175,18 @@ BOOL IR::IRDataLoader::Implementation::fileExists(uint64_t a1, CFTypeRef *a2)
   return v4;
 }
 
-void sub_296BD3260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, char a10)
+void sub_296BD3260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, ...)
 {
-  IR::IRDataAttributes::~IRDataAttributes(&a10);
+  va_start(va, a9);
+  IR::IRDataAttributes::~IRDataAttributes(va);
   applesauce::CF::URLRef::~URLRef(&a9);
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X2>, IR::IRDataLoader::Implementation *a2@<X0>, char *a3@<X1>, void *a4@<X8>)
+void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRData **__return_ptr a1@<X8>, IR::IRDataAttributes *a2@<X2>, uint64_t *a3@<X0>, const __CFString *a4@<X1>)
 {
-  v83 = *MEMORY[0x29EDCA608];
-  IR::IRDataAttributes::IRDataAttributes(&v70, a1);
+  v82 = *MEMORY[0x29EDCA608];
+  IR::IRDataAttributes::IRDataAttributes(&v69, a2);
   v8 = cf;
   cf = 0;
   if (v8)
@@ -1146,64 +1194,64 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
     CFRelease(v8);
   }
 
-  v74 = 0;
   v73 = 0;
-  v9 = v75;
-  v75 = 0;
+  v72 = 0;
+  v9 = v74;
+  v74 = 0;
   if (v9)
   {
     CFRelease(v9);
   }
 
+  v75 = 0;
   v76 = 0;
-  v77 = 0;
-  std::string::basic_string[abi:ne200100]<0>(v79, "");
+  std::string::basic_string[abi:ne200100]<0>(v78, "");
   v67 = 0;
   memset(__p, 0, 24);
-  IR::IRDataLoader::Implementation::load(&v68, a2, v79, &v70, &v67, __p);
+  IR::IRDataLoader::Implementation::load(a3, v78, &v69, &v67, __p);
   if (__p[0].__r_.__value_.__r.__words[0])
   {
     __p[0].__r_.__value_.__l.__size_ = __p[0].__r_.__value_.__r.__words[0];
     operator delete(__p[0].__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v79[2]) < 0)
+  if (SHIBYTE(v78[2]) < 0)
   {
-    operator delete(v79[0]);
+    operator delete(v78[0]);
   }
 
-  AudioChannelLayoutTagPrivate = IR::IRDataLoader::Implementation::getAudioChannelLayoutTagPrivate(a2, &v70, 0);
+  AudioChannelLayoutTagPrivate = IR::IRDataLoader::Implementation::getAudioChannelLayoutTagPrivate(a3, &v69, 0);
   IsSupportedHOA = ChannelLayoutTagIsSupportedHOA(AudioChannelLayoutTagPrivate);
   if (!IsSupportedHOA)
   {
     IRDataLog = IR::getIRDataLog(IsSupportedHOA);
     if (os_log_type_enabled(IRDataLog, OS_LOG_TYPE_ERROR))
     {
-      if (a3[23] >= 0)
+      if (SHIBYTE(a4->data) >= 0)
       {
-        v31 = a3;
+        isa = a4;
       }
 
       else
       {
-        v31 = *a3;
+        isa = a4->isa;
       }
 
-      if (!*a1)
+      if (!*a2)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         MEMORY[0x29C25F8D0](exception, "Could not construct");
       }
 
-      applesauce::CF::get_filesystem_path(*a1, __p);
+      applesauce::CF::get_filesystem_path(__p, *a2);
       CStringPtr = CFStringGetCStringPtr(__p[0].__r_.__value_.__l.__data_, 0x8000100u);
-      LODWORD(v79[0]) = 136315650;
-      *(v79 + 4) = v31;
-      WORD2(v79[1]) = 2080;
-      *(&v79[1] + 6) = "loadAndDecode";
-      HIWORD(v79[2]) = 2080;
-      v79[3] = CStringPtr;
-      _os_log_error_impl(&dword_296B9D000, IRDataLog, OS_LOG_TYPE_ERROR, "%s%s: Not HOA IR: %s, ", v79, 0x20u);
+      LODWORD(v78[0]) = 136315650;
+      *(v78 + 4) = isa;
+      WORD2(v78[1]) = 2080;
+      *(&v78[1] + 6) = "loadAndDecode";
+      HIWORD(v78[2]) = 2080;
+      v78[3] = CStringPtr;
+      _os_log_error_impl(&dword_296B9D000, IRDataLog, OS_LOG_TYPE_ERROR, "%s%s: Not HOA IR: %s, ", v78, 0x20u);
       if (__p[0].__r_.__value_.__r.__words[0])
       {
         CFRelease(__p[0].__r_.__value_.__l.__data_);
@@ -1211,12 +1259,12 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
     }
 
     v66 = 0;
-    memset(v79, 0, 24);
-    IR::IRDataLoader::Implementation::loadPrivate(a2, a3, &v70, &v66, v79);
-    if (v79[0])
+    memset(v78, 0, 24);
+    IR::IRDataLoader::Implementation::loadPrivate(a3, a4, &v69, &v66, v78, a1);
+    if (v78[0])
     {
-      v79[1] = v79[0];
-      operator delete(v79[0]);
+      v78[1] = v78[0];
+      operator delete(v78[0]);
     }
 
     if (v66)
@@ -1230,14 +1278,14 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
   AudioChannelLayoutTagAmbisonicOrder = GetAudioChannelLayoutTagAmbisonicOrder(AudioChannelLayoutTagPrivate);
   Normalization = HOA::getNormalization(AudioChannelLayoutTagPrivate);
   v65 = 0uLL;
-  v14 = *(a1 + 11);
+  v14 = *(a2 + 11);
   if (v14)
   {
-    CFRetain(*(a1 + 11));
+    CFRetain(*(a2 + 11));
   }
 
   v56 = v14;
-  IR::IRDataAttributes::IRDataAttributes(v57, &v56, 128, 1, *(a1 + 5), 0, *(a1 + 2));
+  IR::IRDataAttributes::IRDataAttributes(v57, &v56, 128, 1, *(a2 + 5), 0, *(a2 + 2));
   v15 = v56;
   if (v56)
   {
@@ -1246,23 +1294,23 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
 
   if (v57[0])
   {
-    v16 = *(a1 + 8);
+    v16 = *(a2 + 8);
     if (v16)
     {
-      CFRetain(*(a1 + 8));
+      CFRetain(*(a2 + 8));
       v55 = v16;
-      IR::IRDataAttributes::IRDataAttributes(v79, &v55, 128, 1, *(a1 + 5), 0, *(a1 + 2));
+      IR::IRDataAttributes::IRDataAttributes(v78, &v55, 128, 1, *(a2 + 5), 0, *(a2 + 2));
       if (v55)
       {
         CFRelease(v55);
       }
 
-      v17 = IR::IRDataLoader::Implementation::getAudioChannelLayoutTagPrivate(a2, v79, 1);
+      v17 = IR::IRDataLoader::Implementation::getAudioChannelLayoutTagPrivate(a3, v78, 1);
       if (ChannelLayoutTagIsSupportedHOA(v17))
       {
-        v58 = *(a1 + 72);
+        v58 = *(a2 + 72);
         v18 = v57[0];
-        v19 = *(a1 + 8);
+        v19 = *(a2 + 8);
         v57[0] = v19;
         if (v19)
         {
@@ -1275,7 +1323,7 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
         }
 
         v20 = v63;
-        v21 = *(a1 + 11);
+        v21 = *(a2 + 11);
         v63 = v21;
         if (v21)
         {
@@ -1288,11 +1336,6 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
         }
       }
 
-      if (v82)
-      {
-        CFRelease(v82);
-      }
-
       if (v81)
       {
         CFRelease(v81);
@@ -1303,22 +1346,27 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
         CFRelease(v80);
       }
 
-      if (v79[0])
+      if (v79)
       {
-        CFRelease(v79[0]);
+        CFRelease(v79);
+      }
+
+      if (v78[0])
+      {
+        CFRelease(v78[0]);
       }
     }
 
     else
     {
-      v59 = *(a1 + 24);
+      v59 = *(a2 + 24);
     }
 
-    v60 = *(a1 + 26);
-    v61 = *(a1 + 112);
+    v60 = *(a2 + 26);
+    v61 = *(a2 + 112);
     v54 = 0;
-    memset(v79, 0, 24);
-    IR::IRDataLoader::Implementation::loadPrivate(a2, a3, v57, &v54, v79);
+    memset(v78, 0, 24);
+    IR::IRDataLoader::Implementation::loadPrivate(a3, a4, v57, &v54, v78, __p);
     v26 = *&__p[0].__r_.__value_.__l.__data_;
     *&__p[0].__r_.__value_.__l.__data_ = 0uLL;
     v27 = *(&v65 + 1);
@@ -1332,10 +1380,10 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
       }
     }
 
-    if (v79[0])
+    if (v78[0])
     {
-      v79[1] = v79[0];
-      operator delete(v79[0]);
+      v78[1] = v78[0];
+      operator delete(v78[0]);
     }
 
     if (v54)
@@ -1353,20 +1401,20 @@ void IR::IRDataLoader::Implementation::loadAndDecode(IR::IRDataAttributes *a1@<X
       }
 
 LABEL_60:
-      *a4 = 0;
-      a4[1] = 0;
+      *a1 = 0;
+      a1[1] = 0;
       goto LABEL_103;
     }
 
 LABEL_102:
     NumFiltersPerSpatialPoint = IR::IRData::getNumFiltersPerSpatialPoint(v28);
-    IR::HOA2BinauralIRRenderer::HOA2BinauralIRRenderer(__p, v57, &v70, NumFiltersPerSpatialPoint);
+    IR::HOA2BinauralIRRenderer::HOA2BinauralIRRenderer(__p, v57, &v69, NumFiltersPerSpatialPoint);
     SampleRate = IR::IRData::getSampleRate(v65);
-    FilterLengthPrivate = IR::IRDataLoader::Implementation::getFilterLengthPrivate(a2, &v70);
-    IR::HOA2BinauralIRRenderer::initialize(__p, AudioChannelLayoutTagAmbisonicOrder, SampleRate, 1, Normalization, FilterLengthPrivate, *(a1 + 11));
+    FilterLengthPrivate = IR::IRDataLoader::Implementation::getFilterLengthPrivate(a3, &v69);
+    IR::HOA2BinauralIRRenderer::initialize(__p, AudioChannelLayoutTagAmbisonicOrder, SampleRate, 1, Normalization, FilterLengthPrivate, *(a2 + 11));
   }
 
-  v23 = *(a1 + 25);
+  v23 = *(a2 + 25);
   if (!v23)
   {
     v30 = IR::getIRDataLog(v15);
@@ -1378,17 +1426,17 @@ LABEL_102:
     goto LABEL_60;
   }
 
-  v24 = *(a2 + 27);
+  v24 = a3[27];
   if (!v24)
   {
 LABEL_46:
-    GetStringFromAudioChannelLayoutTag(*(a1 + 25), __p);
+    GetStringFromAudioChannelLayoutTag(__p, *(a2 + 25));
     goto LABEL_68;
   }
 
   while (1)
   {
-    v25 = *(v24 + 8);
+    v25 = *(v24 + 32);
     if (v23 >= v25)
     {
       break;
@@ -1404,16 +1452,16 @@ LABEL_45:
 
   if (v25 < v23)
   {
-    ++v24;
+    v24 += 8;
     goto LABEL_45;
   }
 
-  std::to_string(__p, *(a1 + 25));
+  std::to_string(__p, *(a2 + 25));
 LABEL_68:
   v33 = std::string::insert(__p, 0, "/", 1uLL);
   v34 = *&v33->__r_.__value_.__l.__data_;
-  v79[2] = v33->__r_.__value_.__r.__words[2];
-  *v79 = v34;
+  v78[2] = v33->__r_.__value_.__r.__words[2];
+  *v78 = v34;
   v33->__r_.__value_.__l.__size_ = 0;
   v33->__r_.__value_.__r.__words[2] = 0;
   v33->__r_.__value_.__r.__words[0] = 0;
@@ -1422,24 +1470,24 @@ LABEL_68:
     operator delete(__p[0].__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v79[2]) >= 0)
+  if (SHIBYTE(v78[2]) >= 0)
   {
-    v35 = v79;
+    v35 = v78;
   }
 
   else
   {
-    v35 = v79[0];
+    v35 = v78[0];
   }
 
-  if (SHIBYTE(v79[2]) >= 0)
+  if (SHIBYTE(v78[2]) >= 0)
   {
-    v36 = HIBYTE(v79[2]);
+    v36 = HIBYTE(v78[2]);
   }
 
   else
   {
-    v36 = v79[1];
+    v36 = v78[1];
   }
 
   v37 = CFURLCreateWithBytes(0, v35, v36, 0, 0);
@@ -1458,7 +1506,7 @@ LABEL_68:
     CFRelease(v38);
   }
 
-  IR::IRDataLoader::Implementation::getLoadedIR(a2, v57, 0, __p);
+  IR::IRDataLoader::Implementation::getLoadedIR(a3, v57, 0, __p);
   v40 = *(&v65 + 1);
   v65 = *&__p[0].__r_.__value_.__l.__data_;
   if (!v40)
@@ -1469,9 +1517,9 @@ LABEL_68:
     }
 
 LABEL_99:
-    if (SHIBYTE(v79[2]) < 0)
+    if (SHIBYTE(v78[2]) < 0)
     {
-      operator delete(v79[0]);
+      operator delete(v78[0]);
     }
 
     v28 = v65;
@@ -1485,7 +1533,7 @@ LABEL_99:
   }
 
 LABEL_83:
-  IR::IRData::Implementation::generatePanningIRData(v23, v71, 1, AudioChannelLayoutTagAmbisonicOrder, Normalization, v39, __p);
+  IR::IRData::Implementation::generatePanningIRData(v23, 1, v70, AudioChannelLayoutTagAmbisonicOrder, Normalization, v39, __p);
   v41 = *&__p[0].__r_.__value_.__l.__data_;
   *&__p[0].__r_.__value_.__l.__data_ = 0uLL;
   size = *(&v65 + 1);
@@ -1502,10 +1550,10 @@ LABEL_83:
     if (v65)
     {
 LABEL_87:
-      v43 = *(a2 + 1);
-      if (v43 >= *(a2 + 2))
+      v43 = a3[1];
+      if (v43 >= a3[2])
       {
-        v46 = std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::__emplace_back_slow_path<IR::IRDataAttributes&,std::shared_ptr<IR::IRData const> &>(a2, v57, &v65);
+        v46 = std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::__emplace_back_slow_path<IR::IRDataAttributes&,std::shared_ptr<IR::IRData const> &>(a3, v57, &v65);
       }
 
       else
@@ -1522,7 +1570,7 @@ LABEL_87:
         v46 = v44 + 168;
       }
 
-      *(a2 + 1) = v46;
+      a3[1] = v46;
       goto LABEL_99;
     }
   }
@@ -1538,11 +1586,11 @@ LABEL_87:
     IR::IRDataLoader::Implementation::loadAndDecode();
   }
 
-  *a4 = 0;
-  a4[1] = 0;
-  if (SHIBYTE(v79[2]) < 0)
+  *a1 = 0;
+  a1[1] = 0;
+  if (SHIBYTE(v78[2]) < 0)
   {
-    operator delete(v79[0]);
+    operator delete(v78[0]);
   }
 
 LABEL_103:
@@ -1572,19 +1620,19 @@ LABEL_103:
   }
 
 LABEL_113:
-  if (v69)
+  if (v68)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v69);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v68);
   }
 
-  if (v78)
+  if (v77)
   {
-    CFRelease(v78);
+    CFRelease(v77);
   }
 
-  if (v75)
+  if (v74)
   {
-    CFRelease(v75);
+    CFRelease(v74);
   }
 
   if (cf)
@@ -1592,9 +1640,9 @@ LABEL_113:
     CFRelease(cf);
   }
 
-  if (v70)
+  if (v69)
   {
-    CFRelease(v70);
+    CFRelease(v69);
   }
 }
 
@@ -1658,28 +1706,28 @@ void sub_296BD4318(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<W1>, std::string *a3@<X8>)
+void IR::IRDataAttributes::description(std::string *__return_ptr a1@<X8>, IR::IRDataAttributes *this@<X0>, int a3@<W1>)
 {
-  v237 = *MEMORY[0x29EDCA608];
-  if (a2)
+  v236[4] = *MEMORY[0x29EDCA608];
+  if (a3)
   {
     LODWORD(v228.__r_.__value_.__l.__data_) = 0;
-    std::string::basic_string[abi:ne200100]<0>(&v228.__r_.__value_.__s.__data_[8], "Bilinear");
+    std::string::basic_string[abi:ne200100]<0>(&v228.__r_.__value_.__l.__size_, "Bilinear");
     v229 = 1;
     std::string::basic_string[abi:ne200100]<0>(v230, "VBAP");
     v231 = 2;
     std::string::basic_string[abi:ne200100]<0>(v232, "Auto");
     std::map<IR::IRSphericalInterpolation,std::string>::map[abi:ne200100](&v227, &v228, 3);
-    for (i = 0; i != -96; i -= 32)
+    for (i = 0; i != -12; i -= 4)
     {
-      if (v232[i + 23] < 0)
+      if (SHIBYTE(v232[i + 2]) < 0)
       {
-        operator delete(*&v232[i]);
+        operator delete(v232[i]);
       }
     }
 
     LODWORD(v228.__r_.__value_.__l.__data_) = 0;
-    std::string::basic_string[abi:ne200100]<0>(&v228.__r_.__value_.__s.__data_[8], "Unknown");
+    std::string::basic_string[abi:ne200100]<0>(&v228.__r_.__value_.__l.__size_, "Unknown");
     v229 = 1;
     std::string::basic_string[abi:ne200100]<0>(v230, "DirectIR");
     v231 = 2;
@@ -1689,11 +1737,11 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     v235 = 4;
     std::string::basic_string[abi:ne200100]<0>(v236, "DirectivityIR");
     std::map<IR::IRDataType,std::string>::map[abi:ne200100](&v226, &v228, 5);
-    for (j = 0; j != -160; j -= 32)
+    for (j = 0; j != -20; j -= 4)
     {
-      if (v236[j + 23] < 0)
+      if (SHIBYTE(v236[j + 2]) < 0)
       {
-        operator delete(*&v236[j]);
+        operator delete(v236[j]);
       }
     }
 
@@ -1881,7 +1929,7 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     v38->__r_.__value_.__l.__size_ = 0;
     v38->__r_.__value_.__r.__words[2] = 0;
     v38->__r_.__value_.__r.__words[0] = 0;
-    IR::IRDataWindow::description((this + 24), &v181);
+    IR::IRDataWindow::description(&v181, (this + 24));
     if ((v181.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v40 = &v181;
@@ -1994,7 +2042,7 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     v60->__r_.__value_.__l.__size_ = 0;
     v60->__r_.__value_.__r.__words[2] = 0;
     v60->__r_.__value_.__r.__words[0] = 0;
-    IR::PersonalizedHRIRFetchingParams::description((this + 48), &v179);
+    IR::PersonalizedHRIRFetchingParams::description(&v179, (this + 48));
     if ((v179.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v62 = &v179;
@@ -2087,7 +2135,7 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     v113->__r_.__value_.__l.__size_ = 0;
     v113->__r_.__value_.__r.__words[2] = 0;
     v113->__r_.__value_.__r.__words[0] = 0;
-    IR::IRDataWindow::description((this + 72), &v176);
+    IR::IRDataWindow::description(&v176, (this + 72));
     if ((v176.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v115 = &v176;
@@ -2215,7 +2263,7 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     v135->__r_.__value_.__l.__size_ = 0;
     v135->__r_.__value_.__r.__words[2] = 0;
     v135->__r_.__value_.__r.__words[0] = 0;
-    IR::PersonalizedHRIRFetchingParams::description((this + 104), &v172);
+    IR::PersonalizedHRIRFetchingParams::description(&v172, (this + 104));
     if ((v172.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v137 = &v172;
@@ -2362,7 +2410,7 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     v161->__r_.__value_.__l.__size_ = 0;
     v161->__r_.__value_.__r.__words[2] = 0;
     v161->__r_.__value_.__r.__words[0] = 0;
-    IR::FFTFilterOptimizationParameters::description((this + 136), &v168);
+    IR::FFTFilterOptimizationParameters::description(&v168, (this + 136));
     if ((v168.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v163 = &v168;
@@ -2391,7 +2439,7 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     v165->__r_.__value_.__r.__words[2] = 0;
     v165->__r_.__value_.__r.__words[0] = 0;
     v167 = std::string::append(&v228, ")", 1uLL);
-    *a3 = *v167;
+    *a1 = *v167;
     v167->__r_.__value_.__l.__size_ = 0;
     v167->__r_.__value_.__r.__words[2] = 0;
     v167->__r_.__value_.__r.__words[0] = 0;
@@ -2822,7 +2870,7 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     v94->__r_.__value_.__l.__size_ = 0;
     v94->__r_.__value_.__r.__words[2] = 0;
     v94->__r_.__value_.__r.__words[0] = 0;
-    IR::IRDataWindow::description((this + 24), &__p);
+    IR::IRDataWindow::description(&__p, (this + 24));
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -2892,7 +2940,7 @@ void IR::IRDataAttributes::description(IR::IRDataAttributes *this@<X0>, int a2@<
     }
 
     v108 = std::string::append(&v228, v106, v107);
-    *a3 = *v108;
+    *a1 = *v108;
     v108->__r_.__value_.__l.__size_ = 0;
     v108->__r_.__value_.__r.__words[2] = 0;
     v108->__r_.__value_.__r.__words[0] = 0;
@@ -3157,24 +3205,24 @@ void sub_296BD62E8()
   }
 }
 
-void IR::generateGrid(IR *this@<X0>, int a2@<W1>, float *a3@<X4>, uint64_t a4@<X8>)
+void IR::generateGrid(uint64_t *__return_ptr a1@<X8>, IR *this@<X0>, int a3@<W1>, float *a4@<X4>)
 {
-  if (!a2)
+  if (!a3)
   {
     LODWORD(v16) = 0;
     memset(&v20, 0, sizeof(v20));
-    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v20, &v16, &v16 + 4, 1uLL);
+    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v20, &v16, &v16 + 1, 1uLL);
     LODWORD(__p) = 0;
     memset(&v19, 0, sizeof(v19));
-    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v19, &__p, &__p + 4, 1uLL);
+    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v19, &__p, &__p + 1, 1uLL);
     LOBYTE(v15) = 0;
-    _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRKS6_SA_RKbEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSE_IJDpT2_EEEDpOT3_(a4, &v20, &v19, &v15);
+    _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRKS6_SA_RKbEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSE_IJDpT2_EEEDpOT3_(a1, &v20, &v19, &v15);
     goto LABEL_5;
   }
 
   memset(&v20, 0, sizeof(v20));
   memset(&v19, 0, sizeof(v19));
-  TDesign = HOA::getTDesign(this, 0, 0, 0, a3);
+  TDesign = HOA::getTDesign(this, 0, 0, 0, a4);
   if (TDesign >= 2)
   {
     v7 = TDesign;
@@ -3182,7 +3230,7 @@ void IR::generateGrid(IR *this@<X0>, int a2@<W1>, float *a3@<X4>, uint64_t a4@<X
     std::vector<float>::resize(&v19, v7);
     HOA::getTDesign(this, v20.__begin_, v19.__begin_, 0, v8);
     LOBYTE(v16) = 1;
-    _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRS6_S9_bEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSB_IJDpT2_EEEDpOT3_(a4, &v20, &v19, &v16);
+    _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRS6_S9_bEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSB_IJDpT2_EEEDpOT3_(a1, &v20, &v19, &v16);
 LABEL_5:
     begin = v19.__begin_;
     if (!v19.__begin_)
@@ -3205,7 +3253,7 @@ LABEL_5:
   __p = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, &v11, &__p, 1uLL);
   v10 = 0;
-  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRKS6_SA_RKbEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSE_IJDpT2_EEEDpOT3_(a4, &v16, &__p, &v10);
+  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRKS6_SA_RKbEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSE_IJDpT2_EEEDpOT3_(a1, &v16, &__p, &v10);
   if (__p)
   {
     v13 = __p;
@@ -3245,7 +3293,7 @@ void sub_296BD64E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t IR::IRDataLoader::writeIRFile(uint64_t *a1, CFURLRef *a2, uint64_t a3, uint64_t a4)
+uint64_t IR::IRDataLoader::writeIRFile(IR::IRData::Implementation ***a1, CFURLRef *a2, int a3, int a4)
 {
   v4 = a1[1];
   v7 = *a1;
@@ -3264,17 +3312,6 @@ uint64_t IR::IRDataLoader::writeIRFile(uint64_t *a1, CFURLRef *a2, uint64_t a3, 
   return v5;
 }
 
-void sub_296BD65B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t IR::IRDataLoader::writeIRFile(uint64_t a1, CFURLRef *a2, uint64_t a3, uint64_t a4)
 {
   v17 = *MEMORY[0x29EDCA608];
   CFURLGetFileSystemRepresentation(*a2, 1u, buffer, 1024);
@@ -3317,6 +3354,16 @@ uint64_t IR::IRDataLoader::writeIRFile(uint64_t a1, CFURLRef *a2, uint64_t a3, u
   return result;
 }
 
+void sub_296BD65B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 void sub_296BD670C(_Unwind_Exception *exception_object)
 {
   if (v1)
@@ -3327,14 +3374,14 @@ void sub_296BD670C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t IR::IRDataLoader::writeIRFile(IR *a1, CFURLRef *a2, uint64_t a3, uint64_t *a4, uint64_t a5, unsigned int a6, uint64_t *a7, uint64_t a8, float a9, uint64_t *a10, CFTypeRef *a11, _DWORD *a12, uint64_t a13, uint64_t a14, CFTypeRef *a15)
+uint64_t IR::IRDataLoader::writeIRFile(IR *a1, CFURLRef *a2, uint64_t a3, uint64_t *a4, uint64_t a5, unsigned int a6, uint64_t *a7, IR **a8, float a9, uint64_t *a10, CFTypeRef *a11, _DWORD *a12, uint64_t a13, uint64_t a14, CFTypeRef *a15)
 {
   v126 = *MEMORY[0x29EDCA608];
   v107 = a9;
   v106 = a6;
   v15 = *a1;
   v16 = *(a1 + 1);
-  if (*a1 == v16 || (v18 = *a3, v19 = *(a3 + 8), *a3 == v19) || !a6 || (v21 = *a4, v22 = a4[1], *a4 == v22) || (v24 = *a7, v25 = a7[1], *a7 == v25) || (v27 = a1, a1 = *a8, v28 = *(a8 + 8), a1 == v28) || (v29 = *a10, v30 = a10[1], *a10 == v30))
+  if (*a1 == v16 || (v18 = *a3, v19 = *(a3 + 8), *a3 == v19) || !a6 || (v21 = *a4, v22 = a4[1], *a4 == v22) || (v24 = *a7, v25 = a7[1], *a7 == v25) || (v27 = a1, a1 = *a8, v28 = a8[1], a1 == v28) || (v29 = *a10, v30 = a10[1], *a10 == v30))
   {
     IRDataLog = IR::getIRDataLog(a1);
     if (os_log_type_enabled(IRDataLog, OS_LOG_TYPE_ERROR))
@@ -3429,7 +3476,7 @@ uint64_t IR::IRDataLoader::writeIRFile(IR *a1, CFURLRef *a2, uint64_t a3, uint64
       IR::IRCoordinates::getParameterString(*(*a4 + 4 * v47), __p);
       applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[5],std::string>(&v110, "Name", __p);
       applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[12],float const&>(v112, "Periodicity", (*a7 + 4 * v47));
-      LODWORD(__ptr[0]) = *(*a8 + 4 * v47);
+      LODWORD(__ptr[0]) = *(*a8 + v47);
       applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[14],int>(v113, "Interpolation", __ptr);
       applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[13],float const&>(v114, "DefaultValue", (*a10 + 4 * v47));
       __D = &v110;
@@ -3825,14 +3872,14 @@ void *IR::IRDataLoader::instance(IR::IRDataLoader *this)
   return &IR::IRDataLoader::instance(void)::global;
 }
 
-void IR::IRDataLoader::load(uint64_t *a1@<X0>, int a2@<W1>, int a3@<W2>, _OWORD *a4@<X8>, float a5@<S0>)
+void IR::IRDataLoader::load(uint64_t **a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, _OWORD *a5@<X8>, float a6@<S0>)
 {
-  v9 = *a1;
+  v10 = *a1;
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  IR::IRDataLoader::Implementation::load(v9, __p, a2, a3, &v12, a5);
-  *a4 = v12;
-  v12 = 0uLL;
-  if (v11 < 0)
+  IR::IRDataLoader::Implementation::load(v10, __p, a2, a3, a6, &v13);
+  *a5 = v13;
+  v13 = 0uLL;
+  if (v12 < 0)
   {
     operator delete(__p[0]);
   }
@@ -3848,26 +3895,26 @@ void sub_296BD7680(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IR::IRDataLoader::load(uint64_t *a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, _OWORD *a4@<X8>)
+void IR::IRDataLoader::load(uint64_t **a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, _OWORD *a5@<X8>)
 {
-  v7 = *a1;
+  v8 = *a1;
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  v8 = *a3;
-  if (v8)
+  v9 = *a3;
+  if (v9)
   {
-    CFRetain(v8);
+    CFRetain(v9);
   }
 
-  v9 = v8;
-  IR::IRDataLoader::Implementation::load(v7, __p, a2, &v9, &v12);
-  *a4 = v12;
-  v12 = 0uLL;
-  if (v8)
+  v10 = v9;
+  IR::IRDataLoader::Implementation::load(v8, __p, a2, &v10, &v13);
+  *a5 = v13;
+  v13 = 0uLL;
+  if (v9)
   {
-    CFRelease(v8);
+    CFRelease(v9);
   }
 
-  if (v11 < 0)
+  if (v12 < 0)
   {
     operator delete(__p[0]);
   }
@@ -3884,35 +3931,35 @@ void sub_296BD775C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataLoader::load(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, CFTypeRef *a4@<X3>, uint64_t *a5@<X8>)
+void IR::IRDataLoader::load(uint64_t **a1@<X0>, __CFString *a2@<X1>, uint64_t a3@<X2>, CFTypeRef *a4@<X3>, IR::IRData::Implementation ***x8_0@<X8>)
 {
-  v8 = *a1;
-  v9 = *a4;
+  v9 = *a1;
+  v10 = *a4;
   if (*a4)
   {
     CFRetain(*a4);
   }
 
-  v10 = v9;
-  IR::IRDataLoader::Implementation::load(v8, a2, a3, &v10, a5);
-  if (v9)
+  v11 = v10;
+  IR::IRDataLoader::Implementation::load(v9, a2, a3, &v11, x8_0);
+  if (v10)
   {
-    CFRelease(v9);
+    CFRelease(v10);
   }
 }
 
-void sub_296BD780C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD780C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DataRef::~DataRef(va);
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataLoader::create(uint64_t *a1, uint64_t a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, float a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, char a14, int a15, int a16)
+void IR::IRDataLoader::create(uint64_t *a1, uint64_t a2, CFTypeRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, float a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, char a15, uint64_t a16, uint64_t a17)
 {
-  v20 = *a1;
+  v21 = *a1;
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  IR::IRDataLoader::Implementation::create(a9, v20, __p, a2, a3, a4, a5, a6, a7, a8, a10, a11, a12, a13, a14, a15, a16);
+  IR::IRDataLoader::Implementation::create(v21, __p, a2, a3, a4, a5, a6, a7, a10, a8, a11, a12, a13, a14, a15, a16, a17);
 }
 
 void sub_296BD792C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -3943,9 +3990,9 @@ uint64_t IR::IRDataLoader::getAudioChannelLayoutTag(CFTypeRef a1, CFTypeRef *a2)
   return AudioChannelLayoutTag;
 }
 
-void sub_296BD7A64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD7A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::URLRef::~URLRef(va);
   _Unwind_Resume(a1);
 }
@@ -3968,9 +4015,9 @@ BOOL IR::IRDataLoader::fileExists(CFTypeRef a1, CFTypeRef *a2)
   return v3;
 }
 
-void sub_296BD7B08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD7B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::URLRef::~URLRef(va);
   _Unwind_Resume(a1);
 }
@@ -4011,7 +4058,7 @@ void IR::IRDataLoader::removeFromPersonalizedHRTFCallbackPool(uint64_t *a1, uint
     __p = *a2;
   }
 
-  IR::IRDataLoader::Implementation::removeFromPersonalizedHRTFCallbackPool(v2, &__p.__r_.__value_.__l.__data_);
+  IR::IRDataLoader::Implementation::removeFromPersonalizedHRTFCallbackPool(v2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4028,11 +4075,11 @@ void sub_296BD7CA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IR::IRDataLoader::addIRDataToCache(uint64_t *a1, IR::IRDataAttributes *a2, uint64_t a3)
+void IR::IRDataLoader::addIRDataToCache(uint64_t *a1, IR::IRDataAttributes *a2, IR::IRData **a3)
 {
   v5 = *a1;
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  v6 = *(a3 + 8);
+  v6 = a3[1];
   v7 = *a3;
   v8 = v6;
   if (v6)
@@ -4067,7 +4114,7 @@ void sub_296BD7D5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::__destroy_vector::operator()[abi:ne200100](IR::IRDataAttributes ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -4190,7 +4237,7 @@ BOOL applesauce::CF::operator==(const void **a1, const void **a2)
   return v4;
 }
 
-uint64_t IR::IRDataAttributes::operator==(uint64_t a1, uint64_t a2)
+BOOL IR::IRDataAttributes::operator==(uint64_t a1, uint64_t a2)
 {
   v2 = *a1;
   if (!(*a1 | *a2))
@@ -4281,7 +4328,7 @@ LABEL_28:
   return applesauce::CF::operator==((a1 + 128), (a2 + 128));
 }
 
-uint64_t IR::IRDataAttributes::equalsExceptSampleRate(IR::IRDataAttributes *this, const IR::IRDataAttributes *a2)
+BOOL IR::IRDataAttributes::equalsExceptSampleRate(IR::IRDataAttributes *this, const IR::IRDataAttributes *a2)
 {
   IR::IRDataAttributes::IRDataAttributes(&v5, this);
   v6 = *(a2 + 2);
@@ -4309,9 +4356,9 @@ uint64_t IR::IRDataAttributes::equalsExceptSampleRate(IR::IRDataAttributes *this
   return v3;
 }
 
-void sub_296BD825C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BD825C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
@@ -4419,9 +4466,9 @@ uint64_t std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData con
   return v16;
 }
 
-void sub_296BD850C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296BD850C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4558,14 +4605,14 @@ uint64_t std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData con
   return v16;
 }
 
-void sub_296BD87F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296BD87F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4587,29 +4634,17 @@ void sub_296BD886C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_296BD88E0(_Unwind_Exception *exception_object)
@@ -4675,7 +4710,7 @@ LABEL_8:
   }
 }
 
-void IR::IRDataWindow::description(IR::IRDataWindow *this@<X0>, std::string *a2@<X8>)
+void IR::IRDataWindow::description(std::string *__return_ptr a1@<X8>, IR::IRDataWindow *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v29, "start: ");
   std::to_string(&v28, *this);
@@ -4805,7 +4840,7 @@ void IR::IRDataWindow::description(IR::IRDataWindow *this@<X0>, std::string *a2@
   }
 
   v24 = std::string::append(&v35, v22, v23);
-  *a2 = *v24;
+  *a1 = *v24;
   v24->__r_.__value_.__l.__size_ = 0;
   v24->__r_.__value_.__r.__words[2] = 0;
   v24->__r_.__value_.__r.__words[0] = 0;
@@ -4925,11 +4960,11 @@ void sub_296BD8C2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IR::PersonalizedHRIRFetchingParams::description(IR::PersonalizedHRIRFetchingParams *this@<X0>, std::string *a2@<X8>)
+void IR::PersonalizedHRIRFetchingParams::description(std::string *__return_ptr a1@<X8>, IR::PersonalizedHRIRFetchingParams *this@<X0>)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35[4] = *MEMORY[0x29EDCA608];
   LODWORD(v29.__r_.__value_.__l.__data_) = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v29.__r_.__value_.__s.__data_[8], "kPersonalizedHRIRType_NoPersonalization");
+  std::string::basic_string[abi:ne200100]<0>(&v29.__r_.__value_.__l.__size_, "kPersonalizedHRIRType_NoPersonalization");
   v30 = 1;
   std::string::basic_string[abi:ne200100]<0>(v31, "kPersonalizedHRIRType_General");
   v32 = 2;
@@ -4937,11 +4972,11 @@ void IR::PersonalizedHRIRFetchingParams::description(IR::PersonalizedHRIRFetchin
   v34 = 3;
   std::string::basic_string[abi:ne200100]<0>(v35, "kPersonalizedHRIRType_NumTypes");
   std::map<PersonalizedHRIRType,std::string>::map[abi:ne200100](v28, &v29, 4);
-  for (i = 0; i != -128; i -= 32)
+  for (i = 0; i != -16; i -= 4)
   {
-    if (v35[i + 23] < 0)
+    if (SHIBYTE(v35[i + 2]) < 0)
     {
-      operator delete(*&v35[i]);
+      operator delete(v35[i]);
     }
   }
 
@@ -5039,7 +5074,7 @@ void IR::PersonalizedHRIRFetchingParams::description(IR::PersonalizedHRIRFetchin
   }
 
   v21 = std::string::append(&v29, v19, v20);
-  *a2 = *v21;
+  *a1 = *v21;
   v21->__r_.__value_.__l.__size_ = 0;
   v21->__r_.__value_.__r.__words[2] = 0;
   v21->__r_.__value_.__r.__words[0] = 0;
@@ -5081,7 +5116,7 @@ void IR::PersonalizedHRIRFetchingParams::description(IR::PersonalizedHRIRFetchin
   std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::destroy(v28, v28[1]);
 }
 
-void sub_296BD9008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, char a48, char *a49, uint64_t a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56)
+void sub_296BD9008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, char *a49, uint64_t a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56)
 {
   if (a15 < 0)
   {
@@ -5122,7 +5157,7 @@ void sub_296BD9008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void IR::FFTFilterOptimizationParameters::description(IR::FFTFilterOptimizationParameters *this@<X0>, std::string *a2@<X8>)
+void IR::FFTFilterOptimizationParameters::description(std::string *__return_ptr a1@<X8>, IR::FFTFilterOptimizationParameters *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v22, "absoluteThreshold: ");
   std::to_string(&v21, *this);
@@ -5217,7 +5252,7 @@ void IR::FFTFilterOptimizationParameters::description(IR::FFTFilterOptimizationP
   }
 
   v18 = std::string::append(&v26, p_p, v17);
-  *a2 = *v18;
+  *a1 = *v18;
   v18->__r_.__value_.__l.__size_ = 0;
   v18->__r_.__value_.__r.__words[2] = 0;
   v18->__r_.__value_.__r.__words[0] = 0;
@@ -5307,18 +5342,18 @@ void sub_296BD9320(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<IR::IRSphericalInterpolation,std::string>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t **std::map<IR::IRSphericalInterpolation,std::string>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__emplace_hint_unique_key_args<IR::IRSphericalInterpolation,std::pair<IR::IRSphericalInterpolation const,std::string> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__emplace_hint_unique_key_args<IR::IRSphericalInterpolation,std::pair<IR::IRSphericalInterpolation const,std::string> const&>(a1, v4, a2, a2);
       a2 += 8;
       v6 -= 32;
     }
@@ -5329,9 +5364,9 @@ void *std::map<IR::IRSphericalInterpolation,std::string>::map[abi:ne200100](void
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__emplace_hint_unique_key_args<IR::IRSphericalInterpolation,std::pair<IR::IRSphericalInterpolation const,std::string> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__emplace_hint_unique_key_args<IR::IRSphericalInterpolation,std::pair<IR::IRSphericalInterpolation const,std::string> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__find_equal<IR::IRSphericalInterpolation>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__find_equal<IR::IRSphericalInterpolation>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__construct_node<std::pair<IR::IRSphericalInterpolation const,std::string> const&>();
@@ -5340,9 +5375,9 @@ uint64_t std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__find_equal<IR::IRSphericalInterpolation>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__find_equal<IR::IRSphericalInterpolation>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -5369,7 +5404,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -5430,7 +5465,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -5509,7 +5544,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -5571,18 +5606,18 @@ void std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std
   }
 }
 
-void *std::map<IR::IRDataType,std::string>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t **std::map<IR::IRDataType,std::string>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      std::__tree<std::__value_type<IR::IRDataType,std::string>,std::__map_value_compare<IR::IRDataType,std::__value_type<IR::IRDataType,std::string>,std::less<IR::IRDataType>,true>,std::allocator<std::__value_type<IR::IRDataType,std::string>>>::__emplace_hint_unique_key_args<IR::IRDataType,std::pair<IR::IRDataType const,std::string> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<IR::IRDataType,std::string>,std::__map_value_compare<IR::IRDataType,std::__value_type<IR::IRDataType,std::string>,std::less<IR::IRDataType>,true>,std::allocator<std::__value_type<IR::IRDataType,std::string>>>::__emplace_hint_unique_key_args<IR::IRDataType,std::pair<IR::IRDataType const,std::string> const&>(a1, v4, a2, a2);
       a2 += 8;
       v6 -= 32;
     }
@@ -5593,9 +5628,9 @@ void *std::map<IR::IRDataType,std::string>::map[abi:ne200100](void *a1, int *a2,
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<IR::IRDataType,std::string>,std::__map_value_compare<IR::IRDataType,std::__value_type<IR::IRDataType,std::string>,std::less<IR::IRDataType>,true>,std::allocator<std::__value_type<IR::IRDataType,std::string>>>::__emplace_hint_unique_key_args<IR::IRDataType,std::pair<IR::IRDataType const,std::string> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<IR::IRDataType,std::string>,std::__map_value_compare<IR::IRDataType,std::__value_type<IR::IRDataType,std::string>,std::less<IR::IRDataType>,true>,std::allocator<std::__value_type<IR::IRDataType,std::string>>>::__emplace_hint_unique_key_args<IR::IRDataType,std::pair<IR::IRDataType const,std::string> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__find_equal<IR::IRSphericalInterpolation>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__find_equal<IR::IRSphericalInterpolation>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<IR::IRDataType,std::string>,std::__map_value_compare<IR::IRDataType,std::__value_type<IR::IRDataType,std::string>,std::less<IR::IRDataType>,true>,std::allocator<std::__value_type<IR::IRDataType,std::string>>>::__construct_node<std::pair<IR::IRDataType const,std::string> const&>();
@@ -5611,7 +5646,7 @@ void sub_296BD99B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *applesauce::CF::details::CFString_get_value<true>@<X0>(const __CFString *a1@<X0>, _BYTE *a2@<X8>)
+void *applesauce::CF::details::CFString_get_value<true>@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
   if (CStringPtr)
@@ -5638,14 +5673,14 @@ _BYTE *applesauce::CF::details::CFString_get_value<true>@<X0>(const __CFString *
       operator new();
     }
 
-    a2[23] = maxBufLen;
+    *(a2 + 23) = maxBufLen;
     if (v7)
     {
       bzero(a2, v7);
     }
 
-    a2[v7] = 0;
-    if (a2[23] >= 0)
+    *(a2 + v7) = 0;
+    if (*(a2 + 23) >= 0)
     {
       v8 = a2;
     }
@@ -5684,18 +5719,18 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void *std::map<PersonalizedHRIRType,std::string>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t **std::map<PersonalizedHRIRType,std::string>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      std::__tree<std::__value_type<PersonalizedHRIRType,std::string>,std::__map_value_compare<PersonalizedHRIRType,std::__value_type<PersonalizedHRIRType,std::string>,std::less<PersonalizedHRIRType>,true>,std::allocator<std::__value_type<PersonalizedHRIRType,std::string>>>::__emplace_hint_unique_key_args<PersonalizedHRIRType,std::pair<PersonalizedHRIRType const,std::string> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<PersonalizedHRIRType,std::string>,std::__map_value_compare<PersonalizedHRIRType,std::__value_type<PersonalizedHRIRType,std::string>,std::less<PersonalizedHRIRType>,true>,std::allocator<std::__value_type<PersonalizedHRIRType,std::string>>>::__emplace_hint_unique_key_args<PersonalizedHRIRType,std::pair<PersonalizedHRIRType const,std::string> const&>(a1, v4, a2, a2);
       a2 += 8;
       v6 -= 32;
     }
@@ -5706,9 +5741,9 @@ void *std::map<PersonalizedHRIRType,std::string>::map[abi:ne200100](void *a1, in
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<PersonalizedHRIRType,std::string>,std::__map_value_compare<PersonalizedHRIRType,std::__value_type<PersonalizedHRIRType,std::string>,std::less<PersonalizedHRIRType>,true>,std::allocator<std::__value_type<PersonalizedHRIRType,std::string>>>::__emplace_hint_unique_key_args<PersonalizedHRIRType,std::pair<PersonalizedHRIRType const,std::string> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<PersonalizedHRIRType,std::string>,std::__map_value_compare<PersonalizedHRIRType,std::__value_type<PersonalizedHRIRType,std::string>,std::less<PersonalizedHRIRType>,true>,std::allocator<std::__value_type<PersonalizedHRIRType,std::string>>>::__emplace_hint_unique_key_args<PersonalizedHRIRType,std::pair<PersonalizedHRIRType const,std::string> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__find_equal<IR::IRSphericalInterpolation>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<IR::IRSphericalInterpolation,std::string>,std::__map_value_compare<IR::IRSphericalInterpolation,std::__value_type<IR::IRSphericalInterpolation,std::string>,std::less<IR::IRSphericalInterpolation>,true>,std::allocator<std::__value_type<IR::IRSphericalInterpolation,std::string>>>::__find_equal<IR::IRSphericalInterpolation>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<PersonalizedHRIRType,std::string>,std::__map_value_compare<PersonalizedHRIRType,std::__value_type<PersonalizedHRIRType,std::string>,std::less<PersonalizedHRIRType>,true>,std::allocator<std::__value_type<PersonalizedHRIRType,std::string>>>::__construct_node<std::pair<PersonalizedHRIRType const,std::string> const&>();
@@ -5724,16 +5759,16 @@ void sub_296BD9D80(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRS6_S9_bEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSB_IJDpT2_EEEDpOT3_(uint64_t a1, uint64_t *a2, uint64_t *a3, _BYTE *a4)
+uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRS6_S9_bEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSB_IJDpT2_EEEDpOT3_(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 24, *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 24), *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   *(a1 + 48) = *a4;
   return a1;
 }
@@ -5750,16 +5785,16 @@ void sub_296BD9E10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRKS6_SA_RKbEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSE_IJDpT2_EEEDpOT3_(uint64_t a1, uint64_t *a2, uint64_t *a3, _BYTE *a4)
+uint64_t _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2EEEEJNS_6vectorIfNS_9allocatorIfEEEES6_bEEC2B8ne200100IJLm0ELm1ELm2EEJS6_S6_bEJEJEJRKS6_SA_RKbEEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSE_IJDpT2_EEEDpOT3_(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 24, *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 24), *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   *(a1 + 48) = *a4;
   return a1;
 }
@@ -5835,9 +5870,9 @@ uint64_t std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData con
   return v16;
 }
 
-void sub_296BDA008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296BDA008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5849,9 +5884,9 @@ IR::HOA2BinauralIRRenderer *IR::HOA2BinauralIRRenderer::HOA2BinauralIRRenderer(I
   *(this + 2) = 0;
   v10 = 2;
   *(this + 3) = 0;
-  v8 = this + 24;
-  *(v8 + 1) = 0;
-  *(v8 + 2) = 0;
+  v8 = (this + 24);
+  v8[1] = 0;
+  v8[2] = 0;
   std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType const*,IR::IRCoordinateType const*>(v8, &v10, &v11, 1uLL);
   *(this + 14) = 0;
   *(this + 5) = 0u;
@@ -5902,7 +5937,7 @@ void sub_296BDA108(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -5911,8 +5946,8 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -5950,23 +5985,24 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -5981,14 +6017,14 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -6003,11 +6039,11 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -6027,7 +6063,7 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<floa
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -6046,17 +6082,17 @@ LABEL_29:
   return v5;
 }
 
-void *std::vector<float *>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float *>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float *>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_296BDA40C(_Unwind_Exception *exception_object)
@@ -6071,7 +6107,7 @@ void sub_296BDA40C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6234,7 +6270,7 @@ IR::IRDataLoader::Implementation *IR::IRDataLoader::Implementation::Implementati
   MEMORY[0x29C25FA70](this + 88);
   *(this + 152) = 0;
   std::string::basic_string[abi:ne200100]<0>(__p, "IRDataLoader");
-  IR::PersonalizedIRData::PersonalizedIRData(this + 160, __p);
+  IR::PersonalizedIRData::PersonalizedIRData(this + 20, __p);
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -6277,22 +6313,22 @@ IR::IRDataLoader::Implementation *std::unique_ptr<IR::IRDataLoader::Implementati
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -6354,12 +6390,12 @@ void std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_va
   }
 }
 
-void std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<std::vector<std::vector<float>> const&,std::vector<std::vector<float>> const&,std::vector<IR::IRCoordinateType> const&,std::vector<std::vector<float>> const&,float &,unsigned int &,std::vector<float> const&,std::vector<IR::IRInterpolationMethod> const&,applesauce::CF::DictionaryRef const&,std::string const&,unsigned int &,BOOL &,unsigned int &,IR::IRSphericalInterpolation &,std::vector<float> const&,std::allocator<IR::IRData>,0>(void *a1)
+void std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<std::vector<std::vector<float>> const&,std::vector<std::vector<float>> const&,std::vector<IR::IRCoordinateType> const&,std::vector<std::vector<float>> const&,float &,unsigned int &,std::vector<float> const&,std::vector<IR::IRInterpolationMethod> const&,applesauce::CF::DictionaryRef const&,std::string const&,unsigned int &,BOOL &,unsigned int &,IR::IRSphericalInterpolation &,std::vector<float> const&,std::allocator<IR::IRData>,0>(void *a1, uint64_t a2, void *a3, uint64_t *a4, uint64_t a5, float *a6, unsigned int *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t a11, unsigned int *a12, unsigned __int8 *a13, int *a14, unsigned int *a15, uint64_t a16)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2A1DEBF90;
-  IR::IRData::IRData(a1 + 3);
+  IR::IRData::IRData(a1 + 3, a2, a3, a4, a5, *a7, a8, a9, *a6, a10, a11, *a12, *a13, *a14, *a15, a16);
 }
 
 void std::shared_ptr<IR::IRData>::shared_ptr[abi:ne200100]<IR::IRData,0>(void *a1, uint64_t a2)
@@ -6369,9 +6405,9 @@ void std::shared_ptr<IR::IRData>::shared_ptr[abi:ne200100]<IR::IRData,0>(void *a
   operator new();
 }
 
-void sub_296BDAB6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BDAB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<IR::IRData>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6447,7 +6483,7 @@ uint64_t std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValid
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -6584,9 +6620,9 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::
   return i;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -6783,35 +6819,35 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -6819,49 +6855,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_296BDB638(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BDB638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6883,7 +6919,7 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -6899,7 +6935,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::Personal
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -6907,7 +6943,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::Personal
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -6931,7 +6967,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::Personal
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -7010,9 +7046,9 @@ uint64_t std::__call_once_proxy[abi:ne200100]<std::tuple<IR::IRDataLoader::Imple
   return std::__function::__value_func<void ()(IR::PersonalizedIRData::DataStatus)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_296BDBB50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BDBB50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(IR::PersonalizedIRData::DataStatus)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7055,7 +7091,7 @@ uint64_t std::__function::__value_func<void ()(IR::PersonalizedIRData::DataStatu
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__erase_unique<std::string>(void *a1, const void **a2)
+uint64_t std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__erase_unique<std::string>(void *a1, uint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::find<std::string>(a1, a2);
   if (result)
@@ -7178,41 +7214,41 @@ LABEL_19:
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = *(v5 + 32);
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
@@ -7224,6 +7260,19 @@ void sub_296BDC07C(_Unwind_Exception *a1)
   *v1 = 0;
   std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned int,CA::ChannelLayout>,void *>>>::operator()[abi:ne200100](v3, v2);
   _Unwind_Resume(a1);
+}
+
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_296BDC0FC(_Unwind_Exception *exception_object)
@@ -7258,57 +7307,57 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,CA::ChannelLayout>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,CA::ChannelLayout>>(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<IR::IRDataAttributes const&,applesauce::CF::DataRef &,std::vector<float> const&,std::allocator<IR::IRData>,0>(void *a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+void *std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<IR::IRDataAttributes const&,applesauce::CF::DataRef &,std::vector<float> const&,std::allocator<IR::IRData>,0>(void *a1, applesauce::CF::URLRef *a2, CFTypeRef *a3, uint64_t *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2A1DEBF90;
-  std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes const&,applesauce::CF::DataRef &,std::vector<float> const&,IR::IRData*>((a1 + 3), a2, a3, a4);
+  std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes const&,applesauce::CF::DataRef &,std::vector<float> const&,IR::IRData*>(a1 + 3, a2, a3, a4);
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes const&,applesauce::CF::DataRef &,std::vector<float> const&,IR::IRData*>(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+void *std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes const&,applesauce::CF::DataRef &,std::vector<float> const&,IR::IRData*>(void *a1, applesauce::CF::URLRef *a2, CFTypeRef *a3, uint64_t *a4)
 {
   v7 = *a3;
   if (*a3)
@@ -7326,23 +7375,23 @@ uint64_t std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes const&,
   return a1;
 }
 
-void sub_296BDC3B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BDC3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DataRef::~DataRef(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<IR::IRDataAttributes &,applesauce::CF::DataRef &,std::vector<float> const&,std::allocator<IR::IRData>,0>(void *a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+void *std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<IR::IRDataAttributes &,applesauce::CF::DataRef &,std::vector<float> const&,std::allocator<IR::IRData>,0>(void *a1, applesauce::CF::URLRef *a2, CFTypeRef *a3, uint64_t *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2A1DEBF90;
-  std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes &,applesauce::CF::DataRef &,std::vector<float> const&,IR::IRData*>((a1 + 3), a2, a3, a4);
+  std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes &,applesauce::CF::DataRef &,std::vector<float> const&,IR::IRData*>(a1 + 3, a2, a3, a4);
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes &,applesauce::CF::DataRef &,std::vector<float> const&,IR::IRData*>(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t a4)
+void *std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes &,applesauce::CF::DataRef &,std::vector<float> const&,IR::IRData*>(void *a1, applesauce::CF::URLRef *a2, CFTypeRef *a3, uint64_t *a4)
 {
   v7 = *a3;
   if (*a3)
@@ -7360,14 +7409,14 @@ uint64_t std::construct_at[abi:ne200100]<IR::IRData,IR::IRDataAttributes &,apple
   return a1;
 }
 
-void sub_296BDC524(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BDC524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DataRef::~DataRef(va);
   _Unwind_Resume(a1);
 }
 
-void std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<float,unsigned int,unsigned int &,float,BOOL &,unsigned int,unsigned int,unsigned int,std::vector<IR::IRCoordinateType> &,std::vector<float> &,std::vector<IR::IRInterpolationMethod> &,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,std::allocator<IR::IRData>,0>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15)
+void std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<float,unsigned int,unsigned int &,float,BOOL &,unsigned int,unsigned int,unsigned int,std::vector<IR::IRCoordinateType> &,std::vector<float> &,std::vector<IR::IRInterpolationMethod> &,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,std::allocator<IR::IRData>,0>(void *a1, float *a2, int *a3, int *a4, float *a5, char *a6, int *a7, int *a8, int *a9, uint64_t a10, uint64_t a11, uint64_t a12, int *a13, const void **a14, CFTypeRef *a15)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -7375,11 +7424,24 @@ void std::__shared_ptr_emplace<IR::IRData>::__shared_ptr_emplace[abi:ne200100]<f
   std::construct_at[abi:ne200100]<IR::IRData,float,unsigned int,unsigned int &,float,BOOL &,unsigned int,unsigned int,unsigned int,std::vector<IR::IRCoordinateType> &,std::vector<float> &,std::vector<IR::IRInterpolationMethod> &,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,IR::IRData*>(a1 + 3, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
 }
 
-void std::construct_at[abi:ne200100]<IR::IRData,float,unsigned int,unsigned int &,float,BOOL &,unsigned int,unsigned int,unsigned int,std::vector<IR::IRCoordinateType> &,std::vector<float> &,std::vector<IR::IRInterpolationMethod> &,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,IR::IRData*>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15)
+void std::construct_at[abi:ne200100]<IR::IRData,float,unsigned int,unsigned int &,float,BOOL &,unsigned int,unsigned int,unsigned int,std::vector<IR::IRCoordinateType> &,std::vector<float> &,std::vector<IR::IRInterpolationMethod> &,IR::IRSphericalInterpolation,applesauce::CF::DictionaryRef,applesauce::CF::DictionaryRef,IR::IRData*>(void *a1, float *a2, int *a3, int *a4, float *a5, char *a6, int *a7, int *a8, int *a9, uint64_t a10, uint64_t a11, uint64_t a12, int *a13, const void **a14, CFTypeRef *a15)
 {
+  v15 = *a2;
+  v16 = *a3;
+  v17 = *a4;
+  v18 = *a5;
+  v19 = *a6;
+  v20 = *a7;
+  v21 = *a8;
+  v22 = *a9;
+  v23 = *a13;
+  v24 = *a14;
   *a14 = 0;
+  v26 = *a15;
+  v27 = v24;
   *a15 = 0;
-  IR::IRData::IRData(a1);
+  LODWORD(v25) = v23;
+  IR::IRData::IRData(a1, v16, v17, v19, v20, v21, v22, a10, v15, v18, a11, a12, v25, &v27, &v26);
 }
 
 void sub_296BDC750(_Unwind_Exception *a1)
@@ -7718,15 +7780,16 @@ uint64_t IR::MatrixResampler<float>::Initialize(uint64_t a1, unsigned int a2, in
 
   v19 = (*v18 * __P);
   LODWORD(v93) = 0;
-  std::vector<float>::vector[abi:ne200100](&v95, v19);
-  std::vector<float>::vector[abi:ne200100](&v93, __P >> 1);
+  std::vector<float>::vector[abi:ne200100](&v95, v19, &v93);
+  LODWORD(__A) = 0;
+  std::vector<float>::vector[abi:ne200100](&v93, __P >> 1, &__A);
   v20 = __P;
   LODWORD(__A) = 0;
   *__B = v8 / __P;
   vDSP_vramp(&__A, __B, v93, 1, v94 - v93);
   v21 = *v7;
   LODWORD(__B[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](&__A, v21);
+  std::vector<float>::vector[abi:ne200100](&__A, v21, __B);
   LODWORD(__B[0]) = 0;
   LODWORD(v89[0]) = -1060565029;
   vDSP_vramp(__B, v89, __A, 1, v92 - __A);
@@ -7775,8 +7838,9 @@ uint64_t IR::MatrixResampler<float>::Initialize(uint64_t a1, unsigned int a2, in
 
   v29 = *v7 * v17;
   LODWORD(v89[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](__B, (2 * v29));
-  std::vector<float>::vector[abi:ne200100](v89, (2 * v29));
+  std::vector<float>::vector[abi:ne200100](__B, (2 * v29), v89);
+  LODWORD(__Or[0]) = 0;
+  std::vector<float>::vector[abi:ne200100](v89, (2 * v29), __Or);
   LODWORD(__Or[0]) = v29;
   vvsincosf(v89[0], __B[0], v95, __Or);
   v30 = *v7;
@@ -7854,8 +7918,9 @@ uint64_t IR::MatrixResampler<float>::Initialize(uint64_t a1, unsigned int a2, in
   Setup = vDSP_DFT_zrop_CreateSetup(0, __P, vDSP_DFT_FORWARD);
   __Setup = vDSP_DFT_zrop_CreateSetup(Setup, __P, vDSP_DFT_INVERSE);
   LODWORD(__Oi[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](__Or, __P);
-  std::vector<float>::vector[abi:ne200100](__Oi, __P);
+  std::vector<float>::vector[abi:ne200100](__Or, __P, __Oi);
+  LODWORD(v82) = 0;
+  std::vector<float>::vector[abi:ne200100](__Oi, __P, &v82);
   __Z.realp = __Or[0];
   __Z.imagp = __Oi[0];
   LODWORD(v82) = v72;
@@ -7928,13 +7993,13 @@ uint64_t IR::MatrixResampler<float>::Initialize(uint64_t a1, unsigned int a2, in
   v84.imagp = v36 + (2 * __P);
   vDSP_zvmul(&__Z, 1, &v84, 1, &__Z, 1, __P, 1);
   LODWORD(v80) = 0;
-  std::vector<float>::vector[abi:ne200100](&v82, __P);
+  std::vector<float>::vector[abi:ne200100](&v82, __P, &v80);
   LODWORD(v80) = 0;
   *&v78 = 1.0 / v20;
   vDSP_vramp(&v80, &v78, v82, 1, v83 - v82);
   v57 = *v10;
   LODWORD(v78) = 0;
-  std::vector<float>::vector[abi:ne200100](&v80, v57);
+  std::vector<float>::vector[abi:ne200100](&v80, v57, &v78);
   LODWORD(v78) = 0;
   LODWORD(v76) = 1086918619;
   vDSP_vramp(&v78, &v76, v80, 1, v81 - v80);
@@ -7942,8 +8007,9 @@ uint64_t IR::MatrixResampler<float>::Initialize(uint64_t a1, unsigned int a2, in
   vDSP_mmul(v80, 1, v82, 1, v95, 1, *v10, __P, 1uLL);
   v59 = (v58 * __P);
   LODWORD(v76) = 0;
-  std::vector<float>::vector[abi:ne200100](&v78, v59);
-  std::vector<float>::vector[abi:ne200100](&v76, v59);
+  std::vector<float>::vector[abi:ne200100](&v78, v59, &v76);
+  LODWORD(v75.realp) = 0;
+  std::vector<float>::vector[abi:ne200100](&v76, v59, &v75);
   LODWORD(v75.realp) = v59;
   vvsincosf(v76, v78, v95, &v75);
   *&v75.realp = 1.0 / v20;
@@ -8281,39 +8347,39 @@ void sub_296BDDF04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IR::getProductTypeXTCIRFullPath(uint64_t a1@<X8>)
+void IR::getProductTypeXTCIRFullPath(void *a1@<X8>)
 {
-  v3 = applesauce::gestalt::query_as<unsigned int,0>();
-  if ((v3 & 0x100000000) != 0 && v3)
+  v2 = applesauce::gestalt::query_as<unsigned int,0>(@"AcousticID");
+  if ((v2 & 0x100000000) != 0 && v2)
   {
-    v4 = PlatformUtilities_iOS::CopyAcousticIDFilePrefix(v3);
-    v35 = v4;
-    if (v4)
+    v3 = PlatformUtilities_iOS::CopyAcousticIDFilePrefix(v2);
+    v34 = v3;
+    if (v3)
     {
-      v5 = CFGetTypeID(v4);
-      if (v5 != CFStringGetTypeID())
+      v4 = CFGetTypeID(v3);
+      if (v4 != CFStringGetTypeID())
       {
         exception = __cxa_allocate_exception(0x10uLL);
         MEMORY[0x29C25F8D0](exception, "Could not construct");
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v32, "/System/Library/Audio/Tunings/IRs");
-    v6 = std::string::append(&v32, "/", 1uLL);
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    v33.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&v33.__r_.__value_.__l.__data_ = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
-    if (!v35)
+    std::string::basic_string[abi:ne200100]<0>(&v31, "/System/Library/Audio/Tunings/IRs");
+    v5 = std::string::append(&v31, "/", 1uLL);
+    v6 = *&v5->__r_.__value_.__l.__data_;
+    v32.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v32.__r_.__value_.__l.__data_ = v6;
+    v5->__r_.__value_.__l.__size_ = 0;
+    v5->__r_.__value_.__r.__words[2] = 0;
+    v5->__r_.__value_.__r.__words[0] = 0;
+    if (!v34)
     {
-      v25 = __cxa_allocate_exception(0x10uLL);
-      MEMORY[0x29C25F8D0](v25, "Could not construct");
+      v24 = __cxa_allocate_exception(0x10uLL);
+      MEMORY[0x29C25F8D0](v24, "Could not construct");
     }
 
-    applesauce::CF::convert_to<std::string,0>(v35, &__p);
-    if ((v31 & 0x80u) == 0)
+    applesauce::CF::convert_to<std::string,0>(v34, &__p);
+    if ((v30 & 0x80u) == 0)
     {
       p_p = &__p;
     }
@@ -8323,43 +8389,38 @@ void IR::getProductTypeXTCIRFullPath(uint64_t a1@<X8>)
       p_p = __p;
     }
 
-    if ((v31 & 0x80u) == 0)
+    if ((v30 & 0x80u) == 0)
     {
-      v9 = v31;
+      v8 = v30;
     }
 
     else
     {
-      v9 = v30;
+      v8 = v29;
     }
 
-    v10 = std::string::append(&v33, p_p, v9);
-    v11 = *&v10->__r_.__value_.__l.__data_;
-    v34.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-    *&v34.__r_.__value_.__l.__data_ = v11;
-    v10->__r_.__value_.__l.__size_ = 0;
-    v10->__r_.__value_.__r.__words[2] = 0;
-    v10->__r_.__value_.__r.__words[0] = 0;
-    v12 = std::string::append(&v34, "/", 1uLL);
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    *(a1 + 16) = *(&v12->__r_.__value_.__l + 2);
-    *a1 = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v34.__r_.__value_.__l.__data_);
-    }
-
-    if (v31 < 0)
-    {
-      operator delete(__p);
-    }
-
+    v9 = std::string::append(&v32, p_p, v8);
+    v10 = *&v9->__r_.__value_.__l.__data_;
+    v33.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
+    *&v33.__r_.__value_.__l.__data_ = v10;
+    v9->__r_.__value_.__l.__size_ = 0;
+    v9->__r_.__value_.__r.__words[2] = 0;
+    v9->__r_.__value_.__r.__words[0] = 0;
+    v11 = std::string::append(&v33, "/", 1uLL);
+    v12 = *&v11->__r_.__value_.__l.__data_;
+    a1[2] = *(&v11->__r_.__value_.__l + 2);
+    *a1 = v12;
+    v11->__r_.__value_.__l.__size_ = 0;
+    v11->__r_.__value_.__r.__words[2] = 0;
+    v11->__r_.__value_.__r.__words[0] = 0;
     if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v33.__r_.__value_.__l.__data_);
+    }
+
+    if (v30 < 0)
+    {
+      operator delete(__p);
     }
 
     if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
@@ -8367,91 +8428,91 @@ void IR::getProductTypeXTCIRFullPath(uint64_t a1@<X8>)
       operator delete(v32.__r_.__value_.__l.__data_);
     }
 
-    if (v35)
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
-      CFRelease(v35);
+      operator delete(v31.__r_.__value_.__l.__data_);
+    }
+
+    if (v34)
+    {
+      CFRelease(v34);
     }
   }
 
   else
   {
-    ProductType = PlatformUtilities_iOS::GetProductType(v3);
+    ProductType = PlatformUtilities_iOS::GetProductType(v2);
     if (ProductType)
     {
-      v15 = PlatformUtilities::CopyHardwareModelShortName(ProductType);
-      v35 = v15;
-      if (v15)
+      v14 = PlatformUtilities::CopyHardwareModelShortName(ProductType);
+      v34 = v14;
+      if (v14)
       {
-        v16 = CFGetTypeID(v15);
-        if (v16 != CFStringGetTypeID())
+        v15 = CFGetTypeID(v14);
+        if (v15 != CFStringGetTypeID())
         {
-          v28 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x29C25F8D0](v28, "Could not construct");
+          v27 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x29C25F8D0](v27, "Could not construct");
         }
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v32, "/System/Library/Audio/Tunings/IRs");
-      v17 = std::string::append(&v32, "/", 1uLL);
-      v18 = *&v17->__r_.__value_.__l.__data_;
-      v33.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-      *&v33.__r_.__value_.__l.__data_ = v18;
-      v17->__r_.__value_.__l.__size_ = 0;
-      v17->__r_.__value_.__r.__words[2] = 0;
-      v17->__r_.__value_.__r.__words[0] = 0;
-      if (!v35)
+      std::string::basic_string[abi:ne200100]<0>(&v31, "/System/Library/Audio/Tunings/IRs");
+      v16 = std::string::append(&v31, "/", 1uLL);
+      v17 = *&v16->__r_.__value_.__l.__data_;
+      v32.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+      *&v32.__r_.__value_.__l.__data_ = v17;
+      v16->__r_.__value_.__l.__size_ = 0;
+      v16->__r_.__value_.__r.__words[2] = 0;
+      v16->__r_.__value_.__r.__words[0] = 0;
+      if (!v34)
       {
-        v27 = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x29C25F8D0](v27, "Could not construct");
+        v26 = __cxa_allocate_exception(0x10uLL);
+        MEMORY[0x29C25F8D0](v26, "Could not construct");
       }
 
-      applesauce::CF::convert_to<std::string,0>(v35, &__p);
-      if ((v31 & 0x80u) == 0)
+      applesauce::CF::convert_to<std::string,0>(v34, &__p);
+      if ((v30 & 0x80u) == 0)
       {
-        v19 = &__p;
-      }
-
-      else
-      {
-        v19 = __p;
-      }
-
-      if ((v31 & 0x80u) == 0)
-      {
-        v20 = v31;
+        v18 = &__p;
       }
 
       else
       {
-        v20 = v30;
+        v18 = __p;
       }
 
-      v21 = std::string::append(&v33, v19, v20);
-      v22 = *&v21->__r_.__value_.__l.__data_;
-      v34.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
-      *&v34.__r_.__value_.__l.__data_ = v22;
-      v21->__r_.__value_.__l.__size_ = 0;
-      v21->__r_.__value_.__r.__words[2] = 0;
-      v21->__r_.__value_.__r.__words[0] = 0;
-      v23 = std::string::append(&v34, "/", 1uLL);
-      v24 = *&v23->__r_.__value_.__l.__data_;
-      *(a1 + 16) = *(&v23->__r_.__value_.__l + 2);
-      *a1 = v24;
-      v23->__r_.__value_.__l.__size_ = 0;
-      v23->__r_.__value_.__r.__words[2] = 0;
-      v23->__r_.__value_.__r.__words[0] = 0;
-      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+      if ((v30 & 0x80u) == 0)
       {
-        operator delete(v34.__r_.__value_.__l.__data_);
+        v19 = v30;
       }
 
-      if (v31 < 0)
+      else
       {
-        operator delete(__p);
+        v19 = v29;
       }
 
+      v20 = std::string::append(&v32, v18, v19);
+      v21 = *&v20->__r_.__value_.__l.__data_;
+      v33.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+      *&v33.__r_.__value_.__l.__data_ = v21;
+      v20->__r_.__value_.__l.__size_ = 0;
+      v20->__r_.__value_.__r.__words[2] = 0;
+      v20->__r_.__value_.__r.__words[0] = 0;
+      v22 = std::string::append(&v33, "/", 1uLL);
+      v23 = *&v22->__r_.__value_.__l.__data_;
+      a1[2] = *(&v22->__r_.__value_.__l + 2);
+      *a1 = v23;
+      v22->__r_.__value_.__l.__size_ = 0;
+      v22->__r_.__value_.__r.__words[2] = 0;
+      v22->__r_.__value_.__r.__words[0] = 0;
       if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v33.__r_.__value_.__l.__data_);
+      }
+
+      if (v30 < 0)
+      {
+        operator delete(__p);
       }
 
       if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
@@ -8459,9 +8520,14 @@ void IR::getProductTypeXTCIRFullPath(uint64_t a1@<X8>)
         operator delete(v32.__r_.__value_.__l.__data_);
       }
 
-      if (v35)
+      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
       {
-        CFRelease(v35);
+        operator delete(v31.__r_.__value_.__l.__data_);
+      }
+
+      if (v34)
+      {
+        CFRelease(v34);
       }
     }
 
@@ -8480,10 +8546,10 @@ void sub_296BDE2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void IR::getProductTypeXTCIRFilePrefix(uint64_t a1@<X8>)
+void IR::getProductTypeXTCIRFilePrefix(void *a1@<X8>)
 {
-  v3 = applesauce::gestalt::query_as<unsigned int,0>();
-  if ((v3 & 0x100000000) != 0 && v3 || (ProductType = PlatformUtilities_iOS::GetProductType(v3)) == 0)
+  v2 = applesauce::gestalt::query_as<unsigned int,0>(@"AcousticID");
+  if ((v2 & 0x100000000) != 0 && v2 || (ProductType = PlatformUtilities_iOS::GetProductType(v2)) == 0)
   {
 
     std::string::basic_string[abi:ne200100]<0>(a1, "");
@@ -8491,15 +8557,15 @@ void IR::getProductTypeXTCIRFilePrefix(uint64_t a1@<X8>)
 
   else
   {
-    v5 = PlatformUtilities_iOS::CopyProductTypeFilePrefix(ProductType);
-    cf = v5;
-    if (!v5)
+    v4 = PlatformUtilities_iOS::CopyProductTypeFilePrefix(ProductType);
+    cf = v4;
+    if (!v4)
     {
       goto LABEL_15;
     }
 
-    v6 = CFGetTypeID(v5);
-    if (v6 != CFStringGetTypeID())
+    v5 = CFGetTypeID(v4);
+    if (v5 != CFStringGetTypeID())
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25F8D0](exception, "Could not construct");
@@ -8508,18 +8574,18 @@ void IR::getProductTypeXTCIRFilePrefix(uint64_t a1@<X8>)
     if (!cf)
     {
 LABEL_15:
-      v9 = __cxa_allocate_exception(0x10uLL);
-      MEMORY[0x29C25F8D0](v9, "Could not construct");
+      v8 = __cxa_allocate_exception(0x10uLL);
+      MEMORY[0x29C25F8D0](v8, "Could not construct");
     }
 
     applesauce::CF::convert_to<std::string,0>(cf, &__p);
-    v7 = std::string::append(&__p, "_", 1uLL);
-    v8 = *&v7->__r_.__value_.__l.__data_;
-    *(a1 + 16) = *(&v7->__r_.__value_.__l + 2);
-    *a1 = v8;
-    v7->__r_.__value_.__l.__size_ = 0;
-    v7->__r_.__value_.__r.__words[2] = 0;
-    v7->__r_.__value_.__r.__words[0] = 0;
+    v6 = std::string::append(&__p, "_", 1uLL);
+    v7 = *&v6->__r_.__value_.__l.__data_;
+    a1[2] = *(&v6->__r_.__value_.__l + 2);
+    *a1 = v7;
+    v6->__r_.__value_.__l.__size_ = 0;
+    v6->__r_.__value_.__r.__words[2] = 0;
+    v6->__r_.__value_.__r.__words[0] = 0;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -9049,30 +9115,30 @@ applesauce::CF::URLRef *applesauce::CF::URLRef::URLRef(applesauce::CF::URLRef *t
   return this;
 }
 
-uint64_t applesauce::gestalt::query_as<unsigned int,0>()
+unint64_t applesauce::gestalt::query_as<unsigned int,0>(uint64_t a1)
 {
-  v0 = MGCopyAnswerWithError();
-  v1 = v0;
-  if (v0)
+  v1 = MGCopyAnswerWithError();
+  v2 = v1;
+  if (v1)
   {
-    v2 = applesauce::CF::convert_as<unsigned int,0>(v0);
-    v3 = v2;
-    v4 = v2 & 0xFFFFFF00;
-    v5 = v2 & 0xFFFFFFFF00000000;
-    CFRelease(v1);
+    v3 = applesauce::CF::convert_as<unsigned int,0>(v1);
+    v4 = v3;
+    v5 = v3 & 0xFFFFFF00;
+    v6 = v3 & 0xFFFFFFFF00000000;
+    CFRelease(v2);
   }
 
   else
   {
-    v4 = 0;
     v5 = 0;
-    v3 = 0;
+    v6 = 0;
+    v4 = 0;
   }
 
-  return v5 & 0xFF00000000 | v4 & 0xFFFFFF00 | v3;
+  return v6 & 0xFF00000000 | v5 & 0xFFFFFF00 | v4;
 }
 
-_BYTE *applesauce::CF::convert_to<std::string,0>@<X0>(const __CFString *a1@<X0>, _BYTE *a2@<X8>)
+void *applesauce::CF::convert_to<std::string,0>@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   if (!a1 || (TypeID = CFStringGetTypeID(), TypeID != CFGetTypeID(a1)))
   {
@@ -9174,7 +9240,7 @@ void sub_296BDFEEC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-int *IR::FFTSubFilterData<float>::operator=(int *a1, uint64_t a2)
+uint64_t *IR::FFTSubFilterData<float>::operator=(uint64_t *a1, uint64_t a2)
 {
   if (a2 != a1)
   {
@@ -9182,12 +9248,12 @@ int *IR::FFTSubFilterData<float>::operator=(int *a1, uint64_t a2)
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 8, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 2);
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 2, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
     std::vector<IR::SplitComplex<float>>::__assign_with_size[abi:ne200100]<IR::SplitComplex<float>*,IR::SplitComplex<float>*>(a1 + 5, *(a2 + 40), *(a2 + 48), (*(a2 + 48) - *(a2 + 40)) >> 4);
-    v4 = *(a1 + 5);
-    v5 = *(a1 + 6);
+    v4 = a1[5];
+    v5 = a1[6];
     if (v4 != v5)
     {
       v6 = 0;
-      v7 = *(a1 + 2);
+      v7 = a1[2];
       v8 = *a1;
       v9 = 2 * *a1;
       do
@@ -9606,14 +9672,14 @@ void sub_296BE081C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t _ZN2IR16FFTSubFilterDataIDF16_EC2ERKS1_(uint64_t a1, uint64_t a2)
+uint64_t *_ZN2IR16FFTSubFilterDataIDF16_EC2ERKS1_(uint64_t *a1, uint64_t a2)
 {
-  *(a1 + 16) = 0u;
-  *(a1 + 64) = 0u;
-  *(a1 + 80) = 0u;
-  *(a1 + 96) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 6) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
   *a1 = 0u;
   _ZN2IR16FFTSubFilterDataIDF16_EaSERKS1_(a1, a2);
   return a1;
@@ -9632,7 +9698,7 @@ void sub_296BE08A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-int *_ZN2IR16FFTSubFilterDataIDF16_EaSERKS1_(int *a1, uint64_t a2)
+uint64_t *_ZN2IR16FFTSubFilterDataIDF16_EaSERKS1_(uint64_t *a1, uint64_t a2)
 {
   if (a2 != a1)
   {
@@ -9640,12 +9706,12 @@ int *_ZN2IR16FFTSubFilterDataIDF16_EaSERKS1_(int *a1, uint64_t a2)
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 8, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 2);
     _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE18__assign_with_sizeB8ne200100IPDF16_S5_EEvT_T0_l(a1 + 2, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 1);
     std::vector<IR::SplitComplex<float>>::__assign_with_size[abi:ne200100]<IR::SplitComplex<float>*,IR::SplitComplex<float>*>(a1 + 5, *(a2 + 40), *(a2 + 48), (*(a2 + 48) - *(a2 + 40)) >> 4);
-    v4 = *(a1 + 5);
-    v5 = *(a1 + 6);
+    v4 = a1[5];
+    v5 = a1[6];
     if (v4 != v5)
     {
       v6 = 0;
-      v7 = *(a1 + 2);
+      v7 = a1[2];
       v8 = *a1;
       v9 = 2 * *a1;
       do
@@ -9837,81 +9903,4 @@ LABEL_40:
   }
 
   return v7;
-}
-
-void sub_296BE0DB8(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 - 144);
-  *(v1 - 144) = 0;
-  if (v3)
-  {
-    std::default_delete<MultiRadixRealFFT>::operator()[abi:ne200100](v1 - 144, v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _ZN2IR16FFTSubFilterDataIDF16_E10accumulateERKS1_DF16_(uint64_t a1, uint64_t a2, __n128 a3)
-{
-  if (*a2 == *a1)
-  {
-    if (*(a2 + 8) >= *(a1 + 4))
-    {
-      v5 = *(a1 + 4);
-    }
-
-    else
-    {
-      v5 = *(a2 + 8);
-    }
-
-    if (v5)
-    {
-      v6 = a3.n128_u16[0];
-      v7 = 0;
-      v8 = *(a2 + 64);
-      v9 = 8;
-      do
-      {
-        v10 = *(*(a2 + 40) + v9 - 8);
-        v11 = *(*(a1 + 40) + v9 - 8);
-        v12 = *(v8 + v7);
-        v19 = v6;
-        vDSP_vsma_fp16(v10, 1, &v19, v11, 1, v11, 1, v12);
-        v13 = *(*(a2 + 40) + v9);
-        v14 = *(*(a1 + 40) + v9);
-        v15 = *(*(a2 + 64) + v7);
-        v20 = v6;
-        vDSP_vsma_fp16(v13, 1, &v20, v14, 1, v14, 1, v15);
-        v16 = *(a1 + 64);
-        v8 = *(a2 + 64);
-        v17 = *(v16 + v7);
-        if (v17 <= *(v8 + v7))
-        {
-          v17 = *(v8 + v7);
-        }
-
-        *(v16 + v7) = v17;
-        v9 += 16;
-        v7 += 4;
-      }
-
-      while (4 * v5 != v7);
-    }
-
-    result = 0;
-    if (v5 > *(a1 + 8))
-    {
-      *(a1 + 8) = v5;
-    }
-  }
-
-  else
-  {
-    bzero(*(a1 + 16), *(a1 + 24) - *(a1 + 16));
-    *(a1 + 8) = 0;
-    return 4294967246;
-  }
-
-  return result;
 }

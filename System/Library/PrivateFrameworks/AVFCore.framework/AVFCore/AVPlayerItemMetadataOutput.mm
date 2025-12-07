@@ -16,14 +16,14 @@
 
 - (AVPlayerItemMetadataOutput)initWithIdentifiers:(NSArray *)identifiers
 {
-  v16.receiver = self;
-  v16.super_class = AVPlayerItemMetadataOutput;
-  v5 = [(AVPlayerItemOutput *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = AVPlayerItemMetadataOutput;
+  v5 = [(AVPlayerItemOutput *)&v17 init];
   if (identifiers && ![(NSArray *)identifiers count])
   {
-    v9 = v5;
-    v15 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(v5 userInfo:{a2, @"invalid parameter not satisfying: %s", v10, v11, v12, v13, v14, "[identifiers count] > 0"), 0}];
-    objc_exception_throw(v15);
+    v10 = v5;
+    v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(v5 userInfo:{a2, @"invalid parameter not satisfying: %s", v11, v12, v13, v14, v15, "[identifiers count] > 0"), 0}];
+    objc_exception_throw(v16);
   }
 
   if (v5)
@@ -33,12 +33,12 @@
     if (v6)
     {
       CFRetain(v6);
-      v5->_metadataOutputInternal->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritemmetadataoutput.ivars");
+      v5->_metadataOutputInternal->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritemmetadataoutput.ivars", v7);
       v5->_metadataOutputInternal->delegateStorage = objc_alloc_init(AVWeakReferencingDelegateStorage);
       v5->_metadataOutputInternal->metadataIdentifiers = [(NSArray *)identifiers copy];
       v5->_metadataOutputInternal->accumulatedMetadataGroups = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v5->_metadataOutputInternal->accumulationQueue = dispatch_queue_create("com.apple.avplayeritemmetadataoutput.accumulationqueue", v7);
+      v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v5->_metadataOutputInternal->accumulationQueue = dispatch_queue_create("com.apple.avplayeritemmetadataoutput.accumulationqueue", v8);
     }
 
     else

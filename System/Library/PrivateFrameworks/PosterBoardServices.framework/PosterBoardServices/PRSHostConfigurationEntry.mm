@@ -115,7 +115,6 @@
         descriptorID = [(PRSHostConfigurationEntry *)v9 descriptorID];
         if ([(NSString *)descriptorID isEqualToString:descriptorID])
         {
-          posterUUID = self->_posterUUID;
           posterUUID = [(PRSHostConfigurationEntry *)v9 posterUUID];
           v8 = BSEqualObjects();
         }

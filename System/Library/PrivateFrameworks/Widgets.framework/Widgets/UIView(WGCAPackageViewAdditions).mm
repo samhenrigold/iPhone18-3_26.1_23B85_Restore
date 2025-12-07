@@ -44,93 +44,93 @@
       v9 = v8;
       v11 = v10;
       v13 = v12;
-      CGImageGetWidth(contents);
-      _WGMainScreenScale();
-      CGImageGetHeight(contents);
-      _WGMainScreenScale();
+      Width = CGImageGetWidth(contents);
+      _WGMainScreenScale(Width, v15);
+      Height = CGImageGetHeight(contents);
+      _WGMainScreenScale(Height, v17);
       BSRectWithSize();
-      v21.origin.x = v14;
-      v21.origin.y = v15;
-      v21.size.width = v16;
-      v21.size.height = v17;
-      v20.origin.x = v7;
-      v20.origin.y = v9;
-      v20.size.width = v11;
-      v20.size.height = v13;
-      v18 = CGRectContainsRect(v20, v21);
+      v25.origin.x = v18;
+      v25.origin.y = v19;
+      v25.size.width = v20;
+      v25.size.height = v21;
+      v24.origin.x = v7;
+      v24.origin.y = v9;
+      v24.size.width = v11;
+      v24.size.height = v13;
+      v22 = CGRectContainsRect(v24, v25);
     }
 
     else
     {
-      v18 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v22 = 0;
   }
 
-  return v18;
+  return v22;
 }
 
 - (BOOL)wg_supportsBottomCornerRadiusGivenRootView:()WGCAPackageViewAdditions withCornerRadius:supportedCorners:
 {
-  v6 = a3;
-  layer = [v6 layer];
+  v7 = a4;
+  layer = [v7 layer];
   animationKeys = [layer animationKeys];
-  v9 = [animationKeys count];
+  v10 = [animationKeys count];
 
-  if (v9)
+  if (v10)
   {
     goto LABEL_2;
   }
 
-  [v6 bounds];
-  v12 = v11;
+  bounds = [v7 bounds];
   v14 = v13;
   v16 = v15;
   v18 = v17;
-  _WGMainScreenScale();
+  v20 = v19;
+  _WGMainScreenScale(bounds, v21);
   BSFloatRoundForScale();
   UIRectInset();
-  v58 = v20;
-  v59 = v19;
-  v56 = v22;
-  v57 = v21;
-  v64.origin.x = v12;
-  v64.origin.y = v14;
-  v64.size.width = v16;
-  v64.size.height = v18;
-  CGRectGetMaxY(v64);
-  v61 = v12;
-  v62 = v14;
-  v60 = v16;
+  v61 = v23;
+  v62 = v22;
+  v59 = v25;
+  v60 = v24;
+  v67.origin.x = v14;
+  v67.origin.y = v16;
+  v67.size.width = v18;
+  v67.size.height = v20;
+  CGRectGetMaxY(v67);
+  v64 = v14;
+  v65 = v16;
+  v63 = v18;
   UIRectInset();
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
+  v27 = v26;
+  v29 = v28;
+  v31 = v30;
+  v33 = v32;
   superview = [self superview];
   [self frame];
-  [superview convertRect:v6 toView:?];
-  v33 = v32;
-  v35 = v34;
-  v37 = v36;
-  v63 = v38;
+  [superview convertRect:v7 toView:?];
+  v36 = v35;
+  v38 = v37;
+  v40 = v39;
+  v66 = v41;
 
   if ([self clipsToBounds] & 1) != 0 || (objc_msgSend(self, "wg_imageContentsDrawWithinBounds"))
   {
-    v65.origin.x = v24;
-    v65.origin.y = v26;
-    v65.size.width = v28;
-    v65.size.height = v30;
-    v80.origin.x = v33;
-    v80.origin.y = v35;
-    v80.size.width = v37;
-    v39 = v63;
-    v80.size.height = v63;
-    if (!CGRectIntersectsRect(v65, v80))
+    v68.origin.x = v27;
+    v68.origin.y = v29;
+    v68.size.width = v31;
+    v68.size.height = v33;
+    v83.origin.x = v36;
+    v83.origin.y = v38;
+    v83.size.width = v40;
+    v42 = v66;
+    v83.size.height = v66;
+    if (!CGRectIntersectsRect(v68, v83))
     {
       goto LABEL_27;
     }
@@ -138,53 +138,53 @@
 
   else
   {
-    v39 = v63;
+    v42 = v66;
   }
 
-  v66.origin.y = v62;
-  v66.origin.x = v61;
-  v66.size.width = v60;
-  v66.size.height = v18;
-  MaxY = CGRectGetMaxY(v66);
-  v67.origin.x = v33;
-  v67.origin.y = v35;
-  v67.size.width = v37;
-  v67.size.height = v39;
-  if (vabdd_f64(MaxY, CGRectGetMaxY(v67)) > 2.22044605e-16)
+  v69.origin.y = v65;
+  v69.origin.x = v64;
+  v69.size.width = v63;
+  v69.size.height = v20;
+  MaxY = CGRectGetMaxY(v69);
+  v70.origin.x = v36;
+  v70.origin.y = v38;
+  v70.size.width = v40;
+  v70.size.height = v42;
+  if (vabdd_f64(MaxY, CGRectGetMaxY(v70)) > 2.22044605e-16)
   {
     goto LABEL_2;
   }
 
-  v68.origin.x = v61;
-  v68.origin.y = v62;
-  v68.size.width = v60;
-  v68.size.height = v18;
-  MinX = CGRectGetMinX(v68);
-  v69.origin.x = v33;
-  v69.origin.y = v35;
-  v69.size.width = v37;
-  v69.size.height = v39;
-  if (vabdd_f64(MinX, CGRectGetMinX(v69)) <= 2.22044605e-16)
+  v71.origin.x = v64;
+  v71.origin.y = v65;
+  v71.size.width = v63;
+  v71.size.height = v20;
+  MinX = CGRectGetMinX(v71);
+  v72.origin.x = v36;
+  v72.origin.y = v38;
+  v72.size.width = v40;
+  v72.size.height = v42;
+  if (vabdd_f64(MinX, CGRectGetMinX(v72)) <= 2.22044605e-16)
   {
-    v76.origin.x = v61;
-    v76.origin.y = v62;
-    v76.size.width = v60;
-    v76.size.height = v18;
-    MaxX = CGRectGetMaxX(v76);
-    v77.origin.x = v33;
-    v77.origin.y = v35;
-    v43 = v62;
-    v77.size.width = v37;
-    v77.size.height = v39;
-    v51 = vabdd_f64(MaxX, CGRectGetMaxX(v77));
-    v42 = a4 != 0;
-    if (a4 && v51 <= 2.22044605e-16)
+    v79.origin.x = v64;
+    v79.origin.y = v65;
+    v79.size.width = v63;
+    v79.size.height = v20;
+    MaxX = CGRectGetMaxX(v79);
+    v80.origin.x = v36;
+    v80.origin.y = v38;
+    v46 = v65;
+    v80.size.width = v40;
+    v80.size.height = v42;
+    v54 = vabdd_f64(MaxX, CGRectGetMaxX(v80));
+    v45 = a5 != 0;
+    if (a5 && v54 <= 2.22044605e-16)
     {
-      v49 = 12;
+      v52 = 12;
       goto LABEL_26;
     }
 
-    if (v51 <= 2.22044605e-16)
+    if (v54 <= 2.22044605e-16)
     {
       goto LABEL_27;
     }
@@ -192,82 +192,82 @@
 
   else
   {
-    v42 = a4 != 0;
-    v43 = v62;
+    v45 = a5 != 0;
+    v46 = v65;
   }
 
-  v70.origin.x = v61;
-  v70.origin.y = v43;
-  v70.size.width = v60;
-  v70.size.height = v18;
-  v44 = CGRectGetMinX(v70);
-  v71.origin.x = v33;
-  v71.origin.y = v35;
-  v71.size.width = v37;
-  v71.size.height = v63;
-  if (vabdd_f64(v44, CGRectGetMinX(v71)) <= 2.22044605e-16)
+  v73.origin.x = v64;
+  v73.origin.y = v46;
+  v73.size.width = v63;
+  v73.size.height = v20;
+  v47 = CGRectGetMinX(v73);
+  v74.origin.x = v36;
+  v74.origin.y = v38;
+  v74.size.width = v40;
+  v74.size.height = v66;
+  if (vabdd_f64(v47, CGRectGetMinX(v74)) <= 2.22044605e-16)
   {
-    v78.origin.x = v33;
-    v78.origin.y = v35;
-    v78.size.width = v37;
-    v78.size.height = v63;
-    v52 = CGRectGetMaxX(v78);
-    v79.origin.y = v58;
-    v79.origin.x = v59;
-    v79.size.height = v56;
-    v79.size.width = v57;
-    v53 = CGRectGetMaxX(v79);
-    if (v52 <= v53 && v42)
+    v81.origin.x = v36;
+    v81.origin.y = v38;
+    v81.size.width = v40;
+    v81.size.height = v66;
+    v55 = CGRectGetMaxX(v81);
+    v82.origin.y = v61;
+    v82.origin.x = v62;
+    v82.size.height = v59;
+    v82.size.width = v60;
+    v56 = CGRectGetMaxX(v82);
+    if (v55 <= v56 && v45)
     {
-      v49 = 4;
+      v52 = 4;
       goto LABEL_26;
     }
 
-    if (v52 <= v53)
+    if (v55 <= v56)
     {
       goto LABEL_27;
     }
   }
 
-  v72.origin.y = v58;
-  v72.origin.x = v59;
-  v72.size.height = v56;
-  v72.size.width = v57;
-  v45 = CGRectGetMinX(v72);
-  v73.origin.x = v33;
-  v73.origin.y = v35;
-  v73.size.width = v37;
-  v73.size.height = v63;
-  if (v45 > CGRectGetMinX(v73))
+  v75.origin.y = v61;
+  v75.origin.x = v62;
+  v75.size.height = v59;
+  v75.size.width = v60;
+  v48 = CGRectGetMinX(v75);
+  v76.origin.x = v36;
+  v76.origin.y = v38;
+  v76.size.width = v40;
+  v76.size.height = v66;
+  if (v48 > CGRectGetMinX(v76))
   {
 LABEL_2:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_28;
   }
 
-  v74.origin.x = v61;
-  v74.origin.y = v43;
-  v74.size.width = v60;
-  v74.size.height = v18;
-  v46 = CGRectGetMaxX(v74);
-  v75.origin.x = v33;
-  v75.origin.y = v35;
-  v75.size.width = v37;
-  v75.size.height = v63;
-  v47 = vabdd_f64(v46, CGRectGetMaxX(v75));
-  v10 = v47 <= 2.22044605e-16;
-  if (v47 <= 2.22044605e-16 && v42)
+  v77.origin.x = v64;
+  v77.origin.y = v46;
+  v77.size.width = v63;
+  v77.size.height = v20;
+  v49 = CGRectGetMaxX(v77);
+  v78.origin.x = v36;
+  v78.origin.y = v38;
+  v78.size.width = v40;
+  v78.size.height = v66;
+  v50 = vabdd_f64(v49, CGRectGetMaxX(v78));
+  v11 = v50 <= 2.22044605e-16;
+  if (v50 <= 2.22044605e-16 && v45)
   {
-    v49 = 8;
+    v52 = 8;
 LABEL_26:
-    *a4 = v49;
+    *a5 = v52;
 LABEL_27:
-    v10 = 1;
+    v11 = 1;
   }
 
 LABEL_28:
 
-  return v10;
+  return v11;
 }
 
 @end

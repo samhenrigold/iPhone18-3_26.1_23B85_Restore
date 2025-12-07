@@ -459,16 +459,17 @@ LABEL_14:
       goto LABEL_20;
     }
 
-    Width = CVPixelBufferGetWidth(buffer);
-    v16 = 0u;
-    v17 = 0u;
+    CVPixelBufferGetWidth(buffer);
+    CVPixelBufferGetHeight(buffer);
     v15 = 0u;
-    [(VCPSimpleMovieAssetWriter *)self trackMatrixForWidth:Width height:CVPixelBufferGetHeight(buffer) orientation:self->_orientation];
+    v16 = 0u;
+    v14 = 0u;
+    objc_msgSend_trackMatrixForWidth_height_orientation_(self);
     if (!self->_input)
     {
-      *&sampleTiming.duration.value = v15;
-      *&sampleTiming.duration.epoch = v16;
-      *&sampleTiming.presentationTimeStamp.timescale = v17;
+      *&sampleTiming.duration.value = v14;
+      *&sampleTiming.duration.epoch = v15;
+      *&sampleTiming.presentationTimeStamp.timescale = v16;
       v8 = [(VCPSimpleMovieAssetWriter *)self createAssetWriterInputWithFormatDescription:formatDescriptionOut transform:&sampleTiming];
       if (v8)
       {
@@ -483,9 +484,9 @@ LABEL_14:
     cf = 0;
     if (CVPixelBufferGetIOSurface(buffer))
     {
-      v12 = 0;
+      v11 = 0;
       cf = CFRetain(buffer);
-      CF<__CVBuffer *>::~CF(&v12);
+      CF<__CVBuffer *>::~CF(&v11);
     }
 
     else
@@ -501,24 +502,24 @@ LABEL_20:
       }
     }
 
-    v12 = 0;
-    v8 = CMSampleBufferCreateForImageBuffer(0, cf, 1u, 0, 0, formatDescriptionOut, &sampleTiming, &v12);
+    v11 = 0;
+    v8 = CMSampleBufferCreateForImageBuffer(0, cf, 1u, 0, 0, formatDescriptionOut, &sampleTiming, &v11);
     if (!v8)
     {
-      if (v12)
+      if (v11)
       {
-        v10 = CFRetain(v12);
+        v9 = CFRetain(v11);
       }
 
       else
       {
-        v10 = 0;
+        v9 = 0;
       }
 
-      [(VCPSimpleMovieAssetWriter *)self pushSample:v10];
+      [(VCPSimpleMovieAssetWriter *)self pushSample:v9];
     }
 
-    CF<__CVBuffer *>::~CF(&v12);
+    CF<__CVBuffer *>::~CF(&v11);
     goto LABEL_19;
   }
 

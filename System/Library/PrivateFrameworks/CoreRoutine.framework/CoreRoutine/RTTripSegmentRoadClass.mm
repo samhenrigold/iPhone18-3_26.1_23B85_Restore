@@ -10,7 +10,7 @@
 
 - (RTTripSegmentRoadClass)initWithDateInterval:(id)interval distanceInterval:(id)distanceInterval geoRoadClass:(int64_t)class
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   distanceIntervalCopy = distanceInterval;
   v11 = distanceIntervalCopy;
@@ -45,9 +45,9 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v20.receiver = self;
-  v20.super_class = RTTripSegmentRoadClass;
-  v12 = [(RTTripSegmentRoadClass *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = RTTripSegmentRoadClass;
+  v12 = [(RTTripSegmentRoadClass *)&v19 init];
   v13 = v12;
   if (v12)
   {
@@ -60,7 +60,7 @@ LABEL_15:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138739971;
-        v22 = v13;
+        v21 = v13;
         _os_log_debug_impl(&dword_1BF1C4000, v14, OS_LOG_TYPE_DEBUG, "tripSegmentRoadClass, %{sensitive}@", buf, 0xCu);
       }
     }
@@ -70,7 +70,6 @@ LABEL_15:
   selfCopy = self;
 LABEL_13:
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

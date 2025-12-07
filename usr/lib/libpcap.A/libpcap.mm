@@ -51,18 +51,12 @@ _DWORD *bpf_dump(_DWORD *result, int a2)
 
 uint64_t pcap_filter_with_aux_data(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v38 = *MEMORY[0x29EDCA608];
-  if (!a1)
+  v37 = *MEMORY[0x29EDCA608];
+  if (a1)
   {
-    result = 0xFFFFFFFFLL;
-    goto LABEL_128;
-  }
-
-  v4 = 0;
-  v5 = 0;
-  v6 = a1 - 8;
-  while (1)
-  {
+    v4 = 0;
+    v5 = 0;
+    v6 = a1 - 8;
     while (1)
     {
       while (1)
@@ -73,256 +67,183 @@ uint64_t pcap_filter_with_aux_data(uint64_t a1, uint64_t a2, uint64_t a3, unsign
           {
             while (1)
             {
-              while (1)
-              {
-                v7 = v5;
-                result = v4;
-                v9 = v6;
-                v11 = *(v6 + 8);
-                v6 += 8;
-                v10 = v11;
-                if (v11 > 67)
-                {
-                  break;
-                }
-
-                switch(v10)
-                {
-                  case 0:
-                    v4 = *(v9 + 12);
-                    continue;
-                  case 1:
-                    v5 = *(v9 + 12);
-                    continue;
-                  case 2:
-                    v37[*(v9 + 12)] = v4;
-                    goto LABEL_125;
-                  case 3:
-                    v37[*(v9 + 12)] = v5;
-                    goto LABEL_125;
-                  case 4:
-                    v4 = (*(v9 + 12) + v4);
-                    continue;
-                  case 5:
-                    v22 = *(v9 + 12);
-                    goto LABEL_124;
-                  case 6:
-                    result = *(v9 + 12);
-                    goto LABEL_128;
-                  case 7:
-                    v5 = v4;
-                    continue;
-                  case 12:
-                    v4 = (v5 + v4);
-                    continue;
-                  case 20:
-                    v4 = (v4 - *(v9 + 12));
-                    continue;
-                  case 21:
-                    v17 = v4 == *(v9 + 12);
-                    goto LABEL_98;
-                  case 22:
-                    goto LABEL_128;
-                  case 28:
-                    v4 = (v4 - v5);
-                    continue;
-                  case 29:
-                    v17 = v4 == v5;
-LABEL_98:
-                    v14 = 10;
-                    if (!v17)
-                    {
-                      v14 = 11;
-                    }
-
-                    goto LABEL_123;
-                  case 32:
-                    v26 = *(v9 + 12);
-                    if (a4 < v26 || a4 - v26 < 4)
-                    {
-                      goto LABEL_126;
-                    }
-
-                    v28 = *(a2 + v26);
-                    goto LABEL_115;
-                  case 36:
-                    v4 = (*(v9 + 12) * v4);
-                    continue;
-                  case 37:
-                    v16 = v4 > *(v9 + 12);
-                    goto LABEL_117;
-                  case 40:
-                    v24 = *(v9 + 12);
-                    v25 = a4 >= v24 && a4 - v24 >= 2;
-                    if (!v25)
-                    {
-                      goto LABEL_126;
-                    }
-
-                    v21 = *(a2 + v24);
-                    goto LABEL_79;
-                  case 44:
-                    v4 = (v5 * v4);
-                    continue;
-                  case 45:
-                    v16 = v4 > v5;
-LABEL_117:
-                    v14 = 10;
-                    if (!v16)
-                    {
-                      v14 = 11;
-                    }
-
-                    goto LABEL_123;
-                  case 48:
-                    v15 = *(v9 + 12);
-                    if (v15 >= a4)
-                    {
-                      goto LABEL_126;
-                    }
-
-                    v4 = *(a2 + v15);
-                    continue;
-                  case 52:
-                    v4 = v4 / *(v9 + 12);
-                    continue;
-                  case 53:
-                    v29 = v4 >= *(v9 + 12);
-                    goto LABEL_121;
-                  case 60:
-                    if (!v5)
-                    {
-                      goto LABEL_126;
-                    }
-
-                    v4 = v4 / v5;
-                    continue;
-                  case 61:
-                    v29 = v4 >= v5;
-LABEL_121:
-                    v14 = 10;
-                    if (!v29)
-                    {
-                      v14 = 11;
-                    }
-
-                    goto LABEL_123;
-                  case 64:
-                    v30 = *(v9 + 12);
-                    v31 = v30 + v5;
-                    v32 = a4 - (v30 + v5);
-                    v25 = a4 >= v30;
-                    v33 = a4 - v30;
-                    if (!v25 || v7 > v33 || v32 < 4)
-                    {
-                      goto LABEL_126;
-                    }
-
-                    v28 = *(a2 + v31);
-LABEL_115:
-                    v4 = bswap32(v28);
-                    v5 = v7;
-                    break;
-                  default:
-                    goto LABEL_130;
-                }
-              }
-
-              if (v10 > 107)
+              v7 = v5;
+              result = v4;
+              v9 = v6;
+              v11 = *(v6 + 8);
+              v6 += 8;
+              v10 = v11;
+              if (v11 > 67)
               {
                 break;
               }
 
-              if (v10 <= 79)
+              switch(v10)
               {
-                if (v10 <= 71)
-                {
-                  if (v10 == 68)
+                case 0:
+                  v4 = *(v9 + 12);
+                  continue;
+                case 1:
+                  v5 = *(v9 + 12);
+                  continue;
+                case 2:
+                  v36[*(v9 + 12)] = v4;
+                  goto LABEL_125;
+                case 3:
+                  v36[*(v9 + 12)] = v5;
+                  goto LABEL_125;
+                case 4:
+                  v4 = (*(v9 + 12) + v4);
+                  continue;
+                case 5:
+                  v22 = *(v9 + 12);
+                  goto LABEL_124;
+                case 6:
+                  return *(v9 + 12);
+                case 7:
+                  v5 = v4;
+                  continue;
+                case 12:
+                  v4 = (v5 + v4);
+                  continue;
+                case 20:
+                  v4 = (v4 - *(v9 + 12));
+                  continue;
+                case 21:
+                  v17 = v4 == *(v9 + 12);
+                  goto LABEL_98;
+                case 22:
+                  return result;
+                case 28:
+                  v4 = (v4 - v5);
+                  continue;
+                case 29:
+                  v17 = v4 == v5;
+LABEL_98:
+                  v14 = 10;
+                  if (!v17)
                   {
-                    v4 = *(v9 + 12) | v4;
+                    v14 = 11;
                   }
 
-                  else
+                  goto LABEL_123;
+                case 32:
+                  v26 = *(v9 + 12);
+                  if (a4 < v26 || a4 - v26 < 4)
                   {
-                    if (v10 != 69)
-                    {
-LABEL_130:
-                      abort();
-                    }
-
-                    v12 = (*(v9 + 12) & v4) == 0;
-LABEL_46:
-                    if (v12)
-                    {
-                      v14 = 11;
-                    }
-
-                    else
-                    {
-                      v14 = 10;
-                    }
-
-LABEL_123:
-                    v22 = *(v9 + v14);
-LABEL_124:
-                    v6 += 8 * v22;
-LABEL_125:
-                    v4 = result;
+                    return 0;
                   }
-                }
 
-                else
-                {
-                  switch(v10)
+                  v28 = *(a2 + v26);
+                  goto LABEL_115;
+                case 36:
+                  v4 = (*(v9 + 12) * v4);
+                  continue;
+                case 37:
+                  v16 = v4 > *(v9 + 12);
+                  goto LABEL_117;
+                case 40:
+                  v24 = *(v9 + 12);
+                  v25 = a4 >= v24 && a4 - v24 >= 2;
+                  if (!v25)
                   {
-                    case 'H':
-                      result = 0;
-                      v18 = a4 - v5;
-                      if (a4 < v7)
-                      {
-                        goto LABEL_128;
-                      }
-
-                      v19 = *(v9 + 12);
-                      if (v19 > v18)
-                      {
-                        goto LABEL_128;
-                      }
-
-                      v20 = v19 + v7;
-                      if (a4 - v20 < 2)
-                      {
-                        goto LABEL_128;
-                      }
-
-                      v21 = *(a2 + v20);
-LABEL_79:
-                      v4 = __rev16(v21);
-                      v5 = v7;
-                      break;
-                    case 'L':
-                      v4 = v5 | v4;
-                      break;
-                    case 'M':
-                      v12 = (v5 & v4) == 0;
-                      goto LABEL_46;
-                    default:
-                      goto LABEL_130;
+                    return 0;
                   }
-                }
+
+                  v21 = *(a2 + v24);
+                  goto LABEL_79;
+                case 44:
+                  v4 = (v5 * v4);
+                  continue;
+                case 45:
+                  v16 = v4 > v5;
+LABEL_117:
+                  v14 = 10;
+                  if (!v16)
+                  {
+                    v14 = 11;
+                  }
+
+                  goto LABEL_123;
+                case 48:
+                  v15 = *(v9 + 12);
+                  if (v15 >= a4)
+                  {
+                    return 0;
+                  }
+
+                  v4 = *(a2 + v15);
+                  continue;
+                case 52:
+                  v4 = v4 / *(v9 + 12);
+                  continue;
+                case 53:
+                  v29 = v4 >= *(v9 + 12);
+                  goto LABEL_121;
+                case 60:
+                  if (!v5)
+                  {
+                    return 0;
+                  }
+
+                  v4 = v4 / v5;
+                  continue;
+                case 61:
+                  v29 = v4 >= v5;
+LABEL_121:
+                  v14 = 10;
+                  if (!v29)
+                  {
+                    v14 = 11;
+                  }
+
+                  goto LABEL_123;
+                case 64:
+                  v30 = *(v9 + 12);
+                  v31 = v30 + v5;
+                  v32 = a4 - (v30 + v5);
+                  v25 = a4 >= v30;
+                  v33 = a4 - v30;
+                  if (!v25 || v7 > v33 || v32 < 4)
+                  {
+                    return 0;
+                  }
+
+                  v28 = *(a2 + v31);
+LABEL_115:
+                  v4 = bswap32(v28);
+                  v5 = v7;
+                  break;
+                default:
+                  goto LABEL_130;
               }
+            }
 
-              else if (v10 > 95)
+            if (v10 <= 107)
+            {
+              break;
+            }
+
+            if (v10 > 134)
+            {
+              if (v10 > 163)
               {
                 switch(v10)
                 {
-                    v4 = v37[*(v9 + 12)];
+                  case 164:
+                    v4 = *(v9 + 12) ^ v4;
                     break;
-                  case 'a':
-                    v5 = v37[*(v9 + 12)];
+                  case 172:
+                    v4 = v5 ^ v4;
                     break;
-                  case 'd':
-                    v4 = (v4 << *(v9 + 12));
+                  case 177:
+                    v13 = *(v9 + 12);
+                    if (v13 >= a4)
+                    {
+                      return 0;
+                    }
+
+                    v5 = 4 * (*(a2 + v13) & 0xFu);
                     break;
                   default:
                     goto LABEL_130;
@@ -331,36 +252,33 @@ LABEL_79:
 
               else
               {
-                switch(v10)
+                v4 = v5;
+                if (v10 != 135)
                 {
-                  case 'P':
-                    result = 0;
-                    v23 = *(v9 + 12);
-                    if (a4 <= v23 || v5 >= a4 - v23)
+                  if (v10 == 148)
+                  {
+                    v4 = result % *(v9 + 12);
+                  }
+
+                  else
+                  {
+                    if (v10 != 156)
                     {
-                      goto LABEL_128;
+                      goto LABEL_130;
                     }
 
-                    v4 = *(a2 + v23 + v5);
-                    break;
-                  case 'T':
-                    v4 = *(v9 + 12) & v4;
-                    break;
-                  case '\\':
-                    v4 = v5 & v4;
-                    break;
-                  default:
-                    goto LABEL_130;
+                    if (!v5)
+                    {
+                      return 0;
+                    }
+
+                    v4 = result % v5;
+                  }
                 }
               }
             }
 
-            if (v10 > 134)
-            {
-              break;
-            }
-
-            if (v10 > 127)
+            else if (v10 > 127)
             {
               v4 = a3;
               if (v10 != 128)
@@ -410,71 +328,133 @@ LABEL_82:
             }
           }
 
-          if (v10 > 163)
+          if (v10 <= 79)
           {
             break;
           }
 
-          v4 = v5;
-          if (v10 != 135)
+          if (v10 > 95)
           {
-            if (v10 == 148)
+            switch(v10)
             {
-              v4 = result % *(v9 + 12);
-            }
-
-            else
-            {
-              if (v10 != 156)
-              {
+                v4 = v36[*(v9 + 12)];
+                break;
+              case 'a':
+                v5 = v36[*(v9 + 12)];
+                break;
+              case 'd':
+                v4 = (v4 << *(v9 + 12));
+                break;
+              default:
                 goto LABEL_130;
-              }
+            }
+          }
 
-              if (!v5)
-              {
-                goto LABEL_126;
-              }
+          else
+          {
+            switch(v10)
+            {
+              case 'P':
+                result = 0;
+                v23 = *(v9 + 12);
+                if (a4 <= v23 || v5 >= a4 - v23)
+                {
+                  return result;
+                }
 
-              v4 = result % v5;
+                v4 = *(a2 + v23 + v5);
+                break;
+              case 'T':
+                v4 = *(v9 + 12) & v4;
+                break;
+              case '\\':
+                v4 = v5 & v4;
+                break;
+              default:
+                goto LABEL_130;
             }
           }
         }
 
-        if (v10 != 164)
+        if (v10 > 71)
         {
           break;
         }
 
-        v4 = *(v9 + 12) ^ v4;
+        if (v10 == 68)
+        {
+          v4 = *(v9 + 12) | v4;
+        }
+
+        else
+        {
+          if (v10 != 69)
+          {
+LABEL_130:
+            abort();
+          }
+
+          v12 = (*(v9 + 12) & v4) == 0;
+LABEL_46:
+          if (v12)
+          {
+            v14 = 11;
+          }
+
+          else
+          {
+            v14 = 10;
+          }
+
+LABEL_123:
+          v22 = *(v9 + v14);
+LABEL_124:
+          v6 += 8 * v22;
+LABEL_125:
+          v4 = result;
+        }
       }
 
-      if (v10 != 172)
+      switch(v10)
       {
-        break;
+        case 'H':
+          result = 0;
+          v18 = a4 - v5;
+          if (a4 < v7)
+          {
+            return result;
+          }
+
+          v19 = *(v9 + 12);
+          if (v19 > v18)
+          {
+            return result;
+          }
+
+          v20 = v19 + v7;
+          if (a4 - v20 < 2)
+          {
+            return result;
+          }
+
+          v21 = *(a2 + v20);
+LABEL_79:
+          v4 = __rev16(v21);
+          v5 = v7;
+          break;
+        case 'L':
+          v4 = v5 | v4;
+          break;
+        case 'M':
+          v12 = (v5 & v4) == 0;
+          goto LABEL_46;
+        default:
+          goto LABEL_130;
       }
-
-      v4 = v5 ^ v4;
     }
-
-    if (v10 != 177)
-    {
-      goto LABEL_130;
-    }
-
-    v13 = *(v9 + 12);
-    if (v13 >= a4)
-    {
-      break;
-    }
-
-    v5 = 4 * (*(a2 + v13) & 0xFu);
   }
 
-LABEL_126:
-  result = 0;
-LABEL_128:
-  v36 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 BOOL pcap_validate_filter(uint64_t a1, unsigned int a2)
@@ -551,9 +531,9 @@ LABEL_7:
 
 char *bpf_image(unsigned __int16 *a1, int a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  v4 = *a1;
-  if (v4 > 0x43)
+  v9 = *MEMORY[0x29EDCA608];
+  v3 = *a1;
+  if (v3 > 0x43)
   {
     if (*a1 <= 0x6Bu)
     {
@@ -561,7 +541,7 @@ char *bpf_image(unsigned __int16 *a1, int a2)
       {
         if (*a1 <= 0x47u)
         {
-          if (v4 != 68 && v4 != 69)
+          if (v3 != 68 && v3 != 69)
           {
             goto LABEL_66;
           }
@@ -569,9 +549,9 @@ char *bpf_image(unsigned __int16 *a1, int a2)
           goto LABEL_37;
         }
 
-        if (v4 != 72)
+        if (v3 != 72)
         {
-          if (v4 == 76 || v4 == 77)
+          if (v3 == 76 || v3 == 77)
           {
             goto LABEL_67;
           }
@@ -579,20 +559,20 @@ char *bpf_image(unsigned __int16 *a1, int a2)
           goto LABEL_66;
         }
 
-        v10 = *(a1 + 1);
-        v5 = "[x + %d]";
+        v7 = *(a1 + 1);
+        v4 = "[x + %d]";
 LABEL_59:
-        snprintf(__str, 0x40uLL, v5, v10);
+        snprintf(__str, 0x40uLL, v4, v7);
         goto LABEL_67;
       }
 
       if (*a1 <= 0x5Fu)
       {
-        if (v4 != 80)
+        if (v3 != 80)
         {
-          if (v4 != 84)
+          if (v3 != 84)
           {
-            if (v4 == 92)
+            if (v3 == 92)
             {
               goto LABEL_67;
             }
@@ -605,26 +585,26 @@ LABEL_37:
           goto LABEL_67;
         }
 
-        v10 = *(a1 + 1);
-        v5 = "[x + %d]";
+        v7 = *(a1 + 1);
+        v4 = "[x + %d]";
         goto LABEL_59;
       }
 
-      if (v4 == 96)
+      if (v3 == 96)
       {
-        v10 = *(a1 + 1);
-        v5 = "M[%d]";
+        v7 = *(a1 + 1);
+        v4 = "M[%d]";
         goto LABEL_59;
       }
 
-      if (v4 == 97)
+      if (v3 == 97)
       {
-        v10 = *(a1 + 1);
-        v5 = "M[%d]";
+        v7 = *(a1 + 1);
+        v4 = "M[%d]";
         goto LABEL_59;
       }
 
-      if (v4 != 100)
+      if (v3 != 100)
       {
         goto LABEL_66;
       }
@@ -638,7 +618,7 @@ LABEL_40:
     {
       if (*a1 > 0x7Bu)
       {
-        if (v4 == 124 || v4 == 128 || v4 == 132)
+        if (v3 == 124 || v3 == 128 || v3 == 132)
         {
           goto LABEL_67;
         }
@@ -646,12 +626,12 @@ LABEL_40:
         goto LABEL_66;
       }
 
-      if (v4 == 108)
+      if (v3 == 108)
       {
         goto LABEL_67;
       }
 
-      if (v4 == 116)
+      if (v3 == 116)
       {
         goto LABEL_40;
       }
@@ -659,7 +639,7 @@ LABEL_40:
 
     else if (*a1 > 0xA3u)
     {
-      switch(v4)
+      switch(v3)
       {
         case 0xA4u:
           goto LABEL_37;
@@ -673,7 +653,7 @@ LABEL_40:
 
     else
     {
-      switch(v4)
+      switch(v3)
       {
         case 0x87u:
           goto LABEL_67;
@@ -692,12 +672,12 @@ LABEL_66:
   switch(*a1)
   {
     case 0u:
-      v10 = *(a1 + 1);
-      v5 = "#0x%x";
+      v7 = *(a1 + 1);
+      v4 = "#0x%x";
       goto LABEL_59;
     case 1u:
-      v10 = *(a1 + 1);
-      v5 = "#0x%x";
+      v7 = *(a1 + 1);
+      v4 = "#0x%x";
       goto LABEL_59;
     case 2u:
     case 3u:
@@ -727,20 +707,20 @@ LABEL_66:
     case 0x35u:
       goto LABEL_37;
     case 0x20u:
-      v10 = *(a1 + 1);
-      v5 = "[%d]";
+      v7 = *(a1 + 1);
+      v4 = "[%d]";
       goto LABEL_59;
     case 0x28u:
-      v10 = *(a1 + 1);
-      v5 = "[%d]";
+      v7 = *(a1 + 1);
+      v4 = "[%d]";
       goto LABEL_59;
     case 0x30u:
-      v10 = *(a1 + 1);
-      v5 = "[%d]";
+      v7 = *(a1 + 1);
+      v4 = "[%d]";
       goto LABEL_59;
     case 0x40u:
-      v10 = *(a1 + 1);
-      v5 = "[x + %d]";
+      v7 = *(a1 + 1);
+      v4 = "[x + %d]";
       goto LABEL_59;
     default:
       goto LABEL_66;
@@ -754,12 +734,9 @@ LABEL_67:
 
   else
   {
-    v7 = a2 + 1 + *(a1 + 3);
-    v11 = a2 + 1 + *(a1 + 2);
     snprintf(bpf_image_image, 0x100uLL, "(%03d) %-8s %-16s jt %d\tjf %d");
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return bpf_image_image;
 }
 
@@ -982,7 +959,7 @@ LABEL_55:
   return &pcap_next_etherent_e;
 }
 
-uint64_t pcap_findalldevs_interfaces(uint64_t *a1, char *a2, unsigned int (*a3)(char *), unsigned int (*a4)(char *, int *, char *))
+uint64_t pcap_findalldevs_interfaces(uint64_t **a1, char *a2, unsigned int (*a3)(char *), unsigned int (*a4)(char *, unsigned int *, uint64_t))
 {
   v25 = 0;
   if (getifaddrs(&v25))
@@ -2637,7 +2614,7 @@ uint64_t gen_or(uint64_t result, uint64_t a2)
   return result;
 }
 
-size_t gen_llc(int *a1)
+uint64_t gen_llc(int *a1)
 {
   if (setjmp(a1))
   {
@@ -2650,7 +2627,7 @@ size_t gen_llc(int *a1)
   }
 }
 
-size_t gen_llc_internal(int *a1)
+uint64_t gen_llc_internal(int *a1)
 {
   v2 = a1[57];
   if (v2 <= 10)
@@ -2746,8 +2723,9 @@ size_t gen_llc_i(int *a1)
   return v5;
 }
 
-_DWORD *gen_load_a(int *a1, int a2, int a3, int a4)
+_DWORD *gen_load_a(int *a1, int a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v5 = a3;
   if (a2 <= 4)
   {
@@ -2762,7 +2740,7 @@ _DWORD *gen_load_a(int *a1, int a2, int a3, int a4)
       {
         if (a2 != 3)
         {
-          a3 = a3 + a1[98] - 4;
+          LODWORD(a3) = a3 + a1[98] - 4;
         }
 
         v7 = a1 + 79;
@@ -2795,7 +2773,7 @@ _DWORD *gen_load_a(int *a1, int a2, int a3, int a4)
     v14 = a1[98];
 LABEL_23:
     v7 = a1 + 79;
-    a3 += v14;
+    LODWORD(a3) = v14 + a3;
     goto LABEL_24;
   }
 
@@ -2809,7 +2787,7 @@ LABEL_23:
   {
     v8 = gen_loadx_iphdrlen(a1);
     v9 = newchunk(a1, 40);
-    *v9 = a4 | 0x40;
+    *v9 = v4 | 0x40;
     v9[6] = a1[80] + v5 + a1[98];
     v10 = v8;
     do
@@ -2824,7 +2802,7 @@ LABEL_23:
   }
 
   v7 = a1 + 79;
-  a3 += a1[98] + 40;
+  LODWORD(a3) = a3 + a1[98] + 40;
 LABEL_24:
 
   return gen_load_absoffsetrel(a1, v7, a3, a4);
@@ -2856,28 +2834,30 @@ size_t gen_llc_u(int *a1)
   return v4;
 }
 
-size_t gen_llc_s_subtype(int *a1, int a2)
+size_t gen_llc_s_subtype(int *a1, uint64_t a2)
 {
+  v2 = a2;
   if (setjmp(a1))
   {
     return 0;
   }
 
   v5 = gen_llc_internal(a1);
-  v6 = gen_ncmp(a1, 3, 2, 16, 15, 16, 0, a2);
+  v6 = gen_ncmp(a1, 3, 2, 16, 15, 16, 0, v2);
   gen_and(v5, v6);
   return v6;
 }
 
-size_t gen_llc_u_subtype(int *a1, int a2)
+size_t gen_llc_u_subtype(int *a1, uint64_t a2)
 {
+  v2 = a2;
   if (setjmp(a1))
   {
     return 0;
   }
 
   v5 = gen_llc_internal(a1);
-  v6 = gen_ncmp(a1, 3, 2, 16, 239, 16, 0, a2);
+  v6 = gen_ncmp(a1, 3, 2, 16, 239, 16, 0, v2);
   gen_and(v5, v6);
   return v6;
 }
@@ -3164,7 +3144,7 @@ LABEL_12:
   return v13;
 }
 
-size_t gen_scode(uint64_t a1, char *a2, int a3)
+uint64_t gen_scode(uint64_t a1, char *a2, int a3)
 {
   *v46 = 0;
   *v47 = 0;
@@ -3626,17 +3606,18 @@ void bpf_error(uint64_t a1, char *__format, ...)
   longjmp(a1, 1);
 }
 
-size_t gen_host(int *a1, uint64_t a2, uint64_t a3, int a4, int a5)
+size_t gen_host(int *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   switch(a4)
   {
     case 0:
       v9 = gen_hostop(a1, a2, a3, a5, 2048, 12, 16);
       if (!a1[62])
       {
-        v10 = gen_hostop(a1, a2, a3, a5, 2054, 14, 24);
+        v10 = gen_hostop(a1, a2, a3, v5, 2054, 14, 24);
         gen_or(v9, v10);
-        v9 = gen_hostop(a1, a2, a3, a5, 32821, 14, 24);
+        v9 = gen_hostop(a1, a2, a3, v5, 32821, 14, 24);
         gen_or(v10, v9);
       }
 
@@ -3821,14 +3802,14 @@ size_t gen_ehostop(int *a1, unsigned __int8 *a2, int a3)
         goto LABEL_27;
       }
 
-      v6 = gen_bcmp(a1, 1, 6, 6u, a2);
+      v6 = gen_bcmp(a1, 1, 6u, 6u, a2);
       v7 = gen_bcmp(a1, 1, 0, 6u, a2);
       gen_and(v6, v7);
       return v7;
     }
 
 LABEL_9:
-    v8 = gen_bcmp(a1, 1, 6, 6u, a2);
+    v8 = gen_bcmp(a1, 1, 6u, 6u, a2);
     v7 = gen_bcmp(a1, 1, 0, 6u, a2);
     gen_or(v8, v7);
     return v7;
@@ -3929,7 +3910,7 @@ LABEL_12:
   return gen_bcmp(a1, 1, v5, 6u, a2);
 }
 
-size_t gen_thostop(int *a1, unsigned __int8 *a2, int a3)
+size_t gen_thostop(int *a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (a3 >= 3)
   {
@@ -3958,22 +3939,22 @@ size_t gen_thostop(int *a1, unsigned __int8 *a2, int a3)
             bpf_error(a1, "'addr4' and 'address4' are only supported on 802.11");
           case 9:
             bpf_error(a1, "'ra' is only supported on 802.11");
-          case 10:
+          case 0xA:
             bpf_error(a1, "'ta' is only supported on 802.11");
         }
 
         goto LABEL_27;
       }
 
-      v5 = gen_bcmp(a1, 1, 8, 6u, a2);
-      v6 = gen_bcmp(a1, 1, 2, 6u, a2);
+      v5 = gen_bcmp(a1, 1, 8u, 6u, a2);
+      v6 = gen_bcmp(a1, 1, 2u, 6u, a2);
       gen_and(v5, v6);
       return v6;
     }
 
 LABEL_9:
-    v7 = gen_bcmp(a1, 1, 8, 6u, a2);
-    v6 = gen_bcmp(a1, 1, 2, 6u, a2);
+    v7 = gen_bcmp(a1, 1, 8u, 6u, a2);
+    v6 = gen_bcmp(a1, 1, 2u, 6u, a2);
     gen_or(v7, v6);
     return v6;
   }
@@ -3994,13 +3975,13 @@ LABEL_27:
     abort();
   }
 
-  a3 = 8;
+  LODWORD(a3) = 8;
 LABEL_12:
 
   return gen_bcmp(a1, 1, a3, 6u, a2);
 }
 
-size_t gen_wlanhostop(int *a1, unsigned __int8 *a2, int a3)
+size_t gen_wlanhostop(int *a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (a3 <= 4)
   {
@@ -4022,7 +4003,7 @@ size_t gen_wlanhostop(int *a1, unsigned __int8 *a2, int a3)
       *(v15 + 152) = v15;
       *(v15 + 40) = 1;
       *(v15 + 8) = absoffsetrel;
-      v16 = gen_bcmp(a1, 1, 24, 6u, a2);
+      v16 = gen_bcmp(a1, 1, 0x18u, 6u, a2);
       gen_and(v15, v16);
       v17 = gen_load_absoffsetrel(a1, a1 + 70, 1, 16);
       v18 = newchunk(a1, 288);
@@ -4031,7 +4012,7 @@ size_t gen_wlanhostop(int *a1, unsigned __int8 *a2, int a3)
       *(v18 + 40) = 1;
       *(v18 + 8) = v17;
       *(v18 + 68) = *(v18 + 68) == 0;
-      v19 = gen_bcmp(a1, 1, 16, 6u, a2);
+      v19 = gen_bcmp(a1, 1, 0x10u, 6u, a2);
       gen_and(v18, v19);
       gen_or(v19, v16);
       v20 = gen_load_absoffsetrel(a1, a1 + 70, 1, 16);
@@ -4048,7 +4029,7 @@ size_t gen_wlanhostop(int *a1, unsigned __int8 *a2, int a3)
       *(v23 + 40) = 2;
       *(v23 + 8) = v22;
       *(v23 + 68) = *(v23 + 68) == 0;
-      v24 = gen_bcmp(a1, 1, 10, 6u, a2);
+      v24 = gen_bcmp(a1, 1, 0xAu, 6u, a2);
       gen_and(v23, v24);
       gen_or(v24, v16);
       v25 = gen_load_absoffsetrel(a1, a1 + 70, 0, 16);
@@ -4065,7 +4046,7 @@ size_t gen_wlanhostop(int *a1, unsigned __int8 *a2, int a3)
       *(v28 + 40) = 8;
       *(v28 + 8) = v27;
       *(v28 + 68) = *(v28 + 68) == 0;
-      v29 = gen_bcmp(a1, 1, 10, 6u, a2);
+      v29 = gen_bcmp(a1, 1, 0xAu, 6u, a2);
       gen_and(v28, v29);
       gen_or(v29, v16);
       v30 = gen_load_absoffsetrel(a1, a1 + 70, 0, 16);
@@ -4102,7 +4083,7 @@ LABEL_17:
       *(v38 + 152) = v38;
       *(v38 + 40) = 1;
       *(v38 + 8) = v37;
-      v16 = gen_bcmp(a1, 1, 16, 6u, a2);
+      v16 = gen_bcmp(a1, 1, 0x10u, 6u, a2);
       gen_and(v38, v16);
       v39 = gen_load_absoffsetrel(a1, a1 + 70, 1, 16);
       v40 = newchunk(a1, 288);
@@ -4111,7 +4092,7 @@ LABEL_17:
       *(v40 + 40) = 1;
       *(v40 + 8) = v39;
       *(v40 + 68) = *(v40 + 68) == 0;
-      v41 = gen_bcmp(a1, 1, 4, 6u, a2);
+      v41 = gen_bcmp(a1, 1, 4u, 6u, a2);
       gen_and(v40, v41);
       gen_or(v41, v16);
       v42 = gen_load_absoffsetrel(a1, a1 + 70, 0, 16);
@@ -4128,7 +4109,7 @@ LABEL_17:
       *(v45 + 40) = 8;
       *(v45 + 8) = v44;
       *(v45 + 68) = *(v45 + 68) == 0;
-      v46 = gen_bcmp(a1, 1, 4, 6u, a2);
+      v46 = gen_bcmp(a1, 1, 4u, 6u, a2);
       gen_and(v45, v46);
       gen_or(v46, v16);
       v30 = gen_load_absoffsetrel(a1, a1 + 70, 0, 16);
@@ -4162,7 +4143,7 @@ LABEL_17:
         v6 = a1;
         v7 = 4;
         goto LABEL_25;
-      case 10:
+      case 0xA:
         v9 = gen_ncmp(a1, 1, 0, 16, 12, 16, 0, 4);
         *(v9 + 68) = *(v9 + 68) == 0;
         v10 = gen_ncmp(a1, 1, 0, 16, 240, 16, 0, 192);
@@ -4207,17 +4188,17 @@ LABEL_25:
     gen_and(v34, v11);
     gen_or(v33, v11);
 LABEL_19:
-    v16 = gen_bcmp(a1, 1, 10, 6u, a2);
+    v16 = gen_bcmp(a1, 1, 0xAu, 6u, a2);
     v31 = v11;
 LABEL_29:
     gen_and(v31, v16);
     return v16;
   }
 
-  return gen_bcmp(a1, 1, 4, 6u, a2);
+  return gen_bcmp(a1, 1, 4u, 6u, a2);
 }
 
-size_t gen_ipfchostop(int *a1, unsigned __int8 *a2, int a3)
+size_t gen_ipfchostop(int *a1, unsigned __int8 *a2, uint64_t a3)
 {
   if (a3 >= 3)
   {
@@ -4246,22 +4227,22 @@ size_t gen_ipfchostop(int *a1, unsigned __int8 *a2, int a3)
             bpf_error(a1, "'addr4' and 'address4' are only supported on 802.11");
           case 9:
             bpf_error(a1, "'ra' is only supported on 802.11");
-          case 10:
+          case 0xA:
             bpf_error(a1, "'ta' is only supported on 802.11");
         }
 
         goto LABEL_27;
       }
 
-      v5 = gen_bcmp(a1, 1, 10, 6u, a2);
-      v6 = gen_bcmp(a1, 1, 2, 6u, a2);
+      v5 = gen_bcmp(a1, 1, 0xAu, 6u, a2);
+      v6 = gen_bcmp(a1, 1, 2u, 6u, a2);
       gen_and(v5, v6);
       return v6;
     }
 
 LABEL_9:
-    v7 = gen_bcmp(a1, 1, 10, 6u, a2);
-    v6 = gen_bcmp(a1, 1, 2, 6u, a2);
+    v7 = gen_bcmp(a1, 1, 0xAu, 6u, a2);
+    v6 = gen_bcmp(a1, 1, 2u, 6u, a2);
     gen_or(v7, v6);
     return v6;
   }
@@ -4282,13 +4263,13 @@ LABEL_27:
     abort();
   }
 
-  a3 = 10;
+  LODWORD(a3) = 10;
 LABEL_12:
 
   return gen_bcmp(a1, 1, a3, 6u, a2);
 }
 
-size_t gen_host6(int *a1, unsigned int *a2, unsigned int *a3, int a4, int a5, int a6)
+size_t gen_host6(int *a1, unsigned int *a2, unsigned int *a3, int a4, uint64_t a5, int a6)
 {
   v6 = "host";
   if (a6 == 2)
@@ -4383,12 +4364,15 @@ size_t gen_host6(int *a1, unsigned int *a2, unsigned int *a3, int a4, int a5, in
   }
 }
 
-size_t gen_port(int *a1, int a2, int a3, int a4)
+size_t gen_port(int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
   v8 = gen_linktype(a1, 2048);
-  if (a3 > 16)
+  if (v5 > 16)
   {
-    if (a3 != 132 && a3 != 17)
+    if (v5 != 132 && v5 != 17)
     {
 LABEL_10:
       abort();
@@ -4397,23 +4381,23 @@ LABEL_10:
 
   else
   {
-    if (a3 == -1)
+    if (v5 == -1)
     {
-      v10 = gen_portop(a1, a2, 6, a4);
-      v9 = gen_portop(a1, a2, 17, a4);
+      v10 = gen_portop(a1, v6, 6, v4);
+      v9 = gen_portop(a1, v6, 17, v4);
       gen_or(v10, v9);
-      v11 = gen_portop(a1, a2, 132, a4);
+      v11 = gen_portop(a1, v6, 132, v4);
       gen_or(v11, v9);
       goto LABEL_9;
     }
 
-    if (a3 != 6)
+    if (v5 != 6)
     {
       goto LABEL_10;
     }
   }
 
-  v9 = gen_portop(a1, a2, a3, a4);
+  v9 = gen_portop(a1, v6, v5, v4);
 LABEL_9:
   gen_and(v8, v9);
   return v9;
@@ -4455,12 +4439,14 @@ LABEL_9:
   return v9;
 }
 
-size_t gen_portrange(int *a1, unsigned int a2, unsigned int a3, int a4, int a5)
+size_t gen_portrange(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
   v10 = gen_linktype(a1, 2048);
-  if (a4 > 16)
+  if (v6 > 16)
   {
-    if (a4 != 132 && a4 != 17)
+    if (v6 != 132 && v6 != 17)
     {
 LABEL_10:
       abort();
@@ -4469,34 +4455,36 @@ LABEL_10:
 
   else
   {
-    if (a4 == -1)
+    if (v6 == -1)
     {
-      v12 = gen_portrangeop(a1, a2, a3, 6, a5);
-      v11 = gen_portrangeop(a1, a2, a3, 17, a5);
+      v12 = gen_portrangeop(a1, a2, a3, 6, v5);
+      v11 = gen_portrangeop(a1, a2, a3, 17, v5);
       gen_or(v12, v11);
-      v13 = gen_portrangeop(a1, a2, a3, 132, a5);
+      v13 = gen_portrangeop(a1, a2, a3, 132, v5);
       gen_or(v13, v11);
       goto LABEL_9;
     }
 
-    if (a4 != 6)
+    if (v6 != 6)
     {
       goto LABEL_10;
     }
   }
 
-  v11 = gen_portrangeop(a1, a2, a3, a4, a5);
+  v11 = gen_portrangeop(a1, a2, a3, v6, v5);
 LABEL_9:
   gen_and(v10, v11);
   return v11;
 }
 
-size_t gen_portrange6(int *a1, unsigned int a2, unsigned int a3, int a4, int a5)
+size_t gen_portrange6(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
   v10 = gen_linktype(a1, 34525);
-  if (a4 > 16)
+  if (v6 > 16)
   {
-    if (a4 != 132 && a4 != 17)
+    if (v6 != 132 && v6 != 17)
     {
 LABEL_10:
       abort();
@@ -4505,23 +4493,23 @@ LABEL_10:
 
   else
   {
-    if (a4 == -1)
+    if (v6 == -1)
     {
-      v12 = gen_portrangeop6(a1, a2, a3, 6, a5);
-      v11 = gen_portrangeop6(a1, a2, a3, 17, a5);
+      v12 = gen_portrangeop6(a1, a2, a3, 6, v5);
+      v11 = gen_portrangeop6(a1, a2, a3, 17, v5);
       gen_or(v12, v11);
-      v13 = gen_portrangeop6(a1, a2, a3, 132, a5);
+      v13 = gen_portrangeop6(a1, a2, a3, 132, v5);
       gen_or(v13, v11);
       goto LABEL_9;
     }
 
-    if (a4 != 6)
+    if (v6 != 6)
     {
       goto LABEL_10;
     }
   }
 
-  v11 = gen_portrangeop6(a1, a2, a3, a4, a5);
+  v11 = gen_portrangeop6(a1, a2, a3, v6, v5);
 LABEL_9:
   gen_and(v10, v11);
   return v11;
@@ -4593,11 +4581,11 @@ LABEL_11:
   return 129;
 }
 
-size_t gen_proto(int *a1, uint64_t a2, int a3, int a4)
+size_t gen_proto(int *a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (a4)
   {
-    bpf_error(a1, "direction applied to 'proto'");
+    bpf_error(a1, "direction applied to 'proto'", a3);
   }
 
   switch(a3)
@@ -4616,33 +4604,33 @@ size_t gen_proto(int *a1, uint64_t a2, int a3, int a4)
       v10 = a1[98] + 9;
       goto LABEL_15;
     case 3:
-      bpf_error(a1, "arp does not encapsulate another protocol");
+      bpf_error(a1, "arp does not encapsulate another protocol", a3);
     case 4:
-      bpf_error(a1, "rarp does not encapsulate another protocol");
+      bpf_error(a1, "rarp does not encapsulate another protocol", a3);
     case 5:
-      bpf_error(a1, "'sctp proto' is bogus");
+      bpf_error(a1, "'sctp proto' is bogus", a3);
     case 6:
-      bpf_error(a1, "'tcp proto' is bogus");
+      bpf_error(a1, "'tcp proto' is bogus", a3);
     case 7:
-      bpf_error(a1, "'udp proto' is bogus");
+      bpf_error(a1, "'udp proto' is bogus", a3);
     case 8:
-      bpf_error(a1, "'icmp proto' is bogus");
+      bpf_error(a1, "'icmp proto' is bogus", a3);
     case 9:
-      bpf_error(a1, "'igmp proto' is bogus");
+      bpf_error(a1, "'igmp proto' is bogus", a3);
     case 10:
-      bpf_error(a1, "'igrp proto' is bogus");
+      bpf_error(a1, "'igrp proto' is bogus", a3);
     case 11:
-      bpf_error(a1, "AppleTalk encapsulation is not specifiable");
+      bpf_error(a1, "AppleTalk encapsulation is not specifiable", a3);
     case 12:
-      bpf_error(a1, "DECNET encapsulation is not specifiable");
+      bpf_error(a1, "DECNET encapsulation is not specifiable", a3);
     case 13:
-      bpf_error(a1, "LAT does not encapsulate another protocol");
+      bpf_error(a1, "LAT does not encapsulate another protocol", a3);
     case 14:
-      bpf_error(a1, "SCA does not encapsulate another protocol");
+      bpf_error(a1, "SCA does not encapsulate another protocol", a3);
     case 15:
-      bpf_error(a1, "MOPRC does not encapsulate another protocol");
+      bpf_error(a1, "MOPRC does not encapsulate another protocol", a3);
     case 16:
-      bpf_error(a1, "MOPDL does not encapsulate another protocol");
+      bpf_error(a1, "MOPDL does not encapsulate another protocol", a3);
     case 17:
       v8 = gen_linktype(a1, 34525);
       absoffsetrel = gen_load_absoffsetrel(a1, a1 + 79, a1[98] + 6, 16);
@@ -4667,17 +4655,17 @@ size_t gen_proto(int *a1, uint64_t a2, int a3, int a4)
       gen_or(v18, v7);
       goto LABEL_16;
     case 18:
-      bpf_error(a1, "'icmp6 proto' is bogus");
+      bpf_error(a1, "'icmp6 proto' is bogus", a3);
     case 19:
-      bpf_error(a1, "'ah proto' is bogus");
+      bpf_error(a1, "'ah proto' is bogus", a3);
     case 20:
-      bpf_error(a1, "'esp proto' is bogus");
+      bpf_error(a1, "'esp proto' is bogus", a3);
     case 21:
-      bpf_error(a1, "'pim proto' is bogus");
+      bpf_error(a1, "'pim proto' is bogus", a3);
     case 22:
-      bpf_error(a1, "'vrrp proto' is bogus");
+      bpf_error(a1, "'vrrp proto' is bogus", a3);
     case 23:
-      bpf_error(a1, "'aarp proto' is bogus");
+      bpf_error(a1, "'aarp proto' is bogus", a3);
     case 24:
       v11 = a1[57];
       if (v11 == 104)
@@ -4717,48 +4705,48 @@ LABEL_16:
       gen_and(v8, v7);
       return v7;
     case 25:
-      bpf_error(a1, "'esis proto' is bogus");
+      bpf_error(a1, "'esis proto' is bogus", a3);
     case 26:
       v8 = gen_proto(a1, 131, 24, 0);
       v9 = a1 + 79;
       v10 = a1[99] + 4;
       goto LABEL_15;
     case 27:
-      bpf_error(a1, "'clnp proto' is not supported");
+      bpf_error(a1, "'clnp proto' is not supported", a3);
     case 28:
-      bpf_error(a1, "'stp proto' is bogus");
+      bpf_error(a1, "'stp proto' is bogus", a3);
     case 29:
-      bpf_error(a1, "'ipx proto' is bogus");
+      bpf_error(a1, "'ipx proto' is bogus", a3);
     case 30:
-      bpf_error(a1, "'netbeui proto' is bogus");
+      bpf_error(a1, "'netbeui proto' is bogus", a3);
     case 31:
-      bpf_error(a1, "'l1 proto' is bogus");
+      bpf_error(a1, "'l1 proto' is bogus", a3);
     case 32:
-      bpf_error(a1, "'l2 proto' is bogus");
+      bpf_error(a1, "'l2 proto' is bogus", a3);
     case 33:
-      bpf_error(a1, "'iih proto' is bogus");
+      bpf_error(a1, "'iih proto' is bogus", a3);
     case 34:
-      bpf_error(a1, "'snp proto' is bogus");
+      bpf_error(a1, "'snp proto' is bogus", a3);
     case 35:
-      bpf_error(a1, "'csnp proto' is bogus");
+      bpf_error(a1, "'csnp proto' is bogus", a3);
     case 36:
-      bpf_error(a1, "'psnp proto' is bogus");
+      bpf_error(a1, "'psnp proto' is bogus", a3);
     case 37:
-      bpf_error(a1, "'lsp proto' is bogus");
+      bpf_error(a1, "'lsp proto' is bogus", a3);
     case 38:
-      bpf_error(a1, "'radio proto' is bogus");
+      bpf_error(a1, "'radio proto' is bogus", a3);
     case 39:
-      bpf_error(a1, "'carp proto' is bogus");
+      bpf_error(a1, "'carp proto' is bogus", a3);
     default:
       abort();
   }
 }
 
-size_t gen_protochain(int *a1, uint64_t a2, int a3)
+uint64_t gen_protochain(int *a1, uint64_t a2, int a3)
 {
-  v81 = *MEMORY[0x29EDCA608];
+  v80 = *MEMORY[0x29EDCA608];
   v6 = alloc_reg(a1);
-  bzero(&v64, 0x318uLL);
+  bzero(&v63, 0x318uLL);
   if (a3 == 17 || a3 == 2)
   {
     if (a1[79])
@@ -4769,125 +4757,125 @@ size_t gen_protochain(int *a1, uint64_t a2, int a3)
     a1[61] = 1;
     v9 = newchunk(a1, 40);
     *v9 = 0;
-    v63 = v9;
+    v62 = v9;
     if (a3 == 17)
     {
-      v62 = gen_linktype(a1, 34525);
+      v61 = gen_linktype(a1, 34525);
       v12 = 40;
       v13 = newchunk(a1, 40);
       *v13 = 48;
-      v64 = v13;
+      v63 = v13;
       v13[6] = a1[80] + a1[98] + 6;
       v11 = newchunk(a1, 40);
       *v11 = 1;
-      v65 = v11;
+      v64 = v11;
     }
 
     else
     {
-      v62 = gen_linktype(a1, 2048);
+      v61 = gen_linktype(a1, 2048);
       v10 = newchunk(a1, 40);
       *v10 = 48;
-      v64 = v10;
+      v63 = v10;
       v10[6] = a1[80] + a1[98] + 9;
       v11 = newchunk(a1, 40);
       *v11 = 177;
-      v65 = v11;
+      v64 = v11;
       v12 = a1[98] + a1[80];
     }
 
     v11[6] = v12;
     v14 = newchunk(a1, 40);
     *v14 = 21;
-    v66 = v14;
+    v65 = v14;
     *(v14 + 24) = a2;
     *(v14 + 8) = 0;
-    *(v66 + 16) = 0;
+    *(v65 + 16) = 0;
     v15 = newchunk(a1, 40);
     *v15 = 21;
-    v67 = v15;
+    v66 = v15;
     *(v15 + 8) = 0;
-    *(v67 + 16) = 0;
-    v16 = v66;
-    v17 = v67;
-    *(v67 + 24) = 59;
+    *(v66 + 16) = 0;
+    v16 = v65;
+    v17 = v66;
+    *(v66 + 24) = 59;
     *(v16 + 16) = v17;
     v18 = newchunk(a1, 40);
     if (a3 == 17)
     {
-      v19 = &v71;
+      v19 = &v70;
       *v18 = 21;
-      v68 = v18;
+      v67 = v18;
       *(v18 + 8) = 0;
-      *(v68 + 16) = 0;
-      v20 = v67;
-      v21 = v68;
-      *(v68 + 24) = 0;
+      *(v67 + 16) = 0;
+      v20 = v66;
+      v21 = v67;
+      *(v67 + 24) = 0;
       *(v20 + 16) = v21;
       v22 = newchunk(a1, 40);
       *v22 = 21;
-      v69 = v22;
+      v68 = v22;
       *(v21 + 16) = v22;
-      *(v69 + 1) = 0;
-      *(v69 + 2) = 0;
-      v23 = v69;
-      v69[6] = 60;
+      *(v68 + 1) = 0;
+      *(v68 + 2) = 0;
+      v23 = v68;
+      v68[6] = 60;
       v24 = newchunk(a1, 40);
       *v24 = 21;
-      v70 = v24;
+      v69 = v24;
       *(v23 + 2) = v24;
-      *(v70 + 1) = 0;
-      *(v70 + 2) = 0;
-      v25 = v70;
-      v70[6] = 43;
+      *(v69 + 1) = 0;
+      *(v69 + 2) = 0;
+      v25 = v69;
+      v69[6] = 43;
       v26 = newchunk(a1, 40);
       *v26 = 21;
-      v71 = v26;
+      v70 = v26;
       *(v25 + 2) = v26;
-      *(v71 + 1) = 0;
-      *(v71 + 2) = 0;
-      v71[6] = 44;
+      *(v70 + 1) = 0;
+      *(v70 + 2) = 0;
+      v70[6] = 44;
       v27 = newchunk(a1, 40);
       *v27 = 80;
-      v72 = v27;
+      v71 = v27;
       v27[6] = a1[98] + a1[80];
       v28 = newchunk(a1, 40);
       *v28 = 2;
-      v73 = v28;
+      v72 = v28;
       v28[6] = v6;
       v29 = newchunk(a1, 40);
       *v29 = 80;
-      v74 = v29;
+      v73 = v29;
       v29[6] = a1[80] + a1[98] + 1;
       v30 = newchunk(a1, 40);
       *v30 = 4;
-      v75 = v30;
+      v74 = v30;
       v30[6] = 1;
       v31 = newchunk(a1, 40);
       *v31 = 36;
-      v76 = v31;
+      v75 = v31;
       v31[6] = 8;
       v32 = newchunk(a1, 40);
       *v32 = 12;
-      v77 = v32;
+      v76 = v32;
       v32[6] = 0;
       v33 = newchunk(a1, 40);
       *v33 = 7;
-      v78 = v33;
+      v77 = v33;
       v34 = newchunk(a1, 40);
       *v34 = 96;
-      v79 = v34;
+      v78 = v34;
       *(v34 + 24) = v6;
       v35 = newchunk(a1, 40);
       v36 = 0;
       *v35 = 5;
-      v80 = v35;
+      v79 = v35;
       v35[6] = -15;
       *(v34 + 16) = v35;
-      v37 = v72;
+      v37 = v71;
       do
       {
-        *(*(&v68 + v36) + 8) = v37;
+        *(*(&v67 + v36) + 8) = v37;
         v36 += 8;
       }
 
@@ -4898,19 +4886,19 @@ size_t gen_protochain(int *a1, uint64_t a2, int a3)
     else
     {
       *v18 = 4;
-      v68 = v18;
+      v67 = v18;
       *(v18 + 24) = 0;
       *(v17 + 16) = v18;
       v38 = 6;
-      v19 = &v63;
+      v19 = &v62;
     }
 
     v39 = newchunk(a1, 40);
     *v39 = 21;
-    (&v63)[v38] = v39;
+    (&v62)[v38] = v39;
     *(v39 + 8) = 0;
-    *((&v63)[v38] + 2) = 0;
-    v40 = (&v63)[v38];
+    *((&v62)[v38] + 2) = 0;
+    v40 = (&v62)[v38];
     v40[6] = 51;
     if (a3 == 17)
     {
@@ -4919,61 +4907,61 @@ size_t gen_protochain(int *a1, uint64_t a2, int a3)
 
     v41 = newchunk(a1, 40);
     *v41 = 135;
-    (&v63)[v38 | 1] = v41;
-    *((&v63)[v38] + 1) = v41;
+    (&v62)[v38 | 1] = v41;
+    *((&v62)[v38] + 1) = v41;
     v42 = newchunk(a1, 40);
-    *(&v63 + v38 + 2) = v42;
+    *(&v62 + v38 + 2) = v42;
     *v42 = 80;
     v42[6] = a1[98] + a1[80];
     v43 = newchunk(a1, 40);
     *v43 = 2;
-    *(&v63 + v38 + 3) = v43;
+    *(&v62 + v38 + 3) = v43;
     *(v43 + 24) = v6;
     v44 = newchunk(a1, 40);
     *v44 = 135;
-    (&v63)[v38 + 1] = v44;
+    (&v62)[v38 + 1] = v44;
     *(v43 + 8) = v44;
     v45 = newchunk(a1, 40);
     *v45 = 4;
-    *(&v63 + v38 + 5) = v45;
+    *(&v62 + v38 + 5) = v45;
     v45[6] = 1;
     v46 = newchunk(a1, 40);
     *v46 = 7;
-    *(&v63 + v38 + 6) = v46;
+    *(&v62 + v38 + 6) = v46;
     v47 = newchunk(a1, 40);
-    *(&v63 + v38 + 7) = v47;
+    *(&v62 + v38 + 7) = v47;
     *v47 = 80;
     v47[6] = a1[98] + a1[80];
     v48 = newchunk(a1, 40);
     *v48 = 4;
-    (&v63)[v38 | 8] = v48;
+    (&v62)[v38 | 8] = v48;
     v48[6] = 2;
     v49 = newchunk(a1, 40);
     *v49 = 36;
-    (&v63)[v38 | 9] = v49;
+    (&v62)[v38 | 9] = v49;
     v49[6] = 4;
     v50 = newchunk(a1, 40);
     *v50 = 7;
-    *(&v63 + v38 + 10) = v50;
+    *(&v62 + v38 + 10) = v50;
     v51 = newchunk(a1, 40);
     *v51 = 96;
-    *(&v63 + v38 + 11) = v51;
+    *(&v62 + v38 + 11) = v51;
     v51[6] = v6;
     v52 = newchunk(a1, 40);
     *v52 = 5;
-    (&v63)[v38 + 3] = v52;
+    (&v62)[v38 + 3] = v52;
     v52[6] = -10 - v38;
     v53 = v38 + 13;
     v54 = newchunk(a1, 40);
     *v54 = 4;
-    (&v63)[v53] = v54;
+    (&v62)[v53] = v54;
     v54[6] = 0;
-    *(v67 + 8) = v54;
-    v55 = (&v63)[v53];
-    *((&v63)[v38] + 2) = v55;
-    v56 = v63;
-    *(v66 + 8) = v55;
-    v57 = &v64;
+    *(v66 + 8) = v54;
+    v55 = (&v62)[v53];
+    *((&v62)[v38] + 2) = v55;
+    v56 = v62;
+    *(v65 + 8) = v55;
+    v57 = &v63;
     v58 = v53;
     do
     {
@@ -4984,14 +4972,14 @@ size_t gen_protochain(int *a1, uint64_t a2, int a3)
     }
 
     while (v58);
-    *((&v63)[v53] + 4) = 0;
+    *((&v62)[v53] + 4) = 0;
     v8 = newchunk(a1, 288);
     *(v8 + 16) = 21;
     *(v8 + 152) = v8;
-    *(v8 + 8) = v64;
+    *(v8 + 8) = v63;
     *(v8 + 40) = a2;
     a1[v6 + 100] = 0;
-    gen_and(v62, v8);
+    gen_and(v61, v8);
   }
 
   else
@@ -5006,7 +4994,6 @@ size_t gen_protochain(int *a1, uint64_t a2, int a3)
     gen_or(v7, v8);
   }
 
-  v60 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -5079,7 +5066,7 @@ LABEL_14:
   return gen_host(a1, v17, v16, BYTE1(a5), BYTE2(a5));
 }
 
-size_t gen_ncode(int *a1, const char *a2, unsigned int a3, unsigned int a4)
+uint64_t gen_ncode(int *a1, const char *a2, unsigned int a3, unsigned int a4)
 {
   v22 = a3;
   if (setjmp(a1))
@@ -5402,14 +5389,16 @@ uint64_t sappend(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t gen_load(int *a1, int a2, uint64_t a3, int a4)
+uint64_t gen_load(int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v6 = a2;
   if (setjmp(a1))
   {
     return 0;
   }
 
-  gen_load_internal(a1, a2, a3, a4);
+  gen_load_internal(a1, v6, a3, v4);
   return a3;
 }
 
@@ -5824,8 +5813,10 @@ LABEL_57:
   return a3;
 }
 
-size_t gen_relation(int *a1, int a2, uint64_t a3, uint64_t a4, int a5)
+size_t gen_relation(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v8 = a2;
   if (setjmp(a1))
   {
     return 0;
@@ -5833,7 +5824,7 @@ size_t gen_relation(int *a1, int a2, uint64_t a3, uint64_t a4, int a5)
 
   else
   {
-    return gen_relation_internal(a1, a2, a3, a4, a5);
+    return gen_relation_internal(a1, v8, a3, a4, v5);
   }
 }
 
@@ -5994,8 +5985,9 @@ size_t newchunk(int *a1, uint64_t a2)
   return result;
 }
 
-size_t gen_loadi(int *a1, int a2)
+size_t gen_loadi(int *a1, uint64_t a2)
 {
+  v2 = a2;
   if (setjmp(a1))
   {
     return 0;
@@ -6003,7 +5995,7 @@ size_t gen_loadi(int *a1, int a2)
 
   else
   {
-    return gen_loadi_internal(a1, a2);
+    return gen_loadi_internal(a1, v2);
   }
 }
 
@@ -6204,8 +6196,9 @@ size_t gen_less(int *a1, int a2)
   return result;
 }
 
-size_t gen_byteop(int *a1, int a2, int a3, int a4)
+size_t gen_byteop(int *a1, int a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   if (setjmp(a1))
   {
     return 0;
@@ -6216,12 +6209,12 @@ size_t gen_byteop(int *a1, int a2, int a3, int a4)
     switch(a2)
     {
       case '=':
-        absoffsetrel = gen_load_absoffsetrel(a1, a1 + 70, a3, 16);
+        absoffsetrel = gen_load_absoffsetrel(a1, a1 + 70, v5, 16);
         result = newchunk(a1, 288);
         v12 = 21;
         break;
       case '>':
-        absoffsetrel = gen_load_absoffsetrel(a1, a1 + 70, a3, 16);
+        absoffsetrel = gen_load_absoffsetrel(a1, a1 + 70, v5, 16);
         result = newchunk(a1, 288);
         v12 = 37;
         break;
@@ -6260,7 +6253,7 @@ LABEL_17:
     abort();
   }
 
-  v10 = gen_load_absoffsetrel(a1, a1 + 70, a3, 16);
+  v10 = gen_load_absoffsetrel(a1, a1 + 70, v5, 16);
   result = newchunk(a1, 288);
   *(result + 16) = 53;
   *(result + 152) = result;
@@ -6388,7 +6381,7 @@ LABEL_22:
   return v10;
 }
 
-size_t gen_linktype(uint64_t a1, int a2)
+size_t gen_linktype(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
   if (*(a1 + 248))
@@ -6408,7 +6401,7 @@ size_t gen_linktype(uint64_t a1, int a2)
       v4 = 96;
     }
 
-    v11 = gen_ncmp(a1, 6, -2, 16, 1, 16, 0, 1);
+    v11 = gen_ncmp(a1, 6, 4294967294, 16, 1, 16, 0, 1);
     v12 = gen_ncmp(a1, 6, 0, 16, 240, 16, 0, v4);
     v13 = v11;
 LABEL_13:
@@ -6424,12 +6417,12 @@ LABEL_13:
       case 104:
         if (a2 == 254)
         {
-          v31 = 65278;
+          v30 = 65278;
         }
 
         else
         {
-          v31 = a2;
+          v30 = a2;
         }
 
         absoffsetrel = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
@@ -6437,14 +6430,14 @@ LABEL_13:
         *(v12 + 16) = 21;
         *(v12 + 152) = v12;
         *(v12 + 8) = absoffsetrel;
-        *(v12 + 40) = v31;
+        *(v12 + 40) = v30;
         return v12;
       case 105:
       case 119:
       case 127:
       case 163:
       case 192:
-        v15 = gen_check_802_11_data_frame(a1);
+        v14 = gen_check_802_11_data_frame(a1);
         goto LABEL_20;
       case 106:
       case 110:
@@ -6526,44 +6519,44 @@ LABEL_13:
       case 107:
         switch(a2)
         {
-          case 254:
+          case 0xFE:
+            v47 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
+            v37 = newchunk(a1, 288);
+            *(v37 + 16) = 21;
+            *(v37 + 152) = v37;
+            *(v37 + 8) = v47;
+            *(v37 + 40) = 897;
             v48 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
-            v38 = newchunk(a1, 288);
-            *(v38 + 16) = 21;
-            *(v38 + 152) = v38;
-            *(v38 + 8) = v48;
-            *(v38 + 40) = 897;
-            v49 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
-            v50 = newchunk(a1, 288);
-            *(v50 + 16) = 21;
-            *(v50 + 152) = v50;
-            *(v50 + 8) = v49;
-            *(v50 + 40) = 898;
-            v51 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
+            v49 = newchunk(a1, 288);
+            *(v49 + 16) = 21;
+            *(v49 + 152) = v49;
+            *(v49 + 8) = v48;
+            *(v49 + 40) = 898;
+            v50 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
             v12 = newchunk(a1, 288);
             *(v12 + 16) = 21;
             *(v12 + 152) = v12;
-            *(v12 + 8) = v51;
+            *(v12 + 8) = v50;
             *(v12 + 40) = 899;
-            gen_or(v50, v12);
+            gen_or(v49, v12);
             goto LABEL_92;
-          case 34525:
-            v47 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
-            v20 = newchunk(a1, 288);
-            v12 = v20;
-            *(v20 + 16) = 21;
-            *(v20 + 152) = v20;
-            *(v20 + 8) = v47;
-            v21 = 910;
+          case 0x86DD:
+            v46 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
+            v19 = newchunk(a1, 288);
+            v12 = v19;
+            *(v19 + 16) = 21;
+            *(v19 + 152) = v19;
+            *(v19 + 8) = v46;
+            v20 = 910;
             break;
-          case 2048:
-            v33 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
-            v20 = newchunk(a1, 288);
-            v12 = v20;
-            *(v20 + 16) = 21;
-            *(v20 + 152) = v20;
-            *(v20 + 8) = v33;
-            v21 = 972;
+          case 0x800:
+            v32 = gen_load_absoffsetrel(a1, (a1 + 280), 2, 8);
+            v19 = newchunk(a1, 288);
+            v12 = v19;
+            *(v19 + 16) = 21;
+            *(v19 + 152) = v19;
+            *(v19 + 8) = v32;
+            v20 = 972;
             break;
           default:
             goto LABEL_76;
@@ -6577,18 +6570,18 @@ LABEL_13:
 
         return gen_linux_sll_linktype(a1, a2);
       case 114:
-        v30 = 32923;
+        v29 = 32923;
         goto LABEL_65;
       case 117:
         if (a2 == 34525)
         {
-          v46 = gen_load_absoffsetrel(a1, (a1 + 280), 1, 16);
-          v20 = newchunk(a1, 288);
-          v12 = v20;
-          *(v20 + 16) = 21;
-          *(v20 + 152) = v20;
-          *(v20 + 8) = v46;
-          v21 = 30;
+          v45 = gen_load_absoffsetrel(a1, (a1 + 280), 1, 16);
+          v19 = newchunk(a1, 288);
+          v12 = v19;
+          *(v19 + 16) = 21;
+          *(v19 + 152) = v19;
+          *(v19 + 8) = v45;
+          v20 = 30;
         }
 
         else
@@ -6598,22 +6591,22 @@ LABEL_13:
             goto LABEL_76;
           }
 
-          v36 = gen_load_absoffsetrel(a1, (a1 + 280), 1, 16);
-          v20 = newchunk(a1, 288);
-          v12 = v20;
-          *(v20 + 16) = 21;
-          *(v20 + 152) = v20;
-          *(v20 + 8) = v36;
-          v21 = 2;
+          v35 = gen_load_absoffsetrel(a1, (a1 + 280), 1, 16);
+          v19 = newchunk(a1, 288);
+          v12 = v19;
+          *(v19 + 16) = 21;
+          *(v19 + 152) = v19;
+          *(v19 + 8) = v35;
+          v20 = 2;
         }
 
         break;
       case 122:
         goto LABEL_16;
       case 123:
-        v15 = gen_atmfield_code_internal(a1, 53, 2, 16, 0);
+        v14 = gen_atmfield_code_internal(a1, 53, 2, 16, 0);
 LABEL_20:
-        v16 = v15;
+        v15 = v14;
         v12 = gen_llc_linktype(a1, v2);
         goto LABEL_21;
       case 129:
@@ -6704,16 +6697,16 @@ LABEL_20:
 
         goto LABEL_66;
       case 229:
-        v30 = 34525;
+        v29 = 34525;
 LABEL_65:
-        if (a2 != v30)
+        if (a2 != v29)
         {
           goto LABEL_76;
         }
 
 LABEL_66:
-        v34 = a1;
-        v35 = 1;
+        v33 = a1;
+        v34 = 1;
         goto LABEL_77;
       case 239:
         bpf_error(a1, "NFLOG link-layer type filtering not implemented");
@@ -6731,11 +6724,10 @@ LABEL_98:
     }
 
 LABEL_90:
-    *(v20 + 40) = v21;
+    *(v19 + 40) = v20;
     return v12;
   }
 
-  v14 = *(a1 + 228);
   switch(v5)
   {
     case 0:
@@ -6744,15 +6736,15 @@ LABEL_25:
       {
         if (*(*(a1 + 192) + 64))
         {
-          v29 = gen_loopback_linktype(a1, 0x18u);
+          v28 = gen_loopback_linktype(a1, 0x18u);
           v12 = gen_loopback_linktype(a1, 0x1Cu);
-          gen_or(v29, v12);
-          v27 = gen_loopback_linktype(a1, 0x1Eu);
+          gen_or(v28, v12);
+          v26 = gen_loopback_linktype(a1, 0x1Eu);
           goto LABEL_93;
         }
 
-        v17 = a1;
-        v18 = 30;
+        v16 = a1;
+        v17 = 30;
       }
 
       else
@@ -6762,11 +6754,11 @@ LABEL_25:
           goto LABEL_76;
         }
 
-        v17 = a1;
-        v18 = 2;
+        v16 = a1;
+        v17 = 2;
       }
 
-      return gen_loopback_linktype(v17, v18);
+      return gen_loopback_linktype(v16, v17);
     case 1:
 LABEL_28:
       if (*(a1 + 344))
@@ -6775,12 +6767,12 @@ LABEL_28:
         return gen_ether_linktype(a1, a2);
       }
 
-      v16 = gen_prevlinkhdr_check(a1);
+      v15 = gen_prevlinkhdr_check(a1);
       v12 = gen_ether_linktype(a1, v2);
-      if (v16)
+      if (v15)
       {
 LABEL_21:
-        v13 = v16;
+        v13 = v15;
         goto LABEL_13;
       }
 
@@ -6806,32 +6798,32 @@ LABEL_34:
       {
         switch(a2)
         {
-          case 32821:
+          case 0x8035:
+            v41 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
+            v19 = newchunk(a1, 288);
+            v12 = v19;
+            *(v19 + 16) = 21;
+            *(v19 + 152) = v19;
+            *(v19 + 8) = v41;
+            v20 = 214;
+            break;
+          case 0x809B:
             v42 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
-            v20 = newchunk(a1, 288);
-            v12 = v20;
-            *(v20 + 16) = 21;
-            *(v20 + 152) = v20;
-            *(v20 + 8) = v42;
-            v21 = 214;
+            v19 = newchunk(a1, 288);
+            v12 = v19;
+            *(v19 + 16) = 21;
+            *(v19 + 152) = v19;
+            *(v19 + 8) = v42;
+            v20 = 221;
             break;
-          case 32923:
-            v43 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
-            v20 = newchunk(a1, 288);
-            v12 = v20;
-            *(v20 + 16) = 21;
-            *(v20 + 152) = v20;
-            *(v20 + 8) = v43;
-            v21 = 221;
-            break;
-          case 34525:
-            v19 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
-            v20 = newchunk(a1, 288);
-            v12 = v20;
-            *(v20 + 16) = 21;
-            *(v20 + 152) = v20;
-            *(v20 + 8) = v19;
-            v21 = 196;
+          case 0x86DD:
+            v18 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
+            v19 = newchunk(a1, 288);
+            v12 = v19;
+            *(v19 + 16) = 21;
+            *(v19 + 152) = v19;
+            *(v19 + 8) = v18;
+            v20 = 196;
             break;
           default:
             goto LABEL_76;
@@ -6842,19 +6834,19 @@ LABEL_34:
 
       if (a2 == 2048)
       {
+        v43 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
+        v37 = newchunk(a1, 288);
+        *(v37 + 16) = 21;
+        *(v37 + 152) = v37;
+        *(v37 + 8) = v43;
+        *(v37 + 40) = 212;
         v44 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
-        v38 = newchunk(a1, 288);
-        *(v38 + 16) = 21;
-        *(v38 + 152) = v38;
-        *(v38 + 8) = v44;
-        *(v38 + 40) = 212;
-        v45 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
-        v40 = newchunk(a1, 288);
-        v12 = v40;
-        *(v40 + 16) = 21;
-        *(v40 + 152) = v40;
-        *(v40 + 8) = v45;
-        v41 = 240;
+        v39 = newchunk(a1, 288);
+        v12 = v39;
+        *(v39 + 16) = 21;
+        *(v39 + 152) = v39;
+        *(v39 + 8) = v44;
+        v40 = 240;
       }
 
       else
@@ -6864,26 +6856,26 @@ LABEL_34:
           goto LABEL_76;
         }
 
-        v37 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
-        v38 = newchunk(a1, 288);
-        *(v38 + 16) = 21;
-        *(v38 + 152) = v38;
-        *(v38 + 8) = v37;
-        *(v38 + 40) = 213;
-        v39 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
-        v40 = newchunk(a1, 288);
-        v12 = v40;
-        *(v40 + 16) = 21;
-        *(v40 + 152) = v40;
-        *(v40 + 8) = v39;
-        v41 = 241;
+        v36 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
+        v37 = newchunk(a1, 288);
+        *(v37 + 16) = 21;
+        *(v37 + 152) = v37;
+        *(v37 + 8) = v36;
+        *(v37 + 40) = 213;
+        v38 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 16);
+        v39 = newchunk(a1, 288);
+        v12 = v39;
+        *(v39 + 16) = 21;
+        *(v39 + 152) = v39;
+        *(v39 + 8) = v38;
+        v40 = 241;
       }
 
-      *(v40 + 40) = v41;
+      *(v39 + 40) = v40;
 LABEL_92:
-      v27 = v38;
+      v26 = v37;
 LABEL_93:
-      gen_or(v27, v12);
+      gen_or(v26, v12);
       return v12;
     case 8:
     case 12:
@@ -6909,11 +6901,11 @@ LABEL_8:
       }
 
 LABEL_76:
-      v34 = a1;
-      v35 = 0;
+      v33 = a1;
+      v34 = 0;
 LABEL_77:
 
-      return gen_uncond(v34, v35);
+      return gen_uncond(v33, v34);
     case 9:
       goto LABEL_43;
     case 16:
@@ -6922,26 +6914,26 @@ LABEL_77:
         goto LABEL_43;
       }
 
-      v22 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
-      v23 = newchunk(a1, 288);
-      *(v23 + 16) = 21;
-      *(v23 + 152) = v23;
-      *(v23 + 8) = v22;
-      *(v23 + 40) = 33;
-      v24 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
-      v25 = newchunk(a1, 288);
-      *(v25 + 16) = 21;
-      *(v25 + 152) = v25;
-      *(v25 + 8) = v24;
-      *(v25 + 40) = 45;
-      gen_or(v23, v25);
-      v26 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
+      v21 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
+      v22 = newchunk(a1, 288);
+      *(v22 + 16) = 21;
+      *(v22 + 152) = v22;
+      *(v22 + 8) = v21;
+      *(v22 + 40) = 33;
+      v23 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
+      v24 = newchunk(a1, 288);
+      *(v24 + 16) = 21;
+      *(v24 + 152) = v24;
+      *(v24 + 8) = v23;
+      *(v24 + 40) = 45;
+      gen_or(v22, v24);
+      v25 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
       v12 = newchunk(a1, 288);
       *(v12 + 16) = 21;
       *(v12 + 152) = v12;
-      *(v12 + 8) = v26;
+      *(v12 + 8) = v25;
       *(v12 + 40) = 47;
-      v27 = v25;
+      v26 = v24;
       goto LABEL_93;
     case 18:
       bpf_error(a1, "PFSYNC link-layer type filtering not implemented");
@@ -6962,11 +6954,11 @@ LABEL_95:
         }
       }
 
-      v28 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
+      v27 = gen_load_absoffsetrel(a1, (a1 + 328), 0, 8);
       v12 = newchunk(a1, 288);
       *(v12 + 16) = 21;
       *(v12 + 152) = v12;
-      *(v12 + 8) = v28;
+      *(v12 + 8) = v27;
       *(v12 + 40) = v2;
       return v12;
   }
@@ -7121,7 +7113,7 @@ LABEL_13:
     {
       if (v12 == 24)
       {
-        return gen_bcmp(a1, 1, 1, 1u, &unk_299802A00);
+        return gen_bcmp(a1, 1, 1u, 1u, &unk_299802A00);
       }
 
       goto LABEL_25;
@@ -7150,7 +7142,7 @@ LABEL_28:
 
   if (v11 == 7)
   {
-    return gen_bcmp(a1, 1, 1, 1u, &unk_299802A00);
+    return gen_bcmp(a1, 1, 1u, 1u, &unk_299802A00);
   }
 
   if (v11 != 10)
@@ -7163,7 +7155,7 @@ LABEL_28:
   return gen_mac_multicast(v31, v32);
 }
 
-size_t gen_mac_multicast(int *a1, int a2)
+size_t gen_mac_multicast(int *a1, uint64_t a2)
 {
   absoffsetrel = gen_load_absoffsetrel(a1, a1 + 70, a2, 16);
   result = newchunk(a1, 288);
@@ -7348,10 +7340,10 @@ size_t gen_pf_ifname(int *a1, char *a2)
     bpf_error(a1, "ifname interface names can only be %d characters");
   }
 
-  return gen_bcmp(a1, 1, 4, v5, a2);
+  return gen_bcmp(a1, 1, 4u, v5, a2);
 }
 
-size_t gen_bcmp(int *a1, int a2, int a3, unsigned int a4, unsigned __int8 *a5)
+size_t gen_bcmp(int *a1, int a2, unsigned int a3, unsigned int a4, unsigned __int8 *a5)
 {
   v6 = a4;
   if (a4 < 4)
@@ -7459,7 +7451,7 @@ size_t gen_pf_ruleset(int *a1, char *a2)
     bpf_error(a1, "ruleset names can only be %ld characters");
   }
 
-  return gen_bcmp(a1, 1, 20, v5, a2);
+  return gen_bcmp(a1, 1, 0x14u, v5, a2);
 }
 
 size_t gen_pf_rnr(int *a1, int a2)
@@ -7546,56 +7538,37 @@ size_t gen_pf_action(int *a1, int a2)
   return result;
 }
 
-size_t gen_p80211_type(uint64_t a1, int a2, int a3)
+size_t gen_p80211_type(int *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   if (setjmp(a1))
   {
     return 0;
   }
 
-  if ((*(a1 + 228) - 105) <= 0x3A)
-  {
-    v7 = ((1 << (*(a1 + 228) - 105)) & 0x400000000404001) == 0;
-    *(a1 + 228);
-  }
-
-  else
-  {
-    v7 = 1;
-  }
-
-  if (v7)
+  if ((a1[57] - 105) > 0x3A || ((1 << (*(a1 + 228) - 105)) & 0x400000000404001) == 0)
   {
     bpf_error(a1, "802.11 link-layer types supported only on 802.11");
   }
 
-  return gen_ncmp(a1, 1, 0, 16, a3, 16, 0, a2);
+  return gen_ncmp(a1, 1, 0, 16, v3, 16, 0, v4);
 }
 
-size_t gen_p80211_fcdir(uint64_t a1, int a2)
+size_t gen_p80211_fcdir(int *a1, uint64_t a2)
 {
+  v2 = a2;
   if (setjmp(a1))
   {
     return 0;
   }
 
-  if ((*(a1 + 228) - 105) <= 0x3A)
-  {
-    v5 = ((1 << (*(a1 + 228) - 105)) & 0x400000000404001) == 0;
-    *(a1 + 228);
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
+  if ((a1[57] - 105) > 0x3A || ((1 << (*(a1 + 228) - 105)) & 0x400000000404001) == 0)
   {
     bpf_error(a1, "frame direction supported only with 802.11 headers");
   }
 
-  return gen_ncmp(a1, 1, 1, 16, 3, 16, 0, a2);
+  return gen_ncmp(a1, 1, 1, 16, 3, 16, 0, v2);
 }
 
 size_t gen_acode(uint64_t a1, const char *a2, int a3)
@@ -7655,7 +7628,7 @@ LABEL_37:
   {
 LABEL_18:
     v15 = gen_bcmp(a1, 1, 0, 1u, v9);
-    v14 = gen_bcmp(a1, 1, 1, 1u, v10);
+    v14 = gen_bcmp(a1, 1, 1u, 1u, v10);
     gen_or(v15, v14);
     goto LABEL_19;
   }
@@ -7691,7 +7664,7 @@ LABEL_18:
   }
 
   v13 = gen_bcmp(a1, 1, 0, 1u, v9);
-  v14 = gen_bcmp(a1, 1, 1, 1u, v10);
+  v14 = gen_bcmp(a1, 1, 1u, 1u, v10);
   gen_and(v13, v14);
 LABEL_19:
   v16 = v14;
@@ -7702,8 +7675,9 @@ LABEL_22:
   return v17;
 }
 
-size_t gen_vlan(int *a1, unsigned int a2, int a3)
+size_t gen_vlan(int *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   if (setjmp(a1))
   {
     return 0;
@@ -7721,13 +7695,14 @@ size_t gen_vlan(int *a1, unsigned int a2, int a3)
     bpf_error(a1, "no VLAN support for %s");
   }
 
-  result = gen_vlan_no_bpf_extensions(a1, a2, a3);
+  result = gen_vlan_no_bpf_extensions(a1, a2, v3);
   ++a1[63];
   return result;
 }
 
-size_t gen_vlan_no_bpf_extensions(int *a1, unsigned int a2, int a3)
+size_t gen_vlan_no_bpf_extensions(int *a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   v6 = gen_linktype(a1, 33024);
   v7 = gen_linktype(a1, 34984);
   gen_or(v6, v7);
@@ -7735,12 +7710,12 @@ size_t gen_vlan_no_bpf_extensions(int *a1, unsigned int a2, int a3)
   gen_or(v7, v8);
   if (a3)
   {
-    if (a2 >= 0x1000)
+    if (v4 >= 0x1000)
     {
-      bpf_error(a1, "VLAN tag %u greater than maximum %u", a2, 4095);
+      bpf_error(a1, "VLAN tag %u greater than maximum %u", v4, 4095);
     }
 
-    v9 = gen_ncmp(a1, 6, 0, 8, 4095, 16, 0, a2);
+    v9 = gen_ncmp(a1, 6, 0, 8, 4095, 16, 0, v4);
     gen_and(v8, v9);
     v8 = v9;
   }
@@ -7825,8 +7800,9 @@ size_t gen_pppoed(int *a1)
   }
 }
 
-size_t gen_pppoes(uint64_t a1, unsigned int a2, int a3)
+size_t gen_pppoes(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   if (setjmp(a1))
   {
     return 0;
@@ -7835,12 +7811,12 @@ size_t gen_pppoes(uint64_t a1, unsigned int a2, int a3)
   v7 = gen_linktype(a1, 34916);
   if (a3)
   {
-    if (a2 >= 0x10000)
+    if (v4 >= 0x10000)
     {
-      bpf_error(a1, "PPPoE session number %u greater than maximum %u", a2, 0xFFFF);
+      bpf_error(a1, "PPPoE session number %u greater than maximum %u", v4, 0xFFFF);
     }
 
-    v8 = gen_ncmp(a1, 6, 0, 0, 0xFFFF, 16, 0, a2);
+    v8 = gen_ncmp(a1, 6, 0, 0, 0xFFFF, 16, 0, v4);
     gen_and(v7, v8);
     v7 = v8;
   }
@@ -7863,14 +7839,16 @@ size_t gen_pppoes(uint64_t a1, unsigned int a2, int a3)
   return v7;
 }
 
-size_t gen_geneve(uint64_t a1, unsigned int a2, int a3)
+size_t gen_geneve(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   if (setjmp(a1))
   {
     return 0;
   }
 
-  v7 = gen_geneve_check(a1, gen_port, 8, a2, a3);
+  v7 = gen_geneve_check(a1, gen_port, 8, v4, v3);
   v8 = gen_loadx_iphdrlen(a1);
   v9 = newchunk(a1, 40);
   *v9 = 135;
@@ -7889,7 +7867,7 @@ size_t gen_geneve(uint64_t a1, unsigned int a2, int a3)
   *(v12 + 8) = v8;
   *(v12 + 40) = 0;
   gen_and(v7, v12);
-  v13 = gen_geneve_check(a1, gen_port6, 9, a2, a3);
+  v13 = gen_geneve_check(a1, gen_port6, 9, v4, v3);
   v14 = gen_abs_offset_varpart(a1, (a1 + 316));
   v15 = newchunk(a1, 40);
   *v15 = 0;
@@ -8202,8 +8180,9 @@ size_t gen_geneve(uint64_t a1, unsigned int a2, int a3)
   return v89;
 }
 
-size_t gen_atmfield_code(int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+size_t gen_atmfield_code(int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v8 = a2;
   if (setjmp(a1))
   {
     return 0;
@@ -8211,7 +8190,7 @@ size_t gen_atmfield_code(int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 
   else
   {
-    return gen_atmfield_code_internal(a1, a2, a3, a4, a5);
+    return gen_atmfield_code_internal(a1, v8, a3, a4, a5);
   }
 }
 
@@ -8240,7 +8219,7 @@ size_t gen_atmfield_code_internal(int *a1, int a2, uint64_t a3, uint64_t a4, uin
       v11 = a1[97];
       if (v11 != -1)
       {
-        v8 = v11 + 5;
+        v8 = (v11 + 5);
 LABEL_19:
         v9 = 16;
         goto LABEL_20;
@@ -8586,7 +8565,7 @@ LABEL_31:
   return gen_ncmp(v7, 0, v6, v8, v9, v10, 0, v11);
 }
 
-size_t gen_ncmp(int *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+size_t gen_ncmp(int *a1, int a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8)
 {
   a = gen_load_a(a1, a2, a3, a4);
   if (a5 != -1)
@@ -9038,7 +9017,7 @@ LABEL_10:
 
   if (a4 != 1)
   {
-    LODWORD(v8) = a7;
+    v8 = a7;
     if (a4 != 2)
     {
       goto LABEL_24;
@@ -9218,10 +9197,10 @@ LABEL_12:
     {
       v7 = 24;
 LABEL_11:
-      v9 = gen_ncmp(a1, 6, v7 + 12, 0, bswap32(a3[3]), 16, 0, bswap32(a2[3]));
-      v12 = gen_ncmp(a1, 6, v7 + 8, 0, bswap32(a3[2]), 16, 0, bswap32(a2[2]));
+      v9 = gen_ncmp(a1, 6, (v7 + 12), 0, bswap32(a3[3]), 16, 0, bswap32(a2[3]));
+      v12 = gen_ncmp(a1, 6, (v7 + 8), 0, bswap32(a3[2]), 16, 0, bswap32(a2[2]));
       gen_and(v12, v9);
-      v13 = gen_ncmp(a1, 6, v7 | 4u, 0, bswap32(a3[1]), 16, 0, bswap32(a2[1]));
+      v13 = gen_ncmp(a1, 6, v7 | 4, 0, bswap32(a3[1]), 16, 0, bswap32(a2[1]));
       gen_and(v13, v9);
       v14 = gen_ncmp(a1, 6, v7, 0, bswap32(*a3), 16, 0, bswap32(*a2));
       gen_and(v14, v9);
@@ -9360,8 +9339,10 @@ size_t gen_ipfrag(int *a1)
   return result;
 }
 
-size_t gen_portrangeop(int *a1, unsigned int a2, unsigned int a3, int a4, int a5)
+size_t gen_portrangeop(int *a1, uint64_t a2, uint64_t a3, int a4, int a5)
 {
+  v7 = a3;
+  v8 = a2;
   absoffsetrel = gen_load_absoffsetrel(a1, a1 + 79, a1[98] + 9, 16);
   v11 = newchunk(a1, 288);
   *(v11 + 16) = 21;
@@ -9386,7 +9367,7 @@ size_t gen_portrangeop(int *a1, unsigned int a2, unsigned int a3, int a4, int a5
         v13 = a1;
         v14 = 2;
 LABEL_11:
-        v16 = gen_portrangeatom(v13, v14, a2, a3);
+        v16 = gen_portrangeatom(v13, v14, v8, v7);
         goto LABEL_12;
       }
 
@@ -9400,8 +9381,8 @@ LABEL_25:
   if (a5 <= 3)
   {
 LABEL_9:
-    v17 = gen_portrangeatom(a1, 0, a2, a3);
-    v16 = gen_portrangeatom(a1, 2, a2, a3);
+    v17 = gen_portrangeatom(a1, 0, v8, v7);
+    v16 = gen_portrangeatom(a1, 2, v8, v7);
     gen_or(v17, v16);
     goto LABEL_12;
   }
@@ -9436,15 +9417,15 @@ LABEL_9:
     goto LABEL_25;
   }
 
-  v15 = gen_portrangeatom(a1, 0, a2, a3);
-  v16 = gen_portrangeatom(a1, 2, a2, a3);
+  v15 = gen_portrangeatom(a1, 0, v8, v7);
+  v16 = gen_portrangeatom(a1, 2, v8, v7);
   gen_and(v15, v16);
 LABEL_12:
   gen_and(v12, v16);
   return v16;
 }
 
-size_t gen_portrangeatom(int *a1, int a2, unsigned int a3, unsigned int a4)
+size_t gen_portrangeatom(int *a1, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   if (a3 <= a4)
   {
@@ -9477,7 +9458,7 @@ size_t gen_portrangeatom(int *a1, int a2, unsigned int a3, unsigned int a4)
   return v10;
 }
 
-size_t gen_cmp_le(int *a1, int a2, int a3, int a4)
+size_t gen_cmp_le(int *a1, int a2, uint64_t a3, int a4)
 {
   a = gen_load_a(a1, a2, a3, 8);
   result = newchunk(a1, 288);
@@ -9489,8 +9470,10 @@ size_t gen_cmp_le(int *a1, int a2, int a3, int a4)
   return result;
 }
 
-size_t gen_portrangeop6(int *a1, unsigned int a2, unsigned int a3, int a4, int a5)
+size_t gen_portrangeop6(int *a1, uint64_t a2, uint64_t a3, int a4, int a5)
 {
+  v7 = a3;
+  v8 = a2;
   absoffsetrel = gen_load_absoffsetrel(a1, a1 + 79, a1[98] + 6, 16);
   v11 = newchunk(a1, 288);
   *(v11 + 16) = 21;
@@ -9513,7 +9496,7 @@ LABEL_13:
     v14 = a1;
     v15 = 0;
 LABEL_11:
-    v13 = gen_portrangeatom6(v14, v15, a2, a3);
+    v13 = gen_portrangeatom6(v14, v15, v8, v7);
     goto LABEL_12;
   }
 
@@ -9527,8 +9510,8 @@ LABEL_11:
   if (a5 == 3)
   {
 LABEL_9:
-    v16 = gen_portrangeatom6(a1, 0, a2, a3);
-    v13 = gen_portrangeatom6(a1, 2, a2, a3);
+    v16 = gen_portrangeatom6(a1, 0, v8, v7);
+    v13 = gen_portrangeatom6(a1, 2, v8, v7);
     gen_or(v16, v13);
     goto LABEL_12;
   }
@@ -9538,15 +9521,15 @@ LABEL_9:
     goto LABEL_13;
   }
 
-  v12 = gen_portrangeatom6(a1, 0, a2, a3);
-  v13 = gen_portrangeatom6(a1, 2, a2, a3);
+  v12 = gen_portrangeatom6(a1, 0, v8, v7);
+  v13 = gen_portrangeatom6(a1, 2, v8, v7);
   gen_and(v12, v13);
 LABEL_12:
   gen_and(v11, v13);
   return v13;
 }
 
-size_t gen_portrangeatom6(int *a1, int a2, unsigned int a3, unsigned int a4)
+size_t gen_portrangeatom6(int *a1, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   if (a3 <= a4)
   {
@@ -9579,9 +9562,9 @@ size_t gen_portrangeatom6(int *a1, int a2, unsigned int a3, unsigned int a4)
   return v10;
 }
 
-size_t gen_ether_linktype(int *a1, int a2)
+size_t gen_ether_linktype(int *a1, unsigned int a2)
 {
-  v27[1] = *MEMORY[0x29EDCA608];
+  v26[1] = *MEMORY[0x29EDCA608];
   if (a2 <= 253)
   {
     if (a2 == 6)
@@ -9612,7 +9595,7 @@ LABEL_10:
       *(v6 + 8) = v12;
       *(v6 + 40) = v11;
       gen_and(v10, v6);
-      goto LABEL_17;
+      return v6;
     }
 
     v18 = gen_load_absoffsetrel(a1, a1 + 79, 0, 16);
@@ -9628,8 +9611,8 @@ LABEL_10:
     *(v6 + 8) = v20;
     *(v6 + 40) = 0xFFFF;
     gen_or(v19, v6);
-    v27[0] = 0x378100000003AAAALL;
-    v21 = gen_bcmp(a1, 3, 0, 8u, v27);
+    v26[0] = 0x378100000003AAAALL;
+    v21 = gen_bcmp(a1, 3, 0, 8u, v26);
     gen_or(v21, v6);
     v22 = gen_load_absoffsetrel(a1, a1 + 82, 0, 8);
     v23 = newchunk(a1, 288);
@@ -9647,7 +9630,7 @@ LABEL_10:
     *(v17 + 40) = 33079;
 LABEL_16:
     gen_or(v17, v6);
-    goto LABEL_17;
+    return v6;
   }
 
   if (a2 == 33011 || a2 == 32923)
@@ -9669,8 +9652,8 @@ LABEL_16:
       v15 = 0xF38000000003AAAALL;
     }
 
-    v27[0] = v15;
-    v6 = gen_bcmp(a1, 3, 0, 8u, v27);
+    v26[0] = v15;
+    v6 = gen_bcmp(a1, 3, 0, 8u, v26);
     gen_and(v14, v6);
     v16 = gen_load_absoffsetrel(a1, a1 + 82, 0, 8);
     v17 = newchunk(a1, 288);
@@ -9712,59 +9695,53 @@ LABEL_5:
     *(v8 + 8) = v7;
     *(v8 + 40) = a2;
     gen_and(v6, v8);
-    v6 = v8;
+    return v8;
   }
 
-LABEL_17:
-  v25 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
-size_t gen_llc_linktype(int *a1, int a2)
+size_t gen_llc_linktype(int *a1, unsigned int a2)
 {
-  v12[1] = *MEMORY[0x29EDCA608];
-  if (a2 > 239)
+  v11[1] = *MEMORY[0x29EDCA608];
+  if (a2 <= 239)
   {
-    if (a2 != 240)
+    if (a2 != 6)
     {
-      if (a2 == 32923)
+      if (a2 == 224)
       {
-        v12[0] = 0x9B8007000803AAAALL;
-        result = gen_bcmp(a1, 3, 0, 8u, v12);
-        goto LABEL_15;
+        absoffsetrel = gen_load_absoffsetrel(a1, a1 + 79, 0, 16);
+        result = newchunk(a1, 288);
+        *(result + 16) = 21;
+        *(result + 152) = result;
+        *(result + 8) = absoffsetrel;
+        *(result + 40) = 224;
+        return result;
       }
 
-      if (a2 != 254)
-      {
-        goto LABEL_11;
-      }
+      goto LABEL_11;
     }
 
 LABEL_9:
     v6 = a2 | (a2 << 8);
-    absoffsetrel = gen_load_absoffsetrel(a1, a1 + 79, 0, 8);
+    v7 = gen_load_absoffsetrel(a1, a1 + 79, 0, 8);
     result = newchunk(a1, 288);
     *(result + 16) = 21;
     *(result + 152) = result;
-    *(result + 8) = absoffsetrel;
+    *(result + 8) = v7;
     *(result + 40) = v6;
-    goto LABEL_15;
+    return result;
   }
 
-  if (a2 == 6)
+  switch(a2)
   {
-    goto LABEL_9;
-  }
-
-  if (a2 == 224)
-  {
-    v4 = gen_load_absoffsetrel(a1, a1 + 79, 0, 16);
-    result = newchunk(a1, 288);
-    *(result + 16) = 21;
-    *(result + 152) = result;
-    *(result + 8) = v4;
-    *(result + 40) = 224;
-    goto LABEL_15;
+    case 0xF0u:
+      goto LABEL_9;
+    case 0x809Bu:
+      v11[0] = 0x9B8007000803AAAALL;
+      return gen_bcmp(a1, 3, 0, 8u, v11);
+    case 0xFEu:
+      goto LABEL_9;
   }
 
 LABEL_11:
@@ -9786,14 +9763,12 @@ LABEL_11:
   *(result + 152) = result;
   *(result + 8) = v10;
   *(result + 40) = a2;
-LABEL_15:
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-size_t gen_linux_sll_linktype(int *a1, int a2)
+size_t gen_linux_sll_linktype(int *a1, unsigned int a2)
 {
-  v27[1] = *MEMORY[0x29EDCA608];
+  v26[1] = *MEMORY[0x29EDCA608];
   if (a2 <= 253)
   {
     if (a2 == 6)
@@ -9823,7 +9798,7 @@ LABEL_10:
       *(v6 + 8) = v12;
       *(v6 + 40) = v11;
       gen_and(v10, v6);
-      goto LABEL_17;
+      return v6;
     }
 
     v18 = gen_load_absoffsetrel(a1, a1 + 79, 0, 16);
@@ -9832,8 +9807,8 @@ LABEL_10:
     *(v19 + 152) = v19;
     *(v19 + 8) = v18;
     *(v19 + 40) = 224;
-    v27[0] = 0x378100000003AAAALL;
-    v6 = gen_bcmp(a1, 3, 0, 8u, v27);
+    v26[0] = 0x378100000003AAAALL;
+    v6 = gen_bcmp(a1, 3, 0, 8u, v26);
     gen_or(v19, v6);
     v20 = gen_load_absoffsetrel(a1, a1 + 82, 0, 8);
     v21 = newchunk(a1, 288);
@@ -9857,7 +9832,7 @@ LABEL_10:
     *(v17 + 40) = 33079;
 LABEL_16:
     gen_or(v17, v6);
-    goto LABEL_17;
+    return v6;
   }
 
   if (a2 == 33011 || a2 == 32923)
@@ -9878,8 +9853,8 @@ LABEL_16:
       v15 = 0xF38000000003AAAALL;
     }
 
-    v27[0] = v15;
-    v6 = gen_bcmp(a1, 3, 0, 8u, v27);
+    v26[0] = v15;
+    v6 = gen_bcmp(a1, 3, 0, 8u, v26);
     gen_and(v14, v6);
     v16 = gen_load_absoffsetrel(a1, a1 + 82, 0, 8);
     v17 = newchunk(a1, 288);
@@ -9917,10 +9892,8 @@ LABEL_5:
     *(v8 + 8) = v7;
     *(v8 + 40) = a2;
     gen_and(v6, v8);
-    v6 = v8;
+    return v8;
   }
 
-LABEL_17:
-  v25 = *MEMORY[0x29EDCA608];
   return v6;
 }

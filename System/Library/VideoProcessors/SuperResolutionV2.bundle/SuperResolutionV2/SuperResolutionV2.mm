@@ -1,13 +1,13 @@
-id sub_1EB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+id sub_1EB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a12);
+  va_start(va, a12);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   va_arg(va1, void);
-  v13 = v7;
+  v19 = v13;
 
-  return [v6 dispatchThreads:va1 threadsPerThreadgroup:va];
+  return [v12 dispatchThreads:va1 threadsPerThreadgroup:{va, a5, a6}];
 }
 
 float sub_1ED8@<S0>(unsigned int a1@<W8>, float result@<S0>, float a3@<S1>, float a4@<S2>, float a5@<S3>, float a6@<S4>)
@@ -50,16 +50,16 @@ id sub_200C(uint64_t a1, uint64_t a2, uint64_t a3)
   return [v3 setTexture:a3 atIndex:1];
 }
 
-id sub_2080(uint64_t a1, uint64_t a2, ...)
+id sub_2080(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
   v8 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   va_arg(va1, void);
-  v9 = v3;
+  v11 = v5;
 
-  return [v2 dispatchThreads:va1 threadsPerThreadgroup:va];
+  return [v4 dispatchThreads:va1 threadsPerThreadgroup:va];
 }
 
 id sub_20A0(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -80,61 +80,29 @@ void *sub_20D0(size_t a1)
   return malloc_type_calloc(a1, 2uLL, v1);
 }
 
-uint64_t sub_2904()
+id sub_2948(__n128 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  v1 = *(v0 + 224);
-  v2 = *(v0 + 232);
-  v3 = *(v0 + 288);
-  v4 = *(v0 + 292);
-  return v0;
-}
-
-uint64_t sub_2934()
-{
-  v1 = *(v0 + 292);
-  v2 = *(v0 + 288);
-  return v0;
-}
-
-id sub_2948(__n128 a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
+  va_start(va1, a5);
+  va_start(va, a5);
   va_arg(va1, void);
   va_arg(va1, void);
   va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v7 = a1;
-  v9 = v4;
+  v12 = va_arg(va1, void);
+  v9 = a1;
+  v11 = v6;
 
-  return [v3 dispatchThreads:va1 threadsPerThreadgroup:va];
+  return [v5 dispatchThreads:va1 threadsPerThreadgroup:va];
 }
 
-uint64_t sub_296C()
+id sub_29D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  v1 = *(v0 + 224);
-  v2 = *(v0 + 232);
-  v3 = *(v0 + 288);
-  v4 = *(v0 + 292);
-  return v0;
-}
-
-uint64_t sub_2994()
-{
-  v1 = *(v0 + 292);
-  v2 = *(v0 + 288);
-  return v0;
-}
-
-id sub_29D8(uint64_t a1, uint64_t a2, ...)
-{
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
 
-  return [v2 dispatchThreads:va1 threadsPerThreadgroup:va];
+  return [v4 dispatchThreads:va1 threadsPerThreadgroup:va];
 }
 
 id sub_2A78()
@@ -173,10 +141,11 @@ id sub_354C()
   return [v0 setBytes:v1 - 160 length:32 atIndex:0];
 }
 
-id sub_356C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+id sub_356C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
 
-  return [v43 setBytes:&a43 length:48 atIndex:1];
+  return [v42 setBytes:va length:48 atIndex:{1, a6, a7, a8}];
 }
 
 uint64_t sub_358C()
@@ -191,11 +160,11 @@ uint64_t sub_36A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   return CVPixelBufferCreate(v7, 0x400uLL, v9, v8, v6, a6);
 }
 
-id sub_3728(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+id sub_3728(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a14);
+  va_start(va, a22);
 
-  return [v14 setBytes:va length:80 atIndex:0];
+  return [v22 setBytes:va length:80 atIndex:{0, a6, a7, a8}];
 }
 
 uint64_t sub_3748()
@@ -204,32 +173,16 @@ uint64_t sub_3748()
   return fig_log_get_emitter();
 }
 
-uint64_t sub_3928()
+id sub_3950(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  v1 = *(v0 + 200);
-  v2 = *(v0 + 208);
-  v3 = *(v0 + 288);
-  v4 = *(v0 + 292);
-  return v0;
-}
-
-id sub_3950(uint64_t a1, uint64_t a2, ...)
-{
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
 
-  return [v2 dispatchThreads:va1 threadsPerThreadgroup:va];
-}
-
-uint64_t sub_396C()
-{
-  v1 = *(v0 + 292);
-  v2 = *(v0 + 288);
-  return v0;
+  return [v4 dispatchThreads:va1 threadsPerThreadgroup:va];
 }
 
 id sub_3980()
@@ -244,13 +197,13 @@ id sub_39A8()
   return [v0 setBytes:v1 + 288 length:32 atIndex:0];
 }
 
-uint64_t sub_39C8(uint64_t a1, void *a2, void *a3, uint64_t a4, unsigned int a5, unsigned int a6)
+uint64_t sub_39C8(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
 
   return sub_12664(v7, a2, a3, 5uLL, a5, a6, 1, v6);
 }
 
-uint64_t sub_39E8(uint64_t a1, void *a2, void *a3, uint64_t a4, unsigned int a5, unsigned int a6)
+uint64_t sub_39E8(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
 
   return sub_12664(v7, a2, a3, 3uLL, a5, a6, 1, v6);
@@ -348,11 +301,11 @@ uint64_t sub_4114(uint64_t a1)
 
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v22, v23, v24, v25, v26, v27, vars0, vars8);
   sub_1F20();
   sub_1EAC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v21);
 }
 
 id sub_46F0(uint64_t a1, __CVBuffer *a2, uint64_t a3)
@@ -392,21 +345,8 @@ id sub_46F0(uint64_t a1, __CVBuffer *a2, uint64_t a3)
           v4 = v13;
           v16 = CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, *(v13 + 24), a2, v15, v10, WidthOfPlane, HeightOfPlane, v6, &image);
           v17 = image;
-          if (v16)
+          if (v16 || (CVMetalTextureGetTexture(image), objc_claimAutoreleasedReturnValue(), [sub_1FA4() setObject:? atIndexedSubscript:?], HeightOfPlane, objc_msgSend(v5, "objectAtIndexedSubscript:", v6), v18 = objc_claimAutoreleasedReturnValue(), v18, v17 = image, !v18))
           {
-            goto LABEL_16;
-          }
-
-          CVMetalTextureGetTexture(image);
-          objc_claimAutoreleasedReturnValue();
-          [sub_1FA4() setObject:? atIndexedSubscript:?];
-
-          v18 = [v5 objectAtIndexedSubscript:v6];
-
-          v17 = image;
-          if (!v18)
-          {
-LABEL_16:
             v7 = v15;
             goto LABEL_18;
           }
@@ -861,10 +801,10 @@ LABEL_6:
     {
       sub_20B8();
       sub_1F84();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v77, v81, v85, v89, v93, v95, v97, v98);
       sub_20B8();
       sub_1EAC();
-      v14 = FigSignalErrorAtGM();
+      v14 = FigSignalErrorAtGM(v76);
       goto LABEL_7;
     }
 
@@ -874,16 +814,16 @@ LABEL_6:
     [v16 setTexture:v11 atIndex:0];
     [v16 setTexture:v13 atIndex:1];
     [v16 setTexture:*(a1 + 144) atIndex:2];
-    v70 = v11;
-    v71 = [v17 threadExecutionWidth];
+    v96 = v11;
+    v97 = [v17 threadExecutionWidth];
     v18 = a4;
     v19 = a5;
-    v74 = a4;
-    v75 = a5;
-    v76 = 1;
-    v72 = [v17 maxTotalThreadsPerThreadgroup] / v71;
-    v73 = 1;
-    [v16 dispatchThreads:&v74 threadsPerThreadgroup:&v71];
+    v100 = a4;
+    v101 = a5;
+    v102 = 1;
+    v98 = [v17 maxTotalThreadsPerThreadgroup] / v97;
+    v99 = 1;
+    [v16 dispatchThreads:&v100 threadsPerThreadgroup:&v97];
     v20 = *(a1 + 80);
 
     v21 = [v16 setComputePipelineState:v20];
@@ -891,58 +831,57 @@ LABEL_6:
     sub_200C(v23, v24, *(a1 + 120));
     v25 = [v20 threadExecutionWidth];
     v26 = [v20 maxTotalThreadsPerThreadgroup];
-    v68 = 2 * a4;
-    v69 = v13;
+    v94 = v13;
     v27 = 2 * a5;
-    v74 = v68;
-    v75 = v27;
-    v76 = 1;
-    v71 = v25;
-    v72 = v26 / v25;
-    sub_1EB8(v26, v28, v29, v30, v31, v32);
-    v33 = *(a1 + 72);
+    v100 = 2 * a4;
+    v101 = v27;
+    v102 = 1;
+    v97 = v25;
+    v98 = v26 / v25;
+    sub_1EB8(v26, v28, v29, v30, v31, v32, v33, v34, v77, v81, v85, v100);
+    v35 = *(a1 + 72);
 
-    v34 = [v16 setComputePipelineState:v33];
-    v36 = sub_20A0(v34, v35, *(a1 + 120));
-    sub_200C(v36, v37, *(a1 + 128));
-    v38 = [v33 threadExecutionWidth];
-    v39 = [v33 maxTotalThreadsPerThreadgroup];
-    v74 = v18;
-    v75 = v19;
-    v76 = 1;
-    v71 = v38;
-    v72 = v39 / v38;
-    sub_1EB8(v39, v40, v41, v42, v43, v44);
-    v45 = *(a1 + 72);
+    v36 = [v16 setComputePipelineState:v35];
+    v38 = sub_20A0(v36, v37, *(a1 + 120));
+    sub_200C(v38, v39, *(a1 + 128));
+    v40 = [v35 threadExecutionWidth];
+    v41 = [v35 maxTotalThreadsPerThreadgroup];
+    v100 = v18;
+    v101 = v19;
+    v102 = 1;
+    v97 = v40;
+    v98 = v41 / v40;
+    sub_1EB8(v41, v42, v43, v44, v45, v46, v47, v48, v78, v82, v86, v90);
+    v49 = *(a1 + 72);
 
-    v46 = [v16 setComputePipelineState:v45];
-    v48 = sub_20A0(v46, v47, *(a1 + 128));
-    sub_200C(v48, v49, *(a1 + 120));
-    v50 = [v45 threadExecutionWidth];
-    v51 = [v45 maxTotalThreadsPerThreadgroup];
-    v74 = v19;
-    v75 = v18;
-    v11 = v70;
-    v76 = 1;
-    v71 = v50;
-    v72 = v51 / v50;
-    sub_1EB8(v51, v52, v53, v54, v55, v56);
-    v57 = *(a1 + 88);
+    v50 = [v16 setComputePipelineState:v49];
+    v52 = sub_20A0(v50, v51, *(a1 + 128));
+    sub_200C(v52, v53, *(a1 + 120));
+    v54 = [v49 threadExecutionWidth];
+    v55 = [v49 maxTotalThreadsPerThreadgroup];
+    v100 = v19;
+    v101 = v18;
+    v11 = v96;
+    v102 = 1;
+    v97 = v54;
+    v98 = v55 / v54;
+    sub_1EB8(v55, v56, v57, v58, v59, v60, v61, v62, v79, v83, v87, v91);
+    v63 = *(a1 + 88);
 
-    [v16 setComputePipelineState:v57];
-    v58 = [v16 setTexture:v70 atIndex:0];
-    sub_200C(v58, v59, *(a1 + 144));
+    [v16 setComputePipelineState:v63];
+    v64 = [v16 setTexture:v96 atIndex:0];
+    sub_200C(v64, v65, *(a1 + 144));
     [v16 setTexture:*(a1 + 120) atIndex:2];
     [v16 setTexture:*(a1 + 136) atIndex:3];
-    v60 = [v57 threadExecutionWidth];
-    v61 = [v57 maxTotalThreadsPerThreadgroup];
-    v74 = v68;
-    v75 = v27;
-    v13 = v69;
-    v76 = 1;
-    v71 = v60;
-    v72 = v61 / v60;
-    sub_1EB8(v61, v62, v63, v64, v65, v66);
+    v66 = [v63 threadExecutionWidth];
+    v67 = [v63 maxTotalThreadsPerThreadgroup];
+    v100 = v92;
+    v101 = v27;
+    v13 = v94;
+    v102 = 1;
+    v97 = v66;
+    v98 = v67 / v66;
+    sub_1EB8(v67, v68, v69, v70, v71, v72, v73, v74, v80, v84, v88, v92);
     [v16 endEncoding];
 
     goto LABEL_6;
@@ -1054,50 +993,50 @@ uint64_t sub_6310()
 {
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_1F20();
   sub_1EAC();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_63B4()
 {
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_1F20();
   sub_1EAC();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_6458()
 {
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_1F20();
   sub_1EAC();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_64FC()
 {
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_1F20();
   sub_1EAC();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_65A0()
 {
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
   sub_1F20();
   sub_1EAC();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v0);
 }
 
 uint64_t sub_6644(uint64_t a1)
@@ -1139,11 +1078,11 @@ uint64_t sub_6644(uint64_t a1)
 
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v13, v14, v15, v16, v17, vars0, vars8);
   sub_1F20();
   sub_1EAC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v11);
 }
 
 id sub_6914(uint64_t a1, __CVBuffer *a2, uint64_t a3)
@@ -1183,21 +1122,8 @@ id sub_6914(uint64_t a1, __CVBuffer *a2, uint64_t a3)
           v4 = v13;
           v16 = CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, *(v13 + 24), a2, v15, v10, WidthOfPlane, HeightOfPlane, v6, &image);
           v17 = image;
-          if (v16)
+          if (v16 || (CVMetalTextureGetTexture(image), objc_claimAutoreleasedReturnValue(), [sub_27AC() setObject:HeightOfPlane atIndexedSubscript:v6], HeightOfPlane, objc_msgSend(v5, "objectAtIndexedSubscript:", v6), v18 = objc_claimAutoreleasedReturnValue(), v18, v17 = image, !v18))
           {
-            goto LABEL_16;
-          }
-
-          CVMetalTextureGetTexture(image);
-          objc_claimAutoreleasedReturnValue();
-          [sub_27AC() setObject:HeightOfPlane atIndexedSubscript:v6];
-
-          v18 = [v5 objectAtIndexedSubscript:v6];
-
-          v17 = image;
-          if (!v18)
-          {
-LABEL_16:
             v7 = v15;
             goto LABEL_18;
           }
@@ -1426,11 +1352,11 @@ uint64_t sub_7B9C(uint64_t a1)
 
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v40, v41, v42, v43, v44, v45, vars0, vars8);
   sub_1F20();
   sub_1EAC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v39);
 }
 
 uint64_t sub_86F4(uint64_t a1, unsigned int a2, int a3)
@@ -1459,147 +1385,19 @@ uint64_t sub_86F4(uint64_t a1, unsigned int a2, int a3)
       v12 = *(a1 + 176);
       *(a1 + 176) = v11;
 
-      if (!*(a1 + 176))
-      {
-        goto LABEL_22;
-      }
-
-      v13 = [*(a1 + 8) device];
-      v15 = sub_2AA8(v13, v14);
-      v16 = *(a1 + 160);
-      *(a1 + 160) = v15;
-
-      if (!*(a1 + 160))
-      {
-        goto LABEL_22;
-      }
-
-      v17 = [*(a1 + 8) device];
-      v19 = sub_2AA8(v17, v18);
-      v20 = *(a1 + 208);
-      *(a1 + 208) = v19;
-
-      if (!*(a1 + 208))
-      {
-        goto LABEL_22;
-      }
-
-      v21 = [*(a1 + 8) device];
-      v23 = sub_2AA8(v21, v22);
-      v24 = *(a1 + 192);
-      *(a1 + 192) = v23;
-
-      if (!*(a1 + 192))
-      {
-        goto LABEL_22;
-      }
-
-      v25 = [*(a1 + 8) device];
-      v27 = sub_2AA8(v25, v26);
-      v28 = *(a1 + 240);
-      *(a1 + 240) = v27;
-
-      if (!*(a1 + 240))
-      {
-        goto LABEL_22;
-      }
-
-      [sub_29C0() setWidth:?];
-      [sub_29F4() setHeight:?];
-      v29 = [*(a1 + 8) device];
-      v31 = sub_2A90(v29, v30);
-      v32 = *(a1 + 224);
-      *(a1 + 224) = v31;
-
-      if (!*(a1 + 224))
-      {
-        goto LABEL_22;
-      }
-
-      [sub_29A8() setWidth:?];
-      [sub_29CC() setHeight:?];
-      [v5 setPixelFormat:65];
-      v33 = [*(a1 + 8) device];
-      v35 = sub_2A90(v33, v34);
-      v36 = *(a1 + 184);
-      *(a1 + 184) = v35;
-
-      if (!*(a1 + 184))
-      {
-        goto LABEL_22;
-      }
-
-      v37 = [*(a1 + 8) device];
-      v39 = sub_2A90(v37, v38);
-      v40 = *(a1 + 168);
-      *(a1 + 168) = v39;
-
-      if (!*(a1 + 168))
-      {
-        goto LABEL_22;
-      }
-
-      v41 = [*(a1 + 8) device];
-      v43 = sub_2A90(v41, v42);
-      v44 = *(a1 + 216);
-      *(a1 + 216) = v43;
-
-      if (!*(a1 + 216))
-      {
-        goto LABEL_22;
-      }
-
-      v45 = [*(a1 + 8) device];
-      v47 = sub_2A90(v45, v46);
-      v48 = *(a1 + 200);
-      *(a1 + 200) = v47;
-
-      if (!*(a1 + 200))
-      {
-        goto LABEL_22;
-      }
-
-      v49 = [*(a1 + 8) device];
-      v51 = sub_2A90(v49, v50);
-      v52 = *(a1 + 248);
-      *(a1 + 248) = v51;
-
-      if (!*(a1 + 248))
-      {
-        goto LABEL_22;
-      }
-
-      [sub_29CC() setWidth:?];
-      [sub_29A8() setHeight:?];
-      v53 = [*(a1 + 8) device];
-      v54 = [v53 newTextureWithDescriptor:v5];
-      v55 = *(a1 + 232);
-      *(a1 + 232) = v54;
-
-      if (!*(a1 + 232))
-      {
-        goto LABEL_22;
-      }
-
-      v56 = [*(a1 + 8) device];
-      v57 = [v56 newBufferWithLength:1024 options:0];
-      v58 = *(a1 + 256);
-      *(a1 + 256) = v57;
-
-      if (*(a1 + 256))
+      if (*(a1 + 176) && ([*(a1 + 8) device], v13 = objc_claimAutoreleasedReturnValue(), v15 = sub_2AA8(v13, v14), v16 = *(a1 + 160), *(a1 + 160) = v15, v16, v3, *(a1 + 160)) && (objc_msgSend(*(a1 + 8), "device"), v17 = objc_claimAutoreleasedReturnValue(), v19 = sub_2AA8(v17, v18), v20 = *(a1 + 208), *(a1 + 208) = v19, v20, v3, *(a1 + 208)) && (objc_msgSend(*(a1 + 8), "device"), v21 = objc_claimAutoreleasedReturnValue(), v23 = sub_2AA8(v21, v22), v24 = *(a1 + 192), *(a1 + 192) = v23, v24, v3, *(a1 + 192)) && (objc_msgSend(*(a1 + 8), "device"), v25 = objc_claimAutoreleasedReturnValue(), v27 = sub_2AA8(v25, v26), v28 = *(a1 + 240), *(a1 + 240) = v27, v28, v3, *(a1 + 240)) && (objc_msgSend(sub_29C0(), "setWidth:"), objc_msgSend(sub_29F4(), "setHeight:"), objc_msgSend(*(a1 + 8), "device"), v29 = objc_claimAutoreleasedReturnValue(), v31 = sub_2A90(v29, v30), v32 = *(a1 + 224), *(a1 + 224) = v31, v32, a2, *(a1 + 224)) && (objc_msgSend(sub_29A8(), "setWidth:"), objc_msgSend(sub_29CC(), "setHeight:"), objc_msgSend(v5, "setPixelFormat:", 65), objc_msgSend(*(a1 + 8), "device"), v33 = objc_claimAutoreleasedReturnValue(), v35 = sub_2A90(v33, v34), v36 = *(a1 + 184), *(a1 + 184) = v35, v36, a2, *(a1 + 184)) && (objc_msgSend(*(a1 + 8), "device"), v37 = objc_claimAutoreleasedReturnValue(), v39 = sub_2A90(v37, v38), v40 = *(a1 + 168), *(a1 + 168) = v39, v40, a2, *(a1 + 168)) && (objc_msgSend(*(a1 + 8), "device"), v41 = objc_claimAutoreleasedReturnValue(), v43 = sub_2A90(v41, v42), v44 = *(a1 + 216), *(a1 + 216) = v43, v44, a2, *(a1 + 216)) && (objc_msgSend(*(a1 + 8), "device"), v45 = objc_claimAutoreleasedReturnValue(), v47 = sub_2A90(v45, v46), v48 = *(a1 + 200), *(a1 + 200) = v47, v48, a2, *(a1 + 200)) && (objc_msgSend(*(a1 + 8), "device"), v49 = objc_claimAutoreleasedReturnValue(), v51 = sub_2A90(v49, v50), v52 = *(a1 + 248), *(a1 + 248) = v51, v52, a2, *(a1 + 248)) && (objc_msgSend(sub_29CC(), "setWidth:"), objc_msgSend(sub_29A8(), "setHeight:"), objc_msgSend(*(a1 + 8), "device"), v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend(v53, "newTextureWithDescriptor:", v5), v55 = *(a1 + 232), *(a1 + 232) = v54, v55, v53, *(a1 + 232)) && (objc_msgSend(*(a1 + 8), "device"), v56 = objc_claimAutoreleasedReturnValue(), v57 = objc_msgSend(v56, "newBufferWithLength:options:", 1024, 0), v58 = *(a1 + 256), *(a1 + 256) = v57, v58, v56, *(a1 + 256)))
       {
         v6 = 0;
       }
 
       else
       {
-LABEL_22:
         sub_20B8();
         sub_28D8();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v62, v63, v64, v65, v66, v67, v68, v69);
         sub_20B8();
         sub_1EAC();
-        v6 = FigSignalErrorAtGM();
+        v6 = FigSignalErrorAtGM(v61);
       }
     }
 
@@ -1607,10 +1405,10 @@ LABEL_22:
     {
       fig_log_get_emitter();
       sub_28D8();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v62, v63, v64, v65, v66, v67, v68, v69);
       fig_log_get_emitter();
       sub_1EAC();
-      v6 = FigSignalErrorAtGM();
+      v6 = FigSignalErrorAtGM(v60);
       v5 = 0;
     }
   }
@@ -1652,7 +1450,7 @@ uint64_t sub_9398(uint32x2_t *a1, void *a2, void *a3, void *a4, void *a5)
   return 0;
 }
 
-uint64_t sub_96C4(uint32x2_t *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
+uint64_t sub_96C4(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
   v11 = a4;
   v12 = a5;
@@ -1660,82 +1458,45 @@ uint64_t sub_96C4(uint32x2_t *a1, void *a2, void *a3, void *a4, void *a5, void *
   if (a1)
   {
     v14 = sub_296C();
-    v19 = sub_9A8C(v14, a2, a3, v15, v16, 0x11u, v17, v18, v72);
-    if (v19)
+    v19 = sub_9A8C(v14, a2, a3, v15, v16, 17, v17, v18, v57);
+    if (v19 || (v20 = sub_2994(), v19 = sub_9A8C(v20, v21, v22, v23, v24, 17, v25, v26, v58), v19) || (v27 = sub_296C(), v19 = sub_9A8C(v27, v11, v12, v28, v29, 5, v30, v31, v59), v19) || (v32 = sub_2994(), v19 = sub_9A8C(v32, v33, v34, v35, v36, 5, v37, v38, v60), v19) || (v39 = sub_296C(), v19 = sub_9A8C(v39, v40, v41, v42, v43, 17, v44, v45, v61), v19) || (v46 = sub_2994(), v19 = sub_9A8C(v46, v47, v48, v49, v50, 17, v51, v52, v62), v19))
     {
-      goto LABEL_11;
-    }
-
-    v20 = a1[28];
-    v21 = a1[29];
-    v22 = a1[30];
-    v23 = a1[31];
-    v24 = sub_2994();
-    v19 = sub_9A8C(v24, v25, v26, v27, v28, 0x11u, v29, v30, v73);
-    if (v19)
-    {
-      goto LABEL_11;
-    }
-
-    v31 = sub_296C();
-    v19 = sub_9A8C(v31, v11, v12, v32, v33, 5u, v34, v35, v74);
-    if (v19)
-    {
-      goto LABEL_11;
-    }
-
-    v36 = a1[28];
-    v37 = a1[29];
-    v38 = a1[26];
-    v39 = a1[27];
-    v40 = sub_2994();
-    v19 = sub_9A8C(v40, v41, v42, v43, v44, 5u, v45, v46, v75);
-    if (v19)
-    {
-      goto LABEL_11;
-    }
-
-    v47 = a1[26];
-    v48 = a1[27];
-    v49 = sub_296C();
-    v19 = sub_9A8C(v49, v50, v51, v52, v53, 0x11u, v54, v55, v76);
-    if (v19 || (v56 = a1[28], v57 = a1[29], v58 = a1[26], v59 = a1[27], v60 = sub_2994(), v19 = sub_9A8C(v60, v61, v62, v63, v64, 0x11u, v65, v66, v77), v19))
-    {
-LABEL_11:
-      v70 = v19;
+      v55 = v19;
       fig_log_get_emitter();
       sub_28EC();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       goto LABEL_10;
     }
 
-    v67 = *&a1[10];
+    v53 = *(a1 + 80);
     [sub_2AD4() setComputePipelineState:a3];
-    sub_2B00(v13, v68);
-    [v13 setTexture:*&a1[30] atIndex:0];
-    [v13 setTexture:*&a1[26] atIndex:1];
+    sub_2B00(v13, v54);
+    [v13 setTexture:*(a1 + 240) atIndex:0];
+    [v13 setTexture:*(a1 + 208) atIndex:1];
     [v13 setTexture:v11 atIndex:2];
     [v13 setTexture:v11 atIndex:3];
-    [v13 setTexture:*&a1[31] atIndex:4];
-    [v13 setTexture:*&a1[27] atIndex:5];
+    [v13 setTexture:*(a1 + 248) atIndex:4];
+    [v13 setTexture:*(a1 + 216) atIndex:5];
     [v13 setTexture:v12 atIndex:6];
     [v13 setTexture:v12 atIndex:7];
-    v69 = vshr_n_u32(a1[36], 1uLL);
     sub_29B4();
-    v81 = 1;
-    v78 = vdupq_n_s64(0x10uLL);
-    v79 = 1;
-    [v13 dispatchThreads:v80 threadsPerThreadgroup:&v78];
+    v66 = 1;
+    v63 = vdupq_n_s64(0x10uLL);
+    v64 = 1;
+    [v13 dispatchThreads:v65 threadsPerThreadgroup:&v63];
   }
 
-  v70 = 0;
+  v55 = 0;
 LABEL_10:
 
-  return v70;
+  return v55;
 }
 
-uint64_t sub_9A8C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, unsigned int a6, unsigned int a7, unsigned int a8, void *a9)
+uint64_t sub_9A8C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
 {
+  v9 = a8;
+  v10 = a7;
+  v11 = a6;
   v16 = a2;
   v17 = a3;
   v18 = a4;
@@ -1743,10 +1504,10 @@ uint64_t sub_9A8C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, unsigned 
   v20 = a9;
   if (a1)
   {
-    v21 = sub_AA64(a1, v16, v18, a6, a7, a8, 1, v20);
+    v21 = sub_AA64(a1, v16, v18, v11, v10, v9, 1, v20);
     if (!v21)
     {
-      v21 = sub_AA64(a1, v17, v19, (a6 >> 1) + 1, a7 >> 1, a8 >> 1, 0, v20);
+      v21 = sub_AA64(a1, v17, v19, (v11 >> 1) + 1, v10 >> 1, v9 >> 1, 0, v20);
     }
 
     v22 = v21;
@@ -1764,120 +1525,130 @@ uint64_t sub_9CE8(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
   if (a1)
   {
-    v12 = *(a1 + 288);
-    v13 = *(a1 + 292);
-    v14 = *(a1 + 96);
-    v15 = a6;
-    v31 = a5;
-    v16 = a4;
-    v30 = a3;
-    v17 = a2;
+    v12 = *(a1 + 96);
+    v13 = a6;
+    v37 = a5;
+    v14 = a4;
+    v36 = a3;
+    v15 = a2;
     [sub_29F4() setComputePipelineState:?];
     [sub_29C0() setTexture:? atIndex:?];
 
-    [v15 setTexture:*(a1 + 224) atIndex:1];
-    [v14 threadExecutionWidth];
-    v18 = [v14 maxTotalThreadsPerThreadgroup];
-    sub_29D8(v18, v19);
+    [v13 setTexture:*(a1 + 224) atIndex:1];
+    [v12 threadExecutionWidth];
+    v16 = [v12 maxTotalThreadsPerThreadgroup];
+    sub_29D8(v16, v17, v18, v19);
     v20 = *(a1 + 96);
 
     [sub_29C0() setComputePipelineState:?];
-    [v15 setTexture:*(a1 + 224) atIndex:0];
+    [v13 setTexture:*(a1 + 224) atIndex:0];
     [sub_29A8() setTexture:? atIndex:?];
 
     [v20 threadExecutionWidth];
     v21 = [v20 maxTotalThreadsPerThreadgroup];
-    sub_29D8(v21, v22);
-    v23 = *(a1 + 104);
+    sub_29D8(v21, v22, v23, v24);
+    v25 = *(a1 + 104);
 
     [sub_29A8() setComputePipelineState:?];
-    [v15 setTexture:v30 atIndex:0];
+    [v13 setTexture:v36 atIndex:0];
 
-    [v15 setTexture:*(a1 + 232) atIndex:1];
-    [v23 threadExecutionWidth];
-    v24 = [v23 maxTotalThreadsPerThreadgroup];
-    sub_29D8(v24, v25);
-    v26 = *(a1 + 104);
+    [v13 setTexture:*(a1 + 232) atIndex:1];
+    [v25 threadExecutionWidth];
+    v26 = [v25 maxTotalThreadsPerThreadgroup];
+    sub_29D8(v26, v27, v28, v29);
+    v30 = *(a1 + 104);
 
     [sub_29CC() setComputePipelineState:?];
-    [v15 setTexture:*(a1 + 232) atIndex:0];
-    [v15 setTexture:v31 atIndex:1];
+    [v13 setTexture:*(a1 + 232) atIndex:0];
+    [v13 setTexture:v37 atIndex:1];
 
-    [v26 threadExecutionWidth];
-    [v26 maxTotalThreadsPerThreadgroup];
+    [v30 threadExecutionWidth];
+    [v30 maxTotalThreadsPerThreadgroup];
 
-    sub_29D8(v27, v28);
+    sub_29D8(v31, v32, v33, v34);
   }
 
   return 0;
 }
 
-uint64_t sub_A0B0(uint64_t a1, void *a2, void *a3, void *a4)
+uint64_t sub_A0B0(uint32x2_t *a1, void *a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
   if (a1)
   {
-    v9 = *(a1 + 288);
-    v24 = vshr_n_u32(v9, 1uLL);
-    *(a1 + 296) = v24;
-    v10 = *(a1 + 120);
+    v9 = a1[36];
+    v25 = vshr_n_u32(v9, 1uLL);
+    a1[37] = v25;
+    v10 = *&a1[15];
     v11 = a2;
     [v8 setComputePipelineState:v10];
     [v8 setTexture:v11 atIndex:0];
 
-    [v8 setTexture:*(a1 + 240) atIndex:1];
-    [v8 setBytes:a1 + 288 length:16 atIndex:0];
-    [v8 setBuffer:*(a1 + 256) offset:0 atIndex:1];
+    [v8 setTexture:*&a1[30] atIndex:1];
+    [v8 setBytes:&a1[36] length:16 atIndex:0];
+    [v8 setBuffer:*&a1[32] offset:0 atIndex:1];
     v12 = [v10 threadExecutionWidth];
     v13 = [v10 maxTotalThreadsPerThreadgroup];
     v14 = vsra_n_u32(0x200000002, v9, 1uLL);
     *&v15 = v14.u32[0];
     *(&v15 + 1) = v14.u32[1];
-    v28 = v15;
-    v29 = 1;
-    v25 = v12;
-    v26 = v13 / v12;
-    v27 = 1;
-    [v8 dispatchThreads:&v28 threadsPerThreadgroup:&v25];
-    v16 = sub_AA64(a1, *(a1 + 240), *(a1 + 224), 5, v24.u32[0], v24.u32[1], 1, v8);
-    if (v16 || (v16 = sub_AA64(a1, *(a1 + 224), *(a1 + 240), 5, v24.u32[1], v24.u32[0], 1, v8), v16))
+    v29 = v15;
+    v30 = 1;
+    v26 = v12;
+    v27 = v13 / v12;
+    v28 = 1;
+    [v8 dispatchThreads:&v29 threadsPerThreadgroup:&v26];
+    v16 = sub_AA64(a1, *&a1[30], *&a1[28], 5, v25.u32[0], v25.u32[1], 1, v8);
+    if (v16)
     {
-      v22 = v16;
+      v23 = v16;
       fig_log_get_emitter();
       sub_2A48();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
-      v17 = *(a1 + 128);
+      v17 = sub_AA64(a1, *&a1[28], *&a1[30], 5, v25.u32[1], v25.u32[0], 1, v8);
+      if (v17)
+      {
+        v23 = v17;
+        fig_log_get_emitter();
+        sub_2A48();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      }
 
-      [v8 setComputePipelineState:v17];
-      [v8 setTexture:*(a1 + 240) atIndex:0];
-      [v8 setTexture:v7 atIndex:1];
-      v18 = [v17 threadExecutionWidth];
-      v19 = [v17 maxTotalThreadsPerThreadgroup];
-      v20 = *(a1 + 288);
-      *&v21 = v20;
-      *(&v21 + 1) = HIDWORD(v20);
-      v28 = v21;
-      v29 = 1;
-      v25 = v18;
-      v26 = v19 / v18;
-      v27 = 1;
-      [v8 dispatchThreads:&v28 threadsPerThreadgroup:&v25];
-      v22 = 0;
-      v10 = v17;
+      else
+      {
+        v18 = *&a1[16];
+
+        [v8 setComputePipelineState:v18];
+        [v8 setTexture:*&a1[30] atIndex:0];
+        [v8 setTexture:v7 atIndex:1];
+        v19 = [v18 threadExecutionWidth];
+        v20 = [v18 maxTotalThreadsPerThreadgroup];
+        v21 = a1[36];
+        *&v22 = v21.u32[0];
+        *(&v22 + 1) = v21.u32[1];
+        v29 = v22;
+        v30 = 1;
+        v26 = v19;
+        v27 = v20 / v19;
+        v28 = 1;
+        [v8 dispatchThreads:&v29 threadsPerThreadgroup:&v26];
+        v23 = 0;
+        v10 = v18;
+      }
     }
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
-  return v22;
+  return v23;
 }
 
 uint64_t sub_A37C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10)
@@ -1886,7 +1657,7 @@ uint64_t sub_A37C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6,
   {
     v17 = *(a1 + 136);
     v18 = a10;
-    v30 = a9;
+    v27 = a9;
     v19 = a8;
     v20 = a7;
     v21 = a6;
@@ -1903,7 +1674,6 @@ uint64_t sub_A37C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6,
     [v18 setTexture:v19 atIndex:3];
     [v17 threadExecutionWidth];
     [sub_2AD4() maxTotalThreadsPerThreadgroup];
-    v26 = *(a1 + 288);
     sub_2984();
     sub_2A00();
     [v18 dispatchThreads:? threadsPerThreadgroup:?];
@@ -1913,10 +1683,9 @@ uint64_t sub_A37C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6,
     [sub_29F4() setTexture:? atIndex:?];
     [sub_29A8() setTexture:? atIndex:?];
 
-    [v18 setTexture:v30 atIndex:3];
+    [v18 setTexture:v27 atIndex:3];
     [v17 threadExecutionWidth];
     [sub_2AD4() maxTotalThreadsPerThreadgroup];
-    v27 = *(a1 + 288);
 
     sub_2984();
     sub_2A00();
@@ -1926,59 +1695,57 @@ uint64_t sub_A37C(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6,
   return 0;
 }
 
-void sub_A554(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int64x2_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
+void sub_A554(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int64x2_t a11, uint64_t a9, uint64_t a10, int64x2_t a12, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t argA0, uint64_t a30)
 {
   sub_2A2C();
-  a28 = v29;
-  a29 = v30;
-  v32 = v31;
-  v34 = v33;
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
-  v42 = v41;
-  v43 = v38;
-  v44 = v36;
-  v45 = v34;
-  v46 = v32;
-  if (v40)
+  argA0 = v30;
+  a30 = v31;
+  v33 = v32;
+  v35 = v34;
+  v37 = v36;
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
+  v44 = v39;
+  v45 = v37;
+  v46 = v35;
+  v47 = v33;
+  if (v41)
   {
-    v47 = *(v40 + 144);
-    [v46 setComputePipelineState:v47];
-    [v46 setTexture:v42 atIndex:0];
-    [v46 setTexture:v44 atIndex:1];
-    v48 = [v47 threadExecutionWidth];
-    [v47 maxTotalThreadsPerThreadgroup];
-    v49 = *(v40 + 288);
+    v48 = *(v41 + 144);
+    [v47 setComputePipelineState:v48];
+    [v47 setTexture:v43 atIndex:0];
+    [v47 setTexture:v45 atIndex:1];
+    v49 = [v48 threadExecutionWidth];
+    [v48 maxTotalThreadsPerThreadgroup];
     sub_2984();
-    a11.i64[0] = v48;
-    a11.i64[1] = v50 / v48;
-    a12 = 1;
-    [v46 dispatchThreads:&a14 threadsPerThreadgroup:&a11];
-    if (sub_AA64(v40, v44, *(v40 + 224), 5, *(v40 + 288), *(v40 + 292), 1, v46) || sub_AA64(v40, *(v40 + 224), v44, 5, *(v40 + 292), *(v40 + 288), 1, v46))
+    a12.i64[0] = v49;
+    a12.i64[1] = v50 / v49;
+    a14 = 1;
+    [v47 dispatchThreads:&a16 threadsPerThreadgroup:&a12];
+    if (sub_AA64(v41, v45, *(v41 + 224), 5, *(v41 + 288), *(v41 + 292), 1, v47) || sub_AA64(v41, *(v41 + 224), v45, 5, *(v41 + 292), *(v41 + 288), 1, v47))
     {
       fig_log_get_emitter();
       sub_291C();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
-      v51 = *(v40 + 152);
+      v51 = *(v41 + 152);
 
-      [v46 setComputePipelineState:v51];
-      sub_2B00(v46, v52);
-      [v46 setTexture:v43 atIndex:0];
-      [v46 setTexture:v42 atIndex:1];
-      [v46 setTexture:v44 atIndex:2];
-      [v46 setTexture:v45 atIndex:3];
-      v53 = *(v40 + 288);
+      [v47 setComputePipelineState:v51];
+      sub_2B00(v47, v52);
+      [v47 setTexture:v44 atIndex:0];
+      [v47 setTexture:v43 atIndex:1];
+      [v47 setTexture:v45 atIndex:2];
+      [v47 setTexture:v46 atIndex:3];
       sub_29B4();
-      a16 = 1;
-      a11 = vdupq_n_s64(0x20uLL);
-      a12 = 1;
-      [v46 dispatchThreads:&a14 threadsPerThreadgroup:&a11];
-      v47 = v51;
+      a18 = 1;
+      a12 = vdupq_n_s64(0x20uLL);
+      a14 = 1;
+      [v47 dispatchThreads:&a16 threadsPerThreadgroup:&a12];
+      v48 = v51;
     }
   }
 
@@ -2104,43 +1871,7 @@ uint64_t sub_ABD4(uint64_t a1)
   v3 = *(a1 + 32);
   *(a1 + 32) = v2;
 
-  if (!*(a1 + 32))
-  {
-    goto LABEL_13;
-  }
-
-  v4 = [*(a1 + 8) computePipelineStateFor:@"DeepZoomTransferTileCutKernel" constants:0];
-  v5 = *(a1 + 40);
-  *(a1 + 40) = v4;
-
-  if (!*(a1 + 40))
-  {
-    goto LABEL_13;
-  }
-
-  v6 = [*(a1 + 8) computePipelineStateFor:@"DeepZoomTransferTileCutInSlicesKernel" constants:0];
-  v7 = *(a1 + 48);
-  *(a1 + 48) = v6;
-
-  if (!*(a1 + 48))
-  {
-    goto LABEL_13;
-  }
-
-  v8 = [*(a1 + 8) computePipelineStateFor:@"DeepZoomTransferTileMergeKernel" constants:0];
-  v9 = *(a1 + 64);
-  *(a1 + 64) = v8;
-
-  if (!*(a1 + 64))
-  {
-    goto LABEL_13;
-  }
-
-  v10 = [*(a1 + 8) computePipelineStateFor:@"DeepZoomTransferTilePasteKernel" constants:0];
-  v11 = *(a1 + 56);
-  *(a1 + 56) = v10;
-
-  if (*(a1 + 56) && (v12 = objc_opt_new()) != 0)
+  if (*(a1 + 32) && ([*(a1 + 8) computePipelineStateFor:@"DeepZoomTransferTileCutKernel" constants:0], v4 = objc_claimAutoreleasedReturnValue(), v5 = *(a1 + 40), *(a1 + 40) = v4, v5, *(a1 + 40)) && (objc_msgSend(*(a1 + 8), "computePipelineStateFor:constants:", @"DeepZoomTransferTileCutInSlicesKernel", 0), v6 = objc_claimAutoreleasedReturnValue(), v7 = *(a1 + 48), *(a1 + 48) = v6, v7, *(a1 + 48)) && (objc_msgSend(*(a1 + 8), "computePipelineStateFor:constants:", @"DeepZoomTransferTileMergeKernel", 0), v8 = objc_claimAutoreleasedReturnValue(), v9 = *(a1 + 64), *(a1 + 64) = v8, v9, *(a1 + 64)) && (objc_msgSend(*(a1 + 8), "computePipelineStateFor:constants:", @"DeepZoomTransferTilePasteKernel", 0), v10 = objc_claimAutoreleasedReturnValue(), v11 = *(a1 + 56), *(a1 + 56) = v10, v11, *(a1 + 56)) && (v12 = objc_opt_new()) != 0)
   {
     v13 = v12;
     [v12 setNormalizedCoordinates:1];
@@ -2153,47 +1884,30 @@ uint64_t sub_ABD4(uint64_t a1)
     v16 = *(a1 + 72);
     *(a1 + 72) = v15;
 
-    if (!*(a1 + 72))
-    {
-      goto LABEL_14;
-    }
-
-    [v13 setNormalizedCoordinates:1];
-    [v13 setMinFilter:2];
-    [v13 setMagFilter:2];
-    [sub_352C() setSAddressMode:?];
-    [sub_352C() setTAddressMode:?];
-    v17 = [*(a1 + 8) device];
-    v18 = [v17 newSamplerStateWithDescriptor:v13];
-    v19 = *(a1 + 80);
-    *(a1 + 80) = v18;
-
-    if (*(a1 + 80))
+    if (*(a1 + 72) && ([v13 setNormalizedCoordinates:1], objc_msgSend(v13, "setMinFilter:", 2), objc_msgSend(v13, "setMagFilter:", 2), objc_msgSend(sub_352C(), "setSAddressMode:"), objc_msgSend(sub_352C(), "setTAddressMode:"), objc_msgSend(*(a1 + 8), "device"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "newSamplerStateWithDescriptor:", v13), v19 = *(a1 + 80), *(a1 + 80) = v18, v19, v17, *(a1 + 80)))
     {
       v20 = 0;
     }
 
     else
     {
-LABEL_14:
       sub_20B8();
       sub_1E7C();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v25, v26, v27, v28, v29, vars0, vars8);
       sub_20B8();
       sub_1EAC();
-      v20 = FigSignalErrorAtGM();
+      v20 = FigSignalErrorAtGM(v23);
     }
   }
 
   else
   {
-LABEL_13:
     sub_1F20();
     sub_1E7C();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v25, v26, v27, v28, v29, vars0, vars8);
     sub_1F20();
     sub_1EAC();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM(v22);
     v13 = 0;
   }
 
@@ -2223,8 +1937,8 @@ id sub_B168(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3)
         v12 = 2;
       }
 
-      v42 = v9;
-      v38 = v12;
+      v41 = v9;
+      v37 = v12;
       if (v9)
       {
         v13 = 3;
@@ -2241,9 +1955,9 @@ id sub_B168(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3)
         v15 = 0;
         textureAttributes = 0;
         v16 = 0;
-        v39 = kCVMetalTextureUsage;
-        v37 = a3;
-        v40 = v6;
+        v38 = kCVMetalTextureUsage;
+        v36 = a3;
+        v39 = v6;
         while (1)
         {
           v17 = textureAttributes;
@@ -2254,35 +1968,29 @@ id sub_B168(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3)
           }
 
           v19 = v18;
-          v41 = v16;
+          v40 = v16;
           WidthOfPlane = CVPixelBufferGetWidthOfPlane(v3, v15);
           HeightOfPlane = CVPixelBufferGetHeightOfPlane(v3, v15);
-          v45 = v39;
+          v44 = v38;
           v22 = [NSNumber numberWithUnsignedInteger:a3];
-          v46 = v22;
-          textureAttributes = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+          v45 = v22;
+          textureAttributes = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
 
-          v6 = v40;
-          if (v40 == 707153000 || v40 == 706956392)
+          v6 = v39;
+          if (v39 == 707153000 || v39 == 706956392)
           {
             v24 = 0;
-            while (1)
+            while (!CVMetalTextureCacheCreateTextureFromSliceOfImage())
             {
-              v25 = *(a1 + 24);
-              if (CVMetalTextureCacheCreateTextureFromSliceOfImage())
+              v25 = v3;
+              v26 = CVMetalTextureGetTexture(textureOut);
+              [v14 setObject:v26 atIndexedSubscript:{v40 + v24, v24, &textureOut}];
+
+              v27 = [v14 objectAtIndexedSubscript:v40 + v24];
+
+              if (!v27)
               {
-                goto LABEL_56;
-              }
-
-              v26 = v3;
-              v27 = CVMetalTextureGetTexture(textureOut);
-              [v14 setObject:v27 atIndexedSubscript:{v41 + v24, v24, &textureOut}];
-
-              v28 = [v14 objectAtIndexedSubscript:v41 + v24];
-
-              if (!v28)
-              {
-                goto LABEL_56;
+                break;
               }
 
               if (textureOut)
@@ -2290,23 +1998,25 @@ id sub_B168(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3)
                 CFRelease(textureOut);
               }
 
-              v29 = v24 + 1;
-              v30 = v42;
+              v28 = v24 + 1;
+              v29 = v41;
               if (v24 >= 2)
               {
-                v30 = 0;
+                v29 = 0;
               }
 
               ++v24;
-              v3 = v26;
-              if (!v30)
+              v3 = v25;
+              if (!v29)
               {
-                v6 = v40;
-                v16 = v41 + v29;
-                a3 = v37;
+                v6 = v39;
+                v16 = v40 + v28;
+                a3 = v36;
                 goto LABEL_39;
               }
             }
+
+            break;
           }
 
           if (CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, *(a1 + 24), v3, textureAttributes, v19, WidthOfPlane, HeightOfPlane, v15, &textureOut))
@@ -2314,27 +2024,27 @@ id sub_B168(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3)
             break;
           }
 
-          v31 = CVMetalTextureGetTexture(textureOut);
-          [v14 setObject:v31 atIndexedSubscript:v41];
+          v30 = CVMetalTextureGetTexture(textureOut);
+          [v14 setObject:v30 atIndexedSubscript:v40];
 
-          v32 = [v14 objectAtIndexedSubscript:v41];
+          v31 = [v14 objectAtIndexedSubscript:v40];
 
-          if (!v32)
+          if (!v31)
           {
             break;
           }
 
-          v16 = v41 + 1;
+          v16 = v40 + 1;
           if (textureOut)
           {
             CFRelease(textureOut);
           }
 
 LABEL_39:
-          if (v38 <= ++v15 || v6 == 707153000 || v6 == 706956392)
+          if (v37 <= ++v15 || v6 == 707153000 || v6 == 706956392)
           {
-            v35 = v14;
-            v14 = v35;
+            v34 = v14;
+            v14 = v34;
             goto LABEL_48;
           }
         }
@@ -2345,29 +2055,28 @@ LABEL_39:
         textureAttributes = 0;
       }
 
-LABEL_56:
       if (textureOut)
       {
         CFRelease(textureOut);
       }
 
-      v35 = 0;
+      v34 = 0;
 LABEL_48:
     }
 
     else
     {
-      v35 = 0;
+      v34 = 0;
       v14 = 0;
     }
   }
 
   else
   {
-    v35 = 0;
+    v34 = 0;
   }
 
-  return v35;
+  return v34;
 }
 
 void sub_B4F8(void *a1)
@@ -2419,26 +2128,7 @@ uint64_t sub_C2B8(void *a1, void *a2, uint64_t a3)
 
   memset(v43, 0, 32);
   memset(v42, 0, sizeof(v42));
-  if ([v5 count] != &dword_0 + 2)
-  {
-    goto LABEL_8;
-  }
-
-  v7.i16[0] = *(a3 + 28);
-  v7.i16[2] = *(a3 + 30);
-  v40 = v7;
-  v7.i16[0] = *a3;
-  v7.i16[2] = *(a3 + 2);
-  v38 = v7;
-  v7.i16[0] = *(a3 + 4);
-  v7.i16[2] = *(a3 + 6);
-  v36 = v7;
-  v8 = *(a3 + 8);
-  v9 = objc_alloc_init(NSMutableArray);
-  v10 = a1[17];
-  a1[17] = v9;
-
-  if (!a1[17])
+  if ([v5 count] != &dword_0 + 2 || (v7.i16[0] = *(a3 + 28), v7.i16[2] = *(a3 + 30), v40 = v7, v7.i16[0] = *a3, v7.i16[2] = *(a3 + 2), v38 = v7, v7.i16[0] = *(a3 + 4), v7.i16[2] = *(a3 + 6), v36 = v7, v8 = *(a3 + 8), v9 = objc_alloc_init(NSMutableArray), v10 = a1[17], a1[17] = v9, v10, !a1[17]))
   {
 LABEL_8:
     v30 = 4294954516;
@@ -2705,15 +2395,15 @@ uint64_t sub_D240(uint64_t a1)
     return 0;
   }
 
-  v26 = 0;
-  v25[3] = 0;
-  v24[0] = kCVPixelBufferMetalCompatibilityKey;
-  v24[1] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
-  v25[0] = &__kCFBooleanTrue;
-  v25[1] = &__kCFBooleanTrue;
-  v24[2] = kCVPixelBufferIOSurfacePropertiesKey;
-  v25[2] = &__NSDictionary0__struct;
-  v2 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v22 = 0;
+  v21[3] = 0;
+  v20[0] = kCVPixelBufferMetalCompatibilityKey;
+  v20[1] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
+  v21[0] = &__kCFBooleanTrue;
+  v21[1] = &__kCFBooleanTrue;
+  v20[2] = kCVPixelBufferIOSurfacePropertiesKey;
+  v21[2] = &__NSDictionary0__struct;
+  v2 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:3];
   context = espresso_create_context();
   *(a1 + 56) = context;
   if (context && (plan = espresso_create_plan(), (*(a1 + 64) = plan) != 0))
@@ -2726,32 +2416,31 @@ uint64_t sub_D240(uint64_t a1)
 
       if (v7)
       {
-        v8 = *(a1 + 64);
         [v7 UTF8String];
-        if (espresso_plan_add_network() || (v9 = *(a1 + 72), v10 = *(a1 + 80), espresso_network_query_quantization_info()) || (*(a1 + 88) = 0x30000000400, *(a1 + 128) = 4, v11 = *(a1 + 64), v12 = espresso_plan_build(), v12))
+        if (espresso_plan_add_network() || espresso_network_query_quantization_info() || (*(a1 + 88) = 0x30000000400, *(a1 + 128) = 4, v8 = espresso_plan_build(), v8))
         {
-          v22 = 4294954514;
+          v18 = 4294954514;
         }
 
         else
         {
-          v17 = sub_36A4(v12, v13, v14, v15, v16, (a1 + 96));
-          if (!v17)
+          v13 = sub_36A4(v8, v9, v10, v11, v12, (a1 + 96));
+          if (!v13)
           {
-            v17 = sub_36A4(v17, v18, v19, v20, v21, (a1 + 104));
-            if (!v17)
+            v13 = sub_36A4(v13, v14, v15, v16, v17, (a1 + 104));
+            if (!v13)
             {
-              v17 = CVPixelBufferCreate(kCFAllocatorDefault, 0x100uLL, 0x180uLL, 0x4C303068u, v2, (a1 + 112));
+              v13 = CVPixelBufferCreate(kCFAllocatorDefault, 0x100uLL, 0x180uLL, 0x4C303068u, v2, (a1 + 112));
             }
           }
 
-          v22 = v17;
+          v18 = v13;
         }
       }
 
       else
       {
-        v22 = 4294954516;
+        v18 = 4294954516;
       }
 
       goto LABEL_13;
@@ -2764,10 +2453,10 @@ uint64_t sub_D240(uint64_t a1)
   }
 
   v7 = 0;
-  v22 = 4294954510;
+  v18 = 4294954510;
 LABEL_13:
 
-  return v22;
+  return v18;
 }
 
 uint64_t sub_E1EC(uint64_t a1, __CVBuffer *a2, uint64_t a3, __CVBuffer *a4, void *a5, float64x2_t *a6, float64x2_t *a7, unsigned __int16 a8)
@@ -2779,13 +2468,13 @@ uint64_t sub_E1EC(uint64_t a1, __CVBuffer *a2, uint64_t a3, __CVBuffer *a4, void
     goto LABEL_27;
   }
 
-  v91[0] = kCVPixelBufferMetalCompatibilityKey;
-  v91[1] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
-  v92[0] = &__kCFBooleanTrue;
-  v92[1] = &__kCFBooleanTrue;
-  v91[2] = kCVPixelBufferIOSurfacePropertiesKey;
-  v92[2] = &__NSDictionary0__struct;
-  pixelBufferAttributes = [NSDictionary dictionaryWithObjects:v92 forKeys:v91 count:3];
+  v81[0] = kCVPixelBufferMetalCompatibilityKey;
+  v81[1] = kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey;
+  v82[0] = &__kCFBooleanTrue;
+  v82[1] = &__kCFBooleanTrue;
+  v81[2] = kCVPixelBufferIOSurfacePropertiesKey;
+  v82[2] = &__NSDictionary0__struct;
+  pixelBufferAttributes = [NSDictionary dictionaryWithObjects:v82 forKeys:v81 count:3];
   v15 = 0;
   v16 = 4294954516;
   if (!a2 || !a3 || !a4 || !v14 || !a6 || !a7)
@@ -2793,73 +2482,73 @@ uint64_t sub_E1EC(uint64_t a1, __CVBuffer *a2, uint64_t a3, __CVBuffer *a4, void
     goto LABEL_24;
   }
 
-  v83 = matrix_identity_float3x3.columns[1];
-  v84 = matrix_identity_float3x3.columns[0];
-  v82 = matrix_identity_float3x3.columns[2];
+  v73 = matrix_identity_float3x3.columns[1];
+  v74 = matrix_identity_float3x3.columns[0];
+  v72 = matrix_identity_float3x3.columns[2];
   v17 = [v14 objectForKeyedSubscript:kFigCaptureSampleBufferMetadata_StillImageProcessingMetadata];
   v15 = [v17 objectForKeyedSubscript:kFigCaptureStillImageProcessingMetadataKey_RegistrationHomography];
 
-  v89 = v84;
-  v87 = v83;
-  v85 = v82;
+  v79 = v74;
+  v77 = v73;
+  v75 = v72;
   if (v15)
   {
-    v75 = [v15 objectAtIndexedSubscript:0];
-    [v75 floatValue];
-    v90 = v18;
-    v74 = [v15 objectAtIndexedSubscript:3];
-    [v74 floatValue];
-    v88 = v19;
-    v73 = [v15 objectAtIndexedSubscript:6];
-    [v73 floatValue];
-    v86 = v20;
-    v72 = [v15 objectAtIndexedSubscript:1];
-    [v72 floatValue];
-    v70 = v21;
+    v65 = [v15 objectAtIndexedSubscript:0];
+    [v65 floatValue];
+    v80 = v18;
+    v64 = [v15 objectAtIndexedSubscript:3];
+    [v64 floatValue];
+    v78 = v19;
+    v63 = [v15 objectAtIndexedSubscript:6];
+    [v63 floatValue];
+    v76 = v20;
+    v62 = [v15 objectAtIndexedSubscript:1];
+    [v62 floatValue];
+    v60 = v21;
     [v15 objectAtIndexedSubscript:4];
-    v22 = v76 = a2;
+    v22 = v66 = a2;
     [v22 floatValue];
-    v71 = v23;
+    v61 = v23;
     [v15 objectAtIndexedSubscript:7];
-    v24 = v78 = a7;
+    v24 = v68 = a7;
     [v24 floatValue];
-    v69 = v25;
+    v59 = v25;
     [v15 objectAtIndexedSubscript:2];
-    v26 = v77 = a6;
+    v26 = v67 = a6;
     [v26 floatValue];
-    v67 = v27;
+    v57 = v27;
     v28 = [v15 objectAtIndexedSubscript:5];
     [v28 floatValue];
-    v68 = v29;
+    v58 = v29;
     [v15 objectAtIndexedSubscript:8];
     v31 = v30 = v14;
     [v31 floatValue];
-    v32 = v90;
-    v32.n128_u32[1] = v70;
-    v32.n128_u32[2] = v67;
-    v89 = v32;
-    v33 = v86;
-    v33.n128_u32[1] = v69;
+    v32 = v80;
+    v32.n128_u32[1] = v60;
+    v32.n128_u32[2] = v57;
+    v79 = v32;
+    v33 = v76;
+    v33.n128_u32[1] = v59;
     v33.n128_u32[2] = v34;
-    v85 = v33;
-    v35 = v88;
-    v35.n128_u32[1] = v71;
-    v35.n128_u32[2] = v68;
-    v87 = v35;
+    v75 = v33;
+    v35 = v78;
+    v35.n128_u32[1] = v61;
+    v35.n128_u32[2] = v58;
+    v77 = v35;
 
     v14 = v30;
-    a6 = v77;
+    a6 = v67;
 
-    a7 = v78;
-    a2 = v76;
+    a7 = v68;
+    a2 = v66;
   }
 
   Width = CVPixelBufferGetWidth(a4);
-  v79 = a7[1].f64[0];
+  v69 = a7[1].f64[0];
   Height = CVPixelBufferGetHeight(a4);
   v38.i64[0] = Width;
   v38.i64[1] = Height;
-  v39.f64[0] = v79;
+  v39.f64[0] = v69;
   v39.f64[1] = a7[1].f64[1];
   v40 = vmulq_f64(v39, vcvtq_f64_f32(vcvt_f32_f64(vcvtq_f64_u64(v38))));
   __asm { FMOV            V1.2D, #0.5 }
@@ -2869,10 +2558,10 @@ uint64_t sub_E1EC(uint64_t a1, __CVBuffer *a2, uint64_t a3, __CVBuffer *a4, void
   {
     v16 = 4294954516;
 LABEL_24:
-    v65 = *(a1 + 120);
-    if (v65)
+    v55 = *(a1 + 120);
+    if (v55)
     {
-      CFRelease(v65);
+      CFRelease(v55);
       *(a1 + 120) = 0;
     }
 
@@ -2909,22 +2598,19 @@ LABEL_29:
   }
 
 LABEL_17:
-  v54 = sub_F6FC(a1, a2, *(a1 + 96), a6, v84, v83, v82);
+  v54 = sub_F6FC(a1, a2, *(a1 + 96), a6, v74, v73, v72);
   if (v54)
   {
     goto LABEL_29;
   }
 
-  v54 = sub_F6FC(a1, a4, *(a1 + 104), a7, v89, v87, v85);
+  v54 = sub_F6FC(a1, a4, *(a1 + 104), a7, v79, v77, v75);
   if (v54)
   {
     goto LABEL_29;
   }
 
-  v55 = *(a1 + 96);
-  v56 = *(a1 + 72);
-  v57 = *(a1 + 80);
-  if (espresso_network_bind_direct_cvpixelbuffer() || (v58 = *(a1 + 104), v59 = *(a1 + 72), v60 = *(a1 + 80), espresso_network_bind_direct_cvpixelbuffer()) || (v61 = *(a1 + 112), v62 = *(a1 + 72), v63 = *(a1 + 80), espresso_network_bind_direct_cvpixelbuffer()) || (v64 = *(a1 + 64), espresso_plan_execute_sync()))
+  if (espresso_network_bind_direct_cvpixelbuffer() || espresso_network_bind_direct_cvpixelbuffer() || espresso_network_bind_direct_cvpixelbuffer() || espresso_plan_execute_sync())
   {
     v16 = 4294954514;
     goto LABEL_24;
@@ -3141,7 +2827,7 @@ uint64_t sub_EA84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   sub_3670();
-  v106 = v14;
+  v105 = v14;
   if (!v14)
   {
     goto LABEL_50;
@@ -3164,9 +2850,9 @@ LABEL_53:
   }
 
   v20 = v18;
-  v100 = v17;
-  v6 = v106;
-  v7 = (16 * v106);
+  v99 = v17;
+  v6 = v105;
+  v7 = (16 * v105);
   v4 = malloc_type_malloc(v7, 0x1000040451B5BE8uLL);
   if (v4)
   {
@@ -3201,11 +2887,10 @@ LABEL_53:
               *v33 = v31;
               v35 = *v32;
               v36 = &v5[16 * v23];
-              v37 = *v36;
-              v38 = *v32;
-              DWORD1(v38) = HIDWORD(*v36);
+              v37 = *v32;
+              DWORD1(v37) = HIDWORD(*v36);
               *(v36 + 2) = *(v36 + 1);
-              *v36 = v38;
+              *v36 = v37;
               DWORD1(v35) = *(v32 + 1);
               *(v36 + 2) = 1065353216;
               *v36 = v35;
@@ -3222,105 +2907,105 @@ LABEL_53:
       }
 
       while (v24 != v25);
-      if (v23 == v106)
+      if (v23 == v105)
       {
-        v39 = 0;
-        v40 = 16 * v106;
+        v38 = 0;
+        v39 = 16 * v105;
+        v40 = 0;
         v41 = 0;
-        v42 = 0;
         do
         {
-          v41 = vadd_f32(v41, *&v4[v39]);
-          v42 = vadd_f32(v42, *&v5[v39]);
-          v39 += 16;
+          v40 = vadd_f32(v40, *&v4[v38]);
+          v41 = vadd_f32(v41, *&v5[v38]);
+          v38 += 16;
         }
 
-        while (v40 != v39);
-        v43 = 0;
-        v44 = xmmword_178B0;
-        *v21.i32 = v106;
-        v45 = vdup_lane_s32(v21, 0);
-        v46 = vdiv_f32(v41, v45);
-        v47 = vdiv_f32(v42, v45);
-        *&v48 = -v46.f32[0];
-        *&v49 = -v46.f32[1];
-        v50 = xmmword_178B0;
-        DWORD2(v50) = v48;
-        v97 = v50;
+        while (v39 != v38);
+        v42 = 0;
+        v43 = xmmword_178B0;
+        *v21.i32 = v105;
+        v44 = vdup_lane_s32(v21, 0);
+        v45 = vdiv_f32(v40, v44);
+        v46 = vdiv_f32(v41, v44);
+        *&v47 = -v45.f32[0];
+        *&v48 = -v45.f32[1];
+        v49 = xmmword_178B0;
+        DWORD2(v49) = v47;
+        v96 = v49;
         v22.i32[0] = 0;
         v22.i32[1] = 1.0;
         __asm { FMOV            V0.4S, #1.0 }
 
-        v56.i64[1] = _Q0.i64[1];
-        v56.i64[0] = __PAIR64__(v49, v48);
-        v57 = v22;
-        v57.i32[2] = v49;
-        v96 = v57;
-        *(&v44 + 2) = -v47.f32[0];
-        v22.i64[1] = COERCE_UNSIGNED_INT(-v47.f32[1]);
-        v98 = v22;
-        v99 = v44;
+        v55.i64[1] = _Q0.i64[1];
+        v55.i64[0] = __PAIR64__(v48, v47);
+        v56 = v22;
+        v56.i32[2] = v48;
+        v95 = v56;
+        *(&v43 + 2) = -v46.f32[0];
+        v22.i64[1] = COERCE_UNSIGNED_INT(-v46.f32[1]);
+        v97 = v22;
+        v98 = v43;
         do
         {
-          *&v4[v43] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_178B0, COERCE_FLOAT(*&v4[v43])), xmmword_178C0, *&v4[v43], 1), v56, *&v4[v43], 2);
-          _Q0.f32[1] = -v47.f32[1];
-          _Q0.f32[0] = -v47.f32[0];
-          *&v5[v43] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_178B0, COERCE_FLOAT(*&v5[v43])), xmmword_178C0, *&v5[v43], 1), _Q0, *&v5[v43], 2);
-          v43 += 16;
+          *&v4[v42] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_178B0, COERCE_FLOAT(*&v4[v42])), xmmword_178C0, *&v4[v42], 1), v55, *&v4[v42], 2);
+          _Q0.f32[1] = -v46.f32[1];
+          _Q0.f32[0] = -v46.f32[0];
+          *&v5[v42] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_178B0, COERCE_FLOAT(*&v5[v42])), xmmword_178C0, *&v5[v42], 1), _Q0, *&v5[v42], 2);
+          v42 += 16;
         }
 
-        while (v40 != v43);
-        v111 = 0;
+        while (v39 != v42);
+        v110 = 0;
+        v107 = 0;
+        v57 = 0;
         v108 = 0;
-        v58 = 0;
-        v109 = 0;
         *(a1 + 152) = 1;
-        v103 = matrix_identity_float3x3.columns[1];
-        v104 = matrix_identity_float3x3.columns[0];
-        v102 = matrix_identity_float3x3.columns[2];
-        memset(v112, 0, sizeof(v112));
+        v102 = matrix_identity_float3x3.columns[1];
+        v103 = matrix_identity_float3x3.columns[0];
+        v101 = matrix_identity_float3x3.columns[2];
+        memset(v111, 0, sizeof(v111));
         while (1)
         {
-          v115 = 0u;
-          v116 = 0u;
           v114 = 0u;
+          v115 = 0u;
+          v113 = 0u;
           sub_FD24(v26);
           if (*(v26 + 144))
           {
             v6 = malloc_type_malloc(0x48uLL, 0x10000403E1C8BA9uLL);
-            if (!v6 || (v59 = malloc_type_malloc(0x48uLL, 0x10000403E1C8BA9uLL)) == 0)
+            if (!v6 || (v58 = malloc_type_malloc(0x48uLL, 0x10000403E1C8BA9uLL)) == 0)
             {
               v8 = 4294954510;
-              v7 = v108;
+              v7 = v107;
 LABEL_49:
-              v13 = v111;
+              v13 = v110;
               goto LABEL_50;
             }
 
-            v60 = v59;
-            v61 = 0;
-            v62 = v112;
+            v59 = v58;
+            v60 = 0;
+            v61 = v111;
             do
             {
-              v63 = *v62++;
-              v64 = &v4[16 * v63];
-              v65 = &v6[v61];
-              *v65 = *v64;
-              *(v65 + 1) = *(v64 + 1);
-              *(v65 + 2) = 1065353216;
-              v66 = &v5[16 * v63];
-              v67 = &v59[v61];
-              *v67 = *v66;
-              *(v67 + 1) = *(v66 + 1);
-              *(v67 + 2) = 1065353216;
-              v61 += 12;
+              v62 = *v61++;
+              v63 = &v4[16 * v62];
+              v64 = &v6[v60];
+              *v64 = *v63;
+              *(v64 + 1) = *(v63 + 1);
+              *(v64 + 2) = 1065353216;
+              v65 = &v5[16 * v62];
+              v66 = &v58[v60];
+              *v66 = *v65;
+              *(v66 + 1) = *(v65 + 1);
+              *(v66 + 2) = 1065353216;
+              v60 += 12;
             }
 
-            while (v61 != 72);
-            v8 = [*(v26 + 144) computeHomography:&v114 referenceKeypoints:v6 nonReferenceKeypoints:v59 keypointsCount:6];
+            while (v60 != 72);
+            v8 = [*(v26 + 144) computeHomography:&v113 referenceKeypoints:v6 nonReferenceKeypoints:v58 keypointsCount:6];
             free(v6);
-            free(v60);
-            v13 = v111;
+            free(v59);
+            v13 = v110;
             if (v8)
             {
               goto LABEL_54;
@@ -3330,10 +3015,10 @@ LABEL_49:
           else
           {
             [*(v26 + 8) device];
-            v69 = v68 = v26;
-            v70 = [v69 newBufferWithLength:96 options:0];
+            v68 = v67 = v26;
+            v69 = [v68 newBufferWithLength:96 options:0];
 
-            if (!v70)
+            if (!v69)
             {
               v13 = 0;
               v6 = 0;
@@ -3341,132 +3026,132 @@ LABEL_49:
               goto LABEL_56;
             }
 
-            v71 = [*(v68 + 8) device];
-            v72 = [v71 newBufferWithLength:96 options:0];
+            v70 = [*(v67 + 8) device];
+            v71 = [v70 newBufferWithLength:96 options:0];
 
-            if (!v72)
+            if (!v71)
             {
               v7 = 0;
               v6 = 0;
               v8 = 4294954510;
-              v13 = v70;
+              v13 = v69;
               goto LABEL_50;
             }
 
-            v73 = [v70 contents];
-            v108 = v72;
-            v74 = [v72 contents];
+            v72 = [v69 contents];
+            v107 = v71;
+            v73 = [v71 contents];
             for (i = 0; i != 24; i += 4)
             {
-              v76 = *(v112 + i);
-              v77 = &v4[16 * v76];
-              LODWORD(v78) = *v77;
-              *v73 = v78;
-              HIDWORD(v78) = *(v77 + 1);
-              *v73 = v78;
+              v75 = *(v111 + i);
+              v76 = &v4[16 * v75];
+              LODWORD(v77) = *v76;
+              *v72 = v77;
+              HIDWORD(v77) = *(v76 + 1);
+              *v72 = v77;
+              v72[2] = 1065353216;
+              v78 = &v5[16 * v75];
+              v79 = *v78;
+              *v73 = *v78;
+              DWORD1(v79) = *(v78 + 1);
+              *v73 = v79;
               v73[2] = 1065353216;
-              v79 = &v5[16 * v76];
-              v80 = *v79;
-              *v74 = *v79;
-              DWORD1(v80) = *(v79 + 1);
-              *v74 = v80;
-              v74[2] = 1065353216;
-              v74 += 4;
               v73 += 4;
+              v72 += 4;
             }
 
             v26 = a1;
-            v8 = [*(a1 + 136) computeHomography:&v114 referenceKeypoints:v70 nonReferenceKeypoints:v72 keypointsCount:6];
-            v13 = v70;
+            v8 = [*(a1 + 136) computeHomography:&v113 referenceKeypoints:v69 nonReferenceKeypoints:v71 keypointsCount:6];
+            v13 = v69;
             if (v8)
             {
 LABEL_54:
               v6 = 0;
 LABEL_56:
-              v7 = v108;
+              v7 = v107;
               goto LABEL_50;
             }
           }
 
+          v80 = 0;
           v81 = 0;
-          v82 = 0;
-          v83 = vzip1q_s32(v114, v115);
-          v84 = vzip2q_s32(vzip1q_s32(v114, v116), vdupq_lane_s32(*v115.i8, 1));
-          v85 = vzip2q_s32(v114, v115);
-          v85.i32[2] = v116.i32[2];
+          v82 = vzip1q_s32(v113, v114);
+          v83 = vzip2q_s32(vzip1q_s32(v113, v115), vdupq_lane_s32(*v114.i8, 1));
+          v84 = vzip2q_s32(v113, v114);
+          v84.i32[2] = v115.i32[2];
           do
           {
-            v83.i32[2] = v116.i32[0];
-            v86 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v83, COERCE_FLOAT(*&v4[v81])), v84, *&v4[v81], 1), v85, *&v4[v81], 2);
-            v87 = vsubq_f32(vdivq_f32(v86, vdupq_laneq_s32(v86, 2)), *&v5[v81]);
-            v88 = vmulq_f32(v87, v87);
-            if (sqrtf(v88.f32[2] + vaddv_f32(*v88.f32)) < 0.0067964)
+            v82.i32[2] = v115.i32[0];
+            v85 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v82, COERCE_FLOAT(*&v4[v80])), v83, *&v4[v80], 1), v84, *&v4[v80], 2);
+            v86 = vsubq_f32(vdivq_f32(v85, vdupq_laneq_s32(v85, 2)), *&v5[v80]);
+            v87 = vmulq_f32(v86, v86);
+            if (sqrtf(v87.f32[2] + vaddv_f32(*v87.f32)) < 0.0067964)
             {
-              ++v82;
+              ++v81;
             }
 
-            v81 += 16;
+            v80 += 16;
           }
 
-          while (v40 != v81);
-          v111 = v13;
-          if (v82 > v109)
+          while (v39 != v80);
+          v110 = v13;
+          if (v81 > v108)
           {
-            v103 = v115;
-            v104 = v114;
-            v102 = v116;
-            if ((v82 / v106) > 0.95)
+            v102 = v114;
+            v103 = v113;
+            v101 = v115;
+            if ((v81 / v105) > 0.95)
             {
               goto LABEL_44;
             }
 
-            v109 = v82;
+            v108 = v81;
           }
 
-          if (++v58 == 50)
+          if (++v57 == 50)
           {
 LABEL_44:
-            v89 = 0;
-            v113.columns[0] = v104;
-            v113.columns[1] = v103;
-            v113.columns[2] = v102;
+            v88 = 0;
+            v112.columns[0] = v103;
+            v112.columns[1] = v102;
+            v112.columns[2] = v101;
+            v113 = 0u;
             v114 = 0u;
             v115 = 0u;
-            v116 = 0u;
             do
             {
-              *(&v114 + v89 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v97, COERCE_FLOAT(*&v113.columns[v89])), v96, *v113.columns[v89].f32, 1), xmmword_178D0, v113.columns[v89], 2);
+              *(&v113 + v88 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v96, COERCE_FLOAT(*&v112.columns[v88])), v95, *v112.columns[v88].f32, 1), xmmword_178D0, v112.columns[v88], 2);
+              ++v88;
+            }
+
+            while (v88 != 3);
+            v109 = v113;
+            v104 = v115;
+            v106 = v114;
+            v116.columns[2] = xmmword_178D0;
+            v116.columns[1] = v97;
+            v116.columns[0] = v98;
+            v117 = __invert_f3(v116);
+            v89 = 0;
+            v112 = v117;
+            v113 = 0u;
+            v114 = 0u;
+            v115 = 0u;
+            v7 = v107;
+            do
+            {
+              *(&v113 + v89 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v109, COERCE_FLOAT(*&v112.columns[v89])), v106, *v112.columns[v89].f32, 1), v104, v112.columns[v89], 2);
               ++v89;
             }
 
             while (v89 != 3);
-            v110 = v114;
-            v105 = v116;
-            v107 = v115;
-            v117.columns[2] = xmmword_178D0;
-            v117.columns[1] = v98;
-            v117.columns[0] = v99;
-            v118 = __invert_f3(v117);
-            v90 = 0;
-            v113 = v118;
-            v114 = 0u;
-            v115 = 0u;
-            v116 = 0u;
-            v7 = v108;
-            do
-            {
-              *(&v114 + v90 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v110, COERCE_FLOAT(*&v113.columns[v90])), v107, *v113.columns[v90].f32, 1), v105, v113.columns[v90], 2);
-              ++v90;
-            }
-
-            while (v90 != 3);
             v6 = 0;
             v8 = 0;
-            v91 = vmulq_n_f32(v115, 1.0 / v116.f32[2]);
-            v92 = vmulq_n_f32(v116, 1.0 / v116.f32[2]);
-            *v100 = vmulq_n_f32(v114, 1.0 / v116.f32[2]);
-            v100[1] = v91;
-            v100[2] = v92;
+            v90 = vmulq_n_f32(v114, 1.0 / v115.f32[2]);
+            v91 = vmulq_n_f32(v115, 1.0 / v115.f32[2]);
+            *v99 = vmulq_n_f32(v113, 1.0 / v115.f32[2]);
+            v99[1] = v90;
+            v99[2] = v91;
             goto LABEL_49;
           }
         }
@@ -3488,9 +3173,9 @@ LABEL_44:
 
   v8 = 4294954510;
 LABEL_50:
-  v93 = v4;
-  v94 = v13;
-  free(v93);
+  v92 = v4;
+  v93 = v13;
+  free(v92);
   free(v5);
   free(v6);
 
@@ -3636,20 +3321,8 @@ id sub_F2A8(uint64_t a1, __CVBuffer *a2, uint64_t a3)
           v4 = v18;
           v21 = CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, *(v18 + 40), a2, v20, v15, WidthOfPlane, HeightOfPlane, v12, &image);
           v22 = image;
-          if (v21)
+          if (v21 || (CVMetalTextureGetTexture(image), v23 = objc_claimAutoreleasedReturnValue(), [v5 setObject:v23 atIndexedSubscript:v12], v23, objc_msgSend(v5, "objectAtIndexedSubscript:", v12), v24 = objc_claimAutoreleasedReturnValue(), v24, v22 = image, !v24))
           {
-            goto LABEL_37;
-          }
-
-          v23 = CVMetalTextureGetTexture(image);
-          [v5 setObject:v23 atIndexedSubscript:v12];
-
-          v24 = [v5 objectAtIndexedSubscript:v12];
-
-          v22 = image;
-          if (!v24)
-          {
-LABEL_37:
             v13 = v20;
             goto LABEL_39;
           }
@@ -3828,11 +3501,11 @@ uint64_t sub_F6FC(uint64_t a1, __CVBuffer *a2, __CVBuffer *a3, float64x2_t *a4, 
   }
 
   v7 = 0;
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v55 = 0u;
   v8 = 4294954516;
   if (a2)
   {
@@ -3853,9 +3526,9 @@ uint64_t sub_F6FC(uint64_t a1, __CVBuffer *a2, __CVBuffer *a3, float64x2_t *a4, 
           {
             sub_3748();
             sub_3714();
-            FigDebugAssert3();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v42, v44, a5.n128_u64[0], a5.n128_u64[1], a6.n128_u32[0], a6.n128_u64[1], a7.n128_u64[0], a7.n128_u32[2]);
             sub_3748();
-            v8 = FigSignalErrorAtGM();
+            v8 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v43, v45, v47);
             v11 = 0;
             goto LABEL_15;
           }
@@ -3864,21 +3537,17 @@ uint64_t sub_F6FC(uint64_t a1, __CVBuffer *a2, __CVBuffer *a3, float64x2_t *a4, 
           if (v15)
           {
             v16 = v15;
-            Width = CVPixelBufferGetWidth(*(a1 + 120));
-            v18 = (Width * *(a1 + 128));
-            LOWORD(v57) = Width * *(a1 + 128);
-            Height = CVPixelBufferGetHeight(*(a1 + 120));
-            v20 = (Height * *(a1 + 128));
-            WORD1(v57) = Height * *(a1 + 128);
-            v21 = vcvt_f32_f64(a4[1]);
-            *&v56 = vcvt_f32_f64(*a4);
-            *(&v56 + 1) = v21;
-            v58 = a5;
-            v59 = a6;
-            v60 = a7;
+            LOWORD(v56) = CVPixelBufferGetWidth(*(a1 + 120)) * *(a1 + 128);
+            WORD1(v56) = CVPixelBufferGetHeight(*(a1 + 120)) * *(a1 + 128);
+            v17 = vcvt_f32_f64(a4[1]);
+            *&v55 = vcvt_f32_f64(*a4);
+            *(&v55 + 1) = v17;
+            v57 = a5;
+            v58 = a6;
+            v59 = a7;
             PixelFormatType = CVPixelBufferGetPixelFormatType(a3);
-            v23 = CVPixelBufferGetPixelFormatType(a3);
-            if (PixelFormatType == 1111970369 || v23 == 641877825)
+            v19 = CVPixelBufferGetPixelFormatType(a3);
+            if (PixelFormatType == 1111970369 || v19 == 641877825)
             {
               [v16 setComputePipelineState:*(a1 + 24)];
               [v7 objectAtIndexedSubscript:0];
@@ -3893,12 +3562,12 @@ uint64_t sub_F6FC(uint64_t a1, __CVBuffer *a2, __CVBuffer *a3, float64x2_t *a4, 
               objc_claimAutoreleasedReturnValue();
               [sub_274C() setTexture:? atIndex:?];
 
-              sub_3728(v25, v26, v27, v28, v29, v30, v31, v32, v46, v47, a5.n128_i64[0], a5.n128_i64[1], a6.n128_i64[0], a6.n128_i64[1]);
-              v42 = [sub_352C() objectAtIndexedSubscript:?];
-              v33 = [v42 width];
-              v44 = [sub_352C() objectAtIndexedSubscript:?];
-              v53 = v33;
-              v54 = [v44 height];
+              sub_3728(v21, v22, v23, v24, v25, v26, v27, v28, v42, v44, a5.n128_i64[0], a5.n128_i64[1], a6.n128_i64[0], a6.n128_i64[1], a7.n128_i64[0], a7.n128_i64[1], v50.i64[0], v50.i64[1], v51, v52, v53, v54);
+              v38 = [sub_352C() objectAtIndexedSubscript:?];
+              v29 = [v38 width];
+              v40 = [sub_352C() objectAtIndexedSubscript:?];
+              v52 = v29;
+              v53 = [v40 height];
             }
 
             else
@@ -3916,18 +3585,18 @@ uint64_t sub_F6FC(uint64_t a1, __CVBuffer *a2, __CVBuffer *a3, float64x2_t *a4, 
               objc_claimAutoreleasedReturnValue();
               [sub_274C() setTexture:? atIndex:?];
 
-              sub_3728(v34, v35, v36, v37, v38, v39, v40, v41, v46, v47, a5.n128_i64[0], a5.n128_i64[1], a6.n128_i64[0], a6.n128_i64[1]);
-              v42 = [sub_352C() objectAtIndexedSubscript:?];
-              v43 = [v42 width];
-              v44 = [sub_352C() objectAtIndexedSubscript:?];
-              v53 = v43;
-              v54 = [v44 height] / 3;
+              sub_3728(v30, v31, v32, v33, v34, v35, v36, v37, v42, v44, a5.n128_i64[0], a5.n128_i64[1], a6.n128_i64[0], a6.n128_i64[1], a7.n128_i64[0], a7.n128_i64[1], v50.i64[0], v50.i64[1], v51, v52, v53, v54);
+              v38 = [sub_352C() objectAtIndexedSubscript:?];
+              v39 = [v38 width];
+              v40 = [sub_352C() objectAtIndexedSubscript:?];
+              v52 = v39;
+              v53 = [v40 height] / 3;
             }
 
-            v55 = 1;
-            v51 = vdupq_n_s64(0x20uLL);
-            v52 = 1;
-            [v16 dispatchThreads:&v53 threadsPerThreadgroup:&v51];
+            v54 = 1;
+            v50 = vdupq_n_s64(0x20uLL);
+            v51 = 1;
+            [v16 dispatchThreads:&v52 threadsPerThreadgroup:&v50];
 
             [v16 endEncoding];
             [v11 commit];
@@ -4004,9 +3673,9 @@ LABEL_14:
   {
     sub_3748();
     sub_3714();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v17, v19.i64[0], v19.i64[1], v20, v21, v22, v23);
     sub_3748();
-    v13 = FigSignalErrorAtGM();
+    v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v18, v19.i32[0]);
     v6 = 0;
     goto LABEL_9;
   }
@@ -4029,12 +3698,12 @@ LABEL_14:
   v10 = [sub_352C() objectAtIndexedSubscript:?];
   v11 = [v10 width];
   v12 = [sub_352C() objectAtIndexedSubscript:?];
-  v17[0] = v11;
-  v17[1] = [v12 height];
-  v17[2] = 1;
-  v15 = vdupq_n_s64(0x20uLL);
-  v16 = 1;
-  [v8 dispatchThreads:v17 threadsPerThreadgroup:&v15];
+  v21 = v11;
+  v22 = [v12 height];
+  v23 = 1;
+  v19 = vdupq_n_s64(0x20uLL);
+  v20 = 1;
+  [v8 dispatchThreads:&v21 threadsPerThreadgroup:&v19];
 
   [v8 endEncoding];
   [v6 commit];
@@ -4052,16 +3721,15 @@ uint64_t sub_FD24(uint64_t a1)
   {
     do
     {
-      v1 = *(a1 + 152);
       a1 = sub_36C8(a1);
-      if (v3)
+      if (v2)
       {
         while (1)
         {
-          v5 = 0;
-          while (*(v2 + 4 * v5) != v4)
+          v4 = 0;
+          while (*(v1 + 4 * v4) != v3)
           {
-            if (v3 == ++v5)
+            if (v2 == ++v4)
             {
               goto LABEL_8;
             }
@@ -4072,10 +3740,10 @@ uint64_t sub_FD24(uint64_t a1)
       }
 
 LABEL_8:
-      *(v2 + 4 * v3) = v4;
+      *(v1 + 4 * v2) = v3;
     }
 
-    while (v3 != 5);
+    while (v2 != 5);
   }
 
   return 0;
@@ -4204,11 +3872,11 @@ uint64_t sub_FEDC(uint64_t a1)
 
   sub_1F20();
   sub_1E7C();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v36, v37, v38, v39, v40, v41, vars0, vars8);
   sub_1F20();
   sub_1EAC();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v35);
 }
 
 uint64_t sub_108FC(uint64_t a1, unsigned int a2, unsigned int a3)
@@ -4241,181 +3909,34 @@ uint64_t sub_108FC(uint64_t a1, unsigned int a2, unsigned int a3)
         v13 = *(a1 + 152);
         *(a1 + 152) = v12;
 
-        if (!*(a1 + 152))
-        {
-          goto LABEL_27;
-        }
-
-        v14 = [*(a1 + 8) device];
-        v16 = sub_2AA8(v14, v15);
-        v17 = *(a1 + 136);
-        *(a1 + 136) = v16;
-
-        if (!*(a1 + 136))
-        {
-          goto LABEL_27;
-        }
-
-        v18 = [*(a1 + 8) device];
-        v20 = sub_2AA8(v18, v19);
-        v21 = *(a1 + 184);
-        *(a1 + 184) = v20;
-
-        if (!*(a1 + 184))
-        {
-          goto LABEL_27;
-        }
-
-        v22 = [*(a1 + 8) device];
-        v24 = sub_2AA8(v22, v23);
-        v25 = *(a1 + 168);
-        *(a1 + 168) = v24;
-
-        if (!*(a1 + 168))
-        {
-          goto LABEL_27;
-        }
-
-        v26 = [*(a1 + 8) device];
-        v28 = sub_2AA8(v26, v27);
-        v29 = *(a1 + 216);
-        *(a1 + 216) = v28;
-
-        if (!*(a1 + 216))
-        {
-          goto LABEL_27;
-        }
-
-        v30 = [*(a1 + 8) device];
-        v32 = sub_2AA8(v30, v31);
-        v33 = *(a1 + 224);
-        *(a1 + 224) = v32;
-
-        if (!*(a1 + 224))
-        {
-          goto LABEL_27;
-        }
-
-        [sub_29C0() setWidth:?];
-        [v5 setHeight:a2];
-        v34 = [*(a1 + 8) device];
-        v36 = sub_2A90(v34, v35);
-        v37 = *(a1 + 200);
-        *(a1 + 200) = v36;
-
-        if (!*(a1 + 200))
-        {
-          goto LABEL_27;
-        }
-
-        [sub_29A8() setWidth:?];
-        v38 = (a3 >> 1);
-        [sub_29CC() setHeight:?];
-        [v5 setPixelFormat:65];
-        v39 = [*(a1 + 8) device];
-        v41 = sub_2A90(v39, v40);
-        v42 = *(a1 + 160);
-        *(a1 + 160) = v41;
-
-        if (!*(a1 + 160))
-        {
-          goto LABEL_27;
-        }
-
-        v43 = [*(a1 + 8) device];
-        v45 = sub_2A90(v43, v44);
-        v46 = *(a1 + 144);
-        *(a1 + 144) = v45;
-
-        if (!*(a1 + 144))
-        {
-          goto LABEL_27;
-        }
-
-        v47 = [*(a1 + 8) device];
-        v49 = sub_2A90(v47, v48);
-        v50 = *(a1 + 192);
-        *(a1 + 192) = v49;
-
-        if (!*(a1 + 192))
-        {
-          goto LABEL_27;
-        }
-
-        v51 = [*(a1 + 8) device];
-        v53 = sub_2A90(v51, v52);
-        v54 = *(a1 + 176);
-        *(a1 + 176) = v53;
-
-        if (!*(a1 + 176))
-        {
-          goto LABEL_27;
-        }
-
-        v55 = [*(a1 + 8) device];
-        v57 = sub_2A90(v55, v56);
-        v58 = *(a1 + 232);
-        *(a1 + 232) = v57;
-
-        if (!*(a1 + 232))
-        {
-          goto LABEL_27;
-        }
-
-        [sub_29CC() setWidth:?];
-        [sub_29A8() setHeight:?];
-        v59 = [*(a1 + 8) device];
-        v61 = sub_3A08(v59, v60);
-        v62 = *(a1 + 208);
-        *(a1 + 208) = v61;
-
-        if (!*(a1 + 208))
-        {
-          goto LABEL_27;
-        }
-
-        [v5 setWidth:*(a1 + 312)];
-        [v5 setHeight:*(a1 + 316)];
-        [v5 setPixelFormat:25];
-        v63 = [*(a1 + 8) device];
-        v65 = sub_3A08(v63, v64);
-        v66 = *(a1 + 240);
-        *(a1 + 240) = v65;
-
-        if (!*(a1 + 240))
-        {
-          goto LABEL_27;
-        }
-
-        v67 = [*(a1 + 8) device];
-        v69 = sub_3A08(v67, v68);
-        v70 = *(a1 + 248);
-        *(a1 + 248) = v69;
-
-        if (!*(a1 + 248))
-        {
-          goto LABEL_27;
-        }
-
-        v71 = [*(a1 + 8) device];
-        v73 = sub_3A08(v71, v72);
-        v74 = *(a1 + 256);
-        *(a1 + 256) = v73;
-
-        if (*(a1 + 256))
+        if (*(a1 + 152)
+          && ([*(a1 + 8) device], v14 = objc_claimAutoreleasedReturnValue(), v16 = sub_2AA8(v14, v15), v17 = *(a1 + 136), *(a1 + 136) = v16, v17, v3, *(a1 + 136))
+          && ([*(a1 + 8) device], v18 = objc_claimAutoreleasedReturnValue(), v20 = sub_2AA8(v18, v19), v21 = *(a1 + 184), *(a1 + 184) = v20, v21, v3, *(a1 + 184))
+          && ([*(a1 + 8) device], v22 = objc_claimAutoreleasedReturnValue(), v24 = sub_2AA8(v22, v23), v25 = *(a1 + 168), *(a1 + 168) = v24, v25, v3, *(a1 + 168))
+          && ([*(a1 + 8) device], v26 = objc_claimAutoreleasedReturnValue(), v28 = sub_2AA8(v26, v27), v29 = *(a1 + 216), *(a1 + 216) = v28, v29, v3, *(a1 + 216))
+          && ([*(a1 + 8) device], v30 = objc_claimAutoreleasedReturnValue(), v32 = sub_2AA8(v30, v31), v33 = *(a1 + 224), *(a1 + 224) = v32, v33, v3, *(a1 + 224))
+          && ([sub_29C0() setWidth:?], objc_msgSend(v5, "setHeight:", a2), objc_msgSend(*(a1 + 8), "device"), v34 = objc_claimAutoreleasedReturnValue(), v36 = sub_2A90(v34, v35), v37 = *(a1 + 200), *(a1 + 200) = v36, v37, a2, *(a1 + 200))
+          && ([sub_29A8() setWidth:?], v38 = (a3 >> 1), objc_msgSend(sub_29CC(), "setHeight:"), objc_msgSend(v5, "setPixelFormat:", 65), objc_msgSend(*(a1 + 8), "device"), v39 = objc_claimAutoreleasedReturnValue(), v41 = sub_2A90(v39, v40), v42 = *(a1 + 160), *(a1 + 160) = v41, v42, a2, *(a1 + 160))
+          && ([*(a1 + 8) device], v43 = objc_claimAutoreleasedReturnValue(), v45 = sub_2A90(v43, v44), v46 = *(a1 + 144), *(a1 + 144) = v45, v46, a2, *(a1 + 144))
+          && ([*(a1 + 8) device], v47 = objc_claimAutoreleasedReturnValue(), v49 = sub_2A90(v47, v48), v50 = *(a1 + 192), *(a1 + 192) = v49, v50, a2, *(a1 + 192))
+          && ([*(a1 + 8) device], v51 = objc_claimAutoreleasedReturnValue(), v53 = sub_2A90(v51, v52), v54 = *(a1 + 176), *(a1 + 176) = v53, v54, a2, *(a1 + 176))
+          && ([*(a1 + 8) device], v55 = objc_claimAutoreleasedReturnValue(), v57 = sub_2A90(v55, v56), v58 = *(a1 + 232), *(a1 + 232) = v57, v58, a2, *(a1 + 232))
+          && ([sub_29CC() setWidth:?], objc_msgSend(sub_29A8(), "setHeight:"), objc_msgSend(*(a1 + 8), "device"), v59 = objc_claimAutoreleasedReturnValue(), v61 = sub_3A08(v59, v60), v62 = *(a1 + 208), *(a1 + 208) = v61, v62, v38, *(a1 + 208))
+          && ([v5 setWidth:*(a1 + 312)], objc_msgSend(v5, "setHeight:", *(a1 + 316)), objc_msgSend(v5, "setPixelFormat:", 25), objc_msgSend(*(a1 + 8), "device"), v63 = objc_claimAutoreleasedReturnValue(), v65 = sub_3A08(v63, v64), v66 = *(a1 + 240), *(a1 + 240) = v65, v66, v38, *(a1 + 240))
+          && ([*(a1 + 8) device], v67 = objc_claimAutoreleasedReturnValue(), v69 = sub_3A08(v67, v68), v70 = *(a1 + 248), *(a1 + 248) = v69, v70, v38, *(a1 + 248))
+          && ([*(a1 + 8) device], v71 = objc_claimAutoreleasedReturnValue(), v73 = sub_3A08(v71, v72), v74 = *(a1 + 256), *(a1 + 256) = v73, v74, v38, *(a1 + 256)))
         {
           v6 = 0;
         }
 
         else
         {
-LABEL_27:
           sub_20B8();
           sub_28D8();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v78, v79, v80, v81, v82, v83, v84, v85);
           sub_20B8();
           sub_1EAC();
-          v6 = FigSignalErrorAtGM();
+          v6 = FigSignalErrorAtGM(v77);
         }
 
         goto LABEL_23;
@@ -4423,10 +3944,10 @@ LABEL_27:
 
       fig_log_get_emitter();
       sub_28D8();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v78, v79, v80, v81, v82, v83, v84, v85);
       fig_log_get_emitter();
       sub_1EAC();
-      v6 = FigSignalErrorAtGM();
+      v6 = FigSignalErrorAtGM(v76);
     }
 
     v5 = 0;
@@ -4516,91 +4037,105 @@ uint64_t sub_118F8(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
 {
   v16 = a4;
   v17 = a5;
-  v41 = a6;
+  v44 = a6;
   v18 = a7;
-  v40 = a8;
+  v43 = a8;
   v19 = a9;
   v20 = v19;
   if (a1)
   {
-    v45 = 1065353216;
+    v48 = 1065353216;
     v21 = sub_127A4(a1, a2, a3, *(a1 + 200), *(a1 + 208), 5uLL, *(a1 + 288), *(a1 + 292), v19);
-    if (v21 || (v21 = sub_127A4(a1, *(a1 + 200), *(a1 + 208), v16, v17, 5uLL, *(a1 + 292), *(a1 + 288), v20), v21))
+    if (v21)
     {
-      v38 = v21;
+      v39 = v21;
       fig_log_get_emitter();
       sub_3904();
-      FigDebugAssert3();
+      LODWORD(v41) = v39;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41);
     }
 
     else
     {
-      v22 = v17;
-      v23 = v16;
-      v24 = v18;
-      if ([v41 count] == &dword_0 + 3)
+      v22 = sub_127A4(a1, *(a1 + 200), *(a1 + 208), v16, v17, 5uLL, *(a1 + 292), *(a1 + 288), v20);
+      if (v22)
       {
-        v25 = *(a1 + 80);
-        [v20 setComputePipelineState:v25];
-        [v20 setTexture:v23 atIndex:0];
-        [v20 setTexture:v22 atIndex:1];
-        v26 = [v41 objectAtIndexedSubscript:0];
-        v27 = 2;
-        [v20 setTexture:v26 atIndex:2];
-
-        v28 = [v41 objectAtIndexedSubscript:1];
-        [v20 setTexture:v28 atIndex:3];
-
-        v29 = 6;
-        v30 = 5;
-        v31 = v41;
-        v32 = 4;
+        v39 = v22;
+        fig_log_get_emitter();
+        sub_3904();
+        LODWORD(v42) = v39;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v42);
       }
 
       else
       {
-        v25 = *(a1 + 72);
-        [v20 setComputePipelineState:v25];
-        [v20 setTexture:v23 atIndex:0];
-        [v20 setTexture:v22 atIndex:1];
-        v27 = 0;
-        v29 = 4;
-        v30 = 3;
-        v31 = v41;
-        v32 = 2;
+        v23 = v17;
+        v24 = v16;
+        v25 = v18;
+        if ([v44 count] == &dword_0 + 3)
+        {
+          v26 = *(a1 + 80);
+          [v20 setComputePipelineState:v26];
+          [v20 setTexture:v24 atIndex:0];
+          [v20 setTexture:v23 atIndex:1];
+          v27 = [v44 objectAtIndexedSubscript:0];
+          v28 = 2;
+          [v20 setTexture:v27 atIndex:2];
+
+          v29 = [v44 objectAtIndexedSubscript:1];
+          [v20 setTexture:v29 atIndex:3];
+
+          v30 = 6;
+          v31 = 5;
+          v32 = v44;
+          v33 = 4;
+        }
+
+        else
+        {
+          v26 = *(a1 + 72);
+          [v20 setComputePipelineState:v26];
+          [v20 setTexture:v24 atIndex:0];
+          [v20 setTexture:v23 atIndex:1];
+          v28 = 0;
+          v30 = 4;
+          v31 = 3;
+          v32 = v44;
+          v33 = 2;
+        }
+
+        v34 = [v32 objectAtIndexedSubscript:v28];
+        [v20 setTexture:v34 atIndex:v33];
+
+        v18 = v25;
+        [v20 setTexture:v25 atIndex:v31];
+        [v20 setTexture:v43 atIndex:v30];
+        [v20 setBytes:&v48 length:4 atIndex:0];
+        v35 = [v26 threadExecutionWidth];
+        v36 = [v26 maxTotalThreadsPerThreadgroup];
+        v37 = *(a1 + 288);
+        *&v38 = v37;
+        *(&v38 + 1) = HIDWORD(v37);
+        v46 = v38;
+        v47 = 1;
+        v45[0] = v35;
+        v45[1] = v36 / v35;
+        v45[2] = 1;
+        [v20 dispatchThreads:&v46 threadsPerThreadgroup:v45];
+
+        v39 = 0;
+        v16 = v24;
+        v17 = v23;
       }
-
-      v33 = [v31 objectAtIndexedSubscript:v27];
-      [v20 setTexture:v33 atIndex:v32];
-
-      v18 = v24;
-      [v20 setTexture:v24 atIndex:v30];
-      [v20 setTexture:v40 atIndex:v29];
-      [v20 setBytes:&v45 length:4 atIndex:0];
-      v34 = [v25 threadExecutionWidth];
-      v35 = [v25 maxTotalThreadsPerThreadgroup];
-      v36 = *(a1 + 288);
-      *&v37 = v36;
-      *(&v37 + 1) = HIDWORD(v36);
-      v43 = v37;
-      v44 = 1;
-      v42[0] = v34;
-      v42[1] = v35 / v34;
-      v42[2] = 1;
-      [v20 dispatchThreads:&v43 threadsPerThreadgroup:v42];
-
-      v38 = 0;
-      v16 = v23;
-      v17 = v22;
     }
   }
 
   else
   {
-    v38 = 0;
+    v39 = 0;
   }
 
-  return v38;
+  return v39;
 }
 
 uint64_t sub_11C80(uint32x2_t *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
@@ -4613,57 +4148,18 @@ uint64_t sub_11C80(uint32x2_t *a1, void *a2, void *a3, void *a4, void *a5, void 
   if (a1)
   {
     v20 = sub_3928();
-    v25 = sub_127A4(v20, a2, a3, v21, v22, 0x1DuLL, v23, v24, v80);
-    if (v25)
+    v25 = sub_127A4(v20, a2, a3, v21, v22, 0x1DuLL, v23, v24, v66);
+    if (v25 || (v26 = sub_396C(), v25 = sub_127A4(v26, v27, v28, v29, v30, 0x1DuLL, v31, v32, v67), v25) || (v33 = sub_3928(), v25 = sub_127A4(v33, v15, v16, v34, v35, 5uLL, v36, v37, v68), v25) || (v38 = sub_396C(), v25 = sub_127A4(v38, v39, v40, v41, v42, 5uLL, v43, v44, v69), v25) || (v45 = sub_3928(), v25 = sub_127A4(v45, v46, v47, v48, v49, 0x1DuLL, v50, v51, v70), v25) || (v52 = sub_396C(), v25 = sub_127A4(v52, v53, v54, v55, v56, 0x1DuLL, v57, v58, v71), v25))
     {
-      goto LABEL_11;
-    }
-
-    v26 = a1[25];
-    v27 = a1[26];
-    v28 = a1[27];
-    v29 = a1[29];
-    v30 = sub_396C();
-    v25 = sub_127A4(v30, v31, v32, v33, v34, 0x1DuLL, v35, v36, v81);
-    if (v25)
-    {
-      goto LABEL_11;
-    }
-
-    v37 = sub_3928();
-    v25 = sub_127A4(v37, v15, v16, v38, v39, 5uLL, v40, v41, v82);
-    if (v25)
-    {
-      goto LABEL_11;
-    }
-
-    v42 = a1[25];
-    v43 = a1[26];
-    v44 = a1[23];
-    v45 = a1[24];
-    v46 = sub_396C();
-    v25 = sub_127A4(v46, v47, v48, v49, v50, 5uLL, v51, v52, v83);
-    if (v25)
-    {
-      goto LABEL_11;
-    }
-
-    v53 = a1[23];
-    v54 = a1[24];
-    v55 = sub_3928();
-    v25 = sub_127A4(v55, v56, v57, v58, v59, 0x1DuLL, v60, v61, v84);
-    if (v25 || (v62 = a1[25], v63 = a1[26], v64 = a1[23], v65 = a1[24], v66 = sub_396C(), v25 = sub_127A4(v66, v67, v68, v69, v70, 0x1DuLL, v71, v72, v85), v25))
-    {
-LABEL_11:
-      v78 = v25;
+      v64 = v25;
       fig_log_get_emitter();
       sub_38EC();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       goto LABEL_10;
     }
 
-    v73 = *&a1[11];
-    [v19 setComputePipelineState:v73];
+    v59 = *&a1[11];
+    [v19 setComputePipelineState:v59];
     [v19 setTexture:*&a1[27] atIndex:0];
     [v19 setTexture:*&a1[23] atIndex:1];
     [v19 setTexture:v15 atIndex:2];
@@ -4672,23 +4168,23 @@ LABEL_11:
     [v19 setTexture:*&a1[24] atIndex:5];
     [v19 setTexture:v16 atIndex:6];
     [v19 setTexture:v18 atIndex:7];
-    v74 = [v73 threadExecutionWidth];
-    v75 = [v73 maxTotalThreadsPerThreadgroup];
-    v76 = vshr_n_u32(a1[36], 1uLL);
-    *&v77 = v76.u32[0];
-    *(&v77 + 1) = v76.u32[1];
-    v87 = v77;
-    v88 = 1;
-    v86[0] = v74;
-    v86[1] = v75 / v74;
-    v86[2] = 1;
-    [v19 dispatchThreads:&v87 threadsPerThreadgroup:v86];
+    v60 = [v59 threadExecutionWidth];
+    v61 = [v59 maxTotalThreadsPerThreadgroup];
+    v62 = vshr_n_u32(a1[36], 1uLL);
+    *&v63 = v62.u32[0];
+    *(&v63 + 1) = v62.u32[1];
+    v73 = v63;
+    v74 = 1;
+    v72[0] = v60;
+    v72[1] = v61 / v60;
+    v72[2] = 1;
+    [v19 dispatchThreads:&v73 threadsPerThreadgroup:v72];
   }
 
-  v78 = 0;
+  v64 = 0;
 LABEL_10:
 
-  return v78;
+  return v64;
 }
 
 uint64_t sub_12084(uint64_t a1, void *a2, void *a3, void *a4)
@@ -4707,100 +4203,57 @@ uint64_t sub_12084(uint64_t a1, void *a2, void *a3, void *a4)
     [v10 threadExecutionWidth];
     sub_3A38();
     *&v13 = sub_3940();
-    sub_3950(v14, v15, v13);
-    v16 = *(a1 + 96);
+    sub_3950(v14, v15, v16, v17, v13);
+    v18 = *(a1 + 96);
 
-    [v9 setComputePipelineState:v16];
-    v17 = [sub_399C() setTexture:? atIndex:?];
-    sub_200C(v17, v18, *(a1 + 224));
+    [v9 setComputePipelineState:v18];
+    v19 = [sub_399C() setTexture:? atIndex:?];
+    sub_200C(v19, v20, *(a1 + 224));
     sub_39A8();
-    [v16 threadExecutionWidth];
-    [v16 maxTotalThreadsPerThreadgroup];
-    *&v19 = sub_3940();
-    sub_3950(v20, v21, v19);
-    v22 = *(a1 + 112);
+    [v18 threadExecutionWidth];
+    [v18 maxTotalThreadsPerThreadgroup];
+    *&v21 = sub_3940();
+    sub_3950(v22, v23, v24, v25, v21);
+    v26 = *(a1 + 112);
 
-    v23 = sub_3A20();
-    v25 = sub_20A0(v23, v24, *(a1 + 216));
-    sub_200C(v25, v26, *(a1 + 240));
-    [v22 threadExecutionWidth];
+    v27 = sub_3A20();
+    v29 = sub_20A0(v27, v28, *(a1 + 216));
+    sub_200C(v29, v30, *(a1 + 240));
+    [v26 threadExecutionWidth];
     sub_3A38();
-    *&v27 = sub_3940();
-    v30 = sub_3950(v28, v29, v27);
-    v32 = sub_39C8(v30, *(a1 + 240), *(a1 + 200), v31, *(a1 + 312), *(a1 + 316));
-    if (v32)
+    *&v31 = sub_3940();
+    v36 = sub_3950(v32, v33, v34, v35, v31);
+    v38 = sub_39C8(v36, *(a1 + 240), *(a1 + 200), v37, *(a1 + 312), *(a1 + 316));
+    if (v38 || (v38 = sub_39C8(v38, *(a1 + 200), *(a1 + 240), v39, *(a1 + 316), *(a1 + 312)), v38) || (v40 = *(a1 + 112), v26, v41 = [v9 setComputePipelineState:v40], v43 = sub_20A0(v41, v42, *(a1 + 224)), sub_200C(v43, v44, *(a1 + 248)), objc_msgSend(v40, "threadExecutionWidth"), objc_msgSend(v40, "maxTotalThreadsPerThreadgroup"), *&v45 = sub_3940(), sub_3950(v46, v47, v48, v49, v45), v50 = *(a1 + 120), v40, v51 = objc_msgSend(v9, "setComputePipelineState:", v50), v53 = sub_20A0(v51, v52, *(a1 + 240)), sub_200C(v53, v54, *(a1 + 248)), objc_msgSend(v9, "setTexture:atIndex:", *(a1 + 256), 2), objc_msgSend(v50, "threadExecutionWidth"), objc_msgSend(v50, "maxTotalThreadsPerThreadgroup"), *&v55 = sub_3940(), sub_3950(v56, v57, v58, v59, v55), *(a1 + 304) = *(a1 + 288), v26 = *(a1 + 104), v50, v60 = sub_3A20(), v62 = sub_20A0(v60, v61, *(a1 + 256)), sub_200C(v62, v63, *(a1 + 216)), objc_msgSend(v26, "threadExecutionWidth"), v64 = sub_3A38(), v68 = sub_3950(v64, v65, v66, v67), v38 = sub_39E8(v68, *(a1 + 216), *(a1 + 200), v69, *(a1 + 288), *(a1 + 292)), v38) || (v38 = sub_39E8(v38, *(a1 + 200), *(a1 + 216), v70, *(a1 + 292), *(a1 + 288)), v38))
     {
-      goto LABEL_9;
-    }
-
-    v32 = sub_39C8(v32, *(a1 + 200), *(a1 + 240), v33, *(a1 + 316), *(a1 + 312));
-    if (v32)
-    {
-      goto LABEL_9;
-    }
-
-    v34 = *(a1 + 112);
-
-    v35 = [v9 setComputePipelineState:v34];
-    v37 = sub_20A0(v35, v36, *(a1 + 224));
-    sub_200C(v37, v38, *(a1 + 248));
-    [v34 threadExecutionWidth];
-    [v34 maxTotalThreadsPerThreadgroup];
-    *&v39 = sub_3940();
-    sub_3950(v40, v41, v39);
-    v42 = *(a1 + 120);
-
-    v43 = [v9 setComputePipelineState:v42];
-    v45 = sub_20A0(v43, v44, *(a1 + 240));
-    sub_200C(v45, v46, *(a1 + 248));
-    [v9 setTexture:*(a1 + 256) atIndex:2];
-    [v42 threadExecutionWidth];
-    [v42 maxTotalThreadsPerThreadgroup];
-    *&v47 = sub_3940();
-    sub_3950(v48, v49, v47);
-    *(a1 + 304) = *(a1 + 288);
-    v22 = *(a1 + 104);
-
-    v50 = sub_3A20();
-    v52 = sub_20A0(v50, v51, *(a1 + 256));
-    sub_200C(v52, v53, *(a1 + 216));
-    [v22 threadExecutionWidth];
-    v54 = sub_3A38();
-    v55 = *(a1 + 288);
-    v57 = sub_3950(v54, v56);
-    v32 = sub_39E8(v57, *(a1 + 216), *(a1 + 200), v58, *(a1 + 288), *(a1 + 292));
-    if (v32 || (v32 = sub_39E8(v32, *(a1 + 200), *(a1 + 216), v59, *(a1 + 292), *(a1 + 288)), v32))
-    {
-LABEL_9:
-      v64 = v32;
+      v76 = v38;
       fig_log_get_emitter();
       sub_3918();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
-      v60 = *(a1 + 128);
+      v71 = *(a1 + 128);
 
-      [v9 setComputePipelineState:v60];
+      [v9 setComputePipelineState:v71];
       [v9 setImageblockWidth:32 height:32];
       sub_3980();
       [sub_399C() setTexture:? atIndex:?];
       [v9 setTexture:*(a1 + 216) atIndex:2];
-      v61 = [sub_399C() setTexture:? atIndex:?];
-      v62 = *(a1 + 288);
-      sub_3950(v61, v63);
-      v64 = 0;
-      v22 = v60;
+      v72 = [sub_399C() setTexture:? atIndex:?];
+      sub_3950(v72, v73, v74, v75);
+      v76 = 0;
+      v26 = v71;
     }
   }
 
   else
   {
-    v64 = 0;
+    v76 = 0;
   }
 
-  return v64;
+  return v76;
 }
 
 void sub_12570(void *a1)

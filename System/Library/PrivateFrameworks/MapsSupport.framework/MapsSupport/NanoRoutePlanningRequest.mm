@@ -3,6 +3,7 @@
 + (id)requestForDirectionsWithCompanionRouteDetails:(id)details companionRouteContext:(id)context;
 + (id)requestForPlaceholderDirections;
 + (id)requestWithTraceAtPath:(id)path;
++ (id)requestWithWaypoints:(id)waypoints viaTransportType:(int)type traits:(id)traits companionRouteContext:(id)context;
 - (NSArray)waypoints;
 - (NanoDirectionWaypoint)destinationWaypoint;
 - (NanoDirectionWaypoint)originWaypoint;
@@ -165,6 +166,29 @@ LABEL_6:
   }
 
   return v2;
+}
+
++ (id)requestWithWaypoints:(id)waypoints viaTransportType:(int)type traits:(id)traits companionRouteContext:(id)context
+{
+  v7 = *&type;
+  contextCopy = context;
+  traitsCopy = traits;
+  waypointsCopy = waypoints;
+  v12 = objc_alloc_init(NanoRoutePlanningMutableRequest);
+  v13 = [waypointsCopy copy];
+
+  [(NanoRoutePlanningRequest *)v12 setWaypoints:v13];
+  [(NanoRoutePlanningRequest *)v12 setTransportType:v7];
+  [(NanoRoutePlanningRequest *)v12 setTraits:traitsCopy];
+
+  if (contextCopy)
+  {
+    [(NanoRoutePlanningRequest *)v12 setCompanionRouteContext:contextCopy];
+  }
+
+  v14 = [(NanoRoutePlanningMutableRequest *)v12 copy];
+
+  return v14;
 }
 
 + (id)requestForDirectionsToCustomRoute:(id)route currentLocation:(id)location companionRouteContext:(id)context

@@ -52,18 +52,17 @@
 
 - (id)playbackQueueCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __49__MRNowPlayingOriginClient_playbackQueueCallback__block_invoke(uint64_t a1)
@@ -77,12 +76,12 @@ void __49__MRNowPlayingOriginClient_playbackQueueCallback__block_invoke(uint64_t
 
 - (MRNowPlayingOriginClient)initWithOrigin:(id)origin routingContextID:(id)d
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   originCopy = origin;
   dCopy = d;
-  v31.receiver = self;
-  v31.super_class = MRNowPlayingOriginClient;
-  v9 = [(MRNowPlayingOriginClient *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = MRNowPlayingOriginClient;
+  v9 = [(MRNowPlayingOriginClient *)&v30 init];
   if (!v9)
   {
 LABEL_14:
@@ -110,9 +109,9 @@ LABEL_14:
     {
       v23 = objc_opt_class();
       *buf = 138412546;
-      v33 = v23;
-      v34 = 2112;
-      v35 = originCopy;
+      v32 = v23;
+      v33 = 2112;
+      v34 = originCopy;
       _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClient] Creating %@ for origin %@", buf, 0x16u);
     }
 
@@ -127,11 +126,11 @@ LABEL_14:
         v27 = objc_opt_class();
         callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
         *buf = 138412802;
-        v33 = v27;
-        v34 = 2112;
-        v35 = originCopy;
-        v36 = 2112;
-        v37 = callStackSymbols;
+        v32 = v27;
+        v33 = 2112;
+        v34 = originCopy;
+        v35 = 2112;
+        v36 = callStackSymbols;
         _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClient] Creating %@ for origin %@ at %@", buf, 0x20u);
       }
     }
@@ -144,22 +143,21 @@ LABEL_14:
   {
     v13 = objc_opt_class();
     *buf = 138412546;
-    v33 = v13;
-    v34 = 2112;
-    v35 = originCopy;
+    v32 = v13;
+    v33 = 2112;
+    v34 = originCopy;
     _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClient] Nil routingContext. Not creating %@ for origin %@", buf, 0x16u);
   }
 
   v14 = 0;
 LABEL_15:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -167,8 +165,8 @@ LABEL_15:
     origin = self->_origin;
     *buf = 138412546;
     selfCopy = v4;
-    v15 = 2112;
-    v16 = origin;
+    v14 = 2112;
+    v15 = origin;
     _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClient] Destroying %@ for origin %@", buf, 0x16u);
   }
 
@@ -184,18 +182,17 @@ LABEL_15:
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
       *buf = 138412802;
       selfCopy = self;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = callStackSymbols;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = callStackSymbols;
       _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClient] Destroying %@ for origin %@ at %@", buf, 0x20u);
     }
   }
 
-  v12.receiver = self;
-  v12.super_class = MRNowPlayingOriginClient;
-  [(MRNowPlayingOriginClient *)&v12 dealloc];
-  v11 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = MRNowPlayingOriginClient;
+  [(MRNowPlayingOriginClient *)&v11 dealloc];
 }
 
 float __38__MRNowPlayingOriginClient_setVolume___block_invoke(uint64_t a1)
@@ -207,15 +204,14 @@ float __38__MRNowPlayingOriginClient_setVolume___block_invoke(uint64_t a1)
 
 - (float)volume
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[6];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[6];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 float __34__MRNowPlayingOriginClient_volume__block_invoke(uint64_t a1)
@@ -227,31 +223,29 @@ float __34__MRNowPlayingOriginClient_volume__block_invoke(uint64_t a1)
 
 - (unsigned)volumeCapabilities
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 6);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (NSArray)nowPlayingClients
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__41;
-  v9 = __Block_byref_object_dispose__41;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__41;
+  v8 = __Block_byref_object_dispose__41;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __45__MRNowPlayingOriginClient_nowPlayingClients__block_invoke(uint64_t a1)
@@ -265,9 +259,7 @@ void __45__MRNowPlayingOriginClient_nowPlayingClients__block_invoke(uint64_t a1)
 - (void)setPlaybackQueueCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -281,18 +273,17 @@ void __53__MRNowPlayingOriginClient_setPlaybackQueueCallback___block_invoke(uint
 
 - (id)commandCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __43__MRNowPlayingOriginClient_commandCallback__block_invoke(uint64_t a1)
@@ -307,9 +298,7 @@ void __43__MRNowPlayingOriginClient_commandCallback__block_invoke(uint64_t a1)
 - (void)setCommandCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -323,18 +312,17 @@ void __47__MRNowPlayingOriginClient_setCommandCallback___block_invoke(uint64_t a
 
 - (id)playbackSessionCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __51__MRNowPlayingOriginClient_playbackSessionCallback__block_invoke(uint64_t a1)
@@ -349,9 +337,7 @@ void __51__MRNowPlayingOriginClient_playbackSessionCallback__block_invoke(uint64
 - (void)setPlaybackSessionCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -365,18 +351,17 @@ void __55__MRNowPlayingOriginClient_setPlaybackSessionCallback___block_invoke(ui
 
 - (id)playbackSessionMigrateBeginCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __63__MRNowPlayingOriginClient_playbackSessionMigrateBeginCallback__block_invoke(uint64_t a1)
@@ -391,9 +376,7 @@ void __63__MRNowPlayingOriginClient_playbackSessionMigrateBeginCallback__block_i
 - (void)setPlaybackSessionMigrateBeginCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -407,18 +390,17 @@ void __67__MRNowPlayingOriginClient_setPlaybackSessionMigrateBeginCallback___blo
 
 - (id)playbackSessionMigrateEndCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __61__MRNowPlayingOriginClient_playbackSessionMigrateEndCallback__block_invoke(uint64_t a1)
@@ -433,9 +415,7 @@ void __61__MRNowPlayingOriginClient_playbackSessionMigrateEndCallback__block_inv
 - (void)setPlaybackSessionMigrateEndCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -449,18 +429,17 @@ void __65__MRNowPlayingOriginClient_setPlaybackSessionMigrateEndCallback___block
 
 - (id)playbackSessionMigrateFinalizeCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __66__MRNowPlayingOriginClient_playbackSessionMigrateFinalizeCallback__block_invoke(uint64_t a1)
@@ -475,9 +454,7 @@ void __66__MRNowPlayingOriginClient_playbackSessionMigrateFinalizeCallback__bloc
 - (void)setPlaybackSessionMigrateFinalizeCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -491,18 +468,17 @@ void __70__MRNowPlayingOriginClient_setPlaybackSessionMigrateFinalizeCallback___
 
 - (id)playbackSessionMigratePostCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __62__MRNowPlayingOriginClient_playbackSessionMigratePostCallback__block_invoke(uint64_t a1)
@@ -517,9 +493,7 @@ void __62__MRNowPlayingOriginClient_playbackSessionMigratePostCallback__block_in
 - (void)setPlaybackSessionMigratePostCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -533,18 +507,17 @@ void __66__MRNowPlayingOriginClient_setPlaybackSessionMigratePostCallback___bloc
 
 - (id)playbackSessionMigrateRequestCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __65__MRNowPlayingOriginClient_playbackSessionMigrateRequestCallback__block_invoke(uint64_t a1)
@@ -559,9 +532,7 @@ void __65__MRNowPlayingOriginClient_playbackSessionMigrateRequestCallback__block
 - (void)setPlaybackSessionMigrateRequestCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -575,18 +546,17 @@ void __69__MRNowPlayingOriginClient_setPlaybackSessionMigrateRequestCallback___b
 
 - (id)beginLyricsEventCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __52__MRNowPlayingOriginClient_beginLyricsEventCallback__block_invoke(uint64_t a1)
@@ -601,9 +571,7 @@ void __52__MRNowPlayingOriginClient_beginLyricsEventCallback__block_invoke(uint6
 - (void)setBeginLyricsEventCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -617,18 +585,17 @@ void __56__MRNowPlayingOriginClient_setBeginLyricsEventCallback___block_invoke(u
 
 - (id)endLyricsEventCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __50__MRNowPlayingOriginClient_endLyricsEventCallback__block_invoke(uint64_t a1)
@@ -643,9 +610,7 @@ void __50__MRNowPlayingOriginClient_endLyricsEventCallback__block_invoke(uint64_
 - (void)setEndLyricsEventCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -659,18 +624,17 @@ void __54__MRNowPlayingOriginClient_setEndLyricsEventCallback___block_invoke(uin
 
 - (id)clientMessageCallback
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__52;
-  v9 = __Block_byref_object_dispose__53;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__52;
+  v8 = __Block_byref_object_dispose__53;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = MEMORY[0x1A58E3570](v6[5]);
-  _Block_object_dispose(&v5, 8);
+  v2 = MEMORY[0x1A58E3570](v5[5]);
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __49__MRNowPlayingOriginClient_clientMessageCallback__block_invoke(uint64_t a1)
@@ -685,9 +649,7 @@ void __49__MRNowPlayingOriginClient_clientMessageCallback__block_invoke(uint64_t
 - (void)setClientMessageCallback:(id)callback
 {
   callbackCopy = callback;
-  serialQueue = self->_serialQueue;
-  v7 = callbackCopy;
-  v6 = callbackCopy;
+  v3 = callbackCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -701,18 +663,17 @@ void __53__MRNowPlayingOriginClient_setClientMessageCallback___block_invoke(uint
 
 - (NSArray)applicationPickedRoutes
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__41;
-  v9 = __Block_byref_object_dispose__41;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__41;
+  v8 = __Block_byref_object_dispose__41;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __51__MRNowPlayingOriginClient_applicationPickedRoutes__block_invoke(uint64_t a1)
@@ -726,9 +687,7 @@ void __51__MRNowPlayingOriginClient_applicationPickedRoutes__block_invoke(uint64
 - (void)setApplicationPickedRoutes:(id)routes
 {
   routesCopy = routes;
-  serialQueue = self->_serialQueue;
-  v7 = routesCopy;
-  v6 = routesCopy;
+  v3 = routesCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -742,31 +701,29 @@ void __55__MRNowPlayingOriginClient_setApplicationPickedRoutes___block_invoke(ui
 
 - (BOOL)overrideApp
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (NSString)overrideAppBundleID
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__41;
-  v9 = __Block_byref_object_dispose__41;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__41;
+  v8 = __Block_byref_object_dispose__41;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __47__MRNowPlayingOriginClient_overrideAppBundleID__block_invoke(uint64_t a1)
@@ -780,9 +737,7 @@ void __47__MRNowPlayingOriginClient_overrideAppBundleID__block_invoke(uint64_t a
 - (void)setOverrideAppBundleID:(id)d
 {
   dCopy = d;
-  serialQueue = self->_serialQueue;
-  v7 = dCopy;
-  v6 = dCopy;
+  v3 = dCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -796,28 +751,26 @@ void __51__MRNowPlayingOriginClient_setOverrideAppBundleID___block_invoke(uint64
 
 - (unsigned)routeDiscoveryMode
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 6);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (unsigned)inputMode
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 6);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)setActiveNowPlayingClient:(id)client
@@ -944,27 +897,27 @@ void __36__MRNowPlayingOriginClient_activity__block_invoke(uint64_t a1)
 
 void __66__MRNowPlayingOriginClient_existingNowPlayingClientForPlayerPath___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(*(a1 + 32) + 176);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 client];
         v9 = [*(a1 + 40) client];
         v10 = [v8 isEqual:v9];
@@ -977,7 +930,7 @@ void __66__MRNowPlayingOriginClient_existingNowPlayingClientForPlayerPath___bloc
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -988,8 +941,6 @@ void __66__MRNowPlayingOriginClient_existingNowPlayingClientForPlayerPath___bloc
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nowPlayingClientForPlayerPath:(id)path
@@ -1020,27 +971,27 @@ LABEL_11:
 
 void __58__MRNowPlayingOriginClient_nowPlayingClientForPlayerPath___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(*(a1 + 32) + 176);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [v7 client];
         v9 = [*(a1 + 40) client];
         v10 = [v8 isEqual:v9];
@@ -1053,7 +1004,7 @@ void __58__MRNowPlayingOriginClient_nowPlayingClientForPlayerPath___block_invoke
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v4)
       {
         continue;
@@ -1074,8 +1025,6 @@ LABEL_11:
 
     [*(*(a1 + 32) + 176) addObject:*(*(*(a1 + 48) + 8) + 40)];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeClient:(id)client
@@ -1094,27 +1043,27 @@ LABEL_11:
 
 void __41__MRNowPlayingOriginClient_removeClient___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(*(a1 + 32) + 176);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 client];
         v9 = [*(a1 + 40) client];
         v10 = [v8 isEqual:v9];
@@ -1127,7 +1076,7 @@ void __41__MRNowPlayingOriginClient_removeClient___block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -1138,8 +1087,6 @@ void __41__MRNowPlayingOriginClient_removeClient___block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllClients
@@ -1186,7 +1133,7 @@ void __56__MRNowPlayingOriginClient_restoreNowPlayingClientState__block_invoke(u
 
 - (void)_prepareToRestoreClientStateWithCompletion:(id)completion
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = self->_origin;
   uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -1209,48 +1156,46 @@ void __56__MRNowPlayingOriginClient_restoreNowPlayingClientState__block_invoke(u
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v42 = v14;
+    v41 = v14;
     _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke;
-  v35[3] = &unk_1E76A2780;
-  v40 = completionCopy;
-  v36 = v12;
-  v37 = @"restoreClientState";
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke;
+  v34[3] = &unk_1E76A2780;
+  v39 = completionCopy;
+  v35 = v12;
+  v36 = @"restoreClientState";
   v16 = uUIDString;
-  v38 = v16;
-  v39 = v8;
-  v28 = v8;
+  v37 = v16;
+  v38 = v8;
+  v27 = v8;
   v17 = v12;
-  v29 = completionCopy;
-  v18 = MEMORY[0x1A58E3570](v35);
+  v28 = completionCopy;
+  v18 = MEMORY[0x1A58E3570](v34);
   v19 = [[MRRequestDetails alloc] initWithInitiator:@"StateRestoration" requestID:v16 reason:@"restoreClientState"];
   v20 = objc_alloc_init(MRAVLightweightReconnaissanceSession);
   routingContextID = self->_routingContextID;
   serialQueue = self->_serialQueue;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke_79;
-  v30[3] = &unk_1E76A36F0;
-  v31 = v9;
-  v32 = v16;
-  v33 = v5;
-  v34 = v18;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke_79;
+  v29[3] = &unk_1E76A36F0;
+  v30 = v9;
+  v31 = v16;
+  v32 = v5;
+  v33 = v18;
   v23 = v5;
   v24 = v16;
   v25 = v9;
   v26 = v18;
-  [(MRAVLightweightReconnaissanceSession *)v20 searchEndpointsForRoutingContextUID:routingContextID timeout:v19 details:serialQueue queue:v30 completion:20.0];
-
-  v27 = *MEMORY[0x1E69E9840];
+  [(MRAVLightweightReconnaissanceSession *)v20 searchEndpointsForRoutingContextUID:routingContextID timeout:v19 details:serialQueue queue:v29 completion:20.0];
 }
 
 void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke(void *a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   (*(a1[8] + 16))();
   v4 = a1[4];
@@ -1271,14 +1216,14 @@ void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion__
       v16 = a1[4];
       v17 = [MEMORY[0x1E695DF00] date];
       [v17 timeIntervalSinceDate:a1[7]];
-      v26 = 138544130;
-      v27 = v15;
-      v28 = 2114;
-      v29 = v14;
-      v30 = 2114;
-      v31 = v16;
-      v32 = 2048;
-      v33 = v18;
+      v25 = 138544130;
+      v26 = v15;
+      v27 = 2114;
+      v28 = v14;
+      v29 = 2114;
+      v30 = v16;
+      v31 = 2048;
+      v32 = v18;
       v19 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v20 = v6;
       v21 = 42;
@@ -1295,18 +1240,18 @@ void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion__
       v23 = a1[6];
       v17 = [MEMORY[0x1E695DF00] date];
       [v17 timeIntervalSinceDate:a1[7]];
-      v26 = 138543874;
-      v27 = v22;
-      v28 = 2114;
-      v29 = v23;
-      v30 = 2048;
-      v31 = v24;
+      v25 = 138543874;
+      v26 = v22;
+      v27 = 2114;
+      v28 = v23;
+      v29 = 2048;
+      v30 = v24;
       v19 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v20 = v6;
       v21 = 32;
     }
 
-    _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, v19, &v26, v21);
+    _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, v19, &v25, v21);
 
     goto LABEL_15;
   }
@@ -1321,17 +1266,17 @@ void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion__
       v10 = a1[4];
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:a1[7]];
-      v26 = 138544386;
-      v27 = v9;
-      v28 = 2114;
-      v29 = v8;
-      v30 = 2114;
-      v31 = v3;
-      v32 = 2114;
-      v33 = v10;
-      v34 = 2048;
-      v35 = v12;
-      _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v26, 0x34u);
+      v25 = 138544386;
+      v26 = v9;
+      v27 = 2114;
+      v28 = v8;
+      v29 = 2114;
+      v30 = v3;
+      v31 = 2114;
+      v32 = v10;
+      v33 = 2048;
+      v34 = v12;
+      _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v25, 0x34u);
     }
   }
 
@@ -1347,8 +1292,6 @@ void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion__
   }
 
 LABEL_15:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke_79(uint64_t a1, void *a2)
@@ -1379,19 +1322,18 @@ void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion__
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) origin];
-    v7 = v5;
-    if (v5)
+    v4 = [*(a1 + 32) origin];
+    v6 = v4;
+    if (v4)
     {
-      if (([v5 isEqual:*(a1 + 40)] & 1) == 0)
+      if (([v4 isEqual:*(a1 + 40)] & 1) == 0)
       {
         __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke_2_cold_1();
       }
@@ -1401,7 +1343,7 @@ void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion__
 
     else
     {
-      v6 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:117];
+      v5 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:117];
       (*(*(a1 + 48) + 16))();
     }
   }
@@ -1420,7 +1362,7 @@ void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion__
 
 void __57__MRNowPlayingOriginClient__restoreNowPlayingClientState__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = [[MRPlayerPath alloc] initWithOrigin:*(*(a1 + 32) + 200) client:0 player:0];
   v3 = *(a1 + 32);
   if (*(v3 + 16) == 1)
@@ -1458,31 +1400,31 @@ void __57__MRNowPlayingOriginClient__restoreNowPlayingClientState__block_invoke(
     v3 = *(a1 + 32);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = *(v3 + 176);
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v19 + 1) + 8 * v13++) restoreNowPlayingClientState];
+        [*(*(&v18 + 1) + 8 * v13++) restoreNowPlayingClientState];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -1503,24 +1445,21 @@ void __57__MRNowPlayingOriginClient__restoreNowPlayingClientState__block_invoke(
     v17 = MRGetSharedService();
     MRMediaRemoteServiceBeginActivity(v17, *(*(a1 + 32) + 64), 0, 0);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__41;
-  v9 = __Block_byref_object_dispose__41;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__41;
+  v8 = __Block_byref_object_dispose__41;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __39__MRNowPlayingOriginClient_description__block_invoke(uint64_t a1)
@@ -1536,18 +1475,17 @@ void __39__MRNowPlayingOriginClient_description__block_invoke(uint64_t a1)
 
 - (id)debugDescription
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__41;
-  v9 = __Block_byref_object_dispose__41;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__41;
+  v8 = __Block_byref_object_dispose__41;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __44__MRNowPlayingOriginClient_debugDescription__block_invoke(uint64_t a1)
@@ -1586,14 +1524,13 @@ void __44__MRNowPlayingOriginClient_debugDescription__block_invoke(uint64_t a1)
 
 void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 48);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_fault_impl(&dword_1A2860000, log, OS_LOG_TYPE_FAULT, "Error trying to restoreClientState<%@> %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_fault_impl(&dword_1A2860000, log, OS_LOG_TYPE_FAULT, "Error trying to restoreClientState<%@> %@", &v4, 0x16u);
 }
 
 void __71__MRNowPlayingOriginClient__prepareToRestoreClientStateWithCompletion___block_invoke_2_cold_1()

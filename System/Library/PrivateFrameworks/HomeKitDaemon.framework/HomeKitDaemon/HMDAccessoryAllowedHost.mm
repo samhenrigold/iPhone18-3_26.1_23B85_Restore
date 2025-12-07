@@ -20,21 +20,19 @@
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMDAccessoryAllowedHost *)self name];
   v5 = [v3 initWithName:@"Name" value:name];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   addresses = [(HMDAccessoryAllowedHost *)self addresses];
   v8 = [v6 initWithName:@"Addresses" value:addresses];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[HMDAccessoryAllowedHost purpose](self, "purpose")}];
   v11 = [v9 initWithName:@"Purpose" value:v10];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }
@@ -96,7 +94,7 @@
 
 - (void)_encodeForSPIEntitledXPCTransportWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   wanRule = [(HMDAccessoryAllowedHost *)self wanRule];
   name = [wanRule name];
@@ -257,11 +255,11 @@ LABEL_42:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     v15 = HMFGetLogIdentifier();
-    v23 = 138543618;
-    v24 = v15;
-    v25 = 2048;
-    v26 = v9;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@HMDNetworkRouterFirewallRuleWANPurpose value 0x%lx contains flags with no explicit mapping to HMAccessoryAllowedHostPurpose", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v15;
+    v24 = 2048;
+    v25 = v9;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@HMDNetworkRouterFirewallRuleWANPurpose value 0x%lx contains flags with no explicit mapping to HMAccessoryAllowedHostPurpose", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
@@ -278,7 +276,6 @@ LABEL_46:
   v21 = [jsonWANRule isEqualToString:{@"{f:0, n:Any Internet Destination, r:{i:*, it:[{p:1, t:0}]}, t:5, u:1}"}];
 
   [coderCopy encodeBool:v21 forKey:*MEMORY[0x277CCE7E0]];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -398,39 +395,39 @@ LABEL_46:
 
 + (id)allowedHostsFromFirewallRuleConfiguration:(id)configuration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v4 = configurationCopy;
   if (configurationCopy)
   {
     wanRules = [configurationCopy wanRules];
     v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(wanRules, "count") + 1}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v7 = wanRules;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           v13 = [HMDAccessoryAllowedHost alloc];
-          v14 = [(HMDAccessoryAllowedHost *)v13 initWithWANRule:v12, v19];
+          v14 = [(HMDAccessoryAllowedHost *)v13 initWithWANRule:v12, v18];
           [v6 addObject:v14];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -442,15 +439,13 @@ LABEL_46:
       [v6 addObject:v15];
     }
 
-    v16 = [v6 copy];
+    v16 = objc_msgSend_copy(v6, v18);
   }
 
   else
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

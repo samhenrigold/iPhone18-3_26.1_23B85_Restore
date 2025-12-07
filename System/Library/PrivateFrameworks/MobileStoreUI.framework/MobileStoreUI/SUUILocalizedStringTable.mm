@@ -24,14 +24,14 @@
 
     v16 = [nameCopy stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
 
-    if ([v16 isEqualToString:@"zh_Hans"])
+    if (objc_msgSend_isEqualToString_(v16))
     {
       v17 = @"zh_CN";
     }
 
     else
     {
-      if (![v16 isEqualToString:@"zh_Hant"])
+      if (!objc_msgSend_isEqualToString_(v16))
       {
 LABEL_7:
         v18 = [bundleCopy pathForResource:tableNameCopy ofType:@"strings" inDirectory:0 forLocalization:v16];
@@ -148,32 +148,32 @@ LABEL_34:
 - (id)_legacyLanguageNameForLanguageCode:(id)code
 {
   codeCopy = code;
-  if ([codeCopy isEqualToString:@"de"])
+  if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = @"German";
   }
 
-  else if ([codeCopy isEqualToString:@"en"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = @"English";
   }
 
-  else if ([codeCopy isEqualToString:@"es"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = @"Spanish";
   }
 
-  else if ([codeCopy isEqualToString:@"fr"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = @"French";
   }
 
-  else if ([codeCopy isEqualToString:@"it"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = @"Italian";
   }
 
-  else if ([codeCopy isEqualToString:@"jp"])
+  else if (objc_msgSend_isEqualToString_(codeCopy))
   {
     v4 = @"Japanese";
   }

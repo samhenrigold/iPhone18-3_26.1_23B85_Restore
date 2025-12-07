@@ -1,3 +1,1334 @@
+void *fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::~ContextMatcher(void *a1)
+{
+  *a1 = &unk_1F2D0DC58;
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  return a1;
+}
+
+void fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::~ContextMatcher(void *a1)
+{
+  *a1 = &unk_1F2D0DC58;
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 8))(v1);
+  }
+
+  JUMPOUT(0x1B8C85350);
+}
+
+uint64_t fst::MatcherBase<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::Priority_(uint64_t a1)
+{
+  v1 = *(*(*(*a1 + 32))(a1) + 40);
+
+  return v1();
+}
+
+void fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::SetState(uint64_t a1, int a2)
+{
+  if (*(a1 + 16) == 3)
+  {
+    std::string::basic_string[abi:ne200100]<0>(__p, "FATAL");
+    v4 = fst::LogMessage::LogMessage(&v8, __p);
+    v5 = fst::cerr(v4);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "ContextMatcher: bad match type", 30);
+    fst::LogMessage::~LogMessage(&v8);
+    if (v7 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  *(a1 + 24) = a2;
+}
+
+void sub_1B535A14C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Find(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    if (a2 == -1)
+    {
+      result = 0;
+      *(a1 + 44) = 0;
+      return result;
+    }
+
+    result = fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(*(*(a1 + 8) + 8), *(a1 + 24), a2, (a1 + 28));
+  }
+
+  else
+  {
+    *(a1 + 28) = 0xFFFFFFFF00000000;
+    v4 = *(a1 + 24);
+    *(a1 + 36) = 0;
+    *(a1 + 40) = v4;
+    result = 1;
+  }
+
+  *(a1 + 44) = result;
+  return result;
+}
+
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::~ComposeFstImpl(void *a1)
+{
+  *a1 = &unk_1F2D0DBE0;
+  v2 = a1[17];
+  if (v2)
+  {
+    v3 = fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::~SequenceComposeFilter(v2);
+    MEMORY[0x1B8C85350](v3, 0x1060C40AD892F49);
+  }
+
+  v4 = a1[22];
+  if (v4)
+  {
+    v5 = *(v4 + 80);
+    if (v5)
+    {
+      *(v4 + 88) = v5;
+      operator delete(v5);
+    }
+
+    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v4 + 24);
+    MEMORY[0x1B8C85350](v4, 0x10E0C406D28CB5CLL);
+  }
+
+  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::~CacheBaseImpl(a1);
+}
+
+uint64_t *fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::~SequenceComposeFilter(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  return a1;
+}
+
+void sub_1B535A414(_Unwind_Exception *a1)
+{
+  MEMORY[0x1B8C85350](v2, 0x10E0C406D28CB5CLL);
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::~CacheBaseImpl(v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::SequenceComposeFilter(uint64_t a1, void *a2, uint64_t a3)
+{
+  *a1 = (*(**a2 + 16))(*a2, a3);
+  *(a1 + 8) = (*(*a2[1] + 16))(a2[1], a3);
+  *(a1 + 16) = (*(**a1 + 32))();
+  *(a1 + 24) = -1;
+  *(a1 + 32) = -1;
+  return a1;
+}
+
+BOOL fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchInput(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 184);
+  if (!v3)
+  {
+    return 1;
+  }
+
+  if (v3 == 1)
+  {
+    return 0;
+  }
+
+  v7 = (*(**(a1 + 144) + 104))(*(a1 + 144), a2);
+  v8 = (*(**(a1 + 152) + 104))(*(a1 + 152), a3);
+  if (v7 == -1 && v8 == -1)
+  {
+    if (FLAGS_fst_error_fatal == 1)
+    {
+      std::string::basic_string[abi:ne200100]<0>(__p, "FATAL");
+    }
+
+    else
+    {
+      std::string::basic_string[abi:ne200100]<0>(__p, "ERROR");
+    }
+
+    v11 = fst::LogMessage::LogMessage(&v15, __p);
+    v12 = fst::cerr(v11);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "ComposeFst: both sides can't require match", 42);
+    fst::LogMessage::~LogMessage(&v15);
+    if (v14 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    *(a1 + 8) |= 4uLL;
+    return 1;
+  }
+
+  if (v7 == -1)
+  {
+    return 0;
+  }
+
+  return v8 == -1 || v7 <= v8;
+}
+
+void sub_1B535A680(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
+{
+  fst::LogMessage::~LogMessage(&a18);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = a8;
+  fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::SetState(a7, a4);
+  LODWORD(v18) = v8 - 1;
+  *(&v18 + 4) = (v8 << 31 >> 31);
+  HIDWORD(v18) = a6;
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, a2, a7, &v18, v8);
+  v17 = 0;
+  (*(*a5 + 136))(a5, a6, v15);
+  while (1)
+  {
+    if (!v15[0])
+    {
+      if (v17 >= v15[2])
+      {
+        goto LABEL_13;
+      }
+
+LABEL_7:
+      v14 = (v15[1] + 16 * v17);
+      goto LABEL_8;
+    }
+
+    if ((*(*v15[0] + 24))(v15[0]))
+    {
+      break;
+    }
+
+    if (!v15[0])
+    {
+      goto LABEL_7;
+    }
+
+    v14 = (*(*v15[0] + 32))();
+LABEL_8:
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, a2, a7, v14, v8);
+    if (v15[0])
+    {
+      (*(*v15[0] + 40))(v15[0]);
+    }
+
+    else
+    {
+      ++v17;
+    }
+  }
+
+  if (v15[0])
+  {
+    (*(*v15[0] + 8))();
+    goto LABEL_15;
+  }
+
+LABEL_13:
+  if (v16)
+  {
+    --*v16;
+  }
+
+LABEL_15:
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+}
+
+void sub_1B535A890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (a10)
+  {
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>();
+  }
+
+  else
+  {
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(&a10);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, int a5)
+{
+  v10 = 4;
+  if (!a5)
+  {
+    v10 = 0;
+  }
+
+  if (fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Find(a3, *(a4 + v10)) && *(a3 + 44) == 1)
+  {
+    v11 = *(a3 + 28);
+    v23 = *a4;
+    v24 = v11;
+    if (a5)
+    {
+      v12 = *(a1 + 136);
+      if (DWORD1(v23) != -1)
+      {
+        if (v24 == -1)
+        {
+          v16 = v12[32];
+          if (v16)
+          {
+            v17 = -1;
+          }
+
+          else
+          {
+            v17 = 0;
+          }
+
+          v22 = v17;
+          if (v16)
+          {
+            goto LABEL_35;
+          }
+        }
+
+        else
+        {
+          if (DWORD1(v23))
+          {
+            v13 = 0;
+          }
+
+          else
+          {
+            v13 = -1;
+          }
+
+          v22 = v13;
+          if (!DWORD1(v23))
+          {
+            goto LABEL_35;
+          }
+        }
+
+        goto LABEL_28;
+      }
+
+      if ((v12[33] & 1) == 0)
+      {
+        v22 = v12[34] ^ 1;
+LABEL_28:
+        v18 = &v23;
+        v19 = &v24;
+LABEL_34:
+        fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::AddArc(a1, a2, v18, v19, &v22);
+      }
+
+LABEL_35:
+      *(a3 + 44) = 0;
+      return;
+    }
+
+    v14 = *(a1 + 136);
+    if (DWORD1(v24) == -1)
+    {
+      if (v14[33])
+      {
+        goto LABEL_35;
+      }
+
+      v22 = v14[34] ^ 1;
+    }
+
+    else if (v23 == -1)
+    {
+      v20 = v14[32];
+      if (v20)
+      {
+        v21 = -1;
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      v22 = v21;
+      if (v20)
+      {
+        goto LABEL_35;
+      }
+    }
+
+    else
+    {
+      if (DWORD1(v24))
+      {
+        v15 = 0;
+      }
+
+      else
+      {
+        v15 = -1;
+      }
+
+      v22 = v15;
+      if (!DWORD1(v24))
+      {
+        goto LABEL_35;
+      }
+    }
+
+    v18 = &v24;
+    v19 = &v23;
+    goto LABEL_34;
+  }
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstMatcher(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+{
+  *a1 = &unk_1F2D0DCF0;
+  *(a1 + 8) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 24) = -1;
+  *(a1 + 28) = a4;
+  *(a1 + 32) = (*(**(a3 + 144) + 16))(*(a3 + 144), 0);
+  *(a1 + 40) = (*(**(a3 + 152) + 16))(*(a3 + 152), 0);
+  *(a1 + 48) = 0;
+  *(a1 + 52) = xmmword_1B5AE3080;
+  *(a1 + 84) = 0;
+  if (a4 == 1)
+  {
+    *(a1 + 52) = 0xFFFFFFFF00000000;
+  }
+
+  return a1;
+}
+
+void fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::~ComposeFstMatcher(void *a1)
+{
+  fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::~ComposeFstMatcher(a1);
+
+  JUMPOUT(0x1B8C85350);
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Type(uint64_t a1, uint64_t a2)
+{
+  result = (*(**(a1 + 32) + 24))(*(a1 + 32));
+  if (result != 3)
+  {
+    result = (*(**(a1 + 40) + 24))(*(a1 + 40), a2);
+    if (result != 3)
+    {
+      if ((*(**(a1 + 32) + 24))(*(a1 + 32), a2) != 4 || (result = (*(**(a1 + 40) + 24))(*(a1 + 40), a2), result != 4))
+      {
+        if ((*(**(a1 + 32) + 24))(*(a1 + 32), a2) == 4 && (*(**(a1 + 40) + 24))(*(a1 + 40), a2) == *(a1 + 28))
+        {
+          return 4;
+        }
+
+        else if ((*(**(a1 + 32) + 24))(*(a1 + 32), a2) != *(a1 + 28) || (result = (*(**(a1 + 40) + 24))(*(a1 + 40), a2), result != 4))
+        {
+          if ((*(**(a1 + 32) + 24))(*(a1 + 32), a2) != *(a1 + 28))
+          {
+            return 3;
+          }
+
+          result = (*(**(a1 + 40) + 24))(*(a1 + 40), a2);
+          if (result != *(a1 + 28))
+          {
+            return 3;
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Properties(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 84))
+  {
+    return a2 | 4;
+  }
+
+  else
+  {
+    return a2;
+  }
+}
+
+void fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::SetState_(uint64_t a1, int a2)
+{
+  if (*(a1 + 24) != a2)
+  {
+    *(a1 + 24) = a2;
+    v3 = (*(*(*(a1 + 16) + 176) + 80) + 12 * a2);
+    v4 = v3[1];
+    fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::SetState(*(a1 + 32), *v3);
+    fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::SetState(*(a1 + 40), v4);
+    *(a1 + 64) = *(a1 + 24);
+  }
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Find_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 48) = a2 == 0;
+  if (!a2)
+  {
+    return 1;
+  }
+
+  v2 = 32;
+  if (*(a1 + 28))
+  {
+    v3 = 32;
+  }
+
+  else
+  {
+    v3 = 40;
+  }
+
+  if (*(a1 + 28))
+  {
+    v2 = 40;
+  }
+
+  return fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindLabel<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, a2, *(a1 + v2), *(a1 + v3));
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Done_(uint64_t a1)
+{
+  if (*(a1 + 48) & 1) != 0 || (*(*(a1 + 32) + 44))
+  {
+    v1 = 0;
+  }
+
+  else
+  {
+    v1 = *(*(a1 + 40) + 44) ^ 1;
+  }
+
+  return v1 & 1;
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Value_(uint64_t a1)
+{
+  v1 = 68;
+  if (*(a1 + 48))
+  {
+    v1 = 52;
+  }
+
+  return a1 + v1;
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Next_(uint64_t result)
+{
+  if (*(result + 48) == 1)
+  {
+    *(result + 48) = 0;
+  }
+
+  else
+  {
+    if (*(result + 28))
+    {
+      v2 = *(result + 32);
+      v1 = *(result + 40);
+    }
+
+    else
+    {
+      v1 = *(result + 32);
+      v2 = *(result + 40);
+    }
+
+    return fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(result, v1, v2);
+  }
+
+  return result;
+}
+
+void *fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::~ComposeFstMatcher(void *a1)
+{
+  *a1 = &unk_1F2D0DCF0;
+  v2 = a1[4];
+  if (v2)
+  {
+    (*(*v2 + 8))(v2);
+  }
+
+  v3 = a1[5];
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  return a1;
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstMatcher(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a1 = &unk_1F2D0DCF0;
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = -1;
+  *(a1 + 28) = *(a2 + 28);
+  *(a1 + 32) = (*(**(a2 + 32) + 16))(*(a2 + 32), a3);
+  *(a1 + 40) = (*(**(a2 + 40) + 16))(*(a2 + 40), a3);
+  *(a1 + 48) = 0;
+  *(a1 + 52) = xmmword_1B5AE3080;
+  *(a1 + 84) = *(a2 + 84);
+  if (a3)
+  {
+    if (FLAGS_fst_error_fatal == 1)
+    {
+      std::string::basic_string[abi:ne200100]<0>(__p, "FATAL");
+    }
+
+    else
+    {
+      std::string::basic_string[abi:ne200100]<0>(__p, "ERROR");
+    }
+
+    v6 = fst::LogMessage::LogMessage(&v11, __p);
+    v7 = fst::cerr(v6);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "ComposeFstMatcher: safe copy not supported", 42);
+    fst::LogMessage::~LogMessage(&v11);
+    if (v10 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    *(a1 + 84) = 1;
+  }
+
+  if (*(a1 + 28) == 1)
+  {
+    *(a1 + 52) = vrev64_s32(*(a1 + 52));
+  }
+
+  return a1;
+}
+
+void sub_1B535B174(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
+{
+  fst::LogMessage::~LogMessage(&a18);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindLabel<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Find(a3, a2);
+  if (result)
+  {
+    v8 = 28;
+    if (!*(a1 + 28))
+    {
+      v8 = 32;
+    }
+
+    fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Find(a4, *(a3 + v8));
+
+    return fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, a3, a4);
+  }
+
+  return result;
+}
+
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = (a2 + 28);
+  v7 = (a3 + 28);
+  LOBYTE(v8) = *(a3 + 44);
+  while ((*(a2 + 44) & 1) != 0)
+  {
+    if ((v8 & 1) == 0)
+    {
+      *(a2 + 44) = 0;
+    }
+
+LABEL_6:
+    while (1)
+    {
+      v8 = *(a3 + 44);
+      if (v8 != 1)
+      {
+        break;
+      }
+
+      *(a3 + 44) = 0;
+      v9 = *(a1 + 28);
+      v10 = v9 == 0;
+      if (v9)
+      {
+        v11 = v7;
+      }
+
+      else
+      {
+        v11 = v6;
+      }
+
+      v12 = *v11;
+      v13 = v11[1];
+      if (v10)
+      {
+        v14 = v7;
+      }
+
+      else
+      {
+        v14 = v6;
+      }
+
+      if (fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc(a1, *(a1 + 24), v12, v13, *v14, v14[1]))
+      {
+        return 1;
+      }
+    }
+  }
+
+  if (v8)
+  {
+    goto LABEL_6;
+  }
+
+  return 0;
+}
+
+uint64_t fst::StateMap<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, void *a2)
+{
+  result = (*(*a1 + 24))(a1);
+  if (result != -1)
+  {
+    v5 = (*(*a1 + 64))(a1, 0x3FFFFFFF0007, 0);
+    v6 = (*(**a2 + 24))();
+    (*(*a1 + 176))(a1, v6);
+    if ((*(*a1 + 160))(a1) >= 1)
+    {
+      v7 = 0;
+      do
+      {
+        v8 = fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetState(a2, v7);
+        (*(*a1 + 240))(a1, v7, v8);
+        for (i = a2[5]; ; a2[5] = i)
+        {
+          v10 = a2[2];
+          if (i >= (a2[3] - v10) >> 4)
+          {
+            break;
+          }
+
+          (*(*a1 + 208))(a1, v7, v10 + 16 * i);
+          i = a2[5] + 1;
+        }
+
+        (*(**a2 + 32))(*a2, v7);
+        (*(*a1 + 184))(a1, v7);
+        v7 = (v7 + 1);
+      }
+
+      while (v7 < (*(*a1 + 160))(a1));
+    }
+
+    v11 = *(*a1 + 192);
+
+    return v11(a1, v5 & 0x3FFF0FFF0007 | (((v5 >> 16) & 1) << 28) | 0x40000000, 0x3FFFFFFF0007);
+  }
+
+  return result;
+}
+
+double fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetState(void *a1, uint64_t a2)
+{
+  a1[5] = 0;
+  v4 = a1 + 2;
+  a1[3] = a1[2];
+  v5 = (*(**a1 + 40))(*a1);
+  std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::reserve(v4, v5);
+  v6 = *a1;
+  v16 = 0;
+  (*(*v6 + 136))(v6, a2, v14);
+  while (1)
+  {
+    if (!v14[0])
+    {
+      if (v16 >= v14[2])
+      {
+        goto LABEL_13;
+      }
+
+LABEL_7:
+      v8 = (v14[1] + 16 * v16);
+      goto LABEL_8;
+    }
+
+    if ((*(*v14[0] + 24))(v14[0]))
+    {
+      break;
+    }
+
+    if (!v14[0])
+    {
+      goto LABEL_7;
+    }
+
+    v8 = (*(*v14[0] + 32))();
+LABEL_8:
+    std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::push_back[abi:ne200100](v4, v8);
+    if (v14[0])
+    {
+      (*(*v14[0] + 40))(v14[0]);
+    }
+
+    else
+    {
+      ++v16;
+    }
+  }
+
+  if (v14[0])
+  {
+    (*(*v14[0] + 8))();
+    goto LABEL_15;
+  }
+
+LABEL_13:
+  if (v15)
+  {
+    --*v15;
+  }
+
+LABEL_15:
+  v9 = a1[2];
+  v10 = a1[3];
+  v11 = 126 - 2 * __clz(v10 - v9);
+  if (v10 == v9)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  *&result = std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,false>(v9, v10, v14, v12, 1, v7).n128_u64[0];
+  return result;
+}
+
+void sub_1B535B754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (a10)
+  {
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>();
+  }
+
+  else
+  {
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(&a10);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+__n128 std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
+{
+LABEL_1:
+  v10 = a2 - 1;
+  v38 = a2 - 2;
+  v11 = a2 - 3;
+  v12 = a1;
+LABEL_2:
+  v13 = 1 - a4;
+  while (1)
+  {
+    a1 = v12;
+    v14 = v13;
+    v15 = a2 - v12;
+    if (v15 <= 2)
+    {
+      if (v15 < 2)
+      {
+        return result;
+      }
+
+      if (v15 == 2)
+      {
+        if (a2[-1].n128_u32[1] < v12->n128_u32[1])
+        {
+          v61 = *v12;
+          *v12 = a2[-1];
+          result = v61;
+          a2[-1] = v61;
+        }
+
+        return result;
+      }
+
+      goto LABEL_10;
+    }
+
+    if (v15 == 3)
+    {
+      break;
+    }
+
+    if (v15 == 4)
+    {
+      v36 = v12[1].n128_i32[1];
+      v37 = v12[2].n128_i32[1];
+      if (v36 >= v12->n128_u32[1])
+      {
+        if (v37 < v36)
+        {
+          result = v12[1];
+          v12[1] = v12[2];
+          v12[2] = result;
+          if (v12[1].n128_u32[1] < v12->n128_u32[1])
+          {
+            v63 = *v12;
+            *v12 = v12[1];
+            result = v63;
+            v12[1] = v63;
+          }
+        }
+      }
+
+      else
+      {
+        if (v37 < v36)
+        {
+          v62 = *v12;
+          *v12 = v12[2];
+          result = v62;
+          goto LABEL_103;
+        }
+
+        v65 = *v12;
+        *v12 = v12[1];
+        result = v65;
+        v12[1] = v65;
+        if (v37 < v12[1].n128_u32[1])
+        {
+          result = v12[1];
+          v12[1] = v12[2];
+LABEL_103:
+          v12[2] = result;
+        }
+      }
+
+      if (a2[-1].n128_u32[1] >= v12[2].n128_u32[1])
+      {
+        return result;
+      }
+
+      result = v12[2];
+      v12[2] = *v10;
+      *v10 = result;
+      if (v12[2].n128_u32[1] >= v12[1].n128_u32[1])
+      {
+        return result;
+      }
+
+      result = v12[1];
+      v12[1] = v12[2];
+      v12[2] = result;
+LABEL_107:
+      if (v12[1].n128_u32[1] < v12->n128_u32[1])
+      {
+        v66 = *v12;
+        *v12 = v12[1];
+        result = v66;
+        v12[1] = v66;
+      }
+
+      return result;
+    }
+
+    if (v15 == 5)
+    {
+
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,0>(v12, v12 + 1, v12 + 2, v12 + 3, a2 - 1, result).n128_u64[0];
+      return result;
+    }
+
+LABEL_10:
+    if (v15 <= 23)
+    {
+      if (a5)
+      {
+
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v12, a2);
+      }
+
+      else
+      {
+
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v12, a2);
+      }
+
+      return result;
+    }
+
+    if (v13 == 1)
+    {
+      if (v12 != a2)
+      {
+
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v12, a2, a2, a3);
+      }
+
+      return result;
+    }
+
+    v16 = &v12[v15 >> 1];
+    v17 = a2[-1].n128_i32[1];
+    if (v15 >= 0x81)
+    {
+      v18 = v16->n128_i32[1];
+      if (v18 >= v12->n128_u32[1])
+      {
+        if (v17 < v18)
+        {
+          v41 = *v16;
+          *v16 = *v10;
+          *v10 = v41;
+          if (v16->n128_u32[1] < v12->n128_u32[1])
+          {
+            v42 = *v12;
+            *v12 = *v16;
+            *v16 = v42;
+          }
+        }
+      }
+
+      else
+      {
+        if (v17 < v18)
+        {
+          v39 = *v12;
+          *v12 = *v10;
+          goto LABEL_28;
+        }
+
+        v45 = *v12;
+        *v12 = *v16;
+        *v16 = v45;
+        if (a2[-1].n128_u32[1] < v16->n128_u32[1])
+        {
+          v39 = *v16;
+          *v16 = *v10;
+LABEL_28:
+          *v10 = v39;
+        }
+      }
+
+      v20 = v16 - 1;
+      v21 = v16[-1].n128_i32[1];
+      v22 = a2[-2].n128_i32[1];
+      if (v21 >= v12[1].n128_u32[1])
+      {
+        if (v22 < v21)
+        {
+          v46 = *v20;
+          *v20 = *v38;
+          *v38 = v46;
+          if (v16[-1].n128_u32[1] < v12[1].n128_u32[1])
+          {
+            v47 = v12[1];
+            v12[1] = *v20;
+            *v20 = v47;
+          }
+        }
+      }
+
+      else
+      {
+        if (v22 < v21)
+        {
+          v23 = v12[1];
+          v24 = a2 - 2;
+          v12[1] = *v38;
+          goto LABEL_42;
+        }
+
+        v49 = v12[1];
+        v12[1] = *v20;
+        *v20 = v49;
+        if (a2[-2].n128_u32[1] < v16[-1].n128_u32[1])
+        {
+          v50 = *v20;
+          v24 = a2 - 2;
+          *v20 = *v38;
+          v23 = v50;
+LABEL_42:
+          *v24 = v23;
+        }
+      }
+
+      v25 = v16[1].n128_i32[1];
+      v26 = a2[-3].n128_i32[1];
+      if (v25 >= v12[2].n128_u32[1])
+      {
+        if (v26 < v25)
+        {
+          v51 = v16[1];
+          v16[1] = *v11;
+          *v11 = v51;
+          if (v16[1].n128_u32[1] < v12[2].n128_u32[1])
+          {
+            v52 = v12[2];
+            v12[2] = v16[1];
+            v16[1] = v52;
+          }
+        }
+      }
+
+      else
+      {
+        if (v26 < v25)
+        {
+          v27 = v12[2];
+          v12[2] = *v11;
+          goto LABEL_51;
+        }
+
+        v53 = v12[2];
+        v12[2] = v16[1];
+        v16[1] = v53;
+        if (a2[-3].n128_u32[1] < v16[1].n128_u32[1])
+        {
+          v54 = v16[1];
+          v16[1] = *v11;
+          v27 = v54;
+LABEL_51:
+          *v11 = v27;
+        }
+      }
+
+      v28 = v16->n128_i32[1];
+      v29 = v16[1].n128_i32[1];
+      if (v28 >= v16[-1].n128_u32[1])
+      {
+        if (v29 < v28)
+        {
+          v56 = *v16;
+          *v16 = v16[1];
+          v16[1] = v56;
+          if (v16->n128_u32[1] < v16[-1].n128_u32[1])
+          {
+            v57 = *v20;
+            *v20 = *v16;
+            *v16 = v57;
+          }
+        }
+      }
+
+      else
+      {
+        if (v29 < v28)
+        {
+          v55 = *v20;
+          *v20 = v16[1];
+          goto LABEL_60;
+        }
+
+        v58 = *v20;
+        *v20 = *v16;
+        *v16 = v58;
+        if (v16[1].n128_u32[1] < v16->n128_u32[1])
+        {
+          v55 = *v16;
+          *v16 = v16[1];
+LABEL_60:
+          v16[1] = v55;
+        }
+      }
+
+      v59 = *v12;
+      *v12 = *v16;
+      *v16 = v59;
+      if (a5)
+      {
+        goto LABEL_63;
+      }
+
+      goto LABEL_62;
+    }
+
+    v19 = v12->n128_i32[1];
+    if (v19 < v16->n128_u32[1])
+    {
+      if (v17 < v19)
+      {
+        v40 = *v16;
+        *v16 = *v10;
+        goto LABEL_37;
+      }
+
+      v48 = *v16;
+      *v16 = *v12;
+      *v12 = v48;
+      if (a2[-1].n128_u32[1] < v12->n128_u32[1])
+      {
+        v40 = *v12;
+        *v12 = *v10;
+LABEL_37:
+        *v10 = v40;
+      }
+
+LABEL_38:
+      if (a5)
+      {
+        goto LABEL_63;
+      }
+
+      goto LABEL_62;
+    }
+
+    if (v17 >= v19)
+    {
+      goto LABEL_38;
+    }
+
+    v43 = *v12;
+    *v12 = *v10;
+    *v10 = v43;
+    if (v12->n128_u32[1] >= v16->n128_u32[1])
+    {
+      goto LABEL_38;
+    }
+
+    v44 = *v16;
+    *v16 = *v12;
+    *v12 = v44;
+    if (a5)
+    {
+      goto LABEL_63;
+    }
+
+LABEL_62:
+    if (v12[-1].n128_u32[1] >= v12->n128_u32[1])
+    {
+      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>,int> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &>(v12, a2);
+      goto LABEL_68;
+    }
+
+LABEL_63:
+    v30 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>,int> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &>(v12, a2);
+    if ((v31 & 1) == 0)
+    {
+      goto LABEL_66;
+    }
+
+    v32 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v12, v30, result);
+    v12 = v30 + 1;
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v30 + 1, a2, v33))
+    {
+      a4 = -v14;
+      a2 = v30;
+      if (v32)
+      {
+        return result;
+      }
+
+      goto LABEL_1;
+    }
+
+    v13 = v14 + 1;
+    if (!v32)
+    {
+LABEL_66:
+      result = std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,false>(a1, v30, a3, -v14, a5 & 1, result);
+      v12 = v30 + 1;
+LABEL_68:
+      a5 = 0;
+      a4 = -v14;
+      goto LABEL_2;
+    }
+  }
+
+  v34 = v12[1].n128_i32[1];
+  v35 = a2[-1].n128_i32[1];
+  if (v34 >= v12->n128_u32[1])
+  {
+    if (v35 >= v34)
+    {
+      return result;
+    }
+
+    result = v12[1];
+    v12[1] = *v10;
+    *v10 = result;
+    goto LABEL_107;
+  }
+
+  if (v35 >= v34)
+  {
+    v64 = *v12;
+    *v12 = v12[1];
+    result = v64;
+    v12[1] = v64;
+    if (a2[-1].n128_u32[1] >= v12[1].n128_u32[1])
+    {
+      return result;
+    }
+
+    result = v12[1];
+    v12[1] = *v10;
+  }
+
+  else
+  {
+    v60 = *v12;
+    *v12 = *v10;
+    result = v60;
+  }
+
+  *v10 = result;
+  return result;
+}
+
 __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5, __n128 result)
 {
   v6 = a2->n128_i32[1];
@@ -88,12 +1419,12 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(uint64_t result, _DWORD *a2)
+_DWORD *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(_DWORD *result, _DWORD *a2)
 {
   if (result != a2)
   {
-    v2 = (result + 16);
-    if ((result + 16) != a2)
+    v2 = result + 4;
+    if (result + 4 != a2)
     {
       v3 = 0;
       v4 = result;
@@ -118,7 +1449,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelC
             v9 -= 16;
             if (v6 >= v10)
             {
-              v11 = result + v9 + 16;
+              v11 = (result + v9 + 16);
               goto LABEL_10;
             }
           }
@@ -126,8 +1457,8 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelC
           v11 = result;
 LABEL_10:
           *v11 = v7;
-          *(v11 + 4) = v6;
-          *(v11 + 8) = v8;
+          v11[1] = v6;
+          *(v11 + 1) = v8;
         }
 
         v2 = v5 + 4;
@@ -177,12 +1508,12 @@ _DWORD *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst
   return result;
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>,int> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &>(int *a1, _OWORD *a2)
+unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>,int> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &>(int *a1, int *a2)
 {
   v2 = a1[1];
   if (v2 >= *(a2 - 3))
   {
-    v6 = (a1 + 4);
+    v6 = a1 + 4;
     do
     {
       v4 = v6;
@@ -191,8 +1522,8 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         break;
       }
 
-      v7 = *(v6 + 4);
-      v6 += 16;
+      v7 = v6[1];
+      v6 += 4;
     }
 
     while (v2 >= v7);
@@ -220,8 +1551,9 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   {
     do
     {
-      v8 = a2 - 1;
-      v9 = *(a2-- - 3);
+      v8 = a2 - 4;
+      v9 = *(a2 - 3);
+      a2 -= 4;
     }
 
     while (v2 < v9);
@@ -243,7 +1575,8 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while (v2 >= v12);
     do
     {
-      v13 = *(v8-- - 3);
+      v13 = *(v8 - 3);
+      v8 -= 4;
     }
 
     while (v2 < v13);
@@ -260,7 +1593,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v4;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>,int> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &>(int *a1, _OWORD *a2)
+int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>,int> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &>(int *a1, int *a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -278,8 +1611,9 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   {
     while (v7 < a2)
     {
-      v8 = a2 - 1;
-      v10 = *(a2-- - 3);
+      v8 = a2 - 4;
+      v10 = *(a2 - 3);
+      a2 -= 4;
       if (v10 < v4)
       {
         goto LABEL_9;
@@ -293,8 +1627,9 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   {
     do
     {
-      v8 = a2 - 1;
-      v9 = *(a2-- - 3);
+      v8 = a2 - 4;
+      v9 = *(a2 - 3);
+      a2 -= 4;
     }
 
     while (v9 >= v4);
@@ -312,14 +1647,15 @@ LABEL_9:
       *v12 = v13;
       do
       {
-        v14 = *(v11 + 20);
-        v11 += 16;
+        v14 = v11[5];
+        v11 += 4;
       }
 
       while (v14 < v4);
       do
       {
-        v15 = *(v12-- - 3);
+        v15 = *(v12 - 3);
+        v12 -= 4;
       }
 
       while (v15 >= v4);
@@ -328,15 +1664,15 @@ LABEL_9:
     while (v11 < v12);
   }
 
-  if ((v11 - 16) != a1)
+  if (v11 - 4 != a1)
   {
-    *a1 = *(v11 - 16);
+    *a1 = *(v11 - 1);
   }
 
-  *(v11 - 16) = v3;
-  *(v11 - 12) = v4;
-  *(v11 - 8) = v5;
-  return v11 - 16;
+  *(v11 - 4) = v3;
+  *(v11 - 3) = v4;
+  *(v11 - 1) = v5;
+  return v11 - 4;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(__n128 *a1, __n128 *a2, __n128 a3)
@@ -559,16 +1895,16 @@ LABEL_33:
         v31 -= 16;
         if (v28 >= v32)
         {
-          v33 = &a1[3] + v31;
+          v33 = (a1 + v31 + 48);
           goto LABEL_41;
         }
       }
 
       v33 = a1;
 LABEL_41:
-      *v33 = v29;
-      *(v33 + 4) = v28;
-      *(v33 + 8) = v30;
+      v33->n128_u32[0] = v29;
+      v33->n128_u32[1] = v28;
+      v33->n128_u64[1] = v30;
       if (++v27 == 8)
       {
         return &v25[1] == a2;
@@ -584,17 +1920,17 @@ LABEL_41:
   }
 }
 
-int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(int *a1, int *a2, int *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
-    v8 = (a2 - a1) >> 4;
+    v8 = a2 - a1;
     if (v8 >= 2)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[4 * v9];
+      v11 = &a1[v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(a1, a4, v8, v11);
@@ -611,7 +1947,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
       v12 = v6;
       do
       {
-        if (v12[1] < a1[1])
+        if (*(v12 + 1) < *(a1 + 1))
         {
           v13 = *v12;
           *v12 = *a1;
@@ -619,7 +1955,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(a1, a4, v8, a1);
         }
 
-        v12 += 4;
+        ++v12;
       }
 
       while (v12 != a3);
@@ -634,8 +1970,8 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
         v15 = a1;
         do
         {
-          v16 = &v15[4 * v14];
-          v17 = v16 + 4;
+          v16 = &v15[v14];
+          v17 = v16 + 1;
           v18 = (2 * v14) | 1;
           v14 = 2 * v14 + 2;
           if (v14 >= v8)
@@ -645,9 +1981,9 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
 
           else
           {
-            v19 = v16[5];
-            v20 = v16[9];
-            v21 = v16 + 8;
+            v19 = *(v16 + 5);
+            v20 = *(v16 + 9);
+            v21 = v16 + 2;
             if (v19 >= v20)
             {
               v14 = v18;
@@ -664,8 +2000,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
         }
 
         while (v14 <= ((v8 - 2) >> 1));
-        v6 -= 4;
-        if (v17 == v6)
+        if (v17 == --v6)
         {
           *v17 = v24;
         }
@@ -674,7 +2009,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCo
         {
           *v17 = *v6;
           *v6 = v24;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(a1, (v17 + 4), a4, ((v17 + 4) - a1) >> 4);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(a1, (v17 + 1), a4, v17 + 1 - a1);
         }
       }
 
@@ -819,14 +2154,14 @@ void fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,
   JUMPOUT(0x1B8C85350);
 }
 
-void fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::TableMatcherImpl(uint64_t a1, uint64_t a2, int a3, void *a4)
+void fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::TableMatcherImpl(int32x2_t *a1, uint64_t a2, __int32 a3, int32x2_t *a4)
 {
   *a1 = &unk_1F2D0DE20;
-  *(a1 + 8) = 1;
-  *(a1 + 12) = a3;
+  a1[1].i32[0] = 1;
+  a1[1].i32[1] = a3;
   v8 = (*(*a2 + 88))(a2, 0);
-  *(a1 + 64) = 0;
-  *(a1 + 16) = v8;
+  a1[8] = 0;
+  a1[2] = v8;
   if (a3)
   {
     v9 = 0;
@@ -847,15 +2182,15 @@ void fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,in
     v10 = 0;
   }
 
-  *(a1 + 32) = v9;
-  *(a1 + 36) = v10;
-  *(a1 + 40) = 0xFFFFFFFF00000000;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = -1;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 88) = *a4;
-  fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SortedMatcher(a1 + 96, a2, a3, 1);
+  a1[4].i32[0] = v9;
+  a1[4].i32[1] = v10;
+  a1[5] = 0xFFFFFFFF00000000;
+  a1[6] = 0;
+  a1[7].i32[0] = -1;
+  a1[9] = 0;
+  a1[10] = 0;
+  a1[11] = *a4;
+  fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SortedMatcher(a1 + 12, a2, a3, 1);
 }
 
 void sub_1B535CD18(_Unwind_Exception *exception_object)
@@ -1093,11 +2428,11 @@ LABEL_14:
   return result;
 }
 
-void sub_1B535D480(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, _DWORD *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_1B535D480(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, _DWORD *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (__p)
   {
-    (*(*__p + 8))(__p);
+    (*(*__p + 8))(__p, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else if (a15)
@@ -1270,10 +2605,10 @@ uint64_t fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float
   return result;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   *fst::ComposeFstImplBase<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::ComposeFstImplBase(a1, a2, a3, a4) = &unk_1F2D0DEB8;
-  v8 = *(a4 + 40);
+  v8 = a4[5];
   if (!v8)
   {
     operator new();
@@ -1284,7 +2619,7 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   *(a1 + 144) = *v8;
   *(a1 + 160) = (*(*v9.n128_u64[0] + 32))(v9.n128_u64[0], v9);
   *(a1 + 168) = (*(**(a1 + 152) + 32))(*(a1 + 152));
-  v10 = *(a4 + 48);
+  v10 = a4[6];
   if (!v10)
   {
     operator new();
@@ -1329,28 +2664,29 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   return *(a1 + 8) & a2;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, int a2)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, uint64_t a2)
 {
   v4 = (*(a1[22] + 80) + 12 * a2);
   v5 = *v4;
   v6 = v4[1];
   v7 = a1[17];
-  v9 = *(v4 + 8);
-  fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SetState(v7, v5, v6, &v9);
+  v8 = *(v4 + 8);
+  fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SetState(v7, v5, v6, &v8);
   if (fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchInput(a1, v5, v6))
   {
-    return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a1[21], v6, a1[20], v5, a1[19], 1);
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a1[21], v6, a1[20], v5, a1[19], 1);
   }
 
   else
   {
-    return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a1[20], v5, a1[21], v6, a1[18], 0);
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a1[20], v5, a1[21], v6, a1[18], 0);
   }
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, int a3)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == a3)
+  v3 = a3;
+  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == v3)
   {
     operator new();
   }
@@ -1394,7 +2730,7 @@ void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
   }
 }
 
-uint64_t fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SequenceComposeFilter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SequenceComposeFilter(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, int32x2_t *a5)
 {
   if (!a4)
   {
@@ -1408,7 +2744,7 @@ uint64_t fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::
   }
 
   *(a1 + 8) = a5;
-  *(a1 + 16) = (*(*a4 + 32))(a4);
+  *(a1 + 16) = (*(*a4 + 32))(a4, a2, a3);
   *(a1 + 24) = -1;
   *(a1 + 32) = -1;
   return a1;
@@ -1461,7 +2797,7 @@ BOOL fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
     return 0;
   }
 
-  v7 = (*(**(a1 + 144) + 104))(*(a1 + 144));
+  v7 = (*(**(a1 + 144) + 104))(*(a1 + 144), a2);
   v8 = (*(**(*(a1 + 152) + 8) + 40))(*(*(a1 + 152) + 8), a3);
   if (v7 == -1 && v8 == -1)
   {
@@ -1507,66 +2843,68 @@ void sub_1B535E538(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a8;
   fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetState(a7, a4);
-  LODWORD(v19) = a8 - 1;
-  *(&v19 + 4) = (a8 << 31 >> 31);
-  HIDWORD(v19) = a6;
-  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a7, &v19, a8);
-  v18 = 0;
-  (*(*a5 + 136))(a5, a6, v16);
+  LODWORD(v18) = v8 - 1;
+  *(&v18 + 4) = (v8 << 31 >> 31);
+  HIDWORD(v18) = a6;
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a7, &v18, v8);
+  v17 = 0;
+  (*(*a5 + 136))(a5, a6, v15);
   while (1)
   {
-    if (!v16[0])
+    if (!v15[0])
     {
-      if (v18 >= v16[2])
+      if (v17 >= v15[2])
       {
         goto LABEL_13;
       }
 
 LABEL_7:
-      v14 = (v16[1] + 16 * v18);
+      v14 = (v15[1] + 16 * v17);
       goto LABEL_8;
     }
 
-    if ((*(*v16[0] + 24))(v16[0]))
+    if ((*(*v15[0] + 24))(v15[0]))
     {
       break;
     }
 
-    if (!v16[0])
+    if (!v15[0])
     {
       goto LABEL_7;
     }
 
-    v14 = (*(*v16[0] + 32))();
+    v14 = (*(*v15[0] + 32))();
 LABEL_8:
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a7, v14, a8);
-    if (v16[0])
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a7, v14, v8);
+    if (v15[0])
     {
-      (*(*v16[0] + 40))(v16[0]);
+      (*(*v15[0] + 40))(v15[0]);
     }
 
     else
     {
-      ++v18;
+      ++v17;
     }
   }
 
-  if (v16[0])
+  if (v15[0])
   {
-    (*(*v16[0] + 8))();
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+    (*(*v15[0] + 8))();
+    goto LABEL_15;
   }
 
 LABEL_13:
-  if (v17)
+  if (v16)
   {
-    --*v17;
+    --*v16;
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+LABEL_15:
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
 }
 
 void sub_1B535E748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -1584,66 +2922,68 @@ void sub_1B535E748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a8;
   fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SetState(*(a7 + 8), a4);
-  LODWORD(v19) = a8 - 1;
-  *(&v19 + 4) = (a8 << 31 >> 31);
-  HIDWORD(v19) = a6;
-  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a7, &v19, a8);
-  v18 = 0;
-  (*(*a5 + 136))(a5, a6, v16);
+  LODWORD(v18) = v8 - 1;
+  *(&v18 + 4) = (v8 << 31 >> 31);
+  HIDWORD(v18) = a6;
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a7, &v18, v8);
+  v17 = 0;
+  (*(*a5 + 136))(a5, a6, v15);
   while (1)
   {
-    if (!v16[0])
+    if (!v15[0])
     {
-      if (v18 >= v16[2])
+      if (v17 >= v15[2])
       {
         goto LABEL_13;
       }
 
 LABEL_7:
-      v14 = (v16[1] + 16 * v18);
+      v14 = (v15[1] + 16 * v17);
       goto LABEL_8;
     }
 
-    if ((*(*v16[0] + 24))(v16[0]))
+    if ((*(*v15[0] + 24))(v15[0]))
     {
       break;
     }
 
-    if (!v16[0])
+    if (!v15[0])
     {
       goto LABEL_7;
     }
 
-    v14 = (*(*v16[0] + 32))();
+    v14 = (*(*v15[0] + 32))();
 LABEL_8:
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a7, v14, a8);
-    if (v16[0])
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a7, v14, v8);
+    if (v15[0])
     {
-      (*(*v16[0] + 40))(v16[0]);
+      (*(*v15[0] + 40))(v15[0]);
     }
 
     else
     {
-      ++v18;
+      ++v17;
     }
   }
 
-  if (v16[0])
+  if (v15[0])
   {
-    (*(*v16[0] + 8))();
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+    (*(*v15[0] + 8))();
+    goto LABEL_15;
   }
 
 LABEL_13:
-  if (v17)
+  if (v16)
   {
-    --*v17;
+    --*v16;
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+LABEL_15:
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
 }
 
 void sub_1B535E944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -1661,7 +3001,7 @@ void sub_1B535E944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, int a2, uint64_t a3, __int128 *a4, int a5)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, int a5)
 {
   v10 = 4;
   if (!a5)
@@ -1808,7 +3148,7 @@ LABEL_35:
   return result;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(uint64_t a1, int a2, uint64_t a3, __int128 *a4, int a5)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, int a5)
 {
   v10 = 4;
   if (!a5)
@@ -2046,7 +3386,7 @@ uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::Tropical
   return result;
 }
 
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Find_(uint64_t a1, int a2)
+uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Find_(uint64_t a1, uint64_t a2)
 {
   *(a1 + 48) = a2 == 0;
   if (*(a1 + 28))
@@ -2329,10 +3669,10 @@ uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::Tropical
   return 0;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   *fst::ComposeFstImplBase<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::ComposeFstImplBase(a1, a2, a3, a4) = &unk_1F2D0DFC8;
-  v8 = *(a4 + 40);
+  v8 = a4[5];
   if (!v8)
   {
     operator new();
@@ -2343,7 +3683,7 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   *(a1 + 144) = *v8;
   *(a1 + 160) = (*(*v9.n128_u64[0] + 32))(v9.n128_u64[0], v9);
   *(a1 + 168) = (*(**(a1 + 152) + 32))(*(a1 + 152));
-  v10 = *(a4 + 48);
+  v10 = a4[6];
   if (!v10)
   {
     operator new();
@@ -2388,28 +3728,29 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   return *(a1 + 8) & a2;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, int a2)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, uint64_t a2)
 {
   v4 = (*(a1[22] + 80) + 12 * a2);
   v5 = *v4;
   v6 = v4[1];
   v7 = a1[17];
-  v9 = *(v4 + 8);
-  fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SetState(v7, v5, v6, &v9);
+  v8 = *(v4 + 8);
+  fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SetState(v7, v5, v6, &v8);
   if (fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchInput(a1, v5, v6))
   {
-    return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a1[21], v6, a1[20], v5, a1[19], 1);
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a1[21], v6, a1[20], v5, a1[19], 1);
   }
 
   else
   {
-    return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a1[20], v5, a1[21], v6, a1[18], 0);
+    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a1[20], v5, a1[21], v6, a1[18], 0);
   }
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, int a3)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == a3)
+  v3 = a3;
+  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == v3)
   {
     operator new();
   }
@@ -2453,7 +3794,7 @@ void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
   }
 }
 
-uint64_t fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>::SequenceComposeFilter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>::SequenceComposeFilter(uint64_t a1, uint64_t a2, uint64_t a3, int32x2_t *a4, void *a5)
 {
   if (!a4)
   {
@@ -2467,7 +3808,7 @@ uint64_t fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst:
   }
 
   *(a1 + 8) = a5;
-  *(a1 + 16) = (*(*a4 + 32))(a4);
+  *(a1 + 16) = (*(*a4 + 32))(a4, a2, a3);
   *(a1 + 24) = -1;
   *(a1 + 32) = -1;
   return a1;
@@ -2520,7 +3861,7 @@ BOOL fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightT
     return 0;
   }
 
-  v7 = (*(**(*(a1 + 144) + 8) + 40))(*(*(a1 + 144) + 8));
+  v7 = (*(**(*(a1 + 144) + 8) + 40))(*(*(a1 + 144) + 8), a2);
   v8 = (*(**(a1 + 152) + 104))(*(a1 + 152), a3);
   if (v7 == -1 && v8 == -1)
   {
@@ -2566,66 +3907,67 @@ void sub_1B5360480(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
   fst::TableMatcherImpl<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SetState(*(a7 + 8), a4);
-  LODWORD(v19) = a8 - 1;
-  *(&v19 + 4) = (a8 << 31 >> 31);
-  HIDWORD(v19) = a6;
-  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a7, &v19, a8);
-  v18 = 0;
-  (*(*a5 + 136))(a5, a6, v16);
+  LODWORD(v18) = a8 - 1;
+  *(&v18 + 4) = (a8 << 31 >> 31);
+  HIDWORD(v18) = a6;
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a7, &v18, a8);
+  v17 = 0;
+  (*(*a5 + 136))(a5, a6, v15);
   while (1)
   {
-    if (!v16[0])
+    if (!v15[0])
     {
-      if (v18 >= v16[2])
+      if (v17 >= v15[2])
       {
         goto LABEL_13;
       }
 
 LABEL_7:
-      v14 = (v16[1] + 16 * v18);
+      v14 = (v15[1] + 16 * v17);
       goto LABEL_8;
     }
 
-    if ((*(*v16[0] + 24))(v16[0]))
+    if ((*(*v15[0] + 24))(v15[0]))
     {
       break;
     }
 
-    if (!v16[0])
+    if (!v15[0])
     {
       goto LABEL_7;
     }
 
-    v14 = (*(*v16[0] + 32))();
+    v14 = (*(*v15[0] + 32))();
 LABEL_8:
     fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>(a1, a2, a7, v14, a8);
-    if (v16[0])
+    if (v15[0])
     {
-      (*(*v16[0] + 40))(v16[0]);
+      (*(*v15[0] + 40))(v15[0]);
     }
 
     else
     {
-      ++v18;
+      ++v17;
     }
   }
 
-  if (v16[0])
+  if (v15[0])
   {
-    (*(*v16[0] + 8))();
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+    (*(*v15[0] + 8))();
+    goto LABEL_15;
   }
 
 LABEL_13:
-  if (v17)
+  if (v16)
   {
-    --*v17;
+    --*v16;
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+LABEL_15:
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
 }
 
 void sub_1B5360690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -2643,66 +3985,67 @@ void sub_1B5360690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
   fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetState(a7, a4);
-  LODWORD(v19) = a8 - 1;
-  *(&v19 + 4) = (a8 << 31 >> 31);
-  HIDWORD(v19) = a6;
-  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a7, &v19, a8);
-  v18 = 0;
-  (*(*a5 + 136))(a5, a6, v16);
+  LODWORD(v18) = a8 - 1;
+  *(&v18 + 4) = (a8 << 31 >> 31);
+  HIDWORD(v18) = a6;
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a7, &v18, a8);
+  v17 = 0;
+  (*(*a5 + 136))(a5, a6, v15);
   while (1)
   {
-    if (!v16[0])
+    if (!v15[0])
     {
-      if (v18 >= v16[2])
+      if (v17 >= v15[2])
       {
         goto LABEL_13;
       }
 
 LABEL_7:
-      v14 = (v16[1] + 16 * v18);
+      v14 = (v15[1] + 16 * v17);
       goto LABEL_8;
     }
 
-    if ((*(*v16[0] + 24))(v16[0]))
+    if ((*(*v15[0] + 24))(v15[0]))
     {
       break;
     }
 
-    if (!v16[0])
+    if (!v15[0])
     {
       goto LABEL_7;
     }
 
-    v14 = (*(*v16[0] + 32))();
+    v14 = (*(*v15[0] + 32))();
 LABEL_8:
     fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a7, v14, a8);
-    if (v16[0])
+    if (v15[0])
     {
-      (*(*v16[0] + 40))(v16[0]);
+      (*(*v15[0] + 40))(v15[0]);
     }
 
     else
     {
-      ++v18;
+      ++v17;
     }
   }
 
-  if (v16[0])
+  if (v15[0])
   {
-    (*(*v16[0] + 8))();
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+    (*(*v15[0] + 8))();
+    goto LABEL_15;
   }
 
 LABEL_13:
-  if (v17)
+  if (v16)
   {
-    --*v17;
+    --*v16;
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+LABEL_15:
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
 }
 
 void sub_1B536088C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -2948,8 +4291,8 @@ void sub_1B5361038(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void fst::Map<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2)
 {
-  kaldi::ConstIntegerSet<int>::ConstIntegerSet(v3, a2);
-  fst::ArcMap<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, v3);
+  kaldi::ConstIntegerSet<int>::ConstIntegerSet(&v3, a2);
+  fst::ArcMap<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, &v3);
   if (__p)
   {
     v6 = __p;
@@ -3013,11 +4356,11 @@ uint64_t fst::ArcMap<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::RemoveS
   return result;
 }
 
-void sub_1B5361404(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_1B5361404(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3249,15 +4592,13 @@ void quasar::GeoMemories::recallLastRegionId(quasar::GeoMemories *this@<X0>, con
 
     else
     {
-      *&a3->__r_.__value_.__l.__data_ = *this;
-      a3->__r_.__value_.__r.__words[2] = *(this + 2);
+      *a3 = *this;
     }
   }
 
   else
   {
-    a3->__r_.__value_.__r.__words[0] = 0;
-    a3->__r_.__value_.__l.__size_ = 0;
+    *&a3->__r_.__value_.__l.__data_ = 0uLL;
     a3->__r_.__value_.__r.__words[2] = 0;
   }
 }
@@ -3408,7 +4749,7 @@ BOOL kaldi::WordHypLattice::Node::IsSucceededBy(kaldi::WordHypLattice::Node *thi
       v5 = *(v3 + 2);
     }
 
-    std::__tree<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,std::less<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>,std::allocator<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>>::__emplace_unique_key_args<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node * const&>(&v20, (v5 + 8));
+    std::__tree<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,std::less<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>,std::allocator<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>>::__emplace_unique_key_args<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node * const&>(&v20, (v5 + 8), (v5 + 8));
     v3 = *(v3 + 1);
   }
 
@@ -3476,7 +4817,7 @@ LABEL_19:
             v12 = i[2];
           }
 
-          std::__tree<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,std::less<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>,std::allocator<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>>::__emplace_unique_key_args<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node * const&>(&v20, (v12 + 8));
+          std::__tree<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,std::less<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>,std::allocator<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *>>::__emplace_unique_key_args<kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node *,kaldi::quasar::PrefixTree<int,std::unordered_map<int,int>>::Node * const&>(&v20, (v12 + 8), (v12 + 8));
         }
       }
 
@@ -3491,14 +4832,14 @@ LABEL_19:
   return v9;
 }
 
-void sub_1B5361EC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5361EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void *);
-  v6 = va_arg(va1, void);
-  std::__tree<int>::destroy(va, v5);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void *);
+  v7 = va_arg(va1, void);
+  std::__tree<int>::destroy(va, v6);
   std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *>>::~deque[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
@@ -3517,7 +4858,7 @@ uint64_t *kaldi::operator<<(uint64_t *a1, uint64_t a2)
     do
     {
       v36.__locale_ = (v3 + v6);
-      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v34, (v3 + v6))[5] = v7++;
+      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v34, (v3 + v6), &std::piecewise_construct, &v36)[5] = v7++;
       v3 = *(a2 + 16);
       v4 = *(a2 + 24);
       v6 += 8;
@@ -3549,7 +4890,7 @@ uint64_t *kaldi::operator<<(uint64_t *a1, uint64_t a2)
           *(v10 + *(*a1 - 24)) = *(v10 + *(*a1 - 24)) & 0xFFFFFF4F | 0x20;
           *(v9 + *(v16 - 24)) = 5;
           v36.__locale_ = (*(v13 + 16) + 8);
-          v17 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v34, v36.__locale_);
+          v17 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v34, v36.__locale_, &std::piecewise_construct, &v36);
           v18 = MEMORY[0x1B8C84C30](a1, v17[5]);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " ", 1);
           v19 = *(v13 + 16);
@@ -3612,48 +4953,48 @@ uint64_t *kaldi::operator<<(uint64_t *a1, uint64_t a2)
 
 uint64_t kaldi::JoinVectorToString<int>(uint64_t *a1, const char *a2)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v10);
-  v4 = *a1;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
+  v5 = *a1;
   if (a1[1] != *a1)
   {
-    v5 = 0;
+    v6 = 0;
     do
     {
-      MEMORY[0x1B8C84C00](&v11, *(v4 + 4 * v5++));
-      v4 = *a1;
-      v6 = a1[1] - *a1;
-      if (v5 < v6 >> 2)
+      MEMORY[0x1B8C84C00](&v12, *(v5 + 4 * v6++));
+      v5 = *a1;
+      v7 = a1[1] - *a1;
+      if (v6 < v7 >> 2)
       {
-        v7 = strlen(a2);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, a2, v7);
-        v4 = *a1;
-        v6 = a1[1] - *a1;
+        v8 = strlen(a2);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v12, a2, v8);
+        v5 = *a1;
+        v7 = a1[1] - *a1;
       }
     }
 
-    while (v5 < v6 >> 2);
+    while (v6 < v7 >> 2);
   }
 
   std::stringbuf::str();
-  v10[0] = *MEMORY[0x1E69E54D8];
-  v8 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v10 + *(v10[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v11 = v8;
-  v12 = MEMORY[0x1E69E5548] + 16;
-  if (v14 < 0)
+  v11[0] = *MEMORY[0x1E69E54D8];
+  v9 = *(MEMORY[0x1E69E54D8] + 72);
+  *(v11 + *(v11[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v12 = v9;
+  v13 = MEMORY[0x1E69E5548] + 16;
+  if (v15 < 0)
   {
-    operator delete(v13[7].__locale_);
+    operator delete(v14[7].__locale_);
   }
 
-  v12 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v13);
+  v13 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v14);
   std::iostream::~basic_iostream();
-  return MEMORY[0x1B8C85200](&v15);
+  return MEMORY[0x1B8C85200](&v16);
 }
 
-void sub_1B5362460(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5362460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3739,13 +5080,13 @@ LABEL_10:
   return this;
 }
 
-uint64_t kaldi::WordHypLattice::Node::FindBestPathArc(kaldi::WordHypLattice::Node *this, int a2, int a3)
+void kaldi::WordHypLattice::Node::FindBestPathArc(kaldi::WordHypLattice::Node *this, int a2, int a3)
 {
   v3 = this + 64;
   v4 = *(this + 9);
   if (v4 == this + 64)
   {
-    result = 0;
+    v6 = 0;
     v9 = 0;
     if (!a3)
     {
@@ -3756,14 +5097,14 @@ uint64_t kaldi::WordHypLattice::Node::FindBestPathArc(kaldi::WordHypLattice::Nod
   else
   {
     v5 = 0;
-    result = 0;
+    v6 = 0;
     do
     {
       v7 = *(v4 + 2);
       v8 = *(v7 + 49);
       if (*(v7 + 49))
       {
-        result = *(v4 + 2);
+        v6 = *(v4 + 2);
       }
 
       v5 += v8 & a2;
@@ -3783,7 +5124,7 @@ uint64_t kaldi::WordHypLattice::Node::FindBestPathArc(kaldi::WordHypLattice::Nod
     }
   }
 
-  if (!result)
+  if (!v6)
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v10);
     std::operator<<[abi:ne200100]<std::char_traits<char>>(v10, "No outgoing best-path arc found");
@@ -3798,8 +5139,6 @@ LABEL_12:
 LABEL_16:
     kaldi::KaldiErrorMessage::~KaldiErrorMessage(v10);
   }
-
-  return result;
 }
 
 void kaldi::WordHypLattice::~WordHypLattice(kaldi::WordHypLattice *this)
@@ -3849,91 +5188,89 @@ void kaldi::WordHypLattice::~WordHypLattice(kaldi::WordHypLattice *this)
   }
 }
 
-uint64_t kaldi::WordHypLattice::StringToCriteria(uint64_t *a1)
+void kaldi::WordHypLattice::StringToCriteria(uint64_t *a1)
 {
-  if ((*(a1 + 23) & 0x80000000) == 0)
+  if (*(a1 + 23) < 0)
   {
-    v1 = *(a1 + 23);
-    if (v1 != 4)
+    if (a1[1] == 4 && **a1 == 1701736270)
     {
-      if (v1 != 12)
-      {
-        if (v1 != 13)
-        {
-          goto LABEL_30;
-        }
-
-        goto LABEL_15;
-      }
-
-      if (*a1 != 0x666E6F436E61654DLL || *(a1 + 2) != 1752457552)
-      {
-LABEL_30:
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(v6);
-        std::operator<<[abi:ne200100]<std::char_traits<char>>(v6, "StringToCriteria unexpected string");
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v6);
-      }
-
-      return 1;
+      return;
     }
 
+    if (a1[1] == 12 && **a1 == 0x666E6F436E61654DLL && *(*a1 + 8) == 1752457552)
+    {
+      return;
+    }
+
+    if (a1[1] != 13)
+    {
+      goto LABEL_29;
+    }
+
+    a1 = *a1;
+    goto LABEL_15;
+  }
+
+  v1 = *(a1 + 23);
+  if (v1 == 4)
+  {
     if (*a1 != 1701736270)
     {
-      goto LABEL_30;
+      goto LABEL_29;
     }
 
-    return 0;
+    return;
   }
 
-  if (a1[1] == 4 && **a1 == 1701736270)
+  if (v1 != 12)
   {
-    return 0;
-  }
+    if (v1 != 13)
+    {
+      goto LABEL_29;
+    }
 
-  if (a1[1] == 12 && **a1 == 0x666E6F436E61654DLL && *(*a1 + 8) == 1752457552)
-  {
-    return 1;
-  }
-
-  if (a1[1] != 13)
-  {
-    goto LABEL_30;
-  }
-
-  a1 = *a1;
 LABEL_15:
-  if (*a1 != 0x736F436C61746F54 || *(a1 + 5) != 0x6874615074736F43)
-  {
-    goto LABEL_30;
+    if (*a1 != 0x736F436C61746F54 || *(a1 + 5) != 0x6874615074736F43)
+    {
+      goto LABEL_29;
+    }
+
+    return;
   }
 
-  return 2;
+  if (*a1 != 0x666E6F436E61654DLL || *(a1 + 2) != 1752457552)
+  {
+LABEL_29:
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v5);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v5, "StringToCriteria unexpected string");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v5);
+  }
 }
 
-_BYTE *kaldi::WordHypLattice::CriteriaToString@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void kaldi::WordHypLattice::CriteriaToString(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 >= 3)
   {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v4);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v4, "CriteriaToString unexpected string");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v4);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v3);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v3, "CriteriaToString unexpected string");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v3);
   }
 
   v2 = off_1E7C1AAC0[a1];
 
-  return std::string::basic_string[abi:ne200100]<0>(a2, v2);
+  std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-void kaldi::WordHypLattice::getWordHypLattice(uint64_t a1, uint64_t a2, uint64_t a3)
+void kaldi::WordHypLattice::getWordHypLattice(kaldi::TransitionModel *a1, kaldi::LatticeScoreCache *a2, uint64_t a3)
 {
-  v6[29] = *MEMORY[0x1E69E9840];
+  v9[29] = *MEMORY[0x1E69E9840];
   kaldi::TopSortCompactLatticeIfNeeded(a3);
-  v4 = (*(*a3 + 160))(a3);
-  if (v4)
+  v7 = (*(*a3 + 160))(a3);
+  if (v7)
   {
-    v5 = v4;
-    std::vector<kaldi::WordHypLattice::Node *>::vector[abi:ne200100](v6, v4);
-    if (v5 >= 1)
+    v8 = v7;
+    std::vector<kaldi::WordHypLattice::Node *>::vector[abi:ne200100](v9, v7);
+    if (v8 >= 1)
     {
       operator new();
     }
@@ -3964,9 +5301,9 @@ void sub_1B5363344(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *kaldi::InsertionOrderedSet<kaldi::WordHypLattice::Arc *>::insert(uint64_t a1, void *a2)
+void *kaldi::InsertionOrderedSet<kaldi::WordHypLattice::Arc *>::insert(uint64_t *a1, void *a2)
 {
-  result = std::__hash_table<std::__hash_value_type<kaldi::LatticeFasterOnlineDecoder::Token *,int>,std::__unordered_map_hasher<kaldi::LatticeFasterOnlineDecoder::Token *,std::__hash_value_type<kaldi::LatticeFasterOnlineDecoder::Token *,int>,std::hash<kaldi::LatticeFasterOnlineDecoder::Token *>,std::equal_to<kaldi::LatticeFasterOnlineDecoder::Token *>,true>,std::__unordered_map_equal<kaldi::LatticeFasterOnlineDecoder::Token *,std::__hash_value_type<kaldi::LatticeFasterOnlineDecoder::Token *,int>,std::equal_to<kaldi::LatticeFasterOnlineDecoder::Token *>,std::hash<kaldi::LatticeFasterOnlineDecoder::Token *>,true>,std::allocator<std::__hash_value_type<kaldi::LatticeFasterOnlineDecoder::Token *,int>>>::find<kaldi::LatticeFasterOnlineDecoder::Token *>((a1 + 24), a2);
+  result = std::__hash_table<std::__hash_value_type<kaldi::LatticeFasterOnlineDecoder::Token *,int>,std::__unordered_map_hasher<kaldi::LatticeFasterOnlineDecoder::Token *,std::__hash_value_type<kaldi::LatticeFasterOnlineDecoder::Token *,int>,std::hash<kaldi::LatticeFasterOnlineDecoder::Token *>,std::equal_to<kaldi::LatticeFasterOnlineDecoder::Token *>,true>,std::__unordered_map_equal<kaldi::LatticeFasterOnlineDecoder::Token *,std::__hash_value_type<kaldi::LatticeFasterOnlineDecoder::Token *,int>,std::equal_to<kaldi::LatticeFasterOnlineDecoder::Token *>,std::hash<kaldi::LatticeFasterOnlineDecoder::Token *>,true>,std::allocator<std::__hash_value_type<kaldi::LatticeFasterOnlineDecoder::Token *,int>>>::find<kaldi::LatticeFasterOnlineDecoder::Token *>(a1 + 3, a2);
   if (!result)
   {
     operator new();
@@ -4035,13 +5372,13 @@ void kaldi::WordHypLattice::RecomputeTopSortedNodes(kaldi::WordHypLattice *this)
         {
 LABEL_15:
           v14 = *(v8 + 16);
-          v22 = v7 + 8;
-          *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,int>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,int>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,int>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v20, (v7 + 8)) + 10) = v14;
+          v22 = (v7 + 8);
+          *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,int>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,int>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,int>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v20, (v7 + 8), &std::piecewise_construct, &v22) + 10) = v14;
           v7 = *(j + 16);
         }
 
-        v22 = v7 + 8;
-        v15 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,int>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,int>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,int>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v20, (v7 + 8));
+        v22 = (v7 + 8);
+        v15 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,int>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,int>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,int>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v20, (v7 + 8), &std::piecewise_construct, &v22);
         v16 = *(v15 + 10) - 1;
         *(v15 + 10) = v16;
         if (!v16)
@@ -4056,16 +5393,16 @@ LABEL_15:
   }
 }
 
-void sub_1B53635D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, void *a19)
+void sub_1B53635D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19)
 {
   std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> *>>::~deque[abi:ne200100](&a11);
   std::__tree<int>::destroy(&a18, a19);
   _Unwind_Resume(a1);
 }
 
-void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64_t a3, uint64_t **a4)
 {
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   if (a1[1])
   {
     v6 = a1[2];
@@ -4080,13 +5417,14 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
       v64[0] = 0;
       do
       {
-        std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,double>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,double>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,double>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *&,double const&>(&v65, v6);
-        std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,double>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,double>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,double>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *&,double const&>(&v63, v6++);
+        std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,double>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,double>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,double>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *&,double const&>(&v65, v6, v6, &kaldi::kLogZeroDouble);
+        std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,double>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,double>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,double>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *&,double const&>(&v63, v6, v6, &kaldi::kLogZeroDouble);
+        ++v6;
       }
 
       while (v6 != v7);
-      v62[0] = v4;
-      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v4)[5] = 0;
+      v62[0].__locale_ = v4;
+      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v4, &std::piecewise_construct, v62)[5] = 0;
       v11 = a1[2];
       v12 = a1[3];
       if (v11 != v12)
@@ -4103,10 +5441,10 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
             }
 
             v16 = (*(*v15 + 48))(v15, *(i + 16));
-            v62[0] = v11;
-            v17 = *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v11) + 5);
-            v62[0] = (*(i + 16) + 8);
-            v18 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v62[0]);
+            v62[0].__locale_ = v11;
+            v17 = *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v11, &std::piecewise_construct, v62) + 5);
+            v62[0].__locale_ = (*(i + 16) + 8);
+            v18 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v62[0].__locale_, &std::piecewise_construct, v62);
             v19 = v18[5];
             v20 = v19 - (v17 - v16);
             v21 = v17 - v16 - v19;
@@ -4137,26 +5475,27 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
               v23 = v23 + log1p(v25);
             }
 
-            v62[0] = (*(i + 16) + 8);
-            *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v62[0]) + 5) = v23;
+            v62[0].__locale_ = (*(i + 16) + 8);
+            *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v62[0].__locale_, &std::piecewise_construct, v62) + 5) = v23;
           }
 
-          ++v11;
+          v11 = (v11 + 8);
         }
 
         while (v11 != v12);
         v12 = a1[3];
       }
 
-      v62[0] = v12 - 1;
-      v26 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v12 - 1);
-      v62[0] = (a1[3] - 8);
-      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v62[0])[5] = 0;
+      v62[0].__locale_ = (v12 - 8);
+      v26 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v12 - 1, &std::piecewise_construct, v62);
+      v62[0].__locale_ = (a1[3] - 8);
+      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v62[0].__locale_, &std::piecewise_construct, v62)[5] = 0;
       v27 = a1[2];
       v28 = a1[3];
       while (v28 != v27)
       {
-        v30 = *--v28;
+        v30 = *(v28 - 1);
+        v28 = (v28 - 8);
         v29 = v30;
         v31 = *(v30 + 8);
         if (v31 != v30)
@@ -4170,10 +5509,10 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
             }
 
             v33 = (*(*v32 + 48))(v32, *(v31 + 16));
-            v62[0] = v28;
-            v34 = *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v28) + 5);
+            v62[0].__locale_ = v28;
+            v34 = *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v28, &std::piecewise_construct, v62) + 5);
             v62[0] = *(v31 + 16);
-            v35 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v62[0]);
+            v35 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v62[0].__locale_, &std::piecewise_construct, v62);
             v36 = v34 - v33;
             v37 = v35[5];
             if (v37 >= v36)
@@ -4203,9 +5542,9 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
             }
 
             v62[0] = *(v31 + 16);
-            *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v62[0]) + 5) = v38;
+            *(std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v62[0].__locale_, &std::piecewise_construct, v62) + 5) = v38;
             v62[0] = *(v31 + 16);
-            v41 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v62[0]);
+            v41 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v65, v62[0].__locale_, &std::piecewise_construct, v62);
             v42 = *(a3 + 24);
             if (!v42)
             {
@@ -4223,8 +5562,8 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
         }
       }
 
-      v62[0] = v27;
-      v45 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v27);
+      v62[0].__locale_ = v27;
+      v45 = std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v63, v27, &std::piecewise_construct, v62);
       v46 = v26[5];
       v47 = v46;
       v48 = v45[5];
@@ -4249,7 +5588,7 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
 
         else
         {
-          v51 = *(a4 + 8);
+          v51 = a4[1];
         }
 
         v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, v50, v51);
@@ -4282,7 +5621,7 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
 
         else
         {
-          v58 = *(a4 + 8);
+          v58 = a4[1];
         }
 
         v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, v57, v58);
@@ -4298,9 +5637,9 @@ void kaldi::WordHypLattice::RecomputeArcPosteriors(void *a1, uint64_t a2, uint64
   }
 }
 
-void sub_1B5363B68(uint64_t a1, ...)
+void sub_1B5363B68(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
+  va_start(va, a2);
   kaldi::KaldiWarnMessage::~KaldiWarnMessage(va);
   JUMPOUT(0x1B5363BA8);
 }
@@ -4384,13 +5723,13 @@ void kaldi::WordHypLattice::RecomputeNodeGraphLogProbs(kaldi::WordHypLattice *th
   }
 }
 
-void kaldi::WordHypLattice::RecomputeBestPath(kaldi::WordHypLattice *this)
+void kaldi::WordHypLattice::RecomputeBestPath(void *this)
 {
-  v1 = (this + 8);
-  if (*(this + 1))
+  v1 = (this + 1);
+  if (this[1])
   {
-    v3 = *(this + 2);
-    v4 = *(this + 3);
+    v3 = this[2];
+    v4 = this[3];
     if (v3 != v4)
     {
       v24[0] = 0;
@@ -4406,12 +5745,12 @@ void kaldi::WordHypLattice::RecomputeBestPath(kaldi::WordHypLattice *this)
 
       while (v3 != v4);
       *std::map<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken,std::less<kaldi::WordHypLattice::Node *>,std::allocator<std::pair<kaldi::WordHypLattice::Node * const,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken>>>::operator[](&v23, v1) = 0;
-      v6 = *(this + 2);
-      v7 = *(this + 3);
+      v6 = this[2];
+      v7 = this[3];
       while (v6 != v7)
       {
-        v8 = *v6 + 64;
-        for (i = *(*v6 + 72); i != v8; i = *(i + 8))
+        v8 = (*v6 + 8);
+        for (i = (*v6)[9]; i != v8; i = *(i + 8))
         {
           v10 = *std::map<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken,std::less<kaldi::WordHypLattice::Node *>,std::allocator<std::pair<kaldi::WordHypLattice::Node * const,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken>>>::operator[](&v23, v6);
           v11 = *(i + 16);
@@ -4434,27 +5773,27 @@ void kaldi::WordHypLattice::RecomputeBestPath(kaldi::WordHypLattice *this)
       {
         kaldi::KaldiWarnMessage::KaldiWarnMessage(v22);
         v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "best cost = ", 12);
-        v17 = std::map<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken,std::less<kaldi::WordHypLattice::Node *>,std::allocator<std::pair<kaldi::WordHypLattice::Node * const,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken>>>::operator[](&v23, (*(this + 3) - 8));
+        v17 = std::map<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken,std::less<kaldi::WordHypLattice::Node *>,std::allocator<std::pair<kaldi::WordHypLattice::Node * const,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken>>>::operator[](&v23, (this[3] - 8));
         MEMORY[0x1B8C84BE0](v16, *v17);
         kaldi::KaldiLogMessage::~KaldiLogMessage(v22);
       }
 
-      v18 = *(this + 5);
-      v19 = *(this + 6);
+      v18 = this[5];
+      v19 = this[6];
       while (v18 != v19)
       {
         v20 = *v18++;
         *(v20 + 49) = 0;
       }
 
-      v22[0] = *(*(this + 3) - 8);
-      if (v22[0].__locale_ != *(this + 1))
+      v22[0] = *(this[3] - 8);
+      if (v22[0].__locale_ != this[1])
       {
         do
         {
           v21 = std::map<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken,std::less<kaldi::WordHypLattice::Node *>,std::allocator<std::pair<kaldi::WordHypLattice::Node * const,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken>>>::operator[](&v23, v22)[1];
           *(v21 + 49) = 1;
-          v22[0] = *v21;
+          v22[0].__locale_ = *v21;
         }
 
         while (v22[0].__locale_ != *v1);
@@ -4544,19 +5883,19 @@ uint64_t kaldi::WordHypLattice::ReassignArcIds(uint64_t this)
   return this;
 }
 
-void kaldi::WordHypLattice::RetrieveConfidenceByTokens(kaldi::WordHypLattice *this@<X0>, void *a2@<X8>)
+void kaldi::WordHypLattice::RetrieveConfidenceByTokens(char *__return_ptr a1@<X8>, kaldi::WordHypLattice *this@<X0>)
 {
   if (*(this + 1) && (*this & 1) != 0)
   {
-    a2[2] = 0;
-    a2[1] = 0;
-    *a2 = a2 + 1;
+    *(a1 + 2) = 0;
+    *(a1 + 1) = 0;
+    *a1 = a1 + 8;
     v3 = *(this + 5);
     for (i = *(this + 6); v3 != i; v3 += 8)
     {
       std::optional<std::string>::value_or[abi:ne200100]<std::string&>(*v3 + 464, *v3 + 264, &__p);
       p_p = &__p;
-      v5 = std::__tree<std::__value_type<std::string,std::vector<kaldi::TimestampsAndConfidence>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<kaldi::TimestampsAndConfidence>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<kaldi::TimestampsAndConfidence>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, &__p.__r_.__value_.__l.__data_);
+      v5 = std::__tree<std::__value_type<std::string,std::vector<kaldi::TimestampsAndConfidence>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<kaldi::TimestampsAndConfidence>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<kaldi::TimestampsAndConfidence>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &p_p);
       v6 = v5;
       v7 = *(*v3 + 52);
       v8 = *(*v3 + 248) - v7;
@@ -4624,9 +5963,9 @@ void kaldi::WordHypLattice::RetrieveConfidenceByTokens(kaldi::WordHypLattice *th
 
   else
   {
-    a2[2] = 0;
-    a2[1] = 0;
-    *a2 = a2 + 1;
+    *(a1 + 2) = 0;
+    *(a1 + 1) = 0;
+    *a1 = a1 + 8;
   }
 }
 
@@ -4641,9 +5980,9 @@ void sub_1B536419C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::map<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken,std::less<kaldi::WordHypLattice::Node *>,std::allocator<std::pair<kaldi::WordHypLattice::Node * const,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken>>>::operator[](uint64_t a1, unint64_t *a2)
+uint64_t **std::map<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken,std::less<kaldi::WordHypLattice::Node *>,std::allocator<std::pair<kaldi::WordHypLattice::Node * const,kaldi::WordHypLattice::RecomputeBestPath(void)::BackTraceToken>>>::operator[](uint64_t **a1, uint64_t **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
 LABEL_8:
@@ -4671,7 +6010,7 @@ LABEL_8:
 
     if (v5 >= v3)
     {
-      return v4 + 5;
+      return (v4 + 5);
     }
 
     v2 = v4[1];
@@ -4682,9 +6021,9 @@ LABEL_8:
   }
 }
 
-kaldi::WordHypLattice::Node *kaldi::WordHypLattice::GetBestPath(void *a1, uint64_t a2, void ***a3)
+kaldi::WordHypLattice::Node *kaldi::WordHypLattice::GetBestPath(void *a1, const void **a2, void ***a3)
 {
-  *(a2 + 8) = *a2;
+  a2[1] = *a2;
   std::vector<std::string>::clear[abi:ne200100](a3);
   result = a1[1];
   if (result)
@@ -4694,16 +6033,16 @@ kaldi::WordHypLattice::Node *kaldi::WordHypLattice::GetBestPath(void *a1, uint64
     {
       while (result != *(v7 - 8))
       {
-        BestPathArc = kaldi::WordHypLattice::Node::FindBestPathArc(result, 1, 1);
-        if (!BestPathArc)
+        kaldi::WordHypLattice::Node::FindBestPathArc(result, 1, 1);
+        if (!v8)
         {
           kaldi::KaldiWarnMessage::KaldiWarnMessage(v17);
           std::operator<<[abi:ne200100]<std::char_traits<char>>(v17, "arc != nullptr");
           goto LABEL_14;
         }
 
-        v9 = BestPathArc;
-        std::vector<int>::push_back[abi:ne200100](a2, (BestPathArc + 456));
+        v9 = v8;
+        std::vector<int>::push_back[abi:ne200100](a2, (v8 + 456));
         std::vector<std::string>::push_back[abi:ne200100](a3, (v9 + 264));
         result = *(v9 + 8);
         v7 = a1[3];
@@ -4728,11 +6067,11 @@ kaldi::WordHypLattice::Node *kaldi::WordHypLattice::GetBestPath(void *a1, uint64
         while (v10 != v11);
       }
 
-      if (v12 != (*(a2 + 8) - *a2) >> 2)
+      if (v12 != (a2[1] - *a2) >> 2)
       {
         kaldi::KaldiWarnMessage::KaldiWarnMessage(v17);
         v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Num arcs in best path =", 23);
-        v15 = MEMORY[0x1B8C84C30](v14, (*(a2 + 8) - *a2) >> 2);
+        v15 = MEMORY[0x1B8C84C30](v14, (a2[1] - *a2) >> 2);
         v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " but num arcs marked =", 22);
         MEMORY[0x1B8C84C00](v16, v12);
 LABEL_14:
@@ -4744,10 +6083,10 @@ LABEL_14:
   return result;
 }
 
-void kaldi::WordHypLattice::GetBestMeanConfPath(void *a1, const void **a2, unint64_t *a3, _DWORD *a4)
+void kaldi::WordHypLattice::GetBestMeanConfPath(void *result, unint64_t *a2, unint64_t *a3, _DWORD *a4)
 {
-  v4 = a1 + 1;
-  if (a1[1] && a1[2] != a1[3] && a1[5] != a1[6])
+  v4 = (result + 1);
+  if (result[1] && result[2] != result[3] && result[5] != result[6])
   {
     v80[0] = 0;
     v80[1] = 0;
@@ -4759,23 +6098,23 @@ void kaldi::WordHypLattice::GetBestMeanConfPath(void *a1, const void **a2, unint
     v73 = a3;
     LODWORD(v78[0].__locale_) = 0;
     *std::map<int,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken,std::less<int>,std::allocator<std::pair<int const,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken>>>::operator[](v9, v78) = 0;
-    v10 = a1[2];
-    v11 = a1[3];
-    v74 = a1;
+    v10 = result[2];
+    v11 = result[3];
+    v74 = result;
     v75 = v11;
     while (v10 != v11)
     {
-      v12 = *(*v10 + 72);
-      v76 = *v10 + 64;
+      v12 = (*v10)[9];
+      v76 = (*v10 + 8);
       if (v12 != v76)
       {
         while (1)
         {
           v13 = v10;
           v14 = std::map<kaldi::WordHypLattice::Node *,std::map<int,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken,std::less<int>,std::allocator<std::pair<int const,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken>>>>::operator[](&v79, v10);
-          v16 = (v14 + 1);
+          v16 = v14 + 1;
           v15 = *v14;
-          if (*v14 != v14 + 1)
+          if (*v14 != (v14 + 1))
           {
             break;
           }
@@ -4791,7 +6130,7 @@ LABEL_37:
 
         while (2)
         {
-          v17 = v15[5];
+          v17 = *(v15 + 5);
           v18 = *(v12 + 16);
           v19 = *(v18 + 32);
           v78[0] = *(v18 + 8);
@@ -4809,12 +6148,12 @@ LABEL_37:
           v26 = v23;
           do
           {
-            if (*(v24 + 32) > v20)
+            if (*(v24 + 8) > v20)
             {
               v26 = v24;
             }
 
-            v24 = *(v24 + 8 * (*(v24 + 32) <= v20));
+            v24 = v24[*(v24 + 8) <= v20];
           }
 
           while (v24);
@@ -4825,7 +6164,7 @@ LABEL_15:
           }
 
           v27 = v17 + v19;
-          if (v26 == std::map<kaldi::WordHypLattice::Node *,std::map<int,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken,std::less<int>,std::allocator<std::pair<int const,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken>>>>::operator[](&v79, v78) + 1)
+          if (v26 == (std::map<kaldi::WordHypLattice::Node *,std::map<int,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken,std::less<int>,std::allocator<std::pair<int const,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken>>>>::operator[](&v79, v78) + 1))
           {
             v29 = *(v12 + 16);
             v30 = std::map<kaldi::WordHypLattice::Node *,std::map<int,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken,std::less<int>,std::allocator<std::pair<int const,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken>>>>::operator[](&v79, v78)[1];
@@ -4840,7 +6179,7 @@ LABEL_29:
               while (1)
               {
                 v26 = v30;
-                v31 = *(v30 + 32);
+                v31 = *(v30 + 8);
                 if (v22 >= v31)
                 {
                   break;
@@ -4878,7 +6217,7 @@ LABEL_29:
             if (v27 != v28 || (v29 = *(v12 + 16), (*(v29 + 49) & 1) == 0))
             {
 LABEL_31:
-              v32 = *(v15 + 1);
+              v32 = v15[1];
               if (v32)
               {
                 do
@@ -4894,7 +6233,7 @@ LABEL_31:
               {
                 do
                 {
-                  v33 = *(v15 + 2);
+                  v33 = v15[2];
                   v34 = *v33 == v15;
                   v15 = v33;
                 }
@@ -4936,7 +6275,7 @@ LABEL_38:
     v38 = std::map<kaldi::WordHypLattice::Node *,std::map<int,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken,std::less<int>,std::allocator<std::pair<int const,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken>>>>::operator[](&v79, (v74[3] - 8));
     v40 = v38 + 1;
     v39 = *v38;
-    if (*v38 == v38 + 1)
+    if (*v38 == (v38 + 1))
     {
       v41 = 0;
     }
@@ -5026,7 +6365,7 @@ LABEL_38:
 
     v55 = *v72;
     v56 = v72[1];
-    v57 = v56 - 4;
+    v57 = (v56 - 4);
     if (*v72 != v56 && v57 > v55)
     {
       v59 = v55 + 4;
@@ -5070,9 +6409,9 @@ LABEL_38:
   }
 }
 
-void *std::map<kaldi::WordHypLattice::Node *,std::map<int,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken,std::less<int>,std::allocator<std::pair<int const,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken>>>>::operator[](uint64_t a1, unint64_t *a2)
+uint64_t **std::map<kaldi::WordHypLattice::Node *,std::map<int,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken,std::less<int>,std::allocator<std::pair<int const,kaldi::WordHypLattice::GetBestMeanConfPath(std::vector<int> &,std::vector<std::string> &,int &)::BackTraceToken>>>>::operator[](uint64_t **a1, uint64_t **a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
 LABEL_8:
@@ -5100,7 +6439,7 @@ LABEL_8:
 
     if (v5 >= v3)
     {
-      return v4 + 5;
+      return (v4 + 5);
     }
 
     v2 = v4[1];
@@ -5152,35 +6491,36 @@ LABEL_8:
   }
 }
 
-uint64_t kaldi::WordHypLattice::GetNBestPath(void *a1, uint64_t *a2, uint64_t a3, unsigned int a4)
+void kaldi::WordHypLattice::GetNBestPath(void *a1, uint64_t ***a2, uint64_t a3, unsigned int a4)
 {
+  v5 = a3;
   v22[4] = *MEMORY[0x1E69E9840];
   if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v20);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "GetNBestPath: criteria ", 23);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "GetNBestPath: criteria ", 23);
     kaldi::WordHypLattice::CriteriaToString(a4, __p);
     if ((v19 & 0x80u) == 0)
     {
-      v8 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v8 = __p[0];
+      v9 = __p[0];
     }
 
     if ((v19 & 0x80u) == 0)
     {
-      v9 = v19;
+      v10 = v19;
     }
 
     else
     {
-      v9 = __p[1];
+      v10 = __p[1];
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v8, v9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v9, v10);
     if (v19 < 0)
     {
       operator delete(__p[0]);
@@ -5193,8 +6533,8 @@ uint64_t kaldi::WordHypLattice::GetNBestPath(void *a1, uint64_t *a2, uint64_t a3
   {
     v21[0] = &unk_1F2D0E508;
     v21[3] = v21;
-    kaldi::WordHypLattice::GetNbestPath(a1);
-    return std::__function::__value_func<double ()(kaldi::WordHypLattice::Arc const&)>::~__value_func[abi:ne200100](v21);
+    kaldi::WordHypLattice::GetNbestPath(a1, a2, v5, v21, 0);
+    std::__function::__value_func<double ()(kaldi::WordHypLattice::Arc const&)>::~__value_func[abi:ne200100](v21);
   }
 
   else
@@ -5206,18 +6546,18 @@ uint64_t kaldi::WordHypLattice::GetNBestPath(void *a1, uint64_t *a2, uint64_t a3
       kaldi::KaldiErrorMessage::~KaldiErrorMessage(v20);
     }
 
-    v10 = a1[5];
-    v11 = a1[6];
-    while (v10 != v11)
+    v11 = a1[5];
+    v12 = a1[6];
+    while (v11 != v12)
     {
-      v12 = *v10++;
-      *(v12 + 48) = 0;
+      v13 = *v11++;
+      *(v13 + 48) = 0;
     }
 
     v22[0] = &unk_1F2D0E488;
     v22[3] = v22;
-    kaldi::WordHypLattice::GetNbestPath(a1);
-    result = std::__function::__value_func<double ()(kaldi::WordHypLattice::Arc const&)>::~__value_func[abi:ne200100](v22);
+    kaldi::WordHypLattice::GetNbestPath(a1, a2, v5, v22, 1);
+    std::__function::__value_func<double ()(kaldi::WordHypLattice::Arc const&)>::~__value_func[abi:ne200100](v22);
     v14 = *a2;
     if (*a2 != a2[1])
     {
@@ -5228,8 +6568,6 @@ uint64_t kaldi::WordHypLattice::GetNBestPath(void *a1, uint64_t *a2, uint64_t a3
       }
     }
   }
-
-  return result;
 }
 
 void sub_1B5364D08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -5242,7 +6580,7 @@ void sub_1B5364D08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *kaldi::WordHypLattice::GetNbestPath(void *result)
+void *kaldi::WordHypLattice::GetNbestPath(void *result, uint64_t a2, unsigned int a3, uint64_t a4, int a5)
 {
   if (result[1] && result[2] != result[3] && result[5] != result[6])
   {
@@ -5331,10 +6669,10 @@ const void **std::vector<std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std
   return result;
 }
 
-uint64_t kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenMinHeap::push(uint64_t a1, __int128 *a2, int a3)
+uint64_t kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenMinHeap::push(double ***a1, __int128 *a2, int a3)
 {
   v5 = *a1;
-  v6 = *(a1 + 8);
+  v6 = a1[1];
   v7 = (v6 - *a1) >> 4;
   if (v7 >= a3)
   {
@@ -5349,13 +6687,13 @@ uint64_t kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::Word
     if (v7 >= 2)
     {
       v11 = 0;
-      v12 = v5[1];
+      v12 = *(v5 + 1);
       v13 = *a1;
       *v5 = 0;
-      v5[1] = 0;
+      *(v5 + 1) = 0;
       do
       {
-        v14 = &v13[2 * v11 + 2];
+        v14 = v13 + 16 * v11 + 16;
         v15 = 2 * v11;
         v11 = (2 * v11) | 1;
         v16 = v15 + 2;
@@ -5368,7 +6706,7 @@ uint64_t kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::Word
         v17 = *v14;
         *v14 = 0;
         *(v14 + 8) = 0;
-        v18 = v13[1];
+        v18 = *(v13 + 8);
         *v13 = v17;
         if (v18)
         {
@@ -5414,18 +6752,18 @@ uint64_t kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::Word
       }
     }
 
-    v24 = *(a1 + 8);
-    v25 = *(v24 - 8);
+    v24 = a1[1];
+    v25 = *(v24 - 1);
     if (v25)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v25);
     }
 
-    v6 = (v24 - 16);
-    *(a1 + 8) = v24 - 16;
+    v6 = v24 - 2;
+    a1[1] = v24 - 2;
   }
 
-  v26 = *(a1 + 16);
+  v26 = a1[2];
   if (v6 >= v26)
   {
     v29 = (v6 - *a1) >> 4;
@@ -5465,15 +6803,15 @@ uint64_t kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::Word
       atomic_fetch_add_explicit((*(&v34 + 1) + 8), 1uLL, memory_order_relaxed);
     }
 
-    v28 = v33 + 16;
-    v35 = *(a1 + 8) - *a1;
-    v36 = v33 - v35;
+    v28 = (v33 + 16);
+    v35 = a1[1] - *a1;
+    v36 = (v33 - v35);
     memcpy((v33 - v35), *a1, v35);
     v37 = *a1;
     *a1 = v36;
-    *(a1 + 8) = v28;
-    v38 = *(a1 + 16);
-    *(a1 + 16) = 0;
+    a1[1] = v28;
+    v38 = a1[2];
+    a1[2] = 0;
     v39[2] = v37;
     v39[3] = v38;
     v39[0] = v37;
@@ -5491,48 +6829,48 @@ uint64_t kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::Word
       atomic_fetch_add_explicit((v27 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v28 = (v6 + 2);
+    v28 = v6 + 2;
   }
 
-  *(a1 + 8) = v28;
+  a1[1] = v28;
   std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::__wrap_iter<std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *>>(*a1, v28, (v28 - *a1) >> 4);
   return 1;
 }
 
-void kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenMinHeap::get_sorted(void *a1@<X0>, void *a2@<X8>)
+void kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenMinHeap::get_sorted(void *a1@<X0>, void *a3@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v2 = a1[1];
-  v3 = (v2 - *a1);
-  if (v2 != *a1)
+  *a3 = 0;
+  a3[1] = 0;
+  a3[2] = 0;
+  v3 = a1[1];
+  v4 = (v3 - *a1);
+  if (v3 != *a1)
   {
-    if (!((v3 >> 4) >> 60))
+    if (!((v4 >> 4) >> 60))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken>>>(v3 >> 4);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken>>>(v4 >> 4);
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v4 = 126 - 2 * __clz(v3 >> 4);
-  if (v3)
+  v5 = 126 - 2 * __clz(v4 >> 4);
+  if (v4)
   {
-    v5 = v4;
+    v6 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,false>(0, v3, v5, 1);
+  std::__introsort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,false>(0, v4, v6, 1);
 }
 
-uint64_t *std::map<int,std::vector<std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken>>>::operator[](uint64_t a1, int *a2)
+uint64_t *std::map<int,std::vector<std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken>>>::operator[](uint64_t **a1, int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
 LABEL_8:
@@ -5545,7 +6883,7 @@ LABEL_8:
     while (1)
     {
       v4 = v2;
-      v5 = *(v2 + 32);
+      v5 = *(v2 + 8);
       if (v3 >= v5)
       {
         break;
@@ -5571,7 +6909,7 @@ LABEL_8:
   }
 }
 
-uint64_t std::vector<std::vector<kaldi::WordHypLattice::Arc *>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<kaldi::WordHypLattice::Arc *>>::push_back[abi:ne200100](uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -5582,7 +6920,7 @@ uint64_t std::vector<std::vector<kaldi::WordHypLattice::Arc *>>::push_back[abi:n
   else
   {
     std::vector<std::vector<kaldi::WordHypLattice::Arc *>>::__construct_one_at_end[abi:ne200100]<std::vector<kaldi::WordHypLattice::Arc *> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -5602,15 +6940,15 @@ uint64_t kaldi::WordHypLattice::RecomputeNodeTimestamps(uint64_t this)
   return this;
 }
 
-void kaldi::WordHypLattice::GetTimeSortedNodes(kaldi::WordHypLattice *this@<X0>, void *a2@<X8>)
+void kaldi::WordHypLattice::GetTimeSortedNodes(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<kaldi::WordHypLattice::Node *>::__init_with_size[abi:ne200100]<kaldi::WordHypLattice::Node **,kaldi::WordHypLattice::Node **>(a2, *(this + 2), *(this + 3), (*(this + 3) - *(this + 2)) >> 3);
-  v3 = *a2;
-  v4 = a2[1];
-  v5 = &v4[-*a2];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<kaldi::WordHypLattice::Node *>::__init_with_size[abi:ne200100]<kaldi::WordHypLattice::Node **,kaldi::WordHypLattice::Node **>(a1, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 3);
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = v4 - *a1;
   v6 = v5 >> 3;
   if (v5 >> 3 < 129)
   {
@@ -5670,7 +7008,7 @@ void sub_1B5365D80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *kaldi::WordHypLattice::MergeNodes(void *result, uint64_t *a2, uint64_t *a3)
+void *kaldi::WordHypLattice::MergeNodes(void *result, uint64_t *a2, uint64_t **a3)
 {
   v3 = result;
   v4 = *a2;
@@ -5700,7 +7038,7 @@ void *kaldi::WordHypLattice::MergeNodes(void *result, uint64_t *a2, uint64_t *a3
       {
         do
         {
-          result = kaldi::InsertionOrderedSet<kaldi::WordHypLattice::Arc *>::insert(v7 + 64, v10 + 2);
+          result = kaldi::InsertionOrderedSet<kaldi::WordHypLattice::Arc *>::insert(v7 + 8, v10 + 2);
           v10 = v10[1];
         }
 
@@ -5772,7 +7110,7 @@ LABEL_7:
     return;
   }
 
-  std::vector<kaldi::WordHypLattice::Node *>::vector[abi:ne200100](__p, 1uLL);
+  std::vector<kaldi::WordHypLattice::Node *>::vector[abi:ne200100](__p, 1uLL, (v4 + 8));
   kaldi::WordHypLattice::MergeNodes(this, __p, *a2);
   if (__p[0])
   {
@@ -5928,7 +7266,7 @@ void kaldi::WordHypLattice::doUnion(kaldi::WordHypLattice *this, const kaldi::Wo
       v18 = v19;
       v4 = *(this + 1);
       v20 = (a2 + 8);
-      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v18, a2 + 1)[5] = v4;
+      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v18, a2 + 1, &std::piecewise_construct, &v20)[5] = v4;
       v5 = *(this + 3);
       if (*(this + 2) == v5)
       {
@@ -5953,7 +7291,7 @@ void kaldi::WordHypLattice::doUnion(kaldi::WordHypLattice *this, const kaldi::Wo
 
       v17 = v8;
       v20 = &v17;
-      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v18, &v17)[5] = v6;
+      std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(&v18, &v17, &std::piecewise_construct, &v20)[5] = v6;
       v9 = *(a2 + 2);
       for (i = *(a2 + 3); v9 != i; ++v9)
       {
@@ -6073,7 +7411,7 @@ kaldi::WordHypLattice::Arc *kaldi::WordHypLattice::Arc::Arc(kaldi::WordHypLattic
   *(this + 30) = 0x7FF8000000000000;
   *(this + 31) = vneg_f32(0x3F0000003FLL);
   *(this + 32) = -1;
-  std::string::basic_string[abi:ne200100]<0>(this + 264, "");
+  std::string::basic_string[abi:ne200100]<0>(this + 33, "");
   *(this + 72) = -1;
   *(this + 39) = 0;
   *(this + 40) = 0;
@@ -6106,27 +7444,27 @@ kaldi::WordHypLattice::Arc *kaldi::WordHypLattice::Arc::Arc(kaldi::WordHypLattic
   return this;
 }
 
-void sub_1B53669D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B53669D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 239) < 0)
+  va_start(va, a3);
+  if (*(v3 + 239) < 0)
   {
-    operator delete(*(v2 + 216));
+    operator delete(*(v3 + 216));
   }
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  v5 = *v3;
-  if (*v3)
+  v6 = *v4;
+  if (*v4)
   {
-    *(v2 + 152) = v5;
-    operator delete(v5);
+    *(v3 + 152) = v6;
+    operator delete(v6);
   }
 
-  v6 = *(v2 + 104);
-  if (v6)
+  v7 = *(v3 + 104);
+  if (v7)
   {
-    *(v2 + 112) = v6;
-    operator delete(v6);
+    *(v3 + 112) = v7;
+    operator delete(v7);
   }
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
@@ -6255,15 +7593,15 @@ void std::vector<std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,false>(double **a1, char *a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,false>(double **a1, double **a2, uint64_t a3, char a4)
 {
 LABEL_1:
-  v213 = a2 - 8;
+  v213 = a2 - 1;
   v8 = a1;
   while (1)
   {
     a1 = v8;
-    v9 = &a2[-v8] >> 4;
+    v9 = (a2 - v8) >> 4;
     v10 = v9 - 2;
     if (v9 > 2)
     {
@@ -6286,7 +7624,7 @@ LABEL_1:
             a1[2] = v136;
             *(a2 - 2) = v132;
             v197 = a1[3];
-            v213 = (a1 + 3);
+            v213 = a1 + 3;
             a1[3] = *(a2 - 1);
             *(a2 - 1) = v197;
             v198 = a1[2];
@@ -6298,14 +7636,14 @@ LABEL_1:
 
             *a1 = v198;
             a1[2] = v199;
-            v138 = (a1 + 1);
+            v138 = a1 + 1;
           }
 
           else
           {
             if (v137 <= v133)
             {
-              v138 = (a1 + 3);
+              v138 = a1 + 3;
               v209 = a1[3];
               v210 = a1[1];
               *a1 = v132;
@@ -6323,7 +7661,7 @@ LABEL_1:
 
             else
             {
-              v138 = (a1 + 1);
+              v138 = a1 + 1;
               *a1 = v136;
             }
 
@@ -6336,10 +7674,10 @@ LABEL_1:
           return;
         case 4:
 
-          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(a1, (a1 + 2), (a1 + 4), a2 - 2);
+          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(a1, a1 + 2, a1 + 4, a2 - 2);
           return;
         case 5:
-          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(a1, (a1 + 2), (a1 + 4), a1 + 6);
+          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(a1, a1 + 2, a1 + 4, a1 + 6);
           v117 = *(a2 - 2);
           v118 = a1[6];
           if (*v117 > *v118)
@@ -6533,8 +7871,8 @@ LABEL_1:
         }
 
         while (v169 <= ((v9 - 2) >> 1));
-        a2 -= 16;
-        if (v175 == (v170 - 16))
+        a2 -= 2;
+        if (v175 == v170 - 2)
         {
           v196 = v175[1];
           *v175 = v172;
@@ -6658,7 +7996,7 @@ LABEL_191:
           if (**v11 > **a1)
           {
             *a1 = *v11;
-            v19 = (a1 + 1);
+            v19 = a1 + 1;
             *v11 = v27;
             goto LABEL_27;
           }
@@ -6669,12 +8007,12 @@ LABEL_191:
       {
         if (v14 > v16)
         {
-          v19 = (a1 + 1);
+          v19 = a1 + 1;
           *a1 = v13;
           goto LABEL_26;
         }
 
-        v19 = (v11 + 1);
+        v19 = v11 + 1;
         v31 = v11[1];
         v32 = a1[1];
         *a1 = v15;
@@ -6687,7 +8025,7 @@ LABEL_191:
           *v11 = v33;
 LABEL_26:
           *(a2 - 2) = v17;
-          v25 = a2 - 8;
+          v25 = (a2 - 1);
 LABEL_27:
           v34 = *v19;
           *v19 = *v25;
@@ -6745,7 +8083,7 @@ LABEL_27:
           *v35 = v51;
 LABEL_39:
           *(a2 - 4) = v38;
-          v43 = a2 - 24;
+          v43 = (a2 - 3);
 LABEL_40:
           v52 = *v42;
           *v42 = *v43;
@@ -6777,7 +8115,7 @@ LABEL_40:
           {
             a1[4] = v54;
             *v53 = v64;
-            v61 = (a1 + 5);
+            v61 = a1 + 5;
             goto LABEL_50;
           }
         }
@@ -6787,12 +8125,12 @@ LABEL_40:
       {
         if (v60 > v56)
         {
-          v61 = (a1 + 5);
+          v61 = a1 + 5;
           a1[4] = v59;
           goto LABEL_49;
         }
 
-        v61 = (v53 + 1);
+        v61 = v53 + 1;
         v65 = v53[1];
         v66 = a1[5];
         a1[4] = v54;
@@ -6810,7 +8148,7 @@ LABEL_40:
           *v53 = v67;
 LABEL_49:
           *(a2 - 6) = v57;
-          v63 = a2 - 40;
+          v63 = (a2 - 5);
 LABEL_50:
           v68 = *v61;
           *v61 = *v63;
@@ -6886,9 +8224,9 @@ LABEL_60:
 
       v81 = *a1;
       *a1 = v69;
-      v24 = (a1 + 1);
+      v24 = a1 + 1;
       *v12 = v81;
-      v30 = (v12 + 1);
+      v30 = v12 + 1;
       goto LABEL_62;
     }
 
@@ -6916,15 +8254,15 @@ LABEL_60:
 
       *v12 = *a1;
       *a1 = v29;
-      v24 = (v12 + 1);
-      v30 = (a1 + 1);
+      v24 = v12 + 1;
+      v30 = a1 + 1;
     }
 
     else
     {
       if (v14 <= v21)
       {
-        v24 = (a1 + 1);
+        v24 = a1 + 1;
         v46 = a1[1];
         v47 = v12[1];
         *v12 = v20;
@@ -6942,12 +8280,12 @@ LABEL_60:
 
       else
       {
-        v24 = (v11 + 1);
+        v24 = v11 + 1;
         *v12 = v13;
       }
 
       *(a2 - 2) = v22;
-      v30 = a2 - 8;
+      v30 = a2 - 1;
     }
 
 LABEL_62:
@@ -6984,7 +8322,7 @@ LABEL_63:
           }
 
           v91 = *(v89 - 2);
-          v89 -= 16;
+          v89 -= 2;
         }
 
         while (*v91 <= v86);
@@ -6995,7 +8333,7 @@ LABEL_63:
         do
         {
           v90 = *(v89 - 2);
-          v89 -= 16;
+          v89 -= 2;
         }
 
         while (*v90 <= v86);
@@ -7015,13 +8353,13 @@ LABEL_63:
         {
           *v8 = v92;
           *v93 = v87;
-          v94 = *(v8 + 8);
-          *(v8 + 8) = v93[1];
+          v94 = v8[1];
+          v8[1] = v93[1];
           v93[1] = v94;
           do
           {
-            v95 = *(v8 + 16);
-            v8 += 16;
+            v95 = v8[2];
+            v8 += 2;
             v87 = v95;
           }
 
@@ -7039,12 +8377,12 @@ LABEL_63:
         while (v8 < v93);
       }
 
-      v97 = (v8 - 16);
-      if ((v8 - 16) != a1)
+      v97 = v8 - 2;
+      if (v8 - 2 != a1)
       {
         v98 = *v97;
         *v97 = 0;
-        *(v8 - 8) = 0;
+        *(v8 - 1) = 0;
         v99 = a1[1];
         *a1 = v98;
         if (v99)
@@ -7053,9 +8391,9 @@ LABEL_63:
         }
       }
 
-      v100 = *(v8 - 8);
-      *(v8 - 16) = v83;
-      *(v8 - 8) = v85;
+      v100 = *(v8 - 1);
+      *(v8 - 2) = v83;
+      *(v8 - 1) = v85;
       if (v100)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v100);
@@ -7066,10 +8404,10 @@ LABEL_63:
         goto LABEL_89;
       }
 
-      v101 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *>(a1, (v8 - 16));
+      v101 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *>(a1, v8 - 2);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *>(v8, a2))
       {
-        a2 = (v8 - 16);
+        a2 = v8 - 2;
         if (v101)
         {
           return;
@@ -7094,7 +8432,7 @@ LABEL_89:
       v103 = *v83;
       if (*v83 <= **(a2 - 2))
       {
-        v105 = (a1 + 2);
+        v105 = a1 + 2;
         do
         {
           v8 = v105;
@@ -7114,8 +8452,8 @@ LABEL_89:
         v8 = a1;
         do
         {
-          v104 = *(v8 + 16);
-          v8 += 16;
+          v104 = v8[2];
+          v8 += 2;
         }
 
         while (v103 <= *v104);
@@ -7142,13 +8480,13 @@ LABEL_89:
         {
           *v8 = v109;
           *v106 = v108;
-          v110 = *(v8 + 8);
-          *(v8 + 8) = v106[1];
+          v110 = v8[1];
+          v8[1] = v106[1];
           v106[1] = v110;
           do
           {
-            v111 = *(v8 + 16);
-            v8 += 16;
+            v111 = v8[2];
+            v8 += 2;
             v108 = v111;
           }
 
@@ -7166,12 +8504,12 @@ LABEL_89:
         while (v8 < v106);
       }
 
-      v113 = (v8 - 16);
-      if ((v8 - 16) != a1)
+      v113 = v8 - 2;
+      if (v8 - 2 != a1)
       {
         v114 = *v113;
         *v113 = 0;
-        *(v8 - 8) = 0;
+        *(v8 - 1) = 0;
         v115 = a1[1];
         *a1 = v114;
         if (v115)
@@ -7181,9 +8519,9 @@ LABEL_89:
       }
 
       a4 = 0;
-      v116 = *(v8 - 8);
-      *(v8 - 16) = v83;
-      *(v8 - 8) = v102;
+      v116 = *(v8 - 1);
+      *(v8 - 2) = v83;
+      *(v8 - 1) = v102;
       if (v116)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v116);
@@ -7192,7 +8530,7 @@ LABEL_89:
     }
   }
 
-  v139 = (a1 + 2);
+  v139 = a1 + 2;
   v141 = a1 == a2 || v139 == a2;
   if (a4)
   {
@@ -7251,7 +8589,7 @@ LABEL_146:
           }
         }
 
-        v139 = (v143 + 2);
+        v139 = v143 + 2;
         v142 += 16;
       }
 
@@ -7261,7 +8599,7 @@ LABEL_146:
 
   else if (!v141)
   {
-    v200 = (a1 + 3);
+    v200 = a1 + 3;
     do
     {
       v201 = a1;
@@ -7301,7 +8639,7 @@ LABEL_146:
         }
       }
 
-      v139 = (a1 + 2);
+      v139 = a1 + 2;
       v200 += 2;
     }
 
@@ -7309,7 +8647,7 @@ LABEL_146:
   }
 }
 
-double **std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(double **result, uint64_t a2, uint64_t a3, double **a4)
+double **std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(double **result, double **a2, double **a3, double **a4)
 {
   v4 = *a2;
   v5 = **a2;
@@ -7322,15 +8660,15 @@ double **std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice
     {
       *a2 = v7;
       *a3 = v4;
-      v11 = (a2 + 8);
-      v10 = *(a2 + 8);
-      *(a2 + 8) = *(a3 + 8);
-      *(a3 + 8) = v10;
+      v11 = a2 + 1;
+      v10 = a2[1];
+      a2[1] = a3[1];
+      a3[1] = v10;
       v12 = *result;
       if (**a2 > **result)
       {
         *result = *a2;
-        v9 = (result + 1);
+        v9 = result + 1;
         *a2 = v12;
 LABEL_10:
         v14 = *v9;
@@ -7344,20 +8682,20 @@ LABEL_10:
   {
     if (v8 > v5)
     {
-      v9 = (result + 1);
+      v9 = result + 1;
       *result = v7;
 LABEL_9:
       *a3 = v6;
-      v11 = (a3 + 8);
+      v11 = a3 + 1;
       goto LABEL_10;
     }
 
     *result = v4;
     *a2 = v6;
-    v9 = (a2 + 8);
+    v9 = a2 + 1;
     v13 = result[1];
-    result[1] = *(a2 + 8);
-    *(a2 + 8) = v13;
+    result[1] = a2[1];
+    a2[1] = v13;
     v6 = *a2;
     if (**a3 > **a2)
     {
@@ -7371,25 +8709,25 @@ LABEL_9:
   {
     *a3 = *a4;
     *a4 = v15;
-    v16 = *(a3 + 8);
-    *(a3 + 8) = a4[1];
+    v16 = a3[1];
+    a3[1] = a4[1];
     a4[1] = v16;
     v17 = *a2;
     if (**a3 > **a2)
     {
       *a2 = *a3;
       *a3 = v17;
-      v18 = *(a2 + 8);
-      *(a2 + 8) = *(a3 + 8);
-      *(a3 + 8) = v18;
+      v18 = a2[1];
+      a2[1] = a3[1];
+      a3[1] = v18;
       v19 = *result;
       if (**a2 > **result)
       {
         *result = *a2;
         *a2 = v19;
         v20 = result[1];
-        result[1] = *(a2 + 8);
-        *(a2 + 8) = v20;
+        result[1] = a2[1];
+        a2[1] = v20;
       }
     }
   }
@@ -7397,7 +8735,7 @@ LABEL_9:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *>(double **a1, char *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *>(double **a1, double **a2)
 {
   v4 = (a2 - a1) >> 4;
   if (v4 > 2)
@@ -7419,7 +8757,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi
 
         a1[2] = v24;
         *(a2 - 2) = v20;
-        v36 = (a1 + 3);
+        v36 = a1 + 3;
         v35 = a1[3];
         a1[3] = *(a2 - 1);
         *(a2 - 1) = v35;
@@ -7432,14 +8770,14 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi
 
         *a1 = v37;
         a1[2] = v38;
-        v26 = (a1 + 1);
+        v26 = a1 + 1;
       }
 
       else
       {
         if (v25 <= v21)
         {
-          v26 = (a1 + 3);
+          v26 = a1 + 3;
           v42 = a1[3];
           v43 = a1[1];
           *a1 = v20;
@@ -7457,12 +8795,12 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi
 
         else
         {
-          v26 = (a1 + 1);
+          v26 = a1 + 1;
           *a1 = v24;
         }
 
         *(a2 - 2) = v22;
-        v36 = a2 - 8;
+        v36 = a2 - 1;
       }
 
       v45 = *v26;
@@ -7475,7 +8813,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi
     {
       if (v4 == 5)
       {
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(a1, (a1 + 2), (a1 + 4), a1 + 6);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(a1, a1 + 2, a1 + 4, a1 + 6);
         v8 = *(a2 - 2);
         v9 = a1[6];
         if (*v8 > *v9)
@@ -7523,7 +8861,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi
       goto LABEL_17;
     }
 
-    std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(a1, (a1 + 2), (a1 + 4), a2 - 2);
+    std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::TokenGreater &,std::shared_ptr<kaldi::WordHypLattice::GetNbestPath(std::vector<std::vector<kaldi::WordHypLattice::Arc *>> &,int,std::function<double ()(kaldi::WordHypLattice::Arc const&)>,BOOL)::BackTraceToken> *,0>(a1, a1 + 2, a1 + 4, a2 - 2);
     return 1;
   }
 
@@ -7560,7 +8898,7 @@ LABEL_17:
   {
     if (v33 <= v30)
     {
-      v34 = (a1 + 3);
+      v34 = a1 + 3;
       v46 = a1[3];
       v47 = a1[1];
       *a1 = v29;
@@ -7577,18 +8915,18 @@ LABEL_17:
 
     else
     {
-      v34 = (a1 + 1);
+      v34 = a1 + 1;
       *a1 = v28;
     }
 
     a1[4] = v31;
-    v40 = (a1 + 5);
+    v40 = a1 + 5;
     goto LABEL_34;
   }
 
   if (v33 > v30)
   {
-    v40 = (a1 + 3);
+    v40 = a1 + 3;
     v39 = a1[3];
     v41 = a1[5];
     a1[2] = v28;
@@ -7599,7 +8937,7 @@ LABEL_17:
     {
       *a1 = v28;
       a1[2] = v31;
-      v34 = (a1 + 1);
+      v34 = a1 + 1;
 LABEL_34:
       v48 = *v34;
       *v34 = *v40;
@@ -7703,17 +9041,17 @@ void sub_1B5367E8C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::list<kaldi::WordHypLattice::Arc *>::list(void *result, uint64_t a2)
+uint64_t *std::list<kaldi::WordHypLattice::Arc *>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t std::unordered_map<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>::unordered_map(uint64_t a1, uint64_t a2)
@@ -7724,41 +9062,41 @@ uint64_t std::unordered_map<kaldi::WordHypLattice::Arc *,std::__list_iterator<ka
   std::__hash_table<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::__unordered_map_hasher<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::hash<kaldi::WordHypLattice::Arc *>,std::equal_to<kaldi::WordHypLattice::Arc *>,true>,std::__unordered_map_equal<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::equal_to<kaldi::WordHypLattice::Arc *>,std::hash<kaldi::WordHypLattice::Arc *>,true>,std::allocator<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Arc *,std::pair<kaldi::WordHypLattice::Arc * const,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::__unordered_map_hasher<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::hash<kaldi::WordHypLattice::Arc *>,std::equal_to<kaldi::WordHypLattice::Arc *>,true>,std::__unordered_map_equal<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::equal_to<kaldi::WordHypLattice::Arc *>,std::hash<kaldi::WordHypLattice::Arc *>,true>,std::allocator<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Arc *,std::pair<kaldi::WordHypLattice::Arc * const,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>> const&>(a1, i + 2, i + 1);
   }
 
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::__unordered_map_hasher<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::hash<kaldi::WordHypLattice::Arc *>,std::equal_to<kaldi::WordHypLattice::Arc *>,true>,std::__unordered_map_equal<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::equal_to<kaldi::WordHypLattice::Arc *>,std::hash<kaldi::WordHypLattice::Arc *>,true>,std::allocator<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Arc *,std::pair<kaldi::WordHypLattice::Arc * const,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>> const&>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::__unordered_map_hasher<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::hash<kaldi::WordHypLattice::Arc *>,std::equal_to<kaldi::WordHypLattice::Arc *>,true>,std::__unordered_map_equal<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::equal_to<kaldi::WordHypLattice::Arc *>,std::hash<kaldi::WordHypLattice::Arc *>,true>,std::allocator<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Arc *,std::pair<kaldi::WordHypLattice::Arc * const,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>> const&>(void *a1, void *a2, _OWORD *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -7766,44 +9104,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 kaldi::WordHypLattice::Arc *kaldi::WordHypLattice::Arc::Arc(kaldi::WordHypLattice::Arc *this, const kaldi::WordHypLattice::Arc *a2)
@@ -7819,21 +9157,21 @@ kaldi::WordHypLattice::Arc *kaldi::WordHypLattice::Arc::Arc(kaldi::WordHypLattic
   *(this + 10) = 0;
   *(this + 11) = 0;
   *(this + 12) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 80, *(a2 + 10), *(a2 + 11), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 11) - *(a2 + 10)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 10, *(a2 + 10), *(a2 + 11), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 11) - *(a2 + 10)) >> 3));
   *(this + 13) = 0;
   *(this + 14) = 0;
   *(this + 15) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 104, *(a2 + 13), *(a2 + 14), (*(a2 + 14) - *(a2 + 13)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 13, *(a2 + 13), *(a2 + 14), (*(a2 + 14) - *(a2 + 13)) >> 2);
   v7 = *(a2 + 8);
   *(this + 18) = 0;
   *(this + 8) = v7;
   *(this + 19) = 0;
   *(this + 20) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 144, *(a2 + 18), *(a2 + 19), (*(a2 + 19) - *(a2 + 18)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(this + 18, *(a2 + 18), *(a2 + 19), (*(a2 + 19) - *(a2 + 18)) >> 2);
   *(this + 21) = 0;
   *(this + 22) = 0;
   *(this + 23) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 168, *(a2 + 21), *(a2 + 22), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 22) - *(a2 + 21)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 21, *(a2 + 21), *(a2 + 22), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 22) - *(a2 + 21)) >> 3));
   v8 = *(a2 + 12);
   *(this + 26) = *(a2 + 26);
   *(this + 12) = v8;
@@ -7878,36 +9216,35 @@ kaldi::WordHypLattice::Arc *kaldi::WordHypLattice::Arc::Arc(kaldi::WordHypLattic
   return this;
 }
 
-void sub_1B536844C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B536844C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 239) < 0)
+  va_start(va, a3);
+  if (*(v3 + 239) < 0)
   {
-    operator delete(*(v2 + 216));
+    operator delete(*(v3 + 216));
   }
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  v6 = *v4;
-  if (*v4)
+  v7 = *v5;
+  if (*v5)
   {
-    *(v2 + 152) = v6;
-    operator delete(v6);
+    *(v3 + 152) = v7;
+    operator delete(v7);
   }
 
-  v7 = *v3;
-  if (*v3)
+  v8 = *v4;
+  if (*v4)
   {
-    *(v2 + 112) = v7;
-    operator delete(v7);
+    *(v3 + 112) = v8;
+    operator delete(v8);
   }
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::deque<kaldi::WordHypLattice::Node *>::push_back(void *result, void *a2)
+void std::deque<kaldi::WordHypLattice::Node *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -7924,30 +9261,29 @@ void *std::deque<kaldi::WordHypLattice::Node *>::push_back(void *result, void *a
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<kaldi::WordHypLattice::Node *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<kaldi::WordHypLattice::Node *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<kaldi::WordHypLattice::Node *>::__add_back_capacity(void *a1)
+void std::deque<kaldi::WordHypLattice::Node *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7955,25 +9291,25 @@ void *std::deque<kaldi::WordHypLattice::Node *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>,int>> **&>(a1, &v9);
 }
 
 void sub_1B5368780(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7987,70 +9323,58 @@ void sub_1B5368780(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,unsigned long>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::vector<kaldi::WordHypLattice::Node *>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<kaldi::WordHypLattice::Node *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<kaldi::CuWorkspace *>::__vallocate[abi:ne200100](result, a2);
+    std::vector<kaldi::CuWorkspace *>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<kaldi::CuWorkspace *>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1B53688F8(_Unwind_Exception *exception_object)
@@ -8065,35 +9389,35 @@ void sub_1B53688F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::__unordered_map_hasher<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::hash<kaldi::WordHypLattice::Arc *>,std::equal_to<kaldi::WordHypLattice::Arc *>,true>,std::__unordered_map_equal<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::equal_to<kaldi::WordHypLattice::Arc *>,std::hash<kaldi::WordHypLattice::Arc *>,true>,std::allocator<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Arc *,kaldi::WordHypLattice::Arc * const&,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::__unordered_map_hasher<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::hash<kaldi::WordHypLattice::Arc *>,std::equal_to<kaldi::WordHypLattice::Arc *>,true>,std::__unordered_map_equal<kaldi::WordHypLattice::Arc *,std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>,std::equal_to<kaldi::WordHypLattice::Arc *>,std::hash<kaldi::WordHypLattice::Arc *>,true>,std::allocator<std::__hash_value_type<kaldi::WordHypLattice::Arc *,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Arc *,kaldi::WordHypLattice::Arc * const&,std::__list_iterator<kaldi::WordHypLattice::Arc *,void *>>(void *a1, void *a2, void *a3, uint64_t *a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -8101,44 +9425,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t std::__function::__func<kaldi::WordHypLattice::getWordHypLattice(kaldi::TransitionModel const&,kaldi::LatticeScoreCache *,fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> &,int,std::vector<kaldi::WordHypLattice::InputArcDetail> const*)::$_0,std::allocator<kaldi::WordHypLattice::getWordHypLattice(kaldi::TransitionModel const&,kaldi::LatticeScoreCache *,fst::VectorFst<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,fst::VectorState<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>,std::allocator<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>>> &,int,std::vector<kaldi::WordHypLattice::InputArcDetail> const*)::$_0>,double ()(kaldi::WordHypLattice::Arc const&)>::target(uint64_t a1, uint64_t a2)
@@ -8245,82 +9569,82 @@ uint64_t std::__function::__func<kaldi::WordHypLattice::getWordHypLattice(kaldi:
   }
 }
 
-void *std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,int>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,int>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,int>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,int>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,int>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,int>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,double>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,double>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,double>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *&,double const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,double>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,double>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,double>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *&,double const&>(uint64_t a1, unint64_t *a2, void *a3, void *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8432,1360 +9756,4 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<int,kaldi::WordHypLa
   }
 
   return a1;
-}
-
-uint64_t std::vector<std::vector<kaldi::WordHypLattice::Arc *>>::__construct_one_at_end[abi:ne200100]<std::vector<kaldi::WordHypLattice::Arc *> const&>(uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 + 8);
-  *v3 = 0;
-  v3[1] = 0;
-  v3[2] = 0;
-  result = std::vector<kaldi::WordHypLattice::Arc *>::__init_with_size[abi:ne200100]<kaldi::WordHypLattice::Arc **,kaldi::WordHypLattice::Arc **>(v3, *a2, a2[1], (a2[1] - *a2) >> 3);
-  *(a1 + 8) = v3 + 3;
-  return result;
-}
-
-uint64_t std::vector<std::vector<kaldi::WordHypLattice::Arc *>>::__emplace_back_slow_path<std::vector<kaldi::WordHypLattice::Arc *> const&>(uint64_t a1, uint64_t *a2)
-{
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
-  v3 = v2 + 1;
-  if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
-  {
-    std::vector<int>::__throw_length_error[abi:ne200100]();
-  }
-
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
-  {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
-  }
-
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
-  {
-    v6 = 0xAAAAAAAAAAAAAAALL;
-  }
-
-  else
-  {
-    v6 = v3;
-  }
-
-  v18 = a1;
-  if (v6)
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float>>>(a1, v6);
-  }
-
-  v7 = 24 * v2;
-  v14 = 0;
-  v15 = v7;
-  v16 = 24 * v2;
-  v17 = 0;
-  *v7 = 0;
-  *(v7 + 8) = 0;
-  *(v7 + 16) = 0;
-  std::vector<kaldi::WordHypLattice::Arc *>::__init_with_size[abi:ne200100]<kaldi::WordHypLattice::Arc **,kaldi::WordHypLattice::Arc **>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 3);
-  v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
-  v10 = &v15[-v9];
-  memcpy(&v15[-v9], *a1, v9);
-  v11 = *a1;
-  *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
-  v16 = v11;
-  v17 = v12;
-  v14 = v11;
-  v15 = v11;
-  std::__split_buffer<std::vector<int>>::~__split_buffer(&v14);
-  return v8;
-}
-
-void sub_1B53698D4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__split_buffer<std::vector<int>>::~__split_buffer(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::vector<kaldi::WordHypLattice::Arc *>::__init_with_size[abi:ne200100]<kaldi::WordHypLattice::Arc **,kaldi::WordHypLattice::Arc **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<kaldi::CuWorkspace *>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_1B5369948(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::vector<kaldi::WordHypLattice::Node *>::__init_with_size[abi:ne200100]<kaldi::WordHypLattice::Node **,kaldi::WordHypLattice::Node **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<kaldi::CuWorkspace *>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_1B53699C4(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-char *std::__stable_sort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(char *result, char *a2, unint64_t a3, uint64_t *a4, uint64_t a5)
-{
-  if (a3 >= 2)
-  {
-    v6 = result;
-    if (a3 == 2)
-    {
-      v7 = *(a2 - 1);
-      v8 = *result;
-      if (*(v7 + 132) < *(*result + 132))
-      {
-        *result = v7;
-        *(a2 - 1) = v8;
-      }
-    }
-
-    else if (a3 > 128)
-    {
-      v19 = a4;
-      v20 = a3 >> 1;
-      v21 = &result[8 * (a3 >> 1)];
-      v22 = a3 >> 1;
-      if (a3 <= a5)
-      {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(result, v21, v22, a4);
-        v23 = (v19 + 8 * v20);
-        result = std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(&v6[8 * (a3 >> 1)], a2, a3 - (a3 >> 1), v23);
-        v24 = v19 + 8 * a3;
-        v25 = v23;
-        while (v25 != v24)
-        {
-          v26 = *v25;
-          v27 = *(*v25 + 132);
-          v28 = *(*v19 + 132);
-          if (v27 >= v28)
-          {
-            v26 = *v19;
-          }
-
-          v19 += 8 * (v27 >= v28);
-          v25 += v27 < v28;
-          *v6 = v26;
-          v6 += 8;
-          if (v19 == v23)
-          {
-            while (v25 != v24)
-            {
-              v30 = *v25++;
-              *v6 = v30;
-              v6 += 8;
-            }
-
-            return result;
-          }
-        }
-
-        while (v19 != v23)
-        {
-          v29 = *v19;
-          v19 += 8;
-          *v6 = v29;
-          v6 += 8;
-        }
-      }
-
-      else
-      {
-        std::__stable_sort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(result, v21, v22, a4, a5);
-        std::__stable_sort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(&v6[8 * (a3 >> 1)], a2, a3 - (a3 >> 1), v19, a5);
-
-        return std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(v6, &v6[8 * (a3 >> 1)], a2, a3 >> 1, a3 - (a3 >> 1), v19, a5);
-      }
-    }
-
-    else if (result != a2)
-    {
-      v10 = result + 8;
-      if (result + 8 != a2)
-      {
-        v11 = 0;
-        v12 = result;
-        do
-        {
-          v13 = *v12;
-          v12 = v10;
-          v14 = *v10;
-          v15 = *(v14 + 132);
-          if (v15 < *(v13 + 132))
-          {
-            v16 = v11;
-            while (1)
-            {
-              *&result[v16 + 8] = v13;
-              if (!v16)
-              {
-                break;
-              }
-
-              v13 = *&result[v16 - 8];
-              v16 -= 8;
-              if (v15 >= *(v13 + 132))
-              {
-                v17 = &result[v16 + 8];
-                goto LABEL_16;
-              }
-            }
-
-            v17 = result;
-LABEL_16:
-            *v17 = v14;
-          }
-
-          v10 = v12 + 8;
-          v11 += 8;
-        }
-
-        while (v12 + 8 != a2);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(uint64_t result, uint64_t a2, unint64_t a3, uint64_t *a4)
-{
-  if (a3)
-  {
-    v4 = a4;
-    v6 = result;
-    if (a3 == 1)
-    {
-LABEL_8:
-      *v4 = *v6;
-      return result;
-    }
-
-    if (a3 == 2)
-    {
-      v8 = *(a2 - 8);
-      v9 = *(v8 + 132);
-      v10 = *(*result + 132);
-      if (v9 >= v10)
-      {
-        v8 = *result;
-      }
-
-      *a4 = v8;
-      v4 = a4 + 1;
-      if (v9 >= v10)
-      {
-        v6 = a2 - 8;
-      }
-
-      goto LABEL_8;
-    }
-
-    if (a3 > 8)
-    {
-      v20 = result + 8 * (a3 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(result, v20, a3 >> 1, a4, a3 >> 1);
-      result = std::__stable_sort<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(v6 + 8 * (a3 >> 1), a2, a3 - (a3 >> 1), &v4[a3 >> 1], a3 - (a3 >> 1));
-      v21 = v6 + 8 * (a3 >> 1);
-      while (v21 != a2)
-      {
-        v22 = *v21;
-        v23 = *(*v21 + 132);
-        v24 = *(*v6 + 132);
-        if (v23 >= v24)
-        {
-          v22 = *v6;
-        }
-
-        v21 += 8 * (v23 < v24);
-        v6 += 8 * (v23 >= v24);
-        *v4++ = v22;
-        if (v6 == v20)
-        {
-          while (v21 != a2)
-          {
-            v26 = *v21;
-            v21 += 8;
-            *v4++ = v26;
-          }
-
-          return result;
-        }
-      }
-
-      while (v6 != v20)
-      {
-        v25 = *v6;
-        v6 += 8;
-        *v4++ = v25;
-      }
-    }
-
-    else if (result != a2)
-    {
-      v11 = result + 8;
-      *a4 = *result;
-      if (result + 8 != a2)
-      {
-        v12 = 0;
-        v13 = a4;
-        v14 = a4;
-        do
-        {
-          v16 = *v14++;
-          v15 = v16;
-          if (*(*v11 + 132) >= *(v16 + 132))
-          {
-            *v14 = *v11;
-          }
-
-          else
-          {
-            v13[1] = v15;
-            v17 = a4;
-            if (v13 != a4)
-            {
-              v18 = v12;
-              while (1)
-              {
-                v17 = (a4 + v18);
-                v19 = *(a4 + v18 - 8);
-                if (*(*v11 + 132) >= *(v19 + 132))
-                {
-                  break;
-                }
-
-                *v17 = v19;
-                v18 -= 8;
-                if (!v18)
-                {
-                  v17 = a4;
-                  break;
-                }
-              }
-            }
-
-            *v17 = *v11;
-          }
-
-          v11 += 8;
-          v12 += 8;
-          v13 = v14;
-        }
-
-        while (v11 != a2);
-      }
-    }
-  }
-
-  return result;
-}
-
-char *std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(char *result, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  if (a5)
-  {
-    v9 = a5;
-    v11 = result;
-    while (v9 > a7 && a4 > a7)
-    {
-      if (!a4)
-      {
-        return result;
-      }
-
-      v12 = 0;
-      v13 = -a4;
-      while (1)
-      {
-        v14 = *&v11[v12];
-        if (*(*a2 + 132) < *(v14 + 132))
-        {
-          break;
-        }
-
-        v12 += 8;
-        if (__CFADD__(v13++, 1))
-        {
-          return result;
-        }
-      }
-
-      v16 = -v13;
-      v53 = a3;
-      __src = a6;
-      v52 = a7;
-      if (-v13 >= v9)
-      {
-        if (v13 == -1)
-        {
-          *&v11[v12] = *a2;
-          *a2 = v14;
-          return result;
-        }
-
-        v25 = v16 / 2;
-        v26 = &v11[8 * (v16 / 2)];
-        v18 = a2;
-        if (a2 != a3)
-        {
-          v27 = (a3 - a2) >> 3;
-          v18 = a2;
-          do
-          {
-            v28 = v27 >> 1;
-            v29 = &v18[8 * (v27 >> 1)];
-            v31 = *v29;
-            v30 = v29 + 8;
-            v27 += ~(v27 >> 1);
-            if (*(v31 + 132) < *(*&v26[v12] + 132))
-            {
-              v18 = v30;
-            }
-
-            else
-            {
-              v27 = v28;
-            }
-          }
-
-          while (v27);
-        }
-
-        v17 = (v18 - a2) >> 3;
-        v19 = &v26[v12];
-      }
-
-      else
-      {
-        v17 = v9 / 2;
-        v18 = &a2[8 * (v9 / 2)];
-        v19 = a2;
-        if (a2 - v11 != v12)
-        {
-          v20 = (a2 - v11 - v12) >> 3;
-          v19 = &v11[v12];
-          do
-          {
-            v21 = v20 >> 1;
-            v22 = &v19[8 * (v20 >> 1)];
-            v24 = *v22;
-            v23 = v22 + 8;
-            v20 += ~(v20 >> 1);
-            if (*(*v18 + 132) < *(v24 + 132))
-            {
-              v20 = v21;
-            }
-
-            else
-            {
-              v19 = v23;
-            }
-          }
-
-          while (v20);
-        }
-
-        v25 = (v19 - v11 - v12) >> 3;
-      }
-
-      a4 = -(v25 + v13);
-      v32 = v9 - v17;
-      v33 = v25;
-      v34 = std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<kaldi::WordHypLattice::Node **>,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(v19, a2, v18);
-      v35 = v33;
-      v36 = v34;
-      if (v35 + v17 >= v9 - (v35 + v17) - v13)
-      {
-        v39 = v35;
-        result = std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(v34, v18, v53, a4, v32, __src, v52);
-        v18 = v19;
-        a7 = v52;
-        v32 = v17;
-        a6 = __src;
-        a4 = v39;
-        a3 = v36;
-        v11 += v12;
-      }
-
-      else
-      {
-        v37 = v19;
-        v38 = v17;
-        a6 = __src;
-        a7 = v52;
-        result = std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::WordHypLattice::GetTimeSortedNodes(void)::$_0 &,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(&v11[v12], v37, v34, v35, v38, __src, v52);
-        v11 = v36;
-        a3 = v53;
-      }
-
-      v9 = v32;
-      a2 = v18;
-      if (!v32)
-      {
-        return result;
-      }
-    }
-
-    if (a4 <= v9)
-    {
-      if (a2 != v11)
-      {
-        v43 = -a6;
-        v44 = a6;
-        v45 = v11;
-        do
-        {
-          v46 = *v45;
-          v45 += 8;
-          *v44++ = v46;
-          v43 -= 8;
-        }
-
-        while (v45 != a2);
-        while (a2 != a3)
-        {
-          v47 = *a2;
-          v48 = *(*a2 + 132);
-          v49 = *(*a6 + 132);
-          if (v48 >= v49)
-          {
-            v47 = *a6;
-          }
-
-          a2 += 8 * (v48 < v49);
-          a6 += 8 * (v48 >= v49);
-          *v11 = v47;
-          v11 += 8;
-          if (v44 == a6)
-          {
-            return result;
-          }
-        }
-
-        return memmove(v11, a6, -(a6 + v43));
-      }
-    }
-
-    else if (a2 != a3)
-    {
-      v40 = 0;
-      do
-      {
-        *(a6 + v40) = *&a2[v40];
-        v40 += 8;
-      }
-
-      while (&a2[v40] != a3);
-      v41 = (a6 + v40);
-      while (a2 != v11)
-      {
-        v42 = *(v41 - 1);
-        if (*(v42 + 132) >= *(*(a2 - 1) + 132))
-        {
-          v41 -= 8;
-        }
-
-        else
-        {
-          v42 = *(a2 - 1);
-          a2 -= 8;
-        }
-
-        *(a3 - 1) = v42;
-        a3 -= 8;
-        if (v41 == a6)
-        {
-          return result;
-        }
-      }
-
-      if (v41 != a6)
-      {
-        v50 = -8;
-        do
-        {
-          v51 = *(v41 - 1);
-          v41 -= 8;
-          *&a3[v50] = v51;
-          v50 -= 8;
-        }
-
-        while (v41 != a6);
-      }
-    }
-  }
-
-  return result;
-}
-
-char *std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<kaldi::WordHypLattice::Node **>,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(char *__src, char *a2, char *a3)
-{
-  v4 = a3;
-  if (__src != a2)
-  {
-    v6 = a3 - a2;
-    if (a3 == a2)
-    {
-      return __src;
-    }
-
-    else if (__src + 8 == a2)
-    {
-      v7 = *__src;
-      memmove(__src, __src + 8, v6);
-      v4 = &__src[v6];
-      *v4 = v7;
-    }
-
-    else if (a2 + 8 == a3)
-    {
-      v8 = *(a3 - 1);
-      v4 = __src + 8;
-      v9 = a3 - 8 - __src;
-      if (a3 - 8 != __src)
-      {
-        memmove(__src + 8, __src, v9);
-      }
-
-      *__src = v8;
-    }
-
-    else
-    {
-      return std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(__src, a2, a3);
-    }
-  }
-
-  return v4;
-}
-
-char *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<kaldi::WordHypLattice::Node **>>(char *a1, char *a2, char *a3)
-{
-  v3 = (a2 - a1) >> 3;
-  v4 = a3 - a2;
-  if (v3 == (a3 - a2) >> 3)
-  {
-    if (a2 != a1 && a3 != a2)
-    {
-      v5 = a1 + 8;
-      v6 = a2 + 8;
-      do
-      {
-        v7 = *(v5 - 1);
-        *(v5 - 1) = *(v6 - 1);
-        *(v6 - 1) = v7;
-        if (v5 == a2)
-        {
-          break;
-        }
-
-        v5 += 8;
-        v8 = v6 == a3;
-        v6 += 8;
-      }
-
-      while (!v8);
-    }
-  }
-
-  else
-  {
-    v9 = v4 >> 3;
-    v10 = (a2 - a1) >> 3;
-    do
-    {
-      v11 = v10;
-      v10 = v9;
-      v9 = v11 % v9;
-    }
-
-    while (v9);
-    v12 = &a1[8 * v10];
-    do
-    {
-      v14 = *(v12 - 1);
-      v12 -= 8;
-      v13 = v14;
-      v15 = &v12[a2 - a1];
-      v16 = v12;
-      do
-      {
-        v17 = v15;
-        *v16 = *v15;
-        v18 = &v15[8 * v3];
-        v19 = __OFSUB__(v3, (a3 - v15) >> 3);
-        v21 = v3 - ((a3 - v15) >> 3);
-        v20 = (v21 < 0) ^ v19;
-        v15 = &a1[8 * v21];
-        if (v20)
-        {
-          v15 = v18;
-        }
-
-        v16 = v17;
-      }
-
-      while (v15 != v12);
-      *v17 = v13;
-    }
-
-    while (v12 != a1);
-    return &a1[v4];
-  }
-
-  return a2;
-}
-
-void sub_1B536A398(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::__tree<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::__map_value_compare<kaldi::WordHypLattice::Node *,std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>,std::less<kaldi::WordHypLattice::Node *>,true>,std::allocator<std::__value_type<kaldi::WordHypLattice::Node *,kaldi::WordHypLattice::Node *>>>::__emplace_unique_key_args<kaldi::WordHypLattice::Node *,std::piecewise_construct_t const&,std::tuple<kaldi::WordHypLattice::Node * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  v3 = *a2;
-  while (1)
-  {
-    while (1)
-    {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
-      {
-        break;
-      }
-
-      v2 = *v4;
-      if (!*v4)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v5 >= v3)
-    {
-      return v4;
-    }
-
-    v2 = v4[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-}
-
-void TTokenizerParamManager::TTokenizerParamManager(TTokenizerParamManager *this, TLocaleInfo *a2)
-{
-  TParamManager::TParamManager(this, 0, a2);
-  *v3 = &unk_1F2D0E5D8;
-  v4 = (v3 + 17);
-  TBoolParam::TBoolParam((v3 + 17), "S", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 384, "P", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 632, "T", "T", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 880, "A", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 1128, "M", "I", 0, 1, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 1376, "T", "I", 0, 1, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 1624, "T", "A", 0, 1, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 1872, "S", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 2120, "M", "I", 0, 1, "1", "1");
-  TStringParam::TStringParam(this + 2368, "C", "A", 0, "'", "1", &dword_1B5AF0374);
-  TStringParam::TStringParam(this + 3744, "C", "A", 0, &dword_1B5AF0374, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 5120, "D", "I", 0, 1, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 5368, "D", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 5616, "D", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 5864, "D", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 6112, "D", "I", 0, 0, "9", &dword_1B5AF0374);
-  TStringParam::TStringParam(this + 6360, "D", "B", 0, &dword_1B5AF0374, "1", "1");
-  TBoolParam::TBoolParam(this + 7736, "C", "R", 0, 0, "9", &dword_1B5AF0374);
-  TStringParam::TStringParam(this + 7984, "C", "S", 256, &dword_1B5AF0374, "9", &dword_1B5AF0374);
-  TStringParam::TStringParam(this + 9360, "C", "W", 0, "x", "1", "1");
-  TStringParam::TStringParam(this + 10736, "V", "T", 0, &dword_1B5AF0374, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 12112, "U", "I", 0, 1, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 12360, "R", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 12608, "C", "N", 0, 1, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 12856, "C", "T", 0, 0, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 13104, "D", "I", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 13352, "H", "S", 0, 0, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 13600), "N", "I", 0, 0, 1000, 30, "9", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 13952), "M", "I", 0, 0, 1000, 5, "9", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 14304), "N", "W", 0, 0, 4, 0, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 14656), "P", "T", 0, 0, 300, 0, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 15008, "P", "I", 0, 0, "9", "1");
-  TBoolParam::TBoolParam(this + 15256, "A", "I", 0, 1, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 15504, "M", "I", 0, 1, "1", "1");
-  TIntParam::TIntParam((this + 15752), "P", "T", 0, -1, 100, 10, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 16104), "C", "P", 0, 1, 256, 4, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 16456), "A", "P", 0, 1, 256, 4, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 16808), "P", "S", 0, -1, 100, 20, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 17160), "P", "S", 0, -1, 100, 30, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 17512), "P", "S", 0, -1, 100, 40, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 17864, "O", "O", 0, 0, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 18112), "P", "S", 0, -1, 100, -1, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 18464), "P", "S", 0, -1, 100, 50, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 18816), "P", "S", 0, -1, 100, 60, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 19168, "U", "I", 0, 1, "1", "1");
-  TBoolParam::TBoolParam(this + 19416, "U", "I", 0, 1, "1", "1");
-  TBoolParam::TBoolParam(this + 19664, "U", "I", 0, 1, "1", "1");
-  TBoolParam::TBoolParam(this + 19912, "U", "I", 0, 1, "1", "1");
-  TBoolParam::TBoolParam(this + 20160, "U", "I", 0, 0, "1", "1");
-  TBoolParam::TBoolParam(this + 20408, "U", "I", 0, 1, "1", "1");
-  TBoolParam::TBoolParam(this + 20656, "L", "I", 0, 0, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 20904, "L", "I", 0, 0, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 21152), "M", "M", 0, 1, 100, 10, "1", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 21504, "L", "L", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 21752, "L", "L", 0, 0, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 22000, "D", "D", 32, 1, "9", &dword_1B5AF0374);
-  TBoolParam::TBoolParam(this + 22248, "D", "D", 288, 1, "1", &dword_1B5AF0374);
-  TStringParam::TStringParam(this + 22496, "D", "D", 32, &dword_1B5AF0374, "9", &dword_1B5AF0374);
-  TStringParam::TStringParam(this + 23872, "D", "D", 288, &dword_1B5AF0374, "1", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 25248), "D", "D", 32, -1, 10, 5, "9", &dword_1B5AF0374);
-  TIntParam::TIntParam((this + 25600), "D", "D", 288, -1, 10, 5, "1", &dword_1B5AF0374);
-  TStringParam::TStringParam(this + 25952, "D");
-  TStringParam::TStringParam(this + 27328, "D");
-  TFloatParam::TFloatParam(this + 28704, "D", "D", 32, "9", &dword_1B5AF0374, 0.0);
-  TFloatParam::TFloatParam(this + 29240, "D", "D", 288, "1", &dword_1B5AF0374, 0.0);
-  TParamManager::add(this, v4);
-  TParamManager::add(this, (this + 384));
-  TParamManager::add(this, (this + 632));
-  TParamManager::add(this, (this + 880));
-  TParamManager::add(this, (this + 1128));
-  TParamManager::add(this, (this + 1376));
-  TParamManager::add(this, (this + 1624));
-  TParamManager::add(this, (this + 1872));
-  TParamManager::add(this, (this + 2120));
-  TParamManager::add(this, (this + 2368));
-  TParamManager::add(this, (this + 3744));
-  TParamManager::add(this, (this + 5120));
-  TParamManager::add(this, (this + 5368));
-  TParamManager::add(this, (this + 5616));
-  TParamManager::add(this, (this + 5864));
-  TParamManager::add(this, (this + 6112));
-  TParamManager::add(this, (this + 6360));
-  TParamManager::add(this, (this + 7736));
-  TParamManager::add(this, (this + 7984));
-  TParamManager::add(this, (this + 9360));
-  TParamManager::add(this, (this + 10736));
-  TParamManager::add(this, (this + 12112));
-  TParamManager::add(this, (this + 12360));
-  TParamManager::add(this, (this + 12608));
-  TParamManager::add(this, (this + 12856));
-  TParamManager::add(this, (this + 13104));
-  TParamManager::add(this, (this + 13352));
-  TParamManager::add(this, (this + 13600));
-  TParamManager::add(this, (this + 13952));
-  TParamManager::add(this, (this + 14304));
-  TParamManager::add(this, (this + 14656));
-  TParamManager::add(this, (this + 15008));
-  TParamManager::add(this, (this + 15256));
-  TParamManager::add(this, (this + 15504));
-  TParamManager::add(this, (this + 15752));
-  TParamManager::add(this, (this + 16104));
-  TParamManager::add(this, (this + 16456));
-  TParamManager::add(this, (this + 16808));
-  TParamManager::add(this, (this + 17160));
-  TParamManager::add(this, (this + 17512));
-  TParamManager::add(this, (this + 17864));
-  TParamManager::add(this, (this + 18112));
-  TParamManager::add(this, (this + 18464));
-  TParamManager::add(this, (this + 18816));
-  TParamManager::add(this, (this + 19168));
-  TParamManager::add(this, (this + 19416));
-  TParamManager::add(this, (this + 19664));
-  TParamManager::add(this, (this + 19912));
-  TParamManager::add(this, (this + 20160));
-  TParamManager::add(this, (this + 20408));
-  TParamManager::add(this, (this + 20656));
-  TParamManager::add(this, (this + 20904));
-  TParamManager::add(this, (this + 21152));
-  TParamManager::add(this, (this + 21504));
-  TParamManager::add(this, (this + 21752));
-  TParamManager::add(this, (this + 22000));
-  TParamManager::add(this, (this + 22248));
-  TParamManager::add(this, (this + 22496));
-  TParamManager::add(this, (this + 23872));
-  TParamManager::add(this, (this + 25248));
-  TParamManager::add(this, (this + 25600));
-  MEMORY[0x1B8C84940](this + 25992, "D");
-  MEMORY[0x1B8C84940](this + 26016, "9");
-  MEMORY[0x1B8C84940](this + 26040, &dword_1B5AF0374);
-  *(this + 3258) |= 0x20uLL;
-  std::vector<std::wstring>::vector[abi:ne200100](v11, 4uLL);
-  std::vector<std::wstring>::vector[abi:ne200100](v10, 4uLL);
-  v5 = 0;
-  v6 = "a";
-  do
-  {
-    MEMORY[0x1B8C84940](&v11[0][v5], v6);
-    v6 += wcslen(v6) + 1;
-    ++v5;
-  }
-
-  while (v5 != 4);
-  TStringParam::setAllowables(this + 25952, v11, 0, 0);
-  TStringParam::setOriginal(this + 3244, 0, &dword_1B5AF0374);
-  TParamManager::add(this, (this + 25952));
-  v12 = v10;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v12);
-  v10[0] = v11;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v10);
-  MEMORY[0x1B8C84940](this + 27368, "D");
-  MEMORY[0x1B8C84940](this + 27392, "1");
-  MEMORY[0x1B8C84940](this + 27416, &dword_1B5AF0374);
-  *(this + 3430) |= 0x120uLL;
-  std::vector<std::wstring>::vector[abi:ne200100](v11, 4uLL);
-  std::vector<std::wstring>::vector[abi:ne200100](v10, 4uLL);
-  v7 = 0;
-  v8 = "a";
-  do
-  {
-    MEMORY[0x1B8C84940](&v11[0][v7], v8);
-    v8 += wcslen(v8) + 1;
-    ++v7;
-  }
-
-  while (v7 != 4);
-  TStringParam::setAllowables(this + 27328, v11, 0, 0);
-  TStringParam::setOriginal(this + 3416, 0, &dword_1B5AF0374);
-  TParamManager::add(this, (this + 27328));
-  v12 = v10;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v12);
-  v10[0] = v11;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v10);
-  TParamManager::add(this, (this + 28704));
-  TParamManager::add(this, (this + 29240));
-  *&v9 = -1;
-  *(&v9 + 1) = -1;
-  *(this + 1862) = v9;
-  *(this + 1861) = v9;
-}
-
-void sub_1B536B7A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, char a13)
-{
-  a10 = &a13;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
-  TParam::~TParam((v13 + v19));
-  TParam::~TParam((v13 + v18));
-  TStringParam::~TStringParam((v13 + v17));
-  TStringParam::~TStringParam((v13 + v16));
-  TParam::~TParam((v13 + v15));
-  TParam::~TParam((v13 + v20));
-  TStringParam::~TStringParam(v13 + 2984);
-  TStringParam::~TStringParam(v13 + 2812);
-  TBoolParam::~TBoolParam(v13 + 2781);
-  TBoolParam::~TBoolParam(v13 + 2750);
-  TBoolParam::~TBoolParam(v13 + 2719);
-  TBoolParam::~TBoolParam(v13 + 2688);
-  TParam::~TParam(v13 + 2644);
-  TBoolParam::~TBoolParam(v13 + 2613);
-  TBoolParam::~TBoolParam(v13 + 2582);
-  TBoolParam::~TBoolParam(v13 + 2551);
-  TBoolParam::~TBoolParam(v13 + 2520);
-  TBoolParam::~TBoolParam(v13 + 2489);
-  TBoolParam::~TBoolParam(v13 + 2458);
-  TBoolParam::~TBoolParam(v13 + 2427);
-  TBoolParam::~TBoolParam(v13 + 2396);
-  TParam::~TParam(v13 + 2352);
-  TParam::~TParam(v13 + 2308);
-  TParam::~TParam(v13 + 2264);
-  TBoolParam::~TBoolParam(v13 + 2233);
-  TParam::~TParam(v13 + 2189);
-  TParam::~TParam(v13 + 2145);
-  TParam::~TParam(v13 + 2101);
-  TParam::~TParam(v13 + 2057);
-  TParam::~TParam(v13 + 2013);
-  TParam::~TParam(v13 + 1969);
-  TBoolParam::~TBoolParam(v13 + 1938);
-  TBoolParam::~TBoolParam(v13 + 1907);
-  TBoolParam::~TBoolParam(v13 + 1876);
-  TParam::~TParam(v13 + 1832);
-  TParam::~TParam(v13 + 1788);
-  TParam::~TParam(v13 + 1744);
-  TParam::~TParam(v13 + 1700);
-  TBoolParam::~TBoolParam(v13 + 1669);
-  TBoolParam::~TBoolParam(v13 + 1638);
-  TBoolParam::~TBoolParam(v13 + 1607);
-  TBoolParam::~TBoolParam(v13 + 1576);
-  TBoolParam::~TBoolParam(v13 + 1545);
-  TBoolParam::~TBoolParam(v13 + 1514);
-  TStringParam::~TStringParam(v13 + 1342);
-  TStringParam::~TStringParam(v13 + 1170);
-  TStringParam::~TStringParam(v13 + 998);
-  TBoolParam::~TBoolParam(v13 + 967);
-  TStringParam::~TStringParam(v13 + 795);
-  TBoolParam::~TBoolParam(v13 + 764);
-  TBoolParam::~TBoolParam(v13 + 733);
-  TBoolParam::~TBoolParam(v13 + 702);
-  TBoolParam::~TBoolParam(v13 + 671);
-  TBoolParam::~TBoolParam(v13 + 640);
-  TStringParam::~TStringParam(v13 + 468);
-  TStringParam::~TStringParam(v13 + 296);
-  TBoolParam::~TBoolParam(v13 + 265);
-  TBoolParam::~TBoolParam(v13 + 234);
-  TBoolParam::~TBoolParam(v13 + 203);
-  TBoolParam::~TBoolParam(v13 + 172);
-  TBoolParam::~TBoolParam(v13 + 141);
-  TBoolParam::~TBoolParam(v13 + 110);
-  TBoolParam::~TBoolParam(v13 + 79);
-  TBoolParam::~TBoolParam(v13 + 48);
-  TBoolParam::~TBoolParam(v14);
-  TParamManager::~TParamManager(v13);
-  _Unwind_Resume(a1);
-}
-
-void TParamManager::TParamManager(TParamManager *this, char a2, const TLocaleInfo *a3)
-{
-  *(this + 2) = 0;
-  *this = &unk_1F2D39C58;
-  *(this + 3) = 0;
-  *(this + 4) = 0;
-  *(this + 6) = 0;
-  *(this + 5) = this + 48;
-  *(this + 8) = 0;
-  *(this + 7) = 0;
-  *(this + 9) = 0;
-  *(this + 10) = 0;
-  *(this + 12) = 0;
-  *(this + 11) = this + 96;
-  *(this + 13) = 0;
-  *(this + 15) = a3;
-  *(this + 8) = a2;
-  TParamManager::newConfig(this, "H", 0xFFFFFFFFFFFFFFFFLL);
-  TParamManager::newConfig(this, "R", 0);
-  *(this + 16) = -1;
-}
-
-void sub_1B536BDA0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  v8 = v5;
-  std::__tree<std::string>::destroy(v4, *v7);
-  std::vector<std::pair<unsigned long,std::wstring>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__tree<int>::destroy(v3, *v6);
-  v10 = *v8;
-  if (*v8)
-  {
-    *(v2 + 24) = v10;
-    operator delete(v10);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void TStringParam::~TStringParam(void **this)
-{
-  *this = &unk_1F2D0E620;
-  v3 = this + 169;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = this + 166;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = this + 163;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v2 = 144;
-  do
-  {
-    if (SHIBYTE(this[v2 + 18]) < 0)
-    {
-      operator delete(this[v2 + 16]);
-    }
-
-    v2 -= 3;
-  }
-
-  while (v2 * 8);
-  TParam::~TParam(this);
-}
-
-{
-  *this = &unk_1F2D0E620;
-  v3 = this + 169;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = this + 166;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = this + 163;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v2 = 144;
-  do
-  {
-    if (SHIBYTE(this[v2 + 18]) < 0)
-    {
-      operator delete(this[v2 + 16]);
-    }
-
-    v2 -= 3;
-  }
-
-  while (v2 * 8);
-  TParam::~TParam(this);
-  MEMORY[0x1B8C85350]();
-}
-
-void TBoolParam::~TBoolParam(void **this)
-{
-  v2 = 0;
-  *this = &unk_1F2D39CC8;
-  do
-  {
-    if (SHIBYTE(this[v2 + 30]) < 0)
-    {
-      operator delete(this[v2 + 28]);
-    }
-
-    v2 -= 3;
-  }
-
-  while (v2 != -6);
-
-  TParam::~TParam(this);
-}
-
-{
-  v2 = 0;
-  *this = &unk_1F2D39CC8;
-  do
-  {
-    if (SHIBYTE(this[v2 + 30]) < 0)
-    {
-      operator delete(this[v2 + 28]);
-    }
-
-    v2 -= 3;
-  }
-
-  while (v2 != -6);
-
-  TParam::~TParam(this);
-}
-
-void TTokenizerParamManager::notifyChange(TTokenizerParamManager *this, const TParam *a2)
-{
-  v2 = (this + 3744);
-  if ((this + 3744) == a2)
-  {
-    v3 = TStringParam::get((this + 3744));
-    if (wcslen(v3))
-    {
-      v4 = TStringParam::get(v2);
-      loggableUnicode(v4, __p);
-      if (v7 >= 0)
-      {
-        v5 = __p;
-      }
-
-      else
-      {
-        v5 = __p[0];
-      }
-
-      tknPrintf("Warning: CharacterMapping contains an odd number of characters: <%s>\n", v5);
-      if (v7 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-  }
-}
-
-void sub_1B536BF7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *TTokenizerParamManager::upgradeParam(void *this, const TParam *a2)
-{
-  v2 = this;
-  v3 = (this + 2396);
-  if (this + 2396 == a2)
-  {
-    ActiveConfigHandle = TParam::getActiveConfigHandle((this + 2396));
-    ValidConfig = TParam::getValidConfig(v3, ActiveConfigHandle);
-    v6 = 2101;
-    if (*(v2 + ValidConfig + 19320) != 1)
-    {
-      goto LABEL_23;
-    }
-
-    v7 = v2[16];
-    v2[2115] &= ~(1 << (v7 + 33));
-LABEL_20:
-
-    return TParam::notifyChange(&v2[v6], v7);
-  }
-
-  if (this + 2427 == a2)
-  {
-    v8 = TParam::getActiveConfigHandle((this + 2427));
-    v6 = 2145;
-    if (*(v2 + TParam::getValidConfig((v2 + 2427), v8) + 19568) != 1)
-    {
-      goto LABEL_23;
-    }
-
-    v7 = v2[16];
-    v2[2159] &= ~(1 << (v7 + 33));
-    goto LABEL_20;
-  }
-
-  if (this + 2458 == a2)
-  {
-    v9 = TParam::getActiveConfigHandle((this + 2458));
-    v6 = 2189;
-    if (*(v2 + TParam::getValidConfig((v2 + 2458), v9) + 19816) != 1)
-    {
-      goto LABEL_23;
-    }
-
-    v7 = v2[16];
-    v2[2203] &= ~(1 << (v7 + 33));
-    goto LABEL_20;
-  }
-
-  if (this + 2520 != a2)
-  {
-    if (this + 2551 != a2)
-    {
-      if (this + 2489 != a2)
-      {
-        return this;
-      }
-
-      v16 = TParam::getActiveConfigHandle((this + 2489));
-      v6 = 2352;
-      if (*(v2 + TParam::getValidConfig((v2 + 2489), v16) + 20064) == 1)
-      {
-        v7 = v2[16];
-        v2[2366] &= ~(1 << (v7 + 33));
-        goto LABEL_20;
-      }
-
-      goto LABEL_23;
-    }
-
-    v15 = TParam::getActiveConfigHandle((this + 2551));
-    v6 = 2308;
-    if (*(v2 + TParam::getValidConfig((v2 + 2551), v15) + 20560) == 1)
-    {
-      v7 = v2[16];
-      v2[2322] &= ~(1 << (v7 + 33));
-      goto LABEL_20;
-    }
-
-LABEL_23:
-    v12 = TParam::getActiveConfigHandle(&v2[v6]);
-    goto LABEL_24;
-  }
-
-  v10 = TParam::getActiveConfigHandle((this + 2520));
-  v11 = *(v2 + TParam::getValidConfig((v2 + 2520), v10) + 20312);
-  v6 = 2264;
-  v12 = TParam::getActiveConfigHandle((v2 + 2264));
-  if (v11 != 1)
-  {
-LABEL_24:
-    v13 = &v2[v6];
-    v14 = -1;
-    goto LABEL_25;
-  }
-
-  v13 = (v2 + 2264);
-  v14 = 45;
-LABEL_25:
-
-  return TIntParam::set(v13, v12, v14);
-}
-
-uint64_t TTokenizerParamManager::initializeParamConfigs(TTokenizerParamManager *this)
-{
-  Config = TParamManager::getConfig(this, "A");
-  *(this + 3723) = Config;
-  if (Config == -1)
-  {
-    *(this + 3723) = TParamManager::newConfig(this, "A", 1);
-  }
-
-  v3 = TParamManager::getConfig(this, "B");
-  *(this + 3724) = v3;
-  if (v3 == -1)
-  {
-    v4 = TParamManager::newConfig(this, "B", 1);
-    *(this + 3724) = v4;
-    *(this + v4 + 18016) = 1;
-    *(this + 2247) |= 1 << (v4 + 9);
-    TParam::notifyChange(this + 17864, v4);
-  }
-
-  v5 = TParamManager::getConfig(this, "A");
-  *(this + 3725) = v5;
-  if (v5 == -1)
-  {
-    v6 = TParamManager::newConfig(this, "A", 1);
-    *(this + 3725) = v6;
-    TIntParam::setOriginal((this + 14304), v6, 0);
-    TIntParam::setOriginal((this + 17512), *(this + 3725), -1);
-    TIntParam::setOriginal((this + 18112), *(this + 3725), -1);
-    TIntParam::setOriginal((this + 18464), *(this + 3725), -1);
-    TIntParam::setOriginal((this + 18816), *(this + 3725), -1);
-  }
-
-  result = TParamManager::getConfig(this, "F");
-  *(this + 3722) = result;
-  if (result == -1)
-  {
-    v8 = TParamManager::newConfig(this, "F", *(this + 3723));
-    *(this + 3722) = v8;
-    *(this + v8 + 784) = 1;
-    *(this + 93) |= 1 << (v8 + 9);
-
-    return TParam::notifyChange(this + 632, v8);
-  }
-
-  return result;
 }

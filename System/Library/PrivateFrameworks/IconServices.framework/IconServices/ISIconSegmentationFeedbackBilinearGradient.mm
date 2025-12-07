@@ -38,7 +38,7 @@
 - (ISIconSegmentationFeedbackBilinearGradient)gradientWithSize:(CGSize)size
 {
   height = size.height;
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   Components = CGColorGetComponents(self->_topLeftColor);
   NumberOfComponents = CGColorGetNumberOfComponents(self->_topLeftColor);
   if (Components)
@@ -63,21 +63,21 @@
     goto LABEL_10;
   }
 
-  v14 = CGColorGetComponents(self->_bottomRightColor);
-  v15 = CGColorGetNumberOfComponents(self->_bottomRightColor);
+  v13 = CGColorGetComponents(self->_bottomRightColor);
+  v14 = CGColorGetNumberOfComponents(self->_bottomRightColor);
   v11 = 0;
-  if (v14)
+  if (v13)
   {
-    if (v15 >= 3)
+    if (v14 >= 3)
     {
-      v16 = CGColorGetComponents(self->_bottomLeftColor);
-      v17 = CGColorGetNumberOfComponents(self->_bottomLeftColor);
+      v15 = CGColorGetComponents(self->_bottomLeftColor);
+      v16 = CGColorGetNumberOfComponents(self->_bottomLeftColor);
       v11 = 0;
-      if (v16)
+      if (v15)
       {
-        if (v17 >= 3)
+        if (v16 >= 3)
         {
-          if (vabdd_f64(*Components, *v8) > 0.01 || vabdd_f64(Components[1], v8[1]) > 0.01 || vabdd_f64(Components[2], v8[2]) > 0.01 || vabdd_f64(*v16, *v14) > 0.01 || vabdd_f64(v16[1], v14[1]) > 0.01 || vabdd_f64(v16[2], v14[2]) > 0.01)
+          if (vabdd_f64(*Components, *v8) > 0.01 || vabdd_f64(Components[1], v8[1]) > 0.01 || vabdd_f64(Components[2], v8[2]) > 0.01 || vabdd_f64(*v15, *v13) > 0.01 || vabdd_f64(v15[1], v13[1]) > 0.01 || vabdd_f64(v15[2], v13[2]) > 0.01)
           {
 LABEL_10:
             v11 = 0;
@@ -89,17 +89,16 @@ LABEL_10:
           [v11 setGradientStartPoint:{0.0, 0.0}];
           [v11 setGradientEndPoint:{0.0, height}];
           bottomLeftColor = self->_bottomLeftColor;
-          v20[0] = self->_topLeftColor;
-          v20[1] = bottomLeftColor;
-          v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
-          [v11 setColors:v19 andStops:&unk_1F1A657F0];
+          v19[0] = self->_topLeftColor;
+          v19[1] = bottomLeftColor;
+          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+          [v11 setColors:v18 andStops:&unk_1F1A657F0];
         }
       }
     }
   }
 
 LABEL_11:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

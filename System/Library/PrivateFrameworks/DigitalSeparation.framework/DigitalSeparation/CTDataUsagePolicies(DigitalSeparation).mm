@@ -28,7 +28,7 @@
 
       if (cellular == v13)
       {
-        v11 = DSLogCTDataUsagePolicies();
+        v11 = DSLogCTDataUsagePolicies(v16);
         if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           goto LABEL_9;
@@ -49,7 +49,7 @@
     goto LABEL_21;
   }
 
-  v11 = DSLogCTDataUsagePolicies();
+  v11 = DSLogCTDataUsagePolicies(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v18 = 138543362;
@@ -65,7 +65,6 @@ LABEL_9:
 LABEL_21:
 
 LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

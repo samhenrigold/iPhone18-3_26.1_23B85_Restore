@@ -112,16 +112,11 @@ void __126__INUICKPSynchronousRemoteViewController_requestInstanceWithInfo_confi
 
 uint64_t __126__INUICKPSynchronousRemoteViewController_requestInstanceWithInfo_configuration_synchronousRemoteViewControllerDelegate_reply___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  if (v4)
+  a2;
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    if (!v3)
-    {
-      v5 = *(a1 + 32);
-    }
-
-    (*(v4 + 16))();
+    (*(v3 + 16))();
   }
 
   return MEMORY[0x2821F9730]();
@@ -179,20 +174,18 @@ uint64_t __126__INUICKPSynchronousRemoteViewController_requestInstanceWithInfo_c
 
 - (id)_minimumSizesBySystemVersion
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   delegate = [(INUICKPSynchronousRemoteViewController *)self delegate];
   [delegate boundingWidthForSynchronousRemoteViewController:self];
   v5 = v4;
 
-  v11[0] = &unk_286772998;
+  v10[0] = &unk_286772998;
   v6 = [MEMORY[0x277CCAE60] valueWithCGSize:{v5, 120.0}];
-  v11[1] = &unk_2867729B0;
-  v12[0] = v6;
+  v10[1] = &unk_2867729B0;
+  v11[0] = v6;
   v7 = [MEMORY[0x277CCAE60] valueWithCGSize:{v5, 20.0}];
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }
@@ -208,23 +201,21 @@ uint64_t __126__INUICKPSynchronousRemoteViewController_requestInstanceWithInfo_c
 
 - (id)maximumSizesBySystemVersionForRemoteViewController:(id)controller
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   delegate = [(INUICKPSynchronousRemoteViewController *)self delegate];
   [delegate boundingWidthForSynchronousRemoteViewController:self];
   v6 = v5;
 
-  v14[0] = &unk_286772998;
+  v13[0] = &unk_286772998;
   v7 = [MEMORY[0x277CCAE60] valueWithCGSize:{v6, 200.0}];
-  v14[1] = &unk_2867729B0;
-  v15[0] = v7;
+  v13[1] = &unk_2867729B0;
+  v14[0] = v7;
   v8 = MEMORY[0x277CCAE60];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen bounds];
-  v10 = [v8 valueWithCGSize:{v6, CGRectGetHeight(v17)}];
-  v15[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = [v8 valueWithCGSize:{v6, CGRectGetHeight(v16)}];
+  v14[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v11;
 }
@@ -286,17 +277,15 @@ uint64_t __126__INUICKPSynchronousRemoteViewController_requestInstanceWithInfo_c
 
 - (void)remoteViewControllerServiceDidTerminate:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 _interaction];
   v5 = [a2 cachedRepresentedParameters];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_255550000, v3, OS_LOG_TYPE_ERROR, "IntentsUI remote view controller did terminate\n    Interaction: %@\n    Parameters: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_255550000, v3, OS_LOG_TYPE_ERROR, "IntentsUI remote view controller did terminate\n    Interaction: %@\n    Parameters: %@", &v6, 0x16u);
 }
 
 @end

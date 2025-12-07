@@ -55,35 +55,35 @@
 + (id)tabIdentifierForURL:(id)l
 {
   actionString = [l actionString];
-  if ([actionString isEqualToString:@"audiobooks"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"audiobooks";
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"books"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_4;
   }
 
-  if ([actionString isEqualToString:@"movies"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"movies";
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"music"] & 1) != 0 || (objc_msgSend(actionString, "isEqualToString:", @"music-videos"))
+  if (objc_msgSend_isEqualToString_(actionString) & 1) != 0 || (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"music";
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"podcasts"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_4;
   }
 
-  if ([actionString isEqualToString:@"ringtones"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
@@ -101,29 +101,29 @@
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"software"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
 LABEL_4:
     v4 = @"featured";
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"tv-shows"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"tv";
   }
 
-  else if ([actionString isEqualToString:@"updates"])
+  else if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"updates";
   }
 
-  else if ([actionString isEqualToString:@"purchased"])
+  else if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"purchased";
   }
 
-  else if ([actionString isEqualToString:@"manage"])
+  else if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"managed";
   }
@@ -143,64 +143,64 @@ LABEL_10:
   lCopy = l;
   actionString = [lCopy actionString];
   v5 = [objc_opt_class() tabIdentifierForURL:lCopy];
-  if ([actionString isEqualToString:@"accessory-lookup"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_2;
   }
 
-  if ([actionString isEqualToString:@"addpassbookpass"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SUUIURLResolver *)self _addPassbookPassWithURL:lCopy];
     goto LABEL_9;
   }
 
-  if ([actionString isEqualToString:@"donate"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SUUIURLResolver *)self _showDonationViewControllerWithURL:lCopy];
     goto LABEL_9;
   }
 
-  if ([actionString isEqualToString:@"gift"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SUUIURLResolver *)self _showGiftViewControllerWithURL:lCopy];
     goto LABEL_9;
   }
 
-  if ([actionString isEqualToString:@"library-link"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_2;
   }
 
-  if ([actionString isEqualToString:*MEMORY[0x277D6A598]])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SUUIURLResolver *)self _handleSafariScriptDataUpdate:lCopy];
     goto LABEL_9;
   }
 
-  if ([actionString isEqualToString:@"lookup"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SUUIURLResolver *)self _performLookupWithURL:lCopy];
     goto LABEL_9;
   }
 
-  if ([actionString isEqualToString:@"redeem"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SUUIURLResolver *)self _showRedeemViewControllerWithURL:lCopy];
     goto LABEL_9;
   }
 
-  if ([actionString isEqualToString:@"search"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SUUIURLResolver *)self _showSearchWithURL:lCopy];
     goto LABEL_9;
   }
 
-  if ([actionString isEqualToString:@"bagurl"] || objc_msgSend(actionString, "isEqualToString:", @"newsstand") || objc_msgSend(actionString, "isEqualToString:", @"passbook"))
+  if (objc_msgSend_isEqualToString_(actionString) || objc_msgSend_isEqualToString_(actionString) || objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_2;
   }
 
-  if (![actionString isEqualToString:@"ringtones"])
+  if (!objc_msgSend_isEqualToString_(actionString))
   {
     if (![v5 length])
     {
@@ -318,7 +318,7 @@ LABEL_11:
 
 + (void)isLegacyWebViewForURL:(id)l bag:(id)bag completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   lCopy = l;
   bagCopy = bag;
   completionCopy = completion;
@@ -347,14 +347,13 @@ LABEL_11:
 
   if (v14)
   {
-    LODWORD(v29) = 138412290;
-    *(&v29 + 4) = lCopy;
-    LODWORD(v22) = 12;
-    v15 = _os_log_send_and_compose_impl();
+    LODWORD(v28) = 138412290;
+    *(&v28 + 4) = lCopy;
+    v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_259CB8000, oSLogObject, 0, "Verifying is legacy URL: %@", &v28, 12);
 
     if (v15)
     {
-      v16 = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{4, &v29, v22}];
+      v16 = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
@@ -369,33 +368,33 @@ LABEL_11:
     completionCopy[2](completionCopy, 0);
   }
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2050000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
   v17 = getAMSURLParserClass_softClass_0;
-  v28 = getAMSURLParserClass_softClass_0;
+  v27 = getAMSURLParserClass_softClass_0;
   if (!getAMSURLParserClass_softClass_0)
   {
-    *&v29 = MEMORY[0x277D85DD0];
-    *(&v29 + 1) = 3221225472;
-    v30 = __getAMSURLParserClass_block_invoke_0;
-    v31 = &unk_2798FB038;
-    v32 = &v25;
-    __getAMSURLParserClass_block_invoke_0(&v29);
-    v17 = v26[3];
+    *&v28 = MEMORY[0x277D85DD0];
+    *(&v28 + 1) = 3221225472;
+    v29 = __getAMSURLParserClass_block_invoke_0;
+    v30 = &unk_2798FB038;
+    v31 = &v24;
+    __getAMSURLParserClass_block_invoke_0(&v28);
+    v17 = v25[3];
   }
 
   v18 = v17;
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   v19 = [[v17 alloc] initWithBag:bagCopy];
   v20 = [v19 typeForURL:lCopy];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __56__SUUIURLResolver_isLegacyWebViewForURL_bag_completion___block_invoke;
-  v23[3] = &unk_2798FDAF0;
-  v24 = completionCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __56__SUUIURLResolver_isLegacyWebViewForURL_bag_completion___block_invoke;
+  v22[3] = &unk_2798FDAF0;
+  v23 = completionCopy;
   v21 = completionCopy;
-  [v20 addFinishBlock:v23];
+  [v20 addFinishBlock:v22];
 }
 
 uint64_t __56__SUUIURLResolver_isLegacyWebViewForURL_bag_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -439,9 +438,8 @@ uint64_t __56__SUUIURLResolver_isLegacyWebViewForURL_bag_completion___block_invo
   {
     if (v12)
     {
-      v18 = 0;
-      LODWORD(v16) = 2;
-      v15 = &v18;
+      v17[0] = 0;
+      v13 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_259CB8000, v11, 0, "Legacy URL confirmed", v17, 2, v16);
       goto LABEL_18;
     }
 
@@ -455,23 +453,22 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v17 = 0;
-  LODWORD(v16) = 2;
-  v15 = &v17;
+  LOWORD(v16) = 0;
+  v13 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_259CB8000, v11, 0, "Not legacy URL", &v16, 2, v16);
 LABEL_18:
-  v13 = _os_log_send_and_compose_impl();
+  v14 = v13;
 
-  if (v13)
+  if (v14)
   {
-    v11 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, v15, v16}];
-    free(v13);
+    v11 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:4];
+    free(v14);
     SSFileLog();
     goto LABEL_20;
   }
 
 LABEL_21:
 
-  return (*(*(a1 + 32) + 16))();
+  return (*(*(a1 + 32) + 16))(*(a1 + 32));
 }
 
 - (void)passbookLoaderDidFinish:(id)finish
@@ -795,13 +792,12 @@ void __52__SUUIURLResolver__resolveURLRequest_withOriginURL___block_invoke_2(uin
     goto LABEL_10;
   }
 
-  v19[0] = 0;
-  LODWORD(v18) = 2;
-  v12 = _os_log_send_and_compose_impl();
+  v18[0] = 0;
+  v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_259CB8000, oSLogObject, 0, "Showing account view controller", v18, 2);
 
   if (v12)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:{4, v19, v18}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
 LABEL_10:

@@ -276,7 +276,7 @@ uint64_t __35__CNMemojiMetadataUtilities_os_log__block_invoke()
         goto LABEL_24;
       }
 
-      if ((softLinkAVTUIShowPrereleaseStickerPack_once[0]() & 1) == 0)
+      if ((softLinkAVTUIShowPrereleaseStickerPack_once() & 1) == 0)
       {
         v20 = +[CNMemojiMetadataUtilities os_log];
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))

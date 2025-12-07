@@ -19,37 +19,33 @@
 
 - (NSArray)metadataValues
 {
-  v2 = *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_metadataValues);
   sub_10000A598(0, &unk_100046C90, LPLinkMetadata_ptr);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setMetadataValues:(id)values
 {
   sub_10000A598(0, &unk_100046C90, LPLinkMetadata_ptr);
-  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_metadataValues);
-  *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_metadataValues) = v4;
+  *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_metadataValues) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (NSArray)urlSandboxExtensions
 {
   if (*(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_urlSandboxExtensions))
   {
-    v2 = *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_urlSandboxExtensions);
 
-    v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v3.super.isa = 0;
+    v2.super.isa = 0;
   }
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setUrlSandboxExtensions:(id)extensions
@@ -64,7 +60,6 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_urlSandboxExtensions);
   *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_urlSandboxExtensions) = v4;
 }
 
@@ -119,14 +114,13 @@
 
 - (NSDictionary)activitiesByUUID
 {
-  v2 = *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_activitiesByUUID);
   type metadata accessor for UUID();
   sub_10000A598(0, &unk_100047A10, UIActivity_ptr);
   sub_1000129E4();
 
-  v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setActivitiesByUUID:(id)d
@@ -134,9 +128,7 @@
   type metadata accessor for UUID();
   sub_10000A598(0, &unk_100047A10, UIActivity_ptr);
   sub_1000129E4();
-  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_activitiesByUUID);
-  *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_activitiesByUUID) = v4;
+  *(self + OBJC_IVAR____TtC16SharingUIService19ShareSheetViewModel_activitiesByUUID) = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (_TtC16SharingUIService19ShareSheetViewModel)init

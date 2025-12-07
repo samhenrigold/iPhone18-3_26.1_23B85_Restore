@@ -498,7 +498,7 @@ LABEL_24:
 
   else
   {
-    v3 = +[UIColor blackColor];
+    v3 = objc_msgSend_blackColor(UIColor, a2);
   }
 
   return v3;
@@ -775,9 +775,9 @@ LABEL_24:
 - (id)_defaultDisclosureImageForCell:(id)cell
 {
   v5 = -[UITableConstants_TV defaultTextLabelFontForCellStyle:](self, "defaultTextLabelFontForCellStyle:", [cell _cellStyle]);
-  v6 = [v5 isEqual:qword_1ED4A1048];
+  isEqual = objc_msgSend_isEqual_(v5);
   v7 = qword_1ED4A1040;
-  if (v6)
+  if (isEqual)
   {
     v8 = qword_1ED4A1040 == 0;
   }
@@ -847,9 +847,9 @@ LABEL_24:
   if (style == 1000 || style == 2)
   {
     v9 = &qword_1ED4A1060;
-    v10 = [v7 isEqual:qword_1ED4A1068];
+    isEqual = objc_msgSend_isEqual_(v7);
     v11 = qword_1ED4A1060;
-    if (v10)
+    if (isEqual)
     {
       v12 = qword_1ED4A1060 == 0;
     }
@@ -878,7 +878,7 @@ LABEL_15:
   }
 
   v9 = &qword_1ED4A1050;
-  v14 = [v7 isEqual:qword_1ED4A1058];
+  v14 = objc_msgSend_isEqual_(v7);
   v11 = qword_1ED4A1050;
   if (v14)
   {
@@ -1303,7 +1303,7 @@ LABEL_8:
 {
   if ([state isFocused])
   {
-    v4 = +[UIColor blackColor];
+    v4 = objc_msgSend_blackColor(UIColor);
   }
 
   else

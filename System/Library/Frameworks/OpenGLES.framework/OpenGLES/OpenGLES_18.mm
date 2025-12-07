@@ -1,553 +1,547 @@
-uint64_t writeArrayAccess(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeArrayAccess(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ArrayAccess:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ArrayAccess:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeFieldAccess(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeFieldAccess(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(FieldAccess:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(FieldAccess:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpFieldAccessNodeGetField(a2);
-  v25 = v24;
-  glpFieldAccessNodeGetField(a2);
-  return glpStringBufferAppendFormat(a1, "%.*s\n", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  Field = glpFieldAccessNodeGetField(a2);
+  return glpStringBufferAppendFormat(a1, "%.*s\n", v8, Field);
 }
 
-uint64_t writeUndeterminedCall(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeUndeterminedCall(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(UndeterminedCall:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(UndeterminedCall:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeFunctionCall(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeFunctionCall(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(FunctionCall:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(FunctionCall:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpFunctionCallNodeGetName(a2);
-  v25 = v24;
-  glpFunctionCallNodeGetName(a2);
-  return glpStringBufferAppendFormat(a1, "%.*s\n", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  v9 = glpFunctionCallNodeGetName(a2);
+  return glpStringBufferAppendFormat(a1, "%.*s\n", v8, v9);
 }
 
-uint64_t writeSubroutineArrayCall(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeSubroutineArrayCall(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(SubroutineArrayCall:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(SubroutineArrayCall:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeMethodCall(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeMethodCall(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(MethodCall:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(MethodCall:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpMethodCallNodeGetName(a2);
-  v25 = v24;
-  glpMethodCallNodeGetName(a2);
-  return glpStringBufferAppendFormat(a1, "%.*s\n", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  v9 = glpMethodCallNodeGetName(a2);
+  return glpStringBufferAppendFormat(a1, "%.*s\n", v8, v9);
 }
 
-uint64_t writeConstructorCall(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeConstructorCall(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ConstructorCall:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ConstructorCall:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writePostincrement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writePostincrement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Postincrement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Postincrement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writePostdecrement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writePostdecrement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Postdecrement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Postdecrement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writePreincrement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writePreincrement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Preincrement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Preincrement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writePredecrement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writePredecrement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Predecrement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Predecrement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeUnaryPlus(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeUnaryPlus(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(UnaryPlus:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(UnaryPlus:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeNegate(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeNegate(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Negate:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Negate:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeLogicalNot(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLogicalNot(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(LogicalNot:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(LogicalNot:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeBitwiseNot(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeBitwiseNot(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(BitwiseNot:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(BitwiseNot:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeMultiply(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeMultiply(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Multiply:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Multiply:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeDivide(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeDivide(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Divide:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Divide:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeModulo(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeModulo(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Modulo:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Modulo:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeAdd(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeAdd(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Add:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Add:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeSubtract(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeSubtract(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Subtract:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Subtract:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeShiftLeft(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeShiftLeft(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ShiftLeft:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ShiftLeft:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeShiftRight(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeShiftRight(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ShiftRight:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ShiftRight:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeLess(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLess(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Less:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Less:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeLessEqual(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLessEqual(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(LessEqual:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(LessEqual:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeGreater(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeGreater(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Greater:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Greater:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeGreaterEqual(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeGreaterEqual(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(GreaterEqual:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(GreaterEqual:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeEqual(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeEqual(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Equal:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Equal:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeNotEqual(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeNotEqual(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(NotEqual:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(NotEqual:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeLogicalAnd(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLogicalAnd(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(LogicalAnd:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(LogicalAnd:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeLogicalOr(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLogicalOr(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(LogicalOr:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(LogicalOr:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeLogicalXor(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLogicalXor(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(LogicalXor:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(LogicalXor:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeBitwiseAnd(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeBitwiseAnd(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(BitwiseAnd:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(BitwiseAnd:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeBitwiseOr(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeBitwiseOr(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(BitwiseOr:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(BitwiseOr:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeBitwiseXor(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeBitwiseXor(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(BitwiseXor:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(BitwiseXor:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeIfExpr(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeIfExpr(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(IfExpr:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(IfExpr:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeAssign(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeAssign(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(Assign:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(Assign:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeOpAssign(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeOpAssign(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(OpAssign:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(OpAssign:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeReadInput(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeReadInput(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ReadInput:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ReadInput:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeWriteOutput(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeWriteOutput(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(WriteOutput:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(WriteOutput:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeCommaExpr(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeCommaExpr(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(CommaExpr:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(CommaExpr:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-void *writeParameterDeclaration(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeParameterDeclaration(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(ParameterDeclaration:", a3, a4, a5, a6, a7, a8, v40);
+  glpStringBufferAppendFormat(a1, "(ParameterDeclaration:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v41);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v42);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpParameterDeclarationNodeGetName(a2);
-  v25 = v24;
-  glpParameterDeclarationNodeGetName(a2);
-  glpStringBufferAppendFormat(a1, "%.*s -> ", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  Name = glpParameterDeclarationNodeGetName(a2);
+  glpStringBufferAppendFormat(a1, "%.*s -> ", v8, Name);
   Extra = glpParameterDeclarationNodeGetExtra(a2);
-  glpAppendVariableObjectDescription(a1, Extra, v33, v34, v35, v36, v37, v38);
+  glpAppendVariableObjectDescription(a1, Extra);
 
   return glpStringBufferAppendCString(a1, "\n");
 }
 
-uint64_t writeFunctionPrototype(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeFunctionPrototype(uint64_t *a1, uint64_t a2, int a3)
 {
-  v9 = a3;
-  glpStringBufferAppendFormat(a1, "(FunctionPrototype:", a3, a4, a5, a6, a7, a8, v76);
+  glpStringBufferAppendFormat(a1, "(FunctionPrototype:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v12, v13, v14, v15, v16, v17, v77);
-  if (v9 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v24 = v9 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v18, v19, v20, v21, v22, v23, v78);
-      --v24;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v24);
+    while (v6);
   }
 
   glpFunctionPrototypeNodeGetName(a2);
-  v26 = v25;
-  glpFunctionPrototypeNodeGetName(a2);
-  glpFunctionPrototypeNodeGetExtra(a2);
-  glpStringBufferAppendFormat(a1, "%.*s == %p", v27, v28, v29, v30, v31, v32, v26);
+  v8 = v7;
+  Name = glpFunctionPrototypeNodeGetName(a2);
+  Extra = glpFunctionPrototypeNodeGetExtra(a2);
+  glpStringBufferAppendFormat(a1, "%.*s == %p", v8, Name, Extra);
   if (glpFunctionPrototypeNodeGetExtra(a2) && *(glpFunctionPrototypeNodeGetExtra(a2) + 8))
   {
-    glpStringBufferAppendFormat(a1, ";", v33, v34, v35, v36, v37, v38, v79);
-    Extra = glpFunctionPrototypeNodeGetExtra(a2);
-    glpAppendFlagDescription(a1, *(Extra + 8));
+    glpStringBufferAppendFormat(a1, ";");
+    v11 = glpFunctionPrototypeNodeGetExtra(a2);
+    glpAppendFlagDescription(a1, *(v11 + 8));
   }
 
-  glpStringBufferAppendFormat(a1, "\n", v33, v34, v35, v36, v37, v38, v79);
+  glpStringBufferAppendFormat(a1, "\n");
   if (glpFunctionPrototypeNodeGetExtra(a2))
   {
-    if (v9 != -1)
+    if (a3 != -1)
     {
-      v46 = v9 + 1;
+      v12 = a3 + 1;
       do
       {
-        glpStringBufferAppendFormat(a1, "    ", v40, v41, v42, v43, v44, v45, v80);
-        --v46;
+        glpStringBufferAppendFormat(a1, "    ");
+        --v12;
       }
 
-      while (v46);
+      while (v12);
     }
 
-    v47 = glpFunctionPrototypeNodeGetExtra(a2);
-    glpStringBufferAppendFormat(a1, "  %p\n", v48, v49, v50, v51, v52, v53, *(v47 + 72));
+    v13 = glpFunctionPrototypeNodeGetExtra(a2);
+    glpStringBufferAppendFormat(a1, "  %p\n", *(v13 + 72));
   }
 
   result = glpFunctionPrototypeNodeGetExtra(a2);
   if (result)
   {
-    if (v9 != -1)
+    if (a3 != -1)
     {
-      v61 = v9 + 1;
+      v15 = a3 + 1;
       do
       {
-        glpStringBufferAppendFormat(a1, "    ", v55, v56, v57, v58, v59, v60, v80);
-        --v61;
+        glpStringBufferAppendFormat(a1, "    ");
+        --v15;
       }
 
-      while (v61);
+      while (v15);
     }
 
-    glpStringBufferAppendFormat(a1, "  ", v55, v56, v57, v58, v59, v60, v80);
+    glpStringBufferAppendFormat(a1, "  ");
     if (glpFunctionPrototypeNodeGetParameterCount(a2))
     {
-      v68 = 0;
+      v16 = 0;
       do
       {
-        v69 = glpFunctionPrototypeNodeGetExtra(a2);
-        glpStringBufferAppendFormat(a1, "%p ", v70, v71, v72, v73, v74, v75, *(*(v69 + 80) + 8 * v68++));
+        v17 = glpFunctionPrototypeNodeGetExtra(a2);
+        glpStringBufferAppendFormat(a1, "%p ", *(*(v17 + 80) + 8 * v16++));
       }
 
-      while (v68 < glpFunctionPrototypeNodeGetParameterCount(a2));
+      while (v16 < glpFunctionPrototypeNodeGetParameterCount(a2));
     }
 
-    return glpStringBufferAppendFormat(a1, "\n", v62, v63, v64, v65, v66, v67, a9);
+    return glpStringBufferAppendFormat(a1, "\n");
   }
 
   return result;
 }
 
-uint64_t writeVariableDeclaration(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeVariableDeclaration(uint64_t *a1, uint64_t a2, int a3)
 {
-  v9 = a3;
-  glpStringBufferAppendFormat(a1, "(VariableDeclaration:", a3, a4, a5, a6, a7, a8, v84);
+  glpStringBufferAppendFormat(a1, "(VariableDeclaration:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v12, v13, v14, v15, v16, v17, v85);
-  if (v9 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v24 = v9 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v18, v19, v20, v21, v22, v23, v86);
-      --v24;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v24);
+    while (v6);
   }
 
   glpVariableDeclarationNodeGetName(a2);
-  v26 = v25;
-  glpVariableDeclarationNodeGetName(a2);
-  glpStringBufferAppendFormat(a1, "%.*s -> ", v27, v28, v29, v30, v31, v32, v26);
+  v8 = v7;
+  Name = glpVariableDeclarationNodeGetName(a2);
+  glpStringBufferAppendFormat(a1, "%.*s -> ", v8, Name);
   Extra = glpVariableDeclarationNodeGetExtra(a2);
-  glpAppendVariableObjectDescription(a1, Extra, v34, v35, v36, v37, v38, v39);
+  glpAppendVariableObjectDescription(a1, Extra);
   glpStringBufferAppendCString(a1, "\n");
   if (glpVariableDeclarationNodeGetExtra(a2) && *(glpVariableDeclarationNodeGetExtra(a2) + 64))
   {
-    if (v9 == -1)
+    if (a3 == -1)
     {
-      v47 = 64;
+      v12 = 64;
     }
 
     else
     {
-      v46 = v9 + 1;
-      v47 = 64;
+      v11 = a3 + 1;
+      v12 = 64;
       do
       {
-        glpStringBufferAppendFormat(a1, "    ", v40, v41, v42, v43, v44, v45, v87);
-        --v46;
+        glpStringBufferAppendFormat(a1, "    ");
+        --v11;
       }
 
-      while (v46);
+      while (v11);
     }
 
 LABEL_18:
     SaType = glpASTNodeGetSaType(a2);
-    v56 = glpVariableDeclarationNodeGetExtra(a2);
-    glpAppendValueDescriptionToStringBuffer(a1, SaType, *(v56 + v47));
-    glpStringBufferAppendFormat(a1, "\n", v57, v58, v59, v60, v61, v62, v87);
+    v15 = glpVariableDeclarationNodeGetExtra(a2);
+    glpAppendValueDescriptionToStringBuffer(a1, SaType, *(v15 + v12));
+    glpStringBufferAppendFormat(a1, "\n");
     goto LABEL_19;
   }
 
   if (glpVariableDeclarationNodeGetExtra(a2) && *(glpVariableDeclarationNodeGetExtra(a2) + 72))
   {
-    if (v9 == -1)
+    if (a3 == -1)
     {
-      v47 = 72;
+      v12 = 72;
     }
 
     else
     {
-      v54 = v9 + 1;
-      v47 = 72;
+      v13 = a3 + 1;
+      v12 = 72;
       do
       {
-        glpStringBufferAppendFormat(a1, "    ", v48, v49, v50, v51, v52, v53, v87);
-        --v54;
+        glpStringBufferAppendFormat(a1, "    ");
+        --v13;
       }
 
-      while (v54);
+      while (v13);
     }
 
     goto LABEL_18;
@@ -560,176 +554,172 @@ LABEL_19:
     result = glpVariableDeclarationNodeGetExtra(a2);
     if (*(result + 8))
     {
-      if (v9 != -1)
+      if (a3 != -1)
       {
-        v70 = v9 + 1;
+        v17 = a3 + 1;
         do
         {
-          glpStringBufferAppendFormat(a1, "    ", v64, v65, v66, v67, v68, v69, v87);
-          --v70;
+          glpStringBufferAppendFormat(a1, "    ");
+          --v17;
         }
 
-        while (v70);
+        while (v17);
       }
 
-      v71 = glpVariableDeclarationNodeGetExtra(a2);
-      writeLayoutObject(a1, *(v71 + 8), v72, v73, v74, v75, v76, v77);
+      v18 = glpVariableDeclarationNodeGetExtra(a2);
+      writeLayoutObject(a1, *(v18 + 8));
 
-      return glpStringBufferAppendFormat(a1, "\n", v78, v79, v80, v81, v82, v83, a9);
+      return glpStringBufferAppendFormat(a1, "\n");
     }
   }
 
   return result;
 }
 
-uint64_t writeVariableDeclarationGroup(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeVariableDeclarationGroup(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(VariableDeclarationGroup:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(VariableDeclarationGroup:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writePrecisionDeclaration(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writePrecisionDeclaration(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(PrecisionDeclaration:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(PrecisionDeclaration:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeQualifiedDeclaration(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeQualifiedDeclaration(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(QualifiedDeclaration:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(QualifiedDeclaration:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeQualifiedDeclarationGroup(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeQualifiedDeclarationGroup(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(QualifiedDeclarationGroup:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(QualifiedDeclarationGroup:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeFunctionDefinition(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeFunctionDefinition(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(FunctionDefinition:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(FunctionDefinition:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeQualifiedType(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeQualifiedType(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(QualifiedType:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(QualifiedType:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writePrimitiveType(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writePrimitiveType(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(PrimitiveType:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(PrimitiveType:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   Type = glpPrimitiveTypeNodeGetType(a2);
-  v25 = glpPrimitiveTypeToString(Type);
-  return glpStringBufferAppendFormat(a1, "%s", v26, v27, v28, v29, v30, v31, v25);
+  v8 = glpPrimitiveTypeToString(Type);
+  return glpStringBufferAppendFormat(a1, "%s", v8);
 }
 
-uint64_t writeArrayType(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeArrayType(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ArrayType:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ArrayType:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeFieldDeclaration(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeFieldDeclaration(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(FieldDeclaration:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(FieldDeclaration:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpFieldDeclarationNodeGetName(a2);
-  v25 = v24;
-  glpFieldDeclarationNodeGetName(a2);
-  return glpStringBufferAppendFormat(a1, "%.*s\n", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  Name = glpFieldDeclarationNodeGetName(a2);
+  return glpStringBufferAppendFormat(a1, "%.*s\n", v8, Name);
 }
 
-uint64_t writeStructType(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeStructType(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(StructType:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(StructType:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpStructTypeNodeGetName(a2);
-  v25 = v24;
-  glpStructTypeNodeGetName(a2);
-  return glpStringBufferAppendFormat(a1, "%.*s\n", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  Name = glpStructTypeNodeGetName(a2);
+  return glpStringBufferAppendFormat(a1, "%.*s\n", v8, Name);
 }
 
-void *writeInterfaceBlock(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeInterfaceBlock(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(InterfaceBlock:", a3, a4, a5, a6, a7, a8, v52);
+  glpStringBufferAppendFormat(a1, "(InterfaceBlock:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v53);
+  glpStringBufferAppendFormat(a1, "\n");
   Extra = glpInterfaceBlockNodeGetExtra(a2);
-  if (v8 != -1)
+  if (a3 != -1)
   {
-    v24 = v8 + 1;
+    v7 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v54);
-      --v24;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v7;
     }
 
-    while (v24);
+    while (v7);
   }
 
   BlockName = glpInterfaceBlockNodeGetBlockName(a2);
-  glpStringBufferAppendString(a1, BlockName, v26);
+  glpStringBufferAppendString(a1, BlockName, v9);
   if (!glpInterfaceBlockNodeGetHasInstanceName(a2))
   {
     result = glpStringBufferAppendCString(a1, "\n");
@@ -743,13 +733,13 @@ void *writeInterfaceBlock(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, u
 
   glpStringBufferAppendCString(a1, " ");
   InstanceName = glpInterfaceBlockNodeGetInstanceName(a2);
-  glpStringBufferAppendString(a1, InstanceName, v28);
+  glpStringBufferAppendString(a1, InstanceName, v11);
   if (Extra)
   {
     if (glpInterfaceBlockNodeGetDimension(a2))
     {
       ElementCount = glpBankTypeGetElementCount(*(Extra + 64));
-      glpStringBufferAppendFormat(a1, "[%u]", v30, v31, v32, v33, v34, v35, ElementCount);
+      glpStringBufferAppendFormat(a1, "[%u]", ElementCount);
     }
 
     glpStringBufferAppendCString(a1, "\n");
@@ -757,29 +747,29 @@ LABEL_10:
     result = glpInterfaceBlockObjectGetVariableObjectCount(Extra);
     if (result)
     {
-      v43 = 0;
-      v44 = result;
+      v14 = 0;
+      v15 = result;
       do
       {
-        if (v8 != -1)
+        if (a3 != -1)
         {
-          v45 = v8 + 1;
+          v16 = a3 + 1;
           do
           {
-            glpStringBufferAppendFormat(a1, "    ", v37, v38, v39, v40, v41, v42, v54);
-            --v45;
+            glpStringBufferAppendFormat(a1, "    ");
+            --v16;
           }
 
-          while (v45);
+          while (v16);
         }
 
         glpStringBufferAppendCString(a1, "  -> ");
-        glpAppendVariableObjectDescription(a1, *(*(Extra + 72) + 8 * v43), v46, v47, v48, v49, v50, v51);
+        glpAppendVariableObjectDescription(a1, *(*(Extra + 72) + 8 * v14));
         result = glpStringBufferAppendCString(a1, "\n");
-        ++v43;
+        ++v14;
       }
 
-      while (v43 != v44);
+      while (v14 != v15);
     }
 
     return result;
@@ -788,112 +778,109 @@ LABEL_10:
   return glpStringBufferAppendCString(a1, "\n");
 }
 
-uint64_t writeLayoutType(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLayoutType(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(LayoutType:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(LayoutType:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-void *writeKeywordQualifier(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeKeywordQualifier(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(KeywordQualifier:", a3, a4, a5, a6, a7, a8, v27);
+  glpStringBufferAppendFormat(a1, "(KeywordQualifier:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v28);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v29);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   Qualifier = glpKeywordQualifierNodeGetQualifier(a2);
-  v25 = glpQualifierName(Qualifier);
+  v8 = glpQualifierName(Qualifier);
 
-  return glpStringBufferAppendCString(a1, v25);
+  return glpStringBufferAppendCString(a1, v8);
 }
 
-uint64_t writeLayoutQualifier(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLayoutQualifier(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(LayoutQualifier:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(LayoutQualifier:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeSubroutineTypeList(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeSubroutineTypeList(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(SubroutineTypeList:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(SubroutineTypeList:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeQualifierList(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeQualifierList(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(QualifierList:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(QualifierList:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeGlobalTypeQualifier(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeGlobalTypeQualifier(uint64_t *a1, uint64_t a2, int a3)
 {
-  v9 = a3;
-  glpStringBufferAppendFormat(a1, "(GlobalTypeQualifier:", a3, a4, a5, a6, a7, a8, v39);
+  glpStringBufferAppendFormat(a1, "(GlobalTypeQualifier:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v12, v13, v14, v15, v16, v17, v40);
+  glpStringBufferAppendFormat(a1, "\n");
   result = glpGlobalTypeQualifierNodeGetLayout(a2);
   if (result)
   {
-    if (v9 != -1)
+    if (a3 != -1)
     {
-      v25 = v9 + 1;
+      v7 = a3 + 1;
       do
       {
-        glpStringBufferAppendFormat(a1, "    ", v19, v20, v21, v22, v23, v24, v41);
-        --v25;
+        glpStringBufferAppendFormat(a1, "    ");
+        --v7;
       }
 
-      while (v25);
+      while (v7);
     }
 
     Layout = glpGlobalTypeQualifierNodeGetLayout(a2);
-    writeLayoutObject(a1, Layout, v27, v28, v29, v30, v31, v32);
+    writeLayoutObject(a1, Layout);
 
-    return glpStringBufferAppendFormat(a1, "\n", v33, v34, v35, v36, v37, v38, a9);
+    return glpStringBufferAppendFormat(a1, "\n");
   }
 
   return result;
 }
 
-uint64_t writeLayoutPair(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeLayoutPair(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(LayoutPair:", a3, a4, a5, a6, a7, a8, v41);
+  glpStringBufferAppendFormat(a1, "(LayoutPair:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v42);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v43);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   Identifier = glpLayoutPairNodeGetIdentifier(a2);
-  glpStringBufferAppendString(a1, Identifier, v25);
+  glpStringBufferAppendString(a1, Identifier, v8);
   result = glpLayoutPairNodeGetValueKind(a2);
   if (result > 1)
   {
@@ -905,9 +892,8 @@ uint64_t writeLayoutPair(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
       }
 
       glpLayoutPairNodeGetString(a2);
-      v34 = v33;
       glpLayoutPairNodeGetString(a2);
-      return glpStringBufferAppendFormat(a1, "=%.*s", v35, v36, v37, v38, v39, v40, v34);
+      return glpStringBufferAppendFormat(a1, "=%.*s");
     }
   }
 
@@ -915,8 +901,8 @@ uint64_t writeLayoutPair(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
   {
     if (result == 1)
     {
-      Value = glpLayoutPairNodeGetValue(a2);
-      return glpStringBufferAppendFormat(a1, "=%d", v27, v28, v29, v30, v31, v32, Value);
+      glpLayoutPairNodeGetValue(a2);
+      return glpStringBufferAppendFormat(a1, "=%d");
     }
 
 LABEL_12:
@@ -926,399 +912,392 @@ LABEL_12:
   return result;
 }
 
-uint64_t writeExpressionStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeExpressionStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ExpressionStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ExpressionStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-void *writeBlock(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeBlock(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(Block:", a3, a4, a5, a6, a7, a8, v26);
+  glpStringBufferAppendFormat(a1, "(Block:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v27);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v28);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   if (glpBlockNodeGetNeedsNewScope(a2))
   {
-    v24 = "--new scope--\n";
+    v7 = "--new scope--\n";
   }
 
   else
   {
-    v24 = "no new scope\n";
+    v7 = "no new scope\n";
   }
 
-  return glpStringBufferAppendCString(a1, v24);
+  return glpStringBufferAppendCString(a1, v7);
 }
 
-uint64_t writeIfStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeIfStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(IfStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(IfStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeLoopStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeLoopStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(LoopStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(LoopStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeSwitchStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeSwitchStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(SwitchStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(SwitchStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeCaseStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeCaseStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(CaseStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(CaseStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeDefaultStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeDefaultStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(DefaultStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(DefaultStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeBreakStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeBreakStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(BreakStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(BreakStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeContinueStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeContinueStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ContinueStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ContinueStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeDiscardStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeDiscardStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(DiscardStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(DiscardStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeReturnStatement(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeReturnStatement(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(ReturnStatement:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(ReturnStatement:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeTopLevel(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeTopLevel(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(TopLevel:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(TopLevel:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeAvailabilityDeclaration(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeAvailabilityDeclaration(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(AvailabilityDeclaration:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(AvailabilityDeclaration:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-void *writeRawCall(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeRawCall(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(RawCall:", a3, a4, a5, a6, a7, a8, v27);
+  glpStringBufferAppendFormat(a1, "(RawCall:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v28);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v29);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
-  v24 = glpRawCallNodeGetName(a2);
-  glpStringBufferAppendString(a1, v24, v25);
+  v7 = glpRawCallNodeGetName(a2);
+  glpStringBufferAppendString(a1, v7, v8);
 
   return glpStringBufferAppendCString(a1, "\n");
 }
 
-void *writeSubroutineRawCall(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeSubroutineRawCall(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(SubroutineRawCall:", a3, a4, a5, a6, a7, a8, v26);
+  glpStringBufferAppendFormat(a1, "(SubroutineRawCall:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v27);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v28);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
-  v24 = glpSubroutineRawCallNodeGetExtra(a2);
-  glpStringBufferAppendString(a1, *v24, v24[1]);
+  v7 = glpSubroutineRawCallNodeGetExtra(a2);
+  glpStringBufferAppendString(a1, *v7, v7[1]);
 
   return glpStringBufferAppendCString(a1, "\n");
 }
 
-uint64_t writeOffset(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeOffset(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(Offset:", a3, a4, a5, a6, a7, a8, v45);
+  glpStringBufferAppendFormat(a1, "(Offset:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v46);
-  v17 = v8 + 1;
+  glpStringBufferAppendFormat(a1, "\n");
+  v6 = a3 + 1;
   Swizzle = glpOffsetNodeGetSwizzle(a2);
   if (Swizzle)
   {
-    v49 = 0;
-    v48 = 0;
-    v25 = Swizzle & 7;
+    v17 = 0;
+    v16 = 0;
+    v8 = Swizzle & 7;
     if ((Swizzle & 7) != 0)
     {
-      v26 = &v48;
-      v27 = 3;
-      v28 = Swizzle & 7;
+      v9 = &v16;
+      v10 = 3;
+      v11 = Swizzle & 7;
       do
       {
-        *v26 = aXyzw[(Swizzle >> v27) & 3];
-        v26 = (v26 + 1);
-        v27 += 2;
-        --v28;
+        *v9 = aXyzw[(Swizzle >> v10) & 3];
+        v9 = (v9 + 1);
+        v10 += 2;
+        --v11;
       }
 
-      while (v28);
+      while (v11);
     }
 
     else
     {
-      v25 = 0;
+      v8 = 0;
     }
 
-    *(&v48 + v25) = 0;
-    if (v8 != -1)
+    *(&v16 + v8) = 0;
+    if (a3 != -1)
     {
-      v29 = v8 + 1;
+      v12 = a3 + 1;
       do
       {
-        glpStringBufferAppendFormat(a1, "    ", v19, v20, v21, v22, v23, v24, v47);
-        --v29;
+        glpStringBufferAppendFormat(a1, "    ");
+        --v12;
       }
 
-      while (v29);
+      while (v12);
     }
 
-    glpStringBufferAppendFormat(a1, ".%s\n", v19, v20, v21, v22, v23, v24, &v48);
+    glpStringBufferAppendFormat(a1, ".%s\n", &v16);
   }
 
   result = glpOffsetNodeGetPreSwizzlePrimitiveType(a2);
   if (result)
   {
-    v37 = result;
-    if (v8 != -1)
+    v14 = result;
+    if (a3 != -1)
     {
       do
       {
-        glpStringBufferAppendFormat(a1, "    ", v31, v32, v33, v34, v35, v36, v47);
-        --v17;
+        glpStringBufferAppendFormat(a1, "    ");
+        --v6;
       }
 
-      while (v17);
+      while (v6);
     }
 
-    v38 = glpPrimitiveTypeToString(v37);
-    return glpStringBufferAppendFormat(a1, "pre-swizzle type: %s\n", v39, v40, v41, v42, v43, v44, v38);
+    v15 = glpPrimitiveTypeToString(v14);
+    return glpStringBufferAppendFormat(a1, "pre-swizzle type: %s\n", v15);
   }
 
   return result;
 }
 
-void *writeLValue(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeLValue(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(LValue:", a3, a4, a5, a6, a7, a8, v40);
+  glpStringBufferAppendFormat(a1, "(LValue:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v41);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v42);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpLValueNodeGetVariableName(a2);
-  v25 = v24;
-  glpLValueNodeGetVariableName(a2);
-  glpStringBufferAppendFormat(a1, "%.*s -> ", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  VariableName = glpLValueNodeGetVariableName(a2);
+  glpStringBufferAppendFormat(a1, "%.*s -> ", v8, VariableName);
   VariableExtra = glpLValueNodeGetVariableExtra(a2);
-  glpAppendVariableObjectDescription(a1, VariableExtra, v33, v34, v35, v36, v37, v38);
+  glpAppendVariableObjectDescription(a1, VariableExtra);
 
   return glpStringBufferAppendCString(a1, "\n");
 }
 
-uint64_t writeRValue(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeRValue(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(RValue:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(RValue:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writeIBPartialDeref(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeIBPartialDeref(uint64_t *a1, uint64_t a2)
 {
-  glpStringBufferAppendFormat(a1, "(IBPartialDeref:", a3, a4, a5, a6, a7, a8, v18);
+  glpStringBufferAppendFormat(a1, "(IBPartialDeref:");
   writeSAInfo(a1, a2);
 
-  return glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, a9);
+  return glpStringBufferAppendFormat(a1, "\n");
 }
 
-uint64_t writePPStreamOp(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writePPStreamOp(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(PPStreamOp:", a3, a4, a5, a6, a7, a8, v106);
+  glpStringBufferAppendFormat(a1, "(PPStreamOp:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v107);
-  if (v8 == -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 == -1)
   {
     ReturnPrimitiveType = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
-    v40 = glpPrimitiveTypeToString(ReturnPrimitiveType);
-    glpStringBufferAppendFormat(a1, "returnPrimitiveType: %s\n", v41, v42, v43, v44, v45, v46, v40);
+    v11 = glpPrimitiveTypeToString(ReturnPrimitiveType);
+    glpStringBufferAppendFormat(a1, "returnPrimitiveType: %s\n", v11);
   }
 
   else
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v108);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
-    v24 = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
-    v25 = glpPrimitiveTypeToString(v24);
-    glpStringBufferAppendFormat(a1, "returnPrimitiveType: %s\n", v26, v27, v28, v29, v30, v31, v25);
-    v38 = v8 + 1;
+    while (v6);
+    v7 = glpPPStreamOpNodeGetReturnPrimitiveType(a2);
+    v8 = glpPrimitiveTypeToString(v7);
+    glpStringBufferAppendFormat(a1, "returnPrimitiveType: %s\n", v8);
+    v9 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v32, v33, v34, v35, v36, v37, v109);
-      --v38;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v9;
     }
 
-    while (v38);
+    while (v9);
   }
 
   Opcode = glpPPStreamOpNodeGetOpcode(a2);
-  glpStringBufferAppendFormat(a1, "opcode: %s\n", v48, v49, v50, v51, v52, v53, (&ppstreamOpString)[Opcode]);
-  if (v8 == -1)
+  glpStringBufferAppendFormat(a1, "opcode: %s\n", (&ppstreamOpString)[Opcode]);
+  if (a3 == -1)
   {
     OpPrimitiveType = glpPPStreamOpNodeGetOpPrimitiveType(a2);
-    v77 = glpPrimitiveTypeToString(OpPrimitiveType);
-    glpStringBufferAppendFormat(a1, "opPrimitiveType: %s\n", v78, v79, v80, v81, v82, v83, v77);
+    v18 = glpPrimitiveTypeToString(OpPrimitiveType);
+    glpStringBufferAppendFormat(a1, "opPrimitiveType: %s\n", v18);
   }
 
   else
   {
-    v60 = v8 + 1;
+    v13 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v54, v55, v56, v57, v58, v59, v110);
-      --v60;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v13;
     }
 
-    while (v60);
-    v61 = glpPPStreamOpNodeGetOpPrimitiveType(a2);
-    v62 = glpPrimitiveTypeToString(v61);
-    glpStringBufferAppendFormat(a1, "opPrimitiveType: %s\n", v63, v64, v65, v66, v67, v68, v62);
-    v75 = v8 + 1;
+    while (v13);
+    v14 = glpPPStreamOpNodeGetOpPrimitiveType(a2);
+    v15 = glpPrimitiveTypeToString(v14);
+    glpStringBufferAppendFormat(a1, "opPrimitiveType: %s\n", v15);
+    v16 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v69, v70, v71, v72, v73, v74, v111);
-      --v75;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v16;
     }
 
-    while (v75);
+    while (v16);
   }
 
   HasSrctex = glpPPStreamOpNodeGetHasSrctex(a2);
-  glpStringBufferAppendFormat(a1, "has_srctex: %d\n", v85, v86, v87, v88, v89, v90, HasSrctex);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "has_srctex: %d\n", HasSrctex);
+  if (a3 != -1)
   {
-    v97 = v8 + 1;
+    v20 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v91, v92, v93, v94, v95, v96, v112);
-      --v97;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v20;
     }
 
-    while (v97);
+    while (v20);
   }
 
   HasOffset = glpPPStreamOpNodeGetHasOffset(a2);
-  return glpStringBufferAppendFormat(a1, "has_offset: %d\n", v99, v100, v101, v102, v103, v104, HasOffset);
+  return glpStringBufferAppendFormat(a1, "has_offset: %d\n", HasOffset);
 }
 
-void *writeSubroutineUniform(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeSubroutineUniform(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(SubroutineUniform:", a3, a4, a5, a6, a7, a8, v26);
+  glpStringBufferAppendFormat(a1, "(SubroutineUniform:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v27);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v28);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   Extra = glpSubroutineUniformNodeGetExtra(a2);
@@ -1330,11 +1309,11 @@ void *writeSubroutineUniform(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4
 uint64_t *writeSAInfo(uint64_t *a1, uint64_t a2)
 {
   SaType = glpASTNodeGetSaType(a2);
-  glpDumpTypeToStringBuffer(a1, SaType, v5, v6, v7, v8, v9, v10, v19);
+  glpDumpTypeToStringBuffer(a1, SaType);
   result = glpASTNodeGetSaFlags(a2);
   if (result)
   {
-    glpStringBufferAppendFormat(a1, ";", v12, v13, v14, v15, v16, v17, v20);
+    glpStringBufferAppendFormat(a1, ";");
     SaFlags = glpASTNodeGetSaFlags(a2);
 
     return glpAppendFlagDescription(a1, SaFlags);
@@ -1343,26 +1322,26 @@ uint64_t *writeSAInfo(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t writeLayoutObject(uint64_t *a1, uint64_t **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeLayoutObject(uint64_t *a1, uint64_t **a2)
 {
-  result = glpStringBufferAppendFormat(a1, "layout:", a3, a4, a5, a6, a7, a8, v26);
-  v11 = *a2;
+  result = glpStringBufferAppendFormat(a1, "layout:");
+  v5 = *a2;
   if (*a2)
   {
     do
     {
-      v12 = *v11;
-      v13 = glpLayoutQualifierToString(*(v11 + 2));
-      result = glpStringBufferAppendFormat(a1, "%s ", v14, v15, v16, v17, v18, v19, v13);
-      if (*(v11 + 3) == 1)
+      v6 = *v5;
+      v7 = glpLayoutQualifierToString(*(v5 + 2));
+      result = glpStringBufferAppendFormat(a1, "%s ", v7);
+      if (*(v5 + 3) == 1)
       {
-        result = glpStringBufferAppendFormat(a1, "= %d ", v20, v21, v22, v23, v24, v25, *(v11 + 4));
+        result = glpStringBufferAppendFormat(a1, "= %d ", *(v5 + 4));
       }
 
-      v11 = v12;
+      v5 = v6;
     }
 
-    while (v12);
+    while (v6);
   }
 
   return result;
@@ -1412,7 +1391,7 @@ LABEL_3:
         return 1;
       }
 
-      glpStringHashPut(a1[20], *v20, *(v20 + 8), v20, v21);
+      glpStringHashPut(a1[20], *v20, *(v20 + 8), v21, v20);
       goto LABEL_6;
     }
 
@@ -1658,7 +1637,7 @@ uint64_t phase2ProcessInterfaceBlock(uint64_t a1, uint64_t a2)
     v7 = 240;
   }
 
-  glpStringHashPut(*(a1 + v7), *Extra, *(Extra + 8), Extra, v5);
+  glpStringHashPut(*(a1 + v7), *Extra, *(Extra + 8), v5, Extra);
 LABEL_8:
   VariableObjectCount = glpInterfaceBlockObjectGetVariableObjectCount(Extra);
   if (VariableObjectCount)
@@ -1694,15 +1673,9 @@ uint64_t phase2ProcessRawCall(uint64_t a1, uint64_t a2)
   v7 = glpPointerHashGet(*(a1 + 96), v5);
   if (!v7)
   {
-    v17 = *(a1 + 8);
-    v18 = *(v4 + 24);
-    v19 = *(a1 + 24);
-    v20 = *(v4 + 32);
-    v28 = "-1";
-    v29 = 0xEDA00000002;
-    v30 = 0xFFFFFFFFLL;
-    glpLanguageToString(v19);
-    glpLogMessage(v17, 0, &v28, "No definition of %.*s in %s shader", v21, v22, v23, v24, v20);
+    v11 = *(a1 + 8);
+    glpLanguageToString(*(a1 + 24));
+    glpLogMessage(v11, 0, &v14, "No definition of %.*s in %s shader");
     return -1;
   }
 
@@ -1720,29 +1693,15 @@ uint64_t phase2ProcessRawCall(uint64_t a1, uint64_t a2)
       v10 = v9;
     }
 
-    v15 = strncmp("$SubroutineStatic$", v8, v10);
-    v16 = *(a1 + 8);
-    v28 = "-1";
-    v29 = 0xEDA00000002;
-    v30 = 0xFFFFFFFFLL;
-    if (v15)
-    {
-      v27 = v9;
-    }
-
-    else
-    {
-      v27 = v9 - 18;
-    }
-
-    glpLogMessage(v16, 0, &v28, "Recursive function call to %.*s", v11, v12, v13, v14, v27);
+    strncmp("$SubroutineStatic$", v8, v10);
+    glpLogMessage(*(a1 + 8), 0, &v14, "Recursive function call to %.*s");
     return -1;
   }
 
   *(v5 + 128) = 1;
-  v25 = phase2AddDef(a1, v7);
+  v12 = phase2AddDef(a1, v7);
   *(v5 + 128) = 0;
-  if (v25)
+  if (v12)
   {
     return a2;
   }
@@ -1761,14 +1720,11 @@ uint64_t phase2ProcessSubroutineRawCall(uint64_t *a1, uint64_t a2)
   if (!v5)
   {
     v18 = a1[1];
-    v19 = *v4;
-    v20 = *(a1 + 6);
-    v21 = *(v4 + 8);
-    v35 = "-1";
-    v36 = 0xEDA00000002;
-    v37 = 0xFFFFFFFFLL;
-    glpLanguageToString(v20);
-    glpLogMessage(v18, 0, &v35, "No definition of subroutine uniform %.*s in %s shader", v22, v23, v24, v25, v21);
+    glpLanguageToString(*(a1 + 6));
+    v21 = "-1";
+    v22 = 0xEDA00000002;
+    v23 = 0xFFFFFFFFLL;
+    glpLogMessage(v18, 0, &v21, "No definition of subroutine uniform %.*s in %s shader");
     return -1;
   }
 
@@ -1793,15 +1749,12 @@ uint64_t phase2ProcessSubroutineRawCall(uint64_t *a1, uint64_t a2)
       }
     }
 
-    v26 = a1[1];
-    v27 = *v4;
-    v28 = *(a1 + 6);
-    v29 = *(v4 + 8);
-    v35 = "-1";
-    v36 = 0xEDA00000002;
-    v37 = 0xFFFFFFFFLL;
-    glpLanguageToString(v28);
-    glpLogMessage(v26, 0, &v35, "Potentially recursive subroutine call through subroutine uniform %.*s in %s shader", v30, v31, v32, v33, v29);
+    v19 = a1[1];
+    glpLanguageToString(*(a1 + 6));
+    v21 = "-1";
+    v22 = 0xEDA00000002;
+    v23 = 0xFFFFFFFFLL;
+    glpLogMessage(v19, 0, &v21, "Potentially recursive subroutine call through subroutine uniform %.*s in %s shader");
     return -1;
   }
 
@@ -1854,10 +1807,10 @@ LABEL_8:
   return v2;
 }
 
-uint64_t phase2ProcessLValue(void **a1, uint64_t a2)
+uint64_t phase2ProcessLValue(void *a1, uint64_t a2)
 {
   v2 = a2;
-  v66 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   VariableExtra = glpLValueNodeGetVariableExtra(a2);
   v5 = VariableExtra;
   if (*(a1 + 32))
@@ -1867,38 +1820,36 @@ uint64_t phase2ProcessLValue(void **a1, uint64_t a2)
     {
       if (glpLayoutObjectFind(v6, 82))
       {
-        v11 = a1[1];
-        v12 = *(v5 + 32);
-        v13 = *(v5 + 40);
-        v64.n128_u64[0] = "-1";
-        v64.n128_u64[1] = 0xEDA00000002;
-        v65 = 0xFFFFFFFFLL;
-        glpLogMessage(v11, 0, &v64, "Built-in variable '%.*s' must be redeclared before use, with separate shader objects.", v7, v8, v9, v10, v13);
-LABEL_8:
-        v2 = -1;
-        goto LABEL_32;
+        v7 = a1[1];
+        v8 = *(v5 + 32);
+        v9 = *(v5 + 40);
+        v57.n128_u64[0] = "-1";
+        v57.n128_u64[1] = 0xEDA00000002;
+        v58 = 0xFFFFFFFFLL;
+        glpLogMessage(v7, 0, &v57, "Built-in variable '%.*s' must be redeclared before use, with separate shader objects.", v9, v8);
+        return -1;
       }
     }
   }
 
-  v14 = glpPointerHashGet(a1[15], v5);
-  if (v14)
+  v10 = glpPointerHashGet(a1[15], v5);
+  if (v10)
   {
-    v15 = v14;
-    glpLValueNodeSetVariableExtra(v2, v14);
-    v16 = glpPointerHashGet(a1[11], v15);
-    if (v16)
+    v11 = v10;
+    glpLValueNodeSetVariableExtra(v2, v10);
+    v12 = glpPointerHashGet(a1[11], v11);
+    if (v12)
     {
-      v5 = v15;
-      if (!phase2AddDef(a1, v16))
+      v5 = v11;
+      if (!phase2AddDef(a1, v12))
       {
-        goto LABEL_8;
+        return -1;
       }
     }
 
     else
     {
-      v5 = v15;
+      v5 = v11;
     }
   }
 
@@ -1906,14 +1857,14 @@ LABEL_8:
   if (*(v5 + 120))
   {
     Offset = glpDerefNodeGetOffset(v2);
-    if (Offset && (v18 = Offset, (OffsetExpr = glpOffsetNodeGetOffsetExpr(Offset)) != 0) && (v20 = OffsetExpr, glpIsConstantNode(OffsetExpr)))
+    if (Offset && (v14 = Offset, (OffsetExpr = glpOffsetNodeGetOffsetExpr(Offset)) != 0) && (v16 = OffsetExpr, glpIsConstantNode(OffsetExpr)))
     {
-      Value = glpConstantNodeGetValue(v20);
-      SaType = glpASTNodeGetSaType(v20);
+      Value = glpConstantNodeGetValue(v16);
+      SaType = glpASTNodeGetSaType(v16);
       AsSize = glpValueGetAsSize(SaType, Value);
-      if (glpOffsetNodeGetPreSwizzlePrimitiveType(v18))
+      if (glpOffsetNodeGetPreSwizzlePrimitiveType(v14))
       {
-        PreSwizzlePrimitiveType = glpOffsetNodeGetPreSwizzlePrimitiveType(v18);
+        PreSwizzlePrimitiveType = glpOffsetNodeGetPreSwizzlePrimitiveType(v14);
         PrimitiveType = glpGetPrimitiveType(PreSwizzlePrimitiveType);
       }
 
@@ -1922,17 +1873,17 @@ LABEL_8:
         PrimitiveType = glpASTNodeGetSaType(v2);
       }
 
-      v32 = glpABIGetTypeSize(0, PrimitiveType, 0);
-      Size = glpTypeSizeGetSize(v32);
-      v34 = Size + AsSize;
-      BitSetSetRangeEquals(*(v5 + 120), AsSize, Size + AsSize, 1);
-      v35 = *(v5 + 128);
-      if (v35 <= v34)
+      glpABIGetTypeSize(0, PrimitiveType, 0);
+      glpTypeSizeGetSize();
+      v28 = v27 + AsSize;
+      BitSetSetRangeEquals(*(v5 + 120), AsSize, v28, 1);
+      v29 = *(v5 + 128);
+      if (v29 <= v28)
       {
-        v35 = v34;
+        v29 = v28;
       }
 
-      *(v5 + 128) = v35;
+      *(v5 + 128) = v29;
     }
 
     else
@@ -1943,21 +1894,21 @@ LABEL_8:
         ElementType = glpBankTypeGetElementType(ElementType);
       }
 
-      v27 = glpABIGetTypeSize(0, ElementType, 0);
-      v28 = glpTypeSizeGetSize(v27);
-      MEMORY[0x28223BE20](v28);
-      v30 = (&v64 - v29);
-      bzero(&v64 - v29, v31);
-      glpTypeGetAppleVec4Types(ElementType, v30, 1, 0, 0, 0, *(v5 + 120), 0, 0);
+      glpABIGetTypeSize(0, ElementType, 0);
+      glpTypeSizeGetSize();
+      MEMORY[0x28223BE20](v23);
+      v25 = (&v57 - v24);
+      bzero(&v57 - v24, v26);
+      glpTypeGetAppleVec4Types(ElementType, v25, 1, 0, 0, 0, *(v5 + 120), 0, 0);
       *(v5 + 128) = BitSetLastSetBit(*(v5 + 120)) + 1;
     }
   }
 
-  v36 = glpDerefNodeGetOffset(v2);
-  if (v36)
+  v30 = glpDerefNodeGetOffset(v2);
+  if (v30)
   {
-    v37 = v36;
-    BankIndex = glpOffsetNodeGetBankIndex(v36);
+    v31 = v30;
+    BankIndex = glpOffsetNodeGetBankIndex(v30);
     glpTypeGetKind(*v5);
     if (BankIndex)
     {
@@ -1965,51 +1916,52 @@ LABEL_8:
       if ((Bank - 1) < 2 || Bank == 4)
       {
         glpBankTypeGetElementCount(*v5);
-        v40 = glpBankTypeGetElementType(*v5);
-        v41 = glpABIGetTypeSize(0, v40, 0);
-        v42 = glpTypeSizeGetSize(v41);
-        v43 = glpOffsetNodeGetOffsetExpr(v37);
-        if (!v43)
+        v34 = glpBankTypeGetElementType(*v5);
+        glpABIGetTypeSize(0, v34, 0);
+        glpTypeSizeGetSize();
+        v36 = v35;
+        v37 = glpOffsetNodeGetOffsetExpr(v31);
+        if (!v37)
         {
           IntConstantNode = makeIntConstantNode(a1, 0);
-          v43 = phase2Process(a1, IntConstantNode);
+          v37 = phase2Process(a1, IntConstantNode);
         }
 
-        v45 = makeIntConstantNode(a1, v42);
-        v46 = phase2Process(a1, v45);
-        v47 = glpGetPrimitiveType(5u);
-        glpASTNodeSetSaType(v46, v47);
-        glpASTNodeSetSaFlags(v46, 96);
-        v48 = *a1;
-        v64.n128_u64[0] = "-1";
-        v64.n128_u64[1] = 0xEDA00000002;
-        v65 = 0xFFFFFFFFLL;
-        glpMakePPStreamOpNode(v48, &v64, 5, 34, 5, 0, 0);
-        v50 = v49;
-        glpCallNodeAddArg(*a1, v49, BankIndex);
-        glpCallNodeAddArg(*a1, v50, v46);
-        v51 = glpGetPrimitiveType(5u);
-        glpASTNodeSetSaType(v50, v51);
+        v39 = makeIntConstantNode(a1, v36);
+        v40 = phase2Process(a1, v39);
+        v41 = glpGetPrimitiveType(5u);
+        glpASTNodeSetSaType(v40, v41);
+        glpASTNodeSetSaFlags(v40, 96);
+        v42 = *a1;
+        v57.n128_u64[0] = "-1";
+        v57.n128_u64[1] = 0xEDA00000002;
+        v58 = 0xFFFFFFFFLL;
+        glpMakePPStreamOpNode(v42, &v57, 5, 34, 5, 0, 0);
+        v44 = v43;
+        glpCallNodeAddArg(*a1, v43, BankIndex);
+        glpCallNodeAddArg(*a1, v44, v40);
+        v45 = glpGetPrimitiveType(5u);
+        glpASTNodeSetSaType(v44, v45);
         SaFlags = glpASTNodeGetSaFlags(BankIndex);
-        v53 = glpASTNodeGetSaFlags(v46);
-        glpASTNodeSetSaFlags(v50, v53 & SaFlags);
-        v54 = glpConstantFold(*a1, a1[31], v50);
-        v55 = *a1;
-        v64.n128_u64[0] = "-1";
-        v64.n128_u64[1] = 0xEDA00000002;
-        v65 = 0xFFFFFFFFLL;
-        glpMakePPStreamOpNode(v55, &v64, 5, 31, 5, 0, 0);
-        v57 = v56;
-        glpCallNodeAddArg(*a1, v56, v54);
-        glpCallNodeAddArg(*a1, v57, v43);
-        v58 = glpGetPrimitiveType(5u);
-        glpASTNodeSetSaType(v57, v58);
-        v59 = glpASTNodeGetSaFlags(v54);
-        v60 = glpASTNodeGetSaFlags(v43);
-        glpASTNodeSetSaFlags(v57, v60 & v59);
-        v61 = glpConstantFold(*a1, a1[31], v57);
-        glpOffsetNodeSetOffsetExpr(v37, v61);
-        glpOffsetNodeSetBankIndex(v37, 0);
+        v47 = glpASTNodeGetSaFlags(v40);
+        glpASTNodeSetSaFlags(v44, v47 & SaFlags);
+        v48 = glpConstantFold(*a1, a1[31], v44);
+        v49 = *a1;
+        v57.n128_u64[0] = "-1";
+        v57.n128_u64[1] = 0xEDA00000002;
+        v58 = 0xFFFFFFFFLL;
+        glpMakePPStreamOpNode(v49, &v57, 5, 31, 5, 0, 0);
+        v51 = v50;
+        glpCallNodeAddArg(*a1, v50, v48);
+        glpCallNodeAddArg(*a1, v51, v37);
+        v52 = glpGetPrimitiveType(5u);
+        glpASTNodeSetSaType(v51, v52);
+        v53 = glpASTNodeGetSaFlags(v48);
+        v54 = glpASTNodeGetSaFlags(v37);
+        glpASTNodeSetSaFlags(v51, v54 & v53);
+        v55 = glpConstantFold(*a1, a1[31], v51);
+        glpOffsetNodeSetOffsetExpr(v31, v55);
+        glpOffsetNodeSetBankIndex(v31, 0);
       }
 
       else if (!Bank)
@@ -2019,8 +1971,6 @@ LABEL_8:
     }
   }
 
-LABEL_32:
-  v62 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -2035,12 +1985,12 @@ uint64_t phase2ProcessSubroutineUniform(uint64_t a1, uint64_t a2)
   }
 
   v6 = glpPointerHashGet(*(a1 + 144), ElementType);
-  if (v6 && (v11 = v6, *(v6 + 4)))
+  if (v6 && (v7 = v6, *(v6 + 4)))
   {
-    v12 = 0;
-    while (phase2AddDef(a1, *(*(v11 + 8) + 8 * v12)))
+    v8 = 0;
+    while (phase2AddDef(a1, *(*(v7 + 8) + 8 * v8)))
     {
-      if (++v12 >= *(v11 + 4))
+      if (++v8 >= *(v7 + 4))
       {
         return v2;
       }
@@ -2049,13 +1999,13 @@ uint64_t phase2ProcessSubroutineUniform(uint64_t a1, uint64_t a2)
 
   else
   {
-    v13 = *(a1 + 8);
-    v14 = *Extra;
-    v15 = *(Extra + 8);
-    v17[0] = "-1";
-    v17[1] = 0xEDA00000002;
-    v17[2] = 0xFFFFFFFFLL;
-    glpLogMessage(v13, 0, v17, "Subroutine uniform '%.*s' has no possible implementations", v7, v8, v9, v10, v15);
+    v9 = *(a1 + 8);
+    v10 = *Extra;
+    v11 = *(Extra + 8);
+    v13[0] = "-1";
+    v13[1] = 0xEDA00000002;
+    v13[2] = 0xFFFFFFFFLL;
+    glpLogMessage(v9, 0, v13, "Subroutine uniform '%.*s' has no possible implementations", v11, v10);
   }
 
   return -1;
@@ -2106,7 +2056,7 @@ LABEL_13:
   v19 = *(a2 + 48);
   if (*(v3 + 24) == 4 && (*(a2 + 48) & 0x60000000) == 0x60000000)
   {
-    glpStringHashPut(*(v3 + 192), *(a2 + 16), *(a2 + 24), a2, v9);
+    glpStringHashPut(*(v3 + 192), *(a2 + 16), *(a2 + 24), v9, a2);
     goto LABEL_17;
   }
 
@@ -2121,7 +2071,7 @@ LABEL_13:
   if ((v19 & 0x40000000) != 0)
   {
 LABEL_17:
-    glpStringHashPut(*(v3 + 200), *(a2 + 16), *(a2 + 24), a2, v9);
+    glpStringHashPut(*(v3 + 200), *(a2 + 16), *(a2 + 24), v9, a2);
     v20 = *(v3 + 216);
     v21 = apiName(*v3, a2);
     v23 = v22;
@@ -2129,14 +2079,14 @@ LABEL_17:
     v25 = v21;
     v26 = v23;
 LABEL_25:
-    glpStringHashPut(v24, v25, v26, a2, v9);
+    glpStringHashPut(v24, v25, v26, v9, a2);
     v27 = 0;
     goto LABEL_26;
   }
 
   if ((v19 & 0x100000000) != 0)
   {
-    glpStringHashPut(*(v3 + 208), *(a2 + 16), *(a2 + 24), a2, v9);
+    glpStringHashPut(*(v3 + 208), *(a2 + 16), *(a2 + 24), v9, a2);
 LABEL_34:
     v27 = *(a2 + 88) != 0;
     goto LABEL_26;
@@ -2157,73 +2107,69 @@ LABEL_26:
 
   if (v27)
   {
-    v29 = glpABIGetTypeSize(0, v28, 0);
-    Size = glpTypeSizeGetSize(v29);
+    glpABIGetTypeSize(0, v28, 0);
+    glpTypeSizeGetSize();
   }
 
   else
   {
-    v31 = *v3;
-    v32 = glpABIGetTypeSize(0, v28, 0);
-    v33 = glpTypeSizeGetSize(v32);
-    v34 = BitSetNewWithAllocator(v33, *v31, *(v31 + 8), *(v31 + 16), *(v31 + 24));
-    Size = 0;
-    *(a2 + 120) = v34;
+    v30 = *v3;
+    glpABIGetTypeSize(0, v28, 0);
+    glpTypeSizeGetSize();
+    v32 = BitSetNewWithAllocator(v31, *v30, *(v30 + 8), *(v30 + 16), *(v30 + 24));
+    v29 = 0;
+    *(a2 + 120) = v32;
   }
 
-  *(a2 + 128) = Size;
+  *(a2 + 128) = v29;
   *(a2 + 64) = glpMergeRemapValue(v3, *(a2 + 48), *a2, *(a2 + 64));
   result = glpMergeRemapValue(v3, *(a2 + 48), *a2, *(a2 + 72));
   *(a2 + 72) = result;
   return result;
 }
 
-uint64_t apiName(void *a1, void *a2)
+const char *apiName(void *a1, uint64_t a2)
 {
-  v3 = a2[10];
-  if (v3)
+  v3 = *(a2 + 80);
+  if (!v3)
   {
-    if (glpInterfaceBlockObjectGetVariableObjectCount(a2[10]))
-    {
-      v5 = 0;
-      do
-      {
-        if (*(*(v3 + 72) + 8 * v5) == a2)
-        {
-          break;
-        }
+    return *(a2 + 32);
+  }
 
-        ++v5;
+  if (glpInterfaceBlockObjectGetVariableObjectCount(*(a2 + 80)))
+  {
+    v5 = 0;
+    do
+    {
+      if (*(*(v3 + 72) + 8 * v5) == a2)
+      {
+        break;
       }
 
-      while (v5 < glpInterfaceBlockObjectGetVariableObjectCount(v3));
+      ++v5;
     }
 
-    else
-    {
-      LODWORD(v5) = 0;
-    }
-
-    ElementType = *(v3 + 64);
-    if (glpTypeGetKind(ElementType) == 3)
-    {
-      ElementType = glpBankTypeGetElementType(ElementType);
-    }
-
-    FieldName = glpStructTypeGetFieldName(ElementType, v5);
-    if (*(v3 + 32))
-    {
-      StringBuffer = glpMakeStringBuffer(a1);
-      v17 = *v3;
-      glpStringBufferAppendFormat(StringBuffer, "%.*s.%.*s", v10, v11, v12, v13, v14, v15, *(v3 + 8));
-      return glpStringBufferGetString(StringBuffer);
-    }
+    while (v5 < glpInterfaceBlockObjectGetVariableObjectCount(v3));
   }
 
   else
   {
-    FieldName = a2[4];
-    v7 = a2[5];
+    LODWORD(v5) = 0;
+  }
+
+  ElementType = *(v3 + 64);
+  if (glpTypeGetKind(ElementType) == 3)
+  {
+    ElementType = glpBankTypeGetElementType(ElementType);
+  }
+
+  FieldName = glpStructTypeGetFieldName(ElementType, v5);
+  v9 = v8;
+  if (*(v3 + 32))
+  {
+    StringBuffer = glpMakeStringBuffer(a1);
+    glpStringBufferAppendFormat(StringBuffer, "%.*s.%.*s", *(v3 + 8), *v3, v9, FieldName);
+    return glpStringBufferGetString(StringBuffer);
   }
 
   return FieldName;
@@ -2359,7 +2305,7 @@ LABEL_28:
   return 1;
 }
 
-uint64_t genericCheckKidsBarrier(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t genericCheckKidsBarrier(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   if (!glpASTNodeGetChildCount(a1))
   {
@@ -2635,20 +2581,20 @@ LABEL_25:
 
 uint64_t foldTypeConversion(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  ConstantNodeFromNodeAndMutableValue = a3;
-  v34 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v33 = *MEMORY[0x277D85DE8];
   Expr = glpUnaryOperatorNodeGetExpr(a3);
   if (glpIsConstantNode(Expr))
   {
     SaType = glpASTNodeGetSaType(Expr);
     PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
     Value = glpConstantNodeGetValue(Expr);
-    v10 = glpASTNodeGetSaType(ConstantNodeFromNodeAndMutableValue);
+    v10 = glpASTNodeGetSaType(v3);
     v11 = glpPrimitiveTypeGetPrimitiveType(v10);
-    v12 = glpASTNodeGetSaType(ConstantNodeFromNodeAndMutableValue);
-    MutableValue = glpMakeMutableValue(a1, v12, 0, v13, v14, v15, v16, v17, v31);
-    v32 = 0;
-    v19 = glpASTNodeGetSaType(ConstantNodeFromNodeAndMutableValue);
+    v12 = glpASTNodeGetSaType(v3);
+    MutableValue = glpMakeMutableValue(a1, v12, 0, v13, v14, v15, v16, v17, v30);
+    v31 = 0;
+    v19 = glpASTNodeGetSaType(v3);
     v20 = glpPrimitiveTypeGetPrimitiveType(v19);
     ScalarType = glpPrimitiveTypeGetScalarType(v20);
     if (ScalarType == 36)
@@ -2697,32 +2643,31 @@ uint64_t foldTypeConversion(uint64_t a1, uint64_t a2, uint64_t a3)
     }
 
     GLVMType = glpGLPTypeGetGLVMType(PrimitiveType);
-    glvmChooseDestTypeConversion(v25, GLVMType, &v32);
-    if ((v32 & 0x7C0000000000000) != 0)
+    glvmChooseDestTypeConversion(v25, GLVMType, &v31);
+    if ((v31 & 0x7C0000000000000) != 0)
     {
-      memset(v33, 0, sizeof(v33));
-      glpVecFromValue(v33, PrimitiveType, Value);
-      glvmTypeConvertCF(v33, (v32 >> 54) & 0x1F);
-      glpMutableValueFromVec(MutableValue, v11, v33);
+      memset(v32, 0, sizeof(v32));
+      glpVecFromValue(v32, PrimitiveType, Value);
+      glvmTypeConvertCF(v32, (v31 >> 54) & 0x1F);
+      glpMutableValueFromVec(MutableValue, v11, v32);
     }
 
     else
     {
-      v28 = glpASTNodeGetSaType(ConstantNodeFromNodeAndMutableValue);
+      v28 = glpASTNodeGetSaType(v3);
       glpCopyValueInto(MutableValue, v28, Value);
     }
 
-    ConstantNodeFromNodeAndMutableValue = glpMakeConstantNodeFromNodeAndMutableValue(a1, a2, ConstantNodeFromNodeAndMutableValue, MutableValue);
+    return glpMakeConstantNodeFromNodeAndMutableValue(a1, a2, v3, MutableValue);
   }
 
   else
   {
-    SaFlags = glpASTNodeGetSaFlags(ConstantNodeFromNodeAndMutableValue);
-    glpASTNodeSetSaFlags(ConstantNodeFromNodeAndMutableValue, SaFlags | 0x80);
+    SaFlags = glpASTNodeGetSaFlags(v3);
+    glpASTNodeSetSaFlags(v3, SaFlags | 0x80);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return ConstantNodeFromNodeAndMutableValue;
+  return v3;
 }
 
 uint64_t foldConstant(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2736,12 +2681,12 @@ uint64_t foldConstant(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t foldNegate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  ConstantNodeFromNodeAndMutableValue = a3;
-  v27 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v26 = *MEMORY[0x277D85DE8];
   Expr = glpUnaryOperatorNodeGetExpr(a3);
   if (glpIsConstantNode(Expr))
   {
-    SaType = glpASTNodeGetSaType(ConstantNodeFromNodeAndMutableValue);
+    SaType = glpASTNodeGetSaType(v3);
     PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
     Category = glpPrimitiveTypeGetCategory(PrimitiveType);
     if ((Category - 1) >= 2)
@@ -2767,10 +2712,10 @@ uint64_t foldNegate(uint64_t a1, uint64_t a2, uint64_t a3)
     }
 
     Value = glpConstantNodeGetValue(Expr);
-    v14 = glpASTNodeGetSaType(ConstantNodeFromNodeAndMutableValue);
-    MutableValue = glpMakeMutableValue(a1, v14, 0, v15, v16, v17, v18, v19, *&v26[0]);
+    v14 = glpASTNodeGetSaType(v3);
+    MutableValue = glpMakeMutableValue(a1, v14, 0, v15, v16, v17, v18, v19, *&v25[0]);
     GLVMType = glpGLPTypeGetGLVMType(PrimitiveType);
-    memset(v26, 0, sizeof(v26));
+    memset(v25, 0, sizeof(v25));
     if (v11)
     {
       v22 = GLVMType;
@@ -2778,9 +2723,9 @@ uint64_t foldNegate(uint64_t a1, uint64_t a2, uint64_t a3)
       v11 = v11;
       do
       {
-        glpVecFromValue(v26, PrimitiveType, (Value + v23));
-        glvmSourceNegateCF(0, v22, v26);
-        glpMutableValueFromVec(&MutableValue[v23], PrimitiveType, v26);
+        glpVecFromValue(v25, PrimitiveType, (Value + v23));
+        glvmSourceNegateCF(0, v22, v25);
+        glpMutableValueFromVec(&MutableValue[v23], PrimitiveType, v25);
         v23 += ByteStride;
         --v11;
       }
@@ -2788,17 +2733,16 @@ uint64_t foldNegate(uint64_t a1, uint64_t a2, uint64_t a3)
       while (v11);
     }
 
-    ConstantNodeFromNodeAndMutableValue = glpMakeConstantNodeFromNodeAndMutableValue(a1, a2, ConstantNodeFromNodeAndMutableValue, MutableValue);
+    return glpMakeConstantNodeFromNodeAndMutableValue(a1, a2, v3, MutableValue);
   }
 
   else
   {
-    SaFlags = glpASTNodeGetSaFlags(ConstantNodeFromNodeAndMutableValue);
-    glpASTNodeSetSaFlags(ConstantNodeFromNodeAndMutableValue, SaFlags | 0x80);
+    SaFlags = glpASTNodeGetSaFlags(v3);
+    glpASTNodeSetSaFlags(v3, SaFlags | 0x80);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return ConstantNodeFromNodeAndMutableValue;
+  return v3;
 }
 
 uint64_t foldAssign(uint64_t a1)
@@ -3040,7 +2984,7 @@ uint64_t foldRValue(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t foldPPStreamOp(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   ReturnPrimitiveType = glpPPStreamOpNodeGetReturnPrimitiveType(a3);
   Opcode = glpPPStreamOpNodeGetOpcode(a3);
   OpPrimitiveType = glpPPStreamOpNodeGetOpPrimitiveType(a3);
@@ -3048,8 +2992,8 @@ uint64_t foldPPStreamOp(uint64_t a1, uint64_t a2, uint64_t a3)
   ChildCount = glpASTNodeGetChildCount(a3);
   v10 = ChildCount;
   MEMORY[0x28223BE20](ChildCount);
-  v12 = (&v68 - v11);
-  bzero(&v68 - v11, v13);
+  v12 = (&v65 - v11);
+  bzero(&v65 - v11, v13);
   v14 = v10;
   if (HasSrctex)
   {
@@ -3106,7 +3050,7 @@ LABEL_57:
       v36 = 0;
     }
 
-    if (Opcode - 78 <= 0x28 && ((1 << (Opcode - 78)) & 0x18000000001) != 0 || Opcode == 11)
+    if ((Opcode - 78) <= 0x28 && ((1 << (Opcode - 78)) & 0x18000000001) != 0 || Opcode == 11)
     {
       goto LABEL_73;
     }
@@ -3119,8 +3063,8 @@ LABEL_57:
     goto LABEL_66;
   }
 
-  v68 = a1;
-  v69 = a2;
+  v65 = a1;
+  v66 = a2;
   v20 = *v12;
   SaType = glpASTNodeGetSaType(*v12);
   v22 = v12[1];
@@ -3159,7 +3103,7 @@ LABEL_40:
   {
     if (Value && !*Value)
     {
-      goto LABEL_74;
+      return v22;
     }
 
 LABEL_54:
@@ -3168,7 +3112,7 @@ LABEL_54:
       v22 = v20;
       if (!*v35)
       {
-        goto LABEL_74;
+        return v22;
       }
     }
 
@@ -3184,33 +3128,39 @@ LABEL_54:
   {
 LABEL_56:
     v19 = 0;
-    a1 = v68;
-    a2 = v69;
+    a1 = v65;
+    a2 = v66;
     goto LABEL_57;
   }
 
   if (Value && !*Value || v35 && !*v35)
   {
-    v60 = glpGetPrimitiveType(ReturnPrimitiveType);
-    v61 = v68;
-    MutableValue = glpMakeMutableValue(v68, v60, 0, v62, v63, v64, v65, v66, v68);
+    v58 = glpGetPrimitiveType(ReturnPrimitiveType);
+    v59 = v65;
+    MutableValue = glpMakeMutableValue(v65, v58, 0, v60, v61, v62, v63, v64, v65);
     glpPrimitiveTypeGetScalarCount(ReturnPrimitiveType);
-    v67 = *MEMORY[0x277D85DE8];
-    v56 = v69;
-    v55 = v61;
+    v55 = v66;
+    v54 = v59;
     goto LABEL_76;
   }
 
-  if (Value && *Value == 1 || v35 && (v22 = v20, *v35 == 1))
+  if (Value && *Value == 1)
   {
-LABEL_74:
-    v58 = *MEMORY[0x277D85DE8];
     return v22;
   }
 
+  if (v35)
+  {
+    v22 = v20;
+    if (*v35 == 1)
+    {
+      return v22;
+    }
+  }
+
   v36 = 0;
-  a1 = v68;
-  a2 = v69;
+  a1 = v65;
+  a2 = v66;
 LABEL_66:
   v37 = glpCallNodeGetArg(a3, 0);
   v38 = glpASTNodeGetSaType(v37);
@@ -3226,26 +3176,24 @@ LABEL_66:
   }
 
 LABEL_70:
-  if (Opcode - 171 < 4 || !v36)
+  if ((Opcode - 171) < 4 || !v36)
   {
 LABEL_73:
     SaFlags = glpASTNodeGetSaFlags(a3);
     glpASTNodeSetSaFlags(a3, SaFlags | 0x80);
-    v22 = a3;
-    goto LABEL_74;
+    return a3;
   }
 
   v45 = glpGetPrimitiveType(ReturnPrimitiveType);
-  MutableValue = glpMakeMutableValue(a1, v45, 0, v46, v47, v48, v49, v50, v68);
+  MutableValue = glpMakeMutableValue(a1, v45, 0, v46, v47, v48, v49, v50, v65);
   v52 = glpGetPrimitiveType(OpPrimitiveType);
   v53 = glpGetPrimitiveType(ReturnPrimitiveType);
   glvmOp(Opcode, v52, v14, v12, MutableValue, v53);
-  v54 = *MEMORY[0x277D85DE8];
-  v55 = a1;
-  v56 = a2;
+  v54 = a1;
+  v55 = a2;
 LABEL_76:
 
-  return glpMakeConstantNodeFromNodeAndMutableValue(v55, v56, a3, MutableValue);
+  return glpMakeConstantNodeFromNodeAndMutableValue(v54, v55, a3, MutableValue);
 }
 
 uint64_t glpGLPTypeGetGLVMType(uint64_t a1)
@@ -3365,7 +3313,7 @@ uint64_t glpMakeConstantNodeFromNodeAndMutableValue(uint64_t a1, uint64_t a2, ui
   return v12;
 }
 
-uint64_t foldUnaryOperator(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t foldUnaryOperator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   Expr = glpUnaryOperatorNodeGetExpr(a3);
   if (glpIsConstantNode(Expr))
@@ -3385,26 +3333,27 @@ uint64_t foldUnaryOperator(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   }
 }
 
-uint64_t glvmOp(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint64_t a6)
+uint64_t glvmOp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint64_t a6)
 {
-  v70 = a5;
-  v68 = a1;
-  v79 = *MEMORY[0x277D85DE8];
-  Constants = glvmGetConstants();
+  v69 = a5;
+  v9 = a2;
+  v67 = a1;
+  v85 = *MEMORY[0x277D85DE8];
+  Constants = glvmGetConstants(a1, a2);
   MEMORY[0x28223BE20](Constants);
   v10 = (4 * a3 + 15) & 0x7FFFFFFF0;
-  v11 = &v65 - v10;
-  bzero(&v65 - v10, 4 * a3);
+  v11 = &v64 - v10;
+  bzero(&v64 - v10, 4 * a3);
   MEMORY[0x28223BE20](v12);
-  v13 = &v65 - v10;
-  bzero(&v65 - v10, 4 * a3);
-  v75 = a4;
+  v13 = &v64 - v10;
+  bzero(&v64 - v10, 4 * a3);
+  v74 = a4;
   if (a3)
   {
-    v76 = a2;
+    v75 = v9;
     v14 = 0;
     v15 = a3;
-    v16 = (&v65 - v10);
+    v16 = (&v64 - v10);
     v17 = v11;
     do
     {
@@ -3423,39 +3372,39 @@ uint64_t glvmOp(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint
     }
 
     while (v15);
-    v77.i32[0] = 0;
-    v78.i32[0] = 0;
-    v74 = v13;
+    v76.i32[0] = 0;
+    v84.i32[0] = 0;
+    v73 = v13;
     v22 = 0;
-    v77.i32[3] = 0;
-    *(v77.i64 + 4) = 0;
-    *(v78.i64 + 4) = 0;
-    v78.i32[3] = 0;
+    v76.i32[3] = 0;
+    *(v76.i64 + 4) = 0;
+    *(v84.i64 + 4) = 0;
+    v84.i32[3] = 0;
     do
     {
       v23 = *&v11[v22 * 4];
-      v77.i32[v22] = glpPrimitiveTypeGetScalarCount(v23) - 1;
-      v78.i32[v22++] = glpGLPTypeGetGLVMType(v23);
+      v76.i32[v22] = glpPrimitiveTypeGetScalarCount(v23) - 1;
+      v84.i32[v22++] = glpGLPTypeGetGLVMType(v23);
     }
 
     while (a3 != v22);
     v24.i64[0] = 0x1F0000001FLL;
     v24.i64[1] = 0x1F0000001FLL;
-    v25 = vandq_s8(v78, v24);
+    v25 = vandq_s8(v84, v24);
     v26.i64[0] = v25.u32[0];
     v26.i64[1] = v25.u32[1];
     v27 = v26;
     v26.i64[0] = v25.u32[2];
     v26.i64[1] = v25.u32[3];
-    v28 = vandq_s8(vshlq_u32(v77, xmmword_23A29D3B0), xmmword_23A29D3C0);
+    v28 = vandq_s8(vshlq_u32(v76, xmmword_23A29D3B0), xmmword_23A29D3C0);
     v29 = vorrq_s8(vshlq_u64(v27, xmmword_23A29D3A0), vshlq_u64(v26, xmmword_23A29D390));
     *v27.i8 = vorr_s8(*v28.i8, *&vextq_s8(v28, v28, 8uLL));
     v26.i64[0] = v27.u32[0];
     v26.i64[1] = v27.u32[1];
     v30 = vorrq_s8(v29, v26);
     v31 = vorr_s8(*v30.i8, *&vextq_s8(v30, v30, 8uLL));
-    v13 = v74;
-    a2 = v76;
+    v13 = v73;
+    v9 = v75;
   }
 
   else
@@ -3464,14 +3413,14 @@ uint64_t glvmOp(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint
     v31 = 0;
   }
 
-  v32 = v75;
+  v32 = v74;
   if (a6)
   {
     v33 = glpPrimitiveTypeGetPrimitiveType(a6);
     v31 = v31 & 0xE0FFFFFFFFFFFFFFLL | (glpGLPTypeGetGLVMType(v33) << 56);
   }
 
-  v69 = a6;
+  v68 = a6;
   v34 = glpPrimitiveTypeGetPrimitiveType(a6);
   v35 = glpPrimitiveTypeGetScalarCount(v34);
   v36 = v31 & 0xFFFFFFFFFFFFFF0FLL | 0x10;
@@ -3495,21 +3444,21 @@ uint64_t glvmOp(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint
     v37 = v36;
   }
 
-  v38 = glpPrimitiveTypeGetPrimitiveType(a2);
+  v38 = glpPrimitiveTypeGetPrimitiveType(v9);
   v39 = glpPrimitiveTypeGetScalarCount(v38);
   v40 = v37 & 0xFFFFFFFFFF87FFFFLL | ((v39 << 19) + 1572864) & 0x180000;
   MEMORY[0x28223BE20](v39);
-  v41 = (&v65 - 16 * a3) & 0xFFFFFFFFFFFFFFE0;
+  v41 = (&v64 - 16 * a3) & 0xFFFFFFFFFFFFFFE0;
   bzero(v41, v42);
-  v66 = a3;
+  v65 = a3;
   if (a3)
   {
-    v76 = a3;
+    v75 = a3;
     v46 = 0;
-    v74 = ((v14 << 17) + 393216) & 0x60000;
-    v73 = ((v14 << 15) + 98304) & 0x18000;
-    v72 = ((v14 << 13) + 24576) & 0x6000;
-    v71 = ((v14 << 11) + 6144) & 0x1800;
+    v73 = ((v14 << 17) + 393216) & 0x60000;
+    v72 = ((v14 << 15) + 98304) & 0x18000;
+    v71 = ((v14 << 13) + 24576) & 0x6000;
+    v70 = ((v14 << 11) + 6144) & 0x1800;
     do
     {
       Value = glpConstantNodeGetValue(v32[v46]);
@@ -3531,8 +3480,8 @@ uint64_t glvmOp(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint
         }
 
         while (v14 != v52);
-        v57 = v54 & 0xFFFFFFFFFFFE7FFFLL | v73;
-        v58 = v54 & 0xFFFFFFFFFFF9FFFFLL | v74;
+        v57 = v54 & 0xFFFFFFFFFFFE7FFFLL | v72;
+        v58 = v54 & 0xFFFFFFFFFFF9FFFFLL | v73;
         if (v46 != 3)
         {
           v58 = v54;
@@ -3543,8 +3492,8 @@ uint64_t glvmOp(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint
           v57 = v58;
         }
 
-        v59 = v54 & 0xFFFFFFFFFFFFE7FFLL | v71;
-        v60 = v54 & 0xFFFFFFFFFFFF9FFFLL | v72;
+        v59 = v54 & 0xFFFFFFFFFFFFE7FFLL | v70;
+        v60 = v54 & 0xFFFFFFFFFFFF9FFFLL | v71;
         if (v46 != 1)
         {
           v60 = v54;
@@ -3566,7 +3515,7 @@ uint64_t glvmOp(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint
         }
 
         v41 = v53;
-        v32 = v75;
+        v32 = v74;
       }
 
       ++v46;
@@ -3574,305 +3523,310 @@ uint64_t glvmOp(int a1, uint64_t a2, uint64_t a3, uint64_t *a4, _DWORD *a5, uint
       v11 = v48;
     }
 
-    while (v46 != v76);
+    while (v46 != v75);
   }
 
-  memset(&v77, 0, 128);
-  v61 = v69;
-  switch(v68)
+  v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v61 = v68;
+  switch(v67)
   {
     case 2:
-      glvmOperationABS(Constants, v41, &v77, v40);
+      glvmOperationABS(Constants, v41, &v76, v40);
       break;
     case 3:
-      glvmOperationCEI(Constants, v41, &v77, v40, 0);
+      glvmOperationCEI(Constants, v41, &v76, v40, 0);
       break;
     case 4:
-      glvmOperationFRC(Constants, v41, v77.i64, v40);
+      glvmOperationFRC(Constants, v41, &v76, v40);
       break;
     case 5:
-      glvmOperationFLR(Constants, v41, &v77, v40, 0);
+      glvmOperationFLR(Constants, v41, &v76, v40, 0);
       break;
     case 6:
     case 80:
     case 81:
-      glvmOperationZERO(Constants, &v77, v40);
+      glvmOperationZERO(Constants, &v76, v40);
       break;
     case 7:
-      glvmOperationSSG(0, Constants, v41, v77.i64, v40);
+      glvmOperationSSG(0, Constants, v41, &v76, v40);
       break;
     case 8:
-      glvmOperationANY(0, Constants, v41, &v77, v40);
+      glvmOperationANY(0, Constants, v41, &v76, v40);
       break;
     case 9:
-      glvmOperationALL(0, Constants, v41, &v77, v40);
+      glvmOperationALL(0, Constants, v41, &v76, v40);
       break;
     case 10:
-      glvmOperationNOT(Constants, v41, &v77);
+      glvmOperationNOT(Constants, v41, &v76);
       break;
     case 11:
-      glvmOperationNSE(Constants, v41, v77.i32, v40);
+      glvmOperationNSE(Constants, v41, v76.i32, v40);
       break;
     case 12:
-      glvmOperationSQT(Constants, v41, v77.i64, v40);
+      glvmOperationSQT(Constants, v41, &v76, v40);
       break;
     case 16:
-      glvmOperationEX2(Constants, v41, &v77, v40);
+      glvmOperationEX2(Constants, v41, &v76, v40);
       break;
     case 18:
-      glvmOperationLEN(Constants, v41, v77.i64, v40, 0, v43.f64[0], v44.f64[0], v45.f64[0]);
+      glvmOperationLEN(Constants, v41, &v76, v40, 0, v43.f64[0], v44.f64[0], v45.f64[0]);
       break;
     case 19:
-      glvmOperationLG2(Constants, v41, &v77, v40);
+      glvmOperationLG2(Constants, v41, &v76, v40);
       break;
     case 21:
-      glvmOperationNRM(Constants, v41, v77.i64, v40, 0);
+      glvmOperationNRM(Constants, v41, v76.i64, v40, 0);
       break;
     case 22:
-      glvmOperationRAD(Constants, v41, &v77);
+      glvmOperationRAD(Constants, v41, &v76);
       break;
     case 23:
-      glvmOperationDEG(Constants, v41, &v77);
+      glvmOperationDEG(Constants, v41, &v76);
       break;
     case 25:
-      glvmOperationSIN(Constants, v41, &v77, v40);
+      glvmOperationSIN(Constants, v41, &v76);
       break;
     case 26:
-      glvmOperationCOS(Constants, v41, &v77);
+      glvmOperationCOS(Constants, v41, &v76);
       break;
     case 27:
-      glvmOperationTAN(Constants, v41, &v77);
+      glvmOperationTAN(Constants, v41, &v76);
       break;
     case 28:
-      glvmOperationASN(Constants, v41, &v77);
+      glvmOperationASN(Constants, v41, &v76);
       break;
     case 29:
-      glvmOperationACS(Constants, v41, &v77);
+      glvmOperationACS(Constants, v41, &v76);
       break;
     case 30:
-      if (v66 == 2)
+      if (v65 == 2)
       {
-        glvmOperationATN2(Constants, v41, (v41 + 128), &v77);
+        glvmOperationATN2(Constants, v41, (v41 + 128), &v76);
       }
 
       else
       {
-        glvmOperationATN(Constants, v41, &v77);
+        glvmOperationATN(Constants, v41, &v76);
       }
 
       break;
     case 31:
-      glvmOperationADD(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationADD(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 32:
-      glvmOperationSUB(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationSUB(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 33:
-      glvmOperationMOD(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationMOD(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 34:
-      glvmOperationMUL(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationMUL(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 35:
-      glvmOperationMLC(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationMLC();
       break;
     case 36:
-      glvmOperationANL(Constants, v41, (v41 + 128), &v77);
+      glvmOperationANL(Constants, v41, (v41 + 128), &v76);
       break;
     case 37:
-      glvmOperationORL(Constants, v41, (v41 + 128), &v77);
+      glvmOperationORL(Constants, v41, (v41 + 128), &v76);
       break;
     case 38:
-      glvmOperationXRL(Constants, v41, (v41 + 128), &v77);
+      glvmOperationXRL(Constants, v41, (v41 + 128), &v76);
       break;
     case 39:
-      glvmOperationDOT(0.0, Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationDOT(0.0, Constants, v41, v41 + 128, &v76, v40);
       break;
     case 44:
-      glvmOperationMIN(Constants, v41, (v41 + 128), &v77, v40);
+      glvmOperationMIN(Constants, v41, (v41 + 128), &v76, v40);
       break;
     case 45:
-      glvmOperationMAX(Constants, v41, (v41 + 128), &v77, v40);
+      glvmOperationMAX(Constants, v41, (v41 + 128), &v76, v40);
       break;
     case 46:
-      glvmOperationXPD(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationXPD(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 47:
-      glvmOperationRFL(0, v43.f64[0], v44.f64[0], v45.f64[0], Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationRFL(0, v43.f64[0], v44.f64[0], v45.f64[0], Constants, v41, v41 + 128, &v76, v40);
       break;
     case 49:
-      glvmOperationSEQ(0, Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationSEQ(0, Constants, v41, v41 + 128, &v76, v40);
       break;
     case 50:
-      glvmOperationSGE(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationSGE(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 51:
-      glvmOperationSGT(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationSGT(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 52:
-      glvmOperationSLE(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationSLE(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 53:
-      glvmOperationSLT(Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationSLT(Constants, v41, v41 + 128, &v76, v40);
       break;
     case 54:
-      glvmOperationSNE(0, Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationSNE(0, Constants, v41, v41 + 128, &v76, v40);
       break;
     case 56:
-      glvmOperationPOW(Constants, v41, (v41 + 128), &v77, v40);
+      glvmOperationPOW(Constants, v41, (v41 + 128), &v76, v40);
       break;
     case 58:
-      glvmOperationDIV(0, Constants, v41, v41 + 128, &v77, v40);
+      glvmOperationDIV(0, Constants, v41, v41 + 128, &v76, v40);
       break;
     case 59:
-      glvmOperationFFW(0, v43, v44, v45, Constants, v41, v41 + 128, v41 + 256, &v77, v40);
+      glvmOperationFFW(0, v43, v44, v45, Constants, v41, v41 + 128, v41 + 256, &v76, v40);
       break;
     case 60:
-      glvmOperationLRP(Constants, v41, (v41 + 128), (v41 + 256), &v77, v40);
+      glvmOperationLRP(Constants, v41, (v41 + 128), (v41 + 256), &v76, v40);
       break;
     case 61:
-      glvmOperationCLM(Constants, v41, (v41 + 128), (v41 + 256), &v77, v40);
+      glvmOperationCLM(Constants, v41, (v41 + 128), (v41 + 256), &v76, v40);
       break;
     case 63:
-      glvmOperationMAD(Constants, v41, (v41 + 128), (v41 + 256), &v77, v40);
+      glvmOperationMAD(Constants, v41, (v41 + 128), (v41 + 256), &v76, v40);
       break;
     case 64:
-      glvmOperationSMS(Constants, v41, (v41 + 128), (v41 + 256), &v77, v40);
+      glvmOperationSMS(Constants, v41, (v41 + 128), (v41 + 256), &v76, v40);
       break;
     case 92:
-      glvmOperationPK2H(Constants, v41, &v77);
+      glvmOperationPK2H(Constants, v41, &v76);
       break;
     case 93:
-      glvmOperationPK2US(Constants, v41, &v77);
+      glvmOperationPK2US(Constants, v41, &v76);
       break;
     case 94:
-      glvmOperationPK4B(Constants, v41, &v77);
+      glvmOperationPK4B(Constants, v41, &v76);
       break;
     case 95:
-      glvmOperationPK4UB(Constants, v41, &v77);
+      glvmOperationPK4UB(Constants, v41, &v76);
       break;
     case 100:
-      glvmOperationUP2H(Constants, v41, v77.i32);
+      glvmOperationUP2H(Constants, v41, v76.i32);
       break;
     case 101:
-      glvmOperationUP2US(0.0, Constants, v41, &v77);
+      glvmOperationUP2US(0.0, Constants, v41, &v76);
       break;
     case 102:
-      glvmOperationUP4B(0, Constants, v41, &v77);
+      glvmOperationUP4B(0, Constants, v41, &v76);
       break;
     case 103:
-      glvmOperationUP4UB(0.0, Constants, v41, &v77);
+      glvmOperationUP4UB(0.0, Constants, v41, &v76);
       break;
     case 105:
-      glvmOperationRFR(Constants, v41, v41 + 128, (v41 + 256), &v77, v40, 0);
+      glvmOperationRFR(Constants, v41, v41 + 128, (v41 + 256), &v76, v40, 0);
       break;
     case 112:
-      glvmOperationEXPE(Constants, v41, &v77, v40);
+      glvmOperationEXPE(Constants, v41, &v76, v40);
       break;
     case 113:
-      glvmOperationLOGE(Constants, v41, &v77, v40);
+      glvmOperationLOGE(Constants, v41, &v76, v40);
       break;
     case 123:
-      glvmOperationROUND(Constants, v41, &v77, v40);
+      glvmOperationROUND(Constants, v41, &v76, v40);
       break;
     case 124:
-      glvmOperationTRUNCATE(Constants, v41, &v77, v40);
+      glvmOperationTRUNCATE(Constants, v41, &v76, v40);
       break;
     case 125:
-      glvmOperationAND(Constants, v41, (v41 + 128), &v77);
+      glvmOperationAND(Constants, v41, (v41 + 128), &v76);
       break;
     case 126:
-      glvmOperationOR(Constants, v41, (v41 + 128), &v77);
+      glvmOperationOR(Constants, v41, (v41 + 128), &v76);
       break;
     case 127:
-      glvmOperationXOR(Constants, v41, (v41 + 128), &v77);
+      glvmOperationXOR(Constants, v41, (v41 + 128), &v76);
       break;
     case 128:
-      glvmOperationSHL(Constants, v41, (v41 + 128), &v77);
+      glvmOperationSHL(Constants, v41, (v41 + 128), &v76);
       break;
     case 129:
-      glvmOperationSHR(Constants, v41, (v41 + 128), &v77, v40);
+      glvmOperationSHR(Constants, v41, (v41 + 128), &v76, v40);
       break;
     case 132:
-      glvmOperationCOMP(Constants, v41, &v77);
+      glvmOperationCOMP(Constants, v41, &v76);
       break;
     case 133:
-      glvmOperationDISTANCE(Constants, v41, (v41 + 128), v77.i64, v40, 0);
+      glvmOperationDISTANCE(Constants, v41, (v41 + 128), &v76, v40, 0);
       break;
     case 134:
-      glvmOperationINVERSESQRT(Constants, v41, &v77, v40);
+      glvmOperationINVERSESQRT(Constants, v41, &v76, v40);
       break;
     case 137:
-      glvmOperationROUNDEVEN(Constants, v41, v77.i64, v40);
+      glvmOperationROUNDEVEN(Constants, v41, &v76, v40);
       break;
     case 138:
-      glvmOperationISNAN(Constants, v41, &v77, v40);
+      glvmOperationISNAN(Constants, v41, &v76, v40);
       break;
     case 139:
-      glvmOperationISINF(Constants, v41, &v77, v40);
+      glvmOperationISINF(Constants, v41, &v76, v40);
       break;
     case 144:
-      glvmOperationSINH(Constants, v41, v77.i32);
+      glvmOperationSINH(Constants, v41, v76.i32);
       break;
     case 145:
-      glvmOperationCOSH(Constants, v41, v77.i32);
+      glvmOperationCOSH(Constants, v41, v76.i32);
       break;
     case 146:
-      glvmOperationTANH(Constants, v41, v77.i32);
+      glvmOperationTANH(Constants, v41, v76.i32);
       break;
     case 147:
-      glvmOperationASINH(Constants, v41, v77.i32);
+      glvmOperationASINH(Constants, v41, v76.i32);
       break;
     case 148:
-      glvmOperationACOSH(Constants, v41, v77.i32);
+      glvmOperationACOSH(Constants, v41, v76.i32);
       break;
     case 149:
-      glvmOperationATANH(Constants, v41, v77.i32);
+      glvmOperationATANH(Constants, v41, v76.i32);
       break;
     case 150:
-      glvmOperationTO_BITS(Constants, v41, &v77);
+      glvmOperationTO_BITS(Constants, v41, &v76);
       break;
     case 151:
-      glvmOperationFROM_BITS(Constants, v41, &v77);
+      glvmOperationFROM_BITS(Constants, v41, &v76);
       break;
     case 154:
-      glvmOperationEXTRACT_EXPONENT(Constants, v41, &v77, v40);
+      glvmOperationEXTRACT_EXPONENT(Constants, v41, &v76, v40);
       break;
     case 155:
-      glvmOperationEXTRACT_SIGNIFICAND(Constants, v41, &v77, v40);
+      glvmOperationEXTRACT_SIGNIFICAND(Constants, v41, &v76, v40);
       break;
     case 156:
-      glvmOperationLDEXP(Constants, v41, (v41 + 128), &v77, v40);
+      glvmOperationLDEXP(Constants, v41, (v41 + 128), &v76, v40);
       break;
     case 157:
-      glvmOperationPK2W(Constants, v41, &v77);
+      glvmOperationPK2W(Constants, v41, &v76);
       break;
     case 158:
-      glvmOperationUP2W(Constants, v41, &v77);
+      glvmOperationUP2W(Constants, v41, &v76);
       break;
     case 159:
-      glvmOperationMUL_HB(Constants, v41, (v41 + 128), &v77, v40);
+      glvmOperationMUL_HB(Constants, v41, (v41 + 128), &v76, v40);
       break;
     case 160:
-      glvmOperationBITFIELD_REVERSE(Constants, v41, &v77);
+      glvmOperationBITFIELD_REVERSE(Constants, v41, &v76);
       break;
     case 161:
-      glvmOperationBITCOUNT(Constants, v41, &v77);
+      glvmOperationBITCOUNT(Constants, v41, &v76);
       break;
     case 162:
-      glvmOperationFIND_LSB(Constants, v41, &v77);
+      glvmOperationFIND_LSB(Constants, v41, &v76);
       break;
     case 163:
-      glvmOperationFIND_MSB(Constants, v41, v77.i32, v40);
+      glvmOperationFIND_MSB(Constants, v41, v76.i32, v40);
       break;
     default:
       break;
   }
 
   v62 = glpPrimitiveTypeGetPrimitiveType(v61);
-  result = glpMutableValueFromVec(v70, v62, &v77);
-  v64 = *MEMORY[0x277D85DE8];
-  return result;
+  return glpMutableValueFromVec(v69, v62, &v76);
 }
 
 uint64_t foldDerefNode(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
@@ -3922,13 +3876,14 @@ uint64_t foldDerefNode(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t
     }
 
     AsSize = glpValueGetAsSize(Type, Value);
-    v20 = glpABIGetTypeSize(0, a5, 0);
-    if (AsSize >= glpTypeSizeGetSize(v20))
+    glpABIGetTypeSize(0, a5, 0);
+    glpTypeSizeGetSize();
+    if (AsSize >= v25)
     {
       goto LABEL_27;
     }
 
-    v26 = glpCopyValue(a1, SaType, &a4[16 * AsSize], v21, v22, v23, v24, v25);
+    v26 = glpCopyValue(a1, SaType, &a4[16 * AsSize], v20, v21, v22, v23, v24);
     if (!Swizzle)
     {
       goto LABEL_17;
@@ -4301,7 +4256,7 @@ LABEL_10:
   return a2;
 }
 
-uint64_t glpPPTRawCall(uint64_t *a1, uint64_t a2)
+uint64_t glpPPTRawCall(uint64_t **a1, uint64_t a2)
 {
   transformKids(a1, a2);
   v4 = *a1;
@@ -4683,9 +4638,10 @@ LABEL_84:
 LABEL_85:
         if ((v2 + 1) >= 2)
         {
-          Allocator = glpCompilerGetAllocator(a1);
+          glpCompilerGetAllocator();
+          v6 = v5;
           ValueHash = glpCompilerGetValueHash(a1);
-          v2 = glpConstantFold(Allocator, ValueHash, v2);
+          v2 = glpConstantFold(v6, ValueHash, v2);
         }
 
         glpCompilerPopSAContext(a1);
@@ -4738,168 +4694,167 @@ uint64_t glpSATypeConversion(uint64_t a1, uint64_t a2)
 uint64_t glpSAVariableIdentifier(uint64_t a1, uint64_t a2)
 {
   NameTable = glpCompilerGetNameTable(a1);
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2000000000;
-  v51 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2000000000;
-  v47 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2000000000;
+  v41 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2000000000;
+  v37 = 0;
   Name = glpVariableIdentifierNodeGetName(a2);
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 0x40000000;
-  v43[2] = __glpSAVariableIdentifier_block_invoke;
-  v43[3] = &unk_278B4C360;
-  v43[4] = &v48;
-  v43[5] = &v44;
-  v43[6] = NameTable;
-  glpNameTableGet(NameTable, Name, v6, 0, v43);
-  v7 = v45[3];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 0x40000000;
+  v33[2] = __glpSAVariableIdentifier_block_invoke;
+  v33[3] = &unk_278B4C360;
+  v33[4] = &v38;
+  v33[5] = &v34;
+  v33[6] = NameTable;
+  glpNameTableGet(NameTable, Name, v6, 0, v33);
+  v7 = v35[3];
   if (!v7)
   {
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(a2, &v42);
+    glpASTNodeGetLocation(a2, &v32);
     glpVariableIdentifierNodeGetName(a2);
-    v41 = v21;
     glpVariableIdentifierNodeGetName(a2);
-    v22 = "Use of undeclared identifier '%.*s'";
+    glpLogMessage(InfoLog, 0, &v32, "Use of undeclared identifier '%.*s'");
     goto LABEL_6;
   }
 
-  v8 = *(v49 + 6);
+  v8 = *(v39 + 6);
   if (v8 <= 3)
   {
-    if (v8 <= 1)
+    if (v8 > 1)
+    {
+      if (v8 == 2)
+      {
+        v28 = glpCompilerGetInfoLog(a1);
+        glpASTNodeGetLocation(a2, &v32);
+        glpLogMessage(v28, 0, &v32, "You may never refer to an interface block by its block name within a shader");
+        goto LABEL_6;
+      }
+
+      Representation = glpInterfaceBlockObjectGetRepresentation(v35[3]);
+      StructTypeFromIBType = glpGetStructTypeFromIBType(*(v7 + 64));
+      v17 = glpVariableIdentifierNodeGetName(a2);
+      v19 = v18;
+      FieldIndex = glpStructTypeGetFieldIndex(StructTypeFromIBType, v17, v18);
+      if (Representation != 1)
+      {
+        if (Representation)
+        {
+          goto LABEL_20;
+        }
+
+        glpASTNodeGetLocation(a2, &v32);
+        LValueForVariableObject = glpMakeLValueForVariableObject(a1, &v32, **(v7 + 72));
+        glpCompilerGetAllocator();
+        v23 = v22;
+        glpASTNodeGetLocation(a2, &v32);
+        glpMakeFieldAccessNode(v23, &v32, v17, v19);
+        v25 = v24;
+        glpFieldAccessNodeSetStructure(v24, LValueForVariableObject);
+        a2 = glpSAFieldAccessInternal(a1, v25);
+        if (a2 == -1)
+        {
+          goto LABEL_6;
+        }
+
+        goto LABEL_23;
+      }
+
+      v29 = FieldIndex;
+      glpASTNodeGetLocation(a2, &v32);
+      v27 = *(*(v7 + 72) + 8 * v29);
+      v26 = a1;
+    }
+
+    else
     {
       if (v8)
       {
         if (v8 == 1)
         {
-          Allocator = glpCompilerGetAllocator(a1);
-          glpASTNodeGetLocation(a2, &v42);
-          glpMakeIBPartialDerefNode(Allocator, &v42, v7);
-          a2 = v25;
-          glpASTNodeSetSaType(v25, *(v7 + 64));
+          glpCompilerGetAllocator();
+          v13 = v12;
+          glpASTNodeGetLocation(a2, &v32);
+          glpMakeIBPartialDerefNode(v13, &v32, v7);
+          a2 = v14;
+          glpASTNodeSetSaType(v14, *(v7 + 64));
         }
 
-        goto LABEL_24;
+        goto LABEL_23;
       }
 
-      glpASTNodeGetLocation(a2, &v42);
-      v36 = a1;
-      v37 = v7;
-      goto LABEL_23;
+      glpASTNodeGetLocation(a2, &v32);
+      v26 = a1;
+      v27 = v7;
     }
 
-    if (v8 != 2)
-    {
-      Representation = glpInterfaceBlockObjectGetRepresentation(v45[3]);
-      StructTypeFromIBType = glpGetStructTypeFromIBType(*(v7 + 64));
-      v28 = glpVariableIdentifierNodeGetName(a2);
-      v30 = v29;
-      FieldIndex = glpStructTypeGetFieldIndex(StructTypeFromIBType, v28, v29);
-      if (Representation != 1)
-      {
-        if (Representation)
-        {
-          goto LABEL_21;
-        }
-
-        glpASTNodeGetLocation(a2, &v42);
-        LValueForVariableObject = glpMakeLValueForVariableObject(a1, &v42, **(v7 + 72));
-        v33 = glpCompilerGetAllocator(a1);
-        glpASTNodeGetLocation(a2, &v42);
-        glpMakeFieldAccessNode(v33, &v42, v28, v30);
-        v35 = v34;
-        glpFieldAccessNodeSetStructure(v34, LValueForVariableObject);
-        a2 = glpSAFieldAccessInternal(a1, v35);
-        if (a2 == -1)
-        {
-          goto LABEL_7;
-        }
-
-        goto LABEL_24;
-      }
-
-      v38 = FieldIndex;
-      glpASTNodeGetLocation(a2, &v42);
-      v37 = *(*(v7 + 72) + 8 * v38);
-      v36 = a1;
-LABEL_23:
-      a2 = glpMakeLValueForVariableObject(v36, &v42, v37);
-      goto LABEL_24;
-    }
-
-    InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(a2, &v42);
-    v22 = "You may never refer to an interface block by its block name within a shader";
-LABEL_6:
-    glpLogMessage(InfoLog, 0, &v42, v22, v17, v18, v19, v20, v41);
-    goto LABEL_7;
+    a2 = glpMakeLValueForVariableObject(v26, &v32, v27);
+    goto LABEL_23;
   }
 
   if ((v8 - 4) >= 5)
   {
     if ((v8 - 10) < 4 || v8 == 9)
     {
-LABEL_21:
+LABEL_20:
       abort();
     }
 
-LABEL_24:
-    v23 = glpCheckIBDeref(a1, a2);
-    goto LABEL_25;
+LABEL_23:
+    v11 = glpCheckIBDeref(a1, a2);
+    goto LABEL_24;
   }
 
   v9 = glpCompilerGetInfoLog(a1);
-  glpASTNodeGetLocation(a2, &v42);
+  glpASTNodeGetLocation(a2, &v32);
   glpVariableIdentifierNodeGetName(a2);
-  v11 = v10;
   glpVariableIdentifierNodeGetName(a2);
-  glpLogMessage(v9, 0, &v42, "Attempt to use '%.*s' as a variable", v12, v13, v14, v15, v11);
-LABEL_7:
-  v23 = glpSAFailed();
-LABEL_25:
-  v39 = v23;
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v48, 8);
-  return v39;
+  glpLogMessage(v9, 0, &v32, "Attempt to use '%.*s' as a variable");
+LABEL_6:
+  v11 = glpSAFailed();
+LABEL_24:
+  v30 = v11;
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
+  return v30;
 }
 
 uint64_t glpSATypeIdentifier(uint64_t a1, uint64_t a2)
 {
   NameTable = glpCompilerGetNameTable(a1);
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2000000000;
-  v33 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2000000000;
-  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2000000000;
+  v21 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2000000000;
+  v17 = 0;
   Name = glpTypeIdentifierNodeGetName(a2);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 0x40000000;
-  v25[2] = __glpSATypeIdentifier_block_invoke;
-  v25[3] = &unk_278B4C388;
-  v25[4] = &v30;
-  v25[5] = &v26;
-  v25[6] = NameTable;
-  glpNameTableGet(NameTable, Name, v6, 0, v25);
-  v7 = v27[3];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __glpSATypeIdentifier_block_invoke;
+  v13[3] = &unk_278B4C388;
+  v13[4] = &v18;
+  v13[5] = &v14;
+  v13[6] = NameTable;
+  glpNameTableGet(NameTable, Name, v6, 0, v13);
+  v7 = v15[3];
   if (!v7)
   {
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(a2, &v24);
+    glpASTNodeGetLocation(a2, &v12);
     glpTypeIdentifierNodeGetName(a2);
-    v18 = v17;
     glpTypeIdentifierNodeGetName(a2);
-    glpLogMessage(InfoLog, 0, &v24, "Use of undeclared type '%.*s'", v19, v20, v21, v22, v18);
+    glpLogMessage(InfoLog, 0, &v12, "Use of undeclared type '%.*s'");
     goto LABEL_6;
   }
 
-  v8 = *(v31 + 6);
+  v8 = *(v19 + 6);
   if (v8 > 5)
   {
     if (v8 > 7)
@@ -4928,18 +4883,17 @@ uint64_t glpSATypeIdentifier(uint64_t a1, uint64_t a2)
   {
 LABEL_4:
     v9 = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(a2, &v24);
+    glpASTNodeGetLocation(a2, &v12);
     glpTypeIdentifierNodeGetName(a2);
-    v11 = v10;
     glpTypeIdentifierNodeGetName(a2);
-    glpLogMessage(v9, 0, &v24, "Attempt to use '%.*s' as a type", v12, v13, v14, v15, v11);
+    glpLogMessage(v9, 0, &v12, "Attempt to use '%.*s' as a type");
 LABEL_6:
     a2 = glpSAFailed();
   }
 
 LABEL_7:
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v18, 8);
   return a2;
 }
 
@@ -4971,11 +4925,10 @@ uint64_t glpSAArrayAccess(uint64_t a1, uint64_t a2)
       SaType = glpASTNodeGetSaType(v8);
       if (glpIsIBPartialDerefNode(v8) && glpTypeGetKind(SaType) != 3)
       {
-        Ib = glpIBPartialDerefNodeGetIb(v8);
+        glpIBPartialDerefNodeGetIb(v8);
         InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(a2, &v38);
-        v36 = *(Ib + 16);
-        glpLogMessage(InfoLog, 0, &v38, "You may not index the non-array interface block '%.*s'", v17, v18, v19, v20, *(Ib + 24));
+        *&v16 = glpASTNodeGetLocation(a2, &v28).n128_u64[0];
+        glpLogMessage(InfoLog, 0, &v28, "You may not index the non-array interface block '%.*s'", v16);
         return glpSAFailed();
       }
 
@@ -4985,15 +4938,15 @@ uint64_t glpSAArrayAccess(uint64_t a1, uint64_t a2)
         if (glpIsIBPartialDerefNode(v8))
         {
           NameTable = glpCompilerGetNameTable(a1);
-          v31 = (*(**(glpIBPartialDerefNodeGetIb(v8) + 72) + 52) & 1) != 0 && glpNameTableGetGLSLVersion(NameTable) <= 7 && !glpNameTableIsExtensionEnabled(NameTable, 0x13u);
-          v32 = glpArrayAccessNodeGetElement(a2);
-          v37 = 0;
-          glpASTNodeGetLocation(v32, &v38);
+          v22 = (*(**(glpIBPartialDerefNodeGetIb(v8) + 72) + 52) & 1) != 0 && glpNameTableGetGLSLVersion(NameTable) <= 7 && !glpNameTableIsExtensionEnabled(NameTable, 0x13u);
+          v23 = glpArrayAccessNodeGetElement(a2);
+          v27 = 0;
+          glpASTNodeGetLocation(v23, &v28);
           ElementCount = glpBankTypeGetElementCount(SaType);
-          v34 = glpCheckArrayIndex(a1, &v38, v32, v31, 0, ElementCount, &v37);
-          if (v34 != -1)
+          v25 = glpCheckArrayIndex(a1, &v28, v23, v22, 0, ElementCount, &v27);
+          if (v25 != -1)
           {
-            glpIBPartialDerefNodeSetBankIndex(v8, v34);
+            glpIBPartialDerefNodeSetBankIndex(v8, v25);
             ElementType = glpBankTypeGetElementType(SaType);
             glpASTNodeSetSaType(v8, ElementType);
             return glpCheckIBDeref(a1, v8);
@@ -5002,7 +4955,7 @@ uint64_t glpSAArrayAccess(uint64_t a1, uint64_t a2)
           return glpSAFailed();
         }
 
-        v29 = glpBankTypeGetElementType(SaType);
+        v20 = glpBankTypeGetElementType(SaType);
       }
 
       else
@@ -5028,19 +4981,18 @@ LABEL_26:
             }
           }
 
-          Allocator = glpCompilerGetAllocator(a1);
-          glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, Allocator);
-          v23 = v22;
-          v24 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(a2, &v38);
-          glpLogMessage(v24, 0, &v38, "Can't access array element of type '%.*s'", v25, v26, v27, v28, v23);
+          glpCompilerGetAllocator();
+          glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v17);
+          v18 = glpCompilerGetInfoLog(a1);
+          *&v19 = glpASTNodeGetLocation(a2, &v28).n128_u64[0];
+          glpLogMessage(v18, 0, &v28, "Can't access array element of type '%.*s'", v19);
           return glpSAFailed();
         }
 
-        v29 = glpArrayTypeGetElementType(SaType);
+        v20 = glpArrayTypeGetElementType(SaType);
       }
 
-      v13 = glpIndirectArrayElement(a1, a2, v29);
+      v13 = glpIndirectArrayElement(a1, a2, v20);
       goto LABEL_26;
     }
   }
@@ -5080,56 +5032,60 @@ uint64_t glpSAUndeterminedCall(uint64_t a1, uint64_t a2)
   switch(Kind)
   {
     case 5:
-      Allocator = glpCompilerGetAllocator(a1);
-      glpASTNodeGetLocation(v2, &v79);
+      glpCompilerGetAllocator();
+      v26 = v25;
+      glpASTNodeGetLocation(v2, &v69);
       Field = glpFieldAccessNodeGetField(v4);
-      glpMakeMethodCallNode(Allocator, &v79, Field, v25);
-      v16 = v26;
+      glpMakeMethodCallNode(v26, &v69, Field, v28);
+      v17 = v29;
       Structure = glpFieldAccessNodeGetStructure(v4);
-      glpMethodCallNodeSetReceiver(v16, Structure);
-      v28 = glpCallNodeGetArgCount(v2);
-      if (v28)
+      glpMethodCallNodeSetReceiver(v17, Structure);
+      v31 = glpCallNodeGetArgCount(v2);
+      if (v31)
       {
-        v29 = v28;
-        for (i = 0; i != v29; ++i)
+        v32 = v31;
+        for (i = 0; i != v32; ++i)
         {
-          v31 = glpCompilerGetAllocator(a1);
-          v32 = glpCallNodeGetArg(v2, i);
-          glpCallNodeAddArg(v31, v16, v32);
+          glpCompilerGetAllocator();
+          v35 = v34;
+          v36 = glpCallNodeGetArg(v2, i);
+          glpCallNodeAddArg(v35, v17, v36);
         }
       }
 
-      return glpSANode(a1, v16);
+      return glpSANode(a1, v17);
     case 4:
       Array = glpArrayAccessNodeGetArray(v4);
       if (!glpIsVariableIdentifierNode(Array))
       {
         InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v4, &v79);
-        glpLogMessage(InfoLog, 0, &v79, "Call of element of non-subroutine-uniform array", v46, v47, v48, v49, v72);
+        glpASTNodeGetLocation(v4, &v69);
+        glpLogMessage(InfoLog, 0, &v69, "Call of element of non-subroutine-uniform array");
         return glpSAFailed();
       }
 
-      v12 = glpCompilerGetAllocator(a1);
-      glpASTNodeGetLocation(v2, &v79);
+      glpCompilerGetAllocator();
+      v13 = v12;
+      glpASTNodeGetLocation(v2, &v69);
       Name = glpVariableIdentifierNodeGetName(Array);
-      glpMakeSubroutineArrayCallNode(v12, &v79, Name, v14);
-      v16 = v15;
+      glpMakeSubroutineArrayCallNode(v13, &v69, Name, v15);
+      v17 = v16;
       Element = glpArrayAccessNodeGetElement(v4);
-      glpSubroutineArrayCallNodeSetIndexExpr(v16, Element);
-      v18 = glpCallNodeGetArgCount(v2);
-      if (v18)
+      glpSubroutineArrayCallNodeSetIndexExpr(v17, Element);
+      v19 = glpCallNodeGetArgCount(v2);
+      if (v19)
       {
-        v19 = v18;
-        for (j = 0; j != v19; ++j)
+        v20 = v19;
+        for (j = 0; j != v20; ++j)
         {
-          v21 = glpCompilerGetAllocator(a1);
-          v22 = glpCallNodeGetArg(v2, j);
-          glpCallNodeAddArg(v21, v16, v22);
+          glpCompilerGetAllocator();
+          v23 = v22;
+          v24 = glpCallNodeGetArg(v2, j);
+          glpCallNodeAddArg(v23, v17, v24);
         }
       }
 
-      return glpSANode(a1, v16);
+      return glpSANode(a1, v17);
     case 1:
       v6 = glpVariableIdentifierNodeGetName(v4);
       v8 = v7;
@@ -5146,92 +5102,93 @@ uint64_t glpSAUndeterminedCall(uint64_t a1, uint64_t a2)
         return glpSABuiltinPPStreamOp(a1, v2);
       }
 
-      v50 = glpCompilerGetNameTable(a1);
-      v79.n128_u64[0] = 0;
-      v79.n128_u64[1] = &v79;
-      v80 = 0x2000000000;
-      v81 = 0;
-      v75 = 0;
-      v76 = &v75;
-      v77 = 0x2000000000;
-      v78 = 0;
-      v74[0] = MEMORY[0x277D85DD0];
-      v74[1] = 0x40000000;
-      v74[2] = __glpSAUndeterminedCall_block_invoke;
-      v74[3] = &unk_278B4C3B0;
-      v74[4] = &v79;
-      v74[5] = &v75;
-      v74[6] = v50;
-      v74[7] = a1;
-      glpNameTableGet(v50, v6, v8, 0, v74);
-      if (v76[3])
+      v45 = glpCompilerGetNameTable(a1);
+      v69.n128_u64[0] = 0;
+      v69.n128_u64[1] = &v69;
+      v70 = 0x2000000000;
+      v71 = 0;
+      v65 = 0;
+      v66 = &v65;
+      v67 = 0x2000000000;
+      v68 = 0;
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 0x40000000;
+      v64[2] = __glpSAUndeterminedCall_block_invoke;
+      v64[3] = &unk_278B4C3B0;
+      v64[4] = &v69;
+      v64[5] = &v65;
+      v64[6] = v45;
+      v64[7] = a1;
+      glpNameTableGet(v45, v6, v8, 0, v64);
+      if (v66[3])
       {
-        v51 = *(v79.n128_u64[1] + 24);
-        if (v51 > 0xD)
+        v46 = *(v69.n128_u64[1] + 24);
+        if (v46 > 0xD)
         {
 LABEL_39:
-          _Block_object_dispose(&v75, 8);
-          _Block_object_dispose(&v79, 8);
+          _Block_object_dispose(&v65, 8);
+          _Block_object_dispose(&v69, 8);
           return v2;
         }
 
-        v52 = 1 << v51;
-        if ((v52 & 0x10F) == 0)
+        v47 = 1 << v46;
+        if ((v47 & 0x10F) == 0)
         {
-          if ((v52 & 0x90) == 0)
+          if ((v47 & 0x90) == 0)
           {
             abort();
           }
 
-          v64 = glpCompilerGetAllocator(a1);
-          glpASTNodeGetLocation(v2, &v73);
-          glpMakeFunctionCallNode(v64, &v73, v6, v8);
-          v66 = v65;
-          v67 = glpCallNodeGetArgCount(v2);
-          if (v67)
+          glpCompilerGetAllocator();
+          v54 = v53;
+          glpASTNodeGetLocation(v2, &v63);
+          glpMakeFunctionCallNode(v54, &v63, v6, v8);
+          v56 = v55;
+          v57 = glpCallNodeGetArgCount(v2);
+          if (v57)
           {
-            v68 = v67;
-            for (k = 0; k != v68; ++k)
+            v58 = v57;
+            for (k = 0; k != v58; ++k)
             {
-              v70 = glpCompilerGetAllocator(a1);
-              v71 = glpCallNodeGetArg(v2, k);
-              glpCallNodeAddArg(v70, v66, v71);
+              glpCompilerGetAllocator();
+              v61 = v60;
+              v62 = glpCallNodeGetArg(v2, k);
+              glpCallNodeAddArg(v61, v56, v62);
             }
           }
 
-          v63 = glpSANode(a1, v66);
+          v52 = glpSANode(a1, v56);
           goto LABEL_38;
         }
 
-        v53 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v4, &v73);
-        glpLogMessage(v53, 0, &v73, "Invalid call of '%.*s' (not a function or subroutine uniform)", v54, v55, v56, v57, v8);
+        v48 = glpCompilerGetInfoLog(a1);
+        *&v49 = glpASTNodeGetLocation(v4, &v63).n128_u64[0];
+        glpLogMessage(v48, 0, &v63, "Invalid call of '%.*s' (not a function or subroutine uniform)", v49);
       }
 
       else
       {
-        v58 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v4, &v73);
-        glpLogMessage(v58, 0, &v73, "Invalid call of undeclared identifier '%.*s'", v59, v60, v61, v62, v8);
+        v50 = glpCompilerGetInfoLog(a1);
+        *&v51 = glpASTNodeGetLocation(v4, &v63).n128_u64[0];
+        glpLogMessage(v50, 0, &v63, "Invalid call of undeclared identifier '%.*s'", v51);
       }
 
-      v63 = glpSAFailed();
+      v52 = glpSAFailed();
 LABEL_38:
-      v2 = v63;
+      v2 = v52;
       goto LABEL_39;
   }
 
-  v34 = glpSANode(a1, v4);
-  if (v34 != -1)
+  v38 = glpSANode(a1, v4);
+  if (v38 != -1)
   {
-    v35 = v34;
-    SaType = glpASTNodeGetSaType(v34);
-    v37 = glpCompilerGetAllocator(a1);
-    glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v37);
     v39 = v38;
-    v40 = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(v35, &v79);
-    glpLogMessage(v40, 0, &v79, "'%.*s' is not callable", v41, v42, v43, v44, v39);
+    SaType = glpASTNodeGetSaType(v38);
+    glpCompilerGetAllocator();
+    glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v41);
+    v42 = glpCompilerGetInfoLog(a1);
+    *&v43 = glpASTNodeGetLocation(v39, &v69).n128_u64[0];
+    glpLogMessage(v42, 0, &v69, "'%.*s' is not callable", v43);
     return glpSAFailed();
   }
 
@@ -5240,12 +5197,11 @@ LABEL_21:
   return glpSAFailed();
 }
 
-uint64_t glpSAFunctionCall(uint64_t a1, uint64_t a2)
+char *glpSAFunctionCall(uint64_t a1, uint64_t a2)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   if (glpSACall(a1, a2) == -1)
   {
-    v16 = *MEMORY[0x277D85DE8];
 
     return glpSAFailed();
   }
@@ -5256,57 +5212,54 @@ uint64_t glpSAFunctionCall(uint64_t a1, uint64_t a2)
     v6 = v5;
     v7 = glpCallNodeGetArgCount(a2);
     MEMORY[0x28223BE20](v7);
-    v9 = (&v22 - v8);
-    bzero(&v22 - v8, v10);
+    v9 = (&v21 - v8);
+    bzero(&v21 - v8, v10);
     v11 = glpMakeExpectedSignatureFromCall(a1, a2, v9);
-    v24[0] = 0;
-    if (glpLookUpAndAnalyzeCall(a1, a2, v4, v6, v11, v9, v24) && (v12 = glpFunctionCallNodeGetExtra(a2), v13 = glpCalculateCallPrecision(a1, a2, v12), glpHandleArgumentConversions(a1, a2, v12, v13)))
+    v23[0] = 0;
+    if (glpLookUpAndAnalyzeCall(a1, a2, v4, v6, v11, v9, v23) && (v12 = glpFunctionCallNodeGetExtra(a2), v13 = glpCalculateCallPrecision(a1, a2, v12), glpHandleArgumentConversions(a1, a2, v12, v13)))
     {
       v14 = v12[1];
       if ((v14 & 0x4000) != 0)
       {
-        result = glpLowerCallToBodilessPPStreamOp(a1, a2, v12);
+        return glpLowerCallToBodilessPPStreamOp(a1, a2, v12);
       }
 
       else if ((v14 & 0x10000) != 0)
       {
-        result = glpHandleSpecialOperatorFunction(a1, a2, v12);
+        return glpHandleSpecialOperatorFunction(a1, a2, v12);
       }
 
       else if ((v14 & 0x2000) != 0 && v12[8])
       {
-        result = glpInlineFunction(a1, a2, v12, v13);
+        return glpInlineFunction(a1, a2, v12, v13);
       }
 
       else
       {
-        v17 = v24[0];
-        Allocator = glpCompilerGetAllocator(a1);
-        glpASTNodeGetLocation(a2, &v23);
-        if (v17)
+        v16 = v23[0];
+        glpCompilerGetAllocator();
+        v18 = v17;
+        glpASTNodeGetLocation(a2, &v22);
+        if (v16)
         {
-          glpMakeSubroutineRawCallNode(Allocator, &v23, v24[0]);
+          glpMakeSubroutineRawCallNode(v18, &v22, v23[0]);
         }
 
         else
         {
           v20 = glpFunctionCallNodeGetExtra(a2);
-          glpMakeRawCallNode(Allocator, &v23, v4, v6, v20);
+          glpMakeRawCallNode(v18, &v22, v4, v6, v20);
         }
 
-        result = glpSALowerCallArgsToAssignment(a1, a2, v12, v19);
+        return glpSALowerCallArgsToAssignment(a1, a2, v12, v19);
       }
     }
 
     else
     {
-      result = glpSAFailed();
+      return glpSAFailed();
     }
-
-    v21 = *MEMORY[0x277D85DE8];
   }
-
-  return result;
 }
 
 uint64_t glpSASubroutineArrayCall(uint64_t a1, uint64_t a2)
@@ -5321,32 +5274,32 @@ uint64_t glpSASubroutineArrayCall(uint64_t a1, uint64_t a2)
       v6 = glpSubroutineArrayCallNodeGetName(a2);
       v8 = v7;
       NameTable = glpCompilerGetNameTable(a1);
-      v49 = 0;
-      v50 = &v49;
-      v51 = 0x2000000000;
-      v52 = 0;
-      v45 = 0;
-      v46 = &v45;
-      v47 = 0x2000000000;
-      v48 = 0;
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 0x40000000;
-      v44[2] = __glpSASubroutineArrayCall_block_invoke;
-      v44[3] = &unk_278B4C3D8;
-      v44[4] = &v49;
-      v44[5] = &v45;
-      glpNameTableGet(NameTable, v6, v8, 0, v44);
-      v10 = v46[3];
-      if (v10 && *(v50 + 6) == 7)
+      v40 = 0;
+      v41 = &v40;
+      v42 = 0x2000000000;
+      v43 = 0;
+      v36 = 0;
+      v37 = &v36;
+      v38 = 0x2000000000;
+      v39 = 0;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 0x40000000;
+      v35[2] = __glpSASubroutineArrayCall_block_invoke;
+      v35[3] = &unk_278B4C3D8;
+      v35[4] = &v40;
+      v35[5] = &v36;
+      glpNameTableGet(NameTable, v6, v8, 0, v35);
+      v10 = v37[3];
+      if (v10 && *(v41 + 6) == 7)
       {
         v11 = *(v10 + 16);
         if (glpTypeGetKind(v11) == 2)
         {
           v12 = glpSubroutineArrayCallNodeGetIndexExpr(a2);
-          v42 = 0;
-          glpASTNodeGetLocation(v12, &v43);
+          v33 = 0;
+          glpASTNodeGetLocation(v12, &v34);
           ElementCount = glpArrayTypeGetElementCount(v11);
-          v14 = glpCheckArrayIndex(a1, &v43, v12, 0, 0, ElementCount, &v42);
+          v14 = glpCheckArrayIndex(a1, &v34, v12, 0, 0, ElementCount, &v33);
           if (v14 != -1)
           {
             v15 = v14;
@@ -5359,17 +5312,18 @@ uint64_t glpSASubroutineArrayCall(uint64_t a1, uint64_t a2)
               v19 = glpCalculateCallPrecision(a1, a2, FunctionObject);
               if (glpHandleArgumentConversions(a1, a2, FunctionObject, v19))
               {
-                Allocator = glpCompilerGetAllocator(a1);
-                glpASTNodeGetLocation(a2, &v43);
-                glpMakeSubroutineRawCallNode(Allocator, &v43, v10);
-                v22 = v21;
-                glpSubroutineRawCallNodeSetIndexExpr(v21, v15);
-                v23 = glpSALowerCallArgsToAssignment(a1, a2, FunctionObject, v22);
+                glpCompilerGetAllocator();
+                v21 = v20;
+                glpASTNodeGetLocation(a2, &v34);
+                glpMakeSubroutineRawCallNode(v21, &v34, v10);
+                v23 = v22;
+                glpSubroutineRawCallNodeSetIndexExpr(v22, v15);
+                v24 = glpSALowerCallArgsToAssignment(a1, a2, FunctionObject, v23);
 LABEL_15:
-                v30 = v23;
-                _Block_object_dispose(&v45, 8);
-                _Block_object_dispose(&v49, 8);
-                return v30;
+                v28 = v24;
+                _Block_object_dispose(&v36, 8);
+                _Block_object_dispose(&v40, 8);
+                return v28;
               }
             }
 
@@ -5377,29 +5331,28 @@ LABEL_15:
             {
               glpSubroutineTypeGetName(ElementType);
               InfoLog = glpCompilerGetInfoLog(a1);
-              glpASTNodeGetLocation(a2, &v43);
-              v41 = *v10;
-              glpLogMessage(InfoLog, 0, &v43, "Arguments of call to subroutine uniform array '%.*s' cannot be converted to match its element type ('%.*s')", v37, v38, v39, v40, *(v10 + 8));
+              *&v32 = glpASTNodeGetLocation(a2, &v34).n128_u64[0];
+              glpLogMessage(InfoLog, 0, &v34, "Arguments of call to subroutine uniform array '%.*s' cannot be converted to match its element type ('%.*s')", v32);
             }
           }
         }
 
         else
         {
-          v31 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(a2, &v43);
-          glpLogMessage(v31, 0, &v43, "'%.*s' does not name a subroutine array", v32, v33, v34, v35, v8);
+          v29 = glpCompilerGetInfoLog(a1);
+          *&v30 = glpASTNodeGetLocation(a2, &v34).n128_u64[0];
+          glpLogMessage(v29, 0, &v34, "'%.*s' does not name a subroutine array", v30);
         }
       }
 
       else
       {
-        v25 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(a2, &v43);
-        glpLogMessage(v25, 0, &v43, "'%.*s' does not name a subroutine uniform", v26, v27, v28, v29, v8);
+        v26 = glpCompilerGetInfoLog(a1);
+        *&v27 = glpASTNodeGetLocation(a2, &v34).n128_u64[0];
+        glpLogMessage(v26, 0, &v34, "'%.*s' does not name a subroutine uniform", v27);
       }
 
-      v23 = glpSAFailed();
+      v24 = glpSAFailed();
       goto LABEL_15;
     }
   }
@@ -5411,176 +5364,171 @@ uint64_t glpSAMethodCall(uint64_t a1, uint64_t a2)
 {
   if (glpSACall(a1, a2) != -1)
   {
-    v92 = 0uLL;
-    v93 = 0;
-    glpASTNodeGetLocation(a2, &v92);
+    v70 = 0uLL;
+    v71 = 0;
+    glpASTNodeGetLocation(a2, &v70);
     v4 = glpMethodCallNodeGetName(a2);
     v6 = v5;
     NameTable = glpCompilerGetNameTable(a1);
     if (glpNameTableGetGLSLVersion(NameTable) < 2)
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      v89 = v92;
-      v90 = v93;
-      v13 = "Method calls not allowed in this GLSL version";
-LABEL_11:
-      glpLogMessage(InfoLog, 0, &v89, v13, v9, v10, v11, v12, v80);
+      v67 = v70;
+      v68 = v71;
+      glpLogMessage(InfoLog, 0, &v67, "Method calls not allowed in this GLSL version");
       return glpSAFailed();
     }
 
     if (!glpStringsEqual("length", 0x9836E88D00000006, v4, v6))
     {
-      InfoLog = glpCompilerGetInfoLog(a1);
-      v89 = v92;
-      v90 = v93;
-      v80 = v6;
-      v13 = "Call of unknown method '%.*s'";
-      goto LABEL_11;
+      v11 = glpCompilerGetInfoLog(a1);
+      v67 = v70;
+      v68 = v71;
+      glpLogMessage(v11, 0, &v67, "Call of unknown method '%.*s'");
+      return glpSAFailed();
     }
 
     if (glpCallNodeGetArgCount(a2))
     {
-      InfoLog = glpCompilerGetInfoLog(a1);
-      v89 = v92;
-      v90 = v93;
-      v13 = ".length() method takes no arguments";
-      goto LABEL_11;
+      v10 = glpCompilerGetInfoLog(a1);
+      v67 = v70;
+      v68 = v71;
+      glpLogMessage(v10, 0, &v67, ".length() method takes no arguments");
+      return glpSAFailed();
     }
 
-    v16 = glpMethodCallNodeGetReceiver(a2);
-    if (!glpIsVariableIdentifierNode(v16))
+    v13 = glpMethodCallNodeGetReceiver(a2);
+    if (!glpIsVariableIdentifierNode(v13))
     {
-LABEL_27:
-      v43 = glpMethodCallNodeGetReceiver(a2);
-      v44 = glpSANode(a1, v43);
-      if (v44 != -1)
+LABEL_26:
+      v33 = glpMethodCallNodeGetReceiver(a2);
+      v34 = glpSANode(a1, v33);
+      if (v34 != -1)
       {
-        glpMethodCallNodeSetReceiver(a2, v44);
-        v45 = glpMethodCallNodeGetReceiver(a2);
-        SaType = glpASTNodeGetSaType(v45);
+        glpMethodCallNodeSetReceiver(a2, v34);
+        v35 = glpMethodCallNodeGetReceiver(a2);
+        SaType = glpASTNodeGetSaType(v35);
         if (glpTypeGetKind(SaType) == 2)
         {
           if (glpArrayTypeGetElementCount(SaType) == -1)
           {
-            v70 = glpCompilerGetInfoLog(a1);
-            v89 = v92;
-            v90 = v93;
-            glpLogMessage(v70, 0, &v89, "Call to method '%.*s' of unsized array", v71, v72, v73, v74, v6);
+            v57 = glpCompilerGetInfoLog(a1);
+            v67 = v70;
+            v68 = v71;
+            glpLogMessage(v57, 0, &v67, "Call to method '%.*s' of unsized array");
             return glpSAFailed();
           }
 
           PrimitiveType = glpGetPrimitiveType(5u);
-          Allocator = glpCompilerGetAllocator(a1);
+          glpCompilerGetAllocator();
+          v39 = v38;
           ElementCount = glpArrayTypeGetElementCount(SaType);
-          MutableValue = glpMakeMutableValue(Allocator, PrimitiveType, 1, v49, v50, v51, v52, v53, ElementCount);
+          MutableValue = glpMakeMutableValue(v39, PrimitiveType, 1, v40, v41, v42, v43, v44, ElementCount);
         }
 
         else
         {
           if (glpTypeGetKind(SaType) != 3)
           {
-            v64 = glpCompilerGetAllocator(a1);
-            glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v64);
-            v65 = glpCompilerGetInfoLog(a1);
-            v89 = v92;
-            v90 = v93;
-            glpLogMessage(v65, 0, &v89, "Call to method '%.*s' of non-array type '%.*s'", v66, v67, v68, v69, v6);
+            glpCompilerGetAllocator();
+            glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v55);
+            v56 = glpCompilerGetInfoLog(a1);
+            v67 = v70;
+            v68 = v71;
+            glpLogMessage(v56, 0, &v67, "Call to method '%.*s' of non-array type '%.*s'");
             return glpSAFailed();
           }
 
-          v55 = glpBankTypeGetElementCount(SaType);
-          if (v55 == -1)
+          v46 = glpBankTypeGetElementCount(SaType);
+          if (v46 == -1)
           {
-            v75 = glpCompilerGetInfoLog(a1);
-            v89 = v92;
-            v90 = v93;
-            glpLogMessage(v75, 0, &v89, "Call to method '%.*s' of unsized interface block array", v76, v77, v78, v79, v6);
+            v58 = glpCompilerGetInfoLog(a1);
+            v67 = v70;
+            v68 = v71;
+            glpLogMessage(v58, 0, &v67, "Call to method '%.*s' of unsized interface block array");
             return glpSAFailed();
           }
 
-          v56 = v55;
+          v47 = v46;
           PrimitiveType = glpGetPrimitiveType(5u);
-          v57 = glpCompilerGetAllocator(a1);
-          MutableValue = glpMakeMutableValue(v57, PrimitiveType, 1, v58, v59, v60, v61, v62, v56);
+          glpCompilerGetAllocator();
+          MutableValue = glpMakeMutableValue(v48, PrimitiveType, 1, v49, v50, v51, v52, v53, v47);
         }
 
-        v63 = glpCompilerRemapValue(a1, PrimitiveType, MutableValue);
-        v89 = v92;
-        v90 = v93;
-        return glpMakeConstantValueFragment(a1, &v89, PrimitiveType, v63);
+        v54 = glpCompilerRemapValue(a1, PrimitiveType, MutableValue);
+        v67 = v70;
+        v68 = v71;
+        return glpMakeConstantValueFragment(a1, &v67, PrimitiveType, v54);
       }
 
       return glpSAFailed();
     }
 
-    v89.n128_u64[0] = 0;
-    v89.n128_u64[1] = &v89;
-    v90 = 0x2000000000;
-    v91 = 0;
-    v85 = 0;
-    v86 = &v85;
-    v87 = 0x2000000000;
-    v88 = 0;
-    v17 = glpCompilerGetNameTable(a1);
-    Name = glpVariableIdentifierNodeGetName(v16);
-    v84[0] = MEMORY[0x277D85DD0];
-    v84[1] = 0x40000000;
-    v84[2] = __glpSAMethodCall_block_invoke;
-    v84[3] = &unk_278B4C400;
-    v84[4] = &v89;
-    v84[5] = &v85;
-    glpNameTableGet(v17, Name, v19, 0, v84);
-    v20 = v86[3];
-    if (!v20 || *(v89.n128_u64[1] + 24) != 1)
+    v67.n128_u64[0] = 0;
+    v67.n128_u64[1] = &v67;
+    v68 = 0x2000000000;
+    v69 = 0;
+    v63 = 0;
+    v64 = &v63;
+    v65 = 0x2000000000;
+    v66 = 0;
+    v14 = glpCompilerGetNameTable(a1);
+    Name = glpVariableIdentifierNodeGetName(v13);
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 0x40000000;
+    v62[2] = __glpSAMethodCall_block_invoke;
+    v62[3] = &unk_278B4C400;
+    v62[4] = &v67;
+    v62[5] = &v63;
+    glpNameTableGet(v14, Name, v16, 0, v62);
+    v17 = v64[3];
+    if (!v17 || *(v67.n128_u64[1] + 24) != 1)
     {
-      v32 = 1;
-      goto LABEL_26;
+      v30 = 1;
+      goto LABEL_25;
     }
 
-    if (glpTypeGetKind(*(v20 + 64)) == 3)
+    if (glpTypeGetKind(*(v17 + 64)) == 3)
     {
-      if (glpBankTypeGetElementCount(*(v20 + 64)) != -1)
+      if (glpBankTypeGetElementCount(*(v17 + 64)) != -1)
       {
-        v21 = glpGetPrimitiveType(5u);
-        v22 = glpCompilerGetAllocator(a1);
-        v23 = glpBankTypeGetElementCount(*(v20 + 64));
-        v29 = glpMakeMutableValue(v22, v21, 1, v24, v25, v26, v27, v28, v23);
-        v30 = glpCompilerRemapValue(a1, v21, v29);
-        v82 = v92;
-        v83 = v93;
-        ConstantValueFragment = glpMakeConstantValueFragment(a1, &v82, v21, v30);
+        v18 = glpGetPrimitiveType(5u);
+        glpCompilerGetAllocator();
+        v20 = v19;
+        v21 = glpBankTypeGetElementCount(*(v17 + 64));
+        v27 = glpMakeMutableValue(v20, v18, 1, v22, v23, v24, v25, v26, v21);
+        v28 = glpCompilerRemapValue(a1, v18, v27);
+        v60 = v70;
+        v61 = v71;
+        ConstantValueFragment = glpMakeConstantValueFragment(a1, &v60, v18, v28);
+LABEL_24:
+        v13 = ConstantValueFragment;
+        v30 = 0;
 LABEL_25:
-        v16 = ConstantValueFragment;
-        v32 = 0;
-LABEL_26:
-        _Block_object_dispose(&v85, 8);
-        _Block_object_dispose(&v89, 8);
-        if (!v32)
+        _Block_object_dispose(&v63, 8);
+        _Block_object_dispose(&v67, 8);
+        if (!v30)
         {
-          return v16;
+          return v13;
         }
 
-        goto LABEL_27;
+        goto LABEL_26;
       }
 
-      v38 = glpCompilerGetInfoLog(a1);
-      v82 = v92;
-      v83 = v93;
-      glpLogMessage(v38, 0, &v82, "Call to method '%.*s' of unsized interface block", v39, v40, v41, v42, v6);
+      v32 = glpCompilerGetInfoLog(a1);
+      glpLogMessage(v32, 0, &v60, "Call to method '%.*s' of unsized interface block");
     }
 
     else
     {
-      v33 = glpCompilerGetInfoLog(a1);
-      glpVariableIdentifierNodeGetName(v16);
-      glpVariableIdentifierNodeGetName(v16);
-      v82 = v92;
-      v83 = v93;
-      glpLogMessage(v33, 0, &v82, "Call to method '%.*s' of non-array interface block '%.*s'", v34, v35, v36, v37, v6);
+      v31 = glpCompilerGetInfoLog(a1);
+      glpVariableIdentifierNodeGetName(v13);
+      glpVariableIdentifierNodeGetName(v13);
+      glpLogMessage(v31, 0, &v60, "Call to method '%.*s' of non-array interface block '%.*s'");
     }
 
     ConstantValueFragment = glpSAFailed();
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
   return glpSAFailed();
@@ -5932,78 +5880,76 @@ uint64_t glpSAEqual(uint64_t a1, uint64_t a2)
           if (glpNameTableGetGLSLVersion(NameTable) <= 1)
           {
             InfoLog = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(a2, &v41);
-            v14 = "'==' disallowed on array types";
-LABEL_24:
-            glpLogMessage(InfoLog, 0, &v41, v14, v10, v11, v12, v13, v35);
+            *&v10 = glpASTNodeGetLocation(a2, &v39).n128_u64[0];
+            glpLogMessage(InfoLog, 0, &v39, "'==' disallowed on array types", v10);
             return glpSAFailed();
           }
         }
       }
 
-      v15 = glpASTNodeGetSaType(Lhs);
-      v16 = glpASTNodeGetSaType(Rhs);
-      if (!glpTypesEqual(v15, v16))
+      v11 = glpASTNodeGetSaType(Lhs);
+      v12 = glpASTNodeGetSaType(Rhs);
+      if (!glpTypesEqual(v11, v12))
       {
-        InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(a2, &v41);
-        v14 = "Incompatible types in '=='";
-        goto LABEL_24;
+        v29 = glpCompilerGetInfoLog(a1);
+        *&v30 = glpASTNodeGetLocation(a2, &v39).n128_u64[0];
+        glpLogMessage(v29, 0, &v39, "Incompatible types in '=='", v30);
+        return glpSAFailed();
       }
 
-      v41 = 0uLL;
-      v42 = 0;
-      glpASTNodeGetLocation(a2, &v41);
-      Allocator = glpCompilerGetAllocator(a1);
-      v39 = v41;
-      v40 = v42;
-      glpMakeCommaExprNode(Allocator, &v39, 0);
-      v19 = v18;
-      v37 = 0;
-      v38 = 0;
-      glpHandleSideEffectsForExpr(a1, Lhs, &v38, &v37);
-      if (v37)
-      {
-        v20 = glpCompilerGetAllocator(a1);
-        glpCommaExprNodeAddExpr(v20, v19, v37);
-        v37 = 0;
-      }
-
+      v39 = 0uLL;
+      v40 = 0;
+      glpASTNodeGetLocation(a2, &v39);
+      glpCompilerGetAllocator();
+      v37 = v39;
+      v38 = v40;
+      glpMakeCommaExprNode(v13, &v37, 0);
+      v15 = v14;
       v35 = 0;
       v36 = 0;
-      glpHandleSideEffectsForExpr(a1, Rhs, &v36, &v35);
+      glpHandleSideEffectsForExpr(a1, Lhs, &v36, &v35);
       if (v35)
       {
-        v21 = glpCompilerGetAllocator(a1);
-        glpCommaExprNodeAddExpr(v21, v19, v35);
+        glpCompilerGetAllocator();
+        glpCommaExprNodeAddExpr(v16, v15, v35);
         v35 = 0;
       }
 
-      AccessorCount = glpGetAccessorCount(v38);
+      v33 = 0;
+      v34 = 0;
+      glpHandleSideEffectsForExpr(a1, Rhs, &v34, &v33);
+      if (v33)
+      {
+        glpCompilerGetAllocator();
+        glpCommaExprNodeAddExpr(v17, v15, v33);
+        v33 = 0;
+      }
+
+      AccessorCount = glpGetAccessorCount(v36);
       if (AccessorCount)
       {
-        v23 = AccessorCount;
-        v24 = 0;
-        v25 = 0;
+        v19 = AccessorCount;
+        v20 = 0;
+        v21 = 0;
         do
         {
-          Accessor = glpMakeAccessor(a1, v38, v24);
-          v27 = glpMakeAccessor(a1, v36, v24);
-          v39 = v41;
-          v40 = v42;
-          EqualFragment = glpMakeEqualFragment(a1, &v39, Accessor, v27);
-          if (v25)
+          Accessor = glpMakeAccessor(a1, v36, v20);
+          v23 = glpMakeAccessor(a1, v34, v20);
+          v37 = v39;
+          v38 = v40;
+          EqualFragment = glpMakeEqualFragment(a1, &v37, Accessor, v23);
+          if (v21)
           {
-            v39 = v41;
-            v40 = v42;
-            EqualFragment = glpMakeLogicalAndFragment(a1, &v39, v25, EqualFragment);
+            v37 = v39;
+            v38 = v40;
+            EqualFragment = glpMakeLogicalAndFragment(a1, &v37, v21, EqualFragment);
           }
 
-          v24 = (v24 + 1);
-          v25 = EqualFragment;
+          v20 = (v20 + 1);
+          v21 = EqualFragment;
         }
 
-        while (v23 != v24);
+        while (v19 != v20);
       }
 
       else
@@ -6011,25 +5957,25 @@ LABEL_24:
         EqualFragment = 0;
       }
 
-      v33 = glpCompilerGetAllocator(a1);
-      glpCommaExprNodeAddExpr(v33, v19, EqualFragment);
-      v30 = glpSANode(a1, v19);
+      glpCompilerGetAllocator();
+      glpCommaExprNodeAddExpr(v31, v15, EqualFragment);
+      v26 = glpSANode(a1, v15);
 LABEL_27:
       if (glpCompilerDoesTrackPrecision(a1))
       {
-        SaFlags = glpASTNodeGetSaFlags(v30);
-        glpASTNodeSetSaFlags(v30, SaFlags & 0xFFFFFFFFFFFFFFE0);
+        SaFlags = glpASTNodeGetSaFlags(v26);
+        glpASTNodeSetSaFlags(v26, SaFlags & 0xFFFFFFFFFFFFFFE0);
       }
 
-      return v30;
+      return v26;
     }
 
-    v29 = glpAnalyzeBinaryMathOp(a1, a2);
-    if (v29 != -1)
+    v25 = glpAnalyzeBinaryMathOp(a1, a2);
+    if (v25 != -1)
     {
-      v30 = v29;
+      v26 = v25;
       PrimitiveType = glpGetPrimitiveType(9u);
-      glpASTNodeSetSaType(v30, PrimitiveType);
+      glpASTNodeSetSaType(v26, PrimitiveType);
       goto LABEL_27;
     }
   }
@@ -6055,78 +6001,76 @@ uint64_t glpSANotEqual(uint64_t a1, uint64_t a2)
           if (glpNameTableGetGLSLVersion(NameTable) <= 1)
           {
             InfoLog = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(a2, &v41);
-            v14 = "'!=' disallowed on array types";
-LABEL_24:
-            glpLogMessage(InfoLog, 0, &v41, v14, v10, v11, v12, v13, v35);
+            *&v10 = glpASTNodeGetLocation(a2, &v39).n128_u64[0];
+            glpLogMessage(InfoLog, 0, &v39, "'!=' disallowed on array types", v10);
             return glpSAFailed();
           }
         }
       }
 
-      v15 = glpASTNodeGetSaType(Lhs);
-      v16 = glpASTNodeGetSaType(Rhs);
-      if (!glpTypesEqual(v15, v16))
+      v11 = glpASTNodeGetSaType(Lhs);
+      v12 = glpASTNodeGetSaType(Rhs);
+      if (!glpTypesEqual(v11, v12))
       {
-        InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(a2, &v41);
-        v14 = "Incompatible types in '!='";
-        goto LABEL_24;
+        v29 = glpCompilerGetInfoLog(a1);
+        *&v30 = glpASTNodeGetLocation(a2, &v39).n128_u64[0];
+        glpLogMessage(v29, 0, &v39, "Incompatible types in '!='", v30);
+        return glpSAFailed();
       }
 
-      v41 = 0uLL;
-      v42 = 0;
-      glpASTNodeGetLocation(a2, &v41);
-      Allocator = glpCompilerGetAllocator(a1);
-      v39 = v41;
-      v40 = v42;
-      glpMakeCommaExprNode(Allocator, &v39, 0);
-      v19 = v18;
-      v37 = 0;
-      v38 = 0;
-      glpHandleSideEffectsForExpr(a1, Lhs, &v38, &v37);
-      if (v37)
-      {
-        v20 = glpCompilerGetAllocator(a1);
-        glpCommaExprNodeAddExpr(v20, v19, v37);
-        v37 = 0;
-      }
-
+      v39 = 0uLL;
+      v40 = 0;
+      glpASTNodeGetLocation(a2, &v39);
+      glpCompilerGetAllocator();
+      v37 = v39;
+      v38 = v40;
+      glpMakeCommaExprNode(v13, &v37, 0);
+      v15 = v14;
       v35 = 0;
       v36 = 0;
-      glpHandleSideEffectsForExpr(a1, Rhs, &v36, &v35);
+      glpHandleSideEffectsForExpr(a1, Lhs, &v36, &v35);
       if (v35)
       {
-        v21 = glpCompilerGetAllocator(a1);
-        glpCommaExprNodeAddExpr(v21, v19, v35);
+        glpCompilerGetAllocator();
+        glpCommaExprNodeAddExpr(v16, v15, v35);
         v35 = 0;
       }
 
-      AccessorCount = glpGetAccessorCount(v38);
+      v33 = 0;
+      v34 = 0;
+      glpHandleSideEffectsForExpr(a1, Rhs, &v34, &v33);
+      if (v33)
+      {
+        glpCompilerGetAllocator();
+        glpCommaExprNodeAddExpr(v17, v15, v33);
+        v33 = 0;
+      }
+
+      AccessorCount = glpGetAccessorCount(v36);
       if (AccessorCount)
       {
-        v23 = AccessorCount;
-        v24 = 0;
-        v25 = 0;
+        v19 = AccessorCount;
+        v20 = 0;
+        v21 = 0;
         do
         {
-          Accessor = glpMakeAccessor(a1, v38, v24);
-          v27 = glpMakeAccessor(a1, v36, v24);
-          v39 = v41;
-          v40 = v42;
-          NotEqualFragment = glpMakeNotEqualFragment(a1, &v39, Accessor, v27);
-          if (v25)
+          Accessor = glpMakeAccessor(a1, v36, v20);
+          v23 = glpMakeAccessor(a1, v34, v20);
+          v37 = v39;
+          v38 = v40;
+          NotEqualFragment = glpMakeNotEqualFragment(a1, &v37, Accessor, v23);
+          if (v21)
           {
-            v39 = v41;
-            v40 = v42;
-            NotEqualFragment = glpMakeLogicalOrFragment(a1, &v39, v25, NotEqualFragment);
+            v37 = v39;
+            v38 = v40;
+            NotEqualFragment = glpMakeLogicalOrFragment(a1, &v37, v21, NotEqualFragment);
           }
 
-          v24 = (v24 + 1);
-          v25 = NotEqualFragment;
+          v20 = (v20 + 1);
+          v21 = NotEqualFragment;
         }
 
-        while (v23 != v24);
+        while (v19 != v20);
       }
 
       else
@@ -6134,25 +6078,25 @@ LABEL_24:
         NotEqualFragment = 0;
       }
 
-      v33 = glpCompilerGetAllocator(a1);
-      glpCommaExprNodeAddExpr(v33, v19, NotEqualFragment);
-      v30 = glpSANode(a1, v19);
+      glpCompilerGetAllocator();
+      glpCommaExprNodeAddExpr(v31, v15, NotEqualFragment);
+      v26 = glpSANode(a1, v15);
 LABEL_27:
       if (glpCompilerDoesTrackPrecision(a1))
       {
-        SaFlags = glpASTNodeGetSaFlags(v30);
-        glpASTNodeSetSaFlags(v30, SaFlags & 0xFFFFFFFFFFFFFFE0);
+        SaFlags = glpASTNodeGetSaFlags(v26);
+        glpASTNodeSetSaFlags(v26, SaFlags & 0xFFFFFFFFFFFFFFE0);
       }
 
-      return v30;
+      return v26;
     }
 
-    v29 = glpAnalyzeBinaryMathOp(a1, a2);
-    if (v29 != -1)
+    v25 = glpAnalyzeBinaryMathOp(a1, a2);
+    if (v25 != -1)
     {
-      v30 = v29;
+      v26 = v25;
       PrimitiveType = glpGetPrimitiveType(9u);
-      glpASTNodeSetSaType(v30, PrimitiveType);
+      glpASTNodeSetSaType(v26, PrimitiveType);
       goto LABEL_27;
     }
   }
@@ -6176,8 +6120,8 @@ uint64_t glpSALogicalAnd(uint64_t a1, uint64_t a2)
     if (!glpTypesEqual(SaType, PrimitiveType))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v5, &v15);
-      glpLogMessage(InfoLog, 0, &v15, "logical operator must be of type BOOL", v9, v10, v11, v12, v14);
+      *&v9 = glpASTNodeGetLocation(v5, &v11).n128_u64[0];
+      glpLogMessage(InfoLog, 0, &v11, "logical operator must be of type BOOL", v9);
       return glpSAFailed();
     }
 
@@ -6201,8 +6145,8 @@ uint64_t glpSALogicalOr(uint64_t a1, uint64_t a2)
     if (!glpTypesEqual(SaType, PrimitiveType))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v5, &v15);
-      glpLogMessage(InfoLog, 0, &v15, "logical operator must be of type BOOL", v9, v10, v11, v12, v14);
+      *&v9 = glpASTNodeGetLocation(v5, &v11).n128_u64[0];
+      glpLogMessage(InfoLog, 0, &v11, "logical operator must be of type BOOL", v9);
       return glpSAFailed();
     }
 
@@ -6226,8 +6170,8 @@ uint64_t glpSALogicalXor(uint64_t a1, uint64_t a2)
     if (!glpTypesEqual(SaType, PrimitiveType))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v5, &v15);
-      glpLogMessage(InfoLog, 0, &v15, "logical operator must be of type BOOL", v9, v10, v11, v12, v14);
+      *&v9 = glpASTNodeGetLocation(v5, &v11).n128_u64[0];
+      glpLogMessage(InfoLog, 0, &v11, "logical operator must be of type BOOL", v9);
       return glpSAFailed();
     }
 
@@ -6316,10 +6260,8 @@ uint64_t glpSAIfExpr(uint64_t a1, uint64_t a2)
   if (!glpTypesEqual(SaType, PrimitiveType))
   {
     InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(a2, &v61);
-    v31 = "Condition must be of type BOOL";
-LABEL_24:
-    glpLogMessage(InfoLog, 0, &v61, v31, v27, v28, v29, v30, v59);
+    *&v28 = glpASTNodeGetLocation(a2, &v55).n128_u64[0];
+    glpLogMessage(InfoLog, 0, &v55, "Condition must be of type BOOL", v28);
     return glpSAFailed();
   }
 
@@ -6336,36 +6278,36 @@ LABEL_24:
 
   if (glpTypeGetKind(v17) || glpTypeGetKind(v18))
   {
-    InfoLog = glpCompilerGetInfoLog(a1);
-    glpASTNodeGetLocation(a2, &v61);
-    v31 = "Types in conditional operator do not match";
-    goto LABEL_24;
+    v29 = glpCompilerGetInfoLog(a1);
+    glpASTNodeGetLocation(a2, &v55);
+    glpLogMessage(v29, 0, &v55, "Types in conditional operator do not match");
+    return glpSAFailed();
   }
 
   ImplicitConversionPolicy = glpCompilerGetImplicitConversionPolicy(a1);
-  v49 = glpPrimitiveTypeGetPrimitiveType(v17);
-  v50 = glpPrimitiveTypeGetPrimitiveType(v18);
-  v60 = v50;
-  if (glpCanConvert(v50, v49, ImplicitConversionPolicy))
+  v48 = glpPrimitiveTypeGetPrimitiveType(v17);
+  v49 = glpPrimitiveTypeGetPrimitiveType(v18);
+  v54 = v49;
+  if (glpCanConvert(v49, v48, ImplicitConversionPolicy))
   {
-    v51 = glpConvert(a1, v16, v17, v19);
-    glpIfExprNodeSetElseExpr(a2, v51);
+    v50 = glpConvert(a1, v16, v17, v19);
+    glpIfExprNodeSetElseExpr(a2, v50);
   }
 
   else
   {
-    if (!glpCanConvert(v49, v60, ImplicitConversionPolicy))
+    if (!glpCanConvert(v48, v54, ImplicitConversionPolicy))
     {
-      v53 = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(a2, &v61);
-      v54 = glpPrimitiveTypeToString(v49);
-      glpPrimitiveTypeToString(v60);
-      glpLogMessage(v53, 0, &v61, "Types '%s' and '%s' in conditional operator do not match (and no applicable implicit type conversion)", v55, v56, v57, v58, v54);
+      v52 = glpCompilerGetInfoLog(a1);
+      glpASTNodeGetLocation(a2, &v55);
+      glpPrimitiveTypeToString(v48);
+      glpPrimitiveTypeToString(v54);
+      glpLogMessage(v52, 0, &v55, "Types '%s' and '%s' in conditional operator do not match (and no applicable implicit type conversion)", v53);
       return glpSAFailed();
     }
 
-    v52 = glpConvert(a1, v15, v18, v20);
-    glpIfExprNodeSetIfExpr(a2, v52);
+    v51 = glpConvert(a1, v15, v18, v20);
+    glpIfExprNodeSetIfExpr(a2, v51);
   }
 
 LABEL_13:
@@ -6392,46 +6334,48 @@ LABEL_13:
     }
   }
 
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
+  v22 = v21;
   ValueHash = glpCompilerGetValueHash(a1);
-  v23 = glpIfExprNodeGetCondition(a2);
-  v24 = glpConstantFold(Allocator, ValueHash, v23);
-  if (!glpIsConstantNode(v24))
+  v24 = glpIfExprNodeGetCondition(a2);
+  v25 = glpConstantFold(v22, ValueHash, v24);
+  if (!glpIsConstantNode(v25))
   {
-    v33 = glpCompilerGetAllocator(a1);
-    glpASTNodeGetLocation(a2, &v61);
-    glpMakeTypeIdentifierNode(v33, &v61, "<<BUG: placeholder type still exists>>", 0x781A7BE300000026);
-    v35 = v34;
-    v36 = glpIfExprNodeGetIfExpr(a2);
-    v37 = glpASTNodeGetSaType(v36);
-    glpASTNodeSetSaType(v35, v37);
-    glpASTNodeSetSaFlags(v35, v19);
-    v38 = glpIfExprNodeGetCondition(a2);
-    v39 = glpASTNodeGetSaFlags(v38) | 0x1F;
+    glpCompilerGetAllocator();
+    v32 = v31;
+    glpASTNodeGetLocation(a2, &v55);
+    glpMakeTypeIdentifierNode(v32, &v55, "<<BUG: placeholder type still exists>>", 0x781A7BE300000026);
+    v34 = v33;
+    v35 = glpIfExprNodeGetIfExpr(a2);
+    v36 = glpASTNodeGetSaType(v35);
+    glpASTNodeSetSaType(v34, v36);
+    glpASTNodeSetSaFlags(v34, v19);
+    v37 = glpIfExprNodeGetCondition(a2);
+    v38 = glpASTNodeGetSaFlags(v37) | 0x1F;
     SaFlags = glpASTNodeGetSaFlags(v15);
-    v41 = SaFlags & glpASTNodeGetSaFlags(v16);
-    glpASTNodeGetLocation(a2, &v61);
-    v42 = glpCompilerNewTempName(a1);
-    v44 = v43;
-    v45 = glpIfExprNodeGetCondition(a2);
-    v46 = glpIfExprNodeGetIfExpr(a2);
-    v47 = glpIfExprNodeGetElseExpr(a2);
-    IfExprFragment = glpMakeIfExprFragment(a1, &v61, v42, v44, v35, v45, v46, v47);
-    glpASTNodeSetSaFlags(v35, v39 & v41);
+    v40 = SaFlags & glpASTNodeGetSaFlags(v16);
+    glpASTNodeGetLocation(a2, &v55);
+    v41 = glpCompilerNewTempName(a1);
+    v43 = v42;
+    v44 = glpIfExprNodeGetCondition(a2);
+    v45 = glpIfExprNodeGetIfExpr(a2);
+    v46 = glpIfExprNodeGetElseExpr(a2);
+    IfExprFragment = glpMakeIfExprFragment(a1, &v55, v41, v43, v34, v44, v45, v46);
+    glpASTNodeSetSaFlags(v34, v38 & v40);
     return IfExprFragment;
   }
 
-  if (*glpConstantNodeGetValue(v24))
+  if (*glpConstantNodeGetValue(v25))
   {
-    v25 = glpIfExprNodeGetIfExpr(a2);
+    v26 = glpIfExprNodeGetIfExpr(a2);
   }
 
   else
   {
-    v25 = glpIfExprNodeGetElseExpr(a2);
+    v26 = glpIfExprNodeGetElseExpr(a2);
   }
 
-  return glpSANode(a1, v25);
+  return glpSANode(a1, v26);
 }
 
 uint64_t glpSAAssign(uint64_t a1, uint64_t a2)
@@ -6444,27 +6388,25 @@ uint64_t glpSAAssign(uint64_t a1, uint64_t a2)
     if (!glpIsLValueNode(Lhs))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v92);
-      v11 = "Left-hand-side of assignment must be an lvalue";
-      goto LABEL_11;
+      *&v10 = glpASTNodeGetLocation(v2, &v89).n128_u64[0];
+      glpLogMessage(InfoLog, 0, &v89, "Left-hand-side of assignment must be an lvalue", v10);
+      return glpSAFailed();
     }
 
     if ((glpASTNodeGetSaFlags(Lhs) & 0x60) != 0)
     {
-      InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v92);
-      v11 = "Left-hand-side of assignment must not be const";
-LABEL_11:
-      glpLogMessage(InfoLog, 0, &v92, v11, v7, v8, v9, v10, v85);
+      v6 = glpCompilerGetInfoLog(a1);
+      *&v7 = glpASTNodeGetLocation(v2, &v89).n128_u64[0];
+      glpLogMessage(v6, 0, &v89, "Left-hand-side of assignment must not be const", v7);
       return glpSAFailed();
     }
 
     if ((glpASTNodeGetSaFlags(Lhs) & 0x300) != 0)
     {
-      InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v92);
-      v11 = "Left-hand-side of assignment must not be read-only";
-      goto LABEL_11;
+      v11 = glpCompilerGetInfoLog(a1);
+      glpASTNodeGetLocation(v2, &v89);
+      glpLogMessage(v11, 0, &v89, "Left-hand-side of assignment must not be read-only");
+      return glpSAFailed();
     }
 
     if (glpAssignNodeGetIsFromSource(v2))
@@ -6472,87 +6414,85 @@ LABEL_11:
       SaType = glpASTNodeGetSaType(Lhs);
       if (glpTypeGetSamplerCount(SaType))
       {
-        InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v92);
-        v11 = "Cannot assign samplers";
-        goto LABEL_11;
+        v13 = glpCompilerGetInfoLog(a1);
+        *&v14 = glpASTNodeGetLocation(v2, &v89).n128_u64[0];
+        glpLogMessage(v13, 0, &v89, "Cannot assign samplers", v14);
+        return glpSAFailed();
       }
     }
 
-    v14 = glpASTNodeGetSaType(Lhs);
-    if (glpTypeGetKind(v14) != 1)
+    v15 = glpASTNodeGetSaType(Lhs);
+    if (glpTypeGetKind(v15) != 1)
     {
-      v15 = glpASTNodeGetSaType(Lhs);
-      if (glpTypeGetKind(v15) != 2)
+      v16 = glpASTNodeGetSaType(Lhs);
+      if (glpTypeGetKind(v16) != 2)
       {
-        v16 = glpASTNodeGetSaType(Lhs);
-        if (glpTypeGetKind(v16))
+        v17 = glpASTNodeGetSaType(Lhs);
+        if (glpTypeGetKind(v17))
         {
-          InfoLog = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v2, &v92);
-          v11 = "You can't assign non-struct non-primitives directly.";
-          goto LABEL_11;
+          v18 = glpCompilerGetInfoLog(a1);
+          *&v19 = glpASTNodeGetLocation(v2, &v89).n128_u64[0];
+          glpLogMessage(v18, 0, &v89, "You can't assign non-struct non-primitives directly.", v19);
+          return glpSAFailed();
         }
       }
     }
 
-    v17 = glpASTNodeGetSaType(Lhs);
-    v18 = glpASTNodeGetSaType(Rhs);
-    if (!glpTypesEqual(v17, v18))
+    v20 = glpASTNodeGetSaType(Lhs);
+    v21 = glpASTNodeGetSaType(Rhs);
+    if (!glpTypesEqual(v20, v21))
     {
-      v23 = glpASTNodeGetSaType(Lhs);
-      if (glpTypeGetKind(v23) || (v24 = glpASTNodeGetSaType(Rhs), glpTypeGetKind(v24)))
+      v26 = glpASTNodeGetSaType(Lhs);
+      if (glpTypeGetKind(v26) || (v27 = glpASTNodeGetSaType(Rhs), glpTypeGetKind(v27)))
       {
-        v25 = glpASTNodeGetSaType(Lhs);
-        Allocator = glpCompilerGetAllocator(a1);
-        glpTypeHumanReadableDescription(v25, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, Allocator);
-        v28 = v27;
-        v29 = glpASTNodeGetSaType(Rhs);
-        v30 = glpCompilerGetAllocator(a1);
-        glpTypeHumanReadableDescription(v29, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v30);
-        v31 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v92);
-        glpLogMessage(v31, 0, &v92, "Incompatible types (%.*s and %.*s) in assignment", v32, v33, v34, v35, v28);
+        v28 = glpASTNodeGetSaType(Lhs);
+        glpCompilerGetAllocator();
+        glpTypeHumanReadableDescription(v28, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v29);
+        v30 = glpASTNodeGetSaType(Rhs);
+        glpCompilerGetAllocator();
+        glpTypeHumanReadableDescription(v30, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v31);
+        v32 = glpCompilerGetInfoLog(a1);
+        *&v33 = glpASTNodeGetLocation(v2, &v89).n128_u64[0];
+        glpLogMessage(v32, 0, &v89, "Incompatible types (%.*s and %.*s) in assignment", v33);
         return glpSAFailed();
       }
 
-      v67 = glpASTNodeGetSaType(Lhs);
-      PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v67);
-      v69 = glpASTNodeGetSaType(Rhs);
-      v70 = glpPrimitiveTypeGetPrimitiveType(v69);
+      v70 = glpASTNodeGetSaType(Lhs);
+      PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v70);
+      v72 = glpASTNodeGetSaType(Rhs);
+      v73 = glpPrimitiveTypeGetPrimitiveType(v72);
       ImplicitConversionPolicy = glpCompilerGetImplicitConversionPolicy(a1);
-      LODWORD(v70) = glpCanConvert(v70, PrimitiveType, ImplicitConversionPolicy);
-      v72 = glpASTNodeGetSaType(Lhs);
-      if (!v70)
+      LODWORD(v73) = glpCanConvert(v73, PrimitiveType, ImplicitConversionPolicy);
+      v75 = glpASTNodeGetSaType(Lhs);
+      if (!v73)
       {
-        v75 = glpCompilerGetAllocator(a1);
-        glpTypeHumanReadableDescription(v72, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v75);
-        v77 = v76;
-        v78 = glpASTNodeGetSaType(Rhs);
-        v79 = glpCompilerGetAllocator(a1);
-        glpTypeHumanReadableDescription(v78, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v79);
-        v80 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v92);
-        glpLogMessage(v80, 0, &v92, "Incompatible types (%.*s and %.*s) in assignment (and no available implicit conversion)", v81, v82, v83, v84, v77);
+        glpCompilerGetAllocator();
+        glpTypeHumanReadableDescription(v75, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v78);
+        v79 = glpASTNodeGetSaType(Rhs);
+        glpCompilerGetAllocator();
+        glpTypeHumanReadableDescription(v79, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v80);
+        v81 = glpCompilerGetInfoLog(a1);
+        *&v82 = glpASTNodeGetLocation(v2, &v89).n128_u64[0];
+        glpLogMessage(v81, 0, &v89, "Incompatible types (%.*s and %.*s) in assignment (and no available implicit conversion)", v82);
         return glpSAFailed();
       }
 
       SaFlags = glpASTNodeGetSaFlags(Lhs);
-      v74 = glpConvert(a1, Rhs, v72, SaFlags & 0x1F);
-      glpBinaryOperatorNodeSetRhs(v2, v74);
+      v77 = glpConvert(a1, Rhs, v75, SaFlags & 0x1F);
+      glpBinaryOperatorNodeSetRhs(v2, v77);
     }
 
-    v19 = glpASTNodeGetSaFlags(Rhs) & 0x1F;
-    v20 = glpASTNodeGetSaType(Lhs);
-    if (glpTypeIsAtomic(v20) && (glpASTNodeGetSaFlags(Lhs) & 0x1F) != v19)
+    v22 = glpASTNodeGetSaFlags(Rhs) & 0x1F;
+    v23 = glpASTNodeGetSaType(Lhs);
+    if (glpTypeIsAtomic(v23) && (glpASTNodeGetSaFlags(Lhs) & 0x1F) != v22)
     {
-      if (v19 != 31 && v19)
+      if (v22 != 31 && v22)
       {
         if ((glpASTNodeGetSaFlags(Lhs) & 0x1F) != 0)
         {
-          v65 = glpASTNodeGetSaType(Lhs);
-          v66 = glpASTNodeGetSaFlags(Lhs);
-          Rhs = glpConvert(a1, Rhs, v65, v66 & 0x1F);
+          v68 = glpASTNodeGetSaType(Lhs);
+          v69 = glpASTNodeGetSaFlags(Lhs);
+          Rhs = glpConvert(a1, Rhs, v68, v69 & 0x1F);
           glpBinaryOperatorNodeSetRhs(v2, Rhs);
         }
 
@@ -6561,17 +6501,17 @@ LABEL_11:
           glpASTNodeGetSaFlags(Rhs);
         }
 
-LABEL_34:
+LABEL_33:
         if (glpDerefNodeGetOffset(Lhs))
         {
           Offset = glpDerefNodeGetOffset(Lhs);
           Swizzle = glpOffsetNodeGetSwizzle(Offset);
           if (glpSwizzleHasDuplicateComponents(Swizzle))
           {
-            InfoLog = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(v2, &v92);
-            v11 = "Destination swizzle may not have duplicate components";
-            goto LABEL_11;
+            v37 = glpCompilerGetInfoLog(a1);
+            *&v38 = glpASTNodeGetLocation(v2, &v89).n128_u64[0];
+            glpLogMessage(v37, 0, &v89, "Destination swizzle may not have duplicate components", v38);
+            return glpSAFailed();
           }
         }
 
@@ -6582,7 +6522,7 @@ LABEL_34:
         {
           if (!*(glpLValueNodeGetVariableExtra(Lhs) + 8) || (VariableExtra = glpLValueNodeGetVariableExtra(Lhs), !glpLayoutObjectFind(*(VariableExtra + 8), 29)))
           {
-LABEL_54:
+LABEL_53:
             if (glpIsBinaryOperatorNode(v2))
             {
               Expr = glpBinaryOperatorNodeGetLhs(v2);
@@ -6592,26 +6532,26 @@ LABEL_54:
             {
               if (!glpIsCommaExprNode(v2))
               {
-                v64 = v2;
-                v63 = 0;
-                goto LABEL_59;
+                v67 = v2;
+                v66 = 0;
+                goto LABEL_58;
               }
 
               ExprCount = glpCommaExprNodeGetExprCount(v2);
               Expr = glpCommaExprNodeGetExpr(v2, ExprCount - 1);
             }
 
-            v63 = glpASTNodeGetSaFlags(Expr) & 0x1F;
-            v64 = v2;
-LABEL_59:
-            glpASTNodeSetSaFlags(v64, v63);
+            v66 = glpASTNodeGetSaFlags(Expr) & 0x1F;
+            v67 = v2;
+LABEL_58:
+            glpASTNodeSetSaFlags(v67, v66);
             return v2;
           }
 
           v42 = glpASTNodeGetSaType(Lhs);
           v43 = glpDerefNodeGetOffset(Lhs);
           OffsetExpr = glpOffsetNodeGetOffsetExpr(v43);
-          v45 = glpHandleGetterSetter(a1, Lhs, v42, OffsetExpr, Rhs, "setter", 0x7663306B00000006, 0);
+          v45 = glpHandleGetterSetter(a1, Lhs, v42, OffsetExpr, Rhs, "setter", 6, 0);
         }
 
         else
@@ -6624,95 +6564,96 @@ LABEL_59:
               NameTable = glpCompilerGetNameTable(a1);
               if (glpNameTableGetGLSLVersion(NameTable) <= 1)
               {
-                InfoLog = glpCompilerGetInfoLog(a1);
-                glpASTNodeGetLocation(v2, &v92);
-                v11 = "'=' disallowed on array types";
-                goto LABEL_11;
+                v48 = glpCompilerGetInfoLog(a1);
+                *&v49 = glpASTNodeGetLocation(v2, &v89).n128_u64[0];
+                glpLogMessage(v48, 0, &v89, "'=' disallowed on array types", v49);
+                return glpSAFailed();
               }
             }
           }
 
-          v92 = 0uLL;
-          v93 = 0;
-          glpASTNodeGetLocation(v2, &v92);
-          v48 = glpCompilerGetAllocator(a1);
-          v90 = v92;
-          v91 = v93;
-          glpMakeCommaExprNode(v48, &v90, 0);
-          v50 = v49;
-          v88 = 0;
-          v89 = 0;
-          glpHandleSideEffectsForExpr(a1, Lhs, &v89, &v88);
-          if (v88)
-          {
-            v51 = glpCompilerGetAllocator(a1);
-            glpCommaExprNodeAddExpr(v51, v50, v88);
-            v88 = 0;
-          }
-
+          v89 = 0uLL;
+          v90 = 0;
+          glpASTNodeGetLocation(v2, &v89);
+          glpCompilerGetAllocator();
+          v87 = v89;
+          v88 = v90;
+          glpMakeCommaExprNode(v50, &v87, 0);
+          v52 = v51;
+          v85 = 0;
           v86 = 0;
-          v87 = 0;
-          glpHandleSideEffectsForExpr(a1, Rhs, &v87, &v86);
-          if (v86)
+          glpHandleSideEffectsForExpr(a1, Lhs, &v86, &v85);
+          if (v85)
           {
-            v52 = glpCompilerGetAllocator(a1);
-            glpCommaExprNodeAddExpr(v52, v50, v86);
-            v86 = 0;
+            glpCompilerGetAllocator();
+            glpCommaExprNodeAddExpr(v53, v52, v85);
+            v85 = 0;
           }
 
-          AccessorCount = glpGetAccessorCount(v89);
+          v83 = 0;
+          v84 = 0;
+          glpHandleSideEffectsForExpr(a1, Rhs, &v84, &v83);
+          if (v83)
+          {
+            glpCompilerGetAllocator();
+            glpCommaExprNodeAddExpr(v54, v52, v83);
+            v83 = 0;
+          }
+
+          AccessorCount = glpGetAccessorCount(v86);
           if (AccessorCount)
           {
-            v54 = AccessorCount;
-            v55 = 0;
+            v56 = AccessorCount;
+            v57 = 0;
             do
             {
-              v56 = glpCompilerGetAllocator(a1);
-              Accessor = glpMakeAccessor(a1, v89, v55);
-              v58 = glpMakeAccessor(a1, v87, v55);
-              v90 = v92;
-              v91 = v93;
-              AssignFragment = glpMakeAssignFragment(a1, &v90, Accessor, v58);
-              glpCommaExprNodeAddExpr(v56, v50, AssignFragment);
-              v55 = (v55 + 1);
+              glpCompilerGetAllocator();
+              v59 = v58;
+              Accessor = glpMakeAccessor(a1, v86, v57);
+              v61 = glpMakeAccessor(a1, v84, v57);
+              v87 = v89;
+              v88 = v90;
+              AssignFragment = glpMakeAssignFragment(a1, &v87, Accessor, v61);
+              glpCommaExprNodeAddExpr(v59, v52, AssignFragment);
+              v57 = (v57 + 1);
             }
 
-            while (v54 != v55);
+            while (v56 != v57);
           }
 
-          v60 = glpCompilerGetAllocator(a1);
-          glpCommaExprNodeAddExpr(v60, v50, v89);
-          v45 = glpSANode(a1, v50);
+          glpCompilerGetAllocator();
+          glpCommaExprNodeAddExpr(v63, v52, v86);
+          v45 = glpSANode(a1, v52);
         }
 
         v2 = v45;
-        goto LABEL_54;
+        goto LABEL_53;
       }
     }
 
     else
     {
-      v21 = glpASTNodeGetSaType(Lhs);
-      if (glpTypeIsAtomic(v21))
+      v24 = glpASTNodeGetSaType(Lhs);
+      if (glpTypeIsAtomic(v24))
       {
-        goto LABEL_34;
+        goto LABEL_33;
       }
 
-      if (v19)
+      if (v22)
       {
-        goto LABEL_34;
+        goto LABEL_33;
       }
 
-      v22 = glpASTNodeGetSaType(Lhs);
-      if (!glpCompilerDoesTypeRequirePrecision(a1, v22))
+      v25 = glpASTNodeGetSaType(Lhs);
+      if (!glpCompilerDoesTypeRequirePrecision(a1, v25))
       {
-        goto LABEL_34;
+        goto LABEL_33;
       }
     }
 
-    v36 = glpASTNodeGetSaFlags(Lhs);
-    glpPushdownPrecision(a1, Rhs, v36);
-    goto LABEL_34;
+    v34 = glpASTNodeGetSaFlags(Lhs);
+    glpPushdownPrecision(a1, Rhs, v34);
+    goto LABEL_33;
   }
 
   return glpSAFailed();
@@ -6731,107 +6672,110 @@ uint64_t glpSAOpAssign(uint64_t a1, uint64_t a2)
       glpPushdownPrecision(a1, Rhs, SaFlags);
     }
 
-    v31 = 0;
+    v34 = 0;
+    v35 = 0;
+    glpHandleSideEffectsForExpr(a1, Lhs, &v35, &v34);
     v32 = 0;
-    glpHandleSideEffectsForExpr(a1, Lhs, &v32, &v31);
-    v29 = 0;
-    v30 = 0;
-    glpHandleSideEffectsForExpr(a1, Rhs, &v30, &v29);
+    v33 = 0;
+    glpHandleSideEffectsForExpr(a1, Rhs, &v33, &v32);
     Desugar = glpOpAssignNodeGetDesugar(a2);
-    Allocator = glpCompilerGetAllocator(a1);
-    Location = glpASTNodeGetLocation(a2, &v28);
-    v11 = Desugar(Allocator, &v28, Location);
-    glpBinaryOperatorNodeSetLhs(v11, v32);
-    glpBinaryOperatorNodeSetRhs(v11, v30);
-    v12 = glpCompilerGetAllocator(a1);
-    glpASTNodeGetLocation(a2, &v28);
-    AssignNode = glpMakeAssignNode(v12, &v28, 0);
-    v14 = glpDuplicateDerefOrConstant(a1, v32);
-    glpBinaryOperatorNodeSetLhs(AssignNode, v14);
-    glpBinaryOperatorNodeSetRhs(AssignNode, v11);
-    if (v29 && glpIsCommaExprNode(v29))
+    glpCompilerGetAllocator();
+    v10 = v9;
+    Location = glpASTNodeGetLocation(a2, &v31);
+    v12 = Desugar(v10, &v31, Location);
+    glpBinaryOperatorNodeSetLhs(v12, v35);
+    glpBinaryOperatorNodeSetRhs(v12, v33);
+    glpCompilerGetAllocator();
+    v14 = v13;
+    glpASTNodeGetLocation(a2, &v31);
+    AssignNode = glpMakeAssignNode(v14, &v31, 0);
+    v16 = glpDuplicateDerefOrConstant(a1, v35);
+    glpBinaryOperatorNodeSetLhs(AssignNode, v16);
+    glpBinaryOperatorNodeSetRhs(AssignNode, v12);
+    if (v32 && glpIsCommaExprNode(v32))
     {
-      v15 = glpCommaExprNodeGetExprCount(v29) - 1;
-      glpCommaExprNodeSetExpr(v29, v15, 0);
-      v16 = v29;
-      glpASTNodeSetSaType(v29, 0);
+      v17 = glpCommaExprNodeGetExprCount(v32) - 1;
+      glpCommaExprNodeSetExpr(v32, v17, 0);
+      v18 = v32;
+      glpASTNodeSetSaType(v32, 0);
     }
 
     else
     {
-      v17 = glpCompilerGetAllocator(a1);
-      glpASTNodeGetLocation(a2, &v28);
-      glpMakeCommaExprNode(v17, &v28, 0);
-      v16 = v18;
-      if (v29)
+      glpCompilerGetAllocator();
+      v20 = v19;
+      glpASTNodeGetLocation(a2, &v31);
+      glpMakeCommaExprNode(v20, &v31, 0);
+      v18 = v21;
+      if (v32)
       {
-        v19 = glpCompilerGetAllocator(a1);
-        glpCommaExprNodeAddExpr(v19, v16, v29);
+        glpCompilerGetAllocator();
+        glpCommaExprNodeAddExpr(v22, v18, v32);
       }
 
-      v15 = -1;
+      v17 = -1;
     }
 
-    if (v31)
+    if (v34)
     {
-      if (glpIsCommaExprNode(v31))
+      if (glpIsCommaExprNode(v34))
       {
-        ExprCount = glpCommaExprNodeGetExprCount(v31);
-        v21 = ExprCount - 1;
+        ExprCount = glpCommaExprNodeGetExprCount(v34);
+        v24 = ExprCount - 1;
         if (ExprCount != 1)
         {
-          v22 = 0;
+          v25 = 0;
           do
           {
-            Expr = glpCommaExprNodeGetExpr(v31, v22);
-            if ((v15 & 0x80000000) != 0)
+            Expr = glpCommaExprNodeGetExpr(v34, v25);
+            if ((v17 & 0x80000000) != 0)
             {
-              v24 = glpCompilerGetAllocator(a1);
-              glpCommaExprNodeAddExpr(v24, v16, Expr);
+              glpCompilerGetAllocator();
+              glpCommaExprNodeAddExpr(v27, v18, Expr);
             }
 
             else
             {
-              glpCommaExprNodeSetExpr(v16, v15, Expr);
-              v15 = -1;
+              glpCommaExprNodeSetExpr(v18, v17, Expr);
+              v17 = -1;
             }
 
-            glpCommaExprNodeSetExpr(v31, v22++, 0);
+            glpCommaExprNodeSetExpr(v34, v25++, 0);
           }
 
-          while (v21 != v22);
+          while (v24 != v25);
         }
 
-        glpASTNodeSetSaType(v16, 0);
+        glpASTNodeSetSaType(v18, 0);
       }
 
-      else if (v31)
+      else if (v34)
       {
-        if ((v15 & 0x80000000) != 0)
+        if ((v17 & 0x80000000) != 0)
         {
-          v26 = glpCompilerGetAllocator(a1);
-          glpCommaExprNodeAddExpr(v26, v16, v31);
+          glpCompilerGetAllocator();
+          glpCommaExprNodeAddExpr(v29, v18, v34);
         }
 
         else
         {
-          glpCommaExprNodeSetExpr(v16, v15, v31);
+          glpCommaExprNodeSetExpr(v18, v17, v34);
         }
 
         goto LABEL_29;
       }
     }
 
-    if ((v15 & 0x80000000) == 0)
+    if ((v17 & 0x80000000) == 0)
     {
-      glpCommaExprNodeSetExpr(v16, v15, AssignNode);
-      return glpSANode(a1, v16);
+      glpCommaExprNodeSetExpr(v18, v17, AssignNode);
+      return glpSANode(a1, v18);
     }
 
 LABEL_29:
-    v27 = glpCompilerGetAllocator(a1);
-    glpCommaExprNodeAddExpr(v27, v16, AssignNode);
-    return glpSANode(a1, v16);
+    glpCompilerGetAllocator();
+    glpCommaExprNodeAddExpr(v30, v18, AssignNode);
+    return glpSANode(a1, v18);
   }
 
   return glpSAFailed();
@@ -6901,12 +6845,12 @@ LABEL_8:
                 if (!DefaultPrecisionForType)
                 {
                   v22 = glpASTNodeGetSaType(v14);
-                  Allocator = glpCompilerGetAllocator(a1);
-                  glpTypeHumanReadableDescription(v22, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, Allocator);
-                  v25 = v24;
+                  glpCompilerGetAllocator();
+                  v24 = glpTypeHumanReadableDescription(v22, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v23);
+                  v26 = v25;
                   InfoLog = glpCompilerGetInfoLog(a1);
-                  glpASTNodeGetLocation(v2, &v31);
-                  glpLogMessage(InfoLog, 0, &v31, "Expression of type '%.*s' - precision can not be inferred and no default precision available", v27, v28, v29, v30, v25);
+                  glpASTNodeGetLocation(v2, &v28);
+                  glpLogMessage(InfoLog, 0, &v28, "Expression of type '%.*s' - precision can not be inferred and no default precision available", v26, v24);
                   return glpSAFailed();
                 }
 
@@ -6941,75 +6885,75 @@ uint64_t glpSAParameterDeclaration(uint64_t a1, uint64_t a2)
   {
     glpParameterDeclarationNodeSetType(a2, v5);
     v6 = glpParameterDeclarationNodeGetType(a2);
-    v31 = 0;
-    v32 = 0;
-    v29 = 0;
-    v30 = 0;
-    glpASTNodeGetLocation(a2, &v28);
-    if (glpEvaluateTypeNode(a1, &v28, 5, 1, v6, 0, &v32, &v31, &v30, &v29))
+    v24 = 0;
+    v25 = 0;
+    v22 = 0;
+    v23 = 0;
+    glpASTNodeGetLocation(a2, &v21);
+    if (glpEvaluateTypeNode(a1, &v21, 5, 1, v6, 0, &v25, &v24, &v23, &v22))
     {
-      if (glpCompilerUsingStyleGuide(a1) && !glpTypeIsAtomic(v32))
+      if (glpCompilerUsingStyleGuide(a1) && !glpTypeIsAtomic(v25))
       {
         InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(a2, &v28);
-        glpLogMessage(InfoLog, 2u, &v28, "Passing large objects to functions may result in significant unnecessary copying", v8, v9, v10, v11, v27);
+        *&v8 = glpASTNodeGetLocation(a2, &v21).n128_u64[0];
+        glpLogMessage(InfoLog, 2, &v21, "Passing large objects to functions may result in significant unnecessary copying", v8);
       }
 
       Name = glpParameterDeclarationNodeGetName(a2);
-      v14 = glpCheckName(a1, a2, Name, v13);
-      if (v14 != -1)
+      v11 = glpCheckName(a1, a2, Name, v10);
+      if (v11 != -1)
       {
-        v15 = v14;
-        if (glpTypeGetKind(v32) != 2 || glpArrayTypeGetElementCount(v32) != -1)
+        v12 = v11;
+        if (glpTypeGetKind(v25) != 2 || glpArrayTypeGetElementCount(v25) != -1)
         {
           SaType = glpASTNodeGetSaType(v6);
-          glpASTNodeSetSaType(v15, SaType);
-          if (v30)
+          glpASTNodeSetSaType(v12, SaType);
+          if (v23)
           {
-            v17 = *v30;
-            if (*v30)
+            v14 = *v23;
+            if (*v23)
             {
-              v18 = v31;
+              v15 = v24;
               while (1)
               {
-                v19 = *(v17 + 2);
-                v17 = *v17;
-                if (v19 == 99)
+                v16 = *(v14 + 2);
+                v14 = *v14;
+                if (v16 == 99)
                 {
                   break;
                 }
 
-                if (v19 == 98)
+                if (v16 == 98)
                 {
-                  v18 |= 0x800100uLL;
+                  v15 |= 0x800100uLL;
 LABEL_16:
-                  v31 = v18;
+                  v24 = v15;
                 }
 
-                if (!v17)
+                if (!v14)
                 {
                   goto LABEL_18;
                 }
               }
 
-              v18 |= 0x1000000uLL;
+              v15 |= 0x1000000uLL;
               goto LABEL_16;
             }
 
 LABEL_18:
-            Allocator = glpCompilerGetAllocator(a1);
-            glpDestroyLayoutObject(Allocator, v30);
-            v30 = 0;
+            glpCompilerGetAllocator();
+            glpDestroyLayoutObject(v17, v23);
+            v23 = 0;
           }
 
-          glpASTNodeSetSaFlags(v15, v31 | 0x400000);
-          glpParameterDeclarationNodeSetType(v15, 0);
-          return v15;
+          glpASTNodeSetSaFlags(v12, v24 | 0x400000);
+          glpParameterDeclarationNodeSetType(v12, 0);
+          return v12;
         }
 
-        v22 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v15, &v28);
-        glpLogMessage(v22, 0, &v28, "Unsized arrays are not allowed as parameter or return types.", v23, v24, v25, v26, v27);
+        v19 = glpCompilerGetInfoLog(a1);
+        *&v20 = glpASTNodeGetLocation(v12, &v21).n128_u64[0];
+        glpLogMessage(v19, 0, &v21, "Unsized arrays are not allowed as parameter or return types.", v20);
       }
     }
 
@@ -7019,9 +6963,9 @@ LABEL_18:
   return glpSAFailed();
 }
 
-uint64_t glpSAFunctionPrototype(void *a1, uint64_t a2)
+unsigned int *glpSAFunctionPrototype(void *a1, uint64_t a2)
 {
-  v237[1] = *MEMORY[0x277D85DE8];
+  v183[1] = *MEMORY[0x277D85DE8];
   if (glpFunctionPrototypeNodeGetParameterCount(a2) == 1)
   {
     Parameter = glpFunctionPrototypeNodeGetParameter(a2, 0);
@@ -7088,516 +7032,505 @@ uint64_t glpSAFunctionPrototype(void *a1, uint64_t a2)
     if (!glpIsTopLevelNode(ImmediateSAContext) && !glpIsFunctionDefinitionNode(ImmediateSAContext))
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(a2, &v231);
-      glpLogMessage(InfoLog, 0, &v231, "Prototype for function '%.*s' must occur at the top level", v30, v31, v32, v33, v16);
-      goto LABEL_31;
+      glpASTNodeGetLocation(a2, &v177);
+      glpLogMessage(InfoLog, 0, &v177, "Prototype for function '%.*s' must occur at the top level", v16, Name);
+      return glpSAFailed();
     }
 
     v18 = glpFunctionPrototypeNodeGetReturnType(a2);
-    v236 = 0;
-    v237[0] = 0;
-    v234 = 0;
-    v235 = 0;
-    glpASTNodeGetLocation(a2, &v231);
-    if (!glpEvaluateTypeNode(a1, &v231, 4, 1, v18, 0, v237, &v236, &v235, &v234))
+    v182 = 0;
+    v183[0] = 0;
+    v180 = 0;
+    v181 = 0;
+    glpASTNodeGetLocation(a2, &v177);
+    if (!glpEvaluateTypeNode(a1, &v177, 4, 1, v18, 0, v183, &v182, &v181, &v180))
     {
-      goto LABEL_31;
+      return glpSAFailed();
     }
 
     v19 = glpCheckName(a1, a2, Name, v16);
     if (v19 == -1)
     {
-      goto LABEL_31;
+      return glpSAFailed();
     }
 
     v20 = v19;
     if (glpStringsEqual("main", 0x83863A00000004uLL, Name, v16))
     {
-      if (glpTypeGetKind(v237[0]) || glpPrimitiveTypeGetPrimitiveType(v237[0]))
+      if (glpTypeGetKind(v183[0]) || glpPrimitiveTypeGetPrimitiveType(v183[0]))
       {
         v21 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v20, &v231);
-        v26 = "main() must return void";
-LABEL_26:
-        glpLogMessage(v21, 0, &v231, v26, v22, v23, v24, v25, v205[0]);
-LABEL_31:
-        SubroutineType = glpSAFailed();
-LABEL_32:
-        v35 = *MEMORY[0x277D85DE8];
-        return SubroutineType;
+        *&v22 = glpASTNodeGetLocation(v20, &v177).n128_u64[0];
+        glpLogMessage(v21, 0, &v177, "main() must return void", v22);
+        return glpSAFailed();
       }
 
       if (glpFunctionPrototypeNodeGetParameterCount(v20))
       {
-        v21 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v20, &v231);
-        v26 = "main() may not take any arguments";
-        goto LABEL_26;
+        v26 = glpCompilerGetInfoLog(a1);
+        *&v27 = glpASTNodeGetLocation(v20, &v177).n128_u64[0];
+        glpLogMessage(v26, 0, &v177, "main() may not take any arguments", v27);
+        return glpSAFailed();
       }
     }
 
     ParameterCount = glpFunctionPrototypeNodeGetParameterCount(v20);
-    v205[1] = v205;
+    v151[1] = v151;
     MEMORY[0x28223BE20](ParameterCount);
-    v38 = v205 - v37;
-    bzero(v205 - v37, v39);
-    v40 = glpFunctionPrototypeNodeGetParameterCount(v20);
-    MEMORY[0x28223BE20](v40);
-    v42 = v205 - v41;
-    bzero(v205 - v41, v43);
-    v44 = glpFunctionPrototypeNodeGetParameterCount(v20);
-    MEMORY[0x28223BE20](v44);
-    v46 = v205 - v45;
-    bzero(v205 - v45, v47);
+    v30 = v151 - v29;
+    bzero(v151 - v29, v31);
+    v32 = glpFunctionPrototypeNodeGetParameterCount(v20);
+    MEMORY[0x28223BE20](v32);
+    v34 = v151 - v33;
+    bzero(v151 - v33, v35);
+    v36 = glpFunctionPrototypeNodeGetParameterCount(v20);
+    MEMORY[0x28223BE20](v36);
+    v38 = v151 - v37;
+    bzero(v151 - v37, v39);
     if (glpFunctionPrototypeNodeGetParameterCount(v20))
     {
-      v48 = 0;
+      v40 = 0;
       do
       {
-        v49 = glpFunctionPrototypeNodeGetParameter(v20, v48);
-        *&v38[8 * v48] = glpASTNodeGetSaFlags(v49);
-        *&v42[8 * v48] = glpASTNodeGetSaType(v49);
-        *&v46[8 * v48++] = 0;
+        v41 = glpFunctionPrototypeNodeGetParameter(v20, v40);
+        *&v30[8 * v40] = glpASTNodeGetSaFlags(v41);
+        *&v34[8 * v40] = glpASTNodeGetSaType(v41);
+        *&v38[8 * v40++] = 0;
       }
 
-      while (v48 < glpFunctionPrototypeNodeGetParameterCount(v20));
+      while (v40 < glpFunctionPrototypeNodeGetParameterCount(v20));
     }
 
-    Allocator = glpCompilerGetAllocator(a1);
-    v51 = v237[0];
-    v52 = glpFunctionPrototypeNodeGetParameterCount(v20);
-    FunctionType = glpMakeFunctionType(Allocator, v51, v52, v42, v38, v46);
+    glpCompilerGetAllocator();
+    v43 = v42;
+    v44 = v183[0];
+    v45 = glpFunctionPrototypeNodeGetParameterCount(v20);
+    FunctionType = glpMakeFunctionType(v43, v44, v45, v34, v30, v38);
     glpASTNodeSetSaType(v20, FunctionType);
-    v54 = v236;
-    v207 = v20;
-    if (v235)
+    v47 = v182;
+    v153 = v20;
+    if (v181)
     {
-      v55 = *v235;
-      if (*v235)
+      v48 = *v181;
+      if (*v181)
       {
-        v56 = 0;
+        v49 = 0;
         do
         {
-          v57 = *(v55 + 2);
-          if (v57 > 93)
+          v50 = *(v48 + 2);
+          if (v50 > 93)
           {
-            v58 = v54 | 0x20000;
-            v59 = v54 | 0x40000;
-            if (v57 != 97)
+            v51 = v47 | 0x20000;
+            v52 = v47 | 0x40000;
+            if (v50 != 97)
             {
-              v59 = v54;
+              v52 = v47;
             }
 
-            if (v57 != 96)
+            if (v50 != 96)
             {
-              v58 = v59;
+              v51 = v52;
             }
 
-            v60 = v54 | 0x8000;
-            v61 = v54 | 0x10000;
-            if (v57 != 95)
+            v53 = v47 | 0x8000;
+            v54 = v47 | 0x10000;
+            if (v50 != 95)
             {
-              v61 = v54;
+              v54 = v47;
             }
 
-            if (v57 != 94)
+            if (v50 != 94)
             {
-              v60 = v61;
+              v53 = v54;
             }
 
-            if (v57 <= 95)
+            if (v50 <= 95)
             {
-              v54 = v60;
+              v47 = v53;
             }
 
             else
             {
-              v54 = v58;
+              v47 = v51;
             }
           }
 
-          else if (v57 > 91)
+          else if (v50 > 91)
           {
-            v62 = v54 | 0x800;
-            if (v57 != 93)
+            v55 = v47 | 0x800;
+            if (v50 != 93)
             {
-              v62 = v54;
+              v55 = v47;
             }
 
-            if (v57 == 92)
+            if (v50 == 92)
             {
-              v54 |= 0x1000uLL;
+              v47 |= 0x1000uLL;
             }
 
             else
             {
-              v54 = v62;
+              v47 = v55;
             }
           }
 
-          else if (v57 == 32)
+          else if (v50 == 32)
           {
-            v54 |= 0x4000uLL;
-            v56 = *(v55 + 4);
+            v47 |= 0x4000uLL;
+            v49 = *(v48 + 4);
           }
 
-          else if (v57 == 91)
+          else if (v50 == 91)
           {
-            v54 |= 0x2000uLL;
+            v47 |= 0x2000uLL;
           }
 
-          v55 = *v55;
+          v48 = *v48;
         }
 
-        while (v55);
+        while (v48);
       }
 
       else
       {
-        v56 = 0;
+        v49 = 0;
       }
 
-      v63 = glpCompilerGetAllocator(a1);
-      glpDestroyLayoutObject(v63, v235);
-      v235 = 0;
+      glpCompilerGetAllocator();
+      glpDestroyLayoutObject(v56, v181);
+      v181 = 0;
     }
 
     else
     {
-      v56 = 0;
+      v49 = 0;
     }
 
     NameTable = glpCompilerGetNameTable(a1);
-    v65 = glpCompilerGetAllocator(a1);
-    v66 = glpAggregateTypeMangleName(FunctionType, Name, v16, v65);
-    v68 = v67;
-    v69 = glpCompilerGetAllocator(a1);
-    v206 = FunctionType;
-    glpMakeFunctionObject(v69, FunctionType, v54, Name, v16, v66, v68);
-    FunctionObject = v70;
-    *(v70 + 92) = v56;
-    if (v234)
+    glpCompilerGetAllocator();
+    v59 = glpAggregateTypeMangleName(FunctionType, Name, v16, v58);
+    v61 = v60;
+    glpCompilerGetAllocator();
+    v152 = FunctionType;
+    glpMakeFunctionObject(v62, FunctionType, v47, Name, v16, v59, v61);
+    FunctionObject = v63;
+    *(v63 + 92) = v49;
+    if (v180)
     {
-      v72 = (v54 & 0x180000) != 0;
+      v65 = (v47 & 0x180000) != 0;
     }
 
     else
     {
-      v72 = 0;
+      v65 = 0;
     }
 
-    if ((v54 & 0x180000) != 0 && !v234)
+    if ((v47 & 0x180000) != 0 && !v180)
     {
-      *(v70 + 8) &= ~0x100000uLL;
-      SubroutineType = glpCompilerGetSubroutineType(a1, *(v70 + 24), *(v70 + 32), v70);
-      v231.n128_u64[0] = 0;
-      v231.n128_u64[1] = &v231;
-      v232 = 0x2000000000;
-      v233 = 0;
-      v227 = 0;
-      v228 = &v227;
-      v229 = 0x2000000000;
-      v230 = 0;
-      v226[0] = MEMORY[0x277D85DD0];
-      v226[1] = 0x40000000;
-      v226[2] = __glpSAFunctionPrototype_block_invoke;
-      v226[3] = &unk_278B4C428;
-      v226[4] = &v231;
-      v226[5] = &v227;
-      glpNameTableGet(NameTable, *(FunctionObject + 24), *(FunctionObject + 32), 2, v226);
-      v73 = v228[3];
-      if (v73)
+      *(v63 + 8) &= ~0x100000uLL;
+      SubroutineType = glpCompilerGetSubroutineType(a1, *(v63 + 24), *(v63 + 32), v63);
+      v177.n128_u64[0] = 0;
+      v177.n128_u64[1] = &v177;
+      v178 = 0x2000000000;
+      v179 = 0;
+      v173 = 0;
+      v174 = &v173;
+      v175 = 0x2000000000;
+      v176 = 0;
+      v172[0] = MEMORY[0x277D85DD0];
+      v172[1] = 0x40000000;
+      v172[2] = __glpSAFunctionPrototype_block_invoke;
+      v172[3] = &unk_278B4C428;
+      v172[4] = &v177;
+      v172[5] = &v173;
+      glpNameTableGet(NameTable, *(FunctionObject + 24), *(FunctionObject + 32), 2, v172);
+      v66 = v174[3];
+      if (v66)
       {
-        v74 = v207;
-        if (*(v231.n128_u64[1] + 24) == 8)
+        v67 = v153;
+        if (*(v177.n128_u64[1] + 24) == 8)
         {
-          if (glpTypesEqual(SubroutineType, v73))
+          if (glpTypesEqual(SubroutineType, v66))
           {
-            SubroutineType = v228[3];
-LABEL_92:
+            SubroutineType = v174[3];
+LABEL_91:
             FunctionObject = glpSubroutineTypeGetFunctionObject(SubroutineType);
-            v206 = *FunctionObject;
-            v88 = 1;
-            goto LABEL_97;
+            v152 = *FunctionObject;
+            v77 = 1;
+            goto LABEL_96;
           }
 
-          v99 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v74, &v223);
-          v203 = *(FunctionObject + 24);
-          glpLogMessage(v99, 0, &v223, "Redeclaration of subroutine type '%.*s' does not match previous declaration", v100, v101, v102, v103, *(FunctionObject + 32));
+          v82 = glpCompilerGetInfoLog(a1);
+          *&v83 = glpASTNodeGetLocation(v67, &v169).n128_u64[0];
+          glpLogMessage(v82, 0, &v169, "Redeclaration of subroutine type '%.*s' does not match previous declaration", v83);
         }
 
         else
         {
-          v89 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v74, &v223);
-          v202 = *(FunctionObject + 24);
-          glpLogMessage(v89, 0, &v223, "subroutine type '%.*s' previously declared as another kind of object", v90, v91, v92, v93, *(FunctionObject + 32));
+          v78 = glpCompilerGetInfoLog(a1);
+          *&v79 = glpASTNodeGetLocation(v67, &v169).n128_u64[0];
+          glpLogMessage(v78, 0, &v169, "subroutine type '%.*s' previously declared as another kind of object", v79);
         }
 
         SubroutineType = glpSAFailed();
-        v88 = 0;
-LABEL_97:
-        _Block_object_dispose(&v227, 8);
-        _Block_object_dispose(&v231, 8);
-        if ((v88 & 1) == 0)
+        v77 = 0;
+LABEL_96:
+        _Block_object_dispose(&v173, 8);
+        _Block_object_dispose(&v177, 8);
+        if ((v77 & 1) == 0)
         {
-          goto LABEL_32;
+          return SubroutineType;
         }
 
-        goto LABEL_137;
+        goto LABEL_136;
       }
 
       glpNameTablePut(NameTable, Name, v16, 8, SubroutineType);
-      goto LABEL_92;
+      goto LABEL_91;
     }
 
-    v75 = glpCompilerGetImmediateSAContext(a1);
-    IsFunctionDefinitionNode = glpIsFunctionDefinitionNode(v75);
-    if (!IsFunctionDefinitionNode && v72)
+    v68 = glpCompilerGetImmediateSAContext(a1);
+    IsFunctionDefinitionNode = glpIsFunctionDefinitionNode(v68);
+    if (!IsFunctionDefinitionNode && v65)
     {
-      v78 = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v207, &v231);
-      glpLogMessage(v78, 0, &v231, "Subroutine type declaration '%.*s' may not include a list of compatible subroutine types", v79, v80, v81, v82, v16);
-      goto LABEL_158;
+      v71 = glpCompilerGetInfoLog(a1);
+      glpASTNodeGetLocation(v153, &v177);
+      glpLogMessage(v71, 0, &v177, "Subroutine type declaration '%.*s' may not include a list of compatible subroutine types", v16, Name);
+      return glpSAFailed();
     }
 
     SubroutineType = IsFunctionDefinitionNode;
     *(FunctionObject + 8) &= ~0x80000uLL;
-    *(FunctionObject + 56) = v234;
-    v231.n128_u64[0] = 0;
-    v231.n128_u64[1] = &v231;
-    v232 = 0x2000000000;
-    v233 = 0;
-    v227 = 0;
-    v228 = &v227;
-    v229 = 0x2000000000;
-    v230 = 0;
-    v223.n128_u64[0] = 0;
-    v223.n128_u64[1] = &v223;
-    v224 = 0x2000000000;
-    v225 = 0;
-    v222[0] = MEMORY[0x277D85DD0];
-    v222[1] = 0x40000000;
-    v222[2] = __glpSAFunctionPrototype_block_invoke_2;
-    v222[3] = &unk_278B4C450;
-    v222[4] = &v231;
-    v222[5] = &v227;
-    v222[6] = &v223;
-    v222[7] = NameTable;
-    glpNameTableGet(NameTable, Name, v16, 0, v222);
-    v218 = 0;
-    v219 = &v218;
-    v220 = 0x2000000000;
-    v221 = 0;
-    v214 = 0;
-    v215 = &v214;
-    v216 = 0x2000000000;
-    v217 = 0;
-    v213[0] = MEMORY[0x277D85DD0];
-    v213[1] = 0x40000000;
-    v213[2] = __glpSAFunctionPrototype_block_invoke_3;
-    v213[3] = &unk_278B4C478;
-    v213[4] = &v218;
-    v213[5] = &v214;
-    glpNameTableGet(NameTable, v66, v68, 0, v213);
-    v83 = v228[3];
-    if (!v83)
+    *(FunctionObject + 56) = v180;
+    v177.n128_u64[0] = 0;
+    v177.n128_u64[1] = &v177;
+    v178 = 0x2000000000;
+    v179 = 0;
+    v173 = 0;
+    v174 = &v173;
+    v175 = 0x2000000000;
+    v176 = 0;
+    v169.n128_u64[0] = 0;
+    v169.n128_u64[1] = &v169;
+    v170 = 0x2000000000;
+    v171 = 0;
+    v168[0] = MEMORY[0x277D85DD0];
+    v168[1] = 0x40000000;
+    v168[2] = __glpSAFunctionPrototype_block_invoke_2;
+    v168[3] = &unk_278B4C450;
+    v168[4] = &v177;
+    v168[5] = &v173;
+    v168[6] = &v169;
+    v168[7] = NameTable;
+    glpNameTableGet(NameTable, Name, v16, 0, v168);
+    v164 = 0;
+    v165 = &v164;
+    v166 = 0x2000000000;
+    v167 = 0;
+    v160 = 0;
+    v161 = &v160;
+    v162 = 0x2000000000;
+    v163 = 0;
+    v159[0] = MEMORY[0x277D85DD0];
+    v159[1] = 0x40000000;
+    v159[2] = __glpSAFunctionPrototype_block_invoke_3;
+    v159[3] = &unk_278B4C478;
+    v159[4] = &v164;
+    v159[5] = &v160;
+    glpNameTableGet(NameTable, v59, v61, 0, v159);
+    v72 = v174[3];
+    if (!v72)
     {
-      goto LABEL_114;
+      goto LABEL_113;
     }
 
-    if (*(v231.n128_u64[1] + 24) != 4)
+    if (*(v177.n128_u64[1] + 24) != 4)
     {
-      v94 = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v207, &v210);
-      glpLogMessage(v94, 0, &v210, "Function '%.*s' previously declared as non-function", v95, v96, v97, v98, v16);
-      goto LABEL_134;
+      v80 = glpCompilerGetInfoLog(a1);
+      *&v81 = glpASTNodeGetLocation(v153, &v156).n128_u64[0];
+      glpLogMessage(v80, 0, &v156, "Function '%.*s' previously declared as non-function", v81);
+      goto LABEL_133;
     }
 
-    if (!v83[1])
+    if (!v72[1])
     {
-      v205[0] = *v83;
-      v84 = glpCompilerGetAllocator(a1);
-      v85 = glpAggregateTypeMangleName(v205[0], Name, v16, v84);
-      v210.n128_u64[0] = 0;
-      v210.n128_u64[1] = &v210;
-      v211 = 0x2000000000;
-      v212 = 0;
-      v209[0] = MEMORY[0x277D85DD0];
-      v209[1] = 0x40000000;
-      v209[2] = __glpSAFunctionPrototype_block_invoke_4;
-      v209[3] = &unk_278B4C4A0;
-      v209[4] = &v210;
-      glpNameTableGet(NameTable, v85, v86, 0, v209);
-      if ((*(*(v210.n128_u64[1] + 24) + 10) & 0x20) != 0)
+      v151[0] = *v72;
+      glpCompilerGetAllocator();
+      v74 = glpAggregateTypeMangleName(v151[0], Name, v16, v73);
+      v156.n128_u64[0] = 0;
+      v156.n128_u64[1] = &v156;
+      v157 = 0x2000000000;
+      v158 = 0;
+      v155[0] = MEMORY[0x277D85DD0];
+      v155[1] = 0x40000000;
+      v155[2] = __glpSAFunctionPrototype_block_invoke_4;
+      v155[3] = &unk_278B4C4A0;
+      v155[4] = &v156;
+      glpNameTableGet(NameTable, v74, v75, 0, v155);
+      if ((*(*(v156.n128_u64[1] + 24) + 10) & 0x20) != 0)
       {
-        v111 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v207, &v208);
-        glpLogMessage(v111, 0, &v208, "Function '%.*s' previously declared as subroutine implementation", v112, v113, v114, v115, v16);
+        v88 = glpCompilerGetInfoLog(a1);
+        glpASTNodeGetLocation(v153, &v154);
+        glpLogMessage(v88, 0, &v154, "Function '%.*s' previously declared as subroutine implementation", v16, Name);
         SubroutineType = glpSAFailed();
-        _Block_object_dispose(&v210, 8);
+        _Block_object_dispose(&v156, 8);
+LABEL_134:
+        v103 = 0;
 LABEL_135:
-        v142 = 0;
+        _Block_object_dispose(&v160, 8);
+        _Block_object_dispose(&v164, 8);
+        _Block_object_dispose(&v169, 8);
+        _Block_object_dispose(&v173, 8);
+        _Block_object_dispose(&v177, 8);
+        if (!v103)
+        {
+          return SubroutineType;
+        }
+
 LABEL_136:
-        _Block_object_dispose(&v214, 8);
-        _Block_object_dispose(&v218, 8);
-        _Block_object_dispose(&v223, 8);
-        _Block_object_dispose(&v227, 8);
-        _Block_object_dispose(&v231, 8);
-        if (!v142)
+        v108 = v153;
+        glpFunctionPrototypeNodeSetExtra(v153, FunctionObject);
+        v183[0] = glpFunctionTypeGetReturnType(v152);
+        if (*(FunctionObject + 112) && ((v182 ^ *(*(FunctionObject + 72) + 48)) & 0x8000000001FLL) != 0)
         {
-          goto LABEL_32;
+          v109 = glpCompilerGetInfoLog(a1);
+          glpASTNodeGetLocation(v108, &v177);
+          glpLogMessage(v109, 0, &v177, "Qualification of return type in redeclared function '%.*s' differs from previous declaration", v16, Name);
         }
 
-LABEL_137:
-        v150 = v207;
-        glpFunctionPrototypeNodeSetExtra(v207, FunctionObject);
-        v237[0] = glpFunctionTypeGetReturnType(v206);
-        if (*(FunctionObject + 112) && ((v236 ^ *(*(FunctionObject + 72) + 48)) & 0x8000000001FLL) != 0)
+        Extra = glpFunctionPrototypeNodeGetExtra(v108);
+        v111 = glpFunctionPrototypeNodeGetReturnOutParam(v108);
+        v152 = Extra;
+        if (v111)
         {
-          v151 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v150, &v231);
-          glpLogMessage(v151, 0, &v231, "Qualification of return type in redeclared function '%.*s' differs from previous declaration", v152, v153, v154, v155, v16);
-        }
-
-        Extra = glpFunctionPrototypeNodeGetExtra(v150);
-        v157 = glpFunctionPrototypeNodeGetReturnOutParam(v150);
-        v206 = Extra;
-        if (v157)
-        {
-          v158 = v157;
-          v159 = *(Extra + 72);
-          if (!v159)
+          v112 = v111;
+          v113 = *(Extra + 9);
+          if (!v113)
           {
-            v160 = glpCompilerGetAllocator(a1);
-            StringBuffer = glpMakeStringBuffer(v160);
+            glpCompilerGetAllocator();
+            StringBuffer = glpMakeStringBuffer(v114);
             glpStringBufferAppendCString(StringBuffer, "<Compiler Temporary ");
-            v162 = glpParameterDeclarationNodeGetName(v158);
-            glpStringBufferAppendString(StringBuffer, v162, v163);
+            v116 = glpParameterDeclarationNodeGetName(v112);
+            glpStringBufferAppendString(StringBuffer, v116, v117);
             glpStringBufferAppendCString(StringBuffer, ">");
-            v164 = glpCompilerGetAllocator(a1);
-            v165 = v237[0];
-            SaFlags = glpASTNodeGetSaFlags(v158);
-            v167 = glpParameterDeclarationNodeGetName(v158);
-            v169 = v168;
+            glpCompilerGetAllocator();
+            v119 = v118;
+            v120 = v183[0];
+            SaFlags = glpASTNodeGetSaFlags(v112);
+            v122 = glpParameterDeclarationNodeGetName(v112);
+            v124 = v123;
             String = glpStringBufferGetString(StringBuffer);
-            v171 = v169;
-            Extra = v206;
-            glpMakeVariableObject(v164, v165, 0, SaFlags, v167, v171, String, v172, 0, 0, 0);
-            v159 = v173;
-            *(Extra + 72) = v173;
+            v126 = v124;
+            Extra = v152;
+            glpMakeVariableObject(v119, v120, 0, SaFlags, v122, v126, String, v127, 0, 0, 0);
+            v113 = v128;
+            *(Extra + 9) = v128;
           }
 
-          glpParameterDeclarationNodeSetExtra(v158, v159);
+          glpParameterDeclarationNodeSetExtra(v112, v113);
         }
 
-        v174 = *(Extra + 80);
-        if (!v174)
+        v129 = *(Extra + 10);
+        if (!v129)
         {
-          glpFunctionPrototypeNodeGetParameterCount(v150);
-          *(Extra + 80) = glpCompilerPoolAlloc(a1);
-          *(Extra + 88) = glpFunctionPrototypeNodeGetParameterCount(v150);
+          glpFunctionPrototypeNodeGetParameterCount(v108);
+          *(Extra + 10) = glpCompilerPoolAlloc(a1);
+          Extra[22] = glpFunctionPrototypeNodeGetParameterCount(v108);
         }
 
-        if (glpFunctionPrototypeNodeGetParameterCount(v150))
+        if (glpFunctionPrototypeNodeGetParameterCount(v108))
         {
-          v175 = 0;
+          v130 = 0;
           do
           {
-            v176 = glpFunctionPrototypeNodeGetParameter(v150, v175);
-            v177 = v176;
-            if (!v174)
+            v131 = glpFunctionPrototypeNodeGetParameter(v108, v130);
+            v132 = v131;
+            if (!v129)
             {
-              SaType = glpASTNodeGetSaType(v176);
-              v179 = glpCompilerGetAllocator(a1);
-              v180 = glpASTNodeGetSaFlags(v177);
-              v181 = glpParameterDeclarationNodeGetName(v177);
-              v183 = v182;
-              v184 = glpParameterDeclarationNodeGetName(v177);
-              v186 = v185;
-              v187 = SaType;
-              v188 = v183;
-              Extra = v206;
-              v150 = v207;
-              glpMakeVariableObject(v179, v187, 0, v180, v181, v188, v184, v186, 0, 0, 0);
-              *(*(Extra + 80) + 8 * v175) = v189;
+              SaType = glpASTNodeGetSaType(v131);
+              glpCompilerGetAllocator();
+              v135 = v134;
+              v136 = glpASTNodeGetSaFlags(v132);
+              v137 = glpParameterDeclarationNodeGetName(v132);
+              v139 = v138;
+              v140 = glpParameterDeclarationNodeGetName(v132);
+              v142 = v141;
+              v143 = SaType;
+              v144 = v139;
+              Extra = v152;
+              v108 = v153;
+              glpMakeVariableObject(v135, v143, 0, v136, v137, v144, v140, v142, 0, 0, 0);
+              *(*(Extra + 10) + 8 * v130) = v145;
             }
 
-            glpParameterDeclarationNodeSetExtra(v177, *(*(Extra + 80) + 8 * v175++));
+            glpParameterDeclarationNodeSetExtra(v132, *(*(Extra + 10) + 8 * v130++));
           }
 
-          while (v175 < glpFunctionPrototypeNodeGetParameterCount(v150));
+          while (v130 < glpFunctionPrototypeNodeGetParameterCount(v108));
         }
 
-        v190 = *(Extra + 88);
-        v191 = *(Extra + 8);
-        if (!v190)
+        v146 = Extra[22];
+        v147 = *(Extra + 1);
+        if (!v146)
         {
-LABEL_156:
-          SubroutineType = v207;
-          glpASTNodeSetSaFlags(v207, v191);
+LABEL_155:
+          SubroutineType = v153;
+          glpASTNodeSetSaFlags(v153, v147);
           glpFunctionPrototypeNodeSetReturnType(SubroutineType, 0);
-          goto LABEL_32;
+          return SubroutineType;
         }
 
-        v192 = 0;
-        v193 = 8 * v190;
-        while ((v191 & 0x3800) == 0 || (*(*(*(Extra + 80) + v192) + 48) & 0x4800200) != 0)
+        v148 = 0;
+        v149 = 8 * v146;
+        while ((v147 & 0x3800) == 0 || (*(*(*(Extra + 10) + v148) + 48) & 0x4800200) != 0)
         {
-          v192 += 8;
-          if (v193 == v192)
+          v148 += 8;
+          if (v149 == v148)
           {
-            goto LABEL_156;
+            goto LABEL_155;
           }
         }
 
-        v194 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v207, &v231);
-        v195 = *(*(Extra + 80) + v192);
-        v201 = *(v195 + 40);
-        v204 = *(v195 + 32);
-        v200 = *(Extra + 24);
-        glpLogMessage(v194, 0, &v231, "Inline function '%.*s' argument '%.*s' not foldable/out", v196, v197, v198, v199, *(Extra + 32));
-LABEL_158:
-        SubroutineType = glpSAFailed();
-        goto LABEL_32;
+        v150 = glpCompilerGetInfoLog(a1);
+        glpASTNodeGetLocation(v153, &v177);
+        glpLogMessage(v150, 0, &v177, "Inline function '%.*s' argument '%.*s' not foldable/out", Extra[8], *(Extra + 3), *(*(*(Extra + 10) + v148) + 40), *(*(*(Extra + 10) + v148) + 32));
+        return glpSAFailed();
       }
 
-      _Block_object_dispose(&v210, 8);
+      _Block_object_dispose(&v156, 8);
     }
 
-    v87 = *(v223.n128_u64[1] + 24);
-    if (v72)
+    v76 = *(v169.n128_u64[1] + 24);
+    if (v65)
     {
-      if (v87 != 3)
+      if (v76 != 3)
       {
-LABEL_126:
-        v136 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v207, &v210);
-        glpLogMessage(v136, 0, &v210, "Subroutine implementation '%.*s' previously declared as function", v137, v138, v139, v140, v16);
-        goto LABEL_134;
+LABEL_125:
+        v100 = glpCompilerGetInfoLog(a1);
+        *&v101 = glpASTNodeGetLocation(v153, &v156).n128_u64[0];
+        glpLogMessage(v100, 0, &v156, "Subroutine implementation '%.*s' previously declared as function", v101);
+        goto LABEL_133;
       }
     }
 
-    else if (v87 != 3)
+    else if (v76 != 3)
     {
       if (SubroutineType)
       {
-        v105 = v219[3];
-        if (v105)
+        v85 = v165[3];
+        if (v85)
         {
-          if (*(v105 + 64))
+          if (*(v85 + 64))
           {
-            v106 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(v207, &v210);
-            glpLogMessage(v106, 0, &v210, "Function '%.*s' redefines an existing function", v107, v108, v109, v110, v16);
-            goto LABEL_134;
+            v86 = glpCompilerGetInfoLog(a1);
+            *&v87 = glpASTNodeGetLocation(v153, &v156).n128_u64[0];
+            glpLogMessage(v86, 0, &v156, "Function '%.*s' redefines an existing function", v87);
+            goto LABEL_133;
           }
         }
       }
 
-      goto LABEL_114;
+      goto LABEL_113;
     }
 
     GLSLVersion = glpNameTableGetGLSLVersion(NameTable);
@@ -7605,106 +7538,106 @@ LABEL_126:
     {
       if (((1 << GLSLVersion) & 0x3BC) != 0)
       {
-        v228[3] = 0;
-LABEL_114:
-        v126 = v219[3];
-        if (!v126)
+        v174[3] = 0;
+LABEL_113:
+        v93 = v165[3];
+        if (!v93)
         {
-          goto LABEL_121;
+          goto LABEL_120;
         }
 
-        if (!*(v215 + 6) && (*(FunctionObject + 10) & 0x10) != 0)
+        if (!*(v161 + 6) && (*(FunctionObject + 10) & 0x10) != 0)
         {
-          goto LABEL_126;
+          goto LABEL_125;
         }
 
-        v127 = v207;
-        if ((*(v126 + 10) & 0x20) == 0)
+        v94 = v153;
+        if ((*(v93 + 10) & 0x20) == 0)
         {
-          SubroutineType = v206;
-          if (!glpTypesEqual(*v126, v206))
+          SubroutineType = v152;
+          if (!glpTypesEqual(*v93, v152))
           {
-            v143 = glpFunctionTypeGetReturnType(*v219[3]);
-            v144 = glpFunctionTypeGetReturnType(SubroutineType);
-            LODWORD(v143) = glpTypesEqual(v143, v144);
-            v145 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(v127, &v210);
-            if (v143)
+            v104 = glpFunctionTypeGetReturnType(*v165[3]);
+            v105 = glpFunctionTypeGetReturnType(SubroutineType);
+            LODWORD(v104) = glpTypesEqual(v104, v105);
+            v106 = glpCompilerGetInfoLog(a1);
+            *&v107 = glpASTNodeGetLocation(v94, &v156).n128_u64[0];
+            if (v104)
             {
-              glpLogMessage(v145, 0, &v210, "Qualification of arguments in redeclared function '%.*s' differs from previous declaration", v146, v147, v148, v149, v16);
+              glpLogMessage(v106, 0, &v156, "Qualification of arguments in redeclared function '%.*s' differs from previous declaration", v107);
             }
 
             else
             {
-              glpLogMessage(v145, 0, &v210, "Return type in redeclared function '%.*s' differs from previous declaration", v146, v147, v148, v149, v16);
+              glpLogMessage(v106, 0, &v156, "Return type in redeclared function '%.*s' differs from previous declaration", v107);
             }
 
-            goto LABEL_134;
+            goto LABEL_133;
           }
 
-          if (!*(v215 + 6))
+          if (!*(v161 + 6))
           {
-            FunctionObject = v219[3];
+            FunctionObject = v165[3];
           }
 
-LABEL_121:
-          v128 = v228[3];
-          if (v128)
+LABEL_120:
+          v95 = v174[3];
+          if (v95)
           {
             while (1)
             {
-              v129 = v128;
-              if (glpTypesEqual(*v128, v206))
+              v96 = v95;
+              if (glpTypesEqual(*v95, v152))
               {
                 break;
               }
 
-              v128 = v129[1];
-              if (!v128)
+              v95 = v96[1];
+              if (!v95)
               {
-                v130 = glpCompilerPoolAlloc(a1);
-                *v130 = v206;
-                *(v130 + 1) = 0;
-                v129[1] = v130;
-                goto LABEL_129;
+                v97 = glpCompilerPoolAlloc(a1);
+                *v97 = v152;
+                *(v97 + 1) = 0;
+                v96[1] = v97;
+                goto LABEL_128;
               }
             }
 
-            if (!*(v215 + 6))
+            if (!*(v161 + 6))
             {
-              goto LABEL_130;
+              goto LABEL_129;
             }
           }
 
           else
           {
-            v141 = glpCompilerPoolAlloc(a1);
-            *v141 = v206;
-            v141[1] = 0;
-            glpNameTablePut(NameTable, Name, v16, 4, v141);
+            v102 = glpCompilerPoolAlloc(a1);
+            *v102 = v152;
+            v102[1] = 0;
+            glpNameTablePut(NameTable, Name, v16, 4, v102);
           }
 
+LABEL_128:
+          glpNameTablePut(NameTable, v59, v61, 5, FunctionObject);
 LABEL_129:
-          glpNameTablePut(NameTable, v66, v68, 5, FunctionObject);
-LABEL_130:
-          v142 = 1;
-          goto LABEL_136;
+          v103 = 1;
+          goto LABEL_135;
         }
 
-        v131 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v127, &v210);
-        glpLogMessage(v131, 0, &v210, "Function '%.*s' previously declared as subroutine implementation", v132, v133, v134, v135, v16);
-LABEL_134:
+        v98 = glpCompilerGetInfoLog(a1);
+        *&v99 = glpASTNodeGetLocation(v94, &v156).n128_u64[0];
+        glpLogMessage(v98, 0, &v156, "Function '%.*s' previously declared as subroutine implementation", v99);
+LABEL_133:
         SubroutineType = glpSAFailed();
-        goto LABEL_135;
+        goto LABEL_134;
       }
 
       if (GLSLVersion == 6)
       {
-        v116 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v207, &v210);
-        glpLogMessage(v116, 0, &v210, "Function '%.*s' overloads or redefines a built-in function", v117, v118, v119, v120, v16);
-        goto LABEL_134;
+        v89 = glpCompilerGetInfoLog(a1);
+        *&v90 = glpASTNodeGetLocation(v153, &v156).n128_u64[0];
+        glpLogMessage(v89, 0, &v156, "Function '%.*s' overloads or redefines a built-in function", v90);
+        goto LABEL_133;
       }
 
       if (GLSLVersion == 10)
@@ -7713,25 +7646,23 @@ LABEL_134:
       }
     }
 
-    if (!GLSLVersion && v219[3])
+    if (!GLSLVersion && v165[3])
     {
-      v121 = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v207, &v210);
-      glpLogMessage(v121, 0, &v210, "Function '%.*s' redefines a built-in function", v122, v123, v124, v125, v16);
-      goto LABEL_134;
+      v91 = glpCompilerGetInfoLog(a1);
+      *&v92 = glpASTNodeGetLocation(v153, &v156).n128_u64[0];
+      glpLogMessage(v91, 0, &v156, "Function '%.*s' redefines a built-in function", v92);
+      goto LABEL_133;
     }
 
-    goto LABEL_114;
+    goto LABEL_113;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return glpSAFailed();
 }
 
 uint64_t glpSAVariableDeclaration(uint64_t a1, uint64_t a2)
 {
-  v221 = *MEMORY[0x277D85DE8];
+  v193 = *MEMORY[0x277D85DE8];
   Type = glpVariableDeclarationNodeGetType(a2);
   v5 = glpSANode(a1, Type);
   if (v5 != -1)
@@ -7750,44 +7681,44 @@ uint64_t glpSAVariableDeclaration(uint64_t a1, uint64_t a2)
       v10 = v9;
       NameTable = glpCompilerGetNameTable(a1);
       CurrentFunction = glpNameTableGetCurrentFunction(NameTable);
-      v217 = 0;
-      v218 = &v217;
-      v219 = 0x2000000000;
-      v220 = 0;
-      v213 = 0;
-      v214 = &v213;
-      v215 = 0x2000000000;
-      v216 = 0;
-      v209 = 0;
-      v210 = &v209;
-      v211 = 0x2000000000;
-      v212 = 0;
-      v208[0] = MEMORY[0x277D85DD0];
-      v208[1] = 0x40000000;
-      v208[2] = __glpSAVariableDeclaration_block_invoke;
-      v208[3] = &unk_278B4C4C8;
-      v208[4] = &v217;
-      v208[5] = &v213;
-      v208[6] = &v209;
-      v208[7] = NameTable;
-      glpNameTableGet(NameTable, Name, v10, 2 * (CurrentFunction != 0), v208);
-      if (v214[3])
+      v189 = 0;
+      v190 = &v189;
+      v191 = 0x2000000000;
+      v192 = 0;
+      v185 = 0;
+      v186 = &v185;
+      v187 = 0x2000000000;
+      v188 = 0;
+      v181 = 0;
+      v182 = &v181;
+      v183 = 0x2000000000;
+      v184 = 0;
+      v180[0] = MEMORY[0x277D85DD0];
+      v180[1] = 0x40000000;
+      v180[2] = __glpSAVariableDeclaration_block_invoke;
+      v180[3] = &unk_278B4C4C8;
+      v180[4] = &v189;
+      v180[5] = &v185;
+      v180[6] = &v181;
+      v180[7] = NameTable;
+      glpNameTableGet(NameTable, Name, v10, 2 * (CurrentFunction != 0), v180);
+      if (v186[3])
       {
-        v13 = *(v218 + 6);
+        v13 = *(v190 + 6);
         if (v13 <= 3)
         {
           switch(v13)
           {
             case 1:
               InfoLog = glpCompilerGetInfoLog(a1);
-              glpASTNodeGetLocation(a2, &v199);
-              glpLogMessage(InfoLog, 0, &v199, "'%.*s' already declared as an interface block instance", v25, v26, v27, v28, v10);
-              goto LABEL_51;
+              *&v21 = glpASTNodeGetLocation(a2, &v171).n128_u64[0];
+              glpLogMessage(InfoLog, 0, &v171, "'%.*s' already declared as an interface block instance", v21);
+              goto LABEL_50;
             case 2:
-              v29 = glpCompilerGetInfoLog(a1);
-              glpASTNodeGetLocation(a2, &v199);
-              glpLogMessage(v29, 0, &v199, "'%.*s' already declared as an interface block", v30, v31, v32, v33, v10);
-              goto LABEL_51;
+              v22 = glpCompilerGetInfoLog(a1);
+              *&v23 = glpASTNodeGetLocation(a2, &v171).n128_u64[0];
+              glpLogMessage(v22, 0, &v171, "'%.*s' already declared as an interface block", v23);
+              goto LABEL_50;
             case 3:
               v14 = 10;
               goto LABEL_32;
@@ -7804,19 +7735,19 @@ uint64_t glpSAVariableDeclaration(uint64_t a1, uint64_t a2)
 
         else
         {
-          if (!*(v210 + 6))
+          if (!*(v182 + 6))
           {
-            v19 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(a2, &v199);
-            glpLogMessage(v19, 0, &v199, "Attempt to redeclare '%.*s' as a variable", v20, v21, v22, v23, v10);
-            goto LABEL_51;
+            v18 = glpCompilerGetInfoLog(a1);
+            *&v19 = glpASTNodeGetLocation(a2, &v171).n128_u64[0];
+            glpLogMessage(v18, 0, &v171, "Attempt to redeclare '%.*s' as a variable", v19);
+            goto LABEL_50;
           }
 
-          v214[3] = 0;
+          v186[3] = 0;
         }
       }
 
-      if (CurrentFunction || (v10 & 0xFFFFFFFE) != 0 && *Name == 36 && ((v17 = Name[1], (v17 & 0x80000000) != 0) ? (v18 = __maskrune_l(v17, 0x400uLL, 0)) : (v18 = *(MEMORY[0x277D85DE0] + 4 * v17 + 60) & 0x400), v18))
+      if (CurrentFunction || (v10 & 0xFFFFFFFE) != 0 && *Name == 36 && ((v16 = Name[1], (v16 & 0x80000000) != 0) ? (v17 = __maskrune_l(v16, 0x400uLL, 0)) : (v17 = *(MEMORY[0x277D85DE0] + 4 * v16 + 60) & 0x400), v17))
       {
         v14 = 6;
       }
@@ -7827,520 +7758,511 @@ uint64_t glpSAVariableDeclaration(uint64_t a1, uint64_t a2)
       }
 
 LABEL_32:
-      v34 = glpVariableDeclarationNodeGetType(a2);
-      v206 = 0;
-      v207 = 0;
-      v204 = 0;
-      v205 = 0;
-      glpASTNodeGetLocation(a2, &v199);
-      v35 = glpVariableDeclarationNodeGetIsFromSource(a2);
-      SaFlags = glpASTNodeGetSaFlags(v34);
-      if (!glpEvaluateTypeNode(a1, &v199, v14, v35, v34, SaFlags & 0x1F, &v207, &v206, &v205, &v204))
+      v24 = glpVariableDeclarationNodeGetType(a2);
+      v178 = 0;
+      v179 = 0;
+      v176 = 0;
+      v177 = 0;
+      glpASTNodeGetLocation(a2, &v171);
+      v25 = glpVariableDeclarationNodeGetIsFromSource(a2);
+      SaFlags = glpASTNodeGetSaFlags(v24);
+      if (!glpEvaluateTypeNode(a1, &v171, v14, v25, v24, SaFlags & 0x1F, &v179, &v178, &v177, &v176))
       {
-        goto LABEL_51;
+        goto LABEL_50;
       }
 
-      glpASTNodeSetSaType(a2, v207);
+      glpASTNodeSetSaType(a2, v179);
       if (glpCompilerUsingStyleGuide(a1))
       {
-        if (glpTypeGetKind(v207) == 2)
+        if (glpTypeGetKind(v179) == 2)
         {
-          ElementType = glpArrayTypeGetElementType(v207);
+          ElementType = glpArrayTypeGetElementType(v179);
           if (glpTypeGetKind(ElementType) == 1)
           {
-            v38 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(a2, &v199);
-            glpLogMessage(v38, 2u, &v199, "Arrays of structs may be less performant than structs of arrays", v39, v40, v41, v42, v189);
+            v28 = glpCompilerGetInfoLog(a1);
+            *&v29 = glpASTNodeGetLocation(a2, &v171).n128_u64[0];
+            glpLogMessage(v28, 2, &v171, "Arrays of structs may be less performant than structs of arrays", v29);
           }
         }
       }
 
-      v43 = glpVariableDeclarationNodeGetInitializer(a2);
-      if (!v43)
+      v30 = glpVariableDeclarationNodeGetInitializer(a2);
+      if (v30)
       {
-        if ((v206 & 0x60) != 0)
+        v31 = v30;
+        SaType = glpASTNodeGetSaType(v30);
+        if (!glpTypesEqual(SaType, v179))
         {
-          v57 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(a2, &v199);
-          glpVariableDeclarationNodeGetName(a2);
-          v59 = v58;
-          glpVariableDeclarationNodeGetName(a2);
-          glpLogMessage(v57, 0, &v199, "Missing initializer for const variable '%.*s'", v60, v61, v62, v63, v59);
-          goto LABEL_51;
-        }
-
-LABEL_70:
-        if (glpNameTableGetGLSLVersion(NameTable) == 6 && !glpNameTableIsExtensionEnabled(NameTable, 0x23u) && glpTypeGetKind(v207) == 2 && glpArrayTypeGetElementCount(v207) == -1)
-        {
-          v151 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(a2, &v199);
-          glpVariableDeclarationNodeGetName(a2);
-          v153 = v152;
-          glpVariableDeclarationNodeGetName(a2);
-          glpLogMessage(v151, 0, &v199, "Unsized array '%.*s' requires sized initializer under GLSL 300", v154, v155, v156, v157, v153);
-          goto LABEL_51;
-        }
-
-        glpASTNodeSetSaFlags(a2, v206);
-        v82 = v214[3];
-        if (v82)
-        {
-          v83 = *(v218 + 6);
-          if (!v83)
+          v43 = glpASTNodeGetSaType(v31);
+          if (glpTypeGetKind(v43) || glpTypeGetKind(v179))
           {
-            glpASTNodeGetLocation(a2, &v199);
-            if (glpHandleVariableRedeclaration(a1, &v199, Name, v10, *v82, *(v82 + 48), *(v82 + 8), (v82 + 96), v207, v206, v205, v82, (v82 + 48), (v82 + 8)))
+            v44 = glpASTNodeGetSaType(v31);
+            if (glpTypeGetKind(v44) != 2 || glpTypeGetKind(v179) != 2 || (v45 = glpASTNodeGetSaType(v31), v46 = glpArrayTypeGetElementType(v45), v47 = glpArrayTypeGetElementType(v179), !glpTypesEqual(v46, v47)) || glpArrayTypeGetElementCount(v179) != -1)
             {
-              goto LABEL_127;
+              v48 = glpASTNodeGetSaType(v31);
+              glpCompilerGetAllocator();
+              v50 = glpTypeHumanReadableDescription(v48, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v49);
+              v52 = v51;
+              v53 = v179;
+              glpCompilerGetAllocator();
+              v55 = glpTypeHumanReadableDescription(v53, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v54);
+              v57 = v56;
+              v58 = glpCompilerGetInfoLog(a1);
+              glpASTNodeGetLocation(a2, &v171);
+              glpLogMessage(v58, 0, &v171, "Initializer has type incompatible with declaration (got '%.*s', expected '%.*s')", v52, v50, v57, v55);
+              goto LABEL_50;
             }
 
-            goto LABEL_51;
+            v179 = glpASTNodeGetSaType(v31);
+            glpASTNodeSetSaType(a2, v179);
           }
 
-          if (v83 != 3)
+          else
           {
-            abort();
-          }
-
-          if (glpNameTableGetLanguage(NameTable) == 3 && glpStringsEqual("gl_ClipDistance", 0xA52D52050000000FLL, Name, v10) && (v206 & 0x20000000) != 0)
-          {
-            v84 = glpCompilerGetNameTable(a1);
-            v203[0] = MEMORY[0x277D85DD0];
-            v203[1] = 0x40000000;
-            v203[2] = __glpSAVariableDeclaration_block_invoke_2;
-            v203[3] = &unk_278B4C4F0;
-            v203[4] = &v213;
-            glpNameTableGet(v84, "gl_in", 0x1057ED5B00000005uLL, 0, v203);
-          }
-
-          v85 = v214[3];
-          v191 = *(v85 + 64);
-          StructTypeFromIBType = glpGetStructTypeFromIBType(v191);
-          FieldIndex = glpStructTypeGetFieldIndex(StructTypeFromIBType, Name, v10);
-          v192 = glpAggregateTypeGetElementType(StructTypeFromIBType, FieldIndex);
-          ElementFlags = glpAggregateTypeGetElementFlags(StructTypeFromIBType, FieldIndex);
-          LODWORD(v193) = FieldIndex;
-          ElementLayout = glpAggregateTypeGetElementLayout(StructTypeFromIBType, FieldIndex);
-          Representation = glpInterfaceBlockObjectGetRepresentation(v85);
-          v91 = 0;
-          if (Representation > 1)
-          {
-            if (Representation == 3)
+            ImplicitConversionPolicy = glpCompilerGetImplicitConversionPolicy(a1);
+            v74 = glpASTNodeGetSaType(v31);
+            PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v74);
+            v76 = glpPrimitiveTypeGetPrimitiveType(v179);
+            if (!glpCanConvert(PrimitiveType, v76, ImplicitConversionPolicy))
             {
-LABEL_96:
-              v101 = (*(v85 + 72) + 8 * v193);
-              goto LABEL_97;
-            }
-
-            if (Representation != 2)
-            {
-LABEL_98:
-              v196.n128_u64[0] = 0;
-              v194.n128_u64[0] = 0;
-              v202 = 0;
-              glpASTNodeGetLocation(a2, &v199);
-              if (glpHandleVariableRedeclaration(a1, &v199, Name, v10, v192, ElementFlags, ElementLayout, (v91 + 96), v207, v206, v205, &v196, v194.n128_u64, &v202))
-              {
-                v192 = v85;
-                ElementCount = glpAggregateTypeGetElementCount(StructTypeFromIBType);
-                v103 = ElementCount;
-                v104 = ElementCount;
-                v190 = ElementCount;
-                MEMORY[0x28223BE20](ElementCount);
-                bzero(&v189 - 2 * v103, v105);
-                v106 = 8 * v104;
-                MEMORY[0x28223BE20](v107);
-                v108 = (&v189 - ((v106 + 15) & 0xFFFFFFFF0));
-                bzero(v108, v106);
-                MEMORY[0x28223BE20](v109);
-                v110 = v108;
-                bzero(v108, v106);
-                MEMORY[0x28223BE20](v111);
-                v112 = v108;
-                bzero(v108, v106);
-                if (v190)
-                {
-                  v113 = 0;
-                  v114 = &v189 - 2 * v103 + 1;
-                  do
-                  {
-                    *(v114 - 1) = glpStructTypeGetFieldName(StructTypeFromIBType, v113);
-                    *v114 = v115;
-                    v108[v113] = glpAggregateTypeGetElementType(StructTypeFromIBType, v113);
-                    v108[v113] = glpAggregateTypeGetElementFlags(StructTypeFromIBType, v113);
-                    v108[v113] = glpAggregateTypeGetElementLayout(StructTypeFromIBType, v113);
-                    ++v113;
-                    v114 += 2;
-                  }
-
-                  while (v103 != v113);
-                }
-
-                v116 = v193;
-                v108[v193] = v196.n128_u64[0];
-                v108[v116] = v194.n128_u64[0];
-                v108[v116] = v202;
-                Allocator = glpCompilerGetAllocator(a1);
-                v118 = glpStructTypeGetName(StructTypeFromIBType);
-                v190 = v103;
-                StructType = glpMakeStructType(Allocator, v118, v119, v103, (&v189 - 2 * v103), v108, v108, v108);
-                v121 = glpInterfaceBlockObjectGetRepresentation(v192);
-                v122 = v191;
-                if (v121 <= 1)
-                {
-                  if (v121)
-                  {
-                    if (v121 != 1)
-                    {
-                      goto LABEL_127;
-                    }
-
-LABEL_113:
-                    v136 = v190;
-                    if (v190)
-                    {
-                      v137 = *(v192 + 9);
-                      v138 = *(v192 + 5);
-                      do
-                      {
-                        v139 = *v108++;
-                        **v137 = v139;
-                        v140 = *v110++;
-                        v141 = v140 | v138;
-                        v143 = *v137++;
-                        v142 = v143;
-                        v143[6] = v141 | 0x80000000;
-                        v144 = *v112++;
-                        v142[1] = v144;
-                        --v136;
-                      }
-
-                      while (v136);
-                    }
-
-                    *(v192 + 8) = StructType;
-                    goto LABEL_127;
-                  }
-
-                  goto LABEL_126;
-                }
-
-                if (v121 == 2)
-                {
-                  v147 = glpCompilerGetAllocator(a1);
-                  Bank = glpBankTypeGetBank(v122);
-                  v149 = glpBankTypeGetElementCount(v122);
-                  StructType = glpMakeBankType(v147, Bank, StructType, v149);
-LABEL_126:
-                  v150 = v192;
-                  *(v192 + 8) = StructType;
-                  ***(v150 + 9) = StructType;
-                  goto LABEL_127;
-                }
-
-                if (v121 == 3)
-                {
-                  v189 = StructType;
-                  if (v190)
-                  {
-                    v128 = v190;
-                    v129 = v108;
-                    do
-                    {
-                      v193 = glpCompilerGetAllocator(a1);
-                      v130 = glpBankTypeGetBank(v122);
-                      v131 = *v129;
-                      v132 = glpBankTypeGetElementCount(v122);
-                      *v129++ = glpMakeBankType(v193, v130, v131, v132);
-                      --v128;
-                    }
-
-                    while (v128);
-                  }
-
-                  v133 = glpCompilerGetAllocator(a1);
-                  v134 = glpBankTypeGetBank(v122);
-                  v135 = glpBankTypeGetElementCount(v122);
-                  StructType = glpMakeBankType(v133, v134, v189, v135);
-                  goto LABEL_113;
-                }
-
-LABEL_127:
-                v64 = 0;
-                goto LABEL_52;
-              }
-
               v123 = glpCompilerGetInfoLog(a1);
-              glpASTNodeGetLocation(a2, &v199);
-              glpLogMessage(v123, 0, &v199, "'%.*s' already declared within an interface block", v124, v125, v126, v127, v10);
-LABEL_51:
-              v64 = glpSAFailed();
-LABEL_52:
-              _Block_object_dispose(&v209, 8);
-              _Block_object_dispose(&v213, 8);
-              _Block_object_dispose(&v217, 8);
-              v65 = *MEMORY[0x277D85DE8];
-              return v64;
+              *&v124 = glpASTNodeGetLocation(a2, &v171).n128_u64[0];
+              glpLogMessage(v123, 0, &v171, "Incompatible types in initialization (and no available implicit conversion)", v124);
+              goto LABEL_50;
             }
+
+            v77 = glpConvert(a1, v31, v179, v178 & 0x1F);
+            glpVariableDeclarationNodeSetInitializer(a2, v77);
+          }
+        }
+
+        v33 = glpCompilerGetNameTable(a1);
+        GLSLVersion = glpNameTableGetGLSLVersion(v33);
+        v35 = GLSLVersion > 1;
+        if (glpCompilerGetIOSVersion(a1) >= 9)
+        {
+          v35 = GLSLVersion > 1 && GLSLVersion != 6;
+        }
+
+        v37 = v178;
+        if ((v178 & 0xC20000000) != 0 || (v178 & 0x100000000) != 0 && ((glpASTNodeGetSaFlags(v31) & 0x60) == 0 || (v37 = v178, (v178 & 0x100000000) != 0 && !v35)) || (v37 & 0x60) != 0 && ((glpASTNodeGetSaFlags(v31) & 0x60) == 0 || (v178 & 0x60) != 0 && (glpASTNodeGetSaFlags(v31) & 0x20) == 0 && GLSLVersion == 1) || glpTypeGetKind(v179) == 2 && GLSLVersion <= 1)
+        {
+          v38 = glpCompilerGetInfoLog(a1);
+          *&v39 = glpASTNodeGetLocation(a2, &v171).n128_u64[0];
+          glpLogMessage(v38, 0, &v171, "Initializer not allowed", v39);
+          goto LABEL_50;
+        }
+      }
+
+      else if ((v178 & 0x60) != 0)
+      {
+        v40 = glpCompilerGetInfoLog(a1);
+        glpASTNodeGetLocation(a2, &v171);
+        glpVariableDeclarationNodeGetName(a2);
+        glpVariableDeclarationNodeGetName(a2);
+        glpLogMessage(v40, 0, &v171, "Missing initializer for const variable '%.*s'", v41);
+        goto LABEL_50;
+      }
+
+      if (glpNameTableGetGLSLVersion(NameTable) == 6 && !glpNameTableIsExtensionEnabled(NameTable, 0x23u) && glpTypeGetKind(v179) == 2 && glpArrayTypeGetElementCount(v179) == -1)
+      {
+        v131 = glpCompilerGetInfoLog(a1);
+        glpASTNodeGetLocation(a2, &v171);
+        glpVariableDeclarationNodeGetName(a2);
+        glpVariableDeclarationNodeGetName(a2);
+        glpLogMessage(v131, 0, &v171, "Unsized array '%.*s' requires sized initializer under GLSL 300", v132);
+        goto LABEL_50;
+      }
+
+      glpASTNodeSetSaFlags(a2, v178);
+      v59 = v186[3];
+      if (v59)
+      {
+        v60 = *(v190 + 6);
+        if (!v60)
+        {
+          glpASTNodeGetLocation(a2, &v171);
+          if (glpHandleVariableRedeclaration(a1, &v171, Name, v10, *v59, *(v59 + 48), *(v59 + 8), (v59 + 96), v179, v178, v177, v59, (v59 + 48), (v59 + 8)))
+          {
+            goto LABEL_126;
           }
 
-          else if (Representation)
-          {
-            if (Representation != 1)
-            {
-              goto LABEL_98;
-            }
+          goto LABEL_50;
+        }
 
+        if (v60 != 3)
+        {
+          abort();
+        }
+
+        if (glpNameTableGetLanguage(NameTable) == 3 && glpStringsEqual("gl_ClipDistance", 0xA52D52050000000FLL, Name, v10) && (v178 & 0x20000000) != 0)
+        {
+          v61 = glpCompilerGetNameTable(a1);
+          v175[0] = MEMORY[0x277D85DD0];
+          v175[1] = 0x40000000;
+          v175[2] = __glpSAVariableDeclaration_block_invoke_2;
+          v175[3] = &unk_278B4C4F0;
+          v175[4] = &v185;
+          glpNameTableGet(v61, "gl_in", 0x1057ED5B00000005uLL, 0, v175);
+        }
+
+        v62 = v186[3];
+        v163 = *(v62 + 64);
+        StructTypeFromIBType = glpGetStructTypeFromIBType(v163);
+        FieldIndex = glpStructTypeGetFieldIndex(StructTypeFromIBType, Name, v10);
+        v164 = glpAggregateTypeGetElementType(StructTypeFromIBType, FieldIndex);
+        ElementFlags = glpAggregateTypeGetElementFlags(StructTypeFromIBType, FieldIndex);
+        LODWORD(v165) = FieldIndex;
+        ElementLayout = glpAggregateTypeGetElementLayout(StructTypeFromIBType, FieldIndex);
+        Representation = glpInterfaceBlockObjectGetRepresentation(v62);
+        v68 = 0;
+        if (Representation > 1)
+        {
+          if (Representation == 3)
+          {
+LABEL_95:
+            v78 = (*(v62 + 72) + 8 * v165);
             goto LABEL_96;
           }
 
-          v101 = *(v85 + 72);
+          if (Representation != 2)
+          {
 LABEL_97:
-          v91 = *v101;
-          goto LABEL_98;
-        }
-
-        v92 = glpCheckName(a1, a2, Name, v10);
-        if (v92 == -1)
-        {
-          goto LABEL_51;
-        }
-
-        v64 = v92;
-        v93 = glpVariableDeclarationNodeGetInitializer(v92);
-        v94 = v93;
-        if (v93)
-        {
-          if (glpIsConstantNode(v93))
-          {
-            Value = glpConstantNodeGetValue(v94);
-          }
-
-          else
-          {
-            Value = 0;
-          }
-
-          v146 = v206;
-          if ((v206 & 0x60) != 0)
-          {
-            if (glpIsConstantNode(v94))
+            v168.n128_u64[0] = 0;
+            v166.n128_u64[0] = 0;
+            v174 = 0;
+            glpASTNodeGetLocation(a2, &v171);
+            if (glpHandleVariableRedeclaration(a1, &v171, Name, v10, v164, ElementFlags, ElementLayout, (v68 + 96), v179, v178, v177, &v168, v166.n128_u64, &v174))
             {
-              glpVariableDeclarationNodeSetInitializer(v64, 0);
-              v146 = v206;
-            }
+              v164 = v62;
+              ElementCount = glpAggregateTypeGetElementCount(StructTypeFromIBType);
+              v80 = ElementCount;
+              v81 = ElementCount;
+              v162 = ElementCount;
+              MEMORY[0x28223BE20](ElementCount);
+              bzero(&v161 - 2 * v80, v82);
+              v83 = 8 * v81;
+              MEMORY[0x28223BE20](v84);
+              v85 = (&v161 - ((v83 + 15) & 0xFFFFFFFF0));
+              bzero(v85, v83);
+              MEMORY[0x28223BE20](v86);
+              v87 = v85;
+              bzero(v85, v83);
+              MEMORY[0x28223BE20](v88);
+              v89 = v85;
+              bzero(v85, v83);
+              if (v162)
+              {
+                v90 = 0;
+                v91 = &v161 - 2 * v80 + 1;
+                do
+                {
+                  *(v91 - 1) = glpStructTypeGetFieldName(StructTypeFromIBType, v90);
+                  *v91 = v92;
+                  v85[v90] = glpAggregateTypeGetElementType(StructTypeFromIBType, v90);
+                  v85[v90] = glpAggregateTypeGetElementFlags(StructTypeFromIBType, v90);
+                  v85[v90] = glpAggregateTypeGetElementLayout(StructTypeFromIBType, v90);
+                  ++v90;
+                  v91 += 2;
+                }
 
-            else
-            {
-              v146 = v206 & 0xFFFFFFFFFFFFFE9FLL | 0x100;
-              v206 = v146;
-            }
+                while (v80 != v90);
+              }
 
-            v145 = Value;
-          }
+              v93 = v165;
+              v85[v165] = v168.n128_u64[0];
+              v85[v93] = v166.n128_u64[0];
+              v85[v93] = v174;
+              glpCompilerGetAllocator();
+              v95 = v94;
+              v96 = glpStructTypeGetName(StructTypeFromIBType);
+              v162 = v80;
+              StructType = glpMakeStructType(v95, v96, v97, v80, (&v161 - 2 * v80), v85, v85, v85);
+              v99 = glpInterfaceBlockObjectGetRepresentation(v164);
+              v100 = v163;
+              if (v99 <= 1)
+              {
+                if (v99)
+                {
+                  if (v99 != 1)
+                  {
+                    goto LABEL_126;
+                  }
 
-          else
-          {
-            v145 = 0;
-          }
+LABEL_112:
+                  v113 = v162;
+                  if (v162)
+                  {
+                    v114 = *(v164 + 9);
+                    v115 = *(v164 + 5);
+                    do
+                    {
+                      v116 = *v85++;
+                      **v114 = v116;
+                      v117 = *v87++;
+                      v118 = v117 | v115;
+                      v120 = *v114++;
+                      v119 = v120;
+                      v120[6] = v118 | 0x80000000;
+                      v121 = *v89++;
+                      v119[1] = v121;
+                      --v113;
+                    }
 
-          if ((v146 & 0x100000000) != 0 && glpIsConstantNode(v94))
-          {
-            glpVariableDeclarationNodeSetInitializer(v64, 0);
-          }
-        }
+                    while (v113);
+                  }
 
-        else
-        {
-          v145 = 0;
-          Value = 0;
-        }
+                  *(v164 + 8) = StructType;
+                  goto LABEL_126;
+                }
 
-        v158 = glpCompilerGetAllocator(a1);
-        glpMakeVariableObject(v158, v207, v205, v206, Name, v10, Name, v10, v94 != 0, v145, Value);
-        v214[3] = v159;
-        if ((v206 & 0x200000000) == 0)
-        {
-          v160 = v159;
-          if ((v206 & 0x400000000) != 0)
-          {
-            v161 = glpCompilerGetAllocator(a1);
-            glpMakeBufferObject(v161, v207, 0, 1);
-            *(v160 + 88) = v162;
-          }
+                goto LABEL_125;
+              }
 
-          glpNameTablePut(NameTable, Name, v10, 0, v160);
-          if (glpVariableDeclarationNodeGetInitializer(v64) && (v206 & 0x100000000) == 0)
-          {
-            v199 = 0uLL;
-            v200 = 0;
-            glpASTNodeGetLocation(v64, &v199);
-            v163 = glpCompilerGetAllocator(a1);
-            v196 = v199;
-            v197 = v200;
-            glpMakeVariableIdentifierNode(v163, &v196, Name, v10);
-            v165 = glpSANode(a1, v164);
-            if (v165 == -1)
-            {
+              if (v99 == 2)
+              {
+                glpCompilerGetAllocator();
+                v127 = v126;
+                Bank = glpBankTypeGetBank(v100);
+                v129 = glpBankTypeGetElementCount(v100);
+                StructType = glpMakeBankType(v127, Bank, StructType, v129);
+LABEL_125:
+                v130 = v164;
+                *(v164 + 8) = StructType;
+                ***(v130 + 9) = StructType;
+                goto LABEL_126;
+              }
+
+              if (v99 == 3)
+              {
+                v161 = StructType;
+                if (v162)
+                {
+                  v103 = v162;
+                  v104 = v85;
+                  do
+                  {
+                    glpCompilerGetAllocator();
+                    v165 = v105;
+                    v106 = glpBankTypeGetBank(v100);
+                    v107 = *v104;
+                    v108 = glpBankTypeGetElementCount(v100);
+                    *v104++ = glpMakeBankType(v165, v106, v107, v108);
+                    --v103;
+                  }
+
+                  while (v103);
+                }
+
+                glpCompilerGetAllocator();
+                v110 = v109;
+                v111 = glpBankTypeGetBank(v100);
+                v112 = glpBankTypeGetElementCount(v100);
+                StructType = glpMakeBankType(v110, v111, v161, v112);
+                goto LABEL_112;
+              }
+
+LABEL_126:
+              v42 = 0;
               goto LABEL_51;
             }
 
-            v166 = v165;
-            v167 = glpASTNodeGetSaFlags(v165);
-            glpASTNodeSetSaFlags(v166, v167 & 0xFFFFFFFFFFFFFEFFLL);
-            v168 = glpVariableDeclarationNodeGetInitializer(v64);
-            v196 = v199;
-            v197 = v200;
-            AssignFragment = glpMakeAssignFragment(a1, &v196, v166, v168);
-            glpVariableDeclarationNodeSetInitializer(v64, AssignFragment);
+            v101 = glpCompilerGetInfoLog(a1);
+            *&v102 = glpASTNodeGetLocation(a2, &v171).n128_u64[0];
+            glpLogMessage(v101, 0, &v171, "'%.*s' already declared within an interface block", v102);
+LABEL_50:
+            v42 = glpSAFailed();
+LABEL_51:
+            _Block_object_dispose(&v181, 8);
+            _Block_object_dispose(&v185, 8);
+            _Block_object_dispose(&v189, 8);
+            return v42;
           }
-
-          glpVariableDeclarationNodeSetExtra(v64, v214[3]);
-          glpVariableDeclarationNodeSetType(v64, 0);
-          goto LABEL_52;
         }
 
-        v199.n128_u64[0] = 0;
-        v199.n128_u64[1] = &v199;
-        v200 = 0x2000000000;
-        v201 = 0;
-        v196.n128_u64[0] = 0;
-        v196.n128_u64[1] = &v196;
-        v197 = 0x2000000000;
-        v198 = 0;
-        v195[0] = MEMORY[0x277D85DD0];
-        v195[1] = 0x40000000;
-        v195[2] = __glpSAVariableDeclaration_block_invoke_3;
-        v195[3] = &unk_278B4C518;
-        v195[4] = &v199;
-        v195[5] = &v196;
-        glpNameTableGet(NameTable, Name, v10, 2, v195);
-        v170 = *(v196.n128_u64[1] + 24);
-        if (v170)
+        else if (Representation)
         {
-          if (*(v199.n128_u64[1] + 24) != 7)
+          if (Representation != 1)
           {
-            v184 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(v64, &v194);
-            glpLogMessage(v184, 0, &v194, "subroutine uniform '%.*s' previously declared as different kind of object", v185, v186, v187, v188, v10);
-            goto LABEL_149;
+            goto LABEL_97;
           }
 
-          if (!glpTypesEqual(*(v170 + 16), v207))
+          goto LABEL_95;
+        }
+
+        v78 = *(v62 + 72);
+LABEL_96:
+        v68 = *v78;
+        goto LABEL_97;
+      }
+
+      v69 = glpCheckName(a1, a2, Name, v10);
+      if (v69 == -1)
+      {
+        goto LABEL_50;
+      }
+
+      v42 = v69;
+      v70 = glpVariableDeclarationNodeGetInitializer(v69);
+      v71 = v70;
+      if (v70)
+      {
+        if (glpIsConstantNode(v70))
+        {
+          Value = glpConstantNodeGetValue(v71);
+        }
+
+        else
+        {
+          Value = 0;
+        }
+
+        v125 = v178;
+        if ((v178 & 0x60) != 0)
+        {
+          if (glpIsConstantNode(v71))
           {
-            v171 = v207;
-            v172 = glpCompilerGetAllocator(a1);
-            glpTypeHumanReadableDescription(v171, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v172);
-            v174 = v173;
-            v175 = *(v170 + 16);
-            v176 = glpCompilerGetAllocator(a1);
-            glpTypeHumanReadableDescription(v175, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v176);
-            v177 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(v64, &v194);
-            glpLogMessage(v177, 0, &v194, "Type ('%.*s') of subroutine uniform '%.*s' does not match previous declaration ('%.*s')", v178, v179, v180, v181, v174);
+            glpVariableDeclarationNodeSetInitializer(v42, 0);
+            v125 = v178;
+          }
+
+          else
+          {
+            v125 = v178 & 0xFFFFFFFFFFFFFE9FLL | 0x100;
+            v178 = v125;
+          }
+
+          v122 = Value;
+        }
+
+        else
+        {
+          v122 = 0;
+        }
+
+        if ((v125 & 0x100000000) != 0 && glpIsConstantNode(v71))
+        {
+          glpVariableDeclarationNodeSetInitializer(v42, 0);
+        }
+      }
+
+      else
+      {
+        v122 = 0;
+        Value = 0;
+      }
+
+      glpCompilerGetAllocator();
+      glpMakeVariableObject(v133, v179, v177, v178, Name, v10, Name, v10, v71 != 0, v122, Value);
+      v186[3] = v134;
+      if ((v178 & 0x200000000) == 0)
+      {
+        v135 = v134;
+        if ((v178 & 0x400000000) != 0)
+        {
+          glpCompilerGetAllocator();
+          glpMakeBufferObject(v136, v179, 0, 1);
+          *(v135 + 88) = v137;
+        }
+
+        glpNameTablePut(NameTable, Name, v10, 0, v135);
+        if (glpVariableDeclarationNodeGetInitializer(v42) && (v178 & 0x100000000) == 0)
+        {
+          v171 = 0uLL;
+          v172 = 0;
+          glpASTNodeGetLocation(v42, &v171);
+          glpCompilerGetAllocator();
+          v168 = v171;
+          v169 = v172;
+          glpMakeVariableIdentifierNode(v138, &v168, Name, v10);
+          v140 = glpSANode(a1, v139);
+          if (v140 == -1)
+          {
+            goto LABEL_50;
+          }
+
+          v141 = v140;
+          v142 = glpASTNodeGetSaFlags(v140);
+          glpASTNodeSetSaFlags(v141, v142 & 0xFFFFFFFFFFFFFEFFLL);
+          v143 = glpVariableDeclarationNodeGetInitializer(v42);
+          v168 = v171;
+          v169 = v172;
+          AssignFragment = glpMakeAssignFragment(a1, &v168, v141, v143);
+          glpVariableDeclarationNodeSetInitializer(v42, AssignFragment);
+        }
+
+        glpVariableDeclarationNodeSetExtra(v42, v186[3]);
+        glpVariableDeclarationNodeSetType(v42, 0);
+        goto LABEL_51;
+      }
+
+      v171.n128_u64[0] = 0;
+      v171.n128_u64[1] = &v171;
+      v172 = 0x2000000000;
+      v173 = 0;
+      v168.n128_u64[0] = 0;
+      v168.n128_u64[1] = &v168;
+      v169 = 0x2000000000;
+      v170 = 0;
+      v167[0] = MEMORY[0x277D85DD0];
+      v167[1] = 0x40000000;
+      v167[2] = __glpSAVariableDeclaration_block_invoke_3;
+      v167[3] = &unk_278B4C518;
+      v167[4] = &v171;
+      v167[5] = &v168;
+      glpNameTableGet(NameTable, Name, v10, 2, v167);
+      v145 = *(v168.n128_u64[1] + 24);
+      if (v145)
+      {
+        if (*(v171.n128_u64[1] + 24) != 7)
+        {
+          v160 = glpCompilerGetInfoLog(a1);
+          glpASTNodeGetLocation(v42, &v166);
+          glpLogMessage(v160, 0, &v166, "subroutine uniform '%.*s' previously declared as different kind of object", v10, Name);
+          goto LABEL_148;
+        }
+
+        if (!glpTypesEqual(*(v145 + 16), v179))
+        {
+          v146 = v179;
+          glpCompilerGetAllocator();
+          v148 = glpTypeHumanReadableDescription(v146, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v147);
+          v150 = v149;
+          v151 = *(v145 + 16);
+          glpCompilerGetAllocator();
+          v153 = glpTypeHumanReadableDescription(v151, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v152);
+          v155 = v154;
+          v156 = glpCompilerGetInfoLog(a1);
+          glpASTNodeGetLocation(v42, &v166);
+          glpLogMessage(v156, 0, &v166, "Type ('%.*s') of subroutine uniform '%.*s' does not match previous declaration ('%.*s')", v150, v148, v10, Name, v155, v153);
+LABEL_148:
+          v42 = glpSAFailed();
+          goto LABEL_149;
+        }
+      }
+
+      else
+      {
+        v145 = glpCompilerPoolAlloc(a1);
+        *v145 = Name;
+        *(v145 + 8) = v10;
+        *(v145 + 16) = v179;
+        glpNameTablePut(NameTable, Name, v10, 7, v145);
+      }
+
+      glpCompilerGetAllocator();
+      v158 = v157;
+      glpASTNodeGetLocation(v42, &v166);
+      glpMakeSubroutineUniformNode(v158, &v166, v145);
+      v42 = v159;
+      glpASTNodeSetSaType(v159, v179);
+      glpASTNodeSetSaFlags(v42, v178);
 LABEL_149:
-            v64 = glpSAFailed();
-            goto LABEL_150;
-          }
-        }
-
-        else
-        {
-          v170 = glpCompilerPoolAlloc(a1);
-          *v170 = Name;
-          *(v170 + 8) = v10;
-          *(v170 + 16) = v207;
-          glpNameTablePut(NameTable, Name, v10, 7, v170);
-        }
-
-        v182 = glpCompilerGetAllocator(a1);
-        glpASTNodeGetLocation(v64, &v194);
-        glpMakeSubroutineUniformNode(v182, &v194, v170);
-        v64 = v183;
-        glpASTNodeSetSaType(v183, v207);
-        glpASTNodeSetSaFlags(v64, v206);
-LABEL_150:
-        _Block_object_dispose(&v196, 8);
-        _Block_object_dispose(&v199, 8);
-        goto LABEL_52;
-      }
-
-      v44 = v43;
-      SaType = glpASTNodeGetSaType(v43);
-      if (!glpTypesEqual(SaType, v207))
-      {
-        v66 = glpASTNodeGetSaType(v44);
-        if (glpTypeGetKind(v66) || glpTypeGetKind(v207))
-        {
-          v67 = glpASTNodeGetSaType(v44);
-          if (glpTypeGetKind(v67) != 2 || glpTypeGetKind(v207) != 2 || (v68 = glpASTNodeGetSaType(v44), v69 = glpArrayTypeGetElementType(v68), v70 = glpArrayTypeGetElementType(v207), !glpTypesEqual(v69, v70)) || glpArrayTypeGetElementCount(v207) != -1)
-          {
-            v71 = glpASTNodeGetSaType(v44);
-            v72 = glpCompilerGetAllocator(a1);
-            glpTypeHumanReadableDescription(v71, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v72);
-            v74 = v73;
-            v75 = v207;
-            v76 = glpCompilerGetAllocator(a1);
-            glpTypeHumanReadableDescription(v75, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v76);
-            v77 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(a2, &v199);
-            glpLogMessage(v77, 0, &v199, "Initializer has type incompatible with declaration (got '%.*s', expected '%.*s')", v78, v79, v80, v81, v74);
-            goto LABEL_51;
-          }
-
-          v207 = glpASTNodeGetSaType(v44);
-          glpASTNodeSetSaType(a2, v207);
-        }
-
-        else
-        {
-          ImplicitConversionPolicy = glpCompilerGetImplicitConversionPolicy(a1);
-          v97 = glpASTNodeGetSaType(v44);
-          PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v97);
-          v99 = glpPrimitiveTypeGetPrimitiveType(v207);
-          if (!glpCanConvert(PrimitiveType, v99, ImplicitConversionPolicy))
-          {
-            v51 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(a2, &v199);
-            v56 = "Incompatible types in initialization (and no available implicit conversion)";
-            goto LABEL_48;
-          }
-
-          v100 = glpConvert(a1, v44, v207, v206 & 0x1F);
-          glpVariableDeclarationNodeSetInitializer(a2, v100);
-        }
-      }
-
-      v46 = glpCompilerGetNameTable(a1);
-      GLSLVersion = glpNameTableGetGLSLVersion(v46);
-      v48 = GLSLVersion > 1;
-      if (glpCompilerGetIOSVersion(a1) >= 9)
-      {
-        v48 = GLSLVersion > 1 && GLSLVersion != 6;
-      }
-
-      v50 = v206;
-      if ((v206 & 0xC20000000) == 0)
-      {
-        if ((v206 & 0x100000000) == 0 || (glpASTNodeGetSaFlags(v44) & 0x60) != 0 && (v50 = v206, (v206 & 0x100000000) == 0 || v48))
-        {
-          if (((v50 & 0x60) == 0 || (glpASTNodeGetSaFlags(v44) & 0x60) != 0 && ((v206 & 0x60) == 0 || (glpASTNodeGetSaFlags(v44) & 0x20) != 0 || GLSLVersion != 1)) && (glpTypeGetKind(v207) != 2 || GLSLVersion > 1))
-          {
-            goto LABEL_70;
-          }
-        }
-      }
-
-      v51 = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(a2, &v199);
-      v56 = "Initializer not allowed";
-LABEL_48:
-      glpLogMessage(v51, 0, &v199, v56, v52, v53, v54, v55, v189);
+      _Block_object_dispose(&v168, 8);
+      _Block_object_dispose(&v171, 8);
       goto LABEL_51;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return glpSAFailed();
 }
@@ -8423,12 +8345,12 @@ uint64_t glpSAPrecisionDeclaration(uint64_t a1, uint64_t a2)
     {
       glpPrimitiveTypeGetCategory(0);
 LABEL_15:
-      Allocator = glpCompilerGetAllocator(a1);
-      glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, Allocator);
-      v14 = v13;
+      glpCompilerGetAllocator();
+      v13 = glpTypeHumanReadableDescription(SaType, "<<BUG: unexpected function type>>", 0x92C8B9C800000021, v12);
+      v15 = v14;
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(a2, &v24);
-      glpLogMessage(InfoLog, 0, &v24, "Default precision qualifier cannot be applied to type '%.*s'", v16, v17, v18, v19, v14);
+      glpASTNodeGetLocation(a2, &v21);
+      glpLogMessage(InfoLog, 0, &v21, "Default precision qualifier cannot be applied to type '%.*s'", v15, v13);
       return glpSAFailed();
     }
 
@@ -8441,15 +8363,15 @@ LABEL_15:
     }
 
     Qualifier = glpPrecisionDeclarationNodeGetQualifier(a2);
-    v21 = glpKeywordQualifierNodeGetQualifier(Qualifier) - 20;
-    if (v21 >= 5)
+    v18 = glpKeywordQualifierNodeGetQualifier(Qualifier) - 20;
+    if (v18 >= 5)
     {
       abort();
     }
 
-    v22 = qword_23A29D3D0[v21];
+    v19 = qword_23A29D3D0[v18];
     NameTable = glpCompilerGetNameTable(a1);
-    glpNameTablePutPrecision(NameTable, PrimitiveType, v22);
+    glpNameTablePutPrecision(NameTable, PrimitiveType, v19);
     return 0;
   }
 
@@ -8462,88 +8384,88 @@ uint64_t glpSAQualifiedDeclaration(uint64_t a1, uint64_t a2)
   if (!glpNameTableGetCurrentFunction(NameTable))
   {
     Name = glpQualifiedDeclarationNodeGetName(a2);
-    v13 = v12;
-    v42.n128_u64[0] = 0;
-    v42.n128_u64[1] = &v42;
-    v43 = 0x2000000000;
-    v44 = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2000000000;
-    v41 = 0;
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 0x40000000;
-    v37[2] = __glpSAQualifiedDeclaration_block_invoke;
-    v37[3] = &unk_278B4C540;
-    v37[4] = &v42;
-    v37[5] = &v38;
-    glpNameTableGet(NameTable, Name, v12, 0, v37);
-    v14 = v39[3];
-    if (v14)
+    v10 = v9;
+    v31.n128_u64[0] = 0;
+    v31.n128_u64[1] = &v31;
+    v32 = 0x2000000000;
+    v33 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2000000000;
+    v30 = 0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 0x40000000;
+    v26[2] = __glpSAQualifiedDeclaration_block_invoke;
+    v26[3] = &unk_278B4C540;
+    v26[4] = &v31;
+    v26[5] = &v27;
+    glpNameTableGet(NameTable, Name, v9, 0, v26);
+    v11 = v28[3];
+    if (v11)
     {
-      v15 = *(v42.n128_u64[1] + 24);
-      if (v15)
+      v12 = *(v31.n128_u64[1] + 24);
+      if (v12)
       {
-        if (v15 != 3)
+        if (v12 != 3)
         {
           InfoLog = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(a2, &v36);
-          glpLogMessage(InfoLog, 0, &v36, "Only variables and interface block fields may retroactively qualified", v27, v28, v29, v30, v33);
+          glpASTNodeGetLocation(a2, &v25);
+          glpLogMessage(InfoLog, 0, &v25, "Only variables and interface block fields may retroactively qualified");
           goto LABEL_16;
         }
 
-        v16 = *(v14 + 72);
-        StructTypeFromIBType = glpGetStructTypeFromIBType(*(v14 + 64));
-        v14 = *(v16 + 8 * glpStructTypeGetFieldIndex(StructTypeFromIBType, Name, v13));
-        v18 = 12;
+        v13 = *(v11 + 72);
+        StructTypeFromIBType = glpGetStructTypeFromIBType(*(v11 + 64));
+        v11 = *(v13 + 8 * glpStructTypeGetFieldIndex(StructTypeFromIBType, Name, v10));
+        v15 = 12;
       }
 
       else
       {
-        v18 = 11;
+        v15 = 11;
       }
 
-      v24 = *(v14 + 8);
-      if (v24)
+      v18 = *(v11 + 8);
+      if (v18)
       {
-        v25 = (glpLayoutObjectFind(v24, 30) != 0) << 28;
+        v19 = (glpLayoutObjectFind(v18, 30) != 0) << 28;
       }
 
       else
       {
-        v25 = 0;
+        v19 = 0;
       }
 
-      v35 = 0;
-      v36.n128_u64[0] = 0;
-      v34 = 0;
+      v24 = 0;
+      v25.n128_u64[0] = 0;
+      v23 = 0;
       Qualifiers = glpQualifiedDeclarationNodeGetQualifiers(a2);
-      if (glpParseQualifiers(a1, v18, Qualifiers, *(v14 + 48) | v25, &v36, &v35, &v34))
+      if (glpParseQualifiers(a1, v15, Qualifiers, *(v11 + 48) | v19, v25.n128_u64, &v24, &v23))
       {
-        v10 = 0;
-        *(v14 + 48) = v36.n128_u64[0];
+        v7 = 0;
+        *(v11 + 48) = v25.n128_u64[0];
 LABEL_17:
-        _Block_object_dispose(&v38, 8);
-        _Block_object_dispose(&v42, 8);
-        return v10;
+        _Block_object_dispose(&v27, 8);
+        _Block_object_dispose(&v31, 8);
+        return v7;
       }
     }
 
     else
     {
-      v19 = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(a2, &v36);
-      glpLogMessage(v19, 0, &v36, "Cannot retroactivly qualify undeclared identifier '%.*s'", v20, v21, v22, v23, v13);
+      v16 = glpCompilerGetInfoLog(a1);
+      *&v17 = glpASTNodeGetLocation(a2, &v25).n128_u64[0];
+      glpLogMessage(v16, 0, &v25, "Cannot retroactivly qualify undeclared identifier '%.*s'", v17);
     }
 
 LABEL_16:
-    v10 = glpSAFailed();
+    v7 = glpSAFailed();
     goto LABEL_17;
   }
 
   v5 = glpCompilerGetInfoLog(a1);
-  glpASTNodeGetLocation(a2, &v42);
-  glpLogMessage(v5, 0, &v42, "Retroactive qualifier declarations must appear at global scope", v6, v7, v8, v9, v33);
+  *&v6 = glpASTNodeGetLocation(a2, &v31).n128_u64[0];
+  glpLogMessage(v5, 0, &v31, "Retroactive qualifier declarations must appear at global scope", v6);
   return glpSAFailed();
 }
 
@@ -8599,15 +8521,15 @@ uint64_t glpSAFunctionDefinition(uint64_t a1, uint64_t a2)
     if ((*(Extra + 10) & 8) != 0)
     {
       InfoLog = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v110);
-      v100 = *(v6 + 32);
-      v101 = *(v6 + 24);
-      v39 = "Subroutine function definition '%.*s' must include a list of compatible subroutine types";
+      *&v35 = glpASTNodeGetLocation(v2, &v95).n128_u64[0];
+      v86 = *(v6 + 32);
+      v87 = *(v6 + 24);
+      v36 = "Subroutine function definition '%.*s' must include a list of compatible subroutine types";
       goto LABEL_14;
     }
 
     v7 = *(Extra + 56);
-    v106 = Extra;
+    v91 = Extra;
     if (v7)
     {
       TypeCount = glpSubroutineTypeListNodeGetTypeCount(v7);
@@ -8633,30 +8555,31 @@ uint64_t glpSAFunctionDefinition(uint64_t a1, uint64_t a2)
           }
         }
 
-        glpSubroutineTypeGetName(SaType);
-        v41 = v40;
+        Name = glpSubroutineTypeGetName(SaType);
+        v39 = v38;
         InfoLog = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v110);
-        v103 = *(v6 + 32);
-        v104 = *(v6 + 24);
-        LOBYTE(v100) = v41;
-        v39 = "Subroutine type '%.*s' is incompatible with definition of subroutine '%.*s'";
+        *&v35 = glpASTNodeGetLocation(v2, &v95).n128_u64[0];
+        v88 = *(v6 + 32);
+        v89 = *(v6 + 24);
+        v86 = v39;
+        v87 = Name;
+        v36 = "Subroutine type '%.*s' is incompatible with definition of subroutine '%.*s'";
 LABEL_14:
-        glpLogMessage(InfoLog, 0, &v110, v39, v35, v36, v37, v38, v100);
+        glpLogMessage(InfoLog, 0, &v95, v36, v35, v86, v87, v88, v89);
         return glpSAFailed();
       }
 
 LABEL_8:
       v15 = glpSubroutineTypeListNodeGetType(v7, 0);
       glpASTNodeGetSaType(v15);
-      v108 = 0;
-      v109 = 0;
-      v107 = 0;
-      Allocator = glpCompilerGetAllocator(a1);
-      v110.n128_u64[0] = "-1";
-      v110.n128_u64[1] = 0xEDA00000002;
-      v111 = 0xFFFFFFFFLL;
-      SubroutineImplementationFragment = glpMakeSubroutineImplementationFragment(Allocator, &v110, &v109, *(v6 + 24), *(v6 + 32), &v108, &v107, v17, *(v6 + 24), *(v6 + 32));
+      v93 = 0;
+      v94 = 0;
+      v92 = 0;
+      glpCompilerGetAllocator();
+      v95.n128_u64[0] = "-1";
+      v95.n128_u64[1] = 0xEDA00000002;
+      v96 = 0xFFFFFFFFLL;
+      SubroutineImplementationFragment = glpMakeSubroutineImplementationFragment(v16, &v95, &v94, *(v6 + 24), *(v6 + 32), &v93, &v92, v17, *(v6 + 24), *(v6 + 32));
       v19 = glpCompilerPoolAlloc(a1);
       v20 = glpSubroutineTypeGetFunctionObject(*v9);
       v22 = *(v20 + 48);
@@ -8683,152 +8606,152 @@ LABEL_8:
       *(v19 + 8) = *(v19 + 8) & 0xFFFFFFFFFFE7FFFFLL | 0x100000;
       *(v19 + 24) = *(v6 + 24);
       *(v19 + 40) = *(v6 + 40);
-      glpFunctionPrototypeNodeSetExtra(v109, v19);
-      glpASTNodeSetSaType(v109, *v19);
-      glpASTNodeSetSaFlags(v109, *(v19 + 8));
+      glpFunctionPrototypeNodeSetExtra(v94, v19);
+      glpASTNodeSetSaType(v94, *v19);
+      glpASTNodeSetSaFlags(v94, *(v19 + 8));
       v29 = *(v19 + 72);
-      v30 = glpCompilerGetAllocator(a1);
+      glpCompilerGetAllocator();
       v31 = v30;
-      v105 = SubroutineImplementationFragment;
+      v90 = SubroutineImplementationFragment;
       if (v29)
       {
-        glpASTNodeGetLocation(v2, &v110);
-        SubroutineParameterFragment = glpMakeSubroutineParameterFragment(v31, &v110, *(*(v19 + 72) + 32), *(*(v19 + 72) + 40));
+        glpASTNodeGetLocation(v2, &v95);
+        SubroutineParameterFragment = glpMakeSubroutineParameterFragment(v31, &v95, *(*(v19 + 72) + 32), *(*(v19 + 72) + 40));
         glpASTNodeSetSaType(SubroutineParameterFragment, **(v19 + 72));
         glpASTNodeSetSaFlags(SubroutineParameterFragment, *(*(v19 + 72) + 48));
         glpParameterDeclarationNodeSetExtra(SubroutineParameterFragment, *(v19 + 72));
-        glpFunctionPrototypeNodeSetReturnOutParam(v109, SubroutineParameterFragment);
+        glpFunctionPrototypeNodeSetReturnOutParam(v94, SubroutineParameterFragment);
       }
 
       else
       {
-        v110.n128_u64[0] = "-1";
-        v110.n128_u64[1] = 0xEDA00000002;
-        v111 = 0xFFFFFFFFLL;
-        glpMakeExpressionStatementNode(v30, &v110);
-        v43 = v42;
-        glpExpressionStatementNodeSetExpr(v42, v107);
-        glpBlockNodeSetStatement(v108, 0, v43);
+        v95.n128_u64[0] = "-1";
+        v95.n128_u64[1] = 0xEDA00000002;
+        v96 = 0xFFFFFFFFLL;
+        glpMakeExpressionStatementNode(v30, &v95);
+        v41 = v40;
+        glpExpressionStatementNodeSetExpr(v40, v92);
+        glpBlockNodeSetStatement(v93, 0, v41);
       }
 
       if (*(v19 + 88))
       {
-        v44 = 0;
+        v42 = 0;
         do
         {
-          v45 = glpCompilerGetAllocator(a1);
-          StringBuffer = glpMakeStringBuffer(v45);
-          glpStringBufferAppendFormat(StringBuffer, "$subroutine$implementation_parameter$%u", v47, v48, v49, v50, v51, v52, v44);
+          glpCompilerGetAllocator();
+          StringBuffer = glpMakeStringBuffer(v43);
+          glpStringBufferAppendFormat(StringBuffer, "$subroutine$implementation_parameter$%u", v42);
           String = glpStringBufferGetString(StringBuffer);
-          v55 = v54;
-          v56 = glpCompilerGetAllocator(a1);
-          glpASTNodeGetLocation(v2, &v110);
-          v57 = glpMakeSubroutineParameterFragment(v56, &v110, String, v55);
-          glpASTNodeSetSaType(v57, **(*(v19 + 80) + 8 * v44));
-          glpASTNodeSetSaFlags(v57, *(*(*(v19 + 80) + 8 * v44) + 48));
-          glpParameterDeclarationNodeSetExtra(v57, *(*(v19 + 80) + 8 * v44));
-          v58 = glpCompilerGetAllocator(a1);
-          glpFunctionPrototypeNodeAddParameter(v58, v109, v57);
-          v59 = glpCompilerGetAllocator(a1);
-          v110.n128_u64[0] = "-1";
-          v110.n128_u64[1] = 0xEDA00000002;
-          v111 = 0xFFFFFFFFLL;
-          glpMakeVariableIdentifierNode(v59, &v110, String, v55);
-          v61 = v60;
-          v62 = glpCompilerGetAllocator(a1);
-          glpCallNodeAddArg(v62, v107, v61);
-          ++v44;
+          v47 = v46;
+          glpCompilerGetAllocator();
+          v49 = v48;
+          glpASTNodeGetLocation(v2, &v95);
+          v50 = glpMakeSubroutineParameterFragment(v49, &v95, String, v47);
+          glpASTNodeSetSaType(v50, **(*(v19 + 80) + 8 * v42));
+          glpASTNodeSetSaFlags(v50, *(*(*(v19 + 80) + 8 * v42) + 48));
+          glpParameterDeclarationNodeSetExtra(v50, *(*(v19 + 80) + 8 * v42));
+          glpCompilerGetAllocator();
+          glpFunctionPrototypeNodeAddParameter(v51, v94, v50);
+          glpCompilerGetAllocator();
+          v95.n128_u64[0] = "-1";
+          v95.n128_u64[1] = 0xEDA00000002;
+          v96 = 0xFFFFFFFFLL;
+          glpMakeVariableIdentifierNode(v52, &v95, String, v47);
+          v54 = v53;
+          glpCompilerGetAllocator();
+          glpCallNodeAddArg(v55, v92, v54);
+          ++v42;
         }
 
-        while (v44 < *(v19 + 88));
+        while (v42 < *(v19 + 88));
       }
 
-      v63 = glpCompilerGetAllocator(a1);
-      v64 = glpMakeStringBuffer(v63);
-      glpStringBufferAppendCString(v64, "$SubroutineStatic$");
-      v6 = v106;
-      glpStringBufferAppendString(v64, *(v106 + 24), *(v106 + 32));
-      v65 = glpStringBufferGetString(v64);
-      v67 = v66;
-      *(v106 + 24) = v65;
-      *(v106 + 32) = v66;
-      v68 = *v106;
-      v69 = glpCompilerGetAllocator(a1);
-      *(v106 + 40) = glpAggregateTypeMangleName(v68, v65, v67, v69);
-      *(v106 + 48) = v70;
+      glpCompilerGetAllocator();
+      v57 = glpMakeStringBuffer(v56);
+      glpStringBufferAppendCString(v57, "$SubroutineStatic$");
+      v6 = v91;
+      glpStringBufferAppendString(v57, *(v91 + 24), *(v91 + 32));
+      v58 = glpStringBufferGetString(v57);
+      v60 = v59;
+      *(v91 + 24) = v58;
+      *(v91 + 32) = v59;
+      v61 = *v91;
+      glpCompilerGetAllocator();
+      *(v91 + 40) = glpAggregateTypeMangleName(v61, v58, v60, v62);
+      *(v91 + 48) = v63;
       SaFlags = glpASTNodeGetSaFlags(Prototype);
       glpASTNodeSetSaFlags(Prototype, SaFlags & 0xFFFFFFFFFFCFFFFFLL | 0x200000);
-      *(v106 + 8) = *(v106 + 8) & 0xFFFFFFFFFFCFFFFFLL | 0x200000;
+      *(v91 + 8) = *(v91 + 8) & 0xFFFFFFFFFFCFFFFFLL | 0x200000;
     }
 
     else
     {
-      v105 = 0;
+      v90 = 0;
     }
 
     NameTable = glpCompilerGetNameTable(a1);
     Body = glpFunctionDefinitionNodeGetBody(v2);
-    v74 = glpFunctionDefinitionNodeGetPrototype(v2);
-    v75 = glpFunctionPrototypeNodeGetExtra(v74);
-    glpNameTablePushForFunction(NameTable, Body, v75);
-    v76 = glpCompilerGetNameTable(a1);
+    v67 = glpFunctionDefinitionNodeGetPrototype(v2);
+    v68 = glpFunctionPrototypeNodeGetExtra(v67);
+    glpNameTablePushForFunction(NameTable, Body, v68);
+    v69 = glpCompilerGetNameTable(a1);
     *(v6 + 64) = v2;
     if (glpFunctionPrototypeNodeGetParameterCount(Prototype))
     {
       for (i = 0; i < glpFunctionPrototypeNodeGetParameterCount(Prototype); ++i)
       {
         Parameter = glpFunctionPrototypeNodeGetParameter(Prototype, i);
-        Name = glpParameterDeclarationNodeGetName(Parameter);
-        v81 = v80;
-        if (!glpStringsEqual("<<unnamed>>", 0x725D7890000000BuLL, Name, v80))
+        v72 = glpParameterDeclarationNodeGetName(Parameter);
+        v74 = v73;
+        if (!glpStringsEqual("<<unnamed>>", 0x725D7890000000BuLL, v72, v73))
         {
-          if (glpNameTableGet(v76, Name, v81, 2, &__block_literal_global_4))
+          if (glpNameTableGet(v69, v72, v74, 2, &__block_literal_global_4))
           {
-            v89 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(Parameter, &v110);
-            glpLogMessage(v89, 0, &v110, "'%.*s': Duplicate parameter name", v90, v91, v92, v93, v81);
+            v82 = glpCompilerGetInfoLog(a1);
+            *&v83 = glpASTNodeGetLocation(Parameter, &v95).n128_u64[0];
+            glpLogMessage(v82, 0, &v95, "'%.*s': Duplicate parameter name", v83);
             return glpSAFailed();
           }
 
-          v82 = glpParameterDeclarationNodeGetExtra(Parameter);
-          glpNameTablePut(v76, Name, v81, 0, v82);
+          v75 = glpParameterDeclarationNodeGetExtra(Parameter);
+          glpNameTablePut(v69, v72, v74, 0, v75);
         }
       }
     }
 
-    v83 = glpFunctionDefinitionNodeGetBody(v2);
-    if (glpSANode(a1, v83) == -1)
+    v76 = glpFunctionDefinitionNodeGetBody(v2);
+    if (glpSANode(a1, v76) == -1)
     {
-      v88 = glpCompilerGetNameTable(a1);
-      glpNameTablePop(v88);
-      *(v106 + 64) = 0;
+      v81 = glpCompilerGetNameTable(a1);
+      glpNameTablePop(v81);
+      *(v91 + 64) = 0;
       return glpSAFailed();
     }
 
     glpFunctionDefinitionNodeGetBody(v2);
-    if (*(v106 + 72) && !*(v106 + 112))
+    if (*(v91 + 72) && !*(v91 + 112))
     {
-      v94 = glpCompilerGetInfoLog(a1);
-      glpASTNodeGetLocation(v2, &v110);
-      v102 = *(v106 + 24);
-      glpLogMessage(v94, 0, &v110, "Missing return for function '%.*s'", v95, v96, v97, v98, *(v106 + 32));
-      v99 = glpCompilerGetNameTable(a1);
-      glpNameTablePop(v99);
-      *(v106 + 64) = 0;
+      v84 = glpCompilerGetInfoLog(a1);
+      glpASTNodeGetLocation(v2, &v95);
+      glpLogMessage(v84, 0, &v95, "Missing return for function '%.*s'", *(v91 + 32), *(v91 + 24));
+      v85 = glpCompilerGetNameTable(a1);
+      glpNameTablePop(v85);
+      *(v91 + 64) = 0;
       return glpSAFailed();
     }
 
     else
     {
-      v84 = glpFunctionDefinitionNodeGetPrototype(v2);
-      v85 = glpASTNodeGetSaType(v84);
-      glpASTNodeSetSaType(v2, v85);
-      v86 = glpCompilerGetNameTable(a1);
-      glpNameTablePop(v86);
-      if (v105)
+      v77 = glpFunctionDefinitionNodeGetPrototype(v2);
+      v78 = glpASTNodeGetSaType(v77);
+      glpASTNodeSetSaType(v2, v78);
+      v79 = glpCompilerGetNameTable(a1);
+      glpNameTablePop(v79);
+      if (v90)
       {
-        v87 = glpSANode(a1, v105);
-        glpCompilerInsertDef(a1, v87);
+        v80 = glpSANode(a1, v90);
+        glpCompilerInsertDef(a1, v80);
       }
     }
 
@@ -8885,10 +8808,10 @@ uint64_t glpSAArrayType(uint64_t a1, uint64_t a2)
 
   else
   {
-    v24 = 0;
-    glpASTNodeGetLocation(v2, &v23);
+    v26 = 0;
+    glpASTNodeGetLocation(v2, &v25);
     v8 = glpArrayTypeNodeGetDimension(v2);
-    v9 = glpEvaluateArraySize(a1, &v23, v8, &v24);
+    v9 = glpEvaluateArraySize(a1, &v25, v8, &v26);
     if (!v9)
     {
       return glpSAFailed();
@@ -8897,36 +8820,38 @@ uint64_t glpSAArrayType(uint64_t a1, uint64_t a2)
     v10 = v9;
     v11 = glpArrayTypeNodeGetElementType(v2);
     SaFlags = glpASTNodeGetSaFlags(v11);
-    Allocator = glpCompilerGetAllocator(a1);
+    glpCompilerGetAllocator();
+    v14 = v13;
     SaType = glpASTNodeGetSaType(v11);
-    ArrayType = glpMakeArrayType(Allocator, SaType, v24, -1);
+    ArrayType = glpMakeArrayType(v14, SaType, v26, -1);
     glpASTNodeSetSaType(v2, ArrayType);
     if (glpIsQualifiedTypeNode(v11))
     {
-      v16 = glpCompilerGetAllocator(a1);
-      glpASTNodeGetLocation(v2, &v23);
-      glpMakeQualifiedTypeNode(v16, &v23);
+      glpCompilerGetAllocator();
       v18 = v17;
-      glpQualifiedTypeNodeSetType(v17, v2);
+      glpASTNodeGetLocation(v2, &v25);
+      glpMakeQualifiedTypeNode(v18, &v25);
+      v20 = v19;
+      glpQualifiedTypeNodeSetType(v19, v2);
       Type = glpQualifiedTypeNodeGetType(v11);
       glpArrayTypeNodeSetElementType(v2, Type);
       Qualifiers = glpQualifiedTypeNodeGetQualifiers(v11);
-      glpQualifiedTypeNodeSetQualifiers(v18, Qualifiers);
-      glpASTNodeSetSaType(v18, ArrayType);
-      v2 = v18;
+      glpQualifiedTypeNodeSetQualifiers(v20, Qualifiers);
+      glpASTNodeSetSaType(v20, ArrayType);
+      v2 = v20;
     }
 
     if (v10 == 3)
     {
-      v21 = SaFlags | 0x8000000;
+      v23 = SaFlags | 0x8000000;
     }
 
     else
     {
-      v21 = SaFlags;
+      v23 = SaFlags;
     }
 
-    glpASTNodeSetSaFlags(v2, v21);
+    glpASTNodeSetSaFlags(v2, v23);
     return v2;
   }
 }
@@ -8952,7 +8877,7 @@ uint64_t glpSAFieldDeclaration(uint64_t a1, uint64_t a2)
 
 uint64_t glpSAStructType(uint64_t a1, uint64_t a2)
 {
-  v80[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   if (glpSAStructure(a1, a2) != -1)
   {
     Name = glpStructTypeNodeGetName(a2);
@@ -8961,41 +8886,41 @@ uint64_t glpSAStructType(uint64_t a1, uint64_t a2)
     if (v7 != -1)
     {
       v8 = v7;
-      v65 = Name;
-      v66 = v6;
+      v52 = Name;
+      v53 = v6;
       FieldCount = glpStructureNodeGetFieldCount(v7);
-      v67 = &v64;
+      v54 = &v51;
       MEMORY[0x28223BE20](FieldCount);
-      v11 = &(&v64)[-2 * v10];
+      v11 = &(&v51)[-2 * v10];
       bzero(v11, v12);
       v13 = glpStructureNodeGetFieldCount(v8);
       MEMORY[0x28223BE20](v13);
-      v69 = &v64 - v14;
-      bzero(&v64 - v14, v15);
+      v56 = &v51 - v14;
+      bzero(&v51 - v14, v15);
       v16 = glpStructureNodeGetFieldCount(v8);
       MEMORY[0x28223BE20](v16);
-      v68 = &v64 - v17;
-      bzero(&v64 - v17, v18);
+      v55 = &v51 - v17;
+      bzero(&v51 - v17, v18);
       v19 = glpStructureNodeGetFieldCount(v8);
       MEMORY[0x28223BE20](v19);
-      v21 = &v64 - v20;
-      bzero(&v64 - v20, v22);
+      v21 = &v51 - v20;
+      bzero(&v51 - v20, v22);
       if (glpStructureNodeGetFieldCount(v8))
       {
         v23 = 0;
-        v64 = v11 + 1;
-        while (1)
+        v51 = v11 + 1;
+        do
         {
           Field = glpStructureNodeGetField(v8, v23);
-          v72 = 0;
-          v70.n128_u64[0] = 0;
-          v79 = 0;
-          v80[0] = 0;
-          glpASTNodeGetLocation(Field, &v76);
+          v59 = 0;
+          v57.n128_u64[0] = 0;
+          v66 = 0;
+          v67[0] = 0;
+          glpASTNodeGetLocation(Field, &v63);
           Type = glpFieldDeclarationNodeGetType(Field);
-          if (!glpEvaluateTypeNode(a1, &v76, 8, 1, Type, 0, &v72, &v70, v80, &v79))
+          if (!glpEvaluateTypeNode(a1, &v63, 8, 1, Type, 0, &v59, v57.n128_u64, v67, &v66))
           {
-            break;
+            return glpSAFailed();
           }
 
           v26 = v11;
@@ -9004,7 +8929,7 @@ uint64_t glpSAStructType(uint64_t a1, uint64_t a2)
           if (v23)
           {
             v30 = v23;
-            v31 = v64;
+            v31 = v51;
             while (!glpStringsEqual(*(v31 - 1), *v31, v27, v29))
             {
               v31 += 2;
@@ -9015,115 +8940,105 @@ uint64_t glpSAStructType(uint64_t a1, uint64_t a2)
             }
 
             InfoLog = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(Field, &v76);
-            glpLogMessage(InfoLog, 0, &v76, "Duplicate field name '%.*s' in struct type '%.*s'", v43, v44, v45, v46, v29);
-            break;
+            *&v43 = glpASTNodeGetLocation(Field, &v63).n128_u64[0];
+            glpLogMessage(InfoLog, 0, &v63, "Duplicate field name '%.*s' in struct type '%.*s'", v43);
+            return glpSAFailed();
           }
 
 LABEL_10:
-          if (glpTypeGetKind(v72) == 2 && glpArrayTypeGetElementCount(v72) == -1)
+          if (glpTypeGetKind(v59) == 2 && glpArrayTypeGetElementCount(v59) == -1)
           {
-            v59 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(v8, &v76);
-            glpLogMessage(v59, 0, &v76, "Unsized array field '%.*s' in struct type '%.*s'", v60, v61, v62, v63, v29);
-            break;
+            v49 = glpCompilerGetInfoLog(a1);
+            *&v50 = glpASTNodeGetLocation(v8, &v63).n128_u64[0];
+            glpLogMessage(v49, 0, &v63, "Unsized array field '%.*s' in struct type '%.*s'", v50);
+            return glpSAFailed();
           }
 
           v11 = v26;
           v32 = &v26[2 * v23];
           *v32 = v27;
           v32[1] = v29;
-          *(v69 + 8 * v23) = v72;
-          *(v68 + 8 * v23) = v70.n128_u64[0] | 0x2000000;
+          *(v56 + 8 * v23) = v59;
+          *(v55 + 8 * v23) = v57.n128_u64[0] | 0x2000000;
           *&v21[8 * v23++] = 0;
-          if (v23 >= glpStructureNodeGetFieldCount(v8))
-          {
-            goto LABEL_13;
-          }
         }
 
-        NameTable = glpSAFailed();
-        goto LABEL_30;
+        while (v23 < glpStructureNodeGetFieldCount(v8));
       }
 
-LABEL_13:
-      Allocator = glpCompilerGetAllocator(a1);
-      v34 = glpStructureNodeGetFieldCount(v8);
-      v35 = v65;
-      v36 = v66;
-      StructType = glpMakeStructType(Allocator, v65, v66, v34, v11, v69, v68, v21);
+      glpCompilerGetAllocator();
+      v34 = v33;
+      v35 = glpStructureNodeGetFieldCount(v8);
+      v36 = v52;
+      v37 = v53;
+      StructType = glpMakeStructType(v34, v52, v53, v35, v11, v56, v55, v21);
       glpASTNodeSetSaType(v8, StructType);
-      if (glpStringsEqual("<<unnamed>>", 0x725D7890000000BuLL, v35, v36))
+      if (glpStringsEqual("<<unnamed>>", 0x725D7890000000BuLL, v36, v37))
       {
         goto LABEL_29;
       }
 
       NameTable = glpCompilerGetNameTable(a1);
-      v76.n128_u64[0] = 0;
-      v76.n128_u64[1] = &v76;
-      v77 = 0x2000000000;
-      v78 = 0;
-      v72 = 0;
-      v73 = &v72;
-      v74 = 0x2000000000;
-      v75 = 0;
-      v71[0] = MEMORY[0x277D85DD0];
-      v71[1] = 0x40000000;
-      v71[2] = __glpSAStructType_block_invoke;
-      v71[3] = &unk_278B4C588;
-      v71[5] = &v72;
-      v71[6] = NameTable;
-      v71[4] = &v76;
-      glpNameTableGet(NameTable, v35, v36, 2, v71);
-      v39 = v73[3];
-      if (v39)
+      v63.n128_u64[0] = 0;
+      v63.n128_u64[1] = &v63;
+      v64 = 0x2000000000;
+      v65 = 0;
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2000000000;
+      v62 = 0;
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 0x40000000;
+      v58[2] = __glpSAStructType_block_invoke;
+      v58[3] = &unk_278B4C588;
+      v58[5] = &v59;
+      v58[6] = NameTable;
+      v58[4] = &v63;
+      glpNameTableGet(NameTable, v36, v37, 2, v58);
+      v40 = v60[3];
+      if (v40)
       {
-        if (*(v76.n128_u64[1] + 24) == 6)
+        if (*(v63.n128_u64[1] + 24) == 6)
         {
-          if (glpTypesEqual(StructType, v39))
+          if (glpTypesEqual(StructType, v40))
           {
-            glpASTNodeSetSaType(v8, v73[3]);
+            glpASTNodeSetSaType(v8, v60[3]);
 LABEL_24:
-            v47 = 1;
+            v44 = 1;
             goto LABEL_28;
           }
 
-          v53 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v8, &v70);
-          glpLogMessage(v53, 0, &v70, "Redeclaration of struct '%.*s' does not match previous declaration", v54, v55, v56, v57, v36);
+          v47 = glpCompilerGetInfoLog(a1);
+          *&v48 = glpASTNodeGetLocation(v8, &v57).n128_u64[0];
+          glpLogMessage(v47, 0, &v57, "Redeclaration of struct '%.*s' does not match previous declaration", v48);
         }
 
         else
         {
-          v48 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v8, &v70);
-          glpLogMessage(v48, 0, &v70, "Attempt to redeclare '%.*s' as a struct", v49, v50, v51, v52, v36);
+          v45 = glpCompilerGetInfoLog(a1);
+          *&v46 = glpASTNodeGetLocation(v8, &v57).n128_u64[0];
+          glpLogMessage(v45, 0, &v57, "Attempt to redeclare '%.*s' as a struct", v46);
         }
 
         NameTable = glpSAFailed();
-        v47 = 0;
+        v44 = 0;
 LABEL_28:
-        _Block_object_dispose(&v72, 8);
-        _Block_object_dispose(&v76, 8);
-        if (!v47)
+        _Block_object_dispose(&v59, 8);
+        _Block_object_dispose(&v63, 8);
+        if (!v44)
         {
-LABEL_30:
-          v58 = *MEMORY[0x277D85DE8];
           return NameTable;
         }
 
 LABEL_29:
         glpStructureNodeClearFields(v8);
-        NameTable = v8;
-        goto LABEL_30;
+        return v8;
       }
 
-      glpNameTablePut(NameTable, v35, v36, 6, StructType);
+      glpNameTablePut(NameTable, v36, v37, 6, StructType);
       goto LABEL_24;
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return glpSAFailed();
 }
@@ -9131,7 +9046,7 @@ LABEL_29:
 uint64_t glpSAInterfaceBlock(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v193[1] = *MEMORY[0x277D85DE8];
+  v147[1] = *MEMORY[0x277D85DE8];
   if (glpSAStructure(a1, a2) != -1)
   {
     Dimension = glpInterfaceBlockNodeGetDimension(v2);
@@ -9146,16 +9061,16 @@ uint64_t glpSAInterfaceBlock(uint64_t a1, uint64_t a2)
         glpASTNodeSetSaType(v2, PrimitiveType);
         NameTable = glpCompilerGetNameTable(a1);
         Language = glpNameTableGetLanguage(NameTable);
-        v192 = 0;
-        v193[0] = 0;
-        v191 = 0;
+        v146 = 0;
+        v147[0] = 0;
+        v145 = 0;
         Qualifiers = glpInterfaceBlockNodeGetQualifiers(v2);
-        if (glpParseQualifiers(a1, 7, Qualifiers, 0, v193, &v192, &v191))
+        if (glpParseQualifiers(a1, 7, Qualifiers, 0, v147, &v146, &v145))
         {
           TopLevelNode = glpCompilerGetTopLevelNode(a1);
           GlobalTypeQualifier = glpTopLevelNodeGetGlobalTypeQualifier(TopLevelNode, 0x100000000);
-          Allocator = glpCompilerGetAllocator(a1);
-          v14 = Allocator;
+          glpCompilerGetAllocator();
+          v14 = v13;
           if (GlobalTypeQualifier)
           {
             Layout = glpGlobalTypeQualifierNodeGetLayout(GlobalTypeQualifier);
@@ -9164,142 +9079,142 @@ uint64_t glpSAInterfaceBlock(uint64_t a1, uint64_t a2)
 
           else
           {
-            LayoutObject = glpMakeLayoutObject(Allocator);
+            LayoutObject = glpMakeLayoutObject(v13);
           }
 
-          v24 = LayoutObject;
-          if (!v192 || (v25 = glpCompilerGetAllocator(a1), glpASTNodeGetLocation(v2, &v188), glpLayoutObjectAppendMany(v25, a1, &v188, v24, v192)))
+          v20 = LayoutObject;
+          if (!v146 || (glpCompilerGetAllocator(), v22 = v21, glpASTNodeGetLocation(v2, &v142), glpLayoutObjectAppendMany(v22, a1, &v142, v20, v146)))
           {
-            if ((v193[0] & 0x100000000) != 0)
+            if ((v147[0] & 0x100000000) != 0)
             {
-              v26 = 117;
-              v27 = "uniform";
+              v23 = 117;
+              v24 = "uniform";
             }
 
-            else if ((v193[0] & 0x20000000) != 0)
+            else if ((v147[0] & 0x20000000) != 0)
             {
-              v26 = 105;
-              v27 = "in";
+              v23 = 105;
+              v24 = "in";
             }
 
             else
             {
-              if ((v193[0] & 0x40000000) == 0)
+              if ((v147[0] & 0x40000000) == 0)
               {
-                goto LABEL_107;
+                goto LABEL_110;
               }
 
-              v26 = 111;
-              v27 = "out";
+              v23 = 111;
+              v24 = "out";
             }
 
-            v173 = v27;
+            v127 = v24;
             BlockName = glpInterfaceBlockNodeGetBlockName(v2);
-            v30 = v29;
-            v31 = glpCompilerGetAllocator(a1);
-            StringBuffer = glpMakeStringBuffer(v31);
-            glpStringBufferAppendFormat(StringBuffer, "$IB$%c$5%.*s", v33, v34, v35, v36, v37, v38, v26);
-            v188.n128_u64[0] = 0;
-            v188.n128_u64[1] = &v188;
-            v189 = 0x2000000000;
-            LODWORD(v190) = 0;
-            v185.n128_u64[0] = 0;
-            v185.n128_u64[1] = &v185;
-            v186 = 0x2000000000;
-            v187 = 0;
-            v184[0] = MEMORY[0x277D85DD0];
-            v184[1] = 0x40000000;
-            v184[2] = __glpSAInterfaceBlock_block_invoke;
-            v184[3] = &unk_278B4C5B0;
-            v184[4] = &v188;
-            v184[5] = &v185;
-            v39 = glpNameTableGet(NameTable, BlockName, v30, 2, v184);
-            if (!*(v185.n128_u64[1] + 24) || *(v188.n128_u64[1] + 24) == 2)
+            v27 = v26;
+            glpCompilerGetAllocator();
+            StringBuffer = glpMakeStringBuffer(v28);
+            glpStringBufferAppendFormat(StringBuffer, "$IB$%c$5%.*s", v23, v27, BlockName);
+            v142.n128_u64[0] = 0;
+            v142.n128_u64[1] = &v142;
+            v143 = 0x2000000000;
+            LODWORD(v144) = 0;
+            v139.n128_u64[0] = 0;
+            v139.n128_u64[1] = &v139;
+            v140 = 0x2000000000;
+            v141 = 0;
+            v138[0] = MEMORY[0x277D85DD0];
+            v138[1] = 0x40000000;
+            v138[2] = __glpSAInterfaceBlock_block_invoke;
+            v138[3] = &unk_278B4C5B0;
+            v138[4] = &v142;
+            v138[5] = &v139;
+            v30 = glpNameTableGet(NameTable, BlockName, v27, 2, v138);
+            if (!*(v139.n128_u64[1] + 24) || *(v142.n128_u64[1] + 24) == 2)
             {
-              _Block_object_dispose(&v185, 8);
-              _Block_object_dispose(&v188, 8);
-              v188.n128_u64[0] = 0;
-              v188.n128_u64[1] = &v188;
-              v189 = 0x2000000000;
-              v190 = 0;
+              _Block_object_dispose(&v139, 8);
+              _Block_object_dispose(&v142, 8);
+              v142.n128_u64[0] = 0;
+              v142.n128_u64[1] = &v142;
+              v143 = 0x2000000000;
+              v144 = 0;
               String = glpStringBufferGetString(StringBuffer);
-              v182[0] = MEMORY[0x277D85DD0];
-              v182[1] = 0x40000000;
-              v182[2] = __glpSAInterfaceBlock_block_invoke_2;
-              v182[3] = &unk_278B4C5D8;
-              v182[4] = &v188;
-              glpNameTableGet(NameTable, String, v41, 0, v182);
-              v42 = *(v188.n128_u64[1] + 24);
-              if (v42)
+              v136[0] = MEMORY[0x277D85DD0];
+              v136[1] = 0x40000000;
+              v136[2] = __glpSAInterfaceBlock_block_invoke_2;
+              v136[3] = &unk_278B4C5D8;
+              v136[4] = &v142;
+              glpNameTableGet(NameTable, String, v32, 0, v136);
+              v33 = *(v142.n128_u64[1] + 24);
+              if (v33)
               {
-                v43 = *(v42 + 56);
-                if (!v43 || !glpLayoutObjectFind(v43, 82) && !glpLayoutObjectFind(*(*(v188.n128_u64[1] + 24) + 56), 81))
+                v34 = *(v33 + 56);
+                if (!v34 || !glpLayoutObjectFind(v34, 82) && !glpLayoutObjectFind(*(*(v142.n128_u64[1] + 24) + 56), 81))
                 {
                   InfoLog = glpCompilerGetInfoLog(a1);
-                  glpASTNodeGetLocation(v2, &v185);
-                  glpLogMessage(InfoLog, 0, &v185, "Cannot redeclare interface block '%s %.*s'", v45, v46, v47, v48, v173);
+                  glpASTNodeGetLocation(v2, &v139);
+                  glpLogMessage(InfoLog, 0, &v139, "Cannot redeclare interface block '%s %.*s'", v127, v27, BlockName);
                   v2 = -1;
-LABEL_111:
-                  _Block_object_dispose(&v188, 8);
-                  goto LABEL_112;
+LABEL_114:
+                  _Block_object_dispose(&v142, 8);
+                  return v2;
                 }
               }
 
               else
               {
-                v2 = glpCheckName(a1, v2, BlockName, v30);
+                v2 = glpCheckName(a1, v2, BlockName, v27);
                 if (v2 == -1)
                 {
                   v2 = glpSAFailed();
-                  goto LABEL_111;
+                  goto LABEL_114;
                 }
               }
 
-              v166 = v39;
-              v167 = StringBuffer;
-              v171 = v30;
-              v172 = BlockName;
-              v178 = v24;
-              v168 = Language;
+              v120 = v30;
+              v121 = StringBuffer;
+              v125 = v27;
+              v126 = BlockName;
+              v132 = v20;
+              v122 = Language;
               FieldCount = glpStructureNodeGetFieldCount(v2);
-              v55 = FieldCount;
-              v56 = FieldCount;
+              v38 = FieldCount;
+              v39 = FieldCount;
               MEMORY[0x28223BE20](FieldCount);
-              v57 = &v165[-16 * v56];
-              bzero(v57, v58);
-              MEMORY[0x28223BE20](v59);
-              v60 = (8 * v55 + 15) & 0xFFFFFFFF0;
-              v177 = &v165[-v60];
-              bzero(&v165[-v60], 8 * v55);
-              MEMORY[0x28223BE20](v61);
-              v176 = &v165[-v60];
-              bzero(&v165[-v60], 8 * v55);
-              MEMORY[0x28223BE20](v62);
-              v175 = &v165[-v60];
-              bzero(&v165[-v60], 8 * v55);
-              if (v55)
+              v40 = &v119[-16 * v39];
+              bzero(v40, v41);
+              MEMORY[0x28223BE20](v42);
+              v43 = (8 * v38 + 15) & 0xFFFFFFFF0;
+              v131 = &v119[-v43];
+              bzero(&v119[-v43], 8 * v38);
+              MEMORY[0x28223BE20](v44);
+              v130 = &v119[-v43];
+              bzero(&v119[-v43], 8 * v38);
+              MEMORY[0x28223BE20](v45);
+              v129 = &v119[-v43];
+              bzero(&v119[-v43], 8 * v38);
+              if (v38)
               {
-                v169 = v165;
-                v63 = 0;
-                v170 = &v165[-16 * v56];
-                v64 = (v57 + 8);
-                v174 = NameTable;
+                v123 = v119;
+                v46 = 0;
+                v124 = &v119[-16 * v39];
+                v47 = v40 + 8;
+                v128 = NameTable;
                 do
                 {
-                  Field = glpStructureNodeGetField(v2, v63);
+                  Field = glpStructureNodeGetField(v2, v46);
                   Name = glpFieldDeclarationNodeGetName(Field);
-                  v68 = v66;
-                  v69 = *(v188.n128_u64[1] + 24);
-                  if (v69)
+                  v51 = v49;
+                  v52 = *(v142.n128_u64[1] + 24);
+                  if (v52)
                   {
-                    StructTypeFromIBType = glpGetStructTypeFromIBType(*(v69 + 64));
-                    FieldIndex = glpStructTypeGetFieldIndex(StructTypeFromIBType, Name, v68);
+                    StructTypeFromIBType = glpGetStructTypeFromIBType(*(v52 + 64));
+                    FieldIndex = glpStructTypeGetFieldIndex(StructTypeFromIBType, Name, v51);
                     if (FieldIndex == -1)
                     {
-                      v111 = glpCompilerGetInfoLog(a1);
-                      glpASTNodeGetLocation(v2, &v185);
-                      glpLogMessage(v111, 0, &v185, "Field name '%.*s' in redeclaration of '%s %.*s' was not in previous declaration", v112, v113, v114, v115, v68);
-                      goto LABEL_110;
+                      v87 = glpCompilerGetInfoLog(a1);
+                      glpASTNodeGetLocation(v2, &v139);
+                      glpLogMessage(v87, 0, &v139, "Field name '%.*s' in redeclaration of '%s %.*s' was not in previous declaration", v51, Name, v127, v125, v126);
+                      goto LABEL_113;
                     }
 
                     ElementLayout = glpAggregateTypeGetElementLayout(StructTypeFromIBType, FieldIndex);
@@ -9307,110 +9222,110 @@ LABEL_111:
 
                   else
                   {
-                    v73 = glpCheckName(a1, Field, Name, v66);
-                    if (v73 == -1)
+                    v56 = glpCheckName(a1, Field, Name, v49);
+                    if (v56 == -1)
                     {
-                      goto LABEL_110;
+                      goto LABEL_113;
                     }
 
-                    Field = v73;
+                    Field = v56;
                     ElementLayout = 0;
                   }
 
-                  v183.n128_u64[0] = 0;
-                  v181 = 0;
-                  v180 = 0;
-                  v179 = 0;
-                  glpASTNodeGetLocation(v2, &v185);
+                  v137.n128_u64[0] = 0;
+                  v135 = 0;
+                  v134 = 0;
+                  v133 = 0;
+                  glpASTNodeGetLocation(v2, &v139);
                   Type = glpFieldDeclarationNodeGetType(Field);
-                  if (!glpEvaluateTypeNode(a1, &v185, 9, 1, Type, v193[0], &v183, &v181, &v180, &v179))
+                  if (!glpEvaluateTypeNode(a1, &v139, 9, 1, Type, v147[0], &v137, &v135, &v134, &v133))
                   {
-                    goto LABEL_110;
+                    goto LABEL_113;
                   }
 
-                  v75 = glpCompilerGetAllocator(a1);
-                  v76 = glpCopyLayoutObject(v75, v178);
-                  if (*(v188.n128_u64[1] + 24))
+                  glpCompilerGetAllocator();
+                  v59 = glpCopyLayoutObject(v58, v132);
+                  if (*(v142.n128_u64[1] + 24))
                   {
-                    v77 = glpCompilerGetAllocator(a1);
-                    glpASTNodeGetLocation(v2, &v185);
-                    if (!glpLayoutObjectAppendMany(v77, a1, &v185, v76, ElementLayout))
+                    glpCompilerGetAllocator();
+                    v61 = v60;
+                    glpASTNodeGetLocation(v2, &v139);
+                    if (!glpLayoutObjectAppendMany(v61, a1, &v139, v59, ElementLayout))
                     {
-                      goto LABEL_110;
+                      goto LABEL_113;
                     }
 
-                    v78 = glpCompilerGetAllocator(a1);
-                    glpLayoutObjectRemove(v78, v76, 82);
+                    glpCompilerGetAllocator();
+                    glpLayoutObjectRemove(v62, v59, 82);
                   }
 
-                  v79 = glpCompilerGetAllocator(a1);
-                  glpASTNodeGetLocation(v2, &v185);
-                  if (!glpLayoutObjectAppendMany(v79, a1, &v185, v76, v180))
+                  glpCompilerGetAllocator();
+                  v64 = v63;
+                  glpASTNodeGetLocation(v2, &v139);
+                  if (!glpLayoutObjectAppendMany(v64, a1, &v139, v59, v134))
                   {
-                    goto LABEL_110;
+                    goto LABEL_113;
                   }
 
-                  if (v76)
+                  if (v59)
                   {
-                    v80 = glpLayoutObjectFind(v76, 24);
-                    v81 = v181;
-                    NameTable = v174;
-                    if (v80)
+                    v65 = glpLayoutObjectFind(v59, 24);
+                    v66 = v135;
+                    NameTable = v128;
+                    if (v65)
                     {
-                      v81 = v181 | 0x400;
-                      v181 |= 0x400uLL;
+                      v66 = v135 | 0x400;
+                      v135 |= 0x400uLL;
                     }
                   }
 
                   else
                   {
-                    v81 = v181;
-                    NameTable = v174;
+                    v66 = v135;
+                    NameTable = v128;
                   }
 
-                  *(v64 - 1) = Name;
-                  *v64 = v68;
-                  *&v177[8 * v63] = v183.n128_u64[0];
-                  *&v176[8 * v63] = v193[0] | v81;
-                  *&v175[8 * v63] = v76;
-                  if (glpNameTableGetGLSLVersion(NameTable) == 6 && glpTypeGetKind(v183.n128_u64[0]) == 2 && glpArrayTypeGetElementCount(v183.n128_i64[0]) == -1)
+                  *(v47 - 1) = Name;
+                  *v47 = v51;
+                  *&v131[8 * v46] = v137.n128_u64[0];
+                  *&v130[8 * v46] = v147[0] | v66;
+                  *&v129[8 * v46] = v59;
+                  if (glpNameTableGetGLSLVersion(NameTable) == 6 && glpTypeGetKind(v137.n128_u64[0]) == 2 && glpArrayTypeGetElementCount(v137.n128_i64[0]) == -1)
                   {
-                    v131 = glpCompilerGetInfoLog(a1);
-                    glpASTNodeGetLocation(v2, &v185);
-                    v164 = *(v64 - 1);
-                    glpLogMessage(v131, 0, &v185, "Unsized array '%.*s' not allowed under GLSL 300", v132, v133, v134, v135, *v64);
-                    goto LABEL_110;
+                    v99 = glpCompilerGetInfoLog(a1);
+                    glpASTNodeGetLocation(v2, &v139);
+                    glpLogMessage(v99, 0, &v139, "Unsized array '%.*s' not allowed under GLSL 300", *v47, *(v47 - 1));
+                    goto LABEL_113;
                   }
 
-                  ++v63;
-                  v64 += 2;
+                  ++v46;
+                  v47 += 4;
                 }
 
-                while (v56 != v63);
+                while (v39 != v46);
                 HasInstanceName = glpInterfaceBlockNodeGetHasInstanceName(v2);
-                v57 = v170;
+                v40 = v124;
                 if (!HasInstanceName)
                 {
-                  if (v56)
+                  if (v39)
                   {
-                    v83 = (v170 + 8);
-                    v84 = 0xDFA3F2CD0000004BLL;
-                    v85 = v56;
-                    v174 = "<<BUG: printing instance name of interface block without an instance name>>";
-                    while (!glpNameTableGet(NameTable, *(v83 - 1), *v83, 2, &__block_literal_global_140))
+                    v68 = (v124 + 8);
+                    v69 = 0xDFA3F2CD0000004BLL;
+                    v70 = v39;
+                    v128 = "<<BUG: printing instance name of interface block without an instance name>>";
+                    while (!glpNameTableGet(NameTable, *(v68 - 1), *v68, 2, &__block_literal_global_140))
                     {
-                      v83 += 2;
-                      if (!--v85)
+                      v68 += 2;
+                      if (!--v70)
                       {
                         goto LABEL_64;
                       }
                     }
 
-                    v157 = glpCompilerGetInfoLog(a1);
-                    glpASTNodeGetLocation(v2, &v185);
-                    v163 = *(v83 - 1);
-                    glpLogMessage(v157, 0, &v185, "Field name '%.*s' of interface block without instance name '%.*s' would shadow a previous declaration", v158, v159, v160, v161, *v83);
-                    goto LABEL_110;
+                    v118 = glpCompilerGetInfoLog(a1);
+                    glpASTNodeGetLocation(v2, &v139);
+                    glpLogMessage(v118, 0, &v139, "Field name '%.*s' of interface block without instance name '%.*s' would shadow a previous declaration", *v68, *(v68 - 1), v125, v126);
+                    goto LABEL_113;
                   }
 
                   goto LABEL_63;
@@ -9419,249 +9334,255 @@ LABEL_111:
 
               else if (!glpInterfaceBlockNodeGetHasInstanceName(v2))
               {
-                v170 = &v165[-16 * v56];
+                v124 = &v119[-16 * v39];
 LABEL_63:
-                v84 = 0xDFA3F2CD0000004BLL;
-                v174 = "<<BUG: printing instance name of interface block without an instance name>>";
+                v69 = 0xDFA3F2CD0000004BLL;
+                v128 = "<<BUG: printing instance name of interface block without an instance name>>";
 LABEL_64:
-                v93 = 1;
+                v74 = 1;
 LABEL_66:
-                v94 = glpCompilerGetAllocator(a1);
-                v95 = glpMakeStringBuffer(v94);
-                glpStringBufferAppendFormat(v95, "$InterfaceBlockStruct$%.*s", v96, v97, v98, v99, v100, v101, v171);
-                v102 = glpCompilerGetAllocator(a1);
-                v103 = glpStringBufferGetString(v95);
-                StructType = glpMakeStructType(v102, v103, v104, v56, v170, v177, v176, v175);
-                v106 = v193[0];
+                glpCompilerGetAllocator();
+                v76 = glpMakeStringBuffer(v75);
+                glpStringBufferAppendFormat(v76, "$InterfaceBlockStruct$%.*s", v125, v126);
+                glpCompilerGetAllocator();
+                v78 = v77;
+                v79 = glpStringBufferGetString(v76);
+                StructType = glpMakeStructType(v78, v79, v80, v39, v124, v131, v130, v129);
+                v82 = v147[0];
                 IsArray = glpInterfaceBlockNodeGetIsArray(v2);
-                v183.n128_u32[0] = 1;
+                v137.n128_u32[0] = 1;
                 if (IsArray)
                 {
-                  v108 = v106 & 0x160000000;
-                  if ((v106 & 0x160000000) == 0x100000000)
+                  v84 = v82 & 0x160000000;
+                  if ((v82 & 0x160000000) == 0x100000000)
                   {
-                    v116 = 5;
+                    v88 = 5;
                   }
 
                   else
                   {
-                    if (v108 == 0x40000000)
+                    if (v84 == 0x40000000)
                     {
-                      v109 = glpBankForOutputsInLanguage(v168);
+                      v85 = glpBankForOutputsInLanguage(v122);
                     }
 
                     else
                     {
-                      if (v108 != 0x20000000)
+                      if (v84 != 0x20000000)
                       {
 LABEL_75:
-                        v117 = glpCompilerGetInfoLog(a1);
-                        glpASTNodeGetLocation(v2, &v185);
-                        if ((v193[0] & 0x20000000) != 0)
+                        v89 = glpCompilerGetInfoLog(a1);
+                        glpASTNodeGetLocation(v2, &v139);
+                        if ((v147[0] & 0x20000000) != 0)
                         {
-                          v118 = "in";
+                          v90 = "in";
                         }
 
                         else
                         {
-                          v118 = "out";
+                          v90 = "out";
                         }
 
-                        glpLanguageToString(v168);
-                        glpLogMessage(v117, 0, &v185, "Interface block array not allowed as %s in %s shader", v119, v120, v121, v122, v118);
-                        goto LABEL_110;
+                        v91 = glpLanguageToString(v122);
+                        glpLogMessage(v89, 0, &v139, "Interface block array not allowed as %s in %s shader", v90, v91);
+                        goto LABEL_113;
                       }
 
-                      v109 = glpBankForInputsInLanguage(v168);
+                      v85 = glpBankForInputsInLanguage(v122);
                     }
 
-                    v116 = v109;
-                    if (!v109)
+                    v88 = v85;
+                    if (!v85)
                     {
                       goto LABEL_75;
                     }
                   }
 
-                  glpASTNodeGetLocation(v2, &v185);
-                  v123 = glpInterfaceBlockNodeGetDimension(v2);
-                  if (!glpEvaluateArraySize(a1, &v185, v123, &v183))
+                  glpASTNodeGetLocation(v2, &v139);
+                  v92 = glpInterfaceBlockNodeGetDimension(v2);
+                  if (!glpEvaluateArraySize(a1, &v139, v92, &v137))
                   {
-                    goto LABEL_110;
+                    goto LABEL_113;
                   }
 
-                  ImpliedBankSize = glpCompilerGetImpliedBankSize(a1, v116);
-                  if (v183.n128_u32[0] == -1)
+                  ImpliedBankSize = glpCompilerGetImpliedBankSize(a1, v88);
+                  v94 = ImpliedBankSize;
+                  if (v137.n128_u32[0] == -1)
                   {
-                    v183.n128_u32[0] = ImpliedBankSize;
-                    if (v116 == 5 && ImpliedBankSize == -1)
+                    v137.n128_u32[0] = ImpliedBankSize;
+                    if (v88 == 5 && ImpliedBankSize == -1)
                     {
-                      v136 = glpCompilerGetInfoLog(a1);
-                      glpASTNodeGetLocation(v2, &v185);
-                      glpLogMessage(v136, 0, &v185, "Uniform interface block arrays must be sized", v137, v138, v139, v140, v165[0]);
-                      goto LABEL_110;
+                      v100 = glpCompilerGetInfoLog(a1);
+                      *&v101 = glpASTNodeGetLocation(v2, &v139).n128_u64[0];
+                      glpLogMessage(v100, 0, &v139, "Uniform interface block arrays must be sized", v101);
+                      goto LABEL_113;
                     }
                   }
 
-                  else if (ImpliedBankSize != -1 && v183.n128_u32[0] != ImpliedBankSize)
+                  else if (ImpliedBankSize != -1 && v137.n128_u32[0] != ImpliedBankSize)
                   {
-                    v125 = glpCompilerGetInfoLog(a1);
-                    glpASTNodeGetLocation(v2, &v185);
-                    v126 = v183.n128_u8[0];
-                    glpLanguageToString(v168);
-                    glpLogMessage(v125, 0, &v185, "Declared size (%u) of %s interface block array in the %s shader is incompatible with earlier declarations (expected %u)", v127, v128, v129, v130, v126);
-                    goto LABEL_110;
+                    v95 = glpCompilerGetInfoLog(a1);
+                    glpASTNodeGetLocation(v2, &v139);
+                    if ((v147[0] & 0x20000000) != 0)
+                    {
+                      v96 = "input";
+                    }
+
+                    else
+                    {
+                      v96 = "output";
+                    }
+
+                    v97 = v137.n128_u32[0];
+                    v98 = glpLanguageToString(v122);
+                    glpLogMessage(v95, 0, &v139, "Declared size (%u) of %s interface block array in the %s shader is incompatible with earlier declarations (expected %u)", v97, v96, v98, v94);
+                    goto LABEL_113;
                   }
 
-                  v141 = glpCompilerGetAllocator(a1);
-                  StructType = glpMakeBankType(v141, v116, StructType, v183.n128_i32[0]);
-                  v110 = v178;
+                  glpCompilerGetAllocator();
+                  StructType = glpMakeBankType(v102, v88, StructType, v137.n128_i32[0]);
+                  v86 = v132;
                 }
 
                 else
                 {
-                  v110 = v178;
+                  v86 = v132;
                 }
 
-                v142 = glpCompilerGetAllocator(a1);
-                v173 = v84;
-                if (v93)
+                glpCompilerGetAllocator();
+                v127 = v69;
+                if (v74)
                 {
-                  UnnamedInterfaceBlockObject = glpMakeUnnamedInterfaceBlockObject(v142, v172, v171, v193[0], 1, StructType);
-                  if (v56)
+                  UnnamedInterfaceBlockObject = glpMakeUnnamedInterfaceBlockObject(v103, v126, v125, v147[0], 1, StructType);
+                  if (v39)
                   {
-                    v144 = (v170 + 8);
+                    v105 = (v124 + 8);
                     do
                     {
-                      glpNameTablePut(NameTable, *(v144 - 1), *v144, 3, UnnamedInterfaceBlockObject);
-                      v144 += 2;
-                      --v56;
+                      glpNameTablePut(NameTable, *(v105 - 1), *v105, 3, UnnamedInterfaceBlockObject);
+                      v105 += 2;
+                      --v39;
                     }
 
-                    while (v56);
+                    while (v39);
                   }
 
-                  v145 = v172;
-                  v146 = v171;
+                  v106 = v126;
+                  v107 = v125;
                 }
 
                 else
                 {
-                  v145 = v172;
-                  v147 = v84;
-                  v146 = v171;
-                  UnnamedInterfaceBlockObject = glpMakeNamedInterfaceBlockObject(v142, v172, v171, v174, v147, v193[0], 1, StructType);
+                  v106 = v126;
+                  v108 = v69;
+                  v107 = v125;
+                  UnnamedInterfaceBlockObject = glpMakeNamedInterfaceBlockObject(v103, v126, v125, v128, v108, v147[0], 1, StructType);
                 }
 
-                *(UnnamedInterfaceBlockObject + 56) = v110;
-                v148 = v167;
-                if (!v166)
+                *(UnnamedInterfaceBlockObject + 56) = v86;
+                v109 = v121;
+                if (!v120)
                 {
-                  glpNameTablePut(NameTable, v145, v146, 2, UnnamedInterfaceBlockObject);
+                  glpNameTablePut(NameTable, v106, v107, 2, UnnamedInterfaceBlockObject);
                 }
 
-                v149 = glpStringBufferGetString(v148);
-                glpNameTablePut(NameTable, v149, v150, 2, UnnamedInterfaceBlockObject);
-                if ((v93 & 1) == 0)
+                v110 = glpStringBufferGetString(v109);
+                glpNameTablePut(NameTable, v110, v111, 2, UnnamedInterfaceBlockObject);
+                if ((v74 & 1) == 0)
                 {
-                  glpNameTablePut(NameTable, v174, v173, 1, UnnamedInterfaceBlockObject);
+                  glpNameTablePut(NameTable, v128, v127, 1, UnnamedInterfaceBlockObject);
                 }
 
                 glpInterfaceBlockNodeSetExtra(v2, UnnamedInterfaceBlockObject);
                 glpInterfaceBlockNodeSetQualifiers(v2, 0);
                 glpInterfaceBlockNodeSetDimension(v2, 0);
                 glpStructureNodeClearFields(v2);
-                if (!*(v188.n128_u64[1] + 24))
+                if (!*(v142.n128_u64[1] + 24))
                 {
-                  goto LABEL_111;
+                  goto LABEL_114;
                 }
 
-                v151 = glpCompilerGetTopLevelNode(a1);
-                DefCount = glpTopLevelNodeGetDefCount(v151);
+                v112 = glpCompilerGetTopLevelNode(a1);
+                DefCount = glpTopLevelNodeGetDefCount(v112);
                 if (DefCount)
                 {
-                  v153 = DefCount;
-                  v154 = 0;
+                  v114 = DefCount;
+                  v115 = 0;
                   while (1)
                   {
-                    Def = glpTopLevelNodeGetDef(v151, v154);
+                    Def = glpTopLevelNodeGetDef(v112, v115);
                     if (glpIsInterfaceBlockNode(Def))
                     {
                       Extra = glpInterfaceBlockNodeGetExtra(Def);
-                      if (Extra == *(v188.n128_u64[1] + 24))
+                      if (Extra == *(v142.n128_u64[1] + 24))
                       {
                         break;
                       }
                     }
 
-                    if (v153 == ++v154)
+                    if (v114 == ++v115)
                     {
-                      goto LABEL_107;
+                      goto LABEL_110;
                     }
                   }
 
-                  glpTopLevelNodeSetDef(v151, v154, v2);
+                  glpTopLevelNodeSetDef(v112, v115, v2);
                   v2 = 0;
-                  goto LABEL_111;
+                  goto LABEL_114;
                 }
 
-LABEL_107:
+LABEL_110:
                 abort();
               }
 
               InstanceName = glpInterfaceBlockNodeGetInstanceName(v2);
-              v84 = v86;
-              if (!*(v188.n128_u64[1] + 24))
+              v69 = v71;
+              if (!*(v142.n128_u64[1] + 24))
               {
-                v2 = glpCheckName(a1, v2, InstanceName, v86);
+                v2 = glpCheckName(a1, v2, InstanceName, v71);
                 if (v2 == -1)
                 {
-LABEL_110:
+LABEL_113:
                   v2 = glpSAFailed();
-                  goto LABEL_111;
+                  goto LABEL_114;
                 }
               }
 
-              if (glpNameTableGet(NameTable, InstanceName, v84, 2, &__block_literal_global_136))
+              if (glpNameTableGet(NameTable, InstanceName, v69, 2, &__block_literal_global_136))
               {
-                v88 = glpCompilerGetInfoLog(a1);
-                glpASTNodeGetLocation(v2, &v185);
-                glpLogMessage(v88, 0, &v185, "Interface block instance name '%.*s' would shadow a previous declaration", v89, v90, v91, v92, v84);
+                v73 = glpCompilerGetInfoLog(a1);
+                glpASTNodeGetLocation(v2, &v139);
+                glpLogMessage(v73, 0, &v139, "Interface block instance name '%.*s' would shadow a previous declaration", v69, InstanceName);
                 v2 = -1;
-                goto LABEL_111;
+                goto LABEL_114;
               }
 
-              v174 = InstanceName;
-              v170 = v57;
-              v93 = 0;
+              v128 = InstanceName;
+              v124 = v40;
+              v74 = 0;
               goto LABEL_66;
             }
 
-            v49 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(v2, &v183);
-            glpLogMessage(v49, 0, &v183, "Interface block name '%.*s' would shadow a previous declaration", v50, v51, v52, v53, v30);
-            _Block_object_dispose(&v185, 8);
-            _Block_object_dispose(&v188, 8);
-            v2 = -1;
-LABEL_112:
-            v162 = *MEMORY[0x277D85DE8];
-            return v2;
+            v36 = glpCompilerGetInfoLog(a1);
+            glpASTNodeGetLocation(v2, &v137);
+            glpLogMessage(v36, 0, &v137, "Interface block name '%.*s' would shadow a previous declaration", v27, BlockName);
+            _Block_object_dispose(&v139, 8);
+            _Block_object_dispose(&v142, 8);
+            return -1;
           }
         }
       }
 
       else
       {
-        v19 = glpCompilerGetInfoLog(a1);
-        glpASTNodeGetLocation(v2, &v188);
-        glpLogMessage(v19, 0, &v188, "Interface blocks may only be declared at global scope", v20, v21, v22, v23, v165[0]);
+        v18 = glpCompilerGetInfoLog(a1);
+        *&v19 = glpASTNodeGetLocation(v2, &v142).n128_u64[0];
+        glpLogMessage(v18, 0, &v142, "Interface blocks may only be declared at global scope", v19);
       }
 
-      v2 = glpSAFailed();
-      goto LABEL_112;
+      return glpSAFailed();
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return glpSAFailed();
 }
@@ -9669,7 +9590,7 @@ LABEL_112:
 uint64_t glpSALayoutType(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v86 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   if (!glpLayoutTypeNodeGetLayoutPairCount(a2))
   {
     goto LABEL_8;
@@ -9697,7 +9618,6 @@ uint64_t glpSALayoutType(uint64_t a1, uint64_t a2)
   while (v4 < glpLayoutTypeNodeGetLayoutPairCount(v2));
   if (!v5)
   {
-    v41 = *MEMORY[0x277D85DE8];
 
     return glpSAFailed();
   }
@@ -9708,10 +9628,10 @@ LABEL_8:
     LayoutPairCount = glpLayoutTypeNodeGetLayoutPairCount(v2);
     v9 = 16 * LayoutPairCount;
     MEMORY[0x28223BE20](LayoutPairCount);
-    v11 = &v70[-2 * v10];
+    v11 = &v53[-2 * v10];
     bzero(v11, v9);
     MEMORY[0x28223BE20](v12);
-    v13 = v70 - ((8 * LayoutPairCount + 15) & 0xFFFFFFFF0);
+    v13 = v53 - ((8 * LayoutPairCount + 15) & 0xFFFFFFFF0);
     bzero(v13, 8 * LayoutPairCount);
     MEMORY[0x28223BE20](v14);
     bzero(v13, 8 * LayoutPairCount);
@@ -9719,45 +9639,45 @@ LABEL_8:
     v16 = v13;
     bzero(v13, 8 * LayoutPairCount);
     bzero(v11, v9);
-    v76 = v13;
+    v59 = v13;
     bzero(v13, 8 * LayoutPairCount);
-    v75 = v13;
+    v58 = v13;
     bzero(v13, 8 * LayoutPairCount);
     bzero(v13, 8 * LayoutPairCount);
     if (LayoutPairCount)
     {
-      v70[0] = v11;
-      v70[1] = v70;
-      v81 = 0;
+      v53[0] = v11;
+      v53[1] = v53;
+      v64 = 0;
       SaType = 0;
-      v77 = 0;
-      v78 = 0;
+      v60 = 0;
+      v61 = 0;
       v17 = 0;
-      v83 = 0;
-      v72 = v11 + 1;
-      v73 = v70 - ((8 * LayoutPairCount + 15) & 0xFFFFFFFF0);
-      v71 = LayoutPairCount - 1;
+      v66 = 0;
+      v55 = v11 + 1;
+      v56 = v53 - ((8 * LayoutPairCount + 15) & 0xFFFFFFFF0);
+      v54 = LayoutPairCount - 1;
       v18 = -1;
-      v79 = -1;
+      v62 = -1;
       Value = -1;
-      v74 = LayoutPairCount;
+      v57 = LayoutPairCount;
       while (1)
       {
         v19 = glpLayoutTypeNodeGetLayoutPair(v2, v17);
         Identifier = glpLayoutPairNodeGetIdentifier(v19);
         v22 = v21;
-        v85 = 0;
-        Allocator = glpCompilerGetAllocator(a1);
-        v24 = glpLowerCaseCopyOfString(Allocator, Identifier, v22);
-        if (!glpLayoutQualifierFromString(v24, v25, &v85))
+        v68 = 0;
+        glpCompilerGetAllocator();
+        v24 = glpLowerCaseCopyOfString(v23, Identifier, v22);
+        if (!glpLayoutQualifierFromString(v24, v25, &v68))
         {
           InfoLog = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v2, &v84);
-          glpLogMessage(InfoLog, 0, &v84, "Unknown identifier '%.*s' in layout", v44, v45, v46, v47, v22);
-          goto LABEL_48;
+          *&v43 = glpASTNodeGetLocation(v2, &v67).n128_u64[0];
+          glpLogMessage(InfoLog, 0, &v67, "Unknown identifier '%.*s' in layout", v43);
+          return glpSAFailed();
         }
 
-        v26 = glpLayoutQualifierValueBehavior(v85);
+        v26 = glpLayoutQualifierValueBehavior(v68);
         ValueKind = glpLayoutPairNodeGetValueKind(v19);
         if (v26 > 1)
         {
@@ -9765,10 +9685,10 @@ LABEL_8:
           {
             if (ValueKind != 2)
             {
-              v60 = glpCompilerGetInfoLog(a1);
-              glpASTNodeGetLocation(v2, &v84);
-              glpLogMessage(v60, 0, &v84, "Identifier '%.*s' in layout must have a type", v61, v62, v63, v64, v22);
-              goto LABEL_48;
+              v49 = glpCompilerGetInfoLog(a1);
+              *&v50 = glpASTNodeGetLocation(v2, &v67).n128_u64[0];
+              glpLogMessage(v49, 0, &v67, "Identifier '%.*s' in layout must have a type", v50);
+              return glpSAFailed();
             }
           }
 
@@ -9781,10 +9701,10 @@ LABEL_8:
 
             if (ValueKind != 3)
             {
-              v55 = glpCompilerGetInfoLog(a1);
-              glpASTNodeGetLocation(v2, &v84);
-              glpLogMessage(v55, 0, &v84, "Identifier '%.*s' in layout must have a string", v56, v57, v58, v59, v22);
-              goto LABEL_48;
+              v47 = glpCompilerGetInfoLog(a1);
+              *&v48 = glpASTNodeGetLocation(v2, &v67).n128_u64[0];
+              glpLogMessage(v47, 0, &v67, "Identifier '%.*s' in layout must have a string", v48);
+              return glpSAFailed();
             }
           }
         }
@@ -9798,26 +9718,24 @@ LABEL_8:
 
           if (ValueKind != 1)
           {
-            v50 = glpCompilerGetInfoLog(a1);
-            glpASTNodeGetLocation(v2, &v84);
-            glpLogMessage(v50, 0, &v84, "Identifier '%.*s' in layout must have a value", v51, v52, v53, v54, v22);
-LABEL_48:
-            v2 = glpSAFailed();
-            goto LABEL_49;
+            v45 = glpCompilerGetInfoLog(a1);
+            *&v46 = glpASTNodeGetLocation(v2, &v67).n128_u64[0];
+            glpLogMessage(v45, 0, &v67, "Identifier '%.*s' in layout must have a value", v46);
+            return glpSAFailed();
           }
         }
 
         else if (ValueKind)
         {
-          v65 = glpCompilerGetInfoLog(a1);
-          glpASTNodeGetLocation(v2, &v84);
-          glpLogMessage(v65, 0, &v84, "Identifier '%.*s' in layout must not have a value", v66, v67, v68, v69, v22);
-          goto LABEL_48;
+          v51 = glpCompilerGetInfoLog(a1);
+          *&v52 = glpASTNodeGetLocation(v2, &v67).n128_u64[0];
+          glpLogMessage(v51, 0, &v67, "Identifier '%.*s' in layout must not have a value", v52);
+          return glpSAFailed();
         }
 
-        if (v85 <= 86)
+        if (v68 <= 86)
         {
-          if (v85 == 85)
+          if (v68 == 85)
           {
             Type = glpLayoutPairNodeGetType(v19);
             SaType = glpASTNodeGetSaType(Type);
@@ -9825,45 +9743,45 @@ LABEL_48:
 
           else
           {
-            if (v85 != 86)
+            if (v68 != 86)
             {
 LABEL_52:
               abort();
             }
 
             v37 = glpLayoutPairNodeGetType(v19);
-            v81 = glpASTNodeGetSaType(v37);
+            v64 = glpASTNodeGetSaType(v37);
             v18 = 2;
           }
         }
 
         else
         {
-          switch(v85)
+          switch(v68)
           {
             case 'W':
               Value = glpLayoutPairNodeGetValue(v19);
               break;
             case 'X':
-              v79 = glpLayoutPairNodeGetValue(v19);
+              v62 = glpLayoutPairNodeGetValue(v19);
               break;
             case 'Y':
               if (v17 + 1 >= LayoutPairCount)
               {
                 v18 = 1;
                 ++v17;
-                v77 = "<<unnamed>>";
-                v78 = 0x725D7890000000BLL;
+                v60 = "<<unnamed>>";
+                v61 = 0x725D7890000000BLL;
               }
 
               else
               {
                 v28 = 0;
-                v29 = &v72[2 * v83];
-                v30 = &v76[8 * v83];
-                v31 = &v75[8 * v83];
-                v32 = v16 + 8 * v83;
-                v33 = v71 - v17;
+                v29 = &v55[2 * v66];
+                v30 = &v59[8 * v66];
+                v31 = &v58[8 * v66];
+                v32 = v16 + 8 * v66;
+                v33 = v54 - v17;
                 do
                 {
                   v34 = glpLayoutTypeNodeGetLayoutPair(v2, v17 + v28 + 1);
@@ -9878,13 +9796,13 @@ LABEL_52:
                 }
 
                 while (v33 != v28);
-                v83 += v28;
+                v66 += v28;
                 v18 = 1;
-                v78 = 0x725D7890000000BLL;
-                v16 = v73;
-                LODWORD(LayoutPairCount) = v74;
-                v17 = v74;
-                v77 = "<<unnamed>>";
+                v61 = 0x725D7890000000BLL;
+                v16 = v56;
+                LODWORD(LayoutPairCount) = v57;
+                v17 = v57;
+                v60 = "<<unnamed>>";
               }
 
               break;
@@ -9897,8 +9815,8 @@ LABEL_52:
         {
           if (v18 == 2)
           {
-            v49 = glpCompilerGetAllocator(a1);
-            ArrayType = glpMakeArrayType(v49, v81, Value, v79);
+            glpCompilerGetAllocator();
+            ArrayType = glpMakeArrayType(v44, v64, Value, v62);
           }
 
           else
@@ -9906,8 +9824,8 @@ LABEL_52:
             ArrayType = SaType;
             if (v18 == 1)
             {
-              v40 = glpCompilerGetAllocator(a1);
-              ArrayType = glpMakeStructType(v40, v77, v78, v83, v70[0], v76, v75, v16);
+              glpCompilerGetAllocator();
+              ArrayType = glpMakeStructType(v40, v60, v61, v66, v53[0], v59, v58, v16);
             }
           }
 
@@ -9920,8 +9838,6 @@ LABEL_52:
 LABEL_43:
     glpASTNodeSetSaType(v2, ArrayType);
     glpASTNodeSetSaFlags(v2, 0);
-LABEL_49:
-    v48 = *MEMORY[0x277D85DE8];
     return v2;
   }
 }

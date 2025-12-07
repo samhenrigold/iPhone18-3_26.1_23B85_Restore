@@ -36,6 +36,7 @@
 + (id)oui:(id)oui;
 + (id)reformatMACAddress:(id)address;
 + (id)sanitizedOUI:(id)i;
++ (id)subBandForBSPAsStringFromChannel:(int64_t)channel andBand:(int)band;
 + (id)timePercentage:(double)percentage overTotalDuration:(double)duration;
 + (id)toBinString:(id)string;
 + (id)toHEXString:(char *)string length:(unint64_t)length;
@@ -198,20 +199,19 @@ void __57__WiFiUsagePrivacyFilter_canPerformActionWithSampleRate___block_invoke(
 
 + (double)timeSinceBootInSeconds
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  *v9 = 0x1500000001;
-  v6 = 16;
+  v9 = *MEMORY[0x277D85DE8];
   v7 = 0;
-  v2 = sysctl(v9, 2u, &v7, &v6, 0, 0);
+  *v8 = 0x1500000001;
+  v5 = 16;
+  v6 = 0;
+  v2 = sysctl(v8, 2u, &v6, &v5, 0, 0);
   result = 0.0;
   if (!v2)
   {
-    v4 = v8 / 1000000.0 + v7 - *MEMORY[0x277CBECD0];
-    result = CFAbsoluteTimeGetCurrent() - v4;
+    v4 = v7 / 1000000.0 + v6 - *MEMORY[0x277CBECD0];
+    return CFAbsoluteTimeGetCurrent() - v4;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -647,33 +647,33 @@ LABEL_12:
 
 + (id)getSumArrayCountAllBand:(id)band
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (band)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     allValues = [band allValues];
-    v4 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v6 += [*(*(&v12 + 1) + 8 * i) count];
+          v6 += [*(*(&v11 + 1) + 8 * i) count];
         }
 
-        v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -692,39 +692,37 @@ LABEL_12:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + ($FEE1510A43A03BFC9F45CB2D5A0A197D)getModeCountersByCandidatesByBand:(SEL)band
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a4;
   *retstr->var0 = 0u;
   *&retstr->var0[2] = 0u;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allKeys = [v5 allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        v13 = [v5 objectForKeyedSubscript:{v12, v18, v19}];
+        v12 = *(*(&v19 + 1) + 8 * i);
+        v13 = [v5 objectForKeyedSubscript:{v12, v17, v18}];
         v14 = [v13 count];
 
         if (v14 > v9)
@@ -734,27 +732,26 @@ LABEL_12:
 
           if (v12)
           {
-            [v12 candidateSet];
+            objc_msgSend_candidateSet(v12);
           }
 
           else
           {
+            v17 = 0u;
             v18 = 0u;
-            v19 = 0u;
           }
 
-          *retstr->var0 = v18;
-          *&retstr->var0[2] = v19;
+          *retstr->var0 = v17;
+          *&retstr->var0[2] = v18;
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -884,7 +881,7 @@ LABEL_12:
   v4 = *&band->var0[2];
   v7[0] = *band->var0;
   v7[1] = v4;
-  [self getPercForIntegerByBand:v7 Over:0x7FFFFFFFFFFFFFFFLL];
+  objc_msgSend_getPercForIntegerByBand_Over_(self, a2, v7, 0x7FFFFFFFFFFFFFFFLL);
   v5 = [self getLabelForIntegerByBand:v8 In:&unk_2848BAFD0 WithLowestEdge:@"0" As:2];
 
   return v5;
@@ -892,31 +889,31 @@ LABEL_12:
 
 + (id)getLabelForNeighborsByBand:(id)band
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   bandCopy = band;
   if (bandCopy)
   {
     v4 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     allKeys = [bandCopy allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [bandCopy objectForKeyedSubscript:v10];
           v12 = [v11 count];
 
@@ -933,7 +930,7 @@ LABEL_12:
           }
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -955,8 +952,6 @@ LABEL_12:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
@@ -967,7 +962,7 @@ LABEL_12:
   v9 = *&duration->var0[2];
   v25 = *duration->var0;
   v26 = v9;
-  [self getPercForFloatByBand:&v25 Over:totalDuration];
+  objc_msgSend_getPercForFloatByBand_Over_(self, a2, &v25, totalDuration);
   if (binned)
   {
     if (totalDuration == 0.0)
@@ -1300,10 +1295,10 @@ LABEL_7:
 
 + (id)getLabelsForNetworkProperties:(id)properties
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
+  v16 = [MEMORY[0x277CCAB68] stringWithString:&stru_28487EF20];
   v17 = [MEMORY[0x277CCAB68] stringWithString:&stru_28487EF20];
-  v18 = [MEMORY[0x277CCAB68] stringWithString:&stru_28487EF20];
   outCount = 0;
   v4 = objc_opt_class();
   v5 = class_copyPropertyList(v4, &outCount);
@@ -1324,7 +1319,7 @@ LABEL_7:
 
           if ((v13 & 1) == 0)
           {
-            [v17 appendFormat:@"%@&", v9];
+            [v16 appendFormat:@"%@&", v9];
           }
         }
 
@@ -1340,7 +1335,7 @@ LABEL_7:
 
         if (v12)
         {
-          [v18 appendFormat:@"%@&", v9];
+          [v17 appendFormat:@"%@&", v9];
         }
       }
 
@@ -1359,16 +1354,14 @@ LABEL_7:
 LABEL_17:
   if ([propertiesCopy captiveStatus] == 2)
   {
-    [v17 appendFormat:@"%@&", @"isCaptive"];
+    [v16 appendFormat:@"%@&", @"isCaptive"];
   }
 
-  v20[0] = @"networkType";
-  v20[1] = @"networkProperties";
-  v21[0] = v17;
-  v21[1] = v18;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v19[0] = @"networkType";
+  v19[1] = @"networkProperties";
+  v20[0] = v16;
+  v20[1] = v17;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v14;
 }
@@ -1384,6 +1377,34 @@ LABEL_17:
   {
     return off_2789C86E8[string];
   }
+}
+
++ (id)subBandForBSPAsStringFromChannel:(int64_t)channel andBand:(int)band
+{
+  if (band != 1)
+  {
+    goto LABEL_10;
+  }
+
+  if ((channel - 32) < 0x25)
+  {
+    v6 = @"5low";
+
+    return v6;
+  }
+
+  if ((channel - 96) < 0x46)
+  {
+    v6 = @"5high";
+  }
+
+  else
+  {
+LABEL_10:
+    v6 = [self bandAsString:{*&band, v4}];
+  }
+
+  return v6;
 }
 
 + (int)bandFromFlags:(id)flags OrChannel:(id)channel

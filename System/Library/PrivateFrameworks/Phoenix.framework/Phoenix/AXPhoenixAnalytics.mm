@@ -189,7 +189,6 @@
 
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendEvent:(id)event completion:(id)completion
@@ -222,7 +221,6 @@
   objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_descriptionForEventType:(int64_t)type

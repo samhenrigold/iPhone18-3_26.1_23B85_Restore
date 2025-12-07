@@ -2,9 +2,9 @@
 - (BOOL)executeStatement:(id)statement error:(id *)error;
 - (BOOL)executeStatementString:(id)string error:(id *)error;
 - (id)_cloneWithOptions:(unint64_t)options error:(id *)error;
-- (id)initWithDatabaseURI:(uint64_t)i options:(void *)options error:;
 - (id)resultsForStatement:(id)statement;
 - (id)statementWithString:(id)string error:(id *)error;
+- (sqlite3)initWithDatabaseURI:(uint64_t)i options:(void *)options error:;
 - (sqlite3)lastError;
 - (void)_installArraySupport;
 - (void)_registerAggregateFunctionDescriptor:(id)descriptor;
@@ -34,12 +34,12 @@
 
 - (id)_cloneWithOptions:(unint64_t)options error:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v7 = [_MSVSQLConnection alloc];
   databaseURI = self->_databaseURI;
-  v44 = 0;
-  v9 = [(_MSVSQLConnection *)v7 initWithDatabaseURI:options options:&v44 error:?];
-  v10 = v44;
+  v43 = 0;
+  v9 = [(_MSVSQLConnection *)&v7->super.isa initWithDatabaseURI:options options:&v43 error:?];
+  v10 = v43;
   v11 = v10;
   if (v10)
   {
@@ -58,22 +58,22 @@
 
   else
   {
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__4910;
-    v42 = __Block_byref_object_dispose__4911;
-    v43 = 0;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy__4910;
+    v41 = __Block_byref_object_dispose__4911;
+    v42 = 0;
     attachedDatabases = self->_attachedDatabases;
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __45___MSVSQLConnection__cloneWithOptions_error___block_invoke;
-    v35[3] = &unk_1E79827E0;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __45___MSVSQLConnection__cloneWithOptions_error___block_invoke;
+    v34[3] = &unk_1E79827E0;
     v15 = v9;
-    v36 = v15;
-    v37 = &v38;
-    [(NSMutableDictionary *)attachedDatabases enumerateKeysAndObjectsUsingBlock:v35];
-    v16 = v39[5];
+    v35 = v15;
+    v36 = &v37;
+    [(NSMutableDictionary *)attachedDatabases enumerateKeysAndObjectsUsingBlock:v34];
+    v16 = v38[5];
     if (v16)
     {
       v13 = 0;
@@ -85,55 +85,55 @@
 
     else
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v17 = self->_scalarFunctions;
-      v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v31 objects:v46 count:16];
+      v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v30 objects:v45 count:16];
       if (v18)
       {
-        v19 = *v32;
+        v19 = *v31;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v32 != v19)
+            if (*v31 != v19)
             {
               objc_enumerationMutation(v17);
             }
 
-            [v15 _registerScalarFunctionDescriptor:*(*(&v31 + 1) + 8 * i)];
+            [v15 _registerScalarFunctionDescriptor:*(*(&v30 + 1) + 8 * i)];
           }
 
-          v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v31 objects:v46 count:16];
+          v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v30 objects:v45 count:16];
         }
 
         while (v18);
       }
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v21 = self->_aggregateFunctions;
-      v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v27 objects:v45 count:16];
+      v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v26 objects:v44 count:16];
       if (v22)
       {
-        v23 = *v28;
+        v23 = *v27;
         do
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v28 != v23)
+            if (*v27 != v23)
             {
               objc_enumerationMutation(v21);
             }
 
-            [v15 _registerAggregateFunctionDescriptor:{*(*(&v27 + 1) + 8 * j), v27}];
+            [v15 _registerAggregateFunctionDescriptor:{*(*(&v26 + 1) + 8 * j), v26}];
           }
 
-          v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v27 objects:v45 count:16];
+          v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v26 objects:v44 count:16];
         }
 
         while (v22);
@@ -142,41 +142,39 @@
       v13 = v15;
     }
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
-- (id)initWithDatabaseURI:(uint64_t)i options:(void *)options error:
+- (sqlite3)initWithDatabaseURI:(uint64_t)i options:(void *)options error:
 {
-  v202[0] = *MEMORY[0x1E69E9840];
+  v201[0] = *MEMORY[0x1E69E9840];
   v7 = a2;
   if (self)
   {
-    v184.receiver = self;
-    v184.super_class = _MSVSQLConnection;
-    self = objc_msgSendSuper2(&v184, sel_init);
+    v183.receiver = self;
+    v183.super_class = _MSVSQLConnection;
+    self = objc_msgSendSuper2(&v183, sel_init);
     if (self)
     {
       v8 = [v7 copy];
-      v9 = *(self + 7);
-      *(self + 7) = v8;
+      v9 = self[7];
+      self[7] = v8;
 
-      *(self + 5) = i;
+      self[5] = i;
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      v11 = *(self + 2);
-      *(self + 2) = dictionary;
+      v11 = self[2];
+      self[2] = dictionary;
 
       array = [MEMORY[0x1E695DF70] array];
-      v13 = *(self + 3);
-      *(self + 3) = array;
+      v13 = self[3];
+      self[3] = array;
 
       array2 = [MEMORY[0x1E695DF70] array];
-      v15 = *(self + 4);
-      *(self + 4) = array2;
+      v15 = self[4];
+      self[4] = array2;
 
       if (i)
       {
@@ -190,7 +188,6 @@
 
       v17 = MSVHasherSharedSeed();
       v18 = v7;
-      v197 = 0u;
       v196 = 0u;
       v195 = 0u;
       v194 = 0u;
@@ -198,13 +195,14 @@
       v192 = 0u;
       v191 = 0u;
       v190 = 0u;
+      v189 = 0u;
       *buf = xmmword_1AC881C40;
       *&buf[16] = vaddq_s64(vdupq_n_s64(v17), xmmword_1AC881C50);
-      *&v186 = v17;
-      *(&v186 + 1) = v17 + 0x61C8864E7A143579;
+      *&v185 = v17;
+      *(&v185 + 1) = v17 + 0x61C8864E7A143579;
+      v186 = 0u;
       v187 = 0u;
-      v188 = 0u;
-      v189 = 0;
+      v188 = 0;
       v19 = v18;
       uTF8String = [v19 UTF8String];
       v21 = [v19 length];
@@ -259,9 +257,9 @@
           goto LABEL_74;
         }
 
-        v23 = HIBYTE(*(&v186 + 1));
-        v24 = *(&v186 + 1) & 0xFFFFFFFFFFFFFFLL;
-        v25 = HIBYTE(*(&v186 + 1)) & 7;
+        v23 = HIBYTE(*(&v185 + 1));
+        v24 = *(&v185 + 1) & 0xFFFFFFFFFFFFFFLL;
+        v25 = HIBYTE(*(&v185 + 1)) & 7;
         if (v25)
         {
           v26 = 8 - v25;
@@ -304,23 +302,23 @@ LABEL_24:
               v54 = v23 << 56;
             }
 
-            *(&v186 + 1) = v54;
+            *(&v185 + 1) = v54;
 LABEL_74:
 
-            memset(&v198[8], 0, 64);
-            *v198 = *buf;
+            memset(&v197[8], 0, 64);
+            *v197 = *buf;
             if (*buf > 3000)
             {
               if (*buf <= 4000)
               {
                 if (*buf == 3001)
                 {
-                  *&v198[8] = _MSV_XXH_XXH64_digest(&buf[8]);
+                  *&v197[8] = _MSV_XXH_XXH64_digest(&buf[8]);
                 }
 
                 else if (*buf == 4000)
                 {
-                  CC_MD5_Final(&v198[8], &buf[8]);
+                  CC_MD5_Final(&v197[8], &buf[8]);
                 }
               }
 
@@ -329,13 +327,13 @@ LABEL_74:
                 switch(*buf)
                 {
                   case 0xFA1:
-                    CC_SHA1_Final(&v198[8], &buf[8]);
+                    CC_SHA1_Final(&v197[8], &buf[8]);
                     break;
                   case 0x10A0:
-                    CC_SHA256_Final(&v198[8], &buf[8]);
+                    CC_SHA256_Final(&v197[8], &buf[8]);
                     break;
                   case 0x11A0:
-                    CC_SHA512_Final(&v198[8], &buf[8]);
+                    CC_SHA512_Final(&v197[8], &buf[8]);
                     break;
                 }
               }
@@ -350,13 +348,13 @@ LABEL_74:
                 if (*buf == 1000)
                 {
                   v75 = (*&buf[8] + *&buf[16]) ^ __ROR8__(*&buf[16], 51);
-                  v76 = *&buf[24] + (v186 ^ *(&v186 + 1));
-                  v77 = __ROR8__(v186 ^ *(&v186 + 1), 48);
+                  v76 = *&buf[24] + (v185 ^ *(&v185 + 1));
+                  v77 = __ROR8__(v185 ^ *(&v185 + 1), 48);
                   v78 = (v76 ^ v77) + __ROR8__(*&buf[8] + *&buf[16], 32);
                   v79 = v78 ^ __ROR8__(v76 ^ v77, 43);
                   v80 = v76 + v75;
                   v81 = v80 ^ __ROR8__(v75, 47);
-                  v82 = (v78 ^ *(&v186 + 1)) + v81;
+                  v82 = (v78 ^ *(&v185 + 1)) + v81;
                   v83 = v82 ^ __ROR8__(v81, 51);
                   v84 = (__ROR8__(v80, 32) ^ 0xFFLL) + v79;
                   v85 = __ROR8__(v79, 48);
@@ -382,8 +380,8 @@ LABEL_74:
                   *&buf[8] = v102;
                   *&buf[16] = v104 ^ __ROR8__(v99, 47);
                   *&buf[24] = __ROR8__(v104, 32);
-                  *&v186 = v103;
-                  *&v198[8] = *&buf[16] ^ v102 ^ *&buf[24] ^ v103;
+                  *&v185 = v103;
+                  *&v197[8] = *&buf[16] ^ v102 ^ *&buf[24] ^ v103;
                 }
               }
 
@@ -395,18 +393,18 @@ LABEL_74:
               }
 
 LABEL_111:
-              v199[0] = *v198;
-              v199[1] = *&v198[16];
-              v199[2] = *&v198[32];
-              v199[3] = *&v198[48];
-              v200 = *&v198[64];
-              if (*v198 > 3999)
+              v198[0] = *v197;
+              v198[1] = *&v197[16];
+              v198[2] = *&v197[32];
+              v198[3] = *&v197[48];
+              v199 = *&v197[64];
+              if (*v197 > 3999)
               {
-                if (*v198 > 4255)
+                if (*v197 > 4255)
                 {
-                  if (*v198 == 4256)
+                  if (*v197 == 4256)
                   {
-                    v161 = v199 + 8;
+                    v161 = v198 + 8;
                     v162 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
                     v163 = v162;
                     for (i = 0; i != 64; i += 2)
@@ -424,12 +422,12 @@ LABEL_111:
 
                   else
                   {
-                    if (*v198 != 4512)
+                    if (*v197 != 4512)
                     {
                       goto LABEL_184;
                     }
 
-                    v139 = v199 + 8;
+                    v139 = v198 + 8;
                     v140 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
                     v141 = v140;
                     for (j = 0; j != 128; j += 2)
@@ -446,9 +444,9 @@ LABEL_111:
                   }
                 }
 
-                else if (*v198 == 4000)
+                else if (*v197 == 4000)
                 {
-                  v151 = v199 + 8;
+                  v151 = v198 + 8;
                   v152 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
                   v153 = v152;
                   for (k = 0; k != 32; k += 2)
@@ -466,12 +464,12 @@ LABEL_111:
 
                 else
                 {
-                  if (*v198 != 4001)
+                  if (*v197 != 4001)
                   {
                     goto LABEL_184;
                   }
 
-                  v126 = v199 + 8;
+                  v126 = v198 + 8;
                   v127 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
                   v128 = v127;
                   for (m = 0; m != 40; m += 2)
@@ -490,15 +488,15 @@ LABEL_111:
 
               else
               {
-                if (*v198 <= 2999)
+                if (*v197 <= 2999)
                 {
-                  if (*v198 == 1000)
+                  if (*v197 == 1000)
                   {
-                    v145 = *(&v199[0] + 1);
-                    if (*(&v199[0] + 1))
+                    v145 = *(&v198[0] + 1);
+                    if (*(&v198[0] + 1))
                     {
-                      v146 = v202 + 1;
-                      quot = *(&v199[0] + 1);
+                      v146 = v201 + 1;
+                      quot = *(&v198[0] + 1);
                       do
                       {
                         v148 = lldiv(quot, 10);
@@ -525,19 +523,19 @@ LABEL_111:
                         v125 = (v146 - 2);
                       }
 
-                      v124 = (v202 - v125);
+                      v124 = (v201 - v125);
                       goto LABEL_147;
                     }
 
                     goto LABEL_185;
                   }
 
-                  if (*v198 == 2000)
+                  if (*v197 == 2000)
                   {
-                    v120 = DWORD2(v199[0]);
-                    if (DWORD2(v199[0]))
+                    v120 = DWORD2(v198[0]);
+                    if (DWORD2(v198[0]))
                     {
-                      v121 = v202;
+                      v121 = v201;
                       do
                       {
                         v122 = ldiv(v120, 10);
@@ -557,7 +555,7 @@ LABEL_111:
                       }
 
                       while (v122.quot);
-                      v124 = (v202 - v121);
+                      v124 = (v201 - v121);
                       v125 = v121;
 LABEL_147:
                       v150 = CFStringCreateWithBytes(0, v125, v124, 0x8000100u, 0);
@@ -579,8 +577,8 @@ LABEL_159:
                       *&buf[14] = self;
                       *&buf[22] = 2114;
                       *&buf[24] = v19;
-                      LOWORD(v186) = 2048;
-                      *(&v186 + 2) = i;
+                      LOWORD(v185) = 2048;
+                      *(&v185 + 2) = i;
                       _os_log_impl(&dword_1AC81F000, v168, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] initWithDatabaseURI:%{public}@ options:%lu… | opening database", buf, 0x2Au);
                     }
 
@@ -594,17 +592,17 @@ LABEL_159:
                       *&buf[14] = self;
                       *&buf[22] = 2114;
                       *&buf[24] = v19;
-                      LOWORD(v186) = 2048;
-                      *(&v186 + 2) = i;
-                      WORD5(v186) = 1024;
-                      HIDWORD(v186) = v169;
+                      LOWORD(v185) = 2048;
+                      *(&v185 + 2) = i;
+                      WORD5(v185) = 1024;
+                      HIDWORD(v185) = v169;
                       _os_log_impl(&dword_1AC81F000, v170, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] initWithDatabaseURI:%{public}@ options:%lu… | opening database [] result=%d", buf, 0x30u);
                     }
 
                     if (!v169)
                     {
-                      sqlite3_busy_timeout(*(self + 1), 1000);
-                      sqlite3_exec(*(self + 1), "PRAGMA journal_mode=WAL", 0, 0, 0);
+                      sqlite3_busy_timeout(self[1], 1000);
+                      sqlite3_exec(self[1], "PRAGMA journal_mode=WAL", 0, 0, 0);
 LABEL_182:
 
                       goto LABEL_183;
@@ -620,10 +618,10 @@ LABEL_182:
                       *&buf[14] = self;
                       *&buf[22] = 2114;
                       *&buf[24] = v19;
-                      LOWORD(v186) = 2048;
-                      *(&v186 + 2) = i;
-                      WORD5(v186) = 1024;
-                      HIDWORD(v186) = v171;
+                      LOWORD(v185) = 2048;
+                      *(&v185 + 2) = i;
+                      WORD5(v185) = 1024;
+                      HIDWORD(v185) = v171;
                       _os_log_impl(&dword_1AC81F000, v172, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] initWithDatabaseURI:%{public}@ options:%lu… | opening database for creation [failed readonly open] result=%d", buf, 0x30u);
                     }
 
@@ -646,12 +644,12 @@ LABEL_182:
                         *&buf[14] = self;
                         *&buf[22] = 2114;
                         *&buf[24] = v19;
-                        LOWORD(v186) = 2048;
-                        *(&v186 + 2) = i;
-                        WORD5(v186) = 1024;
-                        HIDWORD(v186) = v171;
-                        LOWORD(v187) = 2114;
-                        *(&v187 + 2) = v174;
+                        LOWORD(v185) = 2048;
+                        *(&v185 + 2) = i;
+                        WORD5(v185) = 1024;
+                        HIDWORD(v185) = v171;
+                        LOWORD(v186) = 2114;
+                        *(&v186 + 2) = v174;
                         _os_log_impl(&dword_1AC81F000, v176, OS_LOG_TYPE_ERROR, "[SQL:%{public}@:%p] initWithDatabaseURI:%{public}@ options:%lu… | failed opening database [failed create open] result=%d error=%{public}@", buf, 0x3Au);
                       }
                     }
@@ -660,9 +658,9 @@ LABEL_182:
                     {
                       if ((i & 1) == 0)
                       {
-                        sqlite3_exec(*(self + 1), "PRAGMA journal_mode=WAL", 0, 0, 0);
-                        sqlite3_close(*(self + 1));
-                        *(self + 1) = 0;
+                        sqlite3_exec(self[1], "PRAGMA journal_mode=WAL", 0, 0, 0);
+                        sqlite3_close(self[1]);
+                        self[1] = 0;
                         v177 = os_log_create("com.apple.amp.MediaServices", "SQL");
                         if (os_log_type_enabled(v177, OS_LOG_TYPE_INFO))
                         {
@@ -672,8 +670,8 @@ LABEL_182:
                           *&buf[14] = self;
                           *&buf[22] = 2114;
                           *&buf[24] = v19;
-                          LOWORD(v186) = 2048;
-                          *(&v186 + 2) = i;
+                          LOWORD(v185) = 2048;
+                          *(&v185 + 2) = i;
                           _os_log_impl(&dword_1AC81F000, v177, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] initWithDatabaseURI:%{public}@ options:%lu… | re-opening database disallowing creation [need read-only connection]", buf, 0x2Au);
                         }
 
@@ -691,8 +689,8 @@ LABEL_182:
                         *&buf[14] = self;
                         *&buf[22] = 2114;
                         *&buf[24] = v19;
-                        LOWORD(v186) = 2048;
-                        *(&v186 + 2) = i;
+                        LOWORD(v185) = 2048;
+                        *(&v185 + 2) = i;
                         _os_log_impl(&dword_1AC81F000, v179, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] initWithDatabaseURI:%{public}@ options:%lu… | using created database [mutation allowed]", buf, 0x2Au);
                       }
                     }
@@ -707,22 +705,22 @@ LABEL_181:
 
 LABEL_184:
                   currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-                  v183 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
-                  [currentHandler3 handleFailureInFunction:v183 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
+                  v182 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
+                  [currentHandler3 handleFailureInFunction:v182 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
 
                   selfCopy2 = &stru_1F214F018;
                   goto LABEL_159;
                 }
 
-                if (*v198 == 3000)
+                if (*v197 == 3000)
                 {
-                  LODWORD(v201[0]) = bswap32(DWORD2(v199[0]));
+                  LODWORD(v200[0]) = bswap32(DWORD2(v198[0]));
                   v157 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
                   v158 = 0;
                   v159 = v157 + 1;
                   do
                   {
-                    v160 = *(v201 + v158);
+                    v160 = *(v200 + v158);
                     *(v159 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v160 >> 4];
                     *v159 = MSVFastHexStringFromBytes_hexCharacters_4916[v160 & 0xF];
                     v159 += 2;
@@ -737,18 +735,18 @@ LABEL_184:
 
                 else
                 {
-                  if (*v198 != 3001)
+                  if (*v197 != 3001)
                   {
                     goto LABEL_184;
                   }
 
-                  v201[0] = bswap64(*(&v199[0] + 1));
+                  v200[0] = bswap64(*(&v198[0] + 1));
                   v135 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
                   v136 = 0;
                   v137 = v135 + 1;
                   do
                   {
-                    v138 = *(v201 + v136);
+                    v138 = *(v200 + v136);
                     *(v137 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v138 >> 4];
                     *v137 = MSVFastHexStringFromBytes_hexCharacters_4916[v138 & 0xF];
                     v137 += 2;
@@ -773,7 +771,7 @@ LABEL_184:
                 goto LABEL_111;
               }
 
-              v105 = &v186;
+              v105 = &v185;
               if (*&buf[12])
               {
                 v106 = vaddvq_s32(vorrq_s8(vshlq_u32(*&buf[16], xmmword_1AC881C30), vshlq_u32(*&buf[16], xmmword_1AC881C20)));
@@ -785,7 +783,7 @@ LABEL_184:
               }
 
               v110 = *&buf[8] + v106;
-              v111 = v187 & 0xF;
+              v111 = v186 & 0xF;
               if (v111 >= 4)
               {
                 do
@@ -836,13 +834,13 @@ LABEL_109:
             v117 = (-1028477387 * (v119 ^ (v119 >> 13))) ^ ((-1028477387 * (v119 ^ (v119 >> 13))) >> 16);
             *&buf[8] = v117;
 LABEL_110:
-            *&v198[8] = v117;
+            *&v197[8] = v117;
             goto LABEL_111;
           }
 
           v28 = 8 * v25;
           v29 = uTF8String;
-          v30 = *(&v186 + 1) & 0xFFFFFFFFFFFFFFLL;
+          v30 = *(&v185 + 1) & 0xFFFFFFFFFFFFFFLL;
           do
           {
             v31 = *v29++;
@@ -852,17 +850,17 @@ LABEL_110:
 
           while (v28 != 64);
           v32 = (*&buf[8] + *&buf[16]) ^ __ROR8__(*&buf[16], 51);
-          v33 = *&buf[24] + (v186 ^ v30);
-          v34 = __ROR8__(v186 ^ v30, 48);
+          v33 = *&buf[24] + (v185 ^ v30);
+          v34 = __ROR8__(v185 ^ v30, 48);
           v35 = (v33 ^ v34) + __ROR8__(*&buf[8] + *&buf[16], 32);
           v36 = v35 ^ __ROR8__(v33 ^ v34, 43);
           v37 = v33 + v32;
           *&buf[24] = __ROR8__(v37, 32);
-          *&v186 = v36;
+          *&v185 = v36;
           *&buf[8] = v35 ^ v30;
           *&buf[16] = v37 ^ __ROR8__(v32, 47);
           uTF8String += v26;
-          *(&v186 + 1) = (v26 + v23) << 56;
+          *(&v185 + 1) = (v26 + v23) << 56;
           v22 = v27;
         }
 
@@ -871,7 +869,7 @@ LABEL_110:
           v38 = *&buf[8];
           v41 = *&buf[24];
           v40 = *&buf[16];
-          v39 = v186;
+          v39 = v185;
           do
           {
             v42 = *uTF8String;
@@ -887,7 +885,7 @@ LABEL_110:
             v40 = v49 ^ __ROR8__(v45, 47);
             v41 = __ROR8__(v49, 32);
             *&buf[24] = v41;
-            *&v186 = v39;
+            *&v185 = v39;
             v38 = v48 ^ v42;
             *&buf[8] = v38;
             *&buf[16] = v40;
@@ -1045,7 +1043,6 @@ LABEL_63:
 
 LABEL_183:
 
-  v180 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -1356,7 +1353,7 @@ LABEL_4:
 
 - (id)statementWithString:(id)string error:(id *)error
 {
-  v352 = *MEMORY[0x1E69E9840];
+  v351 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (self->_invalid)
   {
@@ -1383,7 +1380,6 @@ LABEL_205:
 
     v9 = MSVHasherSharedSeed();
     v10 = self->_databaseURI;
-    v344 = 0u;
     v343 = 0u;
     v342 = 0u;
     v341 = 0u;
@@ -1391,44 +1387,45 @@ LABEL_205:
     v339 = 0u;
     v338 = 0u;
     v337 = 0u;
-    *v331 = xmmword_1AC881C40;
-    *&v331[16] = vaddq_s64(vdupq_n_s64(v9), xmmword_1AC881C50);
-    v332 = v9;
-    v333 = v9 + 0x61C8864E7A143579;
+    v336 = 0u;
+    *v330 = xmmword_1AC881C40;
+    *&v330[16] = vaddq_s64(vdupq_n_s64(v9), xmmword_1AC881C50);
+    v331 = v9;
+    v332 = v9 + 0x61C8864E7A143579;
+    v333 = 0u;
     v334 = 0u;
-    v335 = 0u;
-    v336 = 0;
+    v335 = 0;
     v11 = v10;
     uTF8String = [(NSString *)v11 UTF8String];
     v13 = [(NSString *)v11 length];
     v14 = v13;
-    if (*v331 > 3000)
+    if (*v330 > 3000)
     {
-      if (*v331 <= 4000)
+      if (*v330 <= 4000)
       {
-        if (*v331 == 3001)
+        if (*v330 == 3001)
         {
-          _MSV_XXH_XXH64_update(&v331[8], uTF8String, v13);
+          _MSV_XXH_XXH64_update(&v330[8], uTF8String, v13);
         }
 
-        else if (*v331 == 4000)
+        else if (*v330 == 4000)
         {
-          CC_MD5_Update(&v331[8], uTF8String, v13);
+          CC_MD5_Update(&v330[8], uTF8String, v13);
         }
       }
 
       else
       {
-        switch(*v331)
+        switch(*v330)
         {
           case 0xFA1:
-            CC_SHA1_Update(&v331[8], uTF8String, v13);
+            CC_SHA1_Update(&v330[8], uTF8String, v13);
             break;
           case 0x10A0:
-            CC_SHA256_Update(&v331[8], uTF8String, v13);
+            CC_SHA256_Update(&v330[8], uTF8String, v13);
             break;
           case 0x11A0:
-            CC_SHA512_Update(&v331[8], uTF8String, v13);
+            CC_SHA512_Update(&v330[8], uTF8String, v13);
             break;
         }
       }
@@ -1436,9 +1433,9 @@ LABEL_205:
       goto LABEL_117;
     }
 
-    if (*v331 <= 1999)
+    if (*v330 <= 1999)
     {
-      if (!*v331)
+      if (!*v330)
       {
         currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
         v59 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _MSVHasherAppendBytes(MSVHasher * _Nonnull, const void * _Nonnull, size_t)"}];
@@ -1447,14 +1444,14 @@ LABEL_205:
         goto LABEL_117;
       }
 
-      if (*v331 != 1000)
+      if (*v330 != 1000)
       {
         goto LABEL_117;
       }
 
-      v20 = HIBYTE(v333);
-      v21 = v333 & 0xFFFFFFFFFFFFFFLL;
-      v22 = HIBYTE(v333) & 7;
+      v20 = HIBYTE(v332);
+      v21 = v332 & 0xFFFFFFFFFFFFFFLL;
+      v22 = HIBYTE(v332) & 7;
       if (v22)
       {
         v23 = 8 - v22;
@@ -1497,38 +1494,38 @@ LABEL_29:
             v51 = v20 << 56;
           }
 
-          v333 = v51;
+          v332 = v51;
 LABEL_117:
 
-          memset(&v345[8], 0, 64);
-          *v345 = *v331;
-          if (*v331 > 3000)
+          memset(&v344[8], 0, 64);
+          *v344 = *v330;
+          if (*v330 > 3000)
           {
-            if (*v331 <= 4000)
+            if (*v330 <= 4000)
             {
-              if (*v331 == 3001)
+              if (*v330 == 3001)
               {
-                *&v345[8] = _MSV_XXH_XXH64_digest(&v331[8]);
+                *&v344[8] = _MSV_XXH_XXH64_digest(&v330[8]);
               }
 
-              else if (*v331 == 4000)
+              else if (*v330 == 4000)
               {
-                CC_MD5_Final(&v345[8], &v331[8]);
+                CC_MD5_Final(&v344[8], &v330[8]);
               }
             }
 
             else
             {
-              switch(*v331)
+              switch(*v330)
               {
                 case 0xFA1:
-                  CC_SHA1_Final(&v345[8], &v331[8]);
+                  CC_SHA1_Final(&v344[8], &v330[8]);
                   break;
                 case 0x10A0:
-                  CC_SHA256_Final(&v345[8], &v331[8]);
+                  CC_SHA256_Final(&v344[8], &v330[8]);
                   break;
                 case 0x11A0:
-                  CC_SHA512_Final(&v345[8], &v331[8]);
+                  CC_SHA512_Final(&v344[8], &v330[8]);
                   break;
               }
             }
@@ -1536,20 +1533,20 @@ LABEL_117:
             goto LABEL_154;
           }
 
-          if (*v331 <= 1999)
+          if (*v330 <= 1999)
           {
-            if (*v331)
+            if (*v330)
             {
-              if (*v331 == 1000)
+              if (*v330 == 1000)
               {
-                v115 = (*&v331[8] + *&v331[16]) ^ __ROR8__(*&v331[16], 51);
-                v116 = *&v331[24] + (v332 ^ v333);
-                v117 = __ROR8__(v332 ^ v333, 48);
-                v118 = (v116 ^ v117) + __ROR8__(*&v331[8] + *&v331[16], 32);
+                v115 = (*&v330[8] + *&v330[16]) ^ __ROR8__(*&v330[16], 51);
+                v116 = *&v330[24] + (v331 ^ v332);
+                v117 = __ROR8__(v331 ^ v332, 48);
+                v118 = (v116 ^ v117) + __ROR8__(*&v330[8] + *&v330[16], 32);
                 v119 = v118 ^ __ROR8__(v116 ^ v117, 43);
                 v120 = v116 + v115;
                 v121 = v120 ^ __ROR8__(v115, 47);
-                v122 = (v118 ^ v333) + v121;
+                v122 = (v118 ^ v332) + v121;
                 v123 = v122 ^ __ROR8__(v121, 51);
                 v124 = (__ROR8__(v120, 32) ^ 0xFFLL) + v119;
                 v125 = __ROR8__(v119, 48);
@@ -1572,11 +1569,11 @@ LABEL_117:
                 v142 = __ROR8__(v138, 32) + (v140 ^ v141);
                 v143 = v142 ^ __ROR8__(v140 ^ v141, 43);
                 v144 = v139 + v140;
-                *&v331[8] = v142;
-                *&v331[16] = v144 ^ __ROR8__(v139, 47);
-                *&v331[24] = __ROR8__(v144, 32);
-                v332 = v143;
-                *&v345[8] = *&v331[16] ^ v142 ^ *&v331[24] ^ v143;
+                *&v330[8] = v142;
+                *&v330[16] = v144 ^ __ROR8__(v139, 47);
+                *&v330[24] = __ROR8__(v144, 32);
+                v331 = v143;
+                *&v344[8] = *&v330[16] ^ v142 ^ *&v330[24] ^ v143;
               }
             }
 
@@ -1588,18 +1585,18 @@ LABEL_117:
             }
 
 LABEL_154:
-            v346 = *v345;
-            v347 = *&v345[16];
-            v348 = *&v345[32];
-            v349 = *&v345[48];
-            v350 = *&v345[64];
-            if (*v345 > 3999)
+            v345 = *v344;
+            v346 = *&v344[16];
+            v347 = *&v344[32];
+            v348 = *&v344[48];
+            v349 = *&v344[64];
+            if (*v344 > 3999)
             {
-              if (*v345 > 4255)
+              if (*v344 > 4255)
               {
-                if (*v345 == 4256)
+                if (*v344 == 4256)
                 {
-                  v201 = &v346 + 8;
+                  v201 = &v345 + 8;
                   v202 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
                   v203 = v202;
                   for (i = 0; i != 64; i += 2)
@@ -1617,12 +1614,12 @@ LABEL_154:
 
                 else
                 {
-                  if (*v345 != 4512)
+                  if (*v344 != 4512)
                   {
                     goto LABEL_211;
                   }
 
-                  v179 = &v346 + 8;
+                  v179 = &v345 + 8;
                   v180 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
                   v181 = v180;
                   for (j = 0; j != 128; j += 2)
@@ -1639,9 +1636,9 @@ LABEL_154:
                 }
               }
 
-              else if (*v345 == 4000)
+              else if (*v344 == 4000)
               {
-                v191 = &v346 + 8;
+                v191 = &v345 + 8;
                 v192 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
                 v193 = v192;
                 for (k = 0; k != 32; k += 2)
@@ -1659,12 +1656,12 @@ LABEL_154:
 
               else
               {
-                if (*v345 != 4001)
+                if (*v344 != 4001)
                 {
                   goto LABEL_211;
                 }
 
-                v166 = &v346 + 8;
+                v166 = &v345 + 8;
                 v167 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
                 v168 = v167;
                 for (m = 0; m != 40; m += 2)
@@ -1683,15 +1680,15 @@ LABEL_154:
 
             else
             {
-              if (*v345 <= 2999)
+              if (*v344 <= 2999)
               {
-                if (*v345 == 1000)
+                if (*v344 == 1000)
                 {
-                  v185 = *(&v346 + 1);
-                  if (*(&v346 + 1))
+                  v185 = *(&v345 + 1);
+                  if (*(&v345 + 1))
                   {
-                    v186 = &v352 + 1;
-                    quot = *(&v346 + 1);
+                    v186 = &v351 + 1;
+                    quot = *(&v345 + 1);
                     do
                     {
                       v188 = lldiv(quot, 10);
@@ -1718,7 +1715,7 @@ LABEL_154:
                       v165 = (v186 - 2);
                     }
 
-                    v164 = (&v352 - v165);
+                    v164 = (&v351 - v165);
                     goto LABEL_190;
                   }
 
@@ -1727,12 +1724,12 @@ LABEL_212:
                   goto LABEL_202;
                 }
 
-                if (*v345 == 2000)
+                if (*v344 == 2000)
                 {
-                  v160 = DWORD2(v346);
-                  if (DWORD2(v346))
+                  v160 = DWORD2(v345);
+                  if (DWORD2(v345))
                   {
-                    v161 = &v352;
+                    v161 = &v351;
                     do
                     {
                       v162 = ldiv(v160, 10);
@@ -1752,7 +1749,7 @@ LABEL_212:
                     }
 
                     while (v162.quot);
-                    v164 = (&v352 - v161);
+                    v164 = (&v351 - v161);
                     v165 = v161;
 LABEL_190:
                     v190 = CFStringCreateWithBytes(0, v165, v164, 0x8000100u, 0);
@@ -1763,13 +1760,13 @@ LABEL_202:
                     v208 = os_log_create("com.apple.amp.MediaServices", "SQL");
                     if (os_log_type_enabled(v208, OS_LOG_TYPE_ERROR))
                     {
-                      *v331 = 138543874;
-                      *&v331[4] = v207;
-                      *&v331[12] = 2048;
-                      *&v331[14] = self;
-                      *&v331[22] = 2114;
-                      *&v331[24] = lastError;
-                      _os_log_impl(&dword_1AC81F000, v208, OS_LOG_TYPE_ERROR, "[SQL:%{public}@:%p] statementWithString:… | failed to create statement [] error=%{public}@", v331, 0x20u);
+                      *v330 = 138543874;
+                      *&v330[4] = v207;
+                      *&v330[12] = 2048;
+                      *&v330[14] = self;
+                      *&v330[22] = 2114;
+                      *&v330[24] = lastError;
+                      _os_log_impl(&dword_1AC81F000, v208, OS_LOG_TYPE_ERROR, "[SQL:%{public}@:%p] statementWithString:… | failed to create statement [] error=%{public}@", v330, 0x20u);
                     }
 
                     goto LABEL_205;
@@ -1780,22 +1777,22 @@ LABEL_202:
 
 LABEL_211:
                 currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
-                v213 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
-                [currentHandler4 handleFailureInFunction:v213 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
+                v212 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
+                [currentHandler4 handleFailureInFunction:v212 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
 
                 v207 = &stru_1F214F018;
                 goto LABEL_202;
               }
 
-              if (*v345 == 3000)
+              if (*v344 == 3000)
               {
-                LODWORD(v351[0]) = bswap32(DWORD2(v346));
+                LODWORD(v350[0]) = bswap32(DWORD2(v345));
                 v197 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
                 v198 = 0;
                 v199 = v197 + 1;
                 do
                 {
-                  v200 = *(v351 + v198);
+                  v200 = *(v350 + v198);
                   *(v199 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v200 >> 4];
                   *v199 = MSVFastHexStringFromBytes_hexCharacters_4916[v200 & 0xF];
                   v199 += 2;
@@ -1810,18 +1807,18 @@ LABEL_211:
 
               else
               {
-                if (*v345 != 3001)
+                if (*v344 != 3001)
                 {
                   goto LABEL_211;
                 }
 
-                v351[0] = bswap64(*(&v346 + 1));
+                v350[0] = bswap64(*(&v345 + 1));
                 v175 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
                 v176 = 0;
                 v177 = v175 + 1;
                 do
                 {
-                  v178 = *(v351 + v176);
+                  v178 = *(v350 + v176);
                   *(v177 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v178 >> 4];
                   *v177 = MSVFastHexStringFromBytes_hexCharacters_4916[v178 & 0xF];
                   v177 += 2;
@@ -1839,26 +1836,26 @@ LABEL_211:
             goto LABEL_201;
           }
 
-          if (*v331 != 2000)
+          if (*v330 != 2000)
           {
-            if (*v331 != 3000)
+            if (*v330 != 3000)
             {
               goto LABEL_154;
             }
 
-            v145 = &v332;
-            if (*&v331[12])
+            v145 = &v331;
+            if (*&v330[12])
             {
-              v146 = vaddvq_s32(vorrq_s8(vshlq_u32(*&v331[16], xmmword_1AC881C30), vshlq_u32(*&v331[16], xmmword_1AC881C20)));
+              v146 = vaddvq_s32(vorrq_s8(vshlq_u32(*&v330[16], xmmword_1AC881C30), vshlq_u32(*&v330[16], xmmword_1AC881C20)));
             }
 
             else
             {
-              v146 = *&v331[24] + 374761393;
+              v146 = *&v330[24] + 374761393;
             }
 
-            v150 = *&v331[8] + v146;
-            v151 = v334 & 0xF;
+            v150 = *&v330[8] + v146;
+            v151 = v333 & 0xF;
             if (v151 >= 4)
             {
               do
@@ -1888,35 +1885,35 @@ LABEL_211:
             goto LABEL_153;
           }
 
-          switch(v331[19])
+          switch(v330[19])
           {
             case 1:
-              v149 = v331[16];
+              v149 = v330[16];
               break;
             case 2:
-              v149 = *&v331[16];
+              v149 = *&v330[16];
               break;
             case 3:
-              v149 = *&v331[16] | (v331[18] << 16);
+              v149 = *&v330[16] | (v330[18] << 16);
               break;
             default:
-              v158 = *&v331[8];
+              v158 = *&v330[8];
               goto LABEL_152;
           }
 
-          v158 = (461845907 * ((380141568 * v149) | ((-862048943 * v149) >> 17))) ^ *&v331[8];
+          v158 = (461845907 * ((380141568 * v149) | ((-862048943 * v149) >> 17))) ^ *&v330[8];
 LABEL_152:
-          v159 = -2048144789 * (v158 ^ *&v331[12] ^ ((v158 ^ *&v331[12]) >> 16));
+          v159 = -2048144789 * (v158 ^ *&v330[12] ^ ((v158 ^ *&v330[12]) >> 16));
           v157 = (-1028477387 * (v159 ^ (v159 >> 13))) ^ ((-1028477387 * (v159 ^ (v159 >> 13))) >> 16);
-          *&v331[8] = v157;
+          *&v330[8] = v157;
 LABEL_153:
-          *&v345[8] = v157;
+          *&v344[8] = v157;
           goto LABEL_154;
         }
 
         v25 = 8 * v22;
         v26 = uTF8String;
-        v27 = v333 & 0xFFFFFFFFFFFFFFLL;
+        v27 = v332 & 0xFFFFFFFFFFFFFFLL;
         do
         {
           v28 = *v26++;
@@ -1925,27 +1922,27 @@ LABEL_153:
         }
 
         while (v25 != 64);
-        v29 = (*&v331[8] + *&v331[16]) ^ __ROR8__(*&v331[16], 51);
-        v30 = *&v331[24] + (v332 ^ v27);
-        v31 = __ROR8__(v332 ^ v27, 48);
-        v32 = (v30 ^ v31) + __ROR8__(*&v331[8] + *&v331[16], 32);
+        v29 = (*&v330[8] + *&v330[16]) ^ __ROR8__(*&v330[16], 51);
+        v30 = *&v330[24] + (v331 ^ v27);
+        v31 = __ROR8__(v331 ^ v27, 48);
+        v32 = (v30 ^ v31) + __ROR8__(*&v330[8] + *&v330[16], 32);
         v33 = v32 ^ __ROR8__(v30 ^ v31, 43);
         v34 = v30 + v29;
-        *&v331[24] = __ROR8__(v34, 32);
-        v332 = v33;
-        *&v331[8] = v32 ^ v27;
-        *&v331[16] = v34 ^ __ROR8__(v29, 47);
+        *&v330[24] = __ROR8__(v34, 32);
+        v331 = v33;
+        *&v330[8] = v32 ^ v27;
+        *&v330[16] = v34 ^ __ROR8__(v29, 47);
         uTF8String += v23;
-        v333 = (v23 + v20) << 56;
+        v332 = (v23 + v20) << 56;
         v14 = v24;
       }
 
       if (v14 >= 8)
       {
-        v35 = *&v331[8];
-        v38 = *&v331[24];
-        v37 = *&v331[16];
-        v36 = v332;
+        v35 = *&v330[8];
+        v38 = *&v330[24];
+        v37 = *&v330[16];
+        v36 = v331;
         do
         {
           v39 = *uTF8String;
@@ -1960,11 +1957,11 @@ LABEL_153:
           v46 = v43 + v42;
           v37 = v46 ^ __ROR8__(v42, 47);
           v38 = __ROR8__(v46, 32);
-          *&v331[24] = v38;
-          v332 = v36;
+          *&v330[24] = v38;
+          v331 = v36;
           v35 = v45 ^ v39;
-          *&v331[8] = v35;
-          *&v331[16] = v37;
+          *&v330[8] = v35;
+          *&v330[16] = v37;
           v14 -= 8;
           v20 += 8;
         }
@@ -1976,27 +1973,27 @@ LABEL_153:
       goto LABEL_29;
     }
 
-    if (*v331 != 2000)
+    if (*v330 != 2000)
     {
-      if (*v331 == 3000)
+      if (*v330 == 3000)
       {
-        _MSV_XXH_XXH32_update(&v331[8], uTF8String, v13);
+        _MSV_XXH_XXH32_update(&v330[8], uTF8String, v13);
       }
 
       goto LABEL_117;
     }
 
-    v60 = v13 + v331[19];
+    v60 = v13 + v330[19];
     if (v60 < 4)
     {
-      v61 = &v331[v331[19] + 16];
-      v62 = (v60 - v331[19]);
+      v61 = &v330[v330[19] + 16];
+      v62 = (v60 - v330[19]);
       if (v62 <= 1)
       {
-        if (v60 == v331[19])
+        if (v60 == v330[19])
         {
 LABEL_116:
-          *&v331[12] += v14;
+          *&v330[12] += v14;
           goto LABEL_117;
         }
 
@@ -2007,7 +2004,7 @@ LABEL_116:
         }
 
 LABEL_100:
-        memcpy(v61, uTF8String, (v60 - v331[19]));
+        memcpy(v61, uTF8String, (v60 - v330[19]));
         goto LABEL_116;
       }
 
@@ -2033,32 +2030,32 @@ LABEL_100:
 
     LOBYTE(v95) = 0;
     v96 = v60 & 0xFFFFFFFFFFFFFFFCLL;
-    if (v331[19] > 1u)
+    if (v330[19] > 1u)
     {
-      if (v331[19] != 2)
+      if (v330[19] != 2)
       {
         LOBYTE(v97) = 0;
         LOBYTE(v98) = 0;
         v100 = 0;
-        if (v331[19] == 3)
+        if (v330[19] == 3)
         {
-          LOBYTE(v97) = v331[16];
-          v95 = HIBYTE(*&v331[16]);
-          LOBYTE(v98) = v331[18];
+          LOBYTE(v97) = v330[16];
+          v95 = HIBYTE(*&v330[16]);
+          LOBYTE(v98) = v330[18];
           v100 = *uTF8String;
         }
 
         goto LABEL_106;
       }
 
-      LOBYTE(v97) = v331[16];
-      v95 = HIBYTE(*&v331[16]);
+      LOBYTE(v97) = v330[16];
+      v95 = HIBYTE(*&v330[16]);
       v98 = *uTF8String;
     }
 
     else
     {
-      if (!v331[19])
+      if (!v330[19])
       {
         v97 = *uTF8String;
         v95 = *uTF8String >> 8;
@@ -2067,7 +2064,7 @@ LABEL_100:
         goto LABEL_106;
       }
 
-      LOBYTE(v97) = v331[16];
+      LOBYTE(v97) = v330[16];
       LOBYTE(v95) = *uTF8String;
       v98 = *(uTF8String + 1);
     }
@@ -2076,12 +2073,12 @@ LABEL_100:
 LABEL_106:
     v106 = v60 & 3;
     v107 = (v98 << 16) | (v100 << 24) | v97 | (v95 << 8);
-    HIDWORD(v108) = (461845907 * ((380141568 * v107) | ((-862048943 * v107) >> 17))) ^ *&v331[8];
+    HIDWORD(v108) = (461845907 * ((380141568 * v107) | ((-862048943 * v107) >> 17))) ^ *&v330[8];
     LODWORD(v108) = HIDWORD(v108);
     v109 = 5 * (v108 >> 19) - 430675100;
-    *&v331[8] = v109;
-    v110 = &uTF8String[-v331[19] + 4];
-    v111 = &uTF8String[v96 - v331[19]];
+    *&v330[8] = v109;
+    v110 = &uTF8String[-v330[19] + 4];
+    v111 = &uTF8String[v96 - v330[19]];
     while (v110 < v111)
     {
       v112 = *v110;
@@ -2089,30 +2086,30 @@ LABEL_106:
       HIDWORD(v113) = (461845907 * ((380141568 * v112) | ((-862048943 * v112) >> 17))) ^ v109;
       LODWORD(v113) = HIDWORD(v113);
       v109 = 5 * (v113 >> 19) - 430675100;
-      *&v331[8] = v109;
+      *&v330[8] = v109;
     }
 
     if (v106 > 1)
     {
       if (v106 == 2)
       {
-        *&v331[16] = *v111;
+        *&v330[16] = *v111;
       }
 
       else
       {
         v114 = *v111;
-        v331[18] = v111[2];
-        *&v331[16] = v114;
+        v330[18] = v111[2];
+        *&v330[16] = v114;
       }
     }
 
     else if (v106)
     {
-      v331[16] = *v111;
+      v330[16] = *v111;
     }
 
-    v331[19] = v106;
+    v330[19] = v106;
     goto LABEL_116;
   }
 
@@ -2123,9 +2120,9 @@ LABEL_106:
     selfCopy = self;
     if (v15)
     {
-      *v331 = v15;
-      *&v331[8] = MSVSQLStatement;
-      v18 = objc_msgSendSuper2(v331, sel_init);
+      *v330 = v15;
+      *&v330[8] = MSVSQLStatement;
+      v18 = objc_msgSendSuper2(v330, sel_init);
       v19 = v18;
       if (v18)
       {
@@ -2144,7 +2141,6 @@ LABEL_106:
 
   v52 = MSVHasherSharedSeed();
   v53 = self->_databaseURI;
-  v344 = 0u;
   v343 = 0u;
   v342 = 0u;
   v341 = 0u;
@@ -2152,44 +2148,45 @@ LABEL_106:
   v339 = 0u;
   v338 = 0u;
   v337 = 0u;
-  *v331 = xmmword_1AC881C40;
-  *&v331[16] = vaddq_s64(vdupq_n_s64(v52), xmmword_1AC881C50);
-  v332 = v52;
-  v333 = v52 + 0x61C8864E7A143579;
+  v336 = 0u;
+  *v330 = xmmword_1AC881C40;
+  *&v330[16] = vaddq_s64(vdupq_n_s64(v52), xmmword_1AC881C50);
+  v331 = v52;
+  v332 = v52 + 0x61C8864E7A143579;
+  v333 = 0u;
   v334 = 0u;
-  v335 = 0u;
-  v336 = 0;
+  v335 = 0;
   v54 = v53;
   uTF8String2 = [(NSString *)v54 UTF8String];
   v56 = [(NSString *)v54 length];
   v57 = v56;
-  if (*v331 > 3000)
+  if (*v330 > 3000)
   {
-    if (*v331 <= 4000)
+    if (*v330 <= 4000)
     {
-      if (*v331 == 3001)
+      if (*v330 == 3001)
       {
-        _MSV_XXH_XXH64_update(&v331[8], uTF8String2, v56);
+        _MSV_XXH_XXH64_update(&v330[8], uTF8String2, v56);
       }
 
-      else if (*v331 == 4000)
+      else if (*v330 == 4000)
       {
-        CC_MD5_Update(&v331[8], uTF8String2, v56);
+        CC_MD5_Update(&v330[8], uTF8String2, v56);
       }
     }
 
     else
     {
-      switch(*v331)
+      switch(*v330)
       {
         case 0xFA1:
-          CC_SHA1_Update(&v331[8], uTF8String2, v56);
+          CC_SHA1_Update(&v330[8], uTF8String2, v56);
           break;
         case 0x10A0:
-          CC_SHA256_Update(&v331[8], uTF8String2, v56);
+          CC_SHA256_Update(&v330[8], uTF8String2, v56);
           break;
         case 0x11A0:
-          CC_SHA512_Update(&v331[8], uTF8String2, v56);
+          CC_SHA512_Update(&v330[8], uTF8String2, v56);
           break;
       }
     }
@@ -2197,29 +2194,29 @@ LABEL_106:
     goto LABEL_243;
   }
 
-  if (*v331 > 1999)
+  if (*v330 > 1999)
   {
-    if (*v331 != 2000)
+    if (*v330 != 2000)
     {
-      if (*v331 == 3000)
+      if (*v330 == 3000)
       {
-        _MSV_XXH_XXH32_update(&v331[8], uTF8String2, v56);
+        _MSV_XXH_XXH32_update(&v330[8], uTF8String2, v56);
       }
 
       goto LABEL_243;
     }
 
-    v103 = v56 + v331[19];
+    v103 = v56 + v330[19];
     if (v103 < 4)
     {
-      v104 = &v331[v331[19] + 16];
-      v105 = (v103 - v331[19]);
+      v104 = &v330[v330[19] + 16];
+      v105 = (v103 - v330[19]);
       if (v105 <= 1)
       {
-        if (v103 == v331[19])
+        if (v103 == v330[19])
         {
 LABEL_242:
-          *&v331[12] += v57;
+          *&v330[12] += v57;
           goto LABEL_243;
         }
 
@@ -2230,13 +2227,13 @@ LABEL_242:
         }
 
 LABEL_226:
-        memcpy(v104, uTF8String2, (v103 - v331[19]));
+        memcpy(v104, uTF8String2, (v103 - v330[19]));
         goto LABEL_242;
       }
 
       if (v105 == 2)
       {
-        v218 = *uTF8String2;
+        v217 = *uTF8String2;
       }
 
       else
@@ -2246,100 +2243,100 @@ LABEL_226:
           goto LABEL_226;
         }
 
-        v218 = *uTF8String2;
+        v217 = *uTF8String2;
         v104[2] = uTF8String2[2];
       }
 
-      *v104 = v218;
+      *v104 = v217;
       goto LABEL_242;
     }
 
-    LOBYTE(v214) = 0;
-    v215 = v103 & 0xFFFFFFFFFFFFFFFCLL;
-    if (v331[19] > 1u)
+    LOBYTE(v213) = 0;
+    v214 = v103 & 0xFFFFFFFFFFFFFFFCLL;
+    if (v330[19] > 1u)
     {
-      if (v331[19] != 2)
+      if (v330[19] != 2)
       {
+        LOBYTE(v215) = 0;
         LOBYTE(v216) = 0;
-        LOBYTE(v217) = 0;
-        v219 = 0;
-        if (v331[19] == 3)
+        v218 = 0;
+        if (v330[19] == 3)
         {
-          LOBYTE(v216) = v331[16];
-          v214 = HIBYTE(*&v331[16]);
-          LOBYTE(v217) = v331[18];
-          v219 = *uTF8String2;
+          LOBYTE(v215) = v330[16];
+          v213 = HIBYTE(*&v330[16]);
+          LOBYTE(v216) = v330[18];
+          v218 = *uTF8String2;
         }
 
         goto LABEL_232;
       }
 
-      LOBYTE(v216) = v331[16];
-      v214 = HIBYTE(*&v331[16]);
-      v217 = *uTF8String2;
+      LOBYTE(v215) = v330[16];
+      v213 = HIBYTE(*&v330[16]);
+      v216 = *uTF8String2;
     }
 
     else
     {
-      if (!v331[19])
+      if (!v330[19])
       {
-        v216 = *uTF8String2;
-        v214 = *uTF8String2 >> 8;
-        v217 = HIWORD(*uTF8String2);
-        v219 = HIBYTE(*uTF8String2);
+        v215 = *uTF8String2;
+        v213 = *uTF8String2 >> 8;
+        v216 = HIWORD(*uTF8String2);
+        v218 = HIBYTE(*uTF8String2);
         goto LABEL_232;
       }
 
-      LOBYTE(v216) = v331[16];
-      LOBYTE(v214) = *uTF8String2;
-      v217 = *(uTF8String2 + 1);
+      LOBYTE(v215) = v330[16];
+      LOBYTE(v213) = *uTF8String2;
+      v216 = *(uTF8String2 + 1);
     }
 
-    v219 = v217 >> 8;
+    v218 = v216 >> 8;
 LABEL_232:
-    v220 = v103 & 3;
-    v221 = (v217 << 16) | (v219 << 24) | v216 | (v214 << 8);
-    HIDWORD(v222) = (461845907 * ((380141568 * v221) | ((-862048943 * v221) >> 17))) ^ *&v331[8];
-    LODWORD(v222) = HIDWORD(v222);
-    v223 = 5 * (v222 >> 19) - 430675100;
-    *&v331[8] = v223;
-    v224 = &uTF8String2[-v331[19] + 4];
-    v225 = &uTF8String2[v215 - v331[19]];
-    while (v224 < v225)
+    v219 = v103 & 3;
+    v220 = (v216 << 16) | (v218 << 24) | v215 | (v213 << 8);
+    HIDWORD(v221) = (461845907 * ((380141568 * v220) | ((-862048943 * v220) >> 17))) ^ *&v330[8];
+    LODWORD(v221) = HIDWORD(v221);
+    v222 = 5 * (v221 >> 19) - 430675100;
+    *&v330[8] = v222;
+    v223 = &uTF8String2[-v330[19] + 4];
+    v224 = &uTF8String2[v214 - v330[19]];
+    while (v223 < v224)
     {
-      v226 = *v224;
-      v224 += 4;
-      HIDWORD(v227) = (461845907 * ((380141568 * v226) | ((-862048943 * v226) >> 17))) ^ v223;
-      LODWORD(v227) = HIDWORD(v227);
-      v223 = 5 * (v227 >> 19) - 430675100;
-      *&v331[8] = v223;
+      v225 = *v223;
+      v223 += 4;
+      HIDWORD(v226) = (461845907 * ((380141568 * v225) | ((-862048943 * v225) >> 17))) ^ v222;
+      LODWORD(v226) = HIDWORD(v226);
+      v222 = 5 * (v226 >> 19) - 430675100;
+      *&v330[8] = v222;
     }
 
-    if (v220 > 1)
+    if (v219 > 1)
     {
-      if (v220 == 2)
+      if (v219 == 2)
       {
-        *&v331[16] = *v225;
+        *&v330[16] = *v224;
       }
 
       else
       {
-        v228 = *v225;
-        v331[18] = v225[2];
-        *&v331[16] = v228;
+        v227 = *v224;
+        v330[18] = v224[2];
+        *&v330[16] = v227;
       }
     }
 
-    else if (v220)
+    else if (v219)
     {
-      v331[16] = *v225;
+      v330[16] = *v224;
     }
 
-    v331[19] = v220;
+    v330[19] = v219;
     goto LABEL_242;
   }
 
-  if (!*v331)
+  if (!*v330)
   {
     currentHandler5 = [MEMORY[0x1E696AAA8] currentHandler];
     v102 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _MSVHasherAppendBytes(MSVHasher * _Nonnull, const void * _Nonnull, size_t)"}];
@@ -2348,14 +2345,14 @@ LABEL_232:
     goto LABEL_243;
   }
 
-  if (*v331 != 1000)
+  if (*v330 != 1000)
   {
     goto LABEL_243;
   }
 
-  v63 = HIBYTE(v333);
-  v64 = v333 & 0xFFFFFFFFFFFFFFLL;
-  v65 = HIBYTE(v333) & 7;
+  v63 = HIBYTE(v332);
+  v64 = v332 & 0xFFFFFFFFFFFFFFLL;
+  v65 = HIBYTE(v332) & 7;
   if (!v65)
   {
     goto LABEL_63;
@@ -2367,7 +2364,7 @@ LABEL_232:
   {
     v68 = 8 * v65;
     v69 = uTF8String2;
-    v70 = v333 & 0xFFFFFFFFFFFFFFLL;
+    v70 = v332 & 0xFFFFFFFFFFFFFFLL;
     do
     {
       v71 = *v69++;
@@ -2376,26 +2373,26 @@ LABEL_232:
     }
 
     while (v68 != 64);
-    v72 = (*&v331[8] + *&v331[16]) ^ __ROR8__(*&v331[16], 51);
-    v73 = *&v331[24] + (v332 ^ v70);
-    v74 = __ROR8__(v332 ^ v70, 48);
-    v75 = (v73 ^ v74) + __ROR8__(*&v331[8] + *&v331[16], 32);
+    v72 = (*&v330[8] + *&v330[16]) ^ __ROR8__(*&v330[16], 51);
+    v73 = *&v330[24] + (v331 ^ v70);
+    v74 = __ROR8__(v331 ^ v70, 48);
+    v75 = (v73 ^ v74) + __ROR8__(*&v330[8] + *&v330[16], 32);
     v76 = v75 ^ __ROR8__(v73 ^ v74, 43);
     v77 = v73 + v72;
-    *&v331[24] = __ROR8__(v77, 32);
-    v332 = v76;
-    *&v331[8] = v75 ^ v70;
-    *&v331[16] = v77 ^ __ROR8__(v72, 47);
+    *&v330[24] = __ROR8__(v77, 32);
+    v331 = v76;
+    *&v330[8] = v75 ^ v70;
+    *&v330[16] = v77 ^ __ROR8__(v72, 47);
     uTF8String2 += v66;
-    v333 = (v66 + v63) << 56;
+    v332 = (v66 + v63) << 56;
     v57 = v67;
 LABEL_63:
     if (v57 >= 8)
     {
-      v78 = *&v331[8];
-      v81 = *&v331[24];
-      v80 = *&v331[16];
-      v79 = v332;
+      v78 = *&v330[8];
+      v81 = *&v330[24];
+      v80 = *&v330[16];
+      v79 = v331;
       do
       {
         v82 = *uTF8String2;
@@ -2410,11 +2407,11 @@ LABEL_63:
         v89 = v86 + v85;
         v80 = v89 ^ __ROR8__(v85, 47);
         v81 = __ROR8__(v89, 32);
-        *&v331[24] = v81;
-        v332 = v79;
+        *&v330[24] = v81;
+        v331 = v79;
         v78 = v88 ^ v82;
-        *&v331[8] = v78;
-        *&v331[16] = v80;
+        *&v330[8] = v78;
+        *&v330[16] = v80;
         v57 -= 8;
         v63 += 8;
       }
@@ -2460,38 +2457,38 @@ LABEL_63:
     v94 = v63 << 56;
   }
 
-  v333 = v94;
+  v332 = v94;
 LABEL_243:
 
-  memset(&v345[8], 0, 64);
-  *v345 = *v331;
-  if (*v331 > 3000)
+  memset(&v344[8], 0, 64);
+  *v344 = *v330;
+  if (*v330 > 3000)
   {
-    if (*v331 <= 4000)
+    if (*v330 <= 4000)
     {
-      if (*v331 == 3001)
+      if (*v330 == 3001)
       {
-        *&v345[8] = _MSV_XXH_XXH64_digest(&v331[8]);
+        *&v344[8] = _MSV_XXH_XXH64_digest(&v330[8]);
       }
 
-      else if (*v331 == 4000)
+      else if (*v330 == 4000)
       {
-        CC_MD5_Final(&v345[8], &v331[8]);
+        CC_MD5_Final(&v344[8], &v330[8]);
       }
     }
 
     else
     {
-      switch(*v331)
+      switch(*v330)
       {
         case 0xFA1:
-          CC_SHA1_Final(&v345[8], &v331[8]);
+          CC_SHA1_Final(&v344[8], &v330[8]);
           break;
         case 0x10A0:
-          CC_SHA256_Final(&v345[8], &v331[8]);
+          CC_SHA256_Final(&v344[8], &v330[8]);
           break;
         case 0x11A0:
-          CC_SHA512_Final(&v345[8], &v331[8]);
+          CC_SHA512_Final(&v344[8], &v330[8]);
           break;
       }
     }
@@ -2499,391 +2496,391 @@ LABEL_243:
     goto LABEL_272;
   }
 
-  if (*v331 <= 1999)
+  if (*v330 <= 1999)
   {
-    if (*v331)
+    if (*v330)
     {
-      if (*v331 == 1000)
+      if (*v330 == 1000)
       {
-        v229 = (*&v331[8] + *&v331[16]) ^ __ROR8__(*&v331[16], 51);
-        v230 = *&v331[24] + (v332 ^ v333);
-        v231 = __ROR8__(v332 ^ v333, 48);
-        v232 = (v230 ^ v231) + __ROR8__(*&v331[8] + *&v331[16], 32);
-        v233 = v232 ^ __ROR8__(v230 ^ v231, 43);
-        v234 = v230 + v229;
-        v235 = v234 ^ __ROR8__(v229, 47);
-        v236 = (v232 ^ v333) + v235;
-        v237 = v236 ^ __ROR8__(v235, 51);
-        v238 = (__ROR8__(v234, 32) ^ 0xFFLL) + v233;
-        v239 = __ROR8__(v233, 48);
-        v240 = __ROR8__(v236, 32) + (v238 ^ v239);
-        v241 = v240 ^ __ROR8__(v238 ^ v239, 43);
-        v242 = v237 + v238;
-        v243 = v242 ^ __ROR8__(v237, 47);
-        v244 = v243 + v240;
-        v245 = v244 ^ __ROR8__(v243, 51);
-        v246 = __ROR8__(v242, 32) + v241;
-        v247 = __ROR8__(v241, 48);
-        v248 = __ROR8__(v244, 32) + (v246 ^ v247);
-        v249 = v248 ^ __ROR8__(v246 ^ v247, 43);
-        v250 = v245 + v246;
-        v251 = v250 ^ __ROR8__(v245, 47);
-        v252 = v251 + v248;
-        v253 = v252 ^ __ROR8__(v251, 51);
-        v254 = __ROR8__(v250, 32) + v249;
-        v255 = __ROR8__(v249, 48);
-        v256 = __ROR8__(v252, 32) + (v254 ^ v255);
-        v257 = v256 ^ __ROR8__(v254 ^ v255, 43);
-        v258 = v253 + v254;
-        *&v331[8] = v256;
-        *&v331[16] = v258 ^ __ROR8__(v253, 47);
-        *&v331[24] = __ROR8__(v258, 32);
-        v332 = v257;
-        *&v345[8] = *&v331[16] ^ v256 ^ *&v331[24] ^ v257;
+        v228 = (*&v330[8] + *&v330[16]) ^ __ROR8__(*&v330[16], 51);
+        v229 = *&v330[24] + (v331 ^ v332);
+        v230 = __ROR8__(v331 ^ v332, 48);
+        v231 = (v229 ^ v230) + __ROR8__(*&v330[8] + *&v330[16], 32);
+        v232 = v231 ^ __ROR8__(v229 ^ v230, 43);
+        v233 = v229 + v228;
+        v234 = v233 ^ __ROR8__(v228, 47);
+        v235 = (v231 ^ v332) + v234;
+        v236 = v235 ^ __ROR8__(v234, 51);
+        v237 = (__ROR8__(v233, 32) ^ 0xFFLL) + v232;
+        v238 = __ROR8__(v232, 48);
+        v239 = __ROR8__(v235, 32) + (v237 ^ v238);
+        v240 = v239 ^ __ROR8__(v237 ^ v238, 43);
+        v241 = v236 + v237;
+        v242 = v241 ^ __ROR8__(v236, 47);
+        v243 = v242 + v239;
+        v244 = v243 ^ __ROR8__(v242, 51);
+        v245 = __ROR8__(v241, 32) + v240;
+        v246 = __ROR8__(v240, 48);
+        v247 = __ROR8__(v243, 32) + (v245 ^ v246);
+        v248 = v247 ^ __ROR8__(v245 ^ v246, 43);
+        v249 = v244 + v245;
+        v250 = v249 ^ __ROR8__(v244, 47);
+        v251 = v250 + v247;
+        v252 = v251 ^ __ROR8__(v250, 51);
+        v253 = __ROR8__(v249, 32) + v248;
+        v254 = __ROR8__(v248, 48);
+        v255 = __ROR8__(v251, 32) + (v253 ^ v254);
+        v256 = v255 ^ __ROR8__(v253 ^ v254, 43);
+        v257 = v252 + v253;
+        *&v330[8] = v255;
+        *&v330[16] = v257 ^ __ROR8__(v252, 47);
+        *&v330[24] = __ROR8__(v257, 32);
+        v331 = v256;
+        *&v344[8] = *&v330[16] ^ v255 ^ *&v330[24] ^ v256;
       }
     }
 
     else
     {
       currentHandler6 = [MEMORY[0x1E696AAA8] currentHandler];
-      v260 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"MSVHash _MSVHasherFinalize(MSVHasher * _Nonnull)"];
-      [currentHandler6 handleFailureInFunction:v260 file:@"MSVHasher+Algorithms.h" lineNumber:156 description:@"Cannot finalize unknown hasher algorithm"];
+      v259 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"MSVHash _MSVHasherFinalize(MSVHasher * _Nonnull)"];
+      [currentHandler6 handleFailureInFunction:v259 file:@"MSVHasher+Algorithms.h" lineNumber:156 description:@"Cannot finalize unknown hasher algorithm"];
     }
 
     goto LABEL_272;
   }
 
-  if (*v331 == 2000)
+  if (*v330 == 2000)
   {
-    switch(v331[19])
+    switch(v330[19])
     {
       case 1:
-        v261 = v331[16];
+        v260 = v330[16];
         break;
       case 2:
-        v261 = *&v331[16];
+        v260 = *&v330[16];
         break;
       case 3:
-        v261 = *&v331[16] | (v331[18] << 16);
+        v260 = *&v330[16] | (v330[18] << 16);
         break;
       default:
-        v262 = *&v331[8];
+        v261 = *&v330[8];
         goto LABEL_271;
     }
 
-    v262 = (461845907 * ((380141568 * v261) | ((-862048943 * v261) >> 17))) ^ *&v331[8];
+    v261 = (461845907 * ((380141568 * v260) | ((-862048943 * v260) >> 17))) ^ *&v330[8];
 LABEL_271:
-    v263 = -2048144789 * (v262 ^ *&v331[12] ^ ((v262 ^ *&v331[12]) >> 16));
-    *&v331[8] = (-1028477387 * (v263 ^ (v263 >> 13))) ^ ((-1028477387 * (v263 ^ (v263 >> 13))) >> 16);
-    *&v345[8] = *&v331[8];
+    v262 = -2048144789 * (v261 ^ *&v330[12] ^ ((v261 ^ *&v330[12]) >> 16));
+    *&v330[8] = (-1028477387 * (v262 ^ (v262 >> 13))) ^ ((-1028477387 * (v262 ^ (v262 >> 13))) >> 16);
+    *&v344[8] = *&v330[8];
     goto LABEL_272;
   }
 
-  if (*v331 == 3000)
+  if (*v330 == 3000)
   {
-    *&v345[8] = _MSV_XXH_XXH32_digest(&v331[8]);
+    *&v344[8] = _MSV_XXH_XXH32_digest(&v330[8]);
   }
 
 LABEL_272:
-  v346 = *v345;
-  v347 = *&v345[16];
-  v348 = *&v345[32];
-  v349 = *&v345[48];
-  v350 = *&v345[64];
-  if (*v345 > 3999)
+  v345 = *v344;
+  v346 = *&v344[16];
+  v347 = *&v344[32];
+  v348 = *&v344[48];
+  v349 = *&v344[64];
+  if (*v344 > 3999)
   {
-    if (*v345 > 4255)
+    if (*v344 > 4255)
     {
-      if (*v345 == 4256)
+      if (*v344 == 4256)
       {
-        v305 = &v346 + 8;
-        v306 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
-        v307 = v306;
+        v304 = &v345 + 8;
+        v305 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
+        v306 = v305;
         for (n = 0; n != 64; n += 2)
         {
-          v309 = *v305++;
-          v310 = &v306[n];
-          *v310 = MSVFastHexStringFromBytes_hexCharacters_4916[v309 >> 4];
-          v310[1] = MSVFastHexStringFromBytes_hexCharacters_4916[v309 & 0xF];
+          v308 = *v304++;
+          v309 = &v305[n];
+          *v309 = MSVFastHexStringFromBytes_hexCharacters_4916[v308 >> 4];
+          v309[1] = MSVFastHexStringFromBytes_hexCharacters_4916[v308 & 0xF];
         }
 
-        v276 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v277 = v307;
-        v278 = 64;
+        v275 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v276 = v306;
+        v277 = 64;
       }
 
       else
       {
-        if (*v345 != 4512)
+        if (*v344 != 4512)
         {
           goto LABEL_337;
         }
 
-        v283 = &v346 + 8;
-        v284 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
-        v285 = v284;
+        v282 = &v345 + 8;
+        v283 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
+        v284 = v283;
         for (ii = 0; ii != 128; ii += 2)
         {
-          v287 = *v283++;
-          v288 = &v284[ii];
-          *v288 = MSVFastHexStringFromBytes_hexCharacters_4916[v287 >> 4];
-          v288[1] = MSVFastHexStringFromBytes_hexCharacters_4916[v287 & 0xF];
+          v286 = *v282++;
+          v287 = &v283[ii];
+          *v287 = MSVFastHexStringFromBytes_hexCharacters_4916[v286 >> 4];
+          v287[1] = MSVFastHexStringFromBytes_hexCharacters_4916[v286 & 0xF];
         }
 
-        v276 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v277 = v285;
-        v278 = 128;
+        v275 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v276 = v284;
+        v277 = 128;
       }
     }
 
-    else if (*v345 == 4000)
+    else if (*v344 == 4000)
     {
-      v295 = &v346 + 8;
-      v296 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
-      v297 = v296;
+      v294 = &v345 + 8;
+      v295 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
+      v296 = v295;
       for (jj = 0; jj != 32; jj += 2)
       {
-        v299 = *v295++;
-        v300 = &v296[jj];
-        *v300 = MSVFastHexStringFromBytes_hexCharacters_4916[v299 >> 4];
-        v300[1] = MSVFastHexStringFromBytes_hexCharacters_4916[v299 & 0xF];
+        v298 = *v294++;
+        v299 = &v295[jj];
+        *v299 = MSVFastHexStringFromBytes_hexCharacters_4916[v298 >> 4];
+        v299[1] = MSVFastHexStringFromBytes_hexCharacters_4916[v298 & 0xF];
       }
 
-      v276 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v277 = v297;
-      v278 = 32;
+      v275 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v276 = v296;
+      v277 = 32;
     }
 
     else
     {
-      if (*v345 != 4001)
+      if (*v344 != 4001)
       {
         goto LABEL_337;
       }
 
-      v270 = &v346 + 8;
-      v271 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
-      v272 = v271;
+      v269 = &v345 + 8;
+      v270 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
+      v271 = v270;
       for (kk = 0; kk != 40; kk += 2)
       {
-        v274 = *v270++;
-        v275 = &v271[kk];
-        *v275 = MSVFastHexStringFromBytes_hexCharacters_4916[v274 >> 4];
-        v275[1] = MSVFastHexStringFromBytes_hexCharacters_4916[v274 & 0xF];
+        v273 = *v269++;
+        v274 = &v270[kk];
+        *v274 = MSVFastHexStringFromBytes_hexCharacters_4916[v273 >> 4];
+        v274[1] = MSVFastHexStringFromBytes_hexCharacters_4916[v273 & 0xF];
       }
 
-      v276 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v277 = v272;
-      v278 = 40;
+      v275 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v276 = v271;
+      v277 = 40;
     }
 
 LABEL_318:
-    v294 = [v276 initWithBytesNoCopy:v277 length:v278 encoding:4 freeWhenDone:1];
+    v293 = [v275 initWithBytesNoCopy:v276 length:v277 encoding:4 freeWhenDone:1];
     goto LABEL_319;
   }
 
-  if (*v345 > 2999)
+  if (*v344 > 2999)
   {
-    if (*v345 == 3000)
+    if (*v344 == 3000)
     {
-      LODWORD(v351[0]) = bswap32(DWORD2(v346));
-      v301 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
-      v302 = 0;
-      v303 = v301 + 1;
+      LODWORD(v350[0]) = bswap32(DWORD2(v345));
+      v300 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
+      v301 = 0;
+      v302 = v300 + 1;
       do
       {
-        v304 = *(v351 + v302);
-        *(v303 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v304 >> 4];
-        *v303 = MSVFastHexStringFromBytes_hexCharacters_4916[v304 & 0xF];
-        v303 += 2;
-        ++v302;
+        v303 = *(v350 + v301);
+        *(v302 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v303 >> 4];
+        *v302 = MSVFastHexStringFromBytes_hexCharacters_4916[v303 & 0xF];
+        v302 += 2;
+        ++v301;
       }
 
-      while (v302 != 4);
-      v276 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v277 = v301;
-      v278 = 8;
+      while (v301 != 4);
+      v275 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v276 = v300;
+      v277 = 8;
     }
 
     else
     {
-      if (*v345 != 3001)
+      if (*v344 != 3001)
       {
         goto LABEL_337;
       }
 
-      v351[0] = bswap64(*(&v346 + 1));
-      v279 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
-      v280 = 0;
-      v281 = v279 + 1;
+      v350[0] = bswap64(*(&v345 + 1));
+      v278 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
+      v279 = 0;
+      v280 = v278 + 1;
       do
       {
-        v282 = *(v351 + v280);
-        *(v281 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v282 >> 4];
-        *v281 = MSVFastHexStringFromBytes_hexCharacters_4916[v282 & 0xF];
-        v281 += 2;
-        ++v280;
+        v281 = *(v350 + v279);
+        *(v280 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v281 >> 4];
+        *v280 = MSVFastHexStringFromBytes_hexCharacters_4916[v281 & 0xF];
+        v280 += 2;
+        ++v279;
       }
 
-      while (v280 != 8);
-      v276 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v277 = v279;
-      v278 = 16;
+      while (v279 != 8);
+      v275 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v276 = v278;
+      v277 = 16;
     }
 
     goto LABEL_318;
   }
 
-  if (*v345 == 1000)
+  if (*v344 == 1000)
   {
-    v289 = *(&v346 + 1);
-    if (*(&v346 + 1))
+    v288 = *(&v345 + 1);
+    if (*(&v345 + 1))
     {
-      v290 = &v352 + 1;
-      v291 = *(&v346 + 1);
+      v289 = &v351 + 1;
+      v290 = *(&v345 + 1);
       do
       {
-        v292 = lldiv(v291, 10);
-        v291 = v292.quot;
-        if (v292.rem >= 0)
+        v291 = lldiv(v290, 10);
+        v290 = v291.quot;
+        if (v291.rem >= 0)
         {
-          LOBYTE(v293) = v292.rem;
+          LOBYTE(v292) = v291.rem;
         }
 
         else
         {
-          v293 = -v292.rem;
+          v292 = -v291.rem;
         }
 
-        *(v290 - 2) = v293 + 48;
-        v269 = (v290 - 2);
-        --v290;
+        *(v289 - 2) = v292 + 48;
+        v268 = (v289 - 2);
+        --v289;
       }
 
-      while (v292.quot);
-      if (v289 < 0)
+      while (v291.quot);
+      if (v288 < 0)
       {
-        *(v290 - 2) = 45;
-        v269 = (v290 - 2);
+        *(v289 - 2) = 45;
+        v268 = (v289 - 2);
       }
 
-      v268 = (&v352 - v269);
+      v267 = (&v351 - v268);
       goto LABEL_308;
     }
 
 LABEL_341:
-    v311 = @"0";
+    v310 = @"0";
     goto LABEL_320;
   }
 
-  if (*v345 != 2000)
+  if (*v344 != 2000)
   {
 LABEL_337:
     currentHandler7 = [MEMORY[0x1E696AAA8] currentHandler];
-    v326 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
-    [currentHandler7 handleFailureInFunction:v326 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
+    v325 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
+    [currentHandler7 handleFailureInFunction:v325 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
 
-    v311 = &stru_1F214F018;
+    v310 = &stru_1F214F018;
     goto LABEL_320;
   }
 
-  v264 = DWORD2(v346);
-  if (!DWORD2(v346))
+  v263 = DWORD2(v345);
+  if (!DWORD2(v345))
   {
     goto LABEL_341;
   }
 
-  v265 = &v352;
+  v264 = &v351;
   do
   {
-    v266 = ldiv(v264, 10);
-    v264 = v266.quot;
-    if (v266.rem >= 0)
+    v265 = ldiv(v263, 10);
+    v263 = v265.quot;
+    if (v265.rem >= 0)
     {
-      LOBYTE(v267) = v266.rem;
+      LOBYTE(v266) = v265.rem;
     }
 
     else
     {
-      v267 = -v266.rem;
+      v266 = -v265.rem;
     }
 
-    *(v265 - 1) = v267 + 48;
-    v265 = (v265 - 1);
+    *(v264 - 1) = v266 + 48;
+    v264 = (v264 - 1);
   }
 
-  while (v266.quot);
-  v268 = (&v352 - v265);
-  v269 = v265;
+  while (v265.quot);
+  v267 = (&v351 - v264);
+  v268 = v264;
 LABEL_308:
-  v294 = CFStringCreateWithBytes(0, v269, v268, 0x8000100u, 0);
+  v293 = CFStringCreateWithBytes(0, v268, v267, 0x8000100u, 0);
 LABEL_319:
-  v311 = v294;
+  v310 = v293;
 LABEL_320:
 
-  v312 = os_log_create("com.apple.amp.MediaServices", "SQL");
-  if (os_log_type_enabled(v312, OS_LOG_TYPE_INFO))
+  v311 = os_log_create("com.apple.amp.MediaServices", "SQL");
+  if (os_log_type_enabled(v311, OS_LOG_TYPE_INFO))
   {
-    *v331 = 138543874;
-    *&v331[4] = v311;
-    *&v331[12] = 2048;
-    *&v331[14] = self;
-    *&v331[22] = 2114;
-    *&v331[24] = stringCopy;
-    _os_log_impl(&dword_1AC81F000, v312, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] statementWithString:… | creating mutable connection [mutating sql statement] statement=%{public}@", v331, 0x20u);
+    *v330 = 138543874;
+    *&v330[4] = v310;
+    *&v330[12] = 2048;
+    *&v330[14] = self;
+    *&v330[22] = 2114;
+    *&v330[24] = stringCopy;
+    _os_log_impl(&dword_1AC81F000, v311, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] statementWithString:… | creating mutable connection [mutating sql statement] statement=%{public}@", v330, 0x20u);
   }
 
-  v329 = 0;
-  v313 = [(_MSVSQLConnection *)self mutableCloneWithError:?];
-  v314 = v329;
-  v315 = os_log_create("com.apple.amp.MediaServices", "SQL");
-  v316 = v315;
-  if (v313)
+  v328 = 0;
+  v312 = [(_MSVSQLConnection *)self mutableCloneWithError:?];
+  v313 = v328;
+  v314 = os_log_create("com.apple.amp.MediaServices", "SQL");
+  v315 = v314;
+  if (v312)
   {
-    if (os_log_type_enabled(v315, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v314, OS_LOG_TYPE_INFO))
     {
-      *v331 = 138543618;
-      *&v331[4] = v311;
-      *&v331[12] = 2048;
-      *&v331[14] = self;
-      _os_log_impl(&dword_1AC81F000, v316, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] statementWithString:… | creating implicit transaction [mutating sql statement]", v331, 0x16u);
+      *v330 = 138543618;
+      *&v330[4] = v310;
+      *&v330[12] = 2048;
+      *&v330[14] = self;
+      _os_log_impl(&dword_1AC81F000, v315, OS_LOG_TYPE_INFO, "[SQL:%{public}@:%p] statementWithString:… | creating implicit transaction [mutating sql statement]", v330, 0x16u);
     }
 
-    v317 = [MSVSQLDatabaseTransaction alloc];
-    v318 = [@"Implicit-" stringByAppendingString:v311];
-    v328 = 0;
-    v319 = [(MSVSQLDatabaseTransaction *)v317 initWithConnection:v313 name:v318 error:&v328];
-    v320 = v328;
+    v316 = [MSVSQLDatabaseTransaction alloc];
+    v317 = [@"Implicit-" stringByAppendingString:v310];
+    v327 = 0;
+    v318 = [(MSVSQLDatabaseTransaction *)v316 initWithConnection:v312 name:v317 error:&v327];
+    v319 = v327;
 
-    if (v319)
+    if (v318)
     {
-      v321 = [(__CFString *)v319 statementWithString:stringCopy error:error];
-      v19 = v321;
-      if (v321)
+      v320 = [(__CFString *)v318 statementWithString:stringCopy error:error];
+      v19 = v320;
+      if (v320)
       {
-        objc_storeStrong((v321 + 24), v319);
+        objc_storeStrong((v320 + 24), v318);
       }
     }
 
     else
     {
-      v323 = _MSVLogCategorySQL();
-      if (os_log_type_enabled(v323, OS_LOG_TYPE_ERROR))
+      v322 = _MSVLogCategorySQL();
+      if (os_log_type_enabled(v322, OS_LOG_TYPE_ERROR))
       {
-        *v331 = 138543874;
-        *&v331[4] = v311;
-        *&v331[12] = 2048;
-        *&v331[14] = self;
-        *&v331[22] = 2114;
-        *&v331[24] = v320;
-        _os_log_impl(&dword_1AC81F000, v323, OS_LOG_TYPE_ERROR, "[SQL:%{public}@:%p] statementWithString:… | failed to create implicit transaction [] error=%{public}@", v331, 0x20u);
+        *v330 = 138543874;
+        *&v330[4] = v310;
+        *&v330[12] = 2048;
+        *&v330[14] = self;
+        *&v330[22] = 2114;
+        *&v330[24] = v319;
+        _os_log_impl(&dword_1AC81F000, v322, OS_LOG_TYPE_ERROR, "[SQL:%{public}@:%p] statementWithString:… | failed to create implicit transaction [] error=%{public}@", v330, 0x20u);
       }
 
       if (error)
       {
-        v324 = v320;
+        v323 = v319;
         v19 = 0;
-        *error = v320;
+        *error = v319;
       }
 
       else
@@ -2895,22 +2892,22 @@ LABEL_320:
 
   else
   {
-    if (os_log_type_enabled(v315, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v314, OS_LOG_TYPE_ERROR))
     {
-      *v331 = 138543874;
-      *&v331[4] = v311;
-      *&v331[12] = 2048;
-      *&v331[14] = self;
-      *&v331[22] = 2114;
-      *&v331[24] = v314;
-      _os_log_impl(&dword_1AC81F000, v316, OS_LOG_TYPE_ERROR, "[SQL:%{public}@:%p] statementWithString:… | failed to create mutable connection [] error=%{public}@", v331, 0x20u);
+      *v330 = 138543874;
+      *&v330[4] = v310;
+      *&v330[12] = 2048;
+      *&v330[14] = self;
+      *&v330[22] = 2114;
+      *&v330[24] = v313;
+      _os_log_impl(&dword_1AC81F000, v315, OS_LOG_TYPE_ERROR, "[SQL:%{public}@:%p] statementWithString:… | failed to create mutable connection [] error=%{public}@", v330, 0x20u);
     }
 
     if (error)
     {
-      v322 = v314;
+      v321 = v313;
       v19 = 0;
-      *error = v314;
+      *error = v313;
     }
 
     else
@@ -2920,7 +2917,6 @@ LABEL_320:
   }
 
 LABEL_208:
-  v210 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

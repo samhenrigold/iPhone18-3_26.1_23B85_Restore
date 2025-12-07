@@ -33,133 +33,132 @@
   y = frame.origin.y;
   x = frame.origin.x;
   deviceCopy = device;
-  v67.receiver = self;
-  v67.super_class = NTKGlobetrotterDialView;
-  height = [(NTKGlobetrotterDialView *)&v67 initWithFrame:x, y, width, height];
+  v66.receiver = self;
+  v66.super_class = NTKGlobetrotterDialView;
+  height = [(NTKGlobetrotterDialView *)&v66 initWithFrame:x, y, width, height];
   v13 = height;
   if (height)
   {
     objc_storeStrong(&height->_device, device);
-    v66 = 0;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
+    v65 = 0;
     v63 = 0u;
-    v60 = 0u;
+    v64 = 0u;
     v61 = 0u;
+    v62 = 0u;
     v59 = 0u;
-    sub_8C1C(deviceCopy, &v59);
+    v60 = 0u;
+    v58 = 0u;
+    sub_8C1C(deviceCopy, &v58);
     v13->_numberSystem = -1;
-    device = v13->_device;
     if (NTKShowIndicScriptNumerals())
     {
-      v15 = *(&v63 + 1);
-      v16 = UIFontWeightSemibold;
-      v17 = [NTKSFCompactFont numericRoundedFontOfSize:*(&v63 + 1) weight:UIFontWeightSemibold];
-      if (v17)
+      v14 = *(&v62 + 1);
+      v15 = UIFontWeightSemibold;
+      v16 = [NTKSFCompactFont numericRoundedFontOfSize:*(&v62 + 1) weight:UIFontWeightSemibold];
+      if (v16)
       {
 LABEL_7:
-        v18 = [(NTKGlobetrotterDialView *)v13 _imageViewWithSymbolName:@"sun.max.fill" font:v17];
+        v17 = [(NTKGlobetrotterDialView *)v13 _imageViewWithSymbolName:@"sun.max.fill" font:v16];
         sunriseImageView = v13->_sunriseImageView;
-        v13->_sunriseImageView = v18;
+        v13->_sunriseImageView = v17;
 
-        v20 = [(NTKGlobetrotterDialView *)v13 _imageViewWithSymbolName:@"moon.fill" font:v17];
+        v19 = [(NTKGlobetrotterDialView *)v13 _imageViewWithSymbolName:@"moon.fill" font:v16];
         sunsetImageView = v13->_sunsetImageView;
-        v13->_sunsetImageView = v20;
+        v13->_sunsetImageView = v19;
 
         v13->_previousSunriseHour = 0x7FFFFFFFFFFFFFFFLL;
         v13->_previousSunsetHour = 0x7FFFFFFFFFFFFFFFLL;
         objc_initWeak(&location, v13);
-        v22 = [NTKDialView alloc];
-        v56[0] = _NSConcreteStackBlock;
-        v56[1] = 3221225472;
-        v56[2] = sub_67E4;
-        v56[3] = &unk_10578;
-        objc_copyWeak(&v57, &location);
-        v23 = [v22 initWithNumberOfMarkers:12 markersFactory:v56];
+        v21 = [NTKDialView alloc];
+        v55[0] = _NSConcreteStackBlock;
+        v55[1] = 3221225472;
+        v55[2] = sub_67E4;
+        v55[3] = &unk_10578;
+        objc_copyWeak(&v56, &location);
+        v22 = [v21 initWithNumberOfMarkers:12 markersFactory:v55];
         outerCityDialView = v13->_outerCityDialView;
-        v13->_outerCityDialView = v23;
+        v13->_outerCityDialView = v22;
 
         [(NTKDialView *)v13->_outerCityDialView setShouldRotateMarkers:1];
         [(NTKGlobetrotterDialView *)v13 addSubview:v13->_outerCityDialView];
-        v25 = [NTKDialView alloc];
-        v54[0] = _NSConcreteStackBlock;
-        v54[1] = 3221225472;
-        v54[2] = sub_6844;
-        v54[3] = &unk_10578;
-        objc_copyWeak(&v55, &location);
-        v26 = [v25 initWithNumberOfMarkers:12 markersFactory:v54];
+        v24 = [NTKDialView alloc];
+        v53[0] = _NSConcreteStackBlock;
+        v53[1] = 3221225472;
+        v53[2] = sub_6844;
+        v53[3] = &unk_10578;
+        objc_copyWeak(&v54, &location);
+        v25 = [v24 initWithNumberOfMarkers:12 markersFactory:v53];
         innerCityDialView = v13->_innerCityDialView;
-        v13->_innerCityDialView = v26;
+        v13->_innerCityDialView = v25;
 
         [(NTKDialView *)v13->_innerCityDialView setShouldRotateMarkers:1];
         [(NTKGlobetrotterDialView *)v13 addSubview:v13->_innerCityDialView];
-        v28 = +[NSNull null];
-        v68[0] = @"contents";
-        v68[1] = @"backgroundColor";
-        v69[0] = v28;
-        v69[1] = v28;
-        v68[2] = @"transform";
-        v68[3] = @"bounds";
-        v69[2] = v28;
-        v69[3] = v28;
-        v68[4] = @"position";
-        v68[5] = @"opacity";
-        v69[4] = v28;
-        v69[5] = v28;
-        v68[6] = @"hidden";
-        v69[6] = v28;
-        v29 = [NSDictionary dictionaryWithObjects:v69 forKeys:v68 count:7];
-        v30 = [NTKDialView alloc];
-        v43[0] = _NSConcreteStackBlock;
-        v43[1] = 3221225472;
-        v43[2] = sub_68A8;
-        v43[3] = &unk_105A0;
-        objc_copyWeak(&v45, &location);
+        v27 = +[NSNull null];
+        v67[0] = @"contents";
+        v67[1] = @"backgroundColor";
+        v68[0] = v27;
+        v68[1] = v27;
+        v67[2] = @"transform";
+        v67[3] = @"bounds";
+        v68[2] = v27;
+        v68[3] = v27;
+        v67[4] = @"position";
+        v67[5] = @"opacity";
+        v68[4] = v27;
+        v68[5] = v27;
+        v67[6] = @"hidden";
+        v68[6] = v27;
+        v28 = [NSDictionary dictionaryWithObjects:v68 forKeys:v67 count:7];
+        v29 = [NTKDialView alloc];
+        v42[0] = _NSConcreteStackBlock;
+        v42[1] = 3221225472;
+        v42[2] = sub_68A8;
+        v42[3] = &unk_105A0;
+        objc_copyWeak(&v44, &location);
+        v50 = v63;
         v51 = v64;
-        v52 = v65;
+        v45 = v58;
         v46 = v59;
         v47 = v60;
+        v52 = v65;
         v48 = v61;
-        v53 = v66;
         v49 = v62;
-        v50 = v63;
-        v31 = v29;
-        v44 = v31;
-        v32 = [v30 initWithNumberOfMarkers:24 markersFactory:v43];
+        v30 = v28;
+        v43 = v30;
+        v31 = [v29 initWithNumberOfMarkers:24 markersFactory:v42];
         cityDialDotsView = v13->_cityDialDotsView;
-        v13->_cityDialDotsView = v32;
+        v13->_cityDialDotsView = v31;
 
         [(NTKGlobetrotterDialView *)v13 addSubview:v13->_cityDialDotsView];
-        v34 = objc_alloc_init(UIView);
+        v33 = objc_alloc_init(UIView);
         nonHourMarkerOverlayView = v13->_nonHourMarkerOverlayView;
-        v13->_nonHourMarkerOverlayView = v34;
+        v13->_nonHourMarkerOverlayView = v33;
 
-        v36 = +[UIColor blackColor];
-        [(UIView *)v13->_nonHourMarkerOverlayView setBackgroundColor:v36];
+        v35 = +[UIColor blackColor];
+        [(UIView *)v13->_nonHourMarkerOverlayView setBackgroundColor:v35];
 
         [(UIView *)v13->_nonHourMarkerOverlayView setAlpha:0.0];
         [(NTKGlobetrotterDialView *)v13 addSubview:v13->_nonHourMarkerOverlayView];
-        v37 = [NTKDialView alloc];
-        v41[0] = _NSConcreteStackBlock;
-        v41[1] = 3221225472;
-        v41[2] = sub_69A8;
-        v41[3] = &unk_10578;
-        objc_copyWeak(&v42, &location);
-        v38 = [v37 initWithNumberOfMarkers:24 markersFactory:v41];
+        v36 = [NTKDialView alloc];
+        v40[0] = _NSConcreteStackBlock;
+        v40[1] = 3221225472;
+        v40[2] = sub_69A8;
+        v40[3] = &unk_10578;
+        objc_copyWeak(&v41, &location);
+        v37 = [v36 initWithNumberOfMarkers:24 markersFactory:v40];
         hourMarkerDialView = v13->_hourMarkerDialView;
-        v13->_hourMarkerDialView = v38;
+        v13->_hourMarkerDialView = v37;
 
         [(NTKDialView *)v13->_hourMarkerDialView setShouldPixelAlignCenterPoints:0];
         [(NTKDialView *)v13->_hourMarkerDialView setShouldRotateMarkers:1];
         [(NTKGlobetrotterDialView *)v13 addSubview:v13->_hourMarkerDialView];
         [(NTKGlobetrotterDialView *)v13 layoutIfNeeded];
         [(NTKGlobetrotterDialView *)v13 setTimeZoneHourOffset:0];
-        objc_destroyWeak(&v42);
+        objc_destroyWeak(&v41);
 
-        objc_destroyWeak(&v45);
-        objc_destroyWeak(&v55);
-        objc_destroyWeak(&v57);
+        objc_destroyWeak(&v44);
+        objc_destroyWeak(&v54);
+        objc_destroyWeak(&v56);
         objc_destroyWeak(&location);
 
         goto LABEL_8;
@@ -168,11 +167,11 @@ LABEL_7:
 
     else
     {
-      v15 = *(&v63 + 1);
-      v16 = UIFontWeightSemibold;
+      v14 = *(&v62 + 1);
+      v15 = UIFontWeightSemibold;
     }
 
-    v17 = [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v15 design:v16];
+    v16 = [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v14 design:v15];
     goto LABEL_7;
   }
 
@@ -445,26 +444,24 @@ LABEL_8:
 
 - (id)_dialMarkerAttributedStringForHour:(unint64_t)hour
 {
-  numberSystem = self->_numberSystem;
-  v6 = CLKLocaleNumberSystemIdentifier();
-  v7 = [NSString stringWithFormat:@"en_US@numbers=%@", v6];
-  v8 = [[NSLocale alloc] initWithLocaleIdentifier:v7];
-  v9 = [NSString alloc];
-  v10 = [NSNumber numberWithUnsignedInteger:hour];
-  v11 = [v9 initWithFormat:@"%@" locale:v8, v10];
+  v5 = CLKLocaleNumberSystemIdentifier();
+  v6 = [NSString stringWithFormat:@"en_US@numbers=%@", v5];
+  v7 = [[NSLocale alloc] initWithLocaleIdentifier:v6];
+  v8 = [NSString alloc];
+  v9 = [NSNumber numberWithUnsignedInteger:hour];
+  v10 = [v8 initWithFormat:@"%@" locale:v7, v9];
 
-  v12 = self->_numberSystem;
-  v13 = CLKLocaleRenderingHintLanguageIdentifierForNumberingSystem();
+  v11 = CLKLocaleRenderingHintLanguageIdentifierForNumberingSystem();
   _hourMarkerFont = [(NTKGlobetrotterDialView *)self _hourMarkerFont];
-  v15 = [NSAttributedString alloc];
-  v19[0] = NSLanguageIdentifierAttributeName;
-  v19[1] = NSFontAttributeName;
-  v20[0] = v13;
-  v20[1] = _hourMarkerFont;
-  v16 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
-  v17 = [v15 initWithString:v11 attributes:v16];
+  v13 = [NSAttributedString alloc];
+  v17[0] = NSLanguageIdentifierAttributeName;
+  v17[1] = NSFontAttributeName;
+  v18[0] = v11;
+  v18[1] = _hourMarkerFont;
+  v14 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v15 = [v13 initWithString:v10 attributes:v14];
 
-  return v17;
+  return v15;
 }
 
 - (void)setTimeZoneHourOffset:(int64_t)offset
@@ -630,26 +627,25 @@ LABEL_8:
 
 - (id)_hourMarkerFont
 {
-  v11 = 0;
-  v9 = 0u;
-  v10 = 0u;
+  v9 = 0;
+  v7 = 0u;
   v8 = 0u;
-  memset(v7, 0, sizeof(v7));
-  sub_8C1C(self->_device, v7);
-  v3 = *(&v8 + 1);
-  device = self->_device;
+  v6 = 0u;
+  memset(v5, 0, sizeof(v5));
+  sub_8C1C(self->_device, v5);
+  v2 = *(&v6 + 1);
   if (NTKShowIndicScriptNumerals())
   {
-    [NTKSFCompactFont numericRoundedFontOfSize:v3 weight:UIFontWeightSemibold];
+    [NTKSFCompactFont numericRoundedFontOfSize:v2 weight:UIFontWeightSemibold];
   }
 
   else
   {
-    [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v3 design:UIFontWeightSemibold];
+    [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v2 design:UIFontWeightSemibold];
   }
-  v5 = ;
+  v3 = ;
 
-  return v5;
+  return v3;
 }
 
 - (id)_newCityLabelWithCityIndex:(unint64_t)index

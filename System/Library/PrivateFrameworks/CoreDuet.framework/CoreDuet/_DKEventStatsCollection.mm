@@ -1,6 +1,6 @@
 @interface _DKEventStatsCollection
 + (id)collectionWithName:(uint64_t)name;
-+ (id)counterWithClass:(void *)class collectionName:(void *)name eventName:(void *)eventName eventType:(void *)type eventTypePossibleValues:(char)values hasResult:(int)result scalar:;
++ (id)counterWithClass:(void *)class collectionName:(void *)name eventName:(void *)eventName eventType:(void *)type eventTypePossibleValues:(uint64_t)values hasResult:(uint64_t)result scalar:;
 - (void)initWithName:(void *)name;
 @end
 
@@ -30,9 +30,11 @@
   return v6;
 }
 
-+ (id)counterWithClass:(void *)class collectionName:(void *)name eventName:(void *)eventName eventType:(void *)type eventTypePossibleValues:(char)values hasResult:(int)result scalar:
++ (id)counterWithClass:(void *)class collectionName:(void *)name eventName:(void *)eventName eventType:(void *)type eventTypePossibleValues:(uint64_t)values hasResult:(uint64_t)result scalar:
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  resultCopy = result;
+  valuesCopy = values;
+  v24[2] = *MEMORY[0x1E69E9840];
   classCopy = class;
   nameCopy = name;
   eventNameCopy = eventName;
@@ -42,9 +44,9 @@
   objc_sync_enter(v18);
   if (eventNameCopy)
   {
-    v25[0] = nameCopy;
-    v25[1] = eventNameCopy;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v24[0] = nameCopy;
+    v24[1] = eventNameCopy;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
   }
 
   else
@@ -57,7 +59,7 @@
   if (!v21)
   {
     v21 = objc_opt_new();
-    v22 = [[_DKEventStatsCounterInternal alloc] initWithCollectionName:classCopy eventName:nameCopy eventType:eventNameCopy eventTypePossibleValues:typeCopy hasResult:values scalar:result];
+    v22 = [[_DKEventStatsCounterInternal alloc] initWithCollectionName:classCopy eventName:nameCopy eventType:eventNameCopy eventTypePossibleValues:typeCopy hasResult:valuesCopy scalar:resultCopy];
     [v21 setInternal:v22];
     if (v18)
     {
@@ -66,7 +68,6 @@
   }
 
   objc_sync_exit(v18);
-  v23 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

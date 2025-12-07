@@ -75,16 +75,15 @@
 
 - (AFSiriHomeAutomationRequestInfo)initWithIdentifier:(id)identifier
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11 = @"identifier";
-  v12[0] = identifier;
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10 = @"identifier";
+  v11[0] = identifier;
   v4 = MEMORY[0x1E695DF20];
   identifierCopy = identifier;
-  v6 = [v4 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6];
 
   v8 = [(AFSiriHomeAutomationRequestInfo *)self initWithContext:v7];
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

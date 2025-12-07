@@ -210,16 +210,16 @@ uint64_t symptom_send(void *a1)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t sr_log_symptom_action(uint64_t a1, int a2)
+_BYTE *sr_log_symptom_action(uint64_t a1, int a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
     result = *(MEMORY[0x277D85F10] + 328);
     if (!result)
     {
-      goto LABEL_31;
+      return result;
     }
   }
 
@@ -228,13 +228,13 @@ uint64_t sr_log_symptom_action(uint64_t a1, int a2)
     result = _os_alloc_once();
     if (!result)
     {
-      goto LABEL_31;
+      return result;
     }
   }
 
   if ((*result & 1) == 0)
   {
-    goto LABEL_31;
+    return result;
   }
 
   v6 = snprintf(__str, 0x5DBuLL, "Symptom Sender Name: %s", *(*(a1 + 112) + 24));
@@ -288,15 +288,15 @@ uint64_t sr_log_symptom_action(uint64_t a1, int a2)
 
     if (a2)
     {
-      v16 = snprintf(&__str[v12], 1499 - v12, " save");
-      if ((v12 + v16) >= 0x5DB)
+      v15 = snprintf(&__str[v12], 1499 - v12, " save");
+      if ((v12 + v15) >= 0x5DB)
       {
         v12 = 1499;
       }
 
       else
       {
-        v12 += v16;
+        v12 += v15;
       }
 
       if ((a2 & 2) == 0)
@@ -316,25 +316,25 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    v17 = 1499 - v12;
+    v16 = 1499 - v12;
     if ((a2 & 0x1000) != 0)
     {
-      v18 = snprintf(&__str[v12], v17, " alert-send");
+      v17 = snprintf(&__str[v12], v16, " alert-send");
     }
 
     else
     {
-      v18 = snprintf(&__str[v12], v17, " alert-pend");
+      v17 = snprintf(&__str[v12], v16, " alert-pend");
     }
 
-    if ((v12 + v18) >= 0x5DB)
+    if ((v12 + v17) >= 0x5DB)
     {
       v12 = 1499;
     }
 
     else
     {
-      v12 += v18;
+      v12 += v17;
     }
 
     if ((a2 & 0x100) == 0)
@@ -349,15 +349,15 @@ LABEL_19:
     }
 
 LABEL_43:
-    v19 = snprintf(&__str[v12], 1499 - v12, " drop");
-    if ((v12 + v19) >= 0x5DB)
+    v18 = snprintf(&__str[v12], 1499 - v12, " drop");
+    if ((v12 + v18) >= 0x5DB)
     {
       v12 = 1499;
     }
 
     else
     {
-      v12 += v19;
+      v12 += v18;
     }
 
     if ((a2 & 0x400) == 0)
@@ -372,15 +372,15 @@ LABEL_20:
     }
 
 LABEL_47:
-    v20 = snprintf(&__str[v12], 1499 - v12, " (note, dropped older)");
-    if ((v12 + v20) >= 0x5DB)
+    v19 = snprintf(&__str[v12], 1499 - v12, " (note, dropped older)");
+    if ((v12 + v19) >= 0x5DB)
     {
       v12 = 1499;
     }
 
     else
     {
-      v12 += v20;
+      v12 += v19;
     }
 
     if ((a2 & 0x800) == 0)
@@ -395,15 +395,15 @@ LABEL_21:
     }
 
 LABEL_51:
-    v21 = snprintf(&__str[v12], 1499 - v12, " drop (NOMEM)");
-    if ((v12 + v21) >= 0x5DB)
+    v20 = snprintf(&__str[v12], 1499 - v12, " drop (NOMEM)");
+    if ((v12 + v20) >= 0x5DB)
     {
       v12 = 1499;
     }
 
     else
     {
-      v12 += v21;
+      v12 += v20;
     }
 
     if ((a2 & 0x4000) == 0)
@@ -432,15 +432,15 @@ LABEL_23:
     }
 
 LABEL_55:
-    v22 = snprintf(&__str[v12], 1499 - v12, " reinit");
-    if ((v12 + v22) >= 0x5DB)
+    v21 = snprintf(&__str[v12], 1499 - v12, " reinit");
+    if ((v12 + v21) >= 0x5DB)
     {
       v12 = 1499;
     }
 
     else
     {
-      v12 += v22;
+      v12 += v21;
     }
 
     if ((a2 & 0x8000) == 0)
@@ -464,15 +464,13 @@ LABEL_27:
 
   if ((*result & 2) != 0)
   {
-    result = printf(" SYMPTOM-LOG-STRING: %s\n", __str);
+    return printf(" SYMPTOM-LOG-STRING: %s\n", __str);
   }
 
-LABEL_31:
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void symptom_post(uint64_t a1)
+void symptom_post(uint64_t result)
 {
   v2 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
@@ -487,11 +485,11 @@ void symptom_post(uint64_t a1)
 
   if ((*v3 & 2) != 0)
   {
-    printf("symptom_post entry, symptom pointer %p\n", a1);
+    printf("symptom_post entry, symptom pointer %p\n", result);
     if ((*v3 & 4) == 0)
     {
 LABEL_5:
-      if (!a1)
+      if (!result)
       {
         return;
       }
@@ -505,21 +503,21 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  _sr_log("symptom_post entry, symptom pointer %p\n", a1);
-  if (!a1)
+  _sr_log("symptom_post entry, symptom pointer %p\n");
+  if (!result)
   {
     return;
   }
 
 LABEL_6:
-  dump_symptom(a1);
-  v4 = *(a1 + 112);
+  dump_symptom(result);
+  v4 = *(result + 112);
   if (*(v4 + 115) == 1)
   {
     v5 = "Disabled";
 LABEL_24:
 
-    symptom_free(a1, v5);
+    symptom_free(result, v5);
     return;
   }
 
@@ -529,7 +527,7 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  symptom_ctrl = get_symptom_ctrl(*(a1 + 112), *(a1 + 32));
+  symptom_ctrl = get_symptom_ctrl(*(result + 112), *(result + 32));
   if (*(v2 + 320) == -1)
   {
     v7 = *(v2 + 328);
@@ -548,14 +546,14 @@ LABEL_24:
     }
 
 LABEL_22:
-    _sr_log("symptom_post obtained control structure at %p\n", symptom_ctrl);
+    _sr_log("symptom_post obtained control structure at %p\n");
     if (symptom_ctrl)
     {
       goto LABEL_17;
     }
 
 LABEL_23:
-    sr_log_symptom_action(a1, 2048);
+    sr_log_symptom_action(result, 2048);
     v5 = "No mem";
     goto LABEL_24;
   }
@@ -574,7 +572,7 @@ LABEL_16:
 
 LABEL_17:
 
-  handle_symptom(v4, symptom_ctrl, a1);
+  handle_symptom(v4, symptom_ctrl, result);
 }
 
 uint64_t dump_symptom(const void **a1)
@@ -731,7 +729,7 @@ void handle_symptom(uint64_t a1, uint64_t a2, void *a3)
 
   if ((v8 & 4) != 0)
   {
-    _sr_log("handle_symptom entry, symptom pointer %p   sc filter seqno %d  sr seqno %d\n", a3, *(a2 + 56), *(a1 + 104));
+    _sr_log("handle_symptom entry, symptom pointer %p   sc filter seqno %d  sr seqno %d\n");
   }
 
   if (*(a2 + 56) == *(a1 + 104))
@@ -756,7 +754,9 @@ void handle_symptom(uint64_t a1, uint64_t a2, void *a3)
 
     if ((v11 & 4) != 0)
     {
-      _sr_log("handle_symptom: filter with sc filter\n");
+      v12 = "handle_symptom: filter with sc filter\n";
+LABEL_20:
+      _sr_log(v12);
     }
   }
 
@@ -764,216 +764,221 @@ void handle_symptom(uint64_t a1, uint64_t a2, void *a3)
   {
     if (*(v6 + 320) == -1)
     {
-      v12 = *(v6 + 328);
+      v13 = *(v6 + 328);
     }
 
     else
     {
-      v12 = _os_alloc_once();
+      v13 = _os_alloc_once();
     }
 
     v10 = (a1 + 88);
-    v13 = *v12;
-    if ((*v12 & 2) != 0)
+    v14 = *v13;
+    if ((*v13 & 2) != 0)
     {
       puts("handle_symptom: filter with global filter");
-      v13 = *v12;
+      v14 = *v13;
     }
 
-    if ((v13 & 4) != 0)
+    if ((v14 & 4) != 0)
     {
-      _sr_log("handle_symptom: filter with global filter\n");
+      v12 = "handle_symptom: filter with global filter\n";
+      goto LABEL_20;
     }
   }
 
   if (*(v6 + 320) == -1)
   {
-    v14 = *(v6 + 328);
+    v15 = *(v6 + 328);
   }
 
   else
   {
-    v14 = _os_alloc_once();
+    v15 = _os_alloc_once();
   }
 
-  v15 = *v14;
-  if ((*v14 & 2) != 0)
+  v16 = *v15;
+  if ((*v15 & 2) != 0)
   {
     printf("filter_new_symptom: entry, q->sq_len %lu cf->cf_queue_len_max %d cf->cf_queue_len_alert %d\n", *(a2 + 64), v10[2], v10[1]);
-    v15 = *v14;
+    v16 = *v15;
   }
 
-  if ((v15 & 4) != 0)
+  if ((v16 & 4) != 0)
   {
-    _sr_log("filter_new_symptom: entry, q->sq_len %lu cf->cf_queue_len_max %d cf->cf_queue_len_alert %d\n", *(a2 + 64), v10[2], v10[1]);
+    _sr_log("filter_new_symptom: entry, q->sq_len %lu cf->cf_queue_len_max %d cf->cf_queue_len_alert %d\n");
   }
 
-  v16 = v10[2];
-  if (!v16)
+  v17 = v10[2];
+  if (!v17)
   {
     if (*(v6 + 320) == -1)
     {
-      v24 = *(v6 + 328);
+      v25 = *(v6 + 328);
     }
 
     else
     {
-      v24 = _os_alloc_once();
+      v25 = _os_alloc_once();
     }
 
-    v25 = *v24;
-    if ((*v24 & 2) != 0)
+    v26 = *v25;
+    if ((*v25 & 2) != 0)
     {
       printf("filter_new_symptom: cf->cf_queue_len_max == 0, DROP");
-      v25 = *v24;
+      v26 = *v25;
     }
 
-    if ((v25 & 4) != 0)
+    if ((v26 & 4) == 0)
     {
-      _sr_log("filter_new_symptom: cf->cf_queue_len_max == 0, DROP");
+      goto LABEL_60;
     }
 
-    goto LABEL_58;
+    v27 = "filter_new_symptom: cf->cf_queue_len_max == 0, DROP";
+    goto LABEL_59;
   }
 
   if (*v10)
   {
-    v50.tv_sec = 0;
-    *&v50.tv_usec = 0;
-    gettimeofday(&v50, 0);
-    v17 = (a2 + 72);
-    v18 = *(a2 + 72);
-    tv_sec = v50.tv_sec;
-    v20 = *v10;
-    if (v18 && v50.tv_sec - *(v18 + 24) > v20)
+    v52.tv_sec = 0;
+    *&v52.tv_usec = 0;
+    gettimeofday(&v52, 0);
+    v18 = (a2 + 72);
+    v19 = *(a2 + 72);
+    tv_sec = v52.tv_sec;
+    v21 = *v10;
+    if (v19 && v52.tv_sec - *(v19 + 24) > v21)
     {
       do
       {
-        v21 = *v18;
-        *v17 = *v18;
-        if (!v21)
+        v22 = *v19;
+        *v18 = *v19;
+        if (!v22)
         {
-          *(a2 + 80) = v17;
+          *(a2 + 80) = v18;
         }
 
         --*(a2 + 64);
-        update_globals_for_symptom_removal(a1, v18);
+        update_globals_for_symptom_removal(a1, v19);
         if (*(v6 + 320) == -1)
         {
-          v22 = *(v6 + 328);
+          v23 = *(v6 + 328);
         }
 
         else
         {
-          v22 = _os_alloc_once();
+          v23 = _os_alloc_once();
         }
 
-        v23 = *v22;
-        if ((*v22 & 2) != 0)
+        v24 = *v23;
+        if ((*v23 & 2) != 0)
         {
           puts("filter_new_symptom: DROP_HEAD (Age limit)");
-          v23 = *v22;
+          v24 = *v23;
         }
 
-        if ((v23 & 4) != 0)
+        if ((v24 & 4) != 0)
         {
           _sr_log("filter_new_symptom: DROP_HEAD (Age limit)\n");
         }
 
-        symptom_free(v18, "Too old");
-        v18 = *v17;
-        v20 = *v10;
+        symptom_free(v19, "Too old");
+        v19 = *v18;
+        v21 = *v10;
       }
 
-      while (*v17 && tv_sec - *(v18 + 24) > v20);
-      v26 = 1025;
+      while (*v18 && tv_sec - *(v19 + 24) > v21);
+      v28 = 1025;
     }
 
     else
     {
-      v26 = 1;
+      v28 = 1;
     }
 
-    if (tv_sec - *(a3 + 6) > v20)
+    if (tv_sec - *(a3 + 6) > v21)
     {
       if (*(v6 + 320) == -1)
       {
-        v27 = *(v6 + 328);
+        v29 = *(v6 + 328);
       }
 
       else
       {
-        v27 = _os_alloc_once();
+        v29 = _os_alloc_once();
       }
 
-      v28 = *v27;
-      if ((*v27 & 2) != 0)
+      v30 = *v29;
+      if ((*v29 & 2) != 0)
       {
         printf("filter_new_symptom: too old DROP");
-        v28 = *v27;
+        v30 = *v29;
       }
 
-      if ((v28 & 4) != 0)
+      if ((v30 & 4) == 0)
       {
-        _sr_log("filter_new_symptom: too old DROP");
+        goto LABEL_60;
       }
 
-LABEL_58:
-      v26 = 256;
-      goto LABEL_86;
+      v27 = "filter_new_symptom: too old DROP";
+LABEL_59:
+      _sr_log(v27);
+LABEL_60:
+      v28 = 256;
+      goto LABEL_88;
     }
 
-    v16 = v10[2];
+    v17 = v10[2];
   }
 
   else
   {
-    v26 = 1;
+    v28 = 1;
   }
 
-  v29 = *(a2 + 64);
-  if (v29 >= v16)
+  v31 = *(a2 + 64);
+  if (v31 >= v17)
   {
     ++*(a1 + 304);
-    v30 = *(a2 + 72);
-    v31 = *v30;
-    *(a2 + 72) = *v30;
-    if (!v31)
+    v32 = *(a2 + 72);
+    v33 = *v32;
+    *(a2 + 72) = *v32;
+    if (!v33)
     {
       *(a2 + 80) = a2 + 72;
     }
 
-    *(a2 + 64) = v29 - 1;
-    update_globals_for_symptom_removal(a1, v30);
+    *(a2 + 64) = v31 - 1;
+    update_globals_for_symptom_removal(a1, v32);
     if (*(v6 + 320) == -1)
     {
-      v32 = *(v6 + 328);
+      v34 = *(v6 + 328);
     }
 
     else
     {
-      v32 = _os_alloc_once();
+      v34 = _os_alloc_once();
     }
 
-    v33 = *v32;
-    if ((*v32 & 2) != 0)
+    v35 = *v34;
+    if ((*v34 & 2) != 0)
     {
       puts("filter_new_symptom: DROP_HEAD");
-      v33 = *v32;
+      v35 = *v34;
     }
 
-    if ((v33 & 4) != 0)
+    if ((v35 & 4) != 0)
     {
       _sr_log("filter_new_symptom: DROP_HEAD\n");
     }
 
-    symptom_free(v30, "Queue length limit");
-    v26 = 1025;
+    symptom_free(v32, "Queue length limit");
+    v28 = 1025;
   }
 
   if (*(a3 + 17) == 4)
   {
-    v26 |= 0x2000u;
+    v28 |= 0x2000u;
   }
 
   else
@@ -981,61 +986,38 @@ LABEL_58:
     *a3 = 0;
     **(a2 + 80) = a3;
     *(a2 + 80) = a3;
-    v34 = *(a2 + 64) + 1;
-    *(a2 + 64) = v34;
+    v36 = *(a2 + 64) + 1;
+    *(a2 + 64) = v36;
     ++*(a1 + 120);
-    v35 = v10[1];
-    if (v34 >= v35)
+    v37 = v10[1];
+    if (v36 >= v37)
     {
       if (*(v6 + 320) == -1)
       {
-        v36 = *(v6 + 328);
+        v38 = *(v6 + 328);
       }
 
       else
       {
-        v36 = _os_alloc_once();
+        v38 = _os_alloc_once();
       }
 
-      v37 = *v36;
-      if ((*v36 & 2) != 0)
+      v39 = *v38;
+      if ((*v38 & 2) != 0)
       {
-        printf("filter_new_symptom: q->sq_len %zdd >= cf->cf_queue_len_alert %d ALERT\n", v34, v35);
-        v37 = *v36;
+        printf("filter_new_symptom: q->sq_len %zdd >= cf->cf_queue_len_alert %d ALERT\n", v36, v37);
+        v39 = *v38;
       }
 
-      if ((v37 & 4) != 0)
+      if ((v39 & 4) != 0)
       {
-        _sr_log("filter_new_symptom: q->sq_len %zdd >= cf->cf_queue_len_alert %d ALERT\n", *(a2 + 64), v10[1]);
+        _sr_log("filter_new_symptom: q->sq_len %zdd >= cf->cf_queue_len_alert %d ALERT\n");
       }
 
-      v26 |= 2u;
+      v28 |= 2u;
     }
   }
 
-  if (*(v6 + 320) == -1)
-  {
-    v38 = *(v6 + 328);
-  }
-
-  else
-  {
-    v38 = _os_alloc_once();
-  }
-
-  v39 = *v38;
-  if ((*v38 & 2) != 0)
-  {
-    printf("filter_new_symptom: return %x\n", v26);
-    v39 = *v38;
-  }
-
-  if ((v39 & 4) != 0)
-  {
-    _sr_log("filter_new_symptom: return %x\n", v26);
-  }
-
-LABEL_86:
   if (*(v6 + 320) == -1)
   {
     v40 = *(v6 + 328);
@@ -1049,96 +1031,119 @@ LABEL_86:
   v41 = *v40;
   if ((*v40 & 2) != 0)
   {
-    printf("symptom_post action flags %x from filter %p\n", v26, v10);
+    printf("filter_new_symptom: return %x\n", v28);
     v41 = *v40;
   }
 
   if ((v41 & 4) != 0)
   {
-    _sr_log("symptom_post action flags %x from filter %p\n", v26, v10);
+    _sr_log("filter_new_symptom: return %x\n");
   }
 
-  sr_log_symptom_action(a3, v26);
-  if ((v26 & 0x2000) != 0)
+LABEL_88:
+  if (*(v6 + 320) == -1)
+  {
+    v42 = *(v6 + 328);
+  }
+
+  else
+  {
+    v42 = _os_alloc_once();
+  }
+
+  v43 = *v42;
+  if ((*v42 & 2) != 0)
+  {
+    printf("symptom_post action flags %x from filter %p\n", v28, v10);
+    v43 = *v42;
+  }
+
+  if ((v43 & 4) != 0)
+  {
+    _sr_log("symptom_post action flags %x from filter %p\n");
+  }
+
+  sr_log_symptom_action(a3, v28);
+  if ((v28 & 0x2000) != 0)
   {
     if (*(v6 + 320) == -1)
     {
-      v42 = *(v6 + 328);
+      v44 = *(v6 + 328);
     }
 
     else
     {
-      v42 = _os_alloc_once();
+      v44 = _os_alloc_once();
     }
 
-    v43 = *v42;
-    if ((*v42 & 2) != 0)
+    v45 = *v44;
+    if ((*v44 & 2) != 0)
     {
       printf("push_symptom_to_nhm, symptom %p\n", a3);
-      v43 = *v42;
+      v45 = *v44;
     }
 
-    if ((v43 & 4) != 0)
+    if ((v45 & 4) != 0)
     {
-      _sr_log("push_symptom_to_nhm, symptom %p\n", a3);
+      _sr_log("push_symptom_to_nhm, symptom %p\n");
     }
 
-    v44 = malloc_type_malloc(0x28A0uLL, 0xB48269D9uLL);
-    if (!v44)
+    v46 = malloc_type_malloc(0x28A0uLL, 0xB48269D9uLL);
+    if (!v46)
     {
-LABEL_109:
-      if ((v26 & 0x100) == 0)
+LABEL_111:
+      if ((v28 & 0x100) == 0)
       {
-        v49 = "Drop (immediate)";
-LABEL_112:
+        v51 = "Drop (immediate)";
+LABEL_114:
 
-        symptom_free(a3, v49);
+        symptom_free(a3, v51);
         return;
       }
 
-LABEL_111:
+LABEL_113:
       ++*(a1 + 312);
-      v49 = "Drop (filter)";
-      goto LABEL_112;
+      v51 = "Drop (filter)";
+      goto LABEL_114;
     }
 
-    v45 = v44;
-    *(v44 + 1) = 2359299;
-    v46 = v44 + 8;
-    fill_sender_id(a1, (v44 + 4));
-    v50.tv_sec = 10444;
-    symptom = read_symptom(a3, v45 + 11, &v50);
+    v47 = v46;
+    *(v46 + 1) = 2359299;
+    v48 = v46 + 8;
+    fill_sender_id(a1, (v46 + 4));
+    v52.tv_sec = 10444;
+    symptom = read_symptom(a3, v47 + 11, &v52);
     *symptom = 0;
-    *v45 = 1;
-    v48 = symptom - v46 + 8;
-    v45[1] = v48;
+    *v47 = 1;
+    v50 = symptom - v48 + 8;
+    v47[1] = v50;
     if ((*(a1 + 113) & 1) == 0)
     {
       connect_symptom_framework(a1);
       if ((*(a1 + 113) & 1) == 0)
       {
-LABEL_108:
-        free(v45);
-        goto LABEL_109;
+LABEL_110:
+        free(v47);
+        goto LABEL_111;
       }
 
-      v48 = v45[1];
+      v50 = v47[1];
     }
 
-    symptom_transport_send(a1, v45, v48 + 4);
+    symptom_transport_send(a1, v47, v50 + 4);
     ++*(a1 + 288);
-    goto LABEL_108;
+    goto LABEL_110;
   }
 
-  if ((v26 & 2) != 0)
+  if ((v28 & 2) != 0)
   {
     ensure_sym_ctrl_is_queued(a1, a2);
     ensure_alert(a1);
   }
 
-  if ((v26 & 0x100) != 0)
+  if ((v28 & 0x100) != 0)
   {
-    goto LABEL_111;
+    goto LABEL_113;
   }
 }
 
@@ -1206,7 +1211,7 @@ uint64_t ensure_sym_ctrl_is_queued(uint64_t a1, uint64_t a2)
 
   if ((v6 & 4) != 0)
   {
-    _sr_log("ensure_sym_ctrl_is_queued, sc %p, in use %d\n", a2, *(a2 + 40));
+    _sr_log("ensure_sym_ctrl_is_queued, sc %p, in use %d\n");
   }
 
   if ((*(a2 + 40) & 1) == 0)
@@ -1240,7 +1245,7 @@ uint64_t ensure_sym_ctrl_is_queued(uint64_t a1, uint64_t a2)
 
   if ((v10 & 4) != 0)
   {
-    _sr_log("After ensure_sym_ctrl_is_queued %p\n", a2);
+    _sr_log("After ensure_sym_ctrl_is_queued %p\n");
   }
 
   return dump_symptom_state(a1);
@@ -1569,52 +1574,39 @@ uint64_t dump_active_idents(uint64_t a1)
   return result;
 }
 
-void ensure_alert(uint64_t a1)
+void ensure_alert(uint64_t result)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 113) == 1)
+  v6 = *MEMORY[0x277D85DE8];
+  if (*(result + 113) == 1)
   {
-    v2 = *(a1 + 16);
-    if (v2 != 2)
+    v2 = *(result + 16);
+    if (v2 == 2)
     {
-      if (v2 == 1 && (*(a1 + 114) & 1) == 0)
+      if ((*(result + 112) & 1) == 0)
       {
-        v8 = 0;
-        memset(v7, 0, sizeof(v7));
-        v6 = 0x30000700380001;
-        read_current_status(a1, v7, 0, 2);
-        v8 = 0;
-        symptom_transport_send(a1, &v6, 0x3CuLL);
-        ++*(a1 + 272);
-        sr_log_status_send(a1, &v6);
-        *(a1 + 114) = 1;
+
+        send_current(result);
       }
-
-      goto LABEL_11;
     }
 
-    if (*(a1 + 112))
+    else if (v2 == 1 && (*(result + 114) & 1) == 0)
     {
-LABEL_11:
-      v4 = *MEMORY[0x277D85DE8];
-      return;
+      v5 = 0;
+      memset(v4, 0, sizeof(v4));
+      v3 = 0x30000700380001;
+      read_current_status(result, v4, 0, 2);
+      v5 = 0;
+      symptom_transport_send(result, &v3, 0x3CuLL);
+      ++*(result + 272);
+      sr_log_status_send(result, &v3);
+      *(result + 114) = 1;
     }
-
-    v5 = *MEMORY[0x277D85DE8];
-
-    send_current(a1);
   }
 
-  else
+  else if ((*(result + 216) & 1) == 0)
   {
-    if (*(a1 + 216))
-    {
-      goto LABEL_11;
-    }
 
-    v3 = *MEMORY[0x277D85DE8];
-
-    ensure_symptom_framework_connect(a1);
+    ensure_symptom_framework_connect(result);
   }
 }
 
@@ -1687,7 +1679,7 @@ LABEL_11:
 
   if ((v13 & 4) != 0)
   {
-    _sr_log("read_current_status, ack id %d, flags %d num_alerts %d  num_queued %d\n", v5, v7, *(v4 + 8), *(v4 + 12));
+    _sr_log("read_current_status, ack id %d, flags %d num_alerts %d  num_queued %d\n");
   }
 
   return dump_status(v4);
@@ -1719,7 +1711,7 @@ uint64_t symptom_transport_send(uint64_t a1, const void *a2, size_t a3)
 
     if ((v10 & 4) != 0)
     {
-      _sr_log("symptom_transport_send:  ptr %p size %lu \n", a2, a3);
+      _sr_log("symptom_transport_send:  ptr %p size %lu \n");
     }
 
     v11.i64[0] = vdupq_n_s64(1uLL).u64[0];
@@ -1845,15 +1837,15 @@ _DWORD *dump_status(unsigned __int8 *a1)
   return result;
 }
 
-uint64_t sr_log_status_send(uint64_t a1, uint64_t a2)
+_BYTE *sr_log_status_send(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
     result = *(MEMORY[0x277D85F10] + 328);
     if (!result)
     {
-      goto LABEL_16;
+      return result;
     }
   }
 
@@ -1862,15 +1854,15 @@ uint64_t sr_log_status_send(uint64_t a1, uint64_t a2)
     result = _os_alloc_once();
     if (!result)
     {
-      goto LABEL_16;
+      return result;
     }
   }
 
   if (*result)
   {
-    v14 = *(a1 + 24);
+    v13 = *(a1 + 24);
     v5 = 1499;
-    v6 = snprintf(__str, 0x5DBuLL, "Status Sender Name: %s", v14);
+    v6 = snprintf(__str, 0x5DBuLL, "Status Sender Name: %s", v13);
     if (v6 >= 0x5DB)
     {
       v7 = 1499;
@@ -1890,15 +1882,15 @@ uint64_t sr_log_status_send(uint64_t a1, uint64_t a2)
     v9 = *(a2 + 10);
     if (v9)
     {
-      v12 = snprintf(&__str[v5], 1499 - v5, " resp");
-      if ((v5 + v12) >= 0x5DB)
+      v11 = snprintf(&__str[v5], 1499 - v5, " resp");
+      if ((v5 + v11) >= 0x5DB)
       {
         v5 = 1499;
       }
 
       else
       {
-        v5 += v12;
+        v5 += v11;
       }
 
       if ((v9 & 2) == 0)
@@ -1906,9 +1898,7 @@ uint64_t sr_log_status_send(uint64_t a1, uint64_t a2)
 LABEL_11:
         if ((v9 & 4) == 0)
         {
-LABEL_15:
-          result = snprintf(&__str[v5], 1499 - v5, " ack-id %d  num-alerts %d num-queued %d", *(a2 + 12), *(a2 + 16), *(a2 + 20));
-          goto LABEL_16;
+          return snprintf(&__str[v5], 1499 - v5, " ack-id %d  num-alerts %d num-queued %d", *(a2 + 12), *(a2 + 16), *(a2 + 20));
         }
 
 LABEL_12:
@@ -1923,7 +1913,7 @@ LABEL_12:
           v5 += v10;
         }
 
-        goto LABEL_15;
+        return snprintf(&__str[v5], 1499 - v5, " ack-id %d  num-alerts %d num-queued %d", *(a2 + 12), *(a2 + 16), *(a2 + 20));
       }
     }
 
@@ -1932,27 +1922,25 @@ LABEL_12:
       goto LABEL_11;
     }
 
-    v13 = snprintf(&__str[v5], 1499 - v5, " alert");
-    if ((v5 + v13) >= 0x5DB)
+    v12 = snprintf(&__str[v5], 1499 - v5, " alert");
+    if ((v5 + v12) >= 0x5DB)
     {
       v5 = 1499;
     }
 
     else
     {
-      v5 += v13;
+      v5 += v12;
     }
 
     if ((v9 & 4) == 0)
     {
-      goto LABEL_15;
+      return snprintf(&__str[v5], 1499 - v5, " ack-id %d  num-alerts %d num-queued %d", *(a2 + 12), *(a2 + 16), *(a2 + 20));
     }
 
     goto LABEL_12;
   }
 
-LABEL_16:
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1973,17 +1961,13 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
   v7 = *v6;
   if ((*v6 & 2) != 0)
   {
-    v8 = *(a1 + 32);
-    v9 = v8[28];
-    printf("symptom_transport_connect event handler called on %p for %p evcount %lu errcount %lu\n", v8, a2, v9, v8[30]);
+    printf("symptom_transport_connect event handler called on %p for %p evcount %lu errcount %lu\n", *(a1 + 32), a2, *(*(a1 + 32) + 224), *(*(a1 + 32) + 240));
     v7 = *v6;
   }
 
   if ((v7 & 4) != 0)
   {
-    v10 = *(a1 + 32);
-    v11 = v10[28];
-    _sr_log("symptom_transport_connect event handler called on %p for %p evcount %lu errcount %lu\n", v10, a2, v11, v10[30]);
+    _sr_log("symptom_transport_connect event handler called on %p for %p evcount %lu errcount %lu\n");
   }
 
   if (v4 != MEMORY[0x277D86480])
@@ -1993,87 +1977,87 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
       *(*(a1 + 32) + 152) = 0;
       if (*(v5 + 320) == -1)
       {
-        v24 = *(v5 + 328);
+        v18 = *(v5 + 328);
       }
 
       else
       {
-        v24 = _os_alloc_once();
+        v18 = _os_alloc_once();
       }
 
-      v25 = *v24;
-      if ((*v24 & 2) != 0)
+      v19 = *v18;
+      if ((*v18 & 2) != 0)
       {
         printf("handling incoming message");
-        v25 = *v24;
+        v19 = *v18;
       }
 
-      if ((v25 & 4) != 0)
+      if ((v19 & 4) != 0)
       {
         _sr_log("handling incoming message");
       }
 
-      v26 = *(a1 + 32);
+      v20 = *(a1 + 32);
       length = 0;
       data = xpc_dictionary_get_data(a2, "payload", &length);
-      v28 = *(v5 + 320);
+      v22 = *(v5 + 320);
       if (data)
       {
-        v29 = data;
-        if (v28 == -1)
+        v23 = data;
+        if (v22 == -1)
         {
-          v30 = *(v5 + 328);
+          v24 = *(v5 + 328);
         }
 
         else
         {
-          v30 = _os_alloc_once();
+          v24 = _os_alloc_once();
         }
 
-        v31 = *v30;
-        if ((*v30 & 2) != 0)
+        v25 = *v24;
+        if ((*v24 & 2) != 0)
         {
-          printf("handle_incoming_xpc_dictionary:  desc %p size %lu\n", v29, length);
-          v31 = *v30;
+          printf("handle_incoming_xpc_dictionary:  desc %p size %lu\n", v23, length);
+          v25 = *v24;
         }
 
-        if ((v31 & 4) != 0)
+        if ((v25 & 4) != 0)
         {
-          _sr_log("handle_incoming_xpc_dictionary:  desc %p size %lu\n", v29, length);
+          _sr_log("handle_incoming_xpc_dictionary:  desc %p size %lu\n");
         }
 
-        v32 = length;
-        v33.i64[0] = vdupq_n_s64(1uLL).u64[0];
-        v33.i64[1] = length;
-        v26[14] = vaddq_s64(v26[14], v33);
-        symptoms_incoming_message(v26, v29, v32);
+        v26 = length;
+        v27.i64[0] = vdupq_n_s64(1uLL).u64[0];
+        v27.i64[1] = length;
+        v20[14] = vaddq_s64(v20[14], v27);
+        symptoms_incoming_message(v20, v23, v26);
       }
 
       else
       {
-        if (v28 == -1)
+        if (v22 == -1)
         {
-          v40 = *(v5 + 328);
+          v34 = *(v5 + 328);
         }
 
         else
         {
-          v40 = _os_alloc_once();
+          v34 = _os_alloc_once();
         }
 
-        v41 = *v40;
-        if ((*v40 & 2) != 0)
+        v35 = *v34;
+        if ((*v34 & 2) != 0)
         {
           printf("handle_incoming_xpc_dictionary:  ERR message with no payload");
-          v41 = *v40;
+          v35 = *v34;
         }
 
-        if ((v41 & 4) != 0)
+        if ((v35 & 4) != 0)
         {
           _sr_log("handle_incoming_xpc_dictionary:  ERR message with no payload");
         }
 
-        ++v26[15].i64[0];
+        ++v20[15].i64[0];
       }
     }
 
@@ -2081,24 +2065,24 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
     {
       if (*(v5 + 320) == -1)
       {
-        v12 = *(v5 + 328);
+        v8 = *(v5 + 328);
       }
 
       else
       {
-        v12 = _os_alloc_once();
+        v8 = _os_alloc_once();
       }
 
-      v13 = *v12;
-      if ((*v12 & 2) != 0)
+      v9 = *v8;
+      if ((*v8 & 2) != 0)
       {
         printf("unexpected message from peer %p", v4);
-        v13 = *v12;
+        v9 = *v8;
       }
 
-      if ((v13 & 4) != 0)
+      if ((v9 & 4) != 0)
       {
-        _sr_log("unexpected message from peer %p", v4);
+        _sr_log("unexpected message from peer %p");
       }
 
       ++*(*(a1 + 32) + 240);
@@ -2109,65 +2093,65 @@ void __symptom_transport_connect_block_invoke(uint64_t a1, void *a2)
 
   if (*(v5 + 320) == -1)
   {
-    v14 = *(v5 + 328);
+    v10 = *(v5 + 328);
   }
 
   else
   {
-    v14 = _os_alloc_once();
+    v10 = _os_alloc_once();
   }
 
-  v15 = *v14;
-  v16 = MEMORY[0x277D86400];
-  if ((*v14 & 2) != 0)
+  v11 = *v10;
+  v12 = MEMORY[0x277D86400];
+  if ((*v10 & 2) != 0)
   {
     string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
     printf("connection error: %s\n", string);
-    v15 = *v14;
+    v11 = *v10;
   }
 
-  if ((v15 & 4) != 0)
+  if ((v11 & 4) != 0)
   {
-    v18 = xpc_dictionary_get_string(a2, *v16);
-    _sr_log("connection error: %s\n", v18);
+    xpc_dictionary_get_string(a2, *v12);
+    _sr_log("connection error: %s\n");
   }
 
   if (a2 == MEMORY[0x277D863F0])
   {
-    _sr_log("%s: %s", *(*(a1 + 32) + 24), "SymptomReporter: XPC connection to Symptom Framework interrupted\n");
-    v34 = *(a1 + 32);
-    ++*(v34 + 144);
-    *(v34 + 113) = 0;
-    ++*(v34 + 328);
+    _sr_log("%s: %s");
+    v28 = *(a1 + 32);
+    ++*(v28 + 144);
+    *(v28 + 113) = 0;
+    ++*(v28 + 328);
 LABEL_46:
 
-    symptoms_transport_dropped(v34);
+    symptoms_transport_dropped(v28);
     return;
   }
 
   if (a2 != MEMORY[0x277D863F8])
   {
-    v19 = *(v5 + 320);
+    v14 = *(v5 + 320);
     if (a2 == MEMORY[0x277D86420])
     {
-      if (v19 == -1)
+      if (v14 == -1)
       {
-        v42 = *(v5 + 328);
+        v36 = *(v5 + 328);
       }
 
       else
       {
-        v42 = _os_alloc_once();
+        v36 = _os_alloc_once();
       }
 
-      v43 = *v42;
-      if ((*v42 & 2) != 0)
+      v37 = *v36;
+      if ((*v36 & 2) != 0)
       {
         puts("symptom_transport: skipping TERMINATION_IMMINENT event");
-        v43 = *v42;
+        v37 = *v36;
       }
 
-      if ((v43 & 4) != 0)
+      if ((v37 & 4) != 0)
       {
 
         _sr_log("symptom_transport: skipping TERMINATION_IMMINENT event\n");
@@ -2176,125 +2160,125 @@ LABEL_46:
 
     else
     {
-      if (v19 == -1)
+      if (v14 == -1)
       {
-        v20 = *(v5 + 328);
+        v15 = *(v5 + 328);
       }
 
       else
       {
-        v20 = _os_alloc_once();
+        v15 = _os_alloc_once();
       }
 
-      v21 = *v20;
-      if ((*v20 & 2) != 0)
+      v16 = *v15;
+      if ((*v15 & 2) != 0)
       {
-        v22 = xpc_dictionary_get_string(a2, *v16);
-        printf("symptom_transport: unhandled connection error: %s", v22);
-        v21 = *v20;
+        v17 = xpc_dictionary_get_string(a2, *v12);
+        printf("symptom_transport: unhandled connection error: %s", v17);
+        v16 = *v15;
       }
 
-      if ((v21 & 4) != 0)
+      if ((v16 & 4) != 0)
       {
-        v23 = xpc_dictionary_get_string(a2, *v16);
-        _sr_log("symptom_transport: unhandled connection error: %s", v23);
+        xpc_dictionary_get_string(a2, *v12);
+        _sr_log("symptom_transport: unhandled connection error: %s");
       }
     }
 
     return;
   }
 
-  v35 = *(a1 + 32);
-  v36 = *(v35 + 136);
-  if (v36)
+  v29 = *(a1 + 32);
+  v30 = *(v29 + 136);
+  if (v30)
   {
-    xpc_release(v36);
+    xpc_release(v30);
     *(*(a1 + 32) + 136) = 0;
-    v35 = *(a1 + 32);
+    v29 = *(a1 + 32);
   }
 
-  *(v35 + 136) = 0;
-  v37 = *(a1 + 32);
-  *(v37 + 113) = 0;
-  ++*(v37 + 336);
-  v38 = *(v37 + 212) + 1;
-  *(v37 + 212) = v38;
-  if (v38 >= 2)
+  *(v29 + 136) = 0;
+  v31 = *(a1 + 32);
+  *(v31 + 113) = 0;
+  ++*(v31 + 336);
+  v32 = *(v31 + 212) + 1;
+  *(v31 + 212) = v32;
+  if (v32 >= 2)
   {
-    *(v37 + 212) = 0;
-    v39 = *(v5 + 320);
+    *(v31 + 212) = 0;
+    v33 = *(v5 + 320);
 LABEL_78:
-    if (v39 == -1)
+    if (v33 == -1)
     {
-      v47 = *(v5 + 328);
+      v41 = *(v5 + 328);
     }
 
     else
     {
-      v47 = _os_alloc_once();
+      v41 = _os_alloc_once();
     }
 
-    v48 = *v47;
-    if ((*v47 & 2) != 0)
+    v42 = *v41;
+    if ((*v41 & 2) != 0)
     {
       puts("symptom_transport: CONNECTION_INVALID");
-      v48 = *v47;
+      v42 = *v41;
     }
 
-    if ((v48 & 4) != 0)
+    if ((v42 & 4) != 0)
     {
       _sr_log("symptom_transport: CONNECTION_INVALID\n");
     }
 
-    v34 = *(a1 + 32);
-    v49 = *(v34 + 152) + 1;
-    *(v34 + 152) = v49;
-    if (v49 >= 4)
+    v28 = *(a1 + 32);
+    v43 = *(v28 + 152) + 1;
+    *(v28 + 152) = v43;
+    if (v43 >= 4)
     {
-      _sr_log("%s: %s", *(v34 + 24), "SymptomReporter: Disabling Symptom Transport after perstent invalid connections\n");
+      _sr_log("%s: %s");
       *(*(a1 + 32) + 115) = 1;
       return;
     }
 
-    if (*(v34 + 192) < 0xDF8475800uLL)
+    if (*(v28 + 192) < 0xDF8475800uLL)
     {
-      *(v34 + 192) = 60000000000;
+      *(v28 + 192) = 60000000000;
     }
 
     goto LABEL_46;
   }
 
-  v39 = *(v5 + 320);
-  if (!v38)
+  v33 = *(v5 + 320);
+  if (!v32)
   {
     goto LABEL_78;
   }
 
-  if (v39 == -1)
+  if (v33 == -1)
   {
-    v44 = *(v5 + 328);
+    v38 = *(v5 + 328);
   }
 
   else
   {
-    v44 = _os_alloc_once();
+    v38 = _os_alloc_once();
   }
 
-  v45 = *v44;
-  if ((*v44 & 2) != 0)
+  v39 = *v38;
+  if ((*v38 & 2) != 0)
   {
     printf("symptom_transport: XPC connection invalid for %s, switch to %s\n", "com.apple.usymptomsd", "com.apple.usymptomsd");
-    v45 = *v44;
+    v39 = *v38;
   }
 
-  if ((v45 & 4) != 0)
+  if ((v39 & 4) != 0)
   {
-    _sr_log("symptom_transport: XPC connection invalid for %s, switch to %s\n", "com.apple.usymptomsd", "com.apple.usymptomsd");
+    _sr_log("symptom_transport: XPC connection invalid for %s, switch to %s\n");
   }
 
-  v46 = *(a1 + 32);
+  v40 = *(a1 + 32);
 
-  symptoms_transport_fastdrop(v46);
+  symptoms_transport_fastdrop(v40);
 }
 
 void symptoms_incoming_message(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
@@ -2325,49 +2309,136 @@ void symptoms_incoming_message(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
 
   if (a3 < 4)
   {
-    goto LABEL_82;
+    return;
   }
 
   v9 = (a1 + 88);
-  while (1)
+  do
   {
     v10 = *a2;
     if (v10 <= 0xB)
     {
-      break;
-    }
-
-    if (v10 != 12)
-    {
-      if (v10 == 41)
+      if (v10 == 1)
       {
-        if (a3 >= 8 && a2[1] == 4)
+        a2 += 2;
+        a3 -= 4;
+        continue;
+      }
+
+      if (v10 != 11)
+      {
+        return;
+      }
+
+      v11 = a3 - 16;
+      if (a3 >= 0x10 && a2[1] == 12)
+      {
+        v12 = *(a2 + 3);
+        if (*(v6 + 320) == -1)
         {
-          ++*(a1 + 248);
-          if (*(a2 + 1) == *(a1 + 108))
-          {
-            *(a1 + 112) = 0;
-            if (*(a1 + 80))
-            {
-              send_current(a1);
-            }
-          }
+          v13 = *(v6 + 328);
         }
 
         else
         {
-          _sr_log("SymptomReporter incoming_message, SYMTLV_TERMINAL_ACK sz too small %zd");
+          v13 = _os_alloc_once();
         }
+
+        memset(v41, 0, 60);
+        v14 = *v13;
+        if ((*v13 & 2) != 0)
+        {
+          printf("new_symptoms_read: ack_id %d\n", v12);
+          v14 = *v13;
+        }
+
+        if ((v14 & 4) != 0)
+        {
+          _sr_log("new_symptoms_read: ack_id %d\n");
+        }
+
+        v40 = 0;
+        v15 = malloc_type_malloc(0x28A0uLL, 0x29BC7703uLL);
+        v16 = v15;
+        v17 = v41;
+        if (v15)
+        {
+          v18 = v15;
+        }
+
+        else
+        {
+          v18 = v41;
+        }
+
+        if (v15)
+        {
+          v40 = 10340;
+          v19 = read_symptoms(a1, v15 + 56, &v40);
+          v17 = v16;
+        }
+
+        else
+        {
+          v19 = &v41[3] + 8;
+        }
+
+        *(v17 + 1) = 3145735;
+        read_current_status(a1, (v17 + 8), v12, 1);
+        *v19 = 0;
+        *v18 = 1;
+        *(v17 + 1) = v19 - v17;
+        symptom_transport_send(a1, v18, (v19 - v17) + 4);
+        ++*(a1 + 280);
+        sr_log_status_send(a1, v18);
+        if (v16)
+        {
+          free(v16);
+        }
+
+        a2 = (a2 + a2[1] + 4);
+        a3 = v11;
+        v9 = (a1 + 88);
+        continue;
       }
 
+      v39 = "SymptomReporter incoming_message, SYMTLV_READ sz too small %zd";
+LABEL_82:
+      _sr_log(v39);
+      return;
+    }
+
+    if (v10 != 12)
+    {
+      if (v10 != 41)
+      {
+        return;
+      }
+
+      if (a3 >= 8 && a2[1] == 4)
+      {
+        ++*(a1 + 248);
+        if (*(a2 + 1) == *(a1 + 108))
+        {
+          *(a1 + 112) = 0;
+          if (*(a1 + 80))
+          {
+            send_current(a1);
+          }
+        }
+
+        return;
+      }
+
+      v39 = "SymptomReporter incoming_message, SYMTLV_TERMINAL_ACK sz too small %zd";
       goto LABEL_82;
     }
 
-    _sr_log("SymptomReporter incoming_message, SYMTLV_FILTER sc %zd desc->stlv_len %d filter size %zd", a3, a2[1], 0x10uLL);
+    _sr_log("SymptomReporter incoming_message, SYMTLV_FILTER sc %zd desc->stlv_len %d filter size %zd");
     v20 = a2[1];
     if (a3 < 0x14 || v20 < 0x10 || (v20 & 0xF) != 0)
     {
-      _sr_log("SymptomReporter incoming_message, SYMTLV_FILTER sz %zd fails consistency checks, desc->stlv_len %d");
+      v39 = "SymptomReporter incoming_message, SYMTLV_FILTER sz %zd fails consistency checks, desc->stlv_len %d";
       goto LABEL_82;
     }
 
@@ -2391,7 +2462,7 @@ void symptoms_incoming_message(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
 
     if ((v23 & 4) != 0)
     {
-      _sr_log("apply_new_filters, count is %zd, seqno %d\n", v20 >> 4, *(a1 + 104) + 1);
+      _sr_log("apply_new_filters, count is %zd, seqno %d\n");
     }
 
     ++*(a1 + 104);
@@ -2426,7 +2497,7 @@ void symptoms_incoming_message(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
       v29 = *(v24 - 2);
       if ((v28 & 4) != 0)
       {
-        _sr_log("apply_new_filters, Symptom: %x   Qlert %d    Q drop %d\n", v29, *(v24 - 2), *(v24 - 1));
+        _sr_log("apply_new_filters, Symptom: %x   Qlert %d    Q drop %d\n");
         v29 = *(v24 - 2);
       }
 
@@ -2461,11 +2532,11 @@ LABEL_46:
 
         if ((v35 & 4) != 0)
         {
-          _sr_log("update_filter_values, max age %d, alert len %d drop len %d seqno %d\n", *v31, v31[1], v31[2], v32);
+          _sr_log("update_filter_values, max age %d, alert len %d drop len %d seqno %d\n");
         }
       }
 
-      v24 += 4;
+      v24 += 8;
       --v22;
     }
 
@@ -2496,99 +2567,9 @@ LABEL_46:
     v38 = a2[1];
     a3 = a3 - v38 - 4;
     a2 = (a2 + v38 + 4);
-LABEL_68:
-    if (a3 <= 3)
-    {
-      goto LABEL_82;
-    }
   }
 
-  if (v10 == 1)
-  {
-    a2 += 2;
-    a3 -= 4;
-    goto LABEL_68;
-  }
-
-  if (v10 == 11)
-  {
-    v11 = a3 - 16;
-    if (a3 >= 0x10 && a2[1] == 12)
-    {
-      v12 = *(a2 + 3);
-      if (*(v6 + 320) == -1)
-      {
-        v13 = *(v6 + 328);
-      }
-
-      else
-      {
-        v13 = _os_alloc_once();
-      }
-
-      memset(v41, 0, 60);
-      v14 = *v13;
-      if ((*v13 & 2) != 0)
-      {
-        printf("new_symptoms_read: ack_id %d\n", v12);
-        v14 = *v13;
-      }
-
-      if ((v14 & 4) != 0)
-      {
-        _sr_log("new_symptoms_read: ack_id %d\n", v12);
-      }
-
-      v40 = 0;
-      v15 = malloc_type_malloc(0x28A0uLL, 0x29BC7703uLL);
-      v16 = v15;
-      v17 = v41;
-      if (v15)
-      {
-        v18 = v15;
-      }
-
-      else
-      {
-        v18 = v41;
-      }
-
-      if (v15)
-      {
-        v40 = 10340;
-        v19 = read_symptoms(a1, v15 + 56, &v40);
-        v17 = v16;
-      }
-
-      else
-      {
-        v19 = &v41[3] + 8;
-      }
-
-      *(v17 + 1) = 3145735;
-      read_current_status(a1, (v17 + 8), v12, 1);
-      *v19 = 0;
-      *v18 = 1;
-      *(v17 + 1) = v19 - v17;
-      symptom_transport_send(a1, v18, (v19 - v17) + 4);
-      ++*(a1 + 280);
-      sr_log_status_send(a1, v18);
-      if (v16)
-      {
-        free(v16);
-      }
-
-      a2 = (a2 + a2[1] + 4);
-      a3 = v11;
-      v9 = (a1 + 88);
-      goto LABEL_68;
-    }
-
-    _sr_log("SymptomReporter incoming_message, SYMTLV_READ sz too small %zd");
-  }
-
-LABEL_82:
-  v39 = *MEMORY[0x277D85DE8];
+  while (a3 > 3);
 }
 
 char *read_symptoms(uint64_t a1, char *a2, unint64_t *a3)
@@ -2615,7 +2596,7 @@ char *read_symptoms(uint64_t a1, char *a2, unint64_t *a3)
 
   if ((v8 & 4) != 0)
   {
-    _sr_log("read_symptoms for sr %p %s\n", a1, *(a1 + 24));
+    _sr_log("read_symptoms for sr %p %s\n");
   }
 
   for (i = *(a1 + 64); i; i = *(a1 + 64))
@@ -2640,7 +2621,7 @@ char *read_symptoms(uint64_t a1, char *a2, unint64_t *a3)
 
     if ((v11 & 4) != 0)
     {
-      _sr_log("read_symptoms for sc %p, q len %zu\n", i, i[8]);
+      _sr_log("read_symptoms for sc %p, q len %zu\n");
     }
 
     v33 = 0;
@@ -2841,7 +2822,7 @@ uint64_t sym_ctrl_dequeue(uint64_t a1, uint64_t a2)
 
   if ((v8 & 4) != 0)
   {
-    _sr_log("After sym_ctrl_dequeue  %p\n", a2);
+    _sr_log("After sym_ctrl_dequeue  %p\n");
   }
 
   return dump_symptom_state(a1);
@@ -2883,13 +2864,13 @@ char *read_symptom(uint64_t a1, _DWORD *a2, unint64_t *a3)
     *(a2 + 13) = v11;
     *(a2 + 9) = v10;
     sr_log_symptom_action(a1, 0x8000);
-    v4 += 92;
+    v4 += 23;
     *a3 -= 92;
     for (i = *(a1 + 104); i; i = *i)
     {
       v14 = *(i + 7) + 4;
       memcpy(v4, i + 12, v14);
-      v4 += v14;
+      v4 = (v4 + v14);
       *a3 -= v14;
     }
   }
@@ -2919,7 +2900,7 @@ uint64_t update_globals_for_symptom_removal(uint64_t a1, const void **a2)
 
   if ((v4 & 4) != 0)
   {
-    _sr_log("update globals to remove symptom at %p\n", a2);
+    _sr_log("update globals to remove symptom at %p\n");
   }
 
   return dump_symptom(a2);
@@ -2961,7 +2942,7 @@ void symptom_free(void *a1, const char *a2)
 
     if ((v6 & 4) != 0)
     {
-      _sr_log("Free symptom %p, %s", a1, a2);
+      _sr_log("Free symptom %p, %s");
     }
 
     free(a1);
@@ -2986,15 +2967,16 @@ BOOL is_valid_symptom(uint64_t a1)
   return result;
 }
 
-void *symptom_framework_init(unsigned int a1, char *__s)
+void *symptom_framework_init(uint64_t a1, char *__s)
 {
+  v3 = a1;
   v4 = strlen(__s);
-  if (a1 > 0xFF || v4 > 0x400)
+  if (v3 > 0xFF || v4 > 0x400)
   {
     return 0;
   }
 
-  return obtain_symptom_framework(a1, __s, v4);
+  return obtain_symptom_framework(v3, __s, v4);
 }
 
 uint64_t symptom_send_immediate(uint64_t a1)
@@ -3247,7 +3229,7 @@ LABEL_9:
 
   if ((v14 & 4) != 0)
   {
-    _sr_log("incorrect arguments (queue/completion): %p/%p", a4, aBlock);
+    _sr_log("incorrect arguments (queue/completion): %p/%p");
   }
 
   return v8;
@@ -3257,185 +3239,181 @@ void ___symptoms_daemon_fallback_subseq_disposition_block_invoke(uint64_t a1, vo
 {
   if (!a2)
   {
-    v7 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    (*(*(a1 + 32) + 16))(*(a1 + 32), 0, 0);
     goto LABEL_16;
   }
 
   v4 = MEMORY[0x2318CE6A0](a2);
   v5 = MEMORY[0x277D86468];
-  if (v4 != MEMORY[0x277D86468])
+  if (v4 != MEMORY[0x277D86468] || xpc_dictionary_get_uint64(a2, "error"))
   {
-    v6 = *(*(a1 + 32) + 16);
-    goto LABEL_16;
-  }
-
-  if (xpc_dictionary_get_uint64(a2, "error"))
-  {
-    v6 = *(*(a1 + 32) + 16);
-    goto LABEL_16;
+    goto LABEL_15;
   }
 
   value = xpc_dictionary_get_value(a2, "event_data");
-  v9 = value;
+  v7 = value;
   if (!value || MEMORY[0x2318CE6A0](value) != MEMORY[0x277D86440])
   {
     if (*(MEMORY[0x277D85F10] + 320) == -1)
     {
-      v10 = *(MEMORY[0x277D85F10] + 328);
+      v8 = *(MEMORY[0x277D85F10] + 328);
     }
 
     else
     {
-      v10 = _os_alloc_once();
+      v8 = _os_alloc_once();
     }
 
-    v11 = *v10;
-    if ((*v10 & 2) != 0)
+    v9 = *v8;
+    if ((*v8 & 2) != 0)
     {
-      printf("incorrect event_data: %p", v9);
-      v11 = *v10;
+      printf("incorrect event_data: %p", v7);
+      v9 = *v8;
     }
 
-    if ((v11 & 4) != 0)
+    if ((v9 & 4) == 0)
     {
-      _sr_log("incorrect event_data: %p");
+      goto LABEL_15;
     }
 
+    v10 = "incorrect event_data: %p";
+LABEL_14:
+    _sr_log(v10);
 LABEL_15:
-    v6 = *(*(a1 + 32) + 16);
+    (*(*(a1 + 32) + 16))(*(a1 + 32), 0, 0);
     goto LABEL_16;
   }
 
-  count = xpc_array_get_count(v9);
+  count = xpc_array_get_count(v7);
   if (count != 1)
   {
-    v18 = count;
+    v17 = count;
     if (*(MEMORY[0x277D85F10] + 320) == -1)
     {
-      v19 = *(MEMORY[0x277D85F10] + 328);
+      v18 = *(MEMORY[0x277D85F10] + 328);
     }
 
     else
     {
-      v19 = _os_alloc_once();
+      v18 = _os_alloc_once();
     }
 
-    v20 = *v19;
-    if ((*v19 & 2) != 0)
+    v19 = *v18;
+    if ((*v18 & 2) != 0)
     {
-      printf("incorrect event_data count: %zu", v18);
-      v20 = *v19;
+      printf("incorrect event_data count: %zu", v17);
+      v19 = *v18;
     }
 
-    if ((v20 & 4) != 0)
+    if ((v19 & 4) == 0)
     {
-      _sr_log("incorrect event_data count: %zu");
+      goto LABEL_15;
     }
 
-    goto LABEL_15;
+    v10 = "incorrect event_data count: %zu";
+    goto LABEL_14;
   }
 
-  v14 = xpc_array_get_value(v9, 0);
-  v15 = v14;
-  if (!v14 || MEMORY[0x2318CE6A0](v14) != v5)
+  v13 = xpc_array_get_value(v7, 0);
+  v14 = v13;
+  if (!v13 || MEMORY[0x2318CE6A0](v13) != v5)
   {
     if (*(MEMORY[0x277D85F10] + 320) == -1)
     {
-      v16 = *(MEMORY[0x277D85F10] + 328);
+      v15 = *(MEMORY[0x277D85F10] + 328);
     }
 
     else
     {
-      v16 = _os_alloc_once();
+      v15 = _os_alloc_once();
     }
 
-    v17 = *v16;
-    if ((*v16 & 2) != 0)
+    v16 = *v15;
+    if ((*v15 & 2) != 0)
     {
-      printf("incorrect dict: %p", v15);
-      v17 = *v16;
+      printf("incorrect dict: %p", v14);
+      v16 = *v15;
     }
 
-    if ((v17 & 4) != 0)
+    if ((v16 & 4) == 0)
     {
-      _sr_log("incorrect dict: %p");
+      goto LABEL_15;
     }
 
-    goto LABEL_15;
+    v10 = "incorrect dict: %p";
+    goto LABEL_14;
   }
 
-  uint64 = xpc_dictionary_get_uint64(v15, "reason_code");
-  v22 = uint64;
+  uint64 = xpc_dictionary_get_uint64(v14, "reason_code");
+  v21 = uint64;
   if (uint64 == -1)
   {
-    v24 = 0;
-    v25 = 1;
+    v23 = 0;
+    v24 = 1;
   }
 
   else
   {
-    v23 = 0x1000000;
+    v22 = 0x1000000;
     if (uint64 > 0x1000000)
     {
-      v23 = uint64;
+      v22 = uint64;
     }
 
-    if (v23 >= 0x4000000)
+    if (v22 >= 0x4000000)
     {
-      v23 = 0x4000000;
+      v22 = 0x4000000;
     }
 
     if (uint64)
     {
-      v24 = v23;
+      v23 = v22;
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    if (uint64)
+    {
+      v24 = 2;
     }
 
     else
     {
       v24 = 0;
     }
-
-    if (uint64)
-    {
-      v25 = 2;
-    }
-
-    else
-    {
-      v25 = 0;
-    }
   }
 
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
-    v26 = *(MEMORY[0x277D85F10] + 328);
+    v25 = *(MEMORY[0x277D85F10] + 328);
   }
 
   else
   {
-    v26 = _os_alloc_once();
+    v25 = _os_alloc_once();
   }
 
-  v27 = *v26;
-  if ((*v26 & 2) != 0)
+  v26 = *v25;
+  if ((*v25 & 2) != 0)
   {
-    printf("actionable new fallback disposition: (dispo/grant/hinted): %d/%llu/%llu", v25, v24, v22);
-    v27 = *v26;
+    printf("actionable new fallback disposition: (dispo/grant/hinted): %d/%llu/%llu", v24, v23, v21);
+    v26 = *v25;
   }
 
-  if ((v27 & 4) != 0)
+  if ((v26 & 4) != 0)
   {
-    _sr_log("actionable new fallback disposition: (dispo/grant/hinted): %d/%llu/%llu", v25, v24, v22);
+    _sr_log("actionable new fallback disposition: (dispo/grant/hinted): %d/%llu/%llu");
   }
 
-  v6 = *(*(a1 + 32) + 16);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), v24, v23);
 LABEL_16:
-  v6();
   _Block_release(*(a1 + 32));
-  v12 = *(a1 + 40);
+  v11 = *(a1 + 40);
 
-  xpc_release(v12);
+  xpc_release(v11);
 }
 
 void ___symptoms_daemon_fallback_subseq_disposition_block_invoke_2(uint64_t a1)
@@ -3468,7 +3446,7 @@ void ___create_connection_block_invoke(uint64_t a1, const void *a2)
 
   if ((v4 & 4) != 0)
   {
-    _sr_log("connection handler received object  %p", a2);
+    _sr_log("connection handler received object  %p");
   }
 
   if (MEMORY[0x2318CE6A0](a2) == MEMORY[0x277D86480] && _create_connection_connection)
@@ -3512,7 +3490,7 @@ uint64_t symptom_transport_connect(uint64_t a1)
 
   if ((v4 & 4) != 0)
   {
-    _sr_log("symptom_transport_connect called, connecting to %s\n", "com.apple.usymptomsd");
+    _sr_log("symptom_transport_connect called, connecting to %s\n");
   }
 
   mach_service = xpc_connection_create_mach_service("com.apple.usymptomsd", *(a1 + 128), 2uLL);
@@ -3553,7 +3531,7 @@ uint64_t symptom_transport_connect(uint64_t a1)
 
     if ((v9 & 4) != 0)
     {
-      _sr_log("failed to connect to %s\n", "com.apple.usymptomsd");
+      _sr_log("failed to connect to %s\n");
     }
 
     return 0xFFFFFFFFLL;
@@ -3609,7 +3587,7 @@ void send_current(uint64_t a1)
 
   if ((v5 & 4) != 0)
   {
-    _sr_log("send_current: ack_id %d\n", *(a1 + 108));
+    _sr_log("send_current: ack_id %d\n");
   }
 
   v6 = malloc_type_malloc(0x28A0uLL, 0xC02D493uLL);
@@ -3633,7 +3611,7 @@ void send_current(uint64_t a1)
   }
 }
 
-uint64_t symptoms_transport_dropped(uint64_t a1)
+void symptoms_transport_dropped(uint64_t a1)
 {
   v2 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
@@ -3655,7 +3633,7 @@ uint64_t symptoms_transport_dropped(uint64_t a1)
 
   if ((v4 & 4) != 0)
   {
-    _sr_log("symptoms_transport_dropped %s\n", *(a1 + 24));
+    _sr_log("symptoms_transport_dropped %s\n");
   }
 
   gettimeofday((a1 + 176), 0);
@@ -3679,77 +3657,72 @@ uint64_t symptoms_transport_dropped(uint64_t a1)
 
   if ((v6 & 4) != 0)
   {
-    _sr_log("reset_sr_filters for %s\n", *(a1 + 24));
+    _sr_log("reset_sr_filters for %s\n");
   }
 
-  result = reevaluate_sr_symptoms(a1);
+  reevaluate_sr_symptoms(a1);
   if (*(a1 + 80))
   {
     if (*(v2 + 320) == -1)
     {
-      v8 = *(v2 + 328);
+      v7 = *(v2 + 328);
     }
 
     else
     {
-      result = _os_alloc_once();
-      v8 = result;
+      v7 = _os_alloc_once();
     }
 
-    v9 = *v8;
-    if ((*v8 & 2) != 0)
+    v8 = *v7;
+    if ((*v7 & 2) != 0)
     {
-      result = printf("symptoms_transport_dropped %s, immediate reconnect\n", *(a1 + 24));
-      v9 = *v8;
+      printf("symptoms_transport_dropped %s, immediate reconnect\n", *(a1 + 24));
+      v8 = *v7;
     }
 
-    if ((v9 & 4) != 0)
+    if ((v8 & 4) != 0)
     {
-      result = _sr_log("symptoms_transport_dropped %s, immediate reconnect\n", *(a1 + 24));
+      _sr_log("symptoms_transport_dropped %s, immediate reconnect\n");
     }
 
     if (*(a1 + 216))
     {
       if (*(v2 + 320) == -1)
       {
-        v10 = *(v2 + 328);
+        v9 = *(v2 + 328);
       }
 
       else
       {
-        result = _os_alloc_once();
-        v10 = result;
+        v9 = _os_alloc_once();
       }
 
-      v11 = *v10;
-      if ((*v10 & 2) != 0)
+      v10 = *v9;
+      if ((*v9 & 2) != 0)
       {
-        result = printf("symptoms_transport_dropped %s, immediate reconnect, but connect queued\n", *(a1 + 24));
-        v11 = *v10;
+        printf("symptoms_transport_dropped %s, immediate reconnect, but connect queued\n", *(a1 + 24));
+        v10 = *v9;
       }
 
-      if ((v11 & 4) != 0)
+      if ((v10 & 4) != 0)
       {
-        return _sr_log("symptoms_transport_dropped %s, immediate reconnect, but connect queued\n", *(a1 + 24));
+        _sr_log("symptoms_transport_dropped %s, immediate reconnect, but connect queued\n");
       }
     }
 
     else
     {
 
-      return ensure_symptom_framework_connect(a1);
+      ensure_symptom_framework_connect(a1);
     }
   }
-
-  return result;
 }
 
-uint64_t reevaluate_sr_symptoms(uint64_t result)
+void reevaluate_sr_symptoms(void *a1)
 {
-  v1 = *(result + 40);
+  v1 = a1[5];
   if (v1)
   {
-    v2 = result;
     v3 = MEMORY[0x277D85F10];
     do
     {
@@ -3760,20 +3733,19 @@ uint64_t reevaluate_sr_symptoms(uint64_t result)
 
       else
       {
-        result = _os_alloc_once();
-        v4 = result;
+        v4 = _os_alloc_once();
       }
 
       v5 = *v4;
       if ((*v4 & 2) != 0)
       {
-        result = printf("reevaluate_sr_symptoms: evaluate symptom control %p, id %x\n", v1, *(v1 + 8));
+        printf("reevaluate_sr_symptoms: evaluate symptom control %p, id %x\n", v1, *(v1 + 8));
         v5 = *v4;
       }
 
       if ((v5 & 4) != 0)
       {
-        result = _sr_log("reevaluate_sr_symptoms: evaluate symptom control %p, id %x\n", v1, *(v1 + 8));
+        _sr_log("reevaluate_sr_symptoms: evaluate symptom control %p, id %x\n");
       }
 
       v16 = 0;
@@ -3785,25 +3757,24 @@ uint64_t reevaluate_sr_symptoms(uint64_t result)
 
       else
       {
-        result = _os_alloc_once();
-        v6 = result;
+        v6 = _os_alloc_once();
       }
 
       v7 = *v6;
       if ((*v6 & 2) != 0)
       {
-        result = printf("reevaluate_sc_symptoms: sr %p sc %p\n", v2, v1);
+        printf("reevaluate_sc_symptoms: sr %p sc %p\n", a1, v1);
         v7 = *v6;
       }
 
       if ((v7 & 4) != 0)
       {
-        result = _sr_log("reevaluate_sc_symptoms: sr %p sc %p\n", v2, v1);
+        _sr_log("reevaluate_sc_symptoms: sr %p sc %p\n");
       }
 
       if (*(v1 + 40) == 1)
       {
-        sym_ctrl_dequeue(v2, v1);
+        sym_ctrl_dequeue(a1, v1);
         if (*(v3 + 320) == -1)
         {
           v8 = *(v3 + 328);
@@ -3826,7 +3797,7 @@ uint64_t reevaluate_sr_symptoms(uint64_t result)
           _sr_log("reevaluate_sc_symptoms: sc was active, dequeued\n");
         }
 
-        result = dump_symptom_state(v2);
+        dump_symptom_state(a1);
       }
 
       v10 = *(v1 + 72);
@@ -3853,7 +3824,7 @@ uint64_t reevaluate_sr_symptoms(uint64_t result)
           v17 = &v16;
         }
 
-        update_globals_for_symptom_removal(v2, v11);
+        update_globals_for_symptom_removal(a1, v11);
         if (*(v3 + 320) == -1)
         {
           v12 = *(v3 + 328);
@@ -3873,10 +3844,10 @@ uint64_t reevaluate_sr_symptoms(uint64_t result)
 
         if ((v13 & 4) != 0)
         {
-          _sr_log("reevaluate_sc_symptoms: evaluate symptom %p\n", v11);
+          _sr_log("reevaluate_sc_symptoms: evaluate symptom %p\n");
         }
 
-        result = handle_symptom(v2, v1, v11);
+        handle_symptom(a1, v1, v11);
         if (*(v3 + 320) == -1)
         {
           v14 = *(v3 + 328);
@@ -3884,20 +3855,19 @@ uint64_t reevaluate_sr_symptoms(uint64_t result)
 
         else
         {
-          result = _os_alloc_once();
-          v14 = result;
+          v14 = _os_alloc_once();
         }
 
         v15 = *v14;
         if ((*v14 & 2) != 0)
         {
-          result = puts("reevaluate_sc_symptoms: after evaluate symptom");
+          puts("reevaluate_sc_symptoms: after evaluate symptom");
           v15 = *v14;
         }
 
         if ((v15 & 4) != 0)
         {
-          result = _sr_log("reevaluate_sc_symptoms: after evaluate symptom\n");
+          _sr_log("reevaluate_sc_symptoms: after evaluate symptom\n");
         }
       }
 
@@ -3906,8 +3876,6 @@ uint64_t reevaluate_sr_symptoms(uint64_t result)
 
     while (v1);
   }
-
-  return result;
 }
 
 void ensure_symptom_framework_connect(uint64_t a1)
@@ -3932,7 +3900,7 @@ void ensure_symptom_framework_connect(uint64_t a1)
 
   if ((v4 & 4) != 0)
   {
-    _sr_log("ensure_symptom_framework_connect %s, set sr_connect_queued\n", *(a1 + 24));
+    _sr_log("ensure_symptom_framework_connect %s, set sr_connect_queued\n");
   }
 
   v21.tv_sec = 0;
@@ -3972,7 +3940,7 @@ void ensure_symptom_framework_connect(uint64_t a1)
 
   if ((v11 & 4) != 0)
   {
-    _sr_log("ensure_connect, update backoff value, uptime_secs %lu\n", v9);
+    _sr_log("ensure_connect, update backoff value, uptime_secs %lu\n");
   }
 
   if (v9 < 0x259)
@@ -4024,7 +3992,7 @@ void ensure_symptom_framework_connect(uint64_t a1)
 
   if ((v16 & 4) != 0)
   {
-    _sr_log("delay_after_interruption is %lld nanoseconds\n", v14);
+    _sr_log("delay_after_interruption is %lld nanoseconds\n");
   }
 
   v17 = 1000000000 * (tv_sec - *(a1 + 176));
@@ -4047,9 +4015,8 @@ void ensure_symptom_framework_connect(uint64_t a1)
   }
 }
 
-uint64_t connect_symptom_framework(uint64_t result)
+void connect_symptom_framework(uint64_t a1)
 {
-  v1 = result;
   v2 = MEMORY[0x277D85F10];
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
@@ -4058,140 +4025,137 @@ uint64_t connect_symptom_framework(uint64_t result)
 
   else
   {
-    result = _os_alloc_once();
-    v3 = result;
+    v3 = _os_alloc_once();
   }
 
   v4 = *v3;
   if ((*v3 & 2) != 0)
   {
-    result = puts("connect_symptom_framework called");
+    puts("connect_symptom_framework called");
     v4 = *v3;
   }
 
   if ((v4 & 4) != 0)
   {
-    result = _sr_log("connect_symptom_framework called\n");
+    _sr_log("connect_symptom_framework called\n");
   }
 
-  if (*(v1 + 136))
+  if (*(a1 + 136))
   {
     v5 = *(v2 + 320);
 LABEL_10:
-    ++*(v1 + 344);
-    *(v1 + 113) = 1;
+    ++*(a1 + 344);
+    *(a1 + 113) = 1;
     if (v5 == -1)
     {
-      v6 = *(v2 + 328);
+      v7 = *(v2 + 328);
     }
 
     else
     {
-      result = _os_alloc_once();
-      v6 = result;
+      v7 = _os_alloc_once();
     }
 
-    v7 = *v6;
-    if ((*v6 & 2) != 0)
+    v8 = *v7;
+    if ((*v7 & 2) != 0)
     {
-      result = printf("connect_symptom_framework: %s transport connect OK, unset sr_connect_queued\n", *(v1 + 24));
-      v7 = *v6;
+      printf("connect_symptom_framework: %s transport connect OK, unset sr_connect_queued\n", *(a1 + 24));
+      v8 = *v7;
     }
 
-    if ((v7 & 4) != 0)
+    if ((v8 & 4) != 0)
     {
-      result = _sr_log("connect_symptom_framework: %s transport connect OK, unset sr_connect_queued\n", *(v1 + 24));
+      _sr_log("connect_symptom_framework: %s transport connect OK, unset sr_connect_queued\n");
     }
 
-    *(v1 + 216) = 0;
-    v8 = *(v2 + 320);
-    if (*(v1 + 80))
+    *(a1 + 216) = 0;
+    v9 = *(v2 + 320);
+    if (*(a1 + 80))
     {
-      if (v8 == -1)
+      if (v9 == -1)
       {
-        v9 = *(v2 + 328);
+        v10 = *(v2 + 328);
       }
 
       else
       {
-        v9 = _os_alloc_once();
+        v10 = _os_alloc_once();
       }
 
-      v10 = *v9;
-      if ((*v9 & 2) != 0)
+      v11 = *v10;
+      if ((*v10 & 2) != 0)
       {
         puts("connect_symptom_framework: ensure_alert");
-        v10 = *v9;
+        v11 = *v10;
       }
 
-      if ((v10 & 4) != 0)
+      if ((v11 & 4) != 0)
       {
         _sr_log("connect_symptom_framework: ensure_alert\n");
       }
 
-      result = ensure_alert(v1);
-      v8 = *(v2 + 320);
+      ensure_alert(a1);
+      v9 = *(v2 + 320);
     }
 
-    if (v8 == -1)
+    if (v9 == -1)
     {
-      v11 = *(v2 + 328);
+      v12 = *(v2 + 328);
     }
 
     else
     {
-      result = _os_alloc_once();
-      v11 = result;
+      v12 = _os_alloc_once();
     }
 
-    v12 = *v11;
-    if ((*v11 & 2) != 0)
+    v13 = *v12;
+    if ((*v12 & 2) != 0)
     {
-      result = puts("connect_symptom_framework: exit");
-      v12 = *v11;
+      puts("connect_symptom_framework: exit");
+      v13 = *v12;
     }
 
-    if ((v12 & 4) != 0)
+    if ((v13 & 4) != 0)
     {
 
-      return _sr_log("connect_symptom_framework: exit\n");
+      _sr_log("connect_symptom_framework: exit\n");
     }
 
-    return result;
+    return;
   }
 
-  result = symptom_transport_connect(v1);
+  v6 = symptom_transport_connect(a1);
   v5 = *(v2 + 320);
-  if ((result & 0x80000000) == 0)
+  if ((v6 & 0x80000000) == 0)
   {
     goto LABEL_10;
   }
 
   if (v5 == -1)
   {
-    v13 = *(v2 + 328);
+    v14 = *(v2 + 328);
   }
 
   else
   {
-    v13 = _os_alloc_once();
+    v14 = _os_alloc_once();
   }
 
-  v14 = *v13;
-  if ((*v13 & 2) != 0)
+  v15 = *v14;
+  if ((*v14 & 2) != 0)
   {
-    printf("connect_symptom_framework: %s transport connect failed, unset sr_connect_queued\n", *(v1 + 24));
-    v14 = *v13;
+    printf("connect_symptom_framework: %s transport connect failed, unset sr_connect_queued\n", *(a1 + 24));
+    v15 = *v14;
   }
 
-  if ((v14 & 4) != 0)
+  if ((v15 & 4) != 0)
   {
-    _sr_log("connect_symptom_framework: %s transport connect failed, unset sr_connect_queued\n", *(v1 + 24));
+    _sr_log("connect_symptom_framework: %s transport connect failed, unset sr_connect_queued\n");
   }
 
-  *(v1 + 216) = 0;
+  *(a1 + 216) = 0;
 
-  return ensure_symptom_framework_connect(v1);
+  ensure_symptom_framework_connect(a1);
 }
 
 void *obtain_symptom_framework(int a1, char *a2, size_t a3)
@@ -4240,7 +4204,7 @@ void *find_symptom_reporter_by_name(int a1, char *__s2, size_t __n)
 
   if ((v8 & 4) != 0)
   {
-    _sr_log("find_symptom_reporter_by_name  %s   len %ld\n", __s2, __n);
+    _sr_log("find_symptom_reporter_by_name  %s   len %ld\n");
   }
 
   if (*(v6 + 320) == -1)
@@ -4285,7 +4249,7 @@ void *find_symptom_reporter_by_name(int a1, char *__s2, size_t __n)
 
       if ((v12 & 4) != 0)
       {
-        _sr_log("find_symptom_reporter_by_name  check sr %p name len %ld\n", v10, v10[4]);
+        _sr_log("find_symptom_reporter_by_name  check sr %p name len %ld\n");
       }
 
       if (*(v10 + 3) == a1 && v10[4] == __n && !strncmp(v10[3], __s2, __n))
@@ -4348,7 +4312,7 @@ void __obtain_symptom_framework_block_invoke(uint64_t a1)
   if (!v3)
   {
     __break(1u);
-LABEL_40:
+LABEL_37:
     v10 = _os_alloc_once();
     if (!v10)
     {
@@ -4443,7 +4407,7 @@ LABEL_24:
   *(v4 + 52) = label.tv_usec ^ LODWORD(label.tv_sec);
   if (*(v5 + 320) != -1)
   {
-    goto LABEL_40;
+    goto LABEL_37;
   }
 
   v10 = *(v5 + 328);
@@ -4491,17 +4455,7 @@ LABEL_25:
 
   if ((v14 & 4) != 0)
   {
-    if (v4)
-    {
-      v16 = v4[3];
-    }
-
-    else
-    {
-      v16 = "<nil>";
-    }
-
-    _sr_log("create_symptom_framework returns %p, name %s\n", v4, v16);
+    _sr_log("create_symptom_framework returns %p, name %s\n");
   }
 }
 
@@ -4543,7 +4497,7 @@ uint64_t fill_sender_id(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t __ensure_symptom_framework_connect_block_invoke(uint64_t a1)
+void __ensure_symptom_framework_connect_block_invoke(uint64_t a1)
 {
   if (*(MEMORY[0x277D85F10] + 320) == -1)
   {
@@ -4569,7 +4523,7 @@ uint64_t __ensure_symptom_framework_connect_block_invoke(uint64_t a1)
 
   v4 = *(a1 + 32);
 
-  return connect_symptom_framework(v4);
+  connect_symptom_framework(v4);
 }
 
 dispatch_queue_t __framework_creation_queue_block_invoke()

@@ -29,23 +29,23 @@
 
 - (__CFString)cx_bundleIdentifier
 {
-  memset(&v5[1], 0, sizeof(audit_token_t));
-  [self auditToken];
-  v5[0] = v5[1];
-  v1 = SecTaskCreateWithAuditToken(0, v5);
-  if (v1)
+  memset(&v6[1], 0, sizeof(audit_token_t));
+  objc_msgSend_auditToken(self, a2);
+  v6[0] = v6[1];
+  v2 = SecTaskCreateWithAuditToken(0, v6);
+  if (v2)
   {
-    v2 = v1;
-    v3 = SecTaskCopySigningIdentifier(v1, 0);
-    CFRelease(v2);
+    v3 = v2;
+    v4 = SecTaskCopySigningIdentifier(v2, 0);
+    CFRelease(v3);
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)cx_developerTeamIdentifier
@@ -67,18 +67,16 @@
 
 - (id)cx_processName
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (proc_name([self processIdentifier], &v4, 0x100u) < 1)
+  v4 = *MEMORY[0x1E69E9840];
+  if (proc_name([self processIdentifier], &v3, 0x100u) < 1)
   {
     v1 = 0;
   }
 
   else
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&v4];
+    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&v3];
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -117,77 +115,78 @@
 
 - (uint64_t)cx_clientSandboxCanAccessFileURL:()CX
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v34 = 0u;
   v35 = 0u;
-  [self auditToken];
-  if ([v4 isFileURL])
+  v36 = 0u;
+  objc_msgSend_auditToken(self);
+  isFileURL = [v4 isFileURL];
+  if (isFileURL)
   {
-    v33 = 0;
-    v5 = [v4 checkResourceIsReachableAndReturnError:&v33];
-    v6 = v33;
-    if (v5)
+    v34 = 0;
+    v6 = [v4 checkResourceIsReachableAndReturnError:&v34];
+    v7 = v34;
+    v8 = v7;
+    if (v6)
     {
       if ([v4 fileSystemRepresentation])
       {
-        v7 = *MEMORY[0x1E69E9BD0];
-        *buf = v34;
-        *&buf[16] = v35;
-        if (!sandbox_check_by_audit_token())
+        *buf = v35;
+        *&buf[16] = v36;
+        v9 = sandbox_check_by_audit_token();
+        if (!v9)
         {
-          v30 = 1;
+          v32 = 1;
           goto LABEL_15;
         }
 
-        v8 = CXDefaultLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = CXDefaultLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = *__error();
-          v10 = __error();
-          v11 = strerror(*v10);
+          v11 = *__error();
+          v12 = __error();
+          v13 = strerror(*v12);
           *buf = 67109378;
-          *&buf[4] = v9;
+          *&buf[4] = v11;
           *&buf[8] = 2080;
-          *&buf[10] = v11;
-          _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Client sandbox does not have access to the given file! (Error %i: %s)", buf, 0x12u);
+          *&buf[10] = v13;
+          _os_log_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Client sandbox does not have access to the given file! (Error %i: %s)", buf, 0x12u);
         }
       }
 
       else
       {
-        v8 = CXDefaultLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v10 = CXDefaultLog(0);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          [(CXServiceClient *)v4 clientCanAccessSandboxFileURL:v8, v24, v25, v26, v27, v28, v29];
+          [(CXServiceClient *)v4 clientCanAccessSandboxFileURL:v10, v26, v27, v28, v29, v30, v31];
         }
       }
     }
 
     else
     {
-      v8 = CXDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = CXDefaultLog(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(CXServiceClient *)v6 clientCanAccessSandboxFileURL:v8, v18, v19, v20, v21, v22, v23];
+        [(CXServiceClient *)v8 clientCanAccessSandboxFileURL:v10, v20, v21, v22, v23, v24, v25];
       }
     }
   }
 
   else
   {
-    v6 = CXDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = CXDefaultLog(isFileURL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(CXServiceClient *)v4 clientCanAccessSandboxFileURL:v6, v12, v13, v14, v15, v16, v17];
+      [(CXServiceClient *)v4 clientCanAccessSandboxFileURL:v8, v14, v15, v16, v17, v18, v19];
     }
   }
 
-  v30 = 0;
+  v32 = 0;
 LABEL_15:
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v30;
+  return v32;
 }
 
 @end

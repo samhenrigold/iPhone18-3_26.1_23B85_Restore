@@ -2223,7 +2223,7 @@ float CMMsl::GeomagneticData::GeomagneticData(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::GeomagneticData::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::GeomagneticData::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5044,74 +5044,69 @@ void CMMsl::GnssLeechLocationData::~GnssLeechLocationData(CMMsl::GnssLeechLocati
   operator delete();
 }
 
-uint64_t CMMsl::GnssLeechLocationData::GnssLeechLocationData(uint64_t this, const CMMsl::GnssLeechLocationData *a2)
+CMMsl::GnssLeechLocationData *CMMsl::GnssLeechLocationData::GnssLeechLocationData(CMMsl::GnssLeechLocationData *this, const CMMsl::GnssLeechLocationData *a2)
 {
   *this = off_10041E9D8;
   *(this + 24) = 0u;
   *(this + 72) = 0u;
   *(this + 120) = 0u;
-  *(this + 152) = 0;
+  *(this + 38) = 0;
   *(this + 40) = 0u;
   *(this + 56) = 0u;
   *(this + 88) = 0u;
   *(this + 104) = 0u;
-  *(this + 136) = 0;
+  *(this + 17) = 0;
   if ((*(a2 + 152) & 4) != 0)
   {
     v2 = *(a2 + 18);
     *(this + 152) = 4;
-    *(this + 144) = v2;
+    *(this + 18) = v2;
   }
 
   v3 = *(a2 + 12);
   if (v3 != *(a2 + 13))
   {
-    v4 = *v3;
-    sub_10010539C();
+    sub_10010539C(this + 12, *v3);
   }
 
-  v5 = *(a2 + 9);
-  if (v5 != *(a2 + 10))
+  v4 = *(a2 + 9);
+  if (v4 != *(a2 + 10))
   {
-    v6 = *v5;
-    sub_10010539C();
+    sub_10010539C(this + 9, *v4);
   }
 
-  v7 = *(a2 + 15);
-  if (v7 != *(a2 + 16))
+  v5 = *(a2 + 15);
+  if (v5 != *(a2 + 16))
   {
-    v8 = *v7;
-    sub_10010539C();
+    sub_10010539C(this + 15, *v5);
   }
 
-  v9 = *(a2 + 6);
-  if (v9 != *(a2 + 7))
+  v6 = *(a2 + 6);
+  if (v6 != *(a2 + 7))
   {
-    v10 = *v9;
-    sub_10010539C();
+    sub_10010539C(this + 6, *v6);
   }
 
-  v11 = *(a2 + 3);
-  if (v11 != *(a2 + 4))
+  v7 = *(a2 + 3);
+  if (v7 != *(a2 + 4))
   {
-    v12 = *v11;
-    sub_10010539C();
+    sub_10010539C(this + 3, *v7);
   }
 
-  v13 = *(a2 + 152);
-  if ((v13 & 2) != 0)
+  v8 = *(a2 + 152);
+  if ((v8 & 2) != 0)
   {
-    v14 = *(a2 + 2);
+    v9 = *(a2 + 2);
     *(this + 152) |= 2u;
-    *(this + 16) = v14;
-    v13 = *(a2 + 152);
+    *(this + 2) = v9;
+    v8 = *(a2 + 152);
   }
 
-  if (v13)
+  if (v8)
   {
-    v15 = *(a2 + 1);
+    v10 = *(a2 + 1);
     *(this + 152) |= 1u;
-    *(this + 8) = v15;
+    *(this + 1) = v10;
   }
 
   return this;
@@ -5243,7 +5238,7 @@ uint64_t CMMsl::GnssLeechLocationData::GnssLeechLocationData(uint64_t a1, uint64
   return a1;
 }
 
-CMMsl *CMMsl::GnssLeechLocationData::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::GnssLeechLocationData::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5450,12 +5445,12 @@ LABEL_46:
         {
           if (v22 == 5)
           {
-            sub_100105D5C();
+            sub_100105D5C(this + 6);
           }
 
           if (v22 == 6)
           {
-            sub_100105D5C();
+            sub_100105D5C(this + 3);
           }
         }
       }
@@ -5464,12 +5459,12 @@ LABEL_46:
       {
         if (v22 == 3)
         {
-          sub_100105D5C();
+          sub_100105D5C(this + 9);
         }
 
         if (v22 == 4)
         {
-          sub_100105D5C();
+          sub_100105D5C(this + 15);
         }
       }
 
@@ -5492,7 +5487,7 @@ LABEL_50:
 
         if (v22 == 2)
         {
-          sub_100105D5C();
+          sub_100105D5C(this + 12);
         }
       }
 
@@ -5583,7 +5578,6 @@ uint64_t CMMsl::GnssLeechLocationData::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::GnssLeechLocationData::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 152);
   if ((*(a1 + 152) & 4) != 0)
   {
     if ((*(a2 + 152) & 4) == 0 || *(a1 + 144) != *(a2 + 144))
@@ -6520,12 +6514,12 @@ void CMMsl::GravityCorrection::~GravityCorrection(CMMsl::GravityCorrection *this
   operator delete();
 }
 
-uint64_t CMMsl::GravityCorrection::GravityCorrection(uint64_t this, const CMMsl::GravityCorrection *a2)
+CMMsl::GravityCorrection *CMMsl::GravityCorrection::GravityCorrection(CMMsl::GravityCorrection *this, const CMMsl::DeviceMotionCorrection **a2)
 {
   *this = off_10041EA48;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 5) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -6540,7 +6534,7 @@ uint64_t CMMsl::GravityCorrection::GravityCorrection(uint64_t this, const CMMsl:
   return this;
 }
 
-uint64_t CMMsl::GravityCorrection::operator=(uint64_t a1, const CMMsl::GravityCorrection *a2)
+uint64_t CMMsl::GravityCorrection::operator=(uint64_t a1, const CMMsl::DeviceMotionCorrection **a2)
 {
   if (a1 != a2)
   {
@@ -6839,9 +6833,9 @@ unint64_t CMMsl::GravityCorrection::hash_value(CMMsl::GravityCorrection *this)
   return v3 ^ v2;
 }
 
-uint64_t CMMsl::GravityCorrection::makeCorrection(uint64_t this)
+void *CMMsl::GravityCorrection::makeCorrection(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -9184,7 +9178,7 @@ uint64_t CMMsl::GyroBiasConstraints::GyroBiasConstraints(uint64_t a1, uint64_t a
   return a1;
 }
 
-CMMsl *CMMsl::GyroBiasConstraints::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::GyroBiasConstraints::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

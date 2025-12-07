@@ -3,6 +3,7 @@
 - (BOOL)careAboutAccount:(id)account;
 - (id)escrowURL:(id)l;
 - (id)iCloudEnvironmentForAccount:(id)account;
+- (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount;
 - (void)setupAccount:(id)account reason:(id)reason optional:(BOOL)optional;
 @end
 
@@ -26,7 +27,7 @@
 
 - (void)setupAccount:(id)account reason:(id)reason optional:(BOOL)optional
 {
-  v48 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   v8 = objc_msgSend_escrowURL_(self, a2, account);
   v10 = objc_msgSend_iCloudEnvironmentForAccount_(self, v9, account);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -44,7 +45,7 @@
     {
       if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_24;
+        return;
       }
 
       *buf = 138412290;
@@ -61,23 +62,21 @@
   {
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_24;
+      return;
     }
 
     *buf = 138412290;
     reasonCopy7 = reason;
     v41 = MEMORY[0x29EDCA988];
     v42 = "PCSAccountNotificationPlugin: %@ Error! iCloud account with no password?";
-LABEL_23:
-    _os_log_impl(&dword_29C8FA000, v41, OS_LOG_TYPE_DEFAULT, v42, buf, 0xCu);
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
   if (!objc_msgSend_pcs_personID(account, v20, v21))
   {
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_24;
+      return;
     }
 
     *buf = 138412290;
@@ -91,7 +90,7 @@ LABEL_23:
   {
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_24;
+      return;
     }
 
     *buf = 138412290;
@@ -105,7 +104,7 @@ LABEL_23:
   {
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_24;
+      return;
     }
 
     *buf = 138412290;
@@ -115,41 +114,39 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if (!v10)
+  if (v10)
   {
-    if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_24;
-    }
+    v26 = *MEMORY[0x29EDC6390];
+    v44[0] = v16;
+    v27 = objc_msgSend_credential(account, v24, v25, v26, *MEMORY[0x29EDC6388]);
+    v44[1] = objc_msgSend_password(v27, v28, v29);
+    v43[2] = *MEMORY[0x29EDC6378];
+    v32 = objc_msgSend_pcs_personID(account, v30, v31);
+    v33 = *MEMORY[0x29EDC6380];
+    v44[2] = v32;
+    v44[3] = v8;
+    v34 = *MEMORY[0x29EDC6370];
+    v43[3] = v33;
+    v43[4] = v34;
+    v37 = objc_msgSend_pcs_authToken(account, v35, v36);
+    v43[5] = *MEMORY[0x29EDC6398];
+    v44[4] = v37;
+    v44[5] = v10;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v38, v44, v43, 6);
+    objc_msgSend_identifier(account, v39, v40);
+    PCSAccountOldSetupIdentities();
+    return;
+  }
 
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+  {
     *buf = 138412290;
     reasonCopy7 = reason;
     v41 = MEMORY[0x29EDCA988];
     v42 = "PCSAccountNotificationPlugin: %@ Error! iCloud account with no iCloudEnvironment?";
-    goto LABEL_23;
+LABEL_23:
+    _os_log_impl(&dword_29C8FA000, v41, OS_LOG_TYPE_DEFAULT, v42, buf, 0xCu);
   }
-
-  v26 = *MEMORY[0x29EDC6390];
-  v45[0] = v16;
-  v27 = objc_msgSend_credential(account, v24, v25, v26, *MEMORY[0x29EDC6388]);
-  v45[1] = objc_msgSend_password(v27, v28, v29);
-  v44[2] = *MEMORY[0x29EDC6378];
-  v32 = objc_msgSend_pcs_personID(account, v30, v31);
-  v33 = *MEMORY[0x29EDC6380];
-  v45[2] = v32;
-  v45[3] = v8;
-  v34 = *MEMORY[0x29EDC6370];
-  v44[3] = v33;
-  v44[4] = v34;
-  v37 = objc_msgSend_pcs_authToken(account, v35, v36);
-  v44[5] = *MEMORY[0x29EDC6398];
-  v45[4] = v37;
-  v45[5] = v10;
-  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v38, v45, v44, 6);
-  objc_msgSend_identifier(account, v39, v40);
-  PCSAccountOldSetupIdentities();
-LABEL_24:
-  v43 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)careAboutAccount:(id)account
@@ -177,7 +174,7 @@ LABEL_24:
 
 - (BOOL)account:(id)account willChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     v11 = objc_msgSend_credential(account, v9, v10);
@@ -192,7 +189,7 @@ LABEL_24:
     }
 
     isProvisionedForDataclass = objc_msgSend_isProvisionedForDataclass_(account, v14, *MEMORY[0x29EDB8150]);
-    LODWORD(v32) = 67109890;
+    LODWORD(v31) = 67109890;
     if (isProvisionedForDataclass)
     {
       v17 = @"YES";
@@ -203,17 +200,17 @@ LABEL_24:
       v17 = @"NO";
     }
 
-    HIDWORD(v32) = type;
-    v33 = 2112;
+    HIDWORD(v31) = type;
+    v32 = 2112;
     accountCopy4 = account;
-    v35 = 2112;
-    v36 = v15;
-    v37 = 2112;
-    v38 = v17;
-    _os_log_impl(&dword_29C8FA000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "account:willChangeWithType: update %d: for account %@ (password: %@, pcs dataclass: %@)", &v32, 0x26u);
+    v34 = 2112;
+    v35 = v15;
+    v36 = 2112;
+    v37 = v17;
+    _os_log_impl(&dword_29C8FA000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "account:willChangeWithType: update %d: for account %@ (password: %@, pcs dataclass: %@)", &v31, 0x26u);
   }
 
-  if (objc_msgSend_careAboutAccount_(self, v9, account, v32))
+  if (objc_msgSend_careAboutAccount_(self, v9, account, v31))
   {
     if (type == 1)
     {
@@ -227,18 +224,18 @@ LABEL_24:
       {
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v32) = 67109378;
-          HIDWORD(v32) = type;
-          v33 = 2112;
+          LODWORD(v31) = 67109378;
+          HIDWORD(v31) = type;
+          v32 = 2112;
           accountCopy4 = account;
           v25 = MEMORY[0x29EDCA988];
           v26 = "account:willChangeWithType: %d: no update on %@";
 LABEL_18:
-          _os_log_impl(&dword_29C8FA000, v25, OS_LOG_TYPE_DEFAULT, v26, &v32, 0x12u);
-          goto LABEL_24;
+          _os_log_impl(&dword_29C8FA000, v25, OS_LOG_TYPE_DEFAULT, v26, &v31, 0x12u);
+          return 0;
         }
 
-        goto LABEL_24;
+        return 0;
       }
 
       v27 = 1;
@@ -247,31 +244,83 @@ LABEL_18:
 
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v32) = 67109378;
-      HIDWORD(v32) = type;
-      v33 = 2112;
+      LODWORD(v31) = 67109378;
+      HIDWORD(v31) = type;
+      v32 = 2112;
       accountCopy4 = account;
-      _os_log_impl(&dword_29C8FA000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "account:willChangeWithType: %d: care about %@", &v32, 0x12u);
+      _os_log_impl(&dword_29C8FA000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "account:willChangeWithType: %d: care about %@", &v31, 0x12u);
     }
 
     objc_msgSend_setupAccount_reason_optional_(self, v29, account, v28, v27);
-    goto LABEL_24;
+    return 0;
   }
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v32) = 67109378;
-    HIDWORD(v32) = type;
-    v33 = 2112;
+    LODWORD(v31) = 67109378;
+    HIDWORD(v31) = type;
+    v32 = 2112;
     accountCopy4 = account;
     v25 = MEMORY[0x29EDCA988];
     v26 = "account:willChangeWithType: %d: ignoring %@";
     goto LABEL_18;
   }
 
-LABEL_24:
-  v30 = *MEMORY[0x29EDCA608];
   return 0;
+}
+
+- (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
+{
+  v24 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDB8468];
+  isEnabledForDataclass = objc_msgSend_isEnabledForDataclass_(account, a2, *MEMORY[0x29EDB8468], *&type, store);
+  v12 = objc_msgSend_isEnabledForDataclass_(oldAccount, v11, v9);
+  if (type == 2)
+  {
+    v17 = v12;
+    if (isEnabledForDataclass != v12)
+    {
+      if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = @"OFF";
+        if (v17)
+        {
+          v19 = @"ON";
+        }
+
+        else
+        {
+          v19 = @"OFF";
+        }
+
+        if (isEnabledForDataclass)
+        {
+          v18 = @"ON";
+        }
+
+        v20 = 138412546;
+        v21 = v19;
+        v22 = 2112;
+        v23 = v18;
+        _os_log_impl(&dword_29C8FA000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "PCSAccountNotificationPlugin: notifying pcsd about MB change: old(%@) new(%@)", &v20, 0x16u);
+      }
+
+      notify_post("com.apple.ProtectedCloudStorage.mobileBackupStateChange");
+    }
+  }
+
+  else if (type == 3 && objc_msgSend_careAboutAccount_(self, v13, oldAccount))
+  {
+    v16 = objc_msgSend_pcs_personID(oldAccount, v14, v15);
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = 138412290;
+      v21 = v16;
+      _os_log_impl(&dword_29C8FA000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "PCSAccountNotificationPlugin: deleted %@", &v20, 0xCu);
+    }
+
+    PCSIdentityiCDPSignOut();
+  }
 }
 
 @end

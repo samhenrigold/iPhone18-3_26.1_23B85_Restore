@@ -49,7 +49,7 @@
 
 - (id)_copySearchStringForQueryInput:(id)input
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   v5 = inputCopy;
   if (inputCopy && ([inputCopy isEqualToString:&stru_285AC75D8] & 1) == 0)
@@ -96,45 +96,45 @@
       else
       {
         v6 = objc_opt_new();
-        v28 = v8;
+        v27 = v8;
         v19 = [(LDAPSearchTask *)self _searchStringForWord:v8];
         objc_msgSend(v6, "appendFormat:", CFSTR("(|%@(&"), v19);
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v20 = v10;
-        v21 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v30;
+          v23 = *v29;
           do
           {
             v24 = 0;
             do
             {
-              if (*v30 != v23)
+              if (*v29 != v23)
               {
                 objc_enumerationMutation(v20);
               }
 
-              v25 = [(LDAPSearchTask *)self _searchStringForWord:*(*(&v29 + 1) + 8 * v24)];
+              v25 = [(LDAPSearchTask *)self _searchStringForWord:*(*(&v28 + 1) + 8 * v24)];
               [v6 appendString:v25];
 
               ++v24;
             }
 
             while (v22 != v24);
-            v22 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+            v22 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
           }
 
           while (v22);
         }
 
         [v6 appendString:@"]"));
-        v8 = v28;
+        v8 = v27;
       }
     }
 
@@ -149,28 +149,27 @@
     v6 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)_performQuery
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (_performQuery_onceToken != -1)
   {
     [LDAPSearchTask _performQuery];
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __31__LDAPSearchTask__performQuery__block_invoke_2;
-  v34[3] = &unk_278F1FB90;
-  v34[4] = self;
-  v32 = MEMORY[0x24C1D1EE0](v34);
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __31__LDAPSearchTask__performQuery__block_invoke_2;
+  v33[3] = &unk_278F1FB90;
+  v33[4] = self;
+  v31 = MEMORY[0x24C1D1EE0](v33);
   query = [(LDAPSearchTask *)self query];
   searchString = [query searchString];
 
-  v31 = searchString;
+  v30 = searchString;
   v5 = [(LDAPSearchTask *)self _copySearchStringForQueryInput:searchString];
   v6 = v5;
   if (v5)
@@ -190,7 +189,7 @@
   if (os_log_type_enabled(v9, v10))
   {
     *buf = 138412290;
-    v36 = v8;
+    v35 = v8;
     _os_log_impl(&dword_24857C000, v9, v10, "searchstring is %@", buf, 0xCu);
   }
 
@@ -223,9 +222,9 @@
     query4 = [(LDAPSearchTask *)self query];
     searchBase2 = [query4 searchBase];
     *buf = 138412546;
-    v36 = searchBase2;
-    v37 = 2112;
-    v38 = searchScope;
+    v35 = searchBase2;
+    v36 = 2112;
+    v37 = searchScope;
     _os_log_impl(&dword_24857C000, v18, v10, "search base is %@, search scope is %@", buf, 0x16u);
   }
 
@@ -246,15 +245,13 @@
   [query6 timeLimit];
   query7 = [(LDAPSearchTask *)self query];
   [query7 maxResults];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __31__LDAPSearchTask__performQuery__block_invoke_105;
-  v33[3] = &unk_278F1FBE0;
-  v33[4] = self;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __31__LDAPSearchTask__performQuery__block_invoke_105;
+  v32[3] = &unk_278F1FBE0;
+  v32[4] = self;
   v29 = ldap_connection_query_create();
-  [(LDAPSearchTask *)self setOperation:v29, v32, v33];
-
-  v30 = *MEMORY[0x277D85DE8];
+  [(LDAPSearchTask *)self setOperation:v29, v31, v32];
 }
 
 uint64_t __31__LDAPSearchTask__performQuery__block_invoke()
@@ -288,7 +285,7 @@ void __31__LDAPSearchTask__performQuery__block_invoke_2(uint64_t a1, uint64_t a2
 
 void __31__LDAPSearchTask__performQuery__block_invoke_3(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory();
   v3 = MEMORY[0x277D03988];
   v4 = *(MEMORY[0x277D03988] + 7);
@@ -300,38 +297,37 @@ void __31__LDAPSearchTask__performQuery__block_invoke_3(uint64_t a1)
 
   if (([*(a1 + 32) isDisabled] & 1) == 0)
   {
-    v28 = objc_opt_new();
+    v26 = objc_opt_new();
+    v28 = 0u;
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
     v5 = [*(a1 + 40) allKeys];
-    v6 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (!v6)
     {
       goto LABEL_25;
     }
 
     v7 = v6;
-    v8 = *v31;
+    v8 = *v29;
     v9 = *(v3 + 3);
     v10 = 0x277CBE000uLL;
-    v26 = *v31;
-    v27 = a1;
+    v24 = *v29;
+    v25 = a1;
     while (1)
     {
       v11 = 0;
-      v29 = v7;
+      v27 = v7;
       do
       {
-        if (*v31 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * v11);
+        v12 = *(*(&v28 + 1) + 8 * v11);
         v13 = [*(a1 + 40) objectForKeyedSubscript:v12];
-        v14 = *(v10 + 2656);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -340,49 +336,49 @@ void __31__LDAPSearchTask__performQuery__block_invoke_3(uint64_t a1)
             goto LABEL_23;
           }
 
-          v15 = v10;
-          v16 = [v12 lowercaseString];
-          v17 = [v13 objectAtIndexedSubscript:0];
-          if (![_performQuery_binaryAttributes containsObject:v16] || (objc_opt_class(), (objc_opt_isKindOfClass())) && ((objc_msgSend(_performQuery_binaryAttributes, "containsObject:", v16) & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())))
+          v14 = v10;
+          v15 = [v12 lowercaseString];
+          v16 = [v13 objectAtIndexedSubscript:0];
+          if (![_performQuery_binaryAttributes containsObject:v15] || (objc_opt_class(), (objc_opt_isKindOfClass())) && ((objc_msgSend(_performQuery_binaryAttributes, "containsObject:", v15) & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())))
           {
-            [*(a1 + 32) _appendKey:v16 value:v17 toSearchResultElement:v28];
+            [*(a1 + 32) _appendKey:v15 value:v16 toSearchResultElement:v26];
           }
 
           else
           {
-            v19 = v5;
-            v20 = DALoggingwithCategory();
-            if (os_log_type_enabled(v20, v9))
+            v18 = v5;
+            v19 = DALoggingwithCategory();
+            if (os_log_type_enabled(v19, v9))
             {
-              v21 = objc_opt_class();
+              v20 = objc_opt_class();
               *buf = 138412546;
-              v35 = v21;
-              v36 = 2112;
-              v37 = v12;
-              v22 = v21;
-              _os_log_impl(&dword_24857C000, v20, v9, "Unexpected value class %@ for attribute %@.  Skipping", buf, 0x16u);
+              v33 = v20;
+              v34 = 2112;
+              v35 = v12;
+              v21 = v20;
+              _os_log_impl(&dword_24857C000, v19, v9, "Unexpected value class %@ for attribute %@.  Skipping", buf, 0x16u);
             }
 
-            v5 = v19;
-            v8 = v26;
-            a1 = v27;
+            v5 = v18;
+            v8 = v24;
+            a1 = v25;
           }
 
-          v10 = v15;
-          v7 = v29;
+          v10 = v14;
+          v7 = v27;
         }
 
         else
         {
-          v16 = DALoggingwithCategory();
-          if (os_log_type_enabled(v16, v9))
+          v15 = DALoggingwithCategory();
+          if (os_log_type_enabled(v15, v9))
           {
-            v18 = objc_opt_class();
+            v17 = objc_opt_class();
             *buf = 138412546;
-            v35 = v18;
-            v36 = 2112;
-            v37 = v12;
-            _os_log_impl(&dword_24857C000, v16, v9, "Unexpected class of %@ for key %@.  Skipping it", buf, 0x16u);
+            v33 = v17;
+            v34 = 2112;
+            v35 = v12;
+            _os_log_impl(&dword_24857C000, v15, v9, "Unexpected class of %@ for key %@.  Skipping it", buf, 0x16u);
           }
         }
 
@@ -391,23 +387,21 @@ LABEL_23:
       }
 
       while (v7 != v11);
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v28 objects:v36 count:16];
       if (!v7)
       {
 LABEL_25:
 
-        v23 = [v28 emailAddress];
-        [v28 setIdentifierOnServer:v23];
+        v22 = [v26 emailAddress];
+        [v26 setIdentifierOnServer:v22];
 
-        v24 = [*(a1 + 32) foundContacts];
-        [v24 addObject:v28];
+        v23 = [*(a1 + 32) foundContacts];
+        [v23 addObject:v26];
 
-        break;
+        return;
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __31__LDAPSearchTask__performQuery__block_invoke_105(uint64_t a1, uint64_t a2, int a3)
@@ -424,14 +418,14 @@ void __31__LDAPSearchTask__performQuery__block_invoke_105(uint64_t a1, uint64_t 
 
 uint64_t __31__LDAPSearchTask__performQuery__block_invoke_2_106(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory();
   v3 = MEMORY[0x277D03988];
   v4 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v2, v4))
   {
-    LOWORD(v14[0]) = 0;
-    _os_log_impl(&dword_24857C000, v2, v4, "LDAPSearchTask operation completed", v14, 2u);
+    LOWORD(v13[0]) = 0;
+    _os_log_impl(&dword_24857C000, v2, v4, "LDAPSearchTask operation completed", v13, 2u);
   }
 
   if ((*(a1 + 40) | 4) == 4)
@@ -441,7 +435,7 @@ uint64_t __31__LDAPSearchTask__performQuery__block_invoke_2_106(uint64_t a1)
     if (!v5)
     {
       [*(a1 + 32) finishWithError:0];
-      goto LABEL_11;
+      return [*(a1 + 32) setOperation:0];
     }
 
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:-1 userInfo:0];
@@ -454,9 +448,9 @@ uint64_t __31__LDAPSearchTask__performQuery__block_invoke_2_106(uint64_t a1)
     if (os_log_type_enabled(v8, v9))
     {
       v10 = *(a1 + 40);
-      v14[0] = 67109120;
-      v14[1] = v10;
-      _os_log_impl(&dword_24857C000, v8, v9, "Couldn't complete operation, error %d", v14, 8u);
+      v13[0] = 67109120;
+      v13[1] = v10;
+      _os_log_impl(&dword_24857C000, v8, v9, "Couldn't complete operation, error %d", v13, 8u);
     }
 
     v6 = *(a1 + 32);
@@ -466,15 +460,12 @@ uint64_t __31__LDAPSearchTask__performQuery__block_invoke_2_106(uint64_t a1)
   v11 = v7;
   [v6 finishWithError:v7];
 
-LABEL_11:
-  result = [*(a1 + 32) setOperation:0];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setOperation:0];
 }
 
 - (void)_appendKey:(id)key value:(id)value toSearchResultElement:(id)element
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
   elementCopy = element;
@@ -482,11 +473,11 @@ LABEL_11:
   v11 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v10, v11))
   {
-    v14 = 138412546;
-    v15 = keyCopy;
-    v16 = 2112;
-    v17 = valueCopy;
-    _os_log_impl(&dword_24857C000, v10, v11, "Found key->value of %@->%@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = keyCopy;
+    v15 = 2112;
+    v16 = valueCopy;
+    _os_log_impl(&dword_24857C000, v10, v11, "Found key->value of %@->%@", &v13, 0x16u);
   }
 
   if ([keyCopy isEqualToString:@"givenname"])
@@ -623,8 +614,6 @@ LABEL_11:
   }
 
 LABEL_44:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_promptForPasswordDueToError:(id)error

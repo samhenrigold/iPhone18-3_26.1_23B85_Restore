@@ -367,7 +367,7 @@ void __87___UITextKit2LayoutController_selectionRectsForRange_fromView_forContai
 
 void __62___UITextKit2LayoutController_annotationAttribute_atPosition___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [a3 objectForKeyedSubscript:*(a1 + 32)];
+  v7 = [a3 objectForKeyedSubscript:{*(a1 + 32), a4}];
   v8 = *(*(a1 + 40) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;

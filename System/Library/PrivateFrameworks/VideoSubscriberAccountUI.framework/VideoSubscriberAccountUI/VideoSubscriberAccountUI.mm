@@ -42,14 +42,15 @@ void sub_270DD7A68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_270DD91EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id location, char a36)
+void sub_270DD91EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id location, ...)
 {
-  objc_destroyWeak((v36 + 88));
+  va_start(va, location);
+  objc_destroyWeak((v35 + 88));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a36, 8);
-  _Block_object_dispose((v37 - 232), 8);
-  _Block_object_dispose((v37 - 184), 8);
-  _Block_object_dispose((v37 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 232), 8);
+  _Block_object_dispose((v36 - 184), 8);
+  _Block_object_dispose((v36 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -67,7 +68,7 @@ void sub_270DDA3D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270DDA9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, id a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, id a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, id a54)
+void sub_270DDA9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, id a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, id a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, id a54)
 {
   _Block_object_dispose(&a26, 8);
   _Block_object_dispose(&a32, 8);
@@ -84,22 +85,23 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id VSDestinationError(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
-    v9 = *MEMORY[0x277CCA470];
-    v10[0] = v3;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x277CCA470];
+    v9[0] = v3;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -108,8 +110,6 @@ id VSDestinationError(uint64_t a1, void *a2)
   }
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"VSDestinationErrorDomain" code:a1 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -172,17 +172,17 @@ void sub_270DE2B38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270DE3DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_270DE3DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
+  _Block_object_dispose((v16 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -309,9 +309,9 @@ void sub_270DE62F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270DE7244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270DE7244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -348,16 +348,16 @@ void commonInit_0(void *a1, void *a2, void *a3, void *a4)
   v15 = v16[3];
   v16[3] = v14;
 
-  setDisplayNameIfAvailable(v16);
+  setDisplayNameIfAvailable(v16, v11);
 }
 
-void setDisplayNameIfAvailable(void *a1)
+void setDisplayNameIfAvailable(void *a1, uint64_t a2)
 {
-  v2 = a1;
-  v1 = VSDisplayNameForBundleWithIdentifier();
-  if (v1)
+  v3 = a1;
+  v2 = VSDisplayNameForBundleWithIdentifier();
+  if (v2)
   {
-    objc_storeStrong(v2 + 5, v1);
+    objc_storeStrong(v3 + 5, v2);
   }
 }
 
@@ -375,18 +375,19 @@ void sub_270DEF668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_270DEFE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_270DEFE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_270DF08CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, char a23)
+void sub_270DF08CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, ...)
 {
-  objc_destroyWeak((v23 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v22 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -408,12 +409,13 @@ void sub_270DF184C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_270DF2888(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, char a25)
+void sub_270DF2888(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, ...)
 {
-  objc_destroyWeak((v26 + 48));
-  objc_destroyWeak((v25 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v25 + 48));
+  objc_destroyWeak((v24 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -426,10 +428,11 @@ void sub_270DF6B90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void commonInit_1(id *a1, void *a2, char a3, double a4, double a5)
@@ -465,9 +468,9 @@ void sub_270DFB964(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270E007C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270E007C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -507,30 +510,30 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_270E0295C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270E0295C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_270E03094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_270E03094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_270E032A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_270E032A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void VSExportCompressionToContext(void *a1)
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CCAE68] valueTransformerForName:@"VSJavaScriptDataValueTransformer"];
   if (v2)
@@ -540,34 +543,34 @@ void VSExportCompressionToContext(void *a1)
     if (v4)
     {
       v5 = objc_alloc_init(MEMORY[0x277CE2220]);
-      v29[0] = v2;
-      v29[1] = v4;
-      v29[2] = v3;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+      v28[0] = v2;
+      v28[1] = v4;
+      v28[2] = v3;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
       [v5 setValueTransformers:v6];
 
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v23 = v4;
-      v27[2] = __VSExportCompressionToContext_block_invoke;
-      v27[3] = &unk_279E1A430;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v22 = v4;
+      v26[2] = __VSExportCompressionToContext_block_invoke;
+      v26[3] = &unk_279E1A430;
       v7 = v5;
-      v28 = v7;
-      v21 = MEMORY[0x2743B6E40](v27);
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __VSExportCompressionToContext_block_invoke_2;
-      v25[3] = &unk_279E1A430;
-      v26 = v7;
-      v22 = v7;
-      v20 = MEMORY[0x2743B6E40](v25);
+      v27 = v7;
+      v20 = MEMORY[0x2743B6E40](v26);
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __VSExportCompressionToContext_block_invoke_2;
+      v24[3] = &unk_279E1A430;
+      v25 = v7;
+      v21 = v7;
+      v19 = MEMORY[0x2743B6E40](v24);
       v8 = [v1 globalObject];
       v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v10 = MEMORY[0x2743B6E40](v21);
+      v10 = MEMORY[0x2743B6E40](v20);
       v11 = *MEMORY[0x277CD4630];
       [v9 setObject:v10 forKey:*MEMORY[0x277CD4630]];
 
-      v24 = v3;
+      v23 = v3;
       v12 = v1;
       v13 = *MEMORY[0x277CD4638];
       v14 = MEMORY[0x277CBEC28];
@@ -577,18 +580,18 @@ void VSExportCompressionToContext(void *a1)
       [v9 setObject:v14 forKey:v15];
       [v8 defineProperty:@"deflate" descriptor:v9];
       v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v17 = MEMORY[0x2743B6E40](v20);
+      v17 = MEMORY[0x2743B6E40](v19);
       [v16 setObject:v17 forKey:v11];
 
       v18 = v13;
       v1 = v12;
-      v3 = v24;
+      v3 = v23;
       [v16 setObject:v14 forKey:v18];
       [v16 setObject:v14 forKey:v15];
       [v16 setObject:v14 forKey:v15];
       [v8 defineProperty:@"inflate" descriptor:v16];
 
-      v4 = v23;
+      v4 = v22;
     }
 
     else
@@ -601,8 +604,6 @@ void VSExportCompressionToContext(void *a1)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Unable to obtain data value transformer."];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void commonInit_3(void *a1)
@@ -635,7 +636,7 @@ uint64_t VSIsScriptMessageNotificationURL(void *a1)
   if (v1)
   {
     v3 = v1;
-    v4 = VSScriptMessageNotificationURL();
+    v4 = VSScriptMessageNotificationURL(v3);
     v5 = [v4 scheme];
     v6 = [v3 scheme];
     v7 = v6;
@@ -679,16 +680,16 @@ uint64_t VSIsScriptMessageNotificationURL(void *a1)
   return v8;
 }
 
-id VSScriptMessageNotificationURL()
+id VSScriptMessageNotificationURL(uint64_t a1)
 {
   if (VSScriptMessageNotificationURL___vs_lazy_init_predicate != -1)
   {
     VSScriptMessageNotificationURL_cold_1();
   }
 
-  v1 = VSScriptMessageNotificationURL___vs_lazy_init_variable;
+  v2 = VSScriptMessageNotificationURL___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 id VSScriptMessageSupportInjection(uint64_t a1)
@@ -725,8 +726,7 @@ id VSScriptMessageSupportInjection(uint64_t a1)
   v7 = [MEMORY[0x277CE2298] optionalWithObject:v6];
   v8 = [v7 forceUnwrapObject];
 
-  [v4 replaceOccurrencesOfString:@"____VS_MESSAGE_ENVIRONMENT_NAME____" withString:v8 options:0 range:{0, objc_msgSend(v4, "length")}];
-  v9 = VSScriptMessageNotificationURL();
+  v9 = VSScriptMessageNotificationURL([v4 replaceOccurrencesOfString:@"____VS_MESSAGE_ENVIRONMENT_NAME____" withString:v8 options:0 range:{0, objc_msgSend(v4, "length")}]);
   v10 = [v9 absoluteString];
 
   if (v10)
@@ -889,7 +889,7 @@ VSScriptMessage *VSScriptMessageForValueFromContextWithOrigin(void *a1, void *a2
 
 uint64_t VSShouldSendScriptMessageToContextWithOrigin(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [v3 target];
@@ -899,17 +899,17 @@ uint64_t VSShouldSendScriptMessageToContextWithOrigin(void *a1, void *a2)
     v8 = VSErrorLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = [v3 body];
-      v12 = [v3 source];
-      v13 = 138413058;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v4;
-      _os_log_error_impl(&dword_270DD4000, v8, OS_LOG_TYPE_ERROR, "Discarding message (%@) from %@ with target (%@) mis-match for origin: %@", &v13, 0x2Au);
+      v10 = [v3 body];
+      v11 = [v3 source];
+      v12 = 138413058;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      v16 = 2112;
+      v17 = v6;
+      v18 = 2112;
+      v19 = v4;
+      _os_log_error_impl(&dword_270DD4000, v8, OS_LOG_TYPE_ERROR, "Discarding message (%@) from %@ with target (%@) mis-match for origin: %@", &v12, 0x2Au);
     }
 
     v7 = 0;
@@ -920,15 +920,16 @@ uint64_t VSShouldSendScriptMessageToContextWithOrigin(void *a1, void *a2)
     v7 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t __VSScriptMessageNotificationURL_block_invoke()
 {
-  VSScriptMessageNotificationURL___vs_lazy_init_variable = __VSScriptMessageNotificationURL_block_invoke_2();
+  v0 = __VSScriptMessageNotificationURL_block_invoke_2();
+  v1 = VSScriptMessageNotificationURL___vs_lazy_init_variable;
+  VSScriptMessageNotificationURL___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __VSScriptMessageNotificationURL_block_invoke_2()
@@ -951,9 +952,9 @@ id __VSScriptMessageNotificationURL_block_invoke_2()
   return v4;
 }
 
-void sub_270E0EBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270E0EBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1092,18 +1093,16 @@ void commonInit_5(void *a1)
 
 void commonInit_6(void *a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [[VSFontCenter alloc] initWithTraitEnvironment:v1];
   v3 = v1[136];
   v1[136] = v2;
 
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v5 = [v1 registerForTraitChanges:v4 withHandler:&__block_literal_global_19];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __commonInit_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1144,9 +1143,9 @@ void sub_270E17E1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_270E182BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_270E182BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1186,23 +1185,25 @@ void sub_270E19EB0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id VSAppDescriptionValueType()
+id VSAppDescriptionValueType(uint64_t a1)
 {
   if (VSAppDescriptionValueType___vs_lazy_init_predicate[0] != -1)
   {
     VSAppDescriptionValueType_cold_1();
   }
 
-  v1 = VSAppDescriptionValueType___vs_lazy_init_variable;
+  v2 = VSAppDescriptionValueType___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VSAppDescriptionValueType_block_invoke()
 {
-  VSAppDescriptionValueType___vs_lazy_init_variable = __VSAppDescriptionValueType_block_invoke_2();
+  v0 = __VSAppDescriptionValueType_block_invoke_2();
+  v1 = VSAppDescriptionValueType___vs_lazy_init_variable;
+  VSAppDescriptionValueType___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __VSAppDescriptionValueType_block_invoke_2()
@@ -1303,16 +1304,17 @@ void sub_270E1BFB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_270E1C78C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28, char a29)
+void sub_270E1C78C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28, ...)
 {
-  objc_destroyWeak((v29 + 72));
-  objc_destroyWeak((v29 + 64));
+  va_start(va, a28);
+  objc_destroyWeak((v28 + 72));
+  objc_destroyWeak((v28 + 64));
   objc_destroyWeak(&location);
-  objc_destroyWeak((v30 + 56));
+  objc_destroyWeak((v29 + 56));
   objc_destroyWeak(&a28);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v31 - 176), 8);
-  _Block_object_dispose((v31 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1337,17 +1339,18 @@ uint64_t __Block_byref_object_copy__112(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_270E1EE20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location, char a29)
+void sub_270E1EE20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&a27);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_270E1F1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270E1F1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1381,23 +1384,23 @@ void sub_270E20E84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_270E2144C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270E2144C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_270E22EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270E22EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_270E23990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_270E23990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1425,7 +1428,7 @@ void sub_270E28A48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void commonInit_7(void *a1)
 {
-  v183[2] = *MEMORY[0x277D85DE8];
+  v182[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   VSRequireMainThread();
   v2 = *(v1 + 54);
@@ -1466,7 +1469,7 @@ void commonInit_7(void *a1)
   [v1 addSubview:v12];
   v14 = objc_alloc_init(MEMORY[0x277D756B8]);
   v15 = VSMainConcurrencyBindingOptions();
-  v179 = v11;
+  v178 = v11;
   [v14 vs_bind:@"font" toObject:v11 withKeyPath:@"title1Font" options:v15];
 
   v16 = [MEMORY[0x277D74300] systemFontOfSize:76.0 weight:*MEMORY[0x277D743F8]];
@@ -1537,9 +1540,9 @@ void commonInit_7(void *a1)
 
   [v33 setCompositingFilter:v35];
 
-  v178 = v27;
+  v177 = v27;
   [v13 setCustomSpacing:v27 afterView:44.0];
-  v177 = v14;
+  v176 = v14;
   v36 = [v14 font];
   [v36 descender];
   v38 = ceil(v37) + 50.0;
@@ -1581,7 +1584,7 @@ void commonInit_7(void *a1)
   [v56 vs_bind:@"font" toObject:v11 withKeyPath:@"headlineFont" options:v57];
 
   v58 = VSMainConcurrencyBindingOptions();
-  v181 = v47;
+  v180 = v47;
   [v47 vs_bind:@"vs_normalTitle" toObject:v1 withKeyPath:@"beginButtonTitle" options:v58];
 
   [v13 addArrangedSubview:v47];
@@ -1629,7 +1632,7 @@ void commonInit_7(void *a1)
   v77 = VSMainConcurrencyBindingOptions();
   [v76 vs_bind:@"font" toObject:v1 withKeyPath:@"skipButtonFont" options:v77];
 
-  v182 = v61;
+  v181 = v61;
   [v13 addArrangedSubview:v61];
   [v13 setCustomSpacing:v61 afterView:20.0];
   v78 = [MEMORY[0x277D75220] buttonWithType:1];
@@ -1666,9 +1669,9 @@ void commonInit_7(void *a1)
 
   v93 = *MEMORY[0x277CCA580];
   v94 = *MEMORY[0x277CE24D0];
-  v170 = *MEMORY[0x277CE24D0];
+  v169 = *MEMORY[0x277CE24D0];
   [v92 setObject:*MEMORY[0x277CCA580] forKey:*MEMORY[0x277CE24D0]];
-  v176 = v80;
+  v175 = v80;
   [v80 vs_bind:@"hidden" toObject:v1 withKeyPath:@"shouldShowAppsButton" options:v92];
 
   [v80 _setFocusSpeedBumpEdges:1];
@@ -1681,7 +1684,7 @@ void commonInit_7(void *a1)
 
   [v97 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v97 _setFocusSpeedBumpEdges:1];
-  v175 = v97;
+  v174 = v97;
   [v13 addArrangedSubview:v97];
   v98 = VSMainConcurrencyBindingOptions();
   v99 = [v98 mutableCopy];
@@ -1689,23 +1692,23 @@ void commonInit_7(void *a1)
   [v99 setObject:v93 forKey:v94];
   [v97 vs_bind:@"hidden" toObject:v1 withKeyPath:@"shouldShowAboutButton" options:v99];
 
-  v180 = objc_alloc_init(MEMORY[0x277D75D18]);
-  [v13 addArrangedSubview:v180];
-  v174 = objc_alloc_init(MEMORY[0x277D756B8]);
+  v179 = objc_alloc_init(MEMORY[0x277D75D18]);
+  [v13 addArrangedSubview:v179];
+  v173 = objc_alloc_init(MEMORY[0x277D756B8]);
   v100 = VSMainConcurrencyBindingOptions();
-  [v174 vs_bind:@"text" toObject:v1 withKeyPath:@"footer" options:v100];
+  [v173 vs_bind:@"text" toObject:v1 withKeyPath:@"footer" options:v100];
 
   v101 = VSMainConcurrencyBindingOptions();
-  [v174 vs_bind:@"font" toObject:v11 withKeyPath:@"bodyFont" options:v101];
+  [v173 vs_bind:@"font" toObject:v11 withKeyPath:@"bodyFont" options:v101];
 
   v102 = [MEMORY[0x277D75348] vsa_opacityCDynamicColor];
-  [v174 setTextColor:v102];
+  [v173 setTextColor:v102];
 
-  [v174 setTextAlignment:1];
-  [v174 setLineBreakMode:0];
-  [v174 setNumberOfLines:0];
-  [v174 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v13 addArrangedSubview:v174];
+  [v173 setTextAlignment:1];
+  [v173 setLineBreakMode:0];
+  [v173 setNumberOfLines:0];
+  [v173 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v13 addArrangedSubview:v173];
   v103 = objc_alloc_init(MEMORY[0x277D755E8]);
   [v103 _setContinuousCornerRadius:14.0];
   [v103 setClipsToBounds:1];
@@ -1723,7 +1726,7 @@ void commonInit_7(void *a1)
   [v106 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v106 setTextAlignment:1];
   v107 = VSMainConcurrencyBindingOptions();
-  v173 = v106;
+  v172 = v106;
   [v106 vs_bind:@"text" toObject:v1 withKeyPath:@"appName" options:v107];
 
   v108 = VSMainConcurrencyBindingOptions();
@@ -1764,12 +1767,12 @@ void commonInit_7(void *a1)
   [v119 setTextColor:v120];
 
   [v119 setNumberOfLines:0];
-  v172 = objc_alloc_init(MEMORY[0x277CE2218]);
-  [v172 setTransformationBlock:&__block_literal_global_25];
+  v171 = objc_alloc_init(MEMORY[0x277CE2218]);
+  [v171 setTransformationBlock:&__block_literal_global_25];
   v121 = VSMainConcurrencyBindingOptions();
   v122 = [v121 mutableCopy];
 
-  [v122 setObject:v172 forKey:v170];
+  [v122 setObject:v171 forKey:v169];
   [v119 vs_bind:@"attributedText" toObject:v1 withKeyPath:@"footnote" options:v122];
 
   v123 = VSMainConcurrencyBindingOptions();
@@ -1787,31 +1790,31 @@ void commonInit_7(void *a1)
   v130 = [v128 constraintEqualToAnchor:v129];
 
   LODWORD(v131) = 1144733696;
-  v171 = v130;
+  v170 = v130;
   [v130 setPriority:v131];
   [v124 addObject:v130];
   v132 = [v13 widthAnchor];
   v133 = [v132 constraintLessThanOrEqualToConstant:846.0];
   [v124 addObject:v133];
 
-  v134 = [v181 heightAnchor];
+  v134 = [v180 heightAnchor];
   v135 = [v134 constraintEqualToConstant:75.0];
   [v124 addObject:v135];
 
-  v136 = [v182 heightAnchor];
+  v136 = [v181 heightAnchor];
   v137 = [v136 constraintEqualToConstant:75.0];
   [v124 addObject:v137];
 
-  v138 = [v181 widthAnchor];
+  v138 = [v180 widthAnchor];
   v139 = [v138 constraintGreaterThanOrEqualToConstant:380.0];
   [v124 addObject:v139];
 
-  v140 = [v181 centerXAnchor];
+  v140 = [v180 centerXAnchor];
   v141 = [v13 centerXAnchor];
   v142 = [v140 constraintEqualToAnchor:v141];
   [v124 addObject:v142];
 
-  v143 = [v180 heightAnchor];
+  v143 = [v179 heightAnchor];
   v144 = [v143 constraintEqualToConstant:5.0];
   [v124 addObject:v144];
 
@@ -1849,17 +1852,16 @@ void commonInit_7(void *a1)
   [v124 addObject:v163];
 
   v164 = [v119 firstBaselineAnchor];
-  v165 = [v173 lastBaselineAnchor];
+  v165 = [v172 lastBaselineAnchor];
   v166 = [v164 constraintEqualToAnchor:v165 constant:36.0];
   [v124 addObject:v166];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v124];
-  v183[0] = objc_opt_class();
-  v183[1] = objc_opt_class();
-  v167 = [MEMORY[0x277CBEA60] arrayWithObjects:v183 count:2];
+  v182[0] = objc_opt_class();
+  v182[1] = objc_opt_class();
+  v167 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
 
   v168 = [v1 registerForTraitChanges:v167 withHandler:&__block_literal_global_249];
-  v169 = *MEMORY[0x277D85DE8];
 }
 
 id __commonInit_block_invoke_0(uint64_t a1, void *a2)
@@ -1943,28 +1945,27 @@ uint64_t sub_270E2BF34(uint64_t a1, unint64_t a2)
 {
   v4 = sub_270E2F7F4();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = (MEMORY[0x28223BE20])();
-  v9 = &v25[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v10 = objc_allocWithZone(MEMORY[0x277CCAC68]);
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v24[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = objc_allocWithZone(MEMORY[0x277CCAC68]);
 
-  v11 = sub_270E2C650(0x233F2F3A5E5B285ELL, 0xEE002F2F3A292B5DLL, 1);
+  v10 = sub_270E2C650(0x233F2F3A5E5B285ELL, 0xEE002F2F3A292B5DLL, 1);
 
-  v12 = sub_270E2F804();
+  v11 = sub_270E2F804();
 
-  v13 = sub_270E2F834();
+  v12 = sub_270E2F834();
 
-  v14 = [v11 matchesInString:v12 options:0 range:{0, v13}];
+  v13 = [v10 matchesInString:v11 options:0 range:{0, v12}];
 
   sub_270E2C72C();
-  v15 = sub_270E2F864();
+  v14 = sub_270E2F864();
 
-  if (v15 >> 62)
+  if (v14 >> 62)
   {
-    v17 = sub_270E2F8A4();
+    v16 = sub_270E2F8A4();
 
-    if (v17)
+    if (v16)
     {
       goto LABEL_3;
     }
@@ -1972,9 +1973,9 @@ uint64_t sub_270E2BF34(uint64_t a1, unint64_t a2)
 
   else
   {
-    v16 = *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v15 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
 
-    if (v16)
+    if (v15)
     {
 LABEL_3:
 
@@ -1983,52 +1984,52 @@ LABEL_3:
   }
 
   sub_270E2F7D4();
-  v18 = sub_270E2F7E4();
-  v19 = sub_270E2F874();
-  if (os_log_type_enabled(v18, v19))
+  v17 = sub_270E2F7E4();
+  v18 = sub_270E2F874();
+  if (os_log_type_enabled(v17, v18))
   {
-    v20 = swift_slowAlloc();
-    v24 = swift_slowAlloc();
-    v25[0] = v24;
-    *v20 = 136315138;
+    v19 = swift_slowAlloc();
+    v23 = swift_slowAlloc();
+    v24[0] = v23;
+    *v19 = 136315138;
 
-    v21 = sub_270E2C778(a1, a2, v25);
+    v20 = sub_270E2C778(a1, a2, v24);
 
-    *(v20 + 4) = v21;
-    _os_log_impl(&dword_270DD4000, v18, v19, "Missing scheme for URL: %s", v20, 0xCu);
-    v22 = v24;
-    __swift_destroy_boxed_opaque_existential_0(v24);
-    MEMORY[0x2743B7090](v22, -1, -1);
-    MEMORY[0x2743B7090](v20, -1, -1);
+    *(v19 + 4) = v20;
+    _os_log_impl(&dword_270DD4000, v17, v18, "Missing scheme for URL: %s", v19, 0xCu);
+    v21 = v23;
+    __swift_destroy_boxed_opaque_existential_0(v23);
+    MEMORY[0x2743B7090](v21, -1, -1);
+    MEMORY[0x2743B7090](v19, -1, -1);
   }
 
-  (*(v5 + 8))(v9, v4);
-  v25[0] = 0x2F2F3A7370747468;
-  v25[1] = 0xE800000000000000;
+  (*(v5 + 8))(v8, v4);
+  v24[0] = 0x2F2F3A7370747468;
+  v24[1] = 0xE800000000000000;
   MEMORY[0x2743B6630](a1, a2);
 
-  return v25[0];
+  return v24[0];
 }
 
-id sub_270E2C304(void *a1)
+id sub_270E2C304(void *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = sub_270E2F814();
-  sub_270E2BF34(v2, v3);
+  v4 = sub_270E2F814();
+  sub_270E2BF34(v4, v5);
 
-  v4 = sub_270E2F804();
+  v6 = sub_270E2F804();
 
-  v5 = [a1 initWithString_];
+  v7 = [a1 initWithString_];
 
-  return v5;
+  return v7;
 }
 
-id static NSURL.vs_URL(withString:)()
+id static NSURL.vs_URL(withString:)(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_allocWithZone(MEMORY[0x277CBEBC0]);
-  v1 = sub_270E2F804();
-  v2 = [v0 initWithVsString_];
+  v2 = objc_allocWithZone(MEMORY[0x277CBEBC0]);
+  v3 = sub_270E2F804();
+  v4 = [v2 initWithVsString_];
 
-  return v2;
+  return v4;
 }
 
 id sub_270E2C3F0(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2041,28 +2042,27 @@ id sub_270E2C3F0(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t URL.init(vsString:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_28086E458, &qword_270E38BE0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v14 - v8;
+  v8 = &v13 - v7;
   sub_270E2BF34(a1, a2);
 
   sub_270E2F7B4();
 
-  v10 = sub_270E2F7C4();
-  v11 = *(v10 - 8);
-  if ((*(v11 + 48))(v9, 1, v10))
+  v9 = sub_270E2F7C4();
+  v10 = *(v9 - 8);
+  if ((*(v10 + 48))(v8, 1, v9))
   {
-    sub_270E2C5E8(v9);
-    v12 = 1;
+    sub_270E2C5E8(v8);
+    v11 = 1;
   }
 
   else
   {
-    (*(v11 + 32))(a3, v9, v10);
-    v12 = 0;
+    (*(v10 + 32))(a3, v8, v9);
+    v11 = 0;
   }
 
-  return (*(v11 + 56))(a3, v12, 1, v10);
+  return (*(v10 + 56))(a3, v11, 1, v9);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -2070,7 +2070,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2087,26 +2086,25 @@ uint64_t sub_270E2C5E8(uint64_t a1)
 
 id sub_270E2C650(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v5 = sub_270E2F804();
 
-  v11[0] = 0;
-  v6 = [v3 initWithPattern:v5 options:a3 error:v11];
+  v10[0] = 0;
+  v6 = [v3 initWithPattern:v5 options:a3 error:v10];
 
   if (v6)
   {
-    v7 = v11[0];
+    v7 = v10[0];
   }
 
   else
   {
-    v8 = v11[0];
+    v8 = v10[0];
     sub_270E2F7A4();
 
     swift_willThrow();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2221,16 +2219,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_270E2C950(uint64_t a1, unint64_t a2)
+void *sub_270E2C950(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_270E2C99C(a1, a2);
+  v3 = sub_270E2C99C(a1, a2);
   sub_270E2CACC(&unk_2880B8A58);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_270E2C99C(uint64_t a1, unint64_t a2)
+void *sub_270E2C99C(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -2327,7 +2323,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -2341,15 +2336,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_270E2CC2C(result, v12, 1, v3);
+  result = sub_270E2CC2C(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -2364,15 +2359,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -2381,12 +2376,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -2544,121 +2539,112 @@ uint64_t VSDestination.rawValue.getter()
 {
   if (*v0)
   {
-    result = 0x74754F6E676973;
+    return 0x74754F6E676973;
   }
 
   else
   {
-    result = 0x6E496E676973;
+    return 0x6E496E676973;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_270E2CE74(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0x74754F6E676973;
+    v3 = 0x74754F6E676973;
   }
 
   else
   {
-    v4 = 0x6E496E676973;
+    v3 = 0x6E496E676973;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = 0xE600000000000000;
+    v4 = 0xE600000000000000;
   }
 
   else
   {
-    v5 = 0xE700000000000000;
+    v4 = 0xE700000000000000;
   }
 
   if (*a2)
   {
-    v6 = 0x74754F6E676973;
+    v5 = 0x74754F6E676973;
   }
 
   else
   {
-    v6 = 0x6E496E676973;
+    v5 = 0x6E496E676973;
   }
 
   if (*a2)
   {
-    v7 = 0xE700000000000000;
+    v6 = 0xE700000000000000;
   }
 
   else
   {
-    v7 = 0xE600000000000000;
+    v6 = 0xE600000000000000;
   }
 
-  if (v4 == v6 && v5 == v7)
+  if (v3 == v5 && v4 == v6)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = sub_270E2F8C4();
+    v8 = sub_270E2F8C4();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 uint64_t sub_270E2CF18()
 {
-  v1 = *v0;
   sub_270E2F8D4();
   sub_270E2F824();
 
   return sub_270E2F8E4();
 }
 
-uint64_t sub_270E2CF98()
+uint64_t sub_270E2CF98(uint64_t a1)
 {
-  *v0;
   sub_270E2F824();
 }
 
-uint64_t sub_270E2D004()
+uint64_t sub_270E2D004(uint64_t a1)
 {
-  v1 = *v0;
   sub_270E2F8D4();
   sub_270E2F824();
 
   return sub_270E2F8E4();
 }
 
-uint64_t sub_270E2D080@<X0>(uint64_t *a1@<X0>, char *a2@<X8>)
+uint64_t sub_270E2D080@<X0>(char *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_270E2F8B4();
+  v3 = sub_270E2F8B4();
 
-  if (v5 == 1)
+  if (v3 == 1)
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v7 = 2;
+    v5 = 2;
   }
 
-  if (!v5)
+  if (!v3)
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  *a2 = v7;
+  *a2 = v5;
   return result;
 }
 
@@ -2773,7 +2759,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -2945,9 +2930,18 @@ LABEL_20:
 
 void VSScriptMessageForValueFromContextWithOrigin_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Unable to parse target origin: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Unable to parse target origin: %@", &v2, 0xCu);
+}
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x282111618](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }

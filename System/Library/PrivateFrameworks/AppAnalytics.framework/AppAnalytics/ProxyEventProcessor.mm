@@ -22,7 +22,7 @@
   queueCopy = queue;
 
   sub_1B6A9B434(queueCopy, v5, v6);
-  sub_1B69A3100(v5);
+  sub_1B69A3100(v5, v6);
 }
 
 @end

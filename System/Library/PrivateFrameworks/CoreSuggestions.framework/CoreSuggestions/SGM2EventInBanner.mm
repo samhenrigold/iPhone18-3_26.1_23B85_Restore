@@ -1,9 +1,13 @@
 @interface SGM2EventInBanner
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
+- (id)appAsString:(int)string;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)extractedAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsApp:(id)app;
 - (int)StringAsCategory:(id)category;
 - (int)StringAsExtracted:(id)extracted;
@@ -332,19 +336,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    app = self->_app;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -363,9 +366,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  category = self->_category;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -379,15 +381,13 @@ LABEL_6:
   }
 
 LABEL_13:
-  extracted = self->_extracted;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    state = self->_state;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
@@ -544,6 +544,21 @@ LABEL_26:
   return v4;
 }
 
+- (id)stateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC5E8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasState:(BOOL)state
 {
   if (state)
@@ -583,6 +598,29 @@ LABEL_26:
   else
   {
     v4 = [extractedCopy isEqualToString:@"SGMEventExtractionTypeTemplate"];
+  }
+
+  return v4;
+}
+
+- (id)extractedAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SGMEventExtractionTypeTemplate";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SGMEventExtractionTypeICal";
   }
 
   return v4;
@@ -687,6 +725,21 @@ LABEL_26:
   return v4;
 }
 
+- (id)categoryAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC588[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasCategory:(BOOL)category
 {
   if (category)
@@ -736,6 +789,21 @@ LABEL_26:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)appAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC570[string];
   }
 
   return v4;

@@ -27,60 +27,57 @@
 
 - (unint64_t)directionsSupportedForTransport:(unint64_t)transport fromPlatform:(int64_t)platform
 {
-  v22 = *MEMORY[0x1E69E9840];
-  if ((transport & 0xFFFFFFFFFFFFFFFELL) == 2)
+  v21 = *MEMORY[0x1E69E9840];
+  if ((transport & 0xFFFFFFFFFFFFFFFELL) != 2)
   {
-    platformPolicies = self->_platformPolicies;
-    v6 = BMDevicePlatformAsKeyString(platform);
-    v7 = [(NSDictionary *)platformPolicies objectForKeyedSubscript:v6];
+    return 0;
+  }
 
-    if (v7)
+  platformPolicies = self->_platformPolicies;
+  v6 = BMDevicePlatformAsKeyString(platform);
+  v7 = [(NSDictionary *)platformPolicies objectForKeyedSubscript:v6];
+
+  if (v7)
+  {
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v8 = v7;
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v9)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v8 = v7;
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v9)
+      v10 = v9;
+      v11 = *v17;
+      while (2)
       {
-        v10 = v9;
-        v11 = *v18;
-        while (2)
+        for (i = 0; i != v10; ++i)
         {
-          for (i = 0; i != v10; ++i)
+          if (*v17 != v11)
           {
-            if (*v18 != v11)
-            {
-              objc_enumerationMutation(v8);
-            }
-
-            v13 = *(*(&v17 + 1) + 8 * i);
-            if ([v13 transportType] == transport)
-            {
-              direction = [v13 direction];
-              goto LABEL_14;
-            }
+            objc_enumerationMutation(v8);
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-          if (v10)
+          v13 = *(*(&v16 + 1) + 8 * i);
+          if ([v13 transportType] == transport)
           {
-            continue;
+            direction = [v13 direction];
+            goto LABEL_14;
           }
-
-          break;
         }
+
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        if (v10)
+        {
+          continue;
+        }
+
+        break;
       }
+    }
 
-      direction = 0;
+    direction = 0;
 LABEL_14:
-    }
-
-    else
-    {
-      direction = 0;
-    }
   }
 
   else
@@ -88,7 +85,6 @@ LABEL_14:
     direction = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return direction;
 }
 

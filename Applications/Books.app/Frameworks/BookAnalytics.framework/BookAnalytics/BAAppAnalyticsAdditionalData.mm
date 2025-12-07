@@ -12,20 +12,20 @@
 
 - (NSString)editionKind
 {
-  if (*(self + OBJC_IVAR___BAAppAnalyticsAdditionalData_editionKind + 8))
+  v2 = *(self + OBJC_IVAR___BAAppAnalyticsAdditionalData_editionKind + 8);
+  if (v2)
   {
-    v2 = *(self + OBJC_IVAR___BAAppAnalyticsAdditionalData_editionKind);
-    v3 = *(self + OBJC_IVAR___BAAppAnalyticsAdditionalData_editionKind + 8);
 
-    v4 = sub_1E1770();
+    v3 = sub_1E1770();
+    v2, v4, v5, v6, v7, v8, v9, v10;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 + (NSString)supportsUnifiedProductPageKey
@@ -68,6 +68,7 @@
 {
   v3 = sub_1E1730();
   v4 = _s13BookAnalytics03AppB14AdditionalDataC4data10dictionaryACSgSDySSypG_tFZ_0(v3);
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
   return v4;
 }
@@ -75,11 +76,12 @@
 - (id)dictionary
 {
   selfCopy = self;
-  sub_31F2C();
+  v3 = sub_31F2C();
 
-  v3.super.isa = sub_1E1720().super.isa;
+  v4.super.isa = sub_1E1720().super.isa;
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3.super.isa;
+  return v4.super.isa;
 }
 
 - (BAAppAnalyticsAdditionalData)init

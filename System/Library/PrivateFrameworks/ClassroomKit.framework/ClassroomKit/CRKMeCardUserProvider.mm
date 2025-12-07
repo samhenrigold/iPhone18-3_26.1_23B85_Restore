@@ -72,7 +72,7 @@ void __47__CRKMeCardUserProvider_beginObservingContacts__block_invoke(uint64_t a
 
 - (id)fetchCurrentUser
 {
-  v3 = _CRKLogGeneral_23();
+  v3 = _CRKLogGeneral_23(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -80,18 +80,18 @@ void __47__CRKMeCardUserProvider_beginObservingContacts__block_invoke(uint64_t a
   }
 
   contactsPrimitives = [(CRKMeCardUserProvider *)self contactsPrimitives];
-  v30 = 0;
-  v5 = [contactsPrimitives fetchMeCardContactWithError:&v30];
-  v6 = v30;
+  v31 = 0;
+  v5 = [contactsPrimitives fetchMeCardContactWithError:&v31];
+  v6 = v31;
 
   if (v5)
   {
-    v7 = objc_opt_new();
-    [v7 setUserIdentifier:@"TEMPORARY_ME_CARD_IDENTIFIER"];
+    v8 = objc_opt_new();
+    [v8 setUserIdentifier:@"TEMPORARY_ME_CARD_IDENTIFIER"];
     nickname = [v5 nickname];
-    v9 = [nickname length];
+    v10 = [nickname length];
 
-    if (v9)
+    if (v10)
     {
       nickname2 = [v5 nickname];
     }
@@ -102,19 +102,19 @@ void __47__CRKMeCardUserProvider_beginObservingContacts__block_invoke(uint64_t a
       if ([givenName length])
       {
         familyName = [v5 familyName];
-        v22 = [familyName length];
+        v23 = [familyName length];
 
-        if (v22)
+        if (v23)
         {
-          v11 = objc_opt_new();
+          v12 = objc_opt_new();
           givenName2 = [v5 givenName];
-          [v11 setGivenName:givenName2];
+          [v12 setGivenName:givenName2];
 
           familyName2 = [v5 familyName];
-          [v11 setFamilyName:familyName2];
+          [v12 setFamilyName:familyName2];
 
-          v25 = [MEMORY[0x277CCAC08] localizedStringFromPersonNameComponents:v11 style:3 options:0];
-          [v7 setDisplayName:v25];
+          v26 = [MEMORY[0x277CCAC08] localizedStringFromPersonNameComponents:v12 style:3 options:0];
+          [v8 setDisplayName:v26];
 
           goto LABEL_7;
         }
@@ -125,9 +125,9 @@ void __47__CRKMeCardUserProvider_beginObservingContacts__block_invoke(uint64_t a
       }
 
       givenName3 = [v5 givenName];
-      v27 = [givenName3 length];
+      v28 = [givenName3 length];
 
-      if (v27)
+      if (v28)
       {
         nickname2 = [v5 givenName];
       }
@@ -135,9 +135,9 @@ void __47__CRKMeCardUserProvider_beginObservingContacts__block_invoke(uint64_t a
       else
       {
         familyName3 = [v5 familyName];
-        v29 = [familyName3 length];
+        v30 = [familyName3 length];
 
-        if (!v29)
+        if (!v30)
         {
           goto LABEL_8;
         }
@@ -146,44 +146,44 @@ void __47__CRKMeCardUserProvider_beginObservingContacts__block_invoke(uint64_t a
       }
     }
 
-    v11 = nickname2;
-    [v7 setDisplayName:nickname2];
+    v12 = nickname2;
+    [v8 setDisplayName:nickname2];
 LABEL_7:
 
 LABEL_8:
     givenName4 = [v5 givenName];
-    [v7 setGivenName:givenName4];
+    [v8 setGivenName:givenName4];
 
     familyName4 = [v5 familyName];
-    [v7 setFamilyName:familyName4];
+    [v8 setFamilyName:familyName4];
 
     phoneticGivenName = [v5 phoneticGivenName];
-    [v7 setPhoneticGivenName:phoneticGivenName];
+    [v8 setPhoneticGivenName:phoneticGivenName];
 
     phoneticFamilyName = [v5 phoneticFamilyName];
-    [v7 setPhoneticFamilyName:phoneticFamilyName];
+    [v8 setPhoneticFamilyName:phoneticFamilyName];
 
-    [v7 setUserSource:@"MeCard"];
+    [v8 setUserSource:@"MeCard"];
     thumbnailImageData = [v5 thumbnailImageData];
-    [v7 setUserImageData:thumbnailImageData];
+    [v8 setUserImageData:thumbnailImageData];
 
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    [v7 setImageIdentifier:uUIDString];
+    [v8 setImageIdentifier:uUIDString];
 
     goto LABEL_12;
   }
 
-  uUID = _CRKLogGeneral_23();
+  uUID = _CRKLogGeneral_23(v7);
   if (os_log_type_enabled(uUID, OS_LOG_TYPE_ERROR))
   {
     [(CRKMeCardUserProvider *)v6 fetchCurrentUser];
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_12:
 
-  return v7;
+  return v8;
 }
 
 - (void)fetchCurrentUser

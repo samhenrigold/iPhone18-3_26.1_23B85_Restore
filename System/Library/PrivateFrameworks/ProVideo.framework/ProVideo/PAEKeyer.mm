@@ -626,11 +626,11 @@ LABEL_59:
     v156[1] = v115;
     v156[2] = v116;
     v117 = [[PAEKeyerSetupUtil alloc] initWithAPIManager:selfCopy->super.super._apiManager colorPrimaries:[(PAEKeyer *)selfCopy getColorPrimaries] atTime:infoCopy->var0.var1];
-    OMKeyer2D::getTolCenterCbCr([(PAEKeyerSetupUtil *)v117 omKeyer], &v155);
+    OMKeyer2D::getTolCenterCbCr(&v155, [(PAEKeyerSetupUtil *)v117 omKeyer]);
     v118 = vmul_f32(v155, 0x3F0000003F000000);
 
-    OMColorUtil::getCbCrFromRGB(v157, 1, v119, v120, v121, v122, v123, v124, &v155);
-    OMColorUtil::getCbCrFromRGB(v156, 1, v125, v126, v127, v128, v129, v130, &v154);
+    OMColorUtil::getCbCrFromRGB(v157, 1, &v155, v119, v120, v121, v122, v123, v124);
+    OMColorUtil::getCbCrFromRGB(v156, 1, &v154, v125, v126, v127, v128, v129, v130);
     v131 = vsub_f32(v118, v155);
     v132 = vmul_f32(v131, v131);
     v133 = vsub_f32(v118, v154);
@@ -1195,13 +1195,13 @@ LABEL_59:
   v10 = [[FxHostCapabilities alloc] initWithAPIManager:self->super.super._apiManager];
   if (!-[FxHostCapabilities hostIsMotion](v10, "hostIsMotion") && [v21 fieldOrder])
   {
-    inversePixelTransform = [v21 inversePixelTransform];
+    v11 = objc_msgSend_inversePixelTransform(v21);
     v12 = *width;
     v13 = *height;
-    [inversePixelTransform transform2DPoint:{0.0, 0.0}];
+    [v11 transform2DPoint:{0.0, 0.0}];
     v15 = v14;
     v17 = v16;
-    [inversePixelTransform transform2DPoint:{v12, v13}];
+    [v11 transform2DPoint:{v12, v13}];
     *&v18 = v18 - v15;
     *width = fabsf(*&v18);
     *&v18 = v19 - v17;
@@ -1279,7 +1279,7 @@ LABEL_59:
   return [PAEKeyer properties]::sPropertiesDict;
 }
 
-uint64_t __22__PAEKeyer_properties__block_invoke(uint64_t a1)
+void *__22__PAEKeyer_properties__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x277CBEAC0]);
   v3 = [MEMORY[0x277CCABB0] numberWithBool:0];
@@ -1629,7 +1629,7 @@ LABEL_56:
     nclcValue = [input nclcValue];
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
       v117 = v118;
       if (v118)
       {
@@ -1654,7 +1654,7 @@ LABEL_56:
     v115 = 0;
     v114 = 0;
 LABEL_18:
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+    objc_msgSend_getPixelTransformForImage_(self);
     *&v22 = width;
     *&v23 = height;
     HIDWORD(v24) = HIDWORD(v112);
@@ -1666,7 +1666,7 @@ LABEL_18:
     v28 = *&info->var2;
     v101 = *&info->var0.var0;
     v102 = v28;
-    v103 = *&info->var4;
+    *v103 = *&info->var4;
     if (![(PAEKeyerPreprocess *)preprocessTools doPreprocessKeyerFootageWithParamAPI:v9 withInfo:&v101 linearInput:(nclcValue & 0xFF00) == 2048 scaleX:&v116 scaleY:&v117 width:&v115 height:v24 fixDVResult:v25 degrainResult:v22 outputNode:v23])
     {
       v35 = 0;
@@ -1687,7 +1687,7 @@ LABEL_18:
         (*(*v115 + 16))(v115);
       }
 
-      [(PAEKeyer *)self getKeyerNode:&v110 omKeyer:omKeyer atTime:info->var0.var1];
+      objc_msgSend_getKeyerNode_omKeyer_atTime_(self);
       if (v110)
       {
         (*(*v110 + 24))(v110);
@@ -1747,7 +1747,7 @@ LABEL_18:
     v38 = *&info->var2;
     v101 = *&info->var0.var0;
     v102 = v38;
-    v103 = *&info->var4;
+    *v103 = *&info->var4;
     v39 = v111;
     [(PAESharedDefaultBase *)self getBlendingGamma];
     LODWORD(v41) = v40;
@@ -2021,7 +2021,7 @@ LABEL_75:
           (*(*v66 + 96))(v66, 0, v89, v90, v91, v92);
           (*(*v66 + 96))(v66, 1, v93, v94, v95, v96);
           (*(*v66 + 96))(v66, 2, v97, v98, v99, v100);
-          (*(*v66 + 96))(v66, 3, *&v103, *(&v103 + 1), *(&v103 + 2), *(&v103 + 3));
+          (*(*v66 + 96))(v66, 3, v103[0], v103[1], v103[2], v103[3]);
           (*(*v66 + 96))(v66, 4, *&v102, *(&v102 + 1), *(&v102 + 2), *(&v102 + 3));
           (*(*v66 + 96))(v66, 5, 0.0, 0.0, 0.0, 0.0);
           (*(*v66 + 96))(v66, 6, v77, v78, v79, v80);
@@ -2040,7 +2040,7 @@ LABEL_75:
           (*(*v66 + 96))(v66, 0, v89, v90, v91, v92);
           (*(*v66 + 96))(v66, 1, v93, v94, v95, v96);
           (*(*v66 + 96))(v66, 2, v97, v98, v99, v100);
-          (*(*v66 + 96))(v66, 3, *&v103, *(&v103 + 1), *(&v103 + 2), *(&v103 + 3));
+          (*(*v66 + 96))(v66, 3, v103[0], v103[1], v103[2], v103[3]);
           (*(*v66 + 96))(v66, 4, *&v102, *(&v102 + 1), *(&v102 + 2), *(&v102 + 3));
           (*(*v66 + 96))(v66, 5, 0.0, 0.0, 0.0, 0.0);
           (*(*v66 + 96))(v66, 6, v77, v78, v79, v80);

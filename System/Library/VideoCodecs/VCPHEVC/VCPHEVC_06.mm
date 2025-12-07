@@ -49,8 +49,8 @@ uint64_t sub_277413000(uint64_t result, int a2, unsigned int a3, const float *a4
     do
     {
       v25 = vqmovun_high_s16(vqmovun_s16(vqmovn_high_s32(vqmovn_s32(vrshlq_s32(vmlal_s16(v12, *v23, *v9.i8), v13)), vrshlq_s32(vmlal_high_s16(v12, *v23->i8, v9), v13))), vqmovn_high_s32(vqmovn_s32(vrshlq_s32(vmlal_s16(v12, *(v23 + 2 * a5), *v9.i8), v13)), vrshlq_s32(vmlal_high_s16(v12, *&v23->i8[2 * a5], v9), v13)));
-      *v24 = v25.i64[0];
-      *(v24 + a7) = v25.i64[1];
+      v24->i64[0] = v25.i64[0];
+      *(v24->i64 + a7) = v25.i64[1];
       v24 = (v24 + v20);
       v23 = (v23 + v21);
       v22 -= 2;
@@ -81,7 +81,7 @@ uint64_t sub_277413000(uint64_t result, int a2, unsigned int a3, const float *a4
   return result;
 }
 
-double sub_2774131B4(int a1, int a2, uint64_t a3, int16x8_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint8x16_t *a8)
+double sub_2774131B4(int a1, int a2, uint64_t a3, int16x8_t *a4, uint64_t a5, int16x8_t *a6, uint64_t a7, uint8x16_t *a8)
 {
   if (a1 < 16)
   {
@@ -90,12 +90,12 @@ double sub_2774131B4(int a1, int a2, uint64_t a3, int16x8_t *a4, uint64_t a5, ui
 
   else
   {
-    v8 = (a6 + 2);
+    i64 = a6[1].i64;
     v9 = a4 + 1;
     do
     {
       v10 = v9;
-      v11 = v8;
+      v11 = i64;
       v12 = a2 + 1;
       v13 = a8;
       do
@@ -113,9 +113,9 @@ double sub_2774131B4(int a1, int a2, uint64_t a3, int16x8_t *a4, uint64_t a5, ui
       while (v12 > 1);
       ++a8;
       a4 += 2;
-      a6 += 4;
+      a6 += 2;
       v16 = a1 - 16;
-      v8 += 2;
+      i64 += 4;
       v9 += 2;
       v17 = a1 <= 31;
       a1 -= 16;
@@ -139,8 +139,8 @@ double sub_2774131B4(int a1, int a2, uint64_t a3, int16x8_t *a4, uint64_t a5, ui
       v25.i64[0] = 0x8080808080808080;
       v25.i64[1] = 0x8080808080808080;
       v26 = vsqaddq_u8(v25, v14);
-      *v24 = v26.i64[0];
-      *(v24 + a7) = v26.i64[1];
+      v24->i64[0] = v26.i64[0];
+      *(v24->i64 + a7) = v26.i64[1];
       v23 = (v23 + v18);
       v22 = (v22 + v19);
       v24 = (v24 + v20);
@@ -150,7 +150,7 @@ double sub_2774131B4(int a1, int a2, uint64_t a3, int16x8_t *a4, uint64_t a5, ui
     while (v21 > 2);
     a8 = (a8 + 8);
     ++a4;
-    a6 += 2;
+    ++a6;
   }
 
   if ((v16 & 4) != 0)
@@ -160,8 +160,8 @@ double sub_2774131B4(int a1, int a2, uint64_t a3, int16x8_t *a4, uint64_t a5, ui
     {
       v28 = a4->i64[0];
       v14.i64[1] = *(a4->i64 + 2 * a3);
-      v29.i64[0] = *a6;
-      v29.i64[1] = *(a6 + 2 * a5);
+      v29.i64[0] = a6->i64[0];
+      v29.i64[1] = *(a6->i64 + 2 * a5);
       *v14.i8 = vqrshrn_n_s16(vhaddq_s16(v14, v29), 6uLL);
       *v29.i8 = vsqadd_u8(0x8080808080808080, *v14.i8);
       a8->i32[0] = v29.i32[0];
@@ -497,7 +497,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_277413A08(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint8x8_t *a5, uint64_t a6, int16x4_t *a7)
+unint64_t sub_277413A08(unint64_t result, int a2, unint64_t a3, unint64_t a4, uint8x8_t *a5, uint64_t a6, uint16x8_t *a7)
 {
   v8 = 9 * a4;
   v9 = (a3 >> 16) & 3;
@@ -658,7 +658,7 @@ uint64_t sub_277413A08(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint8
       }
 
       while (v76 > 2);
-      a7 += 4;
+      a7 += 2;
       a5 += 2;
       v98 = result - 16;
       v99 = result > 0x1F;
@@ -845,7 +845,7 @@ uint64_t sub_277413A08(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint8
     }
 
     while (v149 > 4);
-    a7 += 2;
+    ++a7;
     ++a5;
   }
 
@@ -1019,10 +1019,10 @@ uint64_t sub_277413A08(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint8
       }
 
       v302 = vmull_u8(*a5, v259);
-      *a7 = vadd_s16(vsub_s16(*v280.i8, *&vmlal_u8(v287, *a5, v262)), 0xE000E000E000E000);
+      *a7->i8 = vadd_s16(vsub_s16(*v280.i8, *&vmlal_u8(v287, *a5, v262)), 0xE000E000E000E000);
       v7 = vmlal_u8(v288, v227, v261);
-      *(a7 + v13) = vadd_s16(vsub_s16(*v7.i8, *&vmlal_u8(v295, v233, v262)), 0xE000E000E000E000);
-      v303 = (a7 + v13 + v13);
+      *&a7->i8[v13] = vadd_s16(vsub_s16(*v7.i8, *&vmlal_u8(v295, v233, v262)), 0xE000E000E000E000);
+      v303 = &a7->i8[v13 + v13];
       *v303 = vadd_s16(vsub_s16(*&vmlal_u8(v296, v233, v261), *&vmlal_u8(v302, v241, v262)), 0xE000E000E000E000);
       result = v303 + v13;
       v251 -= 4;
@@ -1178,7 +1178,7 @@ uint64_t sub_277414304(uint64_t result, char a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t sub_2774143F8(uint64_t result, int a2, double a3, __n128 a4, int16x8_t a5, uint64_t a6, uint64_t a7, unsigned __int32 *a8, uint64_t a9, int16x4_t *a10)
+uint64_t sub_2774143F8(uint64_t result, int a2, double a3, int16x8_t a4, int16x8_t a5, uint64_t a6, uint64_t a7, unsigned __int32 *a8, uint64_t a9, int16x8_t *a10)
 {
   v10 = 2 * a9;
   if (result < 32)
@@ -1202,7 +1202,7 @@ uint64_t sub_2774143F8(uint64_t result, int a2, double a3, __n128 a4, int16x8_t 
     do
     {
       v15 = *v14;
-      v16 = v14[1];
+      v16 = *(v14 + 1);
       v17 = (v14 + a7);
       v18 = *v17;
       v19 = v17[1];
@@ -1234,13 +1234,13 @@ uint64_t sub_2774143F8(uint64_t result, int a2, double a3, __n128 a4, int16x8_t 
       v28[2] = a4;
       v28[3] = a5;
       v12 -= 4;
-      v14 = (v23 + a7);
+      v14 = (v23->u32 + a7);
       v13 = (v28 + v10);
     }
 
     while (v12 > 4);
     a8 += 8;
-    a10 += 8;
+    a10 += 4;
     v29 = result - 32;
     v30 = result <= 63;
     result = (result - 32);
@@ -1274,17 +1274,17 @@ LABEL_10:
       v43[1] = vaddq_s16(vshll_high_n_u8(v39, 6uLL), v32);
       a4 = vaddq_s16(vshll_n_u8(*v41.i8, 6uLL), v32);
       a5 = vaddq_s16(vshll_high_n_u8(v41, 6uLL), v32);
-      v44 = &v43->i8[v10];
+      v44 = (v43 + v10);
       *v44 = a4;
       v44[1] = a5;
       v31 -= 4;
-      v34 = (v40 + a7);
+      v34 = (v40->u32 + a7);
       v33 = (v44 + v10);
     }
 
     while (v31 > 4);
     a8 += 4;
-    a10 += 4;
+    a10 += 2;
   }
 
 LABEL_13:
@@ -1311,7 +1311,7 @@ LABEL_13:
 
     while (v46 > 2);
     a8 += 2;
-    a10 += 2;
+    ++a10;
   }
 
   if ((v29 & 4) != 0)
@@ -1319,11 +1319,11 @@ LABEL_13:
     v52 = a2 + 2;
     do
     {
-      a4.n128_u32[0] = *a8;
+      a4.i32[0] = *a8;
       a5.i32[0] = *(a8 + a7);
-      *a10 = vadd_s16(vshl_n_s16(*&vmovl_u8(a4.n128_u64[0]), 6uLL), 0xE000E000E000E000);
-      a4.n128_u64[0] = vadd_s16(vshl_n_s16(*&vmovl_u8(*a5.i8), 6uLL), 0xE000E000E000E000);
-      *(a10 + 2 * a9) = a4.n128_u64[0];
+      *a10->i8 = vadd_s16(vshl_n_s16(*&vmovl_u8(*a4.i8), 6uLL), 0xE000E000E000E000);
+      *a4.i8 = vadd_s16(vshl_n_s16(*&vmovl_u8(*a5.i8), 6uLL), 0xE000E000E000E000);
+      *(a10->i64 + 2 * a9) = a4.i64[0];
       a8 = (a8 + 2 * a7);
       a10 = (a10 + v45);
       v52 -= 2;
@@ -2354,7 +2354,7 @@ uint64_t sub_2774156A8(uint64_t result, char a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-uint64_t sub_277415788(uint64_t result, int a2, uint64_t a3, uint64_t a4, __int128 *a5, uint64_t a6, _DWORD *a7)
+uint64_t sub_277415788(uint64_t result, int a2, uint64_t a3, uint64_t a4, __int128 *a5, uint64_t a6, __int128 *a7)
 {
   if (result < 32)
   {
@@ -2403,7 +2403,7 @@ uint64_t sub_277415788(uint64_t result, int a2, uint64_t a3, uint64_t a4, __int1
 
       while (v7 > 4);
       a5 += 2;
-      a7 += 8;
+      a7 += 2;
       v24 = result - 32;
       v25 = result <= 63;
       result = (result - 32);
@@ -2448,7 +2448,7 @@ LABEL_7:
 
   while (v26 > 4);
   ++a5;
-  a7 += 4;
+  ++a7;
   if ((v24 & 8) == 0)
   {
 LABEL_8:
@@ -2479,7 +2479,7 @@ LABEL_14:
 
   while (v39 > 2);
   a5 = (a5 + 8);
-  a7 += 2;
+  a7 = (a7 + 8);
   if ((v24 & 4) != 0)
   {
 LABEL_17:
@@ -2738,7 +2738,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_277415D58(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_277415D58(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -2943,7 +2943,7 @@ uint64_t sub_277415D58(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v127 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v147 = result - 8;
     v12 += 16;
@@ -3087,7 +3087,7 @@ LABEL_9:
       v214 = vmovn_s32(v226);
       --v215;
       _X11 += v8;
-      *a7 = vshrn_n_s32(vmlal_laneq_s16(v227, v214, v152, 7), 6uLL);
+      *a7->i8 = vshrn_n_s32(vmlal_laneq_s16(v227, v214, v152, 7), 6uLL);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }
@@ -3098,7 +3098,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t sub_277416620(unint64_t result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, int16x4_t *a7)
+unint64_t *sub_277416620(unint64_t *result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, int16x4_t *a7)
 {
   v152 = (a3 >> 16) & 3;
   if (result < 8)
@@ -3360,7 +3360,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_277416A80(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_277416A80(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = a4;
   v8 = 2 * a4;
@@ -3411,7 +3411,7 @@ uint64_t sub_277416A80(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a
     }
 
     while (v15 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v35 = result - 8;
     ++v11;
@@ -3440,7 +3440,7 @@ LABEL_9:
         PRFUM           #0, [X13,#0x16]
       }
 
-      *a7 = vadd_s16(vmovn_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v40, v41, 2uLL), *v37.i8, 1), v40, *v37.i8, 0), vext_s8(v40, v41, 4uLL), *v37.i8, 2), vext_s8(v40, v41, 6uLL), *v37.i8, 3), v41, v37, 4), vext_s8(v41, v43, 2uLL), v37, 5), vext_s8(v41, v43, 4uLL), v37, 6), vext_s8(v41, v43, 6uLL), v37, 7)), 0xE000E000E000E000);
+      *a7->i8 = vadd_s16(vmovn_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v40, v41, 2uLL), *v37.i8, 1), v40, *v37.i8, 0), vext_s8(v40, v41, 4uLL), *v37.i8, 2), vext_s8(v40, v41, 6uLL), *v37.i8, 3), v41, v37, 4), vext_s8(v41, v43, 2uLL), v37, 5), vext_s8(v41, v43, 4uLL), v37, 6), vext_s8(v41, v43, 6uLL), v37, 7)), 0xE000E000E000E000);
       --v39;
       _X11 = (_X11 + v8);
       a7 = (a7 + v9);
@@ -3517,7 +3517,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_277416D04(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x4_t *a7)
+uint64_t sub_277416D04(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -3723,7 +3723,7 @@ uint64_t sub_277416D04(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v126 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v147 = result - 8;
     v12 += 16;
@@ -3864,7 +3864,7 @@ LABEL_9:
       v214 = vmovn_s32(v224);
       --v215;
       _X11 += v8;
-      *a7 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(v225, v214, v150, 7), 0xCuLL), 0xFF00FF00FF00FFLL);
+      *a7->i8 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(v225, v214, v150, 7), 0xCuLL), 0xFF00FF00FF00FFLL);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }
@@ -3875,7 +3875,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t sub_2774175D0(unint64_t result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, uint16x4_t *a7)
+unint64_t *sub_2774175D0(unint64_t *result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, uint16x4_t *a7)
 {
   v152 = (a3 >> 16) & 3;
   if (result < 8)
@@ -4136,7 +4136,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_277417A3C(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x4_t *a7)
+uint64_t sub_277417A3C(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x8_t *a7)
 {
   v7 = a4;
   v8 = 2 * a4;
@@ -4187,7 +4187,7 @@ uint64_t sub_277417A3C(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a
     }
 
     while (v15 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v33 = result - 8;
     ++v11;
@@ -4216,7 +4216,7 @@ LABEL_9:
         PRFUM           #0, [X13,#0x16]
       }
 
-      *a7 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 6uLL), 0xFF00FF00FF00FFLL);
+      *a7->i8 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 6uLL), 0xFF00FF00FF00FFLL);
       --v37;
       _X11 = (_X11 + v8);
       a7 = (a7 + v9);
@@ -4530,7 +4530,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_277418100(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_277418100(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -4735,7 +4735,7 @@ uint64_t sub_277418100(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v126 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v147 = result - 8;
     v12 += 16;
@@ -4879,7 +4879,7 @@ LABEL_9:
       v214 = vshrn_n_s32(v226, 1uLL);
       --v215;
       _X11 += v8;
-      *a7 = vshrn_n_s32(vmlal_laneq_s16(v227, v214, v152, 7), 6uLL);
+      *a7->i8 = vshrn_n_s32(vmlal_laneq_s16(v227, v214, v152, 7), 6uLL);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }
@@ -4890,7 +4890,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t sub_2774189E4(unint64_t result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, int16x4_t *a7)
+unint64_t *sub_2774189E4(unint64_t *result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, int16x4_t *a7)
 {
   v152 = (a3 >> 16) & 3;
   if (result < 8)
@@ -5151,7 +5151,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_277418E4C(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_277418E4C(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = a4;
   v8 = 2 * a4;
@@ -5202,7 +5202,7 @@ uint64_t sub_277418E4C(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a
     }
 
     while (v15 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v33 = result - 8;
     ++v11;
@@ -5231,7 +5231,7 @@ LABEL_9:
         PRFUM           #0, [X13,#0x16]
       }
 
-      *a7 = vadd_s16(vshrn_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 1uLL), 0xE000E000E000E000);
+      *a7->i8 = vadd_s16(vshrn_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 1uLL), 0xE000E000E000E000);
       --v37;
       _X11 = (_X11 + v8);
       a7 = (a7 + v9);
@@ -5308,7 +5308,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_2774190D4(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x4_t *a7)
+uint64_t sub_2774190D4(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -5513,7 +5513,7 @@ uint64_t sub_2774190D4(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v125 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v146 = result - 8;
     v12 += 16;
@@ -5654,7 +5654,7 @@ LABEL_9:
       v213 = vshrn_n_s32(v223, 1uLL);
       --v214;
       _X11 += v8;
-      *a7 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(v224, v213, v149, 7), 0xBuLL), 0xFE00FE00FE00FE00);
+      *a7->i8 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(v224, v213, v149, 7), 0xBuLL), 0xFE00FE00FE00FE00);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }
@@ -5665,7 +5665,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t sub_2774199BC(unint64_t result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, uint16x4_t *a7)
+unint64_t *sub_2774199BC(unint64_t *result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, uint16x4_t *a7)
 {
   v152 = (a3 >> 16) & 3;
   if (result < 8)
@@ -5926,7 +5926,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_277419E28(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x4_t *a7)
+uint64_t sub_277419E28(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x8_t *a7)
 {
   v7 = a4;
   v8 = 2 * a4;
@@ -5977,7 +5977,7 @@ uint64_t sub_277419E28(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a
     }
 
     while (v15 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v33 = result - 8;
     ++v11;
@@ -6006,7 +6006,7 @@ LABEL_9:
         PRFUM           #0, [X13,#0x16]
       }
 
-      *a7 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 6uLL), 0xFE00FE00FE00FE00);
+      *a7->i8 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 6uLL), 0xFE00FE00FE00FE00);
       --v37;
       _X11 = (_X11 + v8);
       a7 = (a7 + v9);
@@ -6320,7 +6320,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_27741A4EC(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_27741A4EC(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -6526,7 +6526,7 @@ uint64_t sub_27741A4EC(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v120 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v145 = result - 8;
     v20 += 16;
@@ -6670,7 +6670,7 @@ LABEL_9:
       v212 = vshrn_n_s32(v224, 2uLL);
       --v213;
       _X11 += v8;
-      *a7 = vshrn_n_s32(vmlal_laneq_s16(v225, v212, v150, 7), 6uLL);
+      *a7->i8 = vshrn_n_s32(vmlal_laneq_s16(v225, v212, v150, 7), 6uLL);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }
@@ -6681,7 +6681,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t sub_27741AD78(unint64_t result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, int16x4_t *a7)
+unint64_t *sub_27741AD78(unint64_t *result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, int16x4_t *a7)
 {
   v160 = (a3 >> 16) & 3;
   if (result < 8)
@@ -6950,7 +6950,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_27741B1E8(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_27741B1E8(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = a4;
   v8 = 2 * a4;
@@ -7006,7 +7006,7 @@ uint64_t sub_27741B1E8(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a
     }
 
     while (v23 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v38 = result - 8;
     ++v19;
@@ -7035,7 +7035,7 @@ LABEL_9:
         PRFUM           #0, [X13,#0x16]
       }
 
-      *a7 = vadd_s16(vshrn_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v43, v44, 2uLL), *v40.i8, 1), v43, *v40.i8, 0), vext_s8(v43, v44, 4uLL), *v40.i8, 2), vext_s8(v43, v44, 6uLL), *v40.i8, 3), v44, v40, 4), vext_s8(v44, v46, 2uLL), v40, 5), vext_s8(v44, v46, 4uLL), v40, 6), vext_s8(v44, v46, 6uLL), v40, 7), 2uLL), 0xE000E000E000E000);
+      *a7->i8 = vadd_s16(vshrn_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v43, v44, 2uLL), *v40.i8, 1), v43, *v40.i8, 0), vext_s8(v43, v44, 4uLL), *v40.i8, 2), vext_s8(v43, v44, 6uLL), *v40.i8, 3), v44, v40, 4), vext_s8(v44, v46, 2uLL), v40, 5), vext_s8(v44, v46, 4uLL), v40, 6), vext_s8(v44, v46, 6uLL), v40, 7), 2uLL), 0xE000E000E000E000);
       --v42;
       _X11 = (_X11 + v8);
       a7 = (a7 + v9);
@@ -7112,7 +7112,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_27741B480(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x4_t *a7)
+uint64_t sub_27741B480(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -7319,7 +7319,7 @@ uint64_t sub_27741B480(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v119 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v145 = result - 8;
     v20 += 16;
@@ -7460,7 +7460,7 @@ LABEL_9:
       v212 = vshrn_n_s32(v222, 2uLL);
       --v213;
       _X11 += v8;
-      *a7 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(v223, v212, v148, 7), 0xAuLL), 0xFC00FC00FC00FC00);
+      *a7->i8 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(v223, v212, v148, 7), 0xAuLL), 0xFC00FC00FC00FC00);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }
@@ -7471,7 +7471,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t sub_27741BD10(unint64_t result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, uint16x4_t *a7)
+unint64_t *sub_27741BD10(unint64_t *result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, uint16x4_t *a7)
 {
   v164 = (a3 >> 16) & 3;
   if (result < 8)
@@ -7744,7 +7744,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_27741C184(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x4_t *a7)
+uint64_t sub_27741C184(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x8_t *a7)
 {
   v7 = a4;
   v8 = 2 * a4;
@@ -7800,7 +7800,7 @@ uint64_t sub_27741C184(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a
     }
 
     while (v23 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v38 = result - 8;
     ++v19;
@@ -7829,7 +7829,7 @@ LABEL_9:
         PRFUM           #0, [X13,#0x16]
       }
 
-      *a7 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v43, v44, 2uLL), *v40.i8, 1), v43, *v40.i8, 0), vext_s8(v43, v44, 4uLL), *v40.i8, 2), vext_s8(v43, v44, 6uLL), *v40.i8, 3), v44, v40, 4), vext_s8(v44, v46, 2uLL), v40, 5), vext_s8(v44, v46, 4uLL), v40, 6), vext_s8(v44, v46, 6uLL), v40, 7), 6uLL), 0xFC00FC00FC00FC00);
+      *a7->i8 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v43, v44, 2uLL), *v40.i8, 1), v43, *v40.i8, 0), vext_s8(v43, v44, 4uLL), *v40.i8, 2), vext_s8(v43, v44, 6uLL), *v40.i8, 3), v44, v40, 4), vext_s8(v44, v46, 2uLL), v40, 5), vext_s8(v44, v46, 4uLL), v40, 6), vext_s8(v44, v46, 6uLL), v40, 7), 6uLL), 0xFC00FC00FC00FC00);
       --v42;
       _X11 = (_X11 + v8);
       a7 = (a7 + v9);
@@ -8143,7 +8143,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_27741C858(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_27741C858(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -8348,7 +8348,7 @@ uint64_t sub_27741C858(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v126 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v147 = result - 8;
     v12 += 16;
@@ -8492,7 +8492,7 @@ LABEL_9:
       v214 = vshrn_n_s32(v226, 3uLL);
       --v215;
       _X11 += v8;
-      *a7 = vshrn_n_s32(vmlal_laneq_s16(v227, v214, v152, 7), 6uLL);
+      *a7->i8 = vshrn_n_s32(vmlal_laneq_s16(v227, v214, v152, 7), 6uLL);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }
@@ -8503,7 +8503,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t sub_27741D13C(unint64_t result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, int16x4_t *a7)
+unint64_t *sub_27741D13C(unint64_t *result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, int16x4_t *a7)
 {
   v152 = (a3 >> 16) & 3;
   if (result < 8)
@@ -8764,7 +8764,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_27741D5A4(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_27741D5A4(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = a4;
   v8 = 2 * a4;
@@ -8815,7 +8815,7 @@ uint64_t sub_27741D5A4(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a
     }
 
     while (v15 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v33 = result - 8;
     ++v11;
@@ -8844,7 +8844,7 @@ LABEL_9:
         PRFUM           #0, [X13,#0x16]
       }
 
-      *a7 = vadd_s16(vshrn_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 3uLL), 0xE000E000E000E000);
+      *a7->i8 = vadd_s16(vshrn_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 3uLL), 0xE000E000E000E000);
       --v37;
       _X11 = (_X11 + v8);
       a7 = (a7 + v9);
@@ -8921,7 +8921,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_27741D82C(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x4_t *a7)
+uint64_t sub_27741D82C(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -9126,7 +9126,7 @@ uint64_t sub_27741D82C(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v125 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v146 = result - 8;
     v12 += 16;
@@ -9267,7 +9267,7 @@ LABEL_9:
       v213 = vshrn_n_s32(v223, 3uLL);
       --v214;
       _X11 += v8;
-      *a7 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(v224, v213, v149, 7), 9uLL), 0xF800F800F800F800);
+      *a7->i8 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(v224, v213, v149, 7), 9uLL), 0xF800F800F800F800);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }
@@ -9278,7 +9278,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t sub_27741E114(unint64_t result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, uint16x4_t *a7)
+unint64_t *sub_27741E114(unint64_t *result, int a2, unint64_t a3, uint64_t a4, uint16x8_t *a5, uint64_t a6, uint16x4_t *a7)
 {
   v152 = (a3 >> 16) & 3;
   if (result < 8)
@@ -9539,7 +9539,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_27741E580(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x4_t *a7)
+uint64_t sub_27741E580(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint16x8_t *a7)
 {
   v7 = a4;
   v8 = 2 * a4;
@@ -9590,7 +9590,7 @@ uint64_t sub_27741E580(uint64_t result, int a2, char a3, uint64_t a4, uint64_t a
     }
 
     while (v15 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v33 = result - 8;
     ++v11;
@@ -9619,7 +9619,7 @@ LABEL_9:
         PRFUM           #0, [X13,#0x16]
       }
 
-      *a7 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 6uLL), 0xF800F800F800F800);
+      *a7->i8 = vmin_u16(vqrshrun_n_s32(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_laneq_s16(vmlal_lane_s16(vmlal_lane_s16(vmlal_lane_s16(vmull_lane_s16(vext_s8(v38, v39, 2uLL), *v35.i8, 1), v38, *v35.i8, 0), vext_s8(v38, v39, 4uLL), *v35.i8, 2), vext_s8(v38, v39, 6uLL), *v35.i8, 3), v39, v35, 4), vext_s8(v39, v41, 2uLL), v35, 5), vext_s8(v39, v41, 4uLL), v35, 6), vext_s8(v39, v41, 6uLL), v35, 7), 6uLL), 0xF800F800F800F800);
       --v37;
       _X11 = (_X11 + v8);
       a7 = (a7 + v9);
@@ -9933,7 +9933,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_27741EC44(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x4_t *a7)
+uint64_t sub_27741EC44(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int16x8_t *a7)
 {
   v7 = (a3 >> 16) & 3;
   v8 = 2 * a4;
@@ -10138,7 +10138,7 @@ uint64_t sub_27741EC44(uint64_t result, int a2, unint64_t a3, uint64_t a4, uint6
     }
 
     while (v126 > 1);
-    a7 += 2;
+    ++a7;
     a5 += 16;
     v147 = result - 8;
     v12 += 16;
@@ -10282,7 +10282,7 @@ LABEL_9:
       v214 = vshrn_n_s32(v226, 4uLL);
       --v215;
       _X11 += v8;
-      *a7 = vshrn_n_s32(vmlal_laneq_s16(v227, v214, v152, 7), 6uLL);
+      *a7->i8 = vshrn_n_s32(vmlal_laneq_s16(v227, v214, v152, 7), 6uLL);
       _X12 = (_X12 + v8);
       a7 = (a7 + v9);
     }

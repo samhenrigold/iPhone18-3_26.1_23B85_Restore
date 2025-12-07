@@ -601,14 +601,18 @@ void __80__CCUIAnimationRunner__runC2AnimationsInBatch_animationGroup_completion
 {
   v3 = a1;
   v4 = [a2 UUID];
-  OUTLINED_FUNCTION_0_1(&dword_21E9F5000, v5, v6, "[%{public}@] Will execute batch animation", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_21E9F5000, v5, v6, "[%{public}@] Will execute batch animation", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)additivelyRunAnimationBatch:(void *)a1 withCompletionBlock:(void *)a2 .cold.2(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 UUID];
-  OUTLINED_FUNCTION_0_1(&dword_21E9F5000, v5, v6, "[%{public}@] Will animate batch", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_21E9F5000, v5, v6, "[%{public}@] Will animate batch", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __71__CCUIAnimationRunner_additivelyRunAnimationBatch_withCompletionBlock___block_invoke_4_cold_1(void *a1, void *a2)

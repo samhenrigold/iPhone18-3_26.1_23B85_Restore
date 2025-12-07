@@ -36,7 +36,7 @@ void mlir::ODIE::Compiler::CoreML::MaxPool2dOp::verify(mlir::Operation **this)
     if (*v24 < 1 || v24[1] <= 0)
     {
       v19 = 257;
-      mlir::OpState::emitError(this, v17, &v20);
+      mlir::OpState::emitError(&v20, this, v17);
       mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v20, "dilation must be > 0");
       mlir::InFlightDiagnostic::operator llvm::LogicalResult(v9);
       mlir::InFlightDiagnostic::~InFlightDiagnostic(&v20);
@@ -84,7 +84,7 @@ LABEL_48:
           if (*v24 < 0 || v24[1] < 0)
           {
             v19 = 257;
-            mlir::OpState::emitError(this, v17, &v20);
+            mlir::OpState::emitError(&v20, this, v17);
             mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v20, "padding must be >= 0");
             mlir::InFlightDiagnostic::operator llvm::LogicalResult(v13);
             mlir::InFlightDiagnostic::~InFlightDiagnostic(&v20);
@@ -109,7 +109,7 @@ LABEL_48:
               if (*v24 > *v17[0] / 2 || v24[1] > *(v17[0] + 1) / 2)
               {
                 v16[16] = 257;
-                mlir::OpState::emitError(this, v16, &v20);
+                mlir::OpState::emitError(&v20, this, v16);
                 mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v20, "padding must be <= kernel_size / 2");
                 mlir::InFlightDiagnostic::operator llvm::LogicalResult(v12);
                 mlir::InFlightDiagnostic::~InFlightDiagnostic(&v20);
@@ -175,7 +175,7 @@ LABEL_6:
   }
 
   v21[16] = 257;
-  mlir::OpState::emitError(a1, v21, &v25);
+  mlir::OpState::emitError(&v25, a1, v21);
   if (v25)
   {
     LODWORD(v23) = 3;
@@ -337,7 +337,7 @@ LABEL_15:
         if (*v25 < 0 || v25[1] < 0)
         {
           v16[8] = 257;
-          mlir::OpState::emitError(this, v15, &__src);
+          mlir::OpState::emitError(&__src, this, v15);
           if (__src)
           {
             LODWORD(v12) = 3;
@@ -407,7 +407,7 @@ LABEL_38:
           if (*v25 > *v15[0] / 2 || v25[1] > *(v15[0] + 1) / 2)
           {
             v14 = 257;
-            mlir::OpState::emitError(this, &v12, &__src);
+            mlir::OpState::emitError(&__src, this, &v12);
             mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&__src, "padding must be <= kernel_size / 2");
             mlir::InFlightDiagnostic::operator llvm::LogicalResult(v9);
             mlir::InFlightDiagnostic::~InFlightDiagnostic(&__src);
@@ -443,7 +443,7 @@ BOOL mlir::ODIE::Compiler::CoreML::ReadHandleOp::verify(mlir::Operation **this)
   }
 
   v25 = 257;
-  mlir::OpState::emitError(v3, v24, v28);
+  mlir::OpState::emitError(v28, v3, v24);
   if (v28[0])
   {
     LODWORD(v26) = 3;
@@ -606,7 +606,7 @@ BOOL mlir::ODIE::Compiler::CoreML::WriteHandleOp::verify(mlir::Operation **this)
   }
 
   v25 = 257;
-  mlir::OpState::emitError(v3, v24, v28);
+  mlir::OpState::emitError(v28, v3, v24);
   if (v28[0])
   {
     LODWORD(v26) = 3;
@@ -881,7 +881,7 @@ LABEL_32:
 
   v32 = v28;
   v50 = 257;
-  mlir::OpState::emitError(this, v49, &v53);
+  mlir::OpState::emitError(&v53, this, v49);
   if (v53)
   {
     LODWORD(v51) = 3;
@@ -1176,7 +1176,7 @@ BOOL mlir::ODIE::Compiler::CoreML::TileOp::verify(mlir::Operation **this)
   }
 
   v16 = 257;
-  mlir::OpState::emitError(this, v15, v21);
+  mlir::OpState::emitError(v21, this, v15);
   if (v21[0])
   {
     LODWORD(v19) = 3;
@@ -1267,7 +1267,7 @@ BOOL mlir::ODIE::Compiler::CoreML::TileOp::verify(mlir::Operation **this)
   return v3;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v18[2] = *MEMORY[0x277D85DE8];
   v18[0] = a4;
@@ -1335,7 +1335,7 @@ LABEL_6:
       if (v5 != 1 || (v6 = mlir::RankedTensorType::getShape(v52), mlir::ShapedType::getNumElements(v6, v7) != 2))
       {
         v49 = 257;
-        mlir::OpState::emitError(this, v48, v52);
+        mlir::OpState::emitError(v52, this, v48);
         if (v52[0])
         {
           LODWORD(v50) = 3;
@@ -1490,7 +1490,7 @@ LABEL_20:
       }
 
       v49 = 257;
-      mlir::OpState::emitError(this, v48, v52);
+      mlir::OpState::emitError(v52, this, v48);
       if (v52[0])
       {
         LODWORD(v50) = 3;
@@ -1590,7 +1590,7 @@ LABEL_80:
   }
 
   v49 = 257;
-  mlir::OpState::emitError(this, v48, v52);
+  mlir::OpState::emitError(v52, this, v48);
   if (v52[0])
   {
     LODWORD(v50) = 3;
@@ -1869,18 +1869,18 @@ uint64_t mlir::ODIE::Compiler::CoreML::AddOp::decomposeComplexOperation(mlir::OD
     v22 = mlir::ODIE::Compiler::CoreML::getPartsOfComplex(a2, *(*(*this + 72) + 56), *(*this + 24));
     v23 = v7;
     v8 = *(*this + 24);
-    v20 = *(PartsOfComplex - 8) & 0xFFFFFFFFFFFFFFF8;
+    v20 = *(PartsOfComplex - 1) & 0xFFFFFFFFFFFFFFF8;
     v21 = mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::AddOp,mlir::TensorType,mlir::ODIE::Compiler::CoreML::RealPartOp &,mlir::ODIE::Compiler::CoreML::RealPartOp &>(a2, v8, &v20, &PartsOfComplex, &v22);
     v9 = *(*this + 24);
-    v19 = *(PartsOfComplex - 8) & 0xFFFFFFFFFFFFFFF8;
+    v19 = *(PartsOfComplex - 1) & 0xFFFFFFFFFFFFFFF8;
     v20 = mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::AddOp,mlir::TensorType,mlir::ODIE::Compiler::CoreML::RealPartOp &,mlir::ODIE::Compiler::CoreML::RealPartOp &>(a2, v9, &v19, &v25, &v23);
     v10 = *(*this + 24);
     v19 = *(*this - 8) & 0xFFFFFFFFFFFFFFF8;
     v11 = mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::CreateComplexOp,mlir::ShapedType &,mlir::ODIE::Compiler::CoreML::CastOp &,mlir::ODIE::Compiler::CoreML::CastOp &>(a2, v10, &v19, &v21, &v20);
     v12 = *this;
-    if (*(v11 + 36))
+    if (*(v11 + 9))
     {
-      v13 = v11 - 16;
+      v13 = (v11 - 16);
     }
 
     else
@@ -1921,7 +1921,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AddOp::decomposeComplexOperation(mlir::OD
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::AddOp,mlir::TensorType,mlir::ODIE::Compiler::CoreML::RealPartOp &,mlir::ODIE::Compiler::CoreML::RealPartOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
+char *mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::AddOp,mlir::TensorType,mlir::ODIE::Compiler::CoreML::RealPartOp &,mlir::ODIE::Compiler::CoreML::RealPartOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
 {
   v24 = *MEMORY[0x277D85DE8];
   v18 = a2;
@@ -1946,7 +1946,7 @@ uint64_t mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::AddOp,mlir::Tenso
 
   *(v21[8] + 8 * v22++) = v13;
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::AddOp,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::AddOp,void>::id)
   {
     v16 = v15;
   }
@@ -2050,9 +2050,9 @@ LABEL_18:
   v32 = mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::AddOp,mlir::TensorType,mlir::ODIE::Compiler::CoreML::RealPartOp &,mlir::ODIE::Compiler::CoreML::RealPartOp &>(a2, *(*this + 24), &v43, &v35, &v34);
   v22 = mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::CreateComplexOp,mlir::ShapedType &,mlir::ODIE::Compiler::CoreML::CastOp &,mlir::ODIE::Compiler::CoreML::CastOp &>(a2, *(*this + 24), v38, &v33, &v32);
   v23 = *this;
-  if (*(v22 + 36))
+  if (*(v22 + 9))
   {
-    v24 = v22 - 16;
+    v24 = (v22 - 16);
   }
 
   else
@@ -2092,7 +2092,7 @@ LABEL_18:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::BatchMatmulOp,mlir::ShapedType &,mlir::ODIE::Compiler::CoreML::RealPartOp &,mlir::ODIE::Compiler::CoreML::RealPartOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
+char *mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::BatchMatmulOp,mlir::ShapedType &,mlir::ODIE::Compiler::CoreML::RealPartOp &,mlir::ODIE::Compiler::CoreML::RealPartOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
 {
   v24 = *MEMORY[0x277D85DE8];
   v18 = a2;
@@ -2117,7 +2117,7 @@ uint64_t mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::BatchMatmulOp,mli
 
   *(v21[8] + 8 * v22++) = v13;
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::BatchMatmulOp,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::BatchMatmulOp,void>::id)
   {
     v16 = v15;
   }
@@ -2131,7 +2131,7 @@ uint64_t mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::BatchMatmulOp,mli
   return v16;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::SubOp,mlir::ShapedType &,mlir::ODIE::Compiler::CoreML::BatchMatmulOp &,mlir::ODIE::Compiler::CoreML::BatchMatmulOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
+char *mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::SubOp,mlir::ShapedType &,mlir::ODIE::Compiler::CoreML::BatchMatmulOp &,mlir::ODIE::Compiler::CoreML::BatchMatmulOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
 {
   v24 = *MEMORY[0x277D85DE8];
   v18 = a2;
@@ -2156,7 +2156,7 @@ uint64_t mlir::OpBuilder::create<mlir::ODIE::Compiler::CoreML::SubOp,mlir::Shape
 
   *(v21[8] + 8 * v22++) = v13;
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::SubOp,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::ODIE::Compiler::CoreML::SubOp,void>::id)
   {
     v16 = v15;
   }
@@ -2197,7 +2197,7 @@ BOOL mlir::ODIE::Compiler::CoreML::NonZeroOp::verify(mlir::Operation **this)
 
     v39 = 257;
     v18 = v6;
-    mlir::OpState::emitError(this, v38, v42);
+    mlir::OpState::emitError(v42, this, v38);
     if (v42[0])
     {
       LODWORD(v40) = 3;
@@ -2358,7 +2358,7 @@ LABEL_51:
   else
   {
     v39 = 257;
-    mlir::OpState::emitError(this, v38, v42);
+    mlir::OpState::emitError(v42, this, v38);
     if (v42[0])
     {
       LODWORD(v40) = 3;
@@ -2482,7 +2482,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AddOp::build(uint64_t a1, uint64_t a2, ui
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AddOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t mlir::ODIE::Compiler::CoreML::AddOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v13 = a6;
   v14 = a5;
@@ -2512,7 +2512,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AddOp::build(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AddOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::AddOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -2556,14 +2556,14 @@ unint64_t mlir::ODIE::Compiler::CoreML::AddOp::build(uint64_t a1, uint64_t a2, u
 BOOL mlir::ODIE::Compiler::CoreML::AddOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v33 = *MEMORY[0x277D85DE8];
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
   {
     return 0;
   }
@@ -2579,7 +2579,7 @@ BOOL mlir::ODIE::Compiler::CoreML::AddOp::verifyInvariantsImpl(mlir::Operation *
 
     v22[0] = "failed to verify that Result 0 element type must match element type of operand 1.";
     v23 = 259;
-    mlir::OpState::emitOpError(this, v22, v24);
+    mlir::OpState::emitOpError(v24, this, v22);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v24);
     v7 = result;
     if (v24[0])
@@ -2663,7 +2663,7 @@ LABEL_44:
   {
     v22[0] = "failed to verify that Result 0 element type must match element type of operand 0.";
     v23 = 259;
-    mlir::OpState::emitOpError(this, v22, v24);
+    mlir::OpState::emitOpError(v24, this, v22);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v24);
     v7 = result;
     if (v24[0])
@@ -2733,7 +2733,7 @@ LABEL_44:
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(mlir::Operation *a1, void *a2, void **a3, void **a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(mlir::Operation *a1, void *a2, const char *a3, const char *a4, unsigned int a5)
 {
   v61 = *MEMORY[0x277D85DE8];
   v10 = *(*a2 + 136);
@@ -2859,7 +2859,7 @@ LABEL_21:
     return 1;
   }
 
-  if (*(*v43[0] + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+  if (*(*v43[0] + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
   {
     v47 = v43[0];
     *&v48 = mlir::ComplexType::getElementType(&v47);
@@ -2868,7 +2868,7 @@ LABEL_21:
       return 1;
     }
 
-    if (*(*v43[0] + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+    if (*(*v43[0] + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
     {
       v45 = v43[0];
       ElementType = mlir::ComplexType::getElementType(&v45);
@@ -3059,7 +3059,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AllOp::build(uint64_t a1, uint64_t a2, ui
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AllOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t mlir::ODIE::Compiler::CoreML::AllOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v15 = a6;
   v16 = a5;
@@ -3091,7 +3091,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AllOp::build(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AllOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::AllOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -3134,7 +3134,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AllOp::build(uint64_t a1, uint64_t a2, u
 
 BOOL mlir::ODIE::Compiler::CoreML::AllOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps2(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u))
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps2(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u))
   {
     return 0;
   }
@@ -3153,7 +3153,7 @@ BOOL mlir::ODIE::Compiler::CoreML::AllOp::verifyInvariantsImpl(mlir::Operation *
   return mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps2(mlir::Operation *a1, void *a2, void **a3, void **a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps2(mlir::Operation *a1, void *a2, const char *a3, const char *a4, unsigned int a5)
 {
   v58 = *MEMORY[0x277D85DE8];
   v10 = *(*a2 + 136);
@@ -3380,11 +3380,11 @@ LABEL_22:
   return v23;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v89 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (*(*a2 + 17) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
+  if (*(*a2 + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
     goto LABEL_2;
   }
@@ -3392,8 +3392,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOp
   v29 = a1;
   {
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v9[1];
-    v32 = *(v9 + 4);
+    v31 = *(v9 + 8);
+    v32 = *(v9 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -3405,8 +3405,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOp
     v40 = v9;
     mlir::ODIE::Compiler::CoreML::CastOp::inferReturnTypeComponents();
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v40[1];
-    v32 = *(v40 + 4);
+    v31 = *(v40 + 8);
+    v32 = *(v40 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -3463,8 +3463,8 @@ LABEL_59:
   v44 = *a2;
   {
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v44[1];
-    v47 = *(v44 + 4);
+    v46 = *(v44 + 8);
+    v47 = *(v44 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -3476,8 +3476,8 @@ LABEL_59:
     v70 = v44;
     mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v70[1];
-    v47 = *(v70 + 4);
+    v46 = *(v70 + 8);
+    v47 = *(v70 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -3534,8 +3534,8 @@ LABEL_74:
   v57 = *a2;
   {
     v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v59 = v57[1];
-    v60 = *(v57 + 4);
+    v59 = *(v57 + 8);
+    v60 = *(v57 + 16);
     if (!v60)
     {
       goto LABEL_88;
@@ -3547,8 +3547,8 @@ LABEL_74:
     v67 = v57;
     mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
     v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v59 = v67[1];
-    v60 = *(v67 + 4);
+    v59 = *(v67 + 8);
+    v60 = *(v67 + 16);
     if (!v60)
     {
       goto LABEL_88;
@@ -3755,11 +3755,11 @@ LABEL_2:
   return v20;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v89 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (*(*a2 + 17) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
+  if (*(*a2 + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
     goto LABEL_2;
   }
@@ -3767,8 +3767,8 @@ BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(m
   v29 = a1;
   {
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v9[1];
-    v32 = *(v9 + 4);
+    v31 = *(v9 + 8);
+    v32 = *(v9 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -3780,8 +3780,8 @@ BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(m
     v40 = v9;
     mlir::ODIE::Compiler::CoreML::CastOp::inferReturnTypeComponents();
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v40[1];
-    v32 = *(v40 + 4);
+    v31 = *(v40 + 8);
+    v32 = *(v40 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -3838,8 +3838,8 @@ LABEL_59:
   v44 = *a2;
   {
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v44[1];
-    v47 = *(v44 + 4);
+    v46 = *(v44 + 8);
+    v47 = *(v44 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -3851,8 +3851,8 @@ LABEL_59:
     v70 = v44;
     mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v70[1];
-    v47 = *(v70 + 4);
+    v46 = *(v70 + 8);
+    v47 = *(v70 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -3906,8 +3906,8 @@ LABEL_74:
     v57 = *a2;
     {
       v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v59 = v57[1];
-      v60 = *(v57 + 4);
+      v59 = *(v57 + 8);
+      v60 = *(v57 + 16);
       if (!v60)
       {
         goto LABEL_88;
@@ -3919,8 +3919,8 @@ LABEL_74:
       v67 = v57;
       mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
       v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v59 = v67[1];
-      v60 = *(v67 + 4);
+      v59 = *(v67 + 8);
+      v60 = *(v67 + 16);
       if (!v60)
       {
         goto LABEL_88;
@@ -4155,7 +4155,7 @@ void mlir::ODIE::Compiler::CoreML::AndOp::build(uint64_t a1, uint64_t a2, uint64
   mlir::ValueRange::ValueRange(&v13, *(a2 + 16), *(a2 + 24));
   Context = mlir::Attribute::getContext(a2);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  mlir::RegionRange::RegionRange(&v12, *(a2 + 224), *(a2 + 232));
+  mlir::RegionRange::RegionRange(v12, *(a2 + 224), *(a2 + 232));
   v17 = v13;
   if (v15 != 1)
   {
@@ -4220,7 +4220,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AndOp::inferReturnTypes(uint64_t a1, uint
   return 1;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AndOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t mlir::ODIE::Compiler::CoreML::AndOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v13 = a6;
   v14 = a5;
@@ -4250,7 +4250,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AndOp::build(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AndOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::AndOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -4313,7 +4313,7 @@ void mlir::ODIE::Compiler::CoreML::AndOp::build(uint64_t a1, uint64_t a2, uint64
   v19 = 0x200000000;
   Context = mlir::Attribute::getContext(a2);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  mlir::RegionRange::RegionRange(&v17, *(a2 + 224), *(a2 + 232));
+  mlir::RegionRange::RegionRange(v17, *(a2 + 224), *(a2 + 232));
   v21[0] = a3;
   v21[1] = a4;
   if (v19 != 1)
@@ -4394,7 +4394,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AnyOp::build(uint64_t a1, uint64_t a2, ui
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AnyOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t mlir::ODIE::Compiler::CoreML::AnyOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v15 = a6;
   v16 = a5;
@@ -4426,7 +4426,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AnyOp::build(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AnyOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::AnyOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -4469,7 +4469,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AnyOp::build(uint64_t a1, uint64_t a2, u
 
 BOOL mlir::ODIE::Compiler::CoreML::AnyOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps2(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u))
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps2(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u))
   {
     return 0;
   }
@@ -4515,7 +4515,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AvgPool2dOp::build(uint64_t a1, uint64_t 
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AvgPool2dOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::ODIE::Compiler::CoreML::AvgPool2dOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v23 = a6;
   v24 = a5;
@@ -4555,7 +4555,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AvgPool2dOp::build(uint64_t a1, uint64_t
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AvgPool2dOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::AvgPool2dOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -4599,14 +4599,14 @@ unint64_t mlir::ODIE::Compiler::CoreML::AvgPool2dOp::build(uint64_t a1, uint64_t
 BOOL mlir::ODIE::Compiler::CoreML::AvgPool2dOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v26 = *MEMORY[0x277D85DE8];
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps5(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) & 1) == 0 || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(*this, (*(*(*(*this + 9) + 184) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 5u) || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps6(*this, (*(*(*(*this + 9) + 216) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 6u) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps5(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps4(*this, (*(*(*(*this + 9) + 184) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 5u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps6(*this, (*(*(*(*this + 9) + 216) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 6u))
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps5(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps5(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
   {
     return 0;
   }
@@ -4619,7 +4619,7 @@ BOOL mlir::ODIE::Compiler::CoreML::AvgPool2dOp::verifyInvariantsImpl(mlir::Opera
 
   v15 = "failed to verify that Result 0 element type must match element type of operand 0.";
   v16 = 259;
-  mlir::OpState::emitOpError(this, &v15, v17);
+  mlir::OpState::emitOpError(v17, this, &v15);
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v17);
   v6 = result;
   if (v17[0])
@@ -4694,11 +4694,11 @@ BOOL mlir::ODIE::Compiler::CoreML::AvgPool2dOp::verifyInvariantsImpl(mlir::Opera
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps5(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps5(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v93 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (*(*a2 + 17) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
+  if (*(*a2 + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
     goto LABEL_2;
   }
@@ -4706,8 +4706,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOp
   v29 = a1;
   {
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v9[1];
-    v32 = *(v9 + 4);
+    v31 = *(v9 + 8);
+    v32 = *(v9 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -4719,8 +4719,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOp
     v40 = v9;
     mlir::ODIE::Compiler::CoreML::CastOp::inferReturnTypeComponents();
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v40[1];
-    v32 = *(v40 + 4);
+    v31 = *(v40 + 8);
+    v32 = *(v40 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -4777,8 +4777,8 @@ LABEL_59:
   v44 = *a2;
   {
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v44[1];
-    v47 = *(v44 + 4);
+    v46 = *(v44 + 8);
+    v47 = *(v44 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -4790,8 +4790,8 @@ LABEL_59:
     v70 = v44;
     mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v70[1];
-    v47 = *(v70 + 4);
+    v46 = *(v70 + 8);
+    v47 = *(v70 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -4845,8 +4845,8 @@ LABEL_74:
     v57 = *a2;
     {
       v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v59 = v57[1];
-      v60 = *(v57 + 4);
+      v59 = *(v57 + 8);
+      v60 = *(v57 + 16);
       if (!v60)
       {
         goto LABEL_87;
@@ -4858,8 +4858,8 @@ LABEL_74:
       v67 = v57;
       mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
       v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v59 = v67[1];
-      v60 = *(v67 + 4);
+      v59 = *(v67 + 8);
+      v60 = *(v67 + 16);
       if (!v60)
       {
         goto LABEL_87;
@@ -5088,11 +5088,11 @@ LABEL_2:
   return v20;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps6(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps6(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v89 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (*(*a2 + 17) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
+  if (*(*a2 + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
     goto LABEL_2;
   }
@@ -5100,8 +5100,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOp
   v29 = a1;
   {
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v9[1];
-    v32 = *(v9 + 4);
+    v31 = *(v9 + 8);
+    v32 = *(v9 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -5113,8 +5113,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOp
     v40 = v9;
     mlir::ODIE::Compiler::CoreML::CastOp::inferReturnTypeComponents();
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v40[1];
-    v32 = *(v40 + 4);
+    v31 = *(v40 + 8);
+    v32 = *(v40 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -5171,8 +5171,8 @@ LABEL_59:
   v44 = *a2;
   {
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v44[1];
-    v47 = *(v44 + 4);
+    v46 = *(v44 + 8);
+    v47 = *(v44 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -5184,8 +5184,8 @@ LABEL_59:
     v70 = v44;
     mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v70[1];
-    v47 = *(v70 + 4);
+    v46 = *(v70 + 8);
+    v47 = *(v70 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -5242,8 +5242,8 @@ LABEL_74:
   v57 = *a2;
   {
     v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v59 = v57[1];
-    v60 = *(v57 + 4);
+    v59 = *(v57 + 8);
+    v60 = *(v57 + 16);
     if (!v60)
     {
       goto LABEL_88;
@@ -5255,8 +5255,8 @@ LABEL_74:
     v67 = v57;
     mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
     v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v59 = v67[1];
-    v60 = *(v67 + 4);
+    v59 = *(v67 + 8);
+    v60 = *(v67 + 16);
     if (!v60)
     {
       goto LABEL_88;
@@ -5495,42 +5495,42 @@ uint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2, 
 
 void mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v14 = a3;
-  mlir::OperationState::addOperands(a2, &v14, 1uLL);
-  __src = v19;
-  v18 = 0x200000000;
+  v20[2] = *MEMORY[0x277D85DE8];
+  v15 = a3;
+  mlir::OperationState::addOperands(a2, &v15, 1uLL);
+  __src = v20;
+  v19 = 0x200000000;
   v4 = *a2;
-  mlir::ValueRange::ValueRange(v16, *(a2 + 16), *(a2 + 24));
+  mlir::ValueRange::ValueRange(v17, *(a2 + 16), *(a2 + 24));
   Context = mlir::Attribute::getContext(a2);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  v6 = mlir::RegionRange::RegionRange(&v15, *(a2 + 224), *(a2 + 232));
-  if ((mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(v6, v4, 1, v16[0], v16[1], v7, v8, v9, v12, v13, &__src) & 1) == 0)
+  v6 = mlir::RegionRange::RegionRange(v16, *(a2 + 224), *(a2 + 232));
+  if (!mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(v6, v4, 1, v17[0], v17[1], v7, v8, v9, v13, v14, &__src))
   {
-    llvm::report_fatal_error("Failed to infer result type(s).", 1);
+    llvm::report_fatal_error("Failed to infer result type(s).", 1, v10);
   }
 
-  v10 = v18;
-  v11 = *(a2 + 72);
-  if (v11 + v18 > *(a2 + 76))
+  v11 = v19;
+  v12 = *(a2 + 72);
+  if (v12 + v19 > *(a2 + 76))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  if (v18)
+  if (v19)
   {
-    memcpy((*(a2 + 64) + 8 * v11), __src, 8 * v18);
-    LODWORD(v11) = *(a2 + 72);
+    memcpy((*(a2 + 64) + 8 * v12), __src, 8 * v19);
+    LODWORD(v12) = *(a2 + 72);
   }
 
-  *(a2 + 72) = v11 + v10;
-  if (__src != v19)
+  *(a2 + 72) = v12 + v11;
+  if (__src != v20)
   {
     free(__src);
   }
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v12 = a5;
   result = mlir::OperationState::addOperands(a2, &v12, 1uLL);
@@ -5558,7 +5558,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2,
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -5601,7 +5601,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2,
 
 void mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, const void *a5, uint64_t a6)
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   mlir::OperationState::addOperands(a2, a3, a4);
   *(a2 + 192) = 0;
   v11 = *(a2 + 120);
@@ -5617,32 +5617,32 @@ void mlir::ODIE::Compiler::CoreML::AwaitOp::build(uint64_t a1, uint64_t a2, uint
   }
 
   *(a2 + 120) = v11 + a6;
-  __src = v25;
-  v24 = 0x200000000;
+  __src = v26;
+  v25 = 0x200000000;
   v12 = *a2;
   Context = mlir::Attribute::getContext(a2);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  v14 = mlir::RegionRange::RegionRange(&v22, *(a2 + 224), *(a2 + 232));
-  if ((mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(v14, v12, 1, a3, a4, v15, v16, v17, v20, v21, &__src) & 1) == 0)
+  v14 = mlir::RegionRange::RegionRange(v23, *(a2 + 224), *(a2 + 232));
+  if (!mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(v14, v12, 1, a3, a4, v15, v16, v17, v21, v22, &__src))
   {
-    llvm::report_fatal_error("Failed to infer result type(s).", 1);
+    llvm::report_fatal_error("Failed to infer result type(s).", 1, v18);
   }
 
-  v18 = v24;
-  v19 = *(a2 + 72);
-  if (v19 + v24 > *(a2 + 76))
+  v19 = v25;
+  v20 = *(a2 + 72);
+  if (v20 + v25 > *(a2 + 76))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  if (v24)
+  if (v25)
   {
-    memcpy((*(a2 + 64) + 8 * v19), __src, 8 * v24);
-    LODWORD(v19) = *(a2 + 72);
+    memcpy((*(a2 + 64) + 8 * v20), __src, 8 * v25);
+    LODWORD(v20) = *(a2 + 72);
   }
 
-  *(a2 + 72) = v19 + v18;
-  if (__src != v25)
+  *(a2 + 72) = v20 + v19;
+  if (__src != v26)
   {
     free(__src);
   }
@@ -5855,7 +5855,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::parse(mlir::ODIE::Compiler::Core
 
   v17 = v23;
   (*(*this + 40))(this);
-  if (((*(*this + 488))(this, a2 + 112) & 1) == 0 || (mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v18, v16, v5, a2 + 16) & 1) == 0)
+  if (((*(*this + 488))(this, a2 + 112) & 1) == 0 || !mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v18, v16, v5, a2 + 16))
   {
     return 0;
   }
@@ -5867,7 +5867,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::AwaitOp::parse(mlir::ODIE::Compiler::Core
   mlir::ValueRange::ValueRange(v22, *(a2 + 2), *(a2 + 6));
   Context = mlir::AsmParser::getContext(this);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  v8 = mlir::RegionRange::RegionRange(&v21, *(a2 + 28), *(a2 + 58));
+  v8 = mlir::RegionRange::RegionRange(v21, *(a2 + 28), *(a2 + 58));
   if (mlir::ODIE::Compiler::CoreML::AwaitOp::inferReturnTypes(v8, v6, 1, v22[0], v22[1], v9, v10, v11, v14, v15, &v23))
   {
     mlir::OperationState::addTypes(a2, v23, v24);
@@ -6101,7 +6101,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::BatchMatmulOp::build(uint64_t a1, uint64_
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BatchMatmulOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t mlir::ODIE::Compiler::CoreML::BatchMatmulOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v13 = a6;
   v14 = a5;
@@ -6131,7 +6131,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::BatchMatmulOp::build(uint64_t a1, uint64
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BatchMatmulOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::BatchMatmulOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -6175,14 +6175,14 @@ unint64_t mlir::ODIE::Compiler::CoreML::BatchMatmulOp::build(uint64_t a1, uint64
 BOOL mlir::ODIE::Compiler::CoreML::BatchMatmulOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v54 = *MEMORY[0x277D85DE8];
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps9(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps9(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps9(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps9(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps9(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps9(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
   {
     return 0;
   }
@@ -6193,7 +6193,7 @@ BOOL mlir::ODIE::Compiler::CoreML::BatchMatmulOp::verifyInvariantsImpl(mlir::Ope
 LABEL_13:
     v40[0] = "failed to verify that number of dims >=2 and last dim of operand 0 equals second last dim of operand 1";
     v41 = 259;
-    mlir::OpState::emitOpError(this, v40, &v44);
+    mlir::OpState::emitOpError(&v44, this, v40);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v44);
     v17 = result;
     if (v44)
@@ -6343,7 +6343,7 @@ LABEL_61:
     {
       v40[0] = "failed to verify that Result 0 element type must match element type of operand 1.";
       v41 = 259;
-      mlir::OpState::emitOpError(this, v40, &v44);
+      mlir::OpState::emitOpError(&v44, this, v40);
       result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v44);
       if (v44)
       {
@@ -6365,7 +6365,7 @@ LABEL_61:
   {
     v40[0] = "failed to verify that Result 0 element type must match element type of operand 0.";
     v41 = 259;
-    mlir::OpState::emitOpError(this, v40, &v44);
+    mlir::OpState::emitOpError(&v44, this, v40);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v44);
     v17 = result;
     if (v44)
@@ -6435,7 +6435,7 @@ LABEL_61:
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps9(mlir::Operation *a1, void *a2, void **a3, void **a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps9(mlir::Operation *a1, void *a2, const char *a3, const char *a4, unsigned int a5)
 {
   v61 = *MEMORY[0x277D85DE8];
   v10 = *(*a2 + 136);
@@ -6561,7 +6561,7 @@ LABEL_21:
     return 1;
   }
 
-  if (*(*v43[0] + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+  if (*(*v43[0] + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
   {
     v47 = v43[0];
     *&v48 = mlir::ComplexType::getElementType(&v47);
@@ -6570,7 +6570,7 @@ LABEL_21:
       return 1;
     }
 
-    if (*(*v43[0] + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+    if (*(*v43[0] + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
     {
       v45 = v43[0];
       ElementType = mlir::ComplexType::getElementType(&v45);
@@ -6818,7 +6818,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::BatchNormOp::build(uint64_t a1, uint64_t 
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BatchNormOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t mlir::ODIE::Compiler::CoreML::BatchNormOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v21 = a6;
   v22 = a5;
@@ -6856,7 +6856,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::BatchNormOp::build(uint64_t a1, uint64_t
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BatchNormOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::BatchNormOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -6900,7 +6900,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::BatchNormOp::build(uint64_t a1, uint64_t
 BOOL mlir::ODIE::Compiler::CoreML::BatchNormOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v111 = *MEMORY[0x277D85DE8];
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps10(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps10(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(*this, (*(*(*(*this + 9) + 120) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 3u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(*this, (*(*(*(*this + 9) + 152) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 4u))
   {
     return 0;
   }
@@ -6908,15 +6908,15 @@ BOOL mlir::ODIE::Compiler::CoreML::BatchNormOp::verifyInvariantsImpl(mlir::Opera
   v2 = *this;
   v3 = (*(*(*(*this + 9) + 184) + 8) & 0xFFFFFFFFFFFFFFF8);
   v4 = *v3;
-  if (*(*v3 + 17) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
+  if (*(*v3 + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
     goto LABEL_37;
   }
 
   {
     v5 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v6 = v4[1];
-    v7 = *(v4 + 4);
+    v6 = *(v4 + 8);
+    v7 = *(v4 + 16);
     if (v7)
     {
       goto LABEL_9;
@@ -6931,8 +6931,8 @@ LABEL_16:
   v14 = v4;
   mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
   v5 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-  v6 = v14[1];
-  v7 = *(v14 + 4);
+  v6 = *(v14 + 8);
+  v7 = *(v14 + 16);
   if (!v7)
   {
     goto LABEL_16;
@@ -6978,8 +6978,8 @@ LABEL_17:
     v16 = *v3;
     {
       v17 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v18 = v16[1];
-      v19 = *(v16 + 4);
+      v18 = *(v16 + 8);
+      v19 = *(v16 + 16);
       if (v19)
       {
         goto LABEL_24;
@@ -6991,8 +6991,8 @@ LABEL_17:
       v93 = v16;
       mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
       v17 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v18 = v93[1];
-      v19 = *(v93 + 4);
+      v18 = *(v93 + 8);
+      v19 = *(v93 + 16);
       if (v19)
       {
 LABEL_24:
@@ -7039,8 +7039,8 @@ LABEL_32:
         v69 = *v3;
         {
           v70 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v71 = v69[1];
-          v72 = *(v69 + 4);
+          v71 = *(v69 + 8);
+          v72 = *(v69 + 16);
           if (v72)
           {
             goto LABEL_104;
@@ -7052,8 +7052,8 @@ LABEL_32:
           v91 = v69;
           mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
           v70 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-          v71 = v91[1];
-          v72 = *(v91 + 4);
+          v71 = *(v91 + 8);
+          v72 = *(v91 + 16);
           if (v72)
           {
 LABEL_104:
@@ -7281,7 +7281,7 @@ LABEL_67:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v47, 0);
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps10(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps10(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
   {
     return 0;
   }
@@ -7291,7 +7291,7 @@ LABEL_67:
   {
     v94 = "failed to verify that Operands should have same element type.";
     v96 = 259;
-    mlir::OpState::emitOpError(this, &v94, &v100);
+    mlir::OpState::emitOpError(&v100, this, &v94);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v100);
     v60 = result;
     if (v100)
@@ -7386,7 +7386,7 @@ LABEL_113:
 LABEL_132:
         v94 = v89;
         v96 = 259;
-        mlir::OpState::emitOpError(this, &v94, &v100);
+        mlir::OpState::emitOpError(&v100, this, &v94);
         v90 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v100);
         if (v100)
         {
@@ -7419,7 +7419,7 @@ LABEL_132:
 
   v94 = "failed to verify that Operands should have same shape.";
   v96 = 259;
-  mlir::OpState::emitOpError(this, &v94, &v100);
+  mlir::OpState::emitOpError(&v100, this, &v94);
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v100);
   if (v100)
   {
@@ -7493,7 +7493,7 @@ LABEL_132:
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps10(mlir::Operation *a1, void *a2, void **a3, void **a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps10(mlir::Operation *a1, void *a2, const char *a3, const char *a4, unsigned int a5)
 {
   v61 = *MEMORY[0x277D85DE8];
   v10 = *(*a2 + 136);
@@ -7569,7 +7569,7 @@ LABEL_21:
     return 1;
   }
 
-  if (*(*v43[0] + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+  if (*(*v43[0] + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
   {
     v47 = v43[0];
     *&v48 = mlir::ComplexType::getElementType(&v47);
@@ -7578,7 +7578,7 @@ LABEL_21:
       return 1;
     }
 
-    if (*(*v43[0] + 17) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
+    if (*(*v43[0] + 136) == &mlir::detail::TypeIDResolver<mlir::ComplexType,void>::id)
     {
       v45 = v43[0];
       ElementType = mlir::ComplexType::getElementType(&v45);
@@ -7744,11 +7744,11 @@ LABEL_25:
   return v23;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps11(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v93 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (*(*a2 + 17) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
+  if (*(*a2 + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
     goto LABEL_2;
   }
@@ -7756,8 +7756,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOp
   v29 = a1;
   {
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v9[1];
-    v32 = *(v9 + 4);
+    v31 = *(v9 + 8);
+    v32 = *(v9 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -7769,8 +7769,8 @@ uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOp
     v40 = v9;
     mlir::ODIE::Compiler::CoreML::CastOp::inferReturnTypeComponents();
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v40[1];
-    v32 = *(v40 + 4);
+    v31 = *(v40 + 8);
+    v32 = *(v40 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -7827,8 +7827,8 @@ LABEL_59:
   v44 = *a2;
   {
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v44[1];
-    v47 = *(v44 + 4);
+    v46 = *(v44 + 8);
+    v47 = *(v44 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -7840,8 +7840,8 @@ LABEL_59:
     v70 = v44;
     mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
     v45 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v46 = v70[1];
-    v47 = *(v70 + 4);
+    v46 = *(v70 + 8);
+    v47 = *(v70 + 16);
     if (!v47)
     {
       goto LABEL_71;
@@ -7895,8 +7895,8 @@ LABEL_74:
     v57 = *a2;
     {
       v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v59 = v57[1];
-      v60 = *(v57 + 4);
+      v59 = *(v57 + 8);
+      v60 = *(v57 + 16);
       if (!v60)
       {
         goto LABEL_88;
@@ -7908,8 +7908,8 @@ LABEL_74:
       v67 = v57;
       mlir::ODIE::Compiler::CoreML::EqualOp::inferReturnTypes();
       v58 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v59 = v67[1];
-      v60 = *(v67 + 4);
+      v59 = *(v67 + 8);
+      v60 = *(v67 + 16);
       if (!v60)
       {
         goto LABEL_88;
@@ -8224,7 +8224,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::build(uint64_t a1, uin
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v15 = a6;
   v16 = a5;
@@ -8256,7 +8256,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::build(uint64_t a1, ui
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -8300,14 +8300,14 @@ unint64_t mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::build(uint64_t a1, ui
 BOOL mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v39 = *MEMORY[0x277D85DE8];
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 88) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 2u))
   {
     return 0;
   }
 
   v2 = *(*this + 9) ? *this - 16 : 0;
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0))
   {
     return 0;
   }
@@ -8331,7 +8331,7 @@ BOOL mlir::ODIE::Compiler::CoreML::BroadcastInDimsOp::verifyInvariantsImpl(mlir:
 
     v28[0] = "failed to verify that Result 0 and operand 0 must have the same rank.";
     v29 = 259;
-    mlir::OpState::emitOpError(this, v28, v30);
+    mlir::OpState::emitOpError(v30, this, v28);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v30);
     v11 = result;
     if (v30[0])
@@ -8415,7 +8415,7 @@ LABEL_45:
   {
     v28[0] = "failed to verify that Result 0 element type must match element type of operand 0.";
     v29 = 259;
-    mlir::OpState::emitOpError(this, v28, v30);
+    mlir::OpState::emitOpError(v30, this, v28);
     result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v30);
     v11 = result;
     if (v30[0])
@@ -8502,7 +8502,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::build(uint64_t a1, uin
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v13 = a6;
   v14 = a5;
@@ -8532,7 +8532,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::build(uint64_t a1, ui
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -8573,9 +8573,9 @@ unint64_t mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::build(uint64_t a1, ui
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
@@ -8591,7 +8591,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::BroadcastShapesOp::verifyInvariantsImpl(m
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  return mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
 uint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -8611,7 +8611,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::build(uint64_t a1, uint64_
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v13 = a6;
   v14 = a5;
@@ -8641,7 +8641,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::build(uint64_t a1, uint64
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::BroadcastToOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -8682,9 +8682,9 @@ unint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::build(uint64_t a1, uint64
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::ODIE::Compiler::CoreML::BroadcastToOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if ((mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
+  if (!mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps3(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
@@ -8700,7 +8700,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::BroadcastToOp::verifyInvariantsImpl(mlir:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  return mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::ODIE::Compiler::CoreML::__mlir_ods_local_type_constraint_CoreMLOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
 uint64_t mlir::ODIE::Compiler::CoreML::detail::CallOpGenericAdaptorBase::CallOpGenericAdaptorBase(uint64_t a1, uint64_t a2)
@@ -8799,7 +8799,7 @@ void *mlir::ODIE::Compiler::CoreML::detail::CallOpGenericAdaptorBase::getCalleeA
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::CallOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::ODIE::Compiler::CoreML::CallOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -8878,7 +8878,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::CallOpAdaptor::verify(uint64_t a1, uint64
   return v2;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::CallOp::setPropertiesFromAttr(void *a1, uint64_t a2, void (*a3)(void *__return_ptr, uint64_t), uint64_t a4)
+uint64_t mlir::ODIE::Compiler::CoreML::CallOp::setPropertiesFromAttr(uint64_t *a1, uint64_t a2, void (*a3)(void *__return_ptr, uint64_t), uint64_t a4)
 {
   v47 = *MEMORY[0x277D85DE8];
   if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id)
@@ -9179,7 +9179,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::CallOp::getInherentAttr(uint64_t a1, voi
   }
 }
 
-void *mlir::ODIE::Compiler::CoreML::CallOp::setInherentAttr(void *result, uint64_t a2, uint64_t a3, void *a4)
+uint64_t *mlir::ODIE::Compiler::CoreML::CallOp::setInherentAttr(uint64_t *result, uint64_t a2, uint64_t a3, void *a4)
 {
   if (a3 == 6 && *a2 == 1819042147 && *(a2 + 4) == 25957)
   {
@@ -9212,7 +9212,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::CallOp::populateInherentAttrs(uint64_t a1
   return result;
 }
 
-uint64_t mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps1(uint64_t *a1, uint64_t a2, uint64_t a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
+BOOL mlir::ODIE::Compiler::CoreML::__mlir_ods_local_attr_constraint_CoreMLOps1(uint64_t *a1, uint64_t a2, const char *a3, void (*a4)(void *__return_ptr, void), uint64_t a5)
 {
   v48 = *MEMORY[0x277D85DE8];
   if (!a1)
@@ -9393,9 +9393,9 @@ LABEL_14:
   return v22;
 }
 
-BOOL mlir::ODIE::Compiler::CoreML::CallOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::ODIE::Compiler::CoreML::CallOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
@@ -9404,7 +9404,7 @@ BOOL mlir::ODIE::Compiler::CoreML::CallOp::readProperties(uint64_t a1, uint64_t 
   return mlir::DialectBytecodeReader::readAttribute<mlir::TypedAttr>(a1, v2);
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::CallOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
+uint64_t mlir::ODIE::Compiler::CoreML::CallOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
 {
   mlir::OperationState::addOperands(a2, a6, a7);
   v11 = mlir::ODIE::Compiler::CoreML::ParamConstantAttr::get(a3);
@@ -9445,7 +9445,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::CallOp::build(uint64_t a1, uint64_t a2, 
   return mlir::ODIE::Compiler::CoreML::CallOp::build(v12, a2, v12, a4, a5, a6, a7);
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::CallOp::build(mlir::StringAttr **a1, uint64_t a2, const llvm::Twine *a3, size_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+uint64_t mlir::ODIE::Compiler::CoreML::CallOp::build(mlir::StringAttr **a1, uint64_t a2, const llvm::Twine *a3, size_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   v13 = *a1;
   v18 = 261;
@@ -9456,7 +9456,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::CallOp::build(mlir::StringAttr **a1, uin
   return mlir::ODIE::Compiler::CoreML::CallOp::build(v15, a2, v15, a5, a6, a7, a8);
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::CallOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::CallOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a7, a8);
   v14 = *(a2 + 256);
@@ -9553,7 +9553,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::CallOp::build(uint64_t a1, uint64_t a2, u
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -9601,7 +9601,7 @@ BOOL mlir::ODIE::Compiler::CoreML::CallOp::verifyInvariantsImpl(mlir::Operation 
   {
     v16 = "requires attribute 'callee'";
     v17 = 259;
-    mlir::OpState::emitOpError(this, &v16, v18);
+    mlir::OpState::emitOpError(v18, this, &v16);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v18);
     if (v18[0])
     {
@@ -9686,7 +9686,7 @@ uint64_t mlir::ODIE::Compiler::CoreML::CastOp::build(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::CastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::ODIE::Compiler::CoreML::CastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v12 = a5;
   result = mlir::OperationState::addOperands(a2, &v12, 1uLL);
@@ -9714,7 +9714,7 @@ unint64_t mlir::ODIE::Compiler::CoreML::CastOp::build(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-unint64_t mlir::ODIE::Compiler::CoreML::CastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::ODIE::Compiler::CoreML::CastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;

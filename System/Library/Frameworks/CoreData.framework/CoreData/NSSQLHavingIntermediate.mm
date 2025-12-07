@@ -30,7 +30,7 @@
 
       else
       {
-        [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unknown predicate type for having predicate: %@", predicate), 0), @"NSUnderlyingException"}];
+        [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], predicate), 0), @"NSUnderlyingException"}];
       }
 
       return 0;
@@ -54,7 +54,7 @@
 {
   if ([(NSSQLIntermediate *)self isUpdateScoped])
   {
-    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unsupported clause (having not allowed in updates)", 0), @"NSUnderlyingException"}];
+    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]), 0), @"NSUnderlyingException"}];
     return 0;
   }
 

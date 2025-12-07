@@ -52,15 +52,15 @@
 
 - (void)_activateWithCompletion:(id)completion
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = self->_messenger;
-  if (!v5)
+  v11 = self->_messenger;
+  if (!v11)
   {
-    v10 = RPErrorF();
+    v16 = RPErrorF(4294960591, "No messenger provided", v5, v6, v7, v8, v9, v10, v17);
     if (gLogCategory_RPHIDTouchSession <= 90 && (gLogCategory_RPHIDTouchSession != -1 || _LogCategory_Initialize()))
     {
-      [RPHIDTouchSession _activateWithCompletion:];
+      [RPHIDTouchSession _activateWithCompletion:v16];
       if (!completionCopy)
       {
         goto LABEL_11;
@@ -74,7 +74,7 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    completionCopy[2](completionCopy, v10);
+    completionCopy[2](completionCopy, v16);
     goto LABEL_11;
   }
 
@@ -83,39 +83,38 @@ LABEL_11:
     [RPHIDTouchSession _activateWithCompletion:?];
   }
 
-  v14[0] = @"_tFl";
-  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_flags];
-  v15[0] = v6;
-  v14[1] = @"_height";
-  v7 = [MEMORY[0x1E696AD98] numberWithDouble:self->_screenSize.height];
-  v15[1] = v7;
-  v14[2] = @"_width";
-  v8 = [MEMORY[0x1E696AD98] numberWithDouble:self->_screenSize.width];
-  v15[2] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v20[0] = @"_tFl";
+  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_flags];
+  v21[0] = v12;
+  v20[1] = @"_height";
+  v13 = [MEMORY[0x1E696AD98] numberWithDouble:self->_screenSize.height];
+  v21[1] = v13;
+  v20[2] = @"_width";
+  v14 = [MEMORY[0x1E696AD98] numberWithDouble:self->_screenSize.width];
+  v21[2] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __45__RPHIDTouchSession__activateWithCompletion___block_invoke;
-  v12[3] = &unk_1E7C94750;
-  v12[4] = self;
-  v13 = completionCopy;
-  [(RPMessageable *)v5 sendRequestID:@"_touchStart" request:v9 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v12];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __45__RPHIDTouchSession__activateWithCompletion___block_invoke;
+  v18[3] = &unk_1E7C94750;
+  v18[4] = self;
+  v19 = completionCopy;
+  [(RPMessageable *)v11 sendRequestID:@"_touchStart" request:v15 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v18];
 
 LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __45__RPHIDTouchSession__activateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v14 = a2;
+  v21 = a2;
   v7 = a3;
   v8 = a4;
   if (v8)
   {
     if (gLogCategory_RPHIDTouchSession <= 90 && (gLogCategory_RPHIDTouchSession != -1 || _LogCategory_Initialize()))
     {
-      __45__RPHIDTouchSession__activateWithCompletion___block_invoke_cold_1();
+      __45__RPHIDTouchSession__activateWithCompletion___block_invoke_cold_1(v8);
     }
 
     v9 = *(a1 + 40);
@@ -127,34 +126,34 @@ void __45__RPHIDTouchSession__activateWithCompletion___block_invoke(uint64_t a1,
 
   else
   {
-    v10 = NSDictionaryGetNSNumber();
-    if (v10)
+    v16 = NSDictionaryGetNSNumber();
+    if (v16)
     {
-      objc_storeStrong((*(a1 + 32) + 16), v10);
+      objc_storeStrong((*(a1 + 32) + 16), v16);
       if (gLogCategory_RPHIDTouchSession <= 30 && (gLogCategory_RPHIDTouchSession != -1 || _LogCategory_Initialize()))
       {
-        __45__RPHIDTouchSession__activateWithCompletion___block_invoke_cold_2();
+        __45__RPHIDTouchSession__activateWithCompletion___block_invoke_cold_2(v16);
       }
 
-      v11 = *(a1 + 40);
-      if (v11)
+      v17 = *(a1 + 40);
+      if (v17)
       {
-        (*(v11 + 16))(v11, 0);
+        (*(v17 + 16))(v17, 0);
       }
     }
 
     else
     {
-      v12 = RPErrorF();
+      v18 = RPErrorF(4294960534, "No touch device ID", v10, v11, v12, v13, v14, v15, v20);
       if (gLogCategory_RPHIDTouchSession <= 90 && (gLogCategory_RPHIDTouchSession != -1 || _LogCategory_Initialize()))
       {
-        __45__RPHIDTouchSession__activateWithCompletion___block_invoke_cold_1();
+        __45__RPHIDTouchSession__activateWithCompletion___block_invoke_cold_1(v18);
       }
 
-      v13 = *(a1 + 40);
-      if (v13)
+      v19 = *(a1 + 40);
+      if (v19)
       {
-        (*(v13 + 16))(v13, v12);
+        (*(v19 + 16))(v19, v18);
       }
     }
   }
@@ -187,66 +186,72 @@ void __45__RPHIDTouchSession__activateWithCompletion___block_invoke(uint64_t a1,
 
 - (void)_invalidateWithCompletion:(id)completion
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if (gLogCategory_RPHIDTouchSession <= 30 && (gLogCategory_RPHIDTouchSession != -1 || _LogCategory_Initialize()))
+  v7 = completionCopy;
+  if (gLogCategory_RPHIDTouchSession <= 30)
   {
-    [RPHIDTouchSession _invalidateWithCompletion:];
+    if (gLogCategory_RPHIDTouchSession != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      [(RPHIDTouchSession *)completionCopy _invalidateWithCompletion:v5, v6];
+    }
   }
 
   touchSessionID = self->_touchSessionID;
   if (touchSessionID)
   {
-    v15 = @"_i";
-    v16[0] = touchSessionID;
-    v6 = MEMORY[0x1E695DF20];
-    v7 = touchSessionID;
-    v8 = [v6 dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v17 = @"_i";
+    v18[0] = touchSessionID;
+    v9 = MEMORY[0x1E695DF20];
+    v10 = touchSessionID;
+    v11 = [v9 dictionaryWithObjects:v18 forKeys:&v17 count:1];
     messenger = self->_messenger;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke;
-    v13[3] = &unk_1E7C93780;
-    v14 = completionCopy;
-    [(RPMessageable *)messenger sendRequestID:@"_touchStop" request:v8 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v13];
-    v10 = self->_touchSessionID;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke;
+    v15[3] = &unk_1E7C93780;
+    v16 = v7;
+    [(RPMessageable *)messenger sendRequestID:@"_touchStop" request:v11 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v15];
+    v13 = self->_touchSessionID;
     self->_touchSessionID = 0;
   }
 
-  v11 = self->_messenger;
+  v14 = self->_messenger;
   self->_messenger = 0;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v10 = a2;
+  v13 = a2;
   v7 = a3;
   v8 = a4;
+  v11 = v8;
   if (v8)
   {
     if (gLogCategory_RPHIDTouchSession <= 90 && (gLogCategory_RPHIDTouchSession != -1 || _LogCategory_Initialize()))
     {
-      __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke_cold_1();
+      __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke_cold_1(v11);
     }
   }
 
-  else if (gLogCategory_RPHIDTouchSession <= 30 && (gLogCategory_RPHIDTouchSession != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_RPHIDTouchSession <= 30)
   {
-    __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke_cold_2();
+    if (gLogCategory_RPHIDTouchSession != -1 || (v8 = _LogCategory_Initialize(), v8))
+    {
+      __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke_cold_2(v8, v9, v10);
+    }
   }
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v12 = *(a1 + 32);
+  if (v12)
   {
-    (*(v9 + 16))(v9, v8);
+    (*(v12 + 16))(v12, v11);
   }
 }
 
 - (void)sendTouchEvent:(id)event completion:(id)completion
 {
-  v22[5] = *MEMORY[0x1E69E9840];
+  v21[5] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   completionCopy = completion;
   v8 = self->_messenger;
@@ -256,22 +261,22 @@ void __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke(uint64_t a
     v10 = (v9 * self->_screenSize.width);
     v12 = (v11 * self->_screenSize.height);
     [eventCopy timestampSeconds];
-    v21[0] = @"_ns";
+    v20[0] = @"_ns";
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:(v13 * 1000000000.0)];
-    v22[0] = v14;
-    v21[1] = @"_tFg";
+    v21[0] = v14;
+    v20[1] = @"_tFg";
     v15 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(eventCopy, "finger")}];
-    v22[1] = v15;
-    v21[2] = @"_tPh";
+    v21[1] = v15;
+    v20[2] = @"_tPh";
     v16 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(eventCopy, "phase")}];
-    v22[2] = v16;
-    v21[3] = @"_cx";
+    v21[2] = v16;
+    v20[3] = @"_cx";
     v17 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v10];
-    v22[3] = v17;
-    v21[4] = @"_cy";
+    v21[3] = v17;
+    v20[4] = @"_cy";
     v18 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v12];
-    v22[4] = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:5];
+    v21[4] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:5];
 
     [(RPMessageable *)v8 sendEventID:@"_hidT" event:v19 destinationID:@"rapport:rdid:DirectPeer" options:0 completion:completionCopy];
   }
@@ -280,8 +285,6 @@ void __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke(uint64_t a
   {
     [RPHIDTouchSession sendTouchEvent:completion:];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)screenSize
@@ -291,14 +294,6 @@ void __47__RPHIDTouchSession__invalidateWithCompletion___block_invoke(uint64_t a
   result.height = height;
   result.width = width;
   return result;
-}
-
-- (uint64_t)_activateWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v4 = *(a1 + 24);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  return LogPrintF();
 }
 
 @end

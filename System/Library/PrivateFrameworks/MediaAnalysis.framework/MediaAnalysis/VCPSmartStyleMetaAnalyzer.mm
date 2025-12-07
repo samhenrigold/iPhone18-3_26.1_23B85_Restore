@@ -77,7 +77,7 @@
             v28[0] = value;
             if (v8)
             {
-              [v8 time];
+              objc_msgSend_time(v8);
             }
 
             else

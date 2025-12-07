@@ -58,7 +58,7 @@ uint64_t __62__RMStatusPublisherDelegate_sharedDelegateWithPublisherClass___bloc
 
 - (void)fetchStatusForStatusKeys:(id)keys store:(id)store completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   storeCopy = store;
   handlerCopy = handler;
@@ -69,9 +69,9 @@ uint64_t __62__RMStatusPublisherDelegate_sharedDelegateWithPublisherClass___bloc
   if (os_log_type_enabled(statusPublisherDelegate, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v33 = v12;
-    v34 = 2114;
-    v35 = keysCopy;
+    v32 = v12;
+    v33 = 2114;
+    v34 = keysCopy;
     _os_log_impl(&dword_261E36000, statusPublisherDelegate, OS_LOG_TYPE_DEFAULT, "Publisher %{public}@ starting processing status keys: %{public}@", buf, 0x16u);
   }
 
@@ -84,9 +84,9 @@ uint64_t __62__RMStatusPublisherDelegate_sharedDelegateWithPublisherClass___bloc
     {
       allKeys = [v14 allKeys];
       *buf = 138543618;
-      v33 = v12;
-      v34 = 2114;
-      v35 = allKeys;
+      v32 = v12;
+      v33 = 2114;
+      v34 = allKeys;
       _os_log_impl(&dword_261E36000, statusPublisherDelegate2, OS_LOG_TYPE_DEFAULT, "Publisher %{public}@ unsupported status keys: %{public}@", buf, 0x16u);
     }
   }
@@ -96,20 +96,20 @@ uint64_t __62__RMStatusPublisherDelegate_sharedDelegateWithPublisherClass___bloc
     [(RMStatusPublisherDelegate *)self publisherClass];
     v18 = objc_opt_new();
     publisherQueue = [(RMStatusPublisherDelegate *)self publisherQueue];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __78__RMStatusPublisherDelegate_fetchStatusForStatusKeys_store_completionHandler___block_invoke;
-    v23[3] = &unk_279B05E20;
-    v24 = v18;
-    v25 = v15;
-    v26 = storeCopy;
-    v27 = v12;
-    v28 = keysCopy;
-    v29 = v14;
-    v31 = handlerCopy;
-    v30 = v11;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __78__RMStatusPublisherDelegate_fetchStatusForStatusKeys_store_completionHandler___block_invoke;
+    v22[3] = &unk_279B05E20;
+    v23 = v18;
+    v24 = v15;
+    v25 = storeCopy;
+    v26 = v12;
+    v27 = keysCopy;
+    v28 = v14;
+    v30 = handlerCopy;
+    v29 = v11;
     statusPublisherDelegate4 = v18;
-    dispatch_async(publisherQueue, v23);
+    dispatch_async(publisherQueue, v22);
   }
 
   else
@@ -118,7 +118,7 @@ uint64_t __62__RMStatusPublisherDelegate_sharedDelegateWithPublisherClass___bloc
     if (os_log_type_enabled(statusPublisherDelegate3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v33 = v12;
+      v32 = v12;
       _os_log_impl(&dword_261E36000, statusPublisherDelegate3, OS_LOG_TYPE_DEFAULT, "Publisher %{public}@ has no valid status keys to process", buf, 0xCu);
     }
 
@@ -131,8 +131,6 @@ uint64_t __62__RMStatusPublisherDelegate_sharedDelegateWithPublisherClass___bloc
       _os_log_impl(&dword_261E36000, statusPublisherDelegate4, OS_LOG_TYPE_DEFAULT, "Fetching complete.", buf, 2u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __78__RMStatusPublisherDelegate_fetchStatusForStatusKeys_store_completionHandler___block_invoke(uint64_t a1)
@@ -160,7 +158,7 @@ void __78__RMStatusPublisherDelegate_fetchStatusForStatusKeys_store_completionHa
 
 void __78__RMStatusPublisherDelegate_fetchStatusForStatusKeys_store_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D45F58];
   v6 = a3;
   v7 = a2;
@@ -169,61 +167,58 @@ void __78__RMStatusPublisherDelegate_fetchStatusForStatusKeys_store_completionHa
   {
     v9 = *(a1 + 32);
     v10 = *(a1 + 40);
-    v14 = 138543618;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v10;
-    _os_log_impl(&dword_261E36000, v8, OS_LOG_TYPE_DEFAULT, "Publisher %{public}@ finished processing status keys: %{public}@", &v14, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v10;
+    _os_log_impl(&dword_261E36000, v8, OS_LOG_TYPE_DEFAULT, "Publisher %{public}@ finished processing status keys: %{public}@", &v12, 0x16u);
   }
 
   [*(a1 + 48) addEntriesFromDictionary:v7];
-  v11 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
 
   [*(a1 + 56) unlock];
-  v12 = [MEMORY[0x277D45F58] statusPublisherDelegate];
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = [MEMORY[0x277D45F58] statusPublisherDelegate];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_261E36000, v12, OS_LOG_TYPE_DEFAULT, "Fetching complete.", &v14, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&dword_261E36000, v11, OS_LOG_TYPE_DEFAULT, "Fetching complete.", &v12, 2u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_filterSupportedStatus:(id)status store:(id)store unsupported:(id)unsupported
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   storeCopy = store;
   unsupportedCopy = unsupported;
-  v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(statusCopy, "count")}];
+  v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(statusCopy, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v10 = statusCopy;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         v16 = [MEMORY[0x277D46040] stubObjectForStatusItemType:v15];
         if (v16)
         {
           if ([storeCopy isValidStatusItem:v16])
           {
-            [v21 addObject:v15];
+            [v20 addObject:v15];
             goto LABEL_12;
           }
 
@@ -241,15 +236,13 @@ void __78__RMStatusPublisherDelegate_fetchStatusForStatusKeys_store_completionHa
 LABEL_12:
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 @end

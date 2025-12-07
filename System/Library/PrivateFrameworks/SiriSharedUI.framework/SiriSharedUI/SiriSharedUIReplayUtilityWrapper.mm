@@ -49,37 +49,38 @@
   return v2;
 }
 
-uint64_t __50__SiriSharedUIReplayUtilityWrapper_sharedInstance__block_invoke(uint64_t a1)
+uint64_t __50__SiriSharedUIReplayUtilityWrapper_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (AFIsInternalInstall())
   {
-    v2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v3 = [v2 objectForKey:@"Replay Enabled"];
-    v4 = +[_TtC12SiriSharedUI25SiriSharedUIReplayUtility shared];
-    v5 = [v4 isReplayTestEnv];
+    v3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    v4 = [v3 objectForKey:@"Replay Enabled"];
+    v5 = +[_TtC12SiriSharedUI25SiriSharedUIReplayUtility shared];
+    v6 = [v5 isReplayTestEnv];
 
-    if (v3)
+    if (v4)
     {
-      if (([v3 BOOLValue] | v5))
+      if (([v4 BOOLValue] | v6))
       {
 LABEL_4:
 
-        v6 = objc_alloc_init(*(a1 + 32));
+        v7 = objc_alloc_init(*(a1 + 32));
         goto LABEL_8;
       }
     }
 
-    else if (v5)
+    else if (v6)
     {
       goto LABEL_4;
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_8:
-  sharedInstance = v6;
+  v8 = sharedInstance;
+  sharedInstance = v7;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v8);
 }
 
 + (void)replayAll:(unint64_t)all from:(id)from completion:(id)completion

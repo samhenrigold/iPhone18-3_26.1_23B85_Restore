@@ -3,6 +3,7 @@
 - (SKUIPlayableAsset)initWithContentURL:(id)l;
 - (SKUIPlayableAsset)initWithVideo:(id)video;
 - (SKUIPlayableAsset)initWithVideoViewElement:(id)element assetViewElement:(id)viewElement;
+- (void)init;
 @end
 
 @implementation SKUIPlayableAsset
@@ -92,7 +93,7 @@
     }
 
     secureKeyDeliveryType = [viewElementCopy secureKeyDeliveryType];
-    v17->_shouldUseITunesStoreSecureKeyDelivery = [secureKeyDeliveryType isEqualToString:0x282813D68];
+    v17->_shouldUseITunesStoreSecureKeyDelivery = objc_msgSend_isEqualToString_(secureKeyDeliveryType);
 
     v17->_ITunesStream = [viewElementCopy isITunesStream];
     keyCertificateURL = [viewElementCopy keyCertificateURL];
@@ -135,6 +136,30 @@
   }
 
   return v14;
+}
+
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPlayableAsset init]";
+}
+
+- (void)initWithContentURL:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPlayableAsset initWithContentURL:]";
+}
+
+- (void)initWithVideoViewElement:(uint64_t)a3 assetViewElement:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPlayableAsset initWithVideoViewElement:assetViewElement:]";
+}
+
+- (void)initWithVideo:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPlayableAsset initWithVideo:]";
 }
 
 @end

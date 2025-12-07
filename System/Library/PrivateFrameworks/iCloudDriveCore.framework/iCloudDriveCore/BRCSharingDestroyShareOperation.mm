@@ -47,7 +47,7 @@
 
 void __39__BRCSharingDestroyShareOperation_main__block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   v3 = [*(*(a1 + 32) + 528) recordID];
   v4 = [v3 brc_shareItemID];
@@ -81,8 +81,8 @@ void __39__BRCSharingDestroyShareOperation_main__block_invoke(uint64_t a1)
     v12 = objc_alloc(MEMORY[0x277CBC4A0]);
     if (v8)
     {
-      v28[0] = v8;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+      v27[0] = v8;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
       v15 = 0;
       goto LABEL_9;
     }
@@ -98,8 +98,8 @@ void __39__BRCSharingDestroyShareOperation_main__block_invoke(uint64_t a1)
   v15 = 1;
 LABEL_9:
   v16 = [*(a1 + 32) shareID];
-  v27 = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v26 = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   v18 = [v12 initWithRecordsToSave:v14 recordIDsToDelete:v17];
 
   if ((v15 & 1) == 0)
@@ -109,29 +109,27 @@ LABEL_9:
   objc_initWeak(&location, v18);
   [v18 setAtomic:1];
   [v18 setSavePolicy:0];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __39__BRCSharingDestroyShareOperation_main__block_invoke_2;
-  v23[3] = &unk_278504E70;
-  objc_copyWeak(&v25, &location);
-  v23[4] = *(a1 + 32);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __39__BRCSharingDestroyShareOperation_main__block_invoke_2;
+  v22[3] = &unk_278504E70;
+  objc_copyWeak(&v24, &location);
+  v22[4] = *(a1 + 32);
   v19 = v6;
-  v24 = v19;
-  [v18 setModifyRecordsCompletionBlock:v23];
+  v23 = v19;
+  [v18 setModifyRecordsCompletionBlock:v22];
   v20 = [v18 callbackQueue];
   v21 = [*(a1 + 32) callbackQueue];
   dispatch_set_target_queue(v20, v21);
 
   [*(a1 + 32) addSubOperation:v18];
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __39__BRCSharingDestroyShareOperation_main__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   v9 = a3;
@@ -156,15 +154,15 @@ void __39__BRCSharingDestroyShareOperation_main__block_invoke_2(uint64_t a1, voi
     v15 = brc_default_log();
     if (os_log_type_enabled(v15, 0x90u))
     {
-      v29 = [*(a1 + 32) shareID];
+      v28 = [*(a1 + 32) shareID];
       *buf = 138413058;
-      v35 = v29;
-      v36 = 2112;
-      v37 = v8;
-      v38 = 2112;
-      v39 = WeakRetained;
-      v40 = 2112;
-      v41 = v14;
+      v34 = v28;
+      v35 = 2112;
+      v36 = v8;
+      v37 = 2112;
+      v38 = WeakRetained;
+      v39 = 2112;
+      v40 = v14;
       _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] failed to destroy share %@: %@ in %@%@", buf, 0x2Au);
     }
 
@@ -180,13 +178,13 @@ void __39__BRCSharingDestroyShareOperation_main__block_invoke_2(uint64_t a1, voi
     v20 = brc_default_log();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v30 = [*(a1 + 32) shareID];
+      v29 = [*(a1 + 32) shareID];
       *buf = 138412802;
-      v35 = v30;
-      v36 = 2112;
-      v37 = WeakRetained;
-      v38 = 2112;
-      v39 = v19;
+      v34 = v29;
+      v35 = 2112;
+      v36 = WeakRetained;
+      v37 = 2112;
+      v38 = v19;
       _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] destroyed share %@ in %@%@", buf, 0x20u);
     }
 
@@ -200,15 +198,15 @@ void __39__BRCSharingDestroyShareOperation_main__block_invoke_2(uint64_t a1, voi
     {
       v24 = [v23 fileObjectID];
       v25 = [v24 asString];
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __39__BRCSharingDestroyShareOperation_main__block_invoke_166;
-      v31[3] = &unk_2784FFFA8;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __39__BRCSharingDestroyShareOperation_main__block_invoke_166;
+      v30[3] = &unk_2784FFFA8;
       v26 = *(a1 + 32);
-      v32 = v24;
-      v33 = v26;
+      v31 = v24;
+      v32 = v26;
       v27 = v24;
-      [BRCImportUtil forceIngestionForItemID:v25 completionHandler:v31];
+      [BRCImportUtil forceIngestionForItemID:v25 completionHandler:v30];
     }
 
     else
@@ -216,30 +214,27 @@ void __39__BRCSharingDestroyShareOperation_main__block_invoke_2(uint64_t a1, voi
       [*(a1 + 32) completedWithResult:MEMORY[0x277CBEC38] error:0];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __39__BRCSharingDestroyShareOperation_main__block_invoke_166(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412802;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Done forceIngestionForItemID %@ with error - %@%@", &v8, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = 138412802;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Done forceIngestionForItemID %@ with error - %@%@", &v7, 0x20u);
   }
 
   [*(a1 + 40) completedWithResult:MEMORY[0x277CBEC38] error:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

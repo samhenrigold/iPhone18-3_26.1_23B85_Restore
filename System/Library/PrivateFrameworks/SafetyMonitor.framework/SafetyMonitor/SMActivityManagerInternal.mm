@@ -27,15 +27,14 @@
   v2 = (&self->super.isa + OBJC_IVAR___SMActivityManagerInternal_silentAudioFileName);
   *v2 = 0xD000000000000010;
   v2[1] = 0x80000002645DAB70;
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for SMActivityManager();
-  v3 = [(SMActivityManagerInternal *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for SMActivityManager();
+  v3 = [(SMActivityManagerInternal *)&v8 init];
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FF72788, &qword_2645D9528);
   v4 = v3;
   v5 = sub_2645D361C();
   v6 = OBJC_IVAR___SMActivityManagerInternal_activities;
   swift_beginAccess();
-  v7 = *(&v4->super.isa + v6);
   *(&v4->super.isa + v6) = v5;
 
   return v4;
@@ -71,26 +70,20 @@
   v4 = sub_2645D361C();
   v5 = OBJC_IVAR___SMActivityManagerInternal_activities;
   swift_beginAccess();
-  v6 = *(&selfCopy->super.isa + v5);
   *(&selfCopy->super.isa + v5) = v4;
 
-  v7 = *(&selfCopy->super.isa + v5);
-  if (v7 >> 62)
+  v6 = *(&selfCopy->super.isa + v5);
+  if (v6 >> 62)
   {
-    if (v7 < 0)
-    {
-      v10 = *(&selfCopy->super.isa + v5);
-    }
-
-    v8 = sub_2645D3BCC();
+    v7 = sub_2645D3BCC();
   }
 
   else
   {
-    v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v7 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 @end

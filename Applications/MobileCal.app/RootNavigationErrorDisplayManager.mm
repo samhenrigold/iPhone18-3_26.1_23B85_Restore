@@ -33,7 +33,7 @@
 
 - (void)updateContentWith:(id)with
 {
-  sub_10000376C(0, &qword_100251328);
+  sub_10000376C(0, &qword_100251328, NSNumber_ptr);
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   RootNavigationErrorDisplayManager.updateContent(with:)(v4);
@@ -53,7 +53,7 @@
   sub_100166FAC();
   sub_100011DC8(0);
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for RootNavigationErrorDisplayManager();
+  v3.super_class = type metadata accessor for RootNavigationErrorDisplayManager(0);
   [(RootNavigationErrorDisplayManager *)&v3 dealloc];
 }
 

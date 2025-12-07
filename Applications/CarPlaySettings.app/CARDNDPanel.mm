@@ -121,15 +121,16 @@
 - (BOOL)_isDrivingToggleOn
 {
   dndModeService = self->_dndModeService;
-  v18 = 0;
-  v4 = [(DNDModeConfigurationService *)dndModeService modeConfigurationForModeIdentifier:@"com.apple.donotdisturb.mode.driving" error:&v18];
-  v5 = v18;
+  v19 = 0;
+  v4 = [(DNDModeConfigurationService *)dndModeService modeConfigurationForModeIdentifier:@"com.apple.donotdisturb.mode.driving" error:&v19];
+  v5 = v19;
+  v6 = v5;
   if (v5)
   {
-    dndStatus = sub_10001C784();
+    dndStatus = sub_10001C784(v5);
     if (os_log_type_enabled(dndStatus, OS_LOG_TYPE_ERROR))
     {
-      sub_1000917E0(v5, dndStatus, v7, v8, v9, v10, v11, v12);
+      sub_1000917E0(v6, dndStatus, v8, v9, v10, v11, v12, v13);
     }
 
 LABEL_4:
@@ -137,20 +138,20 @@ LABEL_4:
     goto LABEL_9;
   }
 
-  dndStatus = sub_10001C784();
-  v14 = os_log_type_enabled(dndStatus, OS_LOG_TYPE_DEFAULT);
+  dndStatus = sub_10001C784(0);
+  v15 = os_log_type_enabled(dndStatus, OS_LOG_TYPE_DEFAULT);
   if (!v4)
   {
-    if (v14)
+    if (v15)
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, dndStatus, OS_LOG_TYPE_DEFAULT, "[Settings] No available driving focus.", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, dndStatus, OS_LOG_TYPE_DEFAULT, "[Settings] No available driving focus.", v17, 2u);
     }
 
     goto LABEL_4;
   }
 
-  if (v14)
+  if (v15)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, dndStatus, OS_LOG_TYPE_DEFAULT, "[Settings] Driving Focus is available.", buf, 2u);
@@ -166,7 +167,7 @@ LABEL_9:
 - (void)_drivingToggleChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v5 = sub_10001C784();
+  v5 = sub_10001C784(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [NSNumber numberWithBool:changedCopy];

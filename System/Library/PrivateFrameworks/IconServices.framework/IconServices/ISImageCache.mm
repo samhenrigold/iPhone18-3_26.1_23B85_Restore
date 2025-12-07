@@ -81,39 +81,39 @@
 
 - (id)debugDescription
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
-  v19.receiver = self;
-  v19.super_class = ISImageCache;
-  v4 = [(ISImageCache *)&v19 debugDescription];
+  v18.receiver = self;
+  v18.super_class = ISImageCache;
+  v4 = [(ISImageCache *)&v18 debugDescription];
   v5 = [v3 stringWithString:v4];
 
   [v5 appendString:@"\n"];
   os_unfair_lock_lock(&self->_lock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   allValues = [(NSMutableDictionary *)self->_imageBagsByDescriptor allValues];
-  v7 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) debugDescription];
+        v11 = [*(*(&v14 + 1) + 8 * i) debugDescription];
         [v5 appendFormat:@"Bag [%u]: %@", 0, v11];
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v8);
@@ -122,40 +122,38 @@
   os_unfair_lock_unlock(&self->_lock);
   v12 = [v5 copy];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)allImages
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   os_unfair_lock_lock(&self->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   allValues = [(NSMutableDictionary *)self->_imageBagsByDescriptor allValues];
-  v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        images = [*(*(&v13 + 1) + 8 * i) images];
+        images = [*(*(&v12 + 1) + 8 * i) images];
         [array addObjectsFromArray:images];
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -163,8 +161,6 @@
 
   os_unfair_lock_unlock(&self->_lock);
   v10 = [array copy];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

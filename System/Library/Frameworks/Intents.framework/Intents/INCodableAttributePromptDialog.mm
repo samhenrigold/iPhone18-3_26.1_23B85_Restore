@@ -128,12 +128,12 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = INCodableAttributePromptDialog;
-  v4 = [(INCodableAttributeDialog *)&v14 dictionaryRepresentationWithLocalizer:localizer];
+  v15[1] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = INCodableAttributePromptDialog;
+  v4 = [(INCodableAttributeDialog *)&v13 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionTypeKey = [(INCodableAttributePromptDialog *)self __INCodableDescriptionTypeKey];
-  v15 = __INCodableDescriptionTypeKey;
+  v14 = __INCodableDescriptionTypeKey;
   type = [(INCodableAttributePromptDialog *)self type];
   if (type - 1 > 5)
   {
@@ -146,13 +146,11 @@
   }
 
   v8 = v7;
-  v16[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [v4 if_dictionaryByAddingEntriesFromDictionary:v9];
 
   if_dictionaryWithNonEmptyValues = [v10 if_dictionaryWithNonEmptyValues];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

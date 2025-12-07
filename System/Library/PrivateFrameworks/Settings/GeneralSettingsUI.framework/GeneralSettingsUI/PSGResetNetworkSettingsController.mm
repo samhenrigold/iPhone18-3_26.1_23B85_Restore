@@ -7,7 +7,7 @@
 
 - (id)cancelCallbackURL
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   specifier = [(PSGResetNetworkSettingsController *)self specifier];
   v3 = [specifier propertyForKey:@"deepLinkURL"];
 
@@ -17,26 +17,26 @@
   {
     v5 = 0x277CCA000uLL;
     v6 = [MEMORY[0x277CCACE0] componentsWithURL:v3 resolvingAgainstBaseURL:0];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     queryItems = [v6 queryItems];
-    v8 = [queryItems countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v8 = [queryItems countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v27;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          v12 = *(*(&v27 + 1) + 8 * i);
+          v12 = *(*(&v26 + 1) + 8 * i);
           name = [v12 name];
           v14 = [name isEqualToString:@"onCancel"];
 
@@ -47,7 +47,7 @@
           }
         }
 
-        v9 = [queryItems countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v9 = [queryItems countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v9)
         {
           continue;
@@ -100,8 +100,6 @@ LABEL_13:
   {
     v16 = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

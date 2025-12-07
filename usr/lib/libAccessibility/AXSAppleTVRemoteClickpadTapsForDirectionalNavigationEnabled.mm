@@ -3,7 +3,7 @@
 
 @implementation AXSAppleTVRemoteClickpadTapsForDirectionalNavigationEnabled
 
-uint64_t ___AXSAppleTVRemoteClickpadTapsForDirectionalNavigationEnabled_block_invoke()
+void *___AXSAppleTVRemoteClickpadTapsForDirectionalNavigationEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

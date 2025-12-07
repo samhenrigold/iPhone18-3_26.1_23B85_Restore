@@ -70,15 +70,15 @@ void freeChunkListCacheInfo(const void **a1)
 
 uint64_t CSchunklist_for_file(char *a1, CFStringRef *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v27 = 0;
+  v30 = *MEMORY[0x277D85DE8];
+  v26 = 0;
   valuePtr = 0;
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  memset(v21, 0, sizeof(v21));
+  v23 = 0u;
+  v21 = 0u;
+  memset(v20, 0, sizeof(v20));
   cf = 0;
   v4 = open(a1, 0);
   if (v4 == -1)
@@ -103,7 +103,7 @@ uint64_t CSchunklist_for_file(char *a1, CFStringRef *a2)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v30 = v6;
+        v29 = v6;
         _os_log_impl(&dword_243431000, v15, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -139,40 +139,40 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  DWORD2(v25) = v4;
-  *&v26 = 0;
-  *(&v26 + 1) = Mutable;
-  LODWORD(v21[0]) = 2;
-  *&v22 = openFd;
-  *(&v22 + 1) = closeFd;
-  *&v23 = statFd;
-  *(&v23 + 1) = readFd;
-  *&v24 = getCacheBlobFd;
-  *(&v24 + 1) = setCacheBlobFd;
-  *&v25 = a1;
-  *(&v21[0] + 1) = 0;
-  if (!openFd(&v25, &v27, 0))
+  DWORD2(v24) = v4;
+  *&v25 = 0;
+  *(&v25 + 1) = Mutable;
+  LODWORD(v20[0]) = 2;
+  *&v21 = openFd;
+  *(&v21 + 1) = closeFd;
+  *&v22 = statFd;
+  *(&v22 + 1) = readFd;
+  *&v23 = getCacheBlobFd;
+  *(&v23 + 1) = setCacheBlobFd;
+  *&v24 = a1;
+  *(&v20[0] + 1) = 0;
+  if (!openFd(&v24, &v26, 0))
   {
     goto LABEL_25;
   }
 
-  v7 = v27;
-  *(v27 + 1) = v27;
-  *(v7 + 2) = v21;
+  v7 = v26;
+  *(v26 + 8) = v26;
+  *(v7 + 16) = v20;
   v8 = 1;
-  if (!CKChunkDigestArgumentsV1Create(&cf, 1, 0) || setOpCtxPath(v7, a1) || setOpCtxChunkScheme(v7, 1, cf) || (v19 = 0, memset(v18, 0, sizeof(v18)), !(v23)(v7, v18, 0)))
+  if (!CKChunkDigestArgumentsV1Create(&cf, 1, 0) || setOpCtxPath(v7, a1) || setOpCtxChunkScheme(v7, 1, cf) || (v18 = 0, memset(v17, 0, sizeof(v17)), !(v22)(v7, v17, 0)))
   {
     v10 = 0;
     goto LABEL_26;
   }
 
-  setOpCtxStatInfo(v7, v18);
-  valuePtr = *(v7 + 5);
+  setOpCtxStatInfo(v7, v17);
+  valuePtr = *(v7 + 40);
   v9 = valuePtr;
-  *(v7 + 2) = v21;
-  *(v7 + 16) = CSchunklist_for_file_callback;
-  *(v7 + 7) = v9;
-  v7[160] = 5;
+  *(v7 + 16) = v20;
+  *(v7 + 128) = CSchunklist_for_file_callback;
+  *(v7 + 56) = v9;
+  *(v7 + 160) = 5;
   v10 = CFNumberCreate(0, kCFNumberSInt64Type, &valuePtr);
   if (!v10)
   {
@@ -209,7 +209,7 @@ LABEL_27:
   cf = 0;
   if (v8)
   {
-    (*(&v22 + 1))(*(&v21[0] + 1), v27, 0);
+    (*(&v21 + 1))(*(&v20[0] + 1), v26, 0);
   }
 
   if (v10)
@@ -228,11 +228,10 @@ LABEL_27:
     close(v4);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-uint64_t openFd(uint64_t a1, char **a2, CFErrorRef *a3)
+uint64_t openFd(uint64_t a1, uint64_t *a2, CFErrorRef *a3)
 {
   *a2 = 0;
   if (a3)
@@ -293,29 +292,29 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  *(v8 + 9) = v6;
+  *(v8 + 36) = v6;
   tv_sec = v20.st_mtimespec.tv_sec;
-  *(v8 + 5) = v20.st_ino;
-  *(v8 + 12) = v20.st_dev;
+  *(v8 + 40) = v20.st_ino;
+  *(v8 + 48) = v20.st_dev;
   st_mode = v20.st_mode;
-  *(v8 + 16) = v20.st_mode;
-  *(v8 + 7) = v20.st_nlink;
-  *(v8 + 10) = v20.st_size;
-  *(v8 + 11) = tv_sec;
+  *(v8 + 32) = v20.st_mode;
+  *(v8 + 28) = v20.st_nlink;
+  *(v8 + 80) = v20.st_size;
+  *(v8 + 88) = tv_sec;
   *(v8 + 344) = *(a1 + 16);
   v18 = st_mode & 0xF000;
   v19 = 0;
   if (!getFileWriteGeneration(v7, v6, &v19))
   {
-    v8[34] = 1;
-    *(v8 + 6) = v19;
-    v8[178] = v18 == 40960;
-    v8[177] = v18 == 40960;
+    *(v8 + 34) = 1;
+    *(v8 + 24) = v19;
+    *(v8 + 178) = v18 == 40960;
+    *(v8 + 177) = v18 == 40960;
   }
 
   if (v18 != 40960)
   {
-    *(v8 + 15) = getMaxXattrSize(v7, v6);
+    *(v8 + 120) = getMaxXattrSize(v7, v6);
   }
 
   *a2 = v8;
@@ -367,7 +366,7 @@ uint64_t statFd(uint64_t a1, uint64_t a2, void *a3)
 uint64_t readFd(uint64_t a1, unint64_t a2, void *__buf, size_t __nbyte, unint64_t *a5, CFErrorRef *a6)
 {
   v8 = __nbyte;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (a6)
   {
     *a6 = 0;
@@ -387,12 +386,10 @@ uint64_t readFd(uint64_t a1, unint64_t a2, void *__buf, size_t __nbyte, unint64_
 LABEL_19:
       result = 0;
       *a6 = v18;
-      goto LABEL_32;
+      return result;
     }
 
-LABEL_31:
-    result = 0;
-    goto LABEL_32;
+    return 0;
   }
 
   v13 = *(a1 + 104);
@@ -423,8 +420,8 @@ LABEL_8:
       goto LABEL_26;
     }
 
-    bzero(v36, 0x400uLL);
-    if (v13 || (v13 = v36, !get_path_for_fd(v12, v36)))
+    bzero(v35, 0x400uLL);
+    if (v13 || (v13 = v35, !get_path_for_fd(v12, v35)))
     {
       v24 = malloc_type_malloc(0x400uLL, 0x100004077774924uLL);
       if (v24)
@@ -444,11 +441,11 @@ LABEL_8:
           goto LABEL_8;
         }
 
+        v29 = *__error();
         v30 = *__error();
-        v31 = *__error();
-        v32 = __error();
-        v33 = strerror(*v32);
-        v18 = CKPOSIXErrorCreateWithFormat(v30, @"readlink failed for fd:%d, path:%s: (%d) %s", v12, v13, v31, v33);
+        v31 = __error();
+        v32 = strerror(*v31);
+        v18 = CKPOSIXErrorCreateWithFormat(v29, @"readlink failed for fd:%d, path:%s: (%d) %s", v12, v13, v30, v32);
         free(v14);
       }
 
@@ -460,11 +457,11 @@ LABEL_8:
       goto LABEL_18;
     }
 
+    v26 = *__error();
     v27 = *__error();
-    v28 = *__error();
-    v29 = __error();
-    v34 = strerror(*v29);
-    v22 = CKPOSIXErrorCreateWithFormat(v27, @"get path failed for fd:%d: %d (%s)", v12, v28, v34);
+    v28 = __error();
+    v33 = strerror(*v28);
+    v22 = CKPOSIXErrorCreateWithFormat(v26, @"get path failed for fd:%d: %d (%s)", v12, v27, v33);
 LABEL_17:
     v18 = v22;
 LABEL_18:
@@ -478,7 +475,7 @@ LABEL_18:
       CFRelease(v18);
     }
 
-    goto LABEL_31;
+    return 0;
   }
 
   v8 = pread(*(a1 + 36), __buf, __nbyte, a2);
@@ -487,8 +484,8 @@ LABEL_18:
     v19 = *__error();
     v20 = *__error();
     v21 = __error();
-    v35 = strerror(*v21);
-    v22 = CKPOSIXErrorCreateWithFormat(v19, @"pread failed on fd:%d, path:%s, offset:0x%llx: (%d) %s", v12, v13, a2, v20, v35);
+    v34 = strerror(*v21);
+    v22 = CKPOSIXErrorCreateWithFormat(v19, @"pread failed on fd:%d, path:%s, offset:0x%llx: (%d) %s", v12, v13, a2, v20, v34);
     goto LABEL_17;
   }
 
@@ -498,10 +495,7 @@ LABEL_26:
     *a5 = v8;
   }
 
-  result = 1;
-LABEL_32:
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t getCacheBlobFd(uint64_t a1, char *name, __CFData **a3, CFErrorRef *a4)
@@ -539,7 +533,7 @@ uint64_t CSchunklist_for_file_callback(uint64_t a1)
   }
 
   v2 = *(a1 + 352);
-  v3 = CKSchemeSignatureAndKeySize(v1 + 84);
+  v3 = CKSchemeSignatureAndKeySize((v1 + 84));
   v4 = CFDataCreate(0, (v1 + 72), v3 + 16);
   if (v4)
   {
@@ -554,23 +548,23 @@ uint64_t CSchunklist_for_file_callback(uint64_t a1)
 
 uint64_t CKCopyChunkCache(char *a1, char *a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
+  v49 = 0;
   v50 = 0;
-  v51 = 0;
   cf = 0;
-  v42 = 0;
+  v41 = 0;
   if (CK_DEFAULT_LOG_BLOCK_0 != -1)
   {
     CKCopyChunkCache_cold_1();
   }
 
-  memset(v49, 0, sizeof(v49));
   memset(v48, 0, sizeof(v48));
+  memset(v47, 0, sizeof(v47));
+  v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v47 = 0;
-  memset(v43, 0, sizeof(v43));
-  v44 = 0;
+  v46 = 0;
+  memset(v42, 0, sizeof(v42));
+  v43 = 0;
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
   {
     v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"srcPath:%s, dstPath:%s\n", a1, a2);
@@ -583,7 +577,7 @@ uint64_t CKCopyChunkCache(char *a1, char *a2)
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v53 = v4;
+      v52 = v4;
       _os_log_impl(&dword_243431000, v5, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
@@ -625,12 +619,12 @@ uint64_t CKCopyChunkCache(char *a1, char *a2)
         CKCopyChunkCache_cold_4();
       }
 
-      v39 = v13;
+      v38 = v13;
       v20 = CK_DEFAULT_LOG_INTERNAL_0;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v53 = v19;
+        v52 = v19;
         _os_log_impl(&dword_243431000, v20, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -646,7 +640,7 @@ uint64_t CKCopyChunkCache(char *a1, char *a2)
 
 LABEL_27:
       CFRelease(v19);
-      v10 = v39;
+      v10 = v38;
       goto LABEL_32;
     }
 
@@ -659,23 +653,23 @@ LABEL_28:
   }
 
   v9 = v12;
-  if (openFdWithReadContext(a1, v12, &v51, v49, &v45))
+  if (openFdWithReadContext(a1, v12, &v50, v48, &v44))
   {
     goto LABEL_28;
   }
 
-  if (BYTE8(v46) != 1)
+  if (BYTE8(v45) != 1)
   {
     v7 = 0;
     goto LABEL_30;
   }
 
-  if (getChunkListCacheBlob(v51, &v42))
+  if (getChunkListCacheBlob(v50, &v41))
   {
-    v42 = 0;
+    v41 = 0;
   }
 
-  if (getFileSignatureCacheBlob(v51, &cf))
+  if (getFileSignatureCacheBlob(v50, &cf))
   {
     v14 = 0;
     cf = 0;
@@ -686,15 +680,15 @@ LABEL_28:
     v14 = cf != 0;
   }
 
-  v7 = v42;
-  if (!v42 && !v14)
+  v7 = v41;
+  if (!v41 && !v14)
   {
     v11 = 1;
     goto LABEL_40;
   }
 
-  v23 = open(a2, 0);
-  if (v23 == -1)
+  v22 = open(a2, 0);
+  if (v22 == -1)
   {
     if (CK_DEFAULT_LOG_BLOCK_0 != -1)
     {
@@ -703,23 +697,23 @@ LABEL_28:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
     {
-      v26 = *MEMORY[0x277CBECE8];
-      v27 = *__error();
-      v28 = __error();
-      v29 = strerror(*v28);
-      v19 = CFStringCreateWithFormat(v26, 0, @"open failed on %s: %d (%s)\n", a2, v27, v29);
+      v25 = *MEMORY[0x277CBECE8];
+      v26 = *__error();
+      v27 = __error();
+      v28 = strerror(*v27);
+      v19 = CFStringCreateWithFormat(v25, 0, @"open failed on %s: %d (%s)\n", a2, v26, v28);
       if (CK_DEFAULT_LOG_BLOCK_0 != -1)
       {
         CKCopyChunkCache_cold_14();
       }
 
-      v39 = v13;
-      v30 = CK_DEFAULT_LOG_INTERNAL_0;
+      v38 = v13;
+      v29 = CK_DEFAULT_LOG_INTERNAL_0;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v53 = v19;
-        _os_log_impl(&dword_243431000, v30, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v52 = v19;
+        _os_log_impl(&dword_243431000, v29, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
       v6 = 0;
@@ -743,13 +737,13 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v8 = v23;
-  if (openFdWithReadContext(a2, v23, &v50, v48, v43[0].i64))
+  v8 = v22;
+  if (openFdWithReadContext(a2, v22, &v49, v47, v42[0].i64))
   {
     goto LABEL_30;
   }
 
-  if (v43[1].u8[8] != 1)
+  if (v42[1].u8[8] != 1)
   {
 LABEL_58:
     v11 = 0;
@@ -761,13 +755,13 @@ LABEL_105:
   if (v7)
   {
     MutableBytePtr = CFDataGetMutableBytePtr(v7);
-    v25 = MutableBytePtr;
-    if (HIDWORD(v46) == *(MutableBytePtr + 21) && v46 == *(MutableBytePtr + 25) && v45 == __PAIR128__(*(MutableBytePtr + 33), *(MutableBytePtr + 41)))
+    v24 = MutableBytePtr;
+    if (HIDWORD(v45) == *(MutableBytePtr + 21) && v45 == *(MutableBytePtr + 25) && v44 == __PAIR128__(*(MutableBytePtr + 33), *(MutableBytePtr + 41)))
     {
-      *(MutableBytePtr + 21) = v43[1].i32[3];
-      *(MutableBytePtr + 25) = vextq_s8(*(v43 + 8), *(v43 + 8), 8uLL);
-      *(MutableBytePtr + 41) = v43[0].i64[0];
-      if (setChunkListCacheBlob(v50, v7))
+      *(MutableBytePtr + 21) = v42[1].i32[3];
+      *(MutableBytePtr + 25) = vextq_s8(*(v42 + 8), *(v42 + 8), 8uLL);
+      *(MutableBytePtr + 41) = v42[0].i64[0];
+      if (setChunkListCacheBlob(v49, v7))
       {
         goto LABEL_58;
       }
@@ -779,27 +773,27 @@ LABEL_105:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
       {
-        v40 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Copied chunk list cache from %s to %s (%llu/%llu)\n", a1, a2, *(&v45 + 1), v43[0].i64[1]);
+        v39 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Copied chunk list cache from %s to %s (%llu/%llu)\n", a1, a2, *(&v44 + 1), v42[0].i64[1]);
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
           CKCopyChunkCache_cold_8();
         }
 
-        v38 = CK_DEFAULT_LOG_INTERNAL_0;
+        v37 = CK_DEFAULT_LOG_INTERNAL_0;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v53 = v40;
-          _os_log_impl(&dword_243431000, v38, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v52 = v39;
+          _os_log_impl(&dword_243431000, v37, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        v32 = 1;
+        v31 = 1;
         v11 = 1;
 LABEL_77:
-        if (v40)
+        if (v39)
         {
-          CFRelease(v40);
-          v11 = v32;
+          CFRelease(v39);
+          v11 = v31;
         }
 
         goto LABEL_82;
@@ -817,21 +811,21 @@ LABEL_77:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
       {
-        v40 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid chunk list cache for %s, type:%u, mtime:%llu/%llu, ino:%llu/%llu, generation:%u/%u, sz:%llu/%llu\n", a1, v25[20], *(v25 + 25), v46, *(v25 + 33), *(&v45 + 1), *(v25 + 21), HIDWORD(v46), *(v25 + 41), v45);
+        v39 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid chunk list cache for %s, type:%u, mtime:%llu/%llu, ino:%llu/%llu, generation:%u/%u, sz:%llu/%llu\n", a1, v24[20], *(v24 + 25), v45, *(v24 + 33), *(&v44 + 1), *(v24 + 21), HIDWORD(v45), *(v24 + 41), v44);
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
           CKCopyChunkCache_cold_6();
         }
 
-        v31 = CK_DEFAULT_LOG_INTERNAL_0;
+        v30 = CK_DEFAULT_LOG_INTERNAL_0;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v53 = v40;
-          _os_log_impl(&dword_243431000, v31, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v52 = v39;
+          _os_log_impl(&dword_243431000, v30, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        v32 = 0;
+        v31 = 0;
         v11 = 0;
         goto LABEL_77;
       }
@@ -840,7 +834,7 @@ LABEL_77:
     }
 
 LABEL_82:
-    v33 = cf;
+    v32 = cf;
     if (cf)
     {
       goto LABEL_83;
@@ -848,31 +842,31 @@ LABEL_82:
 
     CFRelease(v7);
 LABEL_107:
-    closeFdWithReadContext(v50, v48);
+    closeFdWithReadContext(v49, v47);
     goto LABEL_40;
   }
 
   v11 = 0;
-  v33 = cf;
+  v32 = cf;
   if (!cf)
   {
     goto LABEL_107;
   }
 
 LABEL_83:
-  v34 = CFDataGetMutableBytePtr(v33);
-  v35 = v34;
-  if (HIDWORD(v46) == *(v34 + 21) && v46 == *(v34 + 25) && v45 == __PAIR128__(*(v34 + 33), *(v34 + 41)))
+  v33 = CFDataGetMutableBytePtr(v32);
+  v34 = v33;
+  if (HIDWORD(v45) == *(v33 + 21) && v45 == *(v33 + 25) && v44 == __PAIR128__(*(v33 + 33), *(v33 + 41)))
   {
-    *(v34 + 21) = v43[1].i32[3];
-    *(v34 + 25) = vextq_s8(*(v43 + 8), *(v43 + 8), 8uLL);
-    *(v34 + 41) = v43[0].i64[0];
-    if (setFileSignatureCacheBlob(v50, cf))
+    *(v33 + 21) = v42[1].i32[3];
+    *(v33 + 25) = vextq_s8(*(v42 + 8), *(v42 + 8), 8uLL);
+    *(v33 + 41) = v42[0].i64[0];
+    if (setFileSignatureCacheBlob(v49, cf))
     {
       goto LABEL_105;
     }
 
-    v39 = v13;
+    v38 = v13;
     if (CK_DEFAULT_LOG_BLOCK_0 != -1)
     {
       CKCopyChunkCache_cold_11();
@@ -886,18 +880,18 @@ LABEL_83:
       goto LABEL_32;
     }
 
-    v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Copied file signature cache from %s to %s (%llu/%llu)\n", a1, a2, *(&v45 + 1), v43[0].i64[1]);
+    v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Copied file signature cache from %s to %s (%llu/%llu)\n", a1, a2, *(&v44 + 1), v42[0].i64[1]);
     if (CK_DEFAULT_LOG_BLOCK_0 != -1)
     {
       CKCopyChunkCache_cold_12();
     }
 
-    v36 = CK_DEFAULT_LOG_INTERNAL_0;
+    v35 = CK_DEFAULT_LOG_INTERNAL_0;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v53 = v19;
-      _os_log_impl(&dword_243431000, v36, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v52 = v19;
+      _os_log_impl(&dword_243431000, v35, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
     v6 = 1;
@@ -916,19 +910,19 @@ LABEL_83:
       goto LABEL_105;
     }
 
-    v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid file signature cache for %s, type:%u, mtime:%llu/%llu, ino:%llu/%llu, generation:%u/%u, sz:%llu/%llu\n", a1, v35[20], *(v35 + 25), v46, *(v35 + 33), *(&v45 + 1), *(v35 + 21), HIDWORD(v46), *(v35 + 41), v45);
+    v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid file signature cache for %s, type:%u, mtime:%llu/%llu, ino:%llu/%llu, generation:%u/%u, sz:%llu/%llu\n", a1, v34[20], *(v34 + 25), v45, *(v34 + 33), *(&v44 + 1), *(v34 + 21), HIDWORD(v45), *(v34 + 41), v44);
     if (CK_DEFAULT_LOG_BLOCK_0 != -1)
     {
       CKCopyChunkCache_cold_10();
     }
 
-    v39 = v13;
-    v37 = CK_DEFAULT_LOG_INTERNAL_0;
+    v38 = v13;
+    v36 = CK_DEFAULT_LOG_INTERNAL_0;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v53 = v19;
-      _os_log_impl(&dword_243431000, v37, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v52 = v19;
+      _os_log_impl(&dword_243431000, v36, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
     v6 = 1;
@@ -961,11 +955,11 @@ LABEL_32:
     goto LABEL_40;
   }
 
-  closeFdWithReadContext(v50, v48);
+  closeFdWithReadContext(v49, v47);
   if (v10)
   {
 LABEL_40:
-    closeFdWithReadContext(v51, v49);
+    closeFdWithReadContext(v50, v48);
   }
 
 LABEL_41:
@@ -979,7 +973,6 @@ LABEL_41:
     close(v8);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1083,24 +1076,24 @@ os_log_t __CKCopyChunkCache_block_invoke_2_152()
 
 uint64_t CKFixupChunkCacheAfterExchangeData(char *a1, char *a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
+  v55 = 0;
   v56 = 0;
-  v57 = 0;
   cf = 0;
-  v47 = 0;
+  v46 = 0;
   if (CK_DEFAULT_LOG_BLOCK_0 != -1)
   {
     CKFixupChunkCacheAfterExchangeData_cold_1();
   }
 
-  memset(v55, 0, sizeof(v55));
   memset(v54, 0, sizeof(v54));
+  memset(v53, 0, sizeof(v53));
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v53 = 0;
+  v52 = 0;
+  v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v50 = 0;
+  v49 = 0;
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
   {
     v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"srcPath:%s, dstPath:%s\n", a1, a2);
@@ -1113,7 +1106,7 @@ uint64_t CKFixupChunkCacheAfterExchangeData(char *a1, char *a2)
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v59 = v4;
+      v58 = v4;
       _os_log_impl(&dword_243431000, v5, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
@@ -1172,7 +1165,7 @@ uint64_t CKFixupChunkCacheAfterExchangeData(char *a1, char *a2)
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v59 = v20;
+      v58 = v20;
       _os_log_impl(&dword_243431000, v22, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -1196,7 +1189,7 @@ LABEL_23:
   }
 
   v8 = v14;
-  if (openFdWithReadContext(a2, v14, &v56, v54, &v48))
+  if (openFdWithReadContext(a2, v14, &v55, v53, &v47))
   {
     v7 = 0;
     v6 = 0;
@@ -1207,7 +1200,7 @@ LABEL_23:
     goto LABEL_57;
   }
 
-  if (BYTE8(v49) != 1)
+  if (BYTE8(v48) != 1)
   {
     v7 = 0;
     v10 = 0;
@@ -1219,11 +1212,11 @@ LABEL_56:
     goto LABEL_57;
   }
 
-  ChunkListCacheBlob = getChunkListCacheBlob(v56, &v47);
+  ChunkListCacheBlob = getChunkListCacheBlob(v55, &v46);
   if (ChunkListCacheBlob)
   {
     v12 = ChunkListCacheBlob == 22;
-    v47 = 0;
+    v46 = 0;
   }
 
   else
@@ -1231,7 +1224,7 @@ LABEL_56:
     v12 = 0;
   }
 
-  FileSignatureCacheBlob = getFileSignatureCacheBlob(v56, &cf);
+  FileSignatureCacheBlob = getFileSignatureCacheBlob(v55, &cf);
   if (FileSignatureCacheBlob)
   {
     v25 = 0;
@@ -1245,8 +1238,8 @@ LABEL_56:
     v25 = cf != 0;
   }
 
-  v7 = v47;
-  if (!v47 && !v25)
+  v7 = v46;
+  if (!v46 && !v25)
   {
     v7 = 0;
     v10 = 0;
@@ -1281,7 +1274,7 @@ LABEL_36:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v59 = v20;
+        v58 = v20;
         _os_log_impl(&dword_243431000, v34, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -1302,14 +1295,14 @@ LABEL_36:
   }
 
   v9 = v26;
-  if (openFdWithReadContext(a1, v26, &v57, v55, &v51))
+  if (openFdWithReadContext(a1, v26, &v56, v54, &v50))
   {
 LABEL_55:
     v10 = 0;
     goto LABEL_56;
   }
 
-  if (BYTE8(v52) != 1)
+  if (BYTE8(v51) != 1)
   {
 LABEL_45:
     v13 = 0;
@@ -1319,7 +1312,7 @@ LABEL_92:
     goto LABEL_57;
   }
 
-  --HIDWORD(v52);
+  --HIDWORD(v51);
   if (!v7)
   {
     v13 = 0;
@@ -1328,7 +1321,7 @@ LABEL_92:
 
   MutableBytePtr = CFDataGetMutableBytePtr(v7);
   v28 = MutableBytePtr;
-  if (HIDWORD(v52) != *(MutableBytePtr + 21) || (v29 = v49, v49 != *(MutableBytePtr + 25)) || __PAIR128__(v48, *(&v51 + 1)) != *(MutableBytePtr + 33))
+  if (HIDWORD(v51) != *(MutableBytePtr + 21) || (v29 = v48, v48 != *(MutableBytePtr + 25)) || __PAIR128__(v47, *(&v50 + 1)) != *(MutableBytePtr + 33))
   {
     if (CK_DEFAULT_LOG_BLOCK_0 != -1)
     {
@@ -1342,38 +1335,38 @@ LABEL_92:
       goto LABEL_87;
     }
 
-    v37 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid chunk list cache for %s, type:%u, mtime:%llu/%llu, ino:%llu/%llu, generation:%u/%u, sz:%llu/%llu\n", a2, v28[20], *(v28 + 25), v49, *(v28 + 33), *(&v51 + 1), *(v28 + 21), HIDWORD(v52), *(v28 + 41), v48);
+    v36 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid chunk list cache for %s, type:%u, mtime:%llu/%llu, ino:%llu/%llu, generation:%u/%u, sz:%llu/%llu\n", a2, v28[20], *(v28 + 25), v48, *(v28 + 33), *(&v50 + 1), *(v28 + 21), HIDWORD(v51), *(v28 + 41), v47);
     if (CK_DEFAULT_LOG_BLOCK_0 != -1)
     {
       CKFixupChunkCacheAfterExchangeData_cold_6();
     }
 
-    v38 = CK_DEFAULT_LOG_INTERNAL_0;
+    v37 = CK_DEFAULT_LOG_INTERNAL_0;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v59 = v37;
-      _os_log_impl(&dword_243431000, v38, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v58 = v36;
+      _os_log_impl(&dword_243431000, v37, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    v39 = 0;
+    v38 = 0;
     v13 = 0;
     v12 = 1;
-    if (!v37)
+    if (!v36)
     {
       goto LABEL_87;
     }
 
 LABEL_84:
-    CFRelease(v37);
-    v13 = v39;
+    CFRelease(v36);
+    v13 = v38;
     goto LABEL_87;
   }
 
-  *(MutableBytePtr + 21) = HIDWORD(v49);
+  *(MutableBytePtr + 21) = HIDWORD(v48);
   *(MutableBytePtr + 25) = v29;
-  *(MutableBytePtr + 33) = *(&v48 + 1);
-  if (setChunkListCacheBlob(v56, v7))
+  *(MutableBytePtr + 33) = *(&v47 + 1);
+  if (setChunkListCacheBlob(v55, v7))
   {
     goto LABEL_45;
   }
@@ -1389,23 +1382,23 @@ LABEL_84:
     goto LABEL_87;
   }
 
-  v37 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Fixed up chunk list cache for %s (%llu)\n", a2, *(&v48 + 1));
+  v36 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Fixed up chunk list cache for %s (%llu)\n", a2, *(&v47 + 1));
   if (CK_DEFAULT_LOG_BLOCK_0 != -1)
   {
     CKFixupChunkCacheAfterExchangeData_cold_8();
   }
 
-  v44 = CK_DEFAULT_LOG_INTERNAL_0;
+  v43 = CK_DEFAULT_LOG_INTERNAL_0;
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v59 = v37;
-    _os_log_impl(&dword_243431000, v44, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+    v58 = v36;
+    _os_log_impl(&dword_243431000, v43, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
   }
 
-  v39 = 1;
+  v38 = 1;
   v13 = 1;
-  if (v37)
+  if (v36)
   {
     goto LABEL_84;
   }
@@ -1416,14 +1409,14 @@ LABEL_87:
     goto LABEL_92;
   }
 
-  v40 = CFDataGetMutableBytePtr(cf);
-  v41 = v40;
-  if (HIDWORD(v52) == *(v40 + 21) && (v42 = v49, v49 == *(v40 + 25)) && __PAIR128__(v48, *(&v51 + 1)) == *(v40 + 33))
+  v39 = CFDataGetMutableBytePtr(cf);
+  v40 = v39;
+  if (HIDWORD(v51) == *(v39 + 21) && (v41 = v48, v48 == *(v39 + 25)) && __PAIR128__(v47, *(&v50 + 1)) == *(v39 + 33))
   {
-    *(v40 + 21) = HIDWORD(v49);
-    *(v40 + 25) = v42;
-    *(v40 + 33) = *(&v48 + 1);
-    if (setFileSignatureCacheBlob(v56, cf))
+    *(v39 + 21) = HIDWORD(v48);
+    *(v39 + 25) = v41;
+    *(v39 + 33) = *(&v47 + 1);
+    if (setFileSignatureCacheBlob(v55, cf))
     {
       goto LABEL_92;
     }
@@ -1441,18 +1434,18 @@ LABEL_87:
       goto LABEL_36;
     }
 
-    v20 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Fixed up file signature cache for %s (%llu)\n", a2, *(&v48 + 1));
+    v20 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Fixed up file signature cache for %s (%llu)\n", a2, *(&v47 + 1));
     if (CK_DEFAULT_LOG_BLOCK_0 != -1)
     {
       CKFixupChunkCacheAfterExchangeData_cold_12();
     }
 
-    v45 = CK_DEFAULT_LOG_INTERNAL_0;
+    v44 = CK_DEFAULT_LOG_INTERNAL_0;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v59 = v20;
-      _os_log_impl(&dword_243431000, v45, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v58 = v20;
+      _os_log_impl(&dword_243431000, v44, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
     v10 = 1;
@@ -1474,19 +1467,19 @@ LABEL_87:
       goto LABEL_57;
     }
 
-    v20 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid file signature cache for %s, type:%u, mtime:%llu/%llu, ino:%llu/%llu, generation:%u/%u, sz:%llu/%llu\n", a2, v41[20], *(v41 + 25), v49, *(v41 + 33), *(&v51 + 1), *(v41 + 21), HIDWORD(v52), *(v41 + 41), v48);
+    v20 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Invalid file signature cache for %s, type:%u, mtime:%llu/%llu, ino:%llu/%llu, generation:%u/%u, sz:%llu/%llu\n", a2, v40[20], *(v40 + 25), v48, *(v40 + 33), *(&v50 + 1), *(v40 + 21), HIDWORD(v51), *(v40 + 41), v47);
     if (CK_DEFAULT_LOG_BLOCK_0 != -1)
     {
       CKFixupChunkCacheAfterExchangeData_cold_10();
     }
 
     v21 = v15;
-    v43 = CK_DEFAULT_LOG_INTERNAL_0;
+    v42 = CK_DEFAULT_LOG_INTERNAL_0;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v59 = v20;
-      _os_log_impl(&dword_243431000, v43, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      v58 = v20;
+      _os_log_impl(&dword_243431000, v42, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
     v10 = 1;
@@ -1512,12 +1505,12 @@ LABEL_57:
 
   if ((v6 & v12) == 1)
   {
-    setCacheBlob(v56, "com.apple.cscache", 0);
+    setCacheBlob(v55, "com.apple.cscache", 0);
   }
 
   if ((v6 & v11) == 1)
   {
-    setFileSignatureCacheBlob(v56, 0);
+    setFileSignatureCacheBlob(v55, 0);
     if (!v10)
     {
       goto LABEL_65;
@@ -1535,11 +1528,11 @@ LABEL_65:
     goto LABEL_66;
   }
 
-  closeFdWithReadContext(v57, v55);
+  closeFdWithReadContext(v56, v54);
   if (v6)
   {
 LABEL_66:
-    closeFdWithReadContext(v56, v54);
+    closeFdWithReadContext(v55, v53);
   }
 
 LABEL_67:
@@ -1553,7 +1546,6 @@ LABEL_67:
     close(v8);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1655,18 +1647,18 @@ os_log_t __CKFixupChunkCacheAfterExchangeData_block_invoke_2_212()
   return result;
 }
 
-uint64_t openFdUncached(uint64_t a1, char **a2, CFErrorRef *a3)
+uint64_t openFdUncached(uint64_t a1, uint64_t *a2, CFErrorRef *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = openFd(a1, a2, a3);
   if (v4)
   {
     v5 = *a2;
-    if ((*(*a2 + 16) & 0xF000) != 0xA000)
+    if ((*(*a2 + 32) & 0xF000) != 0xA000)
     {
-      v6 = *(v5 + 13);
-      v7 = *(v5 + 9);
-      if (make_fd_uncached(*(v5 + 9)))
+      v6 = *(v5 + 104);
+      v7 = *(v5 + 36);
+      if (make_fd_uncached(*(v5 + 36)))
       {
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
@@ -1676,7 +1668,7 @@ uint64_t openFdUncached(uint64_t a1, char **a2, CFErrorRef *a3)
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEFAULT))
         {
           v8 = *MEMORY[0x277CBECE8];
-          v9 = *(v5 + 5);
+          v9 = *(v5 + 40);
           v10 = *__error();
           v11 = __error();
           v12 = strerror(*v11);
@@ -1690,7 +1682,7 @@ uint64_t openFdUncached(uint64_t a1, char **a2, CFErrorRef *a3)
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v18 = v13;
+            v17 = v13;
             _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
 
@@ -1703,7 +1695,6 @@ uint64_t openFdUncached(uint64_t a1, char **a2, CFErrorRef *a3)
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -2065,9 +2056,9 @@ os_log_t __chunkerFileReadBufferSize_block_invoke_2()
 
 uint64_t CSfixed_subchunk_stream(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, char a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 136);
-  v35 = 0;
+  v34 = 0;
   if (!a3)
   {
     CSfixed_subchunk_stream_cold_6();
@@ -2080,8 +2071,8 @@ uint64_t CSfixed_subchunk_stream(uint64_t a1, uint64_t a2, unint64_t a3, unint64
     v11 = *(v5 + 32);
     if (!v11)
     {
-      CKChunkDigestArgumentsV1Create(&v35, 0, 0);
-      if (!CKChunkSignatureGeneratorCreate((v5 + 32), v35))
+      CKChunkDigestArgumentsV1Create(&v34, 0, 0);
+      if (!CKChunkSignatureGeneratorCreate((v5 + 32), v34))
       {
         break;
       }
@@ -2133,7 +2124,7 @@ uint64_t CSfixed_subchunk_stream(uint64_t a1, uint64_t a2, unint64_t a3, unint64
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v37 = v30;
+          v36 = v30;
           _os_log_impl(&dword_243431000, v31, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
@@ -2211,12 +2202,12 @@ LABEL_48:
     }
 
     *(v5 + 52) = v26 + 1;
-    if (v35)
+    if (v34)
     {
-      CFRelease(v35);
+      CFRelease(v34);
     }
 
-    v35 = 0;
+    v34 = 0;
     v27 = *(v5 + 32);
     if (v27)
     {
@@ -2237,12 +2228,12 @@ LABEL_48:
 
   v29 = -1;
 LABEL_43:
-  if (v35)
+  if (v34)
   {
-    CFRelease(v35);
+    CFRelease(v34);
   }
 
-  v35 = 0;
+  v34 = 0;
   v32 = *(v5 + 32);
   if (v32)
   {
@@ -2250,7 +2241,6 @@ LABEL_43:
   }
 
   *(v5 + 32) = 0;
-  v33 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -2293,7 +2283,7 @@ LABEL_7:
 
 uint64_t CSchunklist_add_stream(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 136);
   if (CKChunkSignatureGeneratorFinish(*(v2 + 64)))
   {
@@ -2327,14 +2317,13 @@ uint64_t CSchunklist_add_stream(uint64_t a1)
         goto LABEL_48;
       }
 
-      memset(v21, 0, 43);
-      CShex_to_string((v2 + 84), 21, v21);
+      memset(v18, 0, 43);
+      CShex_to_string((v2 + 84), 21, v18);
       v7 = *(a1 + 112);
       if (*(a1 + 544))
       {
         bzero(__str, 0x400uLL);
-        v8 = *(a1 + 56);
-        snprintf(__str, 0x400uLL, "%s: %llu, %llu, o:0x%llx, sz:0x%x(%u), s:%s\n", v7, v8, *(v2 + 16), *(v2 + 72), *(v2 + 80), *(v2 + 80), v21);
+        snprintf(__str, 0x400uLL, "%s: %llu, %llu, o:0x%llx, sz:0x%x(%u), s:%s\n", v7, *(a1 + 56), *(v2 + 16), *(v2 + 72), *(v2 + 80), *(v2 + 80), v18);
         strcat(*(a1 + 544), __str);
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
@@ -2346,38 +2335,35 @@ uint64_t CSchunklist_add_stream(uint64_t a1)
           goto LABEL_48;
         }
 
-        v9 = *(a1 + 56);
-        v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s: %llu, %lld, o:0x%llx, sz:0x%x(%u), s:%s\n", v7, v9, *(v2 + 16), *(v2 + 72), *(v2 + 80), *(v2 + 80), v21, 0);
+        v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s: %llu, %lld, o:0x%llx, sz:0x%x(%u), s:%s\n", v7, *(a1 + 56), *(v2 + 16), *(v2 + 72), *(v2 + 80), *(v2 + 80), v18, 0);
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
           CSchunklist_add_stream_cold_2();
         }
 
-        v11 = CK_DEFAULT_LOG_INTERNAL_0;
+        v9 = CK_DEFAULT_LOG_INTERNAL_0;
         if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
         {
 LABEL_46:
-          if (v10)
+          if (v8)
           {
-            CFRelease(v10);
+            CFRelease(v8);
           }
 
 LABEL_48:
           if (*(a1 + 180))
           {
-            result = 0;
+            return 0;
           }
 
           else
           {
-            result = (*(a1 + 128))(a1);
+            return (*(a1 + 128))(a1);
           }
-
-          goto LABEL_51;
         }
 
         *__str = 138543362;
-        v20 = v10;
+        v17 = v8;
       }
 
       else
@@ -2392,29 +2378,29 @@ LABEL_48:
           goto LABEL_48;
         }
 
-        v17 = "E";
+        v15 = "E";
         if (*(v2 + 84) >= 0)
         {
-          v17 = "-";
+          v15 = "-";
         }
 
-        v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s: %s, %lld, o:0x%llx, sz:0x%x(%u), s:%s\n", v7, v17, *(v2 + 16), *(v2 + 72), *(v2 + 80), *(v2 + 80), v21, 0);
+        v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s: %s, %lld, o:0x%llx, sz:0x%x(%u), s:%s\n", v7, v15, *(v2 + 16), *(v2 + 72), *(v2 + 80), *(v2 + 80), v18, 0);
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
           CSchunklist_add_stream_cold_4();
         }
 
-        v11 = CK_DEFAULT_LOG_INTERNAL_0;
+        v9 = CK_DEFAULT_LOG_INTERNAL_0;
         if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_46;
         }
 
         *__str = 138543362;
-        v20 = v10;
+        v17 = v8;
       }
 
-      _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_DEBUG, "%{public}@", __str, 0xCu);
+      _os_log_impl(&dword_243431000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", __str, 0xCu);
       goto LABEL_46;
     }
 
@@ -2425,27 +2411,27 @@ LABEL_48:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
     {
-      v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Ignoring attempt to add 0 length chunk\n");
+      v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Ignoring attempt to add 0 length chunk\n");
       if (CK_DEFAULT_LOG_BLOCK_0 != -1)
       {
         CSchunklist_add_stream_cold_6();
       }
 
-      v16 = CK_DEFAULT_LOG_INTERNAL_0;
+      v14 = CK_DEFAULT_LOG_INTERNAL_0;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_DEBUG))
       {
         *__str = 138543362;
-        v20 = v15;
-        _os_log_impl(&dword_243431000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", __str, 0xCu);
+        v17 = v13;
+        _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", __str, 0xCu);
       }
 
-      if (v15)
+      if (v13)
       {
-        CFRelease(v15);
+        CFRelease(v13);
       }
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -2457,36 +2443,32 @@ LABEL_48:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
     {
-      v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"CKChunkSignatureGeneratorFinish failed\n");
+      v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"CKChunkSignatureGeneratorFinish failed\n");
       if (CK_DEFAULT_LOG_BLOCK_0 != -1)
       {
         CSchunklist_add_stream_cold_8();
       }
 
-      v13 = CK_DEFAULT_LOG_INTERNAL_0;
+      v11 = CK_DEFAULT_LOG_INTERNAL_0;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
       {
         *__str = 138543362;
-        v20 = v12;
-        _os_log_impl(&dword_243431000, v13, OS_LOG_TYPE_ERROR, "%{public}@", __str, 0xCu);
+        v17 = v10;
+        _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_ERROR, "%{public}@", __str, 0xCu);
       }
 
-      if (v12)
+      if (v10)
       {
-        CFRelease(v12);
+        CFRelease(v10);
       }
     }
 
     *(v2 + 64) = 0;
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-LABEL_51:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-unsigned __int8 *CopyChunkSignatureAndKeyFromChunkDigestResults(uint64_t a1, uint64_t a2)
+char *CopyChunkSignatureAndKeyFromChunkDigestResults(uint64_t a1, uint64_t a2)
 {
   v4 = CKChunkDigestResultsChunkSignature(a2);
   result = CKChunkDigestResultsChunkKey(a2);
@@ -2512,7 +2494,7 @@ unsigned __int8 *CopyChunkSignatureAndKeyFromChunkDigestResults(uint64_t a1, uin
 
 double CSchunklist_add(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  *&v39[1002] = *MEMORY[0x277D85DE8];
+  *&v38[1002] = *MEMORY[0x277D85DE8];
   v10 = *(a1 + 136);
   v11 = CKChunkDigestArgumentsChunkScheme(*(a1 + 152));
   if (!a4)
@@ -2520,7 +2502,7 @@ double CSchunklist_add(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v13 = *(a1 + 544);
     if (v13)
     {
-      bzero(v39, 0x3E2uLL);
+      bzero(v38, 0x3E2uLL);
       strcpy(__s2, "  === segment end marker ===\n");
       strcat(v13, __s2);
     }
@@ -2585,8 +2567,8 @@ double CSchunklist_add(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
       *(a1 + 480) = mach_absolute_time();
     }
 
-    v34 = 0;
-    v17 = CKCalculateChunkSignatureAndEncryptionKey(*(v10 + 8), *(v10 + 80), *(a1 + 152), &v34);
+    v33 = 0;
+    v17 = CKCalculateChunkSignatureAndEncryptionKey(*(v10 + 8), *(v10 + 80), *(a1 + 152), &v33);
     if ((v12 & 0x80) == 0)
     {
       if (!v17)
@@ -2594,13 +2576,13 @@ double CSchunklist_add(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
         goto LABEL_78;
       }
 
-      CopyChunkSignatureAndKeyFromChunkDigestResults(v10 + 72, v34);
-      if (v34)
+      CopyChunkSignatureAndKeyFromChunkDigestResults(v10 + 72, v33);
+      if (v33)
       {
-        CKBaseRelease(v34);
+        CKBaseRelease(v33);
       }
 
-      v34 = 0;
+      v33 = 0;
 LABEL_39:
       if (*(a1 + 183) == 1)
       {
@@ -2613,9 +2595,9 @@ LABEL_39:
       }
 
       v24 = *(a1 + 112);
-      v37 = 0;
-      memset(v36, 0, sizeof(v36));
-      memset(v35, 0, 43);
+      v36 = 0;
+      memset(v35, 0, sizeof(v35));
+      memset(v34, 0, 43);
       v25 = *(v10 + 80);
       if (v25 >= 0x50)
       {
@@ -2627,12 +2609,12 @@ LABEL_39:
         v26 = v25;
       }
 
-      CShex_to_string((v10 + 84), 21, v35);
-      CShex_to_string((*(v10 + 8) + (*(v10 + 80) - v26)), v26, v36);
+      CShex_to_string((v10 + 84), 21, v34);
+      CShex_to_string((*(v10 + 8) + (*(v10 + 80) - v26)), v26, v35);
       if (*(a1 + 544))
       {
         bzero(__s2, 0x400uLL);
-        snprintf(__s2, 0x400uLL, "%s: %llu, %lld, o:0x%llx, sz:0x%x(%u), s:%s, (%u, %s)\n", v24, *(a1 + 56), a2, a3, a5, a5, v35, v26, v36);
+        snprintf(__s2, 0x400uLL, "%s: %llu, %lld, o:0x%llx, sz:0x%x(%u), s:%s, (%u, %s)\n", v24, *(a1 + 56), a2, a3, a5, a5, v34, v26, v35);
         strcat(*(a1 + 544), __s2);
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
@@ -2644,7 +2626,7 @@ LABEL_39:
           goto LABEL_65;
         }
 
-        v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s: %llu, %lld, o:0x%llx, sz:0x%x(%u), s:%s, (%u, %s)\n", v24, *(a1 + 56), a2, a3, a5, a5, v35, v26, v36);
+        v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s: %llu, %lld, o:0x%llx, sz:0x%x(%u), s:%s, (%u, %s)\n", v24, *(a1 + 56), a2, a3, a5, a5, v34, v26, v35);
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
           CSchunklist_add_cold_6();
@@ -2692,7 +2674,7 @@ LABEL_66:
           v29 = "-";
         }
 
-        v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s: %s, %llu, o:0x%llx, sz:0x%x(%u), s:%s", v24, v29, a2, a3, a5, a5, v35);
+        v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s: %s, %llu, o:0x%llx, sz:0x%x(%u), s:%s", v24, v29, a2, a3, a5, a5, v34);
         if (CK_DEFAULT_LOG_BLOCK_0 != -1)
         {
           CSchunklist_add_cold_8();
@@ -2717,13 +2699,13 @@ LABEL_66:
       goto LABEL_78;
     }
 
-    CopyChunkSignatureAndKeyFromChunkDigestResults(v10 + 72, v34);
-    if (v34)
+    CopyChunkSignatureAndKeyFromChunkDigestResults(v10 + 72, v33);
+    if (v33)
     {
-      CKBaseRelease(v34);
+      CKBaseRelease(v33);
     }
 
-    v34 = 0;
+    v33 = 0;
     if (*(a1 + 179))
     {
       goto LABEL_39;
@@ -2758,8 +2740,8 @@ LABEL_66:
 
     v20 = *(v10 + 8);
     v21 = *(v10 + 80);
-    v22 = v34;
-    v23 = CKChunkDigestResultsChunkLength(v34);
+    v22 = v33;
+    v23 = CKChunkDigestResultsChunkLength(v33);
     if (doEncrypt(v20, v21, v22, v23))
     {
       goto LABEL_39;
@@ -2801,7 +2783,6 @@ LABEL_78:
   *(v10 + 16) = 0u;
   *(v10 + 32) = 0u;
   *v10 = 0u;
-  v33 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3002,7 +2983,7 @@ uint64_t CSChunkCryptor_InitializeEncryptor(uint64_t a1, const __CFData *a2, con
 
 uint64_t _CSChunkCryptor_Initialize(uint64_t a1, CFDataRef theData, const __CFData *a3, uint64_t a4, uint64_t a5, CFErrorRef *a6)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (CFDataGetLength(theData) != 32)
   {
     v14 = *MEMORY[0x277CBECE8];
@@ -3027,10 +3008,10 @@ uint64_t _CSChunkCryptor_Initialize(uint64_t a1, CFDataRef theData, const __CFDa
   *(v12 + 4) = 0;
   *(v12 + 5) = 0;
   ccsha256_di();
-  memset(v29, 0, sizeof(v29));
-  memset(v28, 0, sizeof(v28));
+  memset(v25, 0, sizeof(v25));
+  memset(v24, 0, sizeof(v24));
   *bytes = 0u;
-  v27 = 0u;
+  v23 = 0u;
   CFDataGetLength(theData);
   CFDataGetBytePtr(theData);
   if (cchkdf())
@@ -3044,18 +3025,17 @@ LABEL_7:
     v17 = CFErrorCreate(v14, v15, v16, 0);
     result = 0;
     *a6 = v17;
-    goto LABEL_8;
+    return result;
   }
 
-  v20 = *MEMORY[0x277CBECE8];
+  v19 = *MEMORY[0x277CBECE8];
   v13[7] = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 32);
-  v13[8] = CFDataCreate(v20, v28, 32);
-  v13[9] = CFDataCreate(v20, v29, 32);
+  v13[8] = CFDataCreate(v19, v24, 32);
+  v13[9] = CFDataCreate(v19, v25, 32);
   cc_clear();
-  v21 = ccsha256_di();
-  *v13 = v21;
-  v13[1] = malloc_type_malloc(*(v21 + 8) + *(v21 + 16) + 12, 0x100004052888210uLL);
-  v22 = *v13;
+  v20 = ccsha256_di();
+  *v13 = v20;
+  v13[1] = malloc_type_malloc(*(v20 + 8) + *(v20 + 16) + 12, 0x100004052888210uLL);
   ccdigest_init();
   CFDataGetBytePtr(a3);
   if (CFDataGetLength(a3) <= 31)
@@ -3064,25 +3044,20 @@ LABEL_7:
   }
 
   __memcpy_chk();
-  v25 = v13[3];
   ccsha256_di();
   CFDataGetLength(v13[8]);
   CFDataGetBytePtr(v13[8]);
   cchmac();
-  v23 = ccaes_ctr_crypt_mode();
-  v13[10] = v23;
-  v13[11] = malloc_type_malloc(*v23, 0x1000040451B5BE8uLL);
-  v24 = v13[10];
+  v21 = ccaes_ctr_crypt_mode();
+  v13[10] = v21;
+  v13[11] = malloc_type_malloc(*v21, 0x1000040451B5BE8uLL);
   CFDataGetLength(v13[9]);
   CFDataGetBytePtr(v13[9]);
   ccctr_init();
   *(a1 + 56) = v13;
   cc_clear();
   cc_clear();
-  result = 1;
-LABEL_8:
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t CSChunkCryptor_InitializeDecryptor(uint64_t a1, const __CFData *a2, const __CFData *a3, unint64_t a4, unint64_t a5, CFErrorRef *a6)
@@ -3125,10 +3100,10 @@ uint64_t CSChunkCryptor_Update(uint64_t a1, uint64_t a2, unsigned int a3, CFErro
 
   else
   {
-    v11 = v4[4];
+    v11 = *(v4 + 32);
     v7 = a3;
     v12 = v11 + a3;
-    v13 = v4[2];
+    v13 = *(v4 + 16);
     v14 = v13 - v11;
     if (v12 <= v13)
     {
@@ -3148,25 +3123,19 @@ uint64_t CSChunkCryptor_Update(uint64_t a1, uint64_t a2, unsigned int a3, CFErro
 
   if (v6 && *(v4 + 48))
   {
-    v15 = *v4;
-    v16 = v4[1];
     ccdigest_update();
   }
 
-  v17 = v4[10];
-  v18 = v4[11];
   ccctr_update();
-  v4[4] += v7;
-  v19 = *(v4 + 48);
+  *(v4 + 32) += v7;
+  v15 = *(v4 + 48);
   if (v6 && !*(v4 + 48))
   {
-    v20 = *v4;
-    v21 = v4[1];
     ccdigest_update();
-    v19 = *(v4 + 48);
+    v15 = *(v4 + 48);
   }
 
-  if (v19)
+  if (v15)
   {
     return 1;
   }
@@ -3174,23 +3143,23 @@ uint64_t CSChunkCryptor_Update(uint64_t a1, uint64_t a2, unsigned int a3, CFErro
   result = 1;
   if (*(v4 + 49))
   {
-    v22 = v7 - v6;
+    v16 = v7 - v6;
     if (v7 > v6)
     {
-      v23 = *(v4 + 50) & 1;
-      v24 = (a2 + v6);
+      v17 = *(v4 + 50) & 1;
+      v18 = (a2 + v6);
       do
       {
-        if (*v24++)
+        if (*v18++)
         {
-          v23 = 0;
+          v17 = 0;
         }
 
-        *(v4 + 50) = v23;
-        --v22;
+        *(v4 + 50) = v17;
+        --v16;
       }
 
-      while (v22);
+      while (v16);
       return 1;
     }
   }
@@ -3198,89 +3167,79 @@ uint64_t CSChunkCryptor_Update(uint64_t a1, uint64_t a2, unsigned int a3, CFErro
   return result;
 }
 
-uint64_t CSChunkCryptor_Finalize(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
+uint64_t CSChunkCryptor_Finalize(uint64_t a1, uint64_t a2, unsigned int a3, CFErrorRef *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 56);
   if (!v5)
   {
-    v12 = *MEMORY[0x277CBECE8];
-    v13 = *MEMORY[0x277CBEE48];
-    v14 = 7;
+    v7 = *MEMORY[0x277CBECE8];
+    v8 = *MEMORY[0x277CBEE48];
+    v9 = 7;
     goto LABEL_17;
   }
 
-  v7 = *(v5 + 88);
-  v8 = **(v5 + 80);
   cc_clear();
   free(*(v5 + 88));
   *(v5 + 88) = 0;
-  v9 = *(v5 + 8);
   (*(*v5 + 56))();
-  v10 = *(v5 + 8);
-  v11 = *(*v5 + 8) + *(*v5 + 16);
   cc_clear();
-  if (*(a1 + 24))
+  if (!*(a1 + 24))
   {
-    ccsha256_di();
-    CFDataGetLength(*(a1 + 24));
-    CFDataGetBytePtr(*(a1 + 24));
-    if (cchkdf())
-    {
-      cc_clear();
-      v12 = *MEMORY[0x277CBECE8];
-      v13 = *MEMORY[0x277CBEE48];
-      v14 = 2;
-LABEL_17:
-      v17 = CFErrorCreate(v12, v13, v14, 0);
-      result = 0;
-      *a4 = v17;
-      goto LABEL_18;
-    }
+    goto LABEL_10;
+  }
 
+  ccsha256_di();
+  CFDataGetLength(*(a1 + 24));
+  CFDataGetBytePtr(*(a1 + 24));
+  if (!cchkdf())
+  {
     if (cchkdf())
     {
-      v14 = 2;
+      v9 = 2;
 LABEL_16:
-      v12 = *MEMORY[0x277CBECE8];
-      v13 = *MEMORY[0x277CBEE48];
+      v7 = *MEMORY[0x277CBECE8];
+      v8 = *MEMORY[0x277CBEE48];
       goto LABEL_17;
     }
 
     CFDataGetBytePtr(*(v5 + 56));
-    v15 = cc_cmp_safe();
+    v10 = cc_cmp_safe();
     cc_clear();
     cc_clear();
     cc_clear();
-    if (v15)
+    if (v10)
     {
-      v14 = 4;
+      v9 = 4;
       goto LABEL_16;
     }
-  }
 
-  if (!*(v5 + 48))
-  {
-    ccsha256_di();
-    CFDataGetLength(*(v5 + 56));
-    CFDataGetBytePtr(*(v5 + 56));
-    cchmac();
-    if (cc_cmp_safe())
+LABEL_10:
+    if (*(v5 + 48) || (ccsha256_di(), CFDataGetLength(*(v5 + 56)), CFDataGetBytePtr(*(v5 + 56)), cchmac(), !cc_cmp_safe()))
     {
-      v14 = 0;
-      goto LABEL_16;
-    }
-  }
+      if (*(v5 + 50))
+      {
+        return 1;
+      }
 
-  if (!*(v5 + 50))
-  {
-    v14 = 8;
+      v9 = 8;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
     goto LABEL_16;
   }
 
-  result = 1;
-LABEL_18:
-  v18 = *MEMORY[0x277D85DE8];
+  cc_clear();
+  v7 = *MEMORY[0x277CBECE8];
+  v8 = *MEMORY[0x277CBEE48];
+  v9 = 2;
+LABEL_17:
+  v12 = CFErrorCreate(v7, v8, v9, 0);
+  result = 0;
+  *a4 = v12;
   return result;
 }
 
@@ -3354,19 +3313,19 @@ void CKChunkStoreRelease(CFTypeRef cf)
   }
 }
 
-void *_CSCheckChunkStoreDB(void *result, sqlite3_int64 a2)
+uint64_t *_CSCheckChunkStoreDB(uint64_t *result, sqlite3_int64 a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (*(result + 17))
   {
-    goto LABEL_65;
+    return result;
   }
 
   v3 = result;
   result = _CSRemovePendingBatchesForInode(result, a2);
   if (*(v3 + 17))
   {
-    goto LABEL_65;
+    return result;
   }
 
   if (a2)
@@ -3374,11 +3333,11 @@ void *_CSCheckChunkStoreDB(void *result, sqlite3_int64 a2)
     result = _CSPrepareStatement(v3, @"SELECT pft_rowid, pft_token FROM CSStoragePendingFileChunklistTable where pft_inode = ?", "SELECT pft_rowid, pft_token FROM CSStoragePendingFileChunklistTable where pft_inode = ?");
     if (!result)
     {
-      goto LABEL_65;
+      return result;
     }
 
     v4 = result;
-    v5 = sqlite3_bind_int64(*(result + 2), 1, a2);
+    v5 = sqlite3_bind_int64(result[2], 1, a2);
     if (v5)
     {
       v6 = v5;
@@ -3390,7 +3349,7 @@ void *_CSCheckChunkStoreDB(void *result, sqlite3_int64 a2)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         v7 = *MEMORY[0x277CBECE8];
-        v8 = sqlite3_errmsg(*(v3 + 24));
+        v8 = sqlite3_errmsg(v3[3]);
         v9 = CFStringCreateWithFormat(v7, 0, @"sqlite3_bind_int64 for inode: %lld returned: %d (%s)\n", a2, v6, v8);
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
@@ -3401,7 +3360,7 @@ void *_CSCheckChunkStoreDB(void *result, sqlite3_int64 a2)
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v42 = v9;
+          v41 = v9;
           _os_log_impl(&dword_243431000, v10, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
@@ -3420,7 +3379,7 @@ void *_CSCheckChunkStoreDB(void *result, sqlite3_int64 a2)
     v4 = result;
     if (!result)
     {
-      goto LABEL_65;
+      return result;
     }
   }
 
@@ -3439,18 +3398,18 @@ void *_CSCheckChunkStoreDB(void *result, sqlite3_int64 a2)
       break;
     }
 
-    v13 = sqlite3_column_int64(*(v4 + 2), 0);
-    v14 = sqlite3_column_int64(*(v4 + 2), 1);
+    v13 = sqlite3_column_int64(v4[2], 0);
+    v14 = sqlite3_column_int64(v4[2], 1);
     if (!a2)
     {
       goto LABEL_39;
     }
 
-    memset(&v38, 0, sizeof(v38));
+    memset(&v37, 0, sizeof(v37));
     bzero(buf, 0x400uLL);
     if (CKChunkStoreGetLocation(v3, buf, 0x400uLL))
     {
-      if (stat(buf, &v38))
+      if (stat(buf, &v37))
       {
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
@@ -3460,19 +3419,19 @@ void *_CSCheckChunkStoreDB(void *result, sqlite3_int64 a2)
         v15 = CK_DEFAULT_LOG_INTERNAL_1;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
-          *v39 = 136315138;
-          *v40 = buf;
+          *v38 = 136315138;
+          *v39 = buf;
           v16 = v15;
           v17 = "stat failed for %s";
           v18 = 12;
 LABEL_38:
-          _os_log_impl(&dword_243431000, v16, OS_LOG_TYPE_ERROR, v17, v39, v18);
+          _os_log_impl(&dword_243431000, v16, OS_LOG_TYPE_ERROR, v17, v38, v18);
         }
       }
 
       else
       {
-        st_dev = v38.st_dev;
+        st_dev = v37.st_dev;
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
           _CSCheckChunkStoreDB_cold_5();
@@ -3481,13 +3440,13 @@ LABEL_38:
         v21 = CK_DEFAULT_LOG_INTERNAL_1;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
-          *v39 = 67109632;
-          *v40 = st_dev;
-          *&v40[4] = 2048;
-          *&v40[6] = a2;
-          *&v40[14] = 2048;
-          *&v40[16] = 0x8000;
-          _os_log_impl(&dword_243431000, v21, OS_LOG_TYPE_ERROR, "fsopen(%d,%llu,0x%0llx): unimplemented; returning -1\n", v39, 0x1Cu);
+          *v38 = 67109632;
+          *v39 = st_dev;
+          *&v39[4] = 2048;
+          *&v39[6] = a2;
+          *&v39[14] = 2048;
+          *&v39[16] = 0x8000;
+          _os_log_impl(&dword_243431000, v21, OS_LOG_TYPE_ERROR, "fsopen(%d,%llu,0x%0llx): unimplemented; returning -1\n", v38, 0x1Cu);
           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
           {
             _CSCheckChunkStoreDB_cold_6();
@@ -3497,15 +3456,15 @@ LABEL_38:
         v22 = CK_DEFAULT_LOG_INTERNAL_1;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
-          v23 = v38.st_dev;
+          v23 = v37.st_dev;
           v24 = __error();
           v25 = strerror(*v24);
-          *v39 = 134218498;
-          *v40 = v23;
-          *&v40[8] = 2048;
-          *&v40[10] = a2;
-          *&v40[18] = 2080;
-          *&v40[20] = v25;
+          *v38 = 134218498;
+          *v39 = v23;
+          *&v39[8] = 2048;
+          *&v39[10] = a2;
+          *&v39[18] = 2080;
+          *&v39[20] = v25;
           v16 = v22;
           v17 = "open (%lld,%lld) failed: %s";
           v18 = 32;
@@ -3524,7 +3483,7 @@ LABEL_38:
       v19 = CK_DEFAULT_LOG_INTERNAL_1;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
-        *v39 = 0;
+        *v38 = 0;
         v16 = v19;
         v17 = "CKChunkStoreGetLocation failed\n";
         v18 = 2;
@@ -3561,7 +3520,7 @@ LABEL_39:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
-        v30 = sqlite3_errmsg(*(v3 + 24));
+        v30 = sqlite3_errmsg(v3[3]);
         v31 = CFStringCreateWithFormat(alloc, 0, @"sqlite3_step returned: %d (%s), listToken: %llu\n", v29, v30, v14);
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
@@ -3572,7 +3531,7 @@ LABEL_39:
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v42 = v31;
+          v41 = v31;
           _os_log_impl(&dword_243431000, v32, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
@@ -3588,7 +3547,7 @@ LABEL_39:
       goto LABEL_64;
     }
 
-    CSsql_corruption_checking_do_0(v3, *(v3 + 24), "DELETE FROM CSStoragePendingFileChunklistTable WHERE pft_rowid = %lld", v13);
+    CSsql_corruption_checking_do_0(v3, v3[3], "DELETE FROM CSStoragePendingFileChunklistTable WHERE pft_rowid = %lld", v13);
   }
 
   v33 = v12;
@@ -3601,7 +3560,7 @@ LABEL_39:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      v34 = sqlite3_errmsg(*(v3 + 24));
+      v34 = sqlite3_errmsg(v3[3]);
       v9 = CFStringCreateWithFormat(alloc, 0, @"sqlite3_step returned: %d (%s)\n", v33, v34);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
@@ -3612,7 +3571,7 @@ LABEL_39:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v42 = v9;
+        v41 = v9;
         _os_log_impl(&dword_243431000, v35, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -3626,20 +3585,17 @@ LABEL_14:
 
 LABEL_64:
   _CSFinishPreparedStatement(v11);
-  result = _CSFinishPreparedStatement(v4);
-LABEL_65:
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
+  return _CSFinishPreparedStatement(v4);
 }
 
-uint64_t CKCleanChunkStoreDBForInode(void *a1, sqlite3_int64 a2)
+uint64_t CKCleanChunkStoreDBForInode(uint64_t *a1, sqlite3_int64 a2)
 {
   result = CKLockChunkStore(a1);
   if (!result)
   {
     _CSCheckChunkStoreDB(a1, a2);
 
-    return cs_unlock(a1 + 272);
+    return cs_unlock((a1 + 34));
   }
 
   return result;
@@ -3647,7 +3603,7 @@ uint64_t CKCleanChunkStoreDBForInode(void *a1, sqlite3_int64 a2)
 
 BOOL CKChunkStoreGetLocation(uint64_t a1, void *a2, size_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 112);
   v6 = strlen(v5) + 1;
   if (v6 > a3)
@@ -3669,7 +3625,7 @@ BOOL CKChunkStoreGetLocation(uint64_t a1, void *a2, size_t a3)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v12 = v7;
+        v11 = v7;
         _os_log_impl(&dword_243431000, v8, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -3685,9 +3641,7 @@ BOOL CKChunkStoreGetLocation(uint64_t a1, void *a2, size_t a3)
     memcpy(a2, v5, v6);
   }
 
-  result = v6 <= a3;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 <= a3;
 }
 
 os_log_t __CKChunkStoreGetLocation_block_invoke()
@@ -3706,7 +3660,7 @@ os_log_t __CKChunkStoreGetLocation_block_invoke_2()
 
 uint64_t CKChunkStoreRelocateDB(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = copyfile_state_alloc();
   if (v2)
   {
@@ -3737,7 +3691,7 @@ LABEL_29:
         {
 LABEL_32:
           copyfile_state_free(v3);
-          goto LABEL_33;
+          return v4;
         }
 
         CFRelease(v4);
@@ -3747,7 +3701,7 @@ LABEL_31:
       }
 
       *buf = 138543362;
-      v14 = v4;
+      v13 = v4;
     }
 
     else
@@ -3784,7 +3738,7 @@ LABEL_31:
       }
 
       *buf = 138543362;
-      v14 = v4;
+      v13 = v4;
     }
 
     _os_log_impl(&dword_243431000, v5, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
@@ -3808,7 +3762,7 @@ LABEL_31:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_243431000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
@@ -3818,10 +3772,7 @@ LABEL_31:
     }
   }
 
-  v4 = 0;
-LABEL_33:
-  v11 = *MEMORY[0x277D85DE8];
-  return v4;
+  return 0;
 }
 
 os_log_t __CKChunkStoreRelocateDB_block_invoke()
@@ -3978,9 +3929,9 @@ uint64_t _CSEndTransaction(uint64_t a1)
 
 uint64_t _CSRollbackTransactionSqlRc(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v1 = CS_corruption_checking_sqlite3_exec_0(a1, *(a1 + 24), "ROLLBACK TRANSACTION", &v6);
+  v8 = *MEMORY[0x277D85DE8];
+  v5 = 0;
+  v1 = CS_corruption_checking_sqlite3_exec_0(a1, *(a1 + 24), "ROLLBACK TRANSACTION", &v5);
   if (v1)
   {
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -3990,7 +3941,7 @@ uint64_t _CSRollbackTransactionSqlRc(uint64_t a1)
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      v2 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unable to rollback transaction: %d (%s)\n", v1, v6);
+      v2 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unable to rollback transaction: %d (%s)\n", v1, v5);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSRollbackTransactionSqlRc_cold_2();
@@ -4000,7 +3951,7 @@ uint64_t _CSRollbackTransactionSqlRc(uint64_t a1)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v8 = v2;
+        v7 = v2;
         _os_log_impl(&dword_243431000, v3, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -4010,10 +3961,9 @@ uint64_t _CSRollbackTransactionSqlRc(uint64_t a1)
       }
     }
 
-    sqlite3_free(v6);
+    sqlite3_free(v5);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -4032,13 +3982,11 @@ uint64_t _CSRollbackTransaction(uint64_t a1)
 
 uint64_t __sqlite3_step(uint64_t a1, sqlite3_stmt *a2, const char *a3, uint64_t a4)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v8 = pthread_rwlock_tryrdlock((a1 + 272));
   if (v8 == 16)
   {
-LABEL_24:
-    v15 = sqlite3_step(a2);
-    goto LABEL_25;
+    return sqlite3_step(a2);
   }
 
   v9 = v8;
@@ -4075,41 +4023,41 @@ LABEL_24:
       }
     }
 
-    goto LABEL_24;
+    return sqlite3_step(a2);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  *__str = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  *__str = 0u;
+  v26 = 0u;
   snprintf(__str, 0x200uLL, "*** WARNING: _sqlite3_step called without chunkstore_lock in function %s : %d", a3, a4);
   v10 = open("/tmp/cs_log.log", 522, 484);
   if (v10 != -1)
@@ -4137,7 +4085,7 @@ LABEL_24:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -4149,8 +4097,6 @@ LABEL_24:
 
   v15 = sqlite3_step(a2);
   cs_unlock(a1 + 272);
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -4184,13 +4130,11 @@ os_log_t ____sqlite3_step_block_invoke_2_132()
 
 uint64_t __sqlite3_reset(uint64_t a1, sqlite3_stmt *a2, const char *a3, uint64_t a4)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v8 = pthread_rwlock_tryrdlock((a1 + 272));
   if (v8 == 16)
   {
-LABEL_24:
-    v15 = sqlite3_reset(a2);
-    goto LABEL_25;
+    return sqlite3_reset(a2);
   }
 
   v9 = v8;
@@ -4227,41 +4171,41 @@ LABEL_24:
       }
     }
 
-    goto LABEL_24;
+    return sqlite3_reset(a2);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  *__str = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  *__str = 0u;
+  v26 = 0u;
   snprintf(__str, 0x200uLL, "*** WARNING: _sqlite3_reset called without chunkstore_lock in function %s : %d", a3, a4);
   v10 = open("/tmp/cs_log.log", 522, 484);
   if (v10 != -1)
@@ -4289,7 +4233,7 @@ LABEL_24:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -4301,8 +4245,6 @@ LABEL_24:
 
   v15 = sqlite3_reset(a2);
   cs_unlock(a1 + 272);
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -4336,13 +4278,11 @@ os_log_t ____sqlite3_reset_block_invoke_2_150()
 
 uint64_t __sqlite3_clear_bindings(uint64_t a1, sqlite3_stmt *a2, const char *a3, uint64_t a4)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v8 = pthread_rwlock_tryrdlock((a1 + 272));
   if (v8 == 16)
   {
-LABEL_24:
-    v15 = sqlite3_clear_bindings(a2);
-    goto LABEL_25;
+    return sqlite3_clear_bindings(a2);
   }
 
   v9 = v8;
@@ -4379,41 +4319,41 @@ LABEL_24:
       }
     }
 
-    goto LABEL_24;
+    return sqlite3_clear_bindings(a2);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  *__str = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  *__str = 0u;
+  v26 = 0u;
   snprintf(__str, 0x200uLL, "*** WARNING: _sqlite3_clear_bindings called without chunkstore_lock in function %s : %d", a3, a4);
   v10 = open("/tmp/cs_log.log", 522, 484);
   if (v10 != -1)
@@ -4441,7 +4381,7 @@ LABEL_24:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -4453,8 +4393,6 @@ LABEL_24:
 
   v15 = sqlite3_clear_bindings(a2);
   cs_unlock(a1 + 272);
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -4488,13 +4426,11 @@ os_log_t ____sqlite3_clear_bindings_block_invoke_2_168()
 
 uint64_t __sqlite3_finalize(uint64_t a1, sqlite3_stmt *a2, const char *a3, uint64_t a4)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v8 = pthread_rwlock_tryrdlock((a1 + 272));
   if (v8 == 16)
   {
-LABEL_24:
-    v15 = sqlite3_finalize(a2);
-    goto LABEL_25;
+    return sqlite3_finalize(a2);
   }
 
   v9 = v8;
@@ -4531,41 +4467,41 @@ LABEL_24:
       }
     }
 
-    goto LABEL_24;
+    return sqlite3_finalize(a2);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  *__str = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  *__str = 0u;
+  v26 = 0u;
   snprintf(__str, 0x200uLL, "*** WARNING: _sqlite3_finalize called without chunkstore_lock in function %s : %d", a3, a4);
   v10 = open("/tmp/cs_log.log", 522, 484);
   if (v10 != -1)
@@ -4593,7 +4529,7 @@ LABEL_24:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -4605,8 +4541,6 @@ LABEL_24:
 
   v15 = sqlite3_finalize(a2);
   cs_unlock(a1 + 272);
-LABEL_25:
-  v22 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -4640,7 +4574,7 @@ os_log_t ____sqlite3_finalize_block_invoke_2_186()
 
 uint64_t CS_sqlite3_step(uint64_t *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = *a1;
   v2 = a1[2];
   if (CSSQLiteCorruptionTestingEnabled())
@@ -4674,7 +4608,7 @@ uint64_t CS_sqlite3_step(uint64_t *a1)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v11 = v6;
+        v10 = v6;
         _os_log_impl(&dword_243431000, v7, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -4687,13 +4621,12 @@ uint64_t CS_sqlite3_step(uint64_t *a1)
     _CSHandleCorruptDatabase(v1);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 sqlite3_stmt **_CSPrepareStatement(uint64_t a1, const void *a2, const char *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 24))
   {
     _CSPrepareStatement_cold_5();
@@ -4758,7 +4691,7 @@ sqlite3_stmt **_CSPrepareStatement(uint64_t a1, const void *a2, const char *a3)
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v23 = v14;
+          v22 = v14;
           _os_log_impl(&dword_243431000, v15, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
@@ -4790,7 +4723,7 @@ sqlite3_stmt **_CSPrepareStatement(uint64_t a1, const void *a2, const char *a3)
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v23 = v18;
+        v22 = v18;
         _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -4806,7 +4739,6 @@ sqlite3_stmt **_CSPrepareStatement(uint64_t a1, const void *a2, const char *a3)
 
 LABEL_32:
   pthread_mutex_unlock((a1 + 32));
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -4838,13 +4770,13 @@ uint64_t *_CSFinishPreparedStatement(uint64_t *result)
 
 BOOL __CSCreateStoragePath(uint64_t a1, int a2, int a3, char *a4, size_t a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  bzero(v16, 0x400uLL);
-  if (CKChunkStoreGetLocation(a1, v16, 0x400uLL))
+  v16 = *MEMORY[0x277D85DE8];
+  bzero(v15, 0x400uLL);
+  if (CKChunkStoreGetLocation(a1, v15, 0x400uLL))
   {
     if (a3)
     {
-      if (snprintf(a4, a5, "%s/%s/%d/%d/%d", v16, "ChunkStorage", HIBYTE(a2), BYTE2(a2), BYTE1(a2)) >= a5)
+      if (snprintf(a4, a5, "%s/%s/%d/%d/%d", v15, "ChunkStorage", HIBYTE(a2), BYTE2(a2), BYTE1(a2)) >= a5)
       {
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
@@ -4867,7 +4799,7 @@ BOOL __CSCreateStoragePath(uint64_t a1, int a2, int a3, char *a4, size_t a5)
           }
 
           *buf = 138543362;
-          v15 = v11;
+          v14 = v11;
 LABEL_18:
           _os_log_impl(&dword_243431000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
 LABEL_19:
@@ -4876,15 +4808,14 @@ LABEL_19:
             CFRelease(v11);
           }
 
-          result = 0;
-          goto LABEL_24;
+          return 0;
         }
 
-        goto LABEL_24;
+        return result;
       }
     }
 
-    else if (snprintf(a4, a5, "%s/%s/%d/%d/%d/%d", v16, "ChunkStorage", HIBYTE(a2), BYTE2(a2), BYTE1(a2), a2) >= a5)
+    else if (snprintf(a4, a5, "%s/%s/%d/%d/%d/%d", v15, "ChunkStorage", HIBYTE(a2), BYTE2(a2), BYTE1(a2), a2) >= a5)
     {
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
@@ -4907,15 +4838,14 @@ LABEL_19:
         }
 
         *buf = 138543362;
-        v15 = v11;
+        v14 = v11;
         goto LABEL_18;
       }
 
-      goto LABEL_24;
+      return result;
     }
 
-    result = 1;
-    goto LABEL_24;
+    return 1;
   }
 
   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -4939,22 +4869,20 @@ LABEL_19:
     }
 
     *buf = 138543362;
-    v15 = v11;
+    v14 = v11;
     goto LABEL_18;
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _CSCreateStorageFile(sqlite3_stmt **a1, void *a2)
+uint64_t _CSCreateStorageFile(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   *a2 = 0;
-  v43 = 0;
-  bzero(v44, 0x400uLL);
-  if (!CKChunkStoreGetLocation(a1, v44, 0x400uLL))
+  v42 = 0;
+  bzero(v43, 0x400uLL);
+  if (!CKChunkStoreGetLocation(a1, v43, 0x400uLL))
   {
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
@@ -4983,19 +4911,17 @@ uint64_t _CSCreateStorageFile(sqlite3_stmt **a1, void *a2)
       }
     }
 
-    goto LABEL_25;
+    return 0xFFFFFFFFLL;
   }
 
   v4 = malloc_type_calloc(1uLL, 0x20uLL, 0x100004017768742uLL);
   if (!v4)
   {
-LABEL_25:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_139;
+    return 0xFFFFFFFFLL;
   }
 
   v5 = v4;
-  v6 = _CSAddStorageFileToDb(a1, 0, &v43);
+  v6 = _CSAddStorageFileToDb(a1, 0, &v42);
   if (v6)
   {
     v7 = v6;
@@ -5031,7 +4957,7 @@ LABEL_12:
   alloc = *MEMORY[0x277CBECE8];
   while (1)
   {
-    v13 = v43;
+    v13 = v42;
     bzero(buf, 0x400uLL);
     bzero(__str, 0x400uLL);
     if (!CKChunkStoreGetLocation(a1, buf, 0x400uLL))
@@ -5052,8 +4978,8 @@ LABEL_12:
         v19 = CK_DEFAULT_LOG_INTERNAL_1;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
-          *v45 = 138543362;
-          v46 = v18;
+          *v44 = 138543362;
+          v45 = v18;
           goto LABEL_92;
         }
 
@@ -5081,8 +5007,8 @@ LABEL_12:
         v19 = CK_DEFAULT_LOG_INTERNAL_1;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
-          *v45 = 138543362;
-          v46 = v18;
+          *v44 = 138543362;
+          v45 = v18;
           goto LABEL_92;
         }
 
@@ -5151,10 +5077,10 @@ LABEL_135:
         v19 = CK_DEFAULT_LOG_INTERNAL_1;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
-          *v45 = 138543362;
-          v46 = v18;
+          *v44 = 138543362;
+          v45 = v18;
 LABEL_92:
-          _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_ERROR, "%{public}@", v45, 0xCu);
+          _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_ERROR, "%{public}@", v44, 0xCu);
         }
 
         goto LABEL_93;
@@ -5163,7 +5089,7 @@ LABEL_92:
       goto LABEL_97;
     }
 
-    if (!__CSCreateStoragePath(a1, v13, 0, v44, 0x400uLL))
+    if (!__CSCreateStoragePath(a1, v13, 0, v43, 0x400uLL))
     {
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
@@ -5194,12 +5120,12 @@ LABEL_105:
       goto LABEL_135;
     }
 
-    v14 = open(v44, 2562, 384);
+    v14 = open(v43, 2562, 384);
     if (v14 != -1)
     {
       v21 = v14;
-      memset(&v42, 0, sizeof(v42));
-      if (fstat(v14, &v42))
+      memset(&v41, 0, sizeof(v41));
+      if (fstat(v14, &v41))
       {
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
@@ -5231,12 +5157,12 @@ LABEL_105:
         LODWORD(v26) = 0;
 LABEL_134:
         close(v21);
-        unlink(v44);
+        unlink(v43);
         LOBYTE(v8) = v26 == 13;
         goto LABEL_135;
       }
 
-      v31 = CSsql_corruption_checking_do_0(a1, a1[3], "UPDATE CSStorageFileTable SET ft_inode = %lld WHERE ft_rowid = %lld", v42.st_ino, v13);
+      v31 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "UPDATE CSStorageFileTable SET ft_inode = %lld WHERE ft_rowid = %lld", v41.st_ino, v13);
       if (v31)
       {
         v26 = v31;
@@ -5250,8 +5176,8 @@ LABEL_134:
           goto LABEL_134;
         }
 
-        v32 = sqlite3_errmsg(a1[3]);
-        v24 = CFStringCreateWithFormat(alloc, 0, @"failed to set inode for file: %s: %d %s\n", v44, v26, v32);
+        v32 = sqlite3_errmsg(*(a1 + 24));
+        v24 = CFStringCreateWithFormat(alloc, 0, @"failed to set inode for file: %s: %d %s\n", v43, v26, v32);
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
           _CSCreateStorageFile_cold_16();
@@ -5269,7 +5195,7 @@ LABEL_134:
 
       else
       {
-        v34 = CSsql_corruption_checking_do_0(a1, a1[3], "UPDATE CSStorageFileTable SET ft_space = %d WHERE ft_rowid = %lld", 20971620, v13);
+        v34 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "UPDATE CSStorageFileTable SET ft_space = %d WHERE ft_rowid = %lld", 20971620, v13);
         if (v34)
         {
           v26 = v34;
@@ -5283,8 +5209,8 @@ LABEL_134:
             goto LABEL_134;
           }
 
-          v35 = sqlite3_errmsg(a1[3]);
-          v24 = CFStringCreateWithFormat(alloc, 0, @"failed to set space for file: %s: %d %s\n", v44, v26, v35);
+          v35 = sqlite3_errmsg(*(a1 + 24));
+          v24 = CFStringCreateWithFormat(alloc, 0, @"failed to set space for file: %s: %d %s\n", v43, v26, v35);
           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
           {
             _CSCreateStorageFile_cold_18();
@@ -5302,7 +5228,7 @@ LABEL_134:
 
         else
         {
-          v36 = CSsql_corruption_checking_do_0(a1, a1[3], "UPDATE CSStorageFileTable SET ft_pspace = %d WHERE ft_rowid = %lld", 0, v13);
+          v36 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "UPDATE CSStorageFileTable SET ft_pspace = %d WHERE ft_rowid = %lld", 0, v13);
           if (!v36)
           {
             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -5312,33 +5238,33 @@ LABEL_134:
 
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
             {
-              v39 = CFStringCreateWithFormat(alloc, 0, @"Created a new SF, ino:%llu, rowID:%llu\n", v42.st_ino, v13);
+              v38 = CFStringCreateWithFormat(alloc, 0, @"Created a new SF, ino:%llu, rowID:%llu\n", v41.st_ino, v13);
               if (CK_DEFAULT_LOG_BLOCK_1 != -1)
               {
                 _CSCreateStorageFile_cold_22();
               }
 
-              v40 = CK_DEFAULT_LOG_INTERNAL_1;
+              v39 = CK_DEFAULT_LOG_INTERNAL_1;
               if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
               {
                 buf[0].st_dev = 138543362;
-                *&buf[0].st_mode = v39;
-                _os_log_impl(&dword_243431000, v40, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                *&buf[0].st_mode = v38;
+                _os_log_impl(&dword_243431000, v39, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
-              if (v39)
+              if (v38)
               {
-                CFRelease(v39);
+                CFRelease(v38);
               }
             }
 
             result = 0;
             v5[2] = v21;
-            *v5 = v42.st_ino;
+            *v5 = v41.st_ino;
             *(v5 + 2) = v13;
             *(v5 + 3) = 20971620;
             *a2 = v5;
-            goto LABEL_139;
+            return result;
           }
 
           v26 = v36;
@@ -5352,8 +5278,8 @@ LABEL_134:
             goto LABEL_134;
           }
 
-          v37 = sqlite3_errmsg(a1[3]);
-          v24 = CFStringCreateWithFormat(alloc, 0, @"failed to set purgeable space for file: %s: %d %s\n", v44, v26, v37);
+          v37 = sqlite3_errmsg(*(a1 + 24));
+          v24 = CFStringCreateWithFormat(alloc, 0, @"failed to set purgeable space for file: %s: %d %s\n", v43, v26, v37);
           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
           {
             _CSCreateStorageFile_cold_20();
@@ -5393,7 +5319,7 @@ LABEL_132:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
     {
       memset(buf, 0, 144);
-      stat(v44, buf);
+      stat(v43, buf);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCreateStorageFile_cold_26();
@@ -5401,7 +5327,7 @@ LABEL_132:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
       {
-        v15 = CFStringCreateWithFormat(alloc, 0, @"file %s already exists (size: %lld), trying again.", v44, buf[0].st_size);
+        v15 = CFStringCreateWithFormat(alloc, 0, @"file %s already exists (size: %lld), trying again.", v43, buf[0].st_size);
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
           _CSCreateStorageFile_cold_27();
@@ -5411,7 +5337,7 @@ LABEL_132:
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
         {
           *__str = 138543362;
-          v48 = v15;
+          v47 = v15;
           _os_log_impl(&dword_243431000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", __str, 0xCu);
         }
 
@@ -5422,7 +5348,7 @@ LABEL_132:
       }
     }
 
-    v17 = _CSAddStorageFileToDb(a1, 0, &v43);
+    v17 = _CSAddStorageFileToDb(a1, 0, &v42);
     if (v17)
     {
       v7 = v17;
@@ -5445,7 +5371,7 @@ LABEL_15:
 
   v27 = __error();
   v28 = strerror(*v27);
-  v8 = CFStringCreateWithFormat(alloc, 0, @"open(%s) failed: %s", v44, v28);
+  v8 = CFStringCreateWithFormat(alloc, 0, @"open(%s) failed: %s", v43, v28);
   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
   {
     _CSCreateStorageFile_cold_24();
@@ -5468,25 +5394,21 @@ LABEL_13:
 
 LABEL_136:
   free(v5);
-  _CSRemoveStorageFileFromDb(a1, v43);
+  _CSRemoveStorageFileFromDb(a1, v42);
   if ((v8 & (v7 < 0)) != 0)
   {
-    result = 28;
+    return 28;
   }
 
   else
   {
-    result = v7;
+    return v7;
   }
-
-LABEL_139:
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t _CSAddStorageFileToDb(uint64_t a1, sqlite3_int64 a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *a3 = 0;
   v6 = _CSPrepareStatement(a1, @"INSERT INTO CSStorageFileTable (ft_inode, vt_rowID) VALUES (?, ?)", "INSERT INTO CSStorageFileTable (ft_inode, vt_rowID) VALUES (?, ?)");
   v7 = v6;
@@ -5511,10 +5433,10 @@ LABEL_5:
     goto LABEL_8;
   }
 
-  v15 = CS_sqlite3_step(v7);
-  if (v15 != 101)
+  v14 = CS_sqlite3_step(v7);
+  if (v14 != 101)
   {
-    v10 = v15;
+    v10 = v14;
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
       _CSAddStorageFileToDb_cold_1();
@@ -5525,20 +5447,20 @@ LABEL_5:
       goto LABEL_5;
     }
 
-    v16 = *MEMORY[0x277CBECE8];
-    v17 = sqlite3_errmsg(*(a1 + 24));
-    insert_rowid = CFStringCreateWithFormat(v16, 0, @"sqlite3_step returned: %d %s\n", v10, v17);
+    v15 = *MEMORY[0x277CBECE8];
+    v16 = sqlite3_errmsg(*(a1 + 24));
+    insert_rowid = CFStringCreateWithFormat(v15, 0, @"sqlite3_step returned: %d %s\n", v10, v16);
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
       _CSAddStorageFileToDb_cold_2();
     }
 
-    v18 = CK_DEFAULT_LOG_INTERNAL_1;
+    v17 = CK_DEFAULT_LOG_INTERNAL_1;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = insert_rowid;
-      _os_log_impl(&dword_243431000, v18, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      v19 = insert_rowid;
+      _os_log_impl(&dword_243431000, v17, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
     if (insert_rowid)
@@ -5571,13 +5493,12 @@ LABEL_8:
     *a3 = insert_rowid;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-sqlite3_stmt **_CSRemoveStorageFileFromDb(sqlite3_stmt **result, sqlite3_int64 a2)
+uint64_t *_CSRemoveStorageFileFromDb(uint64_t *result, sqlite3_int64 a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = result;
@@ -5610,7 +5531,7 @@ sqlite3_stmt **_CSRemoveStorageFileFromDb(sqlite3_stmt **result, sqlite3_int64 a
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v13 = v9;
+              v12 = v9;
               _os_log_impl(&dword_243431000, v10, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
@@ -5622,17 +5543,16 @@ sqlite3_stmt **_CSRemoveStorageFileFromDb(sqlite3_stmt **result, sqlite3_int64 a
         }
       }
 
-      result = _CSFinishPreparedStatement(v4);
+      return _CSFinishPreparedStatement(v4);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t _CSUpdateStorageFileInfo(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = CSsql_get64(a1, 1, "SELECT ft_space FROM CSStorageFileTable WHERE ft_rowid = %lld", *(a2 + 16));
   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
   {
@@ -5651,7 +5571,7 @@ uint64_t _CSUpdateStorageFileInfo(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v27 = v5;
+      v26 = v5;
       _os_log_impl(&dword_243431000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
@@ -5696,7 +5616,7 @@ uint64_t _CSUpdateStorageFileInfo(uint64_t a1, uint64_t a2)
         }
 
         *buf = 138543362;
-        v27 = v14;
+        v26 = v14;
         goto LABEL_38;
       }
 
@@ -5729,7 +5649,7 @@ uint64_t _CSUpdateStorageFileInfo(uint64_t a1, uint64_t a2)
         }
 
         *buf = 138543362;
-        v27 = v14;
+        v26 = v14;
         goto LABEL_38;
       }
 
@@ -5763,7 +5683,7 @@ uint64_t _CSUpdateStorageFileInfo(uint64_t a1, uint64_t a2)
         }
 
         *buf = 138543362;
-        v27 = v14;
+        v26 = v14;
 LABEL_38:
         _os_log_impl(&dword_243431000, v15, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
 LABEL_39:
@@ -5783,16 +5703,15 @@ LABEL_41:
   v8 = 0;
 LABEL_42:
   _CSFinishPreparedStatement(v8);
-  v24 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-void _CSCacheStorageFile(uint64_t a1, uint64_t a2)
+void _CSCacheStorageFile(uint64_t result, uint64_t a2)
 {
   v4 = 0;
   v5 = 0;
   v6 = 0x7FFFFFFFLL;
-  v7 = *(a1 + 264);
+  v7 = *(result + 264);
   while (*v7)
   {
     if (*(*v7 + 24) < v6)
@@ -5805,8 +5724,8 @@ void _CSCacheStorageFile(uint64_t a1, uint64_t a2)
     v7 += 8;
     if (v4 == 5)
     {
-      _CSCloseStorageFile(a1, *(*(a1 + 264) + 8 * v5), 0);
-      v7 = *(a1 + 264) + 8 * v5;
+      _CSCloseStorageFile(result, *(*(result + 264) + 8 * v5), 0);
+      v7 = *(result + 264) + 8 * v5;
       break;
     }
   }
@@ -5816,7 +5735,7 @@ void _CSCacheStorageFile(uint64_t a1, uint64_t a2)
 
 void _CSCloseStorageFile(uint64_t a1, _DWORD *a2, int a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v6 = a2[2];
@@ -5841,7 +5760,7 @@ void _CSCloseStorageFile(uint64_t a1, _DWORD *a2, int a3)
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v16 = v7;
+            v15 = v7;
             _os_log_impl(&dword_243431000, v8, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
@@ -5881,7 +5800,7 @@ void _CSCloseStorageFile(uint64_t a1, _DWORD *a2, int a3)
             free(a2);
           }
 
-          goto LABEL_27;
+          return;
         }
       }
 
@@ -5898,14 +5817,11 @@ void _CSCloseStorageFile(uint64_t a1, _DWORD *a2, int a3)
 
     while (v12 != 4);
   }
-
-LABEL_27:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t _CSSyncStorageFile(uint64_t a1, uint64_t a2, char a3)
+uint64_t _CSSyncStorageFile(uint64_t a1, uint64_t a2, char a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -5916,11 +5832,11 @@ unint64_t _CSSyncStorageFile(uint64_t a1, uint64_t a2, char a3)
     v15 = CK_DEFAULT_LOG_INTERNAL_1;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 0;
     }
 
     *buf = 136315138;
-    v43 = "_CSSyncStorageFile";
+    v42 = "_CSSyncStorageFile";
     v12 = "could not fsync null storage file in %s";
     v13 = v15;
     v14 = 12;
@@ -5938,14 +5854,14 @@ unint64_t _CSSyncStorageFile(uint64_t a1, uint64_t a2, char a3)
     v16 = CK_DEFAULT_LOG_INTERNAL_1;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 0;
     }
 
     v17 = *(a2 + 16);
     *buf = 134218242;
-    v43 = v17;
-    v44 = 2080;
-    v45 = "_CSSyncStorageFile";
+    v42 = v17;
+    v43 = 2080;
+    v44 = "_CSSyncStorageFile";
     v12 = "could not fsync closed storage file %llu in %s";
     v13 = v16;
     v14 = 22;
@@ -5962,7 +5878,7 @@ unint64_t _CSSyncStorageFile(uint64_t a1, uint64_t a2, char a3)
     v7 = CK_DEFAULT_LOG_INTERNAL_1;
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 0;
     }
 
     v8 = *(a2 + 16);
@@ -5970,27 +5886,24 @@ unint64_t _CSSyncStorageFile(uint64_t a1, uint64_t a2, char a3)
     v10 = strerror(*v9);
     v11 = *__error();
     *buf = 134218754;
-    v43 = v8;
-    v44 = 2080;
-    v45 = "_CSSyncStorageFile";
-    v46 = 2080;
-    v47 = v10;
-    v48 = 1024;
-    v49 = v11;
+    v42 = v8;
+    v43 = 2080;
+    v44 = "_CSSyncStorageFile";
+    v45 = 2080;
+    v46 = v10;
+    v47 = 1024;
+    v48 = v11;
     v12 = "fsync for storage file %llu in %s failed: %s (%d)";
     v13 = v7;
     v14 = 38;
 LABEL_16:
     _os_log_impl(&dword_243431000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
-LABEL_17:
-    v18 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   if ((a3 & 1) == 0)
   {
-    v18 = 1;
-    goto LABEL_18;
+    return 1;
   }
 
   bzero(buf, 0x400uLL);
@@ -6003,7 +5916,7 @@ LABEL_17:
 
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 0;
     }
 
     v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"could not create storage file path for storage file %llu in %s", *(a2 + 16), "_CSSyncStorageFile");
@@ -6012,27 +5925,27 @@ LABEL_17:
       _CSSyncStorageFile_cold_4();
     }
 
-    v29 = CK_DEFAULT_LOG_INTERNAL_1;
+    v28 = CK_DEFAULT_LOG_INTERNAL_1;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      *v34 = 138543362;
-      v35 = v18;
+      *v33 = 138543362;
+      v34 = v18;
 LABEL_43:
-      _os_log_impl(&dword_243431000, v29, OS_LOG_TYPE_ERROR, "%{public}@", v34, 0xCu);
+      _os_log_impl(&dword_243431000, v28, OS_LOG_TYPE_ERROR, "%{public}@", v33, 0xCu);
     }
 
 LABEL_44:
     if (!v18)
     {
-      goto LABEL_18;
+      return v18;
     }
 
     CFRelease(v18);
-    goto LABEL_17;
+    return 0;
   }
 
-  v21 = open(buf, 0);
-  if (v21 < 0)
+  v20 = open(buf, 0);
+  if (v20 < 0)
   {
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
@@ -6041,62 +5954,60 @@ LABEL_44:
 
     if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_17;
+      return 0;
     }
 
-    v30 = *MEMORY[0x277CBECE8];
-    v31 = __error();
-    v32 = strerror(*v31);
-    v33 = __error();
-    v18 = CFStringCreateWithFormat(v30, 0, @"could not open storage file directory %s in %s: %s (%d)", buf, "_CSSyncStorageFile", v32, *v33);
+    v29 = *MEMORY[0x277CBECE8];
+    v30 = __error();
+    v31 = strerror(*v30);
+    v32 = __error();
+    v18 = CFStringCreateWithFormat(v29, 0, @"could not open storage file directory %s in %s: %s (%d)", buf, "_CSSyncStorageFile", v31, *v32);
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
       _CSSyncStorageFile_cold_6();
     }
 
-    v29 = CK_DEFAULT_LOG_INTERNAL_1;
+    v28 = CK_DEFAULT_LOG_INTERNAL_1;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      *v34 = 138543362;
-      v35 = v18;
+      *v33 = 138543362;
+      v34 = v18;
       goto LABEL_43;
     }
 
     goto LABEL_44;
   }
 
-  v22 = v21;
-  v23 = fsync(v21);
-  v18 = v23 == 0;
-  if (v23)
+  v21 = v20;
+  v22 = fsync(v20);
+  v18 = (v22 == 0);
+  if (v22)
   {
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
       _CSSyncStorageFile_cold_7();
     }
 
-    v24 = CK_DEFAULT_LOG_INTERNAL_1;
+    v23 = CK_DEFAULT_LOG_INTERNAL_1;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      v25 = *(a2 + 16);
-      v26 = __error();
-      v27 = strerror(*v26);
-      v28 = *__error();
-      *v34 = 134218754;
-      v35 = v25;
-      v36 = 2080;
-      v37 = "_CSSyncStorageFile";
-      v38 = 2080;
-      v39 = v27;
-      v40 = 1024;
-      v41 = v28;
-      _os_log_impl(&dword_243431000, v24, OS_LOG_TYPE_ERROR, "fsync for storage file %llu parent directory in %s failed: %s (%d)", v34, 0x26u);
+      v24 = *(a2 + 16);
+      v25 = __error();
+      v26 = strerror(*v25);
+      v27 = *__error();
+      *v33 = 134218754;
+      v34 = v24;
+      v35 = 2080;
+      v36 = "_CSSyncStorageFile";
+      v37 = 2080;
+      v38 = v26;
+      v39 = 1024;
+      v40 = v27;
+      _os_log_impl(&dword_243431000, v23, OS_LOG_TYPE_ERROR, "fsync for storage file %llu parent directory in %s failed: %s (%d)", v33, 0x26u);
     }
   }
 
-  close(v22);
-LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
+  close(v21);
   return v18;
 }
 
@@ -6130,8 +6041,8 @@ void _CSCloseCachedStorageFile(uint64_t a1, uint64_t a2, int a3)
 
 void *_CSGetStorageFile(uint64_t a1, uint64_t a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v46 = 0;
+  v51 = *MEMORY[0x277D85DE8];
+  v45 = 0;
   v3 = *(a2 + 80);
   v4 = v3 + CKSchemeAndSignatureSize((a2 + 84)) + 4;
   if (v4 >> 31)
@@ -6161,7 +6072,7 @@ void *_CSGetStorageFile(uint64_t a1, uint64_t a2)
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v51 = v18;
+          v50 = v18;
           _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
@@ -6171,7 +6082,7 @@ void *_CSGetStorageFile(uint64_t a1, uint64_t a2)
         }
       }
 
-      goto LABEL_114;
+      return v6;
     }
   }
 
@@ -6186,7 +6097,7 @@ void *_CSGetStorageFile(uint64_t a1, uint64_t a2)
       goto LABEL_112;
     }
 
-    v44 = a1;
+    v43 = a1;
     v9 = 0;
     v10 = 0;
     alloc = *MEMORY[0x277CBECE8];
@@ -6216,7 +6127,7 @@ void *_CSGetStorageFile(uint64_t a1, uint64_t a2)
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v51 = v16;
+            v50 = v16;
             _os_log_impl(&dword_243431000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
@@ -6236,15 +6147,15 @@ void *_CSGetStorageFile(uint64_t a1, uint64_t a2)
 
     while (CS_sqlite3_step(v8) == 100);
     _CSFinishPreparedStatement(v8);
-    a1 = v44;
+    a1 = v43;
     if (!v9)
     {
 LABEL_112:
-      _CSCreateStorageFile(a1, &v46);
-      v6 = v46;
-      if (!v46)
+      _CSCreateStorageFile(a1, &v45);
+      v6 = v45;
+      if (!v45)
       {
-        goto LABEL_114;
+        return v6;
       }
 
       goto LABEL_113;
@@ -6267,7 +6178,7 @@ LABEL_112:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v51 = v22;
+        v50 = v22;
         _os_log_impl(&dword_243431000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
@@ -6278,13 +6189,13 @@ LABEL_112:
     }
 
     v6 = malloc_type_calloc(1uLL, 0x20uLL, 0x100004017768742uLL);
-    v46 = v6;
+    v45 = v6;
     if (v6)
     {
       bzero(buf, 0x400uLL);
-      if (__CSCreateStoragePath(v44, v9, 0, buf, 0x400uLL))
+      if (__CSCreateStoragePath(v43, v9, 0, buf, 0x400uLL))
       {
-        memset(&v49, 0, sizeof(v49));
+        memset(&v48, 0, sizeof(v48));
         v24 = open(buf, 2, 384);
         *(v6 + 2) = v24;
         if (v24 == -1)
@@ -6307,9 +6218,9 @@ LABEL_112:
             v37 = CK_DEFAULT_LOG_INTERNAL_1;
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
             {
-              *v47 = 138543362;
-              v48 = v36;
-              _os_log_impl(&dword_243431000, v37, OS_LOG_TYPE_ERROR, "%{public}@", v47, 0xCu);
+              *v46 = 138543362;
+              v47 = v36;
+              _os_log_impl(&dword_243431000, v37, OS_LOG_TYPE_ERROR, "%{public}@", v46, 0xCu);
             }
 
             if (v36)
@@ -6318,12 +6229,12 @@ LABEL_112:
             }
           }
 
-          CSAttemptAutomaticFirstAidForStorageFile(v44, v9);
+          CSAttemptAutomaticFirstAidForStorageFile(v43, v9);
         }
 
         else
         {
-          if (fstat(v24, &v49) != -1)
+          if (fstat(v24, &v48) != -1)
           {
             if (v10 <= 0x1400064)
             {
@@ -6335,7 +6246,7 @@ LABEL_112:
               v25 = 0;
             }
 
-            if (v10 <= 0x1400063 && v25 < v49.st_size)
+            if (v10 <= 0x1400063 && v25 < v48.st_size)
             {
               if (CK_DEFAULT_LOG_BLOCK_1 != -1)
               {
@@ -6344,7 +6255,7 @@ LABEL_112:
 
               if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
               {
-                v26 = CFStringCreateWithFormat(alloc, 0, @"The size on disk is different from the size in db for %s: usedSpace:%llu, size:%llu - truncating\n", buf, v25, v49.st_size);
+                v26 = CFStringCreateWithFormat(alloc, 0, @"The size on disk is different from the size in db for %s: usedSpace:%llu, size:%llu - truncating\n", buf, v25, v48.st_size);
                 if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                 {
                   _CSGetStorageFile_cold_10();
@@ -6353,12 +6264,12 @@ LABEL_112:
                 v27 = CK_DEFAULT_LOG_INTERNAL_1;
                 if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                 {
-                  *v47 = 138543362;
-                  v48 = v26;
-                  _os_log_impl(&dword_243431000, v27, OS_LOG_TYPE_ERROR, "%{public}@", v47, 0xCu);
+                  *v46 = 138543362;
+                  v47 = v26;
+                  _os_log_impl(&dword_243431000, v27, OS_LOG_TYPE_ERROR, "%{public}@", v46, 0xCu);
                 }
 
-                a1 = v44;
+                a1 = v43;
                 if (v26)
                 {
                   CFRelease(v26);
@@ -6385,9 +6296,9 @@ LABEL_112:
                   v31 = CK_DEFAULT_LOG_INTERNAL_1;
                   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                   {
-                    *v47 = 138543362;
-                    v48 = v30;
-                    _os_log_impl(&dword_243431000, v31, OS_LOG_TYPE_ERROR, "%{public}@", v47, 0xCu);
+                    *v46 = 138543362;
+                    v47 = v30;
+                    _os_log_impl(&dword_243431000, v31, OS_LOG_TYPE_ERROR, "%{public}@", v46, 0xCu);
                   }
 
                   if (v30)
@@ -6402,7 +6313,7 @@ LABEL_112:
             *(v6 + 3) = v10;
 LABEL_113:
             _CSCacheStorageFile(a1, v6);
-            goto LABEL_114;
+            return v6;
           }
 
           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -6423,9 +6334,9 @@ LABEL_113:
             v41 = CK_DEFAULT_LOG_INTERNAL_1;
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
             {
-              *v47 = 138543362;
-              v48 = v40;
-              _os_log_impl(&dword_243431000, v41, OS_LOG_TYPE_ERROR, "%{public}@", v47, 0xCu);
+              *v46 = 138543362;
+              v47 = v40;
+              _os_log_impl(&dword_243431000, v41, OS_LOG_TYPE_ERROR, "%{public}@", v46, 0xCu);
             }
 
             if (v40)
@@ -6456,9 +6367,9 @@ LABEL_113:
           v33 = CK_DEFAULT_LOG_INTERNAL_1;
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
           {
-            v49.st_dev = 138543362;
-            *&v49.st_mode = v32;
-            _os_log_impl(&dword_243431000, v33, OS_LOG_TYPE_ERROR, "%{public}@", &v49, 0xCu);
+            v48.st_dev = 138543362;
+            *&v48.st_mode = v32;
+            _os_log_impl(&dword_243431000, v33, OS_LOG_TYPE_ERROR, "%{public}@", &v48, 0xCu);
           }
 
           if (v32)
@@ -6469,7 +6380,7 @@ LABEL_113:
       }
 
       free(v6);
-      v46 = 0;
+      v45 = 0;
       goto LABEL_112;
     }
   }
@@ -6493,7 +6404,7 @@ LABEL_113:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v51 = v20;
+        v50 = v20;
         _os_log_impl(&dword_243431000, v21, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -6503,24 +6414,22 @@ LABEL_113:
       }
     }
 
-    v6 = 0;
+    return 0;
   }
 
-LABEL_114:
-  v42 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 unint64_t _CSCompactStorage(uint64_t a1, unint64_t a2)
 {
-  v244 = *MEMORY[0x277D85DE8];
-  v4 = &old_ringing[83];
+  v243 = *MEMORY[0x277D85DE8];
+  v4 = &unk_280C64000;
   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
   {
     _CSCompactStorage_cold_1();
   }
 
-  v5 = &old_ringing[83];
+  v5 = &unk_280C64000;
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
   {
     v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"spaceNeeded:%llu\n", a2);
@@ -6564,24 +6473,24 @@ LABEL_13:
   if (!Mutable)
   {
     v8 = 0;
-    v24 = 0xFFFFFFFFLL;
+    v23 = 0xFFFFFFFFLL;
     goto LABEL_192;
   }
 
-  v18 = Mutable;
-  v19 = _CSPrepareStatement(a1, @"SELECT ft_rowid FROM CSStorageFileTable WHERE ft_pspace > 0 ORDER BY ft_pspace DESC", "SELECT ft_rowid FROM CSStorageFileTable WHERE ft_pspace > 0 ORDER BY ft_pspace DESC");
-  if (!v19)
+  v17 = Mutable;
+  v18 = _CSPrepareStatement(a1, @"SELECT ft_rowid FROM CSStorageFileTable WHERE ft_pspace > 0 ORDER BY ft_pspace DESC", "SELECT ft_rowid FROM CSStorageFileTable WHERE ft_pspace > 0 ORDER BY ft_pspace DESC");
+  if (!v18)
   {
     v8 = 0;
-    v24 = 0xFFFFFFFFLL;
+    v23 = 0xFFFFFFFFLL;
     goto LABEL_191;
   }
 
-  v20 = v19;
+  v19 = v18;
   while (1)
   {
-    v21 = CS_sqlite3_step(v20);
-    if (v21 != 100)
+    v20 = CS_sqlite3_step(v19);
+    if (v20 != 100)
     {
       break;
     }
@@ -6591,22 +6500,22 @@ LABEL_13:
       goto LABEL_187;
     }
 
-    *buf = sqlite3_column_int64(v20[2], 0);
-    v22 = CFNumberCreate(0, kCFNumberLongLongType, buf);
-    if (!v22)
+    *buf = sqlite3_column_int64(v19[2], 0);
+    v21 = CFNumberCreate(0, kCFNumberLongLongType, buf);
+    if (!v21)
     {
-      v227 = 0;
-      v24 = 0xFFFFFFFFLL;
+      v226 = 0;
+      v23 = 0xFFFFFFFFLL;
       goto LABEL_190;
     }
 
-    v23 = v22;
-    CFArrayAppendValue(v18, v22);
-    CFRelease(v23);
+    v22 = v21;
+    CFArrayAppendValue(v17, v21);
+    CFRelease(v22);
   }
 
-  v25 = v21;
-  if (v21 != 101)
+  v24 = v20;
+  if (v20 != 101)
   {
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
@@ -6615,55 +6524,55 @@ LABEL_13:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      v26 = *MEMORY[0x277CBECE8];
-      v27 = sqlite3_errmsg(*(a1 + 24));
-      v28 = CFStringCreateWithFormat(v26, 0, @"sqlite3_step returned: %d %s\n", v25, v27);
+      v25 = *MEMORY[0x277CBECE8];
+      v26 = sqlite3_errmsg(*(a1 + 24));
+      v27 = CFStringCreateWithFormat(v25, 0, @"sqlite3_step returned: %d %s\n", v24, v26);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCompactStorage_cold_4();
       }
 
-      v29 = CK_DEFAULT_LOG_INTERNAL_1;
+      v28 = CK_DEFAULT_LOG_INTERNAL_1;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v28;
-        _os_log_impl(&dword_243431000, v29, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v27;
+        _os_log_impl(&dword_243431000, v28, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      v5 = &old_ringing[83];
-      if (v28)
+      v5 = &unk_280C64000;
+      if (v27)
       {
-        CFRelease(v28);
+        CFRelease(v27);
       }
     }
   }
 
-  _CSFinishPreparedStatement(v20);
-  Count = CFArrayGetCount(v18);
+  _CSFinishPreparedStatement(v19);
+  Count = CFArrayGetCount(v17);
   if (Count < 1)
   {
-    v20 = 0;
+    v19 = 0;
 LABEL_187:
-    v227 = 0;
+    v226 = 0;
 LABEL_189:
-    v24 = 0;
+    v23 = 0;
     goto LABEL_190;
   }
 
-  v30 = 0;
-  v227 = 0;
+  v29 = 0;
+  v226 = 0;
   alloc = *MEMORY[0x277CBECE8];
-  v31 = a2;
+  v30 = a2;
   do
   {
     if (*(a1 + 256))
     {
-      v20 = 0;
+      v19 = 0;
       goto LABEL_189;
     }
 
-    ValueAtIndex = CFArrayGetValueAtIndex(v18, v30);
+    ValueAtIndex = CFArrayGetValueAtIndex(v17, v29);
     *&valuePtr.st_dev = 0;
     if (!CFNumberGetValue(ValueAtIndex, kCFNumberLongLongType, &valuePtr))
     {
@@ -6675,7 +6584,7 @@ LABEL_189:
       _CSCompactStorage_cold_21();
     }
 
-    v33 = *&valuePtr.st_dev;
+    v32 = *&valuePtr.st_dev;
     if ((CSAttemptAutomaticFirstAidForStorageFile(a1, *&valuePtr.st_dev) & 1) == 0)
     {
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -6688,23 +6597,23 @@ LABEL_189:
         goto LABEL_65;
       }
 
-      v34 = CFStringCreateWithFormat(alloc, 0, @"Failed first aid check in %s", "removeUnreferencedChunksAtEof");
+      v33 = CFStringCreateWithFormat(alloc, 0, @"Failed first aid check in %s", "removeUnreferencedChunksAtEof");
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCompactStorage_cold_6();
       }
 
-      v35 = CK_DEFAULT_LOG_INTERNAL_1;
+      v34 = CK_DEFAULT_LOG_INTERNAL_1;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v34;
-        _os_log_impl(&dword_243431000, v35, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v33;
+        _os_log_impl(&dword_243431000, v34, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v34)
+      if (v33)
       {
-        CFRelease(v34);
+        CFRelease(v33);
       }
     }
 
@@ -6716,113 +6625,113 @@ LABEL_189:
 LABEL_65:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
     {
-      v36 = CFStringCreateWithFormat(alloc, 0, @"ftRowId:%llu, spaceNeeded:%llu\n", v33, v31);
+      v35 = CFStringCreateWithFormat(alloc, 0, @"ftRowId:%llu, spaceNeeded:%llu\n", v32, v30);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCompactStorage_cold_8();
       }
 
-      v37 = CK_DEFAULT_LOG_INTERNAL_1;
+      v36 = CK_DEFAULT_LOG_INTERNAL_1;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        *&buf[4] = v36;
-        _os_log_impl(&dword_243431000, v37, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        *&buf[4] = v35;
+        _os_log_impl(&dword_243431000, v36, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v36)
+      if (v35)
       {
-        CFRelease(v36);
+        CFRelease(v35);
       }
     }
 
-    v38 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    v223 = v33;
-    if (!v38)
+    v37 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+    v222 = v32;
+    if (!v37)
     {
-      v42 = 0;
-      v43 = 0xFFFFFFFFLL;
-      v5 = old_ringing + 664;
+      v41 = 0;
+      v42 = 0xFFFFFFFFLL;
+      v5 = &unk_280C64000;
       goto LABEL_160;
     }
 
-    v39 = v38;
-    v40 = _CSPrepareStatement(a1, @"SELECT ct_rowid, dataLen, offset, refCount FROM CSChunkTable WHERE ft_rowid = ? AND location = ? ORDER BY offset DESC", "SELECT ct_rowid, dataLen, offset, refCount FROM CSChunkTable WHERE ft_rowid = ? AND location = ? ORDER BY offset DESC");
-    v41 = v40;
-    if (!v40)
+    v38 = v37;
+    v39 = _CSPrepareStatement(a1, @"SELECT ct_rowid, dataLen, offset, refCount FROM CSChunkTable WHERE ft_rowid = ? AND location = ? ORDER BY offset DESC", "SELECT ct_rowid, dataLen, offset, refCount FROM CSChunkTable WHERE ft_rowid = ? AND location = ? ORDER BY offset DESC");
+    v40 = v39;
+    if (!v39)
     {
       goto LABEL_157;
     }
 
-    v5 = old_ringing + 664;
-    if (sqlite3_bind_int64(v40[2], 1, v33) || sqlite3_bind_int(v41[2], 2, 115))
+    v5 = &unk_280C64000;
+    if (sqlite3_bind_int64(v39[2], 1, v32) || sqlite3_bind_int(v40[2], 2, 115))
     {
       goto LABEL_76;
     }
 
-    v44 = CS_sqlite3_step(v41);
-    v45 = v44 == 100;
-    theArray = v39;
-    if (v44 != 100)
+    v43 = CS_sqlite3_step(v40);
+    v44 = v43 == 100;
+    theArray = v38;
+    if (v43 != 100)
     {
-      v54 = v44;
+      v53 = v43;
       __fd = 0;
-      v55 = 0;
+      v54 = 0;
       goto LABEL_96;
     }
 
     __fd = 0;
-    v46 = -1;
+    v45 = -1;
     do
     {
       if (*(a1 + 256))
       {
-        v43 = 0;
         v42 = 0;
+        v41 = 0;
         goto LABEL_141;
       }
 
-      v218 = v46;
-      *v232 = sqlite3_column_int64(v41[2], 0);
-      v47 = sqlite3_column_int(v41[2], 1);
-      v55 = sqlite3_column_int64(v41[2], 2);
-      v48 = sqlite3_column_int64(v41[2], 3);
+      v217 = v45;
+      *v231 = sqlite3_column_int64(v40[2], 0);
+      v46 = sqlite3_column_int(v40[2], 1);
+      v54 = sqlite3_column_int64(v40[2], 2);
+      v47 = sqlite3_column_int64(v40[2], 3);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCompactStorage_cold_9();
       }
 
-      cf = v47;
+      cf = v46;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
       {
-        v49 = CFStringCreateWithFormat(alloc, 0, @"ctRowId:%llu, refCount:%llu, offset:0x%llx, size:0x%llx\n", *v232, v48, v55, v47);
+        v48 = CFStringCreateWithFormat(alloc, 0, @"ctRowId:%llu, refCount:%llu, offset:0x%llx, size:0x%llx\n", *v231, v47, v54, v46);
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
           _CSCompactStorage_cold_10();
         }
 
-        v50 = CK_DEFAULT_LOG_INTERNAL_1;
+        v49 = CK_DEFAULT_LOG_INTERNAL_1;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          *&buf[4] = v49;
-          _os_log_impl(&dword_243431000, v50, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          *&buf[4] = v48;
+          _os_log_impl(&dword_243431000, v49, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v49)
+        if (v48)
         {
-          CFRelease(v49);
+          CFRelease(v48);
         }
       }
 
-      if (v48)
+      if (v47)
       {
-        v45 = 1;
-        v39 = theArray;
+        v44 = 1;
+        v38 = theArray;
         goto LABEL_106;
       }
 
-      if (v218 <= v55)
+      if (v217 <= v54)
       {
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
@@ -6831,61 +6740,61 @@ LABEL_65:
 
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
-          v57 = CFStringCreateWithFormat(alloc, 0, @"Invalid chunk, ftRowId:%llu, ctRowId:%llu, chunkOffset:0x%llx, truncateOffset:0x%llx\n", v223, *v232, v55, v218);
+          v56 = CFStringCreateWithFormat(alloc, 0, @"Invalid chunk, ftRowId:%llu, ctRowId:%llu, chunkOffset:0x%llx, truncateOffset:0x%llx\n", v222, *v231, v54, v217);
           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
           {
             _CSCompactStorage_cold_12();
           }
 
-          v58 = CK_DEFAULT_LOG_INTERNAL_1;
+          v57 = CK_DEFAULT_LOG_INTERNAL_1;
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
           {
 LABEL_137:
             *buf = 138543362;
-            *&buf[4] = v57;
-            _os_log_impl(&dword_243431000, v58, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            *&buf[4] = v56;
+            _os_log_impl(&dword_243431000, v57, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
 LABEL_138:
-          if (v57)
+          if (v56)
           {
-            CFRelease(v57);
+            CFRelease(v56);
           }
         }
 
 LABEL_140:
-        v42 = 0;
-        v43 = 0xFFFFFFFFLL;
+        v41 = 0;
+        v42 = 0xFFFFFFFFLL;
 LABEL_141:
-        v5 = old_ringing + 664;
+        v5 = &unk_280C64000;
 LABEL_142:
-        v39 = theArray;
+        v38 = theArray;
         goto LABEL_159;
       }
 
-      v51 = CFNumberCreate(0, kCFNumberLongLongType, v232);
-      if (!v51)
+      v50 = CFNumberCreate(0, kCFNumberLongLongType, v231);
+      if (!v50)
       {
         goto LABEL_140;
       }
 
-      v52 = v51;
-      CFArrayAppendValue(theArray, v51);
-      CFRelease(v52);
+      v51 = v50;
+      CFArrayAppendValue(theArray, v50);
+      CFRelease(v51);
       __fd += cf;
-      v53 = CS_sqlite3_step(v41);
-      v46 = v55;
+      v52 = CS_sqlite3_step(v40);
+      v45 = v54;
     }
 
-    while (v53 == 100);
-    v54 = v53;
-    v39 = theArray;
-    v45 = 1;
+    while (v52 == 100);
+    v53 = v52;
+    v38 = theArray;
+    v44 = 1;
 LABEL_96:
-    v218 = v55;
-    if ((v54 - 102) <= 0xFFFFFFFD)
+    v217 = v54;
+    if ((v53 - 102) <= 0xFFFFFFFD)
     {
-      v5 = &old_ringing[83];
+      v5 = &unk_280C64000;
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCompactStorage_cold_17();
@@ -6893,14 +6802,14 @@ LABEL_96:
 
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
-        v56 = sqlite3_errmsg(*(a1 + 24));
-        v57 = CFStringCreateWithFormat(alloc, 0, @"sqlite3_step returned: %d %s\n", v54, v56);
+        v55 = sqlite3_errmsg(*(a1 + 24));
+        v56 = CFStringCreateWithFormat(alloc, 0, @"sqlite3_step returned: %d %s\n", v53, v55);
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
           _CSCompactStorage_cold_18();
         }
 
-        v58 = CK_DEFAULT_LOG_INTERNAL_1;
+        v57 = CK_DEFAULT_LOG_INTERNAL_1;
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_137;
@@ -6910,16 +6819,16 @@ LABEL_96:
       }
 
 LABEL_76:
-      v42 = 0;
-      v43 = 0xFFFFFFFFLL;
+      v41 = 0;
+      v42 = 0xFFFFFFFFLL;
       goto LABEL_159;
     }
 
 LABEL_106:
-    v59 = v45;
-    _CSFinishPreparedStatement(v41);
-    v60 = CFArrayGetCount(v39);
-    v5 = &old_ringing[83];
+    v58 = v44;
+    _CSFinishPreparedStatement(v40);
+    v59 = CFArrayGetCount(v38);
+    v5 = &unk_280C64000;
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
       _CSCompactStorage_cold_13();
@@ -6927,100 +6836,100 @@ LABEL_106:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
     {
-      v61 = CFStringCreateWithFormat(alloc, 0, @"chunkCount:%u, truncateOffset:0x%llx, freeSpace:%llu\n", v60, v218, __fd);
+      v60 = CFStringCreateWithFormat(alloc, 0, @"chunkCount:%u, truncateOffset:0x%llx, freeSpace:%llu\n", v59, v217, __fd);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCompactStorage_cold_14();
       }
 
-      v62 = CK_DEFAULT_LOG_INTERNAL_1;
+      v61 = CK_DEFAULT_LOG_INTERNAL_1;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        *&buf[4] = v61;
-        _os_log_impl(&dword_243431000, v62, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        *&buf[4] = v60;
+        _os_log_impl(&dword_243431000, v61, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      v5 = old_ringing + 664;
-      if (v61)
+      v5 = &unk_280C64000;
+      if (v60)
       {
-        CFRelease(v61);
+        CFRelease(v60);
       }
     }
 
-    if (v60)
+    if (v59)
     {
-      v63 = 0;
+      v62 = 0;
     }
 
     else
     {
-      v63 = v59;
+      v62 = v58;
     }
 
-    if (v63)
+    if (v62)
     {
-      v41 = 0;
-      v43 = 0;
+      v40 = 0;
       v42 = 0;
+      v41 = 0;
       goto LABEL_142;
     }
 
-    v64 = v60;
-    v41 = _CSPrepareStatement(a1, @"DELETE FROM CSChunkTable WHERE ct_rowid = ?", "DELETE FROM CSChunkTable WHERE ct_rowid = ?");
-    v39 = theArray;
-    if (!v41 || _CSBeginTransactionSqlRc(a1))
+    v63 = v59;
+    v40 = _CSPrepareStatement(a1, @"DELETE FROM CSChunkTable WHERE ct_rowid = ?", "DELETE FROM CSChunkTable WHERE ct_rowid = ?");
+    v38 = theArray;
+    if (!v40 || _CSBeginTransactionSqlRc(a1))
     {
       goto LABEL_76;
     }
 
-    if (v64 < 1)
+    if (v63 < 1)
     {
-      v65 = 0;
+      v64 = 0;
       goto LABEL_154;
     }
 
-    v65 = 0;
+    v64 = 0;
     while (1)
     {
-      v66 = CFArrayGetValueAtIndex(v39, v65);
-      *v232 = 0;
-      if (!CFNumberGetValue(v66, kCFNumberLongLongType, v232))
+      v65 = CFArrayGetValueAtIndex(v38, v64);
+      *v231 = 0;
+      if (!CFNumberGetValue(v65, kCFNumberLongLongType, v231))
       {
         goto LABEL_129;
       }
 
-      if (sqlite3_bind_int64(v41[2], 1, *v232))
+      if (sqlite3_bind_int64(v40[2], 1, *v231))
       {
         goto LABEL_153;
       }
 
-      v67 = CS_sqlite3_step(v41);
-      if (v67 != 101)
+      v66 = CS_sqlite3_step(v40);
+      if (v66 != 101)
       {
         break;
       }
 
-      if (sqlite3_reset(v41[2]))
+      if (sqlite3_reset(v40[2]))
       {
         goto LABEL_153;
       }
 
-      v39 = theArray;
-      if (sqlite3_clear_bindings(v41[2]))
+      v38 = theArray;
+      if (sqlite3_clear_bindings(v40[2]))
       {
         goto LABEL_154;
       }
 
 LABEL_129:
-      if (v64 == ++v65)
+      if (v63 == ++v64)
       {
-        _CSFinishPreparedStatement(v41);
+        _CSFinishPreparedStatement(v40);
         goto LABEL_155;
       }
     }
 
-    v68 = v67;
+    v67 = v66;
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
       _CSCompactStorage_cold_15();
@@ -7028,19 +6937,19 @@ LABEL_129:
 
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      v69 = sqlite3_errmsg(*(a1 + 24));
-      cfa = CFStringCreateWithFormat(alloc, 0, @"sqlite3_step error: %d, %s", v68, v69);
+      v68 = sqlite3_errmsg(*(a1 + 24));
+      cfa = CFStringCreateWithFormat(alloc, 0, @"sqlite3_step error: %d, %s", v67, v68);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCompactStorage_cold_16();
       }
 
-      v70 = CK_DEFAULT_LOG_INTERNAL_1;
+      v69 = CK_DEFAULT_LOG_INTERNAL_1;
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
         *&buf[4] = cfa;
-        _os_log_impl(&dword_243431000, v70, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_243431000, v69, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
       if (cfa)
@@ -7050,17 +6959,17 @@ LABEL_129:
     }
 
 LABEL_153:
-    v39 = theArray;
+    v38 = theArray;
 LABEL_154:
-    _CSFinishPreparedStatement(v41);
-    if (v65 != v64)
+    _CSFinishPreparedStatement(v40);
+    if (v64 != v63)
     {
 LABEL_156:
       _CSRollbackTransactionSqlRc(a1);
-      v41 = 0;
+      v40 = 0;
 LABEL_157:
-      v42 = 0;
-      v43 = 0xFFFFFFFFLL;
+      v41 = 0;
+      v42 = 0xFFFFFFFFLL;
       goto LABEL_158;
     }
 
@@ -7070,106 +6979,106 @@ LABEL_155:
       goto LABEL_156;
     }
 
-    v75 = truncateStorageFile(a1, v223, v218, __fd, __fd);
-    v41 = 0;
-    if (v75)
+    v74 = truncateStorageFile(a1, v222, v217, __fd, __fd);
+    v40 = 0;
+    if (v74)
+    {
+      v41 = 0;
+    }
+
+    else
+    {
+      v41 = __fd;
+    }
+
+    if (v74)
+    {
+      v42 = 0xFFFFFFFFLL;
+    }
+
+    else
     {
       v42 = 0;
     }
 
-    else
-    {
-      v42 = __fd;
-    }
-
-    if (v75)
-    {
-      v43 = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      v43 = 0;
-    }
-
 LABEL_158:
-    v5 = &old_ringing[83];
+    v5 = &unk_280C64000;
 LABEL_159:
-    _CSFinishPreparedStatement(v41);
-    CFRelease(v39);
+    _CSFinishPreparedStatement(v40);
+    CFRelease(v38);
 LABEL_160:
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
       _CSCompactStorage_cold_19();
     }
 
-    if (os_log_type_enabled(v5[433], OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(*(v5 + 433), OS_LOG_TYPE_DEBUG))
     {
-      v71 = CFStringCreateWithFormat(alloc, 0, @"ftRowId:%llu, totalFreeSpace:%llu, rc:%d\n", v223, v42, v43);
+      v70 = CFStringCreateWithFormat(alloc, 0, @"ftRowId:%llu, totalFreeSpace:%llu, rc:%d\n", v222, v41, v42);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
         _CSCompactStorage_cold_20();
       }
 
-      v72 = v5[433];
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+      v71 = *(v5 + 433);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        *&buf[4] = v71;
-        _os_log_impl(&dword_243431000, v72, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        *&buf[4] = v70;
+        _os_log_impl(&dword_243431000, v71, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      v5 = old_ringing + 664;
-      if (v71)
+      v5 = &unk_280C64000;
+      if (v70)
       {
-        CFRelease(v71);
+        CFRelease(v70);
       }
     }
 
-    v73 = v31 - v42;
-    if (v31 < v42)
+    v72 = v30 - v41;
+    if (v30 < v41)
+    {
+      v72 = 0;
+    }
+
+    if (v42)
     {
       v73 = 0;
     }
 
-    if (v43)
-    {
-      v74 = 0;
-    }
-
     else
     {
-      v74 = v42;
+      v73 = v41;
     }
 
-    v227 += v74;
-    if (!v43)
+    v226 += v73;
+    if (!v42)
     {
-      v31 = v73;
+      v30 = v72;
     }
 
 LABEL_176:
-    v24 = 0;
-    v20 = 0;
-    ++v30;
+    v23 = 0;
+    v19 = 0;
+    ++v29;
   }
 
-  while (v30 < Count && v31);
+  while (v29 < Count && v30);
 LABEL_190:
-  _CSFinishPreparedStatement(v20);
-  v4 = &old_ringing[83];
-  v8 = v227;
+  _CSFinishPreparedStatement(v19);
+  v4 = &unk_280C64000;
+  v8 = v226;
 LABEL_191:
-  CFRelease(v18);
+  CFRelease(v17);
 LABEL_192:
   if (a2 >= v8)
   {
-    v76 = a2 - v8;
+    v75 = a2 - v8;
   }
 
   else
   {
-    v76 = 0;
+    v75 = 0;
   }
 
   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -7177,25 +7086,25 @@ LABEL_192:
     _CSCompactStorage_cold_22();
   }
 
-  if (os_log_type_enabled(v5[433], OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(*(v5 + 433), OS_LOG_TYPE_DEBUG))
   {
-    v77 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"removeUnreferencedChunks freed %llu bytes, totalFreeSpace:%llu, spaceNeeded:%llu, rc:%d\n", v8, v8, v76, v24);
+    v76 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"removeUnreferencedChunks freed %llu bytes, totalFreeSpace:%llu, spaceNeeded:%llu, rc:%d\n", v8, v8, v75, v23);
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
     {
       _CSCompactStorage_cold_23();
     }
 
-    v78 = v5[433];
-    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+    v77 = *(v5 + 433);
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      *&buf[4] = v77;
-      _os_log_impl(&dword_243431000, v78, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      *&buf[4] = v76;
+      _os_log_impl(&dword_243431000, v77, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v77)
+    if (v76)
     {
-      CFRelease(v77);
+      CFRelease(v76);
     }
   }
 
@@ -7209,19 +7118,19 @@ LABEL_192:
     _CSCompactStorage_cold_73();
   }
 
-  v79 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-  if (v79)
+  v78 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+  if (v78)
   {
-    v80 = v79;
-    v228 = v8;
-    v81 = _CSPrepareStatement(a1, @"SELECT ft_rowid FROM CSStorageFileTable WHERE (ft_pspace > 0 AND ft_status IS NULL) ORDER BY ft_pspace DESC", "SELECT ft_rowid FROM CSStorageFileTable WHERE (ft_pspace > 0 AND ft_status IS NULL) ORDER BY ft_pspace DESC");
-    if (v81)
+    v79 = v78;
+    v227 = v8;
+    v80 = _CSPrepareStatement(a1, @"SELECT ft_rowid FROM CSStorageFileTable WHERE (ft_pspace > 0 AND ft_status IS NULL) ORDER BY ft_pspace DESC", "SELECT ft_rowid FROM CSStorageFileTable WHERE (ft_pspace > 0 AND ft_status IS NULL) ORDER BY ft_pspace DESC");
+    if (v80)
     {
-      v82 = v81;
+      v81 = v80;
       while (1)
       {
-        v83 = CS_sqlite3_step(v82);
-        if (v83 != 100)
+        v82 = CS_sqlite3_step(v81);
+        if (v82 != 100)
         {
           break;
         }
@@ -7231,99 +7140,99 @@ LABEL_192:
           goto LABEL_518;
         }
 
-        *buf = sqlite3_column_int64(v82[2], 0);
-        v84 = CFNumberCreate(0, kCFNumberLongLongType, buf);
-        if (!v84)
+        *buf = sqlite3_column_int64(v81[2], 0);
+        v83 = CFNumberCreate(0, kCFNumberLongLongType, buf);
+        if (!v83)
         {
-          v86 = 0;
-          v87 = 0xFFFFFFFFLL;
+          v85 = 0;
+          v86 = 0xFFFFFFFFLL;
           goto LABEL_521;
         }
 
-        v85 = v84;
-        CFArrayAppendValue(v80, v84);
-        CFRelease(v85);
+        v84 = v83;
+        CFArrayAppendValue(v79, v83);
+        CFRelease(v84);
       }
 
-      v88 = v83;
-      if (v83 != 101)
+      v87 = v82;
+      if (v82 != 101)
       {
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
           _CSCompactStorage_cold_24();
         }
 
-        if (os_log_type_enabled(v5[433], OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(*(v5 + 433), OS_LOG_TYPE_ERROR))
         {
-          v89 = *MEMORY[0x277CBECE8];
-          v90 = sqlite3_errmsg(*(a1 + 24));
-          v91 = CFStringCreateWithFormat(v89, 0, @"sqlite3_step returned: %d %s\n", v88, v90);
+          v88 = *MEMORY[0x277CBECE8];
+          v89 = sqlite3_errmsg(*(a1 + 24));
+          v90 = CFStringCreateWithFormat(v88, 0, @"sqlite3_step returned: %d %s\n", v87, v89);
           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
           {
             _CSCompactStorage_cold_25();
           }
 
-          v92 = v5[433];
-          if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+          v91 = *(v5 + 433);
+          if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v91;
-            _os_log_impl(&dword_243431000, v92, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            *&buf[4] = v90;
+            _os_log_impl(&dword_243431000, v91, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v91)
+          if (v90)
           {
-            CFRelease(v91);
+            CFRelease(v90);
           }
         }
       }
 
-      _CSFinishPreparedStatement(v82);
-      v224 = CFArrayGetCount(v80);
-      if (v224 >= 1)
+      _CSFinishPreparedStatement(v81);
+      v223 = CFArrayGetCount(v79);
+      if (v223 >= 1)
       {
-        v93 = 0;
-        v86 = 0;
+        v92 = 0;
+        v85 = 0;
         alloca = *MEMORY[0x277CBECE8];
-        v94 = v76;
+        v93 = v75;
         while (2)
         {
           if (*(a1 + 256))
           {
-            v82 = 0;
+            v81 = 0;
             goto LABEL_520;
           }
 
-          v95 = CFArrayGetValueAtIndex(v80, v93);
-          v229 = 0;
-          if (!CFNumberGetValue(v95, kCFNumberLongLongType, &v229))
+          v94 = CFArrayGetValueAtIndex(v79, v92);
+          v228 = 0;
+          if (!CFNumberGetValue(v94, kCFNumberLongLongType, &v228))
           {
             goto LABEL_484;
           }
 
-          v96 = v229;
-          v231 = 0;
+          v95 = v228;
+          v230 = 0;
           if (*(a1 + 17) == 1)
           {
             _CSCompactStorage_cold_70();
           }
 
-          v226 = v94;
-          if (CSAttemptAutomaticFirstAidForStorageFile(a1, v229))
+          v225 = v93;
+          if (CSAttemptAutomaticFirstAidForStorageFile(a1, v228))
           {
-            _CSCloseCachedStorageFile(a1, v96, 0);
+            _CSCloseCachedStorageFile(a1, v95, 0);
             bzero(buf, 0x400uLL);
-            if (!__CSCreateStoragePath(a1, v96, 0, buf, 0x400uLL))
+            if (!__CSCreateStoragePath(a1, v95, 0, buf, 0x400uLL))
             {
               goto LABEL_248;
             }
 
-            v97 = open(buf, 2, 384);
-            if (v97 != -1)
+            v96 = open(buf, 2, 384);
+            if (v96 != -1)
             {
-              v98 = v97;
+              v97 = v96;
               memset(&valuePtr, 0, sizeof(valuePtr));
-              if (fstat(v97, &valuePtr) == -1)
+              if (fstat(v96, &valuePtr) == -1)
               {
                 if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                 {
@@ -7332,73 +7241,73 @@ LABEL_192:
 
                 if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                 {
-                  __fda = v98;
-                  v112 = __error();
-                  v113 = strerror(*v112);
-                  v114 = CFStringCreateWithFormat(alloca, 0, @"fstat failed for %s: %s", buf, v113);
+                  __fda = v97;
+                  v111 = __error();
+                  v112 = strerror(*v111);
+                  v113 = CFStringCreateWithFormat(alloca, 0, @"fstat failed for %s: %s", buf, v112);
                   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                   {
                     _CSCompactStorage_cold_63();
                   }
 
-                  v115 = CK_DEFAULT_LOG_INTERNAL_1;
+                  v114 = CK_DEFAULT_LOG_INTERNAL_1;
                   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                   {
-                    *v232 = 138543362;
-                    *&v232[4] = v114;
-                    _os_log_impl(&dword_243431000, v115, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                    *v231 = 138543362;
+                    *&v231[4] = v113;
+                    _os_log_impl(&dword_243431000, v114, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                   }
 
-                  if (v114)
+                  if (v113)
                   {
-                    CFRelease(v114);
+                    CFRelease(v113);
                   }
 
-                  v101 = 0;
-                  LODWORD(v103) = 0;
-                  LODWORD(v98) = __fda;
+                  v100 = 0;
+                  LODWORD(v102) = 0;
+                  LODWORD(v97) = __fda;
                   goto LABEL_300;
                 }
 
-                v101 = 0;
+                v100 = 0;
               }
 
               else
               {
                 st_size = valuePtr.st_size;
-                v100 = _CSPrepareStatement(a1, @"SELECT CSChunkTable.ct_rowid, CSChunkTable.dataLen, CSChunkTable.offset FROM CSStorageFileTable INNER JOIN CSChunkTable on CSChunkTable.ft_rowid = CSStorageFileTable.ft_rowid WHERE CSChunkTable.ft_rowid = ? AND CSChunkTable.refCount > 0 AND CSChunkTable.location = ? AND CSStorageFileTable.ft_status IS NULL ORDER BY CSChunkTable.refCount DESC", "SELECT CSChunkTable.ct_rowid, CSChunkTable.dataLen, CSChunkTable.offset FROM CSStorageFileTable INNER JOIN CSChunkTable on CSChunkTable.ft_rowid = CSStorageFileTable.ft_rowid WHERE CSChunkTable.ft_rowid = ? AND CSChunkTable.refCount > 0 AND CSChunkTable.location = ? AND CSStorageFileTable.ft_status IS NULL ORDER BY CSChunkTable.refCount DESC");
-                v101 = v100;
-                if (v100)
+                v99 = _CSPrepareStatement(a1, @"SELECT CSChunkTable.ct_rowid, CSChunkTable.dataLen, CSChunkTable.offset FROM CSStorageFileTable INNER JOIN CSChunkTable on CSChunkTable.ft_rowid = CSStorageFileTable.ft_rowid WHERE CSChunkTable.ft_rowid = ? AND CSChunkTable.refCount > 0 AND CSChunkTable.location = ? AND CSStorageFileTable.ft_status IS NULL ORDER BY CSChunkTable.refCount DESC", "SELECT CSChunkTable.ct_rowid, CSChunkTable.dataLen, CSChunkTable.offset FROM CSStorageFileTable INNER JOIN CSChunkTable on CSChunkTable.ft_rowid = CSStorageFileTable.ft_rowid WHERE CSChunkTable.ft_rowid = ? AND CSChunkTable.refCount > 0 AND CSChunkTable.location = ? AND CSStorageFileTable.ft_status IS NULL ORDER BY CSChunkTable.refCount DESC");
+                v100 = v99;
+                if (v99)
                 {
-                  v207 = st_size;
-                  v102 = sqlite3_bind_int64(v100[2], 1, v96);
-                  if (!v102)
+                  v206 = st_size;
+                  v101 = sqlite3_bind_int64(v99[2], 1, v95);
+                  if (!v101)
                   {
-                    v102 = sqlite3_bind_int(v101[2], 2, 115);
-                    if (!v102)
+                    v101 = sqlite3_bind_int(v100[2], 2, 115);
+                    if (!v101)
                     {
-                      v205 = v101;
+                      v204 = v100;
                       theArraya = 0;
-                      *__fdb = v98;
-                      v203 = 0;
+                      *__fdb = v97;
+                      v202 = 0;
+                      v117 = 0;
+                      v207 = 0;
                       v118 = 0;
-                      v208 = 0;
-                      v119 = 0;
                       while (1)
                       {
-                        v206 = v118;
-                        v120 = v205;
-                        v121 = CS_sqlite3_step(v205);
-                        if (v121 != 100)
+                        v205 = v117;
+                        v119 = v204;
+                        v120 = CS_sqlite3_step(v204);
+                        if (v120 != 100)
                         {
                           break;
                         }
 
-                        v122 = sqlite3_column_int64(v205[2], 0);
-                        v123 = sqlite3_column_int(v205[2], 1);
-                        v124 = sqlite3_column_int64(v205[2], 2);
-                        v125 = v124;
-                        if (!v123)
+                        v121 = sqlite3_column_int64(v204[2], 0);
+                        v122 = sqlite3_column_int(v204[2], 1);
+                        v123 = sqlite3_column_int64(v204[2], 2);
+                        v124 = v123;
+                        if (!v122)
                         {
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
@@ -7407,147 +7316,147 @@ LABEL_192:
 
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            v146 = CFStringCreateWithFormat(alloca, 0, @"Bad chunk in %s, ctRowId:%llu, chunkOffset:0x%llx, chunkSize:0x%llx\n", buf, v122, v125, 0);
+                            v145 = CFStringCreateWithFormat(alloca, 0, @"Bad chunk in %s, ctRowId:%llu, chunkOffset:0x%llx, chunkSize:0x%llx\n", buf, v121, v124, 0);
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
                               _CSCompactStorage_cold_40();
                             }
 
-                            v147 = CK_DEFAULT_LOG_INTERNAL_1;
+                            v146 = CK_DEFAULT_LOG_INTERNAL_1;
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
-                              *v232 = 138543362;
-                              *&v232[4] = v146;
-                              _os_log_impl(&dword_243431000, v147, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                              *v231 = 138543362;
+                              *&v231[4] = v145;
+                              _os_log_impl(&dword_243431000, v146, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                             }
 
-                            if (v146)
+                            if (v145)
                             {
-                              CFRelease(v146);
+                              CFRelease(v145);
                             }
                           }
 
                           goto LABEL_380;
                         }
 
-                        v126 = v123;
-                        __nbyte = v123;
-                        v204 = v122;
-                        if (v124 > 0x1400064)
+                        v125 = v122;
+                        __nbyte = v122;
+                        v203 = v121;
+                        if (v123 > 0x1400064)
                         {
-                          v148 = "offset_bounded_by_storage_file_length";
+                          v147 = "offset_bounded_by_storage_file_length";
                           goto LABEL_359;
                         }
 
-                        v127 = __fdb[0];
-                        if (v126 > 0x500019)
+                        v126 = __fdb[0];
+                        if (v125 > 0x500019)
                         {
-                          v148 = "length_bounded_by_slot_size";
+                          v147 = "length_bounded_by_slot_size";
 LABEL_359:
-                          v149 = xpc_string_create("compact_source_invalid");
-                          theArrayb = v148;
-                          v150 = xpc_string_create(v148);
+                          v148 = xpc_string_create("compact_source_invalid");
+                          theArrayb = v147;
+                          v149 = xpc_string_create(v147);
                           keys = xmmword_278DB9EB0;
-                          values = v149;
-                          v151 = v149;
-                          v239 = v150;
-                          v152 = xpc_dictionary_create(&keys, &values, 2uLL);
+                          values = v148;
+                          v150 = v148;
+                          v238 = v149;
+                          v151 = xpc_dictionary_create(&keys, &values, 2uLL);
                           analytics_send_event();
-                          xpc_release(v151);
                           xpc_release(v150);
-                          xpc_release(v152);
+                          xpc_release(v149);
+                          xpc_release(v151);
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_38();
                           }
 
-                          v153 = CK_DEFAULT_LOG_INTERNAL_1;
+                          v152 = CK_DEFAULT_LOG_INTERNAL_1;
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_FAULT))
                           {
-                            *v232 = 136316162;
-                            *&v232[4] = buf;
-                            *&v232[12] = 2048;
-                            *&v232[14] = v204;
-                            *&v232[22] = 2048;
-                            v233 = v125;
-                            v234 = 2048;
-                            v235 = __nbyte;
-                            v236 = 2080;
-                            v237 = theArrayb;
-                            v154 = v153;
-                            v155 = "Bad chunk offset/size in %s, ctRowId:%llu, chunkOffset:0x%llx, chunkSize:0x%llx (%s violated)";
-                            v156 = 52;
+                            *v231 = 136316162;
+                            *&v231[4] = buf;
+                            *&v231[12] = 2048;
+                            *&v231[14] = v203;
+                            *&v231[22] = 2048;
+                            v232 = v124;
+                            v233 = 2048;
+                            v234 = __nbyte;
+                            v235 = 2080;
+                            v236 = theArrayb;
+                            v153 = v152;
+                            v154 = "Bad chunk offset/size in %s, ctRowId:%llu, chunkOffset:0x%llx, chunkSize:0x%llx (%s violated)";
+                            v155 = 52;
 LABEL_367:
-                            _os_log_impl(&dword_243431000, v154, OS_LOG_TYPE_FAULT, v155, v232, v156);
+                            _os_log_impl(&dword_243431000, v153, OS_LOG_TYPE_FAULT, v154, v231, v155);
                           }
 
 LABEL_380:
-                          LODWORD(v106) = -1;
+                          LODWORD(v105) = -1;
                           goto LABEL_381;
                         }
 
-                        if (v124 + v126 > 0x1400064)
+                        if (v123 + v125 > 0x1400064)
                         {
-                          v148 = "chunk_contained_in_storage_file";
+                          v147 = "chunk_contained_in_storage_file";
                           goto LABEL_359;
                         }
 
-                        v128 = (theArraya + v126);
-                        if (theArraya + v126 > 0x1400064)
+                        v127 = (theArraya + v125);
+                        if (theArraya + v125 > 0x1400064)
                         {
-                          v157 = xpc_string_create("compact_destination_invalid");
-                          v158 = xpc_string_create("chunk_contained_in_storage_file");
+                          v156 = xpc_string_create("compact_destination_invalid");
+                          v157 = xpc_string_create("chunk_contained_in_storage_file");
                           keys = xmmword_278DB9EB0;
-                          values = v157;
-                          v239 = v158;
-                          v159 = xpc_dictionary_create(&keys, &values, 2uLL);
+                          values = v156;
+                          v238 = v157;
+                          v158 = xpc_dictionary_create(&keys, &values, 2uLL);
                           analytics_send_event();
+                          xpc_release(v156);
                           xpc_release(v157);
                           xpc_release(v158);
-                          xpc_release(v159);
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_37();
                           }
 
-                          v160 = CK_DEFAULT_LOG_INTERNAL_1;
+                          v159 = CK_DEFAULT_LOG_INTERNAL_1;
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_FAULT))
                           {
-                            *v232 = 134218754;
-                            *&v232[4] = v204;
-                            *&v232[12] = 2048;
-                            *&v232[14] = theArraya;
-                            *&v232[22] = 2048;
-                            v233 = __nbyte;
-                            v234 = 2080;
-                            v235 = "chunk_contained_in_storage_file";
-                            v154 = v160;
-                            v155 = "Bad chunk offset/size, ctRowId:%llu, dstOffset:0x%llx, chunkSize:0x%llx (%s violated)";
-                            v156 = 42;
+                            *v231 = 134218754;
+                            *&v231[4] = v203;
+                            *&v231[12] = 2048;
+                            *&v231[14] = theArraya;
+                            *&v231[22] = 2048;
+                            v232 = __nbyte;
+                            v233 = 2080;
+                            v234 = "chunk_contained_in_storage_file";
+                            v153 = v159;
+                            v154 = "Bad chunk offset/size, ctRowId:%llu, dstOffset:0x%llx, chunkSize:0x%llx (%s violated)";
+                            v155 = 42;
                             goto LABEL_367;
                           }
 
                           goto LABEL_380;
                         }
 
-                        v129 = v208;
-                        if (!v208)
+                        v128 = v207;
+                        if (!v207)
                         {
-                          v129 = malloc_type_malloc(0x500019uLL, 0x100004052888210uLL);
-                          if (!v129)
+                          v128 = malloc_type_malloc(0x500019uLL, 0x100004052888210uLL);
+                          if (!v128)
                           {
-                            v208 = 0;
-                            LODWORD(v106) = -1;
-                            LODWORD(v103) = 100;
+                            v207 = 0;
+                            LODWORD(v105) = -1;
+                            LODWORD(v102) = 100;
                             goto LABEL_383;
                           }
                         }
 
-                        v208 = v129;
-                        v130 = pread(__fdb[0], v129, __nbyte, v125);
-                        if (v130 != __nbyte)
+                        v207 = v128;
+                        v129 = pread(__fdb[0], v128, __nbyte, v124);
+                        if (v129 != __nbyte)
                         {
-                          v161 = v130;
+                          v160 = v129;
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_28();
@@ -7555,44 +7464,44 @@ LABEL_380:
 
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            v162 = "Read size doesn't match request";
-                            if (v161 < 0)
+                            v161 = "Read size doesn't match request";
+                            if (v160 < 0)
                             {
-                              v163 = __error();
-                              v162 = strerror(*v163);
+                              v162 = __error();
+                              v161 = strerror(*v162);
                             }
 
-                            v164 = CFStringCreateWithFormat(alloca, 0, @"pread(%d, 0x%llx, 0x%llx) failed: %s, read %lld bytes, file is 0x%llx(%lld) bytes long\n", *__fdb, __nbyte, v125, v162, v161, v207, v207);
+                            v163 = CFStringCreateWithFormat(alloca, 0, @"pread(%d, 0x%llx, 0x%llx) failed: %s, read %lld bytes, file is 0x%llx(%lld) bytes long\n", *__fdb, __nbyte, v124, v161, v160, v206, v206);
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
                               _CSCompactStorage_cold_29();
                             }
 
-                            v165 = CK_DEFAULT_LOG_INTERNAL_1;
+                            v164 = CK_DEFAULT_LOG_INTERNAL_1;
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
-                              *v232 = 138543362;
-                              *&v232[4] = v164;
-                              _os_log_impl(&dword_243431000, v165, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                              *v231 = 138543362;
+                              *&v231[4] = v163;
+                              _os_log_impl(&dword_243431000, v164, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                             }
 
-                            if (v164)
+                            if (v163)
                             {
-                              CFRelease(v164);
+                              CFRelease(v163);
                             }
                           }
 
-                          CSsql_corruption_checking_do_0(a1, *(a1 + 24), "DELETE FROM CSChunkTable WHERE ct_rowid = %lld", v204);
+                          CSsql_corruption_checking_do_0(a1, *(a1 + 24), "DELETE FROM CSChunkTable WHERE ct_rowid = %lld", v203);
                           goto LABEL_380;
                         }
 
-                        v131 = v231;
-                        if (!v231)
+                        v130 = v230;
+                        if (!v230)
                         {
-                          v132 = _CSCreateStorageFile(a1, &v231);
-                          if (v132)
+                          v131 = _CSCreateStorageFile(a1, &v230);
+                          if (v131)
                           {
-                            v106 = v132;
+                            v105 = v131;
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
                               _CSCompactStorage_cold_30();
@@ -7600,56 +7509,56 @@ LABEL_380:
 
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
-                              v169 = CFStringCreateWithFormat(alloca, 0, @"_CSCreateStorageFile failed, rc:%d\n", v106);
+                              v168 = CFStringCreateWithFormat(alloca, 0, @"_CSCreateStorageFile failed, rc:%d\n", v105);
                               if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                               {
                                 _CSCompactStorage_cold_31();
                               }
 
-                              v170 = CK_DEFAULT_LOG_INTERNAL_1;
+                              v169 = CK_DEFAULT_LOG_INTERNAL_1;
                               if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                               {
 LABEL_457:
-                                *v232 = 138543362;
-                                *&v232[4] = v169;
-                                _os_log_impl(&dword_243431000, v170, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                                *v231 = 138543362;
+                                *&v231[4] = v168;
+                                _os_log_impl(&dword_243431000, v169, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                               }
 
 LABEL_458:
-                              if (v169)
+                              if (v168)
                               {
-                                CFRelease(v169);
+                                CFRelease(v168);
                               }
                             }
 
 LABEL_381:
-                            LODWORD(v103) = 100;
+                            LODWORD(v102) = 100;
 LABEL_382:
-                            v127 = __fdb[0];
+                            v126 = __fdb[0];
 LABEL_383:
-                            _CSFinishPreparedStatement(v205);
-                            close(v127);
-                            if (v208)
+                            _CSFinishPreparedStatement(v204);
+                            close(v126);
+                            if (v207)
                             {
-                              free(v208);
+                              free(v207);
                             }
 
-                            if (v206)
+                            if (v205)
                             {
-                              CFRelease(v206);
+                              CFRelease(v205);
                             }
 
                             goto LABEL_250;
                           }
 
-                          v131 = v231;
-                          v203 = *(v231 + 2);
+                          v130 = v230;
+                          v202 = *(v230 + 2);
                         }
 
-                        v133 = pwrite(v131[2], v208, __nbyte, theArraya);
-                        if (v133 < 0)
+                        v132 = pwrite(v130[2], v207, __nbyte, theArraya);
+                        if (v132 < 0)
                         {
-                          LODWORD(v106) = *__error();
+                          LODWORD(v105) = *__error();
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_35();
@@ -7657,16 +7566,16 @@ LABEL_383:
 
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            v166 = *__error();
-                            v167 = __error();
-                            v168 = strerror(*v167);
-                            v169 = CFStringCreateWithFormat(alloca, 0, @"pwrite(%d, sz:0x%llx, o:0x%llx) failed: %d, %s\n", *__fdb, __nbyte, theArraya, v166, v168);
+                            v165 = *__error();
+                            v166 = __error();
+                            v167 = strerror(*v166);
+                            v168 = CFStringCreateWithFormat(alloca, 0, @"pwrite(%d, sz:0x%llx, o:0x%llx) failed: %d, %s\n", *__fdb, __nbyte, theArraya, v165, v167);
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
                               _CSCompactStorage_cold_36();
                             }
 
-                            v170 = CK_DEFAULT_LOG_INTERNAL_1;
+                            v169 = CK_DEFAULT_LOG_INTERNAL_1;
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
                               goto LABEL_457;
@@ -7678,9 +7587,9 @@ LABEL_383:
                           goto LABEL_381;
                         }
 
-                        v134 = v133;
-                        v118 = v206;
-                        if (v133 != __nbyte)
+                        v133 = v132;
+                        v117 = v205;
+                        if (v132 != __nbyte)
                         {
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
@@ -7689,119 +7598,119 @@ LABEL_383:
 
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            v171 = CFStringCreateWithFormat(alloca, 0, @"pwrite(%d, sz:0x%llx, o:0x%llx) failed: wrote %lld bytes\n", *__fdb, __nbyte, theArraya, v134);
+                            v170 = CFStringCreateWithFormat(alloca, 0, @"pwrite(%d, sz:0x%llx, o:0x%llx) failed: wrote %lld bytes\n", *__fdb, __nbyte, theArraya, v133);
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
                               _CSCompactStorage_cold_33();
                             }
 
-                            v172 = CK_DEFAULT_LOG_INTERNAL_1;
+                            v171 = CK_DEFAULT_LOG_INTERNAL_1;
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
-                              *v232 = 138543362;
-                              *&v232[4] = v171;
-                              _os_log_impl(&dword_243431000, v172, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                              *v231 = 138543362;
+                              *&v231[4] = v170;
+                              _os_log_impl(&dword_243431000, v171, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                             }
 
-                            if (v171)
+                            if (v170)
                             {
-                              CFRelease(v171);
+                              CFRelease(v170);
                             }
                           }
 
-                          LODWORD(v106) = 28;
+                          LODWORD(v105) = 28;
                           goto LABEL_381;
                         }
 
-                        if (!v206)
+                        if (!v205)
                         {
-                          v118 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-                          if (!v118)
+                          v117 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+                          if (!v117)
                           {
-                            v206 = 0;
+                            v205 = 0;
 LABEL_488:
-                            LODWORD(v106) = -1;
-                            LODWORD(v103) = 100;
+                            LODWORD(v105) = -1;
+                            LODWORD(v102) = 100;
                             goto LABEL_382;
                           }
                         }
 
-                        if (!v203)
+                        if (!v202)
                         {
                           _CSCompactStorage_cold_34();
                         }
 
-                        *v232 = v203;
-                        *&v232[8] = v204;
-                        *&v232[16] = theArraya;
-                        v135 = CFDataCreate(0, v232, 24);
-                        if (!v135)
+                        *v231 = v202;
+                        *&v231[8] = v203;
+                        *&v231[16] = theArraya;
+                        v134 = CFDataCreate(0, v231, 24);
+                        if (!v134)
                         {
-                          v206 = v118;
+                          v205 = v117;
                           goto LABEL_488;
                         }
 
-                        v136 = v135;
-                        CFArrayAppendValue(v118, v135);
-                        CFRelease(v136);
-                        v119 += __nbyte;
-                        theArraya = v128;
+                        v135 = v134;
+                        CFArrayAppendValue(v117, v134);
+                        CFRelease(v135);
+                        v118 += __nbyte;
+                        theArraya = v127;
                       }
 
-                      v103 = v121;
-                      if (v121 != 101)
+                      v102 = v120;
+                      if (v120 != 101)
                       {
                         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                         {
                           _CSCompactStorage_cold_41();
                         }
 
-                        v120 = v205;
+                        v119 = v204;
                         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                         {
-                          v137 = sqlite3_errmsg(*(a1 + 24));
-                          v138 = CFStringCreateWithFormat(alloca, 0, @"sqlite3_step error: %d, %s", v103, v137);
+                          v136 = sqlite3_errmsg(*(a1 + 24));
+                          v137 = CFStringCreateWithFormat(alloca, 0, @"sqlite3_step error: %d, %s", v102, v136);
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_42();
                           }
 
-                          v139 = CK_DEFAULT_LOG_INTERNAL_1;
+                          v138 = CK_DEFAULT_LOG_INTERNAL_1;
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            *v232 = 138543362;
-                            *&v232[4] = v138;
-                            _os_log_impl(&dword_243431000, v139, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                            *v231 = 138543362;
+                            *&v231[4] = v137;
+                            _os_log_impl(&dword_243431000, v138, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                           }
 
-                          v120 = v205;
-                          if (v138)
+                          v119 = v204;
+                          if (v137)
                           {
-                            CFRelease(v138);
+                            CFRelease(v137);
                           }
                         }
                       }
 
-                      _CSFinishPreparedStatement(v120);
-                      if (v208)
+                      _CSFinishPreparedStatement(v119);
+                      if (v207)
                       {
-                        free(v208);
+                        free(v207);
                       }
 
-                      if (v206)
+                      if (v205)
                       {
-                        if (v119)
+                        if (v118)
                         {
-                          v140 = *(v231 + 3);
-                          v141 = v140 >= v119;
-                          v142 = v140 - v119;
-                          if (!v141)
+                          v139 = *(v230 + 3);
+                          v140 = v139 >= v118;
+                          v141 = v139 - v118;
+                          if (!v140)
                           {
-                            v142 = 0;
+                            v141 = 0;
                           }
 
-                          v103 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "UPDATE CSStorageFileTable SET ft_space = %lld, ft_pspace = 0 WHERE ft_rowid = %lld", v142, *(v231 + 2));
-                          if (v103)
+                          v102 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "UPDATE CSStorageFileTable SET ft_space = %lld, ft_pspace = 0 WHERE ft_rowid = %lld", v141, *(v230 + 2));
+                          if (v102)
                           {
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
@@ -7810,38 +7719,38 @@ LABEL_488:
 
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
-                              v143 = sqlite3_errmsg(*(a1 + 24));
-                              v144 = CFStringCreateWithFormat(alloca, 0, @"CSsql_do error: %d, %s", v103, v143);
+                              v142 = sqlite3_errmsg(*(a1 + 24));
+                              v143 = CFStringCreateWithFormat(alloca, 0, @"CSsql_do error: %d, %s", v102, v142);
                               if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                               {
                                 _CSCompactStorage_cold_44();
                               }
 
-                              v145 = CK_DEFAULT_LOG_INTERNAL_1;
+                              v144 = CK_DEFAULT_LOG_INTERNAL_1;
                               if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                               {
-                                *v232 = 138543362;
-                                *&v232[4] = v144;
-                                _os_log_impl(&dword_243431000, v145, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                                *v231 = 138543362;
+                                *&v231[4] = v143;
+                                _os_log_impl(&dword_243431000, v144, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                               }
 
-                              if (v144)
+                              if (v143)
                               {
-                                CFRelease(v144);
+                                CFRelease(v143);
                               }
                             }
 
 LABEL_514:
-                            v205 = 0;
+                            v204 = 0;
 LABEL_515:
-                            v208 = 0;
-                            LODWORD(v106) = -1;
+                            v207 = 0;
+                            LODWORD(v105) = -1;
                             goto LABEL_382;
                           }
                         }
 
-                        v205 = _CSPrepareStatement(a1, @"UPDATE CSChunkTable SET offset = ?, ft_rowid = ? WHERE ct_rowid = ?", "UPDATE CSChunkTable SET offset = ?, ft_rowid = ? WHERE ct_rowid = ?");
-                        if (!v205)
+                        v204 = _CSPrepareStatement(a1, @"UPDATE CSChunkTable SET offset = ?, ft_rowid = ? WHERE ct_rowid = ?", "UPDATE CSChunkTable SET offset = ?, ft_rowid = ? WHERE ct_rowid = ?");
+                        if (!v204)
                         {
                           goto LABEL_514;
                         }
@@ -7851,44 +7760,44 @@ LABEL_515:
                           goto LABEL_515;
                         }
 
-                        theArrayc = CFArrayGetCount(v206);
+                        theArrayc = CFArrayGetCount(v205);
                         if (theArrayc < 1)
                         {
-                          v186 = 0;
+                          v185 = 0;
                         }
 
                         else
                         {
-                          v186 = 0;
+                          v185 = 0;
                           while (1)
                           {
-                            v187 = CFArrayGetValueAtIndex(v206, v186);
-                            BytePtr = CFDataGetBytePtr(v187);
-                            sqlite3_bind_int64(v205[2], 1, BytePtr[2]);
-                            sqlite3_bind_int64(v205[2], 2, *BytePtr);
-                            sqlite3_bind_int64(v205[2], 3, BytePtr[1]);
-                            v189 = CS_sqlite3_step(v205);
-                            if (v189 != 101)
+                            v186 = CFArrayGetValueAtIndex(v205, v185);
+                            BytePtr = CFDataGetBytePtr(v186);
+                            sqlite3_bind_int64(v204[2], 1, BytePtr[2]);
+                            sqlite3_bind_int64(v204[2], 2, *BytePtr);
+                            sqlite3_bind_int64(v204[2], 3, BytePtr[1]);
+                            v188 = CS_sqlite3_step(v204);
+                            if (v188 != 101)
                             {
                               break;
                             }
 
-                            v190 = sqlite3_reset(v205[2]);
-                            if (v190 || (v190 = sqlite3_clear_bindings(v205[2])) != 0)
+                            v189 = sqlite3_reset(v204[2]);
+                            if (v189 || (v189 = sqlite3_clear_bindings(v204[2])) != 0)
                             {
-                              LODWORD(v103) = v190;
+                              LODWORD(v102) = v189;
                               goto LABEL_500;
                             }
 
-                            if (theArrayc == ++v186)
+                            if (theArrayc == ++v185)
                             {
-                              LODWORD(v103) = 0;
-                              v186 = theArrayc;
+                              LODWORD(v102) = 0;
+                              v185 = theArrayc;
                               goto LABEL_500;
                             }
                           }
 
-                          v103 = v189;
+                          v102 = v188;
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_45();
@@ -7896,19 +7805,19 @@ LABEL_515:
 
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            v196 = sqlite3_errmsg(*(a1 + 24));
-                            __nbytea = CFStringCreateWithFormat(alloca, 0, @"sqlite3_step error: %d, %s", v103, v196);
+                            v195 = sqlite3_errmsg(*(a1 + 24));
+                            __nbytea = CFStringCreateWithFormat(alloca, 0, @"sqlite3_step error: %d, %s", v102, v195);
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
                               _CSCompactStorage_cold_46();
                             }
 
-                            v197 = CK_DEFAULT_LOG_INTERNAL_1;
+                            v196 = CK_DEFAULT_LOG_INTERNAL_1;
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
-                              *v232 = 138543362;
-                              *&v232[4] = __nbytea;
-                              _os_log_impl(&dword_243431000, v197, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                              *v231 = 138543362;
+                              *&v231[4] = __nbytea;
+                              _os_log_impl(&dword_243431000, v196, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                             }
 
                             if (__nbytea)
@@ -7919,8 +7828,8 @@ LABEL_515:
                         }
 
 LABEL_500:
-                        _CSFinishPreparedStatement(v205);
-                        if ((_CSSyncStorageFile(a1, v231, 1) & 1) == 0)
+                        _CSFinishPreparedStatement(v204);
+                        if ((_CSSyncStorageFile(a1, v230, 1) & 1) == 0)
                         {
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
@@ -7929,23 +7838,23 @@ LABEL_500:
 
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            v198 = CFStringCreateWithFormat(alloca, 0, @"failed to sync storage file while relocating chunks in %s", "_CSRelocateStorageFileChunks");
+                            v197 = CFStringCreateWithFormat(alloca, 0, @"failed to sync storage file while relocating chunks in %s", "_CSRelocateStorageFileChunks");
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
                               _CSCompactStorage_cold_48();
                             }
 
-                            v199 = CK_DEFAULT_LOG_INTERNAL_1;
+                            v198 = CK_DEFAULT_LOG_INTERNAL_1;
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
-                              *v232 = 138543362;
-                              *&v232[4] = v198;
-                              _os_log_impl(&dword_243431000, v199, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                              *v231 = 138543362;
+                              *&v231[4] = v197;
+                              _os_log_impl(&dword_243431000, v198, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                             }
 
-                            if (v198)
+                            if (v197)
                             {
-                              CFRelease(v198);
+                              CFRelease(v197);
                             }
                           }
 
@@ -7954,19 +7863,19 @@ LABEL_513:
                           goto LABEL_514;
                         }
 
-                        if (v186 != theArrayc)
+                        if (v185 != theArrayc)
                         {
                           goto LABEL_513;
                         }
 
-                        LODWORD(v103) = _CSEndTransactionSqlRc(a1);
-                        if (v103)
+                        LODWORD(v102) = _CSEndTransactionSqlRc(a1);
+                        if (v102)
                         {
                           goto LABEL_513;
                         }
 
-                        CFRelease(v206);
-                        _CSCloseStorageFile(a1, v231, 0);
+                        CFRelease(v205);
+                        _CSCloseStorageFile(a1, v230, 0);
 LABEL_413:
                         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                         {
@@ -7983,23 +7892,23 @@ LABEL_413:
 
                         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
                         {
-                          v173 = CFStringCreateWithFormat(alloca, 0, @"Nothing was moved from SF ft_rowid:%lld\n", v96);
+                          v172 = CFStringCreateWithFormat(alloca, 0, @"Nothing was moved from SF ft_rowid:%lld\n", v95);
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_50();
                           }
 
-                          v174 = CK_DEFAULT_LOG_INTERNAL_1;
+                          v173 = CK_DEFAULT_LOG_INTERNAL_1;
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
                           {
-                            *v232 = 138543362;
-                            *&v232[4] = v173;
-                            _os_log_impl(&dword_243431000, v174, OS_LOG_TYPE_DEBUG, "%{public}@", v232, 0xCu);
+                            *v231 = 138543362;
+                            *&v231[4] = v172;
+                            _os_log_impl(&dword_243431000, v173, OS_LOG_TYPE_DEBUG, "%{public}@", v231, 0xCu);
                           }
 
-                          if (v173)
+                          if (v172)
                           {
-                            CFRelease(v173);
+                            CFRelease(v172);
                           }
 
                           goto LABEL_413;
@@ -8008,23 +7917,23 @@ LABEL_413:
 
                       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
                       {
-                        v175 = CFStringCreateWithFormat(alloca, 0, @"Removing SF %s\n", buf);
+                        v174 = CFStringCreateWithFormat(alloca, 0, @"Removing SF %s\n", buf);
                         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                         {
                           _CSCompactStorage_cold_52();
                         }
 
-                        v176 = CK_DEFAULT_LOG_INTERNAL_1;
+                        v175 = CK_DEFAULT_LOG_INTERNAL_1;
                         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
                         {
-                          *v232 = 138543362;
-                          *&v232[4] = v175;
-                          _os_log_impl(&dword_243431000, v176, OS_LOG_TYPE_DEBUG, "%{public}@", v232, 0xCu);
+                          *v231 = 138543362;
+                          *&v231[4] = v174;
+                          _os_log_impl(&dword_243431000, v175, OS_LOG_TYPE_DEBUG, "%{public}@", v231, 0xCu);
                         }
 
-                        if (v175)
+                        if (v174)
                         {
-                          CFRelease(v175);
+                          CFRelease(v174);
                         }
                       }
 
@@ -8037,34 +7946,34 @@ LABEL_413:
 
                         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                         {
-                          v177 = __error();
-                          v178 = strerror(*v177);
-                          v179 = CFStringCreateWithFormat(alloca, 0, @"unlink failed for %s: %s\n", buf, v178);
+                          v176 = __error();
+                          v177 = strerror(*v176);
+                          v178 = CFStringCreateWithFormat(alloca, 0, @"unlink failed for %s: %s\n", buf, v177);
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_54();
                           }
 
-                          v180 = CK_DEFAULT_LOG_INTERNAL_1;
+                          v179 = CK_DEFAULT_LOG_INTERNAL_1;
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            *v232 = 138543362;
-                            *&v232[4] = v179;
-                            _os_log_impl(&dword_243431000, v180, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                            *v231 = 138543362;
+                            *&v231[4] = v178;
+                            _os_log_impl(&dword_243431000, v179, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                           }
 
-                          if (v179)
+                          if (v178)
                           {
-                            CFRelease(v179);
+                            CFRelease(v178);
                           }
                         }
                       }
 
                       close(__fdb[0]);
-                      v181 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "DELETE FROM CSChunkTable WHERE ft_rowid = %lld", v96);
-                      if (v181)
+                      v180 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "DELETE FROM CSChunkTable WHERE ft_rowid = %lld", v95);
+                      if (v180)
                       {
-                        v182 = v181;
+                        v181 = v180;
                         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                         {
                           _CSCompactStorage_cold_55();
@@ -8072,14 +7981,14 @@ LABEL_413:
 
                         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                         {
-                          v183 = sqlite3_errmsg(*(a1 + 24));
-                          v184 = CFStringCreateWithFormat(alloca, 0, @"sqlite3_step error: %d (%s)", v182, v183);
+                          v182 = sqlite3_errmsg(*(a1 + 24));
+                          v183 = CFStringCreateWithFormat(alloca, 0, @"sqlite3_step error: %d (%s)", v181, v182);
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_56();
                           }
 
-                          v185 = CK_DEFAULT_LOG_INTERNAL_1;
+                          v184 = CK_DEFAULT_LOG_INTERNAL_1;
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
                             goto LABEL_467;
@@ -8091,10 +8000,10 @@ LABEL_413:
 
                       else
                       {
-                        v191 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "DELETE FROM CSStorageFileTable WHERE ft_rowid = %lld", v96);
-                        if (v191)
+                        v190 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "DELETE FROM CSStorageFileTable WHERE ft_rowid = %lld", v95);
+                        if (v190)
                         {
-                          v192 = v191;
+                          v191 = v190;
                           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                           {
                             _CSCompactStorage_cold_57();
@@ -8102,33 +8011,33 @@ LABEL_413:
 
                           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                           {
-                            v193 = sqlite3_errmsg(*(a1 + 24));
-                            v184 = CFStringCreateWithFormat(alloca, 0, @"CSsql_do error: %d (%s)", v192, v193);
+                            v192 = sqlite3_errmsg(*(a1 + 24));
+                            v183 = CFStringCreateWithFormat(alloca, 0, @"CSsql_do error: %d (%s)", v191, v192);
                             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                             {
                               _CSCompactStorage_cold_58();
                             }
 
-                            v185 = CK_DEFAULT_LOG_INTERNAL_1;
+                            v184 = CK_DEFAULT_LOG_INTERNAL_1;
                             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                             {
 LABEL_467:
-                              *v232 = 138543362;
-                              *&v232[4] = v184;
-                              _os_log_impl(&dword_243431000, v185, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                              *v231 = 138543362;
+                              *&v231[4] = v183;
+                              _os_log_impl(&dword_243431000, v184, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                             }
 
 LABEL_468:
-                            if (v184)
+                            if (v183)
                             {
-                              CFRelease(v184);
+                              CFRelease(v183);
                             }
                           }
                         }
                       }
 
-                      v109 = v207 - v119;
-                      if (v207 < v119)
+                      v108 = v206 - v118;
+                      if (v206 < v118)
                       {
                         _CSCompactStorage_cold_61();
                       }
@@ -8140,74 +8049,74 @@ LABEL_468:
 
                       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
                       {
-                        v194 = CFStringCreateWithFormat(alloca, 0, @"fileSize:%llu, totalMoved:%llu\n", v207, v119);
+                        v193 = CFStringCreateWithFormat(alloca, 0, @"fileSize:%llu, totalMoved:%llu\n", v206, v118);
                         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                         {
                           _CSCompactStorage_cold_60();
                         }
 
-                        v195 = CK_DEFAULT_LOG_INTERNAL_1;
+                        v194 = CK_DEFAULT_LOG_INTERNAL_1;
                         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
                         {
-                          *v232 = 138543362;
-                          *&v232[4] = v194;
-                          _os_log_impl(&dword_243431000, v195, OS_LOG_TYPE_DEBUG, "%{public}@", v232, 0xCu);
+                          *v231 = 138543362;
+                          *&v231[4] = v193;
+                          _os_log_impl(&dword_243431000, v194, OS_LOG_TYPE_DEBUG, "%{public}@", v231, 0xCu);
                         }
 
-                        if (v194)
+                        if (v193)
                         {
-                          CFRelease(v194);
+                          CFRelease(v193);
                         }
                       }
 
 LABEL_480:
-                      v86 += v109;
-                      if (v226 >= v109)
+                      v85 += v108;
+                      if (v225 >= v108)
                       {
-                        v94 = v226 - v109;
+                        v93 = v225 - v108;
                       }
 
                       else
                       {
-                        v94 = 0;
+                        v93 = 0;
                       }
 
-                      v4 = old_ringing + 664;
+                      v4 = &unk_280C64000;
                       goto LABEL_484;
                     }
                   }
 
-                  LODWORD(v103) = v102;
+                  LODWORD(v102) = v101;
 LABEL_300:
-                  _CSFinishPreparedStatement(v101);
-                  close(v98);
+                  _CSFinishPreparedStatement(v100);
+                  close(v97);
 LABEL_249:
-                  LODWORD(v106) = -1;
+                  LODWORD(v105) = -1;
 LABEL_250:
-                  if (v231)
+                  if (v230)
                   {
-                    v107 = *(v231 + 2);
-                    _CSCloseStorageFile(a1, v231, 0);
-                    if (v107)
+                    v106 = *(v230 + 2);
+                    _CSCloseStorageFile(a1, v230, 0);
+                    if (v106)
                     {
-                      bzero(v232, 0x400uLL);
-                      if (__CSCreateStoragePath(a1, v107, 0, v232, 0x400uLL))
+                      bzero(v231, 0x400uLL);
+                      if (__CSCreateStoragePath(a1, v106, 0, v231, 0x400uLL))
                       {
-                        unlink(v232);
+                        unlink(v231);
                       }
 
-                      _CSRemoveStorageFileFromDb(a1, v107);
+                      _CSRemoveStorageFileFromDb(a1, v106);
                     }
                   }
 
-                  if (v103 == 13 && v106 < 0)
+                  if (v102 == 13 && v105 < 0)
                   {
-                    v109 = 28;
+                    v108 = 28;
                   }
 
                   else
                   {
-                    v109 = v106;
+                    v108 = v105;
                   }
 
                   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -8217,45 +8126,45 @@ LABEL_250:
 
                   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                   {
-                    v110 = CFStringCreateWithFormat(alloca, 0, @"There was a problem compacting SF ft_rowid:%lld, rc:%d\n", v96, v109);
+                    v109 = CFStringCreateWithFormat(alloca, 0, @"There was a problem compacting SF ft_rowid:%lld, rc:%d\n", v95, v108);
                     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                     {
                       _CSCompactStorage_cold_69();
                     }
 
-                    v111 = CK_DEFAULT_LOG_INTERNAL_1;
+                    v110 = CK_DEFAULT_LOG_INTERNAL_1;
                     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                     {
-                      *v232 = 138543362;
-                      *&v232[4] = v110;
-                      _os_log_impl(&dword_243431000, v111, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+                      *v231 = 138543362;
+                      *&v231[4] = v109;
+                      _os_log_impl(&dword_243431000, v110, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
                     }
 
-                    if (v110)
+                    if (v109)
                     {
-                      CFRelease(v110);
+                      CFRelease(v109);
                     }
                   }
 
-                  if (!v109)
+                  if (!v108)
                   {
                     goto LABEL_480;
                   }
 
-                  if (v109 == 28)
+                  if (v108 == 28)
                   {
-                    v82 = 0;
-                    v87 = 28;
-                    v4 = old_ringing + 664;
+                    v81 = 0;
+                    v86 = 28;
+                    v4 = &unk_280C64000;
                     goto LABEL_521;
                   }
 
-                  v4 = old_ringing + 664;
-                  v94 = v226;
+                  v4 = &unk_280C64000;
+                  v93 = v225;
 LABEL_484:
-                  v87 = 0;
-                  v82 = 0;
-                  if (++v93 >= v224 || !v94)
+                  v86 = 0;
+                  v81 = 0;
+                  if (++v92 >= v223 || !v93)
                   {
                     goto LABEL_521;
                   }
@@ -8264,7 +8173,7 @@ LABEL_484:
                 }
               }
 
-              LODWORD(v103) = 0;
+              LODWORD(v102) = 0;
               goto LABEL_300;
             }
 
@@ -8277,27 +8186,27 @@ LABEL_484:
 
               if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
               {
-                v104 = CFStringCreateWithFormat(alloca, 0, @"%s does not exist, ft_rowid:%llu\n", buf, v96);
+                v103 = CFStringCreateWithFormat(alloca, 0, @"%s does not exist, ft_rowid:%llu\n", buf, v95);
                 if (CK_DEFAULT_LOG_BLOCK_1 != -1)
                 {
                   _CSCompactStorage_cold_67();
                 }
 
-                v105 = CK_DEFAULT_LOG_INTERNAL_1;
+                v104 = CK_DEFAULT_LOG_INTERNAL_1;
                 if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
                 {
                   break;
                 }
 
 LABEL_246:
-                if (v104)
+                if (v103)
                 {
-                  CFRelease(v104);
+                  CFRelease(v103);
                 }
               }
 
 LABEL_248:
-              LODWORD(v103) = 0;
+              LODWORD(v102) = 0;
               goto LABEL_249;
             }
 
@@ -8311,15 +8220,15 @@ LABEL_248:
               goto LABEL_248;
             }
 
-            v116 = __error();
-            v117 = strerror(*v116);
-            v104 = CFStringCreateWithFormat(alloca, 0, @"open failed for %s, ft_rowid=%lld: %s", buf, v96, v117);
+            v115 = __error();
+            v116 = strerror(*v115);
+            v103 = CFStringCreateWithFormat(alloca, 0, @"open failed for %s, ft_rowid=%lld: %s", buf, v95, v116);
             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
             {
               _CSCompactStorage_cold_65();
             }
 
-            v105 = CK_DEFAULT_LOG_INTERNAL_1;
+            v104 = CK_DEFAULT_LOG_INTERNAL_1;
             if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_246;
@@ -8338,13 +8247,13 @@ LABEL_248:
               goto LABEL_248;
             }
 
-            v104 = CFStringCreateWithFormat(alloca, 0, @"Failed first aid check in %s, skipping chunk copying", "_CSRelocateStorageFileChunks");
+            v103 = CFStringCreateWithFormat(alloca, 0, @"Failed first aid check in %s, skipping chunk copying", "_CSRelocateStorageFileChunks");
             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
             {
               _CSCompactStorage_cold_27();
             }
 
-            v105 = CK_DEFAULT_LOG_INTERNAL_1;
+            v104 = CK_DEFAULT_LOG_INTERNAL_1;
             if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_246;
@@ -8354,36 +8263,36 @@ LABEL_248:
           break;
         }
 
-        *v232 = 138543362;
-        *&v232[4] = v104;
-        _os_log_impl(&dword_243431000, v105, OS_LOG_TYPE_ERROR, "%{public}@", v232, 0xCu);
+        *v231 = 138543362;
+        *&v231[4] = v103;
+        _os_log_impl(&dword_243431000, v104, OS_LOG_TYPE_ERROR, "%{public}@", v231, 0xCu);
         goto LABEL_246;
       }
 
-      v82 = 0;
+      v81 = 0;
 LABEL_518:
-      v86 = 0;
+      v85 = 0;
 LABEL_520:
-      v87 = 0;
+      v86 = 0;
 LABEL_521:
-      _CSFinishPreparedStatement(v82);
-      v5 = old_ringing + 664;
+      _CSFinishPreparedStatement(v81);
+      v5 = &unk_280C64000;
     }
 
     else
     {
-      v86 = 0;
-      v87 = 0xFFFFFFFFLL;
+      v85 = 0;
+      v86 = 0xFFFFFFFFLL;
     }
 
-    CFRelease(v80);
-    v8 = v228;
+    CFRelease(v79);
+    v8 = v227;
   }
 
   else
   {
-    v86 = 0;
-    v87 = 0xFFFFFFFFLL;
+    v85 = 0;
+    v86 = 0xFFFFFFFFLL;
   }
 
   if (v4[445] != -1)
@@ -8391,39 +8300,39 @@ LABEL_521:
     _CSCompactStorage_cold_71();
   }
 
-  v8 += v86;
-  if (os_log_type_enabled(v5[433], OS_LOG_TYPE_DEBUG))
+  v8 += v85;
+  if (os_log_type_enabled(*(v5 + 433), OS_LOG_TYPE_DEBUG))
   {
-    v200 = v76 - v86;
-    if (v76 < v86)
+    v199 = v75 - v85;
+    if (v75 < v85)
     {
-      v200 = 0;
+      v199 = 0;
     }
 
-    v201 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"copyReferencedChunks freed %llu bytes, totalFreeSpace:%llu, spaceNeeded:%llu, rc:%d\n", v86, v8, v200, v87);
+    v200 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"copyReferencedChunks freed %llu bytes, totalFreeSpace:%llu, spaceNeeded:%llu, rc:%d\n", v85, v8, v199, v86);
     if (v4[445] != -1)
     {
       _CSCompactStorage_cold_72();
     }
 
-    v202 = v5[433];
-    if (os_log_type_enabled(v202, OS_LOG_TYPE_DEBUG))
+    v201 = *(v5 + 433);
+    if (os_log_type_enabled(v201, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      *&buf[4] = v201;
-      _os_log_impl(&dword_243431000, v202, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      *&buf[4] = v200;
+      _os_log_impl(&dword_243431000, v201, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    if (v201)
+    if (v200)
     {
-      CFRelease(v201);
+      CFRelease(v200);
     }
 
     goto LABEL_13;
   }
 
 LABEL_15:
-  if (os_log_type_enabled(v5[433], OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(*(v5 + 433), OS_LOG_TYPE_DEBUG))
   {
     v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"freeSpace:%llu\n", v8);
     if (v4[445] != -1)
@@ -8431,7 +8340,7 @@ LABEL_15:
       _CSCompactStorage_cold_76();
     }
 
-    v10 = v5[433];
+    v10 = *(v5 + 433);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
@@ -8454,25 +8363,24 @@ LABEL_15:
       _CSCompactStorage_cold_77();
     }
 
-    v13 = v5[433];
+    v13 = *(v5 + 433);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       v14 = sqlite3_errstr(v12);
       *buf = 136315394;
       *&buf[4] = "_CSCompactStorage";
-      v242 = 2080;
-      v243 = v14;
+      v241 = 2080;
+      v242 = v14;
       _os_log_impl(&dword_243431000, v13, OS_LOG_TYPE_FAULT, "failed to checkpoint WAL in %s: %s", buf, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t _CSStoreChunks(uint64_t a1, uint64_t a2, unint64_t a3, unsigned int a4, void *a5, uint64_t a6)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   Mutable = CFSetCreateMutable(0, 0, MEMORY[0x277CBF158]);
   if (Mutable)
   {
@@ -8582,11 +8490,11 @@ LABEL_25:
       goto LABEL_194;
     }
 
-    goto LABEL_200;
+    goto LABEL_199;
   }
 
   v20 = 0;
-  v66 = a4;
+  v65 = a4;
   alloc = *MEMORY[0x277CBECE8];
   while (1)
   {
@@ -8595,7 +8503,7 @@ LABEL_25:
       _CSStoreChunks_cold_3();
     }
 
-    v21 = a2 + v20 * v66;
+    v21 = a2 + v20 * v65;
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
     {
       v22 = CFStringCreateWithFormat(alloc, 0, @"o:0x%llx, sz:0x%x, (0x%x/%u/%llu)\n", *(v21 + 72), *(v21 + 80), *(v21 + 84), *(v21 + 25), *(v21 + 16));
@@ -8901,8 +8809,8 @@ LABEL_125:
           }
         }
 
-        v79 = 0u;
-        memset(v80, 0, 25);
+        v78 = 0u;
+        memset(v79, 0, 25);
         valuePtr = 0u;
         v45 = _StoreChunk(a1, v21, &valuePtr);
         if (*(a6 + 183) == 1 && (*(a6 + 520) += mach_absolute_time() - *(a6 + 512), (*(a6 + 183) & 1) != 0))
@@ -8925,8 +8833,8 @@ LABEL_125:
       v37 = 0;
     }
 
-    v79 = 0u;
-    memset(v80, 0, 25);
+    v78 = 0u;
+    memset(v79, 0, 25);
     valuePtr = 0u;
     if ((_StoreChunk(a1, v21, &valuePtr) & 1) == 0)
     {
@@ -8935,7 +8843,7 @@ LABEL_125:
 
 LABEL_136:
     v46 = "offset_bounded_by_storage_file_length";
-    if (*(&v79 + 1) > 0x1400064uLL || (v46 = "length_bounded_by_slot_size", v80[2] > 0x500019u) || (v46 = "chunk_contained_in_storage_file", *(&v79 + 1) + v80[2] > 0x1400064))
+    if (*(&v78 + 1) > 0x1400064uLL || (v46 = "length_bounded_by_slot_size", v79[2] > 0x500019u) || (v46 = "chunk_contained_in_storage_file", *(&v78 + 1) + v79[2] > 0x1400064))
     {
       v47 = xpc_string_create("chunk_insert_invalid");
       v48 = xpc_string_create(v46);
@@ -8956,11 +8864,11 @@ LABEL_136:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_FAULT))
       {
         *buf = 134218498;
-        v71 = *(&v79 + 1);
-        v72 = 1024;
-        v73 = v80[2];
-        v74 = 2080;
-        v75 = v46;
+        v70 = *(&v78 + 1);
+        v71 = 1024;
+        v72 = v79[2];
+        v73 = 2080;
+        v74 = v46;
         _os_log_impl(&dword_243431000, v50, OS_LOG_TYPE_FAULT, "Bad chunk value(s): o:0x%llx, sz:0x%x (%s violated)", buf, 0x1Cu);
       }
 
@@ -8980,13 +8888,13 @@ LABEL_136:
       goto LABEL_161;
     }
 
-    v52 = sqlite3_bind_int64(v27[2], 3, *(&v79 + 1));
+    v52 = sqlite3_bind_int64(v27[2], 3, *(&v78 + 1));
     if (v52)
     {
       goto LABEL_161;
     }
 
-    v52 = sqlite3_bind_int(v27[2], 4, v51 + v80[2] + 4);
+    v52 = sqlite3_bind_int(v27[2], 4, v51 + v79[2] + 4);
     if (v52)
     {
       goto LABEL_161;
@@ -8998,7 +8906,7 @@ LABEL_136:
       goto LABEL_161;
     }
 
-    v52 = sqlite3_bind_int64(v27[2], 6, *&v80[3]);
+    v52 = sqlite3_bind_int64(v27[2], 6, *&v79[3]);
     if (v52)
     {
       goto LABEL_161;
@@ -9082,7 +8990,7 @@ LABEL_161:
           {
 LABEL_167:
             *buf = 138543362;
-            v71 = v56;
+            v70 = v56;
             _os_log_impl(&dword_243431000, v57, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
@@ -9163,9 +9071,9 @@ LABEL_194:
 
   if (v20 == a3)
   {
-LABEL_200:
+LABEL_199:
     _CSSetDirtyState(a1, 0);
-    result = 1;
+    return 1;
   }
 
   else
@@ -9176,16 +9084,13 @@ LABEL_195:
       bzero(&a5[v20], 8 * (a3 - v20));
     }
 
-    result = 0;
+    return 0;
   }
-
-  v64 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t _CSStorageFileForChunkSignature(uint64_t a1, unsigned __int8 *a2, int a3, sqlite3_int64 *a4)
+uint64_t _CSStorageFileForChunkSignature(uint64_t a1, char *a2, int a3, sqlite3_int64 *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v8 = _CSPrepareStatement(a1, @"SELECT ft_rowid FROM CSChunkTable WHERE cid = ? AND location = ?", "SELECT ft_rowid FROM CSChunkTable WHERE cid = ? AND location = ?");
   if (v8)
   {
@@ -9225,7 +9130,7 @@ uint64_t _CSStorageFileForChunkSignature(uint64_t a1, unsigned __int8 *a2, int a
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v21 = v14;
+            v20 = v14;
             _os_log_impl(&dword_243431000, v15, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
@@ -9249,103 +9154,97 @@ LABEL_18:
     *a4 = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 void _CSSetDirtyState(uint64_t a1, int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   bzero(__s, 0x400uLL);
-  if (!CKChunkStoreGetLocation(a1, __s, 0x400uLL))
+  if (CKChunkStoreGetLocation(a1, __s, 0x400uLL))
   {
-    goto LABEL_23;
-  }
-
-  v4 = strlen(__s);
-  snprintf(&__s[v4], 1024 - v4, "/%s", "ChunkStoreDirty");
-  if (a2)
-  {
-    v5 = open(__s, 512, 384);
-    if (v5 != -1)
+    v4 = strlen(__s);
+    snprintf(&__s[v4], 1024 - v4, "/%s", "ChunkStoreDirty");
+    if (a2)
     {
-      close(v5);
-      goto LABEL_23;
-    }
+      v5 = open(__s, 512, 384);
+      if (v5 != -1)
+      {
+        close(v5);
+        return;
+      }
 
-    if (CK_DEFAULT_LOG_BLOCK_1 != -1)
-    {
-      _CSSetDirtyState_cold_3();
-    }
-
-    if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
-    {
-      v12 = *MEMORY[0x277CBECE8];
-      v13 = *__error();
-      v14 = __error();
-      v15 = strerror(*v14);
-      v10 = CFStringCreateWithFormat(v12, 0, @"open failed on %s: %d (%s)\n", __s, v13, v15);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
-        _CSSetDirtyState_cold_4();
+        _CSSetDirtyState_cold_3();
       }
 
-      v11 = CK_DEFAULT_LOG_INTERNAL_1;
-      if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_21;
-      }
+        v12 = *MEMORY[0x277CBECE8];
+        v13 = *__error();
+        v14 = __error();
+        v15 = strerror(*v14);
+        v10 = CFStringCreateWithFormat(v12, 0, @"open failed on %s: %d (%s)\n", __s, v13, v15);
+        if (CK_DEFAULT_LOG_BLOCK_1 != -1)
+        {
+          _CSSetDirtyState_cold_4();
+        }
 
-      *buf = 138543362;
-      v18 = v10;
+        v11 = CK_DEFAULT_LOG_INTERNAL_1;
+        if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_21;
+        }
+
+        *buf = 138543362;
+        v17 = v10;
 LABEL_20:
-      _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
 LABEL_21:
-      if (v10)
-      {
-        CFRelease(v10);
+        if (v10)
+        {
+          CFRelease(v10);
+        }
       }
     }
-  }
 
-  else if (unlink(__s))
-  {
-    if (CK_DEFAULT_LOG_BLOCK_1 != -1)
+    else if (unlink(__s))
     {
-      _CSSetDirtyState_cold_1();
-    }
-
-    if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
-    {
-      v6 = *MEMORY[0x277CBECE8];
-      v7 = *__error();
-      v8 = __error();
-      v9 = strerror(*v8);
-      v10 = CFStringCreateWithFormat(v6, 0, @"unlink failed %s: %d (%s)\n", __s, v7, v9);
       if (CK_DEFAULT_LOG_BLOCK_1 != -1)
       {
-        _CSSetDirtyState_cold_2();
+        _CSSetDirtyState_cold_1();
       }
 
-      v11 = CK_DEFAULT_LOG_INTERNAL_1;
-      if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_21;
-      }
+        v6 = *MEMORY[0x277CBECE8];
+        v7 = *__error();
+        v8 = __error();
+        v9 = strerror(*v8);
+        v10 = CFStringCreateWithFormat(v6, 0, @"unlink failed %s: %d (%s)\n", __s, v7, v9);
+        if (CK_DEFAULT_LOG_BLOCK_1 != -1)
+        {
+          _CSSetDirtyState_cold_2();
+        }
 
-      *buf = 138543362;
-      v18 = v10;
-      goto LABEL_20;
+        v11 = CK_DEFAULT_LOG_INTERNAL_1;
+        if (!os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_21;
+        }
+
+        *buf = 138543362;
+        v17 = v10;
+        goto LABEL_20;
+      }
     }
   }
-
-LABEL_23:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 const void *_CSRecordPendingChunks(uint64_t a1, const void *a2, sqlite3_int64 a3, sqlite3_int64 a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (*(a1 + 17))
   {
     v4 = 0;
@@ -9361,14 +9260,14 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v13 = CS_sqlite3_step(v4);
-  if (v13 == 101)
+  v12 = CS_sqlite3_step(v4);
+  if (v12 == 101)
   {
     insert_rowid = sqlite3_last_insert_rowid(*(a1 + 24));
     goto LABEL_8;
   }
 
-  v14 = v13;
+  v13 = v12;
   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
   {
     _CSRecordPendingChunks_cold_1();
@@ -9379,20 +9278,20 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v15 = *MEMORY[0x277CBECE8];
-  v16 = sqlite3_errmsg(*(a1 + 24));
-  insert_rowid = CFStringCreateWithFormat(v15, 0, @"sqlite3_step returned: %d (%s)\n", v14, v16);
+  v14 = *MEMORY[0x277CBECE8];
+  v15 = sqlite3_errmsg(*(a1 + 24));
+  insert_rowid = CFStringCreateWithFormat(v14, 0, @"sqlite3_step returned: %d (%s)\n", v13, v15);
   if (CK_DEFAULT_LOG_BLOCK_1 != -1)
   {
     _CSRecordPendingChunks_cold_2();
   }
 
-  v17 = CK_DEFAULT_LOG_INTERNAL_1;
+  v16 = CK_DEFAULT_LOG_INTERNAL_1;
   if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v19 = insert_rowid;
-    _os_log_impl(&dword_243431000, v17, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+    v18 = insert_rowid;
+    _os_log_impl(&dword_243431000, v16, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
   }
 
   if (insert_rowid)
@@ -9403,13 +9302,12 @@ LABEL_7:
 
 LABEL_8:
   _CSFinishPreparedStatement(v4);
-  v11 = *MEMORY[0x277D85DE8];
   return insert_rowid;
 }
 
 uint64_t *_CSCommitChunkedFile(uint64_t *result, sqlite3_int64 a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v2 = result;
@@ -9442,7 +9340,7 @@ uint64_t *_CSCommitChunkedFile(uint64_t *result, sqlite3_int64 a2)
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
           {
             v9 = *MEMORY[0x277CBECE8];
-            v10 = sqlite3_errmsg(*(v2 + 24));
+            v10 = sqlite3_errmsg(v2[3]);
             v11 = CFStringCreateWithFormat(v9, 0, @"sqlite3_step returned: %d %s\n", v8, v10);
             if (CK_DEFAULT_LOG_BLOCK_1 != -1)
             {
@@ -9453,7 +9351,7 @@ uint64_t *_CSCommitChunkedFile(uint64_t *result, sqlite3_int64 a2)
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v15 = v11;
+              v14 = v11;
               _os_log_impl(&dword_243431000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
@@ -9464,20 +9362,19 @@ uint64_t *_CSCommitChunkedFile(uint64_t *result, sqlite3_int64 a2)
           }
         }
 
-        CSsql_corruption_checking_do_0(v2, *(v2 + 24), "DELETE FROM CSStoragePendingFileChunklistTable WHERE pft_token = %llu", a2);
+        CSsql_corruption_checking_do_0(v2, v2[3], "DELETE FROM CSStoragePendingFileChunklistTable WHERE pft_token = %llu", a2);
       }
 
-      result = _CSFinishPreparedStatement(v5);
+      return _CSFinishPreparedStatement(v5);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t *_CSRemovePendingBatchesForInode(uint64_t a1, sqlite3_int64 a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(a1 + 17) == 1)
   {
     _CSRemovePendingBatchesForInode_cold_7();
@@ -9489,7 +9386,7 @@ uint64_t *_CSRemovePendingBatchesForInode(uint64_t a1, sqlite3_int64 a2)
     v5 = v4;
     if (!v4)
     {
-      goto LABEL_36;
+      return _CSFinishPreparedStatement(v5);
     }
 
     v6 = sqlite3_bind_int64(v4[2], 1, a2);
@@ -9518,7 +9415,7 @@ uint64_t *_CSRemovePendingBatchesForInode(uint64_t a1, sqlite3_int64 a2)
         }
 
         *buf = 138543362;
-        v24 = v10;
+        v23 = v10;
 LABEL_33:
         _os_log_impl(&dword_243431000, v11, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
 LABEL_34:
@@ -9527,10 +9424,10 @@ LABEL_34:
           CFRelease(v10);
         }
 
-        goto LABEL_36;
+        return _CSFinishPreparedStatement(v5);
       }
 
-      goto LABEL_36;
+      return _CSFinishPreparedStatement(v5);
     }
   }
 
@@ -9539,7 +9436,7 @@ LABEL_34:
     v5 = _CSPrepareStatement(a1, @"SELECT * FROM CSStoragePendingChunksTable", "SELECT * FROM CSStoragePendingChunksTable");
     if (!v5)
     {
-      goto LABEL_36;
+      return _CSFinishPreparedStatement(v5);
     }
   }
 
@@ -9572,7 +9469,7 @@ LABEL_34:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v24 = v16;
+        v23 = v16;
         _os_log_impl(&dword_243431000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
@@ -9610,23 +9507,20 @@ LABEL_34:
       }
 
       *buf = 138543362;
-      v24 = v10;
+      v23 = v10;
       goto LABEL_33;
     }
   }
 
-LABEL_36:
-  result = _CSFinishPreparedStatement(v5);
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return _CSFinishPreparedStatement(v5);
 }
 
 sqlite3_int64 _CSRegisterStorageChunkList(uint64_t a1, const void *a2, sqlite3_int64 a3, sqlite3_int64 a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (_CSBeginTransactionSqlRc(a1))
   {
-    goto LABEL_10;
+    return 0;
   }
 
   if (*(a1 + 17))
@@ -9640,8 +9534,8 @@ sqlite3_int64 _CSRegisterStorageChunkList(uint64_t a1, const void *a2, sqlite3_i
     v8 = v9;
     if (v9 && !sqlite3_bind_int64(v9[2], 1, a3) && !sqlite3_bind_blob(v8[2], 2, a2, 8 * a3, 0) && !sqlite3_bind_int64(v8[2], 3, a4))
     {
-      v13 = CS_sqlite3_step(v8);
-      if (v13 == 101)
+      v12 = CS_sqlite3_step(v8);
+      if (v12 == 101)
       {
         insert_rowid = sqlite3_last_insert_rowid(*(a1 + 24));
         if (insert_rowid)
@@ -9652,7 +9546,7 @@ sqlite3_int64 _CSRegisterStorageChunkList(uint64_t a1, const void *a2, sqlite3_i
             _CSFinishPreparedStatement(v8);
             if (!_CSEndTransactionSqlRc(a1))
             {
-              goto LABEL_11;
+              return v10;
             }
 
             goto LABEL_9;
@@ -9662,7 +9556,7 @@ sqlite3_int64 _CSRegisterStorageChunkList(uint64_t a1, const void *a2, sqlite3_i
 
       else
       {
-        v15 = v13;
+        v14 = v12;
         if (CK_DEFAULT_LOG_BLOCK_1 != -1)
         {
           _CSRegisterStorageChunkList_cold_1();
@@ -9670,25 +9564,25 @@ sqlite3_int64 _CSRegisterStorageChunkList(uint64_t a1, const void *a2, sqlite3_i
 
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
         {
-          v16 = *MEMORY[0x277CBECE8];
-          v17 = sqlite3_errmsg(*(a1 + 24));
-          v18 = CFStringCreateWithFormat(v16, 0, @"sqlite3_step returned: %d (%s)\n", v15, v17);
+          v15 = *MEMORY[0x277CBECE8];
+          v16 = sqlite3_errmsg(*(a1 + 24));
+          v17 = CFStringCreateWithFormat(v15, 0, @"sqlite3_step returned: %d (%s)\n", v14, v16);
           if (CK_DEFAULT_LOG_BLOCK_1 != -1)
           {
             _CSRegisterStorageChunkList_cold_2();
           }
 
-          v19 = CK_DEFAULT_LOG_INTERNAL_1;
+          v18 = CK_DEFAULT_LOG_INTERNAL_1;
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v21 = v18;
-            _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+            v20 = v17;
+            _os_log_impl(&dword_243431000, v18, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
           }
 
-          if (v18)
+          if (v17)
           {
-            CFRelease(v18);
+            CFRelease(v17);
           }
         }
       }
@@ -9698,16 +9592,12 @@ sqlite3_int64 _CSRegisterStorageChunkList(uint64_t a1, const void *a2, sqlite3_i
   _CSFinishPreparedStatement(v8);
 LABEL_9:
   _CSRollbackTransactionSqlRc(a1);
-LABEL_10:
-  v10 = 0;
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return 0;
 }
 
 uint64_t _CSRemoveStoredFile(uint64_t a1, sqlite3_int64 a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (*(a1 + 17) == 1)
   {
     _CSRemoveStoredFile_cold_13();
@@ -9721,8 +9611,8 @@ LABEL_17:
     goto LABEL_66;
   }
 
-  v29 = 0;
-  v4 = _CSChunkRefsForToken(a1, a2, &v29);
+  v28 = 0;
+  v4 = _CSChunkRefsForToken(a1, a2, &v28);
   if (!v4)
   {
     if (CK_DEFAULT_LOG_BLOCK_1 != -1)
@@ -9747,7 +9637,7 @@ LABEL_17:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v31 = v11;
+      v30 = v11;
       _os_log_impl(&dword_243431000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -9774,8 +9664,8 @@ LABEL_17:
         goto LABEL_63;
       }
 
-      v15 = v29;
-      if (!v29)
+      v15 = v28;
+      if (!v28)
       {
 LABEL_50:
         v19 = CSsql_corruption_checking_do_0(a1, *(a1 + 24), "DELETE FROM CSStorageChunkListTable WHERE clt_rowid = %llu", a2);
@@ -9801,7 +9691,7 @@ LABEL_50:
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v31 = v22;
+              v30 = v22;
               _os_log_impl(&dword_243431000, v23, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
             }
 
@@ -9899,7 +9789,7 @@ LABEL_49:
 
 LABEL_46:
       *buf = 138543362;
-      v31 = v17;
+      v30 = v17;
       _os_log_impl(&dword_243431000, v18, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       goto LABEL_47;
     }
@@ -9924,7 +9814,7 @@ LABEL_46:
       if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v31 = v13;
+        v30 = v13;
         _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
@@ -9961,7 +9851,7 @@ LABEL_68:
     if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v31 = v24;
+      v30 = v24;
       _os_log_impl(&dword_243431000, v25, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
@@ -9971,6 +9861,5 @@ LABEL_68:
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v13;
 }

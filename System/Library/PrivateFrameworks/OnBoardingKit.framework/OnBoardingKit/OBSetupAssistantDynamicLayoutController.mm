@@ -178,38 +178,38 @@ LABEL_7:
 
 - (void)setBackingController:(id)controller
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   backingController = self->_backingController;
   if (backingController != controllerCopy)
   {
     if (backingController)
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       childViewControllers = [(OBWelcomeController *)backingController childViewControllers];
-      v8 = [childViewControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [childViewControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v15;
+        v10 = *v14;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(childViewControllers);
             }
 
-            v12 = *(*(&v14 + 1) + 8 * i);
+            v12 = *(*(&v13 + 1) + 8 * i);
             [(OBWelcomeController *)controllerCopy addChildViewController:v12];
             [v12 didMoveToParentViewController:controllerCopy];
           }
 
-          v9 = [childViewControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [childViewControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v9);
@@ -221,8 +221,6 @@ LABEL_7:
     objc_storeStrong(&self->_backingController, controller);
     [(OBSetupAssistantDynamicLayoutController *)self addChildViewController:controllerCopy];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetLayoutTo:(int64_t)to
@@ -280,7 +278,7 @@ LABEL_7:
 
 - (void)_updateScrollUnderLayout
 {
-  v53[4] = *MEMORY[0x1E69E9840];
+  v51[4] = *MEMORY[0x1E69E9840];
   contentView = [(OBSetupAssistantDynamicLayoutController *)self contentView];
   [contentView bounds];
   if (v3 >= 1.0)
@@ -289,8 +287,6 @@ LABEL_7:
 
     if (contentViewLayout != 1)
     {
-LABEL_15:
-      v38 = *MEMORY[0x1E69E9840];
       return;
     }
 
@@ -303,33 +299,33 @@ LABEL_15:
     {
       if (superview != outerContentView)
       {
-        v42 = MEMORY[0x1E696ACD8];
+        v40 = MEMORY[0x1E696ACD8];
         outerContentView2 = [(OBSetupAssistantDynamicLayoutController *)self outerContentView];
         topAnchor = [outerContentView2 topAnchor];
         view = [(OBSetupAssistantDynamicLayoutController *)self view];
         topAnchor2 = [view topAnchor];
-        v47 = [topAnchor constraintEqualToAnchor:topAnchor2];
-        v53[0] = v47;
+        v45 = [topAnchor constraintEqualToAnchor:topAnchor2];
+        v51[0] = v45;
         outerContentView3 = [(OBSetupAssistantDynamicLayoutController *)self outerContentView];
         leadingAnchor = [outerContentView3 leadingAnchor];
         view2 = [(OBSetupAssistantDynamicLayoutController *)self view];
         leadingAnchor2 = [view2 leadingAnchor];
-        v41 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-        v53[1] = v41;
+        v39 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+        v51[1] = v39;
         outerContentView4 = [(OBSetupAssistantDynamicLayoutController *)self outerContentView];
         trailingAnchor = [outerContentView4 trailingAnchor];
         view3 = [(OBSetupAssistantDynamicLayoutController *)self view];
         trailingAnchor2 = [view3 trailingAnchor];
-        v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-        v53[2] = v12;
+        v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+        v51[2] = v11;
         outerContentView5 = [(OBSetupAssistantDynamicLayoutController *)self outerContentView];
         heightAnchor = [outerContentView5 heightAnchor];
         contentView2 = [(OBSetupAssistantDynamicLayoutController *)self contentView];
         heightAnchor2 = [contentView2 heightAnchor];
-        v17 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-        v53[3] = v17;
-        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:4];
-        [v42 activateConstraints:v18];
+        v16 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+        v51[3] = v16;
+        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:4];
+        [v40 activateConstraints:v17];
 
         mainContentSubview2 = [(OBSetupAssistantDynamicLayoutController *)self mainContentSubview];
 
@@ -379,15 +375,13 @@ LABEL_15:
       mainContentSubview6 = [(OBSetupAssistantDynamicLayoutController *)self contentView];
       outerContentView7 = [(OBSetupAssistantDynamicLayoutController *)self view];
 LABEL_13:
-      v36 = outerContentView7;
+      v35 = outerContentView7;
       [mainContentSubview6 ob_pinToEdges:outerContentView7];
     }
 
     _invokeConstraintForLayoutFactoryBlock = [(OBSetupAssistantDynamicLayoutController *)self _invokeConstraintForLayoutFactoryBlock];
-    goto LABEL_15;
+    return;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_relayoutContentSubviewIfNeeded

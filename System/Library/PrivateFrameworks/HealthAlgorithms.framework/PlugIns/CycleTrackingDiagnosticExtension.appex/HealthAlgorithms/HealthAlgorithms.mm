@@ -1,13 +1,13 @@
-id sub_100000E20()
+id sub_100000E20(uint64_t a1)
 {
   if (qword_100008170 != -1)
   {
     sub_100001398();
   }
 
-  v1 = qword_100008178;
+  v2 = qword_100008178;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_1000011E8(const char *a1)
@@ -16,7 +16,7 @@ uint64_t sub_1000011E8(const char *a1)
   notify_register_check(a1, &out_token);
   if (out_token == -1)
   {
-    v2 = sub_100000E20();
+    v2 = sub_100000E20(0xFFFFFFFFLL);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1000013AC(v2);
@@ -36,7 +36,7 @@ void sub_10000126C(id a1, BOOL a2, NSError *a3)
 {
   v3 = a2;
   v4 = a3;
-  v5 = sub_100000E20();
+  v5 = sub_100000E20(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {

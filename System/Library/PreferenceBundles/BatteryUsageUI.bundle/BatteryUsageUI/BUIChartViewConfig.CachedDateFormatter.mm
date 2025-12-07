@@ -8,17 +8,16 @@
 {
   v4 = sub_115760();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_115730();
   selfCopy = self;
-  sub_58998(v8);
+  sub_58998(v7);
 
-  (*(v5 + 8))(v8, v4);
-  v10 = sub_117170();
+  (*(v5 + 8))(v7, v4);
+  v9 = sub_117170();
 
-  return v10;
+  return v9;
 }
 
 @end

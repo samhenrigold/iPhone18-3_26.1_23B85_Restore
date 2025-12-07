@@ -369,20 +369,20 @@ LABEL_94:
           }
         }
 
-        v36 = v88[15];
-        if (v36 == v88[14])
+        m_size = v88->pluginInfo.mimes.m_size;
+        if (m_size == v88->pluginInfo.mimes.m_capacity)
         {
-          v37 = WTF::Vector<WebCore::MimeClassInfo,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v88 + 12, v36 + 1, v104);
+          v37 = WTF::Vector<WebCore::MimeClassInfo,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v88->pluginInfo.mimes, m_size + 1, v104);
           v38 = v37;
-          v39 = v88[15];
-          v40 = *(v88 + 6);
+          v39 = v88->pluginInfo.mimes.m_size;
+          m_buffer = v88->pluginInfo.mimes.m_buffer;
           v41 = *v37;
           if (*v37)
           {
             atomic_fetch_add_explicit(v41, 2u, memory_order_relaxed);
           }
 
-          v42 = v40 + 32 * v39;
+          v42 = m_buffer + 32 * v39;
           *v42 = v41;
           v43 = *(v37 + 8);
           if (v43)
@@ -431,14 +431,14 @@ LABEL_94:
 
         else
         {
-          v50 = *(v88 + 6);
+          v50 = v88->pluginInfo.mimes.m_buffer;
           v51 = v104[0];
           if (v104[0])
           {
             atomic_fetch_add_explicit(v104[0], 2u, memory_order_relaxed);
           }
 
-          v52 = v50 + 32 * v36;
+          v52 = v50 + 32 * m_size;
           *v52 = v51;
           v53 = v104[1];
           if (v104[1])
@@ -466,7 +466,7 @@ LABEL_133:
             v56 = v105[0];
             if (!HIDWORD(v105[1]))
             {
-              ++v88[15];
+              ++v88->pluginInfo.mimes.m_size;
               if (!v56)
               {
 LABEL_88:
@@ -513,7 +513,7 @@ LABEL_87:
         }
 
         v59 = HIDWORD(v105[1]);
-        ++v88[15];
+        ++v88->pluginInfo.mimes.m_size;
         v56 = v105[0];
         if (v59)
         {
@@ -810,7 +810,7 @@ LABEL_13:
 {
   if (self)
   {
-    [(WebBasePluginPackage *)self bundleIdentifier];
+    objc_msgSend_bundleIdentifier(self, a2);
     self = v5;
   }
 
@@ -837,7 +837,7 @@ LABEL_13:
 {
   if (self)
   {
-    [(WebBasePluginPackage *)self bundleIdentifier];
+    objc_msgSend_bundleIdentifier(self, a2);
     self = v5;
   }
 

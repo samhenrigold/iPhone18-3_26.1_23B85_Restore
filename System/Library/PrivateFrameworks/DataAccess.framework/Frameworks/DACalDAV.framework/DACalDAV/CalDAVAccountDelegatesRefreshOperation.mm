@@ -26,7 +26,7 @@
 
 - (void)taskGroup:(id)group didFinishWithError:(id)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   errorCopy = error;
   outstandingTaskGroups = [(CalDAVOperation *)self outstandingTaskGroups];
@@ -40,27 +40,27 @@
   else
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v34 = groupCopy;
+    v33 = groupCopy;
     readWritePrincipalDetails = [groupCopy readWritePrincipalDetails];
-    v11 = [readWritePrincipalDetails countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v11 = [readWritePrincipalDetails countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v43;
+      v13 = *v42;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v43 != v13)
+          if (*v42 != v13)
           {
             objc_enumerationMutation(readWritePrincipalDetails);
           }
 
-          v15 = *(*(&v42 + 1) + 8 * i);
+          v15 = *(*(&v41 + 1) + 8 * i);
           principalURL = [v15 principalURL];
           relativePath = [principalURL relativePath];
           da_appendSlashIfNeeded = [relativePath da_appendSlashIfNeeded];
@@ -69,32 +69,32 @@
           [dictionary setObject:v19 forKeyedSubscript:da_appendSlashIfNeeded];
         }
 
-        v12 = [readWritePrincipalDetails countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v12 = [readWritePrincipalDetails countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v12);
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    readOnlyPrincipalDetails = [v34 readOnlyPrincipalDetails];
-    v21 = [readOnlyPrincipalDetails countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    readOnlyPrincipalDetails = [v33 readOnlyPrincipalDetails];
+    v21 = [readOnlyPrincipalDetails countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v39;
+      v23 = *v38;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v39 != v23)
+          if (*v38 != v23)
           {
             objc_enumerationMutation(readOnlyPrincipalDetails);
           }
 
-          v25 = *(*(&v38 + 1) + 8 * j);
+          v25 = *(*(&v37 + 1) + 8 * j);
           principalURL2 = [v25 principalURL];
           relativePath2 = [principalURL2 relativePath];
           da_appendSlashIfNeeded2 = [relativePath2 da_appendSlashIfNeeded];
@@ -108,28 +108,26 @@
           }
         }
 
-        v22 = [readOnlyPrincipalDetails countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v22 = [readOnlyPrincipalDetails countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v22);
     }
 
-    groupCopy = v34;
+    groupCopy = v33;
     errorCopy = 0;
   }
 
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __71__CalDAVAccountDelegatesRefreshOperation_taskGroup_didFinishWithError___block_invoke;
-  v35[3] = &unk_278F17EA8;
-  v35[4] = self;
-  v36 = dictionary;
-  v37 = errorCopy;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __71__CalDAVAccountDelegatesRefreshOperation_taskGroup_didFinishWithError___block_invoke;
+  v34[3] = &unk_278F17EA8;
+  v34[4] = self;
+  v35 = dictionary;
+  v36 = errorCopy;
   v31 = dictionary;
   v32 = errorCopy;
-  [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:v32 delegateCallbackBlock:v35];
-
-  v33 = *MEMORY[0x277D85DE8];
+  [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:v32 delegateCallbackBlock:v34];
 }
 
 void __71__CalDAVAccountDelegatesRefreshOperation_taskGroup_didFinishWithError___block_invoke(uint64_t a1)

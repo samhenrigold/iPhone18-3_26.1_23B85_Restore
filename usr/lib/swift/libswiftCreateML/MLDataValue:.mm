@@ -8,7 +8,7 @@
 {
   if (a3)
   {
-    return self, a2;
+    return self;
   }
 
   return result;

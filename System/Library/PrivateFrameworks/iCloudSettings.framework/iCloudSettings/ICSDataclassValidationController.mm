@@ -66,14 +66,14 @@
 
 - (void)validateAccessForDataclass:(id)dataclass completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataclassCopy = dataclass;
   completionCopy = completion;
-  v8 = LogSubsystem();
+  v8 = LogSubsystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = dataclassCopy;
+    v18 = dataclassCopy;
     _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "[ICSDataclassValidationController validateAccessForDataclass] dataclass: %@", buf, 0xCu);
   }
 
@@ -85,24 +85,22 @@
   else
   {
     objc_initWeak(buf, self);
-    v10 = self->_validationAccessSemaphore;
+    v9 = self->_validationAccessSemaphore;
     validationAccessQueue = self->_validationAccessQueue;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __74__ICSDataclassValidationController_validateAccessForDataclass_completion___block_invoke;
-    v13[3] = &unk_27A666288;
-    v14 = v10;
-    v12 = v10;
-    objc_copyWeak(&v17, buf);
-    v16 = completionCopy;
-    v15 = dataclassCopy;
-    dispatch_async(validationAccessQueue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __74__ICSDataclassValidationController_validateAccessForDataclass_completion___block_invoke;
+    v12[3] = &unk_27A666288;
+    v13 = v9;
+    v11 = v9;
+    objc_copyWeak(&v16, buf);
+    v15 = completionCopy;
+    v14 = dataclassCopy;
+    dispatch_async(validationAccessQueue, v12);
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ICSDataclassValidationController_validateAccessForDataclass_completion___block_invoke(uint64_t a1)
@@ -113,51 +111,52 @@ void __74__ICSDataclassValidationController_validateAccessForDataclass_completio
   aBlock[1] = 3221225472;
   aBlock[2] = __74__ICSDataclassValidationController_validateAccessForDataclass_completion___block_invoke_2;
   aBlock[3] = &unk_27A666210;
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 48);
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 48);
   v3 = _Block_copy(aBlock);
+  v4 = v3;
   if (WeakRetained)
   {
-    v4 = [WeakRetained _currentWalrusStatus];
-    v5 = LogSubsystem();
-    v6 = v5;
-    if (v4 == 1)
+    v5 = [WeakRetained _currentWalrusStatus];
+    v6 = LogSubsystem(v5);
+    v7 = v6;
+    if (v5 == 1)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         __74__ICSDataclassValidationController_validateAccessForDataclass_completion___block_invoke_cold_1();
       }
 
-      [WeakRetained _walrusValidateAccessForDataclass:*(a1 + 40) completion:v3];
+      [WeakRetained _walrusValidateAccessForDataclass:*(a1 + 40) completion:v4];
     }
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "ICSDataclassValidationController: Dataclass access cannot be validated, walrus status is unknown", buf, 2u);
+        _os_log_impl(&dword_275819000, v7, OS_LOG_TYPE_DEFAULT, "ICSDataclassValidationController: Dataclass access cannot be validated, walrus status is unknown", buf, 2u);
       }
 
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __74__ICSDataclassValidationController_validateAccessForDataclass_completion___block_invoke_39;
-      v8[3] = &unk_27A666260;
-      v9 = WeakRetained;
-      v10 = v3;
-      dispatch_async(MEMORY[0x277D85CD0], v8);
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __74__ICSDataclassValidationController_validateAccessForDataclass_completion___block_invoke_39;
+      v9[3] = &unk_27A666260;
+      v10 = WeakRetained;
+      v11 = v4;
+      dispatch_async(MEMORY[0x277D85CD0], v9);
     }
   }
 
   else
   {
-    v7 = LogSubsystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LogSubsystem(v3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __74__ICSDataclassValidationController_validateAccessForDataclass_completion___block_invoke_cold_2();
     }
 
-    (*(v3 + 2))(v3, 0);
+    v4[2](v4, 0);
   }
 }
 
@@ -227,26 +226,27 @@ void __74__ICSDataclassValidationController_validateAccessForDataclass_completio
 
 - (void)_startObservingWalrusStateChangeNotification
 {
-  if ([(ICSDataclassValidationController *)self _isEligibleForWalrus])
+  _isEligibleForWalrus = [(ICSDataclassValidationController *)self _isEligibleForWalrus];
+  if (_isEligibleForWalrus)
   {
-    v3 = objc_alloc_init(MEMORY[0x277CFD568]);
+    v4 = objc_alloc_init(MEMORY[0x277CFD568]);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke;
     aBlock[3] = &unk_27A666300;
-    v9 = v3;
+    v10 = v4;
     selfCopy = self;
-    v4 = v3;
-    v7 = _Block_copy(aBlock);
-    v5 = v7[2];
-    v6 = v7;
-    v5();
+    v5 = v4;
+    v8 = _Block_copy(aBlock);
+    v6 = v8[2];
+    v7 = v8;
+    v6();
   }
 
   else
   {
-    v4 = LogSubsystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = LogSubsystem(_isEligibleForWalrus);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [ICSDataclassValidationController _startObservingWalrusStateChangeNotification];
     }
@@ -256,7 +256,7 @@ void __74__ICSDataclassValidationController_validateAccessForDataclass_completio
 void __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogSubsystem();
+  v4 = LogSubsystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -277,12 +277,13 @@ void __80__ICSDataclassValidationController__startObservingWalrusStateChangeNoti
 void __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke_41(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = LogSubsystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LogSubsystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke_41_cold_1(v5, a2, v6);
+      __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke_41_cold_1(v6, a2, v7);
     }
   }
 
@@ -290,25 +291,25 @@ void __80__ICSDataclassValidationController__startObservingWalrusStateChangeNoti
   block[1] = 3221225472;
   block[2] = __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke_42;
   block[3] = &unk_27A6662B0;
-  v7 = *(a1 + 40);
+  v8 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v10 = a2;
-  v9 = v7;
+  v11 = a2;
+  v10 = v8;
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
 uint64_t __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke_42(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   v3 = *(a1 + 48);
-  v4 = LogSubsystem();
+  v4 = LogSubsystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 48);
-    v8 = 134217984;
-    v9 = v5;
-    _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "Setting current walrus status to: %lu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = v5;
+    _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "Setting current walrus status to: %lu", &v7, 0xCu);
   }
 
   *(*(a1 + 32) + 8) = *(a1 + 48);
@@ -320,10 +321,9 @@ uint64_t __80__ICSDataclassValidationController__startObservingWalrusStateChange
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 32));
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -345,7 +345,7 @@ void __80__ICSDataclassValidationController__startObservingWalrusStateChangeNoti
 
 uint64_t __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke_2(uint64_t a1)
 {
-  v2 = LogSubsystem();
+  v2 = LogSubsystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -370,11 +370,10 @@ uint64_t __80__ICSDataclassValidationController__startObservingWalrusStateChange
 
 - (void)_startObservingManateeAvailabilityNotification
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Failed to determine manatee availability: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Failed to determine manatee availability: %@", &v2, 0xCu);
 }
 
 void __82__ICSDataclassValidationController__startObservingManateeAvailabilityNotification__block_invoke(uint64_t a1, void *a2)
@@ -422,30 +421,31 @@ void __82__ICSDataclassValidationController__startObservingManateeAvailabilityNo
   aBlock[2] = __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_completion___block_invoke;
   aBlock[3] = &unk_27A6663A0;
   v6 = completionCopy;
-  v17 = v6;
+  v18 = v6;
   v7 = _Block_copy(aBlock);
-  if ([(ICSDataclassValidationController *)self _isEligibleForWalrus])
+  _isEligibleForWalrus = [(ICSDataclassValidationController *)self _isEligibleForWalrus];
+  if (_isEligibleForWalrus)
   {
-    v8 = [objc_alloc(MEMORY[0x277CECA18]) initWithType:4];
-    v9 = objc_alloc(MEMORY[0x277CECA70]);
+    v9 = [objc_alloc(MEMORY[0x277CECA18]) initWithType:4];
+    v10 = objc_alloc(MEMORY[0x277CECA70]);
     presentingViewController = [(ICSDataclassValidationController *)self presentingViewController];
-    v11 = [v9 initWithFlowContext:v8 withPresentingViewController:presentingViewController];
+    v12 = [v10 initWithFlowContext:v9 withPresentingViewController:presentingViewController];
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_completion___block_invoke_57;
-    v13[3] = &unk_27A6663A0;
-    v14 = v7;
-    [v11 verifyAndRepairManateeWithCompletion:v13];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_completion___block_invoke_57;
+    v14[3] = &unk_27A6663A0;
+    v15 = v7;
+    [v12 verifyAndRepairManateeWithCompletion:v14];
   }
 
   else
   {
-    v12 = LogSubsystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = LogSubsystem(_isEligibleForWalrus);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "Account not eligible for walrus, will not perform dataclass access validation", buf, 2u);
+      _os_log_impl(&dword_275819000, v13, OS_LOG_TYPE_DEFAULT, "Account not eligible for walrus, will not perform dataclass access validation", buf, 2u);
     }
 
     (*(v7 + 2))(v7, 1, 0);
@@ -455,23 +455,24 @@ void __82__ICSDataclassValidationController__startObservingManateeAvailabilityNo
 void __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v7 = LogSubsystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LogSubsystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_completion___block_invoke_cold_1(v5, v7);
+      __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_completion___block_invoke_cold_1(v6, v8);
     }
 
-    v6 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
   }
 
-  v6();
+  v7();
 }
 
 void __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_completion___block_invoke_57(uint64_t a1, char a2, void *a3)
@@ -522,18 +523,16 @@ void __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_co
 
 void __60__ICSDataclassValidationController__isDataclassAllowlisted___block_invoke()
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CB8968];
-  v6[0] = *MEMORY[0x277CB8958];
-  v6[1] = v1;
-  v6[2] = *MEMORY[0x277CB89C8];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
+  v5[0] = *MEMORY[0x277CB8958];
+  v5[1] = v1;
+  v5[2] = *MEMORY[0x277CB89C8];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
   v3 = [v0 setWithArray:v2];
   v4 = _isDataclassAllowlisted__allowlistedDataclasses;
   _isDataclassAllowlisted__allowlistedDataclasses = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (UIViewController)presentingViewController
@@ -552,22 +551,20 @@ void __60__ICSDataclassValidationController__isDataclassAllowlisted___block_invo
 
 void __80__ICSDataclassValidationController__startObservingWalrusStateChangeNotification__block_invoke_41_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_275819000, log, OS_LOG_TYPE_ERROR, "Failed to determine walrus status (%lu) with error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_275819000, log, OS_LOG_TYPE_ERROR, "Failed to determine walrus status (%lu) with error: %@", &v3, 0x16u);
 }
 
 void __81__ICSDataclassValidationController__walrusValidateAccessForDataclass_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Failed to repair manatee state for walrus account with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Failed to repair manatee state for walrus account with error: %@", &v2, 0xCu);
 }
 
 @end

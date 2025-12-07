@@ -313,7 +313,6 @@ void __33__MOPersistenceManager_loadStore__block_invoke(uint64_t a1, uint64_t a2
 void __37__MOPersistenceManager_performBlock___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 
   objc_autoreleasePoolPop(v2);
@@ -336,7 +335,6 @@ void __37__MOPersistenceManager_performBlock___block_invoke(uint64_t a1)
 void __44__MOPersistenceManager_performBlockAndWait___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 
   objc_autoreleasePoolPop(v2);
@@ -737,6 +735,13 @@ id __62__MOPersistenceManager_acquireBackgroundProcessingPermissions__block_invo
   result = [*(a1 + 32) _acquireBackgroundProcessingPermissions];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
+}
+
+- (void)initWithUniverse:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "set up context, %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithUniverse:.cold.2()

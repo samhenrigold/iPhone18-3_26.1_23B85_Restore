@@ -1,6 +1,6 @@
 @interface GEOAPSequence
-- (BOOL)processUserAction:(uint64_t)action target:(double)target atTime:;
 - (id)initWithStartingState:(id *)state;
+- (uint64_t)processUserAction:(uint64_t)action target:(double)target atTime:;
 - (void)reset;
 - (void)setName:(uint64_t)name;
 @end
@@ -9,7 +9,7 @@
 
 - (void)reset
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = GEOGetGEOAPSequenceAnalyticsLog();
@@ -17,43 +17,41 @@
     {
       v3 = *(self + 24);
       *buf = 138412290;
-      v16 = v3;
+      v15 = v3;
       _os_log_impl(&dword_1AB634000, v2, OS_LOG_TYPE_DEBUG, "sequence '%@' is resetting", buf, 0xCu);
     }
 
     *(self + 16) = 0;
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     v4 = *(self + 8);
-    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) reset];
+          [*(*(&v9 + 1) + 8 * v8++) reset];
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initWithStartingState:(id *)state
@@ -78,12 +76,12 @@
   return state;
 }
 
-- (BOOL)processUserAction:(uint64_t)action target:(double)target atTime:
+- (uint64_t)processUserAction:(uint64_t)action target:(double)target atTime:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_2016;
+    return result;
   }
 
   v7 = result;
@@ -7217,11 +7215,11 @@ LABEL_1427:
           action = @"PLACECARD_ADDRESS";
 LABEL_1997:
           *buf = 138412802;
-          v26 = v9;
-          v27 = 2112;
-          v28 = v11;
-          v29 = 2112;
-          v30 = action;
+          v25 = v9;
+          v26 = 2112;
+          v27 = v11;
+          v28 = 2112;
+          v29 = action;
           _os_log_impl(&dword_1AB634000, v8, OS_LOG_TYPE_DEBUG, "sequence '%@' is processing (%@, %@)", buf, 0x20u);
 
           goto LABEL_1998;
@@ -7253,18 +7251,17 @@ LABEL_1998:
       {
         v16 = 1;
 LABEL_2014:
-        v24 = v16;
+        v23 = v16;
         goto LABEL_2015;
       }
     }
 
     else if (v15 <= 1)
     {
-      v24 = 0;
+      v23 = 0;
 LABEL_2015:
 
-      result = v24;
-      goto LABEL_2016;
+      return v23;
     }
 
     v17 = *(v7 + 16);
@@ -7281,9 +7278,9 @@ LABEL_2007:
       }
 
       *buf = 138412546;
-      v26 = v21;
-      v27 = 2112;
-      v28 = v20;
+      v25 = v21;
+      v26 = 2112;
+      v27 = v20;
       _os_log_impl(&dword_1AB634000, v19, OS_LOG_TYPE_DEBUG, "sequence '%@' is %@", buf, 0x16u);
     }
 
@@ -7304,11 +7301,9 @@ LABEL_2007:
   {
     *buf = 0;
     _os_log_fault_impl(&dword_1AB634000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Assertion failed: _sequenceIndex < _sequence.count", buf, 2u);
-    result = 0;
+    return 0;
   }
 
-LABEL_2016:
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 

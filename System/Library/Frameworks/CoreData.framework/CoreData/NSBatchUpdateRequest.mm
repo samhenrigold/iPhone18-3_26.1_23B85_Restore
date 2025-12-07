@@ -34,7 +34,8 @@
 {
   if ((*&self->_flags & 8) != 0)
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E696A778] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"This batch update request (%p) was created with a string name (%@), and cannot respond to -entity until used by an NSManagedObjectContext", self, self->_entity, 0), 0}]);
+    v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E696A778] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{a2, @"This batch update request (%p) was created with a string name (%@), and cannot respond to -entity until used by an NSManagedObjectContext", self, self->_entity, 0), 0}];
+    objc_exception_throw(v3);
   }
 
   return self->_entity;
@@ -65,7 +66,7 @@
 
 + (id)decodeFromXPCArchive:(id)archive withContext:(id)context withPolicy:(id)policy
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:archive error:0];
   [v7 setDelegate:context];
   v8 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
@@ -76,26 +77,26 @@
 
   v9 = [v7 decodeObjectOfClasses:v8 forKey:@"root"];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   columnsToUpdate = [objc_msgSend(v9 columnsToUpdate];
-  v11 = [columnsToUpdate countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [columnsToUpdate countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = 0;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(columnsToUpdate);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -110,7 +111,7 @@
         v12 += v16;
       }
 
-      v11 = [columnsToUpdate countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [columnsToUpdate countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -122,24 +123,18 @@
     v17 = 0;
   }
 
-  if ([v9 nullValueCount] == v17)
+  if ([v9 nullValueCount] != v17)
   {
-    v18 = -[NSBatchUpdateRequest initWithEntityName:]([NSBatchUpdateRequest alloc], "initWithEntityName:", [v9 entityName]);
-    -[NSBatchUpdateRequest setPredicate:](v18, "setPredicate:", [v9 predicate]);
-    -[NSBatchUpdateRequest setPropertiesToUpdate:](v18, "setPropertiesToUpdate:", [v9 columnsToUpdate]);
-    -[NSBatchUpdateRequest setResultType:](v18, "setResultType:", [v9 resultType]);
-    -[NSBatchUpdateRequest setIncludesSubentities:](v18, "setIncludesSubentities:", [v9 includeSubEntities]);
-    -[NSBatchUpdateRequest _setSecureOperation:](v18, "_setSecureOperation:", [v9 secure]);
-    result = v18;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  v18 = -[NSBatchUpdateRequest initWithEntityName:]([NSBatchUpdateRequest alloc], "initWithEntityName:", [v9 entityName]);
+  -[NSBatchUpdateRequest setPredicate:](v18, "setPredicate:", [v9 predicate]);
+  -[NSBatchUpdateRequest setPropertiesToUpdate:](v18, "setPropertiesToUpdate:", [v9 columnsToUpdate]);
+  -[NSBatchUpdateRequest setResultType:](v18, "setResultType:", [v9 resultType]);
+  -[NSBatchUpdateRequest setIncludesSubentities:](v18, "setIncludesSubentities:", [v9 includeSubEntities]);
+  -[NSBatchUpdateRequest _setSecureOperation:](v18, "_setSecureOperation:", [v9 secure]);
+  return v18;
 }
 
 + (NSBatchUpdateRequest)batchUpdateRequestWithEntityName:(NSString *)entityName
@@ -175,7 +170,7 @@
 - (NSString)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<NSBatchUpdateRequest : entity = %@, properties = %@, subentities = %d, predicate = %@", -[NSBatchUpdateRequest entityName](self, "entityName"), self->_columnsToUpdate, *&self->_flags & 1, self->_predicate];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSBatchUpdateRequest *)self entityName], self->_columnsToUpdate, *&self->_flags & 1, self->_predicate);
   objc_autoreleasePoolPop(v3);
 
   return v4;
@@ -228,11 +223,11 @@ LABEL_4:
           if ([v9 count] != 1)
           {
 
-            v37 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Invalid string keypath %@ passed to propertiesToUpdate:", v6), 0}];
-            v38 = *MEMORY[0x1E696A250];
+            v36 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{v6), 0}];
+            v37 = *MEMORY[0x1E696A250];
             v68 = @"NSUnderlyingException";
-            v69 = v37;
-            v33 = [MEMORY[0x1E696ABC0] errorWithDomain:v38 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v69, &v68, 1)}];
+            v69 = v36;
+            v33 = [MEMORY[0x1E696ABC0] errorWithDomain:v37 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v69, &v68, 1)}];
             updateCopy = v46;
             v7 = v47;
             goto LABEL_33;
@@ -244,7 +239,7 @@ LABEL_4:
           if (!v11 || (v6 = v11, [v11 isTransient]))
           {
 
-            v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Invalid string key %@ passed to propertiesToUpdate:", 0), 0}];
+            v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{0), 0}];
             v19 = MEMORY[0x1E696ABC0];
             v20 = *MEMORY[0x1E696A250];
             v66 = @"NSUnderlyingException";
@@ -261,7 +256,7 @@ LABEL_4:
         if (!entity2 || (v14 = [objc_msgSend(entity2 "propertiesByName")]) == 0)
         {
 
-          v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Attribute/relationship description names passed to propertiesToUpdate must match name on fetch entity (%@)", 0), 0}];
+          v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{0), 0}];
           v19 = MEMORY[0x1E696ABC0];
           v20 = *MEMORY[0x1E696A250];
           v64 = @"NSUnderlyingException";
@@ -276,7 +271,7 @@ LABEL_4:
         if ([v14 isTransient])
         {
 
-          v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Invalid property %@ passed as key to propertiesToUpdate:", v15), 0}];
+          v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{v15), 0}];
           v19 = MEMORY[0x1E696ABC0];
           v20 = *MEMORY[0x1E696A250];
           v62 = @"NSUnderlyingException";
@@ -292,7 +287,7 @@ LABEL_4:
         {
           case 4:
 
-            v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Invalid relationship (%@) passed to propertiesToUpdate:", v15), 0}];
+            v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{v15), 0}];
             v19 = MEMORY[0x1E696ABC0];
             v20 = *MEMORY[0x1E696A250];
             v58 = @"NSUnderlyingException";
@@ -303,7 +298,7 @@ LABEL_4:
             goto LABEL_31;
           case 6:
 
-            v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Invalid derived attribute (%@) passed to propertiesToUpdate:", v15), 0}];
+            v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{v15), 0}];
             v19 = MEMORY[0x1E696ABC0];
             v20 = *MEMORY[0x1E696A250];
             v56 = @"NSUnderlyingException";
@@ -325,7 +320,7 @@ LABEL_33:
             goto LABEL_34;
           case 5:
 
-            v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Invalid expressionDescription %@ passed as key to propertiesToUpdate:", v15), 0}];
+            v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{v15), 0}];
             v19 = MEMORY[0x1E696ABC0];
             v20 = *MEMORY[0x1E696A250];
             v60 = @"NSUnderlyingException";
@@ -342,17 +337,17 @@ LABEL_33:
           if ((objc_opt_isKindOfClass() & 1) != 0 && ([v15 isOptional] & 1) == 0)
           {
 
-            v39 = MEMORY[0x1E695DF20];
+            v38 = MEMORY[0x1E695DF20];
             name2 = [v15 name];
-            v41 = [v39 dictionaryWithObjectsAndKeys:{entity2, @"NSValidationErrorObject", name2, @"NSValidationErrorKey", objc_msgSend(MEMORY[0x1E695DFB0], "null"), @"NSValidationErrorValue", 0}];
-            v42 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Invalid NULL value for key (%@) passed to propertiesToUpdate:", objc_msgSend(v15, "name")), v41}];
-            v43 = MEMORY[0x1E696ABC0];
-            v44 = *MEMORY[0x1E696A250];
+            v40 = [v38 dictionaryWithObjectsAndKeys:{entity2, @"NSValidationErrorObject", name2, @"NSValidationErrorKey", objc_msgSend(MEMORY[0x1E695DFB0], "null"), @"NSValidationErrorValue", 0}];
+            v41 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{objc_msgSend(v15, "name")), v40}];
+            v42 = MEMORY[0x1E696ABC0];
+            v43 = *MEMORY[0x1E696A250];
             v54 = @"NSUnderlyingException";
-            v55 = v42;
+            v55 = v41;
             v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-            v30 = v43;
-            v31 = v44;
+            v30 = v42;
+            v31 = v43;
             v32 = 1570;
             goto LABEL_32;
           }
@@ -387,11 +382,12 @@ LABEL_34:
 
       if (v17)
       {
-        v45 = v17;
+        v44 = v17;
       }
 
 LABEL_46:
-      objc_exception_throw([objc_msgSend(v17 "userInfo")]);
+      v45 = objc_msgSend_valueForKey_([v17 userInfo]);
+      objc_exception_throw(v45);
     }
 
     if (v17)
@@ -411,8 +407,6 @@ LABEL_46:
 
     updateCopy[5] = v3;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPropertiesToUpdate:(NSDictionary *)propertiesToUpdate
@@ -448,7 +442,8 @@ LABEL_46:
     if (!persistentStoreCoordinator || (v7 = persistentStoreCoordinator[12]) == 0)
     {
 LABEL_12:
-      objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Can't find entity for batch update (%@)", self->_entity), 0}]);
+      v14 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{self->_entity), 0}];
+      objc_exception_throw(v14);
     }
 
     v8 = (v7 + 56);

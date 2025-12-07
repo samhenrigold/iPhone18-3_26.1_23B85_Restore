@@ -22,7 +22,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for InteractiveTitleHeaderView();
+  v4.super_class = type metadata accessor for InteractiveTitleHeaderView(0);
   v2 = v4.receiver;
   [(InteractiveTitleHeaderView *)&v4 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC18ASMessagesProvider26InteractiveTitleHeaderView_titleView];
@@ -32,10 +32,10 @@
 
 - (void)prepareForReuse
 {
-  v3 = sub_BD88(&qword_94A490);
+  v3 = sub_BD88(&qword_94A490, &unk_7858C0);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
-  v6 = type metadata accessor for InteractiveTitleHeaderView();
+  v6 = type metadata accessor for InteractiveTitleHeaderView(0);
   v11.receiver = self;
   v11.super_class = v6;
   selfCopy = self;

@@ -25,7 +25,7 @@
 
 - (NSDictionary)geohashKeyedRegions
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   geohashKeyedRegions = self->_geohashKeyedRegions;
   if (!geohashKeyedRegions)
   {
@@ -33,26 +33,26 @@
     regions = [(SHTimeAndPlaceAffinityGroup *)self regions];
     v6 = [v4 dictionaryWithCapacity:{objc_msgSend(regions, "count")}];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     regions2 = [(SHTimeAndPlaceAffinityGroup *)self regions];
-    v8 = [regions2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [regions2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(regions2);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           geohash = [v12 geohash];
 
           if (geohash)
@@ -62,7 +62,7 @@
           }
         }
 
-        v9 = [regions2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [regions2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -75,36 +75,34 @@
     geohashKeyedRegions = self->_geohashKeyedRegions;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return geohashKeyedRegions;
 }
 
 - (id)regionsForGeohash:(id)geohash
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   geohashCopy = geohash;
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   regions = [(SHTimeAndPlaceAffinityGroup *)self regions];
-  v7 = [regions countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [regions countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(regions);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         geohash = [v11 geohash];
         v13 = [geohash hasPrefix:geohashCopy];
 
@@ -114,7 +112,7 @@
         }
       }
 
-      v8 = [regions countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [regions countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
@@ -122,34 +120,32 @@
 
   if (![array count] && objc_msgSend(geohashCopy, "length"))
   {
+    v16 = 0;
     v17 = 0;
-    v18 = 0;
     while (1)
     {
-      v19 = [geohashCopy substringToIndex:{objc_msgSend(geohashCopy, "length") + v17}];
+      v18 = [geohashCopy substringToIndex:{objc_msgSend(geohashCopy, "length") + v16}];
       geohashKeyedRegions = [(SHTimeAndPlaceAffinityGroup *)self geohashKeyedRegions];
-      v21 = [geohashKeyedRegions objectForKeyedSubscript:v19];
+      v20 = [geohashKeyedRegions objectForKeyedSubscript:v18];
 
-      if (v21)
+      if (v20)
       {
         break;
       }
 
-      ++v18;
-      --v17;
-      if (v18 == [geohashCopy length])
+      ++v17;
+      --v16;
+      if (v17 == [geohashCopy length])
       {
         goto LABEL_11;
       }
     }
 
-    [array addObject:v21];
+    [array addObject:v20];
   }
 
 LABEL_11:
   v14 = [array copy];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

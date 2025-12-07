@@ -12,7 +12,7 @@
     sub_10022D718();
   }
 
-  v2 = sub_100002880();
+  v2 = sub_100002880(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10022D72C(v2);
@@ -23,32 +23,33 @@
 
 + (id)deviceIdentityProxy
 {
-  if (+[FMDDeviceIdentityProxyFactory isAutomationActive])
+  v2 = +[FMDDeviceIdentityProxyFactory isAutomationActive];
+  if (v2)
   {
-    v2 = +[FMDAutomationHelperFactory sharedFactory];
-    [v2 automationHelperClassWithName:@"FMDAutomationDeviceIdentity"];
+    v3 = +[FMDAutomationHelperFactory sharedFactory];
+    [v3 automationHelperClassWithName:@"FMDAutomationDeviceIdentity"];
 
-    v3 = sub_100002880();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v5 = sub_100002880(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022D7F4(v3);
+      sub_10022D7F4(v5);
     }
 
-    v4 = objc_opt_new();
+    v6 = objc_opt_new();
   }
 
   else
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = sub_100002880(v2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022D7B0(v5);
+      sub_10022D7B0(v7);
     }
 
-    v4 = +[FMDRealDeviceIdentity sharedInstance];
+    v6 = +[FMDRealDeviceIdentity sharedInstance];
   }
 
-  return v4;
+  return v6;
 }
 
 @end

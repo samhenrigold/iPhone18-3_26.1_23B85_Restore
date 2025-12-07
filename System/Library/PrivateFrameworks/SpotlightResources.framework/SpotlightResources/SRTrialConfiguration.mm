@@ -48,49 +48,49 @@
 
 - (id)namespaceTypes
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = self->_parameterMap;
-  v21 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v21)
+  v20 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v20)
   {
-    v20 = *v28;
+    v19 = *v27;
     do
     {
       v4 = 0;
       do
       {
-        if (*v28 != v20)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v4;
-        v5 = *(*(&v27 + 1) + 8 * v4);
+        v21 = v4;
+        v5 = *(*(&v26 + 1) + 8 * v4);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         v6 = [(NSMutableDictionary *)self->_parameterMap objectForKeyedSubscript:v5];
-        v7 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v24;
+          v9 = *v23;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v24 != v9)
+              if (*v23 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v23 + 1) + 8 * i);
+              v11 = *(*(&v22 + 1) + 8 * i);
               v12 = [v3 objectForKeyedSubscript:v11];
               if (!v12)
               {
@@ -105,27 +105,25 @@
               [(SRNamespaceType *)v12 addParameterName:v5];
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v8);
         }
 
-        v4 = v22 + 1;
+        v4 = v21 + 1;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      while (v21 + 1 != v20);
+      v20 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   v14 = MEMORY[0x1E695DFD8];
   allValues = [v3 allValues];
   v16 = [v14 setWithArray:allValues];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -201,51 +199,51 @@
 
 - (id)namespaceTypesForClient:(id)client
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v23 = clientCopy;
+  v22 = clientCopy;
   [(NSMutableDictionary *)self->_namespaceMap objectForKeyedSubscript:clientCopy];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  obj = v35 = 0u;
-  v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v26)
+  obj = v34 = 0u;
+  v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  if (v25)
   {
-    v25 = *v33;
+    v24 = *v32;
     do
     {
       v6 = 0;
       do
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = v6;
-        v7 = *(*(&v32 + 1) + 8 * v6);
+        v26 = v6;
+        v7 = *(*(&v31 + 1) + 8 * v6);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         v8 = self->_parameterMap;
-        v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v29;
+          v11 = *v28;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v29 != v11)
+              if (*v28 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v28 + 1) + 8 * i);
+              v13 = *(*(&v27 + 1) + 8 * i);
               v14 = [(NSMutableDictionary *)self->_parameterMap objectForKeyedSubscript:v13];
               v15 = [v14 containsObject:v7];
 
@@ -266,56 +264,54 @@
               }
             }
 
-            v10 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+            v10 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v27 objects:v35 count:16];
           }
 
           while (v10);
         }
 
-        v6 = v27 + 1;
+        v6 = v26 + 1;
       }
 
-      while (v27 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      while (v26 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   v18 = MEMORY[0x1E695DFD8];
   allValues = [v5 allValues];
   v20 = [v18 setWithArray:allValues];
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (id)clientsForNamespace:(id)namespace
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   namespaceCopy = namespace;
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = self->_namespaceMap;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_namespaceMap objectForKeyedSubscript:v10];
         if (v11)
         {
@@ -330,15 +326,13 @@
         }
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
   v15 = [MEMORY[0x1E695DFD8] setWithArray:array];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

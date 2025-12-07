@@ -9,6 +9,7 @@
 - (NSDictionary)activeTableMap;
 - (NSDictionary)languageMap;
 - (id)_printBrailleForText:(id)text table:(id)table locations:(id *)locations textPositionsRange:(_NSRange)range textFormattingRanges:(id)ranges;
+- (id)printBrailleForTechnicalText:(id)text useTechnicalTable:(BOOL)table locations:(id *)locations textFormattingRanges:(id)ranges;
 - (id)printBrailleForText:(id)text mode:(unint64_t)mode locations:(id *)locations textFormattingRanges:(id)ranges;
 - (id)printBrailleForText:(id)text mode:(unint64_t)mode locations:(id *)locations textPositionsRange:(_NSRange)range textFormattingRanges:(id)ranges;
 - (id)tableForActiveTableMode:(unint64_t)mode;
@@ -159,7 +160,7 @@
 - (void)setActiveTable:(id)table
 {
   tableCopy = table;
-  v5 = LBTLog();
+  v5 = LBTLog(tableCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1CA04();
@@ -219,6 +220,31 @@
   return [(LBTLiblouisBrailleTranslator *)self activeTableSupportsModeWithKey:@"Technical"];
 }
 
+- (id)printBrailleForTechnicalText:(id)text useTechnicalTable:(BOOL)table locations:(id *)locations textFormattingRanges:(id)ranges
+{
+  tableCopy = table;
+  textCopy = text;
+  rangesCopy = ranges;
+  v12 = [(LBTLiblouisBrailleTranslator *)self technicalTableForActiveLanguage:tableCopy];
+  if (v12)
+  {
+    v13 = -[LBTLiblouisBrailleTranslator _printBrailleForText:table:locations:textPositionsRange:textFormattingRanges:](self, "_printBrailleForText:table:locations:textPositionsRange:textFormattingRanges:", textCopy, v12, locations, 0, [textCopy length], rangesCopy);
+  }
+
+  else
+  {
+    v14 = LBTLog(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      sub_1CA78(self);
+    }
+
+    v13 = 0;
+  }
+
+  return v13;
+}
+
 - (id)printBrailleForText:(id)text mode:(unint64_t)mode locations:(id *)locations textFormattingRanges:(id)ranges
 {
   rangesCopy = ranges;
@@ -242,7 +268,7 @@
 
   else
   {
-    v17 = LBTLog();
+    v17 = LBTLog(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1CAFC(self);
@@ -264,14 +290,14 @@
   v14 = [textFormattingPreprocessor processText:textCopy withFormattingRanges:rangesCopy];
 
   emojiPreprocessor = [(LBTLiblouisBrailleTranslator *)self emojiPreprocessor];
-  v61 = 0;
-  v16 = [emojiPreprocessor preprocessPrintString:textCopy withLocationMap:&v61 typeformData:v14];
-  v17 = v61;
+  v63 = 0;
+  v16 = [emojiPreprocessor preprocessPrintString:textCopy withLocationMap:&v63 typeformData:v14];
+  v17 = v63;
 
   v18 = [v16 dataUsingEncoding:2483028224];
   bytes = [v18 bytes];
   v20 = [v16 rangeOfComposedCharacterSequencesForRange:{0, objc_msgSend(v16, "length")}];
-  v60 = v20 + v21;
+  v62 = v20 + v21;
   if ((3 * (v20 + v21)) <= 512)
   {
     v22 = 512;
@@ -282,19 +308,20 @@
     v22 = 3 * (v20 + v21);
   }
 
-  v59 = v22;
+  v61 = v22;
   v23 = malloc_type_malloc(2 * v22, 0x1000040BDFB0063uLL);
   if (v23)
   {
     v24 = v23;
-    v57 = v17;
+    v59 = v17;
     if (v14)
     {
       v25 = [v14 length];
-      if ([v16 length] != (v25 >> 1))
+      v26 = [v16 length];
+      if (v26 != (v25 >> 1))
       {
-        v26 = LBTLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v27 = LBTLog(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           sub_1CB80();
         }
@@ -305,159 +332,160 @@
 
     if (locationsCopy)
     {
-      v27 = malloc_type_malloc(4 * v22, 0x9892EA0uLL);
-      if (!v27)
+      v28 = malloc_type_malloc(4 * v22, 0x9892EA0uLL);
+      if (!v28)
       {
-        v28 = LBTLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = LBTLog(0);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           sub_1CC04();
         }
 
         free(v24);
-        v29 = 0;
-        v17 = v57;
+        v30 = 0;
+        v17 = v59;
         goto LABEL_50;
       }
     }
 
     else
     {
-      v27 = 0;
+      v28 = 0;
     }
 
     [v14 length];
-    v56 = &v54;
-    v31 = __chkstk_darwin();
-    v33 = (&v54 - v32);
-    if (v31)
+    v58 = &v56;
+    v32 = __chkstk_darwin();
+    v34 = (&v56 - v33);
+    if (v32)
     {
-      [v14 getBytes:&v54 - v32 length:?];
+      [v14 getBytes:&v56 - v33 length:?];
     }
 
     else
     {
-      v33 = 0;
+      v34 = 0;
     }
 
-    if (lou_translate([tableCopy UTF8String], bytes, &v60, v24, &v59, v33, 0, v27, 0, 0, 68) == 1)
+    v35 = lou_translate([tableCopy UTF8String], bytes, &v62, v24, &v61, v34, 0, v28, 0, 0, 0x44u);
+    if (v35 == 1)
     {
-      v17 = v57;
+      v17 = v59;
       if (locationsCopy)
       {
-        v55 = 8 * v59;
-        v34 = malloc_type_malloc(v55, 0x6BDFE5AAuLL);
-        if (v34)
+        v57 = 8 * v61;
+        v36 = malloc_type_malloc(v57, 0x6BDFE5AAuLL);
+        if (v36)
         {
-          v35 = v34;
+          v37 = v36;
           bytes2 = [v17 bytes];
-          v38 = (v60 - 1);
-          if (v60 >= 1)
+          v40 = (v62 - 1);
+          if (v62 >= 1)
           {
-            v39 = v59;
-            v37 = 0.0;
-            while (v38)
+            v41 = v61;
+            v39 = 0.0;
+            while (v40)
             {
-              v40 = v27[v38];
-              v41 = v38 - 1;
-              if (v40 != v27[v38 - 1])
+              v42 = v28[v40];
+              v43 = v40 - 1;
+              if (v42 != v28[v40 - 1])
               {
                 goto LABEL_31;
               }
 
 LABEL_39:
-              v50 = v38 <= 0;
-              v38 = v41;
-              if (v50)
+              v52 = v40 <= 0;
+              v40 = v43;
+              if (v52)
               {
                 goto LABEL_41;
               }
             }
 
-            v40 = *v27;
+            v42 = *v28;
 LABEL_31:
-            v42 = v40;
-            if (v39 > v40)
+            v44 = v42;
+            if (v41 > v42)
             {
-              v43 = 0;
-              v44 = bytes2[v38];
-              v45 = v39 - v42;
-              v46 = (v39 - v42 + 1) & 0xFFFFFFFFFFFFFFFELL;
-              v47 = vdupq_n_s64(v45 - 1);
-              v48 = &v35[8 * v42];
+              v45 = 0;
+              v46 = bytes2[v40];
+              v47 = v41 - v44;
+              v48 = (v41 - v44 + 1) & 0xFFFFFFFFFFFFFFFELL;
+              v49 = vdupq_n_s64(v47 - 1);
+              v50 = &v37[8 * v44];
               do
               {
-                v49 = vmovn_s64(vcgeq_u64(v47, vorrq_s8(vdupq_n_s64(v43), xmmword_1DCF0)));
-                if (v49.i8[0])
+                v51 = vmovn_s64(vcgeq_u64(v49, vorrq_s8(vdupq_n_s64(v45), xmmword_1DCF0)));
+                if (v51.i8[0])
                 {
-                  *&v48[8 * v43] = v44;
+                  *&v50[8 * v45] = v46;
                 }
 
-                if (v49.i8[4])
+                if (v51.i8[4])
                 {
-                  *&v48[8 * v43 + 8] = v44;
+                  *&v50[8 * v45 + 8] = v46;
                 }
 
-                v43 += 2;
+                v45 += 2;
               }
 
-              while (v46 != v43);
+              while (v48 != v45);
             }
 
-            v41 = v38 - 1;
-            v39 = v42;
+            v43 = v40 - 1;
+            v41 = v44;
             goto LABEL_39;
           }
 
 LABEL_41:
-          v51 = [NSData dataWithBytes:v35 length:v55, v37];
-          *locationsCopy = v51;
-          free(v35);
+          v53 = [NSData dataWithBytes:v37 length:v57, v39];
+          *locationsCopy = v53;
+          free(v37);
         }
       }
 
-      if (v27)
+      if (v28)
       {
-        free(v27);
+        free(v28);
       }
 
-      v29 = [NSString stringWithCharacters:v24 length:v59];
+      v30 = [NSString stringWithCharacters:v24 length:v61];
       free(v24);
     }
 
     else
     {
-      v52 = LBTLog();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v54 = LBTLog(v35);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
         sub_1CC44();
       }
 
       free(v24);
-      if (v27)
+      if (v28)
       {
-        free(v27);
+        free(v28);
       }
 
-      v29 = 0;
-      v17 = v57;
+      v30 = 0;
+      v17 = v59;
     }
   }
 
   else
   {
-    v30 = LBTLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v31 = LBTLog(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_1CCC8();
     }
 
-    v29 = 0;
+    v30 = 0;
   }
 
 LABEL_50:
 
-  return v29;
+  return v30;
 }
 
 - (id)textForPrintBraille:(id)braille mode:(unint64_t)mode locations:(id *)locations
@@ -467,16 +495,16 @@ LABEL_50:
   v10 = [brailleCopy dataUsingEncoding:2483028224];
   bytes = [v10 bytes];
   v12 = [brailleCopy rangeOfComposedCharacterSequencesForRange:{0, objc_msgSend(brailleCopy, "length")}];
-  v38 = v12 + v13;
+  v40 = v12 + v13;
   v14 = 4 * (v12 + v13) + 64;
-  v37 = v14;
+  v39 = v14;
   v15 = malloc_type_malloc(2 * v14, 0x1000040BDFB0063uLL);
   if (locations)
   {
     v16 = malloc_type_malloc(v14, 0x9550110CuLL);
     if (!v16)
     {
-      v17 = LBTLog();
+      v17 = LBTLog(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_1CC04();
@@ -485,7 +513,7 @@ LABEL_50:
 LABEL_32:
 
       free(v15);
-      v34 = 0;
+      v35 = 0;
       goto LABEL_33;
     }
   }
@@ -495,9 +523,10 @@ LABEL_32:
     v16 = 0;
   }
 
-  if (lou_backTranslate([v9 UTF8String], bytes, &v38, v15, &v37, 0, 0, v16, 0, 0, 0x80u) != 1)
+  v18 = lou_backTranslate([v9 UTF8String], bytes, &v40, v15, &v39, 0, 0, v16, 0, 0, 0x80u);
+  if (v18 != 1)
   {
-    v17 = LBTLog();
+    v17 = LBTLog(v18);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1CD08();
@@ -508,87 +537,87 @@ LABEL_32:
 
   if (v16)
   {
-    v18 = 8 * v37;
-    v19 = malloc_type_malloc(v18, 0xAF383437uLL);
-    if (v19)
+    v19 = 8 * v39;
+    v20 = malloc_type_malloc(v19, 0xAF383437uLL);
+    if (v20)
     {
-      v21 = v19;
-      v22 = (v38 - 1);
-      if (v38 >= 1)
+      v22 = v20;
+      v23 = (v40 - 1);
+      if (v40 >= 1)
       {
-        v23 = v37;
-        v20 = 0.0;
-        while (v22)
+        v24 = v39;
+        v21 = 0.0;
+        while (v23)
         {
-          v24 = *&v16[4 * v22];
-          v25 = v22 - 1;
-          if (v24 != *&v16[4 * v22 - 4])
+          v25 = *&v16[4 * v23];
+          v26 = v23 - 1;
+          if (v25 != *&v16[4 * v23 - 4])
           {
             goto LABEL_15;
           }
 
 LABEL_23:
-          v33 = v22 <= 0;
-          v22 = v25;
-          if (v33)
+          v34 = v23 <= 0;
+          v23 = v26;
+          if (v34)
           {
             goto LABEL_25;
           }
         }
 
-        v24 = *v16;
+        v25 = *v16;
 LABEL_15:
-        v26 = v24;
-        if (v23 > v24)
+        v27 = v25;
+        if (v24 > v25)
         {
-          v27 = 0;
-          v28 = v23 - v24;
-          v29 = (v23 - v26 + 1) & 0xFFFFFFFFFFFFFFFELL;
-          v30 = vdupq_n_s64(v28 - 1);
-          v31 = &v19[8 * v26];
+          v28 = 0;
+          v29 = v24 - v25;
+          v30 = (v24 - v27 + 1) & 0xFFFFFFFFFFFFFFFELL;
+          v31 = vdupq_n_s64(v29 - 1);
+          v32 = &v20[8 * v27];
           do
           {
-            v32 = vmovn_s64(vcgeq_u64(v30, vorrq_s8(vdupq_n_s64(v27), xmmword_1DCF0)));
-            if (v32.i8[0])
+            v33 = vmovn_s64(vcgeq_u64(v31, vorrq_s8(vdupq_n_s64(v28), xmmword_1DCF0)));
+            if (v33.i8[0])
             {
-              *&v31[8 * v27] = v22;
+              *&v32[8 * v28] = v23;
             }
 
-            if (v32.i8[4])
+            if (v33.i8[4])
             {
-              *&v31[8 * v27 + 8] = v22;
+              *&v32[8 * v28 + 8] = v23;
             }
 
-            v27 += 2;
+            v28 += 2;
           }
 
-          while (v29 != v27);
+          while (v30 != v28);
         }
 
-        v25 = v22 - 1;
-        v23 = v26;
+        v26 = v23 - 1;
+        v24 = v27;
         goto LABEL_23;
       }
 
 LABEL_25:
-      *locations = [NSData dataWithBytes:v19 length:v18, v20];
-      free(v21);
+      *locations = [NSData dataWithBytes:v20 length:v19, v21];
+      free(v22);
     }
 
     free(v16);
   }
 
-  v34 = [NSString stringWithCharacters:v15 length:v37];
+  v35 = [NSString stringWithCharacters:v15 length:v39];
   free(v15);
-  v35 = LBTLog();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  v37 = LBTLog(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
   {
     sub_1CD78();
   }
 
 LABEL_33:
 
-  return v34;
+  return v35;
 }
 
 - (BOOL)activeTableSupportsIPA

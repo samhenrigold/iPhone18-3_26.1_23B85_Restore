@@ -46,7 +46,7 @@ LABEL_12:
 
     if (unsignedIntValue >= 0x101)
     {
-      v24 = sub_10007FAA0();
+      v24 = sub_10007FAA0(0);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = sub_10007FAFC(0);
@@ -55,7 +55,7 @@ LABEL_12:
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}@### Value of maxLength exceeds maximum allowed value", buf, 0xCu);
       }
 
-      v26 = sub_10007FAA0();
+      v26 = sub_10007FAA0(0);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v27 = sub_10007FAFC(0);
@@ -137,15 +137,8 @@ LABEL_16:
   }
 
   minimumValue = [(HAPMetadataConstraints *)v7 minimumValue];
-  if (minimumValue)
+  if (minimumValue || ([(HAPMetadataConstraints *)v7 maximumValue], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 stepValue], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 minLength], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 maxLength], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    goto LABEL_11;
-  }
-
-  minimumValue = [(HAPMetadataConstraints *)v7 maximumValue];
-  if (minimumValue || ([(HAPMetadataConstraints *)v7 stepValue], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 minLength], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0) || ([(HAPMetadataConstraints *)v7 maxLength], (minimumValue = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-LABEL_11:
 
 LABEL_12:
     v11 = v7;
@@ -177,27 +170,8 @@ LABEL_13:
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if (objc_opt_isKindOfClass() & 1) == 0 || ([(HAPCharacteristicMetadata *)self manufacturerDescription], v5 = objc_claimAutoreleasedReturnValue(), [(HAPCharacteristicMetadata *)metadataCopy manufacturerDescription], v6 = objc_claimAutoreleasedReturnValue(), v7 = sub_10007EC2C(v5, v6), v6, v5, (v7) || ([(HAPCharacteristicMetadata *)self format], v8 = objc_claimAutoreleasedReturnValue(), [(HAPCharacteristicMetadata *)metadataCopy format], v9 = objc_claimAutoreleasedReturnValue(), v10 = sub_10007EC2C(v8, v9), v9, v8, (v10) || ([(HAPCharacteristicMetadata *)self units], v11 = objc_claimAutoreleasedReturnValue(), [(HAPCharacteristicMetadata *)metadataCopy units], v12 = objc_claimAutoreleasedReturnValue(), v13 = sub_10007EC2C(v11, v12), v12, v11, (v13))
     {
-      goto LABEL_6;
-    }
-
-    manufacturerDescription = [(HAPCharacteristicMetadata *)self manufacturerDescription];
-    manufacturerDescription2 = [(HAPCharacteristicMetadata *)metadataCopy manufacturerDescription];
-    v7 = sub_10007EC2C(manufacturerDescription, manufacturerDescription2);
-
-    if (v7)
-    {
-      goto LABEL_6;
-    }
-
-    format = [(HAPCharacteristicMetadata *)self format];
-    format2 = [(HAPCharacteristicMetadata *)metadataCopy format];
-    v10 = sub_10007EC2C(format, format2);
-
-    if (v10 & 1) != 0 || ([(HAPCharacteristicMetadata *)self units], v11 = objc_claimAutoreleasedReturnValue(), [(HAPCharacteristicMetadata *)metadataCopy units], v12 = objc_claimAutoreleasedReturnValue(), v13 = sub_10007EC2C(v11, v12), v12, v11, (v13))
-    {
-LABEL_6:
       v14 = 0;
     }
 

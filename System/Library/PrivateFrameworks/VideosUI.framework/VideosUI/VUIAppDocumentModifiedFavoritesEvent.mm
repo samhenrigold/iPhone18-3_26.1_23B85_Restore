@@ -121,40 +121,41 @@ LABEL_9:
 {
   eventCopy = event;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (-[VUIAppDocumentUpdateEvent descriptor](self, "descriptor"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 type], objc_msgSend(eventCopy, "descriptor"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "type"), v7, v5, v6 == v8))
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) != 0 && (-[VUIAppDocumentUpdateEvent descriptor](self, "descriptor"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 type], objc_msgSend(eventCopy, "descriptor"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "type"), v8, v6, v7 == v9))
   {
-    v9 = eventCopy;
+    v10 = eventCopy;
     addedEntityIDs = [(VUIAppDocumentModifiedFavoritesEvent *)self addedEntityIDs];
-    v11 = [addedEntityIDs mutableCopy];
+    v12 = [addedEntityIDs mutableCopy];
 
-    addedEntityIDs2 = [v9 addedEntityIDs];
-    [v11 unionSet:addedEntityIDs2];
+    addedEntityIDs2 = [v10 addedEntityIDs];
+    [v12 unionSet:addedEntityIDs2];
 
     removedEntityIDs = [(VUIAppDocumentModifiedFavoritesEvent *)self removedEntityIDs];
-    v14 = [removedEntityIDs mutableCopy];
+    v15 = [removedEntityIDs mutableCopy];
 
-    removedEntityIDs2 = [v9 removedEntityIDs];
+    removedEntityIDs2 = [v10 removedEntityIDs];
 
-    [v14 unionSet:removedEntityIDs2];
-    v16 = [v11 mutableCopy];
-    [v16 minusSet:v14];
-    v17 = [v14 mutableCopy];
-    [v17 minusSet:v11];
-    v18 = [[VUIAppDocumentModifiedFavoritesEvent alloc] initWithAddedEntityIDs:v16 removedEntityIDs:v17 isBackground:self->_isBackground];
+    [v15 unionSet:removedEntityIDs2];
+    v17 = [v12 mutableCopy];
+    [v17 minusSet:v15];
+    v18 = [v15 mutableCopy];
+    [v18 minusSet:v12];
+    v19 = [[VUIAppDocumentModifiedFavoritesEvent alloc] initWithAddedEntityIDs:v17 removedEntityIDs:v18 isBackground:self->_isBackground];
   }
 
   else
   {
-    v19 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = VUIDefaultLogObject(isKindOfClass);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(VUIAppDocumentModifiedFavoritesEvent *)self coalescedEvent:eventCopy, v19];
+      [(VUIAppDocumentModifiedFavoritesEvent *)self coalescedEvent:eventCopy, v20];
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
-  return v18;
+  return v19;
 }
 
 - (unint64_t)hash

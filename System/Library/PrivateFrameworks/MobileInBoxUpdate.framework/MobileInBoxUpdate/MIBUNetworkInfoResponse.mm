@@ -233,7 +233,7 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
 
 - (id)serialize
 {
-  v59[13] = *MEMORY[0x277D85DE8];
+  v58[13] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   networkInfo = [(MIBUNetworkInfoResponse *)self networkInfo];
 
@@ -244,8 +244,8 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
       networkInfo2 = [(MIBUNetworkInfoResponse *)self networkInfo];
       [networkInfo2 networkName];
       networkInfo19 = 0x277CCA000;
-      v51 = v56 = v3;
-      if (v51)
+      v50 = v55 = v3;
+      if (v50)
       {
         networkInfo3 = [(MIBUNetworkInfoResponse *)self networkInfo];
         networkName = [networkInfo3 networkName];
@@ -257,40 +257,40 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
         networkInfo3 = networkName;
       }
 
-      v29 = networkName;
-      v59[0] = networkName;
+      v28 = networkName;
+      v58[0] = networkName;
       networkInfo4 = [OUTLINED_FUNCTION_2_1() networkInfo];
       [networkInfo4 RSSI];
-      v49 = [OUTLINED_FUNCTION_7_0() numberWithInteger:?];
-      v59[1] = v49;
+      v48 = [OUTLINED_FUNCTION_7_0() numberWithInteger:?];
+      v58[1] = v48;
       networkInfo5 = [OUTLINED_FUNCTION_2_1() networkInfo];
       [networkInfo5 noise];
-      v47 = [OUTLINED_FUNCTION_7_0() numberWithInteger:?];
-      v59[2] = v47;
+      v46 = [OUTLINED_FUNCTION_7_0() numberWithInteger:?];
+      v58[2] = v46;
       networkInfo6 = [OUTLINED_FUNCTION_2_1() networkInfo];
       [networkInfo6 channel];
-      v45 = [OUTLINED_FUNCTION_7_0() numberWithInteger:?];
-      v59[3] = v45;
+      v44 = [OUTLINED_FUNCTION_7_0() numberWithInteger:?];
+      v58[3] = v44;
       networkInfo7 = [OUTLINED_FUNCTION_2_1() networkInfo];
       [networkInfo7 channelWidth];
-      v43 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
-      v59[4] = v43;
+      v42 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
+      v58[4] = v42;
       networkInfo8 = [OUTLINED_FUNCTION_2_1() networkInfo];
       [networkInfo8 channelBand];
-      v41 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
-      v59[5] = v41;
+      v40 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
+      v58[5] = v40;
       networkInfo9 = [OUTLINED_FUNCTION_2_1() networkInfo];
       [networkInfo9 PHYMode];
-      v39 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
-      v59[6] = v39;
+      v38 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
+      v58[6] = v38;
       networkInfo10 = [OUTLINED_FUNCTION_2_1() networkInfo];
       [networkInfo10 numberOfSpatialStreams];
-      v37 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
-      v59[7] = v37;
+      v36 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
+      v58[7] = v36;
       networkInfo11 = [OUTLINED_FUNCTION_2_1() networkInfo];
       [networkInfo11 MCSIndex];
-      v35 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
-      v59[8] = v35;
+      v34 = [OUTLINED_FUNCTION_7_0() numberWithUnsignedInteger:?];
+      v58[8] = v34;
       networkInfo12 = [(MIBUNetworkInfoResponse *)self networkInfo];
       mACAddress = [networkInfo12 MACAddress];
       if (mACAddress)
@@ -305,8 +305,8 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
         networkInfo13 = mACAddress2;
       }
 
-      v28 = mACAddress2;
-      v59[9] = mACAddress2;
+      v27 = mACAddress2;
+      v58[9] = mACAddress2;
       networkInfo14 = [(MIBUNetworkInfoResponse *)self networkInfo];
       iPV4Address = [networkInfo14 iPV4Address];
       if (iPV4Address)
@@ -321,8 +321,8 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
         networkInfo15 = iPV4Address2;
       }
 
-      v31 = iPV4Address;
-      v59[10] = iPV4Address2;
+      v30 = iPV4Address;
+      v58[10] = iPV4Address2;
       networkInfo16 = [(MIBUNetworkInfoResponse *)self networkInfo];
       iPV6Address = [networkInfo16 iPV6Address];
       if (iPV6Address)
@@ -338,7 +338,7 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
       }
 
       v14 = iPV6Address2;
-      v59[11] = iPV6Address2;
+      v58[11] = iPV6Address2;
       networkInfo18 = [(MIBUNetworkInfoResponse *)self networkInfo];
       bSSID = [networkInfo18 BSSID];
       if (bSSID)
@@ -352,9 +352,9 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
         bSSID2 = objc_opt_new();
       }
 
-      v59[12] = bSSID2;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:13];
-      v30 = [v56 serialize:&unk_286AC83E8 withValue:v18];
+      v58[12] = bSSID2;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:13];
+      v29 = [v55 serialize:&unk_286AC83E8 withValue:v18];
 
       if (bSSID)
       {
@@ -366,8 +366,8 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
       {
       }
 
-      v3 = v56;
-      if (v31)
+      v3 = v55;
+      if (v30)
       {
       }
 
@@ -375,18 +375,18 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
       {
       }
 
-      if (v51)
+      if (v50)
       {
       }
 
-      if (v30)
+      if (v29)
       {
         error = [(MIBUNFCResponse *)self error];
-        v20 = [v56 serializeResponseError:error];
+        v20 = [v55 serializeResponseError:error];
 
         if (v20)
         {
-          networkInfo = [v56 serializedData];
+          networkInfo = [v55 serializedData];
           goto LABEL_31;
         }
 
@@ -395,14 +395,14 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
           dispatch_once(&MIBUOnceToken, &__block_literal_global_33_0);
         }
 
-        v24 = MIBUConnObj;
+        v23 = MIBUConnObj;
         if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
         {
-          v25 = v24;
+          v24 = v23;
           error2 = [(MIBUNFCResponse *)self error];
           *buf = 138543362;
-          v58 = error2;
-          _os_log_error_impl(&dword_259ABF000, v25, OS_LOG_TYPE_ERROR, "Failed to serialize response error: %{public}@", buf, 0xCu);
+          v57 = error2;
+          _os_log_error_impl(&dword_259ABF000, v24, OS_LOG_TYPE_ERROR, "Failed to serialize response error: %{public}@", buf, 0xCu);
         }
       }
 
@@ -413,11 +413,11 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
           dispatch_once(&MIBUOnceToken, &__block_literal_global_6);
         }
 
-        v23 = MIBUConnObj;
+        v22 = MIBUConnObj;
         if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_259ABF000, v23, OS_LOG_TYPE_ERROR, "Failed to serialize network info", buf, 2u);
+          _os_log_error_impl(&dword_259ABF000, v22, OS_LOG_TYPE_ERROR, "Failed to serialize network info", buf, 2u);
         }
       }
     }
@@ -426,8 +426,6 @@ void __40__MIBUNetworkInfoResponse__deserialize___block_invoke_37()
   }
 
 LABEL_31:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return networkInfo;
 }

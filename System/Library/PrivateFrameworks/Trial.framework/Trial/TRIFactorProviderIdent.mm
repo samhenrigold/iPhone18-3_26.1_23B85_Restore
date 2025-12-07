@@ -1,8 +1,10 @@
 @interface TRIFactorProviderIdent
++ (id)identWithType:(unsigned __int8)type value:(id)value;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToIdent:(id)ident;
 - (TRIFactorProviderIdent)initWithCoder:(id)coder;
 - (TRIFactorProviderIdent)initWithType:(unsigned __int8)type value:(id)value;
+- (id)copyWithReplacementType:(unsigned __int8)type;
 - (id)copyWithReplacementValue:(id)value;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -30,6 +32,24 @@
   }
 
   return v10;
+}
+
++ (id)identWithType:(unsigned __int8)type value:(id)value
+{
+  typeCopy = type;
+  valueCopy = value;
+  v7 = [[self alloc] initWithType:typeCopy value:valueCopy];
+
+  return v7;
+}
+
+- (id)copyWithReplacementType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v5 = objc_alloc(objc_opt_class());
+  value = self->_value;
+
+  return [v5 initWithType:typeCopy value:value];
 }
 
 - (id)copyWithReplacementValue:(id)value
@@ -86,7 +106,7 @@
 
 - (TRIFactorProviderIdent)initWithCoder:(id)coder
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeInt64ForKey:@"type"];
   if (v5)
@@ -100,9 +120,9 @@
   {
     if (([coderCopy containsValueForKey:@"type"] & 1) == 0)
     {
-      v26 = *MEMORY[0x277CCA450];
-      v27[0] = @"Missing serialized value for TRIFactorProviderIdent.type";
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v25 = *MEMORY[0x277CCA450];
+      v26[0] = @"Missing serialized value for TRIFactorProviderIdent.type";
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
       v14 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFactorProviderIdentOCNTErrorDomain" code:1 userInfo:v7];
       [coderCopy failWithError:v14];
       goto LABEL_13;
@@ -116,9 +136,9 @@ LABEL_2:
 
       if (!error2)
       {
-        v24 = *MEMORY[0x277CCA450];
-        v25 = @"Retrieved nil serialized value for nonnull TRIFactorProviderIdent.value";
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+        v23 = *MEMORY[0x277CCA450];
+        v24 = @"Retrieved nil serialized value for nonnull TRIFactorProviderIdent.value";
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
         v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFactorProviderIdentOCNTErrorDomain" code:2 userInfo:v11];
         [coderCopy failWithError:v12];
       }
@@ -143,9 +163,9 @@ LABEL_15:
     v15 = objc_opt_class();
     v16 = NSStringFromClass(v15);
     v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIFactorProviderIdent key value (expected %@, decoded %@)", v14, v16, 0];
-    v22 = *MEMORY[0x277CCA450];
-    v23 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x277CCA450];
+    v22 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     v19 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFactorProviderIdentOCNTErrorDomain" code:3 userInfo:v18];
     [coderCopy failWithError:v19];
 
@@ -158,7 +178,6 @@ LABEL_14:
   selfCopy = 0;
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -65,6 +65,7 @@
 - (void)stopButtonPressed;
 - (void)stopSpeakFingerButtonPressed;
 - (void)tabModeButtonPressed;
+- (void)unregisterNubbit:(BOOL)nubbit;
 - (void)updateBarWithAppTitleForApp:(id)app;
 - (void)updateSpeakUnderFingerState:(unint64_t)state;
 - (void)updateUIForDisplayChange;
@@ -1124,6 +1125,13 @@ LABEL_50:
   containingView = self->_containingView;
 
   [(UIVisualEffectView *)containingView setAlpha:v4];
+}
+
+- (void)unregisterNubbit:(BOOL)nubbit
+{
+  nubbitCopy = nubbit;
+  v5 = +[AXUIDisplayManager sharedDisplayManager];
+  [v5 unregisterNubbit:self->_containingView shouldUndoFade:nubbitCopy];
 }
 
 - (void)_updateForTabModeUsingSpeakFingerButton:(BOOL)button animated:(BOOL)animated

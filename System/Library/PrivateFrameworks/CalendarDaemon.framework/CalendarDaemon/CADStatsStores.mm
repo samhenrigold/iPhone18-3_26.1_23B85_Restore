@@ -17,108 +17,105 @@
 
 - (void)processStores:(id)stores
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   storesCopy = stores;
-  v5 = [storesCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [storesCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v23;
     do
     {
       v8 = 0;
       do
       {
-        if (*v25 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(storesCopy);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * v8);
-        v10 = objc_opt_new();
-        [(NSMutableArray *)self->_storeInfos addObject:v10];
-        v11 = CalStoreCopyCalendars();
-        if (v11)
+        v9 = objc_opt_new();
+        [(NSMutableArray *)self->_storeInfos addObject:v9];
+        v10 = CalStoreCopyCalendars();
+        if (v10)
         {
-          v12 = v11;
-          if (CFArrayGetCount(v11) >= 1)
+          v11 = v10;
+          if (CFArrayGetCount(v10) >= 1)
           {
-            CFArrayGetValueAtIndex(v12, 0);
-            v13 = CalCalendarCopyDomainName();
-            v14 = *(v10 + 40);
-            *(v10 + 40) = v13;
+            CFArrayGetValueAtIndex(v11, 0);
+            v12 = CalCalendarCopyDomainName();
+            v13 = *(v9 + 40);
+            *(v9 + 40) = v12;
 
-            *(v10 + 48) = CalCalendarEmailIsUsedForOtherSource();
+            *(v9 + 48) = CalCalendarEmailIsUsedForOtherSource();
           }
 
-          CFRelease(v12);
+          CFRelease(v11);
         }
 
-        *(v10 + 8) = CalStoreGetType();
-        *(v10 + 32) = CalStoreIsDelegate();
-        *(v10 + 33) = CalStoreIsEnabled();
-        v15 = CalStoreCopyUUID();
-        if (v15)
+        *(v9 + 8) = CalStoreGetType();
+        *(v9 + 32) = CalStoreIsDelegate();
+        *(v9 + 33) = CalStoreIsEnabled();
+        v14 = CalStoreCopyUUID();
+        if (v14)
         {
-          v16 = v15;
+          v15 = v14;
           accountStore = [(CADStatCollectionContext *)self->_context accountStore];
-          v18 = [accountStore accountWithIdentifier:v16];
+          v17 = [accountStore accountWithIdentifier:v15];
 
-          displayAccount = [v18 displayAccount];
+          displayAccount = [v17 displayAccount];
           accountType = [displayAccount accountType];
           identifier = [accountType identifier];
-          v22 = *(v10 + 24);
-          *(v10 + 24) = identifier;
+          v21 = *(v9 + 24);
+          *(v9 + 24) = identifier;
 
-          if (*(v10 + 24))
+          if (*(v9 + 24))
           {
-            *(v10 + 16) = PCSettingsGetStyle();
+            *(v9 + 16) = PCSettingsGetStyle();
           }
 
-          CFRelease(v16);
+          CFRelease(v15);
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [storesCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [storesCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventDictionaries
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_storeInfos, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = self->_storeInfos;
-  v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = objc_opt_new();
         [v9 setObject:&unk_2837C7558 forKeyedSubscript:@"instance"];
         v10 = [MEMORY[0x277CCABB0] numberWithInteger:*(v8 + 8)];
@@ -149,13 +146,11 @@
         [v3 addObject:v9];
       }
 
-      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

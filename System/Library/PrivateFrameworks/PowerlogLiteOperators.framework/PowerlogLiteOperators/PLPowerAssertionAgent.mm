@@ -11,6 +11,7 @@
 - (BOOL)assertionSnapshotTimerActive;
 - (PLPowerAssertionAgent)init;
 - (id)assertTypeToEnumMapping;
+- (id)bundleIDForAssertionProcessPID:(int)d;
 - (id)sanitizeAssertionNameForEntry:(id)entry;
 - (id)startEndActionsToEnumMapping;
 - (void)checkAssertionBufferFullNotificationRate;
@@ -20,8 +21,12 @@
 - (void)logAggregatedAssertionActivityPLDataStructure;
 - (void)logEventForwardAssertion;
 - (void)logEventForwardAssertionWithReason:(id)reason asSnapshot:(BOOL)snapshot;
+- (void)logEventPointAggregateResetWithReason:(signed __int16)reason withPidCount:(int)count;
 - (void)logInterval:(id)interval;
 - (void)logSnapshot:(id)snapshot;
+- (void)resetIOPMSetAssertionActivityAggregatePLDataStructureWithReason:(signed __int16)reason withPidCount:(int)count;
+- (void)resetIOPMSetAssertionActivityAggregateWithReason:(signed __int16)reason withPidCount:(int)count;
+- (void)setAssertionBufferFullNotificationActive:(BOOL)active withReason:(id)reason;
 - (void)setAssertionSnapshotTimerActive:(BOOL)active;
 - (void)updateDisplayState;
 - (void)updateOptimizeSubSecondAssertions;
@@ -30,23 +35,23 @@
 
 @implementation PLPowerAssertionAgent
 
-uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke(uint64_t a1)
+uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke(uint64_t a1, uint64_t a2)
 {
   ChannelID = IOReportChannelGetChannelID();
   ValueAtIndex = IOReportArrayGetValueAtIndex();
-  v4 = IOReportArrayGetValueAtIndex();
   v5 = IOReportArrayGetValueAtIndex();
-  if (ValueAtIndex < 0 || v4 < 0 || v5 < 0)
+  v6 = IOReportArrayGetValueAtIndex();
+  if (ValueAtIndex < 0 || v5 < 0 || v6 < 0)
   {
     ++*(*(*(a1 + 40) + 8) + 24);
   }
 
-  else if (ValueAtIndex || v4 || v5)
+  else if (ValueAtIndex || v5 || v6)
   {
-    v6 = [MEMORY[0x277CCABB0] numberWithDouble:IOReportArrayGetValueAtIndex()];
-    v7 = *(a1 + 32);
-    v8 = [MEMORY[0x277CCABB0] numberWithInt:ChannelID];
-    [v7 setObject:v6 forKeyedSubscript:v8];
+    v7 = [MEMORY[0x277CCABB0] numberWithDouble:IOReportArrayGetValueAtIndex()];
+    v8 = *(a1 + 32);
+    v9 = [MEMORY[0x277CCABB0] numberWithInt:ChannelID];
+    [v8 setObject:v7 forKeyedSubscript:v9];
   }
 
   return 0;
@@ -54,66 +59,66 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
 
 - (void)logAggregatedAssertionActivityPLDataStructure
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
   {
-    v58 = IOPMCopyAssertionActivityAggregate();
-    v59 = objc_opt_new();
-    v79 = 0;
-    v80 = &v79;
-    v81 = 0x2020000000;
-    v82 = 0;
+    v57 = IOPMCopyAssertionActivityAggregate();
+    v58 = objc_opt_new();
+    v78 = 0;
+    v79 = &v78;
+    v80 = 0x2020000000;
+    v81 = 0;
     monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
-    if (v58)
+    if (v57)
     {
-      v73 = MEMORY[0x277D85DD0];
-      v74 = 3221225472;
-      v75 = __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke;
-      v76 = &unk_27825B868;
-      v78 = &v79;
-      v77 = v59;
+      v72 = MEMORY[0x277D85DD0];
+      v73 = 3221225472;
+      v74 = __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke;
+      v75 = &unk_27825B868;
+      v77 = &v78;
+      v76 = v58;
       IOReportIterate();
     }
 
-    if (v59 && [v59 count])
+    if (v58 && [v58 count])
     {
       assertionAggregatedLastSamplePLDataStructure = [(PLPowerAssertionAgent *)self assertionAggregatedLastSamplePLDataStructure];
       v3 = [assertionAggregatedLastSamplePLDataStructure count] == 0;
 
       if (v3)
       {
-        v60 = 0;
+        v59 = 0;
       }
 
       else
       {
         assertionAggregatedLastSamplePLDataStructure2 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSamplePLDataStructure];
-        v56 = [assertionAggregatedLastSamplePLDataStructure2 objectForKeyedSubscript:@"assertionAggregatedDate"];
+        v55 = [assertionAggregatedLastSamplePLDataStructure2 objectForKeyedSubscript:@"assertionAggregatedDate"];
 
         dictionary = [MEMORY[0x277CBEB38] dictionary];
-        v71 = 0u;
-        v72 = 0u;
-        v69 = 0u;
         v70 = 0u;
-        v5 = v59;
-        v6 = [v5 countByEnumeratingWithState:&v69 objects:v86 count:16];
+        v71 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v5 = v58;
+        v6 = [v5 countByEnumeratingWithState:&v68 objects:v85 count:16];
         if (v6)
         {
-          v60 = 0;
-          v7 = *v70;
+          v59 = 0;
+          v7 = *v69;
           v8 = 0.0;
           do
           {
             v9 = 0;
-            v60 += v6;
+            v59 += v6;
             do
             {
-              if (*v70 != v7)
+              if (*v69 != v7)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v10 = *(*(&v69 + 1) + 8 * v9);
+              v10 = *(*(&v68 + 1) + 8 * v9);
               v11 = [v5 objectForKeyedSubscript:v10];
               assertionAggregatedLastSamplePLDataStructure3 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSamplePLDataStructure];
               v13 = [assertionAggregatedLastSamplePLDataStructure3 objectForKeyedSubscript:@"assertionAggregated"];
@@ -129,7 +134,7 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
             }
 
             while (v6 != v9);
-            v6 = [v5 countByEnumeratingWithState:&v69 objects:v86 count:16];
+            v6 = [v5 countByEnumeratingWithState:&v68 objects:v85 count:16];
           }
 
           while (v6);
@@ -137,29 +142,29 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
 
         else
         {
-          v60 = 0;
+          v59 = 0;
           v8 = 0.0;
         }
 
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
         v66 = 0u;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
         v21 = v5;
-        v22 = [v21 countByEnumeratingWithState:&v65 objects:v85 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v64 objects:v84 count:16];
         if (v22)
         {
-          v23 = *v66;
+          v23 = *v65;
           do
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v66 != v23)
+              if (*v65 != v23)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v25 = *(*(&v65 + 1) + 8 * i);
+              v25 = *(*(&v64 + 1) + 8 * i);
               v26 = [v21 objectForKeyedSubscript:v25];
               assertionAggregatedLastSamplePLDataStructure4 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSamplePLDataStructure];
               v28 = [assertionAggregatedLastSamplePLDataStructure4 objectForKeyedSubscript:@"assertionAggregated"];
@@ -180,14 +185,14 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
               }
             }
 
-            v22 = [v21 countByEnumeratingWithState:&v65 objects:v85 count:16];
+            v22 = [v21 countByEnumeratingWithState:&v64 objects:v84 count:16];
           }
 
           while (v22);
         }
 
         mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
-        [mEMORY[0x277D3F0C0] createDistributionEventIntervalWithDistributionID:22 withChildNodeNameToWeight:dictionary withStartDate:v56 withEndDate:monotonicDate];
+        [mEMORY[0x277D3F0C0] createDistributionEventIntervalWithDistributionID:22 withChildNodeNameToWeight:dictionary withStartDate:v55 withEndDate:monotonicDate];
 
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
@@ -215,7 +220,7 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
             if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v84 = v38;
+              v83 = v38;
               _os_log_debug_impl(&dword_21A4C6000, v43, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -224,19 +229,19 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v44 = objc_opt_class();
-          v63[0] = MEMORY[0x277D85DD0];
-          v63[1] = 3221225472;
-          v63[2] = __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke_625;
-          v63[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v63[4] = v44;
+          v62[0] = MEMORY[0x277D85DD0];
+          v62[1] = 3221225472;
+          v62[2] = __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke_625;
+          v62[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v62[4] = v44;
           if (qword_2811F42B8 != -1)
           {
-            dispatch_once(&qword_2811F42B8, v63);
+            dispatch_once(&qword_2811F42B8, v62);
           }
 
           if (byte_2811F417D == 1)
           {
-            v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"Newlogging: start date: %@, end dat %@, accounting:%@", v56, monotonicDate, dictionary];
+            v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"Newlogging: start date: %@, end dat %@, accounting:%@", v55, monotonicDate, dictionary];
             v46 = MEMORY[0x277D3F178];
             v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
             lastPathComponent2 = [v47 lastPathComponent];
@@ -247,7 +252,7 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
             if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v84 = v45;
+              v83 = v45;
               _os_log_debug_impl(&dword_21A4C6000, v50, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -255,17 +260,17 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
       }
 
       assertionAggregatedLastSamplePLDataStructure5 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSamplePLDataStructure];
-      [assertionAggregatedLastSamplePLDataStructure5 setObject:v59 forKeyedSubscript:@"assertionAggregated"];
+      [assertionAggregatedLastSamplePLDataStructure5 setObject:v58 forKeyedSubscript:@"assertionAggregated"];
 
       assertionAggregatedLastSamplePLDataStructure6 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSamplePLDataStructure];
       [assertionAggregatedLastSamplePLDataStructure6 setObject:monotonicDate forKeyedSubscript:@"assertionAggregatedDate"];
 
-      if ([(PLPowerAssertionAgent *)self aggregateMaxPIDCount]>= v60)
+      if ([(PLPowerAssertionAgent *)self aggregateMaxPIDCount]>= v59)
       {
-        v53 = *(v80 + 6);
+        v53 = *(v79 + 6);
         aggregteZeroDeltaCount = [(PLPowerAssertionAgent *)self aggregteZeroDeltaCount];
-        v19 = v60;
-        if (aggregteZeroDeltaCount != (v60 == v53))
+        v19 = v59;
+        if (aggregteZeroDeltaCount != (v59 == v53))
         {
           [(PLPowerAssertionAgent *)self logEventPointAggregateResetWithReason:0 withPidCount:?];
           goto LABEL_48;
@@ -277,7 +282,7 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
       else
       {
         v20 = 3;
-        v19 = v60;
+        v19 = v59;
       }
     }
 
@@ -290,24 +295,21 @@ uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructu
     [(PLPowerAssertionAgent *)self resetIOPMSetAssertionActivityAggregatePLDataStructureWithReason:v20 withPidCount:v19];
 LABEL_48:
 
-    _Block_object_dispose(&v79, 8);
+    _Block_object_dispose(&v78, 8);
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_185(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2_186;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (qword_2811F41A0 != -1)
     {
       dispatch_once(&qword_2811F41A0, block);
@@ -315,27 +317,25 @@ uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_185(
 
     if (byte_2811F4162 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fired on Battery level"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent initOperatorDependancies]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:399];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fired on Battery level"];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent initOperatorDependancies]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:399];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v14 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v12 = v3;
+        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logEventForwardAssertionWithReason:&unk_282C106C8 asSnapshot:0];
-  result = [*(a1 + 32) logAggregatedAssertionActivityPLDataStructure];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) logAggregatedAssertionActivityPLDataStructure];
 }
 
 uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_190(uint64_t a1)
@@ -355,217 +355,203 @@ uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_190(
 
 + (id)entryEventPointDefinitions
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"SnapshotReason";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"SnapshotReason";
   entryEventPointDefinitionSnapshotReason = [self entryEventPointDefinitionSnapshotReason];
-  v11[0] = entryEventPointDefinitionSnapshotReason;
-  v10[1] = @"BufferStatus";
+  v10[0] = entryEventPointDefinitionSnapshotReason;
+  v9[1] = @"BufferStatus";
   entryEventPointDefinitionBufferStatus = [self entryEventPointDefinitionBufferStatus];
-  v11[1] = entryEventPointDefinitionBufferStatus;
-  v10[2] = @"AggregateReset";
+  v10[1] = entryEventPointDefinitionBufferStatus;
+  v9[2] = @"AggregateReset";
   entryEventPointDefinitionAggregateReset = [self entryEventPointDefinitionAggregateReset];
-  v11[2] = entryEventPointDefinitionAggregateReset;
-  v10[3] = @"TimedOutProcesses";
+  v10[2] = entryEventPointDefinitionAggregateReset;
+  v9[3] = @"TimedOutProcesses";
   entryEventPointDefinitionTimedOutProcesses = [self entryEventPointDefinitionTimedOutProcesses];
-  v11[3] = entryEventPointDefinitionTimedOutProcesses;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = entryEventPointDefinitionTimedOutProcesses;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionAggregateReset
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1BEA8;
-  v15[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"PidCount";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1BEA8;
+  v14[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"PidCount";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v12[1] = @"Reason";
-  v13[0] = commonTypeDict_IntegerFormat;
+  v11[1] = @"Reason";
+  v12[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventPointDefinitionTimedOutProcesses
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1BEA8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"ProcessName";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1BEA8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"ProcessName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withProcessName = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withProcessName];
-  v11 = commonTypeDict_StringFormat_withProcessName;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_StringFormat_withProcessName;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"Assertion";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"Assertion";
   entryEventForwardDefinitionAssertion = [self entryEventForwardDefinitionAssertion];
-  v7[0] = entryEventForwardDefinitionAssertion;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryEventForwardDefinitionAssertion;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventForwardDefinitionAssertion
 {
-  v38[2] = *MEMORY[0x277D85DE8];
-  v37[0] = *MEMORY[0x277D3F4E8];
+  v37[2] = *MEMORY[0x277D85DE8];
+  v36[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F498];
-  v35[0] = *MEMORY[0x277D3F568];
-  v35[1] = v2;
-  v36[0] = &unk_282C1BEB8;
-  v36[1] = MEMORY[0x277CBEC38];
+  v34[0] = *MEMORY[0x277D3F568];
+  v34[1] = v2;
+  v35[0] = &unk_282C1BEB8;
+  v35[1] = MEMORY[0x277CBEC38];
   v3 = *MEMORY[0x277D3F4A0];
-  v35[2] = *MEMORY[0x277D3F4D8];
-  v35[3] = v3;
-  v36[2] = MEMORY[0x277CBEC38];
-  v36[3] = MEMORY[0x277CBEC38];
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:4];
-  v38[0] = v30;
-  v37[1] = *MEMORY[0x277D3F540];
-  v33[0] = @"Action";
+  v34[2] = *MEMORY[0x277D3F4D8];
+  v34[3] = v3;
+  v35[2] = MEMORY[0x277CBEC38];
+  v35[3] = MEMORY[0x277CBEC38];
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
+  v37[0] = v29;
+  v36[1] = *MEMORY[0x277D3F540];
+  v32[0] = @"Action";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v34[0] = commonTypeDict_IntegerFormat;
-  v33[1] = @"timestampActionOffset";
+  v33[0] = commonTypeDict_IntegerFormat;
+  v32[1] = @"timestampActionOffset";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v34[1] = commonTypeDict_IntegerFormat2;
-  v33[2] = @"GlobalUniqueID";
+  v33[1] = commonTypeDict_IntegerFormat2;
+  v32[2] = @"GlobalUniqueID";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v34[2] = commonTypeDict_IntegerFormat3;
-  v33[3] = @"pid";
+  v33[2] = commonTypeDict_IntegerFormat3;
+  v32[3] = @"pid";
   v4 = *MEMORY[0x277D3F538];
-  v31[0] = *MEMORY[0x277D3F5A8];
-  v31[1] = v4;
-  v32[0] = &unk_282C106B0;
-  v32[1] = &unk_282C140B8;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
-  v34[3] = v23;
-  v33[4] = @"AssertName";
+  v30[0] = *MEMORY[0x277D3F5A8];
+  v30[1] = v4;
+  v31[0] = &unk_282C106B0;
+  v31[1] = &unk_282C140B8;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+  v33[3] = v22;
+  v32[4] = @"AssertName";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v34[4] = commonTypeDict_StringFormat;
-  v33[5] = @"AssertType";
+  v33[4] = commonTypeDict_StringFormat;
+  v32[5] = @"AssertType";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v34[5] = commonTypeDict_IntegerFormat4;
-  v33[6] = @"AssertionOnBehalfOfPID";
+  v33[5] = commonTypeDict_IntegerFormat4;
+  v32[6] = @"AssertionOnBehalfOfPID";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v34[6] = commonTypeDict_IntegerFormat5;
-  v33[7] = @"GlobalUniqueIDReference";
+  v33[6] = commonTypeDict_IntegerFormat5;
+  v32[7] = @"GlobalUniqueIDReference";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v34[7] = commonTypeDict_IntegerFormat6;
-  v33[8] = @"FrameworkBundleID";
+  v33[7] = commonTypeDict_IntegerFormat6;
+  v32[8] = @"FrameworkBundleID";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]8 commonTypeDict_StringFormat_withBundleID];
-  v34[8] = commonTypeDict_StringFormat_withBundleID;
-  v33[9] = @"InstanceMetadata";
+  v33[8] = commonTypeDict_StringFormat_withBundleID;
+  v32[9] = @"InstanceMetadata";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]9 commonTypeDict_StringFormat];
-  v34[9] = commonTypeDict_StringFormat2;
-  v33[10] = @"Category";
+  v33[9] = commonTypeDict_StringFormat2;
+  v32[10] = @"Category";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v34[10] = commonTypeDict_IntegerFormat7;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:11];
-  v38[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v33[10] = commonTypeDict_IntegerFormat7;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:11];
+  v37[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
 
   return v14;
 }
 
 + (id)entryEventPointDefinitionSnapshotReason
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1BEB8;
-  v13[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"Reason";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1BEB8;
+  v12[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"Reason";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11 = commonTypeDict_IntegerFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_IntegerFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionBufferStatus
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1BEB8;
-  v15[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"Reason";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1BEB8;
+  v14[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"Reason";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v12[1] = @"TotalCount";
-  v13[0] = commonTypeDict_IntegerFormat;
+  v11[1] = @"TotalCount";
+  v12[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
@@ -609,7 +595,7 @@ uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_190(
 
 - (void)initOperatorDependancies
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   startEndActionsToEnumMapping = [(PLPowerAssertionAgent *)self startEndActionsToEnumMapping];
   startEndActionsToEnum = self->_startEndActionsToEnum;
   self->_startEndActionsToEnum = startEndActionsToEnumMapping;
@@ -639,12 +625,12 @@ uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_190(
   v16 = objc_alloc(MEMORY[0x277D3F250]);
   v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v15];
   workQueue = [(PLOperator *)self workQueue];
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke;
-  v60[3] = &unk_278259C40;
-  v60[4] = self;
-  v19 = [v16 initWithFireDate:v17 withInterval:1 withTolerance:0 repeats:workQueue withUserInfo:v60 withQueue:v15 withBlock:0.0];
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke;
+  v59[3] = &unk_278259C40;
+  v59[4] = self;
+  v19 = [v16 initWithFireDate:v17 withInterval:1 withTolerance:0 repeats:workQueue withUserInfo:v59 withQueue:v15 withBlock:0.0];
   [(PLPowerAssertionAgent *)self setRunQueryTimer:v19];
 
   if ([(PLOperator *)self isDebugEnabled])
@@ -662,7 +648,7 @@ uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_190(
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v62 = v20;
+        v61 = v20;
 LABEL_15:
         _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
@@ -681,7 +667,7 @@ LABEL_15:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v62 = v20;
+        v61 = v20;
         goto LABEL_15;
       }
     }
@@ -690,12 +676,12 @@ LABEL_15:
   if ([(PLOperator *)self defaultBoolForKey:@"AnyChange"])
   {
     v30 = objc_opt_new();
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_154;
-    v59[3] = &unk_2782597E8;
-    v59[4] = self;
-    v31 = [v30 initWithOperator:self forNotification:@"com.apple.system.powermanagement.assertions.anychange" requireState:0 withBlock:v59];
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_154;
+    v58[3] = &unk_2782597E8;
+    v58[4] = self;
+    v31 = [v30 initWithOperator:self forNotification:@"com.apple.system.powermanagement.assertions.anychange" requireState:0 withBlock:v58];
     [(PLPowerAssertionAgent *)self setAssertionNotification:v31];
 
     IOPMAssertionNotify();
@@ -703,58 +689,58 @@ LABEL_15:
 
   v32 = objc_alloc(MEMORY[0x277D3F160]);
   v33 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_165;
-  v58[3] = &unk_2782597E8;
-  v58[4] = self;
-  v34 = [v32 initWithWorkQueue:v33 forNotification:@"com.apple.powerlogd.flushAssertionBuffer" requireState:0 withBlock:v58];
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_165;
+  v57[3] = &unk_2782597E8;
+  v57[4] = self;
+  v34 = [v32 initWithWorkQueue:v33 forNotification:@"com.apple.powerlogd.flushAssertionBuffer" requireState:0 withBlock:v57];
 
   [(PLPowerAssertionAgent *)self setFlushAssertionBufferCFNotification:v34];
   v35 = objc_opt_new();
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_176;
-  v57[3] = &unk_2782597E8;
-  v57[4] = self;
-  v36 = [v35 initWithOperator:self forNotification:@"com.apple.powermanagement.assertions.logHighWM" requireState:0 withBlock:v57];
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_176;
+  v56[3] = &unk_2782597E8;
+  v56[4] = self;
+  v36 = [v35 initWithOperator:self forNotification:@"com.apple.powermanagement.assertions.logHighWM" requireState:0 withBlock:v56];
   [(PLPowerAssertionAgent *)self setAssertionBufferFullNotification:v36];
 
   [(PLPowerAssertionAgent *)self setAssertionBufferFullNotificationActive:1 withReason:@"init"];
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_185;
-  v56[3] = &unk_2782597E8;
-  v56[4] = self;
-  v37 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withBlock:v56];
-  [(PLPowerAssertionAgent *)self setBatteryLevelNotificiations:v37];
-
   v55[0] = MEMORY[0x277D85DD0];
   v55[1] = 3221225472;
-  v55[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_190;
+  v55[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_185;
   v55[3] = &unk_2782597E8;
   v55[4] = self;
-  v38 = [MEMORY[0x277D3F1A8] wakeEntryNotificationWithOperator:self withBlock:v55];
+  v37 = [MEMORY[0x277D3F1A8] significantBatteryChangeNotificationWithOperator:self withBlock:v55];
+  [(PLPowerAssertionAgent *)self setBatteryLevelNotificiations:v37];
+
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_190;
+  v54[3] = &unk_2782597E8;
+  v54[4] = self;
+  v38 = [MEMORY[0x277D3F1A8] wakeEntryNotificationWithOperator:self withBlock:v54];
   [(PLPowerAssertionAgent *)self setWakeNotification:v38];
 
   [(PLPowerAssertionAgent *)self setAssertionSnapshotTimerActive:1];
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2_194;
-  v54[3] = &unk_2782597E8;
-  v54[4] = self;
-  v39 = [MEMORY[0x277D3F1A8] canSleepEntryNotificationWithOperator:self withBlock:v54];
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2_194;
+  v53[3] = &unk_2782597E8;
+  v53[4] = self;
+  v39 = [MEMORY[0x277D3F1A8] canSleepEntryNotificationWithOperator:self withBlock:v53];
   [(PLPowerAssertionAgent *)self setCanSleepNotification:v39];
 
   v40 = objc_alloc(MEMORY[0x277D3F1F0]);
   v41 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
   v42 = *MEMORY[0x277CBE580];
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_3;
-  v53[3] = &unk_2782597E8;
-  v53[4] = self;
-  v43 = [v40 initWithWorkQueue:v41 forNotification:v42 withBlock:v53];
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_3;
+  v52[3] = &unk_2782597E8;
+  v52[4] = self;
+  v43 = [v40 initWithWorkQueue:v41 forNotification:v42 withBlock:v52];
 
   [(PLPowerAssertionAgent *)self setDailyTaskNotification:v43];
   self->_aggregateMaxPIDCount = [(PLOperator *)self defaultLongForKey:@"AggregateMaxPidCount"];
@@ -769,12 +755,12 @@ LABEL_15:
     }
 
     v45 = objc_alloc(MEMORY[0x277D3F1F0]);
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209;
-    v52[3] = &unk_2782597E8;
-    v52[4] = self;
-    v46 = [v45 initWithOperator:self forNotification:@"PLGameModeNotification" withBlock:v52];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209;
+    v51[3] = &unk_2782597E8;
+    v51[4] = self;
+    v46 = [v45 initWithOperator:self forNotification:@"PLGameModeNotification" withBlock:v51];
     consoleModeListener = self->_consoleModeListener;
     self->_consoleModeListener = v46;
 
@@ -782,29 +768,26 @@ LABEL_15:
     [(PLPowerAssertionAgent *)self setStateTracker:mEMORY[0x277D3F220]];
 
     stateTracker = [(PLPowerAssertionAgent *)self stateTracker];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_214;
-    v51[3] = &unk_2782591D0;
-    v51[4] = self;
-    [stateTracker registerForStates:5 withOperator:self withBlock:v51];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_214;
+    v50[3] = &unk_2782591D0;
+    v50[4] = self;
+    [stateTracker registerForStates:5 withOperator:self withBlock:v50];
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_154(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (qword_2811F4190 != -1)
     {
       dispatch_once(&qword_2811F4190, block);
@@ -812,29 +795,27 @@ uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_154(
 
     if (_MergedGlobals_1_18 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"assertion notification handler"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent initOperatorDependancies]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:371];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"assertion notification handler"];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent initOperatorDependancies]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:371];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v14 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v12 = v3;
+        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  result = [*(a1 + 32) logEventForwardAssertionWithReason:&unk_282C106E0 asSnapshot:0];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) logEventForwardAssertionWithReason:&unk_282C106E0 asSnapshot:0];
 }
 
-uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2(uint64_t a1)
+void *__49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_18 = result;
@@ -843,7 +824,7 @@ uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2(ui
 
 void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_165(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) logInterval:&unk_282C10728];
   if (([*(a1 + 32) lastActivityOverflow] & 1) == 0)
   {
@@ -860,26 +841,23 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_165(uint
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_176(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2_177;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (qword_2811F4198 != -1)
     {
       dispatch_once(&qword_2811F4198, block);
@@ -887,41 +865,39 @@ uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_176(
 
     if (byte_2811F4161 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"assertion buffer notification handler"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent initOperatorDependancies]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:391];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"assertion buffer notification handler"];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent initOperatorDependancies]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:391];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v16 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v14 = v3;
+        _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) logEventForwardAssertionWithReason:&unk_282C10710 asSnapshot:0];
-  v10 = [*(a1 + 32) assertionBufferNotificationTracking];
-  v11 = [MEMORY[0x277CBEAA8] date];
-  [v10 addObject:v11];
+  v9 = [*(a1 + 32) assertionBufferNotificationTracking];
+  v10 = [MEMORY[0x277CBEAA8] date];
+  [v9 addObject:v10];
 
-  result = [*(a1 + 32) checkAssertionBufferFullNotificationRate];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) checkAssertionBufferFullNotificationRate];
 }
 
-uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2_177(uint64_t a1)
+void *__49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2_177(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4161 = result;
   return result;
 }
 
-uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2_186(uint64_t a1)
+void *__49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_2_186(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4162 = result;
@@ -936,59 +912,56 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_3(uint64
   v9 = a4;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v10 = *(a1 + 32);
-    v11 = objc_opt_class();
+    v10 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_4;
     block[3] = &unk_27825A310;
-    v27 = @"DailyTasks";
-    v28 = v11;
+    v25 = @"DailyTasks";
+    v26 = v10;
     if (qword_2811F41A8 != -1)
     {
       dispatch_once(&qword_2811F41A8, block);
     }
 
-    v12 = byte_2811F4163;
+    v11 = byte_2811F4163;
 
-    if (v12)
+    if (v11)
     {
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"DailyTasks notification!"];
-      v14 = MEMORY[0x277D3F178];
-      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-      v16 = [v15 lastPathComponent];
-      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent initOperatorDependancies]_block_invoke_3"];
-      [v14 logMessage:v13 fromFile:v16 fromFunction:v17 fromLineNumber:420];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"DailyTasks notification!"];
+      v13 = MEMORY[0x277D3F178];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      v15 = [v14 lastPathComponent];
+      v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent initOperatorDependancies]_block_invoke_3"];
+      [v13 logMessage:v12 fromFile:v15 fromFunction:v16 fromLineNumber:420];
 
-      v18 = PLLogCommon();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v17 = PLLogCommon();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         LODWORD(location[0]) = 138412290;
-        *(location + 4) = v13;
-        _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", location, 0xCu);
+        *(location + 4) = v12;
+        _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", location, 0xCu);
       }
     }
   }
 
   objc_initWeak(location, *(a1 + 32));
-  v19 = objc_alloc(MEMORY[0x277D3F250]);
-  v20 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:30.0];
-  v21 = [*(a1 + 32) workQueue];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_203;
-  v24[3] = &unk_27825A810;
-  objc_copyWeak(&v25, location);
-  v22 = [v19 initWithFireDate:v20 withInterval:0 withTolerance:0 repeats:v21 withUserInfo:v24 withQueue:0.0 withBlock:0.0];
+  v18 = objc_alloc(MEMORY[0x277D3F250]);
+  v19 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:30.0];
+  v20 = [*(a1 + 32) workQueue];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_203;
+  v22[3] = &unk_27825A810;
+  objc_copyWeak(&v23, location);
+  v21 = [v18 initWithFireDate:v19 withInterval:0 withTolerance:0 repeats:v20 withUserInfo:v22 withQueue:0.0 withBlock:0.0];
 
-  [v22 arm];
-  objc_destroyWeak(&v25);
+  [v21 arm];
+  objc_destroyWeak(&v23);
   objc_destroyWeak(location);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_4(uint64_t a1)
+void *__49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_4(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   byte_2811F4163 = result;
@@ -1003,14 +976,14 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_203(uint
 
 void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PLLogAssertion();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412290;
-    v14 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Notification from Console Mode change: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "Notification from Console Mode change: %@", &v12, 0xCu);
   }
 
   v5 = [v3 objectForKeyedSubscript:@"gameMode"];
@@ -1031,14 +1004,13 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint
   v10 = PLLogAssertion();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = [*(a1 + 32) gameMode];
-    v13 = 67109120;
-    LODWORD(v14) = v12;
-    _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "Game Mode set to: %d", &v13, 8u);
+    v11 = [*(a1 + 32) gameMode];
+    v12 = 67109120;
+    LODWORD(v13) = v11;
+    _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "Game Mode set to: %d", &v12, 8u);
   }
 
   [*(a1 + 32) updateOptimizeSubSecondAssertions];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleStateChange
@@ -1063,27 +1035,25 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint
 
 - (void)updateDisplayState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   stateTracker = [(PLPowerAssertionAgent *)self stateTracker];
   v4 = [stateTracker getCurrState:4];
 
   v5 = PLLogAssertion();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Display state has changed to: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Display state has changed to: %@", &v6, 0xCu);
   }
 
   -[PLPowerAssertionAgent setDisplayOn:](self, "setDisplayOn:", [v4 intValue] == 1);
   [(PLPowerAssertionAgent *)self updateOptimizeSubSecondAssertions];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePluggedInState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   stateTracker = [(PLPowerAssertionAgent *)self stateTracker];
   v4 = [stateTracker getCurrState:1];
   bOOLValue = [v4 BOOLValue];
@@ -1091,36 +1061,33 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint
   v6 = PLLogAssertion();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8[0] = 67109120;
-    v8[1] = bOOLValue;
-    _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "PluggedIn state has changed to: %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = bOOLValue;
+    _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "PluggedIn state has changed to: %d", v7, 8u);
   }
 
   [(PLPowerAssertionAgent *)self setPluggedIn:bOOLValue];
   [(PLPowerAssertionAgent *)self updateOptimizeSubSecondAssertions];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateOptimizeSubSecondAssertions
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   pluggedIn = [(PLPowerAssertionAgent *)self gameMode]|| [(PLPowerAssertionAgent *)self displayOn]|| [(PLPowerAssertionAgent *)self pluggedIn];
   [(PLPowerAssertionAgent *)self setOptimizesSubSecondAssertions:pluggedIn];
   v4 = PLLogAssertion();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6[0] = 67109888;
-    v6[1] = [(PLPowerAssertionAgent *)self optimizesSubSecondAssertions];
-    v7 = 1024;
+    v5[0] = 67109888;
+    v5[1] = [(PLPowerAssertionAgent *)self optimizesSubSecondAssertions];
+    v6 = 1024;
     gameMode = [(PLPowerAssertionAgent *)self gameMode];
-    v9 = 1024;
+    v8 = 1024;
     displayOn = [(PLPowerAssertionAgent *)self displayOn];
-    v11 = 1024;
+    v10 = 1024;
     pluggedIn2 = [(PLPowerAssertionAgent *)self pluggedIn];
-    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "In updateOptimizeSubSecondAssertions: %d; self.gameMode: %d; self.displayOn: %d; self.pluggedIn: %d ", v6, 0x1Au);
+    _os_log_debug_impl(&dword_21A4C6000, v4, OS_LOG_TYPE_DEBUG, "In updateOptimizeSubSecondAssertions: %d; self.gameMode: %d; self.displayOn: %d; self.pluggedIn: %d ", v5, 0x1Au);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)startEndActionsToEnumMapping
@@ -1147,9 +1114,134 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint
   return assertTypeToEnum;
 }
 
+- (void)resetIOPMSetAssertionActivityAggregateWithReason:(signed __int16)reason withPidCount:(int)count
+{
+  v4 = *&count;
+  reasonCopy = reason;
+  v23 = *MEMORY[0x277D85DE8];
+  if (count == -1)
+  {
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v21 = 0x2020000000;
+    v22 = 0;
+    assertionAggregatedLastSample = [(PLPowerAssertionAgent *)self assertionAggregatedLastSample];
+    [assertionAggregatedLastSample objectForKey:@"assertionAggregated"];
+    IOReportIterate();
+
+    v4 = *(*(&buf + 1) + 24);
+    _Block_object_dispose(&buf, 8);
+  }
+
+  [(PLPowerAssertionAgent *)self logEventPointAggregateResetWithReason:reasonCopy withPidCount:v4];
+  v8 = objc_opt_new();
+  [(PLPowerAssertionAgent *)self setAssertionAggregatedLastSample:v8];
+
+  IOPMSetAssertionActivityAggregate();
+  v9 = IOPMSetAssertionActivityAggregate();
+  if ([(PLOperator *)self isDebugEnabled])
+  {
+    if (v9)
+    {
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"******  ERROR ********* 0x%x", v9];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      lastPathComponent = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent resetIOPMSetAssertionActivityAggregateWithReason:withPidCount:]"];
+      [v11 logMessage:v10 fromFile:lastPathComponent fromFunction:v14 fromLineNumber:607];
+
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        LODWORD(buf) = 138412290;
+        *(&buf + 4) = v10;
+LABEL_11:
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"We have assertion Activity logging"];
+      v16 = MEMORY[0x277D3F178];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      lastPathComponent2 = [v17 lastPathComponent];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent resetIOPMSetAssertionActivityAggregateWithReason:withPidCount:]"];
+      [v16 logMessage:v10 fromFile:lastPathComponent2 fromFunction:v19 fromLineNumber:609];
+
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        LODWORD(buf) = 138412290;
+        *(&buf + 4) = v10;
+        goto LABEL_11;
+      }
+    }
+  }
+}
+
+- (void)resetIOPMSetAssertionActivityAggregatePLDataStructureWithReason:(signed __int16)reason withPidCount:(int)count
+{
+  v4 = *&count;
+  reasonCopy = reason;
+  v23 = *MEMORY[0x277D85DE8];
+  if (count == -1)
+  {
+    assertionAggregatedLastSamplePLDataStructure = [(PLPowerAssertionAgent *)self assertionAggregatedLastSamplePLDataStructure];
+    v8 = [assertionAggregatedLastSamplePLDataStructure objectForKeyedSubscript:@"assertionAggregated"];
+    v4 = [v8 count];
+  }
+
+  [(PLPowerAssertionAgent *)self logEventPointAggregateResetWithReason:reasonCopy withPidCount:v4];
+  v9 = objc_opt_new();
+  [(PLPowerAssertionAgent *)self setAssertionAggregatedLastSamplePLDataStructure:v9];
+
+  IOPMSetAssertionActivityAggregate();
+  v10 = IOPMSetAssertionActivityAggregate();
+  if ([(PLOperator *)self isDebugEnabled])
+  {
+    if (v10)
+    {
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"******  ERROR ********* 0x%x", v10];
+      v12 = MEMORY[0x277D3F178];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      lastPathComponent = [v13 lastPathComponent];
+      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent resetIOPMSetAssertionActivityAggregatePLDataStructureWithReason:withPidCount:]"];
+      [v12 logMessage:v11 fromFile:lastPathComponent fromFunction:v15 fromLineNumber:629];
+
+      v16 = PLLogCommon();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v22 = v11;
+LABEL_11:
+        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"We have assertion Activity logging"];
+      v17 = MEMORY[0x277D3F178];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      lastPathComponent2 = [v18 lastPathComponent];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent resetIOPMSetAssertionActivityAggregatePLDataStructureWithReason:withPidCount:]"];
+      [v17 logMessage:v11 fromFile:lastPathComponent2 fromFunction:v20 fromLineNumber:631];
+
+      v16 = PLLogCommon();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v22 = v11;
+        goto LABEL_11;
+      }
+    }
+  }
+}
+
 - (void)checkAssertionBufferFullNotificationRate
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = MEMORY[0x277CBEAA8];
   block[0] = MEMORY[0x277D85DD0];
@@ -1164,33 +1256,33 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint
 
   v5 = [v4 dateWithTimeIntervalSinceNow:0.0 - *&qword_2811F41B8];
   v6 = objc_opt_new();
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   assertionBufferNotificationTracking = [(PLPowerAssertionAgent *)self assertionBufferNotificationTracking];
-  v8 = [assertionBufferNotificationTracking countByEnumeratingWithState:&v50 objects:v57 count:16];
+  v8 = [assertionBufferNotificationTracking countByEnumeratingWithState:&v49 objects:v56 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v51;
+    v10 = *v50;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v51 != v10)
+        if (*v50 != v10)
         {
           objc_enumerationMutation(assertionBufferNotificationTracking);
         }
 
-        v12 = *(*(&v50 + 1) + 8 * i);
+        v12 = *(*(&v49 + 1) + 8 * i);
         if ([v12 compare:v5] == -1)
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [assertionBufferNotificationTracking countByEnumeratingWithState:&v50 objects:v57 count:16];
+      v9 = [assertionBufferNotificationTracking countByEnumeratingWithState:&v49 objects:v56 count:16];
     }
 
     while (v9);
@@ -1225,14 +1317,14 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint
     v25 = 0;
   }
 
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_2;
-  v49[3] = &unk_2782591D0;
-  v49[4] = self;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_2;
+  v48[3] = &unk_2782591D0;
+  v48[4] = self;
   if (qword_2811F41C0 != -1)
   {
-    dispatch_once(&qword_2811F41C0, v49);
+    dispatch_once(&qword_2811F41C0, v48);
   }
 
   v26 = qword_2811F41C8;
@@ -1245,14 +1337,14 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint
     if ([*(v14 + 384) debugEnabled])
     {
       v38 = objc_opt_class();
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_3;
-      v48[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v48[4] = v38;
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_3;
+      v47[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v47[4] = v38;
       if (qword_2811F41D0 != -1)
       {
-        dispatch_once(&qword_2811F41D0, v48);
+        dispatch_once(&qword_2811F41D0, v47);
       }
 
       if (byte_2811F4164 == 1)
@@ -1271,7 +1363,7 @@ void __49__PLPowerAssertionAgent_initOperatorDependancies__block_invoke_209(uint
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v56 = v32;
+          v55 = v32;
           goto LABEL_32;
         }
 
@@ -1283,14 +1375,14 @@ LABEL_29:
   else if ([*(v14 + 384) debugEnabled])
   {
     v29 = objc_opt_class();
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_430;
-    v47[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v47[4] = v29;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_430;
+    v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v46[4] = v29;
     if (qword_2811F41D8 != -1)
     {
-      dispatch_once(&qword_2811F41D8, v47);
+      dispatch_once(&qword_2811F41D8, v46);
     }
 
     if (byte_2811F4165 == 1)
@@ -1309,7 +1401,7 @@ LABEL_29:
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v56 = v32;
+        v55 = v32;
 LABEL_32:
         _os_log_debug_impl(&dword_21A4C6000, v37, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         goto LABEL_29;
@@ -1320,59 +1412,312 @@ LABEL_32:
   }
 
   objc_autoreleasePoolPop(v3);
-  v45 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke(uint64_t a1)
+void *__65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"HWTimeWindow"];
   qword_2811F41B8 = v2;
   return result;
 }
 
-uint64_t __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_2(uint64_t a1)
+void *__65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) defaultLongForKey:@"HWCountLimit"];
   qword_2811F41C8 = result;
   return result;
 }
 
-uint64_t __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_3(uint64_t a1)
+void *__65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4164 = result;
   return result;
 }
 
-uint64_t __65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_430(uint64_t a1)
+void *__65__PLPowerAssertionAgent_checkAssertionBufferFullNotificationRate__block_invoke_430(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4165 = result;
   return result;
 }
 
-uint64_t __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke(uint64_t a1)
+- (void)setAssertionBufferFullNotificationActive:(BOOL)active withReason:(id)reason
+{
+  activeCopy = active;
+  v102 = *MEMORY[0x277D85DE8];
+  reasonCopy = reason;
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v7 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v7;
+    if (qword_2811F41E0 != -1)
+    {
+      dispatch_once(&qword_2811F41E0, block);
+    }
+
+    if (byte_2811F4166 == 1)
+    {
+      v8 = MEMORY[0x277CCACA8];
+      v9 = NSStringFromBOOL();
+      v10 = NSStringFromBOOL();
+      v11 = [v8 stringWithFormat:@"assertionBufferFullNotificationActive: current=%@ new=%@", v9, v10];
+
+      v12 = MEMORY[0x277D3F178];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      lastPathComponent = [v13 lastPathComponent];
+      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent setAssertionBufferFullNotificationActive:withReason:]"];
+      [v12 logMessage:v11 fromFile:lastPathComponent fromFunction:v15 fromLineNumber:666];
+
+      v16 = PLLogCommon();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v101 = v11;
+        _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  if ([(PLPowerAssertionAgent *)self assertionBufferFullNotificationActive]!= activeCopy)
+  {
+    [(PLPowerAssertionAgent *)self setAssertionBufferFullNotificationActive:activeCopy];
+    v17 = [(PLOperator *)PLPowerAssertionAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"Assertion"];
+    debugEnabled = [MEMORY[0x277D3F180] debugEnabled];
+    v93 = v17;
+    v94 = reasonCopy;
+    if (activeCopy)
+    {
+      if (debugEnabled)
+      {
+        v19 = objc_opt_class();
+        v98[0] = MEMORY[0x277D85DD0];
+        v98[1] = 3221225472;
+        v98[2] = __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_440;
+        v98[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v98[4] = v19;
+        if (qword_2811F41E8 != -1)
+        {
+          dispatch_once(&qword_2811F41E8, v98);
+        }
+
+        if (byte_2811F4167 == 1)
+        {
+          v20 = v17;
+          v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"assertionBufferFullNotificationActive YES"];
+          v22 = MEMORY[0x277D3F178];
+          v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+          lastPathComponent2 = [v23 lastPathComponent];
+          v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent setAssertionBufferFullNotificationActive:withReason:]"];
+          [v22 logMessage:v21 fromFile:lastPathComponent2 fromFunction:v25 fromLineNumber:673];
+
+          v26 = PLLogCommon();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v101 = v21;
+            _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          }
+
+          v17 = v20;
+        }
+      }
+
+      assertionBufferFullNotificationRearmTimer = [(PLPowerAssertionAgent *)self assertionBufferFullNotificationRearmTimer];
+
+      if (assertionBufferFullNotificationRearmTimer)
+      {
+        assertionBufferFullNotificationRearmTimer2 = [(PLPowerAssertionAgent *)self assertionBufferFullNotificationRearmTimer];
+        [assertionBufferFullNotificationRearmTimer2 invalidate];
+      }
+
+      [(PLPowerAssertionAgent *)self setAssertionBufferFullNotificationRearmTimer:0];
+      assertionBufferFullNotification = [(PLPowerAssertionAgent *)self assertionBufferFullNotification];
+      [assertionBufferFullNotification listenForNotifications:1];
+
+      IOPMAssertionNotify();
+      v92 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v17];
+      v30 = MEMORY[0x277CCACA8];
+      assertionBufferNotificationTracking = [(PLPowerAssertionAgent *)self assertionBufferNotificationTracking];
+      v32 = [assertionBufferNotificationTracking count];
+      v33 = MEMORY[0x277D3F268];
+      assertionBufferNotificationTracking2 = [(PLPowerAssertionAgent *)self assertionBufferNotificationTracking];
+      firstObject = [assertionBufferNotificationTracking2 firstObject];
+      v36 = [v33 formattedStringForDate:firstObject];
+      v37 = MEMORY[0x277D3F268];
+      assertionBufferNotificationTracking3 = [(PLPowerAssertionAgent *)self assertionBufferNotificationTracking];
+      lastObject = [assertionBufferNotificationTracking3 lastObject];
+      v40 = [v37 formattedStringForDate:lastObject];
+      v41 = [v30 stringWithFormat:@"AssertionStorm, count=%lu start=%@ end=%@", v32, v36, v40];
+      v42 = v92;
+      [v92 setObject:v41 forKeyedSubscript:@"AssertName"];
+
+      [v92 setObject:&unk_282C10728 forKeyedSubscript:@"AssertType"];
+      startEndActionsToEnum = [(PLPowerAssertionAgent *)self startEndActionsToEnum];
+      reasonCopy = v94;
+      v44 = [startEndActionsToEnum objectForKeyedSubscript:v94];
+      [v92 setObject:v44 forKeyedSubscript:@"Action"];
+
+      v45 = [v92 objectForKeyedSubscript:@"Action"];
+
+      if (!v45)
+      {
+        [v92 setObject:&unk_282C10878 forKeyedSubscript:@"Action"];
+      }
+
+      [v92 setObject:&unk_282C10890 forKeyedSubscript:@"GlobalUniqueID"];
+      v46 = MEMORY[0x277CCABB0];
+      processInfo = [MEMORY[0x277CCAC38] processInfo];
+      v48 = [v46 numberWithInt:{objc_msgSend(processInfo, "processIdentifier")}];
+      [v92 setObject:v48 forKeyedSubscript:@"pid"];
+
+      v49 = MEMORY[0x277CCABB0];
+      mEMORY[0x277D3F248] = [MEMORY[0x277D3F248] sharedInstance];
+      [mEMORY[0x277D3F248] timeOffsetForTimeReference:1];
+      v52 = [v49 numberWithInt:(v51 * 1000.0)];
+      [v92 setObject:v52 forKeyedSubscript:@"timestampActionOffset"];
+
+      [(PLOperator *)self logEntry:v92];
+    }
+
+    else
+    {
+      if (debugEnabled)
+      {
+        v53 = objc_opt_class();
+        v97[0] = MEMORY[0x277D85DD0];
+        v97[1] = 3221225472;
+        v97[2] = __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_456;
+        v97[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v97[4] = v53;
+        if (qword_2811F41F0 != -1)
+        {
+          dispatch_once(&qword_2811F41F0, v97);
+        }
+
+        if (byte_2811F4168 == 1)
+        {
+          v54 = v17;
+          v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"assertionBufferFullNotificationActive NO"];
+          v56 = MEMORY[0x277D3F178];
+          v57 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+          lastPathComponent3 = [v57 lastPathComponent];
+          v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent setAssertionBufferFullNotificationActive:withReason:]"];
+          [v56 logMessage:v55 fromFile:lastPathComponent3 fromFunction:v59 fromLineNumber:691];
+
+          v60 = PLLogCommon();
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v101 = v55;
+            _os_log_debug_impl(&dword_21A4C6000, v60, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          }
+
+          v17 = v54;
+        }
+      }
+
+      v61 = MEMORY[0x277CBEAA8];
+      v96[0] = MEMORY[0x277D85DD0];
+      v96[1] = 3221225472;
+      v96[2] = __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_461;
+      v96[3] = &unk_2782591D0;
+      v96[4] = self;
+      if (qword_2811F41F8 != -1)
+      {
+        dispatch_once(&qword_2811F41F8, v96);
+      }
+
+      v62 = [v61 dateWithTimeIntervalSinceNow:*&qword_2811F4200];
+      v63 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v17];
+      v89 = MEMORY[0x277CCACA8];
+      assertionBufferNotificationTracking4 = [(PLPowerAssertionAgent *)self assertionBufferNotificationTracking];
+      v64 = [assertionBufferNotificationTracking4 count];
+      v65 = MEMORY[0x277D3F268];
+      assertionBufferNotificationTracking5 = [(PLPowerAssertionAgent *)self assertionBufferNotificationTracking];
+      firstObject2 = [assertionBufferNotificationTracking5 firstObject];
+      v67 = [v65 formattedStringForDate:firstObject2];
+      v68 = MEMORY[0x277D3F268];
+      assertionBufferNotificationTracking6 = [(PLPowerAssertionAgent *)self assertionBufferNotificationTracking];
+      lastObject2 = [assertionBufferNotificationTracking6 lastObject];
+      v71 = [v68 formattedStringForDate:lastObject2];
+      v72 = [MEMORY[0x277D3F268] formattedStringForDate:v62];
+      v73 = [v89 stringWithFormat:@"AssertionStorm, count=%lu start=%@ end=%@ rearm=%@", v64, v67, v71, v72];
+      [v63 setObject:v73 forKeyedSubscript:@"AssertName"];
+
+      [v63 setObject:&unk_282C10728 forKeyedSubscript:@"AssertType"];
+      startEndActionsToEnum2 = [(PLPowerAssertionAgent *)self startEndActionsToEnum];
+      reasonCopy = v94;
+      v75 = [startEndActionsToEnum2 objectForKeyedSubscript:v94];
+      [v63 setObject:v75 forKeyedSubscript:@"Action"];
+
+      v76 = [v63 objectForKeyedSubscript:@"Action"];
+
+      if (!v76)
+      {
+        [v63 setObject:&unk_282C10878 forKeyedSubscript:@"Action"];
+      }
+
+      [v63 setObject:&unk_282C10890 forKeyedSubscript:@"GlobalUniqueID"];
+      v77 = MEMORY[0x277CCABB0];
+      processInfo2 = [MEMORY[0x277CCAC38] processInfo];
+      v79 = [v77 numberWithInt:{objc_msgSend(processInfo2, "processIdentifier")}];
+      [v63 setObject:v79 forKeyedSubscript:@"pid"];
+
+      v80 = MEMORY[0x277CCABB0];
+      mEMORY[0x277D3F248]2 = [MEMORY[0x277D3F248] sharedInstance];
+      [mEMORY[0x277D3F248]2 timeOffsetForTimeReference:1];
+      v83 = [v80 numberWithInt:(v82 * 1000.0)];
+      [v63 setObject:v83 forKeyedSubscript:@"timestampActionOffset"];
+
+      IOPMAssertionNotify();
+      assertionBufferFullNotification2 = [(PLPowerAssertionAgent *)self assertionBufferFullNotification];
+      [assertionBufferFullNotification2 listenForNotifications:0];
+
+      assertionBufferNotificationTracking7 = [(PLPowerAssertionAgent *)self assertionBufferNotificationTracking];
+      [assertionBufferNotificationTracking7 removeAllObjects];
+
+      [(PLOperator *)self logEntry:v63];
+      v86 = objc_alloc(MEMORY[0x277D3F250]);
+      workQueue = [(PLOperator *)self workQueue];
+      v95[0] = MEMORY[0x277D85DD0];
+      v95[1] = 3221225472;
+      v95[2] = __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_2;
+      v95[3] = &unk_278259C40;
+      v95[4] = self;
+      v42 = v62;
+      v88 = [v86 initWithFireDate:v62 withInterval:0 withTolerance:0 repeats:workQueue withUserInfo:v95 withQueue:0.0 withBlock:0.0];
+      [(PLPowerAssertionAgent *)self setAssertionBufferFullNotificationRearmTimer:v88];
+    }
+  }
+}
+
+void *__77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4166 = result;
   return result;
 }
 
-uint64_t __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_440(uint64_t a1)
+void *__77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_440(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4167 = result;
   return result;
 }
 
-uint64_t __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_456(uint64_t a1)
+void *__77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_456(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4168 = result;
   return result;
 }
 
-uint64_t __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_461(uint64_t a1)
+void *__77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_withReason___block_invoke_461(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"HWRearmTimeInterval"];
   qword_2811F4200 = v2;
@@ -1427,7 +1772,7 @@ uint64_t __77__PLPowerAssertionAgent_setAssertionBufferFullNotificationActive_wi
   }
 }
 
-uint64_t __57__PLPowerAssertionAgent_setAssertionSnapshotTimerActive___block_invoke(uint64_t a1)
+void *__57__PLPowerAssertionAgent_setAssertionSnapshotTimerActive___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"SnapShotInterval"];
   qword_2811F4210 = v2;
@@ -1471,7 +1816,7 @@ uint64_t __57__PLPowerAssertionAgent_setAssertionSnapshotTimerActive___block_inv
 
       v11 = [v10 stringByReplacingOccurrencesOfString:@"@" withString:&stru_282B650A0];
 
-      v12 = [v11 stringByReplacingOccurrencesOfString:@"\\"" withString:&stru_282B650A0];
+      v12 = [v11 stringByReplacingOccurrencesOfString:@"\" withString:&stru_282B650A0];
 
       v5 = [v12 stringByReplacingOccurrencesOfString:@"-" withString:&stru_282B650A0];
     }
@@ -1520,7 +1865,7 @@ uint64_t __54__PLPowerAssertionAgent_shouldOptimizeSmallAssertions__block_invoke
 
 - (void)logSnapshot:(id)snapshot
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   AssertionsByPID = 0;
   v5 = IOPMCopyAssertionsByProcess(&AssertionsByPID);
@@ -1530,14 +1875,14 @@ uint64_t __54__PLPowerAssertionAgent_shouldOptimizeSmallAssertions__block_invoke
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v7 = objc_opt_class();
-      v94[0] = MEMORY[0x277D85DD0];
-      v94[1] = 3221225472;
-      v94[2] = __37__PLPowerAssertionAgent_logSnapshot___block_invoke;
-      v94[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v94[4] = v7;
+      v92[0] = MEMORY[0x277D85DD0];
+      v92[1] = 3221225472;
+      v92[2] = __37__PLPowerAssertionAgent_logSnapshot___block_invoke;
+      v92[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v92[4] = v7;
       if (qword_2811F4220 != -1)
       {
-        dispatch_once(&qword_2811F4220, v94);
+        dispatch_once(&qword_2811F4220, v92);
       }
 
       if (byte_2811F416A == 1)
@@ -1547,14 +1892,14 @@ uint64_t __54__PLPowerAssertionAgent_shouldOptimizeSmallAssertions__block_invoke
         v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
         lastPathComponent = [v10 lastPathComponent];
         v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logSnapshot:]"];
-        v73 = v8;
+        v71 = v8;
         [v9 logMessage:v8 fromFile:lastPathComponent fromFunction:v12 fromLineNumber:790];
 
         v13 = PLLogCommon();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v101 = v8;
+          v99 = v8;
           _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
@@ -1565,24 +1910,24 @@ uint64_t __54__PLPowerAssertionAgent_shouldOptimizeSmallAssertions__block_invoke
     goto LABEL_54;
   }
 
-  v70 = snapshotCopy;
-  v78 = objc_opt_new();
+  v68 = snapshotCopy;
+  v76 = objc_opt_new();
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   v14 = AssertionsByPID;
-  v76 = [(PLOperator *)PLPowerAssertionAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"Assertion"];
+  v74 = [(PLOperator *)PLPowerAssertionAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"Assertion"];
+  v88 = 0u;
+  v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v73 = v14;
+  v71 = v14;
   obj = [(__CFDictionary *)v14 allKeys];
-  v74 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
-  if (!v74)
+  v72 = [obj countByEnumeratingWithState:&v88 objects:v97 count:16];
+  if (!v72)
   {
     goto LABEL_49;
   }
 
-  v72 = *v91;
+  v70 = *v89;
   v15 = 0x277CCA000;
   v16 = @"Category";
   do
@@ -1590,35 +1935,35 @@ uint64_t __54__PLPowerAssertionAgent_shouldOptimizeSmallAssertions__block_invoke
     v17 = 0;
     do
     {
-      if (*v91 != v72)
+      if (*v89 != v70)
       {
         objc_enumerationMutation(obj);
       }
 
-      v75 = v17;
-      v18 = *(*(&v90 + 1) + 8 * v17);
+      v73 = v17;
+      v18 = *(*(&v88 + 1) + 8 * v17);
+      v84 = 0u;
+      v85 = 0u;
       v86 = 0u;
       v87 = 0u;
-      v88 = 0u;
-      v89 = 0u;
-      v80 = v18;
-      v81 = [v73 objectForKey:?];
-      v83 = [v81 countByEnumeratingWithState:&v86 objects:v98 count:16];
-      if (v83)
+      v78 = v18;
+      v79 = [v71 objectForKey:?];
+      v81 = [v79 countByEnumeratingWithState:&v84 objects:v96 count:16];
+      if (v81)
       {
-        v19 = *v87;
-        v79 = *v87;
+        v19 = *v85;
+        v77 = *v85;
         do
         {
           v20 = 0;
           do
           {
-            if (*v87 != v19)
+            if (*v85 != v19)
             {
-              objc_enumerationMutation(v81);
+              objc_enumerationMutation(v79);
             }
 
-            v21 = *(*(&v86 + 1) + 8 * v20);
+            v21 = *(*(&v84 + 1) + 8 * v20);
             if ([MEMORY[0x277D3F180] debugEnabled])
             {
               v22 = objc_opt_class();
@@ -1645,7 +1990,7 @@ uint64_t __54__PLPowerAssertionAgent_shouldOptimizeSmallAssertions__block_invoke
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v101 = v23;
+                  v99 = v23;
                   _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
@@ -1654,84 +1999,83 @@ uint64_t __54__PLPowerAssertionAgent_shouldOptimizeSmallAssertions__block_invoke
             }
 
             v29 = [v21 objectForKeyedSubscript:@"GlobalUniqueID"];
-            v30 = *(v15 + 2992);
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
             {
-              v32 = v16;
-              v33 = v15;
-              v34 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v76];
-              [v34 setEntryDate:monotonicDate];
-              v35 = [v21 objectForKeyedSubscript:@"AssertStartWhen"];
-              entryDate = [v34 entryDate];
-              v82 = v35;
-              [v35 timeIntervalSinceDate:entryDate];
-              v38 = v37 * 1000.0;
+              v31 = v16;
+              v32 = v15;
+              v33 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v74];
+              [v33 setEntryDate:monotonicDate];
+              v34 = [v21 objectForKeyedSubscript:@"AssertStartWhen"];
+              entryDate = [v33 entryDate];
+              v80 = v34;
+              [v34 timeIntervalSinceDate:entryDate];
+              v37 = v36 * 1000.0;
 
-              v39 = [*(v33 + 2992) numberWithDouble:v38];
-              [v34 setObject:v39 forKeyedSubscript:@"timestampActionOffset"];
+              v38 = [*(v32 + 2992) numberWithDouble:v37];
+              [v33 setObject:v38 forKeyedSubscript:@"timestampActionOffset"];
 
-              [v34 setObject:v80 forKeyedSubscript:@"pid"];
-              [v34 setObject:&unk_282C10650 forKeyedSubscript:@"Action"];
-              v40 = [v21 objectForKeyedSubscript:@"GlobalUniqueID"];
-              [v34 setObject:v40 forKeyedSubscript:@"GlobalUniqueID"];
+              [v33 setObject:v78 forKeyedSubscript:@"pid"];
+              [v33 setObject:&unk_282C10650 forKeyedSubscript:@"Action"];
+              v39 = [v21 objectForKeyedSubscript:@"GlobalUniqueID"];
+              [v33 setObject:v39 forKeyedSubscript:@"GlobalUniqueID"];
 
-              v41 = [v21 objectForKeyedSubscript:@"AssertName"];
-              v42 = [(PLPowerAssertionAgent *)self sanitizeAssertionNameForEntry:v41];
-              [v34 setObject:v42 forKeyedSubscript:@"AssertName"];
+              v40 = [v21 objectForKeyedSubscript:@"AssertName"];
+              v41 = [(PLPowerAssertionAgent *)self sanitizeAssertionNameForEntry:v40];
+              [v33 setObject:v41 forKeyedSubscript:@"AssertName"];
 
               assertTypeToEnum = [(PLPowerAssertionAgent *)self assertTypeToEnum];
-              v44 = [v21 objectForKeyedSubscript:@"AssertType"];
-              v45 = [assertTypeToEnum objectForKeyedSubscript:v44];
-              [v34 setObject:v45 forKeyedSubscript:@"AssertType"];
+              v43 = [v21 objectForKeyedSubscript:@"AssertType"];
+              v44 = [assertTypeToEnum objectForKeyedSubscript:v43];
+              [v33 setObject:v44 forKeyedSubscript:@"AssertType"];
 
-              v46 = [v34 objectForKeyedSubscript:@"AssertType"];
+              v45 = [v33 objectForKeyedSubscript:@"AssertType"];
 
-              if (!v46)
+              if (!v45)
               {
-                [v34 setObject:&unk_282C10758 forKeyedSubscript:@"AssertType"];
+                [v33 setObject:&unk_282C10758 forKeyedSubscript:@"AssertType"];
               }
 
-              v47 = [v21 objectForKeyedSubscript:@"AssertionOnBehalfOfPID"];
-              [v34 setObject:v47 forKeyedSubscript:@"AssertionOnBehalfOfPID"];
+              v46 = [v21 objectForKeyedSubscript:@"AssertionOnBehalfOfPID"];
+              [v33 setObject:v46 forKeyedSubscript:@"AssertionOnBehalfOfPID"];
 
-              v16 = v32;
-              v48 = [v21 objectForKeyedSubscript:v32];
+              v16 = v31;
+              v47 = [v21 objectForKeyedSubscript:v31];
 
-              if (v48)
+              if (v47)
               {
-                v49 = [v21 objectForKeyedSubscript:v32];
-                [v34 setObject:v49 forKeyedSubscript:v32];
+                v48 = [v21 objectForKeyedSubscript:v31];
+                [v33 setObject:v48 forKeyedSubscript:v31];
               }
 
-              v50 = [v21 objectForKeyedSubscript:@"InstanceMetadata"];
+              v49 = [v21 objectForKeyedSubscript:@"InstanceMetadata"];
 
-              if (v50)
+              if (v49)
               {
-                v51 = [v21 objectForKeyedSubscript:@"InstanceMetadata"];
-                if ([v51 length] >= 0x21)
+                v50 = [v21 objectForKeyedSubscript:@"InstanceMetadata"];
+                if ([v50 length] >= 0x21)
                 {
-                  v52 = [v51 substringToIndex:32];
+                  v51 = [v50 substringToIndex:32];
 
-                  v51 = v52;
+                  v50 = v51;
                 }
 
-                [v34 setObject:v51 forKeyedSubscript:@"InstanceMetadata"];
+                [v33 setObject:v50 forKeyedSubscript:@"InstanceMetadata"];
               }
 
-              v53 = [v21 objectForKeyedSubscript:@"FrameworkBundleID"];
+              v52 = [v21 objectForKeyedSubscript:@"FrameworkBundleID"];
 
-              if (v53)
+              if (v52)
               {
-                v54 = [v21 objectForKeyedSubscript:@"FrameworkBundleID"];
-                [v34 setObject:v54 forKeyedSubscript:@"FrameworkBundleID"];
+                v53 = [v21 objectForKeyedSubscript:@"FrameworkBundleID"];
+                [v33 setObject:v53 forKeyedSubscript:@"FrameworkBundleID"];
               }
 
-              [v78 addObject:v34];
-              v19 = v79;
-              v55 = v82;
+              [v76 addObject:v33];
+              v19 = v77;
+              v54 = v80;
 LABEL_37:
 
               v15 = 0x277CCA000;
@@ -1740,35 +2084,35 @@ LABEL_37:
 
             if ([MEMORY[0x277D3F180] debugEnabled])
             {
-              v56 = objc_opt_class();
-              v84[0] = MEMORY[0x277D85DD0];
-              v84[1] = 3221225472;
-              v84[2] = __37__PLPowerAssertionAgent_logSnapshot___block_invoke_505;
-              v84[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v84[4] = v56;
+              v55 = objc_opt_class();
+              v82[0] = MEMORY[0x277D85DD0];
+              v82[1] = 3221225472;
+              v82[2] = __37__PLPowerAssertionAgent_logSnapshot___block_invoke_505;
+              v82[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v82[4] = v55;
               if (qword_2811F4230 != -1)
               {
-                dispatch_once(&qword_2811F4230, v84);
+                dispatch_once(&qword_2811F4230, v82);
               }
 
               if (byte_2811F416C == 1)
               {
-                v57 = MEMORY[0x277CCACA8];
-                v58 = [v21 objectForKeyedSubscript:@"GlobalUniqueID"];
-                v34 = [v57 stringWithFormat:@"ERROR: GlobalUniqueID for assertion is not a number: %@", v58];
+                v56 = MEMORY[0x277CCACA8];
+                v57 = [v21 objectForKeyedSubscript:@"GlobalUniqueID"];
+                v33 = [v56 stringWithFormat:@"ERROR: GlobalUniqueID for assertion is not a number: %@", v57];
 
-                v59 = MEMORY[0x277D3F178];
-                v60 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-                lastPathComponent3 = [v60 lastPathComponent];
-                v62 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logSnapshot:]"];
-                [v59 logMessage:v34 fromFile:lastPathComponent3 fromFunction:v62 fromLineNumber:831];
+                v58 = MEMORY[0x277D3F178];
+                v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+                lastPathComponent3 = [v59 lastPathComponent];
+                v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logSnapshot:]"];
+                [v58 logMessage:v33 fromFile:lastPathComponent3 fromFunction:v61 fromLineNumber:831];
 
-                v55 = PLLogCommon();
-                if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+                v54 = PLLogCommon();
+                if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v101 = v34;
-                  _os_log_debug_impl(&dword_21A4C6000, v55, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                  v99 = v33;
+                  _os_log_debug_impl(&dword_21A4C6000, v54, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
                 goto LABEL_37;
@@ -1779,74 +2123,72 @@ LABEL_45:
             ++v20;
           }
 
-          while (v83 != v20);
-          v83 = [v81 countByEnumeratingWithState:&v86 objects:v98 count:16];
+          while (v81 != v20);
+          v81 = [v79 countByEnumeratingWithState:&v84 objects:v96 count:16];
         }
 
-        while (v83);
+        while (v81);
       }
 
-      v17 = v75 + 1;
+      v17 = v73 + 1;
     }
 
-    while (v75 + 1 != v74);
-    v74 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
+    while (v73 + 1 != v72);
+    v72 = [obj countByEnumeratingWithState:&v88 objects:v97 count:16];
   }
 
-  while (v74);
+  while (v72);
 LABEL_49:
 
-  v13 = v78;
-  if ([v78 count])
+  v13 = v76;
+  if ([v76 count])
   {
-    v63 = v76;
-    v96 = v76;
-    v97 = v78;
-    v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
-    [(PLOperator *)self logEntries:v64 withGroupID:v76];
-    snapshotCopy = v70;
-    v65 = 0x278257000;
-    v66 = 0x277D3F000;
+    v62 = v74;
+    v94 = v74;
+    v95 = v76;
+    v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+    [(PLOperator *)self logEntries:v63 withGroupID:v74];
+    snapshotCopy = v68;
+    v64 = 0x278257000;
+    v65 = 0x277D3F000;
   }
 
   else
   {
-    v66 = 0x277D3F000uLL;
-    v63 = v76;
-    v64 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v76];
-    [v64 setIsErrorEntry:1];
-    [v64 setObject:@"No assertions open" forKeyedSubscript:@"__PLEntryErrorString__"];
-    [(PLOperator *)self logEntry:v64];
-    snapshotCopy = v70;
-    v65 = 0x278257000uLL;
+    v65 = 0x277D3F000uLL;
+    v62 = v74;
+    v63 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v74];
+    [v63 setIsErrorEntry:1];
+    [v63 setObject:@"No assertions open" forKeyedSubscript:@"__PLEntryErrorString__"];
+    [(PLOperator *)self logEntry:v63];
+    snapshotCopy = v68;
+    v64 = 0x278257000uLL;
   }
 
-  v67 = [*(v65 + 3640) entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"SnapshotReason"];
-  v68 = [objc_alloc(*(v66 + 400)) initWithEntryKey:v67];
-  [v68 setObject:snapshotCopy forKeyedSubscript:@"Reason"];
-  [(PLOperator *)self logEntry:v68];
+  v66 = [*(v64 + 3640) entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"SnapshotReason"];
+  v67 = [objc_alloc(*(v65 + 400)) initWithEntryKey:v66];
+  [v67 setObject:snapshotCopy forKeyedSubscript:@"Reason"];
+  [(PLOperator *)self logEntry:v67];
 
 LABEL_53:
 LABEL_54:
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__PLPowerAssertionAgent_logSnapshot___block_invoke(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logSnapshot___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F416A = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logSnapshot___block_invoke_496(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logSnapshot___block_invoke_496(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F416B = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logSnapshot___block_invoke_505(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logSnapshot___block_invoke_505(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F416C = result;
@@ -1855,14 +2197,14 @@ uint64_t __37__PLPowerAssertionAgent_logSnapshot___block_invoke_505(uint64_t a1)
 
 - (void)logInterval:(id)interval
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke;
   block[3] = &unk_27825B7C8;
-  v19 = @"logAssertNameChange";
-  v20 = 0;
+  v18 = @"logAssertNameChange";
+  v19 = 0;
   if (qword_2811F4238 != -1)
   {
     dispatch_once(&qword_2811F4238, block);
@@ -1879,7 +2221,7 @@ uint64_t __37__PLPowerAssertionAgent_logSnapshot___block_invoke_505(uint64_t a1)
   {
     optimizesSubSecondAssertions = [(PLPowerAssertionAgent *)self optimizesSubSecondAssertions];
     *buf = 67109120;
-    LODWORD(v22) = optimizesSubSecondAssertions;
+    LODWORD(v21) = optimizesSubSecondAssertions;
     _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "self.optimizesSubSecondAssertions %d", buf, 8u);
   }
 
@@ -1889,7 +2231,7 @@ uint64_t __37__PLPowerAssertionAgent_logSnapshot___block_invoke_505(uint64_t a1)
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v22 = v8;
+    v21 = v8;
     _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "subSecondAssertionDuration %f", buf, 0xCu);
   }
 
@@ -1905,11 +2247,9 @@ uint64_t __37__PLPowerAssertionAgent_logSnapshot___block_invoke_505(uint64_t a1)
     [v15 setObject:&unk_282C108A8 forKeyedSubscript:@"TotalCount"];
     [(PLOperator *)self logEntry:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] BOOLForKey:*(a1 + 32) ifNotSet:*(a1 + 40)];
   byte_2811F416D = result;
@@ -1918,87 +2258,86 @@ uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke(uint64_t a1)
 
 void __37__PLPowerAssertionAgent_logInterval___block_invoke_525(uint64_t a1, void *a2, unsigned int a3, void *a4)
 {
-  v244 = *MEMORY[0x277D85DE8];
+  v233 = *MEMORY[0x277D85DE8];
   v6 = 0x277D3F000uLL;
   v7 = MEMORY[0x277D3F180];
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:logInterval__prevRefCnt];
   [v7 setObject:v8 forKey:@"assertionCookie" saveToDisk:1];
 
-  v211 = [MEMORY[0x277CBEAA8] monotonicDate];
+  v200 = [MEMORY[0x277CBEAA8] monotonicDate];
   v9 = a4;
-  v208 = objc_opt_new();
-  v210 = *MEMORY[0x277D3F5E8];
-  v207 = [PLOperator entryKeyForType:"entryKeyForType:andName:" andName:?];
-  v230 = 0u;
-  v231 = 0u;
-  v232 = 0u;
-  v233 = 0u;
+  v197 = objc_opt_new();
+  v199 = *MEMORY[0x277D3F5E8];
+  v196 = [PLOperator entryKeyForType:"entryKeyForType:andName:" andName:?];
+  v219 = 0u;
+  v220 = 0u;
+  v221 = 0u;
+  v222 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v230 objects:v243 count:16];
+  v10 = [obj countByEnumeratingWithState:&v219 objects:v232 count:16];
   v11 = 0x277D3F000;
-  v201 = a1;
+  v190 = a1;
   if (v10)
   {
     v12 = v10;
-    v13 = *v231;
+    v13 = *v220;
     do
     {
       v14 = 0;
       do
       {
-        if (*v231 != v13)
+        if (*v220 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v230 + 1) + 8 * v14);
+        v15 = *(*(&v219 + 1) + 8 * v14);
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
-          v16 = *(a1 + 32);
-          v17 = objc_opt_class();
-          v229[0] = MEMORY[0x277D85DD0];
-          v229[1] = 3221225472;
-          v229[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_2;
-          v229[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v229[4] = v17;
-          v18 = v229;
+          v16 = objc_opt_class();
+          v218[0] = MEMORY[0x277D85DD0];
+          v218[1] = 3221225472;
+          v218[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_2;
+          v218[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v218[4] = v16;
+          v17 = v218;
           if (qword_2811F4240 != -1)
           {
-            dispatch_once(&qword_2811F4240, v18);
+            dispatch_once(&qword_2811F4240, v17);
           }
 
           if (byte_2811F416E == 1)
           {
-            v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"timedOutProcessLog=%@", v15];
-            v20 = MEMORY[0x277D3F178];
-            v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-            v22 = [v21 lastPathComponent];
-            v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke"];
-            [v20 logMessage:v19 fromFile:v22 fromFunction:v23 fromLineNumber:878];
+            v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"timedOutProcessLog=%@", v15];
+            v19 = MEMORY[0x277D3F178];
+            v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+            v21 = [v20 lastPathComponent];
+            v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke"];
+            [v19 logMessage:v18 fromFile:v21 fromFunction:v22 fromLineNumber:878];
 
-            v24 = PLLogCommon();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            v23 = PLLogCommon();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v242 = v19;
-              _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v231 = v18;
+              _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            a1 = v201;
+            a1 = v190;
             v6 = 0x277D3F000uLL;
             v11 = 0x277D3F000uLL;
           }
         }
 
-        v25 = [objc_alloc(*(v11 + 400)) initWithEntryKey:v207 withDate:v211];
-        [v25 setObject:v15 forKeyedSubscript:@"ProcessName"];
-        [v208 addObject:v25];
+        v24 = [objc_alloc(*(v11 + 400)) initWithEntryKey:v196 withDate:v200];
+        [v24 setObject:v15 forKeyedSubscript:@"ProcessName"];
+        [v197 addObject:v24];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v230 objects:v243 count:16];
+      v12 = [obj countByEnumeratingWithState:&v219 objects:v232 count:16];
     }
 
     while (v12);
@@ -2006,104 +2345,102 @@ void __37__PLPowerAssertionAgent_logInterval___block_invoke_525(uint64_t a1, voi
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v26 = *(a1 + 32);
-    v27 = objc_opt_class();
-    v228[0] = MEMORY[0x277D85DD0];
-    v228[1] = 3221225472;
-    v228[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_531;
-    v228[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v228[4] = v27;
-    v28 = v228;
+    v25 = objc_opt_class();
+    v217[0] = MEMORY[0x277D85DD0];
+    v217[1] = 3221225472;
+    v217[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_531;
+    v217[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v217[4] = v25;
+    v26 = v217;
     if (qword_2811F4248 != -1)
     {
-      dispatch_once(&qword_2811F4248, v28);
+      dispatch_once(&qword_2811F4248, v26);
     }
 
     if (byte_2811F416F == 1)
     {
-      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"processCreates=%@\n", v208];
-      v30 = MEMORY[0x277D3F178];
-      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-      v32 = [v31 lastPathComponent];
-      v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-      [v30 logMessage:v29 fromFile:v32 fromFunction:v33 fromLineNumber:883];
+      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"processCreates=%@\n", v197];
+      v28 = MEMORY[0x277D3F178];
+      v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      v30 = [v29 lastPathComponent];
+      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+      [v28 logMessage:v27 fromFile:v30 fromFunction:v31 fromLineNumber:883];
 
-      v34 = PLLogCommon();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      v32 = PLLogCommon();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v242 = v29;
-        _os_log_debug_impl(&dword_21A4C6000, v34, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v231 = v27;
+        _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       v11 = 0x277D3F000;
     }
   }
 
-  if ([v208 count])
+  if ([v197 count])
   {
-    v35 = *(a1 + 32);
-    v239 = v207;
-    v240 = v208;
-    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v240 forKeys:&v239 count:1];
-    [v35 logEntries:v36 withGroupID:v207];
+    v33 = *(a1 + 32);
+    v228 = v196;
+    v229 = v197;
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v229 forKeys:&v228 count:1];
+    [v33 logEntries:v34 withGroupID:v196];
   }
 
-  v192 = [(PLOperator *)PLPowerAssertionAgent entryKeyForType:v210 andName:@"BufferStatus"];
-  v37 = a2;
-  v205 = objc_opt_new();
-  v204 = [(PLOperator *)PLPowerAssertionAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"Assertion"];
-  v199 = objc_opt_new();
-  v224 = 0u;
-  v225 = 0u;
-  v226 = 0u;
-  v227 = 0u;
-  v203 = v37;
-  v209 = [v203 countByEnumeratingWithState:&v224 objects:v238 count:16];
-  if (v209)
+  v181 = [(PLOperator *)PLPowerAssertionAgent entryKeyForType:v199 andName:@"BufferStatus"];
+  v35 = a2;
+  v194 = objc_opt_new();
+  v193 = [(PLOperator *)PLPowerAssertionAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"Assertion"];
+  v188 = objc_opt_new();
+  v213 = 0u;
+  v214 = 0u;
+  v215 = 0u;
+  v216 = 0u;
+  v192 = v35;
+  v198 = [v192 countByEnumeratingWithState:&v213 objects:v227 count:16];
+  if (v198)
   {
-    v206 = *v225;
+    v195 = *v214;
     do
     {
-      v38 = 0;
+      v36 = 0;
       do
       {
-        if (*v225 != v206)
+        if (*v214 != v195)
         {
-          objc_enumerationMutation(v203);
+          objc_enumerationMutation(v192);
         }
 
-        v39 = *(*(&v224 + 1) + 8 * v38);
+        v37 = *(*(&v213 + 1) + 8 * v36);
         if ([*(v6 + 384) debugEnabled])
         {
-          v40 = *(a1 + 32);
-          v41 = objc_opt_class();
-          v223[0] = MEMORY[0x277D85DD0];
-          v223[1] = 3221225472;
-          v223[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_538;
-          v223[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v223[4] = v41;
-          v42 = v223;
+          v38 = objc_opt_class();
+          v212[0] = MEMORY[0x277D85DD0];
+          v212[1] = 3221225472;
+          v212[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_538;
+          v212[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v212[4] = v38;
+          v39 = v212;
           if (qword_2811F4250 != -1)
           {
-            dispatch_once(&qword_2811F4250, v42);
+            dispatch_once(&qword_2811F4250, v39);
           }
 
           if (byte_2811F4170 == 1)
           {
-            v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"activityLog=%@", v39];
-            v44 = MEMORY[0x277D3F178];
-            v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-            v46 = [v45 lastPathComponent];
-            v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-            [v44 logMessage:v43 fromFile:v46 fromFunction:v47 fromLineNumber:900];
+            v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"activityLog=%@", v37];
+            v41 = MEMORY[0x277D3F178];
+            v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+            v43 = [v42 lastPathComponent];
+            v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+            [v41 logMessage:v40 fromFile:v43 fromFunction:v44 fromLineNumber:900];
 
-            v48 = PLLogCommon();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+            v45 = PLLogCommon();
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v242 = v43;
-              _os_log_debug_impl(&dword_21A4C6000, v48, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v231 = v40;
+              _os_log_debug_impl(&dword_21A4C6000, v45, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
             v11 = 0x277D3F000uLL;
@@ -2111,175 +2448,174 @@ void __37__PLPowerAssertionAgent_logInterval___block_invoke_525(uint64_t a1, voi
         }
 
         contexta = objc_autoreleasePoolPush();
-        v49 = [v39 objectForKeyedSubscript:@"GlobalUniqueID"];
-        v215 = [v39 objectForKeyedSubscript:@"AssertPID"];
-        v50 = [v39 objectForKeyedSubscript:@"Action"];
-        v51 = [*(a1 + 32) startEndActionsToEnum];
-        v214 = v50;
-        v52 = [v51 objectForKeyedSubscript:v50];
+        v46 = [v37 objectForKeyedSubscript:@"GlobalUniqueID"];
+        v204 = [v37 objectForKeyedSubscript:@"AssertPID"];
+        v47 = [v37 objectForKeyedSubscript:@"Action"];
+        v48 = [*(a1 + 32) startEndActionsToEnum];
+        v203 = v47;
+        v49 = [v48 objectForKeyedSubscript:v47];
 
-        if (v52)
+        if (v49)
         {
-          v53 = v52;
+          v50 = v49;
         }
 
         else
         {
-          v53 = &unk_282C10878;
+          v50 = &unk_282C10878;
         }
 
-        if ((*(a1 + 64) & 1) != 0 || ([v53 isEqualToNumber:&unk_282C106C8] & 1) == 0)
+        if ((*(a1 + 64) & 1) != 0 || ([v50 isEqualToNumber:&unk_282C106C8] & 1) == 0)
         {
-          v54 = [objc_alloc(*(v11 + 400)) initWithEntryKey:v204 withDate:v211];
-          v55 = [v39 objectForKeyedSubscript:@"ActivityTime"];
+          v51 = [objc_alloc(*(v11 + 400)) initWithEntryKey:v193 withDate:v200];
+          v52 = [v37 objectForKeyedSubscript:@"ActivityTime"];
 
-          if (v55)
+          if (v52)
           {
-            v56 = [v39 objectForKeyedSubscript:@"ActivityTime"];
-            v57 = [v54 entryDate];
-            [v56 timeIntervalSinceDate:v57];
-            v59 = v58 * 1000.0;
+            v53 = [v37 objectForKeyedSubscript:@"ActivityTime"];
+            v54 = [v51 entryDate];
+            [v53 timeIntervalSinceDate:v54];
+            v56 = v55 * 1000.0;
 
-            v60 = [MEMORY[0x277CCABB0] numberWithDouble:v59];
-            [v54 setObject:v60 forKeyedSubscript:@"timestampActionOffset"];
+            v57 = [MEMORY[0x277CCABB0] numberWithDouble:v56];
+            [v51 setObject:v57 forKeyedSubscript:@"timestampActionOffset"];
           }
 
           else
           {
             if ([*(v6 + 384) debugEnabled])
             {
-              v61 = *(a1 + 32);
-              v62 = objc_opt_class();
-              v222[0] = MEMORY[0x277D85DD0];
-              v222[1] = 3221225472;
-              v222[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_547;
-              v222[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v222[4] = v62;
-              v63 = v222;
+              v58 = objc_opt_class();
+              v211[0] = MEMORY[0x277D85DD0];
+              v211[1] = 3221225472;
+              v211[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_547;
+              v211[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v211[4] = v58;
+              v59 = v211;
               if (qword_2811F4258 != -1)
               {
-                dispatch_once(&qword_2811F4258, v63);
+                dispatch_once(&qword_2811F4258, v59);
               }
 
               if (byte_2811F4171 == 1)
               {
-                v64 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing key: ActivityTime, in the payload"];
-                v65 = MEMORY[0x277D3F178];
-                v66 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-                v67 = [v66 lastPathComponent];
-                v68 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-                [v65 logMessage:v64 fromFile:v67 fromFunction:v68 fromLineNumber:917];
+                v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing key: ActivityTime, in the payload"];
+                v61 = MEMORY[0x277D3F178];
+                v62 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+                v63 = [v62 lastPathComponent];
+                v64 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+                [v61 logMessage:v60 fromFile:v63 fromFunction:v64 fromLineNumber:917];
 
-                v69 = PLLogCommon();
-                if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+                v65 = PLLogCommon();
+                if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v242 = v64;
-                  _os_log_debug_impl(&dword_21A4C6000, v69, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                  v231 = v60;
+                  _os_log_debug_impl(&dword_21A4C6000, v65, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
-                a1 = v201;
+                a1 = v190;
               }
             }
 
-            [v54 setObject:0 forKeyedSubscript:@"timestampActionOffset"];
+            [v51 setObject:0 forKeyedSubscript:@"timestampActionOffset"];
           }
 
-          [v54 setObject:v49 forKeyedSubscript:@"GlobalUniqueID"];
-          [v54 setObject:v215 forKeyedSubscript:@"pid"];
-          v70 = [*(a1 + 32) logAssertNameForActions];
-          v71 = [v70 containsObject:v53];
+          [v51 setObject:v46 forKeyedSubscript:@"GlobalUniqueID"];
+          [v51 setObject:v204 forKeyedSubscript:@"pid"];
+          v66 = [*(a1 + 32) logAssertNameForActions];
+          v67 = [v66 containsObject:v50];
 
-          if (v71)
+          if (v67)
           {
-            v72 = [v39 objectForKeyedSubscript:@"Category"];
+            v68 = [v37 objectForKeyedSubscript:@"Category"];
 
-            if (v72)
+            if (v68)
             {
-              v73 = [v39 objectForKeyedSubscript:@"Category"];
-              [v54 setObject:v73 forKeyedSubscript:@"Category"];
+              v69 = [v37 objectForKeyedSubscript:@"Category"];
+              [v51 setObject:v69 forKeyedSubscript:@"Category"];
             }
 
-            v74 = [v39 objectForKeyedSubscript:@"InstanceMetadata"];
+            v70 = [v37 objectForKeyedSubscript:@"InstanceMetadata"];
 
-            if (v74)
+            if (v70)
             {
-              v75 = [v39 objectForKeyedSubscript:@"InstanceMetadata"];
-              if ([v75 length] >= 0x21)
+              v71 = [v37 objectForKeyedSubscript:@"InstanceMetadata"];
+              if ([v71 length] >= 0x21)
               {
-                v76 = [v75 substringToIndex:32];
+                v72 = [v71 substringToIndex:32];
 
-                v75 = v76;
+                v71 = v72;
               }
 
-              [v54 setObject:v75 forKeyedSubscript:@"InstanceMetadata"];
+              [v51 setObject:v71 forKeyedSubscript:@"InstanceMetadata"];
             }
 
-            v77 = [v39 objectForKeyedSubscript:@"FrameworkBundleID"];
+            v73 = [v37 objectForKeyedSubscript:@"FrameworkBundleID"];
 
-            if (v77)
+            if (v73)
             {
-              v78 = [v39 objectForKeyedSubscript:@"FrameworkBundleID"];
-              [v54 setObject:v78 forKeyedSubscript:@"FrameworkBundleID"];
+              v74 = [v37 objectForKeyedSubscript:@"FrameworkBundleID"];
+              [v51 setObject:v74 forKeyedSubscript:@"FrameworkBundleID"];
             }
           }
 
-          v79 = [*(a1 + 32) logAssertNameForActions];
-          v80 = [v79 containsObject:v53];
+          v75 = [*(a1 + 32) logAssertNameForActions];
+          v76 = [v75 containsObject:v50];
 
-          if (v80)
+          if (v76)
           {
-            v81 = *(a1 + 32);
-            v82 = [v39 objectForKeyedSubscript:@"AssertName"];
-            v83 = [v81 sanitizeAssertionNameForEntry:v82];
-            [v54 setObject:v83 forKeyedSubscript:@"AssertName"];
+            v77 = *(a1 + 32);
+            v78 = [v37 objectForKeyedSubscript:@"AssertName"];
+            v79 = [v77 sanitizeAssertionNameForEntry:v78];
+            [v51 setObject:v79 forKeyedSubscript:@"AssertName"];
           }
 
           else
           {
-            [v54 setObject:0 forKeyedSubscript:@"AssertName"];
+            [v51 setObject:0 forKeyedSubscript:@"AssertName"];
           }
 
-          [v54 setObject:v53 forKeyedSubscript:@"Action"];
-          v84 = [*(a1 + 32) assertTypeToEnum];
-          v85 = [v39 objectForKeyedSubscript:@"AssertType"];
-          [v84 objectForKeyedSubscript:v85];
-          v87 = v86 = a1;
-          [v54 setObject:v87 forKeyedSubscript:@"AssertType"];
+          [v51 setObject:v50 forKeyedSubscript:@"Action"];
+          v80 = [*(a1 + 32) assertTypeToEnum];
+          v81 = [v37 objectForKeyedSubscript:@"AssertType"];
+          [v80 objectForKeyedSubscript:v81];
+          v83 = v82 = a1;
+          [v51 setObject:v83 forKeyedSubscript:@"AssertType"];
 
-          v88 = [v54 objectForKeyedSubscript:@"AssertType"];
+          v84 = [v51 objectForKeyedSubscript:@"AssertType"];
 
-          if (!v88)
+          if (!v84)
           {
-            [v54 setObject:&unk_282C10758 forKeyedSubscript:@"AssertType"];
+            [v51 setObject:&unk_282C10758 forKeyedSubscript:@"AssertType"];
           }
 
-          v89 = [v39 objectForKeyedSubscript:@"AssertionOnBehalfOfPID"];
-          [v54 setObject:v89 forKeyedSubscript:@"AssertionOnBehalfOfPID"];
+          v85 = [v37 objectForKeyedSubscript:@"AssertionOnBehalfOfPID"];
+          [v51 setObject:v85 forKeyedSubscript:@"AssertionOnBehalfOfPID"];
 
-          [v205 addObject:v54];
-          a1 = v86;
-          if ([*(v86 + 32) optimizesSubSecondAssertions])
+          [v194 addObject:v51];
+          a1 = v82;
+          if ([*(v82 + 32) optimizesSubSecondAssertions])
           {
             v6 = 0x277D3F000;
-            if ([v53 intValue] == 4)
+            if ([v50 intValue] == 4)
             {
-              v90 = [*(a1 + 32) subSecondUUIDStartEntryCache];
-              v91 = [v90 objectForKeyedSubscript:v49];
+              v86 = [*(a1 + 32) subSecondUUIDStartEntryCache];
+              v87 = [v86 objectForKeyedSubscript:v46];
 
-              if (v91)
+              if (v87)
               {
-                v92 = [v54 objectForKeyedSubscript:@"timestampActionOffset"];
-                [v92 doubleValue];
-                v94 = v93;
-                v95 = [v91 objectForKeyedSubscript:@"timestampActionOffset"];
-                [v95 doubleValue];
-                v97 = v94 - v96;
+                v88 = [v51 objectForKeyedSubscript:@"timestampActionOffset"];
+                [v88 doubleValue];
+                v90 = v89;
+                v91 = [v87 objectForKeyedSubscript:@"timestampActionOffset"];
+                [v91 doubleValue];
+                v93 = v90 - v92;
 
-                if (v97 < *(a1 + 56))
+                if (v93 < *(a1 + 56))
                 {
-                  [v199 addObject:v54];
-                  [v199 addObject:v91];
+                  [v188 addObject:v51];
+                  [v188 addObject:v87];
                 }
 
 LABEL_91:
@@ -2298,15 +2634,15 @@ LABEL_101:
             }
 
             v11 = 0x277D3F000;
-            if ([v53 intValue])
+            if ([v50 intValue])
             {
               goto LABEL_101;
             }
 
-            v133 = [*(a1 + 32) subSecondUUIDStartEntryCache];
+            v127 = [*(a1 + 32) subSecondUUIDStartEntryCache];
 LABEL_94:
-            v91 = v133;
-            [v133 setObject:v54 forKey:v49];
+            v87 = v127;
+            [v127 setObject:v51 forKey:v46];
             goto LABEL_100;
           }
 
@@ -2317,52 +2653,52 @@ LABEL_94:
             goto LABEL_101;
           }
 
-          if ([v53 intValue] != 4)
+          if ([v50 intValue] != 4)
           {
-            if ([v53 intValue])
+            if ([v50 intValue])
             {
               goto LABEL_101;
             }
 
-            v133 = [*(a1 + 32) UUIDStartEntryCache];
+            v127 = [*(a1 + 32) UUIDStartEntryCache];
             goto LABEL_94;
           }
 
-          v98 = [*(a1 + 32) UUIDStartEntryCache];
-          v91 = [v98 objectForKeyedSubscript:v49];
+          v94 = [*(a1 + 32) UUIDStartEntryCache];
+          v87 = [v94 objectForKeyedSubscript:v46];
 
-          if (v91)
+          if (v87)
           {
-            v99 = [v54 objectForKeyedSubscript:@"timestampActionOffset"];
-            [v99 doubleValue];
-            v101 = v100;
-            v102 = [v91 objectForKeyedSubscript:@"timestampActionOffset"];
-            [v102 doubleValue];
-            v104 = v101 - v103;
+            v95 = [v51 objectForKeyedSubscript:@"timestampActionOffset"];
+            [v95 doubleValue];
+            v97 = v96;
+            v98 = [v87 objectForKeyedSubscript:@"timestampActionOffset"];
+            [v98 doubleValue];
+            v100 = v97 - v99;
 
-            if (v104 >= 1000.0)
+            if (v100 >= 1000.0)
             {
               goto LABEL_91;
             }
 
-            v197 = [v91 objectForKeyedSubscript:@"AssertName"];
-            v105 = [*(a1 + 40) stringByReplacingMatchesInString:v197 options:0 range:0 withTemplate:{objc_msgSend(v197, "length"), @"HEX"}];
-            v106 = MEMORY[0x277CCACA8];
-            v107 = [v91 objectForKeyedSubscript:@"pid"];
-            v108 = [v91 objectForKeyedSubscript:@"AssertionOnBehalfOfPID"];
-            v109 = [v91 objectForKeyedSubscript:@"AssertType"];
-            v198 = v105;
-            v110 = [v106 stringWithFormat:@"%@, %@, %@, %@", v107, v108, v109, v105];
+            v186 = [v87 objectForKeyedSubscript:@"AssertName"];
+            v101 = [*(a1 + 40) stringByReplacingMatchesInString:v186 options:0 range:0 withTemplate:{objc_msgSend(v186, "length"), @"HEX"}];
+            v102 = MEMORY[0x277CCACA8];
+            v103 = [v87 objectForKeyedSubscript:@"pid"];
+            v104 = [v87 objectForKeyedSubscript:@"AssertionOnBehalfOfPID"];
+            v105 = [v87 objectForKeyedSubscript:@"AssertType"];
+            v187 = v101;
+            v106 = [v102 stringWithFormat:@"%@, %@, %@, %@", v103, v104, v105, v101];
 
-            a1 = v201;
-            v111 = [*(v201 + 32) assertionUUIDCache];
-            v112 = [v111 valueForKey:v110];
+            a1 = v190;
+            v107 = [*(v190 + 32) assertionUUIDCache];
+            v108 = [v107 valueForKey:v106];
 
-            v200 = v112;
-            if (!v112)
+            v189 = v108;
+            if (!v108)
             {
-              v132 = [*(v201 + 32) assertionUUIDCache];
-              [v132 setObject:v49 forKey:v110];
+              v126 = [*(v190 + 32) assertionUUIDCache];
+              [v126 setObject:v46 forKey:v106];
               v6 = 0x277D3F000uLL;
               goto LABEL_97;
             }
@@ -2370,83 +2706,81 @@ LABEL_94:
             v6 = 0x277D3F000uLL;
             if ([MEMORY[0x277D3F180] debugEnabled])
             {
-              v113 = *(v201 + 32);
-              v114 = objc_opt_class();
-              v221[0] = MEMORY[0x277D85DD0];
-              v221[1] = 3221225472;
-              v221[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_559;
-              v221[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v221[4] = v114;
-              v115 = v221;
+              v109 = objc_opt_class();
+              v210[0] = MEMORY[0x277D85DD0];
+              v210[1] = 3221225472;
+              v210[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_559;
+              v210[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v210[4] = v109;
+              v110 = v210;
               if (qword_2811F4260 != -1)
               {
-                dispatch_once(&qword_2811F4260, v115);
+                dispatch_once(&qword_2811F4260, v110);
               }
 
               if (byte_2811F4172 == 1)
               {
-                v116 = [MEMORY[0x277CCACA8] stringWithFormat:@"Assertion before optimization=%@\n", v91];
-                v194 = MEMORY[0x277D3F178];
-                v117 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-                v118 = [v117 lastPathComponent];
-                v119 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-                [v194 logMessage:v116 fromFile:v118 fromFunction:v119 fromLineNumber:985];
+                v111 = [MEMORY[0x277CCACA8] stringWithFormat:@"Assertion before optimization=%@\n", v87];
+                v183 = MEMORY[0x277D3F178];
+                v112 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+                v113 = [v112 lastPathComponent];
+                v114 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+                [v183 logMessage:v111 fromFile:v113 fromFunction:v114 fromLineNumber:985];
 
-                v120 = v116;
-                v121 = PLLogCommon();
-                if (os_log_type_enabled(v121, OS_LOG_TYPE_DEBUG))
+                v115 = v111;
+                v116 = PLLogCommon();
+                if (os_log_type_enabled(v116, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v242 = v120;
-                  _os_log_debug_impl(&dword_21A4C6000, v121, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                  v231 = v115;
+                  _os_log_debug_impl(&dword_21A4C6000, v116, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
-                a1 = v201;
+                a1 = v190;
                 v6 = 0x277D3F000uLL;
               }
             }
 
-            [v91 setObject:&stru_282B650A0 forKeyedSubscript:@"AssertName"];
-            v122 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v200, "unsignedLongLongValue")}];
-            [v91 setObject:v122 forKeyedSubscript:@"GlobalUniqueIDReference"];
+            [v87 setObject:&stru_282B650A0 forKeyedSubscript:@"AssertName"];
+            v117 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v189, "unsignedLongLongValue")}];
+            [v87 setObject:v117 forKeyedSubscript:@"GlobalUniqueIDReference"];
 
             if ([MEMORY[0x277D3F180] debugEnabled])
             {
-              v123 = *(a1 + 32);
-              v124 = objc_opt_class();
-              v220[0] = MEMORY[0x277D85DD0];
-              v220[1] = 3221225472;
-              v220[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_565;
-              v220[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-              v220[4] = v124;
-              v125 = v220;
+              v118 = objc_opt_class();
+              v209[0] = MEMORY[0x277D85DD0];
+              v209[1] = 3221225472;
+              v209[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_565;
+              v209[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+              v209[4] = v118;
+              v119 = v209;
               if (qword_2811F4268 != -1)
               {
-                dispatch_once(&qword_2811F4268, v125);
+                dispatch_once(&qword_2811F4268, v119);
               }
 
               if (byte_2811F4173 == 1)
               {
-                v126 = [MEMORY[0x277CCACA8] stringWithFormat:@"Assertion after optimization=%@\n", v91];
-                v195 = MEMORY[0x277D3F178];
-                v127 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-                v128 = [v127 lastPathComponent];
-                v129 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-                v130 = v195;
-                v196 = v126;
-                [v130 logMessage:v126 fromFile:v128 fromFunction:v129 fromLineNumber:988];
+                v120 = [MEMORY[0x277CCACA8] stringWithFormat:@"Assertion after optimization=%@\n", v87];
+                v184 = MEMORY[0x277D3F178];
+                v121 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+                v122 = [v121 lastPathComponent];
+                v123 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+                v124 = v184;
+                v185 = v120;
+                [v124 logMessage:v120 fromFile:v122 fromFunction:v123 fromLineNumber:988];
 
-                v131 = PLLogCommon();
-                if (os_log_type_enabled(v131, OS_LOG_TYPE_DEBUG))
+                v125 = PLLogCommon();
+                if (os_log_type_enabled(v125, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v242 = v196;
-                  _os_log_debug_impl(&dword_21A4C6000, v131, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                  v231 = v185;
+                  _os_log_debug_impl(&dword_21A4C6000, v125, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                 }
 
-                a1 = v201;
+                a1 = v190;
                 v6 = 0x277D3F000;
-                v132 = v196;
+                v126 = v185;
 LABEL_97:
               }
             }
@@ -2459,214 +2793,211 @@ LABEL_97:
 LABEL_102:
 
         objc_autoreleasePoolPop(contexta);
-        ++v38;
+        ++v36;
       }
 
-      while (v209 != v38);
-      v209 = [v203 countByEnumeratingWithState:&v224 objects:v238 count:16];
+      while (v198 != v36);
+      v198 = [v192 countByEnumeratingWithState:&v213 objects:v227 count:16];
     }
 
-    while (v209);
+    while (v198);
   }
 
   if ([*(v6 + 384) debugEnabled])
   {
-    v134 = *(a1 + 32);
-    v135 = objc_opt_class();
-    v219[0] = MEMORY[0x277D85DD0];
-    v219[1] = 3221225472;
-    v219[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_571;
-    v219[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v219[4] = v135;
-    v136 = v219;
+    v128 = objc_opt_class();
+    v208[0] = MEMORY[0x277D85DD0];
+    v208[1] = 3221225472;
+    v208[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_571;
+    v208[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v208[4] = v128;
+    v129 = v208;
     if (qword_2811F4270 != -1)
     {
-      dispatch_once(&qword_2811F4270, v136);
+      dispatch_once(&qword_2811F4270, v129);
     }
 
     if (byte_2811F4174 == 1)
     {
-      v137 = [MEMORY[0x277CCACA8] stringWithFormat:@"creates=%@\n", v205];
-      v138 = MEMORY[0x277D3F178];
-      v139 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-      v140 = [v139 lastPathComponent];
-      v141 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-      [v138 logMessage:v137 fromFile:v140 fromFunction:v141 fromLineNumber:1000];
+      v130 = [MEMORY[0x277CCACA8] stringWithFormat:@"creates=%@\n", v194];
+      v131 = MEMORY[0x277D3F178];
+      v132 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      v133 = [v132 lastPathComponent];
+      v134 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+      [v131 logMessage:v130 fromFile:v133 fromFunction:v134 fromLineNumber:1000];
 
-      v142 = PLLogCommon();
-      if (os_log_type_enabled(v142, OS_LOG_TYPE_DEBUG))
+      v135 = PLLogCommon();
+      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v242 = v137;
-        _os_log_debug_impl(&dword_21A4C6000, v142, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v231 = v130;
+        _os_log_debug_impl(&dword_21A4C6000, v135, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       v11 = 0x277D3F000uLL;
     }
   }
 
-  v143 = [*(a1 + 32) optimizesSubSecondAssertions];
-  v144 = [v205 count];
-  if (v143)
+  v136 = [*(a1 + 32) optimizesSubSecondAssertions];
+  v137 = [v194 count];
+  if (v136)
   {
-    if (v144)
+    if (v137)
     {
-      v145 = PLLogAssertion();
-      if (os_log_type_enabled(v145, OS_LOG_TYPE_DEBUG))
+      v138 = PLLogAssertion();
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_DEBUG))
       {
-        v189 = [v205 count];
+        v178 = [v194 count];
         *buf = 134217984;
-        v242 = v189;
-        _os_log_debug_impl(&dword_21A4C6000, v145, OS_LOG_TYPE_DEBUG, "creates count %lu", buf, 0xCu);
+        v231 = v178;
+        _os_log_debug_impl(&dword_21A4C6000, v138, OS_LOG_TYPE_DEBUG, "creates count %lu", buf, 0xCu);
       }
 
-      v146 = PLLogAssertion();
-      if (os_log_type_enabled(v146, OS_LOG_TYPE_DEBUG))
+      v139 = PLLogAssertion();
+      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
       {
-        v190 = [v199 count];
+        v179 = [v188 count];
         *buf = 134217984;
-        v242 = v190;
-        _os_log_debug_impl(&dword_21A4C6000, v146, OS_LOG_TYPE_DEBUG, "subSecondAssertions count %lu", buf, 0xCu);
+        v231 = v179;
+        _os_log_debug_impl(&dword_21A4C6000, v139, OS_LOG_TYPE_DEBUG, "subSecondAssertions count %lu", buf, 0xCu);
       }
 
-      if ([v199 count])
+      if ([v188 count])
       {
-        [v205 removeObjectsInArray:v199];
+        [v194 removeObjectsInArray:v188];
       }
 
-      v147 = PLLogAssertion();
-      if (os_log_type_enabled(v147, OS_LOG_TYPE_DEBUG))
+      v140 = PLLogAssertion();
+      if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
       {
-        v191 = [v205 count];
+        v180 = [v194 count];
         *buf = 134217984;
-        v242 = v191;
-        _os_log_debug_impl(&dword_21A4C6000, v147, OS_LOG_TYPE_DEBUG, "final creates count %lu", buf, 0xCu);
+        v231 = v180;
+        _os_log_debug_impl(&dword_21A4C6000, v140, OS_LOG_TYPE_DEBUG, "final creates count %lu", buf, 0xCu);
       }
 
-      v148 = *(a1 + 32);
-      v149 = v204;
-      v236 = v204;
-      v237 = v205;
-      v150 = MEMORY[0x277CBEAC0];
-      v151 = &v237;
-      v152 = &v236;
+      v141 = *(a1 + 32);
+      v142 = v193;
+      v225 = v193;
+      v226 = v194;
+      v143 = MEMORY[0x277CBEAC0];
+      v144 = &v226;
+      v145 = &v225;
       goto LABEL_124;
     }
   }
 
-  else if (v144)
+  else if (v137)
   {
-    v148 = *(a1 + 32);
-    v149 = v204;
-    v234 = v204;
-    v235 = v205;
-    v150 = MEMORY[0x277CBEAC0];
-    v151 = &v235;
-    v152 = &v234;
+    v141 = *(a1 + 32);
+    v142 = v193;
+    v223 = v193;
+    v224 = v194;
+    v143 = MEMORY[0x277CBEAC0];
+    v144 = &v224;
+    v145 = &v223;
 LABEL_124:
-    v153 = [v150 dictionaryWithObjects:v151 forKeys:v152 count:1];
-    [v148 logEntries:v153 withGroupID:v149];
+    v146 = [v143 dictionaryWithObjects:v144 forKeys:v145 count:1];
+    [v141 logEntries:v146 withGroupID:v142];
     goto LABEL_126;
   }
 
-  v153 = [objc_alloc(*(v11 + 400)) initWithEntryKey:v204];
-  [v153 setIsErrorEntry:1];
-  [v153 setObject:@"No assertions created" forKeyedSubscript:@"__PLEntryErrorString__"];
-  [*(a1 + 32) logEntry:v153];
+  v146 = [objc_alloc(*(v11 + 400)) initWithEntryKey:v193];
+  [v146 setIsErrorEntry:1];
+  [v146 setObject:@"No assertions created" forKeyedSubscript:@"__PLEntryErrorString__"];
+  [*(a1 + 32) logEntry:v146];
 LABEL_126:
 
-  v154 = [*(a1 + 32) assertionUUIDCache];
-  [v154 removeAllObjects];
+  v147 = [*(a1 + 32) assertionUUIDCache];
+  [v147 removeAllObjects];
 
-  v155 = [*(a1 + 32) UUIDStartEntryCache];
-  [v155 removeAllObjects];
+  v148 = [*(a1 + 32) UUIDStartEntryCache];
+  [v148 removeAllObjects];
 
-  v156 = [*(a1 + 32) subSecondUUIDStartEntryCache];
-  [v156 removeAllObjects];
+  v149 = [*(a1 + 32) subSecondUUIDStartEntryCache];
+  [v149 removeAllObjects];
 
-  v157 = [objc_alloc(*(v11 + 400)) initWithEntryKey:v192];
+  v150 = [objc_alloc(*(v11 + 400)) initWithEntryKey:v181];
   if ([*(a1 + 32) firstBufferDrain])
   {
-    v158 = &unk_282C10740;
+    v151 = &unk_282C10740;
   }
 
   else
   {
-    v158 = *(a1 + 48);
+    v151 = *(a1 + 48);
   }
 
-  [v157 setObject:v158 forKeyedSubscript:@"Reason"];
-  v159 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v203, "count")}];
-  [v157 setObject:v159 forKeyedSubscript:@"TotalCount"];
+  [v150 setObject:v151 forKeyedSubscript:@"Reason"];
+  v152 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v192, "count")}];
+  [v150 setObject:v152 forKeyedSubscript:@"TotalCount"];
 
-  [*(a1 + 32) logEntry:v157];
+  [*(a1 + 32) logEntry:v150];
   if ([*(v6 + 384) debugEnabled])
   {
-    v160 = *(a1 + 32);
-    v161 = objc_opt_class();
-    v218[0] = MEMORY[0x277D85DD0];
-    v218[1] = 3221225472;
-    v218[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_580;
-    v218[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v218[4] = v161;
-    v162 = v218;
+    v153 = objc_opt_class();
+    v207[0] = MEMORY[0x277D85DD0];
+    v207[1] = 3221225472;
+    v207[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_580;
+    v207[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v207[4] = v153;
+    v154 = v207;
     if (qword_2811F4278 != -1)
     {
-      dispatch_once(&qword_2811F4278, v162);
+      dispatch_once(&qword_2811F4278, v154);
     }
 
     if (byte_2811F4175 == 1)
     {
-      v163 = [MEMORY[0x277CCACA8] stringWithFormat:@"Buffer usage: %@", v157];
-      v164 = MEMORY[0x277D3F178];
-      v165 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-      v166 = [v165 lastPathComponent];
-      v167 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-      [v164 logMessage:v163 fromFile:v166 fromFunction:v167 fromLineNumber:1041];
+      v155 = [MEMORY[0x277CCACA8] stringWithFormat:@"Buffer usage: %@", v150];
+      v156 = MEMORY[0x277D3F178];
+      v157 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      v158 = [v157 lastPathComponent];
+      v159 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+      [v156 logMessage:v155 fromFile:v158 fromFunction:v159 fromLineNumber:1041];
 
-      v168 = PLLogCommon();
-      if (os_log_type_enabled(v168, OS_LOG_TYPE_DEBUG))
+      v160 = PLLogCommon();
+      if (os_log_type_enabled(v160, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v242 = v163;
-        _os_log_debug_impl(&dword_21A4C6000, v168, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v231 = v155;
+        _os_log_debug_impl(&dword_21A4C6000, v160, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v169 = [*(v6 + 384) debugEnabled];
+  v161 = [*(v6 + 384) debugEnabled];
   if (a3)
   {
-    if (v169)
+    if (v161)
     {
-      v170 = *(a1 + 32);
-      v171 = objc_opt_class();
-      v217[0] = MEMORY[0x277D85DD0];
-      v217[1] = 3221225472;
-      v217[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_586;
-      v217[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v217[4] = v171;
-      v172 = v217;
+      v162 = objc_opt_class();
+      v206[0] = MEMORY[0x277D85DD0];
+      v206[1] = 3221225472;
+      v206[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_586;
+      v206[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v206[4] = v162;
+      v163 = v206;
       if (qword_2811F4280 != -1)
       {
-        dispatch_once(&qword_2811F4280, v172);
+        dispatch_once(&qword_2811F4280, v163);
       }
 
       if (byte_2811F4176 == 1)
       {
-        v173 = [MEMORY[0x277CCACA8] stringWithFormat:@"buffer overflowed (%lu), taking snapshot", objc_msgSend(v203, "count")];
-        v174 = MEMORY[0x277D3F178];
-        v175 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-        v176 = [v175 lastPathComponent];
-        v177 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-        [v174 logMessage:v173 fromFile:v176 fromFunction:v177 fromLineNumber:1045];
+        v164 = [MEMORY[0x277CCACA8] stringWithFormat:@"buffer overflowed (%lu), taking snapshot", objc_msgSend(v192, "count")];
+        v165 = MEMORY[0x277D3F178];
+        v166 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+        v167 = [v166 lastPathComponent];
+        v168 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+        [v165 logMessage:v164 fromFile:v167 fromFunction:v168 fromLineNumber:1045];
 
-        v178 = PLLogCommon();
-        if (os_log_type_enabled(v178, OS_LOG_TYPE_DEBUG))
+        v169 = PLLogCommon();
+        if (os_log_type_enabled(v169, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v242 = v173;
-          _os_log_debug_impl(&dword_21A4C6000, v178, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v231 = v164;
+          _os_log_debug_impl(&dword_21A4C6000, v169, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
@@ -2674,110 +3005,107 @@ LABEL_126:
     [*(a1 + 32) logEventForwardAssertionWithReason:&unk_282C10710 asSnapshot:1];
   }
 
-  else if (v169)
+  else if (v161)
   {
-    v179 = *(a1 + 32);
-    v180 = objc_opt_class();
-    v216[0] = MEMORY[0x277D85DD0];
-    v216[1] = 3221225472;
-    v216[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_592;
-    v216[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v216[4] = v180;
-    v181 = v216;
+    v170 = objc_opt_class();
+    v205[0] = MEMORY[0x277D85DD0];
+    v205[1] = 3221225472;
+    v205[2] = __37__PLPowerAssertionAgent_logInterval___block_invoke_592;
+    v205[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v205[4] = v170;
+    v171 = v205;
     if (qword_2811F4288 != -1)
     {
-      dispatch_once(&qword_2811F4288, v181);
+      dispatch_once(&qword_2811F4288, v171);
     }
 
     if (byte_2811F4177 == 1)
     {
-      v182 = [MEMORY[0x277CCACA8] stringWithFormat:@"No buffer overflow (%lu)", objc_msgSend(v203, "count")];
-      v183 = MEMORY[0x277D3F178];
-      v184 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-      v185 = [v184 lastPathComponent];
-      v186 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
-      [v183 logMessage:v182 fromFile:v185 fromFunction:v186 fromLineNumber:1048];
+      v172 = [MEMORY[0x277CCACA8] stringWithFormat:@"No buffer overflow (%lu)", objc_msgSend(v192, "count")];
+      v173 = MEMORY[0x277D3F178];
+      v174 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+      v175 = [v174 lastPathComponent];
+      v176 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logInterval:]_block_invoke_2"];
+      [v173 logMessage:v172 fromFile:v175 fromFunction:v176 fromLineNumber:1048];
 
-      v187 = PLLogCommon();
-      if (os_log_type_enabled(v187, OS_LOG_TYPE_DEBUG))
+      v177 = PLLogCommon();
+      if (os_log_type_enabled(v177, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v242 = v182;
-        _os_log_debug_impl(&dword_21A4C6000, v187, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v231 = v172;
+        _os_log_debug_impl(&dword_21A4C6000, v177, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) setFirstBufferDrain:0];
   [*(a1 + 32) setLastActivityOverflow:a3];
-
-  v188 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_2(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F416E = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_531(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_531(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F416F = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_538(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_538(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4170 = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_547(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_547(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4171 = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_559(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_559(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4172 = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_565(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_565(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4173 = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_571(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_571(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4174 = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_580(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_580(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4175 = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_586(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_586(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4176 = result;
   return result;
 }
 
-uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
+void *__37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4177 = result;
@@ -2797,21 +3125,36 @@ uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
   }
 }
 
+- (void)logEventPointAggregateResetWithReason:(signed __int16)reason withPidCount:(int)count
+{
+  v4 = *&count;
+  reasonCopy = reason;
+  v10 = [(PLOperator *)PLPowerAssertionAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"AggregateReset"];
+  v7 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v10];
+  v8 = [MEMORY[0x277CCABB0] numberWithShort:reasonCopy];
+  [v7 setObject:v8 forKeyedSubscript:@"Reason"];
+
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  [v7 setObject:v9 forKeyedSubscript:@"PidCount"];
+
+  [(PLOperator *)self logEntry:v7];
+}
+
 - (void)logAggregatedAssertionActivity
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
   {
     v3 = IOPMCopyAssertionActivityAggregate();
     monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x2020000000;
-    v52 = 0;
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
     v48 = 0;
+    v49 = &v48;
+    v50 = 0x2020000000;
+    v51 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
     if (v3)
     {
       assertionAggregatedLastSample = [(PLPowerAssertionAgent *)self assertionAggregatedLastSample];
@@ -2820,40 +3163,40 @@ uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
       if (v6)
       {
         assertionAggregatedLastSample2 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSample];
-        v35 = [assertionAggregatedLastSample2 objectForKeyedSubscript:@"assertionAggregatedDate"];
+        v34 = [assertionAggregatedLastSample2 objectForKeyedSubscript:@"assertionAggregatedDate"];
 
         assertionAggregatedLastSample3 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSample];
         [assertionAggregatedLastSample3 objectForKey:@"assertionAggregated"];
         SamplesDelta = IOReportCreateSamplesDelta();
 
-        v44[0] = 0;
-        v44[1] = v44;
-        v44[2] = 0x2020000000;
-        v44[3] = 0;
-        v38 = 0;
-        v39 = &v38;
-        v40 = 0x3032000000;
-        v41 = __Block_byref_object_copy__4;
-        v42 = __Block_byref_object_dispose__4;
+        v43[0] = 0;
+        v43[1] = v43;
+        v43[2] = 0x2020000000;
+        v43[3] = 0;
+        v37 = 0;
+        v38 = &v37;
+        v39 = 0x3032000000;
+        v40 = __Block_byref_object_copy__4;
+        v41 = __Block_byref_object_dispose__4;
         dictionary = [MEMORY[0x277CBEB38] dictionary];
         block[13] = MEMORY[0x277D85DD0];
         block[14] = 3221225472;
         block[15] = __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke;
         block[16] = &unk_27825B818;
-        block[17] = v44;
-        block[18] = &v49;
+        block[17] = v43;
+        block[18] = &v48;
         IOReportIterate();
         block[5] = MEMORY[0x277D85DD0];
         block[6] = 3221225472;
         block[7] = __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_2;
         block[8] = &unk_27825B840;
         block[9] = self;
-        block[10] = &v45;
-        block[11] = v44;
-        block[12] = &v38;
+        block[10] = &v44;
+        block[11] = v43;
+        block[12] = &v37;
         IOReportIterate();
         mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
-        [mEMORY[0x277D3F0C0] createDistributionEventIntervalWithDistributionID:22 withChildNodeNameToWeight:v39[5] withStartDate:v35 withEndDate:monotonicDate];
+        [mEMORY[0x277D3F0C0] createDistributionEventIntervalWithDistributionID:22 withChildNodeNameToWeight:v38[5] withStartDate:v34 withEndDate:monotonicDate];
 
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
@@ -2881,7 +3224,7 @@ uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v54 = v12;
+              v53 = v12;
               _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -2890,19 +3233,19 @@ uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v18 = objc_opt_class();
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_619;
-          v36[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v36[4] = v18;
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_619;
+          v35[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v35[4] = v18;
           if (qword_2811F42A8 != -1)
           {
-            dispatch_once(&qword_2811F42A8, v36);
+            dispatch_once(&qword_2811F42A8, v35);
           }
 
           if (byte_2811F417B == 1)
           {
-            v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"OLDlogging: start date: %@, end dat %@, accounting:%@", v35, monotonicDate, v39[5]];
+            v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"OLDlogging: start date: %@, end dat %@, accounting:%@", v34, monotonicDate, v38[5]];
             v20 = MEMORY[0x277D3F178];
             v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
             lastPathComponent2 = [v21 lastPathComponent];
@@ -2913,15 +3256,15 @@ uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v54 = v19;
+              v53 = v19;
               _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
         }
 
-        _Block_object_dispose(&v38, 8);
+        _Block_object_dispose(&v37, 8);
 
-        _Block_object_dispose(v44, 8);
+        _Block_object_dispose(v43, 8);
       }
 
       assertionAggregatedLastSample4 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSample];
@@ -2930,18 +3273,18 @@ uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
       assertionAggregatedLastSample5 = [(PLPowerAssertionAgent *)self assertionAggregatedLastSample];
       [assertionAggregatedLastSample5 setObject:monotonicDate forKey:@"assertionAggregatedDate"];
 
-      v27 = *(v50 + 6);
+      v27 = *(v49 + 6);
       aggregateMaxPIDCount = [(PLPowerAssertionAgent *)self aggregateMaxPIDCount];
-      v29 = *(v50 + 6);
+      v29 = *(v49 + 6);
       if (aggregateMaxPIDCount >= v27)
       {
-        v31 = *(v46 + 6);
+        v31 = *(v45 + 6);
         aggregteZeroDeltaCount = [(PLPowerAssertionAgent *)self aggregteZeroDeltaCount];
         v33 = v29 == v31;
-        v29 = *(v50 + 6);
+        v29 = *(v49 + 6);
         if (aggregteZeroDeltaCount != v33)
         {
-          [(PLPowerAssertionAgent *)self logEventPointAggregateResetWithReason:0 withPidCount:*(v50 + 6)];
+          [(PLPowerAssertionAgent *)self logEventPointAggregateResetWithReason:0 withPidCount:*(v49 + 6)];
           goto LABEL_25;
         }
 
@@ -2962,73 +3305,70 @@ uint64_t __37__PLPowerAssertionAgent_logInterval___block_invoke_592(uint64_t a1)
 
     [(PLPowerAssertionAgent *)self resetIOPMSetAssertionActivityAggregateWithReason:v30 withPidCount:v29];
 LABEL_25:
-    _Block_object_dispose(&v45, 8);
-    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v48, 8);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke(uint64_t a1)
+uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) += IOReportArrayGetValueAtIndex();
   ++*(*(*(a1 + 40) + 8) + 24);
   return 0;
 }
 
-uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_2(uint64_t a1)
+uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   ChannelID = IOReportChannelGetChannelID();
   ValueAtIndex = IOReportArrayGetValueAtIndex();
-  v4 = IOReportArrayGetValueAtIndex();
   v5 = IOReportArrayGetValueAtIndex();
-  if (ValueAtIndex < 0 || v4 < 0 || (v6 = v5, v5 < 0))
+  v6 = IOReportArrayGetValueAtIndex();
+  if (ValueAtIndex < 0 || v5 < 0 || (v7 = v6, v6 < 0))
   {
     ++*(*(*(a1 + 40) + 8) + 24);
   }
 
   else
   {
-    if (ValueAtIndex || v4 || v5)
+    if (ValueAtIndex || v5 || v6)
     {
       if (*(*(*(a1 + 48) + 8) + 24) >= 1)
       {
-        v7 = IOReportArrayGetValueAtIndex() / *(*(*(a1 + 48) + 8) + 24);
-        if (v7 > 0.05)
+        v8 = IOReportArrayGetValueAtIndex() / *(*(*(a1 + 48) + 8) + 24);
+        if (v8 > 0.05)
         {
-          v8 = [*(a1 + 32) bundleIDForAssertionProcessPID:ChannelID];
-          v9 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-          [*(*(*(a1 + 56) + 8) + 40) setObject:v9 forKeyedSubscript:v8];
+          v9 = [*(a1 + 32) bundleIDForAssertionProcessPID:ChannelID];
+          v10 = [MEMORY[0x277CCABB0] numberWithDouble:v8];
+          [*(*(*(a1 + 56) + 8) + 40) setObject:v10 forKeyedSubscript:v9];
 
           if ([MEMORY[0x277D3F180] debugEnabled])
           {
-            v10 = *(a1 + 32);
             v11 = objc_opt_class();
-            v31[0] = MEMORY[0x277D85DD0];
-            v31[1] = 3221225472;
-            v31[2] = __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_3;
-            v31[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v31[4] = v11;
+            v29[0] = MEMORY[0x277D85DD0];
+            v29[1] = 3221225472;
+            v29[2] = __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_3;
+            v29[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v29[4] = v11;
             if (qword_2811F4290 != -1)
             {
-              dispatch_once(&qword_2811F4290, v31);
+              dispatch_once(&qword_2811F4290, v29);
             }
 
             if (byte_2811F4178 == 1)
             {
-              v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Total %llu, name %@, contribution %d, weight %f", *(*(*(a1 + 48) + 8) + 24), v8, ChannelID, *&v7];
-              v28 = MEMORY[0x277D3F178];
-              v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-              v13 = [v29 lastPathComponent];
+              v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Total %llu, name %@, contribution %d, weight %f", *(*(*(a1 + 48) + 8) + 24), v9, ChannelID, *&v8];
+              v26 = MEMORY[0x277D3F178];
+              v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+              v13 = [v27 lastPathComponent];
               v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logAggregatedAssertionActivity]_block_invoke_2"];
-              [v28 logMessage:v12 fromFile:v13 fromFunction:v14 fromLineNumber:1134];
+              [v26 logMessage:v12 fromFile:v13 fromFunction:v14 fromLineNumber:1134];
 
               v15 = PLLogCommon();
               if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v33 = v12;
+                v31 = v12;
                 _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -3044,13 +3384,12 @@ uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invok
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
+      v16 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_608;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v17;
+      block[4] = v16;
       if (qword_2811F4298 != -1)
       {
         dispatch_once(&qword_2811F4298, block);
@@ -3058,71 +3397,108 @@ uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invok
 
       if (byte_2811F4179 == 1)
       {
-        v18 = MEMORY[0x277CCACA8];
-        v19 = [*(a1 + 32) bundleIDForAssertionProcessPID:ChannelID];
-        v20 = [v18 stringWithFormat:@"pid=%d name=%@ eff1=%lld eff2=%lld eff3=%lld", ChannelID, v19, ValueAtIndex, v4, v6];
+        v17 = MEMORY[0x277CCACA8];
+        v18 = [*(a1 + 32) bundleIDForAssertionProcessPID:ChannelID];
+        v19 = [v17 stringWithFormat:@"pid=%d name=%@ eff1=%lld eff2=%lld eff3=%lld", ChannelID, v18, ValueAtIndex, v5, v7];
 
-        v21 = MEMORY[0x277D3F178];
-        v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
-        v23 = [v22 lastPathComponent];
-        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logAggregatedAssertionActivity]_block_invoke_2"];
-        [v21 logMessage:v20 fromFile:v23 fromFunction:v24 fromLineNumber:1140];
+        v20 = MEMORY[0x277D3F178];
+        v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLPowerAssertionAgent.m"];
+        v22 = [v21 lastPathComponent];
+        v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPowerAssertionAgent logAggregatedAssertionActivity]_block_invoke_2"];
+        [v20 logMessage:v19 fromFile:v22 fromFunction:v23 fromLineNumber:1140];
 
-        v25 = PLLogCommon();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v24 = PLLogCommon();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v33 = v20;
-          _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v31 = v19;
+          _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_3(uint64_t a1)
+void *__55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4178 = result;
   return result;
 }
 
-uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_608(uint64_t a1)
+void *__55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_608(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4179 = result;
   return result;
 }
 
-uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_613(uint64_t a1)
+void *__55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_613(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F417A = result;
   return result;
 }
 
-uint64_t __55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_619(uint64_t a1)
+void *__55__PLPowerAssertionAgent_logAggregatedAssertionActivity__block_invoke_619(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F417B = result;
   return result;
 }
 
-uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke_2(uint64_t a1)
+void *__70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F417C = result;
   return result;
 }
 
-uint64_t __70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke_625(uint64_t a1)
+void *__70__PLPowerAssertionAgent_logAggregatedAssertionActivityPLDataStructure__block_invoke_625(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F417D = result;
   return result;
+}
+
+- (id)bundleIDForAssertionProcessPID:(int)d
+{
+  v3 = *&d;
+  v4 = objc_msgSend_storage(self, a2);
+  v5 = [v4 processIDEntryForPid:v3];
+
+  if (!v5)
+  {
+    goto LABEL_6;
+  }
+
+  v6 = [v5 objectForKeyedSubscript:@"BundleID"];
+  if (v6 && (v7 = v6, [v5 objectForKeyedSubscript:@"BundleID"], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "description"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", &stru_282B650A0), v9, v8, v7, (v10 & 1) == 0))
+  {
+    v17 = @"BundleID";
+  }
+
+  else
+  {
+    v11 = [v5 objectForKeyedSubscript:@"ProcessName"];
+    if (!v11 || (v12 = v11, [v5 objectForKeyedSubscript:@"ProcessName"], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "description"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", &stru_282B650A0), v14, v13, v12, (v15 & 1) != 0))
+    {
+LABEL_6:
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"AssertionPID-%d", v3];
+      goto LABEL_10;
+    }
+
+    v17 = @"ProcessName";
+  }
+
+  v18 = [v5 objectForKeyedSubscript:v17];
+  v16 = [v18 description];
+
+LABEL_10:
+
+  return v16;
 }
 
 @end

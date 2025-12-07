@@ -66,7 +66,7 @@
     memset(&v7, 0, sizeof(v7));
     if (currentVideoDevice)
     {
-      [currentVideoDevice activeVideoMaxFrameDuration];
+      objc_msgSend_activeVideoMaxFrameDuration(currentVideoDevice);
     }
 
     time1 = v7;

@@ -6,6 +6,7 @@
 - (BOOL)gestureRecognizer:(id)recognizer shouldReceiveTouch:(id)touch;
 - (BOOL)isEditEnabled;
 - (BOOL)tableView:(id)view canEditRowAtIndexPath:(id)path;
+- (WDDataListViewController)initWithDisplayType:(id)type profile:(id)profile dataProvider:(id)provider usingInsetStyling:(BOOL)styling;
 - (id)_defaultCellForTableView:(id)view cellStyle:(int64_t)style indexPath:(id)path object:(id)object;
 - (id)_deleteAllDataAlertMessage;
 - (id)_overridenDisplayImageForSource:(id)source;
@@ -41,14 +42,81 @@
 - (void)presentDeleteConfirmation:(id)confirmation;
 - (void)resetDataAndScrollToDate:(id)date;
 - (void)scrollViewDidScroll:(id)scroll;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewControllerDidLeaveAdaptiveModal;
 - (void)viewControllerWillEnterAdaptiveModal;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
 @end
 
 @implementation WDDataListViewController
+
+- (WDDataListViewController)initWithDisplayType:(id)type profile:(id)profile dataProvider:(id)provider usingInsetStyling:(BOOL)styling
+{
+  stylingCopy = styling;
+  typeCopy = type;
+  profileCopy = profile;
+  providerCopy = provider;
+  v35.receiver = self;
+  v35.super_class = WDDataListViewController;
+  v14 = [(HKTableViewController *)&v35 initWithUsingInsetStyling:stylingCopy];
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong(&v14->_displayType, type);
+    objc_storeStrong(&v15->_dataProvider, provider);
+    objc_storeStrong(&v15->_profile, profile);
+    scrollToDate = v15->_scrollToDate;
+    v15->_scrollToDate = 0;
+
+    v17 = objc_alloc(MEMORY[0x277D751E0]);
+    v18 = WDBundle();
+    v19 = [v18 localizedStringForKey:@"DELETE_ALL_BUTTON_TITLE" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
+    v20 = [v17 initWithTitle:v19 style:0 target:v15 action:sel__deleteAllButtonTapped_];
+    deleteAllButtonItem = v15->_deleteAllButtonItem;
+    v15->_deleteAllButtonItem = v20;
+
+    v22 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:0 suffix:@"DataListViewController.DeleteAllButton"];
+    [(UIBarButtonItem *)v15->_deleteAllButtonItem setAccessibilityIdentifier:v22];
+
+    v23 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:0 suffix:@"DataListViewController.EditButton"];
+    editButtonItem = [(WDDataListViewController *)v15 editButtonItem];
+    [editButtonItem setAccessibilityIdentifier:v23];
+
+    v15->_cellStyle = [(WDDataListViewControllerDataProvider *)v15->_dataProvider cellStyle];
+    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    v15->_showOriginalAppProvenance = [standardUserDefaults BOOLForKey:@"ShowOriginalAppProvenance"];
+
+    [(WDDataListViewController *)v15 _updateNavigationTitle];
+    [(WDDataListViewController *)v15 _updateRightBarButtonItems];
+    [(WDDataListViewController *)v15 setModalPresentationStyle:2];
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter addObserver:v15 selector:sel__localeDidChange_ name:*MEMORY[0x277CBE620] object:0];
+
+    defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter2 addObserver:v15 selector:sel__displayTypeStringsChanged_ name:*MEMORY[0x277D12730] object:0];
+
+    v28 = objc_alloc(MEMORY[0x277CCD5E8]);
+    healthStore = [(WDProfile *)v15->_profile healthStore];
+    v30 = [v28 initWithHealthStore:healthStore];
+    medicalIDStore = v15->_medicalIDStore;
+    v15->_medicalIDStore = v30;
+
+    displayTypeIdentifierString = [(HKDisplayType *)v15->_displayType displayTypeIdentifierString];
+    v33 = HKDisplayTypeIdentifierToString();
+    LODWORD(v19) = [displayTypeIdentifierString isEqualToString:v33];
+
+    if (v19)
+    {
+      [(WDDataListViewController *)v15 _fetchMedicalIDData];
+    }
+  }
+
+  return v15;
+}
 
 - (void)_updateNavigationTitle
 {
@@ -138,16 +206,16 @@ void __47__WDDataListViewController__fetchMedicalIDData__block_invoke(uint64_t a
 
 - (id)_sampleTypesForDeleteAll
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   displayTypeIdentifier = [(HKDisplayType *)self->_displayType displayTypeIdentifier];
   displayType = self->_displayType;
   if (displayTypeIdentifier == 139)
   {
     sampleType = [(HKDisplayType *)displayType sampleType];
-    v15[0] = sampleType;
+    v14[0] = sampleType;
     heartbeatSeriesType = [MEMORY[0x277CCD920] heartbeatSeriesType];
-    v15[1] = heartbeatSeriesType;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[1] = heartbeatSeriesType;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 LABEL_5:
 
     goto LABEL_7;
@@ -158,21 +226,19 @@ LABEL_5:
   sampleType = sampleType2;
   if (displayTypeIdentifier2 == 80)
   {
-    v14[0] = sampleType2;
+    v13[0] = sampleType2;
     heartbeatSeriesType = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC978]];
-    v14[1] = heartbeatSeriesType;
+    v13[1] = heartbeatSeriesType;
     v10 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC980]];
-    v14[2] = v10;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+    v13[2] = v10;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
 
     goto LABEL_5;
   }
 
-  v13 = sampleType2;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = sampleType2;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
 LABEL_7:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -192,7 +258,7 @@ LABEL_7:
 
 void __57__WDDataListViewController__reloadAllDataScrolledToDate___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) _dataProviderEnabled] & 1) != 0 || (v3 = *(*(a1 + 32) + 1112), (objc_opt_respondsToSelector()) && (objc_msgSend(*(*(a1 + 32) + 1112), "hasCompleteDataSet") & 1) == 0)
+  if (([*(a1 + 32) _dataProviderEnabled] & 1) != 0 || (objc_opt_respondsToSelector() & 1) != 0 && (objc_msgSend(*(*(a1 + 32) + 1112), "hasCompleteDataSet") & 1) == 0)
   {
     [*(*(a1 + 32) + 1080) removeFromSuperview];
     v2 = 1;
@@ -205,39 +271,39 @@ void __57__WDDataListViewController__reloadAllDataScrolledToDate___block_invoke(
       [*(a1 + 32) setEditing:0];
     }
 
-    v4 = [*(a1 + 32) view];
-    [v4 addSubview:*(*(a1 + 32) + 1080)];
+    v3 = [*(a1 + 32) view];
+    [v3 addSubview:*(*(a1 + 32) + 1080)];
 
     v2 = 0;
   }
 
   [*(a1 + 32) _updateRightBarButtonItems];
-  v5 = [*(a1 + 32) tableView];
-  [v5 setScrollEnabled:v2];
+  v4 = [*(a1 + 32) tableView];
+  [v4 setScrollEnabled:v2];
 
-  v6 = [*(a1 + 32) editButtonItem];
-  [v6 setEnabled:v2];
+  v5 = [*(a1 + 32) editButtonItem];
+  [v5 setEnabled:v2];
 
-  v7 = [*(a1 + 32) tableView];
-  [v7 reloadData];
+  v6 = [*(a1 + 32) tableView];
+  [v6 reloadData];
 
   if (*(a1 + 40))
   {
-    v8 = [*(a1 + 32) _closestRowToDate:?];
-    if (v8 < 1)
+    v7 = [*(a1 + 32) _closestRowToDate:?];
+    if (v7 < 1)
     {
-      v12 = *(*(a1 + 32) + 1112);
+      v11 = *(*(a1 + 32) + 1112);
 
-      [v12 viewControllerIsNearEndOfScreen];
+      [v11 viewControllerIsNearEndOfScreen];
     }
 
     else
     {
-      v9 = v8;
+      v8 = v7;
       [*(*(a1 + 32) + 1112) customEstimatedCellHeight];
-      v11 = v9 * v10 + -16.0;
-      v13 = [*(a1 + 32) tableView];
-      [v13 setContentOffset:0 animated:{0.0, v11}];
+      v10 = v8 * v9 + -16.0;
+      v12 = [*(a1 + 32) tableView];
+      [v12 setContentOffset:0 animated:{0.0, v10}];
     }
   }
 }
@@ -335,6 +401,35 @@ void __57__WDDataListViewController__reloadAllDataScrolledToDate___block_invoke(
   [(WDDataListViewController *)self presentViewController:v8 animated:1 completion:0];
 
   return 1;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = WDDataListViewController;
+  [(WDDataListViewController *)&v8 viewDidAppear:appear];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleInternalInstall = [mEMORY[0x277CCDD30] isAppleInternalInstall];
+
+  if (isAppleInternalInstall)
+  {
+    navigationController = [(WDDataListViewController *)self navigationController];
+    navigationBar = [navigationController navigationBar];
+    [navigationBar addGestureRecognizer:self->_navigationBarTapGestureRecognizer];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleInternalInstall = [mEMORY[0x277CCDD30] isAppleInternalInstall];
+
+  if (isAppleInternalInstall)
+  {
+    navigationController = [(WDDataListViewController *)self navigationController];
+    navigationBar = [navigationController navigationBar];
+    [navigationBar removeGestureRecognizer:self->_navigationBarTapGestureRecognizer];
+  }
 }
 
 - (void)viewDidLoad
@@ -575,17 +670,17 @@ void __39__WDDataListViewController_viewDidLoad__block_invoke_2(uint64_t a1)
   dataProvider = self->_dataProvider;
   if (!v8)
   {
-    v11 = [pathCopy row];
-    v12 = -[WDDataListViewControllerDataProvider objectAtIndex:forSection:](dataProvider, "objectAtIndex:forSection:", v11, [pathCopy section]);
+    v10 = [pathCopy row];
+    v11 = -[WDDataListViewControllerDataProvider objectAtIndex:forSection:](dataProvider, "objectAtIndex:forSection:", v10, [pathCopy section]);
     cellStyle = self->_cellStyle;
     if (cellStyle == 2)
     {
-      v14 = [(WDDataListViewControllerDataProvider *)self->_dataProvider customCellForObject:v12 indexPath:pathCopy tableView:viewCopy];
+      v13 = [(WDDataListViewControllerDataProvider *)self->_dataProvider customCellForObject:v11 indexPath:pathCopy tableView:viewCopy];
     }
 
     else if (cellStyle == 1)
     {
-      v14 = [(WDDataListViewController *)self _defaultCellForTableView:viewCopy cellStyle:3 indexPath:pathCopy object:v12];
+      v13 = [(WDDataListViewController *)self _defaultCellForTableView:viewCopy cellStyle:3 indexPath:pathCopy object:v11];
     }
 
     else
@@ -597,28 +692,27 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v14 = [(WDDataListViewController *)self _quantityCellForTableView:viewCopy dataObjectSource:v12];
+      v13 = [(WDDataListViewController *)self _quantityCellForTableView:viewCopy dataObjectSource:v11];
     }
 
-    v11 = v14;
+    v10 = v13;
     goto LABEL_12;
   }
 
-  v10 = self->_dataProvider;
   if (objc_opt_respondsToSelector())
   {
-    v11 = [(WDDataListViewControllerDataProvider *)self->_dataProvider customLoadingCellForRowAtIndexPath:pathCopy tableView:viewCopy];
+    v10 = [(WDDataListViewControllerDataProvider *)self->_dataProvider customLoadingCellForRowAtIndexPath:pathCopy tableView:viewCopy];
   }
 
   else
   {
-    v15 = +[WDSpinnerTableViewCell defaultReuseIdentifier];
-    v11 = [viewCopy dequeueReusableCellWithIdentifier:v15];
+    v14 = +[WDSpinnerTableViewCell defaultReuseIdentifier];
+    v10 = [viewCopy dequeueReusableCellWithIdentifier:v14];
   }
 
 LABEL_13:
 
-  return v11;
+  return v10;
 }
 
 - (void)_loadIconForSourceObject:(id)object onCell:(id)cell ofTableView:(id)view
@@ -629,31 +723,7 @@ LABEL_13:
   sourceRevision = [objectCopy sourceRevision];
   source = [sourceRevision source];
 
-  if ([(HKDisplayType *)self->_displayType displayTypeIdentifier]!= 5)
-  {
-    goto LABEL_7;
-  }
-
-  _isPreferredSource = [source _isPreferredSource];
-  _isApplication = [source _isApplication];
-  device = [objectCopy device];
-  localIdentifier = [device localIdentifier];
-
-  [source bundleIdentifier];
-  v15 = viewCopy;
-  v17 = v16 = cellCopy;
-  device2 = [objectCopy device];
-  localIdentifier2 = [device2 localIdentifier];
-  v20 = [v17 isEqualToString:localIdentifier2];
-
-  cellCopy = v16;
-  viewCopy = v15;
-  if (!_isPreferredSource)
-  {
-    goto LABEL_7;
-  }
-
-  if ((_isApplication & 1) == 0 && localIdentifier && (v20 & 1) == 0)
+  if (-[HKDisplayType displayTypeIdentifier](self->_displayType, "displayTypeIdentifier") == 5 && (v12 = [source _isPreferredSource], v29 = objc_msgSend(source, "_isApplication"), objc_msgSend(objectCopy, "device"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "localIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, objc_msgSend(source, "bundleIdentifier"), v15 = viewCopy, v16 = cellCopy, v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(objectCopy, "device"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "localIdentifier"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v17, "isEqualToString:", v19), v19, v18, v17, cellCopy = v16, viewCopy = v15, v12) && (v29 & 1) == 0 && v14 && (v20 & 1) == 0)
   {
     mEMORY[0x277D127A8]2 = HKBluetoothIcon();
     iconImageView = [cellCopy iconImageView];
@@ -662,9 +732,8 @@ LABEL_13:
 
   else
   {
-LABEL_7:
-    device3 = [objectCopy device];
-    _isConnectedGymDevice = [device3 _isConnectedGymDevice];
+    device = [objectCopy device];
+    _isConnectedGymDevice = [device _isConnectedGymDevice];
 
     if (!_isConnectedGymDevice)
     {
@@ -1005,46 +1074,45 @@ void __71__WDDataListViewController__quantityCellForTableView_dataObjectSource__
   pathCopy = path;
   if ([(WDDataListViewController *)self isEditEnabled])
   {
-    dataProvider = self->_dataProvider;
     if (objc_opt_respondsToSelector())
     {
-      v7 = [(WDDataListViewControllerDataProvider *)self->_dataProvider canEditRowAtIndexPath:pathCopy];
+      v6 = [(WDDataListViewControllerDataProvider *)self->_dataProvider canEditRowAtIndexPath:pathCopy];
     }
 
     else
     {
-      v7 = 1;
+      v6 = 1;
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)tableView:(id)view trailingSwipeActionsConfigurationForRowAtIndexPath:(id)path
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if ([(WDDataListViewController *)self tableView:view canEditRowAtIndexPath:pathCopy])
   {
     v7 = MEMORY[0x277D753C0];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __89__WDDataListViewController_tableView_trailingSwipeActionsConfigurationForRowAtIndexPath___block_invoke;
-    v18 = &unk_2796E7D88;
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __89__WDDataListViewController_tableView_trailingSwipeActionsConfigurationForRowAtIndexPath___block_invoke;
+    v17 = &unk_2796E7D88;
     selfCopy = self;
-    v20 = pathCopy;
-    v8 = [v7 contextualActionWithStyle:1 title:0 handler:&v15];
-    v9 = [MEMORY[0x277D755B8] systemImageNamed:{@"trash.fill", v15, v16, v17, v18, selfCopy}];
+    v19 = pathCopy;
+    v8 = [v7 contextualActionWithStyle:1 title:0 handler:&v14];
+    v9 = [MEMORY[0x277D755B8] systemImageNamed:{@"trash.fill", v14, v15, v16, v17, selfCopy}];
     [v8 setImage:v9];
 
     v10 = MEMORY[0x277D75AD8];
-    v21[0] = v8;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = v8;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     v12 = [v10 configurationWithActions:v11];
   }
 
@@ -1052,8 +1120,6 @@ void __71__WDDataListViewController__quantityCellForTableView_dataObjectSource__
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1153,21 +1219,21 @@ LABEL_15:
 
 uint64_t __77__WDDataListViewController_performDeleteActionAtIndexPath_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = *(v4 + 1112);
   v7 = [*(v4 + 1048) healthStore];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __77__WDDataListViewController_performDeleteActionAtIndexPath_completionHandler___block_invoke_2;
-  v13[3] = &unk_2796E6CC8;
-  v13[4] = *(a1 + 32);
-  [v6 deleteObjectsAtIndexPath:v5 healthStore:v7 options:a2 completion:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __77__WDDataListViewController_performDeleteActionAtIndexPath_completionHandler___block_invoke_2;
+  v12[3] = &unk_2796E6CC8;
+  v12[4] = *(a1 + 32);
+  [v6 deleteObjectsAtIndexPath:v5 healthStore:v7 options:a2 completion:v12];
 
-  v12 = 0;
-  [*(*(a1 + 32) + 1112) removeObjectAtIndex:objc_msgSend(*(a1 + 40) forSection:"row") sectionRemoved:{objc_msgSend(*(a1 + 40), "section"), &v12}];
-  LODWORD(v5) = v12;
+  v11 = 0;
+  [*(*(a1 + 32) + 1112) removeObjectAtIndex:objc_msgSend(*(a1 + 40) forSection:"row") sectionRemoved:{objc_msgSend(*(a1 + 40), "section"), &v11}];
+  LODWORD(v5) = v11;
   v8 = [*(a1 + 32) tableView];
   if (v5 == 1)
   {
@@ -1177,14 +1243,12 @@ uint64_t __77__WDDataListViewController_performDeleteActionAtIndexPath_completio
 
   else
   {
-    v14[0] = *(a1 + 40);
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = *(a1 + 40);
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     [v8 deleteRowsAtIndexPaths:v9 withRowAnimation:0];
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void __77__WDDataListViewController_performDeleteActionAtIndexPath_completionHandler___block_invoke_2(uint64_t a1, int a2, void *a3)
@@ -1211,6 +1275,44 @@ void __77__WDDataListViewController_performDeleteActionAtIndexPath_completionHan
   [(WDDataListViewController *)self resetDataAndScrollToDate:date];
 
   [(WDDataListViewController *)self dismissViewControllerAnimated:1 completion:0];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  if ([(WDDataListViewController *)self isEditEnabled])
+  {
+    v15.receiver = self;
+    v15.super_class = WDDataListViewController;
+    [(WDDataListViewController *)&v15 setEditing:editingCopy animated:animatedCopy];
+    if (editingCopy)
+    {
+      navigationItem = [(WDDataListViewController *)self navigationItem];
+      leftBarButtonItem = [navigationItem leftBarButtonItem];
+      deleteAllButtonItem = self->_deleteAllButtonItem;
+
+      if (leftBarButtonItem == deleteAllButtonItem)
+      {
+        return;
+      }
+
+      navigationItem2 = [(WDDataListViewController *)self navigationItem];
+      leftBarButtonItem2 = [navigationItem2 leftBarButtonItem];
+      [(WDDataListViewController *)self setLeftBarButtonItemReference:leftBarButtonItem2];
+
+      v12 = self->_deleteAllButtonItem;
+      navigationItem3 = [(WDDataListViewController *)self navigationItem];
+      [navigationItem3 setLeftBarButtonItem:v12];
+    }
+
+    else
+    {
+      navigationItem3 = [(WDDataListViewController *)self leftBarButtonItemReference];
+      navigationItem4 = [(WDDataListViewController *)self navigationItem];
+      [navigationItem4 setLeftBarButtonItem:navigationItem3];
+    }
+  }
 }
 
 - (void)resetDataAndScrollToDate:(id)date
@@ -1707,73 +1809,71 @@ void __68__WDDataListViewController__removePregnancyInformationFromMedicalID__bl
 - (void)_deleteAllWithOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   _sampleTypesForDeleteAll = [(WDDataListViewController *)self _sampleTypesForDeleteAll];
   v6 = 1112;
   defaultQueryPredicate = [(WDDataListViewControllerDataProvider *)self->_dataProvider defaultQueryPredicate];
   if (defaultQueryPredicate)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v7 = _sampleTypesForDeleteAll;
-    v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v16 = 1112;
-      v17 = _sampleTypesForDeleteAll;
-      v10 = *v26;
+      v15 = 1112;
+      v16 = _sampleTypesForDeleteAll;
+      v10 = *v25;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * i);
-          v13 = [(WDProfile *)self->_profile healthStore:v16];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __50__WDDataListViewController__deleteAllWithOptions___block_invoke;
-          v22[3] = &unk_2796E7E70;
-          v22[4] = v12;
-          v23 = defaultQueryPredicate;
+          v12 = *(*(&v24 + 1) + 8 * i);
+          v13 = [(WDProfile *)self->_profile healthStore:v15];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __50__WDDataListViewController__deleteAllWithOptions___block_invoke;
+          v21[3] = &unk_2796E7E70;
+          v21[4] = v12;
+          v22 = defaultQueryPredicate;
           selfCopy = self;
-          [v13 deleteObjectsOfType:v12 predicate:v23 options:optionsCopy & 2 withCompletion:v22];
+          [v13 deleteObjectsOfType:v12 predicate:v22 options:optionsCopy & 2 withCompletion:v21];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v9);
-      v6 = v16;
-      _sampleTypesForDeleteAll = v17;
+      v6 = v15;
+      _sampleTypesForDeleteAll = v16;
     }
   }
 
   else
   {
     healthStore = [(WDProfile *)self->_profile healthStore];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600;
-    v19[3] = &unk_2796E7718;
-    v20 = _sampleTypesForDeleteAll;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600;
+    v18[3] = &unk_2796E7718;
+    v19 = _sampleTypesForDeleteAll;
     selfCopy2 = self;
-    [healthStore deleteAllSamplesWithTypes:v20 sourceBundleIdentifier:0 options:optionsCopy & 2 completion:v19];
+    [healthStore deleteAllSamplesWithTypes:v19 sourceBundleIdentifier:0 options:optionsCopy & 2 completion:v18];
 
-    v7 = v20;
+    v7 = v19;
   }
 
   [*(&self->super.super.super.super.super.isa + v6) deleteAllData];
   [(WDDataListViewController *)self setEditing:0 animated:1];
   [(WDDataListViewController *)self _reloadAllData];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __50__WDDataListViewController__deleteAllWithOptions___block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4)
@@ -1785,7 +1885,7 @@ void __50__WDDataListViewController__deleteAllWithOptions___block_invoke(uint64_
     v7 = HKLogWellnessDashboard();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __50__WDDataListViewController__deleteAllWithOptions___block_invoke_cold_1(a1);
+      __50__WDDataListViewController__deleteAllWithOptions___block_invoke_cold_1();
     }
 
     [*(a1 + 48) _reloadAllData];
@@ -1801,7 +1901,7 @@ void __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600(uin
     v6 = HKLogWellnessDashboard();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600_cold_1(a1);
+      __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600_cold_1();
     }
 
     [*(a1 + 40) _reloadAllData];
@@ -1810,7 +1910,7 @@ void __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600(uin
 
 - (id)_rightBarButtonItems
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   dataProvider = [(WDDataListViewController *)self dataProvider];
   if (objc_opt_respondsToSelector())
   {
@@ -1828,8 +1928,8 @@ void __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600(uin
       v10 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:0 suffix:@"DataList.Calendar"];
       [editButtonItem setAccessibilityIdentifier:v10];
 
-      v15 = editButtonItem;
-      v11 = &v15;
+      v14 = editButtonItem;
+      v11 = &v14;
 LABEL_7:
       v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
@@ -1844,14 +1944,13 @@ LABEL_7:
   if ([(WDDataListViewController *)self isEditEnabled])
   {
     editButtonItem = [(WDDataListViewController *)self editButtonItem];
-    v16[0] = editButtonItem;
-    v11 = v16;
+    v15[0] = editButtonItem;
+    v11 = v15;
     goto LABEL_7;
   }
 
   v12 = MEMORY[0x277CBEBF8];
 LABEL_9:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1868,31 +1967,14 @@ LABEL_9:
   dataProvider = [(WDDataListViewController *)self dataProvider];
   v6 = [dataProvider numberOfSections] - 1;
 
-  if (v6 != section)
+  if (v6 == section && (-[WDDataListViewController dataProvider](self, "dataProvider"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 numberOfObjectsForSection:section], v7, v8) && (-[WDDataListViewController dataProvider](self, "dataProvider"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_opt_respondsToSelector(), v9, (v10 & 1) != 0))
   {
-    goto LABEL_5;
-  }
-
-  dataProvider2 = [(WDDataListViewController *)self dataProvider];
-  v8 = [dataProvider2 numberOfObjectsForSection:section];
-
-  if (!v8)
-  {
-    goto LABEL_5;
-  }
-
-  dataProvider3 = [(WDDataListViewController *)self dataProvider];
-  v10 = objc_opt_respondsToSelector();
-
-  if (v10)
-  {
-    dataProvider4 = [(WDDataListViewController *)self dataProvider];
-    v12 = [dataProvider4 hasCompleteDataSet] ^ 1;
+    dataProvider2 = [(WDDataListViewController *)self dataProvider];
+    v12 = [dataProvider2 hasCompleteDataSet] ^ 1;
   }
 
   else
   {
-LABEL_5:
     LOBYTE(v12) = 0;
   }
 
@@ -1972,43 +2054,22 @@ void __64__WDDataListViewController_viewControllerWillEnterAdaptiveModal__block_
   }
 }
 
-void __47__WDDataListViewController__fetchMedicalIDData__block_invoke_cold_1()
+void __50__WDDataListViewController__deleteAllWithOptions___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __68__WDDataListViewController__removePregnancyInformationFromMedicalID__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __50__WDDataListViewController__deleteAllWithOptions___block_invoke_cold_1(uint64_t a1)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
-  v9 = v3;
-  v10 = v4;
-  v11 = v5;
-  _os_log_error_impl(&dword_251E85000, v6, OS_LOG_TYPE_ERROR, "Error deleting samples of type %{public}@ with predicate %{public}@: %{public}@", v8, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_error_impl(&dword_251E85000, v3, OS_LOG_TYPE_ERROR, "Error deleting samples of type %{public}@ with predicate %{public}@: %{public}@", v4, 0x20u);
 }
 
-void __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600_cold_1(uint64_t a1)
+void __50__WDDataListViewController__deleteAllWithOptions___block_invoke_600_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_2();
-  v6 = v2;
-  _os_log_error_impl(&dword_251E85000, v3, OS_LOG_TYPE_ERROR, "Error deleting samples of types %{public}@: %{public}@", v5, 0x16u);
   v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2();
+  v3 = v0;
+  _os_log_error_impl(&dword_251E85000, v1, OS_LOG_TYPE_ERROR, "Error deleting samples of types %{public}@: %{public}@", v2, 0x16u);
 }
 
 @end

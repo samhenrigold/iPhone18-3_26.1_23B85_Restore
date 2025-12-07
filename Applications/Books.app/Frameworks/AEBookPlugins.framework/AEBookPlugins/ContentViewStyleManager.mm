@@ -188,10 +188,10 @@
   v77 = v12;
   if (v20)
   {
-    respectImageSizeClassIsPrefix = [v12 respectImageSizeClassIsPrefix];
+    v21 = objc_msgSend_respectImageSizeClassIsPrefix(v12);
     respectImageSizeClass2 = [v12 respectImageSizeClass];
     v23 = respectImageSizeClass2;
-    if (respectImageSizeClassIsPrefix)
+    if (v21)
     {
       v24 = @"[class|=%@]";
     }

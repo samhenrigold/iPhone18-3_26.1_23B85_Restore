@@ -3,7 +3,7 @@
 
 @implementation AXSZoomTouchSmoothScalingDisabled
 
-uint64_t ___AXSZoomTouchSmoothScalingDisabled_block_invoke()
+void *___AXSZoomTouchSmoothScalingDisabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

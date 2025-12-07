@@ -26,7 +26,7 @@
 
 - (CHEffortSampleCollection)initWithQuantitySamples:(id)samples
 {
-  sub_1000059F8(0, &qword_1008EE6F0);
+  sub_1000059F8(0, &qword_1008EE6F0, HKQuantitySample_ptr);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for EffortUtilities();
   v4 = static EffortUtilities.effortSampleCollection(for:)();
@@ -39,7 +39,7 @@
 
 - (CHEffortSampleCollection)initWithSamples:(id)samples
 {
-  sub_1000059F8(0, &qword_1008E04D0);
+  sub_1000059F8(0, &qword_1008E04D0, HKSample_ptr);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   return sub_1001FE1D4(v3);
 }

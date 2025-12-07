@@ -12,21 +12,20 @@
 
 - (NSString)title
 {
-  v2 = (self + OBJC_IVAR____TtC14CarKitSettings20CARSpinnerHeaderView_title);
+  v2 = self + OBJC_IVAR____TtC14CarKitSettings20CARSpinnerHeaderView_title;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_4B5EC();
+    v3 = sub_4B5EC();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setTitle:(id)title
@@ -71,14 +70,13 @@
 {
   v4 = sub_4A9BC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_4A9AC();
   selfCopy = self;
   CARSpinnerHeaderView.updateConfiguration(using:)();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC14CarKitSettings20CARSpinnerHeaderView)initWithReuseIdentifier:(id)identifier

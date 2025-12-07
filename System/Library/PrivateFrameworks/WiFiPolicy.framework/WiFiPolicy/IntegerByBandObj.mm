@@ -31,13 +31,13 @@
     v8 = v12 + i;
     if (v5)
     {
-      [v5 candidateSet];
+      objc_msgSend_candidateSet(v5);
       if (v8[24])
       {
-        [v5 candidateSet];
+        objc_msgSend_candidateSet(v5);
         if (*(v11 + i) >= 6)
         {
-          [v5 candidateSet];
+          objc_msgSend_candidateSet(v5);
 LABEL_9:
           *(v10 + i) = 6;
           continue;
@@ -66,7 +66,7 @@ LABEL_9:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_opt_class();
-  [(IntegerByBandObj *)self candidateSet];
+  objc_msgSend_candidateSet(self);
   [v4 integerByBandWith:&v6];
   return objc_claimAutoreleasedReturnValue();
 }

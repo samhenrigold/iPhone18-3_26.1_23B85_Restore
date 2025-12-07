@@ -161,7 +161,7 @@
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  sub_100030744(&unk_1000C5440);
+  sub_100030744(&unk_1000C5440, &qword_1000A1BB8);
   v6 = sub_10007B528();
   v7 = *(&self->super.isa + OBJC_IVAR___MPVisualMessage_vmMessage);
   storeCopy = store;

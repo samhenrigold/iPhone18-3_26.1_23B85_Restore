@@ -29,7 +29,7 @@
 
 - (void)initQueues
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_concurrency >= 1)
   {
     v3 = 0;
@@ -39,14 +39,14 @@
       v5 = dispatch_queue_create([v4 UTF8String], 0);
       if (!v5)
       {
-        v6 = fskit_std_log();
+        v6 = fskit_std_log(0);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           v8 = *__error();
           *buf = 138412546;
-          v11 = v4;
-          v12 = 1024;
-          v13 = v8;
+          v10 = v4;
+          v11 = 1024;
+          v12 = v8;
           _os_log_error_impl(&dword_24A929000, v6, OS_LOG_TYPE_ERROR, "Can't create FSWorkQueue, unable to create queue (%@), errno (%d)", buf, 0x12u);
         }
       }
@@ -61,7 +61,6 @@
   }
 
   self->_didInitQueues = 1;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueue:(id)enqueue

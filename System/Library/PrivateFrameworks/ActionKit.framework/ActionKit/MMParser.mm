@@ -28,12 +28,12 @@
 
 - (void)_updateLinksFromDefinitionsInDocument:(id)document
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   documentCopy = document;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
   v6 = objc_opt_new();
-  v31 = documentCopy;
+  v30 = documentCopy;
   elements = [documentCopy elements];
   [v6 addObjectsFromArray:elements];
   while (1)
@@ -76,27 +76,27 @@
     }
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v15 = v4;
-  v16 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v33;
+    v18 = *v32;
     do
     {
       v19 = 0;
       do
       {
-        if (*v33 != v18)
+        if (*v32 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v32 + 1) + 8 * v19);
+        v20 = *(*(&v31 + 1) + 8 * v19);
         identifier3 = [v20 identifier];
         lowercaseString2 = [identifier3 lowercaseString];
         v23 = [v5 objectForKeyedSubscript:lowercaseString2];
@@ -128,19 +128,17 @@
       }
 
       while (v19 != v17);
-      v29 = [v15 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v29 = [v15 countByEnumeratingWithState:&v31 objects:v35 count:16];
       v17 = v29;
     }
 
     while (v29);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_parseTableWithScanner:(id)scanner
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   scannerCopy = scanner;
   [scannerCopy advanceToNextLine];
   v5 = [(MMParser *)self _parseTableHeaderWithScanner:scannerCopy];
@@ -153,29 +151,29 @@
     if (v6)
     {
       [v6 setType:21];
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       children = [v7 children];
-      v9 = [children countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [children countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v19;
+        v11 = *v18;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v19 != v11)
+            if (*v18 != v11)
             {
               objc_enumerationMutation(children);
             }
 
-            [*(*(&v18 + 1) + 8 * i) setType:22];
+            [*(*(&v17 + 1) + 8 * i) setType:22];
           }
 
-          v10 = [children countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v10 = [children countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v10);
@@ -226,14 +224,12 @@
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)_parseTableRowWithScanner:(id)scanner columns:(id)columns
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   scannerCopy = scanner;
   v7 = MEMORY[0x277CCAB50];
   columnsCopy = columns;
@@ -243,8 +239,8 @@
   currentRange = [scannerCopy currentRange];
   v13 = [v10 valueWithRange:{currentRange, v12}];
   string = [scannerCopy string];
-  v22[0] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v16 = [MMScanner scannerWithString:string lineRanges:v15];
 
   [v16 skipCharactersFromSet:whitespaceCharacterSet];
@@ -265,8 +261,6 @@
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -1620,7 +1614,7 @@ LABEL_11:
 
 - (void)_addTextLineToElement:(id)element withScanner:(id)scanner
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   scannerCopy = scanner;
   v7 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"<"];
@@ -1677,46 +1671,44 @@ LABEL_11:
   [scannerCopy commitTransaction:{objc_msgSend(v14, "count") != 0}];
   if ([v14 count])
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v25 = v14;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v24 = v14;
     v17 = v14;
-    v18 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         v21 = 0;
         do
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          rangeValue = [*(*(&v26 + 1) + 8 * v21) rangeValue];
+          rangeValue = [*(*(&v25 + 1) + 8 * v21) rangeValue];
           [elementCopy addInnerRange:{rangeValue, v23}];
           ++v21;
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v19);
     }
 
-    v14 = v25;
+    v14 = v24;
   }
 
   [elementCopy addInnerRange:{currentRange, v13}];
   [scannerCopy advanceToNextLine];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)parseMarkdown:(id)markdown error:(id *)error

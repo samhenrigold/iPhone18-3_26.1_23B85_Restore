@@ -136,9 +136,9 @@ id sub_29C9FBC40(uint64_t a1, void *a2)
   return v11;
 }
 
-id sub_29C9FBD34(void **a1, void *a2)
+id sub_29C9FBD34(id *a1, void *a2)
 {
-  v105 = *MEMORY[0x29EDCA608];
+  v104 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v6 = objc_msgSend_timerID(a1[4], v4, v5);
   v8 = objc_msgSend_firstThatMatches_fromTimers_(MTCCTimerModule, v7, v6, v3);
@@ -148,11 +148,11 @@ id sub_29C9FBD34(void **a1, void *a2)
   {
     v12 = a1[5];
     v13 = objc_msgSend_sound(a1[6], v10, v11);
-    v101 = 138543618;
-    v102 = v12;
-    v103 = 2114;
-    v104 = v13;
-    _os_log_impl(&dword_29C9FA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ fetched latest duration sound: %{public}@", &v101, 0x16u);
+    v100 = 138543618;
+    v101 = v12;
+    v102 = 2114;
+    v103 = v13;
+    _os_log_impl(&dword_29C9FA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ fetched latest duration sound: %{public}@", &v100, 0x16u);
   }
 
   if (v8)
@@ -167,9 +167,9 @@ id sub_29C9FBD34(void **a1, void *a2)
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         v25 = a1[5];
-        v101 = 138543362;
-        v102 = v25;
-        _os_log_impl(&dword_29C9FA000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ current state is stopped and new state is running", &v101, 0xCu);
+        v100 = 138543362;
+        v101 = v25;
+        _os_log_impl(&dword_29C9FA000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ current state is stopped and new state is running", &v100, 0xCu);
       }
 
       v27 = a1[5];
@@ -207,9 +207,9 @@ id sub_29C9FBD34(void **a1, void *a2)
       if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
       {
         v78 = a1[5];
-        v101 = 138543362;
-        v102 = v78;
-        _os_log_impl(&dword_29C9FA000, v77, OS_LOG_TYPE_DEFAULT, "%{public}@ current state is paused or running and does not equal new state", &v101, 0xCu);
+        v100 = 138543362;
+        v101 = v78;
+        _os_log_impl(&dword_29C9FA000, v77, OS_LOG_TYPE_DEFAULT, "%{public}@ current state is paused or running and does not equal new state", &v100, 0xCu);
       }
 
       objc_msgSend_setState_(v16, v79, v23);
@@ -276,7 +276,6 @@ LABEL_28:
   v82 = objc_msgSend_futureWithResult_(MEMORY[0x29EDC5E50], v98, v97);
 
 LABEL_29:
-  v99 = *MEMORY[0x29EDCA608];
 
   return v82;
 }

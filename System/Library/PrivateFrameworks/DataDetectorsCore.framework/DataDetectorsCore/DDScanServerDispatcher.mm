@@ -89,52 +89,52 @@ void __33__DDScanServerDispatcher_dealloc__block_invoke(uint64_t a1)
 
 void __36__DDScanServerDispatcher_cancelJob___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v2 = [*(*(a1 + 32) + 48) allValues];
-  v3 = [v2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v26;
-    v24 = *v26;
+    v5 = *v25;
+    v23 = *v25;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v25 + 1) + 8 * i);
+        v7 = *(*(&v24 + 1) + 8 * i);
         if (v7)
         {
           v8 = *(a1 + 40);
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           v9 = *(v7 + 64);
-          v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v30;
+            v12 = *v29;
             do
             {
               v13 = 0;
               do
               {
-                if (*v30 != v12)
+                if (*v29 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v14 = *(*(&v29 + 1) + 8 * v13);
+                v14 = *(*(&v28 + 1) + 8 * v13);
                 if (v14)
                 {
                   if (*(v14 + 24) == v8)
@@ -155,7 +155,7 @@ LABEL_31:
               }
 
               while (v11 != v13);
-              v15 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+              v15 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
               v11 = v15;
             }
 
@@ -183,14 +183,14 @@ LABEL_31:
               }
             }
 
-            v22 = [*(v7 + 48) objectAtIndexedSubscript:v18];
-            v23 = v22;
-            if (v22)
+            v21 = [*(v7 + 48) objectAtIndexedSubscript:v18];
+            v22 = v21;
+            if (v21)
             {
-              v22 = *(v22 + 8);
+              v21 = *(v21 + 8);
             }
 
-            (*(v22 + 16))(v22, 0);
+            (*(v21 + 16))(v21, 0);
 
             [*(v7 + 48) removeObjectAtIndex:v18];
             goto LABEL_32;
@@ -198,10 +198,10 @@ LABEL_31:
         }
 
 LABEL_27:
-        v5 = v24;
+        v5 = v23;
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v4)
       {
         continue;
@@ -212,8 +212,6 @@ LABEL_27:
   }
 
 LABEL_32:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)reportQueue
@@ -453,12 +451,12 @@ LABEL_40:
 
 void __58__DDScanServerDispatcher_scannerConf_sync_string_runTask___block_invoke(uint64_t a1)
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 56) == 1)
   {
-    v73 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v73 handleFailureInMethod:*(a1 + 88) object:*(a1 + 32) file:@"DDScannerServer.m" lineNumber:881 description:@"Scan operation requested after tear down"];
+    v72 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v72 handleFailureInMethod:*(a1 + 88) object:*(a1 + 32) file:@"DDScannerServer.m" lineNumber:881 description:@"Scan operation requested after tear down"];
 
     v2 = *(a1 + 32);
   }
@@ -489,9 +487,9 @@ void __58__DDScanServerDispatcher_scannerConf_sync_string_runTask___block_invoke
       v12 = v6;
       if (v11)
       {
-        v83.receiver = v11;
-        v83.super_class = DDScannerList;
-        v11 = objc_msgSendSuper2(&v83, sel_init);
+        v82.receiver = v11;
+        v82.super_class = DDScannerList;
+        v11 = objc_msgSendSuper2(&v82, sel_init);
         if (v11)
         {
           v13 = [(DDScannerServiceConfiguration *)v12 recyclingIdentifier];
@@ -525,163 +523,121 @@ void __58__DDScanServerDispatcher_scannerConf_sync_string_runTask___block_invoke
   v20 = *(v19 + 40);
   *(v19 + 40) = v11;
 
-  if ((*(a1 + 96) & 1) == 0)
+  if (*(a1 + 96))
   {
-    v21 = *(*(*(a1 + 56) + 8) + 40);
-    if (v21)
-    {
-      if ([*(v21 + 64) count])
-      {
-        v22 = *(a1 + 32);
-        if (*(v22 + 40) != 1)
-        {
-          goto LABEL_18;
-        }
+    goto LABEL_31;
+  }
 
-        v23 = qos_class_self();
-        if (v23 != qos_class_main())
-        {
-LABEL_47:
-          v58 = *(*(*(a1 + 56) + 8) + 40);
-          v76[0] = MEMORY[0x1E69E9820];
-          v76[1] = 3221225472;
-          v76[2] = __58__DDScanServerDispatcher_scannerConf_sync_string_runTask___block_invoke_2;
-          v76[3] = &unk_1E8001B30;
-          v59 = *(a1 + 40);
-          v60 = *(a1 + 64);
-          v77 = v59;
-          v78 = v60;
-          if (v58)
-          {
-            v61 = *(*(*(a1 + 48) + 8) + 24);
-            v62 = v76;
-            v63 = [DDScanStepBlockContainer alloc];
-            v64 = v62;
-            if (v63)
-            {
-              v83.receiver = v63;
-              v83.super_class = DDScanStepBlockContainer;
-              v63 = objc_msgSendSuper2(&v83, sel_init);
-              if (v63)
-              {
-                v65 = _Block_copy(v64);
-                block = v63->_block;
-                v63->_block = v65;
+  v21 = *(*(*(a1 + 56) + 8) + 40);
+  if (!v21 || ![*(v21 + 64) count])
+  {
+    goto LABEL_31;
+  }
 
-                v63->_identifier = v61;
-              }
-            }
-
-            v67 = *(v58 + 48);
-            if (v67)
-            {
-              [v67 insertObject:v63 atIndex:0];
-            }
-
-            else
-            {
-              v68 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v63, 0}];
-              v69 = *(v58 + 48);
-              *(v58 + 48) = v68;
-            }
-          }
-
-          *(*(*(a1 + 72) + 8) + 24) = 1;
-
-          goto LABEL_68;
-        }
-
-        v22 = *(a1 + 32);
-        if ((*(v22 + 40) & 1) == 0)
-        {
+  v22 = *(a1 + 32);
+  if (*(v22 + 40) != 1)
+  {
 LABEL_18:
-          v24 = [MEMORY[0x1E696AE30] processInfo];
-          v25 = [v24 activeProcessorCount];
+    v24 = [MEMORY[0x1E696AE30] processInfo];
+    v25 = [v24 activeProcessorCount];
 
-          v81 = 0u;
-          v82 = 0u;
-          v79 = 0u;
-          v80 = 0u;
-          v26 = [*(v22 + 48) allValues];
-          v27 = [v26 countByEnumeratingWithState:&v79 objects:&v83 count:16];
-          if (v27)
+    v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v26 = [*(v22 + 48) allValues];
+    v27 = [v26 countByEnumeratingWithState:&v78 objects:&v82 count:16];
+    if (v27)
+    {
+      v28 = v27;
+      v29 = 0;
+      v30 = *v79;
+      do
+      {
+        v31 = 0;
+        do
+        {
+          if (*v79 != v30)
           {
-            v28 = v27;
-            v29 = 0;
-            v30 = *v80;
-            do
-            {
-              v31 = 0;
-              do
-              {
-                if (*v80 != v30)
-                {
-                  objc_enumerationMutation(v26);
-                }
-
-                v32 = *(*(&v79 + 1) + 8 * v31);
-                if (v32)
-                {
-                  v33 = [*(v32 + 64) count];
-                }
-
-                else
-                {
-                  v33 = 0;
-                }
-
-                v29 += v33;
-                if (v29 >= v25)
-                {
-
-                  goto LABEL_47;
-                }
-
-                ++v31;
-              }
-
-              while (v28 != v31);
-              v34 = [v26 countByEnumeratingWithState:&v79 objects:&v83 count:16];
-              v28 = v34;
-            }
-
-            while (v34);
+            objc_enumerationMutation(v26);
           }
+
+          v32 = *(*(&v78 + 1) + 8 * v31);
+          if (v32)
+          {
+            v33 = [*(v32 + 64) count];
+          }
+
+          else
+          {
+            v33 = 0;
+          }
+
+          v29 += v33;
+          if (v29 >= v25)
+          {
+
+            goto LABEL_47;
+          }
+
+          ++v31;
         }
+
+        while (v28 != v31);
+        v34 = [v26 countByEnumeratingWithState:&v78 objects:&v82 count:16];
+        v28 = v34;
+      }
+
+      while (v34);
+    }
+
+LABEL_31:
+    v35 = *(*(*(a1 + 56) + 8) + 40);
+    if (v35 && [*(v35 + 56) count])
+    {
+      v36 = [*(v35 + 56) lastObject];
+      if (v36)
+      {
+        [(DDScannerList *)v35 activateScanner:v36];
+        [*(v35 + 56) removeLastObject];
       }
     }
-  }
 
-  v35 = *(*(*(a1 + 56) + 8) + 40);
-  if (v35 && [*(v35 + 56) count])
-  {
-    v36 = [*(v35 + 56) lastObject];
-    if (v36)
+    else
     {
-      [(DDScannerList *)v35 activateScanner:v36];
-      [*(v35 + 56) removeLastObject];
+      v36 = 0;
     }
-  }
 
-  else
-  {
-    v36 = 0;
-  }
+    v37 = *(*(a1 + 80) + 8);
+    v38 = *(v37 + 40);
+    *(v37 + 40) = v36;
 
-  v37 = *(*(a1 + 80) + 8);
-  v38 = *(v37 + 40);
-  *(v37 + 40) = v36;
+    v39 = *(*(a1 + 80) + 8);
+    v40 = *(v39 + 40);
+    if (v40)
+    {
+LABEL_67:
+      *(v40 + 24) = *(*(*(a1 + 48) + 8) + 24);
+      return;
+    }
 
-  v39 = *(*(a1 + 80) + 8);
-  v40 = *(v39 + 40);
-  if (v40)
-  {
-    goto LABEL_67;
-  }
+    v41 = *(*(*(a1 + 56) + 8) + 40);
+    if (!v41)
+    {
+      v71 = 0;
+      v42 = 0;
+LABEL_66:
+      *(v39 + 40) = v42;
 
-  v41 = *(*(*(a1 + 56) + 8) + 40);
-  if (v41)
-  {
+      v40 = *(*(*(a1 + 80) + 8) + 40);
+      if (!v40)
+      {
+        return;
+      }
+
+      goto LABEL_67;
+    }
+
     v42 = [DDScannerObject alloc];
     v43 = *(v41 + 12);
     v44 = *(v41 + 8);
@@ -689,7 +645,7 @@ LABEL_18:
     v46 = *(v41 + 32);
     v47 = *(v41 + 24);
     v48 = v46;
-    if (!v42 || (v83.receiver = v42, v83.super_class = DDScannerObject, (v42 = objc_msgSendSuper2(&v83, sel_init)) == 0))
+    if (!v42 || (v82.receiver = v42, v82.super_class = DDScannerObject, (v42 = objc_msgSendSuper2(&v82, sel_init)) == 0))
     {
 LABEL_65:
 
@@ -701,8 +657,8 @@ LABEL_65:
 
     if (v47)
     {
-      v74 = v45;
-      v75 = v44;
+      v73 = v45;
+      v74 = v44;
       v49 = MEMORY[0x1E695DF58];
       v50 = [MEMORY[0x1E695DF58] currentLocale];
       v51 = [v50 localeIdentifier];
@@ -721,8 +677,8 @@ LABEL_65:
 
       if (v56)
       {
-        v44 = v75;
-        if ((v74 & 1) == 0)
+        v44 = v74;
+        if ((v73 & 1) == 0)
         {
           v57 = DDScannerCreateWithLocaleHint(v43, 0, v56, 0);
 LABEL_59:
@@ -756,7 +712,7 @@ LABEL_59:
 
       else
       {
-        v44 = v75;
+        v44 = v74;
       }
     }
 
@@ -769,20 +725,64 @@ LABEL_59:
     goto LABEL_59;
   }
 
-  v71 = 0;
-  v42 = 0;
-LABEL_66:
-  *(v39 + 40) = v42;
-
-  v40 = *(*(*(a1 + 80) + 8) + 40);
-  if (v40)
+  v23 = qos_class_self();
+  if (v23 == qos_class_main())
   {
-LABEL_67:
-    *(v40 + 24) = *(*(*(a1 + 48) + 8) + 24);
+    v22 = *(a1 + 32);
+    if (*(v22 + 40))
+    {
+      goto LABEL_31;
+    }
+
+    goto LABEL_18;
   }
 
-LABEL_68:
-  v72 = *MEMORY[0x1E69E9840];
+LABEL_47:
+  v58 = *(*(*(a1 + 56) + 8) + 40);
+  v75[0] = MEMORY[0x1E69E9820];
+  v75[1] = 3221225472;
+  v75[2] = __58__DDScanServerDispatcher_scannerConf_sync_string_runTask___block_invoke_2;
+  v75[3] = &unk_1E8001B30;
+  v59 = *(a1 + 40);
+  v60 = *(a1 + 64);
+  v76 = v59;
+  v77 = v60;
+  if (v58)
+  {
+    v61 = *(*(*(a1 + 48) + 8) + 24);
+    v62 = v75;
+    v63 = [DDScanStepBlockContainer alloc];
+    v64 = v62;
+    if (v63)
+    {
+      v82.receiver = v63;
+      v82.super_class = DDScanStepBlockContainer;
+      v63 = objc_msgSendSuper2(&v82, sel_init);
+      if (v63)
+      {
+        v65 = _Block_copy(v64);
+        block = v63->_block;
+        v63->_block = v65;
+
+        v63->_identifier = v61;
+      }
+    }
+
+    v67 = *(v58 + 48);
+    if (v67)
+    {
+      [v67 insertObject:v63 atIndex:0];
+    }
+
+    else
+    {
+      v68 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v63, 0}];
+      v69 = *(v58 + 48);
+      *(v58 + 48) = v68;
+    }
+  }
+
+  *(*(*(a1 + 72) + 8) + 24) = 1;
 }
 
 - (void)recycleScanner:(void *)scanner fromList:(int)list sameQueue:
@@ -849,14 +849,12 @@ LABEL_68:
 
 void __58__DDScanServerDispatcher_scannerConf_sync_string_runTask___block_invoke_3(void *a1)
 {
-  v2 = *(*(a1[6] + 8) + 40);
-  v3 = *(*(a1[7] + 8) + 40);
   (*(a1[5] + 16))();
-  v4 = a1[4];
-  v5 = *(*(a1[6] + 8) + 40);
-  v6 = *(*(a1[8] + 8) + 40);
+  v2 = a1[4];
+  v3 = *(*(a1[6] + 8) + 40);
+  v4 = *(*(a1[8] + 8) + 40);
 
-  [(DDScanServerDispatcher *)v4 recycleScanner:v5 fromList:v6 sameQueue:1];
+  [(DDScanServerDispatcher *)v2 recycleScanner:v3 fromList:v4 sameQueue:1];
 }
 
 void __60__DDScanServerDispatcher_recycleScanner_fromList_sameQueue___block_invoke(void *a1)
@@ -968,7 +966,7 @@ LABEL_22:
   }
 }
 
-uint64_t __60__DDScanServerDispatcher_recycleScanner_fromList_sameQueue___block_invoke_2(void *a1)
+void __60__DDScanServerDispatcher_recycleScanner_fromList_sameQueue___block_invoke_2(void *a1)
 {
   v2 = *(*(a1[7] + 8) + 40);
   if (v2)
@@ -986,7 +984,7 @@ uint64_t __60__DDScanServerDispatcher_recycleScanner_fromList_sameQueue___block_
   v4 = a1[5];
   v6 = a1[6];
 
-  return [(DDScanServerDispatcher *)v4 recycleScanner:v5 fromList:v6 sameQueue:1];
+  [(DDScanServerDispatcher *)v4 recycleScanner:v5 fromList:v6 sameQueue:1];
 }
 
 void __58__DDScanServerDispatcher__scriptForEmbeddingFromLanguage___block_invoke()

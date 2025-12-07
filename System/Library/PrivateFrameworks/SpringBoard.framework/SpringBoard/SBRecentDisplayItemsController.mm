@@ -304,7 +304,7 @@ uint64_t __69__SBRecentDisplayItemsController_eventSource_userRemovedSuggestions
     if ((movePersonality & 8) != 0)
     {
       relevantTransitionFromSources = self->_relevantTransitionFromSources;
-      if (!relevantTransitionFromSources || ([MEMORY[0x277CCABB0] numberWithInteger:by], v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSSet containsObject:](relevantTransitionFromSources, "containsObject:", v22), v22, v23))
+      if (!relevantTransitionFromSources || ([MEMORY[0x277CCABB0] numberWithInteger:by], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend_containsObject_(relevantTransitionFromSources), v22, v23))
       {
         if (elementCopy)
         {
@@ -845,7 +845,7 @@ LABEL_9:
     }
   }
 
-  if ([(NSMutableOrderedSet *)self->_recentDisplayItems containsObject:frontCopy])
+  if (objc_msgSend_containsObject_(self->_recentDisplayItems))
   {
     [(SBRecentDisplayItemsController *)self _moveDisplayItemToFront:frontCopy];
   }
@@ -1033,7 +1033,7 @@ uint64_t __63__SBRecentDisplayItemsController__addOrMoveDisplayItemToFront___blo
 {
   v14 = *MEMORY[0x277D85DE8];
   frontCopy = front;
-  if (frontCopy && [(NSMutableOrderedSet *)self->_recentDisplayItems containsObject:frontCopy]&& [(SBRecentDisplayItemsController *)self _displayItemIsExecutableOnCurrentPlatform:frontCopy])
+  if (frontCopy && objc_msgSend_containsObject_(self->_recentDisplayItems) && [(SBRecentDisplayItemsController *)self _displayItemIsExecutableOnCurrentPlatform:frontCopy])
   {
     v5 = SBLogDockRecents();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -1076,7 +1076,7 @@ uint64_t __63__SBRecentDisplayItemsController__addOrMoveDisplayItemToFront___blo
 {
   v12 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  if (itemCopy && [(NSMutableOrderedSet *)self->_recentDisplayItems containsObject:itemCopy])
+  if (itemCopy && objc_msgSend_containsObject_(self->_recentDisplayItems))
   {
     v5 = SBLogDockRecents();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))

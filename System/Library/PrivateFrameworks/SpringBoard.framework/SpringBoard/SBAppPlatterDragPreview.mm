@@ -104,7 +104,7 @@
   v15 = v14;
   v17 = v16;
   v19 = v18;
-  [sourceViewCopy frame];
+  objc_msgSend_frame(sourceViewCopy);
   scaleCopy = scale;
   SBTransformedRectWithScale();
   v20 = v19;
@@ -275,7 +275,7 @@
     viewCopy = v33;
   }
 
-  [(UIView *)viewCopy frame];
+  objc_msgSend_frame(viewCopy);
   SBRectWithSize();
   v13 = v12;
   v15 = v14;
@@ -474,7 +474,7 @@ uint64_t __84__SBAppPlatterDragPreview_configurePlatterForSceneHandle_withTarget
   v9 = v4;
   v10 = v3;
   p_diffuseShadowParameters = &self->_diffuseShadowParameters;
-  if ((SBDragPreviewShadowParametersEqualToShadowParameters() & 1) == 0)
+  if ((SBDragPreviewShadowParametersEqualToShadowParameters(self, self->_diffuseShadowParameters.shadowOpacity, self->_diffuseShadowParameters.shadowRadius, self->_diffuseShadowParameters.shadowOffset.width, self->_diffuseShadowParameters.shadowOffset.height, v3, v4) & 1) == 0)
   {
     p_diffuseShadowParameters->shadowOpacity = v10;
     p_diffuseShadowParameters->shadowRadius = v9;
@@ -492,7 +492,7 @@ uint64_t __84__SBAppPlatterDragPreview_configurePlatterForSceneHandle_withTarget
   v9 = v4;
   v10 = v3;
   p_rimShadowParameters = &self->_rimShadowParameters;
-  if ((SBDragPreviewShadowParametersEqualToShadowParameters() & 1) == 0)
+  if ((SBDragPreviewShadowParametersEqualToShadowParameters(self, self->_rimShadowParameters.shadowOpacity, self->_rimShadowParameters.shadowRadius, self->_rimShadowParameters.shadowOffset.width, self->_rimShadowParameters.shadowOffset.height, v3, v4) & 1) == 0)
   {
     p_rimShadowParameters->shadowOpacity = v10;
     p_rimShadowParameters->shadowRadius = v9;
@@ -646,7 +646,7 @@ uint64_t __82__SBAppPlatterDragPreview_updateDestinationIconLocation_allowsLabel
   v11 = *(a1 + 32);
   if (v11[60])
   {
-    [v11[60] frame];
+    objc_msgSend_frame(v11[60]);
     SBRectWithSize();
     v13 = v12;
     v15 = v14;
@@ -782,7 +782,7 @@ uint64_t __82__SBAppPlatterDragPreview_updateDestinationIconLocation_allowsLabel
 - (void)_removeDelayCleanupAssertion:(id)assertion
 {
   assertionCopy = assertion;
-  if ([(NSHashTable *)self->_cleanupDelayAssertions containsObject:?])
+  if (objc_msgSend_containsObject_(self->_cleanupDelayAssertions))
   {
     [(NSHashTable *)self->_cleanupDelayAssertions removeObject:assertionCopy];
     if (![(NSHashTable *)self->_cleanupDelayAssertions count]&& self->_delayingCleanup)
@@ -821,7 +821,7 @@ uint64_t __82__SBAppPlatterDragPreview_updateDestinationIconLocation_allowsLabel
       superview = [(SBIconView *)v6 superview];
       [superview addSubview:snapshotView];
 
-      [(SBIconView *)v6 frame];
+      objc_msgSend_frame(v6);
       [snapshotView setFrame:?];
       [(SBIconView *)v6 setIcon:0];
     }
@@ -853,7 +853,7 @@ uint64_t __82__SBAppPlatterDragPreview_updateDestinationIconLocation_allowsLabel
   SBRectWithSize();
   [(SBApplicationBlurContentView *)platterView setFrame:?];
   sourcePortalView = self->_sourcePortalView;
-  [(UIView *)self->_sourceView frame];
+  objc_msgSend_frame(self->_sourceView);
   SBRectWithSize();
   [(SBPortalView *)sourcePortalView setBounds:?];
   v16 = self->_sourcePortalView;
@@ -1168,15 +1168,15 @@ LABEL_9:
   }
 }
 
-uint64_t __51__SBAppPlatterDragPreview__updateSubviewVisibility__block_invoke(uint64_t a1)
+uint64_t __51__SBAppPlatterDragPreview__updateSubviewVisibility__block_invoke(uint64_t a1, double a2)
 {
   if (![*(a1 + 32) _isDragging])
   {
     return 0;
   }
 
-  v2 = [*(*(a1 + 32) + 480) superview];
-  if (v2 == *(*(a1 + 32) + 608))
+  v3 = [*(*(a1 + 32) + 480) superview];
+  if (v3 == *(*(a1 + 32) + 608))
   {
     IsOne = 0;
   }
@@ -1319,7 +1319,7 @@ uint64_t __54__SBAppPlatterDragPreview__setSourcePortalViewHidden___block_invoke
   v4 = _effectiveMode;
   if (_effectiveMode == 2)
   {
-    [(UIView *)self->_sourceView frame];
+    objc_msgSend_frame(self->_sourceView);
     sourceViewScale = self->_sourceViewScale;
   }
 
@@ -1660,7 +1660,7 @@ LABEL_9:
   if (backgroundViewGroupNameBase)
   {
     newCaptureOnlyBackgroundView = [v5 newCaptureOnlyBackgroundView];
-    [v5 frame];
+    objc_msgSend_frame(v5);
     [(UIView *)newCaptureOnlyBackgroundView setFrame:?];
     [(UIView *)self->_iconContainerView addSubview:newCaptureOnlyBackgroundView];
     [(UIView *)self->_iconContainerView sendSubviewToBack:newCaptureOnlyBackgroundView];

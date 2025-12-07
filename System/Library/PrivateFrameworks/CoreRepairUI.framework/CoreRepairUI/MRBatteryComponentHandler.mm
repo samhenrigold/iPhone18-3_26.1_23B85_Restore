@@ -130,7 +130,7 @@
   return v2;
 }
 
-uint64_t __44__MRBatteryComponentHandler_sharedSingleton__block_invoke(uint64_t a1)
+void *__44__MRBatteryComponentHandler_sharedSingleton__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D00FC0] supportRepair:1024];
   if (result)

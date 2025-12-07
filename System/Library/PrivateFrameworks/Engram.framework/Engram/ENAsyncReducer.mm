@@ -28,14 +28,14 @@
 
 - (void)reduceWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(ENAsyncReducer *)self setCompletionBlock:completion];
   v4 = +[ENLog utilities];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     input = [(ENAsyncReducer *)self input];
     *buf = 134217984;
-    v13 = [input count];
+    v12 = [input count];
     _os_log_impl(&dword_24A04B000, v4, OS_LOG_TYPE_INFO, "Reduce {input: %ld}", buf, 0xCu);
   }
 
@@ -45,12 +45,12 @@
   {
     input2 = [(ENAsyncReducer *)self input];
     result = [(ENAsyncReducer *)self result];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = sub_24A05749C;
-    v11[3] = &unk_278FC3820;
-    v11[4] = self;
-    [(ENAsyncReducer *)self _reduceWithPending:input2 visited:MEMORY[0x277CBEBF8] currentResult:result completion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_24A05749C;
+    v10[3] = &unk_278FC3820;
+    v10[4] = self;
+    [(ENAsyncReducer *)self _reduceWithPending:input2 visited:MEMORY[0x277CBEBF8] currentResult:result completion:v10];
   }
 
   else
@@ -65,8 +65,6 @@
     input2 = [(ENAsyncReducer *)self result];
     [(ENAsyncReducer *)self _completeWithResult:input2];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeWithResult:(id)result

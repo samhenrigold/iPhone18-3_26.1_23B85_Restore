@@ -15,7 +15,7 @@
 
 - (void)_updateLayout
 {
-  [(_SBRootFolderLayoutWrapperView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   v6 = v5;
   v8 = v7;

@@ -18,17 +18,18 @@
 
 - (void)music_inheritedLayoutInsetsDidChange
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for BiographyView();
-  v2 = v4.receiver;
-  [(BiographyView *)&v4 music_inheritedLayoutInsetsDidChange];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for BiographyView();
+  v2 = v5.receiver;
+  [(BiographyView *)&v5 music_inheritedLayoutInsetsDidChange];
   [v2 setNeedsLayout];
   v3 = *&v2[OBJC_IVAR____TtC16MusicApplication13BiographyView_layoutInvalidationHandler];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC16MusicApplication13BiographyView_layoutInvalidationHandler + 8];
 
     v3(v2);
-    sub_17654(v3);
+    sub_17654(v3, v4);
   }
 }
 
@@ -50,18 +51,19 @@
 
 - (void)traitCollectionDidChange:(id)change
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for BiographyView();
-  v4 = v7.receiver;
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for BiographyView();
+  v4 = v8.receiver;
   changeCopy = change;
-  [(BiographyView *)&v7 traitCollectionDidChange:changeCopy];
+  [(BiographyView *)&v8 traitCollectionDidChange:changeCopy];
   [v4 setNeedsLayout];
   v6 = *&v4[OBJC_IVAR____TtC16MusicApplication13BiographyView_layoutInvalidationHandler];
   if (v6)
   {
+    v7 = *&v4[OBJC_IVAR____TtC16MusicApplication13BiographyView_layoutInvalidationHandler + 8];
 
     v6(v4);
-    sub_17654(v6);
+    sub_17654(v6, v7);
   }
 }
 

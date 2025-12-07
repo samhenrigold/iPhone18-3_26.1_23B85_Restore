@@ -172,7 +172,7 @@ uint64_t __52__SSSQLiteEntity_initWithPropertyValues_inDatabase___block_invoke(u
   return *(*(*(a1 + 56) + 8) + 24);
 }
 
-uint64_t __52__SSSQLiteEntity_initWithPropertyValues_inDatabase___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__52__SSSQLiteEntity_initWithPropertyValues_inDatabase___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _insertValues:a3 intoTable:a2 withPersistentID:*(a1 + 56) database:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -221,15 +221,21 @@ void __62__SSSQLiteEntity_copyDatabaseDictionaryToSetClientDictionary___block_in
     v11 = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = v11 | 2;
+      LODWORD(v12) = v11 | 2;
     }
 
     else
     {
-      v12 = v11;
+      LODWORD(v12) = v11;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_INFO))
+    v13 = [v10 OSLogObject];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -240,14 +246,13 @@ void __62__SSSQLiteEntity_copyDatabaseDictionaryToSetClientDictionary___block_in
       v24 = objc_opt_class();
       v25 = 2112;
       v26 = a2;
-      LODWORD(v22) = 22;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, v13, 1, "%@: Unrecognized client key: %@", &v23, 22);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v23, v22}];
-        free(v14);
-        SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, v15);
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        SSFileLog(v10, @"%@", v17, v18, v19, v20, v21, v22, v16);
       }
     }
   }
@@ -395,7 +400,7 @@ LABEL_10:
   return self;
 }
 
-uint64_t __34__SSSQLiteEntity_existsInDatabase__block_invoke(uint64_t a1, sqlite3_stmt *a2)
+void *__34__SSSQLiteEntity_existsInDatabase__block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(*(a1 + 32) + 16));
   result = [*(*(a1 + 32) + 8) statementHasRowAfterStepping:a2];
@@ -641,7 +646,7 @@ void __42__SSSQLiteEntity_setValuesWithDictionary___block_invoke_2(uint64_t a1, 
   _Block_object_dispose(&v23, 8);
 }
 
-uint64_t __42__SSSQLiteEntity_setValuesWithDictionary___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
+void *__42__SSSQLiteEntity_setValuesWithDictionary___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(*(a1 + 32) + 16));
   result = [*(*(a1 + 32) + 8) statementHasRowAfterStepping:a2];
@@ -664,7 +669,7 @@ uint64_t __42__SSSQLiteEntity_setValuesWithDictionary___block_invoke_4(uint64_t 
   return [v6 addObject:a3];
 }
 
-uint64_t __42__SSSQLiteEntity_setValuesWithDictionary___block_invoke_5(void *a1, sqlite3_stmt *a2)
+void *__42__SSSQLiteEntity_setValuesWithDictionary___block_invoke_5(void *a1, sqlite3_stmt *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v13 = 0u;
@@ -815,7 +820,7 @@ uint64_t __42__SSSQLiteEntity_setValuesWithDictionary___block_invoke_5(void *a1,
   return v20;
 }
 
-uint64_t __68__SSSQLiteEntity__insertValues_intoTable_withPersistentID_database___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+void *__68__SSSQLiteEntity__insertValues_intoTable_withPersistentID_database___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   v17 = *MEMORY[0x1E69E9840];
   sqlite3_bind_int64(a2, 1, *(a1 + 56));
@@ -873,7 +878,7 @@ uint64_t __68__SSSQLiteEntity__insertValues_intoTable_withPersistentID_database_
   return v4;
 }
 
-uint64_t __54__SSSQLiteEntity__copyTableClusteredValuesWithValues___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__54__SSSQLiteEntity__copyTableClusteredValuesWithValues___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = a2;
   result = [a2 isEqualToString:@"ROWID"];
@@ -926,7 +931,7 @@ uint64_t __54__SSSQLiteEntity__copyTableClusteredValuesWithValues___block_invoke
   return self;
 }
 
-uint64_t __50__SSSQLiteEntity__deleteRowFromTable_usingColumn___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+void *__50__SSSQLiteEntity__deleteRowFromTable_usingColumn___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(*(a1 + 32) + 16));
   result = [*(*(a1 + 32) + 8) statementDidFinishAfterStepping:a2];
@@ -956,7 +961,7 @@ uint64_t __50__SSSQLiteEntity__deleteRowFromTable_usingColumn___block_invoke(uin
   return v7;
 }
 
-uint64_t __66__SSSQLiteEntity_SSSQLiteQueryAdditions__anyInDatabase_predicate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__66__SSSQLiteEntity_SSSQLiteQueryAdditions__anyInDatabase_predicate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [objc_alloc(*(a1 + 32)) initWithPersistentID:a2 inDatabase:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 40) = result;
@@ -993,7 +998,7 @@ uint64_t __66__SSSQLiteEntity_SSSQLiteQueryAdditions__anyInDatabase_predicate___
   return v14;
 }
 
-uint64_t __97__SSSQLiteEntity_SSSQLiteQueryAdditions___aggregateValueForProperty_function_predicate_database___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+void *__97__SSSQLiteEntity_SSSQLiteQueryAdditions___aggregateValueForProperty_function_predicate_database___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   v5 = 1;
   [objc_msgSend(*(a1 + 32) "predicate")];

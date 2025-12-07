@@ -9,22 +9,22 @@
 {
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy safari_dataForKey:*MEMORY[0x1E697B3C0]];
-  v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v5 encoding:4];
-  if (v6)
+  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v5 encoding:4];
+  if (v7)
   {
-    v7 = [dictionaryCopy safari_dataForKey:*MEMORY[0x1E697B3C8]];
-    v8 = [dictionaryCopy safari_dateForKey:*MEMORY[0x1E697ADD0]];
-    self = [(WBSPasswordBreachCredential *)self initWithPassword:v6 persistentIdentifier:v7 dateLastModified:v8];
+    v8 = [dictionaryCopy safari_dataForKey:*MEMORY[0x1E697B3C8]];
+    v9 = [dictionaryCopy safari_dateForKey:*MEMORY[0x1E697ADD0]];
+    self = [(WBSPasswordBreachCredential *)self initWithPassword:v7 persistentIdentifier:v8 dateLastModified:v9];
 
     selfCopy = self;
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [WBSPasswordBreachCredential initWithSecItemDictionary:v10];
+      [WBSPasswordBreachCredential initWithSecItemDictionary:v11];
     }
 
     selfCopy = 0;

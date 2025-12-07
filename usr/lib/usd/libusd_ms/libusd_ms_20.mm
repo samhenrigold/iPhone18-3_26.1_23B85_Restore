@@ -1,6 +1,17 @@
+unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry>::GetInstance()
+{
+  result = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry>::_instance);
+  if (!result)
+  {
+    pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry>::_CreateInstance();
+  }
+
+  return result;
+}
+
 unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry>::_CreateInstance(unint64_t *a1)
 {
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled((0x800000029B436598 & 0x7FFFFFFFFFFFFFFFLL), &v11);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(&v11.__r_.__value_.__l.__data_, (0x800000029B436598 & 0x7FFFFFFFFFFFFFFFLL));
   v2 = std::string::insert(&v11, 0, "Create Singleton ");
   v3 = *&v2->__r_.__value_.__l.__data_;
   v15 = v2->__r_.__value_.__r.__words[2];
@@ -74,7 +85,7 @@ unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrRe
   return v6;
 }
 
-void sub_29A0E9B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_29A0E9B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   pxrInternal__aapl__pxrReserved__::Tf_SingletonPyGILDropper::~Tf_SingletonPyGILDropper(&a10);
   sub_29A0E9CEC(&a16);
@@ -106,8 +117,8 @@ void pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserve
     if (v1 == i)
     {
       sub_29A0EBDA4((i + 184));
-      sub_29A0EB484(i + 128);
-      sub_29A0EB4E8(i + 80);
+      sub_29A0EB484((i + 128));
+      sub_29A0EB4E8((i + 80));
       v3 = (i + 48);
       sub_29A0EBD50(&v3);
       v2 = sub_29A0EB570(i);
@@ -164,12 +175,12 @@ pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry *pxrInternal__aapl__pxrReser
   return this;
 }
 
-void sub_29A0E9E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16)
+void sub_29A0E9E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   sub_29A0EBDA4((v16 + 184));
   sub_29A0EB484(v18);
   sub_29A0EB4E8(v17);
-  a16 = (v16 + 48);
+  a16 = v16 + 48;
   sub_29A0EBD50(&a16);
   sub_29A0EB570(v16);
   _Unwind_Resume(a1);
@@ -177,7 +188,7 @@ void sub_29A0E9E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_VerifyFailedCast(pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry *this, const std::type_info *a2, const pxrInternal__aapl__pxrReserved__::TfNotice *a3, const pxrInternal__aapl__pxrReserved__::TfNotice *a4)
 {
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled((*(*(*a3 - 8) + 8) & 0x7FFFFFFFFFFFFFFFLL), v25);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(v25, (*(*(*a3 - 8) + 8) & 0x7FFFFFFFFFFFFFFFLL));
   if (!a4)
   {
     v19 = "tf/noticeRegistry.cpp";
@@ -188,7 +199,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_VerifyFailedCast(pxrI
     v24 = 4;
     v8 = v26;
     v9 = v25[0];
-    pxrInternal__aapl__pxrReserved__::ArchGetDemangled((a2->__type_name & 0x7FFFFFFFFFFFFFFFLL), __p);
+    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(__p, (a2->__type_name & 0x7FFFFFFFFFFFFFFFLL));
     v11 = v25;
     if (v8 >= 0)
     {
@@ -269,7 +280,7 @@ void sub_29A0EA008(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_InsertProbe(uint64_t a1, void *a2)
+unint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_InsertProbe(uint64_t a1, void *a2)
 {
   sub_29A0EB5BC(&v7, a1 + 120);
   result = sub_29B28CBCC(a2);
@@ -300,7 +311,7 @@ void sub_29A0EA0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_RemoveProbe(uint64_t a1, uint64_t a2)
+uint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_RemoveProbe(uint64_t a1, uint64_t a2)
 {
   sub_29A0EB5BC(&v6, a1 + 120);
   result = sub_29A0ECC10((a1 + 128), a2);
@@ -362,14 +373,14 @@ uint64_t sub_29A0EA214(uint64_t *a1, uint64_t a2, char *a3)
   return result;
 }
 
-void sub_29A0EA294(uint64_t a1)
+void sub_29A0EA294(uint64_t *a1)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::Tf_Remnant>::operator->();
   }
 
-  sub_29B28CD14();
+  sub_29B28CD14(v1);
 }
 
 void *sub_29A0EA2E4(void *a1)
@@ -437,7 +448,7 @@ void *pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_EndDelivery(uint64_t
   return result;
 }
 
-void *pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_Register@<X0>(pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry *this@<X0>, pxrInternal__aapl__pxrReserved__::TfNotice::_DelivererBase *a2@<X1>, char **a3@<X8>)
+const char *pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_Register@<X0>(pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry *this@<X0>, pxrInternal__aapl__pxrReserved__::TfNotice::_DelivererBase *a2@<X1>, char **a3@<X8>)
 {
   sub_29A0ECEEC(&v21, "Tf", "Tf_NoticeRegistry::_Register");
   v6 = (*(*a2 + 24))(a2);
@@ -586,20 +597,20 @@ void sub_29A0EA834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_Revoke(uint64_t a1, uint64_t a2)
+unint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_Revoke(uint64_t a1, uint64_t *a2, int a3)
 {
-  v4 = sub_29A0EB5BC(&v7, a1 + 41);
+  v5 = sub_29A0EB5BC(&v8, a1 + 41);
   if (*(a1 + 44))
   {
     sub_29A0EA964(a2);
   }
 
-  result = pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_FreeDeliverer(v4, a2);
-  v6 = v7;
-  if (v7)
+  result = pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_FreeDeliverer(v5, a2);
+  v7 = v8;
+  if (v8)
   {
     __dmb(0xBu);
-    *v6 = 0;
+    *v7 = 0;
   }
 
   return result;
@@ -616,7 +627,7 @@ void sub_29A0EA910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_FreeDeliverer(uint64_t a1, uint64_t a2)
+unint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_FreeDeliverer(uint64_t a1, uint64_t *a2)
 {
   result = sub_29B28CC2C(a2);
   if (v4 & 1 | result)
@@ -627,14 +638,14 @@ uint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_FreeDeliverer(uin
   return result;
 }
 
-void sub_29A0EA964(uint64_t a1)
+void sub_29A0EA964(uint64_t *a1)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
     pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::Tf_Remnant>::operator->();
   }
 
-  sub_29B28CF10();
+  sub_29B28CF10(v1);
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_Send(pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry *this, const pxrInternal__aapl__pxrReserved__::TfNotice *a2, const pxrInternal__aapl__pxrReserved__::TfType *a3, const pxrInternal__aapl__pxrReserved__::TfWeakBase *a4, uint64_t a5, const std::type_info *a6)
@@ -758,7 +769,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_Send(pxrInternal_
       v37 = (v35 - v34) >> 4;
       do
       {
-        v32 = pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_FreeDeliverer(v32, *(this + 6) + v36);
+        v32 = pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_FreeDeliverer(v32, (*(this + 6) + v36));
         v36 += 16;
         --v37;
       }
@@ -782,14 +793,14 @@ uint64_t pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_Send(pxrInternal_
   return v13;
 }
 
-void sub_29A0EACAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, char a12)
+void sub_29A0EACAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, char a12)
 {
   a10 = &a12;
   sub_29A0EBD50(&a10);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29A0EAD04(uint64_t *result, unint64_t a2)
+char **sub_29A0EAD04(char **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -826,9 +837,9 @@ uint64_t *sub_29A0EAD04(uint64_t *result, unint64_t a2)
   return result;
 }
 
-void sub_29A0EADAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0EADAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A0ED41C(va);
   _Unwind_Resume(a1);
 }
@@ -853,17 +864,17 @@ uint64_t sub_29A0EADC0(void *a1, uint64_t a2, char *a3)
   return *a1 + 16;
 }
 
-uint64_t sub_29A0EAE44(uint64_t *a1, uint64_t a2)
+void *sub_29A0EAE44(uint64_t a1, __int128 *a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = sub_29A0ED488(a1, a2);
   }
 
   else
   {
-    v4 = *(a2 + 8);
+    v4 = *(a2 + 1);
     *v3 = *a2;
     v3[1] = v4;
     if (v4)
@@ -871,10 +882,10 @@ uint64_t sub_29A0EAE44(uint64_t *a1, uint64_t a2)
       atomic_fetch_add_explicit((v4 + 8), 1u, memory_order_relaxed);
     }
 
-    result = (v3 + 2);
+    result = v3 + 2;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
@@ -973,7 +984,7 @@ LABEL_9:
       {
         *(v16 + 32) = 256;
         sub_29A0ECF60(&v22, v16);
-        sub_29A0EB3B0((a1 + 48), &v22);
+        sub_29A0EB3B0(a1 + 48, &v22);
         sub_29B28CF5C(&v23);
       }
 
@@ -991,11 +1002,11 @@ LABEL_9:
   return 0;
 }
 
-void sub_29A0EB0F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, atomic_uint *a12, _BYTE *a13)
+void sub_29A0EB0F0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, atomic_uint *a12, _BYTE *a13)
 {
   if (a12 && atomic_fetch_add_explicit(a12 + 2, 0xFFFFFFFF, memory_order_release) == 1)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a13)
@@ -1045,11 +1056,11 @@ void sub_29A0EB1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_BadTypeFatalMsg(pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry *this, const pxrInternal__aapl__pxrReserved__::TfType *a2, const std::type_info *a3)
 {
-  pxrInternal__aapl__pxrReserved__::TfType::GetBaseTypes(a2, &v25);
+  pxrInternal__aapl__pxrReserved__::TfType::GetBaseTypes(&v25, a2);
   pxrInternal__aapl__pxrReserved__::TfType::TfType(&v16);
   if (*a2 == v16)
   {
-    pxrInternal__aapl__pxrReserved__::ArchGetDemangled((a3->__type_name & 0x7FFFFFFFFFFFFFFFLL), __p);
+    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(__p, (a3->__type_name & 0x7FFFFFFFFFFFFFFFLL));
     if (v22 >= 0)
     {
       v11 = __p;
@@ -1145,10 +1156,10 @@ void sub_29A0EB35C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A0EB3B0(uint64_t *a1, uint64_t a2)
+_OWORD *sub_29A0EB3B0(uint64_t a1, uint64_t a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = sub_29A0ED5A4(a1, a2);
   }
@@ -1156,12 +1167,12 @@ uint64_t sub_29A0EB3B0(uint64_t *a1, uint64_t a2)
   else
   {
     *v3 = *a2;
-    result = (v3 + 1);
+    result = v3 + 1;
     *a2 = 0;
     *(a2 + 8) = 0;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
@@ -1183,9 +1194,9 @@ void *pxrInternal__aapl__pxrReserved__::Tf_NoticeRegistry::_DecrementBlockCount(
   return result;
 }
 
-uint64_t sub_29A0EB484(uint64_t a1)
+void **sub_29A0EB484(void **a1)
 {
-  sub_29A0EB4C0(a1, *(a1 + 16));
+  sub_29A0EB4C0(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1196,7 +1207,7 @@ uint64_t sub_29A0EB484(uint64_t a1)
   return a1;
 }
 
-void sub_29A0EB4C0(int a1, void **__p)
+void sub_29A0EB4C0(int a1, void ***__p)
 {
   if (__p)
   {
@@ -1204,9 +1215,9 @@ void sub_29A0EB4C0(int a1, void **__p)
   }
 }
 
-uint64_t sub_29A0EB4E8(uint64_t a1)
+void **sub_29A0EB4E8(void **a1)
 {
-  sub_29A0EB524(a1, *(a1 + 16));
+  sub_29A0EB524(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1320,45 +1331,37 @@ void *sub_29A0EB63C(void *a1, void *a2)
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -1735,9 +1738,9 @@ LABEL_39:
   return i;
 }
 
-void sub_29A0EBCDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0EBCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A0EBCF4(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1784,10 +1787,10 @@ void *sub_29A0EBDA4(void *a1)
   return a1;
 }
 
-uint64_t sub_29A0EBE40(uint64_t result)
+void *sub_29A0EBE40(void *result)
 {
   v1 = result;
-  v2 = *(result + 8);
+  v2 = result[1];
   __dmb(0xBu);
   while (v2)
   {
@@ -1823,7 +1826,7 @@ void sub_29A0EBF88(void *a1)
   operator delete(v1);
 }
 
-unint64_t *sub_29A0EBFB0(unint64_t *a1)
+void *sub_29A0EBFB0(void *a1)
 {
   v2 = a1[4];
   v3 = tbb::internal::concurrent_vector_base_v3::internal_clear((a1 + 1), tbb::concurrent_vector<tbb::internal::padded<tbb::interface6::internal::ets_element<unsigned long>,128ul>,tbb::cache_aligned_allocator<tbb::internal::padded<tbb::interface6::internal::ets_element<unsigned long>,128ul>>>::destroy_array);
@@ -1832,7 +1835,7 @@ unint64_t *sub_29A0EBFB0(unint64_t *a1)
   return a1;
 }
 
-tbb::internal *sub_29A0EC010(uint64_t a1, void *a2, unint64_t a3, unint64_t a4)
+tbb::internal *sub_29A0EC010(uint64_t a1, tbb::internal **a2, unint64_t a3, unint64_t a4)
 {
   v4 = a3;
   if (a3 > a4)
@@ -1855,7 +1858,7 @@ tbb::internal *sub_29A0EC010(uint64_t a1, void *a2, unint64_t a3, unint64_t a4)
   }
 
   result = *a2;
-  if (*a2 >= 0x40uLL)
+  if (*a2 >= 0x40)
   {
     for (; v4; --v4)
     {
@@ -1942,7 +1945,7 @@ unint64_t sub_29A0EC0EC(unint64_t a1)
   return ((v1 >> 1) & 1) + v2;
 }
 
-uint64_t sub_29A0EC164(uint64_t a1, char *a2, char *a3, char *a4)
+uint64_t sub_29A0EC164(uint64_t a1, char *a2, char *a3, char **a4)
 {
   v5 = atomic_load(pxrInternal__aapl__pxrReserved__::TfMallocTag::_isInitialized);
   if (v5)
@@ -1963,7 +1966,7 @@ uint64_t sub_29A0EC164(uint64_t a1, char *a2, char *a3, char *a4)
     if (v8)
     {
       pxrInternal__aapl__pxrReserved__::TfMallocTag::_Begin(a3, v8);
-      if (a4[23] >= 0)
+      if (*(a4 + 23) >= 0)
       {
         v10 = a4;
       }
@@ -2021,15 +2024,15 @@ uint64_t sub_29A0EC300(uint64_t a1)
   return tbb::internal::deallocate_via_handler_v3(a1, v2);
 }
 
-const void **sub_29A0EC378(void *a1, unsigned __int8 *a2)
+const void **sub_29A0EC378(void *a1, const void **a2)
 {
   v2 = a2;
   v15 = 0;
   v16 = 0;
-  v4 = *(a2 + 1);
-  if ((a2[23] & 0x80u) == 0)
+  v4 = a2[1];
+  if (*(a2 + 23) >= 0)
   {
-    v5 = a2[23];
+    v5 = *(a2 + 23);
   }
 
   else
@@ -2149,15 +2152,15 @@ BOOL sub_29A0EC4B8(uint64_t a1, const void **a2, const void **a3)
   return memcmp(v7, v8, v3) == 0;
 }
 
-const void **sub_29A0EC530(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+const void **sub_29A0EC530(uint64_t a1, const void **a2, uint64_t a3)
 {
   v5 = a2;
   v27 = 0;
   v28 = 0;
-  v7 = *(a2 + 1);
-  if ((a2[23] & 0x80u) == 0)
+  v7 = a2[1];
+  if (*(a2 + 23) >= 0)
   {
-    v8 = a2[23];
+    v8 = *(a2 + 23);
   }
 
   else
@@ -2548,7 +2551,7 @@ void sub_29A0ECBB4(uint64_t a1, void *__p)
   operator delete(__p);
 }
 
-uint64_t *sub_29A0ECC10(void *a1, uint64_t a2)
+uint64_t sub_29A0ECC10(void *a1, uint64_t a2)
 {
   result = sub_29A0ECC48(a1, a2);
   if (result)
@@ -3076,7 +3079,7 @@ uint64_t sub_29A0ED454(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_29A0ED488(uint64_t *a1, __int128 *a2)
+uint64_t sub_29A0ED488(char **a1, __int128 *a2)
 {
   v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
@@ -3125,7 +3128,7 @@ uint64_t sub_29A0ED488(uint64_t *a1, __int128 *a2)
 
   *&v19 = v9 + 16;
   v11 = a1[1];
-  v12 = &v9[*a1 - v11];
+  v12 = &(*a1)[v9 - v11];
   sub_29A0ED32C(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
@@ -3140,14 +3143,14 @@ uint64_t sub_29A0ED488(uint64_t *a1, __int128 *a2)
   return v16;
 }
 
-void sub_29A0ED590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A0ED590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A0ED41C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A0ED5A4(uint64_t *a1, uint64_t a2)
+uint64_t sub_29A0ED5A4(char **a1, uint64_t a2)
 {
   v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
@@ -3192,7 +3195,7 @@ uint64_t sub_29A0ED5A4(uint64_t *a1, uint64_t a2)
   *(a2 + 8) = 0;
   *&v18 = v9 + 16;
   v10 = a1[1];
-  v11 = &v8[16 * v2 + *a1 - v10];
+  v11 = &v8[16 * v2 + &(*a1)[-v10]];
   sub_29A0ED6B0(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
@@ -3207,9 +3210,9 @@ uint64_t sub_29A0ED5A4(uint64_t *a1, uint64_t a2)
   return v15;
 }
 
-void sub_29A0ED69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A0ED69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A0ED41C(va);
   _Unwind_Resume(a1);
 }
@@ -3774,7 +3777,7 @@ void sub_29A0EE53C(_Unwind_Exception *a1, int a2)
   sub_299FEDEEC(a1);
 }
 
-uint64_t sub_29A0EE548(unsigned int *a1, int a2)
+uint64_t sub_29A0EE548(pxrInternal__aapl__pxrReserved__::TfSpinRWMutex *a1, int a2)
 {
   if (a2 == 1)
   {
@@ -4214,7 +4217,7 @@ const pxrInternal__aapl__pxrReserved__::TfBits *pxrInternal__aapl__pxrReserved__
         v9 = v8;
       }
 
-      if (v9 != this || *(v3 + 1) != v9 - v7 + 1 || v6 > v4)
+      if (v9 != this || *(v3 + 1) != (v9 - v7 + 1) || v6 > v4)
       {
         if ((v5 >> 6) - (v4 >> 6) != -1)
         {
@@ -4256,7 +4259,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::TfBits::OrSubset(pxrInternal__aapl__p
   return result;
 }
 
-unint64_t *pxrInternal__aapl__pxrReserved__::TfBits::operator^=(unint64_t *a1, pxrInternal__aapl__pxrReserved__::TfBits *a2, char *a3)
+pxrInternal__aapl__pxrReserved__::TfBits *pxrInternal__aapl__pxrReserved__::TfBits::operator^=(pxrInternal__aapl__pxrReserved__::TfBits *a1, pxrInternal__aapl__pxrReserved__::TfBits *a2, char *a3)
 {
   if (*a1 != *a2)
   {
@@ -4290,11 +4293,11 @@ unint64_t *pxrInternal__aapl__pxrReserved__::TfBits::operator^=(unint64_t *a1, p
 
     else
     {
-      v10 = a1[3];
+      v10 = *(a1 + 3);
       if (v10 == -1)
       {
         v10 = sub_29B28D2B0(a1, v7 - 1);
-        a1[3] = v10;
+        *(a1 + 3) = v10;
       }
 
       v11 = *(a2 + 3);
@@ -4313,7 +4316,7 @@ unint64_t *pxrInternal__aapl__pxrReserved__::TfBits::operator^=(unint64_t *a1, p
     if ((v10 >> 6) - (v9 >> 6) != -1)
     {
       v12 = (*(a2 + 5) + 8 * (v9 >> 6));
-      v13 = (a1[5] + 8 * (v9 >> 6));
+      v13 = (*(a1 + 5) + 8 * (v9 >> 6));
       v14 = ~(v10 >> 6) + (v9 >> 6);
       do
       {
@@ -4324,15 +4327,15 @@ unint64_t *pxrInternal__aapl__pxrReserved__::TfBits::operator^=(unint64_t *a1, p
       while (!__CFADD__(v14++, 1));
     }
 
-    a1[1] = -1;
-    a1[2] = sub_29B28D274(a1, v9);
-    a1[3] = sub_29B28D2B0(a1, v10);
+    *(a1 + 1) = -1;
+    *(a1 + 2) = sub_29B28D274(a1, v9);
+    *(a1 + 3) = sub_29B28D2B0(a1, v10);
   }
 
   return a1;
 }
 
-unint64_t *pxrInternal__aapl__pxrReserved__::TfBits::operator-=(unint64_t *a1, pxrInternal__aapl__pxrReserved__::TfBits *a2, char *a3)
+pxrInternal__aapl__pxrReserved__::TfBits *pxrInternal__aapl__pxrReserved__::TfBits::operator-=(pxrInternal__aapl__pxrReserved__::TfBits *a1, pxrInternal__aapl__pxrReserved__::TfBits *a2, char *a3)
 {
   if (*a1 != *a2)
   {
@@ -4340,11 +4343,11 @@ unint64_t *pxrInternal__aapl__pxrReserved__::TfBits::operator-=(unint64_t *a1, p
   }
 
   v5 = sub_29A0EE690(a1);
-  v6 = a1[3];
+  v6 = *(a1 + 3);
   if (v6 == -1)
   {
     v6 = sub_29B28D2B0(a1, *a1 - 1);
-    a1[3] = v6;
+    *(a1 + 3) = v6;
   }
 
   v7 = sub_29A0EE690(a2);
@@ -4382,7 +4385,7 @@ unint64_t *pxrInternal__aapl__pxrReserved__::TfBits::operator-=(unint64_t *a1, p
     if ((v11 >> 6) - (v9 >> 6) != -1)
     {
       v14 = (*(a2 + 5) + 8 * (v9 >> 6));
-      v15 = (a1[5] + 8 * (v9 >> 6));
+      v15 = (*(a1 + 5) + 8 * (v9 >> 6));
       v16 = ~v13 + (v9 >> 6);
       do
       {
@@ -4393,9 +4396,9 @@ unint64_t *pxrInternal__aapl__pxrReserved__::TfBits::operator-=(unint64_t *a1, p
       while (!__CFADD__(v16++, 1));
     }
 
-    a1[1] = -1;
-    a1[2] = sub_29B28D274(a1, v5);
-    a1[3] = sub_29B28D2B0(a1, v6);
+    *(a1 + 1) = -1;
+    *(a1 + 2) = sub_29B28D274(a1, v5);
+    *(a1 + 3) = sub_29B28D2B0(a1, v6);
   }
 
   return a1;
@@ -4448,17 +4451,16 @@ void *pxrInternal__aapl__pxrReserved__::TfBits::_ClearTrailingBits(void *this, u
   return this;
 }
 
-void pxrInternal__aapl__pxrReserved__::TfBits::GetAsStringLeftToRight(pxrInternal__aapl__pxrReserved__::TfBits *this@<X0>, char *a2@<X2>, std::string *a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::TfBits::GetAsStringLeftToRight(pxrInternal__aapl__pxrReserved__::TfBits *this@<X0>, std::string *a2@<X8>, char *a3@<X2>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
   if (*this)
   {
     v5 = 0;
     do
     {
-      if (sub_29A0EF160(this, v5, a2))
+      if (sub_29A0EF160(this, v5, a3))
       {
         v6 = 49;
       }
@@ -4468,7 +4470,7 @@ void pxrInternal__aapl__pxrReserved__::TfBits::GetAsStringLeftToRight(pxrInterna
         v6 = 48;
       }
 
-      std::string::push_back(a3, v6);
+      std::string::push_back(a2, v6);
       ++v5;
     }
 
@@ -4498,14 +4500,13 @@ uint64_t sub_29A0EF160(unint64_t *a1, unint64_t a2, char *a3)
   return (*(a1[5] + ((a2 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> a2) & 1;
 }
 
-void pxrInternal__aapl__pxrReserved__::TfBits::GetAsStringRightToLeft(pxrInternal__aapl__pxrReserved__::TfBits *this@<X0>, char *a2@<X2>, std::string *a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::TfBits::GetAsStringRightToLeft(pxrInternal__aapl__pxrReserved__::TfBits *this@<X0>, std::string *a2@<X8>, char *a3@<X2>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
   for (i = *this - 1; (i & 0x8000000000000000) == 0; --i)
   {
-    if (sub_29A0EF160(this, i, a2))
+    if (sub_29A0EF160(this, i, a3))
     {
       v7 = 49;
     }
@@ -4515,7 +4516,7 @@ void pxrInternal__aapl__pxrReserved__::TfBits::GetAsStringRightToLeft(pxrInterna
       v7 = 48;
     }
 
-    std::string::push_back(a3, v7);
+    std::string::push_back(a2, v7);
   }
 }
 
@@ -4531,7 +4532,7 @@ void sub_29A0EF208(_Unwind_Exception *exception_object)
 
 void *pxrInternal__aapl__pxrReserved__::operator<<(void *a1, pxrInternal__aapl__pxrReserved__::TfBits *this, char *a3)
 {
-  pxrInternal__aapl__pxrReserved__::TfBits::GetAsStringLeftToRight(this, a3, &__p);
+  pxrInternal__aapl__pxrReserved__::TfBits::GetAsStringLeftToRight(this, &__p, a3);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -4699,8 +4700,7 @@ unint64_t pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetHash(pxrInterna
 
 void pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetAsStringLeftToRight(pxrInternal__aapl__pxrReserved__::TfCompressedBits *this@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v3 = *(this + 9);
   if (v3)
@@ -4744,8 +4744,7 @@ void sub_29A0EF55C(_Unwind_Exception *exception_object)
 
 void pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetAsStringRightToLeft(pxrInternal__aapl__pxrReserved__::TfCompressedBits *this@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v3 = *(this + 9);
   v4 = (v3 - 1);
@@ -4794,7 +4793,7 @@ void sub_29A0EF628(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetAsRLEString@<D0>(unsigned int **this@<X0>, const char *a2@<X1>, char *a3@<X2>, std::string *a4@<X8>)
+double pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetAsRLEString@<D0>(unsigned int **this@<X0>, const char *a2@<X1>, std::string *a3@<X8>, char *a4@<X2>)
 {
   v33[2] = *MEMORY[0x29EDCA608];
   memset(&v32, 0, sizeof(v32));
@@ -4804,7 +4803,7 @@ double pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetAsRLEString@<D0>(u
     if (v5 > 4)
     {
       v8 = *(this + 44);
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("%d", a2, a3, *(this + 44));
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("%d", a2, a4, *(this + 44));
       v9 = std::string::append(&v30, "x");
       v10 = *&v9->__r_.__value_.__l.__data_;
       v31.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
@@ -4930,20 +4929,20 @@ double pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetAsRLEString@<D0>(u
       }
 
       result = *&v32.__r_.__value_.__l.__data_;
-      *a4 = v32;
+      *a3 = v32;
     }
 
     else
     {
-      pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetAsStringLeftToRight(this, a4);
+      pxrInternal__aapl__pxrReserved__::TfCompressedBits::GetAsStringLeftToRight(this, a3);
     }
   }
 
   else
   {
-    a4->__r_.__value_.__r.__words[0] = 0;
-    a4->__r_.__value_.__l.__size_ = 0;
-    a4->__r_.__value_.__r.__words[2] = 0;
+    a3->__r_.__value_.__r.__words[0] = 0;
+    a3->__r_.__value_.__l.__size_ = 0;
+    a3->__r_.__value_.__r.__words[2] = 0;
   }
 
   return result;
@@ -5221,7 +5220,7 @@ void sub_29A0EFCE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::TfCompressedBits::Decompress(pxrInternal__aapl__pxrReserved__::TfCompressedBits *this, void **a2)
+void pxrInternal__aapl__pxrReserved__::TfCompressedBits::Decompress(pxrInternal__aapl__pxrReserved__::TfCompressedBits *this, atomic_ullong *a2)
 {
   sub_29A0EFE34(a2, *(this + 10));
   bzero(a2[5], 8 * a2[4]);
@@ -5490,7 +5489,7 @@ void sub_29A0F018C(char **a1, char **a2)
   }
 }
 
-unint64_t *sub_29A0F0220(unint64_t *result, unint64_t a2, char *a3)
+atomic_ullong *sub_29A0F0220(atomic_ullong *result, unint64_t a2, char *a3)
 {
   v3 = *result;
   if (*result <= a2)
@@ -5529,7 +5528,7 @@ unint64_t *sub_29A0F0220(unint64_t *result, unint64_t a2, char *a3)
   return result;
 }
 
-unint64_t *sub_29A0F02CC(unint64_t *result, unint64_t a2, char *a3)
+atomic_ullong *sub_29A0F02CC(atomic_ullong *result, unint64_t a2, char *a3)
 {
   if (*result <= a2)
   {
@@ -5568,7 +5567,7 @@ unint64_t *sub_29A0F02CC(unint64_t *result, unint64_t a2, char *a3)
 
 unint64_t sub_29A0F0370(unint64_t *a1)
 {
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(("N32pxrInternal__aapl__pxrReserved__22Tf_DebugSymbolRegistryE" & 0x7FFFFFFFFFFFFFFFLL), &v11);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(&v11.__r_.__value_.__l.__data_, ("N32pxrInternal__aapl__pxrReserved__22Tf_DebugSymbolRegistryE" & 0x7FFFFFFFFFFFFFFFLL));
   v2 = std::string::insert(&v11, 0, "Create Singleton ");
   v3 = *&v2->__r_.__value_.__l.__data_;
   v15 = v2->__r_.__value_.__r.__words[2];
@@ -5642,7 +5641,7 @@ unint64_t sub_29A0F0370(unint64_t *a1)
   return v6;
 }
 
-void sub_29A0F0530(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_29A0F0530(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   pxrInternal__aapl__pxrReserved__::Tf_SingletonPyGILDropper::~Tf_SingletonPyGILDropper(&a10);
   sub_29A0E9CEC(&a16);
@@ -5659,8 +5658,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::TfDebug::TimedScopeHelper<true>::Time
   *a1 = a2;
   if (a2)
   {
-    va_copy(v11, va);
-    pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&v9, this, va, this);
+    pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, this);
     if (*(a1 + 31) < 0)
     {
       operator delete(*v4);
@@ -5694,8 +5692,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::TfDebug::TimedScopeHelper<true>::Time
   *a1 = a2;
   if (a2)
   {
-    va_copy(v11, va);
-    pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&v9, this, va, this);
+    pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, this);
     if (*(a1 + 31) < 0)
     {
       operator delete(*v4);
@@ -6006,7 +6003,7 @@ LABEL_28:
 
         v42.__r_.__value_.__r.__words[0] = (v16 + 4);
         v21 = v20 & 0x100;
-        *(sub_29A0F28EC((a1 + 8), v16 + 4, &unk_29B4D6118, &v42) + 56) = BYTE1(v21);
+        *(sub_29A0F28EC((a1 + 8), v16 + 4, &unk_29B4D6118, &v42, &v41) + 56) = BYTE1(v21);
         if (v21)
         {
           v22 = 2;
@@ -6159,7 +6156,7 @@ void sub_29A0F0E98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::TfDebug::IsDebugSymbolNameEnabled(char *a1)
+uint64_t pxrInternal__aapl__pxrReserved__::TfDebug::IsDebugSymbolNameEnabled(char **a1)
 {
   v2 = atomic_load(&qword_2A14F61F0);
   if (!v2)
@@ -6170,10 +6167,10 @@ uint64_t pxrInternal__aapl__pxrReserved__::TfDebug::IsDebugSymbolNameEnabled(cha
   return sub_29A0F0FF4(v2, a1);
 }
 
-uint64_t sub_29A0F0FF4(uint64_t a1, char *a2)
+uint64_t sub_29A0F0FF4(uint64_t a1, char **a2)
 {
   sub_29A0EB5BC(&v7, a1);
-  if (a2[23] >= 0)
+  if (*(a2 + 23) >= 0)
   {
     v4 = a2;
   }
@@ -6218,8 +6215,7 @@ void pxrInternal__aapl__pxrReserved__::TfDebug::GetDebugSymbolDescriptions(std::
 
 void sub_29A0F10B8(uint64_t a1@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   sub_29A0EB5BC(&v29, a1);
   v4 = *(a1 + 56);
@@ -6417,14 +6413,14 @@ const void **sub_29A0F139C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void sub_29A0F1454(_Unwind_Exception *a1, uint64_t a2, _BYTE *a3, uint64_t a4, ...)
+void sub_29A0F1454(_Unwind_Exception *a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a5, _BYTE *a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A012C90(va);
-  if (a3)
+  if (a6)
   {
     __dmb(0xBu);
-    *a3 = 0;
+    *a6 = 0;
   }
 
   _Unwind_Resume(a1);
@@ -6554,15 +6550,16 @@ void sub_29A0F1710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::TfDebug::_SetNode(void *a1, char *a2, int a3)
+void pxrInternal__aapl__pxrReserved__::TfDebug::_SetNode(void *a1, char *a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = atomic_load(&qword_2A14F61F0);
   if (!v6)
   {
     v6 = sub_29A0F0370(&qword_2A14F61F0);
   }
 
-  sub_29A0F17C0(v6, a1, a2, a3);
+  sub_29A0F17C0(v6, a1, a2, v3);
 }
 
 void sub_29A0F17C0(uint64_t a1, void *a2, char *a3, int a4)
@@ -6577,9 +6574,9 @@ void sub_29A0F17C0(uint64_t a1, void *a2, char *a3, int a4)
   }
 
   __p[0] = a2;
-  sub_29A0F2BE4(v8 + 7, __p, __p);
-  v9 = v8[7];
-  if (v9 != v8 + 8)
+  sub_29A0F2BE4(v8 + 56, __p, __p);
+  v9 = *(v8 + 7);
+  if (v9 != (v8 + 4))
   {
     if (a4)
     {
@@ -6621,7 +6618,7 @@ void sub_29A0F17C0(uint64_t a1, void *a2, char *a3, int a4)
       v9 = v12;
     }
 
-    while (v12 != v8 + 8);
+    while (v12 != (v8 + 4));
   }
 
   sub_29A008E78(__p, a3);
@@ -6688,10 +6685,10 @@ uint64_t sub_29A0F1A10(uint64_t a1, void *a2, char *a3)
   }
 
   __p[0] = a2;
-  sub_29A0F2BE4(v6 + 7, __p, __p);
+  sub_29A0F2BE4(v6 + 56, __p, __p);
   result = sub_29A0F2A2C(a1, a3);
-  v8 = v6[7];
-  if (v8 != v6 + 8)
+  v8 = *(v6 + 7);
+  if (v8 != (v6 + 4))
   {
     if (result)
     {
@@ -6733,7 +6730,7 @@ uint64_t sub_29A0F1A10(uint64_t a1, void *a2, char *a3)
       v8 = v11;
     }
 
-    while (v11 != v6 + 8);
+    while (v11 != (v6 + 4));
   }
 
   v13 = v16;
@@ -6780,11 +6777,11 @@ void pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg(pxrInternal__aapl__p
 {
   va_start(va, a3);
   va_copy(v5, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__p, this, va, a3);
-  pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg(__p);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, a3);
+  pxrInternal__aapl__pxrReserved__::TfDebug::Helper::Msg(&__p);
   if (v4 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
   }
 }
 
@@ -6868,7 +6865,7 @@ void sub_29A0F1D84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A0F1DC4(uint64_t a1, std::string::size_type a2, uint64_t a3, __int128 *a4)
+void sub_29A0F1DC4(uint64_t a1, char *a2, uint64_t a3, __int128 *a4)
 {
   v28 = a3;
   if (sub_29A0F20E0(2))
@@ -6886,7 +6883,7 @@ void sub_29A0F1DC4(uint64_t a1, std::string::size_type a2, uint64_t a3, __int128
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    if (*(a2 + 23) >= 0)
+    if (a2[23] >= 0)
     {
       v10 = a2;
     }
@@ -6927,7 +6924,7 @@ void sub_29A0F1DC4(uint64_t a1, std::string::size_type a2, uint64_t a3, __int128
     v22 = "void pxrInternal__aapl__pxrReserved__::Tf_DebugSymbolRegistry::_Register(const std::string &, TfDebug::_Node *, const std::string &)";
     v23 = 0;
     v24 = 4;
-    if (*(a2 + 23) >= 0)
+    if (a2[23] >= 0)
     {
       v14 = a2;
     }
@@ -6941,8 +6938,8 @@ void sub_29A0F1DC4(uint64_t a1, std::string::size_type a2, uint64_t a3, __int128
   }
 
   __p.__r_.__value_.__r.__words[0] = a2;
-  v15 = sub_29A0F2ED0((a1 + 32), a2, &unk_29B4D6118, &__p);
-  sub_29A0F2BE4(v15 + 7, &v28, &v28);
+  v15 = sub_29A0F2ED0((a1 + 32), a2, &unk_29B4D6118, &__p, &v25);
+  sub_29A0F2BE4((v15 + 7), &v28, &v28);
   if (v16)
   {
     v17 = atomic_load(byte_2A153EF4C);
@@ -7406,15 +7403,15 @@ void sub_29A0F28D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_29A0F28EC(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29A0F28EC(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29A0F2984(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29A0F2984(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -7484,7 +7481,7 @@ void sub_29A0F2AC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_OWORD *sub_29A0F2AE0(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
+_OWORD *sub_29A0F2AE0(uint64_t ***a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
   v6 = sub_29A00B0D0(a1, &v12, a2);
   v7 = *v6;
@@ -7523,10 +7520,10 @@ void sub_29A0F2B88(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t *sub_29A0F2BE4(uint64_t **a1, unint64_t *a2, uint64_t *a3)
+uint64_t *sub_29A0F2BE4(uint64_t a1, unint64_t *a2, uint64_t *a3)
 {
-  v6 = a1 + 1;
-  v5 = a1[1];
+  v6 = (a1 + 8);
+  v5 = *(a1 + 8);
   if (v5)
   {
     v7 = *a2;
@@ -7565,7 +7562,7 @@ uint64_t *sub_29A0F2BE4(uint64_t **a1, unint64_t *a2, uint64_t *a3)
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
 LABEL_10:
     v10 = operator new(0x28uLL);
     v10[4] = *a3;
@@ -7576,7 +7573,7 @@ LABEL_10:
   return v8;
 }
 
-_OWORD *sub_29A0F2CA0(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
+_OWORD *sub_29A0F2CA0(uint64_t ***a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
   v6 = sub_29A00B0D0(a1, &v12, a2);
   v7 = *v6;
@@ -7598,13 +7595,13 @@ _OWORD *sub_29A0F2CA0(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
   return v7;
 }
 
-uint64_t *sub_29A0F2D3C(char *a1, const void **a2, __int128 *a3, __int128 *a4)
+uint64_t *sub_29A0F2D3C(uint64_t **a1, const void **a2, __int128 *a3, __int128 *a4)
 {
   v7 = sub_29A00B0D0(a1, &v10, a2);
   result = *v7;
   if (!*v7)
   {
-    sub_29A0F2DC4(a1, a3, a4, &v9);
+    sub_29A0F2DC4(a1, &v9, a3, a4);
     sub_29A00B204(a1, v10, v7, v9);
     return v9;
   }
@@ -7612,14 +7609,14 @@ uint64_t *sub_29A0F2D3C(char *a1, const void **a2, __int128 *a3, __int128 *a4)
   return result;
 }
 
-char *sub_29A0F2DC4@<X0>(char *a1@<X0>, __int128 *a2@<X1>, __int128 *a3@<X2>, char **a4@<X8>)
+char *sub_29A0F2DC4@<X0>(char *a1@<X0>, char **a2@<X8>, __int128 *a3@<X1>, __int128 *a4@<X2>)
 {
   v8 = operator new(0x50uLL);
-  *a4 = v8;
-  a4[1] = a1;
-  a4[2] = 0;
-  result = sub_29A0F2E38(v8 + 32, a2, a3);
-  *(a4 + 16) = 1;
+  *a2 = v8;
+  a2[1] = a1;
+  a2[2] = 0;
+  result = sub_29A0F2E38(v8 + 32, a3, a4);
+  *(a2 + 16) = 1;
   return result;
 }
 
@@ -7662,15 +7659,15 @@ void sub_29A0F2EB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *sub_29A0F2ED0(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t *sub_29A0F2ED0(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4, uint64_t a5)
 {
-  v6 = sub_29A00B0D0(a1, &v9, a2);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A00B0D0(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29A0F2F68(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29A0F2F68(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -7703,10 +7700,10 @@ void *sub_29A0F2F68@<X0>(uint64_t a1@<X0>, __int128 **a2@<X2>, void *a3@<X8>)
   return result;
 }
 
-uint64_t *sub_29A0F3000()
+unint64_t *sub_29A0F3000(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, BOOL a8)
 {
-  v1 = nullsub_15;
-  v1 = nullsub_16;
+  v9 = nullsub_15;
+  v9 = nullsub_16;
 }
 
 void pxrInternal__aapl__pxrReserved__::TfDebugSymbolsChangedNotice::~TfDebugSymbolsChangedNotice(pxrInternal__aapl__pxrReserved__::TfDebugSymbolsChangedNotice *this)
@@ -7725,30 +7722,29 @@ void pxrInternal__aapl__pxrReserved__::TfDebugSymbolEnableChangedNotice::~TfDebu
 
 void sub_29A0F30FC()
 {
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F930, 1, "TF_DIAGNOSTIC_CODING_ERROR_TYPE", "Coding Error");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F930, 2, "TF_DIAGNOSTIC_FATAL_CODING_ERROR_TYPE", "Fatal Coding Error");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F930, 3, "TF_DIAGNOSTIC_RUNTIME_ERROR_TYPE", "Runtime Error");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F930, 4, "TF_DIAGNOSTIC_FATAL_ERROR_TYPE", "Fatal Error");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F930, 5, "TF_DIAGNOSTIC_NONFATAL_ERROR_TYPE", "Error");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F930, 6, "TF_DIAGNOSTIC_WARNING_TYPE", "Warning");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F930, 7, "TF_DIAGNOSTIC_STATUS_TYPE", "Status");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F930, 1, "TF_DIAGNOSTIC_CODING_ERROR_TYPE", "Coding Error");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F930, 2, "TF_DIAGNOSTIC_FATAL_CODING_ERROR_TYPE", "Fatal Coding Error");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F930, 3, "TF_DIAGNOSTIC_RUNTIME_ERROR_TYPE", "Runtime Error");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F930, 4, "TF_DIAGNOSTIC_FATAL_ERROR_TYPE", "Fatal Error");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F930, 5, "TF_DIAGNOSTIC_NONFATAL_ERROR_TYPE", "Error");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F930, 6, "TF_DIAGNOSTIC_WARNING_TYPE", "Warning");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F930, 7, "TF_DIAGNOSTIC_STATUS_TYPE", "Status");
 
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F930, 8, "TF_APPLICATION_EXIT_TYPE", "Application Exit");
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F930, 8, "TF_APPLICATION_EXIT_TYPE", "Application Exit");
 }
 
 char *pxrInternal__aapl__pxrReserved__::Tf_VerifyStringFormat(pxrInternal__aapl__pxrReserved__ *this, const char *a2, char *a3, ...)
 {
   va_start(va, a3);
-  va_copy(v8, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__s1, this, va, a3);
-  if ((v7 & 0x80000000) == 0)
+  va_copy(v7, va);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, a3);
+  if ((v6 & 0x80000000) == 0)
   {
-    return strdup(__s1);
+    return strdup(&__s1);
   }
 
-  v4 = __s1[0];
-  v3 = strdup(__s1[0]);
-  operator delete(v4);
+  v3 = strdup(__s1);
+  operator delete(__s1);
   return v3;
 }
 
@@ -7879,9 +7875,9 @@ void sub_29A0F3B7C(uint64_t a1, uint64_t a2, char *a3)
   pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(v3, "std::terminate() called without a current exception", a3);
 }
 
-void pxrInternal__aapl__pxrReserved__::TfSetProgramNameForErrors(char *a1, const char *a2)
+void pxrInternal__aapl__pxrReserved__::TfSetProgramNameForErrors(pxrInternal__aapl__pxrReserved__ *a1, const char *a2)
 {
-  if (a1[23] < 0)
+  if (*(a1 + 23) < 0)
   {
     a1 = *a1;
   }
@@ -7928,9 +7924,9 @@ void sub_29A0F3CC4(int a1)
   _exit(a1 + 128);
 }
 
-void sub_29A0F3D48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0F3D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::Tf_ScopeDescriptionStackReportLock::~Tf_ScopeDescriptionStackReportLock(va);
   _Unwind_Resume(a1);
 }
@@ -8023,7 +8019,7 @@ void sub_29A0F3EAC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t *sub_29A0F3EE8(unint64_t *a1, void (**a2)(uint64_t))
+void *sub_29A0F3EE8(void *a1, void (**a2)(uint64_t))
 {
   v4[8] = *MEMORY[0x29EDCA608];
   v4[0] = 0;
@@ -8070,7 +8066,7 @@ uint64_t (**sub_29A0F40F0(uint64_t (**result)(void, void, void, void, void)))(vo
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, uint64_t *a2, std::string *a3)
 {
   v5 = *a2;
   v6 = a2[1];
@@ -8109,7 +8105,7 @@ void sub_29A0F41BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, int a2, uint64_t *a3)
+void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, int a2, std::string *a3)
 {
   v3 = &unk_2A203F930;
   v4 = a2;
@@ -8119,12 +8115,12 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, int a2, u
 void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, uint64_t *a2, pxrInternal__aapl__pxrReserved__ *this, ...)
 {
   va_start(va, this);
-  va_copy(v7, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__p, this, va, this);
-  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(a1, a2, __p);
-  if (v6 < 0)
+  va_copy(v6, va);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, this);
+  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(a1, a2, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -8141,14 +8137,14 @@ void sub_29A0F4270(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, int a2, pxrInternal__aapl__pxrReserved__ *this, ...)
 {
   va_start(va, this);
-  va_copy(v7, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__p, this, va, this);
-  v8 = &unk_2A203F930;
-  v9 = a2;
-  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(a1, &v8, __p);
-  if (v6 < 0)
+  va_copy(v6, va);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, this);
+  v7 = &unk_2A203F930;
+  v8 = a2;
+  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(a1, &v7, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -8162,7 +8158,7 @@ void sub_29A0F4300(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(uint64_t a1, uint64_t *a2, std::string *a3)
 {
   v16[4] = *MEMORY[0x29EDCA608];
   v5 = *a2;
@@ -8206,7 +8202,7 @@ void sub_29A0F43EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(uint64_t a1, uint64_t *a2, void (**a3)(uint64_t, void, void, void, void), uint64_t *a4)
+void pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(uint64_t a1, uint64_t *a2, void (**a3)(uint64_t, void, void, void, void), std::string *a4)
 {
   v18[4] = *MEMORY[0x29EDCA608];
   v7 = *a2;
@@ -8257,12 +8253,12 @@ void sub_29A0F450C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(uint64_t a1, uint64_t *a2, pxrInternal__aapl__pxrReserved__ *this, ...)
 {
   va_start(va, this);
-  va_copy(v7, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__p, this, va, this);
-  pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(a1, a2, __p);
-  if (v6 < 0)
+  va_copy(v6, va);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, this);
+  pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(a1, a2, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -8279,12 +8275,12 @@ void sub_29A0F45A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(uint64_t a1, uint64_t *a2, char *a3, pxrInternal__aapl__pxrReserved__ *this, ...)
 {
   va_start(va, this);
-  va_copy(v9, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__p, this, va, a3);
-  pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(a1, a2, a3, __p);
-  if (v8 < 0)
+  va_copy(v8, va);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, a3);
+  pxrInternal__aapl__pxrReserved__::Tf_PostQuietlyErrorHelper(a1, a2, a3, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -8298,7 +8294,7 @@ void sub_29A0F4634(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, void (**a2)(uint64_t, void, void, void, void), uint64_t *a3, uint64_t *a4)
+void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, void (**a2)(uint64_t, void, void, void, void), uint64_t *a3, std::string *a4)
 {
   v18[4] = *MEMORY[0x29EDCA608];
   v7 = *a3;
@@ -8349,12 +8345,12 @@ void sub_29A0F4744(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(uint64_t a1, void (**a2)(uint64_t, void, void, void, void), char *a3, pxrInternal__aapl__pxrReserved__ *this, ...)
 {
   va_start(va, this);
-  va_copy(v9, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__p, this, va, a3);
-  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(a1, a2, a3, __p);
-  if (v8 < 0)
+  va_copy(v8, va);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, a3);
+  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(a1, a2, a3, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -8409,7 +8405,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(uint64_t a1, pxrInte
 {
   va_start(va, a3);
   va_copy(v5, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, this, va, a3);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, a3);
   pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(a1, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8468,7 +8464,7 @@ void sub_29A0F49D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(uint64_t a1, int a2, std::string *a3)
 {
-  v3 = qword_2A203F930;
+  v3 = &unk_2A203F930;
   v4 = a2;
   pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(a1, &v3, a3);
 }
@@ -8477,7 +8473,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(uint64_t a1, uint64_
 {
   va_start(va, this);
   va_copy(v6, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, this, va, this);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, this);
   pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(a1, a2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8499,8 +8495,8 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(uint64_t a1, int a2,
 {
   va_start(va, this);
   va_copy(v6, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, this, va, this);
-  v7 = qword_2A203F930;
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, this);
+  v7 = &unk_2A203F930;
   v8 = a2;
   pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(a1, &v7, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8571,7 +8567,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(uint64_t a1, void (*
 {
   va_start(va, this);
   va_copy(v8, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, this, va, a3);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, a3);
   pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(a1, a2, a3, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8591,7 +8587,7 @@ void sub_29A0F4CCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void pxrInternal__aapl__pxrReserved__::Tf_PostStatusHelper(uint64_t a1, std::string *a2)
 {
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, 7, __p);
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, 7, __p);
   if (v7 >= 0)
   {
     v4 = __p;
@@ -8606,7 +8602,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostStatusHelper(uint64_t a1, std::str
   v8[0] = *a1;
   v8[1] = v5;
   v9 = *(a1 + 32);
-  v10 = qword_2A203F930;
+  v10 = &unk_2A203F930;
   v11 = 7;
   v12 = v4;
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::StatusHelper::Post(v8, a2);
@@ -8630,7 +8626,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostStatusHelper(uint64_t a1, pxrInter
 {
   va_start(va, a3);
   va_copy(v5, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, this, va, a3);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, a3);
   pxrInternal__aapl__pxrReserved__::Tf_PostStatusHelper(a1, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8691,7 +8687,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostStatusHelper(uint64_t a1, uint64_t
 {
   va_start(va, this);
   va_copy(v6, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, this, va, this);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, this);
   pxrInternal__aapl__pxrReserved__::Tf_PostStatusHelper(a1, a2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8761,7 +8757,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_PostStatusHelper(uint64_t a1, void (**
 {
   va_start(va, this);
   va_copy(v8, va);
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, this, va, a3);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(this, va, a3);
   pxrInternal__aapl__pxrReserved__::Tf_PostStatusHelper(a1, a2, a3, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8782,36 +8778,36 @@ void sub_29A0F50E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueError(pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper *this, pxrInternal__aapl__pxrReserved__ *a2, ...)
 {
   va_start(va, a2);
-  va_copy(v17, va);
+  va_copy(v16, va);
   v4 = *(this + 10);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, v10);
-  if (v11 >= 0)
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, v9);
+  if (v10 >= 0)
   {
-    v6 = v10;
+    v6 = v9;
   }
 
   else
   {
-    v6 = v10[0];
+    v6 = v9[0];
   }
 
   v7 = *(this + 1);
-  v12[0] = *this;
-  v12[1] = v7;
-  v13 = *(this + 4);
-  v14 = qword_2A203F930;
-  v15 = v4;
-  v16 = v6;
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__p, a2, v17, v5);
-  pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::ErrorHelper::Post(v12, __p);
-  if (v9 < 0)
+  v11[0] = *this;
+  v11[1] = v7;
+  v12 = *(this + 4);
+  v13 = &unk_2A203F930;
+  v14 = v4;
+  v15 = v6;
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(a2, v16, v5);
+  pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::ErrorHelper::Post(v11, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v11 < 0)
+  if (v10 < 0)
   {
-    operator delete(v10[0]);
+    operator delete(v9[0]);
   }
 }
 
@@ -8841,7 +8837,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(pxrI
   v7 = *(this + 4);
   v8 = &unk_2A203F930;
   v9 = v3;
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(v5, a2, va, a3);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(a2, va, a3);
   sub_29A0F5278(v6, v5);
   __break(1u);
 }
@@ -8856,11 +8852,11 @@ void sub_29A0F525C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A0F5278(uint64_t a1, uint64_t a2)
+void sub_29A0F5278(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_29A0F5A58();
-  v5 = pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::PostFatal(v4, a1, *(a1 + 40), *(a1 + 48), a2);
-  return pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(v5, v6);
+  sub_29A0F5A58();
+  pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::PostFatal();
+  pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(v2, v3);
 }
 
 void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper *this, pxrInternal__aapl__pxrReserved__ *a2, ...)
@@ -8868,7 +8864,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(pxrInte
   va_start(va, a2);
   va_copy(v16, va);
   v4 = *(this + 10);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, v9);
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, v9);
   if (v10 >= 0)
   {
     v6 = v9;
@@ -8883,10 +8879,10 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(pxrInte
   v11[0] = *this;
   v11[1] = v7;
   v12 = *(this + 4);
-  v13 = qword_2A203F930;
+  v13 = &unk_2A203F930;
   v14 = v4;
   v15 = v6;
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, a2, v16, v5);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(a2, v16, v5);
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::WarningHelper::Post(v11, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8919,7 +8915,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueStatus(pxrInter
   va_start(va, a2);
   va_copy(v16, va);
   v4 = *(this + 10);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, v9);
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, v9);
   if (v10 >= 0)
   {
     v6 = v9;
@@ -8934,10 +8930,10 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueStatus(pxrInter
   v11[0] = *this;
   v11[1] = v7;
   v12 = *(this + 4);
-  v13 = qword_2A203F930;
+  v13 = &unk_2A203F930;
   v14 = v4;
   v15 = v6;
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, a2, v16, v5);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(a2, v16, v5);
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::StatusHelper::Post(v11, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8965,10 +8961,10 @@ void sub_29A0F5460(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueError(uint64_t a1, uint64_t *a2)
+void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueError(uint64_t a1, std::string *a2)
 {
   v4 = *(a1 + 40);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, __p);
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, __p);
   if (v8 >= 0)
   {
     v5 = __p;
@@ -8983,7 +8979,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueError(uint64_t 
   v9[0] = *a1;
   v9[1] = v6;
   v10 = *(a1 + 32);
-  v11 = qword_2A203F930;
+  v11 = &unk_2A203F930;
   v12 = v4;
   v13 = v5;
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::ErrorHelper::Post(v9, a2);
@@ -9003,7 +8999,7 @@ void sub_29A0F5530(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(uint64_t a1, uint64_t a2)
+void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 40);
   v3 = *(a1 + 16);
@@ -9012,14 +9008,14 @@ uint64_t pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueFatalError(
   v7 = *(a1 + 32);
   v8 = &unk_2A203F930;
   v9 = v2;
-  v4 = sub_29A0F5278(v6, a2);
-  return pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(v4);
+  sub_29A0F5278(v6, a2);
+  pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(v4, v5);
 }
 
 void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(uint64_t a1, std::string *a2)
 {
   v4 = *(a1 + 40);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, __p);
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, __p);
   if (v8 >= 0)
   {
     v5 = __p;
@@ -9034,7 +9030,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(uint64_
   v9[0] = *a1;
   v9[1] = v6;
   v10 = *(a1 + 32);
-  v11 = qword_2A203F930;
+  v11 = &unk_2A203F930;
   v12 = v4;
   v13 = v5;
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::WarningHelper::Post(v9, a2);
@@ -9057,7 +9053,7 @@ void sub_29A0F5620(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueStatus(uint64_t a1, std::string *a2)
 {
   v4 = *(a1 + 40);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, __p);
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, __p);
   if (v8 >= 0)
   {
     v5 = __p;
@@ -9072,7 +9068,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueStatus(uint64_t
   v9[0] = *a1;
   v9[1] = v6;
   v10 = *(a1 + 32);
-  v11 = qword_2A203F930;
+  v11 = &unk_2A203F930;
   v12 = v4;
   v13 = v5;
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::StatusHelper::Post(v9, a2);
@@ -9095,36 +9091,36 @@ void sub_29A0F56D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticLiteHelper::IssueError(pxrInternal__aapl__pxrReserved__::Tf_DiagnosticLiteHelper *this, pxrInternal__aapl__pxrReserved__ *a2, ...)
 {
   va_start(va, a2);
-  va_copy(v17, va);
+  va_copy(v16, va);
   v4 = *(this + 10);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, v10);
-  if (v11 >= 0)
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, v9);
+  if (v10 >= 0)
   {
-    v6 = v10;
+    v6 = v9;
   }
 
   else
   {
-    v6 = v10[0];
+    v6 = v9[0];
   }
 
   v7 = *(this + 1);
-  v12[0] = *this;
-  v12[1] = v7;
-  v13 = *(this + 4);
-  v14 = qword_2A203F930;
-  v15 = v4;
-  v16 = v6;
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(__p, a2, v17, v5);
-  pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::ErrorHelper::Post(v12, __p);
-  if (v9 < 0)
+  v11[0] = *this;
+  v11[1] = v7;
+  v12 = *(this + 4);
+  v13 = &unk_2A203F930;
+  v14 = v4;
+  v15 = v6;
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(a2, v16, v5);
+  pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::ErrorHelper::Post(v11, &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v11 < 0)
+  if (v10 < 0)
   {
-    operator delete(v10[0]);
+    operator delete(v9[0]);
   }
 }
 
@@ -9154,7 +9150,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticLiteHelper::IssueFatalError(
   v7 = *(this + 4);
   v8 = &unk_2A203F930;
   v9 = v3;
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(v5, a2, va, a3);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(a2, va, a3);
   sub_29A0F5278(v6, v5);
   __break(1u);
 }
@@ -9174,7 +9170,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticLiteHelper::IssueWarning(pxr
   va_start(va, a2);
   va_copy(v16, va);
   v4 = *(this + 10);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, v9);
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, v9);
   if (v10 >= 0)
   {
     v6 = v9;
@@ -9189,10 +9185,10 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticLiteHelper::IssueWarning(pxr
   v11[0] = *this;
   v11[1] = v7;
   v12 = *(this + 4);
-  v13 = qword_2A203F930;
+  v13 = &unk_2A203F930;
   v14 = v4;
   v15 = v6;
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, a2, v16, v5);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(a2, v16, v5);
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::WarningHelper::Post(v11, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -9225,7 +9221,7 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticLiteHelper::IssueStatus(pxrI
   va_start(va, a2);
   va_copy(v16, va);
   v4 = *(this + 10);
-  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(qword_2A203F930, v4, v9);
+  pxrInternal__aapl__pxrReserved__::TfEnum::GetName(&unk_2A203F930, v4, v9);
   if (v10 >= 0)
   {
     v6 = v9;
@@ -9240,10 +9236,10 @@ void pxrInternal__aapl__pxrReserved__::Tf_DiagnosticLiteHelper::IssueStatus(pxrI
   v11[0] = *this;
   v11[1] = v7;
   v12 = *(this + 4);
-  v13 = qword_2A203F930;
+  v13 = &unk_2A203F930;
   v14 = v4;
   v15 = v6;
-  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(&__p, a2, v16, v5);
+  pxrInternal__aapl__pxrReserved__::TfVStringPrintf(a2, v16, v5);
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::StatusHelper::Post(v11, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -9295,7 +9291,7 @@ unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrRe
 
 unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr>::_CreateInstance(unint64_t *a1)
 {
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(("N32pxrInternal__aapl__pxrReserved__15TfDiagnosticMgrE" & 0x7FFFFFFFFFFFFFFFLL), &v11);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(&v11.__r_.__value_.__l.__data_, ("N32pxrInternal__aapl__pxrReserved__15TfDiagnosticMgrE" & 0x7FFFFFFFFFFFFFFFLL));
   v2 = std::string::insert(&v11, 0, "Create Singleton ");
   v3 = *&v2->__r_.__value_.__l.__data_;
   v15 = v2->__r_.__value_.__r.__words[2];
@@ -9369,7 +9365,7 @@ unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrRe
   return v6;
 }
 
-void sub_29A0F5C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_29A0F5C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   pxrInternal__aapl__pxrReserved__::Tf_SingletonPyGILDropper::~Tf_SingletonPyGILDropper(&a10);
   sub_29A0E9CEC(&a16);
@@ -9413,16 +9409,16 @@ uint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrRes
 
 void sub_29A0F5DE0()
 {
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F998, 0, "TF_LOG_STACK_TRACE_ON_ERROR", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F998, 0, "TF_LOG_STACK_TRACE_ON_ERROR", 0);
   v0 = sub_29A0F83E0();
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v0, "TF_LOG_STACK_TRACE_ON_ERROR", "log stack traces for all errors");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F998, 1, "TF_LOG_STACK_TRACE_ON_WARNING", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F998, 1, "TF_LOG_STACK_TRACE_ON_WARNING", 0);
   v1 = sub_29A0F83E0();
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v1 + 4, "TF_LOG_STACK_TRACE_ON_WARNING", "log stack traces for all warnings");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F998, 2, "TF_ERROR_MARK_TRACKING", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F998, 2, "TF_ERROR_MARK_TRACKING", 0);
   v2 = sub_29A0F83E0();
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v2 + 8, "TF_ERROR_MARK_TRACKING", "capture stack traces at TfErrorMark ctor/dtor, enable TfReportActiveMarks debugging API.");
-  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(qword_2A203F998, 3, "TF_PRINT_ALL_POSTED_ERRORS_TO_STDERR", 0);
+  pxrInternal__aapl__pxrReserved__::TfEnum::_AddName(&unk_2A203F998, 3, "TF_PRINT_ALL_POSTED_ERRORS_TO_STDERR", 0);
   v3 = sub_29A0F83E0() + 12;
 
   pxrInternal__aapl__pxrReserved__::TfDebug::_RegisterDebugSymbolImpl(v3, "TF_PRINT_ALL_POSTED_ERRORS_TO_STDERR", "print all posted errors immediately, meaning that even errors that are expected and handled will be printed, producing possibly confusing output");
@@ -9531,9 +9527,9 @@ void *pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::AddDelegate(void *this,
   return this;
 }
 
-void sub_29A0F61F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A0F61F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A0F845C(va);
   _Unwind_Resume(a1);
 }
@@ -9722,9 +9718,9 @@ void pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::_SpliceErrors(atomic_ull
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::PostError(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, void (**a7)(void, void, void, void, void), unsigned __int8 a8)
+void pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::PostError(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, __int128 *a5, std::string *a6, void (**a7)(uint64_t, void, void, void, void), unsigned __int8 a8)
 {
-  v27[6] = *MEMORY[0x29EDCA608];
+  v28[6] = *MEMORY[0x29EDCA608];
   v18 = a2;
   v19 = a3;
   v16 = sub_29A0F20E0(8);
@@ -9738,7 +9734,7 @@ void pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::PostError(uint64_t a1, u
     sub_29A0F6898(*MEMORY[0x29EDCA610], &v18, a5, a6);
     sub_29A008E78(__p, "ERROR");
     pxrInternal__aapl__pxrReserved__::TfLogStackTrace(__p, 0);
-    if (v22 < 0)
+    if (v23 < 0)
     {
       operator delete(__p[0]);
     }
@@ -9750,24 +9746,34 @@ void pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::PostError(uint64_t a1, u
   }
 
   v17 = *(a1 + 448);
-  v20[0] = 0;
-  v20[1] = 0;
+  v20 = 0;
+  v21 = 0;
   if (*a7)
   {
-    (*a7)(1, a7, v20, 0, 0);
+    (*a7)(1, a7, &v20, 0, 0);
   }
 
-  (pxrInternal__aapl__pxrReserved__::TfError::TfError)(__p, a2, a3, a4, a5, a6, v20, (v17 | a8) != 0, v18, v19);
-  sub_29A0F40F0(v20);
+  pxrInternal__aapl__pxrReserved__::TfError::TfError(__p, a2, a3, a4, a5, a6, &v20, (v17 | a8) != 0, v18, v19, v20, v21);
+  sub_29A0F40F0(&v20);
   pxrInternal__aapl__pxrReserved__::TfDiagnosticMgr::AppendError(a1, __p);
-  sub_29A0F40F0(v27);
-  if (v26 < 0)
+  sub_29A0F40F0(v28);
+  if (v27 < 0)
   {
-    operator delete(v25);
+    operator delete(v26);
   }
 
-  if (v24 < 0)
+  if (v25 < 0)
   {
-    operator delete(v23);
+    operator delete(v24);
   }
+}
+
+void sub_29A0F67F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  if (a20 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
 }

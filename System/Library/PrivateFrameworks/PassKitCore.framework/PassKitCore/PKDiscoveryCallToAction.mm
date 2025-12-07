@@ -43,62 +43,62 @@
     v5->_buttonTextKey = v10;
 
     v12 = [dictionaryCopy PKStringForKey:@"action"];
-    if ([@"transitDCI" isEqualToString:v12])
+    if (objc_msgSend_isEqualToString_(@"transitDCI"))
     {
       v13 = 1;
     }
 
-    else if ([@"featureApply" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"featureApply"))
     {
       v13 = 2;
     }
 
-    else if ([@"addCard" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"addCard"))
     {
       v13 = 3;
     }
 
-    else if ([@"settingsExpressTransit" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"settingsExpressTransit"))
     {
       v13 = 4;
     }
 
-    else if ([@"appleCashSetup" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"appleCashSetup"))
     {
       v13 = 6;
     }
 
-    else if ([@"appleCashFamilySetup" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"appleCashFamilySetup"))
     {
       v13 = 5;
     }
 
-    else if ([@"accountUserCreateInvitation" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"accountUserCreateInvitation"))
     {
       v13 = 7;
     }
 
-    else if ([@"appLink" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"appLink"))
     {
       v13 = 8;
     }
 
-    else if ([@"provisionProduct" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"provisionProduct"))
     {
       v13 = 11;
     }
 
-    else if ([@"featureApplyStandalone" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"featureApplyStandalone"))
     {
       v13 = 9;
     }
 
-    else if ([@"hideMyEmail" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"hideMyEmail"))
     {
       v13 = 10;
     }
 
-    else if ([@"openURL" isEqualToString:v12])
+    else if (objc_msgSend_isEqualToString_(@"openURL"))
     {
       v13 = 12;
     }
@@ -454,9 +454,9 @@ LABEL_23:
       v18 = [(NSDictionary *)self->_actionInfo PKStringForKey:@"url"];
       v19 = [objc_alloc(MEMORY[0x1E696AF20]) initWithString:v18];
       scheme = [v19 scheme];
-      v21 = [scheme isEqualToString:@"wallet"];
+      isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-      if (v21)
+      if (isEqualToString)
       {
         anyObject = [v19 URL];
       }

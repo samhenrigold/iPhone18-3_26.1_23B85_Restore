@@ -35,16 +35,16 @@ id sub_228C(void *a1)
   return v1;
 }
 
-id NTKGetCharacterFaceBundle()
+id NTKGetCharacterFaceBundle(uint64_t a1)
 {
   if (qword_25BC0 != -1)
   {
     sub_F514();
   }
 
-  v1 = qword_25BB8;
+  v2 = qword_25BB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3A20(id a1)
@@ -56,21 +56,19 @@ void sub_3A20(id a1)
 
 void sub_44B8(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  if (v3)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v4 = *(a1 + 40);
-    v8 = a2;
-    [v8 prepareToAnimateToDate:v3 forOrb:v4];
+    v3 = *(a1 + 40);
+    v5 = a2;
+    [v5 prepareToAnimateToDate:v2 forOrb:v3];
   }
 
   else
   {
-    v5 = a2;
-    v6 = +[NTKDate faceDate];
-    v7 = *(a1 + 40);
-    v8 = v6;
-    [v5 prepareToAnimateToDate:? forOrb:?];
+    v4 = a2;
+    v5 = +[NTKDate faceDate];
+    [v4 prepareToAnimateToDate:? forOrb:?];
   }
 }
 
@@ -124,21 +122,15 @@ void sub_49FC(uint64_t a1, void *a2)
   [v7 setGlowBrightness:v6];
 }
 
-void sub_4B44(void *a1, void *a2)
+void sub_4B44(double *a1, void *a2)
 {
-  v3 = a1[4];
-  v4 = a1[5];
-  v5 = a1[6];
-  v11 = a2;
+  v4 = a2;
   CLKInterpolateBetweenFloatsClipped();
-  *&v6 = v6;
-  [v11 setNumbersBrightness:v6];
-  v7 = a1[7];
-  v8 = a1[8];
-  v9 = a1[6];
+  *&v2 = v2;
+  [v4 setNumbersBrightness:v2];
   CLKInterpolateBetweenFloatsClipped();
-  *&v10 = v10;
-  [v11 setGlowBrightness:v10];
+  *&v3 = v3;
+  [v4 setGlowBrightness:v3];
 }
 
 id sub_5064(uint64_t a1, void *a2)

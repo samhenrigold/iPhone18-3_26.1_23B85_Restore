@@ -3,6 +3,8 @@
 - (BOOL)isEqualToUnresolvedAsset:(id)asset;
 - (RMStoreUnresolvedAsset)initWithAsset:(id)asset queryParameters:(id)parameters;
 - (RMStoreUnresolvedAsset)initWithAsset:(id)asset queryParameters:(id)parameters downloadURL:(id)l;
+- (RMStoreUnresolvedAsset)initWithAsset:(id)asset queryParameters:(id)parameters downloadURL:(id)l useCache:(BOOL)cache;
+- (RMStoreUnresolvedAsset)initWithAsset:(id)asset queryParameters:(id)parameters useCache:(BOOL)cache;
 - (RMStoreUnresolvedAsset)initWithAssetIdentifier:(id)identifier resolveAs:(int64_t)as queryParameters:(id)parameters downloadURL:(id)l extensionToken:(id)token useCache:(BOOL)cache;
 - (RMStoreUnresolvedAsset)initWithCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
@@ -19,6 +21,16 @@
   return v8;
 }
 
+- (RMStoreUnresolvedAsset)initWithAsset:(id)asset queryParameters:(id)parameters useCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  parametersCopy = parameters;
+  declarationIdentifier = [asset declarationIdentifier];
+  v10 = [(RMStoreUnresolvedAsset *)self initWithAssetIdentifier:declarationIdentifier resolveAs:0 queryParameters:parametersCopy downloadURL:0 extensionToken:0 useCache:cacheCopy];
+
+  return v10;
+}
+
 - (RMStoreUnresolvedAsset)initWithAsset:(id)asset queryParameters:(id)parameters downloadURL:(id)l
 {
   lCopy = l;
@@ -27,6 +39,17 @@
   v11 = [(RMStoreUnresolvedAsset *)self initWithAssetIdentifier:declarationIdentifier resolveAs:1 queryParameters:parametersCopy downloadURL:lCopy extensionToken:0 useCache:1];
 
   return v11;
+}
+
+- (RMStoreUnresolvedAsset)initWithAsset:(id)asset queryParameters:(id)parameters downloadURL:(id)l useCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  lCopy = l;
+  parametersCopy = parameters;
+  declarationIdentifier = [asset declarationIdentifier];
+  v13 = [(RMStoreUnresolvedAsset *)self initWithAssetIdentifier:declarationIdentifier resolveAs:1 queryParameters:parametersCopy downloadURL:lCopy extensionToken:0 useCache:cacheCopy];
+
+  return v13;
 }
 
 - (RMStoreUnresolvedAsset)initWithAssetIdentifier:(id)identifier resolveAs:(int64_t)as queryParameters:(id)parameters downloadURL:(id)l extensionToken:(id)token useCache:(BOOL)cache

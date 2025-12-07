@@ -394,7 +394,7 @@ LABEL_12:
   coverAnimationSourceView = [v12 coverAnimationSourceView];
   if (!coverAnimationSourceView)
   {
-    v14 = sub_1001A6B30();
+    v14 = sub_1001A6B30(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100793300(v11, v14);
@@ -1445,28 +1445,28 @@ LABEL_11:
 
   if (v9)
   {
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1001AB2B4;
-    v13[3] = &unk_100A060C0;
-    v14 = portraitCopy;
-    [v9 attemptRotateToPortraitWithCompletion:v13];
-    v10 = v14;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1001AB2B4;
+    v14[3] = &unk_100A060C0;
+    v15 = portraitCopy;
+    [v9 attemptRotateToPortraitWithCompletion:v14];
+    v11 = v15;
   }
 
   else
   {
-    v11 = sub_1001A6B30();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_1001A6B30(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100793398(v11);
+      sub_100793398(v12);
     }
 
-    v12 = objc_retainBlock(portraitCopy);
-    v10 = v12;
-    if (v12)
+    v13 = objc_retainBlock(portraitCopy);
+    v11 = v13;
+    if (v13)
     {
-      (*(v12 + 2))(v12, 0);
+      (*(v13 + 2))(v13, 0);
     }
   }
 }

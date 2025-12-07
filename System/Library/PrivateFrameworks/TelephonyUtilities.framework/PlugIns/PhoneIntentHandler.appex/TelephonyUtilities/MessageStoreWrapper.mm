@@ -9,8 +9,8 @@
 - (void)fetchVoicemailsMatching:(id)matching completion:
 {
   v4 = v3;
-  v7 = (*(*(sub_100029394(&qword_100057960, &qword_100038F18) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100029394(&qword_100057960, &qword_100038F18);
+  __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(matching);
   v11 = _Block_copy(v4);
@@ -36,8 +36,8 @@
 
 - (void)fetchVoicemailWithIdentifier:(NSString *)identifier completion:(id)completion
 {
-  v7 = (*(*(sub_100029394(&qword_100057960, &qword_100038F18) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_100029394(&qword_100057960, &qword_100038F18);
+  __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);
   v11 = swift_allocObject();

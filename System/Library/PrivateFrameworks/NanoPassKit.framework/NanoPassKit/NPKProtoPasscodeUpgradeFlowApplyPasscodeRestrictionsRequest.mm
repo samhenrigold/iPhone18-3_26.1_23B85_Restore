@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)enforcedPolicyAsString:(int)string;
 - (int)enforcedPolicy;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -23,6 +24,21 @@
   {
     return 0;
   }
+}
+
+- (id)enforcedPolicyAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"China";
+  }
+
+  return v4;
 }
 
 - (id)description
@@ -62,7 +78,6 @@
 {
   if (*&self->_has)
   {
-    enforcedPolicy = self->_enforcedPolicy;
     PBDataWriterWriteInt32Field();
   }
 }

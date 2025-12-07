@@ -86,12 +86,12 @@
 
 - (void)logBBSinopeAperiodicMetrics
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v24 = "[PLSinopeBBHardwareMessage logBBSinopeAperiodicMetrics]";
+    v23 = "[PLSinopeBBHardwareMessage logBBSinopeAperiodicMetrics]";
     _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
@@ -99,10 +99,10 @@
   {
     v4 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v4;
+    v18 = 3221225472;
+    v19 = __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21 = v4;
     if (qword_2811F7048 != -1)
     {
       dispatch_once(&qword_2811F7048, &block);
@@ -110,7 +110,7 @@
 
     if (_MergedGlobals_78 == 1)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLSinopeBBHardwareMessage logBBSinopeAperiodicMetrics]", block, v19, v20, v21, v22];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLSinopeBBHardwareMessage logBBSinopeAperiodicMetrics]", block, v18, v19, v20, v21];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KSinope/PLSinopeBBHardwareMessage-SINOPE.m"];
       lastPathComponent = [v7 lastPathComponent];
@@ -121,7 +121,7 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v24 = v5;
+        v23 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -150,11 +150,9 @@
       [(PLAgent *)logAgent logForSubsystem:@"BasebandMetrics" category:@"Events" data:dictionary date:entryDate];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invoke(uint64_t a1)
+void *__56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_78 = result;
@@ -163,15 +161,15 @@ uint64_t __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invo
 
 - (void)logBBSinopePeriodicMetrics
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invoke;
-    v23 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v24 = v3;
+    v20 = 3221225472;
+    v21 = __55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invoke;
+    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v23 = v3;
     if (qword_2811F7050 != -1)
     {
       dispatch_once(&qword_2811F7050, &block);
@@ -179,7 +177,7 @@ uint64_t __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invo
 
     if (byte_2811F7041 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLSinopeBBHardwareMessage logBBSinopePeriodicMetrics]", block, v21, v22, v23, v24];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLSinopeBBHardwareMessage logBBSinopePeriodicMetrics]", block, v20, v21, v22, v23];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KSinope/PLSinopeBBHardwareMessage-SINOPE.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -190,7 +188,7 @@ uint64_t __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invo
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v26 = v4;
+        v25 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -201,9 +199,9 @@ uint64_t __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invo
   {
     metricIdArr = self->_metricIdArr;
     *buf = 136315394;
-    v26 = "[PLSinopeBBHardwareMessage logBBSinopePeriodicMetrics]";
-    v27 = 2112;
-    v28 = metricIdArr;
+    v25 = "[PLSinopeBBHardwareMessage logBBSinopePeriodicMetrics]";
+    v26 = 2112;
+    v27 = metricIdArr;
     _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "[BBAgent] : in @%s metricIdArr %@", buf, 0x16u);
   }
 
@@ -227,9 +225,9 @@ uint64_t __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invo
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v26 = "[PLSinopeBBHardwareMessage logBBSinopePeriodicMetrics]";
-      v27 = 2112;
-      v28 = v12;
+      v25 = "[PLSinopeBBHardwareMessage logBBSinopePeriodicMetrics]";
+      v26 = 2112;
+      v27 = v12;
       _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "[BBAgent] : in @%s entry %@", buf, 0x16u);
     }
 
@@ -241,11 +239,9 @@ uint64_t __56__PLSinopeBBHardwareMessage_logBBSinopeAperiodicMetrics__block_invo
       [(PLAgent *)logAgent logForSubsystem:@"BasebandMetrics" category:@"Histogram" data:dictionary date:entryDate];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invoke(uint64_t a1)
+void *__55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7041 = result;
@@ -254,17 +250,17 @@ uint64_t __55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invok
 
 - (void)addToListMetric:(id)metric payload:(id)payload
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   payloadCopy = payload;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v8 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __53__PLSinopeBBHardwareMessage_addToListMetric_payload___block_invoke;
-    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v23 = v8;
+    v19 = 3221225472;
+    v20 = __53__PLSinopeBBHardwareMessage_addToListMetric_payload___block_invoke;
+    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v22 = v8;
     if (qword_2811F7058 != -1)
     {
       dispatch_once(&qword_2811F7058, &block);
@@ -272,7 +268,7 @@ uint64_t __55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invok
 
     if (byte_2811F7042 == 1)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLSinopeBBHardwareMessage addToListMetric:payload:]", block, v20, v21, v22, v23];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLSinopeBBHardwareMessage addToListMetric:payload:]", block, v19, v20, v21, v22];
       v10 = MEMORY[0x277D3F178];
       v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KSinope/PLSinopeBBHardwareMessage-SINOPE.m"];
       lastPathComponent = [v11 lastPathComponent];
@@ -283,7 +279,7 @@ uint64_t __55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invok
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v9;
+        v24 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -293,11 +289,11 @@ uint64_t __55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invok
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v25 = "[PLSinopeBBHardwareMessage addToListMetric:payload:]";
-    v26 = 2112;
-    v27 = metricCopy;
-    v28 = 2112;
-    v29 = payloadCopy;
+    v24 = "[PLSinopeBBHardwareMessage addToListMetric:payload:]";
+    v25 = 2112;
+    v26 = metricCopy;
+    v27 = 2112;
+    v28 = payloadCopy;
     _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "[BBAgent] : in @%s metricId: %@, data: %@", buf, 0x20u);
   }
 
@@ -305,11 +301,9 @@ uint64_t __55__PLSinopeBBHardwareMessage_logBBSinopePeriodicMetrics__block_invok
   metricDataArr = self->_metricDataArr;
   v17 = [PLSinopeBBMetricUtility convertToStringData:payloadCopy];
   [(NSMutableArray *)metricDataArr addObject:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __53__PLSinopeBBHardwareMessage_addToListMetric_payload___block_invoke(uint64_t a1)
+void *__53__PLSinopeBBHardwareMessage_addToListMetric_payload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7042 = result;
@@ -318,7 +312,7 @@ uint64_t __53__PLSinopeBBHardwareMessage_addToListMetric_payload___block_invoke(
 
 - (id)decodePayload:(id)payload forMetricId:(id)id
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   idCopy = id;
   payloadCopy = payload;
   v8 = objc_opt_new();
@@ -330,7 +324,7 @@ uint64_t __53__PLSinopeBBHardwareMessage_addToListMetric_payload___block_invoke(
   {
     dictionaryRepresentation = [(AWDMETRICSMetricLogPower *)v9 dictionaryRepresentation];
     *buf = 138412290;
-    v28 = dictionaryRepresentation;
+    v27 = dictionaryRepresentation;
     _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -497,12 +491,12 @@ LABEL_39:
 LABEL_50:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v19 = objc_opt_class();
+    v18 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __55__PLSinopeBBHardwareMessage_decodePayload_forMetricId___block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v19;
+    block[4] = v18;
     if (qword_2811F7060 != -1)
     {
       dispatch_once(&qword_2811F7060, block);
@@ -510,19 +504,19 @@ LABEL_50:
 
     if (byte_2811F7043 == 1)
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error: unexpected metric Id"];
-      v21 = MEMORY[0x277D3F178];
-      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KSinope/PLSinopeBBHardwareMessage-SINOPE.m"];
-      lastPathComponent = [v22 lastPathComponent];
-      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSinopeBBHardwareMessage decodePayload:forMetricId:]"];
-      [v21 logMessage:v20 fromFile:lastPathComponent fromFunction:v24 fromLineNumber:295];
+      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error: unexpected metric Id"];
+      v20 = MEMORY[0x277D3F178];
+      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KSinope/PLSinopeBBHardwareMessage-SINOPE.m"];
+      lastPathComponent = [v21 lastPathComponent];
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLSinopeBBHardwareMessage decodePayload:forMetricId:]"];
+      [v20 logMessage:v19 fromFile:lastPathComponent fromFunction:v23 fromLineNumber:295];
 
-      v25 = PLLogCommon();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v24 = PLLogCommon();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v28 = v20;
-        _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v27 = v19;
+        _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
@@ -530,12 +524,10 @@ LABEL_50:
   v16 = 0;
 LABEL_47:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
-uint64_t __55__PLSinopeBBHardwareMessage_decodePayload_forMetricId___block_invoke(uint64_t a1)
+void *__55__PLSinopeBBHardwareMessage_decodePayload_forMetricId___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7043 = result;
@@ -544,14 +536,14 @@ uint64_t __55__PLSinopeBBHardwareMessage_decodePayload_forMetricId___block_invok
 
 - (void)protocolStateForClass:(id)class forEntry:(id)entry
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   classCopy = class;
   entryCopy = entry;
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v23 = "[PLSinopeBBHardwareMessage protocolStateForClass:forEntry:]";
+    v22 = "[PLSinopeBBHardwareMessage protocolStateForClass:forEntry:]";
     _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "[BBAgent] %s", buf, 0xCu);
   }
 
@@ -627,20 +619,18 @@ uint64_t __55__PLSinopeBBHardwareMessage_decodePayload_forMetricId___block_invok
 
     while ([classCopy binsCount] > v11);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dlTbsHistForClass:(id)class forEntry:(id)entry
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   classCopy = class;
   entryCopy = entry;
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v17 = "[PLSinopeBBHardwareMessage dlTbsHistForClass:forEntry:]";
+    v16 = "[PLSinopeBBHardwareMessage dlTbsHistForClass:forEntry:]";
     _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "[BBAgent] %s", buf, 0xCu);
   }
 
@@ -700,8 +690,6 @@ uint64_t __55__PLSinopeBBHardwareMessage_decodePayload_forMetricId___block_invok
 
     while ([classCopy binsCount] > v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)gsmRabModeHistForClass:(id)class forEntry:(id)entry

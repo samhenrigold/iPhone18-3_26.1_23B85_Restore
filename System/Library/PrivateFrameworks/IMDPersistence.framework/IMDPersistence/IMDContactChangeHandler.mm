@@ -12,249 +12,243 @@
   eventCopy = event;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Handling a Drop everything change history event", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Handling a Drop everything change history event", v12, 2u);
     }
   }
 
-  v7 = objc_msgSend_sharedInstance(IMDContactCache, v4, v5);
-  objc_msgSend_resetCache(v7, v8, v9);
+  v8 = objc_msgSend_sharedInstance(IMDContactCache, v4, v5, v6);
+  objc_msgSend_resetCache(v8, v9, v10, v11);
 }
 
 - (void)visitAddContactEvent:(id)event
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Handling a Add Contact change history event", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Handling a Add Contact change history event", buf, 2u);
     }
   }
 
-  v7 = objc_msgSend_contact(eventCopy, v4, v5);
-  v9 = objc_msgSend_IDsFromCNContact_(MEMORY[0x1E69A7FD0], v8, v7);
+  v8 = objc_msgSend_contact(eventCopy, v4, v5, v6);
+  v11 = objc_msgSend_IDsFromCNContact_(MEMORY[0x1E69A7FD0], v9, v8, v10);
   if (IMOSLoggingEnabled())
   {
-    v10 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v28 = v9;
-      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Updating contact cache for handle IDs: %@", buf, 0xCu);
+      v30 = v11;
+      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Updating contact cache for handle IDs: %@", buf, 0xCu);
     }
   }
 
+  v26 = 0u;
+  v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v11 = v9;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v22, v26, 16);
-  if (v15)
+  v13 = v11;
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v24, v28, 16);
+  if (v18)
   {
-    v16 = *v23;
+    v19 = *v25;
     do
     {
-      v17 = 0;
+      v20 = 0;
       do
       {
-        if (*v23 != v16)
+        if (*v25 != v19)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * v17);
-        v19 = objc_msgSend_sharedInstance(IMDContactCache, v13, v14, v22);
-        objc_msgSend_cacheContact_forKey_(v19, v20, v7, v18);
+        v21 = *(*(&v24 + 1) + 8 * v20);
+        v22 = objc_msgSend_sharedInstance(IMDContactCache, v15, v16, v17, v24);
+        objc_msgSend_cacheContact_forKey_(v22, v23, v8, v21);
 
-        ++v17;
+        ++v20;
       }
 
-      while (v15 != v17);
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v22, v26, 16);
+      while (v18 != v20);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v24, v28, 16);
     }
 
-    while (v15);
+    while (v18);
   }
 
-  if (v11)
+  if (v13)
   {
-    IMDCoreSpotlightReIndexForHandles(v11, 1015);
+    IMDCoreSpotlightReIndexForHandles(v13, 1015);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)visitUpdateContactEvent:(id)event
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Handling a Update Contact change history event", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Handling a Update Contact change history event", buf, 2u);
     }
   }
 
-  v7 = objc_msgSend_contact(eventCopy, v4, v5);
-  v9 = objc_msgSend_IDsFromCNContact_(MEMORY[0x1E69A7FD0], v8, v7);
-  v12 = objc_msgSend_sharedInstance(IMDContactCache, v10, v11);
-  v15 = objc_msgSend_identifier(v7, v13, v14);
-  v17 = objc_msgSend__handlesMatchingContactIdentifier_(v12, v16, v15);
+  v8 = objc_msgSend_contact(eventCopy, v4, v5, v6);
+  v11 = objc_msgSend_IDsFromCNContact_(MEMORY[0x1E69A7FD0], v9, v8, v10);
+  v15 = objc_msgSend_sharedInstance(IMDContactCache, v12, v13, v14);
+  v19 = objc_msgSend_identifier(v8, v16, v17, v18);
+  v22 = objc_msgSend__handlesMatchingContactIdentifier_(v15, v20, v19, v21);
 
   if (IMOSLoggingEnabled())
   {
-    v18 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v23 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v62 = v17;
-      _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Removing entries from contact cache for handle IDs: %@", buf, 0xCu);
+      v73 = v22;
+      _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Removing entries from contact cache for handle IDs: %@", buf, 0xCu);
     }
   }
 
   if (IMOSLoggingEnabled())
   {
-    v21 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v27 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v62 = v9;
-      _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Updating contact cache with the new CNContact for handle IDs: %@", buf, 0xCu);
+      v73 = v11;
+      _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Updating contact cache with the new CNContact for handle IDs: %@", buf, 0xCu);
     }
   }
 
-  v22 = objc_msgSend_sharedInstance(IMDContactCache, v19, v20);
-  v25 = objc_msgSend_fullNameCache(v22, v23, v24);
-  v28 = objc_msgSend_identifier(v7, v26, v27);
-  objc_msgSend_removeObjectForKey_(v25, v29, v28);
+  v28 = objc_msgSend_sharedInstance(IMDContactCache, v24, v25, v26);
+  v32 = objc_msgSend_fullNameCache(v28, v29, v30, v31);
+  v36 = objc_msgSend_identifier(v8, v33, v34, v35);
+  objc_msgSend_removeObjectForKey_(v32, v37, v36, v38);
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v30 = v17;
-  v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v55, v60, 16);
-  if (v34)
-  {
-    v35 = *v56;
-    do
-    {
-      v36 = 0;
-      do
-      {
-        if (*v56 != v35)
-        {
-          objc_enumerationMutation(v30);
-        }
-
-        v37 = *(*(&v55 + 1) + 8 * v36);
-        v38 = objc_msgSend_sharedInstance(IMDContactCache, v32, v33);
-        objc_msgSend_removeCachedContactForKey_(v38, v39, v37);
-
-        ++v36;
-      }
-
-      while (v34 != v36);
-      v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v32, &v55, v60, 16);
-    }
-
-    while (v34);
-  }
-
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v40 = v9;
-  v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v40, v41, &v51, v59, 16);
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v39 = v22;
+  v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v40, &v66, v71, 16);
   if (v44)
   {
-    v45 = *v52;
+    v45 = *v67;
     do
     {
       v46 = 0;
       do
       {
-        if (*v52 != v45)
+        if (*v67 != v45)
         {
-          objc_enumerationMutation(v40);
+          objc_enumerationMutation(v39);
         }
 
-        v47 = *(*(&v51 + 1) + 8 * v46);
-        v48 = objc_msgSend_sharedInstance(IMDContactCache, v42, v43, v51);
-        objc_msgSend_cacheContact_forKey_(v48, v49, v7, v47);
+        v47 = *(*(&v66 + 1) + 8 * v46);
+        v48 = objc_msgSend_sharedInstance(IMDContactCache, v41, v42, v43);
+        objc_msgSend_removeCachedContactForKey_(v48, v49, v47, v50);
 
         ++v46;
       }
 
       while (v44 != v46);
-      v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v40, v42, &v51, v59, 16);
+      v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v41, &v66, v71, 16);
     }
 
     while (v44);
   }
 
-  if (v40)
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v51 = v11;
+  v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v51, v52, &v62, v70, 16);
+  if (v56)
   {
-    IMDCoreSpotlightReIndexForHandles(v40, 1008);
+    v57 = *v63;
+    do
+    {
+      v58 = 0;
+      do
+      {
+        if (*v63 != v57)
+        {
+          objc_enumerationMutation(v51);
+        }
+
+        v59 = *(*(&v62 + 1) + 8 * v58);
+        v60 = objc_msgSend_sharedInstance(IMDContactCache, v53, v54, v55, v62);
+        objc_msgSend_cacheContact_forKey_(v60, v61, v8, v59);
+
+        ++v58;
+      }
+
+      while (v56 != v58);
+      v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v51, v53, &v62, v70, 16);
+    }
+
+    while (v56);
   }
 
-  v50 = *MEMORY[0x1E69E9840];
+  if (v51)
+  {
+    IMDCoreSpotlightReIndexForHandles(v51, 1008);
+  }
 }
 
 - (void)visitDeleteContactEvent:(id)event
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Handling a Delete Contact change history event", &v26, 2u);
+      LOWORD(v33) = 0;
+      _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Handling a Delete Contact change history event", &v33, 2u);
     }
   }
 
-  v7 = objc_msgSend_contactIdentifier(eventCopy, v4, v5);
-  v10 = objc_msgSend_sharedInstance(IMDContactCache, v8, v9);
-  v12 = objc_msgSend__handlesMatchingContactIdentifier_(v10, v11, v7);
+  v8 = objc_msgSend_contactIdentifier(eventCopy, v4, v5, v6);
+  v12 = objc_msgSend_sharedInstance(IMDContactCache, v9, v10, v11);
+  v15 = objc_msgSend__handlesMatchingContactIdentifier_(v12, v13, v8, v14);
 
   if (IMOSLoggingEnabled())
   {
-    v15 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v26 = 138412290;
-      v27 = v12;
-      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Removing entries from contact cache for handle IDs: %@", &v26, 0xCu);
+      v33 = 138412290;
+      v34 = v15;
+      _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "IMDContactChangeHandler: Removing entries from contact cache for handle IDs: %@", &v33, 0xCu);
     }
   }
 
-  v16 = objc_msgSend_sharedInstance(IMDContactCache, v13, v14);
-  v19 = objc_msgSend_fullNameCache(v16, v17, v18);
-  objc_msgSend_removeObjectForKey_(v19, v20, v7);
+  v20 = objc_msgSend_sharedInstance(IMDContactCache, v16, v17, v18);
+  v24 = objc_msgSend_fullNameCache(v20, v21, v22, v23);
+  objc_msgSend_removeObjectForKey_(v24, v25, v8, v26);
 
-  v23 = objc_msgSend_sharedInstance(IMDContactCache, v21, v22);
-  objc_msgSend_removeCachedContactsForKeys_(v23, v24, v12);
+  v30 = objc_msgSend_sharedInstance(IMDContactCache, v27, v28, v29);
+  objc_msgSend_removeCachedContactsForKeys_(v30, v31, v15, v32);
 
-  if (v12)
+  if (v15)
   {
-    IMDCoreSpotlightReIndexForHandles(v12, 1015);
+    IMDCoreSpotlightReIndexForHandles(v15, 1015);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

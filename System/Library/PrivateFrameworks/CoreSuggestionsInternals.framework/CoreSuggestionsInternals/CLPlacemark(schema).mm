@@ -20,7 +20,7 @@
   postalAddress = [self postalAddress];
   schema = [postalAddress schema];
 
-  if ([schema count] >= 2)
+  if (objc_msgSend_count(schema) >= 2)
   {
     [v2 setObject:schema forKeyedSubscript:@"address"];
   }
@@ -45,7 +45,7 @@ LABEL_9:
     [v2 setObject:schema2 forKeyedSubscript:@"geo"];
   }
 
-  if ([v2 count] < 2)
+  if (objc_msgSend_count(v2) < 2)
   {
     v14 = 0;
   }

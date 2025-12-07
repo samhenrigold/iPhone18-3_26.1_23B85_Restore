@@ -205,7 +205,6 @@ void __59__AKAttestationSigner_signatureForData_options_completion___block_invok
 
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)signaturesForData:(id)data options:(id)options completion:(id)completion
@@ -278,98 +277,96 @@ void __59__AKAttestationSigner_signatureForData_options_completion___block_invok
 
 void __60__AKAttestationSigner_signaturesForData_options_completion___block_invoke(uint64_t a1, void *a2, id obj, void *a4)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v42 = a1;
-  v41 = a2;
+  v42 = *MEMORY[0x1E69E9840];
+  v40 = a1;
+  v39 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v39 = 0;
-  objc_storeStrong(&v39, a4);
-  v38[1] = a1;
-  if (v41 && location)
+  v37 = 0;
+  objc_storeStrong(&v37, a4);
+  v36[1] = a1;
+  if (v39 && location)
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 838860800;
-    v35 = 48;
-    v36 = __Block_byref_object_copy__4;
-    v37 = __Block_byref_object_dispose__4;
-    v38[0] = 0;
-    v14 = *(a1 + 32);
-    v25 = MEMORY[0x1E69E9820];
-    v26 = -1073741824;
-    v27 = 0;
-    v28 = __60__AKAttestationSigner_signaturesForData_options_completion___block_invoke_31;
-    v29 = &unk_1E73D4C98;
-    v30[0] = MEMORY[0x1E69E5928](*(a1 + 40));
-    v30[2] = v41;
-    v30[1] = &v32;
-    v31 = [v14 aaf_mapStoppable:&v25];
-    v13 = [*(a1 + 32) count];
-    if (v13 == [v31 count])
+    v31[0] = 0;
+    v31[1] = v31;
+    v32 = 838860800;
+    v33 = 48;
+    v34 = __Block_byref_object_copy__4;
+    v35 = __Block_byref_object_dispose__4;
+    v36[0] = 0;
+    v13 = *(a1 + 32);
+    v24 = MEMORY[0x1E69E9820];
+    v25 = -1073741824;
+    v26 = 0;
+    v27 = __60__AKAttestationSigner_signaturesForData_options_completion___block_invoke_31;
+    v28 = &unk_1E73D4C98;
+    v29[0] = MEMORY[0x1E69E5928](*(a1 + 40));
+    v29[2] = v39;
+    v29[1] = v31;
+    v30 = [v13 aaf_mapStoppable:&v24];
+    v12 = [*(a1 + 32) count];
+    if (v12 == [v30 count])
     {
-      v24 = 0;
+      v23 = 0;
       v4 = *(a1 + 40);
-      v22 = 0;
-      v12 = [v4 _attestationWithCertificates:location error:&v22];
-      objc_storeStrong(&v24, v22);
-      v23 = v12;
+      v21 = 0;
+      v11 = [v4 _attestationWithCertificates:location error:&v21];
+      objc_storeStrong(&v23, v21);
+      v22 = v11;
       (*(*(a1 + 48) + 16))();
+      objc_storeStrong(&v22, 0);
       objc_storeStrong(&v23, 0);
-      objc_storeStrong(&v24, 0);
     }
 
     else
     {
-      v5 = v33[5];
       (*(*(a1 + 48) + 16))();
     }
 
-    objc_storeStrong(&v31, 0);
-    objc_storeStrong(v30, 0);
-    _Block_object_dispose(&v32, 8);
-    objc_storeStrong(v38, 0);
+    objc_storeStrong(&v30, 0);
+    objc_storeStrong(v29, 0);
+    _Block_object_dispose(v31, 8);
+    objc_storeStrong(v36, 0);
   }
 
-  else if (v39)
+  else if (v37)
   {
-    v21 = _AKLogSystem();
-    v20 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = _AKLogSystem();
+    v19 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v43, v39);
-      _os_log_error_impl(&dword_193225000, v21, v20, "Failed to BAA, error: %@", v43, 0xCu);
+      __os_log_helper_16_2_1_8_64(v41, v37);
+      _os_log_error_impl(&dword_193225000, v20, v19, "Failed to BAA, error: %@", v41, 0xCu);
     }
 
-    objc_storeStrong(&v21, 0);
-    v11 = *(a1 + 48);
-    v10 = _AKAttestationErrorCreateWithUnderlyingError(-10001, v39);
-    (*(v11 + 16))(v11, 0);
-    MEMORY[0x1E69E5920](v10);
+    objc_storeStrong(&v20, 0);
+    v10 = *(a1 + 48);
+    v9 = _AKAttestationErrorCreateWithUnderlyingError(-10001, v37);
+    (*(v10 + 16))(v10, 0);
+    MEMORY[0x1E69E5920](v9);
   }
 
   else
   {
     oslog = _AKLogSystem();
-    v18 = OS_LOG_TYPE_ERROR;
+    v17 = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      v8 = oslog;
-      v9 = v18;
-      __os_log_helper_16_0_0(v17);
-      _os_log_error_impl(&dword_193225000, v8, v9, "Failed to BAA, unknown error!", v17, 2u);
+      v7 = oslog;
+      v8 = v17;
+      __os_log_helper_16_0_0(v16);
+      _os_log_error_impl(&dword_193225000, v7, v8, "Failed to BAA, unknown error!", v16, 2u);
     }
 
     objc_storeStrong(&oslog, 0);
-    v7 = *(a1 + 48);
-    v6 = _AKAttestationErrorCreate(-10001);
-    (*(v7 + 16))(v7, 0);
-    MEMORY[0x1E69E5920](v6);
+    v6 = *(a1 + 48);
+    v5 = _AKAttestationErrorCreate(-10001);
+    (*(v6 + 16))(v6, 0);
+    MEMORY[0x1E69E5920](v5);
   }
 
-  objc_storeStrong(&v39, 0);
+  objc_storeStrong(&v37, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 id __60__AKAttestationSigner_signaturesForData_options_completion___block_invoke_31(void *a1, void *a2, void *a3, _BYTE *a4)
@@ -611,7 +608,6 @@ void __55__AKAttestationSigner__baaSignatureForData_completion___block_invoke(vo
   objc_storeStrong(&errorCopy2, 0);
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v7 = v27;
 
   return v7;
@@ -694,7 +690,6 @@ LABEL_8:
   objc_storeStrong(&v20, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v6 = v24;
 
   return v6;

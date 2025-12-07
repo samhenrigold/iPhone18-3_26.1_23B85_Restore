@@ -63,54 +63,52 @@
   return v3;
 }
 
-void __41__GKGameInternal_secureCodedPropertyKeys__block_invoke()
+void __41__GKGameInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14[18] = *MEMORY[0x277D85DE8];
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v14[2] = objc_opt_class();
-  v14[3] = objc_opt_class();
-  v14[4] = objc_opt_class();
-  v14[5] = objc_opt_class();
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0, @"bundleIdentifier", @"bundleVersion", @"adamID", @"artwork", @"externalVersion", @"name", @"icons"}];
-  v14[6] = v3;
-  v13[7] = @"defaultLeaderboardIdentifier";
-  v14[7] = objc_opt_class();
-  v13[8] = @"flags";
-  v14[8] = objc_opt_class();
-  v13[9] = @"numberOfLeaderboards";
-  v14[9] = objc_opt_class();
-  v13[10] = @"numberOfLeaderboardSets";
-  v14[10] = objc_opt_class();
-  v13[11] = @"numberOfAchievements";
-  v14[11] = objc_opt_class();
-  v13[12] = @"maxAchievementPoints";
-  v14[12] = objc_opt_class();
-  v13[13] = @"shortBundleVersion";
-  v14[13] = objc_opt_class();
-  v13[14] = @"platform";
-  v14[14] = objc_opt_class();
-  v13[15] = @"compatiblePlatforms";
-  v4 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
-  v6 = [v4 setWithObjects:{v5, objc_opt_class(), 0}];
-  v14[15] = v6;
-  v13[16] = @"supportedTransports";
-  v7 = MEMORY[0x277CBEB98];
-  v8 = objc_opt_class();
-  v9 = [v7 setWithObjects:{v8, objc_opt_class(), 0}];
-  v14[16] = v9;
-  v13[17] = @"isArcadeGame";
-  v14[17] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:18];
+  v15[18] = *MEMORY[0x277D85DE8];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v15[2] = objc_opt_class();
+  v15[3] = objc_opt_class();
+  v15[4] = objc_opt_class();
+  v15[5] = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0, @"bundleIdentifier", @"bundleVersion", @"adamID", @"artwork", @"externalVersion", @"name", @"icons"}];
+  v15[6] = v5;
+  v14[7] = @"defaultLeaderboardIdentifier";
+  v15[7] = objc_opt_class();
+  v14[8] = @"flags";
+  v15[8] = objc_opt_class();
+  v14[9] = @"numberOfLeaderboards";
+  v15[9] = objc_opt_class();
+  v14[10] = @"numberOfLeaderboardSets";
+  v15[10] = objc_opt_class();
+  v14[11] = @"numberOfAchievements";
+  v15[11] = objc_opt_class();
+  v14[12] = @"maxAchievementPoints";
+  v15[12] = objc_opt_class();
+  v14[13] = @"shortBundleVersion";
+  v15[13] = objc_opt_class();
+  v14[14] = @"platform";
+  v15[14] = objc_opt_class();
+  v14[15] = @"compatiblePlatforms";
+  v6 = MEMORY[0x277CBEB98];
+  v7 = objc_opt_class();
+  v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0}];
+  v15[15] = v8;
+  v14[16] = @"supportedTransports";
+  v9 = MEMORY[0x277CBEB98];
+  v10 = objc_opt_class();
+  v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
+  v15[16] = v11;
+  v14[17] = @"isArcadeGame";
+  v15[17] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:18];
 
-  v11 = secureCodedPropertyKeys_sSecureCodedKeys_20;
-  secureCodedPropertyKeys_sSecureCodedKeys_20 = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = secureCodedPropertyKeys_sSecureCodedKeys_20;
+  secureCodedPropertyKeys_sSecureCodedKeys_20 = v12;
 }
 
 - (id)description

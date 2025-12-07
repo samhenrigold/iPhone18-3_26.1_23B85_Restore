@@ -175,25 +175,23 @@ void __52__FCCKContentDatabase_shouldBypassCDNForCKAssetURLs__block_invoke()
 
 - (id)generateURLForResourceID:(id)d
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "resourceID != nil"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "resourceID != nil"];
     *buf = 136315906;
-    v10 = "[FCCKContentDatabase generateURLForResourceID:]";
-    v11 = 2080;
-    v12 = "FCCKContentDatabase.m";
-    v13 = 1024;
-    v14 = 113;
-    v15 = 2114;
-    v16 = v8;
+    v9 = "[FCCKContentDatabase generateURLForResourceID:]";
+    v10 = 2080;
+    v11 = "FCCKContentDatabase.m";
+    v12 = 1024;
+    v13 = 113;
+    v14 = 2114;
+    v15 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = [(FCCKContentDatabase *)self permanentURLForRecordID:dCopy field:3];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -163,10 +163,7 @@ LABEL_9:
 
 uint64_t __71__NTKCGalleryCellAccessibility__axLabelCollectionViewCell_atIndexPath___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) faceAtIndex:*(a1 + 48)];
 
   return _objc_release_x1();
 }

@@ -108,7 +108,7 @@
 
 - (void)handlePrimaryResidentChangedNotification:(id)notification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDResidentDeviceManagerResidentDeviceNotificationKey"];
@@ -149,20 +149,18 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly received update primary resident notification but the primary resident is nil", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly received update primary resident notification but the primary resident is nil", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleXPCMessageCounterLogEvent:(id)event
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   type = [eventCopy type];
   if ([type isEqual:@"XPCAcceptedRequests"])
@@ -179,9 +177,9 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v17 = [type isEqual:@"XPCErroredRequests"];
-  v18 = v17;
-  if (v17)
+  v16 = [type isEqual:@"XPCErroredRequests"];
+  v17 = v16;
+  if (v16)
   {
     v6 = @"HMDLogEventXPCAErroredMessagesCountDailyRequestGroup";
   }
@@ -191,7 +189,7 @@ LABEL_5:
     v6 = 0;
   }
 
-  if (v18)
+  if (v17)
   {
 LABEL_6:
     peerInformation = [eventCopy peerInformation];
@@ -215,28 +213,26 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  v19 = objc_autoreleasePoolPush();
-  v20 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v18 = objc_autoreleasePoolPush();
+  v19 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
-    v21 = HMFGetLogIdentifier();
+    v20 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v21;
-    v24 = 2112;
-    v25 = eventCopy;
-    _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Unknown XPC message counter type - dropping the LogEvent %@", buf, 0x16u);
+    v22 = v20;
+    v23 = 2112;
+    v24 = eventCopy;
+    _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Unknown XPC message counter type - dropping the LogEvent %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v19);
+  objc_autoreleasePoolPop(v18);
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePeriodicSubmissionGroupRemoteMessageEventCountersForMessageName:(id)name peerInformation:(id)information transportType:(int)type messageDirectionSending:(BOOL)sending identifier:(id)identifier
 {
   sendingCopy = sending;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   informationCopy = information;
   identifierCopy = identifier;
@@ -295,11 +291,11 @@ LABEL_17:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             v25 = HMFGetLogIdentifier();
-            v27 = 138543618;
-            v28 = v25;
-            v29 = 2112;
-            v30 = identifierCopy;
-            _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Unable to retrieve eventName for remoteMessage - dropping remote message log event with identifier %@", &v27, 0x16u);
+            v26 = 138543618;
+            v27 = v25;
+            v28 = 2112;
+            v29 = identifierCopy;
+            _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Unable to retrieve eventName for remoteMessage - dropping remote message log event with identifier %@", &v26, 0x16u);
           }
 
           objc_autoreleasePoolPop(v23);
@@ -314,17 +310,15 @@ LABEL_17:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     v19 = HMFGetLogIdentifier();
-    v27 = 138543618;
-    v28 = v19;
-    v29 = 2112;
-    v30 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Invalid transport type - dropping remote message log event with identifier %@", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v19;
+    v28 = 2112;
+    v29 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Invalid transport type - dropping remote message log event with identifier %@", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v17);
 LABEL_25:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDailySubmissionGroupRemoteMessageEventCountersForTransportType:(int)type messageDirectionSending:(BOOL)sending
@@ -347,7 +341,7 @@ LABEL_25:
 
 - (void)_handleRemoteMessageLogEvent:(id)event
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -362,7 +356,7 @@ LABEL_25:
       v10 = @"secure ";
     }
 
-    v26 = v10;
+    v25 = v10;
     msgName = [eventCopy msgName];
     if ([eventCopy sending])
     {
@@ -401,19 +395,19 @@ LABEL_25:
     [eventCopy msgQoS];
     v19 = HMFQualityOfServiceToString();
     *buf = 138544898;
-    v28 = v8;
-    v29 = 2114;
-    v30 = v26;
-    v31 = 2114;
-    v32 = msgName;
-    v33 = 2114;
-    v34 = v12;
-    v35 = 2114;
-    v36 = v15;
-    v37 = 2114;
-    v38 = v18;
-    v39 = 2114;
-    v40 = v19;
+    v27 = v8;
+    v28 = 2114;
+    v29 = v25;
+    v30 = 2114;
+    v31 = msgName;
+    v32 = 2114;
+    v33 = v12;
+    v34 = 2114;
+    v35 = v15;
+    v36 = 2114;
+    v37 = v18;
+    v38 = 2114;
+    v39 = v19;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@[CA] HMDRemoteMessageLogEvent -- %{public}@message %{public}@ %{public}@ over %{public}@ as %{public}@ (QoS: %{public}@)", buf, 0x48u);
   }
 
@@ -427,7 +421,6 @@ LABEL_25:
   [(HMDLogEventMessageEventsAnalyzer *)selfCopy _updatePeriodicSubmissionGroupRemoteMessageEventCountersForMessageName:msgName2 peerInformation:peerInformation transportType:transportType2 messageDirectionSending:sending identifier:msgIdentifier];
 
   [(HMDLogEventMessageEventsAnalyzer *)selfCopy _updateResidentSyncCountersWithRemoteMessageLogEvent:eventCopy];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)periodicRemoteMessageCounterEventNameWithMessageName:(id)name peerInformation:(id)information
@@ -578,7 +571,7 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
 
 - (void)submitRemoteMessageCountersForGroup:(id)group
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   eventCountersManager = [(HMDLogEventMessageEventsAnalyzer *)self eventCountersManager];
   v6 = [eventCountersManager counterGroupForName:@"HMDLogEventMessageAnalyzerCommon"];
@@ -588,33 +581,33 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
   eventCountersManager2 = [(HMDLogEventMessageEventsAnalyzer *)self eventCountersManager];
   v10 = [eventCountersManager2 fetchEventCountersForRequestGroup:groupCopy];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
-  v27 = v10;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v26 = v10;
   obj = [v10 allKeys];
-  v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v11 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v11)
   {
     v12 = v11;
-    v26 = *v29;
+    v25 = *v28;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v29 != v26)
+        if (*v28 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         v15 = [v14 componentsSeparatedByString:@"/"];
         firstObject = [v15 firstObject];
         lastObject = [v15 lastObject];
         v18 = [(HMDLogEventMessageEventsAnalyzer *)self transportTypeForRemoteMessageCounterRequestGroup:groupCopy];
         v19 = [(HMDLogEventMessageEventsAnalyzer *)self messageDirectionStringForRemoteMessageCounterRequestGroup:groupCopy];
-        v20 = [v27 hmf_numberForKey:v14];
+        v20 = [v26 hmf_numberForKey:v14];
         if (v18 && v19)
         {
           v21 = [HMDAggregateRemoteMessageCountersLogEvent aggregateRemoteCountersLogEventWithMessageName:lastObject deviceType:firstObject transportType:v18 direction:v19 primaryResidentDuration:v20 count:v8];
@@ -623,7 +616,7 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v12);
@@ -631,8 +624,6 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
 
   eventCountersManager3 = [(HMDLogEventMessageEventsAnalyzer *)self eventCountersManager];
   [eventCountersManager3 resetEventCountersForRequestGroup:groupCopy];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)messageDirectionStringForRemoteMessageCounterRequestGroup:(id)group
@@ -718,7 +709,7 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
 
 - (void)submitXPCMessageCountersForGroup:(id)group
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   eventCountersManager = [(HMDLogEventMessageEventsAnalyzer *)self eventCountersManager];
   v6 = [eventCountersManager counterGroupForName:@"HMDLogEventMessageAnalyzerCommon"];
@@ -727,32 +718,32 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
 
   selfCopy = self;
   eventCountersManager2 = [(HMDLogEventMessageEventsAnalyzer *)self eventCountersManager];
-  v31 = groupCopy;
+  v30 = groupCopy;
   v10 = [eventCountersManager2 fetchEventCountersForRequestGroup:groupCopy];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = [v10 allKeys];
-  v11 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v11 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = @"/";
-    v14 = *v33;
+    v14 = *v32;
     do
     {
       v15 = 0;
-      v29 = v12;
+      v28 = v12;
       do
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * v15);
+        v16 = *(*(&v31 + 1) + 8 * v15);
         v17 = [v16 componentsSeparatedByString:v13];
         firstObject = [v17 firstObject];
         lastObject = [v17 lastObject];
@@ -762,7 +753,7 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
           v21 = v14;
           v22 = v10;
           v23 = v13;
-          if ([v31 isEqualToString:@"HMDLogEventXPCAcceptedMessagesCountDailyRequestGroup"])
+          if ([v30 isEqualToString:@"HMDLogEventXPCAcceptedMessagesCountDailyRequestGroup"])
           {
             v24 = [HMDAggregateXPCMessageCountersLogEvent xpcAcceptedCountersLogEventWithPeerInformation:firstObject messageName:lastObject primaryResidentDuration:v20 count:v8];
           }
@@ -772,7 +763,7 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
             v24 = 0;
           }
 
-          if ([v31 isEqualToString:@"HMDLogEventXPCSentMessagesCountDailyRequestGroup"])
+          if ([v30 isEqualToString:@"HMDLogEventXPCSentMessagesCountDailyRequestGroup"])
           {
             v25 = [HMDAggregateXPCMessageCountersLogEvent xpcSentCountersLogEventWithPeerInformation:firstObject messageName:lastObject primaryResidentDuration:v20 count:v8];
 
@@ -788,20 +779,18 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
           v13 = v23;
           v10 = v22;
           v14 = v21;
-          v12 = v29;
+          v12 = v28;
         }
 
         ++v15;
       }
 
       while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v12 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v12);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addTTRThresholdTrigger:(id)trigger forEventName:(id)name requestGroup:(id)group atThreshold:(unint64_t)threshold radarInitiator:(id)initiator
@@ -860,11 +849,11 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
 
 - (HMDLogEventMessageEventsAnalyzer)initWithDataSource:(id)source
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
-  v24.receiver = self;
-  v24.super_class = HMDLogEventMessageEventsAnalyzer;
-  v5 = [(HMDLogEventMessageEventsAnalyzer *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = HMDLogEventMessageEventsAnalyzer;
+  v5 = [(HMDLogEventMessageEventsAnalyzer *)&v23 init];
   if (v5)
   {
     legacyCountersManager = [sourceCopy legacyCountersManager];
@@ -893,11 +882,11 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
     v5->_homeManagerMessagesGroup = v17;
 
     logEventDispatcher2 = [sourceCopy logEventDispatcher];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v25[2] = objc_opt_class();
-    v25[3] = objc_opt_class();
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v24[2] = objc_opt_class();
+    v24[3] = objc_opt_class();
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
     [logEventDispatcher2 addObserver:v5 forEventClasses:v20];
 
     notificationCenter = [sourceCopy notificationCenter];
@@ -907,34 +896,32 @@ void __49__HMDLogEventMessageEventsAnalyzer_observeEvent___block_invoke(uint64_t
     [(HMDLogEventMessageEventsAnalyzer *)v5 registerTTRTriggersWithDataSource:sourceCopy];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (id)managedEventCounterRequestGroups
 {
-  v5[19] = *MEMORY[0x277D85DE8];
-  v5[0] = @"HMDLogEventMessageAnalyzerRxIDSMessagesCountPeriodicRequestGroup";
-  v5[1] = @"HMDLogEventMessageAnalyzerTxIDSMessagesCountPeriodicRequestGroup";
-  v5[2] = @"HMDLogEventMessageAnalyzerRxIDSProxyMessagesCountPeriodicRequestGroup";
-  v5[3] = @"HMDLogEventMessageAnalyzerTxIDSProxyMessagesCountPeriodicRequestGroup";
-  v5[4] = @"HMDLogEventMessageAnalyzerRxLoxyMessagesCountPeriodicRequestGroup";
-  v5[5] = @"HMDLogEventMessageAnalyzerTxLoxyMessagesCountPeriodicRequestGroup";
-  v5[6] = @"HMDLogEventMessageAnalyzerRxRapportMessagesCountPeriodicRequestGroup";
-  v5[7] = @"HMDLogEventMessageAnalyzerTxRapportMessagesCountPeriodicRequestGroup";
-  v5[8] = @"HMDLogEventMessageAnalyzerRxRapportOverBLEMessagesCountPeriodicRequestGroup";
-  v5[9] = @"HMDLogEventMessageAnalyzerTxRapportOverBLEMessagesCountPeriodicRequestGroup";
-  v5[10] = @"HMDLogEventMessageAnalyzerRxSecureMessagesCountPeriodicRequestGroup";
-  v5[11] = @"HMDLogEventMessageAnalyzerTxSecureMessagesCountPeriodicRequestGroup";
-  v5[12] = @"HMDLogEventXPCAcceptedMessagesCountDailyRequestGroup";
-  v5[13] = @"HMDLogEventXPCSentMessagesCountDailyRequestGroup";
-  v5[14] = @"HMDLogEventXPCAErroredMessagesCountDailyRequestGroup";
-  v5[15] = @"HMDLogEventMessageAnalyzerRemoteMessageSentDailyRequestGroup";
-  v5[16] = @"HMDLogEventMessageAnalyzerRemoteMessageReceivedDailyRequestGroup";
-  v5[17] = @"HMDLogEventResidentSyncRemoteMessagesRequestGroup";
-  v5[18] = @"HMDMessageEventsAnalyzerHomeManagerMessagesRequestGroup";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:19];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[19] = *MEMORY[0x277D85DE8];
+  v4[0] = @"HMDLogEventMessageAnalyzerRxIDSMessagesCountPeriodicRequestGroup";
+  v4[1] = @"HMDLogEventMessageAnalyzerTxIDSMessagesCountPeriodicRequestGroup";
+  v4[2] = @"HMDLogEventMessageAnalyzerRxIDSProxyMessagesCountPeriodicRequestGroup";
+  v4[3] = @"HMDLogEventMessageAnalyzerTxIDSProxyMessagesCountPeriodicRequestGroup";
+  v4[4] = @"HMDLogEventMessageAnalyzerRxLoxyMessagesCountPeriodicRequestGroup";
+  v4[5] = @"HMDLogEventMessageAnalyzerTxLoxyMessagesCountPeriodicRequestGroup";
+  v4[6] = @"HMDLogEventMessageAnalyzerRxRapportMessagesCountPeriodicRequestGroup";
+  v4[7] = @"HMDLogEventMessageAnalyzerTxRapportMessagesCountPeriodicRequestGroup";
+  v4[8] = @"HMDLogEventMessageAnalyzerRxRapportOverBLEMessagesCountPeriodicRequestGroup";
+  v4[9] = @"HMDLogEventMessageAnalyzerTxRapportOverBLEMessagesCountPeriodicRequestGroup";
+  v4[10] = @"HMDLogEventMessageAnalyzerRxSecureMessagesCountPeriodicRequestGroup";
+  v4[11] = @"HMDLogEventMessageAnalyzerTxSecureMessagesCountPeriodicRequestGroup";
+  v4[12] = @"HMDLogEventXPCAcceptedMessagesCountDailyRequestGroup";
+  v4[13] = @"HMDLogEventXPCSentMessagesCountDailyRequestGroup";
+  v4[14] = @"HMDLogEventXPCAErroredMessagesCountDailyRequestGroup";
+  v4[15] = @"HMDLogEventMessageAnalyzerRemoteMessageSentDailyRequestGroup";
+  v4[16] = @"HMDLogEventMessageAnalyzerRemoteMessageReceivedDailyRequestGroup";
+  v4[17] = @"HMDLogEventResidentSyncRemoteMessagesRequestGroup";
+  v4[18] = @"HMDMessageEventsAnalyzerHomeManagerMessagesRequestGroup";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:19];
 
   return v2;
 }

@@ -6,7 +6,7 @@
 - (id)cps_sha256String;
 - (id)cps_stringByRemovingPrefix:()ClipServicesExtras;
 - (uint64_t)cps_looksLikeParentAppOfAppClipBundleIdentifier:()ClipServicesExtras;
-- (uint64_t)cps_looksLikeUUIDOrWebClipIdentifier;
+- (void)cps_looksLikeUUIDOrWebClipIdentifier;
 @end
 
 @implementation NSString(ClipServicesExtras)
@@ -118,13 +118,13 @@
   return v4;
 }
 
-- (uint64_t)cps_looksLikeUUIDOrWebClipIdentifier
+- (void)cps_looksLikeUUIDOrWebClipIdentifier
 {
   result = [self length];
   if (result)
   {
     v3 = result;
-    return ([self hasPrefix:@"com.apple.appclip-"] & 1) != 0 || (objc_msgSend(self, "hasPrefix:", @"com.apple.webapp-") & 1) != 0 || v3 == 32 && (objc_msgSend(self, "cps_isAlphaNumeric") & 1) != 0;
+    return (([self hasPrefix:@"com.apple.appclip-"] & 1) != 0 || (objc_msgSend(self, "hasPrefix:", @"com.apple.webapp-") & 1) != 0 || v3 == 32 && (objc_msgSend(self, "cps_isAlphaNumeric") & 1) != 0);
   }
 
   return result;

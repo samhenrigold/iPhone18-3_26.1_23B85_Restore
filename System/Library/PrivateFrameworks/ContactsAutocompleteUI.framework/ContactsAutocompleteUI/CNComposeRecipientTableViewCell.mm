@@ -142,7 +142,7 @@
     v18 = actionButton6;
     if (actionButton6)
     {
-      [actionButton6 transform];
+      objc_msgSend_transform(actionButton6);
     }
 
     else
@@ -191,8 +191,8 @@
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  sortedChildren = [recipientCopy sortedChildren];
-  v14 = [sortedChildren countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v13 = objc_msgSend_sortedChildren(recipientCopy);
+  v14 = [v13 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v14)
   {
     v15 = v14;
@@ -203,7 +203,7 @@
       {
         if (*v37 != v16)
         {
-          objc_enumerationMutation(sortedChildren);
+          objc_enumerationMutation(v13);
         }
 
         v18 = *(*(&v36 + 1) + 8 * i);
@@ -228,7 +228,7 @@
         }
       }
 
-      v15 = [sortedChildren countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v15);
@@ -909,8 +909,8 @@ void __48__CNComposeRecipientTableViewCell_setRecipient___block_invoke(uint64_t 
     v30 = recipientCopy;
     if ([recipientCopy isGroup])
     {
-      sortedChildren = [recipientCopy sortedChildren];
-      v5 = [sortedChildren _cn_take:{objc_msgSend(MEMORY[0x1E695D0C0], "maxContactAvatars")}];
+      v4 = objc_msgSend_sortedChildren(recipientCopy);
+      v5 = [v4 _cn_take:{objc_msgSend(MEMORY[0x1E695D0C0], "maxContactAvatars")}];
     }
 
     else

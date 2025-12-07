@@ -15,11 +15,11 @@
 
 - (id)suggestedActions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = +[WFActionRegistry sharedRegistry];
-  v10 = @"ShowWhenRun";
-  v11[0] = MEMORY[0x1E695E110];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"ShowWhenRun";
+  v10[0] = MEMORY[0x1E695E110];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v4 = [v2 createActionWithIdentifier:@"is.workflow.actions.sendmessage" serializedParameters:v3];
 
   v5 = +[WFActionRegistry sharedRegistry];
@@ -31,8 +31,6 @@
 
     v6 = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -55,17 +53,17 @@
 
 - (WFWifiTrigger)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = WFWifiTrigger;
-  v5 = [(WFTrigger *)&v17 initWithCoder:coderCopy];
+  v16.receiver = self;
+  v16.super_class = WFWifiTrigger;
+  v5 = [(WFTrigger *)&v16 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"selectedNetworks"];
     selectedNetworks = v5->_selectedNetworks;
@@ -99,7 +97,6 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

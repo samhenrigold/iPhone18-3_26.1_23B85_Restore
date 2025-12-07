@@ -243,7 +243,7 @@ LABEL_7:
 
   v8 = [(PLCPLFacePushSupport *)self cplFaceRefsFromFaces:allObjects algorithmVersion:version];
   v9 = objc_alloc_init(MEMORY[0x1E6994AC0]);
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v10 = v8;
   }
@@ -269,7 +269,7 @@ LABEL_7:
     v8 = [(PLCPLFacePushSupport *)self cplFaceAnalysisRefFromAsset:assetCopy algorithmVersion:&v14];
     [changeCopy setFaces:v8];
     faces = [v8 faces];
-    v10 = [faces count];
+    v10 = objc_msgSend_count(faces);
 
     if (v10)
     {
@@ -355,7 +355,7 @@ LABEL_7:
   personBeingKeyFace = [faceCopy personBeingKeyFace];
   personUUID2 = [personBeingKeyFace personUUID];
 
-  if (personUUID && [personUUID isEqualToString:personUUID2])
+  if (personUUID && objc_msgSend_isEqualToString_(personUUID))
   {
     personBeingKeyFace2 = [faceCopy personBeingKeyFace];
     keyFaceIsPicked = [personBeingKeyFace2 keyFaceIsPicked];

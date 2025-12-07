@@ -96,7 +96,7 @@ FIQuantityTimeSlice *__68__FIMutableTimeSliceGroup_timeSliceGroupForQuantityType
 
 id __50__FIMutableTimeSliceGroup_updateSlicesWithSample___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 quantityType];
   v5 = [*(a1 + 32) quantityType];
@@ -106,9 +106,9 @@ id __50__FIMutableTimeSliceGroup_updateSlicesWithSample___block_invoke(uint64_t 
   {
     v7 = *(a1 + 32);
     v8 = v3;
-    v14 = 0;
-    v9 = [v8 addingSample:v7 error:&v14];
-    v10 = v14;
+    v13 = 0;
+    v9 = [v8 addingSample:v7 error:&v13];
+    v10 = v13;
     if (v10)
     {
       _HKInitializeLogging();
@@ -116,11 +116,11 @@ id __50__FIMutableTimeSliceGroup_updateSlicesWithSample___block_invoke(uint64_t 
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v16 = v7;
-        v17 = 2112;
-        v18 = v8;
-        v19 = 2112;
-        v20 = v10;
+        v15 = v7;
+        v16 = 2112;
+        v17 = v8;
+        v18 = 2112;
+        v19 = v10;
         _os_log_error_impl(&dword_24B35E000, v11, OS_LOG_TYPE_ERROR, "Adding sample %@ to quantity slice %@ caused error: %@", buf, 0x20u);
       }
     }
@@ -131,41 +131,39 @@ id __50__FIMutableTimeSliceGroup_updateSlicesWithSample___block_invoke(uint64_t 
     v9 = v3;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (BOOL)allSlicesFinalized
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_slices;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (![*(*(&v10 + 1) + 8 * i) finalized])
+        if (![*(*(&v9 + 1) + 8 * i) finalized])
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -178,7 +176,6 @@ id __50__FIMutableTimeSliceGroup_updateSlicesWithSample___block_invoke(uint64_t 
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

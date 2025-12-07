@@ -24,13 +24,13 @@
     v11 = PLMigrationGetLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [v10 count];
+      v12 = objc_msgSend_count(v10);
       *buf = 134217984;
       v42 = v12;
       _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEFAULT, "restoreSocialGroupUserPicks: found %lu edgeIDs present in migration context...", buf, 0xCu);
     }
 
-    if ([v10 count])
+    if (objc_msgSend_count(v10))
     {
       pl_graphCache = [v9 pl_graphCache];
       v14 = [pl_graphCache labelWithCode:1003 inContext:v9];

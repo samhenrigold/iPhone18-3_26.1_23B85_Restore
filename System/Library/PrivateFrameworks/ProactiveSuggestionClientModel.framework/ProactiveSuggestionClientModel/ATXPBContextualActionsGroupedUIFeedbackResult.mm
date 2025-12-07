@@ -107,19 +107,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_groupedUIFeedbackResults)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    numShortcutsAtStart = self->_numShortcutsAtStart;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -138,15 +137,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  numShortcutsAtEnd = self->_numShortcutsAtEnd;
   PBDataWriterWriteUint64Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    numManuallyAddedSteps = self->_numManuallyAddedSteps;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:

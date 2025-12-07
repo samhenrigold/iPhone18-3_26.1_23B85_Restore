@@ -562,35 +562,35 @@ LABEL_7:
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Rewrapping attachment with main key… {attachment: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Rewrapping attachment with main key… {attachment: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __53__ICAttachmentCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot rewrap attachment fallback image {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot rewrap attachment fallback image {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __53__ICAttachmentCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot rewrap attachment fallback PDF {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot rewrap attachment fallback PDF {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __53__ICAttachmentCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping media and preview images because attachment couldn't be rewrapped {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping media and preview images because attachment couldn't be rewrapped {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __53__ICAttachmentCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold_4(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping preview images because media couldn't be rewrapped {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping preview images because media couldn't be rewrapped {attachment: %@}", v4, v5, v6, v7);
 }
 
 - (void)writeEncryptedFallbackImageData:(void *)a1 .cold.1(void *a1)
@@ -599,28 +599,28 @@ void __53__ICAttachmentCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Encrypting fallback image data… {attachment: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Encrypting fallback image data… {attachment: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __67__ICAttachmentCryptoStrategyV1Neo_writeEncryptedFallbackImageData___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback image data {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback image data {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __67__ICAttachmentCryptoStrategyV1Neo_writeEncryptedFallbackImageData___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback image data because attachment doesn't have account {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback image data because attachment doesn't have account {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __67__ICAttachmentCryptoStrategyV1Neo_writeEncryptedFallbackImageData___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback image data because fallback URL is nil {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback image data because fallback URL is nil {attachment: %@}", v4, v5, v6, v7);
 }
 
 - (void)writeEncryptedFallbackPDFData:(void *)a1 .cold.1(void *a1)
@@ -629,28 +629,28 @@ void __67__ICAttachmentCryptoStrategyV1Neo_writeEncryptedFallbackImageData___blo
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Encrypting fallback PDF data… {attachment: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Encrypting fallback PDF data… {attachment: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __65__ICAttachmentCryptoStrategyV1Neo_writeEncryptedFallbackPDFData___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback PDF data {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback PDF data {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __65__ICAttachmentCryptoStrategyV1Neo_writeEncryptedFallbackPDFData___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback PDF data because attachment doesn't have account {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback PDF data because attachment doesn't have account {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __65__ICAttachmentCryptoStrategyV1Neo_writeEncryptedFallbackPDFData___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback PDF data because fallback URL is nil {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt fallback PDF data because fallback URL is nil {attachment: %@}", v4, v5, v6, v7);
 }
 
 - (void)decryptedFallbackImageData
@@ -659,21 +659,21 @@ void __65__ICAttachmentCryptoStrategyV1Neo_writeEncryptedFallbackPDFData___block
   shortLoggingDescription = [object shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting fallback image data… {attachment: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting fallback image data… {attachment: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __61__ICAttachmentCryptoStrategyV1Neo_decryptedFallbackImageData__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt fallback image data {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt fallback image data {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __61__ICAttachmentCryptoStrategyV1Neo_decryptedFallbackImageData__block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt fallback image data because attachment doesn't have fallback image URL {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt fallback image data because attachment doesn't have fallback image URL {attachment: %@}", v4, v5, v6, v7);
 }
 
 - (void)decryptedFallbackPDFData
@@ -682,21 +682,21 @@ void __61__ICAttachmentCryptoStrategyV1Neo_decryptedFallbackImageData__block_inv
   shortLoggingDescription = [object shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting fallback PDF data… {attachment: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting fallback PDF data… {attachment: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __59__ICAttachmentCryptoStrategyV1Neo_decryptedFallbackPDFData__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt fallback PDF data {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt fallback PDF data {attachment: %@}", v4, v5, v6, v7);
 }
 
 void __59__ICAttachmentCryptoStrategyV1Neo_decryptedFallbackPDFData__block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt fallback PDF data because attachment doesn't have fallback PDF URL {attachment: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt fallback PDF data because attachment doesn't have fallback PDF URL {attachment: %@}", v4, v5, v6, v7);
 }
 
 @end

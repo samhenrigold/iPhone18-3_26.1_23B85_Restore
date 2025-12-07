@@ -7,16 +7,16 @@
 
 - (CLGeocoderInternal)init
 {
-  v4.receiver = self;
-  v4.super_class = CLGeocoderInternal;
-  v2 = [(CLGeocoderInternal *)&v4 init];
-  if (v2)
+  v7.receiver = self;
+  v7.super_class = CLGeocoderInternal;
+  v5 = [(CLGeocoderInternal *)&v7 init];
+  if (v5)
   {
-    v2->_responseSilo = [MEMORY[0x1E69AD380] main];
-    v2->_queue = dispatch_queue_create("CLGeocoder", 0);
+    v5->_responseSilo = objc_msgSend_main(MEMORY[0x1E69AD380], v2, v3, v4);
+    v5->_queue = dispatch_queue_create("CLGeocoder", 0);
   }
 
-  return v2;
+  return v5;
 }
 
 - (void)dealloc

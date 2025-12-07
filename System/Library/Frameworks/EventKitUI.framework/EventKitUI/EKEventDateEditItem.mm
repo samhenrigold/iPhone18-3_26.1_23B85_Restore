@@ -693,8 +693,8 @@ LABEL_4:
     startDatePicker = self->_startDatePicker;
     self->_startDatePicker = _newDatePicker;
 
-    contentView = [(UITableViewCell *)self->_startDatePickerCell contentView];
-    [contentView addSubview:self->_startDatePicker];
+    v8 = objc_msgSend_contentView(self->_startDatePickerCell);
+    [v8 addSubview:self->_startDatePicker];
 
     if (self->_allDay)
     {
@@ -727,8 +727,8 @@ LABEL_4:
     endDatePicker = self->_endDatePicker;
     self->_endDatePicker = _newDatePicker;
 
-    contentView = [(UITableViewCell *)self->_endDatePickerCell contentView];
-    [contentView addSubview:self->_endDatePicker];
+    v8 = objc_msgSend_contentView(self->_endDatePickerCell);
+    [v8 addSubview:self->_endDatePicker];
 
     if (self->_allDay)
     {
@@ -754,18 +754,18 @@ LABEL_4:
   v5 = MEMORY[0x1E696ACD8];
   pickerCopy = picker;
   cellCopy = cell;
-  contentView = [cellCopy contentView];
-  v9 = [v5 constraintWithItem:pickerCopy attribute:5 relatedBy:0 toItem:contentView attribute:5 multiplier:1.0 constant:0.0];
+  v8 = objc_msgSend_contentView(cellCopy);
+  v9 = [v5 constraintWithItem:pickerCopy attribute:5 relatedBy:0 toItem:v8 attribute:5 multiplier:1.0 constant:0.0];
   v10 = MEMORY[0x1E696ACD8];
-  contentView2 = [cellCopy contentView];
-  v12 = [v10 constraintWithItem:pickerCopy attribute:6 relatedBy:0 toItem:contentView2 attribute:6 multiplier:1.0 constant:0.0];
+  v11 = objc_msgSend_contentView(cellCopy);
+  v12 = [v10 constraintWithItem:pickerCopy attribute:6 relatedBy:0 toItem:v11 attribute:6 multiplier:1.0 constant:0.0];
   v13 = MEMORY[0x1E696ACD8];
-  contentView3 = [cellCopy contentView];
-  v15 = [v13 constraintWithItem:pickerCopy attribute:4 relatedBy:0 toItem:contentView3 attribute:4 multiplier:1.0 constant:0.0];
+  v14 = objc_msgSend_contentView(cellCopy);
+  v15 = [v13 constraintWithItem:pickerCopy attribute:4 relatedBy:0 toItem:v14 attribute:4 multiplier:1.0 constant:0.0];
   v16 = MEMORY[0x1E696ACD8];
-  contentView4 = [cellCopy contentView];
+  v17 = objc_msgSend_contentView(cellCopy);
 
-  v18 = [v16 constraintWithItem:pickerCopy attribute:3 relatedBy:0 toItem:contentView4 attribute:3 multiplier:1.0 constant:0.0];
+  v18 = [v16 constraintWithItem:pickerCopy attribute:3 relatedBy:0 toItem:v17 attribute:3 multiplier:1.0 constant:0.0];
 
   v20 = [v19 arrayWithObjects:{v9, v12, v15, v18, 0}];
 

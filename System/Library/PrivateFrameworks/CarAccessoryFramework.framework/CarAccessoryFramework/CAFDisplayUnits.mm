@@ -22,6 +22,7 @@
 - (unsigned)fuelEfficiencyUnitRawValue;
 - (unsigned)speedUnitRawValue;
 - (unsigned)temperatureUnitRawValue;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -345,6 +346,116 @@
   v3 = fuelEfficiencyUnitRawValueCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000046000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    speedUnitRawValueCharacteristic = [(CAFDisplayUnits *)self speedUnitRawValueCharacteristic];
+    uniqueIdentifier2 = [speedUnitRawValueCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers displayUnitsService:self didUpdateSpeedUnitRawValue:{-[CAFDisplayUnits speedUnitRawValue](self, "speedUnitRawValue")}];
+LABEL_20:
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000046000004"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    distanceUnitRawValueCharacteristic = [(CAFDisplayUnits *)self distanceUnitRawValueCharacteristic];
+    uniqueIdentifier4 = [distanceUnitRawValueCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers displayUnitsService:self didUpdateDistanceUnitRawValue:{-[CAFDisplayUnits distanceUnitRawValue](self, "distanceUnitRawValue")}];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000046000005"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    temperatureUnitRawValueCharacteristic = [(CAFDisplayUnits *)self temperatureUnitRawValueCharacteristic];
+    uniqueIdentifier6 = [temperatureUnitRawValueCharacteristic uniqueIdentifier];
+    v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v22)
+    {
+      observers = [(CAFService *)self observers];
+      [observers displayUnitsService:self didUpdateTemperatureUnitRawValue:{-[CAFDisplayUnits temperatureUnitRawValue](self, "temperatureUnitRawValue")}];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000046000010"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    energyEfficiencyUnitRawValueCharacteristic = [(CAFDisplayUnits *)self energyEfficiencyUnitRawValueCharacteristic];
+    uniqueIdentifier8 = [energyEfficiencyUnitRawValueCharacteristic uniqueIdentifier];
+    v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v27)
+    {
+      observers = [(CAFService *)self observers];
+      [observers displayUnitsService:self didUpdateEnergyEfficiencyUnitRawValue:{-[CAFDisplayUnits energyEfficiencyUnitRawValue](self, "energyEfficiencyUnitRawValue")}];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000046000011"])
+  {
+    goto LABEL_20;
+  }
+
+  uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+  fuelEfficiencyUnitRawValueCharacteristic = [(CAFDisplayUnits *)self fuelEfficiencyUnitRawValueCharacteristic];
+  uniqueIdentifier10 = [fuelEfficiencyUnitRawValueCharacteristic uniqueIdentifier];
+  v31 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+  if (v31)
+  {
+    observers = [(CAFService *)self observers];
+    [observers displayUnitsService:self didUpdateFuelEfficiencyUnitRawValue:{-[CAFDisplayUnits fuelEfficiencyUnitRawValue](self, "fuelEfficiencyUnitRawValue")}];
+    goto LABEL_20;
+  }
+
+LABEL_21:
+  v32.receiver = self;
+  v32.super_class = CAFDisplayUnits;
+  [(CAFService *)&v32 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForSpeedUnit

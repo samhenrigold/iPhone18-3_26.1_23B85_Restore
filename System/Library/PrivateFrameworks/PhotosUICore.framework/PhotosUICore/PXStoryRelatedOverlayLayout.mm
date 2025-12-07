@@ -323,7 +323,7 @@
       [generativeMemoryController2 setMemoryCardVisible:1 animated:0];
 
       generativeMemoryController3 = [(PXStoryRelatedOverlayLayout *)self generativeMemoryController];
-      scrollLayout = [generativeMemoryController3 layout];
+      scrollLayout = objc_msgSend_layout(generativeMemoryController3);
     }
 
     else
@@ -574,79 +574,79 @@ LABEL_5:
   }
 }
 
-void __45__PXStoryRelatedOverlayLayout__updateContent__block_invoke(uint64_t a1)
+void __45__PXStoryRelatedOverlayLayout__updateContent__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = [*(a1 + 32) viewModel];
-  v20 = [v2 viewLayoutSpec];
+  v6 = [*(a1 + 32) viewModel];
+  v24 = [v6 viewLayoutSpec];
 
-  v3 = *(a1 + 32);
-  if (*(v3 + 1116))
+  v7 = *(a1 + 32);
+  if (*(v7 + 1116))
   {
-    v4 = *(v3 + 1088);
+    v8 = *(v7 + 1088);
   }
 
   else
   {
-    v4 = off_1E77221F8;
+    v8 = off_1E77221F8;
   }
 
-  v5 = *v4;
-  v6 = v4[1];
-  v7 = v4[2];
-  v8 = v4[3];
-  [v20 relatedTitleSize];
-  v10 = v9;
-  v12 = v11;
-  v22 = v5;
-  v23.origin.x = v5;
-  v23.origin.y = v6;
-  v21 = v7;
-  v23.size.width = v7;
-  v23.size.height = v8;
-  MinX = CGRectGetMinX(v23);
-  v14 = CGRectGetMinX(*(a1 + 40));
-  v15 = [v20 relatedLayoutMetrics];
-  [v15 margins];
-  v17 = v14 + v16;
+  v9 = *v8;
+  v10 = v8[1];
+  v11 = v8[2];
+  v12 = v8[3];
+  [v24 relatedTitleSize];
+  v14 = v13;
+  v16 = v15;
+  v26 = v9;
+  v27.origin.x = v9;
+  v27.origin.y = v10;
+  v25 = v11;
+  v27.size.width = v11;
+  v27.size.height = v12;
+  MinX = CGRectGetMinX(v27);
+  v18 = CGRectGetMinX(*(a1 + 40));
+  v19 = [v24 relatedLayoutMetrics];
+  [v19 margins];
+  v21 = v18 + v20;
 
-  if (MinX >= v17)
+  if (MinX >= v21)
   {
-    v18 = MinX;
+    v22 = MinX;
   }
 
   else
   {
-    v18 = v17;
+    v22 = v21;
   }
 
   if ([*(a1 + 32) _needsRTLFlip])
   {
-    v24.origin.x = v22;
-    v24.origin.y = v6;
-    v24.size.width = v21;
-    v24.size.height = v8;
-    CGRectGetMaxX(v24);
-    v25.origin.x = v18;
-    v25.origin.y = v6;
-    v25.size.width = v10;
-    v25.size.height = v12;
-    CGRectGetWidth(v25);
+    v28.origin.x = v26;
+    v28.origin.y = v10;
+    v28.size.width = v25;
+    v28.size.height = v12;
+    CGRectGetMaxX(v28);
+    v29.origin.x = v22;
+    v29.origin.y = v10;
+    v29.size.width = v14;
+    v29.size.height = v16;
+    CGRectGetWidth(v29);
     CGRectGetMaxX(*(a1 + 40));
-    v26.origin.x = v18;
-    v26.origin.y = v6;
-    v26.size.width = v10;
-    v26.size.height = v12;
-    CGRectGetWidth(v26);
-    v19 = [v20 relatedLayoutMetrics];
-    [v19 margins];
+    v30.origin.x = v22;
+    v30.origin.y = v10;
+    v30.size.width = v14;
+    v30.size.height = v16;
+    CGRectGetWidth(v30);
+    v23 = [v24 relatedLayoutMetrics];
+    [v23 margins];
   }
 
-  v27.origin.x = v22;
-  v27.origin.y = v6;
-  v27.size.width = v21;
-  v27.size.height = v8;
-  CGRectGetMinY(v27);
-  [v20 spacingBetweenRelatedTitleAndMainRelated];
+  v31.origin.x = v26;
+  v31.origin.y = v10;
+  v31.size.width = v25;
+  v31.size.height = v12;
+  CGRectGetMinY(v31);
+  [v24 spacingBetweenRelatedTitleAndMainRelated];
   sub_1A524D1F4();
 }
 

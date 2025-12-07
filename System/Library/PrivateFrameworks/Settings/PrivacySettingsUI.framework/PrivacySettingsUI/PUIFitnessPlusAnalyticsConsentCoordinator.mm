@@ -26,15 +26,14 @@
   LODWORD(v4) = [v4 hasRejectedPrivacyIdentifier:v5];
 
   v6 = AMSAcknowledgePrivacyTaskClass & (v4 ^ 1);
-  v7 = _PUILoggingFacility();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _PUILoggingFacility(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109120;
     v10[1] = v6;
-    _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "PUIFitnessPlusAnalyticsConsentCoordinator isOptedIn %d", v10, 8u);
+    _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "PUIFitnessPlusAnalyticsConsentCoordinator isOptedIn %d", v10, 8u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -67,18 +66,18 @@
 
 void __76__PUIFitnessPlusAnalyticsConsentCoordinator_setAnalyticsConsent_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _PUILoggingFacility();
+  v6 = _PUILoggingFacility(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v7)
     {
       v8 = *(a1 + 40);
-      v12 = 67109120;
-      v13 = v8;
-      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "PUIFitnessPlusAnalyticsConsentCoordinator successfully updated opt in privacy preference: %d", &v12, 8u);
+      v11 = 67109120;
+      v12 = v8;
+      _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "PUIFitnessPlusAnalyticsConsentCoordinator successfully updated opt in privacy preference: %d", &v11, 8u);
     }
   }
 
@@ -86,15 +85,14 @@ void __76__PUIFitnessPlusAnalyticsConsentCoordinator_setAnalyticsConsent_complet
   {
     v9 = *(a1 + 40);
     v10 = [v5 localizedDescription];
-    v12 = 67109378;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "PUIFitnessPlusAnalyticsConsentCoordinator failed to update opt in privacy preference to %d with error: %@", &v12, 0x12u);
+    v11 = 67109378;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_2657FE000, v6, OS_LOG_TYPE_DEFAULT, "PUIFitnessPlusAnalyticsConsentCoordinator failed to update opt in privacy preference to %d with error: %@", &v11, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSubscriptionStatusWithCompletion:(id)completion
@@ -130,15 +128,16 @@ void __76__PUIFitnessPlusAnalyticsConsentCoordinator_setAnalyticsConsent_complet
 
 void __83__PUIFitnessPlusAnalyticsConsentCoordinator_fetchSubscriptionStatusWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, int a4, void *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
-  if (!v8 || ![v8 count])
+  v10 = v9;
+  if (!v8 || (v9 = [v8 count]) == 0)
   {
-    v10 = _PUILoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PUILoggingFacility(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __83__PUIFitnessPlusAnalyticsConsentCoordinator_fetchSubscriptionStatusWithCompletion___block_invoke_cold_2(v9, v10);
+      __83__PUIFitnessPlusAnalyticsConsentCoordinator_fetchSubscriptionStatusWithCompletion___block_invoke_cold_2(v10, v11);
     }
 
     goto LABEL_8;
@@ -146,10 +145,10 @@ void __83__PUIFitnessPlusAnalyticsConsentCoordinator_fetchSubscriptionStatusWith
 
   if (a4)
   {
-    v10 = _PUILoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PUILoggingFacility(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __83__PUIFitnessPlusAnalyticsConsentCoordinator_fetchSubscriptionStatusWithCompletion___block_invoke_cold_1(v10);
+      __83__PUIFitnessPlusAnalyticsConsentCoordinator_fetchSubscriptionStatusWithCompletion___block_invoke_cold_1(v11);
     }
 
 LABEL_8:
@@ -159,44 +158,41 @@ LABEL_8:
   }
 
   v12 = [v8 firstObject];
-  if ([v12 isTrialPeriod] & 1) != 0 || (objc_msgSend(v12, "isOfferPeriod") & 1) != 0 || (objc_msgSend(v12, "isInGracePeriod"))
+  v13 = [v12 isTrialPeriod];
+  if (v13 & 1) != 0 || (v13 = [v12 isOfferPeriod], (v13) || (v13 = objc_msgSend(v12, "isInGracePeriod"), (v13))
   {
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v15 = [v12 expiryDate];
-    [v15 timeIntervalSinceReferenceDate];
-    v17 = v16;
-    v18 = [MEMORY[0x277CBEAA8] date];
-    [v18 timeIntervalSinceReferenceDate];
-    v13 = v17 > v19;
+    v16 = [v12 expiryDate];
+    [v16 timeIntervalSinceReferenceDate];
+    v18 = v17;
+    v19 = [MEMORY[0x277CBEAA8] date];
+    [v19 timeIntervalSinceReferenceDate];
+    v14 = v18 > v20;
   }
 
-  v14 = _PUILoggingFacility();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _PUILoggingFacility(v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v20[0] = 67109120;
-    v20[1] = v13;
-    _os_log_impl(&dword_2657FE000, v14, OS_LOG_TYPE_DEFAULT, "PUIFitnessPlusAnalyticsConsentCoordinator isSubscribed %d", v20, 8u);
+    v21[0] = 67109120;
+    v21[1] = v14;
+    _os_log_impl(&dword_2657FE000, v15, OS_LOG_TYPE_DEFAULT, "PUIFitnessPlusAnalyticsConsentCoordinator isSubscribed %d", v21, 8u);
   }
 
   (*(*(a1 + 32) + 16))();
 LABEL_9:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __83__PUIFitnessPlusAnalyticsConsentCoordinator_fetchSubscriptionStatusWithCompletion___block_invoke_cold_2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "PUIFitnessPlusAnalyticsConsentCoordinator failed to fetch subscription status with error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "PUIFitnessPlusAnalyticsConsentCoordinator failed to fetch subscription status with error: %@", &v4, 0xCu);
 }
 
 @end

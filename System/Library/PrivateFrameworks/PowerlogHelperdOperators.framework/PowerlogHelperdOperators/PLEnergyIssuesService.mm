@@ -79,20 +79,19 @@
 
 - (void)setAssertionThresholds
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_25EE51000, v0, OS_LOG_TYPE_DEBUG, "%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25EE51000, v0, OS_LOG_TYPE_DEBUG, "%@", v1, 0xCu);
 }
 
-uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke(uint64_t a1)
+void *__47__PLEnergyIssuesService_setAssertionThresholds__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   setAssertionThresholds_classDebugEnabled = result;
   return result;
 }
 
-uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(uint64_t a1)
+void *__47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   setAssertionThresholds_classDebugEnabled_119 = result;
@@ -107,13 +106,13 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
 
 + (id)entryEventIntervalDefinitions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] internalBuild])
   {
-    v7 = @"UrsaDefinition";
+    v6 = @"UrsaDefinition";
     entryEventIntervalDefinitionsUrsaIssues = [self entryEventIntervalDefinitionsUrsaIssues];
-    v8[0] = entryEventIntervalDefinitionsUrsaIssues;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = entryEventIntervalDefinitionsUrsaIssues;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   }
 
   else
@@ -121,128 +120,122 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
     v4 = MEMORY[0x277CBEC10];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 + (id)entryEventIntervalDefinitionsUrsaIssues
 {
-  v31[2] = *MEMORY[0x277D85DE8];
-  v30[0] = *MEMORY[0x277D3F4E8];
+  v30[2] = *MEMORY[0x277D85DE8];
+  v29[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F590];
-  v28[0] = *MEMORY[0x277D3F568];
-  v28[1] = v2;
-  v29[0] = &unk_28714B1D8;
-  v29[1] = &unk_2871458C8;
-  v28[2] = *MEMORY[0x277D3F588];
-  v29[2] = &unk_28714B1E8;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
-  v31[0] = v25;
-  v30[1] = *MEMORY[0x277D3F540];
-  v26[0] = @"radar";
+  v27[0] = *MEMORY[0x277D3F568];
+  v27[1] = v2;
+  v28[0] = &unk_28714B1D8;
+  v28[1] = &unk_2871458C8;
+  v27[2] = *MEMORY[0x277D3F588];
+  v28[2] = &unk_28714B1E8;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  v30[0] = v24;
+  v29[1] = *MEMORY[0x277D3F540];
+  v25[0] = @"radar";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v27[0] = commonTypeDict_IntegerFormat;
-  v26[1] = @"impact";
+  v26[0] = commonTypeDict_IntegerFormat;
+  v25[1] = @"impact";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v27[1] = commonTypeDict_IntegerFormat2;
-  v26[2] = @"timestampStart";
+  v26[1] = commonTypeDict_IntegerFormat2;
+  v25[2] = @"timestampStart";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-  v27[2] = commonTypeDict_DateFormat;
-  v26[3] = @"timestampEnd";
+  v26[2] = commonTypeDict_DateFormat;
+  v25[3] = @"timestampEnd";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_DateFormat];
-  v27[3] = commonTypeDict_DateFormat2;
-  v26[4] = @"hitIn";
+  v26[3] = commonTypeDict_DateFormat2;
+  v25[4] = @"hitIn";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]5 commonTypeDict_StringFormat];
-  v27[4] = commonTypeDict_StringFormat;
-  v26[5] = @"fixedIn";
+  v26[4] = commonTypeDict_StringFormat;
+  v25[5] = @"fixedIn";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-  v27[5] = commonTypeDict_StringFormat2;
-  v26[6] = @"isCritical";
+  v26[5] = commonTypeDict_StringFormat2;
+  v25[6] = @"isCritical";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]7 commonTypeDict_BoolFormat];
-  v27[6] = commonTypeDict_BoolFormat;
-  v26[7] = @"timestampInvalid";
+  v26[6] = commonTypeDict_BoolFormat;
+  v25[7] = @"timestampInvalid";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat3 = [mEMORY[0x277D3F198]8 commonTypeDict_DateFormat];
-  v27[7] = commonTypeDict_DateFormat3;
-  v26[8] = @"driMessage";
+  v26[7] = commonTypeDict_DateFormat3;
+  v25[8] = @"driMessage";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]9 commonTypeDict_StringFormat];
-  v27[8] = commonTypeDict_StringFormat3;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:9];
-  v31[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v26[8] = commonTypeDict_StringFormat3;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:9];
+  v30[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
 
   return v12;
 }
 
 + (id)entryEventPointDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"UrsaSummary";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"UrsaSummary";
   entryEventPointDefinitionUrsaSummary = [self entryEventPointDefinitionUrsaSummary];
-  v8[1] = @"UrsaInteraction";
-  v9[0] = entryEventPointDefinitionUrsaSummary;
+  v7[1] = @"UrsaInteraction";
+  v8[0] = entryEventPointDefinitionUrsaSummary;
   entryEventPointDefinitionUrsaInteraction = [self entryEventPointDefinitionUrsaInteraction];
-  v9[1] = entryEventPointDefinitionUrsaInteraction;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryEventPointDefinitionUrsaInteraction;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)entryEventPointDefinitionUrsaSummary
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   if (+[PLEnergyIssuesService supportsUrsa])
   {
-    v25[0] = *MEMORY[0x277D3F4E8];
-    v23 = *MEMORY[0x277D3F568];
-    v24 = &unk_28714B1F8;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v26[0] = v20;
-    v25[1] = *MEMORY[0x277D3F540];
-    v21[0] = @"requestId";
+    v24[0] = *MEMORY[0x277D3F4E8];
+    v22 = *MEMORY[0x277D3F568];
+    v23 = &unk_28714B1F8;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v25[0] = v19;
+    v24[1] = *MEMORY[0x277D3F540];
+    v20[0] = @"requestId";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-    v22[0] = commonTypeDict_StringFormat;
-    v21[1] = @"countBui";
+    v21[0] = commonTypeDict_StringFormat;
+    v20[1] = @"countBui";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v22[1] = commonTypeDict_IntegerFormat;
-    v21[2] = @"countNotification";
+    v21[1] = commonTypeDict_IntegerFormat;
+    v20[2] = @"countNotification";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-    v22[2] = commonTypeDict_IntegerFormat2;
-    v21[3] = @"error";
+    v21[2] = commonTypeDict_IntegerFormat2;
+    v20[3] = @"error";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-    v22[3] = commonTypeDict_IntegerFormat3;
-    v21[4] = @"peProcess";
+    v21[3] = commonTypeDict_IntegerFormat3;
+    v20[4] = @"peProcess";
     mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_StringFormat];
-    v22[4] = commonTypeDict_StringFormat2;
-    v21[5] = @"peReason";
+    v21[4] = commonTypeDict_StringFormat2;
+    v20[5] = @"peReason";
     mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-    v22[5] = commonTypeDict_StringFormat3;
-    v21[6] = @"peFK_ID";
+    v21[5] = commonTypeDict_StringFormat3;
+    v20[6] = @"peFK_ID";
     mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-    v22[6] = commonTypeDict_IntegerFormat4;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:7];
-    v26[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v21[6] = commonTypeDict_IntegerFormat4;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:7];
+    v25[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
   }
 
   else
@@ -250,45 +243,41 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
     v11 = MEMORY[0x277CBEC10];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (id)entryEventPointDefinitionUrsaInteraction
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if (+[PLEnergyIssuesService supportsUrsa])
   {
-    v17[0] = *MEMORY[0x277D3F4E8];
-    v15 = *MEMORY[0x277D3F568];
-    v16 = &unk_28714B208;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v18[0] = v2;
-    v17[1] = *MEMORY[0x277D3F540];
-    v13[0] = @"source";
+    v16[0] = *MEMORY[0x277D3F4E8];
+    v14 = *MEMORY[0x277D3F568];
+    v15 = &unk_28714B208;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v17[0] = v2;
+    v16[1] = *MEMORY[0x277D3F540];
+    v12[0] = @"source";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-    v14[0] = commonTypeDict_StringFormat;
-    v13[1] = @"radar";
+    v13[0] = commonTypeDict_StringFormat;
+    v12[1] = @"radar";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v14[1] = commonTypeDict_IntegerFormat;
-    v13[2] = @"action";
+    v13[1] = commonTypeDict_IntegerFormat;
+    v12[2] = @"action";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-    v14[2] = commonTypeDict_StringFormat2;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-    v18[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v13[2] = commonTypeDict_StringFormat2;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v17[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   }
 
   else
   {
     v10 = MEMORY[0x277CBEC10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -320,22 +309,23 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
   isKindOfClass = objc_opt_isKindOfClass();
   if (!timeCopy || (isKindOfClass & 1) != 0)
   {
-    v8 = PLLogUrsa();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PLLogUrsa(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [PLEnergyIssuesService insertSystemTime:fromPLEntry:];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
     v8 = [timeCopy mutableCopy];
+    v9 = v8;
     if (!v8)
     {
-      v10 = PLLogUrsa();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = PLLogUrsa(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [PLEnergyIssuesService insertSystemTime:fromPLEntry:];
       }
@@ -345,74 +335,75 @@ uint64_t __47__PLEnergyIssuesService_setAssertionThresholds__block_invoke_120(ui
 
     if (entryCopy)
     {
-      v9 = [entryCopy objectForKeyedSubscript:@"timestampEnd"];
+      v10 = [entryCopy objectForKeyedSubscript:@"timestampEnd"];
 
-      if (v9)
+      if (v10)
       {
-        v10 = [entryCopy objectForKeyedSubscript:@"timestampEnd"];
+        v11 = [entryCopy objectForKeyedSubscript:@"timestampEnd"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = v10;
+          v12 = v11;
         }
 
         else
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v15 = objc_opt_isKindOfClass();
+          if ((v15 & 1) == 0)
           {
-            v19 = PLLogUrsa();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v21 = PLLogUrsa(v15);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               [PLEnergyIssuesService insertSystemTime:fromPLEntry:];
             }
 
-            v20 = v8;
+            v22 = v9;
             goto LABEL_27;
           }
 
-          v14 = MEMORY[0x277CBEAA8];
-          [v10 doubleValue];
-          v11 = [v14 dateWithTimeIntervalSince1970:?];
+          v16 = MEMORY[0x277CBEAA8];
+          [v11 doubleValue];
+          v12 = [v16 dateWithTimeIntervalSince1970:?];
         }
 
-        v15 = v11;
-        convertFromMonotonicToSystem = [v11 convertFromMonotonicToSystem];
+        v17 = v12;
+        convertFromMonotonicToSystem = [v12 convertFromMonotonicToSystem];
         if (convertFromMonotonicToSystem)
         {
-          [v8 setObject:convertFromMonotonicToSystem forKeyedSubscript:@"timestamp"];
+          [v9 setObject:convertFromMonotonicToSystem forKeyedSubscript:@"timestamp"];
         }
 
         else
         {
-          v17 = PLLogUrsa();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = PLLogUrsa(0);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             [PLEnergyIssuesService insertSystemTime:fromPLEntry:];
           }
         }
 
-        v18 = v8;
+        v20 = v9;
 
 LABEL_27:
-        v12 = v8;
+        v13 = v9;
         goto LABEL_28;
       }
     }
 
-    v13 = PLLogUrsa();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = PLLogUrsa(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [PLEnergyIssuesService insertSystemTime:fromPLEntry:];
     }
 
-    v8 = v8;
-    v12 = v8;
+    v9 = v9;
+    v13 = v9;
   }
 
 LABEL_28:
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)isValidUrsaEntry:(id)entry
@@ -421,75 +412,81 @@ LABEL_28:
   v4 = entryCopy;
   if (entryCopy)
   {
-    v5 = [entryCopy objectForKeyedSubscript:@"driMessage"];
-    if (v5)
+    isKindOfClass = [entryCopy objectForKeyedSubscript:@"driMessage"];
+    v6 = isKindOfClass;
+    if (isKindOfClass)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v5 = v5;
-        if (![v5 length]|| [v5 rangeOfString:@":"]== 0x7FFFFFFFFFFFFFFFLL)
+        v6 = v6;
+        v7 = [v6 length];
+        if (!v7 || (v7 = [v6 rangeOfString:@":"], v7 == 0x7FFFFFFFFFFFFFFFLL))
         {
-          v6 = PLLogUrsa();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          v8 = PLLogUrsa(v7);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             [PLEnergyIssuesService isValidUrsaEntry:];
           }
 
-          v7 = 0;
+          v9 = 0;
           goto LABEL_42;
         }
 
-        v6 = [v4 objectForKeyedSubscript:@"timestampEnd"];
-        if (v6)
+        v8 = [v4 objectForKeyedSubscript:@"timestampEnd"];
+        if (v8)
         {
           objc_opt_class();
-          if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+          if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), v12 = objc_opt_isKindOfClass(), (v12))
           {
-            v10 = [v4 objectForKeyedSubscript:@"hitIn"];
-            if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v13 = [v4 objectForKeyedSubscript:@"hitIn"];
+            v14 = v13;
+            if (v13 && (objc_opt_class(), v13 = objc_opt_isKindOfClass(), (v13 & 1) != 0))
             {
-              if ([v10 length])
+              if ([v14 length])
               {
-                v11 = [v4 objectForKeyedSubscript:@"radar"];
-                if (v11)
+                v15 = [v4 objectForKeyedSubscript:@"radar"];
+                if (v15)
                 {
                   objc_opt_class();
-                  if ((objc_opt_isKindOfClass() & 1) == 0)
+                  v16 = objc_opt_isKindOfClass();
+                  if ((v16 & 1) == 0)
                   {
-                    v12 = PLLogUrsa();
-                    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+                    v17 = PLLogUrsa(v16);
+                    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
                     {
                       [PLEnergyIssuesService isValidUrsaEntry:];
                     }
 
-                    v7 = 0;
+                    v9 = 0;
                     goto LABEL_60;
                   }
                 }
 
-                v12 = [v4 objectForKeyedSubscript:@"impact"];
-                if (v12)
+                v17 = [v4 objectForKeyedSubscript:@"impact"];
+                if (v17)
                 {
                   objc_opt_class();
-                  if ((objc_opt_isKindOfClass() & 1) == 0)
+                  v18 = objc_opt_isKindOfClass();
+                  if ((v18 & 1) == 0)
                   {
-                    v13 = PLLogUrsa();
-                    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+                    v19 = PLLogUrsa(v18);
+                    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                     {
                       [PLEnergyIssuesService isValidUrsaEntry:];
                     }
 
-                    v7 = 0;
+                    v9 = 0;
                     goto LABEL_59;
                   }
                 }
 
-                v13 = [v4 objectForKeyedSubscript:@"fixedIn"];
-                if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+                v19 = [v4 objectForKeyedSubscript:@"fixedIn"];
+                if (v19 && (objc_opt_class(), v20 = objc_opt_isKindOfClass(), (v20 & 1) == 0))
                 {
-                  v14 = PLLogUrsa();
-                  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+                  v21 = PLLogUrsa(v20);
+                  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                   {
                     [PLEnergyIssuesService isValidUrsaEntry:];
                   }
@@ -497,18 +494,19 @@ LABEL_28:
 
                 else
                 {
-                  v14 = [v5 componentsSeparatedByString:@":"];
-                  if ([v14 count]== 2)
+                  v21 = [v6 componentsSeparatedByString:@":"];
+                  v22 = [v21 count];
+                  if (v22 == 2)
                   {
-                    v15 = [v14 objectAtIndexedSubscript:0];
-                    if ([v15 length])
+                    v23 = [v21 objectAtIndexedSubscript:0];
+                    if ([v23 length])
                     {
-                      v19 = v15;
-                      v7 = 1;
-                      v16 = [v14 objectAtIndexedSubscript:1];
-                      v18 = [v16 length];
+                      v27 = v23;
+                      v9 = 1;
+                      v24 = [v21 objectAtIndexedSubscript:1];
+                      v26 = [v24 length];
 
-                      if (v18)
+                      if (v26)
                       {
 LABEL_58:
 
@@ -524,19 +522,19 @@ LABEL_60:
                     }
                   }
 
-                  v17 = PLLogUrsa();
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                  v25 = PLLogUrsa(v22);
+                  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                   {
                     [PLEnergyIssuesService isValidUrsaEntry:];
                   }
                 }
 
-                v7 = 0;
+                v9 = 0;
                 goto LABEL_58;
               }
 
-              v11 = PLLogUrsa();
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+              v15 = PLLogUrsa(0);
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
               {
                 [PLEnergyIssuesService isValidUrsaEntry:];
               }
@@ -544,14 +542,14 @@ LABEL_60:
 
             else
             {
-              v11 = PLLogUrsa();
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+              v15 = PLLogUrsa(v13);
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
               {
                 [PLEnergyIssuesService isValidUrsaEntry:];
               }
             }
 
-            v7 = 0;
+            v9 = 0;
 LABEL_37:
 
 LABEL_41:
@@ -560,8 +558,8 @@ LABEL_42:
             goto LABEL_15;
           }
 
-          v10 = PLLogUrsa();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v14 = PLLogUrsa(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             [PLEnergyIssuesService isValidUrsaEntry:];
           }
@@ -569,20 +567,20 @@ LABEL_42:
 
         else
         {
-          v10 = PLLogUrsa();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v14 = PLLogUrsa(0);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             [PLEnergyIssuesService isValidUrsaEntry:];
           }
         }
 
-        v7 = 0;
+        v9 = 0;
         goto LABEL_41;
       }
     }
 
-    v8 = PLLogUrsa();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = PLLogUrsa(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PLEnergyIssuesService isValidUrsaEntry:];
     }
@@ -590,17 +588,17 @@ LABEL_42:
 
   else
   {
-    v5 = PLLogUrsa();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PLLogUrsa(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [PLEnergyIssuesService isValidUrsaEntry:];
     }
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_15:
 
-  return v7;
+  return v9;
 }
 
 - (BOOL)shouldUpdateTableFrom:(id)from newPayload:(id)payload
@@ -701,20 +699,21 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
     else
     {
       v4 = [v3 componentsSeparatedByString:@"="];
-      if ([v4 count] == 2)
+      v5 = [v4 count];
+      if (v5 == 2)
       {
-        v5 = [v4 firstObject];
-        v6 = [v4 lastObject];
-        v7 = v6;
-        if (v5 && v6)
+        v6 = [v4 firstObject];
+        v7 = [v4 lastObject];
+        v8 = v7;
+        if (v6 && v7)
         {
-          [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
+          [*(a1 + 32) setObject:v7 forKeyedSubscript:v6];
         }
 
         else
         {
-          v8 = PLLogUrsa();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v9 = PLLogUrsa(v7);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
             __39__PLEnergyIssuesService_parseBootArgs___block_invoke_cold_1();
           }
@@ -723,8 +722,8 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
 
       else
       {
-        v5 = PLLogUrsa();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v6 = PLLogUrsa(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           __39__PLEnergyIssuesService_parseBootArgs___block_invoke_cold_1();
         }
@@ -784,16 +783,16 @@ void __39__PLEnergyIssuesService_parseBootArgs___block_invoke(uint64_t a1, void 
         v66 = v19;
         if (!v17 || !v18 || !v71 || !v70 || !v69 || !v68 || !v73 || !v67 || !v72 || !v19)
         {
-          v29 = PLLogUrsa();
-          if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v30 = PLLogUrsa(v19);
+          if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_30;
           }
 
           *buf = 138412290;
           v79 = v16;
-          v37 = v29;
-          v38 = "Insufficient information for issue. Given information: %@";
+          v38 = v30;
+          v39 = "Insufficient information for issue. Given information: %@";
           goto LABEL_49;
         }
 
@@ -825,114 +824,114 @@ LABEL_27:
 
 LABEL_28:
 LABEL_29:
-          v29 = PLLogUrsa();
-          if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v30 = PLLogUrsa(v28);
+          if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_30;
           }
 
           *buf = 138412290;
           v79 = v16;
-          v37 = v29;
-          v38 = "Null data found in issue: %@";
+          v38 = v30;
+          v39 = "Null data found in issue: %@";
 LABEL_49:
-          _os_log_error_impl(&dword_25EE51000, v37, OS_LOG_TYPE_ERROR, v38, buf, 0xCu);
+          _os_log_error_impl(&dword_25EE51000, v38, OS_LOG_TYPE_ERROR, v39, buf, 0xCu);
           goto LABEL_30;
         }
 
         null4 = [MEMORY[0x277CBEB68] null];
 
-        v28 = v66 == null4;
+        v29 = v66 == null4;
         v10 = v24;
         v13 = v23;
         v14 = v22;
         v17 = v63;
-        if (v28)
+        if (v29)
         {
           goto LABEL_29;
         }
 
-        v29 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:keyCopy withDate:nowCopy];
-        v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v63, "unsignedIntValue")}];
-        [v29 setObject:v30 forKeyedSubscript:v13];
+        v30 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:keyCopy withDate:nowCopy];
+        v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v63, "unsignedIntValue")}];
+        [v30 setObject:v31 forKeyedSubscript:v13];
 
-        v31 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v73, "BOOLValue")}];
-        [v29 setObject:v31 forKeyedSubscript:@"isCritical"];
+        v32 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v73, "BOOLValue")}];
+        [v30 setObject:v32 forKeyedSubscript:@"isCritical"];
 
-        [v29 setObject:v72 forKeyedSubscript:@"driMessage"];
-        [v29 setObject:v66 forKeyedSubscript:@"notificationMessage"];
+        [v30 setObject:v72 forKeyedSubscript:@"driMessage"];
+        [v30 setObject:v66 forKeyedSubscript:@"notificationMessage"];
         null5 = [MEMORY[0x277CBEB68] null];
 
         if (v67 == null5)
         {
-          v34 = 0.0;
+          v35 = 0.0;
 LABEL_33:
-          [v29 setObject:midnightCopy forKeyedSubscript:@"timestampInvalid"];
-          v36 = 0;
+          [v30 setObject:midnightCopy forKeyedSubscript:@"timestampInvalid"];
+          v37 = 0;
           goto LABEL_34;
         }
 
         [v67 doubleValue];
-        v34 = v33;
-        if (v33 == 0.0)
+        v35 = v34;
+        if (v34 == 0.0)
         {
           goto LABEL_33;
         }
 
-        v35 = [MEMORY[0x277CCABB0] numberWithDouble:v33];
-        [v29 setObject:v35 forKeyedSubscript:@"timestampInvalid"];
+        v36 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
+        [v30 setObject:v36 forKeyedSubscript:@"timestampInvalid"];
 
-        v36 = 1;
+        v37 = 1;
 LABEL_34:
         null6 = [MEMORY[0x277CBEB68] null];
 
         if (v65 != null6)
         {
-          v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v65, "unsignedIntValue")}];
-          [v29 setObject:v40 forKeyedSubscript:v22];
+          v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v65, "unsignedIntValue")}];
+          [v30 setObject:v41 forKeyedSubscript:v22];
         }
 
         null7 = [MEMORY[0x277CBEB68] null];
 
         if (v71 != null7)
         {
-          v42 = MEMORY[0x277CCABB0];
+          v43 = MEMORY[0x277CCABB0];
           [v71 doubleValue];
-          v43 = [v42 numberWithDouble:?];
-          [v29 setObject:v43 forKeyedSubscript:@"timestampStart"];
+          v44 = [v43 numberWithDouble:?];
+          [v30 setObject:v44 forKeyedSubscript:@"timestampStart"];
         }
 
         null8 = [MEMORY[0x277CBEB68] null];
 
         if (v70 != null8)
         {
-          v45 = MEMORY[0x277CCABB0];
+          v46 = MEMORY[0x277CCABB0];
           [v70 doubleValue];
-          v46 = [v45 numberWithDouble:?];
-          [v29 setObject:v46 forKeyedSubscript:@"timestampEnd"];
+          v47 = [v46 numberWithDouble:?];
+          [v30 setObject:v47 forKeyedSubscript:@"timestampEnd"];
         }
 
         null9 = [MEMORY[0x277CBEB68] null];
 
         if (v69 != null9)
         {
-          v48 = [MEMORY[0x277CCACA8] stringWithString:?];
-          [v29 setObject:v48 forKeyedSubscript:@"hitIn"];
+          v49 = [MEMORY[0x277CCACA8] stringWithString:?];
+          [v30 setObject:v49 forKeyedSubscript:@"hitIn"];
         }
 
         null10 = [MEMORY[0x277CBEB68] null];
 
         if (v68 != null10)
         {
-          v50 = [MEMORY[0x277CCACA8] stringWithString:?];
-          [v29 setObject:v50 forKeyedSubscript:@"fixedIn"];
+          v51 = [MEMORY[0x277CCACA8] stringWithString:?];
+          [v30 setObject:v51 forKeyedSubscript:@"fixedIn"];
         }
 
-        v51 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v34];
-        v52 = v51;
-        if (!v36 || ([v51 laterDate:nowCopy], v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend(v53, "isEqualToDate:", nowCopy), v53, (v54 & 1) == 0))
+        v52 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v35];
+        v53 = v52;
+        if (!v37 || ([v52 laterDate:nowCopy], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "isEqualToDate:", nowCopy), v54, (v55 & 1) == 0))
         {
-          [array addObject:v29];
+          [array addObject:v30];
         }
 
         v17 = v63;
@@ -942,9 +941,9 @@ LABEL_30:
       }
 
       while (v12 != v15);
-      v55 = [v10 countByEnumeratingWithState:&v74 objects:v80 count:16];
-      v12 = v55;
-      if (!v55)
+      v56 = [v10 countByEnumeratingWithState:&v74 objects:v80 count:16];
+      v12 = v56;
+      if (!v56)
       {
 LABEL_51:
 
@@ -956,8 +955,6 @@ LABEL_51:
 
   array = 0;
 LABEL_53:
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -986,7 +983,7 @@ LABEL_53:
 
   else
   {
-    v5 = PLLogUrsa();
+    v5 = PLLogUrsa(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       +[PLEnergyIssuesService shouldPopUpForPowerExceptionForProcess:];
@@ -1000,9 +997,10 @@ LABEL_53:
 
 uint64_t __64__PLEnergyIssuesService_shouldPopUpForPowerExceptionForProcess___block_invoke()
 {
-  shouldPopUpForPowerExceptionForProcess__allowedProcesses = [MEMORY[0x277CBEB98] setWithArray:&unk_28714C788];
+  v0 = [MEMORY[0x277CBEB98] setWithArray:&unk_28714C788];
+  shouldPopUpForPowerExceptionForProcess__allowedProcesses = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 + (BOOL)shouldPopUpForPowerException
@@ -1034,15 +1032,16 @@ uint64_t __64__PLEnergyIssuesService_shouldPopUpForPowerExceptionForProcess___bl
   detectedCopy = detected;
   v15 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  if ([group isEqualToString:@"carry"])
+  v8 = [group isEqualToString:@"carry"];
+  if (v8)
   {
-    v8 = PLLogUrsa();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PLLogUrsa(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v14[0]) = 0;
-      v9 = "carry expGroup detected";
+      v10 = "carry expGroup detected";
 LABEL_7:
-      _os_log_impl(&dword_25EE51000, v8, OS_LOG_TYPE_DEFAULT, v9, v14, 2u);
+      _os_log_impl(&dword_25EE51000, v9, OS_LOG_TYPE_DEFAULT, v10, v14, 2u);
       goto LABEL_8;
     }
 
@@ -1051,33 +1050,32 @@ LABEL_7:
 
   if (detectedCopy)
   {
-    v8 = PLLogUrsa();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PLLogUrsa(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v14[0]) = 0;
-      v9 = "internal key detected";
+      v10 = "internal key detected";
       goto LABEL_7;
     }
 
 LABEL_8:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_9;
   }
 
   v13 = [deviceCopy length];
-  v10 = v13 != 0;
-  v8 = PLLogUrsa();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v11 = v13 != 0;
+  v9 = PLLogUrsa(v13);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v14[0] = 67109120;
     v14[1] = v13 != 0;
-    _os_log_impl(&dword_25EE51000, v8, OS_LOG_TYPE_DEFAULT, "adg set: %d", v14, 8u);
+    _os_log_impl(&dword_25EE51000, v9, OS_LOG_TYPE_DEFAULT, "adg set: %d", v14, 8u);
   }
 
 LABEL_9:
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (void)initializeSafeguardsSystem
@@ -1090,8 +1088,8 @@ LABEL_9:
 
     if (!self->_safeguardsManagingClient)
     {
-      v5 = PLLogComputeSafeguards();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = PLLogComputeSafeguards(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [PLEnergyIssuesService initializeSafeguardsSystem];
       }
@@ -1101,29 +1099,23 @@ LABEL_9:
 
 - (void)insertSystemTime:fromPLEntry:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isValidUrsaEntry:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLEnergyIssuesService_parseBootArgs___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

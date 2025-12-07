@@ -3,7 +3,7 @@
 
 @implementation AXSAppSwitcherAutoSelectEnabled
 
-uint64_t ___AXSAppSwitcherAutoSelectEnabled_block_invoke()
+void *___AXSAppSwitcherAutoSelectEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

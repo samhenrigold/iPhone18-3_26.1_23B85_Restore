@@ -4,7 +4,9 @@
 - (XRFrameActivityManager)initWithRing:(id)ring;
 - (id).cxx_construct;
 - (id)scheduleActivityAsOperation:(id)operation;
+- (void)_acquiredMinorFrame:(unsigned __int8)frame;
 - (void)_reevaluateArrivingAgent:(id)agent;
+- (void)_yieldingMinorFrame:(unsigned __int8)frame;
 - (void)dealloc;
 - (void)setupVisitDuringMinorFrame:(id)frame agent:(id)agent mode:(id)mode ticket:(id)ticket;
 @end
@@ -19,7 +21,7 @@
     byte_27EE869B8 = v6;
     if (v6)
     {
-      qword_27EE863B0 = sub_2480A8210();
+      qword_27EE863B0 = sub_2480A8210(v6);
 
       MEMORY[0x2821F96F8]();
     }
@@ -119,6 +121,41 @@
   v12 = agentCopy;
   v14 = v12;
   sub_2480A8B28(v11, v13);
+}
+
+- (void)_acquiredMinorFrame:(unsigned __int8)frame
+{
+  frameCopy = frame;
+  v16 = *MEMORY[0x277D85DE8];
+  self->_currentSlot = frame;
+  v5 = qword_27EE863B0;
+  v6 = v5;
+  ringSignpostID = self->_ringSignpostID;
+  if (ringSignpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  {
+    v15[0] = 67109120;
+    v15[1] = objc_msgSend_agentStopDiagnosticsTypeCode(self, v8, v9, v10, v11);
+    _os_signpost_emit_with_name_impl(&dword_248087000, v6, OS_SIGNPOST_INTERVAL_BEGIN, ringSignpostID, "Manager Active", "Stop kind: %d", v15, 8u);
+  }
+
+  objc_msgSend_enteringMinorFrame_(self, v12, frameCopy, v13, v14);
+}
+
+- (void)_yieldingMinorFrame:(unsigned __int8)frame
+{
+  frameCopy = frame;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = qword_27EE863B0;
+  v6 = v5;
+  ringSignpostID = self->_ringSignpostID;
+  if (ringSignpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  {
+    v15[0] = 67109120;
+    v15[1] = objc_msgSend_agentStopDiagnosticsTypeCode(self, v8, v9, v10, v11);
+    _os_signpost_emit_with_name_impl(&dword_248087000, v6, OS_SIGNPOST_INTERVAL_END, ringSignpostID, "Manager Active", "Stop kind: %d", v15, 8u);
+  }
+
+  objc_msgSend_yieldingMinorFrame_(self, v12, frameCopy, v13, v14);
 }
 
 - (id).cxx_construct

@@ -349,7 +349,7 @@ uint64_t __58___UINavigationBarTransitionContextPush__animateSearchBar__block_in
   return [v23 setFrame:{rect_24, rect_16, v20, v22}];
 }
 
-uint64_t __58___UINavigationBarTransitionContextPush__animateSearchBar__block_invoke_2(uint64_t a1)
+void *__58___UINavigationBarTransitionContextPush__animateSearchBar__block_invoke_2(uint64_t a1)
 {
   if (_searchBarHasAlphaTransitionForSlideTransitionLayouts(*(*(a1 + 32) + 72), *(*(a1 + 32) + 80), 1, 1) || (result = [*(a1 + 32) shouldSlideBarBackground], (result & 1) == 0))
   {

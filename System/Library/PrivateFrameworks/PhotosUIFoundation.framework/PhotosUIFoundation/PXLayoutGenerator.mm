@@ -83,9 +83,11 @@
 
 uint64_t __34__PXLayoutGenerator_geometryKinds__block_invoke()
 {
-  geometryKinds_kinds = [MEMORY[0x1E696AC90] indexSetWithIndex:0];
+  v0 = [MEMORY[0x1E696AC90] indexSetWithIndex:0];
+  v1 = geometryKinds_kinds;
+  geometryKinds_kinds = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CGSize)size
@@ -141,20 +143,24 @@ uint64_t __34__PXLayoutGenerator_geometryKinds__block_invoke()
 - (void)setMetrics:(id)metrics
 {
   metricsCopy = metrics;
+  v5 = metricsCopy;
   if (self->_metrics != metricsCopy)
   {
-    v7 = metricsCopy;
-    if (![(PXLayoutMetrics *)metricsCopy isEqual:?])
+    v8 = metricsCopy;
+    metricsCopy = [metricsCopy isEqual:?];
+    v5 = v8;
+    if ((metricsCopy & 1) == 0)
     {
-      v5 = [(PXLayoutMetrics *)v7 copy];
+      v6 = [v8 copy];
       metrics = self->_metrics;
-      self->_metrics = v5;
+      self->_metrics = v6;
 
-      [(PXLayoutGenerator *)self invalidate];
+      metricsCopy = [(PXLayoutGenerator *)self invalidate];
+      v5 = v8;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](metricsCopy, v5);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

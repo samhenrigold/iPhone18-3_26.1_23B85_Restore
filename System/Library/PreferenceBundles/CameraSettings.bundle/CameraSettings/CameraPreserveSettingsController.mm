@@ -1,7 +1,9 @@
 @interface CameraPreserveSettingsController
 - (id)_groupSpecifierWithID:(id)d footer:(id)footer;
+- (id)_switchSpecifierWithLabel:(id)label key:(id)key defaultValue:(BOOL)value;
 - (id)specifiers;
 - (void)emitNavigationEvent;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -268,6 +270,20 @@ LABEL_59:
   return v4;
 }
 
+- (id)_switchSpecifierWithLabel:(id)label key:(id)key defaultValue:(BOOL)value
+{
+  valueCopy = value;
+  keyCopy = key;
+  v9 = [PSSpecifier preferenceSpecifierNamed:label target:self set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
+  [v9 setObject:@"com.apple.camera" forKeyedSubscript:PSDefaultsKey];
+  [v9 setObject:keyCopy forKeyedSubscript:PSKeyNameKey];
+
+  v10 = [NSNumber numberWithBool:valueCopy];
+  [v9 setObject:v10 forKeyedSubscript:PSDefaultValueKey];
+
+  return v9;
+}
+
 - (id)_groupSpecifierWithID:(id)d footer:(id)footer
 {
   footerCopy = footer;
@@ -284,6 +300,14 @@ LABEL_59:
   [(CameraSettingsBaseController *)&v4 viewDidLoad];
   v3 = sub_A8E4(@"CAM_PRESERVE_SETTINGS_TITLE");
   [(CameraPreserveSettingsController *)self setTitle:v3];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CameraPreserveSettingsController;
+  [(CameraPreserveSettingsController *)&v4 viewDidAppear:appear];
+  [(CameraPreserveSettingsController *)self emitNavigationEvent];
 }
 
 - (void)emitNavigationEvent

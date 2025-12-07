@@ -56,7 +56,7 @@ LABEL_24:
       v12 = [v11 objectForKeyedSubscript:{@"Subsystem", v24}];
       if (!v12)
       {
-        v13 = sub_100002620();
+        v13 = sub_100002620(0);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           sub_10000C000();
@@ -69,7 +69,7 @@ LABEL_24:
       v14 = [v11 objectForKeyedSubscript:@"Cap"];
       if (!v14)
       {
-        v21 = sub_100002620();
+        v21 = sub_100002620(0);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           sub_10000BFCC();
@@ -82,7 +82,7 @@ LABEL_24:
       v16 = [v11 objectForKeyedSubscript:@"DownsampleRatio"];
       if (!v16)
       {
-        v22 = sub_100002620();
+        v22 = sub_100002620(0);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           sub_10000BF98();

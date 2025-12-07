@@ -72,7 +72,7 @@ void __31__SPDictionaryQuery_deactivate__block_invoke()
 
 void __26__SPDictionaryQuery_start__block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   if (kPlaceHolderInputName_block_invoke_definitionStringInitOnceToken != -1)
   {
     __26__SPDictionaryQuery_start__block_invoke_cold_1();
@@ -94,7 +94,7 @@ void __26__SPDictionaryQuery_start__block_invoke(uint64_t a1)
       v10 = [v4 stringByTrimmingCharactersInSet:v5];
       v11 = [v10 mutableCopy];
 
-      v63 = 1;
+      v62 = 1;
       v4 = v11;
       goto LABEL_13;
     }
@@ -105,7 +105,7 @@ void __26__SPDictionaryQuery_start__block_invoke(uint64_t a1)
     v9 = 0;
   }
 
-  v63 = 0;
+  v62 = 0;
 LABEL_13:
   os_unfair_lock_lock(&sDictionaryLock);
   if ([sDictionaries count])
@@ -116,41 +116,41 @@ LABEL_13:
     os_unfair_lock_unlock(&sDictionaryLock);
     if ([v13 count])
     {
-      v57 = v9;
-      v58 = v5;
+      v56 = v9;
+      v57 = v5;
       v14 = objc_opt_new();
-      v62 = objc_opt_new();
+      v61 = objc_opt_new();
+      v65 = 0u;
       v66 = 0u;
       v67 = 0u;
       v68 = 0u;
-      v69 = 0u;
-      v56 = v13;
+      v55 = v13;
       obj = v13;
-      v15 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
-      v61 = *MEMORY[0x277D65A60];
+      v15 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
+      v60 = *MEMORY[0x277D65A60];
       if (v15)
       {
         v16 = v15;
-        v17 = *v67;
-        v59 = v14;
-        v60 = *v67;
+        v17 = *v66;
+        v58 = v14;
+        v59 = *v66;
         do
         {
           v18 = 0;
-          v64 = v16;
+          v63 = v16;
           do
           {
-            if (*v67 != v17)
+            if (*v66 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v66 + 1) + 8 * v18);
+            v19 = *(*(&v65 + 1) + 8 * v18);
             v20 = [v19 footnote];
             if (([v14 containsObject:v20] & 1) == 0)
             {
               [v14 addObject:v20];
-              [v62 addObject:v19];
+              [v61 addObject:v19];
               v21 = [*(a1 + 32) queryContext];
               v22 = [v21 searchString];
               [v19 setUserInput:v22];
@@ -158,13 +158,13 @@ LABEL_13:
               v23 = [*(a1 + 32) queryContext];
               [v19 setQueryId:{objc_msgSend(v23, "queryIdent")}];
 
-              if (v63)
+              if (v62)
               {
                 [v19 setTopHit:SSSetTopHitWithReasonString()];
               }
 
               [v19 setType:8];
-              [v19 setResultBundleId:v61];
+              [v19 setResultBundleId:v60];
               v24 = [v19 title];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
@@ -184,7 +184,7 @@ LABEL_13:
 
                   v4 = v31;
                   a1 = v30;
-                  v14 = v59;
+                  v14 = v58;
                 }
 
                 else
@@ -208,15 +208,15 @@ LABEL_13:
               v36 = [v19 card];
               [v36 setTitle:v4];
 
-              v17 = v60;
-              v16 = v64;
+              v17 = v59;
+              v16 = v63;
             }
 
             ++v18;
           }
 
           while (v16 != v18);
-          v16 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
+          v16 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
         }
 
         while (v16);
@@ -224,16 +224,16 @@ LABEL_13:
 
       v37 = objc_opt_new();
       [v37 setMaxInitiallyVisibleResults:1];
-      [v37 setBundleIdentifier:v61];
+      [v37 setBundleIdentifier:v60];
       v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v39 = [v38 localizedStringForKey:@"DOMAIN_DICTIONARY" value:&stru_287C35638 table:@"Search"];
       [v37 setTitle:v39];
 
-      [v37 setResults:v62];
+      [v37 setResults:v61];
       v40 = objc_alloc(MEMORY[0x277D65860]);
       v41 = [*(a1 + 32) queryGroupId];
-      v70 = v37;
-      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
+      v69 = v37;
+      v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
       v43 = [v40 initWithQueryID:v41 sourceKind:5 sections:v42];
 
       v44 = [*(a1 + 32) responseHandler];
@@ -243,9 +243,9 @@ LABEL_13:
       v46 = [objc_alloc(MEMORY[0x277D4C348]) initWithStartSearch:*(a1 + 40)];
       [v45 sendFeedbackType:6 feedback:v46 queryId:objc_msgSend(*(a1 + 40) clientID:{"queryId"), *(a1 + 48)}];
 
-      v9 = v57;
-      v5 = v58;
-      v13 = v56;
+      v9 = v56;
+      v5 = v57;
+      v13 = v55;
     }
 
     else
@@ -267,8 +267,6 @@ LABEL_13:
     v50 = [*(a1 + 32) responseHandler];
     (v50)[2](v50, v49);
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 void __26__SPDictionaryQuery_start__block_invoke_2()

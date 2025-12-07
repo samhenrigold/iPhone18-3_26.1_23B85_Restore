@@ -18,10 +18,10 @@
 
 - (ANAnnounceReachabilityServiceListener)init
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = ANAnnounceReachabilityServiceListener;
-  v2 = [(ANAnnounceReachabilityServiceListener *)&v11 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = ANAnnounceReachabilityServiceListener;
+  v2 = [(ANAnnounceReachabilityServiceListener *)&v10 init];
   if (v2)
   {
     if ([MEMORY[0x277CEAB38] isAnnounceEnabled])
@@ -37,17 +37,15 @@
     v2->_listener = v6;
 
     [(NSXPCListener *)v2->_listener setDelegate:v2];
-    [(NSXPCListener *)v2->_listener resume];
-    v8 = ANLogHandleAnnounceReachabilityServiceListener();
+    v8 = ANLogHandleAnnounceReachabilityServiceListener([(NSXPCListener *)v2->_listener resume]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = &stru_2851BDB18;
+      v12 = &stru_2851BDB18;
       _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@Announce Reachability Service Listener Up!", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -59,148 +57,144 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = ANLogHandleAnnounceReachabilityServiceListener();
+  v8 = ANLogHandleAnnounceReachabilityServiceListener(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(connectionCopy, "processIdentifier")}];
     serviceName = [connectionCopy serviceName];
     *buf = 138412802;
-    v33 = &stru_2851BDB18;
-    v34 = 2112;
-    v35 = v9;
-    v36 = 2112;
-    v37 = serviceName;
+    v34 = &stru_2851BDB18;
+    v35 = 2112;
+    v36 = v9;
+    v37 = 2112;
+    v38 = serviceName;
     _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@New Connection Request From (PID = %@) For Service: (%@)", buf, 0x20u);
   }
 
-  if (([MEMORY[0x277CEAB38] isAnnounceEnabled] & 1) == 0)
+  isAnnounceEnabled = [MEMORY[0x277CEAB38] isAnnounceEnabled];
+  if ((isAnnounceEnabled & 1) == 0)
   {
-    v11 = ANLogHandleAnnounceReachabilityServiceListener();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = ANLogHandleAnnounceReachabilityServiceListener(isAnnounceEnabled);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = &stru_2851BDB18;
-      v15 = "%@Rejecting connection. Announce not enabled.";
-      v16 = v11;
-      v17 = 12;
+      v34 = &stru_2851BDB18;
+      v17 = "%@Rejecting connection. Announce not enabled.";
+      v18 = v13;
+      v19 = 12;
 LABEL_12:
-      _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
+      _os_log_impl(&dword_23F525000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
     }
 
 LABEL_13:
-    v14 = 0;
+    v16 = 0;
     goto LABEL_14;
   }
 
-  if (([connectionCopy hasAnnounceEntitlement] & 1) == 0)
+  hasAnnounceEntitlement = [connectionCopy hasAnnounceEntitlement];
+  if ((hasAnnounceEntitlement & 1) == 0)
   {
-    v11 = ANLogHandleAnnounceReachabilityServiceListener();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = ANLogHandleAnnounceReachabilityServiceListener(hasAnnounceEntitlement);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v18 = *MEMORY[0x277CEAC10];
+      v20 = *MEMORY[0x277CEAC10];
       *buf = 138412546;
-      v33 = &stru_2851BDB18;
-      v34 = 2112;
-      v35 = v18;
-      v15 = "%@Missing Announce Entitlement: %@";
-      v16 = v11;
-      v17 = 22;
+      v34 = &stru_2851BDB18;
+      v35 = 2112;
+      v36 = v20;
+      v17 = "%@Missing Announce Entitlement: %@";
+      v18 = v13;
+      v19 = 22;
       goto LABEL_12;
     }
 
     goto LABEL_13;
   }
 
-  v11 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2851C8D28];
-  [connectionCopy setExportedInterface:v11];
+  v13 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2851C8D28];
+  [connectionCopy setExportedInterface:v13];
   [connectionCopy setExportedObject:self];
-  v12 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2851E1D68];
-  [connectionCopy setRemoteObjectInterface:v12];
+  v14 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2851E1D68];
+  [connectionCopy setRemoteObjectInterface:v14];
 
   [(ANAnnounceReachabilityServiceListener *)self _addConnection:connectionCopy];
   objc_initWeak(&location, self);
   objc_initWeak(&from, connectionCopy);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __76__ANAnnounceReachabilityServiceListener_listener_shouldAcceptNewConnection___block_invoke;
-  v27[3] = &unk_278C865F0;
-  objc_copyWeak(&v28, &from);
-  objc_copyWeak(&v29, &location);
-  [connectionCopy setInterruptionHandler:v27];
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __76__ANAnnounceReachabilityServiceListener_listener_shouldAcceptNewConnection___block_invoke_71;
-  v24 = &unk_278C865F0;
-  objc_copyWeak(&v25, &from);
-  objc_copyWeak(&v26, &location);
-  [connectionCopy setInvalidationHandler:&v21];
-  [connectionCopy resume];
-  v13 = ANLogHandleAnnounceReachabilityServiceListener();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __76__ANAnnounceReachabilityServiceListener_listener_shouldAcceptNewConnection___block_invoke;
+  v28[3] = &unk_278C865F0;
+  objc_copyWeak(&v29, &from);
+  objc_copyWeak(&v30, &location);
+  [connectionCopy setInterruptionHandler:v28];
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __76__ANAnnounceReachabilityServiceListener_listener_shouldAcceptNewConnection___block_invoke_71;
+  v25 = &unk_278C865F0;
+  objc_copyWeak(&v26, &from);
+  objc_copyWeak(&v27, &location);
+  [connectionCopy setInvalidationHandler:&v22];
+  v15 = ANLogHandleAnnounceReachabilityServiceListener([connectionCopy resume]);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v33 = &stru_2851BDB18;
-    v34 = 2112;
-    v35 = connectionCopy;
-    _os_log_impl(&dword_23F525000, v13, OS_LOG_TYPE_DEFAULT, "%@Connection Accepted: (%@)", buf, 0x16u);
+    v34 = &stru_2851BDB18;
+    v35 = 2112;
+    v36 = connectionCopy;
+    _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, "%@Connection Accepted: (%@)", buf, 0x16u);
   }
 
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&v26);
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&v29);
-  objc_destroyWeak(&v28);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-  v14 = 1;
+  v16 = 1;
 LABEL_14:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v16;
 }
 
 void __76__ANAnnounceReachabilityServiceListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandleAnnounceReachabilityServiceListener();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandleAnnounceReachabilityServiceListener(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v7 = 138412546;
-    v8 = &stru_2851BDB18;
-    v9 = 2112;
-    v10 = WeakRetained;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Interrupted: (%@)", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = &stru_2851BDB18;
+    v8 = 2112;
+    v9 = WeakRetained;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Interrupted: (%@)", &v6, 0x16u);
   }
 
   v4 = objc_loadWeakRetained((a1 + 40));
   v5 = objc_loadWeakRetained((a1 + 32));
   [v4 _removeConnection:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __76__ANAnnounceReachabilityServiceListener_listener_shouldAcceptNewConnection___block_invoke_71(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = ANLogHandleAnnounceReachabilityServiceListener();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = ANLogHandleAnnounceReachabilityServiceListener(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v7 = 138412546;
-    v8 = &stru_2851BDB18;
-    v9 = 2112;
-    v10 = WeakRetained;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Invalidated: (%@)", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = &stru_2851BDB18;
+    v8 = 2112;
+    v9 = WeakRetained;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@Connection Invalidated: (%@)", &v6, 0x16u);
   }
 
   v4 = objc_loadWeakRetained((a1 + 40));
   v5 = objc_loadWeakRetained((a1 + 32));
   [v4 _removeConnection:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeWithCompletionHandler:(id)handler
@@ -357,34 +351,34 @@ void __69__ANAnnounceReachabilityServiceListener_resumeWithCompletionHandler___b
 
 - (void)_removeConnection:(id)connection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   connections = [(ANAnnounceReachabilityServiceListener *)self connections];
   objc_sync_enter(connections);
   connections2 = [(ANAnnounceReachabilityServiceListener *)self connections];
   [connections2 removeObject:connectionCopy];
 
-  v7 = ANLogHandleAnnounceReachabilityServiceListener();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = ANLogHandleAnnounceReachabilityServiceListener(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = &stru_2851BDB18;
-    v16 = 2112;
-    v17 = connectionCopy;
-    _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@Removed Connection: (%@)", &v14, 0x16u);
+    v15 = 138412546;
+    v16 = &stru_2851BDB18;
+    v17 = 2112;
+    v18 = connectionCopy;
+    _os_log_impl(&dword_23F525000, v8, OS_LOG_TYPE_DEFAULT, "%@Removed Connection: (%@)", &v15, 0x16u);
   }
 
   connections3 = [(ANAnnounceReachabilityServiceListener *)self connections];
-  v9 = [connections3 count] == 0;
+  v10 = [connections3 count] == 0;
 
-  if (v9)
+  if (v10)
   {
-    v10 = ANLogHandleAnnounceReachabilityServiceListener();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = ANLogHandleAnnounceReachabilityServiceListener(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%@All Reachability Connections Removed. Stopping Reachability Manager.", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = &stru_2851BDB18;
+      _os_log_impl(&dword_23F525000, v12, OS_LOG_TYPE_DEFAULT, "%@All Reachability Connections Removed. Stopping Reachability Manager.", &v15, 0xCu);
     }
 
     reachabilityManager = [(ANAnnounceReachabilityServiceListener *)self reachabilityManager];
@@ -397,58 +391,56 @@ void __69__ANAnnounceReachabilityServiceListener_resumeWithCompletionHandler___b
   }
 
   objc_sync_exit(connections);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendCurrentReachabilityToConnection:(id)connection
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   reachabilityManager = [(ANAnnounceReachabilityServiceListener *)self reachabilityManager];
   monitoredHomes = [reachabilityManager monitoredHomes];
 
-  v42 = objc_opt_new();
-  v52 = 0u;
+  v43 = objc_opt_new();
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
   obj = monitoredHomes;
-  v43 = [obj countByEnumeratingWithState:&v52 objects:v67 count:16];
-  if (v43)
+  v44 = [obj countByEnumeratingWithState:&v53 objects:v68 count:16];
+  if (v44)
   {
-    v41 = *v53;
+    v42 = *v54;
     *&v6 = 138413058;
-    v39 = v6;
+    v40 = v6;
     do
     {
       v7 = 0;
       do
       {
-        if (*v53 != v41)
+        if (*v54 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = v7;
-        v8 = *(*(&v52 + 1) + 8 * v7);
+        v45 = v7;
+        v8 = *(*(&v53 + 1) + 8 * v7);
         reachabilityManager2 = [(ANAnnounceReachabilityServiceListener *)self reachabilityManager];
         v10 = [reachabilityManager2 reachabilityForHome:v8];
 
-        v11 = ANLogHandleAnnounceReachabilityServiceListener();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = ANLogHandleAnnounceReachabilityServiceListener(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           name = [v8 name];
-          v13 = [MEMORY[0x277CEAB40] stringForAnnounceReachabilityLevel:v10];
-          *buf = v39;
-          v57 = &stru_2851BDB18;
-          v58 = 2112;
-          v59 = name;
-          v60 = 2112;
-          v61 = v13;
-          v62 = 2112;
-          v63 = connectionCopy;
-          _os_log_impl(&dword_23F525000, v11, OS_LOG_TYPE_DEFAULT, "%@Sending Current Home Reachability: Home = %@, Reachability = %@, Connection = %@", buf, 0x2Au);
+          v14 = [MEMORY[0x277CEAB40] stringForAnnounceReachabilityLevel:v10];
+          *buf = v40;
+          v58 = &stru_2851BDB18;
+          v59 = 2112;
+          v60 = name;
+          v61 = 2112;
+          v62 = v14;
+          v63 = 2112;
+          v64 = connectionCopy;
+          _os_log_impl(&dword_23F525000, v12, OS_LOG_TYPE_DEFAULT, "%@Sending Current Home Reachability: Home = %@, Reachability = %@, Connection = %@", buf, 0x2Au);
         }
 
         remoteObjectProxy = [connectionCopy remoteObjectProxy];
@@ -460,126 +452,124 @@ void __69__ANAnnounceReachabilityServiceListener_resumeWithCompletionHandler___b
         [remoteObjectProxy2 reachabilityLevel:v10 didChangeForHomeUUID:uniqueIdentifier];
 
         reachabilityManager3 = [(ANAnnounceReachabilityServiceListener *)self reachabilityManager];
-        v19 = [reachabilityManager3 monitoredRoomsForHome:v8];
+        v20 = [reachabilityManager3 monitoredRoomsForHome:v8];
 
-        [v42 append:{objc_msgSend(v19, "count")}];
-        v50 = 0u;
+        [v43 append:{objc_msgSend(v20, "count")}];
         v51 = 0u;
-        v48 = 0u;
+        v52 = 0u;
         v49 = 0u;
-        v45 = v19;
-        v20 = [v45 countByEnumeratingWithState:&v48 objects:v66 count:16];
-        if (v20)
+        v50 = 0u;
+        v46 = v20;
+        v21 = [v46 countByEnumeratingWithState:&v49 objects:v67 count:16];
+        if (v21)
         {
-          v21 = v20;
-          v46 = *v49;
+          v22 = v21;
+          v47 = *v50;
           do
           {
-            for (i = 0; i != v21; ++i)
+            for (i = 0; i != v22; ++i)
             {
-              if (*v49 != v46)
+              if (*v50 != v47)
               {
-                objc_enumerationMutation(v45);
+                objc_enumerationMutation(v46);
               }
 
-              v23 = *(*(&v48 + 1) + 8 * i);
+              v24 = *(*(&v49 + 1) + 8 * i);
               reachabilityManager4 = [(ANAnnounceReachabilityServiceListener *)self reachabilityManager];
-              v25 = [reachabilityManager4 reachabilityForRoom:v23 inHome:v8];
+              v26 = [reachabilityManager4 reachabilityForRoom:v24 inHome:v8];
 
-              v26 = ANLogHandleAnnounceReachabilityServiceListener();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v28 = ANLogHandleAnnounceReachabilityServiceListener(v27);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 name3 = [v8 name];
-                [v23 name];
-                v29 = v28 = self;
-                v30 = [MEMORY[0x277CEAB40] stringForAnnounceReachabilityLevel:v25];
+                [v24 name];
+                v31 = v30 = self;
+                v32 = [MEMORY[0x277CEAB40] stringForAnnounceReachabilityLevel:v26];
                 *buf = 138413314;
-                v57 = &stru_2851BDB18;
-                v58 = 2112;
-                v59 = name3;
-                v60 = 2112;
-                v61 = v29;
-                v62 = 2112;
-                v63 = v30;
-                v64 = 2112;
-                v65 = connectionCopy;
-                _os_log_impl(&dword_23F525000, v26, OS_LOG_TYPE_DEFAULT, "%@Sending Current Room Reachability: Home = %@, Room = %@, Reachability = %@, Connection = %@", buf, 0x34u);
+                v58 = &stru_2851BDB18;
+                v59 = 2112;
+                v60 = name3;
+                v61 = 2112;
+                v62 = v31;
+                v63 = 2112;
+                v64 = v32;
+                v65 = 2112;
+                v66 = connectionCopy;
+                _os_log_impl(&dword_23F525000, v28, OS_LOG_TYPE_DEFAULT, "%@Sending Current Room Reachability: Home = %@, Room = %@, Reachability = %@, Connection = %@", buf, 0x34u);
 
-                self = v28;
+                self = v30;
               }
 
               remoteObjectProxy3 = [connectionCopy remoteObjectProxy];
-              name4 = [v23 name];
+              name4 = [v24 name];
               name5 = [v8 name];
-              [remoteObjectProxy3 reachabilityLevel:v25 didChangeForRoomName:name4 inHomeName:name5];
+              [remoteObjectProxy3 reachabilityLevel:v26 didChangeForRoomName:name4 inHomeName:name5];
 
               remoteObjectProxy4 = [connectionCopy remoteObjectProxy];
-              uniqueIdentifier2 = [v23 uniqueIdentifier];
+              uniqueIdentifier2 = [v24 uniqueIdentifier];
               uniqueIdentifier3 = [v8 uniqueIdentifier];
-              [remoteObjectProxy4 reachabilityLevel:v25 didChangeForRoomUUID:uniqueIdentifier2 inHomeUUID:uniqueIdentifier3];
+              [remoteObjectProxy4 reachabilityLevel:v26 didChangeForRoomUUID:uniqueIdentifier2 inHomeUUID:uniqueIdentifier3];
             }
 
-            v21 = [v45 countByEnumeratingWithState:&v48 objects:v66 count:16];
+            v22 = [v46 countByEnumeratingWithState:&v49 objects:v67 count:16];
           }
 
-          while (v21);
+          while (v22);
         }
 
-        v7 = v44 + 1;
+        v7 = v45 + 1;
       }
 
-      while (v44 + 1 != v43);
-      v43 = [obj countByEnumeratingWithState:&v52 objects:v67 count:16];
+      while (v45 + 1 != v44);
+      v44 = [obj countByEnumeratingWithState:&v53 objects:v68 count:16];
     }
 
-    while (v43);
+    while (v44);
   }
 
-  v37 = +[ANAnalytics shared];
-  [v37 recordReachableHomes:v42];
-
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = +[ANAnalytics shared];
+  [v39 recordReachableHomes:v43];
 }
 
 - (void)reachabilityLevel:(unint64_t)level didChangeForHome:(id)home
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   homeCopy = home;
-  v7 = ANLogHandleAnnounceReachabilityServiceListener();
+  v7 = ANLogHandleAnnounceReachabilityServiceListener(homeCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     name = [homeCopy name];
     v9 = [MEMORY[0x277CEAB40] stringForAnnounceReachabilityLevel:level];
     *buf = 138412802;
-    v27 = &stru_2851BDB18;
-    v28 = 2112;
-    v29 = name;
-    v30 = 2112;
-    v31 = v9;
+    v26 = &stru_2851BDB18;
+    v27 = 2112;
+    v28 = name;
+    v29 = 2112;
+    v30 = v9;
     _os_log_impl(&dword_23F525000, v7, OS_LOG_TYPE_DEFAULT, "%@Reachability Changed For [Home = %@]: %@", buf, 0x20u);
   }
 
   connections = [(ANAnnounceReachabilityServiceListener *)self connections];
   objc_sync_enter(connections);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   connections2 = [(ANAnnounceReachabilityServiceListener *)self connections];
-  v12 = [connections2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [connections2 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(connections2);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         remoteObjectProxy = [v15 remoteObjectProxy];
         name2 = [homeCopy name];
         [remoteObjectProxy reachabilityLevel:level didChangeForHomeName:name2];
@@ -589,60 +579,59 @@ void __69__ANAnnounceReachabilityServiceListener_resumeWithCompletionHandler___b
         [remoteObjectProxy2 reachabilityLevel:level didChangeForHomeUUID:uniqueIdentifier];
       }
 
-      v12 = [connections2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [connections2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
 
   objc_sync_exit(connections);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reachabilityLevel:(unint64_t)level didChangeForRoom:(id)room inHome:(id)home
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   roomCopy = room;
   homeCopy = home;
-  v10 = ANLogHandleAnnounceReachabilityServiceListener();
+  v10 = ANLogHandleAnnounceReachabilityServiceListener(homeCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     name = [homeCopy name];
     name2 = [roomCopy name];
     v13 = [MEMORY[0x277CEAB40] stringForAnnounceReachabilityLevel:level];
     *buf = 138413058;
-    v34 = &stru_2851BDB18;
-    v35 = 2112;
-    v36 = name;
-    v37 = 2112;
-    v38 = name2;
-    v39 = 2112;
-    v40 = v13;
+    v33 = &stru_2851BDB18;
+    v34 = 2112;
+    v35 = name;
+    v36 = 2112;
+    v37 = name2;
+    v38 = 2112;
+    v39 = v13;
     _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%@Reachability Changed For [Home = %@, Room = %@]: %@", buf, 0x2Au);
   }
 
   obj = [(ANAnnounceReachabilityServiceListener *)self connections];
   objc_sync_enter(obj);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   connections = [(ANAnnounceReachabilityServiceListener *)self connections];
-  v15 = [connections countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [connections countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
-    v16 = *v29;
-    v27 = connections;
+    v16 = *v28;
+    v26 = connections;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v29 != v16)
+        if (*v28 != v16)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v26);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
+        v18 = *(*(&v27 + 1) + 8 * i);
         remoteObjectProxy = [v18 remoteObjectProxy];
         name3 = [roomCopy name];
         name4 = [homeCopy name];
@@ -654,15 +643,14 @@ void __69__ANAnnounceReachabilityServiceListener_resumeWithCompletionHandler___b
         [remoteObjectProxy2 reachabilityLevel:level didChangeForRoomUUID:uniqueIdentifier inHomeUUID:uniqueIdentifier2];
       }
 
-      connections = v27;
-      v15 = [v27 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      connections = v26;
+      v15 = [v26 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v15);
   }
 
   objc_sync_exit(obj);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

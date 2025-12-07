@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10005F6F4();
+  sub_10005F6F4(selfCopy);
 }
 
 - (_TtC10ClockAngel15SpinnyResetView)initWithCoder:(id)coder

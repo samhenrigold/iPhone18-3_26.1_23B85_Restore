@@ -22,7 +22,7 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  v7 = _TVRUIHintsLog();
+  v7 = _TVRUIHintsLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     [TVRUIHintsStyle styleProviderForUserInterfaceIdiom:idiom hasHomeButton:v7];

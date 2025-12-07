@@ -11,37 +11,35 @@
 
 - (NSString)passcode
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__6;
-  v14 = __Block_byref_object_dispose__6;
-  v15 = 0;
-  v9.receiver = self;
-  v9.super_class = MCExtractablePasscodeContextWrapper;
-  contextRef = [(MCACMContextWrapper *)&v9 contextRef];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __47__MCExtractablePasscodeContextWrapper_passcode__block_invoke;
-  v8[3] = &unk_1E77D2500;
-  v8[4] = &v10;
-  Data = ACMContextGetData(contextRef, 7, v8);
+  v17 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__6;
+  v13 = __Block_byref_object_dispose__6;
+  v14 = 0;
+  v8.receiver = self;
+  v8.super_class = MCExtractablePasscodeContextWrapper;
+  contextRef = [(MCACMContextWrapper *)&v8 contextRef];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __47__MCExtractablePasscodeContextWrapper_passcode__block_invoke;
+  v7[3] = &unk_1E77D2500;
+  v7[4] = &v9;
+  Data = ACMContextGetData(contextRef, 7, v7);
   if (Data)
   {
     v4 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v17 = Data;
+      v16 = Data;
       _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_ERROR, "Couldn't get passcode in auth context: ACM err %d", buf, 8u);
     }
   }
 
-  v5 = v11[5];
-  _Block_object_dispose(&v10, 8);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = v10[5];
+  _Block_object_dispose(&v9, 8);
 
   return v5;
 }

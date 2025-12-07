@@ -88,9 +88,12 @@
   deviceLostHandler = self->_deviceLostHandler;
   self->_deviceLostHandler = 0;
 
-  if (dword_1001D42B8 <= 30 && (dword_1001D42B8 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D42B8 <= 30)
   {
-    sub_10011EB7C();
+    if (dword_1001D42B8 != -1 || (v7 = _LogCategory_Initialize(), v7))
+    {
+      sub_10011EB7C(v7, v8, v9);
+    }
   }
 }
 
@@ -103,7 +106,7 @@
     stableIdentifier = [foundCopy identifier];
     if (!stableIdentifier)
     {
-      sub_10011EBD4();
+      sub_10011EBD4(foundCopy);
       goto LABEL_16;
     }
   }
@@ -125,6 +128,8 @@
     {
       goto LABEL_13;
     }
+
+    v9 = "BLE NearbyInfoV2 device changed: %@\n";
   }
 
   else
@@ -134,15 +139,17 @@
     {
       goto LABEL_13;
     }
+
+    v9 = "BLE NearbyInfoV2 device found: %@\n";
   }
 
-  sub_10011EB98();
+  sub_10011EB98(v9, foundCopy);
 LABEL_13:
-  v9 = objc_retainBlock(self->_deviceFoundHandler);
-  v10 = v9;
-  if (v9)
+  v10 = objc_retainBlock(self->_deviceFoundHandler);
+  v11 = v10;
+  if (v10)
   {
-    (*(v9 + 2))(v9, foundCopy);
+    (*(v10 + 2))(v10, foundCopy);
   }
 
 LABEL_16:
@@ -150,17 +157,19 @@ LABEL_16:
 
 - (id)description
 {
-  NSAppendPrintF();
-  v7 = 0;
-  discovery = self->_discovery;
-  NSAppendPrintF();
-  v3 = v7;
+  v10 = 0;
+  NSAppendPrintF(&v10, "NearbyInfoV2: ");
+  v3 = v10;
+  v9 = v3;
+  NSAppendPrintF(&v9, "%@", self->_discovery);
+  v4 = v9;
 
-  [(NSMutableArray *)self->_devices count];
-  NSAppendPrintF();
-  v4 = v3;
+  v8 = v4;
+  NSAppendPrintF(&v8, ", Devices %lu", [(NSMutableArray *)self->_devices count]);
+  v5 = v8;
+  v6 = v8;
 
-  return v3;
+  return v5;
 }
 
 - (void)_deviceLost:(id)lost
@@ -175,7 +184,7 @@ LABEL_16:
       [(NSMutableArray *)self->_devices removeObject:v5];
       if (dword_1001D42B8 <= 30 && (dword_1001D42B8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001D42B8, "[RPNearbyInfoV2Discovery _deviceLost:]", 30, "BLE NearbyInfoV2 device lost: %@\n", lostCopy);
       }
 
       v6 = objc_retainBlock(self->_deviceLostHandler);
@@ -191,7 +200,7 @@ LABEL_16:
   {
     if (dword_1001D42B8 <= 90 && (dword_1001D42B8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D42B8, "[RPNearbyInfoV2Discovery _deviceLost:]", 90, "### Ignoring BLE NearbyInfoV2 device lost: %@\n", lostCopy);
     }
 
     v5 = 0;

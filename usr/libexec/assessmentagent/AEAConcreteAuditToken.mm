@@ -63,7 +63,7 @@
 
 - (id)dataRepresentation
 {
-  [(AEAConcreteAuditToken *)self underlyingToken:0];
+  objc_msgSend_underlyingToken(self, a2, 0, 0, 0, 0);
   v2 = [NSValue value:&v5 withObjCType:"{?=[8I]}"];
   ae_dataRepresentation = [v2 ae_dataRepresentation];
 

@@ -107,12 +107,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -131,22 +130,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  startAnchor = self->_startAnchor;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    endAnchor = self->_endAnchor;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_entityIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -249,7 +246,6 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 40);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_entityType != *(equalCopy + 2))
@@ -261,7 +257,7 @@ LABEL_5:
   else if ((*(equalCopy + 40) & 2) != 0)
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -294,17 +290,17 @@ LABEL_19:
   entityIdentifier = self->_entityIdentifier;
   if (entityIdentifier | *(equalCopy + 4))
   {
-    v7 = [(HDCodableEntityIdentifier *)entityIdentifier isEqual:?];
+    v6 = [(HDCodableEntityIdentifier *)entityIdentifier isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

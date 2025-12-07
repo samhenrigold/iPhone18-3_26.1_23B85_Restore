@@ -19,10 +19,10 @@
 + (void)sbh_updateMutableTrait:()SpringBoardHome withIconImageStyleConfiguration:userInterfaceStyle:;
 + (void)sbh_updateMutableTraits:()SpringBoardHome withIconImageAppearance:;
 - (BOOL)sbh_automaticallyChangesWithUserInterfaceStyle;
+- (SBHIconImageStyleConfiguration)sbh_iconImageStyleConfigurationInferringIfNecessary:()SpringBoardHome;
 - (id)sbh_homeScreenIconStyleConfigurationInferringIfNecessary:()SpringBoardHome;
 - (id)sbh_iconImageAppearanceInferringIfNecessary:()SpringBoardHome;
 - (id)sbh_iconImageAppearanceWithHomeScreenStyleConfiguration:()SpringBoardHome;
-- (id)sbh_iconImageStyleConfigurationInferringIfNecessary:()SpringBoardHome;
 - (id)sbh_iconTintColorInferringIfNecessary:()SpringBoardHome;
 - (id)sbh_traitCollectionWithIconImageAppearance:()SpringBoardHome;
 - (id)sbh_traitCollectionWithIconImageStyleConfiguration:()SpringBoardHome;
@@ -192,7 +192,7 @@ LABEL_17:
   return v9;
 }
 
-- (id)sbh_iconImageStyleConfigurationInferringIfNecessary:()SpringBoardHome
+- (SBHIconImageStyleConfiguration)sbh_iconImageStyleConfigurationInferringIfNecessary:()SpringBoardHome
 {
   v5 = objc_opt_self();
   v6 = [self objectForTrait:v5];
@@ -604,7 +604,7 @@ LABEL_9:
 
 + (id)sbh_traitCollectionWithHomeScreenStyleConfiguration:()SpringBoardHome userInterfaceStyle:
 {
-  v6 = [SBHIconImageStyleConfiguration styleConfigurationWithHomeScreenConfiguration:?];
+  v6 = [SBHIconImageStyleConfiguration styleConfigurationWithHomeScreenConfiguration:a3];
   v7 = [self sbh_traitCollectionWithIconImageStyleConfiguration:v6 userInterfaceStyle:a4];
 
   return v7;

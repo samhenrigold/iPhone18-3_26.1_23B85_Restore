@@ -4,6 +4,7 @@
 - (id)accessibilityValue;
 - (int64_t)accessibilityContainerType;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)updateUIForVisualSearchResultsClearExistingResults:(BOOL)results includeNotVisibleItems:(BOOL)items;
 @end
 
 @implementation VKCImageVisualSearchViewAccessibility
@@ -63,6 +64,14 @@
 
     while (v5 != v6);
   }
+}
+
+- (void)updateUIForVisualSearchResultsClearExistingResults:(BOOL)results includeNotVisibleItems:(BOOL)items
+{
+  v5.receiver = self;
+  v5.super_class = VKCImageVisualSearchViewAccessibility;
+  [(VKCImageVisualSearchViewAccessibility *)&v5 updateUIForVisualSearchResultsClearExistingResults:results includeNotVisibleItems:items];
+  [(VKCImageVisualSearchViewAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (BOOL)_axIsItemsInFocusContainer

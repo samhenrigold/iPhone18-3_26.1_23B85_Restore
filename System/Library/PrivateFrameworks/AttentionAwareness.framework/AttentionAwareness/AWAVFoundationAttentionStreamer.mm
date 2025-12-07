@@ -2,6 +2,7 @@
 - (BOOL)getStreamingSessionAndStartRunning:(id)running;
 - (id)cancelEventStream;
 - (id)initForUnitTest:(BOOL)test queue:(id)queue;
+- (id)streamEventWithBlock:(id)block options:(id)options operationStartFailedBlock:(id)failedBlock;
 - (void)receiveMetadata:(id)metadata type:(id)type;
 - (void)receiveNotificationOfName:(id)name notification:(id)notification;
 - (void)receiveStreamingEvent;
@@ -80,7 +81,7 @@
 
 - (void)receiveNotificationOfName:(id)name notification:(id)notification
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   notificationCopy = notification;
   if (currentLogLevel == 5)
@@ -99,15 +100,15 @@
         v10 = v9 / 1000000000.0;
       }
 
-      *v58 = 134218242;
-      *&v58[4] = v10;
-      *&v58[12] = 2112;
-      *&v58[14] = nameCopy;
+      *v57 = 134218242;
+      *&v57[4] = v10;
+      *&v57[12] = 2112;
+      *&v57[14] = nameCopy;
       v15 = "%13.5f: Notification %@ received";
       v16 = v8;
       v17 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v58, v17);
+      _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v57, v17);
     }
   }
 
@@ -142,14 +143,14 @@ LABEL_19:
             v14 = v13 / 1000000000.0;
           }
 
-          *v58 = 136315906;
-          *&v58[4] = v11;
-          *&v58[12] = 1024;
-          *&v58[14] = 539;
-          *&v58[18] = 2048;
-          *&v58[20] = v14;
-          *&v58[28] = 2112;
-          *&v58[30] = nameCopy;
+          *v57 = 136315906;
+          *&v57[4] = v11;
+          *&v57[12] = 1024;
+          *&v57[14] = 539;
+          *&v57[18] = 2048;
+          *&v57[20] = v14;
+          *&v57[28] = 2112;
+          *&v57[30] = nameCopy;
           v15 = "%30s:%-4d: %13.5f: Notification %@ received";
           v16 = v8;
           v17 = 38;
@@ -160,7 +161,7 @@ LABEL_19:
   }
 
 LABEL_21:
-  if ([nameCopy isEqual:{*MEMORY[0x1E6986B20], *v58, *&v58[16], *&v58[24]}])
+  if ([nameCopy isEqual:{*MEMORY[0x1E6986B20], *v57, *&v57[8], *&v57[24]}])
   {
     if (notificationCopy)
     {
@@ -181,15 +182,15 @@ LABEL_21:
           }
 
           userInfo = [notificationCopy userInfo];
-          *v58 = 134218242;
-          *&v58[4] = v20;
-          *&v58[12] = 2112;
-          *&v58[14] = userInfo;
+          *v57 = 134218242;
+          *&v57[4] = v20;
+          *&v57[12] = 2112;
+          *&v57[14] = userInfo;
           v37 = "%13.5f: Runtime error received: %@";
           v38 = v18;
           v39 = 22;
 LABEL_81:
-          _os_log_impl(&dword_1BB2EF000, v38, OS_LOG_TYPE_DEFAULT, v37, v58, v39);
+          _os_log_impl(&dword_1BB2EF000, v38, OS_LOG_TYPE_DEFAULT, v37, v57, v39);
         }
 
 LABEL_82:
@@ -224,14 +225,14 @@ LABEL_82:
               }
 
               userInfo = [notificationCopy userInfo];
-              *v58 = 136315906;
-              *&v58[4] = v26;
-              *&v58[12] = 1024;
-              *&v58[14] = 544;
-              *&v58[18] = 2048;
-              *&v58[20] = v31;
-              *&v58[28] = 2112;
-              *&v58[30] = userInfo;
+              *v57 = 136315906;
+              *&v57[4] = v26;
+              *&v57[12] = 1024;
+              *&v57[14] = 544;
+              *&v57[18] = 2048;
+              *&v57[20] = v31;
+              *&v57[28] = 2112;
+              *&v57[30] = userInfo;
               v37 = "%30s:%-4d: %13.5f: Runtime error received: %@";
               v38 = v18;
               v39 = 38;
@@ -245,7 +246,7 @@ LABEL_82:
     }
 
 LABEL_83:
-    [(AWAVFoundationAttentionStreamer *)self sendNotification:1, *v58, *&v58[8], *&v58[24]];
+    [(AWAVFoundationAttentionStreamer *)self sendNotification:1, *v57, *&v57[8], *&v57[24]];
     cancelEventStream = [(AWAVFoundationAttentionStreamer *)self cancelEventStream];
     goto LABEL_96;
   }
@@ -279,13 +280,13 @@ LABEL_83:
           v25 = v24 / 1000000000.0;
         }
 
-        *v58 = 134217984;
-        *&v58[4] = v25;
-        v55 = "%13.5f: Streaming session was interrupted";
-        v56 = v18;
-        v57 = 12;
+        *v57 = 134217984;
+        *&v57[4] = v25;
+        v54 = "%13.5f: Streaming session was interrupted";
+        v55 = v18;
+        v56 = 12;
 LABEL_103:
-        _os_log_impl(&dword_1BB2EF000, v56, OS_LOG_TYPE_DEFAULT, v55, v58, v57);
+        _os_log_impl(&dword_1BB2EF000, v55, OS_LOG_TYPE_DEFAULT, v54, v57, v56);
       }
 
       goto LABEL_82;
@@ -306,26 +307,26 @@ LABEL_103:
 
           else if (!*(k - 1))
           {
-            v53 = absTimeNS();
-            if (v53 == -1)
+            v52 = absTimeNS();
+            if (v52 == -1)
             {
-              v54 = INFINITY;
+              v53 = INFINITY;
             }
 
             else
             {
-              v54 = v53 / 1000000000.0;
+              v53 = v52 / 1000000000.0;
             }
 
-            *v58 = 136315650;
-            *&v58[4] = v32;
-            *&v58[12] = 1024;
-            *&v58[14] = 560;
-            *&v58[18] = 2048;
-            *&v58[20] = v54;
-            v55 = "%30s:%-4d: %13.5f: Streaming session was interrupted";
-            v56 = v18;
-            v57 = 28;
+            *v57 = 136315650;
+            *&v57[4] = v32;
+            *&v57[12] = 1024;
+            *&v57[14] = 560;
+            *&v57[18] = 2048;
+            *&v57[20] = v53;
+            v54 = "%30s:%-4d: %13.5f: Streaming session was interrupted";
+            v55 = v18;
+            v56 = 28;
             goto LABEL_103;
           }
         }
@@ -376,19 +377,19 @@ LABEL_103:
         v43 = "IS NOT RUNNING";
       }
 
-      *v58 = 134218754;
+      *v57 = 134218754;
       if (AWAttentionStreamerActivatePersonDetection)
       {
         v40 = "IS RUNNING";
       }
 
-      *&v58[4] = v23;
-      *&v58[12] = 2080;
-      *&v58[14] = v41;
-      *&v58[22] = 2080;
-      *&v58[24] = v43;
-      *&v58[32] = 2080;
-      *&v58[34] = v40;
+      *&v57[4] = v23;
+      *&v57[12] = 2080;
+      *&v57[14] = v41;
+      *&v57[22] = 2080;
+      *&v57[24] = v43;
+      *&v57[32] = 2080;
+      *&v57[34] = v40;
       v44 = "%13.5f: Attention detection session started ER %s, AD/FD %s PD %s";
       v45 = v21;
       v46 = 42;
@@ -449,28 +450,28 @@ LABEL_103:
           v51 = "IS NOT RUNNING";
         }
 
-        *v58 = 136316418;
+        *v57 = 136316418;
         if (v50)
         {
           v48 = "IS RUNNING";
         }
 
-        *&v58[4] = v28;
-        *&v58[12] = 1024;
-        *&v58[14] = 551;
-        *&v58[18] = 2048;
-        *&v58[20] = v35;
-        *&v58[28] = 2080;
-        *&v58[30] = v49;
-        *&v58[38] = 2080;
-        *&v58[40] = v51;
-        v59 = 2080;
-        v60 = v48;
+        *&v57[4] = v28;
+        *&v57[12] = 1024;
+        *&v57[14] = 551;
+        *&v57[18] = 2048;
+        *&v57[20] = v35;
+        *&v57[28] = 2080;
+        *&v57[30] = v49;
+        *&v57[38] = 2080;
+        *&v57[40] = v51;
+        v58 = 2080;
+        v59 = v48;
         v44 = "%30s:%-4d: %13.5f: Attention detection session started ER %s, AD/FD %s PD %s";
         v45 = v21;
         v46 = 58;
 LABEL_94:
-        _os_log_impl(&dword_1BB2EF000, v45, OS_LOG_TYPE_DEFAULT, v44, v58, v46);
+        _os_log_impl(&dword_1BB2EF000, v45, OS_LOG_TYPE_DEFAULT, v44, v57, v46);
 LABEL_95:
 
         break;
@@ -479,35 +480,33 @@ LABEL_95:
   }
 
 LABEL_96:
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveMetadata:(id)metadata type:(id)type
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   typeCopy = type;
   dispatch_assert_queue_V2(self->_queue);
-  v54 = 0;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
+  v53 = 0;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  memset(v45, 0, sizeof(v45));
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  memset(v44, 0, sizeof(v44));
   if (*MEMORY[0x1E6986FE8] == typeCopy)
   {
     v19 = metadataCopy;
     v10 = v19;
     v20 = 0uLL;
+    v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v54 = 0;
-    *(&v46 + 1) = 1;
+    v53 = 0;
+    *(&v45 + 1) = 1;
     if (v19)
     {
       if ([v19 hasPayingAttention] && (!objc_msgSend(v10, "hasPayingAttention") || (objc_msgSend(v10, "payingAttention") & 1) != 0))
@@ -515,7 +514,7 @@ LABEL_96:
         v13 = 0.0;
         if ([v10 hasPayingAttention] && objc_msgSend(v10, "payingAttention"))
         {
-          LOBYTE(v45[0]) = 1;
+          LOBYTE(v44[0]) = 1;
           v17 = 0;
           v18 = 0;
           if ([v10 hasPitchAngle])
@@ -524,14 +523,14 @@ LABEL_96:
             v18 = v21;
           }
 
-          *(&v45[0] + 1) = v18;
+          *(&v44[0] + 1) = v18;
           if ([v10 hasYawAngle])
           {
             [v10 yawAngle];
             v17 = v22;
           }
 
-          *&v45[1] = v17;
+          *&v44[1] = v17;
           v14 = 0;
           v16 = 0;
           if ([v10 hasRollAngle])
@@ -540,14 +539,14 @@ LABEL_96:
             v16 = v23;
           }
 
-          *(&v45[1] + 1) = v16;
+          *(&v44[1] + 1) = v16;
           if ([v10 hasDistance])
           {
             [v10 distance];
             v14 = v24;
           }
 
-          *(&v45[2] + 1) = v14;
+          *(&v44[2] + 1) = v14;
           if ([v10 hasOrientation])
           {
             orientation = [v10 orientation];
@@ -567,18 +566,18 @@ LABEL_96:
             v11 = 0;
           }
 
-          *&v45[2] = v11;
+          *&v44[2] = v11;
           hasConfidence = [v10 hasConfidence];
-          v43 = 0.0;
+          v42 = 0.0;
           if (hasConfidence)
           {
             [v10 confidence];
-            v43 = v44 * 100.0;
+            v42 = v43 * 100.0;
           }
 
           v10 = 0;
-          *(&v51 + 2) = v43;
-          v13 = v43;
+          *(&v50 + 2) = v42;
+          v13 = v42;
           v15 = "FACE FOUND";
           goto LABEL_36;
         }
@@ -591,21 +590,21 @@ LABEL_96:
 
       v10 = 0;
       v11 = 0;
-      LOBYTE(v45[0]) = 0;
-      DWORD2(v51) = 0;
+      LOBYTE(v44[0]) = 0;
+      DWORD2(v50) = 0;
       v20 = 0uLL;
     }
 
     else
     {
       v11 = 0;
-      LOBYTE(v45[0]) = 0;
-      DWORD2(v51) = 0;
+      LOBYTE(v44[0]) = 0;
+      DWORD2(v50) = 0;
     }
 
-    *(v45 + 8) = v20;
+    *(v44 + 8) = v20;
     v15 = "FACE NOT FOUND";
-    *(&v45[1] + 8) = v20;
+    *(&v44[1] + 8) = v20;
 LABEL_33:
     v13 = 0.0;
 LABEL_34:
@@ -627,7 +626,7 @@ LABEL_36:
   {
     v26 = metadataCopy;
     v11 = v26;
-    *(&v46 + 1) = 2;
+    *(&v45 + 1) = 2;
     if (v26)
     {
       eyeReliefStatus = [v26 eyeReliefStatus];
@@ -641,7 +640,7 @@ LABEL_36:
         v10 = eyeReliefStatus;
       }
 
-      *&v46 = v10;
+      *&v45 = v10;
       v13 = 0.0;
       v14 = 0;
       if ([v11 hasDistance])
@@ -651,15 +650,15 @@ LABEL_36:
       }
 
       v11 = 0;
-      *(&v45[2] + 1) = v14;
+      *(&v44[2] + 1) = v14;
       v15 = "FACE NOT FOUND";
       goto LABEL_35;
     }
 
     v10 = 0;
     v15 = "FACE NOT FOUND";
-    *(&v45[2] + 1) = 0;
-    *&v46 = 0;
+    *(&v44[2] + 1) = 0;
+    *&v45 = 0;
     goto LABEL_33;
   }
 
@@ -711,29 +710,29 @@ LABEL_44:
   v34 = getFaceDetectOrientationDescription(v11);
   v35 = getEyeReliefFaceStateDescription(v10);
   *buf = 136317954;
-  v56 = v30;
-  v57 = 1024;
-  v58 = 523;
-  v59 = 2048;
-  v60 = v33;
-  v61 = 2112;
+  v55 = v30;
+  v56 = 1024;
+  v57 = 523;
+  v58 = 2048;
+  v59 = v33;
+  v60 = 2112;
   selfCopy = self;
-  v63 = 2080;
-  v64 = v15;
-  v65 = 2048;
-  v66 = v18;
-  v67 = 2048;
-  v68 = v17;
-  v69 = 2048;
-  v70 = v16;
-  v71 = 2112;
-  v72 = v34;
-  v73 = 2048;
-  v74 = v14;
-  v75 = 2112;
-  v76 = v35;
-  v77 = 2048;
-  v78 = v13;
+  v62 = 2080;
+  v63 = v15;
+  v64 = 2048;
+  v65 = v18;
+  v66 = 2048;
+  v67 = v17;
+  v68 = 2048;
+  v69 = v16;
+  v70 = 2112;
+  v71 = v34;
+  v72 = 2048;
+  v73 = v14;
+  v74 = 2112;
+  v75 = v35;
+  v76 = 2048;
+  v77 = v13;
   _os_log_impl(&dword_1BB2EF000, v29, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ faceDetectStateChanged %s pitch: %13.5f yaw: %13.5f roll: %13.5f orientation: %@ distance: %13.5f eyeReliefFaceState:%@ faceDetectionScore: %f", buf, 0x76u);
 
 LABEL_49:
@@ -762,16 +761,14 @@ LABEL_50:
       v39 = v38 / 1000000000.0;
     }
 
-    v40 = [(AWFaceDetectAttentionEvent *)v37 initWithTimestamp:0 tagIndex:v45 faceMetadata:v39];
+    v40 = [(AWFaceDetectAttentionEvent *)v37 initWithTimestamp:0 tagIndex:v44 faceMetadata:v39];
     (*(self->_callbackBlock + 2))(self->_callbackBlock);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getStreamingSessionAndStartRunning:(id)running
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   runningCopy = running;
   if (self->_unitTest)
   {
@@ -792,15 +789,15 @@ LABEL_50:
           v8 = v7 / 1000000000.0;
         }
 
-        *v23 = 134218242;
-        *&v23[4] = v8;
-        *&v23[12] = 2112;
-        *&v23[14] = unitTestDevice;
+        *v22 = 134218242;
+        *&v22[4] = v8;
+        *&v22[12] = 2112;
+        *&v22[14] = unitTestDevice;
         v18 = "%13.5f: Using device %@ for starting AVFoundation operations";
         v19 = v6;
         v20 = 22;
 LABEL_26:
-        _os_log_impl(&dword_1BB2EF000, v19, OS_LOG_TYPE_DEFAULT, v18, v23, v20);
+        _os_log_impl(&dword_1BB2EF000, v19, OS_LOG_TYPE_DEFAULT, v18, v22, v20);
       }
     }
 
@@ -809,7 +806,7 @@ LABEL_26:
       if (currentLogLevel < 6)
       {
 LABEL_28:
-        [unitTestDevice setAVFoundationDelegate:{self, *v23, *&v23[16], *&v23[24], v24}];
+        [unitTestDevice setAVFoundationDelegate:{self, *v22, *&v22[8], *&v22[24], v23}];
         v13 = [unitTestDevice startUnitTestStream:self->_queue options:*&self->_currentOptions.AWAttentionStreamerActivateEyeRelief | (self->_currentOptions.AWAttentionStreamerActivatePersonDetection << 16)];
 
         goto LABEL_29;
@@ -839,14 +836,14 @@ LABEL_28:
               v17 = v16 / 1000000000.0;
             }
 
-            *v23 = 136315906;
-            *&v23[4] = v14;
-            *&v23[12] = 1024;
-            *&v23[14] = 383;
-            *&v23[18] = 2048;
-            *&v23[20] = v17;
-            *&v23[28] = 2112;
-            *&v23[30] = unitTestDevice;
+            *v22 = 136315906;
+            *&v22[4] = v14;
+            *&v22[12] = 1024;
+            *&v22[14] = 383;
+            *&v22[18] = 2048;
+            *&v22[20] = v17;
+            *&v22[28] = 2112;
+            *&v22[30] = unitTestDevice;
             v18 = "%30s:%-4d: %13.5f: Using device %@ for starting AVFoundation operations";
             v19 = v6;
             v20 = 38;
@@ -882,7 +879,6 @@ LABEL_28:
 
 LABEL_29:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -900,117 +896,117 @@ LABEL_29:
 
 - (void)setSmartCoverState:(BOOL)state
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   smartCoverClosed = self->_smartCoverClosed;
-  if (smartCoverClosed != state)
+  if (smartCoverClosed == state)
   {
-    self->_smartCoverClosed = state;
-    if (currentLogLevel == 5)
+LABEL_2:
+    if (!smartCoverClosed)
     {
-      v5 = _AALog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v6 = absTimeNS();
-        if (v6 == -1)
-        {
-          v7 = INFINITY;
-        }
-
-        else
-        {
-          v7 = v6 / 1000000000.0;
-        }
-
-        v12 = "Opened";
-        if (self->_smartCoverClosed)
-        {
-          v12 = "Closed";
-        }
-
-        v24 = 134218242;
-        v25 = v7;
-        v26 = 2080;
-        *v27 = v12;
-        v13 = "%13.5f: Smart cover state changed to %s";
-        v14 = v5;
-        v15 = 22;
-LABEL_27:
-        _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v24, v15);
-      }
-    }
-
-    else
-    {
-      smartCoverClosed = state;
-      if (currentLogLevel < 6)
-      {
-        goto LABEL_2;
-      }
-
-      v5 = _AALog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v8 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Streaming/AVFoundationAttentionStreamer.m";
-        for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Streaming/AVFoundationAttentionStreamer.m"; ; ++i)
-        {
-          if (*(i - 1) == 47)
-          {
-            v8 = i;
-          }
-
-          else if (!*(i - 1))
-          {
-            v10 = absTimeNS();
-            if (v10 == -1)
-            {
-              v11 = INFINITY;
-            }
-
-            else
-            {
-              v11 = v10 / 1000000000.0;
-            }
-
-            v16 = self->_smartCoverClosed;
-            v24 = 136315906;
-            if (v16)
-            {
-              v17 = "Closed";
-            }
-
-            else
-            {
-              v17 = "Opened";
-            }
-
-            v25 = *&v8;
-            v26 = 1024;
-            *v27 = 344;
-            *&v27[4] = 2048;
-            *&v27[6] = v11;
-            v28 = 2080;
-            v29 = v17;
-            v13 = "%30s:%-4d: %13.5f: Smart cover state changed to %s";
-            v14 = v5;
-            v15 = 38;
-            goto LABEL_27;
-          }
-        }
-      }
-    }
-
-    if (!self->_smartCoverClosed)
-    {
-      goto LABEL_31;
+      return;
     }
 
     goto LABEL_29;
   }
 
-LABEL_2:
-  if (!smartCoverClosed)
+  self->_smartCoverClosed = state;
+  if (currentLogLevel == 5)
   {
-    goto LABEL_31;
+    v5 = _AALog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = absTimeNS();
+      if (v6 == -1)
+      {
+        v7 = INFINITY;
+      }
+
+      else
+      {
+        v7 = v6 / 1000000000.0;
+      }
+
+      v12 = "Opened";
+      if (self->_smartCoverClosed)
+      {
+        v12 = "Closed";
+      }
+
+      v23 = 134218242;
+      v24 = v7;
+      v25 = 2080;
+      *v26 = v12;
+      v13 = "%13.5f: Smart cover state changed to %s";
+      v14 = v5;
+      v15 = 22;
+LABEL_27:
+      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v23, v15);
+    }
+  }
+
+  else
+  {
+    smartCoverClosed = state;
+    if (currentLogLevel < 6)
+    {
+      goto LABEL_2;
+    }
+
+    v5 = _AALog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Streaming/AVFoundationAttentionStreamer.m";
+      for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Streaming/AVFoundationAttentionStreamer.m"; ; ++i)
+      {
+        if (*(i - 1) == 47)
+        {
+          v8 = i;
+        }
+
+        else if (!*(i - 1))
+        {
+          v10 = absTimeNS();
+          if (v10 == -1)
+          {
+            v11 = INFINITY;
+          }
+
+          else
+          {
+            v11 = v10 / 1000000000.0;
+          }
+
+          v16 = self->_smartCoverClosed;
+          v23 = 136315906;
+          if (v16)
+          {
+            v17 = "Closed";
+          }
+
+          else
+          {
+            v17 = "Opened";
+          }
+
+          v24 = *&v8;
+          v25 = 1024;
+          *v26 = 344;
+          *&v26[4] = 2048;
+          *&v26[6] = v11;
+          v27 = 2080;
+          v28 = v17;
+          v13 = "%30s:%-4d: %13.5f: Smart cover state changed to %s";
+          v14 = v5;
+          v15 = 38;
+          goto LABEL_27;
+        }
+      }
+    }
+  }
+
+  if (!self->_smartCoverClosed)
+  {
+    return;
   }
 
 LABEL_29:
@@ -1019,14 +1015,11 @@ LABEL_29:
     cancelEventStream = [(AWAVFoundationAttentionStreamer *)self cancelEventStream];
     (*(self->_notificationBlock + 2))(self->_notificationBlock, 1, v19, v20, v21, v22);
   }
-
-LABEL_31:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDisplayState:(BOOL)state
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   displayOn = self->_displayOn;
   if (displayOn != state)
   {
@@ -1054,10 +1047,10 @@ LABEL_31:
           v13 = "ON";
         }
 
-        v24 = 134218242;
-        v25 = v8;
-        v26 = 2080;
-        *v27 = v13;
+        v23 = 134218242;
+        v24 = v8;
+        v25 = 2080;
+        *v26 = v13;
         v14 = "%13.5f: Display state changed to %s";
         v15 = v6;
         v16 = 22;
@@ -1098,24 +1091,24 @@ LABEL_31:
           }
 
           v17 = "OFF";
-          v24 = 136315906;
-          v25 = *&v9;
-          v26 = 1024;
+          v23 = 136315906;
+          v24 = *&v9;
+          v25 = 1024;
           if (stateCopy)
           {
             v17 = "ON";
           }
 
-          *v27 = 325;
-          *&v27[4] = 2048;
-          *&v27[6] = v12;
-          v28 = 2080;
-          v29 = v17;
+          *v26 = 325;
+          *&v26[4] = 2048;
+          *&v26[6] = v12;
+          v27 = 2080;
+          v28 = v17;
           v14 = "%30s:%-4d: %13.5f: Display state changed to %s";
           v15 = v6;
           v16 = 38;
 LABEL_24:
-          _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, v14, &v24, v16);
+          _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, v14, &v23, v16);
 LABEL_25:
 
           LOBYTE(displayOn) = self->_displayOn;
@@ -1130,13 +1123,11 @@ LABEL_25:
     cancelEventStream = [(AWAVFoundationAttentionStreamer *)self cancelEventStream];
     (*(self->_notificationBlock + 2))(self->_notificationBlock, 1, v19, v20, v21, v22);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cancelEventStream
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_attentionStreamerRunning)
   {
@@ -1152,15 +1143,352 @@ LABEL_25:
   {
     v5 = MEMORY[0x1E696ABC0];
     v6 = *MEMORY[0x1E696A798];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @" Attention streamer not running";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @" Attention streamer not running";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v4 = [v5 errorWithDomain:v6 code:3 userInfo:v7];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v4;
+}
+
+- (id)streamEventWithBlock:(id)block options:(id)options operationStartFailedBlock:(id)failedBlock
+{
+  v6 = *&options.var0;
+  v75[1] = *MEMORY[0x1E69E9840];
+  blockCopy = block;
+  failedBlockCopy = failedBlock;
+  dispatch_assert_queue_V2(self->_queue);
+  if (![(AWAVFoundationAttentionStreamer *)self isAttentionAwareFeaturesEnabled])
+  {
+    if (currentLogLevel >= 3)
+    {
+      v16 = _AALog();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v28 = absTimeNS();
+        if (v28 == -1)
+        {
+          v29 = INFINITY;
+        }
+
+        else
+        {
+          v29 = v28 / 1000000000.0;
+        }
+
+        *buf = 134217984;
+        v65 = v29;
+        _os_log_error_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_ERROR, "%13.5f: User has AttentionAware features off, cannot start streaming operation with Pearl", buf, 0xCu);
+      }
+    }
+
+    v11 = MEMORY[0x1E696ABC0];
+    v12 = *MEMORY[0x1E696A798];
+    v74 = *MEMORY[0x1E696A578];
+    v75[0] = @" Attention Aware Features turned OFF";
+    v13 = MEMORY[0x1E695DF20];
+    v14 = v75;
+    v15 = &v74;
+    goto LABEL_16;
+  }
+
+  if (!self->_displayOn)
+  {
+    if (currentLogLevel >= 3)
+    {
+      v17 = _AALog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v32 = absTimeNS();
+        if (v32 == -1)
+        {
+          v33 = INFINITY;
+        }
+
+        else
+        {
+          v33 = v32 / 1000000000.0;
+        }
+
+        *buf = 134217984;
+        v65 = v33;
+        _os_log_error_impl(&dword_1BB2EF000, v17, OS_LOG_TYPE_ERROR, "%13.5f: Display OFF, not starting attention stream", buf, 0xCu);
+      }
+    }
+
+    v11 = MEMORY[0x1E696ABC0];
+    v12 = *MEMORY[0x1E696A798];
+    v72 = *MEMORY[0x1E696A578];
+    v73 = @" Display OFF";
+    v13 = MEMORY[0x1E695DF20];
+    v14 = &v73;
+    v15 = &v72;
+    goto LABEL_16;
+  }
+
+  if (self->_smartCoverClosed)
+  {
+    if (currentLogLevel >= 3)
+    {
+      v10 = _AALog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        v39 = absTimeNS();
+        if (v39 == -1)
+        {
+          v40 = INFINITY;
+        }
+
+        else
+        {
+          v40 = v39 / 1000000000.0;
+        }
+
+        *buf = 134217984;
+        v65 = v40;
+        _os_log_error_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_ERROR, "%13.5f: Smart cover closed, not starting attention stream", buf, 0xCu);
+      }
+    }
+
+    v11 = MEMORY[0x1E696ABC0];
+    v12 = *MEMORY[0x1E696A798];
+    v70 = *MEMORY[0x1E696A578];
+    v71 = @" Smart cover closed";
+    v13 = MEMORY[0x1E695DF20];
+    v14 = &v71;
+    v15 = &v70;
+LABEL_16:
+    callbackBlock = [v13 dictionaryWithObjects:v14 forKeys:v15 count:1];
+    v19 = [v11 errorWithDomain:v12 code:1 userInfo:callbackBlock];
+LABEL_17:
+
+    goto LABEL_18;
+  }
+
+  if (!self->_attentionStreamerRunning)
+  {
+    goto LABEL_68;
+  }
+
+  if (((v6 >> 8) & 1) != self->_currentOptions.AWAttentionStreamerActivateAttentionDetection || (v6 & 1) != self->_currentOptions.AWAttentionStreamerActivateEyeRelief)
+  {
+    if (currentLogLevel == 5)
+    {
+      v23 = _AALog();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = absTimeNS();
+        if (v24 == -1)
+        {
+          v25 = INFINITY;
+        }
+
+        else
+        {
+          v25 = v24 / 1000000000.0;
+        }
+
+        *buf = 134217984;
+        v65 = v25;
+        v36 = "%13.5f: Cancelling current stream and starting a new one as stream options have changed";
+        v37 = v23;
+        v38 = 12;
+LABEL_65:
+        _os_log_impl(&dword_1BB2EF000, v37, OS_LOG_TYPE_DEFAULT, v36, buf, v38);
+      }
+    }
+
+    else
+    {
+      if (currentLogLevel < 6)
+      {
+LABEL_67:
+        cancelEventStream = [(AWAVFoundationAttentionStreamer *)self cancelEventStream];
+LABEL_68:
+        self->_currentOptions.AWAttentionStreamerActivateAttentionDetection = BYTE1(v6) & 1;
+        self->_currentOptions.AWAttentionStreamerActivateEyeRelief = v6 & 1;
+        self->_currentOptions.AWAttentionStreamerActivatePersonDetection = 0;
+        v56 = MEMORY[0x1E69E9820];
+        v57 = 3221225472;
+        v58 = __90__AWAVFoundationAttentionStreamer_streamEventWithBlock_options_operationStartFailedBlock___block_invoke;
+        v59 = &unk_1E7F37938;
+        selfCopy = self;
+        v61 = failedBlockCopy;
+        v42 = [(AWAVFoundationAttentionStreamer *)self getStreamingSessionAndStartRunning:&v56];
+        if (v42)
+        {
+          v19 = 0;
+        }
+
+        else
+        {
+          v50 = MEMORY[0x1E696ABC0];
+          v51 = *MEMORY[0x1E696A798];
+          v62 = *MEMORY[0x1E696A578];
+          v63 = @" Unable to get a streaming session from AVFoundation";
+          v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:{1, v56, v57, v58, v59, selfCopy}];
+          v19 = [v50 errorWithDomain:v51 code:6 userInfo:v52];
+
+          if (currentLogLevel >= 3)
+          {
+            v53 = _AALog();
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+            {
+              v54 = absTimeNS();
+              if (v54 == -1)
+              {
+                v55 = INFINITY;
+              }
+
+              else
+              {
+                v55 = v54 / 1000000000.0;
+              }
+
+              *buf = 134217984;
+              v65 = v55;
+              _os_log_error_impl(&dword_1BB2EF000, v53, OS_LOG_TYPE_ERROR, "%13.5f: Unable to get streaming session and start running", buf, 0xCu);
+            }
+          }
+        }
+
+        v43 = !v42;
+        if (!blockCopy)
+        {
+          v43 = 1;
+        }
+
+        if ((v43 & 1) == 0)
+        {
+          v44 = MEMORY[0x1BFB0D030](blockCopy);
+          callbackBlock = self->_callbackBlock;
+          self->_callbackBlock = v44;
+          goto LABEL_17;
+        }
+
+        goto LABEL_18;
+      }
+
+      v23 = _AALog();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        v26 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Streaming/AVFoundationAttentionStreamer.m";
+        for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Streaming/AVFoundationAttentionStreamer.m"; ; ++i)
+        {
+          if (*(i - 1) == 47)
+          {
+            v26 = i;
+          }
+
+          else if (!*(i - 1))
+          {
+            v34 = absTimeNS();
+            if (v34 == -1)
+            {
+              v35 = INFINITY;
+            }
+
+            else
+            {
+              v35 = v34 / 1000000000.0;
+            }
+
+            *buf = 136315650;
+            v65 = *&v26;
+            v66 = 1024;
+            v67 = 227;
+            v68 = 2048;
+            v69 = v35;
+            v36 = "%30s:%-4d: %13.5f: Cancelling current stream and starting a new one as stream options have changed";
+            v37 = v23;
+            v38 = 28;
+            goto LABEL_65;
+          }
+        }
+      }
+    }
+
+    goto LABEL_67;
+  }
+
+  if (currentLogLevel == 5)
+  {
+    callbackBlock = _AALog();
+    if (os_log_type_enabled(callbackBlock, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = absTimeNS();
+      if (v21 == -1)
+      {
+        v22 = INFINITY;
+      }
+
+      else
+      {
+        v22 = v21 / 1000000000.0;
+      }
+
+      *buf = 134217984;
+      v65 = v22;
+      v47 = "%13.5f: Attention streamer already running, don't start another operation";
+      v48 = callbackBlock;
+      v49 = 12;
+LABEL_82:
+      _os_log_impl(&dword_1BB2EF000, v48, OS_LOG_TYPE_DEFAULT, v47, buf, v49);
+    }
+
+LABEL_83:
+    v19 = 0;
+    goto LABEL_17;
+  }
+
+  if (currentLogLevel >= 6)
+  {
+    callbackBlock = _AALog();
+    if (os_log_type_enabled(callbackBlock, OS_LOG_TYPE_DEFAULT))
+    {
+      v30 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Streaming/AVFoundationAttentionStreamer.m";
+      for (j = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Streaming/AVFoundationAttentionStreamer.m"; ; ++j)
+      {
+        if (*(j - 1) == 47)
+        {
+          v30 = j;
+        }
+
+        else if (!*(j - 1))
+        {
+          v45 = absTimeNS();
+          if (v45 == -1)
+          {
+            v46 = INFINITY;
+          }
+
+          else
+          {
+            v46 = v45 / 1000000000.0;
+          }
+
+          *buf = 136315650;
+          v65 = *&v30;
+          v66 = 1024;
+          v67 = 232;
+          v68 = 2048;
+          v69 = v46;
+          v47 = "%30s:%-4d: %13.5f: Attention streamer already running, don't start another operation";
+          v48 = callbackBlock;
+          v49 = 28;
+          goto LABEL_82;
+        }
+      }
+    }
+
+    goto LABEL_83;
+  }
+
+  v19 = 0;
+LABEL_18:
+
+  return v19;
 }
 
 void __90__AWAVFoundationAttentionStreamer_streamEventWithBlock_options_operationStartFailedBlock___block_invoke(uint64_t a1, void *a2)
@@ -1333,7 +1661,7 @@ uint64_t __57__AWAVFoundationAttentionStreamer_initForUnitTest_queue___block_inv
 
 void __57__AWAVFoundationAttentionStreamer_initForUnitTest_queue___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setIsAttentionAwareFeaturesEnabled:_AXSAttentionAwarenessFeaturesEnabled() != 0];
   if (currentLogLevel == 5)
@@ -1359,10 +1687,10 @@ void __57__AWAVFoundationAttentionStreamer_initForUnitTest_queue___block_invoke_
         v10 = "ON";
       }
 
-      *v18 = 134218242;
-      *&v18[4] = v4;
-      *&v18[12] = 2080;
-      *&v18[14] = v10;
+      *v17 = 134218242;
+      *&v17[4] = v4;
+      *&v17[12] = 2080;
+      *&v17[14] = v10;
       v11 = "%13.5f: User toggled the Attention Aware Features flag to %s";
       v12 = v2;
       v13 = 22;
@@ -1403,24 +1731,24 @@ void __57__AWAVFoundationAttentionStreamer_initForUnitTest_queue___block_invoke_
 
         v14 = [WeakRetained isAttentionAwareFeaturesEnabled];
         v15 = "OFF";
-        *v18 = 136315906;
-        *&v18[4] = v5;
-        *&v18[12] = 1024;
-        *&v18[14] = 137;
+        *v17 = 136315906;
+        *&v17[4] = v5;
+        *&v17[12] = 1024;
+        *&v17[14] = 137;
         if (v14)
         {
           v15 = "ON";
         }
 
-        *&v18[18] = 2048;
-        *&v18[20] = v8;
-        *&v18[28] = 2080;
-        *&v18[30] = v15;
+        *&v17[18] = 2048;
+        *&v17[20] = v8;
+        *&v17[28] = 2080;
+        *&v17[30] = v15;
         v11 = "%30s:%-4d: %13.5f: User toggled the Attention Aware Features flag to %s";
         v12 = v2;
         v13 = 38;
 LABEL_23:
-        _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, v18, v13);
+        _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, v17, v13);
 LABEL_24:
 
         break;
@@ -1437,8 +1765,6 @@ LABEL_24:
 
     [WeakRetained sendNotification:4];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

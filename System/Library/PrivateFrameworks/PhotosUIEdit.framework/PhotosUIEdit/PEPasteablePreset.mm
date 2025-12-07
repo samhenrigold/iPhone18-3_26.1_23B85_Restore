@@ -17,31 +17,31 @@
 
 + (void)sanitizeCompositionController:(id)controller
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v61.receiver = self;
-  v61.super_class = &OBJC_METACLASS___PEPasteablePreset;
-  objc_msgSendSuper2(&v61, sel_sanitizeCompositionController_, controllerCopy);
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
+  v60.receiver = self;
+  v60.super_class = &OBJC_METACLASS___PEPasteablePreset;
+  objc_msgSendSuper2(&v60, sel_sanitizeCompositionController_, controllerCopy);
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   adjustmentKeys = [controllerCopy adjustmentKeys];
-  v6 = [adjustmentKeys countByEnumeratingWithState:&v57 objects:v63 count:16];
+  v6 = [adjustmentKeys countByEnumeratingWithState:&v56 objects:v62 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v58;
+    v8 = *v57;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v58 != v8)
+        if (*v57 != v8)
         {
           objc_enumerationMutation(adjustmentKeys);
         }
 
-        v10 = *(*(&v57 + 1) + 8 * i);
+        v10 = *(*(&v56 + 1) + 8 * i);
         v11 = [controllerCopy adjustmentControllerForKey:v10];
         if ([v11 canBeEnabled] && (objc_msgSend(v11, "enabled") & 1) == 0)
         {
@@ -49,7 +49,7 @@
         }
       }
 
-      v7 = [adjustmentKeys countByEnumeratingWithState:&v57 objects:v63 count:16];
+      v7 = [adjustmentKeys countByEnumeratingWithState:&v56 objects:v62 count:16];
     }
 
     while (v7);
@@ -68,7 +68,7 @@
     }
   }
 
-  v50 = v13;
+  v49 = v13;
   cropAdjustmentController = [controllerCopy cropAdjustmentController];
   v17 = MEMORY[0x277D3AA08];
   if (cropAdjustmentController)
@@ -84,72 +84,70 @@
     if (([cropAdjustmentController constraintHeight] | constraintWidth) < 0)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v49 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NUPixelSize NUPixelSizeMake(NSInteger, NSInteger)"}];
-      [currentHandler handleFailureInFunction:v49 file:@"NUGeometryPrimitives.h" lineNumber:38 description:{@"Invalid parameter not satisfying: %@", @"(width >= 0) && (height >= 0)"}];
+      v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NUPixelSize NUPixelSizeMake(NSInteger, NSInteger)"}];
+      [currentHandler handleFailureInFunction:v48 file:@"NUGeometryPrimitives.h" lineNumber:38 description:{@"Invalid parameter not satisfying: %@", @"(width >= 0) && (height >= 0)"}];
     }
 
     v24 = NUOrientationTransformImageSize();
     v25 = *v17;
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __51__PEPasteablePreset_sanitizeCompositionController___block_invoke;
-    v56[3] = &__block_descriptor_80_e36_v16__0__PICropAdjustmentController_8l;
-    v56[4] = 0;
-    v56[5] = 0;
-    v56[6] = v20;
-    v56[7] = v22;
-    v56[8] = v24;
-    v56[9] = v26;
-    [controllerCopy modifyAdjustmentWithKey:v25 modificationBlock:v56];
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __51__PEPasteablePreset_sanitizeCompositionController___block_invoke;
+    v55[3] = &__block_descriptor_80_e36_v16__0__PICropAdjustmentController_8l;
+    v55[4] = 0;
+    v55[5] = 0;
+    v55[6] = v20;
+    v55[7] = v22;
+    v55[8] = v24;
+    v55[9] = v26;
+    [controllerCopy modifyAdjustmentWithKey:v25 modificationBlock:v55];
   }
 
   userOrientation = [controllerCopy userOrientation];
   if (userOrientation == 1 || (v28 = userOrientation, !NUOrientationIsValid()))
   {
-    v29 = *MEMORY[0x277D3AA88];
     [controllerCopy removeAdjustmentWithKey:*MEMORY[0x277D3AA88]];
   }
 
   else
   {
     v29 = *MEMORY[0x277D3AA88];
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __51__PEPasteablePreset_sanitizeCompositionController___block_invoke_2;
-    v55[3] = &__block_descriptor_40_e43_v16__0__PIOrientationAdjustmentController_8l;
-    v55[4] = v28;
-    [controllerCopy modifyAdjustmentWithKey:v29 modificationBlock:v55];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __51__PEPasteablePreset_sanitizeCompositionController___block_invoke_2;
+    v54[3] = &__block_descriptor_40_e43_v16__0__PIOrientationAdjustmentController_8l;
+    v54[4] = v28;
+    [controllerCopy modifyAdjustmentWithKey:v29 modificationBlock:v54];
   }
 
   adjustmentConstants = [MEMORY[0x277D3A938] adjustmentConstants];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   geometryBasedAdjustmentIdentifiers = [MEMORY[0x277D3A938] geometryBasedAdjustmentIdentifiers];
-  v32 = [geometryBasedAdjustmentIdentifiers countByEnumeratingWithState:&v51 objects:v62 count:16];
+  v32 = [geometryBasedAdjustmentIdentifiers countByEnumeratingWithState:&v50 objects:v61 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v52;
-    v35 = *v17;
+    v34 = *v51;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v52 != v34)
+        if (*v51 != v34)
         {
           objc_enumerationMutation(geometryBasedAdjustmentIdentifiers);
         }
 
-        v37 = *(*(&v51 + 1) + 8 * j);
-        if (([v37 isEqualToString:v35] & 1) == 0 && (objc_msgSend(v37, "isEqualToString:", v29) & 1) == 0)
+        v36 = *(*(&v50 + 1) + 8 * j);
+        if ((objc_msgSend_isEqualToString_(v36) & 1) == 0 && (objc_msgSend_isEqualToString_(v36) & 1) == 0)
         {
-          [controllerCopy removeAdjustmentWithKey:v37];
+          [controllerCopy removeAdjustmentWithKey:v36];
         }
       }
 
-      v33 = [geometryBasedAdjustmentIdentifiers countByEnumeratingWithState:&v51 objects:v62 count:16];
+      v33 = [geometryBasedAdjustmentIdentifiers countByEnumeratingWithState:&v50 objects:v61 count:16];
     }
 
     while (v33);
@@ -756,7 +754,7 @@ LABEL_14:
 
     if (geometry)
     {
-      [geometry extent];
+      objc_msgSend_extent(geometry);
       NUPixelRectToCGRect();
       v148 = v55;
       v57 = v56;
@@ -1156,10 +1154,10 @@ void __100__PEPasteablePreset_applyToCompositionController_asset_editSource_inva
   [v3 setRate:v4];
   if (v3)
   {
-    [v3 startTime];
+    objc_msgSend_startTime(v3);
     if ((v15 & 0x100000000) != 0)
     {
-      [v3 endTime];
+      objc_msgSend_endTime(v3);
       if (v13)
       {
         goto LABEL_9;
@@ -1183,7 +1181,7 @@ void __100__PEPasteablePreset_applyToCompositionController_asset_editSource_inva
   memset(&v12, 0, sizeof(v12));
   if (v8)
   {
-    [v8 slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(v8);
   }
 
   *&v10.start.value = *&v12.start.value;
@@ -1264,7 +1262,7 @@ uint64_t __100__PEPasteablePreset_applyToCompositionController_asset_editSource_
     sourceAssetUUID = [(PEPasteablePreset *)self sourceAssetUUID];
     librarySpecificFetchOptions = [libraryCopy librarySpecificFetchOptions];
     [librarySpecificFetchOptions setFetchLimit:1];
-    if (!sourceAssetUUID || [sourceAssetUUID isEqualToString:&stru_2870659C0])
+    if (!sourceAssetUUID || objc_msgSend_isEqualToString_(sourceAssetUUID))
     {
       v12 = PLPhotoEditGetLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))

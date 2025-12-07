@@ -589,42 +589,41 @@ LABEL_32:
   v13 = +[NSMutableDictionary dictionary];
   [v13 setObject:dCopy forKeyedSubscript:kSFOperationBundleIDKey];
   v14 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [filesCopy count]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v15 = filesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v26;
+    v18 = *v25;
     do
     {
-      for (i = 0; i != v17; i = i + 1)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * i);
-        v21 = SFGenerateFileInfoForURL();
-        [v14 addObject:{v21, v25}];
+        v20 = SFGenerateFileInfoForURL();
+        [v14 addObject:{v20, v24}];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v17);
   }
 
-  v22 = [v14 copy];
-  [v13 setObject:v22 forKeyedSubscript:kSFOperationFilesKey];
+  v21 = [v14 copy];
+  [v13 setObject:v21 forKeyedSubscript:kSFOperationFilesKey];
 
   [v13 setObject:itemsCopy forKeyedSubscript:kSFOperationItemsKey];
-  v23 = [descriptionCopy copy];
-  [v13 setObject:v23 forKeyedSubscript:kSFOperationItemsDescriptionKey];
+  v22 = [descriptionCopy copy];
+  [v13 setObject:v22 forKeyedSubscript:kSFOperationItemsDescriptionKey];
 
   [v13 setObject:@"John's iPhone" forKeyedSubscript:kSFOperationSenderComputerNameKey];
   [v13 setObject:@"john_doe86@icloud.com" forKeyedSubscript:kSFOperationSenderEmailKey];

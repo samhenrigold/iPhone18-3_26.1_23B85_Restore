@@ -1,4 +1,5 @@
 @interface LACEnvironmentMechanismUserPassword
++ (id)environmentMechanismForUser:(unsigned int)user auditToken:(id *)token dependencies:(id)dependencies error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (LACEnvironmentMechanismUserPassword)initWithAvailabilityError:(id)error set:(BOOL)set;
 - (LACEnvironmentMechanismUserPassword)initWithCoder:(id)coder;
@@ -19,6 +20,36 @@
   }
 
   return result;
+}
+
++ (id)environmentMechanismForUser:(unsigned int)user auditToken:(id *)token dependencies:(id)dependencies error:(id *)error
+{
+  v7 = *&user;
+  passcodeHelper = [dependencies passcodeHelper];
+  v17 = 0;
+  v9 = [passcodeHelper isPasscodeSetForUser:v7 error:&v17];
+  v10 = v17;
+
+  if (error)
+  {
+    v11 = v10;
+    *error = v10;
+  }
+
+  v12 = [LACEnvironmentMechanismUserPassword alloc];
+  v13 = v12;
+  if (v10)
+  {
+    v14 = [(LACEnvironmentMechanismUserPassword *)v12 initWithAvailabilityError:v10 set:v9];
+  }
+
+  else
+  {
+    v15 = [LACError errorWithCode:-1004 debugDescription:@"User interaction is required"];
+    v14 = [(LACEnvironmentMechanismUserPassword *)v13 initWithAvailabilityError:v15 set:v9];
+  }
+
+  return v14;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -46,7 +77,7 @@
 
 - (id)descriptionDetails
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = [(LACEnvironmentMechanismUserPassword *)self set];
   v3 = @"not set";
   if (v2)
@@ -54,9 +85,8 @@
     v3 = @"set";
   }
 
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }

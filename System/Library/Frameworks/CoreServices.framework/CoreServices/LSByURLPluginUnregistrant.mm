@@ -73,14 +73,14 @@
 
 void __47__LSByURLPluginUnregistrant_runWithCompletion___block_invoke(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1[4] + 24);
     *buf = 138412290;
-    v25 = v5;
+    v24 = v5;
     _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Unregister plugin by URL start: %@", buf, 0xCu);
   }
 
@@ -92,15 +92,15 @@ void __47__LSByURLPluginUnregistrant_runWithCompletion___block_invoke(void *a1, 
   {
     v8 = a1[5];
     v9 = *(a1[6] + 8);
-    v22 = *(v9 + 40);
-    v10 = [v7 findPluginAtNode:v8 error:&v22];
-    objc_storeStrong((v9 + 40), v22);
+    v21 = *(v9 + 40);
+    v10 = [v7 findPluginAtNode:v8 error:&v21];
+    objc_storeStrong((v9 + 40), v21);
     if (v10)
     {
       v11 = *(a1[6] + 8);
-      v21 = *(v11 + 40);
-      v12 = [v7 unregisterPluginBundleByUnit:v10 error:&v21];
-      objc_storeStrong((v11 + 40), v21);
+      v20 = *(v11 + 40);
+      v12 = [v7 unregisterPluginBundleByUnit:v10 error:&v20];
+      objc_storeStrong((v11 + 40), v20);
       if (v12)
       {
         v13 = [[_LSDModificationPendingSaveToken alloc] initWithUUID:*(a1[4] + 16)];
@@ -108,41 +108,39 @@ void __47__LSByURLPluginUnregistrant_runWithCompletion___block_invoke(void *a1, 
         v15 = *(v14 + 40);
         *(v14 + 40) = v13;
 
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __47__LSByURLPluginUnregistrant_runWithCompletion___block_invoke_177;
-        v19[3] = &unk_1E6A1E350;
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __47__LSByURLPluginUnregistrant_runWithCompletion___block_invoke_177;
+        v18[3] = &unk_1E6A1E350;
         v16 = a1[4];
-        v20 = v10;
+        v19 = v10;
         v17 = a1[7];
-        v19[4] = v16;
-        v19[5] = v17;
-        [v3 armSaveTimerIfNecessary:v19];
+        v18[4] = v16;
+        v18[5] = v17;
+        [v3 armSaveTimerIfNecessary:v18];
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __47__LSByURLPluginUnregistrant_runWithCompletion___block_invoke_177(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a4;
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(*(a1 + 32) + 24);
     v9 = *(a1 + 48);
-    v14 = 138413058;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v9;
-    v18 = 1024;
-    v19 = a2;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after unregistration for plugin url %@ (unit %llx) attempted: %d save error: %@", &v14, 0x26u);
+    v13 = 138413058;
+    v14 = v8;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 1024;
+    v18 = a2;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after unregistration for plugin url %@ (unit %llx) attempted: %d save error: %@", &v13, 0x26u);
   }
 
   v10 = v6;
@@ -155,8 +153,6 @@ void __47__LSByURLPluginUnregistrant_runWithCompletion___block_invoke_177(uint64
   }
 
   [*(*(*(a1 + 40) + 8) + 40) saveDidHappen:v11 == 0 error:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

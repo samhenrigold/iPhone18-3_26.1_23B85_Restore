@@ -108,29 +108,29 @@
 
 - (void)_workerQueue_performFlowStep:(unint64_t)step
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = [(DMCMigrationFlowController *)self _nameForStep:?];
   v6 = *DMCLogObjects();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543362;
-    v17 = v5;
-    _os_log_impl(&dword_247E39000, v6, OS_LOG_TYPE_DEFAULT, "Will perform migration step: %{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v5;
+    _os_log_impl(&dword_247E39000, v6, OS_LOG_TYPE_DEFAULT, "Will perform migration step: %{public}@", &v15, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     currentPersonaID = [MEMORY[0x277D03550] currentPersonaID];
     currentPersonaTypeString = [MEMORY[0x277D03550] currentPersonaTypeString];
-    v16 = 136315906;
-    v17 = "[DMCMigrationFlowController _workerQueue_performFlowStep:]";
-    v18 = 1024;
-    v19 = 91;
-    v20 = 2114;
-    v21 = currentPersonaID;
-    v22 = 2114;
-    v23 = currentPersonaTypeString;
-    _os_log_impl(&dword_247E39000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s (L: %d): Current persona ID: %{public}@, type: %{public}@", &v16, 0x26u);
+    v15 = 136315906;
+    v16 = "[DMCMigrationFlowController _workerQueue_performFlowStep:]";
+    v17 = 1024;
+    v18 = 91;
+    v19 = 2114;
+    v20 = currentPersonaID;
+    v21 = 2114;
+    v22 = currentPersonaTypeString;
+    _os_log_impl(&dword_247E39000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s (L: %d): Current persona ID: %{public}@, type: %{public}@", &v15, 0x26u);
   }
 
   delegate = [(DMCMigrationFlowController *)self delegate];
@@ -236,8 +236,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_workerQueue_flowCompleted
@@ -287,35 +285,35 @@ LABEL_30:
   [workerQueue queueBlock:v9];
 }
 
-void __64__DMCMigrationFlowController__flowTerminatedWithError_canceled___block_invoke(uint64_t a1)
+void __64__DMCMigrationFlowController__flowTerminatedWithError_canceled___block_invoke(uint64_t a1, uint64_t a2)
 {
   v18 = *MEMORY[0x277D85DE8];
-  v2 = *DMCLogObjects();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = *DMCLogObjects();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 48);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 48);
     v14 = 138543618;
-    v15 = v3;
+    v15 = v4;
     v16 = 1024;
-    v17 = v4;
-    _os_log_impl(&dword_247E39000, v2, OS_LOG_TYPE_ERROR, "Migration flow terminated with error: %{public}@, canceled: %d", &v14, 0x12u);
+    v17 = v5;
+    _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_ERROR, "Migration flow terminated with error: %{public}@, canceled: %d", &v14, 0x12u);
   }
 
   [*(a1 + 40) _workerQueue_cleanupCachedValues];
   if (*(a1 + 48) == 1)
   {
     [DMCMigrationHelper setUserInititiatedMigration:0];
-    v5 = [*(a1 + 40) presenter];
-    v6 = objc_opt_respondsToSelector();
+    v6 = [*(a1 + 40) presenter];
+    v7 = objc_opt_respondsToSelector();
 
-    if ((v6 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
       goto LABEL_10;
     }
 
-    v7 = [*(a1 + 40) presenter];
-    [v7 dismissMigrationScene];
+    v8 = [*(a1 + 40) presenter];
+    [v8 dismissMigrationScene];
   }
 
   else
@@ -325,30 +323,28 @@ void __64__DMCMigrationFlowController__flowTerminatedWithError_canceled___block_
       goto LABEL_10;
     }
 
-    v7 = [*(a1 + 40) _convertErrorToHumanReadableError:?];
-    v8 = [*(a1 + 40) presenter];
-    v9 = objc_opt_respondsToSelector();
+    v8 = [*(a1 + 40) _convertErrorToHumanReadableError:?];
+    v9 = [*(a1 + 40) presenter];
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
-      v10 = [*(a1 + 40) presenter];
-      [v10 showMigrationFailure:v7];
+      v11 = [*(a1 + 40) presenter];
+      [v11 showMigrationFailure:v8];
     }
   }
 
 LABEL_10:
   [*(a1 + 40) _cleanupDirtyState];
-  v11 = [*(a1 + 40) migrationCompletionHandler];
+  v12 = [*(a1 + 40) migrationCompletionHandler];
 
-  if (v11)
+  if (v12)
   {
-    v12 = [*(a1 + 40) migrationCompletionHandler];
-    v12[2](v12, 0, *(a1 + 48), *(a1 + 32));
+    v13 = [*(a1 + 40) migrationCompletionHandler];
+    v13[2](v13, 0, *(a1 + 48), *(a1 + 32));
 
     [*(a1 + 40) setMigrationCompletionHandler:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_workerQueue_cleanupCachedValues
@@ -365,7 +361,7 @@ LABEL_10:
 
 - (void)_preflightMigration
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   managedConfigurationHelper = [(DMCMigrationFlowController *)self managedConfigurationHelper];
   currentPendingCloudConfigOnDisk = [managedConfigurationHelper currentPendingCloudConfigOnDisk];
 
@@ -384,7 +380,7 @@ LABEL_10:
         v13 = *DMCLogObjects();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 0;
+          *v23 = 0;
           v14 = "No pending cloud config dictionary. Skipping unenrollment...";
           goto LABEL_14;
         }
@@ -402,9 +398,9 @@ LABEL_16:
             v21 = *DMCLogObjects();
             if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              *v24 = 134217984;
-              *&v24[4] = currentEnrollmentType;
-              _os_log_impl(&dword_247E39000, v21, OS_LOG_TYPE_ERROR, "Migration is not supported with current enrollment type: %lu", v24, 0xCu);
+              *v23 = 134217984;
+              *&v23[4] = currentEnrollmentType;
+              _os_log_impl(&dword_247E39000, v21, OS_LOG_TYPE_ERROR, "Migration is not supported with current enrollment type: %lu", v23, 0xCu);
             }
 
             _enrollmentTypeNotSupportedError = [(DMCMigrationFlowController *)self _enrollmentTypeNotSupportedError];
@@ -440,10 +436,10 @@ LABEL_24:
         v13 = *DMCLogObjects();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 0;
+          *v23 = 0;
           v14 = "The Server UID in the existing cloud configuration matches the serverUID in the pending cloud configuration. Skipping unenrollment...";
 LABEL_14:
-          _os_log_impl(&dword_247E39000, v13, OS_LOG_TYPE_DEFAULT, v14, v24, 2u);
+          _os_log_impl(&dword_247E39000, v13, OS_LOG_TYPE_DEFAULT, v14, v23, 2u);
           goto LABEL_15;
         }
 
@@ -458,19 +454,17 @@ LABEL_14:
   v16 = *DMCLogObjects();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    *v24 = 0;
-    _os_log_impl(&dword_247E39000, v16, OS_LOG_TYPE_ERROR, "No pending cloud config on disk. Abort...", v24, 2u);
+    *v23 = 0;
+    _os_log_impl(&dword_247E39000, v16, OS_LOG_TYPE_ERROR, "No pending cloud config on disk. Abort...", v23, 2u);
   }
 
   [(DMCMigrationFlowController *)self _flowTerminatedWithError:0 canceled:1];
 LABEL_25:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_promptForMigrationConsentWithEnrollmentType:(unint64_t)type pendingCloudConfig:(id)config
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   configCopy = config;
   presenter = [(DMCMigrationFlowController *)self presenter];
   v8 = objc_opt_respondsToSelector();
@@ -486,23 +480,23 @@ LABEL_25:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v24 = "[DMCMigrationFlowController _promptForMigrationConsentWithEnrollmentType:pendingCloudConfig:]";
-      v25 = 2048;
+      v23 = "[DMCMigrationFlowController _promptForMigrationConsentWithEnrollmentType:pendingCloudConfig:]";
+      v24 = 2048;
       typeCopy = type;
-      v27 = 2112;
-      v28 = migrationDeadline;
-      v29 = 1024;
-      v30 = v14;
+      v26 = 2112;
+      v27 = migrationDeadline;
+      v28 = 1024;
+      v29 = v14;
       _os_log_impl(&dword_247E39000, v15, OS_LOG_TYPE_DEBUG, "%s enrollmentType: %lu, deadline: %@, isMandatory: %d", buf, 0x26u);
     }
 
     presenter2 = [(DMCMigrationFlowController *)self presenter];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __94__DMCMigrationFlowController__promptForMigrationConsentWithEnrollmentType_pendingCloudConfig___block_invoke;
-    v22[3] = &unk_278EE3F48;
-    v22[4] = self;
-    [presenter2 requestUserConsentForMigrationWithPendingCloudConfig:configCopy originalEnrollmentType:type isMandatory:v14 deadline:migrationDeadline completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __94__DMCMigrationFlowController__promptForMigrationConsentWithEnrollmentType_pendingCloudConfig___block_invoke;
+    v21[3] = &unk_278EE3F48;
+    v21[4] = self;
+    [presenter2 requestUserConsentForMigrationWithPendingCloudConfig:configCopy originalEnrollmentType:type isMandatory:v14 deadline:migrationDeadline completionHandler:v21];
   }
 
   else
@@ -514,16 +508,14 @@ LABEL_25:
       presenter3 = [(DMCMigrationFlowController *)self presenter];
       v20 = NSStringFromSelector(sel_requestUserConsentForMigrationWithPendingCloudConfig_originalEnrollmentType_isMandatory_deadline_completionHandler_);
       *buf = 138543618;
-      v24 = presenter3;
-      v25 = 2114;
+      v23 = presenter3;
+      v24 = 2114;
       typeCopy = v20;
       _os_log_impl(&dword_247E39000, v18, OS_LOG_TYPE_ERROR, "Client %{public}@ does not implement %{public}@", buf, 0x16u);
     }
 
     [(DMCEnrollmentFlowControllerBase *)self _pollNextStep];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __94__DMCMigrationFlowController__promptForMigrationConsentWithEnrollmentType_pendingCloudConfig___block_invoke(uint64_t a1, char a2)
@@ -588,7 +580,7 @@ void __79__DMCMigrationFlowController__sendStartMigrationRequestWithPendingCloud
 
 void __79__DMCMigrationFlowController__sendStartMigrationRequestWithPendingCloudConfig___block_invoke_2(id *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2)
   {
@@ -607,17 +599,15 @@ void __79__DMCMigrationFlowController__sendStartMigrationRequestWithPendingCloud
         }
 
         v6 = [a1[5] managedConfigurationHelper];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __79__DMCMigrationFlowController__sendStartMigrationRequestWithPendingCloudConfig___block_invoke_25;
-        v17[3] = &unk_278EE3F70;
-        v16 = *(a1 + 2);
-        v7 = v16.i64[0];
-        v18 = vextq_s8(v16, v16, 8uLL);
-        [v6 evaluateMigrationStatusWithPollFromServer:1 completionHandler:v17];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __79__DMCMigrationFlowController__sendStartMigrationRequestWithPendingCloudConfig___block_invoke_25;
+        v15[3] = &unk_278EE3F70;
+        v14 = *(a1 + 2);
+        v7 = v14.i64[0];
+        v16 = vextq_s8(v14, v14, 8uLL);
+        [v6 evaluateMigrationStatusWithPollFromServer:1 completionHandler:v15];
 
-LABEL_16:
-        v15 = *MEMORY[0x277D85DE8];
         return;
       }
     }
@@ -626,56 +616,55 @@ LABEL_16:
     {
     }
 
-    v13 = *DMCLogObjects();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = *DMCLogObjects();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = a1[4];
+      v13 = a1[4];
       *buf = 138543362;
-      v20 = v14;
-      _os_log_impl(&dword_247E39000, v13, OS_LOG_TYPE_ERROR, "Failed to make start migration request with error: %{public}@", buf, 0xCu);
+      v18 = v13;
+      _os_log_impl(&dword_247E39000, v12, OS_LOG_TYPE_ERROR, "Failed to make start migration request with error: %{public}@", buf, 0xCu);
     }
 
     [a1[5] _flowTerminatedWithError:a1[4] canceled:0];
-    goto LABEL_16;
   }
 
-  v8 = [a1[6] objectForKeyedSubscript:@"server_uid"];
-  v9 = [a1[7] objectForKeyedSubscript:*MEMORY[0x277D030D0]];
-  v10 = [v8 isEqualToString:v9];
-
-  if (v10)
+  else
   {
-    [a1[5] setCanUsePendingCloudConfig:1];
+    v8 = [a1[6] objectForKeyedSubscript:@"server_uid"];
+    v9 = [a1[7] objectForKeyedSubscript:*MEMORY[0x277D030D0]];
+    v10 = [v8 isEqualToString:v9];
+
+    if (v10)
+    {
+      [a1[5] setCanUsePendingCloudConfig:1];
+    }
+
+    v11 = a1[5];
+
+    [v11 _pollNextStep];
   }
-
-  v11 = a1[5];
-  v12 = *MEMORY[0x277D85DE8];
-
-  [v11 _pollNextStep];
 }
 
 void __79__DMCMigrationFlowController__sendStartMigrationRequestWithPendingCloudConfig___block_invoke_25(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *DMCLogObjects();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2114;
-    v10 = v5;
-    _os_log_impl(&dword_247E39000, v6, OS_LOG_TYPE_DEFAULT, "Evaluation returned with migration scheduled: %d, error: %{public}@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_impl(&dword_247E39000, v6, OS_LOG_TYPE_DEFAULT, "Evaluation returned with migration scheduled: %d, error: %{public}@", v7, 0x12u);
   }
 
   [*(a1 + 32) _flowTerminatedWithError:*(a1 + 40) canceled:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_preserveManagedAppsIfNeededWithPendingCloudConfig:(id)config
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D24640];
   configCopy = config;
   v6 = [[v4 alloc] initWithCloudConfigDetails:configCopy];
@@ -696,7 +685,7 @@ LABEL_10:
 
 LABEL_18:
     [(DMCEnrollmentFlowControllerBase *)self _pollNextStep];
-    goto LABEL_19;
+    return;
   }
 
   managedConfigurationHelper = [(DMCMigrationFlowController *)self managedConfigurationHelper];
@@ -711,9 +700,9 @@ LABEL_18:
       managedConfigurationHelper2 = [(DMCMigrationFlowController *)self managedConfigurationHelper];
       v22 = NSStringFromSelector(sel_isMDMProfileADEProfile);
       *buf = 138543618;
-      v27 = managedConfigurationHelper2;
-      v28 = 2114;
-      v29 = v22;
+      v26 = managedConfigurationHelper2;
+      v27 = 2114;
+      v28 = v22;
 LABEL_13:
       _os_log_impl(&dword_247E39000, v20, OS_LOG_TYPE_ERROR, "Client %{public}@ does not implement %{public}@", buf, 0x16u);
 
@@ -756,9 +745,9 @@ LABEL_13:
     managedConfigurationHelper2 = [(DMCMigrationFlowController *)self managedConfigurationHelper];
     v22 = NSStringFromSelector(sel_preserveManagedAppsWithCompletionHandler_);
     *buf = 138543618;
-    v27 = managedConfigurationHelper2;
-    v28 = 2114;
-    v29 = v22;
+    v26 = managedConfigurationHelper2;
+    v27 = 2114;
+    v28 = v22;
     goto LABEL_13;
   }
 
@@ -769,15 +758,12 @@ LABEL_13:
   }
 
   managedConfigurationHelper5 = [(DMCMigrationFlowController *)self managedConfigurationHelper];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __81__DMCMigrationFlowController__preserveManagedAppsIfNeededWithPendingCloudConfig___block_invoke;
-  v25[3] = &unk_278EE3550;
-  v25[4] = self;
-  [managedConfigurationHelper5 preserveManagedAppsWithCompletionHandler:v25];
-
-LABEL_19:
-  v24 = *MEMORY[0x277D85DE8];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __81__DMCMigrationFlowController__preserveManagedAppsIfNeededWithPendingCloudConfig___block_invoke;
+  v24[3] = &unk_278EE3550;
+  v24[4] = self;
+  [managedConfigurationHelper5 preserveManagedAppsWithCompletionHandler:v24];
 }
 
 void __81__DMCMigrationFlowController__preserveManagedAppsIfNeededWithPendingCloudConfig___block_invoke(uint64_t a1, void *a2)
@@ -795,24 +781,22 @@ void __81__DMCMigrationFlowController__preserveManagedAppsIfNeededWithPendingClo
   [v4 queueBlock:v7];
 }
 
-uint64_t __81__DMCMigrationFlowController__preserveManagedAppsIfNeededWithPendingCloudConfig___block_invoke_2(uint64_t a1)
+uint64_t __81__DMCMigrationFlowController__preserveManagedAppsIfNeededWithPendingCloudConfig___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = *DMCLogObjects();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = *DMCLogObjects();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_247E39000, v2, OS_LOG_TYPE_ERROR, "Failed to preserve managed apps with error: %{public}@", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_ERROR, "Failed to preserve managed apps with error: %{public}@", &v6, 0xCu);
     }
   }
 
-  result = [*(a1 + 40) _pollNextStep];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _pollNextStep];
 }
 
 - (void)_performUnenrollmentFlow
@@ -849,34 +833,34 @@ void __54__DMCMigrationFlowController__performUnenrollmentFlow__block_invoke(uin
   [v7 queueBlock:v10];
 }
 
-uint64_t __54__DMCMigrationFlowController__performUnenrollmentFlow__block_invoke_2(uint64_t a1)
+uint64_t __54__DMCMigrationFlowController__performUnenrollmentFlow__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = *DMCLogObjects();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = *DMCLogObjects();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v9 = 138543362;
-      v10 = v3;
-      _os_log_impl(&dword_247E39000, v2, OS_LOG_TYPE_ERROR, "Unenrollment failed with error: %{public}@", &v9, 0xCu);
+      v10 = v4;
+      _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_ERROR, "Unenrollment failed with error: %{public}@", &v9, 0xCu);
     }
 
-    result = [*(a1 + 40) _flowTerminatedWithError:*(a1 + 32) canceled:0];
+    return [*(a1 + 40) _flowTerminatedWithError:*(a1 + 32) canceled:0];
   }
 
   else
   {
-    v5 = *(a1 + 48);
-    v6 = *DMCLogObjects();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    if (v5 == 1)
+    v6 = *(a1 + 48);
+    v7 = *DMCLogObjects();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v6 == 1)
     {
-      if (v7)
+      if (v8)
       {
         LOWORD(v9) = 0;
-        _os_log_impl(&dword_247E39000, v6, OS_LOG_TYPE_DEFAULT, "Unenrollment canceled", &v9, 2u);
+        _os_log_impl(&dword_247E39000, v7, OS_LOG_TYPE_DEFAULT, "Unenrollment canceled", &v9, 2u);
       }
 
       [*(a1 + 40) _resetToInitialSteps];
@@ -884,25 +868,22 @@ uint64_t __54__DMCMigrationFlowController__performUnenrollmentFlow__block_invoke
 
     else
     {
-      if (v7)
+      if (v8)
       {
         LOWORD(v9) = 0;
-        _os_log_impl(&dword_247E39000, v6, OS_LOG_TYPE_DEFAULT, "Unenrollment succeeded", &v9, 2u);
+        _os_log_impl(&dword_247E39000, v7, OS_LOG_TYPE_DEFAULT, "Unenrollment succeeded", &v9, 2u);
       }
 
       [DMCMigrationHelper setMigrationIncomplete:1];
     }
 
-    result = [*(a1 + 40) _pollNextStep];
+    return [*(a1 + 40) _pollNextStep];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_removePendingCloudConfigIfNeededWithEnrollmentCloudConfig:(id)config
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D24640];
   configCopy = config;
   v6 = [v4 alloc];
@@ -916,12 +897,12 @@ uint64_t __54__DMCMigrationFlowController__performUnenrollmentFlow__block_invoke
   if ([mdmServerUID isEqualToString:mdmServerUID2])
   {
     managedConfigurationHelper2 = [(DMCMigrationFlowController *)self managedConfigurationHelper];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __89__DMCMigrationFlowController__removePendingCloudConfigIfNeededWithEnrollmentCloudConfig___block_invoke;
-    v16[3] = &unk_278EE3550;
-    v16[4] = self;
-    [managedConfigurationHelper2 removePendingCloudConfigWithCompletionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __89__DMCMigrationFlowController__removePendingCloudConfigIfNeededWithEnrollmentCloudConfig___block_invoke;
+    v15[3] = &unk_278EE3550;
+    v15[4] = self;
+    [managedConfigurationHelper2 removePendingCloudConfigWithCompletionHandler:v15];
   }
 
   else
@@ -930,16 +911,14 @@ uint64_t __54__DMCMigrationFlowController__performUnenrollmentFlow__block_invoke
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v18 = mdmServerUID;
-      v19 = 2114;
-      v20 = mdmServerUID2;
+      v17 = mdmServerUID;
+      v18 = 2114;
+      v19 = mdmServerUID2;
       _os_log_impl(&dword_247E39000, v14, OS_LOG_TYPE_DEFAULT, "Server UID has changed from %{public}@ to %{public}@.", buf, 0x16u);
     }
 
     [(DMCEnrollmentFlowControllerBase *)self _pollNextStep];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __89__DMCMigrationFlowController__removePendingCloudConfigIfNeededWithEnrollmentCloudConfig___block_invoke(uint64_t a1, void *a2)
@@ -957,24 +936,22 @@ void __89__DMCMigrationFlowController__removePendingCloudConfigIfNeededWithEnrol
   [v4 queueBlock:v7];
 }
 
-uint64_t __89__DMCMigrationFlowController__removePendingCloudConfigIfNeededWithEnrollmentCloudConfig___block_invoke_2(uint64_t a1)
+uint64_t __89__DMCMigrationFlowController__removePendingCloudConfigIfNeededWithEnrollmentCloudConfig___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = *DMCLogObjects();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = *DMCLogObjects();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_247E39000, v2, OS_LOG_TYPE_ERROR, "Failed to remove pending cloud config with error: %{public}@!", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_ERROR, "Failed to remove pending cloud config with error: %{public}@!", &v6, 0xCu);
     }
   }
 
-  result = [*(a1 + 40) _pollNextStep];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _pollNextStep];
 }
 
 - (void)_removeExistingCloudConfigProfile
@@ -1010,31 +987,31 @@ void __63__DMCMigrationFlowController__removeExistingCloudConfigProfile__block_i
   [v4 queueBlock:v7];
 }
 
-void __63__DMCMigrationFlowController__removeExistingCloudConfigProfile__block_invoke_2(uint64_t a1)
+void __63__DMCMigrationFlowController__removeExistingCloudConfigProfile__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 40);
+    v3 = *(a1 + 40);
 
-    [v2 _flowTerminatedWithError:? canceled:?];
+    [v3 _flowTerminatedWithError:? canceled:?];
   }
 
   else
   {
-    v3 = *DMCLogObjects();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = *DMCLogObjects();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_DEFAULT, "Removing existing cloud config profile...", buf, 2u);
+      _os_log_impl(&dword_247E39000, v4, OS_LOG_TYPE_DEFAULT, "Removing existing cloud config profile...", buf, 2u);
     }
 
-    v4 = [*(a1 + 40) managedConfigurationHelper];
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __63__DMCMigrationFlowController__removeExistingCloudConfigProfile__block_invoke_35;
-    v5[3] = &unk_278EE3550;
-    v5[4] = *(a1 + 40);
-    [v4 removeCloudConfigWithCompletionHandler:v5];
+    v5 = [*(a1 + 40) managedConfigurationHelper];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __63__DMCMigrationFlowController__removeExistingCloudConfigProfile__block_invoke_35;
+    v6[3] = &unk_278EE3550;
+    v6[4] = *(a1 + 40);
+    [v5 removeCloudConfigWithCompletionHandler:v6];
   }
 }
 
@@ -1117,24 +1094,22 @@ void __59__DMCMigrationFlowController__formalizePendingCloudConfig___block_invok
   [v4 queueBlock:v7];
 }
 
-uint64_t __59__DMCMigrationFlowController__formalizePendingCloudConfig___block_invoke_2(uint64_t a1)
+uint64_t __59__DMCMigrationFlowController__formalizePendingCloudConfig___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = *DMCLogObjects();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = *DMCLogObjects();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_247E39000, v2, OS_LOG_TYPE_DEFAULT, "Failed to save the pending cloud configuration as the formal cloud configuration with error:%{public}@", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_DEFAULT, "Failed to save the pending cloud configuration as the formal cloud configuration with error:%{public}@", &v6, 0xCu);
     }
   }
 
-  result = [*(a1 + 40) _pollNextStep];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _pollNextStep];
 }
 
 - (void)_performEnrollmentFlow
@@ -1171,55 +1146,50 @@ void __52__DMCMigrationFlowController__performEnrollmentFlow__block_invoke(uint6
   [v7 queueBlock:v10];
 }
 
-uint64_t __52__DMCMigrationFlowController__performEnrollmentFlow__block_invoke_2(uint64_t a1)
+uint64_t __52__DMCMigrationFlowController__performEnrollmentFlow__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = *DMCLogObjects();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = *DMCLogObjects();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v12 = 138543362;
-      v13 = v3;
-      _os_log_impl(&dword_247E39000, v2, OS_LOG_TYPE_ERROR, "Enrollment failed with error: %{public}@", &v12, 0xCu);
+      v13 = v4;
+      _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_ERROR, "Enrollment failed with error: %{public}@", &v12, 0xCu);
     }
 
-    v5 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 0;
-LABEL_9:
-    result = [v4 _flowTerminatedWithError:v5 canceled:v6];
-    goto LABEL_10;
+    v6 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = 0;
+    return [v5 _flowTerminatedWithError:v6 canceled:v7];
   }
 
-  v7 = *(a1 + 48);
-  v8 = *DMCLogObjects();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (v7 == 1)
+  v8 = *(a1 + 48);
+  v9 = *DMCLogObjects();
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8 == 1)
   {
-    if (v9)
+    if (v10)
     {
       LOWORD(v12) = 0;
-      _os_log_impl(&dword_247E39000, v8, OS_LOG_TYPE_DEFAULT, "Enrollment canceled", &v12, 2u);
+      _os_log_impl(&dword_247E39000, v9, OS_LOG_TYPE_DEFAULT, "Enrollment canceled", &v12, 2u);
     }
 
-    v4 = *(a1 + 40);
-    v5 = 0;
-    v6 = 1;
-    goto LABEL_9;
+    v5 = *(a1 + 40);
+    v6 = 0;
+    v7 = 1;
+    return [v5 _flowTerminatedWithError:v6 canceled:v7];
   }
 
-  if (v9)
+  if (v10)
   {
     LOWORD(v12) = 0;
-    _os_log_impl(&dword_247E39000, v8, OS_LOG_TYPE_DEFAULT, "Enrollment succeeded", &v12, 2u);
+    _os_log_impl(&dword_247E39000, v9, OS_LOG_TYPE_DEFAULT, "Enrollment succeeded", &v12, 2u);
   }
 
-  result = [*(a1 + 40) _pollNextStep];
-LABEL_10:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _pollNextStep];
 }
 
 - (void)_sendEndMigrationRequestWithCloudConfig:(id)config
@@ -1249,24 +1219,22 @@ void __70__DMCMigrationFlowController__sendEndMigrationRequestWithCloudConfig___
   [v5 queueBlock:v8];
 }
 
-uint64_t __70__DMCMigrationFlowController__sendEndMigrationRequestWithCloudConfig___block_invoke_2(uint64_t a1)
+uint64_t __70__DMCMigrationFlowController__sendEndMigrationRequestWithCloudConfig___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = *DMCLogObjects();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = *DMCLogObjects();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_247E39000, v2, OS_LOG_TYPE_ERROR, "Failed to make end migration request with error: %{public}@", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_ERROR, "Failed to make end migration request with error: %{public}@", &v6, 0xCu);
     }
   }
 
-  result = [*(a1 + 40) _pollNextStep];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _pollNextStep];
 }
 
 - (void)_finalizeMigration
@@ -1295,24 +1263,22 @@ void __48__DMCMigrationFlowController__finalizeMigration__block_invoke(uint64_t 
   [v5 queueBlock:v8];
 }
 
-uint64_t __48__DMCMigrationFlowController__finalizeMigration__block_invoke_2(uint64_t a1)
+uint64_t __48__DMCMigrationFlowController__finalizeMigration__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = *DMCLogObjects();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = *DMCLogObjects();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_247E39000, v2, OS_LOG_TYPE_ERROR, "Failed to re-evaluate migration status with error: %{public}@", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_247E39000, v3, OS_LOG_TYPE_ERROR, "Failed to re-evaluate migration status with error: %{public}@", &v6, 0xCu);
     }
   }
 
-  result = [*(a1 + 40) _pollNextStep];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _pollNextStep];
 }
 
 - (void)_resetToInitialSteps
@@ -1336,7 +1302,7 @@ uint64_t __48__DMCMigrationFlowController__finalizeMigration__block_invoke_2(uin
 
 - (id)_convertErrorToHumanReadableError:(id)error
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = DMCErrorArray();
   _trustedErrors = [(DMCMigrationFlowController *)self _trustedErrors];
@@ -1360,25 +1326,23 @@ uint64_t __48__DMCMigrationFlowController__finalizeMigration__block_invoke_2(uin
   {
     domain3 = [errorCopy domain];
     v14 = [_trustedErrors objectForKeyedSubscript:domain3];
-    v21 = [v14 containsObject:&unk_2859F9838];
+    v20 = [v14 containsObject:&unk_2859F9838];
 
-    if ((v21 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_7;
     }
   }
 
   localizedDescription = [errorCopy localizedDescription];
-  v22[0] = localizedDescription;
+  v21[0] = localizedDescription;
   null = [MEMORY[0x277CBEB68] null];
-  v22[1] = null;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = null;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
 
   v5 = v17;
 LABEL_7:
   v18 = [MEMORY[0x277CCA9B8] DMCErrorWithDomain:*MEMORY[0x277D03410] code:67003 descriptionArray:v5 underlyingError:errorCopy errorType:*MEMORY[0x277D032F8]];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1397,21 +1361,19 @@ LABEL_7:
 
 void __44__DMCMigrationFlowController__trustedErrors__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = *MEMORY[0x277D03410];
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277D03410];
   v0 = [MEMORY[0x277CBEB98] setWithArray:&unk_2859F9DD8];
-  v7[0] = v0;
-  v6[1] = *MEMORY[0x277D032F0];
+  v6[0] = v0;
+  v5[1] = *MEMORY[0x277D032F0];
   v1 = [MEMORY[0x277CBEB98] setWithArray:&unk_2859F9DF0];
-  v7[1] = v1;
-  v6[2] = *MEMORY[0x277D033B8];
+  v6[1] = v1;
+  v5[2] = *MEMORY[0x277D033B8];
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_2859F9E08];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = _trustedErrors_dict_0;
   _trustedErrors_dict_0 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrollmentFlowController:(id)controller appInstallationStatusUpdatedForType:(id)type totalNumber:(unint64_t)number finishedNumber:(unint64_t)finishedNumber

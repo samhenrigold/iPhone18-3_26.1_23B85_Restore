@@ -57,278 +57,278 @@
 - (TSTTableTileStorage)initWithOwner:(id)owner
 {
   ownerCopy = owner;
-  v17.receiver = self;
-  v17.super_class = TSTTableTileStorage;
-  v9 = [(TSTTableTileStorage *)&v17 initWithOwner:ownerCopy];
-  if (v9)
+  v15.receiver = self;
+  v15.super_class = TSTTableTileStorage;
+  v8 = [(TSTTableTileStorage *)&v15 initWithOwner:ownerCopy];
+  if (v8)
   {
-    v10 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v5, v6, v7, v8);
-    tileIDSet = v9->_tileIDSet;
-    v9->_tileIDSet = v10;
+    v9 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v5, v6, v7);
+    tileIDSet = v8->_tileIDSet;
+    v8->_tileIDSet = v9;
 
-    v15 = objc_msgSend__createTileWithID_(v9, v12, 0, v13, v14);
-    v9->_archivingCompatibilityVersion = 0x300020000000ALL;
+    v13 = objc_msgSend__createTileWithID_(v8, v11, 0, v12);
+    v8->_archivingCompatibilityVersion = 0x300020000000ALL;
   }
 
-  return v9;
+  return v8;
 }
 
 - (TSTTableTileStorage)initWithStorageArchive:(const void *)archive treeArchive:(const void *)treeArchive nextTileID:(unint64_t)d unarchiver:(id)unarchiver owner:(id)owner
 {
   unarchiverCopy = unarchiver;
   ownerCopy = owner;
-  v104.receiver = self;
-  v104.super_class = TSTTableTileStorage;
-  v16 = [(TSTTableTileStorage *)&v104 initWithOwner:ownerCopy];
-  if (v16)
+  v99.receiver = self;
+  v99.super_class = TSTTableTileStorage;
+  v15 = [(TSTTableTileStorage *)&v99 initWithOwner:ownerCopy];
+  if (v15)
   {
-    v17 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v12, v13, v14, v15);
-    v79 = ownerCopy;
-    tileIDSet = v16->_tileIDSet;
-    v16->_tileIDSet = v17;
+    v16 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v12, v13, v14);
+    v74 = ownerCopy;
+    tileIDSet = v15->_tileIDSet;
+    v15->_tileIDSet = v16;
 
-    v19 = *(archive + 4);
-    v20 = *(archive + 12);
-    p_isa = &v16->super.super.isa;
-    v16->_shouldUseWideRows = *(archive + 52) & (v19 << 30 >> 31);
-    v16->_archivingCompatibilityVersion = objc_msgSend_messageVersion(unarchiverCopy, v21, v22, v23, v24);
-    if ((v19 & 1) == 0 || v20 != 256)
+    v18 = *(archive + 4);
+    v19 = *(archive + 12);
+    p_isa = &v15->super.super.isa;
+    v15->_shouldUseWideRows = *(archive + 52) & (v18 << 30 >> 31);
+    v15->_archivingCompatibilityVersion = objc_msgSend_messageVersion(unarchiverCopy, v20, v21, v22);
+    if ((v18 & 1) == 0 || v19 != 256)
     {
-      v90 = 0;
-      v91 = &v90;
-      v92 = 0x4812000000;
-      v93 = sub_2211A0DA8;
-      v94 = sub_2211A0DCC;
-      v95 = &unk_22188E88F;
-      v97 = 0;
-      v98 = 0;
+      v85 = 0;
+      v86 = &v85;
+      v87 = 0x4812000000;
+      v88 = sub_2211A0DA8;
+      v89 = sub_2211A0DCC;
+      v90 = &unk_22188E88F;
+      v92 = 0;
+      v93 = 0;
       __p = 0;
-      v43 = *(treeArchive + 4);
-      if (v43)
+      v39 = *(treeArchive + 4);
+      if (v39)
       {
-        v44 = v43 + 8;
+        v40 = v39 + 8;
       }
 
       else
       {
-        v44 = 0;
+        v40 = 0;
       }
 
-      v45 = *(treeArchive + 6);
-      if (v45)
+      v41 = *(treeArchive + 6);
+      if (v41)
       {
-        v46 = 8 * v45;
+        v42 = 8 * v41;
         do
         {
-          v47 = *(*v44 + 24);
-          v48 = v91;
-          *&v49 = v47;
-          *(&v49 + 1) = HIDWORD(v47);
-          v50 = v49;
-          v52 = v91[7];
-          v51 = v91[8];
-          if (v52 >= v51)
+          v43 = *(*v40 + 24);
+          v44 = v86;
+          *&v45 = v43;
+          *(&v45 + 1) = HIDWORD(v43);
+          v46 = v45;
+          v48 = v86[7];
+          v47 = v86[8];
+          if (v48 >= v47)
           {
-            v54 = v91[6];
-            v55 = (v52 - v54) >> 4;
-            if ((v55 + 1) >> 60)
+            v50 = v86[6];
+            v51 = (v48 - v50) >> 4;
+            if ((v51 + 1) >> 60)
             {
               sub_22107C148();
             }
 
-            v56 = v51 - v54;
-            v57 = v56 >> 3;
-            if (v56 >> 3 <= (v55 + 1))
+            v52 = v47 - v50;
+            v53 = v52 >> 3;
+            if (v52 >> 3 <= (v51 + 1))
             {
-              v57 = v55 + 1;
+              v53 = v51 + 1;
             }
 
-            if (v56 >= 0x7FFFFFFFFFFFFFF0)
+            if (v52 >= 0x7FFFFFFFFFFFFFF0)
             {
-              v58 = 0xFFFFFFFFFFFFFFFLL;
+              v54 = 0xFFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v58 = v57;
+              v54 = v53;
             }
 
-            if (v58)
+            if (v54)
             {
-              sub_2211A6C88((v91 + 6), v58);
+              sub_2211A6C88((v86 + 6), v54);
             }
 
-            v59 = (16 * v55);
-            *v59 = v50;
-            v53 = 16 * v55 + 16;
-            v60 = v48[6];
-            v61 = v48[7] - v60;
-            v62 = v59 - v61;
-            memcpy(v59 - v61, v60, v61);
-            v63 = v48[6];
-            v48[6] = v62;
-            v48[7] = v53;
-            v48[8] = 0;
-            if (v63)
+            v55 = (16 * v51);
+            *v55 = v46;
+            v49 = 16 * v51 + 16;
+            v56 = v44[6];
+            v57 = v44[7] - v56;
+            v58 = v55 - v57;
+            memcpy(v55 - v57, v56, v57);
+            v59 = v44[6];
+            v44[6] = v58;
+            v44[7] = v49;
+            v44[8] = 0;
+            if (v59)
             {
-              operator delete(v63);
+              operator delete(v59);
             }
           }
 
           else
           {
-            *v52 = v50;
-            v53 = (v52 + 1);
+            *v48 = v46;
+            v49 = (v48 + 1);
           }
 
-          v48[7] = v53;
-          v44 += 8;
-          v46 -= 8;
+          v44[7] = v49;
+          v40 += 8;
+          v42 -= 8;
         }
 
-        while (v46);
+        while (v42);
       }
 
-      v87[0] = 0;
-      v87[1] = v87;
-      v87[2] = 0x5812000000;
-      v87[3] = sub_2211A0DE4;
-      v87[4] = sub_2211A0DF0;
-      v87[5] = &unk_22188E88F;
-      memset(v88, 0, sizeof(v88));
-      v89 = 1065353216;
-      v64 = *(archive + 5);
-      if (v64)
+      v82[0] = 0;
+      v82[1] = v82;
+      v82[2] = 0x5812000000;
+      v82[3] = sub_2211A0DE4;
+      v82[4] = sub_2211A0DF0;
+      v82[5] = &unk_22188E88F;
+      memset(v83, 0, sizeof(v83));
+      v84 = 1065353216;
+      v60 = *(archive + 5);
+      if (v60)
       {
-        v65 = v64 + 8;
+        v61 = v60 + 8;
       }
 
       else
       {
-        v65 = 0;
+        v61 = 0;
       }
 
-      v66 = *(archive + 8);
-      if (v66)
+      v62 = *(archive + 8);
+      if (v62)
       {
-        v67 = MEMORY[0x277D85DD0];
-        v68 = 8 * v66;
-        v69 = MEMORY[0x277D80A18];
+        v63 = MEMORY[0x277D85DD0];
+        v64 = 8 * v62;
+        v65 = MEMORY[0x277D80A18];
         do
         {
-          v70 = *(*v65 + 32);
-          v71 = *(*v65 + 24);
-          v86[0] = v67;
-          v86[1] = 3221225472;
-          v86[2] = sub_2211A0DF8;
-          v86[3] = &unk_2784604A8;
-          v86[4] = v87;
-          v86[5] = v70;
-          v72 = unarchiverCopy;
-          v74 = objc_opt_class();
-          if (v71)
+          v66 = *(*v61 + 32);
+          v67 = *(*v61 + 24);
+          v81[0] = v63;
+          v81[1] = 3221225472;
+          v81[2] = sub_2211A0DF8;
+          v81[3] = &unk_2784604A8;
+          v81[4] = v82;
+          v81[5] = v66;
+          v68 = unarchiverCopy;
+          v70 = objc_opt_class();
+          if (v67)
           {
-            objc_msgSend_readLazyReferenceMessage_class_protocol_completion_(v72, v73, v71, v74, 0, v86);
+            objc_msgSend_readLazyReferenceMessage_class_protocol_completion_(v68, v69, v67, v70, 0, v81);
           }
 
           else
           {
-            objc_msgSend_readLazyReferenceMessage_class_protocol_completion_(v72, v73, v69, v74, 0, v86);
+            objc_msgSend_readLazyReferenceMessage_class_protocol_completion_(v68, v69, v65, v70, 0, v81);
           }
 
-          v65 += 8;
-          v68 -= 8;
+          v61 += 8;
+          v64 -= 8;
         }
 
-        while (v68);
+        while (v64);
       }
 
-      v82[0] = MEMORY[0x277D85DD0];
-      v82[1] = 3221225472;
-      v82[2] = sub_2211A0E74;
-      v82[3] = &unk_2784604D0;
-      v83 = p_isa;
-      v84 = &v90;
-      v85 = v87;
-      objc_msgSend_addFinalizeHandler_(unarchiverCopy, v75, v82, v76, v77);
+      v77[0] = MEMORY[0x277D85DD0];
+      v77[1] = 3221225472;
+      v77[2] = sub_2211A0E74;
+      v77[3] = &unk_2784604D0;
+      v78 = p_isa;
+      v79 = &v85;
+      v80 = v82;
+      objc_msgSend_addFinalizeHandler_(unarchiverCopy, v71, v77, v72);
 
-      _Block_object_dispose(v87, 8);
-      sub_221087B80(v88);
-      _Block_object_dispose(&v90, 8);
-      ownerCopy = v79;
+      _Block_object_dispose(v82, 8);
+      sub_221087B80(v83);
+      _Block_object_dispose(&v85, 8);
+      ownerCopy = v74;
       if (__p)
       {
-        v97 = __p;
+        v92 = __p;
         operator delete(__p);
       }
 
       goto LABEL_44;
     }
 
-    v29 = *(archive + 5);
-    if (v29)
+    v26 = *(archive + 5);
+    if (v26)
     {
-      v30 = (v29 + 8);
+      v27 = (v26 + 8);
     }
 
     else
     {
-      v30 = 0;
+      v27 = 0;
     }
 
-    v31 = *(archive + 8);
-    if (v31)
+    v28 = *(archive + 8);
+    if (v28)
     {
-      v32 = 8 * v31;
-      v33 = MEMORY[0x277D80A18];
+      v29 = 8 * v28;
+      v30 = MEMORY[0x277D80A18];
       do
       {
-        v34 = *v30;
-        v35 = *(*v30 + 32);
-        objc_msgSend_addIndex_(p_isa[2], v25, v35, v27, v28);
-        v36 = *(v34 + 24);
-        v101[0] = MEMORY[0x277D85DD0];
-        v101[1] = 3221225472;
-        v101[2] = sub_2211A0C90;
-        v101[3] = &unk_278460480;
-        v102 = p_isa;
-        v103 = v35;
-        v37 = unarchiverCopy;
-        v39 = objc_opt_class();
-        if (v36)
+        v31 = *v27;
+        v32 = *(*v27 + 32);
+        objc_msgSend_addIndex_(p_isa[2], v23, v32, v25);
+        v33 = *(v31 + 24);
+        v96[0] = MEMORY[0x277D85DD0];
+        v96[1] = 3221225472;
+        v96[2] = sub_2211A0C90;
+        v96[3] = &unk_278460480;
+        v97 = p_isa;
+        v98 = v32;
+        v34 = unarchiverCopy;
+        v36 = objc_opt_class();
+        if (v33)
         {
-          objc_msgSend_readLazyReferenceMessage_class_protocol_completion_(v37, v38, v36, v39, 0, v101);
+          objc_msgSend_readLazyReferenceMessage_class_protocol_completion_(v34, v35, v33, v36, 0, v96);
         }
 
         else
         {
-          objc_msgSend_readLazyReferenceMessage_class_protocol_completion_(v37, v38, v33, v39, 0, v101);
+          objc_msgSend_readLazyReferenceMessage_class_protocol_completion_(v34, v35, v30, v36, 0, v96);
         }
 
-        ++v30;
-        v32 -= 8;
+        ++v27;
+        v29 -= 8;
       }
 
-      while (v32);
+      while (v29);
     }
 
-    ownerCopy = v79;
-    v16 = p_isa;
-    if (objc_msgSend_fileFormatVersion(unarchiverCopy, v25, v26, v27, v28) <= 0xB000000000000)
+    ownerCopy = v74;
+    v15 = p_isa;
+    if (objc_msgSend_fileFormatVersion(unarchiverCopy, v23, v24, v25) <= 0xB000000000000)
     {
-      v99[0] = MEMORY[0x277D85DD0];
-      v99[1] = 3221225472;
-      v99[2] = sub_2211A0D20;
-      v99[3] = &unk_27845E3F8;
-      v100 = p_isa;
-      objc_msgSend_addFinalizeHandler_(unarchiverCopy, v40, v99, v41, v42);
+      v94[0] = MEMORY[0x277D85DD0];
+      v94[1] = 3221225472;
+      v94[2] = sub_2211A0D20;
+      v94[3] = &unk_27845E3F8;
+      v95 = p_isa;
+      objc_msgSend_addFinalizeHandler_(unarchiverCopy, v37, v94, v38);
 
 LABEL_44:
-      v16 = p_isa;
+      v15 = p_isa;
     }
   }
 
-  return v16;
+  return v15;
 }
 
 - (void)_upgradeFromTileIDMap:(void *)map referenceMap:(void *)referenceMap
@@ -336,9 +336,9 @@ LABEL_44:
   v7 = *map;
   v8 = *(map + 1);
   v9 = 126 - 2 * __clz((v8 - *map) >> 4);
-  v32 = v8 == *map;
-  v136[0] = &unk_2834A2910;
-  if (v32)
+  v28 = v8 == *map;
+  v112[0] = &unk_2834A2910;
+  if (v28)
   {
     v10 = 0;
   }
@@ -348,123 +348,121 @@ LABEL_44:
     v10 = v9;
   }
 
-  sub_2211A6F2C(v7, v8, v136, v10, 1);
+  sub_2211A6F2C(v7, v8, v112, v10, 1);
 
-  v131 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v11, v12, v13, v14);
-  v19 = *map;
-  v20 = *(map + 1);
-  if (*map != v20)
+  v107 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v11, v12, v13);
+  v17 = *map;
+  v18 = *(map + 1);
+  if (*map != v18)
   {
     do
     {
-      v21 = *v19;
-      v136[0] = *(v19 + 8);
-      v22 = sub_2210BE30C(referenceMap, v136);
-      if (v22)
+      v19 = *v17;
+      v112[0] = *(v17 + 8);
+      v20 = sub_2210BE30C(referenceMap, v112);
+      if (v20)
       {
-        v26 = v22[3];
-        v135 = 0;
-        v27 = objc_msgSend_objectAndReturnError_(v26, v23, &v135, v24, v25);
-        v28 = v135;
-        if (v27)
+        v23 = v20[3];
+        v111 = 0;
+        v24 = objc_msgSend_objectAndReturnError_(v23, v21, &v111, v22);
+        v25 = v111;
+        if (v24)
         {
-          v32 = v28 == 0;
+          v28 = v25 == 0;
         }
 
         else
         {
-          v32 = 0;
+          v28 = 0;
         }
 
-        if (!v32)
+        if (!v28)
         {
-          v130 = v28;
-          if (!v28)
+          v106 = v25;
+          if (!v25)
           {
-            v116 = MEMORY[0x277D81150];
-            v117 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "[TSTTableTileStorage _upgradeFromTileIDMap:referenceMap:]", v30, v31);
-            v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v118, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v119, v120);
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v116, v122, v117, v121, 230, 0, "invalid nil value for '%{public}s'", "error");
+            v96 = MEMORY[0x277D81150];
+            v97 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "[TSTTableTileStorage _upgradeFromTileIDMap:referenceMap:]", v27);
+            v100 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v98, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v99);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v96, v101, v97, v100, 230, 0, "invalid nil value for '%{public}s'", "error");
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v123, v124, v125, v126);
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v102, v103, v104);
           }
 
-          v60 = objc_opt_class();
-          v61 = NSStringFromClass(v60);
-          v66 = objc_msgSend_domain(v130, v62, v63, v64, v65);
-          v71 = objc_msgSend_code(v130, v67, v68, v69, v70);
-          isRecoverable = objc_msgSend_tsp_isRecoverable(v130, v72, v73, v74, v75);
-          v81 = objc_msgSend_tsp_hintsDescription(v130, v77, v78, v79, v80);
-          v82 = v81;
+          v50 = objc_opt_class();
+          v51 = NSStringFromClass(v50);
+          v55 = objc_msgSend_domain(v106, v52, v53, v54);
+          v59 = objc_msgSend_code(v106, v56, v57, v58);
+          isRecoverable = objc_msgSend_tsp_isRecoverable(v106, v60, v61, v62);
+          v67 = objc_msgSend_tsp_hintsDescription(v106, v64, v65, v66);
+          v68 = v67;
           if (isRecoverable)
           {
-            v83 = @"recoverable=YES, ";
+            v69 = @"recoverable=YES, ";
           }
 
           else
           {
-            v83 = &stru_2834BADA0;
+            v69 = &stru_2834BADA0;
           }
 
-          v128 = v81;
-          v127 = v83;
-          TSUSetCrashReporterInfo();
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load a table tile during upgrade: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSTTableTileStorage _upgradeFromTileIDMap:referenceMap:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 231, v51, v55, v59, v69, v67, v106);
 
-          v84 = MEMORY[0x277D81150];
-          v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v85, "[TSTTableTileStorage _upgradeFromTileIDMap:referenceMap:]", v86, v87, "[TSTTableTileStorage _upgradeFromTileIDMap:referenceMap:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 231, v61, v66, v71, v127, v128, v130);
-          v92 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v89, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v90, v91);
-          v93 = objc_opt_class();
-          v94 = NSStringFromClass(v93);
-          v99 = objc_msgSend_domain(v130, v95, v96, v97, v98);
-          v104 = objc_msgSend_code(v130, v100, v101, v102, v103);
-          v109 = objc_msgSend_tsp_isRecoverable(v130, v105, v106, v107, v108);
-          v129 = objc_msgSend_tsp_hintsDescription(v130, v110, v111, v112, v113);
-          if (v109)
+          v70 = MEMORY[0x277D81150];
+          v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "[TSTTableTileStorage _upgradeFromTileIDMap:referenceMap:]", v72);
+          v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v74, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v75);
+          v77 = objc_opt_class();
+          v78 = NSStringFromClass(v77);
+          v82 = objc_msgSend_domain(v106, v79, v80, v81);
+          v86 = objc_msgSend_code(v106, v83, v84, v85);
+          v90 = objc_msgSend_tsp_isRecoverable(v106, v87, v88, v89);
+          v105 = objc_msgSend_tsp_hintsDescription(v106, v91, v92, v93);
+          if (v90)
           {
-            v115 = @"recoverable=YES, ";
+            v95 = @"recoverable=YES, ";
           }
 
           else
           {
-            v115 = &stru_2834BADA0;
+            v95 = &stru_2834BADA0;
           }
 
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v84, v114, v88, v92, 231, 1, "Failed to load a table tile during upgrade: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v94, v99, v104, v115, v129, v130);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v70, v94, v73, v76, 231, 1, "Failed to load a table tile during upgrade: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v78, v82, v86, v95, v105, v106);
 
           TSUCrashBreakpoint();
           abort();
         }
 
         objc_opt_class();
-        v33 = TSUCheckedDynamicCast();
-        if ((objc_msgSend_isEmpty(v33, v34, v35, v36, v37) & 1) == 0)
+        v29 = TSUCheckedDynamicCast();
+        if ((objc_msgSend_isEmpty(v29, v30, v31, v32) & 1) == 0)
         {
-          v41 = objc_msgSend_yankRowsAtTileRowIndex_(v33, v38, 0, v39, v40);
-          v132[0] = MEMORY[0x277D85DD0];
-          v132[1] = 3221225472;
-          v132[2] = sub_2211A14AC;
-          v132[3] = &unk_278460518;
-          v134 = v21;
-          v132[4] = self;
-          v133 = v131;
-          objc_msgSend_tsu_enumerateNonNullObjectUsingBlock_(v41, v42, v132, v43, v44);
+          v35 = objc_msgSend_yankRowsAtTileRowIndex_(v29, v33, 0, v34);
+          v108[0] = MEMORY[0x277D85DD0];
+          v108[1] = 3221225472;
+          v108[2] = sub_2211A14AC;
+          v108[3] = &unk_278460518;
+          v110 = v19;
+          v108[4] = self;
+          v109 = v107;
+          objc_msgSend_tsu_enumerateNonNullObjectUsingBlock_(v35, v36, v108, v37);
         }
       }
 
       else
       {
-        v45 = MEMORY[0x277D81150];
-        v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTTableTileStorage _upgradeFromTileIDMap:referenceMap:]", v24, v25);
-        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v48, v49);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v51, v46, v50, 223, 0, "Tile upgrade can't find tile for ID %tu!", v136[0]);
+        v38 = MEMORY[0x277D81150];
+        v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSTTableTileStorage _upgradeFromTileIDMap:referenceMap:]", v22);
+        v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v41);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v43, v39, v42, 223, 0, "Tile upgrade can't find tile for ID %tu!", v112[0]);
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53, v54, v55);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46);
       }
 
-      v19 += 16;
+      v17 += 16;
     }
 
-    while (v19 != v20);
+    while (v17 != v18);
   }
 
   if (self->_upgradeRepairedTiles && *MEMORY[0x277D81408] != -1)
@@ -472,9 +470,9 @@ LABEL_44:
     sub_2216F6CE4();
   }
 
-  if (objc_msgSend_firstIndex(self->_tileIDSet, v15, v16, v17, v18))
+  if (objc_msgSend_firstIndex(self->_tileIDSet, v14, v15, v16))
   {
-    v59 = objc_msgSend__createTileWithID_(self, v56, 0, v57, v58);
+    v49 = objc_msgSend__createTileWithID_(self, v47, 0, v48);
   }
 
   *(map + 1) = *map;
@@ -489,85 +487,85 @@ LABEL_44:
     v10 = self->_tileGroups[i];
     if (v10)
     {
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = sub_2211A1988;
-      v38[3] = &unk_278460540;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = sub_2211A1988;
+      v32[3] = &unk_278460540;
       archiveCopy = archive;
-      v39 = archiverCopy;
+      v33 = archiverCopy;
       treeArchiveCopy = treeArchive;
-      objc_msgSend_enumerateReferencesWithBlock_(v10, v11, v38, v12, v13);
+      objc_msgSend_enumerateReferencesWithBlock_(v10, v11, v32, v12);
     }
   }
 
-  v18 = *(archive + 4);
-  *(archive + 4) = v18 | 1;
+  v16 = *(archive + 4);
+  *(archive + 4) = v16 | 1;
   *(archive + 12) = 256;
   if (self->_shouldUseWideRows)
   {
-    *(archive + 4) = v18 | 3;
+    *(archive + 4) = v16 | 3;
     *(archive + 52) = 1;
   }
 
-  v19 = objc_msgSend_archivingCompatibilityVersion(self, v14, v15, v16, v17);
-  objc_msgSend_setMessageVersion_(archiverCopy, v20, v19, v21, v22);
-  if (v19 == 0x300020000000ALL || v19 == 0x4000100000000)
+  v17 = objc_msgSend_archivingCompatibilityVersion(self, v13, v14, v15);
+  objc_msgSend_setMessageVersion_(archiverCopy, v18, v17, v19);
+  if (v17 == 0x300020000000ALL || v17 == 0x4000100000000)
   {
     goto LABEL_26;
   }
 
-  if (v19 != 0xA000000000003)
+  if (v17 != 0xA000000000003)
   {
-    if (*MEMORY[0x277D808F0] == v19)
+    if (*MEMORY[0x277D808F0] == v17)
     {
-      objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v23, v19, @"TSTFutureProofCell", v25);
+      objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v20, v17, @"TSTFutureProofCell");
       goto LABEL_27;
     }
 
-    if (v19 <= 0xD000000000000)
+    if (v17 <= 0xD000000000000)
     {
-      if (v19 == 0xB000200000006)
+      if (v17 == 0xB000200000006)
       {
-        objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v23, 0xB000200000006, @"TSTPivotTables", v25);
+        objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v20, 0xB000200000006, @"TSTPivotTables");
         goto LABEL_27;
       }
 
-      if (v19 == 0xC000000000007)
+      if (v17 == 0xC000000000007)
       {
-        objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v23, 0xC000000000007, @"TSTPivotTables v2", v25);
+        objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v20, 0xC000000000007, @"TSTPivotTables v2");
         goto LABEL_27;
       }
     }
 
     else
     {
-      switch(v19)
+      switch(v17)
       {
         case 0xD000000000001:
-          objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v23, 0xD000000000001, @"TSTDropPreBNCData", v25);
+          objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v20, 0xD000000000001, @"TSTDropPreBNCData");
           goto LABEL_27;
         case 0xD000000000002:
-          objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v23, 0xD000000000002, @"TSTPivotTables MoreAggregates", v25);
+          objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v20, 0xD000000000002, @"TSTPivotTables MoreAggregates");
           goto LABEL_27;
         case 0xE000400000001:
-          objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v23, 0xE000400000001, @"TSTArrayFormulas", v25);
+          objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v20, 0xE000400000001, @"TSTArrayFormulas");
           goto LABEL_27;
       }
     }
 
-    v26 = MEMORY[0x277D81150];
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "NSString *TSTFeatureIdentifierForCompatibilityVersion(TSPVersion)", v24, v25);
-    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCompatibility.h", v29, v30);
-    v32 = NSStringFromTSPVersion();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v33, v27, v31, 99, 0, "Unimplemented version for TSTCompatibility: %@", v32);
+    v22 = MEMORY[0x277D81150];
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "NSString *TSTFeatureIdentifierForCompatibilityVersion(TSPVersion)", v21);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCompatibility.h", v25);
+    v27 = NSStringFromTSPVersion();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v28, v23, v26, 99, 0, "Unimplemented version for TSTCompatibility: %@", v27);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31);
 LABEL_26:
-    objc_msgSend_requiresDocumentVersion_(archiverCopy, v23, v19, v24, v25);
+    objc_msgSend_requiresDocumentVersion_(archiverCopy, v20, v17, v21);
     goto LABEL_27;
   }
 
-  objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v23, 0xA000000000003, @"TSTExpandedTables", v25);
+  objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v20, 0xA000000000003, @"TSTExpandedTables");
 LABEL_27:
 }
 
@@ -588,36 +586,36 @@ LABEL_27:
     archivingCompatibilityVersion = 0x300020000000ALL;
   }
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = archivingCompatibilityVersion;
-  if (objc_msgSend_isEmbiggened(self, a2, v2, v3, v4))
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = archivingCompatibilityVersion;
+  if (objc_msgSend_isEmbiggened(self, a2, v2, v3))
   {
     archivingCompatibilityVersion = 0xA000000000003;
-    v10 = v14;
-    v14[3] = 0xA000000000003;
+    v8 = v12;
+    v12[3] = 0xA000000000003;
   }
 
   else
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = sub_2211A1CEC;
-    v12[3] = &unk_278460568;
-    v12[4] = &v13;
-    objc_msgSend__enumerateLoadedTiles_(self, v7, v12, v8, v9);
-    v10 = v14;
-    archivingCompatibilityVersion = v14[3];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_2211A1CEC;
+    v10[3] = &unk_278460568;
+    v10[4] = &v11;
+    objc_msgSend__enumerateLoadedTiles_(self, v6, v10, v7);
+    v8 = v12;
+    archivingCompatibilityVersion = v12[3];
   }
 
   if (archivingCompatibilityVersion > self->_archivingCompatibilityVersion)
   {
     self->_archivingCompatibilityVersion = archivingCompatibilityVersion;
-    archivingCompatibilityVersion = v10[3];
+    archivingCompatibilityVersion = v8[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v11, 8);
   return archivingCompatibilityVersion;
 }
 
@@ -627,24 +625,24 @@ LABEL_27:
   {
     if (self->_shouldUseWideRows)
     {
-      TSUSetCrashReporterInfo();
-      v10 = MEMORY[0x277D81150];
-      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTTableTileStorage setShouldUseWideRows:]", v12, v13, "[TSTTableTileStorage setShouldUseWideRows:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 392);
-      v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v16, v17);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v19, v14, v18, 392, 1, "Table embiggening is a one-way process");
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Table embiggening is a one-way process", a2, "[TSTTableTileStorage setShouldUseWideRows:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 392);
+      v8 = MEMORY[0x277D81150];
+      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSTTableTileStorage setShouldUseWideRows:]", v10);
+      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v13);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v15, v11, v14, 392, 1, "Table embiggening is a one-way process");
 
       TSUCrashBreakpoint();
       abort();
     }
 
-    objc_msgSend_willModify(self, a2, rows, v3, v4);
+    objc_msgSend_willModify(self, a2, rows, v3);
     self->_shouldUseWideRows = rows;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = sub_2211A1ECC;
-    v20[3] = &unk_278460588;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_2211A1ECC;
+    v16[3] = &unk_278460588;
     rowsCopy = rows;
-    objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v7, v20, v8, v9);
+    objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v6, v16, v7);
   }
 }
 
@@ -664,11 +662,40 @@ LABEL_27:
 {
   if (d >= 0x1000)
   {
-    TSUSetCrashReporterInfo();
-    v11 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTTableTileStorage _groupForTileID:]", v13, v14, "[TSTTableTileStorage _groupForTileID:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 426);
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v17, v18);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v20, v15, v19, 426, 1, "Bad tile group index!");
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Bad tile group index!", a2, "[TSTTableTileStorage _groupForTileID:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 426);
+    v10 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTTableTileStorage _groupForTileID:]", v12);
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v17, v13, v16, 426, 1, "Bad tile group index!");
+
+    TSUCrashBreakpoint();
+    abort();
+  }
+
+  v4 = d >> 8;
+  tileGroups = self->_tileGroups;
+  v6 = self->_tileGroups[d >> 8];
+  if (!v6)
+  {
+    v7 = objc_msgSend_groupWithStartingTileID_(TSTTableTileGroup, a2, d & 0xF00, v3);
+    v8 = tileGroups[v4];
+    tileGroups[v4] = v7;
+
+    v6 = tileGroups[v4];
+  }
+
+  return v6;
+}
+
+- (id)_tileFromGroupForTileID:(unint64_t)d
+{
+  if (d >= 0x1000)
+  {
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Bad tile group index!", a2, "[TSTTableTileStorage _tileFromGroupForTileID:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 438);
+    v12 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSTTableTileStorage _tileFromGroupForTileID:]", v14);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v15, v18, 438, 1, "Bad tile group index!");
 
     TSUCrashBreakpoint();
     abort();
@@ -679,110 +706,81 @@ LABEL_27:
   v7 = self->_tileGroups[d >> 8];
   if (!v7)
   {
-    v8 = objc_msgSend_groupWithStartingTileID_(TSTTableTileGroup, a2, d & 0xF00, v3, v4);
+    v8 = objc_msgSend_groupWithStartingTileID_(TSTTableTileGroup, a2, d & 0xF00, v3);
     v9 = tileGroups[v5];
     tileGroups[v5] = v8;
 
     v7 = tileGroups[v5];
   }
 
-  return v7;
-}
+  v10 = objc_msgSend_objectAtIndexedSubscript_(v7, a2, d, v3);
 
-- (id)_tileFromGroupForTileID:(unint64_t)d
-{
-  if (d >= 0x1000)
-  {
-    TSUSetCrashReporterInfo();
-    v13 = MEMORY[0x277D81150];
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTTableTileStorage _tileFromGroupForTileID:]", v15, v16, "[TSTTableTileStorage _tileFromGroupForTileID:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 438);
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v19, v20);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v22, v17, v21, 438, 1, "Bad tile group index!");
-
-    TSUCrashBreakpoint();
-    abort();
-  }
-
-  v6 = d >> 8;
-  tileGroups = self->_tileGroups;
-  v8 = self->_tileGroups[d >> 8];
-  if (!v8)
-  {
-    v9 = objc_msgSend_groupWithStartingTileID_(TSTTableTileGroup, a2, d & 0xF00, v3, v4);
-    v10 = tileGroups[v6];
-    tileGroups[v6] = v9;
-
-    v8 = tileGroups[v6];
-  }
-
-  v11 = objc_msgSend_objectAtIndexedSubscript_(v8, a2, d, v3, v4);
-
-  return v11;
+  return v10;
 }
 
 - (id)_tileForID:(unint64_t)d createIfMissing:(BOOL)missing
 {
   missingCopy = missing;
-  if (objc_msgSend_containsIndex_(self->_tileIDSet, a2, d, missing, v4))
+  if (objc_msgSend_containsIndex_(self->_tileIDSet, a2, d, missing))
   {
-    v11 = objc_msgSend__tileFromGroupForTileID_(self, v8, d, v9, v10);
-    if (v11)
+    v9 = objc_msgSend__tileFromGroupForTileID_(self, v7, d, v8);
+    if (v9)
     {
       goto LABEL_7;
     }
 
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTTableTileStorage _tileForID:createIfMissing:]", v13, v14);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 458, 0, "invalid nil value for '%{public}s'", "tile");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTTableTileStorage _tileForID:createIfMissing:]", v11);
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v17, v13, v16, 458, 0, "invalid nil value for '%{public}s'", "tile");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20);
   }
 
   if (missingCopy)
   {
-    v11 = objc_msgSend__createTileWithID_(self, v8, d, v9, v10);
+    v9 = objc_msgSend__createTileWithID_(self, v7, d, v8);
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
 LABEL_7:
 
-  return v11;
+  return v9;
 }
 
 - (void)_setTile:(id)tile forID:(unint64_t)d
 {
   tileCopy = tile;
-  objc_msgSend_willModify(self, v6, v7, v8, v9);
-  objc_msgSend_addIndex_(self->_tileIDSet, v10, d, v11, v12);
-  v16 = objc_msgSend__groupForTileID_(self, v13, d, v14, v15);
-  objc_msgSend_setObject_atIndexedSubscript_(v16, v17, tileCopy, d, v18);
+  objc_msgSend_willModify(self, v6, v7, v8);
+  objc_msgSend_addIndex_(self->_tileIDSet, v9, d, v10);
+  v13 = objc_msgSend__groupForTileID_(self, v11, d, v12);
+  objc_msgSend_setObject_atIndexedSubscript_(v13, v14, tileCopy, d);
 }
 
 - (id)_createTileWithID:(unint64_t)d
 {
-  objc_msgSend_willModify(self, a2, d, v3, v4);
-  v7 = [TSTTableTile alloc];
+  objc_msgSend_willModify(self, a2, d, v3);
+  v6 = [TSTTableTile alloc];
   shouldUseWideRows = self->_shouldUseWideRows;
-  v13 = objc_msgSend_owner(self, v9, v10, v11, v12);
-  v18 = objc_msgSend_context(v13, v14, v15, v16, v17);
-  shouldUseWideRows_context = objc_msgSend_initWithRows_shouldUseWideRows_context_(v7, v19, 0, shouldUseWideRows, v18);
+  v11 = objc_msgSend_owner(self, v8, v9, v10);
+  v15 = objc_msgSend_context(v11, v12, v13, v14);
+  shouldUseWideRows_context = objc_msgSend_initWithRows_shouldUseWideRows_context_(v6, v16, 0, shouldUseWideRows, v15);
 
-  objc_msgSend__setTile_forID_(self, v21, shouldUseWideRows_context, d, v22);
+  objc_msgSend__setTile_forID_(self, v18, shouldUseWideRows_context, d);
 
   return shouldUseWideRows_context;
 }
 
 - (void)_removeTileForID:(unint64_t)d
 {
-  objc_msgSend_willModify(self, a2, d, v3, v4);
-  objc_msgSend_removeIndex_(self->_tileIDSet, v7, d, v8, v9);
-  v15 = objc_msgSend__groupForTileID_(self, v10, d, v11, v12);
-  objc_msgSend_setObject_atIndexedSubscript_(v15, v13, 0, d, v14);
+  objc_msgSend_willModify(self, a2, d, v3);
+  objc_msgSend_removeIndex_(self->_tileIDSet, v6, d, v7);
+  v11 = objc_msgSend__groupForTileID_(self, v8, d, v9);
+  objc_msgSend_setObject_atIndexedSubscript_(v11, v10, 0, d);
 }
 
 - (void)_enumerateGroups:(id)groups
@@ -815,66 +813,66 @@ LABEL_7:
 - (void)_enumerateTiles:(id)tiles
 {
   tilesCopy = tiles;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_2211A268C;
-  v9[3] = &unk_2784605D8;
-  v10 = tilesCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_2211A268C;
+  v8[3] = &unk_2784605D8;
+  v9 = tilesCopy;
   v5 = tilesCopy;
-  objc_msgSend__enumerateGroups_(self, v6, v9, v7, v8);
+  objc_msgSend__enumerateGroups_(self, v6, v8, v7);
 }
 
 - (void)_enumerateLoadedTiles:(id)tiles
 {
   tilesCopy = tiles;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_2211A282C;
-  v9[3] = &unk_2784605D8;
-  v10 = tilesCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_2211A282C;
+  v8[3] = &unk_2784605D8;
+  v9 = tilesCopy;
   v5 = tilesCopy;
-  objc_msgSend__enumerateGroups_(self, v6, v9, v7, v8);
+  objc_msgSend__enumerateGroups_(self, v6, v8, v7);
 }
 
 - (void)_clearContentAtIndex:(unsigned int)index count:(unsigned int)count
 {
   countCopy = count;
-  v63 = index + count;
-  v64 = index + count - 1;
-  v8 = objc_msgSend_indexGreaterThanOrEqualToIndex_(self->_tileIDSet, a2, index >> 8, *&count, v4);
-  if (v8 != 0x7FFFFFFFFFFFFFFFLL && v8 <= v64 >> 8)
+  v51 = index + count;
+  v52 = index + count - 1;
+  v7 = objc_msgSend_indexGreaterThanOrEqualToIndex_(self->_tileIDSet, a2, index >> 8, *&count);
+  if (v7 != 0x7FFFFFFFFFFFFFFFLL && v7 <= v52 >> 8)
   {
-    v13 = v8;
-    v62 = countCopy;
+    v11 = v7;
+    v50 = countCopy;
     while (1)
     {
-      v14 = v13 << 8;
-      v15 = (v13 << 8) | 0xFF;
-      if (index >= v13 << 8)
+      v12 = v11 << 8;
+      v13 = (v11 << 8) | 0xFF;
+      if (index >= v11 << 8)
       {
         break;
       }
 
-      if (v15 <= v64)
+      if (v13 <= v52)
       {
-        objc_msgSend__removeTileForID_(self, v9, v13, v10, v11);
+        objc_msgSend__removeTileForID_(self, v8, v11, v9);
         goto LABEL_21;
       }
 
-      v19 = objc_msgSend__tileForID_createIfMissing_(self, v9, v13, 0, v11);
-      if (!v19)
+      v16 = objc_msgSend__tileForID_createIfMissing_(self, v8, v11, 0);
+      if (!v16)
       {
-        v20 = MEMORY[0x277D81150];
-        v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSTTableTileStorage _clearContentAtIndex:count:]", v17, v18);
-        v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v23, v24);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 571, 0, "Corrupt tile map during clear!");
+        v17 = MEMORY[0x277D81150];
+        v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTTableTileStorage _clearContentAtIndex:count:]", v15);
+        v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v20);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v18, v21, 571, 0, "Corrupt tile map during clear!");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
-        countCopy = v62;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25);
+        countCopy = v50;
       }
 
-      objc_msgSend_clearRowsAtTileRowIndex_numberOfRows_(v19, v16, 0, v63 - v14, v18);
-      if (objc_msgSend_isEmpty(v19, v31, v32, v33, v34))
+      objc_msgSend_clearRowsAtTileRowIndex_numberOfRows_(v16, v14, 0, v51 - v12);
+      if (objc_msgSend_isEmpty(v16, v26, v27, v28))
       {
         goto LABEL_18;
       }
@@ -882,44 +880,44 @@ LABEL_7:
 LABEL_19:
 
 LABEL_21:
-      v60 = objc_msgSend_indexGreaterThanIndex_(self->_tileIDSet, v57, v13, v58, v59);
-      v13 = v60;
-      if (v60 == 0x7FFFFFFFFFFFFFFFLL || v60 > v64 >> 8)
+      v48 = objc_msgSend_indexGreaterThanIndex_(self->_tileIDSet, v46, v11, v47);
+      v11 = v48;
+      if (v48 == 0x7FFFFFFFFFFFFFFFLL || v48 > v52 >> 8)
       {
         return;
       }
     }
 
-    v19 = objc_msgSend__tileForID_createIfMissing_(self, v9, v13, 0, v11);
-    if (!v19)
+    v16 = objc_msgSend__tileForID_createIfMissing_(self, v8, v11, 0);
+    if (!v16)
     {
-      v41 = MEMORY[0x277D81150];
-      v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "[TSTTableTileStorage _clearContentAtIndex:count:]", v39, v40);
-      v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v44, v45);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v47, v42, v46, 558, 0, "Corrupt tile map during clear!");
+      v33 = MEMORY[0x277D81150];
+      v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "[TSTTableTileStorage _clearContentAtIndex:count:]", v32);
+      v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v36);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v38, v34, v37, 558, 0, "Corrupt tile map during clear!");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v48, v49, v50, v51);
-      countCopy = v62;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40, v41);
+      countCopy = v50;
     }
 
-    v52 = index - v14;
-    if (v15 - index + 1 < countCopy)
+    v42 = index - v12;
+    if (v13 - index + 1 < countCopy)
     {
-      objc_msgSend_clearRowsAtTileRowIndex_numberOfRows_(v19, v38, v52, v15 - index + 1, v40);
+      objc_msgSend_clearRowsAtTileRowIndex_numberOfRows_(v16, v31, v42, v13 - index + 1);
     }
 
     else
     {
-      objc_msgSend_clearRowsAtTileRowIndex_numberOfRows_(v19, v38, v52, countCopy, v40);
+      objc_msgSend_clearRowsAtTileRowIndex_numberOfRows_(v16, v31, v42, countCopy);
     }
 
-    if (!objc_msgSend_isEmpty(v19, v53, v54, v55, v56))
+    if (!objc_msgSend_isEmpty(v16, v43, v44, v45))
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    objc_msgSend__removeTileForID_(self, v35, v13, v36, v37);
+    objc_msgSend__removeTileForID_(self, v29, v11, v30);
     goto LABEL_19;
   }
 }
@@ -928,231 +926,231 @@ LABEL_18:
 {
   v4 = *&count;
   v7 = objc_opt_class();
-  v12 = objc_msgSend_tileSize(v7, v8, v9, v10, v11);
-  v51 = objc_msgSend_strongObjectsPointerArray(MEMORY[0x277CCAC18], v13, v14, v15, v16);
-  Index = objc_msgSend_lastIndex(self->_tileIDSet, v17, v18, v19, v20);
-  v24 = index >> 8;
-  v25 = (v12 - v4);
+  v11 = objc_msgSend_tileSize(v7, v8, v9, v10);
+  v41 = objc_msgSend_strongObjectsPointerArray(MEMORY[0x277CCAC18], v12, v13, v14);
+  Index = objc_msgSend_lastIndex(self->_tileIDSet, v15, v16, v17);
+  v20 = index >> 8;
+  v21 = (v11 - v4);
   do
   {
-    v30 = objc_msgSend__tileForID_createIfMissing_(self, v21, Index, 0, v22);
-    if (!v30)
+    v25 = objc_msgSend__tileForID_createIfMissing_(self, v18, Index, 0);
+    if (!v25)
     {
-      if (!objc_msgSend_count(v51, v26, v27, v28, v29))
+      if (!objc_msgSend_count(v41, v22, v23, v24))
       {
-        v30 = 0;
+        v25 = 0;
 LABEL_15:
-        v47 = v51;
+        v38 = v41;
         goto LABEL_16;
       }
 
-      v30 = objc_msgSend__createTileWithID_(self, v26, Index, v28, v29);
-      if (!v30)
+      v25 = objc_msgSend__createTileWithID_(self, v22, Index, v24);
+      if (!v25)
       {
         goto LABEL_15;
       }
     }
 
-    if (Index <= v24)
+    if (Index <= v20)
     {
-      objc_msgSend_shiftUpAtTileRowIndex_count_(v30, v26, index - (Index << 8), v4, v29);
-      v35 = 0;
+      objc_msgSend_shiftUpAtTileRowIndex_count_(v25, v22, index - (Index << 8), v4);
+      v29 = 0;
     }
 
     else
     {
-      v35 = objc_msgSend_shiftUpAndYankBy_(v30, v26, v4, v28, v29);
+      v29 = objc_msgSend_shiftUpAndYankBy_(v25, v22, v4, v24);
     }
 
-    if (objc_msgSend_count(v51, v31, v32, v33, v34))
+    if (objc_msgSend_count(v41, v26, v27, v28))
     {
-      objc_msgSend_spliceRows_atTileRowIndex_(v30, v36, v51, v25, v37);
+      objc_msgSend_spliceRows_atTileRowIndex_(v25, v30, v41, v21);
     }
 
-    v38 = v35;
+    v31 = v29;
 
-    if (objc_msgSend_isEmpty(v30, v39, v40, v41, v42))
+    if (objc_msgSend_isEmpty(v25, v32, v33, v34))
     {
-      objc_msgSend__removeTileForID_(self, v43, Index, v44, v45);
+      objc_msgSend__removeTileForID_(self, v35, Index, v36);
     }
 
-    v47 = v38;
+    v38 = v31;
 LABEL_16:
-    v51 = v47;
-    if (objc_msgSend_count(v47, v26, v46, v28, v29))
+    v41 = v38;
+    if (objc_msgSend_count(v38, v22, v37, v24))
     {
       --Index;
     }
 
     else
     {
-      Index = objc_msgSend_indexLessThanIndex_(self->_tileIDSet, v48, Index, v49, v50);
+      Index = objc_msgSend_indexLessThanIndex_(self->_tileIDSet, v39, Index, v40);
     }
   }
 
-  while (Index != 0x7FFFFFFFFFFFFFFFLL && Index >= v24);
+  while (Index != 0x7FFFFFFFFFFFFFFFLL && Index >= v20);
 }
 
 - (void)_shiftRowsDownAtIndex:(unsigned int)index count:(unsigned int)count
 {
-  v5 = *&count;
-  v10 = objc_msgSend_indexGreaterThanOrEqualToIndex_(self->_tileIDSet, a2, index >> 8, *&count, v4);
-  v40 = 0;
-  v11 = 0x277D81000uLL;
+  v4 = *&count;
+  v8 = objc_msgSend_indexGreaterThanOrEqualToIndex_(self->_tileIDSet, a2, index >> 8, *&count);
+  v33 = 0;
+  v9 = 0x277D81000uLL;
   do
   {
-    v16 = objc_msgSend__tileForID_createIfMissing_(self, v8, v10, 0, v9);
-    if (v40 && !v16)
+    v13 = objc_msgSend__tileForID_createIfMissing_(self, v7, v8, 0);
+    if (v33 && !v13)
     {
-      if (!objc_msgSend_count(v40, v12, v13, v14, v15))
+      if (!objc_msgSend_count(v33, v10, v11, v12))
       {
-        v16 = 0;
-        v39 = v40;
+        v13 = 0;
+        v32 = v33;
         goto LABEL_22;
       }
 
-      v16 = objc_msgSend__createTileWithID_(self, v12, v10, v14, v15);
+      v13 = objc_msgSend__createTileWithID_(self, v10, v8, v12);
     }
 
-    if (v16)
+    if (v13)
     {
-      if (index >= v10 << 8)
+      if (index >= v8 << 8)
       {
-        objc_msgSend_insertRowsAtTileRowIndex_numberOfRows_(v16, v12, index - (v10 << 8), v5, v15);
+        objc_msgSend_insertRowsAtTileRowIndex_numberOfRows_(v13, v10, index - (v8 << 8), v4);
       }
 
       else
       {
-        objc_msgSend_insertRowsAtTileRowIndex_numberOfRows_(v16, v12, 0, v5, v15);
+        objc_msgSend_insertRowsAtTileRowIndex_numberOfRows_(v13, v10, 0, v4);
       }
 
-      if (v40 && objc_msgSend_count(v40, v17, v18, v19, v20))
+      if (v33 && objc_msgSend_count(v33, v14, v15, v16))
       {
-        if (v10 << 8 < index)
+        if (v8 << 8 < index)
         {
-          v21 = *(v11 + 336);
-          v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSTTableTileStorage _shiftRowsDownAtIndex:count:]", v19, v20);
-          v23 = v5;
-          v24 = v11;
-          v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v26, v27);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v29, v22, v28, 665, 0, "Tile insertion got confused!");
+          v17 = *(v9 + 336);
+          v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTTableTileStorage _shiftRowsDownAtIndex:count:]", v16);
+          v19 = v4;
+          v20 = v9;
+          v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v22);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v24, v18, v23, 665, 0, "Tile insertion got confused!");
 
-          v11 = v24;
-          objc_msgSend_logBacktraceThrottled(*(v24 + 336), v30, v31, v32, v33);
-          v5 = v23;
+          v9 = v20;
+          objc_msgSend_logBacktraceThrottled(*(v20 + 336), v25, v26, v27);
+          v4 = v19;
         }
 
-        objc_msgSend_spliceRows_atTileRowIndex_(v16, v17, v40, 0, v20);
+        objc_msgSend_spliceRows_atTileRowIndex_(v13, v14, v33, 0);
       }
 
-      v34 = objc_msgSend_yankRowsAtTileRowIndex_(v16, v17, 256, v19, v20);
+      v28 = objc_msgSend_yankRowsAtTileRowIndex_(v13, v14, 256, v16);
 
-      if (objc_msgSend_isEmpty(v16, v35, v36, v37, v38))
+      if (objc_msgSend_isEmpty(v13, v29, v30, v31))
       {
-        objc_msgSend__removeTileForID_(self, v12, v10, v14, v15);
+        objc_msgSend__removeTileForID_(self, v10, v8, v12);
       }
 
-      if (!v34)
+      if (!v28)
       {
 LABEL_20:
-        v40 = 0;
+        v33 = 0;
         goto LABEL_24;
       }
     }
 
     else
     {
-      v34 = v40;
-      if (!v40)
+      v28 = v33;
+      if (!v33)
       {
         goto LABEL_20;
       }
     }
 
-    v39 = v34;
+    v32 = v28;
 LABEL_22:
-    v40 = v39;
-    if (objc_msgSend_count(v39, v12, v13, v14, v15))
+    v33 = v32;
+    if (objc_msgSend_count(v32, v10, v11, v12))
     {
-      ++v10;
+      ++v8;
       goto LABEL_25;
     }
 
 LABEL_24:
-    v10 = objc_msgSend_indexGreaterThanIndex_(self->_tileIDSet, v12, v10, v14, v15);
+    v8 = objc_msgSend_indexGreaterThanIndex_(self->_tileIDSet, v10, v8, v12);
 LABEL_25:
   }
 
-  while (v10 != 0x7FFFFFFFFFFFFFFFLL);
+  while (v8 != 0x7FFFFFFFFFFFFFFFLL);
 }
 
 - (void)_insertRowsAtIndex:(unsigned int)index count:(unsigned int)count
 {
-  v6 = *&index;
-  PopulatedRowIndex = objc_msgSend_lastPopulatedRowIndex(self, a2, *&index, *&count, v4);
+  v5 = *&index;
+  PopulatedRowIndex = objc_msgSend_lastPopulatedRowIndex(self, a2, *&index, *&count);
   if (count)
   {
-    if (PopulatedRowIndex != 0x7FFFFFFF && PopulatedRowIndex >= v6)
+    if (PopulatedRowIndex != 0x7FFFFFFF && PopulatedRowIndex >= v5)
     {
-      v9 = objc_opt_class();
-      v14 = objc_msgSend_tileSize(v9, v10, v11, v12, v13);
-      v15 = count / v14;
-      v16 = count % v14;
-      objc_msgSend__shiftRowsDownAtIndex_count_(self, v17, v6, count % v14, v18);
-      if (v15 * v14)
+      v8 = objc_opt_class();
+      v12 = objc_msgSend_tileSize(v8, v9, v10, v11);
+      v13 = count / v12;
+      v14 = count % v12;
+      objc_msgSend__shiftRowsDownAtIndex_count_(self, v15, v5, count % v12);
+      if (v13 * v12)
       {
-        if ((count - v16) % v14)
+        if ((count - v14) % v12)
         {
-          v22 = MEMORY[0x277D81150];
-          v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTTableTileStorage _insertRowsAtIndex:count:]", v20, v21);
-          v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v24, v25);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v64, v26, 713, 0, "Should only have whole-tile moves left in insert!");
+          v18 = MEMORY[0x277D81150];
+          v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSTTableTileStorage _insertRowsAtIndex:count:]", v17);
+          v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v20);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v22, v51, v21, 713, 0, "Should only have whole-tile moves left in insert!");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25);
         }
 
-        v32 = v16 + v6;
-        v33 = v32 >> 8;
-        v63 = v16 + v6;
-        if (v33 == v6 >> 8)
+        v26 = v14 + v5;
+        v27 = v26 >> 8;
+        v50 = v14 + v5;
+        if (v27 == v5 >> 8)
         {
-          v65 = objc_msgSend__yankRowRange_(self, v19, v32, v14 * ((v6 >> 8) + 1) - v32, v21);
-          ++v33;
+          v52 = objc_msgSend__yankRowRange_(self, v16, v26, v12 * ((v5 >> 8) + 1) - v26);
+          ++v27;
         }
 
         else
         {
-          v65 = 0;
+          v52 = 0;
         }
 
-        Index = objc_msgSend_lastIndex(self->_tileIDSet, v19, v32, v20, v21);
-        v39 = Index;
-        if (Index >= v33 && Index != 0x7FFFFFFFFFFFFFFFLL)
+        Index = objc_msgSend_lastIndex(self->_tileIDSet, v16, v26, v17);
+        v32 = Index;
+        if (Index >= v27 && Index != 0x7FFFFFFFFFFFFFFFLL)
         {
           do
           {
-            v44 = objc_msgSend__tileForID_createIfMissing_(self, v35, v39, 0, v38);
-            if (!v44)
+            v36 = objc_msgSend__tileForID_createIfMissing_(self, v29, v32, 0);
+            if (!v36)
             {
-              v45 = MEMORY[0x277D81150];
-              v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSTTableTileStorage _insertRowsAtIndex:count:]", v42, v43);
-              v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v48, v49);
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v51, v46, v50, 732, 0, "Corrupt tile map during insert!");
+              v37 = MEMORY[0x277D81150];
+              v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[TSTTableTileStorage _insertRowsAtIndex:count:]", v35);
+              v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v40);
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v42, v38, v41, 732, 0, "Corrupt tile map during insert!");
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53, v54, v55);
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v43, v44, v45);
             }
 
-            objc_msgSend__removeTileForID_(self, v41, v39, v42, v43);
-            objc_msgSend__setTile_forID_(self, v56, v44, v39 + v15, v57);
-            v39 = objc_msgSend_indexLessThanIndex_(self->_tileIDSet, v58, v39, v59, v60);
+            objc_msgSend__removeTileForID_(self, v34, v32, v35);
+            objc_msgSend__setTile_forID_(self, v46, v36, v32 + v13);
+            v32 = objc_msgSend_indexLessThanIndex_(self->_tileIDSet, v47, v32, v48);
           }
 
-          while (v39 != 0x7FFFFFFFFFFFFFFFLL && v39 >= v33);
+          while (v32 != 0x7FFFFFFFFFFFFFFFLL && v32 >= v27);
         }
 
-        if (v65 && objc_msgSend_count(v65, v35, v36, v37, v38))
+        if (v52 && objc_msgSend_count(v52, v29, v30, v31))
         {
-          objc_msgSend__spliceRows_atIndex_(self, v61, v65, v63 + v15 * v14, v62);
+          objc_msgSend__spliceRows_atIndex_(self, v49, v52, v50 + v13 * v12);
         }
       }
     }
@@ -1161,10 +1159,10 @@ LABEL_25:
 
 - (void)_removeRowsAtIndex:(unsigned int)index count:(unsigned int)count
 {
-  v5 = *&count;
-  v6 = *&index;
-  PopulatedRowIndex = objc_msgSend_lastPopulatedRowIndex(self, a2, *&index, *&count, v4);
-  if (!v5)
+  v4 = *&count;
+  v5 = *&index;
+  PopulatedRowIndex = objc_msgSend_lastPopulatedRowIndex(self, a2, *&index, *&count);
+  if (!v4)
   {
     return;
   }
@@ -1174,143 +1172,143 @@ LABEL_25:
     return;
   }
 
-  if (PopulatedRowIndex < v6)
+  if (PopulatedRowIndex < v5)
   {
     return;
   }
 
-  v9 = objc_opt_class();
-  v14 = objc_msgSend_tileSize(v9, v10, v11, v12, v13);
-  objc_msgSend__clearContentAtIndex_count_(self, v15, v6, v5, v16);
-  v21 = objc_msgSend_lastPopulatedRowIndex(self, v17, v18, v19, v20);
-  if (v21 == 0x7FFFFFFF || v21 < v6)
+  v8 = objc_opt_class();
+  v12 = objc_msgSend_tileSize(v8, v9, v10, v11);
+  objc_msgSend__clearContentAtIndex_count_(self, v13, v5, v4);
+  v17 = objc_msgSend_lastPopulatedRowIndex(self, v14, v15, v16);
+  if (v17 == 0x7FFFFFFF || v17 < v5)
   {
     return;
   }
 
-  v25 = (v5 + v6);
-  v26 = v6 >> 8;
-  v27 = v25 >> 8;
-  LODWORD(v28) = v6 & 0xFFFFFF00;
-  if ((v6 & 0xFFFFFF00) != v6 && v26 != v27)
+  v20 = (v4 + v5);
+  v21 = v5 >> 8;
+  v22 = v20 >> 8;
+  LODWORD(v23) = v5 & 0xFFFFFF00;
+  if ((v5 & 0xFFFFFF00) != v5 && v21 != v22)
   {
-    v28 = (v28 + 256);
-    v29 = objc_msgSend__yankRowRange_(self, v22, v25, (v28 - v6), v24);
-    objc_msgSend__spliceRows_atIndex_(self, v30, v29, v6, v31);
-    v26 = v28 >> 8;
-    v27 = (v28 + v5) >> 8;
+    v23 = (v23 + 256);
+    v24 = objc_msgSend__yankRowRange_(self, v18, v20, (v23 - v5));
+    objc_msgSend__spliceRows_atIndex_(self, v25, v24, v5);
+    v21 = v23 >> 8;
+    v22 = (v23 + v4) >> 8;
 
-    v6 = v28;
+    v5 = v23;
   }
 
-  if (v14 <= v5)
+  if (v12 <= v4)
   {
-    if (v6 == v28)
+    if (v5 == v23)
     {
-      v120 = v6;
-      v121 = v5;
-      v122 = v14;
-      v32 = v26;
-      v33 = v27;
-      if (v26 == v27)
+      v96 = v5;
+      v97 = v4;
+      v98 = v12;
+      v26 = v21;
+      v27 = v22;
+      if (v21 == v22)
       {
-        TSUSetCrashReporterInfo();
-        v104 = MEMORY[0x277D81150];
-        v98 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v105, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v106, v107, "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 813);
-        v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v108, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v109, v110);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v104, v111, v98, v102, 813, 1, "Lost track of tiles during delete!");
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Lost track of tiles during delete!", "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 813);
+        v84 = MEMORY[0x277D81150];
+        v79 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v85, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v86);
+        v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v87, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v88);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v84, v89, v79, v82, 813, 1, "Lost track of tiles during delete!");
       }
 
       else
       {
-        v123 = v27 - v26;
-        v34 = objc_msgSend_indexGreaterThanOrEqualToIndex_(self->_tileIDSet, v22, v26, v23, v24);
-        if (v34 != 0x7FFFFFFFFFFFFFFFLL)
+        v99 = v22 - v21;
+        v28 = objc_msgSend_indexGreaterThanOrEqualToIndex_(self->_tileIDSet, v18, v21, v19);
+        if (v28 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v35 = v34;
-          v36 = 0x277CCA000uLL;
+          v29 = v28;
+          v30 = 0x277CCA000uLL;
           do
           {
-            v41 = objc_msgSend__tileForID_createIfMissing_(self, v22, v35, 0, v24);
-            if (!v41)
+            v34 = objc_msgSend__tileForID_createIfMissing_(self, v18, v29, 0);
+            if (!v34)
             {
-              v42 = MEMORY[0x277D81150];
-              v43 = objc_msgSend_stringWithUTF8String_(*(v36 + 3240), v37, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v39, v40);
-              v44 = v32;
-              v45 = v36;
-              v49 = objc_msgSend_stringWithUTF8String_(*(v36 + 3240), v46, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v47, v48);
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v50, v43, v49, 822, 0, "Corrupt tile map during delete!");
+              v35 = MEMORY[0x277D81150];
+              v36 = objc_msgSend_stringWithUTF8String_(*(v30 + 3240), v31, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v33);
+              v37 = v26;
+              v38 = v30;
+              v41 = objc_msgSend_stringWithUTF8String_(*(v30 + 3240), v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v40);
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v42, v36, v41, 822, 0, "Corrupt tile map during delete!");
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53, v54);
-              v36 = v45;
-              v32 = v44;
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v43, v44, v45);
+              v30 = v38;
+              v26 = v37;
             }
 
-            if (v35 >= v33)
+            if (v29 >= v27)
             {
-              if (v35 - v123 < v32)
+              if (v29 - v99 < v26)
               {
-                TSUSetCrashReporterInfo();
-                v84 = MEMORY[0x277D81150];
-                v88 = objc_msgSend_stringWithUTF8String_(*(v36 + 3240), v85, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v86, v87, "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 831);
-                v92 = objc_msgSend_stringWithUTF8String_(*(v36 + 3240), v89, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v90, v91);
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v84, v93, v88, v92, 831, 1, "Shifting tiles too far during delete!");
+                TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Shifting tiles too far during delete!", "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 831);
+                v68 = MEMORY[0x277D81150];
+                v71 = objc_msgSend_stringWithUTF8String_(*(v30 + 3240), v69, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v70);
+                v74 = objc_msgSend_stringWithUTF8String_(*(v30 + 3240), v72, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v73);
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v68, v75, v71, v74, 831, 1, "Shifting tiles too far during delete!");
 
                 TSUCrashBreakpoint();
 LABEL_32:
                 abort();
               }
 
-              objc_msgSend__removeTileForID_(self, v37, v35, v39, v40);
-              objc_msgSend__setTile_forID_(self, v61, v41, v35 - v123, v62);
+              objc_msgSend__removeTileForID_(self, v31, v29, v33);
+              objc_msgSend__setTile_forID_(self, v50, v34, v29 - v99);
             }
 
             else
             {
-              if ((objc_msgSend_isEmpty(v41, v37, v38, v39, v40) & 1) == 0)
+              if ((objc_msgSend_isEmpty(v34, v31, v32, v33) & 1) == 0)
               {
-                TSUSetCrashReporterInfo();
-                v74 = MEMORY[0x277D81150];
-                v78 = objc_msgSend_stringWithUTF8String_(*(v36 + 3240), v75, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v76, v77, "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 826);
-                v82 = objc_msgSend_stringWithUTF8String_(*(v36 + 3240), v79, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v80, v81);
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v74, v83, v78, v82, 826, 1, "Tile should be empty during delete!");
+                TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Tile should be empty during delete!", "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 826);
+                v60 = MEMORY[0x277D81150];
+                v63 = objc_msgSend_stringWithUTF8String_(*(v30 + 3240), v61, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v62);
+                v66 = objc_msgSend_stringWithUTF8String_(*(v30 + 3240), v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v65);
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v67, v63, v66, 826, 1, "Tile should be empty during delete!");
 
                 TSUCrashBreakpoint();
                 goto LABEL_32;
               }
 
-              objc_msgSend__removeTileForID_(self, v55, v35, v56, v57);
+              objc_msgSend__removeTileForID_(self, v46, v29, v47);
             }
 
-            v35 = objc_msgSend_indexGreaterThanIndex_(self->_tileIDSet, v58, v35, v59, v60);
+            v29 = objc_msgSend_indexGreaterThanIndex_(self->_tileIDSet, v48, v29, v49);
           }
 
-          while (v35 != 0x7FFFFFFFFFFFFFFFLL);
+          while (v29 != 0x7FFFFFFFFFFFFFFFLL);
         }
 
-        v14 = v122;
-        v5 = v121 - v122 * v123;
-        if (v121 >= v122 * v123)
+        v12 = v98;
+        v4 = v97 - v98 * v99;
+        if (v97 >= v98 * v99)
         {
-          v6 = v120;
+          v5 = v96;
           goto LABEL_24;
         }
 
-        TSUSetCrashReporterInfo();
-        v112 = MEMORY[0x277D81150];
-        v98 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v114, v115, "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 840);
-        v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v116, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v117, v118);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v112, v119, v98, v102, 840, 1, "We removed too many rows during delete!");
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d We removed too many rows during delete!", "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 840);
+        v90 = MEMORY[0x277D81150];
+        v79 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v92);
+        v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v93, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v94);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v95, v79, v82, 840, 1, "We removed too many rows during delete!");
       }
     }
 
     else
     {
-      TSUSetCrashReporterInfo();
-      v94 = MEMORY[0x277D81150];
-      v98 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v95, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v96, v97, "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 812);
-      v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v99, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v100, v101);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v94, v103, v98, v102, 812, 1, "Lost track of deletion start point!");
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Lost track of deletion start point!", "[TSTTableTileStorage _removeRowsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 812);
+      v76 = MEMORY[0x277D81150];
+      v79 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v77, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v78);
+      v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v80, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v81);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v76, v83, v79, v82, 812, 1, "Lost track of deletion start point!");
     }
 
     TSUCrashBreakpoint();
@@ -1318,255 +1316,255 @@ LABEL_32:
   }
 
 LABEL_24:
-  if (v5 >= v14)
+  if (v4 >= v12)
   {
-    v63 = MEMORY[0x277D81150];
-    v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v23, v24);
-    v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v66, v67);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v63, v69, v64, v68, 847, 0, "Shift too big during delete!");
+    v51 = MEMORY[0x277D81150];
+    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSTTableTileStorage _removeRowsAtIndex:count:]", v19);
+    v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v54);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v56, v52, v55, 847, 0, "Shift too big during delete!");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v70, v71, v72, v73);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v57, v58, v59);
   }
 
-  MEMORY[0x2821F9670](self, sel__shiftRowsUpAtIndex_count_, v6, v5, v24);
+  MEMORY[0x2821F9670](self, sel__shiftRowsUpAtIndex_count_, v5, v4);
 }
 
 - (id)_yankRowRange:(_NSRange)range
 {
   length = range.length;
   location = range.location;
-  v61 = objc_msgSend_strongObjectsPointerArray(MEMORY[0x277CCAC18], a2, range.location, range.length, v3);
-  objc_msgSend_willModify(self, v7, v8, v9, v10);
-  v11 = length + location - 1;
-  v12 = location >> 8;
-  v60 = v11;
-  v13 = v11 >> 8;
-  if (v12 <= v13)
+  v50 = objc_msgSend_strongObjectsPointerArray(MEMORY[0x277CCAC18], a2, range.location, range.length);
+  objc_msgSend_willModify(self, v6, v7, v8);
+  v9 = length + location - 1;
+  v10 = location >> 8;
+  v49 = v9;
+  v11 = v9 >> 8;
+  if (v10 <= v11)
   {
-    v59 = v13 + 1;
-    v14 = location & 0xFFFFFF00;
-    v15 = 1 - (location + (location & 0xFFFFFF00));
-    v16 = (location & 0xFFFFFF00) - 1;
+    v48 = v11 + 1;
+    v12 = location & 0xFFFFFF00;
+    v13 = 1 - (location + (location & 0xFFFFFF00));
+    v14 = (location & 0xFFFFFF00) - 1;
     do
     {
-      if (v14 >= location)
+      if (v12 >= location)
       {
-        v17 = location;
+        v15 = location;
       }
 
       else
       {
-        v17 = v14;
+        v15 = v12;
       }
 
-      v18 = objc_opt_class();
-      v23 = objc_msgSend_tileSize(v18, v19, v20, v21, v22);
-      if (location >= v14)
+      v16 = objc_opt_class();
+      v20 = objc_msgSend_tileSize(v16, v17, v18, v19);
+      if (location >= v12)
       {
-        v26 = location - v14;
-      }
-
-      else
-      {
-        v26 = 0;
-      }
-
-      if (v60 >= v23 + v16)
-      {
-        v27 = v23 + v16;
+        v22 = location - v12;
       }
 
       else
       {
-        v27 = v60;
+        v22 = 0;
       }
 
-      v28 = objc_msgSend__tileForID_createIfMissing_(self, v24, v12, 0, v25);
-      v33 = v28;
-      v34 = v27 + v17 + v15;
-      if (v28)
+      if (v49 >= v20 + v14)
       {
-        if (objc_msgSend_isEmpty(v28, v29, v30, v31, v32))
+        v23 = v20 + v14;
+      }
+
+      else
+      {
+        v23 = v49;
+      }
+
+      v24 = objc_msgSend__tileForID_createIfMissing_(self, v21, v10, 0);
+      v28 = v24;
+      v29 = v23 + v15 + v13;
+      if (v24)
+      {
+        if (objc_msgSend_isEmpty(v24, v25, v26, v27))
         {
-          v39 = objc_msgSend_count(v61, v35, v36, v37, v38);
-          objc_msgSend_setCount_(v61, v40, v39 + v34, v41, v42);
+          v33 = objc_msgSend_count(v50, v30, v31, v32);
+          objc_msgSend_setCount_(v50, v34, v33 + v29, v35);
         }
 
         else
         {
-          v51 = objc_msgSend_yankRowsAtTileRowIndex_count_(v33, v35, v26, v34, v38);
-          objc_msgSend_tsu_addPointersFromPointerArray_(v61, v52, v51, v53, v54);
+          v42 = objc_msgSend_yankRowsAtTileRowIndex_count_(v28, v30, v22, v29);
+          objc_msgSend_tsu_addPointersFromPointerArray_(v50, v43, v42, v44);
         }
 
-        if (objc_msgSend_isEmpty(v33, v43, v44, v45, v46))
+        if (objc_msgSend_isEmpty(v28, v36, v37, v38))
         {
-          objc_msgSend__removeTileForID_(self, v55, v12, v56, v57);
+          objc_msgSend__removeTileForID_(self, v45, v10, v46);
         }
       }
 
       else
       {
-        v47 = objc_msgSend_count(v61, v29, v30, v31, v32);
-        objc_msgSend_setCount_(v61, v48, v47 + v34, v49, v50);
+        v39 = objc_msgSend_count(v50, v25, v26, v27);
+        objc_msgSend_setCount_(v50, v40, v39 + v29, v41);
       }
 
-      ++v12;
+      ++v10;
+      v12 += 256;
+      v13 -= 256;
       v14 += 256;
-      v15 -= 256;
-      v16 += 256;
     }
 
-    while (v59 != v12);
+    while (v48 != v10);
   }
 
-  return v61;
+  return v50;
 }
 
 - (void)_spliceRows:(id)rows atIndex:(unsigned int)index
 {
   rowsCopy = rows;
   v5 = objc_opt_class();
-  v10 = objc_msgSend_tileSize(v5, v6, v7, v8, v9);
-  v15 = objc_msgSend_count(rowsCopy, v11, v12, v13, v14);
-  v20 = v15;
-  v21 = v10 - index;
-  if (v15 >= v21)
+  v9 = objc_msgSend_tileSize(v5, v6, v7, v8);
+  v13 = objc_msgSend_count(rowsCopy, v10, v11, v12);
+  v17 = v13;
+  v18 = v9 - index;
+  if (v13 >= v18)
   {
-    v22 = v10 - index;
+    v19 = v9 - index;
   }
 
   else
   {
-    v22 = v15;
+    v19 = v13;
   }
 
-  v23 = objc_msgSend_strongObjectsPointerArray(MEMORY[0x277CCAC18], v16, v17, v18, v19);
-  objc_msgSend_setCount_(v23, v24, v22, v25, v26);
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2020000000;
-  v79 = 0;
-  v71[0] = MEMORY[0x277D85DD0];
-  v71[1] = 3221225472;
-  v71[2] = sub_2211A3EB0;
-  v71[3] = &unk_278460600;
-  v74 = 0;
-  v75 = v22;
-  v73 = &v76;
-  v27 = v23;
-  v72 = v27;
-  objc_msgSend_tsu_enumerateNonNullPointersUsingBlock_(rowsCopy, v28, v71, v29, v30);
-  if (*(v77 + 24) == 1)
+  v20 = objc_msgSend_strongObjectsPointerArray(MEMORY[0x277CCAC18], v14, v15, v16);
+  objc_msgSend_setCount_(v20, v21, v19, v22);
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x2020000000;
+  v65 = 0;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = sub_2211A3EB0;
+  v57[3] = &unk_278460600;
+  v60 = 0;
+  v61 = v19;
+  v59 = &v62;
+  v23 = v20;
+  v58 = v23;
+  objc_msgSend_tsu_enumerateNonNullPointersUsingBlock_(rowsCopy, v24, v57, v25);
+  if (*(v63 + 24) == 1)
   {
-    v35 = objc_msgSend__tileForID_createIfMissing_(self, v31, index >> 8, 1, v34);
-    objc_msgSend_spliceRows_atTileRowIndex_(v35, v36, v27, index, v37);
-    if (objc_msgSend_isEmpty(v35, v38, v39, v40, v41))
+    v29 = objc_msgSend__tileForID_createIfMissing_(self, v26, index >> 8, 1);
+    objc_msgSend_spliceRows_atTileRowIndex_(v29, v30, v23, index);
+    if (objc_msgSend_isEmpty(v29, v31, v32, v33))
     {
-      objc_msgSend__removeTileForID_(self, v31, index >> 8, v33, v34);
+      objc_msgSend__removeTileForID_(self, v26, index >> 8, v28);
     }
   }
 
   else
   {
-    v35 = 0;
+    v29 = 0;
   }
 
-  if (v20 <= v21)
+  if (v17 <= v18)
   {
-    v54 = v35;
+    v43 = v29;
   }
 
   else
   {
-    v42 = v10;
-    v43 = (index >> 8) + 1;
+    v34 = v9;
+    v35 = (index >> 8) + 1;
     do
     {
-      if (v20 - v22 >= v42)
+      if (v17 - v19 >= v34)
       {
-        v44 = v42;
+        v36 = v34;
       }
 
       else
       {
-        v44 = v20 - v22;
+        v36 = v17 - v19;
       }
 
-      v45 = objc_msgSend_strongObjectsPointerArray(MEMORY[0x277CCAC18], v31, v32, v33, v34);
+      v37 = objc_msgSend_strongObjectsPointerArray(MEMORY[0x277CCAC18], v26, v27, v28);
 
-      objc_msgSend_setCount_(v45, v46, v44, v47, v48);
-      *(v77 + 24) = 0;
-      v66[0] = MEMORY[0x277D85DD0];
-      v66[1] = 3221225472;
-      v66[2] = sub_2211A3EF8;
-      v66[3] = &unk_278460600;
-      v69 = v22;
-      v70 = v44;
-      v68 = &v76;
-      v27 = v45;
-      v67 = v27;
-      objc_msgSend_tsu_enumerateNonNullPointersUsingBlock_(rowsCopy, v49, v66, v50, v51);
-      if (*(v77 + 24) == 1)
+      objc_msgSend_setCount_(v37, v38, v36, v39);
+      *(v63 + 24) = 0;
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = sub_2211A3EF8;
+      v52[3] = &unk_278460600;
+      v55 = v19;
+      v56 = v36;
+      v54 = &v62;
+      v23 = v37;
+      v53 = v23;
+      objc_msgSend_tsu_enumerateNonNullPointersUsingBlock_(rowsCopy, v40, v52, v41);
+      if (*(v63 + 24) == 1)
       {
-        v54 = objc_msgSend__tileForID_createIfMissing_(self, v52, v43, 1, v53);
+        v43 = objc_msgSend__tileForID_createIfMissing_(self, v42, v35, 1);
 
-        objc_msgSend_spliceRows_atTileRowIndex_(v54, v55, v27, 0, v56);
-        if (objc_msgSend_isEmpty(v54, v57, v58, v59, v60))
+        objc_msgSend_spliceRows_atTileRowIndex_(v43, v44, v23, 0);
+        if (objc_msgSend_isEmpty(v43, v45, v46, v47))
         {
-          objc_msgSend__removeTileForID_(self, v61, v43, v62, v63);
+          objc_msgSend__removeTileForID_(self, v48, v35, v49);
         }
       }
 
       else
       {
-        v54 = v35;
+        v43 = v29;
       }
 
-      v22 += v44;
+      v19 += v36;
 
-      ++v43;
-      v35 = v54;
+      ++v35;
+      v29 = v43;
     }
 
-    while (v22 < v20);
+    while (v19 < v17);
   }
 
-  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v62, 8);
 }
 
 - (void)enumerateTilesConcurrentlyUsingBlock:(id)block
 {
   blockCopy = block;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_2211A40A8;
-  v27 = sub_2211A40B8;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_2211A40A8;
+  v24 = sub_2211A40B8;
   v5 = objc_opt_class();
-  v28 = objc_msgSend__sharedQueue(v5, v6, v7, v8, v9);
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = sub_2211A40C0;
-  v20 = &unk_278460670;
-  v22 = &v23;
-  v10 = blockCopy;
-  v21 = v10;
-  objc_msgSend__enumerateTiles_(self, v11, &v17, v12, v13);
-  objc_msgSend_performSync_(v24[5], v14, &unk_2834A29B0, v15, v16, v17, v18, v19, v20);
+  v25 = objc_msgSend__sharedQueue(v5, v6, v7, v8);
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = sub_2211A40C0;
+  v17 = &unk_278460670;
+  v19 = &v20;
+  v9 = blockCopy;
+  v18 = v9;
+  objc_msgSend__enumerateTiles_(self, v10, &v14, v11);
+  objc_msgSend_performSync_(v21[5], v12, &unk_2834A29B0, v13, v14, v15, v16, v17);
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 - (void)enumerateRowsWithBlock:(id)block
 {
   blockCopy = block;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_2211A426C;
-  v9[3] = &unk_2784606C0;
-  v10 = blockCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_2211A426C;
+  v8[3] = &unk_2784606C0;
+  v9 = blockCopy;
   v5 = blockCopy;
-  objc_msgSend__enumerateTiles_(self, v6, v9, v7, v8);
+  objc_msgSend__enumerateTiles_(self, v6, v8, v7);
 }
 
 - (void)enumerateRowsInRange:(_NSRange)range withBlock:(id)block
@@ -1576,44 +1574,44 @@ LABEL_24:
   blockCopy = block;
   if (length)
   {
-    v9 = length + location - 1;
-    v10 = location >> 8;
-    v11 = v9 >> 8;
-    if (v10 <= v11)
+    v8 = length + location - 1;
+    v9 = location >> 8;
+    v10 = v8 >> 8;
+    if (v9 <= v10)
     {
-      v12 = v11 + 1;
-      v13 = location & 0xFFFFFF00;
+      v11 = v10 + 1;
+      v12 = location & 0xFFFFFF00;
       while (1)
       {
-        v14 = objc_msgSend__tileForID_createIfMissing_(self, v7, v10, 0, v8);
-        if (v14)
+        v13 = objc_msgSend__tileForID_createIfMissing_(self, v7, v9, 0);
+        if (v13)
         {
-          v26 = 0;
-          v27 = &v26;
-          v28 = 0x2020000000;
-          v29 = 0;
-          v20[0] = MEMORY[0x277D85DD0];
-          v20[1] = 3221225472;
-          v20[2] = sub_2211A4500;
-          v20[3] = &unk_2784606E8;
-          v23 = v13;
-          v24 = location;
-          v25 = v9;
-          v21 = blockCopy;
-          v22 = &v26;
-          objc_msgSend_enumerateRowsAndIndexesWithBlock_(v14, v15, v20, v16, v17);
-          v18 = *(v27 + 24);
+          v24 = 0;
+          v25 = &v24;
+          v26 = 0x2020000000;
+          v27 = 0;
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v18[2] = sub_2211A4500;
+          v18[3] = &unk_2784606E8;
+          v21 = v12;
+          v22 = location;
+          v23 = v8;
+          v19 = blockCopy;
+          v20 = &v24;
+          objc_msgSend_enumerateRowsAndIndexesWithBlock_(v13, v14, v18, v15);
+          v16 = *(v25 + 24);
 
-          _Block_object_dispose(&v26, 8);
-          if (v18)
+          _Block_object_dispose(&v24, 8);
+          if (v16)
           {
             break;
           }
         }
 
-        ++v10;
-        v13 += 256;
-        if (v12 == v10)
+        ++v9;
+        v12 += 256;
+        if (v11 == v9)
         {
           goto LABEL_9;
         }
@@ -1631,37 +1629,37 @@ LABEL_9:
   blockCopy = block;
   if (length)
   {
-    v10 = length - 1 + location;
+    v9 = length - 1 + location;
     if (!__CFADD__(length - 1, location))
     {
       do
       {
         while (1)
         {
-          v11 = objc_msgSend__tileForID_createIfMissing_(self, v7, location >> 8, 0, v8);
-          if (v11)
+          v10 = objc_msgSend__tileForID_createIfMissing_(self, v7, location >> 8, 0);
+          if (v10)
           {
-            v13 = objc_msgSend_rowInfoForTileRowIndex_(v11, v7, location, v12, v8);
+            v12 = objc_msgSend_rowInfoForTileRowIndex_(v10, v7, location, v11);
 
-            if (v13)
+            if (v12)
             {
               break;
             }
           }
 
           location = (location + 1);
-          if (location > v10)
+          if (location > v9)
           {
             goto LABEL_9;
           }
         }
 
-        v14 = 0;
-        blockCopy[2](blockCopy, v13, location, &v14);
+        v13 = 0;
+        blockCopy[2](blockCopy, v12, location, &v13);
         location = (location + 1);
       }
 
-      while (location <= v10 && (v14 & 1) == 0);
+      while (location <= v9 && (v13 & 1) == 0);
     }
   }
 
@@ -1670,92 +1668,92 @@ LABEL_9:
 
 - (id)rowInfoAtIndex:(unsigned int)index
 {
-  v7 = index >> 8;
-  if (objc_msgSend_containsIndex_(self->_tileIDSet, a2, v7, v3, v4))
+  v6 = index >> 8;
+  if (objc_msgSend_containsIndex_(self->_tileIDSet, a2, v6, v3))
   {
     if (index >= 0x100000)
     {
-      TSUSetCrashReporterInfo();
-      v33 = MEMORY[0x277D81150];
-      v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[TSTTableTileStorage rowInfoAtIndex:]", v35, v36, "[TSTTableTileStorage rowInfoAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 1106);
-      v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v39, v40);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v42, v37, v41, 1106, 1, "Bad tile group index!");
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Bad tile group index!", "[TSTTableTileStorage rowInfoAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", 1106);
+      v28 = MEMORY[0x277D81150];
+      v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "[TSTTableTileStorage rowInfoAtIndex:]", v30);
+      v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v33);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v35, v31, v34, 1106, 1, "Bad tile group index!");
 
       TSUCrashBreakpoint();
       abort();
     }
 
-    v11 = v7 >> 8;
+    v9 = v6 >> 8;
     tileGroups = self->_tileGroups;
-    v13 = tileGroups[v7 >> 8];
-    if (!v13)
+    v11 = tileGroups[v6 >> 8];
+    if (!v11)
     {
-      v14 = objc_msgSend_groupWithStartingTileID_(TSTTableTileGroup, v8, v7 & 0xF00, v9, v10);
-      v15 = tileGroups[v11];
-      tileGroups[v11] = v14;
+      v12 = objc_msgSend_groupWithStartingTileID_(TSTTableTileGroup, v7, v6 & 0xF00, v8);
+      v13 = tileGroups[v9];
+      tileGroups[v9] = v12;
 
-      v13 = tileGroups[v11];
+      v11 = tileGroups[v9];
     }
 
-    v16 = objc_msgSend_objectAtIndexedSubscript_(v13, v8, v7, v9, v10);
-    if (v16)
+    v14 = objc_msgSend_objectAtIndexedSubscript_(v11, v7, v6, v8);
+    if (v14)
     {
-      v20 = objc_msgSend_rowInfoForTileRowIndex_(v16, v17, index, v18, v19);
+      v17 = objc_msgSend_rowInfoForTileRowIndex_(v14, v15, index, v16);
       goto LABEL_9;
     }
 
-    v21 = MEMORY[0x277D81150];
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSTTableTileStorage rowInfoAtIndex:]", v18, v19);
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v24, v25);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v27, v22, v26, 1121, 0, "invalid nil value for '%{public}s'", "tile");
+    v18 = MEMORY[0x277D81150];
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTTableTileStorage rowInfoAtIndex:]", v16);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v21);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v23, v19, v22, 1121, 0, "invalid nil value for '%{public}s'", "tile");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30, v31);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26);
   }
 
-  v20 = 0;
+  v17 = 0;
 LABEL_9:
 
-  return v20;
+  return v17;
 }
 
 - (id)tileForWritingAtRowIndex:(unsigned int)index outTileRange:(_NSRange *)range
 {
-  v7 = objc_msgSend__tileForID_createIfMissing_(self, a2, index >> 8, 1, v4);
+  v6 = objc_msgSend__tileForID_createIfMissing_(self, a2, index >> 8, 1);
   if (range)
   {
-    v8 = objc_opt_class();
-    v13 = objc_msgSend_tileSize(v8, v9, v10, v11, v12);
+    v7 = objc_opt_class();
+    v11 = objc_msgSend_tileSize(v7, v8, v9, v10);
     range->location = index & 0xFFFFFF00;
-    range->length = v13;
+    range->length = v11;
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)tileStartingAtOrBeforeRowIndex:(unsigned int)index outTileRange:(_NSRange *)range
 {
-  v7 = objc_msgSend_indexLessThanOrEqualToIndex_(self->_tileIDSet, a2, index >> 8, range, v4);
-  v10 = objc_msgSend__tileForID_createIfMissing_(self, v8, v7, 0, v9);
+  v6 = objc_msgSend_indexLessThanOrEqualToIndex_(self->_tileIDSet, a2, index >> 8, range);
+  v8 = objc_msgSend__tileForID_createIfMissing_(self, v7, v6, 0);
   if (range)
   {
-    v11 = objc_opt_class();
-    v16 = objc_msgSend_tileSize(v11, v12, v13, v14, v15);
-    range->location = (v7 & 0xFFFFFF) << 8;
-    range->length = v16;
+    v9 = objc_opt_class();
+    v13 = objc_msgSend_tileSize(v9, v10, v11, v12);
+    range->location = (v6 & 0xFFFFFF) << 8;
+    range->length = v13;
   }
 
-  return v10;
+  return v8;
 }
 
 - (id)tileStartingAtOrAfterRowIndex:(unsigned int)index outTileRange:(_NSRange *)range
 {
-  v7 = objc_msgSend_indexGreaterThanOrEqualToIndex_(self->_tileIDSet, a2, index >> 8, range, v4);
-  if (v7 != 0x7FFFFFFFFFFFFFFFLL)
+  v6 = objc_msgSend_indexGreaterThanOrEqualToIndex_(self->_tileIDSet, a2, index >> 8, range);
+  if (v6 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v12 = v7;
-    v10 = objc_msgSend__tileForID_createIfMissing_(self, v8, v7, 0, v9);
+    v10 = v6;
+    v8 = objc_msgSend__tileForID_createIfMissing_(self, v7, v6, 0);
 
-    v11 = (*&v12 & 0xFFFFFFLL) << 8;
+    v9 = (*&v10 & 0xFFFFFFLL) << 8;
     if (!range)
     {
       goto LABEL_6;
@@ -1764,152 +1762,152 @@ LABEL_9:
     goto LABEL_5;
   }
 
-  v10 = 0;
-  v11 = 0x7FFFFFFFLL;
+  v8 = 0;
+  v9 = 0x7FFFFFFFLL;
   if (range)
   {
 LABEL_5:
-    v13 = objc_opt_class();
-    v18 = objc_msgSend_tileSize(v13, v14, v15, v16, v17);
-    range->location = v11;
-    range->length = v18;
+    v11 = objc_opt_class();
+    v15 = objc_msgSend_tileSize(v11, v12, v13, v14);
+    range->location = v9;
+    range->length = v15;
   }
 
 LABEL_6:
 
-  return v10;
+  return v8;
 }
 
 - (void)insertRowsAtIndex:(unsigned int)index count:(unsigned int)count
 {
-  v5 = *&count;
-  v6 = *&index;
-  objc_msgSend_willModify(self, a2, *&index, *&count, v4);
+  v4 = *&count;
+  v5 = *&index;
+  objc_msgSend_willModify(self, a2, *&index, *&count);
   if (TSTTilesCat_init_token != -1)
   {
     sub_2216F6D34();
   }
 
-  objc_msgSend__insertRowsAtIndex_count_(self, v8, v6, v5, v9);
-  if (objc_msgSend_firstIndex(self->_tileIDSet, v10, v11, v12, v13))
+  objc_msgSend__insertRowsAtIndex_count_(self, v7, v5, v4);
+  if (objc_msgSend_firstIndex(self->_tileIDSet, v8, v9, v10))
   {
-    v17 = objc_msgSend__createTileWithID_(self, v14, 0, v15, v16);
+    v13 = objc_msgSend__createTileWithID_(self, v11, 0, v12);
   }
 }
 
 - (void)removeRowsAtIndex:(unsigned int)index count:(unsigned int)count
 {
-  v5 = *&count;
-  v6 = *&index;
-  objc_msgSend_willModify(self, a2, *&index, *&count, v4);
+  v4 = *&count;
+  v5 = *&index;
+  objc_msgSend_willModify(self, a2, *&index, *&count);
   if (TSTTilesCat_init_token != -1)
   {
     sub_2216F6D48();
   }
 
-  objc_msgSend__removeRowsAtIndex_count_(self, v8, v6, v5, v9);
-  if (objc_msgSend_firstIndex(self->_tileIDSet, v10, v11, v12, v13))
+  objc_msgSend__removeRowsAtIndex_count_(self, v7, v5, v4);
+  if (objc_msgSend_firstIndex(self->_tileIDSet, v8, v9, v10))
   {
-    v17 = objc_msgSend__createTileWithID_(self, v14, 0, v15, v16);
+    v13 = objc_msgSend__createTileWithID_(self, v11, 0, v12);
   }
 }
 
 - (void)swapRowAtIndex:(unsigned int)index withRowAtIndex:(unsigned int)atIndex
 {
-  objc_msgSend_willModify(self, a2, *&index, *&atIndex, v4);
+  objc_msgSend_willModify(self, a2, *&index, *&atIndex);
   if (TSTTilesCat_init_token != -1)
   {
     sub_2216F6D5C();
   }
 
-  v10 = objc_msgSend__tileForID_createIfMissing_(self, v8, index >> 8, 0, v9);
-  v13 = v10;
+  v8 = objc_msgSend__tileForID_createIfMissing_(self, v7, index >> 8, 0);
+  v10 = v8;
   if (index >> 8 != atIndex >> 8)
   {
-    v37 = atIndex >> 8;
-    v14 = objc_msgSend__tileForID_createIfMissing_(self, v11, v37, 0, v12);
-    v18 = v14;
-    if (v13)
+    v30 = atIndex >> 8;
+    v11 = objc_msgSend__tileForID_createIfMissing_(self, v9, v30, 0);
+    v14 = v11;
+    if (v10)
     {
-      v19 = objc_msgSend_yankRowInfoAtTileRowIndex_(v13, v15, index, v16, v17);
-      v21 = v19;
-      if (!v18)
+      v15 = objc_msgSend_yankRowInfoAtTileRowIndex_(v10, v12, index, v13);
+      v17 = v15;
+      if (!v14)
       {
-        v22 = 0;
-        if (!v19)
+        v18 = 0;
+        if (!v15)
         {
-          v23 = 0;
+          v19 = 0;
           goto LABEL_19;
         }
 
-        v18 = objc_msgSend__createTileWithID_(self, v15, v37, v16, v17);
+        v14 = objc_msgSend__createTileWithID_(self, v12, v30, v13);
         goto LABEL_12;
       }
     }
 
     else
     {
-      v21 = 0;
-      v23 = 0;
-      v22 = 0;
-      v24 = 0;
-      if (!v14)
+      v17 = 0;
+      v19 = 0;
+      v18 = 0;
+      v20 = 0;
+      if (!v11)
       {
 LABEL_25:
 
-        v13 = v24;
+        v10 = v20;
         goto LABEL_26;
       }
     }
 
-    v25 = objc_msgSend_yankRowInfoAtTileRowIndex_(v18, v15, atIndex, v16, v17);
-    v22 = v25;
-    if (!v21)
+    v21 = objc_msgSend_yankRowInfoAtTileRowIndex_(v14, v12, atIndex, v13);
+    v18 = v21;
+    if (!v17)
     {
-      v23 = v18;
-      if (!v25)
+      v19 = v14;
+      if (!v21)
       {
         goto LABEL_18;
       }
 
 LABEL_15:
-      if (!v13)
+      if (!v10)
       {
-        v13 = objc_msgSend__createTileWithID_(self, v15, index >> 8, v16, v17);
+        v10 = objc_msgSend__createTileWithID_(self, v12, index >> 8, v13);
       }
 
-      objc_msgSend_spliceRowInfo_atTileRowIndex_overwrite_(v13, v15, v22, index, 0);
+      objc_msgSend_spliceRowInfo_atTileRowIndex_overwrite_(v10, v12, v18, index, 0);
 LABEL_18:
-      if (!v13)
+      if (!v10)
       {
 LABEL_21:
-        if (v23 && objc_msgSend_isEmpty(v23, v15, v20, v16, v17))
+        if (v19 && objc_msgSend_isEmpty(v19, v12, v16, v13))
         {
-          objc_msgSend__removeTileForID_(self, v26, v37, v27, v28);
-          v24 = v13;
+          objc_msgSend__removeTileForID_(self, v22, v30, v23);
+          v20 = v10;
         }
 
         else
         {
-          v24 = v13;
+          v20 = v10;
         }
 
         goto LABEL_25;
       }
 
 LABEL_19:
-      if (objc_msgSend_isEmpty(v13, v15, v20, v16, v17))
+      if (objc_msgSend_isEmpty(v10, v12, v16, v13))
       {
-        objc_msgSend__removeTileForID_(self, v15, index >> 8, v16, v17);
+        objc_msgSend__removeTileForID_(self, v12, index >> 8, v13);
       }
 
       goto LABEL_21;
     }
 
 LABEL_12:
-    v23 = v18;
-    objc_msgSend_spliceRowInfo_atTileRowIndex_overwrite_(v18, v15, v21, atIndex, 0);
-    if (!v22)
+    v19 = v14;
+    objc_msgSend_spliceRowInfo_atTileRowIndex_overwrite_(v14, v12, v17, atIndex, 0);
+    if (!v18)
     {
       goto LABEL_18;
     }
@@ -1917,16 +1915,16 @@ LABEL_12:
     goto LABEL_15;
   }
 
-  if (v10)
+  if (v8)
   {
-    objc_msgSend_swapRowAtTileRowIndex_withRowAtTileRowIndex_(v10, v11, index, atIndex, v12);
+    objc_msgSend_swapRowAtTileRowIndex_withRowAtTileRowIndex_(v8, v9, index, atIndex);
   }
 
 LABEL_26:
 
-  if (objc_msgSend_firstIndex(self->_tileIDSet, v29, v30, v31, v32))
+  if (objc_msgSend_firstIndex(self->_tileIDSet, v24, v25, v26))
   {
-    v36 = objc_msgSend__createTileWithID_(self, v33, 0, v34, v35);
+    v29 = objc_msgSend__createTileWithID_(self, v27, 0, v28);
   }
 }
 
@@ -1935,7 +1933,7 @@ LABEL_26:
   LODWORD(v4) = index;
   length = range.length;
   location = range.location;
-  PopulatedRowIndex = objc_msgSend_lastPopulatedRowIndex(self, a2, range.location, range.length, *&index);
+  PopulatedRowIndex = objc_msgSend_lastPopulatedRowIndex(self, a2, range.location, range.length);
   if (TSTTilesCat_init_token != -1)
   {
     sub_2216F6D70();
@@ -1945,32 +1943,32 @@ LABEL_26:
   {
     if (location + length > v4)
     {
-      v13 = MEMORY[0x277D81150];
-      v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTTableTileStorage moveRowIndexRange:toIndex:]", v10, v11);
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v15, v16);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v18, v47, v17, 1288, 0, "Move row ranges cannot overlap!");
+      v12 = MEMORY[0x277D81150];
+      v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTTableTileStorage moveRowIndexRange:toIndex:]", v10);
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileStorage.mm", v14);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v16, v38, v15, 1288, 0, "Move row ranges cannot overlap!");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
     }
 
     LODWORD(v4) = v4 - length;
   }
 
-  v23 = (v4 - location);
+  v20 = (v4 - location);
   if (v4 != location && length && PopulatedRowIndex != 0x7FFFFFFF && (PopulatedRowIndex >= location || v4 <= PopulatedRowIndex))
   {
-    objc_msgSend_willModify(self, v8, v9, v10, v11);
-    v26 = v4;
-    v27 = (location - v4);
-    v28 = v4 > location;
+    objc_msgSend_willModify(self, v8, v9, v10);
+    v22 = v4;
+    v23 = (location - v4);
+    v24 = v4 > location;
     if (v4 > location)
     {
-      v29 = location;
+      v25 = location;
     }
 
     else
     {
-      v29 = v4;
+      v25 = v4;
     }
 
     if (v4 > location)
@@ -1983,43 +1981,43 @@ LABEL_26:
       v4 = (v4 + length);
     }
 
-    if (v28)
+    if (v24)
     {
-      v30 = location;
+      v26 = location;
     }
 
     else
     {
-      v30 = v26;
+      v26 = v22;
     }
 
-    if (v28)
+    if (v24)
     {
-      v31 = length;
+      v27 = length;
     }
 
     else
     {
-      v31 = v27;
+      v27 = v23;
     }
 
-    if (v28)
+    if (v24)
     {
       location = (location + length);
     }
 
-    if (v28)
+    if (v24)
     {
-      length = v23;
+      length = v20;
     }
 
-    v48 = objc_msgSend__yankRowRange_(self, v24, v30, v31, v25);
-    v34 = objc_msgSend__yankRowRange_(self, v32, location, length, v33);
-    objc_msgSend__spliceRows_atIndex_(self, v35, v34, v29, v36);
-    objc_msgSend__spliceRows_atIndex_(self, v37, v48, v4, v38);
-    if (objc_msgSend_firstIndex(self->_tileIDSet, v39, v40, v41, v42))
+    v39 = objc_msgSend__yankRowRange_(self, v21, v26, v27);
+    v29 = objc_msgSend__yankRowRange_(self, v28, location, length);
+    objc_msgSend__spliceRows_atIndex_(self, v30, v29, v25);
+    objc_msgSend__spliceRows_atIndex_(self, v31, v39, v4);
+    if (objc_msgSend_firstIndex(self->_tileIDSet, v32, v33, v34))
     {
-      v46 = objc_msgSend__createTileWithID_(self, v43, 0, v44, v45);
+      v37 = objc_msgSend__createTileWithID_(self, v35, 0, v36);
     }
   }
 }
@@ -2028,146 +2026,146 @@ LABEL_26:
 {
   length = range.length;
   location = range.location;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_2211A40A8;
-  v15 = sub_2211A40B8;
-  v16 = objc_msgSend_dictionary(MEMORY[0x277D81208], a2, range.location, range.length, v3);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_2211A520C;
-  v10[3] = &unk_27845E8E0;
-  v10[4] = &v11;
-  objc_msgSend_enumerateRowsInRange_withBlock_(self, v7, location, length, v10);
-  v8 = v12[5];
-  _Block_object_dispose(&v11, 8);
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_2211A40A8;
+  v14 = sub_2211A40B8;
+  v15 = objc_msgSend_dictionary(MEMORY[0x277D81208], a2, range.location, range.length);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_2211A520C;
+  v9[3] = &unk_27845E8E0;
+  v9[4] = &v10;
+  objc_msgSend_enumerateRowsInRange_withBlock_(self, v6, location, length, v9);
+  v7 = v11[5];
+  _Block_object_dispose(&v10, 8);
 
-  return v8;
+  return v7;
 }
 
 - (void)insertColumnsAtIndex:(unsigned __int16)index count:(unsigned int)count
 {
-  objc_msgSend_willModify(self, a2, index, *&count, v4);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_2211A5350;
-  v11[3] = &unk_278460708;
+  objc_msgSend_willModify(self, a2, index, *&count);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_2211A5350;
+  v9[3] = &unk_278460708;
   indexCopy = index;
   countCopy = count;
-  objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v8, v11, v9, v10);
+  objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v7, v9, v8);
 }
 
 - (id)removeColumnsAtIndex:(unsigned __int16)index count:(unsigned int)count
 {
-  objc_msgSend_willModify(self, a2, index, *&count, v4);
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3812000000;
-  v19[3] = sub_2211A54AC;
-  v19[4] = nullsub_17;
-  v19[5] = &unk_22188E88F;
-  v20 = 0;
-  v8 = objc_opt_new();
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_2211A54BC;
-  v14[3] = &unk_278460758;
+  objc_msgSend_willModify(self, a2, index, *&count);
+  v17[0] = 0;
+  v17[1] = v17;
+  v17[2] = 0x3812000000;
+  v17[3] = sub_2211A54AC;
+  v17[4] = nullsub_17;
+  v17[5] = &unk_22188E88F;
+  v18 = 0;
+  v7 = objc_opt_new();
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_2211A54BC;
+  v12[3] = &unk_278460758;
   indexCopy = index;
   countCopy = count;
-  v16 = v19;
-  v9 = v8;
-  v15 = v9;
-  objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v10, v14, v11, v12);
+  v14 = v17;
+  v8 = v7;
+  v13 = v8;
+  objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v9, v12, v10);
 
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v17, 8);
 
-  return v9;
+  return v8;
 }
 
 - (void)moveColumnIndexRange:(_NSRange)range toIndex:(unsigned __int16)index
 {
   length = range.length;
   location = range.location;
-  objc_msgSend_willModify(self, a2, range.location, range.length, index);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_2211A5668;
-  v11[3] = &unk_278460778;
-  v13 = location;
-  v12 = length;
+  objc_msgSend_willModify(self, a2, range.location, range.length);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_2211A5668;
+  v10[3] = &unk_278460778;
+  v12 = location;
+  v11 = length;
   indexCopy = index;
-  objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v8, v11, v9, v10);
+  objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v8, v10, v9);
 }
 
 - (NSIndexSet)populatedTiles
 {
   v3 = objc_alloc(MEMORY[0x277CCAA78]);
-  v7 = objc_msgSend_initWithIndexSet_(v3, v4, self->_tileIDSet, v5, v6);
+  v6 = objc_msgSend_initWithIndexSet_(v3, v4, self->_tileIDSet, v5);
 
-  return v7;
+  return v6;
 }
 
 - (NSIndexSet)populatedRows
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_2211A40A8;
-  v16 = sub_2211A40B8;
-  v17 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], a2, v2, v3, v4);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_2211A57EC;
-  v11[3] = &unk_27845E8E0;
-  v11[4] = &v12;
-  objc_msgSend_enumerateRowsWithBlock_(self, v6, v11, v7, v8);
-  v9 = v13[5];
-  _Block_object_dispose(&v12, 8);
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_2211A40A8;
+  v14 = sub_2211A40B8;
+  v15 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], a2, v2, v3);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_2211A57EC;
+  v9[3] = &unk_27845E8E0;
+  v9[4] = &v10;
+  objc_msgSend_enumerateRowsWithBlock_(self, v5, v9, v6);
+  v7 = v11[5];
+  _Block_object_dispose(&v10, 8);
 
-  return v9;
+  return v7;
 }
 
 - (unsigned)lastPopulatedRowIndex
 {
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0x7FFFFFFF;
-  Index = objc_msgSend_lastIndex(self->_tileIDSet, a2, v2, v3, v4);
-  v9 = objc_msgSend__tileForID_createIfMissing_(self, v7, Index, 0, v8);
-  if (objc_msgSend_isEmpty(v9, v10, v11, v12, v13))
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0x7FFFFFFF;
+  Index = objc_msgSend_lastIndex(self->_tileIDSet, a2, v2, v3);
+  v7 = objc_msgSend__tileForID_createIfMissing_(self, v6, Index, 0);
+  if (objc_msgSend_isEmpty(v7, v8, v9, v10))
   {
     tileIDSet = self->_tileIDSet;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = sub_2211A5A3C;
-    v21[3] = &unk_27845F0D8;
-    v21[4] = self;
-    v21[5] = &v22;
-    objc_msgSend_enumerateIndexesWithOptions_usingBlock_(tileIDSet, v14, 2, v21, v17);
-    v19 = *(v23 + 6);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = sub_2211A5A3C;
+    v17[3] = &unk_27845F0D8;
+    v17[4] = self;
+    v17[5] = &v18;
+    objc_msgSend_enumerateIndexesWithOptions_usingBlock_(tileIDSet, v11, 2, v17);
+    v15 = *(v19 + 6);
   }
 
   else
   {
-    v19 = objc_msgSend_maxRow(v9, v14, v15, v16, v17) + (Index << 8);
-    *(v23 + 6) = v19;
+    v15 = objc_msgSend_maxRow(v7, v11, v12, v13) + (Index << 8);
+    *(v19 + 6) = v15;
   }
 
-  _Block_object_dispose(&v22, 8);
-  return v19;
+  _Block_object_dispose(&v18, 8);
+  return v15;
 }
 
 - (void)pruneTileForRowIndex:(unsigned int)index
 {
   if (index >= 0x100)
   {
-    v5 = index >> 8;
-    v13 = objc_msgSend__tileForID_createIfMissing_(self, a2, v5, 0, v3);
-    if (v13 && objc_msgSend_isEmpty(v13, v6, v7, v8, v9))
+    v4 = index >> 8;
+    v10 = objc_msgSend__tileForID_createIfMissing_(self, a2, v4, 0);
+    if (v10 && objc_msgSend_isEmpty(v10, v5, v6, v7))
     {
-      objc_msgSend__removeTileForID_(self, v10, v5, v11, v12);
+      objc_msgSend__removeTileForID_(self, v8, v4, v9);
     }
   }
 }
@@ -2175,194 +2173,194 @@ LABEL_26:
 - (void)pruneTilesForRows:(id)rows
 {
   rowsCopy = rows;
-  if (objc_msgSend_count(rowsCopy, v4, v5, v6, v7))
+  if (objc_msgSend_count(rowsCopy, v4, v5, v6))
   {
-    v16 = objc_msgSend_firstIndex(rowsCopy, v8, v9, v10, v11) >> 8;
-    v19 = objc_msgSend_lastIndex(rowsCopy, v12, v13, v14, v15) >> 8;
-    if (v16 <= v19)
+    v13 = objc_msgSend_firstIndex(rowsCopy, v7, v8, v9) >> 8;
+    v15 = objc_msgSend_lastIndex(rowsCopy, v10, v11, v12) >> 8;
+    if (v13 <= v15)
     {
       do
       {
-        if (v16)
+        if (v13)
         {
-          v20 = objc_msgSend__tileForID_createIfMissing_(self, v17, v16, 0, v18);
-          v25 = v20;
-          if (v20 && objc_msgSend_isEmpty(v20, v21, v22, v23, v24))
+          v16 = objc_msgSend__tileForID_createIfMissing_(self, v14, v13, 0);
+          v20 = v16;
+          if (v16 && objc_msgSend_isEmpty(v16, v17, v18, v19))
           {
-            objc_msgSend__removeTileForID_(self, v26, v16, v27, v28);
+            objc_msgSend__removeTileForID_(self, v21, v13, v22);
           }
         }
       }
 
-      while (v16++ < v19);
+      while (v13++ < v15);
     }
   }
 }
 
 - (BOOL)needToUpgradeCellStorage
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v10 = 0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = 0;
   if (self->_upgradeRepairedTiles)
   {
-    v4 = 1;
-    v10 = 1;
+    v3 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = sub_2211A5E70;
-    v6[3] = &unk_278460568;
-    v6[4] = &v7;
-    objc_msgSend__enumerateTiles_(self, a2, v6, v2, v3);
-    v4 = *(v8 + 24);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = sub_2211A5E70;
+    v5[3] = &unk_278460568;
+    v5[4] = &v6;
+    objc_msgSend__enumerateTiles_(self, a2, v5, v2);
+    v3 = *(v7 + 24);
   }
 
-  _Block_object_dispose(&v7, 8);
-  return v4 & 1;
+  _Block_object_dispose(&v6, 8);
+  return v3 & 1;
 }
 
 - (BOOL)auditRowInfoCellCountsReturningResult:(id *)result
 {
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 1;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_2211A40A8;
-  v17 = sub_2211A40B8;
-  v18 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], a2, @"RowInfo Cell Count Audit\n", v3, v4);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_2211A6024;
-  v12[3] = &unk_2784607E8;
-  v12[4] = &v19;
-  v12[5] = &v13;
-  objc_msgSend__enumerateTiles_(self, v7, v12, v8, v9);
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 1;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_2211A40A8;
+  v15 = sub_2211A40B8;
+  v16 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], a2, @"RowInfo Cell Count Audit\n", v3);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_2211A6024;
+  v10[3] = &unk_2784607E8;
+  v10[4] = &v17;
+  v10[5] = &v11;
+  objc_msgSend__enumerateTiles_(self, v6, v10, v7);
   if (result)
   {
-    *result = v14[5];
+    *result = v12[5];
   }
 
-  v10 = *(v20 + 24);
-  _Block_object_dispose(&v13, 8);
+  v8 = *(v18 + 24);
+  _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v19, 8);
-  return v10;
+  _Block_object_dispose(&v17, 8);
+  return v8;
 }
 
 - (BOOL)auditTilesForRowOverlapAndExtensionPastTableBounds:(TSUCellCoord)bounds withDataStore:(id)store result:(id *)result
 {
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 1;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x3032000000;
-  v25[3] = sub_2211A40A8;
-  v25[4] = sub_2211A40B8;
-  v26 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], a2, *&bounds, store, result);
-  v11 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], v8, @"Tile Overlap Audit\n", v9, v10);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = sub_2211A645C;
-  v19[3] = &unk_278460810;
-  v21 = v25;
-  v12 = v11;
-  v20 = v12;
-  v22 = &v31;
-  v23 = &v27;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 1;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 1;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = sub_2211A40A8;
+  v23[4] = sub_2211A40B8;
+  v24 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], a2, *&bounds, store);
+  v10 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], v8, @"Tile Overlap Audit\n", v9);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_2211A645C;
+  v17[3] = &unk_278460810;
+  v19 = v23;
+  v11 = v10;
+  v18 = v11;
+  v20 = &v29;
+  v21 = &v25;
   boundsCopy = bounds;
-  objc_msgSend__enumerateTiles_(self, v13, v19, v14, v15);
+  objc_msgSend__enumerateTiles_(self, v12, v17, v13);
   if (result)
   {
-    v16 = v12;
-    *result = v12;
+    v14 = v11;
+    *result = v11;
   }
 
-  if (*(v32 + 24) == 1)
+  if (*(v30 + 24) == 1)
   {
-    v17 = *(v28 + 24);
+    v15 = *(v26 + 24);
   }
 
   else
   {
-    v17 = 0;
+    v15 = 0;
   }
 
-  _Block_object_dispose(v25, 8);
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v31, 8);
-  return v17 & 1;
+  _Block_object_dispose(v23, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
+  return v15 & 1;
 }
 
 - (void)reset
 {
-  objc_msgSend_removeAllIndexes(self->_tileIDSet, a2, v2, v3, v4);
-  v6 = 0;
+  objc_msgSend_removeAllIndexes(self->_tileIDSet, a2, v2, v3);
+  v5 = 0;
   tileGroups = self->_tileGroups;
   do
   {
-    v8 = tileGroups[v6];
-    tileGroups[v6] = 0;
+    v7 = tileGroups[v5];
+    tileGroups[v5] = 0;
 
-    ++v6;
+    ++v5;
   }
 
-  while (v6 != 16);
+  while (v5 != 16);
   self->_upgradeRepairedTiles = 0;
 }
 
 - (void)widenTilesForUpgrade
 {
-  objc_msgSend_willModifyForUpgrade(self, a2, v2, v3, v4);
+  objc_msgSend_willModifyForUpgrade(self, a2, v2, v3);
   self->_shouldUseWideRows = 1;
 
-  objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v6, &unk_2834A2A90, v7, v8);
+  objc_msgSend_enumerateTilesConcurrentlyUsingBlock_(self, v5, &unk_2834A2A90, v6);
 }
 
 - (multimap<TSUCellCoord,)makeStorageMap
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x4812000000;
-  v11 = sub_2211A6800;
-  v12 = sub_2211A683C;
-  v13 = &unk_22188E88F;
-  v15[0] = 0;
-  v15[1] = 0;
-  v14 = v15;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_2211A6848;
-  v7[3] = &unk_278460568;
-  v7[4] = &v8;
-  objc_msgSend__enumerateTiles_(self, a3, v7, v3, v4);
-  sub_2211A8B04(retstr, v9 + 6);
-  _Block_object_dispose(&v8, 8);
-  sub_2210BC9F8(&v14, v15[0]);
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x4812000000;
+  v10 = sub_2211A6800;
+  v11 = sub_2211A683C;
+  v12 = &unk_22188E88F;
+  v14[0] = 0;
+  v14[1] = 0;
+  v13 = v14;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = sub_2211A6848;
+  v6[3] = &unk_278460568;
+  v6[4] = &v7;
+  objc_msgSend__enumerateTiles_(self, a3, v6, v3);
+  sub_2211A8B04(retstr, (v8 + 6));
+  _Block_object_dispose(&v7, 8);
+  sub_2210BC9F8(&v13, v14[0]);
   return result;
 }
 
 - (void)prepareToApplyConcurrentCellMap:(id)map
 {
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = sub_2211A6A08;
-  v5[3] = &unk_2784608A8;
-  v5[4] = self;
-  objc_msgSend_gatherRowState_(map, a2, v5, v3, v4);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = sub_2211A6A08;
+  v4[3] = &unk_2784608A8;
+  v4[4] = self;
+  objc_msgSend_gatherRowState_(map, a2, v4, v3);
 }
 
 @end

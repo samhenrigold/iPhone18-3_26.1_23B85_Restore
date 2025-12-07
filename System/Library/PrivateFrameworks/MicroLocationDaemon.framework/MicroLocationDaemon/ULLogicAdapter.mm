@@ -113,9 +113,9 @@ void __40__ULLogicAdapter__startMonitoringEvents__block_invoke(uint64_t a1, void
 
   if (self->logicAdapterImpl.__ptr_)
   {
-    [ULLogicAdapter setDependencies:? peripheralControl:? environment:?];
+    [ULLogicAdapter setDependencies:peripheralControl:environment:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 118, "[ULLogicAdapter setDependencies:peripheralControl:environment:]");
     __break(1u);
   }
 
@@ -137,29 +137,29 @@ void __40__ULLogicAdapter__startMonitoringEvents__block_invoke(uint64_t a1, void
 
 - (void)start
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = _CLLogObjectForCategory_MicroLocation_Default(self);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(&dword_258FE9000, v0, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Method start can only be called after setDependencies, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&dword_258FE9000, v1, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Method start can only be called after setDependencies, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v1 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_signpost_enabled(v1))
+  v3 = _CLLogObjectForCategory_MicroLocation_Default(v2);
+  if (os_signpost_enabled(v3))
   {
     OUTLINED_FUNCTION_1();
-    _os_signpost_emit_with_name_impl(&dword_258FE9000, v1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Method start can only be called after setDependencies", "{msg%{public}.0s:Method start can only be called after setDependencies, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_signpost_emit_with_name_impl(&dword_258FE9000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Method start can only be called after setDependencies", "{msg%{public}.0s:Method start can only be called after setDependencies, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v2 = _CLLogObjectForCategory_MicroLocation_Default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v5 = _CLLogObjectForCategory_MicroLocation_Default(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Method start can only be called after setDependencies, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Method start can only be called after setDependencies, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 128, "[ULLogicAdapter start]");
   __break(1u);
 }
 
@@ -206,7 +206,7 @@ void __23__ULLogicAdapter_start__block_invoke(uint64_t a1)
 
 - (id)createServiceWithServiceType:(unint64_t)type locationTypes:(id)types clientId:(id)id
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   idCopy = id;
   selfCopy = self;
@@ -215,39 +215,39 @@ void __23__ULLogicAdapter_start__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(queue);
 
   std::vector<ULLocationTypeEnum>::vector[abi:ne200100](&__src, [typesCopy count]);
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v10 = typesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v52 objects:v64 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v51 objects:v63 count:16];
   if (v11)
   {
-    v12 = *v53;
+    v12 = *v52;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v53 != v12)
+        if (*v52 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        locationType = [*(*(&v52 + 1) + 8 * i) locationType];
-        v15 = v57;
-        if (v57 >= v58)
+        locationType = [*(*(&v51 + 1) + 8 * i) locationType];
+        v15 = v56;
+        if (v56 >= v57)
         {
           v17 = __src;
-          v18 = v57 - __src;
-          v19 = (v57 - __src) >> 3;
+          v18 = v56 - __src;
+          v19 = (v56 - __src) >> 3;
           v20 = v19 + 1;
           if ((v19 + 1) >> 61)
           {
             std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
           }
 
-          v21 = v58 - __src;
-          if ((v58 - __src) >> 2 > v20)
+          v21 = v57 - __src;
+          if ((v57 - __src) >> 2 > v20)
           {
             v20 = v21 >> 2;
           }
@@ -272,8 +272,8 @@ void __23__ULLogicAdapter_start__block_invoke(uint64_t a1)
           memcpy(0, v17, v18);
           v23 = __src;
           __src = 0;
-          v57 = v16;
-          v58 = 0;
+          v56 = v16;
+          v57 = 0;
           if (v23)
           {
             operator delete(v23);
@@ -282,20 +282,20 @@ void __23__ULLogicAdapter_start__block_invoke(uint64_t a1)
 
         else
         {
-          *v57 = locationType;
+          *v56 = locationType;
           v16 = v15 + 1;
         }
 
-        v57 = v16;
+        v56 = v16;
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v52 objects:v64 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v51 objects:v63 count:16];
     }
 
     while (v11);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v50, "");
+  std::string::basic_string[abi:ne200100]<0>(v49, "");
   v24 = +[ULEventLog shared];
   v25 = MEMORY[0x277CCACA8];
   v26 = ULServiceTypeToString();
@@ -305,88 +305,86 @@ void __23__ULLogicAdapter_start__block_invoke(uint64_t a1)
 
   v29 = *(selfCopy->logicAdapterImpl.__ptr_ + 15);
   v30 = idCopy;
-  std::string::basic_string[abi:ne200100]<0>(v48, [idCopy UTF8String]);
-  v47 = 0;
-  boost::uuids::detail::random_provider_base::random_provider_base(&v47);
-  v31 = boost::uuids::random_generator_pure::operator()(&v47);
+  std::string::basic_string[abi:ne200100]<0>(v47, [idCopy UTF8String]);
+  v46 = 0;
+  boost::uuids::detail::random_provider_base::random_provider_base(&v46);
+  v31 = boost::uuids::random_generator_pure::operator()(&v46);
   v33 = v32;
   __p = 0;
+  v44 = 0;
   v45 = 0;
-  v46 = 0;
-  std::vector<ULLocationTypeEnum>::__init_with_size[abi:ne200100]<ULLocationTypeEnum*,ULLocationTypeEnum*>(&__p, __src, v57, (v57 - __src) >> 3);
-  (*(*v29 + 16))(v61, v29, v48, v31, v33, type, &__p, v50);
+  std::vector<ULLocationTypeEnum>::__init_with_size[abi:ne200100]<ULLocationTypeEnum*,ULLocationTypeEnum*>(&__p, __src, v56, (v56 - __src) >> 3);
+  (*(*v29 + 16))(v60, v29, v47, v31, v33, type, &__p, v49);
   if (__p)
   {
-    v45 = __p;
+    v44 = __p;
     operator delete(__p);
   }
 
-  boost::uuids::detail::random_provider_base::destroy(&v47);
-  if (v49 < 0)
+  boost::uuids::detail::random_provider_base::destroy(&v46);
+  if (v48 < 0)
   {
-    operator delete(v48[0]);
+    operator delete(v47[0]);
   }
 
   v34 = objc_opt_new();
-  if (v62 == 1)
+  if (v61 == 1)
   {
-    v35 = [ULLogicAdapter _newULServiceDescriptorFromInternalDescriptor:v61];
+    v35 = [ULLogicAdapter _newULServiceDescriptorFromInternalDescriptor:v60];
     [v34 setServiceDescriptor:v35];
   }
 
-  if (v63 != -1)
+  if (v62 != -1)
   {
-    v59 = *MEMORY[0x277CCA450];
-    v60 = @"createServiceWithServiceType failed internally";
-    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+    v58 = *MEMORY[0x277CCA450];
+    v59 = @"createServiceWithServiceType failed internally";
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
     v37 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v38 = [v37 initWithDomain:@"ULLogicDomain" code:v63 userInfo:v36];
+    v38 = [v37 initWithDomain:@"ULLogicDomain" code:v62 userInfo:v36];
     [v34 setError:v38];
   }
 
-  if (v51 < 0)
+  if (v50 < 0)
   {
-    operator delete(v50[0]);
+    operator delete(v49[0]);
   }
 
   if (__src)
   {
-    v57 = __src;
+    v56 = __src;
     operator delete(__src);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
 
 - (id)deleteServiceWithIdentifier:(id)identifier clientIdentifier:(id)clientIdentifier
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clientIdentifierCopy = clientIdentifier;
   environment = [(ULLogicAdapter *)self environment];
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  std::string::basic_string[abi:ne200100]<0>(v29, "");
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(identifierCopy, v36);
-  if ((v37 & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v28, "");
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v35, identifierCopy);
+  if ((v36 & 1) == 0)
   {
-    [ULLogicAdapter deleteServiceWithIdentifier:? clientIdentifier:?];
+    [ULLogicAdapter deleteServiceWithIdentifier:clientIdentifier:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 189, "[ULLogicAdapter deleteServiceWithIdentifier:clientIdentifier:]");
     __break(1u);
   }
 
   v10 = +[ULEventLog shared];
-  if ((v37 & 1) == 0)
+  if ((v36 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
   v11 = MEMORY[0x277CCACA8];
-  boost::lexical_cast<std::string,boost::uuids::uuid>(v36, &__p);
+  boost::lexical_cast<std::string,boost::uuids::uuid>(v35, &__p);
   v12 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
   v13 = __p.__r_.__value_.__r.__words[0];
   v14 = clientIdentifierCopy;
@@ -407,41 +405,39 @@ void __23__ULLogicAdapter_start__block_invoke(uint64_t a1)
 
   v18 = *(self->logicAdapterImpl.__ptr_ + 15);
   v19 = clientIdentifierCopy;
-  std::string::basic_string[abi:ne200100]<0>(v27, [clientIdentifierCopy UTF8String]);
-  if ((v37 & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v26, [clientIdentifierCopy UTF8String]);
+  if ((v36 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  (*(*v18 + 24))(&__p, v18, v27, v36[0], v36[1], v29);
-  if (v28 < 0)
+  (*(*v18 + 24))(&__p, v18, v26, v35[0], v35[1], v28);
+  if (v27 < 0)
   {
-    operator delete(v27[0]);
+    operator delete(v26[0]);
   }
 
   v20 = objc_opt_new();
-  if (v34 == 1)
+  if (v33 == 1)
   {
     v21 = [ULLogicAdapter _newULServiceDescriptorFromInternalDescriptor:&__p];
     [v20 setServiceDescriptor:v21];
   }
 
-  if (v35 != -1)
+  if (v34 != -1)
   {
-    v31 = *MEMORY[0x277CCA450];
-    v32 = @"deleteServiceWithIdentifier failed internally";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277CCA450];
+    v31 = @"deleteServiceWithIdentifier failed internally";
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v24 = [v23 initWithDomain:@"ULLogicDomain" code:v35 userInfo:v22];
+    v24 = [v23 initWithDomain:@"ULLogicDomain" code:v34 userInfo:v22];
     [v20 setError:v24];
   }
 
-  if (v30 < 0)
+  if (v29 < 0)
   {
-    operator delete(v29[0]);
+    operator delete(v28[0]);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -496,7 +492,7 @@ void __23__ULLogicAdapter_start__block_invoke(uint64_t a1)
 
 - (void)runWithConfiguration:(id)configuration serviceIdentifier:(id)identifier legacyServiceIdentifier:(id)serviceIdentifier clientIdentifier:(id)clientIdentifier connectionToken:(id)token requestIdentifier:(id)requestIdentifier
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   identifierCopy = identifier;
   serviceIdentifierCopy = serviceIdentifier;
@@ -507,196 +503,196 @@ void __23__ULLogicAdapter_start__block_invoke(uint64_t a1)
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(identifierCopy, v62);
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, v60);
-  if ((v63 & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v67, identifierCopy);
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v65, tokenCopy);
+  if ((v68 & 1) == 0)
   {
-    v37 = _CLLogObjectForCategory_MicroLocation_Default();
+    v37 = _CLLogObjectForCategory_MicroLocation_Default(v19);
     if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       __p = 68289539;
-      v54 = 2082;
-      v55 = "";
-      v56 = 2082;
-      v57 = "assert";
-      v58 = 2081;
-      v59 = "serviceId.has_value()";
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "serviceId.has_value()";
       _os_log_impl(&dword_258FE9000, v37, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:runWithConfiguration without identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    v38 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v38))
+    v39 = _CLLogObjectForCategory_MicroLocation_Default(v38);
+    if (os_signpost_enabled(v39))
     {
       __p = 68289539;
-      v54 = 2082;
-      v55 = "";
-      v56 = 2082;
-      v57 = "assert";
-      v58 = 2081;
-      v59 = "serviceId.has_value()";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v38, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "runWithConfiguration without identifier", "{msg%{public}.0s:runWithConfiguration without identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "serviceId.has_value()";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v39, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "runWithConfiguration without identifier", "{msg%{public}.0s:runWithConfiguration without identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    v39 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    v41 = _CLLogObjectForCategory_MicroLocation_Default(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       __p = 68289539;
-      v54 = 2082;
-      v55 = "";
-      v56 = 2082;
-      v57 = "assert";
-      v58 = 2081;
-      v59 = "serviceId.has_value()";
-      _os_log_impl(&dword_258FE9000, v39, OS_LOG_TYPE_INFO, "{msg%{public}.0s:runWithConfiguration without identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "serviceId.has_value()";
+      _os_log_impl(&dword_258FE9000, v41, OS_LOG_TYPE_INFO, "{msg%{public}.0s:runWithConfiguration without identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-LABEL_38:
+    v42 = 228;
+LABEL_39:
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", v42, "[ULLogicAdapter runWithConfiguration:serviceIdentifier:legacyServiceIdentifier:clientIdentifier:connectionToken:requestIdentifier:]");
     __break(1u);
   }
 
-  if ((v61 & 1) == 0)
+  if ((v66 & 1) == 0)
   {
-    v40 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+    v43 = _CLLogObjectForCategory_MicroLocation_Default(v19);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
     {
       __p = 68289539;
-      v54 = 2082;
-      v55 = "";
-      v56 = 2082;
-      v57 = "assert";
-      v58 = 2081;
-      v59 = "connectionId.has_value()";
-      _os_log_impl(&dword_258FE9000, v40, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:runWithConfiguration without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "connectionId.has_value()";
+      _os_log_impl(&dword_258FE9000, v43, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:runWithConfiguration without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    v41 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v41))
+    v45 = _CLLogObjectForCategory_MicroLocation_Default(v44);
+    if (os_signpost_enabled(v45))
     {
       __p = 68289539;
-      v54 = 2082;
-      v55 = "";
-      v56 = 2082;
-      v57 = "assert";
-      v58 = 2081;
-      v59 = "connectionId.has_value()";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v41, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "runWithConfiguration without connectionToken", "{msg%{public}.0s:runWithConfiguration without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "connectionId.has_value()";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v45, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "runWithConfiguration without connectionToken", "{msg%{public}.0s:runWithConfiguration without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    v39 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    v41 = _CLLogObjectForCategory_MicroLocation_Default(v46);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       __p = 68289539;
-      v54 = 2082;
-      v55 = "";
-      v56 = 2082;
-      v57 = "assert";
-      v58 = 2081;
-      v59 = "connectionId.has_value()";
-      _os_log_impl(&dword_258FE9000, v39, OS_LOG_TYPE_INFO, "{msg%{public}.0s:runWithConfiguration without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "connectionId.has_value()";
+      _os_log_impl(&dword_258FE9000, v41, OS_LOG_TYPE_INFO, "{msg%{public}.0s:runWithConfiguration without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    goto LABEL_38;
+    v42 = 229;
+    goto LABEL_39;
   }
 
-  v19 = +[ULEventLog shared];
-  if ((v63 & 1) == 0)
+  v20 = +[ULEventLog shared];
+  if ((v68 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v20 = MEMORY[0x277CCACA8];
-  boost::lexical_cast<std::string,boost::uuids::uuid>(v62, &__p);
-  v21 = SBYTE3(v57);
-  v22 = __p;
-  v23 = clientIdentifierCopy;
+  v21 = MEMORY[0x277CCACA8];
+  boost::lexical_cast<std::string,boost::uuids::uuid>(v67, &__p);
+  v22 = SBYTE3(v62);
+  v23 = __p;
+  v24 = clientIdentifierCopy;
   uTF8String = [clientIdentifierCopy UTF8String];
   p_p = &__p;
-  if (v21 < 0)
+  if (v22 < 0)
   {
-    p_p = v22;
+    p_p = v23;
   }
 
-  configurationCopy = [v20 stringWithFormat:@"Service runWithConfiguration Event serviceId: %s, clientId: %s, configuration: %@", p_p, uTF8String, configurationCopy];
-  [v19 log:configurationCopy];
+  configurationCopy = [v21 stringWithFormat:@"Service runWithConfiguration Event serviceId: %s, clientId: %s, configuration: %@", p_p, uTF8String, configurationCopy];
+  [v20 log:configurationCopy];
 
-  if (SBYTE3(v57) < 0)
+  if (SBYTE3(v62) < 0)
   {
     operator delete(__p);
   }
 
-  if ((v61 & 1) == 0)
+  if ((v66 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v27 = (*(**(self->logicAdapterImpl.__ptr_ + 15) + 104))(*(self->logicAdapterImpl.__ptr_ + 15), v60);
+  v28 = (*(**(self->logicAdapterImpl.__ptr_ + 15) + 104))(*(self->logicAdapterImpl.__ptr_ + 15), v65);
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
   if (serviceIdentifierCopy)
   {
-    CLMicroLocationProtobufHelper::boostUuidFromNSUUID(serviceIdentifierCopy, &v51);
+    CLMicroLocationProtobufHelper::boostUuidFromNSUUID(&v56, serviceIdentifierCopy);
   }
 
   else
   {
-    LOBYTE(v51) = 0;
-    v52 = 0;
+    LOBYTE(v56) = 0;
+    v57 = 0;
   }
 
-  v28 = *(self->logicAdapterImpl.__ptr_ + 15);
-  v29 = clientIdentifierCopy;
-  std::string::basic_string[abi:ne200100]<0>(v45, [clientIdentifierCopy UTF8String]);
-  if (v63 != 1 || (v49 = v51, v50 = v52, (v61 & 1) == 0))
+  v29 = *(self->logicAdapterImpl.__ptr_ + 15);
+  v30 = clientIdentifierCopy;
+  std::string::basic_string[abi:ne200100]<0>(v50, [clientIdentifierCopy UTF8String]);
+  if (v68 != 1 || (v54 = v56, v55 = v57, (v66 & 1) == 0))
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v30 = (*(*v28 + 40))(v28, v45, v62[0], v62[1], &v49, v60[0], v60[1], configurationCopy, &__p);
-  v32 = v31;
-  if (v46 < 0)
+  v31 = (*(*v29 + 40))(v29, v50, v67[0], v67[1], &v54, v65[0], v65[1], configurationCopy, &__p);
+  v33 = v32;
+  if (v51 < 0)
   {
-    operator delete(v45[0]);
+    operator delete(v50[0]);
   }
 
-  if (v30 == -1)
+  if (v31 == -1)
   {
-    v35 = 0;
+    v36 = 0;
   }
 
   else
   {
-    v33 = MEMORY[0x277CCA9B8];
-    v47 = *MEMORY[0x277CCA450];
-    v48 = @"runWithConfiguration failed internally";
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-    v35 = [v33 errorWithDomain:@"ULLogicDomain" code:v30 userInfo:v34];
+    v34 = MEMORY[0x277CCA9B8];
+    v52 = *MEMORY[0x277CCA450];
+    v53 = @"runWithConfiguration failed internally";
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+    v36 = [v34 errorWithDomain:@"ULLogicDomain" code:v31 userInfo:v35];
 
-    if ((v27 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
-      [*(self->logicAdapterImpl.__ptr_ + 8) didFailWithError:v35 toConnection:tokenCopy];
+      [*(self->logicAdapterImpl.__ptr_ + 8) didFailWithError:v36 toConnection:tokenCopy];
       goto LABEL_22;
     }
   }
 
-  if ((v32 & 1) == 0)
+  if ((v33 & 1) == 0)
   {
-    [*(self->logicAdapterImpl.__ptr_ + 8) didCompleteRequest:requestIdentifierCopy withError:v35 toConnection:tokenCopy];
+    [*(self->logicAdapterImpl.__ptr_ + 8) didCompleteRequest:requestIdentifierCopy withError:v36 toConnection:tokenCopy];
   }
 
 LABEL_22:
 
-  if (SBYTE3(v57) < 0)
+  if (SBYTE3(v62) < 0)
   {
     operator delete(__p);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectWithConnectionToken:(id)token clientIdentifier:(id)identifier requestIdentifier:(id)requestIdentifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   identifierCopy = identifier;
   requestIdentifierCopy = requestIdentifier;
@@ -704,50 +700,48 @@ LABEL_22:
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, v25);
-  if ((v26 & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v24, tokenCopy);
+  if ((v25 & 1) == 0)
   {
-    [ULLogicAdapter disconnectWithConnectionToken:v21 clientIdentifier:? requestIdentifier:?];
+    [ULLogicAdapter disconnectWithConnectionToken:clientIdentifier:requestIdentifier:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 265, "[ULLogicAdapter disconnectWithConnectionToken:clientIdentifier:requestIdentifier:]");
     __break(1u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v21, "");
+  std::string::basic_string[abi:ne200100]<0>(v20, "");
   v13 = *(self->logicAdapterImpl.__ptr_ + 15);
   v14 = identifierCopy;
   std::string::basic_string[abi:ne200100]<0>(__p, [identifierCopy UTF8String]);
-  if ((v26 & 1) == 0)
+  if ((v25 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v15 = (*(*v13 + 48))(v13, __p, v25[0], v25[1], v21);
-  if (v20 < 0)
+  v15 = (*(*v13 + 48))(v13, __p, v24[0], v24[1], v20);
+  if (v19 < 0)
   {
     operator delete(__p[0]);
   }
 
   if (v15 != -1)
   {
-    v23 = *MEMORY[0x277CCA450];
-    v24 = @"disconnect service failed internally";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA450];
+    v23 = @"disconnect service failed internally";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:v15 userInfo:v16];
     [*(self->logicAdapterImpl.__ptr_ + 8) didCompleteRequest:requestIdentifierCopy withError:v17 toConnection:tokenCopy];
   }
 
-  if (v22 < 0)
+  if (v21 < 0)
   {
-    operator delete(v21[0]);
+    operator delete(v20[0]);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestObservationForConnectionToken:(id)token clientIdentifier:(id)identifier requestIdentifier:(id)requestIdentifier
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   identifierCopy = identifier;
   requestIdentifierCopy = requestIdentifier;
@@ -755,129 +749,129 @@ LABEL_22:
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, v35);
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(requestIdentifierCopy, v33);
-  if ((v36 & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v40, tokenCopy);
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v38, requestIdentifierCopy);
+  if ((v41 & 1) == 0)
   {
-    v17 = _CLLogObjectForCategory_MicroLocation_Default();
+    v17 = _CLLogObjectForCategory_MicroLocation_Default(v13);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "connectionId.has_value()";
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "connectionId.has_value()";
       _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:request observation without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v18 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v18))
+    v19 = _CLLogObjectForCategory_MicroLocation_Default(v18);
+    if (os_signpost_enabled(v19))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "connectionId.has_value()";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "request observation without connectionToken", "{msg%{public}.0s:request observation without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "connectionId.has_value()";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "request observation without connectionToken", "{msg%{public}.0s:request observation without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v19 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v21 = _CLLogObjectForCategory_MicroLocation_Default(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "connectionId.has_value()";
-      _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:request observation without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "connectionId.has_value()";
+      _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_INFO, "{msg%{public}.0s:request observation without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-LABEL_21:
+    v22 = 285;
+LABEL_22:
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", v22, "[ULLogicAdapter requestObservationForConnectionToken:clientIdentifier:requestIdentifier:]");
     __break(1u);
   }
 
-  if ((v34 & 1) == 0)
+  if ((v39 & 1) == 0)
   {
-    v20 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v23 = _CLLogObjectForCategory_MicroLocation_Default(v13);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "requestId.has_value()";
-      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:request observation without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "requestId.has_value()";
+      _os_log_impl(&dword_258FE9000, v23, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:request observation without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v21 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v21))
+    v25 = _CLLogObjectForCategory_MicroLocation_Default(v24);
+    if (os_signpost_enabled(v25))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "requestId.has_value()";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "request observation without requestIdentifier", "{msg%{public}.0s:request observation without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "requestId.has_value()";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "request observation without requestIdentifier", "{msg%{public}.0s:request observation without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v19 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v21 = _CLLogObjectForCategory_MicroLocation_Default(v26);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "requestId.has_value()";
-      _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:request observation without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "requestId.has_value()";
+      _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_INFO, "{msg%{public}.0s:request observation without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    goto LABEL_21;
+    v22 = 286;
+    goto LABEL_22;
   }
 
-  v22 = cl::chrono::CFAbsoluteTimeClock::now();
-  if (v36 != 1 || (v34 & 1) == 0)
+  v27 = cl::chrono::CFAbsoluteTimeClock::now();
+  if (v41 != 1 || (v39 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  v13 = *(self->logicAdapterImpl.__ptr_ + 15);
+  v14 = *(self->logicAdapterImpl.__ptr_ + 15);
   buf[0] = 0;
-  BYTE6(v28) = 0;
-  if (((*(*v13 + 64))(v13, v35[0], v35[1], v33[0], v33[1], buf, &v22) & 1) == 0)
+  BYTE6(v33) = 0;
+  if (((*(*v14 + 64))(v14, v40[0], v40[1], v38[0], v38[1], buf, &v27) & 1) == 0)
   {
-    v23 = *MEMORY[0x277CCA450];
-    v24 = @"request observation failed internally";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v15 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:12 userInfo:v14];
-    [*(self->logicAdapterImpl.__ptr_ + 8) didCompleteRequest:requestIdentifierCopy withError:v15 toConnection:tokenCopy];
+    v28 = *MEMORY[0x277CCA450];
+    v29 = @"request observation failed internally";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v16 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:12 userInfo:v15];
+    [*(self->logicAdapterImpl.__ptr_ + 8) didCompleteRequest:requestIdentifierCopy withError:v16 toConnection:tokenCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestPredictionForConnectionToken:(id)token clientIdentifier:(id)identifier requestIdentifier:(id)requestIdentifier
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   identifierCopy = identifier;
   requestIdentifierCopy = requestIdentifier;
@@ -885,121 +879,121 @@ LABEL_21:
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, v32);
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(requestIdentifierCopy, v30);
-  if ((v33 & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v37, tokenCopy);
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v35, requestIdentifierCopy);
+  if ((v38 & 1) == 0)
   {
-    v16 = _CLLogObjectForCategory_MicroLocation_Default();
+    v16 = _CLLogObjectForCategory_MicroLocation_Default(v13);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2082;
-      v27 = "assert";
-      v28 = 2081;
-      v29 = "connectionId.has_value()";
+      v29 = 2082;
+      v30 = "";
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "connectionId.has_value()";
       _os_log_impl(&dword_258FE9000, v16, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:request prediction without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v17 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v17))
+    v18 = _CLLogObjectForCategory_MicroLocation_Default(v17);
+    if (os_signpost_enabled(v18))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2082;
-      v27 = "assert";
-      v28 = 2081;
-      v29 = "connectionId.has_value()";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "request prediction without connectionToken", "{msg%{public}.0s:request prediction without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v29 = 2082;
+      v30 = "";
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "connectionId.has_value()";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "request prediction without connectionToken", "{msg%{public}.0s:request prediction without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v18 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v20 = _CLLogObjectForCategory_MicroLocation_Default(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2082;
-      v27 = "assert";
-      v28 = 2081;
-      v29 = "connectionId.has_value()";
-      _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_INFO, "{msg%{public}.0s:request prediction without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v29 = 2082;
+      v30 = "";
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "connectionId.has_value()";
+      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_INFO, "{msg%{public}.0s:request prediction without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-LABEL_21:
+    v21 = 307;
+LABEL_22:
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", v21, "[ULLogicAdapter requestPredictionForConnectionToken:clientIdentifier:requestIdentifier:]");
     __break(1u);
   }
 
-  if ((v31 & 1) == 0)
+  if ((v36 & 1) == 0)
   {
-    v19 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v22 = _CLLogObjectForCategory_MicroLocation_Default(v13);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2082;
-      v27 = "assert";
-      v28 = 2081;
-      v29 = "requestId.has_value()";
-      _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:request prediction without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v29 = 2082;
+      v30 = "";
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "requestId.has_value()";
+      _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:request prediction without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v20 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v20))
+    v24 = _CLLogObjectForCategory_MicroLocation_Default(v23);
+    if (os_signpost_enabled(v24))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2082;
-      v27 = "assert";
-      v28 = 2081;
-      v29 = "requestId.has_value()";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "request prediction without requestIdentifier", "{msg%{public}.0s:request prediction without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v29 = 2082;
+      v30 = "";
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "requestId.has_value()";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "request prediction without requestIdentifier", "{msg%{public}.0s:request prediction without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v18 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v20 = _CLLogObjectForCategory_MicroLocation_Default(v25);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2082;
-      v27 = "assert";
-      v28 = 2081;
-      v29 = "requestId.has_value()";
-      _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_INFO, "{msg%{public}.0s:request prediction without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v29 = 2082;
+      v30 = "";
+      v31 = 2082;
+      v32 = "assert";
+      v33 = 2081;
+      v34 = "requestId.has_value()";
+      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_INFO, "{msg%{public}.0s:request prediction without requestIdentifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    goto LABEL_21;
+    v21 = 308;
+    goto LABEL_22;
   }
 
   *buf = cl::chrono::CFAbsoluteTimeClock::now();
-  if (v33 != 1 || (v31 & 1) == 0)
+  if (v38 != 1 || (v36 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  if (((*(**(self->logicAdapterImpl.__ptr_ + 15) + 56))(*(self->logicAdapterImpl.__ptr_ + 15), v32[0], v32[1], v30, buf, 1) & 1) == 0)
+  if (((*(**(self->logicAdapterImpl.__ptr_ + 15) + 56))(*(self->logicAdapterImpl.__ptr_ + 15), v37[0], v37[1], v35, buf, 1) & 1) == 0)
   {
-    v21 = *MEMORY[0x277CCA450];
-    v22 = @"request prediction failed internally";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v14 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:29 userInfo:v13];
-    [*(self->logicAdapterImpl.__ptr_ + 8) didCompleteRequest:requestIdentifierCopy withError:v14 toConnection:tokenCopy];
+    v26 = *MEMORY[0x277CCA450];
+    v27 = @"request prediction failed internally";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v15 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:29 userInfo:v14];
+    [*(self->logicAdapterImpl.__ptr_ + 8) didCompleteRequest:requestIdentifierCopy withError:v15 toConnection:tokenCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addLabelForConnectionToken:(id)token label:(id)label
@@ -1011,18 +1005,16 @@ LABEL_21:
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, v12);
-  if ((v12[16] & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v11, tokenCopy);
+  if ((v12 & 1) == 0)
   {
-    [ULLogicAdapter addLabelForConnectionToken:? label:?];
+    [ULLogicAdapter addLabelForConnectionToken:label:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 328, "[ULLogicAdapter addLabelForConnectionToken:label:]");
     __break(1u);
   }
 
-  (*(**(self->logicAdapterImpl.__ptr_ + 15) + 72))(*(self->logicAdapterImpl.__ptr_ + 15), v12, labelCopy);
-
-  v10 = *MEMORY[0x277D85DE8];
+  (*(**(self->logicAdapterImpl.__ptr_ + 15) + 72))(*(self->logicAdapterImpl.__ptr_ + 15), v11, labelCopy);
 }
 
 - (void)addLabelForConnectionToken:(id)token label:(id)label betweenStartDate:(id)date andEndDate:(id)endDate
@@ -1036,23 +1028,21 @@ LABEL_21:
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, v18);
-  if ((v18[16] & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v17, tokenCopy);
+  if ((v18 & 1) == 0)
   {
-    [ULLogicAdapter addLabelForConnectionToken:? label:? betweenStartDate:? andEndDate:?];
+    [ULLogicAdapter addLabelForConnectionToken:label:betweenStartDate:andEndDate:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 344, "[ULLogicAdapter addLabelForConnectionToken:label:betweenStartDate:andEndDate:]");
     __break(1u);
   }
 
-  (*(**(self->logicAdapterImpl.__ptr_ + 15) + 80))(*(self->logicAdapterImpl.__ptr_ + 15), v18, labelCopy, dateCopy, endDateCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
+  (*(**(self->logicAdapterImpl.__ptr_ + 15) + 80))(*(self->logicAdapterImpl.__ptr_ + 15), v17, labelCopy, dateCopy, endDateCopy);
 }
 
 - (void)createCustomLoiAtCurrentLocationForConnectionToken:(id)token withConfiguration:(id)configuration
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   configurationCopy = configuration;
   if (onceToken_MicroLocation_Default != -1)
@@ -1064,9 +1054,9 @@ LABEL_21:
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = tokenCopy;
-    v19 = 2112;
-    v20 = configurationCopy;
+    v17 = tokenCopy;
+    v18 = 2112;
+    v19 = configurationCopy;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "createCustomLoiAtCurrentLocationForConnectionToken: %@ withConfiguration: %@", buf, 0x16u);
   }
 
@@ -1074,30 +1064,28 @@ LABEL_21:
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, buf);
-  if ((BYTE2(v20) & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(buf, tokenCopy);
+  if ((BYTE2(v19) & 1) == 0)
   {
-    [ULLogicAdapter createCustomLoiAtCurrentLocationForConnectionToken:? withConfiguration:?];
+    [ULLogicAdapter createCustomLoiAtCurrentLocationForConnectionToken:withConfiguration:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 359, "[ULLogicAdapter createCustomLoiAtCurrentLocationForConnectionToken:withConfiguration:]");
     __break(1u);
   }
 
   if ((CLMicroLocationLogic::createCustomLoiAtCurrentLocation(*(self->logicAdapterImpl.__ptr_ + 13), buf, configurationCopy) & 1) == 0)
   {
-    v15 = *MEMORY[0x277CCA450];
-    v16 = @"Enable MicroLocation at current location failed";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15 = @"Enable MicroLocation at current location failed";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:34 userInfo:v11];
     [*(self->logicAdapterImpl.__ptr_ + 8) didCreateCustomLoiAtCurrentLocationWithError:v12 forConnection:tokenCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCustomLoiWithIdentifier:(id)identifier forConnectionToken:(id)token
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   tokenCopy = token;
   if (onceToken_MicroLocation_Default != -1)
@@ -1119,30 +1107,30 @@ LABEL_21:
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, buf);
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(buf, tokenCopy);
   if ((buf[16] & 1) == 0)
   {
-    [ULLogicAdapter removeCustomLoiWithIdentifier:? forConnectionToken:?];
+    [ULLogicAdapter removeCustomLoiWithIdentifier:forConnectionToken:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 378, "[ULLogicAdapter removeCustomLoiWithIdentifier:forConnectionToken:]");
     goto LABEL_17;
   }
 
   if (!identifierCopy)
   {
-    *v17.data = 0;
-    *&v17.data[8] = 0;
-    v18 = 0;
+    *v16.data = 0;
+    *&v16.data[8] = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
-  [identifierCopy boostUUID];
-  if ((v18 & 1) == 0)
+  objc_msgSend_boostUUID(identifierCopy);
+  if ((v17 & 1) == 0)
   {
 LABEL_15:
-    [ULLogicAdapter removeCustomLoiWithIdentifier:? forConnectionToken:?];
+    [ULLogicAdapter removeCustomLoiWithIdentifier:forConnectionToken:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 380, "[ULLogicAdapter removeCustomLoiWithIdentifier:forConnectionToken:]");
 LABEL_17:
     __break(1u);
   }
@@ -1152,27 +1140,25 @@ LABEL_17:
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  if (CLMicroLocationLogic::removeCustomLoiWithIdentifier(*(self->logicAdapterImpl.__ptr_ + 13), &v17, *buf))
+  if (CLMicroLocationLogic::removeCustomLoiWithIdentifier(*(self->logicAdapterImpl.__ptr_ + 13), &v16, *buf))
   {
     v11 = 0;
   }
 
   else
   {
-    v15 = *MEMORY[0x277CCA450];
-    v16 = @"Remove Custom Loi failed";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15 = @"Remove Custom Loi failed";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     v11 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:0 userInfo:v12];
   }
 
   [*(self->logicAdapterImpl.__ptr_ + 8) didRemoveCustomLoiWithIdentifier:identifierCopy forConnection:tokenCopy withError:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePendingConnectionRequestsByConnectionToken:(id)token
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -1191,23 +1177,21 @@ LABEL_17:
   queue = [environment queue];
   dispatch_assert_queue_V2(queue);
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, &buf);
-  if ((v11 & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(&buf, tokenCopy);
+  if ((v10 & 1) == 0)
   {
-    [ULLogicAdapter removePendingConnectionRequestsByConnectionToken:?];
+    [ULLogicAdapter removePendingConnectionRequestsByConnectionToken:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 400, "[ULLogicAdapter removePendingConnectionRequestsByConnectionToken:]");
     __break(1u);
   }
 
   CLMicroLocationLogic::removePendingConnectionRequestsByConnectionToken(*(self->logicAdapterImpl.__ptr_ + 13), buf);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)exportDatabase
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = (*(**(self->logicAdapterImpl.__ptr_ + 12) + 80))(*(self->logicAdapterImpl.__ptr_ + 12));
   [v3 setExportedURLs:v4];
@@ -1217,21 +1201,19 @@ LABEL_17:
 
   if (!v6)
   {
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = @"export database failed internally";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = @"export database failed internally";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:36 userInfo:v7];
     [v3 setError:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)purgeDatabase
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   if ([(ULLogicAdapter *)self purgeMicroLocationData])
   {
     v2 = 0;
@@ -1239,13 +1221,11 @@ LABEL_17:
 
   else
   {
-    v6 = *MEMORY[0x277CCA450];
-    v7[0] = @"purge database failed internally";
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v5 = *MEMORY[0x277CCA450];
+    v6[0] = @"purge database failed internally";
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
     v2 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:37 userInfo:v3];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -1303,9 +1283,9 @@ LABEL_16:
       }
     }
 
-    [ULLogicAdapter imageFeaturesDebugWithTask:? additionalInformation:?];
+    [ULLogicAdapter imageFeaturesDebugWithTask:additionalInformation:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 459, "[ULLogicAdapter imageFeaturesDebugWithTask:additionalInformation:]");
     __break(1u);
     goto LABEL_23;
   }
@@ -1331,18 +1311,18 @@ LABEL_19:
 
 - (id)polarisDebugWithTask:(unint64_t)task
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__0;
-  v17 = __Block_byref_object_dispose__0;
-  v18 = 0;
+  v20[2] = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__0;
+  v16 = __Block_byref_object_dispose__0;
+  v17 = 0;
   if (task == 2)
   {
     peripheralControl = [(ULLogicAdapter *)self peripheralControl];
-    v4 = (v14 + 5);
-    obj = v14[5];
+    v4 = (v13 + 5);
+    obj = v13[5];
     [peripheralControl teardownPolarisGraphsAndReturnError:&obj];
     objc_storeStrong(v4, obj);
   }
@@ -1351,31 +1331,31 @@ LABEL_19:
   {
     if (task != 1)
     {
-      [(ULLogicAdapter *)&v19 polarisDebugWithTask:a2];
+      [ULLogicAdapter polarisDebugWithTask:];
 
-      result = abort_report_np();
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 483, "[ULLogicAdapter polarisDebugWithTask:]");
       __break(1u);
       return result;
     }
 
     peripheralControl = [(ULLogicAdapter *)self peripheralControl];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __39__ULLogicAdapter_polarisDebugWithTask___block_invoke;
-    v12[3] = &unk_2798D4438;
-    v12[4] = &v13;
-    [peripheralControl setupPolarisGraphsWithCompletionHandler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __39__ULLogicAdapter_polarisDebugWithTask___block_invoke;
+    v11[3] = &unk_2798D4438;
+    v11[4] = &v12;
+    [peripheralControl setupPolarisGraphsWithCompletionHandler:v11];
   }
 
-  v5 = v14[5];
+  v5 = v13[5];
   if (v5)
   {
-    v20[0] = *MEMORY[0x277CCA450];
+    v19[0] = *MEMORY[0x277CCA450];
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"polarisDebugWithTask failed with error: %@", v5];
-    v20[1] = @"internalError";
-    v21[0] = v6;
-    v21[1] = v14[5];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v19[1] = @"internalError";
+    v20[0] = v6;
+    v20[1] = v13[5];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
     v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ULLogicDomain" code:0 userInfo:v7];
   }
@@ -1385,16 +1365,14 @@ LABEL_19:
     v8 = 0;
   }
 
-  _Block_object_dispose(&v13, 8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
 
   return v8;
 }
 
 void __39__ULLogicAdapter_polarisDebugWithTask___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (v4)
   {
@@ -1408,13 +1386,11 @@ void __39__ULLogicAdapter_polarisDebugWithTask___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
       v6 = *(*(*(a1 + 32) + 8) + 40);
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_ERROR, "polarisDebugWithTask failed with error: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_ERROR, "polarisDebugWithTask failed with error: %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestModelLearningForConnectionToken:(id)token requestIdentifier:(id)identifier
@@ -1422,21 +1398,21 @@ void __39__ULLogicAdapter_polarisDebugWithTask___block_invoke(uint64_t a1, void 
   v15 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   identifierCopy = identifier;
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(tokenCopy, v13);
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v13, tokenCopy);
   if ((v14 & 1) == 0)
   {
-    [ULLogicAdapter requestModelLearningForConnectionToken:? requestIdentifier:?];
+    [ULLogicAdapter requestModelLearningForConnectionToken:requestIdentifier:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 501, "[ULLogicAdapter requestModelLearningForConnectionToken:requestIdentifier:]");
     goto LABEL_10;
   }
 
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(identifierCopy, v12);
-  if ((v12[16] & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(v11, identifierCopy);
+  if ((v12 & 1) == 0)
   {
-    [ULLogicAdapter requestModelLearningForConnectionToken:? requestIdentifier:?];
+    [ULLogicAdapter requestModelLearningForConnectionToken:requestIdentifier:];
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 503, "[ULLogicAdapter requestModelLearningForConnectionToken:requestIdentifier:]");
 LABEL_10:
     __break(1u);
   }
@@ -1444,24 +1420,22 @@ LABEL_10:
   v8 = *(self->logicAdapterImpl.__ptr_ + 15);
   __p[0] = 0;
   __p[1] = 0;
-  v11 = 0;
+  v10 = 0;
   if ((v14 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  (*(*v8 + 88))(v8, __p, v13[0], v13[1], v12);
-  if (SHIBYTE(v11) < 0)
+  (*(*v8 + 88))(v8, __p, v13[0], v13[1], v11);
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p[0]);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestCurrentMicroLocationWithAdditionalInformation:(id)information clientId:(id)id
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   informationCopy = information;
   idCopy = id;
   if (onceToken_MicroLocation_Default != -1)
@@ -1491,12 +1465,10 @@ LABEL_10:
     CLMicroLocationLegacyClient::onLocalizationRequest(*(self->logicAdapterImpl.__ptr_ + 14), __p);
   }
 
-  if (v13 < 0)
+  if (v12 < 0)
   {
     operator delete(*__p);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestMicroLocationRecordingScanWithAdditionalInformation:(id)information clientId:(id)id
@@ -2045,53 +2017,54 @@ void __40__ULLogicAdapter__startMonitoringEvents__block_invoke_14(uint64_t a1, v
 - (void)_registerOrUnregisterForBackgroundTaskWithRequest:(id)request withSelector:(SEL)selector isRegister:(BOOL)register
 {
   registerCopy = register;
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v9 = objc_opt_respondsToSelector();
+  if ((v9 & 1) == 0)
   {
-    v17 = _CLLogObjectForCategory_MicroLocation_Default();
+    v17 = _CLLogObjectForCategory_MicroLocation_Default(v9);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       v18 = NSStringFromSelector(selector);
       location = 68289795;
-      v29 = 2082;
-      v30 = "";
       v31 = 2082;
-      uTF8String = [v18 UTF8String];
+      v32 = "";
       v33 = 2082;
-      v34 = "assert";
-      v35 = 2081;
-      v36 = "[self respondsToSelector:selector]";
+      uTF8String = [v18 UTF8String];
+      v35 = 2082;
+      v36 = "assert";
+      v37 = 2081;
+      v38 = "[self respondsToSelector:selector]";
       _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:ULLogicAdapter does not respond to selector, selector:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &location, 0x30u);
     }
 
-    v19 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v19))
+    v20 = _CLLogObjectForCategory_MicroLocation_Default(v19);
+    if (os_signpost_enabled(v20))
     {
-      v20 = NSStringFromSelector(selector);
-      v21 = v20;
-      uTF8String2 = [v20 UTF8String];
+      v21 = NSStringFromSelector(selector);
+      v22 = v21;
+      uTF8String2 = [v21 UTF8String];
       location = 68289795;
-      v29 = 2082;
-      v30 = "";
       v31 = 2082;
-      uTF8String = uTF8String2;
+      v32 = "";
       v33 = 2082;
-      v34 = "assert";
-      v35 = 2081;
-      v36 = "[self respondsToSelector:selector]";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ULLogicAdapter does not respond to selector", "{msg%{public}.0s:ULLogicAdapter does not respond to selector, selector:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &location, 0x30u);
+      uTF8String = uTF8String2;
+      v35 = 2082;
+      v36 = "assert";
+      v37 = 2081;
+      v38 = "[self respondsToSelector:selector]";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ULLogicAdapter does not respond to selector", "{msg%{public}.0s:ULLogicAdapter does not respond to selector, selector:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &location, 0x30u);
     }
 
-    v23 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v25 = _CLLogObjectForCategory_MicroLocation_Default(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v24 = NSStringFromSelector(selector);
-      v25 = v24;
-      -[ULLogicAdapter _registerOrUnregisterForBackgroundTaskWithRequest:withSelector:isRegister:].cold.1([v24 UTF8String], &location, v23, v24);
+      v26 = NSStringFromSelector(selector);
+      v27 = v26;
+      -[ULLogicAdapter _registerOrUnregisterForBackgroundTaskWithRequest:withSelector:isRegister:].cold.1([v26 UTF8String], &location, v25, v26);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/LogicAdapter/ULLogicAdapter.mm", 800, "[ULLogicAdapter _registerOrUnregisterForBackgroundTaskWithRequest:withSelector:isRegister:]");
     __break(1u);
   }
 
@@ -2102,15 +2075,15 @@ void __40__ULLogicAdapter__startMonitoringEvents__block_invoke_14(uint64_t a1, v
     backgroundSystemTaskManager = [environment backgroundSystemTaskManager];
     environment2 = [(ULLogicAdapter *)self environment];
     queue = [environment2 queue];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __92__ULLogicAdapter__registerOrUnregisterForBackgroundTaskWithRequest_withSelector_isRegister___block_invoke;
-    v26[3] = &unk_2798D4488;
-    objc_copyWeak(v27, &location);
-    v27[1] = selector;
-    [backgroundSystemTaskManager registerAndSubmitTaskWithRequest:requestCopy usingQueue:queue launchHandler:v26];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __92__ULLogicAdapter__registerOrUnregisterForBackgroundTaskWithRequest_withSelector_isRegister___block_invoke;
+    v28[3] = &unk_2798D4488;
+    objc_copyWeak(v29, &location);
+    v29[1] = selector;
+    [backgroundSystemTaskManager registerAndSubmitTaskWithRequest:requestCopy usingQueue:queue launchHandler:v28];
 
-    objc_destroyWeak(v27);
+    objc_destroyWeak(v29);
     objc_destroyWeak(&location);
   }
 
@@ -2121,8 +2094,6 @@ void __40__ULLogicAdapter__startMonitoringEvents__block_invoke_14(uint64_t a1, v
     identifier = [requestCopy identifier];
     [backgroundSystemTaskManager2 deregisterAndCancelTaskWithIdentifier:identifier];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __92__ULLogicAdapter__registerOrUnregisterForBackgroundTaskWithRequest_withSelector_isRegister___block_invoke(uint64_t a1, void *a2)
@@ -2165,104 +2136,92 @@ void __92__ULLogicAdapter__registerOrUnregisterForBackgroundTaskWithRequest_with
 
 void __32__ULLogicAdapter__learnExecute___block_invoke(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   v3 = [*(a1 + 32) environment];
   [ULMapItemGenerator generateMapItemsWithEnvironment:v3 dbStore:*(*(*v2 + 8) + 88) task:*(a1 + 40)];
 
-  CLMicroLocationLearner::CLMicroLocationLearner(v5, *(*(a1 + 32) + 8) + 8, *(*(*(a1 + 32) + 8) + 88), *(*(*(a1 + 32) + 8) + 96));
-  v10[0] = &unk_286A55080;
-  v10[1] = a1 + 40;
-  v10[3] = v10;
-  CLMicroLocationLearner::executeWorkItems(v5, v10);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v10);
-  std::__hash_table<std::__hash_value_type<boost::uuids::uuid,NSDate * {__strong}>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,NSDate * {__strong}>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,NSDate * {__strong}>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,NSDate * {__strong}>>>::~__hash_table(&v8);
-  v9 = &v7;
-  std::vector<std::function<void ()(std::function<BOOL ()(void)>)>>::__destroy_vector::operator()[abi:ne200100](&v9);
-
-  v4 = *MEMORY[0x277D85DE8];
+  CLMicroLocationLearner::CLMicroLocationLearner(v4, *(*(a1 + 32) + 8) + 8, *(*(*(a1 + 32) + 8) + 88), *(*(*(a1 + 32) + 8) + 96));
+  v9[0] = &unk_286A55080;
+  v9[1] = a1 + 40;
+  v9[3] = v9;
+  CLMicroLocationLearner::executeWorkItems(v4, v9);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v9);
+  std::__hash_table<std::__hash_value_type<boost::uuids::uuid,NSDate * {__strong}>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,NSDate * {__strong}>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,NSDate * {__strong}>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,NSDate * {__strong}>>>::~__hash_table(&v7);
+  v8 = &v6;
+  std::vector<std::function<void ()(std::function<BOOL ()(void)>)>>::__destroy_vector::operator()[abi:ne200100](&v8);
 }
 
 - (void)_maintenanceExecute:(id)execute
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   executeCopy = execute;
-  CLMicroLocationMaintenance::CLMicroLocationMaintenance(v5, *(self->logicAdapterImpl.__ptr_ + 11), *(self->logicAdapterImpl.__ptr_ + 12));
-  v9[0] = &unk_286A55110;
-  v9[1] = &executeCopy;
-  v9[3] = v9;
-  CLMicroLocationMaintenance::executeWorkItems(v5, v9);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v9);
-  v8 = &v6;
-  std::vector<std::function<void ()(std::function<BOOL ()(void)>)>>::__destroy_vector::operator()[abi:ne200100](&v8);
-
-  v4 = *MEMORY[0x277D85DE8];
+  CLMicroLocationMaintenance::CLMicroLocationMaintenance(v4, *(self->logicAdapterImpl.__ptr_ + 11), *(self->logicAdapterImpl.__ptr_ + 12));
+  v8[0] = &unk_286A55110;
+  v8[1] = &executeCopy;
+  v8[3] = v8;
+  CLMicroLocationMaintenance::executeWorkItems(v4, v8);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v8);
+  v7 = &v5;
+  std::vector<std::function<void ()(std::function<BOOL ()(void)>)>>::__destroy_vector::operator()[abi:ne200100](&v7);
 }
 
 - (void)_routineStateAnalyzerExecute:(id)execute
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   executeCopy = execute;
-  CLMicroLocationRoutineStateAnalyzer::CLMicroLocationRoutineStateAnalyzer(v5, self->logicAdapterImpl.__ptr_ + 16);
-  v9[0] = &unk_286A55190;
-  v9[1] = &executeCopy;
-  v9[3] = v9;
-  CLMicroLocationRoutineStateAnalyzer::executeWorkItems(v5, v9);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v9);
-  v8 = &v6;
-  std::vector<std::function<void ()(std::function<BOOL ()(void)>)>>::__destroy_vector::operator()[abi:ne200100](&v8);
-
-  v4 = *MEMORY[0x277D85DE8];
+  CLMicroLocationRoutineStateAnalyzer::CLMicroLocationRoutineStateAnalyzer(&v4, self->logicAdapterImpl.__ptr_ + 16);
+  v8[0] = &unk_286A55190;
+  v8[1] = &executeCopy;
+  v8[3] = v8;
+  CLMicroLocationRoutineStateAnalyzer::executeWorkItems(&v4, v8);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v8);
+  v7 = &v5;
+  std::vector<std::function<void ()(std::function<BOOL ()(void)>)>>::__destroy_vector::operator()[abi:ne200100](&v7);
 }
 
 - (void)_analyticsExecute:(id)execute
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   executeCopy = execute;
-  CLMicroLocationAnalytics::CLMicroLocationAnalytics(v5, self->logicAdapterImpl.__ptr_ + 24, *(self->logicAdapterImpl.__ptr_ + 11));
-  v9[0] = &unk_286A55210;
-  v9[1] = &executeCopy;
-  v9[3] = v9;
-  CLMicroLocationAnalytics::executeWorkItems(v5, v9);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v9);
-  v8 = &v6;
-  std::vector<std::function<void ()(std::function<BOOL ()(void)>)>>::__destroy_vector::operator()[abi:ne200100](&v8);
-
-  v4 = *MEMORY[0x277D85DE8];
+  CLMicroLocationAnalytics::CLMicroLocationAnalytics(v4, self->logicAdapterImpl.__ptr_ + 24, *(self->logicAdapterImpl.__ptr_ + 11));
+  v8[0] = &unk_286A55210;
+  v8[1] = &executeCopy;
+  v8[3] = v8;
+  CLMicroLocationAnalytics::executeWorkItems(v4, v8);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v8);
+  v7 = &v5;
+  std::vector<std::function<void ()(std::function<BOOL ()(void)>)>>::__destroy_vector::operator()[abi:ne200100](&v7);
 }
 
 - (void)_wifiAnalyticsExecute:(id)execute
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   executeCopy = execute;
-  ULWiFiHistogramAnalyzer::ULWiFiHistogramAnalyzer(v7, self->logicAdapterImpl.__ptr_ + 32, *(self->logicAdapterImpl.__ptr_ + 11));
-  v6[0] = &unk_286A55290;
-  v6[1] = &executeCopy;
-  v6[3] = v6;
-  ULWiFiHistogramAnalyzer::executeWiFiItem(v7, v6);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  std::__function::__value_func<void ()(std::function<BOOL ()(void)>)>::~__value_func[abi:ne200100](v8);
-
-  v4 = *MEMORY[0x277D85DE8];
+  ULWiFiHistogramAnalyzer::ULWiFiHistogramAnalyzer(v6, self->logicAdapterImpl.__ptr_ + 32, *(self->logicAdapterImpl.__ptr_ + 11));
+  v5[0] = &unk_286A55290;
+  v5[1] = &executeCopy;
+  v5[3] = v5;
+  ULWiFiHistogramAnalyzer::executeWiFiItem(v6, v5);
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
+  std::__function::__value_func<void ()(std::function<BOOL ()(void)>)>::~__value_func[abi:ne200100](v7);
 }
 
 - (void)_exportiCloudBackupExecute:(id)execute
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   executeCopy = execute;
   v4 = [[ULBackupAndRestore alloc] initWithDbStore:*(self->logicAdapterImpl.__ptr_ + 11) andDbManagement:*(self->logicAdapterImpl.__ptr_ + 12)];
-  v7[0] = &unk_286A55310;
-  v7[1] = &executeCopy;
-  v7[3] = v7;
-  [(ULBackupAndRestore *)v4 exportiCloudBackupWithCancelFunc:v7];
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v7);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_286A55310;
+  v6[1] = &executeCopy;
+  v6[3] = v6;
+  [(ULBackupAndRestore *)v4 exportiCloudBackupWithCancelFunc:v6];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
 }
 
 - (void)_handleULDataProtectionMonitorEventDataAvailable:(id)available
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   objc_opt_class();
   v5 = availableCopy;
@@ -2294,7 +2253,7 @@ void __32__ULLogicAdapter__learnExecute___block_invoke(uint64_t a1)
     }
 
     *buf = 138412290;
-    v16 = v10;
+    v15 = v10;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULDataProtectionMonitorEventDataAvailable: dataAvailable: %@", buf, 0xCu);
   }
 
@@ -2309,13 +2268,11 @@ void __32__ULLogicAdapter__learnExecute___block_invoke(uint64_t a1)
     block[4] = self;
     dispatch_async(queue, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleULAirplaneModeMonitorEventAirplaneMode:(id)mode
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   objc_opt_class();
   v5 = modeCopy;
@@ -2347,22 +2304,20 @@ void __32__ULLogicAdapter__learnExecute___block_invoke(uint64_t a1)
     }
 
     *buf = 138412290;
-    v18 = v10;
+    v17 = v10;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULAirplaneModeMonitorEventAirplaneMode: airplaneMode: %@", buf, 0xCu);
   }
 
   environment = [(ULLogicAdapter *)self environment];
   queue = [environment queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __64__ULLogicAdapter__handleULAirplaneModeMonitorEventAirplaneMode___block_invoke;
-  v15[3] = &unk_2798D44B0;
-  v15[4] = self;
-  v16 = v7;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __64__ULLogicAdapter__handleULAirplaneModeMonitorEventAirplaneMode___block_invoke;
+  v14[3] = &unk_2798D44B0;
+  v14[4] = self;
+  v15 = v7;
   v13 = v7;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v14);
 }
 
 uint64_t __64__ULLogicAdapter__handleULAirplaneModeMonitorEventAirplaneMode___block_invoke(uint64_t a1)
@@ -2376,7 +2331,7 @@ uint64_t __64__ULLogicAdapter__handleULAirplaneModeMonitorEventAirplaneMode___bl
 
 - (void)_handleULBatteryModeMonitorEventUnlimitedPower:(id)power
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   powerCopy = power;
   objc_opt_class();
   v5 = powerCopy;
@@ -2408,22 +2363,20 @@ uint64_t __64__ULLogicAdapter__handleULAirplaneModeMonitorEventAirplaneMode___bl
     }
 
     *buf = 138412290;
-    v18 = v10;
+    v17 = v10;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULBatteryModeMonitorEventUnlimitedPower: unlimitedPower: %@", buf, 0xCu);
   }
 
   environment = [(ULLogicAdapter *)self environment];
   queue = [environment queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __65__ULLogicAdapter__handleULBatteryModeMonitorEventUnlimitedPower___block_invoke;
-  v15[3] = &unk_2798D44B0;
-  v15[4] = self;
-  v16 = v7;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__ULLogicAdapter__handleULBatteryModeMonitorEventUnlimitedPower___block_invoke;
+  v14[3] = &unk_2798D44B0;
+  v14[4] = self;
+  v15 = v7;
   v13 = v7;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v14);
 }
 
 CLMicroLocationLegacyClient *__65__ULLogicAdapter__handleULBatteryModeMonitorEventUnlimitedPower___block_invoke(uint64_t a1)
@@ -2436,7 +2389,7 @@ CLMicroLocationLegacyClient *__65__ULLogicAdapter__handleULBatteryModeMonitorEve
 
 - (void)_handleULBatteryModeMonitorEventLowPowerMode:(id)mode
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   objc_opt_class();
   v5 = modeCopy;
@@ -2468,22 +2421,20 @@ CLMicroLocationLegacyClient *__65__ULLogicAdapter__handleULBatteryModeMonitorEve
     }
 
     *buf = 138412290;
-    v18 = v10;
+    v17 = v10;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULBatteryModeMonitorEventLowPowerMode: lowPowerMode: %@", buf, 0xCu);
   }
 
   environment = [(ULLogicAdapter *)self environment];
   queue = [environment queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__ULLogicAdapter__handleULBatteryModeMonitorEventLowPowerMode___block_invoke;
-  v15[3] = &unk_2798D44B0;
-  v15[4] = self;
-  v16 = v7;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63__ULLogicAdapter__handleULBatteryModeMonitorEventLowPowerMode___block_invoke;
+  v14[3] = &unk_2798D44B0;
+  v14[4] = self;
+  v15 = v7;
   v13 = v7;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v14);
 }
 
 uint64_t __63__ULLogicAdapter__handleULBatteryModeMonitorEventLowPowerMode___block_invoke(uint64_t a1)
@@ -2497,7 +2448,7 @@ uint64_t __63__ULLogicAdapter__handleULBatteryModeMonitorEventLowPowerMode___blo
 
 - (void)_handleULBluetoothMonitorEventPowerOn:(id)on
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   onCopy = on;
   objc_opt_class();
   v5 = onCopy;
@@ -2528,21 +2479,19 @@ uint64_t __63__ULLogicAdapter__handleULBatteryModeMonitorEventLowPowerMode___blo
       v10 = @"YES";
     }
 
-    v14 = 138412290;
-    v15 = v10;
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULBluetoothMonitorEventPowerOn: powerOn: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v10;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULBluetoothMonitorEventPowerOn: powerOn: %@", &v13, 0xCu);
   }
 
   environment = [(ULLogicAdapter *)self environment];
   queue = [environment queue];
   dispatch_async(queue, &__block_literal_global_30);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleULRapportMonitorEventDeviceFound:(id)found
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   foundCopy = found;
   objc_opt_class();
   v5 = foundCopy;
@@ -2568,22 +2517,20 @@ uint64_t __63__ULLogicAdapter__handleULBatteryModeMonitorEventLowPowerMode___blo
   {
     device = [v7 device];
     *buf = 138412290;
-    v18 = device;
+    v17 = device;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULRapportMonitorEventDeviceFound: new device: %@", buf, 0xCu);
   }
 
   environment = [(ULLogicAdapter *)self environment];
   queue = [environment queue];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __58__ULLogicAdapter__handleULRapportMonitorEventDeviceFound___block_invoke;
-  v14[3] = &unk_2798D44B0;
-  v15 = v7;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __58__ULLogicAdapter__handleULRapportMonitorEventDeviceFound___block_invoke;
+  v13[3] = &unk_2798D44B0;
+  v14 = v7;
   selfCopy = self;
   v12 = v7;
-  dispatch_async(queue, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v13);
 }
 
 void __58__ULLogicAdapter__handleULRapportMonitorEventDeviceFound___block_invoke(uint64_t a1)
@@ -2664,8 +2611,8 @@ void __58__ULLogicAdapter__handleULRapportMonitorEventDeviceFound___block_invoke
 
 void __59__ULLogicAdapter__handleULDisplayMonitorEventDisplayState___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17 = cl::chrono::CFAbsoluteTimeClock::now();
+  v19 = *MEMORY[0x277D85DE8];
+  v16 = cl::chrono::CFAbsoluteTimeClock::now();
   if ([*(a1 + 32) displayOnChanged])
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -2688,7 +2635,7 @@ void __59__ULLogicAdapter__handleULDisplayMonitorEventDisplayState___block_invok
       _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "_handleULDisplayMonitorEventDisplayState: display: %@", buf, 0xCu);
     }
 
-    CLMicroLocationLogic::setDisplayState(*(*(*(a1 + 40) + 8) + 104), [*(a1 + 32) displayOn], &v17);
+    CLMicroLocationLogic::setDisplayState(*(*(*(a1 + 40) + 8) + 104), [*(a1 + 32) displayOn], &v16);
     CLMicroLocationLegacyClient::onDisplayState(*(*(*(a1 + 40) + 8) + 112), [*(a1 + 32) displayOn]);
   }
 
@@ -2748,14 +2695,12 @@ void __59__ULLogicAdapter__handleULDisplayMonitorEventDisplayState___block_invok
       v15 = v14;
       std::string::basic_string[abi:ne200100]<0>(buf, [v14 UTF8String]);
       (*(*v13 + 16))(v13, buf);
-      if (v19 < 0)
+      if (v18 < 0)
       {
         operator delete(*buf);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleULDisplayMonitorEventDisplayState_OSX:(id)x
@@ -2789,7 +2734,7 @@ void __59__ULLogicAdapter__handleULDisplayMonitorEventDisplayState___block_invok
 
 void __63__ULLogicAdapter__handleULDisplayMonitorEventDisplayState_OSX___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) screenOnChanged])
   {
     CLMicroLocationLogic::onDisplayStateChange_OSX(*(*(*(a1 + 40) + 8) + 104), [*(a1 + 32) screenOn]);
@@ -2814,9 +2759,9 @@ void __63__ULLogicAdapter__handleULDisplayMonitorEventDisplayState_OSX___block_i
         v5 = @"On";
       }
 
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "_handleULDisplayMonitorEventDisplayState_OSX: clamshellMode: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "_handleULDisplayMonitorEventDisplayState_OSX: clamshellMode: %@", &v9, 0xCu);
     }
   }
 
@@ -2837,15 +2782,13 @@ void __63__ULLogicAdapter__handleULDisplayMonitorEventDisplayState_OSX___block_i
         v8 = @"On";
       }
 
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "_handleULDisplayMonitorEventDisplayState_OSX: screenLock: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "_handleULDisplayMonitorEventDisplayState_OSX: screenLock: %@", &v9, 0xCu);
     }
 
     CLMicroLocationLogic::setLockScreenState(*(*(*(a1 + 40) + 8) + 104), [*(a1 + 32) screenLocked]);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleULInternalNotifyMonitorEventLocalize:(id)localize
@@ -2985,7 +2928,7 @@ uint64_t __68__ULLogicAdapter__handleULInternalNotifyMonitorEventSettingsRefrsh_
 
 - (void)_handleULPrivacyMonitorEventLocationServices:(id)services
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   objc_opt_class();
   v5 = servicesCopy;
@@ -3017,22 +2960,20 @@ uint64_t __68__ULLogicAdapter__handleULInternalNotifyMonitorEventSettingsRefrsh_
     }
 
     *buf = 138412290;
-    v18 = v10;
+    v17 = v10;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULPrivacyMonitorEventLocationServices: locationServicesEnabled: %@", buf, 0xCu);
   }
 
   environment = [(ULLogicAdapter *)self environment];
   queue = [environment queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__ULLogicAdapter__handleULPrivacyMonitorEventLocationServices___block_invoke;
-  v15[3] = &unk_2798D44B0;
-  v15[4] = self;
-  v16 = v7;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63__ULLogicAdapter__handleULPrivacyMonitorEventLocationServices___block_invoke;
+  v14[3] = &unk_2798D44B0;
+  v14[4] = self;
+  v15 = v7;
   v13 = v7;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v14);
 }
 
 uint64_t __63__ULLogicAdapter__handleULPrivacyMonitorEventLocationServices___block_invoke(uint64_t a1)
@@ -3049,7 +2990,7 @@ uint64_t __63__ULLogicAdapter__handleULPrivacyMonitorEventLocationServices___blo
 
 - (void)_handleULBuddyMonitorEventBuddyComplete:(id)complete
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   objc_opt_class();
   v5 = completeCopy;
@@ -3081,22 +3022,20 @@ uint64_t __63__ULLogicAdapter__handleULPrivacyMonitorEventLocationServices___blo
     }
 
     *buf = 138412290;
-    v18 = v10;
+    v17 = v10;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "_handleULBuddyMonitorEventBuddyComplete: buddyComplete: %@", buf, 0xCu);
   }
 
   environment = [(ULLogicAdapter *)self environment];
   queue = [environment queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __58__ULLogicAdapter__handleULBuddyMonitorEventBuddyComplete___block_invoke;
-  v15[3] = &unk_2798D44B0;
-  v15[4] = self;
-  v16 = v7;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __58__ULLogicAdapter__handleULBuddyMonitorEventBuddyComplete___block_invoke;
+  v14[3] = &unk_2798D44B0;
+  v14[4] = self;
+  v15 = v7;
   v13 = v7;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v14);
 }
 
 void __58__ULLogicAdapter__handleULBuddyMonitorEventBuddyComplete___block_invoke(uint64_t a1)
@@ -3113,36 +3052,7 @@ void __58__ULLogicAdapter__handleULBuddyMonitorEventBuddyComplete___block_invoke
 - (void)_handleULSleepWakeMonitorEvent:(id)event
 {
   eventCopy = event;
-  if (![MEMORY[0x277D28868] isInternalInstall])
-  {
-    goto LABEL_11;
-  }
-
-  v5 = +[ULDefaultsSingleton shared];
-  defaultsDictionary = [v5 defaultsDictionary];
-
-  v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULLogAPSleepStateEnabled"];
-  v8 = [defaultsDictionary objectForKey:v7];
-  if (!v8)
-  {
-    goto LABEL_5;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    bOOLValue = [v8 BOOLValue];
-  }
-
-  else
-  {
-LABEL_5:
-    bOOLValue = [MEMORY[0x277CBEC28] BOOLValue];
-  }
-
-  v10 = bOOLValue;
-
-  if (v10)
+  if ([MEMORY[0x277D28868] isInternalInstall] && ((+[ULDefaultsSingleton shared](ULDefaultsSingleton, "shared"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "defaultsDictionary"), v6 = objc_claimAutoreleasedReturnValue(), v5, objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "ULLogAPSleepStateEnabled"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKey:", v7), (v8 = objc_claimAutoreleasedReturnValue()) == 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v9 = objc_msgSend(MEMORY[0x277CBEC28], "BOOLValue")) : (v9 = objc_msgSend(v8, "BOOLValue")), v10 = v9, v8, v7, v6, (v10 & 1) != 0))
   {
     objc_opt_class();
     v11 = eventCopy;
@@ -3171,7 +3081,6 @@ LABEL_5:
 
   else
   {
-LABEL_11:
     if (onceToken_MicroLocation_Default != -1)
     {
       _CLLogObjectForCategory_MicroLocation_Default();
@@ -3244,22 +3153,20 @@ void __49__ULLogicAdapter__handleULSleepWakeMonitorEvent___block_invoke(uint64_t
 
 uint64_t __55__ULLogicAdapter_ULDiagnosticsProvider__diagnosticInfo__block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"Date";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"Date";
   v2 = [MEMORY[0x277CBEAA8] date];
-  v10[1] = @"Modified ULSettings";
-  v11[0] = v2;
+  v9[1] = @"Modified ULSettings";
+  v10[0] = v2;
   v3 = +[ULDefaultsSingleton shared];
   v4 = [v3 settingsString];
-  v11[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  result = CLMicroLocationLogic::logState(*(*(*(a1 + 32) + 8) + 104));
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return CLMicroLocationLogic::logState(*(*(*(a1 + 32) + 8) + 104));
 }
 
 - (uint64_t)_maintenanceExecute:
@@ -3320,6 +3227,357 @@ uint64_t __55__ULLogicAdapter_ULDiagnosticsProvider__diagnosticInfo__block_invok
   {
     return 0;
   }
+}
+
+- (void)setDependencies:peripheralControl:environment:.cold.1()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:Method setDependencies can only be called once, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "Method setDependencies can only be called once", "{msg%{public}.0s:Method setDependencies can only be called once, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:Method setDependencies can only be called once, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)deleteServiceWithIdentifier:clientIdentifier:.cold.1()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:Delete service without identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "Delete service without identifier", "{msg%{public}.0s:Delete service without identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:Delete service without identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)disconnectWithConnectionToken:clientIdentifier:requestIdentifier:.cold.1()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:disconnect to service without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "disconnect to service without connectionToken", "{msg%{public}.0s:disconnect to service without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:disconnect to service without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)addLabelForConnectionToken:label:.cold.1()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:add label without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "add label without connectionToken", "{msg%{public}.0s:add label without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:add label without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)addLabelForConnectionToken:label:betweenStartDate:andEndDate:.cold.1()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:add label without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "add label without connectionToken", "{msg%{public}.0s:add label without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:add label without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)createCustomLoiAtCurrentLocationForConnectionToken:withConfiguration:.cold.2()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:create custom LOI withconfiguration, but without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "create custom LOI withconfiguration, but without connectionToken", "{msg%{public}.0s:create custom LOI withconfiguration, but without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:create custom LOI withconfiguration, but without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)removeCustomLoiWithIdentifier:forConnectionToken:.cold.2()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:remove custom LOI without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "remove custom LOI without connectionToken", "{msg%{public}.0s:remove custom LOI without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:remove custom LOI without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)removeCustomLoiWithIdentifier:forConnectionToken:.cold.3()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:remove custom loi with invalid LOI ID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "remove custom loi with invalid LOI ID", "{msg%{public}.0s:remove custom loi with invalid LOI ID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:remove custom loi with invalid LOI ID, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)removePendingConnectionRequestsByConnectionToken:.cold.2()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:remove pending connection requests without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "remove pending connection requests without connectionToken", "{msg%{public}.0s:remove pending connection requests without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:remove pending connection requests without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)imageFeaturesDebugWithTask:additionalInformation:.cold.2()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:Invalid image features task, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "Invalid image features task", "{msg%{public}.0s:Invalid image features task, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:Invalid image features task, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)polarisDebugWithTask:.cold.1()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:Invalid polaris manager task, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "Invalid polaris manager task", "{msg%{public}.0s:Invalid polaris manager task, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:Invalid polaris manager task, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)requestModelLearningForConnectionToken:requestIdentifier:.cold.1()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:request learning without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "request learning without connectionToken", "{msg%{public}.0s:request learning without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:request learning without connectionToken, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
+}
+
+- (void)requestModelLearningForConnectionToken:requestIdentifier:.cold.2()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = _CLLogObjectForCategory_MicroLocation_Default(v1);
+  if (OUTLINED_FUNCTION_6_0(v2))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_2_0(&dword_258FE9000, v3, v4, "{msg%{public}.0s:request learning without request identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+  if (os_signpost_enabled(v10))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_5(&dword_258FE9000, v11, v12, v13, "request learning without request identifier", "{msg%{public}.0s:request learning without request identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = _CLLogObjectForCategory_MicroLocation_Default(v16);
+  if (OUTLINED_FUNCTION_4_0(v17))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3_1(&dword_258FE9000, v18, v19, "{msg%{public}.0s:request learning without request identifier, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  OUTLINED_FUNCTION_7_0();
 }
 
 - (void)_registerOrUnregisterForBackgroundTaskWithRequest:(os_log_t)log withSelector:(void *)a4 isRegister:.cold.1(uint64_t a1, uint8_t *buf, os_log_t log, void *a4)

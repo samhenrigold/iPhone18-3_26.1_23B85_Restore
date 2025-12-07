@@ -25,7 +25,7 @@
   isa = [v2 preferredFocusEnvironments];
   if (!isa)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd, &_sSo18UIFocusEnvironment_pMR);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }
@@ -37,7 +37,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for DOCSharedSplitBrowserViewController();
+  v5.super_class = type metadata accessor for DOCSharedSplitBrowserViewController(0);
   v4 = v5.receiver;
   [(DOCViewController *)&v5 viewWillAppear:appearCopy];
   DOCSharedSplitBrowserViewController.startOwning()();
@@ -48,7 +48,7 @@
   height = size.height;
   width = size.width;
   v12.receiver = self;
-  v12.super_class = type metadata accessor for DOCSharedSplitBrowserViewController();
+  v12.super_class = type metadata accessor for DOCSharedSplitBrowserViewController(0);
   swift_unknownObjectRetain();
   v7 = v12.receiver;
   [(DOCSharedSplitBrowserViewController *)&v12 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];

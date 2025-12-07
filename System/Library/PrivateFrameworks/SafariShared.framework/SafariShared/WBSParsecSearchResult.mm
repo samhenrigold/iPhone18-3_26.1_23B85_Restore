@@ -47,17 +47,17 @@
 - (int64_t)type
 {
   v2 = self->_sfSearchResult;
-  v3 = [WBSParsecSearchResult typeForSFSearchResult:v2];
-  if (!v3)
+  v4 = [WBSParsecSearchResult typeForSFSearchResult:v2];
+  if (!v4)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXParsec();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXParsec(0, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(WBSParsecSearchResult *)v4 type];
+      [(WBSParsecSearchResult *)v5 type];
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (NSString)stringForType

@@ -12,7 +12,7 @@
 
 + (id)allocWithZone:(_NSZone *)zone
 {
-  qword_1EA79DC90 = "__SwiftValue cannot be instantiated";
+  qword_1EA79DC90[0] = "__SwiftValue cannot be instantiated";
   __break(1u);
   return result;
 }
@@ -114,7 +114,7 @@
         [__SwiftValue hash];
       }
 
-      std::__hash_table<swift::TargetMethodDescriptor<swift::InProcess> const*,std::hash<swift::TargetMethodDescriptor<swift::InProcess> const*>,std::equal_to<swift::TargetMethodDescriptor<swift::InProcess> const*>,std::allocator<swift::TargetMethodDescriptor<swift::InProcess> const*>>::__emplace_unique_key_args<swift::TargetMethodDescriptor<swift::InProcess> const*,swift::TargetMethodDescriptor<swift::InProcess> const*>([__SwiftValue hash]::warned, &v12);
+      std::__hash_table<swift::TargetMethodDescriptor<swift::InProcess> const*,std::hash<swift::TargetMethodDescriptor<swift::InProcess> const*>,std::equal_to<swift::TargetMethodDescriptor<swift::InProcess> const*>,std::allocator<swift::TargetMethodDescriptor<swift::InProcess> const*>>::__emplace_unique_key_args<swift::TargetMethodDescriptor<swift::InProcess> const*,swift::TargetMethodDescriptor<swift::InProcess> const*>([__SwiftValue hash]::warned, &v12, &v12);
       if (v8)
       {
         TypeName = swift_getTypeName(v12, 1);

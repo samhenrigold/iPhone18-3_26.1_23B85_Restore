@@ -14,24 +14,23 @@
 
 - (HKObserverQuery)initWithSampleType:(HKSampleType *)sampleType predicate:(NSPredicate *)predicate updateHandler:(void *)updateHandler
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v8 = updateHandler;
   v9 = predicate;
   v10 = sampleType;
   v11 = [[HKQueryDescriptor alloc] initWithSampleType:v10 predicate:v9];
 
   [(HKQuery *)self setShouldSuppressDataCollection:1];
-  v19[0] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __62__HKObserverQuery_initWithSampleType_predicate_updateHandler___block_invoke;
-  v17[3] = &unk_1E737B710;
-  v18 = v8;
+  v18[0] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __62__HKObserverQuery_initWithSampleType_predicate_updateHandler___block_invoke;
+  v16[3] = &unk_1E737B710;
+  v17 = v8;
   v13 = v8;
-  v14 = [(HKObserverQuery *)self initWithQueryDescriptors:v12 updateHandler:v17];
+  v14 = [(HKObserverQuery *)self initWithQueryDescriptors:v12 updateHandler:v16];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -41,18 +40,16 @@ void __62__HKObserverQuery_initWithSampleType_predicate_updateHandler___block_in
   v8 = a2;
   v9 = a5;
   v10 = a4;
-  _HKInitializeLogging();
-  v11 = HKLogBackgroundUpdates;
+  _HKInitializeLogging(v10, v11);
+  v12 = HKLogBackgroundUpdates;
   if (os_log_type_enabled(HKLogBackgroundUpdates, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138543362;
     v14 = v8;
-    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "Returning back the update handler after success for query %{public}@", &v13, 0xCu);
+    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "Returning back the update handler after success for query %{public}@", &v13, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (HKObserverQuery)initWithQueryDescriptors:(NSArray *)queryDescriptors updateHandler:(void *)updateHandler
@@ -98,39 +95,38 @@ void __62__HKObserverQuery_initWithSampleType_predicate_updateHandler___block_in
 
 void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = _Block_copy(*(*(a1 + 32) + 160));
+  v4 = v2;
   if (v2)
   {
-    _HKInitializeLogging();
-    v3 = HKLogBackgroundUpdates;
+    _HKInitializeLogging(v2, v3);
+    v5 = HKLogBackgroundUpdates;
     if (os_log_type_enabled(HKLogBackgroundUpdates, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
+      v6 = *(a1 + 40);
       *buf = 138543362;
-      v17 = v4;
-      _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "client dataUpdatedInDatabase was fired for query UUID %{public}@", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "client dataUpdatedInDatabase was fired for query UUID %{public}@", buf, 0xCu);
     }
 
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query___block_invoke_6;
-    v12[3] = &unk_1E737B760;
-    v7 = *(a1 + 48);
+    v7 = *(a1 + 32);
     v8 = *(a1 + 40);
-    *&v9 = *(a1 + 56);
-    *(&v9 + 1) = *(a1 + 32);
-    *&v10 = v7;
-    *(&v10 + 1) = v8;
-    v13 = v10;
-    v14 = v9;
-    v15 = v2;
-    [v5 queue_dispatchToClientForUUID:v6 shouldDeactivate:0 block:v12];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query___block_invoke_6;
+    v13[3] = &unk_1E737B760;
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 40);
+    *&v11 = *(a1 + 56);
+    *(&v11 + 1) = *(a1 + 32);
+    *&v12 = v9;
+    *(&v12 + 1) = v10;
+    v14 = v12;
+    v15 = v11;
+    v16 = v4;
+    [v7 queue_dispatchToClientForUUID:v8 shouldDeactivate:0 block:v13];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query___block_invoke_6(uint64_t a1)
@@ -152,33 +148,31 @@ void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query
   (*(*(a1 + 64) + 16))(*(a1 + 64), *(a1 + 56), *(a1 + 48), v7);
 }
 
-void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query___block_invoke_2(uint64_t a1)
+void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    _HKInitializeLogging();
-    v2 = HKLogBackgroundUpdates;
+    _HKInitializeLogging(a1, a2);
+    v3 = HKLogBackgroundUpdates;
     if (os_log_type_enabled(HKLogBackgroundUpdates, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
-      v3 = *(a1 + 48);
-      v5 = *(a1 + 32);
+      v5 = *(a1 + 40);
+      v4 = *(a1 + 48);
+      v6 = *(a1 + 32);
       v9 = 138543874;
-      v10 = v4;
+      v10 = v5;
       v11 = 2114;
-      v12 = v3;
+      v12 = v4;
       v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEFAULT, "client called completionHandler for query UUID %{public}@, forTypes: %{public}@, anchor: %{public}@", &v9, 0x20u);
+      v14 = v6;
+      _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "client called completionHandler for query UUID %{public}@, forTypes: %{public}@, anchor: %{public}@", &v9, 0x20u);
     }
 
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:time(0)];
-    v7 = [*(a1 + 56) delegate];
-    [v7 closeTransactionForTypes:*(a1 + 48) anchor:*(a1 + 32) ackTime:v6 query:*(a1 + 56)];
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:time(0)];
+    v8 = [*(a1 + 56) delegate];
+    [v8 closeTransactionForTypes:*(a1 + 48) anchor:*(a1 + 32) ackTime:v7 query:*(a1 + 56)];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_populateConfiguration:(id)configuration
@@ -213,10 +207,10 @@ void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query
 
 - (void)queue_validate
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = HKObserverQuery;
-  [(HKQuery *)&v21 queue_validate];
+  v22 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = HKObserverQuery;
+  [(HKQuery *)&v20 queue_validate];
   queryDescriptors = [(HKQuery *)self queryDescriptors];
   v4 = [queryDescriptors count];
 
@@ -225,26 +219,26 @@ void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query
     [MEMORY[0x1E695DF30] raise:@"HKQueryValidationFailureException" format:{@"%@ data type must be non-nil", objc_opt_class()}];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   queryDescriptors2 = [(HKQuery *)self queryDescriptors];
-  v6 = [queryDescriptors2 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v6 = [queryDescriptors2 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(queryDescriptors2);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         sampleType = [v10 sampleType];
 
         if (!sampleType)
@@ -264,7 +258,7 @@ void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query
         }
       }
 
-      v7 = [queryDescriptors2 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v7 = [queryDescriptors2 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v7);
@@ -274,8 +268,6 @@ void __73__HKObserverQuery_client_dataUpdatedInDatabaseForTypes_withAnchor_query
   {
     [MEMORY[0x1E695DF30] raise:@"HKQueryValidationFailureException" format:{@"%@ updateHandler must not be nil", objc_opt_class()}];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_deliverError:(id)error

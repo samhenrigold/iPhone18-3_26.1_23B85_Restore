@@ -1,4 +1,5 @@
 @interface GCDirectionalGamepad
+- (BOOL)calculateRelativePositionWithDigitizerX:(float)x digitizerY:(float)y touchDown:(BOOL)down;
 - (BOOL)determineTouchStateWithDigitizerX:(float)x digitizerY:(float)y touchDown:(BOOL)down;
 - (BOOL)ownershipClaimingElementsZero;
 - (CGPoint)addCGPoint:(CGPoint)point toPoint:(CGPoint)toPoint;
@@ -11,9 +12,12 @@
 - (id)centerButtonEvent:(id)event pressed:(BOOL)pressed;
 - (id)dpadDirectionEvent:(id)event direction:(unint64_t)direction pressed:(BOOL)pressed;
 - (id)productCategory;
+- (void)digitizerTouchEvent:(id)event x:(double)x y:(double)y timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation;
+- (void)digitizerTouchUp:(id)up timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation;
 - (void)reportDigitizerChange:(id)change;
 - (void)reportDirectionpadChange:(id)change onQueue:(id)queue;
 - (void)setDeviceType:(int64_t)type;
+- (void)setDpad:(id)dpad digitizerX:(double)x digitizerY:(double)y touchDown:(BOOL)down;
 - (void)setReportsAbsoluteDpadValues:(BOOL)values;
 @end
 
@@ -79,9 +83,9 @@ LABEL_9:
 
 - (void)setDeviceType:(int64_t)type
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
-    [GCDirectionalGamepad setDeviceType:];
+    [(GCDirectionalGamepad *)self setDeviceType:type];
   }
 
   dpad = [(GCMicroGamepad *)self dpad];
@@ -105,43 +109,44 @@ LABEL_8:
     {
       v11 = GCCurrentProcessLinkedOnAfter(0x7E50301FFFFFFFFuLL);
       v12 = GCCurrentProcessLinkedOnAfter(0x7E50901FFFFFFFFuLL);
+      v13 = v12;
       self->_treatOnlyCenterRingAsButtonA = v11 & (v12 ^ 1);
-      if (gc_isInternalBuild())
+      if (gc_isInternalBuild(v12, v14))
       {
-        [(GCDirectionalGamepad *)&self->_treatOnlyCenterRingAsButtonA setDeviceType:v11, v12 & 1];
+        [(GCDirectionalGamepad *)&self->_treatOnlyCenterRingAsButtonA setDeviceType:v11, v13 & 1];
       }
 
       if (!self->_treatOnlyCenterRingAsButtonA)
       {
-        v28 = 0u;
-        v29 = 0u;
         v30 = 0u;
-        v32 = 0;
-        v27 = @"Button Center";
-        LOWORD(v28) = 257;
-        v31 = @"DIRECTIONAL_GAMEPAD_BUTTON_CENTER";
-        v13 = [(GCPhysicalInputProfile *)self _buttonWithInfo:&v27];
+        v31 = 0u;
+        v32 = 0u;
+        v34 = 0;
+        v29 = @"Button Center";
+        LOWORD(v30) = 257;
+        v33 = @"DIRECTIONAL_GAMEPAD_BUTTON_CENTER";
+        v15 = [(GCPhysicalInputProfile *)self _buttonWithInfo:&v29];
         centerButton = self->_centerButton;
-        self->_centerButton = v13;
+        self->_centerButton = v15;
       }
 
-      v22 = 0u;
-      v26 = 0;
       v24 = 0u;
-      v23 = 0u;
-      v21 = @"Cardinal Direction Pad";
-      LOWORD(v22) = 1;
-      v25 = @"DIRECTIONAL_GAMEPAD_CARDINAL_DIRECTION_PAD";
-      v15 = [(GCPhysicalInputProfile *)self _directionPadWithInfo:&v21];
+      v28 = 0;
+      v26 = 0u;
+      v25 = 0u;
+      v23 = @"Cardinal Direction Pad";
+      LOWORD(v24) = 1;
+      v27 = @"DIRECTIONAL_GAMEPAD_CARDINAL_DIRECTION_PAD";
+      v17 = [(GCPhysicalInputProfile *)self _directionPadWithInfo:&v23];
       cardinalDpad = self->_cardinalDpad;
-      self->_cardinalDpad = v15;
+      self->_cardinalDpad = v17;
 
       buttonMenu = [(GCMicroGamepad *)self buttonMenu];
       [buttonMenu setUnmappedNameLocalizationKey:@"DIRECTIONAL_GAMEPAD_BUTTON_MENU"];
 
-      v18 = _GCFConvertStringToLocalizedString();
+      v20 = _GCFConvertStringToLocalizedString();
       buttonMenu2 = [(GCMicroGamepad *)self buttonMenu];
-      [buttonMenu2 setLocalizedName:v18];
+      [buttonMenu2 setLocalizedName:v20];
     }
 
     goto LABEL_14;
@@ -165,6 +170,84 @@ LABEL_15:
   self->_deviceType = type;
   controller3 = [(GCPhysicalInputProfile *)self controller];
   [controller3 setVendorName:0];
+}
+
+- (BOOL)calculateRelativePositionWithDigitizerX:(float)x digitizerY:(float)y touchDown:(BOOL)down
+{
+  xCopy = x;
+  yCopy = y;
+  p_absoluteWindowLocation = &self->_absoluteWindowLocation;
+  [(GCDirectionalGamepad *)self distanceBetweenCGPoint:down andCGPoint:x, y, self->_absoluteWindowLocation.x, self->_absoluteWindowLocation.y];
+  touchpadRelativeWindowSize = self->_touchpadRelativeWindowSize;
+  if (v10 >= (self->_touchpadRelativeOriginBufferSize * touchpadRelativeWindowSize) || self->_reportsAbsoluteDpadValues)
+  {
+    leftBufferZone = 1;
+    self->_leftBufferZone = 1;
+    self->_absolutePosition.x = xCopy;
+    self->_absolutePosition.y = yCopy;
+    [(GCDirectionalGamepad *)self mulCGPoint:xCopy - p_absoluteWindowLocation->x byScalar:yCopy - p_absoluteWindowLocation->y, 1.0 / touchpadRelativeWindowSize];
+    v13 = v12;
+    v15 = v14;
+    [(GCDirectionalGamepad *)self normalizeCGPoint:?];
+    v17 = v16;
+    v19 = v18;
+    [GCDirectionalGamepad scaleCGPoint:"scaleCGPoint:toLength:" toLength:?];
+    [GCDirectionalGamepad addCGPoint:"addCGPoint:toPoint:" toPoint:?];
+    p_relativePosition = &self->_relativePosition;
+    v23 = self->_absolutePosition.y - v22;
+    self->_relativePosition.x = self->_absolutePosition.x - v20;
+    self->_relativePosition.y = v23;
+    [GCDirectionalGamepad mulCGPoint:"mulCGPoint:byScalar:" byScalar:?];
+    self->_relativePosition.x = v24;
+    self->_relativePosition.y = v25;
+    [(GCDirectionalGamepad *)self magnitudeForCGPoint:v13, v15];
+    if (v26 > 1.0)
+    {
+      v27 = 1.0 - self->_touchpadRelativeWindowSize;
+      [(GCDirectionalGamepad *)self subCGPoint:v17 fromPoint:v19, v13, v15];
+      [(GCDirectionalGamepad *)self addCGPoint:p_absoluteWindowLocation->x toPoint:p_absoluteWindowLocation->y, v28, v29];
+      p_absoluteWindowLocation->x = v30;
+      p_absoluteWindowLocation->y = v31;
+      if (self->_beganTouchOutsideBounds)
+      {
+        [(GCDirectionalGamepad *)self magnitudeForCGPoint:?];
+        if (v32 <= v27)
+        {
+          self->_beganTouchOutsideBounds = 0;
+        }
+      }
+
+      else
+      {
+        [GCDirectionalGamepad clampPoint:"clampPoint:toLength:" toLength:?];
+        p_absoluteWindowLocation->x = v33;
+        p_absoluteWindowLocation->y = v34;
+      }
+
+      [(GCDirectionalGamepad *)self scaleCGPoint:p_relativePosition->x toLength:self->_relativePosition.y, 1.0];
+      p_relativePosition->x = v35;
+      self->_relativePosition.y = v36;
+    }
+  }
+
+  else
+  {
+    self->_absolutePosition = *p_absoluteWindowLocation;
+    self->_relativePosition = *MEMORY[0x1E695EFF8];
+    if (self->_touchState)
+    {
+      leftBufferZone = self->_leftBufferZone;
+    }
+
+    else
+    {
+      leftBufferZone = 1;
+    }
+
+    self->_leftBufferZone = 0;
+  }
+
+  return leftBufferZone;
 }
 
 - (void)reportDigitizerChange:(id)change
@@ -337,6 +420,50 @@ LABEL_13:
   return !v11 && (v8 != 2 || self->_absolutePosition.x != x || self->_absolutePosition.y != y);
 }
 
+- (void)setDpad:(id)dpad digitizerX:(double)x digitizerY:(double)y touchDown:(BOOL)down
+{
+  downCopy = down;
+  yCopy = y;
+  xCopy = x;
+  xCopy2 = x;
+  yCopy2 = y;
+  *&x = xCopy2;
+  *&y = yCopy2;
+  if ([(GCDirectionalGamepad *)self determineTouchStateWithDigitizerX:down digitizerY:x touchDown:y])
+  {
+    if (self->_touchState == 1)
+    {
+      self->_absoluteTouchDownPosition.x = xCopy;
+      self->_absoluteTouchDownPosition.y = yCopy;
+      self->_absoluteWindowLocation = self->_absoluteTouchDownPosition;
+      self->_absolutePosition.x = xCopy;
+      self->_absolutePosition.y = yCopy;
+      self->_relativePosition = *MEMORY[0x1E695EFF8];
+      self->_leftBufferZone = 0;
+      v14 = 1.0 - self->_touchpadRelativeWindowSize;
+      [(GCDirectionalGamepad *)self magnitudeForCGPoint:self->_absoluteWindowLocation.x, self->_absoluteWindowLocation.y];
+      if (v15 > v14)
+      {
+        self->_beganTouchOutsideBounds = 1;
+      }
+    }
+
+    else
+    {
+      *&v12 = xCopy2;
+      *&v13 = yCopy2;
+      if (![(GCDirectionalGamepad *)self calculateRelativePositionWithDigitizerX:downCopy digitizerY:v12 touchDown:v13])
+      {
+        return;
+      }
+    }
+
+    controller = [(GCPhysicalInputProfile *)self controller];
+    handlerQueue = [controller handlerQueue];
+    [(GCDirectionalGamepad *)self reportDigitizerChange:handlerQueue];
+  }
+}
+
 - (CGPoint)normalizeCGPoint:(CGPoint)point
 {
   y = point.y;
@@ -445,6 +572,18 @@ LABEL_13:
   return v13;
 }
 
+- (void)digitizerTouchEvent:(id)event x:(double)x y:(double)y timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation
+{
+  v10 = [(GCMicroGamepad *)self dpad:event];
+  [(GCDirectionalGamepad *)self setDpad:v10 digitizerX:1 digitizerY:x touchDown:y];
+}
+
+- (void)digitizerTouchUp:(id)up timestamp:(unint64_t)timestamp forceSkipDpadRotation:(BOOL)rotation
+{
+  v6 = [(GCMicroGamepad *)self dpad:up];
+  [(GCDirectionalGamepad *)self setDpad:v6 digitizerX:0 digitizerY:0.0 touchDown:0.0];
+}
+
 - (id)dpadDirectionEvent:(id)event direction:(unint64_t)direction pressed:(BOOL)pressed
 {
   directionPadButtonsState = self->_directionPadButtonsState;
@@ -456,7 +595,7 @@ LABEL_13:
   }
 
   self->_directionPadButtonsState = v8;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(self, a2))
   {
     [GCDirectionalGamepad(DirectionPadValueChangedDelegate) dpadDirectionEvent:? direction:? pressed:?];
   }
@@ -522,21 +661,21 @@ LABEL_13:
   return v11;
 }
 
-void __95__GCDirectionalGamepad_DirectionPadValueChangedDelegate__dpadDirectionEvent_direction_pressed___block_invoke(uint64_t a1)
+void __95__GCDirectionalGamepad_DirectionPadValueChangedDelegate__dpadDirectionEvent_direction_pressed___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __95__GCDirectionalGamepad_DirectionPadValueChangedDelegate__dpadDirectionEvent_direction_pressed___block_invoke_cold_1(a1);
   }
 
-  v2 = [*(a1 + 32) valueChangedHandler];
+  v3 = [*(a1 + 32) valueChangedHandler];
 
-  if (v2)
+  if (v3)
   {
-    v3 = [*(a1 + 32) valueChangedHandler];
-    v4 = *(a1 + 32);
-    v5 = [v4 buttonA];
-    (v3)[2](v3, v4, v5);
+    v4 = [*(a1 + 32) valueChangedHandler];
+    v5 = *(a1 + 32);
+    v6 = [v5 buttonA];
+    (v4)[2](v4, v5, v6);
   }
 }
 
@@ -588,87 +727,87 @@ void __95__GCDirectionalGamepad_DirectionPadValueChangedDelegate__dpadDirectionE
   return v8;
 }
 
-void __84__GCDirectionalGamepad_DirectionPadValueChangedDelegate__centerButtonEvent_pressed___block_invoke(uint64_t a1)
+void __84__GCDirectionalGamepad_DirectionPadValueChangedDelegate__centerButtonEvent_pressed___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
     __84__GCDirectionalGamepad_DirectionPadValueChangedDelegate__centerButtonEvent_pressed___block_invoke_cold_1(a1);
   }
 
-  v2 = [*(a1 + 32) valueChangedHandler];
+  v3 = [*(a1 + 32) valueChangedHandler];
 
-  if (v2)
+  if (v3)
   {
-    v3 = [*(a1 + 32) valueChangedHandler];
-    v3[2](v3, *(a1 + 32), *(*(a1 + 32) + 808));
+    v4 = [*(a1 + 32) valueChangedHandler];
+    v4[2](v4, *(a1 + 32), *(*(a1 + 32) + 808));
   }
 }
 
-- (void)setDeviceType:.cold.1()
+- (void)setDeviceType:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = getGCLogger(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_29(&dword_1D2CD5000, v1, v2, "Setting %@ device type to %ld", v3, v4, v5, v6, 2u);
+    *v11 = 138412546;
+    *&v11[4] = a1;
+    *&v11[12] = 2048;
+    *&v11[14] = a2;
+    OUTLINED_FUNCTION_0_29(&dword_1D2CD5000, v5, v6, "Setting %@ device type to %ld", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDeviceType:(char)a3 .cold.2(unsigned __int8 *a1, char a2, char a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v6 = getGCLogger();
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = getGCLogger(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = @"NO";
     v8 = *a1;
-    v10 = 138412802;
+    v9 = 138412802;
     if (v8)
     {
       v7 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 1024;
-    v13 = a2 & 1;
-    v14 = 1024;
-    v15 = a3 & 1;
-    _os_log_impl(&dword_1D2CD5000, v6, OS_LOG_TYPE_INFO, "GCDirectionalGamepad - treatOnlyCenterRingAsButtonA? %@ (14.5 ? %d, 15.0 ? %d)", &v10, 0x18u);
+    v10 = v7;
+    v11 = 1024;
+    v12 = a2 & 1;
+    v13 = 1024;
+    v14 = a3 & 1;
+    _os_log_impl(&dword_1D2CD5000, v6, OS_LOG_TYPE_INFO, "GCDirectionalGamepad - treatOnlyCenterRingAsButtonA? %@ (14.5 ? %d, 15.0 ? %d)", &v9, 0x18u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __95__GCDirectionalGamepad_DirectionPadValueChangedDelegate__dpadDirectionEvent_direction_pressed___block_invoke_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) controller];
     v4 = [v3 debugName];
-    v12 = [*(a1 + 32) buttonA];
-    OUTLINED_FUNCTION_0_29(&dword_1D2CD5000, v5, v6, "%@ changed: %@", v7, v8, v9, v10, 2u);
+    v5 = [*(a1 + 32) buttonA];
+    *v12 = 138412546;
+    *&v12[4] = v4;
+    *&v12[12] = 2112;
+    *&v12[14] = v5;
+    OUTLINED_FUNCTION_0_29(&dword_1D2CD5000, v6, v7, "%@ changed: %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __84__GCDirectionalGamepad_DirectionPadValueChangedDelegate__centerButtonEvent_pressed___block_invoke_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) controller];
     v4 = [v3 debugName];
-    v12 = *(*(a1 + 32) + 808);
-    OUTLINED_FUNCTION_0_29(&dword_1D2CD5000, v5, v6, "%@ changed: %@", v7, v8, v9, v10, 2u);
+    *v11 = 138412546;
+    *&v11[4] = v4;
+    *&v11[12] = 2112;
+    *&v11[14] = *(*(a1 + 32) + 808);
+    OUTLINED_FUNCTION_0_29(&dword_1D2CD5000, v5, v6, "%@ changed: %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

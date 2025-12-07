@@ -214,10 +214,9 @@ uint64_t __81__MOCoarseGranularityAggregationManager_aggregateBundles_withParame
     [*(a1 + 32) addObjectsFromArray:*(*(*(a1 + 64) + 8) + 40)];
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 @end

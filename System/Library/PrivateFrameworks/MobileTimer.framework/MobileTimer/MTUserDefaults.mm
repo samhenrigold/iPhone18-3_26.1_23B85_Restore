@@ -14,6 +14,7 @@
 - (void)distributedNotificationPosted:(id)posted;
 - (void)registerNotification:(id)notification observer:(id)observer;
 - (void)removeAllObjects;
+- (void)setBool:(BOOL)bool forKey:(id)key notification:(id)notification;
 - (void)setFloat:(float)float forKey:(id)key notification:(id)notification;
 - (void)setInteger:(int64_t)integer forKey:(id)key notification:(id)notification;
 - (void)setObject:(id)object forKey:(id)key notification:(id)notification;
@@ -108,6 +109,16 @@ void __36__MTUserDefaults_sharedUserDefaults__block_invoke()
   v8 = v7;
 
   return v8;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key notification:(id)notification
+{
+  boolCopy = bool;
+  v8 = MEMORY[0x1E696AD98];
+  notificationCopy = notification;
+  keyCopy = key;
+  v11 = [v8 numberWithBool:boolCopy];
+  [(MTUserDefaults *)self setObject:v11 forKey:keyCopy notification:notificationCopy];
 }
 
 - (BOOL)BOOLForKey:(id)key exists:(BOOL *)exists
@@ -228,30 +239,30 @@ void __36__MTUserDefaults_sharedUserDefaults__block_invoke()
 
 - (void)removeAllObjects
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   dictionaryRepresentation = [(NSUserDefaults *)self->_userDefaults dictionaryRepresentation];
   allKeys = [dictionaryRepresentation allKeys];
 
-  v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        if (*(*(&v10 + 1) + 8 * v8))
+        if (*(*(&v9 + 1) + 8 * v8))
         {
           [(MTUserDefaults *)self removeObjectForKey:?];
         }
@@ -260,13 +271,11 @@ void __36__MTUserDefaults_sharedUserDefaults__block_invoke()
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postNotification:(id)notification
@@ -288,7 +297,7 @@ void __36__MTUserDefaults_sharedUserDefaults__block_invoke()
 
 - (void)registerNotification:(id)notification observer:(id)observer
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   observerCopy = observer;
   v8 = MTLogForCategory(0);
@@ -296,26 +305,24 @@ void __36__MTUserDefaults_sharedUserDefaults__block_invoke()
   {
     *buf = 138543874;
     selfCopy = self;
-    v18 = 2114;
-    v19 = observerCopy;
-    v20 = 2114;
-    v21 = notificationCopy;
+    v17 = 2114;
+    v18 = observerCopy;
+    v19 = 2114;
+    v20 = notificationCopy;
     _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ registering %{public}@ for %{public}@", buf, 0x20u);
   }
 
   serializer = self->_serializer;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __48__MTUserDefaults_registerNotification_observer___block_invoke;
-  v13[3] = &unk_1E7B0C9A0;
-  v13[4] = self;
-  v14 = notificationCopy;
-  v15 = observerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __48__MTUserDefaults_registerNotification_observer___block_invoke;
+  v12[3] = &unk_1E7B0C9A0;
+  v12[4] = self;
+  v13 = notificationCopy;
+  v14 = observerCopy;
   v10 = observerCopy;
   v11 = notificationCopy;
-  [(NAScheduler *)serializer performBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(NAScheduler *)serializer performBlock:v12];
 }
 
 void __48__MTUserDefaults_registerNotification_observer___block_invoke(void *a1)
@@ -357,29 +364,29 @@ void __48__MTUserDefaults_registerNotification_observer___block_invoke(void *a1)
 
 void __48__MTUserDefaults_distributedNotificationPosted___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _cleanupObserversForNotification:*(a1 + 40)];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = [*(*(a1 + 32) + 24) objectForKeyedSubscript:*(a1 + 40)];
-  v2 = [obj countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v2 = [obj countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v22;
+    v4 = *v21;
     do
     {
       v5 = 0;
       do
       {
-        if (*v22 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v21 + 1) + 8 * v5);
+        v6 = *(*(&v20 + 1) + 8 * v5);
         if (objc_opt_respondsToSelector())
         {
           v7 = [v6 notificationObject];
@@ -406,42 +413,40 @@ void __48__MTUserDefaults_distributedNotificationPosted___block_invoke(uint64_t 
           v13 = *(a1 + 32);
           v14 = *(a1 + 40);
           *buf = 138543874;
-          v26 = v13;
-          v27 = 2114;
-          v28 = v14;
-          v29 = 2114;
-          v30 = v7;
+          v25 = v13;
+          v26 = 2114;
+          v27 = v14;
+          v28 = 2114;
+          v29 = v7;
           _os_log_debug_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ posting %{public}@ for %{public}@", buf, 0x20u);
         }
 
         v10 = [MEMORY[0x1E69B3790] mtMainThreadScheduler];
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __48__MTUserDefaults_distributedNotificationPosted___block_invoke_34;
-        v17[3] = &unk_1E7B0C9A0;
-        v18 = v8;
-        v19 = *(a1 + 40);
-        v20 = v7;
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __48__MTUserDefaults_distributedNotificationPosted___block_invoke_34;
+        v16[3] = &unk_1E7B0C9A0;
+        v17 = v8;
+        v18 = *(a1 + 40);
+        v19 = v7;
         v11 = v7;
         v12 = v8;
-        [v10 performBlock:v17];
+        [v10 performBlock:v16];
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v3);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterNotification:(id)notification observer:(id)observer
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   observerCopy = observer;
   v8 = MTLogForCategory(0);
@@ -449,26 +454,24 @@ void __48__MTUserDefaults_distributedNotificationPosted___block_invoke(uint64_t 
   {
     *buf = 138543874;
     selfCopy = self;
-    v18 = 2114;
-    v19 = observerCopy;
-    v20 = 2114;
-    v21 = notificationCopy;
+    v17 = 2114;
+    v18 = observerCopy;
+    v19 = 2114;
+    v20 = notificationCopy;
     _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ unregistering %{public}@ for %{public}@", buf, 0x20u);
   }
 
   serializer = self->_serializer;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __50__MTUserDefaults_unregisterNotification_observer___block_invoke;
-  v13[3] = &unk_1E7B0C9A0;
-  v13[4] = self;
-  v14 = notificationCopy;
-  v15 = observerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __50__MTUserDefaults_unregisterNotification_observer___block_invoke;
+  v12[3] = &unk_1E7B0C9A0;
+  v12[4] = self;
+  v13 = notificationCopy;
+  v14 = observerCopy;
   v10 = observerCopy;
   v11 = notificationCopy;
-  [(NAScheduler *)serializer performBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(NAScheduler *)serializer performBlock:v12];
 }
 
 void __50__MTUserDefaults_unregisterNotification_observer___block_invoke(uint64_t a1)
@@ -522,22 +525,20 @@ void __50__MTUserDefaults_unregisterNotification_observer___block_invoke(uint64_
 
 - (void)initWithUserDefaults:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ initializing...", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ initializing...", &v2, 0xCu);
 }
 
 - (void)_postNotification:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_DEBUG, "%{public}@ broadcasting %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_DEBUG, "%{public}@ broadcasting %{public}@", &v3, 0x16u);
 }
 
 @end

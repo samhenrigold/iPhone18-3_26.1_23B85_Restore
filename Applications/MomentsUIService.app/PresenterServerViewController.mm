@@ -28,14 +28,14 @@
   selfCopy = self;
   static MomentsUIManager.dismissWithoutCleanup.setter();
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for PresenterServerViewController();
+  v4.super_class = type metadata accessor for PresenterServerViewController(0);
   [(PresenterServerViewController *)&v4 dealloc];
 }
 
 - (void)viewDidLoad
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for PresenterServerViewController();
+  v2.super_class = type metadata accessor for PresenterServerViewController(0);
   [(PresenterServerViewController *)&v2 viewDidLoad];
 }
 

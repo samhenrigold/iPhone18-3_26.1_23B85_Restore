@@ -9,13 +9,13 @@
 
 - (id)analyticsButtonValues
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(_MKPlaceActionButtonController *)self->_actionButtonController analyticsAction]== 403)
   {
     v3 = objc_alloc_init(MEMORY[0x1E69A24B0]);
     [v3 setType:57];
-    v9[0] = v3;
-    v4 = v9;
+    v8[0] = v3;
+    v4 = v8;
 LABEL_5:
     v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
@@ -26,14 +26,13 @@ LABEL_5:
   {
     v3 = objc_alloc_init(MEMORY[0x1E69A24B0]);
     [v3 setType:58];
-    v8 = v3;
-    v4 = &v8;
+    v7 = v3;
+    v4 = &v7;
     goto LABEL_5;
   }
 
   v5 = MEMORY[0x1E695E0F0];
 LABEL_7:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

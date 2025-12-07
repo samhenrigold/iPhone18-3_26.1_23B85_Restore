@@ -4,6 +4,7 @@
 - (id)nextViewControllerFrom:(id)from;
 - (void)firstViewController:(id)controller;
 - (void)handleTransferringWatchdogExpiry;
+- (void)launchSecureIntentUI:(id)i descriptors:(id)descriptors isLocalConvertFlow:(BOOL)flow isSecureIntentRequired:(BOOL)required isDtoEvaluationRequired:(BOOL)evaluationRequired completion:(id)completion;
 - (void)transferEventUpdate:(id)update;
 @end
 
@@ -92,13 +93,13 @@ LABEL_9:
 
 - (void)handleTransferringWatchdogExpiry
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = _TSLogDomain();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = _TSLogDomain(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[TSIDSTransferFlow handleTransferringWatchdogExpiry]";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "handle 2 min transferring watchdog timer expired @%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[TSIDSTransferFlow handleTransferringWatchdogExpiry]";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "handle 2 min transferring watchdog timer expired @%s", &v7, 0xCu);
   }
 
   topViewController = [(TSSIMSetupFlow *)self topViewController];
@@ -110,8 +111,45 @@ LABEL_9:
     topViewController2 = [(TSSIMSetupFlow *)self topViewController];
     [(TSSIMSetupFlow *)self viewControllerDidComplete:topViewController2];
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)launchSecureIntentUI:(id)i descriptors:(id)descriptors isLocalConvertFlow:(BOOL)flow isSecureIntentRequired:(BOOL)required isDtoEvaluationRequired:(BOOL)evaluationRequired completion:(id)completion
+{
+  evaluationRequiredCopy = evaluationRequired;
+  requiredCopy = required;
+  flowCopy = flow;
+  v26 = *MEMORY[0x277D85DE8];
+  iCopy = i;
+  descriptorsCopy = descriptors;
+  completionCopy = completion;
+  v17 = [TSUtilities isSecureIntentUIRequired:iCopy];
+  if ((v17 & 1) == 0)
+  {
+    v18 = _TSLogDomain(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v25 = "[TSIDSTransferFlow launchSecureIntentUI:descriptors:isLocalConvertFlow:isSecureIntentRequired:isDtoEvaluationRequired:completion:]";
+      _os_log_impl(&dword_262AA8000, v18, OS_LOG_TYPE_DEFAULT, "secure intent gesture is not required. skip @%s", buf, 0xCu);
+    }
+
+    requiredCopy = 0;
+  }
+
+  v19 = [[TSSecureIntentGestureViewController alloc] initWithExternalizedContext:iCopy descriptors:descriptorsCopy isLocalConvertFlow:flowCopy isSecureIntentRequired:requiredCopy isDtoEvaluationRequired:evaluationRequiredCopy];
+  objc_initWeak(buf, self);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __131__TSIDSTransferFlow_launchSecureIntentUI_descriptors_isLocalConvertFlow_isSecureIntentRequired_isDtoEvaluationRequired_completion___block_invoke;
+  v21[3] = &unk_279B44D90;
+  objc_copyWeak(&v23, buf);
+  v20 = v19;
+  v22 = v20;
+  [(TSSecureIntentGestureViewController *)v20 prepare:v21];
+  completionCopy[2](completionCopy, 1);
+
+  objc_destroyWeak(&v23);
+  objc_destroyWeak(buf);
 }
 
 void __131__TSIDSTransferFlow_launchSecureIntentUI_descriptors_isLocalConvertFlow_isSecureIntentRequired_isDtoEvaluationRequired_completion___block_invoke(uint64_t a1, int a2)
@@ -132,7 +170,7 @@ void __131__TSIDSTransferFlow_launchSecureIntentUI_descriptors_isLocalConvertFlo
 {
   v18 = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412546;
@@ -174,9 +212,10 @@ void __131__TSIDSTransferFlow_launchSecureIntentUI_descriptors_isLocalConvertFlo
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v11 BOOLValue])
+      bOOLValue = [v11 BOOLValue];
+      if (bOOLValue)
       {
-        topViewController3 = _TSLogDomain();
+        topViewController3 = _TSLogDomain(bOOLValue);
         if (os_log_type_enabled(topViewController3, OS_LOG_TYPE_ERROR))
         {
           [TSIDSTransferFlow transferEventUpdate:topViewController3];
@@ -190,17 +229,14 @@ void __131__TSIDSTransferFlow_launchSecureIntentUI_descriptors_isLocalConvertFlo
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transferEventUpdate:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSIDSTransferFlow transferEventUpdate:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Unexpected transferEventUpdate for resuming prox card @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSIDSTransferFlow transferEventUpdate:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Unexpected transferEventUpdate for resuming prox card @%s", &v1, 0xCu);
 }
 
 @end

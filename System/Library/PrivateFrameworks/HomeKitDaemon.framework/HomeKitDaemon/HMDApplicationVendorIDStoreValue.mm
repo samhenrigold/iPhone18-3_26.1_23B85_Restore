@@ -24,7 +24,7 @@
 
 - (HMDApplicationVendorIDStoreValue)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HM.vendorID"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HM.applicationBundleID"];
@@ -48,13 +48,13 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v17 = 138543874;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded vendorIDSHA1: %@, applicationBundleID: %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded vendorIDSHA1: %@, applicationBundleID: %@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -67,33 +67,30 @@
     v14 = selfCopy;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   vendorIDSHA1 = [(HMDApplicationVendorIDStoreValue *)self vendorIDSHA1];
   v5 = [v3 initWithName:@"Vendor ID" value:vendorIDSHA1];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   applicationBundleID = [(HMDApplicationVendorIDStoreValue *)self applicationBundleID];
   v8 = [v6 initWithName:@"Bundle ID" value:applicationBundleID];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   companionAppBundleID = [(HMDApplicationVendorIDStoreValue *)self companionAppBundleID];
   v11 = [v9 initWithName:@"Companion Bundle ID" value:companionAppBundleID];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDApplicationVendorIDStoreValue *)self isSPIClient];
   v13 = HMFBooleanToString();
   v14 = [v12 initWithName:@"Is SPI Client" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -108,15 +105,15 @@
   v13 = [(HMDApplicationVendorIDStoreValue *)&v21 init];
   if (v13)
   {
-    v14 = [a1Copy copy];
+    v14 = objc_msgSend_copy(a1Copy);
     vendorIDSHA1 = v13->_vendorIDSHA1;
     v13->_vendorIDSHA1 = v14;
 
-    v16 = [dCopy copy];
+    v16 = objc_msgSend_copy(dCopy);
     applicationBundleID = v13->_applicationBundleID;
     v13->_applicationBundleID = v16;
 
-    v18 = [iDCopy copy];
+    v18 = objc_msgSend_copy(iDCopy);
     companionAppBundleID = v13->_companionAppBundleID;
     v13->_companionAppBundleID = v18;
 

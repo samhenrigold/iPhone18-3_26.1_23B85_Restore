@@ -97,15 +97,14 @@
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_invalidated"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_invalidated", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -118,12 +117,11 @@
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"must set idleTimeout to non-zero before calling [BLSHBacklightIdleProvider start]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -296,7 +294,7 @@
 
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvents:(id)events abortedEvents:(id)abortedEvents
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   os_unfair_lock_lock(&self->_lock);
   lock_didStartTransitionToNewState = 0;
@@ -311,23 +309,23 @@
   v11 = bls_backlight_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = NSStringFromBLSBacklightState();
+    v12 = NSStringFromBLSBacklightState();
     lock_idle = self->_lock_idle;
     lock_active = self->_lock_active;
-    v16 = self->_lock_didStartTransitionToNewState;
-    v17 = 138413570;
-    v18 = v13;
-    v19 = 1024;
-    v20 = lock_previousBacklightState != state;
-    v21 = 1024;
-    v22 = lock_didStartTransitionToNewState;
-    v23 = 1024;
-    v24 = lock_idle;
-    v25 = 1024;
-    v26 = lock_active;
-    v27 = 1024;
-    v28 = v16;
-    _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "didCompleteUpdateToState %@; changed=%{BOOL}d; needToResumeIdleTimer=%{BOOL}d, idle=%{BOOL}d, active=%{BOOL}d, didStartTransitionToNewState=%{BOOL}d", &v17, 0x2Au);
+    v15 = self->_lock_didStartTransitionToNewState;
+    v16 = 138413570;
+    v17 = v12;
+    v18 = 1024;
+    v19 = lock_previousBacklightState != state;
+    v20 = 1024;
+    v21 = lock_didStartTransitionToNewState;
+    v22 = 1024;
+    v23 = lock_idle;
+    v24 = 1024;
+    v25 = lock_active;
+    v26 = 1024;
+    v27 = v15;
+    _os_log_debug_impl(&dword_21FD11000, v11, OS_LOG_TYPE_DEBUG, "didCompleteUpdateToState %@; changed=%{BOOL}d; needToResumeIdleTimer=%{BOOL}d, idle=%{BOOL}d, active=%{BOOL}d, didStartTransitionToNewState=%{BOOL}d", &v16, 0x2Au);
   }
 
   os_unfair_lock_unlock(&self->_lock);
@@ -335,13 +333,11 @@
   {
     [BLSHBacklightIdleProvider backlight:state didCompleteUpdateToState:state == 2 forEvents:eventsCopy abortedEvents:?];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)backlightHost:(id)host willTransitionToState:(int64_t)state forEvent:(id)event
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (state == 2)
   {
@@ -356,21 +352,19 @@
   v7 = bls_backlight_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
+    v8 = NSStringFromBLSBacklightState();
     v9 = NSStringFromBLSBacklightState();
-    lock_previousBacklightState = self->_lock_previousBacklightState;
-    v11 = NSStringFromBLSBacklightState();
     lock_didStartTransitionToNewState = self->_lock_didStartTransitionToNewState;
-    v13 = 138412802;
+    v11 = 138412802;
+    v12 = v8;
+    v13 = 2112;
     v14 = v9;
-    v15 = 2112;
-    v16 = v11;
-    v17 = 1024;
-    v18 = lock_didStartTransitionToNewState;
-    _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "willTransitionToState %@; previousBacklightState %@; didStartTransitionToNewState=%{BOOL}d", &v13, 0x1Cu);
+    v15 = 1024;
+    v16 = lock_didStartTransitionToNewState;
+    _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "willTransitionToState %@; previousBacklightState %@; didStartTransitionToNewState=%{BOOL}d", &v11, 0x1Cu);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)idleProviderDidIdle:(id)idle
@@ -462,7 +456,7 @@
 
 - (void)setSuppressed:(os_unfair_lock_s *)suppressed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (suppressed)
   {
     OUTLINED_FUNCTION_5_0(suppressed);
@@ -474,24 +468,25 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109376;
-      v9 = v5;
-      v10 = 1024;
-      v11 = v4 != a2;
+      v8 = v5;
+      v9 = 1024;
+      v10 = v4 != a2;
       _os_log_debug_impl(&dword_21FD11000, v6, OS_LOG_TYPE_DEBUG, "setSuppressed started=%{BOOL}u changed=%{BOOL}u", buf, 0xEu);
     }
 
-    if (v4 != a2 && v5)
+    if (v4 != a2)
     {
-      BSDispatchMain();
+      if (v5)
+      {
+        BSDispatchMain();
+      }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onMain_handleSuppressedChanged
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_5_0(self);
@@ -501,25 +496,26 @@
     v4 = bls_backlight_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6[0] = 67109376;
-      v6[1] = v2;
-      v7 = 1024;
-      v8 = v3;
-      _os_log_debug_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEBUG, "onMain_handleSuppressedChanged suppressed=%{BOOL}u idle=%{BOOL}u", v6, 0xEu);
+      v5[0] = 67109376;
+      v5[1] = v2;
+      v6 = 1024;
+      v7 = v3;
+      _os_log_debug_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEBUG, "onMain_handleSuppressedChanged suppressed=%{BOOL}u idle=%{BOOL}u", v5, 0xEu);
     }
 
-    if ((v2 & 1) == 0 && v3)
+    if ((v2 & 1) == 0)
     {
-      [(BLSHBacklightIdleProvider *)v1 onMain_idleBacklightInactiveWithExplanation:?];
+      if (v3)
+      {
+        [(BLSHBacklightIdleProvider *)v1 onMain_idleBacklightInactiveWithExplanation:?];
+      }
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onMain_idleBacklightInactiveWithExplanation:(uint64_t)explanation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (explanation)
   {
@@ -540,68 +536,60 @@
       v7 = bls_backlight_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v10 = 134218242;
+        v9 = 134218242;
         explanationCopy = explanation;
-        v12 = 2114;
-        v13 = v3;
-        _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "%p will not inactivate (not pending) for explanation:%{public}@", &v10, 0x16u);
+        v11 = 2114;
+        v12 = v3;
+        _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "%p will not inactivate (not pending) for explanation:%{public}@", &v9, 0x16u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onMain_handleDidIdle
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v9 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-    goto LABEL_9;
-  }
-
-  OUTLINED_FUNCTION_5_0(self);
-  v2 = *(v1 + 68);
-  v3 = *(v1 + 65);
-  v4 = *(v1 + 67);
-  os_unfair_lock_unlock((v1 + 32));
-  if (v2 != 1)
-  {
-    v5 = bls_backlight_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    OUTLINED_FUNCTION_5_0(self);
+    v2 = *(v1 + 68);
+    v3 = *(v1 + 65);
+    v4 = *(v1 + 67);
+    os_unfair_lock_unlock((v1 + 32));
+    if (v2 != 1)
     {
-      v9 = 134217984;
-      v10 = v1;
-      v6 = "%p no longer idle, will not deactivate backlight";
-      goto LABEL_14;
-    }
+      v5 = bls_backlight_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        v7 = 134217984;
+        v8 = v1;
+        v6 = "%p no longer idle, will not deactivate backlight";
+        goto LABEL_14;
+      }
 
 LABEL_8:
 
-LABEL_9:
-    v7 = *MEMORY[0x277D85DE8];
-    return;
-  }
+      return;
+    }
 
-  if (!v3 || (v4 & 1) != 0)
-  {
-    v5 = bls_backlight_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (!v3 || (v4 & 1) != 0)
     {
-      v9 = 134217984;
-      v10 = v1;
-      v6 = "%p backlightIdle is suppressed, will not deactivate backlight (yet)";
+      v5 = bls_backlight_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      {
+        v7 = 134217984;
+        v8 = v1;
+        v6 = "%p backlightIdle is suppressed, will not deactivate backlight (yet)";
 LABEL_14:
-      _os_log_debug_impl(&dword_21FD11000, v5, OS_LOG_TYPE_DEBUG, v6, &v9, 0xCu);
+        _os_log_debug_impl(&dword_21FD11000, v5, OS_LOG_TYPE_DEBUG, v6, &v7, 0xCu);
+        goto LABEL_8;
+      }
+
       goto LABEL_8;
     }
 
-    goto LABEL_8;
+    [(BLSHBacklightIdleProvider *)v1 onMain_idleBacklightInactiveWithExplanation:?];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-
-  [(BLSHBacklightIdleProvider *)v1 onMain_idleBacklightInactiveWithExplanation:?];
 }
 
 + (void)createSharedProviderWithLocalAssertionService:(char *)a1 .cold.1(char *a1)
@@ -609,12 +597,11 @@ LABEL_14:
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[BLSHBacklightIdleProvider createSharedProviderWithLocalAssertionService:] should not be called twice"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -627,12 +614,11 @@ LABEL_14:
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[BLSHBacklightIdleProvider sharedProvider] should not be called before createSharedProviderWithLocalAssertionService:"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_2(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -642,27 +628,24 @@ LABEL_14:
 
 - (void)setSuspended:(os_log_t)log .cold.1(unsigned __int8 a1, char a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a1;
-  v5 = 1024;
-  v6 = a2 & 1;
-  _os_log_debug_impl(&dword_21FD11000, log, OS_LOG_TYPE_DEBUG, "setSuspended started=%{BOOL}u changed=%{BOOL}u", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a1;
+  v4 = 1024;
+  v5 = a2 & 1;
+  _os_log_debug_impl(&dword_21FD11000, log, OS_LOG_TYPE_DEBUG, "setSuspended started=%{BOOL}u changed=%{BOOL}u", v3, 0xEu);
 }
 
 - (void)setTargetIdleState:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1 != a2;
   v5 = NSStringFromBLSBacklightActivityState();
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 1024;
-  v10 = v4;
-  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "setTargetIdleState targetIdleState:%@ changed=%{BOOL}u", &v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 1024;
+  v9 = v4;
+  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "setTargetIdleState targetIdleState:%@ changed=%{BOOL}u", &v6, 0x12u);
 }
 
 - (void)backlight:(uint64_t)a1 didCompleteUpdateToState:(uint64_t)a2 forEvents:(char)a3 abortedEvents:(void *)a4 .cold.1(uint64_t a1, uint64_t a2, char a3, void *a4)

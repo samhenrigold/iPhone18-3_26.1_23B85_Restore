@@ -10,18 +10,22 @@
 {
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
-  *(v5 + 16) = v4;
+  v5[2] = v4;
   selfCopy = self;
   ExtractedUIFlowItem.preflight(completion:)(sub_1BD1B6B00, v5);
+
+  v5, v7, v8, v9, v10, v11, v12, v13;
 }
 
 - (id)viewControllerWithCompletion:(id)completion
 {
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
-  *(v5 + 16) = v4;
+  v5[2] = v4;
   selfCopy = self;
   v7 = ExtractedUIFlowItem.viewController(completion:)(sub_1BD166E88, v5);
+
+  v5, v8, v9, v10, v11, v12, v13, v14;
 
   return v7;
 }

@@ -7,19 +7,17 @@
 
 + (id)supportedFeaturesForElementName:(id)name
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   if ([name isEqual:@"itemGroup"])
   {
-    v6[0] = 0x2880B94F0;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+    v5[0] = 0x2880B94F0;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   }
 
   else
   {
     v3 = MEMORY[0x277CBEBF8];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

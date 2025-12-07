@@ -119,129 +119,137 @@ LABEL_15:
 
 - (VTBiometricMatchMonitor)init
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = VTBiometricMatchMonitor;
-  v2 = [(VTEventMonitor *)&v17 init];
+  v35 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = VTBiometricMatchMonitor;
+  v2 = [(VTEventMonitor *)&v18 init];
   if (!v2)
   {
     return v2;
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
   v3 = getBKDeviceClass_softClass;
-  v26 = getBKDeviceClass_softClass;
+  v27 = getBKDeviceClass_softClass;
   if (!getBKDeviceClass_softClass)
   {
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __getBKDeviceClass_block_invoke;
-    v21 = &unk_2784ED270;
-    v22 = &v23;
-    v27 = 0;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __getBKDeviceClass_block_invoke;
+    v22 = &unk_2784ED270;
+    v23 = &v24;
+    v28 = 0;
     if (!BiometricKitLibraryCore_frameworkLibrary)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v29 = __BiometricKitLibraryCore_block_invoke;
-      v30 = &__block_descriptor_40_e5_v8__0l;
-      v31 = &v27;
-      v32 = xmmword_2784ED290;
-      v33 = 0;
+      v30 = __BiometricKitLibraryCore_block_invoke;
+      v31 = &__block_descriptor_40_e5_v8__0l;
+      v32 = &v28;
+      v33 = xmmword_2784ED290;
+      v34 = 0;
       BiometricKitLibraryCore_frameworkLibrary = _sl_dlopen();
+      v4 = v28;
       if (!BiometricKitLibraryCore_frameworkLibrary)
       {
         goto LABEL_22;
       }
 
-      if (v27)
+      if (v28)
       {
-        free(v27);
+        free(v28);
       }
     }
 
     Class = objc_getClass("BKDevice");
-    *(v22[1] + 24) = Class;
-    if (!*(v22[1] + 24))
+    *(v23[1] + 24) = Class;
+    if (!*(v23[1] + 24))
     {
-      goto LABEL_22;
+      abort_report_np("Unable to find class %s", "BKDevice");
+      goto LABEL_26;
     }
 
-    getBKDeviceClass_softClass = *(v22[1] + 24);
-    v3 = v24[3];
+    getBKDeviceClass_softClass = *(v23[1] + 24);
+    v3 = v25[3];
   }
 
-  v5 = v3;
-  _Block_object_dispose(&v23, 8);
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
-  v6 = getBKDeviceManagerClass_softClass;
-  v26 = getBKDeviceManagerClass_softClass;
+  v6 = v3;
+  _Block_object_dispose(&v24, 8);
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
+  v7 = getBKDeviceManagerClass_softClass;
+  v27 = getBKDeviceManagerClass_softClass;
   if (getBKDeviceManagerClass_softClass)
   {
     goto LABEL_16;
   }
 
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __getBKDeviceManagerClass_block_invoke;
-  v21 = &unk_2784ED270;
-  v22 = &v23;
-  v27 = 0;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __getBKDeviceManagerClass_block_invoke;
+  v22 = &unk_2784ED270;
+  v23 = &v24;
+  v28 = 0;
   if (!BiometricKitLibraryCore_frameworkLibrary)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v29 = __BiometricKitLibraryCore_block_invoke;
-    v30 = &__block_descriptor_40_e5_v8__0l;
-    v31 = &v27;
-    v32 = xmmword_2784ED290;
-    v33 = 0;
+    v30 = __BiometricKitLibraryCore_block_invoke;
+    v31 = &__block_descriptor_40_e5_v8__0l;
+    v32 = &v28;
+    v33 = xmmword_2784ED290;
+    v34 = 0;
     BiometricKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    if (!BiometricKitLibraryCore_frameworkLibrary)
+    v4 = v28;
+    if (BiometricKitLibraryCore_frameworkLibrary)
     {
-      goto LABEL_22;
+      if (v28)
+      {
+        free(v28);
+      }
+
+      goto LABEL_14;
     }
 
-    if (v27)
-    {
-      free(v27);
-    }
+LABEL_22:
+    abort_report_np("%s", v4);
+    goto LABEL_26;
   }
 
-  v7 = objc_getClass("BKDeviceManager");
-  *(v22[1] + 24) = v7;
-  if (!*(v22[1] + 24))
+LABEL_14:
+  v8 = objc_getClass("BKDeviceManager");
+  *(v23[1] + 24) = v8;
+  if (!*(v23[1] + 24))
   {
-LABEL_22:
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "BKDeviceManager");
+LABEL_26:
     __break(1u);
   }
 
-  getBKDeviceManagerClass_softClass = *(v22[1] + 24);
-  v6 = v24[3];
+  getBKDeviceManagerClass_softClass = *(v23[1] + 24);
+  v7 = v25[3];
 LABEL_16:
-  v8 = v6;
-  _Block_object_dispose(&v23, 8);
-  availableDevices = [v6 availableDevices];
+  v9 = v7;
+  _Block_object_dispose(&v24, 8);
+  availableDevices = [v7 availableDevices];
   firstObject = [availableDevices firstObject];
-  v16 = 0;
-  v11 = [v3 deviceWithDescriptor:firstObject error:&v16];
-  v12 = v16;
+  v17 = 0;
+  v12 = [v3 deviceWithDescriptor:firstObject error:&v17];
+  v13 = v17;
   biometricDevice = v2->_biometricDevice;
-  v2->_biometricDevice = v11;
+  v2->_biometricDevice = v12;
 
-  if (v12 || !v2->_biometricDevice)
+  if (v13 || !v2->_biometricDevice)
   {
-    v14 = VTLogContextFacilityVoiceTrigger;
+    v15 = VTLogContextFacilityVoiceTrigger;
     if (os_log_type_enabled(VTLogContextFacilityVoiceTrigger, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v12;
-      _os_log_error_impl(&dword_223A31000, v14, OS_LOG_TYPE_ERROR, "Failed to create biometricdevice with error %@", &buf, 0xCu);
+      *(&buf + 4) = v13;
+      _os_log_error_impl(&dword_223A31000, v15, OS_LOG_TYPE_ERROR, "Failed to create biometricdevice with error %@", &buf, 0xCu);
     }
   }
 

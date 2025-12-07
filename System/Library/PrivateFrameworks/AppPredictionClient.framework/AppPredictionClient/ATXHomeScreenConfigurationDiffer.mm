@@ -88,7 +88,7 @@
               }
 
               v17 = *(*(&v29 + 1) + 8 * j);
-              if (+[ATXHomeScreenConfigurationDiffer _widget:hasSamePersonalityAsOtherWidget:](ATXHomeScreenConfigurationDiffer, "_widget:hasSamePersonalityAsOtherWidget:", v17, v11) && ([v8 containsObject:v11] & 1) == 0 && (objc_msgSend(v9, "containsObject:", v17) & 1) == 0)
+              if ([ATXHomeScreenConfigurationDiffer _widget:v17 hasSamePersonalityAsOtherWidget:v11]&& (objc_msgSend_containsObject_(v8) & 1) == 0 && (objc_msgSend_containsObject_(v9) & 1) == 0)
               {
                 [v8 addObject:v11];
                 [v9 addObject:v17];
@@ -236,7 +236,7 @@
               }
 
               v30 = *(*(&v42 + 1) + 8 * m);
-              if (+[ATXHomeScreenConfigurationDiffer _widget:hasSamePersonalityAsOtherWidget:](ATXHomeScreenConfigurationDiffer, "_widget:hasSamePersonalityAsOtherWidget:", v30, v24) && ([v21 containsObject:v24] & 1) == 0 && (objc_msgSend(v22, "containsObject:", v30) & 1) == 0)
+              if ([ATXHomeScreenConfigurationDiffer _widget:v30 hasSamePersonalityAsOtherWidget:v24]&& (objc_msgSend_containsObject_(v21) & 1) == 0 && (objc_msgSend_containsObject_(v22) & 1) == 0)
               {
                 [v21 addObject:v24];
                 [v22 addObject:v30];

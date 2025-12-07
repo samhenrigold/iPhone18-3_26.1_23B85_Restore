@@ -5,7 +5,7 @@ Swift::Int Placeholder.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Placeholder()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Placeholder(uint64_t a1)
 {
   Hasher.init(_seed:)();
   Hasher._combine(_:)(0);

@@ -27,7 +27,7 @@
     v11 = 0;
   }
 
-  v12 = HDSampleEntityPredicateForEndDate(6);
+  v12 = HDSampleEntityPredicateForEndDate(6, v10);
   v13 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v11 otherPredicate:v12];
 
   return v13;
@@ -55,7 +55,7 @@
     v11 = 0;
   }
 
-  v12 = HDSampleEntityPredicateForEndDate(4);
+  v12 = HDSampleEntityPredicateForEndDate(4, v10);
   v13 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v11 otherPredicate:v12];
 
   return v13;

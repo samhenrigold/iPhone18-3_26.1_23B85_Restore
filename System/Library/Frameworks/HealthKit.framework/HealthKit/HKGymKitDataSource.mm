@@ -49,7 +49,7 @@
 {
   proxyProvider = self->_proxyProvider;
   self->_proxyProvider = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, proxyProvider);
 }
 
 - (void)connectionInterrupted
@@ -65,11 +65,11 @@
 
 void __43__HKGymKitDataSource_connectionInterrupted__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __43__HKGymKitDataSource_connectionInterrupted__block_invoke_2_cold_1(a1);
+    __43__HKGymKitDataSource_connectionInterrupted__block_invoke_2_cold_1();
   }
 }
 
@@ -86,30 +86,12 @@ void __43__HKGymKitDataSource_connectionInterrupted__block_invoke_2(uint64_t a1,
 
 void __46__HKGymKitDataSource__startTaskServerIfNeeded__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __46__HKGymKitDataSource__startTaskServerIfNeeded__block_invoke_2_cold_1(a1);
+    __46__HKGymKitDataSource__startTaskServerIfNeeded__block_invoke_2_cold_1();
   }
-}
-
-void __43__HKGymKitDataSource_connectionInterrupted__block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 8);
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "HKGymKitDataSource: Unable to fetch data source %@ proxy after interrupted connection with error: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __46__HKGymKitDataSource__startTaskServerIfNeeded__block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 8);
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "HKGymKitDataSource: Unable to start task server %@ with error: %@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

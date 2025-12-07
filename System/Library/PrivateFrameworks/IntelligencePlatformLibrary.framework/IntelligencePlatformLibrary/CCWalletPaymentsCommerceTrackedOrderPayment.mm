@@ -13,10 +13,10 @@
 
 - (CCWalletPaymentsCommerceTrackedOrderPayment)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v38 = 0;
+  v37 = 0;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
   v8 = 0;
   if (IsInstanceOfExpectedClass)
@@ -28,7 +28,7 @@
     {
       v12 = v11;
       objc_opt_class();
-      v37 = v8;
+      v36 = v8;
       v13 = CCValidateIsInstanceOfExpectedClass();
       v14 = v8;
 
@@ -39,34 +39,34 @@
         goto LABEL_21;
       }
 
-      v29 = v14;
-      v30 = v9;
+      v28 = v14;
+      v29 = v9;
       selfCopy = self;
       v15 = objc_opt_new();
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v12 = v12;
-      v16 = [v12 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v16 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v34;
+        v18 = *v33;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v34 != v18)
+            if (*v33 != v18)
             {
               objc_enumerationMutation(v12);
             }
 
-            v20 = *(*(&v33 + 1) + 8 * i);
+            v20 = *(*(&v32 + 1) + 8 * i);
             v21 = [CCWalletPaymentsCommerceTrackedOrderTransaction alloc];
-            v32 = 0;
-            v22 = [(CCWalletPaymentsCommerceTrackedOrderTransaction *)v21 initWithJSONDictionary:v20 error:&v32];
-            v23 = v32;
+            v31 = 0;
+            v22 = [(CCWalletPaymentsCommerceTrackedOrderTransaction *)v21 initWithJSONDictionary:v20 error:&v31];
+            v23 = v31;
             if (v22)
             {
               v24 = v23 == 0;
@@ -83,24 +83,24 @@
               CCSetError();
 
               v26 = 0;
-              v9 = v30;
+              v9 = v29;
               self = selfCopy;
-              v14 = v29;
+              v14 = v28;
               goto LABEL_21;
             }
 
             [v15 addObject:v22];
           }
 
-          v17 = [v12 countByEnumeratingWithState:&v33 objects:v39 count:16];
+          v17 = [v12 countByEnumeratingWithState:&v32 objects:v38 count:16];
         }
 
         while (v17);
       }
 
-      v9 = v30;
+      v9 = v29;
       self = selfCopy;
-      v14 = v29;
+      v14 = v28;
     }
 
     else
@@ -121,13 +121,12 @@ LABEL_21:
   v26 = 0;
 LABEL_22:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
 - (id)jsonDictionary
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_totalAmount)
   {
@@ -144,30 +143,30 @@ LABEL_22:
   if (self->_transactions)
   {
     v6 = objc_opt_new();
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     transactions = [(CCWalletPaymentsCommerceTrackedOrderPayment *)self transactions];
-    v8 = [transactions countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [transactions countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(transactions);
           }
 
-          jsonDictionary = [*(*(&v16 + 1) + 8 * i) jsonDictionary];
+          jsonDictionary = [*(*(&v15 + 1) + 8 * i) jsonDictionary];
           [v6 addObject:jsonDictionary];
         }
 
-        v9 = [transactions countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [transactions countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -177,8 +176,6 @@ LABEL_22:
   }
 
   v13 = [v3 copy];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -321,9 +318,9 @@ LABEL_21:
         }
 
         v27 = [CCWalletPaymentsCommerceTrackedOrderTransaction alloc];
-        v42 = 0;
-        v28 = [(CCItemMessage *)v27 initWithData:v26 error:&v42];
-        v8 = v42;
+        v39 = 0;
+        v28 = [(CCItemMessage *)v27 initWithData:v26 error:&v39];
+        v8 = v39;
         if (!v8 && v28)
         {
           [v9 addObject:v28];
@@ -351,7 +348,6 @@ LABEL_21:
 
           v29 = objc_opt_class();
           v26 = NSStringFromClass(v29);
-          v30 = *&v5[*v10];
           v8 = CCSkipFieldErrorForMessage();
 LABEL_36:
 
@@ -381,44 +377,42 @@ LABEL_37:
 LABEL_40:
   v8 = 0;
 LABEL_41:
-  v31 = [v9 copy];
+  v30 = [v9 copy];
   transactions = self->_transactions;
-  self->_transactions = v31;
+  self->_transactions = v30;
 
   if (v8)
   {
     CCSetError();
-    v33 = 0;
-    v34 = dataCopy;
+    v32 = 0;
+    v33 = dataCopy;
   }
 
   else
   {
-    v35 = MEMORY[0x1E6993AA8];
-    v34 = dataCopy;
+    v33 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v36 = objc_opt_class();
-      v37 = NSStringFromClass(v36);
-      v38 = *&v5[*v35];
-      v39 = CCInvalidBufferErrorForMessage();
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
+      v36 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v33 = 0;
+      v32 = 0;
     }
 
     else
     {
-      v33 = 1;
+      v32 = 1;
     }
   }
 
-  return v33;
+  return v32;
 }
 
 - (CCWalletPaymentsCommerceTrackedOrderPayment)initWithTotalAmount:(id)amount totalIsoCurrencyCode:(id)code transactions:(id)transactions error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   amountCopy = amount;
   codeCopy = code;
   transactionsCopy = transactions;
@@ -426,7 +420,7 @@ LABEL_41:
   if (amountCopy)
   {
     objc_opt_class();
-    v37 = 0;
+    v36 = 0;
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
     v15 = 0;
     if (!IsInstanceOfExpectedClass)
@@ -465,7 +459,7 @@ LABEL_19:
   }
 
   objc_opt_class();
-  v36 = v15;
+  v35 = v15;
   v25 = CCValidateIsInstanceOfExpectedClass();
   v16 = v15;
 
@@ -485,7 +479,7 @@ LABEL_19:
 
 LABEL_5:
   objc_opt_class();
-  v35 = v16;
+  v34 = v16;
   v17 = CCValidateArrayValues();
   v15 = v16;
 
@@ -493,34 +487,34 @@ LABEL_5:
   {
     errorCopy = error;
     selfCopy2 = self;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v18 = transactionsCopy;
-    v19 = [v18 countByEnumeratingWithState:&v31 objects:v38 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v30 objects:v37 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v32;
+      v21 = *v31;
       do
       {
         v22 = 0;
         do
         {
-          if (*v32 != v21)
+          if (*v31 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          data = [*(*(&v31 + 1) + 8 * v22) data];
+          data = [*(*(&v30 + 1) + 8 * v22) data];
           CCPBDataWriterWriteDataField();
 
           ++v22;
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v31 objects:v38 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v30 objects:v37 count:16];
       }
 
       while (v20);
@@ -536,7 +530,6 @@ LABEL_14:
   selfCopy = 0;
 LABEL_21:
 
-  v27 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

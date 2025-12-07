@@ -73,7 +73,7 @@
 
 - (void)dealloc
 {
-  v3 = TSTCellClear(self);
+  v3 = TSTCellClear(self, a2);
   v4.receiver = self;
   v4.super_class = TSTCell;
   [(TSTCell *)&v4 dealloc];

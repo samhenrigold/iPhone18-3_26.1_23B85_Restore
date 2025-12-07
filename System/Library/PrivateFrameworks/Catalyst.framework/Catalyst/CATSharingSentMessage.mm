@@ -29,13 +29,11 @@
 
 - (NSDictionary)dictionaryValue
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"SharingSendMessageContent";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"SharingSendMessageContent";
   content = [(CATSharingSentMessage *)self content];
-  v7[0] = content;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = content;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -89,16 +87,14 @@
 
 + (void)instanceWithDictionary:(uint64_t)a3 .cold.2(void *a1, objc_class *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = NSStringFromClass(a2);
-  v8 = 138543618;
-  v9 = v6;
-  v10 = 2114;
-  v11 = a3;
-  _os_log_error_impl(&dword_24329F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to initialize, data is missing from %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = v6;
+  v9 = 2114;
+  v10 = a3;
+  _os_log_error_impl(&dword_24329F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ failed to initialize, data is missing from %{public}@", &v7, 0x16u);
 }
 
 @end

@@ -91,7 +91,7 @@
 
 - (id)serialize
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_privacyDuringAlwaysOnForApp = self->_lock_privacyDuringAlwaysOnForApp;
   lock_privacyDuringAlwaysOnForNotification = self->_lock_privacyDuringAlwaysOnForNotification;
@@ -105,19 +105,17 @@
 
   else
   {
-    v15[0] = @"AppPrivateDuringAOTForApp";
+    v14[0] = @"AppPrivateDuringAOTForApp";
     v9 = [MEMORY[0x277CCABB0] numberWithBool:lock_privacyDuringAlwaysOnForApp];
-    v16[0] = v9;
-    v15[1] = @"AppPrivateDuringAOTForNotification";
+    v15[0] = v9;
+    v14[1] = @"AppPrivateDuringAOTForNotification";
     v10 = [MEMORY[0x277CCABB0] numberWithBool:lock_privacyDuringAlwaysOnForNotification];
-    v16[1] = v10;
-    v15[2] = @"AppPrivateDuringAOTForLiveActivities";
+    v15[1] = v10;
+    v14[2] = @"AppPrivateDuringAOTForLiveActivities";
     v11 = [MEMORY[0x277CCABB0] numberWithBool:lock_privacyDuringAlwaysOnForLiveActivities];
-    v16[2] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+    v15[2] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -142,7 +140,7 @@
 
 - (void)updateSettingsWithBlock:(id)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (self->_category == 2)
   {
@@ -151,13 +149,13 @@
     {
       WeakRetained = [(CSLPRFApplication *)self->_application bundleIdentifier];
       application = self->_application;
-      v9 = 134218498;
+      v8 = 134218498;
       selfCopy = self;
-      v11 = 2114;
-      v12 = WeakRetained;
-      v13 = 2112;
-      v14 = application;
-      _os_log_fault_impl(&dword_22CE92000, &v5->super, OS_LOG_TYPE_FAULT, "%p cannot set settings on excluded application:%{public}@:%@", &v9, 0x20u);
+      v10 = 2114;
+      v11 = WeakRetained;
+      v12 = 2112;
+      v13 = application;
+      _os_log_fault_impl(&dword_22CE92000, &v5->super, OS_LOG_TYPE_FAULT, "%p cannot set settings on excluded application:%{public}@:%@", &v8, 0x20u);
 LABEL_6:
     }
   }
@@ -178,8 +176,6 @@ LABEL_6:
       goto LABEL_6;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)privacyDuringAlwaysOnForLiveActivities
@@ -218,13 +214,13 @@ LABEL_6:
 
 - (id)initForApplication:(id)application isGlobalDefault:(BOOL)default withSerialization:(id)serialization delegate:(id)delegate
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   serializationCopy = serialization;
   delegateCopy = delegate;
-  v22.receiver = self;
-  v22.super_class = CSLPRFAppBacklightPrivacySettings;
-  v14 = [(CSLPRFAppBacklightPrivacySettings *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = CSLPRFAppBacklightPrivacySettings;
+  v14 = [(CSLPRFAppBacklightPrivacySettings *)&v21 init];
   v15 = v14;
   if (v14)
   {
@@ -255,16 +251,15 @@ LABEL_6:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
           *buf = 134218242;
-          v24 = v15;
-          v25 = 2112;
-          v26 = serializationCopy;
+          v23 = v15;
+          v24 = 2112;
+          v25 = serializationCopy;
           _os_log_fault_impl(&dword_22CE92000, v19, OS_LOG_TYPE_FAULT, "%p CSLPRFAppBacklightPrivacySettings serialization was not a NSDictionary:%@", buf, 0x16u);
         }
       }
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -329,19 +324,17 @@ void __56__CSLPRFAppBacklightPrivacySettings_sharedSettingsModel__block_invoke()
 
 void __60__CSLPRFAppBacklightPrivacySettings_categoryForApplication___block_invoke()
 {
-  v5[5] = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"com.apple.facetime";
-  v5[1] = @"com.apple.tips";
-  v5[2] = @"com.apple.TapToRadar";
-  v5[3] = @"com.apple.Bridge";
-  v5[4] = @"com.apple.Sharing.Remote";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
+  v4[0] = @"com.apple.facetime";
+  v4[1] = @"com.apple.tips";
+  v4[2] = @"com.apple.TapToRadar";
+  v4[3] = @"com.apple.Bridge";
+  v4[4] = @"com.apple.Sharing.Remote";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
   v2 = [v0 setWithArray:v1];
   v3 = categoryForApplication__appsWhichCannotBeMarkedPrivate;
   categoryForApplication__appsWhichCannotBeMarkedPrivate = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)globalSettingsWithSerialization:(id)serialization delegate:(id)delegate
@@ -368,32 +361,30 @@ void __60__CSLPRFAppBacklightPrivacySettings_categoryForApplication___block_invo
 
 - (void)setPrivacyDuringAlwaysOnForLiveActivities:(id)activities withIgnoredSpecifier:(id)specifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   v7 = cslprf_settings_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = NSStringFromSelector(a2);
+    v9 = NSStringFromSelector(a2);
     *buf = 134218754;
     selfCopy = self;
-    v15 = 2112;
-    v16 = v10;
-    v17 = 2112;
-    v18 = activitiesCopy;
-    v19 = 2112;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = activitiesCopy;
+    v18 = 2112;
     selfCopy2 = self;
     _os_log_debug_impl(&dword_22CE92000, v7, OS_LOG_TYPE_DEBUG, "%p %@:%@ %@", buf, 0x2Au);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __113__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForLiveActivities_withIgnoredSpecifier___block_invoke;
-  v11[3] = &unk_278744468;
-  v12 = activitiesCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __113__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForLiveActivities_withIgnoredSpecifier___block_invoke;
+  v10[3] = &unk_278744468;
+  v11 = activitiesCopy;
   v8 = activitiesCopy;
-  [(CSLPRFAppBacklightPrivacySettings *)self updateSettingsWithBlock:v11];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(CSLPRFAppBacklightPrivacySettings *)self updateSettingsWithBlock:v10];
 }
 
 void __113__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForLiveActivities_withIgnoredSpecifier___block_invoke(uint64_t a1, void *a2)
@@ -405,54 +396,51 @@ void __113__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlway
 
 - (id)privacyDuringAlwaysOnForLiveActivitiesWithIgnoredSpecifier:(id)specifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = cslprf_settings_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = 134218498;
+    v8 = NSStringFromSelector(a2);
+    v9 = 134218498;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
     selfCopy2 = self;
-    _os_log_debug_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEBUG, "%p %@ %@", &v10, 0x20u);
+    _os_log_debug_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEBUG, "%p %@ %@", &v9, 0x20u);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithInt:{-[CSLPRFAppBacklightPrivacySettings privacyDuringAlwaysOnForLiveActivities](self, "privacyDuringAlwaysOnForLiveActivities") ^ 1}];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)setPrivacyDuringAlwaysOnForNotification:(id)notification withIgnoredSpecifier:(id)specifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v7 = cslprf_settings_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = NSStringFromSelector(a2);
+    v9 = NSStringFromSelector(a2);
     *buf = 134218754;
     selfCopy = self;
-    v15 = 2112;
-    v16 = v10;
-    v17 = 2112;
-    v18 = notificationCopy;
-    v19 = 2112;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = notificationCopy;
+    v18 = 2112;
     selfCopy2 = self;
     _os_log_debug_impl(&dword_22CE92000, v7, OS_LOG_TYPE_DEBUG, "%p %@:%@ %@", buf, 0x2Au);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __111__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForNotification_withIgnoredSpecifier___block_invoke;
-  v11[3] = &unk_278744468;
-  v12 = notificationCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __111__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForNotification_withIgnoredSpecifier___block_invoke;
+  v10[3] = &unk_278744468;
+  v11 = notificationCopy;
   v8 = notificationCopy;
-  [(CSLPRFAppBacklightPrivacySettings *)self updateSettingsWithBlock:v11];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(CSLPRFAppBacklightPrivacySettings *)self updateSettingsWithBlock:v10];
 }
 
 void __111__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForNotification_withIgnoredSpecifier___block_invoke(uint64_t a1, void *a2)
@@ -464,54 +452,51 @@ void __111__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlway
 
 - (id)privacyDuringAlwaysOnForNotificationWithIgnoredSpecifier:(id)specifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = cslprf_settings_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = 134218498;
+    v8 = NSStringFromSelector(a2);
+    v9 = 134218498;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
     selfCopy2 = self;
-    _os_log_debug_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEBUG, "%p %@ %@", &v10, 0x20u);
+    _os_log_debug_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEBUG, "%p %@ %@", &v9, 0x20u);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithInt:{-[CSLPRFAppBacklightPrivacySettings privacyDuringAlwaysOnForNotification](self, "privacyDuringAlwaysOnForNotification") ^ 1}];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)setPrivacyDuringAlwaysOnForApp:(id)app withIgnoredSpecifier:(id)specifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   appCopy = app;
   v7 = cslprf_settings_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = NSStringFromSelector(a2);
+    v9 = NSStringFromSelector(a2);
     *buf = 134218754;
     selfCopy = self;
-    v15 = 2112;
-    v16 = v10;
-    v17 = 2112;
-    v18 = appCopy;
-    v19 = 2112;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = appCopy;
+    v18 = 2112;
     selfCopy2 = self;
     _os_log_debug_impl(&dword_22CE92000, v7, OS_LOG_TYPE_DEBUG, "%p %@:%@ %@", buf, 0x2Au);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __102__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForApp_withIgnoredSpecifier___block_invoke;
-  v11[3] = &unk_278744468;
-  v12 = appCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __102__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForApp_withIgnoredSpecifier___block_invoke;
+  v10[3] = &unk_278744468;
+  v11 = appCopy;
   v8 = appCopy;
-  [(CSLPRFAppBacklightPrivacySettings *)self updateSettingsWithBlock:v11];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(CSLPRFAppBacklightPrivacySettings *)self updateSettingsWithBlock:v10];
 }
 
 void __102__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlwaysOnForApp_withIgnoredSpecifier___block_invoke(uint64_t a1, void *a2)
@@ -523,22 +508,21 @@ void __102__CSLPRFAppBacklightPrivacySettings_PSSpecifier__setPrivacyDuringAlway
 
 - (id)privacyDuringAlwaysOnForAppWithIgnoredSpecifier:(id)specifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = cslprf_settings_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = 134218498;
+    v8 = NSStringFromSelector(a2);
+    v9 = 134218498;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
     selfCopy2 = self;
-    _os_log_debug_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEBUG, "%p %@ %@", &v10, 0x20u);
+    _os_log_debug_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEBUG, "%p %@ %@", &v9, 0x20u);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithInt:{-[CSLPRFAppBacklightPrivacySettings privacyDuringAlwaysOnForApp](self, "privacyDuringAlwaysOnForApp") ^ 1}];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

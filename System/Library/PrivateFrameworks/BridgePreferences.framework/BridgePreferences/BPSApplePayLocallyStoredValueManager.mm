@@ -296,7 +296,7 @@ void __138__BPSApplePayLocallyStoredValueManager__presentApplePayLocallyStoredVa
   [v9 _attemptToMarkAllAppletsForDeletionWithCompletion:v14];
 }
 
-uint64_t __138__BPSApplePayLocallyStoredValueManager__presentApplePayLocallyStoredValueWarningInController_unableToConnect_legacyDevice_withCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__138__BPSApplePayLocallyStoredValueManager__presentApplePayLocallyStoredValueWarningInController_unableToConnect_legacyDevice_withCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a2;
   NSLog(&cfstr_MarkAppletsFor.isa, a2, a3);
@@ -307,7 +307,7 @@ uint64_t __138__BPSApplePayLocallyStoredValueManager__presentApplePayLocallyStor
     result = *(a1 + 56);
     if (result)
     {
-      v6 = *(result + 16);
+      v6 = result[2];
 
       return v6();
     }

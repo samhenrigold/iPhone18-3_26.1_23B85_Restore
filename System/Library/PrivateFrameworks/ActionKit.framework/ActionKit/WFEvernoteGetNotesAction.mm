@@ -20,29 +20,29 @@
 
 void __64__WFEvernoteGetNotesAction_performSearch_inNotebook_maxResults___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = [*(a1 + 32) output];
         v13 = [v11 noteRef];
         v14 = [v11 title];
@@ -52,20 +52,18 @@ void __64__WFEvernoteGetNotesAction_performSearch_inNotebook_maxResults___block_
       }
 
       while (v8 != v10);
-      v8 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   [*(a1 + 32) finishRunningWithError:v6];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = [(WFEvernoteGetNotesAction *)self parameterValueForKey:@"WFEvernoteNotesTitleSearch" ofClass:objc_opt_class()];
   v5 = [(WFEvernoteGetNotesAction *)self parameterValueForKey:@"WFEvernoteNotesTags" ofClass:objc_opt_class()];
   v6 = [v5 componentsSeparatedByString:{@", "}];
@@ -73,34 +71,34 @@ void __64__WFEvernoteGetNotesAction_performSearch_inNotebook_maxResults___block_
   v7 = [(WFEvernoteGetNotesAction *)self parameterValueForKey:@"WFEvernoteNotesCount" ofClass:objc_opt_class()];
   integerValue = [v7 integerValue];
 
-  v21 = [(WFEvernoteGetNotesAction *)self parameterValueForKey:@"WFEvernoteNotesNotebookName" ofClass:objc_opt_class()];
+  v20 = [(WFEvernoteGetNotesAction *)self parameterValueForKey:@"WFEvernoteNotesNotebookName" ofClass:objc_opt_class()];
   v8 = objc_opt_new();
   if ([v4 length])
   {
     [v8 appendFormat:@"intitle:%@ ", v4];
   }
 
-  v22 = v4;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
+  v21 = v4;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
         v16 = [v14 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
@@ -110,7 +108,7 @@ void __64__WFEvernoteGetNotesAction_performSearch_inNotebook_maxResults___block_
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v11);
@@ -126,50 +124,48 @@ void __64__WFEvernoteGetNotesAction_performSearch_inNotebook_maxResults___block_
     v17 = 0;
   }
 
-  if ([v21 length])
+  if ([v20 length])
   {
     v18 = +[WFEvernoteAccessResource evernoteSession];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __55__WFEvernoteGetNotesAction_runAsynchronouslyWithInput___block_invoke;
-    v23[3] = &unk_278C18F78;
-    v24 = v21;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __55__WFEvernoteGetNotesAction_runAsynchronouslyWithInput___block_invoke;
+    v22[3] = &unk_278C18F78;
+    v23 = v20;
     selfCopy = self;
-    v26 = v17;
-    v27 = integerValue;
-    [v18 listNotebooksWithCompletion:v23];
+    v25 = v17;
+    v26 = integerValue;
+    [v18 listNotebooksWithCompletion:v22];
   }
 
   else
   {
     [(WFEvernoteGetNotesAction *)self performSearch:v17 inNotebook:0 maxResults:integerValue];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __55__WFEvernoteGetNotesAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 name];
         v9 = [v8 isEqualToString:*(a1 + 32)];
 
@@ -180,7 +176,7 @@ void __55__WFEvernoteGetNotesAction_runAsynchronouslyWithInput___block_invoke(ui
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -193,7 +189,6 @@ void __55__WFEvernoteGetNotesAction_runAsynchronouslyWithInput___block_invoke(ui
 LABEL_11:
 
   [*(a1 + 40) performSearch:*(a1 + 48) inNotebook:v4 maxResults:*(a1 + 56)];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

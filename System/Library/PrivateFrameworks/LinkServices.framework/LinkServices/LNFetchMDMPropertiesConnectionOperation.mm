@@ -27,29 +27,27 @@
 
 - (void)start
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = LNFetchMDMPropertiesConnectionOperation;
-  [(LNConnectionOperation *)&v9 start];
+  v11 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = LNFetchMDMPropertiesConnectionOperation;
+  [(LNConnectionOperation *)&v8 start];
   v3 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     action = [(LNFetchMDMPropertiesConnectionOperation *)self action];
     *buf = 138412290;
-    v11 = action;
+    v10 = action;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "Fetching MDM properties for action %@", buf, 0xCu);
   }
 
   connectionInterface = [(LNInterfaceConnectionOperation *)self connectionInterface];
   action2 = [(LNFetchMDMPropertiesConnectionOperation *)self action];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __48__LNFetchMDMPropertiesConnectionOperation_start__block_invoke;
-  v8[3] = &unk_1E74B0BE8;
-  v8[4] = self;
-  [connectionInterface fetchDestinationMDMAccountIdentifierForAction:action2 completionHandler:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __48__LNFetchMDMPropertiesConnectionOperation_start__block_invoke;
+  v7[3] = &unk_1E74B0BE8;
+  v7[4] = self;
+  [connectionInterface fetchDestinationMDMAccountIdentifierForAction:action2 completionHandler:v7];
 }
 
 void __48__LNFetchMDMPropertiesConnectionOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)

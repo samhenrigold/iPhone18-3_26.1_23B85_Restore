@@ -14,10 +14,10 @@
   v11 = v10;
   if (!v10)
   {
-    v14 = sub_10001D668();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = sub_10001D668(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000318F8(v14);
+      sub_1000318F8(v15);
     }
 
     goto LABEL_14;
@@ -26,25 +26,25 @@
   xpc_dictionary_set_BOOL(v10, "ShouldWake", p);
   if (!clock)
   {
-    v15 = ((time(0) + seconds) * 1000000000.0);
+    v16 = ((time(0) + seconds) * 1000000000.0);
     xpc_dictionary_set_string(v11, "Type", "Walltime");
-    xpc_dictionary_set_date(v11, "Date", v15);
+    xpc_dictionary_set_date(v11, "Date", v16);
     goto LABEL_11;
   }
 
   if (clock == 8)
   {
-    v12 = (clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) + seconds * 1000000000.0);
-    v13 = "Uptime";
+    v13 = (clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) + seconds * 1000000000.0);
+    v14 = "Uptime";
     goto LABEL_9;
   }
 
   if (clock != 4)
   {
-    v14 = sub_10001D668();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_10001D668(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_1000318B4(v14);
+      sub_1000318B4(v15);
     }
 
 LABEL_14:
@@ -52,11 +52,11 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v12 = (clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) + seconds * 1000000000.0);
-  v13 = "Monotonic";
+  v13 = (clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) + seconds * 1000000000.0);
+  v14 = "Monotonic";
 LABEL_9:
-  xpc_dictionary_set_string(v11, "Type", v13);
-  xpc_dictionary_set_uint64(v11, "Date", v12);
+  xpc_dictionary_set_string(v11, "Type", v14);
+  xpc_dictionary_set_uint64(v11, "Date", v13);
 LABEL_11:
   [nameCopy UTF8String];
   xpc_set_event();

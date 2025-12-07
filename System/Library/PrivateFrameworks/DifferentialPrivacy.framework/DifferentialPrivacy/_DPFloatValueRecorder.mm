@@ -1,6 +1,7 @@
 @interface _DPFloatValueRecorder
 - (BOOL)recordFloatVectors:(id)vectors;
 - (BOOL)recordFloatVectors:(id)vectors metadata:(id)metadata;
+- (_DPFloatValueRecorder)initWithKey:(id)key databaseDirectoryPath:(id)path readOnly:(BOOL)only;
 - (id)description;
 @end
 
@@ -35,6 +36,35 @@
   v6 = [v3 stringWithFormat:@"%@: { recorder=%@ }", v5, self->_recorder];
 
   return v6;
+}
+
+- (_DPFloatValueRecorder)initWithKey:(id)key databaseDirectoryPath:(id)path readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  keyCopy = key;
+  pathCopy = path;
+  v16.receiver = self;
+  v16.super_class = _DPFloatValueRecorder;
+  v10 = [(_DPFloatValueRecorder *)&v16 init];
+  if (v10)
+  {
+    if (pathCopy)
+    {
+      v11 = [_DPStorage storageWithDirectory:pathCopy readOnly:onlyCopy];
+      v12 = [[_DPDatabaseRecorder alloc] initWithKey:keyCopy storage:v11];
+      recorder = v10->_recorder;
+      v10->_recorder = &v12->super;
+    }
+
+    else
+    {
+      v14 = [[_DPXPCRecorder alloc] initWithKey:keyCopy];
+      v11 = v10->_recorder;
+      v10->_recorder = &v14->super;
+    }
+  }
+
+  return v10;
 }
 
 @end

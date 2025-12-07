@@ -40,7 +40,7 @@ uint64_t *SetStrategyCommand(uint64_t a1)
   v2 = *(*(*(a1 + 48) + 136) + 32);
   if (EnvArgCountCheck(a1, "set-strategy", 0, 1) != -1)
   {
-    if (!EnvArgTypeCheck(a1, "set-strategy", 1, 2, &v22))
+    if (!EnvArgTypeCheck(a1, "set-strategy", 1, 2u, &v22))
     {
 LABEL_11:
       v4 = *(*(*(a1 + 48) + 136) + 32);
@@ -144,7 +144,7 @@ LABEL_17:
   return EnvAddSymbol(a1, v5);
 }
 
-uint64_t ComparePartialMatches(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t ComparePartialMatches(uint64_t a1, void *a2, void *a3)
 {
   v6 = SortPartialMatch(a1, a3[1]);
   v7 = SortPartialMatch(a1, a2[1]);
@@ -443,7 +443,7 @@ uint64_t *DeftemplateSlotNamesFunction(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t DeftemplateSlotDefaultValueFunction(char *a1, uint64_t a2)
+uint64_t DeftemplateSlotDefaultValueFunction(uint64_t *a1, uint64_t a2)
 {
   v8 = 0;
   v4 = CheckDeftemplateAndSlotArguments(a1, "deftemplate-slot-default-value", &v8, 2);
@@ -629,7 +629,7 @@ uint64_t DeftemplateSlotFacetExistPFunction(uint64_t a1)
   if (result)
   {
     v3 = result;
-    result = EnvArgTypeCheck(a1, "deftemplate-slot-facet-existp", 3, 2, &v4);
+    result = EnvArgTypeCheck(a1, "deftemplate-slot-facet-existp", 3, 2u, &v4);
     if (result)
     {
       return EnvDeftemplateSlotFacetExistP(a1, v7, *(v3 + 24), *(v5 + 24));
@@ -651,7 +651,7 @@ uint64_t DeftemplateSlotFacetValueFunction(uint64_t a1, uint64_t a2)
   if (result)
   {
     v5 = result;
-    result = EnvArgTypeCheck(a1, "deftemplate-slot-facet-existp", 3, 2, &v6);
+    result = EnvArgTypeCheck(a1, "deftemplate-slot-facet-existp", 3, 2u, &v6);
     if (result)
     {
       return EnvDeftemplateSlotFacetValue(a1, v9, *(v5 + 24), *(v7 + 24), a2);
@@ -661,249 +661,242 @@ uint64_t DeftemplateSlotFacetValueFunction(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t DuplicateModifyCommand(uint64_t a1, int a2, uint64_t a3)
+uint64_t DuplicateModifyCommand(uint64_t *a1, int a2, uint64_t a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v45 = 0u;
-  v46 = 0u;
-  v44 = 0u;
+  v41 = *MEMORY[0x277D85DE8];
+  v38 = 0u;
+  v39 = 0u;
+  v37 = 0u;
   *(a3 + 8) = 2;
   *(a3 + 16) = EnvFalseSymbol(a1);
-  v6 = *(**(*(a1 + 48) + 352) + 16);
+  v6 = *(**(a1[6] + 352) + 16);
   EnvIncrementClearReadyLocks(a1);
-  EvaluateExpression(a1, v6, &v44);
+  EvaluateExpression(a1, v6, &v37);
   result = EnvDecrementClearReadyLocks(a1);
-  if (WORD4(v44) == 6)
+  if (WORD4(v37) == 6)
   {
-    v15 = v45;
+    v9 = v38;
   }
 
   else
   {
-    if (WORD4(v44) != 1 || (v8 = *(v45 + 24), v8 < 0))
+    if (WORD4(v37) != 1 || (v8 = *(v38 + 24), v8 < 0))
     {
       if (a2)
       {
-        v16 = "modify";
+        v10 = "modify";
       }
 
       else
       {
-        v16 = "duplicate";
+        v10 = "duplicate";
       }
 
-      ExpectedTypeError2(a1, v16, 1);
-      result = SetEvaluationError(a1, 1);
-      goto LABEL_57;
+      ExpectedTypeError2(a1, v10, 1);
+      return SetEvaluationError(a1, 1);
     }
 
     result = EnvGetNextFact(a1, 0);
     if (!result)
     {
 LABEL_8:
-      gensprintf(v47, "f-%lld", v9, v10, v11, v12, v13, v14, v8);
-      result = CantFindItemErrorMessage(a1, "fact", v47);
-      goto LABEL_57;
+      gensprintf(v40, "f-%lld", v8);
+      return CantFindItemErrorMessage(a1, "fact", v40);
     }
 
-    v15 = result;
-    while (*(v15 + 48) != v8)
+    v9 = result;
+    while (*(v9 + 48) != v8)
     {
-      v15 = *(v15 + 80);
-      if (!v15)
+      v9 = *(v9 + 80);
+      if (!v9)
       {
         goto LABEL_8;
       }
     }
   }
 
-  v17 = *(v15 + 32);
-  if ((*(v17 + 56) & 1) == 0)
+  v11 = *(v9 + 32);
+  if ((*(v11 + 56) & 1) == 0)
   {
-    CreateFactBySize(a1, *(v15 + 112));
-    v19 = v18;
-    v18[4] = v17;
-    v20 = *(v15 + 112);
-    if (v20 >= 1)
+    CreateFactBySize(a1, *(v9 + 112));
+    v13 = v12;
+    v12[4] = v11;
+    v14 = *(v9 + 112);
+    if (v14 >= 1)
     {
-      v21 = *(v15 + 112) & 0x7FFFFFFFLL;
-      v22 = v18 + 17;
-      v23 = (v15 + 136);
+      v15 = *(v9 + 112) & 0x7FFFFFFFLL;
+      v16 = v12 + 17;
+      v17 = (v9 + 136);
       do
       {
-        v24 = *(v23 - 4);
-        *(v22 - 4) = v24;
-        if (v24 == 4)
+        v18 = *(v17 - 4);
+        *(v16 - 4) = v18;
+        if (v18 == 4)
         {
-          v25 = 0;
+          v19 = 0;
         }
 
         else
         {
-          v25 = *v23;
+          v19 = *v17;
         }
 
-        *v22 = v25;
-        v22 += 2;
-        v23 += 2;
-        --v21;
+        *v16 = v19;
+        v16 += 2;
+        v17 += 2;
+        --v15;
       }
 
-      while (v21);
+      while (v15);
     }
 
-    v26 = *(v6 + 24);
-    if (v26)
+    v20 = *(v6 + 24);
+    if (v20)
     {
       while (1)
       {
-        if (*v26 == 1)
+        if (*v20 == 1)
         {
-          v27 = *(*(v26 + 8) + 24);
+          v21 = *(*(v20 + 8) + 24);
         }
 
         else
         {
-          v30 = *(v17 + 48);
-          if (!v30)
+          v24 = *(v11 + 48);
+          if (!v24)
           {
 LABEL_55:
-            InvalidDeftemplateSlotMessage(a1, *(*(v26 + 8) + 24), *(*v17 + 24), 1);
+            InvalidDeftemplateSlotMessage(a1, *(*(v20 + 8) + 24), *(*v11 + 24), 1);
             SetEvaluationError(a1, 1);
-LABEL_56:
-            result = ReturnFact(a1, v19);
-            goto LABEL_57;
+            return ReturnFact(a1, v13);
           }
 
-          v27 = 0;
-          while (*v30 != *(v26 + 8))
+          v21 = 0;
+          while (*v24 != *(v20 + 8))
           {
-            v30 = v30[5];
-            ++v27;
-            if (!v30)
+            v24 = v24[5];
+            ++v21;
+            if (!v24)
             {
               goto LABEL_55;
             }
           }
         }
 
-        v28 = &v19[2 * v27 + 16];
-        if (*v28 == 4)
+        v22 = &v13[2 * v21 + 16];
+        if (*v22 == 4)
         {
           EnvIncrementClearReadyLocks(a1);
-          StoreInMultifield(a1, &v44, *(v26 + 16), 0);
+          StoreInMultifield(a1, &v37, *(v20 + 16), 0);
           SetEvaluationError(a1, 0);
           EnvDecrementClearReadyLocks(a1);
-          v29 = WORD4(v44);
+          v23 = WORD4(v37);
         }
 
         else
         {
-          v31 = *(v26 + 16);
-          if (!v31 || *(v31 + 24))
+          v25 = *(v20 + 16);
+          if (!v25 || *(v25 + 24))
           {
-            NthSlot = GetNthSlot(v17, v27);
-            MultiIntoSingleFieldSlotError(a1, NthSlot, v17);
-            goto LABEL_56;
+            NthSlot = GetNthSlot(v11, v21);
+            MultiIntoSingleFieldSlotError(a1, NthSlot, v11);
+            return ReturnFact(a1, v13);
           }
 
           EnvIncrementClearReadyLocks(a1);
-          EvaluateExpression(a1, *(v26 + 16), &v44);
+          EvaluateExpression(a1, *(v20 + 16), &v37);
           SetEvaluationError(a1, 0);
           EnvDecrementClearReadyLocks(a1);
-          v29 = WORD4(v44);
-          if (WORD4(v44) == 4)
+          v23 = WORD4(v37);
+          if (WORD4(v37) == 4)
           {
-            ReturnFact(a1, v19);
-            v43 = GetNthSlot(v17, v27);
-            result = MultiIntoSingleFieldSlotError(a1, v43, v17);
-            goto LABEL_57;
+            ReturnFact(a1, v13);
+            v36 = GetNthSlot(v11, v21);
+            return MultiIntoSingleFieldSlotError(a1, v36, v11);
           }
         }
 
-        *v28 = v29;
-        *(v28 + 8) = v45;
-        v26 = *(v26 + 24);
-        if (!v26)
+        *v22 = v23;
+        *(v22 + 8) = v38;
+        v20 = *(v20 + 24);
+        if (!v20)
         {
-          v20 = *(v15 + 112);
+          v14 = *(v9 + 112);
           break;
         }
       }
     }
 
-    if (v20 >= 1)
+    if (v14 >= 1)
     {
-      v32 = 0;
-      v33 = v19 + 17;
-      v34 = (v15 + 136);
+      v26 = 0;
+      v27 = v13 + 17;
+      v28 = (v9 + 136);
       do
       {
-        if (*(v33 - 4) == 4 && !*v33)
+        if (*(v27 - 4) == 4 && !*v27)
         {
-          *v33 = CopyMultifield(a1, *v34);
-          v20 = *(v15 + 112);
+          *v27 = CopyMultifield(a1, *v28);
+          v14 = *(v9 + 112);
         }
 
-        ++v32;
-        v33 += 2;
-        v34 += 2;
+        ++v26;
+        v27 += 2;
+        v28 += 2;
       }
 
-      while (v32 < v20);
+      while (v26 < v14);
     }
 
     if (a2)
     {
-      if (*(*(*(a1 + 48) + 24) + 208))
+      if (*(*(a1[6] + 24) + 208))
       {
-        if (FactWillBeAsserted(a1, v19) || MultifieldsEqual(v15 + 104, (v19 + 13)))
+        if (FactWillBeAsserted(a1, v13) || MultifieldsEqual(v9 + 104, (v13 + 13)))
         {
-          v35 = *(a1 + 48);
-          v36 = *(v35 + 24);
-          v19[6] = *(v36 + 176);
-          v19[3] = *(*(v35 + 128) + 16);
-          v37 = v19;
+          v29 = a1[6];
+          v30 = *(v29 + 24);
+          v13[6] = *(v30 + 176);
+          v13[3] = *(*(v29 + 128) + 16);
+          v31 = v13;
         }
 
         else
         {
-          v37 = 0;
-          v36 = *(*(a1 + 48) + 24);
+          v31 = 0;
+          v30 = *(a1[6] + 24);
         }
 
-        for (i = *(v36 + 208); i; i = *(i + 24))
+        for (i = *(v30 + 208); i; i = *(i + 24))
         {
           SetEnvironmentCallbackContext(a1, *(i + 40));
-          v39 = *(i + 8);
+          v33 = *(i + 8);
           if (*(i + 32))
           {
-            v39(a1, v15, v37);
+            v33(a1, v9, v31);
           }
 
           else
           {
-            (v39)(v15, v37);
+            (v33)(v9, v31);
           }
         }
       }
 
-      EnvRetract(a1, v15);
+      EnvRetract(a1, v9);
     }
 
-    result = EnvAssert(a1, v19);
+    result = EnvAssert(a1, v13);
     if (result)
     {
-      v40 = *(result + 112) - 1;
+      v34 = *(result + 112) - 1;
       *(a3 + 24) = 0;
-      *(a3 + 32) = v40;
+      *(a3 + 32) = v34;
       *(a3 + 8) = 6;
       *(a3 + 16) = result;
     }
   }
 
-LABEL_57:
-  v41 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -967,7 +960,7 @@ uint64_t *EnvDeftemplateSlotNames(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t CheckDeftemplateAndSlotArguments(uint64_t a1, char *a2, uint64_t *a3, uint64_t a4)
 {
-  if (EnvArgCountCheck(a1, a2, 0, a4) == -1 || EnvArgCountCheck(a1, a2, 1u, 2) == -1)
+  if (EnvArgCountCheck(a1, a2, 0, a4) == -1 || EnvArgCountCheck(a1, a2, 1, 2) == -1)
   {
     return 0;
   }
@@ -991,7 +984,7 @@ uint64_t CheckDeftemplateAndSlotArguments(uint64_t a1, char *a2, uint64_t *a3, u
     return 0;
   }
 
-  if (EnvArgTypeCheck(a1, a2, 2, 2, &v10))
+  if (EnvArgTypeCheck(a1, a2, 2, 2u, &v10))
   {
     return v11;
   }
@@ -1046,7 +1039,7 @@ LABEL_10:
   }
 }
 
-BOOL EnvDeftemplateSlotDefaultValue(char *a1, _BYTE *a2, char *a3, uint64_t a4)
+BOOL EnvDeftemplateSlotDefaultValue(uint64_t *a1, _BYTE *a2, char *a3, uint64_t a4)
 {
   memset(v13, 0, sizeof(v13));
   *(a4 + 8) = 2;
@@ -1833,7 +1826,7 @@ LABEL_25:
       v15 = AssertArgument;
       if (v12)
       {
-        v12[3] = AssertArgument;
+        *(v12 + 3) = AssertArgument;
         v15 = v13;
       }
 
@@ -1865,7 +1858,7 @@ LABEL_25:
   }
 }
 
-void *InitializeAtomTables(uint64_t a1)
+uint64_t *InitializeAtomTables(uint64_t a1)
 {
   AllocateEnvironmentData(a1, 0x31u, 0xA0uLL, DeallocateSymbolData);
   *(*(*(a1 + 48) + 392) + 40) = gm3(a1, 0x320uLL);
@@ -2088,7 +2081,7 @@ uint64_t DeallocateSymbolData(uint64_t result)
   return result;
 }
 
-void *EnvAddLong(uint64_t a1, uint64_t a2)
+uint64_t *EnvAddLong(uint64_t a1, uint64_t a2)
 {
   if (a2 >= 0)
   {
@@ -2158,7 +2151,7 @@ LABEL_12:
   }
 }
 
-unint64_t HashSymbol(_BYTE *a1, unint64_t a2)
+unint64_t HashSymbol(char *a1, unint64_t a2)
 {
   v2 = *a1;
   if (!*a1)
@@ -2316,8 +2309,9 @@ void *FindLongHN(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t *EnvAddBitMap(uint64_t a1, char *a2, unsigned int a3)
+uint64_t *EnvAddBitMap(uint64_t a1, char *a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a2;
   if (!a2)
   {
@@ -2325,7 +2319,7 @@ uint64_t *EnvAddBitMap(uint64_t a1, char *a2, unsigned int a3)
     EnvExitRouter(a1, 1);
   }
 
-  v6 = HashBitMap(v4, 0x64uLL, a3);
+  v6 = HashBitMap(v4, 0x64uLL, v3);
   v7 = *(a1 + 48);
   v8 = *(*(*(v7 + 392) + 64) + 8 * v6);
   if (!v8)
@@ -2343,9 +2337,9 @@ LABEL_16:
       {
 LABEL_19:
         *v9 = v11;
-        v14 = a3;
-        v15 = gm2(a1, a3);
-        if (a3)
+        v14 = v3;
+        v15 = gm2(a1, v3);
+        if (v3)
         {
           v16 = v15;
           do
@@ -2362,7 +2356,7 @@ LABEL_19:
         *v11 = 0;
         v11[1] = 0;
         *(v11 + 4) = v11[2] & 6 | (8 * v6);
-        *(v11 + 16) = a3;
+        *(v11 + 16) = v3;
         AddEphemeralHashNode(a1, v11, (*(*(*(a1 + 48) + 440) + 112) + 40), 1);
         **(*(*(a1 + 48) + 440) + 112) = 1;
         return v11;
@@ -2385,14 +2379,14 @@ LABEL_19:
   while (1)
   {
     v9 = v8;
-    if (*(v8 + 32) == a3)
+    if (*(v8 + 32) == v3)
     {
-      if (a3)
+      if (v3)
       {
         v10 = 0;
         while (*(v9[3] + v10) == v4[v10])
         {
-          if (a3 == ++v10)
+          if (v3 == ++v10)
           {
             return v9;
           }
@@ -2404,7 +2398,7 @@ LABEL_19:
         LODWORD(v10) = 0;
       }
 
-      if (v10 == a3)
+      if (v10 == v3)
       {
         return v9;
       }
@@ -2546,7 +2540,7 @@ unint64_t HashExternalAddress(unsigned int a1, unint64_t a2)
   return result;
 }
 
-uint64_t DecrementSymbolCount(uint64_t result, uint64_t a2)
+void *DecrementSymbolCount(void *result, uint64_t a2)
 {
   v3 = result;
   v4 = *(a2 + 8);
@@ -2574,14 +2568,14 @@ LABEL_3:
   *(a2 + 8) = v5;
   if (!v5 && (*(a2 + 16) & 2) == 0)
   {
-    result = AddEphemeralHashNode(v3, a2, (*(*(*(v3 + 48) + 440) + 112) + 16), 1);
-    **(*(*(v3 + 48) + 440) + 112) = 1;
+    result = AddEphemeralHashNode(v3, a2, (*(*(v3[6] + 440) + 112) + 16), 1);
+    **(*(v3[6] + 440) + 112) = 1;
   }
 
   return result;
 }
 
-uint64_t DecrementFloatCount(uint64_t result, uint64_t a2)
+void *DecrementFloatCount(void *result, uint64_t a2)
 {
   v3 = result;
   v4 = *(a2 + 8);
@@ -2596,14 +2590,14 @@ uint64_t DecrementFloatCount(uint64_t result, uint64_t a2)
   *(a2 + 8) = v5;
   if (!v5 && (*(a2 + 16) & 2) == 0)
   {
-    result = AddEphemeralHashNode(v3, a2, (*(*(*(v3 + 48) + 440) + 112) + 24), 1);
-    **(*(*(v3 + 48) + 440) + 112) = 1;
+    result = AddEphemeralHashNode(v3, a2, (*(*(v3[6] + 440) + 112) + 24), 1);
+    **(*(v3[6] + 440) + 112) = 1;
   }
 
   return result;
 }
 
-uint64_t DecrementIntegerCount(uint64_t result, uint64_t a2)
+void *DecrementIntegerCount(void *result, uint64_t a2)
 {
   v3 = result;
   v4 = *(a2 + 8);
@@ -2618,14 +2612,14 @@ uint64_t DecrementIntegerCount(uint64_t result, uint64_t a2)
   *(a2 + 8) = v5;
   if (!v5 && (*(a2 + 16) & 2) == 0)
   {
-    result = AddEphemeralHashNode(v3, a2, (*(*(*(v3 + 48) + 440) + 112) + 32), 1);
-    **(*(*(v3 + 48) + 440) + 112) = 1;
+    result = AddEphemeralHashNode(v3, a2, (*(*(v3[6] + 440) + 112) + 32), 1);
+    **(*(v3[6] + 440) + 112) = 1;
   }
 
   return result;
 }
 
-uint64_t DecrementBitMapCount(uint64_t result, uint64_t a2)
+void *DecrementBitMapCount(void *result, uint64_t a2)
 {
   v3 = result;
   v4 = *(a2 + 8);
@@ -2653,14 +2647,14 @@ LABEL_3:
   *(a2 + 8) = v5;
   if (!v5 && (*(a2 + 16) & 2) == 0)
   {
-    result = AddEphemeralHashNode(v3, a2, (*(*(*(v3 + 48) + 440) + 112) + 40), 1);
-    **(*(*(v3 + 48) + 440) + 112) = 1;
+    result = AddEphemeralHashNode(v3, a2, (*(*(v3[6] + 440) + 112) + 40), 1);
+    **(*(v3[6] + 440) + 112) = 1;
   }
 
   return result;
 }
 
-uint64_t DecrementExternalAddressCount(uint64_t result, uint64_t a2)
+void *DecrementExternalAddressCount(void *result, uint64_t a2)
 {
   v3 = result;
   v4 = *(a2 + 8);
@@ -2688,8 +2682,8 @@ LABEL_3:
   *(a2 + 8) = v5;
   if (!v5 && (*(a2 + 16) & 2) == 0)
   {
-    result = AddEphemeralHashNode(v3, a2, (*(*(*(v3 + 48) + 440) + 112) + 48), 1);
-    **(*(*(v3 + 48) + 440) + 112) = 1;
+    result = AddEphemeralHashNode(v3, a2, (*(*(v3[6] + 440) + 112) + 48), 1);
+    **(*(v3[6] + 440) + 112) = 1;
   }
 
   return result;
@@ -2811,7 +2805,7 @@ uint64_t RefreshSpecialSymbols(uint64_t a1)
   return result;
 }
 
-void *FindSymbolMatches(uint64_t a1, char *__s, _DWORD *a3, size_t *a4)
+uint64_t *FindSymbolMatches(uint64_t a1, char *__s, _DWORD *a3, size_t *a4)
 {
   v8 = strlen(__s);
   *a3 = 0;
@@ -3530,16 +3524,16 @@ void sub_2326DA1F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2326DE010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2326DE010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2326DE248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2326DE248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3551,30 +3545,30 @@ uint64_t __Block_byref_object_copy__11(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2326DE690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2326DE690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2326DF884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2326DF884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2326E1A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2326E1A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3589,7 +3583,7 @@ uint64_t __Block_byref_object_copy__12(uint64_t result, uint64_t a2)
 
 uint64_t receive_cpu_usage_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v17 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3600,37 +3594,36 @@ uint64_t receive_cpu_usage_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint
     }
 
     *buf = 136317186;
-    v24 = v18;
-    v25 = 2080;
-    v26 = a2;
-    v29 = 2080;
-    v27 = 1024;
-    v28 = a3;
-    v30 = a4;
-    v35 = 1024;
-    v31 = 2048;
-    v32 = a6 / 1000000000.0;
-    v33 = 2048;
-    v34 = a7 / 1000000000.0;
-    v36 = 100 * a6 / a7;
-    v37 = 2048;
-    v38 = a8 / 1000000000.0;
-    v39 = 2048;
-    v40 = a9 / 0x3B9ACA00;
+    v23 = v18;
+    v24 = 2080;
+    v25 = a2;
+    v28 = 2080;
+    v26 = 1024;
+    v27 = a3;
+    v29 = a4;
+    v34 = 1024;
+    v30 = 2048;
+    v31 = a6 / 1000000000.0;
+    v32 = 2048;
+    v33 = a7 / 1000000000.0;
+    v35 = 100 * a6 / a7;
+    v36 = 2048;
+    v37 = a8 / 1000000000.0;
+    v38 = 2048;
+    v39 = a9 / 0x3B9ACA00;
     _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Received %sCPU usage trigger: \n  %s[%d] (%s) used %.2fs of CPU over %.2f seconds (averaging %d%%), violating a CPU usage limit of %.2fs over %lld seconds.", buf, 0x54u);
   }
 
   v19 = +[ResourceNotifyHandler sharedInstance];
-  LOBYTE(v22) = BYTE4(a10) & 1;
-  [v19 resourceNotifyEvent:kResourceNotifyEventCPUUsageTrigger triggeredBy:a2 pid:a3 path:a4 endTime:a5 observedValue:a6 observationWindow:a7 limitValue:a8 limitWindow:a9 fatal:v22 fatalPort:?];
+  LOBYTE(v21) = BYTE4(a10) & 1;
+  [v19 resourceNotifyEvent:kResourceNotifyEventCPUUsageTrigger triggeredBy:a2 pid:a3 path:a4 endTime:a5 observedValue:a6 observationWindow:a7 limitValue:a8 limitWindow:a9 fatal:v21 fatalPort:?];
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t receive_cpu_wakes_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10)
+uint64_t receive_cpu_wakes_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v17 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3641,37 +3634,36 @@ uint64_t receive_cpu_wakes_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint
     }
 
     *buf = 136317186;
-    v24 = v18;
-    v25 = 2080;
-    v26 = a2;
-    v29 = 2080;
-    v27 = 1024;
-    v28 = a3;
-    v30 = a4;
-    v35 = 1024;
-    v31 = 2048;
-    v32 = a6;
-    v33 = 2048;
-    v34 = a7 / 1000000000.0;
-    v36 = 1000000000 * a6 / a7;
-    v37 = 2048;
-    v38 = a8;
-    v39 = 2048;
-    v40 = a9 / 0x3B9ACA00;
+    v23 = v18;
+    v24 = 2080;
+    v25 = a2;
+    v28 = 2080;
+    v26 = 1024;
+    v27 = a3;
+    v29 = a4;
+    v34 = 1024;
+    v30 = 2048;
+    v31 = a6;
+    v32 = 2048;
+    v33 = a7 / 1000000000.0;
+    v35 = 1000000000 * a6 / a7;
+    v36 = 2048;
+    v37 = a8;
+    v38 = 2048;
+    v39 = a9 / 0x3B9ACA00;
     _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Received %sCPU wakes trigger:\n  %s[%d] (%s) woke the CPU %lld times over %.2f seconds (average %d/sec), violating a CPU wakes limit of %lld over %lld seconds.", buf, 0x54u);
   }
 
   v19 = +[ResourceNotifyHandler sharedInstance];
-  LOBYTE(v22) = BYTE4(a10) & 1;
-  [v19 resourceNotifyEvent:kResourceNotifyEventCPUWakesTrigger triggeredBy:a2 pid:a3 path:a4 endTime:a5 observedValue:a6 observationWindow:a7 limitValue:a8 limitWindow:a9 fatal:v22 fatalPort:?];
+  LOBYTE(v21) = BYTE4(a10) & 1;
+  [v19 resourceNotifyEvent:kResourceNotifyEventCPUWakesTrigger triggeredBy:a2 pid:a3 path:a4 endTime:a5 observedValue:a6 observationWindow:a7 limitValue:a8 limitWindow:a9 fatal:v21 fatalPort:?];
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t receive_port_space_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v13 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3682,30 +3674,29 @@ uint64_t receive_port_space_violation(uint64_t a1, uint64_t a2, uint64_t a3, uin
       v14 = "(FATAL) ";
     }
 
-    v20 = v14;
-    v21 = 2080;
-    v22 = a2;
-    v23 = 1024;
-    v24 = a3;
-    v25 = 2048;
-    v26 = a5;
-    v27 = 2048;
-    v28 = a6;
+    v19 = v14;
+    v20 = 2080;
+    v21 = a2;
+    v22 = 1024;
+    v23 = a3;
+    v24 = 2048;
+    v25 = a5;
+    v26 = 2048;
+    v27 = a6;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Received %sport space exhaustion trigger:\n  %s[%d] allocated %lld ports violating a port space limit of %lld ports", buf, 0x30u);
   }
 
   v15 = +[ResourceNotifyHandler sharedInstance];
-  HIDWORD(v18) = a7;
-  LOBYTE(v18) = a7 != 0;
-  [v15 resourceNotifyEvent:kResourceNotifyEventPortSpaceExhaustionTrigger triggeredBy:a2 pid:a3 path:0 endTime:a4 observedValue:a5 observationWindow:0 limitValue:a6 limitWindow:0 fatal:v18 fatalPort:?];
+  HIDWORD(v17) = a7;
+  LOBYTE(v17) = a7 != 0;
+  [v15 resourceNotifyEvent:kResourceNotifyEventPortSpaceExhaustionTrigger triggeredBy:a2 pid:a3 path:0 endTime:a4 observedValue:a5 observationWindow:0 limitValue:a6 limitWindow:0 fatal:v17 fatalPort:?];
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t receive_file_descriptors_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v13 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3716,30 +3707,29 @@ uint64_t receive_file_descriptors_violation(uint64_t a1, uint64_t a2, uint64_t a
       v14 = "(FATAL) ";
     }
 
-    v20 = v14;
-    v21 = 2080;
-    v22 = a2;
-    v23 = 1024;
-    v24 = a3;
-    v25 = 2048;
-    v26 = a5;
-    v27 = 2048;
-    v28 = a6;
+    v19 = v14;
+    v20 = 2080;
+    v21 = a2;
+    v22 = 1024;
+    v23 = a3;
+    v24 = 2048;
+    v25 = a5;
+    v26 = 2048;
+    v27 = a6;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Received %sfile descriptor exhaustion trigger:\n  %s[%d] allocated %lld fds violating a limit of %lld fds", buf, 0x30u);
   }
 
   v15 = +[ResourceNotifyHandler sharedInstance];
-  HIDWORD(v18) = a7;
-  LOBYTE(v18) = a7 != 0;
-  [v15 resourceNotifyEvent:kResourceNotifyEventFileDescriptorExhaustionTrigger triggeredBy:a2 pid:a3 path:0 endTime:a4 observedValue:a5 observationWindow:0 limitValue:a6 limitWindow:0 fatal:v18 fatalPort:?];
+  HIDWORD(v17) = a7;
+  LOBYTE(v17) = a7 != 0;
+  [v15 resourceNotifyEvent:kResourceNotifyEventFileDescriptorExhaustionTrigger triggeredBy:a2 pid:a3 path:0 endTime:a4 observedValue:a5 observationWindow:0 limitValue:a6 limitWindow:0 fatal:v17 fatalPort:?];
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t receive_kqworkloops_violation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v13 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3750,24 +3740,23 @@ uint64_t receive_kqworkloops_violation(uint64_t a1, uint64_t a2, uint64_t a3, ui
       v14 = "(FATAL) ";
     }
 
-    v20 = v14;
-    v21 = 2080;
-    v22 = a2;
-    v23 = 1024;
-    v24 = a3;
-    v25 = 2048;
-    v26 = a5;
-    v27 = 2048;
-    v28 = a6;
+    v19 = v14;
+    v20 = 2080;
+    v21 = a2;
+    v22 = 1024;
+    v23 = a3;
+    v24 = 2048;
+    v25 = a5;
+    v26 = 2048;
+    v27 = a6;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Received %skqworkloops exhaustion trigger:\n  %s[%d] allocated %lld kqworkloops violating a limit of %lld kqworkloops", buf, 0x30u);
   }
 
   v15 = +[ResourceNotifyHandler sharedInstance];
-  HIDWORD(v18) = a7;
-  LOBYTE(v18) = a7 != 0;
-  [v15 resourceNotifyEvent:kResourceNotifyEventKQWorkloopsExhaustionTrigger triggeredBy:a2 pid:a3 path:0 endTime:a4 observedValue:a5 observationWindow:0 limitValue:a6 limitWindow:0 fatal:v18 fatalPort:?];
+  HIDWORD(v17) = a7;
+  LOBYTE(v17) = a7 != 0;
+  [v15 resourceNotifyEvent:kResourceNotifyEventKQWorkloopsExhaustionTrigger triggeredBy:a2 pid:a3 path:0 endTime:a4 observedValue:a5 observationWindow:0 limitValue:a6 limitWindow:0 fatal:v17 fatalPort:?];
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3841,9 +3830,9 @@ void sub_2326E83B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2326E867C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2326E867C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3855,17 +3844,18 @@ uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2326EF3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2326EF3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2326F3074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_2326F3074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4005,7 +3995,7 @@ LABEL_11:
       PPBackup(a1);
       SavePPBuffer(a1, ")");
       v11 = GenConstant(a1, 2, **(*(a1 + 48) + 504));
-      v19[3] = v11;
+      *(v19 + 24) = v11;
       v12 = v24;
       if (*v24)
       {
@@ -4051,7 +4041,7 @@ LABEL_26:
   return v9;
 }
 
-uint64_t ParseQueryTestExpression(uint64_t a1, uint64_t a2, char *a3)
+uint64_t ParseQueryTestExpression(void *a1, uint64_t a2, char *a3)
 {
   v9 = 0;
   ParsedBindNames = GetParsedBindNames(a1);
@@ -4065,7 +4055,7 @@ uint64_t ParseQueryTestExpression(uint64_t a1, uint64_t a2, char *a3)
 
   else if (v7)
   {
-    v7[3] = *(a2 + 16);
+    *(v7 + 3) = *(a2 + 16);
     *(a2 + 16) = v7;
     if (ParsedBindNamesEmpty(a1))
     {
@@ -4092,27 +4082,29 @@ uint64_t ParseQueryTestExpression(uint64_t a1, uint64_t a2, char *a3)
   return 0;
 }
 
-unint64_t ReplaceFactVariables(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+unint64_t ReplaceFactVariables(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   Function = FindFunction(a1, "(query-fact)");
   result = FindFunction(a1, "(query-fact-slot)");
-  v24 = result;
+  v27 = result;
   if (a3)
   {
-    v26 = a5;
+    v30 = a5;
+    v11 = (a5 + 1);
+    v28 = a5;
     do
     {
       if (*a3 == 35)
       {
         if (a2)
         {
-          v11 = 0;
-          v12 = a2;
-          while (*(v12 + 8) != *(a3 + 8))
+          v12 = 0;
+          v13 = a2;
+          while (*(v13 + 8) != *(a3 + 8))
           {
-            v12 = *(v12 + 24);
-            ++v11;
-            if (!v12)
+            v13 = *(v13 + 24);
+            ++v12;
+            if (!v13)
             {
               goto LABEL_8;
             }
@@ -4120,12 +4112,12 @@ unint64_t ReplaceFactVariables(uint64_t a1, uint64_t a2, uint64_t a3, int a4, in
 
           *a3 = 30;
           *(a3 + 8) = Function;
-          v17 = EnvAddLong(a1, v26);
-          v18 = GenConstant(a1, 1, v17);
-          v19 = EnvAddLong(a1, v11);
-          result = GenConstant(a1, 1, v19);
-          v18[3] = result;
-          *(a3 + 16) = v18;
+          v18 = EnvAddLong(a1, v30);
+          v19 = GenConstant(a1, 1, v18);
+          v20 = EnvAddLong(a1, v12);
+          result = GenConstant(a1, 1, v20);
+          v19[3] = result;
+          *(a3 + 16) = v19;
         }
 
         else
@@ -4133,73 +4125,76 @@ unint64_t ReplaceFactVariables(uint64_t a1, uint64_t a2, uint64_t a3, int a4, in
 LABEL_8:
           if (a4 == 1)
           {
-            v13 = *(*(a3 + 8) + 24);
-            result = strlen(v13);
+            v14 = *(*(a3 + 8) + 24);
+            result = strlen(v14);
             if (result >= 3)
             {
-              v27 = 0;
-              v28 = 0;
-              v14 = result - 2;
-              v29 = 0;
-              while (!a2 || v13[v14] != 58)
+              v31 = 0;
+              v32 = 0;
+              v15 = result - 2;
+              v33 = 0;
+              while (!a2 || v14[v15] != 58)
               {
 LABEL_17:
-                if (!--v14)
+                if (!--v15)
                 {
                   goto LABEL_21;
                 }
               }
 
-              v15 = 0;
-              v16 = a2;
+              v16 = 0;
+              v17 = a2;
               while (1)
               {
-                result = strlen(*(*(v16 + 8) + 24));
-                if (v14 == result)
+                result = strlen(*(*(v17 + 8) + 24));
+                if (v15 == result)
                 {
-                  result = strncmp(*(*(v16 + 8) + 24), v13, v14);
+                  result = strncmp(*(*(v17 + 8) + 24), v14, v15);
                   if (!result)
                   {
                     break;
                   }
                 }
 
-                v16 = *(v16 + 24);
-                ++v15;
-                if (!v16)
+                v17 = *(v17 + 24);
+                ++v16;
+                if (!v17)
                 {
                   goto LABEL_17;
                 }
               }
 
-              OpenStringSource(a1, "query-var", &v13[v14 + 1], 0);
+              OpenStringSource(a1, "query-var", &v14[v15 + 1], 0);
               PPBufferStatus = GetPPBufferStatus(a1);
               SetPPBufferStatus(a1, 0);
-              GetToken(a1, "query-var", &v27);
+              GetToken(a1, "query-var", &v31);
               SetPPBufferStatus(a1, PPBufferStatus);
               CloseStringSource(a1, "query-var");
               *a3 = 30;
-              *(a3 + 8) = v24;
-              v21 = EnvAddLong(a1, v26);
-              *(a3 + 16) = GenConstant(a1, 1, v21);
-              v22 = EnvAddLong(a1, v15);
-              *(*(a3 + 16) + 24) = GenConstant(a1, 1, v22);
-              result = GenConstant(a1, v27, v28);
+              *(a3 + 8) = v27;
+              v22 = EnvAddLong(a1, v30);
+              *(a3 + 16) = GenConstant(a1, 1, v22);
+              v23 = EnvAddLong(a1, v16);
+              *(*(a3 + 16) + 24) = GenConstant(a1, 1, v23);
+              result = GenConstant(a1, v31, v32);
               *(*(*(a3 + 16) + 24) + 24) = result;
             }
+
+LABEL_21:
+            a5 = v28;
           }
         }
       }
 
-LABEL_21:
-      if (*(a3 + 16))
+      v24 = *(a3 + 16);
+      if (v24)
       {
-        if (*a3 == 30)
+        if (*a3 != 30 || (v25 = *(*(a3 + 8) + 24), v26 = v11, v25 != DelayedQueryDoForAllFacts) && (v26 = v11, v25 != QueryDoForAllFacts) && (v26 = v11, v25 != QueryDoForFact) && (v26 = v11, v25 != QueryFindAllFacts) && (v26 = v11, v25 != AnyFacts) && (v26 = v11, v25 != QueryFindFact))
         {
-          v23 = *(*(a3 + 8) + 24);
+          v26 = a5;
         }
 
-        result = ReplaceFactVariables(a1, a2);
+        result = ReplaceFactVariables(a1, a2, v24, a4, v26);
       }
 
       a3 = *(a3 + 24);
@@ -4994,9 +4989,9 @@ LABEL_30:
       {
         if (!v8)
         {
-          v7[3] = ParseAtomOrExpression(a1, a3, 0);
+          *(v7 + 3) = ParseAtomOrExpression(a1, a3, 0);
           SavePPBuffer(a1, " ");
-          v11 = v7[3];
+          v11 = *(v7 + 3);
           if (!v11)
           {
             goto LABEL_30;
@@ -5013,7 +5008,7 @@ LABEL_30:
                 goto LABEL_30;
               }
 
-              v11 = v7[3];
+              v11 = *(v7 + 3);
             }
           }
 
@@ -5021,7 +5016,7 @@ LABEL_30:
           if (v16 == 2 && !strcmp(*(v17 + 24), "then"))
           {
             v8 = 0;
-            v10 = v7[3];
+            v10 = *(v7 + 3);
             goto LABEL_21;
           }
         }
@@ -5035,7 +5030,7 @@ LABEL_30:
       }
 
       v10 = GenConstant(a1, 175, 0);
-      v7[3] = v10;
+      *(v7 + 3) = v10;
       v8 = 1;
 LABEL_21:
       v13 = *(*(a1 + 48) + 360);
@@ -5080,9 +5075,9 @@ LABEL_31:
   return a2;
 }
 
-uint64_t ClearParsedBindNames(uint64_t result)
+void *ClearParsedBindNames(void *result)
 {
-  v1 = **(*(result + 48) + 96);
+  v1 = **(result[6] + 96);
   if (v1)
   {
     v2 = result;
@@ -5090,11 +5085,11 @@ uint64_t ClearParsedBindNames(uint64_t result)
     {
       v3 = *(v1 + 16);
       result = RemoveConstraint(v2, *(v1 + 8));
-      v4 = *(v2 + 48);
+      v4 = v2[6];
       *(*(v4 + 472) + 32) = **(v4 + 96);
       **(*(v4 + 472) + 32) = *(*(*(v4 + 472) + 40) + 192);
       *(*(*(v4 + 472) + 40) + 192) = *(*(v4 + 472) + 32);
-      v5 = *(v2 + 48);
+      v5 = v2[6];
       **(v5 + 96) = v3;
       v1 = **(v5 + 96);
     }
@@ -5166,9 +5161,9 @@ uint64_t CountParsedBindNames(uint64_t a1)
   return result;
 }
 
-uint64_t RemoveParsedBindName(uint64_t result, uint64_t a2)
+void *RemoveParsedBindName(void *result, uint64_t a2)
 {
-  v2 = *(*(result + 48) + 96);
+  v2 = *(result[6] + 96);
   v3 = *v2;
   if (*v2)
   {
@@ -5184,7 +5179,7 @@ LABEL_7:
 
       *v2 = v3[2];
       result = RemoveConstraint(result, v3[1]);
-      v6 = *(v4 + 48);
+      v6 = v4[6];
       *(*(v6 + 472) + 32) = v3;
       **(*(v6 + 472) + 32) = *(*(*(v6 + 472) + 40) + 192);
       *(*(*(v6 + 472) + 40) + 192) = *(*(v6 + 472) + 32);
@@ -5212,80 +5207,84 @@ LABEL_7:
   return result;
 }
 
-uint64_t ReplaceLoopCountVars(uint64_t result, uint64_t a2, unsigned __int16 *a3, int a4)
+uint64_t ReplaceLoopCountVars(uint64_t result, uint64_t a2, unsigned __int16 *a3, uint64_t a4)
 {
   if (a3)
   {
-    v4 = a3;
-    v6 = result;
-    v7 = a4;
+    v5 = a3;
+    v7 = result;
+    v8 = a4;
     while (1)
     {
-      v8 = *v4;
-      if (v8 == 35)
+      v9 = *v5;
+      if (v9 == 35)
       {
         break;
       }
 
-      if (*(v4 + 2))
+      v10 = *(v5 + 2);
+      if (v10)
       {
-        if (v8 != 30)
+        if (v9 != 30)
         {
           goto LABEL_10;
         }
 
-        v9 = *(v4 + 1);
-        Function = FindFunction(v6, "loop-for-count");
-        v11 = *(v4 + 2);
-        if (v9 != Function)
+        v11 = *(v5 + 1);
+        Function = FindFunction(v7, "loop-for-count");
+        v10 = *(v5 + 2);
+        if (v11 != Function)
         {
           goto LABEL_10;
         }
 
-        v12 = v6;
-        v13 = a2;
+        v15 = (a4 + 1);
+        v13 = v7;
+        v14 = a2;
 LABEL_11:
-        result = ReplaceLoopCountVars(v12, v13);
+        result = ReplaceLoopCountVars(v13, v14, v10, v15);
       }
 
 LABEL_13:
-      v4 = *(v4 + 3);
-      if (!v4)
+      v5 = *(v5 + 3);
+      if (!v5)
       {
         return result;
       }
     }
 
-    result = strcmp(*(*(v4 + 1) + 24), *(a2 + 24));
+    result = strcmp(*(*(v5 + 1) + 24), *(a2 + 24));
     if (!result)
     {
-      *v4 = 30;
-      *(v4 + 1) = FindFunction(v6, "(get-loop-count)");
-      v14 = EnvAddLong(v6, v7);
-      result = GenConstant(v6, 1, v14);
-      *(v4 + 2) = result;
+      *v5 = 30;
+      *(v5 + 1) = FindFunction(v7, "(get-loop-count)");
+      v16 = EnvAddLong(v7, v8);
+      result = GenConstant(v7, 1, v16);
+      *(v5 + 2) = result;
       goto LABEL_13;
     }
 
-    if (!*(v4 + 2))
+    v10 = *(v5 + 2);
+    if (!v10)
     {
       goto LABEL_13;
     }
 
 LABEL_10:
-    v12 = v6;
-    v13 = a2;
+    v13 = v7;
+    v14 = a2;
+    v15 = a4;
     goto LABEL_11;
   }
 
   return result;
 }
 
-void sub_2326F61D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2326F61D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v13);
+  objc_sync_exit(v20);
   _Unwind_Resume(a1);
 }
 
@@ -5296,24 +5295,25 @@ uint64_t __Block_byref_object_copy__14(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_232702DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232702DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2327040D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2327040D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 uint64_t DeallocateDefruleBloadData(uint64_t a1)
@@ -5869,7 +5869,7 @@ uint64_t BloadBinaryItem_1(uint64_t a1)
   return result;
 }
 
-uint64_t ClearBload_2(uint64_t a1)
+uint64_t ClearBload_2(void *a1)
 {
   v1 = a1;
   v16 = 0;
@@ -6063,7 +6063,7 @@ uint64_t UpdatePatternNodeHeader(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-const void *BsaveTraverseJoins(const void *result, FILE *a2, int *a3)
+const void *BsaveTraverseJoins(const void *result, FILE *a2, unsigned int *a3)
 {
   if (a3)
   {
@@ -6551,105 +6551,78 @@ uint64_t __prefs_store_init_block_invoke()
   return 0;
 }
 
-void prefs_start_monitoring(uint64_t a1, void (**aBlock)(void *, uint64_t))
+void prefs_start_monitoring(_BYTE *result, void *aBlock)
 {
   values[2] = *MEMORY[0x277D85DE8];
-  if (*(a1 + 72) != 1)
+  if (result[72] == 1)
+  {
+    v3 = aBlock[2];
+
+    v3(aBlock, result);
+  }
+
+  else
   {
     out_token = 0;
-    *(a1 + 72) = 1;
+    result[72] = 1;
     if (aBlock)
     {
-      *(a1 + 112) = _Block_copy(aBlock);
+      *(result + 14) = _Block_copy(aBlock);
     }
 
-    v5 = *(a1 + 144);
-    if (v5 == 1)
+    v4 = *(result + 36);
+    if (v4 == 1)
     {
-      v9 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
-      v10 = dispatch_queue_create("com.apple.symptoms.settings.notify", v9);
-      *(a1 + 168) = v10;
+      v8 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
+      v9 = dispatch_queue_create("com.apple.symptoms.settings.notify", v8);
+      *(result + 21) = v9;
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 0x40000000;
       handler[2] = __prefs_start_monitoring_block_invoke;
       handler[3] = &__block_descriptor_tmp_12;
-      handler[4] = a1;
-      notify_register_dispatch(symptoms_settings_notify_key, &out_token, v10, handler);
+      handler[4] = result;
+      notify_register_dispatch(symptoms_settings_notify_key, &out_token, v9, handler);
     }
 
     else
     {
-      if (v5)
+      if (v4)
       {
-LABEL_13:
-        v11 = *MEMORY[0x277D85DE8];
         return;
       }
 
       values[0] = @"/Library/Preferences/com.apple.symptoms.plist";
       values[1] = @"/Library/Managed Preferences/mobile/com.apple.symptoms.plist";
-      v6 = *MEMORY[0x277CBECE8];
-      v7 = CFArrayCreate(*MEMORY[0x277CBECE8], values, 2, MEMORY[0x277CBF128]);
+      v5 = *MEMORY[0x277CBECE8];
+      v6 = CFArrayCreate(*MEMORY[0x277CBECE8], values, 2, MEMORY[0x277CBF128]);
       context.version = 0;
       memset(&context.retain, 0, 24);
-      context.info = a1;
+      context.info = result;
       CurrentEventId = FSEventsGetCurrentEventId();
-      prefs_start_monitoring_fsevt = FSEventStreamCreate(v6, fs_settings_changed, &context, v7, CurrentEventId, 0.1, 0x14u);
+      prefs_start_monitoring_fsevt = FSEventStreamCreate(v5, fs_settings_changed, &context, v6, CurrentEventId, 0.1, 0x14u);
       FSEventStreamSetDispatchQueue(prefs_start_monitoring_fsevt, MEMORY[0x277D85CD0]);
       FSEventStreamStart(prefs_start_monitoring_fsevt);
-      if (v7)
+      if (v6)
       {
-        CFRelease(v7);
+        CFRelease(v6);
       }
     }
 
-    get_settings(a1);
-    goto LABEL_13;
+    get_settings(result);
   }
-
-  v3 = aBlock[2];
-  v4 = *MEMORY[0x277D85DE8];
-
-  v3(aBlock, a1);
 }
 
 void get_settings(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 144);
-  if (v2 == 1)
+  if (v2 != 1)
   {
-    v5 = xpc_dictionary_create(0, 0, 0);
-    if (v5)
+    if (v2)
     {
-      v6 = v5;
-      xpc_dictionary_set_uint64(v5, symptoms_helper_key_type, 0x64uLL);
-      v17 = 0;
-      v18 = &v17;
-      v19 = 0x2000000000;
-      v20 = 0;
-      v7 = *(a1 + 152);
-      block = MEMORY[0x277D85DD0];
-      v24 = 0x40000000;
-      v25 = __get_connection_block_invoke;
-      v26 = &unk_27898EF48;
-      v27 = &v17;
-      v28 = a1;
-      dispatch_sync(v7, &block);
-      v8 = *(v18 + 24);
-      _Block_object_dispose(&v17, 8);
-      if (v8)
-      {
-        xpc_connection_send_message(v8, v6);
-        xpc_release(v8);
-      }
-
-      xpc_release(v6);
+      return;
     }
-  }
 
-  else if (!v2)
-  {
     v3 = open("/Library/Preferences/com.apple.symptoms.plist", 0);
     if (v3 == -1)
     {
@@ -6660,7 +6633,7 @@ void get_settings(uint64_t a1)
         {
           v10 = *__error();
           *buf = 67109120;
-          v30 = v10;
+          v27 = v10;
           _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "symptom settings file open failed %d", buf, 8u);
         }
       }
@@ -6668,16 +6641,15 @@ void get_settings(uint64_t a1)
       v11 = open("/Library/Managed Preferences/mobile/com.apple.symptoms.plist", 0);
       if (v11 != -1)
       {
-        v12 = *(a1 + 152);
-        v17 = MEMORY[0x277D85DD0];
-        v18 = 0x40000000;
-        v19 = __get_settings_from_file_block_invoke;
-        v20 = &__block_descriptor_tmp_17;
-        v22 = v11;
-        v21 = a1;
+        v14 = MEMORY[0x277D85DD0];
+        v15 = 0x40000000;
+        v16 = __get_settings_from_file_block_invoke;
+        v17 = &__block_descriptor_tmp_17;
+        v19 = v11;
+        v18 = a1;
 LABEL_21:
         xpc_create_from_plist_descriptor();
-        goto LABEL_22;
+        return;
       }
     }
 
@@ -6687,26 +6659,25 @@ LABEL_21:
       if (v4 != -1)
       {
 LABEL_20:
-        v15 = *(a1 + 152);
         block = MEMORY[0x277D85DD0];
-        v24 = 0x40000000;
-        v25 = __get_settings_from_file_block_invoke_2;
-        v26 = &__block_descriptor_tmp_19;
-        v28 = __PAIR64__(v4, v3);
-        v27 = a1;
+        v21 = 0x40000000;
+        v22 = __get_settings_from_file_block_invoke_2;
+        v23 = &__block_descriptor_tmp_19;
+        v25 = __PAIR64__(v4, v3);
+        v24 = a1;
         goto LABEL_21;
       }
     }
 
     if (*__error() != 2)
     {
-      v13 = otherLogHandle;
+      v12 = otherLogHandle;
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v14 = *__error();
+        v13 = *__error();
         *buf = 67109120;
-        v30 = v14;
-        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "symptom settings profile file open failed %d", buf, 8u);
+        v27 = v13;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "symptom settings profile file open failed %d", buf, 8u);
       }
     }
 
@@ -6714,15 +6685,40 @@ LABEL_20:
     {
       update_prefs(a1, 0, 0, 0, 0);
       signal_initialized(a1);
-      goto LABEL_22;
+      return;
     }
 
     v4 = -1;
     goto LABEL_20;
   }
 
-LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
+  v5 = xpc_dictionary_create(0, 0, 0);
+  if (v5)
+  {
+    v6 = v5;
+    xpc_dictionary_set_uint64(v5, symptoms_helper_key_type, 0x64uLL);
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2000000000;
+    v17 = 0;
+    v7 = *(a1 + 152);
+    block = MEMORY[0x277D85DD0];
+    v21 = 0x40000000;
+    v22 = __get_connection_block_invoke;
+    v23 = &unk_27898EF48;
+    v24 = &v14;
+    v25 = a1;
+    dispatch_sync(v7, &block);
+    v8 = *(v15 + 24);
+    _Block_object_dispose(&v14, 8);
+    if (v8)
+    {
+      xpc_connection_send_message(v8, v6);
+      xpc_release(v8);
+    }
+
+    xpc_release(v6);
+  }
 }
 
 void __prefs_start_monitoring_block_invoke(uint64_t a1, int token)
@@ -6831,14 +6827,14 @@ LABEL_21:
 
 void start_monitor_mdm_profile(const char *a1, void *aBlock)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (a1 && aBlock)
   {
     mdm_callback = _Block_copy(aBlock);
     Default = CFAllocatorGetDefault();
     v4 = CFStringCreateWithCString(Default, a1, 0x600u);
-    v11[0] = v4;
-    v5 = CFArrayCreate(0, v11, 1, MEMORY[0x277CBF128]);
+    v10[0] = v4;
+    v5 = CFArrayCreate(0, v10, 1, MEMORY[0x277CBF128]);
     v6 = *MEMORY[0x277CBECE8];
     CurrentEventId = FSEventsGetCurrentEventId();
     v8 = FSEventStreamCreate(v6, fs_changed, 0, v5, CurrentEventId, 0.1, 0x10u);
@@ -6859,8 +6855,6 @@ void start_monitor_mdm_profile(const char *a1, void *aBlock)
       CFRelease(v4);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t fs_changed()
@@ -6887,23 +6881,23 @@ uint64_t dump_prefs_file(const char *a1)
 
 void __dump_prefs_file_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   close(*(a1 + 40));
   if (!a2)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_11;
+      return;
     }
 
     v7 = *(a1 + 32);
-    v12 = 136315138;
-    v13 = v7;
+    v11 = 136315138;
+    v12 = v7;
     v8 = MEMORY[0x277D86220];
     v9 = "Configuration file %s appears to be corrupt";
 LABEL_10:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, v9, &v12, 0xCu);
-    goto LABEL_11;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, v9, &v11, 0xCu);
+    return;
   }
 
   v4 = MEMORY[0x238389020](a2);
@@ -6911,12 +6905,12 @@ LABEL_10:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_11;
+      return;
     }
 
     v10 = *(a1 + 32);
-    v12 = 136315138;
-    v13 = v10;
+    v11 = 136315138;
+    v12 = v10;
     v8 = MEMORY[0x277D86220];
     v9 = "Configuration file %s has unreadable contents";
     goto LABEL_10;
@@ -6926,16 +6920,14 @@ LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v12 = 136315394;
-    v13 = v6;
-    v14 = 2080;
-    v15 = v5;
-    _os_log_impl(&dword_23255B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Configuration file %s contents %s", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = v6;
+    v13 = 2080;
+    v14 = v5;
+    _os_log_impl(&dword_23255B000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Configuration file %s contents %s", &v11, 0x16u);
   }
 
   free(v5);
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t update_prefs(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5)
@@ -7020,9 +7012,7 @@ void __get_settings_from_file_block_invoke_2(uint64_t a1, void *a2)
     if (*(a1 + 44) != -1)
     {
       xpc_retain(a2);
-      v5 = *(a1 + 44);
 LABEL_5:
-      v6 = *(*(a1 + 32) + 152);
       xpc_create_from_plist_descriptor();
       return;
     }
@@ -7038,9 +7028,9 @@ LABEL_5:
   }
 
   update_prefs(*(a1 + 32), a2, v4, 0, 0);
-  v7 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  signal_initialized(v7);
+  signal_initialized(v5);
 }
 
 void __get_settings_from_file_block_invoke_3(uint64_t a1, void *a2)
@@ -7066,41 +7056,18 @@ void __get_settings_from_file_block_invoke_3(uint64_t a1, void *a2)
   }
 }
 
-_xpc_connection_s *__get_connection_block_invoke(uint64_t a1)
+xpc_object_t __get_connection_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   result = *(v2 + 160);
-  if (result)
+  if (result || (*(*(a1 + 40) + 160) = xpc_connection_create_mach_service(symptoms_helper_service, *(v2 + 152), 2uLL), v5 = *(a1 + 40), (result = *(v5 + 160)) != 0) && (handler[0] = MEMORY[0x277D85DD0], handler[1] = 0x40000000, handler[2] = __get_connection_block_invoke_2, handler[3] = &__block_descriptor_tmp_20, handler[4] = v5, xpc_connection_set_event_handler(result, handler), xpc_connection_resume(*(*(a1 + 40) + 160)), (result = *(*(a1 + 40) + 160)) != 0))
   {
-    goto LABEL_2;
-  }
-
-  *(*(a1 + 40) + 160) = xpc_connection_create_mach_service(symptoms_helper_service, *(v2 + 152), 2uLL);
-  v5 = *(a1 + 40);
-  result = *(v5 + 160);
-  if (!result)
-  {
-    goto LABEL_5;
-  }
-
-  handler[0] = MEMORY[0x277D85DD0];
-  handler[1] = 0x40000000;
-  handler[2] = __get_connection_block_invoke_2;
-  handler[3] = &__block_descriptor_tmp_20;
-  handler[4] = v5;
-  xpc_connection_set_event_handler(result, handler);
-  xpc_connection_resume(*(*(a1 + 40) + 160));
-  result = *(*(a1 + 40) + 160);
-  if (result)
-  {
-LABEL_2:
     result = xpc_retain(result);
     v4 = *(*(a1 + 40) + 160);
   }
 
   else
   {
-LABEL_5:
     v4 = 0;
   }
 
@@ -9043,7 +9010,7 @@ void *EnvironmentZoneMalloc(size_t size)
   return result;
 }
 
-char *CreateEnvironmentDriver()
+char *CreateEnvironmentDriver(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   zone = malloc_create_zone(0x200000uLL, 0);
   clips_malloc_zone = zone;
@@ -9057,21 +9024,21 @@ char *CreateEnvironmentDriver()
     puts("\n[ENVRNMNT9] malloc_create_zone() failed.");
   }
 
-  v1 = EnvironmentZoneMalloc(0x50uLL);
-  v2 = EnvironmentZoneMalloc(0x320uLL);
-  bzero(v2, 0x320uLL);
-  *v1 &= ~1u;
-  *(v1 + 8) = 0u;
-  *(v1 + 24) = 0u;
-  *(v1 + 5) = 0;
-  *(v1 + 6) = v2;
-  *(v1 + 8) = 0;
-  *(v1 + 9) = 0;
-  v3 = EnvironmentZoneMalloc(0x320uLL);
-  bzero(v3, 0x320uLL);
-  *(v1 + 7) = v3;
-  EnvInitializeEnvironment(v1);
-  return v1;
+  v9 = EnvironmentZoneMalloc(0x50uLL);
+  v10 = EnvironmentZoneMalloc(0x320uLL);
+  bzero(v10, 0x320uLL);
+  *v9 &= ~1u;
+  *(v9 + 8) = 0u;
+  *(v9 + 24) = 0u;
+  *(v9 + 5) = 0;
+  *(v9 + 6) = v10;
+  *(v9 + 8) = 0;
+  *(v9 + 9) = 0;
+  v11 = EnvironmentZoneMalloc(0x320uLL);
+  bzero(v11, 0x320uLL);
+  *(v9 + 7) = v11;
+  EnvInitializeEnvironment(v9, a1, a2, a3, a4, 0);
+  return v9;
 }
 
 uint64_t SetEnvironmentContext(uint64_t a1, uint64_t a2)
@@ -9242,7 +9209,7 @@ LABEL_9:
   return 1;
 }
 
-uint64_t NetworkRetract(uint64_t result, uint64_t **a2)
+void *NetworkRetract(void *result, uint64_t **a2)
 {
   if (a2)
   {
@@ -9319,7 +9286,7 @@ void *PosEntryRetractAlpha(void *result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t NegEntryRetractAlpha(uint64_t result, uint64_t a2, uint64_t a3)
+void *NegEntryRetractAlpha(void *result, uint64_t a2, uint64_t a3)
 {
   v3 = (a2 + 112);
   v4 = *(a2 + 112);
@@ -9347,7 +9314,7 @@ uint64_t NegEntryRetractAlpha(uint64_t result, uint64_t a2, uint64_t a3)
       goto LABEL_26;
     }
 
-    v10 = *(v7 + 48);
+    v10 = v7[6];
     v11 = *(v10 + 144);
     v12 = v11[12];
     v13 = v11[13];
@@ -9403,9 +9370,9 @@ uint64_t NegEntryRetractAlpha(uint64_t result, uint64_t a2, uint64_t a3)
         goto LABEL_24;
       }
 
-      *(*(*(v7 + 48) + 144) + 104) = v9;
+      *(*(v7[6] + 144) + 104) = v9;
       result = EvaluateJoinExpression(v7, v18, v8);
-      v19 = *(*(v7 + 48) + 352);
+      v19 = *(v7[6] + 352);
       if (*(v19 + 8))
       {
         break;
@@ -9430,7 +9397,7 @@ LABEL_24:
     result = AddBlockedLink(v4, v9);
     v20 = 0;
 LABEL_25:
-    v22 = *(v7 + 48);
+    v22 = v7[6];
     *(*(v22 + 144) + 96) = v12;
     *(*(v22 + 144) + 104) = v13;
     v3 = v26;
@@ -9764,4 +9731,79 @@ void *FlushGarbagePartialMatches(void *result)
   }
 
   return result;
+}
+
+uint64_t __symptomConnectionCreate_block_invoke()
+{
+  v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v1 = transportDictionary;
+  transportDictionary = v0;
+
+  return MEMORY[0x2821F96F8](v0, v1);
+}
+
+uint64_t symptomConnectionDestroy(void *a1, uint64_t a2)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", a2];
+  v5 = transportLogHandle;
+  if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = transportDictionary;
+    v7 = v5;
+    v8 = [v6 description];
+    *buf = 134218242;
+    v19 = a2;
+    v20 = 2080;
+    v21 = [v8 UTF8String];
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "symptomConnectionDestroy for %llu, dictionary %s", buf, 0x16u);
+  }
+
+  v9 = [transportDictionary objectForKey:v4];
+  v10 = v9;
+  if (v9)
+  {
+    if (v9 == a1)
+    {
+      [v9 disconnect];
+      [transportDictionary removeObjectForKey:v4];
+      v16 = 1;
+      goto LABEL_12;
+    }
+
+    v11 = transportLogHandle;
+    if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218496;
+      v19 = a2;
+      v20 = 2048;
+      v21 = v10;
+      v22 = 2048;
+      v23 = a1;
+      v12 = "Mismatched  entry for key %llu on delete, found %p, given %p";
+      v13 = v11;
+      v14 = 32;
+LABEL_9:
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
+    }
+  }
+
+  else
+  {
+    v15 = transportLogHandle;
+    if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134217984;
+      v19 = a2;
+      v12 = "No entry for key %llu on delete";
+      v13 = v15;
+      v14 = 12;
+      goto LABEL_9;
+    }
+  }
+
+  v16 = 0;
+LABEL_12:
+
+  return v16;
 }

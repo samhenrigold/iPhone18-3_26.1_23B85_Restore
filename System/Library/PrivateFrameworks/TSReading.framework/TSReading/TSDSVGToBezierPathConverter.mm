@@ -293,7 +293,7 @@ LABEL_42:
         if (v67)
         {
           v68 = [attributesCopy objectForKeyedSubscript:@"transform"];
-          [TSDSVGToBezierPathConverter transformFromSVGTransformAttributeString:v68];
+          objc_msgSend_transformFromSVGTransformAttributeString_(TSDSVGToBezierPathConverter);
           v69 = *&t1.c;
           *&self->mGroupedAffineTransform.a = *&t1.a;
           *&self->mGroupedAffineTransform.c = v69;
@@ -528,7 +528,7 @@ LABEL_69:
         {
           memset(&t2, 0, sizeof(t2));
           v88 = [attributesCopy objectForKeyedSubscript:@"transform"];
-          [TSDSVGToBezierPathConverter transformFromSVGTransformAttributeString:v88];
+          objc_msgSend_transformFromSVGTransformAttributeString_(TSDSVGToBezierPathConverter);
 
           v167 = t1;
           v166 = t2;
@@ -813,8 +813,8 @@ LABEL_69:
             *&v57 = v33 + *&v57;
             *(&v57 + 1) = v32 + *(&v57 + 1);
             CGPathAddQuadCurveToPoint(Mutable, 0, v58[0], v58[1], *&v57, *(&v57 + 1));
-            v23 = v58[1];
             v22 = v58[0];
+            v23 = v58[1];
             goto LABEL_111;
           }
 
@@ -855,8 +855,8 @@ LABEL_56:
           *&v57 = v33 + *&v57;
           *(&v57 + 1) = v32 + *(&v57 + 1);
           CGPathAddCurveToPoint(Mutable, 0, x, v27, v58[0], v58[1], *&v57, *(&v57 + 1));
-          v42 = v58[1];
           v43 = v58[0];
+          v42 = v58[1];
 LABEL_90:
           v53 = v42;
           v54 = v43;
@@ -878,7 +878,8 @@ LABEL_77:
             v23 = v27;
           }
 
-          *v58 = 0uLL;
+          v58[0] = 0.0;
+          v58[1] = 0.0;
           if ([v7 tsu_scanCGFloat:v58])
           {
             v11 = [v7 tsu_scanCGFloat:&v58[1]] ^ 1;

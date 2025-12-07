@@ -236,13 +236,13 @@ LABEL_10:
   settingsCopy = settings;
   settings = [settingsCopy settings];
   showCompactTime = [settings showCompactTime];
-  transitionContext = [settingsCopy transitionContext];
+  v8 = objc_msgSend_transitionContext(settingsCopy);
   settingsDiff = [settingsCopy settingsDiff];
 
   if ([settingsDiff containsProperty:sel_showCompactTime])
   {
     self->_showCompactTime = showCompactTime;
-    animationFence = [transitionContext animationFence];
+    animationFence = [v8 animationFence];
     if (animationFence)
     {
       view = [(CSBackgroundContentViewController *)self view];
@@ -252,7 +252,7 @@ LABEL_10:
     }
 
     v14 = MEMORY[0x277CF0D38];
-    animationSettings = [transitionContext animationSettings];
+    animationSettings = [v8 animationSettings];
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
     v16[2] = __67__CSBackgroundContentViewController_scene_didUpdateClientSettings___block_invoke;

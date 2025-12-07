@@ -12,7 +12,7 @@
 
 - (NSPredicate)localFetchPredicate
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   localFetchPredicate = self->_localFetchPredicate;
   if (!localFetchPredicate)
   {
@@ -27,9 +27,9 @@
       v8 = MEMORY[0x277CCAC30];
       maxCacheAge2 = [(TBLocationFetchRequestDescriptor *)self maxCacheAge];
       v10 = [v8 predicateWithFormat:@"created >= %@", maxCacheAge2];
-      v16[0] = v10;
-      v16[1] = tilePredicate;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+      v15[0] = v10;
+      v15[1] = tilePredicate;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
       v12 = [v7 andPredicateWithSubpredicates:v11];
 
       tilePredicate = v12;
@@ -41,14 +41,12 @@
     localFetchPredicate = self->_localFetchPredicate;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return localFetchPredicate;
 }
 
 - (id)_preferLocalCacheFetchRequest
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBE428];
   v4 = +[TBTileMO entityName];
   v5 = [v3 fetchRequestWithEntityName:v4];
@@ -64,17 +62,15 @@
     v10 = MEMORY[0x277CCAC30];
     maxCacheAge2 = [(TBLocationFetchRequestDescriptor *)self maxCacheAge];
     v12 = [v10 predicateWithFormat:@"created > %@", maxCacheAge2];
-    v17[0] = v12;
-    v17[1] = tilePredicate;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = v12;
+    v16[1] = tilePredicate;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v14 = [v9 andPredicateWithSubpredicates:v13];
     [v5 setPredicate:v14];
   }
 
   [v5 setResultType:2];
   [v5 setPropertiesToFetch:&unk_2848BACD0];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -109,11 +105,11 @@
 
 - (TBLocationFetchRequestDescriptor)initWithLatitude:(double)latitude longitude:(double)longitude radius:(double)radius maxCacheAge:(id)age
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   ageCopy = age;
-  v38.receiver = self;
-  v38.super_class = TBLocationFetchRequestDescriptor;
-  v12 = [(TBLocationFetchRequestDescriptor *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = TBLocationFetchRequestDescriptor;
+  v12 = [(TBLocationFetchRequestDescriptor *)&v37 init];
   v12->_latitude = latitude;
   v12->_longitude = longitude;
   v12->_type = 2;
@@ -126,30 +122,30 @@
     NSLog(&cfstr_SSearchRadiusF.isa, "[TBLocationFetchRequestDescriptor initWithLatitude:longitude:radius:maxCacheAge:]", *&radius);
     v15 = [(TBGloriaTile *)v14 neighborTileKeysWithRadius:radius];
     v16 = [MEMORY[0x277CBEB58] set];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v35;
+      v20 = *v34;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v35 != v20)
+          if (*v34 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = [TBTileItemDescriptor tileItemDescriptorWithKey:*(*(&v34 + 1) + 8 * i)];
+          v22 = [TBTileItemDescriptor tileItemDescriptorWithKey:*(*(&v33 + 1) + 8 * i)];
           [v16 addObject:v22];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v19);
@@ -179,7 +175,6 @@
   }
 
   v31 = v12;
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 

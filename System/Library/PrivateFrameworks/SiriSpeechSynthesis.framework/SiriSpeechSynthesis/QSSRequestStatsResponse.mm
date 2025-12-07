@@ -43,7 +43,7 @@ flatbuffers::DetachedBuffer *__39__QSSRequestStatsResponse_flatbuffData__block_i
 
 - (Offset<siri::speech::schema_fb::RequestStatsResponse>)addObjectToBuffer:(void *)buffer
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   bOOL_stats = [(QSSRequestStatsResponse *)self BOOL_stats];
   v5 = [bOOL_stats count];
   if (v5)
@@ -56,16 +56,11 @@ flatbuffers::DetachedBuffer *__39__QSSRequestStatsResponse_flatbuffData__block_i
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  memset(v42, 0, sizeof(v42));
   bOOL_stats2 = [(QSSRequestStatsResponse *)self BOOL_stats];
-  if ([bOOL_stats2 countByEnumeratingWithState:&v50 objects:v56 count:16])
+  if ([bOOL_stats2 countByEnumeratingWithState:v42 objects:v45 count:16])
   {
-    *v51;
-    *v51;
-    [**(&v50 + 1) addObjectToBuffer:buffer];
+    [**(&v42[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -73,7 +68,7 @@ flatbuffers::DetachedBuffer *__39__QSSRequestStatsResponse_flatbuffData__block_i
   v7 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
   int32_stats = [(QSSRequestStatsResponse *)self int32_stats];
   v9 = [int32_stats count];
-  v38 = v7;
+  v36 = v7;
   if (v9)
   {
     if (!(v9 >> 62))
@@ -84,21 +79,16 @@ flatbuffers::DetachedBuffer *__39__QSSRequestStatsResponse_flatbuffData__block_i
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
+  memset(v41, 0, sizeof(v41));
   int32_stats2 = [(QSSRequestStatsResponse *)self int32_stats];
-  if ([int32_stats2 countByEnumeratingWithState:&v46 objects:v55 count:16])
+  if ([int32_stats2 countByEnumeratingWithState:v41 objects:v44 count:16])
   {
-    *v47;
-    *v47;
-    [**(&v46 + 1) addObjectToBuffer:buffer];
+    [**(&v41[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
   flatbuffers::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
-  v39 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
+  v37 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
   double_stats = [(QSSRequestStatsResponse *)self double_stats];
   v12 = [double_stats count];
   if (v12)
@@ -111,16 +101,11 @@ flatbuffers::DetachedBuffer *__39__QSSRequestStatsResponse_flatbuffData__block_i
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  memset(v40, 0, sizeof(v40));
   obj = [(QSSRequestStatsResponse *)self double_stats];
-  if ([obj countByEnumeratingWithState:&v42 objects:v54 count:16])
+  if ([obj countByEnumeratingWithState:v40 objects:v43 count:16])
   {
-    *v43;
-    *v43;
-    [**(&v42 + 1) addObjectToBuffer:buffer];
+    [**(&v40[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -164,15 +149,15 @@ flatbuffers::DetachedBuffer *__39__QSSRequestStatsResponse_flatbuffData__block_i
   v29 = *(buffer + 8);
   v30 = *(buffer + 12);
   v31 = *(buffer + 10);
-  if (v38)
+  if (v36)
   {
-    v32 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v38);
+    v32 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v36);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 4, v32);
   }
 
-  if (v39)
+  if (v37)
   {
-    v33 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v39);
+    v33 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v37);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v33);
   }
 
@@ -185,9 +170,7 @@ flatbuffers::DetachedBuffer *__39__QSSRequestStatsResponse_flatbuffData__block_i
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, String);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v23);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v28);
-  v35.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v29 - v30 + v31);
-  v36 = *MEMORY[0x277D85DE8];
-  return v35;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v29 - v30 + v31);
 }
 
 - (NSString)request_locale

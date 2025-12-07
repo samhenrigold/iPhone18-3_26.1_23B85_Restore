@@ -48,20 +48,20 @@
   x = endPoint.x;
   v10 = point.y;
   v11 = point.x;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   colorsCopy = colors;
   locationsCopy = locations;
   if (!colorsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "colors"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "colors"];
     *buf = 136315906;
-    v25 = "[FCColorGradient initWithStartPoint:endPoint:colors:locations:]";
-    v26 = 2080;
-    v27 = "FCColorGradient.m";
-    v28 = 1024;
-    v29 = 21;
-    v30 = 2114;
-    v31 = v21;
+    v24 = "[FCColorGradient initWithStartPoint:endPoint:colors:locations:]";
+    v25 = 2080;
+    v26 = "FCColorGradient.m";
+    v27 = 1024;
+    v28 = 21;
+    v29 = 2114;
+    v30 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (locationsCopy)
@@ -77,15 +77,15 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "locations"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "locations"];
     *buf = 136315906;
-    v25 = "[FCColorGradient initWithStartPoint:endPoint:colors:locations:]";
-    v26 = 2080;
-    v27 = "FCColorGradient.m";
-    v28 = 1024;
-    v29 = 22;
-    v30 = 2114;
-    v31 = v22;
+    v24 = "[FCColorGradient initWithStartPoint:endPoint:colors:locations:]";
+    v25 = 2080;
+    v26 = "FCColorGradient.m";
+    v27 = 1024;
+    v28 = 22;
+    v29 = 2114;
+    v30 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -93,21 +93,21 @@ LABEL_6:
   v15 = [colorsCopy count];
   if (v15 != [locationsCopy count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"the number of colors and locations should match"];
+    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"the number of colors and locations should match"];
     *buf = 136315906;
-    v25 = "[FCColorGradient initWithStartPoint:endPoint:colors:locations:]";
-    v26 = 2080;
-    v27 = "FCColorGradient.m";
-    v28 = 1024;
-    v29 = 23;
-    v30 = 2114;
-    v31 = v20;
+    v24 = "[FCColorGradient initWithStartPoint:endPoint:colors:locations:]";
+    v25 = 2080;
+    v26 = "FCColorGradient.m";
+    v27 = 1024;
+    v28 = 23;
+    v29 = 2114;
+    v30 = v19;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v23.receiver = self;
-  v23.super_class = FCColorGradient;
-  v16 = [(FCColorGradient *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = FCColorGradient;
+  v16 = [(FCColorGradient *)&v22 init];
   if (v16)
   {
     if ([colorsCopy count] && objc_msgSend(locationsCopy, "count") && (v17 = objc_msgSend(colorsCopy, "count"), v17 == objc_msgSend(locationsCopy, "count")))
@@ -127,26 +127,25 @@ LABEL_6:
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 + (id)colorGradientWithColors:(id)colors locations:(id)locations
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   colorsCopy = colors;
   locationsCopy = locations;
   if (!colorsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "colors"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "colors"];
     *buf = 136315906;
-    v14 = "+[FCColorGradient colorGradientWithColors:locations:]";
-    v15 = 2080;
-    v16 = "FCColorGradient.m";
-    v17 = 1024;
-    v18 = 45;
-    v19 = 2114;
-    v20 = v11;
+    v13 = "+[FCColorGradient colorGradientWithColors:locations:]";
+    v14 = 2080;
+    v15 = "FCColorGradient.m";
+    v16 = 1024;
+    v17 = 45;
+    v18 = 2114;
+    v19 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (locationsCopy)
@@ -162,22 +161,20 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "locations"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "locations"];
     *buf = 136315906;
-    v14 = "+[FCColorGradient colorGradientWithColors:locations:]";
-    v15 = 2080;
-    v16 = "FCColorGradient.m";
-    v17 = 1024;
-    v18 = 46;
-    v19 = 2114;
-    v20 = v12;
+    v13 = "+[FCColorGradient colorGradientWithColors:locations:]";
+    v14 = 2080;
+    v15 = "FCColorGradient.m";
+    v16 = 1024;
+    v17 = 46;
+    v18 = 2114;
+    v19 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   v8 = [[self alloc] initWithStartPoint:colorsCopy endPoint:locationsCopy colors:0.5 locations:{0.0, 0.5, 1.0}];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -185,9 +182,9 @@ LABEL_6:
 + (id)colorGradientWithConfigDict:(id)dict
 {
   selfCopy = self;
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
-  v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = [dictCopy objectForKey:@"startPoint"];
   v6 = v5;
@@ -210,8 +207,8 @@ LABEL_6:
   }
 
   v14 = [dictCopy objectForKey:@"endPoint"];
-  v34 = v14;
-  v36 = v6;
+  v33 = v14;
+  v35 = v6;
   if (v14)
   {
     v15 = v14;
@@ -229,91 +226,85 @@ LABEL_6:
     v20 = 1.0;
   }
 
-  v38 = dictCopy;
-  [dictCopy objectForKeyedSubscript:{@"colorStops", v34}];
+  v37 = dictCopy;
+  [dictCopy objectForKeyedSubscript:{@"colorStops", v33}];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  obj = v44 = 0u;
-  v21 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+  obj = v43 = 0u;
+  v21 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v42;
+    v23 = *v41;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v42 != v23)
+        if (*v41 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v41 + 1) + 8 * i);
+        v25 = *(*(&v40 + 1) + 8 * i);
         v26 = [v25 objectForKeyedSubscript:@"color"];
         v27 = [FCColor colorWithHexString:v26];
-        [v40 addObject:v27];
+        [v39 addObject:v27];
 
         v28 = [v25 objectForKeyedSubscript:@"location"];
         [v4 addObject:v28];
       }
 
-      v22 = [obj countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v22 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
     }
 
     while (v22);
   }
 
-  v29 = [v40 count];
+  v29 = [v39 count];
   if (v29 != [v4 count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"there should be the same number of colors as locations"];
+    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"there should be the same number of colors as locations"];
     *buf = 136315906;
-    v46 = "+[FCColorGradient colorGradientWithConfigDict:]";
-    v47 = 2080;
-    v48 = "FCColorGradient.m";
-    v49 = 1024;
-    v50 = 90;
-    v51 = 2114;
-    v52 = v33;
+    v45 = "+[FCColorGradient colorGradientWithConfigDict:]";
+    v46 = 2080;
+    v47 = "FCColorGradient.m";
+    v48 = 1024;
+    v49 = 90;
+    v50 = 2114;
+    v51 = v32;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v30 = [[selfCopy alloc] initWithStartPoint:v40 endPoint:v4 colors:v10 locations:{v13, v7, v20}];
-
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = [[selfCopy alloc] initWithStartPoint:v39 endPoint:v4 colors:v10 locations:{v13, v7, v20}];
 
   return v30;
 }
 
 + (id)blackGradient
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
   v3 = +[FCColor blackColor];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = +[FCColor blackColor];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 colorGradientWithColors:v5 locations:&unk_1F2E6F6A8];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)whiteGradient
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
   v3 = +[FCColor whiteColor];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = +[FCColor whiteColor];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 colorGradientWithColors:v5 locations:&unk_1F2E6F6C0];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -354,17 +345,7 @@ LABEL_6:
     colors2 = [(FCColorGradient *)v7 colors];
     v26 = [colors2 count];
 
-    if (v24 != v26)
-    {
-      goto LABEL_7;
-    }
-
-    locations = [(FCColorGradient *)self locations];
-    v28 = [locations count];
-    locations2 = [(FCColorGradient *)v7 locations];
-    v30 = [locations2 count];
-
-    if (v28 != v30)
+    if (v24 != v26 || (-[FCColorGradient locations](self, "locations"), v27 = objc_claimAutoreleasedReturnValue(), v28 = [v27 count], -[FCColorGradient locations](v7, "locations"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "count"), v29, v27, v28 != v30))
     {
 LABEL_7:
       v15 = 0;
@@ -388,14 +369,14 @@ LABEL_7:
 
     if (v42[3])
     {
-      locations3 = [(FCColorGradient *)self locations];
+      locations = [(FCColorGradient *)self locations];
       v34[0] = MEMORY[0x1E69E9820];
       v34[1] = 3221225472;
       v34[2] = __61__FCColorGradient_isSimilarToColorGradient_withinPercentage___block_invoke_2;
       v34[3] = &unk_1E7C38840;
       v35 = v32;
       v36 = &v41;
-      [locations3 enumerateObjectsUsingBlock:v34];
+      [locations enumerateObjectsUsingBlock:v34];
 
       v15 = *(v42 + 24);
     }
@@ -447,23 +428,7 @@ void __61__FCColorGradient_isSimilarToColorGradient_withinPercentage___block_inv
     [(FCColorGradient *)self startPoint];
     v7 = v6;
     [v5 startPoint];
-    if (v7 != v8)
-    {
-      goto LABEL_9;
-    }
-
-    [(FCColorGradient *)self startPoint];
-    v10 = v9;
-    [v5 startPoint];
-    if (v10 != v11)
-    {
-      goto LABEL_9;
-    }
-
-    [(FCColorGradient *)self endPoint];
-    v13 = v12;
-    [v5 endPoint];
-    if (v13 == v14 && (-[FCColorGradient endPoint](self, "endPoint"), v16 = v15, [v5 endPoint], v16 == v17))
+    if (v7 == v8 && (-[FCColorGradient startPoint](self, "startPoint"), v10 = v9, [v5 startPoint], v10 == v11) && (-[FCColorGradient endPoint](self, "endPoint"), v13 = v12, objc_msgSend(v5, "endPoint"), v13 == v14) && (-[FCColorGradient endPoint](self, "endPoint"), v16 = v15, objc_msgSend(v5, "endPoint"), v16 == v17))
     {
       colors = [(FCColorGradient *)self colors];
       colors2 = [v5 colors];
@@ -482,7 +447,6 @@ void __61__FCColorGradient_isSimilarToColorGradient_withinPercentage___block_inv
 
     else
     {
-LABEL_9:
       v22 = 0;
     }
   }

@@ -22,11 +22,12 @@
   sub_1000668FC(fromCopy, item, viewsCopy, directions, arrowCopy, color, animated);
 
   swift_unknownObjectRelease();
+
+  viewsCopy, v19, v20, v21, v22, v23, v24, v25;
 }
 
 - (void)hideTipAnimated:(BOOL)animated completion:(id)completion
 {
-  animatedCopy = animated;
   v6 = _Block_copy(completion);
   if (v6)
   {
@@ -41,8 +42,8 @@
   }
 
   selfCopy = self;
-  sub_100065428(animatedCopy, v6, v7);
-  sub_1000682C8(v6);
+  sub_100065428(animated, v6, v7);
+  sub_1000682C8(v6, v7);
 }
 
 @end

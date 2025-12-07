@@ -1,1159 +1,3 @@
-uint64_t sub_100120448(uint64_t result)
-{
-  if (*(*(result + 32) + 120))
-  {
-    v1 = result;
-    objc_opt_class();
-    result = objc_opt_isKindOfClass();
-    if (result)
-    {
-      v2 = *(*(v1 + 32) + 120);
-      result = objc_opt_respondsToSelector();
-      if (result)
-      {
-        v3 = *(v1 + 40);
-        v4 = *(*(v1 + 32) + 120);
-
-        return [v4 handleHostCardReaderDetected:v3];
-      }
-    }
-  }
-
-  return result;
-}
-
-id sub_10012057C(uint64_t a1)
-{
-  if (*(a1 + 56) == 1)
-  {
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    Logger = NFLogGetLogger();
-    if (Logger)
-    {
-      v3 = Logger;
-      Class = object_getClass(*(a1 + 32));
-      isMetaClass = class_isMetaClass(Class);
-      ClassName = object_getClassName(*(a1 + 32));
-      Name = sel_getName(*(a1 + 48));
-      v7 = 45;
-      if (isMetaClass)
-      {
-        v7 = 43;
-      }
-
-      v3(5, "%c[%{public}s %{public}s]:%i Drop and restart", v7, ClassName, Name, 8324);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v8 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = object_getClass(*(a1 + 32));
-      if (class_isMetaClass(v9))
-      {
-        v10 = 43;
-      }
-
-      else
-      {
-        v10 = 45;
-      }
-
-      v11 = object_getClassName(*(a1 + 32));
-      v12 = sel_getName(*(a1 + 48));
-      *buf = 67109890;
-      v34 = v10;
-      v35 = 2082;
-      v36 = v11;
-      v37 = 2082;
-      v38 = v12;
-      v39 = 1024;
-      v40 = 8324;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Drop and restart", buf, 0x22u);
-    }
-
-    return sub_10021E364(*(*(a1 + 32) + 376));
-  }
-
-  else
-  {
-    v14 = *(*(a1 + 32) + 120);
-    if (objc_opt_respondsToSelector())
-    {
-      v15 = *(a1 + 40);
-      v16 = *(*(a1 + 32) + 120);
-
-      return [v16 handleRemoteTagsDetected:v15];
-    }
-
-    else
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v17 = NFLogGetLogger();
-      if (v17)
-      {
-        v18 = v17;
-        v19 = object_getClass(*(a1 + 32));
-        v20 = class_isMetaClass(v19);
-        v21 = object_getClassName(*(a1 + 32));
-        v22 = sel_getName(*(a1 + 48));
-        v23 = 45;
-        if (v20)
-        {
-          v23 = 43;
-        }
-
-        v18(6, "%c[%{public}s %{public}s]:%i Found tags:%{public}@", v23, v21, v22, 8332, *(a1 + 40));
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v24 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-      {
-        v25 = object_getClass(*(a1 + 32));
-        if (class_isMetaClass(v25))
-        {
-          v26 = 43;
-        }
-
-        else
-        {
-          v26 = 45;
-        }
-
-        v27 = object_getClassName(*(a1 + 32));
-        v28 = sel_getName(*(a1 + 48));
-        v29 = *(a1 + 40);
-        *buf = 67110146;
-        v34 = v26;
-        v35 = 2082;
-        v36 = v27;
-        v37 = 2082;
-        v38 = v28;
-        v39 = 1024;
-        v40 = 8332;
-        v41 = 2114;
-        v42 = v29;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Found tags:%{public}@", buf, 0x2Cu);
-      }
-
-      v30 = *(a1 + 32);
-      if (v30)
-      {
-        v31 = *(v30 + 416);
-      }
-
-      else
-      {
-        v31 = 0;
-      }
-
-      return [v31 handleDetectedTags:*(a1 + 40)];
-    }
-  }
-}
-
-void sub_100120DA4(uint64_t a1)
-{
-  v2 = sub_10021A4A0(*(*(a1 + 32) + 376), @"SE Removed", 0);
-  if (v2)
-  {
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    Logger = NFLogGetLogger();
-    if (Logger)
-    {
-      v4 = Logger;
-      Class = object_getClass(*(a1 + 32));
-      isMetaClass = class_isMetaClass(Class);
-      ClassName = object_getClassName(*(a1 + 32));
-      Name = sel_getName(*(a1 + 40));
-      v7 = 45;
-      if (isMetaClass)
-      {
-        v7 = 43;
-      }
-
-      v4(3, "%c[%{public}s %{public}s]:%i Failed to open session: %@", v7, ClassName, Name, 8403, v2);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v8 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      v9 = object_getClass(*(a1 + 32));
-      if (class_isMetaClass(v9))
-      {
-        v10 = 43;
-      }
-
-      else
-      {
-        v10 = 45;
-      }
-
-      v11 = object_getClassName(*(a1 + 32));
-      v12 = sel_getName(*(a1 + 40));
-      *buf = 67110146;
-      *v25 = v10;
-      *&v25[4] = 2082;
-      *&v25[6] = v11;
-      v26 = 2082;
-      v27 = v12;
-      v28 = 1024;
-      v29 = 8403;
-      v30 = 2112;
-      v31 = v2;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to open session: %@", buf, 0x2Cu);
-    }
-  }
-
-  else
-  {
-    sub_100007EE0(*(*(a1 + 32) + 24));
-    v13 = +[NFPowerAssertion sharedPowerAssertion];
-    [v13 releasePowerAssertion:@"ExpressMode" logFaultOnOverRelease:0];
-
-    [*(a1 + 32) refreshSecureElementInfo];
-    v14 = *(a1 + 48);
-    if (v14 > 4)
-    {
-      v15 = @"unknown";
-    }
-
-    else
-    {
-      v15 = *(&off_100318DC8 + v14);
-    }
-
-    v16 = +[NSDistributedNotificationCenter defaultCenter];
-    [v16 postNotificationName:@"com.apple.nfcd.se.removed" object:v15 userInfo:0 options:3];
-
-    v17 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v17))
-    {
-      *buf = 138412290;
-      *v25 = v15;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SE_REMOVED_NOTIFICATION", "com.apple.nfcd.se.removed for %@", buf, 0xCu);
-    }
-
-    v18 = *(*(a1 + 32) + 240);
-    v19 = sub_10004BF2C();
-    v23 = *(a1 + 32);
-    v20 = [_NFBuiltinSession createSession:"createSession:workQueue:routing:sessionQueuer:didStartWork:" workQueue:@"SE Removed" routing:v18 sessionQueuer:v19 didStartWork:?];
-
-    sub_10021CC94(*(*(a1 + 32) + 376), @"SE Removed");
-  }
-}
-
-void sub_100121334(uint64_t a1)
-{
-  v2 = +[NSDate now];
-  v3 = v2;
-  if (!*(*(a1 + 32) + 224))
-  {
-    goto LABEL_23;
-  }
-
-  [v2 timeIntervalSinceDate:?];
-  if (v4 >= 3600.0)
-  {
-    if (*(*(a1 + 32) + 224))
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      Logger = NFLogGetLogger();
-      if (Logger)
-      {
-        v18 = Logger;
-        Class = object_getClass(*(a1 + 32));
-        isMetaClass = class_isMetaClass(Class);
-        ClassName = object_getClassName(*(a1 + 32));
-        Name = sel_getName(*(a1 + 40));
-        [v3 timeIntervalSinceDate:*(*(a1 + 32) + 224)];
-        v24 = 45;
-        if (isMetaClass)
-        {
-          v24 = 43;
-        }
-
-        v18(6, "%c[%{public}s %{public}s]:%i Last OS reset was %f seconds ago", v24, ClassName, Name, 8455, v23);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v25 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_33;
-      }
-
-      v26 = object_getClass(*(a1 + 32));
-      if (class_isMetaClass(v26))
-      {
-        v27 = 43;
-      }
-
-      else
-      {
-        v27 = 45;
-      }
-
-      v28 = object_getClassName(*(a1 + 32));
-      v29 = sel_getName(*(a1 + 40));
-      [v3 timeIntervalSinceDate:*(*(a1 + 32) + 224)];
-      *buf = 67110146;
-      *v59 = v27;
-      *&v59[4] = 2082;
-      *&v59[6] = v28;
-      v60 = 2082;
-      v61 = v29;
-      v62 = 1024;
-      v63 = 8455;
-      v64 = 2048;
-      v65 = v30;
-      v31 = "%c[%{public}s %{public}s]:%i Last OS reset was %f seconds ago";
-      v32 = v25;
-      v33 = 44;
-LABEL_32:
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v31, buf, v33);
-LABEL_33:
-
-      v44 = *(a1 + 32);
-      v45 = v3;
-      v16 = 0;
-      v11 = *(v44 + 224);
-      *(v44 + 224) = v45;
-      goto LABEL_34;
-    }
-
-LABEL_23:
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v34 = NFLogGetLogger();
-    if (v34)
-    {
-      v35 = v34;
-      v36 = object_getClass(*(a1 + 32));
-      v37 = class_isMetaClass(v36);
-      v38 = object_getClassName(*(a1 + 32));
-      v55 = sel_getName(*(a1 + 40));
-      v39 = 45;
-      if (v37)
-      {
-        v39 = 43;
-      }
-
-      v35(6, "%c[%{public}s %{public}s]:%i Cool ! This is the first SE OS reset since our process started. I mean it's not great but as the internets say : 'First!'", v39, v38, v55, 8457);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v25 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_33;
-    }
-
-    v40 = object_getClass(*(a1 + 32));
-    if (class_isMetaClass(v40))
-    {
-      v41 = 43;
-    }
-
-    else
-    {
-      v41 = 45;
-    }
-
-    v42 = object_getClassName(*(a1 + 32));
-    v43 = sel_getName(*(a1 + 40));
-    *buf = 67109890;
-    *v59 = v41;
-    *&v59[4] = 2082;
-    *&v59[6] = v42;
-    v60 = 2082;
-    v61 = v43;
-    v62 = 1024;
-    v63 = 8457;
-    v31 = "%c[%{public}s %{public}s]:%i Cool ! This is the first SE OS reset since our process started. I mean it's not great but as the internets say : 'First!'";
-    v32 = v25;
-    v33 = 34;
-    goto LABEL_32;
-  }
-
-  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v5 = NFLogGetLogger();
-  if (v5)
-  {
-    v6 = v5;
-    v7 = object_getClass(*(a1 + 32));
-    v8 = class_isMetaClass(v7);
-    v9 = object_getClassName(*(a1 + 32));
-    v54 = sel_getName(*(a1 + 40));
-    v10 = 45;
-    if (v8)
-    {
-      v10 = 43;
-    }
-
-    v6(3, "%c[%{public}s %{public}s]:%i Already reset within the last: %f", v10, v9, v54, 8451, 0x40AC200000000000);
-  }
-
-  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v11 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-  {
-    v12 = object_getClass(*(a1 + 32));
-    if (class_isMetaClass(v12))
-    {
-      v13 = 43;
-    }
-
-    else
-    {
-      v13 = 45;
-    }
-
-    v14 = object_getClassName(*(a1 + 32));
-    v15 = sel_getName(*(a1 + 40));
-    *buf = 67110146;
-    *v59 = v13;
-    *&v59[4] = 2082;
-    *&v59[6] = v14;
-    v60 = 2082;
-    v61 = v15;
-    v62 = 1024;
-    v63 = 8451;
-    v64 = 2048;
-    v65 = 0x40AC200000000000;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Already reset within the last: %f", buf, 0x2Cu);
-  }
-
-  v16 = 1;
-LABEL_34:
-
-  v46 = *(a1 + 48);
-  if ((v46 | 2) == 2)
-  {
-    sub_100007EE0(*(*(a1 + 32) + 24));
-    v47 = +[NFPowerAssertion sharedPowerAssertion];
-    [v47 releasePowerAssertion:@"ExpressMode" logFaultOnOverRelease:0];
-
-    v46 = *(a1 + 48);
-  }
-
-  if (v46 > 3)
-  {
-    v48 = @"unknown";
-  }
-
-  else
-  {
-    v48 = *(&off_100318DF0 + v46);
-  }
-
-  v49 = +[NSDistributedNotificationCenter defaultCenter];
-  [v49 postNotificationName:@"com.apple.nfcd.se.os.reset" object:v48 userInfo:0 options:3];
-
-  v50 = NFSharedSignpostLog();
-  if (os_signpost_enabled(v50))
-  {
-    *buf = 138412290;
-    *v59 = v48;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v50, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SE_REMOVED_NOTIFICATION", "com.apple.nfcd.se.os.reset for %@", buf, 0xCu);
-  }
-
-  if ((v16 & 1) == 0)
-  {
-    v51 = *(*(a1 + 32) + 240);
-    v52 = sub_10004BF2C();
-    v56 = *(a1 + 32);
-    v57 = *(a1 + 48);
-    v53 = [_NFBuiltinSession createSession:"createSession:workQueue:routing:sessionQueuer:didStartWork:" workQueue:@"OS Reset" routing:v51 sessionQueuer:v52 didStartWork:?];
-  }
-}
-
-uint64_t sub_100121938(uint64_t a1)
-{
-  [*(a1 + 32) refreshSecureElementInfo];
-  sub_1000E2CD4(*(a1 + 32));
-  if (*(a1 + 40) == 1)
-  {
-    v2 = "eUICC OS reset";
-    v3 = 12748;
-  }
-
-  else
-  {
-    v2 = "SE OS reset";
-    v3 = 21253;
-  }
-
-  return _NFSimulateCrash(v3, v2);
-}
-
-uint64_t sub_100122850(uint64_t a1)
-{
-  v2 = *(*(a1 + 32) + 120);
-  objc_opt_class();
-  result = objc_opt_isKindOfClass();
-  if (result)
-  {
-    v4 = *(*(a1 + 32) + 120);
-    result = objc_opt_respondsToSelector();
-    if (result)
-    {
-      v5 = *(*(a1 + 32) + 120);
-
-      return [v5 handleHceTargetLost];
-    }
-  }
-
-  return result;
-}
-
-void sub_100122DD8(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if ((*(v2 + 344) & 1) == 0)
-  {
-    v16 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v16))
-    {
-      *buf = 0;
-      v17 = "powerObserverSystemWillSleep: not running; allowing to sleep";
-LABEL_111:
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v17, &unk_1002E8B7A, buf, 2u);
-    }
-
-LABEL_112:
-
-    [*(*(a1 + 32) + 64) allowSleep];
-    return;
-  }
-
-  v3 = *(v2 + 24);
-  if (v3 && *(v3 + 181) == 1)
-  {
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    Logger = NFLogGetLogger();
-    if (Logger)
-    {
-      v5 = Logger;
-      Class = object_getClass(*(a1 + 32));
-      isMetaClass = class_isMetaClass(Class);
-      ClassName = object_getClassName(*(a1 + 32));
-      Name = sel_getName(*(a1 + 40));
-      v9 = 45;
-      if (isMetaClass)
-      {
-        v9 = 43;
-      }
-
-      v5(6, "%c[%{public}s %{public}s]:%i Express mode in progress - delaying sleep", v9, ClassName, Name, 8720);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v10 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = object_getClass(*(a1 + 32));
-      if (class_isMetaClass(v11))
-      {
-        v12 = 43;
-      }
-
-      else
-      {
-        v12 = 45;
-      }
-
-      v13 = object_getClassName(*(a1 + 32));
-      v14 = sel_getName(*(a1 + 40));
-      *buf = 67109890;
-      *&buf[4] = v12;
-      *&buf[8] = 2082;
-      *&buf[10] = v13;
-      *&buf[18] = 2082;
-      *&buf[20] = v14;
-      *&buf[28] = 1024;
-      *&buf[30] = 8720;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Express mode in progress - delaying sleep", buf, 0x22u);
-    }
-
-    v15 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v15))
-    {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "powerObserverSystemWillSleep: express in progress; preventing sleep", &unk_1002E8B7A, buf, 2u);
-    }
-
-    return;
-  }
-
-  if (!*(v2 + 120))
-  {
-    v18 = [v2 lastKnownRoutingConfig];
-    if ([v18 activeRouting])
-    {
-      goto LABEL_22;
-    }
-
-    v19 = *(*(a1 + 32) + 24);
-    if (!v19)
-    {
-LABEL_49:
-
-      goto LABEL_50;
-    }
-
-    if (*(v19 + 152) == 1)
-    {
-LABEL_22:
-    }
-
-    else
-    {
-      v113 = *(v19 + 179);
-
-      if ((v113 & 1) == 0)
-      {
-        goto LABEL_50;
-      }
-    }
-
-    v20 = *(*(a1 + 32) + 24);
-    if (v20)
-    {
-      if (*(v20 + 152) == 1)
-      {
-        v21 = 1;
-      }
-
-      else
-      {
-        v21 = *(v20 + 179);
-      }
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v22 = NFLogGetLogger();
-    v23 = v22;
-    if (v21)
-    {
-      if (v22)
-      {
-        v24 = object_getClass(*(a1 + 32));
-        v25 = class_isMetaClass(v24);
-        v26 = object_getClassName(*(a1 + 32));
-        v27 = sel_getName(*(a1 + 40));
-        v28 = [*(a1 + 32) lastKnownRoutingConfig];
-        v29 = 45;
-        if (v25)
-        {
-          v29 = 43;
-        }
-
-        v23(6, "%c[%{public}s %{public}s]:%i Setting routing to express before poweroff - was  %{public}@", v29, v26, v27, 8730, v28);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v30 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
-      {
-        v31 = object_getClass(*(a1 + 32));
-        if (class_isMetaClass(v31))
-        {
-          v32 = 43;
-        }
-
-        else
-        {
-          v32 = 45;
-        }
-
-        v33 = object_getClassName(*(a1 + 32));
-        v34 = sel_getName(*(a1 + 40));
-        v35 = [*(a1 + 32) lastKnownRoutingConfig];
-        *buf = 67110146;
-        *&buf[4] = v32;
-        *&buf[8] = 2082;
-        *&buf[10] = v33;
-        *&buf[18] = 2082;
-        *&buf[20] = v34;
-        *&buf[28] = 1024;
-        *&buf[30] = 8730;
-        *&buf[34] = 2114;
-        *&buf[36] = v35;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Setting routing to express before poweroff - was  %{public}@", buf, 0x2Cu);
-      }
-
-      v36 = *(a1 + 32);
-      v18 = [v36 lastKnownRoutingConfig];
-      v37 = [v18 lpcdEcpFrame];
-      v38 = sub_10004C3B0(NFRoutingConfig, v37);
-    }
-
-    else
-    {
-      if (v22)
-      {
-        v39 = object_getClass(*(a1 + 32));
-        v40 = class_isMetaClass(v39);
-        v41 = object_getClassName(*(a1 + 32));
-        v42 = sel_getName(*(a1 + 40));
-        v43 = [*(a1 + 32) lastKnownRoutingConfig];
-        v44 = 45;
-        if (v40)
-        {
-          v44 = 43;
-        }
-
-        v23(6, "%c[%{public}s %{public}s]:%i Forcing SE routing off:was  %{public}@", v44, v41, v42, 8733, v43);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v45 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-      {
-        v46 = object_getClass(*(a1 + 32));
-        if (class_isMetaClass(v46))
-        {
-          v47 = 43;
-        }
-
-        else
-        {
-          v47 = 45;
-        }
-
-        v48 = object_getClassName(*(a1 + 32));
-        v49 = sel_getName(*(a1 + 40));
-        v50 = [*(a1 + 32) lastKnownRoutingConfig];
-        *buf = 67110146;
-        *&buf[4] = v47;
-        *&buf[8] = 2082;
-        *&buf[10] = v48;
-        *&buf[18] = 2082;
-        *&buf[20] = v49;
-        *&buf[28] = 1024;
-        *&buf[30] = 8733;
-        *&buf[34] = 2114;
-        *&buf[36] = v50;
-        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Forcing SE routing off:was  %{public}@", buf, 0x2Cu);
-      }
-
-      v36 = *(a1 + 32);
-      v18 = [v36 lastKnownRoutingConfig];
-      v37 = [v18 lpcdEcpFrame];
-      v38 = sub_10004C17C(NFRoutingConfig, 3, v37);
-    }
-
-    v51 = v38;
-    v52 = [v36 setRoutingConfig:v38];
-
-    goto LABEL_49;
-  }
-
-LABEL_50:
-  IsPad = NFProductIsPad();
-  v54 = *(a1 + 32);
-  if (IsPad && *(v54 + 345) == 1)
-  {
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v55 = NFLogGetLogger();
-    if (v55)
-    {
-      v56 = v55;
-      v57 = object_getClass(*(a1 + 32));
-      v58 = class_isMetaClass(v57);
-      v59 = object_getClassName(*(a1 + 32));
-      v115 = sel_getName(*(a1 + 40));
-      v60 = 45;
-      if (v58)
-      {
-        v60 = 43;
-      }
-
-      v56(6, "%c[%{public}s %{public}s]:%i Closing pre-warmed session due to sleep", v60, v59, v115, 8745);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v61 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
-    {
-      v62 = object_getClass(*(a1 + 32));
-      if (class_isMetaClass(v62))
-      {
-        v63 = 43;
-      }
-
-      else
-      {
-        v63 = 45;
-      }
-
-      v64 = object_getClassName(*(a1 + 32));
-      v65 = sel_getName(*(a1 + 40));
-      *buf = 67109890;
-      *&buf[4] = v63;
-      *&buf[8] = 2082;
-      *&buf[10] = v64;
-      *&buf[18] = 2082;
-      *&buf[20] = v65;
-      *&buf[28] = 1024;
-      *&buf[30] = 8745;
-      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Closing pre-warmed session due to sleep", buf, 0x22u);
-    }
-
-    sub_10021CC94(*(*(a1 + 32) + 376), @"Prewarm");
-    v54 = *(a1 + 32);
-  }
-
-  v66 = *(v54 + 376);
-  if (!v66 || (*(v66 + 174) & 1) == 0 || (v67 = *(v54 + 24)) != 0 && (*(v67 + 152) == 1 || (*(v67 + 179) & 1) != 0))
-  {
-LABEL_109:
-    v16 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v16))
-    {
-      *buf = 0;
-      v17 = "powerObserverSystemWillSleep: allowing to sleep";
-      goto LABEL_111;
-    }
-
-    goto LABEL_112;
-  }
-
-  if (NFProductIsWatch() && sub_100003158(*(a1 + 32)))
-  {
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v68 = NFLogGetLogger();
-    if (v68)
-    {
-      v69 = v68;
-      v70 = object_getClass(*(a1 + 32));
-      v71 = class_isMetaClass(v70);
-      v72 = object_getClassName(*(a1 + 32));
-      v116 = sel_getName(*(a1 + 40));
-      v73 = 45;
-      if (v71)
-      {
-        v73 = 43;
-      }
-
-      v69(6, "%c[%{public}s %{public}s]:%i Persistent field detect enabled on device which is supposed to sleep. Not disabling FD.", v73, v72, v116, 8756);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v74 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
-    {
-      v75 = object_getClass(*(a1 + 32));
-      if (class_isMetaClass(v75))
-      {
-        v76 = 43;
-      }
-
-      else
-      {
-        v76 = 45;
-      }
-
-      v77 = object_getClassName(*(a1 + 32));
-      v78 = sel_getName(*(a1 + 40));
-      *buf = 67109890;
-      *&buf[4] = v76;
-      *&buf[8] = 2082;
-      *&buf[10] = v77;
-      *&buf[18] = 2082;
-      *&buf[20] = v78;
-      *&buf[28] = 1024;
-      *&buf[30] = 8756;
-      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Persistent field detect enabled on device which is supposed to sleep. Not disabling FD.", buf, 0x22u);
-    }
-  }
-
-  else
-  {
-    v79 = *(a1 + 32);
-    if (v79 && (*(v79 + 362) & 1) != 0)
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v80 = NFLogGetLogger();
-      if (v80)
-      {
-        v81 = v80;
-        v82 = object_getClass(*(a1 + 32));
-        v83 = class_isMetaClass(v82);
-        v84 = object_getClassName(*(a1 + 32));
-        v117 = sel_getName(*(a1 + 40));
-        v85 = 45;
-        if (v83)
-        {
-          v85 = 43;
-        }
-
-        v81(3, "%c[%{public}s %{public}s]:%i Forcing field detect off", v85, v84, v117, 8762);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v86 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
-      {
-        v87 = object_getClass(*(a1 + 32));
-        if (class_isMetaClass(v87))
-        {
-          v88 = 43;
-        }
-
-        else
-        {
-          v88 = 45;
-        }
-
-        v89 = object_getClassName(*(a1 + 32));
-        v90 = sel_getName(*(a1 + 40));
-        *buf = 67109890;
-        *&buf[4] = v88;
-        *&buf[8] = 2082;
-        *&buf[10] = v89;
-        *&buf[18] = 2082;
-        *&buf[20] = v90;
-        *&buf[28] = 1024;
-        *&buf[30] = 8762;
-        _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Forcing field detect off", buf, 0x22u);
-      }
-
-      sub_1000936E0(*(a1 + 32), 0);
-      v91 = sub_100093D80(*(a1 + 32), 0);
-    }
-  }
-
-  v92 = *(*(a1 + 32) + 184);
-  objc_sync_enter(v92);
-  v93 = *(*(a1 + 32) + 120);
-  if (!v93)
-  {
-    objc_sync_exit(v92);
-
-    goto LABEL_109;
-  }
-
-  v142 = 0u;
-  memset(v143, 0, sizeof(v143));
-  v140 = 0u;
-  v141 = 0u;
-  v138 = 0u;
-  v139 = 0u;
-  v136 = 0u;
-  v137 = 0u;
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
-  v133 = 0u;
-  memset(buf, 0, sizeof(buf));
-  proc_name([v93 processIdentifier], buf, 0xFEu);
-  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v94 = NFLogGetLogger();
-  if (v94)
-  {
-    v95 = v94;
-    v96 = object_getClass(*(a1 + 32));
-    v97 = class_isMetaClass(v96);
-    v98 = object_getClassName(*(a1 + 32));
-    v99 = sel_getName(*(a1 + 40));
-    v100 = *(*(a1 + 32) + 120);
-    v101 = objc_opt_class();
-    v118 = class_getName(v101);
-    v102 = 45;
-    if (v97)
-    {
-      v102 = 43;
-    }
-
-    v95(6, "%c[%{public}s %{public}s]:%i Invalidating opened session from %s: %s", v102, v98, v99, 8771, buf, v118);
-  }
-
-  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v103 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
-  {
-    v104 = object_getClass(*(a1 + 32));
-    if (class_isMetaClass(v104))
-    {
-      v105 = 43;
-    }
-
-    else
-    {
-      v105 = 45;
-    }
-
-    v106 = object_getClassName(*(a1 + 32));
-    v107 = sel_getName(*(a1 + 40));
-    v108 = *(*(a1 + 32) + 120);
-    v109 = objc_opt_class();
-    *v119 = 67110402;
-    v120 = v105;
-    v121 = 2082;
-    v122 = v106;
-    v123 = 2082;
-    v124 = v107;
-    v125 = 1024;
-    v126 = 8771;
-    v127 = 2080;
-    v128 = buf;
-    v129 = 2080;
-    v130 = class_getName(v109);
-    _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Invalidating opened session from %s: %s", v119, 0x36u);
-  }
-
-  v110 = *(*(a1 + 32) + 120);
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v111 = [*(*(a1 + 32) + 120) connection];
-    [v111 invalidate];
-  }
-
-  v112 = NFSharedSignpostLog();
-  if (os_signpost_enabled(v112))
-  {
-    *v119 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v112, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "powerObserverSystemWillSleep: session in progress; preventing sleep", &unk_1002E8B7A, v119, 2u);
-  }
-
-  objc_sync_exit(v92);
-}
-
-void *sub_100123C44(void *result)
-{
-  v1 = result[4];
-  if (*(v1 + 344) == 1)
-  {
-    v2 = result;
-    v3 = *(v1 + 184);
-    objc_sync_enter(v3);
-    *(v2[4] + 351) = 0;
-    sub_100008AA4(v2[4]);
-    objc_sync_exit(v3);
-
-    v4 = v2[4];
-    v5 = sub_100003068(v4);
-    sub_1000936E0(v4, v5);
-    IsPad = NFProductIsPad();
-    v7 = v2[4];
-    if (IsPad && v7[345] == 1)
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      Logger = NFLogGetLogger();
-      if (Logger)
-      {
-        v9 = Logger;
-        Class = object_getClass(v2[4]);
-        isMetaClass = class_isMetaClass(Class);
-        ClassName = object_getClassName(v2[4]);
-        Name = sel_getName(v2[5]);
-        v13 = 45;
-        if (isMetaClass)
-        {
-          v13 = 43;
-        }
-
-        v9(6, "%c[%{public}s %{public}s]:%i Re-opening pre-warm session", v13, ClassName, Name, 8827);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v14 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-      {
-        v15 = object_getClass(v2[4]);
-        if (class_isMetaClass(v15))
-        {
-          v16 = 43;
-        }
-
-        else
-        {
-          v16 = 45;
-        }
-
-        v17 = object_getClassName(v2[4]);
-        v18 = sel_getName(v2[5]);
-        *buf = 67109890;
-        v34 = v16;
-        v35 = 2082;
-        v36 = v17;
-        v37 = 2082;
-        v38 = v18;
-        v39 = 1024;
-        v40 = 8827;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Re-opening pre-warm session", buf, 0x22u);
-      }
-
-      v19 = sub_10021A4A0(*(v2[4] + 376), @"Prewarm", 0);
-      if (v19)
-      {
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v20 = NFLogGetLogger();
-        if (v20)
-        {
-          v21 = v20;
-          v22 = object_getClass(v2[4]);
-          v23 = class_isMetaClass(v22);
-          v30 = object_getClassName(v2[4]);
-          v32 = sel_getName(v2[5]);
-          v24 = 45;
-          if (v23)
-          {
-            v24 = 43;
-          }
-
-          v21(4, "%c[%{public}s %{public}s]:%i Failed to open session : %@", v24, v30, v32, 8830, v19);
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v25 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-        {
-          v26 = object_getClass(v2[4]);
-          if (class_isMetaClass(v26))
-          {
-            v27 = 43;
-          }
-
-          else
-          {
-            v27 = 45;
-          }
-
-          v28 = object_getClassName(v2[4]);
-          v29 = sel_getName(v2[5]);
-          *buf = 67110146;
-          v34 = v27;
-          v35 = 2082;
-          v36 = v28;
-          v37 = 2082;
-          v38 = v29;
-          v39 = 1024;
-          v40 = 8830;
-          v41 = 2112;
-          v42 = v19;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to open session : %@", buf, 0x2Cu);
-        }
-      }
-
-      v7 = v2[4];
-    }
-
-    return [v7 maybeStartNextSession];
-  }
-
-  return result;
-}
-
 void sub_100124294(uint64_t a1)
 {
   v2 = sub_1000446D0(*(*(a1 + 32) + 80), *(a1 + 40));
@@ -1780,56 +624,55 @@ id sub_10012535C(uint64_t a1, void *a2)
 
 uint64_t sub_100126004(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  if (!sub_1001E1148(*(*(a1 + 32) + 376)))
+  if (!sub_1001E1148(*(*(a1 + 32) + 376), *(a1 + 48)))
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v5 = Logger;
+      v4 = Logger;
       Class = object_getClass(*(a1 + 32));
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(*(a1 + 32));
       Name = sel_getName(*(a1 + 40));
-      v9 = 45;
+      v8 = 45;
       if (isMetaClass)
       {
-        v9 = 43;
+        v8 = 43;
       }
 
-      v5(3, "%c[%{public}s %{public}s]:%i Failed to configure Felica entry conditions", v9, ClassName, Name, 9858);
+      v4(3, "%c[%{public}s %{public}s]:%i Failed to configure Felica entry conditions", v8, ClassName, Name, 9858);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v10 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_23;
     }
 
-    v11 = object_getClass(*(a1 + 32));
-    if (class_isMetaClass(v11))
+    v10 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v10))
     {
-      v12 = 43;
+      v11 = 43;
     }
 
     else
     {
-      v12 = 45;
+      v11 = 45;
     }
 
-    v13 = object_getClassName(*(a1 + 32));
-    v14 = sel_getName(*(a1 + 40));
+    v12 = object_getClassName(*(a1 + 32));
+    v13 = sel_getName(*(a1 + 40));
     *buf = 67109890;
-    v29 = v12;
-    v30 = 2082;
-    v31 = v13;
-    v32 = 2082;
-    v33 = v14;
-    v34 = 1024;
-    v35 = 9858;
-    v15 = "%c[%{public}s %{public}s]:%i Failed to configure Felica entry conditions";
+    v28 = v11;
+    v29 = 2082;
+    v30 = v12;
+    v31 = 2082;
+    v32 = v13;
+    v33 = 1024;
+    v34 = 9858;
+    v14 = "%c[%{public}s %{public}s]:%i Failed to configure Felica entry conditions";
     goto LABEL_22;
   }
 
@@ -1839,51 +682,51 @@ uint64_t sub_100126004(uint64_t a1)
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v16 = NFLogGetLogger();
-  if (v16)
+  v15 = NFLogGetLogger();
+  if (v15)
   {
-    v17 = v16;
-    v18 = object_getClass(*(a1 + 32));
-    v19 = class_isMetaClass(v18);
-    v20 = object_getClassName(*(a1 + 32));
-    v27 = sel_getName(*(a1 + 40));
-    v21 = 45;
-    if (v19)
+    v16 = v15;
+    v17 = object_getClass(*(a1 + 32));
+    v18 = class_isMetaClass(v17);
+    v19 = object_getClassName(*(a1 + 32));
+    v26 = sel_getName(*(a1 + 40));
+    v20 = 45;
+    if (v18)
     {
-      v21 = 43;
+      v20 = 43;
     }
 
-    v17(3, "%c[%{public}s %{public}s]:%i Failed to enable Felica dual entry", v21, v20, v27, 9854);
+    v16(3, "%c[%{public}s %{public}s]:%i Failed to enable Felica dual entry", v20, v19, v26, 9854);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v10 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v9 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v22 = object_getClass(*(a1 + 32));
-    if (class_isMetaClass(v22))
+    v21 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v21))
     {
-      v23 = 43;
+      v22 = 43;
     }
 
     else
     {
-      v23 = 45;
+      v22 = 45;
     }
 
-    v24 = object_getClassName(*(a1 + 32));
-    v25 = sel_getName(*(a1 + 40));
+    v23 = object_getClassName(*(a1 + 32));
+    v24 = sel_getName(*(a1 + 40));
     *buf = 67109890;
-    v29 = v23;
-    v30 = 2082;
-    v31 = v24;
-    v32 = 2082;
-    v33 = v25;
-    v34 = 1024;
-    v35 = 9854;
-    v15 = "%c[%{public}s %{public}s]:%i Failed to enable Felica dual entry";
+    v28 = v22;
+    v29 = 2082;
+    v30 = v23;
+    v31 = 2082;
+    v32 = v24;
+    v33 = 1024;
+    v34 = 9854;
+    v14 = "%c[%{public}s %{public}s]:%i Failed to enable Felica dual entry";
 LABEL_22:
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v15, buf, 0x22u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, v14, buf, 0x22u);
   }
 
 LABEL_23:
@@ -8173,7 +7016,7 @@ void *sub_100147A68(void *result, unint64_t a2, void *a3)
   return result;
 }
 
-id sub_100147C78(uint64_t a1)
+NSMutableDictionary *sub_100147C78(uint64_t a1)
 {
   if (a1)
   {
@@ -8293,7 +7136,7 @@ void sub_100148234(id a1)
   qword_10035DA30 = v1;
 }
 
-id sub_100148E24(id *a1)
+NSMutableDictionary *sub_100148E24(id *a1)
 {
   if (a1)
   {
@@ -8940,7 +7783,7 @@ void sub_10014E33C(uint64_t a1)
   }
 
   v3 = +[_NFHardwareManager sharedHardwareManager];
-  v4 = sub_10004BF2C();
+  v4 = sub_10004BF2C(NFRoutingConfig);
   v5 = [v3 setRoutingConfig:v4];
 
   if (v5)
@@ -9226,6 +8069,1312 @@ void sub_10014F198(uint64_t a1)
     v30 = [NSString stringWithUTF8String:"Session not active"];
     v51 = v30;
     v31 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+    v32 = [v28 initWithDomain:v29 code:54 userInfo:v31];
+    (*(v27 + 16))(v27, v32);
+
+LABEL_24:
+  }
+}
+
+void sub_10014F794(uint64_t a1)
+{
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v3 = Logger;
+    Class = object_getClass(*(a1 + 32));
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(*(a1 + 32));
+    Name = sel_getName(*(a1 + 48));
+    v7 = 45;
+    if (isMetaClass)
+    {
+      v7 = 43;
+    }
+
+    v3(6, "%c[%{public}s %{public}s]:%i ", v7, ClassName, Name, 211);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v8 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v9))
+    {
+      v10 = 43;
+    }
+
+    else
+    {
+      v10 = 45;
+    }
+
+    v11 = object_getClassName(*(a1 + 32));
+    v12 = sel_getName(*(a1 + 48));
+    *buf = 67109890;
+    v61 = v10;
+    v62 = 2082;
+    v63 = v11;
+    v64 = 2082;
+    v65 = v12;
+    v66 = 1024;
+    v67 = 211;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+  }
+
+  if ([*(a1 + 32) didStart] && (objc_msgSend(*(a1 + 32), "isSuspended") & 1) == 0 && !objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    v36 = *(*(a1 + 32) + 176);
+    if (v36 && [v36 count])
+    {
+      if (*(*(a1 + 32) + 185))
+      {
+        v29 = 0;
+      }
+
+      else
+      {
+        v49 = +[_NFHardwareManager sharedHardwareManager];
+        v50 = sub_10004BD00(NFRoutingConfig);
+        v29 = [v49 setRoutingConfig:v50];
+
+        WeakRetained = NFSharedSignpostLog();
+        v52 = os_signpost_enabled(WeakRetained);
+        if (v29)
+        {
+          if (v52)
+          {
+            v53 = [v29 code];
+            *buf = 67109120;
+            v61 = v53;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, WeakRetained, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "_NFSecureElementReaderSession+se_polling", "begin, error.code: %d", buf, 8u);
+          }
+        }
+
+        else
+        {
+          if (v52)
+          {
+            *buf = 0;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, WeakRetained, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "_NFSecureElementReaderSession+se_polling", "begin", buf, 2u);
+          }
+
+          *(*(a1 + 32) + 185) = 1;
+          WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 216));
+          sub_1001B0320(WeakRetained, *(a1 + 32));
+        }
+      }
+
+      (*(*(a1 + 40) + 16))();
+      goto LABEL_25;
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v37 = NFLogGetLogger();
+    if (v37)
+    {
+      v38 = v37;
+      v39 = object_getClass(*(a1 + 32));
+      v40 = class_isMetaClass(v39);
+      v41 = object_getClassName(*(a1 + 32));
+      v55 = sel_getName(*(a1 + 48));
+      v42 = 45;
+      if (v40)
+      {
+        v42 = 43;
+      }
+
+      v38(3, "%c[%{public}s %{public}s]:%i Invalid applets", v42, v41, v55, 217);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v43 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    {
+      v44 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v44))
+      {
+        v45 = 43;
+      }
+
+      else
+      {
+        v45 = 45;
+      }
+
+      v46 = object_getClassName(*(a1 + 32));
+      v47 = sel_getName(*(a1 + 48));
+      *buf = 67109890;
+      v61 = v45;
+      v62 = 2082;
+      v63 = v46;
+      v64 = 2082;
+      v65 = v47;
+      v66 = 1024;
+      v67 = 217;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid applets", buf, 0x22u);
+    }
+
+    v27 = *(a1 + 40);
+    v48 = [NSError alloc];
+    v29 = [NSString stringWithUTF8String:"nfcd"];
+    v56 = NSLocalizedDescriptionKey;
+    v30 = [NSString stringWithUTF8String:"Invalid Parameter"];
+    v57 = v30;
+    v31 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+    v32 = v48;
+    v33 = v29;
+    v34 = 10;
+LABEL_24:
+    v35 = [v32 initWithDomain:v33 code:v34 userInfo:v31];
+    (*(v27 + 16))(v27, v35);
+
+LABEL_25:
+    return;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v13 = NFLogGetLogger();
+  if (v13)
+  {
+    v14 = v13;
+    v15 = object_getClass(*(a1 + 32));
+    v16 = class_isMetaClass(v15);
+    v17 = object_getClassName(*(a1 + 32));
+    v18 = sel_getName(*(a1 + 48));
+    v19 = [*(a1 + 32) sessionUID];
+    v20 = 45;
+    if (v16)
+    {
+      v20 = 43;
+    }
+
+    v14(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v20, v17, v18, 212, v19);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v21 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    v22 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v22))
+    {
+      v23 = 43;
+    }
+
+    else
+    {
+      v23 = 45;
+    }
+
+    v24 = object_getClassName(*(a1 + 32));
+    v25 = sel_getName(*(a1 + 48));
+    v26 = [*(a1 + 32) sessionUID];
+    *buf = 67110146;
+    v61 = v23;
+    v62 = 2082;
+    v63 = v24;
+    v64 = 2082;
+    v65 = v25;
+    v66 = 1024;
+    v67 = 212;
+    v68 = 2114;
+    v69 = v26;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+  }
+
+  v27 = *(a1 + 40);
+  if (v27)
+  {
+    v28 = [NSError alloc];
+    v29 = [NSString stringWithUTF8String:"nfcd"];
+    v58 = NSLocalizedDescriptionKey;
+    v30 = [NSString stringWithUTF8String:"Session not active"];
+    v59 = v30;
+    v31 = [NSDictionary dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+    v32 = v28;
+    v33 = v29;
+    v34 = 54;
+    goto LABEL_24;
+  }
+}
+
+void sub_10014FF28(uint64_t a1)
+{
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v3 = Logger;
+    Class = object_getClass(*(a1 + 32));
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(*(a1 + 32));
+    Name = sel_getName(*(a1 + 48));
+    v7 = 45;
+    if (isMetaClass)
+    {
+      v7 = 43;
+    }
+
+    v3(6, "%c[%{public}s %{public}s]:%i ", v7, ClassName, Name, 243);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v8 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v9))
+    {
+      v10 = 43;
+    }
+
+    else
+    {
+      v10 = 45;
+    }
+
+    v11 = object_getClassName(*(a1 + 32));
+    v12 = sel_getName(*(a1 + 48));
+    *buf = 67109890;
+    v60 = v10;
+    v61 = 2082;
+    v62 = v11;
+    v63 = 2082;
+    v64 = v12;
+    v65 = 1024;
+    v66 = 243;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+  }
+
+  if ([*(a1 + 32) didStart] && (objc_msgSend(*(a1 + 32), "isSuspended") & 1) == 0 && !objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    if (*(*(a1 + 32) + 185) != 1)
+    {
+      v29 = 0;
+LABEL_44:
+      (*(*(a1 + 40) + 16))();
+      goto LABEL_24;
+    }
+
+    v33 = +[_NFHardwareManager sharedHardwareManager];
+    v34 = sub_10004BF2C(NFRoutingConfig);
+    v29 = [v33 setRoutingConfig:v34];
+
+    if (v29)
+    {
+      v35 = NFSharedSignpostLog();
+      if (!os_signpost_enabled(v35))
+      {
+LABEL_43:
+
+        goto LABEL_44;
+      }
+
+      v36 = [v29 code];
+      *buf = 67109120;
+      v60 = v36;
+      v37 = "end, error.code: %d";
+      v38 = v35;
+      v39 = 8;
+    }
+
+    else
+    {
+      *(*(a1 + 32) + 185) = 0;
+      WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 216));
+      sub_1001AF894(WeakRetained, *(a1 + 32));
+
+      v41 = sub_10015A1E8(*(*(a1 + 32) + 224));
+      v42 = NFLogGetLogger();
+      if (v42)
+      {
+        v43 = v42;
+        v44 = object_getClass(*(a1 + 32));
+        v45 = class_isMetaClass(v44);
+        v46 = object_getClassName(*(a1 + 32));
+        v47 = sel_getName(*(a1 + 48));
+        v48 = [*(a1 + 32) clientName];
+        v49 = 45;
+        if (v45)
+        {
+          v49 = 43;
+        }
+
+        v43(6, "%c[%{public}s %{public}s]:%i NFC Reader mode terminated: %@", v49, v46, v47, 253, v48);
+      }
+
+      v50 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      {
+        v51 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v51))
+        {
+          v52 = 43;
+        }
+
+        else
+        {
+          v52 = 45;
+        }
+
+        v53 = object_getClassName(*(a1 + 32));
+        v54 = sel_getName(*(a1 + 48));
+        v55 = [*(a1 + 32) clientName];
+        *buf = 67110146;
+        v60 = v52;
+        v61 = 2082;
+        v62 = v53;
+        v63 = 2082;
+        v64 = v54;
+        v65 = 1024;
+        v66 = 253;
+        v67 = 2112;
+        v68 = v55;
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i NFC Reader mode terminated: %@", buf, 0x2Cu);
+      }
+
+      v35 = NFSharedSignpostLog();
+      if (!os_signpost_enabled(v35))
+      {
+        goto LABEL_43;
+      }
+
+      *buf = 0;
+      v37 = "end";
+      v38 = v35;
+      v39 = 2;
+    }
+
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v38, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "_NFSecureElementReaderSession+se_polling", v37, buf, v39);
+    goto LABEL_43;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v13 = NFLogGetLogger();
+  if (v13)
+  {
+    v14 = v13;
+    v15 = object_getClass(*(a1 + 32));
+    v16 = class_isMetaClass(v15);
+    v17 = object_getClassName(*(a1 + 32));
+    v18 = sel_getName(*(a1 + 48));
+    v19 = [*(a1 + 32) sessionUID];
+    v20 = 45;
+    if (v16)
+    {
+      v20 = 43;
+    }
+
+    v14(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v20, v17, v18, 244, v19);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v21 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    v22 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v22))
+    {
+      v23 = 43;
+    }
+
+    else
+    {
+      v23 = 45;
+    }
+
+    v24 = object_getClassName(*(a1 + 32));
+    v25 = sel_getName(*(a1 + 48));
+    v26 = [*(a1 + 32) sessionUID];
+    *buf = 67110146;
+    v60 = v23;
+    v61 = 2082;
+    v62 = v24;
+    v63 = 2082;
+    v64 = v25;
+    v65 = 1024;
+    v66 = 244;
+    v67 = 2114;
+    v68 = v26;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+  }
+
+  v27 = *(a1 + 40);
+  if (v27)
+  {
+    v28 = [NSError alloc];
+    v29 = [NSString stringWithUTF8String:"nfcd"];
+    v57 = NSLocalizedDescriptionKey;
+    v30 = [NSString stringWithUTF8String:"Session not active"];
+    v58 = v30;
+    v31 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v32 = [v28 initWithDomain:v29 code:54 userInfo:v31];
+    (*(v27 + 16))(v27, v32);
+
+LABEL_24:
+  }
+}
+
+void sub_10015069C(uint64_t a1)
+{
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v3 = Logger;
+    Class = object_getClass(*(a1 + 32));
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(*(a1 + 32));
+    Name = sel_getName(*(a1 + 56));
+    v7 = 45;
+    if (isMetaClass)
+    {
+      v7 = 43;
+    }
+
+    v3(6, "%c[%{public}s %{public}s]:%i ", v7, ClassName, Name, 268);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v8 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v9))
+    {
+      v10 = 43;
+    }
+
+    else
+    {
+      v10 = 45;
+    }
+
+    v11 = object_getClassName(*(a1 + 32));
+    v12 = sel_getName(*(a1 + 56));
+    *buf = 67109890;
+    v43 = v10;
+    v44 = 2082;
+    v45 = v11;
+    v46 = 2082;
+    v47 = v12;
+    v48 = 1024;
+    v49 = 268;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+  }
+
+  if ([*(a1 + 32) didStart] && (objc_msgSend(*(a1 + 32), "isSuspended") & 1) == 0 && !objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    v33 = [*(a1 + 32) embeddedSecureElementWrapper];
+    v34 = *(a1 + 40);
+    v39 = 0;
+    v30 = sub_1001579EC(v33, v34, 0, &v39);
+    v29 = v39;
+
+    v31 = [NFResponseAPDU responseWithData:v30];
+    if ([v31 status] == 25392)
+    {
+      v35 = +[_NFHardwareManager sharedHardwareManager];
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_100150B44;
+      v38[3] = &unk_100319C58;
+      v36 = *(a1 + 56);
+      v38[4] = *(a1 + 32);
+      v38[5] = v36;
+      sub_1000FC46C(v35, v38);
+    }
+
+    (*(*(a1 + 48) + 16))();
+    goto LABEL_24;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v13 = NFLogGetLogger();
+  if (v13)
+  {
+    v14 = v13;
+    v15 = object_getClass(*(a1 + 32));
+    v16 = class_isMetaClass(v15);
+    v17 = object_getClassName(*(a1 + 32));
+    v18 = sel_getName(*(a1 + 56));
+    v19 = [*(a1 + 32) sessionUID];
+    v20 = 45;
+    if (v16)
+    {
+      v20 = 43;
+    }
+
+    v14(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v20, v17, v18, 269, v19);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v21 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    v22 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v22))
+    {
+      v23 = 43;
+    }
+
+    else
+    {
+      v23 = 45;
+    }
+
+    v24 = object_getClassName(*(a1 + 32));
+    v25 = sel_getName(*(a1 + 56));
+    v26 = [*(a1 + 32) sessionUID];
+    *buf = 67110146;
+    v43 = v23;
+    v44 = 2082;
+    v45 = v24;
+    v46 = 2082;
+    v47 = v25;
+    v48 = 1024;
+    v49 = 269;
+    v50 = 2114;
+    v51 = v26;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+  }
+
+  v27 = *(a1 + 48);
+  if (v27)
+  {
+    v28 = [NSError alloc];
+    v29 = [NSString stringWithUTF8String:"nfcd"];
+    v40 = NSLocalizedDescriptionKey;
+    v30 = [NSString stringWithUTF8String:"Session not active"];
+    v41 = v30;
+    v31 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v32 = [v28 initWithDomain:v29 code:54 userInfo:v31];
+    (*(v27 + 16))(v27, 0, v32);
+
+LABEL_24:
+  }
+}
+
+void sub_100150B44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (!a5)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v10 = Logger;
+      Class = object_getClass(*(a1 + 32));
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(*(a1 + 32));
+      Name = sel_getName(*(a1 + 40));
+      v13 = 43;
+      if (!isMetaClass)
+      {
+        v13 = 45;
+      }
+
+      v10(6, "%c[%{public}s %{public}s]:%i SERmRunning=%d, HostRMRunning=%d, remainingTime=%d", v13, ClassName, Name, 279, a2, a3, a4);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v14 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v15))
+      {
+        v16 = 43;
+      }
+
+      else
+      {
+        v16 = 45;
+      }
+
+      v17 = object_getClassName(*(a1 + 32));
+      v18 = sel_getName(*(a1 + 40));
+      *buf = 67110658;
+      v22 = v16;
+      v23 = 2082;
+      v24 = v17;
+      v25 = 2082;
+      v26 = v18;
+      v27 = 1024;
+      v28 = 279;
+      v29 = 1024;
+      v30 = a2;
+      v31 = 1024;
+      v32 = a3;
+      v33 = 1024;
+      v34 = a4;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i SERmRunning=%d, HostRMRunning=%d, remainingTime=%d", buf, 0x34u);
+    }
+  }
+}
+
+void sub_100150DF0(uint64_t a1)
+{
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v3 = Logger;
+    Class = object_getClass(*(a1 + 32));
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(*(a1 + 32));
+    Name = sel_getName(*(a1 + 56));
+    v7 = 45;
+    if (isMetaClass)
+    {
+      v7 = 43;
+    }
+
+    v3(6, "%c[%{public}s %{public}s]:%i ", v7, ClassName, Name, 291);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v8 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v9))
+    {
+      v10 = 43;
+    }
+
+    else
+    {
+      v10 = 45;
+    }
+
+    v11 = object_getClassName(*(a1 + 32));
+    v12 = sel_getName(*(a1 + 56));
+    *buf = 67109890;
+    v109 = v10;
+    v110 = 2082;
+    v111 = v11;
+    v112 = 2082;
+    v113 = v12;
+    v114 = 1024;
+    v115 = 291;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+  }
+
+  if ([*(a1 + 32) didStart] && (objc_msgSend(*(a1 + 32), "isSuspended") & 1) == 0 && !objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    v33 = +[NSUserDefaults standardUserDefaults];
+    v34 = [v33 integerForKey:@"SEReaderPollingDuration"];
+
+    if (v34)
+    {
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v35 = NFLogGetLogger();
+      if (v35)
+      {
+        v36 = v35;
+        v37 = object_getClass(*(a1 + 32));
+        v38 = class_isMetaClass(v37);
+        v39 = object_getClassName(*(a1 + 32));
+        v102 = sel_getName(*(a1 + 56));
+        v40 = 45;
+        if (v38)
+        {
+          v40 = 43;
+        }
+
+        v36(6, "%c[%{public}s %{public}s]:%i Using Polling override: %u", v40, v39, v102, 311, v34);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v41 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      {
+        v42 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v42))
+        {
+          v43 = 43;
+        }
+
+        else
+        {
+          v43 = 45;
+        }
+
+        v44 = object_getClassName(*(a1 + 32));
+        v45 = sel_getName(*(a1 + 56));
+        *buf = 67110146;
+        v109 = v43;
+        v110 = 2082;
+        v111 = v44;
+        v112 = 2082;
+        v113 = v45;
+        v114 = 1024;
+        v115 = 311;
+        v116 = 1024;
+        LODWORD(v117) = v34;
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Using Polling override: %u", buf, 0x28u);
+      }
+    }
+
+    else
+    {
+      LODWORD(v34) = 20;
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v46 = NFLogGetLogger();
+    if (v46)
+    {
+      v47 = v46;
+      v48 = object_getClass(*(a1 + 32));
+      v49 = class_isMetaClass(v48);
+      v50 = object_getClassName(*(a1 + 32));
+      v103 = sel_getName(*(a1 + 56));
+      v51 = 45;
+      if (v49)
+      {
+        v51 = 43;
+      }
+
+      v47(6, "%c[%{public}s %{public}s]:%i Setting routing for polling and wired with no FD", v51, v50, v103, 318);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v52 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    {
+      v53 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v53))
+      {
+        v54 = 43;
+      }
+
+      else
+      {
+        v54 = 45;
+      }
+
+      v55 = object_getClassName(*(a1 + 32));
+      v56 = sel_getName(*(a1 + 56));
+      *buf = 67109890;
+      v109 = v54;
+      v110 = 2082;
+      v111 = v55;
+      v112 = 2082;
+      v113 = v56;
+      v114 = 1024;
+      v115 = 318;
+      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Setting routing for polling and wired with no FD", buf, 0x22u);
+    }
+
+    v57 = [NFRoutingConfig alloc];
+    if (v57)
+    {
+      v29 = sub_10004B388(&v57->super.isa, 1, 0, 0, 0, 0, 0, 1, 0, v34, *(a1 + 40), 0);
+    }
+
+    else
+    {
+      v29 = 0;
+    }
+
+    sub_10004C450(v29, 19, 112);
+    *(*(a1 + 32) + 186) = [*(a1 + 40) length] != 0;
+    v58 = +[_NFHardwareManager sharedHardwareManager];
+    v30 = [v58 setRoutingConfig:v29];
+
+    v59 = NFSharedSignpostLog();
+    v60 = os_signpost_enabled(v59);
+    if (v30)
+    {
+      if (v60)
+      {
+        v61 = [v30 code];
+        *buf = 67109120;
+        v109 = v61;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v59, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "_NFSecureElementReaderSession+vas_polling", "begin, error.code=%d", buf, 8u);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v62 = NFLogGetLogger();
+      if (v62)
+      {
+        v63 = v62;
+        v64 = object_getClass(*(a1 + 32));
+        v65 = class_isMetaClass(v64);
+        v66 = object_getClassName(*(a1 + 32));
+        v104 = sel_getName(*(a1 + 56));
+        v67 = 45;
+        if (v65)
+        {
+          v67 = 43;
+        }
+
+        v63(3, "%c[%{public}s %{public}s]:%i Failed to start polling", v67, v66, v104, 346);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v68 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+      {
+        v69 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v69))
+        {
+          v70 = 43;
+        }
+
+        else
+        {
+          v70 = 45;
+        }
+
+        v71 = object_getClassName(*(a1 + 32));
+        v72 = sel_getName(*(a1 + 56));
+        *buf = 67109890;
+        v109 = v70;
+        v110 = 2082;
+        v111 = v71;
+        v112 = 2082;
+        v113 = v72;
+        v114 = 1024;
+        v115 = 346;
+        _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to start polling", buf, 0x22u);
+      }
+
+      (*(*(a1 + 48) + 16))();
+    }
+
+    else
+    {
+      if (v60)
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v59, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "_NFSecureElementReaderSession+vas_polling", "begin", buf, 2u);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v73 = NFLogGetLogger();
+      if (v73)
+      {
+        v74 = v73;
+        v75 = object_getClass(*(a1 + 32));
+        v76 = class_isMetaClass(v75);
+        v77 = object_getClassName(*(a1 + 32));
+        v105 = sel_getName(*(a1 + 56));
+        v78 = 45;
+        if (v76)
+        {
+          v78 = 43;
+        }
+
+        v74(6, "%c[%{public}s %{public}s]:%i VAS Reader started", v78, v77, v105, 337);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v79 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+      {
+        v80 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v80))
+        {
+          v81 = 43;
+        }
+
+        else
+        {
+          v81 = 45;
+        }
+
+        v82 = object_getClassName(*(a1 + 32));
+        v83 = sel_getName(*(a1 + 56));
+        *buf = 67109890;
+        v109 = v81;
+        v110 = 2082;
+        v111 = v82;
+        v112 = 2082;
+        v113 = v83;
+        v114 = 1024;
+        v115 = 337;
+        _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i VAS Reader started", buf, 0x22u);
+      }
+
+      v84 = NFLogGetLogger();
+      if (v84)
+      {
+        v85 = v84;
+        v86 = object_getClass(*(a1 + 32));
+        v87 = class_isMetaClass(v86);
+        v88 = object_getClassName(*(a1 + 32));
+        v89 = sel_getName(*(a1 + 56));
+        v90 = [*(a1 + 32) clientName];
+        v91 = 45;
+        if (v87)
+        {
+          v91 = 43;
+        }
+
+        v85(6, "%c[%{public}s %{public}s]:%i NFC Reader mode activated: %@", v91, v88, v89, 338, v90);
+      }
+
+      v92 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+      {
+        v93 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v93))
+        {
+          v94 = 43;
+        }
+
+        else
+        {
+          v94 = 45;
+        }
+
+        v95 = object_getClassName(*(a1 + 32));
+        v96 = sel_getName(*(a1 + 56));
+        v97 = [*(a1 + 32) clientName];
+        *buf = 67110146;
+        v109 = v94;
+        v110 = 2082;
+        v111 = v95;
+        v112 = 2082;
+        v113 = v96;
+        v114 = 1024;
+        v115 = 338;
+        v116 = 2112;
+        v117 = v97;
+        _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i NFC Reader mode activated: %@", buf, 0x2Cu);
+      }
+
+      WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 216));
+      sub_1001B0320(WeakRetained, *(a1 + 32));
+
+      v99 = *(a1 + 32);
+      v100 = *(v99 + 200);
+      *(v99 + 200) = 0;
+
+      (*(*(a1 + 48) + 16))();
+      v30 = 0;
+    }
+
+    goto LABEL_24;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v13 = NFLogGetLogger();
+  if (v13)
+  {
+    v14 = v13;
+    v15 = object_getClass(*(a1 + 32));
+    v16 = class_isMetaClass(v15);
+    v17 = object_getClassName(*(a1 + 32));
+    v18 = sel_getName(*(a1 + 56));
+    v19 = [*(a1 + 32) sessionUID];
+    v20 = 45;
+    if (v16)
+    {
+      v20 = 43;
+    }
+
+    v14(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v20, v17, v18, 292, v19);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v21 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    v22 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v22))
+    {
+      v23 = 43;
+    }
+
+    else
+    {
+      v23 = 45;
+    }
+
+    v24 = object_getClassName(*(a1 + 32));
+    v25 = sel_getName(*(a1 + 56));
+    v26 = [*(a1 + 32) sessionUID];
+    *buf = 67110146;
+    v109 = v23;
+    v110 = 2082;
+    v111 = v24;
+    v112 = 2082;
+    v113 = v25;
+    v114 = 1024;
+    v115 = 292;
+    v116 = 2114;
+    v117 = v26;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+  }
+
+  v27 = *(a1 + 48);
+  if (v27)
+  {
+    v28 = [NSError alloc];
+    v29 = [NSString stringWithUTF8String:"nfcd"];
+    v106 = NSLocalizedDescriptionKey;
+    v30 = [NSString stringWithUTF8String:"Session not active"];
+    v107 = v30;
+    v31 = [NSDictionary dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+    v32 = [v28 initWithDomain:v29 code:54 userInfo:v31];
+    (*(v27 + 16))(v27, v32);
+
+LABEL_24:
+  }
+}
+
+void sub_100151A04(uint64_t a1)
+{
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v3 = Logger;
+    Class = object_getClass(*(a1 + 32));
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(*(a1 + 32));
+    Name = sel_getName(*(a1 + 48));
+    v7 = 45;
+    if (isMetaClass)
+    {
+      v7 = 43;
+    }
+
+    v3(6, "%c[%{public}s %{public}s]:%i ", v7, ClassName, Name, 358);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v8 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v9))
+    {
+      v10 = 43;
+    }
+
+    else
+    {
+      v10 = 45;
+    }
+
+    v11 = object_getClassName(*(a1 + 32));
+    v12 = sel_getName(*(a1 + 48));
+    *buf = 67109890;
+    v69 = v10;
+    v70 = 2082;
+    v71 = v11;
+    v72 = 2082;
+    v73 = v12;
+    v74 = 1024;
+    v75 = 358;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
+  }
+
+  if ([*(a1 + 32) didStart] && (objc_msgSend(*(a1 + 32), "isSuspended") & 1) == 0 && !objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    v33 = *(a1 + 32);
+    v34 = *(v33 + 200);
+    *(v33 + 200) = 0;
+
+    v29 = sub_10004BF2C(NFRoutingConfig);
+    v35 = +[_NFHardwareManager sharedHardwareManager];
+    v30 = [v35 setRoutingConfig:v29];
+
+    v36 = NFSharedSignpostLog();
+    v37 = os_signpost_enabled(v36);
+    if (v30)
+    {
+      if (v37)
+      {
+        v38 = [v30 code];
+        *buf = 67109120;
+        v69 = v38;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v36, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "_NFSecureElementReaderSession+vas_polling", "end, error.code: %d", buf, 8u);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v39 = NFLogGetLogger();
+      if (v39)
+      {
+        v40 = v39;
+        v41 = object_getClass(*(a1 + 32));
+        v42 = class_isMetaClass(v41);
+        v43 = object_getClassName(*(a1 + 32));
+        v64 = sel_getName(*(a1 + 48));
+        v44 = 45;
+        if (v42)
+        {
+          v44 = 43;
+        }
+
+        v40(3, "%c[%{public}s %{public}s]:%i Failed to stop polling", v44, v43, v64, 374);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v45 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      {
+        v46 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v46))
+        {
+          v47 = 43;
+        }
+
+        else
+        {
+          v47 = 45;
+        }
+
+        v48 = object_getClassName(*(a1 + 32));
+        v49 = sel_getName(*(a1 + 48));
+        *buf = 67109890;
+        v69 = v47;
+        v70 = 2082;
+        v71 = v48;
+        v72 = 2082;
+        v73 = v49;
+        v74 = 1024;
+        v75 = 374;
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to stop polling", buf, 0x22u);
+      }
+
+      (*(*(a1 + 40) + 16))();
+    }
+
+    else
+    {
+      if (v37)
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v36, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "_NFSecureElementReaderSession+vas_polling", "end", buf, 2u);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v50 = NFLogGetLogger();
+      if (v50)
+      {
+        v51 = v50;
+        v52 = object_getClass(*(a1 + 32));
+        v53 = class_isMetaClass(v52);
+        v54 = object_getClassName(*(a1 + 32));
+        v65 = sel_getName(*(a1 + 48));
+        v55 = 45;
+        if (v53)
+        {
+          v55 = 43;
+        }
+
+        v51(6, "%c[%{public}s %{public}s]:%i VAS Reader stopped", v55, v54, v65, 367);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v56 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+      {
+        v57 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v57))
+        {
+          v58 = 43;
+        }
+
+        else
+        {
+          v58 = 45;
+        }
+
+        v59 = object_getClassName(*(a1 + 32));
+        v60 = sel_getName(*(a1 + 48));
+        *buf = 67109890;
+        v69 = v58;
+        v70 = 2082;
+        v71 = v59;
+        v72 = 2082;
+        v73 = v60;
+        v74 = 1024;
+        v75 = 367;
+        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i VAS Reader stopped", buf, 0x22u);
+      }
+
+      WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 216));
+      sub_1001AF894(WeakRetained, *(a1 + 32));
+
+      v62 = +[_NFHardwareManager sharedHardwareManager];
+      [v62 notifyReaderModeActivityEnd];
+
+      (*(*(a1 + 40) + 16))();
+      v30 = 0;
+    }
+
+    goto LABEL_24;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v13 = NFLogGetLogger();
+  if (v13)
+  {
+    v14 = v13;
+    v15 = object_getClass(*(a1 + 32));
+    v16 = class_isMetaClass(v15);
+    v17 = object_getClassName(*(a1 + 32));
+    v18 = sel_getName(*(a1 + 48));
+    v19 = [*(a1 + 32) sessionUID];
+    v20 = 45;
+    if (v16)
+    {
+      v20 = 43;
+    }
+
+    v14(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v20, v17, v18, 359, v19);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v21 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    v22 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v22))
+    {
+      v23 = 43;
+    }
+
+    else
+    {
+      v23 = 45;
+    }
+
+    v24 = object_getClassName(*(a1 + 32));
+    v25 = sel_getName(*(a1 + 48));
+    v26 = [*(a1 + 32) sessionUID];
+    *buf = 67110146;
+    v69 = v23;
+    v70 = 2082;
+    v71 = v24;
+    v72 = 2082;
+    v73 = v25;
+    v74 = 1024;
+    v75 = 359;
+    v76 = 2114;
+    v77 = v26;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+  }
+
+  v27 = *(a1 + 40);
+  if (v27)
+  {
+    v28 = [NSError alloc];
+    v29 = [NSString stringWithUTF8String:"nfcd"];
+    v66 = NSLocalizedDescriptionKey;
+    v30 = [NSString stringWithUTF8String:"Session not active"];
+    v67 = v30;
+    v31 = [NSDictionary dictionaryWithObjects:&v67 forKeys:&v66 count:1];
     v32 = [v28 initWithDomain:v29 code:54 userInfo:v31];
     (*(v27 + 16))(v27, v32);
 

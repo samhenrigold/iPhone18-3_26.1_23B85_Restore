@@ -5,6 +5,7 @@
 - (void)addOperationOfClass:(Class)class;
 - (void)main;
 - (void)skip;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncParallelOperation
@@ -33,7 +34,7 @@
 
 - (void)main
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_operations count])
   {
     v3 = 10 * [(NSMutableArray *)self->_operations count];
@@ -41,26 +42,26 @@
     [progress setTotalUnitCount:v3];
 
     [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
+    v14 = 0u;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
     v5 = self->_operations;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
           cloudState = [(HDCloudSyncOperation *)self cloudState];
           [v10 setCloudState:cloudState];
@@ -72,19 +73,17 @@
           [v10 start];
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
     }
 
     [(HDSynchronousTaskGroup *)self->_taskGroup finishTask];
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v15 = *MEMORY[0x277D85DE8];
 
     [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
   }
@@ -92,47 +91,45 @@
 
 - (void)skip
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = HDCloudSyncParallelOperation;
-  [(HDCloudSyncOperation *)&v13 skip];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v14 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = HDCloudSyncParallelOperation;
+  [(HDCloudSyncOperation *)&v12 skip];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = self->_operations;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) skip];
+        [*(*(&v8 + 1) + 8 * v7++) skip];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)operations
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableArray *)self->_operations copy];
+  v3 = objc_msgSend_copy(self->_operations);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -176,6 +173,13 @@
   [(NSMutableArray *)self->_operations addObject:operationCopy];
 
   os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

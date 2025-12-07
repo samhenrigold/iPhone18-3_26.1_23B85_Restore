@@ -22,7 +22,7 @@
 
 - (SUCoreDocumentation)initWithDocumentationAsset:(id)asset
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v5 = assetCopy;
   if (!assetCopy)
@@ -82,9 +82,9 @@ LABEL_21:
         _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SU Documentation Preview] Plist not found... creating a default plist", buf, 2u);
       }
 
-      v31 = 0;
-      v21 = [@"<?xml version=1.0 encoding=UTF-8?>     <!DOCTYPE plist PUBLIC -//Apple//DTD PLIST 1.0//EN http://www.apple.com/DTDs/PropertyList-1.0.dtd>     <plist version=1.0>     <dict>         <key>MobileAssetNewPath</key>         <string></string>     </dict>     </plist>" writeToFile:@"/AppleInternal/Assets/SUCoreDocumentation/SUCoreDocumentationOverrides.plist" atomically:1 encoding:4 error:&v31];
-      v22 = v31;
+      v30 = 0;
+      v21 = [@"<?xml version=1.0 encoding=UTF-8?>     <!DOCTYPE plist PUBLIC -//Apple//DTD PLIST 1.0//EN http://www.apple.com/DTDs/PropertyList-1.0.dtd>     <plist version=1.0>     <dict>         <key>MobileAssetNewPath</key>         <string></string>     </dict>     </plist>" writeToFile:@"/AppleInternal/Assets/SUCoreDocumentation/SUCoreDocumentationOverrides.plist" atomically:1 encoding:4 error:&v30];
+      v22 = v30;
       if ((v21 & 1) == 0)
       {
         mEMORY[0x277D64460]3 = [MEMORY[0x277D64460] sharedLogger];
@@ -93,7 +93,7 @@ LABEL_21:
         if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v33 = v22;
+          v32 = v22;
           _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "[SU Documentation Preview] Error creating plist: %@", buf, 0xCu);
         }
       }
@@ -105,7 +105,6 @@ LABEL_21:
   selfCopy = self;
 LABEL_22:
 
-  v29 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -394,7 +393,7 @@ LABEL_7:
 
 - (id)_extendDocumentationProperties
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D64418] = [MEMORY[0x277D64418] sharedDevice];
   isBootedOSSecureInternal = [mEMORY[0x277D64418] isBootedOSSecureInternal];
 
@@ -570,7 +569,7 @@ LABEL_13:
       [(SUCoreDocumentation *)self setHumanReadableMoreInfoLink:v45];
       v49 = CFBundleCopyLocalizedString(v28, @"NotificationTitleString", 0, @"documentation");
       objc_opt_class();
-      v115 = v49;
+      v114 = v49;
       if ((objc_opt_isKindOfClass() & 1) == 0 || (v51 = [(__CFString *)v49 isEqualToString:@"NotificationTitleString"], v50 = v49, v51))
       {
         mEMORY[0x277D64460]9 = [MEMORY[0x277D64460] sharedLogger];
@@ -579,7 +578,7 @@ LABEL_13:
         if (os_log_type_enabled(oslog7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          selfCopy = v115;
+          selfCopy = v114;
           _os_log_impl(&dword_23193C000, oslog7, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Unable to load notificationTitleString: %{public}@", buf, 0xCu);
         }
 
@@ -589,7 +588,7 @@ LABEL_13:
       [(SUCoreDocumentation *)self setNotificationTitleString:v50];
       v54 = CFBundleCopyLocalizedString(v28, @"NotificationBodyString", 0, @"documentation");
       objc_opt_class();
-      v114 = v54;
+      v113 = v54;
       if ((objc_opt_isKindOfClass() & 1) == 0 || (v56 = [(__CFString *)v54 isEqualToString:@"NotificationBodyString"], v55 = v54, v56))
       {
         mEMORY[0x277D64460]10 = [MEMORY[0x277D64460] sharedLogger];
@@ -598,14 +597,14 @@ LABEL_13:
         if (os_log_type_enabled(oslog8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          selfCopy = v114;
+          selfCopy = v113;
           _os_log_impl(&dword_23193C000, oslog8, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Unable to load notificationBodyString: %{public}@", buf, 0xCu);
         }
 
         v55 = 0;
       }
 
-      v112 = v39;
+      v111 = v39;
       [(SUCoreDocumentation *)self setNotificationBodyString:v55];
       v59 = CFBundleCopyLocalizedString(v28, @"RecommendedUpdateTitleString", 0, @"documentation");
       objc_opt_class();
@@ -624,7 +623,7 @@ LABEL_13:
         v60 = 0;
       }
 
-      v111 = v44;
+      v110 = v44;
       [(SUCoreDocumentation *)self setRecommendedUpdateTitleString:v60];
       v64 = CFBundleCopyLocalizedString(v28, @"RecommendedUpdateAlertBodyString", 0, @"documentation");
       objc_opt_class();
@@ -643,7 +642,7 @@ LABEL_13:
         v65 = 0;
       }
 
-      v113 = v34;
+      v112 = v34;
       [(SUCoreDocumentation *)self setRecommendedUpdateAlertBodyString:v65];
       v69 = CFBundleCopyLocalizedString(v28, @"MandatoryUpdateBodyString", 0, @"documentation");
       objc_opt_class();
@@ -788,8 +787,6 @@ LABEL_13:
     [(SUCoreDocumentation *)mEMORY[0x277D64428] trackError:@"[DOCUMENTATION]" forReason:@"unable to find local bundle URL for documentation asset" withResult:8101 withError:v102];
   }
 
-  v109 = *MEMORY[0x277D85DE8];
-
   return v102;
 }
 
@@ -811,7 +808,7 @@ LABEL_13:
 
 - (BOOL)isRecommendedUpdateApplicable
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if ([(SUCoreDocumentation *)self recommendedUpdateEnabled])
   {
     mEMORY[0x277D64418] = [MEMORY[0x277D64418] sharedDevice];
@@ -836,20 +833,20 @@ LABEL_13:
         recommendedUpdateMaxOSVersion2 = [(SUCoreDocumentation *)self recommendedUpdateMaxOSVersion];
         v18 = recommendedUpdateMaxOSVersion2;
         v19 = @"NO";
-        v24 = 138544130;
-        v25 = recommendedUpdateMinOSVersion3;
+        v23 = 138544130;
+        v24 = recommendedUpdateMinOSVersion3;
         if (v13)
         {
           v19 = @"YES";
         }
 
-        v26 = 2114;
-        v27 = productVersion;
-        v28 = 2114;
-        v29 = recommendedUpdateMaxOSVersion2;
-        v30 = 2114;
-        v31 = v19;
-        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] recommendedUpdateMinOSVersion=%{public}@ <= currentOSVersion=%{public}@ <= recommendedUpdateMaxOSVersion=%{public}@ | isRecommendedUpdateApplicable=%{public}@", &v24, 0x2Au);
+        v25 = 2114;
+        v26 = productVersion;
+        v27 = 2114;
+        v28 = recommendedUpdateMaxOSVersion2;
+        v29 = 2114;
+        v30 = v19;
+        _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] recommendedUpdateMinOSVersion=%{public}@ <= currentOSVersion=%{public}@ <= recommendedUpdateMaxOSVersion=%{public}@ | isRecommendedUpdateApplicable=%{public}@", &v23, 0x2Au);
       }
     }
 
@@ -880,13 +877,12 @@ LABEL_13:
     LOBYTE(v13) = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)softwareUpdateIconImagePath
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   localBundleURL = [(SUCoreDocumentation *)self localBundleURL];
 
   if (!localBundleURL)
@@ -929,21 +925,19 @@ LABEL_9:
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543362;
-    v16 = v8;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Using icon path: %{public}@", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v8;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Using icon path: %{public}@", &v14, 0xCu);
   }
 
 LABEL_10:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)encodedUIBundlePath
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   localBundleURL = [(SUCoreDocumentation *)self localBundleURL];
 
   if (!localBundleURL)
@@ -978,11 +972,11 @@ LABEL_10:
   {
     localBundleURL2 = [(SUCoreDocumentation *)self localBundleURL];
     encodedUIBundleFileName2 = [(SUCoreDocumentation *)self encodedUIBundleFileName];
-    v22 = 138543618;
-    v23 = localBundleURL2;
-    v24 = 2114;
-    v25 = encodedUIBundleFileName2;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Loading bundle with localBundleURL:%{public}@ encodedUIBundleFileName:%{public}@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = localBundleURL2;
+    v23 = 2114;
+    v24 = encodedUIBundleFileName2;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Loading bundle with localBundleURL:%{public}@ encodedUIBundleFileName:%{public}@", &v21, 0x16u);
   }
 
   v9 = *MEMORY[0x277CBECE8];
@@ -1014,8 +1008,8 @@ LABEL_10:
   {
     if (v15)
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] No encoded UI bundle path was found within the update bundle.", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] No encoded UI bundle path was found within the update bundle.", &v21, 2u);
     }
 
 LABEL_19:
@@ -1026,22 +1020,20 @@ LABEL_19:
   if (v15)
   {
     path = [oslog path];
-    v22 = 138543362;
-    v23 = path;
-    _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Using encoded UI bundle path: %{public}@", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = path;
+    _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Using encoded UI bundle path: %{public}@", &v21, 0xCu);
   }
 
   path2 = [oslog path];
 LABEL_20:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return path2;
 }
 
 - (id)softwareUpdateIconImage
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   getUIImageClass();
   if (!objc_opt_class())
   {
@@ -1092,11 +1084,11 @@ LABEL_16:
   {
     localBundleURL2 = [(SUCoreDocumentation *)self localBundleURL];
     preferencesIconFileName2 = [(SUCoreDocumentation *)self preferencesIconFileName];
-    v22 = 138543618;
-    v23 = localBundleURL2;
-    v24 = 2114;
-    v25 = preferencesIconFileName2;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Loading bundle with localBundleURL:%{public}@ preferencesIconFileName:%{public}@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = localBundleURL2;
+    v23 = 2114;
+    v24 = preferencesIconFileName2;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Loading bundle with localBundleURL:%{public}@ preferencesIconFileName:%{public}@", &v21, 0x16u);
   }
 
   v9 = MEMORY[0x277CCA8D8];
@@ -1117,9 +1109,9 @@ LABEL_16:
       if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
       {
         preferencesIconFileName4 = [(SUCoreDocumentation *)self preferencesIconFileName];
-        v22 = 138543362;
-        v23 = preferencesIconFileName4;
-        _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Successfully loaded update icon bundle with name: %{public}@", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = preferencesIconFileName4;
+        _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[DOCUMENTATION] Successfully loaded update icon bundle with name: %{public}@", &v21, 0xCu);
       }
     }
 
@@ -1143,7 +1135,6 @@ LABEL_16:
   }
 
 LABEL_23:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1485,33 +1476,24 @@ LABEL_23:
 
 - (void)isRecommendedUpdateApplicable
 {
-  v10 = *MEMORY[0x277D85DE8];
   recommendedUpdateMaxOSVersion = [self recommendedUpdateMaxOSVersion];
   recommendedUpdateMinOSVersion = [self recommendedUpdateMinOSVersion];
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodedUIBundlePath
 {
-  v8 = *MEMORY[0x277D85DE8];
   localBundleURL = [self localBundleURL];
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)softwareUpdateIconImage
 {
-  v8 = *MEMORY[0x277D85DE8];
   localBundleURL = [self localBundleURL];
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

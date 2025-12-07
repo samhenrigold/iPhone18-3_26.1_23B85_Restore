@@ -34,7 +34,7 @@
   v5 = event;
   if (event)
   {
-    [event stdString];
+    objc_msgSend_stdString(event);
   }
 
   else

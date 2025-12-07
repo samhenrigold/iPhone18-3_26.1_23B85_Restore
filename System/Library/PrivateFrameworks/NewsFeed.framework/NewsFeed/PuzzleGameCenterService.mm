@@ -16,7 +16,7 @@
 
 - (void)player:(GKPlayer *)player wantsToPlayGameActivity:(GKGameActivity *)activity completionHandler:(id)handler
 {
-  sub_1D5B73DC0();
+  sub_1D5B73DC0(0);
   MEMORY[0x1EEE9AC00](v9 - 8, v10);
   v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = _Block_copy(handler);
@@ -45,7 +45,7 @@
 
 - (void)networkReachabilityDidChange:(id)change
 {
-  sub_1D5B73DC0();
+  sub_1D5B73DC0(0);
   MEMORY[0x1EEE9AC00](v5 - 8, v6);
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_unknownObjectRetain();

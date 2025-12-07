@@ -849,25 +849,15 @@ LABEL_139:
   }
 
   workoutEvent = [eventCopy workoutEvent];
-  if (!workoutEvent)
+  if (workoutEvent && (v26 = workoutEvent, [eventCopy workoutEvent], v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "workoutType"), v28 = objc_claimAutoreleasedReturnValue(), v28, v27, v26, v28))
   {
-    goto LABEL_24;
-  }
-
-  v26 = workoutEvent;
-  workoutEvent2 = [eventCopy workoutEvent];
-  workoutType = [workoutEvent2 workoutType];
-
-  if (workoutType)
-  {
-    workoutEvent3 = [eventCopy workoutEvent];
-    workoutType2 = [workoutEvent3 workoutType];
+    workoutEvent2 = [eventCopy workoutEvent];
+    workoutType = [workoutEvent2 workoutType];
   }
 
   else
   {
-LABEL_24:
-    LODWORD(workoutType2) = 0;
+    LODWORD(workoutType) = 0;
   }
 
   v112[0] = 0;
@@ -998,7 +988,7 @@ LABEL_24:
   peopleDiscoveryEvent = [eventCopy peopleDiscoveryEvent];
   pCount = [peopleDiscoveryEvent pCount];
   LODWORD(v45) = v61;
-  LODWORD(v44) = workoutType2;
+  LODWORD(v44) = workoutType;
   LODWORD(v49) = 0;
   LODWORD(v48) = 0;
   LODWORD(v47) = 0;
@@ -1329,24 +1319,13 @@ LABEL_24:
   if (dictionaryCopy)
   {
     v5 = [dictionaryCopy objectForKeyedSubscript:@"PoiCategory"];
-    if (!v5)
-    {
-      goto LABEL_4;
-    }
-
-    v6 = v5;
-    v7 = [v4 objectForKeyedSubscript:@"PoiCategory"];
-    v8 = +[NSNull null];
-    v9 = [v7 isEqual:v8];
-
-    if ((v9 & 1) == 0)
+    if (v5 && (v6 = v5, [v4 objectForKeyedSubscript:@"PoiCategory"], v7 = objc_claimAutoreleasedReturnValue(), +[NSNull null](NSNull, "null"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqual:", v8), v8, v7, v6, (v9 & 1) == 0))
     {
       v53 = [v4 objectForKeyedSubscript:@"PoiCategory"];
     }
 
     else
     {
-LABEL_4:
       v53 = 0;
     }
 
@@ -1517,25 +1496,10 @@ LABEL_4:
             lowercaseString2 = [bundleId lowercaseString];
 
             v43 = [lowercaseString2 containsString:@"com.apple."];
-            playSessionsPerDayCopy = sessionsPerDay;
-            if (v43)
+            sessionsPerDayCopy = sessionsPerDay;
+            if ((v43 & 1) != 0 || ([v30 bundleId], (v45 = objc_claimAutoreleasedReturnValue()) != 0) && (v46 = v45, objc_msgSend(v30, "bundleId"), v47 = objc_claimAutoreleasedReturnValue(), v48 = objc_msgSend(v47, "length"), v47, v46, sessionsPerDayCopy = playSessionsPerDay, v48))
             {
-              goto LABEL_20;
-            }
-
-            bundleId2 = [v30 bundleId];
-            if (bundleId2)
-            {
-              v46 = bundleId2;
-              bundleId3 = [v30 bundleId];
-              v48 = [bundleId3 length];
-
-              playSessionsPerDayCopy = playSessionsPerDay;
-              if (v48)
-              {
-LABEL_20:
-                ++*playSessionsPerDayCopy;
-              }
+              ++*sessionsPerDayCopy;
             }
           }
 

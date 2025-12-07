@@ -36,20 +36,20 @@
 
 + (void)initialize
 {
-  v14[6] = *MEMORY[0x1E69E9840];
+  v13[6] = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     v2 = MEMORY[0x1E695DFD8];
     v3 = *MEMORY[0x1E69DE4A0];
-    v14[0] = *MEMORY[0x1E69DE480];
-    v14[1] = v3;
+    v13[0] = *MEMORY[0x1E69DE480];
+    v13[1] = v3;
     v4 = *MEMORY[0x1E69DE528];
-    v14[2] = *MEMORY[0x1E69DE588];
-    v14[3] = v4;
+    v13[2] = *MEMORY[0x1E69DE588];
+    v13[3] = v4;
     v5 = *MEMORY[0x1E69DE518];
-    v14[4] = *MEMORY[0x1E69DE500];
-    v14[5] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:6];
+    v13[4] = *MEMORY[0x1E69DE500];
+    v13[5] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:6];
     v7 = [v2 setWithArray:v6];
     v8 = kSensitiveContentTypes;
     kSensitiveContentTypes = v7;
@@ -62,8 +62,6 @@
     v12 = kClassesExcludedFromTextExtraction;
     kClassesExcludedFromTextExtraction = v11;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_determineIfDebuggingControlsShouldBeAllowed
@@ -141,7 +139,7 @@
 
 + (void)extractFromScene:(id)scene usingExecutor:(id)executor withOptions:(unint64_t)options
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   executorCopy = executor;
   if ([MEMORY[0x1E696AF00] isMainThread])
@@ -151,46 +149,46 @@
       _visibleWindows = [sceneCopy _visibleWindows];
       if ([_visibleWindows count])
       {
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
-        v17 = _visibleWindows;
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
+        v16 = _visibleWindows;
         v10 = _visibleWindows;
-        v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v20;
+          v13 = *v19;
           do
           {
             v14 = 0;
             do
             {
-              if (*v20 != v13)
+              if (*v19 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v19 + 1) + 8 * v14);
-              v18[0] = MEMORY[0x1E69E9820];
-              v18[1] = 3221225472;
-              v18[2] = __78__CKContextContentProviderUIScene_extractFromScene_usingExecutor_withOptions___block_invoke;
-              v18[3] = &unk_1E7CEE5A8;
-              v18[4] = v15;
-              v18[5] = options;
-              [executorCopy addWorkItem:v18];
+              v15 = *(*(&v18 + 1) + 8 * v14);
+              v17[0] = MEMORY[0x1E69E9820];
+              v17[1] = 3221225472;
+              v17[2] = __78__CKContextContentProviderUIScene_extractFromScene_usingExecutor_withOptions___block_invoke;
+              v17[3] = &unk_1E7CEE5A8;
+              v17[4] = v15;
+              v17[5] = options;
+              [executorCopy addWorkItem:v17];
               ++v14;
             }
 
             while (v12 != v14);
-            v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
           }
 
           while (v12);
         }
 
-        _visibleWindows = v17;
+        _visibleWindows = v16;
       }
     }
   }
@@ -199,8 +197,6 @@
   {
     +[CKContextContentProviderUIScene extractFromScene:usingExecutor:withOptions:];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __78__CKContextContentProviderUIScene_extractFromScene_usingExecutor_withOptions___block_invoke(uint64_t a1, void *a2)
@@ -214,25 +210,8 @@ void __78__CKContextContentProviderUIScene_extractFromScene_usingExecutor_withOp
 + (BOOL)_isRelevantForExtractionWithView:(id)view
 {
   viewCopy = view;
-  if ([viewCopy isHidden])
+  if (([viewCopy isHidden] & 1) != 0 || (objc_msgSend(viewCopy, "alpha"), v4 < 0.05) || (objc_msgSend(viewCopy, "frame"), x = v13.origin.x, y = v13.origin.y, width = v13.size.width, height = v13.size.height, CGRectGetWidth(v13) < 30.0) || (v14.origin.x = x, v14.origin.y = y, v14.size.width = width, v14.size.height = height, CGRectGetHeight(v14) < 17.0))
   {
-    goto LABEL_5;
-  }
-
-  [viewCopy alpha];
-  if (v4 < 0.05)
-  {
-    goto LABEL_5;
-  }
-
-  [viewCopy frame];
-  x = v13.origin.x;
-  y = v13.origin.y;
-  width = v13.size.width;
-  height = v13.size.height;
-  if (CGRectGetWidth(v13) < 30.0 || (v14.origin.x = x, v14.origin.y = y, v14.size.width = width, v14.size.height = height, CGRectGetHeight(v14) < 17.0))
-  {
-LABEL_5:
     LOBYTE(v9) = 0;
   }
 
@@ -248,57 +227,37 @@ LABEL_5:
 
 + (void)_descendantsRelevantForContentExtractionFromView:(id)view intoArray:(id)array
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   arrayCopy = array;
   if ([self _isRelevantForExtractionWithView:viewCopy])
   {
     [arrayCopy addObject:viewCopy];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     subviews = [viewCopy subviews];
     reverseObjectEnumerator = [subviews reverseObjectEnumerator];
 
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
+      v12 = *v28;
       do
       {
         v13 = 0;
         do
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * v13);
-          if (![viewCopy clipsToBounds])
+          v14 = *(*(&v27 + 1) + 8 * v13);
+          if (![viewCopy clipsToBounds] || (objc_msgSend(viewCopy, "bounds"), v16 = v15, v18 = v17, v20 = v19, v22 = v21, objc_msgSend(v14, "frame"), v34.origin.x = v23, v34.origin.y = v24, v34.size.width = v25, v34.size.height = v26, v33.origin.x = v16, v33.origin.y = v18, v33.size.width = v20, v33.size.height = v22, CGRectIntersectsRect(v33, v34)))
           {
-            goto LABEL_9;
-          }
-
-          [viewCopy bounds];
-          v16 = v15;
-          v18 = v17;
-          v20 = v19;
-          v22 = v21;
-          [v14 frame];
-          v35.origin.x = v23;
-          v35.origin.y = v24;
-          v35.size.width = v25;
-          v35.size.height = v26;
-          v34.origin.x = v16;
-          v34.origin.y = v18;
-          v34.size.width = v20;
-          v34.size.height = v22;
-          if (CGRectIntersectsRect(v34, v35))
-          {
-LABEL_9:
             [self _descendantsRelevantForContentExtractionFromView:v14 intoArray:arrayCopy];
           }
 
@@ -306,30 +265,28 @@ LABEL_9:
         }
 
         while (v11 != v13);
-        v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v11);
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_descendantsRelevantForContentExtractionFromWindow:(id)window
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   windowCopy = window;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v41 = windowCopy;
+  v40 = windowCopy;
   subviews = [windowCopy subviews];
   reverseObjectEnumerator = [subviews reverseObjectEnumerator];
 
-  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (!v8)
   {
     v10 = 0;
@@ -338,17 +295,17 @@ LABEL_9:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v43;
+  v11 = *v42;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v43 != v11)
+      if (*v42 != v11)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v13 = *(*(&v42 + 1) + 8 * i);
+      v13 = *(*(&v41 + 1) + 8 * i);
       if (([v13 isHidden] & 1) == 0)
       {
         objc_opt_class();
@@ -369,31 +326,15 @@ LABEL_9:
         v26 = v25;
         v28 = v27;
         v30 = v29;
-        v49.origin.x = v16;
-        v49.origin.y = v18;
-        v49.size.width = v20;
-        v49.size.height = v22;
-        Width = CGRectGetWidth(v49);
+        v48.origin.x = v16;
+        v48.origin.y = v18;
+        v48.size.width = v20;
+        v48.size.height = v22;
+        Width = CGRectGetWidth(v48);
         [v13 frame];
-        v32 = CGRectGetWidth(v50);
-        if (!v10)
+        v32 = CGRectGetWidth(v49);
+        if (!v10 || (v33 = v32, [v10 frame], v51.origin.x = v34, v51.origin.y = v35, v51.size.width = v36, v51.size.height = v37, v50.origin.x = v24, v50.origin.y = v26, v50.size.width = v28, v50.size.height = v30, !CGRectEqualToRect(v50, v51)) || vabdd_f64(Width, v33) <= 20.0)
         {
-          goto LABEL_11;
-        }
-
-        v33 = v32;
-        [v10 frame];
-        v52.origin.x = v34;
-        v52.origin.y = v35;
-        v52.size.width = v36;
-        v52.size.height = v37;
-        v51.origin.x = v24;
-        v51.origin.y = v26;
-        v51.size.width = v28;
-        v51.size.height = v30;
-        if (!CGRectEqualToRect(v51, v52) || vabdd_f64(Width, v33) <= 20.0)
-        {
-LABEL_11:
           v38 = v13;
 
           v10 = v38;
@@ -404,55 +345,51 @@ LABEL_12:
       }
     }
 
-    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v41 objects:v45 count:16];
   }
 
   while (v9);
 LABEL_17:
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)_allViewControllersFromUIViews:(id)views
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   viewsCopy = views;
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = viewsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self _firstAvailableUIViewControllerForUIView:{*(*(&v14 + 1) + 8 * i), v14}];
+        v11 = [self _firstAvailableUIViewControllerForUIView:{*(*(&v13 + 1) + 8 * i), v13}];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -483,65 +420,65 @@ LABEL_17:
 
 + (void)_donateContentsOfWindow:(id)window usingExecutor:(id)executor withOptions:(unint64_t)options
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   windowCopy = window;
   executorCopy = executor;
-  v78 = windowCopy;
+  v77 = windowCopy;
   v10 = [self _descendantsRelevantForContentExtractionFromWindow:windowCopy];
   if (![v10 count])
   {
     goto LABEL_48;
   }
 
-  v71 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
-  v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v70 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
   v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v68 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v11 = options & 0x20;
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
   v84 = 0u;
-  v85 = 0u;
-  v67 = v10;
+  v66 = v10;
   obj = v10;
-  v75 = v11;
+  v74 = v11;
   selfCopy = self;
   optionsCopy = options;
-  v81 = [obj countByEnumeratingWithState:&v82 objects:v88 count:16];
+  v80 = [obj countByEnumeratingWithState:&v81 objects:v87 count:16];
   v12 = 0;
-  if (!v81)
+  if (!v80)
   {
     goto LABEL_36;
   }
 
-  v13 = *v83;
+  v13 = *v82;
   v14 = 250;
   if ((options & 0x20) != 0)
   {
     v14 = -1;
   }
 
-  v68 = v14;
-  v73 = *v83;
-  v74 = executorCopy;
+  v67 = v14;
+  v72 = *v82;
+  v73 = executorCopy;
   do
   {
-    for (i = 0; i != v81; ++i)
+    for (i = 0; i != v80; ++i)
     {
-      if (*v83 != v13)
+      if (*v82 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v82 + 1) + 8 * i);
+      v16 = *(*(&v81 + 1) + 8 * i);
       v17 = [self _bestVisibleStringForView:v16 usingExecutor:executorCopy];
       v18 = [v17 length];
       if (v11 | v18)
       {
         v19 = v18;
-        v79 = v12;
-        if (v18 && ([v71 containsObject:v17] & 1) == 0)
+        v78 = v12;
+        if (v18 && ([v70 containsObject:v17] & 1) == 0)
         {
-          [v71 addObject:v17];
+          [v70 addObject:v17];
         }
 
         v20 = objc_opt_class();
@@ -552,14 +489,14 @@ LABEL_17:
         if (v19)
         {
           v25 = [v17 length];
-          if (v68 >= v25)
+          if (v67 >= v25)
           {
             v26 = v25;
           }
 
           else
           {
-            v26 = v68;
+            v26 = v67;
           }
 
           v27 = [v17 substringWithRange:{0, v26}];
@@ -574,7 +511,7 @@ LABEL_17:
         [(CKContextUIElement *)v28 setSuperviewClassNames:v22];
         *&v29 = v24;
         [(CKContextUIElement *)v28 setFontSize:v29];
-        options = [v78 windowScene];
+        options = [v77 windowScene];
         _sceneIdentifier = [options _sceneIdentifier];
         v31 = [_sceneIdentifier copy];
         [(CKContextUIElement *)v28 setSceneIdentifier:v31];
@@ -582,30 +519,30 @@ LABEL_17:
         LOBYTE(options) = optionsCopy;
         if ((optionsCopy & 4) != 0)
         {
-          v72 = [CKContextSharedExtractionHelper elementIsOnScreenWithView:v16 window:v78];
+          v71 = [CKContextSharedExtractionHelper elementIsOnScreenWithView:v16 window:v77];
           [v16 bounds];
-          [v16 convertRect:v78 toView:?];
+          [v16 convertRect:v77 toView:?];
           v33 = v32;
           v35 = v34;
           [(CKContextUIElement *)v28 setFrameInWindow:?];
-          screen = [v78 screen];
+          screen = [v77 screen];
           coordinateSpace = [screen coordinateSpace];
           LOBYTE(options) = optionsCopy;
-          [v78 convertPoint:coordinateSpace toCoordinateSpace:{v33, v35}];
+          [v77 convertPoint:coordinateSpace toCoordinateSpace:{v33, v35}];
           [(CKContextUIElement *)v28 setAbsoluteOriginOnScreen:?];
 
-          [(CKContextUIElement *)v28 setOnScreen:v72];
+          [(CKContextUIElement *)v28 setOnScreen:v71];
         }
 
         if ([(CKContextUIElement *)v28 isOnScreen])
         {
-          v38 = v70;
-          executorCopy = v74;
+          v38 = v69;
+          executorCopy = v73;
           self = selfCopy;
           if ((options & 0x10) == 0)
           {
-            v39 = [v70 count];
-            v38 = v70;
+            v39 = [v69 count];
+            v38 = v69;
             LOBYTE(options) = optionsCopy;
             if (v39 >= 0xFA)
             {
@@ -616,13 +553,13 @@ LABEL_17:
 
         else
         {
-          v38 = v69;
-          executorCopy = v74;
+          v38 = v68;
+          executorCopy = v73;
           self = selfCopy;
           if ((options & 0x10) == 0)
           {
-            v40 = [v69 count];
-            v38 = v69;
+            v40 = [v68 count];
+            v38 = v68;
             LOBYTE(options) = optionsCopy;
             if (v40 > 0xF9)
             {
@@ -634,9 +571,9 @@ LABEL_17:
         [v38 addObject:v28];
 LABEL_28:
 
-        v12 = v79;
-        v11 = v75;
-        v13 = v73;
+        v12 = v78;
+        v11 = v74;
+        v13 = v72;
       }
 
       if ((options & 1) != 0 && !v12)
@@ -650,25 +587,25 @@ LABEL_28:
       }
     }
 
-    v81 = [obj countByEnumeratingWithState:&v82 objects:v88 count:16];
+    v80 = [obj countByEnumeratingWithState:&v81 objects:v87 count:16];
   }
 
-  while (v81);
+  while (v80);
 LABEL_36:
 
   if ((options & 0x10) != 0)
   {
-    v45 = v69;
-    v47 = [v69 count];
-    v43 = v70;
+    v45 = v68;
+    v47 = [v68 count];
+    v43 = v69;
   }
 
   else
   {
-    v43 = v70;
-    v44 = 250 - [v70 count];
-    v45 = v69;
-    v46 = [v69 count];
+    v43 = v69;
+    v44 = 250 - [v69 count];
+    v45 = v68;
+    v46 = [v68 count];
     if (v44 >= v46)
     {
       v47 = v46;
@@ -686,19 +623,19 @@ LABEL_36:
   v49 = 0;
   if ((optionsCopy & 2) != 0)
   {
-    v10 = v67;
+    v10 = v66;
     if (!v12)
     {
-      [v78 bounds];
+      [v77 bounds];
       v51 = v50;
       v53 = v52;
       v55 = v54;
       v57 = v56;
-      isOpaque = [v78 isOpaque];
-      v90.width = v55;
-      v90.height = v57;
-      UIGraphicsBeginImageContextWithOptions(v90, isOpaque, 0.0);
-      [v78 drawViewHierarchyInRect:1 afterScreenUpdates:{v51, v53, v55, v57}];
+      isOpaque = [v77 isOpaque];
+      v89.width = v55;
+      v89.height = v57;
+      UIGraphicsBeginImageContextWithOptions(v89, isOpaque, 0.0);
+      [v77 drawViewHierarchyInRect:1 afterScreenUpdates:{v51, v53, v55, v57}];
       v49 = UIGraphicsGetImageFromCurrentImageContext();
       UIGraphicsEndImageContext();
     }
@@ -706,35 +643,34 @@ LABEL_36:
 
   else
   {
-    v10 = v67;
+    v10 = v66;
   }
 
   v59 = [self _allViewControllersFromUIViews:obj];
   v60 = [self _extractItemsFromViewControllers:v59];
-  v61 = [v71 componentsJoinedByString:@"\n\n"];
+  v61 = [v70 componentsJoinedByString:@"\n\n"];
   newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
   v63 = [v61 stringByTrimmingCharactersInSet:newlineCharacterSet];
   v64 = [v63 length];
 
-  if ([v60 count] || objc_msgSend(v70, "count") | v75 || v64 > 0x2C)
+  if ([v60 count] || objc_msgSend(v69, "count") | v74 || v64 > 0x2C)
   {
-    v65 = v70;
-    [selfCopy _donateText:v61 withTitle:0 debugText:0 debugUrlString:0 rawHTML:0 leadImage:v12 snapshot:v49 uiElements:v70 & ((optionsCopy << 60) >> 63) extractionItems:v60 usingContextFromExecutor:executorCopy];
+    v65 = v69;
+    [selfCopy _donateText:v61 withTitle:0 debugText:0 debugUrlString:0 rawHTML:0 leadImage:v12 snapshot:v49 uiElements:v69 & ((optionsCopy << 60) >> 63) extractionItems:v60 usingContextFromExecutor:executorCopy];
   }
 
   else
   {
-    v65 = v70;
+    v65 = v69;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v87 = v64;
+      v86 = v64;
       _os_log_impl(&dword_1B842F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "The extracted text (length %lu) is too short. Donation from UIKit hierarchy aborted.", buf, 0xCu);
     }
   }
 
 LABEL_48:
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_getNotableSuperviewClassNamesForView:(id)view
@@ -834,7 +770,7 @@ LABEL_10:
 
 + (id)_bestVisibleStringForView:(id)view usingExecutor:(id)executor
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   executorCopy = executor;
   v8 = objc_opt_class();
@@ -904,13 +840,13 @@ LABEL_10:
 
   if (![string length] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v18 = [viewCopy performSelector:sel_text];
+    v17 = [viewCopy performSelector:sel_text];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v19 = v18;
+      v18 = v17;
 
-      string = v19;
+      string = v18;
     }
   }
 
@@ -920,9 +856,9 @@ LABEL_10:
     bundleIdentifier = [mainBundle bundleIdentifier];
     if ([bundleIdentifier isEqualToString:@"com.apple.mobilecal"])
     {
-      v22 = [v9 isEqualToString:@"EKEventDetailAttendeesListView"];
+      v21 = [v9 isEqualToString:@"EKEventDetailAttendeesListView"];
 
-      if (v22)
+      if (v21)
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
         {
@@ -930,72 +866,72 @@ LABEL_10:
           _os_log_impl(&dword_1B842F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Performing special handling for Calendar", buf, 2u);
         }
 
-        v23 = objc_opt_class();
-        InstanceVariable = class_getInstanceVariable(v23, "_inviteeNames");
+        v22 = objc_opt_class();
+        InstanceVariable = class_getInstanceVariable(v22, "_inviteeNames");
         if (InstanceVariable)
         {
-          v25 = InstanceVariable;
+          v24 = InstanceVariable;
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
           {
             +[CKContextContentProviderUIScene _bestVisibleStringForView:usingExecutor:];
           }
 
-          v26 = object_getIvar(viewCopy, v25);
+          v25 = object_getIvar(viewCopy, v24);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = v26;
-            if ([v27 count])
+            v26 = v25;
+            if ([v26 count])
             {
-              v51 = v9;
-              v52 = v27;
-              v53 = v26;
-              v54 = string;
-              firstObject = [v27 firstObject];
+              v50 = v9;
+              v51 = v26;
+              v52 = v25;
+              v53 = string;
+              firstObject = [v26 firstObject];
               array = [MEMORY[0x1E695DF70] array];
+              v55 = 0u;
               v56 = 0u;
               v57 = 0u;
               v58 = 0u;
-              v59 = 0u;
-              v29 = firstObject;
-              v30 = [v29 countByEnumeratingWithState:&v56 objects:v61 count:16];
-              if (v30)
+              v28 = firstObject;
+              v29 = [v28 countByEnumeratingWithState:&v55 objects:v60 count:16];
+              if (v29)
               {
-                v31 = v30;
-                v32 = *v57;
+                v30 = v29;
+                v31 = *v56;
                 do
                 {
-                  for (i = 0; i != v31; ++i)
+                  for (i = 0; i != v30; ++i)
                   {
-                    if (*v57 != v32)
+                    if (*v56 != v31)
                     {
-                      objc_enumerationMutation(v29);
+                      objc_enumerationMutation(v28);
                     }
 
-                    v34 = *(*(&v56 + 1) + 8 * i);
+                    v33 = *(*(&v55 + 1) + 8 * i);
                     if (objc_opt_respondsToSelector())
                     {
-                      v35 = [v34 performSelector:sel_displayString];
+                      v34 = [v33 performSelector:sel_displayString];
                       if (objc_opt_respondsToSelector())
                       {
-                        v36 = [v35 performSelector:sel_string];
-                        [array addObject:v36];
+                        v35 = [v34 performSelector:sel_string];
+                        [array addObject:v35];
                       }
                     }
                   }
 
-                  v31 = [v29 countByEnumeratingWithState:&v56 objects:v61 count:16];
+                  v30 = [v28 countByEnumeratingWithState:&v55 objects:v60 count:16];
                 }
 
-                while (v31);
+                while (v30);
               }
 
-              v37 = objc_alloc_init(MEMORY[0x1E696AD08]);
-              string = [v37 stringFromItems:array];
+              v36 = objc_alloc_init(MEMORY[0x1E696AD08]);
+              string = [v36 stringFromItems:array];
 
-              v27 = v52;
-              v26 = v53;
-              v9 = v51;
+              v26 = v51;
+              v25 = v52;
+              v9 = v50;
             }
           }
         }
@@ -1009,63 +945,63 @@ LABEL_10:
 
   if (![string length] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v38 = [viewCopy performSelector:sel_accessibilityLabel];
+    v37 = [viewCopy performSelector:sel_accessibilityLabel];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v38 length] >= 0x14)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && [v37 length] >= 0x14)
     {
-      v39 = v38;
+      v38 = v37;
 
-      string = v39;
+      string = v38;
     }
   }
 
   if (![string length] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v40 = [viewCopy performSelector:sel_component];
+    v39 = [viewCopy performSelector:sel_component];
     if (objc_opt_respondsToSelector())
     {
-      v41 = [v40 performSelector:sel_text];
+      v40 = [v39 performSelector:sel_text];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v42 = v41;
+        v41 = v40;
 
-        string = v42;
+        string = v41;
       }
     }
   }
 
   if (![string length] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v43 = [viewCopy performSelector:sel_delegate];
+    v42 = [viewCopy performSelector:sel_delegate];
     if (objc_opt_respondsToSelector())
     {
-      v44 = [v43 performSelector:sel_text];
+      v43 = [v42 performSelector:sel_text];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v45 = v44;
+        v44 = v43;
 
-        string = v45;
+        string = v44;
       }
     }
   }
 
   if (![string length] && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v46 = [viewCopy performSelector:sel_dataDetectorElement];
+    v45 = [viewCopy performSelector:sel_dataDetectorElement];
     if (objc_opt_respondsToSelector())
     {
-      v47 = [v46 performSelector:sel_scannerResult];
+      v46 = [v45 performSelector:sel_scannerResult];
       if (objc_opt_respondsToSelector())
       {
-        v48 = [v47 performSelector:sel_value];
+        v47 = [v46 performSelector:sel_value];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v49 = v48;
+          v48 = v47;
 
-          string = v49;
+          string = v48;
         }
       }
     }
@@ -1073,53 +1009,52 @@ LABEL_10:
 
   if ([string length])
   {
-    v50 = string;
+    v49 = string;
   }
 
   else
   {
-    v50 = 0;
+    v49 = 0;
   }
 
-  v12 = v50;
+  v12 = v49;
 
 LABEL_11:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)_extractItemsFromViewControllers:(id)controllers
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   controllersCopy = controllers;
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
-  v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v5 = controllersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v6)
   {
     v7 = v6;
-    v42 = *v44;
-    v38 = v5;
+    v41 = *v43;
+    v37 = v5;
     do
     {
       v8 = 0;
-      v39 = v7;
+      v38 = v7;
       do
       {
-        if (*v44 != v42)
+        if (*v43 != v41)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v43 + 1) + 8 * v8);
+        v9 = *(*(&v42 + 1) + 8 * v8);
         v10 = objc_opt_class();
         v11 = NSStringFromClass(v10);
         if (([v11 hasPrefix:@"HUDashboardViewController"] & 1) != 0 || objc_msgSend(v11, "hasPrefix:", @"HOHomeViewController"))
@@ -1176,7 +1111,7 @@ LABEL_11:
 
                   [(CKContextExtractionItem *)v13 setExtractionSourceClassName:v11];
                   [(CKContextExtractionItem *)v13 setOnScreen:1];
-                  [v40 addObject:v13];
+                  [v39 addObject:v13];
                   v19 = v20;
                   goto LABEL_26;
                 }
@@ -1241,7 +1176,7 @@ LABEL_26:
 
               v17 = v27;
 
-              v5 = v38;
+              v5 = v37;
             }
 
             else
@@ -1251,24 +1186,24 @@ LABEL_26:
 
             if (v17)
             {
-              v7 = v39;
+              v7 = v38;
               if (v18)
               {
                 v12 = [[CKContextExtractionItem alloc] initWithTitle:v18 type:2 bundleIdentifier:bundleIdentifier];
                 uUIDString2 = [v17 UUIDString];
                 [(CKContextExtractionItem *)v12 setIdentifier:uUIDString2];
 
-                v5 = v38;
+                v5 = v37;
                 [(CKContextExtractionItem *)v12 setExtractionSourceClassName:v11];
                 [(CKContextExtractionItem *)v12 setOnScreen:1];
-                [v40 addObject:v12];
+                [v39 addObject:v12];
 LABEL_44:
               }
             }
 
             else
             {
-              v7 = v39;
+              v7 = v38;
             }
           }
 
@@ -1311,7 +1246,7 @@ LABEL_44:
               [(CKContextExtractionItem *)v34 setIdentifier:v32];
               [(CKContextExtractionItem *)v34 setExtractionSourceClassName:v11];
               [(CKContextExtractionItem *)v34 setOnScreen:1];
-              [v40 addObject:v34];
+              [v39 addObject:v34];
             }
           }
 
@@ -1326,50 +1261,48 @@ LABEL_44:
       }
 
       while (v7 != v8);
-      v35 = [v5 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v35 = [v5 countByEnumeratingWithState:&v42 objects:v46 count:16];
       v7 = v35;
     }
 
     while (v35);
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
-  return v40;
+  return v39;
 }
 
 + (id)_UIElementsForWebViewContentString:(id)string
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy length])
   {
     v4 = [CKContextSharedExtractionHelper blocksFromText:stringCopy];
-    v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
     if ([v4 count])
     {
-      v24 = v4;
-      v25 = stringCopy;
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
+      v23 = v4;
+      v24 = stringCopy;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v28;
+        v8 = *v27;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v28 != v8)
+            if (*v27 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v27 + 1) + 8 * i);
+            v10 = *(*(&v26 + 1) + 8 * i);
             if (![CKContextSharedExtractionHelper textBlockLooksLikeAListWithText:v10])
             {
               newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
@@ -1396,60 +1329,58 @@ LABEL_44:
                 v20 = [[CKContextUIElement alloc] initWithText:v15 className:@"WKWebView"];
                 *&v21 = v19;
                 [(CKContextUIElement *)v20 setDensity:v21];
-                [v26 addObject:v20];
+                [v25 addObject:v20];
               }
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v7);
       }
 
-      v4 = v24;
-      stringCopy = v25;
+      v4 = v23;
+      stringCopy = v24;
     }
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v26;
+  return v25;
 }
 
 + (id)_bestContentStringForWebViewUIElements:(id)elements andTitle:(id)title
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   elementsCopy = elements;
   titleCopy = title;
   if ([elementsCopy count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v8 = elementsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v20 + 1) + 8 * i);
           [v13 density];
           if (v14 > 43.0)
           {
@@ -1458,7 +1389,7 @@ LABEL_44:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -1483,8 +1414,6 @@ LABEL_44:
   {
     v16 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1930,7 +1859,7 @@ void __192__CKContextContentProviderUIScene__extractContentFromWebView_including
 
 void __192__CKContextContentProviderUIScene__extractContentFromWebView_includingSnapshot_includingUIBoundingBox_ignoreViewTextLengthRequirements_ignoreViewCountCap_includeRawHTML_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1949,10 +1878,10 @@ void __192__CKContextContentProviderUIScene__extractContentFromWebView_including
     if ([v7 length])
     {
       v8 = [v7 dataUsingEncoding:4];
-      v83 = 0;
-      v9 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v8 options:0 error:&v83];
-      v10 = v83;
-      if (v10 || (v11 = 0x1E695D000uLL, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v80 = 0;
+      v9 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v8 options:0 error:&v80];
+      v10 = v80;
+      if (v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
@@ -1964,214 +1893,212 @@ void __192__CKContextContentProviderUIScene__extractContentFromWebView_including
 
       else
       {
-        v12 = [v9 objectForKeyedSubscript:@"nodes"];
-        if (v12)
+        v11 = [v9 objectForKeyedSubscript:@"nodes"];
+        if (v11)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v67 = v9;
-            v68 = v8;
-            v69 = v7;
-            v70 = v5;
+            v64 = v9;
+            v65 = v8;
+            v66 = v7;
+            v67 = v5;
+            v76 = 0u;
+            v77 = 0u;
+            v78 = 0u;
             v79 = 0u;
-            v80 = 0u;
-            v81 = 0u;
-            v82 = 0u;
-            obj = v12;
-            v13 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
-            v66 = v12;
-            if (v13)
+            obj = v11;
+            v12 = [obj countByEnumeratingWithState:&v76 objects:v81 count:16];
+            v63 = v11;
+            if (v12)
             {
-              v14 = v13;
-              v15 = 0x1E695D000uLL;
-              v16 = *v80;
-              v71 = *v80;
+              v13 = v12;
+              v14 = 0x1E695D000uLL;
+              v15 = *v77;
+              v68 = *v77;
               do
               {
-                v17 = 0;
-                v72 = v14;
+                v16 = 0;
+                v69 = v13;
                 do
                 {
-                  if (*v80 != v16)
+                  if (*v77 != v15)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v18 = *(*(&v79 + 1) + 8 * v17);
-                  v19 = *(v11 + 3872);
+                  v17 = *(*(&v76 + 1) + 8 * v16);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v20 = [v18 objectForKeyedSubscript:@"text"];
-                    v21 = [*(v15 + 4016) null];
-                    if ([v20 isEqual:v21])
+                    v18 = [v17 objectForKeyedSubscript:@"text"];
+                    v19 = [*(v14 + 4016) null];
+                    if ([v18 isEqual:v19])
                     {
-                      v22 = 0;
+                      v20 = 0;
                     }
 
                     else
                     {
-                      v22 = [v18 objectForKeyedSubscript:@"text"];
+                      v20 = [v17 objectForKeyedSubscript:@"text"];
                     }
 
-                    v23 = [v18 objectForKeyedSubscript:@"className"];
-                    v24 = [*(v15 + 4016) null];
+                    v21 = [v17 objectForKeyedSubscript:@"className"];
+                    v22 = [*(v14 + 4016) null];
+                    if ([v21 isEqual:v22])
+                    {
+                      v71 = 0;
+                    }
+
+                    else
+                    {
+                      v71 = [v17 objectForKeyedSubscript:@"className"];
+                    }
+
+                    v23 = [v17 objectForKeyedSubscript:@"left"];
+                    v24 = [*(v14 + 4016) null];
                     if ([v23 isEqual:v24])
+                    {
+                      v75 = 0;
+                    }
+
+                    else
+                    {
+                      v75 = [v17 objectForKeyedSubscript:@"left"];
+                    }
+
+                    v25 = [v17 objectForKeyedSubscript:@"right"];
+                    v26 = [*(v14 + 4016) null];
+                    if ([v25 isEqual:v26])
                     {
                       v74 = 0;
                     }
 
                     else
                     {
-                      v74 = [v18 objectForKeyedSubscript:@"className"];
+                      v74 = [v17 objectForKeyedSubscript:@"right"];
                     }
 
-                    v25 = [v18 objectForKeyedSubscript:@"left"];
-                    v26 = [*(v15 + 4016) null];
-                    if ([v25 isEqual:v26])
+                    v27 = [v17 objectForKeyedSubscript:@"top"];
+                    v28 = v14;
+                    v29 = [*(v14 + 4016) null];
+                    if ([v27 isEqual:v29])
                     {
-                      v78 = 0;
-                    }
-
-                    else
-                    {
-                      v78 = [v18 objectForKeyedSubscript:@"left"];
-                    }
-
-                    v27 = [v18 objectForKeyedSubscript:@"right"];
-                    v28 = [*(v15 + 4016) null];
-                    if ([v27 isEqual:v28])
-                    {
-                      v77 = 0;
+                      v73 = 0;
                     }
 
                     else
                     {
-                      v77 = [v18 objectForKeyedSubscript:@"right"];
+                      v73 = [v17 objectForKeyedSubscript:@"top"];
                     }
 
-                    v29 = [v18 objectForKeyedSubscript:@"top"];
-                    v30 = v15;
-                    v31 = [*(v15 + 4016) null];
-                    if ([v29 isEqual:v31])
+                    v30 = [v17 objectForKeyedSubscript:@"bottom"];
+                    v31 = [*(v28 + 4016) null];
+                    v72 = v20;
+                    if ([v30 isEqual:v31])
                     {
-                      v76 = 0;
-                    }
-
-                    else
-                    {
-                      v76 = [v18 objectForKeyedSubscript:@"top"];
-                    }
-
-                    v32 = [v18 objectForKeyedSubscript:@"bottom"];
-                    v33 = [*(v30 + 4016) null];
-                    v75 = v22;
-                    if ([v32 isEqual:v33])
-                    {
-                      v34 = 0;
+                      v32 = 0;
                     }
 
                     else
                     {
-                      v34 = [v18 objectForKeyedSubscript:@"bottom"];
+                      v32 = [v17 objectForKeyedSubscript:@"bottom"];
                     }
 
-                    v35 = [v18 objectForKeyedSubscript:@"onScreen"];
-                    v36 = [*(v30 + 4016) null];
-                    if ([v35 isEqual:v36])
+                    v33 = [v17 objectForKeyedSubscript:@"onScreen"];
+                    v34 = [*(v28 + 4016) null];
+                    if ([v33 isEqual:v34])
                     {
-                      v37 = 0;
+                      v35 = 0;
                     }
 
                     else
                     {
-                      v37 = [v18 objectForKeyedSubscript:@"onScreen"];
+                      v35 = [v17 objectForKeyedSubscript:@"onScreen"];
                     }
 
-                    if ([v22 length])
+                    if ([v20 length])
                     {
-                      v38 = [CKContextUIElement alloc];
-                      v39 = [v22 length];
-                      if (v39 >= 0xFA)
+                      v36 = [CKContextUIElement alloc];
+                      v37 = [v20 length];
+                      if (v37 >= 0xFA)
                       {
-                        v40 = 250;
+                        v38 = 250;
                       }
 
                       else
                       {
-                        v40 = v39;
+                        v38 = v37;
                       }
 
-                      v41 = [v22 substringWithRange:{0, v40}];
-                      v42 = [(CKContextUIElement *)v38 initWithText:v41 className:v74];
+                      v39 = [v20 substringWithRange:{0, v38}];
+                      v40 = [(CKContextUIElement *)v36 initWithText:v39 className:v71];
 
-                      -[CKContextUIElement setOnScreen:](v42, "setOnScreen:", [v37 BOOLValue]);
-                      v43 = [*(a1 + 40) window];
-                      v44 = [v43 windowScene];
-                      v45 = [v44 _sceneIdentifier];
-                      v46 = a1;
-                      v47 = [v45 copy];
-                      [(CKContextUIElement *)v42 setSceneIdentifier:v47];
+                      -[CKContextUIElement setOnScreen:](v40, "setOnScreen:", [v35 BOOLValue]);
+                      v41 = [*(a1 + 40) window];
+                      v42 = [v41 windowScene];
+                      v43 = [v42 _sceneIdentifier];
+                      v44 = a1;
+                      v45 = [v43 copy];
+                      [(CKContextUIElement *)v40 setSceneIdentifier:v45];
 
-                      a1 = v46;
-                      if (v78 && v77 && v76 && v34)
+                      a1 = v44;
+                      if (v75 && v74 && v73 && v32)
                       {
-                        v48 = *(v46 + 40);
-                        [v78 doubleValue];
-                        v50 = v49;
-                        [v76 doubleValue];
-                        [v48 _convertPointFromContentsToView:{v50, v51}];
+                        v46 = *(v44 + 40);
+                        [v75 doubleValue];
+                        v48 = v47;
+                        [v73 doubleValue];
+                        [v46 _convertPointFromContentsToView:{v48, v49}];
+                        v51 = v50;
                         v53 = v52;
-                        v55 = v54;
-                        v56 = *(v46 + 40);
-                        [v77 doubleValue];
-                        v58 = v57;
-                        [v34 doubleValue];
-                        [v56 _convertPointFromContentsToView:{v58, v59}];
-                        [*(v46 + 40) convertRect:0 toView:{v53, v55, v60 - v53, v61 - v55}];
-                        [*(v46 + 48) convertRect:0 toView:?];
-                        [(CKContextUIElement *)v42 setFrameInWindow:?];
-                        v62 = [*(v46 + 48) screen];
-                        v63 = [v62 coordinateSpace];
+                        v54 = *(v44 + 40);
+                        [v74 doubleValue];
+                        v56 = v55;
+                        [v32 doubleValue];
+                        [v54 _convertPointFromContentsToView:{v56, v57}];
+                        [*(v44 + 40) convertRect:0 toView:{v51, v53, v58 - v51, v59 - v53}];
+                        [*(v44 + 48) convertRect:0 toView:?];
+                        [(CKContextUIElement *)v40 setFrameInWindow:?];
+                        v60 = [*(v44 + 48) screen];
+                        v61 = [v60 coordinateSpace];
 
-                        if (v63)
+                        if (v61)
                         {
-                          v64 = *(v46 + 48);
-                          [(CKContextUIElement *)v42 frameInWindow];
-                          [v64 convertPoint:v63 toCoordinateSpace:?];
-                          [(CKContextUIElement *)v42 setAbsoluteOriginOnScreen:?];
+                          v62 = *(v44 + 48);
+                          [(CKContextUIElement *)v40 frameInWindow];
+                          [v62 convertPoint:v61 toCoordinateSpace:?];
+                          [(CKContextUIElement *)v40 setAbsoluteOriginOnScreen:?];
                         }
                       }
 
-                      [*(*(*(v46 + 56) + 8) + 40) addObject:v42];
+                      [*(*(*(v44 + 56) + 8) + 40) addObject:v40];
 
-                      v11 = 0x1E695D000;
-                      v22 = v75;
+                      v20 = v72;
                     }
 
-                    v15 = v30;
-                    v16 = v71;
-                    v14 = v72;
+                    v14 = v28;
+                    v15 = v68;
+                    v13 = v69;
                   }
 
-                  ++v17;
+                  ++v16;
                 }
 
-                while (v14 != v17);
-                v14 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
+                while (v13 != v16);
+                v13 = [obj countByEnumeratingWithState:&v76 objects:v81 count:16];
               }
 
-              while (v14);
+              while (v13);
             }
 
             v6 = 0;
-            v5 = v70;
-            v12 = v66;
+            v5 = v67;
+            v11 = v63;
             v10 = 0;
-            v8 = v68;
-            v7 = v69;
-            v9 = v67;
+            v8 = v65;
+            v7 = v66;
+            v9 = v64;
           }
         }
 
@@ -2184,8 +2111,6 @@ void __192__CKContextContentProviderUIScene__extractContentFromWebView_including
       dispatch_group_leave(*(a1 + 32));
     }
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 void __192__CKContextContentProviderUIScene__extractContentFromWebView_includingSnapshot_includingUIBoundingBox_ignoreViewTextLengthRequirements_ignoreViewCountCap_includeRawHTML_withCompletionHandler___block_invoke_181(uint64_t a1, void *a2, uint64_t a3)
@@ -2302,14 +2227,14 @@ uint64_t __79__CKContextContentProviderUIScene__setUpDebuggingControlsIfPossible
 
 - (void)_installRecentsButton
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   if (self->_allowAppSwitcherControls)
   {
     _containerViewForDebugButtons = [(CKContextContentProviderUIScene *)self _containerViewForDebugButtons];
     if (_containerViewForDebugButtons)
     {
-      v20 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"clock.fill"];
-      v4 = [MEMORY[0x1E69DC738] systemButtonWithImage:v20 target:self action:sel__didSelectRecentsControl_];
+      v19 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"clock.fill"];
+      v4 = [MEMORY[0x1E69DC738] systemButtonWithImage:v19 target:self action:sel__didSelectRecentsControl_];
       recentsButton = self->_recentsButton;
       self->_recentsButton = v4;
 
@@ -2318,39 +2243,37 @@ uint64_t __79__CKContextContentProviderUIScene__setUpDebuggingControlsIfPossible
 
       [(UIButton *)self->_recentsButton setTranslatesAutoresizingMaskIntoConstraints:0];
       [_containerViewForDebugButtons addSubview:self->_recentsButton];
-      v17 = MEMORY[0x1E696ACD8];
+      v16 = MEMORY[0x1E696ACD8];
       topAnchor = [(UIButton *)self->_recentsButton topAnchor];
       topAnchor2 = [_containerViewForDebugButtons topAnchor];
       v7 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v21[0] = v7;
+      v20[0] = v7;
       leadingAnchor = [(UIButton *)self->_recentsButton leadingAnchor];
       leadingAnchor2 = [_containerViewForDebugButtons leadingAnchor];
       v10 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v21[1] = v10;
+      v20[1] = v10;
       widthAnchor = [(UIButton *)self->_recentsButton widthAnchor];
       v12 = [widthAnchor constraintEqualToConstant:70.0];
-      v21[2] = v12;
+      v20[2] = v12;
       heightAnchor = [(UIButton *)self->_recentsButton heightAnchor];
       v14 = [heightAnchor constraintEqualToConstant:70.0];
-      v21[3] = v14;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
-      [v17 activateConstraints:v15];
+      v20[3] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+      [v16 activateConstraints:v15];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_installDebuggingButton
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   if (self->_allowAppSwitcherControls)
   {
     _containerViewForDebugButtons = [(CKContextContentProviderUIScene *)self _containerViewForDebugButtons];
     if (_containerViewForDebugButtons)
     {
-      v20 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.up.fill"];
-      v4 = [MEMORY[0x1E69DC738] systemButtonWithImage:v20 target:self action:sel__didSelectDebugControl_];
+      v19 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.up.fill"];
+      v4 = [MEMORY[0x1E69DC738] systemButtonWithImage:v19 target:self action:sel__didSelectDebugControl_];
       debugButton = self->_debugButton;
       self->_debugButton = v4;
 
@@ -2359,27 +2282,25 @@ uint64_t __79__CKContextContentProviderUIScene__setUpDebuggingControlsIfPossible
 
       [(UIButton *)self->_debugButton setTranslatesAutoresizingMaskIntoConstraints:0];
       [_containerViewForDebugButtons addSubview:self->_debugButton];
-      v17 = MEMORY[0x1E696ACD8];
+      v16 = MEMORY[0x1E696ACD8];
       topAnchor = [(UIButton *)self->_debugButton topAnchor];
       topAnchor2 = [_containerViewForDebugButtons topAnchor];
       v7 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v21[0] = v7;
+      v20[0] = v7;
       trailingAnchor = [(UIButton *)self->_debugButton trailingAnchor];
       trailingAnchor2 = [_containerViewForDebugButtons trailingAnchor];
       v10 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v21[1] = v10;
+      v20[1] = v10;
       widthAnchor = [(UIButton *)self->_debugButton widthAnchor];
       v12 = [widthAnchor constraintEqualToConstant:70.0];
-      v21[2] = v12;
+      v20[2] = v12;
       heightAnchor = [(UIButton *)self->_debugButton heightAnchor];
       v14 = [heightAnchor constraintEqualToConstant:70.0];
-      v21[3] = v14;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
-      [v17 activateConstraints:v15];
+      v20[3] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+      [v16 activateConstraints:v15];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didSelectRecentsControl:(id)control
@@ -2425,7 +2346,7 @@ void __58__CKContextContentProviderUIScene__didSelectDebugControl___block_invoke
 
 - (id)_containerViewForDebugButtons
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (self->_allowAppSwitcherControls)
   {
     _scene = [(CKContextContentProviderUIScene *)self _scene];
@@ -2433,59 +2354,59 @@ void __58__CKContextContentProviderUIScene__didSelectDebugControl___block_invoke
 
     if ([_visibleWindows count])
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v5 = _visibleWindows;
-      v21 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
-      if (v21)
+      v20 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      if (v20)
       {
-        v6 = *v28;
-        v22 = v5;
-        v20 = *v28;
+        v6 = *v27;
+        v21 = v5;
+        v19 = *v27;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v28 != v6)
+            if (*v27 != v6)
             {
               objc_enumerationMutation(v5);
             }
 
-            v8 = [(CKContextContentProviderUIScene *)self _descendantsRelevantForDebugControls:*(*(&v27 + 1) + 8 * i)];
+            v8 = [(CKContextContentProviderUIScene *)self _descendantsRelevantForDebugControls:*(*(&v26 + 1) + 8 * i)];
+            v22 = 0u;
             v23 = 0u;
             v24 = 0u;
             v25 = 0u;
-            v26 = 0u;
             v9 = v8;
-            v10 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
             if (v10)
             {
               v11 = v10;
-              v12 = *v24;
+              v12 = *v23;
               while (2)
               {
                 for (j = 0; j != v11; ++j)
                 {
-                  if (*v24 != v12)
+                  if (*v23 != v12)
                   {
                     objc_enumerationMutation(v9);
                   }
 
-                  v14 = *(*(&v23 + 1) + 8 * j);
+                  v14 = *(*(&v22 + 1) + 8 * j);
                   v15 = objc_opt_class();
                   v16 = NSStringFromClass(v15);
                   if ([v16 containsString:@"SBFluidSwitcherContentView"])
                   {
                     v17 = v14;
 
-                    v5 = v22;
+                    v5 = v21;
                     goto LABEL_23;
                   }
                 }
 
-                v11 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
+                v11 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
                 if (v11)
                 {
                   continue;
@@ -2495,15 +2416,15 @@ void __58__CKContextContentProviderUIScene__didSelectDebugControl___block_invoke
               }
             }
 
-            v5 = v22;
-            v6 = v20;
+            v5 = v21;
+            v6 = v19;
           }
 
           v17 = 0;
-          v21 = [v22 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v20 = [v21 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
-        while (v21);
+        while (v20);
       }
 
       else
@@ -2525,96 +2446,70 @@ LABEL_23:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)_descendantsRelevantForDebugControls:(id)controls
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   controlsCopy = controls;
   v5 = controlsCopy;
-  if (!self->_allowAppSwitcherControls)
-  {
-    goto LABEL_4;
-  }
-
-  [controlsCopy frame];
-  x = v26.origin.x;
-  y = v26.origin.y;
-  width = v26.size.width;
-  height = v26.size.height;
-  if (CGRectGetWidth(v26) < 150.0)
-  {
-    goto LABEL_4;
-  }
-
-  v27.origin.x = x;
-  v27.origin.y = y;
-  v27.size.width = width;
-  v27.size.height = height;
-  if (CGRectGetHeight(v27) >= 150.0)
+  if (self->_allowAppSwitcherControls && ([controlsCopy frame], x = v25.origin.x, y = v25.origin.y, width = v25.size.width, height = v25.size.height, CGRectGetWidth(v25) >= 150.0) && (v26.origin.x = x, v26.origin.y = y, v26.size.width = width, v26.size.height = height, CGRectGetHeight(v26) >= 150.0))
   {
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
     [v10 addObject:v5];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     subviews = [v5 subviews];
-    v14 = [subviews countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v14)
+    v13 = [subviews countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v20;
+      v14 = v13;
+      v15 = *v19;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v20 != v16)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(subviews);
           }
 
-          v18 = [(CKContextContentProviderUIScene *)self _descendantsRelevantForDebugControls:*(*(&v19 + 1) + 8 * i)];
-          [v10 addObjectsFromArray:v18];
+          v17 = [(CKContextContentProviderUIScene *)self _descendantsRelevantForDebugControls:*(*(&v18 + 1) + 8 * i)];
+          [v10 addObjectsFromArray:v17];
         }
 
-        v15 = [subviews countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v14 = [subviews countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v15);
+      while (v14);
     }
   }
 
   else
   {
-LABEL_4:
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 void __192__CKContextContentProviderUIScene__extractContentFromWebView_includingSnapshot_includingUIBoundingBox_ignoreViewTextLengthRequirements_ignoreViewCountCap_includeRawHTML_withCompletionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_1B842F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error evaluating JavaScript for node extraction: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_1B842F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error evaluating JavaScript for node extraction: %@", &v1, 0xCu);
 }
 
 void __192__CKContextContentProviderUIScene__extractContentFromWebView_includingSnapshot_includingUIBoundingBox_ignoreViewTextLengthRequirements_ignoreViewCountCap_includeRawHTML_withCompletionHandler___block_invoke_2_cold_2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = 138412290;
-  v2 = 0;
-  _os_log_error_impl(&dword_1B842F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error parsing node information to JSON dictionary: %@", &v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v0 = 138412290;
+  v1 = 0;
+  _os_log_error_impl(&dword_1B842F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error parsing node information to JSON dictionary: %@", &v0, 0xCu);
 }
 
 @end

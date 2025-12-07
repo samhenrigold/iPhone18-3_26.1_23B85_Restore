@@ -1,5 +1,6 @@
 @interface NPKProtoAutomaticProvisioningRequest
 - (BOOL)isEqual:(id)equal;
+- (id)cardTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)cardTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279945EA0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCardType:(id)type
@@ -141,43 +157,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_passTypeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_serialNumber)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    credentialType = self->_credentialType;
     PBDataWriterWriteUint64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_primaryAccountNumberSuffix)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_localizedName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    cardType = self->_cardType;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -282,7 +296,6 @@
     }
   }
 
-  v7 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_credentialType != *(equalCopy + 1))
@@ -294,7 +307,7 @@
   else if (*(equalCopy + 56))
   {
 LABEL_19:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_20;
   }
 
@@ -313,7 +326,7 @@ LABEL_19:
     }
   }
 
-  v10 = (*(equalCopy + 56) & 2) == 0;
+  v9 = (*(equalCopy + 56) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_cardType != *(equalCopy + 4))
@@ -321,12 +334,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_20:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

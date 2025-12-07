@@ -100,11 +100,9 @@
   exitRecordDate = self->_exitRecordDate;
   if (!exitRecordDate)
   {
-    v4 = *MEMORY[0x277D19A08];
-    v5 = *MEMORY[0x277D19AC8];
-    v6 = IMGetCachedDomainValueForKey();
-    v7 = self->_exitRecordDate;
-    self->_exitRecordDate = v6;
+    v4 = IMGetCachedDomainValueForKey();
+    v5 = self->_exitRecordDate;
+    self->_exitRecordDate = v4;
 
     exitRecordDate = self->_exitRecordDate;
   }
@@ -114,7 +112,7 @@
 
 - (void)setExitRecordDate:(id)date
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   exitRecordDate = [(IMDCKExitManager *)self exitRecordDate];
   if (!dateCopy || ([dateCopy isEqualToDate:exitRecordDate] & 1) == 0)
@@ -125,30 +123,25 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = @"NO";
-        v13 = 138412802;
-        v14 = exitRecordDate;
-        v15 = 2112;
+        v9 = 138412802;
+        v10 = exitRecordDate;
+        v11 = 2112;
         if (dateCopy)
         {
           v8 = @"YES";
         }
 
-        v16 = dateCopy;
-        v17 = 2112;
-        v18 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Exit Record date has been modified, changing it from %@ to %@. Are we in exit state ? %@", &v13, 0x20u);
+        v12 = dateCopy;
+        v13 = 2112;
+        v14 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Exit Record date has been modified, changing it from %@ to %@. Are we in exit state ? %@", &v9, 0x20u);
       }
     }
 
-    v9 = *MEMORY[0x277D19A08];
-    v10 = *MEMORY[0x277D19AC8];
     IMSetDomainValueForKey();
-    v11 = *MEMORY[0x277D19B40];
     IMSetDomainBoolForKey();
     objc_storeStrong(&self->_exitRecordDate, date);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSError)errorFetchingExitDate
@@ -156,18 +149,16 @@
   errorFetchingExitDate = self->_errorFetchingExitDate;
   if (!errorFetchingExitDate)
   {
-    v4 = *MEMORY[0x277D19A08];
-    v5 = *MEMORY[0x277D19AC0];
-    v6 = IMGetCachedDomainValueForKey();
+    v4 = IMGetCachedDomainValueForKey();
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = v6;
-      if (v7)
+      v5 = v4;
+      if (v5)
       {
-        v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithSerializedError_im:v7];
-        v9 = self->_errorFetchingExitDate;
-        self->_errorFetchingExitDate = v8;
+        v6 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithSerializedError_im:v5];
+        v7 = self->_errorFetchingExitDate;
+        self->_errorFetchingExitDate = v6;
       }
     }
 
@@ -179,7 +170,7 @@
 
 - (void)setErrorFetchingExitDate:(id)date
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   errorFetchingExitDate = [(IMDCKExitManager *)self errorFetchingExitDate];
   if (!dateCopy || ([dateCopy isEqual:errorFetchingExitDate] & 1) == 0)
@@ -189,11 +180,11 @@
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412546;
-        v14 = errorFetchingExitDate;
-        v15 = 2112;
-        v16 = dateCopy;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Error fetching exit record date has been modified, changing it from %@ to %@", &v13, 0x16u);
+        v10 = 138412546;
+        v11 = errorFetchingExitDate;
+        v12 = 2112;
+        v13 = dateCopy;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Error fetching exit record date has been modified, changing it from %@ to %@", &v10, 0x16u);
       }
     }
 
@@ -208,27 +199,23 @@
       serializedError_im = 0;
     }
 
-    v10 = *MEMORY[0x277D19A08];
-    v11 = *MEMORY[0x277D19AC0];
     IMSetDomainValueForKey();
     objc_storeStrong(&self->_errorFetchingExitDate, date);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleNotificationForSubscriptionID:(id)d
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
-      v8 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Handling notification for subscriptionID: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Handling notification for subscriptionID: %@", &v6, 0xCu);
     }
   }
 
@@ -236,13 +223,11 @@
   {
     [(IMDCKExitManager *)self _fetchExitRecordDateWithCompletion:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeExitRecordWithDate:(id)date completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   completionCopy = completion;
   if (IMOSLoggingEnabled())
@@ -251,7 +236,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = dateCopy;
+      v16 = dateCopy;
       _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Calling writeExitRecordWithDate. ExitDate: %@", buf, 0xCu);
     }
   }
@@ -264,8 +249,8 @@
     block[2] = sub_22B523DC8;
     block[3] = &unk_2787037B8;
     block[4] = self;
-    v14 = dateCopy;
-    v15 = completionCopy;
+    v13 = dateCopy;
+    v14 = completionCopy;
     dispatch_async(ckQueue, block);
   }
 
@@ -287,13 +272,11 @@
       (*(completionCopy + 2))(completionCopy, 0, v11);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)exitRecordDateWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (IMOSLoggingEnabled())
   {
@@ -305,16 +288,16 @@
       fetchedExitDateOnLaunch = [(IMDCKExitManager *)self fetchedExitDateOnLaunch];
       v9 = @"NO";
       *buf = 138412802;
-      v25 = exitRecordDate;
-      v26 = 2112;
+      v24 = exitRecordDate;
+      v25 = 2112;
       if (fetchedExitDateOnLaunch)
       {
         v9 = @"YES";
       }
 
-      v27 = errorFetchingExitDate;
-      v28 = 2112;
-      v29 = v9;
+      v26 = errorFetchingExitDate;
+      v27 = 2112;
+      v28 = v9;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Calling exitRecordDateWithCompletion date: %@ error: %@ fetchedExitDateOnLaunch: %@", buf, 0x20u);
     }
   }
@@ -330,16 +313,16 @@
       {
         if (IMOSLoggingEnabled())
         {
-          v15 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          v14 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             exitRecordDate2 = [(IMDCKExitManager *)self exitRecordDate];
             errorFetchingExitDate2 = [(IMDCKExitManager *)self errorFetchingExitDate];
             *buf = 138412546;
-            v25 = exitRecordDate2;
-            v26 = 2112;
-            v27 = errorFetchingExitDate2;
-            _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Already on main queue exitDate: %@ error: %@", buf, 0x16u);
+            v24 = exitRecordDate2;
+            v25 = 2112;
+            v26 = errorFetchingExitDate2;
+            _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Already on main queue exitDate: %@ error: %@", buf, 0x16u);
           }
         }
 
@@ -350,29 +333,27 @@
 
       else
       {
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = sub_22B524898;
-        v20[3] = &unk_278703808;
-        v20[4] = self;
-        v21 = completionCopy;
-        dispatch_async(MEMORY[0x277D85CD0], v20);
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = sub_22B524898;
+        v19[3] = &unk_278703808;
+        v19[4] = self;
+        v20 = completionCopy;
+        dispatch_async(MEMORY[0x277D85CD0], v19);
       }
     }
   }
 
   else
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_22B5246F4;
-    v22[3] = &unk_2787037E0;
-    v22[4] = self;
-    v23 = completionCopy;
-    [(IMDCKExitManager *)self _fetchExitRecordDateWithCompletion:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = sub_22B5246F4;
+    v21[3] = &unk_2787037E0;
+    v21[4] = self;
+    v22 = completionCopy;
+    [(IMDCKExitManager *)self _fetchExitRecordDateWithCompletion:v21];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_evalToggleiCloudSettingsSwitch
@@ -459,7 +440,7 @@
 
 - (int64_t)derivedQualityOfService
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   currentThread = [MEMORY[0x277CCACC8] currentThread];
   qualityOfService = [currentThread qualityOfService];
 
@@ -479,15 +460,14 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       currentThread2 = [MEMORY[0x277CCACC8] currentThread];
-      v9 = 134218240;
+      v8 = 134218240;
       qualityOfService2 = [currentThread2 qualityOfService];
-      v11 = 2048;
-      v12 = v4;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "QOS: 0x%lX target qos: 0x%lX", &v9, 0x16u);
+      v10 = 2048;
+      v11 = v4;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "QOS: 0x%lX target qos: 0x%lX", &v8, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -641,109 +621,104 @@
 
 - (void)writeInitialSyncCompletedRecordIfNeeded
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D1ACB8] = [MEMORY[0x277D1ACB8] sharedInstance];
   isUnderFirstDataProtectionLock = [mEMORY[0x277D1ACB8] isUnderFirstDataProtectionLock];
 
   if (isUnderFirstDataProtectionLock)
   {
-    if (IMOSLoggingEnabled())
+    if (!IMOSLoggingEnabled())
     {
-      lastSyncDate = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(lastSyncDate, OS_LOG_TYPE_INFO))
-      {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_22B4CC000, lastSyncDate, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded Not doing under first unlock", &v16, 2u);
-      }
+      return;
+    }
 
-LABEL_31:
+    lastSyncDate = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(lastSyncDate, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_22B4CC000, lastSyncDate, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded Not doing under first unlock", &v14, 2u);
+    }
+  }
+
+  else if (IMGetDomainBoolForKeyWithDefaultValue())
+  {
+    if (!IMOSLoggingEnabled())
+    {
+      return;
+    }
+
+    lastSyncDate = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(lastSyncDate, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_22B4CC000, lastSyncDate, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded We have already done this. Not doing again unless you do defaults delete com.apple.madrid initialSyncRecordHasBeenWritten", &v14, 2u);
     }
   }
 
   else
   {
-    v6 = *MEMORY[0x277D19A08];
-    if ((IMGetDomainBoolForKeyWithDefaultValue() & 1) == 0)
-    {
-      IMSetDomainBoolForKey();
-      syncState = [(IMDCKAbstractSyncController *)self syncState];
-      lastSyncDate = [syncState lastSyncDate];
-
-      if (IMOSLoggingEnabled())
-      {
-        v8 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-        {
-          v16 = 138412290;
-          v17 = lastSyncDate;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded Requesting last sync date for metrics: %@", &v16, 0xCu);
-        }
-      }
-
-      if (lastSyncDate)
-      {
-        date = [MEMORY[0x277CBEAA8] date];
-        v10 = ([lastSyncDate differenceFromDate:date]+ 7) < 8;
-        v11 = IMOSLoggingEnabled();
-        if (v10)
-        {
-          if (v11)
-          {
-            v12 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-            {
-              LOWORD(v16) = 0;
-              _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Last sync was within the last 7 days", &v16, 2u);
-            }
-          }
-
-          [(IMDCKExitManager *)self writeSyncCompletedRecordWithDate:lastSyncDate completion:&unk_283F197E8];
-        }
-
-        else if (v11)
-        {
-          v13 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-          {
-            v16 = 138412290;
-            v17 = lastSyncDate;
-            _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded last sync date %@ was not in last 7 days", &v16, 0xCu);
-          }
-        }
-      }
-
-      else if (IMOSLoggingEnabled())
-      {
-        v14 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-        {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded No last sync date", &v16, 2u);
-        }
-      }
-
-      goto LABEL_31;
-    }
+    IMSetDomainBoolForKey();
+    syncState = [(IMDCKAbstractSyncController *)self syncState];
+    lastSyncDate = [syncState lastSyncDate];
 
     if (IMOSLoggingEnabled())
     {
-      lastSyncDate = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(lastSyncDate, OS_LOG_TYPE_INFO))
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_22B4CC000, lastSyncDate, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded We have already done this. Not doing again unless you do defaults delete com.apple.madrid initialSyncRecordHasBeenWritten", &v16, 2u);
+        v14 = 138412290;
+        v15 = lastSyncDate;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded Requesting last sync date for metrics: %@", &v14, 0xCu);
+      }
+    }
+
+    if (lastSyncDate)
+    {
+      date = [MEMORY[0x277CBEAA8] date];
+      v9 = ([lastSyncDate differenceFromDate:date]+ 7) < 8;
+      v10 = IMOSLoggingEnabled();
+      if (v9)
+      {
+        if (v10)
+        {
+          v11 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+          {
+            LOWORD(v14) = 0;
+            _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Last sync was within the last 7 days", &v14, 2u);
+          }
+        }
+
+        [(IMDCKExitManager *)self writeSyncCompletedRecordWithDate:lastSyncDate completion:&unk_283F197E8];
       }
 
-      goto LABEL_31;
+      else if (v10)
+      {
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        {
+          v14 = 138412290;
+          v15 = lastSyncDate;
+          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded last sync date %@ was not in last 7 days", &v14, 0xCu);
+        }
+      }
+    }
+
+    else if (IMOSLoggingEnabled())
+    {
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "writeInitialSyncCompletedRecordIfNeeded No last sync date", &v14, 2u);
+      }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitCloudKitMetricWithOperationGroupName:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   ckUtilities = [(IMDCKAbstractSyncController *)self ckUtilities];
   cloudKitSyncingEnabled = [ckUtilities cloudKitSyncingEnabled];
@@ -754,13 +729,13 @@ LABEL_31:
   if ((cloudKitSyncingEnabled & serverAllowsMetricSubmission) == 1)
   {
     date = [MEMORY[0x277CBEAA8] date];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_22B5268D0;
-    v14[3] = &unk_2787038A8;
-    v14[4] = self;
-    v15 = nameCopy;
-    [(IMDCKExitManager *)self submitCloudKitMetricWithData:date operationGroupName:v15 completion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_22B5268D0;
+    v13[3] = &unk_2787038A8;
+    v13[4] = self;
+    v14 = nameCopy;
+    [(IMDCKExitManager *)self submitCloudKitMetricWithData:date operationGroupName:v14 completion:v13];
   }
 
   else if (IMOSLoggingEnabled())
@@ -785,14 +760,12 @@ LABEL_31:
       }
 
       *buf = 138412546;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v11;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v11;
       _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "*** submitCloudKitMetricWithOperationGroupName not submitting MOC enabled: %@, serverAllowsSubmission: %@", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_analyticZoneCreated
@@ -835,7 +808,7 @@ LABEL_31:
 
 - (void)submitCloudKitAnalyticWithOperationGroupName:(id)name analyticDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dictionaryCopy = dictionary;
   if (IMOSLoggingEnabled())
@@ -845,9 +818,9 @@ LABEL_31:
     {
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dictionaryCopy, "count")}];
       *buf = 138412546;
-      v18 = v9;
-      v19 = 2112;
-      v20 = nameCopy;
+      v17 = v9;
+      v18 = 2112;
+      v19 = nameCopy;
       _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Request to submit dictionary (%@) opGroupName %@", buf, 0x16u);
     }
   }
@@ -857,14 +830,14 @@ LABEL_31:
 
   if (serverAllowsAnalyticSubmission)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_22B526ED4;
-    v14[3] = &unk_2787038D0;
-    v14[4] = self;
-    v15 = dictionaryCopy;
-    v16 = nameCopy;
-    [(IMDCKExitManager *)self submitCloudKitAnalyticWithDictionary:v15 operationGroupName:v16 completion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_22B526ED4;
+    v13[3] = &unk_2787038D0;
+    v13[4] = self;
+    v14 = dictionaryCopy;
+    v15 = nameCopy;
+    [(IMDCKExitManager *)self submitCloudKitAnalyticWithDictionary:v14 operationGroupName:v15 completion:v13];
   }
 
   else if (IMOSLoggingEnabled())
@@ -876,13 +849,11 @@ LABEL_31:
       _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "*** submitCloudKitMetricWithOperationGroupName not submitting as analytic submission is not enabled", buf, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleMetricOperation:(id)operation
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   databaseManager = [(IMDCKExitManager *)self databaseManager];
   manateeDataBase = [databaseManager manateeDataBase];
@@ -894,17 +865,15 @@ LABEL_31:
     {
       group = [operationCopy group];
       name = [group name];
-      v11 = 138412546;
-      v12 = name;
-      v13 = 2112;
-      v14 = manateeDataBase;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Performing metric operation name %@ using DB %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = name;
+      v12 = 2112;
+      v13 = manateeDataBase;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Performing metric operation name %@ using DB %@", &v10, 0x16u);
     }
   }
 
   [manateeDataBase addOperation:operationCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_modifiedOpGroupName:(id)name
@@ -943,7 +912,7 @@ LABEL_31:
 
 - (BOOL)_canSubmitCloudKitMetric
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   ckUtilities = [(IMDCKAbstractSyncController *)self ckUtilities];
   serverAllowsMetricSubmission = [ckUtilities serverAllowsMetricSubmission];
 
@@ -956,28 +925,27 @@ LABEL_31:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = @"YES";
-      v10 = 138412802;
-      v11 = @"NO";
-      v12 = 2112;
+      v9 = 138412802;
+      v10 = @"NO";
+      v11 = 2112;
       if (!isInternalInstall)
       {
         v7 = @"NO";
       }
 
-      v13 = v7;
-      v14 = 2112;
-      v15 = @"NO";
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "We should not be submitting metrics to CloudKit: serverAllowsMetricSubmission: %@ isInternal: %@ isSeed: %@", &v10, 0x20u);
+      v12 = v7;
+      v13 = 2112;
+      v14 = @"NO";
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "We should not be submitting metrics to CloudKit: serverAllowsMetricSubmission: %@ isInternal: %@ isSeed: %@", &v9, 0x20u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return serverAllowsMetricSubmission;
 }
 
 - (BOOL)_canSubmitCloudKitAnalytic
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   ckUtilities = [(IMDCKAbstractSyncController *)self ckUtilities];
   serverAllowsAnalyticSubmission = [ckUtilities serverAllowsAnalyticSubmission];
 
@@ -990,28 +958,27 @@ LABEL_31:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = @"YES";
-      v10 = 138412802;
-      v11 = @"NO";
-      v12 = 2112;
+      v9 = 138412802;
+      v10 = @"NO";
+      v11 = 2112;
       if (!isInternalInstall)
       {
         v7 = @"NO";
       }
 
-      v13 = v7;
-      v14 = 2112;
-      v15 = @"NO";
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "We should not be submitting metrics to CloudKit: serverAllowsMetricSubmission: %@ isInternal: %@ isSeed: %@", &v10, 0x20u);
+      v12 = v7;
+      v13 = 2112;
+      v14 = @"NO";
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "We should not be submitting metrics to CloudKit: serverAllowsMetricSubmission: %@ isInternal: %@ isSeed: %@", &v9, 0x20u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return serverAllowsAnalyticSubmission;
 }
 
 - (void)submitCloudKitMetricWithData:(id)data operationGroupName:(id)name completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   nameCopy = name;
   completionCopy = completion;
@@ -1024,9 +991,9 @@ LABEL_31:
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v18 = 138412290;
-        v19 = v11;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Writing up sync metric using opGroup %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v11;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Writing up sync metric using opGroup %@", &v17, 0xCu);
       }
     }
 
@@ -1045,8 +1012,8 @@ LABEL_31:
       v16 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "We should not be submitting metrics to CloudKit so calling completion with success.", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "We should not be submitting metrics to CloudKit so calling completion with success.", &v17, 2u);
       }
     }
 
@@ -1057,22 +1024,20 @@ LABEL_31:
 
     v11 = nameCopy;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitCloudKitAnalyticWithDictionary:(id)dictionary operationGroupName:(id)name completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   nameCopy = name;
   completionCopy = completion;
   _canSubmitCloudKitAnalytic = [(IMDCKExitManager *)self _canSubmitCloudKitAnalytic];
   if (dictionaryCopy && [MEMORY[0x277CCAAA0] isValidJSONObject:dictionaryCopy])
   {
-    v23 = 0;
-    v12 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictionaryCopy options:1 error:&v23];
-    v13 = v23;
+    v22 = 0;
+    v12 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictionaryCopy options:1 error:&v22];
+    v13 = v22;
     if (!_canSubmitCloudKitAnalytic)
     {
 LABEL_4:
@@ -1088,9 +1053,9 @@ LABEL_4:
           }
 
           *buf = 138412546;
-          v25 = @"NO";
-          v26 = 2112;
-          v27 = v15;
+          v24 = @"NO";
+          v25 = 2112;
+          v26 = v15;
           _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Not submitting metrics to CloudKit because notAllowed: %@ noJsonData: %@ so calling completion with success.", buf, 0x16u);
         }
       }
@@ -1109,9 +1074,9 @@ LABEL_4:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v25 = dictionaryCopy;
-        v26 = 2112;
-        v27 = nameCopy;
+        v24 = dictionaryCopy;
+        v25 = 2112;
+        v26 = nameCopy;
         _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Failed to serizlize analyticdict as JSON %@. Posting operationGroupName %@ only.", buf, 0x16u);
       }
     }
@@ -1132,7 +1097,7 @@ LABEL_4:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = v16;
+      v24 = v16;
       _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Writing up sync analytic using opGroup %@", buf, 0xCu);
     }
   }
@@ -1149,7 +1114,6 @@ LABEL_4:
   [(IMDCKExitManager *)self _submitCloudKitMetricWithOperationGroupName:v16 record:v21 ignoreZoneNotFoundError:0 completion:completionCopy];
 
 LABEL_23:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCloudKitZoneFetchRequestToNoteFeatureIsOn

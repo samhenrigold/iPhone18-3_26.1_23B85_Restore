@@ -14,20 +14,8 @@ id __44__LACFlags_valueForFlagCompanionMockDevices__block_invoke(uint64_t a1, vo
     v7 = [v6 environment];
     v8 = [v7 objectForKeyedSubscript:v4];
 
-    if (!v8)
+    if (!v8 || (v9 = objc_alloc_init(MEMORY[0x1E696ADA0]), [MEMORY[0x1E696AE30] processInfo], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "environment"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKeyedSubscript:", v4), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "numberFromString:", v12), v13 = objc_claimAutoreleasedReturnValue(), v12, v11, v10, v9, !v13))
     {
-      goto LABEL_4;
-    }
-
-    v9 = objc_alloc_init(MEMORY[0x1E696ADA0]);
-    v10 = [MEMORY[0x1E696AE30] processInfo];
-    v11 = [v10 environment];
-    v12 = [v11 objectForKeyedSubscript:v4];
-    v13 = [v9 numberFromString:v12];
-
-    if (!v13)
-    {
-LABEL_4:
       v14 = [MEMORY[0x1E695E000] standardUserDefaults];
       v15 = [v14 persistentDomainForName:*MEMORY[0x1E696A400]];
 
@@ -73,9 +61,11 @@ LABEL_4:
 
 uint64_t __26__LACFlags_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_sharedInstance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 uint64_t __65__LACFlags_valueForFlagAuthDialogUseAlwaysOnPasswordFieldEnabled__block_invoke(uint64_t a1, void *a2, uint64_t a3)

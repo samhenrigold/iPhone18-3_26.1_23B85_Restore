@@ -3,7 +3,7 @@
 
 @implementation AXSAccessibilitySecureIntentProvider
 
-uint64_t ___AXSAccessibilitySecureIntentProvider_block_invoke()
+void *___AXSAccessibilitySecureIntentProvider_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

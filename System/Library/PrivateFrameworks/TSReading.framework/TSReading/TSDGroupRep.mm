@@ -55,7 +55,7 @@
         v20 = [objc_msgSend(v11 "layout")];
         if (v20)
         {
-          [v20 transform];
+          objc_msgSend_transform(v20);
         }
 
         else
@@ -101,7 +101,7 @@
   geometry = [(TSDAbstractLayout *)[(TSDRep *)self layout] geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -272,7 +272,7 @@ LABEL_5:
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -318,7 +318,7 @@ LABEL_5:
         layout = [objc_msgSend(v8 layout];
         if (layout)
         {
-          [layout inverseTransform];
+          objc_msgSend_inverseTransform(layout);
           v10 = v17;
           v11 = v18;
           v12 = v19;
@@ -387,7 +387,7 @@ LABEL_5:
         layout = [objc_msgSend(v11 layout];
         if (layout)
         {
-          [layout inverseTransform];
+          objc_msgSend_inverseTransform(layout);
           v13 = v20;
           v14 = v21;
           v15 = v22;

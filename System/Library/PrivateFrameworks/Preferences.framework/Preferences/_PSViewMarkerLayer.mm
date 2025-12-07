@@ -124,7 +124,7 @@
   sub_18B0F52A0();
   swift_unknownObjectRelease();
   v4 = [(_PSViewMarkerLayer *)self init];
-  __swift_destroy_boxed_opaque_existential_0(&v6);
+  __swift_destroy_boxed_opaque_existential_0(v6);
   return v4;
 }
 

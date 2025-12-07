@@ -4,6 +4,7 @@
 - (OSADiagnosticMonitorServer)init;
 - (void)didWriteLog:(id)log filePath:(id)path;
 - (void)failedToWriteLog:(id)log error:(id)error;
+- (void)q_addConnection:(id)connection entitled:(BOOL)entitled;
 - (void)willWriteLog:(id)log details:(id)details;
 @end
 
@@ -156,6 +157,31 @@
   dispatch_async(queue, block);
 
   return 1;
+}
+
+- (void)q_addConnection:(id)connection entitled:(BOOL)entitled
+{
+  entitledCopy = entitled;
+  connectionCopy = connection;
+  v7 = [[Client alloc] initWithConnection:connectionCopy entitled:entitledCopy];
+  [(NSMutableSet *)self->_clients addObject:v7];
+  v8 = OSADiagnosticMonitorClientInterface();
+  [connectionCopy setRemoteObjectInterface:v8];
+
+  v9 = OSADiagnosticMonitorServerInterface();
+  [connectionCopy setExportedInterface:v9];
+
+  [connectionCopy setExportedObject:v7];
+  [connectionCopy _setQueue:self->_queue];
+  v11 = _NSConcreteStackBlock;
+  v12 = 3221225472;
+  v13 = sub_10000C2F0;
+  v14 = &unk_1000250E8;
+  v15 = v7;
+  selfCopy = self;
+  v10 = v7;
+  [connectionCopy setInvalidationHandler:&v11];
+  [connectionCopy resume];
 }
 
 @end

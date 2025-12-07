@@ -1,4 +1,4 @@
-uint64_t geo_isolater_create(uint64_t a1)
+geo_isolater *geo_isolater_create(uint64_t a1)
 {
   v2 = [geo_isolater alloc];
 
@@ -23,7 +23,7 @@ uint64_t geo_get_global_workloop(uint64_t a1)
   if (!v6)
   {
     v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.x%x", @"com.apple.geo.global.queue.", a1];
-    v6 = geo_dispatch_workloop_create_with_qos([v7 UTF8String]);
+    v6 = geo_dispatch_workloop_create_with_qos([v7 UTF8String], a1);
     [_geo_get_global_queue_globalQueueMap setObject:v6 forKey:v2];
   }
 
@@ -58,7 +58,7 @@ uint64_t geo_get_global_queue(uint64_t a1)
   if (!v6)
   {
     v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.x%x", @"com.apple.geo.global.queue.", a1];
-    v6 = geo_dispatch_workloop_create_with_qos([v7 UTF8String]);
+    v6 = geo_dispatch_workloop_create_with_qos([v7 UTF8String], a1);
     [_geo_get_global_queue_globalQueueMap setObject:v6 forKey:v2];
   }
 
@@ -67,7 +67,7 @@ uint64_t geo_get_global_queue(uint64_t a1)
   return v6;
 }
 
-NSObject *geo_dispatch_workloop_create_with_qos(const char *a1)
+NSObject *geo_dispatch_workloop_create_with_qos(const char *a1, uint64_t a2)
 {
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_workloop_set_qos_class_floor();
@@ -115,22 +115,21 @@ void sub_1AB6F71D4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
 geo_isolater *geo_isolater_create_with_format(char *__format, ...)
 {
   va_start(va, __format);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   vsnprintf(__str, 0x64uLL, __format, va);
-  result = [[geo_isolater alloc] initWithName:__str];
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return [[geo_isolater alloc] initWithName:__str];
 }
 
-id GEORegisterPListStateCaptureAtFrequency(unsigned int a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+id GEORegisterPListStateCaptureAtFrequency(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
+  v11 = a1;
   v12 = MEMORY[0x1E696AEC0];
   v13 = a4;
   v14 = a3;
   v15 = a2;
   v16 = [[v12 alloc] initWithFormat:v13 arguments:&a9];
 
-  v17 = _GEORegisterPListStateCaptureAtFrequency(a1, v15, v14, v16);
+  v17 = _GEORegisterPListStateCaptureAtFrequency(v11, v15, v14, v16);
 
   return v17;
 }
@@ -407,42 +406,41 @@ NSObject *geo_dispatch_timer_create_on_queue(NSObject *a1, void *a2, double a3, 
 id _GEOCreateTransaction(char *__format, ...)
 {
   va_start(va, __format);
-  v36 = *MEMORY[0x1E69E9840];
-  v35 = 0;
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
+  v35 = *MEMORY[0x1E69E9840];
+  v34 = 0;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v10 = 0u;
+  v13 = 0u;
   v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
-  v6 = 0u;
+  v10 = 0u;
   v7 = 0u;
-  *__str = 0u;
+  v8 = 0u;
   v5 = 0u;
+  v6 = 0u;
+  *__str = 0u;
+  v4 = 0u;
   vsnprintf(__str, 0x1F4uLL, __format, va);
   v1 = os_transaction_create();
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -458,7 +456,7 @@ void geo_reentrant_isolate_sync_data(void *a1, void *a2)
   os_unfair_recursive_lock_unlock();
 }
 
-void sub_1AB6F78E8(void *a1)
+void sub_1AB6F78E8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   objc_begin_catch(a1);
   os_unfair_recursive_lock_unlock();
@@ -683,21 +681,17 @@ uint64_t __GEOGetResourceManifestLog_block_invoke()
 dispatch_queue_t geo_dispatch_queue_create_with_format(char *__format, ...)
 {
   va_start(va, __format);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   vsnprintf(__str, 0x64uLL, __format, va);
-  result = geo_dispatch_queue_create_with_target(__str, 0);
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return geo_dispatch_queue_create_with_target(__str, 0);
 }
 
 geo_reentrant_isolater *geo_reentrant_isolater_create_with_format(char *__format, ...)
 {
   va_start(va, __format);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   vsnprintf(__str, 0x64uLL, __format, va);
-  result = [[geo_reentrant_isolater alloc] initWithName:__str];
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return [[geo_reentrant_isolater alloc] initWithName:__str];
 }
 
 id GEOGetUserSessionLog()
@@ -750,7 +744,7 @@ void geo_reentrant_isolate_sync(void *a1, void *a2)
   os_unfair_recursive_lock_unlock();
 }
 
-void sub_1AB6F8A5C(void *a1)
+void sub_1AB6F8A5C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   objc_begin_catch(a1);
   os_unfair_recursive_lock_unlock();
@@ -815,7 +809,7 @@ uint64_t __GEOGetTileLoadingLog_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t geo_reentrant_isolater_create(uint64_t a1)
+geo_reentrant_isolater *geo_reentrant_isolater_create(uint64_t a1)
 {
   v2 = [geo_reentrant_isolater alloc];
 
@@ -908,11 +902,9 @@ dispatch_queue_t geo_dispatch_queue_create_with_target_and_qos(const char *a1, v
 dispatch_workloop_t geo_dispatch_workloop_create_with_format(char *__format, ...)
 {
   va_start(va, __format);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   vsnprintf(__str, 0x64uLL, __format, va);
-  result = dispatch_workloop_create(__str);
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_workloop_create(__str);
 }
 
 id geo_get_global_operation_queue(uint64_t a1)

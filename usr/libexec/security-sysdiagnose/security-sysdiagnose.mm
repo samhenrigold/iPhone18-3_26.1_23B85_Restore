@@ -1,13 +1,13 @@
 uint64_t start()
 {
-  v173 = objc_autoreleasePoolPush();
+  v170 = objc_autoreleasePoolPush();
   puts("sysdiagnose keychain");
   qword_10000C3C8 = __stdoutp;
   *&err = 0;
-  *&v197 = 0;
-  *(&v197 + 1) = &v197;
-  *&v198 = 0x2020000000;
-  DWORD2(v198) = 0;
+  *&v194 = 0;
+  *(&v194 + 1) = &v194;
+  *&v195 = 0x2020000000;
+  DWORD2(v195) = 0;
   v0 = SOSCCThisDeviceIsInCircle();
   if (v0 == -1)
   {
@@ -36,7 +36,7 @@ uint64_t start()
     }
 
     sub_100004198(v12, 0, v13, v7, v8, v9, v10, v11, v168);
-    sub_100004198(qword_10000C3C8, 0, @"\n", v39, v40, v41, v42, v43, v171);
+    sub_100004198(qword_10000C3C8, 0, @"\n", v39, v40, v41, v42, v43);
   }
 
   else
@@ -51,7 +51,7 @@ uint64_t start()
       v6 = off_100008750[v0];
     }
 
-    sub_100004198(qword_10000C3C8, 0, @"ccstatus: %s (%d)\n", v1, v2, v3, v4, v5, v6);
+    sub_100004198(qword_10000C3C8, 0, @"ccstatus: %s (%d)\n", v1, v2, v3, v4, v5, v6, v0);
     DepartureReason = SOSCCGetLastDepartureReason();
     if (DepartureReason > 8)
     {
@@ -63,8 +63,7 @@ uint64_t start()
       v20 = off_100008770[DepartureReason];
     }
 
-    v172 = DepartureReason;
-    sub_100004198(qword_10000C3C8, 0, @"LastDepartureReason: %s (%d)\n", v14, v15, v16, v17, v18, v20);
+    sub_100004198(qword_10000C3C8, 0, @"LastDepartureReason: %s (%d)\n", v14, v15, v16, v17, v18, v20, DepartureReason);
     if (SOSCCValidateUserPublic())
     {
       v26 = @"Account user public is trusted\n";
@@ -81,14 +80,14 @@ uint64_t start()
     if (v32)
     {
       context = _NSConcreteStackBlock;
-      v191 = 3221225472;
-      v192 = sub_1000030A4;
-      v193 = &unk_100008598;
-      v194 = &v197;
+      v188 = 3221225472;
+      v189 = sub_1000030A4;
+      v190 = &unk_100008598;
+      v191 = &v194;
       v33 = &context;
-      v201.length = CFArrayGetCount(v32);
-      v201.location = 0;
-      CFArrayApplyFunction(v32, v201, sub_1000037AC, v33);
+      v198.length = CFArrayGetCount(v32);
+      v198.location = 0;
+      CFArrayApplyFunction(v32, v198, sub_1000037AC, v33);
 
       CFRelease(v32);
     }
@@ -111,29 +110,29 @@ uint64_t start()
     }
   }
 
-  _Block_object_dispose(&v197, 8);
+  _Block_object_dispose(&v194, 8);
   context = 0;
-  sub_100004198(qword_10000C3C8, 0, @"Engine state:\n", v44, v45, v46, v47, v48, v170);
+  sub_100004198(qword_10000C3C8, 0, @"Engine state:\n", v44, v45, v46, v47, v48);
   if ((SOSCCForEachEngineStateAsString() & 1) == 0)
   {
     sub_100004198(qword_10000C3C8, 0, @"No engine state, got error: %@\n", v49, v50, v51, v52, v53, context);
   }
 
   [@"HomeKit keychain state:\n" writeToStdOut];
-  *&v197 = kSecClass;
-  *(&v197 + 1) = kSecAttrAccessGroup;
+  *&v194 = kSecClass;
+  *(&v194 + 1) = kSecAttrAccessGroup;
   context = kSecClassGenericPassword;
-  v191 = @"com.apple.hap.pairing";
-  *&v198 = kSecAttrSynchronizable;
-  *(&v198 + 1) = kSecMatchLimit;
-  v192 = kCFBooleanTrue;
-  v193 = kSecMatchLimitAll;
-  v199 = __PAIR128__(kSecReturnData, kSecReturnAttributes);
-  v194 = &__kCFBooleanTrue;
-  v195 = &__kCFBooleanFalse;
-  *&v200 = kSecUseDataProtectionKeychain;
-  v196 = &__kCFBooleanTrue;
-  v54 = [NSDictionary dictionaryWithObjects:&context forKeys:&v197 count:7];
+  v188 = @"com.apple.hap.pairing";
+  *&v195 = kSecAttrSynchronizable;
+  *(&v195 + 1) = kSecMatchLimit;
+  v189 = kCFBooleanTrue;
+  v190 = kSecMatchLimitAll;
+  v196 = __PAIR128__(kSecReturnData, kSecReturnAttributes);
+  v191 = &__kCFBooleanTrue;
+  v192 = &__kCFBooleanFalse;
+  *&v197 = kSecUseDataProtectionKeychain;
+  v193 = &__kCFBooleanTrue;
+  v54 = [NSDictionary dictionaryWithObjects:&context forKeys:&v194 count:7];
   v55 = [v54 mutableCopy];
 
   *&err = 0;
@@ -176,21 +175,21 @@ uint64_t start()
   }
 
   [@"AutoUnlock keychain state:\n" writeToStdOut];
-  *&v197 = kSecClass;
-  *(&v197 + 1) = kSecAttrAccessGroup;
+  *&v194 = kSecClass;
+  *(&v194 + 1) = kSecAttrAccessGroup;
   context = kSecClassGenericPassword;
-  v191 = @"com.apple.continuity.unlock";
-  *&v198 = kSecAttrAccount;
-  *(&v198 + 1) = kSecAttrSynchronizable;
-  v192 = @"com.apple.continuity.auto-unlock.sync";
-  v193 = kCFBooleanTrue;
-  *&v199 = kSecMatchLimit;
-  *(&v199 + 1) = kSecReturnAttributes;
-  v194 = kSecMatchLimitAll;
-  v195 = &__kCFBooleanTrue;
-  v196 = &__kCFBooleanFalse;
-  *&v200 = kSecReturnData;
-  v59 = [NSDictionary dictionaryWithObjects:&context forKeys:&v197 count:7];
+  v188 = @"com.apple.continuity.unlock";
+  *&v195 = kSecAttrAccount;
+  *(&v195 + 1) = kSecAttrSynchronizable;
+  v189 = @"com.apple.continuity.auto-unlock.sync";
+  v190 = kCFBooleanTrue;
+  *&v196 = kSecMatchLimit;
+  *(&v196 + 1) = kSecReturnAttributes;
+  v191 = kSecMatchLimitAll;
+  v192 = &__kCFBooleanTrue;
+  v193 = &__kCFBooleanFalse;
+  *&v197 = kSecReturnData;
+  v59 = [NSDictionary dictionaryWithObjects:&context forKeys:&v194 count:7];
   *&err = 0;
   if (!SecItemCopyMatching(v59, &err))
   {
@@ -205,18 +204,18 @@ uint64_t start()
   }
 
   [@"Rapport keychain state:\n" writeToStdOut];
-  *&v197 = kSecClass;
-  *(&v197 + 1) = kSecAttrAccessGroup;
+  *&v194 = kSecClass;
+  *(&v194 + 1) = kSecAttrAccessGroup;
   context = kSecClassGenericPassword;
-  v191 = @"com.apple.rapport";
-  *&v198 = kSecAttrSynchronizable;
-  *(&v198 + 1) = kSecMatchLimit;
-  v192 = kCFBooleanTrue;
-  v193 = kSecMatchLimitAll;
-  v199 = __PAIR128__(kSecReturnData, kSecReturnAttributes);
-  v194 = &__kCFBooleanTrue;
-  v195 = &__kCFBooleanFalse;
-  v61 = [NSDictionary dictionaryWithObjects:&context forKeys:&v197 count:6];
+  v188 = @"com.apple.rapport";
+  *&v195 = kSecAttrSynchronizable;
+  *(&v195 + 1) = kSecMatchLimit;
+  v189 = kCFBooleanTrue;
+  v190 = kSecMatchLimitAll;
+  v196 = __PAIR128__(kSecReturnData, kSecReturnAttributes);
+  v191 = &__kCFBooleanTrue;
+  v192 = &__kCFBooleanFalse;
+  v61 = [NSDictionary dictionaryWithObjects:&context forKeys:&v194 count:6];
   *&err = 0;
   if (!SecItemCopyMatching(v61, &err))
   {
@@ -231,44 +230,44 @@ uint64_t start()
   }
 
   [@"Notes keychain state:\n" writeToStdOut];
-  v184[0] = kSecClass;
-  v184[1] = kSecAttrAccessGroup;
+  v181[0] = kSecClass;
+  v181[1] = kSecAttrAccessGroup;
   *&err = kSecClassGenericPassword;
   *(&err + 1) = @"group.com.apple.notes";
-  v184[2] = kSecAttrSynchronizable;
-  v184[3] = kSecMatchLimit;
-  v186 = kSecAttrSynchronizableAny;
-  v187 = kSecMatchLimitAll;
-  v184[4] = kSecReturnAttributes;
-  v184[5] = kSecReturnData;
-  v188 = &__kCFBooleanTrue;
-  v189 = &__kCFBooleanFalse;
-  query = [NSDictionary dictionaryWithObjects:&err forKeys:v184 count:6];
+  v181[2] = kSecAttrSynchronizable;
+  v181[3] = kSecMatchLimit;
+  v183 = kSecAttrSynchronizableAny;
+  v184 = kSecMatchLimitAll;
+  v181[4] = kSecReturnAttributes;
+  v181[5] = kSecReturnData;
+  v185 = &__kCFBooleanTrue;
+  v186 = &__kCFBooleanFalse;
+  query = [NSDictionary dictionaryWithObjects:&err forKeys:v181 count:6];
   result = 0;
   if (!SecItemCopyMatching(query, &result))
   {
     v63 = +[NSMutableArray array];
-    v181 = +[NSMutableDictionary dictionary];
-    v199 = 0u;
-    v200 = 0u;
+    v178 = +[NSMutableDictionary dictionary];
+    v196 = 0u;
     v197 = 0u;
-    v198 = 0u;
+    v194 = 0u;
+    v195 = 0u;
     v64 = result;
-    v65 = [v64 countByEnumeratingWithState:&v197 objects:&context count:16];
+    v65 = [v64 countByEnumeratingWithState:&v194 objects:&context count:16];
     if (v65)
     {
-      v66 = *v198;
+      v66 = *v195;
       v67 = 1;
       do
       {
         for (i = 0; i != v65; i = i + 1)
         {
-          if (*v198 != v66)
+          if (*v195 != v66)
           {
             objc_enumerationMutation(v64);
           }
 
-          v69 = [*(*(&v197 + 1) + 8 * i) mutableCopy];
+          v69 = [*(*(&v194 + 1) + 8 * i) mutableCopy];
           v70 = [v69 objectForKeyedSubscript:kSecAttrLabel];
           IsInternalRelease = SecIsInternalRelease();
           if (v70)
@@ -283,11 +282,11 @@ uint64_t start()
 
           if ((v72 & 1) == 0 && ([v70 isEqual:@"local"] & 1) == 0)
           {
-            v73 = [v181 objectForKeyedSubscript:v70];
+            v73 = [v178 objectForKeyedSubscript:v70];
             if (!v73)
             {
               v73 = [NSString stringWithFormat:@"<REDACTED-LABL-%llu>", v67];
-              [v181 setObject:v73 forKeyedSubscript:v70];
+              [v178 setObject:v73 forKeyedSubscript:v70];
               ++v67;
             }
 
@@ -297,7 +296,7 @@ uint64_t start()
           [v63 addObject:v69];
         }
 
-        v65 = [v64 countByEnumeratingWithState:&v197 objects:&context count:16];
+        v65 = [v64 countByEnumeratingWithState:&v194 objects:&context count:16];
       }
 
       while (v65);
@@ -322,19 +321,19 @@ uint64_t start()
     [v75 resume];
     v77 = dispatch_semaphore_create(0);
     context = _NSConcreteStackBlock;
-    v191 = 3221225472;
-    v192 = sub_100002CA0;
-    v193 = &unk_100008520;
+    v188 = 3221225472;
+    v189 = sub_100002CA0;
+    v190 = &unk_100008520;
     v78 = v77;
-    v194 = v78;
+    v191 = v78;
     v79 = [v75 remoteObjectProxyWithErrorHandler:&context];
-    *&v197 = _NSConcreteStackBlock;
-    *(&v197 + 1) = 3221225472;
-    *&v198 = sub_100002D04;
-    *(&v198 + 1) = &unk_100008548;
+    *&v194 = _NSConcreteStackBlock;
+    *(&v194 + 1) = 3221225472;
+    *&v195 = sub_100002D04;
+    *(&v195 + 1) = &unk_100008548;
     v80 = v78;
-    *&v199 = v80;
-    [v79 getSysdiagnoseDumpWithReply:&v197];
+    *&v196 = v80;
+    [v79 getSysdiagnoseDumpWithReply:&v194];
 
     v81 = dispatch_time(0, 60000000000);
     if (dispatch_semaphore_wait(v80, v81))
@@ -352,38 +351,38 @@ uint64_t start()
   [v82 writeToStdOut];
 
   result = 0;
-  v176 = SecKeychainCopyDatabasePath();
+  v173 = SecKeychainCopyDatabasePath();
   v83 = result;
-  if (result || !v176)
+  if (result || !v173)
   {
-    v134 = [NSString stringWithFormat:@"\nError: Failed to get Keychain DB Path %@ \n", result, v172];
+    v134 = [NSString stringWithFormat:@"\nError: Failed to get Keychain DB Path %@ \n", result];
     [v134 writeToStdErr];
   }
 
   else
   {
-    v199 = 0u;
-    v200 = 0u;
+    v196 = 0u;
     v197 = 0u;
-    v198 = 0u;
-    v177 = [&off_1000092E0 countByEnumeratingWithState:&v197 objects:&context count:16];
-    if (v177)
+    v194 = 0u;
+    v195 = 0u;
+    v174 = [&off_1000092E0 countByEnumeratingWithState:&v194 objects:&context count:16];
+    if (v174)
     {
-      v175 = *v198;
+      v172 = *v195;
       do
       {
         v84 = 0;
         do
         {
-          if (*v198 != v175)
+          if (*v195 != v172)
           {
             v85 = v84;
             objc_enumerationMutation(&off_1000092E0);
             v84 = v85;
           }
 
-          v178 = v84;
-          v86 = *(*(&v197 + 1) + 8 * v84);
+          v175 = v84;
+          v86 = *(*(&v194 + 1) + 8 * v84);
           v87 = [NSString stringWithFormat:@"\n -----------------------------------------------------------------\n"];
           [v87 writeToStdOut];
 
@@ -394,13 +393,13 @@ uint64_t start()
           [v89 writeToStdOut];
 
           querya = [NSString stringWithFormat:@"SELECT agrp, SUM(CASE WHEN tomb = 0 THEN 1 ELSE 0 END) AS count_tomb_0, SUM(CASE WHEN tomb = 1 THEN 1 ELSE 0 END) AS count_tomb_1                                  FROM %@                                  GROUP BY agrp                                  ORDER BY (SUM(CASE WHEN tomb = 0 THEN 1 ELSE 0 END) + SUM(CASE WHEN tomb = 1 THEN 1 ELSE 0 END)) DESC", v86];
-          v90 = [SQLiteManager executeQuery:querya onDatabaseAtPath:v176];
+          v90 = [SQLiteManager executeQuery:querya onDatabaseAtPath:v173];
           if ([v90 count])
           {
-            v182 = 0;
+            v179 = 0;
             v91 = 0;
             v92 = 0;
-            v174 = 1;
+            v171 = 1;
             while (v92)
             {
               v93 = [v90 objectAtIndexedSubscript:v92];
@@ -416,7 +415,7 @@ uint64_t start()
                 v99 = [v98 objectAtIndexedSubscript:2];
                 LODWORD(v96) = [v99 intValue];
 
-                v182 += v97;
+                v179 += v97;
                 v91 += v96;
               }
 
@@ -456,9 +455,9 @@ uint64_t start()
                 v118 = [v109 firstMatchInString:v100 options:0 range:{0, v117}];
                 if (v118)
                 {
-                  v184[0] = 0;
-                  v119 = [NSRegularExpression regularExpressionWithPattern:@"\\b(iWork|freeform|Xcode)\\b" options:1 error:v184];
-                  v120 = v184[0];
+                  v181[0] = 0;
+                  v119 = [NSRegularExpression regularExpressionWithPattern:@"\\b(iWork|freeform|Xcode)\\b" options:1 error:v181];
+                  v120 = v181[0];
                   if (v120)
                   {
                     v121 = v120;
@@ -474,7 +473,7 @@ uint64_t start()
 
                   if (v125)
                   {
-                    v114 = [NSString stringWithFormat:@"<REDACTED-AGRP-%lu>", v174];
+                    v114 = [NSString stringWithFormat:@"<REDACTED-AGRP-%lu>", v171];
                     v126 = [v90 objectAtIndexedSubscript:v92];
                     v127 = [v126 count];
 
@@ -485,7 +484,7 @@ uint64_t start()
                     v130 = [NSString stringWithFormat:@"\n%@, %@\n", v114, v129];
                     [v130 writeToStdOut];
 
-                    ++v174;
+                    ++v171;
                     goto LABEL_87;
                   }
                 }
@@ -518,7 +517,7 @@ LABEL_88:
           }
 
           v91 = 0;
-          v182 = 0;
+          v179 = 0;
 LABEL_98:
           if ([v90 count])
           {
@@ -530,20 +529,20 @@ LABEL_98:
             v131 = 0;
           }
 
-          v132 = [NSString stringWithFormat:@"\n (Total agrps: %lu, Total Non-tombstone items: %lu, Total tombstone items: %lu)\n", v131, v182, v91, v173];
+          v132 = [NSString stringWithFormat:@"\n (Total agrps: %lu, Total Non-tombstone items: %lu, Total tombstone items: %lu)\n", v131, v179, v91, v170];
           [v132 writeToStdOut];
 
           v133 = [NSString stringWithFormat:@"\n -----------------------------------------------------------------\n"];
           [v133 writeToStdOut];
 
-          v84 = v178 + 1;
+          v84 = v175 + 1;
         }
 
-        while ((v178 + 1) != v177);
-        v177 = [&off_1000092E0 countByEnumeratingWithState:&v197 objects:&context count:16];
+        while ((v175 + 1) != v174);
+        v174 = [&off_1000092E0 countByEnumeratingWithState:&v194 objects:&context count:16];
       }
 
-      while (v177);
+      while (v174);
     }
   }
 
@@ -594,69 +593,69 @@ LABEL_98:
   v147 = dispatch_group_create();
   v148 = v146;
   v149 = v147;
-  *&v197 = 0;
-  *(&v197 + 1) = &v197;
-  v198 = 0x2020000000uLL;
+  *&v194 = 0;
+  *(&v194 + 1) = &v194;
+  v195 = 0x2020000000uLL;
   v150 = dispatch_semaphore_create(0);
   v151 = dispatch_time(0, 30000000000);
   dispatch_group_enter(v149);
   context = _NSConcreteStackBlock;
-  v191 = 3221225472;
-  v192 = sub_1000037FC;
-  v193 = &unk_1000086E0;
-  v196 = &v197;
+  v188 = 3221225472;
+  v189 = sub_1000037FC;
+  v190 = &unk_1000086E0;
+  v193 = &v194;
   v152 = v149;
-  v194 = v152;
+  v191 = v152;
   v153 = v150;
-  v195 = v153;
+  v192 = v153;
   v154 = objc_retainBlock(&context);
   SOSCloudKeychainGetAllObjectsFromCloud();
   dispatch_semaphore_wait(v153, v151);
-  v155 = *(*(&v197 + 1) + 24);
+  v155 = *(*(&v194 + 1) + 24);
   if (v155)
   {
     v156 = CFGetTypeID(v155);
     if (v156 == CFNullGetTypeID())
     {
-      CFRelease(*(*(&v197 + 1) + 24));
-      *(*(&v197 + 1) + 24) = 0;
+      CFRelease(*(*(&v194 + 1) + 24));
+      *(*(&v194 + 1) + 24) = 0;
     }
   }
 
   v157 = secLogObjForScope();
   if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
   {
-    v158 = *(*(&v197 + 1) + 24);
+    v158 = *(*(&v194 + 1) + 24);
     LODWORD(err) = 138412290;
     *(&err + 4) = v158;
     _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_DEFAULT, "returned: %@", &err, 0xCu);
   }
 
-  v159 = *(*(&v197 + 1) + 24);
-  _Block_object_dispose(&v197, 8);
+  v159 = *(*(&v194 + 1) + 24);
+  _Block_object_dispose(&v194, 8);
 
   if (v159)
   {
     fwrite("\nAll values in decoded form...\n", 0x1FuLL, 1uLL, qword_10000C3C8);
     v160 = 0;
-    *&v197 = 0;
-    *(&v197 + 1) = &v197;
-    *&v198 = 0x2020000000;
-    BYTE8(v198) = 0;
+    *&v194 = 0;
+    *(&v194 + 1) = &v194;
+    *&v195 = 0x2020000000;
+    BYTE8(v195) = 0;
     do
     {
       context = _NSConcreteStackBlock;
-      v191 = 3221225472;
-      v192 = sub_1000039B0;
-      v193 = &unk_100008708;
-      LODWORD(v195) = v160;
-      v194 = &v197;
+      v188 = 3221225472;
+      v189 = sub_1000039B0;
+      v190 = &unk_100008708;
+      LODWORD(v192) = v160;
+      v191 = &v194;
       CFDictionaryApplyFunction(v159, sub_100003E58, &context);
-      v166 = *(&v197 + 1);
-      if (*(*(&v197 + 1) + 24) == 1)
+      v166 = *(&v194 + 1);
+      if (*(*(&v194 + 1) + 24) == 1)
       {
         sub_100004198(qword_10000C3C8, 0, @"%@\n", v161, v162, v163, v164, v165, &stru_1000090A8);
-        v166 = *(&v197 + 1);
+        v166 = *(&v194 + 1);
       }
 
       *(v166 + 24) = 0;
@@ -664,12 +663,12 @@ LABEL_98:
     }
 
     while (v160 != 11);
-    _Block_object_dispose(&v197, 8);
+    _Block_object_dispose(&v194, 8);
   }
 
   fputc(10, qword_10000C3C8);
 
-  objc_autoreleasePoolPop(v173);
+  objc_autoreleasePoolPop(v170);
   return 0;
 }
 
@@ -881,9 +880,9 @@ const __CFData *sub_100002D6C(CFDataRef theData)
   return v1;
 }
 
-void sub_100003028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_100003028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -895,7 +894,7 @@ CFStringRef sub_100003048(void *a1, uint64_t a2)
   return result;
 }
 
-void sub_1000030A4(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1000030A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   ++*(*(*(a1 + 32) + 8) + 24);
   if (*(*(*(a1 + 32) + 8) + 24) & 1) != 0 || (sub_100004198(qword_10000C3C8, 0, @"Circle name: %@, ", a4, a5, a6, a7, a8, a2), (*(*(*(a1 + 32) + 8) + 24)))
@@ -913,36 +912,36 @@ void sub_1000030A4(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 
 void sub_100003178(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20 = 0;
-  v5 = (*(a3 + 16))(a3, &v20);
+  v21 = 0;
+  v5 = (*(a3 + 16))(a3, &v21);
   v11 = qword_10000C3C8;
   if (v5)
   {
     v12 = v5;
-    CFArrayGetCount(v5);
-    sub_100004198(v11, 0, @"%s count: %ld\n", v13, v14, v15, v16, v17, a1);
+    Count = CFArrayGetCount(v5);
+    sub_100004198(v11, 0, @"%s count: %ld\n", v14, v15, v16, v17, v18, a1, Count);
     context[0] = _NSConcreteStackBlock;
     context[1] = 3221225472;
     context[2] = sub_1000032BC;
     context[3] = &unk_1000086B8;
     context[4] = a2;
     context[5] = a1;
-    v21.length = CFArrayGetCount(v12);
-    v21.location = 0;
-    CFArrayApplyFunction(v12, v21, sub_1000037AC, context);
+    v22.length = CFArrayGetCount(v12);
+    v22.location = 0;
+    CFArrayApplyFunction(v12, v22, sub_1000037AC, context);
     CFRelease(v12);
   }
 
   else
   {
-    sub_100004198(qword_10000C3C8, 0, @"No %s, error: %@\n", v6, v7, v8, v9, v10, a1);
+    sub_100004198(qword_10000C3C8, 0, @"No %s, error: %@\n", v6, v7, v8, v9, v10, a1, v21);
   }
 
-  v18 = v20;
-  if (v20)
+  v19 = v21;
+  if (v21)
   {
-    v20 = 0;
-    CFRelease(v18);
+    v21 = 0;
+    CFRelease(v19);
   }
 }
 
@@ -960,7 +959,12 @@ void sub_1000032BC(uint64_t a1, uint64_t a2)
   v7 = v6;
   if (v6)
   {
-    CFDictionaryGetValue(v6, @"OSVersion");
+    Value = CFDictionaryGetValue(v6, @"OSVersion");
+  }
+
+  else
+  {
+    Value = @"Unknown";
   }
 
   v8 = &stru_1000090A8;
@@ -969,14 +973,14 @@ void sub_1000032BC(uint64_t a1, uint64_t a2)
     v9 = *(a2 + 80);
     if (v9)
     {
-      Value = CFDictionaryGetValue(*(a2 + 80), @"TransportType");
+      v10 = CFDictionaryGetValue(*(a2 + 80), @"TransportType");
       v8 = CFDictionaryGetValue(v9, @"DeviceID");
       v11 = CFDictionaryGetValue(v9, @"MachineIDKey");
     }
 
     else
     {
-      Value = @"KVS";
+      v10 = @"KVS";
       v11 = &stru_1000090A8;
       v8 = &stru_1000090A8;
     }
@@ -984,45 +988,45 @@ void sub_1000032BC(uint64_t a1, uint64_t a2)
 
   else
   {
-    Value = @"KVS";
+    v10 = @"KVS";
     v11 = &stru_1000090A8;
   }
 
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v52 = v12;
+  v53 = v12;
+  v50 = v12;
+  v51 = v12;
+  v48 = v12;
+  v49 = v12;
   v46 = v12;
   v47 = v12;
-  v44 = v12;
-  v45 = v12;
-  v42 = v12;
-  v43 = v12;
-  v40 = v12;
-  v41 = v12;
   *__str = v12;
-  v39 = v12;
+  v45 = v12;
   if (!PeerName)
   {
     v15 = strdup("");
     if (PeerDeviceType)
     {
-      goto LABEL_13;
-    }
-
-LABEL_26:
-    v18 = strdup("");
-    if (Value)
-    {
-      goto LABEL_16;
+      goto LABEL_14;
     }
 
 LABEL_27:
+    v18 = strdup("");
+    if (v10)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_28:
     v21 = strdup("");
     if (v8)
     {
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
   CFRetain(PeerName);
@@ -1037,10 +1041,10 @@ LABEL_27:
   CFRelease(PeerName);
   if (!PeerDeviceType)
   {
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-LABEL_13:
+LABEL_14:
   CFRetain(PeerDeviceType);
   v16 = CFStringGetLength(PeerDeviceType);
   v17 = CFStringGetMaximumSizeForEncoding(v16, 0x8000100u);
@@ -1051,25 +1055,25 @@ LABEL_13:
   }
 
   CFRelease(PeerDeviceType);
-  if (!Value)
+  if (!v10)
   {
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-LABEL_16:
-  CFRetain(Value);
-  v19 = CFStringGetLength(Value);
+LABEL_17:
+  CFRetain(v10);
+  v19 = CFStringGetLength(v10);
   v20 = CFStringGetMaximumSizeForEncoding(v19, 0x8000100u);
   v21 = malloc_type_malloc(v20 + 1, 0x100004077774924uLL);
-  if (!CFStringGetCString(Value, v21, v20 + 1, 0x8000100u))
+  if (!CFStringGetCString(v10, v21, v20 + 1, 0x8000100u))
   {
     *v21 = 0;
   }
 
-  CFRelease(Value);
+  CFRelease(v10);
   if (v8)
   {
-LABEL_19:
+LABEL_20:
     CFRetain(v8);
     v22 = CFStringGetLength(v8);
     v23 = CFStringGetMaximumSizeForEncoding(v22, 0x8000100u);
@@ -1082,17 +1086,17 @@ LABEL_19:
     CFRelease(v8);
     if (v11)
     {
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
-LABEL_28:
+LABEL_29:
   v24 = strdup("");
   if (v11)
   {
-LABEL_22:
+LABEL_23:
     CFRetain(v11);
     v25 = CFStringGetLength(v11);
     v26 = CFStringGetMaximumSizeForEncoding(v25, 0x8000100u);
@@ -1103,12 +1107,12 @@ LABEL_22:
     }
 
     CFRelease(v11);
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
-LABEL_29:
-  v27 = strdup("");
 LABEL_30:
+  v27 = strdup("");
+LABEL_31:
   v28 = *(a1 + 32);
   if (PeerID && v28)
   {
@@ -1137,10 +1141,22 @@ LABEL_30:
   free(v24);
   free(v27);
   v31 = CFStringCreateWithCString(0, __str, 0x8000100u);
-  SOSPeerInfoGetPeerID();
-  SOSPeerInfoGetVersion();
-  SOSPeerInfoSupportsCKKSForAll();
-  sub_100004198(qword_10000C3C8, 0, @"%@ pid:%@ V%d %@ OS:%@\n", v32, v33, v34, v35, v36, v31);
+  v32 = SOSPeerInfoGetPeerID();
+  Version = SOSPeerInfoGetVersion();
+  v34 = SOSPeerInfoSupportsCKKSForAll();
+  v40 = @"SOS";
+  if (v34)
+  {
+    v40 = @"c4a";
+  }
+
+  v41 = Value;
+  if (!Value)
+  {
+    v41 = &stru_1000090A8;
+  }
+
+  sub_100004198(qword_10000C3C8, 0, @"%@ pid:%@ V%d %@ OS:%@\n", v35, v36, v37, v38, v39, v31, v32, Version, v40, v41);
   CFRelease(v31);
   if (v7)
   {
@@ -1189,7 +1205,7 @@ intptr_t sub_1000037FC(uint64_t a1, uint64_t a2, uint64_t a3)
   return dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void sub_1000039B0(uint64_t a1, char a2, const void *a3)
+void sub_1000039B0(uint64_t a1, uint64_t a2, const void *a3)
 {
   KeyType = SOSKVSKeyGetKeyType();
   if (KeyType == *(a1 + 40))
@@ -1203,77 +1219,77 @@ void sub_1000039B0(uint64_t a1, char a2, const void *a3)
 
       if (KeyType == 8)
       {
-        if (!a3)
+        if (a3)
         {
-          goto LABEL_33;
-        }
-
-        v52 = CFGetTypeID(a3);
-        if (v52 == CFDataGetTypeID())
-        {
-          cf = 0;
-          BytePtr = CFDataGetBytePtr(a3);
-          v54 = CFDataCreate(kCFAllocatorDefault, BytePtr, 18);
-          v55 = CFDataGetLength(a3) - 18;
-          v56 = CFDataGetBytePtr(a3);
-          v57 = CFDataCreate(kCFAllocatorDefault, v56 + 18, v55);
-          v58 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v54, 0x8000100u);
-          v59 = SOSCircleCreateFromData();
-          if (v59)
+          v54 = CFGetTypeID(a3);
+          if (v54 == CFDataGetTypeID())
           {
-            valuePtr = 5;
-            v60 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &valuePtr);
-            v68 = sub_100003E74(kCFAllocatorDefault, v61, v62, v63, v64, v65, v66, v67, @"SyncD", @"SyncD");
-            sub_100004198(qword_10000C3C8, v68, @"%@: %@: %@\n", v69, v70, v71, v72, v73, a2);
+            cf = 0;
+            BytePtr = CFDataGetBytePtr(a3);
+            v56 = CFDataCreate(kCFAllocatorDefault, BytePtr, 18);
+            v57 = CFDataGetLength(a3) - 18;
+            v58 = CFDataGetBytePtr(a3);
+            v59 = CFDataCreate(kCFAllocatorDefault, v58 + 18, v57);
+            v60 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v56, 0x8000100u);
+            v61 = SOSCircleCreateFromData();
+            if (v61)
+            {
+              valuePtr = 5;
+              v62 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &valuePtr);
+              v70 = sub_100003E74(kCFAllocatorDefault, v63, v64, v65, v66, v67, v68, v69, @"SyncD", @"SyncD");
+              sub_100004198(qword_10000C3C8, v70, @"%@: %@: %@\n", v71, v72, v73, v74, v75, a2, v60, v61, v62, 0);
+              if (v62)
+              {
+                CFRelease(v62);
+              }
+
+              if (v70)
+              {
+                CFRelease(v70);
+              }
+            }
+
+            else
+            {
+              v81 = qword_10000C3C8;
+              v82 = sub_100003F68(v59);
+              sub_100004198(v81, 0, @"%@: %@\n", v83, v84, v85, v86, v87, a2, v82);
+            }
+
             if (v60)
             {
               CFRelease(v60);
             }
 
-            if (v68)
+            if (v59)
             {
-              CFRelease(v68);
+              CFRelease(v59);
             }
+
+            if (v61)
+            {
+              CFRelease(v61);
+            }
+
+            if (v56)
+            {
+              CFRelease(v56);
+            }
+
+            v15 = cf;
+            if (!cf)
+            {
+              goto LABEL_35;
+            }
+
+            cf = 0;
+            goto LABEL_58;
           }
 
-          else
-          {
-            v79 = qword_10000C3C8;
-            sub_100003F68(v57);
-            sub_100004198(v79, 0, @"%@: %@\n", v80, v81, v82, v83, v84, a2);
-          }
-
-          if (v58)
-          {
-            CFRelease(v58);
-          }
-
-          if (v57)
-          {
-            CFRelease(v57);
-          }
-
-          if (v59)
-          {
-            CFRelease(v59);
-          }
-
-          if (v54)
-          {
-            CFRelease(v54);
-          }
-
-          v15 = cf;
-          if (!cf)
-          {
-            goto LABEL_35;
-          }
-
-          cf = 0;
-          goto LABEL_58;
+          goto LABEL_31;
         }
 
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
       if (KeyType != 9)
@@ -1283,15 +1299,16 @@ void sub_1000039B0(uint64_t a1, char a2, const void *a3)
 
       if (!a3)
       {
-        goto LABEL_33;
+LABEL_33:
+        v14 = qword_10000C3C8;
+        v88 = 0;
+        goto LABEL_34;
       }
 
       v16 = CFGetTypeID(a3);
       if (v16 != CFDataGetTypeID())
       {
-LABEL_31:
-        v14 = qword_10000C3C8;
-        goto LABEL_34;
+        goto LABEL_31;
       }
 
       v17 = CFDataGetBytePtr(a3);
@@ -1300,17 +1317,18 @@ LABEL_31:
       v20 = CFDataGetBytePtr(a3);
       v21 = CFDataCreate(kCFAllocatorDefault, v20 + 18, v19);
       v22 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v18, 0x8000100u);
-      v28 = sub_100002D6C(v21);
-      v29 = qword_10000C3C8;
-      if (v28)
+      v23 = sub_100002D6C(v21);
+      v29 = v23;
+      v30 = qword_10000C3C8;
+      if (v23)
       {
-        sub_100004198(qword_10000C3C8, 0, @"%@: %@: %@\n", v23, v24, v25, v26, v27, a2);
+        sub_100004198(qword_10000C3C8, 0, @"%@: %@: %@\n", v24, v25, v26, v27, v28, a2, v22, v23);
       }
 
       else
       {
-        sub_100003F68(a3);
-        sub_100004198(v29, 0, @"%@: %@\n", v74, v75, v76, v77, v78, a2);
+        v89 = sub_100003F68(a3);
+        sub_100004198(v30, 0, @"%@: %@\n", v76, v77, v78, v79, v80, a2, v89);
       }
 
       if (v22)
@@ -1320,7 +1338,7 @@ LABEL_31:
 
       if (v21)
       {
-        v51 = v21;
+        v53 = v21;
         goto LABEL_42;
       }
     }
@@ -1331,59 +1349,61 @@ LABEL_31:
       {
         if (KeyType != 1)
         {
-          if (KeyType == 2)
+          if (KeyType != 2)
           {
-            if (a3)
-            {
-              v12 = CFGetTypeID(a3);
-              if (v12 == CFDataGetTypeID())
-              {
-                v13 = sub_100002D6C(a3);
-                v14 = qword_10000C3C8;
-                if (v13)
-                {
-                  sub_100004198(qword_10000C3C8, 0, @"%@: %@\n", v7, v8, v9, v10, v11, a2);
-                  v15 = v13;
-LABEL_58:
-                  CFRelease(v15);
-                  goto LABEL_35;
-                }
+            goto LABEL_31;
+          }
 
-                goto LABEL_34;
+          if (a3)
+          {
+            v12 = CFGetTypeID(a3);
+            if (v12 == CFDataGetTypeID())
+            {
+              v13 = sub_100002D6C(a3);
+              v14 = qword_10000C3C8;
+              if (v13)
+              {
+                sub_100004198(qword_10000C3C8, 0, @"%@: %@\n", v7, v8, v9, v10, v11, a2, v13);
+                v15 = v13;
+LABEL_58:
+                CFRelease(v15);
+                goto LABEL_35;
               }
 
-              goto LABEL_31;
+              goto LABEL_32;
             }
 
-LABEL_33:
+LABEL_31:
             v14 = qword_10000C3C8;
+LABEL_32:
+            v88 = a3;
 LABEL_34:
-            sub_100004198(v14, 0, @"%@: %@\n", v7, v8, v9, v10, v11, a2);
+            sub_100004198(v14, 0, @"%@: %@\n", v7, v8, v9, v10, v11, a2, v88);
             goto LABEL_35;
+          }
+
+          goto LABEL_33;
+        }
+
+LABEL_17:
+        if (a3)
+        {
+          v31 = CFGetTypeID(a3);
+          if (v31 == CFDataGetTypeID())
+          {
+            v32 = SecOTRPacketTypeString();
+            v33 = qword_10000C3C8;
+            Length = CFDataGetLength(a3);
+            sub_100004198(v33, 0, @"%@: %s: %ld\n", v34, v35, v36, v37, v38, a2, v32, Length);
+LABEL_35:
+            *(*(*(a1 + 32) + 8) + 24) = 1;
+            return;
           }
 
           goto LABEL_31;
         }
 
-LABEL_17:
-        if (!a3)
-        {
-          goto LABEL_33;
-        }
-
-        v30 = CFGetTypeID(a3);
-        if (v30 == CFDataGetTypeID())
-        {
-          SecOTRPacketTypeString();
-          v31 = qword_10000C3C8;
-          CFDataGetLength(a3);
-          sub_100004198(v31, 0, @"%@: %s: %ld\n", v32, v33, v34, v35, v36, a2);
-LABEL_35:
-          *(*(*(a1 + 32) + 8) + 24) = 1;
-          return;
-        }
-
-        goto LABEL_31;
+        goto LABEL_33;
       }
 
       cf = 0;
@@ -1392,22 +1412,22 @@ LABEL_35:
         goto LABEL_33;
       }
 
-      v37 = CFGetTypeID(a3);
-      if (v37 != CFDataGetTypeID())
+      v39 = CFGetTypeID(a3);
+      if (v39 != CFDataGetTypeID())
       {
         goto LABEL_31;
       }
 
       valuePtr = 5;
       v18 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &valuePtr);
-      v28 = sub_100003E74(kCFAllocatorDefault, v38, v39, v40, v41, v42, v43, v44, @"SyncD", @"SyncD");
-      v45 = SOSCircleCreateFromData();
-      sub_100004198(qword_10000C3C8, v28, @"%@: %@\n", v46, v47, v48, v49, v50, a2);
-      if (v45)
+      v29 = sub_100003E74(kCFAllocatorDefault, v40, v41, v42, v43, v44, v45, v46, @"SyncD", @"SyncD");
+      v47 = SOSCircleCreateFromData();
+      sub_100004198(qword_10000C3C8, v29, @"%@: %@\n", v48, v49, v50, v51, v52, a2, v47, @"idLength", v18, 0);
+      if (v47)
       {
-        v51 = v45;
+        v53 = v47;
 LABEL_42:
-        CFRelease(v51);
+        CFRelease(v53);
       }
     }
 
@@ -1416,12 +1436,12 @@ LABEL_42:
       CFRelease(v18);
     }
 
-    if (!v28)
+    if (!v29)
     {
       goto LABEL_35;
     }
 
-    v15 = v28;
+    v15 = v29;
     goto LABEL_58;
   }
 }
@@ -1533,9 +1553,9 @@ uint64_t sub_100003F68(const __CFData *a1)
   return v13;
 }
 
-void sub_100004128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1547,48 +1567,49 @@ CFStringRef sub_100004144(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_100004198(uint64_t a1, const __CFDictionary *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100004198(uint64_t a1, const __CFDictionary *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v15[5] = &a9;
-  v10 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, a2, a3, &a9);
+  va_start(va, a8);
+  va_copy(&v14[5], va);
+  v9 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, a2, a3, va);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 0x40000000;
+  v14[2] = sub_100004348;
+  v14[3] = &unk_1000087B8;
+  v14[4] = a1;
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 0x40000000;
-  v15[2] = sub_100004348;
-  v15[3] = &unk_1000087B8;
-  v15[4] = a1;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 0x40000000;
-  v17 = sub_1000043D8;
-  v18 = &unk_100008808;
-  v19 = v15;
-  CStringPtr = CFStringGetCStringPtr(v10, 0x8000100u);
+  v16 = sub_1000043D8;
+  v17 = &unk_100008808;
+  v18 = v14;
+  CStringPtr = CFStringGetCStringPtr(v9, 0x8000100u);
   if (CStringPtr)
   {
-    v12 = CStringPtr;
-    v13 = strlen(CStringPtr);
-    (v17)(v16, v12, v13);
+    v11 = CStringPtr;
+    v12 = strlen(CStringPtr);
+    (v16)(v15, v11, v12);
   }
 
   else
   {
     usedBufLen = 0;
-    Length = CFStringGetLength(v10);
+    Length = CFStringGetLength(v9);
     v22.location = 0;
     v22.length = Length;
-    CFStringGetBytes(v10, v22, 0x8000100u, 0, 0, 0, 0, &usedBufLen);
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 0x40000000;
-    v20[2] = sub_100004358;
-    v20[3] = &unk_1000087E0;
-    v20[6] = 0;
-    v20[7] = Length;
-    v20[8] = usedBufLen;
-    v20[4] = v16;
-    v20[5] = v10;
-    sub_1000043E8(usedBufLen + 1, v20);
+    CFStringGetBytes(v9, v22, 0x8000100u, 0, 0, 0, 0, &usedBufLen);
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 0x40000000;
+    v19[2] = sub_100004358;
+    v19[3] = &unk_1000087E0;
+    v19[6] = 0;
+    v19[7] = Length;
+    v19[8] = usedBufLen;
+    v19[4] = v15;
+    v19[5] = v9;
+    sub_1000043E8(usedBufLen + 1, v19);
   }
 
-  CFRelease(v10);
+  CFRelease(v9);
 }
 
 uint64_t sub_100004358(uint64_t result, int a2, UInt8 *buffer)

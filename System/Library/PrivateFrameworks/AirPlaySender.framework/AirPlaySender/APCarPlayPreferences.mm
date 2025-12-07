@@ -1,5 +1,6 @@
 @interface APCarPlayPreferences
 - (APCarPlayPreferences)init;
+- (uint64_t)handleCarPlayAllowedDidChange;
 - (void)dealloc;
 - (void)handleCarPlayAllowedDidChange;
 @end
@@ -53,12 +54,23 @@
   isCarPlayAllowed = [(CRCarPlayPreferences *)self->_preferences isCarPlayAllowed];
   if (gLogCategory_APCarPlayPreferences <= 50 && (gLogCategory_APCarPlayPreferences != -1 || _LogCategory_Initialize()))
   {
-    [APCarPlayPreferences handleCarPlayAllowedDidChange];
+    [(APCarPlayPreferences *)isCarPlayAllowed handleCarPlayAllowedDidChange];
   }
 
   delegate = self->_delegate;
 
   [(APCarPlayPreferencesDelegate *)delegate setCarPlayEnabled:isCarPlayAllowed];
+}
+
+- (uint64_t)handleCarPlayAllowedDidChange
+{
+  v1 = "disabled";
+  if (self)
+  {
+    v1 = "enabled";
+  }
+
+  return LogPrintF(&gLogCategory_APCarPlayPreferences, "[APCarPlayPreferences handleCarPlayAllowedDidChange]", 33554482, "HandleCarPlayAllowedDidChange changed to %s\n", v1);
 }
 
 @end

@@ -50,23 +50,23 @@
 - (void)progressToEndStateWithAnimation:(BOOL)animation
 {
   animationCopy = animation;
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   transitionContext = [(SBHViewControllerTransition *)self transitionContext];
   [(SBViewControllerTransitionContext *)transitionContext setWantsAnimation:animationCopy];
   transitionEndpoint = [(SBHViewControllerTransition *)self transitionEndpoint];
   if ([(SBHViewControllerTransition *)self targetEndpoint]== 1)
   {
-    v8 = SBLogIcon();
+    v8 = SBLogIcon(1);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (!transitionContext || animationCopy)
     {
       if (v9)
       {
-        v20 = NSStringFromSelector(a2);
+        v21 = NSStringFromSelector(a2);
         *buf = 138543618;
         selfCopy6 = self;
-        v34 = 2114;
-        v35 = v20;
+        v35 = 2114;
+        v36 = v21;
         _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Ignoring %{public}@ because we are already transitioning to the end state", buf, 0x16u);
       }
     }
@@ -78,8 +78,8 @@
         v10 = NSStringFromSelector(a2);
         *buf = 138543618;
         selfCopy6 = self;
-        v34 = 2114;
-        v35 = v10;
+        v35 = 2114;
+        v36 = v10;
         _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is immediately ending a transition to the end state in progress", buf, 0x16u);
       }
 
@@ -97,65 +97,65 @@
   else
   {
     delegate = [(SBHViewControllerTransition *)self delegate];
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = __63__SBHViewControllerTransition_progressToEndStateWithAnimation___block_invoke;
-    v29 = &unk_1E8088F18;
+    v27 = MEMORY[0x1E69E9820];
+    v28 = 3221225472;
+    v29 = __63__SBHViewControllerTransition_progressToEndStateWithAnimation___block_invoke;
+    v30 = &unk_1E8088F18;
     v8 = delegate;
-    v30 = v8;
+    v31 = v8;
     selfCopy3 = self;
-    v15 = _Block_copy(&v26);
+    v15 = _Block_copy(&v27);
     v16 = v15;
     if (transitionContext)
     {
-      v15[2](v15);
-      v17 = SBLogIcon();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      v17 = (v15[2])(v15);
+      v18 = SBLogIcon(v17);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
       if (transitionEndpoint == 1)
       {
-        if (v18)
+        if (v19)
         {
-          v19 = NSStringFromSelector(a2);
+          v20 = NSStringFromSelector(a2);
           *buf = 138543618;
           selfCopy6 = self;
-          v34 = 2114;
-          v35 = v19;
-          _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is restarting a cancelled transition to the end state", buf, 0x16u);
+          v35 = 2114;
+          v36 = v20;
+          _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is restarting a cancelled transition to the end state", buf, 0x16u);
         }
 
-        [(SBViewControllerTransitionContext *)transitionContext restartTransition:v26];
+        [(SBViewControllerTransitionContext *)transitionContext restartTransition:v27];
       }
 
       else
       {
-        if (v18)
+        if (v19)
         {
-          v25 = NSStringFromSelector(a2);
+          v26 = NSStringFromSelector(a2);
           *buf = 138543618;
           selfCopy6 = self;
-          v34 = 2114;
-          v35 = v25;
-          _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is cancelling a transition to the beginning state", buf, 0x16u);
+          v35 = 2114;
+          v36 = v26;
+          _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is cancelling a transition to the beginning state", buf, 0x16u);
         }
 
-        [(SBViewControllerTransitionContext *)transitionContext cancelTransition:v26];
+        [(SBViewControllerTransitionContext *)transitionContext cancelTransition:v27];
       }
     }
 
     else
     {
-      v21 = SBLogIcon();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = SBLogIcon(v15);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = NSStringFromSelector(a2);
+        v23 = NSStringFromSelector(a2);
         *buf = 138543618;
         selfCopy6 = self;
-        v34 = 2114;
-        v35 = v22;
-        _os_log_impl(&dword_1BEB18000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is starting a new transition to the end state", buf, 0x16u);
+        v35 = 2114;
+        v36 = v23;
+        _os_log_impl(&dword_1BEB18000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is starting a new transition to the end state", buf, 0x16u);
       }
 
-      [(SBHViewControllerTransition *)self setTransitionEndpoint:1, v26, v27, v28, v29];
+      [(SBHViewControllerTransition *)self setTransitionEndpoint:1, v27, v28, v29, v30];
       transitionContext = objc_alloc_init(SBViewControllerTransitionContext);
       [(SBViewControllerTransitionContext *)transitionContext setAnimationContext:self];
       [(SBViewControllerTransitionContext *)transitionContext setDelegate:self];
@@ -196,7 +196,7 @@ uint64_t __63__SBHViewControllerTransition_progressToEndStateWithAnimation___blo
 - (void)returnToBeginningStateWithAnimation:(BOOL)animation
 {
   animationCopy = animation;
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   transitionContext = [(SBHViewControllerTransition *)self transitionContext];
   [(SBViewControllerTransitionContext *)transitionContext setWantsAnimation:animationCopy];
   transitionEndpoint = [(SBHViewControllerTransition *)self transitionEndpoint];
@@ -211,22 +211,23 @@ uint64_t __63__SBHViewControllerTransition_progressToEndStateWithAnimation___blo
     v9 = v8;
     if (transitionContext)
     {
-      v8[2](v8);
+      v10 = v8[2](v8);
       if (transitionEndpoint)
       {
         isTransitioning = [(SBViewControllerTransitionContext *)transitionContext isTransitioning];
-        v11 = SBLogIcon();
-        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-        if (isTransitioning)
+        v12 = isTransitioning;
+        v13 = SBLogIcon(isTransitioning);
+        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+        if (v12)
         {
-          if (v12)
+          if (v14)
           {
-            v13 = NSStringFromSelector(a2);
+            v15 = NSStringFromSelector(a2);
             *buf = 138543618;
             selfCopy6 = self;
-            v30 = 2114;
-            v31 = v13;
-            _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is cancelling a transition to the end state", buf, 0x16u);
+            v32 = 2114;
+            v33 = v15;
+            _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is cancelling a transition to the end state", buf, 0x16u);
           }
 
           [(SBViewControllerTransitionContext *)transitionContext cancelTransition];
@@ -234,14 +235,14 @@ uint64_t __63__SBHViewControllerTransition_progressToEndStateWithAnimation___blo
 
         else
         {
-          if (v12)
+          if (v14)
           {
-            v26 = NSStringFromSelector(a2);
+            v28 = NSStringFromSelector(a2);
             *buf = 138543618;
             selfCopy6 = self;
-            v30 = 2114;
-            v31 = v26;
-            _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is cancelling a transition to the end state before it started", buf, 0x16u);
+            v32 = 2114;
+            v33 = v28;
+            _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is cancelling a transition to the end state before it started", buf, 0x16u);
           }
 
           [(SBHViewControllerTransition *)self _handleDidReturnToBeginningState];
@@ -250,15 +251,15 @@ uint64_t __63__SBHViewControllerTransition_progressToEndStateWithAnimation___blo
 
       else
       {
-        v24 = SBLogIcon();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v26 = SBLogIcon(v10);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = NSStringFromSelector(a2);
+          v27 = NSStringFromSelector(a2);
           *buf = 138543618;
           selfCopy6 = self;
-          v30 = 2114;
-          v31 = v25;
-          _os_log_impl(&dword_1BEB18000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is restarting a cancelled transition to the beginning state", buf, 0x16u);
+          v32 = 2114;
+          v33 = v27;
+          _os_log_impl(&dword_1BEB18000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is restarting a cancelled transition to the beginning state", buf, 0x16u);
         }
 
         [(SBViewControllerTransitionContext *)transitionContext restartTransition];
@@ -267,15 +268,15 @@ uint64_t __63__SBHViewControllerTransition_progressToEndStateWithAnimation___blo
 
     else
     {
-      v20 = SBLogIcon();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = SBLogIcon(v8);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = NSStringFromSelector(a2);
+        v23 = NSStringFromSelector(a2);
         *buf = 138543618;
         selfCopy6 = self;
-        v30 = 2114;
-        v31 = v21;
-        _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is starting a new transition to the beginning state", buf, 0x16u);
+        v32 = 2114;
+        v33 = v23;
+        _os_log_impl(&dword_1BEB18000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is starting a new transition to the beginning state", buf, 0x16u);
       }
 
       [(SBHViewControllerTransition *)self setTransitionEndpoint:0];
@@ -295,39 +296,39 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v9 = SBLogIcon();
-  v14 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v9 = SBLogIcon(0);
+  v16 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (!transitionContext || animationCopy)
   {
-    if (v14)
+    if (v16)
     {
-      v23 = NSStringFromSelector(a2);
+      v25 = NSStringFromSelector(a2);
       *buf = 138543618;
       selfCopy6 = self;
-      v30 = 2114;
-      v31 = v23;
+      v32 = 2114;
+      v33 = v25;
       _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Ignoring %{public}@ because we are already transitioning to the beginning state", buf, 0x16u);
     }
 
     goto LABEL_24;
   }
 
-  if (v14)
+  if (v16)
   {
-    v15 = NSStringFromSelector(a2);
+    v17 = NSStringFromSelector(a2);
     *buf = 138543618;
     selfCopy6 = self;
-    v30 = 2114;
-    v31 = v15;
+    v32 = 2114;
+    v33 = v17;
     _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@ is immediately ending a transition to the beginning state in progress", buf, 0x16u);
   }
 
-  v16 = objc_opt_self();
+  v18 = objc_opt_self();
   animator = [(SBViewControllerTransitionContext *)transitionContext animator];
-  v18 = SBFSafeCast();
+  v20 = SBFSafeCast();
 
   [(SBViewControllerTransitionContext *)transitionContext setWantsAnimation:0];
-  animator2 = [v18 animator];
+  animator2 = [v20 animator];
   [animator2 finalizeAnimationAtEndpoint:0 withContext:self];
 
   [(SBHViewControllerTransition *)self _handleDidReturnToBeginningState];
@@ -362,7 +363,7 @@ void __67__SBHViewControllerTransition_returnToBeginningStateWithAnimation___blo
 
 - (void)transitionDidFinish:(id)finish
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   finishCopy = finish;
   transitionContext = [(SBHViewControllerTransition *)self transitionContext];
 
@@ -381,20 +382,20 @@ void __67__SBHViewControllerTransition_returnToBeginningStateWithAnimation___blo
 
   else
   {
-    v7 = SBLogIcon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogIcon(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = NSStringFromSelector(a2);
+      v9 = NSStringFromSelector(a2);
       transitionContext2 = [(SBHViewControllerTransition *)self transitionContext];
-      v10 = 138544130;
+      v11 = 138544130;
       selfCopy = self;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2114;
-      v15 = finishCopy;
-      v16 = 2114;
-      v17 = transitionContext2;
-      _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@]: ignoring %{public}@ for unexpected transition: %{public}@ -- expected transition: %{public}@", &v10, 0x2Au);
+      v13 = 2114;
+      v14 = v9;
+      v15 = 2114;
+      v16 = finishCopy;
+      v17 = 2114;
+      v18 = transitionContext2;
+      _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: ignoring %{public}@ for unexpected transition: %{public}@ -- expected transition: %{public}@", &v11, 0x2Au);
     }
   }
 }

@@ -236,10 +236,10 @@ LABEL_37:
     v33 = 0u;
     v34 = 0u;
     v32 = 0u;
-LABEL_7:
-    [geometry transform];
+    objc_msgSend_transform(geometry);
+LABEL_8:
 
-    goto LABEL_8;
+    goto LABEL_9;
   }
 
   info = [(CRLCanvasLayout *)self info];
@@ -250,10 +250,11 @@ LABEL_7:
   v32 = 0u;
   if (geometry)
   {
-    goto LABEL_7;
+    objc_msgSend_transform(geometry);
+    goto LABEL_8;
   }
 
-LABEL_8:
+LABEL_9:
   v30 = 0u;
   v31 = 0u;
   v29 = 0u;
@@ -339,7 +340,7 @@ LABEL_8:
     v12 = 0uLL;
     if (originalGeometry)
     {
-      [originalGeometry transform];
+      objc_msgSend_transform(originalGeometry, 0.0, 0.0, 0.0);
       v11 = *&v48.a;
       v12 = *&v48.c;
       v10 = *&v48.tx;
@@ -361,7 +362,7 @@ LABEL_8:
     v19 = 0uLL;
     if (originalPureGeometry)
     {
-      [originalPureGeometry transform];
+      objc_msgSend_transform(originalPureGeometry, 0.0, 0.0, *&v37);
       v17 = *&v48.a;
       v18 = *&v48.c;
       v19 = *&v48.tx;
@@ -374,7 +375,7 @@ LABEL_8:
     v21 = originalPureGeometry2;
     if (originalPureGeometry2)
     {
-      [originalPureGeometry2 transform];
+      objc_msgSend_transform(originalPureGeometry2);
       v22 = *&v48.a;
       v23 = *&v48.c;
       v24 = *&v48.tx;
@@ -410,7 +411,7 @@ LABEL_8:
     v36 = originalGeometry2;
     if (originalGeometry2)
     {
-      [originalGeometry2 transform];
+      objc_msgSend_transform(originalGeometry2);
     }
 
     else

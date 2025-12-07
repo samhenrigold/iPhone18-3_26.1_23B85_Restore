@@ -1,5 +1,4 @@
 @interface String:
-- (uint64_t)Any;
 - (unint64_t)Any;
 @end
 
@@ -17,13 +16,6 @@
   }
 
   return v2;
-}
-
-- (uint64_t)Any
-{
-  v1 = *self;
-
-  return self;
 }
 
 @end

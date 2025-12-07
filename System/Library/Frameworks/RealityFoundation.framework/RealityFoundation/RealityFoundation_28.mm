@@ -1,3270 +1,13 @@
-void *VFXComponent.setTexture(_:on:)(uint64_t a1, void *a2)
-{
-  v5 = a2[3];
-  v6 = a2[4];
-  __swift_project_boxed_opaque_existential_1(a2, v5);
-  result = (*(v6 + 40))(&v16, v5, v6);
-  if (v16 == 7)
-  {
-    v8 = a2[3];
-    v9 = a2[4];
-    __swift_project_boxed_opaque_existential_1(a2, v8);
-    v10 = (*(v9 + 8))(v8, v9);
-    v12 = v11;
-
-    v13 = *(v2 + 64);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v15 = *(v2 + 64);
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(a1, v10, v12, isUniquelyReferenced_nonNull_native);
-
-    *(v2 + 64) = v15;
-  }
-
-  return result;
-}
-
-uint64_t VFXComponent.restrictCrossingToMesh(ofPortal:withPadding:)(uint64_t a1, uint64_t a2, char a3)
-{
-  v7 = *(v3 + 40);
-
-  *(v3 + 40) = a1;
-  *(v3 + 48) = a2;
-  *(v3 + 56) = a3 & 1;
-  return result;
-}
-
-unint64_t VFXComponent.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *(a2 + 8) = 1065353216;
-  *(a2 + 16) = 0;
-  v4 = MEMORY[0x1E69E7CC0];
-  *(a2 + 24) = MEMORY[0x1E69E7CC0];
-  *(a2 + 32) = v4;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  *(a2 + 56) = 1;
-  result = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_10RealityKit15TextureResourceCSgTt0g5Tf4g_n(v4);
-  *(a2 + 64) = result;
-  *a2 = a1;
-  return result;
-}
-
-uint64_t static VFXComponent.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  Asset = REVFXSceneComponentGetAsset();
-  if (!Asset)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = Asset;
-  type metadata accessor for VFXResource();
-  v6 = swift_allocObject();
-  *(v6 + 16) = v5;
-  RERetain();
-  REAssetSetSwiftObject();
-  v7 = MEMORY[0x1E69E7CC0];
-  v8 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_10RealityKit15TextureResourceCSgTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  REVFXSceneComponentGetSimulationRate();
-  v10 = v9;
-  SimulationState = REVFXSceneComponentGetSimulationState();
-  if ((SimulationState & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-LABEL_8:
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-    return result;
-  }
-
-  if (SimulationState >= 4)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v12 = SimulationState;
-  }
-
-  result = REVFXSceneComponentGetSimulationTime();
-  *a2 = v6;
-  *(a2 + 8) = v10;
-  *(a2 + 12) = v14;
-  *(a2 + 16) = v12;
-  *(a2 + 24) = v7;
-  *(a2 + 32) = v7;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  *(a2 + 56) = 1;
-  *(a2 + 64) = v8;
-  return result;
-}
-
-void VFXComponent.__toCore(_:)(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 12);
-  v5 = *(v1 + 16);
-  v7 = *(v1 + 24);
-  v6 = *(v1 + 32);
-  v8 = *(v1 + 40);
-  v9 = *(v1 + 48);
-  v41 = *(v1 + 56);
-  v10 = *(v1 + 57);
-  v11 = *(v1 + 64);
-  v12 = *(*v1 + 16);
-  REVFXSceneComponentSetAsset();
-  REVFXSceneComponentSetSimulationRate();
-  REVFXSceneComponentSetSimulationTime();
-  v42 = v10;
-  if (v5 >= 2)
-  {
-    REVFXSceneComponentResetSimulation();
-  }
-
-  REVFXSceneComponentSetSimulationState();
-  v13 = *(v7 + 16);
-  if (v13)
-  {
-    v14 = 0;
-    v15 = (v7 + 40);
-    while (v14 < *(v7 + 16))
-    {
-      ++v14;
-      v17 = *(v15 - 1);
-      v16 = *v15;
-
-      v18 = MEMORY[0x1C68F3280](v17, v16);
-      MEMORY[0x1C6901460](v2, v18);
-
-      v15 += 2;
-      if (v13 == v14)
-      {
-        goto LABEL_7;
-      }
-    }
-
-LABEL_31:
-    __break(1u);
-    goto LABEL_32;
-  }
-
-LABEL_7:
-  v19 = *(v6 + 16);
-  if (v19)
-  {
-    v20 = 0;
-    v21 = (v6 + 40);
-    while (v20 < *(v6 + 16))
-    {
-      ++v20;
-      v23 = *(v21 - 1);
-      v22 = *v21;
-
-      v24 = MEMORY[0x1C68F3280](v23, v22);
-      MEMORY[0x1C6901480](v2, v24);
-
-      v21 += 2;
-      if (v19 == v20)
-      {
-        goto LABEL_11;
-      }
-    }
-
-LABEL_32:
-    __break(1u);
-    return;
-  }
-
-LABEL_11:
-  v25 = 1 << *(v11 + 32);
-  v26 = -1;
-  if (v25 < 64)
-  {
-    v26 = ~(-1 << v25);
-  }
-
-  v27 = v26 & *(v11 + 64);
-  v28 = (v25 + 63) >> 6;
-
-  v29 = 0;
-  while (v27)
-  {
-LABEL_21:
-    v33 = __clz(__rbit64(v27)) | (v29 << 6);
-    v34 = (*(v11 + 48) + 16 * v33);
-    v36 = *v34;
-    v35 = v34[1];
-    v37 = *(*(v11 + 56) + 8 * v33);
-    if (v37)
-    {
-      v38 = *(v37 + 16);
-      v39 = v34[1];
-
-      v31 = MEMORY[0x1C68F3280](v36, v35);
-      REVFXSceneComponentSetClientTexture();
-    }
-
-    else
-    {
-      v30 = v34[1];
-
-      v31 = MEMORY[0x1C68F3280](v36, v35);
-      REVFXSceneComponentResetClientTexture();
-    }
-
-    v27 &= v27 - 1;
-  }
-
-  while (1)
-  {
-    v32 = v29 + 1;
-    if (__OFADD__(v29, 1))
-    {
-      __break(1u);
-      goto LABEL_31;
-    }
-
-    if (v32 >= v28)
-    {
-      break;
-    }
-
-    v27 = *(v11 + 64 + 8 * v32);
-    ++v29;
-    if (v27)
-    {
-      v29 = v32;
-      goto LABEL_21;
-    }
-  }
-
-  if (v42)
-  {
-    REVFXSceneComponentStopCollidingOutsidePortal();
-  }
-
-  if (v8)
-  {
-    v40 = *(v8 + 16);
-
-    REVFXSceneComponentStartCollidingOutsidePortal();
-    REVFXSceneComponentSetPortalPaddingForCollisions();
-  }
-
-  RENetworkMarkComponentDirty();
-}
-
-uint64_t HasVFX.vfxComponent.getter@<X0>(uint64_t a1@<X8>)
-{
-  (*(*v1 + 96))(&v4);
-  _s10RealityKit6EntityC12ComponentSetV5doGet_21borrowStrongReferencexSgxm_SbtAA0D0RzlF0A10Foundation12VFXComponentV_Tt0B5(v4, a1);
-}
-
-uint64_t HasVFX.vfxComponent.setter(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  v8[2] = *(a1 + 32);
-  v8[3] = v2;
-  v9 = *(a1 + 64);
-  v3 = *(a1 + 16);
-  v8[0] = *a1;
-  v8[1] = v3;
-  v4 = (*(*v1 + 112))(v7);
-  _s10RealityKit6EntityC12ComponentSetV02doE0_8newValue21returnStrongReferenceyxm_xSgSbtAA0D0RzlF0A10Foundation12VFXComponentV_TtB5(v8, 0, *v5);
-  outlined destroy of VFXComponent?(v8);
-  return v4(v7, 0);
-}
-
-void (*HasVFX.vfxComponent.modify(void *a1, uint64_t a2, uint64_t a3))(void **a1, char a2)
-{
-  if (MEMORY[0x1E69E7D08])
-  {
-    v7 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v7 = malloc(0x138uLL);
-  }
-
-  *a1 = v7;
-  v7[37] = a3;
-  v7[38] = v3;
-  v7[36] = a2;
-  HasVFX.vfxComponent.getter(v7);
-  return HasVFX.vfxComponent.modify;
-}
-
-void HasVFX.vfxComponent.modify(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v3 = v2[1];
-    v5 = v2[2];
-    v4 = v2[3];
-    v2[11] = v5;
-    v2[12] = v4;
-    v6 = v2[1];
-    v7 = *v2;
-    v2[9] = *v2;
-    v2[10] = v6;
-    v8 = v2[3];
-    v17 = v5;
-    v18 = v8;
-    v9 = *(v2 + 38);
-    *(v2 + 26) = *(v2 + 8);
-    v19 = *(v2 + 8);
-    v15 = v7;
-    v16 = v3;
-    outlined init with copy of VFXComponent?((v2 + 9), v2 + 216);
-    HasVFX.vfxComponent.setter(&v15);
-    v10 = *v2;
-    *(v2 + 88) = v2[1];
-    v11 = v2[3];
-    *(v2 + 104) = v2[2];
-    *(v2 + 120) = v11;
-    *(v2 + 17) = *(v2 + 8);
-    *(v2 + 72) = v10;
-    outlined destroy of VFXComponent?(v2 + 72);
-  }
-
-  else
-  {
-    v12 = *(v2 + 38);
-    v13 = v2[3];
-    v17 = v2[2];
-    v18 = v13;
-    v19 = *(v2 + 8);
-    v14 = v2[1];
-    v15 = *v2;
-    v16 = v14;
-    HasVFX.vfxComponent.setter(&v15);
-  }
-
-  free(v2);
-}
-
-void HasVFX.setVFXValue(_:of:)(void *a1, void *a2)
-{
-  v5 = *(v2 + 16);
-  REVFXSceneComponentGetComponentType();
-  if (REEntityGetComponentByClass())
-  {
-    v6 = a2[3];
-    v7 = a2[4];
-    __swift_project_boxed_opaque_existential_1(a2, v6);
-    (*(v7 + 32))(v102, v6, v7);
-    __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-    swift_getDynamicType();
-    if (VFXParameterType.isMatching(type:)())
-    {
-      v8 = a2[3];
-      v9 = a2[4];
-      __swift_project_boxed_opaque_existential_1(a2, v8);
-      (*(v9 + 32))(&v105, v8, v9);
-      switch(v105)
-      {
-        case 0:
-          v73 = a2[3];
-          v74 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v73);
-          v75 = (*(v74 + 8))(v73, v74);
-          v76 = MEMORY[0x1C68F3280](v75);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          v77 = MEMORY[0x1C68F3280](v106[0], v106[1]);
-
-          REVFXSceneComponentSetParameterString();
-
-          break;
-        case 1:
-          v82 = a2[3];
-          v83 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v82);
-          v84 = (*(v83 + 8))(v82, v83);
-          v85 = MEMORY[0x1C68F3280](v84);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterBool();
-
-          break;
-        case 2:
-          v61 = a2[3];
-          v62 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v61);
-          v63 = (*(v62 + 8))(v61, v62);
-          v64 = MEMORY[0x1C68F3280](v63);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterUInt8();
-
-          break;
-        case 3:
-          v78 = a2[3];
-          v79 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v78);
-          v80 = (*(v79 + 8))(v78, v79);
-          v81 = MEMORY[0x1C68F3280](v80);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterUInt16();
-
-          break;
-        case 4:
-          v65 = a2[3];
-          v66 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v65);
-          v67 = (*(v66 + 8))(v65, v66);
-          v68 = MEMORY[0x1C68F3280](v67);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterUInt32();
-
-          break;
-        case 5:
-          v69 = a2[3];
-          v70 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v69);
-          v71 = (*(v70 + 8))(v69, v70);
-          v72 = MEMORY[0x1C68F3280](v71);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterUInt64();
-
-          break;
-        case 6:
-          v86 = a2[3];
-          v87 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v86);
-          v88 = (*(v87 + 8))(v86, v87);
-          v89 = MEMORY[0x1C68F3280](v88);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterInt();
-
-          break;
-        case 7:
-          v90 = a2[3];
-          v91 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v90);
-          v92 = (*(v91 + 8))(v90, v91);
-          v93 = MEMORY[0x1C68F3280](v92);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterInt8();
-
-          break;
-        case 8:
-          v98 = a2[3];
-          v99 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v98);
-          v100 = (*(v99 + 8))(v98, v99);
-          v101 = MEMORY[0x1C68F3280](v100);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterInt16();
-
-          break;
-        case 9:
-          v94 = a2[3];
-          v95 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v94);
-          v96 = (*(v95 + 8))(v94, v95);
-          v97 = MEMORY[0x1C68F3280](v96);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterInt32();
-
-          break;
-        case 10:
-          v57 = a2[3];
-          v58 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v57);
-          v59 = (*(v58 + 8))(v57, v58);
-          v60 = MEMORY[0x1C68F3280](v59);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterInt64();
-
-          break;
-        case 11:
-        case 12:
-          v10 = a2[3];
-          v11 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v10);
-          v12 = (*(v11 + 8))(v10, v11);
-          v13 = MEMORY[0x1C68F3280](v12);
-
-          outlined init with copy of Any(a1, v102);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterFloat();
-
-          break;
-        case 13:
-        case 18:
-          v53 = a2[3];
-          v54 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v53);
-          v55 = (*(v54 + 8))(v53, v54);
-          v56 = MEMORY[0x1C68F3280](v55);
-
-          outlined init with copy of Any(a1, v102);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySfGMd, &_ss5SIMD2VySfGMR);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterFloat2();
-
-          break;
-        case 14:
-        case 19:
-          v30 = a2[3];
-          v31 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v30);
-          v32 = (*(v31 + 8))(v30, v31);
-          v33 = MEMORY[0x1C68F3280](v32);
-
-          outlined init with copy of Any(a1, v102);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterFloat3();
-
-          break;
-        case 15:
-        case 20:
-          v49 = a2[3];
-          v50 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v49);
-          v51 = (*(v50 + 8))(v49, v50);
-          v52 = MEMORY[0x1C68F3280](v51);
-
-          outlined init with copy of Any(a1, v102);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterFloat4();
-
-          break;
-        case 16:
-        case 21:
-          v34 = a2[3];
-          v35 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v34);
-          v36 = (*(v35 + 8))(v34, v35);
-          v37 = MEMORY[0x1C68F3280](v36);
-
-          outlined init with copy of Any(a1, v106);
-          type metadata accessor for simd_float3x3(0);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterFloat3x3();
-
-          break;
-        case 17:
-        case 22:
-          v38 = a2[3];
-          v39 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v38);
-          v40 = (*(v39 + 8))(v38, v39);
-          v41 = MEMORY[0x1C68F3280](v40);
-
-          outlined init with copy of Any(a1, v106);
-          type metadata accessor for simd_float4x4(0);
-          swift_dynamicCast();
-          REVFXSceneComponentSetParameterFloat4x4();
-
-          break;
-        case 24:
-        case 25:
-          v42 = a2[3];
-          v43 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v42);
-          v44 = (*(v43 + 8))(v42, v43);
-          v45 = MEMORY[0x1C68F3280](v44);
-
-          v46 = a2[3];
-          v47 = a2[4];
-          __swift_project_boxed_opaque_existential_1(a2, v46);
-          (*(v47 + 32))(&v105, v46, v47);
-          outlined init with copy of Any(a1, v102);
-          type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAKeyframeAnimation, 0x1E6979390);
-          swift_dynamicCast();
-          v48 = v106[0];
-          REVFXSceneComponentSetParameterKeyframeAnimation();
-
-          break;
-        default:
-          return;
-      }
-    }
-
-    else
-    {
-      v14 = static os_log_type_t.error.getter();
-      outlined init with copy of __REAssetService(a2, v102);
-      outlined init with copy of __REAssetService(a2, v106);
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_os_log, 0x1E69E9BF8);
-      v15 = static OS_os_log.default.getter();
-      if (os_log_type_enabled(v15, v14))
-      {
-        v16 = swift_slowAlloc();
-        v17 = swift_slowAlloc();
-        v105 = v17;
-        *v16 = 136315394;
-        v18 = v103;
-        v19 = v104;
-        __swift_project_boxed_opaque_existential_1(v102, v103);
-        v20 = (*(v19 + 16))(v18, v19);
-        v22 = v21;
-        __swift_destroy_boxed_opaque_existential_1(v102);
-        v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, &v105);
-
-        *(v16 + 4) = v23;
-        *(v16 + 12) = 2080;
-        v24 = v107;
-        v25 = v108;
-        __swift_project_boxed_opaque_existential_1(v106, v107);
-        v26 = (*(v25 + 24))(v24, v25);
-        v28 = v27;
-        __swift_destroy_boxed_opaque_existential_1(v106);
-        v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v28, &v105);
-
-        *(v16 + 14) = v29;
-        _os_log_impl(&dword_1C1358000, v15, v14, "[VFX] Missmatch between setValue value type and parameter type of %s.%s", v16, 0x16u);
-        swift_arrayDestroy();
-        MEMORY[0x1C6902A30](v17, -1, -1);
-        MEMORY[0x1C6902A30](v16, -1, -1);
-      }
-
-      else
-      {
-
-        __swift_destroy_boxed_opaque_existential_1(v102);
-        __swift_destroy_boxed_opaque_existential_1(v106);
-      }
-    }
-  }
-}
-
-void HasVFX.vfxValue(of:)(void *a1@<X0>, uint64_t a2@<X8>)
-{
-  v5 = *(v2 + 16);
-  REVFXSceneComponentGetComponentType();
-  if (REEntityGetComponentByClass())
-  {
-    v6 = a1[3];
-    v7 = a1[4];
-    __swift_project_boxed_opaque_existential_1(a1, v6);
-    v8 = *(v7 + 32);
-    v8((&v123 + 1), v6, v7);
-    switch(BYTE1(v123))
-    {
-      case 0:
-        v80 = a1[3];
-        v81 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v80);
-        v82 = (*(v81 + 8))(v80, v81);
-        v83 = MEMORY[0x1C68F3280](v82);
-
-        v84 = REVFXSceneComponentGetParameterString();
-
-        v85 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v87 = v86;
-
-        *(a2 + 24) = MEMORY[0x1E69E6158];
-        *a2 = v85;
-        *(a2 + 8) = v87;
-        return;
-      case 1:
-        v94 = a1[3];
-        v95 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v94);
-        v96 = (*(v95 + 8))(v94, v95);
-        v97 = MEMORY[0x1C68F3280](v96);
-
-        ParameterBool = REVFXSceneComponentGetParameterBool();
-
-        v69 = MEMORY[0x1E69E6370];
-        goto LABEL_23;
-      case 2:
-        v64 = a1[3];
-        v65 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v64);
-        v66 = (*(v65 + 8))(v64, v65);
-        v67 = MEMORY[0x1C68F3280](v66);
-
-        ParameterBool = REVFXSceneComponentGetParameterUInt8();
-
-        v69 = MEMORY[0x1E69E7508];
-        goto LABEL_23;
-      case 3:
-        v88 = a1[3];
-        v89 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v88);
-        v90 = (*(v89 + 8))(v88, v89);
-        v91 = MEMORY[0x1C68F3280](v90);
-
-        ParameterUInt16 = REVFXSceneComponentGetParameterUInt16();
-
-        v93 = MEMORY[0x1E69E75F8];
-        goto LABEL_27;
-      case 4:
-        v70 = a1[3];
-        v71 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v70);
-        v72 = (*(v71 + 8))(v70, v71);
-        v73 = MEMORY[0x1C68F3280](v72);
-
-        ParameterUInt32 = REVFXSceneComponentGetParameterUInt32();
-
-        v75 = MEMORY[0x1E69E7668];
-        goto LABEL_25;
-      case 5:
-        v76 = a1[3];
-        v77 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v76);
-        v78 = (*(v77 + 8))(v76, v77);
-        v79 = MEMORY[0x1C68F3280](v78);
-
-        ParameterUInt64 = REVFXSceneComponentGetParameterUInt64();
-
-        v63 = MEMORY[0x1E69E76D8];
-        goto LABEL_21;
-      case 6:
-        v98 = a1[3];
-        v99 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v98);
-        v100 = (*(v99 + 8))(v98, v99);
-        v101 = MEMORY[0x1C68F3280](v100);
-
-        ParameterUInt64 = REVFXSceneComponentGetParameterInt();
-
-        v63 = MEMORY[0x1E69E6530];
-        goto LABEL_21;
-      case 7:
-        v102 = a1[3];
-        v103 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v102);
-        v104 = (*(v103 + 8))(v102, v103);
-        v105 = MEMORY[0x1C68F3280](v104);
-
-        ParameterBool = REVFXSceneComponentGetParameterInt8();
-
-        v69 = MEMORY[0x1E69E7230];
-LABEL_23:
-        *(a2 + 24) = v69;
-        *a2 = ParameterBool;
-        return;
-      case 8:
-        v110 = a1[3];
-        v111 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v110);
-        v112 = (*(v111 + 8))(v110, v111);
-        v113 = MEMORY[0x1C68F3280](v112);
-
-        ParameterUInt16 = REVFXSceneComponentGetParameterInt16();
-
-        v93 = MEMORY[0x1E69E7290];
-LABEL_27:
-        *(a2 + 24) = v93;
-        *a2 = ParameterUInt16;
-        return;
-      case 9:
-        v106 = a1[3];
-        v107 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v106);
-        v108 = (*(v107 + 8))(v106, v107);
-        v109 = MEMORY[0x1C68F3280](v108);
-
-        ParameterUInt32 = REVFXSceneComponentGetParameterInt32();
-
-        v75 = MEMORY[0x1E69E72F0];
-LABEL_25:
-        *(a2 + 24) = v75;
-        *a2 = ParameterUInt32;
-        return;
-      case 0xA:
-        v58 = a1[3];
-        v59 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v58);
-        v60 = (*(v59 + 8))(v58, v59);
-        v61 = MEMORY[0x1C68F3280](v60);
-
-        ParameterUInt64 = REVFXSceneComponentGetParameterInt64();
-
-        v63 = MEMORY[0x1E69E7360];
-LABEL_21:
-        *(a2 + 24) = v63;
-        *a2 = ParameterUInt64;
-        return;
-      case 0xB:
-      case 0xC:
-        v9 = a1[3];
-        v10 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v9);
-        v11 = (*(v10 + 8))(v9, v10);
-        v12 = MEMORY[0x1C68F3280](v11);
-
-        REVFXSceneComponentGetParameterFloat();
-        v14 = v13;
-
-        *(a2 + 24) = MEMORY[0x1E69E6448];
-        *a2 = v14;
-        return;
-      case 0xD:
-      case 0x12:
-        v52 = a1[3];
-        v53 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v52);
-        v54 = (*(v53 + 8))(v52, v53);
-        v55 = MEMORY[0x1C68F3280](v54);
-
-        REVFXSceneComponentGetParameterFloat2();
-        v57 = v56;
-
-        *(a2 + 24) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySfGMd, &_ss5SIMD2VySfGMR);
-        *a2 = v57;
-        return;
-      case 0xE:
-      case 0x13:
-        v15 = a1[3];
-        v16 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v15);
-        v17 = (*(v16 + 8))(v15, v16);
-        v18 = MEMORY[0x1C68F3280](v17);
-
-        REVFXSceneComponentGetParameterFloat3();
-        v119 = v19;
-
-        v20 = &_ss5SIMD3VySfGMd;
-        v21 = &_ss5SIMD3VySfGMR;
-        goto LABEL_11;
-      case 0xF:
-      case 0x14:
-        v46 = a1[3];
-        v47 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v46);
-        v48 = (*(v47 + 8))(v46, v47);
-        v49 = MEMORY[0x1C68F3280](v48);
-
-        REVFXSceneComponentGetParameterFloat4();
-        v119 = v50;
-
-        v20 = &_ss5SIMD4VySfGMd;
-        v21 = &_ss5SIMD4VySfGMR;
-LABEL_11:
-        *(a2 + 24) = __swift_instantiateConcreteTypeFromMangledNameV2(v20, v21);
-        v51 = swift_allocObject();
-        *a2 = v51;
-        *(v51 + 16) = v119;
-        break;
-      case 0x10:
-      case 0x15:
-        v22 = a1[3];
-        v23 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v22);
-        v24 = (*(v23 + 8))(v22, v23);
-        v25 = MEMORY[0x1C68F3280](v24);
-
-        REVFXSceneComponentGetParameterFloat3x3();
-        v117 = v27;
-        v120 = v26;
-        v115 = v28;
-
-        type metadata accessor for simd_float3x3(0);
-        *(a2 + 24) = v29;
-        v30 = swift_allocObject();
-        *a2 = v30;
-        v30[1] = v120;
-        v30[2] = v117;
-        v30[3] = v115;
-        break;
-      case 0x11:
-      case 0x16:
-        v31 = a1[3];
-        v32 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v31);
-        v33 = (*(v32 + 8))(v31, v32);
-        v34 = MEMORY[0x1C68F3280](v33);
-
-        REVFXSceneComponentGetParameterFloat4x4();
-        v118 = v36;
-        v121 = v35;
-        v114 = v38;
-        v116 = v37;
-
-        type metadata accessor for simd_float4x4(0);
-        *(a2 + 24) = v39;
-        v40 = swift_allocObject();
-        *a2 = v40;
-        v40[1] = v121;
-        v40[2] = v118;
-        v40[3] = v116;
-        v40[4] = v114;
-        break;
-      case 0x18:
-      case 0x19:
-        v122 = a2;
-        v41 = a1[3];
-        v42 = a1[4];
-        __swift_project_boxed_opaque_existential_1(a1, v41);
-        v43 = (*(v42 + 8))(v41, v42);
-        v44 = MEMORY[0x1C68F3280](v43);
-
-        v8(&v123, v6, v7);
-        v45 = REVFXSceneComponentGetParameterKeyframeAnimation();
-
-        v122[3] = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAKeyframeAnimation, 0x1E6979390);
-        *v122 = v45;
-        break;
-      default:
-        goto LABEL_4;
-    }
-  }
-
-  else
-  {
-LABEL_4:
-    *a2 = 0u;
-    *(a2 + 16) = 0u;
-  }
-}
-
-uint64_t outlined destroy of VFXComponent?(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation12VFXComponentVSgMd, &_s17RealityFoundation12VFXComponentVSgMR);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t outlined init with copy of VFXComponent?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation12VFXComponentVSgMd, &_s17RealityFoundation12VFXComponentVSgMR);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-unint64_t lazy protocol witness table accessor for type VFXComponent.SimulationState and conformance VFXComponent.SimulationState()
-{
-  result = lazy protocol witness table cache variable for type VFXComponent.SimulationState and conformance VFXComponent.SimulationState;
-  if (!lazy protocol witness table cache variable for type VFXComponent.SimulationState and conformance VFXComponent.SimulationState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type VFXComponent.SimulationState and conformance VFXComponent.SimulationState);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type VFXComponent.SimulationState and conformance VFXComponent.SimulationState;
-  if (!lazy protocol witness table cache variable for type VFXComponent.SimulationState and conformance VFXComponent.SimulationState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type VFXComponent.SimulationState and conformance VFXComponent.SimulationState);
-  }
-
-  return result;
-}
-
-uint64_t FromToByAction.from.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1 + 16);
-  v5 = type metadata accessor for Optional();
-  v6 = *(*(v5 - 8) + 16);
-
-  return v6(a2, v2, v5);
-}
-
-uint64_t FromToByAction.to.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1 + 36);
-  v5 = *(a1 + 16);
-  v6 = type metadata accessor for Optional();
-  v7 = *(*(v6 - 8) + 16);
-
-  return v7(a2, v2 + v4, v6);
-}
-
-uint64_t FromToByAction.by.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 16);
-  v6 = type metadata accessor for Optional();
-  v7 = *(*(v6 - 8) + 16);
-
-  return v7(a2, v2 + v4, v6);
-}
-
-__n128 FromToByAction.timingFunction.getter@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
-{
-  v3 = (v2 + *(a1 + 44));
-  v4 = v3[1].n128_u32[0];
-  v5 = v3[1].n128_u8[4];
-  result = *v3;
-  *a2 = *v3;
-  a2[1].n128_u32[0] = v4;
-  a2[1].n128_u8[4] = v5;
-  return result;
-}
-
-__n128 FromToByAction.timingFunction.setter(__n128 *a1, uint64_t a2)
-{
-  v3 = a1[1].n128_u32[0];
-  v4 = a1[1].n128_u8[4];
-  v5 = (v2 + *(a2 + 44));
-  result = *a1;
-  *v5 = *a1;
-  v5[1].n128_u32[0] = v3;
-  v5[1].n128_u8[4] = v4;
-  return result;
-}
-
-uint64_t (*FromToByAction.timingFunction.modify(uint64_t a1, uint64_t a2))(void, void)
-{
-  result = destructiveProjectEnumData for __RKEntityInteractionsComponent.Registration.RegistrationError;
-  v4 = v2 + *(a2 + 44);
-  return result;
-}
-
-void static FromToByAction.TransformMode.default.getter(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = -3;
-}
-
-uint64_t static FromToByAction.TransformMode.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *a1;
-  v2 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  v6 = *a2;
-  v5 = *(a2 + 8);
-  v7 = *(a2 + 16);
-  if (v4 == 253)
-  {
-    if (v7 == 253)
-    {
-      outlined consume of FromToByAction<A>.TransformMode<A>(*a1, v2, 0xFDu);
-      v8 = v6;
-      v9 = v5;
-      v10 = -3;
-      goto LABEL_10;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (v4 == 254)
-  {
-    if (v7 == 254)
-    {
-      outlined consume of FromToByAction<A>.TransformMode<A>(*a1, v2, 0xFEu);
-      v8 = v6;
-      v9 = v5;
-      v10 = -2;
-      goto LABEL_10;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (v4 != 255)
-  {
-    if (v7 <= 0xFC)
-    {
-      v15[0] = *a1;
-      v15[1] = v2;
-      v16 = v4 & 1;
-      v13[0] = v6;
-      v13[1] = v5;
-      v14 = v7 & 1;
-      outlined copy of FromToByAction<A>.TransformMode<A>(v6, v5, v7);
-      outlined copy of FromToByAction<A>.TransformMode<A>(v3, v2, v4);
-      outlined copy of FromToByAction<A>.TransformMode<A>(v6, v5, v7);
-      outlined copy of FromToByAction<A>.TransformMode<A>(v3, v2, v4);
-      v11 = specialized static ActionEntityResolution.== infix(_:_:)(v15, v13);
-      outlined consume of FromToByAction<A>.TransformMode<A>(v3, v2, v4);
-      outlined consume of FromToByAction<A>.TransformMode<A>(v6, v5, v7);
-      outlined consume of FromToByAction<A>.TransformMode<A>(v6, v5, v7);
-      outlined consume of FromToByAction<A>.TransformMode<A>(v3, v2, v4);
-      return v11 & 1;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (v7 != 255)
-  {
-LABEL_12:
-    outlined copy of FromToByAction<A>.TransformMode<A>(*a2, *(a2 + 8), v7);
-    outlined copy of FromToByAction<A>.TransformMode<A>(v3, v2, v4);
-    outlined consume of FromToByAction<A>.TransformMode<A>(v3, v2, v4);
-    outlined consume of FromToByAction<A>.TransformMode<A>(v6, v5, v7);
-    v11 = 0;
-    return v11 & 1;
-  }
-
-  outlined consume of FromToByAction<A>.TransformMode<A>(*a1, v2, 0xFFu);
-  v8 = v6;
-  v9 = v5;
-  v10 = -1;
-LABEL_10:
-  outlined consume of FromToByAction<A>.TransformMode<A>(v8, v9, v10);
-  v11 = 1;
-  return v11 & 1;
-}
-
-uint64_t outlined copy of FromToByAction<A>.TransformMode<A>(uint64_t a1, uint64_t a2, unsigned __int8 a3)
-{
-  if (a3 <= 0xFCu)
-  {
-    return outlined copy of ActionEntityResolution();
-  }
-
-  return result;
-}
-
-uint64_t outlined consume of FromToByAction<A>.TransformMode<A>(uint64_t a1, uint64_t a2, unsigned __int8 a3)
-{
-  if (a3 <= 0xFCu)
-  {
-    return outlined consume of ActionEntityResolution();
-  }
-
-  return result;
-}
-
-uint64_t FromToByAction.TransformMode.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v4 = a1 == 0x746E65726170 && a2 == 0xE600000000000000;
-  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x6C61636F6CLL && a2 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 1;
-  }
-
-  else if (a1 == 0x656E656373 && a2 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 2;
-  }
-
-  else if (a1 == 0x65766974616C6572 && a2 == 0xE800000000000000)
-  {
-
-    return 3;
-  }
-
-  else
-  {
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v6)
-    {
-      return 3;
-    }
-
-    else
-    {
-      return 4;
-    }
-  }
-}
-
-Swift::Int FromToByAction.TransformMode.CodingKeys.hashValue.getter(unsigned __int8 a1)
-{
-  Hasher.init(_seed:)();
-  MEMORY[0x1C68F4C10](a1);
-  return Hasher._finalize()();
-}
-
-uint64_t FromToByAction.TransformMode.CodingKeys.stringValue.getter(unsigned __int8 a1)
-{
-  v1 = 0x746E65726170;
-  v2 = 0x656E656373;
-  if (a1 != 2)
-  {
-    v2 = 0x65766974616C6572;
-  }
-
-  if (a1)
-  {
-    v1 = 0x6C61636F6CLL;
-  }
-
-  if (a1 <= 1u)
-  {
-    return v1;
-  }
-
-  else
-  {
-    return v2;
-  }
-}
-
-uint64_t FromToByAction.TransformMode.RelativeCodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  if (a1 == 28532 && a2 == 0xE200000000000000)
-  {
-
-    v4 = 0;
-  }
-
-  else
-  {
-    v3 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    v4 = v3 ^ 1;
-  }
-
-  return v4 & 1;
-}
-
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance FromToByAction<A>.TransformMode.CodingKeys(char *a1, char *a2, uint64_t a3)
-{
-  v4 = *(a3 + 16);
-  v3 = *(a3 + 24);
-  return static FromToByAction.TransformMode.CodingKeys.== infix(_:_:)(*a1, *a2);
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance FromToByAction<A>.TransformMode.CodingKeys(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  return FromToByAction.TransformMode.CodingKeys.hashValue.getter(*v1);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance FromToByAction<A>.TransformMode.CodingKeys(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  return FromToByAction.TransformMode.CodingKeys.hash(into:)(a1, *v2);
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FromToByAction<A>.TransformMode.CodingKeys(uint64_t a1, uint64_t a2)
-{
-  Hasher.init(_seed:)();
-  v4 = *(a2 + 16);
-  v5 = *(a2 + 24);
-  FromToByAction.TransformMode.CodingKeys.hash(into:)(v7, *v2);
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance FromToByAction<A>.TransformMode.CodingKeys(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  return FromToByAction.TransformMode.CodingKeys.stringValue.getter(*v1);
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance FromToByAction<A>.TransformMode.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
-{
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
-  result = FromToByAction.TransformMode.CodingKeys.init(stringValue:)(a1, a2);
-  *a4 = result;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(intValue:) in conformance FromToByAction<A>.TransformMode.CodingKeys@<X0>(uint64_t a1@<X1>, _BYTE *a2@<X8>)
-{
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  result = specialized FromToByAction.TransformMode.CodingKeys.init(intValue:)();
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance FromToByAction<A>.TransformMode.CodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB70](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FromToByAction<A>.TransformMode.CodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB78](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CodingKey.init(intValue:) in conformance FromToByAction<A>.TransformMode.LocalCodingKeys@<X0>(uint64_t a1@<X1>, _BYTE *a2@<X8>)
-{
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  result = protocol witness for static Equatable.== infix(_:_:) in conformance __RKEntityInteractionsComponent.Registration.RegistrationError();
-  *a2 = result & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance FromToByAction<A>.TransformMode.LocalCodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB70](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FromToByAction<A>.TransformMode.LocalCodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB78](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance FromToByAction<A>.TransformMode.ParentCodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB70](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FromToByAction<A>.TransformMode.ParentCodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB78](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance FromToByAction<A>.TransformMode.RelativeCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
-{
-  v6 = *(a3 + 16);
-  v5 = *(a3 + 24);
-  result = FromToByAction.TransformMode.RelativeCodingKeys.init(stringValue:)(a1, a2);
-  *a4 = result & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance FromToByAction<A>.TransformMode.RelativeCodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB70](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FromToByAction<A>.TransformMode.RelativeCodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB78](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance FromToByAction<A>.TransformMode.LocalCodingKeys@<X0>(uint64_t a1@<X2>, uint64_t (*a2)(void, void)@<X4>, _BYTE *a3@<X8>)
-{
-  v4 = a2(*(a1 + 16), *(a1 + 24));
-
-  *a3 = v4 & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance FromToByAction<A>.TransformMode.SceneCodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB70](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FromToByAction<A>.TransformMode.SceneCodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB78](a1, WitnessTable);
-}
-
-uint64_t FromToByAction.TransformMode.encode(to:)(void *a1, uint64_t a2)
-{
-  v4 = *(a2 + 16);
-  v5 = *(a2 + 24);
-  v6 = type metadata accessor for FromToByAction.TransformMode.RelativeCodingKeys();
-  WitnessTable = swift_getWitnessTable();
-  v53 = v6;
-  v7 = type metadata accessor for KeyedEncodingContainer();
-  v55 = *(v7 - 8);
-  v56 = v7;
-  v8 = *(v55 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v54 = &v37 - v9;
-  v10 = type metadata accessor for FromToByAction.TransformMode.SceneCodingKeys();
-  v11 = swift_getWitnessTable();
-  v51 = v10;
-  v49 = v11;
-  v50 = type metadata accessor for KeyedEncodingContainer();
-  v48 = *(v50 - 8);
-  v12 = *(v48 + 64);
-  MEMORY[0x1EEE9AC00](v50);
-  v47 = &v37 - v13;
-  v14 = type metadata accessor for FromToByAction.TransformMode.LocalCodingKeys();
-  v15 = swift_getWitnessTable();
-  v46 = v14;
-  v44 = v15;
-  v45 = type metadata accessor for KeyedEncodingContainer();
-  v43 = *(v45 - 8);
-  v16 = *(v43 + 64);
-  MEMORY[0x1EEE9AC00](v45);
-  v42 = &v37 - v17;
-  type metadata accessor for FromToByAction.TransformMode.ParentCodingKeys();
-  v40 = swift_getWitnessTable();
-  v41 = type metadata accessor for KeyedEncodingContainer();
-  v39 = *(v41 - 8);
-  v18 = *(v39 + 64);
-  MEMORY[0x1EEE9AC00](v41);
-  v20 = &v37 - v19;
-  type metadata accessor for FromToByAction.TransformMode.CodingKeys();
-  swift_getWitnessTable();
-  v21 = type metadata accessor for KeyedEncodingContainer();
-  v57 = *(v21 - 8);
-  v58 = v21;
-  v22 = *(v57 + 64);
-  MEMORY[0x1EEE9AC00](v21);
-  v24 = &v37 - v23;
-  v25 = v2[1];
-  v38 = *v2;
-  v37 = v25;
-  v26 = *(v2 + 16);
-  v27 = a1;
-  v28 = a1[3];
-  v29 = a1[4];
-  __swift_project_boxed_opaque_existential_1(v27, v28);
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v26 == 253)
-  {
-    LOBYTE(v59) = 2;
-    v34 = v47;
-    v33 = v58;
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v48 + 8))(v34, v50);
-    return (*(v57 + 8))(v24, v33);
-  }
-
-  if (v26 == 254)
-  {
-    LOBYTE(v59) = 1;
-    v32 = v42;
-    v33 = v58;
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v43 + 8))(v32, v45);
-    return (*(v57 + 8))(v24, v33);
-  }
-
-  v30 = v58;
-  if (v26 == 255)
-  {
-    LOBYTE(v59) = 0;
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v39 + 8))(v20, v41);
-  }
-
-  else
-  {
-    LOBYTE(v59) = 3;
-    v35 = v54;
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v59 = v38;
-    v60 = v37;
-    v61 = v26 & 1;
-    lazy protocol witness table accessor for type ActionEntityResolution and conformance ActionEntityResolution();
-    v36 = v56;
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    (*(v55 + 8))(v35, v36);
-  }
-
-  return (*(v57 + 8))(v24, v30);
-}
-
-uint64_t FromToByAction.TransformMode.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v73 = a3;
-  v5 = type metadata accessor for FromToByAction.TransformMode.RelativeCodingKeys();
-  WitnessTable = swift_getWitnessTable();
-  v72 = v5;
-  v56 = type metadata accessor for KeyedDecodingContainer();
-  v63 = *(v56 - 8);
-  v6 = *(v63 + 64);
-  MEMORY[0x1EEE9AC00](v56);
-  v68 = &v52 - v7;
-  v8 = type metadata accessor for FromToByAction.TransformMode.SceneCodingKeys();
-  v69 = swift_getWitnessTable();
-  v70 = v8;
-  v62 = type metadata accessor for KeyedDecodingContainer();
-  v61 = *(v62 - 8);
-  v9 = *(v61 + 64);
-  MEMORY[0x1EEE9AC00](v62);
-  v75 = &v52 - v10;
-  v11 = type metadata accessor for FromToByAction.TransformMode.LocalCodingKeys();
-  v66 = swift_getWitnessTable();
-  v67 = v11;
-  v60 = type metadata accessor for KeyedDecodingContainer();
-  v59 = *(v60 - 8);
-  v12 = *(v59 + 64);
-  MEMORY[0x1EEE9AC00](v60);
-  v65 = &v52 - v13;
-  v14 = type metadata accessor for FromToByAction.TransformMode.ParentCodingKeys();
-  v64 = swift_getWitnessTable();
-  v58 = type metadata accessor for KeyedDecodingContainer();
-  v57 = *(v58 - 8);
-  v15 = *(v57 + 64);
-  MEMORY[0x1EEE9AC00](v58);
-  v17 = &v52 - v16;
-  type metadata accessor for FromToByAction.TransformMode.CodingKeys();
-  swift_getWitnessTable();
-  v74 = type metadata accessor for KeyedDecodingContainer();
-  v76 = *(v74 - 8);
-  v18 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](v74);
-  v20 = &v52 - v19;
-  v21 = a1;
-  v23 = a1[3];
-  v22 = a1[4];
-  v82 = v21;
-  __swift_project_boxed_opaque_existential_1(v21, v23);
-  v24 = v77;
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v24)
-  {
-    v53 = v17;
-    v54 = v14;
-    v25 = v75;
-    v77 = a2;
-    v55 = 0;
-    v26 = v74;
-    v27 = v20;
-    *&v78 = KeyedDecodingContainer.allKeys.getter();
-    type metadata accessor for Array();
-    swift_getWitnessTable();
-    *&v80 = ArraySlice.init<A>(_:)();
-    *(&v80 + 1) = v28;
-    *&v81 = v29;
-    *(&v81 + 1) = v30;
-    type metadata accessor for ArraySlice();
-    swift_getWitnessTable();
-    Collection<>.popFirst()();
-    v31 = v78;
-    v32 = v26;
-    if (v78 == 4 || (v52 = v80, v78 = v80, v79 = v81, (Collection.isEmpty.getter() & 1) == 0))
-    {
-      v38 = type metadata accessor for DecodingError();
-      swift_allocError();
-      v40 = v39;
-      v41 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-      *v40 = type metadata accessor for FromToByAction.TransformMode();
-      KeyedDecodingContainer.codingPath.getter();
-      DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-      (*(*(v38 - 8) + 104))(v40, *MEMORY[0x1E69E6AF8], v38);
-      swift_willThrow();
-      (*(v76 + 8))(v27, v32);
-    }
-
-    else
-    {
-      if (v31 > 1)
-      {
-        v43 = v27;
-        if (v31 != 2)
-        {
-          LOBYTE(v78) = 3;
-          v48 = v68;
-          v49 = v55;
-          KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-          v37 = v73;
-          v50 = v76;
-          if (!v49)
-          {
-            lazy protocol witness table accessor for type ActionEntityResolution and conformance ActionEntityResolution();
-            v51 = v56;
-            KeyedDecodingContainer.decode<A>(_:forKey:)();
-            (*(v63 + 8))(v48, v51);
-            (*(v50 + 8))(v43, v26);
-            swift_unknownObjectRelease();
-            v35 = v78;
-            v36 = v79;
-            goto LABEL_21;
-          }
-
-          (*(v76 + 8))(v27, v26);
-          goto LABEL_9;
-        }
-
-        LOBYTE(v78) = 2;
-        v44 = v55;
-        KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        v37 = v73;
-        v45 = v76;
-        if (!v44)
-        {
-          (*(v61 + 8))(v25, v62);
-          (*(v45 + 8))(v27, v32);
-          swift_unknownObjectRelease();
-          v35 = 0uLL;
-          v36 = -3;
-          goto LABEL_21;
-        }
-      }
-
-      else if (v31)
-      {
-        LOBYTE(v78) = 1;
-        v46 = v65;
-        v47 = v55;
-        KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        if (!v47)
-        {
-          (*(v59 + 8))(v46, v60);
-          (*(v76 + 8))(v27, v32);
-          swift_unknownObjectRelease();
-          v35 = 0uLL;
-          v36 = -2;
-          v37 = v73;
-          goto LABEL_21;
-        }
-      }
-
-      else
-      {
-        LOBYTE(v78) = 0;
-        v33 = v53;
-        v34 = v55;
-        KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        if (!v34)
-        {
-          (*(v57 + 8))(v33, v58);
-          (*(v76 + 8))(v27, v32);
-          swift_unknownObjectRelease();
-          v35 = 0uLL;
-          v36 = -1;
-          v37 = v73;
-LABEL_21:
-          *v37 = v35;
-          *(v37 + 16) = v36;
-          return __swift_destroy_boxed_opaque_existential_1(v82);
-        }
-      }
-
-      (*(v76 + 8))(v27, v32);
-    }
-
-LABEL_9:
-    swift_unknownObjectRelease();
-  }
-
-  return __swift_destroy_boxed_opaque_existential_1(v82);
-}
-
-uint64_t (*FromToByAction.isAdditive.modify(uint64_t a1, uint64_t a2))(void, void)
-{
-  result = destructiveProjectEnumData for __RKEntityInteractionsComponent.Registration.RegistrationError;
-  v4 = v2 + *(a2 + 52);
-  return result;
-}
-
-uint64_t FromToByAction.init(from:to:timing:isAdditive:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v28 = a6;
-  v27 = a4;
-  v26 = a1;
-  v11 = type metadata accessor for Optional();
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1EEE9AC00](v15);
-  v18 = &v25 - v17;
-  v20 = *a3;
-  v19 = *(a3 + 8);
-  v21 = *(a3 + 16);
-  LOBYTE(a3) = *(a3 + 20);
-  v22 = *(a5 - 8);
-  (*(v22 + 32))(&v25 - v17, a2, a5, v16);
-  v23 = *(v22 + 56);
-  v23(v18, 0, 1, a5);
-  v23(v14, 1, 1, a5);
-  v32[0] = 0;
-  v32[1] = 0;
-  v33 = -3;
-  v29[0] = v20;
-  v29[1] = v19;
-  v30 = v21;
-  v31 = a3;
-  return FromToByAction.init(from:to:by:internalMode:timing:isAdditive:)(v26, v18, v14, v32, v29, v27, a5, v28, a7);
-}
-
-uint64_t FromToByAction.init(from:to:by:internalMode:timing:isAdditive:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, char a6@<W5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
-{
-  v15 = *a4;
-  v16 = a4[1];
-  v27 = a5[1];
-  v28 = *a5;
-  v26 = *(a5 + 4);
-  v24 = *(a4 + 16);
-  v25 = *(a5 + 20);
-  v17 = type metadata accessor for FromToByAction();
-  *(a9 + v17[14]) = 1;
-  v18 = (a9 + v17[15]);
-  *v18 = a7;
-  v18[1] = a8;
-  v19 = type metadata accessor for Optional();
-  v20 = *(*(v19 - 8) + 32);
-  v20(a9, a1, v19);
-  v20(a9 + v17[9], a2, v19);
-  result = (v20)(a9 + v17[10], a3, v19);
-  v22 = a9 + v17[12];
-  *v22 = v15;
-  *(v22 + 8) = v16;
-  *(v22 + 16) = v24;
-  v23 = a9 + v17[11];
-  *v23 = v28;
-  *(v23 + 8) = v27;
-  *(v23 + 16) = v26;
-  *(v23 + 20) = v25;
-  *(a9 + v17[13]) = a6;
-  return result;
-}
-
-uint64_t FromToByAction.init(from:by:timing:isAdditive:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v28 = a6;
-  v27 = a4;
-  v24 = a2;
-  v25 = a7;
-  v26 = a1;
-  v9 = type metadata accessor for Optional();
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x1EEE9AC00](v13);
-  v16 = &v23 - v15;
-  v18 = *a3;
-  v17 = *(a3 + 8);
-  v19 = *(a3 + 16);
-  LOBYTE(a3) = *(a3 + 20);
-  v20 = *(a5 - 8);
-  v21 = *(v20 + 56);
-  v21(&v23 - v15, 1, 1, a5, v14);
-  (*(v20 + 32))(v12, v24, a5);
-  (v21)(v12, 0, 1, a5);
-  v32[0] = 0;
-  v32[1] = 0;
-  v33 = -3;
-  v29[0] = v18;
-  v29[1] = v17;
-  v30 = v19;
-  v31 = a3;
-  return FromToByAction.init(from:to:by:internalMode:timing:isAdditive:)(v26, v16, v12, v32, v29, v27, a5, v28, v25);
-}
-
-uint64_t FromToByAction.init(from:timing:isAdditive:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v29 = a5;
-  v28 = a3;
-  v27 = a6;
-  v9 = type metadata accessor for Optional();
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v26 - v14;
-  v17 = MEMORY[0x1EEE9AC00](v16);
-  v19 = &v26 - v18;
-  v21 = *a2;
-  v20 = *(a2 + 8);
-  v22 = *(a2 + 16);
-  LOBYTE(a2) = *(a2 + 20);
-  v23 = *(a4 - 8);
-  (*(v23 + 32))(&v26 - v18, a1, a4, v17);
-  v24 = *(v23 + 56);
-  v24(v19, 0, 1, a4);
-  v24(v15, 1, 1, a4);
-  v24(v12, 1, 1, a4);
-  v33[0] = 0;
-  v33[1] = 0;
-  v34 = -3;
-  v30[0] = v21;
-  v30[1] = v20;
-  v31 = v22;
-  v32 = a2;
-  return FromToByAction.init(from:to:by:internalMode:timing:isAdditive:)(v19, v15, v12, v33, v30, v28, a4, v29, v27);
-}
-
-uint64_t FromToByAction.init(to:by:timing:isAdditive:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v33 = a6;
-  v32 = a4;
-  v29 = a1;
-  v30 = a2;
-  v31 = a7;
-  v9 = type metadata accessor for Optional();
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v26 - v14;
-  v17 = MEMORY[0x1EEE9AC00](v16);
-  v19 = &v26 - v18;
-  v20 = *a3;
-  v27 = *(a3 + 8);
-  v28 = v20;
-  v21 = *(a3 + 16);
-  LOBYTE(a3) = *(a3 + 20);
-  v22 = *(a5 - 8);
-  v23 = *(v22 + 56);
-  v23(&v26 - v18, 1, 1, a5, v17);
-  v24 = *(v22 + 32);
-  v24(v15, v29, a5);
-  (v23)(v15, 0, 1, a5);
-  v24(v12, v30, a5);
-  (v23)(v12, 0, 1, a5);
-  v37[0] = 0;
-  v37[1] = 0;
-  v38 = -3;
-  v34[0] = v28;
-  v34[1] = v27;
-  v35 = v21;
-  v36 = a3;
-  return FromToByAction.init(from:to:by:internalMode:timing:isAdditive:)(v19, v15, v12, v37, v34, v32, a5, v33, v31);
-}
-
-uint64_t FromToByAction.animatedValueType.getter(uint64_t a1)
-{
-  v2 = (v1 + *(a1 + 60));
-  result = *v2;
-  v4 = v2[1];
-  return result;
-}
-
-uint64_t FromToByAction.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v44 = a4;
-  v48 = type metadata accessor for Optional();
-  v46 = *(v48 - 8);
-  v7 = *(v46 + 64);
-  MEMORY[0x1EEE9AC00](v48);
-  v45 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v47 = &v42 - v10;
-  MEMORY[0x1EEE9AC00](v11);
-  v50 = (&v42 - v12);
-  type metadata accessor for FromToByAction.CodingKeys();
-  swift_getWitnessTable();
-  v52 = type metadata accessor for KeyedDecodingContainer();
-  v49 = *(v52 - 8);
-  v13 = *(v49 + 64);
-  MEMORY[0x1EEE9AC00](v52);
-  v15 = &v42 - v14;
-  v16 = type metadata accessor for FromToByAction();
-  v43 = *(v16 - 8);
-  v17 = *(v43 + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v19 = &v42 - v18;
-  *(&v42 + *(v20 + 56) - v18) = 1;
-  v21 = (&v42 + *(v20 + 60) - v18);
-  *v21 = a2;
-  v21[1] = a3;
-  v51 = a3;
-  v23 = a1[3];
-  v22 = a1[4];
-  v55 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v23);
-  v53 = v15;
-  v24 = v54;
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v24)
-  {
-    return __swift_destroy_boxed_opaque_existential_1(v55);
-  }
-
-  v26 = v49;
-  v25 = v50;
-  type metadata accessor for FromToByAction.TransformMode();
-  v59 = 3;
-  swift_getWitnessTable();
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v27 = a2;
-  v28 = v57;
-  v29 = &v19[*(v16 + 48)];
-  *v29 = v56;
-  v29[16] = v28;
-  v59 = 4;
-  lazy protocol witness table accessor for type AnimationTimingFunction and conformance AnimationTimingFunction();
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v30 = v57;
-  v31 = v58;
-  v32 = &v19[*(v16 + 44)];
-  *v32 = v56;
-  *(v32 + 4) = v30;
-  v32[20] = v31;
-  v54 = v19;
-  static FromToByAction.decodeValueIfPresent(from:forKey:)(a2, v25);
-  v42 = v16;
-  v33 = v48;
-  v50 = *(v46 + 32);
-  v50(v54, v25, v48);
-  v34 = v47;
-  static FromToByAction.decodeValueIfPresent(from:forKey:)(v27, v47);
-  v35 = v54;
-  v50(&v54[v42[9]], v34, v33);
-  v36 = v45;
-  v51 = 0;
-  static FromToByAction.decodeValueIfPresent(from:forKey:)(v27, v45);
-  v50(&v35[v42[10]], v36, v33);
-  LOBYTE(v56) = 5;
-  v37 = v52;
-  v38 = KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v26 + 8))(v53, v37);
-  v40 = v42;
-  v39 = v43;
-  v35[v42[13]] = v38 & 1;
-  (*(v39 + 16))(v44, v35, v40);
-  __swift_destroy_boxed_opaque_existential_1(v55);
-  return (*(v39 + 8))(v35, v40);
-}
-
-uint64_t FromToByAction.encode(to:)(void *a1, uint64_t a2)
-{
-  v65 = a2;
-  v3 = *(a2 + 16);
-  v5 = type metadata accessor for Optional();
-  v6 = *(v5 - 8);
-  v59 = v5;
-  v60 = v6;
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v55 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v57 = &v48 - v10;
-  MEMORY[0x1EEE9AC00](v11);
-  v61 = &v48 - v12;
-  v58 = *(v3 - 8);
-  v13 = *(v58 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v53 = &v48 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v54 = &v48 - v17;
-  MEMORY[0x1EEE9AC00](v18);
-  v56 = &v48 - v19;
-  v20 = *(a2 + 24);
-  type metadata accessor for FromToByAction.CodingKeys();
-  swift_getWitnessTable();
-  v21 = type metadata accessor for KeyedEncodingContainer();
-  v63 = *(v21 - 8);
-  v22 = *(v63 + 64);
-  MEMORY[0x1EEE9AC00](v21);
-  v24 = &v48 - v23;
-  v25 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v26 = v64;
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v27 = v26 + v65[12];
-  v28 = *(v27 + 8);
-  v29 = *(v27 + 16);
-  *&v66 = *v27;
-  *(&v66 + 1) = v28;
-  LOBYTE(v67) = v29;
-  v69 = 3;
-  outlined copy of FromToByAction<A>.TransformMode<A>(v66, v28, v29);
-  type metadata accessor for FromToByAction.TransformMode();
-  swift_getWitnessTable();
-  v30 = v62;
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (v30)
-  {
-    outlined consume of FromToByAction<A>.TransformMode<A>(v66, *(&v66 + 1), v67);
-    return (*(v63 + 8))(v24, v21);
-  }
-
-  else
-  {
-    v31 = v61;
-    v62 = v20;
-    v52 = v3;
-    outlined consume of FromToByAction<A>.TransformMode<A>(v66, *(&v66 + 1), v67);
-    v32 = (v26 + v65[11]);
-    v33 = *(v32 + 4);
-    v34 = *(v32 + 20);
-    v66 = *v32;
-    v67 = v33;
-    v68 = v34;
-    v69 = 4;
-    lazy protocol witness table accessor for type AnimationTimingFunction and conformance AnimationTimingFunction();
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v51 = v24;
-    v48 = v21;
-    v37 = v59;
-    v36 = v60;
-    v50 = *(v60 + 16);
-    v50(v31, v26, v59);
-    v38 = v58;
-    v39 = v52;
-    v49 = *(v58 + 48);
-    if (v49(v31, 1, v52) == 1)
-    {
-      (*(v36 + 8))(v31, v37);
-    }
-
-    else
-    {
-      v40 = v56;
-      (*(v38 + 32))(v56, v31, v39);
-      static FromToByAction.encodeValue(_:to:forKey:)(v40, v51, 0, v39, v62);
-      (*(v38 + 8))(v40, v39);
-      v37 = v59;
-      v36 = v60;
-    }
-
-    v41 = v57;
-    v50(v57, v64 + v65[9], v37);
-    if (v49(v41, 1, v39) == 1)
-    {
-      (*(v36 + 8))(v41, v37);
-    }
-
-    else
-    {
-      v42 = v54;
-      (*(v38 + 32))(v54, v41, v39);
-      static FromToByAction.encodeValue(_:to:forKey:)(v42, v51, 1, v39, v62);
-      (*(v38 + 8))(v42, v39);
-      v36 = v60;
-    }
-
-    v43 = v55;
-    v50(v55, v64 + v65[10], v37);
-    if (v49(v43, 1, v39) == 1)
-    {
-      (*(v36 + 8))(v43, v37);
-      v44 = v48;
-      v45 = v51;
-    }
-
-    else
-    {
-      v46 = v53;
-      (*(v38 + 32))(v53, v43, v39);
-      v45 = v51;
-      static FromToByAction.encodeValue(_:to:forKey:)(v46, v51, 2, v39, v62);
-      v44 = v48;
-      (*(v38 + 8))(v46, v39);
-    }
-
-    v47 = *(v64 + v65[13]);
-    LOBYTE(v66) = 5;
-    KeyedEncodingContainer.encode(_:forKey:)();
-    return (*(v63 + 8))(v45, v44);
-  }
-}
-
-uint64_t FromToByAction<>.mode.getter@<X0>(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 216);
-  v3 = *(v1 + 224);
-  *a1 = v2;
-  *(a1 + 8) = v3;
-  v4 = *(v1 + 232);
-  *(a1 + 16) = v4;
-  return outlined copy of FromToByAction<A>.TransformMode<A>(v2, v3, v4);
-}
-
-__n128 FromToByAction<>.init(from:to:mode:timing:isAdditive:)@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X8>, __n128 a6@<Q0>, __n128 a7@<Q1>, __n128 a8@<Q2>)
-{
-  v8 = a2[1].n128_u8[0];
-  v9 = *(a3 + 16);
-  v10 = *(a3 + 20);
-  v12 = *(a1 + 16);
-  v13 = *(a1 + 32);
-  LOBYTE(v14) = *(a1 + 48);
-  *a5 = *a1;
-  *(a5 + 16) = v12;
-  *(a5 + 32) = v13;
-  *(a5 + 48) = v14;
-  *(a5 + 64) = a6;
-  *(a5 + 80) = a7;
-  *(a5 + 96) = a8;
-  *(a5 + 112) = 0;
-  *(a5 + 128) = 0u;
-  *(a5 + 144) = 0u;
-  *(a5 + 160) = 0u;
-  *(a5 + 176) = 1;
-  *(a5 + 192) = *a3;
-  *(a5 + 208) = v9;
-  *(a5 + 212) = v10;
-  result = *a2;
-  *(a5 + 216) = *a2;
-  *(a5 + 232) = v8;
-  *(a5 + 233) = a4;
-  *(a5 + 234) = 1;
-  *(a5 + 240) = &type metadata for Transform;
-  *(a5 + 248) = &protocol witness table for Transform;
-  return result;
-}
-
-__n128 FromToByAction<>.init(from:by:mode:timing:isAdditive:)@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X8>, __n128 a6@<Q0>, __n128 a7@<Q1>, __n128 a8@<Q2>)
-{
-  *&v12[15] = *a1;
-  v8 = a2[1].n128_u8[0];
-  v9 = *(a3 + 16);
-  v10 = *(a3 + 20);
-  *&v12[31] = *(a1 + 16);
-  *&v12[47] = *(a1 + 32);
-  v12[63] = *(a1 + 48);
-  *a5 = a6;
-  *(a5 + 16) = a7;
-  *(a5 + 32) = a8;
-  *(a5 + 48) = 0;
-  *(a5 + 64) = 0u;
-  *(a5 + 80) = 0u;
-  *(a5 + 96) = 0u;
-  *(a5 + 112) = 1;
-  *(a5 + 113) = *v12;
-  *(a5 + 129) = *&v12[16];
-  *(a5 + 145) = *&v12[32];
-  *(a5 + 161) = *&v12[48];
-  *(a5 + 192) = *a3;
-  *(a5 + 208) = v9;
-  *(a5 + 212) = v10;
-  result = *a2;
-  *(a5 + 216) = *a2;
-  *(a5 + 232) = v8;
-  *(a5 + 233) = a4;
-  *(a5 + 234) = 1;
-  *(a5 + 240) = &type metadata for Transform;
-  *(a5 + 248) = &protocol witness table for Transform;
-  return result;
-}
-
-__n128 FromToByAction<>.init(to:by:mode:timing:isAdditive:)@<Q0>(__n128 *a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>, __n128 a5@<Q0>, __n128 a6@<Q1>, __n128 a7@<Q2>, __n128 a8@<Q3>, __n128 a9@<Q4>, __n128 a10@<Q5>)
-{
-  v10 = a1[1].n128_u8[0];
-  v11 = *(a2 + 16);
-  v12 = *(a2 + 20);
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 0u;
-  *a4 = 0u;
-  *(a4 + 48) = 1;
-  *(a4 + 64) = a5;
-  *(a4 + 80) = a6;
-  *(a4 + 96) = a7;
-  *(a4 + 112) = 0;
-  *(a4 + 128) = a8;
-  *(a4 + 144) = a9;
-  *(a4 + 160) = a10;
-  *(a4 + 176) = 0;
-  *(a4 + 192) = *a2;
-  *(a4 + 208) = v11;
-  *(a4 + 212) = v12;
-  result = *a1;
-  *(a4 + 216) = *a1;
-  *(a4 + 232) = v10;
-  *(a4 + 233) = a3;
-  *(a4 + 234) = 1;
-  *(a4 + 240) = &type metadata for Transform;
-  *(a4 + 248) = &protocol witness table for Transform;
-  return result;
-}
-
-__n128 FromToByAction<>.init(by:timing:isAdditive:)@<Q0>(__n128 *a1@<X0>, char a2@<W1>, uint64_t a3@<X8>, __n128 a4@<Q0>, __n128 a5@<Q1>, __n128 a6@<Q2>)
-{
-  v6 = a1[1].n128_u32[0];
-  v7 = a1[1].n128_u8[4];
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 0u;
-  *a3 = 0u;
-  *(a3 + 48) = 1;
-  *(a3 + 64) = 0u;
-  *(a3 + 80) = 0u;
-  *(a3 + 96) = 0u;
-  *(a3 + 112) = 1;
-  *(a3 + 128) = a4;
-  *(a3 + 144) = a5;
-  *(a3 + 160) = a6;
-  *(a3 + 176) = 0;
-  result = *a1;
-  *(a3 + 192) = *a1;
-  *(a3 + 208) = v6;
-  *(a3 + 212) = v7;
-  *(a3 + 216) = 0;
-  *(a3 + 224) = 0;
-  *(a3 + 232) = -3;
-  *(a3 + 233) = a2;
-  *(a3 + 234) = 1;
-  *(a3 + 240) = &type metadata for Transform;
-  *(a3 + 248) = &protocol witness table for Transform;
-  return result;
-}
-
-uint64_t FromToByActionHandler.actionUpdated(event:)(uint64_t a1, uint64_t a2)
-{
-  v2 = a2;
-  v4 = *(a2 + 16);
-  v5 = type metadata accessor for Optional();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = &v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v32 - v11;
-  v13 = *(v4 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v32 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v32 - v19;
-  v21 = *(v2 + 24);
-  type metadata accessor for FromToByAction();
-  result = type metadata accessor for ActionEvent();
-  v23 = a1 + *(result + 76);
-  if ((*(v23 + 8) & 1) == 0)
-  {
-    v35 = result;
-    v24 = *v23;
-    v25 = fmin(fabs(*v23 + -1.0), *v23);
-    v34 = v25 <= 0.0001;
-    if (v25 <= 0.0001)
-    {
-      v33 = v2;
-      v26 = v36;
-      (*(v6 + 16))(v12, v36, v5);
-      if ((*(v13 + 48))(v12, 1, v4) == 1)
-      {
-        (*(v6 + 8))(v12, v5);
-      }
-
-      else
-      {
-        (*(v13 + 32))(v20, v12, v4);
-        if (vabdd_f64(*(v26 + *(v33 + 36)), v24) <= 0.0001)
-        {
-          ActionEvent.animationState.getter(v35, v37);
-          v30 = v38;
-          if (v38)
-          {
-            v31 = v39;
-            __swift_project_boxed_opaque_existential_1(v37, v38);
-            (*(v31 + 64))(v20, v4, v30, v31);
-            (*(v13 + 8))(v20, v4);
-            result = __swift_destroy_boxed_opaque_existential_1(v37);
-          }
-
-          else
-          {
-            (*(v13 + 8))(v20, v4);
-            result = outlined destroy of BodyTrackingComponent?(v37, &_s17RealityFoundation22AnimationStateProtocol_pSgMd, &_s17RealityFoundation22AnimationStateProtocol_pSgMR);
-          }
-
-          v29 = v36;
-          v2 = v33;
-          goto LABEL_19;
-        }
-
-        (*(v13 + 8))(v20, v4);
-      }
-
-      v2 = v33;
-    }
-
-    FromToByActionHandler.evaluateResult(_:)(a1, v2, v9);
-    if ((*(v13 + 48))(v9, 1, v4) == 1)
-    {
-      return (*(v6 + 8))(v9, v5);
-    }
-
-    v33 = *(v13 + 32);
-    (v33)(v17, v9, v4);
-    ActionEvent.animationState.getter(v35, v37);
-    v27 = v38;
-    if (v38)
-    {
-      v28 = v39;
-      __swift_project_boxed_opaque_existential_1(v37, v38);
-      (*(v28 + 64))(v17, v4, v27, v28);
-      __swift_destroy_boxed_opaque_existential_1(v37);
-      if (v34)
-      {
-LABEL_12:
-        v29 = v36;
-        (*(v6 + 8))(v36, v5);
-        (v33)(v29, v17, v4);
-        result = (*(v13 + 56))(v29, 0, 1, v4);
-LABEL_19:
-        *(v29 + *(v2 + 36)) = v24;
-        return result;
-      }
-    }
-
-    else
-    {
-      outlined destroy of BodyTrackingComponent?(v37, &_s17RealityFoundation22AnimationStateProtocol_pSgMd, &_s17RealityFoundation22AnimationStateProtocol_pSgMR);
-      if (v34)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    (*(v13 + 8))(v17, v4);
-    v29 = v36;
-    (*(v6 + 8))(v36, v5);
-    result = (*(v13 + 56))(v29, 1, 1, v4);
-    goto LABEL_19;
-  }
-
-  return result;
-}
-
-uint64_t FromToByActionHandler.evaluateResult(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v99 = a3;
-  v5 = *(a2 + 16);
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v90 = type metadata accessor for Optional();
-  v89 = *(v90 - 8);
-  v7 = *(v89 + 64);
-  MEMORY[0x1EEE9AC00](v90);
-  v96 = &v77 - v8;
-  v9 = *(TupleTypeMetadata2 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v88 = &v77 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v77 - v14;
-  v16 = type metadata accessor for Optional();
-  v91 = *(v16 - 8);
-  v92 = v16;
-  v17 = *(v91 + 8);
-  MEMORY[0x1EEE9AC00](v16);
-  v19 = &v77 - v18;
-  v20 = *(v5 - 8);
-  v21 = *(v20 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v24 = &v77 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v97 = &v77 - v26;
-  MEMORY[0x1EEE9AC00](v27);
-  v98 = &v77 - v28;
-  MEMORY[0x1EEE9AC00](v29);
-  v31 = &v77 - v30;
-  v94 = a2;
-  v32 = *(a2 + 24);
-  v93 = type metadata accessor for FromToByAction();
-  v33 = type metadata accessor for ActionEvent();
-  v34 = a1 + *(v33 + 76);
-  if (*(v34 + 8) == 1)
-  {
-    return (*(v20 + 56))(v99, 1, 1, v5);
-  }
-
-  v82 = v24;
-  v87 = v9;
-  v36 = *v34;
-  v80 = v33;
-  ActionEvent.animationState.getter(v33, v100);
-  v37 = v101;
-  v84 = v15;
-  v86 = a1;
-  v81 = v32;
-  if (v101)
-  {
-    v85 = v31;
-    v83 = TupleTypeMetadata2;
-    v38 = v102;
-    __swift_project_boxed_opaque_existential_1(v100, v101);
-    v78 = *(v38 + 24);
-    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-    v40 = type metadata accessor for Optional();
-    v79 = &v77;
-    v77 = v40;
-    v41 = *(v40 - 8);
-    v42 = *(v41 + 64);
-    v43 = MEMORY[0x1EEE9AC00](v40);
-    v45 = &v77 - v44;
-    v78(v37, v38, v43);
-    v46 = *(AssociatedTypeWitness - 8);
-    if ((*(v46 + 48))(v45, 1, AssociatedTypeWitness) == 1)
-    {
-      (*(v41 + 8))(v45, v77);
-      AssociatedConformanceWitness = 0;
-      v103 = 0u;
-      v104 = 0u;
-    }
-
-    else
-    {
-      *(&v104 + 1) = AssociatedTypeWitness;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v103);
-      (*(v46 + 32))(boxed_opaque_existential_1, v45, AssociatedTypeWitness);
-    }
-
-    __swift_destroy_boxed_opaque_existential_1(v100);
-    v47 = v99;
-    TupleTypeMetadata2 = v83;
-    v31 = v85;
-  }
-
-  else
-  {
-    outlined destroy of BodyTrackingComponent?(v100, &_s17RealityFoundation22AnimationStateProtocol_pSgMd, &_s17RealityFoundation22AnimationStateProtocol_pSgMR);
-    v103 = 0u;
-    v104 = 0u;
-    AssociatedConformanceWitness = 0;
-    v47 = v99;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation14AnimatableData_pSgMd, &_s17RealityFoundation14AnimatableData_pSgMR);
-  v49 = swift_dynamicCast();
-  v50 = *(v20 + 56);
-  if (v49)
-  {
-    v50(v19, 0, 1, v5);
-    v51 = *(v20 + 32);
-    v51(v31, v19, v5);
-    v52 = v96;
-    FromToByActionHandler.getStartEnd(event:base:)(v86, v31, v94, v96);
-    v53 = v87;
-    if ((*(v87 + 48))(v52, 1, TupleTypeMetadata2) == 1)
-    {
-      (*(v20 + 8))(v31, v5);
-      (*(v89 + 8))(v52, v90);
-      v54 = v99;
-      v55 = 1;
-    }
-
-    else
-    {
-      v95 = v20;
-      v85 = v31;
-      v56 = v52;
-      v57 = v84;
-      (*(v53 + 32))(v84, v56, TupleTypeMetadata2);
-      v58 = v88;
-      (*(v53 + 16))(v88, v57, TupleTypeMetadata2);
-      v59 = *(TupleTypeMetadata2 + 48);
-      v51(v98, v58, v5);
-      v51(v97, &v58[v59], v5);
-      v60 = v86 + *(v80 + 36);
-      v61 = (v60 + *(v93 + 44));
-      v62 = *(v61 + 4);
-      v63 = *(v61 + 20);
-      v64 = v36;
-      v103 = *v61;
-      LODWORD(v104) = v62;
-      BYTE4(v104) = v63;
-      AnimationTimingFunction.coreEasingFunction.getter();
-      v66 = *(v65 + 16);
-      v91 = v51;
-      v92 = v20 + 32;
-      if (v66)
-      {
-        REEasingFunctionEvaluateEx();
-        v64 = v67;
-      }
-
-      v68 = v82;
-
-      v69 = v81;
-      v70 = v68;
-      v72 = v97;
-      v71 = v98;
-      (*(v81 + 40))(v97, v5, v81, v64);
-      if (*(v60 + *(v93 + 52)) == 1)
-      {
-        v73 = v85;
-        (*(v69 + 32))(v68, v5, v69);
-        v74 = *(v95 + 8);
-        v74(v70, v5);
-        v74(v72, v5);
-        v74(v71, v5);
-        (*(v87 + 8))(v84, TupleTypeMetadata2);
-        v74(v73, v5);
-        v54 = v99;
-      }
-
-      else
-      {
-        v75 = *(v95 + 8);
-        v75(v72, v5);
-        v75(v71, v5);
-        (*(v87 + 8))(v84, TupleTypeMetadata2);
-        v75(v85, v5);
-        v76 = v99;
-        v91(v99, v70, v5);
-        v54 = v76;
-      }
-
-      v55 = 0;
-    }
-
-    return v50(v54, v55, 1, v5);
-  }
-
-  else
-  {
-    v50(v19, 1, 1, v5);
-    (*(v91 + 1))(v19, v92);
-    return v50(v47, 1, 1, v5);
-  }
-}
-
-uint64_t FromToByActionHandler.getStartEnd(event:base:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
-{
-  v133 = a4;
-  v130 = a2;
-  v5 = *(a3 + 16);
-  v7 = type metadata accessor for Optional();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v8 = *(*(TupleTypeMetadata2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v115 = &v112 - v9;
-  v138 = *(v5 - 8);
-  v10 = *(v138 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v114 = &v112 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v129 = &v112 - v14;
-  MEMORY[0x1EEE9AC00](v15);
-  v112 = &v112 - v16;
-  MEMORY[0x1EEE9AC00](v17);
-  v119 = &v112 - v18;
-  MEMORY[0x1EEE9AC00](v19);
-  v140 = &v112 - v20;
-  MEMORY[0x1EEE9AC00](v21);
-  v125 = &v112 - v22;
-  v131 = a3;
-  v23 = *(a3 + 24);
-  v136 = v5;
-  v117 = v23;
-  v24 = type metadata accessor for FromToByAction();
-  v25 = type metadata accessor for ActionEvent();
-  v120 = *(v25 - 8);
-  v26 = *(v120 + 64);
-  MEMORY[0x1EEE9AC00](v25);
-  v121 = &v112 - v27;
-  v28 = *(a3 - 8);
-  v29 = *(v28 + 64);
-  MEMORY[0x1EEE9AC00](v30);
-  v32 = &v112 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = *(v7 - 8);
-  v34 = v33[8];
-  MEMORY[0x1EEE9AC00](v35);
-  v128 = &v112 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v37);
-  v127 = &v112 - v38;
-  MEMORY[0x1EEE9AC00](v39);
-  v113 = &v112 - v40;
-  MEMORY[0x1EEE9AC00](v41);
-  v118 = &v112 - v42;
-  MEMORY[0x1EEE9AC00](v43);
-  v126 = &v112 - v44;
-  MEMORY[0x1EEE9AC00](v45);
-  v47 = &v112 - v46;
-  MEMORY[0x1EEE9AC00](v48);
-  v50 = &v112 - v49;
-  v52 = MEMORY[0x1EEE9AC00](v51);
-  v122 = v53;
-  v123 = a1;
-  v54 = a1 + *(v53 + 36);
-  v134 = v33;
-  v55 = v33[2];
-  v137 = &v112 - v56;
-  v55(&v112 - v56, v54, v7, v52);
-  v57 = v54 + *(v24 + 36);
-  v139 = v50;
-  (v55)(v50, v57, v7);
-  v58 = v54 + *(v24 + 40);
-  v135 = v47;
-  v59 = v7;
-  v60 = v33 + 2;
-  v141 = v59;
-  (v55)(v47, v58);
-  (*(v28 + 16))(v32, v132, v131);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation21FromToByActionHandlerVy0A3Kit9TransformVGMd, &_s17RealityFoundation21FromToByActionHandlerVy0A3Kit9TransformVGMR);
-  v61 = swift_dynamicCast();
-  v132 = v55;
-  if (v61)
-  {
-    (*(v120 + 16))(v121, v123, v122);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation11ActionEventVyAA08FromToByC0Vy0A3Kit9TransformVGGMd, &_s17RealityFoundation11ActionEventVyAA08FromToByC0Vy0A3Kit9TransformVGGMR);
-    swift_dynamicCast();
-    memcpy(v145, v146, sizeof(v145));
-    v62 = v138;
-    (*(v138 + 16))(v125, v130, v136);
-    swift_dynamicCast();
-    specialized FromToByActionHandler<>.getFromTo(event:base:)(v145, v148, v142, v143, v144);
-    memcpy(v147, v145, 0x1D0uLL);
-    outlined destroy of BodyTrackingComponent?(v147, &_s17RealityFoundation11ActionEventVyAA08FromToByC0Vy0A3Kit9TransformVGGMd, &_s17RealityFoundation11ActionEventVyAA08FromToByC0Vy0A3Kit9TransformVGGMR);
-    v63 = v134;
-    v64 = v134[1];
-    v65 = v139;
-    v66 = v141;
-    v64(v139, v141);
-    v67 = v137;
-    v64(v137, v66);
-    if (v154)
-    {
-      v64(v135, v141);
-      v68 = swift_getTupleTypeMetadata2();
-      return (*(*(v68 - 8) + 56))(v133, 1, 1, v68);
-    }
-
-    v146[0] = v148[0];
-    v146[1] = v148[1];
-    v146[2] = v148[2];
-    LOBYTE(v146[3]) = v149 & 1;
-    v146[4] = v150;
-    v146[5] = v151;
-    v146[6] = v152;
-    LOBYTE(v146[7]) = v153 & 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9TransformVSg4from_AD2totMd, &_s10RealityKit9TransformVSg4from_AD2totMR);
-    v70 = v60;
-    v72 = v115;
-    v71 = TupleTypeMetadata2;
-    swift_dynamicCast();
-    v131 = *(v71 + 48);
-    v73 = v65;
-    v74 = v63[4];
-    v75 = v141;
-    v74(v67, v72, v141);
-    v76 = &v72[v131];
-    v60 = v70;
-    v74(v73, v76, v75);
-    v55 = v132;
-  }
-
-  else
-  {
-    v67 = v137;
-    v62 = v138;
-    v63 = v134;
-  }
-
-  v77 = v126;
-  (v55)(v126, v67, v141);
-  v78 = *(v62 + 48);
-  v79 = v136;
-  v80 = v78(v77, 1, v136) == 1;
-  v124 = v60;
-  v131 = v62 + 48;
-  if (v80)
-  {
-    v126 = v63[1];
-    (v126)(v77, v141);
-    v81 = v118;
-    (v55)();
-    if (v78(v81, 1, v79) == 1)
-    {
-      v84 = v78;
-    }
-
-    else
-    {
-      v85 = *(v62 + 32);
-      v85(v119, v81, v79);
-      v81 = v113;
-      (v55)(v113, v135, v141);
-      v84 = v78;
-      if (v78(v81, 1, v79) != 1)
-      {
-        v86 = v112;
-        v85(v112, v81, v79);
-        v87 = v117;
-        v88 = v125;
-        (*(v117 + 16))(v79, v117);
-        v89 = v119;
-        (*(v87 + 24))(v88, v79, v87);
-        v90 = *(v138 + 8);
-        v90(v88, v79);
-        v90(v86, v79);
-        v90(v89, v79);
-        v63 = v134;
-        goto LABEL_14;
-      }
-
-      v62 = v138;
-      (*(v138 + 8))(v119, v79);
-      v63 = v134;
-    }
-
-    (v126)(v81, v141);
-    (*(v62 + 16))(v140, v130, v79);
-LABEL_14:
-    v83 = v127;
-    v82 = v128;
-    goto LABEL_15;
-  }
-
-  (*(v62 + 32))(v140, v77, v79);
-  v83 = v127;
-  v82 = v128;
-  v84 = v78;
-LABEL_15:
-  v91 = v139;
-  v92 = v132;
-  v132(v83, v139, v141);
-  v93 = v84(v83, 1, v79);
-  v94 = v84;
-  v95 = v63[1];
-  if (v93 == 1)
-  {
-    v96 = v83;
-    v97 = v141;
-    v134 = v94;
-    v95(v96, v141);
-    v98 = v135;
-    v92(v82, v135, v97);
-    if ((v134)(v82, 1, v79) == 1)
-    {
-      v99 = v82;
-      v100 = v141;
-      v95(v98, v141);
-      v95(v139, v100);
-      v95(v137, v100);
-      v95(v99, v100);
-      v101 = v138;
-      v102 = v129;
-      (*(v138 + 16))(v129, v130, v79);
-      v103 = *(v101 + 32);
-    }
-
-    else
-    {
-      v105 = v138;
-      v103 = *(v138 + 32);
-      v106 = v114;
-      v103(v114, v82, v79);
-      v107 = v129;
-      (*(v117 + 24))(v106, v79);
-      (*(v105 + 8))(v106, v79);
-      v108 = v141;
-      v95(v135, v141);
-      v95(v139, v108);
-      v95(v137, v108);
-      v102 = v107;
-    }
-  }
-
-  else
-  {
-    v104 = v141;
-    v95(v135, v141);
-    v95(v91, v104);
-    v95(v137, v104);
-    v103 = *(v138 + 32);
-    v102 = v129;
-    v103(v129, v83, v79);
-  }
-
-  v109 = swift_getTupleTypeMetadata2();
-  v110 = *(v109 + 48);
-  v111 = v133;
-  v103(v133, v140, v79);
-  v103((v111 + v110), v102, v79);
-  return (*(*(v109 - 8) + 56))(v111, 0, 1, v109);
-}
-
-unint64_t FromToByAction.CodingKeys.init(rawValue:)(Swift::String string)
-{
-  object = string._object;
-  v2._countAndFlagsBits = string._countAndFlagsBits;
-  v2._object = object;
-  v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of FromToByAction.CodingKeys.init(rawValue:), v2);
-
-  if (v3 >= 6)
-  {
-    return 6;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t FromToByAction.CodingKeys.rawValue.getter(unsigned __int8 a1)
-{
-  v1 = 1836020326;
-  v2 = 0x726F66736E617274;
-  v3 = 0x7546676E696D6974;
-  if (a1 != 4)
-  {
-    v3 = 0x6974696464417369;
-  }
-
-  if (a1 != 3)
-  {
-    v2 = v3;
-  }
-
-  v4 = 28532;
-  if (a1 != 1)
-  {
-    v4 = 31074;
-  }
-
-  if (a1)
-  {
-    v1 = v4;
-  }
-
-  if (a1 <= 2u)
-  {
-    return v1;
-  }
-
-  else
-  {
-    return v2;
-  }
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance FromToByAction<A>.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  WitnessTable = swift_getWitnessTable();
-  v7 = MEMORY[0x1E69E6180];
-
-  return MEMORY[0x1EEE6B350](a1, a2, a3, WitnessTable, v7);
-}
-
-uint64_t protocol witness for Hashable.hashValue.getter in conformance FromToByAction<A>.CodingKeys(uint64_t a1, uint64_t a2)
-{
-  WitnessTable = swift_getWitnessTable();
-  v5 = MEMORY[0x1E69E6168];
-
-  return MEMORY[0x1EEE69348](a1, a2, WitnessTable, v5);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance FromToByAction<A>.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  WitnessTable = swift_getWitnessTable();
-  v7 = MEMORY[0x1E69E6168];
-
-  return MEMORY[0x1EEE69358](a1, a2, a3, WitnessTable, v7);
-}
-
-uint64_t protocol witness for Hashable._rawHashValue(seed:) in conformance FromToByAction<A>.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  WitnessTable = swift_getWitnessTable();
-  v7 = MEMORY[0x1E69E6168];
-
-  return MEMORY[0x1EEE69350](a1, a2, a3, WitnessTable, v7);
-}
-
-unint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance FromToByAction<A>.CodingKeys@<X0>(Swift::String *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = FromToByAction.CodingKeys.init(rawValue:)(*a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance FromToByAction<A>.CodingKeys@<X0>(uint64_t *a1@<X8>)
-{
-  result = FromToByAction.CodingKeys.rawValue.getter(*v1);
-  *a1 = result;
-  a1[1] = v4;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance FromToByAction<A>.CodingKeys@<X0>(_BYTE *a1@<X8>)
-{
-  result = FromToByAction.CodingKeys.init(stringValue:)();
-  *a1 = result;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(intValue:) in conformance FromToByAction<A>.CodingKeys@<X0>(uint64_t a1@<X1>, _BYTE *a2@<X8>)
-{
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  result = specialized FromToByAction.CodingKeys.init(intValue:)();
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance FromToByAction<A>.CodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB70](a1, WitnessTable);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FromToByAction<A>.CodingKeys(uint64_t a1)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEE6BB78](a1, WitnessTable);
-}
-
-Swift::Int FromToByAction.DecodingErrors.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  MEMORY[0x1C68F4C10](0);
-  return Hasher._finalize()();
-}
-
-uint64_t static FromToByAction.decodeValueIfPresent(from:forKey:)@<X0>(uint64_t a1@<X2>, uint64_t a2@<X8>)
-{
-  type metadata accessor for FromToByAction.CodingKeys();
-  swift_getWitnessTable();
-  type metadata accessor for KeyedDecodingContainer();
-  if (KeyedDecodingContainer.contains(_:)())
-  {
-    result = static FromToByAction.decodeValue(from:forKey:)();
-    if (v2)
-    {
-      return result;
-    }
-
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = 1;
-  }
-
-  return (*(*(a1 - 8) + 56))(a2, v6, 1, a1);
-}
-
-uint64_t static FromToByAction.encodeValue(_:to:forKey:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
-{
-  v50 = a5;
-  v49 = a3;
-  v52 = a2;
-  v7 = *(a4 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v44 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v45 = &v42 - v11;
-  MEMORY[0x1EEE9AC00](v12);
-  v46 = &v42 - v13;
-  MEMORY[0x1EEE9AC00](v14);
-  v47 = &v42 - v15;
-  MEMORY[0x1EEE9AC00](v16);
-  v48 = &v42 - v17;
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v42 - v19;
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v42 - v22;
-  MEMORY[0x1EEE9AC00](v24);
-  v26 = &v42 - v25;
-  MEMORY[0x1EEE9AC00](v27);
-  v29 = &v42 - v28;
-  v31 = MEMORY[0x1EEE9AC00](v30);
-  v33 = &v42 - v32;
-  v51 = v7;
-  v34 = *(v7 + 16);
-  v34(&v42 - v32, a1, v35, v31);
-  if (swift_dynamicCast())
-  {
-    (v34)(v29, a1, a4);
-    swift_dynamicCast();
-    LOBYTE(v53) = v49;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    KeyedEncodingContainer.encode(_:forKey:)();
-    return (*(v51 + 8))(v33, a4);
-  }
-
-  v43 = a1;
-  v36 = v49;
-  if (swift_dynamicCast())
-  {
-    (v34)(v26, v43, a4);
-    swift_dynamicCast();
-    LOBYTE(v53) = v36;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    KeyedEncodingContainer.encode(_:forKey:)();
-    return (*(v51 + 8))(v33, a4);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySfGMd, &_ss5SIMD2VySfGMR);
-  if (swift_dynamicCast())
-  {
-    (v34)(v23, v43, a4);
-    swift_dynamicCast();
-    *&v53 = v56;
-    v59 = v36;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD2<Float> and conformance SIMD2<A>, &_ss5SIMD2VySfGMd, &_ss5SIMD2VySfGMR);
-LABEL_11:
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    return (*(v51 + 8))(v33, a4);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-  v37 = v34;
-  if (swift_dynamicCast())
-  {
-    (v34)(v20, v43, a4);
-    swift_dynamicCast();
-    v53 = v56;
-    v59 = v36;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD3<Float> and conformance SIMD3<A>, &_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-    goto LABEL_11;
-  }
-
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-  if (swift_dynamicCast())
-  {
-    v37(v48, v43, a4);
-    swift_dynamicCast();
-    v53 = v56;
-    v59 = v36;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD4<Float> and conformance SIMD4<A>, &_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-    goto LABEL_11;
-  }
-
-  type metadata accessor for simd_quatf(0);
-  v40 = swift_dynamicCast();
-  v41 = v43;
-  if (v40)
-  {
-    v48 = v38;
-    v37(v47, v43, a4);
-    swift_dynamicCast();
-    v53 = v56;
-    v59 = v36;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD4<Float> and conformance SIMD4<A>, &_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-    v37(v46, v41, a4);
-    swift_dynamicCast();
-    v53 = v56;
-    v54 = v57;
-    v55 = v58;
-    v59 = v36;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    lazy protocol witness table accessor for type Transform and conformance Transform();
-    goto LABEL_11;
-  }
-
-  if (swift_dynamicCast())
-  {
-
-    v37(v45, v41, a4);
-    swift_dynamicCast();
-    *&v53 = v56;
-    v59 = v36;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    lazy protocol witness table accessor for type JointTransforms and conformance JointTransforms();
-  }
-
-  else
-  {
-    if (!swift_dynamicCast())
-    {
-      type metadata accessor for FromToByAction.DecodingErrors();
-      swift_getWitnessTable();
-      swift_allocError();
-      swift_willThrow();
-      return (*(v51 + 8))(v33, a4);
-    }
-
-    v37(v44, v41, a4);
-    swift_dynamicCast();
-    *&v53 = v56;
-    v59 = v36;
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedEncodingContainer();
-    lazy protocol witness table accessor for type BlendShapeWeights and conformance BlendShapeWeights();
-  }
-
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-
-  return (*(v51 + 8))(v33, a4);
-}
-
-uint64_t static FromToByAction.decodeValue(from:forKey:)()
-{
-  if (swift_dynamicCastMetatype())
-  {
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedDecodingContainer();
-    result = KeyedDecodingContainer.decode(_:forKey:)();
-    if (v0)
-    {
-      return result;
-    }
-
-    return swift_dynamicCast();
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedDecodingContainer();
-    result = KeyedDecodingContainer.decode(_:forKey:)();
-    if (v0)
-    {
-      return result;
-    }
-
-    return swift_dynamicCast();
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySfGMd, &_ss5SIMD2VySfGMR);
-  if (swift_dynamicCastMetatype())
-  {
-    type metadata accessor for FromToByAction.CodingKeys();
-    swift_getWitnessTable();
-    type metadata accessor for KeyedDecodingContainer();
-    v2 = &lazy protocol witness table cache variable for type SIMD2<Float> and conformance SIMD2<A>;
-    v3 = &_ss5SIMD2VySfGMd;
-    v4 = &_ss5SIMD2VySfGMR;
-  }
-
-  else
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-    if (swift_dynamicCastMetatype())
-    {
-      type metadata accessor for FromToByAction.CodingKeys();
-      swift_getWitnessTable();
-      type metadata accessor for KeyedDecodingContainer();
-      v2 = &lazy protocol witness table cache variable for type SIMD3<Float> and conformance SIMD3<A>;
-      v3 = &_ss5SIMD3VySfGMd;
-      v4 = &_ss5SIMD3VySfGMR;
-    }
-
-    else
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-      if (!swift_dynamicCastMetatype())
-      {
-        type metadata accessor for simd_quatf(0);
-        if (swift_dynamicCastMetatype())
-        {
-          type metadata accessor for FromToByAction.CodingKeys();
-          swift_getWitnessTable();
-          type metadata accessor for KeyedDecodingContainer();
-          lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type SIMD4<Float> and conformance SIMD4<A>, &_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-          result = KeyedDecodingContainer.decode<A>(_:forKey:)();
-          if (!v0)
-          {
-            return swift_dynamicCast();
-          }
-        }
-
-        else if (swift_dynamicCastMetatype())
-        {
-          type metadata accessor for FromToByAction.CodingKeys();
-          swift_getWitnessTable();
-          type metadata accessor for KeyedDecodingContainer();
-          lazy protocol witness table accessor for type Transform and conformance Transform();
-          result = KeyedDecodingContainer.decode<A>(_:forKey:)();
-          if (!v0)
-          {
-            return swift_dynamicCast();
-          }
-        }
-
-        else if (swift_dynamicCastMetatype())
-        {
-          type metadata accessor for FromToByAction.CodingKeys();
-          swift_getWitnessTable();
-          type metadata accessor for KeyedDecodingContainer();
-          lazy protocol witness table accessor for type JointTransforms and conformance JointTransforms();
-          result = KeyedDecodingContainer.decode<A>(_:forKey:)();
-          if (!v0)
-          {
-            return swift_dynamicCast();
-          }
-        }
-
-        else
-        {
-          if (!swift_dynamicCastMetatype())
-          {
-            type metadata accessor for FromToByAction.DecodingErrors();
-            swift_getWitnessTable();
-            swift_allocError();
-            return swift_willThrow();
-          }
-
-          type metadata accessor for FromToByAction.CodingKeys();
-          swift_getWitnessTable();
-          type metadata accessor for KeyedDecodingContainer();
-          lazy protocol witness table accessor for type BlendShapeWeights and conformance BlendShapeWeights();
-          result = KeyedDecodingContainer.decode<A>(_:forKey:)();
-          if (!v0)
-          {
-            return swift_dynamicCast();
-          }
-        }
-
-        return result;
-      }
-
-      type metadata accessor for FromToByAction.CodingKeys();
-      swift_getWitnessTable();
-      type metadata accessor for KeyedDecodingContainer();
-      v2 = &lazy protocol witness table cache variable for type SIMD4<Float> and conformance SIMD4<A>;
-      v3 = &_ss5SIMD4VySfGMd;
-      v4 = &_ss5SIMD4VySfGMR;
-    }
-  }
-
-  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(v2, v3, v4);
-  result = KeyedDecodingContainer.decode<A>(_:forKey:)();
-  if (!v0)
-  {
-    return swift_dynamicCast();
-  }
-
-  return result;
-}
-
 void type metadata completion function for FromToByAction(uint64_t a1)
 {
   v2 = *(a1 + 16);
   type metadata accessor for Optional();
-  if (v3 <= 0x3F)
+  if (v4 <= 0x3F)
   {
-    v4 = *(a1 + 24);
-    type metadata accessor for FromToByAction.TransformMode();
+    type metadata accessor for FromToByAction.TransformMode(319, v2, *(a1 + 24), v3);
     if (v5 <= 0x3F)
     {
-      type metadata accessor for @thick AnimatableData.Type?();
+      type metadata accessor for @thick AnimatableData.Type?(319);
       if (v6 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
@@ -3399,7 +142,7 @@ LABEL_33:
 
     else
     {
-      v21 = (*(v4 + 48))(a1, v5);
+      v21 = (*(v4 + 48))(a1);
       if (v21 >= 2)
       {
         return v21 - 1;
@@ -3646,20 +389,20 @@ LABEL_38:
   }
 }
 
-void type metadata accessor for @thick AnimatableData.Type?()
+void type metadata accessor for @thick AnimatableData.Type?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for @thick AnimatableData.Type?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s17RealityFoundation14AnimatableData_pXmTMd, &_s17RealityFoundation14AnimatableData_pXmTMR);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for @thick AnimatableData.Type?);
+      atomic_store(v1, &lazy cache variable for type metadata for @thick AnimatableData.Type?);
     }
   }
 }
 
-uint64_t type metadata instantiation function for FromToByAction.TransformMode()
+uint64_t type metadata instantiation function for FromToByAction.TransformMode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -3766,7 +509,7 @@ unint64_t lazy protocol witness table accessor for type BlendShapeWeights and co
   result = lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights;
   if (!lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for BlendShapeWeights, &type metadata for BlendShapeWeights, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights);
   }
 
@@ -3777,7 +520,7 @@ unint64_t lazy protocol witness table accessor for type BlendShapeWeights and co
   result = lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights;
   if (!lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for BlendShapeWeights, &type metadata for BlendShapeWeights, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights);
   }
 
@@ -3788,7 +531,7 @@ unint64_t lazy protocol witness table accessor for type BlendShapeWeights and co
   result = lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights;
   if (!lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for BlendShapeWeights, &type metadata for BlendShapeWeights, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights);
   }
 
@@ -3799,7 +542,7 @@ unint64_t lazy protocol witness table accessor for type BlendShapeWeights and co
   result = lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights;
   if (!lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for BlendShapeWeights, &type metadata for BlendShapeWeights, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights);
   }
 
@@ -3810,7 +553,7 @@ unint64_t lazy protocol witness table accessor for type BlendShapeWeights and co
   result = lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights;
   if (!lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for BlendShapeWeights, &type metadata for BlendShapeWeights, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights);
   }
 
@@ -3821,7 +564,7 @@ unint64_t lazy protocol witness table accessor for type BlendShapeWeights and co
   result = lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights;
   if (!lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for BlendShapeWeights, &type metadata for BlendShapeWeights, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type BlendShapeWeights and conformance BlendShapeWeights);
   }
 
@@ -3833,7 +576,7 @@ unint64_t lazy protocol witness table accessor for type JointTransforms and conf
   result = lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms;
   if (!lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for JointTransforms, &type metadata for JointTransforms, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms);
   }
 
@@ -3844,7 +587,7 @@ unint64_t lazy protocol witness table accessor for type JointTransforms and conf
   result = lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms;
   if (!lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for JointTransforms, &type metadata for JointTransforms, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms);
   }
 
@@ -3855,7 +598,7 @@ unint64_t lazy protocol witness table accessor for type JointTransforms and conf
   result = lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms;
   if (!lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for JointTransforms, &type metadata for JointTransforms, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms);
   }
 
@@ -3866,7 +609,7 @@ unint64_t lazy protocol witness table accessor for type JointTransforms and conf
   result = lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms;
   if (!lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for JointTransforms, &type metadata for JointTransforms, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms);
   }
 
@@ -3877,7 +620,7 @@ unint64_t lazy protocol witness table accessor for type JointTransforms and conf
   result = lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms;
   if (!lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for JointTransforms, &type metadata for JointTransforms, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms);
   }
 
@@ -3888,7 +631,7 @@ unint64_t lazy protocol witness table accessor for type JointTransforms and conf
   result = lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms;
   if (!lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for JointTransforms, &type metadata for JointTransforms, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type JointTransforms and conformance JointTransforms);
   }
 
@@ -3900,7 +643,7 @@ unint64_t lazy protocol witness table accessor for type Transform and conformanc
   result = lazy protocol witness table cache variable for type Transform and conformance Transform;
   if (!lazy protocol witness table cache variable for type Transform and conformance Transform)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for Transform, &type metadata for Transform, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type Transform and conformance Transform);
   }
 
@@ -3911,7 +654,7 @@ unint64_t lazy protocol witness table accessor for type Transform and conformanc
   result = lazy protocol witness table cache variable for type Transform and conformance Transform;
   if (!lazy protocol witness table cache variable for type Transform and conformance Transform)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for Transform, &type metadata for Transform, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type Transform and conformance Transform);
   }
 
@@ -3922,7 +665,7 @@ unint64_t lazy protocol witness table accessor for type Transform and conformanc
   result = lazy protocol witness table cache variable for type Transform and conformance Transform;
   if (!lazy protocol witness table cache variable for type Transform and conformance Transform)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for Transform, &type metadata for Transform, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type Transform and conformance Transform);
   }
 
@@ -3933,7 +676,7 @@ unint64_t lazy protocol witness table accessor for type Transform and conformanc
   result = lazy protocol witness table cache variable for type Transform and conformance Transform;
   if (!lazy protocol witness table cache variable for type Transform and conformance Transform)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for Transform, &type metadata for Transform, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type Transform and conformance Transform);
   }
 
@@ -3944,14 +687,14 @@ unint64_t lazy protocol witness table accessor for type Transform and conformanc
   result = lazy protocol witness table cache variable for type Transform and conformance Transform;
   if (!lazy protocol witness table cache variable for type Transform and conformance Transform)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for Transform, &type metadata for Transform, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type Transform and conformance Transform);
   }
 
   return result;
 }
 
-void specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbackController:targetEntity:base:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __n128 *a4@<X8>, __int128 a5@<Q0>, __n128 a6@<Q1>, __n128 a7@<Q2>)
+void specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbackController:targetEntity:base:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __n128 *a4@<X8>, __n128 a5@<Q0>, __n128 a6@<Q1>, __n128 a7@<Q2>)
 {
   v8 = *(a1 + 16);
   if (v8 == 253)
@@ -3963,22 +706,22 @@ void specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbac
       if (v10)
       {
         *v11.i64 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v10, 0);
-        v45 = v12;
-        v47 = v11;
-        v42 = v14;
-        v43 = v13;
+        v46 = v12;
+        v48 = v11;
+        v43 = v14;
+        v44 = v13;
 
-        v54.columns[1] = v45;
-        v54.columns[0] = v47;
-        v54.columns[3] = v42;
-        v54.columns[2] = v43;
-        __invert_f4(v54);
+        v55.columns[1] = v46;
+        v55.columns[0] = v48;
+        v55.columns[3] = v43;
+        v55.columns[2] = v44;
+        __invert_f4(v55);
       }
 
       REMakeSRTFromMatrix();
-      v46 = v36;
-      v48 = v35;
-      v44 = v37;
+      v47 = v36;
+      v49 = v35;
+      v45 = v37;
       if (one-time initialization token for identity != -1)
       {
         swift_once();
@@ -4007,13 +750,13 @@ void specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbac
 
         outlined copy of FromToByAction<A>.TransformMode<A>(v16, v15, v8);
         _StringGuts.grow(_:)(70);
-        v52 = 0;
-        v53 = 0xE000000000000000;
+        v53 = 0;
+        v54 = 0xE000000000000000;
         MEMORY[0x1C68F3410](0xD000000000000019, 0x80000001C18E5940);
         MEMORY[0x1C68F3410](0xD000000000000012, 0x80000001C18E5960);
-        v49 = v16;
-        v50 = v15;
-        v51 = v8 & 1;
+        v50 = v16;
+        v51 = v15;
+        v52 = v8 & 1;
         v30 = String.init<A>(describing:)();
         MEMORY[0x1C68F3410](v30);
 
@@ -4033,9 +776,9 @@ void specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbac
         {
           v33 = swift_slowAlloc();
           v34 = swift_slowAlloc();
-          v49 = v34;
+          v50 = v34;
           *v33 = 136315138;
-          *(v33 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, &v49);
+          *(v33 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, &v50);
           _os_log_impl(&dword_1C1358000, v26, v32, "%s", v33, 0xCu);
           __swift_destroy_boxed_opaque_existential_1(v34);
           MEMORY[0x1C6902A30](v34, -1, -1);
@@ -4046,9 +789,9 @@ void specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbac
       else
       {
         v18 = Strong;
-        v49 = v16;
-        v50 = v15;
-        v51 = v8 & 1;
+        v50 = v16;
+        v51 = v15;
+        v52 = v8 & 1;
 
         outlined copy of FromToByAction<A>.TransformMode<A>(v16, v15, v8);
         v19 = ActionEntityResolution.resolve(from:)(v18);
@@ -4060,9 +803,9 @@ void specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbac
           _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v20, v21);
 
           REMakeSRTFromMatrix();
-          v46 = v23;
-          v48 = v22;
-          v44 = v24;
+          v47 = v23;
+          v49 = v22;
+          v45 = v24;
           if (one-time initialization token for identity != -1)
           {
             swift_once();
@@ -4071,23 +814,23 @@ void specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbac
 LABEL_31:
 
           v9 = 0;
-          a6 = v46;
-          a5 = v48;
-          a7 = v44;
+          a6 = v47;
+          a5 = v49;
+          a7 = v45;
           goto LABEL_32;
         }
 
         _StringGuts.grow(_:)(31);
-        v52 = 0;
-        v53 = 0xE000000000000000;
+        v53 = 0;
+        v54 = 0xE000000000000000;
         MEMORY[0x1C68F3410](0xD000000000000019, 0x80000001C18E5940);
         MEMORY[0x1C68F3410](0xD000000000000012, 0x80000001C18E5960);
-        v50 = v15;
-        v51 = v8 & 1;
+        v51 = v15;
+        v52 = v8 & 1;
         _print_unlocked<A, B>(_:_:)();
-        outlined consume of FromToByAction<A>.TransformMode<A>(v16, v15, v8);
-        MEMORY[0x1C68F3410](0x206D6F726620, 0xE600000000000000);
-        v49 = v18;
+        v38 = outlined consume of FromToByAction<A>.TransformMode<A>(v16, v15, v8);
+        MEMORY[0x1C68F3410](0x206D6F726620, 0xE600000000000000, v38);
+        v50 = v18;
         type metadata accessor for Entity();
         _print_unlocked<A, B>(_:_:)();
         MEMORY[0x1C68F3410](46, 0xE100000000000000);
@@ -4096,23 +839,23 @@ LABEL_31:
           swift_once();
         }
 
-        v38 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v38, static AnimationLogger.logger);
+        v39 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v39, static AnimationLogger.logger);
 
         v26 = Logger.logObject.getter();
-        v39 = static os_log_type_t.error.getter();
+        v40 = static os_log_type_t.error.getter();
 
-        if (os_log_type_enabled(v26, v39))
+        if (os_log_type_enabled(v26, v40))
         {
-          v40 = swift_slowAlloc();
           v41 = swift_slowAlloc();
-          v49 = v41;
-          *v40 = 136315138;
-          *(v40 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, &v49);
-          _os_log_impl(&dword_1C1358000, v26, v39, "%s", v40, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v41);
+          v42 = swift_slowAlloc();
+          v50 = v42;
+          *v41 = 136315138;
+          *(v41 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, &v50);
+          _os_log_impl(&dword_1C1358000, v26, v40, "%s", v41, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1(v42);
+          MEMORY[0x1C6902A30](v42, -1, -1);
           MEMORY[0x1C6902A30](v41, -1, -1);
-          MEMORY[0x1C6902A30](v40, -1, -1);
         }
       }
 
@@ -4139,9 +882,9 @@ LABEL_18:
     {
       v28 = swift_slowAlloc();
       v29 = swift_slowAlloc();
-      v49 = v29;
+      v50 = v29;
       *v28 = 136315138;
-      *(v28 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000047, 0x80000001C18E58F0, &v49);
+      *(v28 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000047, 0x80000001C18E58F0, &v50);
       _os_log_impl(&dword_1C1358000, v26, v27, "%s", v28, 0xCu);
       __swift_destroy_boxed_opaque_existential_1(v29);
       MEMORY[0x1C6902A30](v29, -1, -1);
@@ -4169,9 +912,8 @@ LABEL_32:
 
 uint64_t type metadata completion function for FromToByActionHandler(uint64_t a1)
 {
-  v1 = *(a1 + 16);
   result = type metadata accessor for Optional();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4272,7 +1014,7 @@ uint64_t getEnumTagSinglePayload for FromToByActionHandler(_DWORD *a1, unsigned 
 LABEL_28:
     if (v5 >= 2)
     {
-      v17 = (*(v4 + 48))(a1, v5);
+      v17 = (*(v4 + 48))(a1);
       if (v17 >= 2)
       {
         return v17 - 1;
@@ -4444,118 +1186,117 @@ void specialized FromToByActionHandler<>.getFromTo(event:base:)(uint64_t a1@<X0>
   v10 = *(a1 + 64);
   v11 = *(a1 + 80);
   v12 = *(a1 + 96);
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 112);
-  v15 = *(a1 + 128);
-  v16 = *(a1 + 232);
-  v17 = *(a1 + 248);
-  v18 = *(a1 + 280);
+  v13 = *(a1 + 112);
+  v14 = *(a1 + 128);
+  v15 = *(a1 + 232);
+  v16 = *(a1 + 248);
+  v17 = *(a1 + 280);
   if (v10 != 1 || !*(a1 + 128))
   {
-    v38 = *(a1 + 48);
-    v40 = *(a1 + 32);
-    v42 = *(a1 + 16);
-    v35 = *(a1 + 112);
-    v36 = *(a1 + 96);
-    v37 = *(a1 + 80);
+    v37 = *(a1 + 48);
+    v39 = *(a1 + 32);
+    v41 = *(a1 + 16);
+    v34 = *(a1 + 112);
+    v35 = *(a1 + 96);
+    v36 = *(a1 + 80);
     if (one-time initialization token for identity != -1)
     {
-      v34 = *a1;
-      v32 = *(a1 + 280);
-      v28 = a4;
-      v30 = a5;
-      v26 = *(a1 + 232);
-      v27 = a3;
+      v33 = *a1;
+      v31 = *(a1 + 280);
+      v27 = a4;
+      v29 = a5;
+      v25 = *(a1 + 232);
+      v26 = a3;
       swift_once();
-      v16 = v26;
-      a3 = v27;
-      a4 = v28;
-      a5 = v30;
-      v18 = v32;
-      v9 = v34;
+      v15 = v25;
+      a3 = v26;
+      a4 = v27;
+      a5 = v29;
+      v17 = v31;
+      v9 = v33;
     }
 
+    v43 = v15;
     v44 = v16;
-    v45 = v17;
-    specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbackController:targetEntity:base:)(&v44, v9, v18, &v47, *&a3, a4, a5);
-    if (v50)
+    specialized FromToByActionHandler<>.getFromToToParent(transformMode:playbackController:targetEntity:base:)(&v43, v9, v17, &v46, a3, a4, a5);
+    if (v49)
     {
-      v15 = 0;
+      v14 = 0;
       v10 = 0;
-      v19 = 1;
+      v18 = 1;
+      v19 = 0uLL;
       v20 = 0uLL;
       v21 = 0uLL;
-      v22 = 0uLL;
       v11 = 0uLL;
       v12 = 0uLL;
-      v14 = 0uLL;
+      v13 = 0uLL;
       goto LABEL_14;
     }
 
-    v31 = *&v48;
-    v33 = v47;
-    v29 = *&v49;
+    v30 = *&v47;
+    v32 = v46;
+    v28 = *&v48;
     if (v10)
     {
-      v21 = v40;
-      v20 = v42;
-      v22 = v38;
-      if ((v15 & 1) == 0)
+      v20 = v39;
+      v19 = v41;
+      v21 = v37;
+      if ((v14 & 1) == 0)
       {
 LABEL_10:
-        v41 = v21;
-        v43 = v20;
-        v39 = v22;
-        *v11.i64 = specialized static Transform.* infix(_:_:)(v33, v31, v29, v37);
-        v22 = v39;
-        v21 = v41;
-        v20 = v43;
+        v40 = v20;
+        v42 = v19;
+        v38 = v21;
+        *v11.i64 = specialized static Transform.* infix(_:_:)(v32, v30, v28, v36);
+        v21 = v38;
+        v20 = v40;
+        v19 = v42;
 LABEL_13:
-        v19 = 0;
-        v46 = v10;
-        LOBYTE(v44) = 0;
+        v18 = 0;
+        v45 = v10;
+        LOBYTE(v43) = 0;
         goto LABEL_14;
       }
     }
 
     else
     {
-      *v23.i64 = specialized static Transform.* infix(_:_:)(v47, *&v48, *&v49, v42);
+      *v22.i64 = specialized static Transform.* infix(_:_:)(v46, *&v47, *&v48, v41);
+      v19 = v22;
       v20 = v23;
       v21 = v24;
-      v22 = v25;
-      if ((v15 & 1) == 0)
+      if ((v14 & 1) == 0)
       {
         goto LABEL_10;
       }
     }
 
-    v12 = v36;
-    v11 = v37;
-    v14 = v35;
+    v12 = v35;
+    v11 = v36;
+    v13 = v34;
     goto LABEL_13;
   }
 
-  v19 = 0;
-  v15 = 1;
-  LOBYTE(v44) = 1;
-  v46 = 1;
-  v47.i8[0] = 0;
+  v18 = 0;
+  v14 = 1;
+  LOBYTE(v43) = 1;
+  v45 = 1;
+  v46.i8[0] = 0;
   v10 = 1;
-  v20 = v11;
-  v21 = v12;
-  v22 = v14;
+  v19 = v11;
+  v20 = v12;
+  v21 = v13;
 LABEL_14:
-  *a2 = v20;
-  *(a2 + 16) = v21;
-  *(a2 + 32) = v22;
+  *a2 = v19;
+  *(a2 + 16) = v20;
+  *(a2 + 32) = v21;
   *(a2 + 48) = v10;
   *(a2 + 56) = 0;
   *(a2 + 64) = v11;
   *(a2 + 80) = v12;
-  *(a2 + 96) = v14;
-  *(a2 + 112) = v15;
-  *(a2 + 113) = v19;
+  *(a2 + 96) = v13;
+  *(a2 + 112) = v14;
+  *(a2 + 113) = v18;
 }
 
 void static AnimationTimingFunction.linear.getter(uint64_t a1@<X8>)
@@ -4576,22 +1317,17 @@ void AnimationTimingFunction.coreEasingFunction.getter()
     {
       if (v2 == 5)
       {
-        v13 = HIDWORD(*v0);
-        v4 = RECreateExponentialEaseEx();
+        v3 = RECreateExponentialEaseEx();
+      }
+
+      else if (v2 == 6)
+      {
+        v3 = RECreateLogarithmicEaseEx();
       }
 
       else
       {
-        v3 = HIDWORD(*v0);
-        if (v2 == 6)
-        {
-          v4 = RECreateLogarithmicEaseEx();
-        }
-
-        else
-        {
-          v4 = RECreatePowerEaseEx();
-        }
+        v3 = RECreatePowerEaseEx();
       }
 
       goto LABEL_29;
@@ -4604,12 +1340,12 @@ void AnimationTimingFunction.coreEasingFunction.getter()
         goto LABEL_34;
       }
 
-      v7 = RECreateHermiteEaseEx();
+      v5 = RECreateHermiteEaseEx();
 LABEL_13:
-      v8 = v7;
+      v6 = v5;
       if (v1 >= 2u)
       {
-        if (v7)
+        if (v5)
         {
 LABEL_31:
           REEasingFunctionSetModeEx();
@@ -4622,13 +1358,13 @@ LABEL_31:
       goto LABEL_30;
     }
 
-    v4 = RECreateSineEaseEx();
+    v3 = RECreateSineEaseEx();
 LABEL_29:
-    v8 = v4;
+    v6 = v3;
     if (v1)
     {
 LABEL_30:
-      if (v8)
+      if (v6)
       {
         goto LABEL_31;
       }
@@ -4636,7 +1372,7 @@ LABEL_30:
       goto LABEL_34;
     }
 
-    if (v4)
+    if (v3)
     {
       goto LABEL_31;
     }
@@ -4647,31 +1383,31 @@ LABEL_34:
     return;
   }
 
-  v5 = v0[1];
+  v4 = v0[1];
   if (*(v0 + 20) <= 1u)
   {
     if (!*(v0 + 20))
     {
-      v16 = HIDWORD(*v0);
+      v10 = HIDWORD(*v0);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_1C1897FC0;
       *(inited + 32) = v1;
-      *(inited + 36) = v16;
+      *(inited + 36) = v10;
       _ss4SIMDPsEyxqd__cSTRd__7ElementQyd__6ScalarRtzlufCs5SIMD2VySfG_SaySfGTt1gq5Tf4g_n(inited);
       swift_setDeallocating();
-      v10 = swift_initStackObject();
-      *(v10 + 16) = xmmword_1C1897FC0;
-      *(v10 + 32) = v5;
-      _ss4SIMDPsEyxqd__cSTRd__7ElementQyd__6ScalarRtzlufCs5SIMD2VySfG_SaySfGTt1gq5Tf4g_n(v10);
+      v8 = swift_initStackObject();
+      *(v8 + 16) = xmmword_1C1897FC0;
+      *(v8 + 32) = v4;
+      _ss4SIMDPsEyxqd__cSTRd__7ElementQyd__6ScalarRtzlufCs5SIMD2VySfG_SaySfGTt1gq5Tf4g_n(v8);
       swift_setDeallocating();
-      v11 = RECreateCubicBezierEaseEx();
-      if (v11)
+      v9 = RECreateCubicBezierEaseEx();
+      if (v9)
       {
-        v8 = v11;
+        v6 = v9;
 LABEL_32:
         type metadata accessor for AnimationTimingFunction.EasingFunction();
-        *(swift_allocObject() + 16) = v8;
+        *(swift_allocObject() + 16) = v6;
         RERetain();
         RERelease();
         return;
@@ -4680,20 +1416,17 @@ LABEL_32:
       goto LABEL_34;
     }
 
-    v15 = HIDWORD(*v0);
-    v4 = RECreateBackEaseEx();
+    v3 = RECreateBackEaseEx();
     goto LABEL_29;
   }
 
-  v6 = *(v0 + 4);
   if (v2 == 2)
   {
-    if ((v5 & 0x8000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0)
     {
-      if (!HIDWORD(v5))
+      if (!HIDWORD(v4))
       {
-        v12 = v0[1];
-        v4 = RECreateBounceEaseEx();
+        v3 = RECreateBounceEaseEx();
         goto LABEL_29;
       }
 
@@ -4710,19 +1443,18 @@ LABEL_37:
 
   if (v2 == 3)
   {
-    v7 = RECreateCircleEaseEx();
+    v5 = RECreateCircleEaseEx();
     goto LABEL_13;
   }
 
-  if ((v5 & 0x8000000000000000) != 0)
+  if ((v4 & 0x8000000000000000) != 0)
   {
     goto LABEL_36;
   }
 
-  if (!HIDWORD(v5))
+  if (!HIDWORD(v4))
   {
-    v14 = v0[1];
-    v4 = RECreateElasticEaseEx();
+    v3 = RECreateElasticEaseEx();
     goto LABEL_29;
   }
 
@@ -4738,112 +1470,111 @@ Swift::Int AnimationTimingFunction.__Mode.hashValue.getter()
   return Hasher._finalize()();
 }
 
-void AnimationTimingFunction.EasingFunctionType.hash(into:)(uint64_t a1)
+void AnimationTimingFunction.EasingFunctionType.hash(into:)()
 {
-  v2 = v1;
-  v4 = v2->n128_u64[0];
-  v5 = v2[1].n128_u8[4];
-  if (v5 <= 4)
+  v1 = v0->n128_u64[0];
+  v2 = v0[1].n128_u8[4];
+  if (v2 <= 4)
   {
-    v8 = v2->n128_u64[1];
-    if (v2[1].n128_u8[4] > 1u)
+    v5 = v0->n128_u64[1];
+    if (v0[1].n128_u8[4] > 1u)
     {
-      v9 = v2[1].n128_u32[0];
-      if (v5 == 2)
+      v6 = v0[1].n128_u32[0];
+      if (v2 == 2)
       {
-        v11 = 3;
+        v8 = 3;
       }
 
       else
       {
-        if (v5 == 3)
+        if (v2 == 3)
         {
-          v10 = 4;
+          v7 = 4;
 LABEL_20:
-          MEMORY[0x1C68F4C10](v10);
-          MEMORY[0x1C68F4C10](v4);
+          MEMORY[0x1C68F4C10](v7);
+          MEMORY[0x1C68F4C10](v1);
           return;
         }
 
-        v11 = 5;
+        v8 = 5;
       }
 
-      MEMORY[0x1C68F4C10](v11);
-      MEMORY[0x1C68F4C10](v4);
       MEMORY[0x1C68F4C10](v8);
-      if ((v9 & 0x7FFFFFFF) != 0)
+      MEMORY[0x1C68F4C10](v1);
+      MEMORY[0x1C68F4C10](v5);
+      if ((v6 & 0x7FFFFFFF) != 0)
       {
-        v12 = v9;
+        v9 = v6;
       }
 
       else
       {
-        v12 = 0;
+        v9 = 0;
       }
 
 LABEL_33:
-      Hasher._combine(_:)(v12);
+      Hasher._combine(_:)(v9);
       return;
     }
 
-    if (v2[1].n128_u8[4])
+    if (v0[1].n128_u8[4])
     {
-      v6 = HIDWORD(v4);
-      v7 = 2;
+      v3 = HIDWORD(v1);
+      v4 = 2;
       goto LABEL_27;
     }
 
-    v14 = *v2;
+    v11 = *v0;
     MEMORY[0x1C68F4C10](1);
 
-    specialized SIMD.hash(into:)(a1, v14);
+    specialized SIMD.hash(into:)(v11);
   }
 
   else
   {
-    if (v2[1].n128_u8[4] <= 7u)
+    if (v0[1].n128_u8[4] <= 7u)
     {
-      v6 = HIDWORD(v4);
-      if (v5 == 5)
+      v3 = HIDWORD(v1);
+      if (v2 == 5)
       {
-        v7 = 6;
+        v4 = 6;
       }
 
-      else if (v5 == 6)
+      else if (v2 == 6)
       {
-        v7 = 7;
+        v4 = 7;
       }
 
       else
       {
-        v7 = 8;
+        v4 = 8;
       }
 
 LABEL_27:
-      MEMORY[0x1C68F4C10](v7);
       MEMORY[0x1C68F4C10](v4);
-      if ((v6 & 0x7FFFFF) == 0 && (v4 & 0x7F80000000000000) == 0)
+      MEMORY[0x1C68F4C10](v1);
+      if ((v3 & 0x7FFFFF) == 0 && (v1 & 0x7F80000000000000) == 0)
       {
-        v12 = 0;
+        v9 = 0;
       }
 
       else
       {
-        v12 = v6;
+        v9 = v3;
       }
 
       goto LABEL_33;
     }
 
-    if (v5 == 8)
+    if (v2 == 8)
     {
-      v10 = 9;
+      v7 = 9;
       goto LABEL_20;
     }
 
-    if (v5 == 9)
+    if (v2 == 9)
     {
-      v10 = 10;
+      v7 = 10;
       goto LABEL_20;
     }
 
@@ -4853,25 +1584,15 @@ LABEL_27:
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AnimationTimingFunction.EasingFunctionType()
 {
-  v1 = *(v0 + 4);
-  v2 = *(v0 + 20);
-  v5 = *v0;
-  v6 = v1;
-  v7 = v2;
   Hasher.init(_seed:)();
-  AnimationTimingFunction.EasingFunctionType.hash(into:)(v4);
+  AnimationTimingFunction.EasingFunctionType.hash(into:)();
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AnimationTimingFunction.EasingFunctionType()
 {
-  v1 = *(v0 + 4);
-  v2 = *(v0 + 20);
-  v5 = *v0;
-  v6 = v1;
-  v7 = v2;
   Hasher.init(_seed:)();
-  AnimationTimingFunction.EasingFunctionType.hash(into:)(v4);
+  AnimationTimingFunction.EasingFunctionType.hash(into:)();
   return Hasher._finalize()();
 }
 
@@ -4999,12 +1720,12 @@ __n128 static AnimationTimingFunction.default.getter@<Q0>(__n128 *a1@<X8>, __n12
   return result;
 }
 
-uint64_t static AnimationTimingFunction.== infix(_:_:)(float32x4_t *a1, float32x4_t *a2)
+uint64_t static AnimationTimingFunction.== infix(_:_:)(__int128 *a1, __int128 *a2)
 {
-  v2 = a1[1].i32[0];
-  v3 = a1[1].i8[4];
-  v4 = a2[1].i32[0];
-  v5 = a2[1].i8[4];
+  v2 = *(a1 + 4);
+  v3 = *(a1 + 20);
+  v4 = *(a2 + 4);
+  v5 = *(a2 + 20);
   v10 = *a1;
   v11 = v2;
   v12 = v3;
@@ -5014,111 +1735,79 @@ uint64_t static AnimationTimingFunction.== infix(_:_:)(float32x4_t *a1, float32x
   return specialized static AnimationTimingFunction.EasingFunctionType.== infix(_:_:)(&v10, &v7) & 1;
 }
 
-void AnimationTimingFunction.hash(into:)(uint64_t a1)
-{
-  v2 = *v1;
-  v3 = *(v1 + 4);
-  v4 = *(v1 + 20);
-  AnimationTimingFunction.EasingFunctionType.hash(into:)(a1);
-}
-
 Swift::Int AnimationTimingFunction.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 4);
-  v4 = *(v0 + 20);
   Hasher.init(_seed:)();
-  AnimationTimingFunction.EasingFunctionType.hash(into:)(v6);
+  AnimationTimingFunction.EasingFunctionType.hash(into:)();
   return Hasher._finalize()();
 }
 
 uint64_t AnimationTimingFunction.CodableAnimationTimingFunction.encode(to:)(void *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v26 = a4;
-  v22 = a3;
-  v23 = a2;
+  v22 = a4;
+  v18 = a3;
+  v19 = a2;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O21CubicBezierCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O21CubicBezierCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
-  v24 = *(v5 - 8);
-  v25 = v5;
-  v6 = *(v24 + 64);
+  v20 = *(v5 - 8);
+  v21 = v5;
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v21 - v7;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O16LinearCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O16LinearCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
-  v9 = *(v21 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v21);
-  v12 = &v21 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O10CodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O10CodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v21 - v16;
-  v18 = a1[4];
+  v7 = &v17 - v6;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O16LinearCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O16LinearCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
+  v8 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v10 = &v17 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O10CodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O10CodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v17 - v13;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v26)
+  if (v22)
   {
-    LOBYTE(v27) = 0;
+    LOBYTE(v23) = 0;
     lazy protocol witness table accessor for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v9 + 8))(v12, v21);
+    (*(v8 + 8))(v10, v17);
   }
 
   else
   {
-    LOBYTE(v27) = 1;
+    LOBYTE(v23) = 1;
     lazy protocol witness table accessor for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v27 = v23;
-    v28 = v22;
+    v23 = v19;
+    v24 = v18;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-    lazy protocol witness table accessor for type SIMD4<Float> and conformance SIMD4<A>(&lazy protocol witness table cache variable for type SIMD4<Float> and conformance SIMD4<A>);
-    v20 = v25;
+    lazy protocol witness table accessor for type SIMD4<Float> and conformance SIMD4<A>(&lazy protocol witness table cache variable for type SIMD4<Float> and conformance SIMD4<A>, MEMORY[0x1E69E74B0]);
+    v16 = v21;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    (*(v24 + 8))(v8, v20);
+    (*(v20 + 8))(v7, v16);
   }
 
-  return (*(v14 + 8))(v17, v13);
+  return (*(v12 + 8))(v14, v11);
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AnimationTimingFunction()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 4);
-  v4 = *(v0 + 20);
   Hasher.init(_seed:)();
-  AnimationTimingFunction.EasingFunctionType.hash(into:)(v6);
+  AnimationTimingFunction.EasingFunctionType.hash(into:)();
   return Hasher._finalize()();
-}
-
-void protocol witness for Hashable.hash(into:) in conformance AnimationTimingFunction(uint64_t a1)
-{
-  v2 = *v1;
-  v3 = *(v1 + 4);
-  v4 = *(v1 + 20);
-  AnimationTimingFunction.EasingFunctionType.hash(into:)(a1);
 }
 
 Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AnimationTimingFunction()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 4);
-  v4 = *(v0 + 20);
   Hasher.init(_seed:)();
-  AnimationTimingFunction.EasingFunctionType.hash(into:)(v6);
+  AnimationTimingFunction.EasingFunctionType.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AnimationTimingFunction(float32x4_t *a1, float32x4_t *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AnimationTimingFunction(__int128 *a1, __int128 *a2)
 {
-  v2 = a1[1].i32[0];
-  v3 = a1[1].i8[4];
-  v4 = a2[1].i32[0];
-  v5 = a2[1].i8[4];
+  v2 = *(a1 + 4);
+  v3 = *(a1 + 20);
+  v4 = *(a2 + 4);
+  v5 = *(a2 + 20);
   v10 = *a1;
   v11 = v2;
   v12 = v3;
@@ -5132,50 +1821,46 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Animat
 {
   if (*v0)
   {
-    result = 0x7A65426369627563;
+    return 0x7A65426369627563;
   }
 
   else
   {
-    result = 0x7261656E696CLL;
+    return 0x7261656E696CLL;
   }
-
-  *v0;
-  return result;
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+void protocol witness for CodingKey.init(stringValue:) in conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
   v6 = a1 == 0x7261656E696CLL && a2 == 0xE600000000000000;
   if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
-    v8 = 0;
+    v7 = 0;
   }
 
   else if (a1 == 0x7A65426369627563 && a2 == 0xEB00000000726569)
   {
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v9)
+    if (v8)
     {
-      v8 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v8 = 2;
+      v7 = 2;
     }
   }
 
-  *a3 = v8;
-  return result;
+  *a3 = v7;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys(uint64_t a1)
@@ -5192,23 +1877,22 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void protocol witness for CodingKey.init(stringValue:) in conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
   if (a1 == 0x506C6F72746E6F63 && a2 == 0xED000073746E696FLL)
   {
 
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
     v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    v7 = v5 ^ 1;
+    v6 = v5 ^ 1;
   }
 
-  *a3 = v7 & 1;
-  return result;
+  *a3 = v6 & 1;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys(uint64_t a1)
@@ -5239,20 +1923,20 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-void *protocol witness for Decodable.init(from:) in conformance AnimationTimingFunction.CodableAnimationTimingFunction@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void *protocol witness for Decodable.init(from:) in conformance AnimationTimingFunction.CodableAnimationTimingFunction@<X0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  result = specialized AnimationTimingFunction.CodableAnimationTimingFunction.init(from:)(a1);
+  result = specialized AnimationTimingFunction.CodableAnimationTimingFunction.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
-    *(a2 + 8) = v5;
-    *(a2 + 16) = v6 & 1;
+    *a1 = result;
+    *(a1 + 8) = v5;
+    *(a1 + 16) = v6 & 1;
   }
 
   return result;
 }
 
-uint64_t AnimationTimingFunction.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t AnimationTimingFunction.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   outlined init with copy of __REAssetService(a1, v15);
   v5 = specialized AnimationTimingFunction.CodableAnimationTimingFunction.init(from:)(v15);
@@ -5328,7 +2012,7 @@ uint64_t AnimationTimingFunction.encode(to:)(void *a1)
   return AnimationTimingFunction.CodableAnimationTimingFunction.encode(to:)(a1, v2, v3, v6);
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance AnimationTimingFunction@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance AnimationTimingFunction@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   outlined init with copy of __REAssetService(a1, v15);
   v5 = specialized AnimationTimingFunction.CodableAnimationTimingFunction.init(from:)(v15);
@@ -5556,94 +2240,90 @@ LABEL_42:
   return v14 & 1;
 }
 
-void *specialized AnimationTimingFunction.CodableAnimationTimingFunction.init(from:)(uint64_t *a1)
+void *specialized AnimationTimingFunction.CodableAnimationTimingFunction.init(from:)(void *a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O21CubicBezierCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O21CubicBezierCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
   v3 = *(v2 - 8);
-  v33 = v2;
-  v34 = v3;
-  v4 = *(v3 + 64);
+  v28 = v2;
+  v29 = v3;
   MEMORY[0x1EEE9AC00](v2);
-  v6 = v32 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O16LinearCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O16LinearCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
-  v35 = *(v7 - 8);
-  v8 = *(v35 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = v32 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O10CodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O10CodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = v32 - v14;
-  v16 = a1[3];
-  v17 = a1[4];
-  v42 = a1;
-  v18 = __swift_project_boxed_opaque_existential_1(a1, v16);
+  v5 = v27 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O16LinearCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O16LinearCodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
+  v30 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v27 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O10CodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit23AnimationTimingFunctionV0D10FoundationE07CodablefgH0O10CodingKeys33_50AEC0F04C439D5B3A831598008F67C4LLOGMR);
+  v10 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = v27 - v11;
+  v13 = a1[3];
+  v37 = a1;
+  v14 = __swift_project_boxed_opaque_existential_1(a1, v13);
   lazy protocol witness table accessor for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys();
-  v19 = v36;
+  v15 = v31;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v19)
+  if (!v15)
   {
-    v20 = v35;
-    v36 = v12;
-    v21 = KeyedDecodingContainer.allKeys.getter();
-    v22 = (2 * *(v21 + 16)) | 1;
-    v38 = v21;
-    v39 = v21 + 32;
-    v40 = 0;
-    v41 = v22;
-    v23 = specialized Collection<>.popFirst()();
-    if (v23 == 2 || v40 != v41 >> 1)
+    v16 = v30;
+    v31 = v10;
+    v17 = KeyedDecodingContainer.allKeys.getter();
+    v18 = (2 * *(v17 + 16)) | 1;
+    v33 = v17;
+    v34 = v17 + 32;
+    v35 = 0;
+    v36 = v18;
+    v19 = specialized Collection<>.popFirst()();
+    if (v19 == 2 || v35 != v36 >> 1)
     {
-      v25 = type metadata accessor for DecodingError();
+      v21 = type metadata accessor for DecodingError();
       swift_allocError();
-      v27 = v26;
-      v28 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-      *v27 = &type metadata for AnimationTimingFunction.CodableAnimationTimingFunction;
-      v18 = v15;
+      v23 = v22;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+      *v23 = &type metadata for AnimationTimingFunction.CodableAnimationTimingFunction;
+      v14 = v12;
       KeyedDecodingContainer.codingPath.getter();
       DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-      (*(*(v25 - 8) + 104))(v27, *MEMORY[0x1E69E6AF8], v25);
+      (*(*(v21 - 8) + 104))(v23, *MEMORY[0x1E69E6AF8], v21);
       swift_willThrow();
-      (*(v36 + 8))(v15, v11);
+      (*(v31 + 8))(v12, v9);
       swift_unknownObjectRelease();
     }
 
     else
     {
-      v32[3] = v23;
-      if (v23)
+      v27[3] = v19;
+      if (v19)
       {
-        LOBYTE(v37) = 1;
+        LOBYTE(v32) = 1;
         lazy protocol witness table accessor for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys();
         KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        v24 = v36;
+        v20 = v31;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-        lazy protocol witness table accessor for type SIMD4<Float> and conformance SIMD4<A>(&lazy protocol witness table cache variable for type SIMD4<Float> and conformance SIMD4<A>);
-        v31 = v33;
+        lazy protocol witness table accessor for type SIMD4<Float> and conformance SIMD4<A>(&lazy protocol witness table cache variable for type SIMD4<Float> and conformance SIMD4<A>, MEMORY[0x1E69E74C0]);
+        v26 = v28;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
-        (*(v34 + 8))(v6, v31);
-        (*(v24 + 8))(v15, v11);
+        (*(v29 + 8))(v5, v26);
+        (*(v20 + 8))(v12, v9);
         swift_unknownObjectRelease();
-        v18 = v37;
+        v14 = v32;
       }
 
       else
       {
-        LOBYTE(v37) = 0;
+        LOBYTE(v32) = 0;
         lazy protocol witness table accessor for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys();
         KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        v30 = v36;
-        (*(v20 + 8))(v10, v7);
-        (*(v30 + 8))(v15, v11);
+        v25 = v31;
+        (*(v16 + 8))(v8, v6);
+        (*(v25 + 8))(v12, v9);
         swift_unknownObjectRelease();
-        v18 = 0;
+        v14 = 0;
       }
     }
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v42);
-  return v18;
+  __swift_destroy_boxed_opaque_existential_1(v37);
+  return v14;
 }
 
 unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.EncodingErrors and conformance AnimationTimingFunction.EncodingErrors()
@@ -5651,7 +2331,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.EncodingErrors and conformance AnimationTimingFunction.EncodingErrors;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.EncodingErrors and conformance AnimationTimingFunction.EncodingErrors)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.EncodingErrors, &type metadata for AnimationTimingFunction.EncodingErrors, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.EncodingErrors and conformance AnimationTimingFunction.EncodingErrors);
   }
 
@@ -5662,7 +2342,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.EncodingErrors and conformance AnimationTimingFunction.EncodingErrors;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.EncodingErrors and conformance AnimationTimingFunction.EncodingErrors)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.EncodingErrors, &type metadata for AnimationTimingFunction.EncodingErrors, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.EncodingErrors and conformance AnimationTimingFunction.EncodingErrors);
   }
 
@@ -5674,7 +2354,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.__Mode and conformance AnimationTimingFunction.__Mode;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.__Mode and conformance AnimationTimingFunction.__Mode)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.__Mode, &type metadata for AnimationTimingFunction.__Mode, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.__Mode and conformance AnimationTimingFunction.__Mode);
   }
 
@@ -5777,7 +2457,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.EasingFunctionType and conformance AnimationTimingFunction.EasingFunctionType;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.EasingFunctionType and conformance AnimationTimingFunction.EasingFunctionType)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.EasingFunctionType, &unk_1F40FDA70, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.EasingFunctionType and conformance AnimationTimingFunction.EasingFunctionType);
   }
 
@@ -5789,7 +2469,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys, &unk_1F40FDB90, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys);
   }
 
@@ -5800,7 +2480,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys, &unk_1F40FDB90, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys);
   }
 
@@ -5811,7 +2491,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys, &unk_1F40FDB90, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys);
   }
 
@@ -5822,7 +2502,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys, &unk_1F40FDB90, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CodingKeys);
   }
 
@@ -5834,7 +2514,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys, &unk_1F40FDCD0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys);
   }
 
@@ -5845,7 +2525,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys, &unk_1F40FDCD0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys);
   }
 
@@ -5856,7 +2536,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys, &unk_1F40FDCD0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys);
   }
 
@@ -5867,7 +2547,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys, &unk_1F40FDCD0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.CubicBezierCodingKeys);
   }
 
@@ -5879,7 +2559,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys, &unk_1F40FDBB0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys);
   }
 
@@ -5890,7 +2570,7 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys, &unk_1F40FDBB0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys);
   }
 
@@ -5901,20 +2581,20 @@ unint64_t lazy protocol witness table accessor for type AnimationTimingFunction.
   result = lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys;
   if (!lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys, &unk_1F40FDBB0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys and conformance AnimationTimingFunction.CodableAnimationTimingFunction.LinearCodingKeys);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SIMD4<Float> and conformance SIMD4<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type SIMD4<Float> and conformance SIMD4<A>(unint64_t *a1, const char *a2)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-    result = swift_getWitnessTable();
+    v5 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
+    result = swift_getWitnessTable(a2, v5);
     atomic_store(result, a1);
   }
 
@@ -5994,44 +2674,36 @@ uint64_t destructiveInjectEnumTag for AnimationTimingFunction.CodableAnimationTi
   return result;
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Bool@<X0>(char *a1@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Bool@<X0>(char *a2@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
   result = REBindPointGetBool();
-  v3 = 0;
+  v4 = 0;
   if (!result)
   {
-    v3 = 2;
+    v4 = 2;
   }
 
-  *a1 = v3;
-  v4 = *MEMORY[0x1E69E9840];
+  *a2 = v4;
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance Bool(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
   REKeyValueComponentAddBoolValue();
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int8@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int8@<X0>(uint64_t a1@<X0>, _BYTE *x8_0@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E6998848];
+  v4 = MEMORY[0x1E6998848];
 
-  return protocol witness for static BindableDataInternal.get(from:) in conformance Int8(a1, v3, a2);
+  return protocol witness for static BindableDataInternal.get(from:) in conformance Int8(a1, v4, x8_0);
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance Int8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
@@ -6042,7 +2714,6 @@ uint64_t static UInt8.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
 {
   if (a4 == 1)
   {
-    v10 = *(a3 + 16);
     String.utf8CString.getter();
     ReferenceForEntityAnimatedValuesUInt8 = REBindPointCreateReferenceForEntityAnimatedValuesUInt8();
   }
@@ -6056,34 +2727,32 @@ uint64_t static UInt8.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
       return result;
     }
 
-    v12 = *(a3 + 16);
     String.utf8CString.getter();
     ReferenceForEntityAnimatedValuesUInt8 = REBindPointCreateReferenceForEntityUInt8();
   }
 
-  v13 = ReferenceForEntityAnimatedValuesUInt8;
+  v11 = ReferenceForEntityAnimatedValuesUInt8;
 
   if ((REBindPointIsValid() & 1) != 0 || (a5 & 1) == 0)
   {
-    return v13;
+    return v11;
   }
 
   REBindPointDestroy();
-  v14 = *(a3 + 16);
   String.utf8CString.getter();
-  v15 = a4 ? REBindPointCreateReferenceForEntityAnimatedValuesInt32() : REBindPointCreateReferenceForEntityInt32();
-  v13 = v15;
+  v12 = a4 ? REBindPointCreateReferenceForEntityAnimatedValuesInt32() : REBindPointCreateReferenceForEntityInt32();
+  v11 = v12;
 
   if (REBindPointIsValid())
   {
-    return v13;
+    return v11;
   }
 
   REBindPointDestroy();
-  v13 = static UInt8.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
+  v11 = static UInt8.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
   if (REBindPointIsValid())
   {
-    return v13;
+    return v11;
   }
 
   REBindPointDestroy();
@@ -6091,21 +2760,19 @@ uint64_t static UInt8.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
   return static UInt16.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance UInt8@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance UInt8@<X0>(uint64_t a1@<X0>, _BYTE *x8_0@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E6998860];
+  v4 = MEMORY[0x1E6998860];
 
-  return protocol witness for static BindableDataInternal.get(from:) in conformance Int8(a1, v3, a2);
+  return protocol witness for static BindableDataInternal.get(from:) in conformance Int8(a1, v4, x8_0);
 }
 
 uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int8@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t, char *)@<X3>, _BYTE *a3@<X8>)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  result = a2(a1, &v7);
-  v5 = v7;
+  v7 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  result = a2(a1, &v6);
+  v5 = v6;
   if (!result)
   {
     v5 = 0;
@@ -6113,33 +2780,26 @@ uint64_t protocol witness for static BindableDataInternal.get(from:) in conforma
 
   *a3 = v5;
   a3[1] = result ^ 1;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance UInt8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
   REKeyValueComponentAddIntValue();
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int16@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int16@<X0>(uint64_t a1@<X0>, uint64_t x8_0@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E6998838];
+  v4 = MEMORY[0x1E6998838];
 
-  return protocol witness for static BindableDataInternal.get(from:) in conformance Int16(a1, v3, a2);
+  return protocol witness for static BindableDataInternal.get(from:) in conformance Int16(a1, v4, x8_0);
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance Int16(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
@@ -6156,8 +2816,7 @@ uint64_t static UInt16.createBindPoint(_:entity:type:allowConversion:)(uint64_t 
 
   else
   {
-    v7 = a5 ^ 1;
-    v8 = *(a3 + 16);
+    v6 = a5 ^ 1;
     String.utf8CString.getter();
     if (a4)
     {
@@ -6169,29 +2828,26 @@ uint64_t static UInt16.createBindPoint(_:entity:type:allowConversion:)(uint64_t 
       ReferenceForEntityAnimatedValuesUInt16 = REBindPointCreateReferenceForEntityUInt16();
     }
 
-    v10 = ReferenceForEntityAnimatedValuesUInt16;
+    v8 = ReferenceForEntityAnimatedValuesUInt16;
 
-    if (((REBindPointIsValid() | v7) & 1) == 0)
+    if (((REBindPointIsValid() | v6) & 1) == 0)
     {
       REBindPointDestroy();
-      v11 = *(a3 + 16);
       String.utf8CString.getter();
-      v12 = a4 ? REBindPointCreateReferenceForEntityAnimatedValuesInt32() : REBindPointCreateReferenceForEntityInt32();
-      v10 = v12;
+      v9 = a4 ? REBindPointCreateReferenceForEntityAnimatedValuesInt32() : REBindPointCreateReferenceForEntityInt32();
+      v8 = v9;
 
       if ((REBindPointIsValid() & 1) == 0)
       {
         REBindPointDestroy();
-        v13 = *(a3 + 16);
         String.utf8CString.getter();
-        v14 = a4 ? REBindPointCreateReferenceForEntityAnimatedValuesUInt8() : REBindPointCreateReferenceForEntityUInt8();
-        v10 = v14;
+        v10 = a4 ? REBindPointCreateReferenceForEntityAnimatedValuesUInt8() : REBindPointCreateReferenceForEntityUInt8();
+        v8 = v10;
 
         REBindPointIsValid();
         if ((REBindPointIsValid() & 1) == 0)
         {
           REBindPointDestroy();
-          v15 = *(a3 + 16);
           String.utf8CString.getter();
           if (a4)
           {
@@ -6203,34 +2859,32 @@ uint64_t static UInt16.createBindPoint(_:entity:type:allowConversion:)(uint64_t 
             ReferenceForEntityUInt16 = REBindPointCreateReferenceForEntityUInt16();
           }
 
-          v10 = ReferenceForEntityUInt16;
+          v8 = ReferenceForEntityUInt16;
 
           REBindPointIsValid();
         }
       }
     }
 
-    return v10;
+    return v8;
   }
 
   return result;
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance UInt16@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance UInt16@<X0>(uint64_t a1@<X0>, uint64_t x8_0@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E6998850];
+  v4 = MEMORY[0x1E6998850];
 
-  return protocol witness for static BindableDataInternal.get(from:) in conformance Int16(a1, v3, a2);
+  return protocol witness for static BindableDataInternal.get(from:) in conformance Int16(a1, v4, x8_0);
 }
 
 uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int16@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t, __int16 *)@<X3>, uint64_t a3@<X8>)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  result = a2(a1, &v7);
-  v5 = v7;
+  v7 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  result = a2(a1, &v6);
+  v5 = v6;
   if (!result)
   {
     v5 = 0;
@@ -6238,54 +2892,45 @@ uint64_t protocol witness for static BindableDataInternal.get(from:) in conforma
 
   *a3 = v5;
   *(a3 + 2) = result ^ 1;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance UInt16(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
   REKeyValueComponentAddIntValue();
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int32@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int32@<X0>(uint64_t a1@<X0>, uint64_t x8_0@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E6998840];
+  v4 = MEMORY[0x1E6998840];
 
-  return protocol witness for static BindableDataInternal.get(from:) in conformance Int32(a1, v3, a2);
+  return protocol witness for static BindableDataInternal.get(from:) in conformance Int32(a1, v4, x8_0);
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance Int32(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
   REKeyValueComponentAddIntValue();
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance UInt32@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance UInt32@<X0>(uint64_t a1@<X0>, uint64_t x8_0@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E6998858];
+  v4 = MEMORY[0x1E6998858];
 
-  return protocol witness for static BindableDataInternal.get(from:) in conformance Int32(a1, v3, a2);
+  return protocol witness for static BindableDataInternal.get(from:) in conformance Int32(a1, v4, x8_0);
 }
 
 uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int32@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t, int *)@<X3>, uint64_t a3@<X8>)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  result = a2(a1, &v7);
-  v5 = v7;
+  v7 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  result = a2(a1, &v6);
+  v5 = v6;
   if (!result)
   {
     v5 = 0;
@@ -6293,14 +2938,12 @@ uint64_t protocol witness for static BindableDataInternal.get(from:) in conforma
 
   *a3 = v5;
   *(a3 + 4) = result ^ 1;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance UInt32(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   result = REEntityGetOrAddComponentByClass();
   if (v4 < 0)
@@ -6317,60 +2960,48 @@ uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:
   return result;
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Int@<X0>(uint64_t a2@<X8>)
 {
-  v4 = *MEMORY[0x1E69E9840];
   result = REBindPointGetInt64();
-  *a1 = 0;
-  *(a1 + 8) = result ^ 1;
-  v3 = *MEMORY[0x1E69E9840];
+  *a2 = 0;
+  *(a2 + 8) = result ^ 1;
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance Int(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
   REKeyValueComponentAddInt64Value();
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Float@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Float@<X0>(uint64_t a2@<X8>)
 {
-  v4 = *MEMORY[0x1E69E9840];
   result = REBindPointGetFloat();
-  *a1 = 0;
-  *(a1 + 4) = result ^ 1;
-  v3 = *MEMORY[0x1E69E9840];
+  *a2 = 0;
+  *(a2 + 4) = result ^ 1;
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance Float(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
   REKeyValueComponentAddFloatValue();
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Double@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Double@<X0>(uint64_t a2@<X8>)
 {
-  v4 = *MEMORY[0x1E69E9840];
   result = REBindPointGetDouble();
-  *a1 = 0;
-  *(a1 + 8) = result ^ 1;
-  v3 = *MEMORY[0x1E69E9840];
+  *a2 = 0;
+  *(a2 + 8) = result ^ 1;
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance Double(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *v3;
-  v5 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
@@ -6380,19 +3011,18 @@ uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:
 uint64_t SIMD2.set(to:type:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a3 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v11 = *(v5 + 16);
-  v11(&v14 - v12, v3, v10);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x1EEE9AC00](v8);
+  v10 = *(v5 + 16);
+  v10(&v13 - v11, v3, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySfGMd, &_ss5SIMD2VySfGMR);
   if (swift_dynamicCast())
   {
     return REBindPointSetFloat2();
   }
 
-  (v11)(v8, v3, a3);
+  (v10)(v7, v3, a3);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySdGMd, &_ss5SIMD2VySdGMR);
   result = swift_dynamicCast();
   if (result)
@@ -6403,86 +3033,81 @@ uint64_t SIMD2.set(to:type:)(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t static SIMD2.get(from:)@<X0>(char *a1@<X8>)
+uint64_t static SIMD2.get(from:)@<X0>(char *a2@<X8>)
 {
-  v37 = a1;
-  v41 = *MEMORY[0x1E69E9840];
-  v1 = type metadata accessor for SIMD2();
-  v2 = type metadata accessor for Optional();
-  v3 = *(v2 - 8);
-  v35 = v2;
-  v36 = v3;
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = a2;
+  v39 = *MEMORY[0x1E69E9840];
+  v2 = type metadata accessor for SIMD2();
+  v3 = type metadata accessor for Optional();
+  v4 = *(v3 - 8);
+  v33 = v3;
+  v34 = v4;
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v9 = &v34 - v8;
-  v10 = *(v1 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v34 - v16;
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v34 - v19;
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v34 - v22;
-  v40 = 0;
-  *&v39 = 0;
+  v9 = &v32 - v8;
+  v10 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v32 - v15;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v32 - v18;
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = &v32 - v21;
+  v38 = 0;
+  *&v37 = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySfGMd, &_ss5SIMD2VySfGMR);
-  if ((swift_dynamicCast() & 1) == 0 || ((*(v10 + 8))(v23, v1), !REBindPointGetFloat2()))
+  if (swift_dynamicCast())
   {
-LABEL_6:
-    v38 = 0u;
-    v39 = 0u;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySdGMd, &_ss5SIMD2VySdGMR);
-    if (swift_dynamicCast())
+    (*(v10 + 8))(v22, v2);
+    if (REBindPointGetFloat2())
     {
-      (*(v10 + 8))(v17, v1);
-      if (REBindPointGetDouble2())
+      *&v37 = v38;
+      v23 = swift_dynamicCast();
+      v24 = *(v10 + 56);
+      if (v23)
       {
-        v38 = v39;
-        v29 = swift_dynamicCast();
-        v30 = *(v10 + 56);
-        if (v29)
-        {
-          v30(v6, 0, 1, v1);
-          v31 = *(v10 + 32);
-          v31(v14, v6, v1);
-          v32 = v37;
-          v31(v37, v14, v1);
-          result = (v30)(v32, 0, 1, v1);
-          goto LABEL_12;
-        }
-
-        v30(v6, 1, 1, v1);
-        (*(v36 + 8))(v6, v35);
+        v24(v9, 0, 1, v2);
+        v25 = *(v10 + 32);
+        v25(v19, v9, v2);
+        v26 = v35;
+        v25(v35, v19, v2);
+        return (v24)(v26, 0, 1, v2);
       }
+
+      v24(v9, 1, 1, v2);
+      (*(v34 + 8))(v9, v33);
     }
-
-    result = (*(v10 + 56))(v37, 1, 1, v1);
-    goto LABEL_12;
   }
 
-  *&v39 = v40;
-  v24 = swift_dynamicCast();
-  v25 = *(v10 + 56);
-  if ((v24 & 1) == 0)
+  v36 = 0u;
+  v37 = 0u;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySdGMd, &_ss5SIMD2VySdGMR);
+  if (swift_dynamicCast())
   {
-    v25(v9, 1, 1, v1);
-    (*(v36 + 8))(v9, v35);
-    goto LABEL_6;
+    (*(v10 + 8))(v16, v2);
+    if (REBindPointGetDouble2())
+    {
+      v36 = v37;
+      v28 = swift_dynamicCast();
+      v29 = *(v10 + 56);
+      if (v28)
+      {
+        v29(v6, 0, 1, v2);
+        v30 = *(v10 + 32);
+        v30(v13, v6, v2);
+        v31 = v35;
+        v30(v35, v13, v2);
+        return (v29)(v31, 0, 1, v2);
+      }
+
+      v29(v6, 1, 1, v2);
+      (*(v34 + 8))(v6, v33);
+    }
   }
 
-  v25(v9, 0, 1, v1);
-  v26 = *(v10 + 32);
-  v26(v20, v9, v1);
-  v27 = v37;
-  v26(v37, v20, v1);
-  result = (v25)(v27, 0, 1, v1);
-LABEL_12:
-  v33 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v10 + 56))(v35, 1, 1, v2);
 }
 
 uint64_t static SIMD2.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5)
@@ -6493,7 +3118,6 @@ uint64_t static SIMD2.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
   {
     if (a4 == 1)
     {
-      v8 = *(a3 + 16);
       String.utf8CString.getter();
       ReferenceForEntityAnimatedValuesDouble2 = REBindPointCreateReferenceForEntityAnimatedValuesDouble2();
       goto LABEL_9;
@@ -6501,19 +3125,17 @@ uint64_t static SIMD2.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
 
     if (!a4)
     {
-      v12 = *(a3 + 16);
       String.utf8CString.getter();
       ReferenceForEntityAnimatedValuesDouble2 = REBindPointCreateReferenceForEntityDouble2();
 LABEL_9:
-      v13 = ReferenceForEntityAnimatedValuesDouble2;
+      v9 = ReferenceForEntityAnimatedValuesDouble2;
 
       if ((REBindPointIsValid() & 1) != 0 || (a5 & 1) == 0)
       {
-        return v13;
+        return v9;
       }
 
       REBindPointDestroy();
-      v14 = *(a3 + 16);
       String.utf8CString.getter();
       if (a4)
       {
@@ -6526,10 +3148,10 @@ LABEL_9:
       }
 
 LABEL_21:
-      v13 = ReferenceForEntityAnimatedValuesFloat2;
+      v9 = ReferenceForEntityAnimatedValuesFloat2;
 
       REBindPointIsValid();
-      return v13;
+      return v9;
     }
   }
 
@@ -6540,7 +3162,6 @@ LABEL_21:
     {
       if (a4 == 1)
       {
-        v10 = *(a3 + 16);
         String.utf8CString.getter();
         ReferenceForEntityFloat2 = REBindPointCreateReferenceForEntityAnimatedValuesFloat2();
       }
@@ -6552,20 +3173,18 @@ LABEL_21:
           goto LABEL_23;
         }
 
-        v16 = *(a3 + 16);
         String.utf8CString.getter();
         ReferenceForEntityFloat2 = REBindPointCreateReferenceForEntityFloat2();
       }
 
-      v13 = ReferenceForEntityFloat2;
+      v9 = ReferenceForEntityFloat2;
 
       if ((REBindPointIsValid() & 1) != 0 || (a5 & 1) == 0)
       {
-        return v13;
+        return v9;
       }
 
       REBindPointDestroy();
-      v17 = *(a3 + 16);
       String.utf8CString.getter();
       if (a4)
       {
@@ -6589,14 +3208,12 @@ LABEL_23:
 
 uint64_t SIMD2.createAndSetParameter(name:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(*(a4 - 8) + 64);
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  (*(v8 + 16))(&v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v10, v9, v6);
+  v4 = MEMORY[0x1EEE9AC00](a1);
+  (*(v6 + 16))(&v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v8, v7, v4);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD2VySfGMd, &_ss5SIMD2VySfGMR);
   result = swift_dynamicCast();
   if (result)
   {
-    v12 = *(a3 + 16);
     REKeyValueComponentGetComponentType();
     REEntityGetOrAddComponentByClass();
     String.utf8CString.getter();
@@ -6606,36 +3223,21 @@ uint64_t SIMD2.createAndSetParameter(name:_:)(uint64_t a1, uint64_t a2, uint64_t
   return result;
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance SIMD2<A>@<X0>(char *a1@<X8>, uint64_t a2@<X1>)
-{
-  v3 = *(a2 + 16);
-  v2 = *(a2 + 24);
-  return static SIMD2.get(from:)(a1);
-}
-
-uint64_t protocol witness for static BindableDataInternal.createBindPoint(_:entity:type:allowConversion:) in conformance SIMD2<A>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, uint64_t a6)
-{
-  v7 = *(a6 + 16);
-  v6 = *(a6 + 24);
-  return static SIMD2.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, a5);
-}
-
 uint64_t SIMD3.set(to:type:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a3 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v11 = *(v5 + 16);
-  v11(&v14 - v12, v3, v10);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x1EEE9AC00](v8);
+  v10 = *(v5 + 16);
+  v10(&v13 - v11, v3, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
   if (swift_dynamicCast())
   {
     return REBindPointSetFloat3();
   }
 
-  (v11)(v8, v3, a3);
+  (v10)(v7, v3, a3);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySdGMd, &_ss5SIMD3VySdGMR);
   result = swift_dynamicCast();
   if (result)
@@ -6646,89 +3248,84 @@ uint64_t SIMD3.set(to:type:)(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t static SIMD3.get(from:)@<X0>(char *a1@<X8>)
+uint64_t static SIMD3.get(from:)@<X0>(char *a2@<X8>)
 {
-  v37 = a1;
-  v43 = *MEMORY[0x1E69E9840];
-  v1 = type metadata accessor for SIMD3();
-  v2 = type metadata accessor for Optional();
-  v3 = *(v2 - 8);
-  v35 = v2;
-  v36 = v3;
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = a2;
+  v41 = *MEMORY[0x1E69E9840];
+  v2 = type metadata accessor for SIMD3();
+  v3 = type metadata accessor for Optional();
+  v4 = *(v3 - 8);
+  v33 = v3;
+  v34 = v4;
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v9 = &v34 - v8;
-  v10 = *(v1 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v34 - v16;
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v34 - v19;
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v34 - v22;
-  v42 = 0u;
+  v9 = &v32 - v8;
+  v10 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v32 - v15;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v32 - v18;
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = &v32 - v21;
   v40 = 0u;
+  v38 = 0u;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
-  if ((swift_dynamicCast() & 1) == 0 || ((*(v10 + 8))(v23, v1), !REBindPointGetFloat3()))
+  if (swift_dynamicCast())
   {
-LABEL_6:
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySdGMd, &_ss5SIMD3VySdGMR);
-    if (swift_dynamicCast())
+    (*(v10 + 8))(v22, v2);
+    if (REBindPointGetFloat3())
     {
-      (*(v10 + 8))(v17, v1);
-      if (REBindPointGetDouble3())
+      v38 = v40;
+      v23 = swift_dynamicCast();
+      v24 = *(v10 + 56);
+      if (v23)
       {
-        v38 = v40;
-        v39 = v41;
-        v29 = swift_dynamicCast();
-        v30 = *(v10 + 56);
-        if (v29)
-        {
-          v30(v6, 0, 1, v1);
-          v31 = *(v10 + 32);
-          v31(v14, v6, v1);
-          v32 = v37;
-          v31(v37, v14, v1);
-          result = (v30)(v32, 0, 1, v1);
-          goto LABEL_12;
-        }
-
-        v30(v6, 1, 1, v1);
-        (*(v36 + 8))(v6, v35);
+        v24(v9, 0, 1, v2);
+        v25 = *(v10 + 32);
+        v25(v19, v9, v2);
+        v26 = v35;
+        v25(v35, v19, v2);
+        return (v24)(v26, 0, 1, v2);
       }
+
+      v24(v9, 1, 1, v2);
+      (*(v34 + 8))(v9, v33);
     }
-
-    result = (*(v10 + 56))(v37, 1, 1, v1);
-    goto LABEL_12;
   }
 
-  v40 = v42;
-  v24 = swift_dynamicCast();
-  v25 = *(v10 + 56);
-  if ((v24 & 1) == 0)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySdGMd, &_ss5SIMD3VySdGMR);
+  if (swift_dynamicCast())
   {
-    v25(v9, 1, 1, v1);
-    (*(v36 + 8))(v9, v35);
-    goto LABEL_6;
+    (*(v10 + 8))(v16, v2);
+    if (REBindPointGetDouble3())
+    {
+      v36 = v38;
+      v37 = v39;
+      v28 = swift_dynamicCast();
+      v29 = *(v10 + 56);
+      if (v28)
+      {
+        v29(v6, 0, 1, v2);
+        v30 = *(v10 + 32);
+        v30(v13, v6, v2);
+        v31 = v35;
+        v30(v35, v13, v2);
+        return (v29)(v31, 0, 1, v2);
+      }
+
+      v29(v6, 1, 1, v2);
+      (*(v34 + 8))(v6, v33);
+    }
   }
 
-  v25(v9, 0, 1, v1);
-  v26 = *(v10 + 32);
-  v26(v20, v9, v1);
-  v27 = v37;
-  v26(v37, v20, v1);
-  result = (v25)(v27, 0, 1, v1);
-LABEL_12:
-  v33 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v10 + 56))(v35, 1, 1, v2);
 }
 
 uint64_t static SIMD3.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5)
@@ -6739,7 +3336,6 @@ uint64_t static SIMD3.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
   {
     if (a4 == 1)
     {
-      v8 = *(a3 + 16);
       String.utf8CString.getter();
       ReferenceForEntityAnimatedValuesDouble3 = REBindPointCreateReferenceForEntityAnimatedValuesDouble3();
       goto LABEL_9;
@@ -6747,19 +3343,17 @@ uint64_t static SIMD3.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
 
     if (!a4)
     {
-      v12 = *(a3 + 16);
       String.utf8CString.getter();
       ReferenceForEntityAnimatedValuesDouble3 = REBindPointCreateReferenceForEntityDouble3();
 LABEL_9:
-      v13 = ReferenceForEntityAnimatedValuesDouble3;
+      v9 = ReferenceForEntityAnimatedValuesDouble3;
 
       if ((REBindPointIsValid() & 1) != 0 || (a5 & 1) == 0)
       {
-        return v13;
+        return v9;
       }
 
       REBindPointDestroy();
-      v14 = *(a3 + 16);
       String.utf8CString.getter();
       if (a4)
       {
@@ -6772,10 +3366,10 @@ LABEL_9:
       }
 
 LABEL_21:
-      v13 = ReferenceForEntityAnimatedValuesFloat3;
+      v9 = ReferenceForEntityAnimatedValuesFloat3;
 
       REBindPointIsValid();
-      return v13;
+      return v9;
     }
   }
 
@@ -6786,7 +3380,6 @@ LABEL_21:
     {
       if (a4 == 1)
       {
-        v10 = *(a3 + 16);
         String.utf8CString.getter();
         ReferenceForEntityFloat3 = REBindPointCreateReferenceForEntityAnimatedValuesFloat3();
       }
@@ -6798,20 +3391,18 @@ LABEL_21:
           goto LABEL_23;
         }
 
-        v16 = *(a3 + 16);
         String.utf8CString.getter();
         ReferenceForEntityFloat3 = REBindPointCreateReferenceForEntityFloat3();
       }
 
-      v13 = ReferenceForEntityFloat3;
+      v9 = ReferenceForEntityFloat3;
 
       if ((REBindPointIsValid() & 1) != 0 || (a5 & 1) == 0)
       {
-        return v13;
+        return v9;
       }
 
       REBindPointDestroy();
-      v17 = *(a3 + 16);
       String.utf8CString.getter();
       if (a4)
       {
@@ -6835,15 +3426,13 @@ LABEL_23:
 
 uint64_t SIMD3.createAndSetParameter(name:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(*(a4 - 8) + 64);
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  (*(v8 + 16))(v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v10, v9, v6);
+  v4 = MEMORY[0x1EEE9AC00](a1);
+  (*(v6 + 16))(v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v8, v7, v4);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD3VySfGMd, &_ss5SIMD3VySfGMR);
   result = swift_dynamicCast();
   if (result)
   {
-    v13[0] = v13[1];
-    v12 = *(a3 + 16);
+    v10[0] = v10[1];
     REKeyValueComponentGetComponentType();
     REEntityGetOrAddComponentByClass();
     String.utf8CString.getter();
@@ -6853,36 +3442,21 @@ uint64_t SIMD3.createAndSetParameter(name:_:)(uint64_t a1, uint64_t a2, uint64_t
   return result;
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance SIMD3<A>@<X0>(char *a1@<X8>, uint64_t a2@<X1>)
-{
-  v3 = *(a2 + 16);
-  v2 = *(a2 + 24);
-  return static SIMD3.get(from:)(a1);
-}
-
-uint64_t protocol witness for static BindableDataInternal.createBindPoint(_:entity:type:allowConversion:) in conformance SIMD3<A>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, uint64_t a6)
-{
-  v7 = *(a6 + 16);
-  v6 = *(a6 + 24);
-  return static SIMD3.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, a5);
-}
-
 uint64_t SIMD4.set(to:type:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a3 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v11 = *(v5 + 16);
-  v11(&v14 - v12, v3, v10);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x1EEE9AC00](v8);
+  v10 = *(v5 + 16);
+  v10(&v13 - v11, v3, v9);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
   if (swift_dynamicCast())
   {
     return REBindPointSetFloat4();
   }
 
-  (v11)(v8, v3, a3);
+  (v10)(v7, v3, a3);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySdGMd, &_ss5SIMD4VySdGMR);
   result = swift_dynamicCast();
   if (result)
@@ -6893,89 +3467,84 @@ uint64_t SIMD4.set(to:type:)(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t static SIMD4.get(from:)@<X0>(char *a1@<X8>)
+uint64_t static SIMD4.get(from:)@<X0>(char *a2@<X8>)
 {
-  v37 = a1;
-  v43 = *MEMORY[0x1E69E9840];
-  v1 = type metadata accessor for SIMD4();
-  v2 = type metadata accessor for Optional();
-  v3 = *(v2 - 8);
-  v35 = v2;
-  v36 = v3;
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = a2;
+  v41 = *MEMORY[0x1E69E9840];
+  v2 = type metadata accessor for SIMD4();
+  v3 = type metadata accessor for Optional();
+  v4 = *(v3 - 8);
+  v33 = v3;
+  v34 = v4;
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v9 = &v34 - v8;
-  v10 = *(v1 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v34 - v16;
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v34 - v19;
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v34 - v22;
-  v42 = 0u;
+  v9 = &v32 - v8;
+  v10 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v32 - v15;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v32 - v18;
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = &v32 - v21;
   v40 = 0u;
+  v38 = 0u;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
-  if ((swift_dynamicCast() & 1) == 0 || ((*(v10 + 8))(v23, v1), !REBindPointGetFloat4()))
+  if (swift_dynamicCast())
   {
-LABEL_6:
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySdGMd, &_ss5SIMD4VySdGMR);
-    if (swift_dynamicCast())
+    (*(v10 + 8))(v22, v2);
+    if (REBindPointGetFloat4())
     {
-      (*(v10 + 8))(v17, v1);
-      if (REBindPointGetDouble4())
+      v38 = v40;
+      v23 = swift_dynamicCast();
+      v24 = *(v10 + 56);
+      if (v23)
       {
-        v38 = v40;
-        v39 = v41;
-        v29 = swift_dynamicCast();
-        v30 = *(v10 + 56);
-        if (v29)
-        {
-          v30(v6, 0, 1, v1);
-          v31 = *(v10 + 32);
-          v31(v14, v6, v1);
-          v32 = v37;
-          v31(v37, v14, v1);
-          result = (v30)(v32, 0, 1, v1);
-          goto LABEL_12;
-        }
-
-        v30(v6, 1, 1, v1);
-        (*(v36 + 8))(v6, v35);
+        v24(v9, 0, 1, v2);
+        v25 = *(v10 + 32);
+        v25(v19, v9, v2);
+        v26 = v35;
+        v25(v35, v19, v2);
+        return (v24)(v26, 0, 1, v2);
       }
+
+      v24(v9, 1, 1, v2);
+      (*(v34 + 8))(v9, v33);
     }
-
-    result = (*(v10 + 56))(v37, 1, 1, v1);
-    goto LABEL_12;
   }
 
-  v40 = v42;
-  v24 = swift_dynamicCast();
-  v25 = *(v10 + 56);
-  if ((v24 & 1) == 0)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySdGMd, &_ss5SIMD4VySdGMR);
+  if (swift_dynamicCast())
   {
-    v25(v9, 1, 1, v1);
-    (*(v36 + 8))(v9, v35);
-    goto LABEL_6;
+    (*(v10 + 8))(v16, v2);
+    if (REBindPointGetDouble4())
+    {
+      v36 = v38;
+      v37 = v39;
+      v28 = swift_dynamicCast();
+      v29 = *(v10 + 56);
+      if (v28)
+      {
+        v29(v6, 0, 1, v2);
+        v30 = *(v10 + 32);
+        v30(v13, v6, v2);
+        v31 = v35;
+        v30(v35, v13, v2);
+        return (v29)(v31, 0, 1, v2);
+      }
+
+      v29(v6, 1, 1, v2);
+      (*(v34 + 8))(v6, v33);
+    }
   }
 
-  v25(v9, 0, 1, v1);
-  v26 = *(v10 + 32);
-  v26(v20, v9, v1);
-  v27 = v37;
-  v26(v37, v20, v1);
-  result = (v25)(v27, 0, 1, v1);
-LABEL_12:
-  v33 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(v10 + 56))(v35, 1, 1, v2);
 }
 
 uint64_t static SIMD4.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5)
@@ -6986,7 +3555,6 @@ uint64_t static SIMD4.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
   {
     if (a4 == 1)
     {
-      v8 = *(a3 + 16);
       String.utf8CString.getter();
       ReferenceForEntityAnimatedValuesDouble4 = REBindPointCreateReferenceForEntityAnimatedValuesDouble4();
       goto LABEL_9;
@@ -6994,19 +3562,17 @@ uint64_t static SIMD4.createBindPoint(_:entity:type:allowConversion:)(uint64_t a
 
     if (!a4)
     {
-      v12 = *(a3 + 16);
       String.utf8CString.getter();
       ReferenceForEntityAnimatedValuesDouble4 = REBindPointCreateReferenceForEntityDouble4();
 LABEL_9:
-      v13 = ReferenceForEntityAnimatedValuesDouble4;
+      v9 = ReferenceForEntityAnimatedValuesDouble4;
 
       if ((REBindPointIsValid() & 1) != 0 || (a5 & 1) == 0)
       {
-        return v13;
+        return v9;
       }
 
       REBindPointDestroy();
-      v14 = *(a3 + 16);
       String.utf8CString.getter();
       if (a4)
       {
@@ -7019,10 +3585,10 @@ LABEL_9:
       }
 
 LABEL_21:
-      v13 = ReferenceForEntityAnimatedValuesFloat4;
+      v9 = ReferenceForEntityAnimatedValuesFloat4;
 
       REBindPointIsValid();
-      return v13;
+      return v9;
     }
   }
 
@@ -7033,7 +3599,6 @@ LABEL_21:
     {
       if (a4 == 1)
       {
-        v10 = *(a3 + 16);
         String.utf8CString.getter();
         ReferenceForEntityFloat4 = REBindPointCreateReferenceForEntityAnimatedValuesFloat4();
       }
@@ -7045,20 +3610,18 @@ LABEL_21:
           goto LABEL_23;
         }
 
-        v16 = *(a3 + 16);
         String.utf8CString.getter();
         ReferenceForEntityFloat4 = REBindPointCreateReferenceForEntityFloat4();
       }
 
-      v13 = ReferenceForEntityFloat4;
+      v9 = ReferenceForEntityFloat4;
 
       if ((REBindPointIsValid() & 1) != 0 || (a5 & 1) == 0)
       {
-        return v13;
+        return v9;
       }
 
       REBindPointDestroy();
-      v17 = *(a3 + 16);
       String.utf8CString.getter();
       if (a4)
       {
@@ -7082,15 +3645,13 @@ LABEL_23:
 
 uint64_t SIMD4.createAndSetParameter(name:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(*(a4 - 8) + 64);
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  (*(v8 + 16))(v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v10, v9, v6);
+  v4 = MEMORY[0x1EEE9AC00](a1);
+  (*(v6 + 16))(v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v8, v7, v4);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SIMD4VySfGMd, &_ss5SIMD4VySfGMR);
   result = swift_dynamicCast();
   if (result)
   {
-    v13[0] = v13[1];
-    v12 = *(a3 + 16);
+    v10[0] = v10[1];
     REKeyValueComponentGetComponentType();
     REEntityGetOrAddComponentByClass();
     String.utf8CString.getter();
@@ -7100,32 +3661,17 @@ uint64_t SIMD4.createAndSetParameter(name:_:)(uint64_t a1, uint64_t a2, uint64_t
   return result;
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance SIMD4<A>@<X0>(char *a1@<X8>, uint64_t a2@<X1>)
-{
-  v3 = *(a2 + 16);
-  v2 = *(a2 + 24);
-  return static SIMD4.get(from:)(a1);
-}
-
-uint64_t protocol witness for static BindableDataInternal.createBindPoint(_:entity:type:allowConversion:) in conformance SIMD4<A>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, uint64_t a6)
-{
-  v7 = *(a6 + 16);
-  v6 = *(a6 + 24);
-  return static SIMD4.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, a5);
-}
-
 uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance simd_quatf@<X0>(uint64_t a1@<X8>)
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (one-time initialization token for identity != -1)
   {
     swift_once();
   }
 
-  v6 = static simd_quatf.identity;
+  v5 = static simd_quatf.identity;
   result = REBindPointGetQuatF();
-  v3 = *(&v6 + 1);
-  v4 = v6;
+  v3 = *(&v5 + 1);
+  v4 = v5;
   if (!result)
   {
     v4 = 0;
@@ -7135,31 +3681,19 @@ uint64_t protocol witness for static BindableDataInternal.get(from:) in conforma
   *a1 = v4;
   *(a1 + 8) = v3;
   *(a1 + 16) = result ^ 1;
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance simd_quatf(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *v3;
-  v4 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
   REKeyValueComponentAddQuatFValue();
 }
 
-uint64_t protocol witness for BindableDataInternal.set(to:type:) in conformance Transform()
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Transform@<X0>(uint64_t a2@<X8>)
 {
-  v1 = v0[1];
-  v2 = v0[2];
-  v3 = *v0;
-  return REBindPointSetSRT();
-}
-
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance Transform@<X0>(uint64_t a1@<X8>)
-{
-  v5 = *MEMORY[0x1E69E9840];
   result = REBindPointGetSRT();
   if (result && one-time initialization token for identity != -1)
   {
@@ -7168,42 +3702,34 @@ uint64_t protocol witness for static BindableDataInternal.get(from:) in conforma
     result = v4;
   }
 
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
-  *(a1 + 48) = result ^ 1;
-  v3 = *MEMORY[0x1E69E9840];
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 0;
+  *(a2 + 40) = 0;
+  *(a2 + 48) = result ^ 1;
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance Transform(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a3 + 16);
-  v7 = v3[1];
-  v8 = v3[2];
-  v6 = *v3;
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
   REKeyValueComponentAddRESRTValue();
 }
 
-uint64_t protocol witness for BindableDataInternal.set(to:type:) in conformance String()
+uint64_t protocol witness for BindableDataInternal.set(to:type:) in conformance String(uint64_t a1, uint64_t a2)
 {
-  v1 = *v0;
-  v2 = v0[1];
   String.utf8CString.getter();
-  v3 = REBindPointSetString();
+  v2 = REBindPointSetString();
 
-  return v3;
+  return v2;
 }
 
-uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance String@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for static BindableDataInternal.get(from:) in conformance String@<X0>(uint64_t *a2@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
   if (REBindPointGetString())
   {
     result = String.init(cString:)();
@@ -7212,20 +3738,16 @@ uint64_t protocol witness for static BindableDataInternal.get(from:) in conforma
   else
   {
     result = 0;
-    v3 = 0;
+    v4 = 0;
   }
 
-  *a1 = result;
-  a1[1] = v3;
-  v4 = *MEMORY[0x1E69E9840];
+  *a2 = result;
+  a2[1] = v4;
   return result;
 }
 
 uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:) in conformance String(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *v3;
-  v4 = v3[1];
-  v6 = *(a3 + 16);
   REKeyValueComponentGetComponentType();
   REEntityGetOrAddComponentByClass();
   String.utf8CString.getter();
@@ -7235,7 +3757,6 @@ uint64_t protocol witness for BindableDataInternal.createAndSetParameter(name:_:
 
 uint64_t CommonBindPoint.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
   REBindPointDestroy();
 
   return swift_deallocClassInstance();
@@ -7245,7 +3766,6 @@ uint64_t specialized static Double.createBindPoint(_:entity:type:allowConversion
 {
   if (a4 == 1)
   {
-    v8 = *(a3 + 16);
     String.utf8CString.getter();
     ReferenceForEntityAnimatedValuesDouble = REBindPointCreateReferenceForEntityAnimatedValuesDouble();
   }
@@ -7259,17 +3779,15 @@ uint64_t specialized static Double.createBindPoint(_:entity:type:allowConversion
       return result;
     }
 
-    v10 = *(a3 + 16);
     String.utf8CString.getter();
     ReferenceForEntityAnimatedValuesDouble = REBindPointCreateReferenceForEntityDouble();
   }
 
-  v11 = ReferenceForEntityAnimatedValuesDouble;
+  v8 = ReferenceForEntityAnimatedValuesDouble;
 
   if (REBindPointIsValid() & 1) == 0 && (a5)
   {
     REBindPointDestroy();
-    v12 = *(a3 + 16);
     String.utf8CString.getter();
     if (a4)
     {
@@ -7281,19 +3799,18 @@ uint64_t specialized static Double.createBindPoint(_:entity:type:allowConversion
       ReferenceForEntityAnimatedValuesFloat = REBindPointCreateReferenceForEntityFloat();
     }
 
-    v11 = ReferenceForEntityAnimatedValuesFloat;
+    v8 = ReferenceForEntityAnimatedValuesFloat;
 
     REBindPointIsValid();
   }
 
-  return v11;
+  return v8;
 }
 
 uint64_t specialized static Float.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5)
 {
   if (a4 == 1)
   {
-    v8 = *(a3 + 16);
     String.utf8CString.getter();
     ReferenceForEntityAnimatedValuesFloat = REBindPointCreateReferenceForEntityAnimatedValuesFloat();
   }
@@ -7307,17 +3824,15 @@ uint64_t specialized static Float.createBindPoint(_:entity:type:allowConversion:
       return result;
     }
 
-    v10 = *(a3 + 16);
     String.utf8CString.getter();
     ReferenceForEntityAnimatedValuesFloat = REBindPointCreateReferenceForEntityFloat();
   }
 
-  v11 = ReferenceForEntityAnimatedValuesFloat;
+  v8 = ReferenceForEntityAnimatedValuesFloat;
 
   if (REBindPointIsValid() & 1) == 0 && (a5)
   {
     REBindPointDestroy();
-    v12 = *(a3 + 16);
     String.utf8CString.getter();
     if (a4)
     {
@@ -7329,19 +3844,18 @@ uint64_t specialized static Float.createBindPoint(_:entity:type:allowConversion:
       ReferenceForEntityAnimatedValuesDouble = REBindPointCreateReferenceForEntityDouble();
     }
 
-    v11 = ReferenceForEntityAnimatedValuesDouble;
+    v8 = ReferenceForEntityAnimatedValuesDouble;
 
     REBindPointIsValid();
   }
 
-  return v11;
+  return v8;
 }
 
 uint64_t specialized static Int.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   if (a4 == 1)
   {
-    v10 = *(a3 + 16);
     String.utf8CString.getter();
     ReferenceForEntityAnimatedValuesInt64 = REBindPointCreateReferenceForEntityAnimatedValuesInt64();
   }
@@ -7355,25 +3869,23 @@ uint64_t specialized static Int.createBindPoint(_:entity:type:allowConversion:)(
       return result;
     }
 
-    v12 = *(a3 + 16);
     String.utf8CString.getter();
     ReferenceForEntityAnimatedValuesInt64 = REBindPointCreateReferenceForEntityInt64();
   }
 
-  v13 = ReferenceForEntityAnimatedValuesInt64;
+  v11 = ReferenceForEntityAnimatedValuesInt64;
 
   if (REBindPointIsValid() & 1) == 0 && (a5)
   {
     REBindPointDestroy();
-    v13 = static UInt8.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
+    v11 = static UInt8.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
     if ((REBindPointIsValid() & 1) == 0)
     {
       REBindPointDestroy();
-      v13 = static UInt16.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
+      v11 = static UInt16.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
       if ((REBindPointIsValid() & 1) == 0)
       {
         REBindPointDestroy();
-        v14 = *(a3 + 16);
         String.utf8CString.getter();
         if (a4)
         {
@@ -7385,34 +3897,34 @@ uint64_t specialized static Int.createBindPoint(_:entity:type:allowConversion:)(
           ReferenceForEntityAnimatedValuesUInt32 = REBindPointCreateReferenceForEntityUInt32();
         }
 
-        v13 = ReferenceForEntityAnimatedValuesUInt32;
+        v11 = ReferenceForEntityAnimatedValuesUInt32;
 
         REBindPointIsValid();
       }
     }
   }
 
-  return v13;
+  return v11;
 }
 
-uint64_t specialized static Transform.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t (*a5)(uint64_t, uint64_t), uint64_t (*a6)(uint64_t, uint64_t))
+uint64_t specialized static Transform.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t (*a5)(uint64_t, uint64_t), uint64_t (*a6)(uint64_t, uint64_t), uint64_t a7)
 {
   if (a4 == 1)
   {
-    v7 = *(a3 + 16);
-    v8 = String.utf8CString.getter();
-    v9 = a6(v7, v8 + 32);
+    v8 = *(a3 + 16);
+    v9 = String.utf8CString.getter();
+    v10 = a6(v8, v9 + 32);
 LABEL_5:
-    v13 = v9;
+    v14 = v10;
 
-    return v13;
+    return v14;
   }
 
   if (!a4)
   {
-    v11 = *(a3 + 16);
-    v12 = String.utf8CString.getter();
-    v9 = a5(v11, v12 + 32);
+    v12 = *(a3 + 16);
+    v13 = String.utf8CString.getter();
+    v10 = a5(v12, v13 + 32);
     goto LABEL_5;
   }
 
@@ -7421,13 +3933,13 @@ LABEL_5:
   return result;
 }
 
-uint64_t specialized static Bool.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t (*a6)(uint64_t, uint64_t), uint64_t (*a7)(uint64_t, uint64_t))
+uint64_t specialized static Bool.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t (*a6)(uint64_t, uint64_t), uint64_t (*a7)(uint64_t, uint64_t), uint64_t a8)
 {
   if (a4 == 1)
   {
-    v13 = *(a3 + 16);
-    v14 = String.utf8CString.getter();
-    v15 = a7(v13, v14 + 32);
+    v14 = *(a3 + 16);
+    v15 = String.utf8CString.getter();
+    v16 = a7(v14, v15 + 32);
   }
 
   else
@@ -7439,34 +3951,33 @@ uint64_t specialized static Bool.createBindPoint(_:entity:type:allowConversion:)
       return result;
     }
 
-    v17 = *(a3 + 16);
-    v18 = String.utf8CString.getter();
-    v15 = a6(v17, v18 + 32);
+    v18 = *(a3 + 16);
+    v19 = String.utf8CString.getter();
+    v16 = a6(v18, v19 + 32);
   }
 
-  v19 = v15;
+  v20 = v16;
 
   if ((REBindPointIsValid() & 1) != 0 || (a5 & 1) == 0)
   {
-    return v19;
+    return v20;
   }
 
   REBindPointDestroy();
-  v20 = *(a3 + 16);
   String.utf8CString.getter();
   v21 = a4 ? REBindPointCreateReferenceForEntityAnimatedValuesInt32() : REBindPointCreateReferenceForEntityInt32();
-  v19 = v21;
+  v20 = v21;
 
   if (REBindPointIsValid())
   {
-    return v19;
+    return v20;
   }
 
   REBindPointDestroy();
-  v19 = static UInt8.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
+  v20 = static UInt8.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
   if (REBindPointIsValid())
   {
-    return v19;
+    return v20;
   }
 
   REBindPointDestroy();
@@ -7474,13 +3985,13 @@ uint64_t specialized static Bool.createBindPoint(_:entity:type:allowConversion:)
   return static UInt16.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
 }
 
-uint64_t specialized static Int32.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t (*a6)(uint64_t, uint64_t), uint64_t (*a7)(uint64_t, uint64_t))
+uint64_t specialized static Int32.createBindPoint(_:entity:type:allowConversion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t (*a6)(uint64_t, uint64_t), uint64_t (*a7)(uint64_t, uint64_t), uint64_t a8)
 {
   if (a4 == 1)
   {
-    v13 = *(a3 + 16);
-    v14 = String.utf8CString.getter();
-    v15 = a7(v13, v14 + 32);
+    v14 = *(a3 + 16);
+    v15 = String.utf8CString.getter();
+    v16 = a7(v14, v15 + 32);
   }
 
   else
@@ -7492,28 +4003,28 @@ uint64_t specialized static Int32.createBindPoint(_:entity:type:allowConversion:
       return result;
     }
 
-    v17 = *(a3 + 16);
-    v18 = String.utf8CString.getter();
-    v15 = a6(v17, v18 + 32);
+    v18 = *(a3 + 16);
+    v19 = String.utf8CString.getter();
+    v16 = a6(v18, v19 + 32);
   }
 
-  v19 = v15;
+  v20 = v16;
 
   if (REBindPointIsValid())
   {
-    return v19;
+    return v20;
   }
 
   if ((a5 & 1) == 0)
   {
-    return v19;
+    return v20;
   }
 
   REBindPointDestroy();
-  v19 = static UInt8.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
+  v20 = static UInt8.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
   if (REBindPointIsValid())
   {
-    return v19;
+    return v20;
   }
 
   REBindPointDestroy();
@@ -7521,9 +4032,8 @@ uint64_t specialized static Int32.createBindPoint(_:entity:type:allowConversion:
   return static UInt16.createBindPoint(_:entity:type:allowConversion:)(a1, a2, a3, a4, 0);
 }
 
-uint64_t static Resource.__fromCore(_:)(uint64_t *a1)
+uint64_t static Resource.__fromCore(_:)()
 {
-  v1 = *a1;
   if (REAssetGetSwiftObject())
   {
     return swift_dynamicCast();
@@ -7537,91 +4047,89 @@ uint64_t static Resource.__fromCore(_:)(uint64_t *a1)
 void _s17RealityFoundation16LoadableResourcePAAE012getAssetFromA12FileInBundle4name2in0eF0qd__SS_So8NSBundleCSgqd__SS_0B03URLVtKXEtKlFZAA05Audioh5GroupD0C_AOTt3g504_s17a12Foundation16cd12PAAE04loadd4g3A12hi22Bundle5named2inxSS_So8m8CSgtKFZxv26_0B03URLVtKcfu_AA05Audiog5P9D0C_Tt2G5Tf1nnc_n(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = v3;
-  v45 = a2;
-  v50 = a1;
-  v55 = type metadata accessor for URL();
-  v6 = *(v55 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v55);
-  v9 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = a2;
+  v48 = a1;
+  v53 = type metadata accessor for URL();
+  v6 = *(v53 - 8);
+  MEMORY[0x1EEE9AC00](v53);
+  v8 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a3)
   {
-    v10 = a3;
+    v9 = a3;
   }
 
   else
   {
-    v10 = [objc_opt_self() mainBundle];
+    v9 = [objc_opt_self() mainBundle];
   }
 
-  v11 = a3;
-  v12 = MEMORY[0x1C68F3280](0x7974696C616572, 0xE700000000000000);
-  v13 = [v10 URLsForResourcesWithExtension:v12 subdirectory:0];
+  v10 = a3;
+  v11 = MEMORY[0x1C68F3280](0x7974696C616572, 0xE700000000000000);
+  v12 = [v9 URLsForResourcesWithExtension:v11 subdirectory:0];
 
-  if (!v13)
+  if (!v12)
   {
-    v53 = 0;
-    v54 = 0xE000000000000000;
+    v51 = 0;
+    v52 = 0xE000000000000000;
     _StringGuts.grow(_:)(35);
 
-    v53 = 0xD000000000000021;
-    v54 = 0x80000001C18E5B10;
-    v27 = [v10 description];
+    v51 = 0xD000000000000021;
+    v52 = 0x80000001C18E5B10;
+    v25 = [v9 description];
 LABEL_22:
-    v29 = v27;
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = v31;
+    v27 = v25;
+    v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v30 = v29;
 
-    MEMORY[0x1C68F3410](v30, v32);
+    MEMORY[0x1C68F3410](v28, v30);
 
-    v33 = v53;
-    v34 = v54;
+    v31 = v51;
+    v32 = v52;
     goto LABEL_23;
   }
 
-  v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v49 = *(v14 + 16);
-  if (!v49)
+  v47 = *(v13 + 16);
+  if (!v47)
   {
 
-    v53 = 0;
-    v54 = 0xE000000000000000;
+    v51 = 0;
+    v52 = 0xE000000000000000;
     _StringGuts.grow(_:)(35);
 
-    v53 = 0xD000000000000021;
-    v54 = 0x80000001C18E5B10;
-    v27 = [v10 description];
+    v51 = 0xD000000000000021;
+    v52 = 0x80000001C18E5B10;
+    v25 = [v9 description];
     goto LABEL_22;
   }
 
-  v40 = v10;
-  v15 = 0;
-  v43 = "Loadable resource named ";
-  v44 = 0x80000001C18E5B40;
-  v46 = v6 + 16;
-  v47 = (v6 + 8);
-  v16 = MEMORY[0x1E69E7CC0];
-  v41 = 0xD000000000000015;
-  v42 = 0xD000000000000018;
-  v17 = v45;
-  v48 = v14;
+  v38 = v9;
+  v14 = 0;
+  v41 = "Loadable resource named ";
+  v42 = 0x80000001C18E5B40;
+  v44 = v6 + 16;
+  v45 = (v6 + 8);
+  v15 = MEMORY[0x1E69E7CC0];
+  v39 = 0xD000000000000015;
+  v40 = 0xD000000000000018;
+  v16 = v43;
+  v46 = v13;
   do
   {
-    if (v15 >= *(v14 + 16))
+    if (v14 >= *(v13 + 16))
     {
       __break(1u);
       return;
     }
 
-    (*(v6 + 16))(v9, v14 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v15, v55);
-    v18 = specialized static __ServiceLocator.shared.getter();
+    (*(v6 + 16))(v8, v13 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v14, v53);
+    v17 = specialized static __ServiceLocator.shared.getter();
     swift_beginAccess();
-    v19 = v18[19];
-    __swift_project_boxed_opaque_existential_1(v18 + 15, v18[18]);
+    __swift_project_boxed_opaque_existential_1((v17 + 120), *(v17 + 144));
 
-    v20 = specialized __REAssetService.assetRef(named:in:)(v50, v17);
-    v21 = v4;
+    v18 = specialized __REAssetService.assetRef(named:in:)(v48, v16);
+    v19 = v4;
     if (v4)
     {
       v4 = 0;
@@ -7629,89 +4137,89 @@ LABEL_22:
 
     else
     {
-      if (_s17RealityFoundation16LoadableResourcePAAE17fromCoreAssetType8assetRefxSgs13OpaquePointerV_tFZAA014AudioFileGroupD0C_Tt1g5(*(v20 + 16)))
+      if (_s17RealityFoundation16LoadableResourcePAAE17fromCoreAssetType8assetRefxSgs13OpaquePointerV_tFZAA014AudioFileGroupD0C_Tt1g5(*(v18 + 16)))
       {
 
-        (*v47)(v9, v55);
+        (*v45)(v8, v53);
 
         return;
       }
 
-      v51 = 0;
-      v52 = 0xE000000000000000;
+      v49 = 0;
+      v50 = 0xE000000000000000;
       _StringGuts.grow(_:)(47);
 
-      v51 = v42;
-      v52 = v44;
-      MEMORY[0x1C68F3410](v50, v17);
-      MEMORY[0x1C68F3410](v41, v43 | 0x8000000000000000);
-      v22 = v51;
-      v23 = v52;
+      v49 = v40;
+      v50 = v42;
+      MEMORY[0x1C68F3410](v48, v16);
+      MEMORY[0x1C68F3410](v39, v41 | 0x8000000000000000);
+      v20 = v49;
+      v21 = v50;
       lazy protocol witness table accessor for type __REAsset.LoadError and conformance __REAsset.LoadError();
-      v21 = swift_allocError();
-      *v24 = v22;
-      *(v24 + 8) = v23;
-      v17 = v45;
-      *(v24 + 16) = 0;
-      *(v24 + 24) = 0;
-      *(v24 + 32) = 2;
+      v19 = swift_allocError();
+      *v22 = v20;
+      *(v22 + 8) = v21;
+      v16 = v43;
+      *(v22 + 16) = 0;
+      *(v22 + 24) = 0;
+      *(v22 + 32) = 2;
       swift_willThrow();
 
       v4 = 0;
     }
 
-    (*v47)(v9, v55);
+    (*v45)(v8, v53);
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v16[2] + 1, 1, v16);
+      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15[2] + 1, 1, v15);
     }
 
-    v26 = v16[2];
-    v25 = v16[3];
-    if (v26 >= v25 >> 1)
+    v24 = v15[2];
+    v23 = v15[3];
+    if (v24 >= v23 >> 1)
     {
-      v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1, v16);
+      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v15);
     }
 
-    ++v15;
-    v16[2] = v26 + 1;
-    v16[v26 + 4] = v21;
-    v14 = v48;
+    ++v14;
+    v15[2] = v24 + 1;
+    v15[v24 + 4] = v19;
+    v13 = v46;
   }
 
-  while (v49 != v15);
+  while (v47 != v14);
 
-  if (v16[2])
+  if (v15[2])
   {
-    v28 = v16[4];
+    v26 = v15[4];
 
-    v10 = v40;
+    v9 = v38;
     goto LABEL_24;
   }
 
-  v51 = 0;
-  v52 = 0xE000000000000000;
+  v49 = 0;
+  v50 = 0xE000000000000000;
   _StringGuts.grow(_:)(65);
   MEMORY[0x1C68F3410](0xD000000000000019, 0x80000001C18E5B80);
-  MEMORY[0x1C68F3410](v50, v17);
+  MEMORY[0x1C68F3410](v48, v16);
   MEMORY[0x1C68F3410](0xD000000000000024, 0x80000001C18E5BA0);
-  v10 = v40;
-  v36 = [v40 description];
-  v37 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v39 = v38;
+  v9 = v38;
+  v34 = [v38 description];
+  v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v37 = v36;
 
-  MEMORY[0x1C68F3410](v37, v39);
+  MEMORY[0x1C68F3410](v35, v37);
 
-  v33 = v51;
-  v34 = v52;
+  v31 = v49;
+  v32 = v50;
 LABEL_23:
   lazy protocol witness table accessor for type __REAsset.LoadError and conformance __REAsset.LoadError();
   swift_allocError();
-  *v35 = v33;
-  *(v35 + 8) = v34;
-  *(v35 + 16) = 0;
-  *(v35 + 24) = 0;
-  *(v35 + 32) = 2;
+  *v33 = v31;
+  *(v33 + 8) = v32;
+  *(v33 + 16) = 0;
+  *(v33 + 24) = 0;
+  *(v33 + 32) = 2;
 LABEL_24:
   swift_willThrow();
 }
@@ -7719,91 +4227,89 @@ LABEL_24:
 void _s17RealityFoundation16LoadableResourcePAAE012getAssetFromA12FileInBundle4name2in0eF0qd__SS_So8NSBundleCSgqd__SS_0B03URLVtKXEtKlFZ0A3Kit05AudiohD0C_APTt3g504_s17a12Foundation16cd12PAAE04loadd4g3A12hi22Bundle5named2inxSS_So8m8CSgtKFZxV38_0B03URLVtKcfu_0A3Kit05AudiogD0C_Tt2G5Tf1nnc_n(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = v3;
-  v45 = a2;
-  v50 = a1;
-  v55 = type metadata accessor for URL();
-  v6 = *(v55 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v55);
-  v9 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = a2;
+  v48 = a1;
+  v53 = type metadata accessor for URL();
+  v6 = *(v53 - 8);
+  MEMORY[0x1EEE9AC00](v53);
+  v8 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a3)
   {
-    v10 = a3;
+    v9 = a3;
   }
 
   else
   {
-    v10 = [objc_opt_self() mainBundle];
+    v9 = [objc_opt_self() mainBundle];
   }
 
-  v11 = a3;
-  v12 = MEMORY[0x1C68F3280](0x7974696C616572, 0xE700000000000000);
-  v13 = [v10 URLsForResourcesWithExtension:v12 subdirectory:0];
+  v10 = a3;
+  v11 = MEMORY[0x1C68F3280](0x7974696C616572, 0xE700000000000000);
+  v12 = [v9 URLsForResourcesWithExtension:v11 subdirectory:0];
 
-  if (!v13)
+  if (!v12)
   {
-    v53 = 0;
-    v54 = 0xE000000000000000;
+    v51 = 0;
+    v52 = 0xE000000000000000;
     _StringGuts.grow(_:)(35);
 
-    v53 = 0xD000000000000021;
-    v54 = 0x80000001C18E5B10;
-    v27 = [v10 description];
+    v51 = 0xD000000000000021;
+    v52 = 0x80000001C18E5B10;
+    v25 = [v9 description];
 LABEL_22:
-    v29 = v27;
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = v31;
+    v27 = v25;
+    v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v30 = v29;
 
-    MEMORY[0x1C68F3410](v30, v32);
+    MEMORY[0x1C68F3410](v28, v30);
 
-    v33 = v53;
-    v34 = v54;
+    v31 = v51;
+    v32 = v52;
     goto LABEL_23;
   }
 
-  v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v49 = *(v14 + 16);
-  if (!v49)
+  v47 = *(v13 + 16);
+  if (!v47)
   {
 
-    v53 = 0;
-    v54 = 0xE000000000000000;
+    v51 = 0;
+    v52 = 0xE000000000000000;
     _StringGuts.grow(_:)(35);
 
-    v53 = 0xD000000000000021;
-    v54 = 0x80000001C18E5B10;
-    v27 = [v10 description];
+    v51 = 0xD000000000000021;
+    v52 = 0x80000001C18E5B10;
+    v25 = [v9 description];
     goto LABEL_22;
   }
 
-  v40 = v10;
-  v15 = 0;
-  v43 = "Loadable resource named ";
-  v44 = 0x80000001C18E5B40;
-  v46 = v6 + 16;
-  v47 = (v6 + 8);
-  v16 = MEMORY[0x1E69E7CC0];
-  v41 = 0xD000000000000015;
-  v42 = 0xD000000000000018;
-  v17 = v45;
-  v48 = v14;
+  v38 = v9;
+  v14 = 0;
+  v41 = "Loadable resource named ";
+  v42 = 0x80000001C18E5B40;
+  v44 = v6 + 16;
+  v45 = (v6 + 8);
+  v15 = MEMORY[0x1E69E7CC0];
+  v39 = 0xD000000000000015;
+  v40 = 0xD000000000000018;
+  v16 = v43;
+  v46 = v13;
   do
   {
-    if (v15 >= *(v14 + 16))
+    if (v14 >= *(v13 + 16))
     {
       __break(1u);
       return;
     }
 
-    (*(v6 + 16))(v9, v14 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v15, v55);
-    v18 = specialized static __ServiceLocator.shared.getter();
+    (*(v6 + 16))(v8, v13 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v14, v53);
+    v17 = specialized static __ServiceLocator.shared.getter();
     swift_beginAccess();
-    v19 = v18[19];
-    __swift_project_boxed_opaque_existential_1(v18 + 15, v18[18]);
+    __swift_project_boxed_opaque_existential_1((v17 + 120), *(v17 + 144));
 
-    v20 = specialized __REAssetService.assetRef(named:in:)(v50, v17);
-    v21 = v4;
+    v18 = specialized __REAssetService.assetRef(named:in:)(v48, v16);
+    v19 = v4;
     if (v4)
     {
       v4 = 0;
@@ -7811,89 +4317,89 @@ LABEL_22:
 
     else
     {
-      if (_s17RealityFoundation16LoadableResourcePAAE17fromCoreAssetType8assetRefxSgs13OpaquePointerV_tFZ0A3Kit09AudioFileD0C_Tt1g5(*(v20 + 16)))
+      if (_s17RealityFoundation16LoadableResourcePAAE17fromCoreAssetType8assetRefxSgs13OpaquePointerV_tFZ0A3Kit09AudioFileD0C_Tt1g5(*(v18 + 16)))
       {
 
-        (*v47)(v9, v55);
+        (*v45)(v8, v53);
 
         return;
       }
 
-      v51 = 0;
-      v52 = 0xE000000000000000;
+      v49 = 0;
+      v50 = 0xE000000000000000;
       _StringGuts.grow(_:)(47);
 
-      v51 = v42;
-      v52 = v44;
-      MEMORY[0x1C68F3410](v50, v17);
-      MEMORY[0x1C68F3410](v41, v43 | 0x8000000000000000);
-      v22 = v51;
-      v23 = v52;
+      v49 = v40;
+      v50 = v42;
+      MEMORY[0x1C68F3410](v48, v16);
+      MEMORY[0x1C68F3410](v39, v41 | 0x8000000000000000);
+      v20 = v49;
+      v21 = v50;
       lazy protocol witness table accessor for type __REAsset.LoadError and conformance __REAsset.LoadError();
-      v21 = swift_allocError();
-      *v24 = v22;
-      *(v24 + 8) = v23;
-      v17 = v45;
-      *(v24 + 16) = 0;
-      *(v24 + 24) = 0;
-      *(v24 + 32) = 2;
+      v19 = swift_allocError();
+      *v22 = v20;
+      *(v22 + 8) = v21;
+      v16 = v43;
+      *(v22 + 16) = 0;
+      *(v22 + 24) = 0;
+      *(v22 + 32) = 2;
       swift_willThrow();
 
       v4 = 0;
     }
 
-    (*v47)(v9, v55);
+    (*v45)(v8, v53);
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v16[2] + 1, 1, v16);
+      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15[2] + 1, 1, v15);
     }
 
-    v26 = v16[2];
-    v25 = v16[3];
-    if (v26 >= v25 >> 1)
+    v24 = v15[2];
+    v23 = v15[3];
+    if (v24 >= v23 >> 1)
     {
-      v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1, v16);
+      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v15);
     }
 
-    ++v15;
-    v16[2] = v26 + 1;
-    v16[v26 + 4] = v21;
-    v14 = v48;
+    ++v14;
+    v15[2] = v24 + 1;
+    v15[v24 + 4] = v19;
+    v13 = v46;
   }
 
-  while (v49 != v15);
+  while (v47 != v14);
 
-  if (v16[2])
+  if (v15[2])
   {
-    v28 = v16[4];
+    v26 = v15[4];
 
-    v10 = v40;
+    v9 = v38;
     goto LABEL_24;
   }
 
-  v51 = 0;
-  v52 = 0xE000000000000000;
+  v49 = 0;
+  v50 = 0xE000000000000000;
   _StringGuts.grow(_:)(65);
   MEMORY[0x1C68F3410](0xD000000000000019, 0x80000001C18E5B80);
-  MEMORY[0x1C68F3410](v50, v17);
+  MEMORY[0x1C68F3410](v48, v16);
   MEMORY[0x1C68F3410](0xD000000000000024, 0x80000001C18E5BA0);
-  v10 = v40;
-  v36 = [v40 description];
-  v37 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v39 = v38;
+  v9 = v38;
+  v34 = [v38 description];
+  v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v37 = v36;
 
-  MEMORY[0x1C68F3410](v37, v39);
+  MEMORY[0x1C68F3410](v35, v37);
 
-  v33 = v51;
-  v34 = v52;
+  v31 = v49;
+  v32 = v50;
 LABEL_23:
   lazy protocol witness table accessor for type __REAsset.LoadError and conformance __REAsset.LoadError();
   swift_allocError();
-  *v35 = v33;
-  *(v35 + 8) = v34;
-  *(v35 + 16) = 0;
-  *(v35 + 24) = 0;
-  *(v35 + 32) = 2;
+  *v33 = v31;
+  *(v33 + 8) = v32;
+  *(v33 + 16) = 0;
+  *(v33 + 24) = 0;
+  *(v33 + 32) = 2;
 LABEL_24:
   swift_willThrow();
 }
@@ -7901,155 +4407,153 @@ LABEL_24:
 void static LoadableResource.getAssetFromRealityFileInBundle<A>(name:in:getAsset:)(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void (*a4)(uint64_t, uint64_t, char *)@<X3>, uint64_t a5@<X8>)
 {
   v6 = v5;
-  v39 = a4;
-  v40 = a1;
-  v41 = a2;
-  v38 = a5;
+  v38 = a4;
+  v39 = a1;
+  v40 = a2;
+  v37 = a5;
   v8 = type metadata accessor for URL();
-  v44 = *(v8 - 8);
-  v9 = *(v44 + 64);
+  v43 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
-  v11 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a3)
   {
-    v12 = a3;
+    v11 = a3;
   }
 
   else
   {
-    v12 = [objc_opt_self() mainBundle];
+    v11 = [objc_opt_self() mainBundle];
   }
 
-  v13 = a3;
-  v14 = MEMORY[0x1C68F3280](0x7974696C616572, 0xE700000000000000);
-  v15 = [v12 URLsForResourcesWithExtension:v14 subdirectory:0];
+  v12 = a3;
+  v13 = MEMORY[0x1C68F3280](0x7974696C616572, 0xE700000000000000);
+  v14 = [v11 URLsForResourcesWithExtension:v13 subdirectory:0];
 
-  if (v15)
+  if (v14)
   {
-    v16 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v37 = *(v16 + 16);
-    if (v37)
+    v36 = *(v15 + 16);
+    if (v36)
     {
-      v33 = v12;
-      v17 = 0;
-      v36 = v44 + 16;
-      v18 = (v44 + 8);
-      v19 = MEMORY[0x1E69E7CC0];
-      v34 = v16;
-      v35 = v8;
+      v32 = v11;
+      v16 = 0;
+      v35 = v43 + 16;
+      v17 = (v43 + 8);
+      v18 = MEMORY[0x1E69E7CC0];
+      v33 = v15;
+      v34 = v8;
       do
       {
-        if (v17 >= *(v16 + 16))
+        if (v16 >= *(v15 + 16))
         {
           __break(1u);
           return;
         }
 
-        (*(v44 + 16))(v11, v16 + ((*(v44 + 80) + 32) & ~*(v44 + 80)) + *(v44 + 72) * v17, v8);
-        v20 = v6;
-        v39(v40, v41, v11);
+        (*(v43 + 16))(v10, v15 + ((*(v43 + 80) + 32) & ~*(v43 + 80)) + *(v43 + 72) * v16, v8);
+        v19 = v6;
+        v38(v39, v40, v10);
         if (!v6)
         {
-          (*v18)(v11, v8);
+          (*v17)(v10, v8);
 
           return;
         }
 
-        (*v18)(v11, v8);
+        (*v17)(v10, v8);
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v19 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19[2] + 1, 1, v19);
+          v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18[2] + 1, 1, v18);
         }
 
-        v22 = v19[2];
-        v21 = v19[3];
-        if (v22 >= v21 >> 1)
+        v21 = v18[2];
+        v20 = v18[3];
+        if (v21 >= v20 >> 1)
         {
-          v19 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v22 + 1, 1, v19);
+          v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1, v18);
         }
 
         v6 = 0;
-        ++v17;
-        v19[2] = v22 + 1;
-        v19[v22 + 4] = v20;
-        v16 = v34;
-        v8 = v35;
+        ++v16;
+        v18[2] = v21 + 1;
+        v18[v21 + 4] = v19;
+        v15 = v33;
+        v8 = v34;
       }
 
-      while (v37 != v17);
+      while (v36 != v16);
 
-      if (v19[2])
+      if (v18[2])
       {
-        v24 = v19[4];
+        v23 = v18[4];
 
-        v12 = v33;
+        v11 = v32;
         goto LABEL_22;
       }
 
-      v42 = 0;
-      v43 = 0xE000000000000000;
+      v41 = 0;
+      v42 = 0xE000000000000000;
       _StringGuts.grow(_:)(65);
       MEMORY[0x1C68F3410](0xD000000000000019, 0x80000001C18E5B80);
-      MEMORY[0x1C68F3410](v40, v41);
+      MEMORY[0x1C68F3410](v39, v40);
       MEMORY[0x1C68F3410](0xD000000000000024, 0x80000001C18E5BA0);
-      v12 = v33;
-      v23 = [v33 description];
+      v11 = v32;
+      v22 = [v32 description];
     }
 
     else
     {
 
-      v42 = 0;
-      v43 = 0xE000000000000000;
+      v41 = 0;
+      v42 = 0xE000000000000000;
       _StringGuts.grow(_:)(35);
 
-      v42 = 0xD000000000000021;
-      v43 = 0x80000001C18E5B10;
-      v23 = [v12 description];
+      v41 = 0xD000000000000021;
+      v42 = 0x80000001C18E5B10;
+      v22 = [v11 description];
     }
   }
 
   else
   {
-    v42 = 0;
-    v43 = 0xE000000000000000;
+    v41 = 0;
+    v42 = 0xE000000000000000;
     _StringGuts.grow(_:)(35);
 
-    v42 = 0xD000000000000021;
-    v43 = 0x80000001C18E5B10;
-    v23 = [v12 description];
+    v41 = 0xD000000000000021;
+    v42 = 0x80000001C18E5B10;
+    v22 = [v11 description];
   }
 
-  v25 = v23;
-  v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v28 = v27;
+  v24 = v22;
+  v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v27 = v26;
 
-  MEMORY[0x1C68F3410](v26, v28);
+  MEMORY[0x1C68F3410](v25, v27);
 
+  v28 = v41;
   v29 = v42;
-  v30 = v43;
   lazy protocol witness table accessor for type __REAsset.LoadError and conformance __REAsset.LoadError();
   swift_allocError();
-  *v31 = v29;
-  *(v31 + 8) = v30;
-  *(v31 + 16) = 0;
-  *(v31 + 24) = 0;
-  *(v31 + 32) = 2;
+  *v30 = v28;
+  *(v30 + 8) = v29;
+  *(v30 + 16) = 0;
+  *(v30 + 24) = 0;
+  *(v30 + 32) = 2;
 LABEL_22:
   swift_willThrow();
 }
 
 uint64_t closure #1 in static LoadableResource.getAssetRefFromRealityFileInBundle(named:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v7 = specialized static __ServiceLocator.shared.getter();
+  v8 = specialized static __ServiceLocator.shared.getter();
   swift_beginAccess();
-  v8 = v7[19];
-  __swift_project_boxed_opaque_existential_1(v7 + 15, v7[18]);
+  __swift_project_boxed_opaque_existential_1((v8 + 120), *(v8 + 144));
 
   v9 = specialized __REAssetService.assetRef(named:in:)(a1, a2);
 
-  if (!v3)
+  if (!v4)
   {
     *a3 = v9;
   }
@@ -8057,7 +4561,7 @@ uint64_t closure #1 in static LoadableResource.getAssetRefFromRealityFileInBundl
   return result;
 }
 
-uint64_t one-time initialization function for resourceClasses()
+void one-time initialization function for resourceClasses()
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11REAssetTypeV_17RealityFoundation16LoadableResource_pXptGMd, &_ss23_ContiguousArrayStorageCySo11REAssetTypeV_17RealityFoundation16LoadableResource_pXptGMR);
   inited = swift_initStackObject();
@@ -8072,83 +4576,77 @@ uint64_t one-time initialization function for resourceClasses()
   *(inited + 88) = type metadata accessor for AudioUnitResource();
   *(inited + 96) = &protocol witness table for AudioResource;
   v1 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo11REAssetTypeV_17RealityFoundation16LoadableResource_pXpTt0g5Tf4g_n(inited);
-  result = swift_setDeallocating();
+  swift_setDeallocating();
   resourceClasses._rawValue = v1;
-  return result;
 }
 
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(void (*a1)(char *, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v36 = a8;
-  v45 = a1;
-  v46 = a2;
-  v11 = *(a5 - 8);
-  v12 = *(v11 + 64);
+  v29 = a8;
+  v38 = a1;
+  v39 = a2;
+  v10 = *(a5 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v47 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 8);
+  v40 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v49 = *(AssociatedTypeWitness - 8);
-  v16 = *(v49 + 64);
+  v42 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v18 = &v34 - v17;
-  v19 = *(*(a4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v43 = &v34 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = swift_getAssociatedTypeWitness();
-  v37 = *(v22 - 8);
-  v38 = v22;
-  v23 = *(v37 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v25 = &v34 - v24;
-  v26 = dispatch thunk of Collection.count.getter();
-  if (!v26)
+  v13 = &v27 - v12;
+  MEMORY[0x1EEE9AC00](v14);
+  v36 = &v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = swift_getAssociatedTypeWitness();
+  v30 = *(v16 - 8);
+  v31 = v16;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v27 - v17;
+  v19 = dispatch thunk of Collection.count.getter();
+  if (!v19)
   {
     return static Array._allocateUninitialized(_:)();
   }
 
-  v48 = v26;
-  v52 = ContiguousArray.init()();
-  v39 = type metadata accessor for ContiguousArray();
-  ContiguousArray.reserveCapacity(_:)(v48);
+  v41 = v19;
+  v45 = ContiguousArray.init()();
+  v32 = type metadata accessor for ContiguousArray();
+  ContiguousArray.reserveCapacity(_:)(v41);
   result = dispatch thunk of Collection.startIndex.getter();
-  if ((v48 & 0x8000000000000000) == 0)
+  if ((v41 & 0x8000000000000000) == 0)
   {
-    v34 = v11;
-    v35 = a5;
-    v28 = 0;
-    v40 = (v49 + 16);
-    v41 = (v49 + 8);
-    v42 = v8;
-    while (!__OFADD__(v28, 1))
+    v27 = v10;
+    v28 = a5;
+    v21 = 0;
+    v33 = (v42 + 16);
+    v34 = (v42 + 8);
+    v35 = v8;
+    while (!__OFADD__(v21, 1))
     {
-      v49 = v28 + 1;
-      v29 = dispatch thunk of Collection.subscript.read();
-      v30 = v18;
-      v31 = v18;
-      v32 = AssociatedTypeWitness;
-      (*v40)(v30);
-      v29(v51, 0);
-      v33 = v50;
-      v45(v31, v47);
-      if (v33)
+      v42 = v21 + 1;
+      v22 = dispatch thunk of Collection.subscript.read();
+      v23 = v13;
+      v24 = v13;
+      v25 = AssociatedTypeWitness;
+      (*v33)(v23);
+      v22(v44, 0);
+      v26 = v43;
+      v38(v24, v40);
+      if (v26)
       {
-        (*v41)(v31, v32);
-        (*(v37 + 8))(v25, v38);
+        (*v34)(v24, v25);
+        (*(v30 + 8))(v18, v31);
 
-        return (*(v34 + 32))(v36, v47, v35);
+        return (*(v27 + 32))(v29, v40, v28);
       }
 
-      v50 = 0;
-      (*v41)(v31, v32);
+      v43 = 0;
+      (*v34)(v24, v25);
       ContiguousArray.append(_:)();
       result = dispatch thunk of Collection.formIndex(after:)();
-      ++v28;
-      v18 = v31;
-      if (v49 == v48)
+      ++v21;
+      v13 = v24;
+      if (v42 == v41)
       {
-        (*(v37 + 8))(v25, v38);
-        return v52;
+        (*(v30 + 8))(v18, v31);
+        return v45;
       }
     }
 
@@ -8159,7 +4657,7 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(void
   return result;
 }
 
-uint64_t SIMD4<>.cgColor.getter(uint64_t a1, uint64_t a2)
+CGColorRef SIMD4<>.cgColor.getter(uint64_t a1, uint64_t a2)
 {
   v16 = SIMD4.scalars.getter(a1);
   v4 = *(a1 + 24);
@@ -8167,7 +4665,7 @@ uint64_t SIMD4<>.cgColor.getter(uint64_t a1, uint64_t a2)
   v14 = a2;
   v15 = v4;
   v5 = type metadata accessor for Array();
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E69E6340], v5);
   v8 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #1 in SIMD4<>.cgColor.getter, v12, v5, MEMORY[0x1E69E7DE0], MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v7);
 
   if (one-time initialization token for linearSRGBColorSpace != -1)
@@ -8201,9 +4699,8 @@ __n128 CGColorRef.simd4.getter()
   return v4;
 }
 
-uint64_t SIMD4.init(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t SIMD4.init(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(*(a3 - 8) + 64);
   MEMORY[0x1EEE9AC00](a1);
   MEMORY[0x1EEE9AC00](v5);
   MEMORY[0x1EEE9AC00](v6);
@@ -8225,21 +4722,20 @@ uint64_t SIMD3<>.init(_:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = *(*(a2 - 8) + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v10);
-  v23 = &v23 - v11;
+  v22 = &v22 - v11;
   MEMORY[0x1EEE9AC00](v12);
-  v14 = &v23 - v13;
+  v14 = &v22 - v13;
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v23 - v16;
+  v17 = &v22 - v16;
   v18 = type metadata accessor for SIMD4();
-  v25 = *(v18 - 8);
-  v26 = v18;
-  v19 = *(v25 + 64);
+  v24 = *(v18 - 8);
+  v25 = v18;
   MEMORY[0x1EEE9AC00](v18);
-  v21 = &v23 - v20;
-  v24 = a1;
-  SIMD4<>.init(_:)(v24, a2, a3, a4);
+  v20 = &v22 - v19;
+  v23 = a1;
+  SIMD4<>.init(_:)(v23, a2, a3, a4);
   swift_getAssociatedTypeWitness();
   swift_getAssociatedConformanceWitness();
   dispatch thunk of SIMDStorage.subscript.getter();
@@ -8252,7 +4748,7 @@ uint64_t SIMD3<>.init(_:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   dispatch thunk of SIMDStorage.subscript.setter();
   dispatch thunk of SIMDStorage.subscript.setter();
 
-  return (*(v25 + 8))(v21, v26);
+  return (*(v24 + 8))(v20, v25);
 }
 
 void SIMD4<>.init(_:)(CGColorRef color, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -8269,88 +4765,79 @@ void SIMD4<>.init(_:)(CGColorRef color, uint64_t a2, uint64_t a3, uint64_t a4)
     v10 = CGColorRef.components.getter();
     if (v10)
     {
-      v19 = v10;
+      v21 = v10;
       MEMORY[0x1EEE9AC00](v10);
-      v16[2] = a2;
-      v16[3] = a3;
-      v17 = a4;
-      v18 = a2;
+      v18[2] = a2;
+      v18[3] = a3;
+      v19 = a4;
+      v20 = a2;
       v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay12CoreGraphics7CGFloatVGMd, &_sSay12CoreGraphics7CGFloatVGMR);
       v12 = lazy protocol witness table accessor for type [CGFloat] and conformance [A]();
-      v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #2 in SIMD4<>.init(_:), v16, v11, a2, MEMORY[0x1E69E73E0], v12, MEMORY[0x1E69E7410], v13);
+      v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for implicit closure #2 in SIMD4<>.init(_:), v18, v11, a2, MEMORY[0x1E69E73E0], v12, MEMORY[0x1E69E7410], v13);
 
       if (MEMORY[0x1C68F3740](v14, a2) == 4)
       {
-        type metadata accessor for SIMD4();
-        v19 = v14;
-        type metadata accessor for Array();
-        swift_getWitnessTable();
-        swift_getWitnessTable();
+        v15 = type metadata accessor for SIMD4();
+        v21 = v14;
+        v16 = type metadata accessor for Array();
+        swift_getWitnessTable(MEMORY[0x1E69E74C8], v15);
+        swift_getWitnessTable(MEMORY[0x1E69E6328], v16);
         SIMD.init<A>(_:)();
 
         return;
       }
     }
 
-    LODWORD(v18) = 0;
-    v15 = 27;
+    LODWORD(v20) = 0;
+    v17 = 27;
   }
 
   else
   {
-    LODWORD(v18) = 0;
-    v15 = 24;
+    LODWORD(v20) = 0;
+    v17 = 24;
   }
 
-  v17 = v15;
+  v19 = v17;
   _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
 }
 
-uint64_t SIMD3<>.cgColor.getter(uint64_t a1, uint64_t a2)
+CGColorRef SIMD3<>.cgColor.getter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v27 = a2;
+  v23 = a2;
   v5 = *(a1 + 16);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v26 = v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25[1] = *(*(*(*(v8 + 16) + 16) + 8) + 16);
+  v22 = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21[1] = *(*(*(*(v7 + 16) + 16) + 8) + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v10 = *(*(AssociatedTypeWitness - 8) + 64);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v11 = *(a1 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25[0] = *(a1 + 24);
-  v16 = type metadata accessor for SIMD4();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  v19 = MEMORY[0x1EEE9AC00](v16);
-  v21 = v25 - v20;
-  (*(v11 + 16))(v15, v3, a1, v19);
+  v9 = *(a1 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21[0] = *(a1 + 24);
+  v13 = type metadata accessor for SIMD4();
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x1EEE9AC00](v13);
+  v17 = v21 - v16;
+  (*(v9 + 16))(v12, v3, a1, v15);
   swift_getAssociatedConformanceWitness();
   dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-  v22 = v26;
+  v18 = v22;
   dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-  SIMD4.init(_:_:)(v15, v22, v5);
-  v23 = SIMD4<>.cgColor.getter(v16, v27);
-  (*(v17 + 8))(v21, v16);
-  return v23;
+  SIMD4.init(_:_:)(v12, v18, v5, v21[0]);
+  v19 = SIMD4<>.cgColor.getter(v13, v23);
+  (*(v14 + 8))(v17, v13);
+  return v19;
 }
 
 uint64_t SIMD4.scalars.getter(uint64_t a1)
 {
-  v2 = *(a1 + 16);
-  v3 = getContiguousArrayStorageType<A>(for:)(v2, v2);
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
-  v6 = *(*(v2 - 8) + 72);
-  v7 = *(*(v2 - 8) + 80);
+  v1 = *(a1 + 16);
+  getContiguousArrayStorageType<A>(for:)(v1, v1);
   swift_allocObject();
-  v8 = static Array._adoptStorage(_:count:)();
-  v9 = *(a1 + 24);
+  v2 = static Array._adoptStorage(_:count:)();
   swift_getAssociatedTypeWitness();
   swift_getAssociatedConformanceWitness();
   dispatch thunk of SIMDStorage.subscript.getter();
@@ -8358,23 +4845,15 @@ uint64_t SIMD4.scalars.getter(uint64_t a1)
   dispatch thunk of SIMDStorage.subscript.getter();
   dispatch thunk of SIMDStorage.subscript.getter();
 
-  return _finalizeUninitializedArray<A>(_:)(v8);
+  return _finalizeUninitializedArray<A>(_:)(v2, v1);
 }
 
-uint64_t implicit closure #1 in SIMD4<>.cgColor.getter(uint64_t a1, uint64_t a2)
+uint64_t implicit closure #1 in SIMD4<>.cgColor.getter(uint64_t a1)
 {
-  v2 = *(*(a2 - 8) + 64);
   MEMORY[0x1EEE9AC00](a1);
-  memcpy(&v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v4, v3);
+  memcpy(&v4 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0), v2, v1);
   lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
   return BinaryFloatingPoint.init<A>(_:)();
-}
-
-uint64_t partial apply for implicit closure #1 in SIMD4<>.cgColor.getter(uint64_t a1)
-{
-  v2 = v1[3];
-  v3 = v1[4];
-  return implicit closure #1 in SIMD4<>.cgColor.getter(a1, v1[2]);
 }
 
 __n128 CGColorRef.simd3.getter()
@@ -8386,7 +4865,7 @@ __n128 CGColorRef.simd3.getter()
   return v4;
 }
 
-uint64_t one-time initialization function for linearSRGBWhite()
+CGColorRef one-time initialization function for linearSRGBWhite()
 {
   if (one-time initialization token for linearSRGBColorSpace != -1)
   {
@@ -8408,7 +4887,7 @@ uint64_t one-time initialization function for linearSRGBWhite()
   return result;
 }
 
-uint64_t one-time initialization function for linearSRGBColorSpace()
+CGColorSpaceRef one-time initialization function for linearSRGBColorSpace()
 {
   result = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1B0]);
   if (result)
@@ -8440,7 +4919,7 @@ uint64_t getContiguousArrayStorageType<A>(for:)(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t _ss5SIMD4V17RealityFoundationSBRzrlEyAByxGSo10CGColorRefacfCSf_Tt1g5Tf4g_n(CGColorRef color)
+void _ss5SIMD4V17RealityFoundationSBRzrlEyAByxGSo10CGColorRefacfCSf_Tt1g5Tf4g_n(CGColorRef color)
 {
   if (one-time initialization token for linearSRGBColorSpace != -1)
   {
@@ -8457,17 +4936,17 @@ uint64_t _ss5SIMD4V17RealityFoundationSBRzrlEyAByxGSo10CGColorRefacfCSf_Tt1g5Tf4
       v5 = *(v4 + 16);
       if (v5)
       {
-        v15 = MEMORY[0x1E69E7CC0];
+        v14 = MEMORY[0x1E69E7CC0];
         v6 = v4;
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5, 0);
         v7 = v6;
-        v8 = v15;
-        v9 = *(v15 + 16);
+        v8 = v14;
+        v9 = *(v14 + 16);
         v10 = 32;
         do
         {
           v11 = *(v7 + v10);
-          v12 = *(v15 + 24);
+          v12 = *(v14 + 24);
           if (v9 >= v12 >> 1)
           {
             specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v9 + 1, 1);
@@ -8475,8 +4954,8 @@ uint64_t _ss5SIMD4V17RealityFoundationSBRzrlEyAByxGSo10CGColorRefacfCSf_Tt1g5Tf4
           }
 
           v13 = v11;
-          *(v15 + 16) = v9 + 1;
-          *(v15 + 4 * v9 + 32) = v13;
+          *(v14 + 16) = v9 + 1;
+          *(v14 + 4 * v9 + 32) = v13;
           v10 += 8;
           ++v9;
           --v5;
@@ -8494,23 +4973,14 @@ uint64_t _ss5SIMD4V17RealityFoundationSBRzrlEyAByxGSo10CGColorRefacfCSf_Tt1g5Tf4
       if (*(v8 + 16) == 4)
       {
         _ss4SIMDPsEyxqd__cSTRd__7ElementQyd__6ScalarRtzlufCs5SIMD4VySfG_SaySfGTt1g5Tf4g_n(v8);
+
+        return;
       }
     }
   }
 
-  result = _assertionFailure(_:_:file:line:flags:)();
+  _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
-  return result;
-}
-
-uint64_t partial apply for implicit closure #2 in SIMD4<>.init(_:)(uint64_t *a1)
-{
-  v2 = v1[2];
-  v3 = v1[3];
-  v4 = v1[5];
-  v6 = *a1;
-  lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
-  return dispatch thunk of BinaryFloatingPoint.init<A>(_:)();
 }
 
 unint64_t lazy protocol witness table accessor for type [CGFloat] and conformance [A]()
@@ -8518,8 +4988,8 @@ unint64_t lazy protocol witness table accessor for type [CGFloat] and conformanc
   result = lazy protocol witness table cache variable for type [CGFloat] and conformance [A];
   if (!lazy protocol witness table cache variable for type [CGFloat] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay12CoreGraphics7CGFloatVGMd, &_sSay12CoreGraphics7CGFloatVGMR);
-    result = swift_getWitnessTable();
+    v3 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay12CoreGraphics7CGFloatVGMd, &_sSay12CoreGraphics7CGFloatVGMR);
+    result = swift_getWitnessTable(MEMORY[0x1E69E6340], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type [CGFloat] and conformance [A]);
   }
 
@@ -8560,19 +5030,19 @@ unint64_t lazy protocol witness table accessor for type CGFloat and conformance 
   result = lazy protocol witness table cache variable for type CGFloat and conformance CGFloat;
   if (!lazy protocol witness table cache variable for type CGFloat and conformance CGFloat)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69E7DF0], MEMORY[0x1E69E7DE0], v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type CGFloat and conformance CGFloat);
   }
 
   return result;
 }
 
-uint64_t __RKMaterialParameterBlock.buildParametersDictionaryFromCurrentState()()
+void *__RKMaterialParameterBlock.buildParametersDictionaryFromCurrentState()()
 {
   v1 = *v0;
   v2 = *(v0 + 8);
   v3 = v0[3];
-  v59 = v0[2];
+  v58 = v0[2];
   v4 = REMaterialParameterBlockValueCopyParameterNameArray();
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -8586,22 +5056,22 @@ uint64_t __RKMaterialParameterBlock.buildParametersDictionaryFromCurrentState()(
   }
 
   v9 = 0;
-  v58 = 0;
+  v57 = 0;
   v10 = (v5 + 40);
-  v56 = v8 - 1;
-  v55 = v3;
-  v54 = v7;
+  v55 = v8 - 1;
+  v54 = v3;
+  v53 = v7;
   do
   {
     v11 = *(v10 - 1);
     v12 = *v10;
     MEMORY[0x1EEE9AC00](v7);
-    *(&v53 - 4) = v1;
-    *(&v53 - 24) = v2;
-    *(&v53 - 2) = v59;
-    *(&v53 - 1) = v3;
-    v57 = v13;
-    v60 = v11;
+    *(&v52 - 4) = v1;
+    *(&v52 - 24) = v2;
+    *(&v52 - 2) = v58;
+    *(&v52 - 1) = v3;
+    v56 = v13;
+    v59 = v11;
     if ((v12 & 0x1000000000000000) != 0)
     {
       goto LABEL_29;
@@ -8614,9 +5084,9 @@ uint64_t __RKMaterialParameterBlock.buildParametersDictionaryFromCurrentState()(
 
         v14 = v3;
 
-        v15 = v58;
-        closure #1 in __RKMaterialParameterBlock.get(parameter:)(v71);
-        v58 = v15;
+        v15 = v57;
+        closure #1 in __RKMaterialParameterBlock.get(parameter:)(v70);
+        v57 = v15;
 
         goto LABEL_9;
       }
@@ -8626,35 +5096,35 @@ LABEL_29:
       v16 = v3;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit26__RKMaterialParameterBlockV0D0OSgMd, &_s10RealityKit26__RKMaterialParameterBlockV0D0OSgMR);
-      v17 = v58;
+      v17 = v57;
       _StringGuts._slowWithCString<A>(_:)();
       goto LABEL_8;
     }
 
-    *&v61 = v11;
-    *(&v61 + 1) = v12 & 0xFFFFFFFFFFFFFFLL;
+    *&v60 = v11;
+    *(&v60 + 1) = v12 & 0xFFFFFFFFFFFFFFLL;
 
     v16 = v3;
 
-    v17 = v58;
-    closure #1 in __RKMaterialParameterBlock.get(parameter:)(v71);
+    v17 = v57;
+    closure #1 in __RKMaterialParameterBlock.get(parameter:)(v70);
 LABEL_8:
-    v58 = v17;
+    v57 = v17;
 
 LABEL_9:
 
-    v67 = v71[0];
-    v68 = v71[1];
-    v69 = v71[2];
-    v70 = v71[3];
-    v18 = v72;
-    if (v72 != 255)
+    v66 = v70[0];
+    v67 = v70[1];
+    v68 = v70[2];
+    v69 = v70[3];
+    v18 = v71;
+    if (v71 != 255)
     {
       v19 = v2;
       v20 = v1;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v66 = v6;
-      v23 = specialized __RawDictionaryStorage.find<A>(_:)(v60, v12);
+      v65 = v6;
+      v23 = specialized __RawDictionaryStorage.find<A>(_:)(v59, v12);
       v24 = v6[2];
       v25 = (v22 & 1) == 0;
       v7 = v24 + v25;
@@ -8671,21 +5141,21 @@ LABEL_9:
           v7 = specialized _NativeDictionary.copy()();
         }
 
-        v27 = v60;
+        v27 = v59;
         if ((v26 & 1) == 0)
         {
 LABEL_14:
-          v6 = v66;
-          v66[(v23 >> 6) + 8] |= 1 << v23;
+          v6 = v65;
+          v65[(v23 >> 6) + 8] |= 1 << v23;
           v29 = (v6[6] + 16 * v23);
           *v29 = v27;
           v29[1] = v12;
           v30 = v6[7] + 80 * v23;
-          v31 = v68;
-          *v30 = v67;
+          v31 = v67;
+          *v30 = v66;
           *(v30 + 16) = v31;
-          v32 = v70;
-          *(v30 + 32) = v69;
+          v32 = v69;
+          *(v30 + 32) = v68;
           *(v30 + 48) = v32;
           *(v30 + 64) = v18;
           v33 = v6[2];
@@ -8704,8 +5174,8 @@ LABEL_14:
       else
       {
         specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v7, isUniquelyReferenced_nonNull_native);
-        v27 = v60;
-        v7 = specialized __RawDictionaryStorage.find<A>(_:)(v60, v12);
+        v27 = v59;
+        v7 = specialized __RawDictionaryStorage.find<A>(_:)(v59, v12);
         if ((v26 & 1) != (v28 & 1))
         {
           goto LABEL_35;
@@ -8718,34 +5188,34 @@ LABEL_14:
         }
       }
 
-      v6 = v66;
-      v46 = v66[7] + 80 * v23;
-      v47 = *(v46 + 16);
-      v48 = *(v46 + 32);
-      v49 = *(v46 + 48);
-      v65 = *(v46 + 64);
-      v64 = v49;
+      v6 = v65;
+      v45 = v65[7] + 80 * v23;
+      v46 = *(v45 + 16);
+      v47 = *(v45 + 32);
+      v48 = *(v45 + 48);
+      v64 = *(v45 + 64);
       v63 = v48;
-      v61 = *v46;
       v62 = v47;
-      v50 = v68;
-      *v46 = v67;
-      *(v46 + 16) = v50;
-      v51 = v70;
-      *(v46 + 32) = v69;
-      *(v46 + 48) = v51;
-      *(v46 + 64) = v18;
-      v7 = outlined destroy of __RKMaterialParameterBlock.Parameter(&v61);
+      v60 = *v45;
+      v61 = v46;
+      v49 = v67;
+      *v45 = v66;
+      *(v45 + 16) = v49;
+      v50 = v69;
+      *(v45 + 32) = v68;
+      *(v45 + 48) = v50;
+      *(v45 + 64) = v18;
+      v7 = outlined destroy of __RKMaterialParameterBlock.Parameter(&v60);
 LABEL_24:
       v1 = v20;
       v2 = v19;
 LABEL_25:
-      v3 = v55;
-      v40 = v54;
+      v3 = v54;
+      v40 = v53;
       goto LABEL_26;
     }
 
-    v36 = specialized __RawDictionaryStorage.find<A>(_:)(v60, v12);
+    v36 = specialized __RawDictionaryStorage.find<A>(_:)(v59, v12);
     v38 = v37;
 
     if ((v38 & 1) == 0)
@@ -8754,30 +5224,28 @@ LABEL_25:
     }
 
     v39 = swift_isUniquelyReferenced_nonNull_native();
-    v66 = v6;
-    v3 = v55;
-    v40 = v54;
+    v65 = v6;
+    v3 = v54;
+    v40 = v53;
     if (!v39)
     {
       specialized _NativeDictionary.copy()();
-      v6 = v66;
+      v6 = v65;
     }
 
-    v41 = *(v6[6] + 16 * v36 + 8);
-
-    v42 = v6[7] + 80 * v36;
-    v61 = *v42;
-    v44 = *(v42 + 32);
-    v43 = *(v42 + 48);
-    v45 = *(v42 + 64);
-    v62 = *(v42 + 16);
-    v63 = v44;
-    v65 = v45;
-    v64 = v43;
-    outlined destroy of __RKMaterialParameterBlock.Parameter(&v61);
-    v7 = specialized _NativeDictionary._delete(at:)(v36, v6);
+    v41 = v6[7] + 80 * v36;
+    v60 = *v41;
+    v43 = *(v41 + 32);
+    v42 = *(v41 + 48);
+    v44 = *(v41 + 64);
+    v61 = *(v41 + 16);
+    v62 = v43;
+    v64 = v44;
+    v63 = v42;
+    outlined destroy of __RKMaterialParameterBlock.Parameter(&v60);
+    specialized _NativeDictionary._delete(at:)(v36, v6);
 LABEL_26:
-    if (v56 == v9)
+    if (v55 == v9)
     {
 
       return v6;
@@ -8799,15 +5267,6 @@ LABEL_35:
   return result;
 }
 
-uint64_t __RKMaterialParameterBlock.parameters.getter()
-{
-  v2 = *v0;
-  v3 = *(v0 + 8);
-  v4 = v0[2];
-  v5 = v0[3];
-  return __RKMaterialParameterBlock.buildParametersDictionaryFromCurrentState()();
-}
-
 uint64_t __RKMaterialParameterBlock.parameters.setter(uint64_t result)
 {
   v1 = result;
@@ -8821,35 +5280,31 @@ uint64_t __RKMaterialParameterBlock.parameters.setter(uint64_t result)
   }
 
   v6 = v5 & *(result + 64);
-  for (i = (v4 + 63) >> 6; v6; result = outlined destroy of __RKMaterialParameterBlock.Parameter(v24))
+  for (i = (v4 + 63) >> 6; v6; result = outlined destroy of __RKMaterialParameterBlock.Parameter(v20))
   {
     v8 = v2;
 LABEL_9:
     v9 = __clz(__rbit64(v6));
     v6 &= v6 - 1;
-    v10 = v9 | (v8 << 6);
-    v11 = (*(v1 + 48) + 16 * v10);
-    v12 = *v11;
-    v13 = v11[1];
-    v14 = *(v1 + 56) + 80 * v10;
-    v24[0] = *v14;
-    v16 = *(v14 + 32);
-    v15 = *(v14 + 48);
-    v17 = *(v14 + 16);
-    v25 = *(v14 + 64);
-    v24[2] = v16;
-    v24[3] = v15;
-    v24[1] = v17;
-    v18 = *(v14 + 48);
-    v22[2] = *(v14 + 32);
-    v22[3] = v18;
-    v23 = *(v14 + 64);
-    v19 = *(v14 + 16);
-    v22[0] = *v14;
-    v22[1] = v19;
-    v20 = String.utf8CString.getter();
-    outlined init with copy of __RKMaterialParameterBlock.Parameter(v24, &v21);
-    __RKMaterialParameterBlock.unsafeSet(parameter:value:)((v20 + 32), v22);
+    v10 = *(v1 + 56) + 80 * (v9 | (v8 << 6));
+    v20[0] = *v10;
+    v12 = *(v10 + 32);
+    v11 = *(v10 + 48);
+    v13 = *(v10 + 16);
+    v21 = *(v10 + 64);
+    v20[2] = v12;
+    v20[3] = v11;
+    v20[1] = v13;
+    v14 = *(v10 + 48);
+    v18[2] = *(v10 + 32);
+    v18[3] = v14;
+    v19 = *(v10 + 64);
+    v15 = *(v10 + 16);
+    v18[0] = *v10;
+    v18[1] = v15;
+    v16 = String.utf8CString.getter();
+    outlined init with copy of __RKMaterialParameterBlock.Parameter(v20, &v17);
+    __RKMaterialParameterBlock.unsafeSet(parameter:value:)((v16 + 32), v18);
   }
 
   while (1)
@@ -8892,12 +5347,9 @@ void (*__RKMaterialParameterBlock.parameters.modify(uint64_t *a1))(uint64_t a1, 
   v4 = v3;
   *a1 = v3;
   *(v3 + 152) = v1;
-  v8 = *v1;
-  v9 = *(v1 + 8);
-  v10 = v1[2];
-  v11 = v1[3];
+  v8 = *(v1 + 24);
 
-  v5 = v11;
+  v5 = v8;
 
   v6 = __RKMaterialParameterBlock.buildParametersDictionaryFromCurrentState()();
 
@@ -8908,8 +5360,7 @@ void (*__RKMaterialParameterBlock.parameters.modify(uint64_t *a1))(uint64_t a1, 
 void __RKMaterialParameterBlock.parameters.modify(uint64_t a1, char a2)
 {
   v2 = *a1;
-  v4 = (*a1 + 72);
-  v3 = *v4;
+  v3 = *(*a1 + 72);
   if (a2)
   {
 LABEL_13:
@@ -8919,72 +5370,65 @@ LABEL_13:
 
   else
   {
-    v5 = -1;
-    v6 = -1 << *(v3 + 32);
-    if (-v6 < 64)
+    v4 = -1;
+    v5 = -1 << *(v3 + 32);
+    if (-v5 < 64)
     {
-      v5 = ~(-1 << -v6);
+      v4 = ~(-1 << -v5);
     }
 
-    v7 = v5 & *(v3 + 64);
-    v8 = (63 - v6) >> 6;
-    v9 = *(*a1 + 72);
+    v6 = v4 & *(v3 + 64);
+    v7 = (63 - v5) >> 6;
 
-    v10 = 0;
-    while (v7)
+    v8 = 0;
+    while (v6)
     {
-      v11 = v10;
+      v9 = v8;
 LABEL_10:
-      v12 = *(v2 + 19);
-      v13 = __clz(__rbit64(v7));
-      v7 &= v7 - 1;
-      v14 = v13 | (v11 << 6);
-      v15 = (*(v3 + 48) + 16 * v14);
-      v16 = *v15;
-      v17 = v15[1];
-      v18 = *(v3 + 56) + 80 * v14;
-      *v2 = *v18;
-      v20 = *(v18 + 32);
-      v19 = *(v18 + 48);
-      v21 = *(v18 + 16);
-      *(v2 + 64) = *(v18 + 64);
-      v2[2] = v20;
-      v2[3] = v19;
-      v2[1] = v21;
-      v22 = *(v18 + 48);
-      v26[2] = *(v18 + 32);
-      v26[3] = v22;
-      v27 = *(v18 + 64);
-      v23 = *(v18 + 16);
-      v26[0] = *v18;
-      v26[1] = v23;
-      v24 = String.utf8CString.getter();
+      v10 = __clz(__rbit64(v6));
+      v6 &= v6 - 1;
+      v11 = *(v3 + 56) + 80 * (v10 | (v9 << 6));
+      *v2 = *v11;
+      v13 = *(v11 + 32);
+      v12 = *(v11 + 48);
+      v14 = *(v11 + 16);
+      *(v2 + 64) = *(v11 + 64);
+      v2[2] = v13;
+      v2[3] = v12;
+      v2[1] = v14;
+      v15 = *(v11 + 48);
+      v18[2] = *(v11 + 32);
+      v18[3] = v15;
+      v19 = *(v11 + 64);
+      v16 = *(v11 + 16);
+      v18[0] = *v11;
+      v18[1] = v16;
+      v17 = String.utf8CString.getter();
       outlined init with copy of __RKMaterialParameterBlock.Parameter(v2, (v2 + 5));
-      __RKMaterialParameterBlock.unsafeSet(parameter:value:)((v24 + 32), v26);
+      __RKMaterialParameterBlock.unsafeSet(parameter:value:)((v17 + 32), v18);
 
       outlined destroy of __RKMaterialParameterBlock.Parameter(v2);
     }
 
     while (1)
     {
-      v11 = v10 + 1;
-      if (__OFADD__(v10, 1))
+      v9 = v8 + 1;
+      if (__OFADD__(v8, 1))
       {
         break;
       }
 
-      if (v11 >= v8)
+      if (v9 >= v7)
       {
 
-        v25 = *v4;
         goto LABEL_13;
       }
 
-      v7 = *(v3 + 64 + 8 * v11);
-      ++v10;
-      if (v7)
+      v6 = *(v3 + 64 + 8 * v9);
+      ++v8;
+      if (v6)
       {
-        v10 = v11;
+        v8 = v9;
         goto LABEL_10;
       }
     }
@@ -9083,7 +5527,7 @@ __n128 static HoverEffectComponent.HoverEffect.shader(_:groupID:)@<Q0>(__n128 *a
   return result;
 }
 
-_DWORD *(*HoverEffectComponent.HoverEffect.allowedInputTypes_protoV1.modify(uint64_t a1))(_DWORD *result)
+uint64_t (*HoverEffectComponent.HoverEffect.allowedInputTypes_protoV1.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 36);
@@ -9238,17 +5682,16 @@ void (*HoverEffectComponent.hoverEffect.modify(void (**a1)(uint64_t *a1, char a2
 void HoverEffectComponent.hoverEffect.modify(uint64_t *a1, char a2)
 {
   v2 = *a1;
-  v3 = *(*a1 + 208);
   if ((a2 & 1) == 0)
   {
-    v16 = *(v2 + 40);
-    v17 = *(v2 + 56);
-    v18 = *(v2 + 72);
+    v15 = *(v2 + 40);
+    v16 = *(v2 + 56);
+    v17 = *(v2 + 72);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v6 = *(v2 + 208);
+    v5 = *(v2 + 208);
     if (isUniquelyReferenced_nonNull_native)
     {
-      if (!*(v6 + 2))
+      if (!*(v5 + 2))
       {
 LABEL_14:
         __break(1u);
@@ -9256,23 +5699,23 @@ LABEL_14:
       }
 
 LABEL_7:
-      v13 = *(v2 + 200);
-      v14 = *(v6 + 8);
-      v15 = *(v6 + 3);
-      *(v2 + 80) = *(v6 + 2);
-      *(v2 + 96) = v15;
-      *(v2 + 112) = v14;
-      *(v6 + 2) = v16;
-      *(v6 + 3) = v17;
-      *(v6 + 8) = v18;
+      v12 = *(v2 + 200);
+      v13 = *(v5 + 8);
+      v14 = *(v5 + 3);
+      *(v2 + 80) = *(v5 + 2);
+      *(v2 + 96) = v14;
+      *(v2 + 112) = v13;
+      *(v5 + 2) = v15;
+      *(v5 + 3) = v16;
+      *(v5 + 8) = v17;
       outlined destroy of HoverEffectComponent.HoverEffect(v2 + 80);
-      *v13 = v6;
+      *v12 = v5;
       goto LABEL_8;
     }
 
 LABEL_13:
-    v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-    if (!*(v6 + 2))
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+    if (!*(v5 + 2))
     {
       goto LABEL_14;
     }
@@ -9280,17 +5723,17 @@ LABEL_13:
     goto LABEL_7;
   }
 
-  v4 = *(v2 + 56);
+  v3 = *(v2 + 56);
   *(v2 + 80) = *(v2 + 40);
-  *(v2 + 96) = v4;
+  *(v2 + 96) = v3;
   *(v2 + 112) = *(v2 + 72);
   outlined init with copy of HoverEffectComponent.HoverEffect(v2 + 80, v2 + 120);
-  v5 = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v2 + 208);
-  if ((v5 & 1) == 0)
+  v4 = swift_isUniquelyReferenced_nonNull_native();
+  v5 = *(v2 + 208);
+  if ((v4 & 1) == 0)
   {
-    v6 = specialized _ArrayBuffer._consumeAndCreateNew()(*(v2 + 208));
-    if (*(v6 + 2))
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(*(v2 + 208));
+    if (*(v5 + 2))
     {
       goto LABEL_4;
     }
@@ -9298,7 +5741,7 @@ LABEL_13:
     goto LABEL_12;
   }
 
-  if (!*(v6 + 2))
+  if (!*(v5 + 2))
   {
 LABEL_12:
     __break(1u);
@@ -9306,19 +5749,19 @@ LABEL_12:
   }
 
 LABEL_4:
-  v7 = *(v2 + 200);
-  v8 = *(v6 + 8);
-  v9 = *(v6 + 3);
-  *(v2 + 160) = *(v6 + 2);
-  *(v2 + 176) = v9;
-  *(v2 + 192) = v8;
-  v10 = *(v2 + 80);
-  v11 = *(v2 + 96);
-  *(v6 + 8) = *(v2 + 112);
-  *(v6 + 2) = v10;
-  *(v6 + 3) = v11;
+  v6 = *(v2 + 200);
+  v7 = *(v5 + 8);
+  v8 = *(v5 + 3);
+  *(v2 + 160) = *(v5 + 2);
+  *(v2 + 176) = v8;
+  *(v2 + 192) = v7;
+  v9 = *(v2 + 80);
+  v10 = *(v2 + 96);
+  *(v5 + 8) = *(v2 + 112);
+  *(v5 + 2) = v9;
+  *(v5 + 3) = v10;
   outlined destroy of HoverEffectComponent.HoverEffect(v2 + 160);
-  *v7 = v6;
+  *v6 = v5;
   *(v2 + 120) = *(v2 + 40);
   *(v2 + 136) = *(v2 + 56);
   *(v2 + 152) = *(v2 + 72);
@@ -9328,22 +5771,19 @@ LABEL_8:
   free(v2);
 }
 
-uint64_t HoverEffectComponent.hoverEffects_protoV1.setter(uint64_t a1)
+void HoverEffectComponent.hoverEffects_protoV1.setter(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    v3 = *v1;
 
     *v1 = a1;
   }
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
-
-  return result;
 }
 
 uint64_t (*HoverEffectComponent.hoverEffects_protoV1.modify(void *a1))()
@@ -9356,24 +5796,20 @@ uint64_t (*HoverEffectComponent.hoverEffects_protoV1.modify(void *a1))()
   return HoverEffectComponent.hoverEffects_protoV1.modify;
 }
 
-uint64_t key path setter for HoverEffectComponent.hoverEffects_protoV1 : HoverEffectComponent(uint64_t *a1, uint64_t *a2)
+void key path setter for HoverEffectComponent.hoverEffects_protoV1 : HoverEffectComponent(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a1;
   if (*(*a1 + 16))
   {
-    v4 = *a2;
-    v5 = *a1;
 
     *a2 = v2;
   }
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
-
-  return result;
 }
 
 uint64_t (*HoverEffectComponent.hoverEffects.modify(void *a1))()
@@ -9386,7 +5822,7 @@ uint64_t (*HoverEffectComponent.hoverEffects.modify(void *a1))()
   return HoverEffectComponent.hoverEffects.modify;
 }
 
-uint64_t HoverEffectComponent.hoverEffects_protoV1.modify(void *a1, char a2)
+void HoverEffectComponent.hoverEffects_protoV1.modify(void *a1, char a2)
 {
   v2 = *a1;
   v3 = *(*a1 + 16);
@@ -9394,11 +5830,10 @@ uint64_t HoverEffectComponent.hoverEffects_protoV1.modify(void *a1, char a2)
   {
     if (v3)
     {
-      v9 = a1[1];
-      v8 = a1[2];
+      v5 = a1[1];
 
-      *v9 = v2;
-      return result;
+      *v5 = v2;
+      return;
     }
 
     goto LABEL_8;
@@ -9407,16 +5842,14 @@ uint64_t HoverEffectComponent.hoverEffects_protoV1.modify(void *a1, char a2)
   if (!v3)
   {
 LABEL_8:
-    result = _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
-    return result;
+    return;
   }
 
-  v5 = a1[1];
-  v4 = a1[2];
-  v6 = *a1;
+  v4 = a1[1];
 
-  *v5 = v2;
+  *v4 = v2;
 }
 
 CGColorRef one-time initialization function for default()
@@ -9513,6 +5946,19 @@ double one-time initialization function for default()
   qword_1EBEB2100 = 0;
   unk_1EBEB2108 = 0;
   xmmword_1EBEB2110 = static simd_quatf.identity;
+  return result;
+}
+
+RealityFoundation::HoverEffectComponent::ShaderHoverEffectInputs __swiftcall HoverEffectComponent.ShaderHoverEffectInputs.init(fadeInDuration:fadeOutDuration:)(Swift::Double fadeInDuration, Swift::Double fadeOutDuration)
+{
+  __asm { FMOV            V1.2D, #10.0 }
+
+  v9 = vbslq_s8(vcgtq_f64(*&fadeInDuration, _Q1), _Q1, *&fadeInDuration);
+  v10 = vclezq_f64(v9);
+  v11 = vbicq_s8(v9, v10);
+  *v2 = v11;
+  result._fadeOutDuration = *v10.i64;
+  result._fadeInDuration = *v11.i64;
   return result;
 }
 
@@ -9636,7 +6082,7 @@ id HoverEffectComponent.init()@<X0>(uint64_t a1@<X8>)
   return v3;
 }
 
-uint64_t HoverEffectComponent.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void HoverEffectComponent.init(_:)(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation20HoverEffectComponentV0fG0VGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation20HoverEffectComponentV0fG0VGMR);
   v4 = swift_allocObject();
@@ -9667,13 +6113,12 @@ uint64_t HoverEffectComponent.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
-
-  return result;
 }
 
+uint64_t HoverEffectComponent.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy17RealityFoundation20HoverEffectComponentV0fG0VGMd, &_ss23_ContiguousArrayStorageCy17RealityFoundation20HoverEffectComponentV0fG0VGMR);
   v4 = swift_allocObject();
@@ -9708,7 +6153,7 @@ uint64_t HoverEffectComponent.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-_DWORD *(*HoverEffectComponent.settingsModifier.modify(uint64_t a1))(_DWORD *result)
+uint64_t (*HoverEffectComponent.settingsModifier.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 8);
@@ -9731,7 +6176,7 @@ uint64_t static HoverEffectComponent.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, uint
         break;
       }
 
-      static HoverEffectComponent.SwiftStyleFromREComponent(_:styleId:)(&v28);
+      static HoverEffectComponent.SwiftStyleFromREComponent(_:styleId:)(v2, StyleIDAtIndex, &v28);
       v6 = v28;
       v19 = v29;
       v31 = 1;
@@ -9816,54 +6261,50 @@ uint64_t *HoverEffectComponent.__toCore(_:)(uint64_t *result)
   if (*(*v1 + 16))
   {
     v3 = *result;
-    v4 = *(v1 + 12);
-    v5 = *(v1 + 2);
-    v6 = *(v2 + 65);
     RERemoteEffectsComponentSetIsHierarchical();
     RERemoteEffectsComponentSetSettingsModifier();
     RERemoteEffectsComponentSetIsPinchActive();
     RELinkedOnOrAfterFall2024OSVersions();
     RERemoteEffectsComponentSetVersion();
     RERemoteEffectsComponentSetEnableEntityHoverEffect();
-    v7 = *(v2 + 16);
+    v4 = *(v2 + 16);
 
-    if (!v7)
+    if (!v4)
     {
 LABEL_7:
 
-      v14 = *(v2 + 16);
       RERemoteEffectsComponentResizeStyles();
       return RENetworkMarkComponentDirty();
     }
 
-    v8 = 0;
-    v9 = (v2 + 32);
-    while (v8 < v7)
+    v5 = 0;
+    v6 = (v2 + 32);
+    while (v5 < v4)
     {
-      v10 = *v9;
-      v11 = v9[1];
-      v19 = *(v9 + 4);
-      v18[0] = v10;
-      v18[1] = v11;
-      v12 = *v9;
-      v13 = v9[1];
-      v21 = *(v9 + 4);
-      v20[0] = v12;
-      v20[1] = v13;
-      v16[0] = v12;
-      v16[1] = v13;
-      v17 = v21;
-      if (v8 == 0x100000000)
+      v7 = *v6;
+      v8 = v6[1];
+      v15 = *(v6 + 4);
+      v14[0] = v7;
+      v14[1] = v8;
+      v9 = *v6;
+      v10 = v6[1];
+      v17 = *(v6 + 4);
+      v16[0] = v9;
+      v16[1] = v10;
+      v12[0] = v9;
+      v12[1] = v10;
+      v13 = v17;
+      if (v5 == 0x100000000)
       {
         goto LABEL_9;
       }
 
-      outlined init with copy of HoverEffectComponent.HoverEffect(v18, v15);
-      specialized static HoverEffectComponent.addOrUpdateCoreHoverEffect(_:hoverEffect:at:)(v3, v16, v8);
-      result = outlined destroy of HoverEffectComponent.HoverEffect(v20);
-      v7 = *(v2 + 16);
-      v9 = (v9 + 40);
-      if (++v8 == v7)
+      outlined init with copy of HoverEffectComponent.HoverEffect(v14, v11);
+      specialized static HoverEffectComponent.addOrUpdateCoreHoverEffect(_:hoverEffect:at:)(v3, v12, v5);
+      result = outlined destroy of HoverEffectComponent.HoverEffect(v16);
+      v4 = *(v2 + 16);
+      v6 = (v6 + 40);
+      if (++v5 == v4)
       {
         goto LABEL_7;
       }
@@ -9875,5 +6316,3553 @@ LABEL_9:
   }
 
   __break(1u);
+  return result;
+}
+
+uint64_t HoverEffectComponent.GroupID.init()@<X0>(uint64_t *a1@<X8>)
+{
+  result = RERemoteEffectsComponentCreateGroupID();
+  *a1 = result;
+  return result;
+}
+
+Swift::Int HoverEffectComponent.GroupID.hashValue.getter()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x1C68F4C50](v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance HoverEffectComponent.GroupID()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x1C68F4C50](v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance HoverEffectComponent.GroupID()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x1C68F4C50](v1);
+  return Hasher._finalize()();
+}
+
+void SettingsModifierV2.modifier.getter(char *a1@<X8>)
+{
+  if (*v1 == 2)
+  {
+    v2 = 2;
+  }
+
+  else
+  {
+    v2 = *v1 == 1;
+  }
+
+  *a1 = v2;
+}
+
+uint64_t (*SettingsModifierV2.modifier.modify(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  if (*v1 == 2)
+  {
+    v2 = 2;
+  }
+
+  else
+  {
+    v2 = *v1 == 1;
+  }
+
+  *(a1 + 8) = v2;
+  return SettingsModifierV2.modifier.modify;
+}
+
+uint64_t static HoverEffectComponent.SwiftStyleFromREComponent(_:styleId:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  RERemoteEffectsComponentStyleGetGlowAppearDurationOverride();
+  v21 = v4;
+  RERemoteEffectsComponentStyleGetGlowDisappearDurationOverride();
+  v20 = v5;
+  RERemoteEffectsComponentStyleGetIntensityMultiplier();
+  v7 = v6;
+  OpacityFunction = RERemoteEffectsComponentStyleGetOpacityFunction();
+  RERemoteEffectsComponentStyleGetFadeUsesActiveTime();
+  RERemoteEffectsComponentStyleGetFadeUsesActiveTimeMultiplier();
+  RERemoteEffectsComponentStyleGetActivationDelay();
+  RERemoteEffectsComponentStyleGetColorTint();
+  result = RERemoteEffectsComponentStyleGetType();
+  if (result == 2)
+  {
+    result = RECreateCGColorFromColorGamut();
+    v18 = (OpacityFunction == 2) << 33;
+    if (OpacityFunction == 1)
+    {
+      v18 = 0x100000000;
+    }
+
+    *a3 = result;
+    *(a3 + 8) = v18 | v7;
+    v17 = 1;
+  }
+
+  else if (result == 1)
+  {
+    v10.f64[0] = v21;
+    v10.f64[1] = v20;
+    __asm { FMOV            V0.2D, #10.0 }
+
+    v16 = vbslq_s8(vcgtq_f64(v10, _Q0), _Q0, v10);
+    *a3 = vbicq_s8(v16, vclezq_f64(v16));
+    v17 = 2;
+  }
+
+  else
+  {
+    result = RECreateCGColorFromColorGamut();
+    v17 = 0;
+    v19 = (OpacityFunction == 2) << 33;
+    if (OpacityFunction == 1)
+    {
+      v19 = 0x100000000;
+    }
+
+    *a3 = result;
+    *(a3 + 8) = v19 | v7;
+  }
+
+  *(a3 + 16) = v17;
+  return result;
+}
+
+BOOL specialized static HoverEffectComponent.HighlightHoverEffectStyle.== infix(_:_:)(float *a1, float *a2)
+{
+  v2 = a1[2];
+  v3 = *(a1 + 12);
+  v4 = a2[2];
+  v5 = *(a2 + 12);
+  type metadata accessor for CGColorRef(0);
+  lazy protocol witness table accessor for type CGColorRef and conformance CGColorRef();
+  v6 = static _CFObject.== infix(_:_:)();
+  result = 0;
+  if ((v6 & 1) != 0 && v2 == v4)
+  {
+    return v3 == v5;
+  }
+
+  return result;
+}
+
+BOOL specialized static HoverEffectComponent.HoverEffect.HoverEffectType.== infix(_:_:)(double *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = *(a1 + 16);
+  v6 = *a2;
+  v5 = *(a2 + 8);
+  v7 = *(a2 + 16);
+  if (!*(a1 + 16))
+  {
+    if (!*(a2 + 16))
+    {
+      type metadata accessor for CGColorRef(0);
+      outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 0);
+      outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v3, *&v2, 0);
+      outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v3, *&v2, 0);
+      outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 0);
+      lazy protocol witness table accessor for type CGColorRef and conformance CGColorRef();
+      v19 = static _CFObject.== infix(_:_:)();
+      outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v3, *&v2, 0);
+      outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 0);
+      if (v19)
+      {
+        v9 = *&v2;
+        v10 = *&v5;
+        outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 0);
+        v11 = v3;
+        v12 = *&v2;
+        v13 = 0;
+        goto LABEL_17;
+      }
+
+      outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 0);
+      v16 = v3;
+      v17 = *&v2;
+      v18 = 0;
+LABEL_13:
+      outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v16, v17, v18);
+      return 0;
+    }
+
+    goto LABEL_7;
+  }
+
+  if (v4 == 1)
+  {
+    if (v7 == 1)
+    {
+      type metadata accessor for CGColorRef(0);
+      outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 1u);
+      outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v3, *&v2, 1u);
+      outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v3, *&v2, 1u);
+      outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 1u);
+      lazy protocol witness table accessor for type CGColorRef and conformance CGColorRef();
+      v8 = static _CFObject.== infix(_:_:)();
+      outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v3, *&v2, 1u);
+      outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 1u);
+      if (v8)
+      {
+        v9 = *&v2;
+        v10 = *&v5;
+        outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 1u);
+        v11 = v3;
+        v12 = *&v2;
+        v13 = 1;
+LABEL_17:
+        outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v11, v12, v13);
+        return v9 == v10 && ((*&v5 ^ *&v2) & 0xFF00000000) == 0;
+      }
+
+      outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 1u);
+      v16 = v3;
+      v17 = *&v2;
+      v18 = 1;
+      goto LABEL_13;
+    }
+
+LABEL_7:
+    v14 = *&v3;
+LABEL_12:
+    outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, v7);
+    outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v3, *&v2, v4);
+    v16 = v6;
+    v17 = *&v5;
+    v18 = v7;
+    goto LABEL_13;
+  }
+
+  if (v7 != 2)
+  {
+    goto LABEL_12;
+  }
+
+  outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*a1, *&v2, 2u);
+  outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(*&v6, *&v5, 2u);
+  return v2 == v5 && v3 == v6;
+}
+
+void specialized static HoverEffectComponent.addOrUpdateCoreHoverEffect(_:hoverEffect:at:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a3;
+  v5 = *a2;
+  v6 = *(a2 + 8);
+  v7 = *(a2 + 16);
+  v8 = v7;
+  v16 = *(a2 + 32);
+  if (!*(a2 + 16))
+  {
+    goto LABEL_4;
+  }
+
+  if (v7 == 1)
+  {
+    v8 = 2;
+LABEL_4:
+    v9 = v5;
+    goto LABEL_6;
+  }
+
+  v8 = 1;
+LABEL_6:
+  if (RERemoteEffectsComponentGetStyleCount() <= v3)
+  {
+    RERemoteEffectsComponentCreateStyleID();
+    RERemoteEffectsComponentAddStyle();
+  }
+
+  else
+  {
+    RERemoteEffectsComponentGetStyleIDAtIndex();
+    Type = RERemoteEffectsComponentStyleGetType();
+    RERemoteEffectsComponentStyleReset();
+    if (v8 != Type)
+    {
+      RERemoteEffectsComponentCreateStyleID();
+    }
+
+    RERemoteEffectsComponentSetStyleIDAtIndex();
+  }
+
+  StyleIDAtIndex = RERemoteEffectsComponentGetStyleIDAtIndex();
+  RERemoteEffectsComponentStyleSetType();
+  RERemoteEffectsComponentStyleSetIsPlanar();
+  if (v16)
+  {
+    RERemoteEffectsComponentGetInvalidGroupID();
+  }
+
+  RERemoteEffectsComponentStyleSetGroupID();
+  RERemoteEffectsComponentStyleSetAllowsDirectInput();
+  RERemoteEffectsComponentStyleSetAllowsIndirectInput();
+  RERemoteEffectsComponentStyleSetIsHierarchical();
+  RERemoteEffectsComponentStyleSetEnableDirectPinchAnimation();
+  RERemoteEffectsComponentStyleResetGlowAppearDurationOverride();
+  RERemoteEffectsComponentStyleResetGlowDisappearDurationOverride();
+  if (!v7)
+  {
+    RECGColorToColorGamut();
+    RERemoteEffectsComponentStyleSetColorTint();
+    RERemoteEffectsComponentStyleSetIntensityMultiplier();
+    RERemoteEffectsComponentStyleSetOpacityFunction();
+    v12 = v5;
+    v13 = v6;
+    v14 = 0;
+    goto LABEL_18;
+  }
+
+  if (v7 == 1)
+  {
+    RECGColorToColorGamut();
+    RERemoteEffectsComponentStyleSetColorTint();
+    RERemoteEffectsComponentStyleSetIntensityMultiplier();
+    RERemoteEffectsComponentStyleSetOpacityFunction();
+    v12 = v5;
+    v13 = v6;
+    v14 = 1;
+LABEL_18:
+    outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(v12, v13, v14);
+    return;
+  }
+
+  RERemoteEffectsComponentStyleSetGlowAppearDurationOverride();
+  v15.n128_u64[0] = v6;
+
+  MEMORY[0x1EEDFDE50](a1, StyleIDAtIndex, v15);
+}
+
+unint64_t lazy protocol witness table accessor for type HoverEffectComponent.OpacityFunction and conformance HoverEffectComponent.OpacityFunction()
+{
+  result = lazy protocol witness table cache variable for type HoverEffectComponent.OpacityFunction and conformance HoverEffectComponent.OpacityFunction;
+  if (!lazy protocol witness table cache variable for type HoverEffectComponent.OpacityFunction and conformance HoverEffectComponent.OpacityFunction)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for HoverEffectComponent.OpacityFunction, &type metadata for HoverEffectComponent.OpacityFunction, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type HoverEffectComponent.OpacityFunction and conformance HoverEffectComponent.OpacityFunction);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type HoverEffectComponent.GroupID and conformance HoverEffectComponent.GroupID()
+{
+  result = lazy protocol witness table cache variable for type HoverEffectComponent.GroupID and conformance HoverEffectComponent.GroupID;
+  if (!lazy protocol witness table cache variable for type HoverEffectComponent.GroupID and conformance HoverEffectComponent.GroupID)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for HoverEffectComponent.GroupID, &type metadata for HoverEffectComponent.GroupID, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type HoverEffectComponent.GroupID and conformance HoverEffectComponent.GroupID);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type SettingsModifierV2.ModifierType and conformance SettingsModifierV2.ModifierType()
+{
+  result = lazy protocol witness table cache variable for type SettingsModifierV2.ModifierType and conformance SettingsModifierV2.ModifierType;
+  if (!lazy protocol witness table cache variable for type SettingsModifierV2.ModifierType and conformance SettingsModifierV2.ModifierType)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for SettingsModifierV2.ModifierType, &type metadata for SettingsModifierV2.ModifierType, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type SettingsModifierV2.ModifierType and conformance SettingsModifierV2.ModifierType);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for HoverEffectComponent.HoverEffect(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xFF && *(a1 + 40))
+  {
+    return (*a1 + 255);
+  }
+
+  v3 = *(a1 + 33);
+  v4 = v3 >= 2;
+  v5 = (v3 + 2147483646) & 0x7FFFFFFF;
+  if (!v4)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for HoverEffectComponent.HoverEffect(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFE)
+  {
+    *(result + 8) = 0u;
+    *(result + 24) = 0u;
+    *result = a2 - 255;
+    if (a3 >= 0xFF)
+    {
+      *(result + 40) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFF)
+    {
+      *(result + 40) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 33) = a2 + 1;
+    }
+  }
+
+  return result;
+}
+
+id outlined copy of HoverEffectComponent.HoverEffect.HoverEffectType(id result, uint64_t a2, unsigned __int8 a3)
+{
+  if (a3 <= 1u)
+  {
+    return result;
+  }
+
+  return result;
+}
+
+void outlined consume of HoverEffectComponent.HoverEffect.HoverEffectType(id a1, uint64_t a2, unsigned __int8 a3)
+{
+  if (a3 <= 1u)
+  {
+  }
+}
+
+void SkeletalPosesComponent.poses.setter(uint64_t *a1)
+{
+  v2 = *a1;
+
+  *v1 = v2;
+}
+
+uint64_t SkeletalPosesComponent.init(poses:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  result = swift_bridgeObjectRelease_n();
+  *a2 = a1;
+  a2[1] = 0;
+  return result;
+}
+
+uint64_t static SkeletalPosesComponent.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+{
+  v3 = *a1;
+  v21 = *a1;
+  v4 = specialized static SkeletalPosesComponent.getCoreAsset(_:)(&v21);
+  if (!v4)
+  {
+    v7 = MEMORY[0x1E69E7CC0];
+LABEL_16:
+    result = swift_bridgeObjectRelease_n();
+    *a2 = v7;
+    a2[1] = v4;
+    return result;
+  }
+
+  result = RESkeletalPoseComponentGetSkeletonCount();
+  if (result < 0)
+  {
+    goto LABEL_18;
+  }
+
+  v6 = result;
+  v7 = MEMORY[0x1E69E7CC0];
+  if (!result)
+  {
+    goto LABEL_16;
+  }
+
+  v19 = v4;
+  v20 = a2;
+  v21 = MEMORY[0x1E69E7CC0];
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, result, 0);
+  v8 = 0;
+  v7 = v21;
+  while (1)
+  {
+    RESkeletalPoseComponentGetPoseName();
+    v9 = String.init(cString:)();
+    v11 = v10;
+    RESkeletalPoseComponentEnsureSkeletalPosesInitialized();
+    if (v8 >= RESkeletalPoseComponentGetSkeletonCount())
+    {
+      result = 0;
+LABEL_10:
+      v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, 0, 0, MEMORY[0x1E69E7CC0]);
+      goto LABEL_11;
+    }
+
+    result = RESkeletalPoseComponentGetJointCount();
+    if (!result)
+    {
+      goto LABEL_10;
+    }
+
+    v12 = result;
+    if (result < 0)
+    {
+      break;
+    }
+
+    type metadata accessor for RESRT(0);
+    v13 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *(v13 + 16) = v12;
+    RESkeletalPoseComponentGetJointTransforms();
+    v14 = v13;
+    *(v13 + 16) = v12;
+LABEL_11:
+    v21 = v7;
+    v16 = *(v7 + 16);
+    v15 = *(v7 + 24);
+    if (v16 >= v15 >> 1)
+    {
+      v18 = v14;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
+      v14 = v18;
+      v7 = v21;
+    }
+
+    v17 = v7 + 56 * v16;
+    *(v17 + 32) = v3;
+    *(v17 + 40) = v8;
+    *(v7 + 16) = v16 + 1;
+    *(v17 + 48) = 0;
+    *(v17 + 56) = v9;
+    *(v17 + 64) = v11;
+    *(v17 + 72) = 0;
+    *(v17 + 80) = v14;
+    if (v6 == ++v8)
+    {
+      v4 = v19;
+      a2 = v20;
+      goto LABEL_16;
+    }
+  }
+
+  __break(1u);
+LABEL_18:
+  __break(1u);
+  return result;
+}
+
+void SkeletalPosesComponent.__toCore(_:)(Swift::OpaquePointer *a1)
+{
+  v2 = *v1;
+  v3 = *v1 + 32;
+  v4 = *(*v1 + 16) + 1;
+  v5 = 72;
+  while (--v4)
+  {
+    v6 = *(v2 + v5);
+    v5 += 56;
+    if (v6)
+    {
+      SkeletalPosesComponent.updateInternalPoseJointNames(_:)(a1->_rawValue);
+      break;
+    }
+  }
+
+  RESkeletalPoseComponentEnsureSkeletalPosesInitialized();
+  v7 = *(v2 + 16);
+
+  if (v7)
+  {
+    v8 = 0;
+    v15 = v3;
+    do
+    {
+      if (v8 >= *(v2 + 16))
+      {
+        __break(1u);
+        return;
+      }
+
+      v9 = *(v3 + 56 * v8 + 48);
+
+      RESkeletalPoseComponentEnsureSkeletalPosesInitialized();
+      if (v8 >= RESkeletalPoseComponentGetSkeletonCount())
+      {
+        goto LABEL_8;
+      }
+
+      JointCount = RESkeletalPoseComponentGetJointCount();
+      v11 = *(v9 + 16);
+      if (v11)
+      {
+        if (v11 < JointCount)
+        {
+          v12 = 0;
+          v13 = v9 + 64;
+          do
+          {
+            v14 = v12 + 1;
+            RESkeletalPoseComponentSetJointTransform();
+            v13 += 48;
+            v12 = v14;
+          }
+
+          while (v11 != v14);
+          goto LABEL_19;
+        }
+      }
+
+      else if (JointCount >= 1)
+      {
+        goto LABEL_8;
+      }
+
+      if (JointCount)
+      {
+        RESkeletalPoseComponentSetJointTransforms();
+LABEL_19:
+        RENetworkMarkComponentDirty();
+
+        v3 = v15;
+        goto LABEL_9;
+      }
+
+LABEL_8:
+
+LABEL_9:
+      ++v8;
+    }
+
+    while (v8 != v7);
+  }
+}
+
+Swift::Void __swiftcall SkeletalPosesComponent.updateInternalPoseJointNames(_:)(Swift::OpaquePointer a1)
+{
+  v3 = *v1;
+  SkeletalPoseDefinition = RESkeletalPoseComponentGetSkeletalPoseDefinition();
+  if (SkeletalPoseDefinition)
+  {
+    v5 = SkeletalPoseDefinition;
+    PoseCount = RESkeletalPoseDefinitionAssetGetPoseCount();
+    v7 = MEMORY[0x1E69E7CC0];
+    v31 = MEMORY[0x1E69E7CC0];
+    v32 = MEMORY[0x1E69E7CC0];
+    v30 = MEMORY[0x1E69E7CC0];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySPys4Int8VGGGMd, &_ss23_ContiguousArrayStorageCySaySPys4Int8VGGGMR);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_1C1887600;
+    *(inited + 32) = v7;
+    v29 = inited;
+    ModelSpacePoseCount = RESkeletalPoseDefinitionAssetGetModelSpacePoseCount();
+    v27 = v7;
+    v28 = v7;
+    v26 = v7;
+    v10 = swift_initStackObject();
+    *(v10 + 16) = xmmword_1C1887600;
+    *(v10 + 32) = v7;
+    v25 = v10;
+    v24 = v7;
+    v11 = *(v3 + 16);
+
+    if (v11)
+    {
+      v12 = (v3 + 80);
+      do
+      {
+        v13 = *(v12 - 1);
+        v14 = *v12;
+        v15 = *(v12 - 3);
+        v16 = *(v12 - 2);
+        v17 = *(v12 - 32);
+        v18 = *(v12 - 3);
+        v19 = v17;
+        v20 = v15;
+        v21 = v16;
+        v22 = v13;
+        v23 = v14;
+
+        closure #1 in SkeletalPosesComponent.updateInternalPoseJointNames(_:)(&v18, PoseCount, v5, &v32, &v29, &v31, &v30, &v24, a1._rawValue, ModelSpacePoseCount, &v28, &v25, &v27, &v26);
+
+        v12 += 7;
+        --v11;
+      }
+
+      while (v11);
+    }
+
+    RENetworkMarkComponentDirty();
+
+    $defer #1 () in SkeletalPosesComponent.updateInternalPoseJointNames(_:)(&v25);
+
+    $defer #1 () in SkeletalPosesComponent.updateInternalPoseJointNames(_:)(&v29);
+  }
+}
+
+void $defer #1 () in SkeletalPosesComponent.updateInternalPoseJointNames(_:)(void *a1)
+{
+  v1 = *a1;
+  v2 = *(*a1 + 16);
+
+  if (v2)
+  {
+    v3 = 0;
+    while (v3 < *(v1 + 16))
+    {
+      v4 = *(v1 + 32 + 8 * v3);
+      v5 = *(v4 + 16);
+      if (v5)
+      {
+
+        v6 = 32;
+        do
+        {
+          free(*(v4 + v6));
+          v6 += 8;
+          --v5;
+        }
+
+        while (v5);
+      }
+
+      if (++v3 == v2)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_9:
+  }
+}
+
+uint64_t closure #1 in SkeletalPosesComponent.updateInternalPoseJointNames(_:)(uint64_t *isUniquelyReferenced_nonNull_native, uint64_t a2, uint64_t a3, char **a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, char **a8, uint64_t a9, uint64_t a10, char **a11, uint64_t *a12, uint64_t a13, char **a14)
+{
+  v242 = *MEMORY[0x1E69E9840];
+  v15 = isUniquelyReferenced_nonNull_native[1];
+  v220 = *isUniquelyReferenced_nonNull_native;
+  v219 = isUniquelyReferenced_nonNull_native[3];
+  v218 = isUniquelyReferenced_nonNull_native[4];
+  v217 = isUniquelyReferenced_nonNull_native[5];
+  v16 = isUniquelyReferenced_nonNull_native[6];
+  v224 = v15;
+  v227 = v16;
+  if ((isUniquelyReferenced_nonNull_native[2] & 1) == 0)
+  {
+    if (a2 < 0)
+    {
+      goto LABEL_214;
+    }
+
+    if (!a2)
+    {
+      goto LABEL_180;
+    }
+
+    v17 = 0;
+    a12 = (v16 + 64);
+    while (1)
+    {
+      if (v17 == v15)
+      {
+        *&v238 = v220;
+        *(&v238 + 1) = v15;
+        LOBYTE(v239) = 0;
+        *(&v239 + 1) = v219;
+        *&v240 = v218;
+        *(&v240 + 1) = v217;
+        *&v241 = v16;
+        v18 = SkeletalPose.jointNames.getter();
+        v19 = *a6;
+
+        JointCount = swift_isUniquelyReferenced_nonNull_native();
+        *a6 = v19;
+        if ((JointCount & 1) == 0)
+        {
+          JointCount = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19[2] + 1, 1, v19);
+          v19 = JointCount;
+          *a6 = JointCount;
+        }
+
+        v22 = v19[2];
+        v21 = v19[3];
+        v14 = v22 + 1;
+        if (v22 >= v21 >> 1)
+        {
+          JointCount = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v22 + 1, 1, v19);
+          v19 = JointCount;
+          *a6 = JointCount;
+        }
+
+        v23 = 0;
+        v19[2] = v14;
+        v19[v22 + 4] = v18;
+        v24 = *(v18 + 16);
+        v25 = MEMORY[0x1E69E7CC0];
+LABEL_14:
+        v26 = (v18 + 40 + 16 * v23);
+        while (v24 != v23)
+        {
+          if (v23 >= *(v18 + 16))
+          {
+            __break(1u);
+LABEL_89:
+            __break(1u);
+LABEL_90:
+            __break(1u);
+            goto LABEL_91;
+          }
+
+          ++v23;
+          v27 = v26 + 2;
+          v14 = String.utf8CString.getter();
+          v22 = strdup((v14 + 32));
+
+          v26 = v27;
+          if (v22)
+          {
+            JointCount = swift_isUniquelyReferenced_nonNull_native();
+            if ((JointCount & 1) == 0)
+            {
+              JointCount = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v25 + 2) + 1, 1, v25);
+              v25 = JointCount;
+            }
+
+            v29 = *(v25 + 2);
+            v28 = *(v25 + 3);
+            v14 = v29 + 1;
+            if (v29 >= v28 >> 1)
+            {
+              JointCount = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1, v25);
+              v25 = JointCount;
+            }
+
+            *(v25 + 2) = v14;
+            *&v25[8 * v29 + 32] = v22;
+            goto LABEL_14;
+          }
+        }
+
+        v37 = *(v25 + 2);
+        v38 = *a4;
+        v39 = swift_isUniquelyReferenced_nonNull_native();
+        *a4 = v38;
+        if ((v39 & 1) == 0)
+        {
+          v38 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v38 + 2) + 1, 1, v38);
+          *a4 = v38;
+        }
+
+        v41 = *(v38 + 2);
+        v40 = *(v38 + 3);
+        if (v41 >= v40 >> 1)
+        {
+          v38 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1, v38);
+          *a4 = v38;
+        }
+
+        *(v38 + 2) = v41 + 1;
+        v42 = &v38[24 * v41];
+        *(v42 + 4) = v37;
+        *(v42 + 5) = v25 + 32;
+        *(v42 + 6) = 0;
+        v43 = *a5;
+        v44 = swift_isUniquelyReferenced_nonNull_native();
+        *a5 = v43;
+        if ((v44 & 1) == 0)
+        {
+          v43 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v43[2] + 1, 1, v43);
+          *a5 = v43;
+        }
+
+        v46 = v43[2];
+        v45 = v43[3];
+        v14 = v46 + 1;
+        if (v46 >= v45 >> 1)
+        {
+          v43 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v45 > 1), v46 + 1, 1, v43);
+          *a5 = v43;
+        }
+
+        v43[2] = v14;
+        v43[v46 + 4] = v25;
+        v47 = specialized BidirectionalCollection.distance(from:to:)(0, *(v227 + 16));
+        if (v47)
+        {
+          v22 = v47;
+          *&v238 = MEMORY[0x1E69E7CC0];
+          v25 = &v238;
+          JointCount = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v47 & ~(v47 >> 63), 0);
+          if ((v22 & 0x8000000000000000) != 0)
+          {
+            goto LABEL_208;
+          }
+
+          v23 = v238;
+          if (one-time initialization token for identity != -1)
+          {
+            JointCount = swift_once();
+          }
+
+          v48 = 0;
+          v49 = a12;
+          v50 = v227;
+          while (1)
+          {
+            v26 = *(v50 + 16);
+            if (v48 >= v26)
+            {
+              goto LABEL_90;
+            }
+
+            v51 = *(v49 - 2);
+            v52 = *(v49 - 1);
+            v53 = *v49;
+            *&v238 = v23;
+            v55 = *(v23 + 16);
+            v54 = *(v23 + 24);
+            v14 = v55 + 1;
+            if (v55 >= v54 >> 1)
+            {
+              v25 = &v238;
+              v223 = v51;
+              v215 = v52;
+              v211 = v53;
+              JointCount = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v54 > 1), v55 + 1, 1);
+              v53 = v211;
+              v52 = v215;
+              v51 = v223;
+              v50 = v227;
+              v23 = v238;
+            }
+
+            ++v48;
+            *(v23 + 16) = v14;
+            v56 = (v23 + 48 * v55);
+            v56[2] = v51;
+            v56[3] = v52;
+            v56[4] = v53;
+            v49 += 6;
+            if (v22 == v48)
+            {
+              goto LABEL_78;
+            }
+          }
+        }
+      }
+
+      else
+      {
+        JointCount = RESkeletalPoseDefinitionAssetGetJointCount();
+        if (JointCount < 0)
+        {
+          goto LABEL_206;
+        }
+
+        v30 = JointCount;
+        if (JointCount)
+        {
+          *&v238 = MEMORY[0x1E69E7CC0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, JointCount, 0);
+          v31 = 0;
+          v23 = v238;
+          do
+          {
+            RESkeletalPoseDefinitionAssetGetJointName();
+            JointCount = String.init(cString:)();
+            v32 = JointCount;
+            v14 = v33;
+            *&v238 = v23;
+            v35 = *(v23 + 16);
+            v34 = *(v23 + 24);
+            v22 = v35 + 1;
+            if (v35 >= v34 >> 1)
+            {
+              JointCount = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v35 + 1, 1);
+              v23 = v238;
+            }
+
+            ++v31;
+            *(v23 + 16) = v22;
+            v36 = v23 + 16 * v35;
+            *(v36 + 32) = v32;
+            *(v36 + 40) = v14;
+          }
+
+          while (v30 != v31);
+          v25 = MEMORY[0x1E69E7CC0];
+        }
+
+        else
+        {
+          v25 = MEMORY[0x1E69E7CC0];
+          v22 = *(MEMORY[0x1E69E7CC0] + 16);
+          v23 = MEMORY[0x1E69E7CC0];
+        }
+
+        v57 = 0;
+        v58 = v23 + 40;
+        *&v223 = v23 + 40;
+LABEL_50:
+        v26 = (v58 + 16 * v57);
+        while (v22 != v57)
+        {
+          if (v57 >= *(v23 + 16))
+          {
+            goto LABEL_89;
+          }
+
+          ++v57;
+          v59 = v26 + 2;
+          v14 = String.utf8CString.getter();
+          v60 = strdup((v14 + 32));
+
+          v26 = v59;
+          if (v60)
+          {
+            JointCount = swift_isUniquelyReferenced_nonNull_native();
+            if ((JointCount & 1) == 0)
+            {
+              JointCount = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v25 + 2) + 1, 1, v25);
+              v25 = JointCount;
+            }
+
+            v62 = *(v25 + 2);
+            v61 = *(v25 + 3);
+            v14 = v62 + 1;
+            if (v62 >= v61 >> 1)
+            {
+              JointCount = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v61 > 1), v62 + 1, 1, v25);
+              v25 = JointCount;
+            }
+
+            *(v25 + 2) = v14;
+            *&v25[8 * v62 + 32] = v60;
+            v58 = v23 + 40;
+            goto LABEL_50;
+          }
+        }
+
+        v63 = *(v25 + 2);
+        v64 = *a4;
+        v65 = swift_isUniquelyReferenced_nonNull_native();
+        *a4 = v64;
+        if ((v65 & 1) == 0)
+        {
+          v64 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v64 + 2) + 1, 1, v64);
+          *a4 = v64;
+        }
+
+        v67 = *(v64 + 2);
+        v66 = *(v64 + 3);
+        if (v67 >= v66 >> 1)
+        {
+          v64 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v66 > 1), v67 + 1, 1, v64);
+          *a4 = v64;
+        }
+
+        *(v64 + 2) = v67 + 1;
+        v68 = &v64[24 * v67];
+        *(v68 + 4) = v63;
+        *(v68 + 5) = v25 + 32;
+        *(v68 + 6) = 0;
+        v69 = *a5;
+        v70 = swift_isUniquelyReferenced_nonNull_native();
+        *a5 = v69;
+        if ((v70 & 1) == 0)
+        {
+          v69 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v69[2] + 1, 1, v69);
+          *a5 = v69;
+        }
+
+        v72 = v69[2];
+        v71 = v69[3];
+        if (v72 >= v71 >> 1)
+        {
+          v69 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v71 > 1), v72 + 1, 1, v69);
+          *a5 = v69;
+        }
+
+        v69[2] = v72 + 1;
+        v69[v72 + 4] = v25;
+        v73 = *a6;
+        v74 = swift_isUniquelyReferenced_nonNull_native();
+        *a6 = v73;
+        if ((v74 & 1) == 0)
+        {
+          v73 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v73[2] + 1, 1, v73);
+          *a6 = v73;
+        }
+
+        v76 = v73[2];
+        v75 = v73[3];
+        if (v76 >= v75 >> 1)
+        {
+          v73 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v75 > 1), v76 + 1, 1, v73);
+          *a6 = v73;
+        }
+
+        v73[2] = v76 + 1;
+        v73[v76 + 4] = v23;
+        if (v30)
+        {
+          v236 = MEMORY[0x1E69E7CC0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v30, 0);
+          v77 = 0;
+          v23 = v236;
+          do
+          {
+            v239 = 0u;
+            v240 = 0u;
+            v238 = 0u;
+            RESkeletalPoseDefinitionAssetGetJointDefaultTransform();
+            v78 = v238;
+            v79 = v239;
+            v80 = v240;
+            v82 = *(v236 + 16);
+            v81 = *(v236 + 24);
+            if (v82 >= v81 >> 1)
+            {
+              v223 = v238;
+              v215 = v239;
+              v212 = v240;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v81 > 1), v82 + 1, 1);
+              v80 = v212;
+              v79 = v215;
+              v78 = v223;
+            }
+
+            ++v77;
+            *(v236 + 16) = v82 + 1;
+            v83 = (v236 + 48 * v82);
+            v83[2] = v78;
+            v83[3] = v79;
+            v83[4] = v80;
+          }
+
+          while (v30 != v77);
+          goto LABEL_78;
+        }
+      }
+
+      v23 = MEMORY[0x1E69E7CC0];
+LABEL_78:
+      v84 = *a7;
+      v85 = swift_isUniquelyReferenced_nonNull_native();
+      *a7 = v84;
+      if ((v85 & 1) == 0)
+      {
+        v84 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v84[2] + 1, 1, v84);
+        *a7 = v84;
+      }
+
+      v87 = v84[2];
+      v86 = v84[3];
+      if (v87 >= v86 >> 1)
+      {
+        v84 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v86 > 1), v87 + 1, 1, v84);
+        *a7 = v84;
+      }
+
+      v84[2] = v87 + 1;
+      v84[v87 + 4] = v23;
+      RESkeletalPoseComponentGetPoseName();
+      v88 = String.init(cString:)();
+      v90 = v89;
+      v91 = *a8;
+      v92 = swift_isUniquelyReferenced_nonNull_native();
+      *a8 = v91;
+      if ((v92 & 1) == 0)
+      {
+        v91 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v91 + 2) + 1, 1, v91);
+        *a8 = v91;
+      }
+
+      v94 = *(v91 + 2);
+      v93 = *(v91 + 3);
+      v14 = v94 + 1;
+      if (v94 >= v93 >> 1)
+      {
+        v91 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v93 > 1), v94 + 1, 1, v91);
+        *a8 = v91;
+      }
+
+      ++v17;
+      *(v91 + 2) = v14;
+      v95 = &v91[16 * v94];
+      *(v95 + 4) = v88;
+      *(v95 + 5) = v90;
+      v15 = v224;
+      v16 = v227;
+      if (v17 == a2)
+      {
+        goto LABEL_180;
+      }
+    }
+  }
+
+  if (a10 < 0)
+  {
+LABEL_213:
+    __break(1u);
+LABEL_214:
+    __break(1u);
+  }
+
+  if (a10)
+  {
+    v14 = 0;
+    *&v223 = a13;
+    *&v215 = v16 + 64;
+    do
+    {
+      if (v14 == v15)
+      {
+        *&v238 = v220;
+        *(&v238 + 1) = v15;
+        LOBYTE(v239) = 1;
+        *(&v239 + 1) = v219;
+        *&v240 = v218;
+        *(&v240 + 1) = v217;
+        *&v241 = v16;
+        v96 = SkeletalPose.jointNames.getter();
+        v97 = *v223;
+
+        v98 = swift_isUniquelyReferenced_nonNull_native();
+        *v223 = v97;
+        if ((v98 & 1) == 0)
+        {
+          v97 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v97[2] + 1, 1, v97);
+          *v223 = v97;
+        }
+
+        v100 = v97[2];
+        v99 = v97[3];
+        if (v100 >= v99 >> 1)
+        {
+          v97 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v99 > 1), v100 + 1, 1, v97);
+          *v223 = v97;
+        }
+
+        v101 = 0;
+        v97[2] = v100 + 1;
+        v97[v100 + 4] = v96;
+        v102 = *(v96 + 16);
+        v103 = MEMORY[0x1E69E7CC0];
+LABEL_99:
+        v104 = v96 + 40 + 16 * v101;
+        while (v102 != v101)
+        {
+          if (v101 >= *(v96 + 16))
+          {
+            __break(1u);
+LABEL_201:
+            __break(1u);
+LABEL_202:
+            __break(1u);
+LABEL_203:
+            __break(1u);
+LABEL_204:
+            __break(1u);
+LABEL_205:
+            __break(1u);
+LABEL_206:
+            __break(1u);
+LABEL_207:
+            __break(1u);
+LABEL_208:
+            __break(1u);
+LABEL_209:
+            __break(1u);
+LABEL_210:
+            __break(1u);
+            goto LABEL_211;
+          }
+
+          ++v101;
+          v105 = v104 + 16;
+          v106 = String.utf8CString.getter();
+          v107 = strdup((v106 + 32));
+
+          v104 = v105;
+          if (v107)
+          {
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              v103 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v103 + 2) + 1, 1, v103);
+            }
+
+            v109 = *(v103 + 2);
+            v108 = *(v103 + 3);
+            if (v109 >= v108 >> 1)
+            {
+              v103 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v108 > 1), v109 + 1, 1, v103);
+            }
+
+            *(v103 + 2) = v109 + 1;
+            *&v103[8 * v109 + 32] = v107;
+            goto LABEL_99;
+          }
+        }
+
+        v121 = *(v103 + 2);
+        v122 = *a11;
+        v123 = swift_isUniquelyReferenced_nonNull_native();
+        *a11 = v122;
+        if ((v123 & 1) == 0)
+        {
+          v122 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v122 + 2) + 1, 1, v122);
+          *a11 = v122;
+        }
+
+        v125 = *(v122 + 2);
+        v124 = *(v122 + 3);
+        if (v125 >= v124 >> 1)
+        {
+          v122 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v124 > 1), v125 + 1, 1, v122);
+          *a11 = v122;
+        }
+
+        *(v122 + 2) = v125 + 1;
+        v126 = &v122[24 * v125];
+        *(v126 + 4) = v121;
+        *(v126 + 5) = v103 + 32;
+        *(v126 + 6) = 0;
+        v127 = *a12;
+        v128 = swift_isUniquelyReferenced_nonNull_native();
+        *a12 = v127;
+        if ((v128 & 1) == 0)
+        {
+          v127 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v127[2] + 1, 1, v127);
+          *a12 = v127;
+        }
+
+        v130 = v127[2];
+        v129 = v127[3];
+        if (v130 >= v129 >> 1)
+        {
+          v127 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v129 > 1), v130 + 1, 1, v127);
+          *a12 = v127;
+        }
+
+        v127[2] = v130 + 1;
+        v127[v130 + 4] = v103;
+        v131 = *v223;
+        v132 = swift_isUniquelyReferenced_nonNull_native();
+        *v223 = v131;
+        if ((v132 & 1) == 0)
+        {
+          v131 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v131[2] + 1, 1, v131);
+          *v223 = v131;
+        }
+
+        v134 = v131[2];
+        v133 = v131[3];
+        if (v134 >= v133 >> 1)
+        {
+          v131 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v133 > 1), v134 + 1, 1, v131);
+          *v223 = v131;
+        }
+
+        v131[2] = v134 + 1;
+        v131[v134 + 4] = v96;
+        v135 = specialized BidirectionalCollection.distance(from:to:)(0, *(v227 + 16));
+        if (v135)
+        {
+          v136 = v135;
+          *&v238 = MEMORY[0x1E69E7CC0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v135 & ~(v135 >> 63), 0);
+          if ((v136 & 0x8000000000000000) == 0)
+          {
+            v17 = v238;
+            if (one-time initialization token for identity != -1)
+            {
+              swift_once();
+            }
+
+            v137 = 0;
+            v138 = v215;
+            v139 = v227;
+            while (v137 < *(v139 + 16))
+            {
+              v233 = v138[-2];
+              v229 = *v138;
+              *v140.i64 = simd_matrix4x4(v138[-1]);
+              v144 = v143;
+              *&v238 = v17;
+              v146 = *(v17 + 16);
+              v145 = *(v17 + 24);
+              if (v146 >= v145 >> 1)
+              {
+                v209 = v140;
+                v213 = v143;
+                v207 = v142;
+                v208 = v141;
+                specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v145 > 1), v146 + 1, 1);
+                v142 = v207;
+                v141 = v208;
+                v140 = v209;
+                v144 = v213;
+                v139 = v227;
+                v17 = v238;
+              }
+
+              v147 = vaddq_f32(v229, v144);
+              v147.i32[3] = v144.i32[3];
+              ++v137;
+              *(v17 + 16) = v146 + 1;
+              v148 = (v17 + (v146 << 6));
+              v148[2] = vmulq_n_f32(v140, v233.f32[0]);
+              v148[3] = vmulq_lane_f32(v141, *v233.f32, 1);
+              v148[4] = vmulq_laneq_f32(v142, v233, 2);
+              v148[5] = v147;
+              v138 += 3;
+              if (v136 == v137)
+              {
+                goto LABEL_167;
+              }
+            }
+
+            goto LABEL_202;
+          }
+
+          goto LABEL_209;
+        }
+
+        v17 = MEMORY[0x1E69E7CC0];
+LABEL_167:
+        v25 = *a14;
+        v181 = swift_isUniquelyReferenced_nonNull_native();
+        *a14 = v25;
+        if ((v181 & 1) == 0)
+        {
+          v25 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v25 + 2) + 1, 1, v25);
+          *a14 = v25;
+        }
+
+        v23 = *(v25 + 2);
+        v182 = *(v25 + 3);
+        v22 = v23 + 1;
+        if (v23 < v182 >> 1)
+        {
+          goto LABEL_92;
+        }
+
+        JointCount = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v182 > 1), v23 + 1, 1, v25);
+        v25 = JointCount;
+        v26 = a14;
+      }
+
+      else
+      {
+        ModelSpaceJointCount = RESkeletalPoseDefinitionAssetGetModelSpaceJointCount();
+        if (ModelSpaceJointCount < 0)
+        {
+          goto LABEL_207;
+        }
+
+        v111 = ModelSpaceJointCount;
+        if (ModelSpaceJointCount)
+        {
+          *&v238 = MEMORY[0x1E69E7CC0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, ModelSpaceJointCount, 0);
+          v112 = 0;
+          v17 = v238;
+          do
+          {
+            RESkeletalPoseDefinitionAssetGetModelSpaceJointName();
+            v113 = String.init(cString:)();
+            *&v238 = v17;
+            v116 = *(v17 + 16);
+            v115 = *(v17 + 24);
+            v117 = v116 + 1;
+            if (v116 >= v115 >> 1)
+            {
+              v119 = v113;
+              v120 = v114;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v115 > 1), v116 + 1, 1);
+              v114 = v120;
+              v113 = v119;
+              v17 = v238;
+            }
+
+            ++v112;
+            *(v17 + 16) = v117;
+            v118 = v17 + 16 * v116;
+            *(v118 + 32) = v113;
+            *(v118 + 40) = v114;
+          }
+
+          while (v111 != v112);
+          v149 = MEMORY[0x1E69E7CC0];
+        }
+
+        else
+        {
+          v149 = MEMORY[0x1E69E7CC0];
+          v117 = *(MEMORY[0x1E69E7CC0] + 16);
+          v17 = MEMORY[0x1E69E7CC0];
+        }
+
+        v150 = 0;
+        v151 = v17 + 40;
+LABEL_139:
+        v152 = v151 + 16 * v150;
+        while (v117 != v150)
+        {
+          if (v150 >= *(v17 + 16))
+          {
+            goto LABEL_201;
+          }
+
+          ++v150;
+          v153 = v152 + 16;
+          v154 = String.utf8CString.getter();
+          v155 = strdup((v154 + 32));
+
+          v152 = v153;
+          if (v155)
+          {
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              v149 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v149 + 2) + 1, 1, v149);
+            }
+
+            v157 = *(v149 + 2);
+            v156 = *(v149 + 3);
+            if (v157 >= v156 >> 1)
+            {
+              v149 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v156 > 1), v157 + 1, 1, v149);
+            }
+
+            *(v149 + 2) = v157 + 1;
+            *&v149[8 * v157 + 32] = v155;
+            v151 = v17 + 40;
+            goto LABEL_139;
+          }
+        }
+
+        v158 = *(v149 + 2);
+        v159 = *a11;
+        v160 = swift_isUniquelyReferenced_nonNull_native();
+        *a11 = v159;
+        if ((v160 & 1) == 0)
+        {
+          v159 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v159 + 2) + 1, 1, v159);
+          *a11 = v159;
+        }
+
+        v162 = *(v159 + 2);
+        v161 = *(v159 + 3);
+        if (v162 >= v161 >> 1)
+        {
+          v159 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v161 > 1), v162 + 1, 1, v159);
+          *a11 = v159;
+        }
+
+        *(v159 + 2) = v162 + 1;
+        v163 = &v159[24 * v162];
+        *(v163 + 4) = v158;
+        *(v163 + 5) = v149 + 32;
+        *(v163 + 6) = 0;
+        v164 = *a12;
+        v165 = swift_isUniquelyReferenced_nonNull_native();
+        *a12 = v164;
+        if ((v165 & 1) == 0)
+        {
+          v164 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v164[2] + 1, 1, v164);
+          *a12 = v164;
+        }
+
+        v167 = v164[2];
+        v166 = v164[3];
+        if (v167 >= v166 >> 1)
+        {
+          v164 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v166 > 1), v167 + 1, 1, v164);
+          *a12 = v164;
+        }
+
+        v164[2] = v167 + 1;
+        v164[v167 + 4] = v149;
+        v168 = *v223;
+
+        v169 = swift_isUniquelyReferenced_nonNull_native();
+        *v223 = v168;
+        if ((v169 & 1) == 0)
+        {
+          v168 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v168[2] + 1, 1, v168);
+          *v223 = v168;
+        }
+
+        v171 = v168[2];
+        v170 = v168[3];
+        if (v171 >= v170 >> 1)
+        {
+          v168 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v170 > 1), v171 + 1, 1, v168);
+          *v223 = v168;
+        }
+
+        v168[2] = v171 + 1;
+        v168[v171 + 4] = v17;
+        if (v111)
+        {
+          v237 = MEMORY[0x1E69E7CC0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v111, 0);
+          v172 = 0;
+          v173 = v237;
+          do
+          {
+            v240 = 0u;
+            v241 = 0u;
+            v238 = 0u;
+            v239 = 0u;
+            RESkeletalPoseDefinitionAssetGetModelSpaceJointDefaultTransform();
+            v174 = v238;
+            v175 = v239;
+            v176 = v240;
+            v177 = v241;
+            v179 = *(v237 + 16);
+            v178 = *(v237 + 24);
+            if (v179 >= v178 >> 1)
+            {
+              v230 = v239;
+              v234 = v238;
+              v210 = v241;
+              v214 = v240;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v178 > 1), v179 + 1, 1);
+              v177 = v210;
+              v176 = v214;
+              v175 = v230;
+              v174 = v234;
+            }
+
+            ++v172;
+            *(v237 + 16) = v179 + 1;
+            v180 = (v237 + (v179 << 6));
+            v180[2] = v174;
+            v180[3] = v175;
+            v180[4] = v176;
+            v180[5] = v177;
+          }
+
+          while (v111 != v172);
+        }
+
+        else
+        {
+          v173 = MEMORY[0x1E69E7CC0];
+        }
+
+        v183 = *a14;
+        v184 = swift_isUniquelyReferenced_nonNull_native();
+        *a14 = v183;
+        if ((v184 & 1) == 0)
+        {
+          v183 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v183 + 2) + 1, 1, v183);
+          *a14 = v183;
+        }
+
+        v186 = *(v183 + 2);
+        v185 = *(v183 + 3);
+        if (v186 >= v185 >> 1)
+        {
+          v183 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v185 > 1), v186 + 1, 1, v183);
+          *a14 = v183;
+        }
+
+        *(v183 + 2) = v186 + 1;
+        *&v183[8 * v186 + 32] = v173;
+        v25 = *v223;
+        v187 = swift_isUniquelyReferenced_nonNull_native();
+        *v223 = v25;
+        if ((v187 & 1) == 0)
+        {
+          v25 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v25 + 2) + 1, 1, v25);
+          *v223 = v25;
+        }
+
+        v23 = *(v25 + 2);
+        v188 = *(v25 + 3);
+        v22 = v23 + 1;
+        if (v23 < v188 >> 1)
+        {
+          goto LABEL_92;
+        }
+
+        JointCount = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v188 > 1), v23 + 1, 1, v25);
+        v25 = JointCount;
+        v26 = v223;
+      }
+
+LABEL_91:
+      *v26 = JointCount;
+LABEL_92:
+      ++v14;
+      *(v25 + 2) = v22;
+      *&v25[8 * v23 + 32] = v17;
+      v15 = v224;
+      v16 = v227;
+    }
+
+    while (v14 != a10);
+  }
+
+LABEL_180:
+  PoseMeshMapCount = RESkeletalPoseDefinitionAssetGetPoseMeshMapCountEx();
+  if (PoseMeshMapCount < 0)
+  {
+    goto LABEL_210;
+  }
+
+  if (PoseMeshMapCount)
+  {
+    v190 = 0;
+    v191 = MEMORY[0x1E69E7CC0];
+    v231 = PoseMeshMapCount;
+    do
+    {
+      LOBYTE(v238) = 0;
+      DWORD1(v240) = 0;
+      v239 = 0uLL;
+      *(&v238 + 1) = 0;
+      LOBYTE(v240) = 0;
+      RESkeletalPoseDefinitionAssetGetPoseMeshMapEx();
+      v192 = v238;
+      v193 = *(&v238 + 1);
+      v194 = v239;
+      v235 = v240;
+      v195 = DWORD1(v240);
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v191 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v191 + 2) + 1, 1, v191);
+      }
+
+      v197 = *(v191 + 2);
+      v196 = *(v191 + 3);
+      if (v197 >= v196 >> 1)
+      {
+        v191 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v196 > 1), v197 + 1, 1, v191);
+      }
+
+      *(v191 + 2) = v197 + 1;
+      v198 = &v191[40 * v197];
+      v198[32] = v192;
+      ++v190;
+      *(v198 + 5) = v193;
+      *(v198 + 3) = v194;
+      v198[64] = v235;
+      *(v198 + 17) = v195;
+    }
+
+    while (v231 != v190);
+  }
+
+  v199 = specialized static __ServiceLocator.shared.getter();
+  swift_beginAccess();
+  outlined init with copy of __REAssetService(v199 + 120, &v238);
+  v200 = *(&v239 + 1);
+  v201 = v240;
+  __swift_project_boxed_opaque_existential_1(&v238, *(&v239 + 1));
+  (*(v201 + 32))(v200, v201);
+  __swift_destroy_boxed_opaque_existential_1(&v238);
+
+  RESkeletalPoseDefinitionAssetCreateAssetWithDefinitionsEx();
+
+  RESkeletalPoseComponentSetSkeletalPoseDefinition();
+  result = RESkeletalPoseComponentEnsureSkeletalPosesInitialized();
+  if (a2 < 0)
+  {
+LABEL_211:
+    __break(1u);
+LABEL_212:
+    __break(1u);
+    goto LABEL_213;
+  }
+
+  if (a2)
+  {
+    v203 = 0;
+    v204 = 0;
+    while (v204 < *(*a7 + 16))
+    {
+      RESkeletalPoseComponentSetJointTransforms();
+      if (v204 >= *(*a8 + 2))
+      {
+        goto LABEL_204;
+      }
+
+      String.utf8CString.getter();
+      RESkeletalPoseComponentSetPoseName();
+
+      v203 += 16;
+      if (a2 == ++v204)
+      {
+        goto LABEL_194;
+      }
+    }
+
+    goto LABEL_203;
+  }
+
+LABEL_194:
+  if (a10 < 0)
+  {
+    goto LABEL_212;
+  }
+
+  if (a10)
+  {
+    v205 = 0;
+    while (v205 < *(*a14 + 2))
+    {
+      v206 = v205 + 1;
+      result = RESkeletalPoseComponentSetModelSpaceJointTransforms();
+      v205 = v206;
+      if (a10 == v206)
+      {
+        return result;
+      }
+    }
+
+    goto LABEL_205;
+  }
+
+  return result;
+}
+
+uint64_t specialized static SkeletalPosesComponent.getCoreAsset(_:)(void *a1)
+{
+  RESkeletalPoseComponentEnsureSkeletalPosesInitialized();
+  result = RESkeletalPoseComponentGetSkeletalPoseDefinition();
+  if (!result)
+  {
+    Entity = REComponentGetEntity();
+    type metadata accessor for Entity();
+    if (REEntityGetSwiftObject())
+    {
+      swift_dynamicCastClassUnconditional();
+    }
+
+    else
+    {
+      result = REEntityIsBeingDestroyed();
+      if (result)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v3 = static Entity.entityInfoType(_:)(Entity);
+      if (v3)
+      {
+        v4 = (*(v3 + 232))();
+        v5 = *(v4 + 16);
+
+        MEMORY[0x1C68F9740](v5, 0);
+        *(v4 + 16) = Entity;
+        MEMORY[0x1C68F9740](Entity, v4);
+      }
+
+      else
+      {
+        makeEntity(for:)(Entity);
+      }
+    }
+
+    Component = REEntityGetComponent();
+    if (Component)
+    {
+      v12[0] = Component;
+      static ModelComponent.__fromCore(_:borrowStrongReference:)(v12, 0, &v13);
+
+      if (*(v13 + 16))
+      {
+        type metadata accessor for __ServiceLocator();
+        static __ServiceLocator.shared.getter();
+        v8 = v7;
+        swift_beginAccess();
+        outlined init with copy of __REAssetService(v8 + 120, &v13);
+
+        v9 = v14;
+        v10 = v15;
+        __swift_project_boxed_opaque_existential_1(&v13, v14);
+        (*(v10 + 32))(v9, v10);
+        __swift_destroy_boxed_opaque_existential_1(&v13);
+        AssetForMesh = RESkeletalPoseDefinitionAssetCreateAssetForMesh();
+        RESkeletalPoseComponentSetSkeletalPoseDefinition();
+
+        return AssetForMesh;
+      }
+    }
+
+    else
+    {
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t Scene.performQuery(_:rootEntity:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  v6 = *(a1 + 48);
+  v7 = *(a1 + 64);
+  v55 = *a1;
+  v56 = *(a1 + 56);
+  if (!a2)
+  {
+    if (v6)
+    {
+      outlined copy of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v6, v56);
+
+      outlined copy of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v6, v56);
+      v8 = v6(v3);
+      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v6, v56);
+
+      result = outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v6, v56);
+      if (v8)
+      {
+        goto LABEL_63;
+      }
+    }
+  }
+
+  v10 = swift_allocObject();
+  *(v10 + 16) = MEMORY[0x1E69E7CC0];
+  v53 = a3;
+  v54 = (v10 + 16);
+  v52 = v10;
+  if (v7 && *(v7 + 16))
+  {
+    v59 = partial apply for closure #1 in Scene.performQuery(_:rootEntity:);
+    v60 = v10;
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 1107296256;
+    aBlock[2] = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> ();
+    v58 = &block_descriptor_15;
+    v11 = _Block_copy(aBlock);
+    swift_retain_n();
+
+    REQueryEvaluateEntityQueryWithRootEntity();
+    _Block_release(v11);
+
+LABEL_62:
+    swift_beginAccess();
+    v8 = *(v52 + 16);
+
+    a3 = v53;
+LABEL_63:
+    *a3 = v8;
+    return result;
+  }
+
+  AllEntitiesArray = RESceneGetAllEntitiesArray();
+  if (a2)
+  {
+    if (!v12)
+    {
+      goto LABEL_62;
+    }
+  }
+
+  else if (!v12)
+  {
+    goto LABEL_62;
+  }
+
+  v14 = 8 * v12;
+  while (1)
+  {
+    v15 = *AllEntitiesArray;
+    if (REEntityIsNonHiddenAndInHierarchy())
+    {
+      break;
+    }
+
+LABEL_14:
+    ++AllEntitiesArray;
+    v14 -= 8;
+    if (!v14)
+    {
+      goto LABEL_62;
+    }
+  }
+
+  v58 = MEMORY[0x1E69E6B70];
+  aBlock[0] = v15;
+  outlined init with copy of Any(aBlock, v62);
+  swift_dynamicCast();
+  v16 = v61;
+  __swift_destroy_boxed_opaque_existential_1(aBlock);
+  if (REEntityGetSwiftObject())
+  {
+    type metadata accessor for Entity();
+    v17 = swift_dynamicCastClassUnconditional();
+    goto LABEL_58;
+  }
+
+  if ((REEntityIsBeingDestroyed() & 1) == 0)
+  {
+    if (one-time initialization token for customComponentTypeObjectIdToHandles != -1)
+    {
+      swift_once();
+    }
+
+    swift_beginAccess();
+    if (*(static SceneManager.customComponentTypeObjectIdToHandles + 16))
+    {
+      specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for __EntityInfoComponent);
+      if (v18)
+      {
+LABEL_35:
+        swift_endAccess();
+        if (REEntityGetCustomComponent())
+        {
+          Object = RECustomComponentGetObject();
+          if (Object)
+          {
+            v35 = *Object;
+            if (*(Object + 8))
+            {
+              v36 = 1;
+            }
+
+            else
+            {
+              v36 = v35 == 0;
+            }
+
+            if (v36)
+            {
+            }
+
+            else
+            {
+              v37 = *v35;
+              v38 = String.init(utf8String:)();
+              if (v39)
+              {
+                v40 = v38;
+              }
+
+              else
+              {
+                v40 = 0;
+              }
+
+              if (v39)
+              {
+                v41 = v39;
+              }
+
+              else
+              {
+                v41 = 0xE000000000000000;
+              }
+
+              v35 = specialized static __EntityInfoComponent.makeRawData(isNinja:entityTypeName:)(v37 == 42, v40, v41);
+
+              type metadata accessor for IntrospectionDataCleanupHelper();
+              *(swift_allocObject() + 16) = v35;
+            }
+
+            if (!v35)
+            {
+              goto LABEL_67;
+            }
+
+            v42 = String.init(utf8String:)();
+            if (v43)
+            {
+              v44 = v43;
+            }
+
+            else
+            {
+              v42 = 0;
+              v44 = 0xE000000000000000;
+            }
+
+            v45 = MEMORY[0x1C68F3280](v42, v44);
+
+            v46 = NSClassFromString(v45);
+
+            if (v46)
+            {
+              swift_getObjCClassMetadata();
+              type metadata accessor for Entity();
+              v47 = swift_dynamicCastMetatype();
+              if (v47)
+              {
+                v48 = (*(v47 + 232))();
+                v49 = *(v48 + 16);
+
+                MEMORY[0x1C68F9740](v49, 0);
+                *(v48 + 16) = v16;
+                MEMORY[0x1C68F9740](v16, v48);
+
+LABEL_59:
+                aBlock[0] = v48;
+
+                outlined copy of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v6, v56);
+                v50 = v55(aBlock);
+
+                outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v6, v56);
+                if (v50)
+                {
+
+                  MEMORY[0x1C68F3650](v51);
+                  if (*((*v54 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v54 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+                  {
+                    specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+                  }
+
+                  specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+                }
+
+                goto LABEL_14;
+              }
+            }
+          }
+        }
+
+        v17 = makeEntity(for:)(v16);
+LABEL_58:
+        v48 = v17;
+        goto LABEL_59;
+      }
+    }
+
+    swift_endAccess();
+    v19 = specialized static SceneManager.customComponentTypeHelper(_:typeName:)(&type metadata for __EntityInfoComponent, &protocol witness table for __EntityInfoComponent, 0, 0);
+    swift_beginAccess();
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v21 = static SceneManager.customComponentTypeObjectIdToHandles;
+    v62[0] = static SceneManager.customComponentTypeObjectIdToHandles;
+    static SceneManager.customComponentTypeObjectIdToHandles = 0x8000000000000000;
+    v23 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for __EntityInfoComponent);
+    v24 = *(v21 + 16);
+    v25 = (v22 & 1) == 0;
+    v26 = v24 + v25;
+    if (__OFADD__(v24, v25))
+    {
+      goto LABEL_65;
+    }
+
+    v27 = v22;
+    if (*(v21 + 24) < v26)
+    {
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v26, isUniquelyReferenced_nonNull_native);
+      v28 = specialized __RawDictionaryStorage.find<A>(_:)(&type metadata for __EntityInfoComponent);
+      if ((v27 & 1) != (v29 & 1))
+      {
+        goto LABEL_68;
+      }
+
+      v23 = v28;
+      v30 = v62[0];
+      if ((v27 & 1) == 0)
+      {
+        goto LABEL_32;
+      }
+
+LABEL_30:
+      *(v30[7] + 8 * v23) = v19;
+LABEL_34:
+      static SceneManager.customComponentTypeObjectIdToHandles = v30;
+      goto LABEL_35;
+    }
+
+    if (isUniquelyReferenced_nonNull_native)
+    {
+      v30 = v62[0];
+      if (v22)
+      {
+        goto LABEL_30;
+      }
+    }
+
+    else
+    {
+      specialized _NativeDictionary.copy()();
+      v30 = v62[0];
+      if (v27)
+      {
+        goto LABEL_30;
+      }
+    }
+
+LABEL_32:
+    v30[(v23 >> 6) + 8] |= 1 << v23;
+    *(v30[6] + 8 * v23) = &type metadata for __EntityInfoComponent;
+    *(v30[7] + 8 * v23) = v19;
+    v31 = v30[2];
+    v32 = __OFADD__(v31, 1);
+    v33 = v31 + 1;
+    if (v32)
+    {
+      goto LABEL_66;
+    }
+
+    v30[2] = v33;
+    goto LABEL_34;
+  }
+
+  __break(1u);
+LABEL_65:
+  __break(1u);
+LABEL_66:
+  __break(1u);
+LABEL_67:
+  __break(1u);
+LABEL_68:
+  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t closure #1 in Scene.performQuery(_:rootEntity:)(uint64_t a1, uint64_t a2)
+{
+  if (REEntityGetSwiftObject())
+  {
+    type metadata accessor for Entity();
+    swift_dynamicCastClassUnconditional();
+  }
+
+  else
+  {
+    result = REEntityIsBeingDestroyed();
+    if (result)
+    {
+      __break(1u);
+      return result;
+    }
+
+    specialized static Entity.entityInfoType(_:)(a1);
+    if (v5)
+    {
+      v6 = (*(v5 + 232))();
+      v7 = *(v6 + 16);
+
+      MEMORY[0x1C68F9740](v7, 0);
+      *(v6 + 16) = a1;
+      MEMORY[0x1C68F9740](a1, v6);
+    }
+
+    else
+    {
+      makeEntity(for:)(a1);
+    }
+  }
+
+  swift_beginAccess();
+
+  MEMORY[0x1C68F3650](v8);
+  if (*((*(a2 + 16) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(a2 + 16) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  {
+    specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+  }
+
+  specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+  swift_endAccess();
+}
+
+uint64_t thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> ()(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 32);
+
+  v3(a2);
+}
+
+{
+  return (*(a1 + 32))(a2);
+}
+
+uint64_t Scene.performQuery<A>(_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
+{
+  v6 = swift_allocObject();
+  swift_getAssociatedTypeWitness();
+  *(v6 + 16) = static Array._allocateUninitialized(_:)();
+  v8 = type metadata accessor for Query(0, a1, a2, v7);
+  if (Query.internalQuery.getter(v8))
+  {
+    v9 = swift_allocObject();
+    v9[2] = a1;
+    v9[3] = a2;
+    v9[4] = v6;
+    v12[4] = partial apply for closure #1 in Scene.performQuery<A>(_:);
+    v12[5] = v9;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 1107296256;
+    v12[2] = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> ();
+    v12[3] = &block_descriptor_9;
+    v10 = _Block_copy(v12);
+
+    REQueryEvaluateEntityQuery();
+    _Block_release(v10);
+  }
+
+  swift_beginAccess();
+  QueryResult.init(_:)(*(v6 + 16), a3);
+}
+
+uint64_t closure #1 in Scene.performQuery<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v9 = type metadata accessor for Optional();
+  v26 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = v25 - v10;
+  v12 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = v25 - v17;
+  result = REIsEntityHidden();
+  if ((result & 1) == 0)
+  {
+    v25[0] = v9;
+    v20 = REEntityGetSwiftObject();
+    v25[1] = a2;
+    if (v20)
+    {
+      type metadata accessor for Entity();
+      v21 = swift_dynamicCastClassUnconditional();
+    }
+
+    else
+    {
+      result = REEntityIsBeingDestroyed();
+      if (result)
+      {
+        __break(1u);
+        return result;
+      }
+
+      specialized static Entity.entityInfoType(_:)(a1);
+      if (v23)
+      {
+        v22 = (*(v23 + 232))();
+        v24 = *(v22 + 16);
+
+        MEMORY[0x1C68F9740](v24, 0);
+        *(v22 + 16) = a1;
+        MEMORY[0x1C68F9740](a1, v22);
+
+LABEL_8:
+        v27[0] = v22;
+        (*(a4 + 24))(v27, a3, a4);
+        if ((*(v12 + 48))(v11, 1, AssociatedTypeWitness) == 1)
+        {
+
+          return (*(v26 + 8))(v11, v25[0]);
+        }
+
+        else
+        {
+          (*(v12 + 32))(v18, v11, AssociatedTypeWitness);
+          (*(v12 + 16))(v15, v18, AssociatedTypeWitness);
+          swift_beginAccess();
+          type metadata accessor for Array();
+          Array.append(_:)();
+          swift_endAccess();
+
+          return (*(v12 + 8))(v18, AssociatedTypeWitness);
+        }
+      }
+
+      v21 = makeEntity(for:)(a1);
+    }
+
+    v22 = v21;
+    goto LABEL_8;
+  }
+
+  return result;
+}
+
+uint64_t Scene.performQuery<A>(_:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+{
+  v7 = a1[3];
+  v23 = a1[2];
+  v24 = v7;
+  v25 = *(a1 + 8);
+  v8 = a1[1];
+  aBlock = *a1;
+  v22 = v8;
+  v9 = swift_allocObject();
+  type metadata accessor for QuerySelectors.ComponentQueryResult(0, a2, a3, v10);
+  *(v9 + 16) = static Array._allocateUninitialized(_:)();
+  v12 = type metadata accessor for QuerySelectors.ComponentTypeSelector(255, a2, a3, v11);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for QuerySelectors.ComponentTypeSelector<A>, v12);
+  v15 = type metadata accessor for Query(0, v12, WitnessTable, v14);
+  if (!Query.internalQuery.getter(v15))
+  {
+    goto LABEL_5;
+  }
+
+  v20 = a4;
+  v16 = swift_allocObject();
+  v16[2] = a2;
+  v16[3] = a3;
+  v16[4] = v9;
+
+  v17 = specialized static __ServiceLocator.shared.getter();
+  swift_beginAccess();
+  outlined init with copy of __REAssetService(v17 + 80, &aBlock);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit14__SceneService_pMd, &_s10RealityKit14__SceneService_pMR);
+  type metadata accessor for SceneManager();
+  swift_dynamicCast();
+  if (SceneManager.componentTypeToComponentClass(_:)(a2, a3) || (static Component.registerComponent()(a2, a3), (result = SceneManager.componentTypeToComponentClass(_:)(a2, a3)) != 0))
+  {
+    *&v23 = partial apply for closure #1 in Scene.performQuery<A>(_:);
+    *(&v23 + 1) = v16;
+    *&aBlock = MEMORY[0x1E69E9820];
+    *(&aBlock + 1) = 1107296256;
+    *&v22 = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> ();
+    *(&v22 + 1) = &block_descriptor_18_0;
+    v19 = _Block_copy(&aBlock);
+
+    REQueryEvaluateComponentQuery();
+
+    _Block_release(v19);
+    a4 = v20;
+LABEL_5:
+    swift_beginAccess();
+    QueryResult.init(_:)(*(v9 + 16), a4);
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t closure #1 in Scene.performQuery<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
+{
+  result = REIsEntityHidden();
+  if ((result & 1) == 0)
+  {
+    if (REEntityGetSwiftObject())
+    {
+      type metadata accessor for Entity();
+      v9 = swift_dynamicCastClassUnconditional();
+    }
+
+    else
+    {
+      result = REEntityIsBeingDestroyed();
+      if (result)
+      {
+        __break(1u);
+        return result;
+      }
+
+      specialized static Entity.entityInfoType(_:)(a1);
+      if (v12)
+      {
+        v11 = (*(v12 + 232))();
+        v13 = *(v11 + 16);
+
+        MEMORY[0x1C68F9740](v13, 0);
+        *(v11 + 16) = a1;
+        MEMORY[0x1C68F9740](a1, v11);
+
+        goto LABEL_8;
+      }
+
+      v9 = makeEntity(for:)(a1);
+    }
+
+    v11 = v9;
+LABEL_8:
+    type metadata accessor for QuerySelectors.ComponentQueryResult(0, a3, a4, v10);
+    QuerySelectors.ComponentQueryResult.__allocating_init(entity:)(v11);
+    swift_beginAccess();
+    type metadata accessor for Array();
+
+    Array.append(_:)();
+    swift_endAccess();
+  }
+
+  return result;
+}
+
+double block_copy_helper_15(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+
+  return result;
+}
+
+uint64_t specialized static CameraMath.intrinsicIsSimplePinhole(matrix:allowShear:floatingPointTol:)(double *a1, char a2, double a3)
+{
+  v3 = *a1;
+  v4 = *(a1 + 2);
+  if ((a2 & 1) == 0)
+  {
+    v5 = fabs(*&v4) < a3;
+    if (*&v3 <= 0.0)
+    {
+      v6 = 1;
+      goto LABEL_7;
+    }
+
+LABEL_5:
+    v6 = *(&v4 + 1) <= 0.0;
+    goto LABEL_7;
+  }
+
+  v5 = 1;
+  v6 = 1;
+  if (*&v3 > 0.0)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_7:
+  v7 = fabs(a1[2]);
+  v8 = fabs(a1[6]) >= a3;
+  v10 = fabs(*(&v3 + 1)) >= a3 || v7 >= a3 || v8;
+  return ((fabs(a1[10] + -1.0) < a3) & ~(v6 | v10)) & v5;
+}
+
+BOOL specialized static CameraMath.intrinsicsAreEqual(left:right:toleranceInPixel:)(double *a1, double *a2, double a3)
+{
+  v3 = *a1;
+  v4 = *(a1 + 4);
+  v5 = a1[5];
+  v6 = a1[9];
+  v7 = *a2;
+  v8 = a2[5];
+  v9 = *&v4 + *&v4;
+  v10 = v6 + v6;
+  *&v4 = vabdd_f64(*&v4, a2[8]);
+  v11 = vabdd_f64(v6, a2[9]);
+  v12 = (*&v3 + *&v3) / v9;
+  v13 = v12 * vabdd_f64(*a1, *a2);
+  v14 = v12 * (v10 * vabdd_f64(v5, v8)) / v9;
+  v15 = sqrt((*&v4 - v13) * (*&v4 - v13) + (v11 - v14) * (v11 - v14));
+  v16 = sqrt((v13 + *&v4) * (v13 + *&v4) + (v11 + v14) * (v11 + v14));
+  if (v15 > v16)
+  {
+    v16 = v15;
+  }
+
+  v17 = *&v3 <= 0.0;
+  if (v5 <= 0.0)
+  {
+    v17 = 1;
+  }
+
+  v18 = 1;
+  if (fabs(*(&v3 + 1)) < 0.00001 && fabs(a1[2]) < 0.00001)
+  {
+    v18 = fabs(a1[6]) >= 0.00001;
+  }
+
+  v19 = vabdd_f64(a1[4], a2[4]);
+  result = 0;
+  if (!v17 && !v18 && fabs(a1[10] + -1.0) < 0.00001 && fabs(*(&v7 + 1)) < 0.00001 && fabs(a2[2]) < 0.00001 && *&v7 > 0.0 && v8 > 0.0 && fabs(a2[6]) < 0.00001 && fabs(a2[10] + -1.0) < 0.00001 && v16 < a3 && v19 < 1.0 / v10 * a3)
+  {
+    return 1;
+  }
+
+  return result;
+}
+
+unint64_t specialized Array.replaceSubrange<A>(_:with:)(unint64_t result, uint64_t a2, uint64_t a3)
+{
+  if ((result & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v5 = *v3;
+  v6 = *(*v3 + 16);
+  if (v6 < a2)
+  {
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  v7 = result;
+  v8 = a2 - result;
+  if (__OFSUB__(a2, result))
+  {
+LABEL_15:
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  v9 = __OFSUB__(1, v8);
+  v10 = 1 - v8;
+  if (v9)
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v11 = v6 + v10;
+  if (__OFADD__(v6, v10))
+  {
+LABEL_17:
+    __break(1u);
+    return result;
+  }
+
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  *v3 = v5;
+  if (!isUniquelyReferenced_nonNull_native || v11 > v5[3] >> 1)
+  {
+    if (v6 <= v11)
+    {
+      v14 = v11;
+    }
+
+    else
+    {
+      v14 = v6;
+    }
+
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v14, 1, v5);
+    *v3 = v5;
+  }
+
+  result = specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(v7, a2, 1, a3);
+  *v3 = v5;
+  return result;
+}
+
+double key path setter for __RKEntityTriggerGroup.triggers : __RKEntityTriggerGroup(uint64_t *a1, uint64_t *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  swift_beginAccess();
+  *(v3 + 24) = v2;
+
+  return result;
+}
+
+uint64_t __RKEntityTriggerGroup.__allocating_init(triggers:)(unint64_t a1)
+{
+  v2 = swift_allocObject();
+  __RKEntityTriggerGroup.init(triggers:)(a1);
+  return v2;
+}
+
+uint64_t __RKEntityTriggerGroup.init(triggers:)(unint64_t a1)
+{
+  v2 = a1;
+  *(v1 + 24) = a1;
+  v3 = (v1 + 24);
+  if (!(a1 >> 62))
+  {
+    v4 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v4)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_47:
+    *(v1 + 16) = 0;
+    *(v1 + 18) = 0;
+    return v1;
+  }
+
+LABEL_90:
+  v4 = __CocoaSet.count.getter();
+  if (!v4)
+  {
+    goto LABEL_47;
+  }
+
+LABEL_3:
+  if ((v2 & 0xC000000000000001) == 0)
+  {
+    v9 = 0;
+    v10 = 0;
+    v11 = v2 + 32;
+    v12 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    do
+    {
+      while (1)
+      {
+        if (v10 >= v12)
+        {
+LABEL_83:
+          __break(1u);
+LABEL_84:
+          __break(1u);
+LABEL_85:
+          __break(1u);
+LABEL_86:
+          __break(1u);
+LABEL_87:
+          __break(1u);
+LABEL_88:
+          __break(1u);
+LABEL_89:
+          __break(1u);
+          goto LABEL_90;
+        }
+
+        v13 = v10 + 1;
+        if (__OFADD__(v10, 1))
+        {
+          goto LABEL_84;
+        }
+
+        v2 = *(v11 + 8 * v10);
+        type metadata accessor for __RKEntityTriggerGroup();
+        if (!swift_dynamicCastClass())
+        {
+          break;
+        }
+
+        v9 = 1;
+        ++v10;
+        if (v13 == v4)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      ++v10;
+    }
+
+    while (v13 != v4);
+    if (v9)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_47;
+  }
+
+  v5 = 0;
+  v6 = 0;
+  do
+  {
+    while (1)
+    {
+      MEMORY[0x1C68F41F0](v6, v2);
+      v7 = v6 + 1;
+      if (__OFADD__(v6, 1))
+      {
+LABEL_82:
+        __break(1u);
+        goto LABEL_83;
+      }
+
+      type metadata accessor for __RKEntityTriggerGroup();
+      v8 = swift_dynamicCastClass();
+      swift_unknownObjectRelease();
+      if (v8)
+      {
+        break;
+      }
+
+      ++v6;
+      if (v7 == v4)
+      {
+
+        if (v5)
+        {
+          goto LABEL_22;
+        }
+
+        goto LABEL_47;
+      }
+    }
+
+    v5 = 1;
+    ++v6;
+  }
+
+  while (v7 != v4);
+
+LABEL_22:
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
+  v14 = swift_allocObject();
+  *(v14 + 16) = xmmword_1C1887600;
+  *(v14 + 56) = MEMORY[0x1E69E6158];
+  *(v14 + 32) = 0xD000000000000042;
+  *(v14 + 40) = 0x80000001C18E5D00;
+  print(_:separator:terminator:)();
+
+  result = swift_beginAccess();
+  v16 = *v3;
+  v32 = *v3 >> 62;
+  v17 = *v3 & 0xFFFFFFFFFFFFFF8;
+  if (v32)
+  {
+    goto LABEL_96;
+  }
+
+  for (i = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = result)
+  {
+    v2 = 0;
+    while (1)
+    {
+      if (i == v2)
+      {
+        if (v32)
+        {
+          result = __CocoaSet.count.getter();
+          v2 = result;
+        }
+
+        else
+        {
+          v2 = *(v17 + 16);
+        }
+
+        goto LABEL_44;
+      }
+
+      if ((v16 & 0xC000000000000001) != 0)
+      {
+        MEMORY[0x1C68F41F0](v2, v16);
+      }
+
+      else
+      {
+        if (v2 >= *(v17 + 16))
+        {
+          goto LABEL_85;
+        }
+      }
+
+      type metadata accessor for __RKEntityTriggerGroup();
+      v19 = swift_dynamicCastClass();
+
+      v20 = v2 + 1;
+      v21 = __OFADD__(v2, 1);
+      if (v19)
+      {
+        break;
+      }
+
+      ++v2;
+      if (v21)
+      {
+        goto LABEL_86;
+      }
+    }
+
+    if (v21)
+    {
+      goto LABEL_102;
+    }
+
+    if (!v32)
+    {
+      break;
+    }
+
+    result = __CocoaSet.count.getter();
+    if (v20 == result)
+    {
+      goto LABEL_44;
+    }
+
+LABEL_48:
+    v17 = v2 + 5;
+    while (1)
+    {
+      v23 = v17 - 4;
+      if ((v16 & 0xC000000000000001) != 0)
+      {
+        MEMORY[0x1C68F41F0](v17 - 4, v16);
+      }
+
+      else
+      {
+        if ((v23 & 0x8000000000000000) != 0)
+        {
+          goto LABEL_87;
+        }
+
+        if (v23 >= *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+          goto LABEL_88;
+        }
+      }
+
+      v24 = swift_dynamicCastClass();
+
+      if (!v24)
+      {
+        if (v23 != v2)
+        {
+          if ((v16 & 0xC000000000000001) != 0)
+          {
+            v25 = MEMORY[0x1C68F41F0](v2, v16);
+            v26 = MEMORY[0x1C68F41F0](v17 - 4, v16);
+          }
+
+          else
+          {
+            if ((v2 & 0x8000000000000000) != 0)
+            {
+              goto LABEL_99;
+            }
+
+            v27 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+            if (v2 >= v27)
+            {
+              goto LABEL_100;
+            }
+
+            if (v23 >= v27)
+            {
+              goto LABEL_101;
+            }
+
+            v25 = *(v16 + 8 * v2 + 32);
+            v26 = *(v16 + 8 * v17);
+          }
+
+          isUniquelyReferenced_nonNull_bridgeObject = swift_isUniquelyReferenced_nonNull_bridgeObject();
+          *v3 = v16;
+          if (!isUniquelyReferenced_nonNull_bridgeObject || (v16 & 0x8000000000000000) != 0 || (v16 & 0x4000000000000000) != 0)
+          {
+            v16 = specialized _ArrayBuffer._consumeAndCreateNew()();
+            *v3 = v16;
+          }
+
+          if ((v2 & 0x8000000000000000) != 0)
+          {
+            goto LABEL_93;
+          }
+
+          v29 = v16 & 0xFFFFFFFFFFFFFF8;
+          if (v2 >= *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          {
+            goto LABEL_94;
+          }
+
+          *((v16 & 0xFFFFFFFFFFFFFF8) + 8 * v2 + 0x20) = v26;
+
+          *v3 = v16;
+          if ((v16 & 0x8000000000000000) != 0 || (v16 & 0x4000000000000000) != 0)
+          {
+            v16 = specialized _ArrayBuffer._consumeAndCreateNew()();
+            *v3 = v16;
+            v29 = v16 & 0xFFFFFFFFFFFFFF8;
+            if ((v23 & 0x8000000000000000) != 0)
+            {
+LABEL_81:
+              __break(1u);
+              goto LABEL_82;
+            }
+          }
+
+          else if ((v23 & 0x8000000000000000) != 0)
+          {
+            goto LABEL_81;
+          }
+
+          if (v23 >= *(v29 + 16))
+          {
+            goto LABEL_95;
+          }
+
+          *(v29 + 8 * v17) = v25;
+
+          *v3 = v16;
+        }
+
+        v30 = __OFADD__(v2++, 1);
+        if (v30)
+        {
+          break;
+        }
+      }
+
+      v30 = __OFADD__(v23, 1);
+      v31 = v17 - 3;
+      if (v30)
+      {
+        goto LABEL_89;
+      }
+
+      if (v16 >> 62)
+      {
+        result = __CocoaSet.count.getter();
+      }
+
+      else
+      {
+        result = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      }
+
+      ++v17;
+      if (v31 == result)
+      {
+        goto LABEL_44;
+      }
+    }
+
+    __break(1u);
+LABEL_93:
+    __break(1u);
+LABEL_94:
+    __break(1u);
+LABEL_95:
+    __break(1u);
+LABEL_96:
+    result = __CocoaSet.count.getter();
+  }
+
+  result = *(v17 + 16);
+  if (v20 != result)
+  {
+    goto LABEL_48;
+  }
+
+LABEL_44:
+  if (v16 >> 62)
+  {
+    result = __CocoaSet.count.getter();
+    v22 = result;
+    if (result >= v2)
+    {
+      goto LABEL_46;
+    }
+  }
+
+  else
+  {
+    v22 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v22 >= v2)
+    {
+LABEL_46:
+      specialized Array.replaceSubrange<A>(_:with:)(v2, v22, specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:), specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
+      swift_endAccess();
+      goto LABEL_47;
+    }
+  }
+
+  __break(1u);
+LABEL_99:
+  __break(1u);
+LABEL_100:
+  __break(1u);
+LABEL_101:
+  __break(1u);
+LABEL_102:
+  __break(1u);
+  return result;
+}
+
+uint64_t __RKEntityTriggerGroup.matches(with:)(uint64_t a1)
+{
+  v12 = 0;
+  v13 = 0xE000000000000000;
+
+  _print_unlocked<A, B>(_:_:)();
+  MEMORY[0x1C68F3410](0, 0xE000000000000000);
+
+  MEMORY[0x1C68F3410](8285, 0xE200000000000000);
+  v3 = StaticString.description.getter();
+  MEMORY[0x1C68F3410](v3);
+
+  MEMORY[0x1C68F3410](8250, 0xE200000000000000);
+
+  swift_beginAccess();
+  v4 = *(v1 + 24);
+  if (v4 >> 62)
+  {
+LABEL_18:
+    v5 = __CocoaSet.count.getter();
+  }
+
+  else
+  {
+    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  if (v5)
+  {
+    v6 = 0;
+    do
+    {
+      if ((v4 & 0xC000000000000001) != 0)
+      {
+        v7 = MEMORY[0x1C68F41F0](v6, v4);
+        v8 = v6 + 1;
+        if (__OFADD__(v6, 1))
+        {
+LABEL_13:
+          __break(1u);
+          break;
+        }
+      }
+
+      else
+      {
+        if (v6 >= *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+          __break(1u);
+          goto LABEL_18;
+        }
+
+        v7 = *(v4 + 8 * v6 + 32);
+
+        v8 = v6 + 1;
+        if (__OFADD__(v6, 1))
+        {
+          goto LABEL_13;
+        }
+      }
+
+      if ((*(*v7 + 184))(a1))
+      {
+
+        v12 = 91;
+        v13 = 0xE100000000000000;
+        v11 = static os_log_type_t.info.getter();
+        specialized InteractionsLogger.log(_:_:)(v11, &v12);
+
+        return 1;
+      }
+
+      ++v6;
+    }
+
+    while (v8 != v5);
+  }
+
+  v12 = 91;
+  v13 = 0xE100000000000000;
+  v9 = static os_log_type_t.info.getter();
+  specialized InteractionsLogger.log(_:_:)(v9, &v12);
+
+  return 0;
+}
+
+unint64_t __RKEntityTriggerGroup.description.getter()
+{
+  v1 = v0;
+  swift_beginAccess();
+  v2 = *(v0 + 24);
+  if (v2 >> 62)
+  {
+    goto LABEL_17;
+  }
+
+  v3 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (v3 >= 1)
+  {
+    while (1)
+    {
+      MEMORY[0x1C68F3410](5966090, 0xE300000000000000);
+      v4 = *(v1 + 24);
+      if ((v4 & 0xC000000000000001) != 0)
+      {
+        break;
+      }
+
+      if (*((v4 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      {
+        v5 = *(v4 + 32);
+
+        goto LABEL_6;
+      }
+
+LABEL_16:
+      __break(1u);
+LABEL_17:
+      v3 = __CocoaSet.count.getter();
+      if (v3 < 1)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    v5 = MEMORY[0x1C68F41F0](0, v4);
+
+LABEL_6:
+    v7 = (*(*v5 + 192))(v6);
+    v9 = v8;
+
+    MEMORY[0x1C68F3410](v7, v9);
+
+    v10 = v3 - 1;
+    if (v3 != 1)
+    {
+      v12 = 5;
+      do
+      {
+        MEMORY[0x1C68F3410](8236, 0xE200000000000000);
+        v13 = *(v1 + 24);
+        if ((v13 & 0xC000000000000001) != 0)
+        {
+
+          v14 = MEMORY[0x1C68F41F0](v12 - 4, v13);
+        }
+
+        else
+        {
+          if ((v12 - 4) >= *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          {
+            goto LABEL_16;
+          }
+
+          v14 = *(v13 + 8 * v12);
+        }
+
+        v16 = (*(*v14 + 192))(v15);
+        v18 = v17;
+
+        MEMORY[0x1C68F3410](v16, v18);
+
+        ++v12;
+        --v10;
+      }
+
+      while (v10);
+    }
+
+    MEMORY[0x1C68F3410](93, 0xE100000000000000);
+  }
+
+LABEL_8:
+  MEMORY[0x1C68F3410](665949, 0xE300000000000000);
+  return 0xD00000000000001ALL;
+}
+
+uint64_t __RKEntityTriggerGroup.copy(with:)@<X0>(uint64_t *a1@<X8>)
+{
+  v2 = v1;
+  v14 = MEMORY[0x1E69E7CC0];
+  result = swift_beginAccess();
+  v5 = v1[3];
+  if (!(v5 >> 62))
+  {
+    v6 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v6)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_18:
+    v8 = MEMORY[0x1E69E7CC0];
+    if (!(MEMORY[0x1E69E7CC0] >> 62))
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_19;
+  }
+
+  result = __CocoaSet.count.getter();
+  v6 = result;
+  if (!result)
+  {
+    goto LABEL_18;
+  }
+
+LABEL_3:
+  if (v6 >= 1)
+  {
+
+    v7 = 0;
+    v8 = MEMORY[0x1E69E7CC0];
+    do
+    {
+      if ((v5 & 0xC000000000000001) != 0)
+      {
+        v9 = MEMORY[0x1C68F41F0](v7, v5);
+      }
+
+      else
+      {
+        v9 = *(v5 + 8 * v7 + 32);
+      }
+
+      [v9 copyWithZone_];
+      _bridgeAnyObjectToAny(_:)();
+      swift_unknownObjectRelease();
+      type metadata accessor for __RKEntityTrigger();
+      if (swift_dynamicCast())
+      {
+
+        MEMORY[0x1C68F3650](v10);
+        if (*((v14 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v14 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        {
+          specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+        }
+
+        specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+
+        v8 = v14;
+      }
+
+      else
+      {
+      }
+
+      ++v7;
+    }
+
+    while (v6 != v7);
+
+    if (!(v8 >> 62))
+    {
+LABEL_15:
+      if (*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10) >= 1)
+      {
+LABEL_16:
+        v11 = type metadata accessor for __RKEntityTriggerGroup();
+        v12 = swift_allocObject();
+        result = __RKEntityTriggerGroup.init(triggers:)(v8);
+        a1[3] = v11;
+        *a1 = v12;
+        return result;
+      }
+
+      goto LABEL_20;
+    }
+
+LABEL_19:
+    if (__CocoaSet.count.getter() >= 1)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_20:
+
+    v13.receiver = v2;
+    v13.super_class = type metadata accessor for __RKEntityTriggerGroup();
+    objc_msgSendSuper2(&v13, sel_copyWithZone_, 0);
+    _bridgeAnyObjectToAny(_:)();
+    return swift_unknownObjectRelease();
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t __RKEntityTriggerGroup.clone(matching:newEntity:)(uint64_t a1, uint64_t a2)
+{
+  v13 = MEMORY[0x1E69E7CC0];
+  swift_beginAccess();
+  v6 = *(v3 + 24);
+  if (!(v6 >> 62))
+  {
+    v7 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v7)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_21:
+    v2 = MEMORY[0x1E69E7CC0];
+    if (!(MEMORY[0x1E69E7CC0] >> 62))
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_22;
+  }
+
+  v7 = __CocoaSet.count.getter();
+  if (!v7)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_3:
+  if (v7 < 1)
+  {
+    __break(1u);
+    goto LABEL_29;
+  }
+
+  v8 = 0;
+  v2 = MEMORY[0x1E69E7CC0];
+  do
+  {
+    if ((v6 & 0xC000000000000001) != 0)
+    {
+      v9 = MEMORY[0x1C68F41F0](v8, v6);
+    }
+
+    else
+    {
+      v9 = *(v6 + 8 * v8 + 32);
+    }
+
+    if ((*(*v9 + 200))(a1, a2))
+    {
+
+      MEMORY[0x1C68F3650](v10);
+      if (*((v13 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v13 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      {
+        specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+      }
+
+      specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+
+      v2 = v13;
+    }
+
+    else
+    {
+    }
+
+    ++v8;
+  }
+
+  while (v7 != v8);
+
+  if (!(v2 >> 62))
+  {
+LABEL_15:
+    result = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (result == 1)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_24:
+    if (result < 2)
+    {
+
+      return 0;
+    }
+
+    else
+    {
+      type metadata accessor for __RKEntityTriggerGroup();
+      v12 = swift_allocObject();
+      __RKEntityTriggerGroup.init(triggers:)(v2);
+    }
+
+    return v12;
+  }
+
+LABEL_22:
+  result = __CocoaSet.count.getter();
+  if (result != 1)
+  {
+    result = __CocoaSet.count.getter();
+    goto LABEL_24;
+  }
+
+LABEL_16:
+  if ((v2 & 0xC000000000000001) != 0)
+  {
+LABEL_29:
+    v12 = MEMORY[0x1C68F41F0](0, v2);
+    goto LABEL_19;
+  }
+
+  if (*((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+    v12 = *(v2 + 32);
+
+LABEL_19:
+
+    return v12;
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t __RKEntityTriggerGroup.__deallocating_deinit()
+{
+
+  return swift_deallocClassInstance();
+}
+
+unint64_t specialized Array.replaceSubrange<A>(_:with:)(unint64_t result, uint64_t a2)
+{
+  if ((result & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v4 = *v2;
+  v5 = *(*v2 + 16);
+  if (v5 < a2)
+  {
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  v6 = result;
+  if (__OFSUB__(a2, result))
+  {
+LABEL_15:
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  v7 = result - a2;
+  if (__OFSUB__(0, a2 - result))
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  v8 = v5 + v7;
+  if (__OFADD__(v5, v7))
+  {
+LABEL_17:
+    __break(1u);
+    return result;
+  }
+
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  *v2 = v4;
+  if (!isUniquelyReferenced_nonNull_native || v8 > v4[3] >> 1)
+  {
+    if (v5 <= v8)
+    {
+      v10 = v8;
+    }
+
+    else
+    {
+      v10 = v5;
+    }
+
+    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v10, 1, v4);
+    *v2 = v4;
+  }
+
+  result = specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(v6, a2, 0);
+  *v2 = v4;
   return result;
 }

@@ -28,6 +28,7 @@
 - (void)onqueue_reconnect;
 - (void)onqueue_retryConnectIfNecessary;
 - (void)sendMessage:(id)message clientPairingID:(id)d acceptanceHandler:(id)handler errorHandler:(id)errorHandler;
+- (void)sessionReadyForInitialStateForClientPairingID:(id)d supportsActiveDeviceSwitch:(BOOL)switch withErrorHandler:(id)handler;
 - (void)setupConnection;
 - (void)transferFile:(id)file sandboxToken:(id)token clientPairingID:(id)d errorHandler:(id)handler;
 - (void)transferUserInfo:(id)info withURL:(id)l clientPairingID:(id)d errorHandler:(id)handler;
@@ -94,7 +95,6 @@
 
 uint64_t __29__WCXPCManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_manager_0 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -201,7 +201,7 @@ void __31__WCXPCManager_setupConnection__block_invoke_2(uint64_t a1)
 
 void __31__WCXPCManager_setupConnection__block_invoke_3(uint64_t a1)
 {
-  v2 = wc_log();
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -218,48 +218,46 @@ void __31__WCXPCManager_setupConnection__block_invoke_3(uint64_t a1)
   v10 = *MEMORY[0x277D85DE8];
   if ([(WCXPCManager *)self reconnectFailed])
   {
-    if ([(WCXPCManager *)self reconnectRetryCount]> 4)
+    reconnectRetryCount = [(WCXPCManager *)self reconnectRetryCount];
+    if (reconnectRetryCount > 4)
     {
-      v4 = wc_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = wc_log(reconnectRetryCount);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = 136446466;
         v7 = "[WCXPCManager onqueue_retryConnectIfNecessary]";
         v8 = 1024;
-        reconnectRetryCount = [(WCXPCManager *)self reconnectRetryCount];
-        _os_log_impl(&dword_23B2FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s failed to reconnect to daemon (%d attempts)", &v6, 0x12u);
+        reconnectRetryCount2 = [(WCXPCManager *)self reconnectRetryCount];
+        _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s failed to reconnect to daemon (%d attempts)", &v6, 0x12u);
       }
     }
 
     else
     {
-      [(WCXPCManager *)self setReconnectRetryCount:[(WCXPCManager *)self reconnectRetryCount]+ 1];
-      v3 = wc_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = wc_log([(WCXPCManager *)self setReconnectRetryCount:[(WCXPCManager *)self reconnectRetryCount]+ 1]);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v6 = 136446466;
         v7 = "[WCXPCManager onqueue_retryConnectIfNecessary]";
         v8 = 1024;
-        reconnectRetryCount = [(WCXPCManager *)self reconnectRetryCount];
-        _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s retrying previously failed reconnect (%d attempt)", &v6, 0x12u);
+        reconnectRetryCount2 = [(WCXPCManager *)self reconnectRetryCount];
+        _os_log_impl(&dword_23B2FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s retrying previously failed reconnect (%d attempt)", &v6, 0x12u);
       }
 
       [(WCXPCManager *)self setReconnectFailed:0];
       [(WCXPCManager *)self onqueue_reconnect];
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_reconnect
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = wc_log();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = wc_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v12 = "[WCXPCManager onqueue_reconnect]";
+    v11 = "[WCXPCManager onqueue_reconnect]";
     _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s ", buf, 0xCu);
   }
 
@@ -268,44 +266,44 @@ void __31__WCXPCManager_setupConnection__block_invoke_3(uint64_t a1)
   currentPairingID = [delegate currentPairingID];
   delegate2 = [(WCXPCManager *)self delegate];
   supportsActiveDeviceSwitch = [delegate2 supportsActiveDeviceSwitch];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __33__WCXPCManager_onqueue_reconnect__block_invoke;
-  v9[3] = &unk_278B7C630;
-  objc_copyWeak(&v10, buf);
-  v9[4] = self;
-  [(WCXPCManager *)self sessionReadyForInitialStateForClientPairingID:currentPairingID supportsActiveDeviceSwitch:supportsActiveDeviceSwitch withErrorHandler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __33__WCXPCManager_onqueue_reconnect__block_invoke;
+  v8[3] = &unk_278B7C630;
+  objc_copyWeak(&v9, buf);
+  v8[4] = self;
+  [(WCXPCManager *)self sessionReadyForInitialStateForClientPairingID:currentPairingID supportsActiveDeviceSwitch:supportsActiveDeviceSwitch withErrorHandler:v8];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __33__WCXPCManager_onqueue_reconnect__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = wc_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = wc_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __33__WCXPCManager_onqueue_reconnect__block_invoke_cold_1();
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v6 = WeakRetained;
-    v7 = 1;
+    v7 = WeakRetained;
+    v8 = 1;
   }
 
   else
   {
     [*(a1 + 32) setReconnectRetryCount:0];
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v6 = WeakRetained;
-    v7 = 0;
+    v7 = WeakRetained;
+    v8 = 0;
   }
 
-  [WeakRetained setReconnectFailed:v7];
+  [WeakRetained setReconnectFailed:v8];
 }
 
 - (void)interruptionHandler
@@ -351,6 +349,36 @@ void __33__WCXPCManager_onqueue_reconnect__block_invoke(uint64_t a1, void *a2)
   v10 = invocationCopy;
   v8 = invocationCopy;
   dispatch_async(workQueue, block);
+}
+
+- (void)sessionReadyForInitialStateForClientPairingID:(id)d supportsActiveDeviceSwitch:(BOOL)switch withErrorHandler:(id)handler
+{
+  switchCopy = switch;
+  dCopy = d;
+  handlerCopy = handler;
+  objc_initWeak(&location, self);
+  connection = [(WCXPCManager *)self connection];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __106__WCXPCManager_sessionReadyForInitialStateForClientPairingID_supportsActiveDeviceSwitch_withErrorHandler___block_invoke;
+  v17[3] = &unk_278B7C658;
+  objc_copyWeak(&v19, &location);
+  v11 = handlerCopy;
+  v18 = v11;
+  v12 = [connection remoteObjectProxyWithErrorHandler:v17];
+
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __106__WCXPCManager_sessionReadyForInitialStateForClientPairingID_supportsActiveDeviceSwitch_withErrorHandler___block_invoke_2;
+  v14[3] = &unk_278B7C658;
+  objc_copyWeak(&v16, &location);
+  v13 = v11;
+  v15 = v13;
+  [v12 sessionReadyForInitialStateForClientPairingID:dCopy supportsActiveDeviceSwitch:switchCopy withErrorHandler:v14];
+
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v19);
+  objc_destroyWeak(&location);
 }
 
 void __106__WCXPCManager_sessionReadyForInitialStateForClientPairingID_supportsActiveDeviceSwitch_withErrorHandler___block_invoke(uint64_t a1, void *a2)
@@ -437,7 +465,7 @@ void __106__WCXPCManager_sessionReadyForInitialStateForClientPairingID_supportsA
 void __41__WCXPCManager_cancelSendWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __41__WCXPCManager_cancelSendWithIdentifier___block_invoke_cold_1();
@@ -456,7 +484,7 @@ void __41__WCXPCManager_cancelSendWithIdentifier___block_invoke(uint64_t a1, voi
 void __44__WCXPCManager_cancelAllOutstandingMessages__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __44__WCXPCManager_cancelAllOutstandingMessages__block_invoke_cold_1();
@@ -477,7 +505,7 @@ void __44__WCXPCManager_cancelAllOutstandingMessages__block_invoke(uint64_t a1, 
 void __67__WCXPCManager_acknowledgeFileIndexWithIdentifier_clientPairingID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __67__WCXPCManager_acknowledgeFileIndexWithIdentifier_clientPairingID___block_invoke_cold_1();
@@ -498,7 +526,7 @@ void __67__WCXPCManager_acknowledgeFileIndexWithIdentifier_clientPairingID___blo
 void __73__WCXPCManager_acknowledgeFileResultIndexWithIdentifier_clientPairingID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __73__WCXPCManager_acknowledgeFileResultIndexWithIdentifier_clientPairingID___block_invoke_cold_1();
@@ -519,7 +547,7 @@ void __73__WCXPCManager_acknowledgeFileResultIndexWithIdentifier_clientPairingID
 void __71__WCXPCManager_acknowledgeUserInfoIndexWithIdentifier_clientPairingID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __71__WCXPCManager_acknowledgeUserInfoIndexWithIdentifier_clientPairingID___block_invoke_cold_1();
@@ -540,7 +568,7 @@ void __71__WCXPCManager_acknowledgeUserInfoIndexWithIdentifier_clientPairingID__
 void __77__WCXPCManager_acknowledgeUserInfoResultIndexWithIdentifier_clientPairingID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = wc_log();
+  v3 = wc_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __77__WCXPCManager_acknowledgeUserInfoResultIndexWithIdentifier_clientPairingID___block_invoke_cold_1();
@@ -549,13 +577,13 @@ void __77__WCXPCManager_acknowledgeUserInfoResultIndexWithIdentifier_clientPairi
 
 - (void)invalidateConnection
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = wc_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = wc_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446210;
-    v7 = "[WCXPCManager invalidateConnection]";
-    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s ", &v6, 0xCu);
+    v5 = 136446210;
+    v6 = "[WCXPCManager invalidateConnection]";
+    _os_log_impl(&dword_23B2FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s ", &v5, 0xCu);
   }
 
   if (![(WCXPCManager *)self connectionInvalidated])
@@ -564,8 +592,6 @@ void __77__WCXPCManager_acknowledgeUserInfoResultIndexWithIdentifier_clientPairi
     connection = [(WCXPCManager *)self connection];
     [connection invalidate];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMessageSendingAllowed
@@ -654,71 +680,57 @@ void __77__WCXPCManager_acknowledgeUserInfoResultIndexWithIdentifier_clientPairi
 void __33__WCXPCManager_onqueue_reconnect__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s error reconnecting to daemon due to %{public}@", v3, v4, v5, v6, v8, v9, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s error reconnecting to daemon due to %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void __41__WCXPCManager_cancelSendWithIdentifier___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v8, v9, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void __44__WCXPCManager_cancelAllOutstandingMessages__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v8, v9, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void __67__WCXPCManager_acknowledgeFileIndexWithIdentifier_clientPairingID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v8, v9, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void __73__WCXPCManager_acknowledgeFileResultIndexWithIdentifier_clientPairingID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v8, v9, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void __71__WCXPCManager_acknowledgeUserInfoIndexWithIdentifier_clientPairingID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v8, v9, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 void __77__WCXPCManager_acknowledgeUserInfoResultIndexWithIdentifier_clientPairingID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
-  v0 = NSPrintF();
+  v0 = NSPrintF("%{error}");
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v8, v9, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23B2FA000, v1, v2, "%{public}s remote object error due to %{public}@", v3, v4, v5, v6, v7, v8);
 }
 
 @end

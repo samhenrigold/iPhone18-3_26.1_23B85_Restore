@@ -15,7 +15,7 @@
   v90 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   weightsCopy = weights;
-  v7 = __atxlog_handle_gi();
+  v7 = __atxlog_handle_gi(weightsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -85,60 +85,61 @@
 
         v21 = *(*(&v75 + 1) + 8 * v20);
         v22 = [v61 objectForKeyedSubscript:v21];
+        v23 = [v22 count];
         v63 = v20;
-        if ([v22 count] >= 2)
+        if (v23 >= 2)
         {
-          v23 = __atxlog_handle_gi();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_gi(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            v24 = [v22 count];
+            v25 = [v22 count];
             *buf = 67109378;
-            *v86 = v24;
+            *v86 = v25;
             *&v86[4] = 2112;
             *&v86[6] = v21;
-            _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "ATXInformationProbabilisticRanker: %d candidates at the same level %@. Rank probabilistically.", buf, 0x12u);
+            _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "ATXInformationProbabilisticRanker: %d candidates at the same level %@. Rank probabilistically.", buf, 0x12u);
           }
 
-          v25 = [(ATXInformationProbabilisticRanker *)self _rankSuggestionsProbabilistically:v22];
+          v26 = [(ATXInformationProbabilisticRanker *)self _rankSuggestionsProbabilistically:v22];
 
-          v22 = v25;
+          v22 = v26;
         }
 
         v73 = 0u;
         v74 = 0u;
         v71 = 0u;
         v72 = 0u;
-        v26 = v22;
-        v27 = [v26 countByEnumeratingWithState:&v71 objects:v84 count:16];
-        if (v27)
+        v27 = v22;
+        v28 = [v27 countByEnumeratingWithState:&v71 objects:v84 count:16];
+        if (v28)
         {
-          v28 = v27;
-          v29 = *v72;
+          v29 = v28;
+          v30 = *v72;
           do
           {
-            for (j = 0; j != v28; ++j)
+            for (j = 0; j != v29; ++j)
             {
-              if (*v72 != v29)
+              if (*v72 != v30)
               {
-                objc_enumerationMutation(v26);
+                objc_enumerationMutation(v27);
               }
 
-              v31 = *(*(&v71 + 1) + 8 * j);
-              [v31 scoreWithFeatureWeights:weightsCopy];
-              v33 = v32;
-              [(ATXInformationProbabilisticRanker *)self _tieBreakingScoreForSuggestion:v31];
-              v35 = v33 + v34;
-              v36 = [ATXScoredInfoSuggestion alloc];
-              suggestion2 = [v31 suggestion];
-              featureSet = [v31 featureSet];
-              v39 = [(ATXScoredInfoSuggestion *)v36 initWithSuggestion:suggestion2 featureSet:featureSet score:v35];
-              [v15 addObject:v39];
+              v32 = *(*(&v71 + 1) + 8 * j);
+              [v32 scoreWithFeatureWeights:weightsCopy];
+              v34 = v33;
+              [(ATXInformationProbabilisticRanker *)self _tieBreakingScoreForSuggestion:v32];
+              v36 = v34 + v35;
+              v37 = [ATXScoredInfoSuggestion alloc];
+              suggestion2 = [v32 suggestion];
+              featureSet = [v32 featureSet];
+              v40 = [(ATXScoredInfoSuggestion *)v37 initWithSuggestion:suggestion2 featureSet:featureSet score:v36];
+              [v15 addObject:v40];
             }
 
-            v28 = [v26 countByEnumeratingWithState:&v71 objects:v84 count:16];
+            v29 = [v27 countByEnumeratingWithState:&v71 objects:v84 count:16];
           }
 
-          while (v28);
+          while (v29);
         }
 
         v20 = v63 + 1;
@@ -151,68 +152,66 @@
     while (v62);
   }
 
-  v40 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(suggestionsCopy, "count")}];
+  v41 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(suggestionsCopy, "count")}];
   v64 = objc_opt_new();
-  v41 = objc_opt_new();
+  v42 = objc_opt_new();
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v42 = v15;
-  v43 = [v42 countByEnumeratingWithState:&v67 objects:v83 count:16];
-  if (v43)
+  v43 = v15;
+  v44 = [v43 countByEnumeratingWithState:&v67 objects:v83 count:16];
+  if (v44)
   {
-    v44 = v43;
-    v45 = *v68;
+    v45 = v44;
+    v46 = *v68;
     do
     {
-      for (k = 0; k != v44; ++k)
+      for (k = 0; k != v45; ++k)
       {
-        if (*v68 != v45)
+        if (*v68 != v46)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v43);
         }
 
-        v47 = *(*(&v67 + 1) + 8 * k);
-        suggestion3 = [v47 suggestion];
+        v48 = *(*(&v67 + 1) + 8 * k);
+        suggestion3 = [v48 suggestion];
         clientModelId = [suggestion3 clientModelId];
-        v50 = [clientModelId isEqualToString:v65];
+        v51 = [clientModelId isEqualToString:v65];
 
-        v51 = v40;
-        if (v50)
+        v52 = v41;
+        if (v51)
         {
-          suggestion4 = [v47 suggestion];
+          suggestion4 = [v48 suggestion];
           confidenceLevel = [suggestion4 confidenceLevel];
 
           if (confidenceLevel == 1)
           {
-            v51 = v64;
+            v52 = v64;
           }
 
           else
           {
-            v51 = v41;
+            v52 = v42;
           }
         }
 
-        [v51 addObject:v47];
+        [v52 addObject:v48];
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v67 objects:v83 count:16];
+      v45 = [v43 countByEnumeratingWithState:&v67 objects:v83 count:16];
     }
 
-    while (v44);
+    while (v45);
   }
 
-  v54 = [v41 sortedArrayUsingComparator:&__block_literal_global_38];
-  [v40 addObjectsFromArray:v54];
+  v55 = [v42 sortedArrayUsingComparator:&__block_literal_global_38];
+  [v41 addObjectsFromArray:v55];
 
-  [v40 addObjectsFromArray:v64];
+  [v41 addObjectsFromArray:v64];
   objc_autoreleasePoolPop(context);
 
-  v55 = *MEMORY[0x277D85DE8];
-
-  return v40;
+  return v41;
 }
 
 uint64_t __82__ATXInformationProbabilisticRanker_sortFeaturizedSuggestions_withFeatureWeights___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -239,29 +238,29 @@ uint64_t __82__ATXInformationProbabilisticRanker_sortFeaturizedSuggestions_withF
 
 - (id)_groupSuggestionsByConfidenceLevel:(id)level
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   levelCopy = level;
   v4 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = levelCopy;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = MEMORY[0x277CCABB0];
         featureSet = [v10 featureSet];
         [featureSet valueForFeature:4];
@@ -278,20 +277,18 @@ uint64_t __82__ATXInformationProbabilisticRanker_sortFeaturizedSuggestions_withF
         [v16 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_rankSuggestionsProbabilistically:(id)probabilistically
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   probabilisticallyCopy = probabilistically;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(probabilisticallyCopy, "count")}];
   v6 = [(ATXInformationProbabilisticRanker *)self _tieBreakingScoresForSuggestions:probabilisticallyCopy];
@@ -299,79 +296,75 @@ uint64_t __82__ATXInformationProbabilisticRanker_sortFeaturizedSuggestions_withF
   v8 = v7;
   if (v7)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [probabilisticallyCopy objectAtIndexedSubscript:{objc_msgSend(*(*(&v16 + 1) + 8 * i), "intValue")}];
+          v13 = [probabilisticallyCopy objectAtIndexedSubscript:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "intValue")}];
           [v5 addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)_tieBreakingScoresForSuggestions:(id)suggestions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(suggestionsCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = suggestionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
         v11 = MEMORY[0x277CCABB0];
-        [(ATXInformationProbabilisticRanker *)self _tieBreakingScoreForSuggestion:*(*(&v16 + 1) + 8 * i), v16];
+        [(ATXInformationProbabilisticRanker *)self _tieBreakingScoreForSuggestion:*(*(&v15 + 1) + 8 * i), v15];
         v12 = [v11 numberWithDouble:?];
         [v5 addObject:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [(ATXInformationProbabilisticRanker *)self _smooth:v5];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -387,35 +380,35 @@ uint64_t __82__ATXInformationProbabilisticRanker_sortFeaturizedSuggestions_withF
 
 - (id)_smooth:(id)_smooth
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   _smoothCopy = _smooth;
   if ([_smoothCopy count])
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v4 = _smoothCopy;
-    v5 = [v4 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v30;
+      v7 = *v29;
       v8 = 0.0;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v30 != v7)
+          if (*v29 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v29 + 1) + 8 * i) doubleValue];
+          [*(*(&v28 + 1) + 8 * i) doubleValue];
           v8 = v8 + v10;
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v6);
@@ -428,34 +421,34 @@ uint64_t __82__ATXInformationProbabilisticRanker_sortFeaturizedSuggestions_withF
 
     v12 = [v4 count];
     v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v13 = v4;
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
       v16 = v8 / v12;
-      v17 = *v26;
+      v17 = *v25;
       v18 = v8 + v8;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v13);
           }
 
           v20 = MEMORY[0x277CCABB0];
-          [*(*(&v25 + 1) + 8 * j) doubleValue];
+          [*(*(&v24 + 1) + 8 * j) doubleValue];
           v22 = [v20 numberWithDouble:(v16 + v21) / v18];
           [v11 addObject:v22];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v15);
@@ -466,8 +459,6 @@ uint64_t __82__ATXInformationProbabilisticRanker_sortFeaturizedSuggestions_withF
   {
     v11 = _smoothCopy;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -481,114 +472,113 @@ uint64_t __82__ATXInformationProbabilisticRanker_sortFeaturizedSuggestions_withF
 
   if (v7 <= 0.0)
   {
-    v34 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+    v35 = __atxlog_handle_gi(v8);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
     {
-      [(ATXInformationProbabilisticRanker *)v34 _rankNumbersProbabilistically:v7];
+      [(ATXInformationProbabilisticRanker *)v35 _rankNumbersProbabilistically:v7];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v8 = [probabilisticallyCopy count];
-    v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v8];
-    if (v8 >= 1)
+    v9 = [probabilisticallyCopy count];
+    v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v9];
+    if (v9 >= 1)
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        v11 = [MEMORY[0x277CCABB0] numberWithInt:v10];
-        [v9 addObject:v11];
+        v12 = [MEMORY[0x277CCABB0] numberWithInt:v11];
+        [v10 addObject:v12];
 
-        v10 = (v10 + 1);
+        v11 = (v11 + 1);
       }
 
-      while (v8 != v10);
+      while (v9 != v11);
     }
 
-    v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v8];
-    if (v8 > 1)
+    v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v9];
+    if (v9 > 1)
     {
-      v13 = 0;
-      v14 = v8 - 2;
+      v14 = 0;
+      v15 = v9 - 2;
       do
       {
         [(ATXInformationProbabilisticRanker *)self _standardUniformDistribution];
-        v16 = v15;
-        v17 = [v9 count];
-        if (v17 < 2)
+        v17 = v16;
+        v18 = [v10 count];
+        if (v18 < 2)
         {
-          v27 = 0;
+          v28 = 0;
         }
 
         else
         {
-          v18 = 0;
-          v19 = v7 * v16;
-          v20 = (v17 - 1);
-          v21 = 0.0;
+          v19 = 0;
+          v20 = v7 * v17;
+          v21 = (v18 - 1);
+          v22 = 0.0;
           while (1)
           {
-            v22 = v21;
-            v23 = [v9 objectAtIndexedSubscript:v18];
-            v24 = [probabilisticallyCopy objectAtIndexedSubscript:{objc_msgSend(v23, "intValue")}];
-            [v24 doubleValue];
-            v26 = v25;
+            v23 = v22;
+            v24 = [v10 objectAtIndexedSubscript:v19];
+            v25 = [probabilisticallyCopy objectAtIndexedSubscript:{objc_msgSend(v24, "intValue")}];
+            [v25 doubleValue];
+            v27 = v26;
 
-            v21 = v22 + v26;
-            if (v19 >= v22 && v19 < v21)
+            v22 = v23 + v27;
+            if (v20 >= v23 && v20 < v22)
             {
               break;
             }
 
-            if (v20 == ++v18)
+            if (v21 == ++v19)
             {
               goto LABEL_15;
             }
           }
 
-          LODWORD(v20) = v18;
+          LODWORD(v21) = v19;
 LABEL_15:
-          v27 = v20;
+          v28 = v21;
         }
 
-        v28 = [v9 objectAtIndexedSubscript:v27];
-        [v12 addObject:v28];
+        v29 = [v10 objectAtIndexedSubscript:v28];
+        [v13 addObject:v29];
 
-        v29 = [v9 objectAtIndexedSubscript:v27];
-        v30 = [probabilisticallyCopy objectAtIndexedSubscript:{objc_msgSend(v29, "intValue")}];
-        [v30 doubleValue];
-        v7 = v7 - v31;
+        v30 = [v10 objectAtIndexedSubscript:v28];
+        v31 = [probabilisticallyCopy objectAtIndexedSubscript:{objc_msgSend(v30, "intValue")}];
+        [v31 doubleValue];
+        v7 = v7 - v32;
 
-        [v9 removeObjectAtIndex:v27];
+        [v10 removeObjectAtIndex:v28];
       }
 
-      while (v13++ != v14);
+      while (v14++ != v15);
     }
 
-    if ([v9 count] != 1)
+    if ([v10 count] != 1)
     {
       [ATXInformationProbabilisticRanker _rankNumbersProbabilistically:];
     }
 
-    firstObject = [v9 firstObject];
-    [v12 addObject:firstObject];
+    firstObject = [v10 firstObject];
+    [v13 addObject:firstObject];
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)_rankNumbersProbabilistically:(os_log_t)log .cold.1(os_log_t log, double a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[ATXInformationProbabilisticRanker _rankNumbersProbabilistically:]";
-  v5 = 2048;
-  v6 = a2;
-  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "ATXInformationProbabilisticRanker %s: sum of nums == %lf <= 0 is invalid", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[ATXInformationProbabilisticRanker _rankNumbersProbabilistically:]";
+  v4 = 2048;
+  v5 = a2;
+  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "ATXInformationProbabilisticRanker %s: sum of nums == %lf <= 0 is invalid", &v2, 0x16u);
 }
 
 @end

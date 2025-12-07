@@ -1,5 +1,6 @@
 @interface SFExperimentTriggeredFeedback
 - (SFExperimentTriggeredFeedback)init;
+- (SFExperimentTriggeredFeedback)initWithCfDiffered:(BOOL)differed cfUsed:(BOOL)used cfError:(unint64_t)error;
 - (SFExperimentTriggeredFeedback)initWithCodepathId:(id)id;
 - (SFExperimentTriggeredFeedback)initWithCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
@@ -53,6 +54,24 @@
   }
 
   return v5;
+}
+
+- (SFExperimentTriggeredFeedback)initWithCfDiffered:(BOOL)differed cfUsed:(BOOL)used cfError:(unint64_t)error
+{
+  usedCopy = used;
+  differedCopy = differed;
+  v8 = [(SFExperimentTriggeredFeedback *)self init];
+  if (v8)
+  {
+    v9 = objc_alloc_init(SFCounterfactualInfo);
+    [(SFCounterfactualInfo *)v9 setCfDiffered:differedCopy];
+    [(SFCounterfactualInfo *)v9 setCfUsed:usedCopy];
+    [(SFCounterfactualInfo *)v9 setCfError:error];
+    [(SFExperimentTriggeredFeedback *)v8 setCounterfactual:v9];
+    v10 = v8;
+  }
+
+  return v8;
 }
 
 - (SFExperimentTriggeredFeedback)initWithCodepathId:(id)id

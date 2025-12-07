@@ -3,6 +3,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)procFailureCauseAsString:(int)string;
+- (id)regStatusAsString:(int)string;
+- (id)rejectCauseAsString:(int)string;
+- (id)updateStatusAsString:(int)string;
 - (int)StringAsProcFailureCause:(id)cause;
 - (int)StringAsRegStatus:(id)status;
 - (int)StringAsRejectCause:(id)cause;
@@ -53,6 +57,79 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFB | v3;
+}
+
+- (id)regStatusAsString:(int)string
+{
+  v4 = @"KREG_STATUS_NORMAL_SERVICE";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_43;
+    case 1:
+      v4 = @"KREG_STATUS_REGISTRATION_FAILURE";
+
+      break;
+    case 2:
+      v4 = @"KREG_STATUS_LIMITED_SERVICE";
+
+      break;
+    case 3:
+      v4 = @"KREG_STATUS_NO_SERVICE";
+
+      break;
+    case 4:
+      v4 = @"KREG_STATUS_AT_NOT_REGISTERED";
+
+      break;
+    case 5:
+      v4 = @"KREG_STATUS_REGISTRATION_SERVICE_DISABLED";
+
+      break;
+    case 6:
+      v4 = @"KREG_STATUS_SERVICE_DETACHED";
+
+      break;
+    case 7:
+      v4 = @"KREG_STATUS_SERVICE_ACTIVATED";
+
+      break;
+    case 8:
+      v4 = @"KREG_STATUS_EMERGENCY_SERVICE";
+
+      break;
+    case 9:
+      v4 = @"KREG_STATUS_EMERGENCY_LIMITED";
+
+      break;
+    case 10:
+      v4 = @"KREG_STATUS_REGISTERED_SMS_ONLY";
+
+      break;
+    case 11:
+      v4 = @"KREG_STATUS_REGISTRATION_IN_PROGRESS";
+
+      break;
+    case 12:
+      v4 = @"KREG_STATUS_POWER_OFF_NO_SERVICE";
+
+      break;
+    default:
+      if (string == 100)
+      {
+        v4 = @"KREG_STATUS_SUSPENDED";
+      }
+
+      else
+      {
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_43:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsRegStatus:(id)status
@@ -164,6 +241,21 @@
   *&self->_has = *&self->_has & 0xFF7F | v3;
 }
 
+- (id)updateStatusAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003186D0 + (string - 1));
+  }
+
+  return v4;
+}
+
 - (int)StringAsUpdateStatus:(id)status
 {
   statusCopy = status;
@@ -251,6 +343,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFD | v3;
+}
+
+- (id)procFailureCauseAsString:(int)string
+{
+  if (string >= 0x10)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003186F0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsProcFailureCause:(id)cause
@@ -370,6 +477,190 @@
   }
 
   *&self->_has = *&self->_has & 0xFFF7 | v3;
+}
+
+- (id)rejectCauseAsString:(int)string
+{
+  if (string > 94)
+  {
+    if (string > 98)
+    {
+      if (string > 100)
+      {
+        if (string == 101)
+        {
+          v4 = @"KNAS_MM_REJ_CAUSE_MSG_NOT_COMPATIBLE";
+        }
+
+        else if (string == 111)
+        {
+          v4 = @"KNAS_MM_REJ_CAUSE_PROTOCOL_ERROR_UNSPECIFIED";
+        }
+
+        else
+        {
+LABEL_116:
+          v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_117:
+        }
+      }
+
+      else if (string == 99)
+      {
+        v4 = @"KNAS_MM_REJ_CAUSE_INFO_ELEMENT_NOT_IMPL";
+      }
+
+      else
+      {
+        v4 = @"KNAS_MM_REJ_CAUSE_IE_ERROR";
+      }
+    }
+
+    else if (string > 96)
+    {
+      if (string == 97)
+      {
+        v4 = @"KNAS_MM_REJ_CAUSE_MSG_TYPE_NOT_IMPL";
+      }
+
+      else
+      {
+        v4 = @"KNAS_MM_REJ_CAUSE_MSG_TYPE_NOT_COMPATIBLE";
+      }
+    }
+
+    else if (string == 95)
+    {
+      v4 = @"KNAS_MM_REJ_CAUSE_SEMANTICALLY_INCORRECT_MSG";
+    }
+
+    else
+    {
+      v4 = @"KNAS_MM_REJ_CAUSE_INVALID_MANDATORY_INFO";
+    }
+  }
+
+  else
+  {
+    v4 = @"KNAS_MM_REJ_CAUSE_NONE";
+    switch(string)
+    {
+      case 0:
+        goto LABEL_117;
+      case 2:
+        v4 = @"KNAS_MM_REJ_CAUSE_IMSI_UNKNOWN";
+
+        break;
+      case 3:
+        v4 = @"KNAS_MM_REJ_CAUSE_ILLEGAL_MS";
+
+        break;
+      case 4:
+        v4 = @"KNAS_MM_REJ_CAUSE_IMSI_UNKNOWN_IN_VLR";
+
+        break;
+      case 5:
+        v4 = @"KNAS_MM_REJ_CAUSE_IMEI_NOT_ACCEPTED";
+
+        break;
+      case 6:
+        v4 = @"KNAS_MM_REJ_CAUSE_ILLEGAL_ME";
+
+        break;
+      case 7:
+        v4 = @"KNAS_MM_REJ_CAUSE_GPRS_SERVICES_NOT_ALLOWED";
+
+        break;
+      case 8:
+        v4 = @"KNAS_MM_REJ_CAUSE_GPRS_AND_NON_GPRS_SERVICES_NOT_ALLOWED";
+
+        break;
+      case 9:
+        v4 = @"KNAS_MM_REJ_CAUSE_MS_IDENTITY_NOT_DERIVED_BY_NW";
+
+        break;
+      case 10:
+        v4 = @"KNAS_MM_REJ_CAUSE_IMPLICITLY_DET";
+
+        break;
+      case 11:
+        v4 = @"KNAS_MM_REJ_CAUSE_PLMN_NOT_ALLOWED";
+
+        break;
+      case 12:
+        v4 = @"KNAS_MM_REJ_CAUSE_LA_NOT_ALLOWED";
+
+        break;
+      case 13:
+        v4 = @"KNAS_MM_REJ_CAUSE_ROM_NOT_ALLOWED_IN_LA";
+
+        break;
+      case 14:
+        v4 = @"KNAS_MM_REJ_CAUSE_GPRS_NOT_ALLOWED_IN_PLMN";
+
+        break;
+      case 15:
+        v4 = @"KNAS_MM_REJ_CAUSE_NO_SUITABLE_CELL_IN_LA";
+
+        break;
+      case 16:
+        v4 = @"KNAS_MM_REJ_CAUSE_MSC_OUT_OF_REACH";
+
+        break;
+      case 17:
+        v4 = @"KNAS_MM_REJ_CAUSE_NW_FAILURE";
+
+        break;
+      case 20:
+        v4 = @"KNAS_MM_REJ_CAUSE_MAC_FAILURE";
+
+        break;
+      case 21:
+        v4 = @"KNAS_MM_REJ_CAUSE_SYNCH_FAILURE";
+
+        break;
+      case 22:
+        v4 = @"KNAS_MM_REJ_CAUSE_CONGESTION";
+
+        break;
+      case 23:
+        v4 = @"KNAS_MM_REJ_CAUSE_GSM_AUTH_UNACCEPTABLE";
+
+        break;
+      case 25:
+        v4 = @"KNAS_MM_REJ_CAUSE_CSG_NOT_AUTHORIZED";
+
+        break;
+      case 32:
+        v4 = @"KNAS_MM_REJ_CAUSE_SERVICE_OPTION_NOT_SUPPORTED";
+
+        break;
+      case 33:
+        v4 = @"KNAS_MM_REJ_CAUSE_REQ_SERVICE_OPTION_NOT_SUBSCRIBED";
+
+        break;
+      case 34:
+        v4 = @"KNAS_MM_REJ_CAUSE_SERVICE_OPTION_TEMPORARILY_OUT_OF_ORDER";
+
+        break;
+      case 38:
+        v4 = @"KNAS_MM_REJ_CAUSE_CALL_NOT_IDENTIFIED";
+
+        break;
+      case 40:
+        v4 = @"KNAS_MM_REJ_CAUSE_NO_PDP_CONTEXT_ACTIVATED";
+
+        break;
+      case 63:
+        v4 = @"KNAS_MM_REJ_CAUSE_RETRY_UPON_ENTRY_TO_NEW_CELL";
+
+        break;
+      default:
+        goto LABEL_116;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsRejectCause:(id)cause
@@ -842,7 +1133,6 @@ LABEL_90:
   else
   {
     v20 = @"KNAS_MM_REJ_CAUSE_NONE";
-    v21 = self->_rejectCause;
     switch(rejectCause)
     {
       case 0:
@@ -948,8 +1238,8 @@ LABEL_34:
   }
 
 LABEL_92:
-  v22 = [NSNumber numberWithBool:self->_isCombinedProc];
-  [v3 setObject:v22 forKey:@"is_combined_proc"];
+  v21 = [NSNumber numberWithBool:self->_isCombinedProc];
+  [v3 setObject:v21 forKey:@"is_combined_proc"];
 
   if ((*&self->_has & 0x10) != 0)
   {
@@ -969,7 +1259,6 @@ LABEL_36:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -989,12 +1278,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  regStatus = self->_regStatus;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_4:
-    updateStatus = self->_updateStatus;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1004,16 +1291,15 @@ LABEL_5:
     PBDataWriterWriteSubmessage();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x40) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x40) != 0)
   {
-    tmsi = self->_tmsi;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((v6 & 0x20) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x20) == 0)
     {
 LABEL_9:
-      if ((v6 & 2) == 0)
+      if ((v5 & 2) == 0)
       {
         goto LABEL_10;
       }
@@ -1022,18 +1308,17 @@ LABEL_9:
     }
   }
 
-  else if ((v6 & 0x20) == 0)
+  else if ((v5 & 0x20) == 0)
   {
     goto LABEL_9;
   }
 
-  t3212DurS = self->_t3212DurS;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((v6 & 2) == 0)
+  v5 = self->_has;
+  if ((v5 & 2) == 0)
   {
 LABEL_10:
-    if ((v6 & 8) == 0)
+    if ((v5 & 8) == 0)
     {
       goto LABEL_11;
     }
@@ -1042,13 +1327,12 @@ LABEL_10:
   }
 
 LABEL_22:
-  procFailureCause = self->_procFailureCause;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((v6 & 8) == 0)
+  v5 = self->_has;
+  if ((v5 & 8) == 0)
   {
 LABEL_11:
-    if ((v6 & 0x100) == 0)
+    if ((v5 & 0x100) == 0)
     {
       goto LABEL_12;
     }
@@ -1057,13 +1341,12 @@ LABEL_11:
   }
 
 LABEL_23:
-  rejectCause = self->_rejectCause;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((v6 & 0x100) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x100) == 0)
   {
 LABEL_12:
-    if ((v6 & 0x10) == 0)
+    if ((v5 & 0x10) == 0)
     {
       goto LABEL_14;
     }
@@ -1072,12 +1355,10 @@ LABEL_12:
   }
 
 LABEL_24:
-  isCombinedProc = self->_isCombinedProc;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_13:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1458,7 +1739,6 @@ LABEL_52:
     goto LABEL_52;
   }
 
-  v10 = *(equalCopy + 52);
   if (self->_isCombinedProc)
   {
     if ((*(equalCopy + 52) & 1) == 0)

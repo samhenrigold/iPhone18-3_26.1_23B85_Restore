@@ -27,7 +27,7 @@
   v5 = objc_allocWithZone(SFTabSwitcherPageOverlay);
   v6 = &v5[OBJC_IVAR___SFTabSwitcherPageOverlay_wrapped];
   *v6 = sub_18BA2A9D8;
-  v6[1] = v4;
+  *(v6 + 1) = v4;
   v9.receiver = v5;
   v9.super_class = SFTabSwitcherPageOverlay;
   v7 = objc_msgSendSuper2(&v9, sel_init);

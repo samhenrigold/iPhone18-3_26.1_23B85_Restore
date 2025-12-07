@@ -13,6 +13,7 @@
 + (void)_startDownloadAssetIndexesByTreatment:(id)treatment usingEntitlementWitness:(id)witness serverContext:(id)context taskQueue:(id)queue experimentIds:(id)ids assetIdsByFactorPack:(id)pack rolloutFactorNames:(id)names rolloutDeployments:(id)self0 namespace:(id)self1 taskAttribution:(id)self2 factorsState:(id)self3 notificationKey:(id)self4;
 + (void)resumeTaskQueue:(id)queue forNetworkOptions:(id)options;
 + (void)usingServerContext:(id)context deregisterNamespaceWithName:(id)name teamId:(id)id taskQueue:(id)queue completion:(id)completion;
++ (void)usingServerContext:(id)context registerNamespaceWithNamespaceName:(id)name compatibilityVersion:(unsigned int)version defaultsFileURL:(id)l teamId:(id)id appContainerId:(id)containerId appContainerType:(int64_t)type cloudKitContainerId:(int)self0 bundleId:(id)self1 completion:(id)self2;
 + (void)usingServerContext:(id)context taskQueue:(id)queue startDownloadNamespaceWithName:(id)name attribution:(id)attribution completion:(id)completion;
 - (BOOL)_validateNamespaceName:(id)name error:(id *)error;
 - (BOOL)_validateSetPurgeabilityLevelRequestUsingFactorProviderChain:(id)chain paths:(id)paths purgeabilityLevelsForFactors:(id)factors error:(id *)error;
@@ -23,6 +24,7 @@
 - (void)_setPurgeabilityLevelsForFactors:(id)factors usingEntitlementWitness:(id)witness namespace:(id)namespace paths:(id)paths completion:(id)completion;
 - (void)deregisterNamespaceWithNamespaceName:(id)name completion:(id)completion;
 - (void)getSandboxExtensionTokensForIdentifierQueryWithCompletion:(id)completion;
+- (void)immediateDownloadForNamespaceNames:(id)names allowExpensiveNetworking:(BOOL)networking completion:(id)completion;
 - (void)loadNamespaceMetadataForNamespaceName:(id)name completion:(id)completion;
 - (void)promoteFactorPackId:(id)id forNamespaceName:(id)name rolloutDeployment:(id)deployment completion:(id)completion;
 - (void)registerNamespaceWithNamespaceName:(id)name compatibilityVersion:(unsigned int)version defaultsFileURL:(id)l applicationGroup:(id)group cloudKitContainerId:(int)id completion:(id)completion;
@@ -306,11 +308,11 @@ LABEL_34:
 
 void __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_applicationGroup_cloudKitContainerId_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(*(a1 + 32) + 36);
+    v15 = *(*(a1 + 32) + 36);
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     if (a2)
@@ -331,27 +333,25 @@ void __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNamespa
     v13 = TRICloudKitSupport_Container_EnumDescriptor();
     v14 = [v13 enumNameForValue:*(a1 + 68)];
     *buf = 67111170;
-    v18 = v16;
-    v19 = 2114;
-    v20 = v6;
-    v21 = 2048;
-    v22 = v8;
-    v23 = 2080;
-    v24 = v7;
-    v25 = 2114;
-    v26 = v9;
-    v27 = 1024;
-    v28 = v10;
-    v29 = 2112;
-    v30 = v12;
-    v31 = 2112;
-    v32 = v11;
-    v33 = 2112;
-    v34 = v14;
+    v17 = v15;
+    v18 = 2114;
+    v19 = v6;
+    v20 = 2048;
+    v21 = v8;
+    v22 = 2080;
+    v23 = v7;
+    v24 = 2114;
+    v25 = v9;
+    v26 = 1024;
+    v27 = v10;
+    v28 = 2112;
+    v29 = v12;
+    v30 = 2112;
+    v31 = v11;
+    v32 = 2112;
+    v33 = v14;
     _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s registerNamespaceWithNamespaceName:%{public}@ compatibilityVersion:%u defaultsFileURL:%@ applicationGroup:%@ cloudKitContainerId:%@ completion:", buf, 0x54u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_applicationGroup_cloudKitContainerId_completion___block_invoke_109(uint64_t result)
@@ -366,59 +366,55 @@ uint64_t __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNam
 
 void __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_applicationGroup_cloudKitContainerId_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (*(a1 + 40))
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v5;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v5;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to register namespace %{public}@: %{public}@", buf, 0x16u);
     }
 
     v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v12 = *MEMORY[0x277CCA450];
-    v13 = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12 = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_applicationGroup_cloudKitContainerId_completion___block_invoke_146(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_applicationGroup_cloudKitContainerId_completion___block_invoke_2_147;
-  v14[3] = &unk_279DE0398;
-  v15 = *(a1 + 80);
-  v7 = MEMORY[0x2743948D0](v14);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_applicationGroup_cloudKitContainerId_completion___block_invoke_2_147;
+  v12[3] = &unk_279DE0398;
+  v13 = *(a1 + 80);
+  v7 = MEMORY[0x2743948D0](v12);
   if (v5 && v6)
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = *(a1 + 72);
-    LODWORD(v13) = *(a1 + 108);
-    [v9 usingServerContext:v5 registerNamespaceWithNamespaceName:*(a1 + 40) compatibilityVersion:*(a1 + 104) defaultsFileURL:*(a1 + 48) teamId:*(a1 + 56) appContainerId:*(a1 + 64) appContainerType:*(a1 + 96) cloudKitContainerId:v13 bundleId:v10 completion:*(a1 + 88)];
+    v8 = objc_opt_class();
+    LODWORD(v11) = *(a1 + 108);
+    [v8 usingServerContext:v5 registerNamespaceWithNamespaceName:*(a1 + 40) compatibilityVersion:*(a1 + 104) defaultsFileURL:*(a1 + 48) teamId:*(a1 + 56) appContainerId:*(a1 + 64) appContainerType:*(a1 + 96) cloudKitContainerId:v11 bundleId:*(a1 + 72) completion:*(a1 + 88)];
   }
 
   else
   {
-    v11 = *(a1 + 88);
-    if (v11)
+    v9 = *(a1 + 88);
+    if (v9)
     {
-      v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-      (*(v11 + 16))(v11, 0, v12);
+      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+      (*(v9 + 16))(v9, 0, v10);
     }
   }
 
@@ -506,7 +502,7 @@ void __163__TRIXPCNamespaceManagementRequestHandler_registerNamespaceWithNamespa
 
 void __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamespaceName_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -517,25 +513,23 @@ void __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamesp
     v9 = "end";
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v13[0] = 67110146;
+    v12[0] = 67110146;
     if (!a2)
     {
       v9 = "begin";
     }
 
-    v13[1] = v5;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v10;
-    v18 = 2080;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s deregisterNamespaceWithNamespaceName:%{public}@ completion:", v13, 0x30u);
+    v12[1] = v5;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v10;
+    v17 = 2080;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v11;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s deregisterNamespaceWithNamespaceName:%{public}@ completion:", v12, 0x30u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamespaceName_completion___block_invoke_149(uint64_t result)
@@ -550,23 +544,23 @@ uint64_t __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNa
 
 void __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamespaceName_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to deregister namespace %{public}@: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13 = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
   v10 = *(a1 + 40);
@@ -574,33 +568,30 @@ void __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamesp
   {
     (*(v10 + 16))(v10, 0, v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamespaceName_completion___block_invoke_150(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamespaceName_completion___block_invoke_2_151;
-  v11[3] = &unk_279DE0398;
-  v12 = *(a1 + 56);
-  v7 = MEMORY[0x2743948D0](v11);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamespaceName_completion___block_invoke_2_151;
+  v10[3] = &unk_279DE0398;
+  v11 = *(a1 + 56);
+  v7 = MEMORY[0x2743948D0](v10);
   if (v5 && v6)
   {
-    v8 = *(a1 + 32);
     [objc_opt_class() usingServerContext:v5 deregisterNamespaceWithName:*(a1 + 40) teamId:*(a1 + 48) taskQueue:v6 completion:*(a1 + 64)];
   }
 
   else
   {
-    v9 = *(a1 + 64);
-    if (v9)
+    v8 = *(a1 + 64);
+    if (v8)
     {
-      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-      (*(v9 + 16))(v9, 0, v10);
+      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+      (*(v8 + 16))(v8, 0, v9);
     }
   }
 
@@ -727,7 +718,7 @@ void __91__TRIXPCNamespaceManagementRequestHandler_deregisterNamespaceWithNamesp
 
 void __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithName_options_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -744,22 +735,20 @@ void __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithNam
       v9 = "begin";
     }
 
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s startDownloadNamespaceWithName:%{public}@ options:%{public}@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v10;
+    v18 = 2080;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v11;
+    v22 = 2114;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s startDownloadNamespaceWithName:%{public}@ options:%{public}@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithName_options_completion___block_invoke_152(uint64_t result)
@@ -774,23 +763,23 @@ uint64_t __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWit
 
 void __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithName_options_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to start download of namespace %{public}@: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13 = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
   v10 = *(a1 + 40);
@@ -798,20 +787,18 @@ void __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithNam
   {
     (*(v10 + 16))(v10, 0, v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithName_options_completion___block_invoke_166(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithName_options_completion___block_invoke_2_167;
-  v19[3] = &unk_279DE0398;
-  v20 = *(a1 + 72);
-  v7 = MEMORY[0x2743948D0](v19);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithName_options_completion___block_invoke_2_167;
+  v18[3] = &unk_279DE0398;
+  v19 = *(a1 + 72);
+  v7 = MEMORY[0x2743948D0](v18);
   if (v5 && v6)
   {
     v8 = [v5 namespaceDatabase];
@@ -819,7 +806,7 @@ void __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithNam
 
     if (v9)
     {
-      v18 = [TRITaskAttributionInternalInsecure alloc];
+      v17 = [TRITaskAttributionInternalInsecure alloc];
       v10 = *(a1 + 40);
       v11 = [v9 cloudKitContainer];
       v13 = *(a1 + 48);
@@ -830,12 +817,11 @@ void __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithNam
         v14 = [MEMORY[0x277D736A0] inexpensiveOptions];
       }
 
-      v15 = [(TRITaskAttributionInternalInsecure *)v18 initWithTeamIdentifier:v10 triCloudKitContainer:v11 applicationBundleIdentifier:v13 networkOptions:v14];
+      v15 = [(TRITaskAttributionInternalInsecure *)v17 initWithTeamIdentifier:v10 triCloudKitContainer:v11 applicationBundleIdentifier:v13 networkOptions:v14];
       if (!v12)
       {
       }
 
-      v16 = *(a1 + 64);
       [objc_opt_class() usingServerContext:v5 taskQueue:v6 startDownloadNamespaceWithName:*(a1 + 32) attribution:v15 completion:*(a1 + 80)];
     }
 
@@ -848,14 +834,14 @@ void __93__TRIXPCNamespaceManagementRequestHandler_startDownloadNamespaceWithNam
 
   else
   {
-    v17 = *(a1 + 80);
-    if (!v17)
+    v16 = *(a1 + 80);
+    if (!v16)
     {
       goto LABEL_13;
     }
 
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-    (*(v17 + 16))(v17, 0, v9);
+    (*(v16 + 16))(v16, 0, v9);
   }
 
 LABEL_13:
@@ -867,103 +853,103 @@ LABEL_13:
 
 + (id)_notificationKeyWithNamespace:(id)namespace assetIndexesByTreatment:(id)treatment assetIdsByFactorPack:(id)pack
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   namespaceCopy = namespace;
   treatmentCopy = treatment;
   packCopy = pack;
   context = objc_autoreleasePoolPush();
   v8 = objc_opt_new();
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v45 = treatmentCopy;
+  v44 = treatmentCopy;
   allKeys = [treatmentCopy allKeys];
   v10 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v11 = [v10 countByEnumeratingWithState:&v57 objects:v63 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v56 objects:v62 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v58;
+    v13 = *v57;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v58 != v13)
+        if (*v57 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v57 + 1) + 8 * i);
+        v15 = *(*(&v56 + 1) + 8 * i);
         [v8 addObject:v15];
-        v16 = [v45 objectForKeyedSubscript:v15];
-        v55[0] = MEMORY[0x277D85DD0];
-        v55[1] = 3221225472;
-        v55[2] = __118__TRIXPCNamespaceManagementRequestHandler__notificationKeyWithNamespace_assetIndexesByTreatment_assetIdsByFactorPack___block_invoke;
-        v55[3] = &unk_279DE0C98;
-        v56 = v8;
-        [v16 enumerateIndexesUsingBlock:v55];
+        v16 = [v44 objectForKeyedSubscript:v15];
+        v54[0] = MEMORY[0x277D85DD0];
+        v54[1] = 3221225472;
+        v54[2] = __118__TRIXPCNamespaceManagementRequestHandler__notificationKeyWithNamespace_assetIndexesByTreatment_assetIdsByFactorPack___block_invoke;
+        v54[3] = &unk_279DE0C98;
+        v55 = v8;
+        [v16 enumerateIndexesUsingBlock:v54];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v57 objects:v63 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v56 objects:v62 count:16];
     }
 
     while (v12);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   allKeys2 = [packCopy allKeys];
   v18 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
 
   obj = v18;
-  v19 = [v18 countByEnumeratingWithState:&v51 objects:v62 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v50 objects:v61 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v52;
+    v21 = *v51;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v52 != v21)
+        if (*v51 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v51 + 1) + 8 * j);
+        v23 = *(*(&v50 + 1) + 8 * j);
         [v8 addObject:v23];
         v24 = objc_autoreleasePoolPush();
+        v46 = 0u;
         v47 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v50 = 0u;
         v25 = [packCopy objectForKeyedSubscript:v23];
         allObjects = [v25 allObjects];
         v27 = [allObjects sortedArrayUsingComparator:&__block_literal_global_11];
 
-        v28 = [v27 countByEnumeratingWithState:&v47 objects:v61 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v46 objects:v60 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v48;
+          v30 = *v47;
           do
           {
             for (k = 0; k != v29; ++k)
             {
-              if (*v48 != v30)
+              if (*v47 != v30)
               {
                 objc_enumerationMutation(v27);
               }
 
-              assetId = [*(*(&v47 + 1) + 8 * k) assetId];
+              assetId = [*(*(&v46 + 1) + 8 * k) assetId];
               [v8 addObject:assetId];
             }
 
-            v29 = [v27 countByEnumeratingWithState:&v47 objects:v61 count:16];
+            v29 = [v27 countByEnumeratingWithState:&v46 objects:v60 count:16];
           }
 
           while (v29);
@@ -972,7 +958,7 @@ LABEL_13:
         objc_autoreleasePoolPop(v24);
       }
 
-      v20 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
+      v20 = [obj countByEnumeratingWithState:&v50 objects:v61 count:16];
     }
 
     while (v20);
@@ -996,7 +982,6 @@ LABEL_13:
   v39 = [v34 initWithFormat:@"%@.%@", namespaceCopy, triHexlify];
 
   objc_autoreleasePoolPop(context);
-  v40 = *MEMORY[0x277D85DE8];
 
   return v39;
 }
@@ -1020,46 +1005,46 @@ uint64_t __118__TRIXPCNamespaceManagementRequestHandler__notificationKeyWithName
 
 - (void)startDownloadLevelsForFactors:(id)factors withNamespace:(id)namespace factorsState:(id)state options:(id)options completion:(id)completion
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   namespaceCopy = namespace;
   stateCopy = state;
   optionsCopy = options;
   completionCopy = completion;
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke;
-  v56[3] = &unk_279DE0410;
-  v56[4] = self;
-  v36 = factorsCopy;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke;
+  v55[3] = &unk_279DE0410;
+  v55[4] = self;
+  v35 = factorsCopy;
+  v56 = v35;
+  v36 = namespaceCopy;
   v57 = v36;
-  v37 = namespaceCopy;
-  v58 = v37;
   v17 = stateCopy;
-  v59 = v17;
+  v58 = v17;
   v18 = optionsCopy;
-  v60 = v18;
-  v19 = MEMORY[0x2743948D0](v56);
+  v59 = v18;
+  v19 = MEMORY[0x2743948D0](v55);
   v19[2](v19, 0);
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
-  v55 = 0;
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_184;
-  v49[3] = &unk_279DE0C20;
-  v51 = &v52;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_184;
+  v48[3] = &unk_279DE0C20;
+  v50 = &v51;
   v20 = v19;
-  v50 = v20;
-  v21 = MEMORY[0x2743948D0](v49);
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_2;
-  v47[3] = &unk_279DE0548;
+  v49 = v20;
+  v21 = MEMORY[0x2743948D0](v48);
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_2;
+  v46[3] = &unk_279DE0548;
   v22 = completionCopy;
-  v48 = v22;
-  v23 = MEMORY[0x2743948D0](v47);
+  v47 = v22;
+  v23 = MEMORY[0x2743948D0](v46);
   v24 = MEMORY[0x277D425B0];
   v25 = *MEMORY[0x277D73AC0];
   v26 = TRILogCategory_Server();
@@ -1070,23 +1055,23 @@ uint64_t __118__TRIXPCNamespaceManagementRequestHandler__notificationKeyWithName
   {
 
 LABEL_4:
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_189;
-    v38[3] = &unk_279DE0CE0;
-    v44 = v20;
-    v45 = v22;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_189;
+    v37[3] = &unk_279DE0CE0;
+    v43 = v20;
+    v44 = v22;
+    v38 = v35;
     v39 = v36;
-    v40 = v37;
-    v41 = v17;
+    v40 = v17;
     selfCopy = self;
-    v46 = v23;
-    v43 = v18;
-    v32 = MEMORY[0x2743948D0](v38);
+    v45 = v23;
+    v42 = v18;
+    v32 = MEMORY[0x2743948D0](v37);
     [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v32];
-    *(v53 + 24) = 1;
+    *(v52 + 24) = 1;
 
-    v33 = v44;
+    v33 = v43;
     goto LABEL_5;
   }
 
@@ -1094,7 +1079,7 @@ LABEL_4:
   v29 = *&self->_auditToken.val[4];
   *buf = *self->_auditToken.val;
   *&buf[16] = v29;
-  v30 = [MEMORY[0x277D736B0] objectForEntitlement:v28 withAuditToken:{buf, v36, v37}];
+  v30 = [MEMORY[0x277D736B0] objectForEntitlement:v28 withAuditToken:{buf, v35, v36}];
   v31 = v30 == 0;
 
   if (!v31)
@@ -1106,9 +1091,9 @@ LABEL_4:
   v33 = TRILogCategory_Server();
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
-    v35 = self->_auditToken.val[5];
+    v34 = self->_auditToken.val[5];
     *buf = 67109378;
-    *&buf[4] = v35;
+    *&buf[4] = v34;
     *&buf[8] = 2112;
     *&buf[10] = v28;
     _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required for on-demand factor download: %@", buf, 0x12u);
@@ -1121,13 +1106,12 @@ LABEL_5:
     v21[2](v21);
   }
 
-  _Block_object_dispose(&v52, 8);
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v51, 8);
 }
 
 void __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1146,26 +1130,24 @@ void __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactor
     v12 = a1[6];
     v13 = a1[7];
     v14 = a1[8];
-    v16[0] = 67110914;
-    v16[1] = v5;
-    v17 = 2114;
-    v18 = v7;
-    v19 = 2048;
-    v20 = v10;
-    v21 = 2080;
-    v22 = v9;
-    v23 = 2114;
-    v24 = v11;
-    v25 = 2114;
-    v26 = v12;
-    v27 = 2114;
-    v28 = v13;
-    v29 = 2114;
-    v30 = v14;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s startDownloadLevelsForFactors:%{public}@ withNamespace:%{public}@ fstate:%{public}@ options:%{public}@ completion:", v16, 0x4Eu);
+    v15[0] = 67110914;
+    v15[1] = v5;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2048;
+    v19 = v10;
+    v20 = 2080;
+    v21 = v9;
+    v22 = 2114;
+    v23 = v11;
+    v24 = 2114;
+    v25 = v12;
+    v26 = 2114;
+    v27 = v13;
+    v28 = 2114;
+    v29 = v14;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s startDownloadLevelsForFactors:%{public}@ withNamespace:%{public}@ fstate:%{public}@ options:%{public}@ completion:", v15, 0x4Eu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_184(uint64_t result)
@@ -1180,34 +1162,32 @@ uint64_t __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFa
 
 void __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_189(uint64_t a1, void *a2, void *a3)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_2_190;
-  v67[3] = &unk_279DE0398;
-  v68 = *(a1 + 72);
-  v7 = MEMORY[0x2743948D0](v67);
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactors_withNamespace_factorsState_options_completion___block_invoke_2_190;
+  v64[3] = &unk_279DE0398;
+  v65 = *(a1 + 72);
+  v7 = MEMORY[0x2743948D0](v64);
   if (v5 && v6)
   {
     v8 = [v5 paths];
@@ -1215,9 +1195,9 @@ void __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactor
 
     if (v9)
     {
-      v53 = [MEMORY[0x277CCA890] currentHandler];
-      v54 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler startDownloadLevelsForFactors:withNamespace:factorsState:options:completion:]_block_invoke"];
-      [v53 handleFailureInFunction:v54 file:@"TRIXPCNamespaceManagementService.m" lineNumber:441 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
+      v50 = [MEMORY[0x277CCA890] currentHandler];
+      v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler startDownloadLevelsForFactors:withNamespace:factorsState:options:completion:]_block_invoke"];
+      [v50 handleFailureInFunction:v51 file:@"TRIXPCNamespaceManagementService.m" lineNumber:441 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
     }
 
     v10 = [v5 keyValueStore];
@@ -1225,72 +1205,71 @@ void __119__TRIXPCNamespaceManagementRequestHandler_startDownloadLevelsForFactor
 
     if (v11)
     {
-      v55 = [MEMORY[0x277CCA890] currentHandler];
-      v56 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler startDownloadLevelsForFactors:withNamespace:factorsState:options:completion:]_block_invoke"];
-      [v55 handleFailureInFunction:v56 file:@"TRIXPCNamespaceManagementService.m" lineNumber:442 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v52 = [MEMORY[0x277CCA890] currentHandler];
+      v53 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler startDownloadLevelsForFactors:withNamespace:factorsState:options:completion:]_block_invoke"];
+      [v52 handleFailureInFunction:v53 file:@"TRIXPCNamespaceManagementService.m" lineNumber:442 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
-    v66 = 0;
-    v65 = 0;
     v63 = 0;
-    v64 = 0;
-    v61 = 0;
     v62 = 0;
     v60 = 0;
+    v61 = 0;
+    v58 = 0;
+    v59 = 0;
+    v57 = 0;
     v12 = MEMORY[0x277D73718];
     v13 = *(a1 + 32);
     v14 = *(a1 + 40);
     v15 = [v5 paths];
-    v16 = [v12 validateDownloadForFactors:v13 withNamespace:v14 paths:v15 container:&v65 factorsState:*(a1 + 48) assetIndexesByTreatment:&v64 experimentIds:&v63 assetIdsByFactorPack:&v62 rolloutFactorNames:&v61 rolloutDeployments:&v60 error:&v66];
+    v16 = [v12 validateDownloadForFactors:v13 withNamespace:v14 paths:v15 container:&v62 factorsState:*(a1 + 48) assetIndexesByTreatment:&v61 experimentIds:&v60 assetIdsByFactorPack:&v59 rolloutFactorNames:&v58 rolloutDeployments:&v57 error:&v63];
 
-    v17 = *(a1 + 56);
-    v18 = [objc_opt_class() _notificationKeyWithNamespace:*(a1 + 40) assetIndexesByTreatment:v64 assetIdsByFactorPack:v62];
-    v19 = TRILogCategory_Server();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v17 = [objc_opt_class() _notificationKeyWithNamespace:*(a1 + 40) assetIndexesByTreatment:v61 assetIdsByFactorPack:v59];
+    v18 = TRILogCategory_Server();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      *&buf[4] = v18;
+      *&buf[4] = v17;
       *&buf[12] = 2112;
-      *&buf[14] = v64;
-      _os_log_impl(&dword_26F567000, v19, OS_LOG_TYPE_INFO, "Notification key is %{public}@, asset index: %@", buf, 0x16u);
+      *&buf[14] = v61;
+      _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_INFO, "Notification key is %{public}@, asset index: %@", buf, 0x16u);
     }
 
     if (!v16)
     {
-      v37 = *(a1 + 80);
-      if (v37)
+      v35 = *(a1 + 80);
+      if (v35)
       {
-        (*(v37 + 16))(v37, 0, v66);
+        (*(v35 + 16))(v35, 0, v63);
       }
 
       goto LABEL_41;
     }
 
-    if ([v64 count] || objc_msgSend(v62, "count"))
+    if ([v61 count] || objc_msgSend(v59, "count"))
     {
-      v57 = objc_opt_new();
-      v20 = *(a1 + 56);
-      v21 = *(v20 + 32);
-      *buf = *(v20 + 16);
-      *&buf[16] = v21;
-      v22 = [MEMORY[0x277D736B0] applicationBundleIdentifierWithAuditToken:buf];
-      if (!v22)
+      v54 = objc_opt_new();
+      v19 = *(a1 + 56);
+      v20 = *(v19 + 32);
+      *buf = *(v19 + 16);
+      *&buf[16] = v20;
+      v21 = [MEMORY[0x277D736B0] applicationBundleIdentifierWithAuditToken:buf];
+      if (!v21)
       {
-        v38 = objc_alloc(MEMORY[0x277CCACA8]);
-        v39 = [MEMORY[0x277D736B0] entitlementKeyForApplicationBundleIdentifier];
-        v28 = [v38 initWithFormat:@"Process is missing entitlement %@; you must declare the application bundle identifier explicitly in entitlements.", v39];
+        v36 = objc_alloc(MEMORY[0x277CCACA8]);
+        v37 = [MEMORY[0x277D736B0] entitlementKeyForApplicationBundleIdentifier];
+        v27 = [v36 initWithFormat:@"Process is missing entitlement %@; you must declare the application bundle identifier explicitly in entitlements.", v37];
 
         (*(*(a1 + 88) + 16))();
-        v24 = TRILogCategory_Server();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v23 = TRILogCategory_Server();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v40 = *(*(a1 + 56) + 36);
-          v41 = [MEMORY[0x277D736B0] entitlementKeyForApplicationBundleIdentifier];
+          v38 = *(*(a1 + 56) + 36);
+          v39 = [MEMORY[0x277D736B0] entitlementKeyForApplicationBundleIdentifier];
           *buf = 67109378;
-          *&buf[4] = v40;
+          *&buf[4] = v38;
           *&buf[8] = 2114;
-          *&buf[10] = v41;
-          _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement %{public}@.", buf, 0x12u);
+          *&buf[10] = v39;
+          _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement %{public}@.", buf, 0x12u);
         }
 
 LABEL_39:
@@ -1298,115 +1277,114 @@ LABEL_39:
         goto LABEL_40;
       }
 
-      if ([MEMORY[0x277D73810] validateSafeASCIISubsetIdentifier:v22])
+      if ([MEMORY[0x277D73810] validateSafeASCIISubsetIdentifier:v21])
       {
-        v23 = [v5 keyValueStore];
-        v24 = [TRINamespaceFactorSubscriptionSettings settingsWithKeyValueStore:v23];
+        v22 = [v5 keyValueStore];
+        v23 = [TRINamespaceFactorSubscriptionSettings settingsWithKeyValueStore:v22];
 
-        v25 = [v24 subscribedFactorsForNamespaceName:*(a1 + 40)];
-        v26 = [v25 mutableCopy];
+        v24 = [v23 subscribedFactorsForNamespaceName:*(a1 + 40)];
+        v25 = [v24 mutableCopy];
 
-        [v26 addObjectsFromArray:*(a1 + 32)];
-        v27 = *(a1 + 40);
-        v58 = 0;
-        LOBYTE(v25) = [v24 setSubscriptionWithFactorNames:v26 inNamespaceName:v27 error:&v58];
-        v28 = v58;
-        if (v25)
+        [v25 addObjectsFromArray:*(a1 + 32)];
+        v26 = *(a1 + 40);
+        v55 = 0;
+        LOBYTE(v24) = [v23 setSubscriptionWithFactorNames:v25 inNamespaceName:v26 error:&v55];
+        v27 = v55;
+        if (v24)
         {
 
-          v29 = [TRITaskAttributionInternalInsecure alloc];
-          v30 = v65;
-          v31 = *(a1 + 64);
-          v32 = v31;
-          if (!v31)
+          v28 = [TRITaskAttributionInternalInsecure alloc];
+          v29 = v62;
+          v30 = *(a1 + 64);
+          v31 = v30;
+          if (!v30)
           {
-            v32 = [MEMORY[0x277D736A0] inexpensiveOptions];
+            v31 = [MEMORY[0x277D736A0] inexpensiveOptions];
           }
 
-          v28 = [(TRITaskAttributionInternalInsecure *)v29 initWithTeamIdentifier:0 triCloudKitContainer:v30 applicationBundleIdentifier:v22 networkOptions:v32];
-          if (!v31)
+          v27 = [(TRITaskAttributionInternalInsecure *)v28 initWithTeamIdentifier:0 triCloudKitContainer:v29 applicationBundleIdentifier:v21 networkOptions:v31];
+          if (!v30)
           {
           }
 
-          v33 = *(a1 + 56);
-          [objc_opt_class() _startDownloadAssetIndexesByTreatment:v64 usingEntitlementWitness:v57 serverContext:v5 taskQueue:v6 experimentIds:v63 assetIdsByFactorPack:v62 rolloutFactorNames:v61 rolloutDeployments:v60 namespace:*(a1 + 40) taskAttribution:v28 factorsState:*(a1 + 48) notificationKey:v18];
-          v34 = *(a1 + 80);
-          if (v34)
+          [objc_opt_class() _startDownloadAssetIndexesByTreatment:v61 usingEntitlementWitness:v54 serverContext:v5 taskQueue:v6 experimentIds:v60 assetIdsByFactorPack:v59 rolloutFactorNames:v58 rolloutDeployments:v57 namespace:*(a1 + 40) taskAttribution:v27 factorsState:*(a1 + 48) notificationKey:v17];
+          v32 = *(a1 + 80);
+          if (v32)
           {
-            (*(v34 + 16))(v34, v18, 0);
+            (*(v32 + 16))(v32, v17, 0);
           }
 
           goto LABEL_40;
         }
 
-        v48 = TRILogCategory_Server();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v46 = TRILogCategory_Server();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v28;
-          _os_log_error_impl(&dword_26F567000, v48, OS_LOG_TYPE_ERROR, "Unable to update on-demand asset subscription, error: %{public}@", buf, 0xCu);
+          *&buf[4] = v27;
+          _os_log_error_impl(&dword_26F567000, v46, OS_LOG_TYPE_ERROR, "Unable to update on-demand asset subscription, error: %{public}@", buf, 0xCu);
         }
 
-        v49 = *(a1 + 80);
-        if (v49)
+        v47 = *(a1 + 80);
+        if (v47)
         {
-          (*(v49 + 16))(v49, 0, v28);
+          (*(v47 + 16))(v47, 0, v27);
         }
 
         goto LABEL_39;
       }
 
-      v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"appContainerId(%@) can only contain alphanumeric characters, underscore (_), hyphen (-) or period (.)", v22];
+      v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"appContainerId(%@) can only contain alphanumeric characters, underscore (_), hyphen (-) or period (.)", v21];
       (*(*(a1 + 88) + 16))();
     }
 
     else
     {
-      v42 = TRILogCategory_Server();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      v40 = TRILogCategory_Server();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
-        v43 = *(a1 + 40);
+        v41 = *(a1 + 40);
         *buf = 138543362;
-        *&buf[4] = v43;
-        _os_log_impl(&dword_26F567000, v42, OS_LOG_TYPE_INFO, "Completing on-demand factor request for namespace %{public}@ without actually downloading assets.", buf, 0xCu);
+        *&buf[4] = v41;
+        _os_log_impl(&dword_26F567000, v40, OS_LOG_TYPE_INFO, "Completing on-demand factor request for namespace %{public}@ without actually downloading assets.", buf, 0xCu);
       }
 
-      v44 = [v5 keyValueStore];
-      v22 = [TRINamespaceFactorSubscriptionSettings settingsWithKeyValueStore:v44];
+      v42 = [v5 keyValueStore];
+      v21 = [TRINamespaceFactorSubscriptionSettings settingsWithKeyValueStore:v42];
 
-      v45 = [v22 subscribedFactorsForNamespaceName:*(a1 + 40)];
-      v28 = [v45 mutableCopy];
+      v43 = [v21 subscribedFactorsForNamespaceName:*(a1 + 40)];
+      v27 = [v43 mutableCopy];
 
-      [(TRITaskAttributionInternalInsecure *)v28 addObjectsFromArray:*(a1 + 32)];
-      v46 = *(a1 + 40);
-      v59 = 0;
-      LOBYTE(v45) = [v22 setSubscriptionWithFactorNames:v28 inNamespaceName:v46 error:&v59];
-      v57 = v59;
-      if (v45)
+      [(TRITaskAttributionInternalInsecure *)v27 addObjectsFromArray:*(a1 + 32)];
+      v44 = *(a1 + 40);
+      v56 = 0;
+      LOBYTE(v43) = [v21 setSubscriptionWithFactorNames:v27 inNamespaceName:v44 error:&v56];
+      v54 = v56;
+      if (v43)
       {
 
-        v47 = *(a1 + 80);
-        if (v47)
+        v45 = *(a1 + 80);
+        if (v45)
         {
-          (*(v47 + 16))(v47, 0, 0);
+          (*(v45 + 16))(v45, 0, 0);
         }
 
-        [MEMORY[0x277D73698] notifyDownloadCompletedForKey:v18];
+        [MEMORY[0x277D73698] notifyDownloadCompletedForKey:v17];
         goto LABEL_41;
       }
 
-      v51 = TRILogCategory_Server();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v48 = TRILogCategory_Server();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v57;
-        _os_log_error_impl(&dword_26F567000, v51, OS_LOG_TYPE_ERROR, "Unable to update on-demand asset subscription, error: %@", buf, 0xCu);
+        *&buf[4] = v54;
+        _os_log_error_impl(&dword_26F567000, v48, OS_LOG_TYPE_ERROR, "Unable to update on-demand asset subscription, error: %@", buf, 0xCu);
       }
 
-      v52 = *(a1 + 80);
-      if (v52)
+      v49 = *(a1 + 80);
+      if (v49)
       {
-        (*(v52 + 16))(v52, 0, v57);
+        (*(v49 + 16))(v49, 0, v54);
       }
     }
 
@@ -1416,11 +1394,11 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  v35 = *(a1 + 80);
-  if (v35)
+  v33 = *(a1 + 80);
+  if (v33)
   {
-    v36 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-    (*(v35 + 16))(v35, 0, v36);
+    v34 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+    (*(v33 + 16))(v33, 0, v34);
   }
 
 LABEL_42:
@@ -1428,13 +1406,189 @@ LABEL_42:
   {
     v7[2](v7);
   }
+}
 
-  v50 = *MEMORY[0x277D85DE8];
+- (void)immediateDownloadForNamespaceNames:(id)names allowExpensiveNetworking:(BOOL)networking completion:(id)completion
+{
+  networkingCopy = networking;
+  v58 = *MEMORY[0x277D85DE8];
+  namesCopy = names;
+  completionCopy = completion;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespaceNames_allowExpensiveNetworking_completion___block_invoke;
+  v54[3] = &unk_279DE0D08;
+  v54[4] = self;
+  v10 = namesCopy;
+  v55 = v10;
+  v56 = networkingCopy;
+  v11 = MEMORY[0x2743948D0](v54);
+  v11[2](v11, 0);
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespaceNames_allowExpensiveNetworking_completion___block_invoke_205;
+  v47[3] = &unk_279DE0C20;
+  v49 = &v50;
+  v12 = v11;
+  v48 = v12;
+  v13 = MEMORY[0x2743948D0](v47);
+  if ([MEMORY[0x277D73748] unsafeFirstAuthenticationState])
+  {
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespaceNames_allowExpensiveNetworking_completion___block_invoke_207;
+    v44[3] = &unk_279DE0C70;
+    v14 = v10;
+    v45 = v14;
+    v15 = completionCopy;
+    v46 = v15;
+    v37 = MEMORY[0x2743948D0](v44);
+    if (!v14 || ![v14 count])
+    {
+      v26 = TRILogCategory_Server();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_26F567000, v26, OS_LOG_TYPE_DEFAULT, "Immediate download is not needed, namespace names are either nil or empty", buf, 2u);
+      }
+
+      if (v15)
+      {
+        (*(v15 + 2))(v15, 0);
+      }
+
+      goto LABEL_28;
+    }
+
+    v16 = *MEMORY[0x277D73AC8];
+    v17 = *&self->_auditToken.val[4];
+    *buf = *self->_auditToken.val;
+    *&buf[16] = v17;
+    v18 = [MEMORY[0x277D736B0] objectForEntitlement:v16 withAuditToken:buf];
+    v19 = v18 == 0;
+
+    if (v19)
+    {
+      (v37)[2](v37, 3, @"Calling process is not entitled to immediate download");
+      v20 = TRILogCategory_Server();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        v29 = self->_auditToken.val[5];
+        *buf = 67109378;
+        *&buf[4] = v29;
+        *&buf[8] = 2112;
+        *&buf[10] = v16;
+        _os_log_error_impl(&dword_26F567000, v20, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required for immediate download: %@", buf, 0x12u);
+      }
+
+      goto LABEL_27;
+    }
+
+    v20 = objc_opt_new();
+    v21 = *&self->_auditToken.val[4];
+    *buf = *self->_auditToken.val;
+    *&buf[16] = v21;
+    v22 = [MEMORY[0x277D736B0] applicationBundleIdentifierWithAuditToken:buf];
+    v36 = v22;
+    if (v22)
+    {
+      if (([MEMORY[0x277D73810] validateSafeASCIISubsetIdentifier:v22] & 1) == 0)
+      {
+        v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"applicationBundleIdentifier (%@) can only contain alphanumeric characters, underscore (_), hyphen (-) or period (.)", v22];
+        (v37)[2](v37, 2, v23);
+        goto LABEL_26;
+      }
+
+      v23 = [objc_alloc(MEMORY[0x277D736A0]) initWithAllowsCellular:networkingCopy discretionaryBehavior:0];
+      [v23 setBoostPriority:{-[TRIXPCNamespaceManagementRequestHandler shouldBoostPriorityWithOptions:](self, "shouldBoostPriorityWithOptions:", v23)}];
+      if ([v23 boostPriority])
+      {
+        log = TRILogCategory_Server();
+        if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412546;
+          *&buf[4] = v23;
+          *&buf[12] = 2112;
+          *&buf[14] = v14;
+          _os_log_impl(&dword_26F567000, log, OS_LOG_TYPE_DEFAULT, "Boosting downloadOptions: %@ for immediateDownloadWithNamespaceNames: %@", buf, 0x16u);
+        }
+      }
+
+      loga = [[TRITaskAttributionInternalInsecure alloc] initWithTeamIdentifier:0 triCloudKitContainer:1 applicationBundleIdentifier:v36 networkOptions:v23];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespaceNames_allowExpensiveNetworking_completion___block_invoke_214;
+      v38[3] = &unk_279DE0D30;
+      v42 = v15;
+      v38[4] = self;
+      v39 = v14;
+      v40 = v20;
+      v43 = networkingCopy;
+      v24 = loga;
+      v41 = v24;
+      v25 = MEMORY[0x2743948D0](v38);
+      [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v25];
+      *(v51 + 24) = 1;
+    }
+
+    else
+    {
+      v30 = objc_alloc(MEMORY[0x277CCACA8]);
+      entitlementKeyForApplicationBundleIdentifier = [MEMORY[0x277D736B0] entitlementKeyForApplicationBundleIdentifier];
+      v23 = [v30 initWithFormat:@"Process is missing entitlement %@; you must declare the application bundle identifier explicitly in entitlements.", entitlementKeyForApplicationBundleIdentifier];
+
+      (v37)[2](v37, 3, v23);
+      v24 = TRILogCategory_Server();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        v32 = self->_auditToken.val[5];
+        entitlementKeyForApplicationBundleIdentifier2 = [MEMORY[0x277D736B0] entitlementKeyForApplicationBundleIdentifier];
+        *buf = 67109378;
+        *&buf[4] = v32;
+        *&buf[8] = 2114;
+        *&buf[10] = entitlementKeyForApplicationBundleIdentifier2;
+        _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement %{public}@.", buf, 0x12u);
+      }
+    }
+
+LABEL_26:
+LABEL_27:
+
+LABEL_28:
+    v28 = v45;
+    goto LABEL_29;
+  }
+
+  v27 = TRILogCategory_Server();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    *&buf[4] = v10;
+    _os_log_impl(&dword_26F567000, v27, OS_LOG_TYPE_DEFAULT, "Failing request for immediateDownloadForNamespaceNames:%{public}@ since device is still class C locked", buf, 0xCu);
+  }
+
+  if (completionCopy)
+  {
+    v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:5 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, v28);
+LABEL_29:
+  }
+
+  if (v13)
+  {
+    v13[2](v13);
+  }
+
+  _Block_object_dispose(&v50, 8);
 }
 
 void __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespaceNames_allowExpensiveNetworking_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1463,24 +1617,22 @@ void __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespac
       v11 = "NO";
     }
 
-    v13[0] = 67110658;
-    v13[1] = v5;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v9;
-    v18 = 2080;
-    v19 = v8;
-    v20 = 2114;
-    v21 = v10;
-    v22 = 2080;
-    v23 = v11;
-    v24 = 1026;
-    v25 = qos_class_self();
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s immediateDownloadForNamespaceNames:%{public}@ allowExpensiveNetworking:%s qos:%{public}u completion:", v13, 0x40u);
+    v12[0] = 67110658;
+    v12[1] = v5;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 2080;
+    v18 = v8;
+    v19 = 2114;
+    v20 = v10;
+    v21 = 2080;
+    v22 = v11;
+    v23 = 1026;
+    v24 = qos_class_self();
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s immediateDownloadForNamespaceNames:%{public}@ allowExpensiveNetworking:%s qos:%{public}u completion:", v12, 0x40u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespaceNames_allowExpensiveNetworking_completion___block_invoke_205(uint64_t result)
@@ -1495,23 +1647,23 @@ uint64_t __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForName
 
 void __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespaceNames_allowExpensiveNetworking_completion___block_invoke_207(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to start immediateDownloadForNamespaceNames %{public}@: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13 = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
   v10 = *(a1 + 40);
@@ -1519,72 +1671,69 @@ void __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespac
   {
     (*(v10 + 16))(v10, v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespaceNames_allowExpensiveNetworking_completion___block_invoke_214(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v8 = a2;
   v5 = a3;
-  if (v9 && v5)
+  if (v8 && v5)
   {
-    v6 = *(a1 + 32);
-    [objc_opt_class() _immediateDownloadForNamespaceNames:*(a1 + 40) usingEntitlementWitness:*(a1 + 48) serverContext:v9 taskQueue:v5 allowExpensiveNetworking:*(a1 + 72) taskAttribution:*(a1 + 56) completion:*(a1 + 64)];
+    [objc_opt_class() _immediateDownloadForNamespaceNames:*(a1 + 40) usingEntitlementWitness:*(a1 + 48) serverContext:v8 taskQueue:v5 allowExpensiveNetworking:*(a1 + 72) taskAttribution:*(a1 + 56) completion:*(a1 + 64)];
   }
 
   else
   {
-    v7 = *(a1 + 64);
-    if (v7)
+    v6 = *(a1 + 64);
+    if (v6)
     {
-      v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-      (*(v7 + 16))(v7, v8);
+      v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+      (*(v6 + 16))(v6, v7);
     }
   }
 }
 
 - (void)removeLevelsForFactors:(id)factors withNamespace:(id)namespace factorsState:(id)state removeImmediately:(BOOL)immediately completion:(id)completion
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   namespaceCopy = namespace;
   stateCopy = state;
   completionCopy = completion;
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke;
-  v57[3] = &unk_279DE0438;
-  v57[4] = self;
-  v38 = factorsCopy;
-  v58 = v38;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke;
+  v56[3] = &unk_279DE0438;
+  v56[4] = self;
+  v37 = factorsCopy;
+  v57 = v37;
   v15 = namespaceCopy;
-  v59 = v15;
+  v58 = v15;
   v16 = stateCopy;
-  v60 = v16;
-  v17 = MEMORY[0x2743948D0](v57);
+  v59 = v16;
+  v17 = MEMORY[0x2743948D0](v56);
   v17[2](v17, 0);
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
-  v56 = 0;
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_215;
-  v50[3] = &unk_279DE0C20;
-  v52 = &v53;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_215;
+  v49[3] = &unk_279DE0C20;
+  v51 = &v52;
   v18 = v17;
-  v51 = v18;
-  v19 = MEMORY[0x2743948D0](v50);
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_2;
-  v47[3] = &unk_279DE0C70;
+  v50 = v18;
+  v19 = MEMORY[0x2743948D0](v49);
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_2;
+  v46[3] = &unk_279DE0C70;
   v20 = v15;
-  v48 = v20;
+  v47 = v20;
   v21 = completionCopy;
-  v49 = v21;
-  v22 = MEMORY[0x2743948D0](v47);
+  v48 = v21;
+  v22 = MEMORY[0x2743948D0](v46);
   v23 = v22;
   if (!v20)
   {
@@ -1617,9 +1766,9 @@ void __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespac
       v33 = TRILogCategory_Server();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v36 = self->_auditToken.val[5];
+        v35 = self->_auditToken.val[5];
         *buf = 67109378;
-        *&buf[4] = v36;
+        *&buf[4] = v35;
         *&buf[8] = 2114;
         *&buf[10] = v28;
         _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required for on-demand factor removal: %{public}@", buf, 0x12u);
@@ -1630,22 +1779,22 @@ void __114__TRIXPCNamespaceManagementRequestHandler_immediateDownloadForNamespac
   }
 
   v32 = objc_opt_new();
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_219;
-  v39[3] = &unk_279DE0D58;
-  v44 = v18;
-  v45 = v21;
-  v39[4] = self;
-  v40 = v38;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_219;
+  v38[3] = &unk_279DE0D58;
+  v43 = v18;
+  v44 = v21;
+  v38[4] = self;
+  v39 = v37;
   v33 = v32;
-  v41 = v33;
-  v42 = v20;
-  v43 = v16;
+  v40 = v33;
+  v41 = v20;
+  v42 = v16;
   immediatelyCopy = immediately;
-  v34 = MEMORY[0x2743948D0](v39);
+  v34 = MEMORY[0x2743948D0](v38);
   [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v34];
-  *(v54 + 24) = 1;
+  *(v53 + 24) = 1;
 
 LABEL_7:
 LABEL_8:
@@ -1655,13 +1804,12 @@ LABEL_8:
     v19[2](v19);
   }
 
-  _Block_object_dispose(&v53, 8);
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v52, 8);
 }
 
 void __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1679,24 +1827,22 @@ void __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withN
 
     v12 = a1[6];
     v13 = a1[7];
-    v15[0] = 67110658;
-    v15[1] = v5;
-    v16 = 2114;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v10;
-    v20 = 2080;
-    v21 = v9;
-    v22 = 2114;
-    v23 = v11;
-    v24 = 2114;
-    v25 = v12;
-    v26 = 2114;
-    v27 = v13;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s removeLevelsForFactors:%{public}@ namespace:%{public}@ fstate:%{public}@ completion:", v15, 0x44u);
+    v14[0] = 67110658;
+    v14[1] = v5;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v10;
+    v19 = 2080;
+    v20 = v9;
+    v21 = 2114;
+    v22 = v11;
+    v23 = 2114;
+    v24 = v12;
+    v25 = 2114;
+    v26 = v13;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s removeLevelsForFactors:%{public}@ namespace:%{public}@ fstate:%{public}@ completion:", v14, 0x44u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_215(uint64_t result)
@@ -1711,23 +1857,23 @@ uint64_t __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_w
 
 void __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to removeLevelsForFactors %{public}@: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13 = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
   v10 = *(a1 + 40);
@@ -1735,35 +1881,32 @@ void __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withN
   {
     (*(v10 + 16))(v10, v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_219(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_2_220;
-  v13[3] = &unk_279DE0398;
-  v14 = *(a1 + 72);
-  v7 = MEMORY[0x2743948D0](v13);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withNamespace_factorsState_removeImmediately_completion___block_invoke_2_220;
+  v12[3] = &unk_279DE0398;
+  v13 = *(a1 + 72);
+  v7 = MEMORY[0x2743948D0](v12);
   if (v5 && v6)
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    LOBYTE(v12) = *(a1 + 88);
-    [v9 _removeAssetFactors:*(a1 + 40) usingEntitlementWitness:*(a1 + 48) serverContext:v5 taskQueue:v6 namespace:*(a1 + 56) factorsState:*(a1 + 64) removeImmediately:v12 completion:*(a1 + 80)];
+    v8 = objc_opt_class();
+    LOBYTE(v11) = *(a1 + 88);
+    [v8 _removeAssetFactors:*(a1 + 40) usingEntitlementWitness:*(a1 + 48) serverContext:v5 taskQueue:v6 namespace:*(a1 + 56) factorsState:*(a1 + 64) removeImmediately:v11 completion:*(a1 + 80)];
   }
 
   else
   {
-    v10 = *(a1 + 80);
-    if (v10)
+    v9 = *(a1 + 80);
+    if (v9)
     {
-      v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-      (*(v10 + 16))(v10, v11);
+      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+      (*(v9 + 16))(v9, v10);
     }
   }
 
@@ -1828,7 +1971,7 @@ void __122__TRIXPCNamespaceManagementRequestHandler_removeLevelsForFactors_withN
 
 void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFactors_forNamespaceName_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1845,22 +1988,20 @@ void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFact
       v9 = "begin";
     }
 
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s setPurgeabilityLevelsForFactors:%{public}@ forNamespace:%{public}@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v10;
+    v18 = 2080;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v11;
+    v22 = 2114;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s setPurgeabilityLevelsForFactors:%{public}@ forNamespace:%{public}@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFactors_forNamespaceName_completion___block_invoke_221(uint64_t result)
@@ -1875,15 +2016,15 @@ uint64_t __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsFor
 
 void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFactors_forNamespaceName_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFactors_forNamespaceName_completion___block_invoke_3;
-  v36[3] = &unk_279DE0398;
-  v37 = *(a1 + 56);
-  v7 = MEMORY[0x2743948D0](v36);
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFactors_forNamespaceName_completion___block_invoke_3;
+  v35[3] = &unk_279DE0398;
+  v36 = *(a1 + 56);
+  v7 = MEMORY[0x2743948D0](v35);
   if (v5 && v6)
   {
     v8 = [v5 paths];
@@ -1891,20 +2032,20 @@ void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFact
 
     if (v9)
     {
-      v31 = [MEMORY[0x277CCA890] currentHandler];
-      v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler setPurgeabilityLevelsForFactors:forNamespaceName:completion:]_block_invoke_2"];
-      [v31 handleFailureInFunction:v32 file:@"TRIXPCNamespaceManagementService.m" lineNumber:789 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
+      v30 = [MEMORY[0x277CCA890] currentHandler];
+      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler setPurgeabilityLevelsForFactors:forNamespaceName:completion:]_block_invoke_2"];
+      [v30 handleFailureInFunction:v31 file:@"TRIXPCNamespaceManagementService.m" lineNumber:789 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
     }
 
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFactors_forNamespaceName_completion___block_invoke_4;
-    v34[3] = &unk_279DE0548;
-    v35 = *(a1 + 64);
-    v10 = MEMORY[0x2743948D0](v34);
-    v33 = 0;
-    [*(a1 + 32) _validateNamespaceName:*(a1 + 40) error:&v33];
-    if (v33)
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFactors_forNamespaceName_completion___block_invoke_4;
+    v33[3] = &unk_279DE0548;
+    v34 = *(a1 + 64);
+    v10 = MEMORY[0x2743948D0](v33);
+    v32 = 0;
+    [*(a1 + 32) _validateNamespaceName:*(a1 + 40) error:&v32];
+    if (v32)
     {
       v11 = *(a1 + 64);
       if (v11)
@@ -1942,9 +2083,9 @@ void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFact
         v24 = TRILogCategory_Server();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v30 = *(*(a1 + 32) + 36);
+          v29 = *(*(a1 + 32) + 36);
           *buf = 67109378;
-          *&buf[4] = v30;
+          *&buf[4] = v29;
           *&buf[8] = 2114;
           *&buf[10] = v19;
           _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required to set purgeability factor levels: %{public}@", buf, 0x12u);
@@ -1964,7 +2105,7 @@ void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFact
 LABEL_14:
 LABEL_15:
 
-    v13 = v35;
+    v13 = v34;
     goto LABEL_16;
   }
 
@@ -1983,65 +2124,61 @@ LABEL_17:
   {
     v7[2](v7);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFactors_forNamespaceName_completion___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadNamespaceMetadataForNamespaceName:(id)name completion:(id)completion
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   completionCopy = completion;
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke;
-  v42[3] = &unk_279DE0208;
-  v42[4] = self;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke;
+  v41[3] = &unk_279DE0208;
+  v41[4] = self;
   v8 = nameCopy;
-  v43 = v8;
-  v9 = MEMORY[0x2743948D0](v42);
+  v42 = v8;
+  v9 = MEMORY[0x2743948D0](v41);
   v9[2](v9, 0);
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x2020000000;
-  v41 = 0;
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_225;
-  v37[3] = &unk_279DE0C20;
-  v39 = v40;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x2020000000;
+  v40 = 0;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_225;
+  v36[3] = &unk_279DE0C20;
+  v38 = v39;
   v10 = v9;
-  v38 = v10;
-  v11 = MEMORY[0x2743948D0](v37);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_2;
-  v35[3] = &unk_279DE0548;
+  v37 = v10;
+  v11 = MEMORY[0x2743948D0](v36);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_2;
+  v34[3] = &unk_279DE0548;
   v12 = completionCopy;
-  v36 = v12;
-  v13 = MEMORY[0x2743948D0](v35);
-  v34 = 0;
-  [(TRIXPCNamespaceManagementRequestHandler *)self _validateNamespaceName:v8 error:&v34];
-  if (!v34)
+  v35 = v12;
+  v13 = MEMORY[0x2743948D0](v34);
+  v33 = 0;
+  [(TRIXPCNamespaceManagementRequestHandler *)self _validateNamespaceName:v8 error:&v33];
+  if (!v33)
   {
     v14 = MEMORY[0x277D425B0];
     v15 = *MEMORY[0x277D73AC0];
@@ -2068,9 +2205,9 @@ void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFact
         v23 = TRILogCategory_Server();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v25 = self->_auditToken.val[5];
+          v24 = self->_auditToken.val[5];
           *buf = 67109378;
-          *&buf[4] = v25;
+          *&buf[4] = v24;
           *&buf[8] = 2114;
           *&buf[10] = v18;
           _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required to load purgeability factor levels: %{public}@", buf, 0x12u);
@@ -2080,18 +2217,18 @@ void __103__TRIXPCNamespaceManagementRequestHandler_setPurgeabilityLevelsForFact
       }
     }
 
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_229;
-    v29 = &unk_279DE0610;
-    v32 = v10;
-    v33 = v12;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_229;
+    v28 = &unk_279DE0610;
+    v31 = v10;
+    v32 = v12;
     selfCopy = self;
-    v31 = v8;
-    v22 = MEMORY[0x2743948D0](&v26);
-    [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v22, v26, v27, v28, v29, selfCopy];
+    v30 = v8;
+    v22 = MEMORY[0x2743948D0](&v25);
+    [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v22, v25, v26, v27, v28, selfCopy];
 
-    v23 = v32;
+    v23 = v31;
 LABEL_8:
 
     goto LABEL_9;
@@ -2109,13 +2246,12 @@ LABEL_9:
     v11[2](v11);
   }
 
-  _Block_object_dispose(v40, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v39, 8);
 }
 
 void __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2126,25 +2262,23 @@ void __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNames
     v9 = "end";
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v13[0] = 67110146;
+    v12[0] = 67110146;
     if (!a2)
     {
       v9 = "begin";
     }
 
-    v13[1] = v5;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v10;
-    v18 = 2080;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s loadNamespaceMetadataForNamespaceName:%{public}@ completion:", v13, 0x30u);
+    v12[1] = v5;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v10;
+    v17 = 2080;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v11;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s loadNamespaceMetadataForNamespaceName:%{public}@ completion:", v12, 0x30u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_225(uint64_t result)
@@ -2159,21 +2293,19 @@ uint64_t __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForN
 
 void __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __92__TRIXPCNamespaceManagementRequestHandler_loadNamespaceMetadataForNamespaceName_completion___block_invoke_229(uint64_t a1, void *a2, void *a3)
@@ -2225,42 +2357,42 @@ LABEL_9:
 
 - (void)setProvisionalFactorPackId:(id)id forNamespaceName:(id)name completion:(id)completion
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   idCopy = id;
   nameCopy = name;
   completionCopy = completion;
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke;
-  v51[3] = &unk_279DE05E8;
-  v51[4] = self;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke;
+  v50[3] = &unk_279DE05E8;
+  v50[4] = self;
   v11 = idCopy;
-  v52 = v11;
+  v51 = v11;
   v12 = nameCopy;
-  v53 = v12;
-  v13 = MEMORY[0x2743948D0](v51);
+  v52 = v12;
+  v13 = MEMORY[0x2743948D0](v50);
   v13[2](v13, 0);
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_231;
-  v44[3] = &unk_279DE0C20;
-  v46 = &v47;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_231;
+  v43[3] = &unk_279DE0C20;
+  v45 = &v46;
   v14 = v13;
-  v45 = v14;
-  v15 = MEMORY[0x2743948D0](v44);
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_2;
-  v41[3] = &unk_279DE0C70;
+  v44 = v14;
+  v15 = MEMORY[0x2743948D0](v43);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_2;
+  v40[3] = &unk_279DE0C70;
   v16 = v12;
-  v42 = v16;
+  v41 = v16;
   v17 = completionCopy;
-  v43 = v17;
-  v18 = MEMORY[0x2743948D0](v41);
+  v42 = v17;
+  v18 = MEMORY[0x2743948D0](v40);
   v19 = v18;
   if (!v16)
   {
@@ -2293,9 +2425,9 @@ LABEL_9:
       v29 = TRILogCategory_Server();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v31 = self->_auditToken.val[5];
+        v30 = self->_auditToken.val[5];
         *buf = 67109378;
-        *&buf[4] = v31;
+        *&buf[4] = v30;
         *&buf[8] = 2114;
         *&buf[10] = v24;
         _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required set factor pack id provisional: %{public}@", buf, 0x12u);
@@ -2305,20 +2437,20 @@ LABEL_9:
     }
   }
 
-  v32 = MEMORY[0x277D85DD0];
-  v33 = 3221225472;
-  v34 = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_235;
-  v35 = &unk_279DE07C8;
-  v39 = v14;
-  v40 = v17;
+  v31 = MEMORY[0x277D85DD0];
+  v32 = 3221225472;
+  v33 = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_235;
+  v34 = &unk_279DE07C8;
+  v38 = v14;
+  v39 = v17;
   selfCopy = self;
-  v37 = v11;
-  v38 = v16;
-  v28 = MEMORY[0x2743948D0](&v32);
-  [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v28, v32, v33, v34, v35, selfCopy];
-  *(v48 + 24) = 1;
+  v36 = v11;
+  v37 = v16;
+  v28 = MEMORY[0x2743948D0](&v31);
+  [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v28, v31, v32, v33, v34, selfCopy];
+  *(v47 + 24) = 1;
 
-  v29 = v39;
+  v29 = v38;
 LABEL_7:
 
 LABEL_8:
@@ -2327,13 +2459,12 @@ LABEL_8:
     v15[2](v15);
   }
 
-  _Block_object_dispose(&v47, 8);
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v46, 8);
 }
 
 void __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2353,24 +2484,22 @@ void __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_fo
     v9 = a1[4];
     v10 = a1[5];
     v11 = a1[6];
-    v13[0] = 67110658;
-    v13[1] = v5;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v9;
-    v18 = 2080;
-    v19 = v8;
-    v20 = 2114;
-    v21 = v10;
-    v22 = 2114;
-    v23 = v11;
-    v24 = 1024;
-    v25 = qos_class_self();
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s setProvisionalFactorPackId:%{public}@ forNamespaceName:%{public}@ completion: qos:%u", v13, 0x40u);
+    v12[0] = 67110658;
+    v12[1] = v5;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 2080;
+    v18 = v8;
+    v19 = 2114;
+    v20 = v10;
+    v21 = 2114;
+    v22 = v11;
+    v23 = 1024;
+    v24 = qos_class_self();
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s setProvisionalFactorPackId:%{public}@ forNamespaceName:%{public}@ completion: qos:%u", v12, 0x40u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_231(uint64_t result)
@@ -2385,23 +2514,23 @@ uint64_t __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackI
 
 void __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to setProvisionalFactorPackId %{public}@: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13 = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
   v10 = *(a1 + 40);
@@ -2409,37 +2538,34 @@ void __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_fo
   {
     (*(v10 + 16))(v10, 0, v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_235(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_2_236;
-  v11[3] = &unk_279DE0398;
-  v12 = *(a1 + 56);
-  v7 = MEMORY[0x2743948D0](v11);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __98__TRIXPCNamespaceManagementRequestHandler_setProvisionalFactorPackId_forNamespaceName_completion___block_invoke_2_236;
+  v10[3] = &unk_279DE0398;
+  v11 = *(a1 + 56);
+  v7 = MEMORY[0x2743948D0](v10);
   if (v5 && v6)
   {
     v8 = objc_opt_new();
-    v9 = *(a1 + 32);
     [objc_opt_class() _setProvisionalFactorPackId:*(a1 + 40) usingEntitlementWitness:v8 serverContext:v5 forNamespaceName:*(a1 + 48) completion:*(a1 + 64)];
   }
 
   else
   {
-    v10 = *(a1 + 64);
-    if (!v10)
+    v9 = *(a1 + 64);
+    if (!v9)
     {
       goto LABEL_7;
     }
 
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-    (*(v10 + 16))(v10, 0, v8);
+    (*(v9 + 16))(v9, 0, v8);
   }
 
 LABEL_7:
@@ -2451,43 +2577,43 @@ LABEL_7:
 
 - (void)rejectFactorPackId:(id)id forNamespaceName:(id)name rolloutDeployment:(id)deployment completion:(id)completion
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   idCopy = id;
   nameCopy = name;
   deploymentCopy = deployment;
   completionCopy = completion;
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke;
-  v53[3] = &unk_279DE05E8;
-  v53[4] = self;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke;
+  v52[3] = &unk_279DE05E8;
+  v52[4] = self;
   v13 = idCopy;
-  v54 = v13;
+  v53 = v13;
   v14 = nameCopy;
-  v55 = v14;
-  v15 = MEMORY[0x2743948D0](v53);
+  v54 = v14;
+  v15 = MEMORY[0x2743948D0](v52);
   v15[2](v15, 0);
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_237;
-  v46[3] = &unk_279DE0C20;
-  v48 = &v49;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_237;
+  v45[3] = &unk_279DE0C20;
+  v47 = &v48;
   v16 = v15;
-  v47 = v16;
-  v17 = MEMORY[0x2743948D0](v46);
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2;
-  v43[3] = &unk_279DE0C70;
+  v46 = v16;
+  v17 = MEMORY[0x2743948D0](v45);
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2;
+  v42[3] = &unk_279DE0C70;
   v18 = v14;
-  v44 = v18;
+  v43 = v18;
   v19 = completionCopy;
-  v45 = v19;
-  v20 = MEMORY[0x2743948D0](v43);
+  v44 = v19;
+  v20 = MEMORY[0x2743948D0](v42);
   v21 = v20;
   if (!v18)
   {
@@ -2520,9 +2646,9 @@ LABEL_7:
       v31 = TRILogCategory_Server();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v34 = self->_auditToken.val[5];
+        v33 = self->_auditToken.val[5];
         *buf = 67109378;
-        *&buf[4] = v34;
+        *&buf[4] = v33;
         *&buf[8] = 2114;
         *&buf[10] = v26;
         _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required reject factor pack id: %{public}@", buf, 0x12u);
@@ -2533,21 +2659,21 @@ LABEL_7:
   }
 
   v30 = objc_opt_new();
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_241;
-  v36[3] = &unk_279DE0D80;
-  v41 = v16;
-  v42 = v19;
-  v36[4] = self;
-  v37 = v13;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_241;
+  v35[3] = &unk_279DE0D80;
+  v40 = v16;
+  v41 = v19;
+  v35[4] = self;
+  v36 = v13;
   v31 = v30;
-  v38 = v31;
-  v39 = v18;
-  v40 = deploymentCopy;
-  v32 = MEMORY[0x2743948D0](v36);
+  v37 = v31;
+  v38 = v18;
+  v39 = deploymentCopy;
+  v32 = MEMORY[0x2743948D0](v35);
   [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v32];
-  *(v50 + 24) = 1;
+  *(v49 + 24) = 1;
 
 LABEL_7:
 LABEL_8:
@@ -2557,13 +2683,12 @@ LABEL_8:
     v17[2](v17);
   }
 
-  _Block_object_dispose(&v49, 8);
-  v33 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
 }
 
 void __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2580,22 +2705,20 @@ void __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamesp
       v9 = "begin";
     }
 
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s rejectFactorPackId:%{public}@ forNamespaceName:%{public}@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v10;
+    v18 = 2080;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v11;
+    v22 = 2114;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s rejectFactorPackId:%{public}@ forNamespaceName:%{public}@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_237(uint64_t result)
@@ -2610,23 +2733,23 @@ uint64_t __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNa
 
 void __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to rejectFactorPackId %{public}@: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13 = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
   v10 = *(a1 + 40);
@@ -2634,33 +2757,30 @@ void __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamesp
   {
     (*(v10 + 16))(v10, 0, v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_241(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2_242;
-  v11[3] = &unk_279DE0398;
-  v12 = *(a1 + 72);
-  v7 = MEMORY[0x2743948D0](v11);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2_242;
+  v10[3] = &unk_279DE0398;
+  v11 = *(a1 + 72);
+  v7 = MEMORY[0x2743948D0](v10);
   if (v5 && v6)
   {
-    v8 = *(a1 + 32);
     [objc_opt_class() _rejectFactorPackId:*(a1 + 40) usingEntitlementWitness:*(a1 + 48) serverContext:v5 forNamespaceName:*(a1 + 56) rolloutDeployment:*(a1 + 64) completion:*(a1 + 80)];
   }
 
   else
   {
-    v9 = *(a1 + 80);
-    if (v9)
+    v8 = *(a1 + 80);
+    if (v8)
     {
-      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-      (*(v9 + 16))(v9, 0, v10);
+      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+      (*(v8 + 16))(v8, 0, v9);
     }
   }
 
@@ -2672,43 +2792,43 @@ void __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamesp
 
 - (void)promoteFactorPackId:(id)id forNamespaceName:(id)name rolloutDeployment:(id)deployment completion:(id)completion
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   idCopy = id;
   nameCopy = name;
   deploymentCopy = deployment;
   completionCopy = completion;
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke;
-  v53[3] = &unk_279DE05E8;
-  v53[4] = self;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke;
+  v52[3] = &unk_279DE05E8;
+  v52[4] = self;
   v13 = idCopy;
-  v54 = v13;
+  v53 = v13;
   v14 = nameCopy;
-  v55 = v14;
-  v15 = MEMORY[0x2743948D0](v53);
+  v54 = v14;
+  v15 = MEMORY[0x2743948D0](v52);
   v15[2](v15, 0);
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_243;
-  v46[3] = &unk_279DE0C20;
-  v48 = &v49;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_243;
+  v45[3] = &unk_279DE0C20;
+  v47 = &v48;
   v16 = v15;
-  v47 = v16;
-  v17 = MEMORY[0x2743948D0](v46);
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2;
-  v43[3] = &unk_279DE0C70;
+  v46 = v16;
+  v17 = MEMORY[0x2743948D0](v45);
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2;
+  v42[3] = &unk_279DE0C70;
   v18 = v14;
-  v44 = v18;
+  v43 = v18;
   v19 = completionCopy;
-  v45 = v19;
-  v20 = MEMORY[0x2743948D0](v43);
+  v44 = v19;
+  v20 = MEMORY[0x2743948D0](v42);
   v21 = v20;
   if (!v18)
   {
@@ -2741,9 +2861,9 @@ void __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamesp
       v31 = TRILogCategory_Server();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v34 = self->_auditToken.val[5];
+        v33 = self->_auditToken.val[5];
         *buf = 67109378;
-        *&buf[4] = v34;
+        *&buf[4] = v33;
         *&buf[8] = 2114;
         *&buf[10] = v26;
         _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required for on-demand factor removal: %{public}@", buf, 0x12u);
@@ -2754,21 +2874,21 @@ void __108__TRIXPCNamespaceManagementRequestHandler_rejectFactorPackId_forNamesp
   }
 
   v30 = objc_opt_new();
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_244;
-  v36[3] = &unk_279DE0D80;
-  v41 = v16;
-  v42 = v19;
-  v36[4] = self;
-  v37 = v13;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_244;
+  v35[3] = &unk_279DE0D80;
+  v40 = v16;
+  v41 = v19;
+  v35[4] = self;
+  v36 = v13;
   v31 = v30;
-  v38 = v31;
-  v39 = v18;
-  v40 = deploymentCopy;
-  v32 = MEMORY[0x2743948D0](v36);
+  v37 = v31;
+  v38 = v18;
+  v39 = deploymentCopy;
+  v32 = MEMORY[0x2743948D0](v35);
   [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v32];
-  *(v50 + 24) = 1;
+  *(v49 + 24) = 1;
 
 LABEL_7:
 LABEL_8:
@@ -2778,13 +2898,12 @@ LABEL_8:
     v17[2](v17);
   }
 
-  _Block_object_dispose(&v49, 8);
-  v33 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
 }
 
 void __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2801,22 +2920,20 @@ void __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNames
       v9 = "begin";
     }
 
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s promoteFactorPackId:%{public}@ forNamespaceName:%{public}@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v10;
+    v18 = 2080;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v11;
+    v22 = 2114;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s promoteFactorPackId:%{public}@ forNamespaceName:%{public}@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_243(uint64_t result)
@@ -2831,23 +2948,23 @@ uint64_t __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forN
 
 void __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to promoteFactorPackId for %{public}@: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13 = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
   v10 = *(a1 + 40);
@@ -2855,33 +2972,30 @@ void __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNames
   {
     (*(v10 + 16))(v10, 0, v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_244(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2_245;
-  v11[3] = &unk_279DE0398;
-  v12 = *(a1 + 72);
-  v7 = MEMORY[0x2743948D0](v11);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNamespaceName_rolloutDeployment_completion___block_invoke_2_245;
+  v10[3] = &unk_279DE0398;
+  v11 = *(a1 + 72);
+  v7 = MEMORY[0x2743948D0](v10);
   if (v5 && v6)
   {
-    v8 = *(a1 + 32);
     [objc_opt_class() _promoteFactorPackId:*(a1 + 40) usingEntitlementWitness:*(a1 + 48) serverContext:v5 forNamespaceName:*(a1 + 56) rolloutDeployment:*(a1 + 64) completion:*(a1 + 80)];
   }
 
   else
   {
-    v9 = *(a1 + 80);
-    if (v9)
+    v8 = *(a1 + 80);
+    if (v8)
     {
-      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-      (*(v9 + 16))(v9, 0, v10);
+      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+      (*(v8 + 16))(v8, 0, v9);
     }
   }
 
@@ -2893,62 +3007,62 @@ void __109__TRIXPCNamespaceManagementRequestHandler_promoteFactorPackId_forNames
 
 - (void)statusOfDownloadForFactors:(id)factors withNamespace:(id)namespace factorsState:(id)state completion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   namespaceCopy = namespace;
   stateCopy = state;
   completionCopy = completion;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke;
-  v47[3] = &unk_279DE0438;
-  v47[4] = self;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke;
+  v46[3] = &unk_279DE0438;
+  v46[4] = self;
   v14 = factorsCopy;
-  v48 = v14;
+  v47 = v14;
   v15 = namespaceCopy;
-  v49 = v15;
+  v48 = v15;
   v16 = stateCopy;
-  v50 = v16;
-  v17 = MEMORY[0x2743948D0](v47);
+  v49 = v16;
+  v17 = MEMORY[0x2743948D0](v46);
   v17[2](v17, 0);
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_246;
-  v40[3] = &unk_279DE0C20;
-  v42 = &v43;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_246;
+  v39[3] = &unk_279DE0C20;
+  v41 = &v42;
   v18 = v17;
-  v41 = v18;
-  v19 = MEMORY[0x2743948D0](v40);
+  v40 = v18;
+  v19 = MEMORY[0x2743948D0](v39);
   if ([MEMORY[0x277D73748] unsafeFirstAuthenticationState])
   {
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_247;
-    v38[3] = &unk_279DE0548;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_247;
+    v37[3] = &unk_279DE0548;
     v20 = completionCopy;
-    v39 = v20;
-    v21 = MEMORY[0x2743948D0](v38);
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_2;
-    v30 = &unk_279DE0DD0;
-    v35 = v18;
-    v36 = v20;
+    v38 = v20;
+    v21 = MEMORY[0x2743948D0](v37);
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_2;
+    v29 = &unk_279DE0DD0;
+    v34 = v18;
+    v35 = v20;
     selfCopy = self;
     v22 = v21;
-    v37 = v22;
-    v32 = v14;
-    v33 = v15;
-    v34 = v16;
-    v23 = MEMORY[0x2743948D0](&v27);
-    [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v23, v27, v28, v29, v30, selfCopy];
-    *(v44 + 24) = 1;
+    v36 = v22;
+    v31 = v14;
+    v32 = v15;
+    v33 = v16;
+    v23 = MEMORY[0x2743948D0](&v26);
+    [(TRIXPCNamespaceManagementRequestHandler *)self runBlockWhenServerAvailable:v23, v26, v27, v28, v29, selfCopy];
+    *(v43 + 24) = 1;
 
-    v24 = v39;
+    v24 = v38;
 LABEL_7:
 
     goto LABEL_8;
@@ -2958,7 +3072,7 @@ LABEL_7:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v52 = v15;
+    v51 = v15;
     _os_log_impl(&dword_26F567000, v25, OS_LOG_TYPE_DEFAULT, "cannot determine download status of factors for %@", buf, 0xCu);
   }
 
@@ -2975,13 +3089,12 @@ LABEL_8:
     v19[2](v19);
   }
 
-  _Block_object_dispose(&v43, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 }
 
 void __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -3002,26 +3115,24 @@ void __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_w
     v10 = a1[5];
     v12 = a1[6];
     v11 = a1[7];
-    v14[0] = 67110914;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v9;
-    v19 = 2080;
-    v20 = v8;
-    v21 = 2114;
-    v22 = v10;
-    v23 = 2114;
-    v24 = v12;
-    v25 = 2114;
-    v26 = v11;
-    v27 = 1026;
-    v28 = qos_class_self();
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s statusOfDownloadForFactors:%{public}@ withNamespace:%{public}@ fstate:%{public}@ qos:%{public}u completion:", v14, 0x4Au);
+    v13[0] = 67110914;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v9;
+    v18 = 2080;
+    v19 = v8;
+    v20 = 2114;
+    v21 = v10;
+    v22 = 2114;
+    v23 = v12;
+    v24 = 2114;
+    v25 = v11;
+    v26 = 1026;
+    v27 = qos_class_self();
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s statusOfDownloadForFactors:%{public}@ withNamespace:%{public}@ fstate:%{public}@ qos:%{public}u completion:", v13, 0x4Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_246(uint64_t result)
@@ -3036,34 +3147,32 @@ uint64_t __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFacto
 
 void __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_247(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_3;
-  v47[3] = &unk_279DE0398;
-  v48 = *(a1 + 64);
-  v7 = MEMORY[0x2743948D0](v47);
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_3;
+  v45[3] = &unk_279DE0398;
+  v46 = *(a1 + 64);
+  v7 = MEMORY[0x2743948D0](v45);
   if (v5 && v6)
   {
     v8 = [v5 paths];
@@ -3071,9 +3180,9 @@ void __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_w
 
     if (v9)
     {
-      v40 = [MEMORY[0x277CCA890] currentHandler];
-      v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler statusOfDownloadForFactors:withNamespace:factorsState:completion:]_block_invoke_2"];
-      [v40 handleFailureInFunction:v41 file:@"TRIXPCNamespaceManagementService.m" lineNumber:1157 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
+      v38 = [MEMORY[0x277CCA890] currentHandler];
+      v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler statusOfDownloadForFactors:withNamespace:factorsState:completion:]_block_invoke_2"];
+      [v38 handleFailureInFunction:v39 file:@"TRIXPCNamespaceManagementService.m" lineNumber:1157 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
     }
 
     v10 = MEMORY[0x277D425B0];
@@ -3087,51 +3196,49 @@ void __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_w
     {
 
 LABEL_10:
-      v46 = 0;
-      v45 = 0;
-      v43 = 0;
       v44 = 0;
+      v43 = 0;
+      v41 = 0;
+      v42 = 0;
       v22 = MEMORY[0x277D73718];
       v23 = *(a1 + 40);
       v24 = *(a1 + 48);
       v25 = [v5 paths];
-      v26 = [v22 validateDownloadForFactors:v23 withNamespace:v24 paths:v25 container:&v45 factorsState:*(a1 + 56) assetIndexesByTreatment:&v44 experimentIds:0 assetIdsByFactorPack:&v43 rolloutFactorNames:0 rolloutDeployments:0 error:&v46];
+      v26 = [v22 validateDownloadForFactors:v23 withNamespace:v24 paths:v25 container:&v43 factorsState:*(a1 + 56) assetIndexesByTreatment:&v42 experimentIds:0 assetIdsByFactorPack:&v41 rolloutFactorNames:0 rolloutDeployments:0 error:&v44];
 
-      v27 = *(a1 + 32);
-      v28 = [objc_opt_class() _notificationKeyWithNamespace:*(a1 + 48) assetIndexesByTreatment:v44 assetIdsByFactorPack:v43];
-      v29 = TRILogCategory_Server();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v27 = [objc_opt_class() _notificationKeyWithNamespace:*(a1 + 48) assetIndexesByTreatment:v42 assetIdsByFactorPack:v41];
+      v28 = TRILogCategory_Server();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        *&buf[4] = v28;
+        *&buf[4] = v27;
         *&buf[12] = 2112;
-        *&buf[14] = v44;
-        _os_log_impl(&dword_26F567000, v29, OS_LOG_TYPE_INFO, "Notification key is %@, asset index: %@", buf, 0x16u);
+        *&buf[14] = v42;
+        _os_log_impl(&dword_26F567000, v28, OS_LOG_TYPE_INFO, "Notification key is %@, asset index: %@", buf, 0x16u);
       }
 
       if (v26)
       {
-        if ([v44 count] || objc_msgSend(v43, "count"))
+        if ([v42 count] || objc_msgSend(v41, "count"))
         {
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
           *&buf[24] = 1;
-          v30 = objc_autoreleasePoolPush();
-          v31 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v28, 0}];
-          objc_autoreleasePoolPop(v30);
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_252;
-          v42[3] = &unk_279DE0DA8;
-          v42[4] = buf;
-          [v6 enumerateTasksWithTagsIntersectingTagSet:v31 block:v42];
+          v29 = objc_autoreleasePoolPush();
+          v30 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v27, 0}];
+          objc_autoreleasePoolPop(v29);
+          v40[0] = MEMORY[0x277D85DD0];
+          v40[1] = 3221225472;
+          v40[2] = __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_252;
+          v40[3] = &unk_279DE0DA8;
+          v40[4] = buf;
+          [v6 enumerateTasksWithTagsIntersectingTagSet:v30 block:v40];
 
-          v32 = *(a1 + 72);
-          if (v32)
+          v31 = *(a1 + 72);
+          if (v31)
           {
-            *(*&buf[8] + 24);
-            (*(v32 + 16))();
+            (*(v31 + 16))();
           }
 
           _Block_object_dispose(buf, 8);
@@ -3139,31 +3246,31 @@ LABEL_10:
 
         else
         {
-          v36 = TRILogCategory_Server();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v34 = TRILogCategory_Server();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
-            v37 = *(a1 + 48);
+            v35 = *(a1 + 48);
             *buf = 138412290;
-            *&buf[4] = v37;
-            _os_log_impl(&dword_26F567000, v36, OS_LOG_TYPE_INFO, "Got on-demand factor status for namespace %@ with all assets already downloaded.", buf, 0xCu);
+            *&buf[4] = v35;
+            _os_log_impl(&dword_26F567000, v34, OS_LOG_TYPE_INFO, "Got on-demand factor status for namespace %@ with all assets already downloaded.", buf, 0xCu);
           }
 
-          v38 = *(a1 + 72);
-          if (v38)
+          v36 = *(a1 + 72);
+          if (v36)
           {
-            (*(v38 + 16))(v38, 4, 0, 0);
+            (*(v36 + 16))(v36, 4, 0, 0);
           }
 
-          [MEMORY[0x277D73698] notifyDownloadCompletedForKey:v28];
+          [MEMORY[0x277D73698] notifyDownloadCompletedForKey:v27];
         }
       }
 
       else
       {
-        v33 = *(a1 + 72);
-        if (v33)
+        v32 = *(a1 + 72);
+        if (v32)
         {
-          (*(v33 + 16))(v33, 0, 0, v46);
+          (*(v32 + 16))(v32, 0, 0, v44);
         }
       }
 
@@ -3184,15 +3291,15 @@ LABEL_10:
     }
 
     (*(*(a1 + 80) + 16))();
-    v35 = TRILogCategory_Server();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v33 = TRILogCategory_Server();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v39 = *(*(a1 + 32) + 36);
+      v37 = *(*(a1 + 32) + 36);
       *buf = 67109378;
-      *&buf[4] = v39;
+      *&buf[4] = v37;
       *&buf[8] = 2114;
       *&buf[10] = v17;
-      _os_log_error_impl(&dword_26F567000, v35, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required for seeing download status of on-demand factors: %{public}@", buf, 0x12u);
+      _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "XPC client process with pid %d is missing entitlement required for seeing download status of on-demand factors: %{public}@", buf, 0x12u);
     }
   }
 
@@ -3211,8 +3318,6 @@ LABEL_21:
   {
     v7[2](v7);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_withNamespace_factorsState_completion___block_invoke_252(uint64_t a1, void *a2, _BYTE *a3)
@@ -3327,7 +3432,7 @@ void __108__TRIXPCNamespaceManagementRequestHandler_statusOfDownloadForFactors_w
 
 void __101__TRIXPCNamespaceManagementRequestHandler_getSandboxExtensionTokensForIdentifierQueryWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -3337,23 +3442,21 @@ void __101__TRIXPCNamespaceManagementRequestHandler_getSandboxExtensionTokensFor
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s getSandboxExtensionTokensForIdentifierQueryWithCompletioncompletion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s getSandboxExtensionTokensForIdentifierQueryWithCompletioncompletion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __101__TRIXPCNamespaceManagementRequestHandler_getSandboxExtensionTokensForIdentifierQueryWithCompletion___block_invoke_255(uint64_t result)
@@ -3430,7 +3533,7 @@ LABEL_4:
 
 void __127__TRIXPCNamespaceManagementRequestHandler__setPurgeabilityLevelsForFactors_usingEntitlementWitness_namespace_paths_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -3440,9 +3543,9 @@ void __127__TRIXPCNamespaceManagementRequestHandler__setPurgeabilityLevelsForFac
 
     if (!v8)
     {
-      v31 = [MEMORY[0x277CCA890] currentHandler];
-      v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler _setPurgeabilityLevelsForFactors:usingEntitlementWitness:namespace:paths:completion:]_block_invoke"];
-      [v31 handleFailureInFunction:v32 file:@"TRIXPCNamespaceManagementService.m" lineNumber:1294 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
+      v30 = [MEMORY[0x277CCA890] currentHandler];
+      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIXPCNamespaceManagementRequestHandler _setPurgeabilityLevelsForFactors:usingEntitlementWitness:namespace:paths:completion:]_block_invoke"];
+      [v30 handleFailureInFunction:v31 file:@"TRIXPCNamespaceManagementService.m" lineNumber:1294 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
     }
 
     v9 = *(a1 + 32);
@@ -3450,36 +3553,36 @@ void __127__TRIXPCNamespaceManagementRequestHandler__setPurgeabilityLevelsForFac
     v11 = [v5 paths];
     v12 = [v9 _factorProviderChainForNamespace:v10 paths:v11];
 
-    v39 = 0;
-    if ([*(a1 + 32) _validateSetPurgeabilityLevelRequestUsingFactorProviderChain:v12 paths:*(a1 + 48) purgeabilityLevelsForFactors:*(a1 + 56) error:&v39])
+    v38 = 0;
+    if ([*(a1 + 32) _validateSetPurgeabilityLevelRequestUsingFactorProviderChain:v12 paths:*(a1 + 48) purgeabilityLevelsForFactors:*(a1 + 56) error:&v38])
     {
-      v34 = v7;
+      v33 = v7;
       v13 = objc_opt_new();
-      v33 = v12;
+      v32 = v12;
       [v13 setCompatibilityVersion:{objc_msgSend(v12, "namespaceCompatibilityVersion")}];
       v14 = objc_alloc_init(MEMORY[0x277D73B80]);
       [v13 setFactorNamePurgeabilityLevels:v14];
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v15 = *(a1 + 56);
-      v16 = [v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v36;
+        v18 = *v35;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v36 != v18)
+            if (*v35 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v35 + 1) + 8 * i);
+            v20 = *(*(&v34 + 1) + 8 * i);
             v21 = [*(a1 + 56) objectForKey:v20];
             v22 = [v21 intValue];
 
@@ -3487,7 +3590,7 @@ void __127__TRIXPCNamespaceManagementRequestHandler__setPurgeabilityLevelsForFac
             [v23 setEnum:v22 forKey:v20];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
         while (v17);
@@ -3504,8 +3607,8 @@ void __127__TRIXPCNamespaceManagementRequestHandler__setPurgeabilityLevelsForFac
         (*(v27 + 16))(v27, 0);
       }
 
-      v12 = v33;
-      v7 = v34;
+      v12 = v32;
+      v7 = v33;
     }
 
     else
@@ -3513,7 +3616,7 @@ void __127__TRIXPCNamespaceManagementRequestHandler__setPurgeabilityLevelsForFac
       v29 = *(a1 + 64);
       if (v29)
       {
-        (*(v29 + 16))(v29, v39);
+        (*(v29 + 16))(v29, v38);
       }
     }
 
@@ -3527,20 +3630,18 @@ void __127__TRIXPCNamespaceManagementRequestHandler__setPurgeabilityLevelsForFac
     (*(v28 + 16))(v28, v12);
 LABEL_21:
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_validateSetPurgeabilityLevelRequestUsingFactorProviderChain:(id)chain paths:(id)paths purgeabilityLevelsForFactors:(id)factors error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   chainCopy = chain;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   factorsCopy = factors;
-  v10 = [factorsCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v10 = [factorsCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (!v10)
   {
     v19 = 1;
@@ -3549,17 +3650,17 @@ LABEL_21:
 
   v11 = v10;
   errorCopy = error;
-  v12 = *v31;
+  v12 = *v30;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v31 != v12)
+      if (*v30 != v12)
       {
         objc_enumerationMutation(factorsCopy);
       }
 
-      v14 = *(*(&v30 + 1) + 8 * i);
+      v14 = *(*(&v29 + 1) + 8 * i);
       v15 = [chainCopy levelForFactor:v14];
       v16 = [v15 fileOrDirectoryLevelWithIsDir:0];
       if (!v16)
@@ -3576,9 +3677,9 @@ LABEL_14:
         }
 
         v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v35 = *MEMORY[0x277CCA450];
+        v34 = *MEMORY[0x277CCA450];
         *buf = v21;
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v35 count:1];
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v34 count:1];
         v25 = [v23 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v24];
 
         v26 = *errorCopy;
@@ -3599,7 +3700,7 @@ LABEL_14:
       }
     }
 
-    v11 = [factorsCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v11 = [factorsCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
     v19 = 1;
     if (v11)
     {
@@ -3611,7 +3712,6 @@ LABEL_14:
 
 LABEL_17:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -3746,23 +3846,22 @@ LABEL_7:
 
 id __72__TRIXPCNamespaceManagementRequestHandler__validateNamespaceName_error___block_invoke(void *a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCA9B8];
   v2 = a1;
   v3 = [v1 alloc];
-  v8 = *MEMORY[0x277CCA450];
-  v9[0] = v2;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x277CCA450];
+  v8[0] = v2;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   v5 = [v3 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v4];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (void)_purgeMismatchedDataForDynamicNamespaceName:(id)name appContainer:(id)container serverContext:(id)context
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   containerCopy = container;
   contextCopy = context;
@@ -3776,14 +3875,14 @@ id __72__TRIXPCNamespaceManagementRequestHandler__validateNamespaceName_error___
     {
       v15 = [v13 componentsJoinedByString:{@", "}];
       *buf = 138543618;
-      v38 = nameCopy;
-      v39 = 2114;
-      v40 = v15;
+      v37 = nameCopy;
+      v38 = 2114;
+      v39 = v15;
       _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, "Mismatch in experiments for dynamic namespace %{public}@: %{public}@", buf, 0x16u);
     }
 
-    v30 = v13;
-    v31 = v11;
+    v29 = v13;
+    v30 = v11;
 
     v16 = TRILogCategory_Server();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -3792,31 +3891,31 @@ id __72__TRIXPCNamespaceManagementRequestHandler__validateNamespaceName_error___
       _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "Purging data for these deployments...", buf, 2u);
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v17 = v12;
-    v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v33;
+      v20 = *v32;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v33 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v32 + 1) + 8 * i);
+          v22 = *(*(&v31 + 1) + 8 * i);
           experimentDatabase = [contextCopy experimentDatabase];
           [experimentDatabase removeExperimentRecordWithExperimentDeployment:v22];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v19);
@@ -3829,27 +3928,26 @@ id __72__TRIXPCNamespaceManagementRequestHandler__validateNamespaceName_error___
       trialRootDir = [paths trialRootDir];
       [defaultManager triForceRemoveItemAtPath:trialRootDir error:0];
 
-      v27 = v30;
-      v11 = v31;
+      v27 = v29;
+      v11 = v30;
     }
 
     else
     {
       defaultManager = TRILogCategory_Server();
-      v27 = v30;
-      v11 = v31;
+      v27 = v29;
+      v11 = v30;
       if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_DEFAULT))
       {
         identifier = [containerCopy identifier];
         *buf = 138543362;
-        v38 = identifier;
+        v37 = identifier;
         _os_log_impl(&dword_26F567000, defaultManager, OS_LOG_TYPE_DEFAULT, "Skipping purge of Trial data in missing container: %{public}@", buf, 0xCu);
       }
     }
   }
 
   objc_autoreleasePoolPop(v11);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_deploymentsWithUnexpectedExperimentDataInContainer:(id)container dynamicNamespaceName:(id)name serverContext:(id)context
@@ -3880,28 +3978,28 @@ id __72__TRIXPCNamespaceManagementRequestHandler__validateNamespaceName_error___
 
 void __130__TRIXPCNamespaceManagementRequestHandler__deploymentsWithUnexpectedExperimentDataInContainer_dynamicNamespaceName_serverContext___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = [v3 namespaces];
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [v9 name];
         if ([v10 isEqualToString:*(a1 + 32)])
         {
@@ -3928,49 +4026,233 @@ void __130__TRIXPCNamespaceManagementRequestHandler__deploymentsWithUnexpectedEx
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
 
 LABEL_13:
+}
 
-  v16 = *MEMORY[0x277D85DE8];
++ (void)usingServerContext:(id)context registerNamespaceWithNamespaceName:(id)name compatibilityVersion:(unsigned int)version defaultsFileURL:(id)l teamId:(id)id appContainerId:(id)containerId appContainerType:(int64_t)type cloudKitContainerId:(int)self0 bundleId:(id)self1 completion:(id)self2
+{
+  v15 = *&version;
+  v57 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  nameCopy = name;
+  lCopy = l;
+  idCopy = id;
+  containerIdCopy = containerId;
+  bundleIdCopy = bundleId;
+  completionCopy = completion;
+  if (contextCopy)
+  {
+    if (nameCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1499 description:{@"Invalid parameter not satisfying: %@", @"serverContext"}];
+
+    if (nameCopy)
+    {
+LABEL_3:
+      if (idCopy)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_33:
+      currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+      [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1501 description:{@"Invalid parameter not satisfying: %@", @"teamId"}];
+
+      if (containerIdCopy)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_34;
+    }
+  }
+
+  currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler3 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1500 description:{@"Invalid parameter not satisfying: %@", @"namespaceName"}];
+
+  if (!idCopy)
+  {
+    goto LABEL_33;
+  }
+
+LABEL_4:
+  if (containerIdCopy)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_34:
+  currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler4 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1502 description:{@"Invalid parameter not satisfying: %@", @"appContainerId"}];
+
+LABEL_5:
+  v23 = TRILogCategory_Server();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543362;
+    v56 = nameCopy;
+    _os_log_debug_impl(&dword_26F567000, v23, OS_LOG_TYPE_DEBUG, "registering namespace %{public}@", buf, 0xCu);
+  }
+
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __213__TRIXPCNamespaceManagementRequestHandler_usingServerContext_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_teamId_appContainerId_appContainerType_cloudKitContainerId_bundleId_completion___block_invoke;
+  v52[3] = &unk_279DE0778;
+  v24 = completionCopy;
+  v54 = v24;
+  v25 = nameCopy;
+  v53 = v25;
+  v26 = MEMORY[0x2743948D0](v52);
+  v27 = v26;
+  if (v15)
+  {
+    v48 = contextCopy;
+    namespaceDatabase = [contextCopy namespaceDatabase];
+    LODWORD(v45) = kitContainerId;
+    v29 = idCopy;
+    v30 = [namespaceDatabase addOrUpdateDynamicNamespaceWithName:v25 compatibilityVersion:v15 defaultsFileURL:lCopy teamId:idCopy appContainerId:containerIdCopy appContainerType:type cloudKitContainer:v45];
+
+    if (v30)
+    {
+      if (containerIdCopy)
+      {
+        v31 = [MEMORY[0x277D73650] containerWithIdentifier:containerIdCopy type:type];
+      }
+
+      else
+      {
+        v31 = 0;
+      }
+
+      idCopy = v29;
+      v32 = objc_opt_new();
+      [v32 setFactorsURL:lCopy];
+      [v32 setAppContainer:v31];
+      [v32 setCloudKitContainerId:kitContainerId];
+      [v32 setResourceAttributionIdentifier:bundleIdCopy];
+      v33 = [objc_alloc(MEMORY[0x277D73750]) initWithNamespaceName:v25 downloadNCV:v15 optionalParams:v32];
+      paths = [v48 paths];
+      v35 = paths;
+      if (v31 && !paths)
+      {
+        (v27)[2](v27, 1, @"Unable to resolve app container.");
+        contextCopy = v48;
+LABEL_29:
+
+        goto LABEL_30;
+      }
+
+      v51 = 0;
+      if ([paths validateWithError:&v51])
+      {
+        v46 = v33;
+        if (v31)
+        {
+          [self _purgeMismatchedDataForDynamicNamespaceName:v25 appContainer:v31 serverContext:v48];
+        }
+
+        namespaceDescriptorsDefaultDir = [v35 namespaceDescriptorsDefaultDir];
+        v37 = [v46 saveToDirectory:namespaceDescriptorsDefaultDir];
+
+        if ((v37 & 1) == 0)
+        {
+          (v27)[2](v27, 1, @"Unable to write namespace descriptor.");
+          idCopy = v29;
+          contextCopy = v48;
+LABEL_27:
+          v33 = v46;
+          goto LABEL_28;
+        }
+
+        idCopy = v29;
+        contextCopy = v48;
+        v33 = v46;
+        if (v24)
+        {
+          v38 = TRILogCategory_Server();
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138543362;
+            v56 = v25;
+            _os_log_debug_impl(&dword_26F567000, v38, OS_LOG_TYPE_DEBUG, "registered namespace %{public}@", buf, 0xCu);
+          }
+
+          (*(v24 + 2))(v24, 1, 0);
+          goto LABEL_27;
+        }
+      }
+
+      else
+      {
+        [v51 description];
+        v40 = v39 = v33;
+        (v27)[2](v27, 1, v40);
+
+        v33 = v39;
+        contextCopy = v48;
+      }
+
+LABEL_28:
+
+      goto LABEL_29;
+    }
+
+    (v27)[2](v27, 1, @"Unable to register namespace.");
+    idCopy = v29;
+    contextCopy = v48;
+  }
+
+  else
+  {
+    (*(v26 + 16))(v26, 2, @"namespace compatibility version must be greater than zero");
+  }
+
+LABEL_30:
 }
 
 void __213__TRIXPCNamespaceManagementRequestHandler_usingServerContext_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_teamId_appContainerId_appContainerType_cloudKitContainerId_bundleId_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (*(a1 + 40))
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v5;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v5;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to register namespace %{public}@: %{public}@", buf, 0x16u);
     }
 
     v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v12 = *MEMORY[0x277CCA450];
-    v13 = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12 = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)usingServerContext:(id)context deregisterNamespaceWithName:(id)name teamId:(id)id taskQueue:(id)queue completion:(id)completion
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   nameCopy = name;
   idCopy = id;
@@ -3999,73 +4281,73 @@ void __213__TRIXPCNamespaceManagementRequestHandler_usingServerContext_registerN
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1580 description:{@"Invalid parameter not satisfying: %@", @"namespaceName"}];
 
 LABEL_3:
-  v103[0] = MEMORY[0x277D85DD0];
-  v103[1] = 3221225472;
-  v103[2] = __118__TRIXPCNamespaceManagementRequestHandler_usingServerContext_deregisterNamespaceWithName_teamId_taskQueue_completion___block_invoke;
-  v103[3] = &unk_279DE0C70;
+  v102[0] = MEMORY[0x277D85DD0];
+  v102[1] = 3221225472;
+  v102[2] = __118__TRIXPCNamespaceManagementRequestHandler_usingServerContext_deregisterNamespaceWithName_teamId_taskQueue_completion___block_invoke;
+  v102[3] = &unk_279DE0C70;
   v17 = nameCopy;
-  v104 = v17;
+  v103 = v17;
   v18 = completionCopy;
-  v105 = v18;
-  v19 = MEMORY[0x2743948D0](v103);
+  v104 = v18;
+  v19 = MEMORY[0x2743948D0](v102);
   namespaceDatabase = [contextCopy namespaceDatabase];
   v21 = [namespaceDatabase dynamicNamespaceRecordWithNamespaceName:v17];
 
-  v90 = v21;
+  v89 = v21;
   if (v21)
   {
-    v77 = v18;
-    v78 = v19;
+    v76 = v18;
+    v77 = v19;
     v22 = objc_opt_new();
     experimentDatabase = [contextCopy experimentDatabase];
-    v100[0] = MEMORY[0x277D85DD0];
-    v100[1] = 3221225472;
-    v100[2] = __118__TRIXPCNamespaceManagementRequestHandler_usingServerContext_deregisterNamespaceWithName_teamId_taskQueue_completion___block_invoke_325;
-    v100[3] = &unk_279DE08A8;
-    v87 = v17;
-    v101 = v87;
+    v99[0] = MEMORY[0x277D85DD0];
+    v99[1] = 3221225472;
+    v99[2] = __118__TRIXPCNamespaceManagementRequestHandler_usingServerContext_deregisterNamespaceWithName_teamId_taskQueue_completion___block_invoke_325;
+    v99[3] = &unk_279DE08A8;
+    v86 = v17;
+    v100 = v86;
     v24 = v22;
-    v102 = v24;
-    LOBYTE(v22) = [experimentDatabase enumerateExperimentRecordsWithBlock:v100];
+    v101 = v24;
+    LOBYTE(v22) = [experimentDatabase enumerateExperimentRecordsWithBlock:v99];
 
     if ((v22 & 1) == 0)
     {
-      v71 = v78;
-      v78[2](v78, 1, @"Unable to check for pending updates");
+      v71 = v77;
+      v77[2](v77, 1, @"Unable to check for pending updates");
       v70 = idCopy;
-      v18 = v77;
+      v18 = v76;
 LABEL_59:
 
       goto LABEL_60;
     }
 
-    v76 = v17;
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
+    v75 = v17;
     v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
     obj = v24;
-    v25 = [obj countByEnumeratingWithState:&v96 objects:v111 count:16];
+    v25 = [obj countByEnumeratingWithState:&v95 objects:v110 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v97;
-      v89 = contextCopy;
-      v81 = v24;
-      v82 = queueCopy;
-      v80 = *v97;
+      v27 = *v96;
+      v88 = contextCopy;
+      v80 = v24;
+      v81 = queueCopy;
+      v79 = *v96;
       do
       {
         v28 = 0;
-        v83 = v26;
+        v82 = v26;
         do
         {
-          if (*v97 != v27)
+          if (*v96 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v96 + 1) + 8 * v28);
+          v29 = *(*(&v95 + 1) + 8 * v28);
           context = objc_autoreleasePoolPush();
           experimentDeployment = [v29 experimentDeployment];
           taskTag = [experimentDeployment taskTag];
@@ -4073,27 +4355,27 @@ LABEL_59:
 
           if ([v29 type] == 1)
           {
-            v85 = v28;
-            v94 = 0u;
-            v95 = 0u;
-            v92 = 0u;
+            v84 = v28;
             v93 = 0u;
+            v94 = 0u;
+            v91 = 0u;
+            v92 = 0u;
             namespaces = [v29 namespaces];
-            v32 = [namespaces countByEnumeratingWithState:&v92 objects:v110 count:16];
+            v32 = [namespaces countByEnumeratingWithState:&v91 objects:v109 count:16];
             if (v32)
             {
               v33 = v32;
-              v34 = *v93;
+              v34 = *v92;
               do
               {
                 for (i = 0; i != v33; ++i)
                 {
-                  if (*v93 != v34)
+                  if (*v92 != v34)
                   {
                     objc_enumerationMutation(namespaces);
                   }
 
-                  name = [*(*(&v92 + 1) + 8 * i) name];
+                  name = [*(*(&v91 + 1) + 8 * i) name];
                   name2 = [v21 name];
                   if ([name isEqualToString:name2])
                   {
@@ -4103,7 +4385,7 @@ LABEL_59:
                   else
                   {
                     namespaceDatabase2 = [contextCopy namespaceDatabase];
-                    v38 = [namespaceDatabase2 dynamicNamespaceRecordWithNamespaceName:v87];
+                    v38 = [namespaceDatabase2 dynamicNamespaceRecordWithNamespaceName:v86];
                   }
 
                   paths = [contextCopy paths];
@@ -4130,8 +4412,8 @@ LABEL_59:
                       [(TRIClientTreatmentStorage *)v48 removeTreatmentWithTreatmentId:treatmentId2];
                     }
 
-                    contextCopy = v89;
-                    v21 = v90;
+                    contextCopy = v88;
+                    v21 = v89;
                   }
 
                   else
@@ -4143,28 +4425,28 @@ LABEL_59:
                       identifier = [appContainer identifier];
                       name4 = [v21 name];
                       *buf = 138543618;
-                      v107 = identifier;
-                      v108 = 2114;
-                      v109 = name4;
+                      v106 = identifier;
+                      v107 = 2114;
+                      v108 = name4;
                       _os_log_impl(&dword_26F567000, v45, OS_LOG_TYPE_DEFAULT, "Missing container %{public}@ for namespace %{public}@.", buf, 0x16u);
 
-                      v21 = v90;
-                      contextCopy = v89;
+                      v21 = v89;
+                      contextCopy = v88;
                     }
                   }
                 }
 
-                v33 = [namespaces countByEnumeratingWithState:&v92 objects:v110 count:16];
+                v33 = [namespaces countByEnumeratingWithState:&v91 objects:v109 count:16];
               }
 
               while (v33);
             }
 
-            v24 = v81;
-            queueCopy = v82;
-            v27 = v80;
-            v26 = v83;
-            v28 = v85;
+            v24 = v80;
+            queueCopy = v81;
+            v27 = v79;
+            v26 = v82;
+            v28 = v84;
           }
 
           experimentDatabase2 = [contextCopy experimentDatabase];
@@ -4179,18 +4461,18 @@ LABEL_59:
               experimentDeployment3 = [v29 experimentDeployment];
               shortDesc = [experimentDeployment3 shortDesc];
               *buf = 138543362;
-              v107 = shortDesc;
+              v106 = shortDesc;
               _os_log_error_impl(&dword_26F567000, v56, OS_LOG_TYPE_ERROR, "failed to remove experiment %{public}@ from database", buf, 0xCu);
             }
           }
 
           objc_autoreleasePoolPop(context);
           ++v28;
-          v21 = v90;
+          v21 = v89;
         }
 
         while (v28 != v26);
-        v26 = [obj countByEnumeratingWithState:&v96 objects:v111 count:16];
+        v26 = [obj countByEnumeratingWithState:&v95 objects:v110 count:16];
       }
 
       while (v26);
@@ -4200,23 +4482,23 @@ LABEL_59:
     v60 = paths2;
     if (!paths2)
     {
-      v78[2](v78, 1, @"Unable to resolve app container.");
+      v77[2](v77, 1, @"Unable to resolve app container.");
       v70 = idCopy;
-      v17 = v76;
-      v18 = v77;
+      v17 = v75;
+      v18 = v76;
 LABEL_58:
 
-      v71 = v78;
+      v71 = v77;
       goto LABEL_59;
     }
 
-    v91 = 0;
-    v17 = v76;
-    if ([paths2 validateWithError:&v91])
+    v90 = 0;
+    v17 = v75;
+    if ([paths2 validateWithError:&v90])
     {
       v61 = MEMORY[0x277D73750];
       namespaceDescriptorsDefaultDir = [v60 namespaceDescriptorsDefaultDir];
-      LOBYTE(v61) = [v61 removeDescriptorWithNamespaceName:v87 fromDirectory:namespaceDescriptorsDefaultDir];
+      LOBYTE(v61) = [v61 removeDescriptorWithNamespaceName:v86 fromDirectory:namespaceDescriptorsDefaultDir];
 
       if ((v61 & 1) == 0)
       {
@@ -4224,13 +4506,13 @@ LABEL_58:
         if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v107 = v87;
+          v106 = v86;
           _os_log_error_impl(&dword_26F567000, v63, OS_LOG_TYPE_ERROR, "failed to remove descriptor from default layer for namespace %{public}@", buf, 0xCu);
         }
       }
 
       v64 = [objc_alloc(MEMORY[0x277D73788]) initWithPaths:v60];
-      v65 = [v64 deleteStatusForNamespaceWithName:v87];
+      v65 = [v64 deleteStatusForNamespaceWithName:v86];
 
       if ((v65 & 1) == 0)
       {
@@ -4238,13 +4520,13 @@ LABEL_58:
         if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v107 = v87;
+          v106 = v86;
           _os_log_error_impl(&dword_26F567000, v66, OS_LOG_TYPE_ERROR, "failed to remove status file for namespace %{public}@", buf, 0xCu);
         }
       }
 
       namespaceDatabase3 = [contextCopy namespaceDatabase];
-      v68 = [namespaceDatabase3 removeDynamicNamespaceRecordWithNamespaceName:v87];
+      v68 = [namespaceDatabase3 removeDynamicNamespaceRecordWithNamespaceName:v86];
 
       if (v68)
       {
@@ -4252,31 +4534,31 @@ LABEL_58:
         if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v107 = v87;
+          v106 = v86;
           _os_log_debug_impl(&dword_26F567000, v69, OS_LOG_TYPE_DEBUG, "deregistered namespace %{public}@", buf, 0xCu);
         }
 
         v70 = idCopy;
-        v18 = v77;
-        if (v77)
+        v18 = v76;
+        if (v76)
         {
-          (*(v77 + 2))(v77, 1, 0);
+          (*(v76 + 2))(v76, 1, 0);
         }
 
         goto LABEL_57;
       }
 
-      v78[2](v78, 1, @"Unable to deregister namespace.");
+      v77[2](v77, 1, @"Unable to deregister namespace.");
     }
 
     else
     {
-      v72 = [v91 description];
-      v78[2](v78, 1, v72);
+      v72 = [v90 description];
+      v77[2](v77, 1, v72);
     }
 
     v70 = idCopy;
-    v18 = v77;
+    v18 = v76;
 LABEL_57:
 
     goto LABEL_58;
@@ -4286,29 +4568,27 @@ LABEL_57:
   v70 = idCopy;
   v71 = v19;
 LABEL_60:
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 void __118__TRIXPCNamespaceManagementRequestHandler_usingServerContext_deregisterNamespaceWithName_teamId_taskQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "failed to deregister namespace %{public}@: %{public}@", buf, 0x16u);
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14 = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13 = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
   v10 = *(a1 + 40);
@@ -4316,8 +4596,6 @@ void __118__TRIXPCNamespaceManagementRequestHandler_usingServerContext_deregiste
   {
     (*(v10 + 16))(v10, 0, v9);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __118__TRIXPCNamespaceManagementRequestHandler_usingServerContext_deregisterNamespaceWithName_teamId_taskQueue_completion___block_invoke_325(uint64_t a1, void *a2)
@@ -4348,7 +4626,7 @@ uint64_t __118__TRIXPCNamespaceManagementRequestHandler_usingServerContext_dereg
 
 + (void)usingServerContext:(id)context taskQueue:(id)queue startDownloadNamespaceWithName:(id)name attribution:(id)attribution completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   queueCopy = queue;
   nameCopy = name;
@@ -4413,7 +4691,7 @@ LABEL_5:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v39 = nameCopy;
+      v38 = nameCopy;
       _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_DEFAULT, "Skipping download for namespace: %{public}@ due to user opt-out of experiments", buf, 0xCu);
     }
 
@@ -4438,9 +4716,9 @@ LABEL_5:
     if (v25 == 2)
     {
       v26 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v36 = *MEMORY[0x277CCA450];
-      v37 = @"Unable to download namespace.";
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x277CCA450];
+      v36 = @"Unable to download namespace.";
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
       v28 = [v26 initWithDomain:@"TRIGeneralErrorDomain" code:13 userInfo:v27];
     }
 
@@ -4458,13 +4736,11 @@ LABEL_5:
       (completionCopy)[2](completionCopy, v25 != 2, v28);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_startDownloadAssetIndexesByTreatment:(id)treatment usingEntitlementWitness:(id)witness serverContext:(id)context taskQueue:(id)queue experimentIds:(id)ids assetIdsByFactorPack:(id)pack rolloutFactorNames:(id)names rolloutDeployments:(id)self0 namespace:(id)self1 taskAttribution:(id)self2 factorsState:(id)self3 notificationKey:(id)self4
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   treatmentCopy = treatment;
   witnessCopy = witness;
   contextCopy = context;
@@ -4477,14 +4753,14 @@ LABEL_5:
   attributionCopy = attribution;
   stateCopy = state;
   keyCopy = key;
-  v63 = witnessCopy;
-  v68 = keyCopy;
+  v62 = witnessCopy;
+  v67 = keyCopy;
   if (!witnessCopy)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1746 description:{@"Invalid parameter not satisfying: %@", @"entitlementWitness"}];
 
-    keyCopy = v68;
+    keyCopy = v67;
   }
 
   v22 = contextCopy;
@@ -4493,7 +4769,7 @@ LABEL_5:
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1747 description:{@"Invalid parameter not satisfying: %@", @"serverContext"}];
 
-    keyCopy = v68;
+    keyCopy = v67;
   }
 
   if (!queueCopy)
@@ -4501,7 +4777,7 @@ LABEL_5:
     currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1748 description:{@"Invalid parameter not satisfying: %@", @"taskQueue"}];
 
-    keyCopy = v68;
+    keyCopy = v67;
   }
 
   if (!treatmentCopy)
@@ -4509,7 +4785,7 @@ LABEL_5:
     currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler4 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1749 description:{@"Invalid parameter not satisfying: %@", @"assetIndexesByTreatment"}];
 
-    keyCopy = v68;
+    keyCopy = v67;
   }
 
   if (!packCopy)
@@ -4517,7 +4793,7 @@ LABEL_5:
     currentHandler5 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler5 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1750 description:{@"Invalid parameter not satisfying: %@", @"assetIdsByFactorPack"}];
 
-    keyCopy = v68;
+    keyCopy = v67;
   }
 
   if (namespaceCopy)
@@ -4533,7 +4809,7 @@ LABEL_5:
     currentHandler6 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler6 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1751 description:{@"Invalid parameter not satisfying: %@", @"namespaceName"}];
 
-    if (v68)
+    if (v67)
     {
       goto LABEL_13;
     }
@@ -4549,48 +4825,48 @@ LABEL_13:
     [currentHandler8 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1753 description:{@"Invalid parameter not satisfying: %@", @"taskAttribution"}];
   }
 
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
-  v91 = 0;
-  v87[0] = MEMORY[0x277D85DD0];
-  v87[1] = 3221225472;
-  v87[2] = __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke;
-  v87[3] = &unk_279DE0E88;
-  v87[4] = &v88;
-  [treatmentCopy enumerateKeysAndObjectsUsingBlock:v87];
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
+  v90 = 0;
   v86[0] = MEMORY[0x277D85DD0];
   v86[1] = 3221225472;
-  v86[2] = __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke_2;
-  v86[3] = &unk_279DE0EB0;
-  v86[4] = &v88;
-  [packCopy enumerateKeysAndObjectsUsingBlock:v86];
-  if (v89[3])
+  v86[2] = __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke;
+  v86[3] = &unk_279DE0E88;
+  v86[4] = &v87;
+  [treatmentCopy enumerateKeysAndObjectsUsingBlock:v86];
+  v85[0] = MEMORY[0x277D85DD0];
+  v85[1] = 3221225472;
+  v85[2] = __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke_2;
+  v85[3] = &unk_279DE0EB0;
+  v85[4] = &v87;
+  [packCopy enumerateKeysAndObjectsUsingBlock:v85];
+  if (v88[3])
   {
-    v84[0] = MEMORY[0x277D85DD0];
-    v84[1] = 3221225472;
-    v84[2] = __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke_362;
-    v84[3] = &unk_279DE0ED8;
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke_362;
+    v83[3] = &unk_279DE0ED8;
     v23 = attributionCopy;
-    v85 = v23;
-    v24 = MEMORY[0x2743948D0](v84);
+    v84 = v23;
+    v24 = MEMORY[0x2743948D0](v83);
     *buf = 0;
-    v79 = buf;
-    v80 = 0x3032000000;
-    v81 = __Block_byref_object_copy__11;
-    v82 = __Block_byref_object_dispose__11;
-    v83 = +[TRITaskQueuingOptions defaultOptionsWithIgnoreDuplicates];
+    v78 = buf;
+    v79 = 0x3032000000;
+    v80 = __Block_byref_object_copy__11;
+    v81 = __Block_byref_object_dispose__11;
+    v82 = +[TRITaskQueuingOptions defaultOptionsWithIgnoreDuplicates];
     v25 = objc_autoreleasePoolPush();
-    v26 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v68, 0}];
+    v26 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v67, 0}];
     objc_autoreleasePoolPop(v25);
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke_364;
-    v75[3] = &unk_279DE0F00;
+    v74[0] = MEMORY[0x277D85DD0];
+    v74[1] = 3221225472;
+    v74[2] = __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke_364;
+    v74[3] = &unk_279DE0F00;
     v27 = v24;
-    v76 = v27;
-    v77 = buf;
-    [queueCopy enumerateTasksWithTagsIntersectingTagSet:v26 block:v75];
+    v75 = v27;
+    v76 = buf;
+    [queueCopy enumerateTasksWithTagsIntersectingTagSet:v26 block:v74];
 
     if (idsCopy)
     {
@@ -4605,9 +4881,9 @@ LABEL_13:
         v31 = TRILogCategory_Server();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          *v92 = 138412290;
-          v93 = v28;
-          _os_log_impl(&dword_26F567000, v31, OS_LOG_TYPE_DEFAULT, "Received != 1 experiment id for TRIFetchOnDemandFactorsTask, so none will be logged. Received %@", v92, 0xCu);
+          *v91 = 138412290;
+          v92 = v28;
+          _os_log_impl(&dword_26F567000, v31, OS_LOG_TYPE_DEFAULT, "Received != 1 experiment id for TRIFetchOnDemandFactorsTask, so none will be logged. Received %@", v91, 0xCu);
         }
 
         anyObject = 0;
@@ -4632,9 +4908,9 @@ LABEL_13:
         v34 = TRILogCategory_Server();
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
-          *v92 = 138412290;
-          v93 = v32;
-          _os_log_impl(&dword_26F567000, v34, OS_LOG_TYPE_DEFAULT, "Received != 1 deployment for TRIFetchOnDemandFactorsTask, so none will be logged. Received %@", v92, 0xCu);
+          *v91 = 138412290;
+          v92 = v32;
+          _os_log_impl(&dword_26F567000, v34, OS_LOG_TYPE_DEFAULT, "Received != 1 deployment for TRIFetchOnDemandFactorsTask, so none will be logged. Received %@", v91, 0xCu);
         }
 
         anyObject2 = 0;
@@ -4663,9 +4939,9 @@ LABEL_13:
         v43 = TRILogCategory_Server();
         if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
-          *v92 = 138412290;
-          v93 = namespaceCopy;
-          _os_log_impl(&dword_26F567000, v43, OS_LOG_TYPE_DEFAULT, "Changing TRIFetchOnDemandFactorsTask to require inexpensive networking since %@ does not support expensive networking", v92, 0xCu);
+          *v91 = 138412290;
+          v92 = namespaceCopy;
+          _os_log_impl(&dword_26F567000, v43, OS_LOG_TYPE_DEFAULT, "Changing TRIFetchOnDemandFactorsTask to require inexpensive networking since %@ does not support expensive networking", v91, 0xCu);
         }
 
         v44 = [[TRITaskCapabilityModifier alloc] initWithAdd:1 remove:2];
@@ -4675,9 +4951,9 @@ LABEL_13:
       objc_autoreleasePoolPop(v38);
     }
 
-    v45 = [TRIFetchOnDemandFactorsTask taskWithAssetIndexesByTreatment:treatmentCopy experimentId:anyObject assetIdsByFactorPack:packCopy rolloutFactorNames:namesCopy rolloutDeployment:anyObject2 namespaceName:namespaceCopy taskAttributing:v23 notificationKey:v68 capabilityModifier:v35];
-    v74 = 0;
-    v46 = [queueCopy addTask:v45 options:*(v79 + 5) taskId:&v74];
+    v45 = [TRIFetchOnDemandFactorsTask taskWithAssetIndexesByTreatment:treatmentCopy experimentId:anyObject assetIdsByFactorPack:packCopy rolloutFactorNames:namesCopy rolloutDeployment:anyObject2 namespaceName:namespaceCopy taskAttributing:v23 notificationKey:v67 capabilityModifier:v35];
+    v73 = 0;
+    v46 = [queueCopy addTask:v45 options:*(v78 + 5) taskId:&v73];
     if (v46)
     {
       if (v46 != 1)
@@ -4687,11 +4963,11 @@ LABEL_13:
           v47 = TRILogCategory_Server();
           if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
-            *v92 = 0;
-            _os_log_error_impl(&dword_26F567000, v47, OS_LOG_TYPE_ERROR, "Enqueue TRIFetchOnDemandFactorsTask failed; completing request.", v92, 2u);
+            *v91 = 0;
+            _os_log_error_impl(&dword_26F567000, v47, OS_LOG_TYPE_ERROR, "Enqueue TRIFetchOnDemandFactorsTask failed; completing request.", v91, 2u);
           }
 
-          [MEMORY[0x277D73698] notifyDownloadFailedForKey:v68 withError:0];
+          [MEMORY[0x277D73698] notifyDownloadFailedForKey:v67 withError:0];
         }
 
         goto LABEL_53;
@@ -4700,11 +4976,11 @@ LABEL_13:
       networkOptions2 = TRILogCategory_Server();
       if (os_log_type_enabled(networkOptions2, OS_LOG_TYPE_DEFAULT))
       {
-        *v92 = 138543618;
-        v93 = v68;
-        v94 = 2112;
-        v95 = v74;
-        _os_log_impl(&dword_26F567000, networkOptions2, OS_LOG_TYPE_DEFAULT, "Ignored duplicate TRIFetchOnDemandFactorsTask with notification key: %{public}@, duplicate of task [tid:%@]", v92, 0x16u);
+        *v91 = 138543618;
+        v92 = v67;
+        v93 = 2112;
+        v94 = v73;
+        _os_log_impl(&dword_26F567000, networkOptions2, OS_LOG_TYPE_DEFAULT, "Ignored duplicate TRIFetchOnDemandFactorsTask with notification key: %{public}@, duplicate of task [tid:%@]", v91, 0x16u);
       }
     }
 
@@ -4713,11 +4989,11 @@ LABEL_13:
       v49 = TRILogCategory_Server();
       if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
-        *v92 = 138412546;
-        v93 = v74;
-        v94 = 2114;
-        v95 = v68;
-        _os_log_impl(&dword_26F567000, v49, OS_LOG_TYPE_DEFAULT, "Enqueued TRIFetchOnDemandFactorsTask [tid:%@] with notification key: %{public}@", v92, 0x16u);
+        *v91 = 138412546;
+        v92 = v73;
+        v93 = 2114;
+        v94 = v67;
+        _os_log_impl(&dword_26F567000, v49, OS_LOG_TYPE_DEFAULT, "Enqueued TRIFetchOnDemandFactorsTask [tid:%@] with notification key: %{public}@", v91, 0x16u);
       }
 
       v50 = objc_opt_class();
@@ -4728,7 +5004,7 @@ LABEL_13:
 LABEL_53:
     _Block_object_dispose(buf, 8);
 
-    v30 = v68;
+    v30 = v67;
     goto LABEL_54;
   }
 
@@ -4739,13 +5015,11 @@ LABEL_53:
     _os_log_impl(&dword_26F567000, v29, OS_LOG_TYPE_INFO, "Nothing to download, no factor names provided", buf, 2u);
   }
 
-  v30 = v68;
-  [MEMORY[0x277D73698] notifyDownloadProgressForKey:v68 withProgress:100];
-  [MEMORY[0x277D73698] notifyDownloadCompletedForKey:v68];
+  v30 = v67;
+  [MEMORY[0x277D73698] notifyDownloadProgressForKey:v67 withProgress:100];
+  [MEMORY[0x277D73698] notifyDownloadCompletedForKey:v67];
 LABEL_54:
-  _Block_object_dispose(&v88, 8);
-
-  v51 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v87, 8);
 }
 
 uint64_t __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -4801,7 +5075,7 @@ LABEL_9:
 
 void __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesByTreatment_usingEntitlementWitness_serverContext_taskQueue_experimentIds_assetIdsByFactorPack_rolloutFactorNames_rolloutDeployments_namespace_taskAttribution_factorsState_notificationKey___block_invoke_364(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 task];
   objc_opt_class();
@@ -4821,9 +5095,9 @@ void __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesBy
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = [v5 taskId];
-        v18 = 138412290;
-        v19 = v13;
-        _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_DEFAULT, "Found a preexisting TRIFetchOnDemandFactorsTask %@ with lower priority; attempting to replace with higher priority task.", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v13;
+        _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_DEFAULT, "Found a preexisting TRIFetchOnDemandFactorsTask %@ with lower priority; attempting to replace with higher priority task.", &v17, 0xCu);
       }
 
       v14 = [*(*(*(a1 + 40) + 8) + 40) copyWithReplacementDuplicateTaskResolution:1];
@@ -4834,20 +5108,18 @@ void __257__TRIXPCNamespaceManagementRequestHandler__startDownloadAssetIndexesBy
       *a3 = 1;
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_immediateDownloadForNamespaceNames:(id)names usingEntitlementWitness:(id)witness serverContext:(id)context taskQueue:(id)queue allowExpensiveNetworking:(BOOL)networking taskAttribution:(id)attribution completion:(id)completion
 {
-  v76[1] = *MEMORY[0x277D85DE8];
+  v75[1] = *MEMORY[0x277D85DE8];
   namesCopy = names;
   witnessCopy = witness;
   contextCopy = context;
   queueCopy = queue;
   attributionCopy = attribution;
   completionCopy = completion;
-  v54 = witnessCopy;
+  v53 = witnessCopy;
   if (witnessCopy)
   {
     if (contextCopy)
@@ -4916,30 +5188,30 @@ LABEL_25:
   [currentHandler5 handleFailureInMethod:a2 object:self file:@"TRIXPCNamespaceManagementService.m" lineNumber:1888 description:{@"Invalid parameter not satisfying: %@", @"taskAttribution"}];
 
 LABEL_6:
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__11;
-  v69 = __Block_byref_object_dispose__11;
-  v70 = 0;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__11;
+  v68 = __Block_byref_object_dispose__11;
+  v69 = 0;
   v20 = MEMORY[0x277D73698];
   allObjects = [namesCopy allObjects];
   v22 = [v20 immediateDownloadNotificationKeyForNamespaceNames:allObjects];
 
   if (v22)
   {
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespaceNames_usingEntitlementWitness_serverContext_taskQueue_allowExpensiveNetworking_taskAttribution_completion___block_invoke;
-    v64[3] = &unk_279DE0F28;
-    v64[4] = &v65;
-    v52 = MEMORY[0x2743948D0](v64);
-    v23 = [MEMORY[0x277D73698] registerDownloadNotificationForKey:v22 queue:0 usingBlock:v52];
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespaceNames_usingEntitlementWitness_serverContext_taskQueue_allowExpensiveNetworking_taskAttribution_completion___block_invoke;
+    v63[3] = &unk_279DE0F28;
+    v63[4] = &v64;
+    v51 = MEMORY[0x2743948D0](v63);
+    v23 = [MEMORY[0x277D73698] registerDownloadNotificationForKey:v22 queue:0 usingBlock:v51];
     v24 = [TRITaskQueuingOptions optionsWithDuplicateTaskResolution:1];
-    v51 = [TRISetupAssistantFetchUtils registerFinalizeBlockForDownloadLatencyTelemetryWithServerContext:contextCopy];
+    v50 = [TRISetupAssistantFetchUtils registerFinalizeBlockForDownloadLatencyTelemetryWithServerContext:contextCopy];
     v25 = [TRISelectRolloutNotificationListTask taskWithNamespaceNames:namesCopy taskAttribution:attributionCopy];
-    v63 = 0;
-    v26 = [queueCopy addTask:v25 options:v24 taskId:&v63];
+    v62 = 0;
+    v26 = [queueCopy addTask:v25 options:v24 taskId:&v62];
     v27 = TRILogCategory_Server();
     v28 = v27;
     if (v26 == 2)
@@ -4951,16 +5223,16 @@ LABEL_6:
       }
 
       v29 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v73 = *MEMORY[0x277CCA450];
-      v74 = @"Unable to enqueue TRISelectRolloutNotificationListTask";
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+      v72 = *MEMORY[0x277CCA450];
+      v73 = @"Unable to enqueue TRISelectRolloutNotificationListTask";
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
       v31 = [v29 initWithDomain:@"TRIGeneralErrorDomain" code:13 userInfo:v30];
-      v32 = v66[5];
-      v66[5] = v31;
+      v32 = v65[5];
+      v65[5] = v31;
 
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, v66[5]);
+        completionCopy[2](completionCopy, v65[5]);
       }
     }
 
@@ -4969,7 +5241,7 @@ LABEL_6:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v72 = v63;
+        v71 = v62;
         _os_log_impl(&dword_26F567000, v28, OS_LOG_TYPE_DEFAULT, "Enqueued TRISelectRolloutNotificationListTask with [tid:%@]", buf, 0xCu);
       }
 
@@ -4987,13 +5259,13 @@ LABEL_6:
       handler[1] = 3221225472;
       handler[2] = __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespaceNames_usingEntitlementWitness_serverContext_taskQueue_allowExpensiveNetworking_taskAttribution_completion___block_invoke_379;
       handler[3] = &unk_279DE0F50;
-      v56 = v51;
-      v57 = contextCopy;
-      v59 = completionCopy;
+      v55 = v50;
+      v56 = contextCopy;
+      v58 = completionCopy;
       selfCopy = self;
       networkingCopy = networking;
-      v58 = namesCopy;
-      v60 = &v65;
+      v57 = namesCopy;
+      v59 = &v64;
       notify_register_dispatch("com.apple.trial.TaskQueueComplete", buf, v43, handler);
     }
   }
@@ -5008,26 +5280,25 @@ LABEL_6:
     }
 
     v34 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v75 = *MEMORY[0x277CCA450];
-    v76[0] = @"immediateDownloadForNamespaceNames called for unexpected use case, please reach out to trial-device-dev@group.apple.com";
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:&v75 count:1];
+    v74 = *MEMORY[0x277CCA450];
+    v75[0] = @"immediateDownloadForNamespaceNames called for unexpected use case, please reach out to trial-device-dev@group.apple.com";
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:&v74 count:1];
     v36 = [v34 initWithDomain:@"TRIGeneralErrorDomain" code:3 userInfo:v35];
-    v37 = v66[5];
-    v66[5] = v36;
+    v37 = v65[5];
+    v65[5] = v36;
 
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, v66[5]);
+      completionCopy[2](completionCopy, v65[5]);
     }
   }
 
-  _Block_object_dispose(&v65, 8);
-  v44 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v64, 8);
 }
 
 void __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespaceNames_usingEntitlementWitness_serverContext_taskQueue_allowExpensiveNetworking_taskAttribution_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = TRILogCategory_Server();
@@ -5035,11 +5306,11 @@ void __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespa
   {
     v8 = [v5 type];
     v9 = [v5 error];
-    v16 = 134218242;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v9;
-    _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Received download notification with type: %lu, error: %{public}@", &v16, 0x16u);
+    v15 = 134218242;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Received download notification with type: %lu, error: %{public}@", &v15, 0x16u);
   }
 
   [MEMORY[0x277D73698] deregisterNotificationWithToken:v6];
@@ -5052,34 +5323,32 @@ void __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespa
     v14 = *(v13 + 40);
     *(v13 + 40) = v12;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespaceNames_usingEntitlementWitness_serverContext_taskQueue_allowExpensiveNetworking_taskAttribution_completion___block_invoke_379(uint64_t a1, int a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) builtTelemetry];
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v40 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v37 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v25 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * v7);
+        v8 = *(*(&v21 + 1) + 8 * v7);
         v9 = [*(a1 + 40) client];
         v10 = [v9 logger];
         v11 = [*(a1 + 40) client];
@@ -5090,7 +5359,7 @@ void __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespa
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v24 objects:v40 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v37 count:16];
     }
 
     while (v5);
@@ -5101,44 +5370,40 @@ void __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespa
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 72);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = *(a1 + 72);
-      v18 = *(a1 + 48);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = *(a1 + 72);
+      v17 = *(a1 + 48);
       if (*(a1 + 80))
       {
-        v19 = "YES";
+        v18 = "YES";
       }
 
       else
       {
-        v19 = "NO";
+        v18 = "NO";
       }
 
-      v20 = qos_class_self();
+      v19 = qos_class_self();
       *buf = 138544642;
-      v29 = v16;
-      v30 = 2048;
-      v31 = v17;
-      v32 = 2080;
-      v33 = "end";
-      v34 = 2114;
-      v35 = v18;
-      v36 = 2080;
-      v37 = v19;
-      v38 = 1026;
-      v39 = v20;
+      v26 = v15;
+      v27 = 2048;
+      v28 = v16;
+      v29 = 2080;
+      v30 = "end";
+      v31 = 2114;
+      v32 = v17;
+      v33 = 2080;
+      v34 = v18;
+      v35 = 1026;
+      v36 = v19;
       _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ %p: %s immediateDownloadForNamesqpaceNames:%{public}@ allowExpensiveNetworking:%s qos:%{public}u completion:", buf, 0x3Au);
     }
 
-    v21 = *(*(*(a1 + 64) + 8) + 40);
     (*(*(a1 + 56) + 16))();
   }
 
   notify_cancel(a2);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)resumeTaskQueue:(id)queue forNetworkOptions:(id)options
@@ -5167,7 +5432,7 @@ void __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespa
 
 + (void)_reregisterOneShotXPCActivityWithDescriptor:(id)descriptor resumingTaskQueue:(id)queue
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   queueCopy = queue;
   v7 = TRILogCategory_Server();
@@ -5175,19 +5440,17 @@ void __179__TRIXPCNamespaceManagementRequestHandler__immediateDownloadForNamespa
   {
     name = [descriptorCopy name];
     *buf = 138543362;
-    v14 = name;
+    v13 = name;
     _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Re-registering one-shot XPC activity in hope of prompt execution: %{public}@", buf, 0xCu);
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __105__TRIXPCNamespaceManagementRequestHandler__reregisterOneShotXPCActivityWithDescriptor_resumingTaskQueue___block_invoke_2;
-  v11[3] = &unk_279DE0030;
-  v12 = queueCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __105__TRIXPCNamespaceManagementRequestHandler__reregisterOneShotXPCActivityWithDescriptor_resumingTaskQueue___block_invoke_2;
+  v10[3] = &unk_279DE0030;
+  v11 = queueCopy;
   v9 = queueCopy;
-  [TRIXPCActivitySupport registerActivityWithLaunchDaemonDescriptor:descriptorCopy checkInBlock:&__block_literal_global_385 asyncHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [TRIXPCActivitySupport registerActivityWithLaunchDaemonDescriptor:descriptorCopy checkInBlock:&__block_literal_global_385 asyncHandler:v10];
 }
 
 void __105__TRIXPCNamespaceManagementRequestHandler__reregisterOneShotXPCActivityWithDescriptor_resumingTaskQueue___block_invoke(uint64_t a1, void *a2)
@@ -5298,7 +5561,7 @@ void __93__TRIXPCNamespaceManagementRequestHandler__resumeTaskQueueForDiscretion
 
 + (void)_removeAssetFactors:(id)factors usingEntitlementWitness:(id)witness serverContext:(id)context taskQueue:(id)queue namespace:(id)namespace factorsState:(id)state removeImmediately:(BOOL)immediately completion:(id)self0
 {
-  v114[1] = *MEMORY[0x277D85DE8];
+  v113[1] = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   witnessCopy = witness;
   contextCopy = context;
@@ -5306,7 +5569,7 @@ void __93__TRIXPCNamespaceManagementRequestHandler__resumeTaskQueueForDiscretion
   namespaceCopy = namespace;
   stateCopy = state;
   completionCopy = completion;
-  v77 = witnessCopy;
+  v76 = witnessCopy;
   if (witnessCopy)
   {
     if (contextCopy)
@@ -5391,95 +5654,95 @@ LABEL_6:
 
   allObjects = [v25 allObjects];
 
-  v108 = 0;
-  v29 = [v22 setSubscriptionWithFactorNames:allObjects inNamespaceName:namespaceCopy error:&v108];
-  v30 = v108;
+  v107 = 0;
+  v29 = [v22 setSubscriptionWithFactorNames:allObjects inNamespaceName:namespaceCopy error:&v107];
+  v30 = v107;
   if (v29)
   {
 
     objc_autoreleasePoolPop(v20);
     *buf = 0;
-    v100 = 0;
+    v99 = 0;
     v31 = MEMORY[0x277D73718];
     paths = [contextCopy paths];
-    LODWORD(v31) = [v31 validateDownloadForFactors:factorsCopy withNamespace:namespaceCopy paths:paths container:0 factorsState:stateCopy assetIndexesByTreatment:buf experimentIds:0 assetIdsByFactorPack:&v100 rolloutFactorNames:0 rolloutDeployments:0 error:0];
+    LODWORD(v31) = [v31 validateDownloadForFactors:factorsCopy withNamespace:namespaceCopy paths:paths container:0 factorsState:stateCopy assetIndexesByTreatment:buf experimentIds:0 assetIdsByFactorPack:&v99 rolloutFactorNames:0 rolloutDeployments:0 error:0];
 
     if (v31)
     {
-      v76 = [objc_opt_class() _notificationKeyWithNamespace:namespaceCopy assetIndexesByTreatment:*buf assetIdsByFactorPack:v100];
+      v75 = [objc_opt_class() _notificationKeyWithNamespace:namespaceCopy assetIndexesByTreatment:*buf assetIdsByFactorPack:v99];
     }
 
     else
     {
-      v76 = 0;
+      v75 = 0;
     }
 
-    if (v76 && ([queueCopy cancelTasksWithTag:v76] & 1) == 0)
+    if (v75 && ([queueCopy cancelTasksWithTag:v75] & 1) == 0)
     {
       v34 = TRILogCategory_Server();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v76;
+        *&buf[4] = v75;
         _os_log_error_impl(&dword_26F567000, v34, OS_LOG_TYPE_ERROR, "Unable to cancel downloading task with notification key: '%{public}@'", buf, 0xCu);
       }
     }
 
     v35 = objc_alloc(MEMORY[0x277D73778]);
     paths2 = [contextCopy paths];
-    v74 = [v35 initWithPaths:paths2 factorsState:stateCopy];
+    v73 = [v35 initWithPaths:paths2 factorsState:stateCopy];
 
-    if (v74)
+    if (v73)
     {
       v37 = MEMORY[0x277D73760];
       paths3 = [contextCopy paths];
-      v73 = [v37 factorProviderWithPaths:paths3 namespaceName:namespaceCopy resolver:v74 faultOnMissingInstalledFactors:1];
+      v72 = [v37 factorProviderWithPaths:paths3 namespaceName:namespaceCopy resolver:v73 faultOnMissingInstalledFactors:1];
 
+      v105 = 0;
       v106 = 0;
-      v107 = 0;
-      v104[0] = MEMORY[0x277D85DD0];
-      v104[1] = 3221225472;
-      v104[2] = __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke;
-      v104[3] = &unk_279DE0F98;
+      v103[0] = MEMORY[0x277D85DD0];
+      v103[1] = 3221225472;
+      v103[2] = __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke;
+      v103[3] = &unk_279DE0F98;
       v39 = namespaceCopy;
-      v105 = v39;
-      [v73 computeTreatmentAssetIndexes:&v107 withAssociatedExperimentIds:0 andFactorPackAssetIds:&v106 withAssociatedRolloutDeployments:0 withExperimentFactorNames:0 andRolloutFactorNames:0 forFactors:factorsCopy usingFilter:v104];
+      v104 = v39;
+      [v72 computeTreatmentAssetIndexes:&v106 withAssociatedExperimentIds:0 andFactorPackAssetIds:&v105 withAssociatedRolloutDeployments:0 withExperimentFactorNames:0 andRolloutFactorNames:0 forFactors:factorsCopy usingFilter:v103];
       v40 = [TRIClientTreatmentStorage alloc];
       paths4 = [contextCopy paths];
       v42 = [(TRIClientTreatmentStorage *)v40 initWithPaths:paths4];
 
       v43 = [TRIFactorPackStorage alloc];
       paths5 = [contextCopy paths];
-      v71 = [(TRIFactorPackStorage *)v43 initWithPaths:paths5];
+      v70 = [(TRIFactorPackStorage *)v43 initWithPaths:paths5];
 
       v45 = objc_alloc(MEMORY[0x277CBEB98]);
-      v46 = [v73 factorNamesWithObfuscation:factorsCopy];
+      v46 = [v72 factorNamesWithObfuscation:factorsCopy];
       v47 = [v45 initWithArray:v46];
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v110 = __Block_byref_object_copy__11;
-      v111 = __Block_byref_object_dispose__11;
-      v112 = 0;
-      v100 = 0;
-      v101 = &v100;
-      v102 = 0x2020000000;
-      v103 = 0;
-      v48 = v107;
-      v94[0] = MEMORY[0x277D85DD0];
-      v94[1] = 3221225472;
-      v94[2] = __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_402;
-      v94[3] = &unk_279DE0FC0;
-      v98 = &v100;
-      v70 = v42;
-      v95 = v70;
+      v109 = __Block_byref_object_copy__11;
+      v110 = __Block_byref_object_dispose__11;
+      v111 = 0;
+      v99 = 0;
+      v100 = &v99;
+      v101 = 0x2020000000;
+      v102 = 0;
+      v48 = v106;
+      v93[0] = MEMORY[0x277D85DD0];
+      v93[1] = 3221225472;
+      v93[2] = __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_402;
+      v93[3] = &unk_279DE0FC0;
+      v97 = &v99;
+      v69 = v42;
+      v94 = v69;
       v49 = v47;
-      v96 = v49;
+      v95 = v49;
       v50 = v39;
-      v97 = v50;
-      v99 = buf;
-      [v48 enumerateKeysAndObjectsUsingBlock:v94];
+      v96 = v50;
+      v98 = buf;
+      [v48 enumerateKeysAndObjectsUsingBlock:v93];
       if (immediately)
       {
         v51 = 3;
@@ -5494,29 +5757,29 @@ LABEL_6:
       paths6 = [contextCopy paths];
       v54 = [(TRIAssetStore *)v52 initWithPaths:paths6];
 
-      v55 = v106;
-      v82[0] = MEMORY[0x277D85DD0];
-      v82[1] = 3221225472;
-      v82[2] = __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_407;
-      v82[3] = &unk_279DE1010;
-      v90 = &v100;
-      v72 = v71;
-      v83 = v72;
+      v55 = v105;
+      v81[0] = MEMORY[0x277D85DD0];
+      v81[1] = 3221225472;
+      v81[2] = __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_407;
+      v81[3] = &unk_279DE1010;
+      v89 = &v99;
+      v71 = v70;
+      v82 = v71;
       v56 = v50;
-      v84 = v56;
+      v83 = v56;
       v57 = v49;
-      v92 = v51;
-      v85 = v57;
-      v91 = buf;
-      v86 = contextCopy;
-      stateCopy = v73;
-      v87 = stateCopy;
-      v88 = factorsCopy;
+      v91 = v51;
+      v84 = v57;
+      v90 = buf;
+      v85 = contextCopy;
+      stateCopy = v72;
+      v86 = stateCopy;
+      v87 = factorsCopy;
       immediatelyCopy = immediately;
       v59 = v54;
-      v89 = v59;
-      [v55 enumerateKeysAndObjectsUsingBlock:v82];
-      if (v101[3])
+      v88 = v59;
+      [v55 enumerateKeysAndObjectsUsingBlock:v81];
+      if (v100[3])
       {
         [MEMORY[0x277D73790] notifyUpdateForNamespaceName:v56];
       }
@@ -5526,8 +5789,8 @@ LABEL_6:
         v63 = TRILogCategory_Server();
         if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
         {
-          *v81 = 0;
-          _os_log_impl(&dword_26F567000, v63, OS_LOG_TYPE_INFO, "Nothing to remove. No local asset found.", v81, 2u);
+          *v80 = 0;
+          _os_log_impl(&dword_26F567000, v63, OS_LOG_TYPE_INFO, "Nothing to remove. No local asset found.", v80, 2u);
         }
       }
 
@@ -5536,7 +5799,7 @@ LABEL_6:
         completionCopy[2](completionCopy, *(*&buf[8] + 40));
       }
 
-      _Block_object_dispose(&v100, 8);
+      _Block_object_dispose(&v99, 8);
       _Block_object_dispose(buf, 8);
     }
 
@@ -5544,9 +5807,9 @@ LABEL_6:
     {
       stateCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unable to resolve namespaces for stale factorsState: %@", stateCopy];
       v60 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v113 = *MEMORY[0x277CCA450];
-      v114[0] = stateCopy;
-      v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v114 forKeys:&v113 count:1];
+      v112 = *MEMORY[0x277CCA450];
+      v113[0] = stateCopy;
+      v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:&v112 count:1];
       v62 = [v60 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v61];
 
       if (completionCopy)
@@ -5573,13 +5836,11 @@ LABEL_6:
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -5589,9 +5850,9 @@ uint64_t __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usin
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = [v9 localizedDescription];
-      v22 = 138543362;
-      v23 = v11;
-      _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Error removing on-demand asset, %{public}@", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v11;
+      _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Error removing on-demand asset, %{public}@", &v21, 0xCu);
     }
 
     goto LABEL_13;
@@ -5603,15 +5864,15 @@ uint64_t __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usin
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v15 = *(a1 + 32);
-      v22 = 138543618;
-      v23 = v7;
-      v24 = 2114;
-      v25 = v15;
+      v21 = 138543618;
+      v22 = v7;
+      v23 = 2114;
+      v24 = v15;
       v16 = "Ignore removal of asset of factor %{public}@ in namespace %{public}@ which is not on-demand";
       v17 = v10;
       v18 = OS_LOG_TYPE_DEFAULT;
 LABEL_12:
-      _os_log_impl(&dword_26F567000, v17, v18, v16, &v22, 0x16u);
+      _os_log_impl(&dword_26F567000, v17, v18, v16, &v21, 0x16u);
     }
 
 LABEL_13:
@@ -5626,10 +5887,10 @@ LABEL_13:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v19 = *(a1 + 32);
-      v22 = 138543618;
-      v23 = v7;
-      v24 = 2114;
-      v25 = v19;
+      v21 = 138543618;
+      v22 = v7;
+      v23 = 2114;
+      v24 = v19;
       v16 = "Ignore removal of asset of factor %{public}@ in namespace %{public}@ which does not have local path";
       v17 = v10;
       v18 = OS_LOG_TYPE_INFO;
@@ -5642,13 +5903,12 @@ LABEL_13:
   v14 = 1;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 void __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_402(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -5659,40 +5919,38 @@ void __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEnt
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v18 = v5;
-      v19 = 2112;
-      v20 = v6;
+      v17 = v5;
+      v18 = 2112;
+      v19 = v6;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Unable to update treatment %@ with asset removal of %@", buf, 0x16u);
     }
 
     if (!*(*(*(a1 + 64) + 8) + 40))
     {
       v9 = MEMORY[0x277CCA9B8];
-      v15 = *MEMORY[0x277CCA450];
-      v16 = @"Unable to update treatment with one or more asset removal";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x277CCA450];
+      v15 = @"Unable to update treatment with one or more asset removal";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
       v11 = [v9 errorWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v10];
       v12 = *(*(a1 + 64) + 8);
       v13 = *(v12 + 40);
       *(v12 + 40) = v11;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_407(uint64_t a1, void *a2, void *a3)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   *(*(*(a1 + 88) + 8) + 24) = 1;
   if (([*(a1 + 32) updateSavedFactorPackWithId:v5 namespaceName:*(a1 + 40) deletingAssetsWithFactorNames:*(a1 + 48) inUseAssetBehavior:*(a1 + 104)] & 1) == 0 && !*(*(*(a1 + 96) + 8) + 40))
   {
     v7 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA450];
-    v30[0] = @"Unable to update treatment with one or more asset removal";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CCA450];
+    v29[0] = @"Unable to update treatment with one or more asset removal";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v9 = [v7 errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:v8];
     v10 = *(*(a1 + 96) + 8);
     v11 = *(v10 + 40);
@@ -5722,7 +5980,7 @@ void __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEnt
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v28 = v5;
+        v27 = v5;
         _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "Could not update saved factor levels for remove asset for factor pack id: %@", buf, 0xCu);
       }
     }
@@ -5730,35 +5988,31 @@ void __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEnt
 
   if (*(a1 + 105) == 1)
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_414;
-    v25[3] = &unk_279DE0FE8;
-    v26 = *(a1 + 80);
-    [v6 enumerateObjectsUsingBlock:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_414;
+    v24[3] = &unk_279DE0FE8;
+    v25 = *(a1 + 80);
+    [v6 enumerateObjectsUsingBlock:v24];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __163__TRIXPCNamespaceManagementRequestHandler__removeAssetFactors_usingEntitlementWitness_serverContext_taskQueue_namespace_factorsState_removeImmediately_completion___block_invoke_414(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 assetId];
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Immediately removing %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Immediately removing %{public}@", &v8, 0xCu);
   }
 
   v6 = *(a1 + 32);
   v7 = [v3 assetId];
   [v6 removeAssetWithIdentifier:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_setProvisionalFactorPackId:(id)id usingEntitlementWitness:(id)witness serverContext:(id)context forNamespaceName:(id)name completion:(id)completion

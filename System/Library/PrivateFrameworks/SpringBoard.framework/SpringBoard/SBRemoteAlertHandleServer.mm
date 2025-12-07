@@ -219,9 +219,9 @@ uint64_t __71__SBRemoteAlertHandleServer_listener_didReceiveConnection_withConte
   contextCopy = context;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v13 = objc_msgSend_auditToken(remoteProcess);
 
-  if ([(SBRemoteAlertHandleServer *)self _shouldAllowAuditToken:auditToken forDefinition:definitionCopy])
+  if ([(SBRemoteAlertHandleServer *)self _shouldAllowAuditToken:v13 forDefinition:definitionCopy])
   {
     v14 = [(SBRemoteTransientOverlaySessionManager *)self->_sessionManager existingSessionsWithDefinition:definitionCopy options:0];
     if (![v14 count] && objc_msgSend(valueCopy, "BOOLValue"))
@@ -233,7 +233,7 @@ uint64_t __71__SBRemoteAlertHandleServer_listener_didReceiveConnection_withConte
       v14 = v16;
     }
 
-    v34 = auditToken;
+    v34 = v13;
     v35 = valueCopy;
     v43 = 0u;
     v44 = 0u;
@@ -323,7 +323,7 @@ uint64_t __71__SBRemoteAlertHandleServer_listener_didReceiveConnection_withConte
     BSDispatchMain();
     v25 = v20;
 
-    auditToken = v34;
+    v13 = v34;
     valueCopy = v35;
   }
 
@@ -383,9 +383,9 @@ void __109__SBRemoteAlertHandleServer_remoteAlertHandleContextsForDefinition_all
   contextCopy = context;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
 
-  if ([(SBRemoteAlertHandleServer *)self _shouldAllowAuditToken:auditToken forDefinition:definitionCopy])
+  if ([(SBRemoteAlertHandleServer *)self _shouldAllowAuditToken:v10 forDefinition:definitionCopy])
   {
     v11 = [(SBRemoteTransientOverlaySessionManager *)self->_sessionManager createSessionWithDefinition:definitionCopy];
     v12 = _SBSRemoteAlertHandleContextFromRemoteTransientOverlaySession(v11);
@@ -766,7 +766,7 @@ void __89__SBRemoteAlertHandleServer_remoteTransientOverlaySession_didInvalidate
 
         v12 = *(*(&v16 + 1) + 8 * i);
         v13 = [v6 objectForKey:v12];
-        if ([v13 containsObject:connectionCopy])
+        if (objc_msgSend_containsObject_(v13))
         {
           if (!v9)
           {
@@ -891,7 +891,7 @@ void __67__SBRemoteAlertHandleServer__handleDisconnectForServiceConnection___blo
   sessionCopy = session;
   dispatch_assert_queue_V2(self->_queue);
   v8 = [(NSMapTable *)self->_sessionToConnections objectForKey:sessionCopy];
-  if ([v8 containsObject:connectionCopy])
+  if (objc_msgSend_containsObject_(v8))
   {
     [v8 removeObject:connectionCopy];
     if (![v8 count])

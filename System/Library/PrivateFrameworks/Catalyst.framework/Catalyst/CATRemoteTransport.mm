@@ -99,7 +99,7 @@ LABEL_3:
 
 - (void)resumeConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(CATRemoteConnection *)self->mConnection scheduleStreams];
@@ -112,7 +112,7 @@ LABEL_3:
 
 - (void)suspendConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   mConnection = self->mConnection;
@@ -122,7 +122,7 @@ LABEL_3:
 
 - (void)invalidateConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   mConnection = self->mConnection;
@@ -180,7 +180,7 @@ LABEL_3:
 - (void)connection:(id)connection didSendData:(id)data userInfo:(id)info
 {
   infoCopy = info;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(infoCopy);
   CATAssertIsQueue(v7);
 
   mOperationByUUID = self->mOperationByUUID;
@@ -195,7 +195,7 @@ LABEL_3:
 {
   infoCopy = info;
   errorCopy = error;
-  v10 = CATGetCatalystQueue();
+  v10 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v10);
 
   mOperationByUUID = self->mOperationByUUID;
@@ -208,36 +208,36 @@ LABEL_3:
 
 - (void)connection:(id)connection didInterruptWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v6);
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->mOperationByUUID objectEnumerator];
-  v8 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) didFailWithError:errorCopy];
+        [*(*(&v12 + 1) + 8 * v11++) didFailWithError:errorCopy];
       }
 
       while (v9 != v11);
-      v9 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -245,21 +245,19 @@ LABEL_3:
 
   [(NSMutableDictionary *)self->mOperationByUUID removeAllObjects];
   [(CATTransport *)self didInterruptWithError:errorCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveData:(id)data
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   dataCopy = data;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(dataCopy);
   CATAssertIsQueue(v8);
 
-  v15[0] = 0;
-  v9 = [MEMORY[0x277CCAAC8] cat_unarchiveObjectOfClass:objc_opt_class() withData:dataCopy error:v15];
-  v10 = v15[0];
+  v14[0] = 0;
+  v9 = [MEMORY[0x277CCAAC8] cat_unarchiveObjectOfClass:objc_opt_class() withData:dataCopy error:v14];
+  v10 = v14[0];
   v11 = v10;
   if (v9)
   {
@@ -268,50 +266,48 @@ LABEL_3:
 
   else
   {
-    v16 = *MEMORY[0x277CCA7E8];
-    v17[0] = v10;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x277CCA7E8];
+    v16[0] = v10;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v13 = CATErrorWithCodeAndUserInfo(301, v12);
 
     v11 = v13;
     [(CATTransport *)self didInterruptWithError:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDidClose:(id)close
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v4 = CATGetCatalystQueue();
+  v16 = *MEMORY[0x277D85DE8];
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
   v5 = CATErrorWithCodeAndUserInfo(200, 0);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->mOperationByUUID objectEnumerator];
-  v7 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) didFailWithError:v5];
+        [*(*(&v11 + 1) + 8 * v10++) didFailWithError:v5];
       }
 
       while (v8 != v10);
-      v8 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [objectEnumerator countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -319,15 +315,13 @@ LABEL_3:
 
   [(NSMutableDictionary *)self->mOperationByUUID removeAllObjects];
   [(CATTransport *)self didInvalidate];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteTransportSendMessageOperation:(id)operation sendData:(id)data
 {
   dataCopy = data;
   operationCopy = operation;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(operationCopy);
   CATAssertIsQueue(v8);
 
   uUID = [MEMORY[0x277CCAD78] UUID];

@@ -22,7 +22,7 @@
 
 - (id)mapsMerchantLookupRequest
 {
-  v3 = objc_alloc_init(getMKWalletMerchantLookupRequestClass());
+  v3 = objc_alloc_init(getMKWalletMerchantLookupRequestClass(self, a2));
   [v3 setTransactionType:6];
   date = [MEMORY[0x1E695DF00] date];
   [v3 setTransactionDate:date];

@@ -1812,12 +1812,12 @@ LABEL_151:
     *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
     *&buf[12] = 1024;
     *&buf[14] = 966;
-    v116 = "%{public}s::%d:invalid apple80211API";
+    v115 = "%{public}s::%d:invalid apple80211API";
 LABEL_161:
-    v117 = v11;
-    v118 = 18;
+    v116 = v11;
+    v117 = 18;
 LABEL_162:
-    _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_ERROR, v116, buf, v118);
+    _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_ERROR, v115, buf, v117);
     goto LABEL_163;
   }
 
@@ -1841,7 +1841,7 @@ LABEL_162:
     *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
     *&buf[12] = 1024;
     *&buf[14] = 973;
-    v116 = "%{public}s::%d:Failed to retrieve io_service_t of driver";
+    v115 = "%{public}s::%d:Failed to retrieve io_service_t of driver";
     goto LABEL_161;
   }
 
@@ -1880,7 +1880,7 @@ LABEL_162:
     *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
     *&buf[12] = 1024;
     *&buf[14] = 980;
-    v116 = "%{public}s::%d:Failed to find io_service_t";
+    v115 = "%{public}s::%d:Failed to find io_service_t";
     goto LABEL_161;
   }
 
@@ -1942,25 +1942,25 @@ LABEL_143:
                 goto LABEL_163;
               }
 
-              v112 = selfCopy2->_drvName == 0;
+              v111 = selfCopy2->_drvName == 0;
               wlanType = selfCopy2->_wlanType;
-              v114 = selfCopy2->_providerNum == 0;
-              v115 = selfCopy2->_drvPath == 0;
+              v113 = selfCopy2->_providerNum == 0;
+              v114 = selfCopy2->_drvPath == 0;
               *buf = 136447490;
               *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
               *&buf[12] = 1024;
               *&buf[14] = 1001;
               *&buf[18] = 1024;
-              *&buf[20] = v112;
+              *&buf[20] = v111;
               *&buf[24] = 1024;
-              *&buf[26] = v114;
+              *&buf[26] = v113;
               *&buf[30] = 1024;
-              *&buf[32] = v115;
+              *&buf[32] = v114;
               *&buf[36] = 2048;
               *&buf[38] = wlanType;
-              v116 = "%{public}s::%d:Invalid drvName %d and providerNum %d and drvPath %d _wlanType %ld";
-              v117 = v11;
-              v118 = 46;
+              v115 = "%{public}s::%d:Invalid drvName %d and providerNum %d and drvPath %d _wlanType %ld";
+              v116 = v11;
+              v117 = 46;
               goto LABEL_162;
             }
 
@@ -1968,43 +1968,43 @@ LABEL_25:
             if (selfCopy2->_drvPath && selfCopy2->_wlanType)
             {
               [(WAIOReporterMessagePopulator *)selfCopy2 _buildPredicateList:list wlan:?];
+              v156 = 0u;
               v157 = 0u;
-              v158 = 0u;
-              v155 = 0u;
-              obj = v156 = 0u;
-              v130 = [obj countByEnumeratingWithState:&v155 objects:v177 count:16];
-              if (!v130)
+              v154 = 0u;
+              obj = v155 = 0u;
+              v129 = [obj countByEnumeratingWithState:&v154 objects:v176 count:16];
+              if (!v129)
               {
+                v127 = 0;
                 v128 = 0;
-                v129 = 0;
-                v139 = 0;
+                v138 = 0;
                 goto LABEL_138;
               }
 
+              v127 = 0;
               v128 = 0;
-              v129 = 0;
-              v139 = 0;
-              v121 = *v156;
+              v138 = 0;
+              v120 = *v155;
               *&v21 = 136447490;
-              v119 = v21;
+              v118 = v21;
               while (1)
               {
-                for (i = 0; i != v130; i = i + 1)
+                for (i = 0; i != v129; i = i + 1)
                 {
-                  if (*v156 != v121)
+                  if (*v155 != v120)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v22 = *(*(&v155 + 1) + 8 * i);
-                  v176 = 0u;
+                  v22 = *(*(&v154 + 1) + 8 * i);
+                  v175 = 0u;
                   memset(buf, 0, sizeof(buf));
-                  v154 = 0;
+                  v153 = 0;
                   v23 = WALogCategoryDefaultHandle();
                   if (os_signpost_enabled(v23))
                   {
-                    *v160 = 0;
-                    _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOR Query and append IOReportLegend", "", v160, 2u);
+                    *v159 = 0;
+                    _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOR Query and append IOReportLegend", "", v159, 2u);
                   }
 
                   v24 = [v22 objectForKeyedSubscript:@"gbegin"];
@@ -2017,8 +2017,8 @@ LABEL_25:
                     *buf = v26;
                   }
 
-                  v119 = [v22 objectForKeyedSubscript:@"gcont", v119];
-                  v29 = v119 == 0;
+                  v118 = [v22 objectForKeyedSubscript:@"gcont", v118];
+                  v29 = v118 == 0;
 
                   if (!v29)
                   {
@@ -2073,8 +2073,8 @@ LABEL_25:
                   if (!v49)
                   {
                     v50 = [v22 objectForKeyedSubscript:@"sgends"];
-                    v51 = v176;
-                    *&v176 = v50;
+                    v51 = v175;
+                    *&v175 = v50;
                   }
 
                   v52 = [v22 objectForKeyedSubscript:@"sgis"];
@@ -2083,138 +2083,138 @@ LABEL_25:
                   if (!v53)
                   {
                     v54 = [v22 objectForKeyedSubscript:@"sgis"];
-                    v55 = *(&v176 + 1);
-                    *(&v176 + 1) = v54;
+                    v55 = *(&v175 + 1);
+                    *(&v175 + 1) = v54;
                   }
 
                   [WAUtil incrementValueForKey:@"Legend Query Calls" inMutableDict:self->_cachedUsage onQueue:self->_queue];
-                  v138 = [getInfraApple80211 getIOReportLegendItemsMatching:buf retErr:&v154];
-                  if (v154 == 1)
+                  v137 = [getInfraApple80211 getIOReportLegendItemsMatching:buf retErr:&v153];
+                  if (v153 == 1)
                   {
                     [WAUtil incrementValueForKey:@"Legend Query Failed" inMutableDict:self->_cachedUsage onQueue:self->_queue];
                     [(WAIOReporterMessagePopulator *)self _incrementPredicateCachedUsageWithPrefix:@"Failed Pred: " q:buf];
                     v56 = WALogCategoryDefaultHandle();
                     if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                     {
-                      *v160 = 136446722;
-                      v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                      v162 = 1024;
-                      v163 = 1047;
-                      v164 = 2112;
-                      v165 = v22;
-                      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "%{public}s::%d:legendFetchError with getIOReportLegendItemsMatching pred %@", v160, 0x1Cu);
+                      *v159 = 136446722;
+                      v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                      v161 = 1024;
+                      v162 = 1047;
+                      v163 = 2112;
+                      v164 = v22;
+                      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "%{public}s::%d:legendFetchError with getIOReportLegendItemsMatching pred %@", v159, 0x1Cu);
                     }
                   }
 
-                  if (![v138 count])
+                  if (![v137 count])
                   {
                     [(WAIOReporterMessagePopulator *)self _incrementPredicateCachedUsageWithPrefix:@"Zero Results Pred: " q:buf];
                     if (([(NSMutableArray *)self->_cachedPredicatesNotYetFound containsObject:v22]& 1) != 0)
                     {
-                      v96 = [v22 objectForKeyedSubscript:@"rare"];
-                      v97 = v96 == 0;
+                      v95 = [v22 objectForKeyedSubscript:@"rare"];
+                      v96 = v95 == 0;
 
-                      v98 = WALogCategoryDefaultHandle();
-                      v99 = os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT);
-                      if (!v97)
+                      v97 = WALogCategoryDefaultHandle();
+                      v98 = os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT);
+                      if (!v96)
                       {
-                        if (v99)
+                        if (v98)
                         {
-                          *v160 = 136446722;
-                          v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                          v162 = 1024;
-                          v163 = 1062;
-                          v164 = 2112;
-                          v165 = v22;
-                          v100 = v98;
-                          v101 = "%{public}s::%d:Failed to discover known missing rare pred %@";
+                          *v159 = 136446722;
+                          v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                          v161 = 1024;
+                          v162 = 1062;
+                          v163 = 2112;
+                          v164 = v22;
+                          v99 = v97;
+                          v100 = "%{public}s::%d:Failed to discover known missing rare pred %@";
                           goto LABEL_119;
                         }
 
 LABEL_120:
 
-                        v92 = WALogCategoryDefaultHandle();
-                        if (!os_signpost_enabled(v92))
+                        v91 = WALogCategoryDefaultHandle();
+                        if (!os_signpost_enabled(v91))
                         {
                           goto LABEL_123;
                         }
 
-                        *v160 = 138412290;
-                        v161 = v22;
-                        v93 = v92;
-                        v94 = "Failed Dictionary %@";
-                        v95 = 12;
+                        *v159 = 138412290;
+                        v160 = v22;
+                        v92 = v91;
+                        v93 = "Failed Dictionary %@";
+                        v94 = 12;
                         goto LABEL_122;
                       }
 
-                      if (!v99)
+                      if (!v98)
                       {
                         goto LABEL_120;
                       }
 
-                      *v160 = 136446722;
-                      v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                      v162 = 1024;
-                      v163 = 1060;
-                      v164 = 2112;
-                      v165 = v22;
-                      v100 = v98;
-                      v101 = "%{public}s::%d:Failed to discover known missing pred %@";
+                      *v159 = 136446722;
+                      v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                      v161 = 1024;
+                      v162 = 1060;
+                      v163 = 2112;
+                      v164 = v22;
+                      v99 = v97;
+                      v100 = "%{public}s::%d:Failed to discover known missing pred %@";
                     }
 
                     else
                     {
-                      v102 = WALogCategoryDefaultHandle();
-                      if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
+                      v101 = WALogCategoryDefaultHandle();
+                      if (os_log_type_enabled(v101, OS_LOG_TYPE_DEBUG))
                       {
-                        v103 = [(NSMutableArray *)self->_cachedPredicatesNotYetFound count];
-                        *v160 = 136446978;
-                        v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                        v162 = 1024;
-                        v163 = 1054;
-                        v164 = 2048;
-                        v165 = v103;
-                        v166 = 2112;
-                        v167 = v22;
-                        _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Adding _cachedPredicatesNotYetFound existing count %lu %@", v160, 0x26u);
+                        v102 = [(NSMutableArray *)self->_cachedPredicatesNotYetFound count];
+                        *v159 = 136446978;
+                        v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                        v161 = 1024;
+                        v162 = 1054;
+                        v163 = 2048;
+                        v164 = v102;
+                        v165 = 2112;
+                        v166 = v22;
+                        _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Adding _cachedPredicatesNotYetFound existing count %lu %@", v159, 0x26u);
                       }
 
                       [(NSMutableArray *)self->_cachedPredicatesNotYetFound addObject:v22];
-                      v98 = WALogCategoryDefaultHandle();
-                      if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+                      v97 = WALogCategoryDefaultHandle();
+                      if (!os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
                       {
                         goto LABEL_120;
                       }
 
                       cachedPredicatesNotYetFound = self->_cachedPredicatesNotYetFound;
-                      *v160 = 136446722;
-                      v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                      v162 = 1024;
-                      v163 = 1057;
-                      v164 = 2112;
-                      v165 = cachedPredicatesNotYetFound;
-                      v100 = v98;
-                      v101 = "%{public}s::%d:_cachedPredicatesNotYetFound is now %@";
+                      *v159 = 136446722;
+                      v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                      v161 = 1024;
+                      v162 = 1057;
+                      v163 = 2112;
+                      v164 = cachedPredicatesNotYetFound;
+                      v99 = v97;
+                      v100 = "%{public}s::%d:_cachedPredicatesNotYetFound is now %@";
                     }
 
 LABEL_119:
-                    _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, v101, v160, 0x1Cu);
+                    _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, v100, v159, 0x1Cu);
                     goto LABEL_120;
                   }
 
                   v57 = WALogCategoryDefaultHandle();
                   if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
                   {
-                    v58 = [v138 count];
-                    *v160 = 136446978;
-                    v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                    v162 = 1024;
-                    v163 = 1070;
-                    v164 = 2048;
-                    v165 = v58;
-                    v166 = 2112;
-                    v167 = v22;
-                    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Found %lu legends pred %@", v160, 0x26u);
+                    v58 = [v137 count];
+                    *v159 = 136446978;
+                    v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                    v161 = 1024;
+                    v162 = 1070;
+                    v163 = 2048;
+                    v164 = v58;
+                    v165 = 2112;
+                    v166 = v22;
+                    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Found %lu legends pred %@", v159, 0x26u);
                   }
 
                   if ([(NSMutableArray *)self->_cachedPredicatesNotYetFound containsObject:v22])
@@ -2222,13 +2222,13 @@ LABEL_119:
                     v59 = WALogCategoryDefaultHandle();
                     if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
                     {
-                      *v160 = 136446722;
-                      v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                      v162 = 1024;
-                      v163 = 1073;
-                      v164 = 2112;
-                      v165 = v22;
-                      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Found a previously missing pred %@", v160, 0x1Cu);
+                      *v159 = 136446722;
+                      v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                      v161 = 1024;
+                      v162 = 1073;
+                      v163 = 2112;
+                      v164 = v22;
+                      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Found a previously missing pred %@", v159, 0x1Cu);
                     }
 
                     [(NSMutableArray *)self->_cachedPredicatesNotYetFound removeObject:v22];
@@ -2236,37 +2236,37 @@ LABEL_119:
                     if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
                     {
                       v61 = self->_cachedPredicatesNotYetFound;
-                      *v160 = 136446722;
-                      v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                      v162 = 1024;
-                      v163 = 1075;
-                      v164 = 2112;
-                      v165 = v61;
-                      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:_cachedPredicatesNotYetFound is now %@", v160, 0x1Cu);
+                      *v159 = 136446722;
+                      v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                      v161 = 1024;
+                      v162 = 1075;
+                      v163 = 2112;
+                      v164 = v61;
+                      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:_cachedPredicatesNotYetFound is now %@", v159, 0x1Cu);
                     }
                   }
 
-                  v152 = 0u;
-                  v153 = 0u;
-                  v150 = 0u;
                   v151 = 0u;
-                  v132 = v138;
-                  v123 = [v132 countByEnumeratingWithState:&v150 objects:v174 count:16];
-                  if (v123)
+                  v152 = 0u;
+                  v149 = 0u;
+                  v150 = 0u;
+                  v131 = v137;
+                  v122 = [v131 countByEnumeratingWithState:&v149 objects:v173 count:16];
+                  if (v122)
                   {
-                    v126 = *v151;
+                    v125 = *v150;
                     do
                     {
-                      for (j = 0; j != v123; j = j + 1)
+                      for (j = 0; j != v122; j = j + 1)
                       {
-                        if (*v151 != v126)
+                        if (*v150 != v125)
                         {
-                          objc_enumerationMutation(v132);
+                          objc_enumerationMutation(v131);
                         }
 
-                        v62 = *(*(&v150 + 1) + 8 * j);
-                        v134 = [v62 objectForKeyedSubscript:@"IOReportChannels"];
-                        v136 = [v62 objectForKeyedSubscript:@"IOReportChannelInfo"];
+                        v62 = *(*(&v149 + 1) + 8 * j);
+                        v133 = [v62 objectForKeyedSubscript:@"IOReportChannels"];
+                        v135 = [v62 objectForKeyedSubscript:@"IOReportChannelInfo"];
                         v63 = [v62 objectForKeyedSubscript:@"IOReportGroupName"];
                         v64 = [v62 objectForKeyedSubscript:@"IOReportSubGroupName"];
                         if (v64)
@@ -2281,39 +2281,39 @@ LABEL_119:
 
                         if (!v65)
                         {
-                          v148 = 0u;
-                          v149 = 0u;
-                          v146 = 0u;
                           v147 = 0u;
-                          v131 = v134;
-                          v66 = [v131 countByEnumeratingWithState:&v146 objects:v173 count:16];
-                          v124 = v63;
-                          v125 = v64;
+                          v148 = 0u;
+                          v145 = 0u;
+                          v146 = 0u;
+                          v130 = v133;
+                          v66 = [v130 countByEnumeratingWithState:&v145 objects:v172 count:16];
+                          v123 = v63;
+                          v124 = v64;
                           if (!v66)
                           {
                             goto LABEL_101;
                           }
 
-                          v122 = *v147;
+                          v121 = *v146;
                           while (1)
                           {
-                            v120 = v66;
-                            for (k = 0; k != v120; k = k + 1)
+                            v119 = v66;
+                            for (k = 0; k != v119; k = k + 1)
                             {
-                              if (*v147 != v122)
+                              if (*v146 != v121)
                               {
-                                objc_enumerationMutation(v131);
+                                objc_enumerationMutation(v130);
                               }
 
-                              v68 = *(*(&v146 + 1) + 8 * k);
-                              v69 = v139;
-                              if (!v139)
+                              v68 = *(*(&v145 + 1) + 8 * k);
+                              v69 = v138;
+                              if (!v138)
                               {
                                 cachedIOPopAvailableChannels = [(WAIOReporterMessagePopulator *)self cachedIOPopAvailableChannels];
-                                v84 = [cachedIOPopAvailableChannels objectForKeyedSubscript:&off_100102D40];
-                                v85 = v84 == 0;
+                                v83 = [cachedIOPopAvailableChannels objectForKeyedSubscript:&off_100102D40];
+                                v84 = v83 == 0;
 
-                                if (v85)
+                                if (v84)
                                 {
                                   Aggregate = IOReportCreateAggregate();
                                   cachedIOPopAvailableChannels2 = [(WAIOReporterMessagePopulator *)self cachedIOPopAvailableChannels];
@@ -2321,99 +2321,98 @@ LABEL_119:
                                 }
 
                                 cachedIOPopAvailableChannels3 = [(WAIOReporterMessagePopulator *)self cachedIOPopAvailableChannels];
-                                v89 = [cachedIOPopAvailableChannels3 objectForKeyedSubscript:&off_100102D40];
+                                v88 = [cachedIOPopAvailableChannels3 objectForKeyedSubscript:&off_100102D40];
 
-                                v69 = v89;
-                                if (!v89)
+                                v69 = v88;
+                                if (!v88)
                                 {
+                                  v104 = WALogCategoryDefaultHandle();
+                                  if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+                                  {
+                                    *v159 = 136446466;
+                                    v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                                    v161 = 1024;
+                                    v162 = 1112;
+                                    _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to alloc drvchs", v159, 0x12u);
+                                  }
+
                                   v105 = WALogCategoryDefaultHandle();
                                   if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
                                   {
-                                    *v160 = 136446466;
-                                    v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                                    v162 = 1024;
-                                    v163 = 1112;
-                                    _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to alloc drvchs", v160, 0x12u);
+                                    *v159 = 136446466;
+                                    v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                                    v161 = 1024;
+                                    v162 = 1114;
+                                    _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to alloc drvchs", v159, 0x12u);
                                   }
 
-                                  v106 = WALogCategoryDefaultHandle();
-                                  if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
-                                  {
-                                    *v160 = 136446466;
-                                    v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                                    v162 = 1024;
-                                    v163 = 1114;
-                                    _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to alloc drvchs", v160, 0x12u);
-                                  }
-
-                                  v139 = 0;
+                                  v138 = 0;
                                   goto LABEL_131;
                                 }
                               }
 
-                              v139 = v69;
+                              v138 = v69;
                               v70 = [v69 objectForKeyedSubscript:@"IOReportChannels"];
                               if (!v70)
                               {
                                 v71 = objc_alloc_init(NSMutableArray);
-                                [v139 setObject:v71 forKeyedSubscript:@"IOReportChannels"];
+                                [v138 setObject:v71 forKeyedSubscript:@"IOReportChannels"];
 
-                                v70 = [v139 objectForKeyedSubscript:@"IOReportChannels"];
+                                v70 = [v138 objectForKeyedSubscript:@"IOReportChannels"];
                                 if (!v70)
                                 {
-                                  v106 = WALogCategoryDefaultHandle();
-                                  if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+                                  v105 = WALogCategoryDefaultHandle();
+                                  if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
                                   {
-                                    *v160 = 136446466;
-                                    v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                                    v162 = 1024;
-                                    v163 = 1122;
-                                    _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to retrieve or alloc chlist", v160, 0x12u);
+                                    *v159 = 136446466;
+                                    v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                                    v161 = 1024;
+                                    v162 = 1122;
+                                    _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to retrieve or alloc chlist", v159, 0x12u);
                                   }
 
 LABEL_131:
 
                                   sub_100023E34(buf);
                                   v11 = obj;
-                                  v107 = obj;
+                                  v106 = obj;
                                   goto LABEL_132;
                                 }
                               }
 
-                              v144 = 0u;
-                              v145 = 0u;
-                              v142 = 0u;
                               v143 = 0u;
+                              v144 = 0u;
+                              v141 = 0u;
+                              v142 = 0u;
                               cachedIOPopAvailableChannels4 = [(WAIOReporterMessagePopulator *)self cachedIOPopAvailableChannels];
                               v73 = [cachedIOPopAvailableChannels4 objectForKeyedSubscript:&off_100102D40];
                               v74 = [v73 objectForKeyedSubscript:@"IOReportChannels"];
 
-                              v75 = [v74 countByEnumeratingWithState:&v142 objects:v172 count:16];
+                              v75 = [v74 countByEnumeratingWithState:&v141 objects:v171 count:16];
                               if (v75)
                               {
-                                v76 = *v143;
+                                v76 = *v142;
                                 while (2)
                                 {
-                                  for (m = 0; m != v75; m = m + 1)
+                                  for (m = 0; m != v75; ++m)
                                   {
-                                    if (*v143 != v76)
+                                    if (*v142 != v76)
                                     {
                                       objc_enumerationMutation(v74);
                                     }
 
-                                    v78 = *(*(&v142 + 1) + 8 * m);
                                     ChannelID = IOReportChannelGetChannelID();
-                                    v80 = [v68 objectAtIndex:0];
-                                    unsignedLongLongValue = [v80 unsignedLongLongValue];
+                                    v79 = [v68 objectAtIndex:0];
+                                    unsignedLongLongValue = [v79 unsignedLongLongValue];
 
                                     if (unsignedLongLongValue == ChannelID)
                                     {
-                                      ++v128;
+                                      ++v127;
                                       goto LABEL_91;
                                     }
                                   }
 
-                                  v75 = [v74 countByEnumeratingWithState:&v142 objects:v172 count:16];
+                                  v75 = [v74 countByEnumeratingWithState:&v141 objects:v171 count:16];
                                   if (v75)
                                   {
                                     continue;
@@ -2423,11 +2422,11 @@ LABEL_131:
                                 }
                               }
 
-                              v82 = [(WAIOReporterMessagePopulator *)self createChannelWithProviderID:self->_providerNum providerName:self->_drvName legCh:v68 groupName:v124 subgroupName:v125 chinfo:v136];
-                              if (v82)
+                              v81 = [(WAIOReporterMessagePopulator *)self createChannelWithProviderID:self->_providerNum providerName:self->_drvName legCh:v68 groupName:v123 subgroupName:v124 chinfo:v135];
+                              if (v81)
                               {
-                                [v70 addObject:v82];
-                                ++v129;
+                                [v70 addObject:v81];
+                                ++v128;
                               }
 
                               else
@@ -2435,75 +2434,75 @@ LABEL_131:
                                 v74 = WALogCategoryDefaultHandle();
                                 if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
                                 {
-                                  *v160 = v119;
-                                  v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                                  v162 = 1024;
-                                  v163 = 1140;
-                                  v164 = 2112;
-                                  v165 = v124;
-                                  v166 = 2112;
-                                  v167 = v125;
-                                  v168 = 2112;
-                                  v169 = v68;
-                                  v170 = 2112;
-                                  v171 = v136;
-                                  _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to create channel groupName %@ subgroup %@ legCh %@ chinfo %@, continuing", v160, 0x3Au);
+                                  *v159 = v118;
+                                  v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                                  v161 = 1024;
+                                  v162 = 1140;
+                                  v163 = 2112;
+                                  v164 = v123;
+                                  v165 = 2112;
+                                  v166 = v124;
+                                  v167 = 2112;
+                                  v168 = v68;
+                                  v169 = 2112;
+                                  v170 = v135;
+                                  _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to create channel groupName %@ subgroup %@ legCh %@ chinfo %@, continuing", v159, 0x3Au);
                                 }
 
 LABEL_91:
 
-                                v82 = 0;
+                                v81 = 0;
                               }
                             }
 
-                            v66 = [v131 countByEnumeratingWithState:&v146 objects:v173 count:16];
+                            v66 = [v130 countByEnumeratingWithState:&v145 objects:v172 count:16];
                             if (!v66)
                             {
 LABEL_101:
 
-                              v91 = v124;
-                              v90 = v125;
+                              v90 = v123;
+                              v89 = v124;
                               goto LABEL_105;
                             }
                           }
                         }
 
-                        v90 = WALogCategoryDefaultHandle();
-                        if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+                        v89 = WALogCategoryDefaultHandle();
+                        if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
                         {
-                          *v160 = 136446722;
-                          v161 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
-                          v162 = 1024;
-                          v163 = 1087;
-                          v164 = 2112;
-                          v91 = v64;
-                          v165 = v64;
-                          _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "%{public}s::%d:Unpacking legend yields subgroupName %@ with no groupName, continuing", v160, 0x1Cu);
+                          *v159 = 136446722;
+                          v160 = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
+                          v161 = 1024;
+                          v162 = 1087;
+                          v163 = 2112;
+                          v90 = v64;
+                          v164 = v64;
+                          _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "%{public}s::%d:Unpacking legend yields subgroupName %@ with no groupName, continuing", v159, 0x1Cu);
                         }
 
                         else
                         {
-                          v91 = v64;
+                          v90 = v64;
                         }
 
 LABEL_105:
                       }
 
-                      v123 = [v132 countByEnumeratingWithState:&v150 objects:v174 count:16];
+                      v122 = [v131 countByEnumeratingWithState:&v149 objects:v173 count:16];
                     }
 
-                    while (v123);
+                    while (v122);
                   }
 
-                  v92 = WALogCategoryDefaultHandle();
-                  if (os_signpost_enabled(v92))
+                  v91 = WALogCategoryDefaultHandle();
+                  if (os_signpost_enabled(v91))
                   {
-                    *v160 = 0;
-                    v93 = v92;
-                    v94 = "";
-                    v95 = 2;
+                    *v159 = 0;
+                    v92 = v91;
+                    v93 = "";
+                    v94 = 2;
 LABEL_122:
-                    _os_signpost_emit_with_name_impl(&_mh_execute_header, v93, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOR Query and append IOReportLegend", v94, v160, v95);
+                    _os_signpost_emit_with_name_impl(&_mh_execute_header, v92, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOR Query and append IOReportLegend", v93, v159, v94);
                   }
 
 LABEL_123:
@@ -2511,31 +2510,31 @@ LABEL_123:
                   sub_100023E34(buf);
                 }
 
-                v130 = [obj countByEnumeratingWithState:&v155 objects:v177 count:16];
-                if (!v130)
+                v129 = [obj countByEnumeratingWithState:&v154 objects:v176 count:16];
+                if (!v129)
                 {
 LABEL_138:
 
-                  v110 = WALogCategoryDefaultHandle();
-                  if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+                  v109 = WALogCategoryDefaultHandle();
+                  if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136446978;
                     *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
                     *&buf[12] = 1024;
                     *&buf[14] = 1155;
                     *&buf[18] = 2048;
-                    *&buf[20] = v129;
+                    *&buf[20] = v128;
                     *&buf[28] = 2048;
-                    *&buf[30] = v128;
-                    _os_log_impl(&_mh_execute_header, v110, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Finished finding IOReporter channels... Success - added %lu duplicate %lu", buf, 0x26u);
+                    *&buf[30] = v127;
+                    _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Finished finding IOReporter channels... Success - added %lu duplicate %lu", buf, 0x26u);
                   }
 
-                  v109 = WALogCategoryDefaultHandle();
-                  if (os_signpost_enabled(v109))
+                  v108 = WALogCategoryDefaultHandle();
+                  if (os_signpost_enabled(v108))
                   {
                     *buf = 134217984;
                     *&buf[4] = list;
-                    _os_signpost_emit_with_name_impl(&_mh_execute_header, v109, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOR addDriverChannelsMatchingPredicateList", "Mode %ld", buf, 0xCu);
+                    _os_signpost_emit_with_name_impl(&_mh_execute_header, v108, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOR addDriverChannelsMatchingPredicateList", "Mode %ld", buf, 0xCu);
                   }
 
                   goto LABEL_142;
@@ -2556,7 +2555,7 @@ LABEL_138:
           *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
           *&buf[12] = 1024;
           *&buf[14] = 997;
-          v116 = "%{public}s::%d:failed to get _wlanType through getDriverType";
+          v115 = "%{public}s::%d:failed to get _wlanType through getDriverType";
         }
 
         else
@@ -2571,7 +2570,7 @@ LABEL_138:
           *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
           *&buf[12] = 1024;
           *&buf[14] = 994;
-          v116 = "%{public}s::%d:failed to get _drvPath through getIOReportingClassPath";
+          v115 = "%{public}s::%d:failed to get _drvPath through getIOReportingClassPath";
         }
       }
 
@@ -2587,7 +2586,7 @@ LABEL_138:
         *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
         *&buf[12] = 1024;
         *&buf[14] = 991;
-        v116 = "%{public}s::%d:failed to alloc providerNum";
+        v115 = "%{public}s::%d:failed to alloc providerNum";
       }
     }
 
@@ -2603,7 +2602,7 @@ LABEL_138:
       *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
       *&buf[12] = 1024;
       *&buf[14] = 988;
-      v116 = "%{public}s::%d:Failed to get _drvName through getIOReportingDriverName";
+      v115 = "%{public}s::%d:Failed to get _drvName through getIOReportingDriverName";
     }
 
     goto LABEL_161;
@@ -2618,44 +2617,44 @@ LABEL_138:
     *&buf[14] = 984;
     *&buf[18] = 2048;
     *&buf[20] = entryID;
-    v116 = "%{public}s::%d:Failed to convert IORegistryEntryGetRegistryEntryID %llx";
-    v117 = v11;
-    v118 = 28;
+    v115 = "%{public}s::%d:Failed to convert IORegistryEntryGetRegistryEntryID %llx";
+    v116 = v11;
+    v117 = 28;
     goto LABEL_162;
   }
 
 LABEL_163:
+  v127 = 0;
   v128 = 0;
-  v129 = 0;
-  v107 = 0;
-  v139 = 0;
+  v106 = 0;
+  v138 = 0;
 LABEL_132:
 
-  v108 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+  v107 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446978;
     *&buf[4] = "[WAIOReporterMessagePopulator _addDriverChannelsMatchingPredicateList:]";
     *&buf[12] = 1024;
     *&buf[14] = 1163;
     *&buf[18] = 2048;
-    *&buf[20] = v129;
+    *&buf[20] = v128;
     *&buf[28] = 2048;
-    *&buf[30] = v128;
-    _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_ERROR, "%{public}s::%d:Finished finding IOReporter channels... Error - added %lu duplicate %lu", buf, 0x26u);
+    *&buf[30] = v127;
+    _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_ERROR, "%{public}s::%d:Finished finding IOReporter channels... Error - added %lu duplicate %lu", buf, 0x26u);
   }
 
-  v109 = WALogCategoryDefaultHandle();
-  if (os_signpost_enabled(v109))
+  v108 = WALogCategoryDefaultHandle();
+  if (os_signpost_enabled(v108))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v109, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOR addDriverChannelsMatchingPredicateList", "Error", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v108, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOR addDriverChannelsMatchingPredicateList", "Error", buf, 2u);
   }
 
-  obj = v107;
+  obj = v106;
 LABEL_142:
 
-  return v129;
+  return v128;
 }
 
 - (void)signalPotentialNewIORChannels
@@ -6219,9 +6218,9 @@ LABEL_21:
   v5 = &WAXPCRequestDelegateInterface_ptr;
   v6 = &selRef_setCoreCaptureControl_;
   v7 = +[WAIOReporterMessagePopulator getIORPopAvailabeIOReportersTempFile];
-  v98 = 0;
-  v8 = [NSData dataWithContentsOfFile:v7 options:8 error:&v98];
-  v9 = v98;
+  v96 = 0;
+  v8 = [NSData dataWithContentsOfFile:v7 options:8 error:&v96];
+  v9 = v96;
 
   v10 = WALogCategoryDefaultHandle();
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
@@ -6233,9 +6232,9 @@ LABEL_21:
     }
 
     *buf = 136446466;
-    v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-    v101 = 1024;
-    v102 = 2554;
+    v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+    v99 = 1024;
+    v100 = 2554;
     v13 = "%{public}s::%d:unpersist cachedIOPopAvailableChannels file not available";
     v14 = v10;
     v15 = OS_LOG_TYPE_DEFAULT;
@@ -6246,11 +6245,11 @@ LABEL_21:
   {
     v12 = [v8 length];
     *buf = 136446722;
-    v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-    v101 = 1024;
-    v102 = 2536;
-    v103 = 2048;
-    v104 = v12;
+    v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+    v99 = 1024;
+    v100 = 2536;
+    v101 = 2048;
+    v102 = v12;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:from file: cachedIOPopAvailableChannelsData NSData sizeof is %lu", buf, 0x1Cu);
   }
 
@@ -6263,9 +6262,9 @@ LABEL_21:
     }
 
     *buf = 136446466;
-    v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-    v101 = 1024;
-    v102 = 2551;
+    v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+    v99 = 1024;
+    v100 = 2551;
     v13 = "%{public}s::%d:Failed to unpersist cachedIOPopAvailableChannels";
     v14 = v10;
     v15 = OS_LOG_TYPE_ERROR;
@@ -6274,7 +6273,7 @@ LABEL_11:
     goto LABEL_22;
   }
 
-  v90 = v4;
+  v88 = v4;
   v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = objc_opt_class();
@@ -6283,9 +6282,9 @@ LABEL_11:
   v21 = objc_opt_class();
   v22 = objc_opt_class();
   v23 = [NSSet setWithObjects:v16, v17, v18, v19, v20, v21, v22, objc_opt_class(), 0];
-  v97 = 0;
-  v10 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v23 fromData:v8 error:&v97];
-  v24 = v97;
+  v95 = 0;
+  v10 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v23 fromData:v8 error:&v95];
+  v24 = v95;
 
   v25 = WALogCategoryDefaultHandle();
   v26 = v25;
@@ -6295,15 +6294,15 @@ LABEL_11:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2542;
-      v103 = 2112;
-      v104 = v24;
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2542;
+      v101 = 2112;
+      v102 = v24;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive cachedIOPopAvailableChannels: %@", buf, 0x1Cu);
     }
 
-    v4 = v90;
+    v4 = v88;
     v5 = &WAXPCRequestDelegateInterface_ptr;
   }
 
@@ -6314,25 +6313,25 @@ LABEL_11:
     {
       v27 = objc_opt_class();
       *buf = 136446722;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2545;
-      v103 = 2112;
-      v104 = v27;
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2545;
+      v101 = 2112;
+      v102 = v27;
       v28 = v27;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist rootChannelDictionary class is %@", buf, 0x1Cu);
     }
 
     [(WAIOReporterMessagePopulator *)self setCachedIOPopAvailableChannels:v10];
     v29 = WALogCategoryDefaultHandle();
-    v4 = v90;
+    v4 = v88;
     v5 = &WAXPCRequestDelegateInterface_ptr;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2548;
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2548;
       _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedIOPopAvailableChannels success", buf, 0x12u);
     }
   }
@@ -6341,9 +6340,9 @@ LABEL_22:
 
   v30 = v5[428];
   getUnavailablePredTempFile = [v6 + 381 getUnavailablePredTempFile];
-  v96 = 0;
-  v32 = [v30 dataWithContentsOfFile:getUnavailablePredTempFile options:8 error:&v96];
-  v33 = v96;
+  v94 = 0;
+  v32 = [v30 dataWithContentsOfFile:getUnavailablePredTempFile options:8 error:&v94];
+  v33 = v94;
 
   v34 = WALogCategoryDefaultHandle();
   v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
@@ -6355,9 +6354,9 @@ LABEL_22:
     }
 
     *buf = 136446466;
-    v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-    v101 = 1024;
-    v102 = 2580;
+    v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+    v99 = 1024;
+    v100 = 2580;
     v37 = "%{public}s::%d:unpersist cachedPredicatesNotYetFound file not available";
     v38 = v34;
     v39 = OS_LOG_TYPE_DEFAULT;
@@ -6368,11 +6367,11 @@ LABEL_22:
   {
     v36 = [v32 length];
     *buf = 136446722;
-    v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-    v101 = 1024;
-    v102 = 2563;
-    v103 = 2048;
-    v104 = v36;
+    v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+    v99 = 1024;
+    v100 = 2563;
+    v101 = 2048;
+    v102 = v36;
     _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:from file: cachedUnavailableArrayData NSData sizeof is %lu", buf, 0x1Cu);
   }
 
@@ -6385,9 +6384,9 @@ LABEL_22:
     }
 
     *buf = 136446466;
-    v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-    v101 = 1024;
-    v102 = 2577;
+    v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+    v99 = 1024;
+    v100 = 2577;
     v37 = "%{public}s::%d:Failed to unpersist cachedPredicatesNotYetFound";
     v38 = v34;
     v39 = OS_LOG_TYPE_ERROR;
@@ -6396,168 +6395,166 @@ LABEL_30:
     goto LABEL_41;
   }
 
-  v91 = v4;
+  v89 = v4;
   v40 = objc_opt_class();
   v41 = objc_opt_class();
   v42 = objc_opt_class();
   v43 = objc_opt_class();
-  v44 = v5[428];
+  v44 = objc_opt_class();
   v45 = objc_opt_class();
   v46 = objc_opt_class();
-  v47 = objc_opt_class();
-  v48 = [NSSet setWithObjects:v40, v41, v42, v43, v45, v46, v47, objc_opt_class(), 0];
-  v95 = 0;
-  v34 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v48 fromData:v32 error:&v95];
-  v49 = v95;
+  v47 = [NSSet setWithObjects:v40, v41, v42, v43, v44, v45, v46, objc_opt_class(), 0];
+  v93 = 0;
+  v34 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v47 fromData:v32 error:&v93];
+  v48 = v93;
 
-  v50 = WALogCategoryDefaultHandle();
-  v51 = v50;
-  if (v49 || !v34)
+  v49 = WALogCategoryDefaultHandle();
+  v50 = v49;
+  if (v48 || !v34)
   {
     v6 = &selRef_setCoreCaptureControl_;
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2568;
-      v103 = 2112;
-      v104 = v49;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive cachedPredicatesNotYetFound: %@", buf, 0x1Cu);
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2568;
+      v101 = 2112;
+      v102 = v48;
+      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive cachedPredicatesNotYetFound: %@", buf, 0x1Cu);
     }
 
-    v4 = v91;
+    v4 = v89;
     v5 = &WAXPCRequestDelegateInterface_ptr;
   }
 
   else
   {
-    v4 = v91;
+    v4 = v89;
     v6 = &selRef_setCoreCaptureControl_;
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
-      v52 = objc_opt_class();
+      v51 = objc_opt_class();
       *buf = 136446722;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2571;
-      v103 = 2112;
-      v104 = v52;
-      v53 = v52;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedUnavailableArray class is %@", buf, 0x1Cu);
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2571;
+      v101 = 2112;
+      v102 = v51;
+      v52 = v51;
+      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedUnavailableArray class is %@", buf, 0x1Cu);
     }
 
     [(WAIOReporterMessagePopulator *)self setCachedPredicatesNotYetFound:v34];
-    v54 = WALogCategoryDefaultHandle();
+    v53 = WALogCategoryDefaultHandle();
     v5 = &WAXPCRequestDelegateInterface_ptr;
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2574;
-      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedPredicatesNotYetFound success", buf, 0x12u);
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2574;
+      _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedPredicatesNotYetFound success", buf, 0x12u);
     }
   }
 
 LABEL_41:
 
-  v55 = v5[428];
+  v54 = v5[428];
   getUsageTempFile = [v6 + 381 getUsageTempFile];
-  v94 = 0;
-  v57 = [v55 dataWithContentsOfFile:getUsageTempFile options:8 error:&v94];
-  v58 = v94;
+  v92 = 0;
+  v56 = [v54 dataWithContentsOfFile:getUsageTempFile options:8 error:&v92];
+  v57 = v92;
 
-  v59 = WALogCategoryDefaultHandle();
-  v60 = os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT);
-  if (v57)
+  v58 = WALogCategoryDefaultHandle();
+  v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
+  if (v56)
   {
-    if (v60)
+    if (v59)
     {
-      v61 = [v57 length];
+      v60 = [v56 length];
       *buf = 136446722;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2589;
-      v103 = 2048;
-      v104 = v61;
-      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:from file: usageDictData NSData sizeof is %lu", buf, 0x1Cu);
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2589;
+      v101 = 2048;
+      v102 = v60;
+      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:from file: usageDictData NSData sizeof is %lu", buf, 0x1Cu);
     }
 
     self->_persistFileExistedAtPIDLoad = 1;
-    if (v58)
+    if (v57)
     {
-      v62 = WALogCategoryDefaultHandle();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446466;
-        v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-        v101 = 1024;
-        v102 = 2604;
-        _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unpersist cachedUsage", buf, 0x12u);
+        v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+        v99 = 1024;
+        v100 = 2604;
+        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unpersist cachedUsage", buf, 0x12u);
       }
     }
 
     else
     {
-      v92 = v4;
-      v89 = objc_opt_class();
+      v90 = v4;
+      v87 = objc_opt_class();
+      v62 = objc_opt_class();
       v63 = objc_opt_class();
       v64 = objc_opt_class();
       v65 = objc_opt_class();
-      v66 = v5[428];
+      v66 = objc_opt_class();
       v67 = objc_opt_class();
       v68 = objc_opt_class();
-      v69 = objc_opt_class();
-      v70 = objc_opt_class();
-      v71 = [NSSet setWithObjects:v89, v63, v64, v65, v67, v68, v69, v70, objc_opt_class(), 0];
-      v93 = 0;
-      v72 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v71 fromData:v57 error:&v93];
-      v73 = v93;
+      v69 = [NSSet setWithObjects:v87, v62, v63, v64, v65, v66, v67, v68, objc_opt_class(), 0];
+      v91 = 0;
+      v70 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v69 fromData:v56 error:&v91];
+      v71 = v91;
 
-      v74 = WALogCategoryDefaultHandle();
-      v75 = v74;
-      if (v73 || !v72)
+      v72 = WALogCategoryDefaultHandle();
+      v73 = v72;
+      if (v71 || !v70)
       {
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446722;
-          v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-          v101 = 1024;
-          v102 = 2595;
-          v103 = 2112;
-          v104 = v73;
-          _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive cachedUsage: %@", buf, 0x1Cu);
+          v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+          v99 = 1024;
+          v100 = 2595;
+          v101 = 2112;
+          v102 = v71;
+          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive cachedUsage: %@", buf, 0x1Cu);
         }
 
-        v4 = v92;
+        v4 = v90;
       }
 
       else
       {
-        v4 = v92;
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+        v4 = v90;
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
         {
-          v76 = objc_opt_class();
+          v74 = objc_opt_class();
           *buf = 136446722;
-          v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-          v101 = 1024;
-          v102 = 2598;
-          v103 = 2112;
-          v104 = v76;
-          v77 = v76;
-          _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist usageDict class is %@", buf, 0x1Cu);
+          v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+          v99 = 1024;
+          v100 = 2598;
+          v101 = 2112;
+          v102 = v74;
+          v75 = v74;
+          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist usageDict class is %@", buf, 0x1Cu);
         }
 
-        [(WAIOReporterMessagePopulator *)self setCachedUsage:v72];
-        v78 = WALogCategoryDefaultHandle();
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+        [(WAIOReporterMessagePopulator *)self setCachedUsage:v70];
+        v76 = WALogCategoryDefaultHandle();
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-          v101 = 1024;
-          v102 = 2601;
-          _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedUsage success", buf, 0x12u);
+          v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+          v99 = 1024;
+          v100 = 2601;
+          _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedUsage success", buf, 0x12u);
         }
       }
     }
@@ -6565,13 +6562,13 @@ LABEL_41:
 
   else
   {
-    if (v60)
+    if (v59)
     {
       *buf = 136446466;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2607;
-      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedUsage file not available", buf, 0x12u);
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2607;
+      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedUsage file not available", buf, 0x12u);
     }
 
     self->_persistFileExistedAtPIDLoad = 0;
@@ -6583,14 +6580,14 @@ LABEL_41:
   {
 
 LABEL_64:
-    v80 = WALogCategoryDefaultHandle();
-    if (!os_signpost_enabled(v80))
+    v78 = WALogCategoryDefaultHandle();
+    if (!os_signpost_enabled(v78))
     {
       goto LABEL_67;
     }
 
     *buf = 0;
-    v81 = "Success";
+    v79 = "Success";
     goto LABEL_66;
   }
 
@@ -6601,13 +6598,13 @@ LABEL_64:
     goto LABEL_64;
   }
 
-  v80 = WALogCategoryDefaultHandle();
-  if (os_signpost_enabled(v80))
+  v78 = WALogCategoryDefaultHandle();
+  if (os_signpost_enabled(v78))
   {
     *buf = 0;
-    v81 = "Fail";
+    v79 = "Fail";
 LABEL_66:
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v80, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOR Unpersist", v81, buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v78, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOR Unpersist", v79, buf, 2u);
   }
 
 LABEL_67:
@@ -6616,30 +6613,30 @@ LABEL_67:
 
   if (!cachedPredicatesNotYetFound)
   {
-    v83 = objc_alloc_init(NSMutableArray);
-    [(WAIOReporterMessagePopulator *)self setCachedPredicatesNotYetFound:v83];
+    v81 = objc_alloc_init(NSMutableArray);
+    [(WAIOReporterMessagePopulator *)self setCachedPredicatesNotYetFound:v81];
   }
 
   cachedUsage2 = [(WAIOReporterMessagePopulator *)self cachedUsage];
 
   if (!cachedUsage2)
   {
-    v85 = objc_alloc_init(NSMutableDictionary);
-    [(WAIOReporterMessagePopulator *)self setCachedUsage:v85];
+    v83 = objc_alloc_init(NSMutableDictionary);
+    [(WAIOReporterMessagePopulator *)self setCachedUsage:v83];
   }
 
   cachedIOPopAvailableChannels2 = [(WAIOReporterMessagePopulator *)self cachedIOPopAvailableChannels];
 
   if (cachedIOPopAvailableChannels2)
   {
-    v87 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+    v85 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v100 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
-      v101 = 1024;
-      v102 = 2634;
-      _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedIOPopAvailableChannels exists, running _iorPreparedForSampling to build reliant objects", buf, 0x12u);
+      v98 = "[WAIOReporterMessagePopulator _unpersistIORObjects]";
+      v99 = 1024;
+      v100 = 2634;
+      _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:unpersist cachedIOPopAvailableChannels exists, running _iorPreparedForSampling to build reliant objects", buf, 0x12u);
     }
 
     [(WAIOReporterMessagePopulator *)self _iorPreparedForSampling:0];
@@ -7338,7 +7335,7 @@ LABEL_40:
       v15 = v14;
     }
 
-    v16 = [NSNumber numberWithUnsignedLong:v15, *v25];
+    v16 = [NSNumber numberWithUnsignedLong:v15, *v25, *&v25[8]];
     v17 = cachedUsage;
 LABEL_17:
     [(NSMutableDictionary *)v17 setObject:v16 forKey:@"Estimated Uptime (s)"];
@@ -7403,7 +7400,7 @@ LABEL_18:
   selfCopy = self;
   v3 = @"Work Bin: Last PID Work";
   [(NSMutableDictionary *)self->_cachedUsage removeObjectForKey:@"Work Bin: Last PID Work"];
-  v80 = objc_alloc_init(NSMutableDictionary);
+  v79 = objc_alloc_init(NSMutableDictionary);
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
   v4 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
 
@@ -7413,40 +7410,40 @@ LABEL_18:
     [(NSMutableDictionary *)selfCopy->_cachedUsage setObject:v5 forKeyedSubscript:@"Work Bin: Previous PIDs Work"];
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
   v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   v6 = [(NSMutableDictionary *)selfCopy->_cachedUsage copy];
-  v7 = [v6 countByEnumeratingWithState:&v97 objects:v117 count:16];
-  v85 = selfCopy;
+  v7 = [v6 countByEnumeratingWithState:&v96 objects:v116 count:16];
+  v84 = selfCopy;
   if (v7)
   {
     v8 = v7;
-    v9 = *v98;
+    v9 = *v97;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v98 != v9)
+        if (*v97 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v97 + 1) + 8 * i);
+        v11 = *(*(&v96 + 1) + 8 * i);
         if (([(__CFString *)v11 isEqualToString:@"Work Bin: Previous PIDs Work"]& 1) != 0 || [(__CFString *)v11 isEqualToString:v3])
         {
           v12 = WALogCategoryDefaultHandle();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136446978;
-            v102 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
-            v103 = 1024;
-            v104 = 2838;
-            v105 = 2112;
-            v106 = v3;
-            v107 = 2112;
-            v108 = v11;
+            v101 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
+            v102 = 1024;
+            v103 = 2838;
+            v104 = 2112;
+            v105 = v3;
+            v106 = 2112;
+            v107 = v11;
             _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Skipping copying key to %@: %@", buf, 0x26u);
           }
         }
@@ -7467,13 +7464,13 @@ LABEL_18:
             v18 = [(NSMutableDictionary *)v14->_cachedUsage objectForKeyedSubscript:v16];
             v19 = [v18 objectForKeyedSubscript:v11];
             *buf = 136446978;
-            v102 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
-            v103 = 1024;
-            v104 = 2845;
-            v105 = 2112;
-            v106 = v11;
-            v107 = 2112;
-            v108 = v19;
+            v101 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
+            v102 = 1024;
+            v103 = 2845;
+            v104 = 2112;
+            v105 = v11;
+            v106 = 2112;
+            v107 = v19;
             _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%{public}s::%d:_cachedUsage[kLastPIDBin] now contains key %@ with value %@", buf, 0x26u);
           }
 
@@ -7481,10 +7478,10 @@ LABEL_18:
           v6 = v13;
         }
 
-        selfCopy = v85;
+        selfCopy = v84;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v97 objects:v117 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v96 objects:v116 count:16];
     }
 
     while (v8);
@@ -7502,33 +7499,33 @@ LABEL_18:
     }
   }
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   v23 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
   v24 = [v23 copy];
 
-  v25 = [v24 countByEnumeratingWithState:&v93 objects:v116 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v92 objects:v115 count:16];
   v26 = &WAXPCRequestDelegateInterface_ptr;
   if (v25)
   {
     v27 = v25;
-    v83 = *v94;
-    v81 = v24;
+    v82 = *v93;
+    v80 = v24;
     do
     {
       v28 = 0;
-      v82 = v27;
+      v81 = v27;
       do
       {
-        if (*v94 != v83)
+        if (*v93 != v82)
         {
           objc_enumerationMutation(v24);
         }
 
-        v84 = v28;
-        v29 = *(*(&v93 + 1) + 8 * v28);
+        v83 = v28;
+        v29 = *(*(&v92 + 1) + 8 * v28);
         if ([(__CFString *)v29 isEqualToString:@"Persist file creation Date"])
         {
           v30 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
@@ -7539,209 +7536,208 @@ LABEL_18:
 
         v33 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
         v34 = [v33 objectForKeyedSubscript:v29];
-        v35 = v26[429];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
-        v88 = v29;
+        v87 = v29;
         if (isKindOfClass)
         {
-          v37 = WALogCategoryDefaultHandle();
-          if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          v36 = WALogCategoryDefaultHandle();
+          if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_35;
           }
 
           *buf = 136446722;
-          v102 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
-          v103 = 1024;
-          v104 = 2862;
-          v105 = 2112;
-          v106 = v29;
-          v38 = v37;
-          v39 = "%{public}s::%d:Skipping copying to _cachedUsage[kPreviousPIDsBin] key %@: NSDate";
+          v101 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
+          v102 = 1024;
+          v103 = 2862;
+          v104 = 2112;
+          v105 = v29;
+          v37 = v36;
+          v38 = "%{public}s::%d:Skipping copying to _cachedUsage[kPreviousPIDsBin] key %@: NSDate";
 LABEL_34:
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, v39, buf, 0x1Cu);
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, v38, buf, 0x1Cu);
           goto LABEL_35;
         }
 
         if (([(__CFString *)v29 isEqualToString:@"Last Persisted PID"]& 1) != 0 || [(__CFString *)v29 isEqualToString:@"Last Terminated PID"])
         {
-          v37 = WALogCategoryDefaultHandle();
-          if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          v36 = WALogCategoryDefaultHandle();
+          if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_35;
           }
 
           *buf = 136446722;
-          v102 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
-          v103 = 1024;
-          v104 = 2866;
-          v105 = 2112;
-          v106 = v29;
-          v38 = v37;
-          v39 = "%{public}s::%d:Skipping copying to _cachedUsage[kPreviousPIDsBin] key %@: kWAPersistedPidKey or kWATerminationPidKey";
+          v101 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
+          v102 = 1024;
+          v103 = 2866;
+          v104 = 2112;
+          v105 = v29;
+          v37 = v36;
+          v38 = "%{public}s::%d:Skipping copying to _cachedUsage[kPreviousPIDsBin] key %@: kWAPersistedPidKey or kWATerminationPidKey";
           goto LABEL_34;
         }
 
-        v40 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-        v41 = [v40 objectForKeyedSubscript:v29];
+        v39 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+        v40 = [v39 objectForKeyedSubscript:v29];
         objc_opt_class();
-        v42 = objc_opt_isKindOfClass();
+        v41 = objc_opt_isKindOfClass();
 
-        if (v42)
+        if (v41)
         {
-          v43 = WALogCategoryDefaultHandle();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+          v42 = WALogCategoryDefaultHandle();
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
           {
-            v44 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-            v45 = [v44 objectForKeyedSubscript:v29];
-            v46 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
-            v47 = [v46 objectForKeyedSubscript:v29];
+            v43 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+            v44 = [v43 objectForKeyedSubscript:v29];
+            v45 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
+            v46 = [v45 objectForKeyedSubscript:v29];
             *buf = 136447234;
-            v102 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
-            v103 = 1024;
-            v104 = 2871;
-            v105 = 2112;
-            v106 = v29;
-            v107 = 2112;
-            v108 = v45;
-            v109 = 2112;
-            v110 = v47;
-            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Summing key %@ of kLastPIDBin %@ to kPreviousPIDsBin %@", buf, 0x30u);
+            v101 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
+            v102 = 1024;
+            v103 = 2871;
+            v104 = 2112;
+            v105 = v29;
+            v106 = 2112;
+            v107 = v44;
+            v108 = 2112;
+            v109 = v46;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Summing key %@ of kLastPIDBin %@ to kPreviousPIDsBin %@", buf, 0x30u);
 
-            v27 = v82;
+            v27 = v81;
           }
 
-          v37 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
-          v48 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-          [WAUtil sumNSNumberForKey:v29 dstDict:v37 otherDict:v48];
+          v36 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
+          v47 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+          [WAUtil sumNSNumberForKey:v29 dstDict:v36 otherDict:v47];
         }
 
         else
         {
-          v49 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-          v50 = [v49 objectForKeyedSubscript:v29];
+          v48 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+          v49 = [v48 objectForKeyedSubscript:v29];
           objc_opt_class();
-          v51 = objc_opt_isKindOfClass();
+          v50 = objc_opt_isKindOfClass();
 
-          if (v51)
+          if (v50)
           {
-            v91 = 0u;
-            v92 = 0u;
-            v89 = 0u;
             v90 = 0u;
-            v52 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-            v53 = [v52 objectForKeyedSubscript:v29];
-            v37 = [v53 copy];
+            v91 = 0u;
+            v88 = 0u;
+            v89 = 0u;
+            v51 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+            v52 = [v51 objectForKeyedSubscript:v29];
+            v36 = [v52 copy];
 
-            v87 = [v37 countByEnumeratingWithState:&v89 objects:v115 count:16];
-            if (v87)
+            v86 = [v36 countByEnumeratingWithState:&v88 objects:v114 count:16];
+            if (v86)
             {
-              v54 = *v90;
-              v55 = v88;
-              obj = v37;
+              v53 = *v89;
+              v54 = v87;
+              obj = v36;
               do
               {
-                for (j = 0; j != v87; j = j + 1)
+                for (j = 0; j != v86; j = j + 1)
                 {
-                  if (*v90 != v54)
+                  if (*v89 != v53)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v57 = *(*(&v89 + 1) + 8 * j);
-                  v58 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-                  v59 = [v58 objectForKeyedSubscript:v55];
-                  v60 = [v59 objectForKeyedSubscript:v57];
+                  v56 = *(*(&v88 + 1) + 8 * j);
+                  v57 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+                  v58 = [v57 objectForKeyedSubscript:v54];
+                  v59 = [v58 objectForKeyedSubscript:v56];
                   objc_opt_class();
-                  v61 = objc_opt_isKindOfClass();
+                  v60 = objc_opt_isKindOfClass();
 
-                  if (v61)
+                  if (v60)
                   {
-                    v62 = WALogCategoryDefaultHandle();
-                    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+                    v61 = WALogCategoryDefaultHandle();
+                    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
                     {
-                      v63 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-                      v64 = [v63 objectForKeyedSubscript:v55];
-                      v65 = [v64 objectForKeyedSubscript:v57];
-                      v66 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
-                      v67 = [v66 objectForKeyedSubscript:v88];
-                      v68 = [v67 objectForKeyedSubscript:v57];
+                      v62 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+                      v63 = [v62 objectForKeyedSubscript:v54];
+                      v64 = [v63 objectForKeyedSubscript:v56];
+                      v65 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
+                      v66 = [v65 objectForKeyedSubscript:v87];
+                      v67 = [v66 objectForKeyedSubscript:v56];
                       *buf = 136447746;
-                      v102 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
-                      v103 = 1024;
-                      v104 = 2878;
-                      v105 = 2112;
-                      v106 = v57;
-                      v107 = 2112;
-                      v108 = v88;
-                      v109 = 2112;
-                      v110 = v65;
-                      v111 = 2112;
-                      v112 = v88;
-                      v113 = 2112;
-                      v114 = v68;
-                      _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Summing innerKey %@ of kLastPIDBin.%@ %@ to kPreviousPIDsBin.%@ %@", buf, 0x44u);
+                      v101 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
+                      v102 = 1024;
+                      v103 = 2878;
+                      v104 = 2112;
+                      v105 = v56;
+                      v106 = 2112;
+                      v107 = v87;
+                      v108 = 2112;
+                      v109 = v64;
+                      v110 = 2112;
+                      v111 = v87;
+                      v112 = 2112;
+                      v113 = v67;
+                      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Summing innerKey %@ of kLastPIDBin.%@ %@ to kPreviousPIDsBin.%@ %@", buf, 0x44u);
 
-                      selfCopy = v85;
-                      v55 = v88;
+                      selfCopy = v84;
+                      v54 = v87;
                     }
 
-                    v69 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
-                    v70 = [v69 objectForKeyedSubscript:v55];
-                    v71 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-                    v72 = [v71 objectForKeyedSubscript:v88];
-                    [WAUtil sumNSNumberForKey:v57 dstDict:v70 otherDict:v72];
+                    v68 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Previous PIDs Work"];
+                    v69 = [v68 objectForKeyedSubscript:v54];
+                    v70 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+                    v71 = [v70 objectForKeyedSubscript:v87];
+                    [WAUtil sumNSNumberForKey:v56 dstDict:v69 otherDict:v71];
 
-                    v55 = v88;
+                    v54 = v87;
                   }
                 }
 
-                v37 = obj;
-                v87 = [obj countByEnumeratingWithState:&v89 objects:v115 count:16];
+                v36 = obj;
+                v86 = [obj countByEnumeratingWithState:&v88 objects:v114 count:16];
               }
 
-              while (v87);
-              v24 = v81;
+              while (v86);
+              v24 = v80;
               v26 = &WAXPCRequestDelegateInterface_ptr;
-              v27 = v82;
+              v27 = v81;
             }
           }
 
           else
           {
-            v37 = WALogCategoryDefaultHandle();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+            v36 = WALogCategoryDefaultHandle();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
-              v73 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
-              v74 = [v73 objectForKeyedSubscript:v29];
-              v75 = objc_opt_class();
+              v72 = [(NSMutableDictionary *)selfCopy->_cachedUsage objectForKeyedSubscript:@"Work Bin: Last PID Work"];
+              v73 = [v72 objectForKeyedSubscript:v29];
+              v74 = objc_opt_class();
               *buf = 136446978;
-              v102 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
-              v103 = 1024;
-              v104 = 2883;
-              v105 = 2112;
-              v106 = v29;
-              v107 = 2112;
-              v108 = v75;
-              v76 = v75;
-              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Skipping copying to _cachedUsage[kPreviousPIDsBin] key %@: unknown class %@", buf, 0x26u);
+              v101 = "[WAIOReporterMessagePopulator _handleUnpersistForUsageData]";
+              v102 = 1024;
+              v103 = 2883;
+              v104 = 2112;
+              v105 = v29;
+              v106 = 2112;
+              v107 = v74;
+              v75 = v74;
+              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Skipping copying to _cachedUsage[kPreviousPIDsBin] key %@: unknown class %@", buf, 0x26u);
             }
           }
         }
 
 LABEL_35:
 
-        v28 = v84 + 1;
+        v28 = v83 + 1;
       }
 
-      while ((v84 + 1) != v27);
-      v77 = [v24 countByEnumeratingWithState:&v93 objects:v116 count:16];
-      v27 = v77;
+      while ((v83 + 1) != v27);
+      v76 = [v24 countByEnumeratingWithState:&v92 objects:v115 count:16];
+      v27 = v76;
     }
 
-    while (v77);
+    while (v76);
   }
 
   [WAUtil incrementValueForKey:@"Unpersisted Count" inMutableDict:selfCopy->_cachedUsage onQueue:selfCopy->_queue];

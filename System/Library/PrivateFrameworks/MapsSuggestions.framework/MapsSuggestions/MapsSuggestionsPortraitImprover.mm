@@ -6,7 +6,7 @@
 
 - (BOOL)improveEntry:(id)entry
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   v5 = entryCopy;
   if (entryCopy)
@@ -24,73 +24,75 @@
       }
 
       v9 = [v8 stringForKey:@"MapsSuggestionsOriginBundleIDKey"];
-      if ([v9 isEqualToString:@"com.apple.siri"])
+      v10 = [v9 isEqualToString:@"com.apple.siri"];
+      if (v10)
       {
-        v10 = MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry();
+        v11 = MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry(v10);
       }
 
       else
       {
-        if (![v9 isEqualToString:@"com.apple.siri.homepod"])
+        v14 = [v9 isEqualToString:@"com.apple.siri.homepod"];
+        if (!v14)
         {
-          v13 = 0;
+          v15 = 0;
 LABEL_14:
 
-          if (v13)
+          if (v15)
           {
 LABEL_19:
 
-            [(MapsSuggestionsBaseImprover *)self improveMyUndecoratedSubtitle:v13 forEntry:v8];
+            [(MapsSuggestionsBaseImprover *)self improveMyUndecoratedSubtitle:v15 forEntry:v8];
             [v8 setBoolean:0 forKey:@"MapsSuggestionsNeedsETATrackingKey"];
-            v12 = 1;
+            v13 = 1;
             goto LABEL_20;
           }
 
 LABEL_15:
-          v14 = [v8 stringForKey:@"MapsSuggestionsOriginatingAppName"];
-          if ([v14 length])
+          v16 = [v8 stringForKey:@"MapsSuggestionsOriginatingAppName"];
+          if ([v16 length])
           {
-            MapsSuggestionsLocalizedSiriFoundInString(v14);
+            MapsSuggestionsLocalizedSiriFoundInString(v16);
           }
 
           else
           {
             MapsSuggestionsLocalizedSiriSuggestionsString();
           }
-          v13 = ;
+          v15 = ;
 
           goto LABEL_19;
         }
 
-        v10 = MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry();
+        v11 = MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry(v14);
       }
 
-      v13 = v10;
+      v15 = v11;
       goto LABEL_14;
     }
   }
 
   else
   {
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136446978;
-      v17 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitImprover.m";
-      v18 = 1024;
-      v19 = 23;
-      v20 = 2082;
-      v21 = "[MapsSuggestionsPortraitImprover improveEntry:]";
+      v18 = 136446978;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsPortraitImprover.m";
+      v20 = 1024;
+      v21 = 23;
       v22 = 2082;
-      v23 = "nil == (entry)";
-      _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires suggestion entry", &v16, 0x26u);
+      v23 = "[MapsSuggestionsPortraitImprover improveEntry:]";
+      v24 = 2082;
+      v25 = "nil == (entry)";
+      _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires suggestion entry", &v18, 0x26u);
     }
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_20:
 
-  return v12;
+  return v13;
 }
 
 @end

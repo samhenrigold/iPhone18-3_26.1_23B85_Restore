@@ -61,33 +61,37 @@
 
 - (void)_activate
 {
-  if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_HMEnrollmentService <= 30)
   {
-    [HMEnrollmentService _activate];
+    if (gLogCategory_HMEnrollmentService != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(HMEnrollmentService *)self _activate];
+    }
   }
 
-  [(HMEnrollmentService *)self _startAudiogramQuery];
-  v3 = self->_accessoryManager;
-  if (!v3)
+  [(HMEnrollmentService *)selfCopy _startAudiogramQuery];
+  v4 = selfCopy->_accessoryManager;
+  if (!v4)
   {
-    v4 = objc_alloc_init(HMAccessoryManager);
-    accessoryManager = self->_accessoryManager;
-    self->_accessoryManager = v4;
+    v5 = objc_alloc_init(HMAccessoryManager);
+    accessoryManager = selfCopy->_accessoryManager;
+    selfCopy->_accessoryManager = v5;
 
-    v6 = MEMORY[0x277D85DD0];
-    v7 = 3221225472;
-    v8 = __32__HMEnrollmentService__activate__block_invoke;
-    v9 = &unk_2796EE978;
-    selfCopy = self;
-    v3 = v4;
-    v11 = v3;
-    [(HMAccessoryManager *)self->_accessoryManager setSettingsUpdateHandler:&v6];
+    v7 = MEMORY[0x277D85DD0];
+    v8 = 3221225472;
+    v9 = __32__HMEnrollmentService__activate__block_invoke;
+    v10 = &unk_2796EE978;
+    v11 = selfCopy;
+    v4 = v5;
+    v12 = v4;
+    [(HMAccessoryManager *)selfCopy->_accessoryManager setSettingsUpdateHandler:&v7];
     if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
     {
       [HMEnrollmentService _activate];
     }
 
-    [(HMAccessoryManager *)v3 activateWithBluetoothDeviceAddress:self->_bluetoothDeviceAddress, v6, v7, v8, v9, selfCopy];
+    [(HMAccessoryManager *)v4 activateWithBluetoothDeviceAddress:selfCopy->_bluetoothDeviceAddress, v7, v8, v9, v10, v11];
   }
 }
 
@@ -108,9 +112,9 @@ void __32__HMEnrollmentService__activate__block_invoke(uint64_t a1, void *a2)
   dispatch_async(v6, block);
 }
 
-uint64_t __32__HMEnrollmentService__activate__block_invoke_2(uint64_t result)
+void *__32__HMEnrollmentService__activate__block_invoke_2(void *result)
 {
-  if (*(*(result + 32) + 8) == *(result + 40))
+  if (*(result[4] + 8) == result[5])
   {
     v2 = result;
     if (gLogCategory_HMEnrollmentService <= 10 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
@@ -118,8 +122,8 @@ uint64_t __32__HMEnrollmentService__activate__block_invoke_2(uint64_t result)
       __32__HMEnrollmentService__activate__block_invoke_2_cold_1(v2);
     }
 
-    v3 = *(v2 + 32);
-    v4 = *(v2 + 48);
+    v3 = v2[4];
+    v4 = v2[6];
 
     return [v3 _accessoryReceivedHearingModeSettings:v4];
   }
@@ -349,86 +353,83 @@ uint64_t __32__HMEnrollmentService__activate__block_invoke_2(uint64_t result)
 
 - (void)_accessorySendHearingModeSettings
 {
-  v38 = 0.0;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  memset(v33, 0, sizeof(v33));
+  v33 = 0.0;
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  memset(v28, 0, sizeof(v28));
   v3 = self->_currentConfig;
-  v4 = v3;
+  v6 = v3;
   if (v3)
   {
-    [(NSData *)v3 getBytes:v33 length:100];
+    [(NSData *)v3 getBytes:v28 length:100];
   }
 
-  else if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_HMEnrollmentService <= 30)
   {
-    [HMEnrollmentService _accessorySendHearingModeSettings];
+    if (gLogCategory_HMEnrollmentService != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(HMEnrollmentService *)v3 _accessorySendHearingModeSettings];
+    }
   }
 
-  LODWORD(v33[0]) = 6554113;
+  LODWORD(v28[0]) = 6554113;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v6 = selfCopy->_selectedAudiogram;
+  v8 = selfCopy->_selectedAudiogram;
   objc_sync_exit(selfCopy);
 
-  if (v6)
+  if (v8)
   {
-    [(HMEnrollmentService *)selfCopy _getHearingModeSettings:v33 fromAudiogram:v6];
+    [(HMEnrollmentService *)selfCopy _getHearingModeSettings:v28 fromAudiogram:v8];
   }
 
   if (gLogCategory_HMEnrollmentService <= 30)
   {
-    v7 = *(v33 + 1);
-    v8 = *(&v35 + 1);
+    v9 = *(v28 + 1);
+    v10 = *(&v30 + 1);
     if (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize())
     {
-      [(HMEnrollmentService *)v7 _accessorySendHearingModeSettings];
+      [(HMEnrollmentService *)v9 _accessorySendHearingModeSettings];
     }
 
     if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
     {
-      [(HMEnrollmentService *)v8 _accessorySendHearingModeSettings];
+      [(HMEnrollmentService *)v10 _accessorySendHearingModeSettings];
     }
   }
 
   [(HMEnrollmentService *)selfCopy getTone];
-  v10 = v9;
-  [(HMEnrollmentService *)selfCopy getBalance];
   v12 = v11;
-  [(HMEnrollmentService *)selfCopy getAmplification];
+  [(HMEnrollmentService *)selfCopy getBalance];
   v14 = v13;
+  [(HMEnrollmentService *)selfCopy getAmplification];
+  v16 = v15;
   if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
   {
-    v27 = v12;
-    v28 = v14;
-    v26 = v10;
-    LogPrintF();
+    LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _accessorySendHearingModeSettings]", 30, "UI tone: %lf, balance: %lf, amplification: %lf", v12, v14, v16);
   }
 
-  v15 = v10 * 2.0 + -1.0;
-  v16 = v14 * 2.0 + -1.0;
   v17 = v12 * 2.0 + -1.0;
+  v18 = v16 * 2.0 + -1.0;
+  v19 = v14 * 2.0 + -1.0;
   if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
   {
-    v27 = v17;
-    v28 = v16;
-    v26 = v15;
-    LogPrintF();
+    LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _accessorySendHearingModeSettings]", 30, "backend converted tone: %lf, balance: %lf, amplification: %lf", v17, v19, v18);
   }
 
-  v18 = fmax(fmin((v16 - (v17 * 0.5)), 1.5), -1.5);
-  v19 = fmax(fmin(((v17 * 0.5) + v16), 1.5), -1.5);
-  v20 = fmaxf(fminf(v15, 1.0), -1.0);
-  *(&v34 + 4) = __PAIR64__(LODWORD(v20), LODWORD(v18));
-  *(&v37 + 4) = __PAIR64__(LODWORD(v20), LODWORD(v19));
+  v20 = fmax(fmin((v18 - (v19 * 0.5)), 1.5), -1.5);
+  v21 = fmax(fmin(((v19 * 0.5) + v18), 1.5), -1.5);
+  v22 = fmaxf(fminf(v17, 1.0), -1.0);
+  *(&v29 + 4) = __PAIR64__(LODWORD(v22), LODWORD(v20));
+  *(&v32 + 4) = __PAIR64__(LODWORD(v22), LODWORD(v21));
   beamFormer = selfCopy->_beamFormer;
-  *(&v37 + 3) = beamFormer;
+  *(&v32 + 3) = beamFormer;
   noiseSuppression = selfCopy->_noiseSuppression;
-  *(&v34 + 3) = beamFormer;
-  *&v35 = noiseSuppression;
-  v38 = noiseSuppression;
+  *(&v29 + 3) = beamFormer;
+  *&v30 = noiseSuppression;
+  v33 = noiseSuppression;
   if (gLogCategory_HMEnrollmentService <= 30)
   {
     if (gLogCategory_HMEnrollmentService == -1)
@@ -438,28 +439,21 @@ uint64_t __32__HMEnrollmentService__activate__block_invoke_2(uint64_t result)
         goto LABEL_26;
       }
 
-      v19 = *(&v37 + 1);
-      v20 = *(&v34 + 2);
-      v18 = *(&v34 + 1);
-      beamFormer = *(&v34 + 3);
-      noiseSuppression = *&v35;
+      v21 = *(&v32 + 1);
+      v22 = *(&v29 + 2);
+      v20 = *(&v29 + 1);
+      beamFormer = *(&v29 + 3);
+      noiseSuppression = *&v30;
     }
 
-    v31 = beamFormer;
-    v32 = noiseSuppression;
-    v29 = v16;
-    v30 = v17;
-    v27 = v19;
-    v28 = v20;
-    v26 = v18;
-    LogPrintF();
+    LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _accessorySendHearingModeSettings]", 30, "sending settings: leftGain: %lf, rightGain: %lf, tone: %lf, amplification: %lf, balance: %lf, beamFormer: %lf, noiseSuppression: %lf", v20, v21, v22, v18, v19, beamFormer, noiseSuppression);
   }
 
 LABEL_26:
-  v23 = [MEMORY[0x277CBEA90] dataWithBytes:v33 length:{100, *&v26, *&v27, *&v28, *&v29, *&v30, *&v31, *&v32}];
-  v24 = [v23 copy];
+  v25 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:100];
+  v26 = [v25 copy];
   currentConfig = self->_currentConfig;
-  self->_currentConfig = v24;
+  self->_currentConfig = v26;
 
   [(HMAccessoryManager *)selfCopy->_accessoryManager writeHearingModeSetting:self->_currentConfig];
 }
@@ -470,87 +464,72 @@ LABEL_26:
   v5 = settingsCopy;
   if (settingsCopy)
   {
-    v35 = 0;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    memset(v30, 0, sizeof(v30));
-    [settingsCopy getBytes:v30 length:100];
-    if (BYTE1(v30[0]) == 2)
+    v28 = 0;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    memset(v23, 0, sizeof(v23));
+    [settingsCopy getBytes:v23 length:100];
+    v6 = BYTE1(v23[0]);
+    if (BYTE1(v23[0]) == 2)
     {
-      v6 = LOBYTE(v30[0]);
-      v8 = *(&v31 + 3);
-      v7 = *&v32;
-      v9 = fmax(fmin(*(&v31 + 1), 1.5), -1.5);
-      v10 = fmax(fmin(*(&v34 + 1), 1.5), -1.5);
-      v11 = fmaxf(fminf(*(&v34 + 2), 1.0), -1.0);
-      v12 = v10 - v9;
-      v13 = v10 + ((v10 - v9) * -0.5);
+      *&v7 = LOBYTE(v23[0]);
+      v9 = *(&v24 + 3);
+      v8 = *&v25;
+      v10 = fmax(fmin(*(&v24 + 1), 1.5), -1.5);
+      v11 = fmax(fmin(*(&v27 + 1), 1.5), -1.5);
+      v12 = fmaxf(fminf(*(&v27 + 2), 1.0), -1.0);
+      v13 = v11 - v10;
+      v14 = v11 + ((v11 - v10) * -0.5);
       if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
       {
-        v28 = v8;
-        noiseSuppression = v7;
-        v26 = v13;
-        v27 = v12;
-        v24 = v10;
-        v25 = v11;
-        v23 = v9;
-        v22 = v6;
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _accessoryReceivedHearingModeSettings:]", 30, "received raw settings: version: %lf, leftGain: %lf, rightGain: %lf, tone: %lf, amplification: %lf, balance: %lf, beamFormer: %lf, noiseSuppression: %lf", v7, v10, v11, v12, v14, v13, v9, v8);
       }
 
-      v14 = (v13 + 1.0) * 0.5;
-      v15 = (v12 + 1.0) * 0.5;
-      v16 = (v11 + 1.0) * 0.5;
+      v15 = (v14 + 1.0) * 0.5;
+      v16 = (v13 + 1.0) * 0.5;
+      v17 = (v12 + 1.0) * 0.5;
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      selfCopy->_tone = v16;
-      selfCopy->_balance = v15;
-      selfCopy->_amplification = v14;
-      selfCopy->_beamFormer = v8;
-      selfCopy->_noiseSuppression = v7;
+      selfCopy->_tone = v17;
+      selfCopy->_balance = v16;
+      selfCopy->_amplification = v15;
+      selfCopy->_beamFormer = v9;
+      selfCopy->_noiseSuppression = v8;
       objc_sync_exit(selfCopy);
 
       if (gLogCategory_HMEnrollmentService <= 30)
       {
-        v18 = *(v30 + 1);
-        v19 = *(&v32 + 1);
+        v19 = *(v23 + 1);
+        v20 = *(&v25 + 1);
         if (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize())
         {
-          [HMEnrollmentService _accessoryReceivedHearingModeSettings:v18];
+          [HMEnrollmentService _accessoryReceivedHearingModeSettings:v19];
         }
 
         if (gLogCategory_HMEnrollmentService <= 30)
         {
           if (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize())
           {
-            [HMEnrollmentService _accessoryReceivedHearingModeSettings:v19];
+            [HMEnrollmentService _accessoryReceivedHearingModeSettings:v20];
           }
 
           if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
           {
-            v28 = v8;
-            noiseSuppression = selfCopy->_noiseSuppression;
-            v26 = v14;
-            v27 = v15;
-            v24 = v10;
-            v25 = v16;
-            v23 = v9;
-            v22 = v6;
-            LogPrintF();
+            LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _accessoryReceivedHearingModeSettings:]", 30, "received settings: version: %lf, leftGain: %lf, rightGain: %lf, tone: %lf, amplification: %lf, balance: %lf, beamFormer: %lf, noiseSuppression: %lf", v7, v10, v11, v17, v15, v16, v9, selfCopy->_noiseSuppression);
           }
         }
       }
 
-      v20 = [v5 mutableCopy];
+      v21 = [v5 mutableCopy];
       currentConfig = selfCopy->_currentConfig;
-      selfCopy->_currentConfig = v20;
+      selfCopy->_currentConfig = v21;
     }
 
     else if (gLogCategory_HMEnrollmentService <= 90 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
     {
-      [HMEnrollmentService _accessoryReceivedHearingModeSettings:];
+      [HMEnrollmentService _accessoryReceivedHearingModeSettings:v6];
     }
   }
 
@@ -565,137 +544,137 @@ LABEL_26:
   v72 = [HMAudiogramUtility frequencyToHearingDecibelLevelMapFromAudiogram:audiogram];
   if (v72)
   {
-    v5 = +[HMAudiogramUtility frequencyBins];
-    v6 = [v5 objectAtIndexedSubscript:0];
-    v7 = [v72 objectForKey:v6];
-    v8 = [v7 objectForKey:@"left"];
-    [v8 floatValue];
-    settings->var3.var0 = v9;
+    v7 = +[HMAudiogramUtility frequencyBins];
+    v8 = [v7 objectAtIndexedSubscript:0];
+    v9 = [v72 objectForKey:v8];
+    v10 = [v9 objectForKey:@"left"];
+    [v10 floatValue];
+    settings->var3.var0 = v11;
 
-    v10 = [v5 objectAtIndexedSubscript:0];
-    v11 = [v72 objectForKey:v10];
-    v12 = [v11 objectForKey:@"right"];
-    [v12 floatValue];
-    settings->var4.var0 = v13;
+    v12 = [v7 objectAtIndexedSubscript:0];
+    v13 = [v72 objectForKey:v12];
+    v14 = [v13 objectForKey:@"right"];
+    [v14 floatValue];
+    settings->var4.var0 = v15;
 
-    v14 = [v5 objectAtIndexedSubscript:1];
-    v15 = [v72 objectForKey:v14];
-    v16 = [v15 objectForKey:@"left"];
-    [v16 floatValue];
-    settings->var3.var1 = v17;
+    v16 = [v7 objectAtIndexedSubscript:1];
+    v17 = [v72 objectForKey:v16];
+    v18 = [v17 objectForKey:@"left"];
+    [v18 floatValue];
+    settings->var3.var1 = v19;
 
-    v18 = [v5 objectAtIndexedSubscript:1];
-    v19 = [v72 objectForKey:v18];
-    v20 = [v19 objectForKey:@"right"];
-    [v20 floatValue];
-    settings->var4.var1 = v21;
+    v20 = [v7 objectAtIndexedSubscript:1];
+    v21 = [v72 objectForKey:v20];
+    v22 = [v21 objectForKey:@"right"];
+    [v22 floatValue];
+    settings->var4.var1 = v23;
 
-    v22 = [v5 objectAtIndexedSubscript:2];
-    v23 = [v72 objectForKey:v22];
-    v24 = [v23 objectForKey:@"left"];
-    [v24 floatValue];
-    settings->var3.var2 = v25;
+    v24 = [v7 objectAtIndexedSubscript:2];
+    v25 = [v72 objectForKey:v24];
+    v26 = [v25 objectForKey:@"left"];
+    [v26 floatValue];
+    settings->var3.var2 = v27;
 
-    v26 = [v5 objectAtIndexedSubscript:2];
-    v27 = [v72 objectForKey:v26];
-    v28 = [v27 objectForKey:@"right"];
-    [v28 floatValue];
-    settings->var4.var2 = v29;
+    v28 = [v7 objectAtIndexedSubscript:2];
+    v29 = [v72 objectForKey:v28];
+    v30 = [v29 objectForKey:@"right"];
+    [v30 floatValue];
+    settings->var4.var2 = v31;
 
-    v30 = [v5 objectAtIndexedSubscript:3];
-    v31 = [v72 objectForKey:v30];
-    v32 = [v31 objectForKey:@"left"];
-    [v32 floatValue];
-    settings->var3.var3 = v33;
+    v32 = [v7 objectAtIndexedSubscript:3];
+    v33 = [v72 objectForKey:v32];
+    v34 = [v33 objectForKey:@"left"];
+    [v34 floatValue];
+    settings->var3.var3 = v35;
 
-    v34 = [v5 objectAtIndexedSubscript:3];
-    v35 = [v72 objectForKey:v34];
-    v36 = [v35 objectForKey:@"right"];
-    [v36 floatValue];
-    settings->var4.var3 = v37;
+    v36 = [v7 objectAtIndexedSubscript:3];
+    v37 = [v72 objectForKey:v36];
+    v38 = [v37 objectForKey:@"right"];
+    [v38 floatValue];
+    settings->var4.var3 = v39;
 
-    v38 = [v5 objectAtIndexedSubscript:5];
-    v39 = [v72 objectForKey:v38];
-    v40 = [v39 objectForKey:@"left"];
-    [v40 floatValue];
-    settings->var3.var5 = v41;
+    v40 = [v7 objectAtIndexedSubscript:5];
+    v41 = [v72 objectForKey:v40];
+    v42 = [v41 objectForKey:@"left"];
+    [v42 floatValue];
+    settings->var3.var5 = v43;
 
-    v42 = [v5 objectAtIndexedSubscript:5];
-    v43 = [v72 objectForKey:v42];
-    v44 = [v43 objectForKey:@"right"];
-    [v44 floatValue];
-    settings->var4.var5 = v45;
+    v44 = [v7 objectAtIndexedSubscript:5];
+    v45 = [v72 objectForKey:v44];
+    v46 = [v45 objectForKey:@"right"];
+    [v46 floatValue];
+    settings->var4.var5 = v47;
 
-    v46 = [v5 objectAtIndexedSubscript:7];
-    v47 = [v72 objectForKey:v46];
-    v48 = [v47 objectForKey:@"left"];
-    [v48 floatValue];
-    settings->var3.var7 = v49;
+    v48 = [v7 objectAtIndexedSubscript:7];
+    v49 = [v72 objectForKey:v48];
+    v50 = [v49 objectForKey:@"left"];
+    [v50 floatValue];
+    settings->var3.var7 = v51;
 
-    v50 = [v5 objectAtIndexedSubscript:7];
-    v51 = [v72 objectForKey:v50];
-    v52 = [v51 objectForKey:@"right"];
-    [v52 floatValue];
-    settings->var4.var7 = v53;
+    v52 = [v7 objectAtIndexedSubscript:7];
+    v53 = [v72 objectForKey:v52];
+    v54 = [v53 objectForKey:@"right"];
+    [v54 floatValue];
+    settings->var4.var7 = v55;
 
-    v54 = [v5 objectAtIndexedSubscript:4];
-    v55 = [v72 objectForKey:v54];
+    v56 = [v7 objectAtIndexedSubscript:4];
+    v57 = [v72 objectForKey:v56];
 
-    if (v55)
+    if (v57)
     {
-      v56 = [v55 objectForKey:@"left"];
-      [v56 floatValue];
-      settings->var3.var4 = v57;
-
-      v58 = [v55 objectForKey:@"right"];
+      v58 = [v57 objectForKey:@"left"];
       [v58 floatValue];
-      settings->var4.var4 = v59;
+      settings->var3.var4 = v59;
+
+      v60 = [v57 objectForKey:@"right"];
+      [v60 floatValue];
+      settings->var4.var4 = v61;
 
       goto LABEL_8;
     }
 
     var4 = (settings->var3.var3 + settings->var3.var5) * 0.5;
     settings->var3.var4 = var4;
-    v61 = (settings->var4.var3 + settings->var4.var5) * 0.5;
-    settings->var4.var4 = v61;
+    v63 = (settings->var4.var3 + settings->var4.var5) * 0.5;
+    settings->var4.var4 = v63;
     if (gLogCategory_HMEnrollmentService <= 30)
     {
       if (gLogCategory_HMEnrollmentService != -1)
       {
 LABEL_6:
-        v70 = var4;
-        v71 = v61;
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _getHearingModeSettings:fromAudiogram:]", 30, "interpolating sensitivity point at 3000Hz, leftEar: %f dbHL, rightEar: %f dbHL", var4, v63);
         goto LABEL_8;
       }
 
       if (_LogCategory_Initialize())
       {
         var4 = settings->var3.var4;
-        v61 = settings->var4.var4;
+        v63 = settings->var4.var4;
         goto LABEL_6;
       }
     }
 
 LABEL_8:
-    v62 = [v5 objectAtIndexedSubscript:{6, *&v70, *&v71}];
-    v63 = [v72 objectForKey:v62];
+    v64 = [v7 objectAtIndexedSubscript:6];
+    v65 = [v72 objectForKey:v64];
 
-    if (v63)
+    if (v65)
     {
-      v64 = [v63 objectForKey:@"left"];
-      [v64 floatValue];
-      settings->var3.var6 = v65;
-
-      v66 = [v63 objectForKey:@"right"];
+      v66 = [v65 objectForKey:@"left"];
       [v66 floatValue];
-      settings->var4.var6 = v67;
+      settings->var3.var6 = v67;
+
+      v68 = [v65 objectForKey:@"right"];
+      [v68 floatValue];
+      settings->var4.var6 = v69;
     }
 
     else
     {
-      settings->var3.var6 = (settings->var3.var5 + settings->var3.var7) * 0.5;
-      settings->var4.var6 = (settings->var4.var5 + settings->var4.var7) * 0.5;
+      var6 = (settings->var3.var5 + settings->var3.var7) * 0.5;
+      settings->var3.var6 = var6;
+      v71 = (settings->var4.var5 + settings->var4.var7) * 0.5;
+      settings->var4.var6 = v71;
       if (gLogCategory_HMEnrollmentService <= 30)
       {
         if (gLogCategory_HMEnrollmentService == -1)
@@ -706,10 +685,10 @@ LABEL_8:
           }
 
           var6 = settings->var3.var6;
-          v69 = settings->var4.var6;
+          v71 = settings->var4.var6;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _getHearingModeSettings:fromAudiogram:]", 30, "interpolating sensitivity point at 6000Hz, leftEar: %f dbHL, rightEar: %f dbHL", var6, v71);
       }
     }
 
@@ -718,7 +697,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  [HMEnrollmentService _getHearingModeSettings:fromAudiogram:];
+  [(HMEnrollmentService *)0 _getHearingModeSettings:v5 fromAudiogram:v6];
 LABEL_15:
 }
 
@@ -764,7 +743,7 @@ void __43__HMEnrollmentService__startAudiogramQuery__block_invoke(uint64_t a1, v
 
 - (void)_audiogramsQueryHandler:(id)handler results:(id)results error:(id)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   resultsCopy = results;
   errorCopy = error;
@@ -772,7 +751,7 @@ void __43__HMEnrollmentService__startAudiogramQuery__block_invoke(uint64_t a1, v
   {
     if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
     {
-      [HMEnrollmentService _audiogramsQueryHandler:results:error:];
+      [HMEnrollmentService _audiogramsQueryHandler:errorCopy results:? error:?];
     }
 
     audiogramsAvailableHandler = self->_audiogramsAvailableHandler;
@@ -803,26 +782,26 @@ void __43__HMEnrollmentService__startAudiogramQuery__block_invoke(uint64_t a1, v
     selfCopy = self;
     objc_sync_enter(selfCopy);
     objc_storeStrong(&selfCopy->_audiograms, results);
-    v29 = handlerCopy;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
+    v28 = handlerCopy;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v18 = selfCopy->_audiograms;
-    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v19)
     {
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * i);
+          v22 = *(*(&v29 + 1) + 8 * i);
           if ([(HMEnrollmentService *)selfCopy _isAudiogramValid:v22])
           {
             v23 = p_validAudiograms;
@@ -836,13 +815,13 @@ void __43__HMEnrollmentService__startAudiogramQuery__block_invoke(uint64_t a1, v
           [*v23 addObject:v22];
         }
 
-        v19 = [(NSArray *)v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v19 = [(NSArray *)v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v19);
     }
 
-    handlerCopy = v29;
+    handlerCopy = v28;
     objc_sync_exit(selfCopy);
 
     if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
@@ -858,8 +837,6 @@ void __43__HMEnrollmentService__startAudiogramQuery__block_invoke(uint64_t a1, v
       v25[2](v25, v26, v27, 0);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isAudiogramValid:(id)valid
@@ -869,27 +846,27 @@ void __43__HMEnrollmentService__startAudiogramQuery__block_invoke(uint64_t a1, v
   if (!v4)
   {
     [HMEnrollmentService _isAudiogramValid:?];
-    v8 = v38;
+    v8 = v41;
     goto LABEL_20;
   }
 
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
   v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
   v5 = +[HMAudiogramUtility requiredFrequencyBins];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __41__HMEnrollmentService__isAudiogramValid___block_invoke;
-  v34[3] = &unk_2796EE9F0;
+  v34 = MEMORY[0x277D85DD0];
+  v35 = 3221225472;
+  v36 = __41__HMEnrollmentService__isAudiogramValid___block_invoke;
+  v37 = &unk_2796EE9F0;
   v6 = v4;
-  v35 = v6;
+  v38 = v6;
   v7 = validCopy;
-  v36 = v7;
-  v37 = &v38;
-  [v5 enumerateObjectsUsingBlock:v34];
+  v39 = v7;
+  v40 = &v41;
+  [v5 enumerateObjectsUsingBlock:&v34];
 
-  if (!v39[3])
+  if (!v42[3])
   {
     v9 = [v6 objectForKey:&unk_286437CC8];
     v10 = [v6 objectForKey:&unk_286437CE0];
@@ -940,7 +917,7 @@ LABEL_17:
       name = [source name];
       v23 = [v10 description];
       v24 = [v11 description];
-      LogPrintF();
+      LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _isAudiogramValid:]", 30, "audiogram: %@ is invalid, difference in hearing level 4000Hz and 8000Hz is >20db. Sensitivity at 4k: %@, Sensitivity at 8k: %@", name, v23, v24, v34, v35, v36, v37, v38);
     }
 
     else
@@ -955,7 +932,7 @@ LABEL_17:
       name = [source name];
       v23 = [v9 description];
       v24 = [v10 description];
-      LogPrintF();
+      LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _isAudiogramValid:]", 30, "audiogram: %@ is invalid, difference in hearing level at 2000Hz and 4000Hz is >20db. Sensitivity at 2k: %@, Sensitivity at 4k: %@", name, v23, v24, v34, v35, v36, v37, v38);
     }
 
     goto LABEL_17;
@@ -964,7 +941,7 @@ LABEL_17:
   v8 = 0;
 LABEL_19:
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v41, 8);
 LABEL_20:
 
   return v8;
@@ -980,7 +957,7 @@ void __41__HMEnrollmentService__isAudiogramValid___block_invoke(uint64_t a1, voi
   {
     if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
     {
-      __41__HMEnrollmentService__isAudiogramValid___block_invoke_cold_1(a1);
+      __41__HMEnrollmentService__isAudiogramValid___block_invoke_cold_1(a1, v8);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -989,29 +966,22 @@ void __41__HMEnrollmentService__isAudiogramValid___block_invoke(uint64_t a1, voi
   }
 }
 
-- (void)_getHearingModeSettings:fromAudiogram:.cold.1()
+- (void)_getHearingModeSettings:(uint64_t)a3 fromAudiogram:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_HMEnrollmentService <= 30 && (gLogCategory_HMEnrollmentService != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1();
+    OUTLINED_FUNCTION_1(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _getHearingModeSettings:fromAudiogram:]", a3, "failed to process audiogram");
   }
 }
 
-- (uint64_t)_audiogramsQueryHandler:(id *)a1 results:(id *)a2 error:.cold.2(id *a1, id *a2)
-{
-  [*a1 count];
-  [*a2 count];
-  return LogPrintF();
-}
-
-- (uint64_t)_isAudiogramValid:(uint64_t)result .cold.1(uint64_t result)
+- (_BYTE)_isAudiogramValid:(_BYTE *)result .cold.1(_BYTE *result)
 {
   v1 = result;
   if (gLogCategory_HMEnrollmentService <= 30)
   {
     if (gLogCategory_HMEnrollmentService != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _isAudiogramValid:]", 30, "invalid audiogram");
     }
   }
 
@@ -1019,12 +989,12 @@ void __41__HMEnrollmentService__isAudiogramValid___block_invoke(uint64_t a1, voi
   return result;
 }
 
-void __41__HMEnrollmentService__isAudiogramValid___block_invoke_cold_1(uint64_t a1)
+void __41__HMEnrollmentService__isAudiogramValid___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v3 = [*(a1 + 40) sourceRevision];
-  v1 = [v3 source];
-  v2 = [v1 name];
-  LogPrintF();
+  v5 = [*(a1 + 40) sourceRevision];
+  v3 = [v5 source];
+  v4 = [v3 name];
+  LogPrintF(&gLogCategory_HMEnrollmentService, "[HMEnrollmentService _isAudiogramValid:]_block_invoke", 30, "audiogram: %@ does not contain valid entry at frequency %@", v4, a2);
 }
 
 @end

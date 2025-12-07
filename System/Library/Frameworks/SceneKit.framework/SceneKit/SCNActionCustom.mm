@@ -31,19 +31,19 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4.receiver = self;
-  v4.super_class = SCNActionCustom;
-  [(SCNAction *)&v4 encodeWithCoder:coder];
-  v3 = scn_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v6.receiver = self;
+  v6.super_class = SCNActionCustom;
+  v3 = [(SCNAction *)&v6 encodeWithCoder:coder];
+  v5 = scn_default_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    [SCNActionCustom encodeWithCoder:v3];
+    [SCNActionCustom encodeWithCoder:v5];
   }
 }
 
 - (SCNActionCustom)initWithCoder:(id)coder
 {
-  v4 = scn_default_log();
+  v4 = scn_default_log(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [SCNActionCustom initWithCoder:v4];

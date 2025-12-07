@@ -8,13 +8,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___SCUpdateLastAppLaunchUpsellInstanceIDCommand_lastAppLaunchUpsellInstanceID);
-  v5 = *&self->lastAppLaunchUpsellInstanceID[OBJC_IVAR___SCUpdateLastAppLaunchUpsellInstanceIDCommand_lastAppLaunchUpsellInstanceID];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_1DACB92F4();
-  v8 = sub_1DACB92F4();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_1DACB92F4();
+  v6 = sub_1DACB92F4();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (SCUpdateLastAppLaunchUpsellInstanceIDCommand)init

@@ -152,11 +152,11 @@
   }
 
   v14 = PKUIPixelLength() * 3.0;
-  v38.origin.x = x;
-  v38.origin.y = y;
-  v38.size.width = width;
-  v38.size.height = height;
-  CGRectDivide(v38, &slice, &remainder, v14, CGRectMinYEdge);
+  v40.origin.x = x;
+  v40.origin.y = y;
+  v40.size.width = width;
+  v40.size.height = height;
+  CGRectDivide(v40, &slice, &remainder, v14, CGRectMinYEdge);
   v15 = PKUIPixelLength() * 3.0 + 0.0;
   CGRectDivide(remainder, &slice, &remainder, 16.0, CGRectMinXEdge);
   CGRectDivide(remainder, &slice, &remainder, 16.0, CGRectMaxXEdge);
@@ -172,32 +172,32 @@
     v17 = 45.0;
   }
 
+  memset(&v36, 0, sizeof(v36));
+  memset(&v35, 0, sizeof(v35));
   memset(&v34, 0, sizeof(v34));
-  memset(&v33, 0, sizeof(v33));
-  memset(&v32, 0, sizeof(v32));
   v18 = remainder.origin.x;
   v19 = remainder.origin.y;
   v20 = remainder.size.width;
   v21 = remainder.size.height;
   if (IsAccessibilityCategory)
   {
-    CGRectDivide(*&v18, &v34, &remainder, v17, CGRectMinYEdge);
+    CGRectDivide(*&v18, &v36, &remainder, v17, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
-    CGRectDivide(v34, &v34, &v33, v17, v12);
+    CGRectDivide(v36, &v36, &v35, v17, v12);
     v16 = v16 + v17 + 10.0;
   }
 
   else
   {
-    CGRectDivide(*&v18, &v32, &remainder, v17, v12);
-    CGRectDivide(v32, &v34, &v33, 10.0, CGRectMinYEdge);
-    CGRectDivide(v33, &v34, &v33, v17, CGRectMinYEdge);
+    CGRectDivide(*&v18, &v34, &remainder, v17, v12);
+    CGRectDivide(v34, &v36, &v35, 10.0, CGRectMinYEdge);
+    CGRectDivide(v35, &v36, &v35, v17, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 12.0, v12);
   }
 
   if (!self->_isTemplateLayout)
   {
-    [(UIImageView *)self->_imageView setFrame:v34.origin.x, v34.origin.y, v34.size.width, v34.size.height];
+    [(UIImageView *)self->_imageView setFrame:v36.origin.x, v36.origin.y, v36.size.width, v36.size.height];
   }
 
   [(UILabel *)self->_title sizeThatFits:remainder.size.width, remainder.size.height];
@@ -224,19 +224,21 @@
   v27 = v26;
   if (!self->_isTemplateLayout)
   {
-    memset(&v31, 0, sizeof(v31));
-    CGRectDivide(remainder, &v31, &remainder, v26, CGRectMinYEdge);
-    PKFloatRoundToPixel();
-    CGRectDivide(v31, &slice, &v31, v28, v12);
+    memset(&v33, 0, sizeof(v33));
+    CGRectDivide(remainder, &v33, &remainder, v26, CGRectMinYEdge);
+    v28.n128_u64[0] = 0.5;
+    v29.n128_f64[0] = v33.size.width * 0.5 + -10.0;
+    PKFloatRoundToPixel(v29, v28);
+    CGRectDivide(v33, &slice, &v33, v30, v12);
     [(PKLegacyButtonInterface *)self->_leadingButton setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
-    CGRectDivide(v31, &slice, &v31, v31.size.width + -10.0, v13);
+    CGRectDivide(v33, &slice, &v33, v33.size.width + -10.0, v13);
     [(PKLegacyButtonInterface *)self->_trailingButton setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  v29 = v16 + v23 + 6.0 + v25 + 16.0 + v27 + 16.0;
-  v30 = width;
-  result.height = v29;
-  result.width = v30;
+  v31 = v16 + v23 + 6.0 + v25 + 16.0 + v27 + 16.0;
+  v32 = width;
+  result.height = v31;
+  result.width = v32;
   return result;
 }
 

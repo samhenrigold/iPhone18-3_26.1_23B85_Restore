@@ -1,8 +1,29 @@
 @interface DreamworksPurseRecord
++ (id)recordNumber:(unsigned __int8)number recordData:(id)data;
 + (void)adjustRecords:(id)records;
 @end
 
 @implementation DreamworksPurseRecord
+
++ (id)recordNumber:(unsigned __int8)number recordData:(id)data
+{
+  numberCopy = number;
+  dataCopy = data;
+  v6 = objc_opt_new();
+  [v6 setSfi:4];
+  [v6 setNumber:numberCopy];
+  [v6 setData:dataCopy];
+  [v6 setTrt:{objc_msgSend(dataCopy, "u8:", 0)}];
+  [v6 setBalance:{objc_msgSend(dataCopy, "u32BE:", 2)}];
+  [v6 setSeqnum:{objc_msgSend(dataCopy, "u32BE:", 6)}];
+  [v6 setAmount:{objc_msgSend(dataCopy, "u32BE:", 10)}];
+  [v6 setIdSam:{objc_msgSend(dataCopy, "u64BE:", 14)}];
+  v7 = [dataCopy u32BE:22];
+
+  [v6 setSnSam:v7];
+
+  return v6;
+}
 
 + (void)adjustRecords:(id)records
 {

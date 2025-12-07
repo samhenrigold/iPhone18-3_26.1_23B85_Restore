@@ -87,11 +87,10 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v7.receiver = self;
-  v7.super_class = MFRecursiveLock;
-  v4 = [(MFRecursiveLock *)&v7 description];
-  delegate = self->_delegate;
-  return [v3 stringWithFormat:@"%@ %@ Delegate: <%@: %p>", v4, self->_name, objc_opt_class(), delegate];
+  v6.receiver = self;
+  v6.super_class = MFRecursiveLock;
+  v4 = [(MFRecursiveLock *)&v6 description];
+  return [v3 stringWithFormat:@"%@ %@ Delegate: <%@: %p>", v4, self->_name, objc_opt_class(), self->_delegate];
 }
 
 - (void)dealloc

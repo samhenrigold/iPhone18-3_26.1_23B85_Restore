@@ -34,7 +34,7 @@
 
 - (void)configureWithWorkout:(id)workout workoutActivity:(id)activity dataCalculator:(id)calculator formattingManager:(id)manager powerSamples:(id)samples parent:(id)parent
 {
-  sub_1000059F8(0, &qword_1008EE6F0);
+  sub_1000059F8(0, &qword_1008EE6F0, HKQuantitySample_ptr);
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   workoutCopy = workout;
   activityCopy = activity;

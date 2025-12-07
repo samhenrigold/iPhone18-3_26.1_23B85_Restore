@@ -8,13 +8,12 @@
 
 + (id)timeRef
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   memset(uu, 0, sizeof(uu));
   v3 = mach_continuous_time();
   boot_uuid = _os_trace_get_boot_uuid();
   uuid_parse(boot_uuid, uu);
   v5 = [[self alloc] initWithUUID:uu continuous:v3];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

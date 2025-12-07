@@ -119,20 +119,18 @@ uint64_t __90__CDPADPRegionAvailabilityProvider_isWalrusEnabledForPrimaryAccount
 
 void __90__CDPADPRegionAvailabilityProvider_isWalrusEnabledForPrimaryAccountWithCompletionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Could not fetch walrus availability configuration. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Could not fetch walrus availability configuration. Error: %@", &v2, 0xCu);
 }
 
 void __90__CDPADPRegionAvailabilityProvider_isWalrusEnabledForPrimaryAccountWithCompletionHandler___block_invoke_cold_2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 featureStatus];
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Setting walrus feature availability status for primary account - %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 featureStatus];
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Setting walrus feature availability status for primary account - %ld", &v3, 0xCu);
 }
 
 @end

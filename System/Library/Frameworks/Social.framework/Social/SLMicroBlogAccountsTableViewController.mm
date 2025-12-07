@@ -15,17 +15,18 @@
 
 - (SLMicroBlogAccountsTableViewController)initWithStyle:(int64_t)style
 {
-  v7.receiver = self;
-  v7.super_class = SLMicroBlogAccountsTableViewController;
-  v3 = [(SLMicroBlogAccountsTableViewController *)&v7 initWithStyle:style];
+  v8.receiver = self;
+  v8.super_class = SLMicroBlogAccountsTableViewController;
+  v3 = [(SLMicroBlogAccountsTableViewController *)&v8 initWithStyle:style];
+  v4 = v3;
   if (v3)
   {
-    v4 = SLSocialFrameworkBundle();
-    v5 = [v4 localizedStringForKey:@"ACCOUNT_PICKER_TITLE" value:&stru_1F41EC300 table:@"Localizable"];
-    [(SLMicroBlogAccountsTableViewController *)v3 setTitle:v5];
+    v5 = SLSocialFrameworkBundle(v3);
+    v6 = [v5 localizedStringForKey:@"ACCOUNT_PICKER_TITLE" value:&stru_1F41EC300 table:@"Localizable"];
+    [(SLMicroBlogAccountsTableViewController *)v4 setTitle:v6];
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)_blankImage

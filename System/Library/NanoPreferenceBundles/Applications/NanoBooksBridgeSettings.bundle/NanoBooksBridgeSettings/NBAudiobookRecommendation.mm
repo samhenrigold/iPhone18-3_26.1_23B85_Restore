@@ -159,14 +159,14 @@ LABEL_7:
     _missingArtImage = [objc_opt_class() _missingArtImage];
     v7 = [MPArtworkCatalog staticArtworkCatalogWithImage:_missingArtImage];
 
-    v8 = NBRecommendationsLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = NBRecommendationsLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = 134218240;
-      v10 = [arrayCopy count];
-      v11 = 2048;
+      v10 = 134218240;
+      v11 = [arrayCopy count];
+      v12 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Filling tiled artwork catalog %tu -> %tu", &v9, 0x16u);
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Filling tiled artwork catalog %tu -> %tu", &v10, 0x16u);
     }
 
     while ([arrayCopy count] < count)

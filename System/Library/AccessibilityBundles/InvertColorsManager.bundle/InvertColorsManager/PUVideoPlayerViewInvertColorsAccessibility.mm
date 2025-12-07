@@ -1,10 +1,18 @@
 @interface PUVideoPlayerViewInvertColorsAccessibility
 - (void)_accessibilityForceInvertColorsUpdateFlagForSuperview:(id)superview;
+- (void)_setAncestorIgnoresInvertColors:(BOOL)colors;
 - (void)layoutSubviews;
 - (void)willMoveToSuperview:(id)superview;
 @end
 
 @implementation PUVideoPlayerViewInvertColorsAccessibility
+
+- (void)_setAncestorIgnoresInvertColors:(BOOL)colors
+{
+  v3.receiver = self;
+  v3.super_class = PUVideoPlayerViewInvertColorsAccessibility;
+  [(PUVideoPlayerViewInvertColorsAccessibility *)&v3 _setAncestorIgnoresInvertColors:colors];
+}
 
 - (void)layoutSubviews
 {

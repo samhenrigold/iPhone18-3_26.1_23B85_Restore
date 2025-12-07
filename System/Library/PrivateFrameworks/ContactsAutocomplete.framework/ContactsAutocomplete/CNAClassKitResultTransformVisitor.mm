@@ -49,38 +49,36 @@
 
 - (id)reduceCollection:(id)collection
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [collectionCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [collectionCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(collectionCopy);
         }
 
-        [*(*(&v12 + 1) + 8 * i) acceptVisitor:self];
+        [*(*(&v11 + 1) + 8 * i) acceptVisitor:self];
       }
 
-      v6 = [collectionCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [collectionCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
   v9 = [(NSMutableArray *)self->_results copy];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -98,7 +96,7 @@
 
 - (void)visitPerson:(id)person
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   personCopy = person;
   nameComponents = [personCopy nameComponents];
   givenName = [nameComponents givenName];
@@ -113,10 +111,10 @@
 
     if (appleID)
     {
-      v17 = @"ckShareIdentifier";
+      v16 = @"ckShareIdentifier";
       appleID2 = [personCopy appleID];
-      v18[0] = appleID2;
-      appleID = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v17[0] = appleID2;
+      appleID = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     }
 
     factory = self->_factory;
@@ -125,8 +123,6 @@
 
     [(NSMutableArray *)self->_results _cn_addNonNilObject:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)addressForPerson:(id)person searchType:(unint64_t)type

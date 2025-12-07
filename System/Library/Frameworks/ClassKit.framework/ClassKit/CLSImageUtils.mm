@@ -10,7 +10,7 @@
 
 + (id)JPEGDataFromCGImage:(CGImage *)image error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (image)
   {
     v6 = objc_opt_new();
@@ -42,9 +42,9 @@
         v19 = CLSLogDefault;
         if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_ERROR))
         {
-          v25 = 138543362;
-          v26 = v12;
-          _os_log_error_impl(&dword_236F71000, v19, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_JPEGDataFromCGImage' %{public}@", &v25, 0xCu);
+          v24 = 138543362;
+          v25 = v12;
+          _os_log_error_impl(&dword_236F71000, v19, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_JPEGDataFromCGImage' %{public}@", &v24, 0xCu);
         }
 
         v6 = 0;
@@ -73,9 +73,9 @@
       v22 = CLSLogDefault;
       if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_ERROR))
       {
-        v25 = 138543362;
-        v26 = v12;
-        _os_log_error_impl(&dword_236F71000, v22, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_JPEGDataFromCGImage' %{public}@", &v25, 0xCu);
+        v24 = 138543362;
+        v25 = v12;
+        _os_log_error_impl(&dword_236F71000, v22, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_JPEGDataFromCGImage' %{public}@", &v24, 0xCu);
       }
 
       v16 = 0;
@@ -100,22 +100,20 @@
     v15 = CLSLogDefault;
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_ERROR))
     {
-      v25 = 138543362;
-      v26 = v12;
-      _os_log_error_impl(&dword_236F71000, v15, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_JPEGDataFromCGImage' %{public}@", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v12;
+      _os_log_error_impl(&dword_236F71000, v15, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_JPEGDataFromCGImage' %{public}@", &v24, 0xCu);
     }
 
     v16 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (CGImage)CGImageFromJPEGData:(id)data error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = dataCopy;
   if (!dataCopy)
@@ -139,8 +137,8 @@
       goto LABEL_22;
     }
 
-    v24 = 138543362;
-    v25 = v13;
+    v23 = 138543362;
+    v24 = v13;
     goto LABEL_25;
   }
 
@@ -166,10 +164,10 @@
       goto LABEL_22;
     }
 
-    v24 = 138543362;
-    v25 = v13;
+    v23 = 138543362;
+    v24 = v13;
 LABEL_25:
-    _os_log_error_impl(&dword_236F71000, v19, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_CreateImageFromJPEGData' %{public}@", &v24, 0xCu);
+    _os_log_error_impl(&dword_236F71000, v19, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_CreateImageFromJPEGData' %{public}@", &v23, 0xCu);
 LABEL_22:
     ImageAtIndex = 0;
     goto LABEL_23;
@@ -196,22 +194,21 @@ LABEL_22:
     v16 = CLSLogDefault;
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_ERROR))
     {
-      v24 = 138543362;
-      v25 = v13;
-      _os_log_error_impl(&dword_236F71000, v16, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_CreateImageFromJPEGData' %{public}@", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v13;
+      _os_log_error_impl(&dword_236F71000, v16, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in'_CreateImageFromJPEGData' %{public}@", &v23, 0xCu);
     }
   }
 
   CFRelease(v10);
 LABEL_23:
 
-  v22 = *MEMORY[0x277D85DE8];
   return ImageAtIndex;
 }
 
 + (id)JPEGDataFromCGImage:(CGImage *)image desiredMinimumDimension:(unint64_t)dimension desiredMaximumDimension:(unint64_t)maximumDimension error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!image)
   {
     v9 = objc_msgSend_cls_createErrorWithCode_description_(MEMORY[0x277CCA9B8], a2, 2, @"Input image is NULL", maximumDimension);
@@ -226,8 +223,8 @@ LABEL_23:
       goto LABEL_28;
     }
 
-    v23 = 138543362;
-    v24 = v9;
+    v22 = 138543362;
+    v23 = v9;
     goto LABEL_27;
   }
 
@@ -245,8 +242,8 @@ LABEL_23:
       goto LABEL_28;
     }
 
-    v23 = 138543362;
-    v24 = v9;
+    v22 = 138543362;
+    v23 = v9;
     goto LABEL_27;
   }
 
@@ -266,8 +263,8 @@ LABEL_23:
       goto LABEL_28;
     }
 
-    v23 = 138543362;
-    v24 = v9;
+    v22 = 138543362;
+    v23 = v9;
     goto LABEL_27;
   }
 
@@ -298,10 +295,10 @@ LABEL_23:
   v10 = CLSLogDefault;
   if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_ERROR))
   {
-    v23 = 138543362;
-    v24 = v9;
+    v22 = 138543362;
+    v23 = v9;
 LABEL_27:
-    _os_log_error_impl(&dword_236F71000, v10, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in 'JPEGThumbnailDataFromCGImage:...' %{public}@", &v23, 0xCu);
+    _os_log_error_impl(&dword_236F71000, v10, OS_LOG_TYPE_ERROR, "ERROR: Error occurred in 'JPEGThumbnailDataFromCGImage:...' %{public}@", &v22, 0xCu);
   }
 
 LABEL_28:
@@ -313,7 +310,6 @@ LABEL_28:
 
   v19 = 0;
 LABEL_31:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

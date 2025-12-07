@@ -9,9 +9,10 @@
 {
   v4 = sub_24FEDE324();
   selfCopy = self;
-  v6 = sub_24FECCC7C(v4);
+  sub_24FECCC7C(v4);
+  v7 = v6;
 
-  return v6 & 1;
+  return v7 & 1;
 }
 
 - (void)performActivity

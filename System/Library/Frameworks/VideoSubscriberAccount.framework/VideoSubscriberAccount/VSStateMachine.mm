@@ -52,7 +52,7 @@
 
 - (void)_enteringState:(id)state
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   capitalizedString = [(NSString *)stateCopy capitalizedString];
   v6 = [capitalizedString stringByReplacingOccurrencesOfString:@" " withString:&stru_284DD5B48];
@@ -60,7 +60,7 @@
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"transitionTo%@State", v6];
   v8 = NSSelectorFromString(v7);
   delegate = [(VSStateMachine *)self delegate];
-  v10 = VSDefaultLogObject();
+  v10 = VSDefaultLogObject(delegate);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (!delegate)
   {
@@ -71,8 +71,8 @@
 
     *buf = 138412546;
     selfCopy6 = self;
-    v21 = 2112;
-    v22 = stateCopy;
+    v23 = 2112;
+    v24 = stateCopy;
     goto LABEL_18;
   }
 
@@ -84,23 +84,24 @@
     _os_log_impl(&dword_23AB8E000, v10, OS_LOG_TYPE_DEFAULT, "Checking transition selector %@", buf, 0xCu);
   }
 
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v13 = objc_opt_respondsToSelector();
+  if ((v13 & 1) == 0)
   {
-    v17 = objc_opt_respondsToSelector();
-    v10 = VSDefaultLogObject();
-    v18 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v17)
+    v18 = objc_opt_respondsToSelector();
+    v19 = v18;
+    v10 = VSDefaultLogObject(v18);
+    v20 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v19)
     {
-      if (v18)
+      if (v20)
       {
         *buf = 138412546;
         selfCopy6 = self;
-        v21 = 2112;
-        v22 = stateCopy;
+        v23 = 2112;
+        v24 = stateCopy;
       }
 
-      [delegate stateMachine:self transitionToState:stateCopy];
-      v10 = VSDefaultLogObject();
+      v10 = VSDefaultLogObject([delegate stateMachine:self transitionToState:stateCopy]);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_20;
@@ -108,54 +109,53 @@
 
       *buf = 138412546;
       selfCopy6 = self;
-      v21 = 2112;
-      v22 = stateCopy;
+      v23 = 2112;
+      v24 = stateCopy;
     }
 
     else
     {
-      if (!v18)
+      if (!v20)
       {
         goto LABEL_20;
       }
 
       *buf = 138412546;
       selfCopy6 = self;
-      v21 = 2112;
-      v22 = stateCopy;
+      v23 = 2112;
+      v24 = stateCopy;
     }
 
 LABEL_18:
-    v15 = v10;
-    v16 = 22;
+    v16 = v10;
+    v17 = 22;
     goto LABEL_19;
   }
 
-  v13 = VSDefaultLogObject();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = VSDefaultLogObject(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     selfCopy6 = self;
-    v21 = 2112;
-    v22 = v7;
     v23 = 2112;
-    v24 = stateCopy;
+    v24 = v7;
+    v25 = 2112;
+    v26 = stateCopy;
   }
 
-  [delegate v8];
-  v10 = VSDefaultLogObject();
+  v10 = VSDefaultLogObject([delegate v8]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     selfCopy6 = self;
-    v21 = 2112;
-    v22 = v7;
     v23 = 2112;
-    v24 = stateCopy;
-    v15 = v10;
-    v16 = 32;
+    v24 = v7;
+    v25 = 2112;
+    v26 = stateCopy;
+    v16 = v10;
+    v17 = 32;
 LABEL_19:
-    _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
+    _os_log_impl(&dword_23AB8E000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
   }
 
 LABEL_20:
@@ -163,7 +163,7 @@ LABEL_20:
 
 - (void)_exitingState:(id)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = objc_autoreleasePoolPush();
   capitalizedString = [(NSString *)stateCopy capitalizedString];
@@ -172,7 +172,7 @@ LABEL_20:
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"transitionFrom%@State", v7];
   v9 = NSSelectorFromString(v8);
   delegate = [(VSStateMachine *)self delegate];
-  v11 = VSDefaultLogObject();
+  v11 = VSDefaultLogObject(delegate);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (!delegate)
   {
@@ -183,8 +183,8 @@ LABEL_20:
 
     *buf = 138412546;
     selfCopy6 = self;
-    v22 = 2112;
-    v23 = stateCopy;
+    v24 = 2112;
+    v25 = stateCopy;
     goto LABEL_18;
   }
 
@@ -196,23 +196,24 @@ LABEL_20:
     _os_log_impl(&dword_23AB8E000, v11, OS_LOG_TYPE_DEFAULT, "Checking transition selector %@", buf, 0xCu);
   }
 
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v14 = objc_opt_respondsToSelector();
+  if ((v14 & 1) == 0)
   {
-    v18 = objc_opt_respondsToSelector();
-    v11 = VSDefaultLogObject();
-    v19 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-    if (v18)
+    v19 = objc_opt_respondsToSelector();
+    v20 = v19;
+    v11 = VSDefaultLogObject(v19);
+    v21 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v20)
     {
-      if (v19)
+      if (v21)
       {
         *buf = 138412546;
         selfCopy6 = self;
-        v22 = 2112;
-        v23 = stateCopy;
+        v24 = 2112;
+        v25 = stateCopy;
       }
 
-      [delegate stateMachine:self transitionFromState:stateCopy];
-      v11 = VSDefaultLogObject();
+      v11 = VSDefaultLogObject([delegate stateMachine:self transitionFromState:stateCopy]);
       if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_20;
@@ -220,54 +221,53 @@ LABEL_20:
 
       *buf = 138412546;
       selfCopy6 = self;
-      v22 = 2112;
-      v23 = stateCopy;
+      v24 = 2112;
+      v25 = stateCopy;
     }
 
     else
     {
-      if (!v19)
+      if (!v21)
       {
         goto LABEL_20;
       }
 
       *buf = 138412546;
       selfCopy6 = self;
-      v22 = 2112;
-      v23 = stateCopy;
+      v24 = 2112;
+      v25 = stateCopy;
     }
 
 LABEL_18:
-    v16 = v11;
-    v17 = 22;
+    v17 = v11;
+    v18 = 22;
     goto LABEL_19;
   }
 
-  v14 = VSDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = VSDefaultLogObject(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     selfCopy6 = self;
-    v22 = 2112;
-    v23 = v8;
     v24 = 2112;
-    v25 = stateCopy;
+    v25 = v8;
+    v26 = 2112;
+    v27 = stateCopy;
   }
 
-  [delegate v9];
-  v11 = VSDefaultLogObject();
+  v11 = VSDefaultLogObject([delegate v9]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     selfCopy6 = self;
-    v22 = 2112;
-    v23 = v8;
     v24 = 2112;
-    v25 = stateCopy;
-    v16 = v11;
-    v17 = 32;
+    v25 = v8;
+    v26 = 2112;
+    v27 = stateCopy;
+    v17 = v11;
+    v18 = 32;
 LABEL_19:
-    _os_log_impl(&dword_23AB8E000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
+    _os_log_impl(&dword_23AB8E000, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
   }
 
 LABEL_20:
@@ -278,7 +278,7 @@ LABEL_20:
 - (void)_handleEnqueuedTransitions
 {
   v3 = 0;
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   do
   {
     selfCopy = self;
@@ -296,46 +296,45 @@ LABEL_20:
     nextState = [forceUnwrapObject nextState];
     forceUnwrapObject3 = [nextState forceUnwrapObject];
 
-    v14 = VSDefaultLogObject();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = VSDefaultLogObject(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v24 = forceUnwrapObject2;
-      v25 = 2112;
-      v26 = forceUnwrapObject3;
-      v27 = 2112;
+      v25 = forceUnwrapObject2;
+      v26 = 2112;
+      v27 = forceUnwrapObject3;
+      v28 = 2112;
       selfCopy2 = self;
     }
 
-    v15 = [VSOptional optionalWithObject:forceUnwrapObject3];
-    [(VSStateMachine *)selfCopy setCurrentState:v15];
+    v16 = [VSOptional optionalWithObject:forceUnwrapObject3];
+    [(VSStateMachine *)selfCopy setCurrentState:v16];
 
     transitionQueue = [(VSStateMachine *)selfCopy transitionQueue];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __44__VSStateMachine__handleEnqueuedTransitions__block_invoke;
-    v20[3] = &unk_278B73A28;
-    v20[4] = selfCopy;
-    v17 = forceUnwrapObject2;
-    v21 = v17;
-    v18 = forceUnwrapObject3;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __44__VSStateMachine__handleEnqueuedTransitions__block_invoke;
+    v21[3] = &unk_278B73A28;
+    v21[4] = selfCopy;
+    v18 = forceUnwrapObject2;
     v22 = v18;
-    [transitionQueue addOperationWithBlock:v20];
+    v19 = forceUnwrapObject3;
+    v23 = v19;
+    [transitionQueue addOperationWithBlock:v21];
 
     objc_sync_exit(selfCopy);
-    v19 = v3 | v8;
+    v20 = v3 | v8;
     v3 = 1;
   }
 
-  while ((v19 & 1) != 0);
+  while ((v20 & 1) != 0);
 }
 
 void __44__VSStateMachine__handleEnqueuedTransitions__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _exitingState:*(a1 + 40)];
-  [*(a1 + 32) _enteringState:*(a1 + 48)];
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject([*(a1 + 32) _enteringState:*(a1 + 48)]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
@@ -476,25 +475,26 @@ LABEL_4:
 
 - (void)activateWithState:(id)state
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   stateCopy = state;
+  v37 = stateCopy;
   if (!stateCopy)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The initialState parameter must not be nil."];
+    stateCopy = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The initialState parameter must not be nil."];
   }
 
-  v3 = VSDefaultLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = VSDefaultLogObject(stateCopy);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v52 = 2112;
-    v53 = stateCopy;
+    v53 = 2112;
+    v54 = v37;
   }
 
-  v4 = 0;
-  atomic_compare_exchange_strong(&self->_mode, &v4, 1u);
-  if (v4)
+  v5 = 0;
+  atomic_compare_exchange_strong(&self->_mode, &v5, 1u);
+  if (v5)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"Attempt to activate already-activated state machine %@.", self}];
   }
@@ -506,145 +506,146 @@ LABEL_4:
     obj = selfCopy2;
     ignoredEventsByState = [(VSStateMachine *)selfCopy2 ignoredEventsByState];
     transitionTable = [(VSStateMachine *)selfCopy2 transitionTable];
-    v39 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v37 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v40 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v38 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v39 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
     allKeys = [transitionTable allKeys];
-    [v39 addObjectsFromArray:allKeys];
+    [v40 addObjectsFromArray:allKeys];
 
     allKeys2 = [ignoredEventsByState allKeys];
-    [v39 addObjectsFromArray:allKeys2];
+    [v40 addObjectsFromArray:allKeys2];
 
-    v46 = 0u;
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
+    v46 = 0u;
     allValues = [transitionTable allValues];
-    v11 = [allValues countByEnumeratingWithState:&v44 objects:v49 count:16];
-    if (v11)
+    v12 = [allValues countByEnumeratingWithState:&v45 objects:v50 count:16];
+    if (v12)
     {
-      v12 = *v45;
+      v13 = *v46;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v45 != v12)
+          if (*v46 != v13)
           {
             objc_enumerationMutation(allValues);
           }
 
-          allValues2 = [*(*(&v44 + 1) + 8 * i) allValues];
-          [v39 addObjectsFromArray:allValues2];
+          allValues2 = [*(*(&v45 + 1) + 8 * i) allValues];
+          [v40 addObjectsFromArray:allValues2];
         }
 
-        v11 = [allValues countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v12 = [allValues countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
-    allObjects = [v39 allObjects];
-    [v37 addObjectsFromArray:allObjects];
+    allObjects = [v40 allObjects];
+    [v38 addObjectsFromArray:allObjects];
 
-    [v7 addObject:stateCopy];
-    [v37 removeObject:stateCopy];
-    v32 = [transitionTable objectForKey:stateCopy];
-    if (v32)
+    [v8 addObject:v37];
+    [v38 removeObject:v37];
+    v33 = [transitionTable objectForKey:v37];
+    if (v33)
     {
-      v16 = v32;
-      allValues3 = [v16 allValues];
-      [v38 addObjectsFromArray:allValues3];
+      v17 = v33;
+      allValues3 = [v17 allValues];
+      [v39 addObjectsFromArray:allValues3];
 
-      [v38 minusSet:v7];
+      [v39 minusSet:v8];
     }
 
     do
     {
-      [v37 minusSet:v38];
-      v18 = objc_alloc_init(MEMORY[0x277CBEB58]);
-      v42 = 0u;
+      [v38 minusSet:v39];
+      v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v19 = v38;
-      v20 = [v19 countByEnumeratingWithState:&v40 objects:v48 count:16];
-      if (v20)
+      v42 = 0u;
+      v20 = v39;
+      v21 = [v20 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      if (v21)
       {
-        v21 = *v41;
+        v22 = *v42;
         do
         {
-          for (j = 0; j != v20; ++j)
+          for (j = 0; j != v21; ++j)
           {
-            if (*v41 != v21)
+            if (*v42 != v22)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v20);
             }
 
-            v23 = *(*(&v40 + 1) + 8 * j);
-            [v7 addObject:v23];
-            v24 = [transitionTable objectForKey:v23];
-            v25 = v24;
-            if (v24)
+            v24 = *(*(&v41 + 1) + 8 * j);
+            [v8 addObject:v24];
+            v25 = [transitionTable objectForKey:v24];
+            v26 = v25;
+            if (v25)
             {
-              v26 = v24;
-              allValues4 = [v26 allValues];
-              [v18 addObjectsFromArray:allValues4];
+              v27 = v25;
+              allValues4 = [v27 allValues];
+              [v19 addObjectsFromArray:allValues4];
             }
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v40 objects:v48 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v41 objects:v49 count:16];
         }
 
-        while (v20);
+        while (v21);
       }
 
-      allObjects2 = [v18 allObjects];
-      [v19 addObjectsFromArray:allObjects2];
+      allObjects2 = [v19 allObjects];
+      [v20 addObjectsFromArray:allObjects2];
 
-      [v19 minusSet:v7];
+      [v20 minusSet:v8];
     }
 
-    while ([v19 count]);
-    v29 = [v39 mutableCopy];
-    [v29 minusSet:v7];
-    if ([v29 count])
+    while ([v20 count]);
+    v30 = [v40 mutableCopy];
+    [v30 minusSet:v8];
+    if ([v30 count])
     {
     }
 
     else
     {
-      v30 = [VSOptional optionalWithObject:stateCopy];
-      [(VSStateMachine *)obj setCurrentState:v30];
+      v31 = [VSOptional optionalWithObject:v37];
+      [(VSStateMachine *)obj setCurrentState:v31];
     }
 
     objc_sync_exit(obj);
-    v31 = 1;
-    atomic_compare_exchange_strong(&self->_mode, &v31, 2u);
+    v32 = 1;
+    atomic_compare_exchange_strong(&self->_mode, &v32, 2u);
   }
 }
 
 - (BOOL)enqueueEvent:(id)event
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   eventCopy = event;
+  v5 = eventCopy;
   if (!eventCopy)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The event parameter must not be nil."];
+    eventCopy = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The event parameter must not be nil."];
   }
 
-  v5 = VSDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VSDefaultLogObject(eventCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = eventCopy;
-    v32 = 2112;
+    v34 = v5;
+    v35 = 2112;
     selfCopy = self;
   }
 
-  v6 = [eventCopy copy];
-  v7 = atomic_load(&self->_mode);
-  if (v7 != 2)
+  v7 = [v5 copy];
+  v8 = atomic_load(&self->_mode);
+  if (v8 != 2)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"Attempt to enqueue an event prior to activation of state machine %@.", self}];
   }
@@ -653,106 +654,107 @@ LABEL_4:
   objc_sync_enter(selfCopy2);
   currentState = [(VSStateMachine *)selfCopy2 currentState];
   enqueuedTransitions = [(VSStateMachine *)selfCopy2 enqueuedTransitions];
-  v11 = [enqueuedTransitions count];
-  v28 = v11 == 0;
-  if (v11)
+  v12 = [enqueuedTransitions count];
+  v31 = v12 == 0;
+  if (v12)
   {
-    v12 = [enqueuedTransitions objectAtIndex:{objc_msgSend(enqueuedTransitions, "count") - 1}];
-    nextState = [v12 nextState];
+    v13 = [enqueuedTransitions objectAtIndex:{objc_msgSend(enqueuedTransitions, "count") - 1}];
+    nextState = [v13 nextState];
 
     currentState = nextState;
   }
 
   forceUnwrapObject = [currentState forceUnwrapObject];
   transitionTable = [(VSStateMachine *)selfCopy2 transitionTable];
-  v16 = [transitionTable objectForKey:forceUnwrapObject];
+  v17 = [transitionTable objectForKey:forceUnwrapObject];
 
-  v17 = [v16 objectForKey:v6];
-  v29 = v17 != 0;
-  if (v17)
+  v18 = [v17 objectForKey:v7];
+  v32 = v18 != 0;
+  if (v18)
   {
-    v18 = objc_alloc_init(VSStateTransition);
-    v19 = [VSOptional optionalWithObject:forceUnwrapObject];
-    [(VSStateTransition *)v18 setPreviousState:v19];
+    v19 = objc_alloc_init(VSStateTransition);
+    v20 = [VSOptional optionalWithObject:forceUnwrapObject];
+    [(VSStateTransition *)v19 setPreviousState:v20];
 
-    v20 = [VSOptional optionalWithObject:v6];
-    [(VSStateTransition *)v18 setTriggeringEvent:v20];
+    v21 = [VSOptional optionalWithObject:v7];
+    [(VSStateTransition *)v19 setTriggeringEvent:v21];
 
-    v21 = [VSOptional optionalWithObject:v17];
-    [(VSStateTransition *)v18 setNextState:v21];
+    v22 = [VSOptional optionalWithObject:v18];
+    [(VSStateTransition *)v19 setNextState:v22];
 
-    [enqueuedTransitions addObject:v18];
+    [enqueuedTransitions addObject:v19];
 LABEL_15:
-    v25 = 1;
+    v27 = 1;
 LABEL_16:
 
     goto LABEL_17;
   }
 
   ignoredEventsByState = [(VSStateMachine *)selfCopy2 ignoredEventsByState];
-  v23 = [ignoredEventsByState objectForKey:forceUnwrapObject];
-  v24 = [v23 containsObject:v6];
+  v24 = [ignoredEventsByState objectForKey:forceUnwrapObject];
+  v25 = [v24 containsObject:v7];
 
-  if (v24)
+  if (v25)
   {
-    v18 = VSDefaultLogObject();
-    if (os_log_type_enabled(&v18->super, OS_LOG_TYPE_DEFAULT))
+    v19 = VSDefaultLogObject(v26);
+    if (os_log_type_enabled(&v19->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v31 = v6;
-      v32 = 2112;
+      v34 = v7;
+      v35 = 2112;
       selfCopy = forceUnwrapObject;
-      v34 = 2112;
-      v35 = selfCopy2;
+      v37 = 2112;
+      v38 = selfCopy2;
     }
 
-    v28 = 0;
+    v31 = 0;
     goto LABEL_15;
   }
 
-  if ([(VSStateMachine *)selfCopy2 ignoresUnassignedEvents])
+  ignoresUnassignedEvents = [(VSStateMachine *)selfCopy2 ignoresUnassignedEvents];
+  if (ignoresUnassignedEvents)
   {
-    v18 = VSDefaultLogObject();
-    if (os_log_type_enabled(&v18->super, OS_LOG_TYPE_DEFAULT))
+    v19 = VSDefaultLogObject(ignoresUnassignedEvents);
+    if (os_log_type_enabled(&v19->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v31 = v6;
-      v32 = 2112;
+      v34 = v7;
+      v35 = 2112;
       selfCopy = forceUnwrapObject;
-      v34 = 2112;
-      v35 = selfCopy2;
+      v37 = 2112;
+      v38 = selfCopy2;
     }
 
-    v25 = 0;
+    v27 = 0;
     goto LABEL_16;
   }
 
-  v27 = VSErrorLogObject();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v30 = VSErrorLogObject(ignoresUnassignedEvents);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
-    v31 = v6;
-    v32 = 2112;
+    v34 = v7;
+    v35 = 2112;
     selfCopy = forceUnwrapObject;
-    v34 = 2112;
-    v35 = selfCopy2;
+    v37 = 2112;
+    v38 = selfCopy2;
   }
 
-  v25 = 1;
+  v27 = 1;
 LABEL_17:
 
   objc_sync_exit(selfCopy2);
-  if ((v28 & v25) == 1)
+  if ((v31 & v27) == 1)
   {
     [(VSStateMachine *)selfCopy2 _handleEnqueuedTransitions];
   }
 
   else
   {
-    v29 = (v17 != 0) & v25;
+    v32 = (v18 != 0) & v27;
   }
 
-  return v29;
+  return v32;
 }
 
 - (id)description

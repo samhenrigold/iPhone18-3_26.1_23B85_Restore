@@ -8,31 +8,31 @@
 
 + (id)alertTitleForFailingToRecoverAccounts:(id)accounts
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [accountsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [accountsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(accountsCopy);
         }
 
-        v7 |= [*(*(&v13 + 1) + 8 * i) credentialTypes];
+        v7 |= [*(*(&v12 + 1) + 8 * i) credentialTypes];
       }
 
-      v6 = [accountsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [accountsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -53,8 +53,6 @@
     [self _alertTitleForFailingToRecoverMultipleAccountsWithCredentialTypes:v7];
   }
   v10 = ;
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

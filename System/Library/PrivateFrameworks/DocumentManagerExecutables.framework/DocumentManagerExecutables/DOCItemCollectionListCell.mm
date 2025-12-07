@@ -123,13 +123,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  _sSo16UILayoutPriorityaAB5UIKit01_C23NumericRawRepresentableACWlTm_1(&lazy protocol witness table cache variable for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey, type metadata accessor for NSKeyValueChangeKey);
+  _sSo16UILayoutPriorityaAB5UIKit01_C23NumericRawRepresentableACWlTm_1(&lazy protocol witness table cache variable for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey, type metadata accessor for NSKeyValueChangeKey, &protocol conformance descriptor for NSKeyValueChangeKey);
   v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_8:
   DOCItemCollectionListCell.observeValue(forKeyPath:of:change:context:)(v10, v12, v18, v15, context);
 
-  outlined destroy of CharacterSet?(v18, &_sypSgMd);
+  outlined destroy of CharacterSet?(v18, &_sypSgMd, &_sypSgMR);
 }
 
 @end

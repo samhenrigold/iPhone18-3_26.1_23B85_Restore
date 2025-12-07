@@ -7,7 +7,7 @@
 - (int)setMasterStream:(id)stream slaveConfigurationsByPortType:(id)type;
 - (int)setProperty:(__CFString *)property value:(id)value;
 - (int)stop;
-- (uint64_t)_setProperty:(uint64_t)property value:(CFTypeRef)cf;
+- (uint64_t)_setProperty:(uint64_t)property value:;
 - (void)dealloc;
 - (void)invalidate;
 - (void)setSynchronizationMaster:(id)master;
@@ -71,9 +71,9 @@ LABEL_15:
 
   v14 = portType;
   v15 = 822151936;
-  if (([portType isEqualToString:*off_1E798A0D8] & 1) == 0 && (objc_msgSend(v14, "isEqualToString:", *off_1E798A0C0) & 1) == 0 && (objc_msgSend(v14, "isEqualToString:", *off_1E798A0D0) & 1) == 0 && (objc_msgSend(v14, "isEqualToString:", *off_1E798A0C8) & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(portType) & 1) == 0 && (objc_msgSend_isEqualToString_(v14) & 1) == 0 && (objc_msgSend_isEqualToString_(v14) & 1) == 0 && (objc_msgSend_isEqualToString_(v14) & 1) == 0)
   {
-    if (([v14 isEqualToString:*off_1E798A0E0] & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", *off_1E798A0E8) & 1) != 0 || objc_msgSend(v14, "isEqualToString:", *off_1E798A0F8))
+    if ((objc_msgSend_isEqualToString_(v14) & 1) != 0 || (objc_msgSend_isEqualToString_(v14) & 1) != 0 || objc_msgSend_isEqualToString_(v14))
     {
       v15 = 822151872;
       goto LABEL_16;
@@ -120,8 +120,8 @@ LABEL_16:
       defaultSynchronizationMaster = self->_defaultSynchronizationMaster;
     }
 
-    [(BWFigCaptureStreamsMapper *)self->_streamsMapper figCaptureStreamForBWFigCaptureStream:?];
-    if (![BWFigCaptureSynchronizedStreamsGroup _setProperty:*off_1E798CD08 value:?])
+    v5 = [(BWFigCaptureStreamsMapper *)self->_streamsMapper figCaptureStreamForBWFigCaptureStream:?];
+    if (![(BWFigCaptureSynchronizedStreamsGroup *)self _setProperty:v5 value:?])
     {
 
       self->_synchronizationMaster = defaultSynchronizationMaster;
@@ -148,7 +148,7 @@ LABEL_16:
   else
   {
 
-    return [BWFigCaptureSynchronizedStreamsGroup _setProperty:property value:?];
+    return [(BWFigCaptureSynchronizedStreamsGroup *)self _setProperty:property value:value];
   }
 }
 
@@ -526,18 +526,18 @@ LABEL_47:
   }
 }
 
-- (uint64_t)_setProperty:(uint64_t)property value:(CFTypeRef)cf
+- (uint64_t)_setProperty:(uint64_t)property value:
 {
-  if (!property)
+  if (!self)
   {
     return 0;
   }
 
-  v4 = *(property + 80);
-  v5 = MEMORY[0x1E695FF58];
-  if (v4)
+  v5 = *(self + 80);
+  v6 = MEMORY[0x1E695FF58];
+  if (v5)
   {
-    v6 = v4 & 0xFFFFFFC0;
+    v7 = v5 & 0xFFFFFFC0;
     if (*MEMORY[0x1E695FF58] == 1)
     {
       CFHash(cf);
@@ -547,39 +547,40 @@ LABEL_47:
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  os_unfair_lock_lock((property + 72));
-  if (*(property + 40))
+  os_unfair_lock_lock((self + 72));
+  if (*(self + 40))
   {
-    v7 = 4294954511;
+    v8 = 4294954511;
   }
 
   else
   {
-    v8 = *(property + 16);
-    if (!v8 || [v8 objectForKeyedSubscript:cf])
+    v9 = *(self + 16);
+    if (!v9 || [v9 objectForKeyedSubscript:cf])
     {
       FigCaptureSynchronizedStreamsGroupGetFigBaseObject();
     }
 
-    v7 = 4294954509;
+    v8 = 4294954509;
   }
 
-  os_unfair_lock_unlock((property + 72));
-  if (v6 && *v5 == 1)
+  os_unfair_lock_unlock((self + 72));
+  if (v7 && *v6 == 1)
   {
     kdebug_trace();
   }
 
-  return v7;
+  return v8;
 }
 
-- (void)initWithFigCaptureSynchronizedStreamsGroup:(uint64_t)a3 bwFigCaptureStreams:(void *)a4 figCaptureStreams:.cold.1(uint64_t a1, const void *a2, uint64_t a3, void *a4)
+- (void)initWithFigCaptureSynchronizedStreamsGroup:(uint64_t)a3 bwFigCaptureStreams:(void *)a4 figCaptureStreams:.cold.1(int a1, const void *a2, uint64_t a3, void *a4)
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
+  v9 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v4, v10, v11, v12, v13, v14, v15);
   if (a2)
   {
     CFRelease(a2);

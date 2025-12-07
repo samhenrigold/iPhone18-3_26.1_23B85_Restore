@@ -8785,7 +8785,8 @@ _DWORD *AUNeuralNet::InitMaskRelatedVariables(AUNeuralNet *this, int16x4_t a2)
   if ((*(this + 668) & 1) == 0)
   {
     v17 = *(this + 165);
-    std::vector<float>::vector[abi:ne200100](__p, v16);
+    v34 = 0;
+    std::vector<float>::vector[abi:ne200100](__p, v16, &v34);
     std::vector<std::vector<float>>::assign(this + 132, v17, __p);
     if (__p[0])
     {

@@ -55,7 +55,7 @@
 
 - (void)runWithInput:(id)input error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   v6 = [(WFAppendVariableAction *)self parameterValueForKey:@"WFVariableName" ofClass:objc_opt_class()];
   variableSource = [(WFAppendVariableAction *)self variableSource];
@@ -73,31 +73,31 @@
 
   v11 = v10;
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   items = [inputCopy items];
   v13 = [items copy];
 
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v11 addItem:*(*(&v20 + 1) + 8 * i)];
+        [v11 addItem:*(*(&v19 + 1) + 8 * i)];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
@@ -107,7 +107,6 @@
   [variableSource2 setContent:v11 forVariableWithName:v6];
 
   [(WFAppendVariableAction *)self setOutput:v11];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

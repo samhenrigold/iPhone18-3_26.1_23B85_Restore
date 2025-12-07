@@ -25,11 +25,11 @@
 
 - (void)cat_performBlock:()CATBlocks
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = MEMORY[0x277CBEB18];
-  v10[0] = *MEMORY[0x277CBE738];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = *MEMORY[0x277CBE738];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = [v5 arrayWithArray:v6];
 
   currentMode = [self currentMode];
@@ -39,8 +39,6 @@
   }
 
   [self cat_performInModes:v7 block:v4];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cat_performInModes:()CATBlocks block:

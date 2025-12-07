@@ -21,9 +21,11 @@
   swift_getObjCClassMetadata();
   sub_1000F5104(&unk_100950F40, &qword_1007AE990);
   String.init<A>(describing:)();
-  v2 = String._bridgeToObjectiveC()();
+  v3 = v2;
+  v4 = String._bridgeToObjectiveC()();
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v2;
+  return v4;
 }
 
 - (id)remChangedObjectID
@@ -56,22 +58,22 @@
   ObjCClassMetadata = swift_getObjCClassMetadata();
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v8 = v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v14[1] = ObjCClassMetadata;
+  v23[1] = ObjCClassMetadata;
   sub_1000F5104(&unk_100950F40, &qword_1007AE990);
   String.init<A>(describing:)();
-  v9 = objc_allocWithZone(REMObjectID);
+  v10 = v9;
+  v11 = objc_allocWithZone(REMObjectID);
   isa = UUID._bridgeToObjectiveC()().super.isa;
-  v11 = String._bridgeToObjectiveC()();
-
-  v12 = [v9 initWithUUID:isa entityName:v11];
+  v13 = String._bridgeToObjectiveC()();
+  v10, v14, v15, v16, v17, v18, v19, v20;
+  v21 = [v11 initWithUUID:isa entityName:v13];
 
   (*(v5 + 8))(v8, v4);
 
-  return v12;
+  return v21;
 }
 
 @end

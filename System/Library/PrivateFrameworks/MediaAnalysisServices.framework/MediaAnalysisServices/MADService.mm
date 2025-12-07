@@ -142,22 +142,23 @@
 
 void __24__MADService_connection__block_invoke_63(uint64_t a1)
 {
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+  if (v2)
   {
-    __24__MADService_connection__block_invoke_63_cold_1();
+    __24__MADService_connection__block_invoke_63_cold_1(v2, v3, v4);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = WeakRetained[1];
+    v7 = WeakRetained[1];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __24__MADService_connection__block_invoke_64;
     block[3] = &unk_1E8342E60;
-    block[4] = v3;
-    dispatch_async(v4, block);
+    block[4] = v6;
+    dispatch_async(v7, block);
   }
 }
 
@@ -615,62 +616,63 @@ void __53__MADService_handleResult_atRequestIdx_forRequestID___block_invoke(uint
 - (int)performRequests:(id)requests onPixelBuffer:(__CVBuffer *)buffer withOrientation:(unsigned int)orientation andIdentifier:(id)identifier completionHandler:(id)handler
 {
   v9 = *&orientation;
-  v43[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   identifierCopy = identifier;
   handlerCopy = handler;
   v15 = CVPixelBufferGetIOSurface(buffer);
+  v16 = v15;
   if (v15)
   {
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v28 = handlerCopy;
-    v17 = MADSignpostLog();
-    v18 = os_signpost_id_generate(v17);
+    v30 = handlerCopy;
+    v18 = MADSignpostLog(v15);
+    v19 = os_signpost_id_generate(v18);
 
-    v19 = MADSignpostLog();
-    v20 = v19;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    v21 = MADSignpostLog(v20);
+    v22 = v21;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
       *buf = 67109378;
-      v39 = add;
-      v40 = 2112;
-      v41 = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "MADService_performRequestsOnPixelBuffer", "Request: %d Identifier: %@", buf, 0x12u);
+      v41 = add;
+      v42 = 2112;
+      v43 = identifierCopy;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "MADService_performRequestsOnPixelBuffer", "Request: %d Identifier: %@", buf, 0x12u);
     }
 
     connection = [(MADService *)self connection];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __92__MADService_performRequests_onPixelBuffer_withOrientation_andIdentifier_completionHandler___block_invoke;
-    v35[3] = &unk_1E8343210;
-    v22 = handlerCopy;
-    v36 = v22;
-    v37 = add;
-    v23 = [connection remoteObjectProxyWithErrorHandler:v35];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __92__MADService_performRequests_onPixelBuffer_withOrientation_andIdentifier_completionHandler___block_invoke_81;
-    v29[3] = &unk_1E8343238;
-    v33 = v18;
-    v34 = add;
-    v30 = identifierCopy;
-    v31 = requestsCopy;
-    v32 = v22;
-    [v23 requestImageProcessing:v31 forIOSurface:v15 withOrientation:v9 identifier:v30 requestID:add andReply:v29];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __92__MADService_performRequests_onPixelBuffer_withOrientation_andIdentifier_completionHandler___block_invoke;
+    v37[3] = &unk_1E8343210;
+    v24 = handlerCopy;
+    v38 = v24;
+    v39 = add;
+    v25 = [connection remoteObjectProxyWithErrorHandler:v37];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __92__MADService_performRequests_onPixelBuffer_withOrientation_andIdentifier_completionHandler___block_invoke_81;
+    v31[3] = &unk_1E8343238;
+    v35 = v19;
+    v36 = add;
+    v32 = identifierCopy;
+    v33 = requestsCopy;
+    v34 = v24;
+    [v25 requestImageProcessing:v33 forIOSurface:v16 withOrientation:v9 identifier:v32 requestID:add andReply:v31];
 
-    handlerCopy = v28;
-    v24 = v36;
+    handlerCopy = v30;
+    v26 = v38;
   }
 
   else
   {
     add = MEMORY[0x1E696ABC0];
-    v42 = *MEMORY[0x1E696A578];
-    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CVPixelBuffer must be IOSurface-backed"];
-    v43[0] = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
-    v26 = [add errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v25];
-    (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, v26);
+    v44 = *MEMORY[0x1E696A578];
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CVPixelBuffer must be IOSurface-backed"];
+    v45[0] = v26;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v28 = [add errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v27];
+    (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, v28);
 
     LODWORD(add) = -1;
   }
@@ -694,7 +696,7 @@ void __92__MADService_performRequests_onPixelBuffer_withOrientation_andIdentifie
   v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 56);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -727,47 +729,48 @@ void __92__MADService_performRequests_onPixelBuffer_withOrientation_andIdentifie
 - (int)performRequests:(id)requests onCGImage:(CGImage *)image withOrientation:(unsigned int)orientation andIdentifier:(id)identifier completionHandler:(id)handler
 {
   v9 = *&orientation;
-  v59 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v36 = CGImageGetProperty();
-  if (v36)
+  v12 = CGImageGetProperty();
+  v38 = v12;
+  if (v12)
   {
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v13 = MADSignpostLog();
-    v14 = os_signpost_id_generate(v13);
+    v14 = MADSignpostLog(v12);
+    v15 = os_signpost_id_generate(v14);
 
-    v15 = MADSignpostLog();
-    v16 = v15;
-    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    v17 = MADSignpostLog(v16);
+    v18 = v17;
+    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
     {
       *buf = 67109378;
       *&buf[4] = add;
-      v57 = 2112;
-      v58 = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "MADService_performRequestsOnCGImage", "Request: %d Identifier: %@", buf, 0x12u);
+      v59 = 2112;
+      v60 = identifierCopy;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v15, "MADService_performRequestsOnCGImage", "Request: %d Identifier: %@", buf, 0x12u);
     }
 
     connection = [(MADService *)self connection];
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __88__MADService_performRequests_onCGImage_withOrientation_andIdentifier_completionHandler___block_invoke;
-    v50[3] = &unk_1E8343210;
-    v18 = handlerCopy;
-    v51 = v18;
-    v52 = add;
-    v19 = [connection remoteObjectProxyWithErrorHandler:v50];
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __88__MADService_performRequests_onCGImage_withOrientation_andIdentifier_completionHandler___block_invoke_83;
-    v44[3] = &unk_1E8343238;
-    v48 = v14;
-    v49 = add;
-    v45 = identifierCopy;
-    v46 = requestsCopy;
-    v47 = v18;
-    [v19 requestImageProcessing:v46 forIOSurface:v36 withOrientation:v9 identifier:v45 requestID:add andReply:v44];
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = __88__MADService_performRequests_onCGImage_withOrientation_andIdentifier_completionHandler___block_invoke;
+    v52[3] = &unk_1E8343210;
+    v20 = handlerCopy;
+    v53 = v20;
+    v54 = add;
+    v21 = [connection remoteObjectProxyWithErrorHandler:v52];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __88__MADService_performRequests_onCGImage_withOrientation_andIdentifier_completionHandler___block_invoke_83;
+    v46[3] = &unk_1E8343238;
+    v50 = v15;
+    v51 = add;
+    v47 = identifierCopy;
+    v48 = requestsCopy;
+    v49 = v20;
+    [v21 requestImageProcessing:v48 forIOSurface:v38 withOrientation:v9 identifier:v47 requestID:add andReply:v46];
   }
 
   else
@@ -780,54 +783,54 @@ void __92__MADService_performRequests_onPixelBuffer_withOrientation_andIdentifie
 
     Width = CGImageGetWidth(image);
     Height = CGImageGetHeight(image);
+    v44 = 0u;
+    v45 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v22 = requestsCopy;
-    v23 = [v22 countByEnumeratingWithState:&v40 objects:v55 count:16];
-    v24 = v9;
-    v25 = 0;
-    if (v23)
+    v24 = requestsCopy;
+    v25 = [v24 countByEnumeratingWithState:&v42 objects:v57 count:16];
+    v26 = v9;
+    v27 = 0;
+    if (v25)
     {
-      v26 = *v41;
+      v28 = *v43;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v41 != v26)
+          if (*v43 != v28)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v24);
           }
 
           targetResolution = [objc_opt_class() targetResolution];
-          if (v25 <= targetResolution)
+          if (v27 <= targetResolution)
           {
-            v25 = targetResolution;
+            v27 = targetResolution;
           }
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v40 objects:v55 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v42 objects:v57 count:16];
       }
 
-      while (v23);
+      while (v25);
     }
 
-    v31 = 1.0;
-    if (Height * Width > 11 * v25 / 0xA)
+    v33 = 1.0;
+    if (Height * Width > 11 * v27 / 0xA)
     {
-      v31 = sqrt(v25 / (Height * Width));
+      v33 = sqrt(v27 / (Height * Width));
     }
 
     *buf = 0;
-    if (CGImage_CreateCVPixelBufferWithTransform(image, buf, v29, v30, v31))
+    if (CGImage_CreateCVPixelBufferWithTransform(image, buf, v31, v32, v33))
     {
-      v32 = MEMORY[0x1E696ABC0];
-      v53 = *MEMORY[0x1E696A578];
-      v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error creating CVPixelBuffer from non-IOSurface-backed CGImage with downscaling factor %f", *&v31];
-      v54 = v33;
-      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-      add = [v32 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v34];
+      v34 = MEMORY[0x1E696ABC0];
+      v55 = *MEMORY[0x1E696A578];
+      v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error creating CVPixelBuffer from non-IOSurface-backed CGImage with downscaling factor %f", *&v33];
+      v56 = v35;
+      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+      add = [v34 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v36];
       (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, add);
 
       LODWORD(add) = -1;
@@ -835,7 +838,7 @@ void __92__MADService_performRequests_onPixelBuffer_withOrientation_andIdentifie
 
     else
     {
-      LODWORD(add) = [(MADService *)self performRequests:v22 onPixelBuffer:*buf withOrientation:v24 andIdentifier:identifierCopy completionHandler:handlerCopy];
+      LODWORD(add) = [(MADService *)self performRequests:v24 onPixelBuffer:*buf withOrientation:v26 andIdentifier:identifierCopy completionHandler:handlerCopy];
     }
 
     CF<CGColorSpace *>::~CF(buf);
@@ -860,7 +863,7 @@ void __88__MADService_performRequests_onCGImage_withOrientation_andIdentifier_co
   v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 56);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -893,20 +896,21 @@ void __88__MADService_performRequests_onCGImage_withOrientation_andIdentifier_co
 - (BOOL)performRequests:(id)requests onCGImage:(CGImage *)image withOrientation:(unsigned int)orientation andIdentifier:(id)identifier error:(id *)error
 {
   v9 = *&orientation;
-  v69 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   identifierCopy = identifier;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
-  v62 = 1;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__0;
-  v57 = __Block_byref_object_dispose__0;
-  v58 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v64 = 1;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__0;
+  v59 = __Block_byref_object_dispose__0;
+  v60 = 0;
   v12 = CGImageGetProperty();
+  v13 = v12;
   if (v12)
   {
     goto LABEL_2;
@@ -921,87 +925,87 @@ void __88__MADService_performRequests_onCGImage_withOrientation_andIdentifier_co
   Width = CGImageGetWidth(image);
   errorCopy = error;
   Height = CGImageGetHeight(image);
-  v24 = v9;
+  v26 = v9;
+  v53 = 0u;
+  v54 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v25 = requestsCopy;
-  v26 = 0;
-  v27 = [v25 countByEnumeratingWithState:&v49 objects:v68 count:16];
-  if (v27)
+  v27 = requestsCopy;
+  v28 = 0;
+  v29 = [v27 countByEnumeratingWithState:&v51 objects:v70 count:16];
+  if (v29)
   {
-    v28 = *v50;
+    v30 = *v52;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v50 != v28)
+        if (*v52 != v30)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v27);
         }
 
         targetResolution = [objc_opt_class() targetResolution];
-        if (v26 <= targetResolution)
+        if (v28 <= targetResolution)
         {
-          v26 = targetResolution;
+          v28 = targetResolution;
         }
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v49 objects:v68 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v51 objects:v70 count:16];
     }
 
-    while (v27);
+    while (v29);
   }
 
-  v9 = v24;
+  v9 = v26;
   error = errorCopy;
-  v33 = 1.0;
-  if (Height * Width > 11 * v26 / 0xA)
+  v35 = 1.0;
+  if (Height * Width > 11 * v28 / 0xA)
   {
-    v33 = sqrt(v26 / (Height * Width));
+    v35 = sqrt(v28 / (Height * Width));
   }
 
   *buf = 0;
-  if (!CGImage_CreateCVPixelBufferWithTransform(image, buf, v31, v32, v33))
+  if (!CGImage_CreateCVPixelBufferWithTransform(image, buf, v33, v34, v35))
   {
-    v12 = CVPixelBufferGetIOSurface(*buf);
-    CF<CGColorSpace *>::~CF(buf);
+    v13 = CVPixelBufferGetIOSurface(*buf);
+    v12 = CF<CGColorSpace *>::~CF(buf);
 LABEL_2:
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v14 = MADSignpostLog();
-    v15 = os_signpost_id_generate(v14);
+    v15 = MADSignpostLog(v12);
+    v16 = os_signpost_id_generate(v15);
 
-    v16 = MADSignpostLog();
-    v17 = v16;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v18 = MADSignpostLog(v17);
+    v19 = v18;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 67109378;
       *&buf[4] = add;
-      v64 = 2112;
-      v65 = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "MADService_performRequestsOnImageDataSync", "Request: %d Identifier: %@", buf, 0x12u);
+      v66 = 2112;
+      v67 = identifierCopy;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "MADService_performRequestsOnImageDataSync", "Request: %d Identifier: %@", buf, 0x12u);
     }
 
     connection = [(MADService *)self connection];
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __76__MADService_performRequests_onCGImage_withOrientation_andIdentifier_error___block_invoke;
-    v48[3] = &unk_1E8343260;
-    v48[4] = &v53;
-    v48[5] = &v59;
-    v19 = [connection synchronousRemoteObjectProxyWithErrorHandler:v48];
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __76__MADService_performRequests_onCGImage_withOrientation_andIdentifier_error___block_invoke_90;
-    v41[3] = &unk_1E8343288;
-    v46 = v15;
-    v47 = add;
-    v42 = identifierCopy;
-    v43 = requestsCopy;
-    v44 = &v59;
-    v45 = &v53;
-    [v19 requestImageProcessing:v43 forIOSurface:v12 withOrientation:v9 identifier:v42 requestID:add andReply:v41];
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __76__MADService_performRequests_onCGImage_withOrientation_andIdentifier_error___block_invoke;
+    v50[3] = &unk_1E8343260;
+    v50[4] = &v55;
+    v50[5] = &v61;
+    v21 = [connection synchronousRemoteObjectProxyWithErrorHandler:v50];
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __76__MADService_performRequests_onCGImage_withOrientation_andIdentifier_error___block_invoke_90;
+    v43[3] = &unk_1E8343288;
+    v48 = v16;
+    v49 = add;
+    v44 = identifierCopy;
+    v45 = requestsCopy;
+    v46 = &v61;
+    v47 = &v55;
+    [v21 requestImageProcessing:v45 forIOSurface:v13 withOrientation:v9 identifier:v44 requestID:add andReply:v43];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
@@ -1012,14 +1016,14 @@ LABEL_2:
 
     if (error)
     {
-      v20 = v54[5];
-      if (v20)
+      v22 = v56[5];
+      if (v22)
       {
-        *error = v20;
+        *error = v22;
       }
     }
 
-    v21 = *(v60 + 24);
+    v23 = *(v62 + 24);
 
     goto LABEL_28;
   }
@@ -1029,20 +1033,20 @@ LABEL_2:
     [MADService performRequests:onCGImage:withOrientation:andIdentifier:error:];
   }
 
-  v34 = MEMORY[0x1E696ABC0];
-  v66 = *MEMORY[0x1E696A578];
-  v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error creating CVPixelBuffer from non-IOSurface-backed CGImage"];
-  v67 = v35;
-  v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-  *errorCopy = [v34 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v36];
+  v36 = MEMORY[0x1E696ABC0];
+  v68 = *MEMORY[0x1E696A578];
+  v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error creating CVPixelBuffer from non-IOSurface-backed CGImage"];
+  v69 = v37;
+  v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+  *errorCopy = [v36 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v38];
 
   CF<CGColorSpace *>::~CF(buf);
-  v21 = 0;
+  v23 = 0;
 LABEL_28:
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v55, 8);
 
-  _Block_object_dispose(&v59, 8);
-  return v21 & 1;
+  _Block_object_dispose(&v61, 8);
+  return v23 & 1;
 }
 
 void __76__MADService_performRequests_onCGImage_withOrientation_andIdentifier_error___block_invoke(uint64_t a1, void *a2)
@@ -1066,7 +1070,7 @@ void __76__MADService_performRequests_onCGImage_withOrientation_andIdentifier_er
   v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 64);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -1216,54 +1220,54 @@ void __76__MADService_performRequests_onCGImage_withOrientation_andIdentifier_er
 
 - (int)performRequests:(id)requests onImageURL:(id)l withIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   lCopy = l;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v36 = 0;
-  v13 = [(MADService *)self sandboxExtensionForURL:lCopy error:&v36];
-  v14 = v36;
+  v37 = 0;
+  v13 = [(MADService *)self sandboxExtensionForURL:lCopy error:&v37];
+  v14 = v37;
   v15 = v14;
   if (v13)
   {
-    v25 = v14;
+    v26 = v14;
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v17 = MADSignpostLog();
+    v17 = MADSignpostLog(v14);
     v18 = os_signpost_id_generate(v17);
 
-    v19 = MADSignpostLog();
-    v20 = v19;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    v20 = MADSignpostLog(v19);
+    v21 = v20;
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
       *buf = 67109378;
-      v38 = add;
-      v39 = 2112;
-      v40 = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "MADService_performRequestsOnImageURL", "Request: %d Identifier: %@", buf, 0x12u);
+      v39 = add;
+      v40 = 2112;
+      v41 = identifierCopy;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v18, "MADService_performRequestsOnImageURL", "Request: %d Identifier: %@", buf, 0x12u);
     }
 
     connection = [(MADService *)self connection];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __74__MADService_performRequests_onImageURL_withIdentifier_completionHandler___block_invoke;
-    v33[3] = &unk_1E8343210;
-    v22 = handlerCopy;
-    v34 = v22;
-    v35 = add;
-    v23 = [connection remoteObjectProxyWithErrorHandler:v33];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __74__MADService_performRequests_onImageURL_withIdentifier_completionHandler___block_invoke_99;
-    v27[3] = &unk_1E8343238;
-    v31 = v18;
-    v32 = add;
-    v28 = identifierCopy;
-    v29 = requestsCopy;
-    v30 = v22;
-    [v23 requestImageProcessing:v29 forAssetURL:lCopy withSandboxToken:v13 identifier:v28 requestID:add andReply:v27];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __74__MADService_performRequests_onImageURL_withIdentifier_completionHandler___block_invoke;
+    v34[3] = &unk_1E8343210;
+    v23 = handlerCopy;
+    v35 = v23;
+    v36 = add;
+    v24 = [connection remoteObjectProxyWithErrorHandler:v34];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __74__MADService_performRequests_onImageURL_withIdentifier_completionHandler___block_invoke_99;
+    v28[3] = &unk_1E8343238;
+    v32 = v18;
+    v33 = add;
+    v29 = identifierCopy;
+    v30 = requestsCopy;
+    v31 = v23;
+    [v24 requestImageProcessing:v30 forAssetURL:lCopy withSandboxToken:v13 identifier:v29 requestID:add andReply:v28];
 
-    v15 = v25;
+    v15 = v26;
   }
 
   else
@@ -1291,7 +1295,7 @@ void __74__MADService_performRequests_onImageURL_withIdentifier_completionHandle
   v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 56);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -1337,92 +1341,92 @@ void __74__MADService_performRequests_onImageURL_withIdentifier_completionHandle
 
 - (BOOL)performRequests:(id)requests onImageURL:(id)l withIdentifier:(id)identifier error:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   lCopy = l;
   identifierCopy = identifier;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__0;
-  v41 = __Block_byref_object_dispose__0;
-  v42 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__0;
+  v43 = __Block_byref_object_dispose__0;
+  v44 = 0;
   obj = 0;
   v12 = [(MADService *)self sandboxExtensionForURL:lCopy error:&obj];
-  objc_storeStrong(&v42, obj);
+  objc_storeStrong(&v44, obj);
   if (v12)
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 1;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 1;
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v14 = MADSignpostLog();
-    v15 = os_signpost_id_generate(v14);
+    v15 = MADSignpostLog(v13);
+    v16 = os_signpost_id_generate(v15);
 
-    v16 = MADSignpostLog();
-    v17 = v16;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v18 = MADSignpostLog(v17);
+    v19 = v18;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 67109378;
-      v44 = add;
-      v45 = 2112;
-      v46 = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "MADService_performRequestsOnImageURLSync", "Request: %d Identifier: %@", buf, 0x12u);
+      v46 = add;
+      v47 = 2112;
+      v48 = identifierCopy;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "MADService_performRequestsOnImageURLSync", "Request: %d Identifier: %@", buf, 0x12u);
     }
 
     connection = [(MADService *)self connection];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __62__MADService_performRequests_onImageURL_withIdentifier_error___block_invoke;
-    v31[3] = &unk_1E8343260;
-    v31[4] = &v37;
-    v31[5] = &v32;
-    v19 = [connection synchronousRemoteObjectProxyWithErrorHandler:v31];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __62__MADService_performRequests_onImageURL_withIdentifier_error___block_invoke_100;
-    v24[3] = &unk_1E8343288;
-    v29 = v15;
-    v30 = add;
-    v25 = identifierCopy;
-    v26 = requestsCopy;
-    v27 = &v32;
-    v28 = &v37;
-    [v19 requestImageProcessing:v26 forAssetURL:lCopy withSandboxToken:v12 identifier:v25 requestID:add andReply:v24];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __62__MADService_performRequests_onImageURL_withIdentifier_error___block_invoke;
+    v33[3] = &unk_1E8343260;
+    v33[4] = &v39;
+    v33[5] = &v34;
+    v21 = [connection synchronousRemoteObjectProxyWithErrorHandler:v33];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __62__MADService_performRequests_onImageURL_withIdentifier_error___block_invoke_100;
+    v26[3] = &unk_1E8343288;
+    v31 = v16;
+    v32 = add;
+    v27 = identifierCopy;
+    v28 = requestsCopy;
+    v29 = &v34;
+    v30 = &v39;
+    [v21 requestImageProcessing:v28 forAssetURL:lCopy withSandboxToken:v12 identifier:v27 requestID:add andReply:v26];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v44 = add;
+      v46 = add;
       _os_log_impl(&dword_1C972C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MADService] Analysis returns for RequestID %d (synchronous)", buf, 8u);
     }
 
     if (error)
     {
-      v20 = v38[5];
-      if (v20)
+      v22 = v40[5];
+      if (v22)
       {
-        *error = v20;
+        *error = v22;
       }
     }
 
-    v21 = *(v33 + 24);
+    v23 = *(v35 + 24);
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v34, 8);
   }
 
   else
   {
-    v21 = 0;
+    v23 = 0;
     if (error)
     {
-      *error = [v38[5] copy];
+      *error = [v40[5] copy];
     }
   }
 
-  _Block_object_dispose(&v37, 8);
-  return v21 & 1;
+  _Block_object_dispose(&v39, 8);
+  return v23 & 1;
 }
 
 void __62__MADService_performRequests_onImageURL_withIdentifier_error___block_invoke(uint64_t a1, void *a2)
@@ -1446,7 +1450,7 @@ void __62__MADService_performRequests_onImageURL_withIdentifier_error___block_in
   v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 64);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -1490,49 +1494,49 @@ void __62__MADService_performRequests_onImageURL_withIdentifier_error___block_in
 
 - (int)performRequests:(id)requests onImageData:(id)data withUniformTypeIdentifier:(id)identifier andIdentifier:(id)andIdentifier completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   dataCopy = data;
   identifierCopy = identifier;
   andIdentifierCopy = andIdentifier;
   handlerCopy = handler;
   add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-  v17 = MADSignpostLog();
+  v17 = MADSignpostLog(handlerCopy);
   v18 = os_signpost_id_generate(v17);
 
-  v19 = MADSignpostLog();
-  v20 = v19;
-  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v20 = MADSignpostLog(v19);
+  v21 = v20;
+  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 67109378;
-    v39 = add;
-    v40 = 2112;
-    v41 = andIdentifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "MADService_performRequestsOnImageData", "Request: %d Identifier: %@", buf, 0x12u);
+    v40 = add;
+    v41 = 2112;
+    v42 = andIdentifierCopy;
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v18, "MADService_performRequestsOnImageData", "Request: %d Identifier: %@", buf, 0x12u);
   }
 
   connection = [(MADService *)self connection];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __100__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_completionHandler___block_invoke;
-  v35[3] = &unk_1E8343210;
-  v22 = handlerCopy;
-  v36 = v22;
-  v37 = add;
-  v23 = [connection remoteObjectProxyWithErrorHandler:v35];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __100__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_completionHandler___block_invoke_101;
-  v29[3] = &unk_1E8343238;
-  v33 = v18;
-  v34 = add;
-  v24 = andIdentifierCopy;
-  v30 = v24;
-  v25 = requestsCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __100__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_completionHandler___block_invoke;
+  v36[3] = &unk_1E8343210;
+  v23 = handlerCopy;
+  v37 = v23;
+  v38 = add;
+  v24 = [connection remoteObjectProxyWithErrorHandler:v36];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __100__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_completionHandler___block_invoke_101;
+  v30[3] = &unk_1E8343238;
+  v34 = v18;
+  v35 = add;
+  v25 = andIdentifierCopy;
   v31 = v25;
-  v26 = v22;
+  v26 = requestsCopy;
   v32 = v26;
-  [v23 requestImageProcessing:v25 forImageData:dataCopy withUniformTypeIdentifier:identifierCopy identifier:v24 requestID:add andReply:v29];
+  v27 = v23;
+  v33 = v27;
+  [v24 requestImageProcessing:v26 forImageData:dataCopy withUniformTypeIdentifier:identifierCopy identifier:v25 requestID:add andReply:v30];
 
   return add;
 }
@@ -1553,7 +1557,7 @@ void __100__MADService_performRequests_onImageData_withUniformTypeIdentifier_and
   v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 56);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -1585,80 +1589,80 @@ void __100__MADService_performRequests_onImageData_withUniformTypeIdentifier_and
 
 - (BOOL)performRequests:(id)requests onImageData:(id)data withUniformTypeIdentifier:(id)identifier andIdentifier:(id)andIdentifier error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   dataCopy = data;
   identifierCopy = identifier;
   andIdentifierCopy = andIdentifier;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 1;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__0;
+  v41 = __Block_byref_object_dispose__0;
   v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 1;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__0;
-  v40 = __Block_byref_object_dispose__0;
-  v41 = 0;
   add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-  v15 = MADSignpostLog();
+  v15 = MADSignpostLog(andIdentifierCopy);
   v16 = os_signpost_id_generate(v15);
 
-  v17 = MADSignpostLog();
-  v18 = v17;
-  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v18 = MADSignpostLog(v17);
+  v19 = v18;
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 67109378;
-    v47 = add;
-    v48 = 2112;
-    v49 = andIdentifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "MADService_performRequestsOnImageDataSync", "Request: %d Identifier: %@", buf, 0x12u);
+    v48 = add;
+    v49 = 2112;
+    v50 = andIdentifierCopy;
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "MADService_performRequestsOnImageDataSync", "Request: %d Identifier: %@", buf, 0x12u);
   }
 
   connection = [(MADService *)self connection];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __88__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_error___block_invoke;
-  v35[3] = &unk_1E8343260;
-  v35[4] = &v36;
-  v35[5] = &v42;
-  v20 = [connection synchronousRemoteObjectProxyWithErrorHandler:v35];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __88__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_error___block_invoke_102;
-  v28[3] = &unk_1E8343288;
-  v33 = v16;
-  v34 = add;
-  v21 = andIdentifierCopy;
-  v29 = v21;
-  v22 = requestsCopy;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __88__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_error___block_invoke;
+  v36[3] = &unk_1E8343260;
+  v36[4] = &v37;
+  v36[5] = &v43;
+  v21 = [connection synchronousRemoteObjectProxyWithErrorHandler:v36];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __88__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_error___block_invoke_102;
+  v29[3] = &unk_1E8343288;
+  v34 = v16;
+  v35 = add;
+  v22 = andIdentifierCopy;
   v30 = v22;
-  v31 = &v42;
-  v32 = &v36;
-  [v20 requestImageProcessing:v22 forImageData:dataCopy withUniformTypeIdentifier:identifierCopy identifier:v21 requestID:add andReply:v28];
+  v23 = requestsCopy;
+  v31 = v23;
+  v32 = &v43;
+  v33 = &v37;
+  [v21 requestImageProcessing:v23 forImageData:dataCopy withUniformTypeIdentifier:identifierCopy identifier:v22 requestID:add andReply:v29];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v47 = add;
+    v48 = add;
     _os_log_impl(&dword_1C972C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MADService] Analysis returns for RequestID %d (synchronous)", buf, 8u);
   }
 
   if (error)
   {
-    v23 = v37[5];
-    if (v23)
+    v24 = v38[5];
+    if (v24)
     {
-      *error = v23;
+      *error = v24;
     }
   }
 
-  v24 = *(v43 + 24);
+  v25 = *(v44 + 24);
 
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v43, 8);
 
-  return v24 & 1;
+  return v25 & 1;
 }
 
 void __88__MADService_performRequests_onImageData_withUniformTypeIdentifier_andIdentifier_error___block_invoke(uint64_t a1, void *a2)
@@ -1682,7 +1686,7 @@ void __88__MADService_performRequests_onImageData_withUniformTypeIdentifier_andI
   v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 64);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -1726,55 +1730,55 @@ void __88__MADService_performRequests_onImageData_withUniformTypeIdentifier_andI
 
 - (int)performRequests:(id)requests videoURL:(id)l identifier:(id)identifier progressHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   lCopy = l;
   identifierCopy = identifier;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  v39 = 0;
-  v15 = [(MADService *)self sandboxExtensionForURL:lCopy error:&v39];
-  v16 = v39;
-  v26 = v16;
+  v40 = 0;
+  v15 = [(MADService *)self sandboxExtensionForURL:lCopy error:&v40];
+  v16 = v40;
+  v27 = v16;
   if (v15)
   {
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v18 = MADSignpostLog();
+    v18 = MADSignpostLog(v16);
     v19 = os_signpost_id_generate(v18);
 
-    v20 = MADSignpostLog();
-    v21 = v20;
-    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    v21 = MADSignpostLog(v20);
+    v22 = v21;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
       *buf = 67109378;
-      v41 = add;
-      v42 = 2112;
-      v43 = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "MADService_performRequestsOnVideoURL", "Request: %d Identifier: %@", buf, 0x12u);
+      v42 = add;
+      v43 = 2112;
+      v44 = identifierCopy;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "MADService_performRequestsOnVideoURL", "Request: %d Identifier: %@", buf, 0x12u);
     }
 
     [(MADService *)self addProgressHandler:handlerCopy forRequestID:add];
     connection = [(MADService *)self connection];
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __84__MADService_performRequests_videoURL_identifier_progressHandler_completionHandler___block_invoke;
-    v36[3] = &unk_1E83432D8;
-    v36[4] = self;
-    v38 = add;
-    v23 = completionHandlerCopy;
-    v37 = v23;
-    v24 = [connection remoteObjectProxyWithErrorHandler:v36];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __84__MADService_performRequests_videoURL_identifier_progressHandler_completionHandler___block_invoke_103;
-    v29[3] = &unk_1E8343300;
-    v34 = v19;
-    v35 = add;
-    v30 = identifierCopy;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __84__MADService_performRequests_videoURL_identifier_progressHandler_completionHandler___block_invoke;
+    v37[3] = &unk_1E83432D8;
+    v37[4] = self;
+    v39 = add;
+    v24 = completionHandlerCopy;
+    v38 = v24;
+    v25 = [connection remoteObjectProxyWithErrorHandler:v37];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __84__MADService_performRequests_videoURL_identifier_progressHandler_completionHandler___block_invoke_103;
+    v30[3] = &unk_1E8343300;
+    v35 = v19;
+    v36 = add;
+    v31 = identifierCopy;
     selfCopy = self;
-    v32 = requestsCopy;
-    v33 = v23;
-    [v24 requestVideoProcessing:v32 assetURL:lCopy sandboxToken:v15 identifier:v30 requestID:add reply:v29];
+    v33 = requestsCopy;
+    v34 = v24;
+    [v25 requestVideoProcessing:v33 assetURL:lCopy sandboxToken:v15 identifier:v31 requestID:add reply:v30];
   }
 
   else
@@ -1803,7 +1807,7 @@ void __84__MADService_performRequests_videoURL_identifier_progressHandler_comple
   v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 64);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -1894,7 +1898,7 @@ void __37__MADService_currentOutstandingTasks__block_invoke()
 
 - (int)performRequests:(id)requests onAssetWithIdentifier:(id)identifier identifierType:(unint64_t)type fromPhotoLibraryWithURL:(id)l timeoutInterval:(double)interval completionHandler:(id)handler
 {
-  v58[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   identifierCopy = identifier;
   lCopy = l;
@@ -1914,78 +1918,78 @@ void __37__MADService_currentOutstandingTasks__block_invoke()
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v53 = 0x3032000000;
-    v54 = __Block_byref_object_copy__0;
-    v55 = __Block_byref_object_dispose__0;
-    v56 = 0;
+    v54 = 0x3032000000;
+    v55 = __Block_byref_object_copy__0;
+    v56 = __Block_byref_object_dispose__0;
+    v57 = 0;
     if (interval != 0.0)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
-        *v50 = 134217984;
+        *v51 = 134217984;
         intervalCopy = interval;
-        _os_log_impl(&dword_1C972C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MADService] Setup proactive timeout of %.3f seconds", v50, 0xCu);
+        _os_log_impl(&dword_1C972C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MADService] Setup proactive timeout of %.3f seconds", v51, 0xCu);
       }
 
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v47[2] = __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_timeoutInterval_completionHandler___block_invoke;
-      v47[3] = &unk_1E8343370;
-      v48 = handlerCopy;
-      v49 = add;
-      v18 = [MADTimer timerWithInterval:(interval * 1000.0) unit:2 oneShot:1 andBlock:v47];
+      v48[0] = MEMORY[0x1E69E9820];
+      v48[1] = 3221225472;
+      v48[2] = __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_timeoutInterval_completionHandler___block_invoke;
+      v48[3] = &unk_1E8343370;
+      v49 = handlerCopy;
+      v50 = add;
+      v18 = [MADTimer timerWithInterval:(interval * 1000.0) unit:2 oneShot:1 andBlock:v48];
       v19 = *(*(&buf + 1) + 40);
       *(*(&buf + 1) + 40) = v18;
     }
 
     identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d Identifier: (%lu)%@", add, type, identifierCopy];
-    v21 = MADSignpostLog();
+    v21 = MADSignpostLog(identifierCopy);
     v22 = os_signpost_id_generate(v21);
 
-    v23 = MADSignpostLog();
-    v24 = v23;
-    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    v24 = MADSignpostLog(v23);
+    v25 = v24;
+    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
-      *v50 = 138412290;
+      *v51 = 138412290;
       intervalCopy = *&identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "MADService_performRequestsOnAsset", "%@", v50, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v22, "MADService_performRequestsOnAsset", "%@", v51, 0xCu);
     }
 
     connection = [(MADService *)self connection];
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_timeoutInterval_completionHandler___block_invoke_183;
-    v43[3] = &unk_1E8343398;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_timeoutInterval_completionHandler___block_invoke_183;
+    v44[3] = &unk_1E8343398;
     p_buf = &buf;
-    v26 = handlerCopy;
-    v44 = v26;
-    v46 = add;
-    v27 = [connection remoteObjectProxyWithErrorHandler:v43];
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_timeoutInterval_completionHandler___block_invoke_184;
-    v36[3] = &unk_1E83433C0;
-    v40 = &buf;
-    v41 = v22;
-    v28 = identifierCopy;
-    v37 = v28;
-    v38 = requestsCopy;
-    v39 = v26;
-    v42 = add;
-    [v27 requestImageProcessing:v38 forAssetWithIdentifier:identifierCopy identifierType:type fromPhotoLibraryWithURL:lCopy requestID:add andReply:v36];
+    v27 = handlerCopy;
+    v45 = v27;
+    v47 = add;
+    v28 = [connection remoteObjectProxyWithErrorHandler:v44];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_timeoutInterval_completionHandler___block_invoke_184;
+    v37[3] = &unk_1E83433C0;
+    v41 = &buf;
+    v42 = v22;
+    v29 = identifierCopy;
+    v38 = v29;
+    v39 = requestsCopy;
+    v40 = v27;
+    v43 = add;
+    [v28 requestImageProcessing:v39 forAssetWithIdentifier:identifierCopy identifierType:type fromPhotoLibraryWithURL:lCopy requestID:add andReply:v37];
 
     _Block_object_dispose(&buf, 8);
   }
 
   else
   {
-    v29 = MEMORY[0x1E696ABC0];
-    v57 = *MEMORY[0x1E696A578];
+    v30 = MEMORY[0x1E696ABC0];
+    v58 = *MEMORY[0x1E696A578];
     bundleIdentifier = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
-    v58[0] = bundleIdentifier;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
-    v31 = [v29 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v30];
-    (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, v31);
+    v59[0] = bundleIdentifier;
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+    v32 = [v30 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v31];
+    (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, v32);
 
     LODWORD(add) = -1;
   }
@@ -2029,35 +2033,35 @@ void __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierT
 
 void __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_timeoutInterval_completionHandler___block_invoke_184(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(*(a1 + 56) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = 0;
 
-  v9 = MADSignpostLog();
-  v10 = v9;
-  v11 = *(a1 + 64);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = MADSignpostLog(v9);
+  v11 = v10;
+  v12 = *(a1 + 64);
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    v12 = *(a1 + 32);
-    v20 = 138412290;
-    v21 = v12;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v10, OS_SIGNPOST_INTERVAL_END, v11, "MADService_performRequestsOnAsset", "%@", &v20, 0xCu);
+    v13 = *(a1 + 32);
+    v21 = 138412290;
+    v22 = v13;
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v11, OS_SIGNPOST_INTERVAL_END, v12, "MADService_performRequestsOnAsset", "%@", &v21, 0xCu);
   }
 
   for (i = 0; i < [*(a1 + 40) count]; ++i)
   {
-    v14 = [*(a1 + 40) objectAtIndexedSubscript:i];
-    v15 = [v5 objectAtIndexedSubscript:i];
-    v16 = [v15 results];
-    [v14 setResults:v16];
+    v15 = [*(a1 + 40) objectAtIndexedSubscript:i];
+    v16 = [v5 objectAtIndexedSubscript:i];
+    v17 = [v16 results];
+    [v15 setResults:v17];
 
-    v17 = [*(a1 + 40) objectAtIndexedSubscript:i];
-    v18 = [v5 objectAtIndexedSubscript:i];
-    v19 = [v18 error];
-    [v17 setError:v19];
+    v18 = [*(a1 + 40) objectAtIndexedSubscript:i];
+    v19 = [v5 objectAtIndexedSubscript:i];
+    v20 = [v19 error];
+    [v18 setError:v20];
   }
 
   (*(*(a1 + 48) + 16))();
@@ -2065,7 +2069,7 @@ void __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierT
 
 - (BOOL)performRequests:(id)requests onAssetWithIdentifier:(id)identifier identifierType:(unint64_t)type fromPhotoLibraryWithURL:(id)l error:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   identifierCopy = identifier;
   lCopy = l;
@@ -2073,80 +2077,80 @@ void __133__MADService_Photos__performRequests_onAssetWithIdentifier_identifierT
   {
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
     identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d Identifier: (%lu)%@", add, type, identifierCopy];
-    v15 = MADSignpostLog();
+    v15 = MADSignpostLog(identifierCopy);
     v16 = os_signpost_id_generate(v15);
 
-    v17 = MADSignpostLog();
-    v18 = v17;
-    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v18 = MADSignpostLog(v17);
+    v19 = v18;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "MADService_performRequestsOnAssetSync", "%@", &buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "MADService_performRequestsOnAssetSync", "%@", &buf, 0xCu);
     }
 
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
-    v39 = 1;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 1;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v43 = 0x3032000000;
-    v44 = __Block_byref_object_copy__0;
-    v45 = __Block_byref_object_dispose__0;
-    v46 = 0;
+    v44 = 0x3032000000;
+    v45 = __Block_byref_object_copy__0;
+    v46 = __Block_byref_object_dispose__0;
+    v47 = 0;
     connection = [(MADService *)self connection];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __105__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_error___block_invoke;
-    v35[3] = &unk_1E8343260;
-    v35[4] = &buf;
-    v35[5] = &v36;
-    v20 = [connection synchronousRemoteObjectProxyWithErrorHandler:v35];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __105__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_error___block_invoke_185;
-    v28[3] = &unk_1E8343288;
-    v33 = v16;
-    v21 = identifierCopy;
-    v29 = v21;
-    v30 = requestsCopy;
-    v31 = &v36;
-    v34 = add;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __105__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_error___block_invoke;
+    v36[3] = &unk_1E8343260;
+    v36[4] = &buf;
+    v36[5] = &v37;
+    v21 = [connection synchronousRemoteObjectProxyWithErrorHandler:v36];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __105__MADService_Photos__performRequests_onAssetWithIdentifier_identifierType_fromPhotoLibraryWithURL_error___block_invoke_185;
+    v29[3] = &unk_1E8343288;
+    v34 = v16;
+    v22 = identifierCopy;
+    v30 = v22;
+    v31 = requestsCopy;
+    v32 = &v37;
+    v35 = add;
     p_buf = &buf;
-    [v20 requestImageProcessing:v30 forAssetWithIdentifier:identifierCopy identifierType:type fromPhotoLibraryWithURL:lCopy requestID:add andReply:v28];
+    [v21 requestImageProcessing:v31 forAssetWithIdentifier:identifierCopy identifierType:type fromPhotoLibraryWithURL:lCopy requestID:add andReply:v29];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      *v40 = 67109120;
-      v41 = add;
-      _os_log_impl(&dword_1C972C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MADService] Analysis returns for RequestID %d (synchronous)", v40, 8u);
+      *v41 = 67109120;
+      v42 = add;
+      _os_log_impl(&dword_1C972C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MADService] Analysis returns for RequestID %d (synchronous)", v41, 8u);
     }
 
     if (error)
     {
-      v22 = *(*(&buf + 1) + 40);
-      if (v22)
+      v23 = *(*(&buf + 1) + 40);
+      if (v23)
       {
-        *error = v22;
+        *error = v23;
       }
     }
 
-    LOBYTE(error) = *(v37 + 24);
+    LOBYTE(error) = *(v38 + 24);
 
     _Block_object_dispose(&buf, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v37, 8);
     goto LABEL_13;
   }
 
   if (error)
   {
-    v23 = MEMORY[0x1E696ABC0];
-    v47 = *MEMORY[0x1E696A578];
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
-    v48[0] = v21;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
-    *error = [v23 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v24];
+    v24 = MEMORY[0x1E696ABC0];
+    v48 = *MEMORY[0x1E696A578];
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
+    v49[0] = v22;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+    *error = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v25];
 
     LOBYTE(error) = 0;
 LABEL_13:
@@ -2176,7 +2180,7 @@ void __105__MADService_Photos__performRequests_onAssetWithIdentifier_identifierT
   v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 64);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -2218,51 +2222,51 @@ void __105__MADService_Photos__performRequests_onAssetWithIdentifier_identifierT
 - (int)_performRequests:(id)requests onIOSurface:(id)surface withOrientation:(unsigned int)orientation assetLocalIdentifier:(id)identifier photoLibraryURL:(id)l completionHandler:(id)handler
 {
   v11 = *&orientation;
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   surfaceCopy = surface;
   identifierCopy = identifier;
   lCopy = l;
   handlerCopy = handler;
   add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-  v31 = lCopy;
-  v19 = MADSignpostLog();
+  v32 = lCopy;
+  v19 = MADSignpostLog(handlerCopy);
   v20 = os_signpost_id_generate(v19);
 
-  v21 = MADSignpostLog();
-  v22 = v21;
-  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v22 = MADSignpostLog(v21);
+  v23 = v22;
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     *buf = 67109378;
-    v43 = add;
-    v44 = 2112;
-    v45 = identifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "MADService_performRequestsOnAsset", "Request: %d Identifier: %@", buf, 0x12u);
+    v44 = add;
+    v45 = 2112;
+    v46 = identifierCopy;
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v20, "MADService_performRequestsOnAsset", "Request: %d Identifier: %@", buf, 0x12u);
   }
 
   connection = [(MADService *)self connection];
-  v24 = requestsCopy;
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __122__MADService_Photos___performRequests_onIOSurface_withOrientation_assetLocalIdentifier_photoLibraryURL_completionHandler___block_invoke;
-  v39[3] = &unk_1E8343210;
-  v25 = handlerCopy;
-  v40 = v25;
-  v41 = add;
-  v26 = [connection remoteObjectProxyWithErrorHandler:v39];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __122__MADService_Photos___performRequests_onIOSurface_withOrientation_assetLocalIdentifier_photoLibraryURL_completionHandler___block_invoke_186;
-  v33[3] = &unk_1E8343238;
-  v37 = v20;
-  v38 = add;
-  v27 = identifierCopy;
-  v34 = v27;
-  v28 = v24;
+  v25 = requestsCopy;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __122__MADService_Photos___performRequests_onIOSurface_withOrientation_assetLocalIdentifier_photoLibraryURL_completionHandler___block_invoke;
+  v40[3] = &unk_1E8343210;
+  v26 = handlerCopy;
+  v41 = v26;
+  v42 = add;
+  v27 = [connection remoteObjectProxyWithErrorHandler:v40];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __122__MADService_Photos___performRequests_onIOSurface_withOrientation_assetLocalIdentifier_photoLibraryURL_completionHandler___block_invoke_186;
+  v34[3] = &unk_1E8343238;
+  v38 = v20;
+  v39 = add;
+  v28 = identifierCopy;
   v35 = v28;
   v29 = v25;
   v36 = v29;
-  [v26 requestImageProcessing:v28 forIOSurface:surfaceCopy withOrientation:v11 assetLocalIdentifier:v27 photoLibraryURL:v31 requestID:add andReply:v33];
+  v30 = v26;
+  v37 = v30;
+  [v27 requestImageProcessing:v29 forIOSurface:surfaceCopy withOrientation:v11 assetLocalIdentifier:v28 photoLibraryURL:v32 requestID:add andReply:v34];
 
   return add;
 }
@@ -2283,7 +2287,7 @@ void __122__MADService_Photos___performRequests_onIOSurface_withOrientation_asse
   v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 56);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -2412,59 +2416,60 @@ LABEL_6:
 
 - (int)performRequests:(id)requests onAssetWithCloudIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   identifierCopy = identifier;
   handlerCopy = handler;
-  if ([objc_opt_class() isEntitled])
+  isEntitled = [objc_opt_class() isEntitled];
+  if (isEntitled)
   {
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v12 = MADSignpostLog();
-    v13 = os_signpost_id_generate(v12);
+    v13 = MADSignpostLog(isEntitled);
+    v14 = os_signpost_id_generate(v13);
 
-    v14 = MADSignpostLog();
-    v15 = v14;
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    v16 = MADSignpostLog(v15);
+    v17 = v16;
+    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
       *buf = 67109378;
-      v33 = add;
-      v34 = 2112;
-      v35 = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "MADService_performRequestsOnAsset", "Request: %d cloudIdentifier: %@", buf, 0x12u);
+      v35 = add;
+      v36 = 2112;
+      v37 = identifierCopy;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v14, "MADService_performRequestsOnAsset", "Request: %d cloudIdentifier: %@", buf, 0x12u);
     }
 
     connection = [(MADService *)self connection];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __83__MADService_Photos__performRequests_onAssetWithCloudIdentifier_completionHandler___block_invoke;
-    v29[3] = &unk_1E8343210;
-    v17 = handlerCopy;
-    v30 = v17;
-    v31 = add;
-    v18 = [connection remoteObjectProxyWithErrorHandler:v29];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __83__MADService_Photos__performRequests_onAssetWithCloudIdentifier_completionHandler___block_invoke_190;
-    v23[3] = &unk_1E8343238;
-    v27 = v13;
-    v28 = add;
-    v24 = identifierCopy;
-    v25 = requestsCopy;
-    v26 = v17;
-    [v18 requestImageProcessing:v25 forAssetWithCloudIdentifier:v24 requestID:add andReply:v23];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __83__MADService_Photos__performRequests_onAssetWithCloudIdentifier_completionHandler___block_invoke;
+    v31[3] = &unk_1E8343210;
+    v19 = handlerCopy;
+    v32 = v19;
+    v33 = add;
+    v20 = [connection remoteObjectProxyWithErrorHandler:v31];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __83__MADService_Photos__performRequests_onAssetWithCloudIdentifier_completionHandler___block_invoke_190;
+    v25[3] = &unk_1E8343238;
+    v29 = v14;
+    v30 = add;
+    v26 = identifierCopy;
+    v27 = requestsCopy;
+    v28 = v19;
+    [v20 requestImageProcessing:v27 forAssetWithCloudIdentifier:v26 requestID:add andReply:v25];
 
-    v19 = v30;
+    v21 = v32;
   }
 
   else
   {
     add = MEMORY[0x1E696ABC0];
-    v36 = *MEMORY[0x1E696A578];
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
-    v37[0] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-    v21 = [add errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v20];
-    (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, v21);
+    v38 = *MEMORY[0x1E696A578];
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
+    v39[0] = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v23 = [add errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v22];
+    (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, v23);
 
     LODWORD(add) = -1;
   }
@@ -2488,7 +2493,7 @@ void __83__MADService_Photos__performRequests_onAssetWithCloudIdentifier_complet
   v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 56);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -2520,57 +2525,58 @@ void __83__MADService_Photos__performRequests_onAssetWithCloudIdentifier_complet
 
 - (int)performRequestsWithCloudIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   handlerCopy = handler;
-  if ([objc_opt_class() isEntitled])
+  isEntitled = [objc_opt_class() isEntitled];
+  if (isEntitled)
   {
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v9 = MADSignpostLog();
-    v10 = os_signpost_id_generate(v9);
+    v10 = MADSignpostLog(isEntitled);
+    v11 = os_signpost_id_generate(v10);
 
-    v11 = MADSignpostLog();
-    v12 = v11;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v13 = MADSignpostLog(v12);
+    v14 = v13;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
       *buf = 67109376;
-      v29 = add;
-      v30 = 2048;
-      v31 = [identifiersCopy count];
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "MADService_performRequestsOnAsset", "[MADService RequestID %d]: %lu cloudIdentifiers", buf, 0x12u);
+      v31 = add;
+      v32 = 2048;
+      v33 = [identifiersCopy count];
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "MADService_performRequestsOnAsset", "[MADService RequestID %d]: %lu cloudIdentifiers", buf, 0x12u);
     }
 
     connection = [(MADService *)self connection];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __76__MADService_Photos__performRequestsWithCloudIdentifiers_completionHandler___block_invoke;
-    v25[3] = &unk_1E8343210;
-    v14 = handlerCopy;
-    v26 = v14;
-    v27 = add;
-    v15 = [connection remoteObjectProxyWithErrorHandler:v25];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __76__MADService_Photos__performRequestsWithCloudIdentifiers_completionHandler___block_invoke_191;
-    v20[3] = &unk_1E8343410;
-    v23 = v10;
-    v24 = add;
-    v21 = identifiersCopy;
-    v22 = v14;
-    [v15 requestImageProcessingWithCloudIdentifierRequests:v21 requestID:add andReply:v20];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __76__MADService_Photos__performRequestsWithCloudIdentifiers_completionHandler___block_invoke;
+    v27[3] = &unk_1E8343210;
+    v16 = handlerCopy;
+    v28 = v16;
+    v29 = add;
+    v17 = [connection remoteObjectProxyWithErrorHandler:v27];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __76__MADService_Photos__performRequestsWithCloudIdentifiers_completionHandler___block_invoke_191;
+    v22[3] = &unk_1E8343410;
+    v25 = v11;
+    v26 = add;
+    v23 = identifiersCopy;
+    v24 = v16;
+    [v17 requestImageProcessingWithCloudIdentifierRequests:v23 requestID:add andReply:v22];
 
-    v16 = v26;
+    v18 = v28;
   }
 
   else
   {
     add = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A578];
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
-    v33[0] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-    v18 = [add errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v17];
-    (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, v18);
+    v34 = *MEMORY[0x1E696A578];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
+    v35[0] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v20 = [add errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v19];
+    (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL, v20);
 
     LODWORD(add) = -1;
   }
@@ -2594,7 +2600,7 @@ void __76__MADService_Photos__performRequestsWithCloudIdentifiers_completionHand
   v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 48);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -2641,7 +2647,7 @@ void __76__MADService_Photos__performRequestsWithCloudIdentifiers_completionHand
 
 - (int)performRequests:(id)requests assetLocalIdentifier:(id)identifier photoLibraryURL:(id)l progressHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   identifierCopy = identifier;
   lCopy = l;
@@ -2650,53 +2656,53 @@ void __76__MADService_Photos__performRequestsWithCloudIdentifiers_completionHand
   if ([objc_opt_class() isEntitled])
   {
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d Identifier: %@ (%lu)", add, identifierCopy, 0];
-    v16 = MADSignpostLog();
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d Identifier: %@ (%lu)", add, identifierCopy, 0];
+    v16 = MADSignpostLog(v29);
     v17 = os_signpost_id_generate(v16);
 
-    v18 = MADSignpostLog();
-    v19 = v18;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v19 = MADSignpostLog(v18);
+    v20 = v19;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       *buf = 138412290;
-      v42 = v28;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "MADService_performRequestsOnVideoAsset", "%@", buf, 0xCu);
+      v43 = v29;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "MADService_performRequestsOnVideoAsset", "%@", buf, 0xCu);
     }
 
     [(MADService *)self addProgressHandler:handlerCopy forRequestID:add];
     connection = [(MADService *)self connection];
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __109__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_completionHandler___block_invoke;
-    v38[3] = &unk_1E83432D8;
-    v38[4] = self;
-    v40 = add;
-    v21 = completionHandlerCopy;
-    v39 = v21;
-    v22 = [connection remoteObjectProxyWithErrorHandler:v38];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __109__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_completionHandler___block_invoke_198;
-    v31[3] = &unk_1E8343300;
-    v36 = v17;
-    v23 = v28;
-    v32 = v23;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __109__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_completionHandler___block_invoke;
+    v39[3] = &unk_1E83432D8;
+    v39[4] = self;
+    v41 = add;
+    v22 = completionHandlerCopy;
+    v40 = v22;
+    v23 = [connection remoteObjectProxyWithErrorHandler:v39];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __109__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_completionHandler___block_invoke_198;
+    v32[3] = &unk_1E8343300;
+    v37 = v17;
+    v24 = v29;
+    v33 = v24;
     selfCopy = self;
-    v37 = add;
-    v34 = requestsCopy;
-    v35 = v21;
-    [v22 requestVideoProcessing:v34 assetIdentifier:identifierCopy identifierType:0 photoLibraryURL:lCopy requestID:add isIncremental:0 reply:v31];
+    v38 = add;
+    v35 = requestsCopy;
+    v36 = v22;
+    [v23 requestVideoProcessing:v35 assetIdentifier:identifierCopy identifierType:0 photoLibraryURL:lCopy requestID:add isIncremental:0 reply:v32];
   }
 
   else
   {
-    v24 = MEMORY[0x1E696ABC0];
-    v43 = *MEMORY[0x1E696A578];
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
-    v44[0] = v23;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-    v26 = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v25];
-    (*(completionHandlerCopy + 2))(completionHandlerCopy, 0xFFFFFFFFLL, v26);
+    v25 = MEMORY[0x1E696ABC0];
+    v44 = *MEMORY[0x1E696A578];
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
+    v45[0] = v24;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v27 = [v25 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v26];
+    (*(completionHandlerCopy + 2))(completionHandlerCopy, 0xFFFFFFFFLL, v27);
 
     LODWORD(add) = -1;
   }
@@ -2721,7 +2727,7 @@ void __109__MADService_Photos__performRequests_assetLocalIdentifier_photoLibrary
   v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 64);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -2750,7 +2756,7 @@ void __109__MADService_Photos__performRequests_assetLocalIdentifier_photoLibrary
 
 - (int)performRequests:(id)requests assetLocalIdentifier:(id)identifier photoLibraryURL:(id)l progressHandler:(id)handler resultHandler:(id)resultHandler completionHandler:(id)completionHandler
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   identifierCopy = identifier;
   lCopy = l;
@@ -2760,66 +2766,66 @@ void __109__MADService_Photos__performRequests_assetLocalIdentifier_photoLibrary
   if ([objc_opt_class() isEntitled])
   {
     add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
-    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d Identifier: %@ (%lu)", add, identifierCopy, 0];
-    v32 = lCopy;
-    v18 = MADSignpostLog();
+    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d Identifier: %@ (%lu)", add, identifierCopy, 0];
+    v33 = lCopy;
+    v18 = MADSignpostLog(v34);
     v19 = os_signpost_id_generate(v18);
 
-    v20 = MADSignpostLog();
-    v21 = v20;
-    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    v21 = MADSignpostLog(v20);
+    v22 = v21;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
       *buf = 138412290;
-      v51 = v33;
-      _os_signpost_emit_with_name_impl(&dword_1C972C000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "MADService_performRequestsOnVideoAsset", "%@", buf, 0xCu);
+      v52 = v34;
+      _os_signpost_emit_with_name_impl(&dword_1C972C000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "MADService_performRequestsOnVideoAsset", "%@", buf, 0xCu);
     }
 
     [(MADService *)self addProgressHandler:handlerCopy forRequestID:add];
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __123__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_resultHandler_completionHandler___block_invoke;
-    v46[3] = &unk_1E8343438;
-    v22 = requestsCopy;
-    v47 = v22;
-    v49 = add;
-    v48 = resultHandlerCopy;
-    v23 = MEMORY[0x1CCA8ECA0](v46);
-    [(MADService *)self addResultHandler:v23 forRequestID:add];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __123__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_resultHandler_completionHandler___block_invoke;
+    v47[3] = &unk_1E8343438;
+    v23 = requestsCopy;
+    v48 = v23;
+    v50 = add;
+    v49 = resultHandlerCopy;
+    v24 = MEMORY[0x1CCA8ECA0](v47);
+    [(MADService *)self addResultHandler:v24 forRequestID:add];
     connection = [(MADService *)self connection];
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __123__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_resultHandler_completionHandler___block_invoke_199;
-    v43[3] = &unk_1E83432D8;
-    v43[4] = self;
-    v45 = add;
-    v25 = completionHandlerCopy;
-    v44 = v25;
-    v26 = [connection remoteObjectProxyWithErrorHandler:v43];
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __123__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_resultHandler_completionHandler___block_invoke_200;
-    v37[3] = &unk_1E8343238;
-    v41 = v19;
-    v27 = v33;
-    v38 = v27;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __123__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_resultHandler_completionHandler___block_invoke_199;
+    v44[3] = &unk_1E83432D8;
+    v44[4] = self;
+    v46 = add;
+    v26 = completionHandlerCopy;
+    v45 = v26;
+    v27 = [connection remoteObjectProxyWithErrorHandler:v44];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __123__MADService_Photos__performRequests_assetLocalIdentifier_photoLibraryURL_progressHandler_resultHandler_completionHandler___block_invoke_200;
+    v38[3] = &unk_1E8343238;
+    v42 = v19;
+    v28 = v34;
+    v39 = v28;
     selfCopy = self;
-    v42 = add;
-    v40 = v25;
-    lCopy = v32;
-    [v26 requestVideoProcessing:v22 assetIdentifier:identifierCopy identifierType:0 photoLibraryURL:v32 requestID:add isIncremental:1 reply:v37];
+    v43 = add;
+    v41 = v26;
+    lCopy = v33;
+    [v27 requestVideoProcessing:v23 assetIdentifier:identifierCopy identifierType:0 photoLibraryURL:v33 requestID:add isIncremental:1 reply:v38];
 
-    v28 = v47;
+    v29 = v48;
   }
 
   else
   {
-    v29 = MEMORY[0x1E696ABC0];
-    v52 = *MEMORY[0x1E696A578];
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
-    v53[0] = v27;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
-    v30 = [v29 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v28];
-    (*(completionHandlerCopy + 2))(completionHandlerCopy, 0xFFFFFFFFLL, v30);
+    v30 = MEMORY[0x1E696ABC0];
+    v53 = *MEMORY[0x1E696A578];
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos asset processing not available"];
+    v54[0] = v28;
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+    v31 = [v30 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v29];
+    (*(completionHandlerCopy + 2))(completionHandlerCopy, 0xFFFFFFFFLL, v31);
 
     LODWORD(add) = -1;
   }
@@ -2872,7 +2878,7 @@ void __123__MADService_Photos__performRequests_assetLocalIdentifier_photoLibrary
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = MADSignpostLog();
+  v5 = MADSignpostLog(v4);
   v6 = v5;
   v7 = *(a1 + 56);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -3928,54 +3934,54 @@ void __40__MADService_VIAnalytics__endEntryPoint__block_invoke()
 
 - (int)prewarmTextRequests:(id)requests completionHandler:(id)handler
 {
-  *(&v31[3] + 4) = *MEMORY[0x1E69E9840];
+  *(&v32[3] + 4) = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   handlerCopy = handler;
   add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d", add];
-  v10 = MADSignpostLog();
+  v10 = MADSignpostLog(v9);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = MADSignpostLog();
-  v13 = v12;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = MADSignpostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 138412290;
-    v31[0] = v9;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "MADService_PrewarmTextRequest", "%@", buf, 0xCu);
+    v32[0] = v9;
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "MADService_PrewarmTextRequest", "%@", buf, 0xCu);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __58__MADService_Text__prewarmTextRequests_completionHandler___block_invoke;
-  v25[3] = &unk_1E83435A0;
-  v28 = v11;
-  v14 = v9;
-  v26 = v14;
-  v29 = add;
-  v15 = handlerCopy;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __58__MADService_Text__prewarmTextRequests_completionHandler___block_invoke;
+  v26[3] = &unk_1E83435A0;
+  v29 = v11;
+  v15 = v9;
   v27 = v15;
-  v16 = MEMORY[0x1CCA8ECA0](v25);
+  v30 = add;
+  v16 = handlerCopy;
+  v28 = v16;
+  v17 = MEMORY[0x1CCA8ECA0](v26);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v17 = qos_class_self();
-    v18 = MADQoSDescription(v17);
+    v18 = qos_class_self();
+    v19 = MADQoSDescription(v18);
     *buf = 67109378;
-    LODWORD(v31[0]) = add;
-    WORD2(v31[0]) = 2112;
-    *(v31 + 6) = v18;
+    LODWORD(v32[0]) = add;
+    WORD2(v32[0]) = 2112;
+    *(v32 + 6) = v19;
     _os_log_impl(&dword_1C972C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[MADService] Submitting text pre-warming request [ID: %d QoS: %@]", buf, 0x12u);
   }
 
   connection = [(MADService *)self connection];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __58__MADService_Text__prewarmTextRequests_completionHandler___block_invoke_338;
-  v23[3] = &unk_1E83435C8;
-  v20 = v16;
-  v24 = v20;
-  v21 = [connection remoteObjectProxyWithErrorHandler:v23];
-  [v21 requestTextPrewarming:requestsCopy requestID:add reply:v20];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __58__MADService_Text__prewarmTextRequests_completionHandler___block_invoke_338;
+  v24[3] = &unk_1E83435C8;
+  v21 = v17;
+  v25 = v21;
+  v22 = [connection remoteObjectProxyWithErrorHandler:v24];
+  [v22 requestTextPrewarming:requestsCopy requestID:add reply:v21];
 
   return add;
 }
@@ -3984,7 +3990,7 @@ void __58__MADService_Text__prewarmTextRequests_completionHandler___block_invoke
 {
   v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MADSignpostLog();
+  v4 = MADSignpostLog(v3);
   v5 = v4;
   v6 = *(a1 + 48);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -4034,57 +4040,57 @@ void __58__MADService_Text__prewarmTextRequests_completionHandler___block_invoke
 
 - (int)performRequests:(id)requests textInputs:(id)inputs completionHandler:(id)handler
 {
-  *(&v36[3] + 4) = *MEMORY[0x1E69E9840];
+  *(&v37[3] + 4) = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   inputsCopy = inputs;
   handlerCopy = handler;
   add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
   v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d", add];
-  v11 = MADSignpostLog();
+  v11 = MADSignpostLog(v10);
   v12 = os_signpost_id_generate(v11);
 
-  v13 = MADSignpostLog();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = MADSignpostLog(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 138412290;
-    v36[0] = v10;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "MADService_ProcessTextRequest", "%@", buf, 0xCu);
+    v37[0] = v10;
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "MADService_ProcessTextRequest", "%@", buf, 0xCu);
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __65__MADService_Text__performRequests_textInputs_completionHandler___block_invoke;
-  v29[3] = &unk_1E8343238;
-  v33 = v12;
-  v15 = v10;
-  v30 = v15;
-  v34 = add;
-  v16 = requestsCopy;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __65__MADService_Text__performRequests_textInputs_completionHandler___block_invoke;
+  v30[3] = &unk_1E8343238;
+  v34 = v12;
+  v16 = v10;
   v31 = v16;
-  v17 = handlerCopy;
+  v35 = add;
+  v17 = requestsCopy;
   v32 = v17;
-  v18 = MEMORY[0x1CCA8ECA0](v29);
+  v18 = handlerCopy;
+  v33 = v18;
+  v19 = MEMORY[0x1CCA8ECA0](v30);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v19 = qos_class_self();
-    v20 = MADQoSDescription(v19);
+    v20 = qos_class_self();
+    v21 = MADQoSDescription(v20);
     *buf = 67109378;
-    LODWORD(v36[0]) = add;
-    WORD2(v36[0]) = 2112;
-    *(v36 + 6) = v20;
+    LODWORD(v37[0]) = add;
+    WORD2(v37[0]) = 2112;
+    *(v37 + 6) = v21;
     _os_log_impl(&dword_1C972C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[MADService] Submitting text processing request [ID: %d QoS: %@]", buf, 0x12u);
   }
 
   connection = [(MADService *)self connection];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __65__MADService_Text__performRequests_textInputs_completionHandler___block_invoke_342;
-  v27[3] = &unk_1E83435C8;
-  v22 = v18;
-  v28 = v22;
-  v23 = [connection remoteObjectProxyWithErrorHandler:v27];
-  [v23 requestTextProcessing:v16 textInputs:inputsCopy requestID:add reply:v22];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __65__MADService_Text__performRequests_textInputs_completionHandler___block_invoke_342;
+  v28[3] = &unk_1E83435C8;
+  v23 = v19;
+  v29 = v23;
+  v24 = [connection remoteObjectProxyWithErrorHandler:v28];
+  [v24 requestTextProcessing:v17 textInputs:inputsCopy requestID:add reply:v23];
 
   return add;
 }
@@ -4094,7 +4100,7 @@ void __65__MADService_Text__performRequests_textInputs_completionHandler___block
   v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 56);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -4316,43 +4322,43 @@ void __101__MADService_Spotlight__submitSpotlightAssetURL_uniqueIdentifier_bundl
 
 - (int)prewarmMultiModalRequests:(id)requests completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   handlerCopy = handler;
   add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d", add];
-  v10 = MADSignpostLog();
+  v10 = MADSignpostLog(v9);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = MADSignpostLog();
-  v13 = v12;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = MADSignpostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 138412290;
-    v29 = v9;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "MADService_PrewarmMultiModalRequest", "%@", buf, 0xCu);
+    v30 = v9;
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "MADService_PrewarmMultiModalRequest", "%@", buf, 0xCu);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __70__MADService_MultiModal__prewarmMultiModalRequests_completionHandler___block_invoke;
-  v23[3] = &unk_1E83435A0;
-  v26 = v11;
-  v14 = v9;
-  v24 = v14;
-  v15 = handlerCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __70__MADService_MultiModal__prewarmMultiModalRequests_completionHandler___block_invoke;
+  v24[3] = &unk_1E83435A0;
+  v27 = v11;
+  v15 = v9;
   v25 = v15;
-  v27 = add;
-  v16 = MEMORY[0x1CCA8ECA0](v23);
+  v16 = handlerCopy;
+  v26 = v16;
+  v28 = add;
+  v17 = MEMORY[0x1CCA8ECA0](v24);
   connection = [(MADService *)self connection];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __70__MADService_MultiModal__prewarmMultiModalRequests_completionHandler___block_invoke_360;
-  v21[3] = &unk_1E83435C8;
-  v18 = v16;
-  v22 = v18;
-  v19 = [connection remoteObjectProxyWithErrorHandler:v21];
-  [v19 requestMultiModalPrewarming:requestsCopy requestID:add reply:v18];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __70__MADService_MultiModal__prewarmMultiModalRequests_completionHandler___block_invoke_360;
+  v22[3] = &unk_1E83435C8;
+  v19 = v17;
+  v23 = v19;
+  v20 = [connection remoteObjectProxyWithErrorHandler:v22];
+  [v20 requestMultiModalPrewarming:requestsCopy requestID:add reply:v19];
 
   return add;
 }
@@ -4361,7 +4367,7 @@ void __70__MADService_MultiModal__prewarmMultiModalRequests_completionHandler___
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MADSignpostLog();
+  v4 = MADSignpostLog(v3);
   v5 = v4;
   v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -4400,46 +4406,46 @@ void __70__MADService_MultiModal__prewarmMultiModalRequests_completionHandler___
 
 - (int)performRequests:(id)requests multiModalInputs:(id)inputs completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   inputsCopy = inputs;
   handlerCopy = handler;
   add = atomic_fetch_add(&self->_requestID.__a_.__a_value, 1u);
   v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request: %d", add];
-  v11 = MADSignpostLog();
+  v11 = MADSignpostLog(v10);
   v12 = os_signpost_id_generate(v11);
 
-  v13 = MADSignpostLog();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = MADSignpostLog(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 138412290;
-    v34 = v10;
-    _os_signpost_emit_with_name_impl(&dword_1C972C000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "MADService_ProcessMultiModalRequest", "%@", buf, 0xCu);
+    v35 = v10;
+    _os_signpost_emit_with_name_impl(&dword_1C972C000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "MADService_ProcessMultiModalRequest", "%@", buf, 0xCu);
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __77__MADService_MultiModal__performRequests_multiModalInputs_completionHandler___block_invoke;
-  v27[3] = &unk_1E8343238;
-  v31 = v12;
-  v15 = v10;
-  v28 = v15;
-  v16 = requestsCopy;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __77__MADService_MultiModal__performRequests_multiModalInputs_completionHandler___block_invoke;
+  v28[3] = &unk_1E8343238;
+  v32 = v12;
+  v16 = v10;
   v29 = v16;
-  v17 = handlerCopy;
+  v17 = requestsCopy;
   v30 = v17;
-  v32 = add;
-  v18 = MEMORY[0x1CCA8ECA0](v27);
+  v18 = handlerCopy;
+  v31 = v18;
+  v33 = add;
+  v19 = MEMORY[0x1CCA8ECA0](v28);
   connection = [(MADService *)self connection];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __77__MADService_MultiModal__performRequests_multiModalInputs_completionHandler___block_invoke_361;
-  v25[3] = &unk_1E83435C8;
-  v20 = v18;
-  v26 = v20;
-  v21 = [connection remoteObjectProxyWithErrorHandler:v25];
-  [v21 requestProcessing:v16 multiModalInputs:inputsCopy requestID:add reply:v20];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __77__MADService_MultiModal__performRequests_multiModalInputs_completionHandler___block_invoke_361;
+  v26[3] = &unk_1E83435C8;
+  v21 = v19;
+  v27 = v21;
+  v22 = [connection remoteObjectProxyWithErrorHandler:v26];
+  [v22 requestProcessing:v17 multiModalInputs:inputsCopy requestID:add reply:v21];
 
   return add;
 }
@@ -4449,7 +4455,7 @@ void __77__MADService_MultiModal__performRequests_multiModalInputs_completionHan
   v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = MADSignpostLog();
+  v7 = MADSignpostLog(v6);
   v8 = v7;
   v9 = *(a1 + 56);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))

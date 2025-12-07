@@ -8,7 +8,7 @@
 
 + (id)composingTransforms:(id)transforms
 {
-  sub_100080FB4(&unk_1003D1470);
+  sub_100080FB4(&unk_1003D1470, &qword_1002F9128);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getObjCClassMetadata();
   v4 = sub_1001BE200(v3);

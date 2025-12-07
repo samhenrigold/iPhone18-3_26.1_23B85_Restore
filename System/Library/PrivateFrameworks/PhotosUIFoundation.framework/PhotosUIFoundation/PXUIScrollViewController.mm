@@ -318,13 +318,13 @@ void __56__PXUIScrollViewController__checkScrollViewDeceleration__block_invoke()
   dispatch_async(v0, &__block_literal_global_5_10230);
 }
 
-void __56__PXUIScrollViewController__checkScrollViewDeceleration__block_invoke_2()
+void __56__PXUIScrollViewController__checkScrollViewDeceleration__block_invoke_2(uint64_t a1)
 {
-  v0 = PFUIGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = PFUIGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B3F73000, v0, OS_LOG_TYPE_FAULT, "Working around rdar://78312989", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1B3F73000, v1, OS_LOG_TYPE_FAULT, "Working around rdar://78312989", v2, 2u);
   }
 }
 

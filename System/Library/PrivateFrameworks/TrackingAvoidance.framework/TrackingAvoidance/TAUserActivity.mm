@@ -97,12 +97,12 @@ LABEL_6:
 
 - (id)descriptionDictionary
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"EventType";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v13[0] = v4;
-  v12[1] = @"ActivityType";
+  v12[0] = v4;
+  v11[1] = @"ActivityType";
   v5 = self->_activityType - 1;
   if (v5 > 3)
   {
@@ -114,14 +114,12 @@ LABEL_6:
     v6 = off_279DD1E70[v5];
   }
 
-  v13[1] = v6;
-  v12[2] = @"Date";
+  v12[1] = v6;
+  v11[2] = @"Date";
   date = [(TAUserActivity *)self date];
   getDateString = [date getDateString];
-  v13[2] = getDateString;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[2] = getDateString;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   return v9;
 }

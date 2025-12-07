@@ -32,6 +32,7 @@
 
 - (NSString)addressString
 {
+  v14 = *MEMORY[0x1E69E9840];
   internalEndpoint = [(NWEndpoint *)self internalEndpoint];
   v3 = internalEndpoint;
   if (internalEndpoint)
@@ -50,17 +51,30 @@
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v6 = gLogObj;
-    os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-    v7 = _os_log_send_and_compose_impl();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
 
-    result = __nwlog_should_abort(v7);
+    else
+    {
+      v7 = 2;
+    }
+
+    v10 = 136446466;
+    v11 = "nw_nsstring";
+    v12 = 2080;
+    v13 = description;
+    v8 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s @(%s) failed", &v10, 22);
+
+    result = __nwlog_should_abort(v8);
     if (result)
     {
       __break(1u);
       return result;
     }
 
-    free(v7);
+    free(v8);
   }
 
   return v5;
@@ -78,7 +92,7 @@
     v8 = gLogObj;
     *buf = 136446210;
     v25 = "+[NWAddressEndpoint endpointWithAddress:]";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s nw_endpoint_create_address failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -163,7 +177,7 @@
   v12 = gLogObj;
   *buf = 136446210;
   v25 = "+[NWAddressEndpoint endpointWithAddress:]";
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s NWAddressEndpoint sockaddr created a non-address endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v22 = 0;
@@ -269,7 +283,7 @@ LABEL_40:
     v12 = gLogObj;
     *buf = 136446210;
     v29 = "+[NWAddressEndpoint endpointWithHostname:port:]";
-    v13 = _os_log_send_and_compose_impl();
+    v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s nw_endpoint_create_host failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -356,7 +370,7 @@ LABEL_40:
   v29 = "+[NWAddressEndpoint endpointWithHostname:port:]";
   v30 = 2114;
   v31 = hostnameCopy;
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s NWAddressEndpoint created with non-address hostname %{public}@", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
   v26 = 0;
@@ -511,7 +525,7 @@ LABEL_40:
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWAddressEndpoint addressData]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_endpoint_get_address failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;

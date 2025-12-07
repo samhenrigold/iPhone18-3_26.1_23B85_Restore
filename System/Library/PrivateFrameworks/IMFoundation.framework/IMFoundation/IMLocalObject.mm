@@ -1,6 +1,7 @@
 @interface IMLocalObject
 + (id)_imLocalObjectQueue;
 + (id)_imLocalObjectQueueTargetingWorkloop;
++ (id)_registeredIMLocalObjectForPort:(unsigned int)port;
 + (void)_registerIMLocalObject:(id)object;
 + (void)_unregisterIMLocalObject:(id)object;
 + (void)initialize;
@@ -16,6 +17,8 @@
 - (id)_peekInvocation;
 - (id)description;
 - (void)_clearPort:(BOOL)port signalRunLoopIfNeeded:(BOOL)needed;
+- (void)_enqueueInvocation:(id)invocation xpcMessage:(id)message submitToComponentQueue:(BOOL)queue isSync:(BOOL)sync isReply:(BOOL)reply;
+- (void)_enqueueInvocationWithPriority:(id)priority xpcMessage:(id)message priority:(int)a5;
 - (void)_handleNewInvocations;
 - (void)_noteNewInvocation:(BOOL)invocation;
 - (void)_popInvocation;
@@ -34,12 +37,10 @@
 
 - (BOOL)isValid
 {
-  selfCopy = self;
-  internal = self->_internal;
   os_unfair_recursive_lock_lock_with_options();
-  LOBYTE(selfCopy) = *(selfCopy->_internal + 4) != 0;
+  LOBYTE(self) = *(self->_internal + 4) != 0;
   os_unfair_recursive_lock_unlock();
-  return selfCopy;
+  return self;
 }
 
 + (void)initialize
@@ -60,54 +61,51 @@
 
 - (BOOL)wasInterrupted
 {
-  selfCopy = self;
-  internal = self->_internal;
   os_unfair_recursive_lock_lock_with_options();
-  LOBYTE(selfCopy) = *(selfCopy->_internal + 103);
+  LOBYTE(self) = *(self->_internal + 103);
   os_unfair_recursive_lock_unlock();
-  return selfCopy;
+  return self;
 }
 
 - (void)invalidate
 {
-  internal = self->_internal;
   os_unfair_recursive_lock_lock_with_options();
-  v11 = self->_internal;
-  if ((v11[101] & 1) != 0 || v11[100] == 1)
+  internal = self->_internal;
+  if ((internal[101] & 1) != 0 || internal[100] == 1)
   {
-    if (v11[102] == 1)
+    if (internal[102] == 1)
     {
       if (_os_feature_enabled_impl() && im_primary_base_queue())
       {
-        v12 = objc_opt_class();
-        v15 = objc_msgSend__imLocalObjectQueueTargetingWorkloop(v12, v13, v14);
+        v11 = objc_opt_class();
+        v14 = objc_msgSend__imLocalObjectQueueTargetingWorkloop(v11, v12, v13);
       }
 
       else
       {
-        v24 = objc_opt_class();
-        v15 = objc_msgSend__imLocalObjectQueue(v24, v25, v26);
+        v23 = objc_opt_class();
+        v14 = objc_msgSend__imLocalObjectQueue(v23, v24, v25);
       }
 
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = sub_1959B6EB8;
-      v34[3] = &unk_1E74394F8;
-      v34[4] = self;
-      dispatch_async(v15, v34);
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = sub_1959B6EB8;
+      v28[3] = &unk_1E74394F8;
+      v28[4] = self;
+      dispatch_async(v14, v28);
     }
 
     else
     {
-      v16 = qos_class_self();
-      if (v16 <= QOS_CLASS_DEFAULT)
+      v15 = qos_class_self();
+      if (v15 <= QOS_CLASS_DEFAULT)
       {
-        v17 = QOS_CLASS_DEFAULT;
+        v16 = QOS_CLASS_DEFAULT;
       }
 
       else
       {
-        v17 = v16;
+        v16 = v15;
       }
 
       block[0] = MEMORY[0x1E69E9820];
@@ -115,29 +113,28 @@
       block[2] = sub_1959B6EC0;
       block[3] = &unk_1E74394F8;
       block[4] = self;
-      v18 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v17, 0, block);
-      v19 = OSLogHandleForIDSCategory("IMLocalObject");
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v17 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v16, 0, block);
+      v18 = OSLogHandleForIDSCategory("IMLocalObject");
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_195988000, v19, OS_LOG_TYPE_DEFAULT, "******* trying to invalidate connection. Let's signal the runloop in case there is a pending history query", buf, 2u);
+        _os_log_impl(&dword_195988000, v18, OS_LOG_TYPE_DEFAULT, "******* trying to invalidate connection. Let's signal the runloop in case there is a pending history query", buf, 2u);
       }
 
       Main = CFRunLoopGetMain();
-      CFRunLoopPerformBlock(Main, IMRemoteObjectsRunLoopModes, v18);
+      CFRunLoopPerformBlock(Main, IMRemoteObjectsRunLoopModes, v17);
       CFRunLoopSourceSignal(*(self->_internal + 10));
-      v21 = CFRunLoopGetMain();
-      CFRunLoopWakeUp(v21);
-      objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x1E69E58C0], v22, self, sel_invalidate, 0);
-      objc_msgSend_performSelector_withObject_afterDelay_inModes_(self, v23, sel_invalidate, 0, IMRemoteObjectsRunLoopModes, 0.0);
+      v20 = CFRunLoopGetMain();
+      CFRunLoopWakeUp(v20);
+      objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x1E69E58C0], v21, self, sel_invalidate, 0);
+      objc_msgSend_performSelector_withObject_afterDelay_inModes_(self, v22, sel_invalidate, 0, IMRemoteObjectsRunLoopModes, 0.0);
     }
 
-    v27 = self->_internal;
     os_unfair_recursive_lock_unlock();
     return;
   }
 
-  *(v11 + 3) = 0;
+  *(internal + 3) = 0;
   if (dword_1ED517080 < 0)
   {
     if (qword_1ED517528 != -1)
@@ -156,15 +153,11 @@
   if (dword_1ED517080)
   {
 LABEL_18:
-    v28 = self->_internal;
-    v30 = v28[4];
-    v31 = *(v28 + 101);
-    _IMLog(@"* Invalidating IMLocalObject: %@ (connection=%p) busy: %d", v4, v5, v6, v7, v8, v9, v10, v28[6]);
+    _IMLog(@"* Invalidating IMLocalObject: %@ (connection=%p) busy: %d", v3, v4, v5, v6, v7, v8, v9, *(self->_internal + 6));
   }
 
 LABEL_19:
-  objc_msgSend__clearPort_signalRunLoopIfNeeded_(self, v4, 0, 1);
-  v29 = self->_internal + 16;
+  objc_msgSend__clearPort_signalRunLoopIfNeeded_(self, v3, 0, 1);
 
   os_unfair_recursive_lock_unlock();
 }
@@ -211,63 +204,61 @@ LABEL_19:
   {
 LABEL_4:
     _IMLog(@"* Dealloc IMLocalObject: %@", v6, v7, v8, v9, v10, v11, v12, internal[6]);
-    v15 = self->_internal;
   }
 
 LABEL_5:
   os_unfair_recursive_lock_lock_with_options();
-  objc_msgSend__clearPort_(self, v16, 0);
-  v17 = self->_internal;
-  v18 = v17[7];
+  objc_msgSend__clearPort_(self, v15, 0);
+  v16 = self->_internal;
+  v17 = v16[7];
+  if (v17)
+  {
+    CFRelease(v17);
+    v16 = self->_internal;
+  }
+
+  v18 = v16[6];
   if (v18)
   {
     CFRelease(v18);
-    v17 = self->_internal;
+    v16 = self->_internal;
   }
 
-  v19 = v17[6];
+  v19 = v16[8];
   if (v19)
   {
     CFRelease(v19);
-    v17 = self->_internal;
+    v16 = self->_internal;
   }
 
-  v20 = v17[8];
+  v20 = v16[9];
   if (v20)
   {
     CFRelease(v20);
-    v17 = self->_internal;
+    v16 = self->_internal;
   }
 
-  v21 = v17[9];
+  v21 = v16[10];
   if (v21)
   {
-    CFRelease(v21);
-    v17 = self->_internal;
+    CFRunLoopSourceInvalidate(v21);
+    CFRelease(*(self->_internal + 10));
+    v16 = self->_internal;
   }
 
-  v22 = v17[10];
+  v22 = v16[5];
   if (v22)
   {
-    CFRunLoopSourceInvalidate(v22);
-    CFRelease(*(self->_internal + 10));
-    v17 = self->_internal;
-  }
-
-  v23 = v17[5];
-  if (v23)
-  {
-    dispatch_release(v23);
-    v24 = self->_internal;
+    dispatch_release(v22);
   }
 
   os_unfair_recursive_lock_unlock();
 
   self->_internal = 0;
 LABEL_18:
-  v25.receiver = self;
-  v25.super_class = IMLocalObject;
-  [(IMLocalObject *)&v25 dealloc];
+  v23.receiver = self;
+  v23.super_class = IMLocalObject;
+  [(IMLocalObject *)&v23 dealloc];
 }
 
 - (void)_portDidBecomeInvalid
@@ -322,11 +313,9 @@ LABEL_3:
   }
 
 LABEL_4:
-  internal = self->_internal;
   os_unfair_recursive_lock_lock_with_options();
   *(self->_internal + 103) = 1;
-  objc_msgSend_invalidate(self, v10, v11);
-  v12 = self->_internal + 16;
+  objc_msgSend_invalidate(self, v9, v10);
 
   os_unfair_recursive_lock_unlock();
 }
@@ -486,11 +475,10 @@ LABEL_25:
 
 - (NSArray)allowlistedClasses
 {
-  internal = self->_internal;
   os_unfair_recursive_lock_lock_with_options();
-  v4 = *(self->_internal + 9);
+  v3 = *(self->_internal + 9);
   os_unfair_recursive_lock_unlock();
-  return v4;
+  return v3;
 }
 
 - (id)description
@@ -511,6 +499,58 @@ LABEL_25:
   }
 
   return qword_1EAED90E0;
+}
+
++ (id)_registeredIMLocalObjectForPort:(unsigned int)port
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (!port)
+  {
+    return 0;
+  }
+
+  objc_msgSend_lock(qword_1ED517530, a2, *&port);
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v4 = qword_1ED517540;
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(qword_1ED517540, v5, &v15, v19, 16);
+  if (v6)
+  {
+    v9 = v6;
+    v10 = *v16;
+    while (2)
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v16 != v10)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v12 = *(*(&v15 + 1) + 8 * i);
+        if (objc_msgSend__port(v12, v7, v8) == port)
+        {
+          v13 = v12;
+          goto LABEL_12;
+        }
+      }
+
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v15, v19, 16);
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v12 = 0;
+LABEL_12:
+  objc_msgSend_unlock(qword_1ED517530, v7, v8);
+  return v12;
 }
 
 + (void)_registerIMLocalObject:(id)object
@@ -723,28 +763,15 @@ LABEL_2:
 {
   neededCopy = needed;
   portCopy = port;
-  internal = self->_internal;
   os_unfair_recursive_lock_lock_with_options();
   *(self->_internal + 3) = 0;
-  v8 = self->_internal;
-  v9 = *(v8 + 4);
-  if (!v9)
+  internal = self->_internal;
+  v8 = *(internal + 4);
+  if (!v8 || (v9 = internal[102], xpc_connection_cancel(v8), xpc_release(*(self->_internal + 4)), *(self->_internal + 4) = 0, objc_msgSend__unregisterIMLocalObject_(IMLocalObject, v10, self), portCopy))
   {
-LABEL_4:
 
     os_unfair_recursive_lock_unlock();
     return;
-  }
-
-  v10 = v8[102];
-  xpc_connection_cancel(v9);
-  xpc_release(*(self->_internal + 4));
-  *(self->_internal + 4) = 0;
-  objc_msgSend__unregisterIMLocalObject_(IMLocalObject, v11, self);
-  if (portCopy)
-  {
-    v19 = self->_internal;
-    goto LABEL_4;
   }
 
   if (dword_1ED517080 < 0)
@@ -756,55 +783,54 @@ LABEL_4:
 
     if (dword_1ED517080 <= 0)
     {
-      goto LABEL_10;
+      goto LABEL_9;
     }
   }
 
   else if (!dword_1ED517080)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
-  _IMLog(@"* IMLocalObject posting death notification: %@", v12, v13, v14, v15, v16, v17, v18, self);
-LABEL_10:
-  v20 = self->_internal;
+  _IMLog(@"* IMLocalObject posting death notification: %@", v11, v12, v13, v14, v15, v16, v17, self);
+LABEL_9:
   os_unfair_recursive_lock_unlock();
-  if (v10)
+  if (v9)
   {
     if (_os_feature_enabled_impl() && im_primary_base_queue())
     {
-      v21 = objc_opt_class();
-      v24 = objc_msgSend__imLocalObjectQueueTargetingWorkloop(v21, v22, v23);
+      v18 = objc_opt_class();
+      v21 = objc_msgSend__imLocalObjectQueueTargetingWorkloop(v18, v19, v20);
     }
 
     else
     {
-      v39 = objc_opt_class();
-      v24 = objc_msgSend__imLocalObjectQueue(v39, v40, v41);
+      v36 = objc_opt_class();
+      v21 = objc_msgSend__imLocalObjectQueue(v36, v37, v38);
     }
 
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = sub_1959B61BC;
-    v44[3] = &unk_1E74394F8;
-    v44[4] = self;
-    dispatch_async(v24, v44);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = sub_1959B61BC;
+    v41[3] = &unk_1E74394F8;
+    v41[4] = self;
+    dispatch_async(v21, v41);
   }
 
   else
   {
     Main = CFRunLoopGetMain();
-    if (neededCopy && (v28 = Main, CFRunLoopIsWaiting(Main)) && (v29 = CFRunLoopCopyCurrentMode(v28), objc_msgSend_isEqualToString_(v29, v30, @"IMRemoteObjectsRunLoopMode")))
+    if (neededCopy && (v25 = Main, CFRunLoopIsWaiting(Main)) && (v26 = CFRunLoopCopyCurrentMode(v25), objc_msgSend_isEqualToString_(v26, v27, @"IMRemoteObjectsRunLoopMode")))
     {
-      v31 = qos_class_self();
-      if (v31 <= QOS_CLASS_DEFAULT)
+      v28 = qos_class_self();
+      if (v28 <= QOS_CLASS_DEFAULT)
       {
-        v32 = QOS_CLASS_DEFAULT;
+        v29 = QOS_CLASS_DEFAULT;
       }
 
       else
       {
-        v32 = v31;
+        v29 = v28;
       }
 
       block[0] = MEMORY[0x1E69E9820];
@@ -812,26 +838,26 @@ LABEL_10:
       block[2] = sub_1959B6204;
       block[3] = &unk_1E74394F8;
       block[4] = self;
-      v33 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v32, 0, block);
-      v34 = OSLogHandleForIDSCategory("IMLocalObject");
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v30 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v29, 0, block);
+      v31 = OSLogHandleForIDSCategory("IMLocalObject");
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_195988000, v34, OS_LOG_TYPE_DEFAULT, "_clearPort trying to wake up main thread", buf, 2u);
+        _os_log_impl(&dword_195988000, v31, OS_LOG_TYPE_DEFAULT, "_clearPort trying to wake up main thread", buf, 2u);
       }
 
-      v35 = CFRunLoopGetMain();
-      CFRunLoopPerformBlock(v35, IMRemoteObjectsRunLoopModes, v33);
+      v32 = CFRunLoopGetMain();
+      CFRunLoopPerformBlock(v32, IMRemoteObjectsRunLoopModes, v30);
       CFRunLoopSourceSignal(*(self->_internal + 10));
-      v36 = CFRunLoopGetMain();
-      CFRunLoopWakeUp(v36);
+      v33 = CFRunLoopGetMain();
+      CFRunLoopWakeUp(v33);
     }
 
     else
     {
-      v37 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v26, v27);
+      v34 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v23, v24);
 
-      objc_msgSend___mainThreadPostNotificationName_object_(v37, v38, @"IMLocalObjectDidDisconnect", self);
+      objc_msgSend___mainThreadPostNotificationName_object_(v34, v35, @"IMLocalObjectDidDisconnect", self);
     }
   }
 }
@@ -856,10 +882,7 @@ LABEL_10:
   if (dword_1ED517080 > 0)
   {
 LABEL_3:
-    internal = self->_internal;
-    v10 = internal[4];
-    v11 = *(internal + 101);
-    _IMLog(@"* Received termination notice for IMLocalObject: %@ (connection=%p) busy: %d", a2, v2, v3, v4, v5, v6, v7, internal[6]);
+    _IMLog(@"* Received termination notice for IMLocalObject: %@ (connection=%p) busy: %d", a2, v2, v3, v4, v5, v6, v7, *(self->_internal + 6));
   }
 
 LABEL_4:
@@ -887,10 +910,7 @@ LABEL_4:
   if (dword_1ED517080 > 0)
   {
 LABEL_3:
-    internal = self->_internal;
-    v10 = internal[4];
-    v11 = *(internal + 101);
-    _IMLog(@"* Received shutdown notice for IMLocalObject: %@ (connection=%p) busy: %d", a2, shutdown, v3, v4, v5, v6, v7, internal[6]);
+    _IMLog(@"* Received shutdown notice for IMLocalObject: %@ (connection=%p) busy: %d", a2, shutdown, v3, v4, v5, v6, v7, *(self->_internal + 6));
   }
 
 LABEL_4:
@@ -1094,6 +1114,68 @@ LABEL_15:
   _Block_release(v9);
 }
 
+- (void)_enqueueInvocation:(id)invocation xpcMessage:(id)message submitToComponentQueue:(BOOL)queue isSync:(BOOL)sync isReply:(BOOL)reply
+{
+  if (invocation)
+  {
+    replyCopy = reply;
+    syncCopy = sync;
+    queueCopy = queue;
+    v27 = objc_alloc_init(IMMessageContext);
+    kdebug_trace();
+    if (message)
+    {
+      objc_msgSend_setXpcMessage_(v27, v13, message);
+    }
+
+    objc_msgSend_setLocalObject_(v27, v13, self);
+    if (replyCopy)
+    {
+      objc_msgSend_setReply_(v27, v14, 1);
+    }
+
+    v16 = objc_msgSend_selector(invocation, v14, v15);
+    if (v16 != sel_release && v16 != sel_retain && v16 != sel_init && v16 != sel_copy && v16 != sel_dealloc && v16 != sel_invalidate)
+    {
+      objc_msgSend_retainArguments(invocation, v17, v18);
+      if (queueCopy)
+      {
+        os_unfair_lock_lock(self->_internal + 24);
+        v21 = *(self->_internal + 11);
+        if (!v21)
+        {
+          *(self->_internal + 11) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+          v21 = *(self->_internal + 11);
+        }
+
+        second = objc_msgSend_pairWithFirst_second_(IMPair, v20, invocation, v27);
+        objc_msgSend_addObject_(v21, v23, second);
+        os_unfair_lock_unlock(self->_internal + 24);
+        objc_msgSend__noteNewInvocation_(self, v24, syncCopy);
+      }
+
+      else
+      {
+        v25 = objc_msgSend_pairWithFirst_second_(IMPair, v19, invocation, v27);
+        objc_msgSend__handleInvocation_processingComponentQueue_(self, v26, v25, 0);
+      }
+    }
+  }
+}
+
+- (void)_enqueueInvocationWithPriority:(id)priority xpcMessage:(id)message priority:(int)a5
+{
+  if (priority)
+  {
+    if (objc_msgSend_selector(priority, a2, priority, message, *&a5) != sel_sendMessageWithSendParameters_)
+    {
+      sub_1959D57E8();
+    }
+
+    MEMORY[0x1EEE66B58](self, sel__enqueueInvocation_xpcMessage_submitToComponentQueue_isSync_isReply_, priority);
+  }
+}
+
 - (BOOL)isValidSelector:(SEL)selector
 {
   if (sel_terminated == selector || sel_respondsToSelector_ == selector)
@@ -1124,7 +1206,6 @@ LABEL_15:
 
 - (BOOL)isSameConnection:(id)connection
 {
-  internal = self->_internal;
   os_unfair_recursive_lock_lock_with_options();
   LOBYTE(connection) = *(self->_internal + 4) == connection;
   os_unfair_recursive_lock_unlock();
@@ -1133,14 +1214,12 @@ LABEL_15:
 
 - (void)setAllowlistedClasses:(id)classes
 {
-  internal = self->_internal;
   os_unfair_recursive_lock_lock_with_options();
-  v6 = *(self->_internal + 9);
-  if (v6 != classes)
+  v5 = *(self->_internal + 9);
+  if (v5 != classes)
   {
 
     *(self->_internal + 9) = classes;
-    v7 = self->_internal;
   }
 
   os_unfair_recursive_lock_unlock();

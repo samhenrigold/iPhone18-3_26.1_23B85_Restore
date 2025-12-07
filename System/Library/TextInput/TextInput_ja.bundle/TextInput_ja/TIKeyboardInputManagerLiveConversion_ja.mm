@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManagerLiveConversion_ja
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity;
 - (BOOL)conversionEnabled;
 - (BOOL)inSearchField;
 - (BOOL)makeCandidatesWithWordSearch:(id)search;
@@ -29,6 +30,7 @@
 - (id)rawInputStringForAutoCommit;
 - (id)rawInputStringFrom:(id)from;
 - (id)segmentAdjustInputManager:(unint64_t)manager;
+- (id)stringByConvertingPunctuationForInput:(id)input isLockedInput:(BOOL)lockedInput;
 - (id)validCharacterSetForAutocorrection;
 - (unint64_t)candidateOffset;
 - (unsigned)inputCount;
@@ -52,6 +54,7 @@
 - (void)selectPartialCandidate:(id)candidate;
 - (void)setInput:(id)input;
 - (void)startPrediction;
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change;
 @end
 
 @implementation TIKeyboardInputManagerLiveConversion_ja
@@ -753,6 +756,30 @@ LABEL_11:
   [(TIKeyboardInputManagerMecabra *)self composeTextWith:v7];
 }
 
+- (id)stringByConvertingPunctuationForInput:(id)input isLockedInput:(BOOL)lockedInput
+{
+  lockedInputCopy = lockedInput;
+  inputCopy = input;
+  smartPunctuationController = [(TIKeyboardInputManagerLiveConversion_ja *)self smartPunctuationController];
+  v8 = [smartPunctuationController smartPunctuationOutputForInput:inputCopy isLockedInput:lockedInputCopy documentState:0];
+
+  insertionText = [v8 insertionText];
+
+  if (insertionText)
+  {
+    insertionText2 = [v8 insertionText];
+  }
+
+  else
+  {
+    insertionText2 = inputCopy;
+  }
+
+  v11 = insertionText2;
+
+  return v11;
+}
+
 - (_NSRange)analysisStringRange
 {
   v8.receiver = self;
@@ -1088,7 +1115,7 @@ LABEL_11:
 
 - (id)didAcceptCandidate:(id)candidate
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   candidateCopy = candidate;
   rawInputStringForPrediction = [(TIKeyboardInputManagerLiveConversion_ja *)self rawInputStringForPrediction];
   v6 = [rawInputStringForPrediction length];
@@ -1106,11 +1133,11 @@ LABEL_11:
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 136315394;
-    v27 = "[TIKeyboardInputManagerLiveConversion_ja didAcceptCandidate:]";
-    v28 = 1024;
-    v29 = v8 & 1;
-    _os_log_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  candidate is partial: %d", &v26, 0x12u);
+    v25 = 136315394;
+    v26 = "[TIKeyboardInputManagerLiveConversion_ja didAcceptCandidate:]";
+    v27 = 1024;
+    v28 = v8 & 1;
+    _os_log_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  candidate is partial: %d", &v25, 0x12u);
   }
 
   candidate = [candidateCopy candidate];
@@ -1178,7 +1205,6 @@ LABEL_11:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x29EDCA608];
   return v22;
 }
 
@@ -1196,26 +1222,7 @@ LABEL_11:
   else
   {
     currentCandidate = [stateCopy currentCandidate];
-    if (!currentCandidate)
-    {
-      goto LABEL_7;
-    }
-
-    rawInputStringForPrediction = [(TIKeyboardInputManagerLiveConversion_ja *)self rawInputStringForPrediction];
-    v11 = [rawInputStringForPrediction length];
-    input = [currentCandidate input];
-    v13 = [input length];
-
-    if (v11 <= v13)
-    {
-      goto LABEL_7;
-    }
-
-    composingKeyboardInputManager = [(TIKeyboardInputManagerMecabra *)self composingKeyboardInputManager];
-    objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-
-    if (isKindOfClass)
+    if (currentCandidate && (-[TIKeyboardInputManagerLiveConversion_ja rawInputStringForPrediction](self, "rawInputStringForPrediction"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 length], objc_msgSend(currentCandidate, "input"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "length"), v12, v10, v11 > v13) && (-[TIKeyboardInputManagerMecabra composingKeyboardInputManager](self, "composingKeyboardInputManager"), v14 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v14, (isKindOfClass & 1) != 0))
     {
       v16 = MEMORY[0x29EDA3C60](handlerCopy);
       syncKeyboardStateHandler = self->_syncKeyboardStateHandler;
@@ -1229,12 +1236,87 @@ LABEL_11:
 
     else
     {
-LABEL_7:
       v8 = 0;
     }
   }
 
   return v8;
+}
+
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change
+{
+  changeCopy = change;
+  stateCopy = state;
+  fromCopy = from;
+  v26.receiver = self;
+  v26.super_class = TIKeyboardInputManagerLiveConversion_ja;
+  [(TIKeyboardInputManagerMecabra *)&v26 syncToKeyboardState:stateCopy from:fromCopy afterContextChange:changeCopy];
+  composingKeyboardInputManager = [(TIKeyboardInputManagerMecabra *)self composingKeyboardInputManager];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    currentCandidate = [stateCopy currentCandidate];
+    if (currentCandidate && (-[TIKeyboardInputManagerLiveConversion_ja currentCandidate](self, "currentCandidate"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [currentCandidate isEqual:v13], v13, (v14 & 1) == 0))
+    {
+      [(TIKeyboardInputManagerLiveConversion_ja *)self setTransliterationType:0];
+      [(TIKeyboardInputManagerLiveConversion_ja *)self setAutoSelectFirstCandidate:0];
+      rawInputStringForPrediction = [(TIKeyboardInputManagerLiveConversion_ja *)self rawInputStringForPrediction];
+      v21 = [rawInputStringForPrediction length];
+      input = [currentCandidate input];
+      v23 = [input length];
+
+      currentCandidate2 = [stateCopy currentCandidate];
+      [(TIKeyboardInputManagerLiveConversion_ja *)self setCurrentCandidate:currentCandidate2];
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v25 = [(TIKeyboardInputManagerLiveConversion_ja *)self rawInputStringFrom:currentCandidate];
+        [(TIKeyboardInputManagerLiveConversion_ja *)self setCurrentDictionaryReading:v25];
+      }
+
+      else
+      {
+        [(TIKeyboardInputManagerLiveConversion_ja *)self setCurrentDictionaryReading:0];
+      }
+
+      [(TIKeyboardInputManagerLiveConversion_ja *)self setRemainingCandidate:0];
+      if (v21 > v23)
+      {
+        [(TIKeyboardInputManagerLiveConversion_ja *)self selectPartialCandidate:currentCandidate];
+      }
+    }
+
+    else
+    {
+      syncKeyboardStateHandler = self->_syncKeyboardStateHandler;
+      if (syncKeyboardStateHandler)
+      {
+        keyboardConfiguration = [(TIKeyboardInputManagerMecabra *)self keyboardConfiguration];
+        syncKeyboardStateHandler[2](syncKeyboardStateHandler, keyboardConfiguration);
+
+        v17 = self->_syncKeyboardStateHandler;
+        self->_syncKeyboardStateHandler = 0;
+      }
+    }
+  }
+
+  else
+  {
+    currentCandidate = [(TIKeyboardInputManagerMecabra *)self composingKeyboardInputManager];
+    [currentCandidate syncToKeyboardState:stateCopy from:fromCopy afterContextChange:changeCopy];
+  }
+
+  inputForMarkedText = [stateCopy inputForMarkedText];
+  v19 = [inputForMarkedText length];
+
+  if (!v19)
+  {
+    [(TIKeyboardInputManagerLiveConversion_ja *)self clearInput];
+    [(TIKeyboardInputManagerMecabra *)self completeComposition];
+  }
 }
 
 - (NSString)committedSurface
@@ -1398,7 +1480,7 @@ LABEL_7:
 
 - (BOOL)shouldShowPredictionCandidate:(id)candidate
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   candidateCopy = candidate;
   if ([(TIKeyboardInputManagerLiveConversion_ja *)self candidateBehavior]== 2)
   {
@@ -1408,25 +1490,25 @@ LABEL_7:
   else
   {
     inputString = [(TIKeyboardInputManagerLiveConversion_ja *)self inputString];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     candidates = [candidateCopy candidates];
-    v5 = [candidates countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [candidates countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
-      v8 = *v17;
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(candidates);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           if (([v10 isTransliterationCandidate] & 1) == 0)
           {
             isPartialCandidate = [v10 isPartialCandidate];
@@ -1438,7 +1520,7 @@ LABEL_7:
           }
         }
 
-        v5 = [candidates countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v5 = [candidates countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v5)
         {
           continue;
@@ -1451,7 +1533,6 @@ LABEL_7:
 LABEL_15:
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -1476,6 +1557,103 @@ LABEL_15:
   v5 = [committedSegments arrayByAddingObjectsFromArray:segments];
 
   return v5;
+}
+
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity
+{
+  v4 = *&granularity;
+  directionCopy = direction;
+  v31 = *MEMORY[0x29EDCA608];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v26 = "[TIKeyboardInputManagerLiveConversion_ja _adjustPhraseBoundaryInForwardDirection:granularity:]";
+    v27 = 1024;
+    v28 = directionCopy;
+    v29 = 1024;
+    v30 = v4;
+    _os_log_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  adjust phrase: %d %d", buf, 0x18u);
+  }
+
+  v24.receiver = self;
+  v24.super_class = TIKeyboardInputManagerLiveConversion_ja;
+  if ([(TIKeyboardInputManagerMecabra *)&v24 _adjustPhraseBoundaryInForwardDirection:directionCopy granularity:v4])
+  {
+    return 1;
+  }
+
+  if (![(TIKeyboardInputManagerLiveConversion_ja *)self conversionEnabled]&& [(TIKeyboardInputManagerLiveConversion_ja *)self candidateBehavior]!= 2)
+  {
+    [(TIKeyboardInputManagerLiveConversion_ja *)self invokeEditMode];
+LABEL_23:
+    composingKeyboardInputManager = [(TIKeyboardInputManagerMecabra *)self composingKeyboardInputManager];
+    v7 = [composingKeyboardInputManager _adjustPhraseBoundaryInForwardDirection:directionCopy granularity:v4];
+
+    return v7;
+  }
+
+  if (v4 == 4)
+  {
+    if (directionCopy)
+    {
+      [(TIKeyboardInputManagerLiveConversion_ja *)self setAutoSelectFirstCandidate:1];
+    }
+
+    else
+    {
+      [(TIKeyboardInputManagerLiveConversion_ja *)self setTransliterationType:4];
+    }
+
+    [(TIKeyboardInputManagerLiveConversion_ja *)self setCandidateBehavior:2];
+    return 1;
+  }
+
+  if (v4)
+  {
+    segmentIndex = [(TIKeyboardInputManagerLiveConversion_ja *)self segmentIndex];
+    if (segmentIndex == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      currentCandidate = [(TIKeyboardInputManagerLiveConversion_ja *)self currentCandidate];
+
+      segments = [(TIKeyboardInputManagerLiveConversion_ja *)self segments];
+      v19 = [segments count];
+      if (currentCandidate)
+      {
+        if (v19 < 2)
+        {
+          segmentIndex = 0;
+        }
+
+        else
+        {
+          segments2 = [(TIKeyboardInputManagerLiveConversion_ja *)self segments];
+          segmentIndex = [segments2 count] - 2;
+        }
+      }
+
+      else
+      {
+        segmentIndex = v19 - 1;
+      }
+    }
+
+    v21 = [(TIKeyboardInputManagerLiveConversion_ja *)self segmentAdjustInputManager:segmentIndex];
+    [(TIKeyboardInputManagerMecabra *)self composeTextWith:v21];
+
+    goto LABEL_23;
+  }
+
+  v8 = [TIKeyboardInputManager_ja_SegmentPicker alloc];
+  config = [(TIKeyboardInputManagerLiveConversion_ja *)self config];
+  keyboardState = [(TIKeyboardInputManagerLiveConversion_ja *)self keyboardState];
+  segmentsForPicker = [(TIKeyboardInputManagerLiveConversion_ja *)self segmentsForPicker];
+  segmentsForPicker2 = [(TIKeyboardInputManagerLiveConversion_ja *)self segmentsForPicker];
+  v13 = [segmentsForPicker2 count] - 1;
+  wordSearch = [(TIKeyboardInputManagerLiveConversion_ja *)self wordSearch];
+  v15 = [(TIKeyboardInputManager_ja_SegmentPicker *)v8 initWithConfig:config keyboardState:keyboardState segments:segmentsForPicker at:v13 wordSearch:wordSearch];
+  [(TIKeyboardInputManagerMecabra *)self composeTextWith:v15];
+
+  return 1;
 }
 
 - (id)segmentAdjustInputManager:(unint64_t)manager
@@ -1572,13 +1750,11 @@ LABEL_15:
 
 - (void)handleKeyboardInput:(NSObject *)a1 .cold.1(NSObject *a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s handleKeyboardInput", "-[TIKeyboardInputManagerLiveConversion_ja handleKeyboardInput:]"];
   *buf = 138412290;
-  v5 = v2;
+  v4 = v2;
   _os_log_debug_impl(&dword_29EA26000, a1, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 @end

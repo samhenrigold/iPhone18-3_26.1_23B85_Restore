@@ -51,24 +51,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_header)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sCntrsStability)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -124,7 +123,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -149,9 +147,9 @@ LABEL_11:
   sCntrsStability = self->_sCntrsStability;
   if (sCntrsStability | *(equalCopy + 3))
   {
-    v9 = [(AWDCtcsReadWriteStabilityS *)sCntrsStability isEqual:?];
+    v8 = [(AWDCtcsReadWriteStabilityS *)sCntrsStability isEqual:?];
 
-    return v9;
+    return v8;
   }
 
   else

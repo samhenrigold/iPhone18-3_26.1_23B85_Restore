@@ -86,9 +86,9 @@
 
 - (id)urlRequest
 {
-  v11.receiver = self;
-  v11.super_class = AAFamilyRequest;
-  urlRequest = [(AARequest *)&v11 urlRequest];
+  v13.receiver = self;
+  v13.super_class = AAFamilyRequest;
+  urlRequest = [(AARequest *)&v13 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"POST"];
@@ -97,26 +97,27 @@
   [v4 aa_addDeviceIDHeader];
   [v4 aa_addLoggedInAppleIDHeaderWithAccount:self->_appleAccount];
   [v4 aa_addLocationSharingAllowedHeader];
-  if (![(AAGrandSlamSigner *)self->_grandSlamSigner signURLRequest:v4 isUserInitiated:[(AAFamilyRequest *)self isUserInitiated]])
+  v5 = [(AAGrandSlamSigner *)self->_grandSlamSigner signURLRequest:v4 isUserInitiated:[(AAFamilyRequest *)self isUserInitiated]];
+  if ((v5 & 1) == 0)
   {
-    v5 = _AALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AALogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "AAGrandSlamSigner failed!", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "AAGrandSlamSigner failed!", v12, 2u);
     }
   }
 
   _familyGrandSlamSigner = [(AAFamilyRequest *)self _familyGrandSlamSigner];
-  v7 = [_familyGrandSlamSigner signURLRequest:v4 isUserInitiated:{-[AAFamilyRequest isUserInitiated](self, "isUserInitiated")}];
+  v8 = [_familyGrandSlamSigner signURLRequest:v4 isUserInitiated:{-[AAFamilyRequest isUserInitiated](self, "isUserInitiated")}];
 
-  if ((v7 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v8 = _AALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _AALogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "AAGrandSlamSigner failed for _familyGrandSlamSigner", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "AAGrandSlamSigner failed for _familyGrandSlamSigner", v12, 2u);
     }
   }
 

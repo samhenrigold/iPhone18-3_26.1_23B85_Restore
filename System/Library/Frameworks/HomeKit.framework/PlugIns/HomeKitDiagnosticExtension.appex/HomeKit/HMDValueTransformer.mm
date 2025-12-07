@@ -208,25 +208,15 @@
       if (!v5)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        if ((objc_opt_isKindOfClass() & 1) == 0 && ([nameCopy isEqualToString:NSKeyedUnarchiveFromDataTransformerName] & 1) == 0)
         {
-          v7 = off_1000304A8;
+          [nameCopy isEqualToString:NSUnarchiveFromDataTransformerName];
         }
 
-        else
-        {
-          v7 = off_1000304A8;
-          if (([nameCopy isEqualToString:NSKeyedUnarchiveFromDataTransformerName] & 1) == 0 && !objc_msgSend(nameCopy, "isEqualToString:", NSUnarchiveFromDataTransformerName))
-          {
-            v7 = off_1000304A0;
-          }
-        }
-
-        v8 = *v7;
         v5 = [objc_alloc(objc_opt_class()) initWithTransformer:v4];
-        v9 = qword_10003B1A8;
-        v10 = [nameCopy copy];
-        [v9 setObject:v5 forKey:v10];
+        v7 = qword_10003B1A8;
+        v8 = [nameCopy copy];
+        [v7 setObject:v5 forKey:v8];
       }
     }
   }

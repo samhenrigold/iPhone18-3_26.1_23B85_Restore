@@ -5,18 +5,20 @@
 - (BOOL)startAtTime:(double)time error:(id *)error;
 - (BOOL)startAtTime:(double)time withImmediateParameters:(id)parameters error:(id *)error;
 - (BOOL)stopAtTime:(double)time error:(id *)error;
+- (PatternPlayer)initWithPlayable:(id)playable engine:(id)engine privileged:(BOOL)privileged error:(id *)error;
 - (id)processImmediateParameters:(id)parameters;
 - (void)clearExternalResources:(id)resources;
 - (void)dealloc;
 - (void)doSetMute:(BOOL)mute;
 - (void)releaseExternalResources:(id)resources events:(id)events;
+- (void)setIsMuted:(BOOL)muted;
 @end
 
 @implementation PatternPlayer
 
 - (void)releaseExternalResources:(id)resources events:(id)events
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   resourcesCopy = resources;
   eventsCopy = events;
   if (kHAPIScope)
@@ -30,11 +32,11 @@
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v15 = "CHHapticPatternPlayer.mm";
-          v16 = 1024;
-          v17 = 37;
-          v18 = 2080;
-          v19 = "[PatternPlayer releaseExternalResources:events:]";
+          v14 = "CHHapticPatternPlayer.mm";
+          v15 = 1024;
+          v16 = 37;
+          v17 = 2080;
+          v18 = "[PatternPlayer releaseExternalResources:events:]";
           _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Clearing any externally-registered audio resources", buf, 0x1Cu);
         }
       }
@@ -47,12 +49,10 @@
     if (+[CHHapticEngine resourceIsRegistered:](CHHapticEngine, "resourceIsRegistered:", [v10 audioResID]))
     {
       audioResID = [v10 audioResID];
-      v13 = 0;
-      [resourcesCopy doUnregisterAudioResource:audioResID fromPattern:1 error:&v13];
+      v12 = 0;
+      [resourcesCopy doUnregisterAudioResource:audioResID fromPattern:1 error:&v12];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processImmediateParameters:(id)parameters
@@ -80,7 +80,7 @@
 
 void __44__PatternPlayer_processImmediateParameters___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 isEqualToString:CHHapticEventParameterIDAudioVolume])
@@ -133,28 +133,201 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v16 = CALog::LogObjIfEnabled(3, kHAPIScope, v13);
-  v17 = v16;
-  if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = CALog::LogObjIfEnabled(3, kHAPIScope, v13);
+  v16 = v15;
+  if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315906;
-    v19 = "CHHapticPatternPlayer.mm";
-    v20 = 1024;
-    v21 = 74;
-    v22 = 2080;
-    v23 = "[PatternPlayer processImmediateParameters:]_block_invoke";
-    v24 = 2112;
-    v25 = v5;
-    _os_log_impl(&dword_21569A000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: EventParameter %@ does not support ImmediateParameter modulation. Ignore", &v18, 0x26u);
+    v17 = 136315906;
+    v18 = "CHHapticPatternPlayer.mm";
+    v19 = 1024;
+    v20 = 74;
+    v21 = 2080;
+    v22 = "[PatternPlayer processImmediateParameters:]_block_invoke";
+    v23 = 2112;
+    v24 = v5;
+    _os_log_impl(&dword_21569A000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: EventParameter %@ does not support ImmediateParameter modulation. Ignore", &v17, 0x26u);
   }
 
 LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
+}
+
+- (PatternPlayer)initWithPlayable:(id)playable engine:(id)engine privileged:(BOOL)privileged error:(id *)error
+{
+  privilegedCopy = privileged;
+  v54 = *MEMORY[0x277D85DE8];
+  playableCopy = playable;
+  engineCopy = engine;
+  v45.receiver = self;
+  v45.super_class = PatternPlayer;
+  v12 = [(PatternPlayer *)&v45 init];
+  if (v12)
+  {
+    v13 = CALog::Scope::oslog(kHAPIScope);
+    spid = os_signpost_id_make_with_pointer(v13, v12);
+
+    v14 = CALog::Scope::oslog(kHAPIScope);
+    v15 = v14;
+    v42 = spid - 1;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_21569A000, v15, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PatternPlayer_initWithPlayable", " enableTelemetry=YES ", buf, 2u);
+    }
+
+    if (kHAPIScope)
+    {
+      v16 = *kHAPIScope;
+      if (!v16)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    else
+    {
+      v16 = MEMORY[0x277D86220];
+      v17 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315906;
+      v47 = "CHHapticPatternPlayer.mm";
+      v48 = 1024;
+      v49 = 88;
+      v50 = 2080;
+      v51 = "[PatternPlayer initWithPlayable:engine:privileged:error:]";
+      v52 = 2048;
+      v53 = v12;
+      _os_log_impl(&dword_21569A000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: creating player %p", buf, 0x26u);
+    }
+
+LABEL_12:
+    objc_storeWeak(&v12->super._engine, engineCopy);
+    v12->super._muteState = 0;
+    v12->super._previousAction = 0;
+    v18 = [playableCopy resolveExternalResources:engineCopy error:error];
+    if (!v18)
+    {
+
+      v36 = CALog::Scope::oslog(kHAPIScope);
+      v37 = v36;
+      if (v42 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v36))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_21569A000, v37, OS_SIGNPOST_INTERVAL_END, spid, "PatternPlayer_initWithPlayable", &unk_215703E5B, buf, 2u);
+      }
+
+      goto LABEL_38;
+    }
+
+    parameters = [playableCopy parameters];
+    parameterCurves = [playableCopy parameterCurves];
+    v21 = [CHHapticPattern eventListFromEvents:v18 parameters:parameters parameterCurves:parameterCurves engine:engineCopy privileged:privilegedCopy];
+    events = v12->super._events;
+    v12->super._events = v21;
+
+    if ([(NSArray *)v12->super._events count])
+    {
+      patternID = [playableCopy patternID];
+      patternID = v12->super._patternID;
+      v12->super._patternID = patternID;
+
+      [playableCopy duration];
+      v12->super._patternDuration = v25;
+      WeakRetained = objc_loadWeakRetained(&v12->super._engine);
+      metrics = [WeakRetained metrics];
+      [metrics handleInitForPlayer:v12 events:v12->super._events isAdvanced:0 patternID:v12->super._patternID];
+
+      parameterCurves2 = [playableCopy parameterCurves];
+      LOBYTE(metrics) = [parameterCurves2 count] == 0;
+
+      if ((metrics & 1) == 0)
+      {
+        v29 = objc_loadWeakRetained(&v12->super._engine);
+        metrics2 = [v29 metrics];
+        [metrics2 handleParamCurveEncountered];
+      }
+
+      v31 = [engineCopy getAvailableChannel:{error, v42}];
+      channel = v12->_channel;
+      v12->_channel = v31;
+
+      if (!v12->_channel)
+      {
+        engine = [(PatternPlayerBase *)v12 engine];
+        [(PatternPlayer *)v12 releaseExternalResources:engine events:v18];
+
+        v12 = 0;
+      }
+
+      v34 = CALog::Scope::oslog(kHAPIScope);
+      v35 = v34;
+      if (v43 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_21569A000, v35, OS_SIGNPOST_INTERVAL_END, spid, "PatternPlayer_initWithPlayable", &unk_215703E5B, buf, 2u);
+      }
+
+      goto LABEL_39;
+    }
+
+    if (kHAPIScope)
+    {
+      v38 = *kHAPIScope;
+      if (!v38)
+      {
+LABEL_33:
+        if (error)
+        {
+          *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.CoreHaptics" code:-4821 userInfo:0];
+        }
+
+        v40 = CALog::Scope::oslog(kHAPIScope);
+        v37 = v40;
+        if (v42 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v40))
+        {
+          *buf = 0;
+          _os_signpost_emit_with_name_impl(&dword_21569A000, v37, OS_SIGNPOST_INTERVAL_END, spid, "PatternPlayer_initWithPlayable", &unk_215703E5B, buf, 2u);
+        }
+
+LABEL_38:
+
+        v12 = 0;
+LABEL_39:
+
+        goto LABEL_40;
+      }
+    }
+
+    else
+    {
+      v38 = MEMORY[0x277D86220];
+      v39 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v47 = "CHHapticPatternPlayer.mm";
+      v48 = 1024;
+      v49 = 125;
+      v50 = 2080;
+      v51 = "[PatternPlayer initWithPlayable:engine:privileged:error:]";
+      _os_log_impl(&dword_21569A000, v38, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: pattern contains no playable events", buf, 0x1Cu);
+    }
+
+    goto LABEL_33;
+  }
+
+LABEL_40:
+
+  return v12;
 }
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (kHAPIScope)
   {
     v3 = *kHAPIScope;
@@ -173,12 +346,12 @@ LABEL_14:
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v10 = "CHHapticPatternPlayer.mm";
-    v11 = 1024;
-    v12 = 168;
-    v13 = 2080;
-    v14 = "[PatternPlayer dealloc]";
-    v15 = 2048;
+    v9 = "CHHapticPatternPlayer.mm";
+    v10 = 1024;
+    v11 = 168;
+    v12 = 2080;
+    v13 = "[PatternPlayer dealloc]";
+    v14 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_21569A000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: destroying player %p", buf, 0x26u);
   }
@@ -196,16 +369,15 @@ LABEL_8:
     [v6 releaseChannel:self->_channel];
   }
 
-  v8.receiver = self;
-  v8.super_class = PatternPlayer;
-  [(PatternPlayer *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = PatternPlayer;
+  [(PatternPlayer *)&v7 dealloc];
 }
 
 - (void)doSetMute:(BOOL)mute
 {
   muteCopy = mute;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (kHAPIScope)
   {
     if (*(kHAPIScope + 8))
@@ -217,20 +389,20 @@ LABEL_8:
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
           v7 = "un";
-          *v11 = 136315906;
-          *&v11[4] = "CHHapticPatternPlayer.mm";
-          *&v11[12] = 1024;
-          *&v11[14] = 179;
-          *&v11[20] = "[PatternPlayer doSetMute:]";
-          *&v11[18] = 2080;
+          *v10 = 136315906;
+          *&v10[4] = "CHHapticPatternPlayer.mm";
+          *&v10[12] = 1024;
+          *&v10[14] = 179;
+          *&v10[20] = "[PatternPlayer doSetMute:]";
+          *&v10[18] = 2080;
           if (muteCopy)
           {
             v7 = "";
           }
 
-          *&v11[28] = 2080;
-          *&v11[30] = v7;
-          _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Sending %smute params", v11, 0x26u);
+          *&v10[28] = 2080;
+          *&v10[30] = v7;
+          _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Sending %smute params", v10, 0x26u);
         }
       }
     }
@@ -246,15 +418,14 @@ LABEL_8:
     v8 = 0.0;
   }
 
-  [(AVHapticPlayerChannel *)self->_channel setParameter:1014 value:0 atTime:COERCE_DOUBLE(LODWORD(v8)) error:0.0, *v11, *&v11[16]];
+  [(AVHapticPlayerChannel *)self->_channel setParameter:1014 value:0 atTime:COERCE_DOUBLE(LODWORD(v8)) error:0.0, *v10, *&v10[8], *&v10[24]];
   *&v9 = v8;
   [(AVHapticPlayerChannel *)self->_channel setParameter:2014 value:0 atTime:v9 error:0.0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearExternalResources:(id)resources
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   resourcesCopy = resources;
   if (kHAPIScope)
   {
@@ -267,11 +438,11 @@ LABEL_8:
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v13 = "CHHapticPatternPlayer.mm";
-          v14 = 1024;
-          v15 = 187;
-          v16 = 2080;
-          v17 = "[PatternPlayer clearExternalResources:]";
+          v12 = "CHHapticPatternPlayer.mm";
+          v13 = 1024;
+          v14 = 187;
+          v15 = 2080;
+          v16 = "[PatternPlayer clearExternalResources:]";
           _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Clearing any externally-registered audio resources", buf, 0x1Cu);
         }
       }
@@ -284,17 +455,15 @@ LABEL_8:
     if (+[CHHapticEngine resourceIsRegistered:](CHHapticEngine, "resourceIsRegistered:", [v8 eventType]))
     {
       eventType = [v8 eventType];
-      v11 = 0;
-      [resourcesCopy doUnregisterAudioResource:eventType fromPattern:1 error:&v11];
+      v10 = 0;
+      [resourcesCopy doUnregisterAudioResource:eventType fromPattern:1 error:&v10];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)startAtTime:(double)time error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (kHAPIScope)
   {
     v7 = *kHAPIScope;
@@ -312,26 +481,24 @@ LABEL_8:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v29 = 136316162;
-    v30 = "CHHapticPatternPlayer.mm";
-    v31 = 1024;
-    v32 = 201;
-    v33 = 2080;
-    v34 = "[PatternPlayer startAtTime:error:]";
-    v35 = 2048;
+    v28 = 136316162;
+    v29 = "CHHapticPatternPlayer.mm";
+    v30 = 1024;
+    v31 = 201;
+    v32 = 2080;
+    v33 = "[PatternPlayer startAtTime:error:]";
+    v34 = 2048;
     selfCopy = self;
-    v37 = 2048;
+    v36 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Starting simple player %p at time %.3f", &v29, 0x30u);
+    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Starting simple player %p at time %.3f", &v28, 0x30u);
   }
 
 LABEL_8:
   if (time < 0.0)
   {
     _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/CHHapticPatternPlayer.mm", 202, "[PatternPlayer startAtTime:error:]", "time >= 0.0", -4840, error);
-LABEL_24:
-    v19 = 0;
-    goto LABEL_30;
+    return 0;
   }
 
   v9 = CALog::Scope::oslog(kHAPIScope);
@@ -342,8 +509,8 @@ LABEL_24:
   v13 = v10 - 1;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    LOWORD(v29) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21569A000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "PatternPlayer_startAtTime", " enableTelemetry=YES ", &v29, 2u);
+    LOWORD(v28) = 0;
+    _os_signpost_emit_with_name_impl(&dword_21569A000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "PatternPlayer_startAtTime", " enableTelemetry=YES ", &v28, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->super._engine);
@@ -355,11 +522,11 @@ LABEL_24:
     v24 = v23;
     if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
-      LOWORD(v29) = 0;
-      _os_signpost_emit_with_name_impl(&dword_21569A000, v24, OS_SIGNPOST_INTERVAL_END, v10, "PatternPlayer_startAtTime", &unk_215703E5B, &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_signpost_emit_with_name_impl(&dword_21569A000, v24, OS_SIGNPOST_INTERVAL_END, v10, "PatternPlayer_startAtTime", &unk_215703E5B, &v28, 2u);
     }
 
-    goto LABEL_24;
+    return 0;
   }
 
   muteState = self->super._muteState;
@@ -390,18 +557,16 @@ LABEL_24:
   v26 = v25;
   if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
-    LOWORD(v29) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21569A000, v26, OS_SIGNPOST_INTERVAL_END, v10, "PatternPlayer_startAtTime", &unk_215703E5B, &v29, 2u);
+    LOWORD(v28) = 0;
+    _os_signpost_emit_with_name_impl(&dword_21569A000, v26, OS_SIGNPOST_INTERVAL_END, v10, "PatternPlayer_startAtTime", &unk_215703E5B, &v28, 2u);
   }
 
-LABEL_30:
-  v27 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)stopAtTime:(double)time error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (kHAPIScope)
   {
     v7 = *kHAPIScope;
@@ -419,17 +584,17 @@ LABEL_30:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v26 = 136316162;
-    v27 = "CHHapticPatternPlayer.mm";
-    v28 = 1024;
-    v29 = 232;
-    v30 = 2080;
-    v31 = "[PatternPlayer stopAtTime:error:]";
-    v32 = 2048;
+    v25 = 136316162;
+    v26 = "CHHapticPatternPlayer.mm";
+    v27 = 1024;
+    v28 = 232;
+    v29 = 2080;
+    v30 = "[PatternPlayer stopAtTime:error:]";
+    v31 = 2048;
     selfCopy = self;
-    v34 = 2048;
+    v33 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Stopping simple player %p at time %.3f", &v26, 0x30u);
+    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Stopping simple player %p at time %.3f", &v25, 0x30u);
   }
 
 LABEL_8:
@@ -438,7 +603,7 @@ LABEL_8:
     _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/CHHapticPatternPlayer.mm", 233, "[PatternPlayer stopAtTime:error:]", "time >= 0.0", -4840, error);
 LABEL_24:
     LOBYTE(v16) = 0;
-    goto LABEL_25;
+    return v16;
   }
 
   v9 = CALog::Scope::oslog(kHAPIScope);
@@ -449,8 +614,8 @@ LABEL_24:
   v13 = v10 - 1;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    LOWORD(v26) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21569A000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "PatternPlayer_stopAtTime", " enableTelemetry=YES ", &v26, 2u);
+    LOWORD(v25) = 0;
+    _os_signpost_emit_with_name_impl(&dword_21569A000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "PatternPlayer_stopAtTime", " enableTelemetry=YES ", &v25, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->super._engine);
@@ -462,8 +627,8 @@ LABEL_24:
     v23 = v22;
     if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
-      LOWORD(v26) = 0;
-      _os_signpost_emit_with_name_impl(&dword_21569A000, v23, OS_SIGNPOST_INTERVAL_END, v10, "PatternPlayer_stopAtTime", &unk_215703E5B, &v26, 2u);
+      LOWORD(v25) = 0;
+      _os_signpost_emit_with_name_impl(&dword_21569A000, v23, OS_SIGNPOST_INTERVAL_END, v10, "PatternPlayer_stopAtTime", &unk_215703E5B, &v25, 2u);
     }
 
     goto LABEL_24;
@@ -484,18 +649,16 @@ LABEL_24:
   v21 = v20;
   if (v13 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    LOWORD(v26) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21569A000, v21, OS_SIGNPOST_INTERVAL_END, v10, "PatternPlayer_stopAtTime", &unk_215703E5B, &v26, 2u);
+    LOWORD(v25) = 0;
+    _os_signpost_emit_with_name_impl(&dword_21569A000, v21, OS_SIGNPOST_INTERVAL_END, v10, "PatternPlayer_stopAtTime", &unk_215703E5B, &v25, 2u);
   }
 
-LABEL_25:
-  v24 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)sendParameters:(id)parameters atTime:(double)time error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   if (kHAPIScope)
   {
@@ -507,17 +670,17 @@ LABEL_25:
         v10 = v9;
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v22 = 136316162;
-          v23 = "CHHapticPatternPlayer.mm";
-          v24 = 1024;
-          v25 = 250;
-          v26 = 2080;
-          v27 = "[PatternPlayer sendParameters:atTime:error:]";
-          v28 = 2048;
+          v21 = 136316162;
+          v22 = "CHHapticPatternPlayer.mm";
+          v23 = 1024;
+          v24 = 250;
+          v25 = 2080;
+          v26 = "[PatternPlayer sendParameters:atTime:error:]";
+          v27 = 2048;
           selfCopy = self;
-          v30 = 2048;
+          v29 = 2048;
           timeCopy = time;
-          _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Sending simple player %p parameters at time %.3f", &v22, 0x30u);
+          _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Sending simple player %p parameters at time %.3f", &v21, 0x30u);
         }
       }
     }
@@ -532,8 +695,8 @@ LABEL_25:
     v15 = v14;
     if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      LOWORD(v22) = 0;
-      _os_signpost_emit_with_name_impl(&dword_21569A000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "PatternPlayer_sendParameters", " enableTelemetry=YES ", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_21569A000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "PatternPlayer_sendParameters", " enableTelemetry=YES ", &v21, 2u);
     }
 
     if ([(PatternPlayerBase *)self needsResetForAction:1]&& ![(AVHapticPlayerChannel *)self->_channel resetAtTime:error error:time])
@@ -553,8 +716,8 @@ LABEL_25:
     v19 = v18;
     if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      LOWORD(v22) = 0;
-      _os_signpost_emit_with_name_impl(&dword_21569A000, v19, OS_SIGNPOST_INTERVAL_END, v13, "PatternPlayer_sendParameters", &unk_215703E5B, &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_21569A000, v19, OS_SIGNPOST_INTERVAL_END, v13, "PatternPlayer_sendParameters", &unk_215703E5B, &v21, 2u);
     }
   }
 
@@ -564,13 +727,12 @@ LABEL_25:
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)cancelAndReturnError:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (kHAPIScope)
   {
     v5 = *kHAPIScope;
@@ -588,15 +750,15 @@ LABEL_25:
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v23 = 136315906;
-    v24 = "CHHapticPatternPlayer.mm";
-    v25 = 1024;
-    v26 = 273;
-    v27 = 2080;
-    v28 = "[PatternPlayer cancelAndReturnError:]";
-    v29 = 2048;
+    v22 = 136315906;
+    v23 = "CHHapticPatternPlayer.mm";
+    v24 = 1024;
+    v25 = 273;
+    v26 = 2080;
+    v27 = "[PatternPlayer cancelAndReturnError:]";
+    v28 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Cancelling events on simple player %p immediately", &v23, 0x26u);
+    _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Cancelling events on simple player %p immediately", &v22, 0x26u);
   }
 
 LABEL_8:
@@ -608,8 +770,8 @@ LABEL_8:
   v11 = v8 - 1;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    LOWORD(v23) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21569A000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "PatternPlayer_cancelAndReturnError", " enableTelemetry=YES ", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_21569A000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "PatternPlayer_cancelAndReturnError", " enableTelemetry=YES ", &v22, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->super._engine);
@@ -632,8 +794,8 @@ LABEL_8:
     v19 = v18;
     if (v11 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      LOWORD(v23) = 0;
-      _os_signpost_emit_with_name_impl(&dword_21569A000, v19, OS_SIGNPOST_INTERVAL_END, v8, "PatternPlayer_cancelAndReturnError", &unk_215703E5B, &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_signpost_emit_with_name_impl(&dword_21569A000, v19, OS_SIGNPOST_INTERVAL_END, v8, "PatternPlayer_cancelAndReturnError", &unk_215703E5B, &v22, 2u);
     }
   }
 
@@ -643,20 +805,19 @@ LABEL_8:
     v19 = v20;
     if (v11 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
-      LOWORD(v23) = 0;
-      _os_signpost_emit_with_name_impl(&dword_21569A000, v19, OS_SIGNPOST_INTERVAL_END, v8, "PatternPlayer_cancelAndReturnError", &unk_215703E5B, &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_signpost_emit_with_name_impl(&dword_21569A000, v19, OS_SIGNPOST_INTERVAL_END, v8, "PatternPlayer_cancelAndReturnError", &unk_215703E5B, &v22, 2u);
     }
 
     LOBYTE(v14) = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)scheduleParameterCurve:(id)curve atTime:(double)time error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   curveCopy = curve;
   if (kHAPIScope)
   {
@@ -669,12 +830,12 @@ LABEL_8:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315906;
-          v31 = "CHHapticPatternPlayer.mm";
-          v32 = 1024;
-          v33 = 290;
-          v34 = 2080;
-          v35 = "[PatternPlayer scheduleParameterCurve:atTime:error:]";
-          v36 = 2048;
+          v30 = "CHHapticPatternPlayer.mm";
+          v31 = 1024;
+          v32 = 290;
+          v33 = 2080;
+          v34 = "[PatternPlayer scheduleParameterCurve:atTime:error:]";
+          v35 = 2048;
           selfCopy = self;
           _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Sending player %p a parameter curve", buf, 0x26u);
         }
@@ -711,8 +872,8 @@ LABEL_8:
         [curveCopy relativeTime];
         v20 = v19;
         [curveCopy setRelativeTime:0.0];
-        v29 = curveCopy;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+        v28 = curveCopy;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
         v22 = objc_loadWeakRetained(&self->super._engine);
         v23 = [CHHapticPattern eventListFromEvents:0 parameters:0 parameterCurves:v21 engine:v22 privileged:0];
 
@@ -749,13 +910,12 @@ LABEL_8:
     v11 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)startAtTime:(double)time withImmediateParameters:(id)parameters error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   if (kHAPIScope)
   {
@@ -774,17 +934,17 @@ LABEL_8:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v31 = 136316162;
-    v32 = "CHHapticPatternPlayer.mm";
-    v33 = 1024;
-    v34 = 319;
-    v35 = 2080;
-    v36 = "[PatternPlayer startAtTime:withImmediateParameters:error:]";
-    v37 = 2048;
+    v30 = 136316162;
+    v31 = "CHHapticPatternPlayer.mm";
+    v32 = 1024;
+    v33 = 319;
+    v34 = 2080;
+    v35 = "[PatternPlayer startAtTime:withImmediateParameters:error:]";
+    v36 = 2048;
     selfCopy = self;
-    v39 = 2048;
+    v38 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Starting simple player extended %p at time %.3f", &v31, 0x30u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Starting simple player extended %p at time %.3f", &v30, 0x30u);
   }
 
 LABEL_8:
@@ -798,8 +958,8 @@ LABEL_8:
     v15 = v12 - 1;
     if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      LOWORD(v31) = 0;
-      _os_signpost_emit_with_name_impl(&dword_21569A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "PatternPlayer_startAtTime_withImmediateParameters", " enableTelemetry=YES ", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_signpost_emit_with_name_impl(&dword_21569A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "PatternPlayer_startAtTime_withImmediateParameters", " enableTelemetry=YES ", &v30, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->super._engine);
@@ -842,8 +1002,8 @@ LABEL_8:
       v27 = v28;
       if (v15 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
       {
-        LOWORD(v31) = 0;
-        _os_signpost_emit_with_name_impl(&dword_21569A000, v27, OS_SIGNPOST_INTERVAL_END, v12, "PatternPlayer_startAtTime_withImmediateParameters", &unk_215703E5B, &v31, 2u);
+        LOWORD(v30) = 0;
+        _os_signpost_emit_with_name_impl(&dword_21569A000, v27, OS_SIGNPOST_INTERVAL_END, v12, "PatternPlayer_startAtTime_withImmediateParameters", &unk_215703E5B, &v30, 2u);
       }
     }
 
@@ -853,8 +1013,8 @@ LABEL_8:
       v27 = v26;
       if (v15 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
-        LOWORD(v31) = 0;
-        _os_signpost_emit_with_name_impl(&dword_21569A000, v27, OS_SIGNPOST_INTERVAL_END, v12, "PatternPlayer_startAtTime_withImmediateParameters", &unk_215703E5B, &v31, 2u);
+        LOWORD(v30) = 0;
+        _os_signpost_emit_with_name_impl(&dword_21569A000, v27, OS_SIGNPOST_INTERVAL_END, v12, "PatternPlayer_startAtTime_withImmediateParameters", &unk_215703E5B, &v30, 2u);
       }
 
       LOBYTE(error) = 0;
@@ -867,8 +1027,43 @@ LABEL_8:
     LOBYTE(error) = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return error;
+}
+
+- (void)setIsMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  muteState = self->super._muteState;
+  WeakRetained = objc_loadWeakRetained(&self->super._engine);
+  v7 = newStateFromOld(muteState, mutedCopy, [WeakRetained running]);
+
+  if (v7)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = muteState == 3;
+  }
+
+  v9 = !v8;
+  self->super._muteState = v7;
+  if (muteState)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = v7 == 3;
+  }
+
+  if (v10 || (v9 & 1) == 0)
+  {
+
+    [(PatternPlayer *)self doSetMute:mutedCopy];
+  }
 }
 
 @end

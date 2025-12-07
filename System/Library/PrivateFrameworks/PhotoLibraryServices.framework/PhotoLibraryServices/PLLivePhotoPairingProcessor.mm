@@ -49,7 +49,7 @@
   dsCopy = ds;
   v6 = [v4 predicateWithFormat:@"%K in %@ and noindex:(%K) == %d and SUBQUERY(modernResources, $r, $r.resourceType == %d).@count == 0", @"mediaGroupUUID", dsCopy, @"trashedState", 0, 3];
   v7 = [(PLLivePhotoPairingProcessor *)self livePhotoFetchRequestWithPredicate:v6];
-  v8 = [dsCopy count];
+  v8 = objc_msgSend_count(dsCopy);
 
   if (v8 >= 0x65)
   {
@@ -86,8 +86,8 @@
   mainFileURL2 = [v8 mainFileURL];
   if (v12)
   {
-    [v12 videoDuration];
-    [v12 imageDisplayTime];
+    objc_msgSend_videoDuration(v12);
+    objc_msgSend_imageDisplayTime(v12);
   }
 
   else

@@ -37,14 +37,13 @@
 
 - (void)_setupProcessHandle
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *self;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_238B95000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed to identify the process for monitoring: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_238B95000, log, OS_LOG_TYPE_ERROR, "%{public}@ failed to identify the process for monitoring: %{public}@", &v4, 0x16u);
 }
 
 - (id)_rbsProcessHandleWithError:(id *)error
@@ -85,7 +84,7 @@
 
 - (id)assertInState
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_bundleID)
   {
     processHandle = self->_processHandle;
@@ -110,24 +109,23 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       _callerName = [(MechanismAssertionClientProcessVisible *)self _callerName];
-      v10 = 138543618;
+      v9 = 138543618;
       selfCopy = self;
-      v12 = 2114;
-      v13 = _callerName;
-      _os_log_impl(&dword_238B95000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully asserted a bundle-less caller (%{public}@)", &v10, 0x16u);
+      v11 = 2114;
+      v12 = _callerName;
+      _os_log_impl(&dword_238B95000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully asserted a bundle-less caller (%{public}@)", &v9, 0x16u);
     }
   }
 
   v5 = 0;
 LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_assertInStateWithProcessState:(id)state
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ([stateCopy taskState] != 4)
   {
@@ -164,24 +162,22 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     _callerName = [(MechanismAssertionClientProcessVisible *)self _callerName];
-    v16 = 138543618;
+    v15 = 138543618;
     selfCopy = self;
-    v18 = 2114;
-    v19 = _callerName;
-    _os_log_impl(&dword_238B95000, v8, OS_LOG_TYPE_INFO, "%{public}@ successfully asserted %{public}@ (confirmed task scheduled and visible)", &v16, 0x16u);
+    v17 = 2114;
+    v18 = _callerName;
+    _os_log_impl(&dword_238B95000, v8, OS_LOG_TYPE_INFO, "%{public}@ successfully asserted %{public}@ (confirmed task scheduled and visible)", &v15, 0x16u);
   }
 
   v10 = 0;
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (void)startMonitoring
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_processHandle)
   {
     v3 = [(MechanismAssertion *)self log];
@@ -190,8 +186,8 @@ LABEL_13:
       _callerName = [(MechanismAssertionClientProcessVisible *)self _callerName];
       *buf = 138543618;
       selfCopy = self;
-      v13 = 2114;
-      v14 = _callerName;
+      v12 = 2114;
+      v13 = _callerName;
       _os_log_impl(&dword_238B95000, v3, OS_LOG_TYPE_INFO, "%{public}@ started monitoring %{public}@ for state changes", buf, 0x16u);
     }
 
@@ -199,22 +195,20 @@ LABEL_13:
     if (objc_opt_class())
     {
       v5 = MEMORY[0x277D46F88];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __57__MechanismAssertionClientProcessVisible_startMonitoring__block_invoke;
-      v9[3] = &unk_278A62ED8;
-      objc_copyWeak(&v10, buf);
-      v6 = [v5 monitorWithConfiguration:v9];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __57__MechanismAssertionClientProcessVisible_startMonitoring__block_invoke;
+      v8[3] = &unk_278A62ED8;
+      objc_copyWeak(&v9, buf);
+      v6 = [v5 monitorWithConfiguration:v8];
       monitor = self->_monitor;
       self->_monitor = v6;
 
-      objc_destroyWeak(&v10);
+      objc_destroyWeak(&v9);
     }
 
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __57__MechanismAssertionClientProcessVisible_startMonitoring__block_invoke(uint64_t a1, void *a2)
@@ -226,14 +220,14 @@ void __57__MechanismAssertionClientProcessVisible_startMonitoring__block_invoke(
 
 - (void)_configureMonitor:(id)monitor
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   monitorCopy = monitor;
   processHandle = self->_processHandle;
   if (processHandle)
   {
     processPredicate = [(RBSProcessHandle *)processHandle processPredicate];
-    v13[0] = processPredicate;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = processPredicate;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     [monitorCopy setPredicates:v7];
   }
 
@@ -241,16 +235,14 @@ void __57__MechanismAssertionClientProcessVisible_startMonitoring__block_invoke(
   [monitorCopy setStateDescriptor:_rbsStateDescriptor];
 
   objc_initWeak(&location, self);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __60__MechanismAssertionClientProcessVisible__configureMonitor___block_invoke;
-  v10[3] = &unk_278A62F00;
-  objc_copyWeak(&v11, &location);
-  [monitorCopy setUpdateHandler:v10];
-  objc_destroyWeak(&v11);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __60__MechanismAssertionClientProcessVisible__configureMonitor___block_invoke;
+  v9[3] = &unk_278A62F00;
+  objc_copyWeak(&v10, &location);
+  [monitorCopy setUpdateHandler:v9];
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __60__MechanismAssertionClientProcessVisible__configureMonitor___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -283,7 +275,7 @@ void __60__MechanismAssertionClientProcessVisible__configureMonitor___block_invo
 
 - (void)_handleStateUpdate:(id)update monitor:(id)monitor process:(id)process
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   monitorCopy = monitor;
   processCopy = process;
@@ -292,12 +284,12 @@ void __60__MechanismAssertionClientProcessVisible__configureMonitor___block_invo
   {
     *buf = 138544130;
     selfCopy = self;
-    v21 = 2112;
-    v22 = updateCopy;
-    v23 = 2112;
-    v24 = monitorCopy;
-    v25 = 2112;
-    v26 = processCopy;
+    v20 = 2112;
+    v21 = updateCopy;
+    v22 = 2112;
+    v23 = monitorCopy;
+    v24 = 2112;
+    v25 = processCopy;
     _os_log_impl(&dword_238B95000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ received update:%@ monitor:%@ process: %@", buf, 0x2Au);
   }
 
@@ -328,8 +320,6 @@ void __60__MechanismAssertionClientProcessVisible__configureMonitor___block_invo
     v17 = [v14 stringWithFormat:@"%@ was confirmed visible", _callerName];
     [(MechanismAssertion *)self handleAssertionSuccessWithReason:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_callerName
@@ -352,51 +342,40 @@ void __60__MechanismAssertionClientProcessVisible__configureMonitor___block_invo
 
 - (void)stopMonitoring
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [(MechanismAssertion *)self log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     _callerName = [(MechanismAssertionClientProcessVisible *)self _callerName];
-    v6 = 138543618;
+    v5 = 138543618;
     selfCopy = self;
-    v8 = 2114;
-    v9 = _callerName;
-    _os_log_impl(&dword_238B95000, v3, OS_LOG_TYPE_INFO, "%{public}@ stopped monitoring %{public}@ for state changes", &v6, 0x16u);
+    v7 = 2114;
+    v8 = _callerName;
+    _os_log_impl(&dword_238B95000, v3, OS_LOG_TYPE_INFO, "%{public}@ stopped monitoring %{public}@ for state changes", &v5, 0x16u);
   }
 
   [(RBSProcessMonitor *)self->_monitor invalidate];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertInState
 {
-  v10 = *MEMORY[0x277D85DE8];
   _callerName = [self _callerName];
-  v9 = self[9];
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 - (void)_assertInStateWithProcessState:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 _callerName];
+  v6 = [a1 _callerName];
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_assertInStateWithProcessState:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 _callerName];
+  v6 = [a1 _callerName];
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

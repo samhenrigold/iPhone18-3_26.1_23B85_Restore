@@ -36,110 +36,110 @@
 
 - (_CLLocationFusionInfo)initWithCoder:(id)coder
 {
-  v85 = 0;
-  v83 = 0.0;
-  v84 = 0.0;
-  v82 = -1.0;
-  v81 = 0;
-  v79 = -1.0;
-  v80 = 0.0;
-  v77 = -1.0;
-  v78 = -1.0;
-  if (objc_msgSend_allowsKeyedCoding(coder, a2, v3, v4))
+  v51 = 0;
+  v49 = 0.0;
+  v50 = 0.0;
+  v48 = -1.0;
+  v47 = 0;
+  v45 = -1.0;
+  v46 = 0.0;
+  v43 = -1.0;
+  v44 = -1.0;
+  if (objc_msgSend_allowsKeyedCoding(coder, a2, coder))
   {
-    v10 = objc_msgSend_decodeBoolForKey_(coder, v7, v8, v9, @"coordinateFused");
-    HIBYTE(v85) = v10;
-    if (objc_msgSend_containsValueForKey_(coder, v11, v12, v13, @"coordinateFusedWithVL"))
+    v6 = objc_msgSend_decodeBoolForKey_(coder, v5, @"coordinateFused");
+    HIBYTE(v51) = v6;
+    if (objc_msgSend_containsValueForKey_(coder, v7, @"coordinateFusedWithVL"))
     {
-      v17 = objc_msgSend_decodeBoolForKey_(coder, v14, v15, v16, @"coordinateFusedWithVL");
-      LOBYTE(v85) = v17;
+      v9 = objc_msgSend_decodeBoolForKey_(coder, v8, @"coordinateFusedWithVL");
+      LOBYTE(v51) = v9;
     }
 
     else
     {
-      v17 = 0;
+      v9 = 0;
     }
 
-    objc_msgSend_decodeDoubleForKey_(coder, v14, v15, v16, @"coordinateLatitude");
-    v48 = v47;
-    v83 = v47;
-    objc_msgSend_decodeDoubleForKey_(coder, v49, v47, v50, @"coordinateLongitude");
-    v52 = v51;
-    v84 = v51;
-    objc_msgSend_decodeDoubleForKey_(coder, v53, v51, v54, @"horizontalAccuracy");
-    v56 = v55;
-    v82 = v55;
-    v59 = objc_msgSend_decodeIntForKey_(coder, v57, v55, v58, @"referenceFrame");
-    v81 = v59;
-    v66 = 0.0;
-    if (objc_msgSend_containsValueForKey_(coder, v60, v61, v62, @"altitude"))
+    objc_msgSend_decodeDoubleForKey_(coder, v8, @"coordinateLatitude");
+    v22 = v21;
+    v49 = v21;
+    objc_msgSend_decodeDoubleForKey_(coder, v23, @"coordinateLongitude");
+    v25 = v24;
+    v50 = v24;
+    objc_msgSend_decodeDoubleForKey_(coder, v26, @"horizontalAccuracy");
+    v28 = v27;
+    v48 = v27;
+    v30 = objc_msgSend_decodeIntForKey_(coder, v29, @"referenceFrame");
+    v47 = v30;
+    v33 = 0.0;
+    if (objc_msgSend_containsValueForKey_(coder, v31, @"altitude"))
     {
-      objc_msgSend_decodeDoubleForKey_(coder, v63, v64, v65, @"altitude");
-      v66 = v64;
-      v80 = v64;
+      objc_msgSend_decodeDoubleForKey_(coder, v32, @"altitude");
+      v33 = v34;
+      v46 = v34;
     }
 
-    v70 = -1.0;
-    if (objc_msgSend_containsValueForKey_(coder, v63, v64, v65, @"verticalAccuracy"))
+    v36 = -1.0;
+    if (objc_msgSend_containsValueForKey_(coder, v32, @"verticalAccuracy"))
     {
-      objc_msgSend_decodeDoubleForKey_(coder, v67, v68, v69, @"verticalAccuracy");
-      v70 = v68;
-      v79 = v68;
+      objc_msgSend_decodeDoubleForKey_(coder, v35, @"verticalAccuracy");
+      v36 = v37;
+      v45 = v37;
     }
 
-    objc_msgSend_decodeDoubleForKey_(coder, v67, v68, v69, @"course");
-    v72 = v71;
-    objc_msgSend_decodeDoubleForKey_(coder, v73, v71, v74, @"courseAccuracy");
-    return objc_msgSend_initWithCoordinateFused_coordinateFusedWithVL_coordinate_horizontalAccuracy_referenceFrame_altitude_verticalAccuracy_course_courseAccuracy_(self, v75, v48, v52, v10 & 1, v17 & 1, v59, v56, v66, v70, v72, v76);
+    objc_msgSend_decodeDoubleForKey_(coder, v35, @"course");
+    v39 = v38;
+    objc_msgSend_decodeDoubleForKey_(coder, v40, @"courseAccuracy");
+    return objc_msgSend_initWithCoordinateFused_coordinateFusedWithVL_coordinate_horizontalAccuracy_referenceFrame_altitude_verticalAccuracy_course_courseAccuracy_(self, v41, v6 & 1, v9 & 1, v30, v22, v25, v28, v33, v36, v39, v42);
   }
 
   else
   {
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v7, v8, v9, "B", &v85 + 1);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v18, v19, v20, "B", &v85);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v21, v22, v23, "d", &v83);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v24, v25, v26, "d", &v84);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v27, v28, v29, "d", &v82);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v30, v31, v32, "i", &v81);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v33, v34, v35, "d", &v80);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v36, v37, v38, "d", &v79);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v39, v40, v41, "d", &v78);
-    objc_msgSend_decodeValueOfObjCType_at_(coder, v42, v43, v44, "d", &v77);
-    return objc_msgSend_initWithCoordinateFused_coordinateFusedWithVL_coordinate_horizontalAccuracy_referenceFrame_altitude_verticalAccuracy_course_courseAccuracy_(self, v45, v83, v84, HIBYTE(v85) & 1, v85 & 1, v81, v82, v80, v79, v78, v77);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v5, "B", &v51 + 1);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v10, "B", &v51);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v11, "d", &v49);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v12, "d", &v50);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v13, "d", &v48);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v14, "i", &v47);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v15, "d", &v46);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v16, "d", &v45);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v17, "d", &v44);
+    objc_msgSend_decodeValueOfObjCType_at_(coder, v18, "d", &v43);
+    return objc_msgSend_initWithCoordinateFused_coordinateFusedWithVL_coordinate_horizontalAccuracy_referenceFrame_altitude_verticalAccuracy_course_courseAccuracy_(self, v19, HIBYTE(v51) & 1, v51 & 1, v47, v49, v50, v48, v46, v45, v44, v43);
   }
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (objc_msgSend_allowsKeyedCoding(coder, a2, v3, v4))
+  if (objc_msgSend_allowsKeyedCoding(coder, a2, coder))
   {
-    objc_msgSend_encodeBool_forKey_(coder, v7, v8, v9, self->_coordinateFused, @"coordinateFused");
-    objc_msgSend_encodeBool_forKey_(coder, v10, v11, v12, self->_coordinateFusedWithVL, @"coordinateFusedWithVL");
-    objc_msgSend_encodeDouble_forKey_(coder, v13, self->_coordinate.latitude, v14, @"coordinateLatitude");
-    objc_msgSend_encodeDouble_forKey_(coder, v15, self->_coordinate.longitude, v16, @"coordinateLongitude");
-    objc_msgSend_encodeDouble_forKey_(coder, v17, self->_horizontalAccuracy, v18, @"horizontalAccuracy");
-    objc_msgSend_encodeInt_forKey_(coder, v19, v20, v21, self->_referenceFrame, @"referenceFrame");
-    objc_msgSend_encodeDouble_forKey_(coder, v22, self->_altitude, v23, @"altitude");
-    objc_msgSend_encodeDouble_forKey_(coder, v24, self->_verticalAccuracy, v25, @"verticalAccuracy");
-    objc_msgSend_encodeDouble_forKey_(coder, v26, self->_course, v27, @"course");
+    objc_msgSend_encodeBool_forKey_(coder, v5, self->_coordinateFused, @"coordinateFused");
+    objc_msgSend_encodeBool_forKey_(coder, v6, self->_coordinateFusedWithVL, @"coordinateFusedWithVL");
+    objc_msgSend_encodeDouble_forKey_(coder, v7, @"coordinateLatitude", self->_coordinate.latitude);
+    objc_msgSend_encodeDouble_forKey_(coder, v8, @"coordinateLongitude", self->_coordinate.longitude);
+    objc_msgSend_encodeDouble_forKey_(coder, v9, @"horizontalAccuracy", self->_horizontalAccuracy);
+    objc_msgSend_encodeInt_forKey_(coder, v10, self->_referenceFrame, @"referenceFrame");
+    objc_msgSend_encodeDouble_forKey_(coder, v11, @"altitude", self->_altitude);
+    objc_msgSend_encodeDouble_forKey_(coder, v12, @"verticalAccuracy", self->_verticalAccuracy);
+    objc_msgSend_encodeDouble_forKey_(coder, v13, @"course", self->_course);
     courseAccuracy = self->_courseAccuracy;
 
-    objc_msgSend_encodeDouble_forKey_(coder, v28, courseAccuracy, v29, @"courseAccuracy");
+    objc_msgSend_encodeDouble_forKey_(coder, v14, @"courseAccuracy", courseAccuracy);
   }
 
   else
   {
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v7, v8, v9, "B", &self->_coordinateFused);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v31, v32, v33, "B", &self->_coordinateFusedWithVL);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v34, v35, v36, "d", &self->_coordinate);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v37, v38, v39, "d", &self->_coordinate.longitude);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v40, v41, v42, "d", &self->_horizontalAccuracy);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v43, v44, v45, "i", &self->_referenceFrame);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v46, v47, v48, "d", &self->_altitude);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v49, v50, v51, "d", &self->_verticalAccuracy);
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v52, v53, v54, "d", &self->_course);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v5, "B", &self->_coordinateFused);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v16, "B", &self->_coordinateFusedWithVL);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v17, "d", &self->_coordinate);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v18, "d", &self->_coordinate.longitude);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v19, "d", &self->_horizontalAccuracy);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v20, "i", &self->_referenceFrame);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v21, "d", &self->_altitude);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v22, "d", &self->_verticalAccuracy);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v23, "d", &self->_course);
 
-    objc_msgSend_encodeValueOfObjCType_at_(coder, v55, v56, v57, "d", &self->_courseAccuracy);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v24, "d", &self->_courseAccuracy);
   }
 }
 

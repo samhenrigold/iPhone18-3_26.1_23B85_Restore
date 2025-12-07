@@ -17,7 +17,7 @@
 
 - (id)_deselectedCalendarIdentifiers
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   deselectedCalendarIdentifiers = [objc_opt_class() deselectedCalendarIdentifiers];
   if (deselectedCalendarIdentifiers)
   {
@@ -27,9 +27,9 @@
     {
       v6 = v5;
       *buf = 134218242;
-      v39 = [v4 count];
-      v40 = 2112;
-      v41 = v4;
+      v38 = [v4 count];
+      v39 = 2112;
+      v40 = v4;
       _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_DEFAULT, "Returning [%lu] stored deselectedCalendarIdentifiers: %@", buf, 0x16u);
     }
 
@@ -47,37 +47,37 @@
     {
       v12 = v11;
       *buf = 134217984;
-      v39 = [selectedCalendarIdentifiers count];
+      v38 = [selectedCalendarIdentifiers count];
       _os_log_impl(&dword_1A805E000, v12, OS_LOG_TYPE_INFO, "Store contains [%lu] selectedCalendarIdentifiers", buf, 0xCu);
     }
 
     if (selectedCalendarIdentifiers)
     {
-      v32 = selectedCalendarIdentifiers;
+      v31 = selectedCalendarIdentifiers;
       eventStore = [(EKCalendarVisibilityManager *)self eventStore];
       v14 = [eventStore calendarsForEntityType:0];
 
       v15 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v16 = v14;
-      v17 = [v16 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v34;
+        v19 = *v33;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v34 != v19)
+            if (*v33 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v33 + 1) + 8 * i);
+            v21 = *(*(&v32 + 1) + 8 * i);
             calendarIdentifier = [v21 calendarIdentifier];
             if (calendarIdentifier)
             {
@@ -90,20 +90,20 @@
               if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v39 = v21;
+                v38 = v21;
                 _os_log_error_impl(&dword_1A805E000, v23, OS_LOG_TYPE_ERROR, "No calendar identifier found.  Will not be able get all deselected calendar identifiers.  Calendar: [%@]", buf, 0xCu);
               }
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v32 objects:v36 count:16];
         }
 
         while (v18);
       }
 
-      selectedCalendarIdentifiers = v32;
-      v24 = [MEMORY[0x1E695DFD8] setWithArray:v32];
+      selectedCalendarIdentifiers = v31;
+      v24 = [MEMORY[0x1E695DFD8] setWithArray:v31];
       [v15 minusSet:v24];
       allObjects = [v15 allObjects];
       v26 = EKLogHandle;
@@ -112,9 +112,9 @@
         v27 = v26;
         v28 = [allObjects count];
         *buf = 134218242;
-        v39 = v28;
-        v40 = 2112;
-        v41 = allObjects;
+        v38 = v28;
+        v39 = 2112;
+        v40 = allObjects;
         _os_log_impl(&dword_1A805E000, v27, OS_LOG_TYPE_DEFAULT, "Returning [%lu] computed deselectedCalendarIdentifiers: %@", buf, 0x16u);
       }
 
@@ -136,8 +136,6 @@
       v8 = MEMORY[0x1E695E0F0];
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -282,55 +280,55 @@ void __107__EKCalendarVisibilityManager_initWithEventStore_limitedToSource_visib
 - (id)_calendarsThatAreVisible:(BOOL)visible filteredByIdentity:(BOOL)identity
 {
   visibleCopy = visible;
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   eventStore = [(EKCalendarVisibilityManager *)self eventStore];
   v8 = [eventStore calendarsForEntityType:0];
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __75__EKCalendarVisibilityManager__calendarsThatAreVisible_filteredByIdentity___block_invoke;
-  v39[3] = &unk_1E7800610;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __75__EKCalendarVisibilityManager__calendarsThatAreVisible_filteredByIdentity___block_invoke;
+  v38[3] = &unk_1E7800610;
   identityCopy = identity;
-  v39[4] = self;
-  v9 = [MEMORY[0x1E696AE18] predicateWithBlock:v39];
+  v38[4] = self;
+  v9 = [MEMORY[0x1E696AE18] predicateWithBlock:v38];
   v10 = [v8 filteredArrayUsingPredicate:v9];
 
   _deselectedCalendarIdentifiers = [(EKCalendarVisibilityManager *)self _deselectedCalendarIdentifiers];
   v11 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:_deselectedCalendarIdentifiers];
-  v30 = v8;
-  v34 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+  v29 = v8;
+  v33 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v35 objects:v55 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v34 objects:v54 count:16];
   if (!v13)
   {
+    v30 = 0;
     v31 = 0;
     v32 = 0;
-    v33 = 0;
     v15 = 0;
     goto LABEL_26;
   }
 
   v14 = v13;
+  v30 = 0;
   v31 = 0;
   v32 = 0;
-  v33 = 0;
   v15 = 0;
-  v16 = *v36;
+  v16 = *v35;
   do
   {
     v17 = 0;
     do
     {
-      if (*v36 != v16)
+      if (*v35 != v16)
       {
         objc_enumerationMutation(v12);
       }
 
-      v18 = *(*(&v35 + 1) + 8 * v17);
+      v18 = *(*(&v34 + 1) + 8 * v17);
       calendarIdentifier = [v18 calendarIdentifier];
       if (calendarIdentifier)
       {
@@ -347,7 +345,7 @@ void __107__EKCalendarVisibilityManager_initWithEventStore_limitedToSource_visib
           goto LABEL_18;
         }
 
-        [v34 addObject:v18];
+        [v33 addObject:v18];
         if ([v18 isHolidayCalendar])
         {
           ++v15;
@@ -355,17 +353,17 @@ void __107__EKCalendarVisibilityManager_initWithEventStore_limitedToSource_visib
 
         else if ([v18 type] == 5 || objc_msgSend(v18, "isSuggestedEventCalendar"))
         {
-          ++v33;
+          ++v32;
         }
 
         else if ([v18 type] == 4)
         {
-          ++v31;
+          ++v30;
         }
 
         else
         {
-          ++v32;
+          ++v31;
         }
       }
 
@@ -375,7 +373,7 @@ void __107__EKCalendarVisibilityManager_initWithEventStore_limitedToSource_visib
         if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v42 = v18;
+          v41 = v18;
           _os_log_error_impl(&dword_1A805E000, v20, OS_LOG_TYPE_ERROR, "No calendar identifier found.  Will not be able to find all visible calendars.  Calendar: [%@]", buf, 0xCu);
         }
       }
@@ -386,7 +384,7 @@ LABEL_18:
     }
 
     while (v14 != v17);
-    v21 = [v12 countByEnumeratingWithState:&v35 objects:v55 count:16];
+    v21 = [v12 countByEnumeratingWithState:&v34 objects:v54 count:16];
     v14 = v21;
   }
 
@@ -397,7 +395,7 @@ LABEL_26:
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v23 = v22;
-    v24 = [v34 count];
+    v24 = [v33 count];
     if (visibleCopy)
     {
       v25 = @"visibleCalendars";
@@ -408,27 +406,25 @@ LABEL_26:
       v25 = @"invisibleCalendars";
     }
 
-    v26 = [v30 count];
+    v26 = [v29 count];
     *buf = 134219522;
-    v42 = v24;
-    v43 = 2112;
-    v44 = v25;
-    v45 = 2048;
-    v46 = v26;
-    v47 = 2048;
-    v48 = v15;
-    v49 = 2048;
-    v50 = v33;
-    v51 = 2048;
-    v52 = v31;
-    v53 = 2048;
-    v54 = v32;
+    v41 = v24;
+    v42 = 2112;
+    v43 = v25;
+    v44 = 2048;
+    v45 = v26;
+    v46 = 2048;
+    v47 = v15;
+    v48 = 2048;
+    v49 = v32;
+    v50 = 2048;
+    v51 = v30;
+    v52 = 2048;
+    v53 = v31;
     _os_log_impl(&dword_1A805E000, v23, OS_LOG_TYPE_DEFAULT, "Returning [%lu] %@ of [%lu] calendars: [%ld] holiday [%ld] suggestion [%ld] birthday [%ld] other", buf, 0x48u);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v34;
+  return v33;
 }
 
 uint64_t __75__EKCalendarVisibilityManager__calendarsThatAreVisible_filteredByIdentity___block_invoke(uint64_t a1, void *a2)
@@ -471,7 +467,7 @@ uint64_t __75__EKCalendarVisibilityManager__calendarsThatAreVisible_filteredById
 
 + (id)unselectedCalendarsForFocusModeInEventStore:(id)store
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   unselectedCalendarIdentifiersForFocusMode = [self unselectedCalendarIdentifiersForFocusMode];
   if (unselectedCalendarIdentifiersForFocusMode)
@@ -482,11 +478,11 @@ uint64_t __75__EKCalendarVisibilityManager__calendarsThatAreVisible_filteredById
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v9 = v8;
-      v13 = 134218242;
-      v14 = [v7 count];
-      v15 = 2112;
-      v16 = unselectedCalendarIdentifiersForFocusMode;
-      _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEFAULT, "Returning [%lu] unselectedCalendarsForFocusMode: %@", &v13, 0x16u);
+      v12 = 134218242;
+      v13 = [v7 count];
+      v14 = 2112;
+      v15 = unselectedCalendarIdentifiersForFocusMode;
+      _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEFAULT, "Returning [%lu] unselectedCalendarsForFocusMode: %@", &v12, 0x16u);
     }
   }
 
@@ -495,43 +491,41 @@ uint64_t __75__EKCalendarVisibilityManager__calendarsThatAreVisible_filteredById
     v10 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_DEFAULT, "Returning [0] unselectedCalendarsForFocusMode: nil", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_DEFAULT, "Returning [0] unselectedCalendarsForFocusMode: nil", &v12, 2u);
     }
 
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)reminderCalendarInEventStore:(id)store
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   v4 = [storeCopy calendarsForEntityType:0];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 type] == 6)
         {
           v11 = v10;
@@ -540,7 +534,7 @@ uint64_t __75__EKCalendarVisibilityManager__calendarsThatAreVisible_filteredById
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -551,18 +545,15 @@ uint64_t __75__EKCalendarVisibilityManager__calendarsThatAreVisible_filteredById
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 void __107__EKCalendarVisibilityManager_initWithEventStore_limitedToSource_visibilityChangedCallback_queue_activate___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A805E000, a2, OS_LOG_TYPE_DEBUG, "Underlying calendar visibility preferences changed.  Notifying client of [%@]", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A805E000, a2, OS_LOG_TYPE_DEBUG, "Underlying calendar visibility preferences changed.  Notifying client of [%@]", &v2, 0xCu);
 }
 
 @end

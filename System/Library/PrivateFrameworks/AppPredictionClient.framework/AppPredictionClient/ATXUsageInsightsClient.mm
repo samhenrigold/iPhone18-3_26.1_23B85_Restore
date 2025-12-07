@@ -35,21 +35,21 @@
   return v2;
 }
 
-void __30__ATXUsageInsightsClient_init__block_invoke()
+void __30__ATXUsageInsightsClient_init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_usage_insights();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_usage_insights(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __30__ATXUsageInsightsClient_init__block_invoke_cold_1(v0);
+    __30__ATXUsageInsightsClient_init__block_invoke_cold_1(v1);
   }
 }
 
-void __30__ATXUsageInsightsClient_init__block_invoke_8()
+void __30__ATXUsageInsightsClient_init__block_invoke_8(uint64_t a1)
 {
-  v0 = __atxlog_handle_usage_insights();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_usage_insights(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __30__ATXUsageInsightsClient_init__block_invoke_8_cold_1(v0);
+    __30__ATXUsageInsightsClient_init__block_invoke_8_cold_1(v1);
   }
 }
 
@@ -74,7 +74,7 @@ void __30__ATXUsageInsightsClient_init__block_invoke_8()
 
   else
   {
-    v10 = __atxlog_handle_usage_insights();
+    v10 = __atxlog_handle_usage_insights(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
@@ -92,7 +92,7 @@ void __30__ATXUsageInsightsClient_init__block_invoke_8()
 void __71__ATXUsageInsightsClient_fetchAllDeliveredNotificationsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_usage_insights();
+  v4 = __atxlog_handle_usage_insights(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -122,7 +122,7 @@ void __71__ATXUsageInsightsClient_fetchAllDeliveredNotificationsWithCompletion__
 
   else
   {
-    v10 = __atxlog_handle_usage_insights();
+    v10 = __atxlog_handle_usage_insights(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
@@ -140,7 +140,7 @@ void __71__ATXUsageInsightsClient_fetchAllDeliveredNotificationsWithCompletion__
 void __87__ATXUsageInsightsClient_fetchSuggestedBundleIDsForAllowListForAllModesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_usage_insights();
+  v4 = __atxlog_handle_usage_insights(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -170,7 +170,7 @@ void __87__ATXUsageInsightsClient_fetchSuggestedBundleIDsForAllowListForAllModes
 
   else
   {
-    v10 = __atxlog_handle_usage_insights();
+    v10 = __atxlog_handle_usage_insights(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
@@ -188,7 +188,7 @@ void __87__ATXUsageInsightsClient_fetchSuggestedBundleIDsForAllowListForAllModes
 void __86__ATXUsageInsightsClient_fetchSuggestedBundleIDsForDenyListForAllModesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_usage_insights();
+  v4 = __atxlog_handle_usage_insights(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -218,7 +218,7 @@ void __86__ATXUsageInsightsClient_fetchSuggestedBundleIDsForDenyListForAllModesW
 
   else
   {
-    v10 = __atxlog_handle_usage_insights();
+    v10 = __atxlog_handle_usage_insights(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
@@ -236,7 +236,7 @@ void __86__ATXUsageInsightsClient_fetchSuggestedBundleIDsForDenyListForAllModesW
 void __80__ATXUsageInsightsClient_fetchUsageInsightsInferredATXModeEventsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_usage_insights();
+  v4 = __atxlog_handle_usage_insights(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -271,7 +271,7 @@ void __80__ATXUsageInsightsClient_fetchUsageInsightsInferredATXModeEventsWithCom
 
   else
   {
-    v10 = __atxlog_handle_usage_insights();
+    v10 = __atxlog_handle_usage_insights(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
@@ -289,7 +289,7 @@ void __80__ATXUsageInsightsClient_fetchUsageInsightsInferredATXModeEventsWithCom
 void __72__ATXUsageInsightsClient_fetchAllInterruptingAppSessionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_usage_insights();
+  v4 = __atxlog_handle_usage_insights(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -324,7 +324,7 @@ void __72__ATXUsageInsightsClient_fetchAllInterruptingAppSessionsWithCompletion_
 
   else
   {
-    v10 = __atxlog_handle_usage_insights();
+    v10 = __atxlog_handle_usage_insights(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
@@ -342,7 +342,7 @@ void __72__ATXUsageInsightsClient_fetchAllInterruptingAppSessionsWithCompletion_
 void __65__ATXUsageInsightsClient_fetchAllPhubbingSessionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_usage_insights();
+  v4 = __atxlog_handle_usage_insights(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -377,7 +377,7 @@ void __65__ATXUsageInsightsClient_fetchAllPhubbingSessionsWithCompletion___block
 
   else
   {
-    v10 = __atxlog_handle_usage_insights();
+    v10 = __atxlog_handle_usage_insights(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
@@ -395,7 +395,7 @@ void __65__ATXUsageInsightsClient_fetchAllPhubbingSessionsWithCompletion___block
 void __72__ATXUsageInsightsClient_fetchAllMindlessCyclingSessionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_usage_insights();
+  v4 = __atxlog_handle_usage_insights(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -430,7 +430,7 @@ void __72__ATXUsageInsightsClient_fetchAllMindlessCyclingSessionsWithCompletion_
 
   else
   {
-    v10 = __atxlog_handle_usage_insights();
+    v10 = __atxlog_handle_usage_insights(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationCategorizationClient collectDynamicBreakthroughFeaturesForNotification:completion:];
@@ -448,7 +448,7 @@ void __72__ATXUsageInsightsClient_fetchAllMindlessCyclingSessionsWithCompletion_
 void __72__ATXUsageInsightsClient_fetchAllContinuousUsageSessionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_usage_insights();
+  v4 = __atxlog_handle_usage_insights(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();

@@ -63,7 +63,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (hap2LogInitialize_onceToken != -1)
   {
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
@@ -72,13 +72,12 @@
   v4 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_error_impl(&dword_22AADC000, v4, OS_LOG_TYPE_ERROR, "%@ Timeout happened, attempting to cancel", &v6, 0xCu);
+    _os_log_error_impl(&dword_22AADC000, v4, OS_LOG_TYPE_ERROR, "%@ Timeout happened, attempting to cancel", &v5, 0xCu);
   }
 
   [(HAP2AccessoryServerControllerOperation *)self cancel];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseResponseData:(id)data
@@ -126,7 +125,7 @@
 
 - (void)_sendRequest
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (![(HAP2AsynchronousOperation *)self isCancelled])
   {
     if (self)
@@ -219,22 +218,22 @@
     {
       if (self)
       {
-        v29 = self->_request;
+        v28 = self->_request;
       }
 
       else
       {
-        v29 = 0;
+        v28 = 0;
       }
 
-      v30 = v29;
-      v31 = v13;
-      v32 = [HAP2EncodedRequestThread stringFromHAP2EncodedRequestType:[(HAP2EncodedRequest *)v30 type]];
+      v29 = v28;
+      v30 = v13;
+      v31 = [HAP2EncodedRequestThread stringFromHAP2EncodedRequestType:[(HAP2EncodedRequest *)v29 type]];
       *buf = 138412546;
       selfCopy = self;
-      v36 = 2112;
-      v37 = v32;
-      _os_log_debug_impl(&dword_22AADC000, v31, OS_LOG_TYPE_DEBUG, "%@ requestType: %@", buf, 0x16u);
+      v35 = 2112;
+      v36 = v31;
+      _os_log_debug_impl(&dword_22AADC000, v30, OS_LOG_TYPE_DEBUG, "%@ requestType: %@", buf, 0x16u);
     }
 
     v14 = [HAP2AccessoryServerTransportRequest alloc];
@@ -318,15 +317,13 @@
       transport = 0;
     }
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke;
-    v33[3] = &unk_2786D3968;
-    v33[4] = self;
-    [(HAP2AccessoryServerTransportCommon *)transport sendRequest:v25 completion:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke;
+    v32[3] = &unk_2786D3968;
+    v32[4] = self;
+    [(HAP2AccessoryServerTransportCommon *)transport sendRequest:v25 completion:v32];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimerWithInterval:(uint64_t)interval
@@ -387,11 +384,11 @@ void __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke(uin
   }
 }
 
-void __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke_2(uint64_t a1)
+void __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke_2(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = a1[4];
+  v2 = a1[5];
   if (v3)
   {
     v4 = [(HAP2AccessoryServerControllerOperation *)v2 controller];
@@ -405,15 +402,15 @@ void __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke_2(u
       v5 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
       {
-        v14 = 138412290;
-        v15 = v4;
-        _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%@ Forcing session expired", &v14, 0xCu);
+        v12 = 138412290;
+        v13 = v4;
+        _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%@ Forcing session expired", &v12, 0xCu);
       }
 
       [(HAP2AccessoryServerController *)v4 setSessionStartTime:?];
     }
 
-    if (([(HAP2AccessoryServerControllerOperation *)*(a1 + 40) _maybeRefreshSessionAfterError:?]& 1) == 0)
+    if (([(HAP2AccessoryServerControllerOperation *)a1[5] _maybeRefreshSessionAfterError:?]& 1) == 0)
     {
       if (hap2LogInitialize_onceToken != -1)
       {
@@ -423,46 +420,43 @@ void __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke_2(u
       v6 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 40);
-        if (v10)
+        v8 = a1[5];
+        if (v8)
         {
-          v11 = v10[45];
+          v9 = v8[45];
         }
 
         else
         {
-          v11 = 0;
+          v9 = 0;
         }
 
-        v12 = *(a1 + 32);
-        v14 = 138412802;
-        v15 = v10;
+        v10 = a1[4];
+        v12 = 138412802;
+        v13 = v8;
+        v14 = 2112;
+        v15 = v9;
         v16 = 2112;
-        v17 = v11;
-        v18 = 2112;
-        v19 = v12;
-        v13 = v6;
-        _os_log_error_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%@ Failed to send request %@: %@", &v14, 0x20u);
+        v17 = v10;
+        v11 = v6;
+        _os_log_error_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%@ Failed to send request %@: %@", &v12, 0x20u);
       }
 
-      [(HAP2AccessoryServerControllerOperation *)*(a1 + 40) _handleSendRequestError:?];
+      [(HAP2AccessoryServerControllerOperation *)a1[5] _handleSendRequestError:?];
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = *(a1 + 48);
-    v9 = *MEMORY[0x277D85DE8];
+    v7 = a1[6];
 
-    [v2 _parseResponseData:v8];
+    [v2 _parseResponseData:v7];
   }
 }
 
 - (uint64_t)_maybeRefreshSessionAfterError:(uint64_t)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!error)
@@ -483,7 +477,7 @@ void __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke_2(u
       goto LABEL_13;
     }
 
-    v20 = 138412290;
+    v19 = 138412290;
     errorCopy4 = error;
     v7 = "%@ Session refresh not allowed for this operation";
     v8 = v6;
@@ -500,54 +494,54 @@ void __54__HAP2AccessoryServerControllerOperation__sendRequest__block_invoke_2(u
     v5 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 138412290;
+      v19 = 138412290;
       errorCopy4 = error;
-      _os_log_debug_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEBUG, "%@ Session refresh already attempted once, not attempting again", &v20, 0xCu);
+      _os_log_debug_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEBUG, "%@ Session refresh already attempted once, not attempting again", &v19, 0xCu);
     }
 
     goto LABEL_13;
   }
 
-  v11 = v3;
-  userInfo = [v11 userInfo];
-  v13 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+  v10 = v3;
+  userInfo = [v10 userInfo];
+  v12 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14 = v13;
+    v13 = v12;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v15 = v14;
+  v14 = v13;
 
-  domain = [v11 domain];
-  v17 = [domain isEqualToString:@"HAPErrorDomain"];
+  domain = [v10 domain];
+  v16 = [domain isEqualToString:@"HAPErrorDomain"];
 
-  v18 = v17 && ([v11 code] == 17 || objc_msgSend(v11, "code") == 8 && objc_msgSend(v15, "code") == 1);
+  v17 = v16 && ([v10 code] == 17 || objc_msgSend(v10, "code") == 8 && objc_msgSend(v14, "code") == 1);
   if (hap2LogInitialize_onceToken != -1)
   {
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
   }
 
-  v19 = hap2Log_accessory;
-  if (!v18)
+  v18 = hap2Log_accessory;
+  if (!v17)
   {
     if (!os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
     {
       goto LABEL_13;
     }
 
-    v20 = 138412290;
+    v19 = 138412290;
     errorCopy4 = error;
     v7 = "%@ Session refresh wouldn't help with this error, not attempting";
-    v8 = v19;
+    v8 = v18;
 LABEL_12:
-    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, v7, &v20, 0xCu);
+    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, v7, &v19, 0xCu);
 LABEL_13:
     error = 0;
     goto LABEL_14;
@@ -555,24 +549,23 @@ LABEL_13:
 
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412546;
+    v19 = 138412546;
     errorCopy4 = error;
-    v22 = 2112;
-    v23 = v11;
-    _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%@ Refreshing session due to error: %@", &v20, 0x16u);
+    v21 = 2112;
+    v22 = v10;
+    _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEFAULT, "%@ Refreshing session due to error: %@", &v19, 0x16u);
   }
 
   [(HAP2AccessoryServerControllerOperation *)error _refreshSession];
   error = 1;
 LABEL_14:
 
-  v9 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (void)_handleSendRequestError:(_BYTE *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (error)
@@ -597,22 +590,20 @@ LABEL_14:
 
     else
     {
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __66__HAP2AccessoryServerControllerOperation__handleSendRequestError___block_invoke;
-      v9[3] = &unk_2786D7050;
-      v9[4] = error;
-      v10 = v4;
-      [(HAP2AccessoryServerControllerOperation *)error _closeSessionWithCompletion:v9];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __66__HAP2AccessoryServerControllerOperation__handleSendRequestError___block_invoke;
+      v8[3] = &unk_2786D7050;
+      v8[4] = error;
+      v9 = v4;
+      [(HAP2AccessoryServerControllerOperation *)error _closeSessionWithCompletion:v8];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeSessionWithCompletion:(uint64_t)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (completion)
   {
@@ -645,16 +636,14 @@ LABEL_14:
     }
 
     v9 = *(completion + 312);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __70__HAP2AccessoryServerControllerOperation__closeSessionWithCompletion___block_invoke;
-    v11[3] = &unk_2786D5D70;
-    v11[4] = completion;
-    v12 = v3;
-    [v9 closeWithError:0 completion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __70__HAP2AccessoryServerControllerOperation__closeSessionWithCompletion___block_invoke;
+    v10[3] = &unk_2786D5D70;
+    v10[4] = completion;
+    v11 = v3;
+    [v9 closeWithError:0 completion:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HAP2AccessoryServerControllerOperation__closeSessionWithCompletion___block_invoke(uint64_t a1)
@@ -685,7 +674,7 @@ void __70__HAP2AccessoryServerControllerOperation__closeSessionWithCompletion___
 
 uint64_t __70__HAP2AccessoryServerControllerOperation__closeSessionWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (hap2LogInitialize_onceToken != -1)
   {
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
@@ -695,14 +684,12 @@ uint64_t __70__HAP2AccessoryServerControllerOperation__closeSessionWithCompletio
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_22AADC000, v2, OS_LOG_TYPE_INFO, "%@ Session closed", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_22AADC000, v2, OS_LOG_TYPE_INFO, "%@ Session closed", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)_refreshSession
@@ -721,10 +708,10 @@ uint64_t __70__HAP2AccessoryServerControllerOperation__closeSessionWithCompletio
 
 - (void)_openTransport:(BOOL)transport
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(HAP2AsynchronousOperation *)self isCancelled])
   {
-    goto LABEL_26;
+    return;
   }
 
   if (self)
@@ -734,14 +721,14 @@ uint64_t __70__HAP2AccessoryServerControllerOperation__closeSessionWithCompletio
     if (options)
     {
 LABEL_14:
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __57__HAP2AccessoryServerControllerOperation__openTransport___block_invoke;
-      v14[3] = &unk_2786D3208;
-      v14[4] = self;
-      [(HAP2AccessoryServerController *)WeakRetained openTransportWithResume:transport completion:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __57__HAP2AccessoryServerControllerOperation__openTransport___block_invoke;
+      v13[3] = &unk_2786D3208;
+      v13[4] = self;
+      [(HAP2AccessoryServerController *)WeakRetained openTransportWithResume:transport completion:v13];
 
-      goto LABEL_26;
+      return;
     }
   }
 
@@ -752,7 +739,7 @@ LABEL_14:
 
   isSessionExpired = [(HAP2AccessoryServerController *)WeakRetained isSessionExpired];
 
-  if ((isSessionExpired & 1) == 0)
+  if (!isSessionExpired)
   {
     WeakRetained = [(HAP2AccessoryServerControllerOperation *)&self->super.super.super.isa controller];
     goto LABEL_14;
@@ -799,7 +786,7 @@ LABEL_20:
       v11 = v9;
       [(HAP2AccessoryServerControllerOperation *)self finishWithError:v9];
 
-      goto LABEL_26;
+      return;
     }
   }
 
@@ -817,13 +804,11 @@ LABEL_20:
   }
 
   [(HAP2AccessoryServerControllerOperation *)self _refreshSession];
-LABEL_26:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HAP2AccessoryServerControllerOperation__openTransport___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [(HAP2AccessoryServerControllerOperation *)*(a1 + 32) controller];
   v7 = v6;
@@ -891,16 +876,16 @@ LABEL_13:
           if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v31 = v11;
+            v30 = v11;
             _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%@ Failed to connect - will try the next IP address for the accessory", buf, 0xCu);
           }
 
-          *v27 = MEMORY[0x277D85DD0];
-          *&v27[8] = 3221225472;
-          *&v27[16] = __71__HAP2AccessoryServerControllerOperation__retryNextIPAddress_rtnError___block_invoke;
-          v28 = &unk_2786D6CA0;
-          v29 = v11;
-          [(HAP2AccessoryServerControllerOperation *)v11 _closeSessionWithCompletion:v27];
+          *v26 = MEMORY[0x277D85DD0];
+          *&v26[8] = 3221225472;
+          *&v26[16] = __71__HAP2AccessoryServerControllerOperation__retryNextIPAddress_rtnError___block_invoke;
+          v27 = &unk_2786D6CA0;
+          v28 = v11;
+          [(HAP2AccessoryServerControllerOperation *)v11 _closeSessionWithCompletion:v26];
 
           goto LABEL_29;
         }
@@ -930,27 +915,25 @@ LABEL_22:
     v21 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
-      *v27 = 138412546;
-      *&v27[4] = v24;
-      *&v27[12] = 2112;
-      *&v27[14] = v13;
-      _os_log_error_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%@ Open failed: %@", v27, 0x16u);
+      v23 = *(a1 + 32);
+      *v26 = 138412546;
+      *&v26[4] = v23;
+      *&v26[12] = 2112;
+      *&v26[14] = v13;
+      _os_log_error_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%@ Open failed: %@", v26, 0x16u);
     }
 
     v22 = *(a1 + 32);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __57__HAP2AccessoryServerControllerOperation__openTransport___block_invoke_9;
-    v25[3] = &unk_2786D7050;
-    v25[4] = v22;
-    v26 = v13;
-    [(HAP2AccessoryServerControllerOperation *)v22 _closeSessionWithCompletion:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __57__HAP2AccessoryServerControllerOperation__openTransport___block_invoke_9;
+    v24[3] = &unk_2786D7050;
+    v24[4] = v22;
+    v25 = v13;
+    [(HAP2AccessoryServerControllerOperation *)v22 _closeSessionWithCompletion:v24];
   }
 
 LABEL_29:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelWithError:(id)error
@@ -972,7 +955,7 @@ LABEL_29:
 
 - (void)finishWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (hap2LogInitialize_onceToken != -1)
   {
@@ -984,22 +967,20 @@ LABEL_29:
   {
     *buf = 138412546;
     selfCopy = self;
-    v10 = 2112;
-    v11 = errorCopy;
+    v9 = 2112;
+    v10 = errorCopy;
     _os_log_error_impl(&dword_22AADC000, v5, OS_LOG_TYPE_ERROR, "%@ Finishing: %@", buf, 0x16u);
   }
 
   [(HAP2AccessoryServerControllerOperation *)self _cleanUp];
-  v7.receiver = self;
-  v7.super_class = HAP2AccessoryServerControllerOperation;
-  [(HAP2AsynchronousOperation *)&v7 finishWithError:errorCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HAP2AccessoryServerControllerOperation;
+  [(HAP2AsynchronousOperation *)&v6 finishWithError:errorCopy];
 }
 
 - (void)finish
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (hap2LogInitialize_onceToken != -1)
   {
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
@@ -1014,15 +995,14 @@ LABEL_29:
   }
 
   [(HAP2AccessoryServerControllerOperation *)self _cleanUp];
-  v5.receiver = self;
-  v5.super_class = HAP2AccessoryServerControllerOperation;
-  [(HAP2AsynchronousOperation *)&v5 finish];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = HAP2AccessoryServerControllerOperation;
+  [(HAP2AsynchronousOperation *)&v4 finish];
 }
 
 - (void)main
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (hap2LogInitialize_onceToken != -1)
   {
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
@@ -1031,13 +1011,12 @@ LABEL_29:
   v3 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_22AADC000, v3, OS_LOG_TYPE_DEFAULT, "%@ Starting", &v5, 0xCu);
+    _os_log_impl(&dword_22AADC000, v3, OS_LOG_TYPE_DEFAULT, "%@ Starting", &v4, 0xCu);
   }
 
   [(HAP2AccessoryServerControllerOperation *)self _openTransport:0];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (HAP2AccessoryServerControllerOperation)initWithName:(id)name controller:(id)controller encoding:(id)encoding transport:(id)transport request:(id)request endpoint:(id)endpoint mimeType:(id)type timeout:(double)self0 options:(unint64_t)self1 dscpPriority:(int64_t)self2

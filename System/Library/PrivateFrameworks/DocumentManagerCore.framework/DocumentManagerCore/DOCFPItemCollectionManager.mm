@@ -30,46 +30,47 @@
 
 uint64_t __43__DOCFPItemCollectionManager_sharedManager__block_invoke(uint64_t a1)
 {
-  sharedManager_sharedMyManager = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedManager_sharedMyManager;
+  sharedManager_sharedMyManager = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (DOCFPItemCollectionManager)init
 {
-  v22[2] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = DOCFPItemCollectionManager;
-  v2 = [(DOCFPItemCollectionManager *)&v21 init];
+  v21[2] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = DOCFPItemCollectionManager;
+  v2 = [(DOCFPItemCollectionManager *)&v20 init];
   v3 = [objc_alloc(MEMORY[0x277CCA940]) initWithCapacity:100];
   activeCollections = v2->_activeCollections;
   v2->_activeCollections = v3;
 
   objc_initWeak(&location, v2);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __34__DOCFPItemCollectionManager_init__block_invoke;
-  v18[3] = &unk_278F9C218;
-  objc_copyWeak(&v19, &location);
-  v6 = [defaultCenter addObserverForName:@"UIApplicationDidEnterBackgroundNotification" object:0 queue:0 usingBlock:v18];
-  v22[0] = v6;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __34__DOCFPItemCollectionManager_init__block_invoke;
+  v17[3] = &unk_278F9C218;
+  objc_copyWeak(&v18, &location);
+  v6 = [defaultCenter addObserverForName:@"UIApplicationDidEnterBackgroundNotification" object:0 queue:0 usingBlock:v17];
+  v21[0] = v6;
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __34__DOCFPItemCollectionManager_init__block_invoke_2;
-  v16 = &unk_278F9C218;
-  objc_copyWeak(&v17, &location);
-  v8 = [defaultCenter2 addObserverForName:@"UIApplicationWillEnterForegroundNotification" object:0 queue:0 usingBlock:&v13];
-  v22[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:{2, v13, v14, v15, v16}];
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __34__DOCFPItemCollectionManager_init__block_invoke_2;
+  v15 = &unk_278F9C218;
+  objc_copyWeak(&v16, &location);
+  v8 = [defaultCenter2 addObserverForName:@"UIApplicationWillEnterForegroundNotification" object:0 queue:0 usingBlock:&v12];
+  v21[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:{2, v12, v13, v14, v15}];
   notificationObservances = v2->_notificationObservances;
   v2->_notificationObservances = v9;
 
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -81,7 +82,7 @@ void __34__DOCFPItemCollectionManager_init__block_invoke_2(uint64_t a1)
 
 - (void)applicationWillEnterForegroundNotification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   observingCollections = [(DOCFPItemCollectionManager *)self observingCollections];
   v3 = docLogHandle;
   if (!docLogHandle)
@@ -93,30 +94,30 @@ void __34__DOCFPItemCollectionManager_init__block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = observingCollections;
+    v18 = observingCollections;
     _os_log_impl(&dword_249340000, v3, OS_LOG_TYPE_DEFAULT, "App will become foreground. Starting collections %@", buf, 0xCu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = observingCollections;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         workingQueue = [v9 workingQueue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -126,13 +127,11 @@ void __34__DOCFPItemCollectionManager_init__block_invoke_2(uint64_t a1)
         dispatch_async(workingQueue, block);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)observingCollections
@@ -194,7 +193,7 @@ void __34__DOCFPItemCollectionManager_init__block_invoke(uint64_t a1)
 
 void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invoke(uint64_t a1, int a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = docLogHandle;
   if (!docLogHandle)
   {
@@ -218,9 +217,9 @@ void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invok
     v7 = v4;
     v8 = [v6 observingCollections];
     *buf = 138412546;
-    v35 = v5;
-    v36 = 2112;
-    v37 = v8;
+    v34 = v5;
+    v35 = 2112;
+    v36 = v8;
     _os_log_impl(&dword_249340000, v7, OS_LOG_TYPE_DEFAULT, "App did enter background. Now performing expiring activity [expired: %@] for collections %@", buf, 0x16u);
   }
 
@@ -231,33 +230,33 @@ void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invok
     {
       v10 = dispatch_group_create();
       [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count")}];
-      v23 = v22 = v9;
+      v22 = v21 = v9;
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v30;
+        v14 = *v29;
         v15 = MEMORY[0x277D85CD0];
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v30 != v14)
+            if (*v29 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v29 + 1) + 8 * i);
+            v17 = *(*(&v28 + 1) + 8 * i);
             v18 = [v17 workingQueue];
 
             if (v18 == v15)
             {
-              [v23 addObject:v17];
+              [v22 addObject:v17];
             }
 
             else
@@ -269,41 +268,39 @@ void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invok
               block[2] = __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invoke_22;
               block[3] = &unk_278F9B430;
               block[4] = v17;
-              v28 = v10;
+              v27 = v10;
               dispatch_async(v19, block);
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
         }
 
         while (v13);
       }
 
-      if ([v23 count])
+      if ([v22 count])
       {
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invoke_23;
-        v24[3] = &unk_278F9B430;
-        v25 = v10;
-        v26 = v23;
-        dispatch_async(MEMORY[0x277D85CD0], v24);
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invoke_23;
+        v23[3] = &unk_278F9B430;
+        v24 = v10;
+        v25 = v22;
+        dispatch_async(MEMORY[0x277D85CD0], v23);
       }
 
       v20 = dispatch_time(0, 3000000000);
       dispatch_group_wait(v10, v20);
 
-      v9 = v22;
+      v9 = v21;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invoke_22(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = docLogHandle;
   if (!docLogHandle)
   {
@@ -314,43 +311,42 @@ void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invok
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_249340000, v2, OS_LOG_TYPE_DEFAULT, "App did enter background. Call stopObserving on working queue for collection %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_249340000, v2, OS_LOG_TYPE_DEFAULT, "App did enter background. Call stopObserving on working queue for collection %@", &v4, 0xCu);
   }
 
   [*(a1 + 32) stopObserving];
   dispatch_group_leave(*(a1 + 40));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invoke_23(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_group_enter(*(a1 + 32));
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v13;
+    v6 = *v12;
     *&v4 = 138412290;
-    v11 = v4;
+    v10 = v4;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         v9 = docLogHandle;
         if (!docLogHandle)
         {
@@ -360,8 +356,8 @@ void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invok
 
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v11;
-          v17 = v8;
+          *buf = v10;
+          v16 = v8;
           _os_log_impl(&dword_249340000, v9, OS_LOG_TYPE_DEFAULT, "App did enter background. Call stopObserving on main queue for collection %@", buf, 0xCu);
         }
 
@@ -370,14 +366,13 @@ void __59__DOCFPItemCollectionManager_applicationDidEnterBackground__block_invok
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v5);
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectionDidStartObserving:(id)observing

@@ -10,11 +10,74 @@
 - (void)returnPressedAtEnd;
 - (void)saveReplies;
 - (void)setCustomReply:(id)reply specifier:(id)specifier;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation RTTCannedMessagesController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = RTTCannedMessagesController;
+  [(RTTCannedMessagesController *)&v6 viewWillAppear:appear];
+  editButtonItem = [(RTTCannedMessagesController *)self editButtonItem];
+  navigationItem = [(RTTCannedMessagesController *)self navigationItem];
+  [navigationItem setRightBarButtonItem:editButtonItem];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  if (editing)
+  {
+    isEditing = 0;
+  }
+
+  else
+  {
+    isEditing = [(RTTCannedMessagesController *)self isEditing];
+  }
+
+  v11.receiver = self;
+  v11.super_class = RTTCannedMessagesController;
+  [(RTTCannedMessagesController *)&v11 setEditing:editingCopy animated:animatedCopy];
+  [(RTTCannedMessagesController *)self returnPressedAtEnd];
+  table = [(RTTCannedMessagesController *)self table];
+  [table setEditing:editingCopy animated:1];
+
+  addNewSpecifier = self->_addNewSpecifier;
+  if (!addNewSpecifier)
+  {
+LABEL_7:
+    if (!isEditing)
+    {
+      return;
+    }
+
+    goto LABEL_8;
+  }
+
+  if (editingCopy)
+  {
+    [(RTTCannedMessagesController *)self removeSpecifier:self->_addNewSpecifier animated:animatedCopy];
+    goto LABEL_7;
+  }
+
+  lastObject = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) lastObject];
+  [(RTTCannedMessagesController *)self insertSpecifier:addNewSpecifier afterSpecifier:lastObject animated:animatedCopy];
+
+  if (!isEditing)
+  {
+    return;
+  }
+
+LABEL_8:
+  [(RTTCannedMessagesController *)self saveReplies];
+}
 
 - (id)specifiers
 {
@@ -207,43 +270,41 @@ void __41__RTTCannedMessagesController_specifiers__block_invoke(uint64_t a1, voi
 
 - (id)cannedRepliesFromSpecifiers
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB18]);
   v4 = *MEMORY[0x277D3FC48];
   v5 = [v3 initWithCapacity:{objc_msgSend(*(&self->super.super.super.super.super.isa + v4), "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = *(&self->super.super.super.super.super.isa + v4);
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) propertyForKey:{@"cannedResponse", v14}];
+        v11 = [*(*(&v13 + 1) + 8 * i) propertyForKey:{@"cannedResponse", v13}];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

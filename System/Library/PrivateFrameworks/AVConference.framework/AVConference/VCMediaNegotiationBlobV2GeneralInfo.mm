@@ -651,30 +651,29 @@ LABEL_9:
 
 - (void)printWithLogFile:(void *)file prefix:(id)prefix
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   ntpTime = [(VCMediaNegotiationBlobV2GeneralInfo *)self ntpTime];
   [(VCMediaNegotiationBlobV2GeneralInfo *)self screenResolution];
   v9 = v8;
   v11 = v10;
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@", objc_msgSend(-[VCMediaNegotiationBlobV2GeneralInfo data](self, "data"), "length"), prefix];
-  [prefix appendFormat:@"General Info: ntpTime=%f screenResolution=%d/%d ABSwitches=0x%08x", NTPToMicro(ntpTime), v9, v11, -[VCMediaNegotiationBlobV2GeneralInfo abSwitches](self, "abSwitches")];
-  uTF8String = [prefix UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v14, v15, v16, v17, v18, v19, uTF8String);
+  [prefix appendFormat:@"General Info: ntpTime=%f screenResolution=%d/%d ABSwitches=0x%08x", NTPToMicro(ntpTime, v13), v9, v11, -[VCMediaNegotiationBlobV2GeneralInfo abSwitches](self, "abSwitches")];
+  VRLogfilePrintWithTimestamp(file, "%s\n", [prefix UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v20 = VRTraceErrorLogLevelToCSTR();
-    v21 = *MEMORY[0x1E6986650];
+    v14 = VRTraceErrorLogLevelToCSTR();
+    v15 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v23 = v20;
-      v24 = 2080;
-      v25 = "[VCMediaNegotiationBlobV2GeneralInfo(Utils) printWithLogFile:prefix:]";
-      v26 = 1024;
-      v27 = 72;
-      v28 = 2112;
-      v29 = prefix;
-      _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v17 = v14;
+      v18 = 2080;
+      v19 = "[VCMediaNegotiationBlobV2GeneralInfo(Utils) printWithLogFile:prefix:]";
+      v20 = 1024;
+      v21 = 72;
+      v22 = 2112;
+      v23 = prefix;
+      _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 }

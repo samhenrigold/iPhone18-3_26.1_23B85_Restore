@@ -109,7 +109,7 @@ void __81__SFSpeechRecognitionTask_localSpeechRecognitionClient_speechRecognitio
 
 - (void)handleSpeechRecognitionDidFailWithError:(uint64_t)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (error)
   {
@@ -123,9 +123,9 @@ void __81__SFSpeechRecognitionTask_localSpeechRecognitionClient_speechRecognitio
     {
       v9 = MEMORY[0x1E696ABC0];
       v10 = *MEMORY[0x1E698D280];
-      v26 = *MEMORY[0x1E696A578];
-      v27[0] = @"User denied access to speech recognition";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v25 = *MEMORY[0x1E696A578];
+      v26[0] = @"User denied access to speech recognition";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
       v8 = [v9 errorWithDomain:v10 code:1700 userInfo:v11];
     }
 
@@ -133,9 +133,9 @@ void __81__SFSpeechRecognitionTask_localSpeechRecognitionClient_speechRecognitio
     {
       v12 = MEMORY[0x1E696ABC0];
       v13 = *v6;
-      v24 = *v7;
-      v25 = @"On device models required for speech recognition on this platform. Set SFSpeechRecognitionRequest.requiresOnDeviceRecognition = true";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = *v7;
+      v24 = @"On device models required for speech recognition on this platform. Set SFSpeechRecognitionRequest.requiresOnDeviceRecognition = true";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       v15 = [v12 errorWithDomain:v13 code:603 userInfo:v14];
 
       v8 = v15;
@@ -146,11 +146,11 @@ void __81__SFSpeechRecognitionTask_localSpeechRecognitionClient_speechRecognitio
       v16 = SFLogFramework;
       if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
       {
-        v20 = 136315394;
-        v21 = "[SFSpeechRecognitionTask handleSpeechRecognitionDidFailWithError:]";
-        v22 = 2112;
-        v23 = v8;
-        _os_log_error_impl(&dword_1AC5BC000, v16, OS_LOG_TYPE_ERROR, "%s Ignoring subsequent recognition error: %@", &v20, 0x16u);
+        v19 = 136315394;
+        v20 = "[SFSpeechRecognitionTask handleSpeechRecognitionDidFailWithError:]";
+        v21 = 2112;
+        v22 = v8;
+        _os_log_error_impl(&dword_1AC5BC000, v16, OS_LOG_TYPE_ERROR, "%s Ignoring subsequent recognition error: %@", &v19, 0x16u);
       }
     }
 
@@ -163,8 +163,6 @@ void __81__SFSpeechRecognitionTask_localSpeechRecognitionClient_speechRecognitio
 
     *(error + 64) = 1;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)localSpeechRecognitionClient:(id)client speechRecordingDidFail:(id)fail
@@ -183,18 +181,18 @@ void __81__SFSpeechRecognitionTask_localSpeechRecognitionClient_speechRecognitio
 
 void __79__SFSpeechRecognitionTask_localSpeechRecognitionClient_speechRecordingDidFail___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 56))
   {
     v2 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
       v3 = *(a1 + 40);
-      v10 = 136315394;
-      v11 = "[SFSpeechRecognitionTask localSpeechRecognitionClient:speechRecordingDidFail:]_block_invoke";
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_1AC5BC000, v2, OS_LOG_TYPE_ERROR, "%s Ignoring subsequent local speech recording error: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[SFSpeechRecognitionTask localSpeechRecognitionClient:speechRecordingDidFail:]_block_invoke";
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_1AC5BC000, v2, OS_LOG_TYPE_ERROR, "%s Ignoring subsequent local speech recording error: %@", &v9, 0x16u);
     }
   }
 
@@ -211,8 +209,6 @@ void __79__SFSpeechRecognitionTask_localSpeechRecognitionClient_speechRecordingD
   v7 = *(a1 + 32);
   v8 = *(v7 + 16);
   *(v7 + 16) = 0;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)localSpeechRecognitionClientSpeechRecordingDidCancel:(id)cancel
@@ -305,18 +301,18 @@ void __74__SFSpeechRecognitionTask_dictationConnectionSpeechRecognitionDidSuccee
 
 void __70__SFSpeechRecognitionTask_dictationConnection_speechRecordingDidFail___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 56))
   {
     v2 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
       v3 = *(a1 + 40);
-      v8 = 136315394;
-      v9 = "[SFSpeechRecognitionTask dictationConnection:speechRecordingDidFail:]_block_invoke";
-      v10 = 2112;
-      v11 = v3;
-      _os_log_error_impl(&dword_1AC5BC000, v2, OS_LOG_TYPE_ERROR, "%s Ignoring subsequent recording error: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[SFSpeechRecognitionTask dictationConnection:speechRecordingDidFail:]_block_invoke";
+      v9 = 2112;
+      v10 = v3;
+      _os_log_error_impl(&dword_1AC5BC000, v2, OS_LOG_TYPE_ERROR, "%s Ignoring subsequent recording error: %@", &v7, 0x16u);
     }
   }
 
@@ -329,7 +325,6 @@ void __70__SFSpeechRecognitionTask_dictationConnection_speechRecordingDidFail___
   }
 
   *(*(a1 + 32) + 64) = 1;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dictationConnectionSpeechRecordingDidCancel:(id)cancel
@@ -394,7 +389,7 @@ uint64_t __32__SFSpeechRecognitionTask_error__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)cancel

@@ -13,7 +13,7 @@
 
 - (void)speechVoiceIdentifierForLanguage:(NSString *)language exists:(BOOL *)exists completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8, &qword_18B2F9520);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -41,7 +41,7 @@
 
 - (void)voiceSelectionForLanguage:(NSString *)language completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8, &qword_18B2F9520);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -68,7 +68,7 @@
 
 - (void)setForLanguage:(NSString *)language voiceSelection:(AXCVoiceSelection *)selection completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8, &qword_18B2F9520);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -97,7 +97,7 @@
 
 - (void)setWithVoiceId:(NSString *)id forLanguage:(NSString *)language completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B64E8, &qword_18B2F9520);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

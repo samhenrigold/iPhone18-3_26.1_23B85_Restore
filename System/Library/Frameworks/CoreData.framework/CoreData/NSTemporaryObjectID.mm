@@ -19,7 +19,7 @@
 
 + (void)initialize
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (objc_getClass("NSTemporaryObjectID") == self)
   {
     objc_opt_self();
@@ -28,9 +28,9 @@
     v3 = [_NS128bitWrapper alloc];
     if (v3)
     {
-      v5.receiver = v3;
-      v5.super_class = _NS128bitWrapper;
-      v3 = objc_msgSendSuper2(&v5, sel_init);
+      v4.receiver = v3;
+      v4.super_class = _NS128bitWrapper;
+      v3 = objc_msgSendSuper2(&v4, sel_init);
       if (v3)
       {
         v3->bits = *out;
@@ -44,8 +44,6 @@
     _NSTemporaryObjectID_Default_Class = objc_allocateClassPair(self, "NSTemporaryObjectID_default", 0x18uLL);
     objc_registerClassPair(_NSTemporaryObjectID_Default_Class);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)release
@@ -123,7 +121,7 @@
 
 + (Class)classForStore:(id)store
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (!store)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Store must not be nil." userInfo:0]);
@@ -132,26 +130,26 @@
   Name = class_getName(self);
   snprintf(__str, 0x100uLL, "%s_%x", Name, 0);
   os_unfair_lock_lock(&_MergedGlobals_7);
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v6 = qword_1ED4BE850;
-  v7 = [qword_1ED4BE850 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v7 = [qword_1ED4BE850 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v37;
+    v9 = *v36;
 LABEL_4:
     v10 = 0;
     while (1)
     {
-      if (*v37 != v9)
+      if (*v36 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v36 + 1) + 8 * v10);
+      v11 = *(*(&v35 + 1) + 8 * v10);
       IndexedIvars = object_getIndexedIvars(v11);
       if (IndexedIvars)
       {
@@ -168,7 +166,7 @@ LABEL_4:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
         if (v8)
         {
           goto LABEL_4;
@@ -265,7 +263,6 @@ LABEL_21:
   }
 
   os_unfair_lock_unlock(&_MergedGlobals_7);
-  v34 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

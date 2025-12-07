@@ -222,72 +222,14 @@ void __84__SKUISubmitFieldSettingDescriptionView_reloadWithSettingDescription_wi
 
 - (void)tintColorDidChange
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUISubmitFieldSettingDescriptionView *)v3 tintColorDidChange:v4];
-      }
-    }
-  }
-
-  v11.receiver = self;
-  v11.super_class = SKUISubmitFieldSettingDescriptionView;
-  [(SKUISubmitFieldSettingDescriptionView *)&v11 tintColorDidChange];
-  [(SKUISubmitFieldSettingDescriptionView *)self setNeedsLayout];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISubmitFieldSettingDescriptionView tintColorDidChange]";
 }
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUISubmitFieldSettingDescriptionView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v26.receiver = self;
-  v26.super_class = SKUISubmitFieldSettingDescriptionView;
-  [(SKUISubmitFieldSettingDescriptionView *)&v26 layoutSubviews];
-  [(SKUISettingDescriptionView *)self layoutMargins];
-  v12 = v11;
-  v14 = v13;
-  [(SKUISubmitFieldSettingDescriptionView *)self bounds];
-  v15 = CGRectGetWidth(v27) - v12 - v14;
-  v16 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-  [(UILabel *)self->_label setFont:v16];
-  [v16 _scaledValueForValue:30.0];
-  v18 = v17;
-  [(UILabel *)self->_label _firstBaselineOffsetFromTop];
-  v20 = v18 - v19;
-  [(UILabel *)self->_label sizeThatFits:v15, 1.0];
-  [(UILabel *)self->_label setFrame:v12, v20, v15, v21];
-  _currentControllerValue = [(SKUISubmitFieldSettingDescriptionView *)self _currentControllerValue];
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    bOOLValue = [_currentControllerValue BOOLValue];
-    label = self->_label;
-    if (bOOLValue)
-    {
-      [(SKUISubmitFieldSettingDescriptionView *)self tintColor];
-    }
-
-    else
-    {
-      [MEMORY[0x277D75348] grayColor];
-    }
-    v25 = ;
-    [(UILabel *)label setTextColor:v25];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISubmitFieldSettingDescriptionView layoutSubviews]";
 }
 
 - (void)_addInputWithElement:(id)element
@@ -335,6 +277,54 @@ void __84__SKUISubmitFieldSettingDescriptionView_reloadWithSettingDescription_wi
   }
 
   return v4;
+}
+
+- (void)setEnabled:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISubmitFieldSettingDescriptionView setEnabled:]";
+}
+
++ (void)prefetchResourcesForSettingDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISubmitFieldSettingDescriptionView prefetchResourcesForSettingDescription:reason:context:]";
+}
+
++ (void)preferredSizeForSettingDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISubmitFieldSettingDescriptionView preferredSizeForSettingDescription:context:]";
+}
+
++ (void)requestLayoutForSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISubmitFieldSettingDescriptionView requestLayoutForSettingDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISubmitFieldSettingDescriptionView sizeThatFitsWidth:settingDescription:context:]";
+}
+
+- (void)reloadWithSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISubmitFieldSettingDescriptionView reloadWithSettingDescription:width:context:]";
+}
+
+- (void)setContentInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISubmitFieldSettingDescriptionView setContentInset:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISubmitFieldSettingDescriptionView setImage:forArtworkRequest:context:]";
 }
 
 @end

@@ -16,7 +16,7 @@
 
 - (void)handleManualStateChangeRequest:(id)request
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   homeActivityStateMachine = [(HMDHomeActivityState *)self homeActivityStateMachine];
   if (homeActivityStateMachine)
@@ -34,11 +34,11 @@
       {
         v26 = HMFGetLogIdentifier();
         v27 = HMDHomeActivityStateTypeToString(unsignedIntegerValue);
-        v29 = 138543618;
-        v30 = v26;
-        v31 = 2112;
-        v32 = v27;
-        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Can't put a HOLD on an invalid state : %@", &v29, 0x16u);
+        v28 = 138543618;
+        v29 = v26;
+        v30 = 2112;
+        v31 = v27;
+        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Can't put a HOLD on an invalid state : %@", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -62,15 +62,15 @@
       {
         v17 = HMFGetLogIdentifier();
         v18 = HMDHomeActivityStateTypeToString(unsignedIntegerValue);
-        v29 = 138544130;
-        v30 = v17;
-        v31 = 2112;
-        v32 = v18;
-        v33 = 2112;
-        v34 = requestCopy;
-        v35 = 2112;
-        v36 = v13;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@User manually requested to change the home activity state to %@, event: %@, hold info: %@", &v29, 0x2Au);
+        v28 = 138544130;
+        v29 = v17;
+        v30 = 2112;
+        v31 = v18;
+        v32 = 2112;
+        v33 = requestCopy;
+        v34 = 2112;
+        v35 = v13;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@User manually requested to change the home activity state to %@, event: %@, hold info: %@", &v28, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -86,31 +86,27 @@
 
     [requestCopy completedWithError:v22];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelHoldAndStartProbeWithProbingReason:(unint64_t)reason transitionReason:(int64_t)transitionReason
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"probingReason";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"probingReason";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:reason];
-  v12[1] = @"stateTransitionReason";
-  v13[0] = v6;
+  v11[1] = @"stateTransitionReason";
+  v12[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:transitionReason];
-  v13[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   v9 = [objc_alloc(MEMORY[0x277D02920]) initWithName:@"startProbe" userInfo:v8];
   homeActivityStateMachine = [(HMDHomeActivityState *)self homeActivityStateMachine];
   [homeActivityStateMachine dispatchEvent:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHoldTimerExpired
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -118,16 +114,15 @@
   {
     v6 = HMFGetLogIdentifier();
     activityStateHoldInfo = [(HMDHomeActivityHoldState *)selfCopy activityStateHoldInfo];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = activityStateHoldInfo;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Hold expired : %@. Going to start probing for next step", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = activityStateHoldInfo;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Hold expired : %@. Going to start probing for next step", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDHomeActivityHoldState *)selfCopy cancelHoldAndStartProbeWithProbingReason:2 transitionReason:2];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
@@ -148,7 +143,7 @@
 
 - (void)scheduleHoldExpiredTimerFromHoldInfo:(id)info
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dataSource = [(HMDHomeActivityState *)self dataSource];
   if (dataSource)
@@ -168,13 +163,13 @@
       endDate2 = [infoCopy endDate];
       hmf_localTimeDescription = [endDate2 hmf_localTimeDescription];
       v16 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
-      v29 = 138543874;
-      v30 = v13;
-      v31 = 2112;
-      v32 = hmf_localTimeDescription;
-      v33 = 2112;
-      v34 = v16;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting the audit timer to fire at %@, seconds before hold expires: %@", &v29, 0x20u);
+      v28 = 138543874;
+      v29 = v13;
+      v30 = 2112;
+      v31 = hmf_localTimeDescription;
+      v32 = 2112;
+      v33 = v16;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting the audit timer to fire at %@, seconds before hold expires: %@", &v28, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -204,24 +199,22 @@
       {
         v20 = HMFGetLogIdentifier();
         v21 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
-        v29 = 138543618;
-        v30 = v20;
-        v31 = 2112;
-        v32 = v21;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Not scheduling the timer for less than 1 second interval : %@", &v29, 0x16u);
+        v28 = 138543618;
+        v29 = v20;
+        v30 = 2112;
+        v31 = v21;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Not scheduling the timer for less than 1 second interval : %@", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
       [(HMDHomeActivityHoldState *)v18 handleHoldTimerExpired];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)applyHoldWithHoldInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dataSource = [(HMDHomeActivityState *)self dataSource];
   currentDate = [dataSource currentDate];
@@ -240,21 +233,20 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Cannot apply Hold since it has already been expired", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Cannot apply Hold since it has already been expired", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)handleEnterEvent:(id)event
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   userInfo = [eventCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"holdInfo"];
@@ -280,9 +272,9 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v19;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot process hold request as hold info is nil. Going to start probing again.", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v19;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot process hold request as hold info is nil. Going to start probing again.", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -295,8 +287,8 @@
     }
 
     v12 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v12;
+    v21 = 138543362;
+    v22 = v12;
     v13 = "%{public}@Cannot process hold request as hold info is nil";
     v14 = v11;
     v15 = OS_LOG_TYPE_FAULT;
@@ -320,29 +312,27 @@ LABEL_13:
     }
 
     v12 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v12;
+    v21 = 138543362;
+    v22 = v12;
     v13 = "%{public}@Could not apply the hold. Going to request probing again.";
     v14 = v11;
     v15 = OS_LOG_TYPE_ERROR;
 LABEL_12:
-    _os_log_impl(&dword_229538000, v14, v15, v13, &v22, 0xCu);
+    _os_log_impl(&dword_229538000, v14, v15, v13, &v21, 0xCu);
 
     goto LABEL_13;
   }
 
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onInitialTransition:(id)transition
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   transitionCopy = transition;
-  v22.receiver = self;
-  v22.super_class = HMDHomeActivityHoldState;
-  [(HMDHomeActivityState *)&v22 onInitialTransition:transitionCopy];
+  v21.receiver = self;
+  v21.super_class = HMDHomeActivityHoldState;
+  [(HMDHomeActivityState *)&v21 onInitialTransition:transitionCopy];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -354,13 +344,13 @@ LABEL_14:
     name = [transitionCopy name];
     activityStateHoldInfo = [(HMDHomeActivityHoldState *)selfCopy activityStateHoldInfo];
     *buf = 138544130;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v10;
-    v27 = 2112;
-    v28 = name;
-    v29 = 2112;
-    v30 = activityStateHoldInfo;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v10;
+    v26 = 2112;
+    v27 = name;
+    v28 = 2112;
+    v29 = activityStateHoldInfo;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@onInitialTransition : %@ / %@ / %@", buf, 0x2Au);
   }
 
@@ -384,14 +374,12 @@ LABEL_14:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v20;
+      v23 = v20;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@We are in hold state without HOLD information. Houston we have a problem!!!", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)handleEvent:(id)event
@@ -482,10 +470,9 @@ LABEL_12:
 
 void __39__HMDHomeActivityHoldState_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_74354;
-  logCategory__hmf_once_v13_74354 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_74354;
+  logCategory__hmf_once_v13_74354 = v0;
 }
 
 @end

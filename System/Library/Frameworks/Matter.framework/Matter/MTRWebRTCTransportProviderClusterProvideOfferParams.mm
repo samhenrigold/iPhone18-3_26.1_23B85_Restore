@@ -110,28 +110,28 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   LOBYTE(unsignedShortValue) = 0;
-  v55 = 0;
+  v54 = 0;
   unsignedShortValue2 = 0;
-  v59 = 0;
-  v61 = 0;
-  v63 = 0;
-  v66 = 0;
-  LOBYTE(v68) = 0;
-  v69 = 0;
-  v56 = 0uLL;
+  v58 = 0;
+  v60 = 0;
+  v62 = 0;
+  v65 = 0;
+  LOBYTE(v67) = 0;
+  v68 = 0;
+  v55 = 0uLL;
   unsignedCharValue = 0;
-  v53[0] = 0;
-  v53[1] = 0;
-  v52 = v53;
+  v52[0] = 0;
+  v52[1] = 0;
+  v51 = v52;
   webRTCSessionID = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self webRTCSessionID];
   v5 = webRTCSessionID == 0;
 
   if (!v5)
   {
     unsignedShortValue = 0;
-    v55 = 1;
+    v54 = 1;
     webRTCSessionID2 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self webRTCSessionID];
     unsignedShortValue = [webRTCSessionID2 unsignedShortValue];
   }
@@ -140,7 +140,7 @@
   v8 = v7;
   sub_238DB9BD8(buf, [v7 UTF8String], objc_msgSend(v7, "lengthOfBytesUsingEncoding:", 4));
 
-  v56 = *buf;
+  v55 = *buf;
   streamUsage = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self streamUsage];
   unsignedCharValue = [streamUsage unsignedCharValue];
 
@@ -152,17 +152,17 @@
 
   if (!v12)
   {
-    v59 = 1;
-    v60 = 0;
+    v58 = 1;
+    v59 = 0;
     videoStreamID2 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self videoStreamID];
     v14 = videoStreamID2 == 0;
 
     if (!v14)
     {
-      LOWORD(v60) = 0;
-      BYTE2(v60) = 1;
+      LOWORD(v59) = 0;
+      BYTE2(v59) = 1;
       videoStreamID3 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self videoStreamID];
-      LOWORD(v60) = [videoStreamID3 unsignedShortValue];
+      LOWORD(v59) = [videoStreamID3 unsignedShortValue];
     }
   }
 
@@ -171,17 +171,17 @@
 
   if (!v17)
   {
-    v61 = 1;
-    v62 = 0;
+    v60 = 1;
+    v61 = 0;
     audioStreamID2 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self audioStreamID];
     v19 = audioStreamID2 == 0;
 
     if (!v19)
     {
-      LOWORD(v62) = 0;
-      BYTE2(v62) = 1;
+      LOWORD(v61) = 0;
+      BYTE2(v61) = 1;
       audioStreamID3 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self audioStreamID];
-      LOWORD(v62) = [audioStreamID3 unsignedShortValue];
+      LOWORD(v61) = [audioStreamID3 unsignedShortValue];
     }
   }
 
@@ -190,9 +190,9 @@
 
   if (!v22)
   {
-    v63 = 1;
+    v62 = 1;
+    v63 = 0;
     v64 = 0;
-    v65 = 0;
     iceServers2 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self iceServers];
     v24 = [iceServers2 count] == 0;
 
@@ -201,8 +201,8 @@
       operator new();
     }
 
+    v63 = 0;
     v64 = 0;
-    v65 = 0;
   }
 
   iceTransportPolicy = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self iceTransportPolicy];
@@ -210,13 +210,13 @@
 
   if (!v26)
   {
-    v66 = 1;
-    v67 = 0uLL;
+    v65 = 1;
+    v66 = 0uLL;
     iceTransportPolicy2 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self iceTransportPolicy];
     v28 = iceTransportPolicy2;
     sub_238DB9BD8(buf, [iceTransportPolicy2 UTF8String], objc_msgSend(iceTransportPolicy2, "lengthOfBytesUsingEncoding:", 4));
 
-    v67 = *buf;
+    v66 = *buf;
   }
 
   metadataEnabled = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self metadataEnabled];
@@ -224,9 +224,9 @@
 
   if (!v30)
   {
-    v68 = 1;
+    v67 = 1;
     metadataEnabled2 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self metadataEnabled];
-    HIBYTE(v68) = [metadataEnabled2 BOOLValue];
+    HIBYTE(v67) = [metadataEnabled2 BOOLValue];
   }
 
   sFrameConfig = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self sFrameConfig];
@@ -234,54 +234,54 @@
 
   if (!v33)
   {
-    v69 = 1;
-    memset(v70, 0, sizeof(v70));
+    v68 = 1;
+    memset(v69, 0, sizeof(v69));
     sFrameConfig2 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self sFrameConfig];
     cipherSuite = [sFrameConfig2 cipherSuite];
-    LOWORD(v70[0]) = [cipherSuite unsignedShortValue];
+    LOWORD(v69[0]) = [cipherSuite unsignedShortValue];
 
     sFrameConfig3 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self sFrameConfig];
     baseKey = [sFrameConfig3 baseKey];
     v38 = baseKey;
     sub_238DB6950(buf, [baseKey bytes], objc_msgSend(baseKey, "length"));
 
-    *&v70[1] = *buf;
+    *&v69[1] = *buf;
     sFrameConfig4 = [(MTRWebRTCTransportProviderClusterProvideOfferParams *)self sFrameConfig];
     v40 = [sFrameConfig4 kid];
     v41 = v40;
     sub_238DB6950(buf, [v40 bytes], objc_msgSend(v40, "length"));
 
-    *&v70[3] = *buf;
+    *&v69[3] = *buf;
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v51);
-  if (v51)
+  sub_2393D9C18(0x62FuLL, 0, &v50);
+  if (v50)
   {
     sub_2393C7B90(buf);
+    v72 = 0;
     v73 = 0;
+    v71 = &unk_284BB83A8;
     v74 = 0;
-    v72 = &unk_284BB83A8;
-    v75 = 0;
-    sub_238EA16C4(&v72, &v51, 0);
-    sub_2393C7BF0(buf, &v72, 0xFFFFFFFF);
+    sub_238EA16C4(&v71, &v50, 0);
+    sub_2393C7BF0(buf, &v71, 0xFFFFFFFF);
     v43 = sub_238F33528(&unsignedShortValue, buf, 0x100uLL);
     v44 = v43;
-    if (v43 || (v43 = sub_238DD2EFC(buf, &v51), v44 = v43, v43))
+    if (v43 || (v43 = sub_238DD2EFC(buf, &v50), v44 = v43, v43))
     {
       v45 = v42;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v51);
+      sub_238DD2F90(reader, &v50);
       v43 = sub_2393C7114(reader, 21, 256);
-      v45 = v49;
+      v45 = v48;
       v44 = v43;
     }
 
-    v72 = &unk_284BB83A8;
-    sub_238EA1758(&v74);
+    v71 = &unk_284BB83A8;
     sub_238EA1758(&v73);
+    sub_238EA1758(&v72);
   }
 
   else
@@ -291,14 +291,13 @@
     v44 = 11;
   }
 
-  sub_238EA1758(&v51);
-  sub_238EA1790(&v52);
-  v46 = *MEMORY[0x277D85DE8];
-  v47 = v43 & 0xFFFFFFFF00000000 | v44;
-  v48 = v45;
-  result.mFile = v48;
-  result.mError = v47;
-  result.mLine = HIDWORD(v47);
+  sub_238EA1758(&v50);
+  sub_238EA1790(&v51);
+  v46 = v43 & 0xFFFFFFFF00000000 | v44;
+  v47 = v45;
+  result.mFile = v47;
+  result.mError = v46;
+  result.mLine = HIDWORD(v46);
   return result;
 }
 

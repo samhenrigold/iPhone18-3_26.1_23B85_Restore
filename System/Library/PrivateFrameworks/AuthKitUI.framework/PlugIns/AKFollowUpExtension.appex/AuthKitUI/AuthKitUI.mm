@@ -134,13 +134,12 @@ void sub_100003A90(uint64_t a1, char a2)
 
 void sub_100003C2C(uint64_t a1, char a2, id obj)
 {
-  v7 = a1;
-  v6 = a2;
+  v6 = a1;
+  v5 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
   if (*(a1 + 32))
   {
-    v3 = *(a1 + 40) & 1;
     (*(*(a1 + 32) + 16))();
   }
 
@@ -709,22 +708,20 @@ void sub_100007558(uint64_t a1, char a2, id obj)
 
 void sub_1000077CC(uint64_t a1, char a2, id obj)
 {
-  v7 = a1;
-  v6 = a2;
+  v6 = a1;
+  v5 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
   objc_storeStrong(&location, 0);
 }
 
 void sub_100007840(uint64_t a1, char a2, id obj)
 {
-  v7 = a1;
-  v6 = a2;
+  v6 = a1;
+  v5 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
   objc_storeStrong(&location, 0);
 }
@@ -858,19 +855,13 @@ void sub_1000081DC(uint64_t a1, void *a2, void *a3, void *a4)
   objc_storeStrong(location, 0);
 }
 
-void sub_100008484(void *a1, char a2, id obj)
+void sub_100008484(uint64_t a1, char a2, id obj)
 {
-  v8 = a1;
-  v7 = a2;
+  v6 = a1;
+  v5 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  if (v7)
-  {
-    v3 = a1[4];
-    v4 = a1[5];
-  }
-
-  (*(a1[6] + 16))();
+  (*(*(a1 + 48) + 16))();
   objc_storeStrong(&location, 0);
 }
 
@@ -1016,10 +1007,9 @@ uint64_t sub_1000097D4(uint64_t a1)
 uint64_t sub_1000098E8(uint64_t a1)
 {
   memcpy(__dst, off_100010740, sizeof(__dst));
-  v1 = *(a1 + 40);
-  v2 = _sl_dlopen();
+  v1 = _sl_dlopen();
   result = a1;
-  *(*(*(a1 + 32) + 8) + 24) = v2;
+  *(*(*(a1 + 32) + 8) + 24) = v1;
   qword_100014A50 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
@@ -1030,7 +1020,7 @@ uint64_t sub_1000099A8()
   v1 = sub_1000097D4(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -1074,7 +1064,7 @@ uint64_t sub_100009B54(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLFollowUpAction");
   }
 
   qword_100014A58 = *(*(*(a1 + 32) + 8) + 24);
@@ -1114,7 +1104,7 @@ uint64_t sub_100009D2C(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLFollowUpController");
   }
 
   qword_100014A60 = *(*(*(a1 + 32) + 8) + 24);
@@ -1154,7 +1144,7 @@ uint64_t sub_100009F04(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLFollowUpItem");
   }
 
   qword_100014A68 = *(*(*(a1 + 32) + 8) + 24);
@@ -1194,7 +1184,7 @@ uint64_t sub_10000A0DC(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLFollowUpNotification");
   }
 
   qword_100014A70 = *(*(*(a1 + 32) + 8) + 24);
@@ -1234,7 +1224,7 @@ uint64_t sub_10000A2B4(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLHSA2LoginNotification");
   }
 
   qword_100014A78 = *(*(*(a1 + 32) + 8) + 24);
@@ -1274,7 +1264,7 @@ uint64_t sub_10000A48C(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "FLHSA2PasswordResetNotification");
   }
 
   qword_100014A80 = *(*(*(a1 + 32) + 8) + 24);
@@ -1317,16 +1307,16 @@ uint64_t sub_10000A63C(uint64_t a1)
 
 id sub_10000A6A8()
 {
-  v2 = sub_10000A534();
-  if (!v2)
+  v3 = sub_10000A534();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10000A710()
@@ -1365,16 +1355,16 @@ uint64_t sub_10000A818(uint64_t a1)
 
 id sub_10000A884()
 {
-  v2 = sub_10000A710();
-  if (!v2)
+  v3 = sub_10000A710();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10000A8EC()
@@ -1413,16 +1403,16 @@ uint64_t sub_10000A9F4(uint64_t a1)
 
 id sub_10000AA60()
 {
-  v2 = sub_10000A8EC();
-  if (!v2)
+  v3 = sub_10000A8EC();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10000AAC8()
@@ -1461,16 +1451,16 @@ uint64_t sub_10000ABD0(uint64_t a1)
 
 id sub_10000AC3C()
 {
-  v2 = sub_10000AAC8();
-  if (!v2)
+  v3 = sub_10000AAC8();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10000ACA4()
@@ -1509,16 +1499,16 @@ uint64_t sub_10000ADAC(uint64_t a1)
 
 id sub_10000AE18()
 {
-  v2 = sub_10000ACA4();
-  if (!v2)
+  v3 = sub_10000ACA4();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10000AE80()
@@ -1557,16 +1547,16 @@ uint64_t sub_10000AF88(uint64_t a1)
 
 id sub_10000AFF4()
 {
-  v2 = sub_10000AE80();
-  if (!v2)
+  v3 = sub_10000AE80();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10000B05C()
@@ -1605,16 +1595,16 @@ uint64_t sub_10000B164(uint64_t a1)
 
 id sub_10000B1D0()
 {
-  v2 = sub_10000B05C();
-  if (!v2)
+  v3 = sub_10000B05C();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10000B238()
@@ -1653,16 +1643,16 @@ uint64_t sub_10000B340(uint64_t a1)
 
 id sub_10000B3AC()
 {
-  v2 = sub_10000B238();
-  if (!v2)
+  v3 = sub_10000B238();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10000B414()
@@ -1701,14 +1691,14 @@ uint64_t sub_10000B51C(uint64_t a1)
 
 id sub_10000B588()
 {
-  v2 = sub_10000B414();
-  if (!v2)
+  v3 = sub_10000B414();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }

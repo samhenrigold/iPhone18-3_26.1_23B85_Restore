@@ -115,8 +115,8 @@ void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke(uint
 
   if (v4)
   {
-    v5 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_modes(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_cold_1(a1, v3);
     }
@@ -130,8 +130,8 @@ void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2(ui
 
   if (v4)
   {
-    v5 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_modes(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2_cold_1(a1, v3);
     }
@@ -140,7 +140,7 @@ void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2(ui
 
 - (id)transitionPublisherFromStartTime:(double)time
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v5 = [(ATXTimeBasedInferredActivityBiomeStream *)self->_timeBasedInferredActivityStream transitionPublisherFromStartTime:?];
   bpsPublisher = v5;
   if (!v5)
@@ -148,7 +148,7 @@ void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2(ui
     bpsPublisher = [MEMORY[0x277CBEBF8] bpsPublisher];
   }
 
-  v19[0] = bpsPublisher;
+  v18[0] = bpsPublisher;
   v7 = [(ATXAppLaunchBasedInferredActivityBiomeStream *)self->_appLaunchInferredActivityStream transitionPublisherFromStartTime:time];
   bpsPublisher2 = v7;
   if (!v7)
@@ -156,7 +156,7 @@ void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2(ui
     bpsPublisher2 = [MEMORY[0x277CBEBF8] bpsPublisher];
   }
 
-  v19[1] = bpsPublisher2;
+  v18[1] = bpsPublisher2;
   v9 = [(ATXHeuristicInferredActivityBiomeStream *)self->_heuristicInferredActivityStream transitionPublisherFromStartTime:time];
   bpsPublisher3 = v9;
   if (!v9)
@@ -164,7 +164,7 @@ void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2(ui
     bpsPublisher3 = [MEMORY[0x277CBEBF8] bpsPublisher];
   }
 
-  v19[2] = bpsPublisher3;
+  v18[2] = bpsPublisher3;
   v11 = [(ATXUserFocusComputedActivityBiomeStream *)self->_userFocusComputedActivityStream transitionPublisherFromStartTime:time];
   bpsPublisher4 = v11;
   if (!v11)
@@ -172,8 +172,8 @@ void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2(ui
     bpsPublisher4 = [MEMORY[0x277CBEBF8] bpsPublisher];
   }
 
-  v19[3] = bpsPublisher4;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+  v18[3] = bpsPublisher4;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
   if (!v11)
   {
   }
@@ -193,8 +193,6 @@ void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2(ui
   v14 = [(ATXUnifiedActivityBiomeStream *)self _mergeTransitionPublishers:v13];
   v15 = objc_opt_new();
   v16 = [v15 combineTransitions:v14];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -257,28 +255,20 @@ uint64_t __70__ATXUnifiedActivityBiomeStream__mergeTransitionPublisher_withOther
 
 void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = [a2 error];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [a2 error];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v7, v8, "%@ - error fetching last activity transition from ATXUserFocusComputedActivityBiomeStream: %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v6, v7, "%@ - error fetching last activity transition from ATXUserFocusComputedActivityBiomeStream: %@", v8, v9, v10, v11);
 }
 
 void __53__ATXUnifiedActivityBiomeStream_efficientCurrentMode__block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = [a2 error];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [a2 error];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v7, v8, "%@ - error fetching last activity transition from ATXHeuristicInferredActivityBiomeStream: %@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v6, v7, "%@ - error fetching last activity transition from ATXHeuristicInferredActivityBiomeStream: %@", v8, v9, v10, v11);
 }
 
 @end

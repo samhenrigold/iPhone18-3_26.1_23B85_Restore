@@ -104,7 +104,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   v7 = PRUISPosterChannelStateCoordinator.prepareStateTransitionWithUpdater(_:)(updater);
-  sub_1CAEBBDE4(v7);
+  sub_1CAEBBDE4(v7, v8);
 
   swift_unknownObjectRelease();
   return 1;
@@ -154,7 +154,7 @@
 
 - (BOOL)ingestUpdatedDescriptors:(id)descriptors forState:(id)state withMetadata:(id)metadata withPolicy:(unint64_t)policy error:(id *)error
 {
-  sub_1CAEB33A4(0, &unk_1EC481DA0);
+  sub_1CAEB33A4(0, &unk_1EC481DA0, 0x1E69C5018);
   v11 = sub_1CAEFA49C();
   stateCopy = state;
   metadataCopy = metadata;

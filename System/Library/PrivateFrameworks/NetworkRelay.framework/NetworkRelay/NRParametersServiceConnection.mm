@@ -7,7 +7,7 @@
 - (NRParametersServiceConnection)initWithDeviceIdentifier:(id)identifier dataProtectionClass:(unsigned __int8)class options:(id)options
 {
   classCopy = class;
-  v63 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   optionsCopy = options;
   if (identifierCopy)
@@ -59,7 +59,7 @@
     nw_parameters_set_local_only(application_service_quic_using_identity, 0);
     v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
     [v19 addObject:@"com.apple.networkrelay.encoded"];
-    v61 = optionsCopy;
+    v47 = optionsCopy;
     if (optionsCopy)
     {
       optionsCopy = [optionsCopy objectForKeyedSubscript:@"AllowsQR"];
@@ -84,6 +84,7 @@
     if (v21)
     {
       v22 = v21;
+      v46 = identifierCopy;
       v23 = xpc_array_create(0, 0);
       if (v23)
       {
@@ -92,15 +93,16 @@
         xpc_array_set_string(v24, 0xFFFFFFFFFFFFFFFFLL, "RapportNetworkAgent");
         nw_parameters_set_prohibited_netagent_classes();
 
-        optionsCopy = v61;
+        identifierCopy = v46;
+        optionsCopy = v47;
 LABEL_22:
-        v62.receiver = self;
-        v62.super_class = NRParametersServiceConnection;
-        v25 = [(NRParameters *)&v62 initWithParameters:application_service_quic_using_identity];
+        v48.receiver = self;
+        v48.super_class = NRParametersServiceConnection;
+        v25 = [(NRParameters *)&v48 initWithParameters:application_service_quic_using_identity];
         self = v25;
         if (v25)
         {
-          v31 = v25;
+          v26 = v25;
         }
 
         else
@@ -112,7 +114,7 @@ LABEL_22:
 
           if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_2810, OS_LOG_TYPE_FAULT))
           {
-            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_2810, 17, "[super initWithParameters:] failed", v26, v27, v28, v29, v30, v60);
+            _NRLogWithArgs(nrCopyLogObj_sNRLogObj_2810, 17, "[super initWithParameters:] failed");
           }
         }
 
@@ -120,13 +122,13 @@ LABEL_22:
         goto LABEL_30;
       }
 
-      v44 = nrCopyLogObj_2805();
+      v33 = nrCopyLogObj_2805();
       if (sNRCopyLogToStdErr != 1)
       {
-        v47 = v44;
-        v48 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
+        v36 = v33;
+        v37 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
 
-        if (!v48)
+        if (!v37)
         {
           goto LABEL_44;
         }
@@ -137,13 +139,13 @@ LABEL_22:
 
     else
     {
-      v44 = nrCopyLogObj_2805();
+      v33 = nrCopyLogObj_2805();
       if (sNRCopyLogToStdErr != 1)
       {
-        v45 = v44;
-        v46 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
+        v34 = v33;
+        v35 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
 
-        if (!v46)
+        if (!v35)
         {
           goto LABEL_44;
         }
@@ -153,43 +155,42 @@ LABEL_22:
     }
 
 LABEL_43:
-    v49 = nrCopyLogObj_2805();
-    _NRLogWithArgs(v49, 16, "%s%.30s:%-4d ABORTING: xpc_array_create(%p, %u) failed", v50, v51, v52, v53, v54, "");
+    v38 = nrCopyLogObj_2805();
+    _NRLogWithArgs(v38, 16, "%s%.30s:%-4d ABORTING: xpc_array_create(%p, %u) failed", ", "nr_xpc_array_create"", 56, 0, 0);
 
 LABEL_44:
-    v55 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v55, v56);
-    v57 = *__error();
-    v58 = _os_log_pack_fill();
-    __os_log_helper_1_2_3_8_34_8_0_4_0(v58, "nr_xpc_array_create");
-    v59 = nrCopyLogObj_2805();
-    _NRLogAbortWithPack(v59);
+    v39 = _os_log_pack_size();
+    v41 = &v45 - ((MEMORY[0x28223BE20](v39, v40) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v42 = __error();
+    v43 = _os_log_pack_fill(v41, v39, *v42, &dword_25B98C000, "%{public}s xpc_array_create(%p, %u) failed");
+    __os_log_helper_1_2_3_8_34_8_0_4_0(v43, "nr_xpc_array_create");
+    v44 = nrCopyLogObj_2805();
+    _NRLogAbortWithPack(v44, v41);
   }
 
-  v35 = nrCopyLogObj_2805();
+  v29 = nrCopyLogObj_2805();
   if (sNRCopyLogToStdErr == 1)
   {
   }
 
   else
   {
-    v36 = v35;
-    v37 = os_log_type_enabled(v35, OS_LOG_TYPE_FAULT);
+    v30 = v29;
+    v31 = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
 
-    if (!v37)
+    if (!v31)
     {
       selfCopy = 0;
       goto LABEL_30;
     }
   }
 
-  v38 = nrCopyLogObj_2805();
-  _NRLogWithArgs(v38, 17, "%s called with null deviceIdentifier", v39, v40, v41, v42, v43, "[NRParametersServiceConnection initWithDeviceIdentifier:dataProtectionClass:options:]");
+  v32 = nrCopyLogObj_2805();
+  _NRLogWithArgs(v32, 17, "%s called with null deviceIdentifier", "[NRParametersServiceConnection initWithDeviceIdentifier:dataProtectionClass:options:]");
 
   selfCopy = 0;
 LABEL_30:
 
-  v33 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -17,7 +17,7 @@
 - (void)setInCallControlsState:(int64_t)state
 {
   selfCopy = self;
-  MultiwayViewConstraintsController.inCallControlsState.setter(state);
+  MultiwayViewConstraintsController.inCallControlsState.setter(state, selfCopy);
 }
 
 - (void)updateFor:(CGRect)for deviceOrientation:(int64_t)orientation

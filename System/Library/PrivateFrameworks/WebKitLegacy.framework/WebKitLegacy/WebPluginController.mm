@@ -743,7 +743,7 @@ LABEL_29:
     dataSource = self->_dataSource;
     if (dataSource)
     {
-      [(WebDataSource *)dataSource _documentLoader];
+      objc_msgSend__documentLoader(dataSource);
     }
 
     else

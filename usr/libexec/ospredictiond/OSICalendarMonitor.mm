@@ -65,62 +65,60 @@
 {
   dsCopy = ds;
   v5 = +[NSDate distantFuture];
+  v31 = 0u;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v7)
   {
     v9 = v7;
     log = 0;
-    v10 = *v34;
-    v11 = &MGGetBoolAnswer_ptr;
+    v10 = *v32;
     *&v8 = 138412546;
-    v27 = v8;
-    v30 = v6;
+    v25 = v8;
+    v28 = v6;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v34 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = [(EKEventStore *)self->_calendar publicObjectWithObjectID:*(*(&v33 + 1) + 8 * i), v27];
-        v14 = v11[155];
+        v12 = [(EKEventStore *)self->_calendar publicObjectWithObjectID:*(*(&v31 + 1) + 8 * i), v25];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = v13;
-          if (([v15 isAllDay] & 1) == 0)
+          v13 = v12;
+          if (([v13 isAllDay] & 1) == 0)
           {
-            suggestionInfo = [v15 suggestionInfo];
+            suggestionInfo = [v13 suggestionInfo];
 
             if (suggestionInfo)
             {
-              v17 = [SGEventMetadata eventMetadataFromEKEvent:v15];
-              categoryDescription = [v17 categoryDescription];
-              v19 = [categoryDescription localizedCaseInsensitiveContainsString:@"flight"];
+              v15 = [SGEventMetadata eventMetadataFromEKEvent:v13];
+              categoryDescription = [v15 categoryDescription];
+              v17 = [categoryDescription localizedCaseInsensitiveContainsString:@"flight"];
 
-              if (v19 && ([v15 startDate], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "timeIntervalSinceDate:", v5), v22 = v21, v20, v22 < 0.0))
+              if (v17 && ([v13 startDate], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "timeIntervalSinceDate:", v5), v20 = v19, v18, v20 < 0.0))
               {
-                v23 = v15;
+                v21 = v13;
 
-                startDate = [v23 startDate];
+                startDate = [v21 startDate];
 
-                v25 = self->_log;
-                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+                v23 = self->_log;
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                 {
-                  loga = v25;
-                  startDate2 = [v23 startDate];
-                  endDate = [v23 endDate];
-                  *buf = v27;
-                  v38 = startDate2;
-                  v39 = 2112;
-                  v40 = endDate;
+                  loga = v23;
+                  startDate2 = [v21 startDate];
+                  endDate = [v21 endDate];
+                  *buf = v25;
+                  v36 = startDate2;
+                  v37 = 2112;
+                  v38 = endDate;
                   _os_log_impl(&_mh_execute_header, loga, OS_LOG_TYPE_DEFAULT, "Found flight from %@-%@", buf, 0x16u);
                 }
               }
@@ -128,19 +126,18 @@
               else
               {
                 startDate = v5;
-                v23 = log;
+                v21 = log;
               }
 
               v5 = startDate;
-              log = v23;
-              v6 = v30;
-              v11 = &MGGetBoolAnswer_ptr;
+              log = v21;
+              v6 = v28;
             }
           }
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v9);

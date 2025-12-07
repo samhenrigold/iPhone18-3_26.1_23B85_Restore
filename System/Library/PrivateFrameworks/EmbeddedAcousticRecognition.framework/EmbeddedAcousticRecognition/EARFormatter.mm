@@ -10,7 +10,7 @@ void __111___EARFormatter_initWithQuasarConfig_overrideConfigFiles_supportEmojiR
   v5 = *(*(a1 + 32) + 8);
   if (v3)
   {
-    [v3 ear_toString];
+    objc_msgSend_ear_toString(v3);
   }
 
   else

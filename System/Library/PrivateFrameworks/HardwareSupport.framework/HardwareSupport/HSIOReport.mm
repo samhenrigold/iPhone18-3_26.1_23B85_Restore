@@ -121,23 +121,21 @@
 
 - (id)description
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
-  v13.receiver = self;
-  v13.super_class = HSIOReport;
-  v4 = [(HSIOReport *)&v13 description];
-  v14[0] = @"channel count";
+  v12.receiver = self;
+  v12.super_class = HSIOReport;
+  v4 = [(HSIOReport *)&v12 description];
+  v13[0] = @"channel count";
   v5 = MEMORY[0x277CCABB0];
   channelDescriptions = [(HSIOReport *)self channelDescriptions];
   v7 = [v5 numberWithUnsignedInteger:{objc_msgSend(channelDescriptions, "count")}];
-  v14[1] = @"channel descriptions";
-  v15[0] = v7;
+  v13[1] = @"channel descriptions";
+  v14[0] = v7;
   channelDescriptions2 = [(HSIOReport *)self channelDescriptions];
-  v15[1] = channelDescriptions2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = channelDescriptions2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
   v10 = [v3 stringWithFormat:@"%@ %@", v4, v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

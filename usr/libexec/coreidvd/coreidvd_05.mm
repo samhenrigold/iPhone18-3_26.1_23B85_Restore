@@ -1,563 +1,3 @@
-void *sub_100088AE8@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v5 = sub_100007224(&qword_100837260, &qword_1006C96D8);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v9 = &v47 - v8;
-  v10 = a1[3];
-  v11 = a1[4];
-  v373 = a1;
-  sub_10000BA08(a1, v10);
-  sub_1000AF190();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v2)
-  {
-    return sub_10000BB78(v373);
-  }
-
-  v12 = v6;
-  v106 = a2;
-  LOBYTE(v108) = 0;
-  v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v14 = v13;
-  v372 = BYTE4(v13) & 1;
-  LOBYTE(v108) = 1;
-  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v369 = BYTE4(v15) & 1;
-  LOBYTE(v108) = 2;
-  v105 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v366 = BYTE4(v105) & 1;
-  LOBYTE(v108) = 3;
-  v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v363 = BYTE4(v16) & 1;
-  LOBYTE(v108) = 4;
-  v17 = v16;
-  v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = v17;
-  v360 = BYTE4(v18) & 1;
-  LOBYTE(v108) = 5;
-  v19 = v18;
-  v20 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v103 = v19;
-  v21 = v20;
-  v357 = BYTE4(v20) & 1;
-  LOBYTE(v108) = 6;
-  v22 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v354 = BYTE4(v22) & 1;
-  LOBYTE(v108) = 7;
-  v101 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v102 = v22;
-  v351 = BYTE4(v101) & 1;
-  LOBYTE(v108) = 8;
-  v23 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v99 = v15;
-  v100 = v23;
-  v348 = BYTE4(v23) & 1;
-  LOBYTE(v108) = 9;
-  v24 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v345 = BYTE4(v24) & 1;
-  LOBYTE(v108) = 10;
-  v98 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v342 = BYTE4(v98) & 1;
-  LOBYTE(v108) = 11;
-  v97 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v339 = BYTE4(v97) & 1;
-  LOBYTE(v108) = 12;
-  v96 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v336 = BYTE4(v96) & 1;
-  LOBYTE(v108) = 13;
-  v95 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v333 = BYTE4(v95) & 1;
-  LOBYTE(v108) = 14;
-  v94 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v330 = BYTE4(v94) & 1;
-  LOBYTE(v108) = 15;
-  v93 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v327 = BYTE4(v93) & 1;
-  LOBYTE(v108) = 16;
-  v92 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v324 = BYTE4(v92) & 1;
-  LOBYTE(v108) = 17;
-  v91 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v321 = BYTE4(v91) & 1;
-  LOBYTE(v108) = 18;
-  v90 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v318 = BYTE4(v90) & 1;
-  LOBYTE(v108) = 19;
-  v89 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v315 = BYTE4(v89) & 1;
-  LOBYTE(v108) = 20;
-  v88 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v312 = BYTE4(v88) & 1;
-  LOBYTE(v108) = 21;
-  v87 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v309 = BYTE4(v87) & 1;
-  LOBYTE(v108) = 22;
-  v86 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v306 = BYTE4(v86) & 1;
-  LOBYTE(v108) = 23;
-  v85 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v303 = BYTE4(v85) & 1;
-  v25 = sub_100007224(&unk_10083A0F0, &unk_1006C96E0);
-  LOBYTE(v107[0]) = 24;
-  v83 = sub_1000AF1E4();
-  v84 = v25;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v82 = v108;
-  LOBYTE(v107[0]) = 25;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v84 = 0;
-  v83 = v108;
-  LOBYTE(v108) = 26;
-  v69 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v300 = v26 & 1;
-  LOBYTE(v108) = 27;
-  v68 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v298 = v27 & 1;
-  LOBYTE(v108) = 28;
-  v67 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v108) = 29;
-  v66 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v108) = 30;
-  v65 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v108) = 31;
-  v64 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v108) = 32;
-  v63 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v81 = v28;
-  LOBYTE(v108) = 33;
-  v62 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v80 = v29;
-  LOBYTE(v108) = 34;
-  v61 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v30 = sub_100007224(&qword_100837278, &unk_1006DA590);
-  LOBYTE(v107[0]) = 35;
-  v77 = sub_1000AF260();
-  v78 = v30;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v79 = v108;
-  LOBYTE(v107[0]) = 36;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v78 = v108;
-  v31 = sub_100007224(&qword_100837288, &qword_1006C96F0);
-  LOBYTE(v107[0]) = 37;
-  v73 = sub_1000AF2DC();
-  v74 = v31;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v77 = v108;
-  LOBYTE(v107[0]) = 38;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v76 = v108;
-  LOBYTE(v107[0]) = 39;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v75 = v108;
-  LOBYTE(v107[0]) = 40;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v74 = v108;
-  v266 = 41;
-  sub_1000AF390();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v293 = v271;
-  v294[0] = v272[0];
-  *(v294 + 10) = *(v272 + 10);
-  v289 = v267;
-  v290 = v268;
-  v292 = v270;
-  v291 = v269;
-  sub_100007224(&qword_1008372A8, &qword_1006C96F8);
-  LOBYTE(v107[0]) = 42;
-  sub_1000AF3E4(&qword_1008372B0);
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v73 = v108;
-  LOBYTE(v108) = 43;
-  v59 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v72 = v32;
-  LOBYTE(v108) = 44;
-  v58 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v71 = v33;
-  LOBYTE(v108) = 45;
-  v57 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v108) = 46;
-  v56 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v285 = v34 & 1;
-  LOBYTE(v108) = 47;
-  v55 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v70 = v35;
-  LOBYTE(v108) = 48;
-  v54 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v283 = v36 & 1;
-  LOBYTE(v108) = 49;
-  v53 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v281 = v37 & 1;
-  LOBYTE(v108) = 50;
-  v52 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v279 = v38 & 1;
-  LOBYTE(v108) = 51;
-  v51 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v277 = v39 & 1;
-  LOBYTE(v108) = 52;
-  v50 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v275 = v40 & 1;
-  LOBYTE(v108) = 53;
-  v49 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v60 = v41;
-  v265 = 54;
-  v84 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v48 = v42;
-  (*(v12 + 8))(v9, v5);
-  *(&v107[16] + 5) = v322;
-  *(&v107[17] + 5) = v319;
-  *(&v107[18] + 5) = v316;
-  *(&v107[19] + 5) = v313;
-  *(&v107[20] + 5) = v310;
-  *(&v107[21] + 5) = v307;
-  *(&v107[22] + 5) = v304;
-  *(&v107[23] + 5) = v301;
-  HIDWORD(v107[27]) = *&v299[3];
-  *(&v107[27] + 1) = *v299;
-  *(&v107[29] + 5) = v296;
-  *(&v107[34] + 1) = *v295;
-  *(&v107[54] + 2) = v287;
-  *(&v107[60] + 1) = *v286;
-  *(&v107[62] + 1) = *v284;
-  *(&v107[66] + 1) = *v282;
-  *(&v107[68] + 1) = *v280;
-  *(&v107[70] + 1) = *v278;
-  *(&v107[72] + 1) = *v276;
-  *(&v107[74] + 1) = *v274;
-  v273 = v48 & 1;
-  BYTE4(v107[0]) = v372;
-  *(v107 + 5) = v370;
-  HIBYTE(v107[0]) = v371;
-  BYTE4(v107[1]) = v369;
-  *(&v107[1] + 5) = v367;
-  HIBYTE(v107[1]) = v368;
-  BYTE4(v107[2]) = v366;
-  HIBYTE(v107[2]) = v365;
-  *(&v107[2] + 5) = v364;
-  BYTE4(v107[3]) = v363;
-  *(&v107[3] + 5) = v361;
-  HIBYTE(v107[3]) = v362;
-  BYTE4(v107[4]) = v360;
-  *(&v107[4] + 5) = v358;
-  HIBYTE(v107[4]) = v359;
-  BYTE4(v107[5]) = v357;
-  HIBYTE(v107[5]) = v356;
-  *(&v107[5] + 5) = v355;
-  BYTE4(v107[6]) = v354;
-  HIBYTE(v107[6]) = v353;
-  *(&v107[6] + 5) = v352;
-  BYTE4(v107[7]) = v351;
-  HIBYTE(v107[7]) = v350;
-  *(&v107[7] + 5) = v349;
-  BYTE4(v107[8]) = v348;
-  HIBYTE(v107[8]) = v347;
-  *(&v107[8] + 5) = v346;
-  BYTE4(v107[9]) = v345;
-  HIBYTE(v107[9]) = v344;
-  *(&v107[9] + 5) = v343;
-  BYTE4(v107[10]) = v342;
-  HIBYTE(v107[10]) = v341;
-  *(&v107[10] + 5) = v340;
-  BYTE4(v107[11]) = v339;
-  HIBYTE(v107[11]) = v338;
-  *(&v107[11] + 5) = v337;
-  BYTE4(v107[12]) = v336;
-  HIBYTE(v107[12]) = v335;
-  *(&v107[12] + 5) = v334;
-  BYTE4(v107[13]) = v333;
-  HIBYTE(v107[13]) = v332;
-  *(&v107[13] + 5) = v331;
-  BYTE4(v107[14]) = v330;
-  HIBYTE(v107[14]) = v329;
-  *(&v107[14] + 5) = v328;
-  BYTE4(v107[15]) = v327;
-  HIBYTE(v107[15]) = v326;
-  *(&v107[15] + 5) = v325;
-  BYTE4(v107[16]) = v324;
-  HIBYTE(v107[16]) = v323;
-  BYTE4(v107[17]) = v321;
-  HIBYTE(v107[17]) = v320;
-  BYTE4(v107[18]) = v318;
-  HIBYTE(v107[18]) = v317;
-  BYTE4(v107[19]) = v315;
-  HIBYTE(v107[19]) = v314;
-  BYTE4(v107[20]) = v312;
-  HIBYTE(v107[20]) = v311;
-  BYTE4(v107[21]) = v309;
-  HIBYTE(v107[21]) = v308;
-  BYTE4(v107[22]) = v306;
-  HIBYTE(v107[22]) = v305;
-  BYTE4(v107[23]) = v303;
-  HIBYTE(v107[23]) = v302;
-  LOBYTE(v107[27]) = v300;
-  LOBYTE(v107[29]) = v298;
-  HIBYTE(v107[29]) = v297;
-  HIDWORD(v107[34]) = *&v295[3];
-  *&v107[41] = v289;
-  *&v107[43] = v290;
-  *(&v107[52] + 2) = *(v294 + 10);
-  *&v107[49] = v293;
-  *&v107[51] = v294[0];
-  *&v107[45] = v291;
-  *&v107[47] = v292;
-  HIWORD(v107[54]) = v288;
-  HIDWORD(v107[60]) = *&v286[3];
-  LOBYTE(v107[62]) = v285;
-  HIDWORD(v107[62]) = *&v284[3];
-  LOBYTE(v107[66]) = v283;
-  HIDWORD(v107[66]) = *&v282[3];
-  LOBYTE(v107[68]) = v281;
-  HIDWORD(v107[68]) = *&v280[3];
-  LOBYTE(v107[70]) = v279;
-  HIDWORD(v107[70]) = *&v278[3];
-  LOBYTE(v107[72]) = v277;
-  HIDWORD(v107[72]) = *&v276[3];
-  LOBYTE(v107[74]) = v275;
-  HIDWORD(v107[74]) = *&v274[3];
-  LOBYTE(v107[78]) = v48 & 1;
-  LODWORD(v107[0]) = v14;
-  v43 = v99;
-  LODWORD(v107[1]) = v99;
-  LODWORD(v107[2]) = v105;
-  LODWORD(v107[3]) = v104;
-  LODWORD(v12) = v102;
-  LODWORD(v107[4]) = v103;
-  LODWORD(v107[5]) = v21;
-  LODWORD(v107[6]) = v102;
-  LODWORD(v107[7]) = v101;
-  LODWORD(v107[8]) = v100;
-  v47 = v24;
-  LODWORD(v107[9]) = v24;
-  LODWORD(v107[10]) = v98;
-  LODWORD(v107[11]) = v97;
-  LODWORD(v107[12]) = v96;
-  LODWORD(v107[13]) = v95;
-  LODWORD(v107[14]) = v94;
-  LODWORD(v107[15]) = v93;
-  LODWORD(v107[16]) = v92;
-  LODWORD(v107[17]) = v91;
-  LODWORD(v107[18]) = v90;
-  LODWORD(v107[19]) = v89;
-  LODWORD(v107[20]) = v88;
-  LODWORD(v107[21]) = v87;
-  LODWORD(v107[22]) = v86;
-  LODWORD(v107[23]) = v85;
-  v44 = v83;
-  v107[24] = v82;
-  v107[25] = v83;
-  v107[26] = v69;
-  v107[28] = v68;
-  BYTE1(v107[29]) = v67;
-  BYTE2(v107[29]) = v66;
-  BYTE3(v107[29]) = v65;
-  BYTE4(v107[29]) = v64;
-  v107[30] = v63;
-  v45 = v81;
-  v107[31] = v81;
-  v107[32] = v62;
-  v107[33] = v80;
-  LOBYTE(v107[34]) = v61;
-  v107[35] = v79;
-  v107[36] = v78;
-  v107[37] = v77;
-  v107[38] = v76;
-  v107[39] = v75;
-  v107[40] = v74;
-  v107[55] = v73;
-  v107[56] = v59;
-  v107[57] = v72;
-  v107[58] = v58;
-  v107[59] = v71;
-  LOBYTE(v107[60]) = v57;
-  v107[61] = v56;
-  v107[63] = v55;
-  v107[64] = v70;
-  v107[65] = v54;
-  v107[67] = v53;
-  v107[69] = v52;
-  v107[71] = v51;
-  v107[73] = v50;
-  v107[75] = v49;
-  v107[76] = v60;
-  v107[77] = v84;
-  sub_1000AF454(v107, &v108);
-  sub_10000BB78(v373);
-  LODWORD(v108) = v14;
-  v109 = v43;
-  v113 = v105;
-  v117 = v104;
-  v121 = v103;
-  v125 = v21;
-  v129 = v12;
-  v133 = v101;
-  v137 = v100;
-  v141 = v47;
-  v145 = v98;
-  v149 = v97;
-  v153 = v96;
-  v157 = v95;
-  v161 = v94;
-  v165 = v93;
-  v169 = v92;
-  v173 = v91;
-  v177 = v90;
-  v181 = v89;
-  v185 = v88;
-  v189 = v87;
-  v193 = v86;
-  v197 = v85;
-  v201 = v82;
-  v202 = v44;
-  v203 = v69;
-  v206 = v68;
-  v208 = v67;
-  v209 = v66;
-  v210 = v65;
-  v211 = v64;
-  v214 = v63;
-  v215 = v45;
-  BYTE4(v108) = v372;
-  *(&v108 + 5) = v370;
-  HIBYTE(v108) = v371;
-  v110 = v369;
-  v111 = v367;
-  v112 = v368;
-  v114 = v366;
-  v116 = v365;
-  v115 = v364;
-  v118 = v363;
-  v119 = v361;
-  v120 = v362;
-  v122 = v360;
-  v123 = v358;
-  v124 = v359;
-  v126 = v357;
-  v128 = v356;
-  v127 = v355;
-  v130 = v354;
-  v132 = v353;
-  v131 = v352;
-  v134 = v351;
-  v136 = v350;
-  v135 = v349;
-  v138 = v348;
-  v140 = v347;
-  v139 = v346;
-  v142 = v345;
-  v144 = v344;
-  v143 = v343;
-  v146 = v342;
-  v148 = v341;
-  v147 = v340;
-  v150 = v339;
-  v152 = v338;
-  v151 = v337;
-  v154 = v336;
-  v156 = v335;
-  v155 = v334;
-  v158 = v333;
-  v160 = v332;
-  v159 = v331;
-  v162 = v330;
-  v164 = v329;
-  v163 = v328;
-  v166 = v327;
-  v168 = v326;
-  v167 = v325;
-  v170 = v324;
-  v172 = v323;
-  v171 = v322;
-  v174 = v321;
-  v176 = v320;
-  v175 = v319;
-  v178 = v318;
-  v180 = v317;
-  v179 = v316;
-  v182 = v315;
-  v184 = v314;
-  v183 = v313;
-  v186 = v312;
-  v188 = v311;
-  v187 = v310;
-  v190 = v309;
-  v192 = v308;
-  v191 = v307;
-  v194 = v306;
-  v196 = v305;
-  v195 = v304;
-  v198 = v303;
-  v200 = v302;
-  v199 = v301;
-  v204 = v300;
-  *&v205[3] = *&v299[3];
-  *v205 = *v299;
-  v207 = v298;
-  v213 = v297;
-  v212 = v296;
-  v216 = v62;
-  v217 = v80;
-  v218 = v61;
-  *v219 = *v295;
-  *&v219[3] = *&v295[3];
-  v220 = v79;
-  v221 = v78;
-  v222 = v77;
-  v223 = v76;
-  v224 = v75;
-  v225 = v74;
-  v226 = v289;
-  v227 = v290;
-  *&v231[10] = *(v294 + 10);
-  v230 = v293;
-  *v231 = v294[0];
-  v228 = v291;
-  v229 = v292;
-  v232 = v287;
-  v233 = v288;
-  v234 = v73;
-  v235 = v59;
-  v236 = v72;
-  v237 = v58;
-  v238 = v71;
-  v239 = v57;
-  *v240 = *v286;
-  *&v240[3] = *&v286[3];
-  v241 = v56;
-  v242 = v285;
-  *v243 = *v284;
-  *&v243[3] = *&v284[3];
-  v244 = v55;
-  v245 = v70;
-  v246 = v54;
-  v247 = v283;
-  *v248 = *v282;
-  *&v248[3] = *&v282[3];
-  v249 = v53;
-  v250 = v281;
-  *v251 = *v280;
-  *&v251[3] = *&v280[3];
-  v252 = v52;
-  v253 = v279;
-  *v254 = *v278;
-  *&v254[3] = *&v278[3];
-  v255 = v51;
-  v256 = v277;
-  *v257 = *v276;
-  *&v257[3] = *&v276[3];
-  v258 = v50;
-  v259 = v275;
-  *v260 = *v274;
-  *&v260[3] = *&v274[3];
-  v261 = v49;
-  v262 = v60;
-  v263 = v84;
-  v264 = v273;
-  sub_1000AF48C(&v108);
-  return memcpy(v106, v107, 0x271uLL);
-}
-
 uint64_t sub_10008A8D8(uint64_t a1, uint64_t a2)
 {
   v4 = a1 == 0x6D614E7473726966 && a2 == 0xE900000000000065;
@@ -619,14 +59,12 @@ uint64_t sub_10008A8D8(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008AB2C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_10008AB2C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = sub_100007224(&qword_100838348, &qword_1006CFCB0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v29 - v8;
-  v10 = a1[4];
+  v8 = &v27 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000BA3A8();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -635,65 +73,63 @@ uint64_t sub_10008AB2C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v50 = 0;
+  v48 = 0;
+  v9 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v41 = v10 & 1;
+  v47 = 1;
   v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v43 = v12 & 1;
-  v49 = 1;
+  v40 = v12 & 1;
+  v46 = 2;
   v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v42 = v14 & 1;
-  v48 = 2;
-  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v41 = v16 & 1;
-  v47 = 3;
-  v36 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v40 = v17 & 1;
-  v46 = 4;
-  v35 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v39 = v18 & 1;
-  v45 = 5;
+  v39 = v14 & 1;
+  v45 = 3;
   v34 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v38 = v19 & 1;
-  v44 = 6;
-  v20 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v21 = *(v6 + 8);
-  v33 = v20;
-  v22 = v9;
-  v24 = v23;
-  v21(v22, v5);
-  v25 = v24 & 1;
-  v37 = v24 & 1;
-  v26 = v43;
-  v27 = v42;
-  v29 = v41;
-  v30 = v40;
-  v31 = v39;
-  v32 = v38;
+  v38 = v15 & 1;
+  v44 = 4;
+  v33 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v37 = v16 & 1;
+  v43 = 5;
+  v32 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v36 = v17 & 1;
+  v42 = 6;
+  v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v19 = *(v6 + 8);
+  v31 = v18;
+  v20 = v8;
+  v22 = v21;
+  v19(v20, v5);
+  v23 = v22 & 1;
+  v35 = v22 & 1;
+  v24 = v41;
+  v25 = v40;
+  v27 = v39;
+  v28 = v38;
+  v29 = v37;
+  v30 = v36;
   result = sub_10000BB78(a1);
-  *a2 = v11;
-  *(a2 + 8) = v26;
-  *(a2 + 16) = v13;
-  *(a2 + 24) = v27;
-  *(a2 + 32) = v15;
-  *(a2 + 40) = v29;
-  *(a2 + 48) = v36;
-  *(a2 + 56) = v30;
-  *(a2 + 64) = v35;
-  *(a2 + 72) = v31;
-  *(a2 + 80) = v34;
-  *(a2 + 88) = v32;
-  *(a2 + 96) = v33;
-  *(a2 + 104) = v25;
+  *a2 = v9;
+  *(a2 + 8) = v24;
+  *(a2 + 16) = v11;
+  *(a2 + 24) = v25;
+  *(a2 + 32) = v13;
+  *(a2 + 40) = v27;
+  *(a2 + 48) = v34;
+  *(a2 + 56) = v28;
+  *(a2 + 64) = v33;
+  *(a2 + 72) = v29;
+  *(a2 + 80) = v32;
+  *(a2 + 88) = v30;
+  *(a2 + 96) = v31;
+  *(a2 + 104) = v23;
   return result;
 }
 
-void *sub_10008AE24@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_10008AE24@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v32 = sub_100007224(&qword_100835808, &qword_1006C1B10);
-  v5 = *(v32 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v32);
-  v8 = &v13[-v7];
-  v9 = a1[4];
+  v30 = sub_100007224(&qword_100835808, &qword_1006C1B10);
+  v5 = *(v30 - 8);
+  __chkstk_darwin(v30);
+  v7 = &v11[-v6];
   sub_10000BA08(a1, a1[3]);
   sub_10009F1DC();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -702,38 +138,38 @@ void *sub_10008AE24@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v20 = 0;
+  v8 = v5;
+  v18 = 0;
   sub_10009F230();
-  v11 = v32;
+  v9 = v30;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v31[8] = v29;
-  v31[9] = v30[0];
-  *(&v31[9] + 14) = *(v30 + 14);
-  v31[4] = v25;
-  v31[5] = v26;
-  v31[6] = v27;
-  v31[7] = v28;
-  v31[0] = v21;
-  v31[1] = v22;
-  v31[2] = v23;
-  v31[3] = v24;
-  v14[271] = 1;
+  v29[8] = v27;
+  v29[9] = v28[0];
+  *(&v29[9] + 14) = *(v28 + 14);
+  v29[4] = v23;
+  v29[5] = v24;
+  v29[6] = v25;
+  v29[7] = v26;
+  v29[0] = v19;
+  v29[1] = v20;
+  v29[2] = v21;
+  v29[3] = v22;
+  v12[271] = 1;
   sub_10009F284();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v10 + 8))(v8, v11);
-  v31[14] = v18;
-  v31[15] = *v19;
-  *(&v31[15] + 10) = *&v19[10];
-  v31[11] = v15;
-  v31[12] = v16;
-  v31[13] = v17;
-  memcpy(v13, v31, 0x10AuLL);
-  sub_10009F2D8(v13, v14);
+  (*(v8 + 8))(v7, v9);
+  v29[14] = v16;
+  v29[15] = *v17;
+  *(&v29[15] + 10) = *&v17[10];
+  v29[11] = v13;
+  v29[12] = v14;
+  v29[13] = v15;
+  memcpy(v11, v29, 0x10AuLL);
+  sub_10009F2D8(v11, v12);
   sub_10000BB78(a1);
-  memcpy(v14, v31, 0x10AuLL);
-  sub_10009F310(v14);
-  return memcpy(a2, v13, 0x10AuLL);
+  memcpy(v12, v29, 0x10AuLL);
+  sub_10009F310(v12);
+  return memcpy(a2, v11, 0x10AuLL);
 }
 
 uint64_t sub_10008B118(uint64_t a1, uint64_t a2)
@@ -887,14 +323,12 @@ uint64_t sub_10008B118(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008B840@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_10008B840@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v82 = sub_100007224(&qword_100836BA8, &qword_1006C94B8);
-  v5 = *(v82 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v82);
-  v8 = &v28 - v7;
-  v9 = a1[4];
+  v80 = sub_100007224(&qword_100836BA8, &qword_1006C94B8);
+  v5 = *(v80 - 8);
+  __chkstk_darwin(v80);
+  v7 = &v26 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_1000AA8A0();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -903,151 +337,151 @@ uint64_t sub_10008B840@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v52 = a2;
-  LOBYTE(v63[0]) = 0;
-  v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v51 = v12;
+  v8 = v5;
+  v50 = a2;
+  LOBYTE(v61[0]) = 0;
+  v9 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v49 = v10;
   sub_100007224(&qword_100836BB8, &qword_1006C94C0);
-  LOBYTE(v53) = 1;
+  LOBYTE(v51) = 1;
   sub_1000AA8F4();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v50 = v63[0];
-  LOBYTE(v63[0]) = 2;
-  v48 = KeyedDecodingContainer.decode(_:forKey:)();
-  v49 = v13;
-  LOBYTE(v63[0]) = 3;
-  v47 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 4;
+  v48 = v61[0];
+  LOBYTE(v61[0]) = 2;
   v46 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 5;
+  v47 = v11;
+  LOBYTE(v61[0]) = 3;
   v45 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 6;
+  LOBYTE(v61[0]) = 4;
   v44 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 7;
+  LOBYTE(v61[0]) = 5;
   v43 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 8;
+  LOBYTE(v61[0]) = 6;
   v42 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 9;
-  v14 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 10;
+  LOBYTE(v61[0]) = 7;
   v41 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 11;
+  LOBYTE(v61[0]) = 8;
   v40 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 12;
+  LOBYTE(v61[0]) = 9;
+  v12 = KeyedDecodingContainer.decode(_:forKey:)();
+  LOBYTE(v61[0]) = 10;
   v39 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 13;
+  LOBYTE(v61[0]) = 11;
   v38 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v63[0]) = 14;
-  v37 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v81 = v15 & 1;
-  LOBYTE(v63[0]) = 15;
-  v36 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v79 = v16 & 1;
-  LOBYTE(v63[0]) = 16;
+  LOBYTE(v61[0]) = 12;
+  v37 = KeyedDecodingContainer.decode(_:forKey:)();
+  LOBYTE(v61[0]) = 13;
+  v36 = KeyedDecodingContainer.decode(_:forKey:)();
+  LOBYTE(v61[0]) = 14;
   v35 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v77 = v17 & 1;
-  LOBYTE(v63[0]) = 17;
+  v79 = v13 & 1;
+  LOBYTE(v61[0]) = 15;
   v34 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v63[0]) = 18;
-  v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v63[0]) = 19;
+  v77 = v14 & 1;
+  LOBYTE(v61[0]) = 16;
   v33 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v63[0]) = 20;
+  v75 = v15 & 1;
+  LOBYTE(v61[0]) = 17;
   v32 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v76 = 21;
+  LOBYTE(v61[0]) = 18;
+  v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  LOBYTE(v61[0]) = 19;
   v31 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  (*(v10 + 8))(v8, v82);
-  *&v53 = v11;
-  *(&v53 + 1) = v51;
-  *&v54 = v50;
-  *(&v54 + 1) = v48;
-  *&v55 = v49;
-  *(&v55 + 1) = v47;
-  *&v56 = v46;
-  *(&v56 + 1) = v45;
-  *&v57 = v44;
-  *(&v57 + 1) = v43;
-  *&v58 = v42;
-  *(&v58 + 1) = v14;
-  v30 = v14;
-  *&v59 = v41;
-  *(&v59 + 1) = v40;
-  *&v60 = v39;
-  *(&v60 + 1) = v38;
-  *&v61 = v37;
-  LODWORD(v82) = v81;
-  BYTE8(v61) = v81;
-  *(&v61 + 9) = *v80;
-  HIDWORD(v61) = *&v80[3];
-  *&v62[0] = v36;
-  v28 = v79;
-  BYTE8(v62[0]) = v79;
-  *(v62 + 9) = *v78;
-  HIDWORD(v62[0]) = *&v78[3];
-  *&v62[1] = v35;
-  v29 = v77;
-  BYTE8(v62[1]) = v77;
-  LOBYTE(v14) = v33;
-  LOBYTE(v10) = v34;
-  BYTE9(v62[1]) = v34;
-  BYTE10(v62[1]) = v18;
-  BYTE11(v62[1]) = v33;
-  v19 = v31;
-  v20 = v32;
-  BYTE12(v62[1]) = v32;
-  BYTE13(v62[1]) = v31;
-  sub_1000AA9CC(&v53, v63);
+  LOBYTE(v61[0]) = 20;
+  v30 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v74 = 21;
+  v29 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  (*(v8 + 8))(v7, v80);
+  *&v51 = v9;
+  *(&v51 + 1) = v49;
+  *&v52 = v48;
+  *(&v52 + 1) = v46;
+  *&v53 = v47;
+  *(&v53 + 1) = v45;
+  *&v54 = v44;
+  *(&v54 + 1) = v43;
+  *&v55 = v42;
+  *(&v55 + 1) = v41;
+  *&v56 = v40;
+  *(&v56 + 1) = v12;
+  v28 = v12;
+  *&v57 = v39;
+  *(&v57 + 1) = v38;
+  *&v58 = v37;
+  *(&v58 + 1) = v36;
+  *&v59 = v35;
+  LODWORD(v80) = v79;
+  BYTE8(v59) = v79;
+  *(&v59 + 9) = *v78;
+  HIDWORD(v59) = *&v78[3];
+  *&v60[0] = v34;
+  v26 = v77;
+  BYTE8(v60[0]) = v77;
+  *(v60 + 9) = *v76;
+  HIDWORD(v60[0]) = *&v76[3];
+  *&v60[1] = v33;
+  v27 = v75;
+  BYTE8(v60[1]) = v75;
+  LOBYTE(v12) = v31;
+  LOBYTE(v8) = v32;
+  BYTE9(v60[1]) = v32;
+  BYTE10(v60[1]) = v16;
+  BYTE11(v60[1]) = v31;
+  v17 = v29;
+  v18 = v30;
+  BYTE12(v60[1]) = v30;
+  BYTE13(v60[1]) = v29;
+  sub_1000AA9CC(&v51, v61);
   sub_10000BB78(a1);
-  v63[0] = v11;
-  v63[1] = v51;
-  v63[2] = v50;
-  v63[3] = v48;
-  v63[4] = v49;
-  v63[5] = v47;
-  v63[6] = v46;
-  v63[7] = v45;
-  v63[8] = v44;
-  v63[9] = v43;
-  v63[10] = v42;
-  v63[11] = v30;
-  v63[12] = v41;
-  v63[13] = v40;
-  v63[14] = v39;
-  v63[15] = v38;
-  v63[16] = v37;
-  v64 = v82;
-  *&v65[3] = *&v80[3];
-  *v65 = *v80;
-  v66 = v36;
-  v67 = v28;
-  *v68 = *v78;
-  *&v68[3] = *&v78[3];
-  v69 = v35;
-  v70 = v29;
-  v71 = v10;
+  v61[0] = v9;
+  v61[1] = v49;
+  v61[2] = v48;
+  v61[3] = v46;
+  v61[4] = v47;
+  v61[5] = v45;
+  v61[6] = v44;
+  v61[7] = v43;
+  v61[8] = v42;
+  v61[9] = v41;
+  v61[10] = v40;
+  v61[11] = v28;
+  v61[12] = v39;
+  v61[13] = v38;
+  v61[14] = v37;
+  v61[15] = v36;
+  v61[16] = v35;
+  v62 = v80;
+  *&v63[3] = *&v78[3];
+  *v63 = *v78;
+  v64 = v34;
+  v65 = v26;
+  *v66 = *v76;
+  *&v66[3] = *&v76[3];
+  v67 = v33;
+  v68 = v27;
+  v69 = v8;
+  v70 = v16;
+  v71 = v12;
   v72 = v18;
-  v73 = v14;
-  v74 = v20;
-  v75 = v19;
-  result = sub_1000AAA04(v63);
-  v22 = v62[0];
-  v23 = v52;
-  v52[8] = v61;
-  v23[9] = v22;
-  *(v23 + 158) = *(v62 + 14);
-  v24 = v58;
-  v23[4] = v57;
-  v23[5] = v24;
-  v25 = v60;
-  v23[6] = v59;
-  v23[7] = v25;
-  v26 = v54;
-  *v23 = v53;
-  v23[1] = v26;
-  v27 = v56;
-  v23[2] = v55;
-  v23[3] = v27;
+  v73 = v17;
+  result = sub_1000AAA04(v61);
+  v20 = v60[0];
+  v21 = v50;
+  v50[8] = v59;
+  v21[9] = v20;
+  *(v21 + 158) = *(v60 + 14);
+  v22 = v56;
+  v21[4] = v55;
+  v21[5] = v22;
+  v23 = v58;
+  v21[6] = v57;
+  v21[7] = v23;
+  v24 = v52;
+  *v21 = v51;
+  v21[1] = v24;
+  v25 = v54;
+  v21[2] = v53;
+  v21[3] = v25;
   return result;
 }
 
@@ -1136,14 +570,12 @@ uint64_t sub_10008BFF4(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008C3A0@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_10008C3A0@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100836BD0, &qword_1006C94C8);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v33 - v8;
-  v10 = a1[4];
+  v8 = &v31 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000AAA34();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -1152,110 +584,108 @@ uint64_t sub_10008C3A0@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  LOBYTE(v51[0]) = 0;
-  v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v13 = v12;
-  v45 = a2;
-  v14 = v11;
-  LOBYTE(v51[0]) = 1;
-  v15 = KeyedDecodingContainer.decode(_:forKey:)();
-  *(&v44 + 1) = v16;
-  *&v44 = v15;
-  LOBYTE(v51[0]) = 2;
-  v43 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v51[0]) = 3;
-  v42 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v51[0]) = 4;
-  v17 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v67 = v18 & 1;
-  LOBYTE(v51[0]) = 5;
-  v41 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v51[0]) = 6;
-  v19 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LOBYTE(v51[0]) = 7;
-  v20 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v40 = v17;
-  v38 = v20;
-  LOBYTE(v51[0]) = 8;
+  LOBYTE(v49[0]) = 0;
+  v9 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v11 = v10;
+  v43 = a2;
+  v12 = v9;
+  LOBYTE(v49[0]) = 1;
+  v13 = KeyedDecodingContainer.decode(_:forKey:)();
+  *(&v42 + 1) = v14;
+  *&v42 = v13;
+  LOBYTE(v49[0]) = 2;
+  v41 = KeyedDecodingContainer.decode(_:forKey:)();
+  LOBYTE(v49[0]) = 3;
+  v40 = KeyedDecodingContainer.decode(_:forKey:)();
+  LOBYTE(v49[0]) = 4;
+  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v65 = v16 & 1;
+  LOBYTE(v49[0]) = 5;
   v39 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v66 = v21 & 1;
-  LOBYTE(v51[0]) = 9;
+  LOBYTE(v49[0]) = 6;
+  v17 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  LOBYTE(v49[0]) = 7;
+  v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v38 = v15;
+  v36 = v18;
+  LOBYTE(v49[0]) = 8;
   v37 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v65 = v22 & 1;
-  v68 = 10;
-  v23 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v36 = v14;
-  *&v46 = v14;
-  *(&v46 + 1) = v13;
-  v47 = v44;
-  *&v48 = v43;
-  *(&v48 + 1) = v42;
-  *&v49 = v40;
-  v35 = v67;
-  BYTE8(v49) = v67;
-  v24 = v41;
-  BYTE9(v49) = v41;
-  v25 = v19;
-  BYTE10(v49) = v19;
-  v26 = v38;
-  BYTE11(v49) = v38;
-  *v50 = v39;
-  v34 = v66;
-  v50[8] = v66;
-  v27 = v37;
-  *&v50[16] = v37;
-  v28 = v65;
-  v50[24] = v65;
-  v50[25] = v23;
-  sub_1000AAA88(&v46, v51);
+  v64 = v19 & 1;
+  LOBYTE(v49[0]) = 9;
+  v35 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v63 = v20 & 1;
+  v66 = 10;
+  v21 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  (*(v6 + 8))(v8, v5);
+  v34 = v12;
+  *&v44 = v12;
+  *(&v44 + 1) = v11;
+  v45 = v42;
+  *&v46 = v41;
+  *(&v46 + 1) = v40;
+  *&v47 = v38;
+  v33 = v65;
+  BYTE8(v47) = v65;
+  v22 = v39;
+  BYTE9(v47) = v39;
+  v23 = v17;
+  BYTE10(v47) = v17;
+  v24 = v36;
+  BYTE11(v47) = v36;
+  *v48 = v37;
+  v32 = v64;
+  v48[8] = v64;
+  v25 = v35;
+  *&v48[16] = v35;
+  v26 = v63;
+  v48[24] = v63;
+  v48[25] = v21;
+  sub_1000AAA88(&v44, v49);
   sub_10000BB78(a1);
-  v51[0] = v36;
-  v51[1] = v13;
-  v52 = v44;
-  v53 = v43;
-  v54 = v42;
-  v55 = v40;
-  v56 = v35;
+  v49[0] = v34;
+  v49[1] = v11;
+  v50 = v42;
+  v51 = v41;
+  v52 = v40;
+  v53 = v38;
+  v54 = v33;
+  v55 = v22;
+  v56 = v23;
   v57 = v24;
-  v58 = v25;
-  v59 = v26;
-  v60 = v39;
-  v61 = v34;
-  v62 = v27;
-  v63 = v28;
-  v64 = v23;
-  result = sub_1000AAAC0(v51);
-  v30 = v49;
-  v31 = v45;
-  v45[2] = v48;
-  v31[3] = v30;
-  v31[4] = *v50;
-  *(v31 + 74) = *&v50[10];
-  v32 = v47;
-  *v31 = v46;
-  v31[1] = v32;
+  v58 = v37;
+  v59 = v32;
+  v60 = v25;
+  v61 = v26;
+  v62 = v21;
+  result = sub_1000AAAC0(v49);
+  v28 = v47;
+  v29 = v43;
+  v43[2] = v46;
+  v29[3] = v28;
+  v29[4] = *v48;
+  *(v29 + 74) = *&v48[10];
+  v30 = v45;
+  *v29 = v44;
+  v29[1] = v30;
   return result;
 }
 
-uint64_t sub_10008C8FC(uint64_t *a1)
+uint64_t sub_10008C8FC(void *a1)
 {
   v2 = sub_100007224(&qword_1008382D0, &qword_1006CFC70);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v10[-v5];
-  v7 = a1[4];
+  v5 = &v8[-v4];
   sub_10000BA08(a1, a1[3]);
   sub_1000BA168();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v10[15] = 0;
-  v8 = KeyedDecodingContainer.decode(_:forKey:)();
-  v10[14] = 1;
+  v8[15] = 0;
+  v6 = KeyedDecodingContainer.decode(_:forKey:)();
+  v8[14] = 1;
   KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   sub_10000BB78(a1);
-  return v8;
+  return v6;
 }
 
 uint64_t sub_10008CAA4(uint64_t a1, uint64_t a2)
@@ -1349,14 +779,12 @@ uint64_t sub_10008CAA4(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008CEA0@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_10008CEA0@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v95 = sub_100007224(&qword_1008375B8, &qword_1006C9810);
-  v5 = *(v95 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v95);
-  v8 = &v26 - v7;
-  v9 = a1[4];
+  v93 = sub_100007224(&qword_1008375B8, &qword_1006C9810);
+  v5 = *(v93 - 8);
+  __chkstk_darwin(v93);
+  v7 = &v24 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_1000B0E68();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -1365,149 +793,147 @@ uint64_t sub_10008CEA0@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v41 = a2;
-  LOBYTE(v49) = 0;
-  v40 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v94 = v11 & 1;
+  v8 = v5;
+  v39 = a2;
+  LOBYTE(v47) = 0;
+  v38 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v92 = v9 & 1;
   sub_100007224(&qword_100837278, &unk_1006DA590);
-  LOBYTE(v42) = 1;
-  v12 = sub_1000AF260();
+  LOBYTE(v40) = 1;
+  v10 = sub_1000AF260();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v38 = v12;
-  v39 = v49;
+  v36 = v10;
+  v37 = v47;
   sub_100007224(&qword_1008375C8, &qword_1006C9818);
-  LOBYTE(v42) = 2;
+  LOBYTE(v40) = 2;
   sub_1000B0EBC();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v35 = 0;
-  v36 = v49;
-  LOBYTE(v49) = 3;
-  v34 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v92 = BYTE4(v34) & 1;
-  LOBYTE(v49) = 4;
-  v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v89 = BYTE4(v13) & 1;
-  LOBYTE(v49) = 5;
-  v14 = v13;
-  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v33 = v14;
-  v86 = BYTE4(v15) & 1;
-  LOBYTE(v49) = 6;
-  LODWORD(v14) = v15;
+  v33 = 0;
+  v34 = v47;
+  LOBYTE(v47) = 3;
   v32 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v83 = v16 & 1;
+  v90 = BYTE4(v32) & 1;
+  LOBYTE(v47) = 4;
+  v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v87 = BYTE4(v11) & 1;
+  LOBYTE(v47) = 5;
+  v12 = v11;
+  v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v31 = v12;
+  v84 = BYTE4(v13) & 1;
+  LOBYTE(v47) = 6;
+  LODWORD(v12) = v13;
+  v30 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v81 = v14 & 1;
   sub_100007224(&qword_1008375E8, &qword_1006C9828);
-  LOBYTE(v42) = 7;
+  LOBYTE(v40) = 7;
   sub_1000B0FBC();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v31 = v49;
-  LOBYTE(v49) = 8;
-  v29 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v81 = BYTE4(v29) & 1;
+  v29 = v47;
+  LOBYTE(v47) = 8;
+  v27 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v79 = BYTE4(v27) & 1;
   sub_100007224(&qword_1008375E0, &qword_1006C9820);
-  LOBYTE(v42) = 9;
-  v30 = sub_1000B0F40();
+  LOBYTE(v40) = 9;
+  v28 = sub_1000B0F40();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v37 = v49;
-  LOBYTE(v42) = 10;
+  v35 = v47;
+  LOBYTE(v40) = 10;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v17 = v49;
-  v77 = 11;
+  v15 = v47;
+  v75 = 11;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v10 + 8))(v8, v95);
-  v95 = v78;
-  v18 = v40;
-  *&v42 = v40;
-  v19 = v94;
-  BYTE8(v42) = v94;
-  v20 = v36;
-  *&v43 = v39;
-  *(&v43 + 1) = v36;
-  LODWORD(v44) = v34;
-  v27 = v92;
-  BYTE4(v44) = v92;
-  DWORD2(v44) = v33;
-  v28 = v89;
-  BYTE12(v44) = v89;
-  LODWORD(v45) = v14;
-  LODWORD(v30) = v86;
-  BYTE4(v45) = v86;
-  *(&v45 + 1) = v32;
-  LODWORD(v35) = v83;
-  LOBYTE(v46) = v83;
-  *(&v46 + 1) = v31;
-  LODWORD(v47) = v29;
-  LODWORD(v38) = v81;
-  BYTE4(v47) = v81;
-  *(&v47 + 1) = v37;
-  *&v48 = v17;
-  *(&v48 + 1) = v78;
-  sub_1000B0DAC(&v42, &v49);
+  (*(v8 + 8))(v7, v93);
+  v93 = v76;
+  v16 = v38;
+  *&v40 = v38;
+  v17 = v92;
+  BYTE8(v40) = v92;
+  v18 = v34;
+  *&v41 = v37;
+  *(&v41 + 1) = v34;
+  LODWORD(v42) = v32;
+  v25 = v90;
+  BYTE4(v42) = v90;
+  DWORD2(v42) = v31;
+  v26 = v87;
+  BYTE12(v42) = v87;
+  LODWORD(v43) = v12;
+  LODWORD(v28) = v84;
+  BYTE4(v43) = v84;
+  *(&v43 + 1) = v30;
+  LODWORD(v33) = v81;
+  LOBYTE(v44) = v81;
+  *(&v44 + 1) = v29;
+  LODWORD(v45) = v27;
+  LODWORD(v36) = v79;
+  BYTE4(v45) = v79;
+  *(&v45 + 1) = v35;
+  *&v46 = v15;
+  *(&v46 + 1) = v76;
+  sub_1000B0DAC(&v40, &v47);
   sub_10000BB78(a1);
-  v49 = v18;
-  v50 = v19;
-  *v51 = *v93;
-  *&v51[3] = *&v93[3];
-  v52 = v39;
-  v53 = v20;
-  v54 = v34;
-  v55 = v27;
-  v56 = v90;
-  v57 = v91;
-  v58 = v33;
-  v59 = v28;
-  v60 = v87;
-  v61 = v88;
-  v62 = v14;
-  v63 = v30;
-  v65 = v85;
-  v64 = v84;
-  v66 = v32;
-  v67 = v35;
-  *v68 = *v82;
-  *&v68[3] = *&v82[3];
-  v69 = v31;
-  v70 = v29;
-  v71 = v38;
-  v72 = v79;
-  v73 = v80;
-  v74 = v37;
-  v75 = v17;
-  v76 = v95;
-  result = sub_1000B0E38(&v49);
-  v22 = v47;
-  v23 = v41;
-  v41[4] = v46;
-  v23[5] = v22;
-  v23[6] = v48;
-  v24 = v43;
-  *v23 = v42;
-  v23[1] = v24;
-  v25 = v45;
-  v23[2] = v44;
-  v23[3] = v25;
+  v47 = v16;
+  v48 = v17;
+  *v49 = *v91;
+  *&v49[3] = *&v91[3];
+  v50 = v37;
+  v51 = v18;
+  v52 = v32;
+  v53 = v25;
+  v54 = v88;
+  v55 = v89;
+  v56 = v31;
+  v57 = v26;
+  v58 = v85;
+  v59 = v86;
+  v60 = v12;
+  v61 = v28;
+  v63 = v83;
+  v62 = v82;
+  v64 = v30;
+  v65 = v33;
+  *v66 = *v80;
+  *&v66[3] = *&v80[3];
+  v67 = v29;
+  v68 = v27;
+  v69 = v36;
+  v70 = v77;
+  v71 = v78;
+  v72 = v35;
+  v73 = v15;
+  v74 = v93;
+  result = sub_1000B0E38(&v47);
+  v20 = v45;
+  v21 = v39;
+  v39[4] = v44;
+  v21[5] = v20;
+  v21[6] = v46;
+  v22 = v41;
+  *v21 = v40;
+  v21[1] = v22;
+  v23 = v43;
+  v21[2] = v42;
+  v21[3] = v23;
   return result;
 }
 
-uint64_t sub_10008D5EC(uint64_t *a1)
+uint64_t sub_10008D5EC(void *a1)
 {
   v2 = sub_100007224(&qword_100837A40, &qword_1006C9A78);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v10 - v5;
-  v7 = a1[4];
+  v5 = &v8 - v4;
   sub_10000BA08(a1, a1[3]);
   sub_1000B2968();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v12 = 0;
+  v10 = 0;
   KeyedDecodingContainer.decode(_:forKey:)();
-  v11 = 1;
-  v8 = KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v3 + 8))(v6, v2);
+  v9 = 1;
+  v6 = KeyedDecodingContainer.decode(_:forKey:)();
+  (*(v3 + 8))(v5, v2);
   sub_10000BB78(a1);
-  return v8;
+  return v6;
 }
 
 uint64_t sub_10008D798(uint64_t a1, uint64_t a2)
@@ -1547,33 +973,32 @@ uint64_t sub_10008D798(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008D8B4(uint64_t *a1)
+uint64_t sub_10008D8B4(void *a1)
 {
   v3 = sub_100007224(&qword_100837368, &qword_1006C9738);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v10 - v6;
-  v8 = a1[4];
+  v6 = &v9 - v5;
+  v7 = a1[4];
   sub_10000BA08(a1, a1[3]);
   sub_1000AFB2C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v1)
   {
-    LOBYTE(v12) = 0;
-    v8 = KeyedDecodingContainer.decode(_:forKey:)();
+    LOBYTE(v11) = 0;
+    v7 = KeyedDecodingContainer.decode(_:forKey:)();
     sub_100007224(&qword_100834EA0, &qword_1006C06B0);
-    v11 = 1;
-    v10 = sub_10007FD2C();
+    v10 = 1;
+    v9 = sub_10007FD2C();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v11 = 2;
-    v10 = 0;
+    v10 = 2;
+    v9 = 0;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
   }
 
   sub_10000BB78(a1);
-  return v8;
+  return v7;
 }
 
 uint64_t sub_10008DB34(uint64_t a1, uint64_t a2)
@@ -1728,14 +1153,12 @@ uint64_t sub_10008E004(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008E180@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_10008E180@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v62 = sub_100007224(&qword_100837820, &qword_1006C9950);
-  v5 = *(v62 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v62);
-  v8 = &v27 - v7;
-  v9 = a1[4];
+  v60 = sub_100007224(&qword_100837820, &qword_1006C9950);
+  v5 = *(v60 - 8);
+  __chkstk_darwin(v60);
+  v7 = &v25 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_1000B1EB8();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -1744,73 +1167,73 @@ uint64_t sub_10008E180@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v48 = 0;
+  v8 = v5;
+  v46 = 0;
   sub_1000ACC1C();
-  v11 = v62;
+  v9 = v60;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v58 = v51;
-  v59 = v52;
-  v60 = v53;
-  v61 = v54;
   v56 = v49;
   v57 = v50;
-  LOBYTE(v40[0]) = 1;
-  v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v14 = v13;
-  v30 = v12;
-  LOBYTE(v40[0]) = 2;
-  v29 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v55 = v15 & 1;
-  v47 = 3;
-  v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v17 = *(v10 + 8);
-  v28 = v16;
-  v19 = v18;
-  v17(v8, v11);
-  v33 = v58;
-  v34 = v59;
-  v35 = v60;
-  v36 = v61;
+  v58 = v51;
+  v59 = v52;
+  v54 = v47;
+  v55 = v48;
+  LOBYTE(v38[0]) = 1;
+  v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v12 = v11;
+  v28 = v10;
+  LOBYTE(v38[0]) = 2;
+  v27 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v53 = v13 & 1;
+  v45 = 3;
+  v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v15 = *(v8 + 8);
+  v26 = v14;
+  v17 = v16;
+  v15(v7, v9);
   v31 = v56;
   v32 = v57;
-  v20 = v29;
-  v21 = v30;
-  *&v37 = v30;
-  *(&v37 + 1) = v14;
-  *&v38 = v29;
-  LOBYTE(v11) = v55;
-  BYTE8(v38) = v55;
-  *&v39 = v28;
-  *(&v39 + 1) = v19;
-  sub_1000B1F0C(&v31, v40);
+  v33 = v58;
+  v34 = v59;
+  v29 = v54;
+  v30 = v55;
+  v18 = v27;
+  v19 = v28;
+  *&v35 = v28;
+  *(&v35 + 1) = v12;
+  *&v36 = v27;
+  LOBYTE(v9) = v53;
+  BYTE8(v36) = v53;
+  *&v37 = v26;
+  *(&v37 + 1) = v17;
+  sub_1000B1F0C(&v29, v38);
   sub_10000BB78(a1);
-  v40[2] = v58;
-  v40[3] = v59;
-  v40[4] = v60;
-  v40[5] = v61;
-  v40[0] = v56;
-  v40[1] = v57;
-  v41 = v21;
-  v42 = v14;
-  v43 = v20;
-  v44 = v11;
-  v45 = v28;
-  v46 = v19;
-  result = sub_1000B1F44(v40);
-  v23 = v38;
-  a2[6] = v37;
-  a2[7] = v23;
-  a2[8] = v39;
-  v24 = v34;
-  a2[2] = v33;
-  a2[3] = v24;
-  v25 = v36;
-  a2[4] = v35;
-  a2[5] = v25;
-  v26 = v32;
-  *a2 = v31;
-  a2[1] = v26;
+  v38[2] = v56;
+  v38[3] = v57;
+  v38[4] = v58;
+  v38[5] = v59;
+  v38[0] = v54;
+  v38[1] = v55;
+  v39 = v19;
+  v40 = v12;
+  v41 = v18;
+  v42 = v9;
+  v43 = v26;
+  v44 = v17;
+  result = sub_1000B1F44(v38);
+  v21 = v36;
+  a2[6] = v35;
+  a2[7] = v21;
+  a2[8] = v37;
+  v22 = v32;
+  a2[2] = v31;
+  a2[3] = v22;
+  v23 = v34;
+  a2[4] = v33;
+  a2[5] = v23;
+  v24 = v30;
+  *a2 = v29;
+  a2[1] = v24;
   return result;
 }
 
@@ -1851,23 +1274,20 @@ uint64_t sub_10008E4D0(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008E5F0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10008E5F0@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v30 = a2;
+  v27 = a2;
   v4 = sub_100007224(&qword_1008376F0, &qword_1006C98C0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v27 - v7;
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v24 - v6;
+  v8 = type metadata accessor for UUID();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
   UUID.uuidString.getter();
-  (*(v10 + 8))(v13, v9);
-  v14 = a1[4];
+  (*(v9 + 8))(v11, v8);
   sub_10000BA08(a1, a1[3]);
   sub_1000AC808();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -1878,37 +1298,37 @@ uint64_t sub_10008E5F0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
   else
   {
-    v15 = v5;
-    v35 = 0;
+    v12 = v5;
+    v32 = 0;
     sub_1000AB1A8();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-    v16 = v32;
-    v29 = v31;
-    v18 = v33;
-    v17 = v34;
-    LOBYTE(v31) = 1;
-    v19 = KeyedDecodingContainer.decode(_:forKey:)();
-    v27 = v18;
-    v28 = v19;
-    LOBYTE(v31) = 2;
-    v20 = KeyedDecodingContainer.decode(_:forKey:)();
-    v22 = v21;
-    (*(v15 + 8))(v8, v4);
+    v13 = v29;
+    v26 = v28;
+    v15 = v30;
+    v14 = v31;
+    LOBYTE(v28) = 1;
+    v16 = KeyedDecodingContainer.decode(_:forKey:)();
+    v24 = v15;
+    v25 = v16;
+    LOBYTE(v28) = 2;
+    v17 = KeyedDecodingContainer.decode(_:forKey:)();
+    v19 = v18;
+    (*(v12 + 8))(v7, v4);
 
-    v23 = v17;
+    v20 = v14;
 
     sub_10000BB78(a1);
 
-    v25 = v30;
-    *v30 = v29;
-    v25[1] = v16;
-    v26 = v28;
-    v25[2] = v27;
-    v25[3] = v23;
-    v25[4] = v26;
-    v25[5] = v20;
-    v25[6] = v22;
+    v22 = v27;
+    *v27 = v26;
+    v22[1] = v13;
+    v23 = v25;
+    v22[2] = v24;
+    v22[3] = v20;
+    v22[4] = v23;
+    v22[5] = v17;
+    v22[6] = v19;
   }
 
   return result;
@@ -1932,23 +1352,20 @@ unint64_t sub_10008E914(Swift::String string)
   }
 }
 
-uint64_t sub_10008E960@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_10008E960@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100837700, &qword_1006C98D0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v33 - v8;
-  v10 = type metadata accessor for UUID();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = &v33 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v30 - v7;
+  v9 = type metadata accessor for UUID();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
   UUID.uuidString.getter();
-  v40 = v15;
-  (*(v11 + 8))(v14, v10);
-  v16 = a1[4];
+  v37 = v13;
+  (*(v10 + 8))(v12, v9);
   sub_10000BA08(a1, a1[3]);
   sub_1000AC85C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -1959,67 +1376,67 @@ uint64_t sub_10008E960@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
 
   else
   {
-    v39 = a2;
-    LOBYTE(v41) = 0;
+    v36 = a2;
+    LOBYTE(v38) = 0;
     sub_1000AB1A8();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-    v17 = v46;
-    v18 = v47;
-    v19 = v48;
-    v40 = v49;
-    LOBYTE(v46) = 1;
-    v38 = KeyedDecodingContainer.decode(_:forKey:)();
-    LOBYTE(v46) = 2;
-    v37 = KeyedDecodingContainer.decode(_:forKey:)();
-    v35 = v19;
-    v36 = v17;
+    v14 = v43;
+    v15 = v44;
+    v16 = v45;
+    v37 = v46;
+    LOBYTE(v43) = 1;
+    v35 = KeyedDecodingContainer.decode(_:forKey:)();
+    LOBYTE(v43) = 2;
+    v34 = KeyedDecodingContainer.decode(_:forKey:)();
+    v32 = v16;
+    v33 = v14;
+    v18 = v17;
+    LOBYTE(v43) = 3;
+    v19 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
     v21 = v20;
-    LOBYTE(v46) = 3;
-    v22 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v24 = v23;
-    v34 = v22;
+    v31 = v19;
     sub_100007224(&qword_100836F40, &qword_1006C95C0);
-    v56 = 4;
+    v53 = 4;
     sub_1000ACE58();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v6 + 8))(v9, v5);
-    v33 = v57;
-    v25 = v36;
-    *&v41 = v36;
-    *(&v41 + 1) = v18;
-    v26 = v35;
-    v27 = v40;
-    *&v42 = v35;
-    *(&v42 + 1) = v40;
-    v28 = v38;
-    *&v43 = v38;
-    *(&v43 + 1) = v37;
-    *&v44 = v21;
-    *(&v44 + 1) = v34;
-    *&v45 = v24;
-    *(&v45 + 1) = v57;
-    sub_1000B164C(&v41, &v46);
+    (*(v6 + 8))(v8, v5);
+    v30 = v54;
+    v22 = v33;
+    *&v38 = v33;
+    *(&v38 + 1) = v15;
+    v23 = v32;
+    v24 = v37;
+    *&v39 = v32;
+    *(&v39 + 1) = v37;
+    v25 = v35;
+    *&v40 = v35;
+    *(&v40 + 1) = v34;
+    *&v41 = v18;
+    *(&v41 + 1) = v31;
+    *&v42 = v21;
+    *(&v42 + 1) = v54;
+    sub_1000B164C(&v38, &v43);
     sub_10000BB78(a1);
-    v46 = v25;
-    v47 = v18;
-    v48 = v26;
-    v49 = v27;
-    v50 = v28;
-    v51 = v37;
-    v52 = v21;
-    v53 = v34;
-    v54 = v24;
-    v55 = v33;
-    result = sub_1000B1684(&v46);
-    v30 = v44;
-    v31 = v39;
-    v39[2] = v43;
-    v31[3] = v30;
-    v31[4] = v45;
-    v32 = v42;
-    *v31 = v41;
-    v31[1] = v32;
+    v43 = v22;
+    v44 = v15;
+    v45 = v23;
+    v46 = v24;
+    v47 = v25;
+    v48 = v34;
+    v49 = v18;
+    v50 = v31;
+    v51 = v21;
+    v52 = v30;
+    result = sub_1000B1684(&v43);
+    v27 = v41;
+    v28 = v36;
+    v36[2] = v40;
+    v28[3] = v27;
+    v28[4] = v42;
+    v29 = v39;
+    *v28 = v38;
+    v28[1] = v29;
   }
 
   return result;
@@ -2068,14 +1485,12 @@ uint64_t sub_10008EDF0(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008EF68@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_10008EF68@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = sub_100007224(&qword_100837020, &qword_1006C9610);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v25 - v8;
-  v10 = a1[4];
+  v8 = &v23 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000ACF74();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2086,32 +1501,32 @@ uint64_t sub_10008EF68@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    v31 = 0;
-    v11 = KeyedDecodingContainer.decode(_:forKey:)();
-    v30 = 1;
-    v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v27 = v13;
-    v14 = v12;
-    v29 = 2;
-    v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v17 = v16;
-    v26 = v15;
-    v28 = 3;
-    v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v19 = *(v6 + 8);
-    v25 = v18;
-    v20 = v9;
-    v22 = v21;
-    v19(v20, v5);
+    v29 = 0;
+    v9 = KeyedDecodingContainer.decode(_:forKey:)();
+    v28 = 1;
+    v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v25 = v11;
+    v12 = v10;
+    v27 = 2;
+    v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v15 = v14;
+    v24 = v13;
+    v26 = 3;
+    v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v17 = *(v6 + 8);
+    v23 = v16;
+    v18 = v8;
+    v20 = v19;
+    v17(v18, v5);
     result = sub_10000BB78(a1);
-    *a2 = v11 & 1;
-    *(a2 + 8) = v14;
-    *(a2 + 16) = v27 & 1;
-    v24 = v25;
-    *(a2 + 24) = v26;
-    *(a2 + 32) = v17;
-    *(a2 + 40) = v24;
-    *(a2 + 48) = v22;
+    *a2 = v9 & 1;
+    *(a2 + 8) = v12;
+    *(a2 + 16) = v25 & 1;
+    v22 = v23;
+    *(a2 + 24) = v24;
+    *(a2 + 32) = v15;
+    *(a2 + 40) = v22;
+    *(a2 + 48) = v20;
   }
 
   return result;
@@ -2135,14 +1550,12 @@ unint64_t sub_10008F1A4(Swift::String string)
   }
 }
 
-uint64_t sub_10008F1F0@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_10008F1F0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = sub_100007224(&qword_100837000, &qword_1006C9608);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v33 - v8;
-  v10 = a1[4];
+  v8 = &v31 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000ACE04();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2153,74 +1566,74 @@ uint64_t sub_10008F1F0@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    LOBYTE(v47) = 0;
+    LOBYTE(v45) = 0;
+    v9 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v57 = v10 & 1;
+    LOBYTE(v45) = 1;
     v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v59 = v12 & 1;
-    LOBYTE(v47) = 1;
-    v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v15 = v14;
-    v39 = v13;
-    v40 = v11;
-    LOBYTE(v47) = 2;
-    v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v18 = v17;
-    v38 = v16;
+    v13 = v12;
+    v37 = v11;
+    v38 = v9;
+    LOBYTE(v45) = 2;
+    v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v16 = v15;
+    v36 = v14;
     sub_100007224(&qword_100836F40, &qword_1006C95C0);
-    LOBYTE(v41) = 3;
+    LOBYTE(v39) = 3;
     sub_1000ACE58();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v36 = a2;
-    v37 = v47;
-    LOBYTE(v47) = 4;
-    v19 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v21 = v20;
-    v35 = v19;
-    v60 = 5;
-    v22 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v24 = v23;
-    v25 = *(v6 + 8);
-    v34 = v22;
-    v25(v9, v5);
-    v24 &= 1u;
-    v58 = v24;
-    *&v41 = v40;
-    HIDWORD(v33) = v59;
-    BYTE8(v41) = v59;
-    v26 = v39;
-    *&v42 = v39;
-    *(&v42 + 1) = v15;
-    v27 = v38;
-    *&v43 = v38;
-    *(&v43 + 1) = v18;
-    v28 = v37;
-    *&v44 = v37;
-    *(&v44 + 1) = v35;
-    *&v45 = v21;
-    *(&v45 + 1) = v34;
-    v46 = v24;
-    sub_1000ACF0C(&v41, &v47);
+    v34 = a2;
+    v35 = v45;
+    LOBYTE(v45) = 4;
+    v17 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v19 = v18;
+    v33 = v17;
+    v58 = 5;
+    v20 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v22 = v21;
+    v23 = *(v6 + 8);
+    v32 = v20;
+    v23(v8, v5);
+    v22 &= 1u;
+    v56 = v22;
+    *&v39 = v38;
+    HIDWORD(v31) = v57;
+    BYTE8(v39) = v57;
+    v24 = v37;
+    *&v40 = v37;
+    *(&v40 + 1) = v13;
+    v25 = v36;
+    *&v41 = v36;
+    *(&v41 + 1) = v16;
+    v26 = v35;
+    *&v42 = v35;
+    *(&v42 + 1) = v33;
+    *&v43 = v19;
+    *(&v43 + 1) = v32;
+    v44 = v22;
+    sub_1000ACF0C(&v39, &v45);
     sub_10000BB78(a1);
-    v47 = v40;
-    v48 = BYTE4(v33);
-    v49 = v26;
-    v50 = v15;
-    v51 = v27;
-    v52 = v18;
-    v53 = v28;
-    v54 = v35;
-    v55 = v21;
-    v56 = v34;
-    v57 = v24;
-    result = sub_1000ACF44(&v47);
-    v30 = v44;
-    v31 = v36;
-    *(v36 + 32) = v43;
-    *(v31 + 48) = v30;
-    *(v31 + 64) = v45;
-    *(v31 + 80) = v46;
-    v32 = v42;
-    *v31 = v41;
-    *(v31 + 16) = v32;
+    v45 = v38;
+    v46 = BYTE4(v31);
+    v47 = v24;
+    v48 = v13;
+    v49 = v25;
+    v50 = v16;
+    v51 = v26;
+    v52 = v33;
+    v53 = v19;
+    v54 = v32;
+    v55 = v22;
+    result = sub_1000ACF44(&v45);
+    v28 = v42;
+    v29 = v34;
+    *(v34 + 32) = v41;
+    *(v29 + 48) = v28;
+    *(v29 + 64) = v43;
+    *(v29 + 80) = v44;
+    v30 = v40;
+    *v29 = v39;
+    *(v29 + 16) = v30;
   }
 
   return result;
@@ -2281,14 +1694,12 @@ uint64_t sub_10008F644(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10008F848@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_10008F848@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = sub_100007224(&qword_1008373D0, &qword_1006C9768);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v26 - v8;
-  v10 = a1[4];
+  v8 = &v24 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000AFEB0();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2297,78 +1708,76 @@ uint64_t sub_10008F848@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  LOBYTE(v41[0]) = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  LOBYTE(v41[0]) = 1;
-  v32 = KeyedDecodingContainer.decode(_:forKey:)();
-  v34 = v14;
-  LOBYTE(v41[0]) = 2;
-  v15 = KeyedDecodingContainer.decode(_:forKey:)();
-  v33 = v16;
+  LOBYTE(v39[0]) = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  LOBYTE(v39[0]) = 1;
+  v30 = KeyedDecodingContainer.decode(_:forKey:)();
+  v32 = v12;
+  LOBYTE(v39[0]) = 2;
+  v13 = KeyedDecodingContainer.decode(_:forKey:)();
+  v31 = v14;
+  v26 = v13;
+  LOBYTE(v39[0]) = 3;
+  v29 = 0;
+  v25 = KeyedDecodingContainer.decode(_:forKey:)();
   v28 = v15;
-  LOBYTE(v41[0]) = 3;
-  v31 = 0;
-  v27 = KeyedDecodingContainer.decode(_:forKey:)();
-  v30 = v17;
-  LOBYTE(v41[0]) = 4;
-  v26 = KeyedDecodingContainer.decode(_:forKey:)();
-  v29 = v18;
-  v43 = 5;
+  LOBYTE(v39[0]) = 4;
+  v24 = KeyedDecodingContainer.decode(_:forKey:)();
+  v27 = v16;
+  v41 = 5;
   sub_1000AFF04();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  LODWORD(v31) = v44;
-  *&v35 = v11;
-  *(&v35 + 1) = v13;
-  *&v36 = v32;
-  v19 = v34;
-  *(&v36 + 1) = v34;
-  *&v37 = v28;
-  v20 = v33;
-  *(&v37 + 1) = v33;
-  *&v38 = v27;
-  v21 = v30;
-  *(&v38 + 1) = v30;
-  *&v39 = v26;
-  v22 = v29;
-  *(&v39 + 1) = v29;
-  v40 = v44;
-  sub_1000AFF58(&v35, v41);
+  (*(v6 + 8))(v8, v5);
+  LODWORD(v29) = v42;
+  *&v33 = v9;
+  *(&v33 + 1) = v11;
+  *&v34 = v30;
+  v17 = v32;
+  *(&v34 + 1) = v32;
+  *&v35 = v26;
+  v18 = v31;
+  *(&v35 + 1) = v31;
+  *&v36 = v25;
+  v19 = v28;
+  *(&v36 + 1) = v28;
+  *&v37 = v24;
+  v20 = v27;
+  *(&v37 + 1) = v27;
+  v38 = v42;
+  sub_1000AFF58(&v33, v39);
   sub_10000BB78(a1);
-  v41[0] = v11;
-  v41[1] = v13;
-  v41[2] = v32;
-  v41[3] = v19;
-  v41[4] = v28;
-  v41[5] = v20;
-  v41[6] = v27;
-  v41[7] = v21;
-  v41[8] = v26;
-  v41[9] = v22;
-  v42 = v31;
-  result = sub_1000AFF90(v41);
-  v24 = v38;
-  *(a2 + 32) = v37;
-  *(a2 + 48) = v24;
-  *(a2 + 64) = v39;
-  *(a2 + 80) = v40;
-  v25 = v36;
-  *a2 = v35;
-  *(a2 + 16) = v25;
+  v39[0] = v9;
+  v39[1] = v11;
+  v39[2] = v30;
+  v39[3] = v17;
+  v39[4] = v26;
+  v39[5] = v18;
+  v39[6] = v25;
+  v39[7] = v19;
+  v39[8] = v24;
+  v39[9] = v20;
+  v40 = v29;
+  result = sub_1000AFF90(v39);
+  v22 = v36;
+  *(a2 + 32) = v35;
+  *(a2 + 48) = v22;
+  *(a2 + 64) = v37;
+  *(a2 + 80) = v38;
+  v23 = v34;
+  *a2 = v33;
+  *(a2 + 16) = v23;
   return result;
 }
 
 void *sub_10008FCE8(uint64_t a1)
 {
   v2 = __chkstk_darwin(a1);
-  v15 = v3;
+  v13 = v3;
   v4 = sub_100007224(&qword_100836FF0, &qword_1006C9600);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v13[-v7 - 8];
-  v9 = v2[4];
+  v7 = &v11[-v6 - 8];
   sub_10000BA08(v2, v2[3]);
   sub_1000ACDB0();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2377,13 +1786,13 @@ void *sub_10008FCE8(uint64_t a1)
     return sub_10000BB78(v2);
   }
 
-  v10 = v15;
+  v8 = v13;
   sub_10007FDA8();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v5 + 8))(v8, v4);
-  memcpy(v13, v14, sizeof(v13));
+  (*(v5 + 8))(v7, v4);
+  memcpy(v11, v12, sizeof(v11));
   sub_10000BB78(v2);
-  return memcpy(v10, v13, 0x2181uLL);
+  return memcpy(v8, v11, 0x2181uLL);
 }
 
 uint64_t sub_10008FEBC(uint64_t a1, uint64_t a2)
@@ -2441,70 +1850,66 @@ unint64_t sub_10008FFD8(Swift::String string)
   }
 }
 
-uint64_t sub_100090024(uint64_t *a1)
+void *sub_100090024(void *a1)
 {
-  v80 = type metadata accessor for DIPError.Code();
-  v67 = *(v80 - 8);
-  v2 = *(v67 + 64);
-  __chkstk_darwin(v80);
-  v81 = &v64 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v77 = type metadata accessor for Logger();
-  v84 = *(v77 - 8);
-  v4 = *(v84 + 64);
-  __chkstk_darwin(v77);
-  v68 = &v64 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100007224(&qword_100837528, &qword_1006C97C8);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v11 = &v64 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v13 = &v64 - v12;
-  v14 = a1[4];
-  v15 = sub_10000BA08(a1, a1[3]);
-  v16 = sub_1000B0BB4();
-  v17 = v87;
+  v76 = type metadata accessor for DIPError.Code();
+  v63 = *(v76 - 8);
+  __chkstk_darwin(v76);
+  v77 = &v60 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73 = type metadata accessor for Logger();
+  v80 = *(v73 - 8);
+  __chkstk_darwin(v73);
+  v64 = &v60 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_100007224(&qword_100837528, &qword_1006C97C8);
+  v5 = *(v4 - 8);
+  v6 = __chkstk_darwin(v4);
+  v8 = &v60 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v60 - v9;
+  v11 = sub_10000BA08(a1, a1[3]);
+  v12 = sub_1000B0BB4();
+  v13 = v83;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v87 = v17;
-  if (v17)
+  v83 = v13;
+  if (v13)
   {
 LABEL_26:
     sub_10000BB78(a1);
-    return v15;
+    return v11;
   }
 
-  v18 = v84;
-  v73 = v16;
-  v74 = v11;
-  v65 = a1;
-  v76 = v13;
-  v19 = KeyedDecodingContainer.allKeys.getter();
-  v20 = *(v19 + 16);
-  v75 = v19;
-  v72 = v20;
-  if (!v20)
+  v14 = v80;
+  v69 = v12;
+  v70 = v8;
+  v61 = a1;
+  v72 = v10;
+  v15 = KeyedDecodingContainer.allKeys.getter();
+  v16 = *(v15 + 16);
+  v71 = v15;
+  v68 = v16;
+  if (!v16)
   {
-    v15 = &_swiftEmptyDictionarySingleton;
-    (*(v7 + 8))(v76, v6);
+    v11 = &_swiftEmptyDictionarySingleton;
+    (*(v5 + 8))(v72, v4);
     goto LABEL_29;
   }
 
-  v83 = v6;
-  v21 = 0;
-  v71 = 0x80000001006FD760;
-  v69 = 0x80000001006FD780;
-  v66 = (v18 + 8);
-  v22 = (v7 + 8);
-  v23 = (v19 + 40);
-  v82 = &_swiftEmptyDictionarySingleton;
-  v24 = v87;
-  v25 = v80;
-  v26 = v81;
-  v27 = v77;
-  v70 = v22;
+  v79 = v4;
+  v17 = 0;
+  v67 = 0x80000001006FD760;
+  v65 = 0x80000001006FD780;
+  v62 = (v14 + 8);
+  v18 = (v5 + 8);
+  v19 = (v15 + 40);
+  v78 = &_swiftEmptyDictionarySingleton;
+  v20 = v83;
+  v21 = v76;
+  v22 = v77;
+  v23 = v73;
+  v66 = v18;
   do
   {
-    if (v21 >= *(v19 + 16))
+    if (v17 >= *(v15 + 16))
     {
       __break(1u);
 LABEL_31:
@@ -2517,91 +1922,91 @@ LABEL_33:
       return result;
     }
 
-    v32 = *(v23 - 1);
-    v33 = *v23;
-    v79 = v23;
-    v84 = v32;
-    v85 = v32;
-    v86 = v33;
+    v28 = *(v19 - 1);
+    v29 = *v19;
+    v75 = v19;
+    v80 = v28;
+    v81 = v28;
+    v82 = v29;
 
-    v34 = v83;
-    v15 = v76;
+    v30 = v79;
+    v11 = v72;
     KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    if (v24)
+    if (v20)
     {
-      v87 = v24;
-      (*v22)(v76, v34);
+      v83 = v20;
+      (*v18)(v72, v30);
 
 LABEL_25:
-      a1 = v65;
+      a1 = v61;
       goto LABEL_26;
     }
 
-    v78 = v21;
-    v85 = 0xD00000000000001FLL;
-    v86 = v71;
-    v35 = KeyedDecodingContainer.decode(_:forKey:)();
-    v85 = 0xD00000000000001ELL;
-    v86 = v69;
+    v74 = v17;
+    v81 = 0xD00000000000001FLL;
+    v82 = v67;
+    v31 = KeyedDecodingContainer.decode(_:forKey:)();
+    v81 = 0xD00000000000001ELL;
+    v82 = v65;
     KeyedDecodingContainer.decode(_:forKey:)();
-    v87 = 0;
-    if (v35 <= 0)
+    v83 = 0;
+    if (v31 <= 0)
     {
-      v36 = v68;
+      v32 = v64;
       defaultLogger()();
-      v37 = Logger.logObject.getter();
-      v38 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v37, v38))
+      v33 = Logger.logObject.getter();
+      v34 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v33, v34))
       {
-        v39 = swift_slowAlloc();
-        *v39 = 0;
-        _os_log_impl(&_mh_execute_header, v37, v38, "DEBUG turning issuerCurrentCredentialCapacity from 0 to 1", v39, 2u);
-        v27 = v77;
+        v35 = swift_slowAlloc();
+        *v35 = 0;
+        _os_log_impl(&_mh_execute_header, v33, v34, "DEBUG turning issuerCurrentCredentialCapacity from 0 to 1", v35, 2u);
+        v23 = v73;
       }
 
-      (*v66)(v36, v27);
-      v35 = 1;
-      v25 = v80;
-      v26 = v81;
-      v34 = v83;
+      (*v62)(v32, v23);
+      v31 = 1;
+      v21 = v76;
+      v22 = v77;
+      v30 = v79;
     }
 
-    v40 = Data.init(base64urlEncoded:)();
-    if (v41 >> 60 == 15)
+    v36 = Data.init(base64urlEncoded:)();
+    if (v37 >> 60 == 15)
     {
 
-      (*(v67 + 104))(v26, enum case for DIPError.Code.provisioningAttestationsUnavailable(_:), v25);
+      (*(v63 + 104))(v22, enum case for DIPError.Code.provisioningAttestationsUnavailable(_:), v21);
       sub_1000402AC(_swiftEmptyArrayStorage);
       type metadata accessor for DIPError();
-      sub_10009F43C(&qword_100834130, &type metadata accessor for DIPError);
-      v61 = swift_allocError();
+      sub_10009F43C(&qword_100834130, &type metadata accessor for DIPError, &protocol conformance descriptor for DIPError);
+      v57 = swift_allocError();
       DIPError.init(_:fromError:code:forceCode:properties:file:function:line:)();
-      v87 = v61;
+      v83 = v57;
       swift_willThrow();
-      v15 = v70;
-      v62 = *v70;
-      (*v70)(v74, v34);
-      v62(v76, v34);
+      v11 = v66;
+      v58 = *v66;
+      (*v66)(v70, v30);
+      v58(v72, v30);
       goto LABEL_25;
     }
 
-    v42 = v40;
-    v43 = v41;
-    sub_10000B8B8(v40, v41);
-    v44 = v82;
+    v38 = v36;
+    v39 = v37;
+    sub_10000B8B8(v36, v37);
+    v40 = v78;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v85 = v44;
-    v47 = sub_10003ADCC(v84, v33);
-    v48 = v44[2];
-    v49 = (v46 & 1) == 0;
-    v50 = v48 + v49;
-    if (__OFADD__(v48, v49))
+    v81 = v40;
+    v43 = sub_10003ADCC(v80, v29);
+    v44 = v40[2];
+    v45 = (v42 & 1) == 0;
+    v46 = v44 + v45;
+    if (__OFADD__(v44, v45))
     {
       goto LABEL_31;
     }
 
-    v51 = v46;
-    if (v44[3] >= v50)
+    v47 = v42;
+    if (v40[3] >= v46)
     {
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
@@ -2611,77 +2016,77 @@ LABEL_25:
 
     else
     {
-      sub_100167164(v50, isUniquelyReferenced_nonNull_native);
-      v52 = sub_10003ADCC(v84, v33);
-      if ((v51 & 1) != (v53 & 1))
+      sub_100167164(v46, isUniquelyReferenced_nonNull_native);
+      v48 = sub_10003ADCC(v80, v29);
+      if ((v47 & 1) != (v49 & 1))
       {
         goto LABEL_33;
       }
 
-      v47 = v52;
+      v43 = v48;
     }
 
-    v54 = v78;
-    if (v51)
+    v50 = v74;
+    if (v47)
     {
 
-      v82 = v85;
-      v28 = (*(v85 + 56) + 24 * v47);
-      v29 = v28[1];
-      v30 = v28[2];
-      *v28 = v35;
-      v28[1] = v42;
-      v28[2] = v43;
-      sub_10000B90C(v29, v30);
-      sub_10000BD94(v42, v43);
-      v22 = v70;
-      v31 = *v70;
-      (*v70)(v74, v83);
+      v78 = v81;
+      v24 = (*(v81 + 56) + 24 * v43);
+      v25 = v24[1];
+      v26 = v24[2];
+      *v24 = v31;
+      v24[1] = v38;
+      v24[2] = v39;
+      sub_10000B90C(v25, v26);
+      sub_10000BD94(v38, v39);
+      v18 = v66;
+      v27 = *v66;
+      (*v66)(v70, v79);
     }
 
     else
     {
-      v55 = v85;
-      *(v85 + 8 * (v47 >> 6) + 64) |= 1 << v47;
-      v56 = (v55[6] + 16 * v47);
-      *v56 = v84;
-      v56[1] = v33;
-      v57 = (v55[7] + 24 * v47);
-      *v57 = v35;
-      v57[1] = v42;
-      v57[2] = v43;
-      sub_10000BD94(v42, v43);
-      v22 = v70;
-      v31 = *v70;
-      (*v70)(v74, v83);
-      v58 = v55[2];
-      v59 = __OFADD__(v58, 1);
-      v60 = v58 + 1;
-      if (v59)
+      v51 = v81;
+      *(v81 + 8 * (v43 >> 6) + 64) |= 1 << v43;
+      v52 = (v51[6] + 16 * v43);
+      *v52 = v80;
+      v52[1] = v29;
+      v53 = (v51[7] + 24 * v43);
+      *v53 = v31;
+      v53[1] = v38;
+      v53[2] = v39;
+      sub_10000BD94(v38, v39);
+      v18 = v66;
+      v27 = *v66;
+      (*v66)(v70, v79);
+      v54 = v51[2];
+      v55 = __OFADD__(v54, 1);
+      v56 = v54 + 1;
+      if (v55)
       {
         goto LABEL_32;
       }
 
-      v82 = v55;
-      v55[2] = v60;
+      v78 = v51;
+      v51[2] = v56;
     }
 
-    v21 = v54 + 1;
-    v25 = v80;
-    v23 = v79 + 2;
-    v24 = v87;
-    v26 = v81;
-    v27 = v77;
-    v19 = v75;
+    v17 = v50 + 1;
+    v21 = v76;
+    v19 = v75 + 2;
+    v20 = v83;
+    v22 = v77;
+    v23 = v73;
+    v15 = v71;
   }
 
-  while (v72 != v21);
-  v15 = v82;
-  v31(v76, v83);
+  while (v68 != v17);
+  v11 = v78;
+  v27(v72, v79);
 LABEL_29:
 
-  sub_10000BB78(v65);
-  return v15;
+  sub_10000BB78(v61);
+  return v11;
 }
 
 uint64_t sub_10009085C(uint64_t a1, uint64_t a2)
@@ -2938,14 +2343,12 @@ uint64_t sub_100091240(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1000913C4@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_1000913C4@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100837510, &qword_1006C97B8);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v25 - v8;
-  v10 = a1[4];
+  v8 = &v23 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000B0B60();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2954,48 +2357,48 @@ uint64_t sub_1000913C4@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  LOBYTE(v34[0]) = 0;
+  LOBYTE(v32[0]) = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v27 = v10;
+  LOBYTE(v32[0]) = 1;
   v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v29 = v12;
-  LOBYTE(v34[0]) = 1;
-  v13 = KeyedDecodingContainer.decode(_:forKey:)();
-  v28 = v14;
-  v26 = v13;
-  LOBYTE(v34[0]) = 2;
-  v25 = KeyedDecodingContainer.decode(_:forKey:)();
-  v27 = v15;
-  v35 = 3;
-  v16 = KeyedDecodingContainer.decode(_:forKey:)();
-  v18 = v17;
-  (*(v6 + 8))(v9, v5);
-  v19 = v29;
-  *&v30 = v11;
-  *(&v30 + 1) = v29;
-  v21 = v26;
-  v20 = v27;
-  *&v31 = v26;
-  *(&v31 + 1) = v28;
-  *&v32 = v25;
-  *(&v32 + 1) = v27;
-  *&v33 = v16;
-  *(&v33 + 1) = v18;
-  sub_1000AFCC0(&v30, v34);
+  v26 = v12;
+  v24 = v11;
+  LOBYTE(v32[0]) = 2;
+  v23 = KeyedDecodingContainer.decode(_:forKey:)();
+  v25 = v13;
+  v33 = 3;
+  v14 = KeyedDecodingContainer.decode(_:forKey:)();
+  v16 = v15;
+  (*(v6 + 8))(v8, v5);
+  v17 = v27;
+  *&v28 = v9;
+  *(&v28 + 1) = v27;
+  v19 = v24;
+  v18 = v25;
+  *&v29 = v24;
+  *(&v29 + 1) = v26;
+  *&v30 = v23;
+  *(&v30 + 1) = v25;
+  *&v31 = v14;
+  *(&v31 + 1) = v16;
+  sub_1000AFCC0(&v28, v32);
   sub_10000BB78(a1);
-  v34[0] = v11;
-  v34[1] = v19;
-  v34[2] = v21;
-  v34[3] = v28;
-  v34[4] = v25;
-  v34[5] = v20;
-  v34[6] = v16;
-  v34[7] = v18;
-  result = sub_1000AFC28(v34);
-  v23 = v31;
-  *a2 = v30;
-  a2[1] = v23;
-  v24 = v33;
-  a2[2] = v32;
-  a2[3] = v24;
+  v32[0] = v9;
+  v32[1] = v17;
+  v32[2] = v19;
+  v32[3] = v26;
+  v32[4] = v23;
+  v32[5] = v18;
+  v32[6] = v14;
+  v32[7] = v16;
+  result = sub_1000AFC28(v32);
+  v21 = v29;
+  *a2 = v28;
+  a2[1] = v21;
+  v22 = v31;
+  a2[2] = v30;
+  a2[3] = v22;
   return result;
 }
 
@@ -3036,14 +2439,12 @@ uint64_t sub_1000916B8(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1000917DC@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_1000917DC@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = sub_100007224(&qword_1008373A8, &qword_1006C9758);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v22 - v8;
-  v10 = a1[4];
+  v8 = &v21 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000AFD4C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -3052,80 +2453,79 @@ uint64_t sub_1000917DC@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v11 = a2;
-  LOBYTE(v31) = 0;
+  v9 = a2;
+  LOBYTE(v30) = 0;
   sub_1000AFDA0();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
+  v28 = v36;
   v29 = v37;
-  v30 = v38;
-  LOBYTE(v31) = 1;
+  LOBYTE(v30) = 1;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v28 = v37;
-  v27 = v38;
-  v48 = 2;
+  v27 = v36;
+  v26 = v37;
+  v46 = 2;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v25 = *(&v46 + 1);
-  v26 = v46;
-  v23 = *(&v47 + 1);
-  v24 = v47;
+  (*(v6 + 8))(v8, v5);
+  v24 = *(&v44 + 1);
+  v25 = v44;
+  v22 = *(&v45 + 1);
+  v23 = v45;
+  v10 = v28;
+  v30 = v28;
+  v11 = *(&v28 + 1);
   v12 = v29;
   v31 = v29;
   v13 = *(&v29 + 1);
-  v14 = v30;
-  v32 = v30;
-  v15 = *(&v30 + 1);
-  v33 = v28;
-  v16 = v27;
-  v34 = v27;
-  v17 = *(&v27 + 1);
-  v35 = v46;
-  v36 = v47;
-  sub_1000AFDF4(&v31, &v37);
+  v32 = v27;
+  v16 = v26;
+  v14 = v16 >> 64;
+  v15 = v16;
+  v33 = v26;
+  v34 = v44;
+  v35 = v45;
+  sub_1000AFDF4(&v30, &v36);
   sub_10000BB78(a1);
+  *&v36 = v10;
+  *(&v36 + 1) = v11;
   *&v37 = v12;
   *(&v37 + 1) = v13;
-  *&v38 = v14;
-  *(&v38 + 1) = v15;
-  v39 = v28;
-  v40 = v16;
-  v41 = v17;
-  v42 = v26;
-  v43 = v25;
-  v44 = v24;
-  v45 = v23;
-  result = sub_1000AFE2C(&v37);
-  v19 = v34;
-  v11[2] = v33;
-  v11[3] = v19;
-  v20 = v36;
-  v11[4] = v35;
-  v11[5] = v20;
-  v21 = v32;
-  *v11 = v31;
-  v11[1] = v21;
+  v38 = v27;
+  v39 = __PAIR128__(v14, v15);
+  v40 = v25;
+  v41 = v24;
+  v42 = v23;
+  v43 = v22;
+  result = sub_1000AFE2C(&v36);
+  v18 = v33;
+  v9[2] = v32;
+  v9[3] = v18;
+  v19 = v35;
+  v9[4] = v34;
+  v9[5] = v19;
+  v20 = v31;
+  *v9 = v30;
+  v9[1] = v20;
   return result;
 }
 
-uint64_t sub_100091C24(uint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
+uint64_t sub_100091C24(void *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void), uint64_t a5)
 {
-  v7 = sub_100007224(a2, a3);
-  v15 = *(v7 - 8);
-  v8 = *(v15 + 64);
-  __chkstk_darwin(v7);
+  v8 = sub_100007224(a2, a3);
+  v15 = *(v8 - 8);
+  __chkstk_darwin(v8);
   v10 = &v14 - v9;
   v11 = a1[3];
   sub_10000BA08(a1, v11);
   a4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v4)
+  if (!v5)
   {
     v12 = v15;
     v17 = 0;
     v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
     v16 = 1;
     KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    (*(v12 + 8))(v10, v7);
+    (*(v12 + 8))(v10, v8);
   }
 
   sub_10000BB78(a1);
@@ -3187,142 +2587,137 @@ uint64_t sub_100091E14(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100092028@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void sub_100092028(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v51 = sub_100007224(&qword_100837100, &qword_1006C9680);
-  v5 = *(v51 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v51);
-  v8 = &v38 - v7;
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = sub_100007224(&qword_100837100, &qword_1006C9680);
+  v5 = *(v47 - 8);
+  __chkstk_darwin(v47);
+  v7 = &v34 - v6;
+  v8 = type metadata accessor for UUID();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
   UUID.uuidString.getter();
-  v54 = v14;
-  (*(v10 + 8))(v13, v9);
-  v15 = a1[3];
-  v16 = a1[4];
-  v52 = a1;
-  sub_10000BA08(a1, v15);
+  v50 = v12;
+  (*(v9 + 8))(v11, v8);
+  v13 = a1[3];
+  v48 = a1;
+  sub_10000BA08(a1, v13);
   sub_1000AE548();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    v53 = v2;
-    LODWORD(v50) = 0;
-    LODWORD(v51) = 0;
-    sub_10000BB78(v52);
+    v49 = v2;
+    LODWORD(v46) = 0;
+    LODWORD(v47) = 0;
+    sub_10000BB78(v48);
 
-    result = sub_1000AB97C(0, 0);
-    if (v50)
+    sub_1000AB97C(0, 0, 0, 0, 0, 0);
+    if (v46)
     {
     }
 
-    if (v51)
+    if (v47)
     {
     }
   }
 
   else
   {
-    v17 = v5;
-    LOBYTE(v55) = 0;
+    v14 = v5;
+    LOBYTE(v51) = 0;
     sub_1000AB1A8();
-    v18 = v51;
+    v15 = v47;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-    v19 = v64;
-    v46 = v65;
-    v20 = v66;
-    v54 = v67;
-    LOBYTE(v55) = 1;
+    v16 = v60;
+    v42 = v61;
+    v17 = v62;
+    v50 = v63;
+    LOBYTE(v51) = 1;
     sub_1000AB9CC();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v49 = v20;
-    v50 = v19;
-    v22 = v64;
-    v21 = v65;
-    v44 = v68;
-    v45 = v67;
-    v42 = v66;
-    v43 = v69;
-    LOBYTE(v64) = 2;
-    v41 = KeyedDecodingContainer.decode(_:forKey:)();
-    v48 = v23;
-    LOBYTE(v64) = 3;
-    v40 = KeyedDecodingContainer.decode(_:forKey:)();
-    v47 = v24;
+    v45 = v17;
+    v46 = v16;
+    v19 = v60;
+    v18 = v61;
+    v40 = v64;
+    v41 = v63;
+    v38 = v62;
+    v39 = v65;
+    LOBYTE(v60) = 2;
+    v37 = KeyedDecodingContainer.decode(_:forKey:)();
+    v44 = v20;
+    LOBYTE(v60) = 3;
+    v36 = KeyedDecodingContainer.decode(_:forKey:)();
+    v43 = v21;
     sub_100007224(&qword_100837110, &qword_1006C9688);
-    LOBYTE(v55) = 4;
+    LOBYTE(v51) = 4;
     sub_1000AE59C();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v25 = v64;
-    v81 = 5;
-    v26 = KeyedDecodingContainer.decode(_:forKey:)();
-    v53 = 0;
-    v27 = *(v17 + 8);
-    v28 = v26;
-    v39 = v29;
-    v27(v8, v18);
-    v30 = v46;
-    *&v55 = v50;
-    *(&v55 + 1) = v46;
-    *&v56 = v49;
-    *(&v56 + 1) = v54;
-    *&v57 = v22;
-    *(&v57 + 1) = v21;
-    v31 = v42;
-    *&v58 = v42;
-    *(&v58 + 1) = v45;
-    *&v59 = v44;
-    *(&v59 + 1) = v43;
-    *&v60 = v41;
-    *(&v60 + 1) = v48;
-    v32 = v39;
-    *&v61 = v40;
-    *(&v61 + 1) = v47;
-    *&v62 = v25;
-    *(&v62 + 1) = v28;
-    v63 = v39;
-    sub_1000AE674(&v55, &v64);
-    sub_10000BB78(v52);
-    v64 = v50;
-    v65 = v30;
-    v66 = v49;
-    v67 = v54;
-    v68 = v22;
-    v69 = v21;
-    v70 = v31;
-    v71 = v45;
-    v72 = v44;
+    v22 = v60;
+    v77 = 5;
+    v23 = KeyedDecodingContainer.decode(_:forKey:)();
+    v49 = 0;
+    v24 = *(v14 + 8);
+    v25 = v23;
+    v35 = v26;
+    v24(v7, v15);
+    v27 = v42;
+    *&v51 = v46;
+    *(&v51 + 1) = v42;
+    *&v52 = v45;
+    *(&v52 + 1) = v50;
+    *&v53 = v19;
+    *(&v53 + 1) = v18;
+    v28 = v38;
+    *&v54 = v38;
+    *(&v54 + 1) = v41;
+    *&v55 = v40;
+    *(&v55 + 1) = v39;
+    *&v56 = v37;
+    *(&v56 + 1) = v44;
+    v29 = v35;
+    *&v57 = v36;
+    *(&v57 + 1) = v43;
+    *&v58 = v22;
+    *(&v58 + 1) = v25;
+    v59 = v35;
+    sub_1000AE674(&v51, &v60);
+    sub_10000BB78(v48);
+    v60 = v46;
+    v61 = v27;
+    v62 = v45;
+    v63 = v50;
+    v64 = v19;
+    v65 = v18;
+    v66 = v28;
+    v67 = v41;
+    v68 = v40;
+    v69 = v39;
+    v70 = v37;
+    v71 = v44;
+    v72 = v36;
     v73 = v43;
-    v74 = v41;
-    v75 = v48;
-    v76 = v40;
-    v77 = v47;
-    v78 = v25;
-    v79 = v28;
-    v80 = v32;
-    result = sub_1000AE6AC(&v64);
-    v34 = v62;
-    *(a2 + 96) = v61;
-    *(a2 + 112) = v34;
-    *(a2 + 128) = v63;
-    v35 = v58;
-    *(a2 + 32) = v57;
-    *(a2 + 48) = v35;
-    v36 = v60;
-    *(a2 + 64) = v59;
-    *(a2 + 80) = v36;
-    v37 = v56;
-    *a2 = v55;
-    *(a2 + 16) = v37;
+    v74 = v22;
+    v75 = v25;
+    v76 = v29;
+    sub_1000AE6AC(&v60);
+    v30 = v58;
+    *(a2 + 96) = v57;
+    *(a2 + 112) = v30;
+    *(a2 + 128) = v59;
+    v31 = v54;
+    *(a2 + 32) = v53;
+    *(a2 + 48) = v31;
+    v32 = v56;
+    *(a2 + 64) = v55;
+    *(a2 + 80) = v32;
+    v33 = v52;
+    *a2 = v51;
+    *(a2 + 16) = v33;
   }
-
-  return result;
 }
 
 uint64_t sub_100092620(uint64_t a1, uint64_t a2)
@@ -3374,14 +2769,12 @@ uint64_t sub_100092620(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1000927D8@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_1000927D8@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v31 = sub_100007224(&qword_100837380, &qword_1006C9748);
-  v5 = *(v31 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v31);
-  v8 = &v26 - v7;
-  v9 = a1[4];
+  v29 = sub_100007224(&qword_100837380, &qword_1006C9748);
+  v5 = *(v29 - 8);
+  __chkstk_darwin(v29);
+  v7 = &v24 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_1000AFB80();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -3390,76 +2783,74 @@ uint64_t sub_1000927D8@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v30 = a2;
-  LOBYTE(v39[0]) = 0;
-  v11 = v31;
-  v12 = KeyedDecodingContainer.decode(_:forKey:)();
-  v14 = v13;
-  v29 = v12;
-  v57 = 1;
+  v8 = v5;
+  v28 = a2;
+  LOBYTE(v37[0]) = 0;
+  v9 = v29;
+  v10 = KeyedDecodingContainer.decode(_:forKey:)();
+  v12 = v11;
+  v27 = v10;
+  v55 = 1;
   sub_1000AFBD4();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
+  v50 = v46;
+  v51 = v47;
   v52 = v48;
   v53 = v49;
-  v54 = v50;
-  v55 = v51;
-  LOBYTE(v39[0]) = 2;
-  v28 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v39[0]) = 3;
-  v27 = KeyedDecodingContainer.decode(_:forKey:)();
-  v56 = 4;
-  v15 = KeyedDecodingContainer.decode(_:forKey:)();
-  v17 = v16;
-  (*(v10 + 8))(v8, v11);
-  v19 = v28;
-  v18 = v29;
-  *&v32 = v29;
-  *(&v32 + 1) = v14;
+  LOBYTE(v37[0]) = 2;
+  v26 = KeyedDecodingContainer.decode(_:forKey:)();
+  LOBYTE(v37[0]) = 3;
+  v25 = KeyedDecodingContainer.decode(_:forKey:)();
+  v54 = 4;
+  v13 = KeyedDecodingContainer.decode(_:forKey:)();
+  v15 = v14;
+  (*(v8 + 8))(v7, v9);
+  v17 = v26;
+  v16 = v27;
+  *&v30 = v27;
+  *(&v30 + 1) = v12;
+  v31 = v50;
+  v32 = v51;
   v33 = v52;
   v34 = v53;
-  v35 = v54;
-  v36 = v55;
-  v20 = v27;
-  *&v37 = v28;
-  *(&v37 + 1) = v27;
-  *&v38 = v15;
-  *(&v38 + 1) = v17;
-  sub_1000AFC58(&v32, v39);
+  v18 = v25;
+  *&v35 = v26;
+  *(&v35 + 1) = v25;
+  *&v36 = v13;
+  *(&v36 + 1) = v15;
+  sub_1000AFC58(&v30, v37);
   sub_10000BB78(a1);
-  v39[0] = v18;
-  v39[1] = v14;
+  v37[0] = v16;
+  v37[1] = v12;
+  v38 = v50;
+  v39 = v51;
   v40 = v52;
   v41 = v53;
-  v42 = v54;
-  v43 = v55;
-  v44 = v19;
-  v45 = v20;
-  v46 = v15;
-  v47 = v17;
-  result = sub_1000AFC90(v39);
-  v22 = v37;
-  v23 = v30;
-  v30[4] = v36;
-  v23[5] = v22;
-  v23[6] = v38;
-  v24 = v33;
-  *v23 = v32;
-  v23[1] = v24;
-  v25 = v35;
-  v23[2] = v34;
-  v23[3] = v25;
+  v42 = v17;
+  v43 = v18;
+  v44 = v13;
+  v45 = v15;
+  result = sub_1000AFC90(v37);
+  v20 = v35;
+  v21 = v28;
+  v28[4] = v34;
+  v21[5] = v20;
+  v21[6] = v36;
+  v22 = v31;
+  *v21 = v30;
+  v21[1] = v22;
+  v23 = v33;
+  v21[2] = v32;
+  v21[3] = v23;
   return result;
 }
 
-uint64_t sub_100092B14@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_100092B14@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = sub_100007224(&qword_1008374D0, &qword_1006C9798);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v15 - v8;
-  v10 = a1[4];
+  v8 = &v13 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000B07D4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -3468,20 +2859,20 @@ uint64_t sub_100092B14@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  LOBYTE(v16) = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v19 = 1;
+  LOBYTE(v14) = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v17 = 1;
   sub_1000B0828();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v15 = v16;
-  v12 = v17;
-  v13 = v18;
+  (*(v6 + 8))(v8, v5);
+  v13 = v14;
+  v10 = v15;
+  v11 = v16;
   result = sub_10000BB78(a1);
-  *a2 = v11;
-  *(a2 + 8) = v15;
-  *(a2 + 24) = v12;
-  *(a2 + 32) = v13;
+  *a2 = v9;
+  *(a2 + 8) = v13;
+  *(a2 + 24) = v10;
+  *(a2 + 32) = v11;
   return result;
 }
 
@@ -3540,175 +2931,169 @@ uint64_t sub_100092CF0(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100092F00@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+void sub_100092F00(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v55 = sub_100007224(&qword_1008370E8, &qword_1006C9670);
-  v5 = *(v55 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v55);
-  v8 = &v40 - v7;
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v40 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v51 = sub_100007224(&qword_1008370E8, &qword_1006C9670);
+  v5 = *(v51 - 8);
+  __chkstk_darwin(v51);
+  v7 = &v36 - v6;
+  v8 = type metadata accessor for UUID();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
   UUID.uuidString.getter();
-  v58 = v14;
-  (*(v10 + 8))(v13, v9);
-  v15 = a1[3];
-  v16 = a1[4];
-  v56 = a1;
-  sub_10000BA08(a1, v15);
+  v54 = v12;
+  (*(v9 + 8))(v11, v8);
+  v13 = a1[3];
+  v52 = a1;
+  sub_10000BA08(a1, v13);
   sub_1000AE48C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    v57 = v2;
-    LODWORD(v54) = 0;
-    LODWORD(v53) = 0;
-    LODWORD(v55) = 0;
-    sub_10000BB78(v56);
+    v53 = v2;
+    LODWORD(v50) = 0;
+    LODWORD(v49) = 0;
+    LODWORD(v51) = 0;
+    sub_10000BB78(v52);
 
-    result = sub_1000AB97C(0, 0);
-    if (v54)
+    sub_1000AB97C(0, 0, 0, 0, 0, 0);
+    if (v50)
     {
     }
 
-    if (v53)
+    if (v49)
     {
     }
 
-    if (v55)
+    if (v51)
     {
     }
   }
 
   else
   {
-    v17 = v5;
-    LOBYTE(v59) = 0;
+    v14 = v5;
+    LOBYTE(v55) = 0;
     sub_1000AB1A8();
-    v18 = v55;
+    v15 = v51;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-    v19 = v68;
-    v50 = v69;
-    v20 = v70;
-    v58 = v71;
-    LOBYTE(v59) = 1;
+    v16 = v64;
+    v46 = v65;
+    v17 = v66;
+    v54 = v67;
+    LOBYTE(v55) = 1;
     sub_1000AB9CC();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v21 = v20;
-    v22 = v68;
-    v45 = v69;
-    v46 = v70;
-    v48 = v72;
-    v49 = v71;
-    v47 = v73;
-    LOBYTE(v68) = 2;
-    v54 = KeyedDecodingContainer.decode(_:forKey:)();
-    v52 = v23;
-    LOBYTE(v68) = 3;
-    v53 = KeyedDecodingContainer.decode(_:forKey:)();
-    v51 = v24;
-    LOBYTE(v68) = 4;
-    v43 = KeyedDecodingContainer.decode(_:forKey:)();
-    v44 = v19;
-    v26 = v25;
-    v86 = 5;
-    v27 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v57 = 0;
-    v28 = *(v17 + 8);
-    v29 = v27;
-    v41 = v30;
-    v28(v8, v18);
-    v31 = v45;
-    v32 = v50;
+    v18 = v17;
+    v19 = v64;
+    v41 = v65;
+    v42 = v66;
+    v44 = v68;
+    v45 = v67;
+    v43 = v69;
+    LOBYTE(v64) = 2;
+    v50 = KeyedDecodingContainer.decode(_:forKey:)();
+    v48 = v20;
+    LOBYTE(v64) = 3;
+    v49 = KeyedDecodingContainer.decode(_:forKey:)();
+    v47 = v21;
+    LOBYTE(v64) = 4;
+    v39 = KeyedDecodingContainer.decode(_:forKey:)();
+    v40 = v16;
+    v23 = v22;
+    v82 = 5;
+    v24 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v53 = 0;
+    v25 = *(v14 + 8);
+    v26 = v24;
+    v37 = v27;
+    v25(v7, v15);
+    v28 = v41;
+    v29 = v46;
+    *&v55 = v40;
+    *(&v55 + 1) = v46;
+    v38 = v18;
+    *&v56 = v18;
+    *(&v56 + 1) = v54;
+    *&v57 = v19;
+    *(&v57 + 1) = v41;
+    v30 = v42;
+    *&v58 = v42;
+    *(&v58 + 1) = v45;
     *&v59 = v44;
-    *(&v59 + 1) = v50;
-    v42 = v21;
-    *&v60 = v21;
-    *(&v60 + 1) = v58;
-    *&v61 = v22;
-    *(&v61 + 1) = v45;
-    v33 = v46;
-    *&v62 = v46;
-    *(&v62 + 1) = v49;
-    *&v63 = v48;
-    *(&v63 + 1) = v47;
-    *&v64 = v54;
-    *(&v64 + 1) = v52;
-    *&v65 = v53;
-    *(&v65 + 1) = v51;
-    *&v66 = v43;
-    *(&v66 + 1) = v26;
-    v34 = v41;
-    *&v67 = v29;
-    *(&v67 + 1) = v41;
-    sub_1000AE4E0(&v59, &v68);
-    sub_10000BB78(v56);
-    v68 = v44;
-    v69 = v32;
-    v70 = v42;
-    v71 = v58;
-    v72 = v22;
-    v73 = v31;
-    v74 = v33;
-    v75 = v49;
-    v76 = v48;
+    *(&v59 + 1) = v43;
+    *&v60 = v50;
+    *(&v60 + 1) = v48;
+    *&v61 = v49;
+    *(&v61 + 1) = v47;
+    *&v62 = v39;
+    *(&v62 + 1) = v23;
+    v31 = v37;
+    *&v63 = v26;
+    *(&v63 + 1) = v37;
+    sub_1000AE4E0(&v55, &v64);
+    sub_10000BB78(v52);
+    v64 = v40;
+    v65 = v29;
+    v66 = v38;
+    v67 = v54;
+    v68 = v19;
+    v69 = v28;
+    v70 = v30;
+    v71 = v45;
+    v72 = v44;
+    v73 = v43;
+    v74 = v50;
+    v75 = v48;
+    v76 = v49;
     v77 = v47;
-    v78 = v54;
-    v79 = v52;
-    v80 = v53;
-    v81 = v51;
-    v82 = v43;
-    v83 = v26;
-    v84 = v29;
-    v85 = v34;
-    result = sub_1000AE518(&v68);
-    v36 = v66;
-    a2[6] = v65;
-    a2[7] = v36;
-    a2[8] = v67;
-    v37 = v62;
-    a2[2] = v61;
-    a2[3] = v37;
-    v38 = v64;
-    a2[4] = v63;
-    a2[5] = v38;
-    v39 = v60;
-    *a2 = v59;
-    a2[1] = v39;
+    v78 = v39;
+    v79 = v23;
+    v80 = v26;
+    v81 = v31;
+    sub_1000AE518(&v64);
+    v32 = v62;
+    a2[6] = v61;
+    a2[7] = v32;
+    a2[8] = v63;
+    v33 = v58;
+    a2[2] = v57;
+    a2[3] = v33;
+    v34 = v60;
+    a2[4] = v59;
+    a2[5] = v34;
+    v35 = v56;
+    *a2 = v55;
+    a2[1] = v35;
   }
-
-  return result;
 }
 
-uint64_t sub_1000934DC(uint64_t *a1)
+uint64_t sub_1000934DC(void *a1)
 {
   v3 = sub_100007224(&qword_1008383E0, &qword_1006CFD10);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v10[-v6];
-  v8 = a1[3];
-  sub_10000BA08(a1, v8);
+  v6 = &v9[-v5];
+  v7 = a1[3];
+  sub_10000BA08(a1, v7);
   sub_1000BA5F4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v1)
   {
-    v10[14] = 0;
+    v9[14] = 0;
     sub_1000BA648();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v8 = v10[15];
-    v10[13] = 1;
+    v7 = v9[15];
+    v9[13] = 1;
     KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
   }
 
   sub_10000BB78(a1);
-  return v8;
+  return v7;
 }
 
 unint64_t sub_1000936A0(Swift::String string)
@@ -3778,103 +3163,101 @@ uint64_t sub_1000936EC(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1000938B0@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_1000938B0@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = sub_100007224(&qword_1008377D0, &qword_1006C9938);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v30 - v8;
-  v10 = a1[3];
-  v11 = a1[4];
-  v70 = a1;
-  sub_10000BA08(a1, v10);
+  v8 = &v28 - v7;
+  v9 = a1[3];
+  v68 = a1;
+  sub_10000BA08(a1, v9);
   sub_1000B1BEC();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    return sub_10000BB78(v70);
+    return sub_10000BB78(v68);
   }
 
-  v12 = v6;
-  v56 = 0;
+  v10 = v6;
+  v54 = 0;
   sub_1000ACC1C();
-  v13 = v5;
+  v11 = v5;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v66 = v59;
-  v67 = v60;
-  v68 = v61;
-  v69 = v62;
   v64 = v57;
   v65 = v58;
-  LOBYTE(v44[0]) = 1;
-  v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v16 = v15;
-  v17 = v14;
-  LOBYTE(v44[0]) = 2;
-  v33 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v63 = v18 & 1;
+  v66 = v59;
+  v67 = v60;
+  v62 = v55;
+  v63 = v56;
+  LOBYTE(v42[0]) = 1;
+  v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v14 = v13;
+  v15 = v12;
+  LOBYTE(v42[0]) = 2;
+  v31 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v61 = v16 & 1;
   sub_100007224(&qword_1008377E0, &qword_1006C9940);
-  LOBYTE(v34) = 3;
+  LOBYTE(v32) = 3;
   sub_1000B1C40();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v32 = v17;
-  v19 = *&v44[0];
-  v53 = 4;
+  v30 = v15;
+  v17 = *&v42[0];
+  v51 = 4;
   sub_1000B1CF4();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v12 + 8))(v9, v13);
-  v30 = v55;
-  v31 = v54;
-  v20 = *(&v55 + 1);
-  v36 = v66;
-  v37 = v67;
-  v38 = v68;
-  v39 = v69;
+  (*(v10 + 8))(v8, v11);
+  v28 = v53;
+  v29 = v52;
+  v18 = *(&v53 + 1);
   v34 = v64;
   v35 = v65;
-  v22 = v32;
-  v21 = v33;
-  *&v40 = v32;
-  *(&v40 + 1) = v16;
-  *&v41 = v33;
-  v23 = v63;
-  BYTE8(v41) = v63;
-  *&v42 = v19;
-  *(&v42 + 1) = v54;
-  v43 = v55;
-  sub_1000B1D48(&v34, v44);
-  sub_10000BB78(v70);
-  v44[2] = v66;
-  v44[3] = v67;
-  v44[4] = v68;
-  v44[5] = v69;
-  v44[0] = v64;
-  v44[1] = v65;
-  v45 = v22;
-  v46 = v16;
-  v47 = v21;
-  v48 = v23;
-  v49 = v19;
-  v50 = v31;
-  v51 = v30;
-  v52 = v20;
-  result = sub_1000B1D80(v44);
-  v25 = v41;
-  a2[6] = v40;
-  a2[7] = v25;
-  v26 = v43;
-  a2[8] = v42;
-  a2[9] = v26;
-  v27 = v37;
-  a2[2] = v36;
-  a2[3] = v27;
-  v28 = v39;
-  a2[4] = v38;
-  a2[5] = v28;
-  v29 = v35;
-  *a2 = v34;
-  a2[1] = v29;
+  v36 = v66;
+  v37 = v67;
+  v32 = v62;
+  v33 = v63;
+  v20 = v30;
+  v19 = v31;
+  *&v38 = v30;
+  *(&v38 + 1) = v14;
+  *&v39 = v31;
+  v21 = v61;
+  BYTE8(v39) = v61;
+  *&v40 = v17;
+  *(&v40 + 1) = v52;
+  v41 = v53;
+  sub_1000B1D48(&v32, v42);
+  sub_10000BB78(v68);
+  v42[2] = v64;
+  v42[3] = v65;
+  v42[4] = v66;
+  v42[5] = v67;
+  v42[0] = v62;
+  v42[1] = v63;
+  v43 = v20;
+  v44 = v14;
+  v45 = v19;
+  v46 = v21;
+  v47 = v17;
+  v48 = v29;
+  v49 = v28;
+  v50 = v18;
+  result = sub_1000B1D80(v42);
+  v23 = v39;
+  a2[6] = v38;
+  a2[7] = v23;
+  v24 = v41;
+  a2[8] = v40;
+  a2[9] = v24;
+  v25 = v35;
+  a2[2] = v34;
+  a2[3] = v25;
+  v26 = v37;
+  a2[4] = v36;
+  a2[5] = v26;
+  v27 = v33;
+  *a2 = v32;
+  a2[1] = v27;
   return result;
 }
 
@@ -3939,151 +3322,148 @@ uint64_t sub_100093CAC(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100093F1C@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_100093F1C@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v58 = sub_100007224(&qword_100837708, &qword_1006C98D8);
-  v5 = *(v58 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v58);
-  v8 = &v42 - v7;
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v42 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = sub_100007224(&qword_100837708, &qword_1006C98D8);
+  v5 = *(v55 - 8);
+  __chkstk_darwin(v55);
+  v7 = &v39 - v6;
+  v8 = type metadata accessor for UUID();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
   UUID.uuidString.getter();
-  v62 = v14;
-  (*(v10 + 8))(v13, v9);
-  v15 = a1[3];
-  v16 = a1[4];
-  v59 = a1;
-  sub_10000BA08(a1, v15);
+  v59 = v12;
+  (*(v9 + 8))(v11, v8);
+  v13 = a1[3];
+  v56 = a1;
+  sub_10000BA08(a1, v13);
   sub_1000AC9B8();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    v60 = v2;
-    LODWORD(v57) = 0;
-    LODWORD(v58) = 0;
-    v61 = 0;
-    sub_10000BB78(v59);
+    v57 = v2;
+    LODWORD(v54) = 0;
+    LODWORD(v55) = 0;
+    v58 = 0;
+    sub_10000BB78(v56);
 
-    sub_1000AB97C(0, 0);
-    if (v57)
+    sub_1000AB97C(0, 0, 0, 0, 0, 0);
+    if (v54)
     {
     }
 
-    if (v58)
+    if (v55)
     {
     }
   }
 
   else
   {
-    v17 = v5;
-    LOBYTE(v63) = 0;
+    v14 = v5;
+    LOBYTE(v60) = 0;
     sub_1000AB1A8();
-    v18 = v58;
+    v15 = v55;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-    v19 = v73;
-    v53 = v74;
-    v20 = v75;
-    v62 = v76;
-    LOBYTE(v63) = 1;
+    v16 = v70;
+    v50 = v71;
+    v17 = v72;
+    v59 = v73;
+    LOBYTE(v60) = 1;
     sub_1000AB9CC();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v57 = v20;
-    v21 = v19;
-    v23 = v73;
-    v22 = v74;
-    v49 = v77;
-    v50 = v75;
-    v51 = v78;
-    v52 = v76;
-    LOBYTE(v73) = 2;
-    v48 = KeyedDecodingContainer.decode(_:forKey:)();
-    v56 = v24;
-    LOBYTE(v73) = 3;
-    v47 = KeyedDecodingContainer.decode(_:forKey:)();
-    v55 = v25;
-    LOBYTE(v73) = 4;
-    v46 = KeyedDecodingContainer.decode(_:forKey:)();
-    v54 = v26;
-    LOBYTE(v73) = 5;
-    v45 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v61 = v27;
-    v93 = 6;
-    v28 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v60 = 0;
-    v29 = *(v17 + 8);
-    v30 = v28;
-    v43 = v31;
-    v29(v8, v18);
-    v44 = v21;
-    *&v63 = v21;
-    *(&v63 + 1) = v53;
-    v32 = v62;
-    *&v64 = v57;
-    *(&v64 + 1) = v62;
-    *&v65 = v23;
-    *(&v65 + 1) = v22;
-    v33 = v49;
-    v34 = v50;
-    *&v66 = v50;
+    v54 = v17;
+    v18 = v16;
+    v20 = v70;
+    v19 = v71;
+    v46 = v74;
+    v47 = v72;
+    v48 = v75;
+    v49 = v73;
+    LOBYTE(v70) = 2;
+    v45 = KeyedDecodingContainer.decode(_:forKey:)();
+    v53 = v21;
+    LOBYTE(v70) = 3;
+    v44 = KeyedDecodingContainer.decode(_:forKey:)();
+    v52 = v22;
+    LOBYTE(v70) = 4;
+    v43 = KeyedDecodingContainer.decode(_:forKey:)();
+    v51 = v23;
+    LOBYTE(v70) = 5;
+    v42 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v58 = v24;
+    v90 = 6;
+    v25 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v57 = 0;
+    v26 = *(v14 + 8);
+    v27 = v25;
+    v40 = v28;
+    v26(v7, v15);
+    v41 = v18;
+    *&v60 = v18;
+    *(&v60 + 1) = v50;
+    v29 = v59;
+    *&v61 = v54;
+    *(&v61 + 1) = v59;
+    *&v62 = v20;
+    *(&v62 + 1) = v19;
+    v30 = v46;
+    v31 = v47;
+    *&v63 = v47;
+    *(&v63 + 1) = v49;
+    *&v64 = v46;
+    *(&v64 + 1) = v48;
+    *&v65 = v45;
+    *(&v65 + 1) = v53;
+    *&v66 = v44;
     *(&v66 + 1) = v52;
-    *&v67 = v49;
+    *&v67 = v43;
     *(&v67 + 1) = v51;
-    *&v68 = v48;
-    *(&v68 + 1) = v56;
-    *&v69 = v47;
-    *(&v69 + 1) = v55;
-    *&v70 = v46;
-    *(&v70 + 1) = v54;
-    *&v71 = v45;
-    *(&v71 + 1) = v61;
-    v35 = v43;
-    *&v72 = v30;
-    *(&v72 + 1) = v43;
-    sub_1000B16B4(&v63, &v73);
-    sub_10000BB78(v59);
-    v73 = v44;
-    v74 = v53;
-    v75 = v57;
-    v76 = v32;
-    v77 = v23;
-    v78 = v22;
-    v79 = v34;
-    v80 = v52;
-    v81 = v33;
-    v82 = v51;
-    v83 = v48;
-    v84 = v56;
-    v85 = v47;
-    v86 = v55;
-    v87 = v46;
-    v88 = v54;
-    v89 = v45;
-    v90 = v61;
-    v91 = v30;
-    v92 = v35;
-    result = sub_1000B16EC(&v73);
-    v37 = v70;
-    a2[6] = v69;
-    a2[7] = v37;
-    v38 = v72;
-    a2[8] = v71;
-    a2[9] = v38;
-    v39 = v66;
-    a2[2] = v65;
-    a2[3] = v39;
-    v40 = v68;
-    a2[4] = v67;
-    a2[5] = v40;
-    v41 = v64;
-    *a2 = v63;
-    a2[1] = v41;
+    *&v68 = v42;
+    *(&v68 + 1) = v58;
+    v32 = v40;
+    *&v69 = v27;
+    *(&v69 + 1) = v40;
+    sub_1000B16B4(&v60, &v70);
+    sub_10000BB78(v56);
+    v70 = v41;
+    v71 = v50;
+    v72 = v54;
+    v73 = v29;
+    v74 = v20;
+    v75 = v19;
+    v76 = v31;
+    v77 = v49;
+    v78 = v30;
+    v79 = v48;
+    v80 = v45;
+    v81 = v53;
+    v82 = v44;
+    v83 = v52;
+    v84 = v43;
+    v85 = v51;
+    v86 = v42;
+    v87 = v58;
+    v88 = v27;
+    v89 = v32;
+    result = sub_1000B16EC(&v70);
+    v34 = v67;
+    a2[6] = v66;
+    a2[7] = v34;
+    v35 = v69;
+    a2[8] = v68;
+    a2[9] = v35;
+    v36 = v63;
+    a2[2] = v62;
+    a2[3] = v36;
+    v37 = v65;
+    a2[4] = v64;
+    a2[5] = v37;
+    v38 = v61;
+    *a2 = v60;
+    a2[1] = v38;
   }
 
   return result;
@@ -4163,14 +3543,12 @@ uint64_t sub_1000946B0(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1000947C0@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_1000947C0@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100837628, &qword_1006C9838);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v26 - v8;
-  v10 = a1[4];
+  v8 = &v24 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000B126C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -4179,54 +3557,54 @@ uint64_t sub_1000947C0@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  LOBYTE(v37[0]) = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v31 = a2;
-  v14 = v11;
-  LOBYTE(v37[0]) = 1;
-  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  *(&v30 + 1) = v16;
-  *&v30 = v15;
-  v41 = 2;
+  LOBYTE(v35[0]) = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  v29 = a2;
+  v12 = v9;
+  LOBYTE(v35[0]) = 1;
+  v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  *(&v28 + 1) = v14;
+  *&v28 = v13;
+  v39 = 2;
   sub_1000B12C0();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v29 = v38;
-  v17 = v39;
-  v28 = *(&v38 + 1);
-  v18 = *(&v39 + 1);
-  v27 = *(&v40 + 1);
-  v19 = v40;
-  *&v32 = v14;
-  *(&v32 + 1) = v13;
-  v20 = v30;
-  v33 = v30;
-  v21 = *(&v30 + 1);
+  (*(v6 + 8))(v8, v5);
+  v27 = v36;
+  v15 = v37;
+  v26 = *(&v36 + 1);
+  v16 = *(&v37 + 1);
+  v25 = *(&v38 + 1);
+  v17 = v38;
+  *&v30 = v12;
+  *(&v30 + 1) = v11;
+  v18 = v28;
+  v31 = v28;
+  v19 = *(&v28 + 1);
+  v32 = v36;
+  v33 = v37;
   v34 = v38;
-  v35 = v39;
-  v36 = v40;
-  sub_1000B1314(&v32, v37);
+  sub_1000B1314(&v30, v35);
   sub_10000BB78(a1);
-  v37[0] = v14;
-  v37[1] = v13;
-  v37[2] = v20;
-  v37[3] = v21;
-  v37[4] = v29;
-  v37[5] = v28;
-  v37[6] = v17;
-  v37[7] = v18;
-  v37[8] = v19;
-  v37[9] = v27;
-  result = sub_1000B134C(v37);
-  v23 = v35;
-  v24 = v31;
-  v31[2] = v34;
-  v24[3] = v23;
-  v24[4] = v36;
-  v25 = v33;
-  *v24 = v32;
-  v24[1] = v25;
+  v35[0] = v12;
+  v35[1] = v11;
+  v35[2] = v18;
+  v35[3] = v19;
+  v35[4] = v27;
+  v35[5] = v26;
+  v35[6] = v15;
+  v35[7] = v16;
+  v35[8] = v17;
+  v35[9] = v25;
+  result = sub_1000B134C(v35);
+  v21 = v33;
+  v22 = v29;
+  v29[2] = v32;
+  v22[3] = v21;
+  v22[4] = v34;
+  v23 = v31;
+  *v22 = v30;
+  v22[1] = v23;
   return result;
 }
 
@@ -4273,14 +3651,12 @@ uint64_t sub_100094B00(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100094C74@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_100094C74@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = sub_100007224(&qword_1008383B0, &qword_1006CFCF0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v18 - v8;
-  v10 = a1[4];
+  v8 = &v16 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000BA54C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -4290,31 +3666,31 @@ uint64_t sub_100094C74@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   }
 
   sub_100007224(&qword_100834EA0, &qword_1006C06B0);
-  v25 = 0;
+  v23 = 0;
   sub_10007FD2C();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v24 = v26;
-  LOBYTE(v26) = 1;
-  v21 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v22 = 0;
-  v23 = v11;
-  LOBYTE(v26) = 2;
-  v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v19 = v13;
-  v20 = v12;
-  v25 = 3;
+  v22 = v24;
+  LOBYTE(v24) = 1;
+  v19 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v20 = 0;
+  v21 = v9;
+  LOBYTE(v24) = 2;
+  v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v17 = v11;
+  v18 = v10;
+  v23 = 3;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v14 = v26;
+  (*(v6 + 8))(v8, v5);
+  v12 = v24;
   result = sub_10000BB78(a1);
-  v16 = v21;
-  *a2 = v24;
-  *(a2 + 8) = v16;
-  v17 = v20;
-  *(a2 + 16) = v23;
-  *(a2 + 24) = v17;
-  *(a2 + 32) = v19 & 1;
-  *(a2 + 40) = v14;
+  v14 = v19;
+  *a2 = v22;
+  *(a2 + 8) = v14;
+  v15 = v18;
+  *(a2 + 16) = v21;
+  *(a2 + 24) = v15;
+  *(a2 + 32) = v17 & 1;
+  *(a2 + 40) = v12;
   return result;
 }
 
@@ -4531,24 +3907,21 @@ uint64_t sub_1000955D8(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10009575C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_10009575C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v43 = a2;
+  v40 = a2;
   v4 = sub_100007224(&qword_1008378B0, &qword_1006C99A8);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v32 - v7;
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v29 - v6;
+  v8 = type metadata accessor for UUID();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
   UUID.uuidString.getter();
-  v44 = v14;
-  (*(v10 + 8))(v13, v9);
-  v15 = a1[4];
+  v41 = v12;
+  (*(v9 + 8))(v11, v8);
   sub_10000BA08(a1, a1[3]);
   sub_1000ACA0C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -4559,76 +3932,76 @@ uint64_t sub_10009575C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    v42 = v5;
-    LOBYTE(v45) = 0;
+    v39 = v5;
+    LOBYTE(v42) = 0;
     sub_1000AB1A8();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-    v16 = v52;
-    v17 = v53;
-    v18 = v54;
-    v44 = v55;
-    LOBYTE(v52) = 1;
-    v39 = KeyedDecodingContainer.decode(_:forKey:)();
-    v40 = v18;
-    v41 = v16;
-    LOBYTE(v52) = 2;
-    v19 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v21 = v20;
-    v69 = 3;
+    v13 = v49;
+    v14 = v50;
+    v15 = v51;
+    v41 = v52;
+    LOBYTE(v49) = 1;
+    v36 = KeyedDecodingContainer.decode(_:forKey:)();
+    v37 = v15;
+    v38 = v13;
+    LOBYTE(v49) = 2;
+    v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v18 = v17;
+    v66 = 3;
     sub_1000AB9CC();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    (*(v42 + 8))(v8, v4);
-    v42 = v65;
-    v37 = *(&v66 + 1);
-    v38 = v66;
-    v35 = *(&v67 + 1);
-    v36 = v67;
-    v33 = v19;
-    v34 = v68;
-    v22 = v41;
-    *&v45 = v41;
-    *(&v45 + 1) = v17;
-    v23 = v19;
-    v25 = v39;
-    v24 = v40;
-    v26 = v44;
-    *&v46 = v40;
-    *(&v46 + 1) = v44;
-    *&v47 = v39;
-    *(&v47 + 1) = v23;
-    *&v48 = v21;
-    *(&v48 + 1) = v65;
-    v49 = v66;
-    v50 = v67;
-    v51 = v68;
-    sub_1000B2140(&v45, &v52);
+    (*(v39 + 8))(v7, v4);
+    v39 = v62;
+    v34 = *(&v63 + 1);
+    v35 = v63;
+    v32 = *(&v64 + 1);
+    v33 = v64;
+    v30 = v16;
+    v31 = v65;
+    v19 = v38;
+    *&v42 = v38;
+    *(&v42 + 1) = v14;
+    v20 = v16;
+    v22 = v36;
+    v21 = v37;
+    v23 = v41;
+    *&v43 = v37;
+    *(&v43 + 1) = v41;
+    *&v44 = v36;
+    *(&v44 + 1) = v20;
+    *&v45 = v18;
+    *(&v45 + 1) = v62;
+    v46 = v63;
+    v47 = v64;
+    v48 = v65;
+    sub_1000B2140(&v42, &v49);
     sub_10000BB78(a1);
-    v52 = v22;
-    v53 = v17;
-    v54 = v24;
-    v55 = v26;
-    v56 = v25;
-    v57 = v33;
-    v58 = v21;
-    v59 = v42;
-    v60 = v38;
-    v61 = v37;
-    v62 = v36;
-    v63 = v35;
-    v64 = v34;
-    result = sub_1000B2178(&v52);
-    v28 = v50;
-    v29 = v43;
-    *(v43 + 64) = v49;
-    *(v29 + 80) = v28;
-    *(v29 + 96) = v51;
-    v30 = v46;
-    *v29 = v45;
-    *(v29 + 16) = v30;
-    v31 = v48;
-    *(v29 + 32) = v47;
-    *(v29 + 48) = v31;
+    v49 = v19;
+    v50 = v14;
+    v51 = v21;
+    v52 = v23;
+    v53 = v22;
+    v54 = v30;
+    v55 = v18;
+    v56 = v39;
+    v57 = v35;
+    v58 = v34;
+    v59 = v33;
+    v60 = v32;
+    v61 = v31;
+    result = sub_1000B2178(&v49);
+    v25 = v47;
+    v26 = v40;
+    *(v40 + 64) = v46;
+    *(v26 + 80) = v25;
+    *(v26 + 96) = v48;
+    v27 = v43;
+    *v26 = v42;
+    *(v26 + 16) = v27;
+    v28 = v45;
+    *(v26 + 32) = v44;
+    *(v26 + 48) = v28;
   }
 
   return result;
@@ -4671,14 +4044,12 @@ uint64_t sub_100095B6C(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100095C8C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_100095C8C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v22 = sub_100007224(&qword_100837048, &qword_1006C9620);
-  v5 = *(v22 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v22);
-  v8 = &v21 - v7;
-  v9 = a1[4];
+  v20 = sub_100007224(&qword_100837048, &qword_1006C9620);
+  v5 = *(v20 - 8);
+  __chkstk_darwin(v20);
+  v7 = &v19 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_1000AD01C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -4687,60 +4058,60 @@ uint64_t sub_100095C8C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v49 = 0;
+  v8 = v5;
+  v47 = 0;
   sub_1000ACC1C();
-  v11 = v22;
+  v9 = v20;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v44 = v38;
-  v45 = v39;
-  v46 = v40;
-  v47 = v41;
   v42 = v36;
   v43 = v37;
-  LOBYTE(v31[0]) = 1;
-  v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v14 = v13;
-  v21 = v12;
+  v44 = v38;
+  v45 = v39;
+  v40 = v34;
+  v41 = v35;
+  LOBYTE(v29[0]) = 1;
+  v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v12 = v11;
+  v19 = v10;
   sub_100007224(&qword_100834EA0, &qword_1006C06B0);
-  v48 = 2;
+  v46 = 2;
   sub_10007FD2C();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v10 + 8))(v8, v11);
-  v15 = v35;
-  v25 = v44;
-  v26 = v45;
-  v27 = v46;
-  v28 = v47;
+  (*(v8 + 8))(v7, v9);
+  v13 = v33;
   v23 = v42;
   v24 = v43;
-  v16 = v21;
-  *&v29 = v21;
-  *(&v29 + 1) = v14;
-  v30 = v35;
-  sub_1000AD070(&v23, v31);
+  v25 = v44;
+  v26 = v45;
+  v21 = v40;
+  v22 = v41;
+  v14 = v19;
+  *&v27 = v19;
+  *(&v27 + 1) = v12;
+  v28 = v33;
+  sub_1000AD070(&v21, v29);
   sub_10000BB78(a1);
-  v31[2] = v44;
-  v31[3] = v45;
-  v31[4] = v46;
-  v31[5] = v47;
-  v31[0] = v42;
-  v31[1] = v43;
-  v32 = v16;
-  v33 = v14;
-  v34 = v15;
-  result = sub_1000AD0A8(v31);
-  v18 = v28;
-  *(a2 + 64) = v27;
-  *(a2 + 80) = v18;
-  *(a2 + 96) = v29;
-  *(a2 + 112) = v30;
-  v19 = v24;
-  *a2 = v23;
-  *(a2 + 16) = v19;
-  v20 = v26;
-  *(a2 + 32) = v25;
-  *(a2 + 48) = v20;
+  v29[2] = v42;
+  v29[3] = v43;
+  v29[4] = v44;
+  v29[5] = v45;
+  v29[0] = v40;
+  v29[1] = v41;
+  v30 = v14;
+  v31 = v12;
+  v32 = v13;
+  result = sub_1000AD0A8(v29);
+  v16 = v26;
+  *(a2 + 64) = v25;
+  *(a2 + 80) = v16;
+  *(a2 + 96) = v27;
+  *(a2 + 112) = v28;
+  v17 = v22;
+  *a2 = v21;
+  *(a2 + 16) = v17;
+  v18 = v24;
+  *(a2 + 32) = v23;
+  *(a2 + 48) = v18;
   return result;
 }
 
@@ -4983,14 +4354,12 @@ uint64_t sub_10009669C(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100096868@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_100096868@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v36 = sub_100007224(&qword_100837A10, &qword_1006C9A58);
-  v5 = *(v36 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v36);
-  v8 = &v30 - v7;
-  v9 = a1[4];
+  v34 = sub_100007224(&qword_100837A10, &qword_1006C9A58);
+  v5 = *(v34 - 8);
+  __chkstk_darwin(v34);
+  v7 = &v28 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_1000B2820();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -4999,80 +4368,80 @@ uint64_t sub_100096868@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v68 = 0;
+  v8 = v5;
+  v66 = 0;
   sub_1000ACC1C();
-  v11 = v36;
+  v9 = v34;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v63 = v57;
-  v64 = v58;
-  v65 = v59;
-  v66 = v60;
   v61 = v55;
   v62 = v56;
-  LOBYTE(v47[0]) = 1;
-  v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v14 = v13;
-  v34 = v12;
-  LOBYTE(v47[0]) = 2;
-  *&v33 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  *(&v33 + 1) = v15;
-  LOBYTE(v47[0]) = 3;
-  v32 = KeyedDecodingContainer.decode(_:forKey:)();
-  v35 = v16;
-  v67 = 4;
-  v17 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v18 = *(v10 + 8);
-  v19 = v17;
-  v31 = v20;
-  v18(v8, v11);
-  v39 = v63;
-  v40 = v64;
-  v41 = v65;
-  v42 = v66;
+  v63 = v57;
+  v64 = v58;
+  v59 = v53;
+  v60 = v54;
+  LOBYTE(v45[0]) = 1;
+  v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v12 = v11;
+  v32 = v10;
+  LOBYTE(v45[0]) = 2;
+  *&v31 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  *(&v31 + 1) = v13;
+  LOBYTE(v45[0]) = 3;
+  v30 = KeyedDecodingContainer.decode(_:forKey:)();
+  v33 = v14;
+  v65 = 4;
+  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v16 = *(v8 + 8);
+  v17 = v15;
+  v29 = v18;
+  v16(v7, v9);
   v37 = v61;
   v38 = v62;
-  v22 = v34;
-  v21 = v35;
-  *&v43 = v34;
-  *(&v43 + 1) = v14;
-  v44 = v33;
-  v23 = v31;
-  *&v45 = v32;
-  *(&v45 + 1) = v35;
-  *&v46 = v19;
-  *(&v46 + 1) = v31;
-  sub_1000B2874(&v37, v47);
+  v39 = v63;
+  v40 = v64;
+  v35 = v59;
+  v36 = v60;
+  v20 = v32;
+  v19 = v33;
+  *&v41 = v32;
+  *(&v41 + 1) = v12;
+  v42 = v31;
+  v21 = v29;
+  *&v43 = v30;
+  *(&v43 + 1) = v33;
+  *&v44 = v17;
+  *(&v44 + 1) = v29;
+  sub_1000B2874(&v35, v45);
   sub_10000BB78(a1);
-  v47[2] = v63;
-  v47[3] = v64;
-  v47[4] = v65;
-  v47[5] = v66;
-  v47[0] = v61;
-  v47[1] = v62;
-  v48 = v22;
-  v49 = v14;
-  v50 = v33;
-  v51 = v32;
+  v45[2] = v61;
+  v45[3] = v62;
+  v45[4] = v63;
+  v45[5] = v64;
+  v45[0] = v59;
+  v45[1] = v60;
+  v46 = v20;
+  v47 = v12;
+  v48 = v31;
+  v49 = v30;
+  v50 = v19;
+  v51 = v17;
   v52 = v21;
-  v53 = v19;
-  v54 = v23;
-  result = sub_1000B28AC(v47);
-  v25 = v44;
-  a2[6] = v43;
-  a2[7] = v25;
-  v26 = v46;
-  a2[8] = v45;
-  a2[9] = v26;
-  v27 = v40;
-  a2[2] = v39;
-  a2[3] = v27;
-  v28 = v42;
-  a2[4] = v41;
-  a2[5] = v28;
-  v29 = v38;
-  *a2 = v37;
-  a2[1] = v29;
+  result = sub_1000B28AC(v45);
+  v23 = v42;
+  a2[6] = v41;
+  a2[7] = v23;
+  v24 = v44;
+  a2[8] = v43;
+  a2[9] = v24;
+  v25 = v38;
+  a2[2] = v37;
+  a2[3] = v25;
+  v26 = v40;
+  a2[4] = v39;
+  a2[5] = v26;
+  v27 = v36;
+  *a2 = v35;
+  a2[1] = v27;
   return result;
 }
 
@@ -5118,14 +4487,12 @@ uint64_t sub_100096C44(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100096DBC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100096DBC@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100835698, &qword_1006C1A68);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v18 - v8;
-  v10 = a1[4];
+  v8 = &v16 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_10009E958();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -5135,391 +4502,385 @@ uint64_t sub_100096DBC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   }
 
   sub_100007224(&qword_1008356A8, &qword_1006C1A70);
-  v24 = 0;
+  v22 = 0;
   sub_10009E9AC();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = v22;
+  v9 = v20;
   sub_100007224(&qword_100834EA0, &qword_1006C06B0);
-  v24 = 1;
+  v22 = 1;
   sub_10007FD2C();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v21 = v22;
-  LOBYTE(v22) = 2;
-  v19 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v20 = v12;
-  v24 = 3;
+  v19 = v20;
+  LOBYTE(v20) = 2;
+  v17 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v18 = v10;
+  v22 = 3;
   sub_10009EA8C();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v13 = v22;
-  v14 = v23;
+  (*(v6 + 8))(v8, v5);
+  v11 = v20;
+  v12 = v21;
   result = sub_10000BB78(a1);
-  v16 = v21;
-  *a2 = v11;
-  a2[1] = v16;
-  v17 = v20;
-  a2[2] = v19;
-  a2[3] = v17;
-  a2[4] = v13;
-  a2[5] = v14;
+  v14 = v19;
+  *a2 = v9;
+  a2[1] = v14;
+  v15 = v18;
+  a2[2] = v17;
+  a2[3] = v15;
+  a2[4] = v11;
+  a2[5] = v12;
   return result;
 }
 
-uint64_t sub_1000970CC()
+unint64_t sub_1000970CC(uint64_t a1, uint64_t a2)
 {
-  v0 = _findStringSwitchCaseWithCache(cases:string:cache:)();
+  v2 = _findStringSwitchCaseWithCache(cases:string:cache:)();
 
-  if (v0 >= 0x1E)
+  if (v2 >= 0x1E)
   {
     return 30;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }
 
-void *sub_100097120@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_100097120@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100836B50, &qword_1006C9490);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v55 - v8;
-  v10 = a1[3];
-  v11 = a1[4];
-  v105 = a1;
-  sub_10000BA08(a1, v10);
+  v8 = &v53 - v7;
+  v9 = a1[3];
+  v103 = a1;
+  sub_10000BA08(a1, v9);
   sub_1000AA5D0();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    return sub_10000BB78(v105);
+    return sub_10000BB78(v103);
   }
 
-  v12 = v6;
-  v13 = a2;
-  LOBYTE(v107[0]) = 0;
+  v10 = v6;
+  v11 = a2;
+  LOBYTE(v105[0]) = 0;
+  KeyedDecodingContainer.decode(_:forKey:)();
+  v13 = v12;
+  LOBYTE(v105[0]) = 1;
   KeyedDecodingContainer.decode(_:forKey:)();
   v15 = v14;
-  LOBYTE(v107[0]) = 1;
+  LOBYTE(v105[0]) = 2;
+  v16 = KeyedDecodingContainer.decode(_:forKey:)();
+  LOBYTE(v105[0]) = 3;
   KeyedDecodingContainer.decode(_:forKey:)();
-  v17 = v16;
-  LOBYTE(v107[0]) = 2;
-  v18 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v107[0]) = 3;
-  KeyedDecodingContainer.decode(_:forKey:)();
-  v20 = v19;
-  LOBYTE(v107[0]) = 4;
-  v21 = KeyedDecodingContainer.decode(_:forKey:)();
-  v103 = v22;
-  LOBYTE(v107[0]) = 5;
-  v23 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v99 = v24;
-  v102 = v23;
-  LOBYTE(v107[0]) = 6;
-  v98 = 0;
-  v101 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v97 = v25;
-  LOBYTE(v107[0]) = 7;
-  v100 = KeyedDecodingContainer.decode(_:forKey:)();
-  v96 = v26;
-  LOBYTE(v107[0]) = 8;
-  v87 = KeyedDecodingContainer.decode(_:forKey:)();
-  v104 = 0;
-  v95 = v27;
-  LOBYTE(v107[0]) = 9;
-  v28 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v94 = v29;
-  v104 = 0;
-  v30 = v28;
-  LOBYTE(v107[0]) = 10;
-  v86 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v180 = v31 & 1;
-  LOBYTE(v107[0]) = 11;
-  v85 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v178 = v32 & 1;
-  LOBYTE(v107[0]) = 12;
-  v84 = KeyedDecodingContainer.decode(_:forKey:)();
-  v93 = v33;
-  v104 = 0;
-  LOBYTE(v107[0]) = 13;
+  v18 = v17;
+  LOBYTE(v105[0]) = 4;
+  v19 = KeyedDecodingContainer.decode(_:forKey:)();
+  v101 = v20;
+  LOBYTE(v105[0]) = 5;
+  v21 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v97 = v22;
+  v100 = v21;
+  LOBYTE(v105[0]) = 6;
+  v96 = 0;
+  v99 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v95 = v23;
+  LOBYTE(v105[0]) = 7;
+  v98 = KeyedDecodingContainer.decode(_:forKey:)();
+  v94 = v24;
+  LOBYTE(v105[0]) = 8;
+  v85 = KeyedDecodingContainer.decode(_:forKey:)();
+  v102 = 0;
+  v93 = v25;
+  LOBYTE(v105[0]) = 9;
+  v26 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v92 = v27;
+  v102 = 0;
+  v28 = v26;
+  LOBYTE(v105[0]) = 10;
+  v84 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v102 = 0;
+  v178 = v29 & 1;
+  LOBYTE(v105[0]) = 11;
   v83 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v176 = v34 & 1;
-  LOBYTE(v107[0]) = 14;
-  v82 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v174 = v35 & 1;
-  LOBYTE(v107[0]) = 15;
+  v102 = 0;
+  v176 = v30 & 1;
+  LOBYTE(v105[0]) = 12;
+  v82 = KeyedDecodingContainer.decode(_:forKey:)();
+  v91 = v31;
+  v102 = 0;
+  LOBYTE(v105[0]) = 13;
   v81 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v172 = v36 & 1;
-  LOBYTE(v107[0]) = 16;
+  v102 = 0;
+  v174 = v32 & 1;
+  LOBYTE(v105[0]) = 14;
   v80 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v170 = v37 & 1;
-  LOBYTE(v107[0]) = 17;
+  v102 = 0;
+  v172 = v33 & 1;
+  LOBYTE(v105[0]) = 15;
   v79 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v168 = v38 & 1;
-  LOBYTE(v107[0]) = 18;
+  v102 = 0;
+  v170 = v34 & 1;
+  LOBYTE(v105[0]) = 16;
   v78 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v92 = v39;
-  v104 = 0;
-  LOBYTE(v107[0]) = 19;
+  v102 = 0;
+  v168 = v35 & 1;
+  LOBYTE(v105[0]) = 17;
   v77 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v91 = v40;
-  v104 = 0;
-  LOBYTE(v107[0]) = 20;
+  v102 = 0;
+  v166 = v36 & 1;
+  LOBYTE(v105[0]) = 18;
   v76 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v90 = v41;
-  v104 = 0;
-  LOBYTE(v107[0]) = 21;
+  v90 = v37;
+  v102 = 0;
+  LOBYTE(v105[0]) = 19;
   v75 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v89 = v42;
-  v104 = 0;
-  LOBYTE(v107[0]) = 22;
+  v89 = v38;
+  v102 = 0;
+  LOBYTE(v105[0]) = 20;
   v74 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v166 = v43 & 1;
-  LOBYTE(v107[0]) = 23;
+  v88 = v39;
+  v102 = 0;
+  LOBYTE(v105[0]) = 21;
   v73 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v164 = v44 & 1;
-  LOBYTE(v107[0]) = 24;
+  v87 = v40;
+  v102 = 0;
+  LOBYTE(v105[0]) = 22;
   v72 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  LOBYTE(v107[0]) = 25;
+  v102 = 0;
+  v164 = v41 & 1;
+  LOBYTE(v105[0]) = 23;
   v71 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v161 = v45 & 1;
-  LOBYTE(v107[0]) = 26;
+  v102 = 0;
+  v162 = v42 & 1;
+  LOBYTE(v105[0]) = 24;
   v70 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  v159 = v46 & 1;
-  LOBYTE(v107[0]) = 27;
+  v102 = 0;
+  LOBYTE(v105[0]) = 25;
   v69 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v88 = v47;
-  v104 = 0;
-  LOBYTE(v107[0]) = 28;
+  v102 = 0;
+  v159 = v43 & 1;
+  LOBYTE(v105[0]) = 26;
+  v68 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v102 = 0;
+  v157 = v44 & 1;
+  LOBYTE(v105[0]) = 27;
   v67 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v68 = v48;
-  v104 = 0;
-  v157 = 29;
-  LODWORD(v98) = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v104 = 0;
-  (*(v12 + 8))(v9, v5);
-  v106[0] = v15;
-  v106[1] = v17;
-  v106[2] = v18;
-  v106[3] = v20;
-  v60 = v30;
-  v61 = v21;
-  v106[4] = v21;
-  v106[5] = v103;
-  v106[6] = v102;
-  v106[7] = v99;
-  v106[8] = v101;
-  v106[9] = v97;
-  v106[10] = v100;
-  v106[11] = v96;
-  v106[12] = v87;
-  v106[13] = v95;
-  v106[14] = v30;
-  v106[15] = v94;
-  v106[16] = v86;
-  v59 = v180;
-  LOBYTE(v106[17]) = v180;
-  *(&v106[17] + 1) = *v179;
-  HIDWORD(v106[17]) = *&v179[3];
-  v49 = v84;
-  v106[18] = v85;
-  v56 = v178;
-  LOBYTE(v106[19]) = v178;
-  *(&v106[19] + 1) = *v177;
-  HIDWORD(v106[19]) = *&v177[3];
-  v106[20] = v84;
-  v50 = v93;
-  v106[21] = v93;
-  v52 = v82;
-  v51 = v83;
-  v106[22] = v83;
-  HIDWORD(v55) = v176;
-  LOBYTE(v106[23]) = v176;
-  HIDWORD(v106[23]) = *&v175[3];
-  *(&v106[23] + 1) = *v175;
-  v106[24] = v82;
-  v53 = v174;
-  LOBYTE(v106[25]) = v174;
-  HIDWORD(v106[25]) = *&v173[3];
-  *(&v106[25] + 1) = *v173;
-  v106[26] = v81;
-  v66 = v172;
-  LOBYTE(v106[27]) = v172;
-  HIDWORD(v106[27]) = *&v171[3];
-  *(&v106[27] + 1) = *v171;
-  v106[28] = v80;
-  v65 = v170;
-  LOBYTE(v106[29]) = v170;
-  HIDWORD(v106[29]) = *&v169[3];
-  *(&v106[29] + 1) = *v169;
-  v106[30] = v79;
-  v64 = v168;
-  LOBYTE(v106[31]) = v168;
-  HIDWORD(v106[31]) = *&v167[3];
-  *(&v106[31] + 1) = *v167;
-  v106[32] = v78;
-  v106[33] = v92;
-  v106[34] = v77;
-  v106[35] = v91;
-  v106[36] = v76;
-  v106[37] = v90;
-  v106[38] = v75;
-  v106[39] = v89;
-  v106[40] = v74;
-  v63 = v166;
-  LOBYTE(v106[41]) = v166;
-  *(&v106[41] + 1) = *v165;
-  HIDWORD(v106[41]) = *&v165[3];
-  v106[42] = v73;
-  *(&v106[43] + 2) = v162;
-  *(&v106[45] + 1) = *v160;
-  v62 = v164;
-  LOBYTE(v106[43]) = v164;
-  BYTE1(v106[43]) = v72;
-  HIWORD(v106[43]) = v163;
-  v106[44] = v71;
-  *(&v106[47] + 1) = *v158;
-  v58 = v161;
-  LOBYTE(v106[45]) = v161;
-  HIDWORD(v106[45]) = *&v160[3];
-  v106[46] = v70;
-  HIDWORD(v106[47]) = *&v158[3];
-  v57 = v159;
-  LOBYTE(v106[47]) = v159;
-  v106[48] = v69;
-  v106[49] = v88;
-  v106[50] = v67;
-  v106[51] = v68;
-  LOBYTE(v106[52]) = v98;
-  sub_1000AA624(v106, v107);
-  sub_10000BB78(v105);
-  v107[2] = v18;
-  v107[4] = v61;
-  v107[5] = v103;
-  v107[6] = v102;
-  v107[7] = v99;
-  v107[8] = v101;
-  v107[9] = v97;
-  v107[10] = v100;
-  v107[11] = v96;
-  v107[12] = v87;
-  v107[13] = v95;
-  v107[14] = v60;
-  v107[15] = v94;
-  v107[16] = v86;
-  v108 = v59;
-  v110 = v85;
-  v111 = v56;
+  v86 = v45;
+  v102 = 0;
+  LOBYTE(v105[0]) = 28;
+  v65 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v66 = v46;
+  v102 = 0;
+  v155 = 29;
+  LODWORD(v96) = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v102 = 0;
+  (*(v10 + 8))(v8, v5);
+  v104[0] = v13;
+  v104[1] = v15;
+  v104[2] = v16;
+  v104[3] = v18;
+  v58 = v28;
+  v59 = v19;
+  v104[4] = v19;
+  v104[5] = v101;
+  v104[6] = v100;
+  v104[7] = v97;
+  v104[8] = v99;
+  v104[9] = v95;
+  v104[10] = v98;
+  v104[11] = v94;
+  v104[12] = v85;
+  v104[13] = v93;
+  v104[14] = v28;
+  v104[15] = v92;
+  v104[16] = v84;
+  v57 = v178;
+  LOBYTE(v104[17]) = v178;
+  *(&v104[17] + 1) = *v177;
+  HIDWORD(v104[17]) = *&v177[3];
+  v47 = v82;
+  v104[18] = v83;
+  v54 = v176;
+  LOBYTE(v104[19]) = v176;
+  *(&v104[19] + 1) = *v175;
+  HIDWORD(v104[19]) = *&v175[3];
+  v104[20] = v82;
+  v48 = v91;
+  v104[21] = v91;
+  v50 = v80;
+  v49 = v81;
+  v104[22] = v81;
+  HIDWORD(v53) = v174;
+  LOBYTE(v104[23]) = v174;
+  HIDWORD(v104[23]) = *&v173[3];
+  *(&v104[23] + 1) = *v173;
+  v104[24] = v80;
+  v51 = v172;
+  LOBYTE(v104[25]) = v172;
+  HIDWORD(v104[25]) = *&v171[3];
+  *(&v104[25] + 1) = *v171;
+  v104[26] = v79;
+  v64 = v170;
+  LOBYTE(v104[27]) = v170;
+  HIDWORD(v104[27]) = *&v169[3];
+  *(&v104[27] + 1) = *v169;
+  v104[28] = v78;
+  v63 = v168;
+  LOBYTE(v104[29]) = v168;
+  HIDWORD(v104[29]) = *&v167[3];
+  *(&v104[29] + 1) = *v167;
+  v104[30] = v77;
+  v62 = v166;
+  LOBYTE(v104[31]) = v166;
+  HIDWORD(v104[31]) = *&v165[3];
+  *(&v104[31] + 1) = *v165;
+  v104[32] = v76;
+  v104[33] = v90;
+  v104[34] = v75;
+  v104[35] = v89;
+  v104[36] = v74;
+  v104[37] = v88;
+  v104[38] = v73;
+  v104[39] = v87;
+  v104[40] = v72;
+  v61 = v164;
+  LOBYTE(v104[41]) = v164;
+  *(&v104[41] + 1) = *v163;
+  HIDWORD(v104[41]) = *&v163[3];
+  v104[42] = v71;
+  *(&v104[43] + 2) = v160;
+  *(&v104[45] + 1) = *v158;
+  v60 = v162;
+  LOBYTE(v104[43]) = v162;
+  BYTE1(v104[43]) = v70;
+  HIWORD(v104[43]) = v161;
+  v104[44] = v69;
+  *(&v104[47] + 1) = *v156;
+  v56 = v159;
+  LOBYTE(v104[45]) = v159;
+  HIDWORD(v104[45]) = *&v158[3];
+  v104[46] = v68;
+  HIDWORD(v104[47]) = *&v156[3];
+  v55 = v157;
+  LOBYTE(v104[47]) = v157;
+  v104[48] = v67;
+  v104[49] = v86;
+  v104[50] = v65;
+  v104[51] = v66;
+  LOBYTE(v104[52]) = v96;
+  sub_1000AA624(v104, v105);
+  sub_10000BB78(v103);
+  v105[2] = v16;
+  v105[4] = v59;
+  v105[5] = v101;
+  v105[6] = v100;
+  v105[7] = v97;
+  v105[8] = v99;
+  v105[9] = v95;
+  v105[10] = v98;
+  v105[11] = v94;
+  v105[12] = v85;
+  v105[13] = v93;
+  v105[14] = v58;
+  v105[15] = v92;
+  v105[16] = v84;
+  v106 = v57;
+  v108 = v83;
+  v109 = v54;
+  v111 = v47;
+  v112 = v48;
   v113 = v49;
-  v114 = v50;
-  v115 = v51;
-  v116 = BYTE4(v55);
-  v118 = v52;
-  v119 = v53;
-  *&v109[3] = *&v179[3];
-  *v109 = *v179;
-  *v112 = *v177;
-  *&v112[3] = *&v177[3];
-  *v117 = *v175;
-  *&v117[3] = *&v175[3];
-  *&v120[3] = *&v173[3];
-  *v120 = *v173;
-  v107[0] = v15;
-  v107[1] = v17;
-  v107[3] = v20;
-  v121 = v81;
-  v122 = v66;
-  *&v123[3] = *&v171[3];
-  *v123 = *v171;
-  v124 = v80;
-  v125 = v65;
-  *&v126[3] = *&v169[3];
-  *v126 = *v169;
-  v127 = v79;
-  v128 = v64;
-  *&v129[3] = *&v167[3];
-  *v129 = *v167;
-  v130 = v78;
-  v131 = v92;
-  v132 = v77;
-  v133 = v91;
-  v134 = v76;
-  v135 = v90;
-  v136 = v75;
-  v137 = v89;
-  v138 = v74;
-  v139 = v63;
-  *v140 = *v165;
-  *&v140[3] = *&v165[3];
-  v141 = v73;
-  v142 = v62;
-  v143 = v72;
-  v144 = v162;
-  v145 = v163;
-  v146 = v71;
-  v147 = v58;
-  *v148 = *v160;
-  *&v148[3] = *&v160[3];
-  v149 = v70;
-  v150 = v57;
-  *v151 = *v158;
-  *&v151[3] = *&v158[3];
-  v152 = v69;
-  v153 = v88;
-  v154 = v67;
-  v155 = v68;
-  v156 = v98;
-  sub_1000AA65C(v107);
-  return memcpy(v13, v106, 0x1A1uLL);
+  v114 = BYTE4(v53);
+  v116 = v50;
+  v117 = v51;
+  *&v107[3] = *&v177[3];
+  *v107 = *v177;
+  *v110 = *v175;
+  *&v110[3] = *&v175[3];
+  *v115 = *v173;
+  *&v115[3] = *&v173[3];
+  *&v118[3] = *&v171[3];
+  *v118 = *v171;
+  v105[0] = v13;
+  v105[1] = v15;
+  v105[3] = v18;
+  v119 = v79;
+  v120 = v64;
+  *&v121[3] = *&v169[3];
+  *v121 = *v169;
+  v122 = v78;
+  v123 = v63;
+  *&v124[3] = *&v167[3];
+  *v124 = *v167;
+  v125 = v77;
+  v126 = v62;
+  *&v127[3] = *&v165[3];
+  *v127 = *v165;
+  v128 = v76;
+  v129 = v90;
+  v130 = v75;
+  v131 = v89;
+  v132 = v74;
+  v133 = v88;
+  v134 = v73;
+  v135 = v87;
+  v136 = v72;
+  v137 = v61;
+  *v138 = *v163;
+  *&v138[3] = *&v163[3];
+  v139 = v71;
+  v140 = v60;
+  v141 = v70;
+  v142 = v160;
+  v143 = v161;
+  v144 = v69;
+  v145 = v56;
+  *v146 = *v158;
+  *&v146[3] = *&v158[3];
+  v147 = v68;
+  v148 = v55;
+  *v149 = *v156;
+  *&v149[3] = *&v156[3];
+  v150 = v67;
+  v151 = v86;
+  v152 = v65;
+  v153 = v66;
+  v154 = v96;
+  sub_1000AA65C(v105);
+  return memcpy(v11, v104, 0x1A1uLL);
 }
 
-uint64_t sub_100098168(uint64_t *a1)
+uint64_t sub_100098168(void *a1)
 {
   v2 = sub_100007224(&qword_100836B60, &qword_1006C9498);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v10[-v5];
-  v7 = a1[4];
+  v5 = &v8[-v4];
   sub_10000BA08(a1, a1[3]);
   sub_1000AA68C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  v10[30] = 0;
+  v8[30] = 0;
   sub_1000AA6E0();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v8 = v10[31];
+  v6 = v8[31];
   sub_100007224(&qword_100836B78, &qword_1006C94A0);
-  v10[15] = 1;
+  v8[15] = 1;
   sub_1000AA734();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   sub_10000BB78(a1);
-  return v8;
+  return v6;
 }
 
-uint64_t sub_100098354(uint64_t *a1)
+void *sub_100098354(void *a1)
 {
   v3 = sub_100007224(&qword_1008378F0, &qword_1006C99D8);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v42 - v6;
-  v8 = a1[4];
+  v6 = &v38 - v5;
   sub_10000BA08(a1, a1[3]);
   sub_1000B2250();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -5528,115 +4889,115 @@ uint64_t sub_100098354(uint64_t *a1)
     return sub_10000BB78(a1);
   }
 
-  v44 = v4;
-  v45 = a1;
-  v77 = v3;
-  v51 = v7;
-  v10 = KeyedDecodingContainer.allKeys.getter();
-  v11 = v10;
-  v50 = *(v10 + 16);
-  if (!v50)
+  v40 = v4;
+  v41 = a1;
+  v73 = v3;
+  v47 = v6;
+  v8 = KeyedDecodingContainer.allKeys.getter();
+  v9 = v8;
+  v46 = *(v8 + 16);
+  if (!v46)
   {
-    v49 = &_swiftEmptyDictionarySingleton;
-    v46 = &_swiftEmptyDictionarySingleton;
-    v47 = &_swiftEmptyDictionarySingleton;
+    v45 = &_swiftEmptyDictionarySingleton;
+    v42 = &_swiftEmptyDictionarySingleton;
+    v43 = &_swiftEmptyDictionarySingleton;
 LABEL_6:
 
-    (*(v44 + 8))(v51, v77);
-    sub_10000BB78(v45);
-    return v46;
+    (*(v40 + 8))(v47, v73);
+    sub_10000BB78(v41);
+    return v42;
   }
 
-  v12 = 0;
-  v48 = 0x80000001006FD7D0;
-  v13 = (v10 + 40);
-  v46 = &_swiftEmptyDictionarySingleton;
-  v47 = &_swiftEmptyDictionarySingleton;
-  v49 = &_swiftEmptyDictionarySingleton;
+  v10 = 0;
+  v44 = 0x80000001006FD7D0;
+  v11 = (v8 + 40);
+  v42 = &_swiftEmptyDictionarySingleton;
+  v43 = &_swiftEmptyDictionarySingleton;
+  v45 = &_swiftEmptyDictionarySingleton;
   while (1)
   {
-    if (v12 >= *(v11 + 16))
+    if (v10 >= *(v9 + 16))
     {
       __break(1u);
-      (*(v44 + 8))(v51, v77);
+      (*(v40 + 8))(v47, v73);
 
-      a1 = v45;
+      a1 = v41;
       return sub_10000BB78(a1);
     }
 
-    v23 = *(v13 - 1);
-    v24 = *v13;
-    v25 = v23 == 0x736567617373656DLL && v24 == 0xE800000000000000;
-    if (v25 || (v26 = *(v13 - 1), v27 = *v13, (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+    v21 = *(v11 - 1);
+    v22 = *v11;
+    v23 = v21 == 0x736567617373656DLL && v22 == 0xE800000000000000;
+    if (v23 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
 
       sub_100007224(&unk_10084A230, &qword_1006C0F50);
-      *&v67 = v23;
-      *(&v67 + 1) = v24;
-      sub_1000ACB5C(&qword_100835878);
+      *&v63 = v21;
+      *(&v63 + 1) = v22;
+      sub_1000ACB5C(&qword_100835878, &protocol witness table for String, &protocol conformance descriptor for <> [A : B]);
       KeyedDecodingContainer.decode<A>(_:forKey:)();
 
       goto LABEL_8;
     }
 
-    if (v23 == 0xD000000000000013 && v48 == v24 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    if (v21 == 0xD000000000000013 && v44 == v22 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
 
       sub_100007224(&unk_10084A230, &qword_1006C0F50);
-      *&v67 = v23;
-      *(&v67 + 1) = v24;
-      sub_1000ACB5C(&qword_100835878);
+      *&v63 = v21;
+      *(&v63 + 1) = v22;
+      sub_1000ACB5C(&qword_100835878, &protocol witness table for String, &protocol conformance descriptor for <> [A : B]);
       KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-      v49 = v55;
+      v45 = v51;
       goto LABEL_8;
     }
 
-    if (v23 == 0x656372756F736572 && v24 == 0xEC000000736C7255 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    if (v21 == 0x656372756F736572 && v22 == 0xEC000000736C7255 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
 
       sub_100007224(&unk_10084A230, &qword_1006C0F50);
-      *&v67 = v23;
-      *(&v67 + 1) = v24;
-      sub_1000ACB5C(&qword_100835878);
+      *&v63 = v21;
+      *(&v63 + 1) = v22;
+      sub_1000ACB5C(&qword_100835878, &protocol witness table for String, &protocol conformance descriptor for <> [A : B]);
       KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-      v47 = v55;
+      v43 = v51;
       goto LABEL_8;
     }
 
-    v65 = v23;
-    v66 = v24;
+    v61 = v21;
+    v62 = v22;
     sub_1000B22A4();
 
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v61 = v73;
-    v62 = v74;
-    v63 = v75;
-    v64 = v76;
     v57 = v69;
     v58 = v70;
     v59 = v71;
     v60 = v72;
+    v53 = v65;
+    v54 = v66;
     v55 = v67;
     v56 = v68;
-    v28 = v46;
-    LODWORD(v43) = swift_isUniquelyReferenced_nonNull_native();
-    v54 = v28;
-    v30 = sub_10003ADCC(v23, v24);
-    v31 = v28[2];
-    v32 = (v29 & 1) == 0;
-    v33 = v31 + v32;
-    if (__OFADD__(v31, v32))
+    v51 = v63;
+    v52 = v64;
+    v24 = v42;
+    LODWORD(v39) = swift_isUniquelyReferenced_nonNull_native();
+    v50 = v24;
+    v26 = sub_10003ADCC(v21, v22);
+    v27 = v24[2];
+    v28 = (v25 & 1) == 0;
+    v29 = v27 + v28;
+    if (__OFADD__(v27, v28))
     {
       break;
     }
 
-    if (v28[3] >= v33)
+    if (v24[3] >= v29)
     {
-      if (v43)
+      if (v39)
       {
-        if (v29)
+        if (v25)
         {
           goto LABEL_7;
         }
@@ -5644,11 +5005,11 @@ LABEL_6:
 
       else
       {
-        v43 = v30;
-        LODWORD(v46) = v29;
+        v39 = v26;
+        LODWORD(v42) = v25;
         sub_100170194();
-        v30 = v43;
-        if (v46)
+        v26 = v39;
+        if (v42)
         {
           goto LABEL_7;
         }
@@ -5657,84 +5018,84 @@ LABEL_6:
 
     else
     {
-      LODWORD(v46) = v29;
-      sub_100167438(v33, v43);
-      v34 = sub_10003ADCC(v23, v24);
-      if ((v46 & 1) != (v35 & 1))
+      LODWORD(v42) = v25;
+      sub_100167438(v29, v39);
+      v30 = sub_10003ADCC(v21, v22);
+      if ((v42 & 1) != (v31 & 1))
       {
         goto LABEL_38;
       }
 
-      v30 = v34;
-      if (v46)
+      v26 = v30;
+      if (v42)
       {
 LABEL_7:
-        v14 = v30;
+        v12 = v26;
 
-        v46 = v54;
-        v15 = v54[7] + 152 * v14;
-        v16 = *(v15 + 16);
-        v52[0] = *v15;
-        v52[1] = v16;
-        v17 = *(v15 + 80);
-        v19 = *(v15 + 32);
-        v18 = *(v15 + 48);
-        v52[4] = *(v15 + 64);
-        v52[5] = v17;
-        v52[2] = v19;
-        v52[3] = v18;
-        v21 = *(v15 + 112);
-        v20 = *(v15 + 128);
-        v22 = *(v15 + 96);
-        v53 = *(v15 + 144);
-        v52[7] = v21;
-        v52[8] = v20;
-        v52[6] = v22;
-        *(v15 + 16) = v56;
-        *v15 = v55;
-        *(v15 + 80) = v60;
-        *(v15 + 64) = v59;
-        *(v15 + 48) = v58;
-        *(v15 + 32) = v57;
-        *(v15 + 144) = v64;
-        *(v15 + 128) = v63;
-        *(v15 + 112) = v62;
-        *(v15 + 96) = v61;
-        sub_1000B22F8(v52);
+        v42 = v50;
+        v13 = v50[7] + 152 * v12;
+        v14 = *(v13 + 16);
+        v48[0] = *v13;
+        v48[1] = v14;
+        v15 = *(v13 + 80);
+        v17 = *(v13 + 32);
+        v16 = *(v13 + 48);
+        v48[4] = *(v13 + 64);
+        v48[5] = v15;
+        v48[2] = v17;
+        v48[3] = v16;
+        v19 = *(v13 + 112);
+        v18 = *(v13 + 128);
+        v20 = *(v13 + 96);
+        v49 = *(v13 + 144);
+        v48[7] = v19;
+        v48[8] = v18;
+        v48[6] = v20;
+        *(v13 + 16) = v52;
+        *v13 = v51;
+        *(v13 + 80) = v56;
+        *(v13 + 64) = v55;
+        *(v13 + 48) = v54;
+        *(v13 + 32) = v53;
+        *(v13 + 144) = v60;
+        *(v13 + 128) = v59;
+        *(v13 + 112) = v58;
+        *(v13 + 96) = v57;
+        sub_1000B22F8(v48);
         goto LABEL_8;
       }
     }
 
-    v36 = v54;
-    v54[(v30 >> 6) + 8] |= 1 << v30;
-    v37 = (v36[6] + 16 * v30);
-    *v37 = v23;
-    v37[1] = v24;
-    v38 = v36[7] + 152 * v30;
-    *v38 = v55;
-    *(v38 + 16) = v56;
-    *(v38 + 80) = v60;
-    *(v38 + 64) = v59;
-    *(v38 + 48) = v58;
-    *(v38 + 32) = v57;
-    *(v38 + 144) = v64;
-    *(v38 + 128) = v63;
-    *(v38 + 112) = v62;
-    *(v38 + 96) = v61;
-    v39 = v36[2];
-    v40 = __OFADD__(v39, 1);
-    v41 = v39 + 1;
-    if (v40)
+    v32 = v50;
+    v50[(v26 >> 6) + 8] |= 1 << v26;
+    v33 = (v32[6] + 16 * v26);
+    *v33 = v21;
+    v33[1] = v22;
+    v34 = v32[7] + 152 * v26;
+    *v34 = v51;
+    *(v34 + 16) = v52;
+    *(v34 + 80) = v56;
+    *(v34 + 64) = v55;
+    *(v34 + 48) = v54;
+    *(v34 + 32) = v53;
+    *(v34 + 144) = v60;
+    *(v34 + 128) = v59;
+    *(v34 + 112) = v58;
+    *(v34 + 96) = v57;
+    v35 = v32[2];
+    v36 = __OFADD__(v35, 1);
+    v37 = v35 + 1;
+    if (v36)
     {
       goto LABEL_37;
     }
 
-    v46 = v36;
-    v36[2] = v41;
+    v42 = v32;
+    v32[2] = v37;
 LABEL_8:
-    ++v12;
-    v13 += 2;
-    if (v50 == v12)
+    ++v10;
+    v11 += 2;
+    if (v46 == v10)
     {
       goto LABEL_6;
     }
@@ -5809,14 +5170,12 @@ unint64_t sub_100098CCC(Swift::String string)
   }
 }
 
-uint64_t sub_100098D18@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_100098D18@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v117 = sub_100007224(&qword_100837A90, &qword_1006C9A90);
-  v5 = *(v117 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v117);
-  v8 = &v45 - v7;
-  v9 = a1[4];
+  v115 = sub_100007224(&qword_100837A90, &qword_1006C9A90);
+  v5 = *(v115 - 8);
+  __chkstk_darwin(v115);
+  v7 = &v43 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_1000B2BB4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -5825,237 +5184,237 @@ uint64_t sub_100098D18@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v73 = a2;
-  LOBYTE(v74) = 0;
+  v8 = v5;
+  v71 = a2;
+  LOBYTE(v72) = 0;
   sub_1000B2C08();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = v84;
-  v84 = 1;
-  v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v71 = v11;
-  if (v13)
+  v9 = v82;
+  v82 = 1;
+  v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v69 = v9;
+  if (v11)
   {
-    v15 = v12;
+    v13 = v10;
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  if (v13)
+  if (v11)
   {
-    v16 = v13;
+    v14 = v11;
   }
 
   else
   {
-    v16 = 0xE000000000000000;
+    v14 = 0xE000000000000000;
   }
 
-  v72 = v16;
-  v84 = 2;
-  v17 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v64 = v15;
-  if (v18)
+  v70 = v14;
+  v82 = 2;
+  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v62 = v13;
+  if (v16)
   {
-    v19 = v17;
+    v17 = v15;
   }
 
   else
   {
-    v19 = 0;
+    v17 = 0;
   }
 
-  if (v18)
+  if (v16)
   {
-    v20 = v18;
+    v18 = v16;
   }
 
   else
   {
-    v20 = 0xE000000000000000;
+    v18 = 0xE000000000000000;
   }
 
-  v69 = 0;
-  v70 = v20;
-  v84 = 3;
-  v63 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v21 = v19;
-  v68 = v22;
-  v84 = 4;
-  v23 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v67 = v24;
-  v84 = 5;
-  v62 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v66 = v25;
-  v84 = 19;
+  v67 = 0;
+  v68 = v18;
+  v82 = 3;
   v61 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v65 = v26;
-  v84 = 6;
-  v27 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  if (v28)
+  v19 = v17;
+  v66 = v20;
+  v82 = 4;
+  v21 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v65 = v22;
+  v82 = 5;
+  v60 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v64 = v23;
+  v82 = 19;
+  v59 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v63 = v24;
+  v82 = 6;
+  v25 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  if (v26)
   {
-    v29 = 0;
+    v27 = 0;
   }
 
   else
   {
-    v29 = v27;
+    v27 = v25;
   }
 
-  v60 = v29;
-  v84 = 7;
-  v30 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  if (v31)
+  v58 = v27;
+  v82 = 7;
+  v28 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  if (v29)
   {
-    v32 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v32 = v30;
+    v30 = v28;
   }
 
-  v59 = v32;
-  v84 = 18;
-  v33 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  if (v34)
+  v57 = v30;
+  v82 = 18;
+  v31 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  if (v32)
   {
-    v35 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v35 = v33;
+    v33 = v31;
   }
 
-  v84 = 8;
-  v58 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v84 = 9;
-  v57 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v84 = 10;
+  v82 = 8;
   v56 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v84 = 16;
+  v82 = 9;
   v55 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v84 = 17;
+  v82 = 10;
   v54 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v84 = 15;
+  v82 = 16;
   v53 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  LODWORD(v51) = v53 == 2;
-  v84 = 11;
+  v82 = 17;
   v52 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v49 = v52 == 2;
-  v84 = 12;
+  v82 = 15;
+  v51 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  LODWORD(v49) = v51 == 2;
+  v82 = 11;
   v50 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v48 = v50 == 2;
-  v84 = 13;
-  v47 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v47 = v50 == 2;
+  v82 = 12;
+  v48 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v46 = v48 == 2;
+  v82 = 13;
+  v45 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
   sub_100007224(&qword_100837AA8, &qword_1006C9A98);
-  v84 = 14;
+  v82 = 14;
   sub_1000B2C5C();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v46 = v57 & 1;
-  v57 = v55 & 1;
-  v58 &= 1u;
-  LODWORD(v69) = v54 & 1;
-  v55 = (v51 | v53) & 1;
+  v44 = v55 & 1;
+  v55 = v53 & 1;
   v56 &= 1u;
-  v53 = (v49 | v52) & 1;
-  v54 = (v48 | v50) & 1;
-  v52 = (v47 == 2) | v47 & 1;
-  if (v113)
+  LODWORD(v67) = v52 & 1;
+  v53 = (v49 | v51) & 1;
+  v54 &= 1u;
+  v51 = (v47 | v50) & 1;
+  v52 = (v46 | v48) & 1;
+  v50 = (v45 == 2) | v45 & 1;
+  if (v111)
   {
-    v36 = v113;
+    v34 = v111;
   }
 
   else
   {
-    v36 = _swiftEmptyArrayStorage;
+    v34 = _swiftEmptyArrayStorage;
   }
 
-  v51 = v36;
-  (*(v10 + 8))(v8, v117);
-  v37 = v71;
-  LOBYTE(v74) = v71;
-  *(&v74 + 1) = v64;
-  *&v75 = v72;
+  v49 = v34;
+  (*(v8 + 8))(v7, v115);
+  v35 = v69;
+  LOBYTE(v72) = v69;
+  *(&v72 + 1) = v62;
+  *&v73 = v70;
+  *(&v73 + 1) = v19;
+  *&v74 = v68;
+  v36 = v66;
+  *(&v74 + 1) = v61;
+  *&v75 = v66;
   *(&v75 + 1) = v21;
-  *&v76 = v70;
-  v38 = v68;
-  *(&v76 + 1) = v63;
-  *&v77 = v68;
-  *(&v77 + 1) = v23;
-  *&v78 = v67;
-  *(&v78 + 1) = v62;
-  *&v79 = v66;
-  *(&v79 + 1) = v60;
-  *&v80 = v59;
-  BYTE8(v80) = v58;
-  BYTE9(v80) = v46;
-  BYTE10(v80) = v56;
-  BYTE11(v80) = v53;
-  BYTE12(v80) = v54;
-  BYTE13(v80) = v52;
-  *&v81 = v36;
-  BYTE8(v81) = v55;
-  BYTE9(v81) = v57;
-  BYTE10(v81) = v69;
-  *(&v81 + 11) = v114;
-  HIBYTE(v81) = v115;
-  *&v82 = v35;
-  *(&v82 + 1) = v61;
-  v39 = v65;
-  v83 = v65;
-  sub_1000B2D34(&v74, &v84);
+  *&v76 = v65;
+  *(&v76 + 1) = v60;
+  *&v77 = v64;
+  *(&v77 + 1) = v58;
+  *&v78 = v57;
+  BYTE8(v78) = v56;
+  BYTE9(v78) = v44;
+  BYTE10(v78) = v54;
+  BYTE11(v78) = v51;
+  BYTE12(v78) = v52;
+  BYTE13(v78) = v50;
+  *&v79 = v34;
+  BYTE8(v79) = v53;
+  BYTE9(v79) = v55;
+  BYTE10(v79) = v67;
+  *(&v79 + 11) = v112;
+  HIBYTE(v79) = v113;
+  *&v80 = v33;
+  *(&v80 + 1) = v59;
+  v37 = v63;
+  v81 = v63;
+  sub_1000B2D34(&v72, &v82);
   sub_10000BB78(a1);
-  v84 = v37;
-  *v85 = v116[0];
-  *&v85[3] = *(v116 + 3);
-  v86 = v64;
-  v87 = v72;
-  v88 = v21;
-  v89 = v70;
-  v90 = v63;
-  v91 = v38;
-  v92 = v23;
-  v93 = v67;
-  v94 = v62;
-  v95 = v66;
-  v96 = v60;
-  v97 = v59;
-  v98 = v58;
-  v99 = v46;
-  v100 = v56;
-  v101 = v53;
-  v102 = v54;
-  v103 = v52;
-  v104 = v51;
-  v105 = v55;
-  v106 = v57;
-  v107 = v69;
-  v108 = v114;
-  v109 = v115;
-  v110 = v35;
-  v111 = v61;
-  v112 = v39;
-  result = sub_1000B22F8(&v84);
-  v40 = v81;
-  v41 = v73;
-  *(v73 + 96) = v80;
-  *(v41 + 112) = v40;
-  *(v41 + 128) = v82;
-  *(v41 + 144) = v83;
-  v42 = v77;
-  *(v41 + 32) = v76;
-  *(v41 + 48) = v42;
-  v43 = v79;
-  *(v41 + 64) = v78;
-  *(v41 + 80) = v43;
-  v44 = v75;
-  *v41 = v74;
-  *(v41 + 16) = v44;
+  v82 = v35;
+  *v83 = v114[0];
+  *&v83[3] = *(v114 + 3);
+  v84 = v62;
+  v85 = v70;
+  v86 = v19;
+  v87 = v68;
+  v88 = v61;
+  v89 = v36;
+  v90 = v21;
+  v91 = v65;
+  v92 = v60;
+  v93 = v64;
+  v94 = v58;
+  v95 = v57;
+  v96 = v56;
+  v97 = v44;
+  v98 = v54;
+  v99 = v51;
+  v100 = v52;
+  v101 = v50;
+  v102 = v49;
+  v103 = v53;
+  v104 = v55;
+  v105 = v67;
+  v106 = v112;
+  v107 = v113;
+  v108 = v33;
+  v109 = v59;
+  v110 = v37;
+  result = sub_1000B22F8(&v82);
+  v38 = v79;
+  v39 = v71;
+  *(v71 + 96) = v78;
+  *(v39 + 112) = v38;
+  *(v39 + 128) = v80;
+  *(v39 + 144) = v81;
+  v40 = v75;
+  *(v39 + 32) = v74;
+  *(v39 + 48) = v40;
+  v41 = v77;
+  *(v39 + 64) = v76;
+  *(v39 + 80) = v41;
+  v42 = v73;
+  *v39 = v72;
+  *(v39 + 16) = v42;
   return result;
 }
 
@@ -6264,143 +5623,140 @@ uint64_t sub_100099CF8(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100099FA8@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_100099FA8@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v50 = sub_100007224(&qword_1008379B8, &qword_1006C9A28);
-  v5 = *(v50 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v50);
-  v8 = &v35 - v7;
-  v9 = a1[4];
+  v48 = sub_100007224(&qword_1008379B8, &qword_1006C9A28);
+  v5 = *(v48 - 8);
+  __chkstk_darwin(v48);
+  v7 = &v33 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_1000B2654();
-  v51 = v8;
+  v49 = v7;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
     return sub_10000BB78(a1);
   }
 
-  v10 = v5;
-  v49 = a2;
-  LOBYTE(v52) = 0;
+  v8 = v5;
+  v47 = a2;
+  LOBYTE(v50) = 0;
   sub_1000AAE94();
-  v11 = v50;
+  v9 = v48;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v45 = v60;
-  v12 = v62;
-  v47 = v63;
-  v48 = v61;
+  v43 = v58;
+  v10 = v60;
+  v45 = v61;
+  v46 = v59;
   sub_100007224(&qword_100834EA0, &qword_1006C06B0);
-  LOBYTE(v52) = 1;
+  LOBYTE(v50) = 1;
   sub_10007FD2C();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v46 = 0;
-  v39 = v12;
-  v44 = v60;
-  LOBYTE(v60) = 2;
-  v13 = a1;
-  v38 = KeyedDecodingContainer.decode(_:forKey:)();
-  v43 = v14;
-  LOBYTE(v52) = 3;
+  v44 = 0;
+  v37 = v10;
+  v42 = v58;
+  LOBYTE(v58) = 2;
+  v11 = a1;
+  v36 = KeyedDecodingContainer.decode(_:forKey:)();
+  v41 = v12;
+  LOBYTE(v50) = 3;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v42 = v60;
-  LOBYTE(v60) = 4;
-  v15 = KeyedDecodingContainer.decode(_:forKey:)();
-  v41 = v16;
-  LOBYTE(v60) = 5;
-  v17 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v40 = v18;
-  LOBYTE(v60) = 6;
-  v37 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v20 = v19;
-  v76 = 7;
-  v21 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v22 = *(v10 + 8);
-  v23 = v21;
-  v46 = v24;
-  v22(v51, v11);
-  v25 = v44;
-  v36 = v17;
-  *&v52 = v45;
-  *(&v52 + 1) = v48;
-  *&v53 = v39;
-  *(&v53 + 1) = v47;
-  *&v54 = v44;
-  *(&v54 + 1) = v38;
-  v26 = v43;
-  *&v55 = v43;
-  *(&v55 + 1) = v42;
-  *&v56 = v15;
-  v51 = v15;
-  v27 = v41;
-  *(&v56 + 1) = v41;
-  *&v57 = v17;
-  *(&v57 + 1) = v40;
-  *&v58 = v37;
-  *(&v58 + 1) = v20;
-  *&v59 = v23;
-  v28 = v46;
-  *(&v59 + 1) = v46;
-  sub_1000B26A8(&v52, &v60);
-  sub_10000BB78(v13);
-  v60 = v45;
-  v61 = v48;
-  v62 = v39;
-  v63 = v47;
-  v64 = v25;
-  v65 = v38;
-  v66 = v26;
-  v67 = v42;
-  v68 = v51;
-  v69 = v27;
-  v70 = v36;
-  v71 = v40;
-  v72 = v37;
-  v73 = v20;
-  v74 = v23;
-  v75 = v28;
-  result = sub_1000B26E0(&v60);
+  v40 = v58;
+  LOBYTE(v58) = 4;
+  v13 = KeyedDecodingContainer.decode(_:forKey:)();
+  v39 = v14;
+  LOBYTE(v58) = 5;
+  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v38 = v16;
+  LOBYTE(v58) = 6;
+  v35 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v18 = v17;
+  v74 = 7;
+  v19 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v20 = *(v8 + 8);
+  v21 = v19;
+  v44 = v22;
+  v20(v49, v9);
+  v23 = v42;
+  v34 = v15;
+  *&v50 = v43;
+  *(&v50 + 1) = v46;
+  *&v51 = v37;
+  *(&v51 + 1) = v45;
+  *&v52 = v42;
+  *(&v52 + 1) = v36;
+  v24 = v41;
+  *&v53 = v41;
+  *(&v53 + 1) = v40;
+  *&v54 = v13;
+  v49 = v13;
+  v25 = v39;
+  *(&v54 + 1) = v39;
+  *&v55 = v15;
+  *(&v55 + 1) = v38;
+  *&v56 = v35;
+  *(&v56 + 1) = v18;
+  *&v57 = v21;
+  v26 = v44;
+  *(&v57 + 1) = v44;
+  sub_1000B26A8(&v50, &v58);
+  sub_10000BB78(v11);
+  v58 = v43;
+  v59 = v46;
+  v60 = v37;
+  v61 = v45;
+  v62 = v23;
+  v63 = v36;
+  v64 = v24;
+  v65 = v40;
+  v66 = v49;
+  v67 = v25;
+  v68 = v34;
+  v69 = v38;
+  v70 = v35;
+  v71 = v18;
+  v72 = v21;
+  v73 = v26;
+  result = sub_1000B26E0(&v58);
+  v28 = v55;
+  v29 = v47;
+  v47[4] = v54;
+  v29[5] = v28;
   v30 = v57;
-  v31 = v49;
-  v49[4] = v56;
-  v31[5] = v30;
-  v32 = v59;
-  v31[6] = v58;
-  v31[7] = v32;
-  v33 = v53;
-  *v31 = v52;
-  v31[1] = v33;
-  v34 = v55;
-  v31[2] = v54;
-  v31[3] = v34;
+  v29[6] = v56;
+  v29[7] = v30;
+  v31 = v51;
+  *v29 = v50;
+  v29[1] = v31;
+  v32 = v53;
+  v29[2] = v52;
+  v29[3] = v32;
   return result;
 }
 
-uint64_t sub_10009A58C(uint64_t *a1)
+uint64_t sub_10009A58C(void *a1)
 {
   v3 = sub_100007224(&qword_100837998, &qword_1006C9A18);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v10[-v6];
-  v8 = a1[3];
-  sub_10000BA08(a1, v8);
+  v6 = &v9[-v5];
+  v7 = a1[3];
+  sub_10000BA08(a1, v7);
   sub_1000B2558();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v1)
   {
-    v10[14] = 0;
+    v9[14] = 0;
     sub_1000B25AC();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v8 = v10[15];
-    v10[13] = 1;
+    v7 = v9[15];
+    v9[13] = 1;
     KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
   }
 
   sub_10000BB78(a1);
-  return v8;
+  return v7;
 }
 
 uint64_t sub_10009A750(uint64_t a1, uint64_t a2)
@@ -6458,14 +5814,12 @@ uint64_t sub_10009A750(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10009A964@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_10009A964@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = sub_100007224(&qword_100836C48, &qword_1006C94F8);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v27 - v8;
-  v10 = a1[4];
+  v8 = &v25 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000AAE40();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -6474,74 +5828,74 @@ uint64_t sub_10009A964@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  LOBYTE(v44) = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  LOBYTE(v44) = 1;
-  *&v36 = KeyedDecodingContainer.decode(_:forKey:)();
-  *(&v36 + 1) = v14;
-  LOBYTE(v37) = 2;
+  LOBYTE(v42) = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  LOBYTE(v42) = 1;
+  *&v34 = KeyedDecodingContainer.decode(_:forKey:)();
+  *(&v34 + 1) = v12;
+  LOBYTE(v35) = 2;
   sub_1000AAE94();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v31 = v44;
-  v35 = v45;
-  v34 = *(&v46 + 1);
-  v30 = v46;
+  v29 = v42;
+  v33 = v43;
+  v32 = *(&v44 + 1);
+  v28 = v44;
   sub_100007224(&qword_100836C60, &qword_1006C9500);
-  LOBYTE(v37) = 3;
+  LOBYTE(v35) = 3;
   sub_1000AAEE8();
-  v33 = 0;
+  v31 = 0;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v29 = v44;
-  LOBYTE(v44) = 4;
-  v28 = KeyedDecodingContainer.decode(_:forKey:)();
-  v32 = v15;
-  v56 = 5;
-  v16 = KeyedDecodingContainer.decode(_:forKey:)();
-  v17 = *(v6 + 8);
-  v18 = v16;
-  v33 = v19;
-  v17(v9, v5);
-  *&v37 = v11;
-  *(&v37 + 1) = v13;
-  v38 = v36;
-  *&v39 = v31;
-  v20 = v35;
-  *(&v39 + 1) = v35;
+  v27 = v42;
+  LOBYTE(v42) = 4;
+  v26 = KeyedDecodingContainer.decode(_:forKey:)();
+  v30 = v13;
+  v54 = 5;
+  v14 = KeyedDecodingContainer.decode(_:forKey:)();
+  v15 = *(v6 + 8);
+  v16 = v14;
+  v31 = v17;
+  v15(v8, v5);
+  *&v35 = v9;
+  *(&v35 + 1) = v11;
+  v36 = v34;
+  *&v37 = v29;
+  v18 = v33;
+  *(&v37 + 1) = v33;
+  *&v38 = v28;
+  v19 = v32;
+  *(&v38 + 1) = v32;
+  *&v39 = v27;
+  *(&v39 + 1) = v26;
   *&v40 = v30;
-  v21 = v34;
-  *(&v40 + 1) = v34;
-  *&v41 = v29;
-  *(&v41 + 1) = v28;
-  *&v42 = v32;
-  v22 = v33;
-  *(&v42 + 1) = v18;
-  v43 = v33;
-  sub_1000AAFC0(&v37, &v44);
+  v20 = v31;
+  *(&v40 + 1) = v16;
+  v41 = v31;
+  sub_1000AAFC0(&v35, &v42);
   sub_10000BB78(a1);
-  v44 = v11;
-  v45 = v13;
-  v46 = v36;
-  v47 = v31;
-  v48 = v20;
-  v49 = v30;
-  v50 = v21;
-  v51 = v29;
-  v52 = v28;
-  v53 = v32;
-  v54 = v18;
-  v55 = v22;
-  result = sub_1000AAFF8(&v44);
-  v24 = v42;
-  *(a2 + 64) = v41;
-  *(a2 + 80) = v24;
-  *(a2 + 96) = v43;
-  v25 = v38;
-  *a2 = v37;
-  *(a2 + 16) = v25;
-  v26 = v40;
-  *(a2 + 32) = v39;
-  *(a2 + 48) = v26;
+  v42 = v9;
+  v43 = v11;
+  v44 = v34;
+  v45 = v29;
+  v46 = v18;
+  v47 = v28;
+  v48 = v19;
+  v49 = v27;
+  v50 = v26;
+  v51 = v30;
+  v52 = v16;
+  v53 = v20;
+  result = sub_1000AAFF8(&v42);
+  v22 = v40;
+  *(a2 + 64) = v39;
+  *(a2 + 80) = v22;
+  *(a2 + 96) = v41;
+  v23 = v36;
+  *a2 = v35;
+  *(a2 + 16) = v23;
+  v24 = v38;
+  *(a2 + 32) = v37;
+  *(a2 + 48) = v24;
   return result;
 }
 
@@ -6582,14 +5936,12 @@ uint64_t sub_10009AEC4(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10009AFDC@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_10009AFDC@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100835678, &qword_1006C1A58);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v20 - v8;
-  v10 = a1[4];
+  v8 = &v18 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_10009E888();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -6598,27 +5950,27 @@ uint64_t sub_10009AFDC@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v26 = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v22 = v11;
+  v24 = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  v20 = v9;
   sub_100007224(&qword_100834EA0, &qword_1006C06B0);
-  v25 = 1;
+  v23 = 1;
   sub_10007FD2C();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v21 = v23;
-  v24 = 2;
-  v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v15 = v9;
-  v17 = v16;
-  (*(v6 + 8))(v15, v5);
-  result = sub_10000BB78(a1);
   v19 = v21;
-  *a2 = v22;
-  a2[1] = v13;
-  a2[2] = v19;
-  a2[3] = v14;
-  a2[4] = v17;
+  v22 = 2;
+  v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v13 = v8;
+  v15 = v14;
+  (*(v6 + 8))(v13, v5);
+  result = sub_10000BB78(a1);
+  v17 = v19;
+  *a2 = v20;
+  a2[1] = v11;
+  a2[2] = v17;
+  a2[3] = v12;
+  a2[4] = v15;
   return result;
 }
 
@@ -6659,14 +6011,12 @@ uint64_t sub_10009B254(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10009B374@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_10009B374@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100835940, &qword_1006C1B78);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v20 - v8;
-  v10 = a1[4];
+  v8 = &v18 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_10009FCD4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -6675,74 +6025,71 @@ uint64_t sub_10009B374@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v26 = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v22 = v11;
+  v24 = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  v20 = v9;
   sub_100007224(&qword_100834EA0, &qword_1006C06B0);
-  v25 = 1;
+  v23 = 1;
   sub_10007FD2C();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v21 = v23;
-  v24 = 2;
-  v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v15 = v9;
-  v17 = v16;
-  (*(v6 + 8))(v15, v5);
-  result = sub_10000BB78(a1);
   v19 = v21;
-  *a2 = v22;
-  a2[1] = v13;
-  a2[2] = v19;
-  a2[3] = v14;
-  a2[4] = v17;
+  v22 = 2;
+  v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v13 = v8;
+  v15 = v14;
+  (*(v6 + 8))(v13, v5);
+  result = sub_10000BB78(a1);
+  v17 = v19;
+  *a2 = v20;
+  a2[1] = v11;
+  a2[2] = v17;
+  a2[3] = v12;
+  a2[4] = v15;
   return result;
 }
 
-uint64_t sub_10009B5EC(uint64_t *a1)
+uint64_t sub_10009B5EC(void *a1)
 {
   v2 = sub_100007224(&qword_100836DF8, &qword_1006C9560);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v10 - v5;
-  v7 = a1[4];
+  v5 = &v8 - v4;
   sub_10000BA08(a1, a1[3]);
   sub_1000ABD8C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   sub_100007224(&unk_10084A070, &unk_1006E7DF0);
-  HIBYTE(v10) = 0;
+  HIBYTE(v8) = 0;
   sub_1000AB6CC();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v9 = v11;
+  v7 = v9;
   sub_100007224(&qword_100836E08, &qword_1006C9568);
-  HIBYTE(v10) = 1;
+  HIBYTE(v8) = 1;
   sub_1000ABDE0();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   sub_10000BB78(a1);
-  return v9;
+  return v7;
 }
 
-uint64_t sub_10009B7FC(uint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
+uint64_t sub_10009B7FC(void *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void), uint64_t a5)
 {
-  v7 = sub_100007224(a2, a3);
-  v15 = *(v7 - 8);
-  v8 = *(v15 + 64);
-  __chkstk_darwin(v7);
+  v8 = sub_100007224(a2, a3);
+  v15 = *(v8 - 8);
+  __chkstk_darwin(v8);
   v10 = &v14 - v9;
   v11 = a1[3];
   sub_10000BA08(a1, v11);
   a4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v4)
+  if (!v5)
   {
     v12 = v15;
     v17 = 0;
     v11 = KeyedDecodingContainer.decode(_:forKey:)();
     v16 = 1;
     KeyedDecodingContainer.decode(_:forKey:)();
-    (*(v12 + 8))(v10, v7);
+    (*(v12 + 8))(v10, v8);
   }
 
   sub_10000BB78(a1);
@@ -6785,62 +6132,62 @@ uint64_t sub_10009B9D4(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10009BAF8@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void sub_10009BAF8(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100836D40, &unk_1006C9530);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v24 - v8;
-  v10 = a1[4];
+  v8 = &v21 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000AB678();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    return sub_10000BB78(a1);
+    sub_10000BB78(a1);
   }
 
-  sub_100007224(&unk_10084A070, &unk_1006E7DF0);
-  v34 = 0;
-  sub_1000AB6CC();
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v29 = a2;
-  v11 = v30;
-  v34 = 1;
-  sub_1000AB784();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v26 = v31;
-  v12 = v32;
-  v27 = v33;
-  v28 = v30;
-  LOBYTE(v30) = 2;
-  v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v15 = v14;
-  v16 = *(v6 + 8);
-  v25 = v13;
-  v16(v9, v5);
+  else
+  {
+    sub_100007224(&unk_10084A070, &unk_1006E7DF0);
+    v31 = 0;
+    sub_1000AB6CC();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v26 = a2;
+    v9 = v27;
+    v31 = 1;
+    sub_1000AB784();
+    KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
+    v23 = v28;
+    v10 = v29;
+    v24 = v30;
+    v25 = v27;
+    LOBYTE(v27) = 2;
+    v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v13 = v12;
+    v14 = *(v6 + 8);
+    v22 = v11;
+    v14(v8, v5);
 
-  v18 = v27;
-  v17 = v28;
-  v19 = v26;
-  v20 = v12;
-  sub_1000AB7D8(v28, v26);
+    v16 = v24;
+    v15 = v25;
+    v17 = v23;
+    v18 = v10;
+    sub_1000AB7D8(v25, v23, v10, v24);
 
-  sub_10000BB78(a1);
+    sub_10000BB78(a1);
 
-  sub_1000B00AC(v17, v19);
+    sub_1000B00AC(v15, v17, v10, v16);
 
-  v22 = v29;
-  *v29 = v11;
-  v22[1] = v17;
-  v22[2] = v19;
-  v22[3] = v20;
-  v23 = v25;
-  v22[4] = v18;
-  v22[5] = v23;
-  v22[6] = v15;
-  return result;
+    v19 = v26;
+    *v26 = v9;
+    v19[1] = v15;
+    v19[2] = v17;
+    v19[3] = v18;
+    v20 = v22;
+    v19[4] = v16;
+    v19[5] = v20;
+    v19[6] = v13;
+  }
 }
 
 uint64_t sub_10009BDF8(uint64_t a1, uint64_t a2)
@@ -6971,14 +6318,12 @@ uint64_t sub_10009C138(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10009C300@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_10009C300@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100835700, &qword_1006C1A90);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v25 - v8;
-  v10 = a1[4];
+  v8 = &v23 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_10009EC68();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -6987,52 +6332,52 @@ uint64_t sub_10009C300@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  LOBYTE(v33[0]) = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v33[0]) = 1;
+  LOBYTE(v31[0]) = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  LOBYTE(v31[0]) = 1;
+  v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v38 = v11 & 1;
+  LOBYTE(v31[0]) = 2;
   v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v40 = v13 & 1;
-  LOBYTE(v33[0]) = 2;
-  v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v16 = v15;
-  v29 = v14;
-  LOBYTE(v33[0]) = 3;
-  v27 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v28 = v17;
-  v41 = 4;
-  v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v19 = *(v6 + 8);
-  v26 = v18;
-  v19(v9, v5);
-  *&v30 = v11;
-  *(&v30 + 1) = v12;
-  v25 = v12;
-  LOBYTE(v12) = v40;
-  LOBYTE(v31) = v40;
-  v20 = v28;
-  v21 = v29;
-  *(&v31 + 1) = v29;
-  *v32 = v16;
-  v22 = v27;
-  *&v32[8] = v27;
-  *&v32[16] = v28;
-  v32[24] = v26;
-  sub_10009ECBC(&v30, v33);
+  v14 = v13;
+  v27 = v12;
+  LOBYTE(v31[0]) = 3;
+  v25 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v26 = v15;
+  v39 = 4;
+  v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v17 = *(v6 + 8);
+  v24 = v16;
+  v17(v8, v5);
+  *&v28 = v9;
+  *(&v28 + 1) = v10;
+  v23 = v10;
+  LOBYTE(v10) = v38;
+  LOBYTE(v29) = v38;
+  v18 = v26;
+  v19 = v27;
+  *(&v29 + 1) = v27;
+  *v30 = v14;
+  v20 = v25;
+  *&v30[8] = v25;
+  *&v30[16] = v26;
+  v30[24] = v24;
+  sub_10009ECBC(&v28, v31);
   sub_10000BB78(a1);
-  v33[0] = v11;
-  v33[1] = v25;
-  v34 = v12;
-  v35 = v21;
-  v36 = v16;
-  v37 = v22;
-  v38 = v20;
-  v39 = v26;
-  result = sub_10009ECF4(v33);
-  v24 = v31;
-  *a2 = v30;
-  a2[1] = v24;
-  a2[2] = *v32;
-  *(a2 + 41) = *&v32[9];
+  v31[0] = v9;
+  v31[1] = v23;
+  v32 = v10;
+  v33 = v19;
+  v34 = v14;
+  v35 = v20;
+  v36 = v18;
+  v37 = v24;
+  result = sub_10009ECF4(v31);
+  v22 = v29;
+  *a2 = v28;
+  a2[1] = v22;
+  a2[2] = *v30;
+  *(a2 + 41) = *&v30[9];
   return result;
 }
 
@@ -7073,14 +6418,12 @@ uint64_t sub_10009C5E0(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10009C700@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_10009C700@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100837838, &qword_1006C9960);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v21 - v8;
-  v10 = a1[4];
+  v8 = &v19 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_1000AC70C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -7089,48 +6432,47 @@ uint64_t sub_10009C700@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v27 = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v24 = v11;
-  v26 = 1;
-  v22 = KeyedDecodingContainer.decode(_:forKey:)();
-  v23 = v14;
-  v25 = 2;
-  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v16 = v9;
-  v18 = v17;
-  (*(v6 + 8))(v16, v5);
+  v25 = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  v22 = v9;
+  v24 = 1;
+  v20 = KeyedDecodingContainer.decode(_:forKey:)();
+  v21 = v12;
+  v23 = 2;
+  v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v14 = v8;
+  v16 = v15;
+  (*(v6 + 8))(v14, v5);
   result = sub_10000BB78(a1);
-  *a2 = v24;
-  a2[1] = v13;
-  v20 = v23;
-  a2[2] = v22;
-  a2[3] = v20;
-  a2[4] = v15;
-  a2[5] = v18;
+  *a2 = v22;
+  a2[1] = v11;
+  v18 = v21;
+  a2[2] = v20;
+  a2[3] = v18;
+  a2[4] = v13;
+  a2[5] = v16;
   return result;
 }
 
-uint64_t sub_10009C94C(uint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
+uint64_t sub_10009C94C(void *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void), uint64_t a5)
 {
-  v7 = sub_100007224(a2, a3);
-  v15 = *(v7 - 8);
-  v8 = *(v15 + 64);
-  __chkstk_darwin(v7);
+  v8 = sub_100007224(a2, a3);
+  v15 = *(v8 - 8);
+  __chkstk_darwin(v8);
   v10 = &v14 - v9;
   v11 = a1[3];
   sub_10000BA08(a1, v11);
   a4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v4)
+  if (!v5)
   {
     v12 = v15;
     v17 = 0;
     v11 = KeyedDecodingContainer.decode(_:forKey:)();
     v16 = 1;
     KeyedDecodingContainer.decode(_:forKey:)();
-    (*(v12 + 8))(v10, v7);
+    (*(v12 + 8))(v10, v8);
   }
 
   sub_10000BB78(a1);
@@ -7180,30 +6522,28 @@ uint64_t sub_10009CB34(uint64_t a1, uint64_t a2)
   }
 }
 
-double sub_10009CCA8(uint64_t *a1)
+double sub_10009CCA8(void *a1)
 {
   v4 = sub_100007224(&qword_1008370A8, &qword_1006C9650);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12[-v7];
-  v9 = a1[4];
+  v7 = &v10[-v6];
   sub_10000BA08(a1, a1[3]);
   sub_1000AC760();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v1)
   {
-    v12[15] = 0;
+    v10[15] = 0;
     KeyedDecodingContainer.decode(_:forKey:)();
-    v12[14] = 1;
+    v10[14] = 1;
     KeyedDecodingContainer.decode(_:forKey:)();
-    v2 = v11;
-    v12[12] = 2;
+    v2 = v9;
+    v10[12] = 2;
     sub_1000AD34C();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v12[11] = 3;
+    v10[11] = 3;
     KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    (*(v5 + 8))(v8, v4);
+    (*(v5 + 8))(v7, v4);
   }
 
   sub_10000BB78(a1);
@@ -7338,14 +6678,12 @@ uint64_t sub_10009D288(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10009D3F4@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_10009D3F4@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = sub_100007224(&qword_100835598, &qword_1006C1A00);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v26 - v8;
-  v10 = a1[4];
+  v8 = &v24 - v7;
   sub_10000BA08(a1, a1[3]);
   sub_10009D708();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -7356,39 +6694,39 @@ uint64_t sub_10009D3F4@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 
   else
   {
-    v35 = 0;
-    v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v13 = v12;
-    v30 = v11;
-    v34 = 1;
-    v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v16 = v15;
-    v29 = v14;
+    v33 = 0;
+    v9 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v11 = v10;
+    v28 = v9;
+    v32 = 1;
+    v12 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v14 = v13;
+    v27 = v12;
     sub_100007224(&qword_1008355A8, &qword_1006C1A08);
-    v33 = 2;
+    v31 = 2;
     sub_10009D75C();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v28 = a2;
-    v17 = v31;
-    v32 = 3;
-    v18 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v20 = v19;
-    v21 = *(v6 + 8);
-    v27 = v18;
-    v21(v9, v5);
+    v26 = a2;
+    v15 = v29;
+    v30 = 3;
+    v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v18 = v17;
+    v19 = *(v6 + 8);
+    v25 = v16;
+    v19(v8, v5);
 
     sub_10000BB78(a1);
 
-    v23 = v29;
-    v24 = v28;
-    *v28 = v30;
-    v24[1] = v13;
-    v24[2] = v23;
-    v24[3] = v16;
-    v25 = v27;
-    v24[4] = v17;
-    v24[5] = v25;
-    v24[6] = v20;
+    v21 = v27;
+    v22 = v26;
+    *v26 = v28;
+    v22[1] = v11;
+    v22[2] = v21;
+    v22[3] = v14;
+    v23 = v25;
+    v22[4] = v15;
+    v22[5] = v23;
+    v22[6] = v18;
   }
 
   return result;
@@ -7582,15 +6920,13 @@ unint64_t sub_10009DBA0(Swift::String string)
   }
 }
 
-uint64_t sub_10009DBEC@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t sub_10009DBEC@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v56 = a2;
+  v51 = a2;
   v4 = sub_100007224(&qword_1008355F0, &qword_1006C1A28);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v47 - v7;
-  v9 = a1[4];
+  v7 = &v42 - v6;
   sub_10000BA08(a1, a1[3]);
   sub_10009E3BC();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -7599,222 +6935,219 @@ uint64_t sub_10009DBEC@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
     return sub_10000BB78(a1);
   }
 
-  v54 = a1;
-  v55 = v5;
+  v49 = a1;
+  v50 = v5;
   sub_100007224(&qword_100835600, &qword_1006C1A30);
-  LOBYTE(v57) = 0;
+  LOBYTE(v52) = 0;
   sub_10009E410();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = *&v63[0];
+  v9 = *&v58[0];
   sub_100007224(&qword_100835618, &qword_1006C1A38);
-  LOBYTE(v57) = 1;
+  LOBYTE(v52) = 1;
   sub_10009E4E8();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v12 = *&v63[0];
+  v10 = *&v58[0];
   sub_100007224(&qword_100834EA0, &qword_1006C06B0);
-  LOBYTE(v57) = 2;
+  LOBYTE(v52) = 2;
   sub_10007FD2C();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v50 = v12;
-  v53 = *&v63[0];
-  if (*&v63[0])
+  v45 = v10;
+  v48 = *&v58[0];
+  if (*&v58[0])
   {
 LABEL_18:
-    v83 = 3;
+    v78 = 3;
     sub_10009E6D0();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v78 = v74;
-    v79 = v75;
-    v80 = v76;
-    v81 = v77;
-    LOBYTE(v63[0]) = 4;
-    v52 = KeyedDecodingContainer.decode(_:forKey:)();
-    LOBYTE(v63[0]) = 5;
-    v31 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    if (v32)
+    v73 = v69;
+    v74 = v70;
+    v75 = v71;
+    v76 = v72;
+    LOBYTE(v58[0]) = 4;
+    v47 = KeyedDecodingContainer.decode(_:forKey:)();
+    LOBYTE(v58[0]) = 5;
+    v26 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    if (v27)
     {
-      v12 = 3;
+      v10 = 3;
     }
 
     else
     {
-      v12 = v31;
+      v10 = v26;
     }
 
-    LOBYTE(v57) = 6;
+    LOBYTE(v52) = 6;
     sub_10009E724();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v33 = LOBYTE(v63[0]);
-    if (LOBYTE(v63[0]) == 3)
+    v28 = LOBYTE(v58[0]);
+    if (LOBYTE(v58[0]) == 3)
     {
-      v33 = 0;
+      v28 = 0;
     }
 
-    LODWORD(v51) = v33;
-    LOBYTE(v63[0]) = 7;
-    LODWORD(v49) = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    LODWORD(v48) = v49 == 2;
-    LOBYTE(v63[0]) = 8;
-    v16 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    LODWORD(v46) = v28;
+    LOBYTE(v58[0]) = 7;
+    LODWORD(v44) = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    LODWORD(v43) = v44 == 2;
+    LOBYTE(v58[0]) = 8;
+    v14 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
   }
 
   else
   {
-    v47 = v11;
-    v13 = v12 + 64;
-    v14 = 1 << *(v12 + 32);
-    v15 = -1;
-    if (v14 < 64)
+    v42 = v9;
+    v11 = v10 + 64;
+    v12 = 1 << *(v10 + 32);
+    v13 = -1;
+    if (v12 < 64)
     {
-      v15 = ~(-1 << v14);
+      v13 = ~(-1 << v12);
     }
 
-    v11 = v15 & *(v12 + 64);
-    v49 = (v14 + 63) >> 6;
+    v9 = v13 & *(v10 + 64);
+    v44 = (v12 + 63) >> 6;
 
-    v17 = 0;
-    v53 = _swiftEmptyArrayStorage;
-    v48 = v12 + 64;
-    v18 = v49;
-    if (v11)
+    v15 = 0;
+    v48 = _swiftEmptyArrayStorage;
+    v43 = v10 + 64;
+    v16 = v44;
+    if (v9)
     {
       goto LABEL_11;
     }
 
     while (1)
     {
-      v19 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v17 = v15 + 1;
+      if (__OFADD__(v15, 1))
       {
         break;
       }
 
-      if (v19 >= v18)
+      if (v17 >= v16)
       {
 
-        v11 = v47;
+        v9 = v42;
         goto LABEL_18;
       }
 
-      v11 = *(v13 + 8 * v19);
-      ++v17;
-      if (v11)
+      v9 = *(v11 + 8 * v17);
+      ++v15;
+      if (v9)
       {
-        v17 = v19;
+        v15 = v17;
         do
         {
 LABEL_11:
-          v20 = __clz(__rbit64(v11)) | (v17 << 6);
-          v21 = *(v12 + 56);
-          v22 = (*(v12 + 48) + 16 * v20);
-          v23 = *v22;
-          v51 = v22[1];
-          v52 = v23;
-          v24 = *(v21 + 8 * v20);
+          v18 = (*(v10 + 48) + 16 * (__clz(__rbit64(v9)) | (v15 << 6)));
+          v19 = *v18;
+          v46 = v18[1];
+          v47 = v19;
           swift_bridgeObjectRetain_n();
 
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v53 = sub_1003C5110(0, *(v53 + 2) + 1, 1, v53);
+            v48 = sub_1003C5110(0, *(v48 + 2) + 1, 1, v48);
           }
 
-          v26 = *(v53 + 2);
-          v25 = *(v53 + 3);
-          if (v26 >= v25 >> 1)
+          v21 = *(v48 + 2);
+          v20 = *(v48 + 3);
+          if (v21 >= v20 >> 1)
           {
-            v53 = sub_1003C5110((v25 > 1), v26 + 1, 1, v53);
+            v48 = sub_1003C5110((v20 > 1), v21 + 1, 1, v48);
           }
 
-          v11 &= v11 - 1;
+          v9 &= v9 - 1;
 
-          v27 = v51;
+          v22 = v46;
 
-          v29 = v52;
-          v28 = v53;
-          *(v53 + 2) = v26 + 1;
-          v30 = &v28[16 * v26];
-          *(v30 + 4) = v29;
-          *(v30 + 5) = v27;
-          v12 = v50;
-          v13 = v48;
-          v18 = v49;
+          v24 = v47;
+          v23 = v48;
+          *(v48 + 2) = v21 + 1;
+          v25 = &v23[16 * v21];
+          *(v25 + 4) = v24;
+          *(v25 + 5) = v22;
+          v10 = v45;
+          v11 = v43;
+          v16 = v44;
         }
 
-        while (v11);
+        while (v9);
       }
     }
 
     __break(1u);
   }
 
-  v34 = v16;
-  v35 = v16 == 2;
-  LOBYTE(v57) = 9;
+  v29 = v14;
+  v30 = v14 == 2;
+  LOBYTE(v52) = 9;
   sub_10009E778();
-  v47 = v4;
-  v36 = v8;
+  v42 = v4;
+  v31 = v7;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v37 = v63[0];
-  LOBYTE(v63[0]) = 10;
+  v32 = v58[0];
+  LOBYTE(v58[0]) = 10;
   sub_10009E7CC();
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v38 = (v48 | v49) & 1;
-  v39 = (v35 | v34) & 1;
-  v40 = v37 & 1;
-  (*(v55 + 8))(v36, v47);
-  v57 = v78;
-  v58 = v79;
-  v59 = v80;
-  v60 = v81;
-  v41 = v50;
-  *&v61 = v11;
-  *(&v61 + 1) = v50;
-  *&v62[0] = v53;
-  *(&v62[0] + 1) = v52;
-  *&v62[1] = v12;
-  BYTE8(v62[1]) = v51;
-  BYTE9(v62[1]) = v38;
-  BYTE10(v62[1]) = v39;
-  BYTE11(v62[1]) = v40;
-  if (v82 == 3)
+  v33 = (v43 | v44) & 1;
+  v34 = (v30 | v29) & 1;
+  v35 = v32 & 1;
+  (*(v50 + 8))(v31, v42);
+  v52 = v73;
+  v53 = v74;
+  v54 = v75;
+  v55 = v76;
+  v36 = v45;
+  *&v56 = v9;
+  *(&v56 + 1) = v45;
+  *&v57[0] = v48;
+  *(&v57[0] + 1) = v47;
+  *&v57[1] = v10;
+  BYTE8(v57[1]) = v46;
+  BYTE9(v57[1]) = v33;
+  BYTE10(v57[1]) = v34;
+  BYTE11(v57[1]) = v35;
+  if (v77 == 3)
   {
-    v42 = 0;
+    v37 = 0;
   }
 
   else
   {
-    v42 = v82;
+    v37 = v77;
   }
 
-  BYTE12(v62[1]) = v42;
-  sub_10009E820(&v57, v63);
-  sub_10000BB78(v54);
-  v63[0] = v78;
-  v63[1] = v79;
-  v63[2] = v80;
-  v63[3] = v81;
-  v64 = v11;
-  v65 = v41;
-  v66 = v53;
-  v67 = v52;
-  v68 = v12;
-  v69 = v51;
-  v70 = v38;
-  v71 = v39;
-  v72 = v40;
-  v73 = v42;
-  result = sub_10009E858(v63);
-  v43 = v62[0];
-  v44 = v56;
-  v56[4] = v61;
-  v44[5] = v43;
-  *(v44 + 93) = *(v62 + 13);
-  v45 = v58;
-  *v44 = v57;
-  v44[1] = v45;
-  v46 = v60;
-  v44[2] = v59;
-  v44[3] = v46;
+  BYTE12(v57[1]) = v37;
+  sub_10009E820(&v52, v58);
+  sub_10000BB78(v49);
+  v58[0] = v73;
+  v58[1] = v74;
+  v58[2] = v75;
+  v58[3] = v76;
+  v59 = v9;
+  v60 = v36;
+  v61 = v48;
+  v62 = v47;
+  v63 = v10;
+  v64 = v46;
+  v65 = v33;
+  v66 = v34;
+  v67 = v35;
+  v68 = v37;
+  result = sub_10009E858(v58);
+  v38 = v57[0];
+  v39 = v51;
+  v51[4] = v56;
+  v39[5] = v38;
+  *(v39 + 93) = *(v57 + 13);
+  v40 = v53;
+  *v39 = v52;
+  v39[1] = v40;
+  v41 = v55;
+  v39[2] = v54;
+  v39[3] = v41;
   return result;
 }
 
@@ -8325,7 +7658,7 @@ unint64_t sub_10009F3E8()
   return result;
 }
 
-uint64_t sub_10009F43C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10009F43C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8370,7 +7703,7 @@ unint64_t sub_10009F55C()
   if (!qword_100839B50)
   {
     sub_10000B870(&qword_100835478, &qword_1006D4980);
-    sub_10009F43C(&qword_100835870, &type metadata accessor for IdentityProofingUnorderedUIElement);
+    sub_10009F43C(&qword_100835870, &type metadata accessor for IdentityProofingUnorderedUIElement, &protocol conformance descriptor for IdentityProofingUnorderedUIElement);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100839B50);
   }
@@ -9150,55 +8483,55 @@ uint64_t sub_1000A0454(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_1000A05B0()
+void sub_1000A05B0(uint64_t a1)
 {
   sub_1000A437C(319, &qword_100835140, &type metadata for String, &type metadata accessor for Optional);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1000A437C(319, &qword_1008351F0, &type metadata for Bool, &type metadata accessor for Optional);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1000A5F34(319, &qword_1008359E0, &qword_100834EA0, &qword_1006C06B0, &type metadata accessor for Optional);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1000A437C(319, &qword_1008359E8, &type metadata for DisplayMessageAction, &type metadata accessor for Optional);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_1000A437C(319, &qword_1008359F0, &type metadata for DisplayMessageContext, &type metadata accessor for Optional);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_1000A437C(319, &qword_1008359F8, &type metadata for DisplayNotificationContext, &type metadata accessor for Optional);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               sub_10007FA34(319, &qword_100835A00, type metadata accessor for WorkflowRecommendationResponse, &type metadata accessor for Optional);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 sub_1000A437C(319, &qword_100835A08, &type metadata for ExecuteWorkflowType, &type metadata accessor for Optional);
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   sub_1000A437C(319, &qword_100835A10, &type metadata for IdentityProvisioningContext, &type metadata accessor for Optional);
-                  if (v8 <= 0x3F)
+                  if (v9 <= 0x3F)
                   {
                     sub_1000A437C(319, &qword_100835A18, &type metadata for Int64, &type metadata accessor for Optional);
-                    if (v9 <= 0x3F)
+                    if (v10 <= 0x3F)
                     {
                       sub_1000A437C(319, &qword_100835A20, &type metadata for PendingActionLivenessVersions, &type metadata accessor for Optional);
-                      if (v10 <= 0x3F)
+                      if (v11 <= 0x3F)
                       {
                         sub_1000A5F34(319, &qword_100835A28, &qword_100835A30, &unk_1006DB6C0, &type metadata accessor for Optional);
-                        if (v11 <= 0x3F)
+                        if (v12 <= 0x3F)
                         {
                           sub_1000A437C(319, &qword_100835A38, &type metadata for IQModel, &type metadata accessor for Optional);
-                          if (v12 <= 0x3F)
+                          if (v13 <= 0x3F)
                           {
                             sub_1000A437C(319, &qword_100835A40, &type metadata for PIIToken, &type metadata accessor for Optional);
-                            if (v13 <= 0x3F)
+                            if (v14 <= 0x3F)
                             {
                               sub_1000A5F34(319, &qword_100835A48, &qword_100835A50, &qword_1006C1ED0, &type metadata accessor for Optional);
-                              if (v14 <= 0x3F)
+                              if (v15 <= 0x3F)
                               {
                                 sub_1000A437C(319, &unk_100835A58, &type metadata for FaceMatchingResult, &type metadata accessor for Optional);
-                                if (v15 <= 0x3F)
+                                if (v16 <= 0x3F)
                                 {
                                   swift_cvw_initStructMetadataWithLayoutString();
                                 }
@@ -9277,13 +8610,13 @@ LABEL_8:
   return result;
 }
 
-void sub_1000A0B90()
+void sub_1000A0B90(uint64_t a1)
 {
   sub_10007FA34(319, &unk_100835B68, type metadata accessor for PendingActionContext, &type metadata accessor for Optional);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1000A437C(319, &qword_100835140, &type metadata for String, &type metadata accessor for Optional);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -9338,10 +8671,10 @@ uint64_t sub_1000A0D78(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_1000A0E60()
+void sub_1000A0E60(uint64_t a1)
 {
-  sub_1000A5934(319, &qword_100835C08, sub_1000A0F0C, sub_1000A0F60);
-  if (v0 <= 0x3F)
+  sub_1000A5934(319, &qword_100835C08, sub_1000A0F0C, sub_1000A0F60, &type metadata for LivenessConfigV2);
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -9432,7 +8765,7 @@ uint64_t sub_1000A1010(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_1000A1090(uint64_t *a1)
+uint64_t sub_1000A1090(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -9497,13 +8830,13 @@ uint64_t sub_1000A11C8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_1000A12AC()
+void sub_1000A12AC(uint64_t a1)
 {
   sub_1000A5F34(319, &qword_100835CB0, &qword_100833688, &qword_1006BF6D0, &type metadata accessor for Optional);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1000A5F34(319, &qword_100835CB8, &unk_100835CC0, &qword_1006C2148, &type metadata accessor for Optional);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -9572,13 +8905,13 @@ LABEL_8:
   return result;
 }
 
-void sub_1000A1508()
+void sub_1000A1508(uint64_t a1)
 {
   sub_1000A437C(319, &qword_100835140, &type metadata for String, &type metadata accessor for Optional);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1000A5934(319, &qword_100835C08, sub_1000A0F0C, sub_1000A0F60);
-    if (v1 <= 0x3F)
+    sub_1000A5934(319, &qword_100835C08, sub_1000A0F0C, sub_1000A0F60, &type metadata for LivenessConfigV2);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -10372,4 +9705,120 @@ uint64_t sub_1000A18B0(uint64_t result, unsigned int a2, unsigned int a3)
   }
 
   return result;
+}
+
+__n128 sub_1000A2240(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[1];
+  v4 = a2[3];
+  *(a1 + 32) = a2[2];
+  *(a1 + 48) = v4;
+  *a1 = v2;
+  *(a1 + 16) = v3;
+  result = a2[4];
+  v6 = a2[5];
+  v7 = a2[6];
+  *(a1 + 112) = *(a2 + 14);
+  *(a1 + 80) = v6;
+  *(a1 + 96) = v7;
+  *(a1 + 64) = result;
+  return result;
+}
+
+void sub_1000A22F4(uint64_t a1)
+{
+  sub_1000A437C(319, &qword_100835140, &type metadata for String, &type metadata accessor for Optional);
+  if (v1 <= 0x3F)
+  {
+    sub_1000A5F34(319, &qword_1008359E0, &qword_100834EA0, &qword_1006C06B0, &type metadata accessor for Optional);
+    if (v2 <= 0x3F)
+    {
+      sub_1000A5F34(319, &qword_100835DF8, &unk_100835E00, &qword_1006C46A0, &type metadata accessor for Optional);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t sub_1000A241C(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 56))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t sub_1000A2464(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 56) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 56) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1000A24D0(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 80))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
 }

@@ -1,3 +1,2113 @@
+uint64_t implicit closure #2 in static Locale.identifier(fromComponents:)(uint64_t *a1, void *a2)
+{
+  if (*a1 == *a2 && a1[1] == a2[1])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return _stringCompareWithSmolCheck(_:_:expecting:)() & 1;
+  }
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Locale(uint64_t a1)
+{
+  v2 = *(v1 + 8);
+  Hasher.init(_seed:)();
+  ObjectType = swift_getObjectType();
+  if ((*(v2 + 48))(ObjectType, v2))
+  {
+    v4 = 1;
+LABEL_5:
+    Hasher._combine(_:)(v4);
+    return Hasher._finalize()();
+  }
+
+  Hasher._combine(_:)(0);
+  (*(v2 + 64))(ObjectType, v2);
+  String.hash(into:)();
+
+  (*(v2 + 464))(&v37, ObjectType, v2);
+  v45[6] = v43;
+  v46[0] = *v44;
+  *(v46 + 12) = *&v44[12];
+  v45[2] = v39;
+  v45[3] = v40;
+  v45[4] = v41;
+  v45[5] = v42;
+  v45[0] = v37;
+  v45[1] = v38;
+  if (_s10Foundation17LocalePreferencesVSgWOg(v45) == 1)
+  {
+    v4 = 0;
+    goto LABEL_5;
+  }
+
+  v5 = v37;
+  v6 = *(&v37 + 1);
+  v7 = *(&v38 + 1);
+  v8 = *(&v39 + 1);
+  v9 = v40;
+  v31 = v41;
+  v32 = v42;
+  v10 = v43;
+  v11 = *v44;
+  v33 = v44[24];
+  v34 = *&v44[16];
+  v12 = v44[25];
+  v35 = v44[26];
+  v36 = v44[27];
+  Hasher._combine(_:)(1u);
+  if (v5 == 2)
+  {
+    Hasher._combine(_:)(0);
+    if (v6)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    Hasher._combine(_:)(v5 & 1);
+    if (v6)
+    {
+LABEL_8:
+      Hasher._combine(_:)(1u);
+      MEMORY[0x1865CD060](*(v6 + 16));
+      v13 = *(v6 + 16);
+      if (v13)
+      {
+        v14 = v6 + 40;
+        do
+        {
+
+          String.hash(into:)();
+
+          v14 += 16;
+          --v13;
+        }
+
+        while (v13);
+      }
+
+      if (v7)
+      {
+        goto LABEL_12;
+      }
+
+      goto LABEL_15;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+  if (v7)
+  {
+LABEL_12:
+    Hasher._combine(_:)(1u);
+    String.hash(into:)();
+    goto LABEL_16;
+  }
+
+LABEL_15:
+  Hasher._combine(_:)(0);
+LABEL_16:
+  if (v8)
+  {
+    Hasher._combine(_:)(1u);
+    String.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (v9)
+  {
+    Hasher._combine(_:)(1u);
+    specialized Dictionary<>.hash(into:)(v47, v9, v15, v16, v17, v18, v19, v20);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (*(&v9 + 1))
+  {
+    Hasher._combine(_:)(1u);
+    specialized Dictionary<>.hash(into:)(v47, *(&v9 + 1), v21, v22, v23, v24, v25, v26);
+    if (v31)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+    if (v31)
+    {
+LABEL_24:
+      Hasher._combine(_:)(1u);
+      type metadata accessor for CFDictionaryRef(0);
+      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+      _CFObject.hash(into:)();
+      if (*(&v31 + 1))
+      {
+        goto LABEL_25;
+      }
+
+LABEL_29:
+      v27 = v33;
+      Hasher._combine(_:)(0);
+      if (v32)
+      {
+        goto LABEL_26;
+      }
+
+      goto LABEL_30;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+  if (!*(&v31 + 1))
+  {
+    goto LABEL_29;
+  }
+
+LABEL_25:
+  v27 = v33;
+  Hasher._combine(_:)(1u);
+  type metadata accessor for CFDictionaryRef(0);
+  _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+  _CFObject.hash(into:)();
+  if (v32)
+  {
+LABEL_26:
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+    goto LABEL_31;
+  }
+
+LABEL_30:
+  Hasher._combine(_:)(0);
+LABEL_31:
+  if (*(&v32 + 1))
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (v10)
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (*(&v10 + 1))
+  {
+    Hasher._combine(_:)(1u);
+    specialized Dictionary<>.hash(into:)(v47, *(&v10 + 1));
+    if (v11)
+    {
+      goto LABEL_39;
+    }
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+    if (v11)
+    {
+LABEL_39:
+      Hasher._combine(_:)(1u);
+      specialized Dictionary<>.hash(into:)(v47, v11);
+      if (v34)
+      {
+        goto LABEL_40;
+      }
+
+      goto LABEL_46;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+  if (v34)
+  {
+LABEL_40:
+    Hasher._combine(_:)(1u);
+    String.hash(into:)();
+    if (v27 == 2)
+    {
+      goto LABEL_41;
+    }
+
+    goto LABEL_47;
+  }
+
+LABEL_46:
+  Hasher._combine(_:)(0);
+  if (v27 == 2)
+  {
+LABEL_41:
+    Hasher._combine(_:)(0);
+    if (v12 != 2)
+    {
+      goto LABEL_42;
+    }
+
+LABEL_48:
+    Hasher._combine(_:)(0);
+    if (v35 != 2)
+    {
+      goto LABEL_43;
+    }
+
+LABEL_49:
+    v28 = 0;
+    goto LABEL_50;
+  }
+
+LABEL_47:
+  Hasher._combine(_:)(1u);
+  MEMORY[0x1865CD060](v27 & 1);
+  if (v12 == 2)
+  {
+    goto LABEL_48;
+  }
+
+LABEL_42:
+  Hasher._combine(_:)(1u);
+  MEMORY[0x1865CD060](v12 & 1);
+  if (v35 == 2)
+  {
+    goto LABEL_49;
+  }
+
+LABEL_43:
+  Hasher._combine(_:)(1u);
+  v28 = v35 & 1;
+LABEL_50:
+  Hasher._combine(_:)(v28);
+  if (v36 == 2)
+  {
+    v29 = 0;
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    v29 = v36 & 1;
+  }
+
+  Hasher._combine(_:)(v29);
+  outlined destroy of TermOfAddress?(&v37, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
+  return Hasher._finalize()();
+}
+
+uint64_t Locale.customMirror.getter@<X0>(uint64_t a1@<X8>)
+{
+  v30[1] = a1;
+  v30[0] = type metadata accessor for Mirror.AncestorRepresentation();
+  v2 = *(v30[0] - 8);
+  MEMORY[0x1EEE9AC00](v30[0]);
+  v4 = v30 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = v30 - v6;
+  v8 = *v1;
+  v9 = v1[1];
+  swift_getObjectType();
+  v10 = (*(v9 + 64))();
+  v11 = MEMORY[0x1E69E6158];
+  v35 = MEMORY[0x1E69E6158];
+  *&v34 = v10;
+  *(&v34 + 1) = v12;
+  v31 = xmmword_181231A50;
+  outlined init with take of Any(&v34, &v32);
+  v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0]);
+  v15 = v13[2];
+  v14 = v13[3];
+  if (v15 >= v14 >> 1)
+  {
+    v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v15 + 1, 1, v13);
+  }
+
+  v13[2] = v15 + 1;
+  v16 = &v13[6 * v15];
+  v17 = v31;
+  v18 = v33;
+  v16[3] = v32;
+  v16[4] = v18;
+  v16[2] = v17;
+  *&v31 = v8;
+  v19 = dispatch thunk of CustomDebugStringConvertible.debugDescription.getter();
+  v35 = v11;
+  *&v34 = v19;
+  *(&v34 + 1) = v20;
+  v31 = xmmword_181231A70;
+  outlined init with take of Any(&v34, &v32);
+  v22 = v13[2];
+  v21 = v13[3];
+  if (v22 >= v21 >> 1)
+  {
+    v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v22 + 1, 1, v13);
+  }
+
+  v13[2] = v22 + 1;
+  v23 = &v13[6 * v22];
+  v24 = v31;
+  v25 = v33;
+  v23[3] = v32;
+  v23[4] = v25;
+  v23[2] = v24;
+  *&v31 = v8;
+  *(&v31 + 1) = v9;
+  *&v34 = v13;
+  v26 = *MEMORY[0x1E69E75B8];
+  v27 = type metadata accessor for Mirror.DisplayStyle();
+  v28 = *(v27 - 8);
+  (*(v28 + 104))(v7, v26, v27);
+  (*(v28 + 56))(v7, 0, 1, v27);
+  (*(v2 + 104))(v4, *MEMORY[0x1E69E75D8], v30[0]);
+  swift_unknownObjectRetain();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd, &_sSaySSSg5label_yp5valuetGMR);
+  lazy protocol witness table accessor for type [(label: String?, value: Any)] and conformance [A]();
+  return Mirror.init<A, B>(_:children:displayStyle:ancestorRepresentation:)();
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Locale.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v6 = a1 == 0x696669746E656469 && a2 == 0xEA00000000007265;
+  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0x746E6572727563 && a2 == 0xE700000000000000)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.init(intValue:) in conformance Locale.CodingKeys@<X0>(uint64_t result@<X0>, char *a2@<X8>)
+{
+  if (result == 1)
+  {
+    v2 = 1;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if (!result)
+  {
+    v2 = 0;
+  }
+
+  *a2 = v2;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Locale.CodingKeys and conformance Locale.CodingKeys();
+
+  return MEMORY[0x1EEE6BB70](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Locale.CodingKeys and conformance Locale.CodingKeys();
+
+  return MEMORY[0x1EEE6BB78](a1, v2);
+}
+
+Swift::Int specialized MutableCollection<>.sort(by:)(uint64_t (*a1)(uint64_t *, uint64_t *), uint64_t a2)
+{
+  v5 = *v2;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v5 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v5);
+  }
+
+  v6 = *(v5 + 2);
+  v13[0] = (v5 + 32);
+  v13[1] = v6;
+  result = _minimumMergeRunLength(_:)(v6);
+  if (result >= v6)
+  {
+    if (v6)
+    {
+      result = specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(0, v6, 1, a1);
+    }
+  }
+
+  else
+  {
+    v8 = result;
+    if (v6 >= 2)
+    {
+      v9 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      *(v9 + 16) = v6 >> 1;
+    }
+
+    else
+    {
+      v9 = MEMORY[0x1E69E7CC0];
+    }
+
+    v11[0] = v9 + 32;
+    v11[1] = v6 >> 1;
+    v10 = v9;
+    specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v11, v12, v13, a1, a2, v8);
+    *(v10 + 16) = 0;
+  }
+
+  *v2 = v5;
+  return result;
+}
+
+uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t (*a4)(uint64_t *, uint64_t *), uint64_t a5, uint64_t a6)
+{
+  v7 = a3;
+  v8 = result;
+  v116 = MEMORY[0x1E69E7CC0];
+  v9 = a3[1];
+  if (v9 >= 1)
+  {
+    v10 = 0;
+    v11 = MEMORY[0x1E69E7CC0];
+    v100 = result;
+    while (1)
+    {
+      v12 = v10;
+      v13 = v10 + 1;
+      if (v13 >= v9)
+      {
+        v27 = v13;
+      }
+
+      else
+      {
+        v14 = v12;
+        v15 = *v7;
+        v16 = (*v7 + 16 * v13);
+        v17 = v16[1];
+        v114 = *v16;
+        v115 = v17;
+        v18 = (v15 + 16 * v14);
+        v19 = v18[1];
+        v112 = *v18;
+        v113 = v19;
+
+        v107 = a4(&v114, &v112);
+        if (v6)
+        {
+LABEL_92:
+        }
+
+        v20 = 0;
+        v98 = v9 - 1;
+        v103 = v14;
+        v105 = v9;
+        v21 = v14 - v9 + 2;
+        v22 = 16 * v14;
+        v23 = (v15 + v22 + 24);
+        while (v21 + v20)
+        {
+          v24 = v23[2];
+          v114 = v23[1];
+          v115 = v24;
+          v25 = *v23;
+          v112 = *(v23 - 1);
+          v113 = v25;
+
+          v26 = a4(&v114, &v112);
+
+          ++v20;
+          v23 += 2;
+          if ((v107 ^ v26))
+          {
+            v12 = v103;
+            v98 = v103 + v20;
+            v27 = v103 + v20 + 1;
+            goto LABEL_12;
+          }
+        }
+
+        v12 = v103;
+        v27 = v105;
+LABEL_12:
+        v8 = v100;
+        v7 = a3;
+        if (v107)
+        {
+          if (v27 < v12)
+          {
+            goto LABEL_112;
+          }
+
+          if (v12 <= v98)
+          {
+            v89 = 0;
+            v90 = 16 * v27;
+            v91 = v12;
+            do
+            {
+              if (v91 != v27 + v89 - 1)
+              {
+                v92 = *a3;
+                if (!*a3)
+                {
+                  goto LABEL_115;
+                }
+
+                v93 = (v92 + v22);
+                v94 = v92 + v90;
+                v95 = *v93;
+                v96 = v93[1];
+                *v93 = *(v94 - 16);
+                *(v94 - 16) = v95;
+                *(v94 - 8) = v96;
+              }
+
+              ++v91;
+              --v89;
+              v90 -= 16;
+              v22 += 16;
+            }
+
+            while (v91 < v27 + v89);
+          }
+        }
+      }
+
+      v28 = v7[1];
+      if (v27 >= v28)
+      {
+        goto LABEL_25;
+      }
+
+      if (__OFSUB__(v27, v12))
+      {
+        goto LABEL_109;
+      }
+
+      if (v27 - v12 >= a6)
+      {
+        goto LABEL_25;
+      }
+
+      if (__OFADD__(v12, a6))
+      {
+        goto LABEL_110;
+      }
+
+      v29 = v27;
+      if (v12 + a6 >= v28)
+      {
+        v30 = v7[1];
+      }
+
+      else
+      {
+        v30 = v12 + a6;
+      }
+
+      if (v30 < v12)
+      {
+LABEL_111:
+        __break(1u);
+LABEL_112:
+        __break(1u);
+LABEL_113:
+        __break(1u);
+LABEL_114:
+        __break(1u);
+LABEL_115:
+        __break(1u);
+LABEL_116:
+        __break(1u);
+LABEL_117:
+        __break(1u);
+        return result;
+      }
+
+      v31 = v29;
+      if (v29 == v30)
+      {
+        break;
+      }
+
+      v79 = *v7;
+      v80 = (*v7 + 16 * v29);
+      v104 = v12;
+      v81 = v12 - v29;
+      v109 = v30;
+      do
+      {
+        v106 = v31;
+        v82 = (v79 + 16 * v31);
+        v83 = *v82;
+        v84 = v82[1];
+        v97 = v81;
+        v99 = v80;
+        do
+        {
+          v114 = v83;
+          v115 = v84;
+          v85 = *(v80 - 1);
+          v112 = *(v80 - 2);
+          v113 = v85;
+
+          v86 = a4(&v114, &v112);
+          if (v6)
+          {
+            goto LABEL_92;
+          }
+
+          v87 = v86;
+
+          if ((v87 & 1) == 0)
+          {
+            break;
+          }
+
+          if (!v79)
+          {
+            goto LABEL_114;
+          }
+
+          v83 = *v80;
+          v84 = v80[1];
+          *v80 = *(v80 - 1);
+          *(v80 - 1) = v84;
+          *(v80 - 2) = v83;
+          v80 -= 2;
+        }
+
+        while (!__CFADD__(v81++, 1));
+        v27 = v109;
+        v31 = v106 + 1;
+        v80 = v99 + 2;
+        v81 = v97 - 1;
+      }
+
+      while (v106 + 1 != v109);
+      v8 = v100;
+      v7 = a3;
+      v12 = v104;
+      if (v109 < v104)
+      {
+        goto LABEL_108;
+      }
+
+LABEL_26:
+      result = swift_isUniquelyReferenced_nonNull_native();
+      if ((result & 1) == 0)
+      {
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v11 + 2) + 1, 1, v11);
+        v11 = result;
+      }
+
+      v33 = *(v11 + 2);
+      v32 = *(v11 + 3);
+      v34 = v33 + 1;
+      if (v33 >= v32 >> 1)
+      {
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1, v11);
+        v11 = result;
+      }
+
+      *(v11 + 2) = v34;
+      v35 = &v11[16 * v33];
+      *(v35 + 4) = v12;
+      *(v35 + 5) = v27;
+      v116 = v11;
+      v36 = *v8;
+      if (!*v8)
+      {
+        goto LABEL_116;
+      }
+
+      v108 = v27;
+      if (v33)
+      {
+        while (1)
+        {
+          v37 = v34 - 1;
+          if (v34 >= 4)
+          {
+            break;
+          }
+
+          if (v34 == 3)
+          {
+            v38 = *(v11 + 4);
+            v39 = *(v11 + 5);
+            v48 = __OFSUB__(v39, v38);
+            v40 = v39 - v38;
+            v41 = v48;
+LABEL_45:
+            if (v41)
+            {
+              goto LABEL_99;
+            }
+
+            v54 = &v11[16 * v34];
+            v56 = *v54;
+            v55 = *(v54 + 1);
+            v57 = __OFSUB__(v55, v56);
+            v58 = v55 - v56;
+            v59 = v57;
+            if (v57)
+            {
+              goto LABEL_102;
+            }
+
+            v60 = &v11[16 * v37 + 32];
+            v62 = *v60;
+            v61 = *(v60 + 1);
+            v48 = __OFSUB__(v61, v62);
+            v63 = v61 - v62;
+            if (v48)
+            {
+              goto LABEL_105;
+            }
+
+            if (__OFADD__(v58, v63))
+            {
+              goto LABEL_106;
+            }
+
+            if (v58 + v63 >= v40)
+            {
+              if (v40 < v63)
+              {
+                v37 = v34 - 2;
+              }
+
+              goto LABEL_66;
+            }
+
+            goto LABEL_59;
+          }
+
+          v64 = &v11[16 * v34];
+          v66 = *v64;
+          v65 = *(v64 + 1);
+          v48 = __OFSUB__(v65, v66);
+          v58 = v65 - v66;
+          v59 = v48;
+LABEL_59:
+          if (v59)
+          {
+            goto LABEL_101;
+          }
+
+          v67 = &v11[16 * v37];
+          v69 = *(v67 + 4);
+          v68 = *(v67 + 5);
+          v48 = __OFSUB__(v68, v69);
+          v70 = v68 - v69;
+          if (v48)
+          {
+            goto LABEL_104;
+          }
+
+          if (v70 < v58)
+          {
+            goto LABEL_3;
+          }
+
+LABEL_66:
+          v75 = v37 - 1;
+          if (v37 - 1 >= v34)
+          {
+            __break(1u);
+LABEL_95:
+            __break(1u);
+LABEL_96:
+            __break(1u);
+LABEL_97:
+            __break(1u);
+LABEL_98:
+            __break(1u);
+LABEL_99:
+            __break(1u);
+LABEL_100:
+            __break(1u);
+LABEL_101:
+            __break(1u);
+LABEL_102:
+            __break(1u);
+LABEL_103:
+            __break(1u);
+LABEL_104:
+            __break(1u);
+LABEL_105:
+            __break(1u);
+LABEL_106:
+            __break(1u);
+LABEL_107:
+            __break(1u);
+LABEL_108:
+            __break(1u);
+LABEL_109:
+            __break(1u);
+LABEL_110:
+            __break(1u);
+            goto LABEL_111;
+          }
+
+          if (!*v7)
+          {
+            goto LABEL_113;
+          }
+
+          v76 = *&v11[16 * v75 + 32];
+          v77 = *&v11[16 * v37 + 40];
+          result = specialized _merge<A>(low:mid:high:buffer:by:)((*v7 + 16 * v76), (*v7 + 16 * *&v11[16 * v37 + 32]), (*v7 + 16 * v77), v36, a4);
+          if (v6)
+          {
+          }
+
+          if (v77 < v76)
+          {
+            goto LABEL_95;
+          }
+
+          result = swift_isUniquelyReferenced_nonNull_native();
+          if ((result & 1) == 0)
+          {
+            result = specialized _ArrayBuffer._consumeAndCreateNew()(v11);
+            v11 = result;
+          }
+
+          if (v75 >= *(v11 + 2))
+          {
+            goto LABEL_96;
+          }
+
+          v78 = &v11[16 * v75];
+          *(v78 + 4) = v76;
+          *(v78 + 5) = v77;
+          v116 = v11;
+          result = specialized Array.remove(at:)(v37);
+          v11 = v116;
+          v34 = *(v116 + 2);
+          if (v34 <= 1)
+          {
+            goto LABEL_3;
+          }
+        }
+
+        v42 = &v11[16 * v34 + 32];
+        v43 = *(v42 - 64);
+        v44 = *(v42 - 56);
+        v48 = __OFSUB__(v44, v43);
+        v45 = v44 - v43;
+        if (v48)
+        {
+          goto LABEL_97;
+        }
+
+        v47 = *(v42 - 48);
+        v46 = *(v42 - 40);
+        v48 = __OFSUB__(v46, v47);
+        v40 = v46 - v47;
+        v41 = v48;
+        if (v48)
+        {
+          goto LABEL_98;
+        }
+
+        v49 = &v11[16 * v34];
+        v51 = *v49;
+        v50 = *(v49 + 1);
+        v48 = __OFSUB__(v50, v51);
+        v52 = v50 - v51;
+        if (v48)
+        {
+          goto LABEL_100;
+        }
+
+        v48 = __OFADD__(v40, v52);
+        v53 = v40 + v52;
+        if (v48)
+        {
+          goto LABEL_103;
+        }
+
+        if (v53 >= v45)
+        {
+          v71 = &v11[16 * v37 + 32];
+          v73 = *v71;
+          v72 = *(v71 + 1);
+          v48 = __OFSUB__(v72, v73);
+          v74 = v72 - v73;
+          if (v48)
+          {
+            goto LABEL_107;
+          }
+
+          if (v40 < v74)
+          {
+            v37 = v34 - 2;
+          }
+
+          goto LABEL_66;
+        }
+
+        goto LABEL_45;
+      }
+
+LABEL_3:
+      v9 = v7[1];
+      v10 = v108;
+      if (v108 >= v9)
+      {
+        goto LABEL_90;
+      }
+    }
+
+    v27 = v29;
+LABEL_25:
+    if (v27 < v12)
+    {
+      goto LABEL_108;
+    }
+
+    goto LABEL_26;
+  }
+
+LABEL_90:
+  if (!*v8)
+  {
+    goto LABEL_117;
+  }
+
+  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v116, *v8, a4, a5);
+}
+
+uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(char **a1, char *a2, uint64_t (*a3)(uint64_t *, uint64_t *), uint64_t a4)
+{
+  v5 = v4;
+  v65 = a4;
+  v7 = a1;
+  v8 = *a1;
+  result = swift_isUniquelyReferenced_nonNull_native();
+  if ((result & 1) == 0)
+  {
+    goto LABEL_75;
+  }
+
+LABEL_2:
+  *v7 = v8;
+  v10 = *(v8 + 2);
+  if (v10 < 2)
+  {
+    return 1;
+  }
+
+  __src = a2;
+  v51 = v7;
+  while (1)
+  {
+    v11 = *v52;
+    if (!*v52)
+    {
+      __break(1u);
+      return result;
+    }
+
+    v54 = v10;
+    v55 = v8;
+    v12 = *&v8[16 * v10];
+    v53 = v10 - 1;
+    v14 = &v8[16 * v10 + 16];
+    v13 = *v14;
+    v56 = *(v14 + 1);
+    v57 = v12;
+    v15 = 16 * v12;
+    v16 = (v11 + 16 * v12);
+    v17 = 16 * *v14;
+    v18 = (v11 + v17);
+    v19 = v11 + 16 * v56;
+    v7 = v17 - 16 * v12;
+    v20 = 16 * v56 - v17;
+    if (v7 >= v20)
+    {
+      break;
+    }
+
+    v21 = v19;
+    if (v16 != a2 || v18 <= a2)
+    {
+      memmove(a2, v16, 16 * v13 - 16 * v12);
+    }
+
+    v8 = a2;
+    v23 = &a2[v7];
+    v24 = v7 < 1 || 16 * v56 <= v17;
+    v25 = v21;
+    if (!v24)
+    {
+      while (1)
+      {
+        v26 = *(v18 + 1);
+        v63 = *v18;
+        v64 = v26;
+        v27 = *(v8 + 1);
+        v61 = *v8;
+        v62 = v27;
+
+        v28 = a3(&v63, &v61);
+        if (v5)
+        {
+
+          v46 = v23 - v8 + 15;
+          if (v23 - v8 >= 0)
+          {
+            v46 = v23 - v8;
+          }
+
+          if (v16 < v8 || v16 >= &v8[v46 & 0xFFFFFFFFFFFFFFF0] || v16 != v8)
+          {
+            memmove(v16, v8, 16 * (v46 >> 4));
+          }
+
+          return 1;
+        }
+
+        v7 = v28;
+
+        if ((v7 & 1) == 0)
+        {
+          break;
+        }
+
+        v29 = v18;
+        v30 = v16 == v18;
+        v18 += 16;
+        if (!v30)
+        {
+          goto LABEL_24;
+        }
+
+LABEL_25:
+        v16 += 16;
+        if (v8 >= v23 || v18 >= v25)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v29 = v8;
+      v30 = v16 == v8;
+      v8 += 16;
+      if (v30)
+      {
+        goto LABEL_25;
+      }
+
+LABEL_24:
+      *v16 = *v29;
+      goto LABEL_25;
+    }
+
+    v8 = __src;
+LABEL_17:
+    v18 = v16;
+LABEL_49:
+    if (v18 != v8 || v18 >= &v8[(v23 - v8 + (v23 - v8 < 0 ? 0xFuLL : 0)) & 0xFFFFFFFFFFFFFFF0])
+    {
+      memmove(v18, v8, 16 * ((v23 - v8) / 16));
+    }
+
+    a2 = __src;
+    if (v56 < v57)
+    {
+      __break(1u);
+LABEL_74:
+      __break(1u);
+LABEL_75:
+      result = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
+      v8 = result;
+      goto LABEL_2;
+    }
+
+    v8 = v55;
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      v8 = specialized _ArrayBuffer._consumeAndCreateNew()(v55);
+    }
+
+    v7 = v51;
+    if ((v54 - 2) >= *(v8 + 2))
+    {
+      goto LABEL_74;
+    }
+
+    v45 = &v8[16 * v54];
+    *v45 = v57;
+    *(v45 + 1) = v56;
+    *v51 = v8;
+    result = specialized Array.remove(at:)(v53);
+    v8 = *v51;
+    v10 = *(*v51 + 2);
+    if (v10 <= 1)
+    {
+      return 1;
+    }
+  }
+
+  v50 = v16;
+  v58 = v19;
+  if (v18 != a2 || v19 <= a2)
+  {
+    memmove(a2, v18, 16 * v56 - 16 * v13);
+  }
+
+  v32 = a2;
+  v23 = &a2[v20];
+  v33 = v20 < 1 || v17 <= v15;
+  v8 = v32;
+  if (v33)
+  {
+    goto LABEL_49;
+  }
+
+LABEL_37:
+  v34 = v18;
+  v35 = v5;
+  v36 = 0;
+  v37 = v23;
+  v49 = v34 - 16;
+  while (1)
+  {
+    v38 = v37;
+    v39 = &v37[v36];
+    v40 = &v37[v36 - 16];
+    v41 = *&v37[v36 - 8];
+    v63 = *v40;
+    v64 = v41;
+    v42 = *(v34 - 1);
+    v43 = v34;
+    v61 = *(v34 - 2);
+    v62 = v42;
+
+    v44 = a3(&v63, &v61);
+    if (v35)
+    {
+      break;
+    }
+
+    v7 = v44;
+
+    if (v7)
+    {
+      if ((v58 + v36) != v43)
+      {
+        *(v58 + v36 - 16) = *v49;
+      }
+
+      v58 = v58 + v36 - 16;
+      v23 = &v38[v36];
+      v5 = 0;
+      if (&v38[v36] <= __src)
+      {
+        v18 = v49;
+LABEL_59:
+        v23 = &v38[v36];
+        v8 = __src;
+        goto LABEL_49;
+      }
+
+      v18 = v49;
+      if (v50 >= v49)
+      {
+        goto LABEL_59;
+      }
+
+      goto LABEL_37;
+    }
+
+    v34 = v43;
+    v37 = v38;
+    if ((v58 + v36) != v39)
+    {
+      *(v58 + v36 - 16) = *v40;
+    }
+
+    v36 -= 16;
+    v23 = &v38[v36];
+    if (&v38[v36] <= __src)
+    {
+      v8 = __src;
+      v5 = 0;
+      v18 = v34;
+      goto LABEL_49;
+    }
+  }
+
+  v47 = v38 - __src + v36;
+  v48 = v47 + 15;
+  if (v47 >= 0)
+  {
+    v48 = v38 - __src + v36;
+  }
+
+  if (v43 < __src || v43 >= &__src[v48 & 0xFFFFFFFFFFFFFFF0] || v43 != __src)
+  {
+    memmove(v43, __src, 16 * (v48 >> 4));
+  }
+
+  return 1;
+}
+
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *__dst, char *a2, char *a3, char *__src, uint64_t (*a5)(uint64_t *, uint64_t *))
+{
+  v57 = a5;
+  v6 = a3;
+  v7 = a2 - __dst;
+  v8 = a2 - __dst + 15;
+  if (a2 - __dst >= 0)
+  {
+    v8 = a2 - __dst;
+  }
+
+  v9 = v8 >> 4;
+  v10 = a3 - a2;
+  v11 = a3 - a2 + 15;
+  if (a3 - a2 >= 0)
+  {
+    v11 = a3 - a2;
+  }
+
+  v12 = v11 >> 4;
+  if (v9 < v11 >> 4)
+  {
+    v13 = a2;
+    v14 = __src;
+    v15 = __dst;
+    if (__src != __dst || &__dst[16 * v9] <= __src)
+    {
+      memmove(__src, __dst, 16 * v9);
+    }
+
+    v16 = &v14[16 * v9];
+    if (v7 < 16 || v13 >= v6)
+    {
+LABEL_21:
+      a2 = v15;
+      goto LABEL_40;
+    }
+
+    v17 = v13;
+    v52 = &v14[16 * v9];
+    while (1)
+    {
+      v18 = v6;
+      v19 = *(v17 + 1);
+      v55 = *v17;
+      v56 = v19;
+      v20 = *(v14 + 1);
+      v53 = *v14;
+      v54 = v20;
+
+      v21 = v57(&v55, &v53);
+      if (v5)
+      {
+
+        v43 = v52 - v14 + 15;
+        if (v52 - v14 >= 0)
+        {
+          v43 = v52 - v14;
+        }
+
+        v44 = v43 >> 4;
+        if (v15 < v14 || v15 >= &v14[v43 & 0xFFFFFFFFFFFFFFF0])
+        {
+          memmove(v15, v14, 16 * v44);
+        }
+
+        else if (v15 != v14)
+        {
+          v39 = 16 * v44;
+          v40 = v15;
+LABEL_46:
+          v41 = v14;
+LABEL_47:
+          memmove(v40, v41, v39);
+        }
+
+        return 1;
+      }
+
+      v22 = v21;
+
+      if ((v22 & 1) == 0)
+      {
+        break;
+      }
+
+      v23 = v17;
+      v24 = v15 == v17;
+      v17 += 16;
+      v6 = v18;
+      if (!v24)
+      {
+        goto LABEL_18;
+      }
+
+LABEL_19:
+      v15 += 16;
+      v16 = v52;
+      if (v14 >= v52 || v17 >= v6)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    v23 = v14;
+    v24 = v15 == v14;
+    v14 += 16;
+    v6 = v18;
+    if (v24)
+    {
+      goto LABEL_19;
+    }
+
+LABEL_18:
+    *v15 = *v23;
+    goto LABEL_19;
+  }
+
+  if (__src != a2 || &a2[16 * v12] <= __src)
+  {
+    v25 = a2;
+    v26 = __src;
+    memmove(__src, a2, 16 * v12);
+    __src = v26;
+    a2 = v25;
+  }
+
+  __srca = __src;
+  v16 = &__src[16 * v12];
+  if (v10 < 16 || a2 <= __dst)
+  {
+    v14 = __src;
+    goto LABEL_40;
+  }
+
+LABEL_27:
+  v50 = v6;
+  v27 = 0;
+  v28 = v16;
+  v48 = a2 - 16;
+  while (1)
+  {
+    v29 = v28;
+    v30 = &v28[v27];
+    v31 = &v28[v27 - 16];
+    v32 = *&v28[v27 - 8];
+    v55 = *v31;
+    v56 = v32;
+    v33 = *(a2 - 1);
+    v34 = a2;
+    v53 = *(a2 - 2);
+    v54 = v33;
+
+    v35 = v57(&v55, &v53);
+    if (v5)
+    {
+      break;
+    }
+
+    v36 = v35;
+
+    if (v36)
+    {
+      v6 = &v50[v27 - 16];
+      a2 = v48;
+      if (&v50[v27] != v34)
+      {
+        *v6 = *v48;
+      }
+
+      v16 = &v29[v27];
+      v14 = __srca;
+      if (&v29[v27] <= __srca || v48 <= __dst)
+      {
+        v16 = &v29[v27];
+LABEL_40:
+        v37 = v16 - v14;
+        v38 = v37 + 15;
+        if (v37 >= 0)
+        {
+          v38 = v37;
+        }
+
+        if (a2 < v14 || a2 >= &v14[v38 & 0xFFFFFFFFFFFFFFF0] || a2 != v14)
+        {
+          v39 = 16 * (v38 >> 4);
+          v40 = a2;
+          goto LABEL_46;
+        }
+
+        return 1;
+      }
+
+      goto LABEL_27;
+    }
+
+    a2 = v34;
+    v28 = v29;
+    if (&v50[v27] != v30)
+    {
+      *&v50[v27 - 16] = *v31;
+    }
+
+    v27 -= 16;
+    v16 = &v29[v27];
+    v14 = __srca;
+    if (&v29[v27] <= __srca)
+    {
+      goto LABEL_40;
+    }
+  }
+
+  v41 = __srca;
+  v45 = v29 - __srca + v27;
+  v46 = v45 + 15;
+  if (v45 >= 0)
+  {
+    v46 = v29 - __srca + v27;
+  }
+
+  v47 = v46 >> 4;
+  if (v34 < __srca || v34 >= &__srca[v46 & 0xFFFFFFFFFFFFFFF0])
+  {
+    memmove(v34, __srca, 16 * v47);
+  }
+
+  else if (v34 != __srca)
+  {
+    v39 = 16 * v47;
+    v40 = v34;
+    goto LABEL_47;
+  }
+
+  return 1;
+}
+
+id specialized static Locale._canonicalLocaleIdentifier(from:)(uint64_t a1, uint64_t a2)
+{
+  v2 = MEMORY[0x1E695D798];
+
+  return static Locale.canonicalLanguageIdentifier(from:)(a1, a2, v2, closure #1 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply);
+}
+
+uint64_t _LocaleAutoupdating.prefs.getter()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  v0 = static LocaleCache.cache;
+  v9 = *(&static LocaleCache.cache + 8);
+  v1 = *(&static LocaleCache.cache + 1);
+  os_unfair_lock_lock((*(&static LocaleCache.cache + 1) + 32));
+  v3 = *(v1 + 16);
+  v2 = *(v1 + 24);
+  swift_unknownObjectRetain();
+  os_unfair_lock_unlock((v1 + 32));
+  if (!v3)
+  {
+    *&v11[0] = v0;
+    *(v11 + 8) = v9;
+    LocaleCache.preferences()(v13);
+    v5 = v4;
+    type metadata accessor for _LocaleICU();
+    v2 = lazy protocol witness table accessor for type _LocaleAutoupdating and conformance _LocaleAutoupdating(&lazy protocol witness table cache variable for type _LocaleICU and conformance _LocaleICU, 255, type metadata accessor for _LocaleICU, &protocol conformance descriptor for _LocaleICU);
+    v11[6] = v13[6];
+    v12[0] = v14[0];
+    *(v12 + 12) = *(v14 + 12);
+    v11[2] = v13[2];
+    v11[3] = v13[3];
+    v11[4] = v13[4];
+    v11[5] = v13[5];
+    v11[0] = v13[0];
+    v11[1] = v13[1];
+    swift_allocObject();
+    outlined init with copy of LocalePreferences(v13, &v10);
+    v6 = _LocaleICU.init(name:prefs:disableBundleMatching:)(0, 0, v11, 0);
+    if (v5)
+    {
+      MEMORY[0x1EEE9AC00](v6);
+      os_unfair_lock_lock((v1 + 32));
+      partial apply for closure #2 in LocaleCache._currentAndCache.getter((v1 + 16), v11);
+      os_unfair_lock_unlock((v1 + 32));
+      outlined destroy of LocalePreferences(v13);
+
+      v2 = *(&v11[0] + 1);
+    }
+
+    else
+    {
+      outlined destroy of LocalePreferences(v13);
+    }
+  }
+
+  ObjectType = swift_getObjectType();
+  (*(v2 + 464))(ObjectType, v2);
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.identifierDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 72))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.languageCodeDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 80))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.countryCodeDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 88))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.scriptCodeDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 96))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.variantCodeDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 104))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.calendarIdentifierDisplayName(for:) in conformance _LocaleAutoupdating(char *a1)
+{
+  v1 = *a1;
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  v7 = static LocaleCache.cache;
+  v8 = qword_1ED4404B0;
+  LocaleCache._currentAndCache.getter();
+  v3 = v2;
+  ObjectType = swift_getObjectType();
+  LOBYTE(v7) = v1;
+  v5 = (*(v3 + 112))(&v7, ObjectType, v3);
+  swift_unknownObjectRelease();
+  return v5;
+}
+
+uint64_t protocol witness for _LocaleProtocol.currencyCodeDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 120))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.currencySymbolDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 128))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.collationIdentifierDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 136))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.collatorIdentifierDisplayName(for:) in conformance _LocaleAutoupdating(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v7 = (*(v5 + 144))(a1, a2, ObjectType, v5);
+  swift_unknownObjectRelease();
+  return v7;
+}
+
+uint64_t protocol witness for _LocaleProtocol.scriptCode.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 160))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.variantCode.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 168))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.regionCode.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 176))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.exemplarCharacterSet.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 184))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.calendar.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 192))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.collationIdentifier.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 208))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.usesMetricSystem.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  LOBYTE(v1) = (*(v1 + 216))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v1 & 1;
+}
+
+uint64_t protocol witness for _LocaleProtocol.groupingSeparator.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 232))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.currencySymbol.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 240))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.currencyCode.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 248))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.collatorIdentifier.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 256))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.quotationBeginDelimiter.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 264))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.quotationEndDelimiter.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 272))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.alternateQuotationBeginDelimiter.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 280))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.alternateQuotationEndDelimiter.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 288))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.currency.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 304))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.availableNumberingSystems.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  v3 = (*(v1 + 320))(ObjectType, v1);
+  swift_unknownObjectRelease();
+  return v3;
+}
+
+uint64_t protocol witness for _LocaleProtocol.weekendRange.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 336))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.collation.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 368))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.timeZone.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 384))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.subdivision.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 392))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.variant.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 400))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t protocol witness for _LocaleProtocol.temperatureUnit.getter in conformance _LocaleAutoupdating()
+{
+  if (one-time initialization token for cache != -1)
+  {
+    swift_once();
+  }
+
+  LocaleCache._currentAndCache.getter();
+  v1 = v0;
+  ObjectType = swift_getObjectType();
+  (*(v1 + 408))(ObjectType, v1);
+
+  return swift_unknownObjectRelease();
+}
+
 uint64_t protocol witness for _LocaleProtocol.forceHourCycle.getter in conformance _LocaleAutoupdating()
 {
   if (one-time initialization token for cache != -1)
@@ -194,7 +2304,7 @@ LABEL_24:
 LABEL_20:
   Hasher._combine(_:)(1u);
   type metadata accessor for CFDictionaryRef(0);
-  _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+  _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
   _CFObject.hash(into:)();
   if (v46)
   {
@@ -202,7 +2312,7 @@ LABEL_21:
     v28 = v34;
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     goto LABEL_26;
   }
@@ -216,7 +2326,7 @@ LABEL_26:
     v29 = v11;
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (v3)
     {
@@ -233,7 +2343,7 @@ LABEL_26:
 LABEL_28:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
       v30 = v29;
       if (v33)
@@ -252,7 +2362,7 @@ LABEL_28:
 LABEL_29:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     v31 = v6;
     if (v28)
@@ -389,33 +2499,33 @@ uint64_t specialized static LocaleCache.State.IdentifierAndPrefs.== infix(_:_:)(
   v4 = *a1;
   v5 = a1[1];
   v6 = *(a1 + 8);
-  v185[6] = *(a1 + 7);
-  v186[0] = v6;
-  *(v186 + 12) = *(a1 + 140);
+  v186[6] = *(a1 + 7);
+  v187[0] = v6;
+  *(v187 + 12) = *(a1 + 140);
   v7 = *(a1 + 4);
-  v185[2] = *(a1 + 3);
-  v185[3] = v7;
+  v186[2] = *(a1 + 3);
+  v186[3] = v7;
   v8 = *(a1 + 5);
-  v185[5] = *(a1 + 6);
-  v185[4] = v8;
+  v186[5] = *(a1 + 6);
+  v186[4] = v8;
   v9 = *(a1 + 1);
-  v185[1] = *(a1 + 2);
-  v185[0] = v9;
+  v186[1] = *(a1 + 2);
+  v186[0] = v9;
   v10 = *a2;
   v11 = a2[1];
   v12 = *(a2 + 8);
-  v187[6] = *(a2 + 7);
-  v188[0] = v12;
-  *(v188 + 12) = *(a2 + 140);
+  v188[6] = *(a2 + 7);
+  v189[0] = v12;
+  *(v189 + 12) = *(a2 + 140);
   v13 = *(a2 + 4);
-  v187[2] = *(a2 + 3);
-  v187[3] = v13;
+  v188[2] = *(a2 + 3);
+  v188[3] = v13;
   v14 = *(a2 + 6);
-  v187[4] = *(a2 + 5);
-  v187[5] = v14;
+  v188[4] = *(a2 + 5);
+  v188[5] = v14;
   v15 = *(a2 + 2);
-  v187[0] = *(a2 + 1);
-  v187[1] = v15;
+  v188[0] = *(a2 + 1);
+  v188[1] = v15;
   if (v4 == v10 && v5 == v11 || (v16 = _stringCompareWithSmolCheck(_:_:expecting:)(), result = 0, (v16 & 1) != 0))
   {
     v18 = *(a1 + 6);
@@ -450,16 +2560,16 @@ uint64_t specialized static LocaleCache.State.IdentifierAndPrefs.== infix(_:_:)(
     __src[10] = *(a2 + 2);
     __src[9] = v30;
     v31 = *(a1 + 8);
-    v183[6] = __src[6];
-    v184[0] = v31;
-    *(v184 + 12) = *(a1 + 140);
-    v183[2] = __src[2];
-    v183[3] = v23;
-    v183[5] = v18;
-    v183[4] = v24;
-    v183[1] = v20;
-    v183[0] = v26;
-    if (_s10Foundation17LocalePreferencesVSgWOg(v183) == 1)
+    v184[6] = __src[6];
+    v185[0] = v31;
+    *(v185 + 12) = *(a1 + 140);
+    v184[2] = __src[2];
+    v184[3] = v23;
+    v184[5] = v18;
+    v184[4] = v24;
+    v184[1] = v20;
+    v184[0] = v26;
+    if (_s10Foundation17LocalePreferencesVSgWOg(v184) == 1)
     {
       v32 = *(a2 + 8);
       __dst[6] = *(a2 + 7);
@@ -477,66 +2587,66 @@ uint64_t specialized static LocaleCache.State.IdentifierAndPrefs.== infix(_:_:)(
       if (_s10Foundation17LocalePreferencesVSgWOg(__dst) == 1)
       {
         v36 = *(a1 + 8);
-        v180 = *(a1 + 7);
-        *v181 = v36;
-        *&v181[12] = *(a1 + 140);
+        v181 = *(a1 + 7);
+        *v182 = v36;
+        *&v182[12] = *(a1 + 140);
         v37 = *(a1 + 3);
-        v177 = *(a1 + 4);
+        v178 = *(a1 + 4);
         v38 = *(a1 + 5);
-        v179 = *(a1 + 6);
-        v178 = v38;
+        v180 = *(a1 + 6);
+        v179 = v38;
         v39 = *(a1 + 1);
-        v175 = *(a1 + 2);
-        v176 = v37;
-        v174 = v39;
-        outlined init with copy of LocalePreferences?(v185, &v165);
-        outlined init with copy of LocalePreferences?(v187, &v165);
-        v40 = &v174;
+        v176 = *(a1 + 2);
+        v177 = v37;
+        v175 = v39;
+        outlined init with copy of LocalePreferences?(v186, &v166);
+        outlined init with copy of LocalePreferences?(v188, &v166);
+        v40 = &v175;
 LABEL_7:
-        outlined destroy of TermOfAddress?(v40, &_s10Foundation17LocalePreferencesVSgMd);
+        outlined destroy of TermOfAddress?(v40, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
         return 1;
       }
 
-      outlined init with copy of LocalePreferences?(v185, &v174);
-      outlined init with copy of LocalePreferences?(v187, &v174);
+      outlined init with copy of LocalePreferences?(v186, &v175);
+      outlined init with copy of LocalePreferences?(v188, &v175);
       goto LABEL_11;
     }
 
-    *&v181[12] = *(a1 + 140);
+    *&v182[12] = *(a1 + 140);
     v41 = *(a1 + 7);
-    *v181 = *(a1 + 8);
-    v180 = v41;
+    *v182 = *(a1 + 8);
+    v181 = v41;
     v42 = *(a1 + 3);
-    v177 = *(a1 + 4);
+    v178 = *(a1 + 4);
     v43 = *(a1 + 5);
-    v179 = *(a1 + 6);
-    v178 = v43;
+    v180 = *(a1 + 6);
+    v179 = v43;
     v44 = *(a1 + 1);
-    v175 = *(a1 + 2);
-    v176 = v42;
-    v174 = v44;
+    v176 = *(a1 + 2);
+    v177 = v42;
+    v175 = v44;
     v46 = *(a1 + 17);
     v45 = (a1 + 17);
-    v135 = v44;
-    v164[0] = v46;
-    *(v164 + 3) = *(v45 + 3);
-    v134 = *(&v44 + 1);
-    v133 = v175;
-    v131 = v177;
-    v132 = v42;
-    v47 = *(&v177 + 1);
-    v48 = *(&v178 + 1);
-    v49 = *(&v179 + 1);
-    v129 = v180;
-    v130 = v178;
-    v50 = *(&v180 + 1);
-    v127 = v179;
-    *v128 = *v181;
-    *&v128[16] = *&v181[16];
-    v51 = v181[24];
-    v52 = v181[25];
-    v53 = v181[26];
-    v54 = v181[27];
+    v136 = v44;
+    v165[0] = v46;
+    *(v165 + 3) = *(v45 + 3);
+    v135 = *(&v44 + 1);
+    v134 = v176;
+    v132 = v178;
+    v133 = v42;
+    v47 = *(&v178 + 1);
+    v48 = *(&v179 + 1);
+    v49 = *(&v180 + 1);
+    v130 = v181;
+    v131 = v179;
+    v50 = *(&v181 + 1);
+    v128 = v180;
+    *v129 = *v182;
+    *&v129[16] = *&v182[16];
+    v51 = v182[24];
+    v52 = v182[25];
+    v53 = v182[26];
+    v54 = v182[27];
     v55 = *(a2 + 8);
     __dst[6] = *(a2 + 7);
     __dst[7] = v55;
@@ -552,70 +2662,71 @@ LABEL_7:
     __dst[1] = v58;
     if (_s10Foundation17LocalePreferencesVSgWOg(__dst) == 1)
     {
-      LOBYTE(v165) = v135;
-      *(&v165 + 1) = *v45;
-      DWORD1(v165) = *(v45 + 3);
-      *(&v165 + 1) = v134;
-      v166 = v133;
-      v167 = v132;
-      v168 = __PAIR128__(v47, v131);
-      v169 = __PAIR128__(v48, v130);
-      v170 = __PAIR128__(v49, v127);
-      v171 = __PAIR128__(v50, v129);
-      *v172 = *v128;
-      *&v172[16] = *&v128[16];
-      v172[24] = v51;
-      v172[25] = v52;
-      v172[26] = v53;
-      v172[27] = v54;
-      outlined init with copy of LocalePreferences?(v185, &v156);
-      outlined init with copy of LocalePreferences?(v187, &v156);
-      outlined init with copy of LocalePreferences?(&v174, &v156);
-      outlined destroy of LocalePreferences(&v165);
+      LOBYTE(v166) = v136;
+      *(&v166 + 1) = *v45;
+      DWORD1(v166) = *(v45 + 3);
+      *(&v166 + 1) = v135;
+      v167 = v134;
+      v168 = v133;
+      v169 = __PAIR128__(v47, v132);
+      v170 = __PAIR128__(v48, v131);
+      v171 = __PAIR128__(v49, v128);
+      v172 = __PAIR128__(v50, v130);
+      *v173 = *v129;
+      *&v173[16] = *&v129[16];
+      v173[24] = v51;
+      v173[25] = v52;
+      v173[26] = v53;
+      v173[27] = v54;
+      outlined init with copy of LocalePreferences?(v186, &v157);
+      outlined init with copy of LocalePreferences?(v188, &v157);
+      outlined init with copy of LocalePreferences?(&v175, &v157);
+      outlined destroy of LocalePreferences(&v166);
 LABEL_11:
       memcpy(__dst, __src, 0x11CuLL);
       v59 = &_s10Foundation17LocalePreferencesVSg_ADtMd;
-      v60 = __dst;
+      v60 = &_s10Foundation17LocalePreferencesVSg_ADtMR;
+      v61 = __dst;
 LABEL_41:
-      outlined destroy of TermOfAddress?(v60, v59);
+      outlined destroy of TermOfAddress?(v61, v59, v60);
       return 0;
     }
 
-    v125 = v48;
-    v126 = v47;
-    v120 = v49;
-    v124 = v50;
-    v121 = v52;
-    v122 = v51;
-    v123 = v53;
-    v119 = v54;
-    v61 = *(a2 + 2);
-    v165 = *(a2 + 1);
-    v166 = v61;
-    v62 = *(a2 + 4);
-    v167 = *(a2 + 3);
-    v168 = v62;
-    v63 = *(a2 + 6);
-    v169 = *(a2 + 5);
-    v170 = v63;
-    v64 = *(a2 + 8);
-    v171 = *(a2 + 7);
-    *v172 = v64;
-    *&v172[12] = *(a2 + 140);
-    v66 = *(&v167 + 1);
-    v65 = v167;
-    v68 = *(&v168 + 1);
-    v67 = v168;
+    v126 = v48;
+    v127 = v47;
+    v121 = v49;
+    v125 = v50;
+    v122 = v52;
+    v123 = v51;
+    v124 = v53;
+    v120 = v54;
+    v62 = *(a2 + 2);
+    v166 = *(a2 + 1);
+    v167 = v62;
+    v63 = *(a2 + 4);
+    v168 = *(a2 + 3);
+    v169 = v63;
+    v64 = *(a2 + 6);
+    v170 = *(a2 + 5);
+    v171 = v64;
+    v65 = *(a2 + 8);
+    v172 = *(a2 + 7);
+    *v173 = v65;
+    *&v173[12] = *(a2 + 140);
+    v67 = *(&v168 + 1);
+    v66 = v168;
     v69 = *(&v169 + 1);
-    v70 = v169;
-    v71 = *(&v170 + 1);
-    v72 = v170;
-    if (v135 == 2)
+    v68 = v169;
+    v70 = *(&v170 + 1);
+    v71 = v170;
+    v72 = *(&v171 + 1);
+    v73 = v171;
+    if (v136 == 2)
     {
-      v74 = *&v128[8];
-      v73 = *&v128[16];
-      v75 = *v128;
-      if (v165 != 2)
+      v75 = *&v129[8];
+      v74 = *&v129[16];
+      v76 = *v129;
+      if (v166 != 2)
       {
         goto LABEL_38;
       }
@@ -623,89 +2734,89 @@ LABEL_41:
 
     else
     {
-      v74 = *&v128[8];
-      v73 = *&v128[16];
-      v75 = *v128;
-      if (v165 == 2 || ((v165 ^ v135) & 1) != 0)
+      v75 = *&v129[8];
+      v74 = *&v129[16];
+      v76 = *v129;
+      if (v166 == 2 || ((v166 ^ v136) & 1) != 0)
       {
         goto LABEL_38;
       }
     }
 
-    v115 = *(&v171 + 1);
-    v116 = v171;
-    v113 = *&v172[8];
-    v114 = *v172;
-    v111 = v172[25];
-    v112 = v172[24];
-    v109 = v172[27];
-    v110 = v172[26];
-    if (v134)
-    {
-      if (!*(&v165 + 1))
-      {
-        goto LABEL_38;
-      }
-
-      v76 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v134, *(&v165 + 1));
-      v65 = v167;
-      v67 = v168;
-      v66 = *(&v167 + 1);
-      v71 = *(&v170 + 1);
-      v72 = v170;
-      v68 = *(&v168 + 1);
-      v69 = *(&v169 + 1);
-      v70 = v169;
-      if ((v76 & 1) == 0)
-      {
-        goto LABEL_38;
-      }
-    }
-
-    else if (*(&v165 + 1))
-    {
-      goto LABEL_38;
-    }
-
-    if (*(&v133 + 1))
+    v116 = *(&v172 + 1);
+    v117 = v172;
+    v114 = *&v173[8];
+    v115 = *v173;
+    v112 = v173[25];
+    v113 = v173[24];
+    v110 = v173[27];
+    v111 = v173[26];
+    if (v135)
     {
       if (!*(&v166 + 1))
       {
         goto LABEL_38;
       }
 
-      if (v133 != v166)
+      v77 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v135, *(&v166 + 1));
+      v66 = v168;
+      v68 = v169;
+      v67 = *(&v168 + 1);
+      v72 = *(&v171 + 1);
+      v73 = v171;
+      v69 = *(&v169 + 1);
+      v70 = *(&v170 + 1);
+      v71 = v170;
+      if ((v77 & 1) == 0)
       {
-        v105 = v71;
-        v77 = v67;
-        v107 = v65;
-        v78 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        v65 = v107;
-        v67 = v77;
-        v71 = v105;
-        if ((v78 & 1) == 0)
+        goto LABEL_38;
+      }
+    }
+
+    else if (*(&v166 + 1))
+    {
+      goto LABEL_38;
+    }
+
+    if (*(&v134 + 1))
+    {
+      if (!*(&v167 + 1))
+      {
+        goto LABEL_38;
+      }
+
+      if (v134 != v167)
+      {
+        v106 = v72;
+        v78 = v68;
+        v108 = v66;
+        v79 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v66 = v108;
+        v68 = v78;
+        v72 = v106;
+        if ((v79 & 1) == 0)
         {
           goto LABEL_38;
         }
       }
 
 LABEL_26:
-      if (*(&v132 + 1))
+      if (*(&v133 + 1))
       {
-        v79 = v129;
-        if (v66)
+        v80 = v130;
+        if (v67)
         {
-          if (v132 == __PAIR128__(v66, v65))
+          if (v133 == __PAIR128__(v67, v66))
           {
             goto LABEL_30;
           }
 
-          v80 = v71;
-          v81 = v67;
-          v82 = _stringCompareWithSmolCheck(_:_:expecting:)();
-          v67 = v81;
-          v71 = v80;
-          if (v82)
+          v81 = v72;
+          v82 = v68;
+          v83 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v68 = v82;
+          v72 = v81;
+          if (v83)
           {
             goto LABEL_30;
           }
@@ -714,37 +2825,37 @@ LABEL_26:
 
       else
       {
-        v79 = v129;
-        if (!v66)
+        v80 = v130;
+        if (!v67)
         {
 LABEL_30:
-          if (v131)
+          if (v132)
           {
-            LOBYTE(v83) = v121;
-            if (v67)
+            LOBYTE(v84) = v122;
+            if (v68)
             {
-              v84 = v68;
-              v85 = v71;
-              v86 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ10Foundation8CalendarV10IdentifierO_SiTt1g5(v131, v67);
-              v71 = v85;
-              v68 = v84;
-              if (v86)
+              v85 = v69;
+              v86 = v72;
+              v87 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ10Foundation8CalendarV10IdentifierO_SiTt1g5(v132, v68);
+              v72 = v86;
+              v69 = v85;
+              if (v87)
               {
 LABEL_33:
-                v87 = v70;
-                if (v126)
+                v88 = v71;
+                if (v127)
                 {
-                  LOBYTE(v88) = v122;
-                  if (!v68)
+                  LOBYTE(v89) = v123;
+                  if (!v69)
                   {
                     goto LABEL_54;
                   }
 
-                  v89 = v68;
-                  v90 = v71;
-                  v91 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ10Foundation8CalendarV10IdentifierO_SiTt1g5(v126, v89);
-                  v71 = v90;
-                  if ((v91 & 1) == 0)
+                  v90 = v69;
+                  v91 = v72;
+                  v92 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ10Foundation8CalendarV10IdentifierO_SiTt1g5(v127, v90);
+                  v72 = v91;
+                  if ((v92 & 1) == 0)
                   {
                     goto LABEL_54;
                   }
@@ -752,85 +2863,85 @@ LABEL_33:
 
                 else
                 {
-                  LOBYTE(v88) = v122;
-                  if (v68)
+                  LOBYTE(v89) = v123;
+                  if (v69)
                   {
                     goto LABEL_54;
                   }
                 }
 
-                v104 = v72;
-                v106 = v71;
-                v108 = v69;
-                if (v130)
+                v105 = v73;
+                v107 = v72;
+                v109 = v70;
+                if (v131)
                 {
-                  if (v87)
+                  if (v88)
                   {
                     type metadata accessor for CFDictionaryRef(0);
-                    outlined init with copy of LocalePreferences?(v185, &v156);
-                    outlined init with copy of LocalePreferences?(v187, &v156);
-                    outlined init with copy of LocalePreferences?(&v174, &v156);
-                    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-                    v94 = v87;
-                    v95 = static _CFObject.== infix(_:_:)();
+                    outlined init with copy of LocalePreferences?(v186, &v157);
+                    outlined init with copy of LocalePreferences?(v188, &v157);
+                    outlined init with copy of LocalePreferences?(&v175, &v157);
+                    _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+                    v95 = v88;
+                    v96 = static _CFObject.== infix(_:_:)();
 
-                    v79 = v129;
-                    LOBYTE(v92) = v123;
-                    v93 = v124;
-                    if ((v95 & 1) == 0)
+                    v80 = v130;
+                    LOBYTE(v93) = v124;
+                    v94 = v125;
+                    if ((v96 & 1) == 0)
                     {
                       goto LABEL_39;
                     }
 
 LABEL_56:
-                    if (v125)
+                    if (v126)
                     {
-                      if (!v108)
+                      if (!v109)
                       {
                         goto LABEL_39;
                       }
 
                       type metadata accessor for CFDictionaryRef(0);
-                      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-                      v96 = v108;
-                      v93 = v124;
-                      v97 = static _CFObject.== infix(_:_:)();
+                      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+                      v97 = v109;
+                      v94 = v125;
+                      v98 = static _CFObject.== infix(_:_:)();
 
-                      v79 = v129;
-                      if ((v97 & 1) == 0)
+                      v80 = v130;
+                      if ((v98 & 1) == 0)
                       {
                         goto LABEL_39;
                       }
                     }
 
-                    else if (v108)
+                    else if (v109)
                     {
                       goto LABEL_39;
                     }
 
-                    if (v127)
+                    if (v128)
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (!v104)
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (!v105)
                       {
                         goto LABEL_39;
                       }
 
                       type metadata accessor for CFDictionaryRef(0);
-                      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-                      v98 = v104;
-                      v93 = v124;
-                      v99 = static _CFObject.== infix(_:_:)();
+                      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+                      v99 = v105;
+                      v94 = v125;
+                      v100 = static _CFObject.== infix(_:_:)();
 
-                      v79 = v129;
-                      if ((v99 & 1) == 0)
+                      v80 = v130;
+                      if ((v100 & 1) == 0)
                       {
                         goto LABEL_39;
                       }
@@ -838,43 +2949,43 @@ LABEL_56:
 
                     else
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v104)
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v105)
                       {
                         goto LABEL_39;
                       }
                     }
 
-                    if (v120)
+                    if (v121)
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (!v106)
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (!v107)
                       {
                         goto LABEL_39;
                       }
 
                       type metadata accessor for CFDictionaryRef(0);
-                      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-                      v100 = v106;
-                      v93 = v124;
-                      v101 = static _CFObject.== infix(_:_:)();
+                      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+                      v101 = v107;
+                      v94 = v125;
+                      v102 = static _CFObject.== infix(_:_:)();
 
-                      v79 = v129;
-                      if ((v101 & 1) == 0)
+                      v80 = v130;
+                      if ((v102 & 1) == 0)
                       {
                         goto LABEL_39;
                       }
@@ -882,119 +2993,80 @@ LABEL_56:
 
                     else
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v106)
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v107)
                       {
                         goto LABEL_39;
                       }
                     }
 
-                    if (v79)
+                    if (v80)
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (!v117)
+                      {
+                        goto LABEL_39;
+                      }
+
+                      type metadata accessor for CFDictionaryRef(0);
+                      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+                      v103 = v117;
+                      v94 = v125;
+                      v104 = static _CFObject.== infix(_:_:)();
+
+                      v80 = v130;
+                      if ((v104 & 1) == 0)
+                      {
+                        goto LABEL_39;
+                      }
+                    }
+
+                    else
+                    {
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v117)
+                      {
+                        goto LABEL_39;
+                      }
+                    }
+
+                    if (v94)
+                    {
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
                       if (!v116)
                       {
                         goto LABEL_39;
                       }
 
-                      type metadata accessor for CFDictionaryRef(0);
-                      _s10Foundation10_LocaleICUCAcA01_B8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-                      v102 = v116;
-                      v93 = v124;
-                      v103 = static _CFObject.== infix(_:_:)();
-
-                      v79 = v129;
-                      if ((v103 & 1) == 0)
-                      {
-                        goto LABEL_39;
-                      }
-                    }
-
-                    else
-                    {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v116)
-                      {
-                        goto LABEL_39;
-                      }
-                    }
-
-                    if (v93)
-                    {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (!v115)
-                      {
-                        goto LABEL_39;
-                      }
-
-                      v117 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ10Foundation4DateV11FormatStyleV0cE0V_SSTt1g5(v124, v115);
-
-                      if ((v117 & 1) == 0)
-                      {
-                        goto LABEL_39;
-                      }
-                    }
-
-                    else
-                    {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v115)
-                      {
-                        goto LABEL_39;
-                      }
-                    }
-
-                    if (v75)
-                    {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (!v114)
-                      {
-                        goto LABEL_39;
-                      }
-
-                      v118 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZs6UInt32V_SSTt1g5(*v128, v114);
+                      v118 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZ10Foundation4DateV11FormatStyleV0cE0V_SSTt1g5(v125, v116);
 
                       if ((v118 & 1) == 0)
                       {
@@ -1004,31 +3076,38 @@ LABEL_56:
 
                     else
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v114)
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v116)
                       {
                         goto LABEL_39;
                       }
                     }
 
-                    if (v73)
+                    if (v76)
                     {
-                      v88 = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (!*(&v113 + 1) || *&v128[8] != v113 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (!v115)
+                      {
+                        goto LABEL_39;
+                      }
+
+                      v119 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZs6UInt32V_SSTt1g5(*v129, v115);
+
+                      if ((v119 & 1) == 0)
                       {
                         goto LABEL_39;
                       }
@@ -1036,63 +3115,127 @@ LABEL_56:
 
                     else
                     {
-                      v88 = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (*(&v113 + 1))
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v115)
                       {
                         goto LABEL_39;
                       }
                     }
 
-                    if (v88 == 2)
+                    if (v74)
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      v83 = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
+                      v89 = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (!*(&v114 + 1) || *&v129[8] != v114 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+                      {
+                        goto LABEL_39;
+                      }
+                    }
+
+                    else
+                    {
+                      v89 = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (*(&v114 + 1))
+                      {
+                        goto LABEL_39;
+                      }
+                    }
+
+                    if (v89 == 2)
+                    {
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      v84 = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v113 != 2)
+                      {
+                        goto LABEL_39;
+                      }
+                    }
+
+                    else
+                    {
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      v84 = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v113 == 2 || ((v113 ^ v123) & 1) != 0)
+                      {
+                        goto LABEL_39;
+                      }
+                    }
+
+                    outlined destroy of TermOfAddress?(&v166, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
+                    if (v84 == 2)
+                    {
+                      LOBYTE(v89) = v123;
                       v93 = v124;
-                      v79 = v129;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
                       if (v112 != 2)
                       {
-                        goto LABEL_39;
+                        goto LABEL_40;
                       }
                     }
 
                     else
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      v83 = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
+                      LOBYTE(v89) = v123;
                       v93 = v124;
-                      v79 = v129;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
                       if (v112 == 2 || ((v112 ^ v122) & 1) != 0)
                       {
-                        goto LABEL_39;
+                        goto LABEL_40;
                       }
                     }
 
-                    outlined destroy of TermOfAddress?(&v165, &_s10Foundation17LocalePreferencesVSgMd);
-                    if (v83 == 2)
+                    if (v93 == 2)
                     {
-                      LOBYTE(v88) = v122;
-                      v92 = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
                       if (v111 != 2)
                       {
                         goto LABEL_40;
@@ -1101,30 +3244,30 @@ LABEL_56:
 
                     else
                     {
-                      LOBYTE(v88) = v122;
-                      v92 = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v111 == 2 || ((v111 ^ v121) & 1) != 0)
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v111 == 2 || ((v111 ^ v124) & 1) != 0)
                       {
                         goto LABEL_40;
                       }
                     }
 
-                    if (v92 == 2)
+                    if (v120 == 2)
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
                       if (v110 != 2)
                       {
                         goto LABEL_40;
@@ -1133,104 +3276,72 @@ LABEL_56:
 
                     else
                     {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v110 == 2 || ((v110 ^ v123) & 1) != 0)
+                      LOBYTE(v89) = v123;
+                      LOBYTE(v93) = v124;
+                      LOBYTE(v84) = v122;
+                      v75 = *&v129[8];
+                      v74 = *&v129[16];
+                      v76 = *v129;
+                      v94 = v125;
+                      v80 = v130;
+                      if (v110 == 2 || ((v110 ^ v120) & 1) != 0)
                       {
                         goto LABEL_40;
                       }
                     }
 
-                    if (v119 == 2)
-                    {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v109 != 2)
-                      {
-                        goto LABEL_40;
-                      }
-                    }
-
-                    else
-                    {
-                      LOBYTE(v88) = v122;
-                      LOBYTE(v92) = v123;
-                      LOBYTE(v83) = v121;
-                      v74 = *&v128[8];
-                      v73 = *&v128[16];
-                      v75 = *v128;
-                      v93 = v124;
-                      v79 = v129;
-                      if (v109 == 2 || ((v109 ^ v119) & 1) != 0)
-                      {
-                        goto LABEL_40;
-                      }
-                    }
-
-                    v136 = v135;
-                    *v137 = v164[0];
-                    *&v137[3] = *(v164 + 3);
-                    v138 = v134;
-                    v139 = v133;
-                    v140 = v132;
-                    v141 = v131;
-                    v142 = v126;
-                    v143 = v130;
-                    v144 = v125;
-                    v145 = v127;
-                    v146 = v120;
-                    v147 = v79;
-                    v148 = v93;
-                    v149 = v75;
-                    v150 = v74;
-                    v151 = v73;
-                    v152 = v88;
-                    v153 = v83;
-                    v154 = v92;
-                    v155 = v119;
-                    outlined destroy of LocalePreferences(&v136);
-                    v162 = __src[6];
-                    v163[0] = __src[7];
-                    *(v163 + 12) = *(&__src[7] + 12);
-                    v158 = __src[2];
-                    v159 = __src[3];
-                    v160 = __src[4];
-                    v161 = __src[5];
-                    v156 = __src[0];
-                    v157 = __src[1];
-                    v40 = &v156;
+                    v137 = v136;
+                    *v138 = v165[0];
+                    *&v138[3] = *(v165 + 3);
+                    v139 = v135;
+                    v140 = v134;
+                    v141 = v133;
+                    v142 = v132;
+                    v143 = v127;
+                    v144 = v131;
+                    v145 = v126;
+                    v146 = v128;
+                    v147 = v121;
+                    v148 = v80;
+                    v149 = v94;
+                    v150 = v76;
+                    v151 = v75;
+                    v152 = v74;
+                    v153 = v89;
+                    v154 = v84;
+                    v155 = v93;
+                    v156 = v120;
+                    outlined destroy of LocalePreferences(&v137);
+                    v163 = __src[6];
+                    v164[0] = __src[7];
+                    *(v164 + 12) = *(&__src[7] + 12);
+                    v159 = __src[2];
+                    v160 = __src[3];
+                    v161 = __src[4];
+                    v162 = __src[5];
+                    v157 = __src[0];
+                    v158 = __src[1];
+                    v40 = &v157;
                     goto LABEL_7;
                   }
                 }
 
-                else if (!v87)
+                else if (!v88)
                 {
-                  outlined init with copy of LocalePreferences?(v185, &v156);
-                  outlined init with copy of LocalePreferences?(v187, &v156);
-                  outlined init with copy of LocalePreferences?(&v174, &v156);
-                  LOBYTE(v92) = v123;
-                  v93 = v124;
+                  outlined init with copy of LocalePreferences?(v186, &v157);
+                  outlined init with copy of LocalePreferences?(v188, &v157);
+                  outlined init with copy of LocalePreferences?(&v175, &v157);
+                  LOBYTE(v93) = v124;
+                  v94 = v125;
                   goto LABEL_56;
                 }
 
 LABEL_54:
-                outlined init with copy of LocalePreferences?(v185, &v156);
-                outlined init with copy of LocalePreferences?(v187, &v156);
-                outlined init with copy of LocalePreferences?(&v174, &v156);
-                LOBYTE(v92) = v123;
-                v93 = v124;
+                outlined init with copy of LocalePreferences?(v186, &v157);
+                outlined init with copy of LocalePreferences?(v188, &v157);
+                outlined init with copy of LocalePreferences?(&v175, &v157);
+                LOBYTE(v93) = v124;
+                v94 = v125;
                 goto LABEL_39;
               }
             }
@@ -1238,82 +3349,83 @@ LABEL_54:
 
           else
           {
-            LOBYTE(v83) = v121;
-            if (!v67)
+            LOBYTE(v84) = v122;
+            if (!v68)
             {
               goto LABEL_33;
             }
           }
 
-          outlined init with copy of LocalePreferences?(v185, &v156);
-          outlined init with copy of LocalePreferences?(v187, &v156);
-          outlined init with copy of LocalePreferences?(&v174, &v156);
-          LOBYTE(v92) = v123;
+          outlined init with copy of LocalePreferences?(v186, &v157);
+          outlined init with copy of LocalePreferences?(v188, &v157);
+          outlined init with copy of LocalePreferences?(&v175, &v157);
+          LOBYTE(v93) = v124;
 LABEL_47:
-          LOBYTE(v88) = v122;
-          v93 = v124;
+          LOBYTE(v89) = v123;
+          v94 = v125;
           goto LABEL_39;
         }
       }
 
-      outlined init with copy of LocalePreferences?(v185, &v156);
-      outlined init with copy of LocalePreferences?(v187, &v156);
-      outlined init with copy of LocalePreferences?(&v174, &v156);
-      LOBYTE(v92) = v123;
-      LOBYTE(v83) = v121;
+      outlined init with copy of LocalePreferences?(v186, &v157);
+      outlined init with copy of LocalePreferences?(v188, &v157);
+      outlined init with copy of LocalePreferences?(&v175, &v157);
+      LOBYTE(v93) = v124;
+      LOBYTE(v84) = v122;
       goto LABEL_47;
     }
 
-    if (!*(&v166 + 1))
+    if (!*(&v167 + 1))
     {
       goto LABEL_26;
     }
 
 LABEL_38:
-    outlined init with copy of LocalePreferences?(v185, &v156);
-    outlined init with copy of LocalePreferences?(v187, &v156);
-    outlined init with copy of LocalePreferences?(&v174, &v156);
-    LOBYTE(v88) = v122;
-    LOBYTE(v92) = v123;
-    LOBYTE(v83) = v121;
-    v93 = v50;
-    v79 = v129;
+    outlined init with copy of LocalePreferences?(v186, &v157);
+    outlined init with copy of LocalePreferences?(v188, &v157);
+    outlined init with copy of LocalePreferences?(&v175, &v157);
+    LOBYTE(v89) = v123;
+    LOBYTE(v93) = v124;
+    LOBYTE(v84) = v122;
+    v94 = v50;
+    v80 = v130;
 LABEL_39:
-    outlined destroy of TermOfAddress?(&v165, &_s10Foundation17LocalePreferencesVSgMd);
+    outlined destroy of TermOfAddress?(&v166, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
 LABEL_40:
-    v136 = v135;
-    *v137 = v164[0];
-    *&v137[3] = *(v164 + 3);
-    v138 = v134;
-    v139 = v133;
-    v140 = v132;
-    v141 = v131;
-    v142 = v126;
-    v143 = v130;
-    v144 = v125;
-    v145 = v127;
-    v146 = v120;
-    v147 = v79;
-    v148 = v93;
-    v149 = v75;
-    v150 = v74;
-    v151 = v73;
-    v152 = v88;
-    v153 = v83;
-    v154 = v92;
-    v155 = v119;
-    outlined destroy of LocalePreferences(&v136);
-    v162 = __src[6];
-    v163[0] = __src[7];
-    *(v163 + 12) = *(&__src[7] + 12);
-    v158 = __src[2];
-    v159 = __src[3];
-    v160 = __src[4];
-    v161 = __src[5];
-    v156 = __src[0];
-    v157 = __src[1];
+    v137 = v136;
+    *v138 = v165[0];
+    *&v138[3] = *(v165 + 3);
+    v139 = v135;
+    v140 = v134;
+    v141 = v133;
+    v142 = v132;
+    v143 = v127;
+    v144 = v131;
+    v145 = v126;
+    v146 = v128;
+    v147 = v121;
+    v148 = v80;
+    v149 = v94;
+    v150 = v76;
+    v151 = v75;
+    v152 = v74;
+    v153 = v89;
+    v154 = v84;
+    v155 = v93;
+    v156 = v120;
+    outlined destroy of LocalePreferences(&v137);
+    v163 = __src[6];
+    v164[0] = __src[7];
+    *(v164 + 12) = *(&__src[7] + 12);
+    v159 = __src[2];
+    v160 = __src[3];
+    v161 = __src[4];
+    v162 = __src[5];
+    v157 = __src[0];
+    v158 = __src[1];
     v59 = &_s10Foundation17LocalePreferencesVSgMd;
-    v60 = &v156;
+    v60 = &_s10Foundation17LocalePreferencesVSgMR;
+    v61 = &v157;
     goto LABEL_41;
   }
 
@@ -1422,7 +3534,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t _ss17FixedWidthIntegerPsEyxSgSScfCSu_Tt1g5(uint64_t result, unint64_t a2)
+unint64_t _ss17FixedWidthIntegerPsEyxSgSScfCSu_Tt1g5(unint64_t result, unint64_t a2)
 {
   v2 = HIBYTE(a2) & 0xF;
   v3 = result & 0xFFFFFFFFFFFFLL;
@@ -1745,7 +3857,7 @@ LABEL_65:
   }
 }
 
-uint64_t _ss17FixedWidthIntegerPsEyxSgSScfCs6UInt32V_Tt1g5(uint64_t result, unint64_t a2)
+unint64_t _ss17FixedWidthIntegerPsEyxSgSScfCs6UInt32V_Tt1g5(unint64_t result, unint64_t a2)
 {
   v2 = HIBYTE(a2) & 0xF;
   v3 = result & 0xFFFFFFFFFFFFLL;
@@ -2070,7 +4182,7 @@ LABEL_72:
   return result;
 }
 
-uint64_t _ss17FixedWidthIntegerPsEyxSgSScfCs6UInt16V_Tt1g5(uint64_t result, unint64_t a2)
+unint64_t _ss17FixedWidthIntegerPsEyxSgSScfCs6UInt16V_Tt1g5(unint64_t result, unint64_t a2)
 {
   v2 = HIBYTE(a2) & 0xF;
   v3 = result & 0xFFFFFFFFFFFFLL;
@@ -2391,7 +4503,7 @@ LABEL_73:
   return result;
 }
 
-uint64_t _ss17FixedWidthIntegerPsEyxSgSScfCSi_Tt1g5Tm(uint64_t result, unint64_t a2)
+unint64_t _ss17FixedWidthIntegerPsEyxSgSScfCSi_Tt1g5Tm(unint64_t result, unint64_t a2)
 {
   v2 = HIBYTE(a2) & 0xF;
   v3 = result & 0xFFFFFFFFFFFFLL;
@@ -2924,15 +5036,15 @@ uint64_t LocalePreferences.minDaysInFirstWeek.setter(uint64_t a1)
   return result;
 }
 
-void LocalePreferences.ICUSymbolsAndStrings.hash(into:)()
+void LocalePreferences.ICUSymbolsAndStrings.hash(into:)(uint64_t a1)
 {
-  if (*v0)
+  if (*v1)
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
     lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
     _CFObject.hash(into:)();
-    if (v0[1])
+    if (v1[1])
     {
       goto LABEL_3;
     }
@@ -2941,14 +5053,14 @@ void LocalePreferences.ICUSymbolsAndStrings.hash(into:)()
   else
   {
     Hasher._combine(_:)(0);
-    if (v0[1])
+    if (v1[1])
     {
 LABEL_3:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
       lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
       _CFObject.hash(into:)();
-      if (v0[2])
+      if (v1[2])
       {
         goto LABEL_4;
       }
@@ -2958,21 +5070,21 @@ LABEL_3:
   }
 
   Hasher._combine(_:)(0);
-  if (v0[2])
+  if (v1[2])
   {
 LABEL_4:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
     lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
     _CFObject.hash(into:)();
-    if (v0[3])
+    if (v1[3])
     {
       goto LABEL_5;
     }
 
 LABEL_10:
     Hasher._combine(_:)(0);
-    if (v0[4])
+    if (v1[4])
     {
       goto LABEL_6;
     }
@@ -2982,7 +5094,7 @@ LABEL_10:
 
 LABEL_9:
   Hasher._combine(_:)(0);
-  if (!v0[3])
+  if (!v1[3])
   {
     goto LABEL_10;
   }
@@ -2992,7 +5104,7 @@ LABEL_5:
   type metadata accessor for CFDictionaryRef(0);
   lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
   _CFObject.hash(into:)();
-  if (v0[4])
+  if (v1[4])
   {
 LABEL_6:
     Hasher._combine(_:)(1u);
@@ -3006,21 +5118,21 @@ LABEL_11:
   Hasher._combine(_:)(0);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LocalePreferences.ICUSymbolsAndStrings()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LocalePreferences.ICUSymbolsAndStrings(uint64_t a1)
 {
-  v2 = *v0;
-  v1 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
-  v5 = v0[4];
+  v3 = *v1;
+  v2 = v1[1];
+  v5 = v1[2];
+  v4 = v1[3];
+  v6 = v1[4];
   Hasher.init(_seed:)();
-  if (v2)
+  if (v3)
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
     lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
     _CFObject.hash(into:)();
-    if (v1)
+    if (v2)
     {
       goto LABEL_3;
     }
@@ -3029,14 +5141,14 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Loc
   else
   {
     Hasher._combine(_:)(0);
-    if (v1)
+    if (v2)
     {
 LABEL_3:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
       lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
       _CFObject.hash(into:)();
-      if (v4)
+      if (v5)
       {
         goto LABEL_4;
       }
@@ -3046,21 +5158,21 @@ LABEL_3:
   }
 
   Hasher._combine(_:)(0);
-  if (v4)
+  if (v5)
   {
 LABEL_4:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
     lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
     _CFObject.hash(into:)();
-    if (v3)
+    if (v4)
     {
       goto LABEL_5;
     }
 
 LABEL_10:
     Hasher._combine(_:)(0);
-    if (v5)
+    if (v6)
     {
       goto LABEL_6;
     }
@@ -3072,7 +5184,7 @@ LABEL_11:
 
 LABEL_9:
   Hasher._combine(_:)(0);
-  if (!v3)
+  if (!v4)
   {
     goto LABEL_10;
   }
@@ -3082,7 +5194,7 @@ LABEL_5:
   type metadata accessor for CFDictionaryRef(0);
   lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
   _CFObject.hash(into:)();
-  if (!v5)
+  if (!v6)
   {
     goto LABEL_11;
   }
@@ -3460,60 +5572,60 @@ LABEL_44:
   Hasher._combine(_:)(v31);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LocalePreferences()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LocalePreferences(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 3);
-  v5 = *(v0 + 5);
-  v4 = *(v0 + 6);
-  v28 = *(v0 + 7);
-  v29 = *(v0 + 8);
-  v30 = *(v0 + 9);
-  v31 = *(v0 + 10);
-  v32 = *(v0 + 11);
-  v33 = *(v0 + 12);
-  v6 = *(v0 + 13);
-  v7 = *(v0 + 14);
-  v34 = v0[136];
-  v35 = *(v0 + 16);
-  v8 = v0[137];
-  v36 = v0[138];
-  v37 = v0[139];
+  v2 = *v1;
+  v3 = *(v1 + 1);
+  v4 = *(v1 + 3);
+  v6 = *(v1 + 5);
+  v5 = *(v1 + 6);
+  v29 = *(v1 + 7);
+  v30 = *(v1 + 8);
+  v31 = *(v1 + 9);
+  v32 = *(v1 + 10);
+  v33 = *(v1 + 11);
+  v34 = *(v1 + 12);
+  v7 = *(v1 + 13);
+  v8 = *(v1 + 14);
+  v35 = v1[136];
+  v36 = *(v1 + 16);
+  v9 = v1[137];
+  v37 = v1[138];
+  v38 = v1[139];
   Hasher.init(_seed:)();
-  if (v1 == 2)
+  if (v2 == 2)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v9 = v1 & 1;
+    v10 = v2 & 1;
   }
 
-  Hasher._combine(_:)(v9);
-  if (v2)
+  Hasher._combine(_:)(v10);
+  if (v3)
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](*(v2 + 16));
-    v10 = *(v2 + 16);
-    if (v10)
+    MEMORY[0x1865CD060](*(v3 + 16));
+    v11 = *(v3 + 16);
+    if (v11)
     {
-      v11 = v2 + 40;
+      v12 = v3 + 40;
       do
       {
 
         String.hash(into:)();
 
-        v11 += 16;
-        --v10;
+        v12 += 16;
+        --v11;
       }
 
-      while (v10);
+      while (v11);
     }
 
-    if (v3)
+    if (v4)
     {
       goto LABEL_9;
     }
@@ -3522,7 +5634,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Loc
   else
   {
     Hasher._combine(_:)(0);
-    if (v3)
+    if (v4)
     {
 LABEL_9:
       Hasher._combine(_:)(1u);
@@ -3533,7 +5645,7 @@ LABEL_9:
 
   Hasher._combine(_:)(0);
 LABEL_12:
-  if (v5)
+  if (v6)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -3544,10 +5656,10 @@ LABEL_12:
     Hasher._combine(_:)(0);
   }
 
-  if (v4)
+  if (v5)
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v38, v4, v12, v13, v14, v15, v16, v17);
+    specialized Dictionary<>.hash(into:)(v39, v5, v13, v14, v15, v16, v17, v18);
   }
 
   else
@@ -3555,11 +5667,11 @@ LABEL_12:
     Hasher._combine(_:)(0);
   }
 
-  if (v28)
+  if (v29)
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v38, v28, v18, v19, v20, v21, v22, v23);
-    if (v29)
+    specialized Dictionary<>.hash(into:)(v39, v29, v19, v20, v21, v22, v23, v24);
+    if (v30)
     {
       goto LABEL_20;
     }
@@ -3568,22 +5680,22 @@ LABEL_12:
   else
   {
     Hasher._combine(_:)(0);
-    if (v29)
+    if (v30)
     {
 LABEL_20:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
       lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
       _CFObject.hash(into:)();
-      if (v30)
+      if (v31)
       {
         goto LABEL_21;
       }
 
 LABEL_25:
-      v24 = v34;
+      v25 = v35;
       Hasher._combine(_:)(0);
-      if (v31)
+      if (v32)
       {
         goto LABEL_22;
       }
@@ -3593,18 +5705,18 @@ LABEL_25:
   }
 
   Hasher._combine(_:)(0);
-  if (!v30)
+  if (!v31)
   {
     goto LABEL_25;
   }
 
 LABEL_21:
-  v24 = v34;
+  v25 = v35;
   Hasher._combine(_:)(1u);
   type metadata accessor for CFDictionaryRef(0);
   lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
   _CFObject.hash(into:)();
-  if (v31)
+  if (v32)
   {
 LABEL_22:
     Hasher._combine(_:)(1u);
@@ -3617,19 +5729,6 @@ LABEL_22:
 LABEL_26:
   Hasher._combine(_:)(0);
 LABEL_27:
-  if (v32)
-  {
-    Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
-    _CFObject.hash(into:)();
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
   if (v33)
   {
     Hasher._combine(_:)(1u);
@@ -3643,18 +5742,31 @@ LABEL_27:
     Hasher._combine(_:)(0);
   }
 
-  if (v6)
+  if (v34)
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v38, v6);
-    if (v7)
+    type metadata accessor for CFDictionaryRef(0);
+    lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (v7)
+  {
+    Hasher._combine(_:)(1u);
+    specialized Dictionary<>.hash(into:)(v39, v7);
+    if (v8)
     {
       goto LABEL_35;
     }
 
 LABEL_38:
     Hasher._combine(_:)(0);
-    if (v35)
+    if (v36)
     {
       goto LABEL_36;
     }
@@ -3663,15 +5775,15 @@ LABEL_38:
   }
 
   Hasher._combine(_:)(0);
-  if (!v7)
+  if (!v8)
   {
     goto LABEL_38;
   }
 
 LABEL_35:
   Hasher._combine(_:)(1u);
-  specialized Dictionary<>.hash(into:)(v38, v7);
-  if (v35)
+  specialized Dictionary<>.hash(into:)(v39, v8);
+  if (v36)
   {
 LABEL_36:
     Hasher._combine(_:)(1u);
@@ -3682,7 +5794,7 @@ LABEL_36:
 LABEL_39:
   Hasher._combine(_:)(0);
 LABEL_40:
-  if (v24 == 2)
+  if (v25 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -3690,17 +5802,17 @@ LABEL_40:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v24 & 1);
+    MEMORY[0x1865CD060](v25 & 1);
   }
 
-  if (v8 == 2)
+  if (v9 == 2)
   {
     Hasher._combine(_:)(0);
-    if (v36 != 2)
+    if (v37 != 2)
     {
 LABEL_45:
       Hasher._combine(_:)(1u);
-      v25 = v36 & 1;
+      v26 = v37 & 1;
       goto LABEL_48;
     }
   }
@@ -3708,28 +5820,28 @@ LABEL_45:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v8 & 1);
-    if (v36 != 2)
+    MEMORY[0x1865CD060](v9 & 1);
+    if (v37 != 2)
     {
       goto LABEL_45;
     }
   }
 
-  v25 = 0;
+  v26 = 0;
 LABEL_48:
-  Hasher._combine(_:)(v25);
-  if (v37 == 2)
+  Hasher._combine(_:)(v26);
+  if (v38 == 2)
   {
-    v26 = 0;
+    v27 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v26 = v37 & 1;
+    v27 = v38 & 1;
   }
 
-  Hasher._combine(_:)(v26);
+  Hasher._combine(_:)(v27);
   return Hasher._finalize()();
 }
 
@@ -3748,7 +5860,7 @@ id _sSD10FoundationE34_conditionallyBridgeFromObjectiveC_6resultSbSo12NSDictiona
       if (v7)
       {
         v8 = v7;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
         v9 = static _DictionaryStorage.allocate(capacity:)();
         v10 = v9[6];
         v11 = v9[7];
@@ -3801,7 +5913,7 @@ LABEL_12:
   }
 
   v16 = v15;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
   v17 = static _DictionaryStorage.allocate(capacity:)();
   v18 = v17[6];
   v19 = v17[7];
@@ -3852,7 +5964,7 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = static String._copying(_:)();
+    v6 = static String._copying(_:)(result, v5);
     v40 = v39;
 
     v5 = v40;
@@ -4385,7 +6497,7 @@ LABEL_134:
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = static String._copying(_:)();
+    v6 = static String._copying(_:)(result, v5);
     v36 = v35;
 
     v5 = v36;
@@ -4905,7 +7017,7 @@ LABEL_132:
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = static String._copying(_:)();
+    v6 = static String._copying(_:)(result, v5);
     v35 = v34;
 
     v5 = v35;
@@ -5415,7 +7527,7 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = static String._copying(_:)();
+    v6 = static String._copying(_:)(result, v5);
     v38 = v37;
 
     v5 = v38;
@@ -5927,7 +8039,7 @@ LABEL_134:
   return result;
 }
 
-uint64_t specialized static LocalePreferences.ICUSymbolsAndStrings.== infix(_:_:)(void *a1, uint64_t a2)
+uint64_t specialized static LocalePreferences.ICUSymbolsAndStrings.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
   v4 = *a2;
   if (*a1)
@@ -6821,26 +8933,28 @@ unint64_t lazy protocol witness table accessor for type LocalePreferences.ICUSym
 
 uint64_t _LocaleProtocol.regionCode.getter(uint64_t a1, uint64_t a2)
 {
-  (*(a2 + 376))(&v5);
-  v2 = v6;
-  if (!v6)
+  (*(a2 + 376))(&v7, a1);
+  v2 = v8;
+  if (!v8)
   {
     return 0;
   }
 
-  v3 = v5;
+  v4 = v9;
+  v3 = v10;
+  v5 = v7;
 
-  outlined consume of Locale.LanguageCode?(v3, v2);
-  return v3;
+  outlined consume of Locale.LanguageCode?(v5, v2, v4, v3);
+  return v5;
 }
 
 double _LocaleUnlocalized.language.getter@<D0>(uint64_t a1@<X8>)
 {
   v2 = String.lowercased()();
   v3 = String.uppercased()();
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
   *a1 = xmmword_18123DD50;
   *(a1 + 16) = v2;
   *(a1 + 32) = 0u;
@@ -6894,33 +9008,25 @@ _OWORD *protocol witness for _LocaleProtocol.init(name:prefs:disableBundleMatchi
 {
 
   v4 = swift_allocObject();
-  v5 = a3[7];
-  v21 = a3[6];
-  v22[0] = v5;
-  *(v22 + 12) = *(a3 + 124);
-  v6 = a3[3];
-  v17 = a3[2];
-  v18 = v6;
-  v7 = a3[5];
-  v19 = a3[4];
-  v20 = v7;
-  v8 = a3[1];
-  v15 = *a3;
-  v16 = v8;
-  _NSBundleDeallocatingImmortalBundle(&v15, v9);
-  v10 = v22[0];
-  v4[7] = v21;
-  v4[8] = v10;
-  *(v4 + 140) = *(v22 + 12);
-  v11 = v18;
-  v4[3] = v17;
-  v4[4] = v11;
-  v12 = v20;
-  v4[5] = v19;
-  v4[6] = v12;
-  v13 = v16;
-  v4[1] = v15;
-  v4[2] = v13;
+  v12 = a3[6];
+  *v13 = a3[7];
+  *&v13[12] = *(a3 + 124);
+  v8 = a3[2];
+  v9 = a3[3];
+  v10 = a3[4];
+  v11 = a3[5];
+  v6 = *a3;
+  v7 = a3[1];
+  _NSBundleDeallocatingImmortalBundle();
+  v4[7] = v12;
+  v4[8] = *v13;
+  *(v4 + 140) = *&v13[12];
+  v4[3] = v8;
+  v4[4] = v9;
+  v4[5] = v10;
+  v4[6] = v11;
+  v4[1] = v6;
+  v4[2] = v7;
   return v4;
 }
 
@@ -6964,7 +9070,7 @@ uint64_t protocol witness for _LocaleProtocol.exemplarCharacterSet.getter in con
   return swift_unknownObjectRelease();
 }
 
-uint64_t protocol witness for _LocaleProtocol.measurementSystem.getter in conformance _LocaleUnlocalized@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for _LocaleProtocol.measurementSystem.getter in conformance _LocaleUnlocalized@<X0>(void *a1@<X8>)
 {
   if (one-time initialization token for metric != -1)
   {
@@ -6976,11 +9082,11 @@ uint64_t protocol witness for _LocaleProtocol.measurementSystem.getter in confor
   v1 = *algn_1EA7B00F8;
   v2 = xmmword_1EA7B0100;
   *a1 = static Locale.MeasurementSystem.metric;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
+  a1[1] = v1;
+  *(a1 + 1) = v2;
 }
 
-uint64_t protocol witness for _LocaleProtocol.numberingSystem.getter in conformance _LocaleUnlocalized@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for _LocaleProtocol.numberingSystem.getter in conformance _LocaleUnlocalized@<X0>(void *a1@<X8>)
 {
   if (one-time initialization token for latn != -1)
   {
@@ -6992,13 +9098,13 @@ uint64_t protocol witness for _LocaleProtocol.numberingSystem.getter in conforma
   v1 = unk_1EA7AE6E0;
   v2 = xmmword_1EA7AE6E8;
   *a1 = static Locale.NumberingSystem.latn;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
+  a1[1] = v1;
+  *(a1 + 1) = v2;
 }
 
 uint64_t protocol witness for _LocaleProtocol.availableNumberingSystems.getter in conformance _LocaleUnlocalized()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_181218E20;
   if (one-time initialization token for latn != -1)
@@ -7026,7 +9132,7 @@ double protocol witness for _LocaleProtocol.weekendRange.getter in conformance _
   return result;
 }
 
-uint64_t protocol witness for _LocaleProtocol.collation.getter in conformance _LocaleUnlocalized@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for _LocaleProtocol.collation.getter in conformance _LocaleUnlocalized@<X0>(void *a1@<X8>)
 {
   if (one-time initialization token for standard != -1)
   {
@@ -7038,8 +9144,8 @@ uint64_t protocol witness for _LocaleProtocol.collation.getter in conformance _L
   v1 = *algn_1EA7B7188;
   v2 = xmmword_1EA7B7190;
   *a1 = static Locale.Collation.standard;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
+  a1[1] = v1;
+  *(a1 + 1) = v2;
 }
 
 double protocol witness for _LocaleProtocol.region.getter in conformance _LocaleUnlocalized@<D0>(uint64_t a1@<X8>)
@@ -7164,7 +9270,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t Locale.HourCycle.init(rawValue:)@<X0>(Swift::String string@<0:X0, 8:X1>, char *a2@<X8>)
+uint64_t *Locale.HourCycle.init(rawValue:)@<X0>(uint64_t *__return_ptr a1@<X8>, Swift::String string@<0:X0, 8:X1>)
 {
   object = string._object;
   v3._countAndFlagsBits = string._countAndFlagsBits;
@@ -7177,11 +9283,11 @@ uint64_t Locale.HourCycle.init(rawValue:)@<X0>(Swift::String string@<0:X0, 8:X1>
     v7 = v5;
   }
 
-  *a2 = v7;
+  *a1 = v7;
   return result;
 }
 
-uint64_t Locale.Weekday.init(rawValue:)@<X0>(Swift::String string@<0:X0, 8:X1>, char *a2@<X8>)
+uint64_t *Locale.Weekday.init(rawValue:)@<X0>(uint64_t *__return_ptr a1@<X8>, Swift::String string@<0:X0, 8:X1>)
 {
   object = string._object;
   v3._countAndFlagsBits = string._countAndFlagsBits;
@@ -7194,7 +9300,7 @@ uint64_t Locale.Weekday.init(rawValue:)@<X0>(Swift::String string@<0:X0, 8:X1>, 
     v7 = v5;
   }
 
-  *a2 = v7;
+  *a1 = v7;
   return result;
 }
 
@@ -7243,9 +9349,9 @@ __n128 Locale.Components.init(languageCode:script:languageRegion:)@<Q0>(_OWORD *
   *(a4 + 304) = 0u;
   *(a4 + 320) = 0u;
   *(a4 + 336) = 0u;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
   v8 = a1[1];
   *a4 = *a1;
   *(a4 + 16) = v8;
@@ -7303,7 +9409,7 @@ uint64_t Locale.Components.languageComponents.getter@<X0>(_OWORD *a1@<X8>)
   return outlined init with copy of Locale.Language.Components(v9, &v8);
 }
 
-uint64_t Locale.Components.collation.getter@<X0>(uint64_t *a1@<X8>)
+void Locale.Components.collation.getter(uint64_t *a1@<X8>)
 {
   v2 = v1[13];
   v3 = v1[14];
@@ -7313,19 +9419,19 @@ uint64_t Locale.Components.collation.getter@<X0>(uint64_t *a1@<X8>)
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return outlined copy of Locale.LanguageCode?(v2, v3);
+  outlined copy of Locale.LanguageCode?(v2, v3, v4, v5);
 }
 
 __n128 Locale.Components.collation.setter(uint64_t a1)
 {
-  outlined consume of Locale.LanguageCode?(*(v1 + 104), *(v1 + 112));
+  outlined consume of Locale.LanguageCode?(v1[13], v1[14], v1[15], v1[16]);
   result = *a1;
-  *(v1 + 120) = *(a1 + 16);
-  *(v1 + 104) = result;
+  *(v1 + 15) = *(a1 + 16);
+  *(v1 + 13) = result;
   return result;
 }
 
-uint64_t Locale.Components.currency.getter@<X0>(uint64_t *a1@<X8>)
+void Locale.Components.currency.getter(uint64_t *a1@<X8>)
 {
   v2 = v1[17];
   v3 = v1[18];
@@ -7335,19 +9441,19 @@ uint64_t Locale.Components.currency.getter@<X0>(uint64_t *a1@<X8>)
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return outlined copy of Locale.LanguageCode?(v2, v3);
+  outlined copy of Locale.LanguageCode?(v2, v3, v4, v5);
 }
 
 __n128 Locale.Components.currency.setter(uint64_t a1)
 {
-  outlined consume of Locale.LanguageCode?(*(v1 + 136), *(v1 + 144));
+  outlined consume of Locale.LanguageCode?(v1[17], v1[18], v1[19], v1[20]);
   result = *a1;
-  *(v1 + 152) = *(a1 + 16);
-  *(v1 + 136) = result;
+  *(v1 + 19) = *(a1 + 16);
+  *(v1 + 17) = result;
   return result;
 }
 
-uint64_t Locale.Components.numberingSystem.getter@<X0>(uint64_t *a1@<X8>)
+void Locale.Components.numberingSystem.getter(uint64_t *a1@<X8>)
 {
   v2 = v1[21];
   v3 = v1[22];
@@ -7357,19 +9463,19 @@ uint64_t Locale.Components.numberingSystem.getter@<X0>(uint64_t *a1@<X8>)
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return outlined copy of Locale.LanguageCode?(v2, v3);
+  outlined copy of Locale.LanguageCode?(v2, v3, v4, v5);
 }
 
 __n128 Locale.Components.numberingSystem.setter(uint64_t a1)
 {
-  outlined consume of Locale.LanguageCode?(*(v1 + 168), *(v1 + 176));
+  outlined consume of Locale.LanguageCode?(v1[21], v1[22], v1[23], v1[24]);
   result = *a1;
-  *(v1 + 184) = *(a1 + 16);
-  *(v1 + 168) = result;
+  *(v1 + 23) = *(a1 + 16);
+  *(v1 + 21) = result;
   return result;
 }
 
-uint64_t Locale.Components.measurementSystem.getter@<X0>(uint64_t *a1@<X8>)
+void Locale.Components.measurementSystem.getter(uint64_t *a1@<X8>)
 {
   v2 = v1[26];
   v3 = v1[27];
@@ -7379,20 +9485,20 @@ uint64_t Locale.Components.measurementSystem.getter@<X0>(uint64_t *a1@<X8>)
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return outlined copy of Locale.LanguageCode?(v2, v3);
+  outlined copy of Locale.LanguageCode?(v2, v3, v4, v5);
 }
 
 __n128 Locale.Components.measurementSystem.setter(uint64_t a1)
 {
-  outlined consume of Locale.LanguageCode?(*(v1 + 208), *(v1 + 216));
+  outlined consume of Locale.LanguageCode?(v1[26], v1[27], v1[28], v1[29]);
   result = *a1;
   v4 = *(a1 + 16);
-  *(v1 + 208) = *a1;
-  *(v1 + 224) = v4;
+  *(v1 + 13) = *a1;
+  *(v1 + 14) = v4;
   return result;
 }
 
-uint64_t Locale.Components.region.getter@<X0>(uint64_t *a1@<X8>)
+void Locale.Components.region.getter(uint64_t *a1@<X8>)
 {
   v2 = v1[30];
   v3 = v1[31];
@@ -7402,20 +9508,20 @@ uint64_t Locale.Components.region.getter@<X0>(uint64_t *a1@<X8>)
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return outlined copy of Locale.LanguageCode?(v2, v3);
+  outlined copy of Locale.LanguageCode?(v2, v3, v4, v5);
 }
 
 __n128 Locale.Components.region.setter(uint64_t a1)
 {
-  outlined consume of Locale.LanguageCode?(*(v1 + 240), *(v1 + 248));
+  outlined consume of Locale.LanguageCode?(v1[30], v1[31], v1[32], v1[33]);
   result = *a1;
   v4 = *(a1 + 16);
-  *(v1 + 240) = *a1;
-  *(v1 + 256) = v4;
+  *(v1 + 15) = *a1;
+  *(v1 + 16) = v4;
   return result;
 }
 
-uint64_t Locale.Components.subdivision.getter@<X0>(uint64_t *a1@<X8>)
+void Locale.Components.subdivision.getter(uint64_t *a1@<X8>)
 {
   v2 = v1[34];
   v3 = v1[35];
@@ -7425,16 +9531,16 @@ uint64_t Locale.Components.subdivision.getter@<X0>(uint64_t *a1@<X8>)
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return outlined copy of Locale.LanguageCode?(v2, v3);
+  outlined copy of Locale.LanguageCode?(v2, v3, v4, v5);
 }
 
 __n128 Locale.Components.subdivision.setter(uint64_t a1)
 {
-  outlined consume of Locale.LanguageCode?(*(v1 + 272), *(v1 + 280));
+  outlined consume of Locale.LanguageCode?(v1[34], v1[35], v1[36], v1[37]);
   result = *a1;
   v4 = *(a1 + 16);
-  *(v1 + 272) = *a1;
-  *(v1 + 288) = v4;
+  *(v1 + 17) = *a1;
+  *(v1 + 18) = v4;
   return result;
 }
 
@@ -7448,7 +9554,7 @@ uint64_t Locale.Components.timeZone.setter(uint64_t *a1)
   return result;
 }
 
-uint64_t Locale.Components.variant.getter@<X0>(uint64_t *a1@<X8>)
+void Locale.Components.variant.getter(uint64_t *a1@<X8>)
 {
   v2 = v1[40];
   v3 = v1[41];
@@ -7458,27 +9564,25 @@ uint64_t Locale.Components.variant.getter@<X0>(uint64_t *a1@<X8>)
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return outlined copy of Locale.LanguageCode?(v2, v3);
+  outlined copy of Locale.LanguageCode?(v2, v3, v4, v5);
 }
 
 __n128 Locale.Components.variant.setter(uint64_t a1)
 {
-  outlined consume of Locale.LanguageCode?(*(v1 + 320), *(v1 + 328));
+  outlined consume of Locale.LanguageCode?(v1[40], v1[41], v1[42], v1[43]);
   result = *a1;
   v4 = *(a1 + 16);
-  *(v1 + 320) = *a1;
-  *(v1 + 336) = v4;
+  *(v1 + 20) = *a1;
+  *(v1 + 21) = v4;
   return result;
 }
 
 uint64_t static Locale.Subdivision.subdivision(for:)@<X0>(uint64_t *a1@<X0>, Swift::String *a2@<X8>)
 {
   v5 = *a1;
-  v6 = a1[1];
 
   MEMORY[0x1865CB0E0](2054847098, 0xE400000000000000);
-  a2->_countAndFlagsBits = v5;
-  a2->_object = v6;
+  *a2 = v5;
   v4 = String.lowercased()();
   result = v4._countAndFlagsBits;
   a2[1] = v4;
@@ -7561,10 +9665,10 @@ unint64_t Locale.Components.CodingKeys.stringValue.getter(unsigned __int8 a1)
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Locale.Components.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Locale.Components.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized Locale.Components.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized Locale.Components.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7584,7 +9688,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Locale.Components.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation6LocaleV10ComponentsV10CodingKeys33_BFF28DEA2E1A79B78E7508A27E6F7AC8LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation6LocaleV10ComponentsV10CodingKeys33_BFF28DEA2E1A79B78E7508A27E6F7AC8LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation6LocaleV10ComponentsV10CodingKeys33_BFF28DEA2E1A79B78E7508A27E6F7AC8LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v30 - v5;
@@ -7692,28 +9796,28 @@ uint64_t Locale.Components.encode(to:)(void *a1)
     v66 = v59;
     v67 = v60;
     v68 = 2;
-    outlined copy of Locale.LanguageCode?(v29, v28);
+    outlined copy of Locale.LanguageCode?(v29, v28, v59, v60);
     lazy protocol witness table accessor for type Locale.Collation and conformance Locale.Collation();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Locale.LanguageCode?(v64, v65);
+    outlined consume of Locale.LanguageCode?(v64, v65, v66, v67);
     v64 = v55;
     v65 = v56;
     v66 = v58;
     v67 = v57;
     v68 = 3;
-    outlined copy of Locale.LanguageCode?(v55, v56);
+    outlined copy of Locale.LanguageCode?(v55, v56, v58, v57);
     lazy protocol witness table accessor for type Locale.Currency and conformance Locale.Currency();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Locale.LanguageCode?(v64, v65);
+    outlined consume of Locale.LanguageCode?(v64, v65, v66, v67);
     v64 = v51;
     v65 = v52;
     v66 = v54;
     v67 = v53;
     v68 = 4;
-    outlined copy of Locale.LanguageCode?(v51, v52);
+    outlined copy of Locale.LanguageCode?(v51, v52, v54, v53);
     lazy protocol witness table accessor for type Locale.NumberingSystem and conformance Locale.NumberingSystem();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Locale.LanguageCode?(v64, v65);
+    outlined consume of Locale.LanguageCode?(v64, v65, v66, v67);
     LOBYTE(v64) = v50;
     v68 = 5;
     lazy protocol witness table accessor for type Locale.Weekday and conformance Locale.Weekday();
@@ -7727,28 +9831,28 @@ uint64_t Locale.Components.encode(to:)(void *a1)
     v66 = v47;
     v67 = v46;
     v68 = 7;
-    outlined copy of Locale.LanguageCode?(v45, v48);
+    outlined copy of Locale.LanguageCode?(v45, v48, v47, v46);
     lazy protocol witness table accessor for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Locale.LanguageCode?(v64, v65);
+    outlined consume of Locale.LanguageCode?(v64, v65, v66, v67);
     v64 = v44;
     v65 = v43;
     v66 = v42;
     v67 = v41;
     v68 = 8;
-    outlined copy of Locale.LanguageCode?(v44, v43);
+    outlined copy of Locale.LanguageCode?(v44, v43, v42, v41);
     lazy protocol witness table accessor for type Locale.Region and conformance Locale.Region();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Locale.LanguageCode?(v64, v65);
+    outlined consume of Locale.LanguageCode?(v64, v65, v66, v67);
     v64 = v40;
     v65 = v39;
     v66 = v38;
     v67 = v37;
     v68 = 9;
-    outlined copy of Locale.LanguageCode?(v40, v39);
+    outlined copy of Locale.LanguageCode?(v40, v39, v38, v37);
     lazy protocol witness table accessor for type Locale.Subdivision and conformance Locale.Subdivision();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Locale.LanguageCode?(v64, v65);
+    outlined consume of Locale.LanguageCode?(v64, v65, v66, v67);
     v64 = v36;
     v65 = v35;
     v68 = 10;
@@ -7761,2018 +9865,11 @@ uint64_t Locale.Components.encode(to:)(void *a1)
     v66 = v32;
     v67 = v31;
     v68 = 11;
-    outlined copy of Locale.LanguageCode?(v34, v33);
+    outlined copy of Locale.LanguageCode?(v34, v33, v32, v31);
     lazy protocol witness table accessor for type Locale.Variant and conformance Locale.Variant();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Locale.LanguageCode?(v64, v65);
+    outlined consume of Locale.LanguageCode?(v64, v65, v66, v67);
   }
 
   return (*(v4 + 8))(v6, v3);
-}
-
-Swift::Int Locale.Components.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  Locale.Components.hash(into:)(v1);
-  return Hasher._finalize()();
-}
-
-uint64_t Locale.Components.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
-{
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation6LocaleV10ComponentsV10CodingKeys33_BFF28DEA2E1A79B78E7508A27E6F7AC8LLOGMd);
-  v5 = *(v39 - 8);
-  MEMORY[0x1EEE9AC00](v39);
-  v7 = &v26 - v6;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v2)
-  {
-    v103 = v2;
-    __swift_destroy_boxed_opaque_existential_1(a1);
-    v40 = 0;
-    v41 = 0uLL;
-    v42 = 0uLL;
-    v44 = 0uLL;
-    v43 = 0uLL;
-    v46 = 0uLL;
-    v45 = 0uLL;
-    v10 = 0;
-    v11 = 0;
-    v12 = 0;
-    v13 = 0;
-    v14 = 0;
-    v15 = 0;
-LABEL_4:
-    outlined consume of Locale.LanguageCode?(v15, v14);
-    outlined consume of Locale.LanguageCode?(v13, v12);
-    outlined consume of Locale.LanguageCode?(v11, v10);
-    outlined consume of Locale.LanguageCode?(v45, *(&v45 + 1));
-    outlined consume of Locale.LanguageCode?(v43, *(&v43 + 1));
-    outlined consume of Locale.LanguageCode?(v41, *(&v41 + 1));
-    swift_unknownObjectRelease();
-    return outlined consume of Locale.LanguageCode?(0, 0);
-  }
-
-  v8 = a2;
-  v87 = 0;
-  lazy protocol witness table accessor for type Locale.Language.Components and conformance Locale.Language.Components();
-  v9 = v39;
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v99 = v90;
-  v100 = v91;
-  v101 = v92;
-  v102 = v93;
-  v97 = v88;
-  v98 = v89;
-  LOBYTE(v47[0]) = 1;
-  lazy protocol witness table accessor for type Calendar.Identifier and conformance Calendar.Identifier();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v17 = v48;
-  LOBYTE(v47[0]) = 2;
-  lazy protocol witness table accessor for type Locale.Collation and conformance Locale.Collation();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  *v35 = v48;
-  v38 = *(&v49 + 1);
-  *&v35[16] = v49;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  LOBYTE(v47[0]) = 3;
-  lazy protocol witness table accessor for type Locale.Currency and conformance Locale.Currency();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v37 = v48;
-  v33 = v5;
-  *v34 = *(&v48 + 1);
-  *&v34[8] = v49;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  LOBYTE(v47[0]) = 4;
-  lazy protocol witness table accessor for type Locale.NumberingSystem and conformance Locale.NumberingSystem();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v31 = v17;
-  v32 = *(&v48 + 1);
-  v36 = v48;
-  v18 = v49;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  LOBYTE(v47[0]) = 5;
-  lazy protocol witness table accessor for type Locale.Weekday and conformance Locale.Weekday();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v30 = v48;
-  LOBYTE(v47[0]) = 6;
-  lazy protocol witness table accessor for type Locale.HourCycle and conformance Locale.HourCycle();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v29 = v48;
-  LOBYTE(v47[0]) = 7;
-  lazy protocol witness table accessor for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem();
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v103 = 0;
-  v10 = v32;
-  v45 = v48;
-  v46 = v49;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  LOBYTE(v47[0]) = 8;
-  lazy protocol witness table accessor for type Locale.Region and conformance Locale.Region();
-  v19 = v103;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v103 = v19;
-  if (v19)
-  {
-    (*(v33 + 8))(v7, v9);
-    __swift_destroy_boxed_opaque_existential_1(a1);
-    v40 = 0;
-    v41 = 0uLL;
-    v42 = 0uLL;
-    v44 = 0uLL;
-    v43 = 0uLL;
-LABEL_13:
-    v12 = *v34;
-    v50 = v99;
-    v51 = v100;
-    v52 = v101;
-    v53 = v102;
-    v48 = v97;
-    v49 = v98;
-    outlined destroy of Locale.Language.Components(&v48);
-    v13 = v37;
-    v14 = *&v35[8];
-    v15 = *v35;
-    v11 = v36;
-    goto LABEL_4;
-  }
-
-  v43 = v48;
-  v44 = v49;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  LOBYTE(v47[0]) = 9;
-  lazy protocol witness table accessor for type Locale.Subdivision and conformance Locale.Subdivision();
-  v20 = v103;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v103 = v20;
-  if (v20)
-  {
-    (*(v33 + 8))(v7, v39);
-    __swift_destroy_boxed_opaque_existential_1(a1);
-    v40 = 0;
-    v41 = 0uLL;
-    v42 = 0uLL;
-    goto LABEL_13;
-  }
-
-  v41 = v48;
-  v42 = v49;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  LOBYTE(v47[0]) = 10;
-  lazy protocol witness table accessor for type TimeZone and conformance TimeZone();
-  v21 = v103;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v103 = v21;
-  if (v21)
-  {
-    (*(v33 + 8))(v7, v39);
-    __swift_destroy_boxed_opaque_existential_1(a1);
-    v40 = 0;
-    goto LABEL_13;
-  }
-
-  v28 = *(&v48 + 1);
-  v40 = v48;
-  v82 = 11;
-  lazy protocol witness table accessor for type Locale.Variant and conformance Locale.Variant();
-  v22 = v103;
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v103 = v22;
-  if (v22)
-  {
-    (*(v33 + 8))(v7, v39);
-    __swift_destroy_boxed_opaque_existential_1(a1);
-    goto LABEL_13;
-  }
-
-  (*(v33 + 8))(v7, v39);
-  v39 = v83;
-  v33 = v84;
-  v26 = v86;
-  v27 = v85;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  v47[2] = v99;
-  v47[3] = v100;
-  v47[4] = v101;
-  v47[5] = v102;
-  v47[0] = v97;
-  v47[1] = v98;
-  LOBYTE(v47[6]) = v31;
-  v23 = *v35;
-  v24 = *&v35[8];
-  *(&v47[6] + 1) = *v35;
-  v47[7] = *&v35[8];
-  v25 = *&v35[16];
-  *&v47[8] = v38;
-  *(&v47[8] + 1) = v37;
-  v47[9] = *v34;
-  *&v47[10] = *&v34[16];
-  *(&v47[10] + 1) = v36;
-  *&v47[11] = v10;
-  *(&v47[11] + 8) = v18;
-  BYTE8(v47[12]) = v30;
-  BYTE9(v47[12]) = v29;
-  v47[13] = v45;
-  v47[14] = v46;
-  v47[15] = v43;
-  v47[16] = v44;
-  v47[17] = v41;
-  v47[18] = v42;
-  *&v47[19] = v40;
-  *(&v47[19] + 1) = v28;
-  *&v47[20] = v39;
-  *(&v47[20] + 1) = v33;
-  *&v47[21] = v27;
-  *(&v47[21] + 1) = v26;
-  memcpy(v8, v47, 0x160uLL);
-  outlined init with copy of Locale.Components(v47, &v48);
-  __swift_destroy_boxed_opaque_existential_1(a1);
-  v54 = v31;
-  v56 = v23;
-  v57 = v24;
-  v58 = v25;
-  v59 = v38;
-  v50 = v99;
-  v51 = v100;
-  v52 = v101;
-  v53 = v102;
-  v48 = v97;
-  v49 = v98;
-  *v55 = *v96;
-  *&v55[3] = *&v96[3];
-  v60 = v37;
-  v61 = *v34;
-  v62 = *&v34[8];
-  v63 = v36;
-  v64 = v10;
-  v65 = v18;
-  v66 = v30;
-  v67 = v29;
-  v68 = v94;
-  v69 = v95;
-  v70 = v45;
-  v71 = v46;
-  v72 = v43;
-  v73 = v44;
-  v74 = v41;
-  v75 = v42;
-  v76 = v40;
-  v77 = v28;
-  v78 = v39;
-  v79 = v33;
-  v80 = v27;
-  v81 = v26;
-  return outlined destroy of Locale.Components(&v48);
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance Locale.Components()
-{
-  Hasher.init(_seed:)();
-  Locale.Components.hash(into:)(v1);
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Locale.Components()
-{
-  Hasher.init(_seed:)();
-  Locale.Components.hash(into:)(v1);
-  return Hasher._finalize()();
-}
-
-uint64_t Locale.Subdivision.debugDescription.getter()
-{
-  v1 = *(v0 + 16);
-
-  return v1;
-}
-
-uint64_t (*Locale.LanguageCode.identifier.modify(void *a1))()
-{
-  v4 = *v1;
-  v3 = v1[1];
-  a1[2] = v1;
-  a1[3] = v3;
-  *a1 = v4;
-  a1[1] = v3;
-
-  return Locale.Currency.identifier.modify;
-}
-
-Swift::Int Locale.LanguageCode.IdentifierType.hashValue.getter()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v1);
-  return Hasher._finalize()();
-}
-
-uint64_t one-time initialization function for unidentified()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.LanguageCode.unidentified = 6581877;
-  *algn_1EA7B70A8 = 0xE300000000000000;
-  xmmword_1EA7B70B0 = v1;
-  return result;
-}
-
-uint64_t static Locale.LanguageCode.unidentified.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for unidentified != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B70A8;
-  v2 = xmmword_1EA7B70B0;
-  *a1 = static Locale.LanguageCode.unidentified;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t one-time initialization function for uncoded()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.LanguageCode.uncoded = 7563629;
-  *algn_1EA7B70C8 = 0xE300000000000000;
-  xmmword_1EA7B70D0 = v1;
-  return result;
-}
-
-uint64_t static Locale.LanguageCode.uncoded.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for uncoded != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B70C8;
-  v2 = xmmword_1EA7B70D0;
-  *a1 = static Locale.LanguageCode.uncoded;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t one-time initialization function for multiple()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.LanguageCode.multiple = 7107949;
-  *algn_1EA7B70E8 = 0xE300000000000000;
-  xmmword_1EA7B70F0 = v1;
-  return result;
-}
-
-uint64_t static Locale.LanguageCode.multiple.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for multiple != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B70E8;
-  v2 = xmmword_1EA7B70F0;
-  *a1 = static Locale.LanguageCode.multiple;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t one-time initialization function for unavailable()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.LanguageCode.unavailable = 7895162;
-  *algn_1EA7B7108 = 0xE300000000000000;
-  xmmword_1EA7B7110 = v1;
-  return result;
-}
-
-uint64_t static Locale.LanguageCode.unavailable.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for unavailable != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B7108;
-  v2 = xmmword_1EA7B7110;
-  *a1 = static Locale.LanguageCode.unavailable;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.LanguageCode.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.LanguageCode.CodingKeys and conformance Locale.LanguageCode.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.LanguageCode.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.LanguageCode.CodingKeys and conformance Locale.LanguageCode.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t Locale.Script.init(stringLiteral:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, Swift::String *a3@<X8>)
-{
-
-  String.init<A>(_:)();
-  v6 = String._capitalized()();
-
-  a3->_countAndFlagsBits = a1;
-  a3->_object = a2;
-  a3[1] = v6;
-  return result;
-}
-
-uint64_t (*Locale.Script.identifier.modify(uint64_t *a1))()
-{
-  if (MEMORY[0x1E69E7D08])
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x30uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 32) = v1;
-  v6 = *v1;
-  v5 = v1[1];
-  v4[5] = v5;
-  *v4 = v6;
-  v4[1] = v5;
-
-  return Locale.Script.identifier.modify;
-}
-
-uint64_t static Locale.Script.unknown.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for unknown != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B7128;
-  v2 = xmmword_1EA7B7130;
-  *a1 = static Locale.Script.unknown;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.Script.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.Script.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in conformance Locale.Script@<X0>(uint64_t *a1@<X0>, Swift::String *a2@<X8>)
-{
-  v4 = *a1;
-  v3 = a1[1];
-
-  String.init<A>(_:)();
-  v5 = String._capitalized()();
-
-  a2->_countAndFlagsBits = v4;
-  a2->_object = v3;
-  a2[1] = v5;
-  return result;
-}
-
-uint64_t (*Locale.Region.identifier.modify(void *a1))(void *a1, char a2)
-{
-  v4 = *v1;
-  v3 = v1[1];
-  a1[2] = v1;
-  a1[3] = v3;
-  *a1 = v4;
-  a1[1] = v3;
-
-  return Locale.Region.identifier.modify;
-}
-
-uint64_t static Locale.Region.unknown.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for unknown != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B7148;
-  v2 = xmmword_1EA7B7150;
-  *a1 = static Locale.Region.unknown;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.Region.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.Region.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t Locale.Region.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v21 = a2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation6LocaleV6RegionV10CodingKeysOGMd);
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v20[-1] - v6;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  dispatch thunk of Decoder.singleValueContainer()();
-  if (v2)
-  {
-    __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-    lazy protocol witness table accessor for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys();
-    dispatch thunk of Decoder.container<A>(keyedBy:)();
-    LOBYTE(v20[0]) = 0;
-    v8 = KeyedDecodingContainer.decode(_:forKey:)();
-    object = v15;
-    v19 = v8;
-    LOBYTE(v20[0]) = 1;
-    v9 = KeyedDecodingContainer.decode(_:forKey:)();
-    v11 = v16;
-    (*(v5 + 8))(v7, v4);
-
-    countAndFlagsBits = v19;
-  }
-
-  else
-  {
-    __swift_project_boxed_opaque_existential_1(v20, v20[3]);
-    v9 = dispatch thunk of SingleValueDecodingContainer.decode(_:)();
-    v11 = v10;
-
-    __swift_destroy_boxed_opaque_existential_1(v20);
-    v12 = String.uppercased()();
-    countAndFlagsBits = v12._countAndFlagsBits;
-    object = v12._object;
-  }
-
-  v17 = v21;
-  *v21 = v9;
-  v17[1] = v11;
-  v17[2] = countAndFlagsBits;
-  v17[3] = object;
-
-  __swift_destroy_boxed_opaque_existential_1(a1);
-}
-
-uint64_t key path setter for Locale.Script.identifier : Locale.Script(uint64_t *a1, Swift::String *a2)
-{
-  v4 = *a1;
-  v3 = a1[1];
-  swift_bridgeObjectRetain_n();
-  String.init<A>(_:)();
-  v5 = String._capitalized()();
-
-  a2[1] = v5;
-
-  a2->_countAndFlagsBits = v4;
-  a2->_object = v3;
-  return result;
-}
-
-uint64_t Locale.Script.identifier.setter(uint64_t a1, void *a2)
-{
-
-  String.init<A>(_:)();
-  v5 = String._capitalized()();
-
-  v2[1] = v5;
-
-  v2->_countAndFlagsBits = a1;
-  v2->_object = a2;
-  return result;
-}
-
-uint64_t (*Locale.Collation.identifier.modify(uint64_t *a1))()
-{
-  if (MEMORY[0x1E69E7D08])
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x30uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 32) = v1;
-  v6 = *v1;
-  v5 = v1[1];
-  v4[5] = v5;
-  *v4 = v6;
-  v4[1] = v5;
-
-  return Locale.Collation.identifier.modify;
-}
-
-void Locale.Script.identifier.modify(uint64_t **a1, char a2)
-{
-  v3 = *a1;
-  v5 = **a1;
-  v4 = (*a1)[1];
-  v3[2] = v5;
-  v6 = v3[4];
-  v3[3] = v4;
-
-  if (a2)
-  {
-
-    String.init<A>(_:)();
-    v7 = String._capitalized()();
-
-    v6[1] = v7;
-    v6->_countAndFlagsBits = v5;
-    v6->_object = v4;
-  }
-
-  else
-  {
-    String.init<A>(_:)();
-    v8 = String._capitalized()();
-
-    v6[1] = v8;
-    v6->_countAndFlagsBits = v5;
-    v6->_object = v4;
-  }
-
-  free(v3);
-}
-
-uint64_t one-time initialization function for searchRules()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.Collation.searchRules = 0x686372616573;
-  *algn_1EA7B7168 = 0xE600000000000000;
-  xmmword_1EA7B7170 = v1;
-  return result;
-}
-
-uint64_t static Locale.Collation.searchRules.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for searchRules != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B7168;
-  v2 = xmmword_1EA7B7170;
-  *a1 = static Locale.Collation.searchRules;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t one-time initialization function for standard()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.Collation.standard = 0x647261646E617473;
-  *algn_1EA7B7188 = 0xE800000000000000;
-  xmmword_1EA7B7190 = v1;
-  return result;
-}
-
-uint64_t static Locale.Collation.standard.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for standard != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B7188;
-  v2 = xmmword_1EA7B7190;
-  *a1 = static Locale.Collation.standard;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.Collation.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.Collation.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t Locale.Script.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, void (*a3)(void)@<X3>, uint64_t *a4@<X8>)
-{
-  v24 = a3;
-  v22 = a4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v20 - v8;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  dispatch thunk of Decoder.singleValueContainer()();
-  if (v4)
-  {
-    v21 = v7;
-    __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-    v24();
-    dispatch thunk of Decoder.container<A>(keyedBy:)();
-    LOBYTE(v23[0]) = 0;
-    countAndFlagsBits = KeyedDecodingContainer.decode(_:forKey:)();
-    object = v13;
-    LOBYTE(v23[0]) = 1;
-    v15 = KeyedDecodingContainer.decode(_:forKey:)();
-    v17 = v16;
-    (*(v21 + 8))(v9, v6);
-  }
-
-  else
-  {
-    __swift_project_boxed_opaque_existential_1(v23, v23[3]);
-    v15 = dispatch thunk of SingleValueDecodingContainer.decode(_:)();
-    v17 = v10;
-
-    __swift_destroy_boxed_opaque_existential_1(v23);
-    v23[0] = v15;
-    v23[1] = v17;
-    String.init<A>(_:)();
-    v11 = String._capitalized()();
-    countAndFlagsBits = v11._countAndFlagsBits;
-    object = v11._object;
-  }
-
-  v18 = v22;
-  *v22 = v15;
-  v18[1] = v17;
-  v18[2] = countAndFlagsBits;
-  v18[3] = object;
-
-  __swift_destroy_boxed_opaque_existential_1(a1);
-}
-
-uint64_t (*Locale.Currency.identifier.modify(void *a1))()
-{
-  v4 = *v1;
-  v3 = v1[1];
-  a1[2] = v1;
-  a1[3] = v3;
-  *a1 = v4;
-  a1[1] = v3;
-
-  return Locale.Currency.identifier.modify;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.Currency.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.Currency.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t (*Locale.NumberingSystem.identifier.modify(void *a1))()
-{
-  v4 = *v1;
-  v3 = v1[1];
-  a1[2] = v1;
-  a1[3] = v3;
-  *a1 = v4;
-  a1[1] = v3;
-
-  return Locale.Currency.identifier.modify;
-}
-
-uint64_t one-time initialization function for latn()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.NumberingSystem.latn = 1853120876;
-  unk_1EA7AE6E0 = 0xE400000000000000;
-  xmmword_1EA7AE6E8 = v1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.NumberingSystem.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.NumberingSystem.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance Locale.Weekday()
-{
-  String.hash(into:)();
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance Locale.HourCycle()
-{
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance Locale.HourCycle()
-{
-  String.hash(into:)();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Locale.HourCycle()
-{
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-uint64_t (*Locale.MeasurementSystem.identifier.modify(void *a1))()
-{
-  v4 = *v1;
-  v3 = v1[1];
-  a1[2] = v1;
-  a1[3] = v3;
-  *a1 = v4;
-  a1[1] = v3;
-
-  return Locale.Currency.identifier.modify;
-}
-
-uint64_t one-time initialization function for metric()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.MeasurementSystem.metric = 0x63697274656DLL;
-  *algn_1EA7B00F8 = 0xE600000000000000;
-  xmmword_1EA7B0100 = v1;
-  return result;
-}
-
-uint64_t one-time initialization function for uk()
-{
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  static Locale.MeasurementSystem.uk = 0x6D65747379736B75;
-  *algn_1EA7AFAD8 = 0xE800000000000000;
-  xmmword_1EA7AFAE0 = v1;
-  return result;
-}
-
-uint64_t static Locale.MeasurementSystem.uk.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for uk != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7AFAD8;
-  v2 = xmmword_1EA7AFAE0;
-  *a1 = static Locale.MeasurementSystem.uk;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t static Locale.MeasurementSystem.measurementSystems.getter()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleV17MeasurementSystemVGMd);
-  v0 = swift_allocObject();
-  *(v0 + 16) = xmmword_18121D6B0;
-  if (one-time initialization token for metric != -1)
-  {
-    swift_once();
-  }
-
-  v1 = *algn_1EA7B00F8;
-  v2 = xmmword_1EA7B0100;
-  *(v0 + 32) = static Locale.MeasurementSystem.metric;
-  *(v0 + 40) = v1;
-  *(v0 + 48) = v2;
-  v3 = one-time initialization token for us;
-
-  if (v3 != -1)
-  {
-    swift_once();
-  }
-
-  v4 = *algn_1EA7B2448;
-  v5 = xmmword_1EA7B2450;
-  *(v0 + 64) = static Locale.MeasurementSystem.us;
-  *(v0 + 72) = v4;
-  *(v0 + 80) = v5;
-  v6 = one-time initialization token for uk;
-
-  if (v6 != -1)
-  {
-    swift_once();
-  }
-
-  v7 = *algn_1EA7AFAD8;
-  v8 = xmmword_1EA7AFAE0;
-  *(v0 + 96) = static Locale.MeasurementSystem.uk;
-  *(v0 + 104) = v7;
-  *(v0 + 112) = v8;
-
-  return v0;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.MeasurementSystem.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.MeasurementSystem.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t Locale.Subdivision._identifier.setter(uint64_t a1, uint64_t a2)
-{
-
-  *v2 = a1;
-  v2[1] = a2;
-  return result;
-}
-
-uint64_t (*Locale.Subdivision.identifier.modify(void *a1))(void *a1, char a2)
-{
-  v4 = *v1;
-  v3 = v1[1];
-  a1[2] = v1;
-  a1[3] = v3;
-  *a1 = v4;
-  a1[1] = v3;
-
-  return Locale.Subdivision.identifier.modify;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.Subdivision.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.Subdivision.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t Locale.NumberingSystem.init(stringLiteral:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(void)@<X2>, void *a4@<X8>)
-{
-  result = a3();
-  *a4 = a1;
-  a4[1] = a2;
-  a4[2] = result;
-  a4[3] = v8;
-  return result;
-}
-
-uint64_t key path setter for Locale.LanguageCode.identifier : Locale.LanguageCode(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, uint64_t))
-{
-  v6 = *a1;
-  v7 = a1[1];
-  v8 = a5(*a1, v7);
-  v10 = v9;
-
-  a2[2] = v8;
-  a2[3] = v10;
-
-  *a2 = v6;
-  a2[1] = v7;
-  return result;
-}
-
-uint64_t Locale.LanguageCode.identifier.setter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v6 = a3();
-  v8 = v7;
-
-  v3[2] = v6;
-  v3[3] = v8;
-
-  *v3 = a1;
-  v3[1] = a2;
-  return result;
-}
-
-uint64_t (*Locale.Variant.identifier.modify(void *a1))()
-{
-  v4 = *v1;
-  v3 = v1[1];
-  a1[2] = v1;
-  a1[3] = v3;
-  *a1 = v4;
-  a1[1] = v3;
-
-  return Locale.Currency.identifier.modify;
-}
-
-uint64_t Locale.LanguageCode.identifier.modify(void *a1, char a2, uint64_t (*a3)(void, uint64_t))
-{
-  v4 = a1[1];
-  v5 = a1[2];
-  v6 = *a1;
-  v7 = a3(*a1, v4);
-  v9 = v8;
-  if (a2)
-  {
-
-    v5[2] = v7;
-    v5[3] = v9;
-    *v5 = v6;
-    v5[1] = v4;
-  }
-
-  else
-  {
-
-    v5[2] = v7;
-    v5[3] = v9;
-    *v5 = v6;
-    v5[1] = v4;
-  }
-
-  return result;
-}
-
-uint64_t one-time initialization function for posix()
-{
-  static Locale.Variant.posix = 0x7869736F70;
-  *algn_1EA7B71A8 = 0xE500000000000000;
-  v1 = String.lowercased()();
-  result = v1._countAndFlagsBits;
-  xmmword_1EA7B71B0 = v1;
-  return result;
-}
-
-uint64_t static Locale.Variant.posix.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for posix != -1)
-  {
-    v4 = a1;
-    swift_once();
-    a1 = v4;
-  }
-
-  v1 = *algn_1EA7B71A8;
-  v2 = xmmword_1EA7B71B0;
-  *a1 = static Locale.Variant.posix;
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v2;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Locale.LanguageCode.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  if (a1 == 0xD000000000000015 && 0x8000000181482BE0 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    v7 = 0;
-  }
-
-  else if (a1 == 0x6669746E6564695FLL && a2 == 0xEB00000000726569)
-  {
-
-    v7 = 1;
-  }
-
-  else
-  {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v8)
-    {
-      v7 = 1;
-    }
-
-    else
-    {
-      v7 = 2;
-    }
-  }
-
-  *a3 = v7;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Locale.Variant.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Variant.CodingKeys and conformance Locale.Variant.CodingKeys();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Locale.Variant.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Locale.Variant.CodingKeys and conformance Locale.Variant.CodingKeys();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t Locale.LanguageCode.encode(to:)(void *a1)
-{
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v2, v3);
-  dispatch thunk of SingleValueEncodingContainer.encode(_:)();
-  return __swift_destroy_boxed_opaque_existential_1(v2);
-}
-
-{
-  return Locale.Subdivision.encode(to:)(a1);
-}
-
-Swift::Int Locale.LanguageCode.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in conformance Locale.LanguageCode@<X0>(void *a1@<X0>, uint64_t (*a2)(void, uint64_t)@<X3>, void *a3@<X8>)
-{
-  v4 = *a1;
-  v5 = a1[1];
-  result = a2(*a1, v5);
-  *a3 = v4;
-  a3[1] = v5;
-  a3[2] = result;
-  a3[3] = v7;
-  return result;
-}
-
-uint64_t specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(uint64_t (*a1)(uint64_t, uint64_t, uint64_t, uint64_t))
-{
-  v3 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  *v1 = v3;
-  if (!result)
-  {
-    result = a1(result, *(v3 + 16) + 1, 1, v3);
-    *v1 = result;
-  }
-
-  return result;
-}
-
-uint64_t specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(uint64_t result, uint64_t (*a2)(BOOL, uint64_t, uint64_t))
-{
-  v3 = *(*v2 + 24);
-  if (result + 1 > (v3 >> 1))
-  {
-    result = a2(v3 > 1, result + 1, 1);
-    *v2 = result;
-  }
-
-  return result;
-}
-
-uint64_t specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6 = *v5;
-  *(v6 + 16) = result + 1;
-  v7 = (v6 + 32 * result);
-  v7[4] = a2;
-  v7[5] = a3;
-  v7[6] = a4;
-  v7[7] = a5;
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Components.CodingKeys and conformance Locale.Components.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Language.Components and conformance Locale.Language.Components()
-{
-  result = lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components;
-  if (!lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components;
-  if (!lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components;
-  if (!lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Language.Components and conformance Locale.Language.Components);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Collation and conformance Locale.Collation()
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation;
-  if (!lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation;
-  if (!lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation;
-  if (!lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation;
-  if (!lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation;
-  if (!lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation and conformance Locale.Collation);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Currency and conformance Locale.Currency()
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency;
-  if (!lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency;
-  if (!lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency;
-  if (!lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency;
-  if (!lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency;
-  if (!lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency and conformance Locale.Currency);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.NumberingSystem and conformance Locale.NumberingSystem()
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem and conformance Locale.NumberingSystem);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.HourCycle and conformance Locale.HourCycle()
-{
-  result = lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle;
-  if (!lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle;
-  if (!lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle;
-  if (!lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle;
-  if (!lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.HourCycle and conformance Locale.HourCycle);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem()
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem and conformance Locale.MeasurementSystem);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Subdivision and conformance Locale.Subdivision()
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision and conformance Locale.Subdivision);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Variant and conformance Locale.Variant()
-{
-  result = lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant;
-  if (!lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant;
-  if (!lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant;
-  if (!lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant;
-  if (!lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant;
-  if (!lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Variant and conformance Locale.Variant);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Script.CodingKeys and conformance Locale.Script.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Region.CodingKeys and conformance Locale.Region.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Collation.CodingKeys and conformance Locale.Collation.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Currency.CodingKeys and conformance Locale.Currency.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.NumberingSystem.CodingKeys and conformance Locale.NumberingSystem.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.MeasurementSystem.CodingKeys and conformance Locale.MeasurementSystem.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Locale.Subdivision.CodingKeys and conformance Locale.Subdivision.CodingKeys);
-  }
-
-  return result;
 }

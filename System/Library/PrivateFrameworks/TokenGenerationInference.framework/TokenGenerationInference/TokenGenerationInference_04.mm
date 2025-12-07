@@ -10,17 +10,17 @@ void sub_220978908(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *_ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEEC2B8ne200100EmRKDF16_(void *result, uint64_t a2)
+uint64_t *_ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEEC2B8ne200100EmRKDF16_(uint64_t *a1, uint64_t a2, __int16 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_220978AAC(_Unwind_Exception *exception_object)
@@ -35,7 +35,7 @@ void sub_220978AAC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE11__vallocateB8ne200100Em(uint64_t a1, uint64_t a2)
+void _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE11__vallocateB8ne200100Em(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -76,7 +76,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void _Z15_computeArgTopKIDF16_EvPKT_iiPi(uint64_t a1, int a2, int a3, uint64_t a4)
+void _Z15_computeArgTopKIDF16_EvPKT_iiPi(uint64_t a1, unsigned int a2, int a3, uint64_t a4)
 {
   if (a2)
   {
@@ -296,7 +296,7 @@ void sub_220978F5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void _computeArgTopK<float>(uint64_t a1, int a2, int a3, uint64_t a4)
+void _computeArgTopK<float>(uint64_t a1, unsigned int a2, int a3, uint64_t a4)
 {
   if (a2)
   {
@@ -710,7 +710,7 @@ int *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,void _computeAr
   return v5;
 }
 
-E5RT::ExecutionStream *cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::AJAXExtendE5MLModule(E5RT::ExecutionStream *a1, uint64_t a2, void *__src, size_t __len, uint64_t a5)
+cgm::token_generation_inference::espresso_inference::EspressoE5MLModule *cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::AJAXExtendE5MLModule(cgm::token_generation_inference::espresso_inference::EspressoE5MLModule *a1, uint64_t a2, void *__src, size_t __len, uint64_t a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -935,7 +935,7 @@ void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::checkIOTypes(c
   E5RT::TensorDataType::~TensorDataType(v24);
 }
 
-void sub_220979B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, char a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_220979B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, char a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   if (__p)
   {
@@ -958,7 +958,7 @@ void sub_220979B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::resetInputs(cgm::token_generation_inference::ajax::AJAXExtendE5MLModule *this, unint64_t a2)
 {
   std::string::basic_string[abi:ne200100]<0>(&__p, "in_relative_positions");
-  v4 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
+  v4 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(this, &__p);
   if (v5 < 2)
   {
     v4 = 0;
@@ -976,7 +976,7 @@ void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::resetInputs(cg
 
   cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::setInputTokenID(this, 0);
   std::string::basic_string[abi:ne200100]<0>(&__p, "in_new_token_mask");
-  v6 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
+  v6 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(this, &__p);
   if (v7 < 2)
   {
     v6 = 0;
@@ -993,7 +993,7 @@ void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::resetInputs(cg
     operator delete(__p);
   }
 
-  cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::getKVCache(this, &__p);
+  cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::getKVCache(&__p, this);
   cgm::token_generation_inference::ajax::utils::AJAXKVCache::reset(&__p, a2);
   if (v12)
   {
@@ -1024,25 +1024,25 @@ void cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::~E
 
 void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::setInputTokenID(cgm::token_generation_inference::ajax::AJAXExtendE5MLModule *this, __int16 a2)
 {
-  std::string::basic_string[abi:ne200100]<0>(&__p, "in_new_token_id_2U8LE");
-  v3 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
-  v5 = v4;
-  if (v8 < 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, "in_new_token_id_2U8LE");
+  v4 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(this, __p);
+  v6 = v5;
+  if (v9 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
-  if (v5 >= 2)
+  if (v6 >= 2)
   {
-    v6 = v3;
+    v7 = v4;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  *v6 = a2;
+  *v7 = a2;
 }
 
 void sub_220979EBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1055,13 +1055,13 @@ void sub_220979EBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::getKVCache(cgm::token_generation_inference::ajax::AJAXExtendE5MLModule *this@<X0>, uint64_t a2@<X8>)
+void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::getKVCache(uint64_t *__return_ptr a1@<X8>, cgm::token_generation_inference::ajax::AJAXExtendE5MLModule *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(&v6, "in_cached_keys");
-  cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::getMemoryBoundToInputPort(a2);
+  cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::getMemoryBoundToInputPort(a1);
   std::string::basic_string[abi:ne200100]<0>(&__p, "in_cached_values");
-  cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::getMemoryBoundToInputPort((a2 + 16));
-  *(a2 + 32) = *(this + 3);
+  cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::getMemoryBoundToInputPort(a1 + 1);
+  a1[4] = *(this + 3);
   if (v5 < 0)
   {
     operator delete(__p);
@@ -1099,7 +1099,7 @@ void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::forwardToken(c
   v5 = *(this + 3);
   cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::setInputTokenID(this, a2);
   std::string::basic_string[abi:ne200100]<0>(__p, "in_new_token_mask");
-  v6 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
+  v6 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(this, __p);
   v7 = a3 % v5;
   if (v8 >= 2)
   {
@@ -1121,10 +1121,10 @@ void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::forwardToken(c
   E5RT::ExecutionStream::ExecuteStreamSync(*this);
   *(v9 + 2 * v7) = 0;
   std::string::basic_string[abi:ne200100]<0>(__p, "out_cached_keys");
-  v10 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::outputSpan();
+  v10 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::outputSpan(this, __p);
   v12 = v11;
   std::string::basic_string[abi:ne200100]<0>(v24, "in_cached_keys");
-  v13 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
+  v13 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(this, v24);
   if (v12 >= 2)
   {
     v15 = v10;
@@ -1157,10 +1157,10 @@ void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::forwardToken(c
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "out_cached_values");
-  v17 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::outputSpan();
+  v17 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::outputSpan(this, __p);
   v19 = v18;
   std::string::basic_string[abi:ne200100]<0>(v24, "in_cached_values");
-  v20 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
+  v20 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(this, v24);
   if (v19 >= 2)
   {
     v22 = v17;
@@ -1206,86 +1206,86 @@ void sub_22097A188(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::setSelfAttentionBuffer(E5RT::ExecutionStreamOperation **this, unint64_t a2)
 {
   InputPorts = E5RT::ExecutionStreamOperation::GetInputPorts(this[1]);
-  std::unordered_map<std::string,std::shared_ptr<E5RT::IOPort>>::unordered_map(v23, InputPorts);
-  std::string::basic_string[abi:ne200100]<0>(&__p, "in_relative_positions");
-  v4 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
-  if (v6 >= 2)
+  std::unordered_map<std::string,std::shared_ptr<E5RT::IOPort>>::unordered_map(v24, InputPorts);
+  std::string::basic_string[abi:ne200100]<0>(__p, "in_relative_positions");
+  v5 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(this, __p);
+  if (v7 >= 2)
   {
-    v7 = v4;
+    v8 = v5;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (v22 < 0)
+  if (v23 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
-  *v5.i16 = a2;
-  v8 = 1;
+  *v6.i16 = a2;
+  v9 = 1;
   if (a2 + 1 > 1)
   {
-    v8 = a2 + 1;
+    v9 = a2 + 1;
   }
 
-  v9 = vdupq_n_s64(v8 - 1);
-  v10 = -((v8 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v11 = xmmword_220AE5220;
-  v12 = xmmword_220AE5230;
-  v13 = xmmword_220AE5240;
-  v14 = xmmword_220AE5250;
-  v15 = (v7 + 8);
-  v16 = 7;
-  v17 = vdupq_n_s64(8uLL);
+  v10 = vdupq_n_s64(v9 - 1);
+  v11 = -((v9 + 7) & 0xFFFFFFFFFFFFFFF8);
+  v12 = xmmword_220AE5220;
+  v13 = xmmword_220AE5230;
+  v14 = xmmword_220AE5240;
+  v15 = xmmword_220AE5250;
+  v16 = (v8 + 8);
+  v17 = 7;
+  v18 = vdupq_n_s64(8uLL);
   do
   {
-    v18 = vmovn_s64(vcgeq_u64(v9, v14));
-    if (vuzp1_s8(vuzp1_s16(v18, v5), v5).u8[0])
+    v19 = vmovn_s64(vcgeq_u64(v10, v15));
+    if (vuzp1_s8(vuzp1_s16(v19, v6), v6).u8[0])
     {
-      *(v15 - 4) = (v16 - 7) - *v5.i16;
+      *(v16 - 4) = (v17 - 7) - *v6.i16;
     }
 
-    if (vuzp1_s8(vuzp1_s16(v18, v5), *&v5).i8[1])
+    if (vuzp1_s8(vuzp1_s16(v19, v6), *&v6).i8[1])
     {
-      *(v15 - 3) = (v16 - 6) - *v5.i16;
+      *(v16 - 3) = (v17 - 6) - *v6.i16;
     }
 
-    if (vuzp1_s8(vuzp1_s16(v5, vmovn_s64(vcgeq_u64(v9, *&v13))), *&v5).i8[2])
+    if (vuzp1_s8(vuzp1_s16(v6, vmovn_s64(vcgeq_u64(v10, *&v14))), *&v6).i8[2])
     {
-      *(v15 - 2) = (v16 - 5) - *v5.i16;
-      *(v15 - 1) = (v16 - 4) - *v5.i16;
+      *(v16 - 2) = (v17 - 5) - *v6.i16;
+      *(v16 - 1) = (v17 - 4) - *v6.i16;
     }
 
-    v19 = vmovn_s64(vcgeq_u64(v9, v12));
-    if (vuzp1_s8(*&v5, vuzp1_s16(v19, v5)).i32[1])
+    v20 = vmovn_s64(vcgeq_u64(v10, v13));
+    if (vuzp1_s8(*&v6, vuzp1_s16(v20, v6)).i32[1])
     {
-      *v15 = (v16 - 3) - *v5.i16;
+      *v16 = (v17 - 3) - *v6.i16;
     }
 
-    if (vuzp1_s8(*&v5, vuzp1_s16(v19, v5)).i8[5])
+    if (vuzp1_s8(*&v6, vuzp1_s16(v20, v6)).i8[5])
     {
-      v15[1] = (v16 - 2) - *v5.i16;
+      v16[1] = (v17 - 2) - *v6.i16;
     }
 
-    if (vuzp1_s8(*&v5, vuzp1_s16(v5, vmovn_s64(vcgeq_u64(v9, *&v11)))).i8[6])
+    if (vuzp1_s8(*&v6, vuzp1_s16(v6, vmovn_s64(vcgeq_u64(v10, *&v12)))).i8[6])
     {
-      v15[2] = (v16 - 1) - *v5.i16;
-      v15[3] = v16 - *v5.i16;
+      v16[2] = (v17 - 1) - *v6.i16;
+      v16[3] = v17 - *v6.i16;
     }
 
-    v12 = vaddq_s64(v12, v17);
-    v13 = vaddq_s64(v13, v17);
-    v14 = vaddq_s64(v14, v17);
-    v11 = vaddq_s64(v11, v17);
+    v13 = vaddq_s64(v13, v18);
+    v14 = vaddq_s64(v14, v18);
+    v15 = vaddq_s64(v15, v18);
+    v12 = vaddq_s64(v12, v18);
+    v17 += 8;
     v16 += 8;
-    v15 += 8;
   }
 
-  while (v10 + v16 != 7);
-  return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v23);
+  while (v11 + v17 != 7);
+  return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v24);
 }
 
 void sub_22097A3E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -1328,7 +1328,7 @@ void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::checkInputToke
   E5RT::TensorDataType::~TensorDataType(v6);
 }
 
-void sub_22097A524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
+void sub_22097A524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
 {
   if (__p)
   {
@@ -1375,16 +1375,17 @@ void cgm::token_generation_inference::ajax::AJAXExtendE5MLModule::checkSelfAtten
   E5RT::TensorDataType::~TensorDataType(v10);
 }
 
-void sub_22097A6A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15)
+void sub_22097A6A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
   E5RT::TensorDataType::~TensorDataType(&a13);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(&a15);
-  E5RT::TensorDataType::~TensorDataType((v15 - 72));
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(va);
+  E5RT::TensorDataType::~TensorDataType((v14 - 72));
   _Unwind_Resume(a1);
 }
 
@@ -1462,7 +1463,7 @@ void cgm::token_generation_inference::ajax::utils::AJAXKVCache::~AJAXKVCache(cgm
   }
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1484,7 +1485,7 @@ void sub_22097A8FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1512,41 +1513,41 @@ uint64_t std::unordered_map<std::string,std::string>::unordered_map(uint64_t a1,
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::pair<std::string const,std::string> const&>();
@@ -1554,49 +1555,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_22097AC5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22097AC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1674,7 +1675,7 @@ void sub_22097AE70(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZN3cgm26token_generation_inference4ajax5utils17copyStridedChunksIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEEmmS7_mmm(void *result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, uint64_t a9)
+void *_ZN3cgm26token_generation_inference4ajax5utils17copyStridedChunksIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEEmmS7_mmm(void *result, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, unint64_t a7, unint64_t a8, uint64_t a9)
 {
   v27 = result;
   v28 = a2;
@@ -1789,7 +1790,7 @@ void *_ZN3cgm26token_generation_inference4ajax5utils4copyIDF16_EEvN4E5RT4SpanIT_
   return __src;
 }
 
-uint64_t _ZNK4E5RT4SpanIDF16_Lm18446744073709551615EE5SliceEmm(void *a1, unint64_t a2, uint64_t a3)
+unint64_t _ZNK4E5RT4SpanIDF16_Lm18446744073709551615EE5SliceEmm(void *a1, unint64_t a2, uint64_t a3)
 {
   if (!a3 || ((v3 = a1[1], v3 > a2) ? (v4 = a3 + a2 > v3) : (v4 = 1), v4))
   {
@@ -1808,83 +1809,83 @@ std::runtime_error *std::range_error::range_error[abi:ne200100](std::runtime_err
   return result;
 }
 
-uint64_t cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::AJAXE5MLModelBase(uint64_t a1, uint64_t a2)
+uint64_t cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::AJAXE5MLModelBase(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v11, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v12, *a2, *(a2 + 8));
   }
 
   else
   {
-    v11 = *a2;
+    v12 = *a2;
   }
 
   E5RT::ProgramLibrary::OpenLibrary();
-  if (v12)
+  if (v13)
   {
     operator new();
   }
 
-  v12 = 0;
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  v13 = 0;
+  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v11.__r_.__value_.__l.__data_);
+    operator delete(v12.__r_.__value_.__l.__data_);
   }
 
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v11, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v12, *a2, *(a2 + 8));
   }
 
   else
   {
-    v11 = *a2;
+    v12 = *a2;
   }
 
   E5RT::PrecompiledComputeOpCreateOptions::Create();
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v11.__r_.__value_.__l.__data_);
+    operator delete(v12.__r_.__value_.__l.__data_);
   }
 
   E5RT::ExecutionStreamOperation::CreatePreCompiledComputeOp();
-  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, &v11);
-  v4 = v11.__r_.__value_.__r.__words[0];
-  v11.__r_.__value_.__r.__words[0] = 0;
-  if (v4)
+  std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(a1, &v12);
+  v5 = v12.__r_.__value_.__r.__words[0];
+  v12.__r_.__value_.__r.__words[0] = 0;
+  if (v5)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v5 + 8))(v5);
   }
 
-  v9 = 0;
   v10 = 0;
-  cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::loadEmbeddingTable(&v9, &v11);
-  v5 = *&v11.__r_.__value_.__l.__data_;
-  *&v11.__r_.__value_.__l.__data_ = 0uLL;
-  v6 = *(a1 + 24);
-  *(a1 + 16) = v5;
-  if (v6)
+  v11 = 0;
+  cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::loadEmbeddingTable(&v10, &v12);
+  v6 = *&v12.__r_.__value_.__l.__data_;
+  *&v12.__r_.__value_.__l.__data_ = 0uLL;
+  v7 = *(a1 + 24);
+  *(a1 + 16) = v6;
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-    if (v11.__r_.__value_.__l.__size_)
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    if (v12.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12.__r_.__value_.__l.__size_);
     }
   }
 
-  if (v10)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  v7 = v12;
-  v12 = 0;
-  if (v7)
+  v8 = v13;
+  v13 = 0;
+  if (v8)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v8 + 8))(v8);
   }
 
   return a1;
@@ -1928,7 +1929,7 @@ void *std::shared_ptr<E5RT::ExecutionStreamOperation>::operator=[abi:ne200100]<E
   return a1;
 }
 
-void cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::create(std::string *this, const std::__fs::filesystem::path *a2)
+void cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::create(std::string *this)
 {
   if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2034,7 +2035,7 @@ void sub_22097B798(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::getSharedConstants(cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase *this@<X0>, uint64_t a2@<X8>)
+void cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::getSharedConstants(cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase *this@<X0>, unint64_t a2@<X8>)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (*(this + 2))
@@ -2147,18 +2148,18 @@ BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t *std::shared_ptr<E5RT::ExecutionStreamOperation>::shared_ptr[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<E5RT::ExecutionStreamOperation>::shared_ptr[abi:ne200100]<E5RT::ExecutionStreamOperation,std::default_delete<E5RT::ExecutionStreamOperation>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<E5RT::ExecutionStreamOperation  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -2180,7 +2181,7 @@ uint64_t std::__shared_ptr_pointer<E5RT::ExecutionStreamOperation  *>::__get_del
   }
 }
 
-uint64_t std::unordered_map<std::string,std::shared_ptr<E5RT::MemoryObject>>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+unint64_t std::unordered_map<std::string,std::shared_ptr<E5RT::MemoryObject>>::unordered_map(unint64_t a1, const void **a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -2190,7 +2191,7 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<E5RT::MemoryObject>>::un
     v5 = 40 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<E5RT::IOPort>> const&>(a1, a2, a2);
       a2 += 5;
       v5 -= 40;
     }
@@ -2201,7 +2202,7 @@ uint64_t std::unordered_map<std::string,std::shared_ptr<E5RT::MemoryObject>>::un
   return a1;
 }
 
-void cgm::token_generation_inference::ajax::AJAXE5MLModelLoader::createModelFromBundle(cgm::token_generation_inference::ajax::AJAXE5MLModelLoader *this, const TGIE5ModelConfiguration *a2)
+void cgm::token_generation_inference::ajax::AJAXE5MLModelLoader::createModelFromBundle(cgm::token_generation_inference::ajax::AJAXE5MLModelLoader *this)
 {
   v35 = *MEMORY[0x277D85DE8];
   std::__fs::filesystem::path::extension[abi:ne200100]((this + 8), &v33);
@@ -2257,7 +2258,7 @@ LABEL_5:
   }
 
   ExportedFunctions = E5RT::ProgramLibrary::GetExportedFunctions(v31);
-  TGIE5ModelConfiguration::e5FunctionNames(this, &__p);
+  TGIE5ModelConfiguration::e5FunctionNames(&__p, this);
   if (__p.__r_.__value_.__r.__words[0] == __p.__r_.__value_.__l.__size_)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -2510,23 +2511,23 @@ double std::__fs::filesystem::path::extension[abi:ne200100]@<D0>(const std::__fs
   return result;
 }
 
-TGIE5ModelConfiguration *TGIE5ModelConfiguration::e5FunctionNames@<X0>(TGIE5ModelConfiguration *this@<X0>, void *a2@<X8>)
+uint64_t *TGIE5ModelConfiguration::e5FunctionNames@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v2 = *(&this[1].var1.var0.var0.var1 + 2);
-  for (i = *&this[2].var0; v2 != i; v2 += 4)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v2 = this[7];
+  for (i = this[8]; v2 != i; v2 += 4)
   {
-    this = std::vector<std::string>::push_back[abi:ne200100](a2, v2);
+    this = std::vector<std::string>::push_back[abi:ne200100](a1, v2);
   }
 
   return this;
 }
 
-void sub_22097C6CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22097C6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2866,7 +2867,7 @@ void sub_22097CC7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2879,18 +2880,18 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
-E5RT::ExecutionStream *cgm::token_generation_inference::ajax::AJAXPromptE5MLModule::AJAXPromptE5MLModule(E5RT::ExecutionStream *a1, uint64_t a2, void *__src, size_t __len, uint64_t a5)
+cgm::token_generation_inference::espresso_inference::EspressoE5MLModule *cgm::token_generation_inference::ajax::AJAXPromptE5MLModule::AJAXPromptE5MLModule(cgm::token_generation_inference::espresso_inference::EspressoE5MLModule *a1, uint64_t a2, void *__src, size_t __len, uint64_t a5)
 {
   if (*(a2 + 23) < 0)
   {
@@ -3040,8 +3041,9 @@ void cgm::token_generation_inference::ajax::AJAXPromptE5MLModule::checkIOTypes(c
   E5RT::TensorDataType::~TensorDataType(v17);
 }
 
-void sub_22097D2F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, char a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, char a23, uint64_t a24, char a25)
+void sub_22097D2F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   if (__p)
   {
     a17 = __p;
@@ -3049,13 +3051,13 @@ void sub_22097D2F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   E5RT::TensorDataType::~TensorDataType(&a12);
-  if (*(v25 - 41) < 0)
+  if (*(v24 - 41) < 0)
   {
-    operator delete(*(v25 - 64));
+    operator delete(*(v24 - 64));
   }
 
   E5RT::TensorDataType::~TensorDataType(&a23);
-  E5RT::TensorDataType::~TensorDataType(&a25);
+  E5RT::TensorDataType::~TensorDataType(va);
   _Unwind_Resume(a1);
 }
 
@@ -3119,7 +3121,7 @@ void cgm::token_generation_inference::ajax::AJAXPromptE5MLModule::setUp(E5RT::Ex
 
   E5RT::ExecutionStream::PreWireInUseAllocations(*this);
   std::string::basic_string[abi:ne200100]<0>(__p, "in_relative_positions");
-  v9 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
+  v9 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(this, __p);
   v11 = v10 >> 1;
   if (v10 >= 2)
   {
@@ -3221,8 +3223,8 @@ void sub_22097D744(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t cgm::token_generation_inference::ajax::AJAXPromptE5MLModule::forward(E5RT::ExecutionStream **a1, int **a2)
 {
-  std::string::basic_string[abi:ne200100]<0>(&__p, "in_new_token_id_2U8LE");
-  v4 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan();
+  std::string::basic_string[abi:ne200100]<0>(__p, "in_new_token_id_2U8LE");
+  v4 = cgm::token_generation_inference::espresso_inference::EspressoE5MLModule::inputSpan(a1, __p);
   v6 = v5 >> 1;
   if (v5 >= 2)
   {
@@ -3236,7 +3238,7 @@ uint64_t cgm::token_generation_inference::ajax::AJAXPromptE5MLModule::forward(E5
 
   if (v13 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
   if ((2 * v6) >= 1)
@@ -3378,7 +3380,7 @@ void cgm::token_generation_inference::ajax::AJAXE5Error::~AJAXE5Error(std::runti
   JUMPOUT(0x223D8FE50);
 }
 
-void cgm::token_generation_inference::ajax::kvcache_utils::buildCacheFillPlan(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void cgm::token_generation_inference::ajax::kvcache_utils::buildCacheFillPlan(uint64_t result@<X0>, void *a2@<X1>, void *a3@<X8>)
 {
   v5 = *a2;
   v4 = a2[1];
@@ -3413,10 +3415,10 @@ void cgm::token_generation_inference::ajax::kvcache_utils::buildCacheFillPlan(ui
     }
 
     v11 = *(v4 - 1);
-    if (v11 != a1 - 1)
+    if (v11 != result - 1)
     {
       *&v12 = v11 + 1;
-      *(&v12 + 1) = ~v11 + a1;
+      *(&v12 + 1) = ~v11 + result;
       v13 = (v4 - *a2) >> 3;
       std::vector<cgm::token_generation_inference::ajax::kvcache_utils::CacheFillInstruction>::push_back[abi:ne200100](a3, &v12);
     }
@@ -3669,17 +3671,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<cgm::token_generation
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void ___ZN3cgm26token_generation_inference4ajax13kvcache_utilsL15_fillCacheHolesIaEEvN4E5RT4SpanIT_Lm18446744073709551615EEERKNSt3__16vectorImNS8_9allocatorImEEEEmmmm_block_invoke(cgm::token_generation_inference::common::logging::CGMTGILogger *a1)
+void ___ZN3cgm26token_generation_inference4ajax13kvcache_utilsL15_fillCacheHolesIaEEvN4E5RT4SpanIT_Lm18446744073709551615EEERKNSt3__16vectorImNS8_9allocatorImEEEEmmmm_block_invoke(os_signpost_id_t *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
   v2 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(a1);
-  v3 = *(a1 + 4);
+  v3 = a1[4];
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v4 = v2;
     if (os_signpost_enabled(v2))
     {
-      v5 = (*(*(a1 + 5) + 8) - **(a1 + 5)) >> 3;
+      v5 = (*(a1[5] + 8) - *a1[5]) >> 3;
       v6 = 134217984;
       v7 = v5;
       _os_signpost_emit_with_name_impl(&dword_220940000, v4, OS_SIGNPOST_INTERVAL_END, v3, "Fill_Cache_Holes", "Number of holes: %zu", &v6, 0xCu);
@@ -3687,17 +3689,17 @@ void ___ZN3cgm26token_generation_inference4ajax13kvcache_utilsL15_fillCacheHoles
   }
 }
 
-void ___ZN3cgm26token_generation_inference4ajax13kvcache_utilsL15_fillCacheHolesIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEERKNSt3__16vectorImNS8_9allocatorImEEEEmmmm_block_invoke(cgm::token_generation_inference::common::logging::CGMTGILogger *a1)
+void ___ZN3cgm26token_generation_inference4ajax13kvcache_utilsL15_fillCacheHolesIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEERKNSt3__16vectorImNS8_9allocatorImEEEEmmmm_block_invoke(os_signpost_id_t *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
   v2 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(a1);
-  v3 = *(a1 + 4);
+  v3 = a1[4];
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v4 = v2;
     if (os_signpost_enabled(v2))
     {
-      v5 = (*(*(a1 + 5) + 8) - **(a1 + 5)) >> 3;
+      v5 = (*(a1[5] + 8) - *a1[5]) >> 3;
       v6 = 134217984;
       v7 = v5;
       _os_signpost_emit_with_name_impl(&dword_220940000, v4, OS_SIGNPOST_INTERVAL_END, v3, "Fill_Cache_Holes", "Number of holes: %zu", &v6, 0xCu);
@@ -3763,11 +3765,11 @@ void cgm::token_generation_inference::ajax::utils::makeANEAjaxCompilerOptions(cg
   E5RT::E5CompilerOptions::SetPreferredCpuBackends();
   p_p = v9;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&p_p);
-  for (i = 0; i != -48; i -= 24)
+  for (i = 0; i != -6; i -= 3)
   {
-    if (v8[i + 23] < 0)
+    if (SHIBYTE(v8[i + 2]) < 0)
     {
-      operator delete(*&v8[i]);
+      operator delete(v8[i]);
     }
   }
 
@@ -3792,7 +3794,7 @@ void cgm::token_generation_inference::ajax::utils::makeANEAjaxCompilerOptions(cg
   }
 }
 
-void sub_22097E704(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_22097E704(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
   if (a16 < 0)
   {
@@ -3803,7 +3805,7 @@ void sub_22097E704(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   *v25 = 0;
   if (v27)
   {
-    (*(*v27 + 8))(v27);
+    (*(*v27 + 8))(v27, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3811,13 +3813,13 @@ void sub_22097E704(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void cgm::token_generation_inference::ajax::utils::makeGPUAjaxCompilerOptions(cgm::token_generation_inference::ajax::utils *this@<X0>, uint64_t *a2@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   E5RT::E5CompilerOptions::Create(a2, this);
   v6 = 2;
   v3 = 0;
   v4 = 0;
   __p = 0;
-  std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(&__p, &v6, v7, 1uLL);
+  std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(&__p, &v6, &v7, 1uLL);
   E5RT::E5CompilerOptions::SetComputeDeviceTypesAllowed();
   if (__p)
   {
@@ -3829,11 +3831,11 @@ void cgm::token_generation_inference::ajax::utils::makeGPUAjaxCompilerOptions(cg
   __p = 0;
   v3 = 0;
   v4 = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&__p, &v6, &v8, 1uLL);
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&__p, &v6, &v9, 1uLL);
   E5RT::E5CompilerOptions::SetMilEntryPoints();
   p_p = &__p;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&p_p);
-  if ((v7[15] & 0x80000000) != 0)
+  if (v8 < 0)
   {
     operator delete(v6);
   }
@@ -3918,10 +3920,10 @@ void sub_22097EAF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cgm::token_generation_inference::ajax::utils::makeProgramLibrary(cgm::token_generation_inference::ajax::utils *this@<X0>, std::string *a2@<X2>, void *a3@<X8>)
+void cgm::token_generation_inference::ajax::utils::makeProgramLibrary(cgm::token_generation_inference::ajax::utils *this@<X0>, std::string *a3@<X2>, void *x8_0@<X8>)
 {
-  cgm::token_generation_inference::ajax::utils::getBundleCacheLocation(a2, &__p);
-  cgm::token_generation_inference::ajax::utils::makeProgramLibrary(this, &__p, a3);
+  cgm::token_generation_inference::ajax::utils::getBundleCacheLocation(&__p, a3);
+  cgm::token_generation_inference::ajax::utils::makeProgramLibrary(this, &__p, x8_0);
   if (v7 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3938,15 +3940,15 @@ void sub_22097EBF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void cgm::token_generation_inference::ajax::utils::makeProgramLibrary(std::string::size_type a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
+void cgm::token_generation_inference::ajax::utils::makeProgramLibrary(std::string::size_type a1@<X0>, uint64_t a3@<X2>, void *a4@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  *a3 = 0;
+  v22 = *MEMORY[0x277D85DE8];
+  *a4 = 0;
   std::__fs::filesystem::path::extension[abi:ne200100](a1, &buf);
   std::__fs::filesystem::path::path[abi:ne200100]<char [5],void>(&__p, ".bundle");
-  v22.__data_ = &__p;
-  v6 = std::__fs::filesystem::operator==[abi:ne200100](&buf, v22);
-  v7 = v6;
+  v23.__data_ = &__p;
+  v7 = std::__fs::filesystem::operator==[abi:ne200100](&buf, v23);
+  v8 = v7;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3955,31 +3957,31 @@ void cgm::token_generation_inference::ajax::utils::makeProgramLibrary(std::strin
   if (SHIBYTE(buf.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(buf.__pn_.__r_.__value_.__l.__data_);
-    if (v7)
+    if (v8)
     {
       goto LABEL_5;
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
 LABEL_5:
-    v8 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(v6);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       if (*(a1 + 23) >= 0)
       {
-        v9 = a1;
+        v10 = a1;
       }
 
       else
       {
-        v9 = *a1;
+        v10 = *a1;
       }
 
       LODWORD(buf.__pn_.__r_.__value_.__l.__data_) = 136446210;
-      *(buf.__pn_.__r_.__value_.__r.__words + 4) = v9;
-      _os_log_impl(&dword_220940000, v8, OS_LOG_TYPE_INFO, "Loading precompiled model from path %{public}s", &buf, 0xCu);
+      *(buf.__pn_.__r_.__value_.__r.__words + 4) = v10;
+      _os_log_impl(&dword_220940000, v9, OS_LOG_TYPE_INFO, "Loading precompiled model from path %{public}s", &buf, 0xCu);
     }
 
     if (*(a1 + 23) < 0)
@@ -3993,7 +3995,7 @@ LABEL_5:
     }
 
     E5RT::ProgramLibrary::OpenLibrary();
-    *a3 = __p.__r_.__value_.__r.__words[0];
+    *a4 = __p.__r_.__value_.__r.__words[0];
     __p.__r_.__value_.__r.__words[0] = 0;
     if (SHIBYTE(buf.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4005,9 +4007,9 @@ LABEL_5:
 
   std::__fs::filesystem::path::extension[abi:ne200100](a1, &buf);
   std::__fs::filesystem::path::path[abi:ne200100]<char [5],void>(&__p, ".mil");
-  v23.__data_ = &__p;
-  v10 = std::__fs::filesystem::operator==[abi:ne200100](&buf, v23);
-  v11 = v10;
+  v24.__data_ = &__p;
+  v11 = std::__fs::filesystem::operator==[abi:ne200100](&buf, v24);
+  v12 = v11;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4018,32 +4020,32 @@ LABEL_5:
     operator delete(buf.__pn_.__r_.__value_.__l.__data_);
   }
 
-  if (!v11)
+  if (!v12)
   {
     exception = __cxa_allocate_exception(0x18uLL);
     std::string::basic_string[abi:ne200100]<0>(&buf, "Unexpected model path extension.");
     cgm::token_generation_inference::ajax::AJAXE5Error::AJAXE5Error(exception, 1, &buf.__pn_);
   }
 
-  v12 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(v10);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     if (*(a1 + 23) >= 0)
     {
-      v13 = a1;
+      v14 = a1;
     }
 
     else
     {
-      v13 = *a1;
+      v14 = *a1;
     }
 
     LODWORD(buf.__pn_.__r_.__value_.__l.__data_) = 136446210;
-    *(buf.__pn_.__r_.__value_.__r.__words + 4) = v13;
-    _os_log_impl(&dword_220940000, v12, OS_LOG_TYPE_INFO, "Loading MIL model from path %{public}s", &buf, 0xCu);
+    *(buf.__pn_.__r_.__value_.__r.__words + 4) = v14;
+    _os_log_impl(&dword_220940000, v13, OS_LOG_TYPE_INFO, "Loading MIL model from path %{public}s", &buf, 0xCu);
   }
 
-  cgm::token_generation_inference::ajax::utils::createE5Compiler(a2);
+  cgm::token_generation_inference::ajax::utils::createE5Compiler(a3);
   if (*(a1 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&buf.__pn_, *a1, *(a1 + 8));
@@ -4055,7 +4057,7 @@ LABEL_5:
   }
 
   IsNewCompileRequired = E5RT::E5Compiler::IsNewCompileRequired();
-  v15 = IsNewCompileRequired;
+  v16 = IsNewCompileRequired;
   if ((SHIBYTE(buf.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (!IsNewCompileRequired)
@@ -4064,18 +4066,18 @@ LABEL_5:
     }
 
 LABEL_33:
-    v16 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(IsNewCompileRequired);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = cgm::token_generation_inference::common::logging::CGMTGILogger::GENERAL(IsNewCompileRequired);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.__pn_.__r_.__value_.__l.__data_) = 0;
-      _os_log_impl(&dword_220940000, v16, OS_LOG_TYPE_INFO, "MIL model will require on-demand compilation during load", &buf, 2u);
+      _os_log_impl(&dword_220940000, v17, OS_LOG_TYPE_INFO, "MIL model will require on-demand compilation during load", &buf, 2u);
     }
 
     goto LABEL_35;
   }
 
   operator delete(buf.__pn_.__r_.__value_.__l.__data_);
-  if (v15)
+  if (v16)
   {
     goto LABEL_33;
   }
@@ -4092,16 +4094,16 @@ LABEL_35:
   }
 
   E5RT::E5Compiler::Compile();
-  *a3 = __p.__r_.__value_.__r.__words[0];
+  *a4 = __p.__r_.__value_.__r.__words[0];
   __p.__r_.__value_.__r.__words[0] = 0;
   if (SHIBYTE(buf.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(buf.__pn_.__r_.__value_.__l.__data_);
   }
 
-  if (v18)
+  if (v19)
   {
-    (*(*v18 + 8))();
+    (*(*v19 + 8))();
   }
 }
 
@@ -4138,7 +4140,7 @@ void sub_22097F110(void *a1, int a2)
   JUMPOUT(0x22097F1D4);
 }
 
-void sub_22097F120(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_22097F120(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
@@ -4147,7 +4149,7 @@ void sub_22097F120(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
 
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   JUMPOUT(0x22097F16CLL);
@@ -4163,13 +4165,13 @@ void sub_22097F1A4(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x22097F1D0);
 }
 
-std::string *cgm::token_generation_inference::ajax::utils::getBundleCacheLocation@<X0>(std::string *this@<X0>, std::string *a2@<X8>)
+std::string *cgm::token_generation_inference::ajax::utils::getBundleCacheLocation@<X0>(std::string *__return_ptr a1@<X8>, std::string *this@<X0>)
 {
-  a2->__r_.__value_.__s.__data_[0] = 0;
-  a2[1].__r_.__value_.__s.__data_[0] = 0;
+  a1->__r_.__value_.__s.__data_[0] = 0;
+  a1[1].__r_.__value_.__s.__data_[0] = 0;
   if (this)
   {
-    return std::optional<std::string>::operator=[abi:ne200100]<char const(&)[67],void>(a2, "/var/mobile/Library/com.apple.modelcatalog/compiled/e5bundlecache/");
+    return std::optional<std::string>::operator=[abi:ne200100]<char const(&)[67],void>(a1, "/var/mobile/Library/com.apple.modelcatalog/compiled/e5bundlecache/");
   }
 
   return this;
@@ -4199,7 +4201,7 @@ uint64_t cgm::token_generation_inference::ajax::utils::createE5Compiler(uint64_t
 
 uint64_t cgm::token_generation_inference::ajax::utils::modelRequiresCompilation(cgm::token_generation_inference::ajax::utils *this, const std::__fs::filesystem::path *a2, std::string *a3)
 {
-  cgm::token_generation_inference::ajax::utils::getBundleCacheLocation(a3, &__p);
+  cgm::token_generation_inference::ajax::utils::getBundleCacheLocation(&__p, a3);
   v5 = cgm::token_generation_inference::ajax::utils::modelRequiresCompilation(this, a2, &__p);
   if (v8 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4248,17 +4250,17 @@ uint64_t cgm::token_generation_inference::ajax::utils::modelRequiresCompilation(
   return IsNewCompileRequired;
 }
 
-void sub_22097F40C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_22097F40C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   if (a15)
   {
-    (*(*a15 + 8))(a15);
+    (*(*a15 + 8))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<E5RT::ComputeDeviceType>::__init_with_size[abi:ne200100]<E5RT::ComputeDeviceType const*,E5RT::ComputeDeviceType const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4280,7 +4282,7 @@ void sub_22097F4B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4297,7 +4299,7 @@ void sub_22097F53C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -4445,19 +4447,19 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
 
 void *cgm::token_generation_inference::ajax::utils::operator<<(void *a1, E5RT::TensorDataType *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   LODWORD(v21.__r_.__value_.__l.__data_) = 0;
-  std::string::basic_string[abi:ne200100]<0>(&v21.__r_.__value_.__s.__data_[8], "uint");
+  std::string::basic_string[abi:ne200100]<0>(&v21.__r_.__value_.__l.__size_, "uint");
   v22 = 1;
   std::string::basic_string[abi:ne200100]<0>(v23, "int");
   v24 = 4;
   std::string::basic_string[abi:ne200100]<0>(v25, "float");
   std::unordered_map<E5RT::ComponentDataType,std::string>::unordered_map(v20, &v21, 3);
-  for (i = 0; i != -96; i -= 32)
+  for (i = 0; i != -12; i -= 4)
   {
-    if (v25[i + 23] < 0)
+    if (SHIBYTE(v25[i + 2]) < 0)
     {
-      operator delete(*&v25[i]);
+      operator delete(v25[i]);
     }
   }
 
@@ -4702,7 +4704,7 @@ void sub_22097FE1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t cgm::token_generation_inference::ajax::utils::fillWithALiBi(uint64_t result, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5)
+unint64_t cgm::token_generation_inference::ajax::utils::fillWithALiBi(unint64_t result, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
   v43 = result;
   if (a5)
@@ -4875,7 +4877,7 @@ BOOL cgm::token_generation_inference::ajax::utils::isPromptFunctionName(char **a
     v1 = a1[1];
   }
 
-  v3 = &v2[v1];
+  v3 = v2 + v1;
   if (v1 >= 10)
   {
     v4 = v2;
@@ -4892,7 +4894,7 @@ BOOL cgm::token_generation_inference::ajax::utils::isPromptFunctionName(char **a
         return v5 != v3 && v5 - v2 != -1;
       }
 
-      v4 = v5 + 1;
+      v4 = (v5 + 1);
       v1 = v3 - v4;
     }
 
@@ -4921,7 +4923,7 @@ BOOL cgm::token_generation_inference::ajax::utils::isExtendFunctionName(char **a
     v1 = a1[1];
   }
 
-  v3 = &v2[v1];
+  v3 = v2 + v1;
   if (v1 >= 10)
   {
     v4 = v2;
@@ -4938,7 +4940,7 @@ BOOL cgm::token_generation_inference::ajax::utils::isExtendFunctionName(char **a
         return v5 != v3 && v5 - v2 != -1;
       }
 
-      v4 = v5 + 1;
+      v4 = (v5 + 1);
       v1 = v3 - v4;
     }
 
@@ -4983,15 +4985,15 @@ uint64_t cgm::token_generation_inference::ajax::utils::AJAXKVCache::asSpans@<X0>
   return result;
 }
 
-void cgm::token_generation_inference::ajax::utils::AJAXKVCache::reset(cgm::token_generation_inference::ajax::utils::AJAXKVCache *this, unint64_t a2)
+void cgm::token_generation_inference::ajax::utils::AJAXKVCache::reset(E5RT::MemoryObject **this, unint64_t a2)
 {
   cgm::token_generation_inference::ajax::utils::AJAXKVCache::asSpans(this, &v7);
   if (a2)
   {
     v6 = 0;
-    _ZN3cgm26token_generation_inference4ajax5utils17fillStridedChunksIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEERKS6_mmm(v7, v8, &v6, a2, *(this + 4), *(this + 4) - a2);
+    _ZN3cgm26token_generation_inference4ajax5utils17fillStridedChunksIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEERKS6_mmm(v7, v8, &v6, a2, this[4], this[4] - a2);
     v6 = 0;
-    _ZN3cgm26token_generation_inference4ajax5utils17fillStridedChunksIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEERKS6_mmm(v9, v10, &v6, a2, *(this + 4), *(this + 4) - a2);
+    _ZN3cgm26token_generation_inference4ajax5utils17fillStridedChunksIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEERKS6_mmm(v9, v10, &v6, a2, this[4], this[4] - a2);
   }
 
   else
@@ -5011,7 +5013,7 @@ void cgm::token_generation_inference::ajax::utils::AJAXKVCache::reset(cgm::token
   }
 }
 
-uint64_t _ZN3cgm26token_generation_inference4ajax5utils17fillStridedChunksIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEERKS6_mmm(uint64_t result, unint64_t a2, _WORD *a3, unint64_t a4, uint64_t a5, uint64_t a6)
+unint64_t _ZN3cgm26token_generation_inference4ajax5utils17fillStridedChunksIDF16_EEvN4E5RT4SpanIT_Lm18446744073709551615EEERKS6_mmm(unint64_t result, unint64_t a2, _WORD *a3, unint64_t a4, uint64_t a5, uint64_t a6)
 {
   v22 = result;
   v23 = a2;
@@ -5092,13 +5094,13 @@ uint64_t _ZN3cgm26token_generation_inference4ajax5utils17fillStridedChunksIDF16_
   return result;
 }
 
-void *cgm::token_generation_inference::ajax::utils::AJAXKVCache::overwrite(cgm::token_generation_inference::ajax::utils::AJAXKVCache *this, E5RT::MemoryObject **a2)
+void *cgm::token_generation_inference::ajax::utils::AJAXKVCache::overwrite(E5RT::MemoryObject **this, E5RT::MemoryObject **a2)
 {
   cgm::token_generation_inference::ajax::utils::AJAXKVCache::reset(this, 0);
   cgm::token_generation_inference::ajax::utils::AJAXKVCache::asSpans(a2, v9);
   v4 = a2[4];
   cgm::token_generation_inference::ajax::utils::AJAXKVCache::asSpans(this, v8);
-  v5 = *(this + 4);
+  v5 = this[4];
   if (v5 >= v4)
   {
     v6 = v4;
@@ -5129,9 +5131,9 @@ uint64_t cgm::token_generation_inference::ajax::utils::allocateAndBindMemoryToPo
   return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v8);
 }
 
-void sub_220980744(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_220980744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -5204,11 +5206,11 @@ LABEL_16:
   }
 }
 
-void sub_220980928(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_220980928(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    (*(*a11 + 8))(a11);
+    (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5320,12 +5322,12 @@ void cgm::token_generation_inference::ajax::utils::shareMemoryBetweenOperations(
   }
 }
 
-void sub_220980C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, ...)
+void sub_220980C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, ...)
 {
-  va_start(va, a6);
-  if (a6)
+  va_start(va, a11);
+  if (a11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
   }
 
   std::pair<std::string const,std::shared_ptr<E5RT::MemoryObject>>::~pair(va);
@@ -5350,7 +5352,7 @@ void cgm::token_generation_inference::ajax::utils::setRelativePositions(short fl
       if (v13 >= 0xAAAAAAAAAAAAAAABLL * ((a7[1] - *a7) >> 3) || *(v15 + v12) == *(v15 + v12 + 8))
       {
         LOBYTE(v64) = 1;
-        std::vector<signed char>::vector[abi:ne200100](&__p, v14 + v13);
+        std::vector<signed char>::vector[abi:ne200100](&__p, v14 + v13, &v64);
         std::vector<std::vector<signed char>>::push_back[abi:ne200100](&v56, &__p);
         if (__p)
         {
@@ -5361,7 +5363,7 @@ void cgm::token_generation_inference::ajax::utils::setRelativePositions(short fl
 
       else
       {
-        std::vector<std::vector<signed char>>::push_back[abi:ne200100](&v56, (v15 + v12));
+        std::vector<std::vector<signed char>>::push_back[abi:ne200100](&v56, v15 + v12);
       }
 
       ++v13;
@@ -5419,7 +5421,7 @@ void cgm::token_generation_inference::ajax::utils::setRelativePositions(short fl
   }
 
   v64 = 0;
-  std::vector<long>::vector[abi:ne200100](&__dst, v19);
+  std::vector<long>::vector[abi:ne200100](&__dst, v19, &v64);
   v21 = v56;
   if (v57 - v56 != v18)
   {
@@ -5462,7 +5464,7 @@ LABEL_37:
     do
     {
       v39 = v22;
-      v40 = (v21 + 8);
+      v40 = v21 + 8;
       v41 = v36;
       v42 = v37;
       v43 = v19;
@@ -5538,7 +5540,7 @@ LABEL_37:
   v24 = 0;
   do
   {
-    v25 = (v21 + 24 * v24);
+    v25 = &v21[24 * v24];
     v26 = *v25;
     v27 = v25[1];
     if (*v25 == v27)
@@ -5616,7 +5618,7 @@ LABEL_54:
   std::vector<std::vector<signed char>>::__destroy_vector::operator()[abi:ne200100](&__p);
 }
 
-void sub_2209811C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35)
+void sub_2209811C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char *a35)
 {
   if (a21 < 0)
   {
@@ -6079,13 +6081,13 @@ uint64_t cgm::token_generation_inference::ajax::utils::zeroAllMemoryObjects(E5RT
   return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v20);
 }
 
-void sub_220981C88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_220981C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *(v2 - 40);
-  if (v4)
+  va_start(va, a3);
+  v5 = *(v3 - 40);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(va);
@@ -6118,21 +6120,21 @@ uint64_t std::__shared_ptr_pointer<E5RT::BufferObject  *>::__get_deleter(uint64_
   }
 }
 
-uint64_t std::vector<std::vector<signed char>>::__emplace_back_slow_path<std::vector<signed char> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<signed char>>::__emplace_back_slow_path<std::vector<signed char> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -6156,16 +6158,16 @@ uint64_t std::vector<std::vector<signed char>>::__emplace_back_slow_path<std::ve
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(24 * v2, *a2, a2[1], a2[1] - *a2);
+  std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>((24 * v2), *a2, *(a2 + 8), *(a2 + 8) - *a2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -6174,14 +6176,14 @@ uint64_t std::vector<std::vector<signed char>>::__emplace_back_slow_path<std::ve
   return v8;
 }
 
-void sub_220981EB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_220981EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<signed char>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
+void *std::string::basic_string<std::string_view,0>(void *__dst, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2 >= 0x7FFFFFFFFFFFFFF8)
@@ -6195,13 +6197,13 @@ _BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
     operator new();
   }
 
-  __dst[23] = v2;
+  *(__dst + 23) = v2;
   if (v2)
   {
     memmove(__dst, v4, v2);
   }
 
-  __dst[v2] = 0;
+  *(__dst + v2) = 0;
   return __dst;
 }
 
@@ -6230,7 +6232,7 @@ void std::__format::__allocating_buffer<char>::__grow_buffer[abi:ne200100](uint6
   }
 }
 
-uint64_t std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
+unsigned __int8 *std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *a4;
   v14[0] = a2;
@@ -6268,7 +6270,7 @@ void sub_2209820C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 **a1, uint64_t *a2)
+unsigned __int8 *std::__format::__vformat_to[abi:ne200100]<std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 **a1, unsigned __int8 **a2)
 {
   v3 = *a1;
   v2 = a1[1];
@@ -6483,7 +6485,7 @@ LABEL_9:
   return result;
 }
 
-void *std::formatter<BOOL,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned int a2, void *a3)
+void *std::formatter<BOOL,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
   if (*(a1 + 1) > 1u)
   {
@@ -6600,9 +6602,9 @@ LABEL_23:
   return result;
 }
 
-uint64_t std::__format_spec::__process_parsed_BOOL[abi:ne200100]<char>(uint64_t result, const char *a2)
+_BYTE *std::__format_spec::__process_parsed_BOOL[abi:ne200100]<char>(_BYTE *result, const char *a2)
 {
-  v2 = *(result + 1);
+  v2 = result[1];
   if (v2 - 2 >= 6)
   {
     if (v2 > 1)
@@ -6733,9 +6735,9 @@ BOOL std::__format_spec::__parser<char>::__parse_precision[abi:ne200100]<char co
   v5 = **a2;
   if (v5 == 46)
   {
-    v8 = v4 + 1;
-    *a2 = v4 + 1;
-    if (v4 + 1 == a3)
+    v8 = (v4 + 1);
+    *a2 = (v4 + 1);
+    if ((v4 + 1) == a3)
     {
       std::__throw_format_error[abi:ne200100]("End of input while parsing format specifier precision");
     }
@@ -6743,8 +6745,8 @@ BOOL std::__format_spec::__parser<char>::__parse_precision[abi:ne200100]<char co
     v9 = *v8;
     if (v9 == 123)
     {
-      *a2 = v4 + 2;
-      v10 = std::__format_spec::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(v4 + 2, a3, a4);
+      *a2 = (v4 + 2);
+      v10 = std::__format_spec::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>((v4 + 2), a3, a4);
       *(a1 + 2) |= 0x8000u;
       *(a1 + 8) = v11;
     }
@@ -7197,7 +7199,7 @@ void sub_2209830EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned int a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
   v14 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
@@ -7289,7 +7291,7 @@ uint64_t std::optional<std::locale>::operator=[abi:ne200100]<std::locale,void>(u
   return a1;
 }
 
-uint64_t std::__format_spec::__estimate_column_width[abi:ne200100]<char,char const*>(unsigned __int8 *a1, uint64_t a2, unint64_t a3, int a4)
+unint64_t std::__format_spec::__estimate_column_width[abi:ne200100]<char,char const*>(char *a1, uint64_t a2, unint64_t a3, int a4)
 {
   result = 0;
   if (a2 && a3)
@@ -7431,8 +7433,9 @@ uint64_t std::__width_estimation_table::__estimated_width[abi:ne200100](unsigned
   return v1;
 }
 
-uint64_t std::__unicode::__extended_grapheme_cluster_break::__extended_grapheme_cluster_break[abi:ne200100](uint64_t a1, unsigned int a2)
+uint64_t std::__unicode::__extended_grapheme_cluster_break::__extended_grapheme_cluster_break[abi:ne200100](uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   *a1 = a2;
   v4 = std::__extended_grapheme_custer_property_boundary::__get_property[abi:ne200100](a2);
   *(a1 + 4) = v4;
@@ -7452,7 +7455,7 @@ LABEL_7:
     return a1;
   }
 
-  if (!std::__indic_conjunct_break::__get_property[abi:ne200100](a2))
+  if (!std::__indic_conjunct_break::__get_property[abi:ne200100](v2))
   {
     v5 = 1;
     goto LABEL_7;
@@ -7547,7 +7550,7 @@ uint64_t std::__indic_conjunct_break::__get_property[abi:ne200100](unsigned int 
   return v7;
 }
 
-uint64_t std::__unicode::__extended_grapheme_cluster_break::__evaluate[abi:ne200100](uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t std::__unicode::__extended_grapheme_cluster_break::__evaluate[abi:ne200100](uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v3 = *(a1 + 8);
   if (v3 > 1)
@@ -7813,12 +7816,12 @@ LABEL_8:
     v10 = result[2];
     do
     {
-      v11 = *(v5 + 8) - v10;
+      v11 = v5[1] - v10;
       if (v11 < v4 + 1)
       {
-        result = (*(v5 + 24))(v5, v4 + 2);
-        v10 = *(v5 + 16);
-        v11 = *(v5 + 8) - v10;
+        result = (v5[3])(v5, v4 + 2);
+        v10 = v5[2];
+        v11 = v5[1] - v10;
       }
 
       if (v11 >= v4)
@@ -7834,11 +7837,11 @@ LABEL_8:
       if (v12)
       {
         result = memset((*v5 + v10), __c, v12);
-        v10 = *(v5 + 16);
+        v10 = v5[2];
       }
 
       v10 += v12;
-      *(v5 + 16) = v10;
+      v5[2] = v10;
       v13 = v4 > v11;
       v4 -= v12;
     }
@@ -7849,7 +7852,7 @@ LABEL_8:
   return result;
 }
 
-unint64_t std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unint64_t *a2)
+unint64_t std::__visit_format_arg[abi:ne200100]<unsigned int std::__format_spec::__substitute_arg_id[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(std::basic_format_arg<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>)::{lambda(std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned int *a2)
 {
   switch(*(a2 + 16))
   {
@@ -7914,7 +7917,7 @@ unint64_t std::invoke[abi:ne200100]<unsigned int std::__format_spec::__substitut
   return result;
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned int a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, unsigned int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned int,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -7952,8 +7955,7 @@ LABEL_8:
         v18 = a8 + 1;
         do
         {
-          *v16 = v17;
-          v16 = (v16 + 1);
+          *v16++ = v17;
           v19 = *v18++;
           v17 = v19;
         }
@@ -8131,9 +8133,10 @@ void sub_220983EFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__formatter::__write_using_decimal_separators[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char *,char>(void *a1, char *__src, char *a3, int a4, uint64_t *a5, char a6, uint64_t a7, unint64_t a8)
+void *std::__formatter::__write_using_decimal_separators[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char *,char>(uint64_t *a1, char *__src, char *a3, int a4, uint64_t *a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   v8 = a7;
+  v9 = a6;
   v11 = a3;
   v13 = a1;
   v14 = HIDWORD(a7);
@@ -8198,7 +8201,7 @@ LABEL_17:
 
   else
   {
-    v24 = (*a5 + a5[1]);
+    v24 = *a5 + a5[1];
   }
 
   if (v22 >= 0)
@@ -8235,7 +8238,7 @@ LABEL_17:
       break;
     }
 
-    std::__format::__output_buffer<char>::push_back[abi:ne200100](v13, a6);
+    std::__format::__output_buffer<char>::push_back[abi:ne200100](v13, v9);
   }
 
   return std::__formatter::__fill[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v13, v19, v15);
@@ -8292,7 +8295,7 @@ uint64_t std::__formatter::__hex_to_upper[abi:ne200100](int a1)
   }
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a2, unsigned int a3, unsigned int a4)
+char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a2;
   HIDWORD(v6) = a4 - 2;
@@ -8313,6 +8316,8 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a
     if (v5 != 7)
     {
       v10 = a2 - a1;
+      v16 = a4;
+      v17 = a3;
       v11 = std::__to_chars_integral_width[abi:ne200100]<unsigned int>(a3, a4);
       if (v10 < v11)
       {
@@ -8320,13 +8325,13 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned int>(_WORD *a1, uint64_t a
       }
 
       v4 = a1 + v11;
-      v12 = v4 - 1;
-      v13 = a3;
+      v12 = (v4 - 1);
+      v13 = v17;
       do
       {
-        *v12-- = a0123456789abcd[v13 % a4];
-        v14 = v13 >= a4;
-        v13 /= a4;
+        *v12-- = a0123456789abcd[v13 % v16];
+        v14 = v13 >= v16;
+        v13 /= v16;
       }
 
       while (v14);
@@ -8706,7 +8711,7 @@ uint64_t std::__format::__output_buffer<char>::__transform[abi:ne200100]<char *,
   return result;
 }
 
-void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 a2, void *a3)
+void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 a2, uint64_t **a3)
 {
   v5 = *(a1 + 1);
   if (v5 == 10 || v5 == 0)
@@ -8725,9 +8730,9 @@ void *std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_contex
   }
 }
 
-uint64_t std::__format_spec::__process_parsed_char[abi:ne200100]<char>(uint64_t result, const char *a2)
+_BYTE *std::__format_spec::__process_parsed_char[abi:ne200100]<char>(_BYTE *result, const char *a2)
 {
-  v2 = *(result + 1);
+  v2 = result[1];
   if (v2 - 2 >= 6)
   {
     v3 = v2 > 0x13;
@@ -8748,7 +8753,7 @@ uint64_t std::__format_spec::__process_parsed_char[abi:ne200100]<char>(uint64_t 
   return result;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, int a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, int a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -8775,9 +8780,9 @@ void *std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format
   }
 }
 
-uint64_t std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(uint64_t result, const char *a2)
+_BYTE *std::__format_spec::__process_parsed_integer[abi:ne200100]<char>(_BYTE *result, const char *a2)
 {
-  v2 = *(result + 1);
+  v2 = result[1];
   if ((v2 - 2) >= 6 && v2 != 0)
   {
     if (v2 != 10)
@@ -8807,7 +8812,7 @@ void *std::__formatter::__format_char[abi:ne200100]<char,int,std::back_insert_it
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, uint64_t a2, void *a3)
+void *std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, uint64_t a2, uint64_t **a3)
 {
   v6 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a3);
   v7 = v5;
@@ -8845,14 +8850,14 @@ void *std::__formatter::__format_char[abi:ne200100]<char,long long,std::back_ins
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a2, a3, a4, 1);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (BYTE1(a3) <= 3u)
   {
     if (!BYTE1(a3))
     {
-      return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
     }
 
     v10 = 2;
@@ -8893,7 +8898,7 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,s
 
   if (BYTE1(a3) != 4)
   {
-    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 10);
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, v11, &v12 + 2, 0, 0xAu);
   }
 
   if (a1)
@@ -8906,10 +8911,10 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char,s
     v5 = 0;
   }
 
-  return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8);
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3 & 0xFFFFFFFFFFFF00FFLL | 0x400, a4, a5, v11, &v12 + 5, v5, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char a5, char *a6, uint64_t a7, _BYTE *a8, signed int a9)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned long long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char a5, char *a6, char *a7, char *a8, unsigned int a9)
 {
   v9 = a6;
   v13 = a3;
@@ -9125,7 +9130,7 @@ void sub_220985240(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint64_t a2, unint64_t a3, signed int a4)
+char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, char *a2, unint64_t a3, uint64_t a4)
 {
   v4 = a3;
   v5 = a2;
@@ -9148,6 +9153,7 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint6
     {
       v12 = a1;
       v13 = a2 - a1;
+      v14 = a4;
       v15 = std::__to_chars_integral_width[abi:ne200100]<unsigned long long>(a3, a4);
       if (v13 < v15)
       {
@@ -9155,12 +9161,12 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned long long>(char *a1, uint6
       }
 
       v5 = &v12[v15];
-      v16 = (v5 - 1);
+      v16 = v5 - 1;
       do
       {
-        *v16-- = a0123456789abcd[(v4 % a4)];
-        v17 = v4 >= a4;
-        v4 /= a4;
+        *v16-- = a0123456789abcd[(v4 % v14)];
+        v17 = v4 >= v14;
+        v4 /= v14;
       }
 
       while (v17);
@@ -9365,7 +9371,7 @@ uint64_t std::__itoa::__integral<16u>::__to_chars[abi:ne200100]<unsigned long lo
   return v4;
 }
 
-void *std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t a3, void *a4)
+void *std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, unint64_t a2, uint64_t a3, uint64_t **a4)
 {
   v8 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a4);
   if ((v8 & 0xFF00) == 0xA00)
@@ -9394,14 +9400,14 @@ void *std::__formatter::__format_char[abi:ne200100]<char,__int128,std::back_inse
   return std::__formatter::__write[abi:ne200100]<char,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&__src, 1uLL, a3, a4, a5, 1);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, void **a3, unint64_t a4, unint64_t a5, char a6)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, uint64_t **a3, unint64_t a4, unint64_t a5, char a6)
 {
   v15 = *MEMORY[0x277D85DE8];
   if (BYTE1(a4) <= 3u)
   {
     if (!BYTE1(a4))
     {
-      return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 10);
+      return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 0xAu);
     }
 
     v11 = 2;
@@ -9442,7 +9448,7 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,st
 
   if (BYTE1(a4) != 4)
   {
-    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 10);
+    return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4, a5, a6, v12, &v13 + 5, 0, 0xAu);
   }
 
   if (a1 | a2)
@@ -9455,10 +9461,10 @@ void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char,st
     v6 = 0;
   }
 
-  return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4 & 0xFFFFFFFFFFFF00FFLL | 0x400, a5, a6, v12, v14, v6, 8);
+  return std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(a1, a2, a3, a4 & 0xFFFFFFFFFFFF00FFLL | 0x400, a5, a6, v12, v14, v6, 8u);
 }
 
-void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, void **a3, unint64_t a4, unint64_t a5, char a6, char *a7, uint64_t a8, _BYTE *a9, signed int a10)
+void *std::__formatter::__format_integer[abi:ne200100]<unsigned __int128,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, unint64_t a2, uint64_t **a3, unint64_t a4, unint64_t a5, char a6, char *a7, char *a8, char *a9, unsigned int a10)
 {
   v10 = a7;
   v14 = a4;
@@ -9674,7 +9680,7 @@ void sub_220985CEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64_t a2, unint64_t a3, unint64_t a4, signed int a5)
+char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, char *a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
   v5 = a4;
   v6 = a3;
@@ -9696,18 +9702,19 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64
 
     if (v8 != 7)
     {
+      v16 = a5;
       v17 = a1;
       v18 = a2 - a1;
       v19 = std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(a3, a4, a5);
       if (v18 >= v19)
       {
         v7 = &v17[v19];
-        v20 = (v7 - 1);
+        v20 = v7 - 1;
         do
         {
           v21 = __udivti3();
-          v22 = __PAIR128__(v5, v6) >= a5;
-          *v20-- = a0123456789abcd[(v6 - v21 * a5)];
+          v22 = __PAIR128__(v5, v6) >= v16;
+          *v20-- = a0123456789abcd[(v6 - v21 * v16)];
           v6 = v21;
           v5 = v23;
         }
@@ -9755,7 +9762,7 @@ char *std::__to_chars_integral[abi:ne200100]<unsigned __int128>(char *a1, uint64
   return v7;
 }
 
-uint64_t std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(uint64_t a1, unint64_t a2, unsigned int a3)
+uint64_t std::__to_chars_integral_width[abi:ne200100]<unsigned __int128>(unint64_t a1, unint64_t a2, unsigned int a3)
 {
   if (__PAIR128__(a2, a1) < a3)
   {

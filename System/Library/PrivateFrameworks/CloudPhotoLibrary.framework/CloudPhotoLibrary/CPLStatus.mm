@@ -98,15 +98,15 @@
 
 - (void)_loadIfNecessary
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   p_status = &self->_status;
   if (!self->_status)
   {
     v4 = objc_alloc(MEMORY[0x1E695DF90]);
     statusFileURL = self->_statusFileURL;
-    v29 = 0;
-    v6 = [v4 initWithContentsOfURL:statusFileURL error:&v29];
-    v7 = v29;
+    v28 = 0;
+    v6 = [v4 initWithContentsOfURL:statusFileURL error:&v28];
+    v7 = v28;
     if (v6)
     {
       objc_storeStrong(p_status, v6);
@@ -171,19 +171,19 @@
         status = self->_status;
         *buf = 138413058;
         selfCopy2 = _statusClient;
-        v32 = 2048;
+        v31 = 2048;
         selfCopy3 = self;
-        v34 = 2112;
-        v35 = path;
-        v36 = 2112;
-        v37 = status;
+        v33 = 2112;
+        v34 = path;
+        v35 = 2112;
+        v36 = status;
         _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEFAULT, "%@ read CPLStatus %p at %@: %@", buf, 0x2Au);
       }
 
 LABEL_28:
 
 LABEL_29:
-      goto LABEL_30;
+      return;
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -200,10 +200,10 @@ LABEL_29:
           _statusClient2 = [(CPLStatus *)self _statusClient];
           *buf = 134218498;
           selfCopy2 = self;
-          v32 = 2112;
+          v31 = 2112;
           selfCopy3 = path2;
-          v34 = 2112;
-          v35 = _statusClient2;
+          v33 = 2112;
+          v34 = _statusClient2;
           _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "CPLStatus %p at %@ for %@ does not exist - starting empty", buf, 0x20u);
         }
 
@@ -220,12 +220,12 @@ LABEL_19:
         path3 = [(NSURL *)self->_statusFileURL path];
         *buf = 138413058;
         selfCopy2 = _statusClient3;
-        v32 = 2048;
+        v31 = 2048;
         selfCopy3 = self;
-        v34 = 2112;
-        v35 = path3;
-        v36 = 2112;
-        v37 = v7;
+        v33 = 2112;
+        v34 = path3;
+        v35 = 2112;
+        v36 = v7;
         _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "%@ failed to read CPLStatus %p at %@: %@", buf, 0x2Au);
       }
 
@@ -237,9 +237,6 @@ LABEL_19:
     *p_status = v23;
     goto LABEL_28;
   }
-
-LABEL_30:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasChangesToProcess
@@ -1479,39 +1476,39 @@ uint64_t __273__CPLStatus_setHasCellularBudget_hasBatteryBudget_hasLowBatteryLev
 
 void __30__CPLStatus_statusDescription__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _loadIfNecessary];
   if ([*(*(a1 + 32) + 32) count])
   {
-    v24 = [MEMORY[0x1E695DF00] date];
+    v23 = [MEMORY[0x1E695DF00] date];
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v3 = [*(*(a1 + 32) + 32) allKeys];
     v4 = [v3 sortedArrayUsingSelector:sel_compare_];
 
     obj = v4;
-    v5 = [v4 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (!v5)
     {
       goto LABEL_27;
     }
 
     v6 = v5;
-    v7 = *v27;
+    v7 = *v26;
     while (1)
     {
       v8 = 0;
       do
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * v8);
+        v9 = *(*(&v25 + 1) + 8 * v8);
         v10 = [*(*(a1 + 32) + 32) objectForKey:v9];
         if ([v9 isEqualToString:@"accountFlags"])
         {
@@ -1544,13 +1541,13 @@ LABEL_14:
           }
 
           v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v10, "count")}];
-          v30[0] = MEMORY[0x1E69E9820];
-          v30[1] = 3221225472;
-          v30[2] = __valueForDictionaryOfCounts_block_invoke;
-          v30[3] = &unk_1E861FF60;
+          v29[0] = MEMORY[0x1E69E9820];
+          v29[1] = 3221225472;
+          v29[2] = __valueForDictionaryOfCounts_block_invoke;
+          v29[3] = &unk_1E861FF60;
           v13 = v14;
-          v31 = v13;
-          [v10 enumerateKeysAndObjectsUsingBlock:v30];
+          v30 = v13;
+          [v10 enumerateKeysAndObjectsUsingBlock:v29];
 
 LABEL_15:
 LABEL_16:
@@ -1581,7 +1578,7 @@ LABEL_17:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = [CPLDateFormatter stringFromDateAgo:v10 now:v24];
+          v15 = [CPLDateFormatter stringFromDateAgo:v10 now:v23];
 
           v10 = v15;
         }
@@ -1593,7 +1590,7 @@ LABEL_17:
       }
 
       while (v6 != v8);
-      v19 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v19 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
       v6 = v19;
       if (!v19)
       {
@@ -1604,12 +1601,10 @@ LABEL_27:
         v22 = *(v21 + 40);
         *(v21 + 40) = v20;
 
-        break;
+        return;
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate
@@ -1629,7 +1624,7 @@ LABEL_27:
 
 void __25__CPLStatus_setDelegate___block_invoke(uint64_t *a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (*(v2 + 48))
   {
@@ -1642,54 +1637,54 @@ void __25__CPLStatus_setDelegate___block_invoke(uint64_t *a1)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v12 = __CPLGenericOSLogDomain();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v10 = __CPLGenericOSLogDomain();
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            v13 = a1[4];
-            v14 = a1[5];
-            v15 = NSStringFromProtocol(*(v13 + 48));
+            v11 = a1[4];
+            v12 = a1[5];
+            v13 = NSStringFromProtocol(*(v11 + 48));
             if (*(a1[4] + 56))
             {
-              v16 = *(a1[4] + 56);
+              v14 = *(a1[4] + 56);
             }
 
             else
             {
-              v16 = 0;
+              v14 = 0;
             }
 
-            v17 = NSStringFromSelector(v16);
+            v15 = NSStringFromSelector(v14);
             *buf = 138413058;
-            v28 = v14;
+            v26 = v12;
+            v27 = 2112;
+            v28 = v11;
             v29 = 2112;
             v30 = v13;
             v31 = 2112;
             v32 = v15;
-            v33 = 2112;
-            v34 = v17;
-            _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Tried to set delegate %@ on protected %@ - status changes should be observed through [%@ %@]", buf, 0x2Au);
+            _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Tried to set delegate %@ on protected %@ - status changes should be observed through [%@ %@]", buf, 0x2Au);
           }
         }
 
-        v18 = [MEMORY[0x1E696AAA8] currentHandler];
-        v19 = a1[6];
-        v20 = a1[4];
-        v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLStatus.m"];
-        v23 = a1[4];
-        v22 = a1[5];
-        v24 = NSStringFromProtocol(*(v23 + 48));
+        v16 = [MEMORY[0x1E696AAA8] currentHandler];
+        v17 = a1[6];
+        v18 = a1[4];
+        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLStatus.m"];
+        v21 = a1[4];
+        v20 = a1[5];
+        v22 = NSStringFromProtocol(*(v21 + 48));
         if (*(a1[4] + 56))
         {
-          v25 = *(a1[4] + 56);
+          v23 = *(a1[4] + 56);
         }
 
         else
         {
-          v25 = 0;
+          v23 = 0;
         }
 
-        v26 = NSStringFromSelector(v25);
-        [v18 handleFailureInMethod:v19 object:v20 file:v21 lineNumber:847 description:{@"Tried to set delegate %@ on protected %@ - status changes should be observed through -[%@ %@]", v22, v23, v24, v26}];
+        v24 = NSStringFromSelector(v23);
+        [v16 handleFailureInMethod:v17 object:v18 file:v19 lineNumber:847 description:{@"Tried to set delegate %@ on protected %@ - status changes should be observed through -[%@ %@]", v20, v21, v22, v24}];
 
         abort();
       }
@@ -1708,12 +1703,6 @@ void __25__CPLStatus_setDelegate___block_invoke(uint64_t *a1)
     v8 = a1[4];
     v9 = *(v8 + 32);
     *(v8 + 32) = 0;
-    v10 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v11 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -2994,7 +2983,7 @@ void __32__CPLStatus_initialDownloadDate__block_invoke(uint64_t a1)
 
 uint64_t __32__CPLStatus_setInitialSyncDate___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _loadIfNecessary];
   v2 = *(a1 + 40);
   if (v2)
@@ -3005,9 +2994,9 @@ uint64_t __32__CPLStatus_setInitialSyncDate___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v4 = [CPLDateFormatter stringFromDate:*(a1 + 40)];
-        v8 = 138412290;
-        v9 = v4;
-        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Storing initial sync date %@ in status", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v4;
+        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Storing initial sync date %@ in status", &v7, 0xCu);
       }
 
       v2 = *(a1 + 40);
@@ -3024,8 +3013,8 @@ uint64_t __32__CPLStatus_setInitialSyncDate___block_invoke(uint64_t a1)
       v5 = __CPLStatusOSLogDomain();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8) = 0;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Dropping initial sync date in status", &v8, 2u);
+        LOWORD(v7) = 0;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Dropping initial sync date in status", &v7, 2u);
       }
     }
 
@@ -3033,9 +3022,7 @@ uint64_t __32__CPLStatus_setInitialSyncDate___block_invoke(uint64_t a1)
     [*(a1 + 32) _deleteInitialSyncMarkerWithError:0];
   }
 
-  result = [*(a1 + 32) _save];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _save];
 }
 
 - (NSDate)initialSyncDate
@@ -3309,7 +3296,7 @@ void __28__CPLStatus_refetchFromDisk__block_invoke(uint64_t a1)
 
 void __35__CPLStatus_checkInitialSyncMarker__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _loadIfNecessary];
   v2 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:@"initialSyncDate"];
   v3 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:@"exitDeleteTime"];
@@ -3340,7 +3327,7 @@ void __35__CPLStatus_checkInitialSyncMarker__block_invoke(uint64_t a1)
         {
           v13 = [v5 path];
           *buf = 138412290;
-          v27 = v13;
+          v26 = v13;
           _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Writing initial sync marker at %@ because initial sync date is set", buf, 0xCu);
         }
       }
@@ -3351,9 +3338,9 @@ void __35__CPLStatus_checkInitialSyncMarker__block_invoke(uint64_t a1)
       [v14 setLocale:v15];
 
       v16 = [v14 stringFromDate:v2];
-      v24 = 0;
-      v17 = [v16 writeToURL:v5 atomically:1 encoding:4 error:&v24];
-      v18 = v24;
+      v23 = 0;
+      v17 = [v16 writeToURL:v5 atomically:1 encoding:4 error:&v23];
+      v18 = v23;
 
       if (v17 & 1) != 0 || (_CPLSilentLogging)
       {
@@ -3365,9 +3352,9 @@ void __35__CPLStatus_checkInitialSyncMarker__block_invoke(uint64_t a1)
       {
         v20 = [v5 path];
         *buf = 138412546;
-        v27 = v20;
-        v28 = 2112;
-        v29 = v18;
+        v26 = v20;
+        v27 = 2112;
+        v28 = v18;
         _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "Failed to write initial sync marker at %@: %@", buf, 0x16u);
       }
 
@@ -3392,7 +3379,7 @@ void __35__CPLStatus_checkInitialSyncMarker__block_invoke(uint64_t a1)
 
       v10 = [v5 path];
       *buf = 138412290;
-      v27 = v10;
+      v26 = v10;
       v11 = "Removing initial sync marker at %@ because we are in exit mode";
     }
 
@@ -3410,9 +3397,9 @@ LABEL_23:
 
 LABEL_24:
         v21 = [MEMORY[0x1E696AC08] defaultManager];
-        v25 = 0;
-        v22 = [v21 removeItemAtURL:v5 error:&v25];
-        v14 = v25;
+        v24 = 0;
+        v22 = [v21 removeItemAtURL:v5 error:&v24];
+        v14 = v24;
 
         if (v22 & 1) != 0 || (_CPLSilentLogging)
         {
@@ -3430,9 +3417,9 @@ LABEL_30:
 
         v19 = [v5 path];
         *buf = 138412546;
-        v27 = v19;
-        v28 = 2112;
-        v29 = v14;
+        v26 = v19;
+        v27 = 2112;
+        v28 = v14;
         _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "Failed to delete initial sync marker at %@: %@", buf, 0x16u);
 LABEL_28:
 
@@ -3441,7 +3428,7 @@ LABEL_28:
 
       v10 = [v5 path];
       *buf = 138412290;
-      v27 = v10;
+      v26 = v10;
       v11 = "Removing initial sync marker at %@ because initial sync date is not set";
     }
 
@@ -3451,13 +3438,11 @@ LABEL_28:
   }
 
 LABEL_31:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_deleteInitialSyncMarkerWithError:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   uRLByDeletingLastPathComponent = [(NSURL *)self->_statusFileURL URLByDeletingLastPathComponent];
   v5 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"initialsync_marker"];
 
@@ -3472,9 +3457,9 @@ LABEL_31:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         path = [v5 path];
-        v14 = 138412290;
-        v15 = path;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Removing initial sync marker at %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = path;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Removing initial sync marker at %@", &v13, 0xCu);
       }
     }
 
@@ -3487,7 +3472,6 @@ LABEL_31:
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -3542,7 +3526,7 @@ void __36__CPLStatus_writeInitialSyncMarker___block_invoke(uint64_t a1)
 
 - (BOOL)_writeInitialSyncMarkerForDate:(id)date error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v7 = [(NSMutableDictionary *)self->_status objectForKeyedSubscript:@"exitDeleteTime"];
   if (v7)
@@ -3573,46 +3557,46 @@ void __36__CPLStatus_writeInitialSyncMarker___block_invoke(uint64_t a1)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v15 = __CPLStatusOSLogDomain();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v14 = __CPLStatusOSLogDomain();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           path = [v8 path];
           *buf = 138412290;
-          v26 = path;
-          _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_DEFAULT, "Writing initial sync marker at %@", buf, 0xCu);
+          v25 = path;
+          _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "Writing initial sync marker at %@", buf, 0xCu);
         }
       }
 
-      v17 = objc_alloc_init(MEMORY[0x1E696AB78]);
-      [v17 setDateFormat:@"yyyy-MM-dd HH.mm.ss.SSS"];
-      v18 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:@"en_US"];
-      [v17 setLocale:v18];
+      v16 = objc_alloc_init(MEMORY[0x1E696AB78]);
+      [v16 setDateFormat:@"yyyy-MM-dd HH.mm.ss.SSS"];
+      v17 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:@"en_US"];
+      [v16 setLocale:v17];
 
-      v19 = [v17 stringFromDate:dateCopy];
-      v24 = 0;
-      v12 = [v19 writeToURL:v8 atomically:1 encoding:4 error:&v24];
-      v20 = v24;
+      v18 = [v16 stringFromDate:dateCopy];
+      v23 = 0;
+      v12 = [v18 writeToURL:v8 atomically:1 encoding:4 error:&v23];
+      v19 = v23;
 
       if ((v12 & 1) == 0)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v21 = __CPLStatusOSLogDomain();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v20 = __CPLStatusOSLogDomain();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             path2 = [v8 path];
             *buf = 138412546;
-            v26 = path2;
-            v27 = 2112;
-            v28 = v20;
-            _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Failed to write initial sync marker at %@: %@", buf, 0x16u);
+            v25 = path2;
+            v26 = 2112;
+            v27 = v19;
+            _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Failed to write initial sync marker at %@: %@", buf, 0x16u);
           }
         }
 
         if (error)
         {
-          v23 = v20;
-          *error = v20;
+          v22 = v19;
+          *error = v19;
         }
       }
 
@@ -3624,13 +3608,12 @@ void __36__CPLStatus_writeInitialSyncMarker___block_invoke(uint64_t a1)
 LABEL_7:
 
 LABEL_8:
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)_save
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   changedKeys = self->_changedKeys;
   if (changedKeys)
   {
@@ -3648,15 +3631,15 @@ LABEL_8:
           path = [(NSURL *)self->_statusFileURL path];
           v10 = self->_status;
           *buf = 138413314;
-          v20 = _statusClient;
-          v21 = 2048;
+          v19 = _statusClient;
+          v20 = 2048;
           selfCopy2 = self;
-          v23 = 2114;
-          v24 = v8;
-          v25 = 2112;
-          v26 = path;
-          v27 = 2112;
-          v28 = v10;
+          v22 = 2114;
+          v23 = v8;
+          v24 = 2112;
+          v25 = path;
+          v26 = 2112;
+          v27 = v10;
           _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "%@ saving CPLStatus %p (changed keys: %{public}@) to %@: %@", buf, 0x34u);
         }
 
@@ -3664,9 +3647,9 @@ LABEL_8:
       }
 
       statusFileURL = self->_statusFileURL;
-      v18 = 0;
-      v12 = [(NSMutableDictionary *)status writeToURL:statusFileURL error:&v18];
-      v13 = v18;
+      v17 = 0;
+      v12 = [(NSMutableDictionary *)status writeToURL:statusFileURL error:&v17];
+      v13 = v17;
       if ((v12 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
       {
         v14 = __CPLStatusOSLogDomain();
@@ -3674,11 +3657,11 @@ LABEL_8:
         {
           v15 = self->_statusFileURL;
           *buf = 134218498;
-          v20 = v15;
-          v21 = 2112;
+          v19 = v15;
+          v20 = 2112;
           selfCopy2 = self;
-          v23 = 2112;
-          v24 = v13;
+          v22 = 2112;
+          v23 = v13;
           _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Failed to save CPLStatus %p to %@: %@", buf, 0x20u);
         }
       }
@@ -3691,8 +3674,6 @@ LABEL_8:
 
     self->_changedKeys = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_statusClient

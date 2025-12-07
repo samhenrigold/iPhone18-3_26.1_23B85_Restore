@@ -17,7 +17,7 @@
 {
   v37.receiver = self;
   v37.super_class = CRLCanvasSpacing;
-  v29 = objc_msgSendSuper2(&v37, "init");
+  v29 = objc_msgSendSuper2(&v37, "init", a11, a12, a13, a14, a15, a16);
   if (v29)
   {
     v30 = objc_alloc_init(NSMutableSet);
@@ -105,19 +105,19 @@
 
 - (void)addSpacingRect:(double)rect forFrame:(double)frame andFrame:(double)andFrame
 {
-  v34 = objc_alloc_init(CRLMutablePair);
+  v27 = objc_alloc_init(CRLMutablePair);
   andFrame = [NSValue valueWithCGRect:a2, rect, frame, andFrame];
-  [(CRLMutablePair *)v34 setFirst:andFrame];
+  [(CRLMutablePair *)v27 setFirst:andFrame];
 
-  [(CRLMutablePair *)v34 setSecond:0];
-  [*(self + 8) addObject:v34];
-  v30 = *(self + 16);
-  v31 = [NSValue valueWithCGRect:a6, a7, a8, a9];
-  [v30 addObject:v31];
+  [(CRLMutablePair *)v27 setSecond:0];
+  [*(self + 8) addObject:v27];
+  v23 = *(self + 16);
+  v24 = [NSValue valueWithCGRect:a6, a7, a8, a9];
+  [v23 addObject:v24];
 
-  v32 = *(self + 16);
-  v33 = [NSValue valueWithCGRect:a10, a11, a12, a13];
-  [v32 addObject:v33];
+  v25 = *(self + 16);
+  v26 = [NSValue valueWithCGRect:a10, a11, a12, a13];
+  [v25 addObject:v26];
 }
 
 - (BOOL)needsGuideForEdge:(int)edge ofRect:(CGRect)rect

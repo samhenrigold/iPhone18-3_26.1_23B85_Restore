@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)fR1AsString:(int)string;
+- (id)fR2AsString:(int)string;
 - (int)StringAsFR1:(id)r1;
 - (int)StringAsFR2:(id)r2;
 - (int)fR1;
@@ -44,6 +46,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)fR1AsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"AVAILABLE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NOT_AVAILABLE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsFR1:(id)r1
@@ -103,6 +128,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)fR2AsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"AVAILABLE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NOT_AVAILABLE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsFR2:(id)r2
@@ -235,7 +283,6 @@ LABEL_20:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -255,7 +302,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  fR1 = self->_fR1;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -270,12 +316,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    fR2 = self->_fR2;
     PBDataWriterWriteInt32Field();
   }
 

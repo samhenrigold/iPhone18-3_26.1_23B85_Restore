@@ -61,53 +61,53 @@
 
     if (v8 && (v6 & 1) == 0)
     {
-      v9 = MEMORY[0x277D3FAD8];
-      if (DBSChamoisEnabled())
+      v11 = MEMORY[0x277D3FAD8];
+      if (DBSChamoisEnabled(v9, v10))
       {
-        v10 = @"DISPLAY_ZOOM_PRO";
+        v12 = @"DISPLAY_ZOOM_PRO";
       }
 
       else
       {
-        v10 = @"DISPLAY_ZOOM_LEGACY";
+        v12 = @"DISPLAY_ZOOM_LEGACY";
       }
 
-      v11 = DBS_LocalizedStringForDisplays(v10);
-      v12 = [v9 groupSpecifierWithID:@"DISPLAY_ZOOM_PRO_GROUP" name:v11];
+      v13 = DBS_LocalizedStringForDisplays(v12);
+      v14 = [v11 groupSpecifierWithID:@"DISPLAY_ZOOM_PRO_GROUP" name:v13];
 
       _displayZoomFooterText = [(DBSZoomAndProSpecifiers *)self _displayZoomFooterText];
-      [v12 setProperty:_displayZoomFooterText forKey:*MEMORY[0x277D3FF88]];
-      [(NSMutableArray *)array addObject:v12];
-      v14 = MEMORY[0x277D3FAD8];
-      if (DBSChamoisEnabled())
+      [v14 setProperty:_displayZoomFooterText forKey:*MEMORY[0x277D3FF88]];
+      v16 = [(NSMutableArray *)array addObject:v14];
+      v17 = MEMORY[0x277D3FAD8];
+      if (DBSChamoisEnabled(v16, v18))
       {
-        v15 = @"VIEW";
+        v19 = @"VIEW";
       }
 
       else
       {
-        v15 = @"VIEW_LEGACY";
+        v19 = @"VIEW_LEGACY";
       }
 
-      v16 = DBS_LocalizedStringForDisplays(v15);
-      v17 = [v14 preferenceSpecifierNamed:v16 target:self set:0 get:sel_localizedMagnifyModeName detail:0 cell:2 edit:0];
+      v20 = DBS_LocalizedStringForDisplays(v19);
+      v21 = [v17 preferenceSpecifierNamed:v20 target:self set:0 get:sel_localizedMagnifyModeName detail:0 cell:2 edit:0];
 
-      [v17 setObject:@"MAGNIFY" forKeyedSubscript:*MEMORY[0x277D3FFB8]];
+      [v21 setObject:@"MAGNIFY" forKeyedSubscript:*MEMORY[0x277D3FFB8]];
       currentDevice = [MEMORY[0x277D75418] currentDevice];
       sf_isiPad = [currentDevice sf_isiPad];
 
       if (sf_isiPad)
       {
-        [v17 setButtonAction:sel_presentModalMagnifyController];
-        [v17 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FF38]];
+        [v21 setButtonAction:sel_presentModalMagnifyController];
+        [v21 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FF38]];
       }
 
       else
       {
-        [v17 setDetailControllerClass:objc_opt_class()];
+        [v21 setDetailControllerClass:objc_opt_class()];
       }
 
-      [(NSMutableArray *)array addObject:v17];
+      [(NSMutableArray *)array addObject:v21];
     }
 
     delegate = [(DBSZoomAndProSpecifiers *)self delegate];
@@ -115,19 +115,19 @@
 
     if (proModeSupported)
     {
-      v22 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"ADVANCED_LINK_GROUP_ID"];
-      [(NSMutableArray *)array addObject:v22];
-      v23 = MEMORY[0x277D3FAD8];
-      v24 = DBS_LocalizedStringForDisplays(@"ADVANCED");
-      v25 = [v23 preferenceSpecifierNamed:v24 target:self set:0 get:sel_advancedDetailString_ detail:objc_opt_class() cell:2 edit:0];
+      v26 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"ADVANCED_LINK_GROUP_ID"];
+      [(NSMutableArray *)array addObject:v26];
+      v27 = MEMORY[0x277D3FAD8];
+      v28 = DBS_LocalizedStringForDisplays(@"ADVANCED");
+      v29 = [v27 preferenceSpecifierNamed:v28 target:self set:0 get:sel_advancedDetailString_ detail:objc_opt_class() cell:2 edit:0];
       advancedSpecifier = self->_advancedSpecifier;
-      self->_advancedSpecifier = v25;
+      self->_advancedSpecifier = v29;
 
       [(PSSpecifier *)self->_advancedSpecifier setObject:@"ADVANCED" forKeyedSubscript:*MEMORY[0x277D3FFB8]];
       [(NSMutableArray *)array addObject:self->_advancedSpecifier];
     }
 
-    v27 = self->_specifiers;
+    v31 = self->_specifiers;
     self->_specifiers = array;
 
     specifiers = self->_specifiers;

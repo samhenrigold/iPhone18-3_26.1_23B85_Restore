@@ -8,7 +8,7 @@
 
 - (id)initWithIKESA:(id *)a
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!a)
@@ -38,7 +38,7 @@
     }
 
     *buf = 136315138;
-    v58 = "[NEIKEv2GSPM initWithIKESA:]";
+    v57 = "[NEIKEv2GSPM initWithIKESA:]";
     v14 = "%s called with null ikeSA.remoteSecurePasswordMethod";
 LABEL_49:
     _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, v14, buf, 0xCu);
@@ -56,7 +56,7 @@ LABEL_49:
     }
 
     *buf = 136315138;
-    v58 = "[NEIKEv2GSPM initWithIKESA:]";
+    v57 = "[NEIKEv2GSPM initWithIKESA:]";
     v14 = "%s called with null ikeSA.sharedSecret";
     goto LABEL_49;
   }
@@ -77,18 +77,18 @@ LABEL_49:
   if (securePasswordMethod == 11001)
   {
     location = 0;
-    v52 = [(NEIKEv2IKESA *)v4 createConcatedNoncesAndReturnError:?];
-    if (!v52)
+    v51 = [(NEIKEv2IKESA *)v4 createConcatedNoncesAndReturnError:?];
+    if (!v51)
     {
       log = ne_log_obj();
-      v48 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
+      v47 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
       v44 = location;
-      if (v48)
+      if (v47)
       {
         *buf = 138412546;
-        v58 = location;
-        v59 = 2112;
-        v60 = v4;
+        v57 = location;
+        v58 = 2112;
+        v59 = v4;
         _os_log_error_impl(&dword_1BA83C000, log, OS_LOG_TYPE_ERROR, "Failed to retrieve concatenated nonces %@ for %@", buf, 0x16u);
       }
 
@@ -103,9 +103,9 @@ LABEL_49:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v58 = location;
-        v59 = 2112;
-        v60 = v4;
+        v57 = location;
+        v58 = 2112;
+        v59 = v4;
         _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "Failed to retrieve concatenated SPIs %@ for %@", buf, 0x16u);
       }
 
@@ -160,7 +160,7 @@ LABEL_49:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v58 = v4;
+        v57 = v4;
         _os_log_error_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_ERROR, "Failed to get Initiator ID data for %@", buf, 0xCu);
       }
 
@@ -198,16 +198,16 @@ LABEL_49:
     copyPayloadData2 = [(NEIKEv2IdentifierPayload *)v30 copyPayloadData];
     if (copyPayloadData2)
     {
-      v55.receiver = a;
-      v55.super_class = NEIKEv2GSPM;
-      v32 = objc_msgSendSuper2(&v55, sel_init);
+      v54.receiver = a;
+      v54.super_class = NEIKEv2GSPM;
+      v32 = objc_msgSendSuper2(&v54, sel_init);
       if (v32)
       {
         a = v32;
         v34 = *(v4 + 9);
         sharedSecret2 = [(NEIKEv2IKESA *)v4 sharedSecret];
         obj = location;
-        v36 = [NEIKEv2CryptoKitSPAKE2Plus createForInitiator:v34 & 1 seed:sharedSecret2 initiatorID:copyPayloadData responderID:copyPayloadData2 salt:v52 context:log error:&obj];
+        v36 = [NEIKEv2CryptoKitSPAKE2Plus createForInitiator:v34 & 1 seed:sharedSecret2 initiatorID:copyPayloadData responderID:copyPayloadData2 salt:v51 context:log error:&obj];
         v37 = obj;
         objc_storeStrong(&location, obj);
         v38 = a[3];
@@ -240,18 +240,18 @@ LABEL_45:
         if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v58 = v37;
+          v57 = v37;
           _os_log_error_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_ERROR, "Failed to create SPAKE2 handler %@", buf, 0xCu);
         }
       }
 
       else
       {
-        v50 = ne_log_obj();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+        v49 = ne_log_obj();
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_fault_impl(&dword_1BA83C000, v50, OS_LOG_TYPE_FAULT, "[super init] failed", buf, 2u);
+          _os_log_fault_impl(&dword_1BA83C000, v49, OS_LOG_TYPE_FAULT, "[super init] failed", buf, 2u);
         }
 
         a = 0;
@@ -260,12 +260,12 @@ LABEL_45:
 
     else
     {
-      v49 = ne_log_obj();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v48 = ne_log_obj();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v58 = v4;
-        _os_log_error_impl(&dword_1BA83C000, v49, OS_LOG_TYPE_ERROR, "Failed to get Responder ID data for %@", buf, 0xCu);
+        v57 = v4;
+        _os_log_error_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_ERROR, "Failed to get Responder ID data for %@", buf, 0xCu);
       }
     }
 
@@ -278,7 +278,7 @@ LABEL_45:
   {
     String = NEIKEv2SecurePasswordMethodCreateString(securePasswordMethod);
     *buf = 138412290;
-    v58 = String;
+    v57 = String;
     _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "Support for secure password method %@ is not implemented", buf, 0xCu);
   }
 
@@ -288,17 +288,15 @@ LABEL_16:
 LABEL_46:
 
 LABEL_47:
-  v45 = *MEMORY[0x1E69E9840];
   return aCopy;
 }
 
 - (uint64_t)createLocalSignedOctetVector
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v6 = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   v1 = *(self + 32);
@@ -313,7 +311,7 @@ LABEL_8:
     }
 
     *buf = 136315138;
-    v12 = "[NEIKEv2GSPM createLocalSignedOctetVector]";
+    v11 = "[NEIKEv2GSPM createLocalSignedOctetVector]";
     v7 = "%s called with null self.firstLocalMessage";
 LABEL_12:
     _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, v7, buf, 0xCu);
@@ -330,31 +328,28 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v12 = "[NEIKEv2GSPM createLocalSignedOctetVector]";
+    v11 = "[NEIKEv2GSPM createLocalSignedOctetVector]";
     v7 = "%s called with null self.firstPeerMessage";
     goto LABEL_12;
   }
 
-  v10[0] = *(self + 32);
-  v10[1] = v2;
+  v9[0] = *(self + 32);
+  v9[1] = v2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = v2;
   v5 = v1;
-  v6 = [v3 arrayWithObjects:v10 count:2];
+  v6 = [v3 arrayWithObjects:v9 count:2];
 
 LABEL_9:
-LABEL_10:
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (uint64_t)createRemoteSignedOctetVector
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v6 = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   v1 = *(self + 40);
@@ -369,7 +364,7 @@ LABEL_8:
     }
 
     *buf = 136315138;
-    v12 = "[NEIKEv2GSPM createRemoteSignedOctetVector]";
+    v11 = "[NEIKEv2GSPM createRemoteSignedOctetVector]";
     v7 = "%s called with null self.firstPeerMessage";
 LABEL_12:
     _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, v7, buf, 0xCu);
@@ -386,21 +381,19 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v12 = "[NEIKEv2GSPM createRemoteSignedOctetVector]";
+    v11 = "[NEIKEv2GSPM createRemoteSignedOctetVector]";
     v7 = "%s called with null self.firstLocalMessage";
     goto LABEL_12;
   }
 
-  v10[0] = *(self + 40);
-  v10[1] = v2;
+  v9[0] = *(self + 40);
+  v9[1] = v2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = v2;
   v5 = v1;
-  v6 = [v3 arrayWithObjects:v10 count:2];
+  v6 = [v3 arrayWithObjects:v9 count:2];
 
 LABEL_9:
-LABEL_10:
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

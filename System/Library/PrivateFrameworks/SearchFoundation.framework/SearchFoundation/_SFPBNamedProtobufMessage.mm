@@ -220,18 +220,14 @@ LABEL_13:
 
 - (void)setProtobufMessageName:(id)name
 {
-  v4 = [name copy];
-  protobufMessageName = self->_protobufMessageName;
-  self->_protobufMessageName = v4;
+  self->_protobufMessageName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setProtobufMessageData:(id)data
 {
-  v4 = [data copy];
-  protobufMessageData = self->_protobufMessageData;
-  self->_protobufMessageData = v4;
+  self->_protobufMessageData = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }

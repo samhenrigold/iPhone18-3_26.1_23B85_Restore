@@ -1,5 +1,6 @@
 @interface UIResponder(SKUIExtensions)
 - (uint64_t)_SKUIView;
+- (void)_SKUIView;
 @end
 
 @implementation UIResponder(SKUIExtensions)
@@ -23,41 +24,52 @@
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v14 = shouldLog | 2;
+    LODWORD(v14) = shouldLog | 2;
   }
 
   else
   {
-    v14 = shouldLog;
+    LODWORD(v14) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
 
   if (!v14)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-  NSStringFromSelector(a2);
+  v16 = NSStringFromSelector(a2);
   v19 = 138412546;
   selfCopy = self;
-  v22 = v21 = 2112;
-  LODWORD(v18) = 22;
-  v16 = _os_log_send_and_compose_impl();
+  v21 = 2112;
+  v22 = v16;
+  v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_215BAE000, oSLogObject, 1, "Returning nil because %@ doesn't implement %@.", &v19, 22);
 
-  if (v16)
+  if (v17)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:{4, &v19, v18}];
-    free(v16);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:4];
+    free(v17);
     SSFileLog();
-LABEL_13:
+LABEL_14:
   }
 
   return 0;
+}
+
+- (void)_SKUIView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[UIResponder(SKUIExtensions) _SKUIView]";
 }
 
 @end

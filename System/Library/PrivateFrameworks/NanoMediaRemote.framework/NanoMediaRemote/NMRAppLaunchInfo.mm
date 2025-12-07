@@ -142,7 +142,7 @@ LABEL_25:
 
 - (id)_launchURLForScheme:(id)scheme requestedPlayerPath:(id)path
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v6 = MEMORY[0x277CCACE0];
   schemeCopy = scheme;
@@ -160,8 +160,8 @@ LABEL_25:
   }
 
   v13 = [v9 queryItemWithName:@"deviceUID" value:deviceUID];
-  v18[0] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   [v8 setQueryItems:v14];
 
   if (!designatedGroupLeaderRouteUID)
@@ -169,8 +169,6 @@ LABEL_25:
   }
 
   v15 = [v8 URL];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

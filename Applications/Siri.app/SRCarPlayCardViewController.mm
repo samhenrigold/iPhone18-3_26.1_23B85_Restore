@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100092838();
+  sub_100092838(selfCopy);
 }
 
 - (void)scrollViewDidScroll:(id)scroll

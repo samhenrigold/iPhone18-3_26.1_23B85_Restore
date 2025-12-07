@@ -1,7 +1,7 @@
 @interface _UIDynamicButtonNotifyingGestureRecognizer
 - (BOOL)_shouldReceiveDynamicButton:(id)button;
+- (id)_evaluateAllowedPhysicalButtons;
 - (id)initWithPhysicalButtonConfigurations:(void *)configurations dynamicButtonObserver:;
-- (uint64_t)_evaluateAllowedPhysicalButtons;
 - (void)_dynamicButtonsBegan:(id)began withEvent:(id)event;
 - (void)_dynamicButtonsCancelled:(id)cancelled withEvent:(id)event;
 - (void)_dynamicButtonsChanged:(id)changed withEvent:(id)event;
@@ -10,7 +10,7 @@
 
 @implementation _UIDynamicButtonNotifyingGestureRecognizer
 
-- (uint64_t)_evaluateAllowedPhysicalButtons
+- (id)_evaluateAllowedPhysicalButtons
 {
   v15 = *MEMORY[0x1E69E9840];
   if (result)
@@ -20,7 +20,7 @@
     v13 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v2 = *(result + 304);
+    v2 = result[38];
     v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v3)
     {

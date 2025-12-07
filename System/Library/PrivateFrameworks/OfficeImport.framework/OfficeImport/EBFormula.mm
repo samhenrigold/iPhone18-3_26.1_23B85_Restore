@@ -170,7 +170,7 @@ LABEL_11:
     *formulaLength = v15;
     if (v15)
     {
-      operator new[](v15);
+      operator new[](v15, 0x1000C8077774924);
     }
   }
 

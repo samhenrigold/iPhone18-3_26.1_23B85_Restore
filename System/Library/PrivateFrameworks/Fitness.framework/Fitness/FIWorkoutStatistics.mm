@@ -62,83 +62,82 @@
 
 - (void)_calculateStats
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v33 = 0u;
+  v39 = *MEMORY[0x277D85DE8];
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
   v3 = self->_workouts;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v34;
-    v32 = *MEMORY[0x277CCC918];
+    v6 = *v35;
+    v33 = *MEMORY[0x277CCC918];
     do
     {
       v7 = 0;
       do
       {
-        if (*v34 != v6)
+        if (*v35 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v33 + 1) + 8 * v7);
+        v8 = *(*(&v34 + 1) + 8 * v7);
         firstObject = [(NSArray *)self->_workouts firstObject];
 
         if (v8 == firstObject)
         {
-          v10 = _CachedCurrentCalendar();
+          v11 = _CachedCurrentCalendar(v10);
           startDate = [v8 startDate];
-          v12 = [v10 components:14 fromDate:startDate];
+          v13 = [v11 components:14 fromDate:startDate];
 
-          v13 = _CachedCurrentCalendar();
-          v14 = [v13 dateFromComponents:v12];
+          v15 = _CachedCurrentCalendar(v14);
+          v16 = [v15 dateFromComponents:v13];
           startOfMonth = self->_startOfMonth;
-          self->_startOfMonth = v14;
+          self->_startOfMonth = v16;
         }
 
         [v8 duration];
-        self->_totalWorkoutDuration = v16 + self->_totalWorkoutDuration;
+        self->_totalWorkoutDuration = v18 + self->_totalWorkoutDuration;
         if ([v8 _activityMoveMode] != 2)
         {
           ++self->_workoutsWithEnergyBurned;
-          v17 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v32];
-          v18 = [v8 statisticsForType:v17];
+          v19 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v33];
+          v20 = [v8 statisticsForType:v19];
           totalActiveEnergyBurn = self->_totalActiveEnergyBurn;
-          sumQuantity = [v18 sumQuantity];
-          v21 = [(HKQuantity *)totalActiveEnergyBurn _quantityByAddingQuantity:sumQuantity];
-          v22 = self->_totalActiveEnergyBurn;
-          self->_totalActiveEnergyBurn = v21;
+          sumQuantity = [v20 sumQuantity];
+          v23 = [(HKQuantity *)totalActiveEnergyBurn _quantityByAddingQuantity:sumQuantity];
+          v24 = self->_totalActiveEnergyBurn;
+          self->_totalActiveEnergyBurn = v23;
         }
 
         fi_activityType = [v8 fi_activityType];
-        v24 = FIDistanceTypeForActivityType(fi_activityType);
-        if (v24)
+        v26 = FIDistanceTypeForActivityType(fi_activityType);
+        if (v26)
         {
           ++self->_workoutsWithDistance;
-          v25 = [FIUnitManager quantityTypeForDistanceType:v24];
-          v26 = [v8 statisticsForType:v25];
+          v27 = [FIUnitManager quantityTypeForDistanceType:v26];
+          v28 = [v8 statisticsForType:v27];
           totalDistance = self->_totalDistance;
-          sumQuantity2 = [v26 sumQuantity];
-          v29 = [(HKQuantity *)totalDistance _quantityByAddingQuantity:sumQuantity2];
-          v30 = self->_totalDistance;
-          self->_totalDistance = v29;
+          sumQuantity2 = [v28 sumQuantity];
+          v31 = [(HKQuantity *)totalDistance _quantityByAddingQuantity:sumQuantity2];
+          v32 = self->_totalDistance;
+          self->_totalDistance = v31;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v5);
   }
 
   [(FIWorkoutStatistics *)self _calculateAverages];
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_calculateAverages

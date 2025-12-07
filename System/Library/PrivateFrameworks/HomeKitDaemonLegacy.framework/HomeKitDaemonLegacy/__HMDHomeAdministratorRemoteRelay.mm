@@ -7,44 +7,44 @@
 
 - (void)__handleXPCMessage:(id)message
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   receiver = [(__HMDHomeAdministratorReceiver *)self receiver];
 
   if (receiver)
   {
     handler = [(__HMDHomeAdministratorReceiver *)self handler];
-    v28 = 0;
-    v7 = [handler operationForMessage:messageCopy error:&v28];
-    v8 = v28;
+    v27 = 0;
+    v7 = [handler operationForMessage:messageCopy error:&v27];
+    v8 = v27;
     if (v7)
     {
       [v7 setShouldSuspendSyncing:1];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __56____HMDHomeAdministratorRemoteRelay___handleXPCMessage___block_invoke;
-      v25[3] = &unk_2797358C8;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __56____HMDHomeAdministratorRemoteRelay___handleXPCMessage___block_invoke;
+      v24[3] = &unk_2797358C8;
       v9 = handler;
-      v26 = v9;
+      v25 = v9;
       v10 = messageCopy;
-      v27 = v10;
-      [v7 setSendCompletionBlock:v25];
+      v26 = v10;
+      [v7 setSendCompletionBlock:v24];
       [v7 setResponseHandler:0];
       objc_initWeak(location, v7);
-      v18 = MEMORY[0x277D85DD0];
-      v19 = 3221225472;
-      v20 = __56____HMDHomeAdministratorRemoteRelay___handleXPCMessage___block_invoke_2;
-      v21 = &unk_279732670;
-      objc_copyWeak(&v24, location);
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = __56____HMDHomeAdministratorRemoteRelay___handleXPCMessage___block_invoke_2;
+      v20 = &unk_279732670;
+      objc_copyWeak(&v23, location);
       selfCopy = self;
-      v23 = v10;
-      [v7 setCompletionBlock:&v18];
-      [v9 addOperation:{v7, v18, v19, v20, v21, selfCopy}];
+      v22 = v10;
+      [v7 setCompletionBlock:&v17];
+      [v9 addOperation:{v7, v17, v18, v19, v20, selfCopy}];
 
-      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v23);
       objc_destroyWeak(location);
 
-      responseHandler2 = v26;
+      responseHandler2 = v25;
     }
 
     else
@@ -57,8 +57,8 @@
         v15 = HMFGetLogIdentifier();
         *location = 138543618;
         *&location[4] = v15;
-        v30 = 2112;
-        v31 = v8;
+        v29 = 2112;
+        v30 = v8;
         _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to create operation with error: %@", location, 0x16u);
       }
 
@@ -76,8 +76,6 @@
 
 LABEL_9:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory

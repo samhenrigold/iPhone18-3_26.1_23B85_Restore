@@ -81,7 +81,7 @@ LABEL_8:
 
   if (![(NSString *)self->_iccid length])
   {
-    v9 = _TSLogDomain();
+    v9 = _TSLogDomain(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [TSTravelSimTypeSelectionViewController prepare:v9];
@@ -109,14 +109,15 @@ void __50__TSTravelSimTypeSelectionViewController_prepare___block_invoke(uint64_
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if ([v3 isGlobalMVNO])
+  v4 = [v3 isGlobalMVNO];
+  if (v4)
   {
-    v4 = _TSLogDomain();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 136315138;
       v7 = "[TSTravelSimTypeSelectionViewController prepare:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "Set waitForPhoneNumber to NO @%s", &v6, 0xCu);
+      _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "Set waitForPhoneNumber to NO @%s", &v6, 0xCu);
     }
 
     [*(a1 + 32) setWaitForPhoneNumber:MEMORY[0x277CBEC28]];
@@ -124,8 +125,6 @@ void __50__TSTravelSimTypeSelectionViewController_prepare___block_invoke(uint64_
 
   [v3 isGlobalMVNO];
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -328,7 +327,7 @@ LABEL_13:
 - (void)_continueButtonTapped:(id)tapped
 {
   v21 = *MEMORY[0x277D85DE8];
-  v4 = _TSLogDomain();
+  v4 = _TSLogDomain(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     if (self->_isSelectedAsTravelSIM)
@@ -350,40 +349,38 @@ LABEL_13:
 
   if (!self->_isSelectedAsTravelSIM)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TSLogDomain(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v18 = "[TSTravelSimTypeSelectionViewController _continueButtonTapped:]";
-      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Reset waitForPhoneNumber @%s", buf, 0xCu);
+      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "Reset waitForPhoneNumber @%s", buf, 0xCu);
     }
 
-    v7 = [(NSArray *)self->_installPlans objectAtIndexedSubscript:0];
-    [v7 setWaitForPhoneNumber:0];
+    v8 = [(NSArray *)self->_installPlans objectAtIndexedSubscript:0];
+    [v8 setWaitForPhoneNumber:0];
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:self selector:sel__updateTrayButtonText_ name:@"esim.install.state.changed" object:0];
 
     if ([(NSArray *)self->_installPlans count]== 1)
     {
-      v9 = [(NSArray *)self->_installPlans objectAtIndexedSubscript:0];
-      status = [v9 status];
+      v10 = [(NSArray *)self->_installPlans objectAtIndexedSubscript:0];
+      status = [v10 status];
 
       if (status == 13)
       {
         defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
         v15 = @"InstallStateKey";
         v16 = @"PostInstall";
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-        [defaultCenter2 postNotificationName:@"esim.install.state.changed" object:0 userInfo:v12];
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+        [defaultCenter2 postNotificationName:@"esim.install.state.changed" object:0 userInfo:v13];
       }
     }
   }
 
   delegate = [(TSTravelSimTypeSelectionViewController *)self delegate];
   [delegate viewControllerDidComplete:self];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshTableView
@@ -452,11 +449,10 @@ LABEL_13:
 
 - (void)prepare:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSTravelSimTypeSelectionViewController prepare:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]ICCID is empty @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSTravelSimTypeSelectionViewController prepare:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]ICCID is empty @%s", &v1, 0xCu);
 }
 
 @end

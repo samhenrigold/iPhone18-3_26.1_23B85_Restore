@@ -3655,46 +3655,46 @@ LABEL_52:
   do
   {
     v45 = [(MRLayerParallelizer *)self->mTopMRLayer prerenderForTime:self->mInternal->mContext inContext:self->mInternal->mRenderArguments withArguments:v26];
-    v24 |= MRIsAppleTV() | v45;
+    v24 |= MRIsAppleTV(v45, v46) | v45;
   }
 
   while ([(MRRenderer *)self _doActions]);
   [(MCMontage *)self->mMontage unlock];
-  v46 = self->mInternal;
-  if (!v46->mInnerIsPlaying || [(MRRenderArguments *)v46->mRenderArguments thumbnailPolicy]|| (v47 = self->mInternal, v47->mSlideFocusState) || [(NSMutableDictionary *)v47->mGestureRecognizers count])
+  v47 = self->mInternal;
+  if (!v47->mInnerIsPlaying || [(MRRenderArguments *)v47->mRenderArguments thumbnailPolicy]|| (v48 = self->mInternal, v48->mSlideFocusState) || [(NSMutableDictionary *)v48->mGestureRecognizers count])
   {
     self->_asynchronousOperationsAreSuspended = 0;
   }
 
-  v64 = 0u;
   v65 = 0u;
-  v62 = 0u;
+  v66 = 0u;
   v63 = 0u;
+  v64 = 0u;
   operations = [(NSOperationQueue *)[(MRRenderArguments *)self->mInternal->mRenderArguments preloadQueue] operations];
-  v49 = [(NSArray *)operations countByEnumeratingWithState:&v62 objects:v66 count:16];
-  if (v49)
+  v50 = [(NSArray *)operations countByEnumeratingWithState:&v63 objects:v67 count:16];
+  if (v50)
   {
-    v50 = v49;
-    v51 = *v63;
+    v51 = v50;
+    v52 = *v64;
     do
     {
-      for (i = 0; i != v50; i = i + 1)
+      for (i = 0; i != v51; i = i + 1)
       {
-        if (*v63 != v51)
+        if (*v64 != v52)
         {
           objc_enumerationMutation(operations);
         }
 
-        if ([*(*(&v62 + 1) + 8 * i) queuePriority] == &dword_8)
+        if ([*(*(&v63 + 1) + 8 * i) queuePriority] == &dword_8)
         {
           self->_asynchronousOperationsAreSuspended = 0;
         }
       }
 
-      v50 = [(NSArray *)operations countByEnumeratingWithState:&v62 objects:v66 count:16];
+      v51 = [(NSArray *)operations countByEnumeratingWithState:&v63 objects:v67 count:16];
     }
 
-    while (v50);
+    while (v51);
   }
 
   if (asynchronousOperationsAreSuspended != self->_asynchronousOperationsAreSuspended)
@@ -3706,32 +3706,32 @@ LABEL_52:
   [(MRRenderArguments *)self->mInternal->mRenderArguments setForcedState:0];
   [(MRRenderArguments *)self->mInternal->mRenderArguments setTimeWasSet:0];
   condition = [(NSConditionLock *)self->mInternal->mSnapshotAsCGImageLock condition];
-  v54 = self->mInternal;
-  if (condition == 1 || v54->mScreenBurnTest)
+  v55 = self->mInternal;
+  if (condition == 1 || v55->mScreenBurnTest)
   {
     LOBYTE(v24) = 1;
   }
 
   if (self->mDisplaysTouchVisualFeedback)
   {
-    LOBYTE(v24) = ([(NSMutableArray *)v54->mTouchesForVisualFeedback count]!= 0) | v24;
-    v54 = self->mInternal;
+    LOBYTE(v24) = ([(NSMutableArray *)v55->mTouchesForVisualFeedback count]!= 0) | v24;
+    v55 = self->mInternal;
   }
 
   if (self->mDisplaysHitZonesVisualFeedback)
   {
-    LOBYTE(v24) = ([(NSMutableArray *)v54->mHitZonesForVisualFeedback count]!= 0) | v24;
-    v54 = self->mInternal;
+    LOBYTE(v24) = ([(NSMutableArray *)v55->mHitZonesForVisualFeedback count]!= 0) | v24;
+    v55 = self->mInternal;
   }
 
-  if (v54->mInnerIsPlaying)
+  if (v55->mInnerIsPlaying)
   {
     [(MRRenderer *)self processAudioObjects];
   }
 
   if (v26 < self->_fadeInStartTime + self->_fadeInDuration || (v26 > self->_fadeOutStartTime) | v24 & 1)
   {
-    v55 = 1;
+    v56 = 1;
   }
 
   else
@@ -3741,40 +3741,40 @@ LABEL_52:
       [(MRRenderer *)self _displayFPS:0 actuallyDisplay:MRGetCurrentTime()];
     }
 
-    v55 = 0;
+    v56 = 0;
   }
 
-  v56 = self->mInternal;
-  if (v56->mMorphingDuration > 0.0)
+  v57 = self->mInternal;
+  if (v57->mMorphingDuration > 0.0)
   {
     [(MRRenderer *)self requestRendering:0];
-    v56 = self->mInternal;
+    v57 = self->mInternal;
   }
 
-  if (v56->mInnerIsPlaying && self->mPushRendering)
+  if (v57->mInnerIsPlaying && self->mPushRendering)
   {
     [(MCPlug *)[self->mTopMRLayer plug] fullDuration];
-    v58 = self->mInternal;
-    v59 = v58->mMasterDuration;
-    if (v59 > 0.0)
+    v59 = self->mInternal;
+    v60 = v59->mMasterDuration;
+    if (v60 > 0.0)
     {
-      v60 = v59 + v58->mMasterStartTime;
-      if (v60 < v57)
+      v61 = v60 + v59->mMasterStartTime;
+      if (v61 < v58)
       {
-        v57 = v60;
+        v58 = v61;
       }
     }
 
-    v61 = self->mTimeQuantum;
-    if (v26 + v61 < v57)
+    v62 = self->mTimeQuantum;
+    if (v26 + v62 < v58)
     {
-      if (v55)
+      if (v56)
       {
         objc_autoreleasePoolPop(v5);
         return !self->_isFrozen;
       }
 
-      if (v58->mShouldPauseWhenStill)
+      if (v59->mShouldPauseWhenStill)
       {
         [(MRRenderer *)self _r_pause];
       }
@@ -3782,11 +3782,11 @@ LABEL_52:
       goto LABEL_23;
     }
 
-    [(MRRenderer *)self _playbackIsOverWithTime:v58->mMasterMode != 2 sendNotification:v57 + v61];
+    [(MRRenderer *)self _playbackIsOverWithTime:v59->mMasterMode != 2 sendNotification:v58 + v62];
   }
 
   objc_autoreleasePoolPop(v5);
-  if (v55)
+  if (v56)
   {
     return !self->_isFrozen;
   }

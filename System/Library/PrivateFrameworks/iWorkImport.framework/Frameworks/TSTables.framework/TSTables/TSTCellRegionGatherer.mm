@@ -59,35 +59,35 @@
     {
       size = self->_lastCellRangeAdded.size;
       v5 = rangeCopy;
-      v15.origin = self->_lastCellRangeAdded.origin;
-      v15.size = size;
-      v14 = rangeCopy;
-      v6 = sub_2211C1FC4(*&v15.origin, *&size, *&rangeCopy.origin, *&rangeCopy.size);
+      v14.origin = self->_lastCellRangeAdded.origin;
+      v14.size = size;
+      v13 = rangeCopy;
+      v6 = sub_2211C1FC4(*&v14.origin, *&size, *&rangeCopy.origin, *&rangeCopy.size);
       v8 = v7;
-      if (v7.numberOfRows * v7.numberOfColumns != v5.size.numberOfRows * v5.size.numberOfColumns + (size.numberOfRows * size.numberOfColumns) && (TSUCellRect::contains(&v15, &v14) & 1) == 0 && !TSUCellRect::contains(&v14, &v15))
+      if (v7.numberOfRows * v7.numberOfColumns != v5.size.numberOfRows * v5.size.numberOfColumns + (size.numberOfRows * size.numberOfColumns) && (TSUCellRect::contains(&v14, &v13) & 1) == 0 && !TSUCellRect::contains(&v13, &v14))
       {
         v6 = 0x7FFF7FFFFFFFLL;
         v8 = 0;
       }
 
-      v15.origin = v6;
-      v15.size = v8;
-      v9 = &v15;
-      if ((TSUCellRect::isValid(&v15) & 1) == 0)
+      v14.origin = v6;
+      v14.size = v8;
+      v9 = &v14;
+      if ((TSUCellRect::isValid(&v14) & 1) == 0)
       {
-        objc_msgSend_p_addRange_(self, v10, *&self->_lastCellRangeAdded.origin, *&self->_lastCellRangeAdded.size, v11);
+        objc_msgSend_p_addRange_(self, v10, *&self->_lastCellRangeAdded.origin, *&self->_lastCellRangeAdded.size);
         v9 = &rangeCopy;
       }
 
-      v12 = *v9;
+      v11 = *v9;
     }
 
     else
     {
-      v12 = rangeCopy;
+      v11 = rangeCopy;
     }
 
-    self->_lastCellRangeAdded = v12;
+    self->_lastCellRangeAdded = v11;
   }
 }
 
@@ -99,93 +99,93 @@
     self->_mightOverlap = 1;
   }
 
-  objc_msgSend_p_cleanupStashedRangeIffExists(self, v4, v5, v6, v7);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_221208C18;
-  v12[3] = &unk_278461548;
-  v12[4] = self;
-  objc_msgSend_enumerateCellRangesUsingBlock_(regionCopy, v9, v12, v10, v11);
+  objc_msgSend_p_cleanupStashedRangeIffExists(self, v4, v5, v6);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_221208C18;
+  v10[3] = &unk_278461548;
+  v10[4] = self;
+  objc_msgSend_enumerateCellRangesUsingBlock_(regionCopy, v8, v10, v9);
 }
 
 - (void)addColumns:(id)columns
 {
   columnsCopy = columns;
-  v9 = objc_msgSend_gatheredCellRegion(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_mutableCopy(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_gatheredCellRegion(self, v5, v6, v7);
+  v12 = objc_msgSend_mutableCopy(v8, v9, v10, v11);
 
-  objc_msgSend_addColumns_(v14, v15, columnsCopy, v16, v17);
-  memset(v21, 0, sizeof(v21));
-  v22 = 1065353216;
-  memset(v23, 0, sizeof(v23));
-  v24 = 1065353216;
+  objc_msgSend_addColumns_(v12, v13, columnsCopy, v14);
+  memset(v17, 0, sizeof(v17));
+  v18 = 1065353216;
+  memset(v19, 0, sizeof(v19));
+  v20 = 1065353216;
   self->_gathererMap._rowRange.length = 0;
   *&self->_gathererMap._cellRangeIndex = xmmword_2217E08F0;
-  sub_22120A3D8(&self->_gathererMap._cellRanges, v21);
-  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v23);
-  sub_2210BDEC0(v23);
-  sub_2210BDEC0(v21);
-  objc_msgSend_addRegion_(self, v18, v14, v19, v20);
+  sub_22120A3D8(&self->_gathererMap._cellRanges, v17);
+  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v19);
+  sub_2210BDEC0(v19);
+  sub_2210BDEC0(v17);
+  objc_msgSend_addRegion_(self, v15, v12, v16);
 }
 
 - (void)addRows:(id)rows
 {
   rowsCopy = rows;
-  v9 = objc_msgSend_gatheredCellRegion(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_mutableCopy(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_gatheredCellRegion(self, v5, v6, v7);
+  v12 = objc_msgSend_mutableCopy(v8, v9, v10, v11);
 
-  objc_msgSend_addRows_(v14, v15, rowsCopy, v16, v17);
-  memset(v21, 0, sizeof(v21));
-  v22 = 1065353216;
-  memset(v23, 0, sizeof(v23));
-  v24 = 1065353216;
+  objc_msgSend_addRows_(v12, v13, rowsCopy, v14);
+  memset(v17, 0, sizeof(v17));
+  v18 = 1065353216;
+  memset(v19, 0, sizeof(v19));
+  v20 = 1065353216;
   self->_gathererMap._rowRange.length = 0;
   *&self->_gathererMap._cellRangeIndex = xmmword_2217E08F0;
-  sub_22120A3D8(&self->_gathererMap._cellRanges, v21);
-  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v23);
-  sub_2210BDEC0(v23);
-  sub_2210BDEC0(v21);
-  objc_msgSend_addRegion_(self, v18, v14, v19, v20);
+  sub_22120A3D8(&self->_gathererMap._cellRanges, v17);
+  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v19);
+  sub_2210BDEC0(v19);
+  sub_2210BDEC0(v17);
+  objc_msgSend_addRegion_(self, v15, v12, v16);
 }
 
 - (void)removeColumns:(id)columns
 {
   columnsCopy = columns;
-  v9 = objc_msgSend_gatheredCellRegion(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_mutableCopy(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_gatheredCellRegion(self, v5, v6, v7);
+  v12 = objc_msgSend_mutableCopy(v8, v9, v10, v11);
 
-  objc_msgSend_removeColumns_(v14, v15, columnsCopy, v16, v17);
-  memset(v21, 0, sizeof(v21));
-  v22 = 1065353216;
-  memset(v23, 0, sizeof(v23));
-  v24 = 1065353216;
+  objc_msgSend_removeColumns_(v12, v13, columnsCopy, v14);
+  memset(v17, 0, sizeof(v17));
+  v18 = 1065353216;
+  memset(v19, 0, sizeof(v19));
+  v20 = 1065353216;
   self->_gathererMap._rowRange.length = 0;
   *&self->_gathererMap._cellRangeIndex = xmmword_2217E08F0;
-  sub_22120A3D8(&self->_gathererMap._cellRanges, v21);
-  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v23);
-  sub_2210BDEC0(v23);
-  sub_2210BDEC0(v21);
-  objc_msgSend_addRegion_(self, v18, v14, v19, v20);
+  sub_22120A3D8(&self->_gathererMap._cellRanges, v17);
+  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v19);
+  sub_2210BDEC0(v19);
+  sub_2210BDEC0(v17);
+  objc_msgSend_addRegion_(self, v15, v12, v16);
 }
 
 - (void)removeRows:(id)rows
 {
   rowsCopy = rows;
-  v9 = objc_msgSend_gatheredCellRegion(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_mutableCopy(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_gatheredCellRegion(self, v5, v6, v7);
+  v12 = objc_msgSend_mutableCopy(v8, v9, v10, v11);
 
-  objc_msgSend_removeRows_(v14, v15, rowsCopy, v16, v17);
-  memset(v21, 0, sizeof(v21));
-  v22 = 1065353216;
-  memset(v23, 0, sizeof(v23));
-  v24 = 1065353216;
+  objc_msgSend_removeRows_(v12, v13, rowsCopy, v14);
+  memset(v17, 0, sizeof(v17));
+  v18 = 1065353216;
+  memset(v19, 0, sizeof(v19));
+  v20 = 1065353216;
   self->_gathererMap._rowRange.length = 0;
   *&self->_gathererMap._cellRangeIndex = xmmword_2217E08F0;
-  sub_22120A3D8(&self->_gathererMap._cellRanges, v21);
-  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v23);
-  sub_2210BDEC0(v23);
-  sub_2210BDEC0(v21);
-  objc_msgSend_addRegion_(self, v18, v14, v19, v20);
+  sub_22120A3D8(&self->_gathererMap._cellRanges, v17);
+  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v19);
+  sub_2210BDEC0(v19);
+  sub_2210BDEC0(v17);
+  objc_msgSend_addRegion_(self, v15, v12, v16);
 }
 
 - (void)moveColumnsFromRange:(_NSRange)range toIndex:(unsigned __int16)index
@@ -193,20 +193,20 @@
   indexCopy = index;
   length = range.length;
   location = range.location;
-  v8 = objc_msgSend_gatheredCellRegion(self, a2, range.location, range.length, index);
+  v8 = objc_msgSend_gatheredCellRegion(self, a2, range.location, range.length);
   v10 = objc_msgSend_regionByMovingColumnsFromRange_toIndex_(v8, v9, location, length, indexCopy);
 
-  memset(v14, 0, sizeof(v14));
-  v15 = 1065353216;
-  memset(v16, 0, sizeof(v16));
-  v17 = 1065353216;
+  memset(v13, 0, sizeof(v13));
+  v14 = 1065353216;
+  memset(v15, 0, sizeof(v15));
+  v16 = 1065353216;
   self->_gathererMap._rowRange.length = 0;
   *&self->_gathererMap._cellRangeIndex = xmmword_2217E08F0;
-  sub_22120A3D8(&self->_gathererMap._cellRanges, v14);
-  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v16);
-  sub_2210BDEC0(v16);
-  sub_2210BDEC0(v14);
-  objc_msgSend_addRegion_(self, v11, v10, v12, v13);
+  sub_22120A3D8(&self->_gathererMap._cellRanges, v13);
+  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v15);
+  sub_2210BDEC0(v15);
+  sub_2210BDEC0(v13);
+  objc_msgSend_addRegion_(self, v11, v10, v12);
 }
 
 - (void)moveRowsFromRange:(_NSRange)range toIndex:(unsigned int)index
@@ -214,27 +214,27 @@
   v4 = *&index;
   length = range.length;
   location = range.location;
-  v8 = objc_msgSend_gatheredCellRegion(self, a2, range.location, range.length, *&index);
+  v8 = objc_msgSend_gatheredCellRegion(self, a2, range.location, range.length);
   v10 = objc_msgSend_regionByMovingRowsFromRange_toIndex_(v8, v9, location, length, v4);
 
-  memset(v14, 0, sizeof(v14));
-  v15 = 1065353216;
-  memset(v16, 0, sizeof(v16));
-  v17 = 1065353216;
+  memset(v13, 0, sizeof(v13));
+  v14 = 1065353216;
+  memset(v15, 0, sizeof(v15));
+  v16 = 1065353216;
   self->_gathererMap._rowRange.length = 0;
   *&self->_gathererMap._cellRangeIndex = xmmword_2217E08F0;
-  sub_22120A3D8(&self->_gathererMap._cellRanges, v14);
-  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v16);
-  sub_2210BDEC0(v16);
-  sub_2210BDEC0(v14);
-  objc_msgSend_addRegion_(self, v11, v10, v12, v13);
+  sub_22120A3D8(&self->_gathererMap._cellRanges, v13);
+  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v15);
+  sub_2210BDEC0(v15);
+  sub_2210BDEC0(v13);
+  objc_msgSend_addRegion_(self, v11, v10, v12);
 }
 
 - (void)p_cleanupStashedRangeIffExists
 {
   if (TSUCellRect::isValid(&self->_lastCellRangeAdded))
   {
-    objc_msgSend_p_addRange_(self, v3, *&self->_lastCellRangeAdded.origin, *&self->_lastCellRangeAdded.size, v4);
+    objc_msgSend_p_addRange_(self, v3, *&self->_lastCellRangeAdded.origin, *&self->_lastCellRangeAdded.size);
     self->_lastCellRangeAdded = xmmword_2217E0900;
   }
 }
@@ -298,7 +298,7 @@ LABEL_13:
 LABEL_48:
         sub_221208378(&self->_gathererMap._cellRangeIndex, origin, size, 0);
         v27 = &rangeCopy;
-        v24 = sub_22120B15C(&self->_originToRangeMap.__table_.__bucket_list_.__ptr_, &rangeCopy.origin);
+        v24 = sub_22120B15C(&self->_originToRangeMap.__table_.__bucket_list_.__ptr_, &rangeCopy.origin, &unk_2217E0910, &v27);
         *(v24 + 3) = rangeCopy;
         return;
       }
@@ -359,19 +359,19 @@ LABEL_48:
 
 - (id)gatheredCellRegion
 {
-  objc_msgSend_p_cleanupStashedRangeIffExists(self, a2, v2, v3, v4);
+  objc_msgSend_p_cleanupStashedRangeIffExists(self, a2, v2, v3);
   if (self->_gathererMap._cellRanges.__table_.__size_ > 0x63)
   {
-    objc_msgSend_p_gatherCellRegionViaReducedOverlap(self, v6, v7, v8, v9);
+    objc_msgSend_p_gatherCellRegionViaReducedOverlap(self, v5, v6, v7);
   }
 
   else
   {
-    objc_msgSend_p_gatherCellRegionViaCellRegionAddition(self, v6, v7, v8, v9);
+    objc_msgSend_p_gatherCellRegionViaCellRegionAddition(self, v5, v6, v7);
   }
-  v10 = ;
+  v8 = ;
 
-  return v10;
+  return v8;
 }
 
 - (id)p_gatherCellRegionViaCellRegionAddition
@@ -379,67 +379,67 @@ LABEL_48:
   sub_2212088FC(&self->_gathererMap, &__p);
   if (self->_mightOverlap)
   {
-    v9 = objc_msgSend_invalidRegion(TSTMutableCellRegion, v3, v4, v5, v6);
-    v10 = __p;
-    v11 = v14;
-    while (v10 != v11)
+    v7 = objc_msgSend_invalidRegion(TSTMutableCellRegion, v3, v4, v5);
+    v8 = __p;
+    v9 = v12;
+    while (v8 != v9)
     {
-      objc_msgSend_addRange_(v9, v7, *v10, v10[1], v8);
-      v10 += 2;
+      objc_msgSend_addRange_(v7, v6, *v8, v8[1]);
+      v8 += 2;
     }
   }
 
   else
   {
-    v9 = objc_msgSend_regionFromCellRangeVector_(TSTCellRegion, v3, &__p, v5, v6);
+    v7 = objc_msgSend_regionFromCellRangeVector_(TSTCellRegion, v3, &__p, v5);
   }
 
-  if (__p)
-  {
-    v14 = __p;
-    operator delete(__p);
-  }
-
-  return v9;
-}
-
-- (id)p_gatherCellRegionViaReducedOverlap
-{
-  location = self->_gathererMap._rowRange.location;
-  length = self->_gathererMap._rowRange.length;
-  sub_2212088FC(&self->_gathererMap, &v18);
-  v12 = 0;
-  v13 = 0;
-  __p = 0;
-  sub_22116C9DC(&__p, v18, v19, (v19 - v18) >> 4);
-  sub_221209670(&__p, location, length, v5, v14);
-  *&self->_gathererMap._cellRangeIndex = *v14;
-  self->_gathererMap._rowRange.length = v15;
-  sub_22120A3D8(&self->_gathererMap._cellRanges, v16);
-  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v17);
-  sub_2210BDEC0(v17);
-  sub_2210BDEC0(v16);
   if (__p)
   {
     v12 = __p;
     operator delete(__p);
   }
 
-  sub_2212088FC(&self->_gathererMap, v14);
-  v9 = objc_msgSend_regionFromCellRangeVector_(TSTCellRegion, v6, v14, v7, v8);
-  if (v14[0])
+  return v7;
+}
+
+- (id)p_gatherCellRegionViaReducedOverlap
+{
+  location = self->_gathererMap._rowRange.location;
+  length = self->_gathererMap._rowRange.length;
+  sub_2212088FC(&self->_gathererMap, &v16);
+  v10 = 0;
+  v11 = 0;
+  __p = 0;
+  sub_22116C9DC(&__p, v16, v17, (v17 - v16) >> 4);
+  sub_221209670(&__p, location, length, v12);
+  *&self->_gathererMap._cellRangeIndex = *v12;
+  self->_gathererMap._rowRange.length = v13;
+  sub_22120A3D8(&self->_gathererMap._cellRanges, v14);
+  sub_22120A3D8(&self->_gathererMap._encodedJoinCoordToCandidateIndexMap, v15);
+  sub_2210BDEC0(v15);
+  sub_2210BDEC0(v14);
+  if (__p)
   {
-    v14[1] = v14[0];
-    operator delete(v14[0]);
+    v10 = __p;
+    operator delete(__p);
   }
 
-  if (v18)
+  sub_2212088FC(&self->_gathererMap, v12);
+  v7 = objc_msgSend_regionFromCellRangeVector_(TSTCellRegion, v5, v12, v6);
+  if (v12[0])
   {
-    v19 = v18;
-    operator delete(v18);
+    v12[1] = v12[0];
+    operator delete(v12[0]);
   }
 
-  return v9;
+  if (v16)
+  {
+    v17 = v16;
+    operator delete(v16);
+  }
+
+  return v7;
 }
 
 - (TSUCellRect)lastCellRangeAdded

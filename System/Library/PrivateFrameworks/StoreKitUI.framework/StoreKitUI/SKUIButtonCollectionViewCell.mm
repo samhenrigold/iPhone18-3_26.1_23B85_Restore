@@ -302,81 +302,8 @@ void __68__SKUIButtonCollectionViewCell_reloadWithViewElement_width_context___bl
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIButtonCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v33.receiver = self;
-  v33.super_class = SKUIButtonCollectionViewCell;
-  [(SKUICollectionViewCell *)&v33 layoutSubviews];
-  if (self->_button)
-  {
-    contentView = [(SKUIButtonCollectionViewCell *)self contentView];
-    [contentView bounds];
-    v13 = v12;
-    v15 = v14;
-
-    [(SKUIViewReuseCollectionViewCell *)self contentInset];
-    v17 = v16;
-    v19 = v18;
-    v20 = v13 - v16 - v18;
-    v21 = self->_viewElementStyle;
-    textAlignment = [(IKViewElementStyle *)v21 textAlignment];
-    if (!textAlignment)
-    {
-      textAlignment = [(IKViewElementStyle *)v21 elementAlignment];
-    }
-
-    v23 = *MEMORY[0x277CBF3A0];
-    v24 = *(MEMORY[0x277CBF3A0] + 8);
-    [(UIControl *)self->_button sizeThatFits:v20, 1.79769313e308];
-    v34.size.width = v25;
-    v27 = v26;
-    v34.origin.x = v23;
-    v34.origin.y = v24;
-    v34.size.height = v27;
-    [SKUIViewElementLayoutContext itemWidthForElement:self->_viewElement withDefaultWidth:CGRectGetWidth(v34) fitWidth:v20];
-    if (v28 >= v20)
-    {
-      v29 = v20;
-    }
-
-    else
-    {
-      v29 = v28;
-    }
-
-    v30 = (v15 - v27) * 0.5;
-    v31 = floorf(v30);
-    if (textAlignment <= 5)
-    {
-      if (((1 << textAlignment) & 0x35) != 0)
-      {
-        v32 = (v13 - v29) * 0.5;
-        v23 = floorf(v32);
-      }
-
-      else if (textAlignment == 1)
-      {
-        v23 = v17;
-      }
-
-      else
-      {
-        v23 = v13 - v19 - v29;
-      }
-    }
-
-    [(UIControl *)self->_button setFrame:v23, v31];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonCollectionViewCell layoutSubviews]";
 }
 
 - (void)_buttonAction:(id)action
@@ -432,18 +359,18 @@ void __68__SKUIButtonCollectionViewCell_reloadWithViewElement_width_context___bl
   v14 = SKUIViewElementAlignmentForStyle(v10);
   if (v14)
   {
-    v15 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v14);
+    v16 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v14, v15);
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
   buttonText = [buttonCopy buttonText];
-  v17 = [buttonText attributedStringWithDefaultFont:v11 foregroundColor:blackColor textAlignment:v15 style:v10];
+  v18 = [buttonText attributedStringWithDefaultFont:v11 foregroundColor:blackColor textAlignment:v16 style:v10];
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)_usesBackgroundWithAlpha
@@ -456,6 +383,60 @@ void __68__SKUIButtonCollectionViewCell_reloadWithViewElement_width_context___bl
   v3 = [backgroundColor getHue:&v8 saturation:&v7 brightness:&v6 alpha:&v5];
 
   return v3 && v5 < 1.0 && v5 != 0.0;
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIButtonCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIButtonCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIButtonCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIButtonCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
+}
+
+- (void)reloadWithViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonCollectionViewCell reloadWithViewElement:width:context:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonCollectionViewCell setBackgroundColor:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonCollectionViewCell setImage:forArtworkRequest:context:]";
+}
+
+- (void)updateWithItemState:(uint64_t)a3 context:(uint64_t)a4 animated:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonCollectionViewCell updateWithItemState:context:animated:]";
+}
+
+- (void)viewForElementIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonCollectionViewCell viewForElementIdentifier:]";
 }
 
 @end

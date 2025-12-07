@@ -56,28 +56,28 @@
 
 - (void)setScreenGroupID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [dCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [dCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(dCopy);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         aggregateHash = [(FeatureHashGroup *)self aggregateHash];
         hashID = [aggregateHash hashID];
         [v9 setScreenGroupId:hashID];
@@ -86,13 +86,11 @@
       }
 
       while (v6 != v8);
-      v6 = [dCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [dCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (double)computeMeanHashDistance:(id)distance

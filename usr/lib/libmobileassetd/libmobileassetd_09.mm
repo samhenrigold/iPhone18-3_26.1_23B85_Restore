@@ -65,7 +65,7 @@ uint64_t InjectFlushOrPushOutput(uint64_t a1, size_t *a2, void **a3, size_t *a4)
   return 1;
 }
 
-uint64_t EncodeData(uint64_t a1, unsigned int a2, int a3, unint64_t *a4, char **a5, __n128 a6, int32x4_t a7, double a8, double a9, double a10, int32x4_t a11)
+uint64_t EncodeData(uint64_t a1, uint64_t a2, int a3, unint64_t *a4, char **a5, __n128 a6, int32x4_t a7, double a8, double a9, double a10, int32x4_t a11)
 {
   v11 = *(a1 + 2248);
   v12 = *(a1 + 2344);
@@ -655,7 +655,7 @@ LABEL_193:
             {
               v94 = &_kBrotliContextLookupTable[v82];
               v88 = (a1 + 2352);
-              BrotliCreateBackwardReferences(v265, v264, v20, v21, a6.n128_f64[0], a7, a8, a9, a10, a11, v94, a1, v259, (a1 + 2352), (a1 + 2328), v85, v81, (a1 + 2320));
+              BrotliCreateBackwardReferences(v265, v264, v20, v21, v94, a1, v259, (a1 + 2352), a6.n128_f64[0], a7, a8, a9, a10, a11, (a1 + 2328), v85, v81, (a1 + 2320));
               goto LABEL_226;
             }
 
@@ -1571,12 +1571,12 @@ LABEL_14:
   v32 = v260 & v14;
   if (*(a1 + 4))
   {
-    BrotliCompressFragmentTwoPass(a1 + 144, v26 + v32, v13, a2, *(a1 + 8568), *(a1 + 8576), HashTable, v262[0], &v263, v30);
+    BrotliCompressFragmentTwoPass((a1 + 144), v26 + v32, v13, a2, *(a1 + 8568), *(a1 + 8576), HashTable, v262[0], &v263, v30);
   }
 
   else
   {
-    BrotliCompressFragmentFast(a1 + 144, v26 + v32, v13, a2, HashTable, v262[0], (a1 + 7664), a1 + 7792, (a1 + 8560), (a1 + 8048), &v263, v30);
+    BrotliCompressFragmentFast(a1 + 144, v26 + v32, v13, a2, HashTable, v262[0], (a1 + 7664), (a1 + 7792), (a1 + 8560), (a1 + 8048), &v263, v30);
   }
 
   if (*(a1 + 168))
@@ -2297,7 +2297,7 @@ uint64_t ExtendLastCommand(uint64_t result, _DWORD *a2, _DWORD *a3)
   return result;
 }
 
-void WriteMetaBlockInternal(uint64_t a1, uint64_t a2, size_t a3, unint64_t a4, unint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned __int8 a9, unsigned __int8 a10, unint64_t a11, unint64_t a12, unsigned int *a13, _OWORD *a14, _OWORD *a15, unint64_t *a16, char *a17)
+void WriteMetaBlockInternal(uint64_t result, uint64_t a2, size_t a3, unint64_t a4, unint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned __int8 a9, unsigned __int8 a10, unint64_t a11, unint64_t a12, unsigned int *a13, _OWORD *a14, _OWORD *a15, unsigned __int8 *a16, char *a17)
 {
   if (a4 >> 30 < 3)
   {
@@ -2339,16 +2339,16 @@ void WriteMetaBlockInternal(uint64_t a1, uint64_t a2, size_t a3, unint64_t a4, u
     if (v27 <= 2)
     {
       v28 = a6;
-      BrotliStoreMetaBlockFast(a1, a2, v22, a5, a3, a6, a8, a13, a12, a16, a17);
+      BrotliStoreMetaBlockFast(result, a2, v22, a5, a3, a6, a8, a13, a12, a16, a17);
       goto LABEL_14;
     }
 
     if (v27 == 3)
     {
       v28 = a6;
-      BrotliStoreMetaBlockTrivial(a1, a2, v22, a5, a3, a6, a8, a13, a12, a16, a17);
+      BrotliStoreMetaBlockTrivial(result, a2, v22, a5, a3, a6, a8, a13, a12, a16, a17);
 LABEL_14:
-      if (*(a1 + 24))
+      if (*(result + 24))
       {
         return;
       }
@@ -2375,7 +2375,7 @@ LABEL_14:
     v30 = *(a8 + 4);
     if (v30 > 9)
     {
-      BrotliBuildMetaBlock(a1, a2, v22, a3, v50, a9, a10, a13, a12, a7, v42);
+      BrotliBuildMetaBlock(result, a2, v22, a3, v50, a9, a10, a13, a12, a7, v42);
     }
 
     else
@@ -2395,31 +2395,31 @@ LABEL_14:
         v33 = v41;
       }
 
-      BrotliBuildMetaBlockGreedy(a1, a2, v34, a3, a9, a10, &_kBrotliContextLookupTable[v32], v33, v31, a13, a12, v42);
+      BrotliBuildMetaBlockGreedy(result, a2, v34, a3, a9, a10, &_kBrotliContextLookupTable[v32], v33, v31, a13, a12, v42);
     }
 
-    if (!*(a1 + 24))
+    if (!*(result + 24))
     {
       if (*(a8 + 4) >= 4)
       {
         BrotliOptimizeHistograms(HIDWORD(v51), v42);
       }
 
-      BrotliStoreMetaBlock(a1, a2, v22, a5, a3, a9, a10, a6, v50, a7, a13, a12, v42, a16, a17);
-      if (!*(a1 + 24))
+      BrotliStoreMetaBlock(result, a2, v22, a5, a3, a9, a10, a6, v50, a7, a13, a12, v42, a16, a17);
+      if (!*(result + 24))
       {
-        BrotliDestroyBlockSplit(a1, v42);
-        BrotliDestroyBlockSplit(a1, v43);
-        BrotliDestroyBlockSplit(a1, v44);
-        BrotliFree(a1, v45);
+        BrotliDestroyBlockSplit(result, v42);
+        BrotliDestroyBlockSplit(result, v43);
+        BrotliDestroyBlockSplit(result, v44);
+        BrotliFree(result, v45);
         *&v45 = 0;
-        BrotliFree(a1, v46);
+        BrotliFree(result, v46);
         *&v46 = 0;
-        BrotliFree(a1, v47);
+        BrotliFree(result, v47);
         *&v47 = 0;
-        BrotliFree(a1, v48);
+        BrotliFree(result, v48);
         *&v48 = 0;
-        BrotliFree(a1, v49);
+        BrotliFree(result, v49);
         v28 = a6;
 LABEL_15:
         if (a5 + 4 < *a16 >> 3)
@@ -2478,7 +2478,7 @@ void DecideOverLiteralContextModeling(uint64_t a1, uint64_t a2, unint64_t a3, ui
             {
               v21 = v18;
               v18 = *(a1 + ((v17 + i) & a4));
-              v22 = ShouldUseComplexStaticContextMap_kStaticContextMapComplexUTF8[4 * (*(&_kBrotliContextLookupTable + v19 + 1280) | *(&_kBrotliContextLookupTable + v21 + 1024))];
+              v22 = ShouldUseComplexStaticContextMap_kStaticContextMapComplexUTF8[4 * (_kBrotliContextLookupTable[v19 + 1280] | _kBrotliContextLookupTable[v21 + 1024])];
               v23 = (v18 >> 1) & 0x7C;
               ++*(&v113 + v23);
               v24 = &v111[8 * v22];
@@ -3840,7 +3840,7 @@ LABEL_9:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t lzvnStreamDecodeInit(uint64_t a1, int a2, int a3)
+uint64_t lzvnStreamDecodeInit(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -4044,7 +4044,7 @@ int32x4_t **lz4_encode_2gb(int32x4_t **result, uint64_t a2, char **a3, uint64_t 
   v7 = vdupq_n_s32(0xFFFFFFFF);
   v8 = *result;
   v9 = *a3;
-  v10 = (*result)[-8].i64 + a2;
+  v10 = &(*result)[-8].i8[a2];
   if (v10 < *result)
   {
     goto LABEL_92;
@@ -4415,29 +4415,29 @@ unint64_t brotli_encode_buffer(_BYTE *a1, unint64_t a2, uint64_t *a3, unint64_t 
   }
 }
 
-uint64_t brotli_stream_process(uint64_t a1, char a2)
+uint64_t brotli_stream_process(uint64_t a1, char a2, __n128 a3)
 {
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24) | a2 & 1;
-  *(v3 + 24) = v4;
-  v5 = *(v3 + 16);
-  if (*v3)
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 24) | a2 & 1;
+  *(v4 + 24) = v5;
+  v6 = *(v4 + 16);
+  if (*v4)
   {
-    v6 = BrotliDecoderDecompressStream(v5, (a1 + 24), (a1 + 16), (a1 + 8), a1, 0) - 1;
-    if (v6 <= 2)
+    v7 = BrotliDecoderDecompressStream(v6, (a1 + 24), (a1 + 16), (a1 + 8), a1, 0, a3) - 1;
+    if (v7 <= 2)
     {
-      return dword_341A00[v6];
+      return dword_341A00[v7];
     }
 
     return 0xFFFFFFFFLL;
   }
 
-  if (!BrotliEncoderCompressStream(v5, 2 * (v4 != 0), (a1 + 24), (a1 + 16), (a1 + 8), a1, 0))
+  if (!BrotliEncoderCompressStream(v6, 2 * (v5 != 0), (a1 + 24), (a1 + 16), (a1 + 8), a1, 0))
   {
     return 0xFFFFFFFFLL;
   }
 
-  return *(v3 + 24) && BrotliEncoderIsFinished(*(v3 + 16));
+  return *(v4 + 24) && BrotliEncoderIsFinished(*(v4 + 16));
 }
 
 uint64_t brotli_stream_init(uint64_t a1, int a2)
@@ -4506,8 +4506,9 @@ uint64_t brotli_stream_end(uint64_t a1)
   return 0;
 }
 
-uint64_t lzvnStreamEncodeInit(uint64_t a1, int a2, int a3)
+uint64_t lzvnStreamEncodeInit(uint64_t a1, uint64_t a2, int a3)
 {
+  v3 = a2;
   if (!a3)
   {
     *(a1 + 32) = 0;
@@ -4516,7 +4517,7 @@ uint64_t lzvnStreamEncodeInit(uint64_t a1, int a2, int a3)
   }
 
   v5 = lzvn_encode_scratch_size(a2);
-  v6 = realloc_stream_state(*(a1 + 32), 0, a2, v5 + 524544, v5 + 524344);
+  v6 = realloc_stream_state(*(a1 + 32), 0, v3, v5 + 524544, v5 + 524344);
   *(a1 + 32) = v6;
   if (!v6)
   {
@@ -5072,7 +5073,7 @@ Bytef *zlib_encode_buffer(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, u
   return result;
 }
 
-uint64_t lzvn_stream_init(uint64_t a1, int a2, int a3, int a4)
+uint64_t lzvn_stream_init(uint64_t a1, int a2, uint64_t a3, int a4)
 {
   if (a2 == 1)
   {
@@ -5115,7 +5116,7 @@ uint64_t lz24_decode_buffer(char *__dst, unint64_t a2, unsigned int *a3, uint64_
   result = 0;
   if (a4 >= 4 && ((a4 | a2) & 0x8000000000000000) == 0)
   {
-    v6 = (a3 + 1);
+    v6 = a3 + 1;
     v7 = *a3;
     if (v7 > a2)
     {
@@ -5126,7 +5127,7 @@ uint64_t lz24_decode_buffer(char *__dst, unint64_t a2, unsigned int *a3, uint64_
     {
       v8 = a3 + a4;
       v9 = &__dst[a2];
-      v10 = a3 + a4 - 34;
+      v10 = (a3 + a4 - 34);
       v11 = &__dst[a2 - 62];
       v12 = __dst;
       while (1)
@@ -5195,7 +5196,7 @@ LABEL_29:
             return 0;
           }
 
-          v6 += (v17 & 0x1F) + 3;
+          v6 = (v6 + (v17 & 0x1F) + 3);
           v21 = *&v20[-v18 + 16];
           *v20 = *&v20[-v18];
           *(v20 + 1) = v21;
@@ -5430,7 +5431,7 @@ uint64_t BrotliWarmupBitReader(unint64_t *a1)
   return 0;
 }
 
-uint64_t lzbitmap_decode(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, __n128 a6, int8x16_t a7)
+uint64_t lzbitmap_decode(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint8x8_t *a5, __n128 a6, int8x16_t a7)
 {
   if (a4 < 4)
   {
@@ -5463,7 +5464,7 @@ uint64_t lzbitmap_decode(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4,
   }
 
   v22 = 0;
-  v23 = (a5 + 4160);
+  v23 = a5 + 520;
   v147 = (v16 >> 2) & 1;
   v146 = v21 >> 4;
   v24 = ((v16 & 4) == 0) - 13;
@@ -5701,7 +5702,7 @@ LABEL_61:
     do
     {
       v86 = *(v18 + v83);
-      v87 = *&v23[v83];
+      v87 = *(v23 + v83);
       if (!*&v86)
       {
         if (v87)
@@ -5753,8 +5754,8 @@ LABEL_61:
       v94 = vaddq_s32(v93, v29);
       v95 = vqsubq_u32(v94, v91);
       v96 = vcnt_s8(v87);
-      *v97.i8 = lzbitmap_unpack_perm_table[*&v23[v83]];
-      v94.i32[0] = *&v23[v83];
+      *v97.i8 = lzbitmap_unpack_perm_table[*(v23 + v83)];
+      v94.i32[0] = *(v23 + v83);
       *v94.i8 = vcnt_s8(*v94.i8);
       v94.i16[0] = vaddlv_u8(*v94.i8);
       *v94.i8 = vdup_lane_s8(*v94.i8, 0);
@@ -5830,7 +5831,7 @@ LABEL_95:
         return result;
       }
 
-      v126 = *(v18 + v83);
+      v126 = v18->u8[v83];
       if (v126 == 2)
       {
         v128 = *v85;
@@ -5846,7 +5847,7 @@ LABEL_95:
       }
 
       v129 = v22 - v84;
-      if (v22 < v84 && v23[v83] != 255)
+      if (v22 < v84 && v23->u8[v83] != 255)
       {
         return 0;
       }
@@ -5858,7 +5859,7 @@ LABEL_95:
         v132 = 1;
         do
         {
-          v133 = v23[v83];
+          v133 = v23->u8[v83];
           v134 = (v132 & v133) == 0;
           if ((v132 & v133) != 0)
           {
@@ -5996,7 +5997,7 @@ uint64_t lzvnEncodeInitState(uint64_t result, int a2, uint64_t a3)
   return result;
 }
 
-unint64_t lzvnEncode(unint64_t result, int8x16_t a2)
+uint64_t lzvnEncode(uint64_t result, int8x16_t a2)
 {
   v2 = *(result + 24);
   if (v2 < *(result + 32))
@@ -6771,7 +6772,7 @@ uint64_t lzvn_encode_scratch_size(int a1)
   }
 }
 
-char *lzvn_encode_buffer(char *a1, unint64_t a2, const float *a3, unint64_t a4, int8x16_t *a5, int a6)
+char *lzvn_encode_buffer(char *a1, unint64_t a2, const float *a3, unint64_t a4, int8x16_t *a5, uint64_t a6)
 {
   v8 = 0;
   result = lzvn_encode_partial(a1, a2, a3, a4, &v8, a5, a6);
@@ -6844,7 +6845,7 @@ char *lzvn_encode_partial(char *a1, unint64_t a2, const float *a3, unint64_t a4,
   v17 = v27 - v30;
   v18 = (v26[0] + v30);
   v19 = v33;
-  if ((v27 - v30) >= 0x10)
+  if (v27 - v30 >= 0x10)
   {
     v20 = v31;
     while (1)
@@ -6895,7 +6896,7 @@ LABEL_23:
   }
 
 LABEL_25:
-  if (v25 >= (v16 + 8))
+  if (v25 >= v16 + 8)
   {
     *v16 = 6;
     v16 += 8;
@@ -7086,7 +7087,7 @@ uint64_t smb_lznt1_decode_buffer(char *__dst, unint64_t a2, char *__src, uint64_
   return v7;
 }
 
-uint64_t smb_lznt1_encode_buffer(_WORD *a1, unint64_t a2, _BYTE *a3, unint64_t a4, void *a5)
+uint64_t smb_lznt1_encode_buffer(_WORD *a1, unint64_t a2, _BYTE *a3, size_t a4, void *a5)
 {
   bzero(a5, 0x8000uLL);
   v10 = 0;
@@ -8252,7 +8253,7 @@ uint64_t lz4raw_encode_buffer(int32x4_t *a1, uint64_t a2, char *a3, unint64_t a4
     v12 = v8 >= 0x7FFFF000 ? 2147479552 : v8;
     lz4_encode_2gb(&v15, a2, &v16, v9, v12, __b, v8 > 0x7FFFF000);
     v6 = v15;
-    v13 = &v16[-v9];
+    v13 = v16 - v9;
     if (v8 <= 0x7FFFF000 && v12 > v13)
     {
       break;
@@ -8276,18 +8277,18 @@ uint64_t lz4raw_encode_buffer(int32x4_t *a1, uint64_t a2, char *a3, unint64_t a4
   return 0;
 }
 
-char *lz4raw_decode_buffer(char *a1, unint64_t a2, unsigned __int8 *a3, unint64_t a4)
+char *lz4raw_decode_buffer(unint64_t a1, unint64_t a2, unsigned __int8 *a3, unint64_t a4)
 {
   v9 = a1;
   v10 = a3;
-  if (a2 >= 0x81 && a4 >= 0x81 && lz4_decode_asm(&v9, a1, &a1[a2 - 128], &v10, &a3[a4 - 128]) || lz4_decode(&v9, a1, &a1[a2], &v10, &a3[a4]))
+  if (a2 >= 0x81 && a4 >= 0x81 && lz4_decode_asm(&v9, a1, a1 + a2 - 128, &v10, &a3[a4 - 128]) || lz4_decode(&v9, a1, (a1 + a2), &v10, &a3[a4]))
   {
     return 0;
   }
 
   else
   {
-    return (v9 - a1);
+    return &v9[-a1];
   }
 }
 

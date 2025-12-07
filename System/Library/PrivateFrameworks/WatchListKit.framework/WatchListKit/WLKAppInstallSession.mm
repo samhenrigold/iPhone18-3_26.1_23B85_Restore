@@ -27,7 +27,7 @@ void __54___WLKAppInstallSession_applicationInstallsDidChange___block_invoke(uin
 
 void __73___WLKAppInstallSession_beginInstallationWithProgressHandler_completion___block_invoke(uint64_t a1)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 40) copy];
   v3 = *(a1 + 32);
   v4 = *(v3 + 8);
@@ -59,21 +59,19 @@ void __73___WLKAppInstallSession_beginInstallationWithProgressHandler_completion
     v16 = [MEMORY[0x277CEE3F8] wlk_defaultBag];
     v17 = [v15 initWithType:0 clientIdentifier:@"com.tv.videosui" clientVersion:@"1" bag:v16];
 
-    v23[0] = v11;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = v11;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     [v17 setItemIdentifiers:v18];
 
     v19 = [v17 perform];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __73___WLKAppInstallSession_beginInstallationWithProgressHandler_completion___block_invoke_2;
-    v21[3] = &unk_279E5FC58;
-    v21[4] = *(a1 + 32);
-    v22 = v11;
-    [v19 addFinishBlock:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __73___WLKAppInstallSession_beginInstallationWithProgressHandler_completion___block_invoke_2;
+    v20[3] = &unk_279E5FC58;
+    v20[4] = *(a1 + 32);
+    v21 = v11;
+    [v19 addFinishBlock:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __73___WLKAppInstallSession_beginInstallationWithProgressHandler_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -115,7 +113,7 @@ void __73___WLKAppInstallSession_beginInstallationWithProgressHandler_completion
 
 void __65___WLKAppInstallSession__doPurchaseWithAppAdamID_offerBuyParams___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -123,9 +121,9 @@ void __65___WLKAppInstallSession__doPurchaseWithAppAdamID_offerBuyParams___block
   {
     NSLog(&cfstr_RedownloadFail.isa, *(a1 + 32), v6);
     v8 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA7E8];
-    v19[0] = v7;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA7E8];
+    v18[0] = v7;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v10 = [v8 errorWithDomain:@"WLKAppInstallerErrorDomain" code:-1 userInfo:v9];
 
     [*(a1 + 40) _sendCompletionWithError:v10];
@@ -140,30 +138,30 @@ void __65___WLKAppInstallSession__doPurchaseWithAppAdamID_offerBuyParams___block
       goto LABEL_4;
     }
 
-    v12 = [v5 items];
-    if ([v12 count])
+    v11 = [v5 items];
+    if ([v11 count])
     {
-      v13 = [v5 items];
-      v10 = [v13 firstObject];
+      v12 = [v5 items];
+      v10 = [v12 firstObject];
 
       if (v10 && ([v10 success] & 1) == 0)
       {
-        v14 = [v10 error];
-        v15 = v14;
-        if (v14)
+        v13 = [v10 error];
+        v14 = v13;
+        if (v13)
         {
-          v16 = v14;
+          v15 = v13;
         }
 
         else
         {
-          v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKAppInstallerErrorDomain" code:-1 userInfo:0];
+          v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKAppInstallerErrorDomain" code:-1 userInfo:0];
         }
 
-        v17 = v16;
+        v16 = v15;
 
-        NSLog(&cfstr_RedownloadFail.isa, *(a1 + 32), v17);
-        [*(a1 + 40) _sendCompletionWithError:v17];
+        NSLog(&cfstr_RedownloadFail.isa, *(a1 + 32), v16);
+        [*(a1 + 40) _sendCompletionWithError:v16];
 
         goto LABEL_3;
       }
@@ -181,7 +179,6 @@ void __65___WLKAppInstallSession__doPurchaseWithAppAdamID_offerBuyParams___block
 LABEL_3:
 
 LABEL_4:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __50___WLKAppInstallSession__sendCompletionWithError___block_invoke(uint64_t a1)

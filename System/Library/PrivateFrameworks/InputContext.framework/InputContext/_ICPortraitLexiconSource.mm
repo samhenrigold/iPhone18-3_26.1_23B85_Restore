@@ -42,12 +42,12 @@
 
 - (void)startLoadingWithManager:(id)manager
 {
-  objc_storeWeak(&self->_manager, manager);
-  v4 = _ICPersNamedEntityOSLogFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v4 = objc_storeWeak(&self->_manager, manager);
+  v5 = _ICPersNamedEntityOSLogFacility(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_254BD0000, v4, OS_LOG_TYPE_INFO, "_ICPortraitLexiconSource loading data", buf, 2u);
+    _os_log_impl(&dword_254BD0000, v5, OS_LOG_TYPE_INFO, "_ICPortraitLexiconSource loading data", buf, 2u);
   }
 
   _makeContactDelegate = [(_ICPortraitLexiconSource *)self _makeContactDelegate];
@@ -55,16 +55,17 @@
   self->_contactDelegate = _makeContactDelegate;
 
   contactStore = self->_contactStore;
-  v8 = self->_contactDelegate;
-  v21 = 0;
-  [(PPContactStore *)contactStore loadContactNameRecordsAndMonitorChangesWithDelegate:v8 error:&v21];
-  v9 = v21;
-  if (v9)
+  v9 = self->_contactDelegate;
+  v24 = 0;
+  [(PPContactStore *)contactStore loadContactNameRecordsAndMonitorChangesWithDelegate:v9 error:&v24];
+  v10 = v24;
+  v11 = v10;
+  if (v10)
   {
-    v10 = _ICPersContactOSLogFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = _ICPersContactOSLogFacility(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(_ICPortraitLexiconSource *)v9 startLoadingWithManager:v10];
+      [(_ICPortraitLexiconSource *)v11 startLoadingWithManager:v12];
     }
   }
 
@@ -72,24 +73,25 @@
   namedEntityDelegate = self->_namedEntityDelegate;
   self->_namedEntityDelegate = _makeNamedEntityDelegate;
 
-  v13 = objc_alloc_init(MEMORY[0x277D3A430]);
-  v14 = +[_ICPortraitUtilities acceptedSourceBundleIds];
-  [v13 setMatchingSourceBundleIds:v14];
+  v15 = objc_alloc_init(MEMORY[0x277D3A430]);
+  v16 = +[_ICPortraitUtilities acceptedSourceBundleIds];
+  [v15 setMatchingSourceBundleIds:v16];
 
-  v15 = +[_ICPortraitUtilities excludedAlgorithms];
-  [v13 setExcludingAlgorithms:v15];
+  v17 = +[_ICPortraitUtilities excludedAlgorithms];
+  [v15 setExcludingAlgorithms:v17];
 
   namedEntityStore = self->_namedEntityStore;
-  v17 = self->_namedEntityDelegate;
-  v20 = 0;
-  [(PPNamedEntityStore *)namedEntityStore loadNamedEntityRecordsAndMonitorChangesWithDelegate:v17 query:v13 error:&v20];
-  v18 = v20;
-  if (v18)
+  v19 = self->_namedEntityDelegate;
+  v23 = 0;
+  [(PPNamedEntityStore *)namedEntityStore loadNamedEntityRecordsAndMonitorChangesWithDelegate:v19 query:v15 error:&v23];
+  v20 = v23;
+  v21 = v20;
+  if (v20)
   {
-    v19 = _ICPersNamedEntityOSLogFacility();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = _ICPersNamedEntityOSLogFacility(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(_ICPortraitLexiconSource *)v18 startLoadingWithManager:v19];
+      [(_ICPortraitLexiconSource *)v21 startLoadingWithManager:v22];
     }
   }
 }
@@ -208,49 +210,50 @@
   styleCopy = style;
   typeCopy = type;
   stringCopy = string;
+  v9 = stringCopy;
   if (typeCopy == 3)
   {
-    v9 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithOfferedString:stringCopy];
+    v10 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithOfferedString:stringCopy];
 LABEL_15:
-    v10 = v9;
-    v11 = _ICPersNamedEntityOSLogFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v11 = v10;
+    v12 = _ICPersNamedEntityOSLogFacility(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [_ICPortraitLexiconSource provideFeedbackForString:styleCopy type:typeCopy style:v11];
+      [_ICPortraitLexiconSource provideFeedbackForString:styleCopy type:typeCopy style:v12];
     }
 
-    [(PPNamedEntityStore *)self->_namedEntityStore registerFeedback:v10 completion:0];
+    [(PPNamedEntityStore *)self->_namedEntityStore registerFeedback:v11 completion:0];
     goto LABEL_18;
   }
 
   if (typeCopy == 1 && styleCopy == 1)
   {
-    v9 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithExplicitlyEngagedString:stringCopy];
+    v10 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithExplicitlyEngagedString:stringCopy];
     goto LABEL_15;
   }
 
   if (typeCopy == 1 && styleCopy == 2)
   {
-    v9 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithImplicitlyEngagedString:stringCopy];
+    v10 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithImplicitlyEngagedString:stringCopy];
     goto LABEL_15;
   }
 
   if (typeCopy == 2 && styleCopy == 1)
   {
-    v9 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithExplicitlyRejectedString:stringCopy];
+    v10 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithExplicitlyRejectedString:stringCopy];
     goto LABEL_15;
   }
 
   if (typeCopy == 2 && styleCopy == 2)
   {
-    v9 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithImplicitlyRejectedString:stringCopy];
+    v10 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithImplicitlyRejectedString:stringCopy];
     goto LABEL_15;
   }
 
-  v10 = _ICPersNamedEntityOSLogFacility();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = _ICPersNamedEntityOSLogFacility(stringCopy);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [_ICPortraitLexiconSource provideFeedbackForString:typeCopy type:styleCopy style:v10];
+    [_ICPortraitLexiconSource provideFeedbackForString:typeCopy type:styleCopy style:v11];
   }
 
 LABEL_18:
@@ -258,42 +261,38 @@ LABEL_18:
 
 - (void)startLoadingWithManager:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_254BD0000, a2, OS_LOG_TYPE_ERROR, "failed to load contact name records from Portrait: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_254BD0000, a2, OS_LOG_TYPE_ERROR, "failed to load contact name records from Portrait: %@", &v2, 0xCu);
 }
 
 - (void)startLoadingWithManager:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_254BD0000, a2, OS_LOG_TYPE_ERROR, "failed to load named entity records from Portrait: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_254BD0000, a2, OS_LOG_TYPE_ERROR, "failed to load named entity records from Portrait: %@", &v2, 0xCu);
 }
 
 - (void)provideFeedbackForString:(int)a1 type:(int)a2 style:(os_log_t)log .cold.1(int a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a1;
-  v5 = 1024;
-  v6 = a2;
-  _os_log_error_impl(&dword_254BD0000, log, OS_LOG_TYPE_ERROR, "Error: feedback received by _ICPortraitLexiconSource with unknown type or style: %d / %d", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a1;
+  v4 = 1024;
+  v5 = a2;
+  _os_log_error_impl(&dword_254BD0000, log, OS_LOG_TYPE_ERROR, "Error: feedback received by _ICPortraitLexiconSource with unknown type or style: %d / %d", v3, 0xEu);
 }
 
 - (void)provideFeedbackForString:(unsigned __int8)a1 type:(int)a2 style:(os_log_t)log .cold.2(unsigned __int8 a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a2;
-  v5 = 1024;
-  v6 = a1;
-  _os_log_debug_impl(&dword_254BD0000, log, OS_LOG_TYPE_DEBUG, "Feedback received by _ICPortraitLexiconSource with type = %d, style = %d", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a2;
+  v4 = 1024;
+  v5 = a1;
+  _os_log_debug_impl(&dword_254BD0000, log, OS_LOG_TYPE_DEBUG, "Feedback received by _ICPortraitLexiconSource with type = %d, style = %d", v3, 0xEu);
 }
 
 @end

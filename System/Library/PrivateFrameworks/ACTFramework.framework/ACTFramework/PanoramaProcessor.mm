@@ -70,8 +70,8 @@
   v6 = CMGetAttachment(flag, @"MetadataDictionary", 0);
   if (v6)
   {
-    v10 = v6;
-    value = objc_msgSend_mutableCopy(v6, v7, v8, v9);
+    v7 = v6;
+    value = [v6 mutableCopy];
   }
 
   else
@@ -81,14 +81,15 @@
 
   if (droppedCopy)
   {
-    objc_msgSend_setObject_forKeyedSubscript_(value, v11, MEMORY[0x277CBEC38], @"PreviousFrameDropped");
+    v8 = MEMORY[0x277CBEC38];
   }
 
   else
   {
-    objc_msgSend_setObject_forKeyedSubscript_(value, v11, MEMORY[0x277CBEC28], @"PreviousFrameDropped");
+    v8 = MEMORY[0x277CBEC28];
   }
 
+  [value setObject:v8 forKeyedSubscript:@"PreviousFrameDropped"];
   CMSetAttachment(flag, @"MetadataDictionary", value, 1u);
 }
 
@@ -99,92 +100,93 @@
   ImageBuffer = CMSampleBufferGetImageBuffer(frame);
   CVPixelBufferGetWidth(ImageBuffer);
   CVPixelBufferGetHeight(ImageBuffer);
-  v9 = CMGetAttachment(frame, @"MetadataDictionary", 0);
-  if (!v9)
+  v7 = CMGetAttachment(frame, @"MetadataDictionary", 0);
+  if (!v7)
   {
-    v9 = objc_opt_new();
+    v7 = objc_opt_new();
   }
 
-  v10 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v7, self->_nbFramesReceived, v8);
-  objc_msgSend_setObject_forKeyedSubscript_(v9, v11, v10, @"SliceNumber");
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:self->_nbFramesReceived];
+  [v7 setObject:v8 forKeyedSubscript:?];
 
   if (self->_nbFramesReceived)
   {
-    v13 = &unk_284F106E8;
+    v9 = &unk_284F106E8;
   }
 
   else
   {
-    v13 = &unk_284F10718;
+    v9 = &unk_284F10718;
   }
 
-  objc_msgSend_setObject_forKeyedSubscript_(v9, v12, v13, @"SliceType");
+  [v7 setObject:v9 forKeyedSubscript:?];
   if (self->_nbFramesReceived)
   {
-    objc_msgSend_setObject_forKeyedSubscript_(v9, v14, MEMORY[0x277CBEC38], @"SkipFrame");
+    v10 = MEMORY[0x277CBEC38];
   }
 
   else
   {
-    objc_msgSend_setObject_forKeyedSubscript_(v9, v14, MEMORY[0x277CBEC28], @"SkipFrame");
+    v10 = MEMORY[0x277CBEC28];
   }
 
+  [v7 setObject:v10 forKeyedSubscript:@"SkipFrame"];
   ++self->_nbFramesReceived;
-  v15 = CMGetAttachment(frame, @"ClientSpecifiedMetadata", 0);
-  v19 = objc_msgSend_mutableCopy(v15, v16, v17, v18);
+  v11 = CMGetAttachment(frame, @"ClientSpecifiedMetadata", 0);
+  v12 = [v11 mutableCopy];
 
-  v20 = CMGetAttachment(ImageBuffer, @"MetadataDictionary", 0);
-  v24 = v20;
-  if (v20 && objc_msgSend_count(v20, v21, v22, v23))
+  v13 = CMGetAttachment(ImageBuffer, @"MetadataDictionary", 0);
+  v14 = v13;
+  if (v13 && [v13 count])
   {
-    v26 = objc_msgSend_mutableCopy(v24, v21, v25, v23);
-    v27 = v26;
-    if (v19)
+    v15 = [v14 mutableCopy];
+    v16 = v15;
+    if (v12)
     {
-      objc_msgSend_addEntriesFromDictionary_(v26, v21, v19, v23);
+      [v15 addEntriesFromDictionary:v12];
     }
   }
 
   else
   {
-    v27 = v19;
+    v16 = v12;
   }
 
-  v96 = v24;
-  v30 = objc_msgSend_objectForKeyedSubscript_(v27, v21, *MEMORY[0x277CF5C30], v23);
-  if (!v30)
+  v42 = v14;
+  v17 = [v16 objectForKeyedSubscript:*MEMORY[0x277CF5C30]];
+  if (!v17)
   {
-    v30 = *MEMORY[0x277CF3CD8];
+    v17 = *MEMORY[0x277CF3CD8];
   }
 
-  v103 = -559038737;
-  v31 = MEMORY[0x277CCAC80];
-  v32 = objc_msgSend_objectForKeyedSubscript_(self->tuningParameters, v28, @"DefaultSensorIDs", v29);
-  v95 = v30;
-  v35 = objc_msgSend_objectForKeyedSubscript_(v32, v33, v30, v34);
-  v38 = objc_msgSend_scannerWithString_(v31, v36, v35, v37);
-  objc_msgSend_scanHexInt_(v38, v39, &v103, v40);
+  v49 = -559038737;
+  v18 = MEMORY[0x277CCAC80];
+  v19 = [(NSDictionary *)self->tuningParameters objectForKeyedSubscript:@"DefaultSensorIDs"];
+  v41 = v17;
+  v20 = [v19 objectForKeyedSubscript:v17];
+  v21 = [v18 scannerWithString:v20];
+  [v21 scanHexInt:&v49];
 
-  v43 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v41, v103, v42);
-  v44 = *MEMORY[0x277CF5168];
-  objc_msgSend_setObject_forKeyedSubscript_(v27, v45, v43, *MEMORY[0x277CF5168]);
+  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v49];
+  v23 = *MEMORY[0x277CF5168];
+  [v16 setObject:v22 forKeyedSubscript:*MEMORY[0x277CF5168]];
 
-  v48 = objc_msgSend_objectForKey_(v27, v46, v44, v47);
-  self->_sensorID = objc_msgSend_unsignedIntValue(v48, v49, v50, v51);
+  v24 = [v16 objectForKey:v23];
+  self->_sensorID = [v24 unsignedIntValue];
 
-  v54 = objc_msgSend_objectForKey_(v9, v52, @"SkipFrame", v53);
-  v58 = v54;
-  if (v54 && objc_msgSend_BOOLValue(v54, v55, v56, v57))
+  v25 = [v7 objectForKey:@"SkipFrame"];
+  v26 = v25;
+  if (v25 && [v25 BOOLValue])
   {
     ++self->_nbFramesSkipped;
-    v61 = objc_msgSend_objectForKeyedSubscript_(v9, v59, @"SliceNumber", v60);
-    v65 = objc_msgSend_intValue(v61, v62, v63, v64);
+    v27 = [v7 objectForKeyedSubscript:@"SliceNumber"];
+    intValue = [v27 intValue];
     HostTime = ACT_getHostTime();
     CMSampleBufferGetPresentationTimeStamp(&time, frame);
     Seconds = CMTimeGetSeconds(&time);
-    panoLog(32, "FrameID:%04d time %.3f: frame skipped PTS:%.3f , total frames skipped %zu\n", v65, HostTime, Seconds, self->_nbFramesSkipped);
+    panoLog(32, "FrameID:%04d time %.3f: frame skipped PTS:%.3f , total frames skipped %zu\n", intValue, HostTime, Seconds, self->_nbFramesSkipped);
     SampleBuffer = 0;
-    v69 = 1;
+    v32 = 1;
   }
 
   else
@@ -194,13 +196,13 @@
     ++self->_poolOccupancy;
     SampleBuffer = CreateSampleBuffer();
     CVPixelBufferRelease(pixelBufferOut);
-    v73 = objc_msgSend_copy(v9, v70, v71, v72);
-    CMSetAttachment(SampleBuffer, @"MetadataDictionary", v73, 1u);
+    v33 = [v7 copy];
+    CMSetAttachment(SampleBuffer, @"MetadataDictionary", v33, 1u);
 
-    v74 = pixelBufferOut;
-    v61 = objc_msgSend_copy(v27, v75, v76, v77);
-    CMSetAttachment(v74, @"MetadataDictionary", v61, 1u);
-    v69 = 0;
+    v34 = pixelBufferOut;
+    v27 = [v16 copy];
+    CMSetAttachment(v34, @"MetadataDictionary", v27, 1u);
+    v32 = 0;
   }
 
   if (frame)
@@ -208,14 +210,14 @@
     CFRelease(frame);
   }
 
-  v80 = objc_msgSend_objectForKeyedSubscript_(v9, v78, @"SliceType", v79);
-  v84 = objc_msgSend_intValue(v80, v81, v82, v83);
+  v35 = [v7 objectForKeyedSubscript:@"SliceType"];
+  intValue2 = [v35 intValue];
 
-  v87 = objc_msgSend_objectForKeyedSubscript_(v9, v85, @"SliceNumber", v86);
-  v91 = objc_msgSend_intValue(v87, v88, v89, v90);
+  v37 = [v7 objectForKeyedSubscript:@"SliceNumber"];
+  intValue3 = [v37 intValue];
 
-  objc_msgSend_update_sliceType_sliceID_(self->_gyroStage, v92, v27, v84, v91);
-  if ((v69 & 1) == 0)
+  [(PanoramaGyroStage *)self->_gyroStage update:v16 sliceType:intValue2 sliceID:intValue3];
+  if ((v32 & 1) == 0)
   {
     processingQueue = self->_processingQueue;
     block[0] = MEMORY[0x277D85DD0];
@@ -223,9 +225,9 @@
     block[2] = sub_23C463530;
     block[3] = &unk_278BBD968;
     block[4] = self;
-    v99 = v9;
-    v101 = SampleBuffer;
-    v100 = callbackCopy;
+    v45 = v7;
+    v47 = SampleBuffer;
+    v46 = callbackCopy;
     dispatch_async(processingQueue, block);
   }
 
@@ -253,16 +255,16 @@
 
 - (int)_createDummyOutputWidth:(unint64_t)width height:(unint64_t)height
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = *MEMORY[0x277CC4DE8];
-  v17[0] = MEMORY[0x277CBEC10];
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v17, &v16, 1);
+  v15[1] = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = *MEMORY[0x277CC4DE8];
+  v15[0] = MEMORY[0x277CBEC10];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v8 = objc_opt_new();
   CVPixelFormat = self->_CVPixelFormat;
   v10 = v7;
-  CVPixelBufferCreate(0, width, height, CVPixelFormat, v10, &v15);
-  objc_msgSend_setPixelBuffer_(v8, v11, v15, v12);
+  CVPixelBufferCreate(0, width, height, CVPixelFormat, v10, &v13);
+  [(PanoramaOutput *)v8 setPixelBuffer:v13];
   output = self->_output;
   self->_output = v8;
 
@@ -313,12 +315,12 @@
 
 - (int)resetState
 {
-  objc_msgSend_resetState(self->_registrationStage, a2, v2, v3);
-  objc_msgSend_resetState(self->_parallaxStage, v5, v6, v7);
-  objc_msgSend_resetState(self->_stitchingStage, v8, v9, v10);
-  objc_msgSend_resetState(self->_assemblyStage, v11, v12, v13);
-  objc_msgSend_resetState(self->_gyroStage, v14, v15, v16);
-  objc_msgSend_resetState(self->_rectanglingStage, v17, v18, v19);
+  [(PanoramaRegistrationStage *)self->_registrationStage resetState];
+  [(PanoramaParallaxStage *)self->_parallaxStage resetState];
+  [(PanoramaStitchingStage *)self->_stitchingStage resetState];
+  [(PanoramaAssemblyStage *)self->_assemblyStage resetState];
+  [(PanoramaGyroStage *)self->_gyroStage resetState];
+  [(PanoramaRectanglingStage *)self->_rectanglingStage resetState];
   self->_poolOccupancy = 0;
   self->_prevFrameDropped = 0;
   self->_hasStitchedSlicesWithNoError = 0;
@@ -331,13 +333,13 @@
 
 - (int)setDirection:(int)direction
 {
-  v4 = *&direction;
+  v3 = *&direction;
   self->_direction = direction;
-  objc_msgSend_setDirection_(self->_registrationStage, a2, *&direction, v3);
-  objc_msgSend_setDirection_(self->_parallaxStage, v6, v4, v7);
-  objc_msgSend_setDirection_(self->_stitchingStage, v8, v4, v9);
-  objc_msgSend_setDirection_(self->_assemblyStage, v10, v4, v11);
-  objc_msgSend_setDirection_(self->_rectanglingStage, v12, v4, v13);
+  [(PanoramaRegistrationStage *)self->_registrationStage setDirection:?];
+  [(PanoramaParallaxStage *)self->_parallaxStage setDirection:v3];
+  [(PanoramaStitchingStage *)self->_stitchingStage setDirection:v3];
+  [(PanoramaAssemblyStage *)self->_assemblyStage setDirection:v3];
+  [(PanoramaRectanglingStage *)self->_rectanglingStage setDirection:v3];
   return 0;
 }
 
@@ -375,10 +377,10 @@
     PanningSpeedScalingFactorFromSensorID = getPanningSpeedScalingFactorFromSensorID(self->_sensorID);
     if (PanningSpeedScalingFactorFromSensorID > 0.0)
     {
-      v8 = PanningSpeedScalingFactorFromSensorID;
-      objc_msgSend_currentRotationRate(self->_gyroStage, v4, v5, v6);
-      *&v9 = v9;
-      return v8 * *&v9;
+      v5 = PanningSpeedScalingFactorFromSensorID;
+      [(PanoramaGyroStage *)self->_gyroStage currentRotationRate];
+      *&v6 = v6;
+      return v5 * *&v6;
     }
   }
 
@@ -387,59 +389,50 @@
 
 + (void)prewarm
 {
-  v2 = MEMORY[0x277CCA8D8];
-  v3 = objc_opt_class();
-  v6 = objc_msgSend_bundleForClass_(v2, v4, v3, v5);
-  v7 = objc_alloc(MEMORY[0x277CF6C78]);
-  inited = objc_msgSend_initWithbundle_andOptionalCommandQueue_(v7, v8, v6, 0);
-  if (!inited)
+  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [objc_alloc(MEMORY[0x277CF6C78]) initWithbundle:v2 andOptionalCommandQueue:0];
+  if (!v3)
   {
-    v13 = 0;
+    v4 = 0;
     goto LABEL_10;
   }
 
-  v10 = [PanoramaRegistrationStage alloc];
-  v13 = objc_msgSend_initWithContext_(v10, v11, inited, v12);
-  if (!v13)
+  v4 = [[PanoramaRegistrationStage alloc] initWithContext:v3];
+  if (!v4)
   {
 LABEL_10:
-    v16 = 0;
+    v5 = 0;
     goto LABEL_11;
   }
 
-  v14 = [PanoramaParallaxStage alloc];
-  v16 = objc_msgSend_initWithContext_bitDepth_(v14, v15, inited, 0);
-  if (!v16)
+  v5 = [[PanoramaParallaxStage alloc] initWithContext:v3 bitDepth:0];
+  if (!v5)
   {
 LABEL_11:
-    v19 = 0;
+    v6 = 0;
     goto LABEL_12;
   }
 
-  v17 = [PanoramaStitchingStage alloc];
-  v19 = objc_msgSend_initWithContext_bitDepth_(v17, v18, inited, 0);
-  if (!v19)
+  v6 = [[PanoramaStitchingStage alloc] initWithContext:v3 bitDepth:0];
+  if (!v6)
   {
 LABEL_12:
-    v22 = 0;
+    v7 = 0;
     goto LABEL_8;
   }
 
-  v20 = [PanoramaAssemblyStage alloc];
-  *v30 = xmmword_23C47A9B0;
-  memset(&v30[4], 0, 44);
-  v31 = 1;
-  v32[0] = 0;
-  *(v32 + 7) = 0;
-  v22 = objc_msgSend_initWithContext_robustPanoParams_(v20, v21, inited, v30);
-  if (v22)
+  *v10 = xmmword_23C47A9B0;
+  memset(&v10[4], 0, 44);
+  v11 = 1;
+  v12[0] = 0;
+  *(v12 + 7) = 0;
+  v7 = [[PanoramaAssemblyStage alloc] initWithContext:v3 robustPanoParams:v10];
+  if (v7)
   {
-    v23 = [ACTPanoGPUDownscaler alloc];
-    v26 = objc_msgSend_initWithContext_(v23, v24, inited, v25);
-    if (v26)
+    v8 = [[ACTPanoGPUDownscaler alloc] initWithContext:v3];
+    if (v8)
     {
-      v27 = v26;
-      v28 = [LKTFlowGPU alloc];
+      v9 = v8;
     }
   }
 
@@ -448,200 +441,196 @@ LABEL_8:
 
 - (id)init:(id *)init
 {
-  v20.receiver = self;
-  v20.super_class = PanoramaProcessor;
-  v4 = [(PanoramaProcessor *)&v20 init];
+  v11.receiver = self;
+  v11.super_class = PanoramaProcessor;
+  v4 = [(PanoramaProcessor *)&v11 init];
   if (v4)
   {
-    v5 = MEMORY[0x277CCA8D8];
-    v6 = objc_opt_class();
-    v9 = objc_msgSend_bundleForClass_(v5, v7, v6, v8);
+    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     memcpy(__dst, init, sizeof(__dst));
-    objc_msgSend_setParameters_(v4, v10, __dst, v11);
-    v12 = objc_alloc(MEMORY[0x277CF6C78]);
-    inited = objc_msgSend_initWithbundle_andOptionalCommandQueue_(v12, v13, v9, 0);
+    [(PanoramaProcessor *)v4 setParameters:__dst];
+    v6 = [objc_alloc(MEMORY[0x277CF6C78]) initWithbundle:v5 andOptionalCommandQueue:0];
     var13 = init->var13;
     v4->_bitDepth = var13;
     v4->_CVPixelFormat = getCVPixelFormat(var13);
-    if (objc_msgSend__commonInitWithContext_sliceWidth_sliceHeight_bitDepth_(v4, v16, inited, init->var0, init->var1, init->var13))
+    if ([(PanoramaProcessor *)v4 _commonInitWithContext:v6 sliceWidth:init->var0 sliceHeight:init->var1 bitDepth:init->var13])
     {
-      v17 = 0;
+      v8 = 0;
     }
 
     else
     {
       fig_note_initialize_category_with_default_work();
-      v17 = v4;
+      v8 = v4;
     }
   }
 
   else
   {
-    v17 = 0;
-    v9 = 0;
-    inited = 0;
+    v8 = 0;
+    v5 = 0;
+    v6 = 0;
   }
 
-  return v17;
+  return v8;
 }
 
 - (int)_commonInitWithContext:(id)context sliceWidth:(unint64_t)width sliceHeight:(unint64_t)height bitDepth:(int)depth
 {
-  v176[5] = *MEMORY[0x277D85DE8];
+  v92[5] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   heightCopy = 0;
   widthCopy = 0;
   objc_storeStrong(&self->_metal, context);
-  v13 = objc_msgSend_sharedInstance(MEMORY[0x277CF3B80], v10, v11, v12);
-  v17 = objc_msgSend_cameraParameters(v13, v14, v15, v16);
+  mEMORY[0x277CF3B80] = [MEMORY[0x277CF3B80] sharedInstance];
+  cameraParameters = [mEMORY[0x277CF3B80] cameraParameters];
   cameraSetupPlist = self->_cameraSetupPlist;
-  self->_cameraSetupPlist = v17;
+  self->_cameraSetupPlist = cameraParameters;
 
-  v19 = [PanoramaRegistrationStage alloc];
-  v22 = objc_msgSend_initWithContext_(v19, v20, self->_metal, v21);
+  v13 = [[PanoramaRegistrationStage alloc] initWithContext:self->_metal];
   registrationStage = self->_registrationStage;
-  self->_registrationStage = v22;
+  self->_registrationStage = v13;
 
-  if (!self->_registrationStage || (v24 = [PanoramaParallaxStage alloc], v26 = objc_msgSend_initWithContext_bitDepth_(v24, v25, self->_metal, self->_bitDepth), parallaxStage = self->_parallaxStage, self->_parallaxStage = v26, parallaxStage, !self->_parallaxStage) || (v28 = [PanoramaStitchingStage alloc], v30 = objc_msgSend_initWithContext_bitDepth_(v28, v29, self->_metal, self->_bitDepth), stitchingStage = self->_stitchingStage, self->_stitchingStage = v30, stitchingStage, !self->_stitchingStage) || (v32 = [PanoramaAssemblyStage alloc], metal = self->_metal, memcpy(__dst, &self->_params, sizeof(__dst)), v35 = objc_msgSend_initWithContext_robustPanoParams_(v32, v34, metal, __dst), assemblyStage = self->_assemblyStage, self->_assemblyStage = v35, assemblyStage, !self->_assemblyStage) || (objc_msgSend_setRegistrationProvider_(self, v37, self->_registrationStage, v38), v39 = [ACTPanoGPUDownscaler alloc], v42 = objc_msgSend_initWithContext_(v39, v40, self->_metal, v41), downscaler = self->_downscaler, self->_downscaler = v42, downscaler, !self->_downscaler) || (v44 = dispatch_queue_create("PanoramaProcessing", 0), processingQueue = self->_processingQueue, self->_processingQueue = v44, processingQueue, !self->_processingQueue) || (v46 = [PanoramaRectanglingStage alloc], v49 = objc_msgSend_initWithContext_(v46, v47, self->_metal, v48), rectanglingStage = self->_rectanglingStage, self->_rectanglingStage = v49, rectanglingStage, !self->_rectanglingStage) || (v51 = objc_alloc_init(PanoramaGyroStage), gyroStage = self->_gyroStage, self->_gyroStage = v51, gyroStage, !self->_gyroStage))
+  if (!self->_registrationStage || (v15 = [[PanoramaParallaxStage alloc] initWithContext:self->_metal bitDepth:self->_bitDepth], parallaxStage = self->_parallaxStage, self->_parallaxStage = v15, parallaxStage, !self->_parallaxStage) || (v17 = [[PanoramaStitchingStage alloc] initWithContext:self->_metal bitDepth:self->_bitDepth], stitchingStage = self->_stitchingStage, self->_stitchingStage = v17, stitchingStage, !self->_stitchingStage) || (v19 = [PanoramaAssemblyStage alloc], metal = self->_metal, memcpy(__dst, &self->_params, sizeof(__dst)), v21 = [(PanoramaAssemblyStage *)v19 initWithContext:metal robustPanoParams:__dst], assemblyStage = self->_assemblyStage, self->_assemblyStage = v21, assemblyStage, !self->_assemblyStage) || ([(PanoramaProcessor *)self setRegistrationProvider:self->_registrationStage], v23 = [[ACTPanoGPUDownscaler alloc] initWithContext:self->_metal], downscaler = self->_downscaler, self->_downscaler = v23, downscaler, !self->_downscaler) || (v25 = dispatch_queue_create("PanoramaProcessing", 0), processingQueue = self->_processingQueue, self->_processingQueue = v25, processingQueue, !self->_processingQueue) || (v27 = [[PanoramaRectanglingStage alloc] initWithContext:self->_metal], rectanglingStage = self->_rectanglingStage, self->_rectanglingStage = v27, rectanglingStage, !self->_rectanglingStage) || (v29 = objc_alloc_init(PanoramaGyroStage), gyroStage = self->_gyroStage, self->_gyroStage = v29, gyroStage, !self->_gyroStage))
   {
-    v79 = 0;
-    v76 = 0;
+    v40 = 0;
+    v39 = 0;
     goto LABEL_26;
   }
 
-  v53 = VTPixelTransferSessionCreate(0, &self->_vtTransferSession);
-  if (v53 || (v53 = VTPixelRotationSessionCreate(0, &self->_vtRotationSession)) != 0)
+  v31 = VTPixelTransferSessionCreate(0, &self->_vtTransferSession);
+  if (v31 || (v31 = VTPixelRotationSessionCreate(0, &self->_vtRotationSession)) != 0)
   {
-    v140 = v53;
-    v79 = 0;
-    v76 = 0;
+    v64 = v31;
+    v40 = 0;
+    v39 = 0;
     goto LABEL_23;
   }
 
   self->_doParallaxCorrection = 1;
   self->_direction = 1;
-  v56 = objc_msgSend_objectForKeyedSubscript_(self->_cameraSetupPlist, v54, @"TuningParameters", v55);
-  v59 = objc_msgSend_objectForKey_(v56, v57, @"Common", v58);
-  v62 = objc_msgSend_objectForKey_(v59, v60, @"NRFParameters", v61);
-  v65 = objc_msgSend_objectForKey_(v62, v63, @"Version", v64);
-  v69 = objc_msgSend_intValue(v65, v66, v67, v68);
+  v32 = [(NSDictionary *)self->_cameraSetupPlist objectForKeyedSubscript:@"TuningParameters"];
+  v33 = [v32 objectForKey:@"Common"];
+  v34 = [v33 objectForKey:@"NRFParameters"];
+  v35 = [v34 objectForKey:@"Version"];
+  intValue = [v35 intValue];
 
-  v70 = MEMORY[0x277CCA8D8];
-  v73 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v71, @"/System/Library/VideoProcessors/NRFV%d.bundle", v72, v69);
-  v76 = objc_msgSend_bundleWithPath_(v70, v74, v73, v75);
+  v37 = MEMORY[0x277CCA8D8];
+  v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"/System/Library/VideoProcessors/NRFV%d.bundle", intValue];
+  v39 = [v37 bundleWithPath:v38];
 
-  if (!v76)
+  if (!v39)
   {
     goto LABEL_28;
   }
 
-  v163 = 0;
-  objc_msgSend_loadAndReturnError_(v76, v77, &v163, v78);
-  v79 = v163;
-  if (v79)
+  v79 = 0;
+  [v39 loadAndReturnError:&v79];
+  v40 = v79;
+  if (v40)
   {
 LABEL_26:
-    v140 = 2;
+    v64 = 2;
     goto LABEL_23;
   }
 
-  v82 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v80, @"NRFProcessorV%d", v81, v69);
-  v85 = objc_msgSend_classNamed_(v76, v83, v82, v84);
+  v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"NRFProcessorV%d", intValue];
+  v42 = [v39 classNamed:v41];
 
-  if (!v85)
+  if (!v42)
   {
 LABEL_28:
-    v79 = 0;
+    v40 = 0;
     goto LABEL_26;
   }
 
-  v161 = contextCopy;
-  v86 = [v85 alloc];
-  v89 = objc_msgSend_initWithCommandQueue_(v86, v87, 0, v88);
+  v77 = contextCopy;
+  v43 = [[v42 alloc] initWithCommandQueue:0];
   nrfProcessor = self->_nrfProcessor;
-  self->_nrfProcessor = v89;
+  self->_nrfProcessor = v43;
 
-  v93 = objc_msgSend_objectForKeyedSubscript_(self->_cameraSetupPlist, v91, @"TuningParameters", v92);
-  objc_msgSend_setTuningParameters_(self, v94, v93, v95);
-  v99 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v96, v97, v98);
-  v100 = objc_alloc_init(NSClassFromString(&cfstr_Nrfpreparedesc.isa));
-  objc_msgSend_setWidth_(v100, v101, LODWORD(self->_params.panoWidth), v102);
-  objc_msgSend_setHeight_(v100, v103, height, v104);
-  objc_msgSend_setPixelFormat_(v100, v105, 875704422, v106);
+  v45 = [(NSDictionary *)self->_cameraSetupPlist objectForKeyedSubscript:@"TuningParameters"];
+  [(PanoramaProcessor *)self setTuningParameters:v45];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v47 = objc_alloc_init(NSClassFromString(&cfstr_Nrfpreparedesc.isa));
+  [v47 setWidth:LODWORD(self->_params.panoWidth)];
+  [v47 setHeight:height];
+  [v47 setPixelFormat:875704422];
   if (self->_params.useNRFTypePano)
   {
-    objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v107, 8, v108);
+    v48 = 8;
   }
 
   else
   {
-    objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v107, 0, v108);
+    v48 = 0;
   }
-  v109 = ;
-  objc_msgSend_setObject_forKeyedSubscript_(v99, v110, v100, v109);
 
-  v111 = *MEMORY[0x277CF6950];
-  v175[0] = *MEMORY[0x277CF4088];
-  v175[1] = v111;
-  v176[0] = v93;
-  v176[1] = &unk_284F106B8;
-  v112 = *MEMORY[0x277CF6958];
-  v175[2] = *MEMORY[0x277CF6948];
-  v175[3] = v112;
-  v176[2] = &unk_284F106D0;
-  v176[3] = &unk_284F106E8;
-  v175[4] = *MEMORY[0x277CF6970];
-  v176[4] = v99;
-  v114 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v113, v176, v175, 5);
-  v117 = objc_msgSend_setupWithOptions_(self->_nrfProcessor, v115, v114, v116);
-  if (v117)
+  v49 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v48];
+  [dictionary setObject:v47 forKeyedSubscript:v49];
+
+  v50 = *MEMORY[0x277CF6950];
+  v91[0] = *MEMORY[0x277CF4088];
+  v91[1] = v50;
+  v92[0] = v45;
+  v92[1] = &unk_284F106B8;
+  v51 = *MEMORY[0x277CF6958];
+  v91[2] = *MEMORY[0x277CF6948];
+  v91[3] = v51;
+  v92[2] = &unk_284F106D0;
+  v92[3] = &unk_284F106E8;
+  v91[4] = *MEMORY[0x277CF6970];
+  v92[4] = dictionary;
+  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:5];
+  v53 = [(NRFProcessor *)self->_nrfProcessor setupWithOptions:v52];
+  if (v53)
   {
-    v140 = v117;
+    v64 = v53;
 
 LABEL_31:
-    v79 = 0;
+    v40 = 0;
     goto LABEL_23;
   }
 
-  objc_msgSend_setFusionMode_(self->_nrfProcessor, v118, 1, v119);
-  objc_msgSend_setNrfProcessor_(self->_assemblyStage, v120, self->_nrfProcessor, v121);
+  [(NRFProcessor *)self->_nrfProcessor setFusionMode:1];
+  [(PanoramaAssemblyStage *)self->_assemblyStage setNrfProcessor:self->_nrfProcessor];
 
   heightCopy = height;
   widthCopy = width;
-  v122 = setDownscaledResolution(&widthCopy, &heightCopy, 3uLL, 0x3E8uLL, 0xBDuLL);
-  if (v122)
+  v54 = setDownscaledResolution(&widthCopy, &heightCopy, 3uLL, 0x3E8uLL, 0xBDuLL);
+  if (v54)
   {
-    v140 = v122;
+    v64 = v54;
     goto LABEL_31;
   }
 
   heightCopy2 = height;
-  v160 = v76;
-  v158 = *MEMORY[0x277CC4E50];
-  v173 = *MEMORY[0x277CC4E50];
-  v174 = &unk_284F10700;
-  v124 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v123, &v174, &v173, 1);
-  v125 = *MEMORY[0x277CC4DE8];
-  v172[0] = MEMORY[0x277CBEC10];
-  v126 = *MEMORY[0x277CC4EC8];
-  v171[0] = v125;
-  v171[1] = v126;
-  v129 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v127, widthCopy, v128);
-  v172[1] = v129;
-  v130 = *MEMORY[0x277CC4DD8];
-  v171[2] = *MEMORY[0x277CC4DD8];
-  v133 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v131, heightCopy, v132);
-  v172[2] = v133;
-  v134 = *MEMORY[0x277CC4E30];
-  v171[3] = *MEMORY[0x277CC4E30];
-  v137 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v135, self->_CVPixelFormat, v136);
-  v172[3] = v137;
-  v139 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v138, v172, v171, 4);
+  v76 = v39;
+  v74 = *MEMORY[0x277CC4E50];
+  v89 = *MEMORY[0x277CC4E50];
+  v90 = &unk_284F10700;
+  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+  v56 = *MEMORY[0x277CC4DE8];
+  v88[0] = MEMORY[0x277CBEC10];
+  v57 = *MEMORY[0x277CC4EC8];
+  v87[0] = v56;
+  v87[1] = v57;
+  v58 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:widthCopy];
+  v88[1] = v58;
+  v59 = *MEMORY[0x277CC4DD8];
+  v87[2] = *MEMORY[0x277CC4DD8];
+  v60 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:heightCopy];
+  v88[2] = v60;
+  v61 = *MEMORY[0x277CC4E30];
+  v87[3] = *MEMORY[0x277CC4E30];
+  v62 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_CVPixelFormat];
+  v88[3] = v62;
+  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:4];
 
-  v140 = CVPixelBufferPoolCreate(0, v124, v139, &self->_downsampledRegistrationPool);
-  if (v140 || (v169 = v158, v170 = &unk_284F10700, objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v141, &v170, &v169, 1), v142 = objc_claimAutoreleasedReturnValue(), v168[0] = MEMORY[0x277CBEC10], v167[0] = v125, v167[1] = v126, objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v143, width, v144), v145 = objc_claimAutoreleasedReturnValue(), v168[1] = v145, v167[2] = v130, objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v146, heightCopy2, v147), v148 = objc_claimAutoreleasedReturnValue(), v168[2] = v148, v167[3] = v134, objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v149, self->_CVPixelFormat, v150), v151 = objc_claimAutoreleasedReturnValue(), v168[3] = v151, objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v152, v168, v167, 4), v153 = objc_claimAutoreleasedReturnValue(), v151, v148, v145, v154 = v142, v155 = v153, v140 = CVPixelBufferPoolCreate(0, v154, v155, &self->_inputSlicePool), v155, v154, v140))
+  v64 = CVPixelBufferPoolCreate(0, v55, v63, &self->_downsampledRegistrationPool);
+  if (v64 || (v85 = v74, v86 = &unk_284F10700, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1], v65 = objc_claimAutoreleasedReturnValue(), v84[0] = MEMORY[0x277CBEC10], v83[0] = v56, v83[1] = v57, objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedLong:", width), v66 = objc_claimAutoreleasedReturnValue(), v84[1] = v66, v83[2] = v59, objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedLong:", heightCopy2), v67 = objc_claimAutoreleasedReturnValue(), v84[2] = v67, v83[3] = v61, objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", self->_CVPixelFormat), v68 = objc_claimAutoreleasedReturnValue(), v84[3] = v68, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v84, v83, 4), v69 = objc_claimAutoreleasedReturnValue(), v68, v67, v66, v70 = v65, v71 = v69, v64 = CVPixelBufferPoolCreate(0, v70, v71, &self->_inputSlicePool), v71, v70, v64))
   {
-    v79 = 0;
+    v40 = 0;
   }
 
   else
@@ -657,37 +646,37 @@ LABEL_31:
     portType = self->_portType;
     self->_portType = 0;
 
-    v79 = 0;
+    v40 = 0;
     self->_sensorID = 0;
   }
 
-  v76 = v160;
-  contextCopy = v161;
+  v39 = v76;
+  contextCopy = v77;
 LABEL_23:
 
-  return v140;
+  return v64;
 }
 
 - (uint64_t)addFrameForStitching:(double)stitching withInitialHomography:(double)homography registrationCallback:(uint64_t)callback
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   v9 = a7;
   pixelBufferOut = 0;
   ImageBuffer = CMSampleBufferGetImageBuffer(a6);
   v11 = CMGetAttachment(a6, @"MetadataDictionary", 0);
   v12 = CMGetAttachment(ImageBuffer, @"MetadataDictionary", 0);
-  v15 = objc_msgSend_objectForKeyedSubscript_(v11, v13, @"SliceNumber", v14);
-  v19 = objc_msgSend_intValue(v15, v16, v17, v18);
+  v13 = [v11 objectForKeyedSubscript:@"SliceNumber"];
+  intValue = [v13 intValue];
 
   HostTime = ACT_getHostTime();
   CMSampleBufferGetPresentationTimeStamp(&time, a6);
   Seconds = CMTimeGetSeconds(&time);
-  panoLog(32, "FrameID:%04d time %.3f: starting processing PTS:%.3f\n", v19, HostTime, Seconds);
-  if (!v19)
+  panoLog(32, "FrameID:%04d time %.3f: starting processing PTS:%.3f\n", intValue, HostTime, Seconds);
+  if (!intValue)
   {
-    v24 = objc_msgSend_objectForKeyedSubscript_(v12, v22, *MEMORY[0x277CF5C30], v23);
-    v25 = *(self + 296);
-    *(self + 296) = v24;
+    v17 = [v12 objectForKeyedSubscript:*MEMORY[0x277CF5C30]];
+    v18 = *(self + 296);
+    *(self + 296) = v17;
   }
 
   CVPixelBufferPoolCreatePixelBuffer(0, *(self + 88), &pixelBufferOut);
@@ -697,173 +686,186 @@ LABEL_23:
     CVPixelBufferRelease(pixelBufferOut);
     if (SampleBuffer)
     {
-      v28 = 1;
-      objc_msgSend_downsample_to_inputBitDepth_outputBitDepth_(*(self + 72), v27, ImageBuffer, pixelBufferOut, *(self + 308), 1);
-      v32 = objc_msgSend_copy(v11, v29, v30, v31);
-      CMSetAttachment(SampleBuffer, @"MetadataDictionary", v32, 1u);
+      v20 = 1;
+      [*(self + 72) downsample:ImageBuffer to:pixelBufferOut inputBitDepth:*(self + 308) outputBitDepth:1];
+      v21 = [v11 copy];
+      CMSetAttachment(SampleBuffer, @"MetadataDictionary", v21, 1u);
 
       *(self + 120) = CVPixelBufferGetWidth(ImageBuffer);
       *(self + 128) = CVPixelBufferGetHeight(ImageBuffer);
       ACT_getHostTime();
       sub_23C463FBC();
-      panoLog(32, "FrameID:%04d time %.3f: starting registration\n", v112, *&v115);
-      v34 = *(self + 368);
-      if (v34)
+      panoLog(32, "FrameID:%04d time %.3f: starting registration\n", v85, *&v90);
+      v22 = *(self + 368);
+      if (v22)
       {
-        objc_msgSend_registerNewSlice_withHFromGyro_registrationCallback_(v34, v33, SampleBuffer, v9, a2, stitching, homography);
-        *v123 = v36;
-        v125 = v35;
-        *v121 = v37;
-        if (objc_msgSend_hasHomographyFailureFlag(*(self + 16), v38, v39, v40))
+        [v22 registerNewSlice:SampleBuffer withHFromGyro:v9 registrationCallback:{a2, stitching, homography}];
+        *v108 = v24;
+        v114 = v23;
+        *v102 = v25;
+        if ([*(self + 16) hasHomographyFailureFlag])
         {
           sub_23C463FFC();
-          v44 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          if (sub_23C4640B4(v44, v45, v46, v47, v48, v49, v50, v51, v113, v116, v118, v119, v121[0], v121[1], v123[0], v123[1], v125, *(&v125 + 1), v126, SBYTE2(v126), BYTE3(v126), SHIDWORD(v126)))
+          v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v34 = sub_23C4640B4(v26, v27, v28, v29, v30, v31, v32, v33, v86, v91, v95, v98, v102[0], v102[1], v108[0], v108[1], v114, *(&v114 + 1), v119, SBYTE2(v119), BYTE3(v119), SHIDWORD(v119));
+          if (v34)
           {
-            v52 = @"MetadataDictionary";
+            v41 = @"MetadataDictionary";
           }
 
           else
           {
-            v52 = @"MetadataDictionary" & 0xFFFFFFFE;
+            v41 = @"MetadataDictionary" & 0xFFFFFFFE;
           }
 
-          if (v52)
+          if (v41)
           {
             ACT_getHostTime();
-            v128 = 136315650;
+            LODWORD(v123) = 136315650;
             sub_23C463FCC();
-            sub_23C46404C();
+            v34 = sub_23C46404C(v42, v43, v44, v45, &dword_23C440000, v46, v47, "<<<< ACTFramework PanoramaIBP >>>> %s: FrameID:%04d time %.3f: registration has FAILURE flag\n", v87, v92, v96, v99, v103, v105, v109, v111, v115, v117, v120, pixelBufferOut, v123, v124, v125, v126);
+            v48 = v34;
           }
 
-          sub_23C46401C();
+          else
+          {
+            v48 = 0;
+          }
+
+          sub_23C46401C(v34, v35, v36, v48, v37, v38, v39, v40, v87, v92, v96, v99, v103, v105, v109, v111, v115, v117, v120, HIDWORD(v120), pixelBufferOut, v123, v124, v125, v126, time.value);
 
           ACT_getHostTime();
           sub_23C463FBC();
           panoLog(4, "FrameID:%04d time %.3f: registration has FAILURE flag\n");
-LABEL_28:
-          v97 = 0;
-          v28 = 0;
-LABEL_32:
+LABEL_30:
+          v79 = 0;
+          v20 = 0;
+LABEL_34:
           CFRelease(SampleBuffer);
 
-          goto LABEL_33;
+          goto LABEL_35;
         }
 
-        if (objc_msgSend_hasRetrogradeMotionFlag(*(self + 16), v41, v42, v43))
+        if ([*(self + 16) hasRetrogradeMotionFlag])
         {
           sub_23C463FFC();
-          v53 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          if (sub_23C4640B4(v53, v54, v55, v56, v57, v58, v59, v60, v113, v116, v118, v119, v121[0], v121[1], v123[0], v123[1], v125, *(&v125 + 1), v126, SBYTE2(v126), BYTE3(v126), SHIDWORD(v126)))
+          v49 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v57 = sub_23C4640B4(v49, v50, v51, v52, v53, v54, v55, v56, v86, v91, v95, v98, v102[0], v102[1], v108[0], v108[1], v114, *(&v114 + 1), v119, SBYTE2(v119), BYTE3(v119), SHIDWORD(v119));
+          if (v57)
           {
-            v61 = @"MetadataDictionary";
+            v64 = @"MetadataDictionary";
           }
 
           else
           {
-            v61 = @"MetadataDictionary" & 0xFFFFFFFE;
+            v64 = @"MetadataDictionary" & 0xFFFFFFFE;
           }
 
-          if (v61)
+          if (v64)
           {
             ACT_getHostTime();
-            v128 = 136315650;
+            LODWORD(v123) = 136315650;
             sub_23C463FCC();
-            sub_23C46404C();
+            v57 = sub_23C46404C(v65, v66, v67, v68, &dword_23C440000, v69, v70, "<<<< ACTFramework PanoramaIBP >>>> %s: FrameID:%04d time %.3f: registration detected possible retrograde motion\n", v88, v93, v97, v100, v104, v106, v110, v112, v116, v118, v121, pixelBufferOut, v123, v124, v125, v126);
+            v71 = v57;
           }
 
-          sub_23C46401C();
+          else
+          {
+            v71 = 0;
+          }
+
+          sub_23C46401C(v57, v58, v59, v71, v60, v61, v62, v63, v88, v93, v97, v100, v104, v106, v110, v112, v116, v118, v121, HIDWORD(v121), pixelBufferOut, v123, v124, v125, v126, time.value);
 
           ACT_getHostTime();
           sub_23C463FBC();
           panoLog(4, "FrameID:%04d time %.3f: registration detected possible retrograde motion\n");
-          goto LABEL_28;
+          goto LABEL_30;
         }
 
         ACT_getHostTime();
         sub_23C463FBC();
-        panoLog(32, "FrameID:%04d time %.3f: starting stitching\n", v113, *&v116);
-        v64 = objc_msgSend_objectForKeyedSubscript_(v11, v62, @"SliceType", v63);
-        v68 = objc_msgSend_intValue(v64, v65, v66, v67);
+        panoLog(32, "FrameID:%04d time %.3f: starting stitching\n", v86, *&v91);
+        v72 = [v11 objectForKeyedSubscript:@"SliceType"];
+        intValue2 = [v72 intValue];
 
-        v70 = objc_msgSend_addSlice_sliceHomography_sliceType_(*(self + 32), v69, ImageBuffer, v68, *&v125, *v123, *v121);
-        if (v70)
+        v74 = [*(self + 32) addSlice:ImageBuffer sliceHomography:intValue2 sliceType:{*&v114, *v108, *v102}];
+        if (v74)
         {
-          v28 = v70;
+          v20 = v74;
         }
 
         else
         {
-          v74 = objc_msgSend_registrationWeights(*(self + 16), v71, v72, v73);
-          objc_msgSend_setMotionMask_(*(self + 32), v75, v74, v76);
+          registrationWeights = [*(self + 16) registrationWeights];
+          [*(self + 32) setMotionMask:registrationWeights];
 
-          if (*(self + 328) != 1 || !v68)
+          if (*(self + 328) != 1 || !intValue2)
           {
             *(self + 272) = ImageBuffer;
-            v96 = objc_msgSend_stitchingMask(*(self + 32), v77, v78, v79);
-LABEL_25:
-            v97 = v96;
+            stitchingMask = [*(self + 32) stitchingMask];
+LABEL_26:
+            v79 = stitchingMask;
             ACT_getHostTime();
             sub_23C463FBC();
-            panoLog(32, "FrameID:%04d time %.3f: starting assembly\n", v114, *&v117);
-            objc_msgSend_roi(*(self + 32), v98, v99, v100);
+            panoLog(32, "FrameID:%04d time %.3f: starting assembly\n", v89, *&v94);
+            [*(self + 32) roi];
             sub_23C4640A0();
             sub_23C46408C();
-            v28 = objc_msgSend_addSlice_metadata_sliceHomography_stitchingMask_roi_sliceType_(v101, v102, v103, v104);
-            if (!v28)
+            v20 = [v80 addSlice:? metadata:? sliceHomography:? stitchingMask:? roi:? sliceType:?];
+            if (!v20)
             {
-              v108 = objc_msgSend_copy(v12, v105, v106, v107);
-              v109 = *(self + 288);
-              *(self + 288) = v108;
+              v81 = [v12 copy];
+              v82 = *(self + 288);
+              *(self + 288) = v81;
 
-              *(self + 264) = v19 > 0;
+              *(self + 264) = intValue > 0;
             }
 
-            goto LABEL_32;
+            goto LABEL_34;
           }
 
           ACT_getHostTime();
           sub_23C463FBC();
-          panoLog(32, "FrameID:%04d time %.3f: starting parallax correction\n", v114, *&v117);
-          v80 = *(self + 24);
-          v84 = objc_msgSend_stitchingMask(*(self + 32), v81, v82, v83);
-          v88 = objc_msgSend_residualFlow(*(self + 368), v85, v86, v87);
-          v28 = objc_msgSend_addSlice_mask_homography_residualFlow_(v80, v89, ImageBuffer, v84, v88, *&v125, *v123, *v121);
+          panoLog(32, "FrameID:%04d time %.3f: starting parallax correction\n", v89, *&v94);
+          v76 = *(self + 24);
+          stitchingMask2 = [*(self + 32) stitchingMask];
+          v20 = [v76 addSlice:ImageBuffer mask:stitchingMask2 homography:objc_msgSend(*(self + 368) residualFlow:{"residualFlow"), *&v114, *v108, *v102}];
 
-          if (!v28)
+          if (!v20)
           {
-            *(self + 272) = objc_msgSend_warpedFrame(*(self + 24), v90, v91, v92);
-            v96 = objc_msgSend_warpedMask(*(self + 24), v93, v94, v95);
-            goto LABEL_25;
+            *(self + 272) = [*(self + 24) warpedFrame];
+            stitchingMask = [*(self + 24) warpedMask];
+            goto LABEL_26;
           }
         }
       }
 
-      v97 = 0;
-      goto LABEL_32;
+      v79 = 0;
+      goto LABEL_34;
     }
   }
 
-  v28 = 2;
-LABEL_33:
-  v110 = ACT_getHostTime();
-  panoLog(32, "FrameID:%04d time %.3f: processing done\n\n", v19, v110);
+  v20 = 2;
+LABEL_35:
+  v83 = ACT_getHostTime();
+  panoLog(32, "FrameID:%04d time %.3f: processing done\n\n", intValue, v83);
 
-  return v28;
+  return v20;
 }
 
 - (int)_addLastSlice
 {
-  result = objc_msgSend_addSlice_sliceHomography_sliceType_(self->_stitchingStage, a2, self->_curPixbufToStitch, 2);
+  result = [(PanoramaStitchingStage *)self->_stitchingStage addSlice:self->_curPixbufToStitch sliceHomography:2 sliceType:?];
   if (!result)
   {
-    v7 = objc_msgSend_stitchingMask(self->_stitchingStage, v4, v5, v6);
-    objc_msgSend_roi(self->_stitchingStage, v8, v9, v10);
+    stitchingMask = [(PanoramaStitchingStage *)self->_stitchingStage stitchingMask];
+    [(PanoramaStitchingStage *)self->_stitchingStage roi];
     sub_23C4640A0();
     sub_23C46408C();
-    v15 = objc_msgSend_addSlice_metadata_sliceHomography_stitchingMask_roi_sliceType_(v11, v12, v13, v14);
+    v6 = [v5 addSlice:? metadata:? sliceHomography:? stitchingMask:? roi:? sliceType:?];
 
-    return v15;
+    return v6;
   }
 
   return result;

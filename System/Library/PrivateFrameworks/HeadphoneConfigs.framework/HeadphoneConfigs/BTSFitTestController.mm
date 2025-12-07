@@ -36,14 +36,14 @@
 
 - (BTSFitTestController)initWithDevice:(id)device
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (self)
   {
-    v109 = deviceCopy;
-    v112.receiver = self;
-    v112.super_class = BTSFitTestController;
-    self = [(BTSFitTestController *)&v112 init];
+    v110 = deviceCopy;
+    v113.receiver = self;
+    v113.super_class = BTSFitTestController;
+    self = [(BTSFitTestController *)&v113 init];
     objc_storeStrong(&self->currentDevice, device);
     v6 = objc_alloc_init(MEMORY[0x277D75D18]);
     fitTestContentView = self->_fitTestContentView;
@@ -65,50 +65,50 @@
 
     if ((v13 & 1) == 0)
     {
-      v14 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sharedBluetoothSettingsLogComponent(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [BTSFitTestController initWithDevice:];
       }
     }
 
-    v15 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sharedBluetoothSettingsLogComponent(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       initialVolume = self->_initialVolume;
       *buf = 134217984;
-      *v115 = initialVolume;
-      _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Fit Test: Volume before fit test : %0.9f", buf, 0xCu);
+      *v116 = initialVolume;
+      _os_log_impl(&dword_251143000, v16, OS_LOG_TYPE_DEFAULT, "Fit Test: Volume before fit test : %0.9f", buf, 0xCu);
     }
 
-    v17 = objc_alloc(MEMORY[0x277D75D18]);
-    v18 = *MEMORY[0x277CBF3A0];
-    v19 = *(MEMORY[0x277CBF3A0] + 8);
-    v20 = *(MEMORY[0x277CBF3A0] + 16);
-    v21 = *(MEMORY[0x277CBF3A0] + 24);
-    v22 = [v17 initWithFrame:{*MEMORY[0x277CBF3A0], v19, v20, v21}];
+    v18 = objc_alloc(MEMORY[0x277D75D18]);
+    v19 = *MEMORY[0x277CBF3A0];
+    v20 = *(MEMORY[0x277CBF3A0] + 8);
+    v21 = *(MEMORY[0x277CBF3A0] + 16);
+    v22 = *(MEMORY[0x277CBF3A0] + 24);
+    v23 = [v18 initWithFrame:{*MEMORY[0x277CBF3A0], v20, v21, v22}];
     leftBudLabel = self->_leftBudLabel;
-    self->_leftBudLabel = v22;
+    self->_leftBudLabel = v23;
 
-    v24 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v18, v19, v20, v21}];
+    v25 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v19, v20, v21, v22}];
     rightBudLabel = self->_rightBudLabel;
-    self->_rightBudLabel = v24;
+    self->_rightBudLabel = v25;
 
-    v26 = objc_alloc(MEMORY[0x277D755E8]);
-    v27 = [MEMORY[0x277D755B8] systemImageNamed:@"left.circle.fill"];
+    v27 = objc_alloc(MEMORY[0x277D755E8]);
+    v28 = [MEMORY[0x277D755B8] systemImageNamed:@"left.circle.fill"];
     systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
-    v29 = [v27 imageWithTintColor:systemGrayColor renderingMode:1];
-    v30 = [v26 initWithImage:v29];
+    v30 = [v28 imageWithTintColor:systemGrayColor renderingMode:1];
+    v31 = [v27 initWithImage:v30];
     leftBudLabelImageView = self->_leftBudLabelImageView;
-    self->_leftBudLabelImageView = v30;
+    self->_leftBudLabelImageView = v31;
 
-    v32 = objc_alloc(MEMORY[0x277D755E8]);
-    v33 = [MEMORY[0x277D755B8] systemImageNamed:@"right.circle.fill"];
+    v33 = objc_alloc(MEMORY[0x277D755E8]);
+    v34 = [MEMORY[0x277D755B8] systemImageNamed:@"right.circle.fill"];
     systemGrayColor2 = [MEMORY[0x277D75348] systemGrayColor];
-    v35 = [v33 imageWithTintColor:systemGrayColor2 renderingMode:1];
-    v36 = [v32 initWithImage:v35];
+    v36 = [v34 imageWithTintColor:systemGrayColor2 renderingMode:1];
+    v37 = [v33 initWithImage:v36];
     rightBudLabelImageView = self->_rightBudLabelImageView;
-    self->_rightBudLabelImageView = v36;
+    self->_rightBudLabelImageView = v37;
 
     [(UIView *)self->_leftBudLabel setSize:18.0, 18.0];
     [(UIView *)self->_leftBudLabel _setContinuousCornerRadius:9.0];
@@ -122,17 +122,17 @@
 
     [(UIView *)self->_leftBudLabel addSubview:self->_leftBudLabelImageView];
     [(UIView *)self->_rightBudLabel addSubview:self->_rightBudLabelImageView];
-    v40 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v18, v19, v20, v21}];
+    v41 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v19, v20, v21, v22}];
     leftBudResultLabel = self->_leftBudResultLabel;
-    self->_leftBudResultLabel = v40;
+    self->_leftBudResultLabel = v41;
 
-    v42 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v18, v19, v20, v21}];
+    v43 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v19, v20, v21, v22}];
     rightBudResultLabel = self->_rightBudResultLabel;
-    self->_rightBudResultLabel = v42;
+    self->_rightBudResultLabel = v43;
 
-    v44 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v18, v19, v20, v21}];
+    v45 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v19, v20, v21, v22}];
     resultDetailLabel = self->_resultDetailLabel;
-    self->_resultDetailLabel = v44;
+    self->_resultDetailLabel = v45;
 
     [(UILabel *)self->_leftBudResultLabel setText:&stru_286339F58];
     systemBlackColor = [MEMORY[0x277D75348] systemBlackColor];
@@ -141,9 +141,9 @@
     [(UILabel *)self->_leftBudResultLabel setTextAlignment:1];
     [(UILabel *)self->_leftBudResultLabel setNumberOfLines:0];
     [(UILabel *)self->_leftBudResultLabel setLineBreakMode:0];
-    v47 = *MEMORY[0x277D76918];
-    v48 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-    [(UILabel *)self->_leftBudResultLabel setFont:v48];
+    v48 = *MEMORY[0x277D76918];
+    v49 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
+    [(UILabel *)self->_leftBudResultLabel setFont:v49];
 
     [(UILabel *)self->_leftBudResultLabel setAlpha:1.0];
     [(UILabel *)self->_rightBudResultLabel setText:&stru_286339F58];
@@ -153,8 +153,8 @@
     [(UILabel *)self->_rightBudResultLabel setTextAlignment:1];
     [(UILabel *)self->_rightBudResultLabel setNumberOfLines:0];
     [(UILabel *)self->_rightBudResultLabel setLineBreakMode:0];
-    v50 = [MEMORY[0x277D74300] preferredFontForTextStyle:v47];
-    [(UILabel *)self->_rightBudResultLabel setFont:v50];
+    v51 = [MEMORY[0x277D74300] preferredFontForTextStyle:v48];
+    [(UILabel *)self->_rightBudResultLabel setFont:v51];
 
     [(UILabel *)self->_rightBudResultLabel setAlpha:1.0];
     [(UILabel *)self->_resultDetailLabel setText:&stru_286339F58];
@@ -164,8 +164,8 @@
     [(UILabel *)self->_resultDetailLabel setTextAlignment:1];
     [(UILabel *)self->_resultDetailLabel setNumberOfLines:0];
     [(UILabel *)self->_resultDetailLabel setLineBreakMode:0];
-    v52 = [MEMORY[0x277D74300] preferredFontForTextStyle:v47];
-    [(UILabel *)self->_resultDetailLabel setFont:v52];
+    v53 = [MEMORY[0x277D74300] preferredFontForTextStyle:v48];
+    [(UILabel *)self->_resultDetailLabel setFont:v53];
 
     [(UILabel *)self->_resultDetailLabel setAlpha:1.0];
     completionHandler = self->_completionHandler;
@@ -173,113 +173,112 @@
 
     if (self->_darkMode)
     {
-      v54 = "dark";
+      v55 = "dark";
     }
 
     else
     {
-      v54 = "light";
+      v55 = "light";
     }
 
-    v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"FitTest-Left-%s", v54];
+    v56 = [MEMORY[0x277CCACA8] stringWithFormat:@"FitTest-Left-%s", v55];
     if (self->_darkMode)
     {
-      v56 = "dark";
+      v57 = "dark";
     }
 
     else
     {
-      v56 = "light";
+      v57 = "light";
     }
 
-    v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"FitTest-Right-%s", v56];
+    v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"FitTest-Right-%s", v57];
     if ([(BluetoothDevice *)self->currentDevice productId]== 8210)
     {
       *buf = 17;
       [(BluetoothDevice *)self->currentDevice getDeviceColor:buf];
-      v58 = [(BTSFitTestController *)self getImageFileName:*buf forSide:0];
+      v59 = [(BTSFitTestController *)self getImageFileName:*buf forSide:0];
 
-      v59 = [(BTSFitTestController *)self getImageFileName:*buf forSide:1];
+      v60 = [(BTSFitTestController *)self getImageFileName:*buf forSide:1];
 
-      v57 = v59;
-      v55 = v58;
+      v58 = v60;
+      v56 = v59;
     }
 
     if ([(BluetoothDevice *)self->currentDevice productId]== 8239)
     {
       *buf = 17;
       [(BluetoothDevice *)self->currentDevice getDeviceColor:buf];
-      v60 = MEMORY[0x277CCACA8];
-      v61 = [(BTSFitTestController *)self getImageFileName:*buf forSide:0];
-      v62 = [v60 stringWithFormat:@"B494b-%@", v61];
+      v61 = MEMORY[0x277CCACA8];
+      v62 = [(BTSFitTestController *)self getImageFileName:*buf forSide:0];
+      v63 = [v61 stringWithFormat:@"B494b-%@", v62];
 
-      v63 = MEMORY[0x277CCACA8];
-      v64 = [(BTSFitTestController *)self getImageFileName:*buf forSide:1];
-      v65 = [v63 stringWithFormat:@"B494b-%@", v64];
+      v64 = MEMORY[0x277CCACA8];
+      v65 = [(BTSFitTestController *)self getImageFileName:*buf forSide:1];
+      v66 = [v64 stringWithFormat:@"B494b-%@", v65];
 
-      v57 = v65;
-      v55 = v62;
+      v58 = v66;
+      v56 = v63;
     }
 
     if ([(BluetoothDevice *)self->currentDevice productId]== 8221)
     {
       *buf = 17;
       [(BluetoothDevice *)self->currentDevice getDeviceColor:buf];
-      v66 = [MEMORY[0x277CCACA8] stringWithFormat:@"B498-Left-FitTest-CL%d", *buf];
+      v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"B498-Left-FitTest-CL%d", *buf];
 
-      v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"B498-Right-FitTest-CL%d", *buf];
+      v68 = [MEMORY[0x277CCACA8] stringWithFormat:@"B498-Right-FitTest-CL%d", *buf];
 
-      v68 = v66;
+      v69 = v67;
     }
 
     else
     {
-      v68 = v55;
-      v67 = v57;
+      v69 = v56;
+      v68 = v58;
     }
 
-    v69 = MEMORY[0x277D755B8];
-    v70 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v108 = v68;
-    v71 = [v69 imageNamed:v68 inBundle:v70 compatibleWithTraitCollection:0];
+    v70 = MEMORY[0x277D755B8];
+    v71 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v109 = v69;
+    v72 = [v70 imageNamed:v69 inBundle:v71 compatibleWithTraitCollection:0];
 
-    v107 = v71;
-    v72 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v71];
+    v108 = v72;
+    v73 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v72];
     leftImView = self->_leftImView;
-    self->_leftImView = v72;
+    self->_leftImView = v73;
 
-    v74 = MEMORY[0x277D755B8];
-    v75 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v76 = [v74 imageNamed:v67 inBundle:v75 compatibleWithTraitCollection:0];
+    v75 = MEMORY[0x277D755B8];
+    v76 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v77 = [v75 imageNamed:v68 inBundle:v76 compatibleWithTraitCollection:0];
 
-    v77 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v76];
+    v78 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v77];
     rightImView = self->_rightImView;
-    self->_rightImView = v77;
+    self->_rightImView = v78;
 
     traitCollection = [(BTSFitTestController *)self traitCollection];
     self->_darkMode = [traitCollection userInterfaceStyle] == 2;
 
     if ([(BluetoothDevice *)self->currentDevice productId]== 8221)
     {
-      v80 = [MEMORY[0x277D755E8] _headphoneGetAssetsDictionary:{-[BluetoothDevice productId](self->currentDevice, "productId")}];
+      v81 = [MEMORY[0x277D755E8] _headphoneGetAssetsDictionary:{-[BluetoothDevice productId](self->currentDevice, "productId")}];
       productId = [(BluetoothDevice *)self->currentDevice productId];
-      v111 = 17;
-      [(BluetoothDevice *)self->currentDevice getDeviceColor:&v111];
-      v82 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+      v112 = 17;
+      v83 = sharedBluetoothSettingsLogComponent([(BluetoothDevice *)self->currentDevice getDeviceColor:&v112]);
+      if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
       {
         darkMode = self->_darkMode;
         *buf = 67109632;
-        *v115 = productId;
-        *&v115[4] = 1024;
-        *&v115[6] = darkMode;
-        v116 = 1024;
-        v117 = v111;
-        _os_log_impl(&dword_251143000, v82, OS_LOG_TYPE_DEFAULT, "Initialized filter paramters: pid - %d, darkMode - %d, deviceColor - %d", buf, 0x14u);
+        *v116 = productId;
+        *&v116[4] = 1024;
+        *&v116[6] = darkMode;
+        v117 = 1024;
+        v118 = v112;
+        _os_log_impl(&dword_251143000, v83, OS_LOG_TYPE_DEFAULT, "Initialized filter paramters: pid - %d, darkMode - %d, deviceColor - %d", buf, 0x14u);
       }
 
-      [(UIImageView *)self->_leftImView _headphoneApplyFilters:v80 pid:productId darkMode:self->_darkMode deviceColor:v111];
-      [(UIImageView *)self->_rightImView _headphoneApplyFilters:v80 pid:productId darkMode:self->_darkMode deviceColor:v111];
+      [(UIImageView *)self->_leftImView _headphoneApplyFilters:v81 pid:productId darkMode:self->_darkMode deviceColor:v112];
+      [(UIImageView *)self->_rightImView _headphoneApplyFilters:v81 pid:productId darkMode:self->_darkMode deviceColor:v112];
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -301,51 +300,50 @@
     [defaultCenter6 addObserver:self selector:sel_applicationDidEnterBackground_ name:*MEMORY[0x277D76660] object:0];
 
     defaultCenter7 = [MEMORY[0x277CCAB98] defaultCenter];
-    v91 = *MEMORY[0x277CB8068];
+    v92 = *MEMORY[0x277CB8068];
     mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
-    [defaultCenter7 addObserver:self selector:sel_handleAudioSessionInterruption_ name:v91 object:mEMORY[0x277CB83F8]];
+    [defaultCenter7 addObserver:self selector:sel_handleAudioSessionInterruption_ name:v92 object:mEMORY[0x277CB83F8]];
 
     defaultCenter8 = [MEMORY[0x277CCAB98] defaultCenter];
-    v94 = *MEMORY[0x277D26D40];
+    v95 = *MEMORY[0x277D26D40];
     mEMORY[0x277CB83F8]2 = [MEMORY[0x277CB83F8] sharedInstance];
-    [defaultCenter8 addObserver:self selector:sel_handleMediaServerConnectionDied_ name:v94 object:mEMORY[0x277CB83F8]2];
+    [defaultCenter8 addObserver:self selector:sel_handleMediaServerConnectionDied_ name:v95 object:mEMORY[0x277CB83F8]2];
 
     mEMORY[0x277D26E58]2 = [MEMORY[0x277D26E58] sharedAVSystemController];
-    v97 = MEMORY[0x277D26B50];
-    v113 = *MEMORY[0x277D26B50];
-    v98 = [MEMORY[0x277CBEA60] arrayWithObjects:&v113 count:1];
-    v99 = *MEMORY[0x277D26DD0];
-    v110 = 0;
-    LOBYTE(mEMORY[0x277CB83F8]2) = [mEMORY[0x277D26E58]2 setAttribute:v98 forKey:v99 error:&v110];
-    v100 = v110;
+    v98 = MEMORY[0x277D26B50];
+    v114 = *MEMORY[0x277D26B50];
+    v99 = [MEMORY[0x277CBEA60] arrayWithObjects:&v114 count:1];
+    v100 = *MEMORY[0x277D26DD0];
+    v111 = 0;
+    LOBYTE(mEMORY[0x277CB83F8]2) = [mEMORY[0x277D26E58]2 setAttribute:v99 forKey:v100 error:&v111];
+    v101 = v111;
 
-    v101 = sharedBluetoothSettingsLogComponent();
-    defaultCenter9 = v101;
+    v103 = sharedBluetoothSettingsLogComponent(v102);
+    defaultCenter9 = v103;
     if (mEMORY[0x277CB83F8]2)
     {
-      if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
         _os_log_impl(&dword_251143000, defaultCenter9, OS_LOG_TYPE_INFO, "Fit Test: Successfully set AVSC attribute. Register listener for Call Active notification", buf, 2u);
       }
 
       defaultCenter9 = [MEMORY[0x277CCAB98] defaultCenter];
-      [defaultCenter9 addObserver:self selector:sel_handleCallIsActiveDidChangeNotification_ name:*v97 object:0];
+      [defaultCenter9 addObserver:self selector:sel_handleCallIsActiveDidChangeNotification_ name:*v98 object:0];
     }
 
-    else if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
     {
       [BTSFitTestController initWithDevice:];
     }
 
-    v103 = objc_alloc_init(HPSDeviceAnalytics);
+    v105 = objc_alloc_init(HPSDeviceAnalytics);
     deviceAnalytics = self->_deviceAnalytics;
-    self->_deviceAnalytics = v103;
+    self->_deviceAnalytics = v105;
 
-    deviceCopy = v109;
+    deviceCopy = v110;
   }
 
-  v105 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -770,57 +768,56 @@ LABEL_19:
 
 - (void)startFitTest
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *self;
   v4 = *(a2 + 1146);
-  v6[0] = 67109376;
-  v6[1] = v3;
-  v7 = 1024;
-  v8 = v4;
-  _os_log_error_impl(&dword_251143000, log, OS_LOG_TYPE_ERROR, "Fit Test: budsInEar: %d, callActive: %d", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 1024;
+  v7 = v4;
+  _os_log_error_impl(&dword_251143000, log, OS_LOG_TYPE_ERROR, "Fit Test: budsInEar: %d, callActive: %d", v5, 0xEu);
 }
 
-void __36__BTSFitTestController_startFitTest__block_invoke()
+void __36__BTSFitTestController_startFitTest__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = sharedBluetoothSettingsLogComponent(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_251143000, v0, OS_LOG_TYPE_DEFAULT, "Fit Test: No action needed", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_251143000, v2, OS_LOG_TYPE_DEFAULT, "Fit Test: No action needed", v3, 2u);
   }
 }
 
 void __36__BTSFitTestController_startFitTest__block_invoke_138(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v28 = 0.0;
+  v33 = *MEMORY[0x277D85DE8];
+  v30 = 0.0;
   v2 = [MEMORY[0x277D26E58] sharedAVSystemController];
-  v3 = [v2 getVolume:&v28 forCategory:@"Audio/Video"];
+  v3 = [v2 getVolume:&v30 forCategory:@"Audio/Video"];
 
-  v4 = sharedBluetoothSettingsLogComponent();
-  v5 = v4;
+  v5 = sharedBluetoothSettingsLogComponent(v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v30 = v28;
-      _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Fit Test: Current volume : %f", buf, 0xCu);
+      v32 = v30;
+      _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Fit Test: Current volume : %f", buf, 0xCu);
     }
 
-    if (v28 < 0.5)
+    if (v30 < 0.5)
     {
-      v6 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = sharedBluetoothSettingsLogComponent(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Fit Test: Increase volume for AudioVideo for fit test", buf, 2u);
+        _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Fit Test: Increase volume for AudioVideo for fit test", buf, 2u);
       }
 
-      v7 = [MEMORY[0x277D26E58] sharedAVSystemController];
-      LODWORD(v8) = 0.5;
-      [v7 setVolumeTo:@"Audio/Video" forCategory:v8];
+      v9 = [MEMORY[0x277D26E58] sharedAVSystemController];
+      LODWORD(v10) = 0.5;
+      [v9 setVolumeTo:@"Audio/Video" forCategory:v10];
 
       *(*(a1 + 32) + 1148) = 1;
     }
@@ -828,56 +825,55 @@ void __36__BTSFitTestController_startFitTest__block_invoke_138(uint64_t a1)
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __36__BTSFitTestController_startFitTest__block_invoke_138_cold_1();
     }
   }
 
-  v9 = *(a1 + 32);
-  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v11 = [v10 pathForResource:@"E+D-US_ML" ofType:@"wav"];
+  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v12 = [v11 pathForResource:@"E+D-US_ML" ofType:@"wav"];
 
-  v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:v11];
-  v13 = [MEMORY[0x277CB83F8] sharedInstance];
-  v27 = 0;
-  [v13 setActive:1 error:&v27];
-  v14 = v27;
+  v13 = [MEMORY[0x277CBEBC0] fileURLWithPath:v12];
+  v14 = [MEMORY[0x277CB83F8] sharedInstance];
+  v29 = 0;
+  [v14 setActive:1 error:&v29];
+  v15 = v29;
 
-  if (v14)
+  if (v15)
   {
-    v15 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = sharedBluetoothSettingsLogComponent(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __36__BTSFitTestController_startFitTest__block_invoke_138_cold_2();
     }
   }
 
-  v16 = [MEMORY[0x277CB83F8] sharedInstance];
-  v17 = *MEMORY[0x277CB8030];
-  v26 = v14;
-  [v16 setCategory:v17 error:&v26];
-  v18 = v26;
+  v18 = [MEMORY[0x277CB83F8] sharedInstance];
+  v19 = *MEMORY[0x277CB8030];
+  v28 = v15;
+  [v18 setCategory:v19 error:&v28];
+  v20 = v28;
 
-  if (v18)
+  if (v20)
   {
-    v19 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = sharedBluetoothSettingsLogComponent(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       __36__BTSFitTestController_startFitTest__block_invoke_138_cold_3();
     }
 
-    v20 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v25 = 0;
-    v21 = [objc_alloc(MEMORY[0x277CB83D0]) initWithContentsOfURL:v12 error:&v25];
-    v20 = v25;
-    v22 = *(a1 + 32);
-    v23 = *(v22 + 1040);
-    *(v22 + 1040) = v21;
+    v27 = 0;
+    v24 = [objc_alloc(MEMORY[0x277CB83D0]) initWithContentsOfURL:v13 error:&v27];
+    v23 = v27;
+    v25 = *(a1 + 32);
+    v26 = *(v25 + 1040);
+    *(v25 + 1040) = v24;
 
     [*(*(a1 + 32) + 1040) setNumberOfLoops:5];
     [*(*(a1 + 32) + 1040) prepareToPlay];
@@ -885,8 +881,6 @@ void __36__BTSFitTestController_startFitTest__block_invoke_138(uint64_t a1)
   }
 
   *(*(a1 + 32) + 1145) = 1;
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCancelAction
@@ -918,7 +912,7 @@ void __36__BTSFitTestController_startFitTest__block_invoke_138(uint64_t a1)
 
 - (void)inEarStatusChanged:(id)changed
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   object = [changed object];
   v5 = [object objectForKeyedSubscript:@"primaryInEarStatus"];
   v6 = [object objectForKeyedSubscript:@"secondaryInEarStatus"];
@@ -930,38 +924,39 @@ void __36__BTSFitTestController_startFitTest__block_invoke_138(uint64_t a1)
   if (v10)
   {
     bOOLValue = [v5 BOOLValue];
-    v12 = ((bOOLValue | [v6 BOOLValue]) & 1) == 0;
-    v13 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    bOOLValue2 = [v6 BOOLValue];
+    v13 = ((bOOLValue | bOOLValue2) & 1) == 0;
+    v14 = sharedBluetoothSettingsLogComponent(bOOLValue2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412802;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 1024;
-      v23 = v12;
-      _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "Fit Test: PrimaryInEar: %@, secondaryInEar : %@. newBudsInEar: %d", &v18, 0x1Cu);
+      v19 = 138412802;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v6;
+      v23 = 1024;
+      v24 = v13;
+      _os_log_impl(&dword_251143000, v14, OS_LOG_TYPE_DEFAULT, "Fit Test: PrimaryInEar: %@, secondaryInEar : %@. newBudsInEar: %d", &v19, 0x1Cu);
     }
 
     budsInEar = self->_budsInEar;
-    self->_budsInEar = v12;
-    v15 = sharedBluetoothSettingsLogComponent();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-    if (budsInEar == v12)
+    self->_budsInEar = v13;
+    v17 = sharedBluetoothSettingsLogComponent(v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    if (budsInEar == v13)
     {
-      if (v16)
+      if (v18)
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Fit Test: No change needed based on in-ear status change", &v18, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_251143000, v17, OS_LOG_TYPE_DEFAULT, "Fit Test: No change needed based on in-ear status change", &v19, 2u);
       }
     }
 
     else
     {
-      if (v16)
+      if (v18)
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Fit Test: Update UI since in-ear status has changed", &v18, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_251143000, v17, OS_LOG_TYPE_DEFAULT, "Fit Test: Update UI since in-ear status has changed", &v19, 2u);
       }
 
       if (self->_testActive)
@@ -970,131 +965,130 @@ void __36__BTSFitTestController_startFitTest__block_invoke_138(uint64_t a1)
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sealValueChanged:(id)changed
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
+  v5 = changedCopy;
   if (self->_testActive)
   {
-    v5 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:self action:sel_dismissFitTest];
+    v6 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:self action:sel_dismissFitTest];
     navigationItem = [(BTSFitTestController *)self navigationItem];
     [navigationItem setLeftBarButtonItems:0 animated:1];
 
     navigationItem2 = [(BTSFitTestController *)self navigationItem];
-    [navigationItem2 setRightBarButtonItem:v5];
+    [navigationItem2 setRightBarButtonItem:v6];
 
-    object = [changedCopy object];
-    v9 = [object objectForKeyedSubscript:@"sealLeft"];
-    v10 = [object objectForKeyedSubscript:@"sealRight"];
-    v103 = v9;
-    [v9 floatValue];
-    v12 = v11;
-    v102 = v10;
+    object = [v5 object];
+    v10 = [object objectForKeyedSubscript:@"sealLeft"];
+    v11 = [object objectForKeyedSubscript:@"sealRight"];
+    v108 = v10;
     [v10 floatValue];
-    v14 = v13;
-    v15 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v13 = v12;
+    v107 = v11;
+    floatValue = [v11 floatValue];
+    v16 = v15;
+    v17 = sharedBluetoothSettingsLogComponent(floatValue);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v117 = v12;
-      _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Fit Test: leftSeal : %0.06f", buf, 0xCu);
+      *v122 = v13;
+      _os_log_impl(&dword_251143000, v17, OS_LOG_TYPE_DEFAULT, "Fit Test: leftSeal : %0.06f", buf, 0xCu);
     }
 
-    v16 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = sharedBluetoothSettingsLogComponent(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v117 = v14;
-      _os_log_impl(&dword_251143000, v16, OS_LOG_TYPE_DEFAULT, "Fit Test: rightSeal : %0.06f", buf, 0xCu);
+      *v122 = v16;
+      _os_log_impl(&dword_251143000, v19, OS_LOG_TYPE_DEFAULT, "Fit Test: rightSeal : %0.06f", buf, 0xCu);
     }
 
-    v17 = [object objectForKeyedSubscript:@"confidenceLeft"];
-    v98 = object;
-    v18 = [object objectForKeyedSubscript:@"confidenceRight"];
-    v101 = v17;
-    [v17 floatValue];
-    v20 = v19;
-    v100 = v18;
-    [v18 floatValue];
-    v22 = v21;
+    v20 = [object objectForKeyedSubscript:@"confidenceLeft"];
+    v103 = object;
+    v21 = [object objectForKeyedSubscript:@"confidenceRight"];
+    v106 = v20;
+    [v20 floatValue];
+    v23 = v22;
+    v105 = v21;
+    [v21 floatValue];
+    v25 = v24;
     productId = [(BluetoothDevice *)self->currentDevice productId];
-    *&v24 = v12 + v20;
+    *&v27 = v13 + v23;
     if (productId == 8210)
     {
-      v22 = v14 + v22;
-      v20 = v12 + v20;
+      v25 = v16 + v25;
+      v23 = v13 + v23;
     }
 
     productId2 = [(BluetoothDevice *)self->currentDevice productId];
-    *&v26 = v12 + v20;
+    *&v29 = v13 + v23;
     if (productId2 == 8239)
     {
-      v22 = v14 + v22;
-      v20 = v12 + v20;
+      v25 = v16 + v25;
+      v23 = v13 + v23;
     }
 
     productId3 = [(BluetoothDevice *)self->currentDevice productId];
     if (productId3 == 8221)
     {
-      v28 = v14 + v22;
+      v31 = v16 + v25;
     }
 
     else
     {
-      v28 = v22;
+      v31 = v25;
     }
 
     if (productId3 == 8221)
     {
-      v29 = v12 + v20;
+      v32 = v13 + v23;
     }
 
     else
     {
-      v29 = v20;
+      v32 = v23;
     }
 
-    v30 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v33 = sharedBluetoothSettingsLogComponent(productId3);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v117 = v29;
-      _os_log_impl(&dword_251143000, v30, OS_LOG_TYPE_DEFAULT, "Fit Test: confidenceL : %0.06f", buf, 0xCu);
+      *v122 = v32;
+      _os_log_impl(&dword_251143000, v33, OS_LOG_TYPE_DEFAULT, "Fit Test: confidenceL : %0.06f", buf, 0xCu);
     }
 
-    v31 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v35 = sharedBluetoothSettingsLogComponent(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v117 = v28;
-      _os_log_impl(&dword_251143000, v31, OS_LOG_TYPE_DEFAULT, "Fit Test: confidenceR : %0.06f", buf, 0xCu);
+      *v122 = v31;
+      _os_log_impl(&dword_251143000, v35, OS_LOG_TYPE_DEFAULT, "Fit Test: confidenceR : %0.06f", buf, 0xCu);
     }
 
     [(BTSFitTestController *)self fitTestStopped];
     headerView = [(OBWelcomeController *)self->_fitTestController headerView];
     [(BTSFitTestController *)self getSealThreshold];
-    v33 = v32;
-    [(BTSFitTestController *)self getConfidenceThreshold];
-    v35 = v34;
-    if (v29 < v34 || v28 < v34)
+    v37 = v36;
+    getConfidenceThreshold = [(BTSFitTestController *)self getConfidenceThreshold];
+    v40 = v39;
+    if (v32 < v39 || v31 < v39)
     {
-      v37 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v42 = sharedBluetoothSettingsLogComponent(getConfidenceThreshold);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         [BTSFitTestController sealValueChanged:];
       }
 
-      v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v39 = [v38 localizedStringForKey:@"FIT_TEST_RESULTS_FAILED_HEADER" value:&stru_286339F58 table:@"DeviceConfig"];
-      [headerView setTitle:v39];
+      v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v44 = [v43 localizedStringForKey:@"FIT_TEST_RESULTS_FAILED_HEADER" value:&stru_286339F58 table:@"DeviceConfig"];
+      [headerView setTitle:v44];
 
-      v40 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v41 = [v40 localizedStringForKey:@"FIT_TEST_RESULTS_FAILED_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
-      [headerView setDetailText:v41];
+      v45 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v46 = [v45 localizedStringForKey:@"FIT_TEST_RESULTS_FAILED_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
+      [headerView setDetailText:v46];
 
       [(BTSFitTestController *)self setupConstraints];
       view = [(BTSFitTestController *)self view];
@@ -1103,77 +1097,77 @@ void __36__BTSFitTestController_startFitTest__block_invoke_138(uint64_t a1)
       view2 = [(BTSFitTestController *)self view];
       [view2 layoutIfNeeded];
 
-      v97 = 0;
-      v99 = 0;
-      v44 = 1;
-      v45 = 1;
-      v46 = 0x277D75000uLL;
-      v47 = object;
-      v48 = v5;
+      v102 = 0;
+      v104 = 0;
+      v49 = 1;
+      v50 = 1;
+      v51 = 0x277D75000uLL;
+      v52 = object;
+      v53 = v6;
       goto LABEL_70;
     }
 
-    v99 = v12 < v33;
-    v49 = MEMORY[0x277D75D18];
-    if (v12 < v33)
+    v104 = v13 < v37;
+    v54 = MEMORY[0x277D75D18];
+    if (v13 < v37)
     {
-      v50 = v115;
-      v115[0] = MEMORY[0x277D85DD0];
-      v115[1] = 3221225472;
-      v51 = __41__BTSFitTestController_sealValueChanged___block_invoke;
+      v55 = v120;
+      v120[0] = MEMORY[0x277D85DD0];
+      v120[1] = 3221225472;
+      v56 = __41__BTSFitTestController_sealValueChanged___block_invoke;
     }
 
     else
     {
-      v50 = v114;
-      v114[0] = MEMORY[0x277D85DD0];
-      v114[1] = 3221225472;
-      v51 = __41__BTSFitTestController_sealValueChanged___block_invoke_2;
+      v55 = v119;
+      v119[0] = MEMORY[0x277D85DD0];
+      v119[1] = 3221225472;
+      v56 = __41__BTSFitTestController_sealValueChanged___block_invoke_2;
     }
 
-    v50[2] = v51;
-    v50[3] = &unk_2796AD618;
-    v50[4] = self;
-    [v49 animateWithDuration:0.5 animations:?];
-    v97 = v14 < v33;
-    v52 = MEMORY[0x277D75D18];
-    if (v14 < v33)
+    v55[2] = v56;
+    v55[3] = &unk_2796AD618;
+    v55[4] = self;
+    [v54 animateWithDuration:0.5 animations:?];
+    v102 = v16 < v37;
+    v57 = MEMORY[0x277D75D18];
+    if (v16 < v37)
     {
-      v53 = v113;
-      v113[0] = MEMORY[0x277D85DD0];
-      v113[1] = 3221225472;
-      v54 = __41__BTSFitTestController_sealValueChanged___block_invoke_3;
+      v58 = v118;
+      v118[0] = MEMORY[0x277D85DD0];
+      v118[1] = 3221225472;
+      v59 = __41__BTSFitTestController_sealValueChanged___block_invoke_3;
     }
 
     else
     {
-      v53 = v112;
-      v112[0] = MEMORY[0x277D85DD0];
-      v112[1] = 3221225472;
-      v54 = __41__BTSFitTestController_sealValueChanged___block_invoke_4;
+      v58 = v117;
+      v117[0] = MEMORY[0x277D85DD0];
+      v117[1] = 3221225472;
+      v59 = __41__BTSFitTestController_sealValueChanged___block_invoke_4;
     }
 
-    v53[2] = v54;
-    v53[3] = &unk_2796AD618;
-    v53[4] = self;
-    [v52 animateWithDuration:0.5 animations:?];
-    v55 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v56 = [v55 localizedStringForKey:@"FIT_TEST_RESULTS_HEADER" value:&stru_286339F58 table:@"DeviceConfig"];
-    [headerView setTitle:v56];
+    v58[2] = v59;
+    v58[3] = &unk_2796AD618;
+    v58[4] = self;
+    [v57 animateWithDuration:0.5 animations:?];
+    v60 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v61 = [v60 localizedStringForKey:@"FIT_TEST_RESULTS_HEADER" value:&stru_286339F58 table:@"DeviceConfig"];
+    [headerView setTitle:v61];
 
-    if (v12 >= v33 && v14 >= v33)
+    if (v13 >= v37 && v16 >= v37)
     {
-      v57 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v58 = [v57 localizedStringForKey:@"FIT_TEST_BOTH_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
-      [headerView setDetailText:v58];
+      v63 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v64 = [v63 localizedStringForKey:@"FIT_TEST_BOTH_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
+      [headerView setDetailText:v64];
 
-      v48 = v5;
+      v53 = v6;
       if (self->_completionHandler)
       {
         playButton = self->_playButton;
-        v60 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v61 = [v60 localizedStringForKey:@"CONTINUE" value:&stru_286339F58 table:@"DeviceConfig"];
-        [(OBTrayButton *)playButton setTitle:v61 forState:0];
+        v66 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v67 = [v66 localizedStringForKey:@"CONTINUE" value:&stru_286339F58 table:@"DeviceConfig"];
+        [(OBTrayButton *)playButton setTitle:v67 forState:0];
 
         imageView = [(OBTrayButton *)self->_playButton imageView];
         [imageView setHidden:1];
@@ -1182,193 +1176,191 @@ void __36__BTSFitTestController_startFitTest__block_invoke_138(uint64_t a1)
         [(OBTrayButton *)self->_playButton addTarget:self action:sel_callCompletionHandler forControlEvents:64];
       }
 
-      v97 = 0;
-      v44 = 0;
-      v99 = 0;
-      v45 = 0;
+      v102 = 0;
+      v49 = 0;
+      v104 = 0;
+      v50 = 0;
 LABEL_41:
-      v46 = 0x277D75000;
+      v51 = 0x277D75000;
 LABEL_69:
-      v47 = v98;
+      v52 = v103;
 LABEL_70:
       if ([(BTSFitTestController *)self isDebugModeEnabled])
       {
-        v82 = *(v46 + 3352);
-        v105[0] = MEMORY[0x277D85DD0];
-        v105[1] = 3221225472;
-        v105[2] = __41__BTSFitTestController_sealValueChanged___block_invoke_206;
-        v105[3] = &unk_2796ADAB0;
-        v105[4] = self;
-        v106 = v33;
-        v107 = v35;
-        v108 = v12;
-        v109 = v29;
-        v110 = v14;
-        v111 = v28;
-        [v82 animateWithDuration:v105 animations:0.5];
+        v88 = *(v51 + 3352);
+        v110[0] = MEMORY[0x277D85DD0];
+        v110[1] = 3221225472;
+        v110[2] = __41__BTSFitTestController_sealValueChanged___block_invoke_206;
+        v110[3] = &unk_2796ADAB0;
+        v110[4] = self;
+        v111 = v37;
+        v112 = v40;
+        v113 = v13;
+        v114 = v32;
+        v115 = v16;
+        v116 = v31;
+        [v88 animateWithDuration:v110 animations:0.5];
       }
 
-      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:6 value:v12];
-      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:7 value:v14];
-      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:1 value:v29];
-      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:2 value:v28];
+      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:6 value:v13];
+      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:7 value:v16];
+      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:1 value:v32];
+      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:2 value:v31];
       [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:5 value:[(BluetoothDevice *)self->currentDevice productId]];
-      if (v44 || v45)
+      if (v49 || v50)
       {
-        v83 = v97 || v99;
+        v89 = v102 || v104;
       }
 
       else
       {
-        v83 = 2;
+        v89 = 2;
       }
 
-      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:9 value:v83];
+      [(HPSDeviceAnalytics *)self->_deviceAnalytics updateFitTestValue:9 value:v89];
       date = [MEMORY[0x277CBEAA8] date];
       endFitTestTimestamp = self->_endFitTestTimestamp;
       self->_endFitTestTimestamp = date;
 
       deviceAnalytics = self->_deviceAnalytics;
       [(NSDate *)self->_endFitTestTimestamp timeIntervalSinceDate:self->_startFitTestTimestamp];
-      [(HPSDeviceAnalytics *)deviceAnalytics updateFitTestValue:8 value:v87];
+      [(HPSDeviceAnalytics *)deviceAnalytics updateFitTestValue:8 value:v93];
       [(HPSDeviceAnalytics *)self->_deviceAnalytics submitFitTestAnalytics];
 
       goto LABEL_76;
     }
 
-    v48 = v5;
-    if (v12 >= v33 || v14 >= v33)
+    v53 = v6;
+    if (v13 >= v37 || v16 >= v37)
     {
-      if (v12 >= v33 && v14 < v33)
+      if (v13 >= v37 && v16 < v37)
       {
-        v74 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v75 = [v74 localizedStringForKey:@"FIT_TEST_LEFT_GOOD_RIGHT_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
-        [headerView setDetailText:v75];
+        v80 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v81 = [v80 localizedStringForKey:@"FIT_TEST_LEFT_GOOD_RIGHT_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
+        [headerView setDetailText:v81];
 
         if ([(BluetoothDevice *)self->currentDevice productId]== 8210)
         {
-          v76 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v77 = [v76 localizedStringForKey:@"FIT_TEST_LEFT_GOOD_RIGHT_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494"];
-          [headerView setDetailText:v77];
+          v82 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v83 = [v82 localizedStringForKey:@"FIT_TEST_LEFT_GOOD_RIGHT_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494"];
+          [headerView setDetailText:v83];
         }
 
-        v46 = 0x277D75000uLL;
+        v51 = 0x277D75000uLL;
         if ([(BluetoothDevice *)self->currentDevice productId]== 8239)
         {
-          v78 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v79 = [v78 localizedStringForKey:@"FIT_TEST_LEFT_GOOD_RIGHT_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
-          [headerView setDetailText:v79];
+          v84 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v85 = [v84 localizedStringForKey:@"FIT_TEST_LEFT_GOOD_RIGHT_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
+          [headerView setDetailText:v85];
         }
 
         if ([(BluetoothDevice *)self->currentDevice productId]== 8221)
         {
-          v80 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v81 = [v80 localizedStringForKey:@"FIT_TEST_LEFT_GOOD_RIGHT_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B498-v2"];
-          [headerView setDetailText:v81];
+          v86 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v87 = [v86 localizedStringForKey:@"FIT_TEST_LEFT_GOOD_RIGHT_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B498-v2"];
+          [headerView setDetailText:v87];
         }
 
-        v99 = 0;
-        v45 = 0;
-        v44 = v14 < v33;
+        v104 = 0;
+        v50 = 0;
+        v49 = v16 < v37;
         goto LABEL_69;
       }
 
-      if (v14 < v33 || v12 >= v33)
+      if (v16 < v37 || v13 >= v37)
       {
-        v65 = sharedBluetoothSettingsLogComponent();
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+        v71 = sharedBluetoothSettingsLogComponent(v62);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109888;
-          *v117 = v12 >= v33;
-          *&v117[4] = 1024;
-          *&v117[6] = v12 < v33;
-          v118 = 1024;
-          v119 = v14 >= v33;
-          v120 = 1024;
-          v121 = v14 < v33;
-          _os_log_impl(&dword_251143000, v65, OS_LOG_TYPE_DEFAULT, "Fit Test: leftSealGood: %d, leftSealPoor: %d, rightSealGood: %d, rightSealPoor: %d", buf, 0x1Au);
+          *v122 = v13 >= v37;
+          *&v122[4] = 1024;
+          *&v122[6] = v13 < v37;
+          v123 = 1024;
+          v124 = v16 >= v37;
+          v125 = 1024;
+          v126 = v16 < v37;
+          _os_log_impl(&dword_251143000, v71, OS_LOG_TYPE_DEFAULT, "Fit Test: leftSealGood: %d, leftSealPoor: %d, rightSealGood: %d, rightSealPoor: %d", buf, 0x1Au);
         }
 
-        v44 = v14 < v33;
-        v45 = v12 < v33;
+        v49 = v16 < v37;
+        v50 = v13 < v37;
         goto LABEL_41;
       }
 
-      v89 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v90 = [v89 localizedStringForKey:@"FIT_TEST_LEFT_POOR_RIGHT_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
-      [headerView setDetailText:v90];
+      v94 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v95 = [v94 localizedStringForKey:@"FIT_TEST_LEFT_POOR_RIGHT_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
+      [headerView setDetailText:v95];
 
       if ([(BluetoothDevice *)self->currentDevice productId]== 8210)
       {
-        v91 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v92 = [v91 localizedStringForKey:@"FIT_TEST_LEFT_POOR_RIGHT_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494"];
-        [headerView setDetailText:v92];
+        v96 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v97 = [v96 localizedStringForKey:@"FIT_TEST_LEFT_POOR_RIGHT_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494"];
+        [headerView setDetailText:v97];
       }
 
-      v46 = 0x277D75000;
+      v51 = 0x277D75000;
       if ([(BluetoothDevice *)self->currentDevice productId]== 8239)
       {
-        v93 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v94 = [v93 localizedStringForKey:@"FIT_TEST_LEFT_POOR_RIGHT_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
-        [headerView setDetailText:v94];
+        v98 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v99 = [v98 localizedStringForKey:@"FIT_TEST_LEFT_POOR_RIGHT_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
+        [headerView setDetailText:v99];
       }
 
       if ([(BluetoothDevice *)self->currentDevice productId]== 8221)
       {
-        v95 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v96 = [v95 localizedStringForKey:@"FIT_TEST_LEFT_POOR_RIGHT_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B498-v2"];
-        [headerView setDetailText:v96];
+        v100 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v101 = [v100 localizedStringForKey:@"FIT_TEST_LEFT_POOR_RIGHT_GOOD_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B498-v2"];
+        [headerView setDetailText:v101];
       }
 
-      v97 = 0;
-      v44 = 0;
+      v102 = 0;
+      v49 = 0;
     }
 
     else
     {
-      v66 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v67 = [v66 localizedStringForKey:@"FIT_TEST_BOTH_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
-      [headerView setDetailText:v67];
+      v72 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v73 = [v72 localizedStringForKey:@"FIT_TEST_BOTH_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig"];
+      [headerView setDetailText:v73];
 
       if ([(BluetoothDevice *)self->currentDevice productId]== 8210)
       {
-        v68 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v69 = [v68 localizedStringForKey:@"FIT_TEST_BOTH_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494"];
-        [headerView setDetailText:v69];
+        v74 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v75 = [v74 localizedStringForKey:@"FIT_TEST_BOTH_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494"];
+        [headerView setDetailText:v75];
       }
 
-      v46 = 0x277D75000;
+      v51 = 0x277D75000;
       if ([(BluetoothDevice *)self->currentDevice productId]== 8239)
       {
-        v70 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v71 = [v70 localizedStringForKey:@"FIT_TEST_BOTH_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
-        [headerView setDetailText:v71];
+        v76 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v77 = [v76 localizedStringForKey:@"FIT_TEST_BOTH_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B494b"];
+        [headerView setDetailText:v77];
       }
 
       if ([(BluetoothDevice *)self->currentDevice productId]== 8221)
       {
-        v72 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v73 = [v72 localizedStringForKey:@"FIT_TEST_BOTH_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B498-v2"];
-        [headerView setDetailText:v73];
+        v78 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v79 = [v78 localizedStringForKey:@"FIT_TEST_BOTH_POOR_DETAIL" value:&stru_286339F58 table:@"DeviceConfig-B498-v2"];
+        [headerView setDetailText:v79];
       }
 
-      v44 = v14 < v33;
+      v49 = v16 < v37;
     }
 
-    v45 = v12 < v33;
+    v50 = v13 < v37;
     goto LABEL_69;
   }
 
-  v48 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v53 = sharedBluetoothSettingsLogComponent(changedCopy);
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_251143000, v48, OS_LOG_TYPE_DEFAULT, "Fit Test: Discard results since test is not active", buf, 2u);
+    _os_log_impl(&dword_251143000, v53, OS_LOG_TYPE_DEFAULT, "Fit Test: Discard results since test is not active", buf, 2u);
   }
 
 LABEL_76:
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 void __41__BTSFitTestController_sealValueChanged___block_invoke(uint64_t a1)
@@ -1381,10 +1373,9 @@ void __41__BTSFitTestController_sealValueChanged___block_invoke(uint64_t a1)
   v5 = [MEMORY[0x277D75348] systemYellowColor];
   [*(*(a1 + 32) + 1112) setTextColor:v5];
 
-  v6 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v8 localizedStringForKey:@"FIT_TEST_POOR_RESULT" value:&stru_286339F58 table:@"DeviceConfig"];
-  [*(*(a1 + 32) + 1112) setText:v7];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v7 localizedStringForKey:@"FIT_TEST_POOR_RESULT" value:&stru_286339F58 table:@"DeviceConfig"];
+  [*(*(a1 + 32) + 1112) setText:v6];
 }
 
 void __41__BTSFitTestController_sealValueChanged___block_invoke_2(uint64_t a1)
@@ -1397,10 +1388,9 @@ void __41__BTSFitTestController_sealValueChanged___block_invoke_2(uint64_t a1)
   v5 = [MEMORY[0x277D75348] systemGreenColor];
   [*(*(a1 + 32) + 1112) setTextColor:v5];
 
-  v6 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v8 localizedStringForKey:@"FIT_TEST_GOOD_RESULT" value:&stru_286339F58 table:@"DeviceConfig"];
-  [*(*(a1 + 32) + 1112) setText:v7];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v7 localizedStringForKey:@"FIT_TEST_GOOD_RESULT" value:&stru_286339F58 table:@"DeviceConfig"];
+  [*(*(a1 + 32) + 1112) setText:v6];
 }
 
 void __41__BTSFitTestController_sealValueChanged___block_invoke_3(uint64_t a1)
@@ -1413,10 +1403,9 @@ void __41__BTSFitTestController_sealValueChanged___block_invoke_3(uint64_t a1)
   v5 = [MEMORY[0x277D75348] systemYellowColor];
   [*(*(a1 + 32) + 1120) setTextColor:v5];
 
-  v6 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v8 localizedStringForKey:@"FIT_TEST_POOR_RESULT" value:&stru_286339F58 table:@"DeviceConfig"];
-  [*(*(a1 + 32) + 1120) setText:v7];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v7 localizedStringForKey:@"FIT_TEST_POOR_RESULT" value:&stru_286339F58 table:@"DeviceConfig"];
+  [*(*(a1 + 32) + 1120) setText:v6];
 }
 
 void __41__BTSFitTestController_sealValueChanged___block_invoke_4(uint64_t a1)
@@ -1429,10 +1418,9 @@ void __41__BTSFitTestController_sealValueChanged___block_invoke_4(uint64_t a1)
   v5 = [MEMORY[0x277D75348] systemGreenColor];
   [*(*(a1 + 32) + 1120) setTextColor:v5];
 
-  v6 = *(a1 + 32);
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v8 localizedStringForKey:@"FIT_TEST_GOOD_RESULT" value:&stru_286339F58 table:@"DeviceConfig"];
-  [*(*(a1 + 32) + 1120) setText:v7];
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v7 localizedStringForKey:@"FIT_TEST_GOOD_RESULT" value:&stru_286339F58 table:@"DeviceConfig"];
+  [*(*(a1 + 32) + 1120) setText:v6];
 }
 
 void __41__BTSFitTestController_sealValueChanged___block_invoke_206(uint64_t a1)
@@ -1521,52 +1509,52 @@ uint64_t __38__BTSFitTestController_fitTestStopped__block_invoke(uint64_t a1)
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   enabled = [mEMORY[0x277CF3248] enabled];
 
-  v7 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sharedBluetoothSettingsLogComponent(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
-    v9 = name;
-    v10 = "off";
+    v10 = name;
+    v11 = "off";
     if (enabled)
     {
-      v10 = "on";
+      v11 = "on";
     }
 
     v12 = 138412546;
     v13 = name;
     v14 = 2080;
-    v15 = v10;
-    _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Fit Test: Received %@ with power state %s", &v12, 0x16u);
+    v15 = v11;
+    _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Fit Test: Received %@ with power state %s", &v12, 0x16u);
   }
 
   [(BTSFitTestController *)self dismissFitTest];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCallIsActiveDidChangeNotification:(id)notification
 {
   callActive = self->_callActive;
   isCallActive = [(BTSFitTestController *)self isCallActive];
-  self->_callActive = [(BTSFitTestController *)self isCallActive];
-  v6 = sharedBluetoothSettingsLogComponent();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  isCallActive2 = [(BTSFitTestController *)self isCallActive];
+  self->_callActive = isCallActive2;
+  v7 = sharedBluetoothSettingsLogComponent(isCallActive2);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (callActive == isCallActive)
   {
-    if (v7)
+    if (v8)
     {
-      v10 = 0;
-      v8 = "Fit Test: No change needed based on call status change";
-      v9 = &v10;
+      v11 = 0;
+      v9 = "Fit Test: No change needed based on call status change";
+      v10 = &v11;
 LABEL_6:
-      _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
+      _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
     *buf = 0;
-    v8 = "Fit Test: Update UI since call status has changed";
-    v9 = buf;
+    v9 = "Fit Test: Update UI since call status has changed";
+    v10 = buf;
     goto LABEL_6;
   }
 }
@@ -1580,13 +1568,13 @@ LABEL_6:
 
   if (unsignedIntegerValue == 1)
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sharedBluetoothSettingsLogComponent(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       testActive = self->_testActive;
       v10[0] = 67109120;
       v10[1] = testActive;
-      _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Fit Test: Audio session interrupted. Reset Fit Test (Active: %d)", v10, 8u);
+      _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Fit Test: Audio session interrupted. Reset Fit Test (Active: %d)", v10, 8u);
     }
 
     if (self->_testActive)
@@ -1594,13 +1582,11 @@ LABEL_6:
       [(BTSFitTestController *)self fitTestStopped];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMediaServerConnectionDied:(id)died
 {
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1621,16 +1607,16 @@ LABEL_6:
 
 - (void)resetVolume
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_volumeModified && self->_initialVolume <= 0.5)
   {
-    v3 = sharedBluetoothSettingsLogComponent();
+    v3 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       initialVolume = self->_initialVolume;
-      v8 = 134217984;
-      v9 = initialVolume;
-      _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Fit Test: Cleanup audio. Set audioVideo volume to: %f", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = initialVolume;
+      _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Fit Test: Cleanup audio. Set audioVideo volume to: %f", &v7, 0xCu);
     }
 
     mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
@@ -1639,35 +1625,30 @@ LABEL_6:
 
     self->_volumeModified = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupAudio
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCallActive
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   v3 = [mEMORY[0x277D26E58] attributeForKey:*MEMORY[0x277D26B48]];
 
   bOOLValue = [v3 BOOLValue];
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(bOOLValue);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = bOOLValue;
-    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Fit Test: Call is active : %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = bOOLValue;
+    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Fit Test: Call is active : %d", v7, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -1690,7 +1671,7 @@ LABEL_6:
 
 - (float)getSealThreshold
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   productId = [(BluetoothDevice *)self->currentDevice productId];
   v4 = productId;
   v5 = productId == 8210 || productId == 8239;
@@ -1715,11 +1696,11 @@ LABEL_6:
     v7 = 0.0;
     if (self->_completionHandler)
     {
-      v8 = sharedBluetoothSettingsLogComponent();
+      v8 = sharedBluetoothSettingsLogComponent(productId);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Fit Test: getSealThreshold Hearing Test Threshold 6.0", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Fit Test: getSealThreshold Hearing Test Threshold 6.0", &v11, 2u);
       }
     }
   }
@@ -1729,21 +1710,20 @@ LABEL_6:
     v7 = 0.0;
   }
 
-  v9 = sharedBluetoothSettingsLogComponent();
+  v9 = sharedBluetoothSettingsLogComponent(productId);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
-    v13 = v7;
-    _os_log_impl(&dword_251143000, v9, OS_LOG_TYPE_DEFAULT, "Fit Test: Target Seal Threshold: %.2f", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = v7;
+    _os_log_impl(&dword_251143000, v9, OS_LOG_TYPE_DEFAULT, "Fit Test: Target Seal Threshold: %.2f", &v11, 0xCu);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (float)getConfidenceThreshold
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   productId = [(BluetoothDevice *)self->currentDevice productId];
   v3 = productId == 8210 || productId == 8239;
   v4 = 5.1;
@@ -1767,15 +1747,14 @@ LABEL_6:
     v6 = v4;
   }
 
-  v7 = sharedBluetoothSettingsLogComponent();
+  v7 = sharedBluetoothSettingsLogComponent(productId);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
-    v11 = v6;
-    _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Fit Test: Target Confidence Threshold: %.2f", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = v6;
+    _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Fit Test: Target Confidence Threshold: %.2f", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1928,7 +1907,7 @@ LABEL_36:
 - (void)setCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -1944,7 +1923,7 @@ LABEL_36:
 
 - (void)callCompletionHandler
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1956,29 +1935,23 @@ LABEL_36:
 
 - (void)initWithDevice:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __36__BTSFitTestController_startFitTest__block_invoke_138_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __36__BTSFitTestController_startFitTest__block_invoke_138_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

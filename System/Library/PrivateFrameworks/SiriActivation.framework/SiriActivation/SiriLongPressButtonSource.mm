@@ -154,23 +154,21 @@ void __48__SiriLongPressButtonSource_configureConnection__block_invoke(uint64_t 
 
 void __48__SiriLongPressButtonSource_configureConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SiriLongPressButtonSource configureConnection]_block_invoke_2";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Invalidated %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SiriLongPressButtonSource configureConnection]_block_invoke_2";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Invalidated %@", &v7, 0x16u);
   }
 
   v5 = [v3 remoteTarget];
   v6 = [[SASButtonIdentifierTransport alloc] initWithSiriButtonIdentifier:*(a1 + 40)];
   [v5 unregisterButtonIdentifier:v6 withUUID:*(a1 + 32)];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __48__SiriLongPressButtonSource_configureConnection__block_invoke_48(uint64_t a1, void *a2)
@@ -187,18 +185,18 @@ void __48__SiriLongPressButtonSource_configureConnection__block_invoke_48(uint64
 
 void __48__SiriLongPressButtonSource_configureConnection__block_invoke_51(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v40 = "[SiriLongPressButtonSource configureConnection]_block_invoke";
-    v41 = 2048;
-    v42 = WeakRetained;
-    v43 = 2112;
-    v44 = v3;
+    v39 = "[SiriLongPressButtonSource configureConnection]_block_invoke";
+    v40 = 2048;
+    v41 = WeakRetained;
+    v42 = 2112;
+    v43 = v3;
     _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation BSServiceConnection Activated strongSelf=%p connection=%@", buf, 0x20u);
   }
 
@@ -210,29 +208,29 @@ void __48__SiriLongPressButtonSource_configureConnection__block_invoke_51(uint64
     [v6 registerButtonIdentifier:v7 withUUID:*(a1 + 32)];
 
     v8 = 0x1E82F2000uLL;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v9 = [(os_unfair_lock_s *)WeakRetained lock_activityAssertions];
-    v33 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
-    if (!v33)
+    v32 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    if (!v32)
     {
       goto LABEL_16;
     }
 
-    v10 = *v35;
-    v32 = *v35;
+    v10 = *v34;
+    v31 = *v34;
     while (1)
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v9);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * i);
+        v12 = *(*(&v33 + 1) + 8 * i);
         v13 = [v12 reason];
         v14 = [v13 isEqualToString:@"prepare"];
 
@@ -276,14 +274,14 @@ void __48__SiriLongPressButtonSource_configureConnection__block_invoke_51(uint64
           v8 = v27;
           WeakRetained = v26;
           v9 = v25;
-          v10 = v32;
+          v10 = v31;
           v20 = [(SASTimeIntervalTransport *)v30 initWithTimeInterval:?];
           [v18 buttonDownFromButtonIdentifier:v15 timestamp:v20 context:v17];
         }
       }
 
-      v33 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
-      if (!v33)
+      v32 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      if (!v32)
       {
 LABEL_16:
 
@@ -292,8 +290,6 @@ LABEL_16:
       }
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)prepareForActivationWithTimestamp:(double)timestamp
@@ -352,7 +348,7 @@ void __63__SiriLongPressButtonSource_prepareForActivationWithTimestamp___block_i
 
 - (void)setupHintGlowTimerIfNeededWithButtonIdentifier:(id)identifier buttonContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   contextCopy = context;
   if (!self->_saeHintGlowTimer)
@@ -361,57 +357,53 @@ void __63__SiriLongPressButtonSource_prepareForActivationWithTimestamp___block_i
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "[SiriLongPressButtonSource setupHintGlowTimerIfNeededWithButtonIdentifier:buttonContext:]";
+      v18 = "[SiriLongPressButtonSource setupHintGlowTimerIfNeededWithButtonIdentifier:buttonContext:]";
       _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation setup hint glow activation timer", buf, 0xCu);
     }
 
     v9 = MEMORY[0x1E695DFF0];
     [(SiriLongPressButtonSource *)self hintGlowTimeIntervalInMs];
-    v16[0] = @"buttonIdentifier";
-    v16[1] = @"buttonContext";
-    v17[0] = identifierCopy;
-    v17[1] = contextCopy;
+    v15[0] = @"buttonIdentifier";
+    v15[1] = @"buttonContext";
+    v16[0] = identifierCopy;
+    v16[1] = contextCopy;
     v11 = v10 / 1000.0;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v13 = [v9 scheduledTimerWithTimeInterval:self target:sel_signalForHintGlow_ selector:v12 userInfo:0 repeats:v11];
     saeHintGlowTimer = self->_saeHintGlowTimer;
     self->_saeHintGlowTimer = v13;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateHintGlowTimer
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self->_saeHintGlowTimer)
   {
     v3 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[SiriLongPressButtonSource invalidateHintGlowTimer]";
-      _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation invalidate hint glow activation timer", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SiriLongPressButtonSource invalidateHintGlowTimer]";
+      _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation invalidate hint glow activation timer", &v5, 0xCu);
     }
 
     [(NSTimer *)self->_saeHintGlowTimer invalidate];
     saeHintGlowTimer = self->_saeHintGlowTimer;
     self->_saeHintGlowTimer = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signalForHintGlow:(id)glow
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   glowCopy = glow;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[SiriLongPressButtonSource signalForHintGlow:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation hint glow activation timer fired", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[SiriLongPressButtonSource signalForHintGlow:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation hint glow activation timer fired", &v11, 0xCu);
   }
 
   userInfo = [glowCopy userInfo];
@@ -422,8 +414,6 @@ void __63__SiriLongPressButtonSource_prepareForActivationWithTimestamp___block_i
 
   remoteTarget = [(BSServiceConnection *)self->super._connection remoteTarget];
   [remoteTarget setHintGlowAssertionFromButtonIdentifier:v7 context:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)prepareForActivation
@@ -525,7 +515,7 @@ void __68__SiriLongPressButtonSource_speechInteractionActivityWithTimestamp___bl
 
 - (void)didRecognizeLongPressInteraction:(id)interaction
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   context = [(SiriLongPressButtonSource *)self context];
   [context setLongPressBehavior:{-[SiriLongPressButtonSource longPressBehavior](self, "longPressBehavior")}];
 
@@ -536,9 +526,9 @@ void __68__SiriLongPressButtonSource_speechInteractionActivityWithTimestamp___bl
     v7 = v5;
     v8 = [v6 stringWithSiriButtonIdentifier:{-[SiriLongPressButtonSource buttonIdentifier](self, "buttonIdentifier")}];
     *buf = 136315394;
-    v46 = "[SiriLongPressButtonSource didRecognizeLongPressInteraction:]";
-    v47 = 2112;
-    v48 = v8;
+    v45 = "[SiriLongPressButtonSource didRecognizeLongPressInteraction:]";
+    v46 = 2112;
+    v47 = v8;
     _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation %@ didRecognizeLongPress", buf, 0x16u);
   }
 
@@ -582,26 +572,26 @@ void __68__SiriLongPressButtonSource_speechInteractionActivityWithTimestamp___bl
 
   if ([(SiriLongPressButtonSource *)self buttonIdentifier]== 2 || [(SiriLongPressButtonSource *)self buttonIdentifier]== 1)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v24 = self->_lock_activityAssertions;
-    v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v41;
+      v27 = *v40;
 LABEL_13:
       v28 = 0;
       while (1)
       {
-        if (*v41 != v27)
+        if (*v40 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        reason2 = [*(*(&v40 + 1) + 8 * v28) reason];
+        reason2 = [*(*(&v39 + 1) + 8 * v28) reason];
         v30 = [reason2 isEqualToString:@"speechInteraction"];
 
         if (v30)
@@ -611,7 +601,7 @@ LABEL_13:
 
         if (v26 == ++v28)
         {
-          v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v39 objects:v43 count:16];
           if (v26)
           {
             goto LABEL_13;
@@ -632,7 +622,7 @@ LABEL_19:
         [SiriLongPressButtonSource didRecognizeLongPressInteraction:v31];
       }
 
-      v24 = [MEMORY[0x1E696AEC0] stringWithSiriButtonIdentifier:{-[SiriLongPressButtonSource buttonIdentifier](self, "buttonIdentifier", v40)}];
+      v24 = [MEMORY[0x1E696AEC0] stringWithSiriButtonIdentifier:{-[SiriLongPressButtonSource buttonIdentifier](self, "buttonIdentifier", v39)}];
       [(SiriLongPressButtonSource *)self _timestampForSpeechInteractionActivityWithTimestamp:CFAbsoluteTimeGetCurrent()];
       v33 = v32;
       [(SiriLongPressButtonSource *)self invalidateHintGlowTimer];
@@ -646,12 +636,11 @@ LABEL_19:
   }
 
   os_unfair_lock_unlock(&self->super._lock);
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activeChangedTo:(id)to
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (([toCopy BOOLValue] & 1) == 0 && -[SiriLongPressButtonSource _shouldClearActiveOverrideOnInactiveTransition](self, "_shouldClearActiveOverrideOnInactiveTransition"))
   {
@@ -659,18 +648,16 @@ LABEL_19:
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v9 = "[SiriLongPressButtonSource activeChangedTo:]";
+      v8 = "[SiriLongPressButtonSource activeChangedTo:]";
       _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation clearing active override", buf, 0xCu);
     }
 
     [(SiriLongPressButtonSource *)self _clearActiveOverride];
   }
 
-  v7.receiver = self;
-  v7.super_class = SiriLongPressButtonSource;
-  [(SiriActivationSource *)&v7 activeChangedTo:toCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = SiriLongPressButtonSource;
+  [(SiriActivationSource *)&v6 activeChangedTo:toCopy];
 }
 
 - (BOOL)_shouldClearActiveOverrideOnInactiveTransition
@@ -692,7 +679,7 @@ LABEL_19:
 
 - (void)activeOverrideDidChange:(id)change
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -700,24 +687,22 @@ LABEL_19:
     v6 = v5;
     bOOLValue = [changeCopy BOOLValue];
     v8 = [MEMORY[0x1E696AEC0] stringWithSiriButtonIdentifier:self->_buttonIdentifier];
-    v10 = 136315650;
-    v11 = "[SiriLongPressButtonSource activeOverrideDidChange:]";
-    v12 = 1024;
-    v13 = bOOLValue;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation Setting override %{BOOL}d for %@", &v10, 0x1Cu);
+    v9 = 136315650;
+    v10 = "[SiriLongPressButtonSource activeOverrideDidChange:]";
+    v11 = 1024;
+    v12 = bOOLValue;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation Setting override %{BOOL}d for %@", &v9, 0x1Cu);
   }
 
   -[SiriLongPressButtonSource setActiveOverride:](self, "setActiveOverride:", [changeCopy BOOLValue]);
   [(SiriLongPressButtonSource *)self setActiveOverrideSpecified:1];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (double)_timestampForSpeechInteractionActivityWithTimestamp:(double)timestamp
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ([(SiriLongPressButtonSource *)self _shouldReplaceSpeechInteractionActivityTimestampWithPrewarmTimestamp])
   {
     os_unfair_lock_lock(&self->super._lock);
@@ -737,11 +722,11 @@ LABEL_19:
         v12 = MEMORY[0x1E696AD98];
         v13 = v11;
         v14 = [v12 numberWithDouble:v10];
-        v22 = 136315394;
-        v23 = "[SiriLongPressButtonSource _timestampForSpeechInteractionActivityWithTimestamp:]";
-        v24 = 2112;
-        v25 = v14;
-        _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #zll carplay steering wheel button with previous prepare assertion, replaced timestamp with %@", &v22, 0x16u);
+        v21 = 136315394;
+        v22 = "[SiriLongPressButtonSource _timestampForSpeechInteractionActivityWithTimestamp:]";
+        v23 = 2112;
+        v24 = v14;
+        _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #zll carplay steering wheel button with previous prepare assertion, replaced timestamp with %@", &v21, 0x16u);
       }
     }
 
@@ -768,15 +753,14 @@ LABEL_19:
       v16 = MEMORY[0x1E696AD98];
       v17 = v15;
       v18 = [v16 numberWithDouble:v10];
-      v22 = 136315394;
-      v23 = "[SiriLongPressButtonSource _timestampForSpeechInteractionActivityWithTimestamp:]";
-      v24 = 2112;
-      v25 = v18;
-      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #zll not a carplay steering wheel button, converted passed in timestamp: %@", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[SiriLongPressButtonSource _timestampForSpeechInteractionActivityWithTimestamp:]";
+      v23 = 2112;
+      v24 = v18;
+      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #zll not a carplay steering wheel button, converted passed in timestamp: %@", &v21, 0x16u);
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -824,44 +808,38 @@ LABEL_19:
 
 - (BOOL)isActive
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if ([(SiriLongPressButtonSource *)self buttonIdentifier]!= 4)
+  v12 = *MEMORY[0x1E69E9840];
+  if ([(SiriLongPressButtonSource *)self buttonIdentifier]== 4)
   {
-    if ([(SiriLongPressButtonSource *)self buttonIdentifier]!= 2 || ![(SiriLongPressButtonSource *)self activeOverrideSpecified])
+    v7.receiver = self;
+    v7.super_class = SiriLongPressButtonSource;
+    if ([(SiriActivationSource *)&v7 isActive])
     {
-      v7.receiver = self;
-      v7.super_class = SiriLongPressButtonSource;
-      result = [(SiriActivationSource *)&v7 isActive];
-      goto LABEL_10;
+      return 1;
     }
 
+    return [(SiriLongPressButtonSource *)self activeOverride];
+  }
+
+  if ([(SiriLongPressButtonSource *)self buttonIdentifier]== 2 && [(SiriLongPressButtonSource *)self activeOverrideSpecified])
+  {
     v4 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       v5 = v4;
       *buf = 136315394;
-      v10 = "[SiriLongPressButtonSource isActive]";
-      v11 = 1024;
+      v9 = "[SiriLongPressButtonSource isActive]";
+      v10 = 1024;
       activeOverride = [(SiriLongPressButtonSource *)self activeOverride];
       _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation activeOverride is specified and set to %d", buf, 0x12u);
     }
 
-    goto LABEL_8;
+    return [(SiriLongPressButtonSource *)self activeOverride];
   }
 
-  v8.receiver = self;
-  v8.super_class = SiriLongPressButtonSource;
-  if (![(SiriActivationSource *)&v8 isActive])
-  {
-LABEL_8:
-    result = [(SiriLongPressButtonSource *)self activeOverride];
-    goto LABEL_10;
-  }
-
-  result = 1;
-LABEL_10:
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v6.receiver = self;
+  v6.super_class = SiriLongPressButtonSource;
+  return [(SiriActivationSource *)&v6 isActive];
 }
 
 - (SiriLongPressButtonSourceDelegate)delegate
@@ -873,31 +851,28 @@ LABEL_10:
 
 void __48__SiriLongPressButtonSource_configureConnection__block_invoke_48_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[SiriLongPressButtonSource configureConnection]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_1C8137000, a2, OS_LOG_TYPE_ERROR, "%s #activation BSServiceConnection Interrupted, re-activating %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[SiriLongPressButtonSource configureConnection]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_1C8137000, a2, OS_LOG_TYPE_ERROR, "%s #activation BSServiceConnection Interrupted, re-activating %@", &v2, 0x16u);
 }
 
 - (void)didRecognizeLongPressInteraction:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SiriLongPressButtonSource didRecognizeLongPressInteraction:]";
-  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s #activation Board sent a long press without a Speech interaction", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SiriLongPressButtonSource didRecognizeLongPressInteraction:]";
+  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s #activation Board sent a long press without a Speech interaction", &v1, 0xCu);
 }
 
 - (void)_timestampForSpeechInteractionActivityWithTimestamp:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SiriLongPressButtonSource _timestampForSpeechInteractionActivityWithTimestamp:]";
-  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s #activation #zll carplay steering wheel button with no previous prepare assertion", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SiriLongPressButtonSource _timestampForSpeechInteractionActivityWithTimestamp:]";
+  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s #activation #zll carplay steering wheel button with no previous prepare assertion", &v1, 0xCu);
 }
 
 @end

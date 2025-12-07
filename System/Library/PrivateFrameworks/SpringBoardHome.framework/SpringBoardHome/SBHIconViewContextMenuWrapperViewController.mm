@@ -22,7 +22,7 @@
 
   v5 = self->_backgroundView;
   view = [(SBHIconViewContextMenuWrapperViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   [(MTMaterialView *)v5 setFrame:?];
 
   v7 = self->_backgroundView;

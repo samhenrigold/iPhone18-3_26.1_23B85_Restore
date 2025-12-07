@@ -50,11 +50,10 @@
     [NPKProtoServiceProviderDataForPassWithUniqueIdentifierRequest writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
   if (*&self->_has)
   {
-    encrypted = self->_encrypted;
     PBDataWriterWriteBOOLField();
   }
 }

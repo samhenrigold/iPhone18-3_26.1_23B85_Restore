@@ -21,19 +21,20 @@
 
 - (float)coefficientForNormalizedTime:(float)time
 {
-  if ([(PTCinematographyTransition *)self kind]== 1)
+  kind = [(PTCinematographyTransition *)self kind];
+  if (kind == 1)
   {
-    *&v5 = time;
+    *&v6 = time;
 
-    [(PTCinematographyTransition *)self linearCoefficientForNormalizedTime:v5];
+    [(PTCinematographyTransition *)self linearCoefficientForNormalizedTime:v6];
   }
 
   else
   {
-    v7 = _PTLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PTLogSystem(kind);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(PTCinematographyTransition *)self coefficientForNormalizedTime:v7];
+      [(PTCinematographyTransition *)self coefficientForNormalizedTime:v8];
     }
 
     return 0.0;

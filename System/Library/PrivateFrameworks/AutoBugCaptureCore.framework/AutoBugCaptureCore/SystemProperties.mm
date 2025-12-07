@@ -42,9 +42,11 @@
 
 uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance;
+  sharedInstance = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (int)systemPropertiesDeviceClassFromMGQDeviceClass:(int)class
@@ -64,15 +66,24 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   productName = self->_productName;
-  v36 = v3;
+  v35 = v3;
   deviceClassString = [(SystemProperties *)self deviceClassString];
   productVersion = self->_productVersion;
   productType = self->_productType;
   buildPlatform = self->_buildPlatform;
-  v31 = buildPlatform;
   buildVersion = self->_buildVersion;
   buildVariant = [(SystemProperties *)self buildVariant];
   if (self->_basebandCapability)
+  {
+    v6 = "yes";
+  }
+
+  else
+  {
+    v6 = "no";
+  }
+
+  if (self->_dualSIMCapable)
   {
     v7 = "yes";
   }
@@ -82,7 +93,9 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
     v7 = "no";
   }
 
-  if (self->_dualSIMCapable)
+  v27 = v7;
+  v28 = v6;
+  if (self->_dualSIMEnabled)
   {
     v8 = "yes";
   }
@@ -92,25 +105,13 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
     v8 = "no";
   }
 
-  v28 = v8;
-  v29 = v7;
-  if (self->_dualSIMEnabled)
+  v26 = v8;
+  v29 = [(NSString *)self->_basebandChipset length];
+  if (v29)
   {
-    v9 = "yes";
-  }
-
-  else
-  {
-    v9 = "no";
-  }
-
-  v27 = v9;
-  v30 = [(NSString *)self->_basebandChipset length];
-  if (v30)
-  {
-    v10 = objc_alloc(MEMORY[0x277CCACA8]);
+    v9 = objc_alloc(MEMORY[0x277CCACA8]);
     basebandChipset = self->_basebandChipset;
-    v12 = objc_alloc(MEMORY[0x277CCACA8]);
+    v11 = objc_alloc(MEMORY[0x277CCACA8]);
     if ([(NSString *)self->_basebandFirmwareVersion length])
     {
       basebandFirmwareVersion = self->_basebandFirmwareVersion;
@@ -121,17 +122,17 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
       basebandFirmwareVersion = @"Unknown FW Version";
     }
 
-    basebandFirmwareVersion = [v12 initWithFormat:@"(%@)", basebandFirmwareVersion];
-    v26 = [v10 initWithFormat:@"%@ %@", basebandChipset, basebandFirmwareVersion];
+    basebandFirmwareVersion = [v11 initWithFormat:@"(%@)", basebandFirmwareVersion];
+    v25 = [v9 initWithFormat:@"%@ %@", basebandChipset, basebandFirmwareVersion];
   }
 
   else
   {
-    v26 = @"No baseband";
+    v25 = @"No baseband";
   }
 
-  v37 = buildVariant;
-  v38 = deviceClassString;
+  v36 = buildVariant;
+  v37 = deviceClassString;
   if ([(NSString *)self->_wifiChipset length])
   {
     wifiChipset = self->_wifiChipset;
@@ -144,6 +145,16 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
 
   if ([(SystemProperties *)self internalBuild])
   {
+    v14 = "yes";
+  }
+
+  else
+  {
+    v14 = "no";
+  }
+
+  if (self->_factoryBuild)
+  {
     v15 = "yes";
   }
 
@@ -152,7 +163,7 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
     v15 = "no";
   }
 
-  if (self->_factoryBuild)
+  if ([(SystemProperties *)self vendorBuild])
   {
     v16 = "yes";
   }
@@ -162,7 +173,7 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
     v16 = "no";
   }
 
-  if ([(SystemProperties *)self vendorBuild])
+  if ([(SystemProperties *)self carrierBuild])
   {
     v17 = "yes";
   }
@@ -172,7 +183,7 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
     v17 = "no";
   }
 
-  if ([(SystemProperties *)self carrierBuild])
+  if ([(SystemProperties *)self seedBuild])
   {
     v18 = "yes";
   }
@@ -182,7 +193,7 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
     v18 = "no";
   }
 
-  if ([(SystemProperties *)self seedBuild])
+  if ([(SystemProperties *)self carrierSeedBuild])
   {
     v19 = "yes";
   }
@@ -192,7 +203,7 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
     v19 = "no";
   }
 
-  if ([(SystemProperties *)self carrierSeedBuild])
+  if ([(SystemProperties *)self customerSeedBuild])
   {
     v20 = "yes";
   }
@@ -202,24 +213,14 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
     v20 = "no";
   }
 
-  if ([(SystemProperties *)self customerSeedBuild])
-  {
-    v21 = "yes";
-  }
-
-  else
-  {
-    v21 = "no";
-  }
-
   serialNumber = self->_serialNumber;
   if (!serialNumber)
   {
     serialNumber = @"redacted";
   }
 
-  serialNumber = [v36 initWithFormat:@"ProductName = %@, ProductClass = %@, ProductType = %@, ProductVersion = %@, BuildVersion = %@, BuildPlatform = %@, BuildVariant = %@, basebandCapability = %s, dualSIMCapable = %s, dualSIMEnabled = %s, Baseband Chipset = %@, WiFi Chipset = %@, InternalBuild = %s, FactoryBuild = %s, VendorBuild = %s, CarrierBuild = %s, SeedBuild = %s, CarrierSeedBuild = %s, CustomerSeedBuild = %s, DeviceSerialNumber = %@", productName, v38, productType, productVersion, buildVersion, v31, v37, v29, v28, v27, v26, wifiChipset, v15, v16, v17, v18, v19, v20, v21, serialNumber];
-  if (v30)
+  serialNumber = [v35 initWithFormat:@"ProductName = %@, ProductClass = %@, ProductType = %@, ProductVersion = %@, BuildVersion = %@, BuildPlatform = %@, BuildVariant = %@, basebandCapability = %s, dualSIMCapable = %s, dualSIMEnabled = %s, Baseband Chipset = %@, WiFi Chipset = %@, InternalBuild = %s, FactoryBuild = %s, VendorBuild = %s, CarrierBuild = %s, SeedBuild = %s, CarrierSeedBuild = %s, CustomerSeedBuild = %s, DeviceSerialNumber = %@", productName, v37, productType, productVersion, buildVersion, buildPlatform, v36, v28, v27, v26, v25, wifiChipset, v14, v15, v16, v17, v18, v19, v20, serialNumber];
+  if (v29)
   {
   }
 
@@ -228,14 +229,14 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
 
 - (SystemProperties)init
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v51.receiver = self;
-  v51.super_class = SystemProperties;
-  v2 = [(SystemProperties *)&v51 init];
+  v55 = *MEMORY[0x277D85DE8];
+  v52.receiver = self;
+  v52.super_class = SystemProperties;
+  v2 = [(SystemProperties *)&v52 init];
   v3 = v2;
   if (!v2)
   {
-    goto LABEL_50;
+    return v3;
   }
 
   v2->_deviceClass = -1;
@@ -337,53 +338,53 @@ uint64_t __34__SystemProperties_sharedInstance__block_invoke(uint64_t a1)
 
   if (!v33)
   {
-    v34 = symptomsLogHandle();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v35 = symptomsLogHandle(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_INFO, "Unable to get sub product type, falling back to product type", buf, 2u);
+      _os_log_impl(&dword_241804000, v35, OS_LOG_TYPE_INFO, "Unable to get sub product type, falling back to product type", buf, 2u);
     }
 
-    v35 = MGGetStringAnswer();
-    if (!v35)
+    v36 = MGGetStringAnswer();
+    if (!v36)
     {
-      v37 = symptomsLogHandle();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v38 = symptomsLogHandle(0);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v37, OS_LOG_TYPE_ERROR, "Unable to determine product type!", buf, 2u);
+        _os_log_impl(&dword_241804000, v38, OS_LOG_TYPE_ERROR, "Unable to determine product type!", buf, 2u);
       }
 
-      v36 = 0;
+      v37 = 0;
       goto LABEL_23;
     }
 
-    v33 = v35;
+    v33 = v36;
   }
 
-  v36 = v33;
-  v37 = v3->_productType;
-  v3->_productType = v36;
+  v37 = v33;
+  v38 = v3->_productType;
+  v3->_productType = v37;
 LABEL_23:
 
-  v38 = MGGetStringAnswer();
-  if (v38)
+  v39 = MGGetStringAnswer();
+  if (v39)
   {
-    v3->_vendorBuild = CFStringCompare(v38, @"Vendor", 0) == kCFCompareEqualTo;
+    v3->_vendorBuild = CFStringCompare(v39, @"Vendor", 0) == kCFCompareEqualTo;
   }
 
   if (v3->_internalBuild || v3->_vendorBuild)
   {
-    v39 = MGGetStringAnswer();
-    if (v39)
+    v40 = MGGetStringAnswer();
+    if (v40)
     {
       serialNumber = v3->_serialNumber;
-      v3->_serialNumber = v39;
+      v3->_serialNumber = v40;
     }
 
     else
     {
-      serialNumber = symptomsLogHandle();
+      serialNumber = symptomsLogHandle(0);
       if (os_log_type_enabled(serialNumber, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -395,78 +396,76 @@ LABEL_23:
   v3->_deviceClass = [SystemProperties systemPropertiesDeviceClassFromMGQDeviceClass:MGGetSInt32Answer()];
   if (MGGetBoolAnswer())
   {
-    v41 = !v3->_internalBuild;
+    v42 = !v3->_internalBuild;
   }
 
   else
   {
-    v41 = 0;
+    v42 = 0;
   }
 
-  v3->_carrierBuild = v41;
+  v3->_carrierBuild = v42;
   v3->_basebandCapability = MGGetBoolAnswer();
   *&v3->_dualSIMCapable = 0;
-  v42 = MGGetStringAnswer();
-  if (v42)
+  v43 = MGGetStringAnswer();
+  if (v43)
   {
-    v43 = v3->_basebandChipset;
-    v3->_basebandChipset = v42;
+    v44 = v3->_basebandChipset;
+    v3->_basebandChipset = v43;
   }
 
   else
   {
-    v43 = symptomsLogHandle();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+    v44 = symptomsLogHandle(0);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v43, OS_LOG_TYPE_INFO, "No baseband chipset", buf, 2u);
+      _os_log_impl(&dword_241804000, v44, OS_LOG_TYPE_INFO, "No baseband chipset", buf, 2u);
     }
   }
 
-  v44 = MGGetStringAnswer();
-  if (v44)
+  v45 = MGGetStringAnswer();
+  if (v45)
   {
-    v45 = v3->_basebandFirmwareVersion;
-    v3->_basebandFirmwareVersion = v44;
+    v46 = v3->_basebandFirmwareVersion;
+    v3->_basebandFirmwareVersion = v45;
   }
 
   else
   {
-    v45 = symptomsLogHandle();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v46 = symptomsLogHandle(0);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v45, OS_LOG_TYPE_INFO, "No baseband firmware version", buf, 2u);
+      _os_log_impl(&dword_241804000, v46, OS_LOG_TYPE_INFO, "No baseband firmware version", buf, 2u);
     }
   }
 
-  v46 = MGGetStringAnswer();
-  if (v46)
+  v47 = MGGetStringAnswer();
+  if (v47)
   {
-    v47 = v3->_wifiChipset;
-    v3->_wifiChipset = v46;
+    v48 = v3->_wifiChipset;
+    v3->_wifiChipset = v47;
   }
 
   else
   {
-    v47 = symptomsLogHandle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+    v48 = symptomsLogHandle(0);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241804000, v47, OS_LOG_TYPE_INFO, "No WiFi chipset", buf, 2u);
+      _os_log_impl(&dword_241804000, v48, OS_LOG_TYPE_INFO, "No WiFi chipset", buf, 2u);
     }
   }
 
-  v48 = symptomsLogHandle();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v50 = symptomsLogHandle(v49);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v53 = v3;
-    _os_log_impl(&dword_241804000, v48, OS_LOG_TYPE_DEFAULT, "System Properties: %{private}@", buf, 0xCu);
+    v54 = v3;
+    _os_log_impl(&dword_241804000, v50, OS_LOG_TYPE_DEFAULT, "System Properties: %{private}@", buf, 0xCu);
   }
 
-LABEL_50:
-  v49 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -595,7 +594,7 @@ LABEL_50:
     self->_internalBuildDisabledByOverride = override;
     buildVariant = self->_buildVariant;
     self->_buildVariant = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, buildVariant);
   }
 }
 
@@ -651,7 +650,7 @@ LABEL_50:
 {
   if (![(NSString *)self->_basebandFirmwareVersion length]&& self->_basebandChipset)
   {
-    v3 = symptomsLogHandle();
+    v3 = symptomsLogHandle(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
@@ -667,7 +666,7 @@ LABEL_50:
 
     else
     {
-      basebandFirmwareVersion = symptomsLogHandle();
+      basebandFirmwareVersion = symptomsLogHandle(0);
       if (os_log_type_enabled(basebandFirmwareVersion, OS_LOG_TYPE_INFO))
       {
         *v8 = 0;

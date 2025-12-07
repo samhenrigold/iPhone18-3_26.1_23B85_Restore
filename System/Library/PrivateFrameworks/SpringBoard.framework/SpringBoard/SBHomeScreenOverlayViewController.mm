@@ -55,7 +55,7 @@
   [(SBHomeScreenOverlayViewController *)&v63 loadView];
   v3 = objc_alloc(MEMORY[0x277D65E68]);
   view = [(SBHomeScreenOverlayViewController *)self view];
-  [view frame];
+  objc_msgSend_frame(view);
   v5 = [v3 initWithFrame:?];
 
   [v5 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -360,7 +360,7 @@
 {
   contentViewController = [(SBHomeScreenOverlayViewController *)self contentViewController];
   view = [contentViewController view];
-  [view frame];
+  objc_msgSend_frame(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -404,7 +404,7 @@
     v6 = _SBFLoggingMethodProem();
     interfaceOrientation = [(SBHomeScreenOverlayViewController *)self interfaceOrientation];
     view = [(SBHomeScreenOverlayViewController *)self view];
-    [view frame];
+    objc_msgSend_frame(view);
     v9 = NSStringFromCGRect(v24);
     contentLeadingConstraint = [(SBHomeScreenOverlayViewController *)self contentLeadingConstraint];
     [contentLeadingConstraint constant];
@@ -979,7 +979,7 @@ uint64_t __129__SBHomeScreenOverlayViewController_setPresentationProgress_withAn
   return result;
 }
 
-void __129__SBHomeScreenOverlayViewController_setPresentationProgress_withAnimationUpdateMode_overrideAnimationSettings_completionHandler___block_invoke_4(void *a1, void (**a2)(id, __CFString *))
+void __129__SBHomeScreenOverlayViewController_setPresentationProgress_withAnimationUpdateMode_overrideAnimationSettings_completionHandler___block_invoke_4(void *a1, uint64_t (**a2)(id, __CFString *))
 {
   ++*(a1[4] + 1000);
   v3 = MEMORY[0x277D75D18];

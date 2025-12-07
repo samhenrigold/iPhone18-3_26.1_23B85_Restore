@@ -12,17 +12,17 @@
 - (KNLiveVideoSourceUsageEntry)initWithArchivedBackgroundKinds:(id)kinds
 {
   kindsCopy = kinds;
-  v11.receiver = self;
-  v11.super_class = KNLiveVideoSourceUsageEntry;
-  v7 = [(KNLiveVideoSourceUsageEntry *)&v11 init];
-  if (v7)
+  v9.receiver = self;
+  v9.super_class = KNLiveVideoSourceUsageEntry;
+  v5 = [(KNLiveVideoSourceUsageEntry *)&v9 init];
+  if (v5)
   {
-    v8 = objc_msgSend_copy(kindsCopy, v5, v6);
-    archivedBackgroundKinds = v7->_archivedBackgroundKinds;
-    v7->_archivedBackgroundKinds = v8;
+    v6 = [kindsCopy copy];
+    archivedBackgroundKinds = v5->_archivedBackgroundKinds;
+    v5->_archivedBackgroundKinds = v6;
   }
 
-  return v7;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -30,96 +30,88 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    isEqual = 1;
+    v8 = 1;
   }
 
   else
   {
     objc_opt_class();
-    v7 = TSUDynamicCast();
-    if (v7)
+    v5 = TSUDynamicCast();
+    if (v5)
     {
-      v8 = objc_msgSend_archivedBackgroundKinds(self, v5, v6);
-      v11 = objc_msgSend_archivedBackgroundKinds(v7, v9, v10);
-      isEqual = objc_msgSend_isEqual_(v8, v12, v11);
+      archivedBackgroundKinds = [(KNLiveVideoSourceUsageEntry *)self archivedBackgroundKinds];
+      archivedBackgroundKinds2 = [v5 archivedBackgroundKinds];
+      v8 = [archivedBackgroundKinds isEqual:archivedBackgroundKinds2];
     }
 
     else
     {
-      isEqual = 0;
+      v8 = 0;
     }
   }
 
-  return isEqual;
+  return v8;
 }
 
 - (unint64_t)hash
 {
-  v3 = objc_msgSend_archivedBackgroundKinds(self, a2, v2);
-  v6 = objc_msgSend_hash(v3, v4, v5);
+  archivedBackgroundKinds = [(KNLiveVideoSourceUsageEntry *)self archivedBackgroundKinds];
+  v3 = [archivedBackgroundKinds hash];
 
-  return v6;
+  return v3;
 }
 
 - (id)entryByMergingEntry:(id)entry
 {
   entryCopy = entry;
-  v7 = objc_msgSend_archivedBackgroundKinds(self, v5, v6);
-  v10 = objc_msgSend_archivedBackgroundKinds(entryCopy, v8, v9);
-  v12 = objc_msgSend_setByAddingObjectsFromSet_(v7, v11, v10);
+  archivedBackgroundKinds = [(KNLiveVideoSourceUsageEntry *)self archivedBackgroundKinds];
+  archivedBackgroundKinds2 = [entryCopy archivedBackgroundKinds];
+  v7 = [archivedBackgroundKinds setByAddingObjectsFromSet:archivedBackgroundKinds2];
 
-  v13 = [KNLiveVideoSourceUsageEntry alloc];
-  v15 = objc_msgSend_initWithArchivedBackgroundKinds_(v13, v14, v12);
+  v8 = [[KNLiveVideoSourceUsageEntry alloc] initWithArchivedBackgroundKinds:v7];
 
-  return v15;
+  return v8;
 }
 
 - (KNLiveVideoSourceUsageEntry)initWithMessage:(const void *)message unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v29.receiver = self;
-  v29.super_class = KNLiveVideoSourceUsageEntry;
-  v7 = [(KNLiveVideoSourceUsageEntry *)&v29 init];
+  v19.receiver = self;
+  v19.super_class = KNLiveVideoSourceUsageEntry;
+  v7 = [(KNLiveVideoSourceUsageEntry *)&v19 init];
   if (v7)
   {
-    v9 = objc_alloc(MEMORY[0x277CBEB58]);
+    v8 = objc_alloc(MEMORY[0x277CBEB58]);
+    if ((*(message + 4) & 0x80000000) != 0)
+    {
+      v16 = MEMORY[0x277D81150];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceUsageEntry initWithMessage:unarchiver:]"];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm"];
+      [v16 handleFailureInFunction:v17 file:v18 lineNumber:310 isFatal:0 description:"Out-of-bounds type assignment was clamped to min"];
+
+      [MEMORY[0x277D81150] logBacktraceThrottled];
+    }
+
+    v9 = [v8 initWithCapacity:?];
     v10 = *(message + 4);
-    if ((v10 & 0x80000000) != 0)
+    if (v10)
     {
-      v21 = MEMORY[0x277D81150];
-      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[KNLiveVideoSourceUsageEntry initWithMessage:unarchiver:]");
-      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v25, v22, v24, 310, 0, "Out-of-bounds type assignment was clamped to min");
-
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27);
-      v11 = objc_msgSend_initWithCapacity_(v9, v28, 0);
-    }
-
-    else
-    {
-      v11 = objc_msgSend_initWithCapacity_(v9, v8, v10);
-    }
-
-    v13 = v11;
-    v14 = *(message + 4);
-    if (v14)
-    {
-      v15 = *(message + 3);
-      v16 = 4 * v14;
+      v11 = *(message + 3);
+      v12 = 4 * v10;
       do
       {
-        v17 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v12, *v15);
-        objc_msgSend_addObject_(v13, v18, v17);
+        v13 = [MEMORY[0x277CCABB0] numberWithInteger:*v11];
+        [(NSSet *)v9 addObject:v13];
 
-        ++v15;
-        v16 -= 4;
+        ++v11;
+        v12 -= 4;
       }
 
-      while (v16);
+      while (v12);
     }
 
     archivedBackgroundKinds = v7->_archivedBackgroundKinds;
-    v7->_archivedBackgroundKinds = v13;
+    v7->_archivedBackgroundKinds = v9;
   }
 
   return v7;
@@ -127,78 +119,78 @@
 
 - (void)saveToMessage:(void *)message archiver:(id)archiver
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v5 = objc_msgSend_archivedBackgroundKinds(self, a2, message, archiver);
-  v8 = objc_msgSend_allObjects(v5, v6, v7);
-  v10 = objc_msgSend_sortedArrayUsingSelector_(v8, v9, sel_compare_);
+  v28 = *MEMORY[0x277D85DE8];
+  v5 = [(KNLiveVideoSourceUsageEntry *)self archivedBackgroundKinds:message];
+  allObjects = [v5 allObjects];
+  v7 = [allObjects sortedArrayUsingSelector:sel_compare_];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v11 = v10;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v37, v41, 16);
-  if (v15)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v8 = v7;
+  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v9)
   {
-    v16 = *v38;
+    v10 = *v24;
     do
     {
-      v17 = 0;
+      v11 = 0;
       do
       {
-        if (*v38 != v16)
+        if (*v24 != v10)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v8);
         }
 
-        v18 = objc_msgSend_integerValue(*(*(&v37 + 1) + 8 * v17), v13, v14, v37);
-        v19 = v18;
-        if (v18 >= 0x80000000)
+        integerValue = [*(*(&v23 + 1) + 8 * v11) integerValue];
+        v13 = integerValue;
+        if (integerValue >= 0x80000000)
         {
-          v22 = MEMORY[0x277D81150];
-          v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[KNLiveVideoSourceUsageEntry saveToMessage:archiver:]");
-          v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v26, v23, v25, 328, 0, "Out-of-bounds type assignment was clamped to max");
+          v16 = MEMORY[0x277D81150];
+          v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceUsageEntry saveToMessage:archiver:]"];
+          v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm"];
+          [v16 handleFailureInFunction:v17 file:v18 lineNumber:328 isFatal:0 description:"Out-of-bounds type assignment was clamped to max"];
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28);
-          v19 = 0x7FFFFFFF;
+          [MEMORY[0x277D81150] logBacktraceThrottled];
+          v13 = 0x7FFFFFFF;
         }
 
-        else if (v18 <= 0xFFFFFFFF7FFFFFFFLL)
+        else if (integerValue <= 0xFFFFFFFF7FFFFFFFLL)
         {
-          v29 = MEMORY[0x277D81150];
-          v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[KNLiveVideoSourceUsageEntry saveToMessage:archiver:]");
-          v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v33, v30, v32, 328, 0, "Out-of-bounds type assignment was clamped to min");
+          v19 = MEMORY[0x277D81150];
+          v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoSourceUsageEntry saveToMessage:archiver:]"];
+          v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoSourceUsage.mm"];
+          [v19 handleFailureInFunction:v20 file:v21 lineNumber:328 isFatal:0 description:"Out-of-bounds type assignment was clamped to min"];
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35);
-          v19 = 0x80000000;
+          [MEMORY[0x277D81150] logBacktraceThrottled];
+          v13 = 0x80000000;
         }
 
-        v20 = *(message + 4);
-        if (v20 == *(message + 5))
+        v14 = *(message + 4);
+        if (v14 == *(message + 5))
         {
-          v21 = v20 + 1;
-          sub_275D98CF0(message + 4, v20 + 1);
-          *(*(message + 3) + 4 * v20) = v19;
+          v15 = v14 + 1;
+          sub_275D98CF0(message + 4, v14 + 1);
+          *(*(message + 3) + 4 * v14) = v13;
         }
 
         else
         {
-          *(*(message + 3) + 4 * v20) = v19;
-          v21 = v20 + 1;
+          *(*(message + 3) + 4 * v14) = v13;
+          v15 = v14 + 1;
         }
 
-        *(message + 4) = v21;
-        ++v17;
+        *(message + 4) = v15;
+        ++v11;
       }
 
-      while (v15 != v17);
-      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v37, v41, 16);
-      v15 = v36;
+      while (v9 != v11);
+      v22 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = v22;
     }
 
-    while (v36);
+    while (v22);
   }
 }
 

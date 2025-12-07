@@ -3,7 +3,7 @@
 
 @implementation AXSAssistiveTouchEnabled
 
-uint64_t ___AXSAssistiveTouchEnabled_block_invoke()
+void *___AXSAssistiveTouchEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

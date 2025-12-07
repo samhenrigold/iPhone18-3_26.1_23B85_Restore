@@ -43,10 +43,8 @@
 
 - (void)writeTo:(id)to
 {
-  identifier = self->_identifier;
   toCopy = to;
   PBDataWriterWriteStringField();
-  rate = self->_rate;
   PBDataWriterWriteFloatField();
 }
 

@@ -34,7 +34,6 @@
     action = off_1001FA058[(action - 50)];
   }
 
-  tokenValue = self->_tokenValue;
   LogString = _NRKeyCreateLogString();
   logString = [v3 initWithFormat:@"NRToken[%@, %@, %@]", type, action, LogString];
 

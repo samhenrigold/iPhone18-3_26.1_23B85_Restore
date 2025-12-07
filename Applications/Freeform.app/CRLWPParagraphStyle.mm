@@ -8,9 +8,10 @@
 - (id)boxedValueForProperty:(unint64_t)property
 {
   selfCopy = self;
-  v5 = sub_1012801E8(property);
+  sub_1012801E8(property);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal

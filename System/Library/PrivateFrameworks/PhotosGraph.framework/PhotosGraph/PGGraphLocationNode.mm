@@ -42,18 +42,17 @@
 
 - (unint64_t)featureType
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = +[PGLogging sharedLogging];
   loggingConnection = [v2 loggingConnection];
 
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_FAULT))
   {
-    v6 = 138412290;
-    v7 = objc_opt_class();
-    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Feature type not implemented for node class %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = objc_opt_class();
+    _os_log_fault_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_FAULT, "Feature type not implemented for node class %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -232,7 +231,7 @@ void __41__PGGraphLocationNode_keywordDescription__block_invoke(uint64_t a1, voi
 
 - (NSString)fullname
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
   label = [(PGGraphLocationNode *)selfCopy label];
@@ -250,7 +249,7 @@ void __41__PGGraphLocationNode_keywordDescription__block_invoke(uint64_t a1, voi
   if (selfCopy)
   {
     *&v7 = 138412546;
-    v27 = v7;
+    v26 = v7;
     v11 = MEMORY[0x277D86220];
     do
     {
@@ -277,10 +276,10 @@ void __41__PGGraphLocationNode_keywordDescription__block_invoke(uint64_t a1, voi
 
             if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
             {
-              *buf = v27;
-              v29 = currentLocale;
-              v30 = 2112;
-              v31 = name;
+              *buf = v26;
+              v28 = currentLocale;
+              v29 = 2112;
+              v30 = name;
               _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Locale %@ does not have a country name for country code %@", buf, 0x16u);
             }
           }
@@ -296,10 +295,10 @@ void __41__PGGraphLocationNode_keywordDescription__block_invoke(uint64_t a1, voi
       {
         v22 = objc_opt_class();
         label3 = [(PGGraphLocationNode *)selfCopy label];
-        *buf = v27;
-        v29 = v22;
-        v30 = 2112;
-        v31 = label3;
+        *buf = v26;
+        v28 = v22;
+        v29 = 2112;
+        v30 = label3;
         _os_log_fault_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_FAULT, "Location Node of class %@ with label %@ has a nil name.", buf, 0x16u);
       }
 
@@ -314,8 +313,6 @@ void __41__PGGraphLocationNode_keywordDescription__block_invoke(uint64_t a1, voi
   }
 
   v24 = [array componentsJoinedByString:{@", "}];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -342,20 +339,18 @@ void __41__PGGraphLocationNode_keywordDescription__block_invoke(uint64_t a1, voi
 
 + (MARelation)addressOfLocation
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphLocationEdge filter];
   inRelation = [v3 inRelation];
   transitiveClosure = [inRelation transitiveClosure];
   optionalStep = [transitiveClosure optionalStep];
-  v13[0] = optionalStep;
+  v12[0] = optionalStep;
   v7 = +[PGGraphAddressNode filter];
   relation = [v7 relation];
-  v13[1] = relation;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = relation;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v10 = [v2 chain:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

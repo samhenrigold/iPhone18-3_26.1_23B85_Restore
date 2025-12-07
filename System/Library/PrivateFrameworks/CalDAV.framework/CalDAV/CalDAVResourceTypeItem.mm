@@ -42,7 +42,7 @@
 
 - (void)write:(id)write
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   name = [(CoreDAVItem *)self name];
   nameSpace = [(CoreDAVItem *)self nameSpace];
@@ -144,31 +144,31 @@
     [unauthenticated2 write:writeCopy];
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   extraChildItems = [(CoreDAVItem *)self extraChildItems];
-  v32 = [extraChildItems countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v32 = [extraChildItems countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v40;
+    v34 = *v39;
     do
     {
       v35 = 0;
       do
       {
-        if (*v40 != v34)
+        if (*v39 != v34)
         {
           objc_enumerationMutation(extraChildItems);
         }
 
-        [*(*(&v39 + 1) + 8 * v35++) write:writeCopy];
+        [*(*(&v38 + 1) + 8 * v35++) write:writeCopy];
       }
 
       while (v33 != v35);
-      v33 = [extraChildItems countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v33 = [extraChildItems countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v33);
@@ -177,8 +177,6 @@
   name2 = [(CoreDAVItem *)self name];
   nameSpace2 = [(CoreDAVItem *)self nameSpace];
   [writeCopy endElement:name2 inNamespace:nameSpace2];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 @end

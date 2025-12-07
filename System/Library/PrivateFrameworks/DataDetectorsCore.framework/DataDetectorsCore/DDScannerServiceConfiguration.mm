@@ -77,7 +77,7 @@
     self->_languageHighConfidence = confidence;
     recyclingIdentifier = self->_recyclingIdentifier;
     self->_recyclingIdentifier = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, recyclingIdentifier);
   }
 }
 
@@ -105,7 +105,7 @@
     self->_spotlightSuggestionsEnabled = enabled;
     recyclingIdentifier = self->_recyclingIdentifier;
     self->_recyclingIdentifier = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, recyclingIdentifier);
   }
 }
 

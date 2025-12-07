@@ -46,7 +46,7 @@
 
 - (void)checkIfSyncSlot:(id)slot isAllowedWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   slotCopy = slot;
   completionCopy = completion;
   if (completionCopy)
@@ -57,12 +57,12 @@
       _validator = [(_INVocabularyStoreManager *)self _validator];
       appBundleID = self->_appBundleID;
       integerValue = [v8 integerValue];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __69___INVocabularyStoreManager_checkIfSyncSlot_isAllowedWithCompletion___block_invoke;
-      v14[3] = &unk_1E727FA90;
-      v15 = completionCopy;
-      [_validator determineIfBundleID:appBundleID canProvideVocabularyOfType:integerValue completion:v14];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __69___INVocabularyStoreManager_checkIfSyncSlot_isAllowedWithCompletion___block_invoke;
+      v13[3] = &unk_1E727FA90;
+      v14 = completionCopy;
+      [_validator determineIfBundleID:appBundleID canProvideVocabularyOfType:integerValue completion:v13];
     }
 
     else
@@ -71,22 +71,20 @@
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v17 = "[_INVocabularyStoreManager checkIfSyncSlot:isAllowedWithCompletion:]";
-        v18 = 2114;
-        v19 = slotCopy;
+        v16 = "[_INVocabularyStoreManager checkIfSyncSlot:isAllowedWithCompletion:]";
+        v17 = 2114;
+        v18 = slotCopy;
         _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s '%{public}@' is not a valid slot", buf, 0x16u);
       }
 
       (*(completionCopy + 2))(completionCopy, 0);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_writeLatestVocabularyItems:(id)items forIntentSlot:(id)slot completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   slotCopy = slot;
   completionCopy = completion;
@@ -102,9 +100,9 @@
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v24 = "[_INVocabularyStoreManager _writeLatestVocabularyItems:forIntentSlot:completion:]";
-        v25 = 2114;
-        v26 = v15;
+        v23 = "[_INVocabularyStoreManager _writeLatestVocabularyItems:forIntentSlot:completion:]";
+        v24 = 2114;
+        v25 = v15;
         _os_log_error_impl(&dword_18E991000, v16, OS_LOG_TYPE_ERROR, "%s error writing sync state %{public}@", buf, 0x16u);
       }
 
@@ -114,8 +112,8 @@
 
     else
     {
-      v22 = [v11 stringByAppendingPathComponent:@"SentVocabulary.plist"];
-      v19 = [[_INVocabularyGenerationDocument alloc] initWithContentsOfFile:v22];
+      v21 = [v11 stringByAppendingPathComponent:@"SentVocabulary.plist"];
+      v19 = [[_INVocabularyGenerationDocument alloc] initWithContentsOfFile:v21];
       v20 = [v13 diffFromPreviousDocument:v19];
       hasChanges = [v20 hasChanges];
     }
@@ -127,22 +125,20 @@
   {
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)deleteEverything
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     appBundleID = self->_appBundleID;
-    v11 = 136315394;
-    v12 = "[_INVocabularyStoreManager deleteEverything]";
-    v13 = 2112;
-    v14 = appBundleID;
-    _os_log_impl(&dword_18E991000, v3, OS_LOG_TYPE_INFO, "%s deleting user-vocabulary for %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[_INVocabularyStoreManager deleteEverything]";
+    v12 = 2112;
+    v13 = appBundleID;
+    _os_log_impl(&dword_18E991000, v3, OS_LOG_TYPE_INFO, "%s deleting user-vocabulary for %@", &v10, 0x16u);
   }
 
   baseDirectoryPath = [(_INVocabularyStoreManager *)self baseDirectoryPath];
@@ -154,18 +150,16 @@
     v7 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v10 = self->_appBundleID;
-      v11 = 136315650;
-      v12 = "[_INVocabularyStoreManager deleteEverything]";
-      v13 = 2114;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v6;
-      _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Failed to delete user-vocabulary for %{public}@ with error %{public}@", &v11, 0x20u);
+      v9 = self->_appBundleID;
+      v10 = 136315650;
+      v11 = "[_INVocabularyStoreManager deleteEverything]";
+      v12 = 2114;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Failed to delete user-vocabulary for %{public}@ with error %{public}@", &v10, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -205,7 +199,7 @@
 
 - (id)deleteVocabularyStoreItemAt:(id)at
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   atCopy = at;
   _customVocabularyDirectory = [objc_opt_class() _customVocabularyDirectory];
   if ([atCopy hasPrefix:_customVocabularyDirectory])
@@ -226,20 +220,18 @@
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "[_INVocabularyStoreManager deleteVocabularyStoreItemAt:]";
-      v16 = 2112;
-      v17 = atCopy;
+      v14 = "[_INVocabularyStoreManager deleteVocabularyStoreItemAt:]";
+      v15 = 2112;
+      v16 = atCopy;
       _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Attempt to delete a files outside of the vocabulary-directory we manage. Offending file: %@", buf, 0x16u);
     }
 
     v8 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A368];
-    v13 = atCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A368];
+    v12 = atCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     v5 = [v8 errorWithDomain:@"IntentsErrorDomain" code:4000 userInfo:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -336,12 +328,12 @@
 
 + (void)deleteAllUserVocabularyFromAllAppsAsync
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "+[_INVocabularyStoreManager deleteAllUserVocabularyFromAllAppsAsync]";
+    v7 = "+[_INVocabularyStoreManager deleteAllUserVocabularyFromAllAppsAsync]";
     _os_log_impl(&dword_18E991000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -352,8 +344,6 @@
   block[3] = &__block_descriptor_40_e5_v8__0l;
   block[4] = self;
   dispatch_async(_globalClassQueue, block);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_iterateVocabularyWithSummary:(id)summary optionalBlock:(id)block
@@ -422,30 +412,30 @@
 
 + (id)_latestVocabularyStringsAt:(id)at
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   atCopy = at;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v29[0] = @"LatestVocabulary.plist";
-  v29[1] = @"StagedVocabulary.plist";
-  v29[2] = @"SentVocabulary.plist";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
-  v5 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v28[0] = @"LatestVocabulary.plist";
+  v28[1] = @"StagedVocabulary.plist";
+  v28[2] = @"SentVocabulary.plist";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
+  v5 = [v4 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v5)
   {
-    v6 = *v25;
+    v6 = *v24;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v8 = *(*(&v23 + 1) + 8 * i);
         v9 = [_INVocabularyGenerationDocument alloc];
         v10 = [atCopy stringByAppendingPathComponent:v8];
         v11 = [(_INVocabularyGenerationDocument *)v9 initWithContentsOfFile:v10];
@@ -453,33 +443,33 @@
         if (v11)
         {
           v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+          v19 = 0u;
           v20 = 0u;
           v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
           vocabularyItems = [(_INVocabularyGenerationDocument *)v11 vocabularyItems];
-          v13 = [vocabularyItems countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v13 = [vocabularyItems countByEnumeratingWithState:&v19 objects:v27 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v21;
+            v15 = *v20;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v21 != v15)
+                if (*v20 != v15)
                 {
                   objc_enumerationMutation(vocabularyItems);
                 }
 
-                string = [*(*(&v20 + 1) + 8 * j) string];
+                string = [*(*(&v19 + 1) + 8 * j) string];
                 if (string)
                 {
                   [v5 addObject:string];
                 }
               }
 
-              v14 = [vocabularyItems countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v14 = [vocabularyItems countByEnumeratingWithState:&v19 objects:v27 count:16];
             }
 
             while (v14);
@@ -489,7 +479,7 @@
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v23 objects:v29 count:16];
       if (v5)
       {
         continue;
@@ -501,14 +491,12 @@
 
 LABEL_20:
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)managerForBundleID:(id)d bundlePath:(id)path
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   pathCopy = path;
   if (pathCopy)
@@ -517,20 +505,18 @@ LABEL_20:
     v9 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315650;
-      v15 = "+[_INVocabularyStoreManager managerForBundleID:bundlePath:]";
-      v16 = 2114;
-      v17 = dCopy;
-      v18 = 2114;
-      v19 = v8;
-      _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s radar://24597826 ignoring that %{public}@ is installed at '%{public}@'. All installed instances will share the same vocabulary.", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "+[_INVocabularyStoreManager managerForBundleID:bundlePath:]";
+      v15 = 2114;
+      v16 = dCopy;
+      v17 = 2114;
+      v18 = v8;
+      _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s radar://24597826 ignoring that %{public}@ is installed at '%{public}@'. All installed instances will share the same vocabulary.", &v13, 0x20u);
     }
   }
 
   v10 = [_INVocabularyStoreManager appDatastoreDirectoryForAppBundleID:dCopy bundlePath:0];
   v11 = [[self alloc] initWithBaseDirectory:v10 appBundleID:dCopy appBundlePath:0];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -549,11 +535,11 @@ LABEL_20:
 
 + (id)_hashOfAppPath:(id)path
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   *md = 0;
+  v9 = 0;
   v10 = 0;
-  v11 = 0;
   if ([pathCopy length])
   {
     v4 = [pathCopy dataUsingEncoding:4];
@@ -565,8 +551,6 @@ LABEL_20:
   {
     [v5 appendFormat:@"%02x", md[i]];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

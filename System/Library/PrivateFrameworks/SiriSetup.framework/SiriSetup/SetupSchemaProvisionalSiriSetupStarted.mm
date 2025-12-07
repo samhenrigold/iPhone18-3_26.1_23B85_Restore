@@ -14,7 +14,6 @@
 {
   if (*&self->_has)
   {
-    exists = self->_exists;
     PBDataWriterWriteBOOLField();
   }
 }

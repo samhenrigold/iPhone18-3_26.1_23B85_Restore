@@ -219,7 +219,7 @@ void __69__AXServer_sendAsynchronousMessage_replyOnQueue_objectResultHandler___b
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Asked to send nil message asynchronously");
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __57__AXServer_sendAsynchronousMessage_replyOnQueue_handler___block_invoke;
@@ -754,14 +754,14 @@ void __32__AXServer__handleActionResult___block_invoke_2(uint64_t a1)
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(a1, "key")}];
   v4 = [a2 ax_nonRedundantDescription];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&dword_18B15E000, v5, v6, "couldn't send message (%@): %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&dword_18B15E000, v5, v6, "couldn't send message (%@): %@", v7, v8, v9, v10);
 }
 
 void __69__AXServer_sendAsynchronousMessage_replyOnQueue_objectResultHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
   v2 = [a2 ax_nonRedundantDescription];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&dword_18B15E000, v3, v4, "couldn't get async result for message %@: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2(&dword_18B15E000, v3, v4, "couldn't get async result for message %@: %@", v5, v6, v7, v8);
 }
 
 - (void)_connectIfNecessary

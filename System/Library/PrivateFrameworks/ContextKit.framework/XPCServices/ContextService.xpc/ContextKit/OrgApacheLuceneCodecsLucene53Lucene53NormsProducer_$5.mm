@@ -20,7 +20,7 @@
 - (OrgApacheLuceneCodecsLucene53Lucene53NormsProducer_$5)initWithOrgApacheLuceneStoreRandomAccessInput:(id)input
 {
   JreStrongAssign(&self->val$slice_, input);
-  OrgApacheLuceneIndexNumericDocValues_init(self, v4);
+  OrgApacheLuceneIndexNumericDocValues_init();
   return self;
 }
 

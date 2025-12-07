@@ -183,7 +183,7 @@ uint64_t __43__CNMessageToGroup_emailAddressForContact___block_invoke(uint64_t a
 - (id)santizeMessagingAddress:(id)address
 {
   addressCopy = address;
-  v4 = [getECEmailAddressClass[0]() emailAddressWithString:addressCopy];
+  v4 = [(objc_class *)getECEmailAddressClass() emailAddressWithString:addressCopy];
   emailAddressValue = [v4 emailAddressValue];
   v6 = emailAddressValue;
   if (emailAddressValue)

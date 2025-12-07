@@ -16,6 +16,7 @@
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)pairedDeviceDidChange;
+- (void)setPairSyncEnabled:(BOOL)enabled;
 @end
 
 @implementation DNDSSyncSettingsProvider
@@ -47,6 +48,52 @@
   v3.receiver = self;
   v3.super_class = DNDSSyncSettingsProvider;
   [(DNDSSyncSettingsProvider *)&v3 dealloc];
+}
+
+- (void)setPairSyncEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  os_unfair_lock_lock(&self->_lock);
+  v5 = [[DNDSSyncSettings alloc] initWithPairSyncEnabled:enabledCopy cloudSyncEnabled:[(DNDSSyncSettingsProvider *)self _lock_isCloudSyncPreferenceEnabled]];
+  _lock_accessor = [(DNDSSyncSettingsProvider *)self _lock_accessor];
+  [_lock_accessor setBool:enabledCopy forKey:@"mirrorDNDState"];
+  synchronize = [_lock_accessor synchronize];
+  v8 = objc_opt_new();
+  v9 = [MEMORY[0x277CBEB98] setWithObject:@"mirrorDNDState"];
+  [v8 synchronizeNanoDomain:@"com.apple.nano" keys:v9];
+
+  v15 = 0;
+  v10 = [_lock_accessor BOOLForKey:@"mirrorDNDState" keyExistsAndHasValidFormat:&v15];
+  if (v15)
+  {
+    v11 = v10;
+    v12 = DNDSLogSettings;
+    if (v10 == enabledCopy)
+    {
+      if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
+      {
+        *v14 = 0;
+        _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Set Focus mirroring preference.", v14, 2u);
+      }
+    }
+
+    else if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_FAULT))
+    {
+      [(DNDSSyncSettingsProvider *)v12 setPairSyncEnabled:v11, enabledCopy];
+    }
+  }
+
+  else
+  {
+    v13 = DNDSLogSettings;
+    if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_FAULT))
+    {
+      [(DNDSSyncSettingsProvider *)v13 setPairSyncEnabled:enabledCopy];
+    }
+  }
+
+  [(DNDSSyncSettingsProvider *)self _lock_updateSyncSettingsIfNewSettingsDiffer:v5];
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)pairedDeviceDidChange
@@ -238,13 +285,11 @@
 
 - (void)_lock_updateSyncSettingsIfNewSettingsDiffer:(id)differ
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   differCopy = differ;
   os_unfair_lock_assert_owner(&self->_lock);
   syncSettings = [(DNDSSyncSettingsProvider *)self syncSettings];
-  v6 = [syncSettings isEqual:differCopy];
-  initialized = self->_initialized;
-  if (v6)
+  if ([syncSettings isEqual:differCopy])
   {
     if (self->_initialized)
     {
@@ -253,14 +298,14 @@
 
 LABEL_7:
     self->_initialized = 1;
-    v12 = DNDSLogSettings;
+    v10 = DNDSLogSettings;
     if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 138412290;
-      *&v15[4] = differCopy;
-      v9 = "Initialized sync settings to %@";
-      v10 = v12;
-      v11 = 12;
+      *v12 = 138412290;
+      *&v12[4] = differCopy;
+      v7 = "Initialized sync settings to %@";
+      v8 = v10;
+      v9 = 12;
       goto LABEL_9;
     }
 
@@ -272,27 +317,26 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v8 = DNDSLogSettings;
+  v6 = DNDSLogSettings;
   if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 138412546;
-    *&v15[4] = differCopy;
-    *&v15[12] = 2112;
-    *&v15[14] = syncSettings;
-    v9 = "New sync settings: %@. Old: %@";
-    v10 = v8;
-    v11 = 22;
+    *v12 = 138412546;
+    *&v12[4] = differCopy;
+    *&v12[12] = 2112;
+    *&v12[14] = syncSettings;
+    v7 = "New sync settings: %@. Old: %@";
+    v8 = v6;
+    v9 = 22;
 LABEL_9:
-    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, v9, v15, v11);
+    _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, v7, v12, v9);
   }
 
 LABEL_10:
-  [(DNDSSyncSettingsProvider *)self setSyncSettings:differCopy, *v15, *&v15[16], v16];
+  [(DNDSSyncSettingsProvider *)self setSyncSettings:differCopy, *v12, *&v12[8], v13];
   delegate = [(DNDSSyncSettingsProvider *)self delegate];
   [delegate syncSettingsProvider:self didReceiveUpdatedSyncSettings:differCopy];
 
 LABEL_11:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -313,31 +357,27 @@ LABEL_11:
 
 - (void)setPairSyncEnabled:(void *)a1 .cold.1(void *a1, char a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithBool:a2 & 1];
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_fault_impl(&dword_24912E000, v4, OS_LOG_TYPE_FAULT, "Failed to set Focus mirroring preference. Key does not exist or is invalid format. Expected %@.", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412290;
+  v7 = v5;
+  _os_log_fault_impl(&dword_24912E000, v4, OS_LOG_TYPE_FAULT, "Failed to set Focus mirroring preference. Key does not exist or is invalid format. Expected %@.", &v6, 0xCu);
 }
 
 - (void)setPairSyncEnabled:(char)a3 .cold.2(void *a1, char a2, char a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCABB0];
   v6 = a1;
   v7 = [v5 numberWithBool:a2 & 1];
   v8 = [MEMORY[0x277CCABB0] numberWithBool:a3 & 1];
-  v10 = 138412546;
-  v11 = v7;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_fault_impl(&dword_24912E000, v6, OS_LOG_TYPE_FAULT, "Failed to set Focus mirroring preference. Accessor returned %@. Expected %@.", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v7;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_fault_impl(&dword_24912E000, v6, OS_LOG_TYPE_FAULT, "Failed to set Focus mirroring preference. Accessor returned %@. Expected %@.", &v9, 0x16u);
 }
 
 @end

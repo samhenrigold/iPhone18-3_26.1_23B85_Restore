@@ -53,7 +53,7 @@
 
 - (id)_bodyWithTravelAdvisoryForSourceClientIdentifier:(id)identifier sourceNotificationInfo:(id)info
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   infoCopy = info;
   hypothesis = [infoCopy hypothesis];
@@ -87,9 +87,9 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v24 = identifierCopy;
-      v25 = 2112;
-      v26 = infoCopy;
+      v23 = identifierCopy;
+      v24 = 2112;
+      v25 = infoCopy;
       _os_log_impl(&dword_242909000, v17, OS_LOG_TYPE_DEFAULT, "Cannot create route hypothesis body for notification because it was determined that it should not be included. source client identifier = %{public}@, Notification info: %@.", buf, 0x16u);
     }
 
@@ -116,15 +116,14 @@ LABEL_12:
 
   if ([infoCopy hasSuggestedLocation] && objc_msgSend(v16, "length"))
   {
-    v20 = +[CALNBundle bundle];
-    v21 = [v20 localizedStringForKey:@"Suggested Location: %@" value:&stru_28551FB98 table:0];
-    v22 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v21, v16];
+    v19 = +[CALNBundle bundle];
+    v20 = [v19 localizedStringForKey:@"Suggested Location: %@" value:&stru_28551FB98 table:0];
+    v21 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v20, v16];
 
-    v16 = v22;
+    v16 = v21;
   }
 
 LABEL_13:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -205,20 +204,18 @@ LABEL_13:
 
 - (void)_bodyWithTravelAdvisoryForSourceClientIdentifier:(uint64_t)a1 sourceNotificationInfo:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Cannot create body with travel advisory for notification without travel advisory timeliness status. source client identifier = %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Cannot create body with travel advisory for notification without travel advisory timeliness status. source client identifier = %{public}@", &v2, 0xCu);
 }
 
 - (void)_bodyWithTravelAdvisoryForSourceClientIdentifier:(uint64_t)a1 sourceNotificationInfo:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Cannot create route hypothesis body for notification without a hypothesis. source client identifier: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Cannot create route hypothesis body for notification without a hypothesis. source client identifier: %{public}@", &v2, 0xCu);
 }
 
 @end

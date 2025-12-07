@@ -259,13 +259,13 @@ void __57__LPiTunesPlayButtonControl_startPlaybackForLyricExcerpt__block_invoke(
 
 - (_MRSystemAppPlaybackQueue)createPlaybackQueue
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   storeIdentifier = [(LPInlineMediaPlaybackInformation *)self->_playbackInformation storeIdentifier];
 
   if (!storeIdentifier)
   {
-    v15 = LPLogChannelFetching();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = LPLogChannelFetching(v4, v5);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [(LPiTunesPlayButtonControl *)&self->_playbackInformation createPlaybackQueue];
     }
@@ -274,26 +274,26 @@ void __57__LPiTunesPlayButtonControl_startPlaybackForLyricExcerpt__block_invoke(
   }
 
   type = [(LPInlineMediaPlaybackInformation *)self->_playbackInformation type];
-  v5 = 0;
+  v7 = 0;
   if (type > 3)
   {
     if (type == 4)
     {
-      v10 = MEMORY[0x1E696AEC0];
+      v12 = MEMORY[0x1E696AEC0];
       storeIdentifier2 = [(LPInlineMediaPlaybackInformation *)self->_playbackInformation storeIdentifier];
-      v12 = [v10 stringWithFormat:@"podcasts://playPodcast?storeTrackId=%@", storeIdentifier2];
+      v14 = [v12 stringWithFormat:@"podcasts://playPodcast?storeTrackId=%@", storeIdentifier2];
 
-      v5 = MRSystemAppPlaybackQueueCreate();
-      v17 = v12;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+      v7 = MRSystemAppPlaybackQueueCreate();
+      v19 = v14;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
       MRSystemAppPlaybackQueueSetGenericTrackIdentifiers();
 
-      return v5;
+      return v7;
     }
 
     if (type == 6)
     {
-      v5 = MRSystemAppPlaybackQueueCreate();
+      v7 = MRSystemAppPlaybackQueueCreate();
       persistentIdentifier = [(LPInlineMediaPlaybackInformation *)self->_playbackInformation persistentIdentifier];
       [persistentIdentifier longLongValue];
       MRSystemAppPlaybackQueueSetLocalQueryFirstItemPID();
@@ -302,18 +302,18 @@ void __57__LPiTunesPlayButtonControl_startPlaybackForLyricExcerpt__block_invoke(
 
     if (type != 5)
     {
-      return v5;
+      return v7;
     }
 
 LABEL_10:
-    v5 = MRSystemAppPlaybackQueueCreate();
+    v7 = MRSystemAppPlaybackQueueCreate();
     storeIdentifier3 = [(LPInlineMediaPlaybackInformation *)self->_playbackInformation storeIdentifier];
-    v18[0] = storeIdentifier3;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v20[0] = storeIdentifier3;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     MRSystemAppPlaybackQueueSetGenericTrackIdentifiers();
 
     MRSystemAppPlaybackQueueSetFeatureName();
-    return v5;
+    return v7;
   }
 
   if (type < 2)
@@ -323,28 +323,28 @@ LABEL_10:
 
   if (type == 2)
   {
-    v5 = MRSystemAppPlaybackQueueCreate();
+    v7 = MRSystemAppPlaybackQueueCreate();
     MRSystemAppPlaybackQueueSetRadioStationIDType();
     persistentIdentifier = [(LPInlineMediaPlaybackInformation *)self->_playbackInformation storeIdentifier];
     MRSystemAppPlaybackQueueSetRadioStationStringIdentifier();
 LABEL_14:
 
-    return v5;
+    return v7;
   }
 
   if (type == 3)
   {
-    v6 = MEMORY[0x1E696AEC0];
+    v8 = MEMORY[0x1E696AEC0];
     storeIdentifier4 = [(LPInlineMediaPlaybackInformation *)self->_playbackInformation storeIdentifier];
-    v8 = [v6 stringWithFormat:@"podcasts://playPodcast?storeCollectionId=%@", storeIdentifier4];
+    v10 = [v8 stringWithFormat:@"podcasts://playPodcast?storeCollectionId=%@", storeIdentifier4];
 
-    v5 = MRSystemAppPlaybackQueueCreate();
-    v16 = v8;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v7 = MRSystemAppPlaybackQueueCreate();
+    v18 = v10;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
     MRSystemAppPlaybackQueueSetGenericTrackIdentifiers();
   }
 
-  return v5;
+  return v7;
 }
 
 - (id)mediaPlaybackApplicationID
@@ -406,15 +406,15 @@ uint64_t __41__LPiTunesPlayButtonControl_startPlaying__block_invoke(uint64_t a1)
   return [v2 updatePlayState];
 }
 
-uint64_t __41__LPiTunesPlayButtonControl_startPlaying__block_invoke_2(uint64_t result, int a2)
+void *__41__LPiTunesPlayButtonControl_startPlaying__block_invoke_2(void *result, int a2)
 {
   if (!a2)
   {
     v2 = result;
-    result = [*(*(result + 32) + 544) startTime];
+    result = [*(result[4] + 544) startTime];
     if (v3 > 0.0)
     {
-      v4 = [*(*(v2 + 32) + 544) startTime];
+      v4 = [*(v2[4] + 544) startTime];
 
       return MEMORY[0x1EEE1D2E0](v4);
     }

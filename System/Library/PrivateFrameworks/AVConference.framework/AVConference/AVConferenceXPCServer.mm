@@ -787,7 +787,7 @@ void *__65__AVConferenceXPCServer_appendContextToDictionary_forConnection___bloc
   return v3;
 }
 
-uint64_t __44__AVConferenceXPCServer_authorizedTokenData__block_invoke(uint64_t a1)
+void *__44__AVConferenceXPCServer_authorizedTokenData__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v11 = 0u;
@@ -818,7 +818,7 @@ uint64_t __44__AVConferenceXPCServer_authorizedTokenData__block_invoke(uint64_t 
           return result;
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -1470,7 +1470,7 @@ LABEL_72:
   _Block_object_dispose(v48, 8);
 }
 
-uint64_t __69__AVConferenceXPCServer_XPCManagement___xpc_handle_incoming_request___block_invoke_2(uint64_t a1)
+void *__69__AVConferenceXPCServer_XPCManagement___xpc_handle_incoming_request___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _xpc_get_connection_from_list_for_connection:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 40) = result;
@@ -1660,7 +1660,7 @@ void __69__AVConferenceXPCServer_XPCManagement___xpc_handle_incoming_request___b
   v12 = *(*(*(a1 + 80) + 8) + 40);
 }
 
-uint64_t __69__AVConferenceXPCServer_XPCManagement___xpc_handle_incoming_request___block_invoke_233(uint64_t a1)
+void *__69__AVConferenceXPCServer_XPCManagement___xpc_handle_incoming_request___block_invoke_233(uint64_t a1)
 {
   result = [*(a1 + 32) _xpc_get_connection_from_list_for_connection:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 40) = result;
@@ -1736,7 +1736,7 @@ void __68__AVConferenceXPCServer_XPCManagement___xpc_add_connection_to_list___bl
   }
 }
 
-uint64_t __73__AVConferenceXPCServer_XPCManagement___xpc_remove_connection_from_list___block_invoke(uint64_t a1)
+void *__73__AVConferenceXPCServer_XPCManagement___xpc_remove_connection_from_list___block_invoke(uint64_t a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _xpc_get_connection_from_list_for_connection:*(a1 + 40)];

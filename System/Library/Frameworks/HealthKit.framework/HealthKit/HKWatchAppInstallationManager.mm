@@ -13,9 +13,9 @@
 - (HKWatchAppInstallationManager)initWithBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v16.receiver = self;
-  v16.super_class = HKWatchAppInstallationManager;
-  v6 = [(HKWatchAppInstallationManager *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = HKWatchAppInstallationManager;
+  v6 = [(HKWatchAppInstallationManager *)&v17 init];
   v7 = v6;
   if (v6)
   {
@@ -26,10 +26,10 @@
 
     v10 = [HKObserverSet alloc];
     v11 = [(HKWatchAppInstallationManager *)v7 description];
-    v12 = HKLogInfrastructure();
-    v13 = [(HKObserverSet *)v10 initWithName:v11 loggingCategory:v12];
+    v13 = HKLogInfrastructure(v11, v12);
+    v14 = [(HKObserverSet *)v10 initWithName:v11 loggingCategory:v13];
     observers = v7->_observers;
-    v7->_observers = v13;
+    v7->_observers = v14;
   }
 
   return v7;

@@ -632,28 +632,24 @@ void __42__GTMTLReplayServiceXPCProxy_shaderdebug___block_invoke_3(uint64_t a1, 
 
 - (void)initWithConnection:(NSObject *)a3 serviceInfo:.cold.1(void *a1, Protocol *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [a1 serviceProperties];
   v6 = [v5 protocolName];
   v7 = NSStringFromProtocol(a2);
-  v9 = 138412546;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_debug_impl(&dword_24DBC9000, a3, OS_LOG_TYPE_DEBUG, "Remote protocol name %@ does not match %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_debug_impl(&dword_24DBC9000, a3, OS_LOG_TYPE_DEBUG, "Remote protocol name %@ does not match %@", &v8, 0x16u);
 }
 
 - (void)initWithConnection:(void *)a1 serviceInfo:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_ERROR, "Unable to retrieve bulk data service, %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_ERROR, "Unable to retrieve bulk data service, %@", &v4, 0xCu);
 }
 
 @end

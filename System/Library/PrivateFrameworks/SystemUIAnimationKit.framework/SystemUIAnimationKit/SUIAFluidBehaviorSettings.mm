@@ -431,13 +431,20 @@
 {
   if (title)
   {
-    sub_26C614E48();
+    v3 = sub_26C614E48();
+    v5 = v4;
   }
 
-  _sSo25SUIAFluidBehaviorSettingsC20SystemUIAnimationKitE7_module16withSectionTitleSo8PTModuleCSgSSSg_tFZ_0();
-  v4 = v3;
+  else
+  {
+    v3 = 0;
+    v5 = 0;
+  }
 
-  return v4;
+  _sSo25SUIAFluidBehaviorSettingsC20SystemUIAnimationKitE7_module16withSectionTitleSo8PTModuleCSgSSSg_tFZ_0(v3, v5);
+  v7 = v6;
+
+  return v7;
 }
 
 - (NSString)description

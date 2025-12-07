@@ -336,8 +336,8 @@
     v20 = v22;
 LABEL_18:
     v29 = [self tagDictionaryForWrapperAroundParagraphStyle:v21];
-    v30 = [v29 objectForKeyedSubscript:@"TagName"];
-    v31 = [v29 objectForKeyedSubscript:@"Attributes"];
+    v30 = objc_msgSend_objectForKeyedSubscript_(v29);
+    v31 = objc_msgSend_objectForKeyedSubscript_(v29);
     v32 = v31;
     v33 = &stru_1F4F94F00;
     if (v31)
@@ -429,50 +429,50 @@ LABEL_29:
 
 + (id)tagDictionariesForAttributes:()HTML attachmentConversionHandler:
 {
-  v70[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = objc_opt_new();
-  v9 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69B75E8]];
+  v9 = objc_msgSend_objectForKeyedSubscript_(v6);
   intValue = [v9 intValue];
 
   if (intValue)
   {
-    v69 = @"TagName";
-    v70[0] = @"b";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:&v69 count:1];
+    v68 = @"TagName";
+    v69[0] = @"b";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:&v68 count:1];
     [v8 addObject:v11];
   }
 
   if ((intValue & 2) != 0)
   {
-    v67 = @"TagName";
-    v68 = @"i";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+    v66 = @"TagName";
+    v67 = @"i";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
     [v8 addObject:v12];
   }
 
-  v13 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69B7620]];
+  v13 = objc_msgSend_objectForKeyedSubscript_(v6);
 
   if (v13)
   {
-    v65 = @"TagName";
-    v66 = @"u";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+    v64 = @"TagName";
+    v65 = @"u";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
     [v8 addObject:v14];
   }
 
-  v15 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69B7608]];
+  v15 = objc_msgSend_objectForKeyedSubscript_(v6);
 
   if (v15)
   {
-    v63 = @"TagName";
-    v64 = @"strike";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    v62 = @"TagName";
+    v63 = @"strike";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
     [v8 addObject:v16];
   }
 
-  v17 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69B75E0]];
+  v17 = objc_msgSend_objectForKeyedSubscript_(v6);
   v18 = objc_alloc_init(MEMORY[0x1E696AD60]);
   fontName = [v17 fontName];
   v20 = [fontName length];
@@ -483,7 +483,7 @@ LABEL_29:
     [v18 appendFormat:@" face=%@", fontName2];
   }
 
-  v22 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69B75F0]];
+  v22 = objc_msgSend_objectForKeyedSubscript_(v6);
 
   if (v22)
   {
@@ -497,120 +497,118 @@ LABEL_29:
 
   if ([v18 length])
   {
-    v61[0] = @"TagName";
-    v61[1] = @"Attributes";
-    v62[0] = @"font";
-    v62[1] = v18;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
+    v60[0] = @"TagName";
+    v60[1] = @"Attributes";
+    v61[0] = @"font";
+    v61[1] = v18;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
     [v8 addObject:v25];
   }
 
   [v17 pointSize];
   if (v26 > 0.0)
   {
-    v59[1] = @"Attributes";
-    v60[0] = @"span";
-    v59[0] = @"TagName";
+    v58[1] = @"Attributes";
+    v59[0] = @"span";
+    v58[0] = @"TagName";
     v27 = MEMORY[0x1E696AEC0];
     [v17 pointSize];
     v29 = [v27 stringWithFormat:@" style=font-size: %.0Fpx", v28];
-    v60[1] = v29;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:v59 count:2];
+    v59[1] = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
     [v8 addObject:v30];
   }
 
-  v31 = MEMORY[0x1E69DB5F8];
   if (v7)
   {
-    v32 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69DB5F8]];
-    v33 = v32;
-    if (v32)
+    v31 = objc_msgSend_objectForKeyedSubscript_(v6);
+    v32 = v31;
+    if (v31)
     {
-      attachmentIdentifier = [v32 attachmentIdentifier];
-      v49 = 0;
-      v50 = @"object";
-      v48 = v7;
-      v35 = v7[2](v7, attachmentIdentifier, &v50, &v49);
-      v36 = v50;
-      v37 = v49;
-      if (v35 && v36)
+      attachmentIdentifier = [v31 attachmentIdentifier];
+      v48 = 0;
+      v49 = @"object";
+      v47 = v7;
+      v34 = v7[2](v7, attachmentIdentifier, &v49, &v48);
+      v35 = v49;
+      v36 = v48;
+      if (v34 && v35)
       {
-        v38 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        [v38 setObject:v36 forKeyedSubscript:@"TagName"];
-        [v38 setObject:v35 forKeyedSubscript:@"Attributes"];
-        if (v37)
+        v37 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        [v37 setObject:v35 forKeyedSubscript:@"TagName"];
+        [v37 setObject:v34 forKeyedSubscript:@"Attributes"];
+        if (v36)
         {
-          [v38 setObject:v37 forKeyedSubscript:@"TextContent"];
+          [v37 setObject:v36 forKeyedSubscript:@"TextContent"];
         }
 
-        [v8 addObject:v38];
+        [v8 addObject:v37];
       }
 
-      v7 = v48;
-      v31 = MEMORY[0x1E69DB5F8];
+      v7 = v47;
     }
   }
 
-  v39 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
-  style = [v39 style];
-  if (v39)
+  v38 = objc_msgSend_objectForKeyedSubscript_(v6);
+  style = [v38 style];
+  if (v38)
   {
-    v41 = style;
-    v42 = [v6 objectForKeyedSubscript:*v31];
+    v40 = style;
+    v41 = objc_msgSend_objectForKeyedSubscript_(v6);
 
-    if (!v42)
+    if (!v41)
     {
-      if (v41 > 1)
+      if (v40 > 1)
       {
-        if (v41 == 2)
+        if (v40 == 2)
         {
-          v53 = @"TagName";
-          v54 = @"h3";
-          v43 = MEMORY[0x1E695DF20];
-          v44 = &v54;
-          v45 = &v53;
+          v52 = @"TagName";
+          v53 = @"h3";
+          v42 = MEMORY[0x1E695DF20];
+          v43 = &v53;
+          v44 = &v52;
         }
 
         else
         {
-          if (v41 != 4)
+          if (v40 != 4)
           {
             goto LABEL_40;
           }
 
-          v51 = @"TagName";
-          v52 = @"tt";
-          v43 = MEMORY[0x1E695DF20];
-          v44 = &v52;
-          v45 = &v51;
+          v50 = @"TagName";
+          v51 = @"tt";
+          v42 = MEMORY[0x1E695DF20];
+          v43 = &v51;
+          v44 = &v50;
         }
       }
 
-      else if (v41)
+      else if (v40)
       {
-        if (v41 != 1)
+        if (v40 != 1)
         {
           goto LABEL_40;
         }
 
-        v55 = @"TagName";
-        v56 = @"h2";
-        v43 = MEMORY[0x1E695DF20];
-        v44 = &v56;
-        v45 = &v55;
+        v54 = @"TagName";
+        v55 = @"h2";
+        v42 = MEMORY[0x1E695DF20];
+        v43 = &v55;
+        v44 = &v54;
       }
 
       else
       {
-        v57 = @"TagName";
-        v58 = @"h1";
-        v43 = MEMORY[0x1E695DF20];
-        v44 = &v58;
-        v45 = &v57;
+        v56 = @"TagName";
+        v57 = @"h1";
+        v42 = MEMORY[0x1E695DF20];
+        v43 = &v57;
+        v44 = &v56;
       }
 
-      v46 = [v43 dictionaryWithObjects:v44 forKeys:v45 count:1];
-      [v8 addObject:v46];
+      v45 = [v42 dictionaryWithObjects:v43 forKeys:v44 count:1];
+      [v8 addObject:v45];
     }
   }
 

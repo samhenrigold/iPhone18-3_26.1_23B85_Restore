@@ -101,7 +101,7 @@
 
 - (id)standardProgressCapability
 {
-  v2 = IMCommonCoreBundle();
+  v2 = IMCommonCoreBundle(self);
   v3 = [v2 localizedStringForKey:@"Reports percentage progress in the activity." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   v4 = [[CLSProgressReportingCapability alloc] initWithKind:1 details:v3];
@@ -112,7 +112,7 @@
 
 - (id)standardWidgetReportingCapability
 {
-  v3 = IMCommonCoreBundle();
+  v3 = IMCommonCoreBundle(self);
   v4 = [v3 localizedStringForKey:@"Reports score achieved and percentage progress in the activity." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   v5 = [[CLSProgressReportingCapability alloc] initWithKind:4 details:v4];
@@ -132,16 +132,17 @@
   block[2] = sub_23EDC;
   block[3] = &unk_2C89F8;
   block[4] = self;
-  v12 = dCopy;
+  v13 = dCopy;
   v7 = v5;
-  v13 = v7;
+  v14 = v7;
   v8 = dCopy;
   dispatch_async(workQueue, block);
   v9 = dispatch_time(0, 1000000000);
-  if (dispatch_semaphore_wait(v7, v9))
+  v10 = dispatch_semaphore_wait(v7, v9);
+  if (v10)
   {
-    v10 = BCProgressKitLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BCProgressKitLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1E52FC();
     }
@@ -152,18 +153,19 @@
 {
   v3 = dispatch_semaphore_create(0);
   progressKitDataStore = self->_progressKitDataStore;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_24094;
-  v8[3] = &unk_2C8A20;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_24094;
+  v9[3] = &unk_2C8A20;
   v5 = v3;
-  v9 = v5;
-  [(CLSDataStore *)progressKitDataStore saveWithCompletion:v8];
+  v10 = v5;
+  [(CLSDataStore *)progressKitDataStore saveWithCompletion:v9];
   v6 = dispatch_time(0, 1000000000);
-  if (dispatch_semaphore_wait(v5, v6))
+  v7 = dispatch_semaphore_wait(v5, v6);
+  if (v7)
   {
-    v7 = BCProgressKitLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BCProgressKitLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1E52FC();
     }
@@ -214,42 +216,43 @@
 - (id)_contextWithID:(id)d
 {
   dCopy = d;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = sub_24570;
-  v20 = sub_24580;
-  v21 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_24570;
+  v21 = sub_24580;
+  v22 = 0;
   if ([dCopy length])
   {
     dispatch_assert_queue_V2(self->_workQueue);
     v5 = [CLSQuery predicateForObjectsWithIdentifier:dCopy];
     v6 = dispatch_semaphore_create(0);
     progressKitDataStore = [(BCProgressKitController *)self progressKitDataStore];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_24588;
-    v13[3] = &unk_2C8A48;
-    v15 = &v16;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_24588;
+    v14[3] = &unk_2C8A48;
+    v16 = &v17;
     v8 = v6;
-    v14 = v8;
-    [progressKitDataStore contextsMatchingPredicate:v5 completion:v13];
+    v15 = v8;
+    [progressKitDataStore contextsMatchingPredicate:v5 completion:v14];
 
     v9 = dispatch_time(0, 1000000000);
-    if (dispatch_semaphore_wait(v8, v9))
+    v10 = dispatch_semaphore_wait(v8, v9);
+    if (v10)
     {
-      v10 = BCProgressKitLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = BCProgressKitLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1E5398();
       }
     }
   }
 
-  v11 = v17[5];
-  _Block_object_dispose(&v16, 8);
+  v12 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)_isBookOpen:(id)open
@@ -331,7 +334,7 @@
     v7 = contextCopy;
     do
     {
-      v8 = BCProgressKitLog();
+      v8 = BCProgressKitLog(contextCopy);
       v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
       if (activityCopy)
       {
@@ -671,72 +674,75 @@
 {
   bookCopy = book;
   dispatch_assert_queue_V2(self->_workQueue);
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = sub_24570;
-  v33 = sub_24580;
-  v34 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_24570;
+  v36 = sub_24580;
+  v37 = 0;
   v5 = [(BCProgressKitController *)self _getActiveChapterContext:bookCopy];
+  v6 = v5;
   if (v5)
   {
     readingStatisticsControllers = [(BCProgressKitController *)self readingStatisticsControllers];
-    v7 = [readingStatisticsControllers objectForKeyedSubscript:bookCopy];
+    v8 = [readingStatisticsControllers objectForKeyedSubscript:bookCopy];
 
-    if (v7)
+    if (v8)
     {
-      identifier = [v5 identifier];
-      v9 = [(BCProgressKitController *)self _chapterHrefFromAssetID:bookCopy chapterID:identifier];
+      identifier = [v6 identifier];
+      v10 = [(BCProgressKitController *)self _chapterHrefFromAssetID:bookCopy chapterID:identifier];
 
-      v23 = 0;
-      v24 = &v23;
-      v25 = 0x3032000000;
-      v26 = sub_24570;
-      v27 = sub_24580;
-      v28 = 0;
-      v19[0] = _NSConcreteStackBlock;
-      v19[1] = 3221225472;
-      v19[2] = sub_2736C;
-      v19[3] = &unk_2C8AE8;
-      v21 = &v29;
-      v22 = &v23;
-      v10 = dispatch_semaphore_create(0);
-      v20 = v10;
-      [v7 tocEntryStatisticsForHref:v9 completion:v19];
-      v11 = dispatch_time(0, 1000000000);
-      if (dispatch_semaphore_wait(v10, v11))
+      v26 = 0;
+      v27 = &v26;
+      v28 = 0x3032000000;
+      v29 = sub_24570;
+      v30 = sub_24580;
+      v31 = 0;
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_2736C;
+      v22[3] = &unk_2C8AE8;
+      v24 = &v32;
+      v25 = &v26;
+      v11 = dispatch_semaphore_create(0);
+      v23 = v11;
+      [v8 tocEntryStatisticsForHref:v10 completion:v22];
+      v12 = dispatch_time(0, 1000000000);
+      v13 = dispatch_semaphore_wait(v11, v12);
+      if (v13)
       {
-        v12 = BCProgressKitLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v14 = BCProgressKitLog(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           sub_1E576C();
         }
       }
 
-      if (!v30[5])
+      if (!v33[5])
       {
-        [v24[5] doubleValue];
-        [(BCProgressKitController *)self _updateContext:v5 withProgress:?];
+        [v27[5] doubleValue];
+        [(BCProgressKitController *)self _updateContext:v6 withProgress:?];
       }
 
-      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v26, 8);
     }
 
     else
     {
       activeChapters = [(BCProgressKitController *)self activeChapters];
-      v9 = [activeChapters objectForKeyedSubscript:bookCopy];
+      v10 = [activeChapters objectForKeyedSubscript:bookCopy];
 
-      if ([v9 isProgressValid])
+      isProgressValid = [v10 isProgressValid];
+      if (isProgressValid)
       {
-        [v9 progress];
-        [(BCProgressKitController *)self _updateContext:v5 withProgress:?];
+        [v10 progress];
+        [(BCProgressKitController *)self _updateContext:v6 withProgress:?];
       }
 
       else
       {
-        v14 = BCProgressKitLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v17 = BCProgressKitLog(isProgressValid);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_1E5928();
         }
@@ -744,23 +750,23 @@
     }
   }
 
-  v15 = v30[5];
-  if (v15)
+  v18 = v33[5];
+  if (v18)
   {
-    v16 = BCProgressKitLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = BCProgressKitLog(v5);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_1E595C();
     }
 
-    v15 = v30[5];
+    v18 = v33[5];
   }
 
-  v17 = v15;
+  v20 = v18;
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v32, 8);
 
-  return v17;
+  return v20;
 }
 
 - (void)activateSectionForBook:(id)book chapterID:(id)d sectionID:(id)iD title:(id)title completion:(id)completion

@@ -425,26 +425,26 @@ LABEL_22:
         endDatePicker = self->_endDatePicker;
         self->_endDatePicker = _newDatePicker;
 
-        contentView = [(EKUITableViewCell *)self->_endDatePickerCell contentView];
-        [contentView addSubview:self->_endDatePicker];
+        v40 = objc_msgSend_contentView(self->_endDatePickerCell);
+        [v40 addSubview:self->_endDatePicker];
 
         v68 = MEMORY[0x1E695DF70];
         v41 = MEMORY[0x1E696ACD8];
         v42 = self->_endDatePicker;
-        contentView2 = [(EKUITableViewCell *)self->_endDatePickerCell contentView];
-        v43 = [v41 constraintWithItem:v42 attribute:5 relatedBy:0 toItem:contentView2 attribute:5 multiplier:1.0 constant:0.0];
+        v69 = objc_msgSend_contentView(self->_endDatePickerCell);
+        v43 = [v41 constraintWithItem:v42 attribute:5 relatedBy:0 toItem:v69 attribute:5 multiplier:1.0 constant:0.0];
         v44 = MEMORY[0x1E696ACD8];
         v45 = self->_endDatePicker;
-        contentView3 = [(EKUITableViewCell *)self->_endDatePickerCell contentView];
-        v46 = [v44 constraintWithItem:v45 attribute:6 relatedBy:0 toItem:contentView3 attribute:6 multiplier:1.0 constant:0.0];
+        v67 = objc_msgSend_contentView(self->_endDatePickerCell);
+        v46 = [v44 constraintWithItem:v45 attribute:6 relatedBy:0 toItem:v67 attribute:6 multiplier:1.0 constant:0.0];
         v47 = MEMORY[0x1E696ACD8];
         v48 = self->_endDatePicker;
-        contentView4 = [(EKUITableViewCell *)self->_endDatePickerCell contentView];
-        v50 = [v47 constraintWithItem:v48 attribute:4 relatedBy:0 toItem:contentView4 attribute:4 multiplier:1.0 constant:0.0];
+        v49 = objc_msgSend_contentView(self->_endDatePickerCell);
+        v50 = [v47 constraintWithItem:v48 attribute:4 relatedBy:0 toItem:v49 attribute:4 multiplier:1.0 constant:0.0];
         v51 = MEMORY[0x1E696ACD8];
         v52 = self->_endDatePicker;
-        contentView5 = [(EKUITableViewCell *)self->_endDatePickerCell contentView];
-        v54 = [v51 constraintWithItem:v52 attribute:3 relatedBy:0 toItem:contentView5 attribute:3 multiplier:1.0 constant:0.0];
+        v53 = objc_msgSend_contentView(self->_endDatePickerCell);
+        v54 = [v51 constraintWithItem:v52 attribute:3 relatedBy:0 toItem:v53 attribute:3 multiplier:1.0 constant:0.0];
         v55 = [v68 arrayWithObjects:{v43, v46, v50, v54, 0}];
 
         [MEMORY[0x1E696ACD8] activateConstraints:v55];
@@ -1119,32 +1119,32 @@ LABEL_17:
 - (id)recurrenceDate
 {
   OUTLINED_FUNCTION_0_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 - (id)recurrenceTimeZone
 {
   OUTLINED_FUNCTION_0_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 - (id)stringForDate:(id)date
 {
   OUTLINED_FUNCTION_0_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v3);
   return 0;
 }
 
 - (id)minRecurrenceEndDate
 {
   OUTLINED_FUNCTION_0_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 

@@ -153,18 +153,16 @@ void __82__ARPRoutePredictor_initWithmicroLocationSimilarityThreshold_file_knowl
 
 - (void)_reloadLatestMicroLocationEvent
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_23EB15000, v0, OS_LOG_TYPE_ERROR, "Error fetching latest microlocation %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23EB15000, v0, OS_LOG_TYPE_ERROR, "Error fetching latest microlocation %@", v1, 0xCu);
 }
 
 - (void)_reloadPersistedSessions
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_23EB15000, v0, OS_LOG_TYPE_ERROR, "Error reading persisted routing sessions: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23EB15000, v0, OS_LOG_TYPE_ERROR, "Error reading persisted routing sessions: %@", v1, 0xCu);
 }
 
 BOOL __45__ARPRoutePredictor__reloadPersistedSessions__block_invoke(uint64_t a1, void *a2)
@@ -196,7 +194,7 @@ BOOL __45__ARPRoutePredictor__reloadPersistedSessions__block_invoke(uint64_t a1,
 
 - (id)predictionsForContext:(id)context
 {
-  v112[1] = *MEMORY[0x277D85DE8];
+  v111[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = _os_activity_create(&dword_23EB15000, "CoreDuet: ARPRoutePredictor predictionsForContext:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   *&state[8] = 0;
@@ -205,7 +203,7 @@ BOOL __45__ARPRoutePredictor__reloadPersistedSessions__block_invoke(uint64_t a1,
   os_activity_scope_leave(state);
 
   context = objc_autoreleasePoolPush();
-  v6 = ARPLog();
+  v6 = ARPLog(context);
   oslog = v6;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
@@ -228,37 +226,37 @@ BOOL __45__ARPRoutePredictor__reloadPersistedSessions__block_invoke(uint64_t a1,
 
   sessions2 = [(ARPRoutePredictor *)self sessions];
   v11 = MEMORY[0x277CCAC30];
-  v96[0] = MEMORY[0x277D85DD0];
-  v96[1] = 3221225472;
-  v96[2] = __43__ARPRoutePredictor_predictionsForContext___block_invoke_2;
-  v96[3] = &unk_278C647B8;
+  v95[0] = MEMORY[0x277D85DD0];
+  v95[1] = 3221225472;
+  v95[2] = __43__ARPRoutePredictor_predictionsForContext___block_invoke_2;
+  v95[3] = &unk_278C647B8;
   v12 = contextCopy;
-  v97 = v12;
-  v13 = [v11 predicateWithBlock:v96];
-  v67 = [sessions2 filteredArrayUsingPredicate:v13];
+  v96 = v12;
+  v13 = [v11 predicateWithBlock:v95];
+  v66 = [sessions2 filteredArrayUsingPredicate:v13];
 
   [(ARPRoutePredictor *)self routingSessionTimeout];
-  v92 = 0;
-  v93 = &v92;
-  v94 = 0x2020000000;
-  v95 = 0x7FFFFFFFFFFFFFFFLL;
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
   v91 = 0;
-  v82[0] = MEMORY[0x277D85DD0];
-  v82[1] = 3221225472;
-  v82[2] = __43__ARPRoutePredictor_predictionsForContext___block_invoke_3;
-  v82[3] = &unk_278C647E0;
-  v87 = v14;
-  v69 = v12;
-  v83 = v69;
+  v92 = &v91;
+  v93 = 0x2020000000;
+  v94 = 0x7FFFFFFFFFFFFFFFLL;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
+  v90 = 0;
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = __43__ARPRoutePredictor_predictionsForContext___block_invoke_3;
+  v81[3] = &unk_278C647E0;
+  v86 = v14;
+  v68 = v12;
+  v82 = v68;
   selfCopy = self;
-  v85 = &v88;
-  v86 = &v92;
-  [v67 enumerateObjectsUsingBlock:v82];
+  v84 = &v87;
+  v85 = &v91;
+  [v66 enumerateObjectsUsingBlock:v81];
   v15 = v6;
-  if (v93[3] == 0x7FFFFFFFFFFFFFFFLL)
+  if (v92[3] == 0x7FFFFFFFFFFFFFFFLL)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
@@ -268,30 +266,30 @@ BOOL __45__ARPRoutePredictor__reloadPersistedSessions__block_invoke(uint64_t a1,
 
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v17 = objc_alloc_init(MEMORY[0x277CCA940]);
-    v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v18 = v89[3];
-    if (v18 >= [v67 count])
+    v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v18 = v88[3];
+    if (v18 >= [v66 count])
     {
       v22 = 0;
     }
 
     else
     {
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
       v79 = 0u;
-      v19 = v89[3];
-      v20 = [v67 count];
-      v21 = [v67 subarrayWithRange:{v19, v20 - v89[3]}];
+      v80 = 0u;
+      v77 = 0u;
+      v78 = 0u;
+      v19 = v88[3];
+      v20 = [v66 count];
+      v21 = [v66 subarrayWithRange:{v19, v20 - v88[3]}];
       v22 = 0;
-      v23 = [v21 countByEnumeratingWithState:&v78 objects:v111 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v77 objects:v110 count:16];
       if (v23)
       {
-        v68 = *v79;
+        v67 = *v78;
         *&v24 = 138413826;
-        v60 = v24;
-        v61 = v17;
+        v59 = v24;
+        v60 = v17;
         selfCopy2 = self;
         obj = v21;
         do
@@ -299,13 +297,13 @@ BOOL __45__ARPRoutePredictor__reloadPersistedSessions__block_invoke(uint64_t a1,
           v25 = 0;
           do
           {
-            if (*v79 != v68)
+            if (*v78 != v67)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v78 + 1) + 8 * v25);
-            microLocationProbabilityVector = [v69 microLocationProbabilityVector];
+            v26 = *(*(&v77 + 1) + 8 * v25);
+            microLocationProbabilityVector = [v68 microLocationProbabilityVector];
             microLocationProbabilityVector2 = [v26 microLocationProbabilityVector];
             v29 = ARPMicroLocationSimilarity(microLocationProbabilityVector, microLocationProbabilityVector2);
 
@@ -341,23 +339,23 @@ BOOL __45__ARPRoutePredictor__reloadPersistedSessions__block_invoke(uint64_t a1,
               [(ARPRoutePredictor *)selfCopy2 microLocationSimilarityThreshold];
               v42 = [v41 numberWithDouble:?];
               microLocationProbabilityVector3 = [v26 microLocationProbabilityVector];
-              *state = v60;
+              *state = v59;
               *&state[4] = interval;
               *&state[12] = 2112;
               *&state[14] = outputDeviceID;
-              v101 = 2112;
-              v102 = v38;
-              v103 = 2112;
-              v104 = v39;
-              v105 = 2112;
-              v106 = v40;
-              v107 = 2112;
-              v108 = v42;
-              v109 = 2112;
-              v110 = microLocationProbabilityVector3;
+              v100 = 2112;
+              v101 = v38;
+              v102 = 2112;
+              v103 = v39;
+              v104 = 2112;
+              v105 = v40;
+              v106 = 2112;
+              v107 = v42;
+              v108 = 2112;
+              v109 = microLocationProbabilityVector3;
               _os_log_debug_impl(&dword_23EB15000, oslog, OS_LOG_TYPE_DEBUG, "Session from %@ with route %@ is %@included in predictions because microlocation similarity %@ is %@ than threshold (%@), microLocationProbabilityVector: %@", state, 0x48u);
 
-              v17 = v61;
+              v17 = v60;
               self = selfCopy2;
 
               v32 = oslog;
@@ -367,14 +365,14 @@ BOOL __45__ARPRoutePredictor__reloadPersistedSessions__block_invoke(uint64_t a1,
             {
               outputDeviceID2 = [v26 outputDeviceID];
               [v17 addObject:outputDeviceID2];
-              v34 = [v71 objectForKey:outputDeviceID2];
+              v34 = [v70 objectForKey:outputDeviceID2];
               v35 = v34 == 0;
 
               if (v35)
               {
                 interval2 = [v26 interval];
                 endDate = [interval2 endDate];
-                [v71 setObject:endDate forKeyedSubscript:outputDeviceID2];
+                [v70 setObject:endDate forKeyedSubscript:outputDeviceID2];
               }
 
               ++v22;
@@ -401,7 +399,7 @@ LABEL_37:
 
           while (v23 != v25);
           v21 = obj;
-          v44 = [obj countByEnumeratingWithState:&v78 objects:v111 count:16];
+          v44 = [obj countByEnumeratingWithState:&v77 objects:v110 count:16];
           v23 = v44;
         }
 
@@ -411,15 +409,15 @@ LABEL_37:
 LABEL_38:
     }
 
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     v47 = v17;
-    v49 = [(ARPRoutePrediction *)v47 countByEnumeratingWithState:&v74 objects:v99 count:16];
+    v49 = [(ARPRoutePrediction *)v47 countByEnumeratingWithState:&v73 objects:v98 count:16];
     if (v49)
     {
-      v50 = *v75;
+      v50 = *v74;
       v51 = 2;
       if (v22 > 2)
       {
@@ -431,26 +429,26 @@ LABEL_38:
       {
         for (i = 0; i != v49; ++i)
         {
-          if (*v75 != v50)
+          if (*v74 != v50)
           {
             objc_enumerationMutation(v47);
           }
 
-          v54 = [[ARPRoutePrediction alloc] initWithOutputDeviceID:*(*(&v74 + 1) + 8 * i) confidence:[(ARPRoutePrediction *)v47 countForObject:*(*(&v74 + 1) + 8 * i)]/ v52];
+          v54 = [[ARPRoutePrediction alloc] initWithOutputDeviceID:*(*(&v73 + 1) + 8 * i) confidence:[(ARPRoutePrediction *)v47 countForObject:*(*(&v73 + 1) + 8 * i)]/ v52];
           v55 = [v16 count];
-          v72[0] = MEMORY[0x277D85DD0];
-          v72[1] = 3221225472;
-          v72[2] = __43__ARPRoutePredictor_predictionsForContext___block_invoke_111;
-          v72[3] = &unk_278C64808;
-          v73 = v71;
-          v56 = [v16 indexOfObject:v54 inSortedRange:0 options:v55 usingComparator:{1024, v72}];
+          v71[0] = MEMORY[0x277D85DD0];
+          v71[1] = 3221225472;
+          v71[2] = __43__ARPRoutePredictor_predictionsForContext___block_invoke_111;
+          v71[3] = &unk_278C64808;
+          v72 = v70;
+          v56 = [v16 indexOfObject:v54 inSortedRange:0 options:v55 usingComparator:{1024, v71}];
           if (v56 != 0x7FFFFFFFFFFFFFFFLL)
           {
             [v16 insertObject:v54 atIndex:v56];
           }
         }
 
-        v49 = [(ARPRoutePrediction *)v47 countByEnumeratingWithState:&v74 objects:v99 count:16];
+        v49 = [(ARPRoutePrediction *)v47 countByEnumeratingWithState:&v73 objects:v98 count:16];
       }
 
       while (v49);
@@ -464,29 +462,28 @@ LABEL_38:
     }
 
     v48 = [v16 copy];
-    v6 = v71;
+    v6 = v70;
   }
 
   else
   {
-    v16 = [v67 objectAtIndexedSubscript:?];
+    v16 = [v66 objectAtIndexedSubscript:?];
     v45 = [ARPRoutePrediction alloc];
     outputDeviceID3 = [v16 outputDeviceID];
     v47 = [(ARPRoutePrediction *)v45 initWithOutputDeviceID:outputDeviceID3 confidence:1.0];
 
-    v112[0] = v47;
-    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:1];
+    v111[0] = v47;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:1];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [ARPRoutePredictor predictionsForContext:];
     }
   }
 
-  _Block_object_dispose(&v88, 8);
-  _Block_object_dispose(&v92, 8);
+  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v91, 8);
 
   objc_autoreleasePoolPop(context);
-  v58 = *MEMORY[0x277D85DE8];
 
   return v48;
 }
@@ -525,16 +522,16 @@ void __43__ARPRoutePredictor_predictionsForContext___block_invoke_3(uint64_t a1,
   v15 = [*(a1 + 32) microLocationProbabilityVector];
   v16 = ARPMicroLocationSimilarity(v14, v15);
 
-  [*(a1 + 40) microLocationSimilarityThreshold];
-  v18 = v17;
-  v19 = ARPLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v17 = [*(a1 + 40) microLocationSimilarityThreshold];
+  v19 = v18;
+  v20 = ARPLog(v17);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     v21 = [v7 interval];
     v30 = [v7 outputDeviceID];
     v22 = [MEMORY[0x277CCABB0] numberWithDouble:v16];
     v23 = @"less";
-    if (v16 < v18)
+    if (v16 < v19)
     {
       v24 = @"not ";
     }
@@ -544,7 +541,7 @@ void __43__ARPRoutePredictor_predictionsForContext___block_invoke_3(uint64_t a1,
       v24 = &stru_285140A98;
     }
 
-    if (v16 >= v18)
+    if (v16 >= v19)
     {
       v23 = @"greater";
     }
@@ -569,17 +566,15 @@ void __43__ARPRoutePredictor_predictionsForContext___block_invoke_3(uint64_t a1,
     v42 = v26;
     v43 = 2112;
     v44 = v27;
-    _os_log_debug_impl(&dword_23EB15000, v19, OS_LOG_TYPE_DEBUG, "Session from %@ with route %@ is %@eligible for session continuity because microlocation similarity %@ is %@ than threshold (%@), microLocationProbabilityVector: %@", buf, 0x48u);
+    _os_log_debug_impl(&dword_23EB15000, v20, OS_LOG_TYPE_DEBUG, "Session from %@ with route %@ is %@eligible for session continuity because microlocation similarity %@ is %@ than threshold (%@), microLocationProbabilityVector: %@", buf, 0x48u);
   }
 
-  if (v16 >= v18)
+  if (v16 >= v19)
   {
     *(*(*(a1 + 56) + 8) + 24) = a3;
 LABEL_5:
     *a4 = 1;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__ARPRoutePredictor_predictionsForContext___block_invoke_111(uint64_t a1, void *a2, void *a3)
@@ -639,7 +634,7 @@ uint64_t __43__ARPRoutePredictor_predictionsForContext___block_invoke_111(uint64
 
   else
   {
-    v15 = ARPLog();
+    v15 = ARPLog(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *v17 = 0;
@@ -661,30 +656,6 @@ uint64_t __43__ARPRoutePredictor_predictionsForContext___block_invoke_111(uint64
   v7 = [v3 stringWithFormat:@"<%@ %p> file: %@, knownOutputDeviceIDs: %@", v4, self, file, knownOutputDeviceIDs];
 
   return v7;
-}
-
-- (void)predictionsForContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_23EB15000, v0, v1, "Predicting airplay routes for context: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)predictionsForContext:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_23EB15000, v0, v1, "Predicted AirPlay routes based on session continuity: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)predictionsForContext:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_23EB15000, v0, v1, "Predicted AirPlay routes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

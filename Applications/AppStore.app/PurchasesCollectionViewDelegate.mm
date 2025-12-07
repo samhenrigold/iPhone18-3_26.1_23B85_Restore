@@ -17,12 +17,13 @@
   v3 = *(&self->super.isa + OBJC_IVAR____TtC8AppStore31PurchasesCollectionViewDelegate_didScrollHandler);
   if (v3)
   {
+    v5 = *&self->objectGraph[OBJC_IVAR____TtC8AppStore31PurchasesCollectionViewDelegate_didScrollHandler];
     scrollCopy = scroll;
     selfCopy = self;
-    sub_10000827C(v3);
+    sub_10000827C(v3, v5);
     v3(scrollCopy);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v5);
   }
 }
 

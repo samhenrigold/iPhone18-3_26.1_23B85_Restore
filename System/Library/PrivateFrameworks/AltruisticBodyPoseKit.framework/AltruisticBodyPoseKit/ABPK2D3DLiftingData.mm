@@ -7,6 +7,7 @@
 - (BOOL)isEqual:(id)equal;
 - (id).cxx_construct;
 - (unint64_t)hash;
+- (void)_rotateAndUndoCroppingFromRect:(CGRect)rect;
 - (void)encodeWithCoder:(id)coder;
 - (void)prepareLiftingInput:(ABPK2D3DLiftingData *)self imageSize:(SEL)size pUnnormalizedMultiArray:pMultiArray:;
 @end
@@ -32,7 +33,7 @@
 
     v20 = 0uLL;
     v21 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v20, v9, v9 + 8 * v8, v8);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v20, v9, &v9[v8], v8);
     v11 = *(v10 + 1);
     if (v11)
     {
@@ -91,7 +92,7 @@ LABEL_8:
 
     v34 = 0uLL;
     v35 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v34, v19, v19 + 8 * v14, v14);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v34, v19, &v19[v14], v14);
     v21 = *(v20 + 1);
     if (v21)
     {
@@ -190,12 +191,12 @@ LABEL_22:
   if (v14)
   {
     v15 = abpk::Human::jointVector(lifting);
-    if (v14->_anon_8 != v15)
+    if (v14 + 8 != v15)
     {
-      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(v14->_anon_8, *v15, v15[1], (v15[1] - *v15) >> 3);
+      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(v14 + 1, *v15, v15[1], (v15[1] - *v15) >> 3);
     }
 
-    v14->_rotationNeeded = rotation;
+    *(v14 + 39) = rotation;
     if (rotation == -90)
     {
       v16 = y;
@@ -244,11 +245,128 @@ LABEL_22:
       v19 = width;
     }
 
-    [(ABPK2D3DLiftingData *)v14 _rotateAndUndoCroppingFromRect:v16, v17, v18, v19];
-    [(ABPK2D3DLiftingData *)v14 prepareLiftingInput:*v14->_anon_8 imageSize:&v14->_unnormalizedMultiArray pUnnormalizedMultiArray:&v14->_multiArray pMultiArray:v12, v11];
+    [v14 _rotateAndUndoCroppingFromRect:{v16, v17, v18, v19}];
+    [v14 prepareLiftingInput:*(v14 + 1) imageSize:v14 + 184 pUnnormalizedMultiArray:v14 + 56 pMultiArray:{v12, v11}];
   }
 
   return v14;
+}
+
+- (void)_rotateAndUndoCroppingFromRect:(CGRect)rect
+{
+  v4 = *self->_anon_8;
+  v5 = *&self->_anon_8[8];
+  if (v5 == v4)
+  {
+    v9 = (v5 - v4) >> 3;
+  }
+
+  else
+  {
+    v6 = 0;
+    height = rect.size.height;
+    y = rect.origin.y;
+    do
+    {
+      *&v4[8 * v6] = vcvt_f32_f64(vmlaq_f64(rect.origin, rect.size, vcvtq_f64_f32(*&v4[8 * v6])));
+      ++v6;
+      v4 = *self->_anon_8;
+      v5 = *&self->_anon_8[8];
+      v9 = (v5 - v4) >> 3;
+    }
+
+    while (v9 > v6);
+  }
+
+  rotationNeeded = self->_rotationNeeded;
+  if (rotationNeeded)
+  {
+    v11 = rotationNeeded * 3.14159265 / 180.0;
+    v12 = __sincosf_stret(v11);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(self->_anon_20, v9);
+    v13 = *self->_anon_8;
+    if (*&self->_anon_8[8] != v13)
+    {
+      v14 = 0;
+      v15 = __PAIR64__(LODWORD(v12.__sinval), LODWORD(v12.__cosval));
+      v16.f32[0] = -v12.__sinval;
+      v16.i32[1] = LODWORD(v12.__cosval);
+      v17 = *&self->_anon_20[8];
+      v30 = v16;
+      do
+      {
+        v18 = vadd_f32(vmla_n_f32(vmul_n_f32(v15, COERCE_FLOAT(*(v13 + 8 * v14)) + -0.5), v16, COERCE_FLOAT(HIDWORD(*(v13 + 8 * v14))) + -0.5), 0x3F0000003F000000);
+        v19 = *&self->_anon_20[16];
+        if (v17 >= v19)
+        {
+          v20 = *self->_anon_20;
+          v21 = (v17 - v20) >> 3;
+          if ((v21 + 1) >> 61)
+          {
+            std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
+          }
+
+          v22 = v19 - v20;
+          v23 = v22 >> 2;
+          if (v22 >> 2 <= (v21 + 1))
+          {
+            v23 = v21 + 1;
+          }
+
+          if (v22 >= 0x7FFFFFFFFFFFFFF8)
+          {
+            v24 = 0x1FFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v24 = v23;
+          }
+
+          if (v24)
+          {
+            std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(self->_anon_20, v24);
+          }
+
+          *(8 * v21) = v18;
+          v17 = (8 * v21 + 8);
+          v25 = *self->_anon_20;
+          v26 = *&self->_anon_20[8] - v25;
+          v27 = (8 * v21 - v26);
+          memcpy(v27, v25, v26);
+          v28 = *self->_anon_20;
+          *self->_anon_20 = v27;
+          *&self->_anon_20[8] = v17;
+          *&self->_anon_20[16] = 0;
+          if (v28)
+          {
+            operator delete(v28);
+          }
+
+          v16 = v30;
+          v15 = __PAIR64__(LODWORD(v12.__sinval), LODWORD(v12.__cosval));
+        }
+
+        else
+        {
+          *v17++ = v18;
+        }
+
+        *&self->_anon_20[8] = v17;
+        ++v14;
+        v13 = *self->_anon_8;
+      }
+
+      while (v14 < (*&self->_anon_8[8] - v13) >> 3);
+    }
+  }
+
+  else
+  {
+    anon_20 = self->_anon_20;
+
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(anon_20, v4, v5, v9);
+  }
 }
 
 - (ABPK2D3DLiftingData)initWithJoints:(ABPK2D3DLiftingData *)self numberOfJoints:(SEL)joints imageSize:
@@ -264,7 +382,7 @@ LABEL_22:
   {
     v14 = 0uLL;
     v15 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v14, v9, v9 + 8 * v8, v8);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v14, v9, &v9[v8], v8);
     v11 = *(v10 + 1);
     if (v11)
     {
@@ -317,7 +435,7 @@ LABEL_22:
   while (v10 != 14);
   v33 = v5;
   v34 = v6;
-  if (determineDeviceANEVersionPriorOrEqualToH12())
+  if (determineDeviceANEVersionPriorOrEqualToH12(self, size))
   {
     *v8 = vmul_f32(vadd_f32(v8[4], v8[1]), 0x3F0000003F000000);
     v16 = v8[8];
@@ -384,7 +502,7 @@ LABEL_22:
     v7 = v24 >> 3;
     v22 = 0uLL;
     v23 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v22, v6, v6 + 8 * (v24 >> 3), v24 >> 3);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v22, v6, &v6[v24 >> 3], v24 >> 3);
     v8 = *(v5 + 1);
     if (v8)
     {
@@ -402,7 +520,7 @@ LABEL_22:
     v10 = v21 >> 3;
     v22 = 0uLL;
     v23 = 0;
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v22, v9, v9 + 8 * (v21 >> 3), v21 >> 3);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v22, v9, &v9[v21 >> 3], v21 >> 3);
     v11 = *(v5 + 4);
     if (v11)
     {

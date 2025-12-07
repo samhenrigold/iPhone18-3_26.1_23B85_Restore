@@ -39,14 +39,14 @@
 - (void)viewDidLoad
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for SVSInterventionViewController();
+  v2.super_class = type metadata accessor for SVSInterventionViewController(0);
   [(SVSInterventionViewController *)&v2 viewDidLoad];
 }
 
 - (void)_willAppearInRemoteViewController
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SVSInterventionViewController();
+  v4.super_class = type metadata accessor for SVSInterventionViewController(0);
   v2 = v4.receiver;
   [(SVSBaseMainController *)&v4 _willAppearInRemoteViewController];
   v3 = sub_1000A035C();

@@ -54,8 +54,7 @@
     }
 
     [(PRQuickActionEditingViewController *)v5 setLeadingControl:v10];
-    [(PRQuickActionEditingViewController *)v5 setTrailingControl:v13];
-    v14 = PRSharedWidgetExtensionProvider();
+    v14 = PRSharedWidgetExtensionProvider([(PRQuickActionEditingViewController *)v5 setTrailingControl:v13]);
     extensionProvider = v5->_extensionProvider;
     v5->_extensionProvider = v14;
   }
@@ -65,133 +64,133 @@
 
 - (void)viewDidLoad
 {
-  v57[4] = *MEMORY[0x1E69E9840];
-  v56.receiver = self;
-  v56.super_class = PRQuickActionEditingViewController;
-  [(PRQuickActionEditingViewController *)&v56 viewDidLoad];
-  if (PRLockPickIsActive())
+  v59[4] = *MEMORY[0x1E69E9840];
+  v58.receiver = self;
+  v58.super_class = PRQuickActionEditingViewController;
+  viewDidLoad = [(PRQuickActionEditingViewController *)&v58 viewDidLoad];
+  if (PRLockPickIsActive(viewDidLoad, v4))
   {
-    v46 = objc_alloc_init(MEMORY[0x1E6999620]);
-    [v46 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v46 setClickSuppressed:1];
+    v48 = objc_alloc_init(MEMORY[0x1E6999620]);
+    [v48 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v48 setClickSuppressed:1];
     objc_initWeak(&location, self);
-    v3 = MEMORY[0x1E69DC628];
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke;
-    v53[3] = &unk_1E7843448;
-    objc_copyWeak(&v54, &location);
-    v4 = [v3 actionWithHandler:v53];
-    [v46 addAction:v4 forControlEvents:64];
+    v5 = MEMORY[0x1E69DC628];
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke;
+    v55[3] = &unk_1E7843448;
+    objc_copyWeak(&v56, &location);
+    v6 = [v5 actionWithHandler:v55];
+    [v48 addAction:v6 forControlEvents:64];
 
     leadingControl = [(PRQuickActionEditingViewController *)self leadingControl];
-    LOBYTE(v4) = leadingControl == 0;
+    LOBYTE(v6) = leadingControl == 0;
 
-    if (v4)
+    if (v6)
     {
-      [v46 setHidden:1];
+      [v48 setHidden:1];
     }
 
     else
     {
       leadingControl2 = [(PRQuickActionEditingViewController *)self leadingControl];
-      v7 = [(PRQuickActionEditingViewController *)self _controlViewForControl:leadingControl2];
-      [v46 setGlyphView:v7];
+      v9 = [(PRQuickActionEditingViewController *)self _controlViewForControl:leadingControl2];
+      [v48 setGlyphView:v9];
     }
 
-    v8 = objc_alloc_init(MEMORY[0x1E6999620]);
-    [v8 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v8 setClickSuppressed:1];
-    v45 = v8;
-    v9 = MEMORY[0x1E69DC628];
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke_2;
-    v51[3] = &unk_1E7843448;
-    objc_copyWeak(&v52, &location);
-    v10 = [v9 actionWithHandler:v51];
-    [v45 addAction:v10 forControlEvents:64];
+    v10 = objc_alloc_init(MEMORY[0x1E6999620]);
+    [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v10 setClickSuppressed:1];
+    v47 = v10;
+    v11 = MEMORY[0x1E69DC628];
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke_2;
+    v53[3] = &unk_1E7843448;
+    objc_copyWeak(&v54, &location);
+    v12 = [v11 actionWithHandler:v53];
+    [v47 addAction:v12 forControlEvents:64];
 
     trailingControl = [(PRQuickActionEditingViewController *)self trailingControl];
-    LOBYTE(v10) = trailingControl == 0;
+    LOBYTE(v12) = trailingControl == 0;
 
-    if (v10)
+    if (v12)
     {
-      [v45 setHidden:1];
+      [v47 setHidden:1];
     }
 
     else
     {
       trailingControl2 = [(PRQuickActionEditingViewController *)self trailingControl];
-      v13 = [(PRQuickActionEditingViewController *)self _controlViewForControl:trailingControl2];
-      [v45 setGlyphView:v13];
+      v15 = [(PRQuickActionEditingViewController *)self _controlViewForControl:trailingControl2];
+      [v47 setGlyphView:v15];
     }
 
-    v14 = [objc_alloc(MEMORY[0x1E6999628]) initWithLeadingButton:v46 trailingButton:v45];
-    v15 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel__leadingActionDidFire];
-    v16 = [(PRQuickActionEditingViewController *)self _configureEditingReticleViewWithTapGesture:v15];
-    [v14 setLeadingReticle:v16];
-
-    v17 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel__trailingActionDidFire];
+    v16 = [objc_alloc(MEMORY[0x1E6999628]) initWithLeadingButton:v48 trailingButton:v47];
+    v17 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel__leadingActionDidFire];
     v18 = [(PRQuickActionEditingViewController *)self _configureEditingReticleViewWithTapGesture:v17];
-    [v14 setTrailingReticle:v18];
+    [v16 setLeadingReticle:v18];
 
-    v19 = MEMORY[0x1E69DC628];
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke_3;
-    v49[3] = &unk_1E7843448;
-    objc_copyWeak(&v50, &location);
-    v20 = [v19 actionWithHandler:v49];
-    v44 = [(PRQuickActionEditingViewController *)self _configureRemoveButtonWithAction:v20];
+    v19 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel__trailingActionDidFire];
+    v20 = [(PRQuickActionEditingViewController *)self _configureEditingReticleViewWithTapGesture:v19];
+    [v16 setTrailingReticle:v20];
 
     v21 = MEMORY[0x1E69DC628];
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke_4;
-    v47[3] = &unk_1E7843448;
-    objc_copyWeak(&v48, &location);
-    v22 = [v21 actionWithHandler:v47];
-    v43 = [(PRQuickActionEditingViewController *)self _configureRemoveButtonWithAction:v22];
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke_3;
+    v51[3] = &unk_1E7843448;
+    objc_copyWeak(&v52, &location);
+    v22 = [v21 actionWithHandler:v51];
+    v46 = [(PRQuickActionEditingViewController *)self _configureRemoveButtonWithAction:v22];
 
-    [v14 setLeadingRemoveButton:v44];
-    [v14 setTrailingRemoveButton:v43];
-    [v14 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v23 = MEMORY[0x1E69DC628];
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke_4;
+    v49[3] = &unk_1E7843448;
+    objc_copyWeak(&v50, &location);
+    v24 = [v23 actionWithHandler:v49];
+    v45 = [(PRQuickActionEditingViewController *)self _configureRemoveButtonWithAction:v24];
+
+    [v16 setLeadingRemoveButton:v46];
+    [v16 setTrailingRemoveButton:v45];
+    [v16 setTranslatesAutoresizingMaskIntoConstraints:0];
     view = [(PRQuickActionEditingViewController *)self view];
-    [view addSubview:v14];
+    [view addSubview:v16];
 
-    v33 = MEMORY[0x1E696ACD8];
-    bottomAnchor = [v14 bottomAnchor];
+    v35 = MEMORY[0x1E696ACD8];
+    bottomAnchor = [v16 bottomAnchor];
     view2 = [(PRQuickActionEditingViewController *)self view];
     bottomAnchor2 = [view2 bottomAnchor];
-    v39 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v57[0] = v39;
-    topAnchor = [v14 topAnchor];
+    v41 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v59[0] = v41;
+    topAnchor = [v16 topAnchor];
     view3 = [(PRQuickActionEditingViewController *)self view];
     topAnchor2 = [view3 topAnchor];
-    v35 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v57[1] = v35;
-    leadingAnchor = [v14 leadingAnchor];
+    v37 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v59[1] = v37;
+    leadingAnchor = [v16 leadingAnchor];
     view4 = [(PRQuickActionEditingViewController *)self view];
     leadingAnchor2 = [view4 leadingAnchor];
-    v26 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v57[2] = v26;
-    trailingAnchor = [v14 trailingAnchor];
+    v28 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v59[2] = v28;
+    trailingAnchor = [v16 trailingAnchor];
     view5 = [(PRQuickActionEditingViewController *)self view];
     trailingAnchor2 = [view5 trailingAnchor];
-    v30 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v57[3] = v30;
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:4];
-    [v33 activateConstraints:v31];
+    v32 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v59[3] = v32;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:4];
+    [v35 activateConstraints:v33];
 
     prominentButtonsView = self->_prominentButtonsView;
-    self->_prominentButtonsView = v14;
+    self->_prominentButtonsView = v16;
 
-    objc_destroyWeak(&v48);
     objc_destroyWeak(&v50);
     objc_destroyWeak(&v52);
-
     objc_destroyWeak(&v54);
+
+    objc_destroyWeak(&v56);
     objc_destroyWeak(&location);
   }
 
@@ -239,7 +238,7 @@ void __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke_4(uint64
 
 - (id)_validateControl:(id)control
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   v5 = controlCopy;
   if (controlCopy)
@@ -248,38 +247,40 @@ void __49__PRQuickActionEditingViewController_viewDidLoad__block_invoke_4(uint64
     extensionIdentity = [identity extensionIdentity];
     containerBundleIdentifier = [extensionIdentity containerBundleIdentifier];
     v9 = [MEMORY[0x1E698B0D0] applicationWithBundleIdentifier:containerBundleIdentifier];
-    if (([v9 isLocked] & 1) != 0 || objc_msgSend(v9, "isHidden"))
+    isLocked = [v9 isLocked];
+    if ((isLocked & 1) != 0 || (isLocked = [v9 isHidden], isLocked))
     {
-      v10 = PRLogEditing();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PRLogEditing(isLocked);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v19 = v5;
-        v20 = 2114;
-        v21 = containerBundleIdentifier;
-        _os_log_impl(&dword_1A8AA7000, v10, OS_LOG_TYPE_DEFAULT, "[Quick Action] removing control %{public}@ with containerBundleIdentifier %{public}@ because app was hidden or locked", buf, 0x16u);
+        v21 = v5;
+        v22 = 2114;
+        v23 = containerBundleIdentifier;
+        _os_log_impl(&dword_1A8AA7000, v11, OS_LOG_TYPE_DEFAULT, "[Quick Action] removing control %{public}@ with containerBundleIdentifier %{public}@ because app was hidden or locked", buf, 0x16u);
       }
 
-      v11 = 0;
+      v12 = 0;
       goto LABEL_7;
     }
 
-    v10 = [(CHSWidgetExtensionProvider *)self->_extensionProvider controlDescriptorForControl:identity];
-    if (v10)
+    v11 = [(CHSWidgetExtensionProvider *)self->_extensionProvider controlDescriptorForControl:identity];
+    if (v11)
     {
-      v11 = v5;
+      v12 = v5;
 LABEL_7:
 
       goto LABEL_9;
     }
 
-    v17 = 0;
-    v13 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:containerBundleIdentifier allowPlaceholder:1 error:&v17];
-    v14 = v17;
-    if (v14)
+    v19 = 0;
+    v14 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:containerBundleIdentifier allowPlaceholder:1 error:&v19];
+    v15 = v19;
+    v16 = v15;
+    if (v15)
     {
-      v15 = PRLogEditing();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = PRLogEditing(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [PRQuickActionEditingViewController _validateControl:];
       }
@@ -287,37 +288,37 @@ LABEL_7:
 
     else
     {
-      v16 = PRLogEditing();
-      v15 = v16;
-      if (v13)
+      v18 = PRLogEditing(0);
+      v17 = v18;
+      if (v14)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [PRQuickActionEditingViewController _validateControl:];
         }
 
-        v11 = v5;
+        v12 = v5;
         goto LABEL_22;
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v19 = v5;
-        _os_log_impl(&dword_1A8AA7000, v15, OS_LOG_TYPE_DEFAULT, "[Quick Action] removing button for %{public}@ because application was not found", buf, 0xCu);
+        v21 = v5;
+        _os_log_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEFAULT, "[Quick Action] removing button for %{public}@ because application was not found", buf, 0xCu);
       }
     }
 
-    v11 = 0;
+    v12 = 0;
 LABEL_22:
 
     goto LABEL_7;
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_9:
 
-  return v11;
+  return v12;
 }
 
 - (void)setLeadingControl:(id)control

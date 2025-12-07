@@ -38,8 +38,7 @@
     v17[3] = &unk_1E7843970;
     v18 = v7;
     [(BSServiceConnection *)v12 configureConnection:v17];
-    [(BSServiceConnection *)v7->_connection activate];
-    v13 = PRLogRenderingService();
+    v13 = PRLogRenderingService([(BSServiceConnection *)v7->_connection activate]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = [(BSServiceConnectionEndpoint *)v7->_endpoint debugDescription];
@@ -81,7 +80,7 @@ void __45__PRRenderingServiceClient_initWithEndpoint___block_invoke(uint64_t a1,
 void __45__PRRenderingServiceClient_initWithEndpoint___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRLogRenderingService();
+  v4 = PRLogRenderingService(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -95,13 +94,13 @@ void __45__PRRenderingServiceClient_initWithEndpoint___block_invoke_2(uint64_t a
   }
 }
 
-void __45__PRRenderingServiceClient_initWithEndpoint___block_invoke_3()
+void __45__PRRenderingServiceClient_initWithEndpoint___block_invoke_3(uint64_t a1)
 {
-  v0 = PRLogRenderingService();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = PRLogRenderingService(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1A8AA7000, v0, OS_LOG_TYPE_INFO, "PRRenderingServiceClient: invalidated remotely", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1A8AA7000, v1, OS_LOG_TYPE_INFO, "PRRenderingServiceClient: invalidated remotely", v2, 2u);
   }
 }
 
@@ -109,14 +108,14 @@ void __45__PRRenderingServiceClient_initWithEndpoint___block_invoke_3()
 {
   v1 = [*(self + 40) debugDescription];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_3(&dword_1A8AA7000, v2, v3, "PRRenderingServiceClient: Dealloc endpoint: %@, pid: %d", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_3(&dword_1A8AA7000, v2, v3, "PRRenderingServiceClient: Dealloc endpoint: %@, pid: %d", v4, v5, v6, v7);
 }
 
 - (void)invalidate
 {
   v1 = [*(self + 40) debugDescription];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_3(&dword_1A8AA7000, v2, v3, "PRRenderingServiceClient: Connection invalidated with endpoint: %@, pid: %d", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_3(&dword_1A8AA7000, v2, v3, "PRRenderingServiceClient: Connection invalidated with endpoint: %@, pid: %d", v4, v5, v6, v7);
 }
 
 - (void)deviceMotionEventGenerationWillStart
@@ -139,7 +138,7 @@ void __45__PRRenderingServiceClient_initWithEndpoint___block_invoke_3()
   delegate = [(PRRenderingServiceClient *)self delegate];
   if (eventCopy)
   {
-    [eventCopy rotation];
+    objc_msgSend_rotation(eventCopy);
   }
 
   else

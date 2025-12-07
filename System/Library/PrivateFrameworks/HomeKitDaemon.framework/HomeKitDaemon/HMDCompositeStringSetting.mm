@@ -9,18 +9,16 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = HMDCompositeStringSetting;
-  attributeDescriptions = [(HMDCompositeSetting *)&v11 attributeDescriptions];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = HMDCompositeStringSetting;
+  attributeDescriptions = [(HMDCompositeSetting *)&v10 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   stringValue = [(HMDCompositeStringSetting *)self stringValue];
   v6 = [v4 initWithName:@"value" value:stringValue];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [v7 arrayByAddingObjectsFromArray:attributeDescriptions];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -103,7 +101,7 @@
   v9 = [(HMDCompositeSetting *)&v13 initWithReadVersion:version writeVersion:writeVersion];
   if (v9)
   {
-    v10 = [valueCopy copy];
+    v10 = objc_msgSend_copy(valueCopy);
     stringValue = v9->_stringValue;
     v9->_stringValue = v10;
   }

@@ -44,25 +44,25 @@
 
 - (FCFeedDescriptor)initWithIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != nil"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != nil"];
     *buf = 136315906;
-    v14 = "[FCFeedDescriptor initWithIdentifier:]";
-    v15 = 2080;
-    v16 = "FCFeedDescriptor.m";
-    v17 = 1024;
-    v18 = 69;
-    v19 = 2114;
-    v20 = v11;
+    v13 = "[FCFeedDescriptor initWithIdentifier:]";
+    v14 = 2080;
+    v15 = "FCFeedDescriptor.m";
+    v16 = 1024;
+    v17 = 69;
+    v18 = 2114;
+    v19 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v12.receiver = self;
-  v12.super_class = FCFeedDescriptor;
-  v5 = [(FCFeedDescriptor *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = FCFeedDescriptor;
+  v5 = [(FCFeedDescriptor *)&v11 init];
   v6 = v5;
   if (v5)
   {
@@ -80,7 +80,6 @@
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -179,34 +178,33 @@
 
 - (BOOL)isSubscribedToWithSubscriptionController:(id)controller
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   if ([(FCFeedDescriptor *)self isSubscribable])
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Abstract method"];
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Abstract method"];
       *buf = 136315906;
-      v14 = "[FCFeedDescriptor isSubscribedToWithSubscriptionController:]";
-      v15 = 2080;
-      v16 = "FCFeedDescriptor.m";
-      v17 = 1024;
-      v18 = 146;
-      v19 = 2114;
-      v20 = v7;
+      v13 = "[FCFeedDescriptor isSubscribedToWithSubscriptionController:]";
+      v14 = 2080;
+      v15 = "FCFeedDescriptor.m";
+      v16 = 1024;
+      v17 = 146;
+      v18 = 2114;
+      v19 = v6;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    v8 = MEMORY[0x1E695DF30];
-    v9 = *MEMORY[0x1E695D930];
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %s", @"Abstract method", "-[FCFeedDescriptor isSubscribedToWithSubscriptionController:]"];
-    v11 = [v8 exceptionWithName:v9 reason:v10 userInfo:0];
-    v12 = v11;
+    v7 = MEMORY[0x1E695DF30];
+    v8 = *MEMORY[0x1E695D930];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %s", @"Abstract method", "-[FCFeedDescriptor isSubscribedToWithSubscriptionController:]"];
+    v10 = [v7 exceptionWithName:v8 reason:v9 userInfo:0];
+    v11 = v10;
 
-    objc_exception_throw(v11);
+    objc_exception_throw(v10);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -264,37 +262,35 @@
 
 - (id)streamOfHeadlinesWithIDs:(id)ds context:(id)context cachedOnly:(BOOL)only maxCachedAge:(double)age
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context"];
     *buf = 136315906;
-    v24 = "[FCFeedDescriptor streamOfHeadlinesWithIDs:context:cachedOnly:maxCachedAge:]";
-    v25 = 2080;
-    v26 = "FCFeedDescriptor.m";
-    v27 = 1024;
-    v28 = 242;
-    v29 = 2114;
-    v30 = v18;
+    v23 = "[FCFeedDescriptor streamOfHeadlinesWithIDs:context:cachedOnly:maxCachedAge:]";
+    v24 = 2080;
+    v25 = "FCFeedDescriptor.m";
+    v26 = 1024;
+    v27 = 242;
+    v28 = 2114;
+    v29 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v12 = [[FCArrayStream alloc] initWithArray:dsCopy];
   v13 = [FCTransformedResultsStream alloc];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __77__FCFeedDescriptor_streamOfHeadlinesWithIDs_context_cachedOnly_maxCachedAge___block_invoke;
-  v19[3] = &unk_1E7C3A1B0;
-  v19[4] = self;
-  v20 = contextCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __77__FCFeedDescriptor_streamOfHeadlinesWithIDs_context_cachedOnly_maxCachedAge___block_invoke;
+  v18[3] = &unk_1E7C3A1B0;
+  v18[4] = self;
+  v19 = contextCopy;
   onlyCopy = only;
   ageCopy = age;
   v14 = contextCopy;
-  v15 = [(FCTransformedResultsStream *)v13 initWithStream:v12 asyncTransformBlock:v19];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [(FCTransformedResultsStream *)v13 initWithStream:v12 asyncTransformBlock:v18];
 
   return v15;
 }
@@ -348,27 +344,25 @@ void __77__FCFeedDescriptor_streamOfHeadlinesWithIDs_context_cachedOnly_maxCache
 
 - (id)fetchOperationForHeadlinesWithIDs:(id)ds context:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "context"];
     *buf = 136315906;
-    v13 = "[FCFeedDescriptor fetchOperationForHeadlinesWithIDs:context:]";
-    v14 = 2080;
-    v15 = "FCFeedDescriptor.m";
-    v16 = 1024;
-    v17 = 267;
-    v18 = 2114;
-    v19 = v11;
+    v12 = "[FCFeedDescriptor fetchOperationForHeadlinesWithIDs:context:]";
+    v13 = 2080;
+    v14 = "FCFeedDescriptor.m";
+    v15 = 1024;
+    v16 = 267;
+    v17 = 2114;
+    v18 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   articleController = [contextCopy articleController];
   v8 = [articleController headlinesFetchOperationForArticleIDs:dsCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -1,4 +1,5 @@
 @interface JavaUtilConcurrentCopyOnWriteArrayList_CowSubList
+- (BOOL)addAllWithInt:(int)int withJavaUtilCollection:(id)collection;
 - (BOOL)addAllWithJavaUtilCollection:(id)collection;
 - (BOOL)addWithId:(id)id;
 - (BOOL)containsAllWithJavaUtilCollection:(id)collection;
@@ -9,10 +10,13 @@
 - (JavaUtilConcurrentCopyOnWriteArrayList_CowSubList)subListWithInt:(int)int withInt:(int)withInt;
 - (id)getWithInt:(int)int;
 - (id)listIteratorWithInt:(int)int;
+- (id)removeWithInt:(int)int;
+- (id)setWithInt:(int)int withId:(id)id;
 - (int)indexOfWithId:(id)id;
 - (int)lastIndexOfWithId:(id)id;
 - (int)size;
 - (void)__javaClone;
+- (void)addWithInt:(int)int withId:(id)id;
 - (void)clear;
 - (void)dealloc;
 @end
@@ -161,6 +165,39 @@
   return v11;
 }
 
+- (id)removeWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = self->this$0_;
+  objc_sync_enter(v5);
+  p_slice = &self->slice_;
+  v7 = atomic_load(&self->slice_);
+  if (!v7)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v7 checkElementIndexWithInt:v3];
+  v8 = atomic_load(p_slice);
+  v9 = atomic_load(&self->this$0_->elements_);
+  [v8 checkConcurrentModificationWithNSObjectArray:v9];
+  v10 = self->this$0_;
+  v11 = atomic_load(p_slice);
+  v12 = [(JavaUtilConcurrentCopyOnWriteArrayList *)v10 removeWithInt:(*(v11 + 16) + v3)];
+  v13 = atomic_load(&self->this$0_->elements_);
+  v14 = atomic_load(p_slice);
+  v15 = *(v14 + 16);
+  v16 = atomic_load(p_slice);
+  v17 = *(v16 + 20);
+  v18 = [JavaUtilConcurrentCopyOnWriteArrayList_Slice alloc];
+  JreStrongAssign(&v18->expectedElements_, v13);
+  v18->from_ = v15;
+  v18->to_ = v17 - 1;
+  JreVolatileStrongAssignAndConsume(p_slice, v18);
+  objc_sync_exit(v5);
+  return v12;
+}
+
 - (void)clear
 {
   v3 = self->this$0_;
@@ -193,6 +230,39 @@
   objc_sync_exit(v3);
 }
 
+- (void)addWithInt:(int)int withId:(id)id
+{
+  v5 = *&int;
+  v7 = self->this$0_;
+  objc_sync_enter(v7);
+  p_slice = &self->slice_;
+  v9 = atomic_load(&self->slice_);
+  if (!v9)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v9 checkPositionIndexWithInt:v5];
+  v10 = atomic_load(p_slice);
+  v11 = atomic_load(&self->this$0_->elements_);
+  [v10 checkConcurrentModificationWithNSObjectArray:v11];
+  v12 = self->this$0_;
+  v13 = atomic_load(p_slice);
+  [(JavaUtilConcurrentCopyOnWriteArrayList *)v12 addWithInt:(*(v13 + 16) + v5) withId:id];
+  v14 = atomic_load(&self->this$0_->elements_);
+  v15 = atomic_load(p_slice);
+  v16 = *(v15 + 16);
+  v17 = atomic_load(p_slice);
+  v18 = *(v17 + 20);
+  v19 = [JavaUtilConcurrentCopyOnWriteArrayList_Slice alloc];
+  JreStrongAssign(&v19->expectedElements_, v14);
+  v19->from_ = v16;
+  v19->to_ = v18 + 1;
+  JreVolatileStrongAssignAndConsume(p_slice, v19);
+
+  objc_sync_exit(v7);
+}
+
 - (BOOL)addWithId:(id)id
 {
   v5 = self->this$0_;
@@ -210,6 +280,48 @@
   return 1;
 }
 
+- (BOOL)addAllWithInt:(int)int withJavaUtilCollection:(id)collection
+{
+  v5 = *&int;
+  v7 = self->this$0_;
+  objc_sync_enter(v7);
+  p_slice = &self->slice_;
+  v9 = atomic_load(&self->slice_);
+  if (!v9)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v9 checkPositionIndexWithInt:v5];
+  v10 = atomic_load(p_slice);
+  v11 = atomic_load(&self->this$0_->elements_);
+  [v10 checkConcurrentModificationWithNSObjectArray:v11];
+  v12 = atomic_load(&self->this$0_->elements_);
+  if (!v12)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v13 = *(v12 + 8);
+  v14 = self->this$0_;
+  v15 = atomic_load(p_slice);
+  v16 = [(JavaUtilConcurrentCopyOnWriteArrayList *)v14 addAllWithInt:(*(v15 + 16) + v5) withJavaUtilCollection:collection];
+  v17 = atomic_load(&self->this$0_->elements_);
+  v18 = atomic_load(p_slice);
+  v19 = *(v18 + 16);
+  v20 = atomic_load(p_slice);
+  v21 = *(v20 + 20);
+  v22 = atomic_load(&self->this$0_->elements_);
+  v23 = *(v22 + 8);
+  v24 = [JavaUtilConcurrentCopyOnWriteArrayList_Slice alloc];
+  JreStrongAssign(&v24->expectedElements_, v17);
+  v24->from_ = v19;
+  v24->to_ = v21 - v13 + v23;
+  JreVolatileStrongAssignAndConsume(p_slice, v24);
+  objc_sync_exit(v7);
+  return v16;
+}
+
 - (BOOL)addAllWithJavaUtilCollection:(id)collection
 {
   v5 = self->this$0_;
@@ -217,6 +329,39 @@
   LOBYTE(collection) = [(JavaUtilConcurrentCopyOnWriteArrayList_CowSubList *)self addAllWithInt:[(JavaUtilConcurrentCopyOnWriteArrayList_CowSubList *)self size] withJavaUtilCollection:collection];
   objc_sync_exit(v5);
   return collection;
+}
+
+- (id)setWithInt:(int)int withId:(id)id
+{
+  v5 = *&int;
+  v7 = self->this$0_;
+  objc_sync_enter(v7);
+  p_slice = &self->slice_;
+  v9 = atomic_load(&self->slice_);
+  if (!v9)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [v9 checkElementIndexWithInt:v5];
+  v10 = atomic_load(p_slice);
+  v11 = atomic_load(&self->this$0_->elements_);
+  [v10 checkConcurrentModificationWithNSObjectArray:v11];
+  v12 = self->this$0_;
+  v13 = atomic_load(p_slice);
+  v14 = [(JavaUtilConcurrentCopyOnWriteArrayList *)v12 setWithInt:(*(v13 + 16) + v5) withId:id];
+  v15 = atomic_load(&self->this$0_->elements_);
+  v16 = atomic_load(p_slice);
+  v17 = *(v16 + 16);
+  v18 = atomic_load(p_slice);
+  v19 = *(v18 + 20);
+  v20 = [JavaUtilConcurrentCopyOnWriteArrayList_Slice alloc];
+  JreStrongAssign(&v20->expectedElements_, v15);
+  v20->from_ = v17;
+  v20->to_ = v19;
+  JreVolatileStrongAssignAndConsume(p_slice, v20);
+  objc_sync_exit(v7);
+  return v14;
 }
 
 - (BOOL)removeWithId:(id)id

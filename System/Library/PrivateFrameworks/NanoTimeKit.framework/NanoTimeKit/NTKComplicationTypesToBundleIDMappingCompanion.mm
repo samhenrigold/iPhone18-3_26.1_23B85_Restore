@@ -6,7 +6,7 @@
 void ___NTKComplicationTypesToBundleIDMappingCompanion_block_invoke()
 {
   v0 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:60];
-  v1 = _NTKBundleIDToComplicationTypesMappingCompanion();
+  v1 = _NTKBundleIDToComplicationTypesMappingCompanion(v0);
   v5[0] = MEMORY[0x277D85DD0];
   v5[1] = 3221225472;
   v5[2] = ___NTKComplicationTypesToBundleIDMappingCompanion_block_invoke_2;

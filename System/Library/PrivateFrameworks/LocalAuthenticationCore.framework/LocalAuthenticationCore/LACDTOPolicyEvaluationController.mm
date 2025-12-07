@@ -105,52 +105,51 @@ void __76__LACDTOPolicyEvaluationController_processRequest_configuration_complet
   v15 = requestCopy;
   v36 = v15;
   v16 = _Block_copy(aBlock);
+  v17 = v16;
   if (v13)
   {
-    v17 = resultCopy;
+    v18 = resultCopy;
     options = [v15 options];
-    v19 = [MEMORY[0x1E696AD98] numberWithInteger:1062];
-    v20 = [options objectForKeyedSubscript:v19];
+    v20 = [MEMORY[0x1E696AD98] numberWithInteger:1062];
+    v21 = [options objectForKeyedSubscript:v20];
 
-    if ([v20 BOOLValue])
+    if ([v21 BOOLValue])
     {
       options2 = [v15 options];
-      v22 = [(LACDTOPolicyEvaluationController *)self _errorCodesToFilterForOptions:options2];
+      v23 = [(LACDTOPolicyEvaluationController *)self _errorCodesToFilterForOptions:options2];
 
-      v23 = [(LACDTOPolicyEvaluationController *)self _mapResult:v17 filterCodes:v22];
+      v24 = [(LACDTOPolicyEvaluationController *)self _mapResult:v18 filterCodes:v23];
 
-      v17 = v23;
+      v18 = v24;
     }
 
     v29 = MEMORY[0x1E69E9820];
     v30 = 3221225472;
     v31 = __73__LACDTOPolicyEvaluationController_postProcessRequest_result_completion___block_invoke_6;
     v32 = &unk_1E7A96CF8;
-    v24 = v13;
-    v33 = v24;
-    v25 = v17;
-    v34 = v25;
-    v26 = __73__LACDTOPolicyEvaluationController_postProcessRequest_result_completion___block_invoke_6(&v29);
-    [(LACDTOPolicyEvaluationController *)self _notifyObserversAboutEvaluation:v24 result:v26, v29, v30];
+    v25 = v13;
+    v33 = v25;
+    v26 = v18;
+    v34 = v26;
+    v27 = __73__LACDTOPolicyEvaluationController_postProcessRequest_result_completion___block_invoke_6(&v29);
+    [(LACDTOPolicyEvaluationController *)self _notifyObserversAboutEvaluation:v25 result:v27, v29, v30];
 
-    v16[2](v16, v25);
+    (v17)[2](v17, v26);
   }
 
   else
   {
-    v27 = LACLogDTOEvaluation();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = LACLogDTOEvaluation(v16);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      -[LACDTOPolicyEvaluationController postProcessRequest:result:completion:].cold.1(buf, [v15 identifier], v27);
+      -[LACDTOPolicyEvaluationController postProcessRequest:result:completion:].cold.1(buf, [v15 identifier], v28);
     }
 
-    v16[2](v16, resultCopy);
+    (v17)[2](v17, resultCopy);
   }
 
   objc_destroyWeak(&v38);
   objc_destroyWeak(&location);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __73__LACDTOPolicyEvaluationController_postProcessRequest_result_completion___block_invoke(uint64_t a1, void *a2)
@@ -260,15 +259,15 @@ void __64__LACDTOPolicyEvaluationController__evaluateRequest_completion___block_
 
 - (BOOL)_verifyHasRequiredOptions:(id)options forPolicy:(int64_t)policy error:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   if (policy == 1026 && ([MEMORY[0x1E696AD98] numberWithInteger:1000], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(optionsCopy, "objectForKeyedSubscript:", v8), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "BOOLValue"), v9, v8, (v10 & 1) == 0))
   {
     v12 = MEMORY[0x1E695DF90];
     v13 = [MEMORY[0x1E696AD98] numberWithInteger:1066];
-    v47 = v13;
-    v48[0] = objc_opt_class();
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+    v46 = v13;
+    v47[0] = objc_opt_class();
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
     v15 = [v12 dictionaryWithDictionary:v14];
 
     v16 = [MEMORY[0x1E696AD98] numberWithInteger:1000];
@@ -277,72 +276,71 @@ void __64__LACDTOPolicyEvaluationController__evaluateRequest_completion___block_
     if (!v17 || ([v17 BOOLValue] & 1) == 0)
     {
       v18 = [MEMORY[0x1E696AD98] numberWithInteger:2];
-      v45[0] = v18;
-      v46[0] = objc_opt_class();
+      v44[0] = v18;
+      v45[0] = objc_opt_class();
       v19 = [MEMORY[0x1E696AD98] numberWithInteger:1064];
-      v45[1] = v19;
-      v46[1] = objc_opt_class();
+      v44[1] = v19;
+      v45[1] = objc_opt_class();
       v20 = [MEMORY[0x1E696AD98] numberWithInteger:1063];
-      v45[2] = v20;
-      v46[2] = objc_opt_class();
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:3];
+      v44[2] = v20;
+      v45[2] = objc_opt_class();
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:3];
       [v15 addEntriesFromDictionary:v21];
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     obj = [v15 allKeys];
-    v22 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v22 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v22)
     {
       v23 = v22;
       errorCopy = error;
-      v38 = v17;
-      v24 = *v41;
+      v37 = v17;
+      v24 = *v40;
       while (2)
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v41 != v24)
+          if (*v40 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v40 + 1) + 8 * i);
+          v26 = *(*(&v39 + 1) + 8 * i);
           v27 = [optionsCopy objectForKeyedSubscript:v26];
-          if (!v27)
+          if (v27)
           {
-            goto LABEL_17;
-          }
+            v28 = v27;
+            v29 = [optionsCopy objectForKeyedSubscript:v26];
+            v30 = [v15 objectForKeyedSubscript:v26];
+            isKindOfClass = objc_opt_isKindOfClass();
 
-          v28 = v27;
-          v29 = [optionsCopy objectForKeyedSubscript:v26];
-          v30 = [v15 objectForKeyedSubscript:v26];
-          isKindOfClass = objc_opt_isKindOfClass();
-
-          if ((isKindOfClass & 1) == 0)
-          {
-LABEL_17:
-            v32 = [v15 objectForKeyedSubscript:v26];
-            v33 = NSStringFromClass(v32);
-
-            v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing required option (%d) with type '%@'", objc_msgSend(v26, "integerValue"), v33];
-            if (errorCopy)
+            if (isKindOfClass)
             {
-              *errorCopy = [LACError errorWithCode:-1001 debugDescription:v34];
+              continue;
             }
-
-            v11 = 0;
-            v17 = v38;
-            goto LABEL_21;
           }
+
+          v32 = [v15 objectForKeyedSubscript:v26];
+          v33 = NSStringFromClass(v32);
+
+          v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing required option (%d) with type '%@'", objc_msgSend(v26, "integerValue"), v33];
+          if (errorCopy)
+          {
+            *errorCopy = [LACError errorWithCode:-1001 debugDescription:v34];
+          }
+
+          v11 = 0;
+          v17 = v37;
+          goto LABEL_21;
         }
 
-        v23 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v23 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
         v11 = 1;
-        v17 = v38;
+        v17 = v37;
         if (v23)
         {
           continue;
@@ -365,7 +363,6 @@ LABEL_21:
     v11 = 1;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -449,11 +446,11 @@ LABEL_12:
     v26 = [MEMORY[0x1E696AD98] numberWithInteger:1062];
     [v11 setObject:MEMORY[0x1E695E110] forKeyedSubscript:v26];
 
-    v27 = LACLogDTO();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = LACLogDTO(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      *v29 = 0;
-      _os_log_impl(&dword_1B0233000, v27, OS_LOG_TYPE_DEFAULT, "Force disabling usage of LACPolicyOptionFallbackToNoAuthentication for this policy", v29, 2u);
+      *v30 = 0;
+      _os_log_impl(&dword_1B0233000, v28, OS_LOG_TYPE_DEFAULT, "Force disabling usage of LACPolicyOptionFallbackToNoAuthentication for this policy", v30, 2u);
     }
   }
 
@@ -521,7 +518,7 @@ LACDTOMutablePolicyEvaluationRequest *__76__LACDTOPolicyEvaluationController__ev
 - (void)_notifyObserversAboutEvaluation:(id)evaluation
 {
   evaluationCopy = evaluation;
-  v5 = LACLogDTOEvaluation();
+  v5 = LACLogDTOEvaluation(evaluationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(LACDTOPolicyEvaluationController *)evaluationCopy _notifyObserversAboutEvaluation:v5];
@@ -541,7 +538,7 @@ LACDTOMutablePolicyEvaluationRequest *__76__LACDTOPolicyEvaluationController__ev
 {
   evaluationCopy = evaluation;
   resultCopy = result;
-  v8 = LACLogDTOEvaluation();
+  v8 = LACLogDTOEvaluation(resultCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [LACDTOPolicyEvaluationController _notifyObserversAboutEvaluation:resultCopy result:v8];
@@ -561,39 +558,37 @@ LACDTOMutablePolicyEvaluationRequest *__76__LACDTOPolicyEvaluationController__ev
 
 - (void)_forEachObserver:(id)observer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_observers;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        observerCopy[2](observerCopy, *(*(&v11 + 1) + 8 * v9++));
+        observerCopy[2](observerCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_mapResult:(id)result filterCodes:(id)codes
@@ -625,19 +620,20 @@ LACDTOMutablePolicyEvaluationRequest *__76__LACDTOPolicyEvaluationController__ev
               objc_enumerationMutation(v9);
             }
 
-            if (+[LACError error:hasCode:](LACError, "error:hasCode:", error, [*(*(&v18 + 1) + 8 * i) integerValue]))
+            v14 = +[LACError error:hasCode:](LACError, "error:hasCode:", error, [*(*(&v18 + 1) + 8 * i) integerValue]);
+            if (v14)
             {
-              v15 = LACLogDTO();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v16 = LACLogDTO(v14);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
                 selfCopy = self;
                 v24 = 2112;
                 v25 = error;
-                _os_log_impl(&dword_1B0233000, v15, OS_LOG_TYPE_DEFAULT, "%@ mapping error %@ to success", buf, 0x16u);
+                _os_log_impl(&dword_1B0233000, v16, OS_LOG_TYPE_DEFAULT, "%@ mapping error %@ to success", buf, 0x16u);
               }
 
-              v14 = [LACEvaluationResult resultWithSuccess:MEMORY[0x1E695E0F8]];
+              v15 = [LACEvaluationResult resultWithSuccess:MEMORY[0x1E695E0F8]];
 
               goto LABEL_17;
             }
@@ -654,23 +650,21 @@ LACDTOMutablePolicyEvaluationRequest *__76__LACDTOPolicyEvaluationController__ev
       }
     }
 
-    v14 = resultCopy;
+    v15 = resultCopy;
 LABEL_17:
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v15;
 }
 
 - (id)_errorCodesToFilterForOptions:(id)options
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v4 = objc_opt_new();
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:1062];
@@ -679,16 +673,14 @@ LABEL_17:
   if ([v6 BOOLValue])
   {
     v7 = [MEMORY[0x1E696AD98] numberWithInteger:-1011];
-    v13[0] = v7;
+    v12[0] = v7;
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:-5];
-    v13[1] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+    v12[1] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
     [v4 addObjectsFromArray:v9];
   }
 
   allObjects = [v4 allObjects];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -702,20 +694,18 @@ LABEL_17:
 
 - (void)_notifyObserversAboutEvaluation:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "Policy evaluation will start: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "Policy evaluation will start: %@", &v2, 0xCu);
 }
 
 - (void)_notifyObserversAboutEvaluation:(uint64_t)a1 result:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "Policy evaluation did finish: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "Policy evaluation did finish: %@", &v2, 0xCu);
 }
 
 @end

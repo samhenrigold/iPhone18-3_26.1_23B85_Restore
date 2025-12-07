@@ -6,6 +6,7 @@
 - (BOOL)assemble;
 - (BOOL)assembleUsingSummaryReport;
 - (BOOL)bootstrap;
+- (MIBURaptorQPacketConsumer)initWithBasicParameters:(unint64_t)parameters extendedParameters:(unsigned int)extendedParameters threshold:(unint64_t)threshold outputFile:(id)file;
 - (MIBURaptorQPacketConsumer)initWithEncoderSummary:(id)summary threshold:(unint64_t)threshold outputFile:(id)file;
 - (MIBURaptorQPacketConsumer)initWithEncoderSummaryFile:(id)file threshold:(unint64_t)threshold outputFile:(id)outputFile;
 - (int64_t)missingCount;
@@ -17,6 +18,18 @@
 @end
 
 @implementation MIBURaptorQPacketConsumer
+
+- (MIBURaptorQPacketConsumer)initWithBasicParameters:(unint64_t)parameters extendedParameters:(unsigned int)extendedParameters threshold:(unint64_t)threshold outputFile:(id)file
+{
+  v7 = *&extendedParameters;
+  fileCopy = file;
+  v11 = objc_alloc_init(SKRaptorQEncoderSummary);
+  [(SKRaptorQEncoderSummary *)v11 setRqBasicParameters:parameters];
+  [(SKRaptorQEncoderSummary *)v11 setRqExtendedParameters:v7];
+  v12 = [(MIBURaptorQPacketConsumer *)self initWithEncoderSummary:v11 threshold:threshold outputFile:fileCopy];
+
+  return v12;
+}
 
 - (MIBURaptorQPacketConsumer)initWithEncoderSummaryFile:(id)file threshold:(unint64_t)threshold outputFile:(id)outputFile
 {
@@ -38,12 +51,12 @@
 
 - (MIBURaptorQPacketConsumer)initWithEncoderSummary:(id)summary threshold:(unint64_t)threshold outputFile:(id)file
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   fileCopy = file;
-  v21.receiver = self;
-  v21.super_class = MIBURaptorQPacketConsumer;
-  v11 = [(MIBURaptorQPacketConsumer *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = MIBURaptorQPacketConsumer;
+  v11 = [(MIBURaptorQPacketConsumer *)&v20 init];
   if (v11)
   {
     if (MIBUOnceToken != -1)
@@ -58,13 +71,13 @@
       rqBasicParameters = [summaryCopy rqBasicParameters];
       rqExtendedParameters = [summaryCopy rqExtendedParameters];
       *buf = 134218754;
-      v23 = rqBasicParameters;
-      v24 = 1024;
-      v25 = rqExtendedParameters;
-      v26 = 2048;
+      v22 = rqBasicParameters;
+      v23 = 1024;
+      v24 = rqExtendedParameters;
+      v25 = 2048;
       thresholdCopy = threshold;
-      v28 = 2114;
-      v29 = fileCopy;
+      v27 = 2114;
+      v28 = fileCopy;
       _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "Initialize packet consumer with basic parameters: %llu, extended parameters: %u, threshold: %lu, output file: %{public}@", buf, 0x26u);
     }
 
@@ -78,7 +91,6 @@
     objc_storeStrong(&v11->_encoderSummary, summary);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -117,7 +129,7 @@ void __73__MIBURaptorQPacketConsumer_initWithEncoderSummary_threshold_outputFile
   return v3;
 }
 
-uint64_t __38__MIBURaptorQPacketConsumer_bootstrap__block_invoke(uint64_t a1)
+void *__38__MIBURaptorQPacketConsumer_bootstrap__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _bootstrap];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -149,23 +161,23 @@ uint64_t __38__MIBURaptorQPacketConsumer_bootstrap__block_invoke(uint64_t a1)
 
 void __79__MIBURaptorQPacketConsumer_consumePackets_arrivalTime_withCompletion_inQueue___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v20;
+    v6 = *v19;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v2);
         }
@@ -178,17 +190,17 @@ void __79__MIBURaptorQPacketConsumer_consumePackets_arrivalTime_withCompletion_i
           block[1] = 3221225472;
           block[2] = __79__MIBURaptorQPacketConsumer_consumePackets_arrivalTime_withCompletion_inQueue___block_invoke_2;
           block[3] = &unk_2798EBBB8;
-          v17 = *(a1 + 64);
-          v18 = v5;
+          v16 = *(a1 + 64);
+          v17 = v5;
           dispatch_async(v9, block);
 
           goto LABEL_13;
         }
 
-        v5 += [v8 _consumePacket:*(*(&v19 + 1) + 8 * i) arrivalTime:*(a1 + 56)];
+        v5 += [v8 _consumePacket:*(*(&v18 + 1) + 8 * i) arrivalTime:*(a1 + 56)];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v4)
       {
         continue;
@@ -204,19 +216,17 @@ void __79__MIBURaptorQPacketConsumer_consumePackets_arrivalTime_withCompletion_i
   }
 
   v10 = *(a1 + 48);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __79__MIBURaptorQPacketConsumer_consumePackets_arrivalTime_withCompletion_inQueue___block_invoke_3;
-  v13[3] = &unk_2798EBBE0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __79__MIBURaptorQPacketConsumer_consumePackets_arrivalTime_withCompletion_inQueue___block_invoke_3;
+  v12[3] = &unk_2798EBBE0;
   v11 = *(a1 + 64);
-  v15 = v5;
-  v13[4] = *(a1 + 40);
-  v14 = v11;
-  dispatch_async(v10, v13);
-  v2 = v14;
+  v14 = v5;
+  v12[4] = *(a1 + 40);
+  v13 = v11;
+  dispatch_async(v10, v12);
+  v2 = v13;
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)missingCount
@@ -238,7 +248,7 @@ LABEL_13:
   return v3;
 }
 
-uint64_t __41__MIBURaptorQPacketConsumer_missingCount__block_invoke(uint64_t a1)
+void *__41__MIBURaptorQPacketConsumer_missingCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) missingSymbolCount];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -264,7 +274,7 @@ uint64_t __41__MIBURaptorQPacketConsumer_missingCount__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __37__MIBURaptorQPacketConsumer_assemble__block_invoke(uint64_t a1)
+void *__37__MIBURaptorQPacketConsumer_assemble__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _assemble];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -301,7 +311,7 @@ uint64_t __37__MIBURaptorQPacketConsumer_assemble__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __55__MIBURaptorQPacketConsumer_assembleUsingSummaryReport__block_invoke(uint64_t a1)
+void *__55__MIBURaptorQPacketConsumer_assembleUsingSummaryReport__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _assembleUsingSummaryReport];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -310,7 +320,7 @@ uint64_t __55__MIBURaptorQPacketConsumer_assembleUsingSummaryReport__block_invok
 
 - (BOOL)_bootstrap
 {
-  buf[3] = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   stringByDeletingLastPathComponent = [(NSString *)self->_outputFile stringByDeletingLastPathComponent];
@@ -331,14 +341,14 @@ LABEL_7:
     v9 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(buf[0]) = 138543362;
-      *(buf + 4) = stringByDeletingLastPathComponent;
+      *buf = 138543362;
+      *&buf[4] = stringByDeletingLastPathComponent;
       _os_log_impl(&dword_259B04000, v9, OS_LOG_TYPE_DEFAULT, "Creating parent directory: %{public}@", buf, 0xCu);
     }
 
-    v23 = v7;
-    v10 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v23];
-    v11 = v23;
+    v22 = v7;
+    v10 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v22];
+    v11 = v22;
 
     if ((v10 & 1) == 0)
     {
@@ -356,9 +366,9 @@ LABEL_7:
   }
 
   outputFile = self->_outputFile;
-  v24 = 0;
-  v6 = [defaultManager removeItemAtPath:outputFile error:&v24];
-  v7 = v24;
+  v23 = 0;
+  v6 = [defaultManager removeItemAtPath:outputFile error:&v23];
+  v7 = v23;
   if ((v6 & 1) == 0)
   {
     [MIBURaptorQPacketConsumer _bootstrap];
@@ -379,9 +389,9 @@ LABEL_13:
     rqExtendedParameters = [(SKRaptorQEncoderSummary *)self->_encoderSummary rqExtendedParameters];
     threshold = self->_threshold;
     v16 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->_outputFile];
-    v22 = v7;
-    v17 = [(SKRaptorQDecoder *)v12 initWithBasicParameters:rqBasicParameters extendedParameters:rqExtendedParameters repairFactor:2 threshold:threshold outputURL:v16 error:&v22];
-    v18 = v22;
+    v21 = v7;
+    v17 = [(SKRaptorQDecoder *)v12 initWithBasicParameters:rqBasicParameters extendedParameters:rqExtendedParameters repairFactor:2 threshold:threshold outputURL:v16 error:&v21];
+    v18 = v21;
 
     raptorQDecoder = self->_raptorQDecoder;
     self->_raptorQDecoder = v17;
@@ -398,8 +408,8 @@ LABEL_13:
 
     [MIBURaptorQPacketConsumer _bootstrap];
 LABEL_19:
-    v7 = buf[0];
-    v8 = v25;
+    v7 = *buf;
+    v8 = v24;
     goto LABEL_15;
   }
 
@@ -407,7 +417,6 @@ LABEL_5:
   v8 = 1;
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -477,13 +486,13 @@ void __39__MIBURaptorQPacketConsumer__bootstrap__block_invoke_15()
 
 - (BOOL)_consumePacket:(id)packet arrivalTime:(id)time
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   timeCopy = time;
   raptorQDecoder = self->_raptorQDecoder;
-  v18 = 0;
-  v9 = [(SKRaptorQDecoder *)raptorQDecoder addPacket:packetCopy error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v9 = [(SKRaptorQDecoder *)raptorQDecoder addPacket:packetCopy error:&v17];
+  v10 = v17;
   if (v9)
   {
     if (!self->_firstReceived)
@@ -506,7 +515,7 @@ void __39__MIBURaptorQPacketConsumer__bootstrap__block_invoke_15()
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v20 = v12;
+        v19 = v12;
         _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "RaptorQ decoder has received enough encoded symbols! Cycle time between first and last packet: %f", buf, 0xCu);
       }
 
@@ -530,7 +539,6 @@ void __39__MIBURaptorQPacketConsumer__bootstrap__block_invoke_15()
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -568,13 +576,13 @@ void __56__MIBURaptorQPacketConsumer__consumePacket_arrivalTime___block_invoke_2
 
 - (BOOL)_assemble
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v3 = [(SKRaptorQDecoder *)self->_raptorQDecoder decodeAllSourceBlocks:&v8 discarded:&v9];
-  v4 = v8;
-  self->_packetsDiscarded = v9;
+  v3 = [(SKRaptorQDecoder *)self->_raptorQDecoder decodeAllSourceBlocks:&v7 discarded:&v8];
+  v4 = v7;
+  self->_packetsDiscarded = v8;
   if (!v3)
   {
     if (MIBUOnceToken != -1)
@@ -586,12 +594,11 @@ void __56__MIBURaptorQPacketConsumer__consumePacket_arrivalTime___block_invoke_2
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v11 = v4;
+      v10 = v4;
       _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "Failed to decode all source blocks: %{public}@", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -714,7 +721,6 @@ void __56__MIBURaptorQPacketConsumer__assembleUsingSummaryReport__block_invoke_3
 - (void)_bootstrap
 {
   OUTLINED_FUNCTION_2_0();
-  v8 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_17);
@@ -723,20 +729,18 @@ void __56__MIBURaptorQPacketConsumer__assembleUsingSummaryReport__block_invoke_3
   if (OUTLINED_FUNCTION_5_0())
   {
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_1_1(&dword_259B04000, v1, v2, "Failed to initialize RaptorQ decoder: %{public}@", v3, v4, v5, v6, v7);
+    OUTLINED_FUNCTION_1_1(&dword_259B04000, v0, v1, "Failed to initialize RaptorQ decoder: %{public}@", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_1();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_consumePacket:(uint64_t)a1 arrivalTime:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "Failed to add symbol to RaptorQ decoder: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "Failed to add symbol to RaptorQ decoder: %{public}@", &v2, 0xCu);
 }
 
 - (void)_assembleUsingSummaryReport

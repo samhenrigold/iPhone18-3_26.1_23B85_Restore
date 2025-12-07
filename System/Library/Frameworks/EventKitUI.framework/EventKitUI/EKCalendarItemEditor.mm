@@ -2531,9 +2531,9 @@ LABEL_14:
     {
       v7 = headerViewCopy;
       backgroundColor = [viewCopy backgroundColor];
-      contentView = [v7 contentView];
+      v9 = objc_msgSend_contentView(v7);
 
-      [contentView setBackgroundColor:backgroundColor];
+      [v9 setBackgroundColor:backgroundColor];
     }
   }
 }
@@ -2662,8 +2662,8 @@ LABEL_14:
   if (EKUICatalyst())
   {
     backgroundColor = [viewCopy backgroundColor];
-    contentView = [footerViewCopy contentView];
-    [contentView setBackgroundColor:backgroundColor];
+    v8 = objc_msgSend_contentView(footerViewCopy);
+    [v8 setBackgroundColor:backgroundColor];
   }
 }
 

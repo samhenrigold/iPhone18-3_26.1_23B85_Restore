@@ -845,8 +845,8 @@ LABEL_7:
   if (objc_msgSend_canSeek(v10, v11, v12))
   {
     v40 = 0;
-    LOBYTE(v38[0]) = 0;
-    if (objc_msgSend_readToOwnBuffer_size_(v10, v13, &v40, 36) == 36 && (v15 = objc_opt_class(), v17 = objc_msgSend__checkFileHeader_length_dffVersion_archivedVersions_defaultObjectVersion_hasDescriptors_hasToc_otherDataLength_closedCleanly_(v15, v16, v40, 36, 0, &self->_archivedVersions, 0, 0, v38, 0, 0), (v17 & v38[0] & 1) != 0) && (v19 = objc_msgSend_dataLength(tocCopy, v14, v18), v19 >= 16) && (objc_msgSend_seekToOffset_(v10, v14, v19 - 16), objc_msgSend_readToOwnBuffer_size_(v10, v20, &v40, 16) == 16) && *v40 == 1381253964)
+    LOBYTE(v38) = 0;
+    if (objc_msgSend_readToOwnBuffer_size_(v10, v13, &v40, 36) == 36 && (v15 = objc_opt_class(), v17 = objc_msgSend__checkFileHeader_length_dffVersion_archivedVersions_defaultObjectVersion_hasDescriptors_hasToc_otherDataLength_closedCleanly_(v15, v16, v40, 36, 0, &self->_archivedVersions, 0, 0, &v38, 0, 0), (v17 & v38 & 1) != 0) && (v19 = objc_msgSend_dataLength(tocCopy, v14, v18), v19 >= 16) && (objc_msgSend_seekToOffset_(v10, v14, v19 - 16), objc_msgSend_readToOwnBuffer_size_(v10, v20, &v40, 16) == 16) && *v40 == 1381253964)
     {
       objc_msgSend_seekToOffset_(v10, v14, *(v40 + 4));
       while (objc_msgSend_readToOwnBuffer_size_(v10, v34, &v40, *" ") == *" ")
@@ -859,10 +859,10 @@ LABEL_7:
         v35 = *(v40 + 4);
         v36 = *(v40 + 24);
         entries = self->_entries;
-        v38[0] = *(v40 + 12) + *(v40 + 20);
-        v38[1] = v36;
+        *&v38 = *(v40 + 12) + *(v40 + 20);
+        *(&v38 + 1) = v36;
         v39 = v35;
-        sub_276ADF7C4(entries, &v39);
+        sub_276ADF7C4(entries, &v39, &v39, &v38);
       }
 
       v29 = 0;

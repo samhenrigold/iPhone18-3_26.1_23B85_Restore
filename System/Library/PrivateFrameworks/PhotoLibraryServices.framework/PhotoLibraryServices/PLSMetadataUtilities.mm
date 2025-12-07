@@ -322,7 +322,7 @@ void __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_incl
             [v20 enumerateObjectsUsingBlock:v25];
             if (*(*(*(a1 + 72) + 8) + 24) == 1)
             {
-              if ([*(*(*(a1 + 80) + 8) + 40) count])
+              if (objc_msgSend_count(*(*(*(a1 + 80) + 8) + 40)))
               {
                 [*(a1 + 88) _writeJSONForObjectDetails:*(*(*(a1 + 80) + 8) + 40) toFile:*(a1 + 56)];
               }
@@ -358,9 +358,9 @@ uint64_t __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_
 
 void __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_includingFingerprints_forAlbumTitled_library___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = a2;
+  v19 = a2;
   v3 = objc_autoreleasePoolPush();
-  v4 = [*(a1 + 88) _detailsForAsset:v16 includingLocal:*(a1 + 96) includingFingerprints:*(a1 + 97)];
+  v4 = [*(a1 + 88) _detailsForAsset:v19 includingLocal:*(a1 + 96) includingFingerprints:*(a1 + 97)];
   if (*(*(*(a1 + 56) + 8) + 24) == 1 && (*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
   {
     v5 = [@"{\nassets : [\n" dataUsingEncoding:4];
@@ -400,14 +400,17 @@ void __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_incl
       v9 = *(*(*(a1 + 80) + 8) + 24);
     }
 
-    if ([*(a1 + 40) count] - 1 > v9)
+    if (objc_msgSend_count(*(a1 + 40)) - 1 > v9)
     {
       v14 = *(a1 + 88);
       v15 = [@" \n"];
       [v14 writeJSONData:v15 toFile:*(a1 + 32)];
     }
 
-    NSLog(&cfstr_ProcessingNext.isa, *(a1 + 48), *(*(*(a1 + 80) + 8) + 24), [*(a1 + 40) count]);
+    v16 = *(a1 + 48);
+    v17 = *(*(*(a1 + 80) + 8) + 24);
+    v18 = objc_msgSend_count(*(a1 + 40));
+    NSLog(&cfstr_ProcessingNext.isa, v16, v17, v18);
     v8 = *(*(a1 + 80) + 8);
     v9 = *(v8 + 24);
   }
@@ -515,8 +518,8 @@ void __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_incl
   v88 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  entity = [assetCopy entity];
-  relationshipsByName = [entity relationshipsByName];
+  v8 = objc_msgSend_entity(assetCopy);
+  relationshipsByName = [v8 relationshipsByName];
   v85[0] = MEMORY[0x1E69E9820];
   v85[1] = 3221225472;
   v85[2] = __78__PLSMetadataUtilities__detailsForAsset_includingLocal_includingFingerprints___block_invoke;
@@ -551,7 +554,7 @@ void __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_incl
   [v7 setValue:v19 forKey:@"AssetModificationDate"];
 
   v20 = MEMORY[0x1E696AD98];
-  [v10 duration];
+  objc_msgSend_duration(v10);
   v21 = [v20 numberWithDouble:?];
   [v7 setValue:v21 forKey:@"AssetDuration"];
 
@@ -612,7 +615,7 @@ void __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_incl
 
   v70 = v40;
   albums = [v10 albums];
-  v46 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(albums, "count")}];
+  v46 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(albums)];
   v81 = 0u;
   v82 = 0u;
   v83 = 0u;
@@ -644,9 +647,9 @@ void __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_incl
 
   [v7 setValue:v46 forKey:@"AssetAlbums"];
   additionalAttributes = [v10 additionalAttributes];
-  entity2 = [additionalAttributes entity];
+  v54 = objc_msgSend_entity(additionalAttributes);
 
-  relationshipsByName2 = [entity2 relationshipsByName];
+  relationshipsByName2 = [v54 relationshipsByName];
   v79[0] = MEMORY[0x1E69E9820];
   v79[1] = 3221225472;
   v79[2] = __78__PLSMetadataUtilities__detailsForAsset_includingLocal_includingFingerprints___block_invoke_2;
@@ -691,12 +694,12 @@ void __112__PLSMetadataUtilities_allAssetsDetailsWriteToPath_includingLocal_incl
     {
       [MEMORY[0x1E6994AE0] fingerprintSchemeForStableHash];
       v75 = v56;
-      v66 = v65 = entity2;
+      v66 = v65 = v54;
       v78 = 0;
       v67 = [v66 fingerPrintForFileAtURL:mainFileURL error:&v78];
       v68 = v78;
 
-      entity2 = v65;
+      v54 = v65;
       v56 = v75;
       if (v67)
       {
@@ -895,11 +898,11 @@ LABEL_24:
   if (objectCopy)
   {
     v64 = relationshipAttributesCopy;
-    entity = [objectCopy entity];
-    relationshipsByName = [entity relationshipsByName];
+    v17 = objc_msgSend_entity(objectCopy);
+    relationshipsByName = [v17 relationshipsByName];
 
-    entity2 = [objectCopy entity];
-    attributesByName = [entity2 attributesByName];
+    v18 = objc_msgSend_entity(objectCopy);
+    attributesByName = [v18 attributesByName];
 
     v55 = attributesByName;
     allKeys = [attributesByName allKeys];
@@ -942,8 +945,8 @@ LABEL_24:
 
     if (relationshipsCopy)
     {
-      entity3 = [objectCopy entity];
-      relationshipsByName2 = [entity3 relationshipsByName];
+      v53 = objc_msgSend_entity(objectCopy);
+      relationshipsByName2 = [v53 relationshipsByName];
       v78[0] = MEMORY[0x1E69E9820];
       v78[1] = 3221225472;
       v78[2] = __143__PLSMetadataUtilities_dictionaryFromManagedObject_excludeAttributes_includingRelationships_excludeRelationshipAttributes_andSubRelationships___block_invoke;
@@ -1006,16 +1009,16 @@ LABEL_24:
               v37 = 0;
             }
 
-            entity4 = [v29 entity];
-            relationshipsByName3 = [entity4 relationshipsByName];
+            v38 = objc_msgSend_entity(v29);
+            relationshipsByName3 = [v38 relationshipsByName];
             v40 = [relationshipsByName3 objectForKey:v34];
 
             v69 = v40;
-            LOBYTE(entity4) = [v40 isToMany];
+            LOBYTE(v38) = [v40 isToMany];
             v68 = v34;
             v41 = [v29 valueForKey:v34];
             v42 = v41;
-            if (entity4)
+            if (v38)
             {
               v43 = v41;
               v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -1160,7 +1163,7 @@ void __143__PLSMetadataUtilities_dictionaryFromManagedObject_excludeAttributes_i
 
   v13 = [MEMORY[0x1E695DF20] dictionaryWithObject:detailsCopy forKey:namedCopy];
   pathExtension = [filepathCopy pathExtension];
-  v15 = [pathExtension isEqualToString:@"json"];
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
   if ([pathExtension isEqual:&stru_1F0F06D80])
   {
     v25 = 0;
@@ -1183,7 +1186,7 @@ LABEL_8:
     }
   }
 
-  if (v15)
+  if (isEqualToString)
   {
     v24 = 0;
     v21 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v13 options:1 error:&v24];

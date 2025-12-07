@@ -209,7 +209,7 @@
     v6 = v5;
   }
 
-  return v6 / PLMainScreenScale();
+  return v6 / PLMainScreenScale(self, a2);
 }
 
 - (void)_dismissExpandedPlatterWithTrigger:(int64_t)trigger

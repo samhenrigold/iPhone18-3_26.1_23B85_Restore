@@ -1,177 +1,3 @@
-uint64_t WalletPassDates.date.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return v1;
-}
-
-uint64_t WalletPassDates.endDate.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return v1;
-}
-
-uint64_t WalletPassDates.init(date:endDate:startDate:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
-{
-  v47 = a3;
-  v48 = a2;
-  sub_251E71794(0, &qword_27F4BD8D0, MEMORY[0x277CC9578]);
-  v7 = *(*(v6 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v6 - 8);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v8);
-  v12 = &v41 - v11;
-  MEMORY[0x28223BE20](v10);
-  v14 = &v41 - v13;
-  v15 = sub_251E71A68();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v42 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  MEMORY[0x28223BE20](v20);
-  v24 = &v41 - v23;
-  v46 = a1;
-  sub_251E6F170(a1, v14);
-  v25 = *(v16 + 48);
-  if (v25(v14, 1, v15) == 1)
-  {
-    sub_251E6F1F0(v14);
-    v44 = 0;
-    v45 = 0;
-  }
-
-  else
-  {
-    (*(v16 + 32))(v24, v14, v15);
-    if (qword_27F4BD658 != -1)
-    {
-      swift_once();
-    }
-
-    v26 = sub_251E71A08();
-    __swift_project_value_buffer(v26, qword_27F4BD7F0);
-    v44 = sub_251E719E8();
-    v45 = v27;
-    (*(v16 + 8))(v24, v15);
-  }
-
-  v28 = v43;
-  sub_251E6F170(v48, v12);
-  if (v25(v12, 1, v15) == 1)
-  {
-    sub_251E6F1F0(v12);
-    v29 = 0;
-    v30 = 0;
-  }
-
-  else
-  {
-    (*(v16 + 32))(v22, v12, v15);
-    if (qword_27F4BD658 != -1)
-    {
-      swift_once();
-    }
-
-    v31 = sub_251E71A08();
-    __swift_project_value_buffer(v31, qword_27F4BD7F0);
-    v30 = sub_251E719E8();
-    v29 = v32;
-    (*(v16 + 8))(v22, v15);
-  }
-
-  v33 = v47;
-  sub_251E6F170(v47, v28);
-  if (v25(v28, 1, v15) == 1)
-  {
-    sub_251E6F1F0(v33);
-    sub_251E6F1F0(v48);
-    sub_251E6F1F0(v46);
-    result = sub_251E6F1F0(v28);
-    v35 = 0;
-    v36 = 0;
-  }
-
-  else
-  {
-    v37 = v42;
-    (*(v16 + 32))(v42, v28, v15);
-    if (qword_27F4BD658 != -1)
-    {
-      swift_once();
-    }
-
-    v38 = sub_251E71A08();
-    __swift_project_value_buffer(v38, qword_27F4BD7F0);
-    v36 = sub_251E719E8();
-    v35 = v39;
-    sub_251E6F1F0(v47);
-    sub_251E6F1F0(v48);
-    sub_251E6F1F0(v46);
-    result = (*(v16 + 8))(v37, v15);
-  }
-
-  v40 = v45;
-  *a4 = v44;
-  a4[1] = v40;
-  a4[2] = v30;
-  a4[3] = v29;
-  a4[4] = v36;
-  a4[5] = v35;
-  return result;
-}
-
-uint64_t sub_251E6F170(uint64_t a1, uint64_t a2)
-{
-  sub_251E71794(0, &qword_27F4BD8D0, MEMORY[0x277CC9578]);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_251E6F1F0(uint64_t a1)
-{
-  sub_251E71794(0, &qword_27F4BD8D0, MEMORY[0x277CC9578]);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-void __swiftcall WalletPassDates.init(date:endDate:startDate:)(HealthRecordsWalletSupport::WalletPassDates *__return_ptr retstr, Swift::String_optional date, Swift::String_optional endDate, Swift::String_optional startDate)
-{
-  retstr->date = date;
-  retstr->endDate = endDate;
-  retstr->startDate = startDate;
-}
-
-uint64_t sub_251E6F278()
-{
-  v1 = 0x65746144646E65;
-  if (*v0 != 1)
-  {
-    v1 = 0x7461447472617473;
-  }
-
-  if (*v0)
-  {
-    return v1;
-  }
-
-  else
-  {
-    return 1702125924;
-  }
-}
-
-uint64_t sub_251E6F2D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = sub_251E71620(a1, a2);
-  *a3 = result;
-  return result;
-}
-
 uint64_t sub_251E6F304(uint64_t a1)
 {
   v2 = sub_251E6F594();
@@ -188,47 +14,43 @@ uint64_t sub_251E6F340(uint64_t a1)
 
 uint64_t WalletPassDates.encode(to:)(void *a1)
 {
-  sub_251E6F534(0, &qword_27F4BD8D8, sub_251E6F594);
+  sub_251E6F534(0, &qword_27F4BD8D8, sub_251E6F594, &type metadata for WalletPassDates.CodingKeys);
   v4 = v3;
   v5 = *(v3 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v3);
-  v8 = v16 - v7;
-  v9 = *v1;
-  v10 = v1[1];
-  v11 = v1[2];
-  v16[3] = v1[3];
-  v16[4] = v11;
-  v12 = v1[4];
-  v16[1] = v1[5];
-  v16[2] = v12;
-  v13 = a1[4];
+  v7 = v12 - v6;
+  v8 = v1[2];
+  v12[3] = v1[3];
+  v12[4] = v8;
+  v9 = v1[4];
+  v12[1] = v1[5];
+  v12[2] = v9;
   __swift_project_boxed_opaque_existential_0(a1, a1[3]);
   sub_251E6F594();
   sub_251E71F68();
-  v19 = 0;
-  v14 = v16[5];
+  v15 = 0;
+  v10 = v12[5];
   sub_251E71DD8();
-  if (!v14)
+  if (!v10)
   {
-    v18 = 1;
+    v14 = 1;
     sub_251E71DD8();
-    v17 = 2;
+    v13 = 2;
     sub_251E71DD8();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
-void sub_251E6F534(uint64_t a1, unint64_t *a2, void (*a3)(void))
+void sub_251E6F534(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4)
 {
   if (!*a2)
   {
     a3();
-    v4 = sub_251E71E68();
-    if (!v5)
+    v5 = sub_251E71E68();
+    if (!v6)
     {
-      atomic_store(v4, a2);
+      atomic_store(v5, a2);
     }
   }
 }
@@ -1953,7 +1775,7 @@ unint64_t sub_251E71740()
   return result;
 }
 
-void sub_251E71794(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_251E71794(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {

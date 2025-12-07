@@ -13,7 +13,7 @@
   {
     if ((v5 - 3) > 1)
     {
-      v18 = +[UIColor blackColor];
+      v18 = objc_msgSend_blackColor(UIColor);
     }
 
     else

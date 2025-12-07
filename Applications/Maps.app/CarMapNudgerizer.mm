@@ -210,8 +210,8 @@
 
   [(UILongPressGestureRecognizer *)self->_leftLongPressRecognizer setAllowedPressTypes:&off_1016ED190];
   v7 = self->_leftLongPressRecognizer;
-  [(CarMapNudgerizer *)self panningMetrics];
-  [(UILongPressGestureRecognizer *)v7 setMinimumPressDuration:v36];
+  objc_msgSend_panningMetrics(self);
+  [(UILongPressGestureRecognizer *)v7 setMinimumPressDuration:v33[21]];
   v8 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"handleTap:"];
   leftTapRecognizer = self->_leftTapRecognizer;
   self->_leftTapRecognizer = v8;
@@ -224,8 +224,8 @@
 
   [(UILongPressGestureRecognizer *)self->_rightLongPressRecognizer setAllowedPressTypes:&off_1016ED1C0];
   v12 = self->_rightLongPressRecognizer;
-  [(CarMapNudgerizer *)self panningMetrics];
-  [(UILongPressGestureRecognizer *)v12 setMinimumPressDuration:v35];
+  objc_msgSend_panningMetrics(self);
+  [(UILongPressGestureRecognizer *)v12 setMinimumPressDuration:v33[14]];
   v13 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"handleTap:"];
   rightTapRecognizer = self->_rightTapRecognizer;
   self->_rightTapRecognizer = v13;
@@ -238,8 +238,8 @@
 
   [(UILongPressGestureRecognizer *)self->_upLongPressRecognizer setAllowedPressTypes:&off_1016ED1F0];
   v17 = self->_upLongPressRecognizer;
-  [(CarMapNudgerizer *)self panningMetrics];
-  [(UILongPressGestureRecognizer *)v17 setMinimumPressDuration:v34];
+  objc_msgSend_panningMetrics(self);
+  [(UILongPressGestureRecognizer *)v17 setMinimumPressDuration:v33[7]];
   v18 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"handleTap:"];
   upTapRecognizer = self->_upTapRecognizer;
   self->_upTapRecognizer = v18;
@@ -252,8 +252,8 @@
 
   [(UILongPressGestureRecognizer *)self->_downLongPressRecognizer setAllowedPressTypes:&off_1016ED220];
   v22 = self->_downLongPressRecognizer;
-  [(CarMapNudgerizer *)self panningMetrics];
-  [(UILongPressGestureRecognizer *)v22 setMinimumPressDuration:v33];
+  objc_msgSend_panningMetrics(self);
+  [(UILongPressGestureRecognizer *)v22 setMinimumPressDuration:v33[0]];
   v23 = [[UITapGestureRecognizer alloc] initWithTarget:self action:"handleTap:"];
   downTapRecognizer = self->_downTapRecognizer;
   self->_downTapRecognizer = v23;
@@ -476,19 +476,19 @@ LABEL_22:
 
 - (double)impulseMagnitudeForDirection:(int64_t)direction
 {
-  [(CarMapNudgerizer *)self panningMetrics];
+  objc_msgSend_panningMetrics(self, a2);
   v5 = v22;
   v6 = +[NSDate date];
   lastImpulseDate = [(CarMapNudgerizer *)self lastImpulseDate];
-  [(CarMapNudgerizer *)self panningMetrics];
+  objc_msgSend_panningMetrics(self);
   v8 = [lastImpulseDate dateByAddingTimeInterval:v21];
   v9 = [v8 compare:v6];
 
   if ([(CarMapNudgerizer *)self lastImpulseDirection]== direction && v9 == 1)
   {
     impulseCount = [(CarMapNudgerizer *)self impulseCount];
-    [(CarMapNudgerizer *)self panningMetrics];
-    [(CarMapNudgerizer *)self panningMetrics];
+    objc_msgSend_panningMetrics(self);
+    objc_msgSend_panningMetrics(self);
     v5 = fmin(v22 + v20 * impulseCount, v19);
   }
 
@@ -519,7 +519,7 @@ LABEL_22:
 
 - (double)holdMagnitudeForDirection:(int64_t)direction
 {
-  [(CarMapNudgerizer *)self panningMetrics];
+  objc_msgSend_panningMetrics(self, a2, direction);
   WeakRetained = objc_loadWeakRetained(&self->_mapView);
   [WeakRetained bounds];
   Height = CGRectGetHeight(v10);
@@ -536,7 +536,7 @@ LABEL_22:
   [(CarMapNudgerizer *)self _beginImpulseInDirection:4 withMagnitude:?];
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_endImpulseRight" object:0];
   [(CarMapNudgerizer *)self _setHasBegunMomentaryImpulse:1 inDirection:4];
-  [(CarMapNudgerizer *)self panningMetrics];
+  objc_msgSend_panningMetrics(self);
   [(CarMapNudgerizer *)self performSelector:"_endImpulseRight" withObject:0 afterDelay:v3];
 }
 
@@ -562,7 +562,7 @@ LABEL_22:
   [(CarMapNudgerizer *)self _beginImpulseInDirection:3 withMagnitude:?];
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_endImpulseLeft" object:0];
   [(CarMapNudgerizer *)self _setHasBegunMomentaryImpulse:1 inDirection:3];
-  [(CarMapNudgerizer *)self panningMetrics];
+  objc_msgSend_panningMetrics(self);
   [(CarMapNudgerizer *)self performSelector:"_endImpulseLeft" withObject:0 afterDelay:v3];
 }
 
@@ -588,7 +588,7 @@ LABEL_22:
   [(CarMapNudgerizer *)self _beginImpulseInDirection:2 withMagnitude:?];
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_endImpulseDown" object:0];
   [(CarMapNudgerizer *)self _setHasBegunMomentaryImpulse:1 inDirection:2];
-  [(CarMapNudgerizer *)self panningMetrics];
+  objc_msgSend_panningMetrics(self);
   [(CarMapNudgerizer *)self performSelector:"_endImpulseDown" withObject:0 afterDelay:v3];
 }
 
@@ -614,7 +614,7 @@ LABEL_22:
   [(CarMapNudgerizer *)self _beginImpulseInDirection:1 withMagnitude:?];
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_endImpulseUp" object:0];
   [(CarMapNudgerizer *)self _setHasBegunMomentaryImpulse:1 inDirection:1];
-  [(CarMapNudgerizer *)self panningMetrics];
+  objc_msgSend_panningMetrics(self);
   [(CarMapNudgerizer *)self performSelector:"_endImpulseUp" withObject:0 afterDelay:v3];
 }
 

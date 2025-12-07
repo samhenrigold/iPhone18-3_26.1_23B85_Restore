@@ -37,149 +37,150 @@
 
 - (BOOL)isVehicleConnectedForPass:(id)pass
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   passCopy = pass;
-  if (![passCopy isCarKeyPass] || (objc_msgSend(passCopy, "npkSupportsBluetooth") & 1) == 0)
+  isCarKeyPass = [passCopy isCarKeyPass];
+  if (!isCarKeyPass || (isCarKeyPass = [passCopy npkSupportsBluetooth], (isCarKeyPass & 1) == 0))
   {
-    v4 = pk_General_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    v5 = pk_General_log(isCarKeyPass);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_General_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = pk_General_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v21 = "[NPKVehicleConnectivityCoordinator isVehicleConnectedForPass:]";
-        v22 = 2082;
-        v23 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKit/NPKVehicleConnectivityCoordinator.m";
-        v24 = 2048;
-        v25 = 43;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Unable to check vehicle connected state for any pass other than UWB capable car keys!)", buf, 0x20u);
+        v25 = "[NPKVehicleConnectivityCoordinator isVehicleConnectedForPass:]";
+        v26 = 2082;
+        v27 = "/Library/Caches/com.apple.xbs/Sources/NanoPassbook_Frameworks/NanoPassKit/NPKVehicleConnectivityCoordinator.m";
+        v28 = 2048;
+        v29 = 43;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_ERROR, "Error: *** NPKAssertion failure in %{public}s, %{public}s:%ld (reason: Unable to check vehicle connected state for any pass other than UWB capable car keys!)", buf, 0x20u);
       }
     }
 
     _NPKAssertAbort();
   }
 
-  v19 = 0;
-  v7 = [PKGetClassNFDigitalCarKeySession() getVehicleReports:&v19];
-  v8 = v19;
-  if (!v8)
+  v23 = 0;
+  v9 = [PKGetClassNFDigitalCarKeySession() getVehicleReports:&v23];
+  v10 = v23;
+  v11 = v10;
+  if (!v10)
   {
-    v11 = [objc_opt_class() _subcredentialIdentifierForPass:passCopy];
-    v12 = [v7 objectForKeyedSubscript:v11];
-    LOBYTE(v10) = v12 != 0;
-    v13 = pk_General_log();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v15 = [objc_opt_class() _subcredentialIdentifierForPass:passCopy];
+    v16 = [v9 objectForKeyedSubscript:v15];
+    LOBYTE(v13) = v16 != 0;
+    v17 = pk_General_log(v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-    if (v14)
+    if (v18)
     {
-      v15 = pk_General_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v20 = pk_General_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         uniqueID = [passCopy uniqueID];
         *buf = 138412546;
-        v21 = uniqueID;
-        v22 = 2112;
-        v23 = v12;
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: NPKVehicleConnectivityCoordinator: Vehicle report for pass %@ is %@", buf, 0x16u);
+        v25 = uniqueID;
+        v26 = 2112;
+        v27 = v16;
+        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: NPKVehicleConnectivityCoordinator: Vehicle report for pass %@ is %@", buf, 0x16u);
       }
     }
 
     goto LABEL_18;
   }
 
-  v9 = pk_General_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+  v12 = pk_General_log(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
 
-  if (v10)
+  if (v13)
   {
-    v11 = pk_General_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = pk_General_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v8;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: NPKVehicleConnectivityCoordinator: Unable to fetch vehicle report! %@", buf, 0xCu);
+      v25 = v11;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_ERROR, "Error: NPKVehicleConnectivityCoordinator: Unable to fetch vehicle report! %@", buf, 0xCu);
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(v13) = 0;
 LABEL_18:
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v13;
 }
 
 - (void)_handleCarKeyVehicleStatusChangeNotification:(id)notification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
-  v16 = 0;
-  v17 = 0;
-  [(NPKVehicleConnectivityCoordinator *)self _parseVehicleStatusChangeNotificationObject:object outApplicationIdentifier:&v17 outSubcredentialIdentifier:&v16];
-  v6 = v17;
-  v7 = v16;
+  v18 = 0;
+  v19 = 0;
+  [(NPKVehicleConnectivityCoordinator *)self _parseVehicleStatusChangeNotificationObject:object outApplicationIdentifier:&v19 outSubcredentialIdentifier:&v18];
+  v6 = v19;
+  v7 = v18;
 
-  v8 = pk_General_log();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = pk_General_log(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-  if (v9)
+  if (v10)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v19 = notificationCopy;
-      v20 = 2112;
-      v21 = v6;
+      v21 = notificationCopy;
       v22 = 2112;
-      v23 = v7;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKVehicleConnectivityCoordinator: Received car key vehicle status change notification: %@ for AID: %@ subcredential ID: %@", buf, 0x20u);
+      v23 = v6;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: NPKVehicleConnectivityCoordinator: Received car key vehicle status change notification: %@ for AID: %@ subcredential ID: %@", buf, 0x20u);
     }
   }
 
-  v11 = [objc_opt_class() _secureElementPassMatchingAID:v6 subcredentialIdentifier:v7];
-  if (v11)
+  v13 = [objc_opt_class() _secureElementPassMatchingAID:v6 subcredentialIdentifier:v7];
+  if (v13)
   {
     delegate = [(NPKVehicleConnectivityCoordinator *)self delegate];
-    [delegate vehicleConnectivityCoordinator:self didUpdateVehicleStatusForPass:v11];
+    [delegate vehicleConnectivityCoordinator:self didUpdateVehicleStatusForPass:v13];
   }
 
   else
   {
-    v14 = pk_General_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = pk_General_log(0);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (!v15)
+    if (!v16)
     {
       goto LABEL_8;
     }
 
-    delegate = pk_General_log();
+    delegate = pk_General_log(v17);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v7;
+      v21 = v7;
       _os_log_impl(&dword_25B300000, delegate, OS_LOG_TYPE_DEFAULT, "Notice: NPKVehicleConnectivityCoordinator: Unable to identify pass for subcredential: %@", buf, 0xCu);
     }
   }
 
 LABEL_8:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseVehicleStatusChangeNotificationObject:(id)object outApplicationIdentifier:(id *)identifier outSubcredentialIdentifier:(id *)subcredentialIdentifier
 {
-  objectCopy = object;
-  if (objectCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = object;
+  v8 = isKindOfClass;
+  if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v8 = [objectCopy componentsSeparatedByString:@":"];
-    *identifier = [v8 firstObject];
-    if ([v8 count] == 2)
+    v9 = [v8 componentsSeparatedByString:@":"];
+    *identifier = [v9 firstObject];
+    if ([v9 count] == 2)
     {
-      lastObject = [v8 lastObject];
+      lastObject = [v9 lastObject];
       *subcredentialIdentifier = lastObject;
     }
 
@@ -191,16 +192,16 @@ LABEL_8:
 
   else
   {
-    v10 = pk_General_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v11 = pk_General_log(isKindOfClass);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v12)
     {
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_General_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Warning: Expected to be provided a notification object, but instead found nil!", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: Expected to be provided a notification object, but instead found nil!", v15, 2u);
       }
     }
   }

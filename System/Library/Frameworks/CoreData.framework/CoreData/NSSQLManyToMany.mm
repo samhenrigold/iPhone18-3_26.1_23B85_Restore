@@ -95,11 +95,9 @@
 
 - (void)_setInverseManyToMany:(void *)many
 {
-  v36[3] = *MEMORY[0x1E69E9840];
+  v34[3] = *MEMORY[0x1E69E9840];
   if (!many)
   {
-LABEL_34:
-    v25 = *MEMORY[0x1E69E9840];
     return;
   }
 
@@ -145,15 +143,28 @@ LABEL_12:
       }
     }
 
-    if (*(a2 + 24) != 9)
+    if (a2[24] != 9)
     {
-      v26 = MEMORY[0x1E695DF30];
-      v27 = *MEMORY[0x1E695D930];
-      v35[0] = @"entity";
-      v28 = [objc_msgSend(objc_msgSend(many "entity")];
-      if (v28)
+      v24 = MEMORY[0x1E695DF30];
+      v25 = *MEMORY[0x1E695D930];
+      v33[0] = @"entity";
+      v26 = [objc_msgSend(objc_msgSend(many "entity")];
+      if (v26)
       {
-        v29 = v28;
+        v27 = v26;
+      }
+
+      else
+      {
+        v27 = @"nil";
+      }
+
+      v34[0] = v27;
+      v33[1] = @"relationship";
+      name = [many name];
+      if (name)
+      {
+        v29 = name;
       }
 
       else
@@ -161,12 +172,12 @@ LABEL_12:
         v29 = @"nil";
       }
 
-      v36[0] = v29;
-      v35[1] = @"relationship";
-      name = [many name];
-      if (name)
+      v34[1] = v29;
+      v33[2] = @"inverse";
+      name2 = [a2 name];
+      if (name2)
       {
-        v31 = name;
+        v31 = name2;
       }
 
       else
@@ -174,21 +185,8 @@ LABEL_12:
         v31 = @"nil";
       }
 
-      v36[1] = v31;
-      v35[2] = @"inverse";
-      name2 = [a2 name];
-      if (name2)
-      {
-        v33 = name2;
-      }
-
-      else
-      {
-        v33 = @"nil";
-      }
-
-      v36[2] = v33;
-      objc_exception_throw([v26 exceptionWithName:v27 reason:@"improper model with nonsensical relationship definitions" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v36, v35, 3)}]);
+      v34[2] = v31;
+      objc_exception_throw([v24 exceptionWithName:v25 reason:@"improper model with nonsensical relationship definitions" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v34, v33, 3)}]);
     }
 
     goto LABEL_12;
@@ -229,50 +227,44 @@ LABEL_13:
     }
   }
 
-  if (many[10])
+  if (!many[10])
   {
-    goto LABEL_34;
+    v16 = a2 ? [a2 propertyDescription] : 0;
+    if ([v16 isOrdered])
+    {
+      v17 = objc_alloc(MEMORY[0x1E696AEC0]);
+      if (entity)
+      {
+        v18 = *(entity + 184);
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      v19 = [v17 initWithFormat:@"%@_%d%@", @"Z_FOK", v18, objc_msgSend(objc_msgSend(a2, "name"), "uppercaseString")];
+      if (entity)
+      {
+        v20 = *(entity + 176);
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      v32 = v19;
+      v21 = [(NSSQLStoreMappingGenerator *)v20 uniqueNameWithBase:v19];
+      v22 = many[10];
+      if (v22 != v21)
+      {
+        v23 = v21;
+
+        many[10] = [v23 copy];
+      }
+    }
   }
-
-  v16 = a2 ? [a2 propertyDescription] : 0;
-  if (![v16 isOrdered])
-  {
-    goto LABEL_34;
-  }
-
-  v17 = objc_alloc(MEMORY[0x1E696AEC0]);
-  if (entity)
-  {
-    v18 = *(entity + 184);
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  v19 = [v17 initWithFormat:@"%@_%d%@", @"Z_FOK", v18, objc_msgSend(objc_msgSend(a2, "name"), "uppercaseString")];
-  if (entity)
-  {
-    v20 = *(entity + 176);
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  v34 = v19;
-  v21 = [(NSSQLStoreMappingGenerator *)v20 uniqueNameWithBase:v19];
-  v22 = many[10];
-  if (v22 != v21)
-  {
-    v23 = v21;
-
-    many[10] = [v23 copy];
-  }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)isTableSchemaEqual:(uint64_t)result

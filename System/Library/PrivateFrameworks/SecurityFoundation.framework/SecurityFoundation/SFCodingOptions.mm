@@ -23,10 +23,7 @@
 
 - (void)setEncryptionPassphrase:(id)passphrase
 {
-  v4 = [passphrase copy];
-  codingOptionsInternal = self->_codingOptionsInternal;
-  v6 = codingOptionsInternal[2];
-  codingOptionsInternal[2] = v4;
+  *(self->_codingOptionsInternal + 2) = [passphrase copy];
 
   MEMORY[0x2821F96F8]();
 }

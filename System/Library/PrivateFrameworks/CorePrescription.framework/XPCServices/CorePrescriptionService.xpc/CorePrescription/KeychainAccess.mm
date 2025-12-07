@@ -114,7 +114,7 @@
     *error = [(KeychainAccess *)self createErrorForStatus:v13 fromFunction:@"SecItemAdd"];
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_10008062C(error);
+      sub_10008062C();
     }
 
 LABEL_4:
@@ -132,7 +132,7 @@ LABEL_4:
       *error = 0;
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        sub_10008072C(error);
+        sub_10008072C();
       }
 
       goto LABEL_4;
@@ -177,7 +177,7 @@ LABEL_12:
     *error = [(KeychainAccess *)self createErrorForStatus:v11 fromFunction:@"SecItemDelete"];
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_1000807A8(error);
+      sub_1000807A8();
     }
   }
 
@@ -208,7 +208,7 @@ LABEL_5:
   v6 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
   if (v6)
   {
-    sub_1000808AC(error);
+    sub_1000808AC();
     LOBYTE(v6) = 0;
   }
 
@@ -228,7 +228,7 @@ LABEL_5:
       *error = error;
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        sub_100080928(error);
+        sub_100080928();
       }
     }
 
@@ -240,7 +240,7 @@ LABEL_5:
     *error = error;
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_1000809A4(error);
+      sub_1000809A4();
     }
 
     v7 = 0;

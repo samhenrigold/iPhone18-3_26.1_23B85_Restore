@@ -56,6 +56,8 @@
 - (BOOL)recognizingSpeech;
 - (BOOL)requiresAuthorization;
 - (BOOL)rightHandDrive;
+- (BOOL)setAllowsHeadTrackedSpatialAudio:(BOOL)audio error:(id *)error;
+- (BOOL)setConversationDetectionEnabled:(BOOL)enabled error:(id *)error;
 - (BOOL)setCurrentBluetoothListeningMode:(id)mode error:(id *)error;
 - (BOOL)setHeadTrackedSpatialAudioMode:(id)mode error:(id *)error;
 - (BOOL)siriForwardingEnabled;
@@ -129,12 +131,16 @@
 - (void)requestCarUIForURL:(id)l withUUID:(id)d;
 - (void)requestViewArea:(int64_t)area forScreenID:(id)d;
 - (void)setActivatedDeviceClusterMembersVolume:(float)volume withRoomID:(id)d;
+- (void)setCarPlayVideoActive:(BOOL)active completionHandler:(id)handler;
 - (void)setCommunicationChannelDelegate:(id)delegate;
 - (void)setCurrentBluetoothListeningMode:(id)mode;
 - (void)setDelegate:(id)delegate;
 - (void)setDisplayCornerMasks:(id)masks;
 - (void)setMediaRemoteData:(id)data completionHandler:(id)handler;
+- (void)setMuted:(BOOL)muted;
+- (void)setSecondDisplayEnabled:(BOOL)enabled;
 - (void)setSecondDisplayMode:(id)mode completionHandler:(id)handler;
+- (void)setSiriForwardingEnabled:(BOOL)enabled;
 - (void)setVolume:(float)volume;
 - (void)suggestUIWithURLs:(id)ls completionHandler:(id)handler;
 - (void)takeScreenForClient:(id)client reason:(id)reason;
@@ -744,9 +750,32 @@ uint64_t __50__AVOutputDevice__shouldHideAirPlayInfoDuringDemo__block_invoke()
   return [impl mediaSessionStatus];
 }
 
-uint64_t __58__AVOutputDevice_setCarPlayVideoActive_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
+- (void)setCarPlayVideoActive:(BOOL)active completionHandler:(id)handler
 {
-  v5 = *MEMORY[0x1E69E9840];
+  activeCopy = active;
+  v13 = *MEMORY[0x1E69E9840];
+  if (dword_1ED6F6B68)
+  {
+    v12 = 0;
+    type = OS_LOG_TYPE_DEFAULT;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  impl = [(AVOutputDevice *)self impl];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __58__AVOutputDevice_setCarPlayVideoActive_completionHandler___block_invoke;
+  v9[3] = &unk_1E794F588;
+  v9[4] = handler;
+  v10 = activeCopy;
+  [impl setCarPlayVideoActive:activeCopy completionHandler:v9];
+}
+
+uint64_t __58__AVOutputDevice_setCarPlayVideoActive_completionHandler___block_invoke(uint64_t a1, void *a2)
+{
+  v4 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
   if (result)
   {
@@ -757,10 +786,9 @@ uint64_t __58__AVOutputDevice_setCarPlayVideoActive_completionHandler___block_in
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -786,40 +814,52 @@ uint64_t __58__AVOutputDevice_setCarPlayVideoActive_completionHandler___block_in
   return [impl onlyAllowsConnectionsFromPeersInHomeGroup];
 }
 
-- (void)setSecondDisplayMode:(id)mode completionHandler:(id)handler
+- (void)setSecondDisplayEnabled:(BOOL)enabled
 {
-  v15 = *MEMORY[0x1E69E9840];
+  enabledCopy = enabled;
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
-    v14 = 0;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  [-[AVOutputDevice impl](self "impl")];
+}
+
+- (void)setSecondDisplayMode:(id)mode completionHandler:(id)handler
+{
+  v12 = *MEMORY[0x1E69E9840];
+  if (dword_1ED6F6B68)
+  {
+    v11 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v8 = [(AVOutputDevice *)self impl:v10];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_invoke;
-  v12[3] = &unk_1E794F5B0;
-  v12[4] = handler;
-  [v8 setSecondDisplayMode:mode completionHandler:v12];
-  v9 = *MEMORY[0x1E69E9840];
+  impl = [(AVOutputDevice *)self impl];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_invoke;
+  v9[3] = &unk_1E794F5B0;
+  v9[4] = handler;
+  [impl setSecondDisplayMode:mode completionHandler:v9];
 }
 
-uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_invoke(uint64_t a1)
+uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   result = (*(*(a1 + 32) + 16))();
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+    return fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -833,7 +873,7 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
 
 - (void)outputDeviceImplDidChangeVolume:(id)volume
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -842,7 +882,6 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canSetVolume
@@ -854,7 +893,7 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
 
 - (void)outputDeviceImplDidChangeCanChangeVolume:(id)volume
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -863,12 +902,11 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputDeviceImplDidChangeVolumeControlType:(id)type
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -877,12 +915,11 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputDeviceImplDidChangeMute:(id)mute
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -891,12 +928,11 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postNotification:(id)notification fromImpl:(id)impl
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -905,12 +941,11 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postNotification:(id)notification withPayload:(id)payload fromImpl:(id)impl
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -919,12 +954,11 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputDeviceImplCanMuteDidChange:(id)change
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -933,12 +967,11 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activatedDeviceClusterMembersDidChangeVolume:(id)volume forRoomID:(__CFString *)d
 {
-  v12[20] = *MEMORY[0x1E69E9840];
+  v9[20] = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -946,16 +979,15 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v11 = @"AVOutputDeviceActivatedClusterMembersRoomIDKey";
-  v12[0] = d;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:{1, v9, v10}];
+  v8 = @"AVOutputDeviceActivatedClusterMembersRoomIDKey";
+  v9[0] = d;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)localDeviceDidChange
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -963,13 +995,12 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v3 = *MEMORY[0x1E69E9840];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)setVolume:(float)volume
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -977,15 +1008,14 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v6 = [(AVOutputDevice *)self impl:v9];
+  impl = [(AVOutputDevice *)self impl];
   *&v7 = volume;
-  [v6 setVolume:v7];
-  v8 = *MEMORY[0x1E69E9840];
+  [impl setVolume:v7];
 }
 
 - (void)increaseVolumeByCount:(int64_t)count
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -993,13 +1023,12 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [-[AVOutputDevice impl](self impl];
-  v6 = *MEMORY[0x1E69E9840];
+  [-[AVOutputDevice impl](self "impl")];
 }
 
 - (void)decreaseVolumeByCount:(int64_t)count
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1007,13 +1036,12 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [-[AVOutputDevice impl](self impl];
-  v6 = *MEMORY[0x1E69E9840];
+  [-[AVOutputDevice impl](self "impl")];
 }
 
 - (void)setActivatedDeviceClusterMembersVolume:(float)volume withRoomID:(id)d
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1021,10 +1049,9 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v8 = [(AVOutputDevice *)self impl:v11];
+  impl = [(AVOutputDevice *)self impl];
   *&v9 = volume;
-  [v8 setActivatedDeviceClusterMembersVolume:d withRoomID:v9];
-  v10 = *MEMORY[0x1E69E9840];
+  [impl setActivatedDeviceClusterMembersVolume:d withRoomID:v9];
 }
 
 - (float)volumeForActivatedDeviceClusterMembersWithRoomID:(id)d
@@ -1049,6 +1076,20 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   return [impl isMuted];
 }
 
+- (void)setMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  v6 = *MEMORY[0x1E69E9840];
+  if (dword_1ED6F6B68)
+  {
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  [-[AVOutputDevice impl](self "impl")];
+}
+
 - (id)proposedGroupID
 {
   impl = [(AVOutputDevice *)self impl];
@@ -1058,7 +1099,7 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
 
 - (void)outputDeviceImplDidChangeProposedGroupID:(id)d
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1067,7 +1108,6 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isLogicalDeviceLeader
@@ -1091,9 +1131,10 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
   return [impl allowsHeadTrackedSpatialAudio];
 }
 
-- (BOOL)setHeadTrackedSpatialAudioMode:(id)mode error:(id *)error
+- (BOOL)setAllowsHeadTrackedSpatialAudio:(BOOL)audio error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  audioCopy = audio;
+  v9 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1101,14 +1142,33 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = [-[AVOutputDevice impl](self impl];
+  return [-[AVOutputDevice impl](self "impl")];
+}
+
+- (BOOL)setConversationDetectionEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  impl = [(AVOutputDevice *)self impl];
+
+  return [impl setConversationDetectionEnabled:enabledCopy error:error];
+}
+
+- (BOOL)setHeadTrackedSpatialAudioMode:(id)mode error:(id *)error
+{
   v9 = *MEMORY[0x1E69E9840];
-  return result;
+  if (dword_1ED6F6B68)
+  {
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  return [-[AVOutputDevice impl](self "impl")];
 }
 
 - (void)setCurrentBluetoothListeningMode:(id)mode
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1116,14 +1176,13 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVOutputDevice *)self setCurrentBluetoothListeningMode:mode error:0, v7, v8];
-  v6 = *MEMORY[0x1E69E9840];
+  [(AVOutputDevice *)self setCurrentBluetoothListeningMode:mode error:0];
 }
 
 - (BOOL)setCurrentBluetoothListeningMode:(id)mode error:(id *)error
 {
-  v18[20] = *MEMORY[0x1E69E9840];
-  v18[0] = 0;
+  v15[20] = *MEMORY[0x1E69E9840];
+  v15[0] = 0;
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1131,20 +1190,20 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  impl = [-[AVOutputDevice impl](self impl];
-  v9 = impl;
-  if (error && !impl && v18[0])
+  v8 = [-[AVOutputDevice impl](self "impl")];
+  v9 = v8;
+  if (error && !v8 && v15[0])
   {
-    code = [v18[0] code];
+    code = [v15[0] code];
     if (code == 1852797029)
     {
-      v11 = AVLocalizedError(@"AVFoundationErrorDomain", -11910, [MEMORY[0x1E695DF20] dictionaryWithObject:v18[0] forKey:*MEMORY[0x1E696AA08]]);
+      v11 = AVLocalizedError(@"AVFoundationErrorDomain", -11910, [MEMORY[0x1E695DF20] dictionaryWithObject:v15[0] forKey:*MEMORY[0x1E696AA08]]);
     }
 
     else
     {
       v12 = code;
-      domain = [v18[0] domain];
+      domain = [v15[0] domain];
       if ([domain isEqualToString:*MEMORY[0x1E696A768]])
       {
         v11 = AVLocalizedErrorWithUnderlyingOSStatus(v12, 0);
@@ -1152,14 +1211,13 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
 
       else
       {
-        v11 = v18[0];
+        v11 = v15[0];
       }
     }
 
     *error = v11;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1179,26 +1237,26 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
 
 - (void)openCommunicationChannelToDestination:(id)destination options:(id)options completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v8 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionCancelIfAuthRequired"];
   v9 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionCorrelationID"];
   v10 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionInitiator"];
-  v24 = [options objectForKeyedSubscript:@"AVOutputContextAddOutputDeviceOptionAuthorizationToken"];
-  v25 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionControlType"];
+  v21 = [options objectForKeyedSubscript:@"AVOutputContextAddOutputDeviceOptionAuthorizationToken"];
+  v22 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionControlType"];
   v11 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionClientUUID"];
   v12 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionQualityOfService"];
-  v23 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionStreamPriority"];
-  v22 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionAwaitReply"];
+  v20 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionStreamPriority"];
+  v19 = [options objectForKeyedSubscript:@"AVOutputDeviceCommunicationChannelOptionAwaitReply"];
   if (dword_1ED6F6B68)
   {
-    v29 = 0;
+    v26 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([(AVOutputDevice *)self deviceType:v20]== 2)
+  if ([(AVOutputDevice *)self deviceType]== 2)
   {
     v14 = +[AVOutputContext sharedSystemRemoteDisplayContext];
   }
@@ -1228,26 +1286,26 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
       [v17 setObject:v8 forKeyedSubscript:@"AVOutputContextAddOutputDeviceCancelIfAuthRequiredKey"];
     }
 
-    if (v24)
+    if (v21)
     {
-      [v17 setObject:v24 forKeyedSubscript:@"AVOutputContextAddOutputDeviceOptionAuthorizationToken"];
+      [v17 setObject:v21 forKeyedSubscript:@"AVOutputContextAddOutputDeviceOptionAuthorizationToken"];
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __82__AVOutputDevice_openCommunicationChannelToDestination_options_completionHandler___block_invoke;
-    v27[3] = &unk_1E794F5D8;
-    v27[4] = v25;
-    v27[5] = destination;
-    v27[6] = v9;
-    v27[7] = v11;
-    v27[8] = v12;
-    v27[9] = v23;
-    v27[10] = v22;
-    v27[11] = v15;
-    v27[12] = self;
-    v27[13] = handler;
-    [v15 addOutputDevice:self options:v17 completionHandler:v27];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __82__AVOutputDevice_openCommunicationChannelToDestination_options_completionHandler___block_invoke;
+    v24[3] = &unk_1E794F5D8;
+    v24[4] = v22;
+    v24[5] = destination;
+    v24[6] = v9;
+    v24[7] = v11;
+    v24[8] = v12;
+    v24[9] = v20;
+    v24[10] = v19;
+    v24[11] = v15;
+    v24[12] = self;
+    v24[13] = handler;
+    [v15 addOutputDevice:self options:v17 completionHandler:v24];
   }
 
   else
@@ -1255,14 +1313,12 @@ uint64_t __57__AVOutputDevice_setSecondDisplayMode_completionHandler___block_inv
     v18 = AVLocalizedError(@"AVFoundationErrorDomain", -11800, [MEMORY[0x1E695DF20] dictionaryWithObject:@"Error retrieving system remote pool context." forKey:*MEMORY[0x1E696A278]]);
     (*(handler + 2))(handler, 0, v18, 0);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __82__AVOutputDevice_openCommunicationChannelToDestination_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   cf[16] = *MEMORY[0x1E69E9840];
-  v47 = 0;
+  v29 = 0;
   theArray = 0;
   v4 = AVInputDeviceInternal;
   if ([a2 status] != 2)
@@ -1270,7 +1326,7 @@ void __82__AVOutputDevice_openCommunicationChannelToDestination_options_completi
     [a2 cancellationReason];
     Mutable = 0;
     v10 = 0;
-    goto LABEL_56;
+    goto LABEL_46;
   }
 
   v5 = *MEMORY[0x1E695E480];
@@ -1298,132 +1354,77 @@ void __82__AVOutputDevice_openCommunicationChannelToDestination_options_completi
     v8 = 1;
   }
 
-  if ([*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationMediaRemote"])
+  if ([*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationMediaRemote"] || objc_msgSend(*(a1 + 40), "isEqualToString:", @"AVOutputDeviceCommunicationChannelDataDestinationFitness") || objc_msgSend(*(a1 + 40), "isEqualToString:", @"AVOutputDeviceCommunicationChannelDataDestinationCarPlayData") || objc_msgSend(*(a1 + 40), "isEqualToString:", @"AVOutputDeviceCommunicationChannelDataDestinationCarPlayDataVersionTwo") || objc_msgSend(*(a1 + 40), "isEqualToString:", @"AVOutputDeviceCommunicationChannelDataDestinationCarPlayDataUpdate") || objc_msgSend(*(a1 + 40), "isEqualToString:", @"AVOutputDeviceCommunicationChannelDataDestinationCarPlayDataLogging"))
   {
-    v12 = MEMORY[0x1E6962398];
-    goto LABEL_20;
-  }
-
-  if ([*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationFitness"])
-  {
-    v12 = MEMORY[0x1E6962390];
-    goto LABEL_20;
-  }
-
-  if ([*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationCarPlayData"])
-  {
-    v12 = MEMORY[0x1E6962378];
-    goto LABEL_20;
-  }
-
-  if ([*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationCarPlayDataVersionTwo"])
-  {
-    v12 = MEMORY[0x1E6962380];
-    goto LABEL_20;
-  }
-
-  if ([*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationCarPlayDataUpdate"])
-  {
-    v12 = MEMORY[0x1E6962388];
-    goto LABEL_20;
-  }
-
-  if ([*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationCarPlayDataLogging"])
-  {
-    v12 = MEMORY[0x1E6962370];
-LABEL_20:
-    v13 = *v12;
     if (v8)
     {
-      goto LABEL_22;
+      goto LABEL_16;
     }
 
-    goto LABEL_21;
+    goto LABEL_15;
   }
 
-  if ([*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationCarPlayClusterControl"])
-  {
-    v40 = *MEMORY[0x1E6962368];
-  }
-
+  [*(a1 + 40) isEqualToString:@"AVOutputDeviceCommunicationChannelDataDestinationCarPlayClusterControl"];
   if ((v8 & 1) == 0)
   {
-LABEL_21:
+LABEL_15:
     CFDictionarySetValue(Mutable, *MEMORY[0x1E69623B0], [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v9]);
   }
 
-LABEL_22:
-  v14 = *MEMORY[0x1E6961768];
-  v15 = *(a1 + 48);
+LABEL_16:
   FigCFDictionarySetValue();
-  v16 = *MEMORY[0x1E69623A0];
   FigCFDictionarySetValue();
-  v17 = *MEMORY[0x1E69623D0];
   FigCFDictionarySetInt32();
-  v18 = *MEMORY[0x1E69623A8];
-  v19 = *(a1 + 56);
   FigCFDictionarySetValue();
-  v20 = *MEMORY[0x1E69623B8];
-  v21 = *(a1 + 64);
   FigCFDictionarySetValue();
-  v22 = *MEMORY[0x1E69623D8];
-  v23 = *(a1 + 72);
   FigCFDictionarySetValue();
-  v24 = *(a1 + 80);
-  if (v24)
+  v12 = *(a1 + 80);
+  if (v12)
   {
-    v25 = *MEMORY[0x1E69623C8];
-    v26 = [v24 BOOLValue];
-    v27 = MEMORY[0x1E695E4C0];
-    if (!v26)
-    {
-      v27 = MEMORY[0x1E695E4D0];
-    }
-
-    v28 = *v27;
+    [v12 BOOLValue];
     FigCFDictionarySetValue();
   }
 
-  v29 = [*(a1 + 88) figRoutingContext];
-  if (!v29)
+  v13 = [*(a1 + 88) figRoutingContext];
+  if (!v13)
   {
     AVLocalizedError(@"AVFoundationErrorDomain", -11800, 0);
-    goto LABEL_55;
+    goto LABEL_45;
   }
 
-  v30 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-  if (v30)
+  v14 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+  if (v14)
   {
-    v31 = v30(v29, &theArray);
-    if (v31)
+    v15 = v14(v13, &theArray);
+    if (v15)
     {
-      v42 = v31;
-      goto LABEL_54;
+      v25 = v15;
+      goto LABEL_44;
     }
 
     if (!theArray)
     {
-      goto LABEL_45;
+      goto LABEL_37;
     }
 
     Count = CFArrayGetCount(theArray);
     if (Count < 1)
     {
-      goto LABEL_45;
+      goto LABEL_37;
     }
 
-    v33 = Count;
-    v34 = 0;
-    v35 = *MEMORY[0x1E69620F8];
+    v17 = Count;
+    v18 = 0;
+    v19 = *MEMORY[0x1E69620F8];
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v34);
+      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v18);
       cf[0] = 0;
       CMBaseObject = FigEndpointGetCMBaseObject();
-      v38 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v38)
+      v22 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v22)
       {
-        v38(CMBaseObject, v35, v5, cf);
+        v22(CMBaseObject, v19, v5, cf);
       }
 
       [*(a1 + 96) deviceID];
@@ -1437,9 +1438,9 @@ LABEL_22:
         CFRelease(cf[0]);
       }
 
-      if (v33 == ++v34)
+      if (v17 == ++v18)
       {
-        goto LABEL_45;
+        goto LABEL_37;
       }
     }
 
@@ -1450,11 +1451,11 @@ LABEL_22:
 
     if (!ValueAtIndex || (FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass()))
     {
-LABEL_45:
+LABEL_37:
       AVLocalizedError(@"AVFoundationErrorDomain", -11800, 0);
       v10 = 0;
       v4 = AVInputDeviceInternal;
-      goto LABEL_56;
+      goto LABEL_46;
     }
 
     v4 = AVInputDeviceInternal;
@@ -1466,34 +1467,34 @@ LABEL_45:
       v4 = AVInputDeviceInternal;
     }
 
-    v41 = *(*(CMBaseObjectGetVTable() + 24) + 80);
-    if (v41)
+    v24 = *(*(CMBaseObjectGetVTable() + 24) + 80);
+    if (v24)
     {
-      v42 = v41(ValueAtIndex, Mutable, &v47);
-      if (!v42)
+      v25 = v24(ValueAtIndex, Mutable, &v29);
+      if (!v25)
       {
-        v43 = [AVFigEndpointRemoteControlSessionOutputDeviceCommunicationChannelImpl alloc];
-        v44 = [(AVFigEndpointRemoteControlSessionOutputDeviceCommunicationChannelImpl *)v43 initWithRemoteControlSession:v47];
-        v10 = [[AVOutputDeviceCommunicationChannel alloc] initWithOutputDeviceCommunicationChannelImpl:v44];
+        v26 = [AVFigEndpointRemoteControlSessionOutputDeviceCommunicationChannelImpl alloc];
+        v27 = [(AVFigEndpointRemoteControlSessionOutputDeviceCommunicationChannelImpl *)v26 initWithRemoteControlSession:v29];
+        v10 = [[AVOutputDeviceCommunicationChannel alloc] initWithOutputDeviceCommunicationChannelImpl:v27];
 
-        goto LABEL_56;
+        goto LABEL_46;
       }
 
-      goto LABEL_54;
+      goto LABEL_44;
     }
   }
 
-  v42 = -12782;
-LABEL_54:
-  AVLocalizedErrorWithUnderlyingOSStatus(v42, 0);
-LABEL_55:
+  v25 = 4294954514;
+LABEL_44:
+  AVLocalizedErrorWithUnderlyingOSStatus(v25, 0);
+LABEL_45:
   v10 = 0;
-LABEL_56:
-  (*(*(a1 + 104) + 16))(*(a1 + 104), v10);
+LABEL_46:
+  (*(*(a1 + 104) + 16))();
   if (LODWORD(v4[73].isa))
   {
-    v45 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
+    v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
@@ -1502,22 +1503,20 @@ LABEL_56:
     CFRelease(Mutable);
   }
 
-  if (v47)
+  if (v29)
   {
-    CFRelease(v47);
+    CFRelease(v29);
   }
 
   if (theArray)
   {
     CFRelease(theArray);
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCommunicationChannelDelegate:(id)delegate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1526,12 +1525,11 @@ LABEL_56:
   }
 
   objc_storeWeak(&self->_outputDevice->communicationChannelDelegate, delegate);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)communicationChannelManager:(id)manager didReceiveData:(id)data fromCommunicationChannel:(id)channel
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak(&self->_outputDevice->communicationChannelDelegate);
   if (objc_opt_respondsToSelector())
   {
@@ -1542,7 +1540,7 @@ LABEL_56:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [Weak outputDevice:self didReceiveData:data fromCommunicationChannel:{channel, v12, v13}];
+    [Weak outputDevice:self didReceiveData:data fromCommunicationChannel:channel];
   }
 
   else if (dword_1ED6F6B68)
@@ -1551,13 +1549,11 @@ LABEL_56:
     os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)communicationChannelManager:(id)manager didCloseCommunicationChannel:(id)channel
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak(&self->_outputDevice->communicationChannelDelegate);
   if (objc_opt_respondsToSelector())
   {
@@ -1568,7 +1564,7 @@ LABEL_56:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [Weak outputDevice:self didCloseCommunicationChannel:{channel, v10, v11}];
+    [Weak outputDevice:self didCloseCommunicationChannel:channel];
   }
 
   else if (dword_1ED6F6B68)
@@ -1577,51 +1573,12 @@ LABEL_56:
     os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureUsingBlock:(id)block options:(id)options completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
-  [options objectForKeyedSubscript:@"AVOutputDeviceConfigurationOptionCancelConfigurationIfAuthRequired"];
-  if (dword_1ED6F6B68)
-  {
-    v16 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-  }
-
-  v10 = [(AVOutputDevice *)self impl:v12];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __64__AVOutputDevice_configureUsingBlock_options_completionHandler___block_invoke;
-  v14[3] = &unk_1E794F600;
-  v14[4] = handler;
-  [v10 configureUsingBlock:block options:options completionHandler:v14];
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t __64__AVOutputDevice_configureUsingBlock_options_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  if (dword_1ED6F6B68)
-  {
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-  }
-
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), a2);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (void)configureUsingBlock:(id)block completionHandler:(id)handler
-{
   v14 = *MEMORY[0x1E69E9840];
+  [options objectForKeyedSubscript:@"AVOutputDeviceConfigurationOptionCancelConfigurationIfAuthRequired"];
   if (dword_1ED6F6B68)
   {
     v13 = 0;
@@ -1631,16 +1588,16 @@ uint64_t __64__AVOutputDevice_configureUsingBlock_options_completionHandler___bl
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
+  impl = [(AVOutputDevice *)self impl];
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
-  v11[2] = __56__AVOutputDevice_configureUsingBlock_completionHandler___block_invoke;
+  v11[2] = __64__AVOutputDevice_configureUsingBlock_options_completionHandler___block_invoke;
   v11[3] = &unk_1E794F600;
   v11[4] = handler;
-  [(AVOutputDevice *)self configureUsingBlock:block options:0 completionHandler:v11, v9, v10];
-  v8 = *MEMORY[0x1E69E9840];
+  [impl configureUsingBlock:block options:options completionHandler:v11];
 }
 
-uint64_t __56__AVOutputDevice_configureUsingBlock_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __64__AVOutputDevice_configureUsingBlock_options_completionHandler___block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v8 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
@@ -1650,9 +1607,40 @@ uint64_t __56__AVOutputDevice_configureUsingBlock_completionHandler___block_invo
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = (*(*(a1 + 32) + 16))(*(a1 + 32), a3);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
+}
+
+- (void)configureUsingBlock:(id)block completionHandler:(id)handler
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (dword_1ED6F6B68)
+  {
+    v10 = 0;
+    type = OS_LOG_TYPE_DEFAULT;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __56__AVOutputDevice_configureUsingBlock_completionHandler___block_invoke;
+  v8[3] = &unk_1E794F600;
+  v8[4] = handler;
+  [(AVOutputDevice *)self configureUsingBlock:block options:0 completionHandler:v8];
+}
+
+uint64_t __56__AVOutputDevice_configureUsingBlock_completionHandler___block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  if (dword_1ED6F6B68)
+  {
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)setMediaRemoteData:(id)data completionHandler:(id)handler
@@ -1830,6 +1818,14 @@ uint64_t __56__AVOutputDevice_configureUsingBlock_completionHandler___block_invo
   return [impl siriForwardingEnabled];
 }
 
+- (void)setSiriForwardingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  impl = [(AVOutputDevice *)self impl];
+
+  [impl setSiriForwardingEnabled:enabledCopy];
+}
+
 - (BOOL)carOwnsMainAudio
 {
   impl = [(AVOutputDevice *)self impl];
@@ -1909,7 +1905,7 @@ uint64_t __56__AVOutputDevice_configureUsingBlock_completionHandler___block_invo
 
 - (void)setDelegate:(id)delegate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B68)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1917,8 +1913,7 @@ uint64_t __56__AVOutputDevice_configureUsingBlock_completionHandler___block_invo
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [-[AVOutputDevice impl](self impl];
-  v6 = *MEMORY[0x1E69E9840];
+  [-[AVOutputDevice impl](self "impl")];
 }
 
 - (id)delegate

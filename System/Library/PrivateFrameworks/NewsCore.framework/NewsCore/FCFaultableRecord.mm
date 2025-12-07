@@ -25,7 +25,7 @@
 
 - (id)recordBase
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock_with_options();
@@ -63,16 +63,16 @@
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
           {
-            v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"faultable record failed to load base"];
-            v13 = 136315906;
-            v14 = "[FCFaultableRecord recordBase]";
-            v15 = 2080;
-            v16 = "FCFaultableRecord.m";
-            v17 = 1024;
-            v18 = 103;
-            v19 = 2114;
-            v20 = v12;
-            _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingRecordBase) : %s %s:%d %{public}@", &v13, 0x26u);
+            v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"faultable record failed to load base"];
+            v12 = 136315906;
+            v13 = "[FCFaultableRecord recordBase]";
+            v14 = 2080;
+            v15 = "FCFaultableRecord.m";
+            v16 = 1024;
+            v17 = 103;
+            v18 = 2114;
+            v19 = v11;
+            _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingRecordBase) : %s %s:%d %{public}@", &v12, 0x26u);
           }
 
           v3 = 0;
@@ -85,16 +85,16 @@
 
     if (!identifier && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"faultable record loaded base without an identifier"];
-      v13 = 136315906;
-      v14 = "[FCFaultableRecord recordBase]";
-      v15 = 2080;
-      v16 = "FCFaultableRecord.m";
-      v17 = 1024;
-      v18 = 104;
-      v19 = 2114;
-      v20 = v11;
-      _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: CorruptRecordBase) : %s %s:%d %{public}@", &v13, 0x26u);
+      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"faultable record loaded base without an identifier"];
+      v12 = 136315906;
+      v13 = "[FCFaultableRecord recordBase]";
+      v14 = 2080;
+      v15 = "FCFaultableRecord.m";
+      v16 = 1024;
+      v17 = 104;
+      v18 = 2114;
+      v19 = v10;
+      _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: CorruptRecordBase) : %s %s:%d %{public}@", &v12, 0x26u);
     }
 
 LABEL_12:
@@ -105,14 +105,13 @@ LABEL_12:
 
   v8 = 0;
 LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)record
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock_with_options();
@@ -142,16 +141,16 @@ LABEL_13:
       case 0:
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unknown type in faultable record"];
-          v16 = 136315906;
-          v17 = "[FCFaultableRecord record]";
-          v18 = 2080;
-          v19 = "FCFaultableRecord.m";
-          v20 = 1024;
-          v21 = 129;
-          v22 = 2114;
-          v23 = v15;
-          _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
+          v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unknown type in faultable record"];
+          v15 = 136315906;
+          v16 = "[FCFaultableRecord record]";
+          v17 = 2080;
+          v18 = "FCFaultableRecord.m";
+          v19 = 1024;
+          v20 = 129;
+          v21 = 2114;
+          v22 = v14;
+          _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
         }
 
         goto LABEL_9;
@@ -192,10 +191,10 @@ LABEL_9:
         v10 = FCRecordSourceLog;
         if (os_log_type_enabled(FCRecordSourceLog, OS_LOG_TYPE_FAULT))
         {
-          LOWORD(v16) = 0;
+          LOWORD(v15) = 0;
           v11 = "failed to decode record from faultable record";
 LABEL_25:
-          _os_log_fault_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_FAULT, v11, &v16, 2u);
+          _os_log_fault_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_FAULT, v11, &v15, 2u);
         }
       }
     }
@@ -205,7 +204,7 @@ LABEL_25:
       v10 = FCRecordSourceLog;
       if (os_log_type_enabled(FCRecordSourceLog, OS_LOG_TYPE_FAULT))
       {
-        LOWORD(v16) = 0;
+        LOWORD(v15) = 0;
         v11 = "failed to find record class for faultable record";
         goto LABEL_25;
       }
@@ -233,27 +232,26 @@ LABEL_20:
 
   v2 = 0;
 LABEL_21:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 + (FCFaultableRecord)faultableRecordWithRecord:(uint64_t)record
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_self();
   if (!v3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "record != nil"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "record != nil"];
     *buf = 136315906;
-    v10 = "+[FCFaultableRecord faultableRecordWithRecord:]";
-    v11 = 2080;
-    v12 = "FCFaultableRecord.m";
-    v13 = 1024;
-    v14 = 38;
-    v15 = 2114;
-    v16 = v8;
+    v9 = "+[FCFaultableRecord faultableRecordWithRecord:]";
+    v10 = 2080;
+    v11 = "FCFaultableRecord.m";
+    v12 = 1024;
+    v13 = 38;
+    v14 = 2114;
+    v15 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -264,28 +262,26 @@ LABEL_21:
     objc_storeStrong(&v4->_record, a2);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)readValueFromKeyValuePair:(id)pair
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   recordData = [pair recordData];
   v4 = recordData;
   objc_opt_self();
   if (!v4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordData != nil"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordData != nil"];
     *buf = 136315906;
-    v11 = "+[FCFaultableRecord faultableRecordWithRecordData:]";
-    v12 = 2080;
-    v13 = "FCFaultableRecord.m";
-    v14 = 1024;
-    v15 = 47;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "+[FCFaultableRecord faultableRecordWithRecordData:]";
+    v11 = 2080;
+    v12 = "FCFaultableRecord.m";
+    v13 = 1024;
+    v14 = 47;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -296,29 +292,25 @@ LABEL_21:
     objc_storeStrong(&v5->_recordData, recordData);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)writeToKeyValuePair:(id)pair
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-writeValueToDataWriter should have been used instead"];
-    v5 = 136315906;
-    v6 = "[FCFaultableRecord writeToKeyValuePair:]";
-    v7 = 2080;
-    v8 = "FCFaultableRecord.m";
-    v9 = 1024;
-    v10 = 272;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
+    v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-writeValueToDataWriter should have been used instead"];
+    v4 = 136315906;
+    v5 = "[FCFaultableRecord writeToKeyValuePair:]";
+    v6 = 2080;
+    v7 = "FCFaultableRecord.m";
+    v8 = 1024;
+    v9 = 272;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v4, 0x26u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeValueToDataWriter:(id)writer

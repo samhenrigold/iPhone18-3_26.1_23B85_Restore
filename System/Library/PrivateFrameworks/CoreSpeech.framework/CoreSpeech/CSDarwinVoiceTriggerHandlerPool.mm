@@ -148,13 +148,12 @@
 - (void)start
 {
   objc_initWeak(&location, self);
-  queue = self->_queue;
-  objc_copyWeak(&v6, &location);
+  objc_copyWeak(&v5, &location);
   started = remote_device_start_browsing();
   deviceBrowser = self->_deviceBrowser;
   self->_deviceBrowser = started;
 
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v5);
   objc_destroyWeak(&location);
 }
 

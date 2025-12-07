@@ -48,7 +48,7 @@ void __50__SFBrowserASCLockupViewGenerator_lockupViewGroup__block_invoke()
 {
   delegateCopy = delegate;
   handlerCopy = handler;
-  if (AppStoreComponentsLibraryCore() && getASCLockupContextWebBrowserSymbolLoc())
+  if (AppStoreComponentsLibraryCore(0) && getASCLockupContextWebBrowserSymbolLoc())
   {
     array = [MEMORY[0x1E695DF70] array];
     [(NSTimer *)self->_requestTimeout invalidate];
@@ -99,32 +99,33 @@ void __85__SFBrowserASCLockupViewGenerator_generateLockupViewsWithDelegate_compl
 void __85__SFBrowserASCLockupViewGenerator_generateLockupViewsWithDelegate_completionHandler___block_invoke_2(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x1E698B3A0]);
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v3 = getASCCollectionIDWebBrowsersSymbolLoc_ptr;
-  v26 = getASCCollectionIDWebBrowsersSymbolLoc_ptr;
+  v27 = getASCCollectionIDWebBrowsersSymbolLoc_ptr;
   if (!getASCCollectionIDWebBrowsersSymbolLoc_ptr)
   {
-    v18 = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = __getASCCollectionIDWebBrowsersSymbolLoc_block_invoke;
-    v21 = &unk_1E848F710;
-    v22 = &v23;
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __getASCCollectionIDWebBrowsersSymbolLoc_block_invoke;
+    v22 = &unk_1E848F710;
+    v23 = &v24;
     v4 = AppStoreComponentsLibrary();
-    v24[3] = dlsym(v4, "ASCCollectionIDWebBrowsers");
-    getASCCollectionIDWebBrowsersSymbolLoc_ptr = *(v22[1] + 24);
-    v3 = v24[3];
+    v25[3] = dlsym(v4, "ASCCollectionIDWebBrowsers");
+    getASCCollectionIDWebBrowsersSymbolLoc_ptr = *(v23[1] + 24);
+    v3 = v25[3];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v3)
   {
     [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
 LABEL_7:
-    v13 = [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
-    _Block_object_dispose(&v23, 8);
-    _Unwind_Resume(v13);
+    [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
+    v14 = v13;
+    _Block_object_dispose(&v24, 8);
+    _Unwind_Resume(v14);
   }
 
   v5 = *v3;
@@ -137,19 +138,19 @@ LABEL_7:
   v7 = [v2 initWithID:v5 kind:*MEMORY[0x1E698B360] context:*ASCLockupContextWebBrowserSymbolLoc limit:20];
 
   v8 = [objc_opt_class() lockupViewGroup];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __85__SFBrowserASCLockupViewGenerator_generateLockupViewsWithDelegate_completionHandler___block_invoke_3;
-  v15[3] = &unk_1E8495FF0;
-  v14 = *(a1 + 32);
-  v9 = *(&v14 + 1);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __85__SFBrowserASCLockupViewGenerator_generateLockupViewsWithDelegate_completionHandler___block_invoke_3;
+  v16[3] = &unk_1E8495FF0;
+  v15 = *(a1 + 32);
+  v9 = *(&v15 + 1);
   v10 = *(a1 + 48);
   v11 = *(a1 + 56);
   *&v12 = v10;
   *(&v12 + 1) = v11;
-  v16 = v14;
-  v17 = v12;
-  [v8 _cacheLockupsWithCollectionRequest:v7 withCompletionBlock:v15];
+  v17 = v15;
+  v18 = v12;
+  [v8 _cacheLockupsWithCollectionRequest:v7 withCompletionBlock:v16];
 }
 
 void __85__SFBrowserASCLockupViewGenerator_generateLockupViewsWithDelegate_completionHandler___block_invoke_3(uint64_t a1, void *a2)

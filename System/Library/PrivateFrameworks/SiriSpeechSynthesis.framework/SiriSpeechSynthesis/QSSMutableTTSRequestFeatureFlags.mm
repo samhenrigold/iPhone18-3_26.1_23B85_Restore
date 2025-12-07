@@ -6,6 +6,10 @@
 - (QSSMutableTTSRequestFeatureFlags)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int64_t)phoneset_type;
+- (void)setCache_only:(BOOL)cache_only;
+- (void)setDisable_prompts:(BOOL)disable_prompts;
+- (void)setFe_feature:(BOOL)fe_feature;
+- (void)setFe_feature_only:(BOOL)fe_feature_only;
 - (void)setPhoneset_type:(int64_t)phoneset_type;
 @end
 
@@ -25,12 +29,24 @@
   return integerValue;
 }
 
+- (void)setCache_only:(BOOL)cache_only
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:cache_only];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (BOOL)cache_only
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"cache_only"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDisable_prompts:(BOOL)disable_prompts
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:disable_prompts];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (BOOL)disable_prompts
@@ -41,12 +57,24 @@
   return bOOLValue;
 }
 
+- (void)setFe_feature_only:(BOOL)fe_feature_only
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:fe_feature_only];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (BOOL)fe_feature_only
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"fe_feature_only"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setFe_feature:(BOOL)fe_feature
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:fe_feature];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (BOOL)fe_feature

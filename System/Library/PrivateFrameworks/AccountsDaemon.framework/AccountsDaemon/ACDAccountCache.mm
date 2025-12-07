@@ -6,6 +6,7 @@
 - (id)cachedAccountForIdentifier:(id)identifier;
 - (id)cachedAccountTypeForID:(id)d;
 - (id)cachedAccountsOfType:(id)type justActive:(BOOL)active fetchBlock:(id)block;
+- (void)_caches_lock_cacheAccounts:(id)accounts forType:(id)type justActive:(BOOL)active;
 - (void)_clearCacheIncludingRemote:(BOOL)remote;
 - (void)_expirerScheduleForAccountIdentifier:(id)identifier;
 - (void)_lock_cacheAccount:(id)account;
@@ -220,7 +221,7 @@ void __56__ACDAccountCache__expirerScheduleForAccountIdentifier___block_invoke_3
 
 - (void)_lock_cacheAccountCopy:(id)copy
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   copyCopy = copy;
   cachedAccountsByID = [(ACDAccountCache *)self cachedAccountsByID];
   identifier = [copyCopy identifier];
@@ -229,29 +230,29 @@ void __56__ACDAccountCache__expirerScheduleForAccountIdentifier___block_invoke_3
   identifier2 = [copyCopy identifier];
   [(ACDAccountCache *)self _expirerScheduleForAccountIdentifier:identifier2];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   selfCopy = self;
   cachedAccountsByID2 = [(ACDAccountCache *)self cachedAccountsByID];
   allValues = [cachedAccountsByID2 allValues];
 
-  v10 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         parentAccount = [v14 parentAccount];
         identifier3 = [parentAccount identifier];
         identifier4 = [copyCopy identifier];
@@ -264,13 +265,11 @@ void __56__ACDAccountCache__expirerScheduleForAccountIdentifier___block_invoke_3
         }
       }
 
-      v11 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedAccountForIdentifier:(id)identifier
@@ -334,6 +333,64 @@ id __46__ACDAccountCache_cachedAccountForIdentifier___block_invoke(uint64_t a1)
   os_unfair_lock_lock(&self->_cachesLock);
   v14(v12);
   os_unfair_lock_unlock(&self->_cachesLock);
+}
+
+- (void)_caches_lock_cacheAccounts:(id)accounts forType:(id)type justActive:(BOOL)active
+{
+  activeCopy = active;
+  v32 = *MEMORY[0x277D85DE8];
+  accountsCopy = accounts;
+  typeCopy = type;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v10 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:accountsCopy copyItems:1];
+  v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v11)
+  {
+    v12 = *v28;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v28 != v12)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        [(ACDAccountCache *)self _lock_cacheAccount:*(*(&v27 + 1) + 8 * v13++)];
+      }
+
+      while (v11 != v13);
+      v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    }
+
+    while (v11);
+  }
+
+  v14 = [MEMORY[0x277CB8F88] suffixForAccountsForAccountType:typeCopy fetchOptions:activeCopy ^ 1];
+  [(ACDAccountCache *)self _lock_cacheGenerationForAccounts:accountsCopy cacheSuffix:v14];
+
+  v15 = [(ACDAccountCache *)self _keyForType:typeCopy justActive:activeCopy];
+  v16 = [v10 valueForKeyPath:@"identifier"];
+  cachedAccountIDsByType = [(ACDAccountCache *)self cachedAccountIDsByType];
+  [cachedAccountIDsByType setObject:v16 forKeyedSubscript:v15];
+
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v22 = __65__ACDAccountCache__caches_lock_cacheAccounts_forType_justActive___block_invoke;
+  v23 = &unk_27848C0B8;
+  selfCopy = self;
+  v18 = typeCopy;
+  v25 = v18;
+  v19 = v15;
+  v26 = v19;
+  v20 = v21;
+  os_unfair_lock_lock(&self->_expirersLock);
+  v22(v20);
+  os_unfair_lock_unlock(&self->_expirersLock);
 }
 
 void __65__ACDAccountCache__caches_lock_cacheAccounts_forType_justActive___block_invoke(uint64_t a1)
@@ -408,7 +465,7 @@ void __65__ACDAccountCache__caches_lock_cacheAccounts_forType_justActive___block
 
 id __62__ACDAccountCache_cachedAccountsOfType_justActive_fetchBlock___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _keyForType:*(a1 + 40) justActive:*(a1 + 56)];
   v3 = [*(a1 + 32) cachedAccountIDsByType];
   v4 = [v3 objectForKeyedSubscript:v2];
@@ -416,26 +473,26 @@ id __62__ACDAccountCache_cachedAccountsOfType_justActive_fetchBlock___block_invo
   if (v4)
   {
     v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v10);
+        v11 = *(*(&v19 + 1) + 8 * v10);
         v12 = [*(a1 + 32) cachedAccountsByID];
         v13 = [v12 objectForKeyedSubscript:v11];
 
@@ -448,7 +505,7 @@ LABEL_4:
 
         if (v8 == ++v10)
         {
-          v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -489,8 +546,6 @@ LABEL_4:
   }
 
 LABEL_17:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -682,33 +737,33 @@ uint64_t __37__ACDAccountCache_removeAccountType___block_invoke(uint64_t a1)
 
 void __39__ACDAccountCache_removeAccount_store___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cachedAccountsByID];
   v3 = [*(a1 + 40) identifier];
   [v2 removeObjectForKey:v3];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v4 = [*(a1 + 32) cachedAccountsByID];
   v5 = [v4 allValues];
 
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = [v10 parentAccount];
         v12 = [v11 identifier];
         v13 = [*(a1 + 40) identifier];
@@ -722,7 +777,7 @@ void __39__ACDAccountCache_removeAccount_store___block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v7);
@@ -738,7 +793,6 @@ void __39__ACDAccountCache_removeAccount_store___block_invoke(uint64_t a1)
   v22 = [v20 _childAccountsForAccountWithID:v21];
 
   [*(a1 + 32) _lock_resetCacheGenerationsForChildren:v22 recurseDepth:1 store:*(a1 + 48)];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearCacheIncludingRemote:(BOOL)remote
@@ -868,30 +922,30 @@ void __46__ACDAccountCache__clearCacheIncludingRemote___block_invoke_2(uint64_t 
 
 - (void)_lock_resetCacheGenerationsForChildren:(id)children recurseDepth:(unint64_t)depth store:(id)store
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   childrenCopy = children;
   storeCopy = store;
   if (depth <= 0xA)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v10 = [childrenCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v10 = [childrenCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(childrenCopy);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           accountType = [v14 accountType];
           identifier = [accountType identifier];
           [(ACDAccountCache *)self _lock_resetGenerationForType:identifier];
@@ -905,50 +959,46 @@ void __46__ACDAccountCache__clearCacheIncludingRemote___block_invoke_2(uint64_t 
           }
         }
 
-        v11 = [childrenCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [childrenCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_resetAllAccountTypeIdentifiers
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   allIdentifiers = [MEMORY[0x277CB8F58] allIdentifiers];
-  v4 = [allIdentifiers countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [allIdentifiers countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(allIdentifiers);
         }
 
-        [(ACDAccountCache *)self _lock_resetGenerationForType:*(*(&v9 + 1) + 8 * v7++)];
+        [(ACDAccountCache *)self _lock_resetGenerationForType:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allIdentifiers countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [allIdentifiers countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_resetGenerationForType:(id)type
@@ -972,11 +1022,10 @@ void __46__ACDAccountCache__clearCacheIncludingRemote___block_invoke_2(uint64_t 
 
 - (void)_lock_cacheAccount:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "ACDAccountCache just ran into an account (%@) missing an identifier, not caching it", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "ACDAccountCache just ran into an account (%@) missing an identifier, not caching it", &v2, 0xCu);
 }
 
 @end

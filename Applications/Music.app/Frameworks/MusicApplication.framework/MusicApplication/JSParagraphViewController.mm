@@ -25,13 +25,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_37E3B4();
+  sub_37E3B4(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_37EB0C();
+  sub_37EB0C(selfCopy);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator

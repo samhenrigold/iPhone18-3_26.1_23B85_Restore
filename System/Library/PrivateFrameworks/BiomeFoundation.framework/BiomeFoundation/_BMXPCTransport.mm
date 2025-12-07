@@ -7,6 +7,7 @@
 - (id)errorHandler;
 - (id)messageHandler;
 - (id)sendMessageWithReplySync:(id)sync;
+- (void)_setTargetUserIdentifier:(unsigned int)identifier;
 - (void)_willSendMessage:(id)message;
 - (void)dealloc;
 - (void)sendMessage:(id)message;
@@ -159,7 +160,6 @@
 {
   notificationCopy = notification;
   [(_BMXPCTransport *)self _willSendMessage:notificationCopy];
-  connection = self->_connection;
   xpc_connection_send_notification();
 }
 
@@ -176,6 +176,25 @@
     {
       [v5 setQueue:targetq];
       xpc_connection_set_target_queue(self->_connection, targetq);
+    }
+  }
+}
+
+- (void)_setTargetUserIdentifier:(unsigned int)identifier
+{
+  if (identifier)
+  {
+    connection = self->_connection;
+
+    MEMORY[0x1EEE74B20](connection, *&identifier);
+  }
+
+  else
+  {
+    v5 = __biome_log_for_category(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    {
+      [_BMXPCTransport _setTargetUserIdentifier:v5];
     }
   }
 }

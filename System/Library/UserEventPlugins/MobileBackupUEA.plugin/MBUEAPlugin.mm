@@ -61,12 +61,10 @@
       v28 = 1024;
       v29 = isBackupOnCellularEnabled;
       _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "Not waking up backupd, enabled:%d, onPower:%d(%d), locked:%d, onWiFi:%d, onCellular:%d, backupOnCellularEnabled:%d", buf, 0x2Cu);
-      goto LABEL_10;
+      _MBLog(@"Db", "Not waking up backupd, enabled:%d, onPower:%d(%d), locked:%d, onWiFi:%d, onCellular:%d, backupOnCellularEnabled:%d", isEnabled);
     }
 
-LABEL_11:
-
-    goto LABEL_12;
+    goto LABEL_10;
   }
 
   if ((_isWithinPasscodeChangedWindow & 1) == 0 && [(MBUEAPlugin *)self _isWithinBackupPeriodOnPower:isOnPower])
@@ -76,10 +74,10 @@ LABEL_11:
     {
       *buf = 0;
       _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "Not waking backupd up prematurely", buf, 2u);
-LABEL_10:
-      _MBLog();
-      goto LABEL_11;
+      _MBLog(@"I ", "Not waking backupd up prematurely");
     }
+
+LABEL_10:
 
     goto LABEL_11;
   }
@@ -89,7 +87,7 @@ LABEL_10:
   {
     *buf = 0;
     _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "Waking backupd", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Waking backupd");
   }
 
   notificationQueue = self->_notificationQueue;
@@ -99,7 +97,7 @@ LABEL_10:
   block[3] = &unk_14640;
   block[4] = self;
   dispatch_async(notificationQueue, block);
-LABEL_12:
+LABEL_11:
 }
 
 - (BOOL)isOnPower
@@ -251,19 +249,19 @@ LABEL_12:
   self->_accountStore = v5;
 
   v7 = self->_accountStore;
-  v64[0] = _NSConcreteStackBlock;
-  v64[1] = 3221225472;
-  v64[2] = sub_2F04;
-  v64[3] = &unk_144C0;
-  objc_copyWeak(&v65, &location);
-  [(ACMonitoredAccountStore *)v7 registerWithCompletion:v64];
-  self->_keybagToken = -1;
   v62[0] = _NSConcreteStackBlock;
   v62[1] = 3221225472;
-  v62[2] = sub_10D0;
-  v62[3] = &unk_144E8;
+  v62[2] = sub_2F04;
+  v62[3] = &unk_144C0;
   objc_copyWeak(&v63, &location);
-  v8 = objc_retainBlock(v62);
+  [(ACMonitoredAccountStore *)v7 registerWithCompletion:v62];
+  self->_keybagToken = -1;
+  v60[0] = _NSConcreteStackBlock;
+  v60[1] = 3221225472;
+  v60[2] = sub_10D0;
+  v60[3] = &unk_144E8;
+  objc_copyWeak(&v61, &location);
+  v8 = objc_retainBlock(v60);
   v9 = kMobileKeyBagLockStatusNotifyToken;
   v10 = notify_register_dispatch(kMobileKeyBagLockStatusNotifyToken, &self->_keybagToken, self->_eventQueue, v8);
   if (v10)
@@ -273,22 +271,20 @@ LABEL_12:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v68 = v9;
-      v69 = 1024;
-      v70 = v10;
+      v66 = v9;
+      v67 = 1024;
+      v68 = v10;
       _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "notify_register_dispatch(%{public}s) failed: %u", buf, 0x12u);
-      v38 = v9;
-      v39 = v10;
-      _MBLog();
+      _MBLog(@"E ", "notify_register_dispatch(%{public}s) failed: %u", v9, v10);
     }
   }
 
-  v60[0] = _NSConcreteStackBlock;
-  v60[1] = 3221225472;
-  v60[2] = sub_121C;
-  v60[3] = &unk_144E8;
-  objc_copyWeak(&v61, &location);
-  v12 = objc_retainBlock(v60);
+  v58[0] = _NSConcreteStackBlock;
+  v58[1] = 3221225472;
+  v58[2] = sub_121C;
+  v58[3] = &unk_144E8;
+  objc_copyWeak(&v59, &location);
+  v12 = objc_retainBlock(v58);
   self->_screenLockedToken = -1;
   v13 = kSBSLockStateNotifyKey;
   v14 = notify_register_dispatch(kSBSLockStateNotifyKey, &self->_screenLockedToken, self->_eventQueue, v12);
@@ -299,13 +295,11 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v68 = v13;
-      v69 = 1024;
-      v70 = v14;
+      v66 = v13;
+      v67 = 1024;
+      v68 = v14;
       _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "notify_register_dispatch(%{public}s) failed: %u", buf, 0x12u);
-      v38 = v13;
-      v39 = v14;
-      _MBLog();
+      _MBLog(@"E ", "notify_register_dispatch(%{public}s) failed: %u", v13, v14);
     }
   }
 
@@ -318,9 +312,9 @@ LABEL_12:
   handler[1] = 3221225472;
   handler[2] = sub_31C0;
   handler[3] = &unk_14510;
-  objc_copyWeak(&v59, &location);
-  v42 = v16;
-  v58 = v42;
+  objc_copyWeak(&v57, &location);
+  v40 = v16;
+  v56 = v40;
   v20 = notify_register_dispatch(uTF8String, &self->_passcodeChangedToken, eventQueue, handler);
   if (v20)
   {
@@ -329,13 +323,11 @@ LABEL_12:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v68 = v42;
-      v69 = 1024;
-      v70 = v20;
+      v66 = v40;
+      v67 = 1024;
+      v68 = v20;
       _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "notify_register_dispatch(%{public}@) failed: %u", buf, 0x12u);
-      v38 = v42;
-      v39 = v20;
-      _MBLog();
+      _MBLog(@"E ", "notify_register_dispatch(%{public}@) failed: %u", v40, v20);
     }
   }
 
@@ -345,19 +337,19 @@ LABEL_12:
   block[2] = sub_32A4;
   block[3] = &unk_14538;
   block[4] = self;
-  v41 = v12;
-  v55 = v41;
-  v40 = v8;
-  v56 = v40;
+  v39 = v12;
+  v53 = v39;
+  v38 = v8;
+  v54 = v38;
   dispatch_async(v22, block);
   v23 = CFPreferencesCopyValue(@"IgnorePowerState", @"com.apple.MobileBackup", @"mobile", kCFPreferencesCurrentHost);
   atomic_store([v23 BOOLValue], &self->_ignorePowerState);
-  v52[0] = _NSConcreteStackBlock;
-  v52[1] = 3221225472;
-  v52[2] = sub_331C;
-  v52[3] = &unk_144E8;
-  objc_copyWeak(&v53, &location);
-  v24 = objc_retainBlock(v52);
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_331C;
+  v50[3] = &unk_144E8;
+  objc_copyWeak(&v51, &location);
+  v24 = objc_retainBlock(v50);
   self->_powerToken = -1;
   v25 = notify_register_dispatch("com.apple.system.powersources.source", &self->_powerToken, self->_eventQueue, v24);
   if (v25)
@@ -367,35 +359,33 @@ LABEL_12:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v68 = "com.apple.system.powersources.source";
-      v69 = 1024;
-      v70 = v25;
+      v66 = "com.apple.system.powersources.source";
+      v67 = 1024;
+      v68 = v25;
       _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "notify_register_dispatch(%{public}s) failed: %u", buf, 0x12u);
-      v38 = "com.apple.system.powersources.source";
-      v39 = v25;
-      _MBLog();
+      _MBLog(@"E ", "notify_register_dispatch(%{public}s) failed: %u", "com.apple.system.powersources.source", v25);
     }
   }
 
   else
   {
     v27 = self->_eventQueue;
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3221225472;
-    v50[2] = sub_1684;
-    v50[3] = &unk_14560;
-    v50[4] = self;
-    v51 = v24;
-    dispatch_async(v27, v50);
-    v26 = v51;
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_1684;
+    v48[3] = &unk_14560;
+    v48[4] = self;
+    v49 = v24;
+    dispatch_async(v27, v48);
+    v26 = v49;
   }
 
-  v48[0] = _NSConcreteStackBlock;
-  v48[1] = 3221225472;
-  v48[2] = sub_3414;
-  v48[3] = &unk_144E8;
-  objc_copyWeak(&v49, &location);
-  v28 = objc_retainBlock(v48);
+  v46[0] = _NSConcreteStackBlock;
+  v46[1] = 3221225472;
+  v46[2] = sub_3414;
+  v46[3] = &unk_144E8;
+  objc_copyWeak(&v47, &location);
+  v28 = objc_retainBlock(v46);
   v29 = kMBManagerRestoreStateChangedNotification;
   v30 = notify_register_dispatch([kMBManagerRestoreStateChangedNotification UTF8String], &self->_restoreStateChangedToken, self->_eventQueue, v28);
   if (v30)
@@ -405,13 +395,11 @@ LABEL_12:
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v68 = v29;
-      v69 = 1024;
-      v70 = v30;
+      v66 = v29;
+      v67 = 1024;
+      v68 = v30;
       _os_log_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, "notify_register_dispatch(%{public}@) failed: %u", buf, 0x12u);
-      v38 = v29;
-      v39 = v30;
-      _MBLog();
+      _MBLog(@"E ", "notify_register_dispatch(%{public}@) failed: %u", v29, v30);
     }
   }
 
@@ -423,12 +411,12 @@ LABEL_12:
   v32 = kMBManagerManualBackupStartedNotification;
   uTF8String2 = [kMBManagerManualBackupStartedNotification UTF8String];
   v34 = self->_eventQueue;
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_3458;
-  v46[3] = &unk_144E8;
-  objc_copyWeak(&v47, &location);
-  v35 = notify_register_dispatch(uTF8String2, &self->_manualBackupStartedToken, v34, v46);
+  v44[0] = _NSConcreteStackBlock;
+  v44[1] = 3221225472;
+  v44[2] = sub_3458;
+  v44[3] = &unk_144E8;
+  objc_copyWeak(&v45, &location);
+  v35 = notify_register_dispatch(uTF8String2, &self->_manualBackupStartedToken, v34, v44);
   if (v35)
   {
     self->_manualBackupStartedToken = -1;
@@ -436,11 +424,11 @@ LABEL_12:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v68 = v32;
-      v69 = 1024;
-      v70 = v35;
+      v66 = v32;
+      v67 = 1024;
+      v68 = v35;
       _os_log_impl(&dword_0, v36, OS_LOG_TYPE_ERROR, "notify_register_dispatch(%{public}@) failed: %u", buf, 0x12u);
-      _MBLog();
+      _MBLog(@"E ", "notify_register_dispatch(%{public}@) failed: %u", v32, v35);
     }
   }
 
@@ -449,23 +437,23 @@ LABEL_12:
   update_handler[1] = 3221225472;
   update_handler[2] = sub_3498;
   update_handler[3] = &unk_14588;
-  objc_copyWeak(&v44, &location);
-  v45 = v35;
+  objc_copyWeak(&v42, &location);
+  v43 = v35;
   nw_path_monitor_set_update_handler(v37, update_handler);
   nw_path_monitor_set_queue(v37, self->_eventQueue);
   objc_storeStrong(&self->_networkMonitor, v37);
   nw_path_monitor_start(v37);
-  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v42);
 
+  objc_destroyWeak(&v45);
   objc_destroyWeak(&v47);
-  objc_destroyWeak(&v49);
 
-  objc_destroyWeak(&v53);
+  objc_destroyWeak(&v51);
+  objc_destroyWeak(&v57);
+
   objc_destroyWeak(&v59);
-
   objc_destroyWeak(&v61);
   objc_destroyWeak(&v63);
-  objc_destroyWeak(&v65);
   objc_destroyWeak(&location);
 }
 
@@ -482,50 +470,51 @@ LABEL_12:
       v7 = MBGetDefaultLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
+        v8 = kMBManagerRestoreStateChangedNotification;
         *buf = 138543618;
         restoreCopy = kMBManagerRestoreStateChangedNotification;
-        v17 = 1024;
+        v18 = 1024;
         LODWORD(restoreCopy2) = state;
         _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "notify_get_state for %{public}@ failed: %du", buf, 0x12u);
-        _MBLog();
+        _MBLog(@"E ", "notify_get_state for %{public}@ failed: %du", v8, state);
       }
     }
 
     else if (state64 == 2)
     {
       objc_initWeak(&location, self);
-      v8 = MBGetDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = MBGetDefaultLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
         restoreCopy = restore;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Attempting to boost background restore (%llu)", buf, 0xCu);
-        _MBLog();
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Attempting to boost background restore (%llu)", buf, 0xCu);
+        _MBLog(@"I ", "Attempting to boost background restore (%llu)", restore);
       }
 
       manager = self->_manager;
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_3968;
-      v11[3] = &unk_145D8;
-      v12[1] = restore;
-      objc_copyWeak(v12, &location);
-      [(MBManager *)manager boostBackgroundRestoreWithCompletionHandler:v11];
-      objc_destroyWeak(v12);
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_3968;
+      v12[3] = &unk_145D8;
+      v13[1] = restore;
+      objc_copyWeak(v13, &location);
+      [(MBManager *)manager boostBackgroundRestoreWithCompletionHandler:v12];
+      objc_destroyWeak(v13);
       objc_destroyWeak(&location);
     }
 
     else if (restore)
     {
-      v10 = MBGetDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = MBGetDefaultLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
         restoreCopy = state64;
-        v17 = 2048;
+        v18 = 2048;
         restoreCopy2 = restore;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Not boosting background restore for restoreState:%llu (%llu)", buf, 0x16u);
-        _MBLog();
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "Not boosting background restore for restoreState:%llu (%llu)", buf, 0x16u);
+        _MBLog(@"I ", "Not boosting background restore for restoreState:%llu (%llu)", state64, restore);
       }
     }
   }
@@ -536,10 +525,11 @@ LABEL_12:
   v3 = MBGetDefaultLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
+    v4 = kMBManagerManualBackupStartedNotification;
     *buf = 138543362;
-    v5 = kMBManagerManualBackupStartedNotification;
+    v6 = kMBManagerManualBackupStartedNotification;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "Received manual backup started notification (%{public}@), boosting backupd", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Received manual backup started notification (%{public}@), boosting backupd", v4);
   }
 
   [(MBManager *)self->_manager boostManualBackupWithCompletionHandler:&stru_14618];
@@ -636,7 +626,7 @@ LABEL_12:
       v23 = 2048;
       v24 = v14;
       _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Last successful backup was %@, backupPeriod: %f(%f)", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"I ", "Last successful backup was %@, backupPeriod: %f(%f)", _lastBackupDate, *&v9, *&v14);
     }
 
     if (v16 < v9)
@@ -683,7 +673,7 @@ LABEL_12:
     *buf = 134217984;
     v10 = v5;
     _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "isWithinPasscodeChangeWindow %.2fs", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "isWithinPasscodeChangeWindow %.2fs", v5);
   }
 
   return 1;
@@ -700,7 +690,7 @@ LABEL_12:
       *buf = 67109120;
       v7 = powerCopy;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "isOnPower changed: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"I ", "isOnPower changed: %d", powerCopy);
     }
 
     [(MBUEAPlugin *)self _stateDidChange];
@@ -718,7 +708,7 @@ LABEL_12:
       *buf = 67109120;
       v7 = lockedCopy;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "isLocked changed: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"I ", "isLocked changed: %d", lockedCopy);
     }
 
     [(MBUEAPlugin *)self _stateDidChange];
@@ -736,7 +726,7 @@ LABEL_12:
       *buf = 67109120;
       v7 = fiCopy;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "isOnWiFi changed: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"I ", "isOnWiFi changed: %d", fiCopy);
     }
 
     [(MBUEAPlugin *)self _stateDidChange];
@@ -754,7 +744,7 @@ LABEL_12:
       *buf = 67109120;
       v7 = cellularCopy;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "isOnCellular changed: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"I ", "isOnCellular changed: %d", cellularCopy);
     }
 
     [(MBUEAPlugin *)self _stateDidChange];
@@ -797,7 +787,7 @@ LABEL_12:
   {
     *buf = 0;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "PC timer fired", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "PC timer fired");
   }
 
   notificationQueue = self->_notificationQueue;
@@ -835,32 +825,32 @@ LABEL_12:
   {
     *buf = 0;
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Refetching all accounts", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Refetching all accounts");
   }
 
-  v24 = objc_opt_new();
-  v23 = objc_opt_new();
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  v20 = objc_opt_new();
+  v19 = objc_opt_new();
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = [(ACMonitoredAccountStore *)self->_accountStore monitoredAccounts];
-  v3 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v3 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v29;
+    v5 = *v25;
     v6 = kAccountDataclassBackup;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v29 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         identifier = [v8 identifier];
         v10 = [v8 isEnabledForDataclass:v6];
         aa_isPrimaryEmailVerified = [v8 aa_isPrimaryEmailVerified];
@@ -877,26 +867,24 @@ LABEL_12:
 
         if (!v13)
         {
-          [v24 addObject:identifier];
+          [v20 addObject:identifier];
         }
 
         manager = self->_manager;
-        v27 = 0;
-        v15 = [(MBManager *)manager isBackupOnCellularAllowedWithAccount:v8 error:&v27];
-        v16 = v27;
+        v23 = 0;
+        v15 = [(MBManager *)manager isBackupOnCellularAllowedWithAccount:v8 error:&v23];
+        v16 = v23;
         if (v16)
         {
           v17 = MBGetDefaultLog();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v33 = v8;
-            v34 = 2112;
-            *v35 = v16;
+            v29 = v8;
+            v30 = 2112;
+            *v31 = v16;
             _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "Failed to check if backup on cellular is allowed for %@: %@", buf, 0x16u);
-            v19 = v8;
-            v20 = v16;
-            _MBLog();
+            _MBLog(@"E ", "Failed to check if backup on cellular is allowed for %@: %@", v8, v16);
           }
 
           v15 = 0;
@@ -904,7 +892,7 @@ LABEL_12:
 
         else if (v15)
         {
-          [v23 addObject:identifier];
+          [v19 addObject:identifier];
           v15 = &dword_0 + 1;
         }
 
@@ -912,30 +900,26 @@ LABEL_12:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138413058;
-          v33 = identifier;
-          v34 = 1024;
-          *v35 = v10;
-          *&v35[4] = 1024;
-          *&v35[6] = v12;
-          v36 = 1024;
-          v37 = v15;
+          v29 = identifier;
+          v30 = 1024;
+          *v31 = v10;
+          *&v31[4] = 1024;
+          *&v31[6] = v12;
+          v32 = 1024;
+          v33 = v15;
           _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Found account %@ (%d,%d,%d)", buf, 0x1Eu);
-          v21 = v12;
-          v22 = v15;
-          v19 = identifier;
-          v20 = v10;
-          _MBLog();
+          _MBLog(@"Df", "Found account %@ (%d,%d,%d)", identifier, v10, v12, v15);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v4 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v4);
   }
 
-  [(MBUEAPlugin *)self setAccountsWithBackupEnabled:v24];
-  [(MBUEAPlugin *)self setAccountsWithBackupOnCellularEnabled:v23];
+  [(MBUEAPlugin *)self setAccountsWithBackupEnabled:v20];
+  [(MBUEAPlugin *)self setAccountsWithBackupOnCellularEnabled:v19];
 }
 
 - (BOOL)_updateEnabledStateForAccount:(id)account
@@ -983,34 +967,32 @@ LABEL_12:
 
 LABEL_12:
   manager = self->_manager;
-  v23 = 0;
-  v13 = [(MBManager *)manager isBackupOnCellularAllowedWithAccount:accountCopy error:&v23];
-  v14 = v23;
+  v21 = 0;
+  v13 = [(MBManager *)manager isBackupOnCellularAllowedWithAccount:accountCopy error:&v21];
+  v14 = v21;
   if (v14)
   {
     v15 = MBGetDefaultLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v25 = accountCopy;
-      v26 = 2112;
-      *v27 = v14;
+      v23 = accountCopy;
+      v24 = 2112;
+      *v25 = v14;
       _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Failed to check if backup on cellular is allowed for %@: %@", buf, 0x16u);
-      v21 = accountCopy;
-      v22 = v14;
-      _MBLog();
+      _MBLog(@"E ", "Failed to check if backup on cellular is allowed for %@: %@", accountCopy, v14);
     }
 
     v13 = 0;
   }
 
-  v16 = [(MBUEAPlugin *)self accountsWithBackupOnCellularEnabled:v21];
-  v17 = [v16 containsObject:identifier];
+  accountsWithBackupOnCellularEnabled = [(MBUEAPlugin *)self accountsWithBackupOnCellularEnabled];
+  v17 = [accountsWithBackupOnCellularEnabled containsObject:identifier];
 
   if (v13 && (v17 & 1) == 0)
   {
-    accountsWithBackupOnCellularEnabled = [(MBUEAPlugin *)self accountsWithBackupOnCellularEnabled];
-    [accountsWithBackupOnCellularEnabled addObject:identifier];
+    accountsWithBackupOnCellularEnabled2 = [(MBUEAPlugin *)self accountsWithBackupOnCellularEnabled];
+    [accountsWithBackupOnCellularEnabled2 addObject:identifier];
 LABEL_21:
 
     goto LABEL_22;
@@ -1018,8 +1000,8 @@ LABEL_21:
 
   if (!(v13 & 1 | ((v17 & 1) == 0)))
   {
-    accountsWithBackupOnCellularEnabled = [(MBUEAPlugin *)self accountsWithBackupOnCellularEnabled];
-    [accountsWithBackupOnCellularEnabled removeObject:identifier];
+    accountsWithBackupOnCellularEnabled2 = [(MBUEAPlugin *)self accountsWithBackupOnCellularEnabled];
+    [accountsWithBackupOnCellularEnabled2 removeObject:identifier];
     goto LABEL_21;
   }
 
@@ -1031,15 +1013,15 @@ LABEL_22:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      v25 = identifier;
+      v23 = identifier;
+      v24 = 1024;
+      *v25 = v7;
+      *&v25[4] = 1024;
+      *&v25[6] = aa_isPrimaryEmailVerified;
       v26 = 1024;
-      *v27 = v7;
-      *&v27[4] = 1024;
-      *&v27[6] = aa_isPrimaryEmailVerified;
-      v28 = 1024;
-      v29 = v13;
+      v27 = v13;
       _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Updating state for account:%@ (%d,%d,%d)", buf, 0x1Eu);
-      _MBLog();
+      _MBLog(@"Df", "Updating state for account:%@ (%d,%d,%d)", identifier, v7, aa_isPrimaryEmailVerified, v13);
     }
   }
 
@@ -1062,7 +1044,7 @@ LABEL_27:
       *buf = 138412290;
       v11 = identifier;
       _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Clearing account %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Clearing account %@", identifier);
     }
 
     accountsWithBackupEnabled = [(MBUEAPlugin *)self accountsWithBackupEnabled];
@@ -1119,7 +1101,7 @@ LABEL_27:
       *buf = 67109120;
       LODWORD(v34) = v10;
       _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Primary account enabled state (%d)", buf, 8u);
-      _MBLog();
+      _MBLog(@"Df", "Primary account enabled state (%d)", v10);
     }
 
     v22 = notify_register_check("com.apple.private.restrict-post.MobileBackup.EnabledState", &self->_enabledToken);
@@ -1132,17 +1114,17 @@ LABEL_27:
         *buf = 134217984;
         v34 = v23;
         _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "notify_register_check failed: %lu", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "notify_register_check failed: %lu", v23);
       }
 
       *p_enabledToken = -1;
-      goto LABEL_36;
+      goto LABEL_35;
     }
 
     enabledToken = *p_enabledToken;
     if (*p_enabledToken == -1)
     {
-      goto LABEL_36;
+      goto LABEL_35;
     }
   }
 
@@ -1157,7 +1139,7 @@ LABEL_27:
       *buf = 134217984;
       v34 = v14;
       _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "notify_get_state failed: %lu", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "notify_get_state failed: %lu", v14);
     }
 
     state64 = 0;
@@ -1170,76 +1152,71 @@ LABEL_27:
     {
       v16 = -1;
     }
-
-LABEL_14:
-    v17 = MBGetDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
-    {
-      *buf = 134218240;
-      v34 = state64;
-      v35 = 2048;
-      v36 = v16;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Updating the backup enabled notify state from 0x%llx to 0x%llx", buf, 0x16u);
-      _MBLog();
-    }
-
-    v18 = notify_set_state(*p_enabledToken, v16);
-    if (v18)
-    {
-      v19 = v18;
-      v20 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-      {
-LABEL_35:
-
-        goto LABEL_36;
-      }
-
-      *buf = 134217984;
-      v34 = v19;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "notify_set_state failed: %lu", buf, 0xCu);
-    }
-
-    else
-    {
-      v25 = notify_post("com.apple.private.restrict-post.MobileBackup.EnabledState");
-      if (!v25)
-      {
-        goto LABEL_36;
-      }
-
-      v26 = v25;
-      v20 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_35;
-      }
-
-      *buf = 134217984;
-      v34 = v26;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "notify_post failed: %lu", buf, 0xCu);
-    }
-
-    _MBLog();
-    goto LABEL_35;
-  }
-
-  if (v10)
-  {
-    v16 = 1;
   }
 
   else
   {
-    v16 = -1;
+    if (v10)
+    {
+      v16 = 1;
+    }
+
+    else
+    {
+      v16 = -1;
+    }
+
+    if (state64 && state64 == v16)
+    {
+      goto LABEL_35;
+    }
   }
 
-  if (!state64 || state64 != v16)
+  v17 = MBGetDefaultLog();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    goto LABEL_14;
+    *buf = 134218240;
+    v34 = state64;
+    v35 = 2048;
+    v36 = v16;
+    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Updating the backup enabled notify state from 0x%llx to 0x%llx", buf, 0x16u);
+    _MBLog(@"I ", "Updating the backup enabled notify state from 0x%llx to 0x%llx", state64, v16);
   }
 
-LABEL_36:
+  v18 = notify_set_state(*p_enabledToken, v16);
+  if (v18)
+  {
+    v19 = v18;
+    v20 = MBGetDefaultLog();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134217984;
+      v34 = v19;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "notify_set_state failed: %lu", buf, 0xCu);
+      _MBLog(@"E ", "notify_set_state failed: %lu");
+    }
+  }
+
+  else
+  {
+    v25 = notify_post("com.apple.private.restrict-post.MobileBackup.EnabledState");
+    if (!v25)
+    {
+      goto LABEL_35;
+    }
+
+    v26 = v25;
+    v20 = MBGetDefaultLog();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134217984;
+      v34 = v26;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "notify_post failed: %lu", buf, 0xCu);
+      _MBLog(@"E ", "notify_post failed: %lu");
+    }
+  }
+
+LABEL_35:
   v27 = v4 != 0;
   v28 = v27 ^ atomic_exchange(&self->_isEnabled, v4 != 0);
   if (v28)
@@ -1250,7 +1227,7 @@ LABEL_36:
       *buf = 67109120;
       LODWORD(v34) = v27;
       _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "isEnabled changed: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"Df", "isEnabled changed: %d", v27);
     }
   }
 
@@ -1262,7 +1239,7 @@ LABEL_36:
       *buf = 67109120;
       LODWORD(v34) = v6;
       _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "isBackupOnCellularEnabled changed: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"Df", "isBackupOnCellularEnabled changed: %d", v6);
     }
   }
 

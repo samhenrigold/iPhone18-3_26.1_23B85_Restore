@@ -54,7 +54,6 @@
 
   if (*&self->_has)
   {
-    max = self->_max;
 
     PBDataWriterWriteUint32Field();
   }

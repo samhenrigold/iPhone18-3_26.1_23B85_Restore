@@ -23,14 +23,12 @@
 
 - (NSDictionary)dictionaryValue
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"ConnectionIdentifier";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"ConnectionIdentifier";
   connectionIdentifier = [(CATInitializingIDSServiceConnectionContentAccept *)self connectionIdentifier];
   uUIDString = [connectionIdentifier UUIDString];
-  v8[0] = uUIDString;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = uUIDString;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

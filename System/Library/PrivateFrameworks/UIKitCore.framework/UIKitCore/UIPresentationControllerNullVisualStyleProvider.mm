@@ -6,10 +6,10 @@
 void __102___UIPresentationControllerNullVisualStyleProvider_defaultConcretePresentationStyleForViewController___block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  _MergedGlobals_1212 = [v0 isEqualToString:@"com.apple.MobileSMS"];
+  _MergedGlobals_1212 = objc_msgSend_isEqualToString_(v0);
 
   v1 = _UIMainBundleIdentifier();
-  byte_1ED49F691 = [v1 isEqualToString:@"com.apple.PosterBoard"];
+  byte_1ED49F691 = objc_msgSend_isEqualToString_(v1);
 }
 
 @end

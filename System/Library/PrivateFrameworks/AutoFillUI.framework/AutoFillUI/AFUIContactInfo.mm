@@ -470,30 +470,30 @@ LABEL_60:
 
 - (id)subtitleTextForAutoFillContext:(id)context
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   array = [MEMORY[0x1E695DF70] array];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v5 = AFUIPreferredSubtitleOrder();
-  v6 = [v5 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v38;
+    v8 = *v37;
     v9 = *MEMORY[0x1E698E0D0];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v38 != v8)
+        if (*v37 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * i);
+        v11 = *(*(&v36 + 1) + 8 * i);
         v12 = [contextCopy objectForKey:v11];
         if (v12 && AFTextContentTypeIsInNameSet(v11))
         {
@@ -564,33 +564,33 @@ LABEL_27:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v7);
   }
 
   string = [MEMORY[0x1E696AD60] string];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = array;
-  v23 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v23 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v34;
+    v25 = *v33;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v34 != v25)
+        if (*v33 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v33 + 1) + 8 * j);
+        v27 = *(*(&v32 + 1) + 8 * j);
         v28 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
         v29 = [v28 localizedStringForKey:v27 value:&stru_1F4E9A028 table:@"Localizable"];
 
@@ -602,13 +602,11 @@ LABEL_27:
         [string appendString:v29];
       }
 
-      v24 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v24 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v24);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return string;
 }

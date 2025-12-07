@@ -138,15 +138,15 @@ LABEL_10:
 
 + (id)_materialButtonForStyle:(int64_t)style
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (style)
   {
     v4 = PXAssertGetLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = 134217984;
+      v8 = 134217984;
       styleCopy = style;
-      _os_log_error_impl(&dword_2411DE000, v4, OS_LOG_TYPE_ERROR, "Attempted to create material button for unsupported style: %lu", &v9, 0xCu);
+      _os_log_error_impl(&dword_2411DE000, v4, OS_LOG_TYPE_ERROR, "Attempted to create material button for unsupported style: %lu", &v8, 0xCu);
     }
 
     closeButton = 0;
@@ -158,8 +158,6 @@ LABEL_10:
     [closeButton sizeThatFits:{*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
     [closeButton setCornerRadius:v6 * 0.5];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return closeButton;
 }

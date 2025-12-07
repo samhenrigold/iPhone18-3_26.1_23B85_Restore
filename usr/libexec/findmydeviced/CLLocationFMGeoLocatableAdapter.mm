@@ -130,7 +130,7 @@
     return qword_100258820[type];
   }
 
-  v5 = sub_100002880();
+  v5 = sub_100002880(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_10022E8F4(type, v5);

@@ -7,6 +7,7 @@
 - (BOOL)_storeChange:(id)change update:(BOOL)update error:(id *)error;
 - (BOOL)acknowledgeContributorsUpdates:(id)updates error:(id *)error;
 - (BOOL)checkInBatchStorage:(id)storage error:(id *)error;
+- (BOOL)createIndexWithName:(id)name withDefinition:(id)definition unique:(BOOL)unique error:(id *)error;
 - (BOOL)deleteAllChangesWithError:(id *)error;
 - (BOOL)deleteChangeWithScopedIdentifier:(id)identifier discardedUploadIdentifier:(id *)uploadIdentifier error:(id *)error;
 - (BOOL)deleteChangeWithScopedIdentifier:(id)identifier error:(id *)error;
@@ -37,6 +38,7 @@
 - (id)allChangesWithClass:(Class)class relatedScopedIdentifier:(id)identifier;
 - (id)allChangesWithClass:(Class)class relatedScopedIdentifier:(id)identifier table:(id)table;
 - (id)allChangesWithClass:(Class)class scopeIdentifier:(id)identifier changeType:(unint64_t)type table:(id)table;
+- (id)allChangesWithClass:(Class)class scopeIdentifier:(id)identifier trashed:(BOOL)trashed table:(id)table;
 - (id)allChangesWithClass:(Class)class secondaryScopedIdentifier:(id)identifier table:(id)table;
 - (id)allChangesWithScopeIdentifier:(id)identifier;
 - (id)allChangesWithScopeIdentifier:(id)identifier table:(id)table;
@@ -142,6 +144,31 @@
   }
 
   return v3;
+}
+
+- (BOOL)createIndexWithName:(id)name withDefinition:(id)definition unique:(BOOL)unique error:(id *)error
+{
+  uniqueCopy = unique;
+  if (BYTE4(self->_batchStoragesPerPriority))
+  {
+    definitionCopy = definition;
+    definitionCopy2 = [name stringByAppendingString:@".pri"];
+    v12 = [@"priority "];
+
+    v15.receiver = self;
+    v15.super_class = CPLPrequelitePushRepository;
+    v13 = [(CPLPrequeliteStorage *)&v15 createIndexWithName:definitionCopy2 withDefinition:v12 unique:uniqueCopy error:error];
+  }
+
+  else
+  {
+    v16.receiver = self;
+    v16.super_class = CPLPrequelitePushRepository;
+    definitionCopy2 = definition;
+    v13 = [(CPLPrequeliteStorage *)&v16 createIndexWithName:name withDefinition:definitionCopy2 unique:uniqueCopy error:error];
+  }
+
+  return v13;
 }
 
 - (BOOL)_createIndexesWithPriority:(BOOL)priority
@@ -1191,6 +1218,18 @@ LABEL_10:
   return v15;
 }
 
+- (id)allChangesWithClass:(Class)class scopeIdentifier:(id)identifier trashed:(BOOL)trashed table:(id)table
+{
+  trashedCopy = trashed;
+  tableCopy = table;
+  identifierCopy = identifier;
+  v12 = NSStringFromClass(class);
+  trashedCopy = [PQLFormatInjection formatInjection:@"class = %@ AND trashed = %i", v12, trashedCopy];
+  v14 = [(CPLPrequelitePushRepository *)self _allChangesWithScopeIdentifier:identifierCopy scopeIndex:0x7FFFFFFFFFFFFFFFLL ordered:1 table:tableCopy query:trashedCopy];
+
+  return v14;
+}
+
 - (id)_injectionForChangeType:(unint64_t)type
 {
   v5 = *(&self->super._shouldUpgradeSchema + 1);
@@ -1500,74 +1539,73 @@ LABEL_10:
 
 - (id)statusDictionary
 {
-  v30.receiver = self;
-  v30.super_class = CPLPrequelitePushRepository;
-  statusDictionary = [(CPLPrequeliteStorage *)&v30 statusDictionary];
+  v29.receiver = self;
+  v29.super_class = CPLPrequelitePushRepository;
+  statusDictionary = [(CPLPrequeliteStorage *)&v29 statusDictionary];
   v4 = [statusDictionary mutableCopy];
 
   v5 = objc_alloc_init(NSMutableDictionary);
   [v4 setObject:v5 forKeyedSubscript:@"changes"];
   pqStore = [(CPLPrequeliteStorage *)self pqStore];
   mainTable = [(CPLPrequeliteStorage *)self mainTable];
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100178138;
-  v28[3] = &unk_10027B8F0;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_100178138;
+  v27[3] = &unk_10027B8F0;
   v8 = v5;
-  v29 = v8;
-  [pqStore table:mainTable enumerateCountGroupedByProperty:@"class" block:v28];
+  v28 = v8;
+  [pqStore table:mainTable enumerateCountGroupedByProperty:@"class" block:v27];
 
   if (*(&self->_injectionPerChangeType + 4))
   {
     storedExtractedBatch = [(CPLPrequelitePushRepository *)self storedExtractedBatch];
     if (storedExtractedBatch)
     {
-      v23 = v8;
+      v22 = v8;
       v10 = objc_alloc_init(NSMutableDictionary);
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       batch = [storedExtractedBatch batch];
-      v12 = [batch countByEnumeratingWithState:&v24 objects:v31 count:16];
+      v12 = [batch countByEnumeratingWithState:&v23 objects:v30 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v25;
+        v14 = *v24;
         do
         {
-          for (i = 0; i != v13; i = i + 1)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v25 != v14)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(batch);
             }
 
-            v16 = *(*(&v24 + 1) + 8 * i);
-            v17 = objc_opt_class();
-            v18 = NSStringFromClass(v17);
-            v19 = [v10 objectForKeyedSubscript:v18];
-            v20 = v19;
-            if (v19)
+            v16 = objc_opt_class();
+            v17 = NSStringFromClass(v16);
+            v18 = [v10 objectForKeyedSubscript:v17];
+            v19 = v18;
+            if (v18)
             {
-              v21 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v19 unsignedIntegerValue] + 1);
-              [v10 setObject:v21 forKeyedSubscript:v18];
+              v20 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v18 unsignedIntegerValue] + 1);
+              [v10 setObject:v20 forKeyedSubscript:v17];
             }
 
             else
             {
-              [v10 setObject:&off_10028F178 forKeyedSubscript:v18];
+              [v10 setObject:&off_10028F178 forKeyedSubscript:v17];
             }
           }
 
-          v13 = [batch countByEnumeratingWithState:&v24 objects:v31 count:16];
+          v13 = [batch countByEnumeratingWithState:&v23 objects:v30 count:16];
         }
 
         while (v13);
       }
 
       [v4 setObject:v10 forKeyedSubscript:@"extracted"];
-      v8 = v23;
+      v8 = v22;
     }
   }
 
@@ -1725,10 +1763,10 @@ LABEL_10:
 
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount discardedUploadIdentifiers:(id *)identifiers error:(id *)error
 {
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 1;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 1;
   if (count >= 100)
   {
     countCopy = 100;
@@ -1749,7 +1787,8 @@ LABEL_10:
   while (1)
   {
 
-    if (![v17 next])
+    next = [v17 next];
+    if (!next)
     {
       break;
     }
@@ -1762,28 +1801,28 @@ LABEL_10:
     }
   }
 
-  if (v17 && ([v17 error], v18 = objc_claimAutoreleasedReturnValue(), v19 = v18 == 0, v18, v19))
+  if (v17 && ([v17 error], v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 == 0, v19, v20))
   {
-    if (v40[3])
+    if (v41[3])
     {
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_100178D64;
-      v35[3] = &unk_10027B708;
-      v38 = &v39;
-      v26 = pqlConnection;
-      v36 = v26;
+      v36[0] = _NSConcreteStackBlock;
+      v36[1] = 3221225472;
+      v36[2] = sub_100178D64;
+      v36[3] = &unk_10027B708;
+      v39 = &v40;
+      v27 = pqlConnection;
+      v37 = v27;
       selfCopy = self;
-      [v13 enumerateIndexesUsingBlock:v35];
-      if (error && (v40[3] & 1) == 0)
+      [v13 enumerateIndexesUsingBlock:v36];
+      if (error && (v41[3] & 1) == 0)
       {
-        *error = [v26 lastError];
+        *error = [v27 lastError];
       }
 
-      if (v40[3])
+      if (v41[3])
       {
         *deletedCount = [v13 count];
-        v27 = v12;
+        v28 = v12;
         *identifiers = v12;
         if (*deletedCount >= 1)
         {
@@ -1797,8 +1836,8 @@ LABEL_10:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v20 = sub_1001749DC();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = sub_1001749DC(next);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         error = [v17 error];
         lastError = error;
@@ -1809,9 +1848,9 @@ LABEL_10:
 
         *buf = 134218242;
         indexCopy = index;
-        v45 = 2112;
-        v46 = lastError;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Enumerating records to delete for scope index %ld failed: %@", buf, 0x16u);
+        v46 = 2112;
+        v47 = lastError;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Enumerating records to delete for scope index %ld failed: %@", buf, 0x16u);
         if (!error)
         {
         }
@@ -1821,38 +1860,38 @@ LABEL_10:
     if (error)
     {
       error2 = [v17 error];
-      v24 = error2;
+      v25 = error2;
       if (error2)
       {
-        v25 = error2;
-        *error = v24;
+        v26 = error2;
+        *error = v25;
       }
 
       else
       {
         lastError2 = [pqlConnection lastError];
-        v29 = lastError2;
+        v30 = lastError2;
         if (lastError2)
         {
-          v30 = lastError2;
-          *error = v29;
+          v31 = lastError2;
+          *error = v30;
         }
 
         else
         {
-          v31 = +[CPLErrors unknownError];
-          *error = v31;
+          v32 = +[CPLErrors unknownError];
+          *error = v32;
         }
       }
     }
 
-    *(v40 + 24) = 0;
+    *(v41 + 24) = 0;
   }
 
-  v32 = *(v40 + 24);
+  v33 = *(v41 + 24);
 
-  _Block_object_dispose(&v39, 8);
-  return v32 & 1;
+  _Block_object_dispose(&v40, 8);
+  return v33 & 1;
 }
 
 - (BOOL)isEmpty
@@ -2399,8 +2438,8 @@ LABEL_14:
 
   else
   {
-    v61 = [v16 pushContextMergingFlags:flags changeType:0 uploadIdentifier:uploadIdentifier priority:{objc_msgSend(v16, "priority")}];
-    sub_1001C31BC(0, v61);
+    v60 = [v16 pushContextMergingFlags:flags changeType:0 uploadIdentifier:uploadIdentifier priority:{objc_msgSend(v16, "priority")}];
+    sub_1001C31BC(0, v60);
 
     v24 = 0;
   }
@@ -2415,7 +2454,6 @@ LABEL_14:
     BYTE4(self->_cachedExtractedBatch) = 1;
   }
 
-  v29 = "PLPrequeliteResourceUploadQueue";
   if (v11 && v11[6].isa == 1024)
   {
     if (changeCopy)
@@ -2423,22 +2461,19 @@ LABEL_14:
       if (changeCopy[6] == 2)
       {
         v30 = objc_opt_class();
-        v41 = v30 == objc_opt_class();
-        v29 = "@CPLPrequeliteResourceUploadQueue" + 3;
-        if (v41)
+        v28 = objc_opt_class();
+        if (v30 == v28)
         {
           changeCopy[6] = 0;
-          [changeCopy[11] setChangeType:0];
+          v28 = [changeCopy[11] setChangeType:0];
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v31 = sub_1001749DC();
+            v31 = sub_1001749DC(v28);
             if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               v32 = sub_100174A2C(changeCopy, self);
               sub_10017AAB8();
-              sub_1000139CC(&_mh_execute_header, v31, v33, "Got an update over a delete (automatically fixing it): %@", v65);
-
-              v29 = "@CPLPrequeliteResourceUploadQueue" + 3;
+              sub_1000139CC(&_mh_execute_header, v31, v33, "Got an update over a delete (automatically fixing it): %@", v64);
             }
 
             selfCopy3 = self;
@@ -2446,44 +2481,42 @@ LABEL_14:
         }
       }
 
-LABEL_29:
+LABEL_28:
       if ((changeCopy[6] | 0x400) == 0x400)
       {
-LABEL_30:
+LABEL_29:
         *(changeCopy + 3) = 2 * v14;
-        goto LABEL_31;
+        goto LABEL_30;
       }
 
       if (v11)
       {
-        v62 = v11[6].isa;
-        if (v62 == 1024)
+        v61 = v11[6].isa;
+        if (v61 == 1024)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v43 = v29;
-            v44 = sub_1001749DC();
+            v44 = sub_1001749DC(v28);
             if (sub_10002B0A8(v44))
             {
               v45 = sub_100174A2C(changeCopy, self);
-              v46 = *(v43 + 413);
               sub_10017AAB8();
-              sub_1000139CC(&_mh_execute_header, v11, v47, "Got an update over a delete: %@", v65);
+              sub_1000139CC(&_mh_execute_header, v11, v46, "Got an update over a delete: %@", v64);
             }
           }
 
-          v48 = +[NSAssertionHandler currentHandler];
-          v49 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
-          v50 = sub_100174A2C(changeCopy, self);
-          [v48 handleFailureInMethod:a2 object:self file:v49 lineNumber:697 description:{@"Got an update over a delete: %@", v50}];
+          v47 = +[NSAssertionHandler currentHandler];
+          v48 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+          v49 = sub_100174A2C(changeCopy, self);
+          [v47 handleFailureInMethod:a2 object:self file:v48 lineNumber:697 description:{@"Got an update over a delete: %@", v49}];
 
-          goto LABEL_52;
+          goto LABEL_51;
         }
       }
 
       else
       {
-        v62 = 0;
+        v61 = 0;
       }
 
       v36 = sub_100174A2C(changeCopy, selfCopy3);
@@ -2497,38 +2530,38 @@ LABEL_30:
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v54 = sub_1001749DC();
-            if (sub_1000033C0(v54))
+            v53 = sub_1001749DC(v40);
+            if (sub_1000033C0(v53))
             {
               if (v11)
               {
-                v55 = v11[5].isa;
+                v54 = v11[5].isa;
               }
 
               else
               {
-                v55 = 0;
+                v54 = 0;
               }
 
-              v56 = v55;
+              v55 = v54;
               sub_10017AAB8();
-              sub_1000139CC(&_mh_execute_header, changeCopy, v57, "Invalid bottom change for %@", v65);
+              sub_1000139CC(&_mh_execute_header, changeCopy, v56, "Invalid bottom change for %@", v64);
             }
           }
 
-          v58 = +[NSAssertionHandler currentHandler];
-          v59 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+          v57 = +[NSAssertionHandler currentHandler];
+          v58 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
           if (v11)
           {
-            v60 = v11[5].isa;
+            v59 = v11[5].isa;
           }
 
           else
           {
-            v60 = 0;
+            v59 = 0;
           }
 
-          [v58 handleFailureInMethod:a2 object:self file:v59 lineNumber:702 description:{@"Invalid bottom change for %@", v60}];
+          [v57 handleFailureInMethod:a2 object:self file:v58 lineNumber:702 description:{@"Invalid bottom change for %@", v59}];
 
           abort();
         }
@@ -2536,44 +2569,44 @@ LABEL_30:
         [v39 applyChange:v37];
         sub_1001C30DC(changeCopy, v39);
         sub_1001C31AC(changeCopy, 0);
-        v40 = changeCopy[6];
-        if (v40)
+        v41 = changeCopy[6];
+        if (v41)
         {
-          v41 = v62 == 0;
+          v42 = v61 == 0;
         }
 
         else
         {
-          v41 = 1;
+          v42 = 1;
         }
 
-        v42 = v40 | v62;
-        if (v41)
+        v43 = v41 | v61;
+        if (v42)
         {
-          v42 = 0;
+          v43 = 0;
         }
 
-        changeCopy[6] = v42;
+        changeCopy[6] = v43;
 
         selfCopy3 = self;
-        goto LABEL_30;
+        goto LABEL_29;
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v51 = sub_1001749DC();
-        if (sub_10002B0A8(v51))
+        v50 = sub_1001749DC(0);
+        if (sub_10002B0A8(v50))
         {
-          v52 = changeCopy[5];
+          v51 = changeCopy[5];
           sub_10017AAB8();
-          sub_1000139CC(&_mh_execute_header, v11, v53, "Invalid top change for %@", v65);
+          sub_1000139CC(&_mh_execute_header, v11, v52, "Invalid top change for %@", v64);
         }
       }
 
-      v48 = +[NSAssertionHandler currentHandler];
-      v49 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
-      [v48 handleFailureInMethod:a2 object:self file:v49 lineNumber:700 description:{@"Invalid top change for %@", changeCopy[5]}];
-LABEL_52:
+      v47 = +[NSAssertionHandler currentHandler];
+      v48 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+      [v47 handleFailureInMethod:a2 object:self file:v48 lineNumber:700 description:{@"Invalid top change for %@", changeCopy[5]}];
+LABEL_51:
 
       abort();
     }
@@ -2581,10 +2614,10 @@ LABEL_52:
 
   else if (changeCopy)
   {
-    goto LABEL_29;
+    goto LABEL_28;
   }
 
-LABEL_31:
+LABEL_30:
   v34 = [(CPLPrequelitePushRepository *)selfCopy3 _storeChange:changeCopy update:1 error:error];
 
   return v34;

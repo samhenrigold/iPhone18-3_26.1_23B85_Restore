@@ -23,15 +23,15 @@
   return string;
 }
 
-id __53__OITSULocalizationUtility_displayStringForIndexSet___block_invoke()
+id __53__OITSULocalizationUtility_displayStringForIndexSet___block_invoke(uint64_t a1, uint64_t a2)
 {
-  displayStringForIndexSet__sIndexSeparator = [SFUBundle() localizedStringForKey:@" value:" table:{&stru_286EE1130, @"TSUtility"}];
-  result = [SFUBundle() localizedStringForKey:@"-" value:&stru_286EE1130 table:@"TSUtility"];
+  displayStringForIndexSet__sIndexSeparator = [SFUBundle(a1 a2)];
+  result = [SFUBundle(displayStringForIndexSet__sIndexSeparator v2)];
   displayStringForIndexSet__sRangeSeparator = result;
   return result;
 }
 
-uint64_t __53__OITSULocalizationUtility_displayStringForIndexSet___block_invoke_2(uint64_t a1, uint64_t a2, unint64_t a3)
+void *__53__OITSULocalizationUtility_displayStringForIndexSet___block_invoke_2(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   if ([*(a1 + 32) length])
   {
@@ -63,9 +63,9 @@ uint64_t __53__OITSULocalizationUtility_displayStringForIndexSet___block_invoke_
   return [self displayStringForStrings:strings itemSeparator:v5];
 }
 
-id __52__OITSULocalizationUtility_displayStringForStrings___block_invoke()
+id __52__OITSULocalizationUtility_displayStringForStrings___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = [SFUBundle() localizedStringForKey:@" value:" table:{&stru_286EE1130, @"TSUtility"}];
+  result = [SFUBundle(a1 a2)];
   displayStringForStrings__sSeparator = result;
   return result;
 }

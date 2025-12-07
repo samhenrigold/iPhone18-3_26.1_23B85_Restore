@@ -537,7 +537,7 @@ LABEL_71:
   return v4;
 }
 
-void std::vector<char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -740,7 +740,7 @@ void std::__split_buffer<std::string>::~__split_buffer(std::__split_buffer<std::
   }
 }
 
-void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -1541,7 +1541,7 @@ void sub_241567064(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char *,char *>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1554,14 +1554,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, 
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -1820,7 +1820,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -1830,17 +1829,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -2455,38 +2454,37 @@ void (__cdecl ***std::__match_any_but_newline<char>::~__match_any_but_newline(vo
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(&v23, 0, 17);
+  memset(&v22, 0, 17);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   memset(&__p, 0, sizeof(__p));
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  v19.first = *(a2 + 24);
-  v19.second = v19.first;
-  v19.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
   v20 = v5;
-  v21 = v5;
-  v22 = 0;
-  v23 = v19;
-  v25 = v5;
-  v24 = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -2497,8 +2495,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v10 < 2)
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -2509,20 +2507,20 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &begin[v14];
-    v16 = v12 + 24 * (v11 + v13 - 2);
-    *v16 = v15->std::pair<const char *, const char *>;
-    *(v16 + 16) = v15->matched;
-    v14 = v13;
+    v14 = &begin[v13];
+    v15 = v11 + 24 * (v10 + v12 - 2);
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
 
   operator delete(begin);
@@ -2808,11 +2806,10 @@ void sub_2415690AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::optional<CA::AudioBuffersDeprecated>::~optional(uint64_t *a1)
+uint64_t std::optional<CA::AudioBuffersDeprecated>::~optional(uint64_t a1)
 {
   if (*(a1 + 8) == 1)
   {
-    v2 = *a1;
     ExtendedAudioBufferList_Destroy();
   }
 
@@ -2833,7 +2830,7 @@ OpaqueAudioComponentInstance *std::unique_ptr<OpaqueAudioComponentInstance,apple
 
 void rtaid::DetectorNode::~DetectorNode(rtaid::DetectorNode *this)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   {
     rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
   }
@@ -2847,19 +2844,19 @@ void rtaid::DetectorNode::~DetectorNode(rtaid::DetectorNode *this)
       v3 = *v3;
     }
 
-    v9 = 136316418;
-    v10 = "DetectorNode.cpp";
-    v11 = 1024;
-    v12 = 69;
-    v13 = 1040;
-    v14 = 19;
-    v15 = 2080;
-    v16 = "rtaid::DetectorNode]";
-    v17 = 2048;
-    v18 = this;
-    v19 = 2080;
-    v20 = v3;
-    _os_log_impl(&dword_241557000, v2, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] destroyed %s", &v9, 0x36u);
+    v7 = 136316418;
+    v8 = "DetectorNode.cpp";
+    v9 = 1024;
+    v10 = 69;
+    v11 = 1040;
+    v12 = 19;
+    v13 = 2080;
+    v14 = "rtaid::DetectorNode]";
+    v15 = 2048;
+    v16 = this;
+    v17 = 2080;
+    v18 = v3;
+    _os_log_impl(&dword_241557000, v2, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] destroyed %s", &v7, 0x36u);
   }
 
   v4 = *(this + 53);
@@ -2884,7 +2881,6 @@ void rtaid::DetectorNode::~DetectorNode(rtaid::DetectorNode *this)
 
   if (*(this + 144) == 1)
   {
-    v7 = *(this + 17);
     ExtendedAudioBufferList_Destroy();
   }
 
@@ -2894,8 +2890,6 @@ void rtaid::DetectorNode::~DetectorNode(rtaid::DetectorNode *this)
   {
     operator delete(*(this + 1));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2415692E4(_Unwind_Exception *a1, int a2)
@@ -2908,7 +2902,7 @@ void sub_2415692E4(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<float>::resize(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -2920,7 +2914,7 @@ void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 4 * a2;
+    v11 = (v3 + 4 * a2);
   }
 
   else
@@ -2931,7 +2925,7 @@ void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
     {
       if (!(a2 >> 62))
       {
-        v8 = v7 - v3;
+        v8 = &v7[-v3];
         v9 = v8 >> 1;
         if (v8 >> 1 <= a2)
         {
@@ -2960,7 +2954,7 @@ void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 4 * v6);
-    v11 = v4 + 4 * v6;
+    v11 = &v4[4 * v6];
   }
 
   a1[1] = v11;
@@ -3019,11 +3013,10 @@ uint64_t rtaid::DetectorNode::updateSilenceAnalyzerState(uint64_t this)
 
 uint64_t rtaid::DetectorNode::AnalyzeABL(rtaid::DetectorNode *this, const AudioTimeStamp *a2, const AudioBufferList *a3, unsigned int a4)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   if (*(this + 42) > 3u)
   {
-    v4 = 0;
-    goto LABEL_48;
+    return 0;
   }
 
   v6 = 0;
@@ -3038,7 +3031,7 @@ uint64_t rtaid::DetectorNode::AnalyzeABL(rtaid::DetectorNode *this, const AudioT
       *(this + v39 + 43) = -4;
     }
 
-    goto LABEL_48;
+    return v4;
   }
 
   if (*(this + 4) != 1 || (v7 = a4, v8 = *&a2->mRateScalar, *&inTimeStamp.mSampleTime = *&a2->mSampleTime, *&inTimeStamp.mRateScalar = v8, v9 = *&a2->mSMPTETime.mHours, *&inTimeStamp.mSMPTETime.mSubframes = *&a2->mSMPTETime.mSubframes, *&inTimeStamp.mSMPTETime.mHours = v9, !a4))
@@ -3048,7 +3041,7 @@ uint64_t rtaid::DetectorNode::AnalyzeABL(rtaid::DetectorNode *this, const AudioT
   }
 
   v11 = 0;
-  v49 = this + 172;
+  v48 = this + 172;
   p_mData = &a3->mBuffers[0].mData;
   while (1)
   {
@@ -3064,8 +3057,8 @@ uint64_t rtaid::DetectorNode::AnalyzeABL(rtaid::DetectorNode *this, const AudioT
 
     mNumberBuffers = a3->mNumberBuffers;
     MEMORY[0x28223BE20]();
-    v15 = &v49 - v14;
-    bzero(&v49 - v14, v16 + 24);
+    v15 = &v48 - v14;
+    bzero(&v48 - v14, v16 + 24);
     *v15 = mNumberBuffers;
     if (mNumberBuffers)
     {
@@ -3093,9 +3086,9 @@ uint64_t rtaid::DetectorNode::AnalyzeABL(rtaid::DetectorNode *this, const AudioT
         }
       }
 
-      v42 = *(this + 42);
+      v41 = *(this + 42);
       v4 = 4294967246;
-      if (v42 < 4)
+      if (v41 < 4)
       {
         goto LABEL_50;
       }
@@ -3131,7 +3124,7 @@ LABEL_21:
 
           vDSP_svesq(v32, *v31, &__C, v12);
           *(*(this + 24) + 4 * v28) = __C + *(*(this + 24) + 4 * v28);
-          v52 = 0.0;
+          v51 = 0.0;
           v33 = v15 + 8;
           v34 = v29;
           if ((*(this + 240) & 1) == 0)
@@ -3140,11 +3133,11 @@ LABEL_21:
             v33 = v30;
           }
 
-          vDSP_maxmgv(v34, *v33, &v52, v12);
+          vDSP_maxmgv(v34, *v33, &v51, v12);
           v35 = *(this + 27);
-          if (v52 > *(v35 + 4 * v28))
+          if (v51 > *(v35 + 4 * v28))
           {
-            *(v35 + 4 * v28) = v52;
+            *(v35 + 4 * v28) = v51;
           }
 
           if (!v28)
@@ -3175,7 +3168,7 @@ LABEL_21:
         if (v38 <= 3)
         {
           *(this + 42) = v38 + 1;
-          *&v49[4 * v38] = v37;
+          *&v48[4 * v38] = v37;
         }
       }
     }
@@ -3225,58 +3218,56 @@ LABEL_21:
     rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
   }
 
-  v43 = rtaid::get_log(void)::rtaid_os_log;
+  v42 = rtaid::get_log(void)::rtaid_os_log;
   if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_ERROR))
   {
-    v44 = (this + 8);
+    v43 = (this + 8);
     if (*(this + 31) < 0)
     {
-      v44 = *v44;
+      v43 = *v43;
     }
 
-    v45 = *(v15 + 3);
-    v46 = *v15;
-    v47 = *(v24 + 60);
-    v48 = *(v24 + 48);
+    v44 = *(v15 + 3);
+    v45 = *v15;
+    v46 = *(v24 + 60);
+    v47 = *(v24 + 48);
     __C = 4.8162e-34;
-    v54 = "DetectorNode.cpp";
-    v55 = 1024;
-    v56 = 506;
-    v57 = 1040;
-    v58 = 19;
-    v59 = 2080;
-    v60 = "rtaid::DetectorNode]";
-    v61 = 2048;
-    v62 = this;
-    v63 = 1024;
-    v64 = v4;
-    v65 = 2080;
-    v66 = v44;
-    v67 = 1024;
-    v68 = v12;
-    v69 = 1024;
-    v70 = v45;
-    v71 = 1024;
-    v72 = v46;
-    v73 = 1024;
-    v74 = v47;
-    v75 = 1024;
-    v76 = v48;
-    _os_log_impl(&dword_241557000, v43, OS_LOG_TYPE_ERROR, "[%s:%-5d %.*s:%p] Caught converter error (%d) at %s, %d frames (%d %d) vs (%d %d)\n", &__C, 0x5Au);
+    v53 = "DetectorNode.cpp";
+    v54 = 1024;
+    v55 = 506;
+    v56 = 1040;
+    v57 = 19;
+    v58 = 2080;
+    v59 = "rtaid::DetectorNode]";
+    v60 = 2048;
+    v61 = this;
+    v62 = 1024;
+    v63 = v4;
+    v64 = 2080;
+    v65 = v43;
+    v66 = 1024;
+    v67 = v12;
+    v68 = 1024;
+    v69 = v44;
+    v70 = 1024;
+    v71 = v45;
+    v72 = 1024;
+    v73 = v46;
+    v74 = 1024;
+    v75 = v47;
+    _os_log_impl(&dword_241557000, v42, OS_LOG_TYPE_ERROR, "[%s:%-5d %.*s:%p] Caught converter error (%d) at %s, %d frames (%d %d) vs (%d %d)\n", &__C, 0x5Au);
   }
 
-  v42 = *(this + 42);
-  if (v42 <= 3)
+  v41 = *(this + 42);
+  if (v41 <= 3)
   {
 LABEL_50:
-    *(this + 42) = v42 + 1;
-    *&v49[4 * v42] = v4;
+    *(this + 42) = v41 + 1;
+    *&v48[4 * v41] = v4;
   }
 
 LABEL_47:
   atomic_store(0, this + 408);
-LABEL_48:
-  v40 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -3404,10 +3395,14 @@ LABEL_29:
   }
 
   while (*(v6 + 4) != 1);
-  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(2);
-  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(3);
-  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(4);
-  result = std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(5);
+  v24 = 2;
+  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(2, &v24, "VA");
+  v24 = 3;
+  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(3, &v24, "VP");
+  v24 = 4;
+  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(4, &v24, "AVVC");
+  v24 = 5;
+  result = std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(5, &v24, "AQME");
   if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
   {
     goto LABEL_47;
@@ -3611,31 +3606,31 @@ LABEL_80:
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(uint64_t result)
+uint64_t std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(uint64_t result, _DWORD *a2, char *a3)
 {
   if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
+    v4 = result;
     if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= result)
     {
-      v2 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
+      v4 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
   }
 
-  v3 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -3643,39 +3638,39 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == result)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+      if (v7 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
       {
-        v5 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+        v7 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
+      v7 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != result)
+  if (*(v6 + 4) != result)
   {
     goto LABEL_17;
   }
@@ -3683,31 +3678,31 @@ LABEL_17:
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(uint64_t result)
+uint64_t std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(uint64_t result, _DWORD *a2, char *a3)
 {
   if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
+    v4 = result;
     if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= result)
     {
-      v2 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
+      v4 = result % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & result;
   }
 
-  v3 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -3715,39 +3710,39 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == result)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
+      if (v7 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
       {
-        v5 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
+        v7 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
+      v7 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != result)
+  if (*(v6 + 4) != result)
   {
     goto LABEL_17;
   }
@@ -3842,7 +3837,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3856,13 +3851,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -4252,6 +4247,16 @@ void rtaid::GetReporterTypeInterestedMap(rtaid *this)
   }
 }
 
+void ___ZN5rtaid28GetReporterTypeInterestedMapEv_block_invoke()
+{
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 0;
+  v2 = 0x400000000;
+  v3 = 6;
+  memset(__p, 0, sizeof(__p));
+  std::vector<rtaid::AnalyzerType>::__init_with_size[abi:ne200100]<rtaid::AnalyzerType const*,rtaid::AnalyzerType const*>(__p, &v2, &v4, 3);
+}
+
 void sub_24156BBFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p)
 {
   if (__p)
@@ -4274,31 +4279,31 @@ void sub_24156BC9C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::__unordered_map_hasher<AudioServiceType,std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::hash<AudioServiceType>,std::equal_to<AudioServiceType>,true>,std::__unordered_map_equal<AudioServiceType,std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::equal_to<AudioServiceType>,std::hash<AudioServiceType>,true>,std::allocator<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>>>::__emplace_unique_key_args<AudioServiceType,AudioServiceType,std::vector<rtaid::AnalyzerType>>(uint64_t result)
+void std::__hash_table<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::__unordered_map_hasher<AudioServiceType,std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::hash<AudioServiceType>,std::equal_to<AudioServiceType>,true>,std::__unordered_map_equal<AudioServiceType,std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,std::equal_to<AudioServiceType>,std::hash<AudioServiceType>,true>,std::allocator<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>>>::__emplace_unique_key_args<AudioServiceType,AudioServiceType,std::vector<rtaid::AnalyzerType>>(unsigned __int16 a1, _WORD *a2, uint64_t a3)
 {
   if (!*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
-    if (*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1) <= result)
+    v4 = a1;
+    if (*(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1) <= a1)
     {
-      v2 = result % WORD4(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap);
+      v4 = a1 % WORD4(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap) - 1) & a1;
   }
 
-  v3 = *(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -4306,44 +4311,42 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == a1)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1))
+      if (v7 >= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1))
       {
-        v5 %= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1);
+        v7 %= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1) - 1;
+      v7 &= *(&rtaid::GetReporterTypeInterestedMap(void)::gReporterTypeInterestedMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 8) != result)
+  if (*(v6 + 8) != a1)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<AudioServiceType,std::vector<rtaid::AnalyzerType>>,void *>>>::operator()[abi:ne200100](char a1, void *__p)
@@ -4366,7 +4369,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t ___ZN5rtaid22GetAnalyzerToStringMapEv_block_invoke()
+void *___ZN5rtaid22GetAnalyzerToStringMapEv_block_invoke()
 {
   if (!*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1) || !*rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap || (v0 = **rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap) == 0)
   {
@@ -4460,7 +4463,8 @@ LABEL_29:
   }
 
   while (*(v6 + 4) != 1);
-  std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(2);
+  v25 = 2;
+  std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(2, &v25, "SampleAccurateSilence");
   if (!*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
   {
     goto LABEL_47;
@@ -4530,7 +4534,8 @@ LABEL_46:
     break;
   }
 
-  result = std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(4);
+  v24 = 4;
+  result = std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(4, &v24, "AnalyzerRealTimeError");
   if (!*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
   {
     goto LABEL_65;
@@ -4670,31 +4675,31 @@ LABEL_82:
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(uint64_t result)
+void *std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::__unordered_map_hasher<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::hash<rtaid::AnalyzerType>,std::equal_to<rtaid::AnalyzerType>,true>,std::__unordered_map_equal<rtaid::AnalyzerType,std::__hash_value_type<rtaid::AnalyzerType,std::string>,std::equal_to<rtaid::AnalyzerType>,std::hash<rtaid::AnalyzerType>,true>,std::allocator<std::__hash_value_type<rtaid::AnalyzerType,std::string>>>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType,char const(&)[22]>(void *result, _DWORD *a2, char *a3)
 {
   if (!*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v3 = vcnt_s8(*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 8));
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
   {
-    v2 = result;
+    v4 = result;
     if (*(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1) <= result)
     {
-      v2 = result % DWORD2(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap);
+      v4 = result % DWORD2(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap);
     }
   }
 
   else
   {
-    v2 = (DWORD2(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap) - 1) & result;
+    v4 = (DWORD2(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap) - 1) & result;
   }
 
-  v3 = *(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v5 = *(rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 8 * v4);
+  if (!v5 || (v6 = *v5) == 0)
   {
 LABEL_18:
     operator new();
@@ -4702,39 +4707,39 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == result)
+    v7 = v6[1];
+    if (v7 == result)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v3.u32[0] > 1uLL)
     {
-      if (v5 >= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
+      if (v7 >= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1))
       {
-        v5 %= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1);
+        v7 %= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1);
       }
     }
 
     else
     {
-      v5 &= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1) - 1;
+      v7 &= *(&rtaid::GetAnalyzerToStringMap(void)::gAnalyzerToStringMap + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v7 != v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v6 = *v6;
+    if (!v6)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != result)
+  if (*(v6 + 4) != result)
   {
     goto LABEL_17;
   }
@@ -4811,10 +4816,10 @@ LABEL_6:
   }
 }
 
-void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t **std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, void *a2, _OWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -4824,26 +4829,26 @@ LABEL_7:
   {
     while (1)
     {
-      v4 = v2;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v2 + 4) & 0x80) == 0)
+      v5 = v3;
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v3 + 4) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_7;
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4 + 4, a2) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, a2) & 0x80) == 0)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -4921,9 +4926,9 @@ LABEL_6:
 void rtaid::handleRMSIssue(std::string *a1, uint64_t a2, uint64_t a3, const std::string *a4, char **a5)
 {
   v8 = a1;
-  v137 = *MEMORY[0x277D85DE8];
-  memset(v126, 0, 24);
-  memset(&v124, 0, sizeof(v124));
+  v132 = *MEMORY[0x277D85DE8];
+  memset(v121, 0, 24);
+  memset(&v119, 0, sizeof(v119));
   if (!HIDWORD(a1[11].__r_.__value_.__r.__words[1]))
   {
     goto LABEL_29;
@@ -4933,80 +4938,80 @@ void rtaid::handleRMSIssue(std::string *a1, uint64_t a2, uint64_t a3, const std:
   v10 = &a1[12];
   do
   {
-    v11 = v126[23];
-    if (v126[23] < 0)
+    v11 = v121[23];
+    if (v121[23] < 0)
     {
-      v11 = *&v126[8];
+      v11 = *&v121[8];
     }
 
     if (v11)
     {
-      std::string::append(v126, ", ", 2uLL);
+      std::string::append(v121, ", ", 2uLL);
     }
 
-    size = HIBYTE(v124.__r_.__value_.__r.__words[2]);
-    if ((v124.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    size = HIBYTE(v119.__r_.__value_.__r.__words[2]);
+    if ((v119.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v124.__r_.__value_.__l.__size_;
+      size = v119.__r_.__value_.__l.__size_;
     }
 
     if (size)
     {
-      std::string::append(&v124, ", ", 2uLL);
+      std::string::append(&v119, ", ", 2uLL);
     }
 
-    std::to_string(&v123, *(v10 - 1));
-    if ((v123.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::to_string(&v118, *(v10 - 1));
+    if ((v118.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v13 = &v123;
-    }
-
-    else
-    {
-      v13 = v123.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v123.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v14 = HIBYTE(v123.__r_.__value_.__r.__words[2]);
+      v13 = &v118;
     }
 
     else
     {
-      v14 = v123.__r_.__value_.__l.__size_;
+      v13 = v118.__r_.__value_.__r.__words[0];
     }
 
-    std::string::append(v126, v13, v14);
-    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+    if ((v118.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      operator delete(v123.__r_.__value_.__l.__data_);
-    }
-
-    std::to_string(&v123, *v10);
-    if ((v123.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v15 = &v123;
+      v14 = HIBYTE(v118.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v15 = v123.__r_.__value_.__r.__words[0];
+      v14 = v118.__r_.__value_.__l.__size_;
     }
 
-    if ((v123.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::append(v121, v13, v14);
+    if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
     {
-      v16 = HIBYTE(v123.__r_.__value_.__r.__words[2]);
+      operator delete(v118.__r_.__value_.__l.__data_);
+    }
+
+    std::to_string(&v118, *v10);
+    if ((v118.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v15 = &v118;
     }
 
     else
     {
-      v16 = v123.__r_.__value_.__l.__size_;
+      v15 = v118.__r_.__value_.__r.__words[0];
     }
 
-    a1 = std::string::append(&v124, v15, v16);
-    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+    if ((v118.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      operator delete(v123.__r_.__value_.__l.__data_);
+      v16 = HIBYTE(v118.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v16 = v118.__r_.__value_.__l.__size_;
+    }
+
+    a1 = std::string::append(&v119, v15, v16);
+    if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v118.__r_.__value_.__l.__data_);
     }
 
     ++v9;
@@ -5014,34 +5019,34 @@ void rtaid::handleRMSIssue(std::string *a1, uint64_t a2, uint64_t a3, const std:
   }
 
   while (v9 < HIDWORD(v8[11].__r_.__value_.__r.__words[1]));
-  if ((v126[23] & 0x80000000) != 0)
+  if ((v121[23] & 0x80000000) != 0)
   {
-    std::string::__init_copy_ctor_external(&__str, *v126, *&v126[8]);
+    std::string::__init_copy_ctor_external(&__str, *v121, *&v121[8]);
   }
 
   else
   {
 LABEL_29:
-    __str = *v126;
+    __str = *v121;
   }
 
-  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v122, v124.__r_.__value_.__l.__data_, v124.__r_.__value_.__l.__size_);
-    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+    std::string::__init_copy_ctor_external(&v117, v119.__r_.__value_.__l.__data_, v119.__r_.__value_.__l.__size_);
+    if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v124.__r_.__value_.__l.__data_);
+      operator delete(v119.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    v122 = v124;
+    v117 = v119;
   }
 
-  if ((v126[23] & 0x80000000) != 0)
+  if ((v121[23] & 0x80000000) != 0)
   {
-    operator delete(*v126);
+    operator delete(*v121);
   }
 
   v17 = a3;
@@ -5125,7 +5130,7 @@ LABEL_29:
         break;
       }
 
-      v46 = v49 + 1;
+      v46 = (v49 + 1);
       v21 = (v44 - (v49 + 1));
       if (v21 < v29)
       {
@@ -5133,75 +5138,76 @@ LABEL_29:
       }
     }
 
-    if (v49 != v44 && &v49[-v23] != -1)
+    if (v49 != v44 && v49 - v23 != -1)
     {
 LABEL_102:
       if (v18 > -55.0 || v18 <= -120.0)
       {
-        *&v126[8] = 0uLL;
-        *v126 = &v126[8];
-        std::string::basic_string[abi:ne200100]<0>(&v124, "rtaid_client");
+        *&v121[8] = 0;
+        *&v121[16] = 0;
+        *v121 = &v121[8];
+        std::string::basic_string[abi:ne200100]<0>(&v119, "rtaid_client");
         v58 = a4;
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
         std::string::operator=((v67 + 7), a4);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        std::to_string(&v124, *&v8[20].__r_.__value_.__l.__size_);
-        std::string::basic_string[abi:ne200100]<0>(&v123, "issue_detected_sample_time");
-        __p[0] = &v123;
-        v68 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v123);
+        std::to_string(&v119, *&v8[20].__r_.__value_.__l.__size_);
+        std::string::basic_string[abi:ne200100]<0>(&v118, "issue_detected_sample_time");
+        __p[0] = &v118;
+        v68 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v118, __p);
         v69 = v68;
         if (*(v68 + 79) < 0)
         {
           operator delete(v68[7]);
         }
 
-        *(v69 + 7) = v124;
-        *(&v124.__r_.__value_.__s + 23) = 0;
-        v124.__r_.__value_.__s.__data_[0] = 0;
-        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+        *(v69 + 7) = v119;
+        *(&v119.__r_.__value_.__s + 23) = 0;
+        v119.__r_.__value_.__s.__data_[0] = 0;
+        if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v123.__r_.__value_.__l.__data_);
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          operator delete(v118.__r_.__value_.__l.__data_);
+          if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v119.__r_.__value_.__l.__data_);
           }
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v124, "node");
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v70 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+        std::string::basic_string[abi:ne200100]<0>(&v119, "node");
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v70 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
         std::string::__assign_external((v70 + 7), v8);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v124, "alarms_rms");
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+        std::string::basic_string[abi:ne200100]<0>(&v119, "alarms_rms");
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
         std::string::operator=((v71 + 7), &__str);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v124, "alarms_peak");
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v72 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
-        std::string::operator=((v72 + 7), &v122);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v119, "alarms_peak");
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v72 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
+        std::string::operator=((v72 + 7), &v117);
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v124, "report_type");
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+        std::string::basic_string[abi:ne200100]<0>(&v119, "report_type");
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
         if (*(v73 + 79) < 0)
         {
           v73[8] = 3;
@@ -5210,157 +5216,157 @@ LABEL_102:
 
         else
         {
-          v74 = v73 + 7;
+          v74 = (v73 + 7);
           *(v73 + 79) = 3;
         }
 
         *v74 = 5459282;
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
         if ((*v17 & 1) == 0 && LODWORD(v8[10].__r_.__value_.__r.__words[2]) != 1)
         {
 LABEL_144:
-          std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*&v126[8]);
+          std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*&v121[8]);
           {
             rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
           }
 
-          v78 = rtaid::get_log(void)::rtaid_os_log;
+          v76 = rtaid::get_log(void)::rtaid_os_log;
           if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
           {
             if (*(v22 + 23) >= 0)
             {
-              v79 = v22;
+              v77 = v22;
             }
 
             else
             {
-              v79 = *v22;
+              v77 = *v22;
             }
 
             if ((v58->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v80 = v58;
+              v78 = v58;
             }
 
             else
             {
-              v80 = v58->__r_.__value_.__r.__words[0];
+              v78 = v58->__r_.__value_.__r.__words[0];
             }
 
-            v81 = v8[20].__r_.__value_.__l.__size_;
+            v79 = v8[20].__r_.__value_.__l.__size_;
             p_str = &__str;
             if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
               p_str = __str.__r_.__value_.__r.__words[0];
             }
 
-            if ((v122.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v117.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v83 = &v122;
+              v81 = &v117;
             }
 
             else
             {
-              v83 = v122.__r_.__value_.__r.__words[0];
+              v81 = v117.__r_.__value_.__r.__words[0];
             }
 
-            *v126 = 136316930;
-            *&v126[4] = "IssueReporting.cpp";
-            *&v126[12] = 1024;
-            *&v126[14] = 430;
-            *&v126[18] = 2080;
-            *&v126[20] = v79;
-            v127 = 2080;
-            v128 = v80;
-            v129 = 2080;
-            v130 = v8;
-            v131 = 2048;
-            v132 = v81;
-            v133 = 2080;
-            v134 = p_str;
-            v135 = 2080;
-            v136 = v83;
-            v84 = "%s:%-5d RTAID [ use_case=%s report_type=Alarms RMS Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ rms:[%s], peaks:[%s] ] ";
+            *v121 = 136316930;
+            *&v121[4] = "IssueReporting.cpp";
+            *&v121[12] = 1024;
+            *&v121[14] = 430;
+            *&v121[18] = 2080;
+            *&v121[20] = v77;
+            v122 = 2080;
+            v123 = v78;
+            v124 = 2080;
+            v125 = v8;
+            v126 = 2048;
+            v127 = v79;
+            v128 = 2080;
+            v129 = p_str;
+            v130 = 2080;
+            v131 = v81;
+            v82 = "%s:%-5d RTAID [ use_case=%s report_type=Alarms RMS Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ rms:[%s], peaks:[%s] ] ";
             goto LABEL_244;
           }
 
           goto LABEL_245;
         }
 
-        v75 = v8[13].__r_.__value_.__s.__data_[4];
-        v76 = *(**(v17 + 16) + 24);
+        v75 = *(**(v17 + 16) + 24);
       }
 
       else
       {
-        *&v126[8] = 0uLL;
-        *v126 = &v126[8];
-        std::string::basic_string[abi:ne200100]<0>(&v124, "rtaid_client");
+        *&v121[8] = 0;
+        *&v121[16] = 0;
+        *v121 = &v121[8];
+        std::string::basic_string[abi:ne200100]<0>(&v119, "rtaid_client");
         v58 = a4;
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
         std::string::operator=((v59 + 7), a4);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        std::to_string(&v124, *&v8[20].__r_.__value_.__l.__size_);
-        std::string::basic_string[abi:ne200100]<0>(&v123, "issue_detected_sample_time");
-        __p[0] = &v123;
-        v60 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v123);
+        std::to_string(&v119, *&v8[20].__r_.__value_.__l.__size_);
+        std::string::basic_string[abi:ne200100]<0>(&v118, "issue_detected_sample_time");
+        __p[0] = &v118;
+        v60 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v118, __p);
         v61 = v60;
         if (*(v60 + 79) < 0)
         {
           operator delete(v60[7]);
         }
 
-        *(v61 + 7) = v124;
-        *(&v124.__r_.__value_.__s + 23) = 0;
-        v124.__r_.__value_.__s.__data_[0] = 0;
-        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+        *(v61 + 7) = v119;
+        *(&v119.__r_.__value_.__s + 23) = 0;
+        v119.__r_.__value_.__s.__data_[0] = 0;
+        if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v123.__r_.__value_.__l.__data_);
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          operator delete(v118.__r_.__value_.__l.__data_);
+          if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v119.__r_.__value_.__l.__data_);
           }
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v124, "node");
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v62 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+        std::string::basic_string[abi:ne200100]<0>(&v119, "node");
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v62 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
         std::string::__assign_external((v62 + 7), v8);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v124, "alarms_rms");
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+        std::string::basic_string[abi:ne200100]<0>(&v119, "alarms_rms");
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
         std::string::operator=((v63 + 7), &__str);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v124, "alarms_peak");
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v64 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
-        std::string::operator=((v64 + 7), &v122);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        std::string::basic_string[abi:ne200100]<0>(&v119, "alarms_peak");
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v64 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
+        std::string::operator=((v64 + 7), &v117);
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v124, "issue_type");
-        v123.__r_.__value_.__r.__words[0] = &v124;
-        v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+        std::string::basic_string[abi:ne200100]<0>(&v119, "issue_type");
+        v118.__r_.__value_.__r.__words[0] = &v119;
+        v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
         if (*(v65 + 79) < 0)
         {
           v65[8] = 6;
@@ -5374,16 +5380,15 @@ LABEL_144:
         }
 
         strcpy(v66, "LowRMS");
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
 
-        v77 = v8[13].__r_.__value_.__s.__data_[4];
-        v76 = *(**(v17 + 16) + 24);
+        v75 = *(**(v17 + 16) + 24);
       }
 
-      v76();
+      v75();
       goto LABEL_144;
     }
   }
@@ -5408,69 +5413,70 @@ LABEL_51:
     while (v30);
     if (v18 > -70.0 && v19 > -60.0)
     {
-      *&v126[8] = 0uLL;
-      *v126 = &v126[8];
-      std::string::basic_string[abi:ne200100]<0>(&v124, "rtaid_client");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v50 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+      *&v121[8] = 0;
+      *&v121[16] = 0;
+      *v121 = &v121[8];
+      std::string::basic_string[abi:ne200100]<0>(&v119, "rtaid_client");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v50 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
       std::string::operator=((v50 + 7), a4);
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      std::to_string(&v124, *&v8[20].__r_.__value_.__l.__size_);
-      std::string::basic_string[abi:ne200100]<0>(&v123, "issue_detected_sample_time");
-      __p[0] = &v123;
-      v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v123);
+      std::to_string(&v119, *&v8[20].__r_.__value_.__l.__size_);
+      std::string::basic_string[abi:ne200100]<0>(&v118, "issue_detected_sample_time");
+      __p[0] = &v118;
+      v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v118, __p);
       v52 = v51;
       if (*(v51 + 79) < 0)
       {
         operator delete(v51[7]);
       }
 
-      *(v52 + 7) = v124;
-      *(&v124.__r_.__value_.__s + 23) = 0;
-      v124.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+      *(v52 + 7) = v119;
+      *(&v119.__r_.__value_.__s + 23) = 0;
+      v119.__r_.__value_.__s.__data_[0] = 0;
+      if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v123.__r_.__value_.__l.__data_);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        operator delete(v118.__r_.__value_.__l.__data_);
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v124, "node");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+      std::string::basic_string[abi:ne200100]<0>(&v119, "node");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
       std::string::__assign_external((v53 + 7), v8);
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v124, "systemSounds_rms");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v54 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+      std::string::basic_string[abi:ne200100]<0>(&v119, "systemSounds_rms");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v54 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
       std::string::operator=((v54 + 7), &__str);
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v124, "systemSounds_peak");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
-      std::string::operator=((v55 + 7), &v122);
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v119, "systemSounds_peak");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
+      std::string::operator=((v55 + 7), &v117);
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v124, "report_type");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v56 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+      std::string::basic_string[abi:ne200100]<0>(&v119, "report_type");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v56 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
       if (*(v56 + 79) < 0)
       {
         v56[8] = 3;
@@ -5479,156 +5485,156 @@ LABEL_51:
 
       else
       {
-        v57 = v56 + 7;
+        v57 = (v56 + 7);
         *(v56 + 79) = 3;
       }
 
       *v57 = 5459282;
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
       if ((*v17 & 1) == 0 && LODWORD(v8[10].__r_.__value_.__r.__words[2]) != 1)
       {
 LABEL_230:
-        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*&v126[8]);
+        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*&v121[8]);
         {
           rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
         }
 
-        v78 = rtaid::get_log(void)::rtaid_os_log;
+        v76 = rtaid::get_log(void)::rtaid_os_log;
         if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
         {
           if (*(v22 + 23) >= 0)
           {
-            v112 = v22;
+            v108 = v22;
           }
 
           else
           {
-            v112 = *v22;
+            v108 = *v22;
           }
 
           if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v113 = a4;
+            v109 = a4;
           }
 
           else
           {
-            v113 = a4->__r_.__value_.__r.__words[0];
+            v109 = a4->__r_.__value_.__r.__words[0];
           }
 
-          v114 = v8[20].__r_.__value_.__l.__size_;
-          v115 = &__str;
+          v110 = v8[20].__r_.__value_.__l.__size_;
+          v111 = &__str;
           if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v115 = __str.__r_.__value_.__r.__words[0];
+            v111 = __str.__r_.__value_.__r.__words[0];
           }
 
-          if ((v122.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v117.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v116 = &v122;
+            v112 = &v117;
           }
 
           else
           {
-            v116 = v122.__r_.__value_.__r.__words[0];
+            v112 = v117.__r_.__value_.__r.__words[0];
           }
 
-          *v126 = 136316930;
-          *&v126[4] = "IssueReporting.cpp";
-          *&v126[12] = 1024;
-          *&v126[14] = 460;
-          *&v126[18] = 2080;
-          *&v126[20] = v112;
-          v127 = 2080;
-          v128 = v113;
-          v129 = 2080;
-          v130 = v8;
-          v131 = 2048;
-          v132 = v114;
-          v133 = 2080;
-          v134 = v115;
-          v135 = 2080;
-          v136 = v116;
-          v84 = "%s:%-5d RTAID [ use_case=%s report_type=System Sounds RMS Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ rms:[%s], peaks:[%s] ] ";
+          *v121 = 136316930;
+          *&v121[4] = "IssueReporting.cpp";
+          *&v121[12] = 1024;
+          *&v121[14] = 460;
+          *&v121[18] = 2080;
+          *&v121[20] = v108;
+          v122 = 2080;
+          v123 = v109;
+          v124 = 2080;
+          v125 = v8;
+          v126 = 2048;
+          v127 = v110;
+          v128 = 2080;
+          v129 = v111;
+          v130 = 2080;
+          v131 = v112;
+          v82 = "%s:%-5d RTAID [ use_case=%s report_type=System Sounds RMS Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ rms:[%s], peaks:[%s] ] ";
           goto LABEL_244;
         }
 
         goto LABEL_245;
       }
 
-      v111 = v8[13].__r_.__value_.__s.__data_[4];
-      v110 = *(**(v17 + 16) + 24);
+      v107 = *(**(v17 + 16) + 24);
     }
 
     else
     {
-      *&v126[8] = 0uLL;
-      *v126 = &v126[8];
-      std::string::basic_string[abi:ne200100]<0>(&v124, "rtaid_client");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v34 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+      *&v121[8] = 0;
+      *&v121[16] = 0;
+      *v121 = &v121[8];
+      std::string::basic_string[abi:ne200100]<0>(&v119, "rtaid_client");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v34 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
       std::string::operator=((v34 + 7), a4);
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      std::to_string(&v124, *&v8[20].__r_.__value_.__l.__size_);
-      std::string::basic_string[abi:ne200100]<0>(&v123, "issue_detected_sample_time");
-      __p[0] = &v123;
-      v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v123);
+      std::to_string(&v119, *&v8[20].__r_.__value_.__l.__size_);
+      std::string::basic_string[abi:ne200100]<0>(&v118, "issue_detected_sample_time");
+      __p[0] = &v118;
+      v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v118, __p);
       v36 = v35;
       if (*(v35 + 79) < 0)
       {
         operator delete(v35[7]);
       }
 
-      *(v36 + 7) = v124;
-      *(&v124.__r_.__value_.__s + 23) = 0;
-      v124.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+      *(v36 + 7) = v119;
+      *(&v119.__r_.__value_.__s + 23) = 0;
+      v119.__r_.__value_.__s.__data_[0] = 0;
+      if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v123.__r_.__value_.__l.__data_);
-        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+        operator delete(v118.__r_.__value_.__l.__data_);
+        if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v124.__r_.__value_.__l.__data_);
+          operator delete(v119.__r_.__value_.__l.__data_);
         }
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v124, "node");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+      std::string::basic_string[abi:ne200100]<0>(&v119, "node");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
       std::string::__assign_external((v37 + 7), v8);
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v124, "systemSounds_rms");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v38 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+      std::string::basic_string[abi:ne200100]<0>(&v119, "systemSounds_rms");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v38 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
       std::string::operator=((v38 + 7), &__str);
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v124, "systemSounds_peak");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
-      std::string::operator=((v39 + 7), &v122);
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v119, "systemSounds_peak");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
+      std::string::operator=((v39 + 7), &v117);
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v124, "issue_type");
-      v123.__r_.__value_.__r.__words[0] = &v124;
-      v40 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126, &v124);
+      std::string::basic_string[abi:ne200100]<0>(&v119, "issue_type");
+      v118.__r_.__value_.__r.__words[0] = &v119;
+      v40 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v121, &v119, &v118);
       if (*(v40 + 79) < 0)
       {
         v40[8] = 6;
@@ -5642,27 +5648,26 @@ LABEL_230:
       }
 
       strcpy(v41, "LowRMS");
-      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v119.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v124.__r_.__value_.__l.__data_);
+        operator delete(v119.__r_.__value_.__l.__data_);
       }
 
-      v109 = v8[13].__r_.__value_.__s.__data_[4];
-      v110 = *(**(v17 + 16) + 24);
+      v107 = *(**(v17 + 16) + 24);
     }
 
-    v110();
+    v107();
     goto LABEL_230;
   }
 
 LABEL_74:
   if ((*v17 & 1) != 0 || LODWORD(v8[10].__r_.__value_.__r.__words[2]) == 1)
   {
-    *&v124.__r_.__value_.__r.__words[1] = 0uLL;
-    v124.__r_.__value_.__r.__words[0] = &v124.__r_.__value_.__l.__size_;
-    std::string::basic_string[abi:ne200100]<0>(v126, "report_type");
-    v123.__r_.__value_.__r.__words[0] = v126;
-    v42 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v124, v126);
+    *&v119.__r_.__value_.__r.__words[1] = 0uLL;
+    v119.__r_.__value_.__r.__words[0] = &v119.__r_.__value_.__l.__size_;
+    std::string::basic_string[abi:ne200100]<0>(v121, "report_type");
+    v118.__r_.__value_.__r.__words[0] = v121;
+    v42 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v119, v121, &v118);
     if (*(v42 + 79) < 0)
     {
       v42[8] = 3;
@@ -5671,295 +5676,293 @@ LABEL_74:
 
     else
     {
-      v43 = v42 + 7;
+      v43 = (v42 + 7);
       *(v42 + 79) = 3;
     }
 
     *v43 = 5459282;
-    if ((v126[23] & 0x80000000) != 0)
+    if ((v121[23] & 0x80000000) != 0)
     {
-      operator delete(*v126);
+      operator delete(*v121);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v126, "rtaid_client");
-    v123.__r_.__value_.__r.__words[0] = v126;
-    v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v124, v126);
-    std::string::operator=((v85 + 7), a4);
-    if ((v126[23] & 0x80000000) != 0)
+    std::string::basic_string[abi:ne200100]<0>(v121, "rtaid_client");
+    v118.__r_.__value_.__r.__words[0] = v121;
+    v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v119, v121, &v118);
+    std::string::operator=((v83 + 7), a4);
+    if ((v121[23] & 0x80000000) != 0)
     {
-      operator delete(*v126);
+      operator delete(*v121);
     }
 
-    std::to_string(v126, *&v8[20].__r_.__value_.__l.__size_);
-    std::string::basic_string[abi:ne200100]<0>(&v123, "issue_detected_sample_time");
-    __p[0] = &v123;
-    v86 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v124, &v123);
-    v87 = v86;
-    if (*(v86 + 79) < 0)
+    std::to_string(v121, *&v8[20].__r_.__value_.__l.__size_);
+    std::string::basic_string[abi:ne200100]<0>(&v118, "issue_detected_sample_time");
+    __p[0] = &v118;
+    v84 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v119, &v118, __p);
+    v85 = v84;
+    if (*(v84 + 79) < 0)
     {
-      operator delete(v86[7]);
+      operator delete(v84[7]);
     }
 
-    *(v87 + 7) = *v126;
-    v87[9] = *&v126[16];
-    v126[23] = 0;
-    v126[0] = 0;
-    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
+    *(v85 + 7) = *v121;
+    v85[9] = *&v121[16];
+    v121[23] = 0;
+    v121[0] = 0;
+    if (SHIBYTE(v118.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v123.__r_.__value_.__l.__data_);
-      if ((v126[23] & 0x80000000) != 0)
+      operator delete(v118.__r_.__value_.__l.__data_);
+      if ((v121[23] & 0x80000000) != 0)
       {
-        operator delete(*v126);
+        operator delete(*v121);
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v126, "node");
-    v123.__r_.__value_.__r.__words[0] = v126;
-    v88 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v124, v126);
-    std::string::__assign_external((v88 + 7), v8);
-    if ((v126[23] & 0x80000000) != 0)
+    std::string::basic_string[abi:ne200100]<0>(v121, "node");
+    v118.__r_.__value_.__r.__words[0] = v121;
+    v86 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v119, v121, &v118);
+    std::string::__assign_external((v86 + 7), v8);
+    if ((v121[23] & 0x80000000) != 0)
     {
-      operator delete(*v126);
+      operator delete(*v121);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v126, "rms");
-    v123.__r_.__value_.__r.__words[0] = v126;
-    v89 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v124, v126);
-    std::string::operator=((v89 + 7), &__str);
-    if ((v126[23] & 0x80000000) != 0)
+    std::string::basic_string[abi:ne200100]<0>(v121, "rms");
+    v118.__r_.__value_.__r.__words[0] = v121;
+    v87 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v119, v121, &v118);
+    std::string::operator=((v87 + 7), &__str);
+    if ((v121[23] & 0x80000000) != 0)
     {
-      operator delete(*v126);
+      operator delete(*v121);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v126, "peak");
-    v123.__r_.__value_.__r.__words[0] = v126;
-    v90 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v124, v126);
-    std::string::operator=((v90 + 7), &v122);
-    if ((v126[23] & 0x80000000) != 0)
+    std::string::basic_string[abi:ne200100]<0>(v121, "peak");
+    v118.__r_.__value_.__r.__words[0] = v121;
+    v88 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v119, v121, &v118);
+    std::string::operator=((v88 + 7), &v117);
+    if ((v121[23] & 0x80000000) != 0)
     {
-      operator delete(*v126);
+      operator delete(*v121);
     }
 
-    (*(**(v17 + 16) + 24))(*(v17 + 16), a2, v8[13].__r_.__value_.__s.__data_[4], &v124, 1, 7);
+    (*(**(v17 + 16) + 24))(*(v17 + 16), a2, v8[13].__r_.__value_.__s.__data_[4], &v119, 1, 7);
     if (HIDWORD(v8[11].__r_.__value_.__r.__words[0]))
     {
-      v91 = v8[11].__r_.__value_.__r.__words[1];
-      *&v123.__r_.__value_.__r.__words[1] = 0uLL;
-      v123.__r_.__value_.__r.__words[0] = &v123.__r_.__value_.__l.__size_;
-      std::string::basic_string[abi:ne200100]<0>(v126, "issue_type");
-      __p[0] = v126;
-      v92 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v123, v126);
-      if (*(v92 + 79) < 0)
+      v89 = v8[11].__r_.__value_.__r.__words[1];
+      *&v118.__r_.__value_.__r.__words[1] = 0uLL;
+      v118.__r_.__value_.__r.__words[0] = &v118.__r_.__value_.__l.__size_;
+      std::string::basic_string[abi:ne200100]<0>(v121, "issue_type");
+      __p[0] = v121;
+      v90 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v118, v121, __p);
+      if (*(v90 + 79) < 0)
       {
-        v92[8] = 2;
-        v93 = v92[7];
+        v90[8] = 2;
+        v91 = v90[7];
       }
 
       else
       {
-        v93 = (v92 + 7);
-        *(v92 + 79) = 2;
+        v91 = (v90 + 7);
+        *(v90 + 79) = 2;
       }
 
-      strcpy(v93, "DC");
-      if ((v126[23] & 0x80000000) != 0)
+      strcpy(v91, "DC");
+      if ((v121[23] & 0x80000000) != 0)
       {
-        operator delete(*v126);
+        operator delete(*v121);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v126, "rtaid_client");
-      __p[0] = v126;
-      v94 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v123, v126);
-      std::string::operator=((v94 + 7), a4);
-      if ((v126[23] & 0x80000000) != 0)
+      std::string::basic_string[abi:ne200100]<0>(v121, "rtaid_client");
+      __p[0] = v121;
+      v92 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v118, v121, __p);
+      std::string::operator=((v92 + 7), a4);
+      if ((v121[23] & 0x80000000) != 0)
       {
-        operator delete(*v126);
+        operator delete(*v121);
       }
 
-      std::to_string(v126, *&v8[20].__r_.__value_.__l.__size_);
+      std::to_string(v121, *&v8[20].__r_.__value_.__l.__size_);
       std::string::basic_string[abi:ne200100]<0>(__p, "issue_detected_sample_time");
-      v125 = __p;
-      v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v123, __p);
-      v96 = v95;
-      if (*(v95 + 79) < 0)
+      v120 = __p;
+      v93 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v118, __p, &v120);
+      v94 = v93;
+      if (*(v93 + 79) < 0)
       {
-        operator delete(v95[7]);
+        operator delete(v93[7]);
       }
 
-      *(v96 + 7) = *v126;
-      v96[9] = *&v126[16];
-      v126[23] = 0;
-      v126[0] = 0;
-      if (v120 < 0)
+      *(v94 + 7) = *v121;
+      v94[9] = *&v121[16];
+      v121[23] = 0;
+      v121[0] = 0;
+      if (v115 < 0)
       {
         operator delete(__p[0]);
-        if ((v126[23] & 0x80000000) != 0)
+        if ((v121[23] & 0x80000000) != 0)
         {
-          operator delete(*v126);
+          operator delete(*v121);
         }
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v126, "node");
-      __p[0] = v126;
-      v97 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v123, v126);
-      std::string::__assign_external((v97 + 7), v8);
-      if ((v126[23] & 0x80000000) != 0)
+      std::string::basic_string[abi:ne200100]<0>(v121, "node");
+      __p[0] = v121;
+      v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v118, v121, __p);
+      std::string::__assign_external((v95 + 7), v8);
+      if ((v121[23] & 0x80000000) != 0)
       {
-        operator delete(*v126);
+        operator delete(*v121);
       }
 
-      std::to_string(v126, v91);
+      std::to_string(v121, v89);
       std::string::basic_string[abi:ne200100]<0>(__p, "dc_consecutive_samples");
-      v125 = __p;
-      v98 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v123, __p);
-      v99 = v98;
-      if (*(v98 + 79) < 0)
+      v120 = __p;
+      v96 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v118, __p, &v120);
+      v97 = v96;
+      if (*(v96 + 79) < 0)
       {
-        operator delete(v98[7]);
+        operator delete(v96[7]);
       }
 
-      *(v99 + 7) = *v126;
-      v99[9] = *&v126[16];
-      v126[23] = 0;
-      v126[0] = 0;
-      if (v120 < 0)
+      *(v97 + 7) = *v121;
+      v97[9] = *&v121[16];
+      v121[23] = 0;
+      v121[0] = 0;
+      if (v115 < 0)
       {
         operator delete(__p[0]);
-        if ((v126[23] & 0x80000000) != 0)
+        if ((v121[23] & 0x80000000) != 0)
         {
-          operator delete(*v126);
+          operator delete(*v121);
         }
       }
 
-      (*(**(v17 + 16) + 24))(*(v17 + 16), a2, v8[13].__r_.__value_.__s.__data_[4], &v123, 1, 7);
+      (*(**(v17 + 16) + 24))(*(v17 + 16), a2, v8[13].__r_.__value_.__s.__data_[4], &v118, 1, 7);
       {
         rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
       }
 
-      v100 = rtaid::get_log(void)::rtaid_os_log;
+      v98 = rtaid::get_log(void)::rtaid_os_log;
       if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
       {
         if (*(v22 + 23) >= 0)
         {
-          v101 = v22;
+          v99 = v22;
         }
 
         else
         {
-          v101 = *v22;
+          v99 = *v22;
         }
 
         if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v102 = a4;
+          v100 = a4;
         }
 
         else
         {
-          v102 = a4->__r_.__value_.__r.__words[0];
+          v100 = a4->__r_.__value_.__r.__words[0];
         }
 
-        v103 = v8[20].__r_.__value_.__l.__size_;
-        *v126 = 136316674;
-        *&v126[4] = "IssueReporting.cpp";
-        *&v126[12] = 1024;
-        *&v126[14] = 486;
-        *&v126[18] = 2080;
-        *&v126[20] = v101;
-        v127 = 2080;
-        v128 = v102;
-        v129 = 2080;
-        v130 = v8;
-        v131 = 2048;
-        v132 = v103;
-        v133 = 1024;
-        LODWORD(v134) = v91;
-        _os_log_impl(&dword_241557000, v100, OS_LOG_TYPE_DEFAULT, "%s:%-5d RTAID [ use_case=%s issue_type=DC Generic Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ %d ] ", v126, 0x40u);
+        v101 = v8[20].__r_.__value_.__l.__size_;
+        *v121 = 136316674;
+        *&v121[4] = "IssueReporting.cpp";
+        *&v121[12] = 1024;
+        *&v121[14] = 486;
+        *&v121[18] = 2080;
+        *&v121[20] = v99;
+        v122 = 2080;
+        v123 = v100;
+        v124 = 2080;
+        v125 = v8;
+        v126 = 2048;
+        v127 = v101;
+        v128 = 1024;
+        LODWORD(v129) = v89;
+        _os_log_impl(&dword_241557000, v98, OS_LOG_TYPE_DEFAULT, "%s:%-5d RTAID [ use_case=%s issue_type=DC Generic Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ %d ] ", v121, 0x40u);
       }
 
-      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v123.__r_.__value_.__l.__size_);
+      std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v118.__r_.__value_.__l.__size_);
     }
 
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v124.__r_.__value_.__l.__size_);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v119.__r_.__value_.__l.__size_);
   }
 
   {
     rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
   }
 
-  v78 = rtaid::get_log(void)::rtaid_os_log;
+  v76 = rtaid::get_log(void)::rtaid_os_log;
   if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
   {
     if (*(v22 + 23) >= 0)
     {
-      v104 = v22;
+      v102 = v22;
     }
 
     else
     {
-      v104 = *v22;
+      v102 = *v22;
     }
 
     if ((a4->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v105 = a4;
+      v103 = a4;
     }
 
     else
     {
-      v105 = a4->__r_.__value_.__r.__words[0];
+      v103 = a4->__r_.__value_.__r.__words[0];
     }
 
-    v106 = v8[20].__r_.__value_.__l.__size_;
-    v107 = &__str;
+    v104 = v8[20].__r_.__value_.__l.__size_;
+    v105 = &__str;
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v107 = __str.__r_.__value_.__r.__words[0];
+      v105 = __str.__r_.__value_.__r.__words[0];
     }
 
-    if ((v122.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v117.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v108 = &v122;
+      v106 = &v117;
     }
 
     else
     {
-      v108 = v122.__r_.__value_.__r.__words[0];
+      v106 = v117.__r_.__value_.__r.__words[0];
     }
 
-    *v126 = 136316930;
-    *&v126[4] = "IssueReporting.cpp";
-    *&v126[12] = 1024;
-    *&v126[14] = 489;
-    *&v126[18] = 2080;
-    *&v126[20] = v104;
-    v127 = 2080;
-    v128 = v105;
-    v129 = 2080;
-    v130 = v8;
-    v131 = 2048;
-    v132 = v106;
-    v133 = 2080;
-    v134 = v107;
-    v135 = 2080;
-    v136 = v108;
-    v84 = "%s:%-5d RTAID [ use_case=%s report_type=RMS Generic Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ rms:[%s], peaks:[%s] ] ";
+    *v121 = 136316930;
+    *&v121[4] = "IssueReporting.cpp";
+    *&v121[12] = 1024;
+    *&v121[14] = 489;
+    *&v121[18] = 2080;
+    *&v121[20] = v102;
+    v122 = 2080;
+    v123 = v103;
+    v124 = 2080;
+    v125 = v8;
+    v126 = 2048;
+    v127 = v104;
+    v128 = 2080;
+    v129 = v105;
+    v130 = 2080;
+    v131 = v106;
+    v82 = "%s:%-5d RTAID [ use_case=%s report_type=RMS Generic Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ rms:[%s], peaks:[%s] ] ";
 LABEL_244:
-    _os_log_impl(&dword_241557000, v78, OS_LOG_TYPE_DEFAULT, v84, v126, 0x4Eu);
+    _os_log_impl(&dword_241557000, v76, OS_LOG_TYPE_DEFAULT, v82, v121, 0x4Eu);
   }
 
 LABEL_245:
-  if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v117.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v122.__r_.__value_.__l.__data_);
+    operator delete(v117.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
-
-  v117 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24156E7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, void *a41, void *a42, int a43, __int16 a44, char a45, char a46)
@@ -5974,7 +5977,7 @@ void sub_24156E7E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<AudioServiceType,std::string>,std::__unordered_map_hasher<AudioServiceType,std::__hash_value_type<AudioServiceType,std::string>,std::hash<AudioServiceType>,std::equal_to<AudioServiceType>,true>,std::__unordered_map_equal<AudioServiceType,std::__hash_value_type<AudioServiceType,std::string>,std::equal_to<AudioServiceType>,std::hash<AudioServiceType>,true>,std::allocator<std::__hash_value_type<AudioServiceType,std::string>>>::find<AudioServiceType>(void *a1, unsigned __int16 a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<AudioServiceType,std::string>,std::__unordered_map_hasher<AudioServiceType,std::__hash_value_type<AudioServiceType,std::string>,std::hash<AudioServiceType>,std::equal_to<AudioServiceType>,true>,std::__unordered_map_equal<AudioServiceType,std::__hash_value_type<AudioServiceType,std::string>,std::equal_to<AudioServiceType>,std::hash<AudioServiceType>,true>,std::allocator<std::__hash_value_type<AudioServiceType,std::string>>>::find<AudioServiceType>(void *a1, unsigned __int16 a2)
 {
   v2 = a1[1];
   if (!v2)
@@ -6042,7 +6045,7 @@ uint64_t **std::__hash_table<std::__hash_value_type<AudioServiceType,std::string
 
 void rtaid::HandleAudioIssue(uint64_t a1, uint64_t *a2, float a3)
 {
-  v241 = *MEMORY[0x277D85DE8];
+  v238 = *MEMORY[0x277D85DE8];
   if (*a2)
   {
     v6 = a3;
@@ -6062,9 +6065,9 @@ void rtaid::HandleAudioIssue(uint64_t a1, uint64_t *a2, float a3)
     __break(1u);
   }
 
-  if (v207)
+  if (v204)
   {
-    rtaid::GetClientIDMap(v207);
+    rtaid::GetClientIDMap(v204);
     v5[53] = &rtaid::GetClientIDMap(void)::gClientIDMap;
   }
 
@@ -6075,11 +6078,11 @@ LABEL_3:
     std::string::operator=(&__str, v7 + 1);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v211, "Generic");
+  std::string::basic_string[abi:ne200100]<0>(&v208, "Generic");
   {
-    if (v208)
+    if (v205)
     {
-      rtaid::GetClientUseCaseMap(v208);
+      rtaid::GetClientUseCaseMap(v205);
       rtaid::HandleAudioIssue(rtaid::IssueDictionary const&,std::shared_ptr<rtaid::DependencyInjection>,float)::clientUseCaseMap = &rtaid::GetClientUseCaseMap(void)::gClientUseCaseMap;
     }
   }
@@ -6090,7 +6093,7 @@ LABEL_3:
     v9 = std::__hash_table<std::__hash_value_type<AudioServiceType,std::string>,std::__unordered_map_hasher<AudioServiceType,std::__hash_value_type<AudioServiceType,std::string>,std::hash<AudioServiceType>,std::equal_to<AudioServiceType>,true>,std::__unordered_map_equal<AudioServiceType,std::__hash_value_type<AudioServiceType,std::string>,std::equal_to<AudioServiceType>,std::hash<AudioServiceType>,true>,std::allocator<std::__hash_value_type<AudioServiceType,std::string>>>::find<AudioServiceType>(rtaid::HandleAudioIssue(rtaid::IssueDictionary const&,std::shared_ptr<rtaid::DependencyInjection>,float)::clientUseCaseMap, *(v3 + 448));
     if (v9)
     {
-      std::string::operator=(&v211, v9 + 1);
+      std::string::operator=(&v208, v9 + 1);
       v8 = *(v3 + 316);
     }
 
@@ -6127,7 +6130,7 @@ LABEL_3:
             v19 = v14[1];
           }
 
-          std::string::append(&v211, v18, v19);
+          std::string::append(&v208, v18, v19);
           v8 = *(v3 + 316);
         }
       }
@@ -6135,9 +6138,9 @@ LABEL_3:
   }
 
   {
-    if (v209)
+    if (v206)
     {
-      rtaid::GetReporterTypeInterestedMap(v209);
+      rtaid::GetReporterTypeInterestedMap(v206);
     }
   }
 
@@ -6154,7 +6157,7 @@ LABEL_3:
     v27 = *(v3 + 260);
     do
     {
-      v210[v21] = *(v3 + 320 + 8 * v21);
+      v207[v21] = *(v3 + 320 + 8 * v21);
       if (*(&v22 + 1))
       {
         v28 = *(v3 + 448 + 2 * v21);
@@ -6205,7 +6208,7 @@ LABEL_3:
                 if (v32 == v33)
                 {
 LABEL_44:
-                  v210[v21] = 0;
+                  v207[v21] = 0;
                 }
 
                 break;
@@ -6275,8 +6278,8 @@ LABEL_44:
             *&buf[16] = 0;
             *buf = &buf[8];
             std::string::basic_string[abi:ne200100]<0>(&__p, "issue_type");
-            v225.__r_.__value_.__r.__words[0] = &__p;
-            v38 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p);
+            v222.__r_.__value_.__r.__words[0] = &__p;
+            v38 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p, &v222);
             if (*(v38 + 79) < 0)
             {
               v38[8] = 7;
@@ -6296,30 +6299,30 @@ LABEL_44:
             }
 
             std::string::basic_string[abi:ne200100]<0>(&__p, "rtaid_client");
-            v225.__r_.__value_.__r.__words[0] = &__p;
-            v165 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p);
-            std::string::operator=((v165 + 7), &__str);
+            v222.__r_.__value_.__r.__words[0] = &__p;
+            v164 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p, &v222);
+            std::string::operator=((v164 + 7), &__str);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
             std::to_string(&__p, *(v3 + 488));
-            std::string::basic_string[abi:ne200100]<0>(&v225, "issue_detected_sample_time");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v166 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v167 = v166;
-            if (*(v166 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "issue_detected_sample_time");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v165 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v166 = v165;
+            if (*(v165 + 79) < 0)
             {
-              operator delete(v166[7]);
+              operator delete(v165[7]);
             }
 
-            *(v167 + 7) = __p;
+            *(v166 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6327,30 +6330,30 @@ LABEL_44:
             }
 
             std::string::basic_string[abi:ne200100]<0>(&__p, "node");
-            v225.__r_.__value_.__r.__words[0] = &__p;
-            v168 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p);
-            std::string::__assign_external((v168 + 7), v3);
+            v222.__r_.__value_.__r.__words[0] = &__p;
+            v167 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p, &v222);
+            std::string::__assign_external((v167 + 7), v3);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
             std::to_string(&__p, *(v3 + 268));
-            std::string::basic_string[abi:ne200100]<0>(&v225, "all_channel_silence_samples");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v169 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v170 = v169;
-            if (*(v169 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "all_channel_silence_samples");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v168 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v169 = v168;
+            if (*(v168 + 79) < 0)
             {
-              operator delete(v169[7]);
+              operator delete(v168[7]);
             }
 
-            *(v170 + 7) = __p;
+            *(v169 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6358,21 +6361,21 @@ LABEL_44:
             }
 
             std::to_string(&__p, *(v3 + 272));
-            std::string::basic_string[abi:ne200100]<0>(&v225, "any_channel_silence_samples");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v171 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v172 = v171;
-            if (*(v171 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "any_channel_silence_samples");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v170 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v171 = v170;
+            if (*(v170 + 79) < 0)
             {
-              operator delete(v171[7]);
+              operator delete(v170[7]);
             }
 
-            *(v172 + 7) = __p;
+            *(v171 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6380,21 +6383,21 @@ LABEL_44:
             }
 
             std::to_string(&__p, *(v3 + 276));
-            std::string::basic_string[abi:ne200100]<0>(&v225, "leading_silence_samples");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v173 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v174 = v173;
-            if (*(v173 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "leading_silence_samples");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v172 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v173 = v172;
+            if (*(v172 + 79) < 0)
             {
-              operator delete(v173[7]);
+              operator delete(v172[7]);
             }
 
-            *(v174 + 7) = __p;
+            *(v173 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6402,21 +6405,21 @@ LABEL_44:
             }
 
             std::to_string(&__p, *(v3 + 280));
-            std::string::basic_string[abi:ne200100]<0>(&v225, "mid_stream_silence_samples");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v175 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v176 = v175;
-            if (*(v175 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "mid_stream_silence_samples");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v174 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v175 = v174;
+            if (*(v174 + 79) < 0)
             {
-              operator delete(v175[7]);
+              operator delete(v174[7]);
             }
 
-            *(v176 + 7) = __p;
+            *(v175 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6424,21 +6427,21 @@ LABEL_44:
             }
 
             std::to_string(&__p, *(v3 + 268) / v35);
-            std::string::basic_string[abi:ne200100]<0>(&v225, "all_channel_silence_seconds");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v177 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v178 = v177;
-            if (*(v177 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "all_channel_silence_seconds");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v176 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v177 = v176;
+            if (*(v176 + 79) < 0)
             {
-              operator delete(v177[7]);
+              operator delete(v176[7]);
             }
 
-            *(v178 + 7) = __p;
+            *(v177 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6446,21 +6449,21 @@ LABEL_44:
             }
 
             std::to_string(&__p, *(v3 + 272) / v35);
-            std::string::basic_string[abi:ne200100]<0>(&v225, "any_channel_silence_seconds");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v179 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v180 = v179;
-            if (*(v179 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "any_channel_silence_seconds");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v178 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v179 = v178;
+            if (*(v178 + 79) < 0)
             {
-              operator delete(v179[7]);
+              operator delete(v178[7]);
             }
 
-            *(v180 + 7) = __p;
+            *(v179 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6468,21 +6471,21 @@ LABEL_44:
             }
 
             std::to_string(&__p, *(v3 + 276) / v35);
-            std::string::basic_string[abi:ne200100]<0>(&v225, "leading_silence_seconds");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v181 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v182 = v181;
-            if (*(v181 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "leading_silence_seconds");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v180 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v181 = v180;
+            if (*(v180 + 79) < 0)
             {
-              operator delete(v181[7]);
+              operator delete(v180[7]);
             }
 
-            *(v182 + 7) = __p;
+            *(v181 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6490,21 +6493,21 @@ LABEL_44:
             }
 
             std::to_string(&__p, *(v3 + 280) / v35);
-            std::string::basic_string[abi:ne200100]<0>(&v225, "mid_stream_silence_seconds");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v183 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v184 = v183;
-            if (*(v183 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "mid_stream_silence_seconds");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v182 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v183 = v182;
+            if (*(v182 + 79) < 0)
             {
-              operator delete(v183[7]);
+              operator delete(v182[7]);
             }
 
-            *(v184 + 7) = __p;
+            *(v183 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
@@ -6512,29 +6515,28 @@ LABEL_44:
             }
 
             std::to_string(&__p, *(v3 + 288));
-            std::string::basic_string[abi:ne200100]<0>(&v225, "mid_stream_silence_sample_time");
-            v223.__r_.__value_.__r.__words[0] = &v225;
-            v185 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
-            v186 = v185;
-            if (*(v185 + 79) < 0)
+            std::string::basic_string[abi:ne200100]<0>(&v222, "mid_stream_silence_sample_time");
+            v220.__r_.__value_.__r.__words[0] = &v222;
+            v184 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
+            v185 = v184;
+            if (*(v184 + 79) < 0)
             {
-              operator delete(v185[7]);
+              operator delete(v184[7]);
             }
 
-            *(v186 + 7) = __p;
+            *(v185 + 7) = __p;
             *(&__p.__r_.__value_.__s + 23) = 0;
             __p.__r_.__value_.__s.__data_[0] = 0;
-            if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v225.__r_.__value_.__l.__data_);
+              operator delete(v222.__r_.__value_.__l.__data_);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
             }
 
-            v187 = *(v3 + 316);
-            v87 = *(**(v34 + 16) + 24);
+            v86 = *(**(v34 + 16) + 24);
             goto LABEL_144;
           }
         }
@@ -6544,8 +6546,8 @@ LABEL_44:
       *&buf[16] = 0;
       *buf = &buf[8];
       std::string::basic_string[abi:ne200100]<0>(&__p, "issue_type");
-      v225.__r_.__value_.__r.__words[0] = &__p;
-      v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p);
+      v222.__r_.__value_.__r.__words[0] = &__p;
+      v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p, &v222);
       if (*(v43 + 79) < 0)
       {
         v43[8] = 7;
@@ -6565,8 +6567,8 @@ LABEL_44:
       }
 
       std::string::basic_string[abi:ne200100]<0>(&__p, "rtaid_client");
-      v225.__r_.__value_.__r.__words[0] = &__p;
-      v64 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p);
+      v222.__r_.__value_.__r.__words[0] = &__p;
+      v64 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p, &v222);
       std::string::operator=((v64 + 7), &__str);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -6574,9 +6576,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 488));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "issue_detected_sample_time");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "issue_detected_sample_time");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v66 = v65;
       if (*(v65 + 79) < 0)
       {
@@ -6586,9 +6588,9 @@ LABEL_44:
       *(v66 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6596,8 +6598,8 @@ LABEL_44:
       }
 
       std::string::basic_string[abi:ne200100]<0>(&__p, "node");
-      v225.__r_.__value_.__r.__words[0] = &__p;
-      v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p);
+      v222.__r_.__value_.__r.__words[0] = &__p;
+      v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &__p, &v222);
       std::string::__assign_external((v67 + 7), v3);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -6605,9 +6607,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 268));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "all_channel_silence_samples");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v68 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "all_channel_silence_samples");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v68 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v69 = v68;
       if (*(v68 + 79) < 0)
       {
@@ -6617,9 +6619,9 @@ LABEL_44:
       *(v69 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6627,9 +6629,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 272));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "any_channel_silence_samples");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v70 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "any_channel_silence_samples");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v70 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v71 = v70;
       if (*(v70 + 79) < 0)
       {
@@ -6639,9 +6641,9 @@ LABEL_44:
       *(v71 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6649,9 +6651,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 276));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "leading_silence_samples");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v72 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "leading_silence_samples");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v72 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v73 = v72;
       if (*(v72 + 79) < 0)
       {
@@ -6661,9 +6663,9 @@ LABEL_44:
       *(v73 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6671,9 +6673,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 280));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "mid_stream_silence_samples");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v74 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "mid_stream_silence_samples");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v74 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v75 = v74;
       if (*(v74 + 79) < 0)
       {
@@ -6683,9 +6685,9 @@ LABEL_44:
       *(v75 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6693,9 +6695,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 268) / v35);
-      std::string::basic_string[abi:ne200100]<0>(&v225, "all_channel_silence_seconds");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v76 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "all_channel_silence_seconds");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v76 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v77 = v76;
       if (*(v76 + 79) < 0)
       {
@@ -6705,9 +6707,9 @@ LABEL_44:
       *(v77 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6715,9 +6717,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 272) / v35);
-      std::string::basic_string[abi:ne200100]<0>(&v225, "any_channel_silence_seconds");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v78 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "any_channel_silence_seconds");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v78 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v79 = v78;
       if (*(v78 + 79) < 0)
       {
@@ -6727,9 +6729,9 @@ LABEL_44:
       *(v79 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6737,9 +6739,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 276) / v35);
-      std::string::basic_string[abi:ne200100]<0>(&v225, "leading_silence_seconds");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v80 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "leading_silence_seconds");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v80 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v81 = v80;
       if (*(v80 + 79) < 0)
       {
@@ -6749,9 +6751,9 @@ LABEL_44:
       *(v81 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6759,9 +6761,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 280) / v35);
-      std::string::basic_string[abi:ne200100]<0>(&v225, "mid_stream_silence_seconds");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v82 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "mid_stream_silence_seconds");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v82 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v83 = v82;
       if (*(v82 + 79) < 0)
       {
@@ -6771,9 +6773,9 @@ LABEL_44:
       *(v83 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6781,9 +6783,9 @@ LABEL_44:
       }
 
       std::to_string(&__p, *(v3 + 288));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "mid_stream_silence_sample_time");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v84 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v225);
+      std::string::basic_string[abi:ne200100]<0>(&v222, "mid_stream_silence_sample_time");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v84 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(buf, &v222, &v220);
       v85 = v84;
       if (*(v84 + 79) < 0)
       {
@@ -6793,19 +6795,18 @@ LABEL_44:
       *(v85 + 7) = __p;
       *(&__p.__r_.__value_.__s + 23) = 0;
       __p.__r_.__value_.__s.__data_[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
       }
 
-      v86 = *(v3 + 316);
-      v87 = *(**(v34 + 16) + 24);
+      v86 = *(**(v34 + 16) + 24);
 LABEL_144:
-      v87();
+      v86();
       std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*&buf[8]);
 LABEL_145:
       {
@@ -6815,10 +6816,10 @@ LABEL_145:
       v60 = rtaid::get_log(void)::rtaid_os_log;
       if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
       {
-        v88 = &v211;
-        if ((v211.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v87 = &v208;
+        if ((v208.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v88 = v211.__r_.__value_.__r.__words[0];
+          v87 = v208.__r_.__value_.__r.__words[0];
         }
 
         p_str = &__str;
@@ -6827,34 +6828,34 @@ LABEL_145:
           p_str = __str.__r_.__value_.__r.__words[0];
         }
 
-        v90 = *(v3 + 488);
-        v91 = (*(v3 + 268) / v35);
-        v92 = (*(v3 + 272) / v35);
-        v93 = (*(v3 + 276) / v35);
-        v94 = *(v3 + 280);
+        v89 = *(v3 + 488);
+        v90 = (*(v3 + 268) / v35);
+        v91 = (*(v3 + 272) / v35);
+        v92 = (*(v3 + 276) / v35);
+        v93 = *(v3 + 280);
         *buf = 136317698;
-        v95 = *(v3 + 288);
+        v94 = *(v3 + 288);
         *&buf[4] = "IssueReporting.cpp";
         *&buf[12] = 1024;
         *&buf[14] = 296;
         *&buf[18] = 2080;
-        *&buf[20] = v88;
-        v229 = 2080;
-        v230 = p_str;
-        v231 = 2080;
-        v232 = v3;
-        v233 = 2048;
-        v234 = v90;
-        v235 = 2048;
-        *v236 = v91;
-        *&v236[8] = 2048;
-        v237 = v92;
-        *v238 = 2048;
-        *&v238[2] = v93;
-        *&v238[10] = 2048;
-        *&v238[12] = (v94 / v35);
-        v239 = 2048;
-        v240 = v95;
+        *&buf[20] = v87;
+        v226 = 2080;
+        v227 = p_str;
+        v228 = 2080;
+        v229 = v3;
+        v230 = 2048;
+        v231 = v89;
+        v232 = 2048;
+        *v233 = v90;
+        *&v233[8] = 2048;
+        v234 = v91;
+        *v235 = 2048;
+        *&v235[2] = v92;
+        *&v235[10] = 2048;
+        *&v235[12] = (v93 / v35);
+        v236 = 2048;
+        v237 = v94;
         v50 = "%s:%-5d RTAID [ use_case=%s issue_type=Silence clientID=%s node=%s issue_detected_sample_time=%f ] -- [ all_channel_silence_seconds=%f any_channel_silence_seconds=%f leading_silence_seconds=%f mid_stream_silence_seconds=%f mid_stream_silence_sampleTime=%f ]";
 LABEL_152:
         v51 = v60;
@@ -6872,8 +6873,8 @@ LABEL_152:
       *&__p.__r_.__value_.__r.__words[1] = 0uLL;
       __p.__r_.__value_.__r.__words[0] = &__p.__r_.__value_.__l.__size_;
       std::string::basic_string[abi:ne200100]<0>(buf, "issue_type");
-      v225.__r_.__value_.__r.__words[0] = buf;
-      v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
+      v222.__r_.__value_.__r.__words[0] = buf;
+      v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
       if (*(v41 + 79) < 0)
       {
         v41[8] = 9;
@@ -6893,31 +6894,31 @@ LABEL_152:
       }
 
       std::string::basic_string[abi:ne200100]<0>(buf, "rtaid_client");
-      v225.__r_.__value_.__r.__words[0] = buf;
-      v140 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
-      std::string::operator=((v140 + 7), &__str);
+      v222.__r_.__value_.__r.__words[0] = buf;
+      v139 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
+      std::string::operator=((v139 + 7), &__str);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
       }
 
       std::to_string(buf, *(v3 + 488));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "issue_detected_sample_time");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v141 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
-      v142 = v141;
-      if (*(v141 + 79) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v222, "issue_detected_sample_time");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v140 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
+      v141 = v140;
+      if (*(v140 + 79) < 0)
       {
-        operator delete(v141[7]);
+        operator delete(v140[7]);
       }
 
-      *(v142 + 7) = *buf;
-      v142[9] = *&buf[16];
+      *(v141 + 7) = *buf;
+      v141[9] = *&buf[16];
       buf[23] = 0;
       buf[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if ((buf[23] & 0x80000000) != 0)
         {
           operator delete(*buf);
@@ -6925,31 +6926,31 @@ LABEL_152:
       }
 
       std::string::basic_string[abi:ne200100]<0>(buf, "node");
-      v225.__r_.__value_.__r.__words[0] = buf;
-      v143 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
-      std::string::__assign_external((v143 + 7), v3);
+      v222.__r_.__value_.__r.__words[0] = buf;
+      v142 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
+      std::string::__assign_external((v142 + 7), v3);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
       }
 
       std::to_string(buf, *(v3 + 268));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "nan_frames");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v144 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
-      v145 = v144;
-      if (*(v144 + 79) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v222, "nan_frames");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v143 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
+      v144 = v143;
+      if (*(v143 + 79) < 0)
       {
-        operator delete(v144[7]);
+        operator delete(v143[7]);
       }
 
-      *(v145 + 7) = *buf;
-      v145[9] = *&buf[16];
+      *(v144 + 7) = *buf;
+      v144[9] = *&buf[16];
       buf[23] = 0;
       buf[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if ((buf[23] & 0x80000000) != 0)
         {
           operator delete(*buf);
@@ -6957,75 +6958,75 @@ LABEL_152:
       }
 
       std::to_string(buf, *(v3 + 272));
-      std::string::basic_string[abi:ne200100]<0>(&v225, "inf_frames");
-      v223.__r_.__value_.__r.__words[0] = &v225;
-      v146 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
-      v147 = v146;
-      if (*(v146 + 79) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v222, "inf_frames");
+      v220.__r_.__value_.__r.__words[0] = &v222;
+      v145 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
+      v146 = v145;
+      if (*(v145 + 79) < 0)
       {
-        operator delete(v146[7]);
+        operator delete(v145[7]);
       }
 
-      *(v147 + 7) = *buf;
-      v147[9] = *&buf[16];
+      *(v146 + 7) = *buf;
+      v146[9] = *&buf[16];
       buf[23] = 0;
       buf[0] = 0;
-      if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v225.__r_.__value_.__l.__data_);
+        operator delete(v222.__r_.__value_.__l.__data_);
         if ((buf[23] & 0x80000000) != 0)
         {
           operator delete(*buf);
         }
       }
 
-      (*(**(v40 + 16) + 24))(*(v40 + 16), v210, *(v3 + 316), &__p, 11, 7);
+      (*(**(v40 + 16) + 24))(*(v40 + 16), v207, *(v3 + 316), &__p, 11, 7);
       {
         rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
       }
 
-      v148 = rtaid::get_log(void)::rtaid_os_log;
+      v147 = rtaid::get_log(void)::rtaid_os_log;
       if (!os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_359;
       }
 
-      v149 = &v211;
-      if ((v211.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v148 = &v208;
+      if ((v208.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v149 = v211.__r_.__value_.__r.__words[0];
+        v148 = v208.__r_.__value_.__r.__words[0];
       }
 
-      v150 = &__str;
+      v149 = &__str;
       if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v150 = __str.__r_.__value_.__r.__words[0];
+        v149 = __str.__r_.__value_.__r.__words[0];
       }
 
-      v151 = *(v3 + 488);
-      v152 = *(v3 + 268);
-      v153 = *(v3 + 272);
+      v150 = *(v3 + 488);
+      v151 = *(v3 + 268);
+      v152 = *(v3 + 272);
       *buf = 136316930;
       *&buf[4] = "IssueReporting.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 239;
       *&buf[18] = 2080;
-      *&buf[20] = v149;
-      v229 = 2080;
-      v230 = v150;
-      v231 = 2080;
-      v232 = v3;
-      v233 = 2048;
-      v234 = v151;
-      v235 = 1024;
-      *v236 = v152;
-      *&v236[4] = 1024;
-      *&v236[6] = v153;
-      v137 = "%s:%-5d RTAID [ use_case=%s issue_type=NonFinites clientID=%s node=%s issue_detected_sample_time=%f ] -- [ nan_frames=%d inf_frames=%d ]";
-      v138 = v148;
-      v139 = 70;
+      *&buf[20] = v148;
+      v226 = 2080;
+      v227 = v149;
+      v228 = 2080;
+      v229 = v3;
+      v230 = 2048;
+      v231 = v150;
+      v232 = 1024;
+      *v233 = v151;
+      *&v233[4] = 1024;
+      *&v233[6] = v152;
+      v136 = "%s:%-5d RTAID [ use_case=%s issue_type=NonFinites clientID=%s node=%s issue_detected_sample_time=%f ] -- [ nan_frames=%d inf_frames=%d ]";
+      v137 = v147;
+      v138 = 70;
 LABEL_358:
-      _os_log_impl(&dword_241557000, v138, OS_LOG_TYPE_DEFAULT, v137, buf, v139);
+      _os_log_impl(&dword_241557000, v137, OS_LOG_TYPE_DEFAULT, v136, buf, v138);
 LABEL_359:
       std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(__p.__r_.__value_.__l.__size_);
       goto LABEL_360;
@@ -7064,8 +7065,8 @@ LABEL_153:
     *&__p.__r_.__value_.__r.__words[1] = 0uLL;
     __p.__r_.__value_.__r.__words[0] = &__p.__r_.__value_.__l.__size_;
     std::string::basic_string[abi:ne200100]<0>(buf, "issue_type");
-    v225.__r_.__value_.__r.__words[0] = buf;
-    v46 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
+    v222.__r_.__value_.__r.__words[0] = buf;
+    v46 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
     if (*(v46 + 79) < 0)
     {
       v46[8] = 7;
@@ -7085,31 +7086,31 @@ LABEL_153:
     }
 
     std::string::basic_string[abi:ne200100]<0>(buf, "rtaid_client");
-    v225.__r_.__value_.__r.__words[0] = buf;
-    v96 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
-    std::string::operator=((v96 + 7), &__str);
+    v222.__r_.__value_.__r.__words[0] = buf;
+    v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
+    std::string::operator=((v95 + 7), &__str);
     if ((buf[23] & 0x80000000) != 0)
     {
       operator delete(*buf);
     }
 
     std::to_string(buf, *(v3 + 488));
-    std::string::basic_string[abi:ne200100]<0>(&v225, "issue_detected_sample_time");
-    v223.__r_.__value_.__r.__words[0] = &v225;
-    v97 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
-    v98 = v97;
-    if (*(v97 + 79) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v222, "issue_detected_sample_time");
+    v220.__r_.__value_.__r.__words[0] = &v222;
+    v96 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
+    v97 = v96;
+    if (*(v96 + 79) < 0)
     {
-      operator delete(v97[7]);
+      operator delete(v96[7]);
     }
 
-    *(v98 + 7) = *buf;
-    v98[9] = *&buf[16];
+    *(v97 + 7) = *buf;
+    v97[9] = *&buf[16];
     buf[23] = 0;
     buf[0] = 0;
-    if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v225.__r_.__value_.__l.__data_);
+      operator delete(v222.__r_.__value_.__l.__data_);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
@@ -7117,152 +7118,152 @@ LABEL_153:
     }
 
     std::string::basic_string[abi:ne200100]<0>(buf, "node");
-    v225.__r_.__value_.__r.__words[0] = buf;
-    v99 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
-    std::string::__assign_external((v99 + 7), v3);
+    v222.__r_.__value_.__r.__words[0] = buf;
+    v98 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
+    std::string::__assign_external((v98 + 7), v3);
     if ((buf[23] & 0x80000000) != 0)
     {
       operator delete(*buf);
     }
 
-    std::to_string(&v218, *(v3 + 268));
-    v100 = std::string::insert(&v218, 0, " {", 2uLL);
-    v101 = *&v100->__r_.__value_.__l.__data_;
-    v219.__r_.__value_.__r.__words[2] = v100->__r_.__value_.__r.__words[2];
-    *&v219.__r_.__value_.__l.__data_ = v101;
-    v100->__r_.__value_.__l.__size_ = 0;
-    v100->__r_.__value_.__r.__words[2] = 0;
-    v100->__r_.__value_.__r.__words[0] = 0;
-    v102 = std::string::append(&v219, ", ", 2uLL);
-    v103 = *&v102->__r_.__value_.__l.__data_;
-    v220.__r_.__value_.__r.__words[2] = v102->__r_.__value_.__r.__words[2];
-    *&v220.__r_.__value_.__l.__data_ = v103;
-    v102->__r_.__value_.__l.__size_ = 0;
-    v102->__r_.__value_.__r.__words[2] = 0;
-    v102->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v217, *(v3 + 272));
-    if ((v217.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::to_string(&v215, *(v3 + 268));
+    v99 = std::string::insert(&v215, 0, " {", 2uLL);
+    v100 = *&v99->__r_.__value_.__l.__data_;
+    v216.__r_.__value_.__r.__words[2] = v99->__r_.__value_.__r.__words[2];
+    *&v216.__r_.__value_.__l.__data_ = v100;
+    v99->__r_.__value_.__l.__size_ = 0;
+    v99->__r_.__value_.__r.__words[2] = 0;
+    v99->__r_.__value_.__r.__words[0] = 0;
+    v101 = std::string::append(&v216, ", ", 2uLL);
+    v102 = *&v101->__r_.__value_.__l.__data_;
+    v217.__r_.__value_.__r.__words[2] = v101->__r_.__value_.__r.__words[2];
+    *&v217.__r_.__value_.__l.__data_ = v102;
+    v101->__r_.__value_.__l.__size_ = 0;
+    v101->__r_.__value_.__r.__words[2] = 0;
+    v101->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v214, *(v3 + 272));
+    if ((v214.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v104 = &v217;
+      v103 = &v214;
     }
 
     else
     {
-      v104 = v217.__r_.__value_.__r.__words[0];
+      v103 = v214.__r_.__value_.__r.__words[0];
     }
 
-    if ((v217.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v214.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v217.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v217.__r_.__value_.__l.__size_;
-    }
-
-    v106 = std::string::append(&v220, v104, size);
-    v107 = *&v106->__r_.__value_.__l.__data_;
-    v221.__r_.__value_.__r.__words[2] = v106->__r_.__value_.__r.__words[2];
-    *&v221.__r_.__value_.__l.__data_ = v107;
-    v106->__r_.__value_.__l.__size_ = 0;
-    v106->__r_.__value_.__r.__words[2] = 0;
-    v106->__r_.__value_.__r.__words[0] = 0;
-    v108 = std::string::append(&v221, ", ", 2uLL);
-    v109 = *&v108->__r_.__value_.__l.__data_;
-    v222.__r_.__value_.__r.__words[2] = v108->__r_.__value_.__r.__words[2];
-    *&v222.__r_.__value_.__l.__data_ = v109;
-    v108->__r_.__value_.__l.__size_ = 0;
-    v108->__r_.__value_.__r.__words[2] = 0;
-    v108->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v216, *(v3 + 276));
-    if ((v216.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v110 = &v216;
+      size = HIBYTE(v214.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v110 = v216.__r_.__value_.__r.__words[0];
+      size = v214.__r_.__value_.__l.__size_;
     }
 
-    if ((v216.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v105 = std::string::append(&v217, v103, size);
+    v106 = *&v105->__r_.__value_.__l.__data_;
+    v218.__r_.__value_.__r.__words[2] = v105->__r_.__value_.__r.__words[2];
+    *&v218.__r_.__value_.__l.__data_ = v106;
+    v105->__r_.__value_.__l.__size_ = 0;
+    v105->__r_.__value_.__r.__words[2] = 0;
+    v105->__r_.__value_.__r.__words[0] = 0;
+    v107 = std::string::append(&v218, ", ", 2uLL);
+    v108 = *&v107->__r_.__value_.__l.__data_;
+    v219.__r_.__value_.__r.__words[2] = v107->__r_.__value_.__r.__words[2];
+    *&v219.__r_.__value_.__l.__data_ = v108;
+    v107->__r_.__value_.__l.__size_ = 0;
+    v107->__r_.__value_.__r.__words[2] = 0;
+    v107->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v213, *(v3 + 276));
+    if ((v213.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v111 = HIBYTE(v216.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v111 = v216.__r_.__value_.__l.__size_;
-    }
-
-    v112 = std::string::append(&v222, v110, v111);
-    v113 = *&v112->__r_.__value_.__l.__data_;
-    v223.__r_.__value_.__r.__words[2] = v112->__r_.__value_.__r.__words[2];
-    *&v223.__r_.__value_.__l.__data_ = v113;
-    v112->__r_.__value_.__l.__size_ = 0;
-    v112->__r_.__value_.__r.__words[2] = 0;
-    v112->__r_.__value_.__r.__words[0] = 0;
-    v114 = std::string::append(&v223, ", ", 2uLL);
-    v115 = *&v114->__r_.__value_.__l.__data_;
-    v225.__r_.__value_.__r.__words[2] = v114->__r_.__value_.__r.__words[2];
-    *&v225.__r_.__value_.__l.__data_ = v115;
-    v114->__r_.__value_.__l.__size_ = 0;
-    v114->__r_.__value_.__r.__words[2] = 0;
-    v114->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v215, *(v3 + 280));
-    if ((v215.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v116 = &v215;
+      v109 = &v213;
     }
 
     else
     {
-      v116 = v215.__r_.__value_.__r.__words[0];
+      v109 = v213.__r_.__value_.__r.__words[0];
     }
 
-    if ((v215.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v213.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v117 = HIBYTE(v215.__r_.__value_.__r.__words[2]);
+      v110 = HIBYTE(v213.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v117 = v215.__r_.__value_.__l.__size_;
+      v110 = v213.__r_.__value_.__l.__size_;
     }
 
-    v118 = std::string::append(&v225, v116, v117);
-    v119 = *&v118->__r_.__value_.__l.__data_;
-    *&buf[16] = *(&v118->__r_.__value_.__l + 2);
-    *buf = v119;
-    v118->__r_.__value_.__l.__size_ = 0;
-    v118->__r_.__value_.__r.__words[2] = 0;
-    v118->__r_.__value_.__r.__words[0] = 0;
-    v120 = std::string::append(buf, "}", 1uLL);
-    v121 = v120->__r_.__value_.__r.__words[0];
-    v227[0] = v120->__r_.__value_.__l.__size_;
-    *(v227 + 7) = *(&v120->__r_.__value_.__r.__words[1] + 7);
-    v122 = HIBYTE(v120->__r_.__value_.__r.__words[2]);
-    v120->__r_.__value_.__l.__size_ = 0;
-    v120->__r_.__value_.__r.__words[2] = 0;
-    v120->__r_.__value_.__r.__words[0] = 0;
-    std::string::basic_string[abi:ne200100]<0>(v213, "rt_errors");
-    v224 = v213;
-    v123 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, v213);
-    v124 = v123;
-    if (*(v123 + 79) < 0)
+    v111 = std::string::append(&v219, v109, v110);
+    v112 = *&v111->__r_.__value_.__l.__data_;
+    v220.__r_.__value_.__r.__words[2] = v111->__r_.__value_.__r.__words[2];
+    *&v220.__r_.__value_.__l.__data_ = v112;
+    v111->__r_.__value_.__l.__size_ = 0;
+    v111->__r_.__value_.__r.__words[2] = 0;
+    v111->__r_.__value_.__r.__words[0] = 0;
+    v113 = std::string::append(&v220, ", ", 2uLL);
+    v114 = *&v113->__r_.__value_.__l.__data_;
+    v222.__r_.__value_.__r.__words[2] = v113->__r_.__value_.__r.__words[2];
+    *&v222.__r_.__value_.__l.__data_ = v114;
+    v113->__r_.__value_.__l.__size_ = 0;
+    v113->__r_.__value_.__r.__words[2] = 0;
+    v113->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v212, *(v3 + 280));
+    if ((v212.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      operator delete(v123[7]);
+      v115 = &v212;
     }
 
-    v125 = v227[0];
-    v124[7] = v121;
-    v124[8] = v125;
-    *(v124 + 71) = *(v227 + 7);
-    *(v124 + 79) = v122;
-    if (v214 < 0)
+    else
     {
-      operator delete(v213[0]);
+      v115 = v212.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v212.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v116 = HIBYTE(v212.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v116 = v212.__r_.__value_.__l.__size_;
+    }
+
+    v117 = std::string::append(&v222, v115, v116);
+    v118 = *&v117->__r_.__value_.__l.__data_;
+    *&buf[16] = *(&v117->__r_.__value_.__l + 2);
+    *buf = v118;
+    v117->__r_.__value_.__l.__size_ = 0;
+    v117->__r_.__value_.__r.__words[2] = 0;
+    v117->__r_.__value_.__r.__words[0] = 0;
+    v119 = std::string::append(buf, "}", 1uLL);
+    v120 = v119->__r_.__value_.__r.__words[0];
+    v224[0] = v119->__r_.__value_.__l.__size_;
+    *(v224 + 7) = *(&v119->__r_.__value_.__r.__words[1] + 7);
+    v121 = HIBYTE(v119->__r_.__value_.__r.__words[2]);
+    v119->__r_.__value_.__l.__size_ = 0;
+    v119->__r_.__value_.__r.__words[2] = 0;
+    v119->__r_.__value_.__r.__words[0] = 0;
+    std::string::basic_string[abi:ne200100]<0>(v210, "rt_errors");
+    v221 = v210;
+    v122 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, v210, &v221);
+    v123 = v122;
+    if (*(v122 + 79) < 0)
+    {
+      operator delete(v122[7]);
+    }
+
+    v124 = v224[0];
+    v123[7] = v120;
+    v123[8] = v124;
+    *(v123 + 71) = *(v224 + 7);
+    *(v123 + 79) = v121;
+    if (v211 < 0)
+    {
+      operator delete(v210[0]);
     }
 
     if ((buf[23] & 0x80000000) != 0)
@@ -7270,24 +7271,9 @@ LABEL_153:
       operator delete(*buf);
     }
 
-    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v212.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v215.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v225.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v223.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v223.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v216.__r_.__value_.__l.__data_);
+      operator delete(v212.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
@@ -7295,19 +7281,14 @@ LABEL_153:
       operator delete(v222.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v221.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v221.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v217.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v217.__r_.__value_.__l.__data_);
-    }
-
     if (SHIBYTE(v220.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v220.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v213.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v213.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v219.__r_.__value_.__r.__words[2]) < 0)
@@ -7320,65 +7301,85 @@ LABEL_153:
       operator delete(v218.__r_.__value_.__l.__data_);
     }
 
-    (*(**(v45 + 16) + 24))(*(v45 + 16), v210, *(v3 + 316), &__p, 11, 7);
-    v126 = *(v3 + 480);
-    if (v126)
+    if (SHIBYTE(v214.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v214.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v217.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v217.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v216.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v215.__r_.__value_.__l.__data_);
+    }
+
+    (*(**(v45 + 16) + 24))(*(v45 + 16), v207, *(v3 + 316), &__p, 11, 7);
+    v125 = *(v3 + 480);
+    if (v125)
     {
       {
         rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
       }
 
-      v128 = rtaid::get_log(void)::rtaid_os_log;
+      v127 = rtaid::get_log(void)::rtaid_os_log;
       if (!os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_359;
       }
 
-      v129 = &v211;
-      if ((v211.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v128 = &v208;
+      if ((v208.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v129 = v211.__r_.__value_.__r.__words[0];
+        v128 = v208.__r_.__value_.__r.__words[0];
       }
 
-      v130 = &__str;
+      v129 = &__str;
       if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v130 = __str.__r_.__value_.__r.__words[0];
+        v129 = __str.__r_.__value_.__r.__words[0];
       }
 
-      v131 = *(v3 + 488);
-      v132 = *(v3 + 268);
-      v133 = *(v3 + 272);
-      v134 = *(v3 + 276);
-      v135 = *(v3 + 280);
-      v136 = *(v3 + 480);
+      v130 = *(v3 + 488);
+      v131 = *(v3 + 268);
+      v132 = *(v3 + 272);
+      v133 = *(v3 + 276);
+      v134 = *(v3 + 280);
+      v135 = *(v3 + 480);
       *buf = 136317954;
       *&buf[4] = "IssueReporting.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 320;
       *&buf[18] = 2080;
-      *&buf[20] = v129;
-      v229 = 2080;
-      v230 = v130;
-      v231 = 2080;
-      v232 = v3;
-      v233 = 2048;
-      v234 = v131;
-      v235 = 1024;
-      *v236 = v132;
-      *&v236[4] = 1024;
-      *&v236[6] = v133;
-      LOWORD(v237) = 1024;
-      *(&v237 + 2) = v134;
-      HIWORD(v237) = 1024;
-      *v238 = v135;
-      *&v238[4] = 2080;
-      *&v238[6] = v3 + 192;
-      *&v238[14] = 1024;
-      *&v238[16] = v136;
-      v137 = "%s:%-5d RTAID [ use_case=%s issue_type=RTError clientID=%s node=%s issue_detected_sample_time=%f ] -- [ error1=%d error2=%d error3=%d error4=%d ] -- [file name = %s : line number = %d]";
-      v138 = v128;
-      v139 = 98;
+      *&buf[20] = v128;
+      v226 = 2080;
+      v227 = v129;
+      v228 = 2080;
+      v229 = v3;
+      v230 = 2048;
+      v231 = v130;
+      v232 = 1024;
+      *v233 = v131;
+      *&v233[4] = 1024;
+      *&v233[6] = v132;
+      LOWORD(v234) = 1024;
+      *(&v234 + 2) = v133;
+      HIWORD(v234) = 1024;
+      *v235 = v134;
+      *&v235[4] = 2080;
+      *&v235[6] = v3 + 192;
+      *&v235[14] = 1024;
+      *&v235[16] = v135;
+      v136 = "%s:%-5d RTAID [ use_case=%s issue_type=RTError clientID=%s node=%s issue_detected_sample_time=%f ] -- [ error1=%d error2=%d error3=%d error4=%d ] -- [file name = %s : line number = %d]";
+      v137 = v127;
+      v138 = 98;
     }
 
     else
@@ -7387,52 +7388,52 @@ LABEL_153:
         rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
       }
 
-      v154 = rtaid::get_log(void)::rtaid_os_log;
+      v153 = rtaid::get_log(void)::rtaid_os_log;
       if (!os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_359;
       }
 
-      v155 = &v211;
-      if ((v211.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v154 = &v208;
+      if ((v208.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v155 = v211.__r_.__value_.__r.__words[0];
+        v154 = v208.__r_.__value_.__r.__words[0];
       }
 
-      v156 = &__str;
+      v155 = &__str;
       if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v156 = __str.__r_.__value_.__r.__words[0];
+        v155 = __str.__r_.__value_.__r.__words[0];
       }
 
-      v157 = *(v3 + 488);
-      v158 = *(v3 + 268);
-      v159 = *(v3 + 272);
-      v160 = *(v3 + 276);
-      v161 = *(v3 + 280);
+      v156 = *(v3 + 488);
+      v157 = *(v3 + 268);
+      v158 = *(v3 + 272);
+      v159 = *(v3 + 276);
+      v160 = *(v3 + 280);
       *buf = 136317442;
       *&buf[4] = "IssueReporting.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 324;
       *&buf[18] = 2080;
-      *&buf[20] = v155;
-      v229 = 2080;
-      v230 = v156;
-      v231 = 2080;
-      v232 = v3;
-      v233 = 2048;
-      v234 = v157;
-      v235 = 1024;
-      *v236 = v158;
-      *&v236[4] = 1024;
-      *&v236[6] = v159;
-      LOWORD(v237) = 1024;
-      *(&v237 + 2) = v160;
-      HIWORD(v237) = 1024;
-      *v238 = v161;
-      v137 = "%s:%-5d RTAID [ use_case=%s issue_type=RTError clientID=%s node=%s issue_detected_sample_time=%f ] -- [ error1=%d error2=%d error3=%d error4=%d ]";
-      v138 = v154;
-      v139 = 82;
+      *&buf[20] = v154;
+      v226 = 2080;
+      v227 = v155;
+      v228 = 2080;
+      v229 = v3;
+      v230 = 2048;
+      v231 = v156;
+      v232 = 1024;
+      *v233 = v157;
+      *&v233[4] = 1024;
+      *&v233[6] = v158;
+      LOWORD(v234) = 1024;
+      *(&v234 + 2) = v159;
+      HIWORD(v234) = 1024;
+      *v235 = v160;
+      v136 = "%s:%-5d RTAID [ use_case=%s issue_type=RTError clientID=%s node=%s issue_detected_sample_time=%f ] -- [ error1=%d error2=%d error3=%d error4=%d ]";
+      v137 = v153;
+      v138 = 82;
     }
 
     goto LABEL_358;
@@ -7442,7 +7443,7 @@ LABEL_153:
   {
     if (v27 == 6)
     {
-      rtaid::handleRMSIssue(v3, v210, *v4, &__str, &v211.__r_.__value_.__l.__data_);
+      rtaid::handleRMSIssue(v3, v207, *v4, &__str, &v208.__r_.__value_.__l.__data_);
       goto LABEL_360;
     }
 
@@ -7455,56 +7456,56 @@ LABEL_153:
   v57 = *(v3 + 296);
   if (v54 < (-30.0 - v6) && v54 < ((v55 + -3.0) - v6) && v55 > -40.0)
   {
-    v162 = *v4;
+    v161 = *v4;
     *&__p.__r_.__value_.__r.__words[1] = 0uLL;
     __p.__r_.__value_.__r.__words[0] = &__p.__r_.__value_.__l.__size_;
     std::string::basic_string[abi:ne200100]<0>(buf, "issue_type");
-    v225.__r_.__value_.__r.__words[0] = buf;
-    v163 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
-    if (*(v163 + 79) < 0)
+    v222.__r_.__value_.__r.__words[0] = buf;
+    v162 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
+    if (*(v162 + 79) < 0)
     {
-      v163[8] = 6;
-      v164 = v163[7];
+      v162[8] = 6;
+      v163 = v162[7];
     }
 
     else
     {
-      v164 = (v163 + 7);
-      *(v163 + 79) = 6;
+      v163 = (v162 + 7);
+      *(v162 + 79) = 6;
     }
 
-    strcpy(v164, "LowRMS");
+    strcpy(v163, "LowRMS");
     if ((buf[23] & 0x80000000) != 0)
     {
       operator delete(*buf);
     }
 
     std::string::basic_string[abi:ne200100]<0>(buf, "rtaid_client");
-    v225.__r_.__value_.__r.__words[0] = buf;
-    v188 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
-    std::string::operator=((v188 + 7), &__str);
+    v222.__r_.__value_.__r.__words[0] = buf;
+    v186 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
+    std::string::operator=((v186 + 7), &__str);
     if ((buf[23] & 0x80000000) != 0)
     {
       operator delete(*buf);
     }
 
     std::to_string(buf, *(v3 + 488));
-    std::string::basic_string[abi:ne200100]<0>(&v225, "issue_detected_sample_time");
-    v223.__r_.__value_.__r.__words[0] = &v225;
-    v189 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
-    v190 = v189;
-    if (*(v189 + 79) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v222, "issue_detected_sample_time");
+    v220.__r_.__value_.__r.__words[0] = &v222;
+    v187 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
+    v188 = v187;
+    if (*(v187 + 79) < 0)
     {
-      operator delete(v189[7]);
+      operator delete(v187[7]);
     }
 
-    *(v190 + 7) = *buf;
-    v190[9] = *&buf[16];
+    *(v188 + 7) = *buf;
+    v188[9] = *&buf[16];
     buf[23] = 0;
     buf[0] = 0;
-    if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v225.__r_.__value_.__l.__data_);
+      operator delete(v222.__r_.__value_.__l.__data_);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
@@ -7512,18 +7513,41 @@ LABEL_153:
     }
 
     std::string::basic_string[abi:ne200100]<0>(buf, "node");
-    v225.__r_.__value_.__r.__words[0] = buf;
-    v191 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf);
-    std::string::__assign_external((v191 + 7), v3);
+    v222.__r_.__value_.__r.__words[0] = buf;
+    v189 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, buf, &v222);
+    std::string::__assign_external((v189 + 7), v3);
     if ((buf[23] & 0x80000000) != 0)
     {
       operator delete(*buf);
     }
 
     std::to_string(buf, v55);
-    std::string::basic_string[abi:ne200100]<0>(&v225, "dl_input_rms");
-    v223.__r_.__value_.__r.__words[0] = &v225;
-    v192 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
+    std::string::basic_string[abi:ne200100]<0>(&v222, "dl_input_rms");
+    v220.__r_.__value_.__r.__words[0] = &v222;
+    v190 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
+    v191 = v190;
+    if (*(v190 + 79) < 0)
+    {
+      operator delete(v190[7]);
+    }
+
+    *(v191 + 7) = *buf;
+    v191[9] = *&buf[16];
+    buf[23] = 0;
+    buf[0] = 0;
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v222.__r_.__value_.__l.__data_);
+      if ((buf[23] & 0x80000000) != 0)
+      {
+        operator delete(*buf);
+      }
+    }
+
+    std::to_string(buf, v57);
+    std::string::basic_string[abi:ne200100]<0>(&v222, "dl_input_peak");
+    v220.__r_.__value_.__r.__words[0] = &v222;
+    v192 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
     v193 = v192;
     if (*(v192 + 79) < 0)
     {
@@ -7534,19 +7558,19 @@ LABEL_153:
     v193[9] = *&buf[16];
     buf[23] = 0;
     buf[0] = 0;
-    if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v225.__r_.__value_.__l.__data_);
+      operator delete(v222.__r_.__value_.__l.__data_);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
       }
     }
 
-    std::to_string(buf, v57);
-    std::string::basic_string[abi:ne200100]<0>(&v225, "dl_input_peak");
-    v223.__r_.__value_.__r.__words[0] = &v225;
-    v194 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
+    std::to_string(buf, v54);
+    std::string::basic_string[abi:ne200100]<0>(&v222, "dl_output_rms");
+    v220.__r_.__value_.__r.__words[0] = &v222;
+    v194 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
     v195 = v194;
     if (*(v194 + 79) < 0)
     {
@@ -7557,19 +7581,19 @@ LABEL_153:
     v195[9] = *&buf[16];
     buf[23] = 0;
     buf[0] = 0;
-    if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v225.__r_.__value_.__l.__data_);
+      operator delete(v222.__r_.__value_.__l.__data_);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
       }
     }
 
-    std::to_string(buf, v54);
-    std::string::basic_string[abi:ne200100]<0>(&v225, "dl_output_rms");
-    v223.__r_.__value_.__r.__words[0] = &v225;
-    v196 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
+    std::to_string(buf, v56);
+    std::string::basic_string[abi:ne200100]<0>(&v222, "dl_output_peak");
+    v220.__r_.__value_.__r.__words[0] = &v222;
+    v196 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
     v197 = v196;
     if (*(v196 + 79) < 0)
     {
@@ -7580,19 +7604,19 @@ LABEL_153:
     v197[9] = *&buf[16];
     buf[23] = 0;
     buf[0] = 0;
-    if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v225.__r_.__value_.__l.__data_);
+      operator delete(v222.__r_.__value_.__l.__data_);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
       }
     }
 
-    std::to_string(buf, v56);
-    std::string::basic_string[abi:ne200100]<0>(&v225, "dl_output_peak");
-    v223.__r_.__value_.__r.__words[0] = &v225;
-    v198 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
+    std::to_string(buf, v6);
+    std::string::basic_string[abi:ne200100]<0>(&v222, "dl_adjustment");
+    v220.__r_.__value_.__r.__words[0] = &v222;
+    v198 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v222, &v220);
     v199 = v198;
     if (*(v198 + 79) < 0)
     {
@@ -7603,87 +7627,64 @@ LABEL_153:
     v199[9] = *&buf[16];
     buf[23] = 0;
     buf[0] = 0;
-    if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v222.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v225.__r_.__value_.__l.__data_);
+      operator delete(v222.__r_.__value_.__l.__data_);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
       }
     }
 
-    std::to_string(buf, v6);
-    std::string::basic_string[abi:ne200100]<0>(&v225, "dl_adjustment");
-    v223.__r_.__value_.__r.__words[0] = &v225;
-    v200 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&__p, &v225);
-    v201 = v200;
-    if (*(v200 + 79) < 0)
-    {
-      operator delete(v200[7]);
-    }
-
-    *(v201 + 7) = *buf;
-    v201[9] = *&buf[16];
-    buf[23] = 0;
-    buf[0] = 0;
-    if (SHIBYTE(v225.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v225.__r_.__value_.__l.__data_);
-      if ((buf[23] & 0x80000000) != 0)
-      {
-        operator delete(*buf);
-      }
-    }
-
-    (*(**(v162 + 16) + 24))(*(v162 + 16), v210, *(v3 + 316), &__p, 11, 7);
+    (*(**(v161 + 16) + 24))(*(v161 + 16), v207, *(v3 + 316), &__p, 11, 7);
     {
       rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
     }
 
-    v202 = rtaid::get_log(void)::rtaid_os_log;
+    v200 = rtaid::get_log(void)::rtaid_os_log;
     if (!os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_359;
     }
 
-    v203 = &v211;
-    if ((v211.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v201 = &v208;
+    if ((v208.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v203 = v211.__r_.__value_.__r.__words[0];
+      v201 = v208.__r_.__value_.__r.__words[0];
     }
 
-    v204 = &__str;
+    v202 = &__str;
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v204 = __str.__r_.__value_.__r.__words[0];
+      v202 = __str.__r_.__value_.__r.__words[0];
     }
 
-    v205 = *(v3 + 488);
+    v203 = *(v3 + 488);
     *buf = 136317698;
     *&buf[4] = "IssueReporting.cpp";
     *&buf[12] = 1024;
     *&buf[14] = 356;
     *&buf[18] = 2080;
-    *&buf[20] = v203;
-    v229 = 2080;
-    v230 = v204;
-    v231 = 2080;
-    v232 = v3;
-    v233 = 2048;
-    v234 = v205;
-    v235 = 2048;
-    *v236 = v55;
-    *&v236[8] = 2048;
-    v237 = v57;
-    *v238 = 2048;
-    *&v238[2] = v54;
-    *&v238[10] = 2048;
-    *&v238[12] = v56;
-    v239 = 2048;
-    v240 = v6;
-    v137 = "%s:%-5d RTAID [ use_case=%s issue_type=RMS Telephony Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ DLInputRMS=%f DLInputPeak=%f DLOutputRMS=%f DLOutputPeak=%f DLAdjustment=%f ]";
-    v138 = v202;
-    v139 = 108;
+    *&buf[20] = v201;
+    v226 = 2080;
+    v227 = v202;
+    v228 = 2080;
+    v229 = v3;
+    v230 = 2048;
+    v231 = v203;
+    v232 = 2048;
+    *v233 = v55;
+    *&v233[8] = 2048;
+    v234 = v57;
+    *v235 = 2048;
+    *&v235[2] = v54;
+    *&v235[10] = 2048;
+    *&v235[12] = v56;
+    v236 = 2048;
+    v237 = v6;
+    v136 = "%s:%-5d RTAID [ use_case=%s issue_type=RMS Telephony Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ DLInputRMS=%f DLInputPeak=%f DLOutputRMS=%f DLOutputPeak=%f DLAdjustment=%f ]";
+    v137 = v200;
+    v138 = 108;
     goto LABEL_358;
   }
 
@@ -7694,10 +7695,10 @@ LABEL_153:
   v60 = rtaid::get_log(void)::rtaid_os_log;
   if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
   {
-    v61 = &v211;
-    if ((v211.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v61 = &v208;
+    if ((v208.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v61 = v211.__r_.__value_.__r.__words[0];
+      v61 = v208.__r_.__value_.__r.__words[0];
     }
 
     v62 = &__str;
@@ -7713,53 +7714,51 @@ LABEL_153:
     *&buf[14] = 361;
     *&buf[18] = 2080;
     *&buf[20] = v61;
-    v229 = 2080;
-    v230 = v62;
-    v231 = 2080;
-    v232 = v3;
-    v233 = 2048;
-    v234 = v63;
-    v235 = 2048;
-    *v236 = v55;
-    *&v236[8] = 2048;
-    v237 = v57;
-    *v238 = 2048;
-    *&v238[2] = v54;
-    *&v238[10] = 2048;
-    *&v238[12] = v56;
-    v239 = 2048;
-    v240 = v6;
+    v226 = 2080;
+    v227 = v62;
+    v228 = 2080;
+    v229 = v3;
+    v230 = 2048;
+    v231 = v63;
+    v232 = 2048;
+    *v233 = v55;
+    *&v233[8] = 2048;
+    v234 = v57;
+    *v235 = 2048;
+    *&v235[2] = v54;
+    *&v235[10] = 2048;
+    *&v235[12] = v56;
+    v236 = 2048;
+    v237 = v6;
     v50 = "%s:%-5d RTAID [ use_case=%s issue_type=RMS Telephony Chain clientID=%s node=%s issue_detected_sample_time=%f ] -- [ DLInputRMS=%f DLInputPeak=%f DLOutputRMS=%f DLOutputPeak=%f DLAdjustment=%f ]";
     goto LABEL_152;
   }
 
 LABEL_360:
-  if (SHIBYTE(v211.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v208.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v211.__r_.__value_.__l.__data_);
+    operator delete(v208.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
-
-  v206 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241571014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, void *a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, uint64_t a63)
 {
-  if (a73 < 0)
+  if (a66 < 0)
   {
     operator delete(__p);
   }
 
-  if (*(v74 - 217) < 0)
+  if (*(v67 - 217) < 0)
   {
-    operator delete(*(v74 - 240));
+    operator delete(*(v67 - 240));
   }
 
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a74);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a67);
   if (a31 < 0)
   {
     operator delete(a26);
@@ -7967,11 +7966,11 @@ void std::__shared_ptr_pointer<rtaid::DependencyInjection  *>::~__shared_ptr_poi
 void rtaid::Manager::Manager(uint64_t *a1)
 {
   v1 = *MEMORY[0x277D85DE8];
-  SingletonManagerInstance(void)::sInstance = 850045863;
-  unk_27E547F10 = 0u;
-  unk_27E547F20 = 0u;
-  unk_27E547F30 = 0u;
-  unk_27E547F40 = 0u;
+  SingletonManagerInstance(void)::sInstance.__m_.__sig = 850045863;
+  *SingletonManagerInstance(void)::sInstance.__m_.__opaque = 0u;
+  *&SingletonManagerInstance(void)::sInstance.__m_.__opaque[16] = 0u;
+  *&SingletonManagerInstance(void)::sInstance.__m_.__opaque[32] = 0u;
+  *&SingletonManagerInstance(void)::sInstance.__m_.__opaque[48] = 0u;
   *&qword_27E547F50 = 0u;
   qword_27E547F60 = 0;
   dword_27E547F68 = 1065353216;
@@ -8149,8 +8148,8 @@ void std::__shared_ptr_pointer<rtaid::Detector  *>::~__shared_ptr_pointer(std::_
 
 void rtaid::Manager::applyConfiguration(rtaid *a1, uint64_t a2)
 {
-  v34 = a1;
-  v50[3] = *MEMORY[0x277D85DE8];
+  v33 = a1;
+  v49[3] = *MEMORY[0x277D85DE8];
   {
     if (a1)
     {
@@ -8175,26 +8174,26 @@ LABEL_69:
 
   if (*(v3 + 47) < 0)
   {
-    std::string::__init_copy_ctor_external(&v36, v3[3], v3[4]);
+    std::string::__init_copy_ctor_external(&v35, v3[3], v3[4]);
   }
 
   else
   {
-    v36 = *(v3 + 1);
+    v35 = *(v3 + 1);
   }
 
-  v4 = *v34;
-  if (*v34 != v34 + 1)
+  v4 = *v33;
+  if (*v33 != (v33 + 8))
   {
     v5 = vdupq_n_s64(0x55uLL);
-    v35 = v5;
+    v34 = v5;
     do
     {
       v6 = *(v4 + 7);
       if (v6 == 7)
       {
         v5.i64[0] = *(a2 + 48);
-        v7 = vorr_s8(*&vorrq_s8(v5, v35), 42);
+        v7 = vorr_s8(*&vorrq_s8(v5, v34), 42);
       }
 
       else
@@ -8245,26 +8244,26 @@ LABEL_69:
           v13 = *v13;
         }
 
-        v14 = &v36;
-        if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v14 = &v35;
+        if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v14 = v36.__r_.__value_.__r.__words[0];
+          v14 = v35.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136316674;
-        v38 = "Manager.cpp";
-        v39 = 1024;
-        v40 = 289;
-        v41 = 1040;
-        v42 = 14;
-        v43 = 2080;
-        v44 = "rtaid::Manager]";
-        v45 = 2048;
-        v46 = &SingletonManagerInstance(void)::sInstance;
-        v47 = 2080;
-        v48 = v13;
-        v49 = 2080;
-        v50[0] = v14;
+        v37 = "Manager.cpp";
+        v38 = 1024;
+        v39 = 289;
+        v40 = 1040;
+        v41 = 14;
+        v42 = 2080;
+        v43 = "rtaid::Manager]";
+        v44 = 2048;
+        v45 = &SingletonManagerInstance(void)::sInstance;
+        v46 = 2080;
+        v47 = v13;
+        v48 = 2080;
+        v49[0] = v14;
         _os_log_impl(&dword_241557000, v11, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] enabling global %s analyzer for client %s", buf, 0x40u);
       }
 
@@ -8295,11 +8294,11 @@ LABEL_69:
       v4 = v16;
     }
 
-    while (v16 != v34 + 1);
+    while (v16 != (v33 + 8));
   }
 
-  v18 = v34[3];
-  if (v18 != v34 + 4)
+  v18 = *(v33 + 3);
+  if (v18 != (v33 + 32))
   {
     do
     {
@@ -8348,28 +8347,28 @@ LABEL_69:
             }
 
             v27 = *(v19 + 8);
-            v28 = &v36;
-            if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            v28 = &v35;
+            if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v28 = v36.__r_.__value_.__r.__words[0];
+              v28 = v35.__r_.__value_.__r.__words[0];
             }
 
             *buf = 136316930;
-            v38 = "Manager.cpp";
-            v39 = 1024;
-            v40 = 296;
-            v41 = 1040;
-            v42 = 14;
-            v43 = 2080;
-            v44 = "rtaid::Manager]";
-            v45 = 2048;
-            v46 = &SingletonManagerInstance(void)::sInstance;
-            v47 = 2080;
-            v48 = v26;
-            v49 = 1024;
-            LODWORD(v50[0]) = v27;
-            WORD2(v50[0]) = 2080;
-            *(v50 + 6) = v28;
+            v37 = "Manager.cpp";
+            v38 = 1024;
+            v39 = 296;
+            v40 = 1040;
+            v41 = 14;
+            v42 = 2080;
+            v43 = "rtaid::Manager]";
+            v44 = 2048;
+            v45 = &SingletonManagerInstance(void)::sInstance;
+            v46 = 2080;
+            v47 = v26;
+            v48 = 1024;
+            LODWORD(v49[0]) = v27;
+            WORD2(v49[0]) = 2080;
+            *(v49 + 6) = v28;
             _os_log_impl(&dword_241557000, v24, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] enabling node specific %s analyzer at node %d for client %s", buf, 0x46u);
           }
 
@@ -8430,15 +8429,13 @@ LABEL_69:
       v18 = v32;
     }
 
-    while (v32 != v34 + 4);
+    while (v32 != (v33 + 32));
   }
 
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void sub_241572580(_Unwind_Exception *a1, int a2)
@@ -8453,10 +8450,10 @@ void sub_241572580(_Unwind_Exception *a1, int a2)
 
 void rtaid::Manager::applyTelephonyResets(int *a1, int *a2, uint64_t *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1 == a2)
   {
-    goto LABEL_38;
+    return;
   }
 
   v5 = a1;
@@ -8575,21 +8572,18 @@ LABEL_13:
   v20 = rtaid::get_log(void)::rtaid_os_log;
   if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEBUG))
   {
-    v22 = 136316162;
-    v23 = "Manager.cpp";
-    v24 = 1024;
-    v25 = 345;
-    v26 = 1040;
-    v27 = 14;
-    v28 = 2080;
-    v29 = "rtaid::Manager]";
-    v30 = 2048;
-    v31 = &SingletonManagerInstance(void)::sInstance;
-    _os_log_impl(&dword_241557000, v20, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] reset all telephony detectors", &v22, 0x2Cu);
+    v21 = 136316162;
+    v22 = "Manager.cpp";
+    v23 = 1024;
+    v24 = 345;
+    v25 = 1040;
+    v26 = 14;
+    v27 = 2080;
+    v28 = "rtaid::Manager]";
+    v29 = 2048;
+    v30 = &SingletonManagerInstance(void)::sInstance;
+    _os_log_impl(&dword_241557000, v20, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] reset all telephony detectors", &v21, 0x2Cu);
   }
-
-LABEL_38:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__function::__func<rtaid::Manager::InitializeDetector(long long)::$_0,std::allocator<rtaid::Manager::InitializeDetector(long long)::$_0>,void ()(rtaid::IssueDictionary)>::operator()(uint64_t a1, const void *a2)
@@ -8614,7 +8608,7 @@ uint64_t std::__function::__func<rtaid::Manager::InitializeDetector(long long)::
 
   if (*(v6 + 176) < 1.0)
   {
-    goto LABEL_53;
+    return result;
   }
 
   if (LODWORD(__dst[32]) == 7)
@@ -8640,14 +8634,14 @@ LABEL_10:
 LABEL_16:
   if (v8 == -120.0)
   {
-    goto LABEL_53;
+    return result;
   }
 
   v4.n128_u32[0] = *(v6 + 184);
   v5.n128_u32[0] = -1024458752;
   if (v4.n128_f32[0] == -120.0)
   {
-    goto LABEL_53;
+    return result;
   }
 
   HIDWORD(__dst[35]) = *(v6 + 184);
@@ -8719,12 +8713,12 @@ LABEL_19:
       {
         if (v3.n128_f32[0] > 0.0)
         {
-          goto LABEL_52;
+          return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
         }
 
         if (v5.n128_f32[0] > 0.0 || LODWORD(__dst[35]) != 0)
         {
-          goto LABEL_52;
+          return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
         }
       }
 
@@ -8733,25 +8727,25 @@ LABEL_19:
         if (result)
         {
           v5.n128_u32[0] = __dst[34];
-          if (((v12 | v10) & 1) == 0 || (LODWORD(__dst[32]) != 1 || LOBYTE(__dst[33]) != 1 || __dst[0] != 0x646E616265736142) && (LODWORD(__dst[32]) != 2 || LOBYTE(__dst[33]) != 1 || (__dst[0] == 0x2D20505344657250 ? (v27 = __dst[1] == 0x707974205B207B20) : (v27 = 0), v27 ? (v28 = *(&__dst[1] + 7) == 0x6E6C7570203A6570) : (v28 = 0), !v28)))
+          if (((v12 | v10) & 1) == 0 || (LODWORD(__dst[32]) != 1 || LOBYTE(__dst[33]) != 1 || __dst[0] != 0x646E616265736142) && (LODWORD(__dst[32]) != 2 || LOBYTE(__dst[33]) != 1 || (__dst[0] == 0x2D20505344657250 ? (v26 = __dst[1] == 0x707974205B207B20) : (v26 = 0), v26 ? (v27 = *(&__dst[1] + 7) == 0x6E6C7570203A6570) : (v27 = 0), !v27)))
           {
             if ((LODWORD(__dst[32]) - 1) <= 1 && LOBYTE(__dst[33]) == 1)
             {
               v4.n128_u32[0] = 5.0;
-              if (v3.n128_f32[0] <= 5.0)
+              if (v3.n128_f32[0] > 5.0)
               {
-                goto LABEL_53;
+                return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
               }
-
-              goto LABEL_52;
             }
 
-            v4.n128_f32[0] = LODWORD(__dst[34]) / *(&__dst[35] + 1);
-            v5.n128_u32[0] = 5.0;
-            if (v3.n128_f32[0] > 5.0 || v4.n128_f32[0] > 5.0)
+            else
             {
-LABEL_52:
-              result = (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
+              v4.n128_f32[0] = LODWORD(__dst[34]) / *(&__dst[35] + 1);
+              v5.n128_u32[0] = 5.0;
+              if (v3.n128_f32[0] > 5.0 || v4.n128_f32[0] > 5.0)
+              {
+                return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
+              }
             }
           }
         }
@@ -8762,12 +8756,12 @@ LABEL_52:
         v4.n128_u32[0] = 1034147594;
         if (v3.n128_f32[0] > 0.08)
         {
-          goto LABEL_52;
+          return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
         }
 
         if (v5.n128_f32[0] > 0.08 || LODWORD(__dst[35]) > 5)
         {
-          goto LABEL_52;
+          return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
         }
       }
 
@@ -8776,7 +8770,7 @@ LABEL_52:
         v4.n128_u32[0] = 9.0;
         if (v3.n128_f32[0] > 9.0 || v5.n128_f32[0] > 9.0)
         {
-          goto LABEL_52;
+          return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
         }
       }
     }
@@ -8786,7 +8780,7 @@ LABEL_52:
   {
     if (HIDWORD(__dst[32]) != 5)
     {
-      goto LABEL_52;
+      return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
     }
 
     v4.n128_u32[0] = HIDWORD(__dst[35]);
@@ -8801,12 +8795,10 @@ LABEL_52:
 
     if (v14 || v13)
     {
-      goto LABEL_52;
+      return (*(**(*(v6 + 224) + 24) + 24))(*(*(v6 + 224) + 24), __dst, v3, v4, v5);
     }
   }
 
-LABEL_53:
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8891,53 +8883,51 @@ uint64_t *std::__hash_table<std::__hash_value_type<rtaid::AnalyzerType,std::stri
   return i;
 }
 
-uint64_t rtaid::Manager::SetNodeFormatWithDirectionOnDetector(unint64_t a1)
+uint64_t rtaid::Manager::SetNodeFormatWithDirectionOnDetector(unint64_t a1, std::string::value_type *a2, unsigned int a3, char a4, double *a5, int a6)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   std::mutex::lock(&SingletonManagerInstance(void)::sInstance);
-  v2 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(a1);
-  if (v2)
+  v7 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(a1);
+  if (v7)
   {
-    v3 = v2[3];
-    v4 = v2[4];
-    if (v4)
+    v8 = v7[3];
+    v9 = v7[4];
+    if (v9)
     {
-      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (v3)
+    if (v8)
     {
-      v5 = *(qword_27E547FE0 + 118);
-      std::regex_traits<char>::regex_traits(&v8);
-      v11 = 0;
-      v10 = 0u;
-      v9 = 0u;
-      std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+      std::regex_traits<char>::regex_traits(&v11);
+      v14 = 0;
+      v13 = 0u;
+      v12 = 0u;
+      std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(&v11, "[a-fA-F0-9:]{17}|[a-fA-F0-9]{12}", "");
     }
 
-    if (v4)
+    if (v9)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
   }
 
   std::mutex::unlock(&SingletonManagerInstance(void)::sInstance);
-  v6 = *MEMORY[0x277D85DE8];
   return 0xFFFFFFFFLL;
 }
 
-void sub_241573F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, ...)
+void sub_241573F30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__pa, uint64_t a20, int a21, __int16 a22, char a23, char a24, ...)
 {
-  va_start(va, a14);
-  if (a14 < 0)
+  va_start(va, a24);
+  if (a24 < 0)
   {
-    operator delete(__p);
+    operator delete(__pa);
   }
 
   std::basic_regex<char,std::regex_traits<char>>::~basic_regex(va);
-  if (v14)
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
   std::mutex::unlock(&SingletonManagerInstance(void)::sInstance);
@@ -8954,7 +8944,7 @@ void rtaid::ManagerCallStateReporter::~ManagerCallStateReporter(rtaid::ManagerCa
 
 void rtaid::NodeFormatConverter::disposeConverter(rtaid::NodeFormatConverter *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(this + 11);
   if (v2)
   {
@@ -8967,26 +8957,24 @@ void rtaid::NodeFormatConverter::disposeConverter(rtaid::NodeFormatConverter *th
     v3 = rtaid::get_log(void)::rtaid_os_log;
     if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_INFO))
     {
-      v5 = 136316162;
-      v6 = "NodeFormatConverter.cpp";
-      v7 = 1024;
-      v8 = 93;
-      v9 = 1040;
-      v10 = 26;
-      v11 = 2080;
-      v12 = "rtaid::NodeFormatConverter]";
-      v13 = 2048;
-      v14 = this;
-      _os_log_impl(&dword_241557000, v3, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] AudioConverterRef has been disposed", &v5, 0x2Cu);
+      v4 = 136316162;
+      v5 = "NodeFormatConverter.cpp";
+      v6 = 1024;
+      v7 = 93;
+      v8 = 1040;
+      v9 = 26;
+      v10 = 2080;
+      v11 = "rtaid::NodeFormatConverter]";
+      v12 = 2048;
+      v13 = this;
+      _os_log_impl(&dword_241557000, v3, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] AudioConverterRef has been disposed", &v4, 0x2Cu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void rtaid::NodeFormatConverter::~NodeFormatConverter(rtaid::NodeFormatConverter *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   rtaid::NodeFormatConverter::disposeConverter(this);
   {
     rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
@@ -8995,20 +8983,18 @@ void rtaid::NodeFormatConverter::~NodeFormatConverter(rtaid::NodeFormatConverter
   v2 = rtaid::get_log(void)::rtaid_os_log;
   if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_INFO))
   {
-    v4 = 136316162;
-    v5 = "NodeFormatConverter.cpp";
-    v6 = 1024;
-    v7 = 29;
-    v8 = 1040;
-    v9 = 26;
-    v10 = 2080;
-    v11 = "rtaid::NodeFormatConverter]";
-    v12 = 2048;
-    v13 = this;
-    _os_log_impl(&dword_241557000, v2, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] destroyed", &v4, 0x2Cu);
+    v3 = 136316162;
+    v4 = "NodeFormatConverter.cpp";
+    v5 = 1024;
+    v6 = 29;
+    v7 = 1040;
+    v8 = 26;
+    v9 = 2080;
+    v10 = "rtaid::NodeFormatConverter]";
+    v11 = 2048;
+    v12 = this;
+    _os_log_impl(&dword_241557000, v2, OS_LOG_TYPE_INFO, "[%s:%-5d %.*s:%p] destroyed", &v3, 0x2Cu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2415746FC(_Unwind_Exception *a1, int a2)
@@ -9021,14 +9007,14 @@ void sub_2415746FC(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void CA::StreamDescription::AsString(CA::StreamDescription *this, void *a2, double a3, int8x8_t a4)
+void CA::StreamDescription::AsString(std::string *this, void *a2, double a3, int8x8_t a4)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 2);
   if (v6 == 1718773105)
   {
-    caulk::make_string("%2u ch, %6.0f Hz, 'freq'", this, *(a2 + 7), *a2);
-    goto LABEL_69;
+    caulk::make_string(this, "%2u ch, %6.0f Hz, 'freq'", a2, *(a2 + 7), *a2);
+    return;
   }
 
   if (v6 != 1819304813)
@@ -9086,10 +9072,10 @@ void CA::StreamDescription::AsString(CA::StreamDescription *this, void *a2, doub
       }
 
       v15 = v7 == 8;
-      v55 = v7 == 8;
+      v56 = v7 == 8;
       if (v15)
       {
-        v12 = 4 * v55;
+        v12 = 4 * v56;
         goto LABEL_163;
       }
     }
@@ -9109,8 +9095,8 @@ LABEL_19:
 
     if (v15 && v14 == 0.0)
     {
-      caulk::make_string("%2u ch, %6.0f Hz", this, 0, *a2);
-      goto LABEL_69;
+      caulk::make_string(this, "%2u ch, %6.0f Hz", a2, 0, *a2);
+      return;
     }
 
     a4.i32[0] = bswap32(v6);
@@ -9119,283 +9105,282 @@ LABEL_19:
     v17.i64[1] = 0x1F0000001FLL;
     v18.i64[0] = 0x5F0000005FLL;
     v18.i64[1] = 0x5F0000005FLL;
-    *(&v60.__r_.__value_.__s + 23) = 4;
-    LODWORD(v60.__r_.__value_.__l.__data_) = vuzp1_s8(vbsl_s8(vmovn_s32(vcgtq_u32(v18, vsraq_n_s32(v17, vshlq_n_s32(vmovl_u16(v16), 0x18uLL), 0x18uLL))), v16, 0x2E002E002E002ELL), *&v14).u32[0];
-    v60.__r_.__value_.__s.__data_[4] = 0;
-    caulk::make_string("%2u ch, %6.0f Hz, %s (0x%08X) ", &v58, v13, *&v14, &v60, *(a2 + 3));
-    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+    *(&v61.__r_.__value_.__s + 23) = 4;
+    LODWORD(v61.__r_.__value_.__l.__data_) = vuzp1_s8(vbsl_s8(vmovn_s32(vcgtq_u32(v18, vsraq_n_s32(v17, vshlq_n_s32(vmovl_u16(v16), 0x18uLL), 0x18uLL))), v16, 0x2E002E002E002ELL), *&v14).u32[0];
+    v61.__r_.__value_.__s.__data_[4] = 0;
+    caulk::make_string(&v59, "%2u ch, %6.0f Hz, %s (0x%08X) ", a2, v13, *&v14, &v61, *(a2 + 3));
+    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v60.__r_.__value_.__l.__data_);
+      operator delete(v61.__r_.__value_.__l.__data_);
     }
 
-    v19 = *(a2 + 2);
-    if (v19 <= 1819304812)
+    v20 = *(a2 + 2);
+    if (v20 <= 1819304812)
     {
-      if (v19 != 1634492771 && v19 != 1634497332 && v19 != 1718378851)
+      if (v20 != 1634492771 && v20 != 1634497332 && v20 != 1718378851)
       {
 LABEL_70:
-        caulk::make_string("%u bits/channel, %u bytes/packet, %u frames/packet, %u bytes/frame", &v60, *(a2 + 8), *(a2 + 4), *(a2 + 5), *(a2 + 6));
-        if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        caulk::make_string(&v61, "%u bits/channel, %u bytes/packet, %u frames/packet, %u bytes/frame", v19, *(a2 + 8), *(a2 + 4), *(a2 + 5), *(a2 + 6));
+        if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v31 = &v58;
+          v33 = &v59;
         }
 
         else
         {
-          v31 = v58.__r_.__value_.__r.__words[0];
+          v33 = v59.__r_.__value_.__r.__words[0];
         }
 
-        if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = HIBYTE(v58.__r_.__value_.__r.__words[2]);
+          size = HIBYTE(v59.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v58.__r_.__value_.__l.__size_;
+          size = v59.__r_.__value_.__l.__size_;
         }
 
 LABEL_62:
-        v33 = std::string::insert(&v60, 0, v31, size);
-        v34 = *&v33->__r_.__value_.__l.__data_;
-        *(this + 2) = *(&v33->__r_.__value_.__l + 2);
-        *this = v34;
-        v33->__r_.__value_.__l.__size_ = 0;
-        v33->__r_.__value_.__r.__words[2] = 0;
-        v33->__r_.__value_.__r.__words[0] = 0;
-        if ((SHIBYTE(v60.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v35 = std::string::insert(&v61, 0, v33, size);
+        v36 = *&v35->__r_.__value_.__l.__data_;
+        this->__r_.__value_.__r.__words[2] = v35->__r_.__value_.__r.__words[2];
+        *&this->__r_.__value_.__l.__data_ = v36;
+        v35->__r_.__value_.__l.__size_ = 0;
+        v35->__r_.__value_.__r.__words[2] = 0;
+        v35->__r_.__value_.__r.__words[0] = 0;
+        if ((SHIBYTE(v61.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_65;
         }
 
-        v35 = v60.__r_.__value_.__r.__words[0];
+        v37 = v61.__r_.__value_.__r.__words[0];
 LABEL_64:
-        operator delete(v35);
+        operator delete(v37);
 LABEL_65:
-        if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v58.__r_.__value_.__l.__data_);
+          operator delete(v59.__r_.__value_.__l.__data_);
         }
 
-        goto LABEL_69;
+        return;
       }
 
 LABEL_45:
-      v28 = *(a2 + 3);
-      if ((v28 - 1) < 4 || !v28 && (v19 == 1634497332 || v19 == 1936487278 || v19 == 1936487267))
+      v29 = *(a2 + 3);
+      if ((v29 - 1) < 4 || !v29 && (v20 == 1634497332 || v20 == 1936487278 || v20 == 1936487267))
       {
-        caulk::make_string("from %u-bit source, ", &v60, CA::StreamDescription::AsString(void)const::kSourceBits[v28]);
-        if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        caulk::make_string(&v61, "from %u-bit source, ", v19, CA::StreamDescription::AsString(void)const::kSourceBits[v29]);
+        if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v29 = &v60;
+          v30 = &v61;
         }
 
         else
         {
-          v29 = v60.__r_.__value_.__r.__words[0];
+          v30 = v61.__r_.__value_.__r.__words[0];
         }
 
-        if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v30 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+          v31 = HIBYTE(v61.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v30 = v60.__r_.__value_.__l.__size_;
+          v31 = v61.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&v58, v29, v30);
-        if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(&v59, v30, v31);
+        if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v60.__r_.__value_.__l.__data_);
+          operator delete(v61.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        std::string::append(&v58, "from UNKNOWN source bit depth, ", 0x1FuLL);
+        std::string::append(&v59, "from UNKNOWN source bit depth, ", 0x1FuLL);
       }
 
-      caulk::make_string("%u frames/packet", &v60, *(a2 + 5));
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      caulk::make_string(&v61, "%u frames/packet", v32, *(a2 + 5));
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v31 = &v58;
-      }
-
-      else
-      {
-        v31 = v58.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        size = HIBYTE(v58.__r_.__value_.__r.__words[2]);
+        v33 = &v59;
       }
 
       else
       {
-        size = v58.__r_.__value_.__l.__size_;
+        v33 = v59.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        size = HIBYTE(v59.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        size = v59.__r_.__value_.__l.__size_;
       }
 
       goto LABEL_62;
     }
 
-    if (v19 == 1936487278 || v19 == 1936487267)
+    if (v20 == 1936487278 || v20 == 1936487267)
     {
       goto LABEL_45;
     }
 
-    if (v19 != 1819304813)
+    if (v20 != 1819304813)
     {
       goto LABEL_70;
     }
 
-    v20 = *(a2 + 3);
-    v21 = *(a2 + 6);
-    v22 = v20 & 0x20;
-    v23 = &byte_2415772FD;
-    if (!v21)
+    v21 = *(a2 + 3);
+    v22 = *(a2 + 6);
+    v23 = v21 & 0x20;
+    v24 = &byte_2415772FD;
+    if (!v22)
     {
       goto LABEL_37;
     }
 
-    if ((v20 & 0x20) != 0)
+    if ((v21 & 0x20) != 0)
     {
-      v24 = 1;
+      v25 = 1;
     }
 
     else
     {
-      v24 = *(a2 + 7);
-      if (!v24)
+      v25 = *(a2 + 7);
+      if (!v25)
       {
-        v22 = 0;
+        v23 = 0;
 LABEL_37:
-        v25 = " signed";
-        if ((v20 & 4) == 0)
+        v26 = " signed";
+        if ((v21 & 4) == 0)
         {
-          v25 = " unsigned";
+          v26 = " unsigned";
         }
 
-        if (v20)
+        if (v21)
         {
-          v26 = "float";
-        }
-
-        else
-        {
-          v26 = "integer";
-        }
-
-        if (v20)
-        {
-          v27 = &byte_2415772FD;
+          v27 = "float";
         }
 
         else
         {
-          v27 = v25;
+          v27 = "integer";
+        }
+
+        if (v21)
+        {
+          v28 = &byte_2415772FD;
+        }
+
+        else
+        {
+          v28 = v26;
         }
 
 LABEL_102:
-        v60.__r_.__value_.__s.__data_[0] = 0;
-        if (v22)
+        v61.__r_.__value_.__s.__data_[0] = 0;
+        if (v23)
         {
-          v41 = ", deinterleaved";
+          v42 = ", deinterleaved";
         }
 
         else
         {
-          v41 = &byte_2415772FD;
+          v42 = &byte_2415772FD;
         }
 
-        v42 = *(a2 + 8);
-        v38 = &byte_2415772FD;
+        v39 = &byte_2415772FD;
         v43 = &byte_2415772FD;
         goto LABEL_106;
       }
     }
 
-    v37 = v21 / v24;
-    if (v21 / v24 < 2)
+    v38 = v22 / v25;
+    if (v22 / v25 < 2)
     {
-      v40 = " signed";
-      if ((v20 & 4) == 0)
+      v41 = " signed";
+      if ((v21 & 4) == 0)
       {
-        v40 = " unsigned";
+        v41 = " unsigned";
       }
 
-      if (v20)
+      if (v21)
       {
-        v26 = "float";
-      }
-
-      else
-      {
-        v26 = "integer";
-      }
-
-      if (v20)
-      {
-        v27 = &byte_2415772FD;
+        v27 = "float";
       }
 
       else
       {
-        v27 = v40;
+        v27 = "integer";
       }
 
-      if (v24 > v21)
+      if (v21)
+      {
+        v28 = &byte_2415772FD;
+      }
+
+      else
+      {
+        v28 = v41;
+      }
+
+      if (v25 > v22)
       {
         goto LABEL_102;
       }
 
-      v37 = 1;
-      v38 = &byte_2415772FD;
+      v38 = 1;
+      v39 = &byte_2415772FD;
     }
 
     else
     {
-      if ((v20 & 2) != 0)
+      if ((v21 & 2) != 0)
       {
-        v38 = " big-endian";
+        v39 = " big-endian";
       }
 
       else
       {
-        v38 = " little-endian";
+        v39 = " little-endian";
       }
 
-      v39 = " unsigned";
-      if ((v20 & 4) != 0)
+      v40 = " unsigned";
+      if ((v21 & 4) != 0)
       {
-        v39 = " signed";
+        v40 = " signed";
       }
 
-      if (v20)
+      if (v21)
       {
-        v26 = "float";
-      }
-
-      else
-      {
-        v26 = "integer";
-      }
-
-      if (v20)
-      {
-        v27 = &byte_2415772FD;
+        v27 = "float";
       }
 
       else
       {
-        v27 = v39;
+        v27 = "integer";
+      }
+
+      if (v21)
+      {
+        v28 = &byte_2415772FD;
+      }
+
+      else
+      {
+        v28 = v40;
       }
     }
 
     v44 = *(a2 + 7);
-    if ((v20 & 0x20) != 0)
+    if ((v21 & 0x20) != 0)
     {
       v45 = 1;
     }
@@ -9407,17 +9392,17 @@ LABEL_102:
 
     if (v45)
     {
-      v45 = 8 * (v21 / v45);
+      v45 = 8 * (v22 / v45);
     }
 
     if (v45 == *(a2 + 8))
     {
-      v60.__r_.__value_.__s.__data_[0] = 0;
+      v61.__r_.__value_.__s.__data_[0] = 0;
     }
 
     else
     {
-      if ((v20 & 8) != 0)
+      if ((v21 & 8) != 0)
       {
         v46 = &byte_2415772FD;
       }
@@ -9427,21 +9412,21 @@ LABEL_102:
         v46 = "un";
       }
 
-      snprintf(&v60, 0x20uLL, "%spacked in %u bytes", v46, v37);
-      v21 = *(a2 + 6);
-      v20 = *(a2 + 3);
-      if (!v21)
+      snprintf(&v61, 0x20uLL, "%spacked in %u bytes", v46, v38);
+      v22 = *(a2 + 6);
+      v21 = *(a2 + 3);
+      if (!v22)
       {
         v47 = 0;
-        v22 = *(a2 + 3) & 0x20;
+        v23 = *(a2 + 3) & 0x20;
         goto LABEL_128;
       }
 
       v44 = *(a2 + 7);
-      v22 = *(a2 + 3) & 0x20;
+      v23 = *(a2 + 3) & 0x20;
     }
 
-    if (v22)
+    if (v23)
     {
       v47 = 1;
     }
@@ -9453,13 +9438,13 @@ LABEL_102:
 
     if (v47)
     {
-      v47 = 8 * (v21 / v47);
+      v47 = 8 * (v22 / v47);
     }
 
 LABEL_128:
     v48 = *(a2 + 8);
     v49 = " high-aligned";
-    if ((v20 & 0x10) == 0)
+    if ((v21 & 0x10) == 0)
     {
       v49 = " low-aligned";
     }
@@ -9474,21 +9459,21 @@ LABEL_128:
       v43 = v49;
     }
 
-    if (v22)
+    if (v23)
     {
-      v41 = ", deinterleaved";
+      v42 = ", deinterleaved";
     }
 
     else
     {
-      v41 = &byte_2415772FD;
+      v42 = &byte_2415772FD;
     }
 
-    if (v60.__r_.__value_.__s.__data_[0])
+    if (v61.__r_.__value_.__s.__data_[0])
     {
-      v23 = ", ";
+      v24 = ", ";
 LABEL_141:
-      if (((v20 >> 7) & 0x3F) != 0)
+      if (((v21 >> 7) & 0x3F) != 0)
       {
         snprintf(__str, 0x14uLL, "%u.%u");
       }
@@ -9498,47 +9483,47 @@ LABEL_141:
         snprintf(__str, 0x14uLL, "%u");
       }
 
-      caulk::make_string("%s-bit%s%s %s%s%s%s%s", &v57, __str, v38, v27, v26, v23, &v60, v43, v41);
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      caulk::make_string(&v58, "%s-bit%s%s %s%s%s%s%s", v51, __str, v39, v28, v27, v24, &v61, v43, v42);
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v51 = &v58;
+        v52 = &v59;
       }
 
       else
       {
-        v51 = v58.__r_.__value_.__r.__words[0];
+        v52 = v59.__r_.__value_.__r.__words[0];
       }
 
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v52 = HIBYTE(v58.__r_.__value_.__r.__words[2]);
+        v53 = HIBYTE(v59.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v52 = v58.__r_.__value_.__l.__size_;
+        v53 = v59.__r_.__value_.__l.__size_;
       }
 
-      v53 = std::string::insert(&v57, 0, v51, v52);
-      v54 = *&v53->__r_.__value_.__l.__data_;
-      *(this + 2) = *(&v53->__r_.__value_.__l + 2);
-      *this = v54;
-      v53->__r_.__value_.__l.__size_ = 0;
-      v53->__r_.__value_.__r.__words[2] = 0;
-      v53->__r_.__value_.__r.__words[0] = 0;
-      if ((SHIBYTE(v57.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      v54 = std::string::insert(&v58, 0, v52, v53);
+      v55 = *&v54->__r_.__value_.__l.__data_;
+      this->__r_.__value_.__r.__words[2] = v54->__r_.__value_.__r.__words[2];
+      *&this->__r_.__value_.__l.__data_ = v55;
+      v54->__r_.__value_.__l.__size_ = 0;
+      v54->__r_.__value_.__r.__words[2] = 0;
+      v54->__r_.__value_.__r.__words[0] = 0;
+      if ((SHIBYTE(v58.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_65;
       }
 
-      v35 = v57.__r_.__value_.__r.__words[0];
+      v37 = v58.__r_.__value_.__r.__words[0];
       goto LABEL_64;
     }
 
 LABEL_106:
     if (*v43)
     {
-      v23 = ", ";
+      v24 = ", ";
     }
 
     goto LABEL_141;
@@ -9571,22 +9556,20 @@ LABEL_106:
 LABEL_163:
   if ((v10 & 0x20) != 0)
   {
-    v56 = ", deinterleaved";
+    v57 = ", deinterleaved";
   }
 
   else
   {
-    v56 = ", interleaved";
+    v57 = ", interleaved";
   }
 
   if (v9 == 1)
   {
-    v56 = &byte_2415772FD;
+    v57 = &byte_2415772FD;
   }
 
-  caulk::make_string("%2u ch, %6.0f Hz, %s%s", this, v9, *a2, *(&off_278CE0D78 + v12), v56);
-LABEL_69:
-  v36 = *MEMORY[0x277D85DE8];
+  caulk::make_string(this, "%2u ch, %6.0f Hz, %s%s", a2, v9, *a2, *(&off_278CE0D78 + v12), v57);
 }
 
 void sub_241574E38(_Unwind_Exception *a1, int a2)
@@ -9599,46 +9582,46 @@ void sub_241574E38(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void caulk::make_string(caulk *this@<X0>, uint64_t a2@<X8>, ...)
+void caulk::make_string(std::string *__return_ptr a1@<X8>, caulk *this@<X0>, const char *a3@<X1>, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   v5 = vsnprintf(0, 0, this, va);
   if (v5 <= 0)
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    std::string::resize(a2, (v5 + 1), 0);
-    v6 = *(a2 + 23);
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
+    std::string::resize(a1, (v5 + 1), 0);
+    v6 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
     if (v6 >= 0)
     {
-      v7 = a2;
+      v7 = a1;
     }
 
     else
     {
-      v7 = *a2;
+      v7 = a1->__r_.__value_.__r.__words[0];
     }
 
     if (v6 >= 0)
     {
-      v8 = *(a2 + 23);
+      size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v8 = *(a2 + 8);
+      size = a1->__r_.__value_.__l.__size_;
     }
 
-    v9 = vsnprintf(v7, v8, this, va);
-    std::string::resize(a2, v9, 0);
+    v9 = vsnprintf(v7, size, this, va);
+    std::string::resize(a1, v9, 0);
   }
 }
 

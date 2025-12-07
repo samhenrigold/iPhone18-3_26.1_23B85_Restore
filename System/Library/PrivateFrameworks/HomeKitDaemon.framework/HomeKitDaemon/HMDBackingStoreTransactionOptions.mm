@@ -1,5 +1,6 @@
 @interface HMDBackingStoreTransactionOptions
 + (HMDBackingStoreTransactionOptions)defaultMetadataCloudOptions;
++ (HMDBackingStoreTransactionOptions)optionsWithSource:(unint64_t)source destination:(unint64_t)destination label:(id)label mustReplay:(BOOL)replay mustPush:(BOOL)push mustSaveArchiveAtomically:(BOOL)atomically cdTransactionAuthor:(unint64_t)author clientIdentifier:(id)self0;
 + (id)logCategory;
 + (id)stringForHMDBackingStoreDestination:(unint64_t)destination;
 + (id)stringForHMDBackingStoreTransactionSource:(unint64_t)source;
@@ -8,6 +9,7 @@
 - (HMDBackingStoreTransactionOptions)initWithSource:(unint64_t)source destination:(unint64_t)destination label:(id)label mustReplay:(BOOL)replay mustPush:(BOOL)push mustSaveArchiveAtomically:(BOOL)atomically cdTransactionAuthor:(unint64_t)author clientIdentifier:(id)self0;
 - (NSString)description;
 - (id)_description;
+- (id)debugString:(BOOL)string;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -59,6 +61,37 @@
   }
 
   return v13;
+}
+
+- (id)debugString:(BOOL)string
+{
+  v4 = MEMORY[0x277CCACA8];
+  label = [(HMDBackingStoreTransactionOptions *)self label];
+  v6 = [HMDBackingStoreTransactionOptions stringForHMDBackingStoreDestination:[(HMDBackingStoreTransactionOptions *)self destination]];
+  v7 = [HMDBackingStoreTransactionOptions stringForHMDBackingStoreTransactionSource:[(HMDBackingStoreTransactionOptions *)self source]];
+  if ([(HMDBackingStoreTransactionOptions *)self mustReplay])
+  {
+    v8 = "yes";
+  }
+
+  else
+  {
+    v8 = "no";
+  }
+
+  if ([(HMDBackingStoreTransactionOptions *)self mustPush])
+  {
+    v9 = "yes";
+  }
+
+  else
+  {
+    v9 = "no";
+  }
+
+  v10 = [v4 stringWithFormat:@"label: %@\ndestinations: %@\nsource: %@\nmustReplay: %s\nmustPush:%s", label, v6, v7, v8, v9];
+
+  return v10;
 }
 
 - (NSString)description
@@ -177,10 +210,9 @@ LABEL_4:
 
 void __48__HMDBackingStoreTransactionOptions_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_73072;
-  logCategory__hmf_once_v2_73072 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_73072;
+  logCategory__hmf_once_v2_73072 = v0;
 }
 
 + (id)stringForHMDBackingStoreDestination:(unint64_t)destination
@@ -257,6 +289,18 @@ void __48__HMDBackingStoreTransactionOptions_logCategory__block_invoke()
   v2 = [[HMDBackingStoreTransactionOptions alloc] initWithSource:4 destination:3 label:@"MetadataUpdate" mustReplay:0 mustPush:0];
 
   return v2;
+}
+
++ (HMDBackingStoreTransactionOptions)optionsWithSource:(unint64_t)source destination:(unint64_t)destination label:(id)label mustReplay:(BOOL)replay mustPush:(BOOL)push mustSaveArchiveAtomically:(BOOL)atomically cdTransactionAuthor:(unint64_t)author clientIdentifier:(id)self0
+{
+  atomicallyCopy = atomically;
+  pushCopy = push;
+  replayCopy = replay;
+  identifierCopy = identifier;
+  labelCopy = label;
+  v18 = [[HMDBackingStoreTransactionOptions alloc] initWithSource:source destination:destination label:labelCopy mustReplay:replayCopy mustPush:pushCopy mustSaveArchiveAtomically:atomicallyCopy cdTransactionAuthor:author clientIdentifier:identifierCopy];
+
+  return v18;
 }
 
 @end

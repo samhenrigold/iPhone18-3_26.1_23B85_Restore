@@ -171,45 +171,45 @@
 
   if (v10)
   {
-    objc_msgSend_color(v10, v11, v12, v13, v14);
-    v15 = v17;
+    objc_msgSend_color(v10, v11, v12, v13);
+    v14 = v16;
   }
 
   else
   {
-    v15 = 0.0;
+    v14 = 0.0;
   }
 
-  return v15;
+  return v14;
 }
 
 - (Color)diffuse
 {
   v5 = objc_msgSend_diffuseMaterial(self, a2, v2, v3, v4);
-  v10 = v5;
+  v9 = v5;
   if (v5)
   {
-    objc_msgSend_color(v5, v6, v7, v8, v9);
-    v11 = v19;
-    v12 = v18;
-    v13 = v20;
+    objc_msgSend_color(v5, v6, v7, v8);
+    v10 = v18;
+    v11 = v17;
+    v12 = v19;
   }
 
   else
   {
-    v13 = 0.0;
-    v11 = 0.0;
     v12 = 0.0;
+    v10 = 0.0;
+    v11 = 0.0;
   }
 
-  v14 = 1.0;
-  v15 = v12;
-  v16 = v11;
-  v17 = v13;
-  result.var3 = v14;
-  result.var2 = v17;
-  result.var1 = v16;
-  result.var0 = v15;
+  v13 = 1.0;
+  v14 = v11;
+  v15 = v10;
+  v16 = v12;
+  result.var3 = v13;
+  result.var2 = v16;
+  result.var1 = v15;
+  result.var0 = v14;
   return result;
 }
 
@@ -217,30 +217,30 @@
 {
   v5 = objc_msgSend_phongMaterials(self, a2, v2, v3, v4);
   v10 = objc_msgSend_specular(v5, v6, v7, v8, v9);
-  v15 = v10;
+  v14 = v10;
   if (v10)
   {
-    objc_msgSend_color(v10, v11, v12, v13, v14);
-    v16 = v24;
-    v17 = v23;
-    v18 = v25;
+    objc_msgSend_color(v10, v11, v12, v13);
+    v15 = v23;
+    v16 = v22;
+    v17 = v24;
   }
 
   else
   {
-    v18 = 0.0;
-    v16 = 0.0;
     v17 = 0.0;
+    v15 = 0.0;
+    v16 = 0.0;
   }
 
-  v19 = 1.0;
-  v20 = v17;
-  v21 = v16;
-  v22 = v18;
-  result.var3 = v19;
-  result.var2 = v22;
-  result.var1 = v21;
-  result.var0 = v20;
+  v18 = 1.0;
+  v19 = v16;
+  v20 = v15;
+  v21 = v17;
+  result.var3 = v18;
+  result.var2 = v21;
+  result.var1 = v20;
+  result.var0 = v19;
   return result;
 }
 
@@ -248,30 +248,30 @@
 {
   v5 = objc_msgSend_phongMaterials(self, a2, v2, v3, v4);
   v10 = objc_msgSend_emissive(v5, v6, v7, v8, v9);
-  v15 = v10;
+  v14 = v10;
   if (v10)
   {
-    objc_msgSend_color(v10, v11, v12, v13, v14);
-    v16 = v24;
-    v17 = v23;
-    v18 = v25;
+    objc_msgSend_color(v10, v11, v12, v13);
+    v15 = v23;
+    v16 = v22;
+    v17 = v24;
   }
 
   else
   {
-    v18 = 0.0;
-    v16 = 0.0;
     v17 = 0.0;
+    v15 = 0.0;
+    v16 = 0.0;
   }
 
-  v19 = 1.0;
-  v20 = v17;
-  v21 = v16;
-  v22 = v18;
-  result.var3 = v19;
-  result.var2 = v22;
-  result.var1 = v21;
-  result.var0 = v20;
+  v18 = 1.0;
+  v19 = v16;
+  v20 = v15;
+  v21 = v17;
+  result.var3 = v18;
+  result.var2 = v21;
+  result.var1 = v20;
+  result.var0 = v19;
   return result;
 }
 
@@ -279,47 +279,47 @@
 {
   v6 = objc_msgSend_materialAtIndex_(self, a2, v3, v4, v5, index);
   v11 = objc_msgSend_firstTiling(v6, v7, v8, v9, v10);
-  v16 = v11;
+  v15 = v11;
   if (v11)
   {
-    objc_msgSend_scale(v11, v12, v13, v14, v15);
-    v18 = v22;
-    v17 = v23;
+    objc_msgSend_scale(v11, v12, v13, v14);
+    v17 = v21;
+    v16 = v22;
   }
 
   else
   {
+    v16 = 0.0;
     v17 = 0.0;
-    v18 = 0.0;
   }
 
-  v19 = v18 == v17;
-  if (v18 < v17)
+  v18 = v17 == v16;
+  if (v17 < v16)
   {
-    v17 = v18;
+    v16 = v17;
   }
 
-  if (v19)
+  if (v18)
   {
-    v20 = v18;
+    v19 = v17;
   }
 
   else
   {
-    v20 = v17;
+    v19 = v16;
   }
 
-  return v20;
+  return v19;
 }
 
 - (float)layerRotationForIndex:(unint64_t)index
 {
   v6 = objc_msgSend_materialAtIndex_(self, a2, v3, v4, v5, index);
   v11 = objc_msgSend_firstTiling(v6, v7, v8, v9, v10);
-  objc_msgSend_rotation(v11, v12, v13, v14, v15);
-  v17 = v16;
+  objc_msgSend_rotation(v11, v12, v13, v14);
+  v16 = v15;
 
-  return v17;
+  return v16;
 }
 
 - (int64_t)layerBlendModeForIndex:(unint64_t)index

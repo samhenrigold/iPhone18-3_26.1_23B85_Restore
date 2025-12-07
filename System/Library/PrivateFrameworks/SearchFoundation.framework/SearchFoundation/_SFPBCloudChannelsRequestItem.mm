@@ -274,27 +274,21 @@ LABEL_18:
 
 - (void)setSubscribedEntityIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  subscribedEntityIdentifier = self->_subscribedEntityIdentifier;
-  self->_subscribedEntityIdentifier = v4;
+  self->_subscribedEntityIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPushTopic:(id)topic
 {
-  v4 = [topic copy];
-  pushTopic = self->_pushTopic;
-  self->_pushTopic = v4;
+  self->_pushTopic = [topic copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setChannelIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  channelIdentifier = self->_channelIdentifier;
-  self->_channelIdentifier = v4;
+  self->_channelIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

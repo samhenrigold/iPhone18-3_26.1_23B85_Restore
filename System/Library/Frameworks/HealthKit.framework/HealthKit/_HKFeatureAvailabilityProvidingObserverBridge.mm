@@ -24,11 +24,12 @@
 
 - (void)_notifyObserversWithFeatureAvailabilityProviding:(id)providing
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   providingCopy = providing;
-  v13 = 0;
-  v5 = [providingCopy featureOnboardingRecordWithError:&v13];
-  v6 = v13;
+  v16 = 0;
+  v5 = [providingCopy featureOnboardingRecordWithError:&v16];
+  v6 = v16;
+  v8 = v6;
   if (v5)
   {
     handle = self->_handle;
@@ -38,68 +39,64 @@
 
   else
   {
-    _HKInitializeLogging();
-    featureIdentifier = HKLogInfrastructure();
+    _HKInitializeLogging(v6, v7);
+    featureIdentifier = HKLogInfrastructure(v11, v12);
     if (os_log_type_enabled(featureIdentifier, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = v10;
+      v13 = objc_opt_class();
+      v14 = v13;
       featureIdentifier2 = [providingCopy featureIdentifier];
       *buf = 138543874;
-      v15 = v10;
-      v16 = 2114;
-      v17 = featureIdentifier2;
-      v18 = 2114;
-      v19 = v6;
+      v18 = v13;
+      v19 = 2114;
+      v20 = featureIdentifier2;
+      v21 = 2114;
+      v22 = v8;
       _os_log_error_impl(&dword_19197B000, featureIdentifier, OS_LOG_TYPE_ERROR, "[%{public}@]: Error retrieving onboarding record for %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)featureAvailabilityProvidingDidUpdateSettings:(id)settings
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
-  _HKInitializeLogging();
-  v5 = HKLogInfrastructure();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(settingsCopy, v5);
+  v8 = HKLogInfrastructure(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = objc_opt_class();
-    v7 = v6;
+    v9 = objc_opt_class();
+    v10 = v9;
     featureIdentifier = [settingsCopy featureIdentifier];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = featureIdentifier;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Observed setting update for %{public}@, notifying observers", &v10, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2114;
+    v15 = featureIdentifier;
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Observed setting update for %{public}@, notifying observers", &v12, 0x16u);
   }
 
   [(_HKFeatureAvailabilityProvidingObserverBridge *)self _notifyObserversWithFeatureAvailabilityProviding:settingsCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  _HKInitializeLogging();
-  v5 = HKLogInfrastructure();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(completionCopy, v5);
+  v8 = HKLogInfrastructure(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = objc_opt_class();
-    v7 = v6;
+    v9 = objc_opt_class();
+    v10 = v9;
     featureIdentifier = [completionCopy featureIdentifier];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = featureIdentifier;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Observed onboarding completion update for %{public}@, notifying observers", &v10, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2114;
+    v15 = featureIdentifier;
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Observed onboarding completion update for %{public}@, notifying observers", &v12, 0x16u);
   }
 
   [(_HKFeatureAvailabilityProvidingObserverBridge *)self _notifyObserversWithFeatureAvailabilityProviding:completionCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

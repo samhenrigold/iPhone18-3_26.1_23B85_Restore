@@ -17,7 +17,7 @@
 
 + (id)galleryCollectionsForDevice:(id)device
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = objc_opt_new();
   v6 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
@@ -25,19 +25,19 @@
   {
     pairingID = [deviceCopy pairingID];
     *buf = 138412290;
-    v76 = pairingID;
+    v80 = pairingID;
     _os_log_impl(&dword_22D9C5000, v6, OS_LOG_TYPE_DEFAULT, "Adding galleryCollectionsForDevice with uuid:%@", buf, 0xCu);
   }
 
-  v62 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.NanoTimeKit.face"];
-  v8 = [v62 BOOLForKey:@"ShowInternalFaces"];
+  v66 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.NanoTimeKit.face"];
+  v8 = [v66 BOOLForKey:@"ShowInternalFaces"];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __52__NTKGalleryCollection_galleryCollectionsForDevice___block_invoke;
   aBlock[3] = &unk_278784078;
   v9 = deviceCopy;
-  v72 = v9;
-  v73 = v8;
+  v76 = v9;
+  v77 = v8;
   v10 = _Block_copy(aBlock);
   if ([v9 isRunningGraceOrLater] && objc_msgSend(v9, "deviceCategory") != 1)
   {
@@ -56,17 +56,17 @@
   }
 
   v14 = +[NTKFaceBundleManager sharedManager];
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __52__NTKGalleryCollection_galleryCollectionsForDevice___block_invoke_6;
-  v67[3] = &unk_2787840A0;
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __52__NTKGalleryCollection_galleryCollectionsForDevice___block_invoke_6;
+  v71[3] = &unk_2787840A0;
   v15 = v9;
-  v68 = v15;
+  v72 = v15;
   v16 = v10;
-  v70 = v16;
+  v74 = v16;
   v17 = v5;
-  v69 = v17;
-  [v14 enumerateFaceBundlesOnDevice:v15 includingLegacy:1 withBlock:v67];
+  v73 = v17;
+  [v14 enumerateFaceBundlesOnDevice:v15 includingLegacy:1 withBlock:v71];
 
   if ([v15 isPaired])
   {
@@ -87,66 +87,49 @@
   }
 
   [v17 sortUsingComparator:&__block_literal_global_115];
-  if ([v15 collectionType] == 5 || NTKShowHardwareSpecificFaces())
+  collectionType = [v15 collectionType];
+  if (collectionType == 5 || NTKShowHardwareSpecificFaces(collectionType, v23))
   {
     selfCopy = self;
-    v22 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D9C5000, v22, OS_LOG_TYPE_DEFAULT, "Adding Zeus faces collection", buf, 2u);
+      _os_log_impl(&dword_22D9C5000, v24, OS_LOG_TYPE_DEFAULT, "Adding Zeus faces collection", buf, 2u);
     }
 
-    v23 = +[NTKFaceBundleManager sharedManager];
-    v24 = [v23 faceBundleForFaceStyle:14 onDevice:v15];
+    v25 = +[NTKFaceBundleManager sharedManager];
+    v26 = [v25 faceBundleForFaceStyle:14 onDevice:v15];
 
-    if (v24)
+    if (v26)
     {
-      v25 = (*(v16 + 2))(v16, v24);
-      if (v25)
+      v27 = (*(v16 + 2))(v16, v26);
+      if (v27)
       {
-        [v17 insertObject:v25 atIndex:0];
+        [v17 insertObject:v27 atIndex:0];
       }
     }
 
-    if ((([v15 isZeusBlack] & 1) != 0 || NTKShowHardwareSpecificFaces()) && objc_msgSend(v15, "isRunningGraceOrLater"))
+    isZeusBlack = [v15 isZeusBlack];
+    if (((isZeusBlack & 1) != 0 || NTKShowHardwareSpecificFaces(isZeusBlack, v29)) && [v15 isRunningGraceOrLater])
     {
-      v26 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v30 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22D9C5000, v26, OS_LOG_TYPE_DEFAULT, "Adding SpectrumZeus faces collection", buf, 2u);
+        _os_log_impl(&dword_22D9C5000, v30, OS_LOG_TYPE_DEFAULT, "Adding SpectrumZeus faces collection", buf, 2u);
       }
 
-      v27 = +[NTKFaceBundleManager sharedManager];
-      v28 = [v27 faceBundleForFaceStyle:42 onDevice:v15];
+      v31 = +[NTKFaceBundleManager sharedManager];
+      v32 = [v31 faceBundleForFaceStyle:42 onDevice:v15];
 
-      if (v28)
+      if (v32)
       {
-        v29 = (*(v16 + 2))(v16, v28);
-        if (v29)
+        v33 = (*(v16 + 2))(v16, v32);
+        if (v33)
         {
-          [v17 insertObject:v29 atIndex:0];
+          [v17 insertObject:v33 atIndex:0];
         }
-      }
-    }
-
-    v30 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_22D9C5000, v30, OS_LOG_TYPE_DEFAULT, "Adding Poodle faces collection", buf, 2u);
-    }
-
-    v31 = +[NTKFaceBundleManager sharedManager];
-    v32 = [v31 faceBundleForBundleIdentifier:@"com.apple.NTKPoodleFaceBundle" onDevice:v15];
-
-    if (v32)
-    {
-      v33 = (*(v16 + 2))(v16, v32);
-      if (v33)
-      {
-        [v17 insertObject:v33 atIndex:0];
       }
     }
 
@@ -154,11 +137,11 @@
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D9C5000, v34, OS_LOG_TYPE_DEFAULT, "Adding Hades faces collection", buf, 2u);
+      _os_log_impl(&dword_22D9C5000, v34, OS_LOG_TYPE_DEFAULT, "Adding Poodle faces collection", buf, 2u);
     }
 
     v35 = +[NTKFaceBundleManager sharedManager];
-    v36 = [v35 faceBundleForBundleIdentifier:@"com.apple.NTKHadesFaceBundle" onDevice:v15];
+    v36 = [v35 faceBundleForBundleIdentifier:@"com.apple.NTKPoodleFaceBundle" onDevice:v15];
 
     if (v36)
     {
@@ -173,11 +156,11 @@
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D9C5000, v38, OS_LOG_TYPE_DEFAULT, "Adding Secretariat faces collection", buf, 2u);
+      _os_log_impl(&dword_22D9C5000, v38, OS_LOG_TYPE_DEFAULT, "Adding Hades faces collection", buf, 2u);
     }
 
     v39 = +[NTKFaceBundleManager sharedManager];
-    v40 = [v39 faceBundleForBundleIdentifier:@"com.apple.NTKSecretariatFaceBundle" onDevice:v15];
+    v40 = [v39 faceBundleForBundleIdentifier:@"com.apple.NTKHadesFaceBundle" onDevice:v15];
 
     if (v40)
     {
@@ -192,11 +175,11 @@
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D9C5000, v42, OS_LOG_TYPE_DEFAULT, "Adding Bellona faces collection", buf, 2u);
+      _os_log_impl(&dword_22D9C5000, v42, OS_LOG_TYPE_DEFAULT, "Adding Secretariat faces collection", buf, 2u);
     }
 
     v43 = +[NTKFaceBundleManager sharedManager];
-    v44 = [v43 faceBundleForBundleIdentifier:@"com.apple.NTKBellonaFaceBundle" onDevice:v15];
+    v44 = [v43 faceBundleForBundleIdentifier:@"com.apple.NTKSecretariatFaceBundle" onDevice:v15];
 
     if (v44)
     {
@@ -211,11 +194,11 @@
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D9C5000, v46, OS_LOG_TYPE_DEFAULT, "Adding Squall faces collection", buf, 2u);
+      _os_log_impl(&dword_22D9C5000, v46, OS_LOG_TYPE_DEFAULT, "Adding Bellona faces collection", buf, 2u);
     }
 
     v47 = +[NTKFaceBundleManager sharedManager];
-    v48 = [v47 faceBundleForBundleIdentifier:@"com.apple.NTKSquallFaceBundle" onDevice:v15];
+    v48 = [v47 faceBundleForBundleIdentifier:@"com.apple.NTKBellonaFaceBundle" onDevice:v15];
 
     if (v48)
     {
@@ -226,50 +209,69 @@
       }
     }
 
-    self = v61;
+    v50 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_22D9C5000, v50, OS_LOG_TYPE_DEFAULT, "Adding Squall faces collection", buf, 2u);
+    }
+
+    v51 = +[NTKFaceBundleManager sharedManager];
+    v52 = [v51 faceBundleForBundleIdentifier:@"com.apple.NTKSquallFaceBundle" onDevice:v15];
+
+    if (v52)
+    {
+      v53 = (*(v16 + 2))(v16, v52);
+      if (v53)
+      {
+        [v17 insertObject:v53 atIndex:0];
+      }
+    }
+
+    self = v65;
   }
 
   if (NTKGizmoOrCompanionAreRussian(v15))
   {
-    v50 = [self _newFacesExcludingRestrictedForDevice:v15];
+    v54 = [self _newFacesExcludingRestrictedForDevice:v15];
   }
 
   else
   {
-    v50 = [self _newFacesForDevice:v15];
+    v54 = [self _newFacesForDevice:v15];
   }
 
-  v51 = v50;
-  if ([v50 hasNewFaces])
+  v55 = v54;
+  if ([v54 hasNewFaces])
   {
-    [v17 insertObject:v51 atIndex:0];
+    [v17 insertObject:v55 atIndex:0];
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v52 = v17;
-  v53 = [v52 countByEnumeratingWithState:&v63 objects:v74 count:16];
-  if (v53)
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v56 = v17;
+  v57 = [v56 countByEnumeratingWithState:&v67 objects:v78 count:16];
+  if (v57)
   {
-    v54 = v53;
-    v55 = *v64;
+    v58 = v57;
+    v59 = *v68;
     do
     {
-      v56 = 0;
+      v60 = 0;
       do
       {
-        if (*v64 != v55)
+        if (*v68 != v59)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v56);
         }
 
-        v57 = *(*(&v63 + 1) + 8 * v56);
+        v61 = *(*(&v67 + 1) + 8 * v60);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v57 loadFaces];
+          [v61 loadFaces];
         }
 
         else
@@ -277,22 +279,22 @@
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v57 loadFacesWithCompletion:0];
+            [v61 loadFacesWithCompletion:0];
           }
         }
 
-        ++v56;
+        ++v60;
       }
 
-      while (v54 != v56);
-      v54 = [v52 countByEnumeratingWithState:&v63 objects:v74 count:16];
+      while (v58 != v60);
+      v58 = [v56 countByEnumeratingWithState:&v67 objects:v78 count:16];
     }
 
-    while (v54);
+    while (v58);
   }
 
-  v58 = v52;
-  return v52;
+  v62 = v56;
+  return v56;
 }
 
 NTKFacesBundleArrayGalleryCollection *__52__NTKGalleryCollection_galleryCollectionsForDevice___block_invoke(uint64_t a1, void *a2)
@@ -515,22 +517,22 @@ uint64_t __52__NTKGalleryCollection_galleryCollectionsForDevice___block_invoke_1
 
 - (unint64_t)numberOfFaces
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v2);
   return 0;
 }
 
 - (id)faceAtIndex:(unint64_t)index
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v3);
   return 0;
 }
 
 - (unint64_t)indexOfFace:(id)face
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_5();
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_0_5(v3);
   return 0;
 }
 

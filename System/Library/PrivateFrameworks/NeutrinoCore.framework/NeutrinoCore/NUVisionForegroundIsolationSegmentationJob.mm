@@ -132,7 +132,7 @@ LABEL_19:
 
     v48 = [v20 imageByApplyingOrientation:orientation];
 
-    [v48 extent];
+    objc_msgSend_extent(v48);
     1278226534 = [NUVideoUtilities newPixelBufferOfSize:vcvtpd_s64_f64(v21) format:vcvtpd_s64_f64(v22), 1278226534];
     v24 = self->_maskBuffer;
     self->_maskBuffer = 1278226534;

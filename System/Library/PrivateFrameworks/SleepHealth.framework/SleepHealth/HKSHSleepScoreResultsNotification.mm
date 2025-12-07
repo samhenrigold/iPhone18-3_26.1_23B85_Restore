@@ -8,12 +8,11 @@
 
 - (NSDictionary)notificationUserInfo
 {
-  v2 = *(self + OBJC_IVAR___HKSHSleepScoreResultsNotification_notificationUserInfo);
   sub_269BE5A00();
 
-  v3 = sub_269BF8698();
+  v2 = sub_269BF8698();
 
-  return v3;
+  return v2;
 }
 
 - (HKSHSleepScoreResultsNotification)initWithUserInfo:(id)info

@@ -1386,7 +1386,7 @@ LABEL_5:
   pathCopy = path;
   if (pathCopy)
   {
-    if ([kindCopy isEqualToString:@"UICollectionElementKindSectionHeader"])
+    if (objc_msgSend_isEqualToString_(kindCopy))
     {
       v8 = -[UICollectionViewFlowLayout layoutAttributesForHeaderInSection:usingData:](self, "layoutAttributesForHeaderInSection:usingData:", [pathCopy indexAtPosition:0], self->_data);
 LABEL_6:
@@ -1394,7 +1394,7 @@ LABEL_6:
       goto LABEL_8;
     }
 
-    if ([kindCopy isEqualToString:@"UICollectionElementKindSectionFooter"])
+    if (objc_msgSend_isEqualToString_(kindCopy))
     {
       v8 = -[UICollectionViewFlowLayout layoutAttributesForFooterInSection:usingData:](self, "layoutAttributesForFooterInSection:usingData:", [pathCopy indexAtPosition:0], self->_data);
       goto LABEL_6;
@@ -1615,9 +1615,9 @@ LABEL_12:
               {
                 indexPath3 = [*(*(&v41 + 1) + 8 * i) indexPath];
                 indexPath4 = [originalAttributesCopy indexPath];
-                v30 = [indexPath3 isEqual:indexPath4];
+                isEqual = objc_msgSend_isEqual_(indexPath3);
 
-                if (!v30 || (-[_UILabelConfiguration _content](v27), v31 = objc_claimAutoreleasedReturnValue(), -[_UILabelConfiguration _content](originalAttributesCopy), v32 = objc_claimAutoreleasedReturnValue(), v33 = [v31 isEqualToString:v32], v32, v31, (v33 & 1) == 0))
+                if (!isEqual || ([(_UILabelConfiguration *)v27 _content], v31 = objc_claimAutoreleasedReturnValue(), [(_UILabelConfiguration *)originalAttributesCopy _content], v32 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v31), v32, v31, (isEqualToString & 1) == 0))
                 {
                   _content = [(_UILabelConfiguration *)v27 _content];
                   indexPath5 = [v27 indexPath];
@@ -3023,7 +3023,7 @@ LABEL_12:
         [(_UIFlowLayoutInfo *)*(&self->super.super.isa + v169) addSection];
       }
       v21 = ;
-      v22 = [collectionView numberOfItemsInSection:{firstIndex, v154, *(&v154 + 1)}];
+      v22 = [collectionView numberOfItemsInSection:{firstIndex, v154}];
       v23 = v22;
       if (v21)
       {
@@ -3921,17 +3921,17 @@ LABEL_35:
   }
 }
 
-void __76__UICollectionViewFlowLayout__updateItemsLayoutForRect_allowsPartialUpdate___block_invoke(uint64_t a1, double *a2, uint64_t a3)
+void __76__UICollectionViewFlowLayout__updateItemsLayoutForRect_allowsPartialUpdate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ([*(a1 + 32) _estimatesSizes])
   {
     [(_UIFlowLayoutSection *)a2 updateEstimatedSizeForSection:a3];
     if (a2)
     {
-      v7 = a2[39];
-      v6 = a2[40];
-      v8 = a2[41];
-      v9 = a2[42];
+      v7 = *(a2 + 312);
+      v6 = *(a2 + 320);
+      v8 = *(a2 + 328);
+      v9 = *(a2 + 336);
     }
 
     else
@@ -3991,10 +3991,10 @@ void __76__UICollectionViewFlowLayout__updateItemsLayoutForRect_allowsPartialUpd
 
   if (a2)
   {
-    v20 = a2[39];
-    v19 = a2[40];
-    v21 = a2[41];
-    v22 = a2[42];
+    v20 = *(a2 + 312);
+    v19 = *(a2 + 320);
+    v21 = *(a2 + 328);
+    v22 = *(a2 + 336);
   }
 
   else
@@ -4031,10 +4031,10 @@ void __76__UICollectionViewFlowLayout__updateItemsLayoutForRect_allowsPartialUpd
       v20 = v25;
     }
 
-    a2[39] = v20;
-    a2[40] = v19;
-    a2[41] = v21;
-    a2[42] = v22;
+    *(a2 + 312) = v20;
+    *(a2 + 320) = v19;
+    *(a2 + 328) = v21;
+    *(a2 + 336) = v22;
   }
 }
 

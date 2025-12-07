@@ -28,7 +28,7 @@
     [(UNUserNotificationCenter *)v2->_center setDelegate:v2];
     [(UNUserNotificationCenter *)v2->_center setPrivateDelegate:v2];
     [(UNUserNotificationCenter *)v2->_center setWantsNotificationResponsesDelivered];
-    v9 = sub_1002EB36C();
+    v9 = sub_1002EB36C(XDCService);
     sub_1002EB6D8(v9, v2, "_handleWatchAuthenticationMessage:fromDevice:", 7);
   }
 
@@ -140,7 +140,7 @@
   sub_100268B54(v18, v20);
 
   v21 = sub_100342264(messageCopy, v18, 7);
-  v22 = sub_1002EB36C();
+  v22 = sub_1002EB36C(XDCService);
   v23 = v22;
   if (v22)
   {

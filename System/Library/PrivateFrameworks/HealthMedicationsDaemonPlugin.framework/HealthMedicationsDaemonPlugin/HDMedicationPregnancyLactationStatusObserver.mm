@@ -11,6 +11,7 @@
 - (void)_queryAndDeleteLactationInteractionsWithReason:(uint64_t)reason;
 - (void)_samplesOfTypesWereRemoved:(void *)removed anchor:;
 - (void)_samplesWereAdded:(void *)added anchor:;
+- (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available;
 - (void)pregnancyModelDidUpdate:(id)update;
 - (void)profileDidBecomeReady:(id)ready;
 - (void)samplesAdded:(id)added anchor:(id)anchor;
@@ -21,7 +22,7 @@
 
 - (void)_deletePregancyInteractionsOnProtectedDataAvailabilityIfNeeded
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = HKSensitiveLogItem();
@@ -30,57 +31,54 @@
     {
 LABEL_3:
 
-      goto LABEL_4;
+      return;
     }
 
-    v12 = 0;
-    v5 = [(HDMedicationPregnancyLactationStatusObserver *)self _deletePregnancyInteractionsWithReason:&v12 error:?];
-    v6 = v12;
+    v11 = 0;
+    v4 = [(HDMedicationPregnancyLactationStatusObserver *)self _deletePregnancyInteractionsWithReason:&v11 error:?];
+    v5 = v11;
     _HKInitializeLogging();
-    v7 = HKLogMedication();
-    v8 = v7;
-    if (v5)
+    v6 = HKLogMedication();
+    v7 = v6;
+    if (v4)
     {
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_10:
 
-        atomic_store(v5 ^ 1, (self + 24));
+        atomic_store(v4 ^ 1, (self + 24));
         goto LABEL_3;
       }
 
-      v9 = objc_opt_class();
+      v8 = objc_opt_class();
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v2;
-      v10 = v9;
-      _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleted %@ dismissed interaction objects", buf, 0x16u);
+      v13 = v8;
+      v14 = 2112;
+      v15 = v2;
+      v9 = v8;
+      _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleted %@ dismissed interaction objects", buf, 0x16u);
     }
 
     else
     {
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_10;
       }
 
-      v11 = objc_opt_class();
+      v10 = objc_opt_class();
       *buf = 138543874;
-      v14 = v11;
-      v15 = 2114;
-      v16 = v2;
-      v17 = 2114;
-      v18 = v6;
-      v10 = v11;
-      _os_log_error_impl(&dword_25181C000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to delete %{public}@ dismissal items, error: %{public}@", buf, 0x20u);
+      v13 = v10;
+      v14 = 2114;
+      v15 = v2;
+      v16 = 2114;
+      v17 = v5;
+      v9 = v10;
+      _os_log_error_impl(&dword_25181C000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to delete %{public}@ dismissal items, error: %{public}@", buf, 0x20u);
     }
 
     goto LABEL_10;
   }
-
-LABEL_4:
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteLactationInteractionsOnProtectedDataAvailabilityIfNeeded
@@ -137,9 +135,21 @@ LABEL_4:
   return v6;
 }
 
+- (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
+{
+  availableCopy = available;
+  if (available)
+  {
+    [(HDMedicationPregnancyLactationStatusObserver *)self _deletePregancyInteractionsOnProtectedDataAvailabilityIfNeeded];
+    [(HDMedicationPregnancyLactationStatusObserver *)self _deleteLactationInteractionsOnProtectedDataAvailabilityIfNeeded];
+  }
+
+  [(HDMedicationPregnancyLactationStatusObserver *)self _protectedDataDidBecomeAvailable:availableCopy];
+}
+
 - (void)profileDidBecomeReady:(id)ready
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   _HKInitializeLogging();
   v5 = HKLogMedication();
@@ -150,14 +160,14 @@ LABEL_4:
     v7 = HKLogMedication();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v19 = 138543362;
-      *&v19[4] = objc_opt_class();
-      v8 = *&v19[4];
-      _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_INFO, "[%{public}@] Profile did become ready, registering for observers", v19, 0xCu);
+      *v18 = 138543362;
+      *&v18[4] = objc_opt_class();
+      v8 = *&v18[4];
+      _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_INFO, "[%{public}@] Profile did become ready, registering for observers", v18, 0xCu);
     }
   }
 
-  v9 = [readyCopy profileExtensionsConformingToProtocol:{&unk_2863E4610, *v19}];
+  v9 = [readyCopy profileExtensionsConformingToProtocol:{&unk_2863E4610, *v18, *&v18[8]}];
   firstObject = [v9 firstObject];
   provider = self->_provider;
   self->_provider = firstObject;
@@ -179,8 +189,6 @@ LABEL_4:
   {
     [(HDMedicationPregnancyLactationStatusObserver *)self _deleteLactationInteractionsOnProtectedDataAvailabilityIfNeeded];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
@@ -232,7 +240,7 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
 
 - (void)pregnancyModelDidUpdate:(id)update
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = HKSensitiveLogItem();
   if (![updateCopy state])
@@ -242,9 +250,9 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
     v8 = HKSensitiveLogItem();
     v9 = [v7 stringWithFormat:@"responding to update to new %@ state: %@", v5, v8];
 
-    v22 = 0;
-    v10 = [(HDMedicationPregnancyLactationStatusObserver *)self _deletePregnancyInteractionsWithReason:v9 error:&v22];
-    v11 = v22;
+    v21 = 0;
+    v10 = [(HDMedicationPregnancyLactationStatusObserver *)self _deletePregnancyInteractionsWithReason:v9 error:&v21];
+    v11 = v21;
     _HKInitializeLogging();
     v12 = HKLogMedication();
     v13 = v12;
@@ -254,9 +262,9 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
       {
         v14 = objc_opt_class();
         *buf = 138543618;
-        v24 = v14;
-        v25 = 2112;
-        v26 = v5;
+        v23 = v14;
+        v24 = 2112;
+        v25 = v5;
         v15 = v14;
         _os_log_impl(&dword_25181C000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleted %@ dismissed interaction objects", buf, 0x16u);
       }
@@ -268,11 +276,11 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
       {
         v16 = objc_opt_class();
         *buf = 138543874;
-        v24 = v16;
-        v25 = 2114;
-        v26 = v5;
-        v27 = 2114;
-        v28 = v11;
+        v23 = v16;
+        v24 = 2114;
+        v25 = v5;
+        v26 = 2114;
+        v27 = v11;
         v17 = v16;
         _os_log_error_impl(&dword_25181C000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to delete %{public}@ dismissal items, error: %{public}@", buf, 0x20u);
       }
@@ -285,7 +293,7 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
         {
           v19 = objc_opt_class();
           *buf = 138543362;
-          v24 = v19;
+          v23 = v19;
           v20 = v19;
           _os_log_impl(&dword_25181C000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will re-attempt delete on protected data availability", buf, 0xCu);
         }
@@ -296,8 +304,6 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
   }
 
   [(HDMedicationPregnancyLactationStatusObserver *)self _pregnancyModelWasUpdated:updateCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)doesMostRecentLactationSampleHaveDistantFutureEndDateWithError:(uint64_t)error
@@ -469,7 +475,7 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
 
 - (BOOL)_deleteAllPregnancyLactationInteractionsOfType:(void *)type transaction:(void *)transaction reason:(uint64_t)reason error:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if (self)
   {
@@ -489,17 +495,17 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
       v15 = v14;
       v16 = HKSensitiveLogItem();
       *buf = 138543874;
-      v26 = v14;
-      v27 = 2112;
-      v28 = v16;
-      v29 = 2112;
-      v30 = transactionCopy;
+      v25 = v14;
+      v26 = 2112;
+      v27 = v16;
+      v28 = 2112;
+      v29 = transactionCopy;
       _os_log_impl(&dword_25181C000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will delete %@ dismissed interaction objects, %@", buf, 0x20u);
     }
 
     v17 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-    v24 = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v23 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
     v19 = HDDismissedPregnancyLactationInteractionPredicateForInteractionTypes(v18);
 
     v20 = [typeCopy databaseForEntityClass:objc_opt_class()];
@@ -512,13 +518,12 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (uint64_t)_queryAndDeleteLactationInteractionsWithReason:(void *)reason transaction:(void *)transaction error:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = a2;
   reasonCopy = reason;
   if (!self)
@@ -528,9 +533,9 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
   }
 
   v9 = HKSensitiveLogItem();
-  v29 = 0;
+  v28 = 0;
   v10 = [(HDMedicationPregnancyLactationStatusObserver *)self doesMostRecentLactationSampleHaveDistantFutureEndDateWithError:?];
-  v11 = v29;
+  v11 = v28;
   if (!v10)
   {
     _HKInitializeLogging();
@@ -539,8 +544,8 @@ BOOL __81__HDMedicationPregnancyLactationStatusObserver_samplesOfTypesWereRemove
     {
       objc_opt_class();
       OUTLINED_FUNCTION_2_0();
-      v34 = v11;
-      v24 = v23;
+      v33 = v11;
+      v23 = v22;
       _os_log_error_impl(&dword_25181C000, v19, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to fetch any %{public}@ sample, error: %{public}@", buf, 0x20u);
     }
 
@@ -570,9 +575,9 @@ LABEL_16:
   if (v10 == 2)
   {
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, no %@ sample with distant future end date found", v7, v9];
-    v28 = v11;
-    v13 = [(HDMedicationPregnancyLactationStatusObserver *)self _deleteAllPregnancyLactationInteractionsOfType:reasonCopy transaction:v12 reason:&v28 error:?];
-    v14 = v28;
+    v27 = v11;
+    v13 = [(HDMedicationPregnancyLactationStatusObserver *)self _deleteAllPregnancyLactationInteractionsOfType:reasonCopy transaction:v12 reason:&v27 error:?];
+    v14 = v27;
 
     _HKInitializeLogging();
     v15 = HKLogMedication();
@@ -583,9 +588,9 @@ LABEL_16:
       {
         v17 = objc_opt_class();
         *buf = 138543618;
-        v31 = v17;
-        v32 = 2112;
-        v33 = v9;
+        v30 = v17;
+        v31 = 2112;
+        v32 = v9;
         v18 = v17;
         _os_log_impl(&dword_25181C000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleted %@ dismissed interaction objects", buf, 0x16u);
       }
@@ -597,8 +602,8 @@ LABEL_16:
       {
         objc_opt_class();
         OUTLINED_FUNCTION_2_0();
-        v34 = v14;
-        v27 = v26;
+        v33 = v14;
+        v26 = v25;
         _os_log_error_impl(&dword_25181C000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to delete %{public}@ dismissal interaction objects, error: %{public}@", buf, 0x20u);
       }
 
@@ -607,7 +612,7 @@ LABEL_16:
       {
         if (transaction)
         {
-          v25 = v14;
+          v24 = v14;
           *transaction = v14;
         }
 
@@ -626,7 +631,6 @@ LABEL_16:
 LABEL_17:
 
 LABEL_18:
-  v21 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

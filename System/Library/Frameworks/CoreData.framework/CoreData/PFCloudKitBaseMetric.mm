@@ -70,13 +70,15 @@
 {
   v3 = objc_autoreleasePoolPush();
   createPayload = [(PFCloudKitBaseMetric *)self createPayload];
-  v8.receiver = self;
-  v8.super_class = PFCloudKitBaseMetric;
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@\n%@", -[PFCloudKitBaseMetric description](&v8, sel_description), -[PFCloudKitBaseMetric name](self, "name"), createPayload];
+  v5 = MEMORY[0x1E696AEC0];
+  v10.receiver = self;
+  v10.super_class = PFCloudKitBaseMetric;
+  v6 = [(PFCloudKitBaseMetric *)&v10 description];
+  v7 = objc_msgSend_stringWithFormat_(v5, v6, [(PFCloudKitBaseMetric *)self name], createPayload);
 
-  v6 = v5;
+  v8 = v7;
   objc_autoreleasePoolPop(v3);
-  return v5;
+  return v7;
 }
 
 @end

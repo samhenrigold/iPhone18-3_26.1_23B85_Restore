@@ -55,36 +55,36 @@
 
 + (void)_generateParkingMapItemsWithBiomeEventStreamCarPlayConnected:(id)connected biomeEventStreamLocationSemantic:(id)semantic dbStore:(ULDatabaseStoreInterface *)store task:(id)task startDate:(id)date
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   connectedCopy = connected;
   semanticCopy = semantic;
   taskCopy = task;
-  v30 = connectedCopy;
+  v29 = connectedCopy;
   dateCopy = date;
   v11 = [connectedCopy streamEventsWithStartDate:? endDate:? maxEvents:? lastN:? reversed:?];
   v12 = [v11 ul_allWhere:&__block_literal_global_164];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = v12;
-  v13 = [obj countByEnumeratingWithState:&v36 objects:v49 count:16];
+  v13 = [obj countByEnumeratingWithState:&v35 objects:v48 count:16];
   if (v13)
   {
-    v14 = *v37;
+    v14 = *v36;
     v15 = &unk_281455000;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v37 != v14)
+      if (*v36 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v36 + 1) + 8 * v16);
-      if ([taskCopy shouldCancel])
+      v17 = *(*(&v35 + 1) + 8 * v16);
+      if (objc_msgSend_shouldCancel(taskCopy))
       {
         break;
       }
@@ -102,11 +102,11 @@ LABEL_3:
         v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v17, "starting")}];
         v22 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v17, "reason")}];
         *buf = 138412802;
-        v44 = timestamp;
-        v45 = 2112;
-        v46 = v21;
-        v47 = 2112;
-        v48 = v22;
+        v43 = timestamp;
+        v44 = 2112;
+        v45 = v21;
+        v46 = 2112;
+        v47 = v22;
         _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_DEFAULT, "[ULMapItemGenerator]: Trying to generate Parking MapItem CarPlayConnectedEvent: timestamp: %@, starting: %@, reason: %@", buf, 0x20u);
 
         v15 = v20;
@@ -121,27 +121,27 @@ LABEL_3:
         if (v25)
         {
           loiIdentifier = [v25 loiIdentifier];
-          CLMicroLocationProtobufHelper::boostUuidFromNSUUID(loiIdentifier, buf);
+          CLMicroLocationProtobufHelper::boostUuidFromNSUUID(buf, loiIdentifier);
 
-          if (BYTE2(v46))
+          if (BYTE2(v45))
           {
             v27 = (*(store->var0 + 8))(store);
             v28 = v27;
-            if ((BYTE2(v46) & 1) == 0)
+            if ((BYTE2(v45) & 1) == 0)
             {
               std::__throw_bad_optional_access[abi:ne200100]();
             }
 
             if (v27)
             {
-              [v27 getLoiGroupIdForLoi:buf];
+              objc_msgSend_getLoiGroupIdForLoi_(v27);
             }
 
             else
             {
+              v39 = 0;
               v40 = 0;
               v41 = 0;
-              v42 = 0;
             }
           }
         }
@@ -149,7 +149,7 @@ LABEL_3:
 
       if (v13 == ++v16)
       {
-        v13 = [obj countByEnumeratingWithState:&v36 objects:v49 count:16];
+        v13 = [obj countByEnumeratingWithState:&v35 objects:v48 count:16];
         if (v13)
         {
           goto LABEL_3;
@@ -159,8 +159,6 @@ LABEL_3:
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __139__ULMapItemGenerator__generateParkingMapItemsWithBiomeEventStreamCarPlayConnected_biomeEventStreamLocationSemantic_dbStore_task_startDate___block_invoke(uint64_t a1, void *a2)

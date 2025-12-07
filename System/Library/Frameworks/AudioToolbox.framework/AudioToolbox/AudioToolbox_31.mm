@@ -1125,11 +1125,11 @@ void FreqDomainConvolver::FreqDomainConvolver(FreqDomainConvolver *this, const F
   *(this + 11) = v10;
   *(this + 15) = 0;
   *(this + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 112, *(a2 + 14), *(a2 + 15), (*(a2 + 15) - *(a2 + 14)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 14, *(a2 + 14), *(a2 + 15), (*(a2 + 15) - *(a2 + 14)) >> 2);
   *(this + 17) = 0;
   *(this + 18) = 0;
   *(this + 19) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 136, *(a2 + 17), *(a2 + 18), (*(a2 + 18) - *(a2 + 17)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 17, *(a2 + 17), *(a2 + 18), (*(a2 + 18) - *(a2 + 17)) >> 2);
   *(this + 40) = *(a2 + 40);
 }
 
@@ -9636,10 +9636,10 @@ void ecMIMO_iQRD::ec_state_reset(ecMIMO_iQRD *this, int16x4_t a2)
 
   v8 = *(this + 3);
   LOBYTE(__u) = 0;
-  std::vector<BOOL>::assign(this + 31, v8, &__u);
+  std::vector<BOOL>::assign(this + 248, v8, &__u);
   v9 = *(this + 4);
   LOBYTE(__u) = 0;
-  std::vector<BOOL>::assign(this + 34, v9, &__u);
+  std::vector<BOOL>::assign(this + 272, v9, &__u);
   v10 = *(this + 4);
   __u = 0;
   std::vector<unsigned int>::assign((this + 320), v10, &__u);

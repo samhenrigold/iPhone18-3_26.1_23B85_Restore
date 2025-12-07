@@ -55,7 +55,7 @@
   v15 = v14;
   if (propertiesCopy)
   {
-    [propertiesCopy timestamp];
+    objc_msgSend_timestamp(propertiesCopy);
   }
 
   else

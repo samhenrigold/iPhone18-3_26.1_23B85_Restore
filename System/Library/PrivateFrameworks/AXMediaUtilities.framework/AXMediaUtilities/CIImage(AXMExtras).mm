@@ -3,8 +3,8 @@
 - (id)mergeWithImage:()AXMExtras withSize:withMetrics:;
 - (uint64_t)_imageOrientationForInterfaceOrientation:()AXMExtras displayOrientation:;
 - (uint64_t)_imageOrientationForInterfaceOrientation:()AXMExtras isMirrored:;
-- (uint64_t)rotatedImageWithInterfaceOrientation:()AXMExtras displayOrientation:appliedImageOrientation:;
-- (uint64_t)rotatedImageWithInterfaceOrientation:()AXMExtras isMirrored:appliedImageOrientation:;
+- (void)rotatedImageWithInterfaceOrientation:()AXMExtras displayOrientation:appliedImageOrientation:;
+- (void)rotatedImageWithInterfaceOrientation:()AXMExtras isMirrored:appliedImageOrientation:;
 - (void)saveToURL:()AXMExtras withOrientation:metrics:;
 - (void)writeImageInAllOrientationsToDirectoryAtURL:()AXMExtras metrics:;
 @end
@@ -250,9 +250,9 @@ LABEL_15:
   }
 }
 
-- (uint64_t)rotatedImageWithInterfaceOrientation:()AXMExtras displayOrientation:appliedImageOrientation:
+- (void)rotatedImageWithInterfaceOrientation:()AXMExtras displayOrientation:appliedImageOrientation:
 {
-  v7 = [self _imageOrientationForInterfaceOrientation:? displayOrientation:?];
+  v7 = [self _imageOrientationForInterfaceOrientation:a3 displayOrientation:a4];
   result = [self imageByApplyingOrientation:v7];
   if (a5)
   {
@@ -262,9 +262,9 @@ LABEL_15:
   return result;
 }
 
-- (uint64_t)rotatedImageWithInterfaceOrientation:()AXMExtras isMirrored:appliedImageOrientation:
+- (void)rotatedImageWithInterfaceOrientation:()AXMExtras isMirrored:appliedImageOrientation:
 {
-  v7 = [self _imageOrientationForInterfaceOrientation:? isMirrored:?];
+  v7 = [self _imageOrientationForInterfaceOrientation:a3 isMirrored:a4];
   result = [self imageByApplyingOrientation:v7];
   if (a5)
   {

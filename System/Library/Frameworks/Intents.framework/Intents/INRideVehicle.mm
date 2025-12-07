@@ -42,16 +42,15 @@
 uint64_t __75__INRideVehicle_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) setMapAnnotationImage:a2];
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (id)_dictionaryRepresentation
 {
-  v23[5] = *MEMORY[0x1E69E9840];
-  v18 = @"location";
+  v22[5] = *MEMORY[0x1E69E9840];
+  v17 = @"location";
   location = self->_location;
   null = location;
   if (!location)
@@ -59,9 +58,9 @@ uint64_t __75__INRideVehicle_INImageProxyInjecting___injectProxiesForImages_comp
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v23[0] = null;
-  v19 = @"registrationPlate";
+  v15 = null;
+  v22[0] = null;
+  v18 = @"registrationPlate";
   registrationPlate = self->_registrationPlate;
   null2 = registrationPlate;
   if (!registrationPlate)
@@ -69,8 +68,8 @@ uint64_t __75__INRideVehicle_INImageProxyInjecting___injectProxiesForImages_comp
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v20 = @"manufacturer";
+  v22[1] = null2;
+  v19 = @"manufacturer";
   manufacturer = self->_manufacturer;
   null3 = manufacturer;
   if (!manufacturer)
@@ -78,8 +77,8 @@ uint64_t __75__INRideVehicle_INImageProxyInjecting___injectProxiesForImages_comp
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v21 = @"model";
+  v22[2] = null3;
+  v20 = @"model";
   model = self->_model;
   null4 = model;
   if (!model)
@@ -87,8 +86,8 @@ uint64_t __75__INRideVehicle_INImageProxyInjecting___injectProxiesForImages_comp
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22 = @"mapAnnotationImage";
+  v22[3] = null4;
+  v21 = @"mapAnnotationImage";
   mapAnnotationImage = self->_mapAnnotationImage;
   null5 = mapAnnotationImage;
   if (!mapAnnotationImage)
@@ -96,8 +95,8 @@ uint64_t __75__INRideVehicle_INImageProxyInjecting___injectProxiesForImages_comp
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
+  v22[4] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v17 count:{5, v15}];
   if (mapAnnotationImage)
   {
     if (model)
@@ -155,7 +154,6 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

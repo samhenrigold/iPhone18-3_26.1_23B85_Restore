@@ -55,7 +55,7 @@
 - (NSSet)selectedNetworks
 {
   swift_beginAccess();
-  sub_100014C84(0, &unk_101917480);
+  sub_100014C84(0, &unk_101917480, VGChargingNetwork_ptr);
   sub_10029BDD8();
 
   v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
@@ -65,7 +65,7 @@
 
 - (void)setSelectedNetworks:(id)networks
 {
-  sub_100014C84(0, &unk_101917480);
+  sub_100014C84(0, &unk_101917480, VGChargingNetwork_ptr);
   sub_10029BDD8();
   v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC4Maps26ChargingNetworksDataSource_selectedNetworks;
@@ -78,7 +78,7 @@
   networksCopy = networks;
   if (networks)
   {
-    sub_100014C84(0, &unk_101917480);
+    sub_100014C84(0, &unk_101917480, VGChargingNetwork_ptr);
     sub_10029BDD8();
     networksCopy = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
@@ -90,7 +90,7 @@
 
 - (id)indexPathForNetwork:(id)network
 {
-  v5 = sub_1000CE6B8(&qword_1019174A0);
+  v5 = sub_1000CE6B8(&qword_1019174A0, &qword_1011F7518);
   __chkstk_darwin(v5 - 8);
   v7 = &v16 - v6;
   networkCopy = network;

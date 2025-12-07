@@ -18,11 +18,11 @@
 
 + (uint64_t)editDistance:()CREditDistance string:threshold:
 {
-  v44 = a5;
-  v46 = *MEMORY[0x1E69E9840];
+  v40 = a5;
+  v42 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  v45 = v6;
+  v41 = v6;
   v8 = [v6 length];
   v9 = [v7 length];
   v10 = v9;
@@ -30,7 +30,7 @@
   {
     if (v9)
     {
-      if ([v45 isEqualToString:v7])
+      if ([v41 isEqualToString:v7])
       {
         v10 = 0;
       }
@@ -38,110 +38,110 @@
       else
       {
         v11 = [v7 length];
-        v43 = &v43;
-        *&v13 = MEMORY[0x1EEE9AC00](v11, v12).n128_u64[0];
-        v15 = &v43 - v14;
-        v16 = [v7 length];
-        *&v18 = MEMORY[0x1EEE9AC00](v16, v17).n128_u64[0];
-        v20 = (&v43 - v19);
-        bzero(v15, (8 * [v7 length]) | 1);
-        bzero(v20, (8 * [v7 length]) | 1);
+        v39 = &v39;
+        *&v12 = MEMORY[0x1EEE9AC00](v11).n128_u64[0];
+        v14 = &v39 - v13;
+        v15 = [v7 length];
+        *&v16 = MEMORY[0x1EEE9AC00](v15).n128_u64[0];
+        v18 = (&v39 - v17);
+        bzero(v14, (8 * [v7 length]) | 1);
+        bzero(v18, (8 * [v7 length]) | 1);
         if ([v7 length] != -1)
         {
-          v21 = 0;
+          v19 = 0;
           do
           {
-            *&v15[8 * v21] = v21;
-            ++v21;
+            *&v14[8 * v19] = v19;
+            ++v19;
           }
 
-          while (v21 < [v7 length] + 1);
+          while (v19 < [v7 length] + 1);
         }
 
-        v22 = v45;
-        v23 = [v45 length];
-        *&v25 = MEMORY[0x1EEE9AC00](v23, v24).n128_u64[0];
-        v27 = &v43 - v26;
-        v28 = [v7 length];
-        *&v30 = MEMORY[0x1EEE9AC00](v28, v29).n128_u64[0];
-        v32 = &v43 - v31;
-        [v22 getCharacters:v27 range:{0, objc_msgSend(v22, "length", v30)}];
-        [v7 getCharacters:v32 range:{0, objc_msgSend(v7, "length")}];
-        v33 = 0;
+        v20 = v41;
+        v21 = [v41 length];
+        *&v22 = MEMORY[0x1EEE9AC00](v21).n128_u64[0];
+        v24 = &v39 - v23;
+        v25 = [v7 length];
+        *&v26 = MEMORY[0x1EEE9AC00](v25).n128_u64[0];
+        v28 = &v39 - v27;
+        [v20 getCharacters:v24 range:{0, objc_msgSend(v20, "length", v26)}];
+        [v7 getCharacters:v28 range:{0, objc_msgSend(v7, "length")}];
+        v29 = 0;
         while (1)
         {
-          v34 = v20;
-          if (v33 >= [v45 length])
+          v30 = v18;
+          if (v29 >= [v41 length])
           {
             break;
           }
 
-          *v20 = v33 + 1;
+          *v18 = v29 + 1;
           if ([v7 length])
           {
-            v35 = 0;
-            v36 = v15 + 8;
-            v37 = 0x7FFFFFFFLL;
+            v31 = 0;
+            v32 = v14 + 8;
+            v33 = 0x7FFFFFFFLL;
             do
             {
-              v38 = &v20[v35];
-              v39 = *v38 + 1;
-              v40 = *&v32[2 * v35];
-              if (v39 >= *v36 + 1)
+              v34 = &v18[v31];
+              v35 = *v34 + 1;
+              v36 = *&v28[2 * v31];
+              if (v35 >= *v32 + 1)
               {
-                v39 = *v36 + 1;
+                v35 = *v32 + 1;
               }
 
-              ++v35;
-              if (*&v27[2 * v33] == v40)
+              ++v31;
+              if (*&v24[2 * v29] == v36)
               {
-                v41 = *(v36 - 1);
+                v37 = *(v32 - 1);
               }
 
               else
               {
-                v41 = *(v36 - 1) + 1;
+                v37 = *(v32 - 1) + 1;
               }
 
-              if (v39 < v41)
+              if (v35 < v37)
               {
-                v41 = v39;
+                v37 = v35;
               }
 
-              if (v37 >= v41)
+              if (v33 >= v37)
               {
-                v37 = v41;
+                v33 = v37;
               }
 
-              v38[1] = v41;
-              ++v36;
+              v34[1] = v37;
+              ++v32;
             }
 
-            while (v35 < [v7 length]);
+            while (v31 < [v7 length]);
           }
 
           else
           {
-            v37 = 0x7FFFFFFFLL;
+            v33 = 0x7FFFFFFFLL;
           }
 
-          ++v33;
-          v20 = v15;
-          v15 = v34;
-          if (v37 > v44)
+          ++v29;
+          v18 = v14;
+          v14 = v30;
+          if (v33 > v40)
           {
             v10 = 0x7FFFFFFFLL;
             goto LABEL_28;
           }
         }
 
-        v10 = *&v15[8 * [v7 length]];
+        v10 = *&v14[8 * [v7 length]];
       }
     }
 
     else
     {
-      v10 = [v45 length];
+      v10 = [v41 length];
     }
   }
 

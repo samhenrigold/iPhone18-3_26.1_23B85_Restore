@@ -76,7 +76,7 @@
     v6 = var0 + var1;
     for (i = var0; i < v6; ++i)
     {
-      std::__tree<long long>::__emplace_unique_key_args<long long,long long const&>(&v5->_underlying, &i);
+      std::__tree<long long>::__emplace_unique_key_args<long long,long long const&>(&v5->_underlying, &i, &i);
     }
   }
 

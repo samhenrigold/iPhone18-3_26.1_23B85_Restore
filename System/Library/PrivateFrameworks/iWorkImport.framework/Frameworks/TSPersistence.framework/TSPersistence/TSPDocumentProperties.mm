@@ -14,6 +14,8 @@
 - (NSUUID)versionUUID;
 - (TSPDocumentProperties)init;
 - (TSPDocumentProperties)initWithDocumentBundleURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error;
+- (TSPDocumentProperties)initWithDocumentFileURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error;
+- (TSPDocumentProperties)initWithDocumentURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error;
 - (TSPDocumentProperties)initWithFilePackageURL:(id)l zipArchive:(id)archive allowMissingPropertyList:(BOOL)list error:(id *)error;
 - (TSPDocumentProperties)initWithPropertiesURL:(id)l error:(id *)error;
 - (id)UUIDFromDocumentProperties:(id)properties key:(id)key;
@@ -26,6 +28,7 @@
 - (void)resetDocumentRevision;
 - (void)setAdditionalProperties:(id)properties;
 - (void)updateDocumentUUID;
+- (void)updateDocumentUUIDAndPreserveShareUUID:(BOOL)d preserveStableDocumentUUID:(BOOL)iD;
 - (void)updateVersionUUID;
 @end
 
@@ -43,6 +46,25 @@
   }
 
   return v4;
+}
+
+- (TSPDocumentProperties)initWithDocumentURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error
+{
+  listCopy = list;
+  lCopy = l;
+  if ((objc_msgSend_isValidPackageAtURL_(TSPDirectoryPackage, v9, lCopy) & 1) != 0 || objc_msgSend_isValidPackageAtURL_(TSPExpandedDirectoryPackage, v10, lCopy))
+  {
+    v11 = objc_msgSend_initWithDocumentBundleURL_allowMissingPropertyList_error_(self, v10, lCopy, listCopy, error);
+  }
+
+  else
+  {
+    v11 = objc_msgSend_initWithDocumentFileURL_allowMissingPropertyList_error_(self, v10, lCopy, listCopy, error);
+  }
+
+  v12 = v11;
+
+  return v12;
 }
 
 - (TSPDocumentProperties)initWithDocumentBundleURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error
@@ -84,6 +106,37 @@ LABEL_8:
 LABEL_9:
 
   return v9;
+}
+
+- (TSPDocumentProperties)initWithDocumentFileURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error
+{
+  listCopy = list;
+  lCopy = l;
+  v11 = objc_msgSend_zipArchiveFromURL_options_error_(MEMORY[0x277D81380], v9, lCopy, 5, error);
+  if (!v11)
+  {
+    goto LABEL_6;
+  }
+
+  if ((objc_msgSend_isValidPackageAtZipArchive_(TSPFilePackage, v10, v11) & 1) == 0)
+  {
+    if (error)
+    {
+      objc_msgSend_tsp_readCorruptedDocumentErrorWithUserInfo_(MEMORY[0x277CCA9B8], v12, 0);
+      *error = selfCopy = 0;
+      goto LABEL_7;
+    }
+
+LABEL_6:
+    selfCopy = 0;
+    goto LABEL_7;
+  }
+
+  self = objc_msgSend_initWithFilePackageURL_zipArchive_allowMissingPropertyList_error_(self, v12, lCopy, v11, listCopy, error);
+  selfCopy = self;
+LABEL_7:
+
+  return selfCopy;
 }
 
 - (TSPDocumentProperties)initWithFilePackageURL:(id)l zipArchive:(id)archive allowMissingPropertyList:(BOOL)list error:(id *)error
@@ -168,7 +221,7 @@ LABEL_12:
 
 - (void)readDocumentPropertiesFromDictionary:(id)dictionary
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = objc_msgSend_UUIDFromDocumentProperties_key_(self, v5, dictionaryCopy, @"documentUUID");
   documentUUID = self->_documentUUID;
@@ -222,28 +275,28 @@ LABEL_12:
   }
 
   v33 = objc_msgSend_mutableCopy(dictionaryCopy, v29, v30);
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
-  v34 = sub_276ABF070();
-  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v42, v46, 16);
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v34 = sub_276ABF070(v33);
+  v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v41, v45, 16);
   if (v37)
   {
-    v38 = *v43;
+    v38 = *v42;
     do
     {
       for (i = 0; i != v37; ++i)
       {
-        if (*v43 != v38)
+        if (*v42 != v38)
         {
           objc_enumerationMutation(v34);
         }
 
-        objc_msgSend_removeObjectForKey_(v33, v36, *(*(&v42 + 1) + 8 * i), v42);
+        objc_msgSend_removeObjectForKey_(v33, v36, *(*(&v41 + 1) + 8 * i), v41);
       }
 
-      v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v36, &v42, v46, 16);
+      v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v36, &v41, v45, 16);
     }
 
     while (v37);
@@ -251,8 +304,6 @@ LABEL_12:
 
   additionalProperties = self->_additionalProperties;
   self->_additionalProperties = v33;
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (id)UUIDFromDocumentProperties:(id)properties key:(id)key
@@ -440,8 +491,6 @@ LABEL_12:
     v14 = objc_msgSend_documentUUID(v17, v18, v19);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
@@ -563,6 +612,22 @@ LABEL_11:
   self->_privateUUID = v8;
 }
 
+- (void)updateDocumentUUIDAndPreserveShareUUID:(BOOL)d preserveStableDocumentUUID:(BOOL)iD
+{
+  objc_msgSend_updateDocumentUUID(self, a2, d);
+  if (!d)
+  {
+    objc_storeStrong(&self->_shareUUID, self->_documentUUID);
+  }
+
+  if (!iD)
+  {
+    documentUUID = self->_documentUUID;
+
+    objc_storeStrong(&self->_stableDocumentUUID, documentUUID);
+  }
+}
+
 - (NSUUID)versionUUID
 {
   versionUUID = self->_versionUUID;
@@ -641,27 +706,27 @@ LABEL_11:
 
 - (void)setAdditionalProperties:(id)properties
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  obj = sub_276ABF070();
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v26, v30, 16);
+  obj = sub_276ABF070(propertiesCopy);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v25, v29, 16);
   if (v6)
   {
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         v10 = objc_msgSend_objectForKeyedSubscript_(propertiesCopy, v5, v9);
         v11 = v10 == 0;
 
@@ -676,7 +741,7 @@ LABEL_11:
         }
       }
 
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v26, v30, 16);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v25, v29, 16);
     }
 
     while (v6);
@@ -685,8 +750,6 @@ LABEL_11:
   v21 = objc_msgSend_copy(propertiesCopy, v19, v20);
   additionalProperties = self->_additionalProperties;
   self->_additionalProperties = v21;
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetDocumentRevision

@@ -3760,7 +3760,7 @@ void __91__SFAccountDetailViewController_editMenuInteraction_menuForConfiguratio
   }
 }
 
-void __91__SFAccountDetailViewController_editMenuInteraction_menuForConfiguration_suggestedActions___block_invoke_4(uint64_t a1)
+void __91__SFAccountDetailViewController_editMenuInteraction_menuForConfiguration_suggestedActions___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -3768,15 +3768,15 @@ void __91__SFAccountDetailViewController_editMenuInteraction_menuForConfiguratio
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     if (WeakRetained)
     {
-      v3 = *(a1 + 32);
-      v7 = WeakRetained;
-      v4 = [MEMORY[0x1E695DF00] date];
-      v5 = [v3 codeForDate:v4];
+      v4 = *(a1 + 32);
+      v8 = WeakRetained;
+      v5 = [MEMORY[0x1E695DF00] date];
+      v6 = [v4 codeForDate:v5];
 
-      v6 = [MEMORY[0x1E69DCD50] generalPasteboard];
-      [v6 safari_setSensitiveString:v5];
+      v7 = [MEMORY[0x1E69DCD50] generalPasteboard];
+      [v7 safari_setSensitiveString:v6];
 
-      WeakRetained = v7;
+      WeakRetained = v8;
     }
   }
 }
@@ -4798,6 +4798,7 @@ void __71__SFAccountDetailViewController_linkableFooterViewDidInteractWithLink__
 void __94__SFAccountDetailViewController__sharePasswordWithPopoverPresentationControllerConfiguration___block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v8 = v6;
   if (a2)
   {
     [*(a1 + 32) _sharePasswordWithAuthenticationContext:*(a1 + 40) popoverPresentationControllerConfiguration:*(a1 + 48)];
@@ -4805,15 +4806,15 @@ void __94__SFAccountDetailViewController__sharePasswordWithPopoverPresentationCo
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswords(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __94__SFAccountDetailViewController__sharePasswordWithPopoverPresentationControllerConfiguration___block_invoke_cold_1(v7);
+      __94__SFAccountDetailViewController__sharePasswordWithPopoverPresentationControllerConfiguration___block_invoke_cold_1(v9);
     }
 
     *(*(a1 + 32) + 1360) = 0;
-    v8 = [MEMORY[0x1E696AD88] defaultCenter];
-    [v8 postNotificationName:@"_SFShowAccountManagerLockedViewIfNeededNotification" object:0];
+    v10 = [MEMORY[0x1E696AD88] defaultCenter];
+    [v10 postNotificationName:@"_SFShowAccountManagerLockedViewIfNeededNotification" object:0];
   }
 }
 
@@ -5117,19 +5118,20 @@ LABEL_9:
 void __66__SFAccountDetailViewController__updateAccountModificationOptions__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if (a3)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(WeakRetained, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __66__SFAccountDetailViewController__updateAccountModificationOptions__block_invoke_cold_1(WeakRetained, v6);
+        __66__SFAccountDetailViewController__updateAccountModificationOptions__block_invoke_cold_1(v7, v8);
       }
     }
 
-    WeakRetained[1305] = a2 == 2;
-    [WeakRetained _reloadDiffableDataSourceOnInternalQueueAnimated:0];
+    v7[1305] = a2 == 2;
+    [v7 _reloadDiffableDataSourceOnInternalQueueAnimated:0];
   }
 }
 
@@ -5236,51 +5238,52 @@ void __65__SFAccountDetailViewController__completedSignInWithAppleUpgrade__block
   controllerCopy = controller;
   requestCopy = request;
   errorCopy = error;
+  v12 = errorCopy;
   if (errorCopy)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(errorCopy, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [SFAccountDetailViewController accountAuthenticationModificationController:v11 didFailRequest:? withError:?];
+      [SFAccountDetailViewController accountAuthenticationModificationController:v13 didFailRequest:? withError:?];
     }
   }
 
-  if ([errorCopy code] != 1)
+  if ([v12 code] != 1)
   {
-    userInfo = [errorCopy userInfo];
-    v13 = [userInfo objectForKey:*MEMORY[0x1E695A8F8]];
+    userInfo = [v12 userInfo];
+    v15 = [userInfo objectForKey:*MEMORY[0x1E695A8F8]];
 
-    if ([errorCopy code] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    if ([v12 code] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      v22 = MEMORY[0x1E69DC650];
-      v23 = MEMORY[0x1E696AEC0];
-      v24 = _WBSLocalizedString();
+      v24 = MEMORY[0x1E69DC650];
+      v25 = MEMORY[0x1E696AEC0];
+      v26 = _WBSLocalizedString();
       _plugIn = [(NSExtension *)self->_accountModificationExtension _plugIn];
       localizedContainingName = [_plugIn localizedContainingName];
-      v27 = [v23 stringWithFormat:v24, localizedContainingName];
-      v20 = [v22 alertControllerWithTitle:0 message:v27 imageNamed:@"alert-passwords" preferredStyle:1];
+      v29 = [v25 stringWithFormat:v26, localizedContainingName];
+      v22 = [v24 alertControllerWithTitle:0 message:v29 imageNamed:@"alert-passwords" preferredStyle:1];
 
-      v21 = MEMORY[0x1E69DC648];
+      v23 = MEMORY[0x1E69DC648];
     }
 
     else
     {
-      v14 = MEMORY[0x1E69DC650];
-      v15 = MEMORY[0x1E696AEC0];
-      v16 = _WBSLocalizedString();
+      v16 = MEMORY[0x1E69DC650];
+      v17 = MEMORY[0x1E696AEC0];
+      v18 = _WBSLocalizedString();
       _plugIn2 = [(NSExtension *)self->_accountModificationExtension _plugIn];
       localizedContainingName2 = [_plugIn2 localizedContainingName];
-      v19 = [v15 stringWithFormat:v16, localizedContainingName2];
-      v20 = [v14 alertControllerWithTitle:v19 message:v13 imageNamed:@"alert-passwords" preferredStyle:1];
+      v21 = [v17 stringWithFormat:v18, localizedContainingName2];
+      v22 = [v16 alertControllerWithTitle:v21 message:v15 imageNamed:@"alert-passwords" preferredStyle:1];
 
-      v21 = MEMORY[0x1E69DC648];
+      v23 = MEMORY[0x1E69DC648];
     }
 
-    v28 = _WBSLocalizedString();
-    v29 = [v21 actionWithTitle:v28 style:0 handler:0];
-    [v20 addAction:v29];
+    v30 = _WBSLocalizedString();
+    v31 = [v23 actionWithTitle:v30 style:0 handler:0];
+    [v22 addAction:v31];
 
-    [(SFAccountDetailViewController *)self presentViewController:v20 animated:1 completion:0];
+    [(SFAccountDetailViewController *)self presentViewController:v22 animated:1 completion:0];
   }
 }
 
@@ -5696,32 +5699,32 @@ void __74__SFAccountDetailViewController__softDeletePasswordWithCompletionHandle
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __74__SFAccountDetailViewController__softDeletePasswordWithCompletionHandler___block_invoke_2(uint64_t a1)
+uint64_t __74__SFAccountDetailViewController__softDeletePasswordWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = [*(a1 + 40) _passwordWarningManager];
-    [v2 removeWarningForSavedAccount:*(*(a1 + 40) + 1040)];
+    v3 = [*(a1 + 40) _passwordWarningManager];
+    [v3 removeWarningForSavedAccount:*(*(a1 + 40) + 1040)];
 
-    v3 = *(a1 + 40);
-    v4 = *(v3 + 1224);
-    *(v3 + 1224) = 0;
+    v4 = *(a1 + 40);
+    v5 = *(v4 + 1224);
+    *(v4 + 1224) = 0;
 
-    v5 = *(a1 + 40);
-    v6 = *(v5 + 1120);
-    *(v5 + 1120) = 0;
+    v6 = *(a1 + 40);
+    v7 = *(v6 + 1120);
+    *(v6 + 1120) = 0;
 
-    v7 = *(*(a1 + 48) + 16);
+    v8 = *(*(a1 + 48) + 16);
 
-    return v7();
+    return v8();
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPasswords(a1, a2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __74__SFAccountDetailViewController__softDeletePasswordWithCompletionHandler___block_invoke_2_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
+      __74__SFAccountDetailViewController__softDeletePasswordWithCompletionHandler___block_invoke_2_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
     }
 
     return (*(*(a1 + 48) + 16))();
@@ -5783,21 +5786,21 @@ void __53__SFAccountDetailViewController__recoverSavedAccount__block_invoke(uint
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __53__SFAccountDetailViewController__recoverSavedAccount__block_invoke_2(uint64_t a1)
+uint64_t __53__SFAccountDetailViewController__recoverSavedAccount__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 40))
   {
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v2 _popViewController];
+    return [v3 _popViewController];
   }
 
   else
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXPasswords(a1, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __53__SFAccountDetailViewController__recoverSavedAccount__block_invoke_2_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      __53__SFAccountDetailViewController__recoverSavedAccount__block_invoke_2_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
 
     return [*(a1 + 32) _presentErrorAlertForFailingToRecoverRecentlyDeletedSavedAccount];
@@ -5867,21 +5870,21 @@ void __63__SFAccountDetailViewController__moveSavedAccountToMyPasswords__block_i
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __63__SFAccountDetailViewController__moveSavedAccountToMyPasswords__block_invoke_2(uint64_t a1)
+uint64_t __63__SFAccountDetailViewController__moveSavedAccountToMyPasswords__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 40))
   {
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v2 _recoverSavedAccount];
+    return [v3 _recoverSavedAccount];
   }
 
   else
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXPasswords(a1, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __63__SFAccountDetailViewController__moveSavedAccountToMyPasswords__block_invoke_2_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      __63__SFAccountDetailViewController__moveSavedAccountToMyPasswords__block_invoke_2_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
 
     return [*(a1 + 32) _presentErrorAlertForFailingToRecoverRecentlyDeletedSavedAccount];
@@ -5948,19 +5951,19 @@ uint64_t __63__SFAccountDetailViewController__moveSavedAccountToMyPasswords__blo
         if (numberOfCodes != 1)
         {
           [(PMTOTPMigrationController *)v12 setDelegate:self];
-          v24 = objc_alloc(MEMORY[0x1E69DCCD8]);
+          v25 = objc_alloc(MEMORY[0x1E69DCCD8]);
           viewController = [(PMTOTPMigrationController *)self->_totpMigrationController viewController];
-          v26 = [v24 initWithRootViewController:viewController];
+          v27 = [v25 initWithRootViewController:viewController];
           totpMigrationNavigationController = self->_totpMigrationNavigationController;
-          self->_totpMigrationNavigationController = v26;
+          self->_totpMigrationNavigationController = v27;
 
           [(UINavigationController *)self->_totpMigrationNavigationController setModalPresentationStyle:2];
-          v33[0] = MEMORY[0x1E69E9820];
-          v33[1] = 3221225472;
-          v33[2] = __87__SFAccountDetailViewController_QRCodeScannerViewController_didScanQRCodeWithURLValue___block_invoke;
-          v33[3] = &unk_1E848F810;
-          v33[4] = self;
-          [(SFAccountDetailViewController *)self dismissViewControllerAnimated:1 completion:v33];
+          v34[0] = MEMORY[0x1E69E9820];
+          v34[1] = 3221225472;
+          v34[2] = __87__SFAccountDetailViewController_QRCodeScannerViewController_didScanQRCodeWithURLValue___block_invoke;
+          v34[3] = &unk_1E848F810;
+          v34[4] = self;
+          [(SFAccountDetailViewController *)self dismissViewControllerAnimated:1 completion:v34];
           goto LABEL_14;
         }
 
@@ -5986,28 +5989,28 @@ LABEL_9:
       goto LABEL_14;
     }
 
-    v16 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = WBS_LOG_CHANNEL_PREFIXPasswords(0, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      [SFAccountDetailViewController QRCodeScannerViewController:v16 didScanQRCodeWithURLValue:?];
+      [SFAccountDetailViewController QRCodeScannerViewController:v17 didScanQRCodeWithURLValue:?];
     }
 
-    v17 = MEMORY[0x1E69DC650];
-    v18 = _WBSLocalizedString();
-    v19 = [v17 alertControllerWithTitle:v18 message:0 preferredStyle:1];
+    v18 = MEMORY[0x1E69DC650];
+    v19 = _WBSLocalizedString();
+    v20 = [v18 alertControllerWithTitle:v19 message:0 preferredStyle:1];
 
-    v20 = MEMORY[0x1E69DC648];
-    v21 = _WBSLocalizedString();
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 3221225472;
-    v30 = __87__SFAccountDetailViewController_QRCodeScannerViewController_didScanQRCodeWithURLValue___block_invoke_833;
-    v31 = &unk_1E848FBF8;
-    v32 = v19;
-    v22 = v19;
-    v23 = [v20 actionWithTitle:v21 style:0 handler:&v28];
-    [v22 addAction:{v23, v28, v29, v30, v31}];
+    v21 = MEMORY[0x1E69DC648];
+    v22 = _WBSLocalizedString();
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __87__SFAccountDetailViewController_QRCodeScannerViewController_didScanQRCodeWithURLValue___block_invoke_833;
+    v32 = &unk_1E848FBF8;
+    v33 = v20;
+    v23 = v20;
+    v24 = [v21 actionWithTitle:v22 style:0 handler:&v29];
+    [v23 addAction:{v24, v29, v30, v31, v32}];
 
-    [controllerCopy presentViewController:v22 animated:1 completion:0];
+    [controllerCopy presentViewController:v23 animated:1 completion:0];
   }
 
 LABEL_14:
@@ -6254,7 +6257,7 @@ void __94__SFAccountDetailViewController__sharePasswordWithPopoverPresentationCo
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to authenticate for one time account sharing: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to authenticate for one time account sharing: %@", v6, v7, v8, v9);
 }
 
 void __66__SFAccountDetailViewController__updateAccountModificationOptions__block_invoke_cold_1(uint64_t a1, void *a2)
@@ -6263,7 +6266,7 @@ void __66__SFAccountDetailViewController__updateAccountModificationOptions__bloc
   v4 = [OUTLINED_FUNCTION_2() _plugIn];
   v5 = [v4 localizedContainingName];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v6, v7, "Failed to get Sign in with Apple authorization credential state for %@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v6, v7, "Failed to get Sign in with Apple authorization credential state for %@", v8, v9, v10, v11);
 }
 
 - (void)accountAuthenticationModificationController:(void *)a1 didFailRequest:withError:.cold.1(void *a1)
@@ -6271,7 +6274,7 @@ void __66__SFAccountDetailViewController__updateAccountModificationOptions__bloc
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Account Modification Extension request canceled with error: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Account Modification Extension request canceled with error: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)QRCodeScannerViewController:(void *)a1 didScanQRCodeWithURLValue:.cold.1(void *a1)

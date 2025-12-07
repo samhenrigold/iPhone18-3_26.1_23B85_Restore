@@ -19,6 +19,7 @@
 - (void)_startHapticOnlyRequest:(id)request options:(unint64_t)options preparationHandler:(id)handler executionHandler:(id)executionHandler finalizationHandler:(id)finalizationHandler;
 - (void)_startRequest:(id)request options:(unint64_t)options preparationHandler:(id)handler executionHandler:(id)executionHandler finalizationHandler:(id)finalizationHandler;
 - (void)_stopAllRequests:(BOOL)requests completion:(id)completion;
+- (void)_stopRequest:(id)request immediately:(BOOL)immediately;
 - (void)addListener:(id)listener;
 - (void)audioSessionController:(id)controller didReceiveAudioSessionInterruptionNotificationWithUserInfo:(id)info;
 - (void)audioSessionController:(id)controller didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:(id)info;
@@ -63,28 +64,26 @@ void __88__CSSiriAudioPlaybackService_memoryPressureObserver_didChangeFromCondit
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionOwnerResetNotification:(id)notification
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v7 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionOwnerResetNotification:]";
-    v13 = 2112;
-    v14 = notificationCopy;
+    v11 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionOwnerResetNotification:]";
+    v12 = 2112;
+    v13 = notificationCopy;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __98__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionOwnerResetNotification___block_invoke;
-  v10[3] = &unk_2784C6EC0;
-  v10[4] = self;
-  v10[5] = a2;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __98__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionOwnerResetNotification___block_invoke;
+  v9[3] = &unk_2784C6EC0;
+  v9[4] = self;
+  v9[5] = a2;
+  dispatch_async(queue, v9);
 }
 
 void __98__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionOwnerResetNotification___block_invoke(uint64_t a1)
@@ -97,28 +96,26 @@ void __98__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSess
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionOwnerLostNotification:(id)notification
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v7 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionOwnerLostNotification:]";
-    v13 = 2112;
-    v14 = notificationCopy;
+    v11 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionOwnerLostNotification:]";
+    v12 = 2112;
+    v13 = notificationCopy;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __97__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionOwnerLostNotification___block_invoke;
-  v10[3] = &unk_2784C6EC0;
-  v10[4] = self;
-  v10[5] = a2;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __97__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionOwnerLostNotification___block_invoke;
+  v9[3] = &unk_2784C6EC0;
+  v9[4] = self;
+  v9[5] = a2;
+  dispatch_async(queue, v9);
 }
 
 void __97__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionOwnerLostNotification___block_invoke(uint64_t a1)
@@ -131,28 +128,26 @@ void __97__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSess
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:(id)info
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:]";
-    v13 = 2112;
-    v14 = infoCopy;
+    v11 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:]";
+    v12 = 2112;
+    v13 = infoCopy;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __122__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo___block_invoke;
-  v10[3] = &unk_2784C6EC0;
-  v10[4] = self;
-  v10[5] = a2;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __122__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo___block_invoke;
+  v9[3] = &unk_2784C6EC0;
+  v9[4] = self;
+  v9[5] = a2;
+  dispatch_async(queue, v9);
 }
 
 void __122__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo___block_invoke(uint64_t a1)
@@ -165,28 +160,26 @@ void __122__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSes
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:(id)info
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:]";
-    v13 = 2112;
-    v14 = infoCopy;
+    v11 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:]";
+    v12 = 2112;
+    v13 = infoCopy;
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __121__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo___block_invoke;
-  v10[3] = &unk_2784C6EC0;
-  v10[4] = self;
-  v10[5] = a2;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __121__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo___block_invoke;
+  v9[3] = &unk_2784C6EC0;
+  v9[4] = self;
+  v9[5] = a2;
+  dispatch_async(queue, v9);
 }
 
 void __121__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo___block_invoke(uint64_t a1)
@@ -199,29 +192,27 @@ void __121__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSes
 
 - (void)audioSessionController:(id)controller didReceiveAudioSessionInterruptionNotificationWithUserInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v6 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v14 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionInterruptionNotificationWithUserInfo:]";
-    v15 = 2112;
-    v16 = infoCopy;
+    v13 = "[CSSiriAudioPlaybackService audioSessionController:didReceiveAudioSessionInterruptionNotificationWithUserInfo:]";
+    v14 = 2112;
+    v15 = infoCopy;
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s userInfo = %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __112__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionInterruptionNotificationWithUserInfo___block_invoke;
-  v10[3] = &unk_2784C6FA8;
-  v11 = infoCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __112__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionInterruptionNotificationWithUserInfo___block_invoke;
+  v9[3] = &unk_2784C6FA8;
+  v10 = infoCopy;
   selfCopy = self;
   v8 = infoCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v9);
 }
 
 void __112__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSessionInterruptionNotificationWithUserInfo___block_invoke(uint64_t a1)
@@ -307,7 +298,7 @@ void __112__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSes
 
 - (void)_evictAllReusableSessionsForReason:(id)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = [(NSMutableDictionary *)self->_reusableSessionsByRequest count];
   v6 = *MEMORY[0x277CEF0A0];
@@ -316,13 +307,13 @@ void __112__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSes
   {
     if (v7)
     {
-      v10 = 136315650;
-      v11 = "[CSSiriAudioPlaybackService _evictAllReusableSessionsForReason:]";
-      v12 = 2048;
-      v13 = v5;
-      v14 = 2112;
-      v15 = reasonCopy;
-      _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Evict %tu sessions from reusable session pool because %@.", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[CSSiriAudioPlaybackService _evictAllReusableSessionsForReason:]";
+      v11 = 2048;
+      v12 = v5;
+      v13 = 2112;
+      v14 = reasonCopy;
+      _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Evict %tu sessions from reusable session pool because %@.", &v9, 0x20u);
     }
 
     [(NSMutableDictionary *)self->_reusableSessionsByRequest removeAllObjects];
@@ -332,12 +323,10 @@ void __112__CSSiriAudioPlaybackService_audioSessionController_didReceiveAudioSes
 
   else if (v7)
   {
-    v10 = 136315138;
-    v11 = "[CSSiriAudioPlaybackService _evictAllReusableSessionsForReason:]";
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Reusable session pool is already empty.", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[CSSiriAudioPlaybackService _evictAllReusableSessionsForReason:]";
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s Reusable session pool is already empty.", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateListenersUsingBlock:(id)block
@@ -413,9 +402,16 @@ uint64_t __58__CSSiriAudioPlaybackService__stopAllRequests_completion___block_in
   return result;
 }
 
+- (void)_stopRequest:(id)request immediately:(BOOL)immediately
+{
+  immediatelyCopy = immediately;
+  v5 = [(NSMutableDictionary *)self->_activeSessionsByRequest objectForKey:request];
+  [v5 stop:immediatelyCopy completion:0];
+}
+
 - (void)_handleFinalizationForSession:(id)session error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   v8 = MEMORY[0x277CEF0A0];
@@ -425,11 +421,11 @@ uint64_t __58__CSSiriAudioPlaybackService__stopAllRequests_completion___block_in
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "[CSSiriAudioPlaybackService _handleFinalizationForSession:error:]";
-      v23 = 2112;
-      v24 = sessionCopy;
-      v25 = 2112;
-      v26 = errorCopy;
+      v21 = "[CSSiriAudioPlaybackService _handleFinalizationForSession:error:]";
+      v22 = 2112;
+      v23 = sessionCopy;
+      v24 = 2112;
+      v25 = errorCopy;
       _os_log_error_impl(&dword_222E4D000, v9, OS_LOG_TYPE_ERROR, "%s session = %@, error = %@", buf, 0x20u);
     }
   }
@@ -437,9 +433,9 @@ uint64_t __58__CSSiriAudioPlaybackService__stopAllRequests_completion___block_in
   else if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v22 = "[CSSiriAudioPlaybackService _handleFinalizationForSession:error:]";
-    v23 = 2112;
-    v24 = sessionCopy;
+    v21 = "[CSSiriAudioPlaybackService _handleFinalizationForSession:error:]";
+    v22 = 2112;
+    v23 = sessionCopy;
     _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s session = %@", buf, 0x16u);
   }
 
@@ -451,9 +447,9 @@ uint64_t __58__CSSiriAudioPlaybackService__stopAllRequests_completion___block_in
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v22 = "[CSSiriAudioPlaybackService _handleFinalizationForSession:error:]";
-      v23 = 2112;
-      v24 = sessionCopy;
+      v21 = "[CSSiriAudioPlaybackService _handleFinalizationForSession:error:]";
+      v22 = 2112;
+      v23 = sessionCopy;
       _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s Add successfully finalized session %@ to reusable session pool.", buf, 0x16u);
     }
 
@@ -470,77 +466,71 @@ uint64_t __58__CSSiriAudioPlaybackService__stopAllRequests_completion___block_in
     [(NSMutableDictionary *)reusableSessionsByRequest setObject:sessionCopy forKey:request];
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __66__CSSiriAudioPlaybackService__handleFinalizationForSession_error___block_invoke;
-  v18[3] = &unk_2784C6890;
-  v18[4] = self;
-  v19 = request;
-  v20 = errorCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__CSSiriAudioPlaybackService__handleFinalizationForSession_error___block_invoke;
+  v17[3] = &unk_2784C6890;
+  v17[4] = self;
+  v18 = request;
+  v19 = errorCopy;
   v15 = errorCopy;
   v16 = request;
-  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v17];
 }
 
 - (void)_handleExecutionForSession:(id)session
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v5 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[CSSiriAudioPlaybackService _handleExecutionForSession:]";
-    v13 = 2112;
-    v14 = sessionCopy;
+    v11 = "[CSSiriAudioPlaybackService _handleExecutionForSession:]";
+    v12 = 2112;
+    v13 = sessionCopy;
     _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s session = %@", buf, 0x16u);
   }
 
   request = [sessionCopy request];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__CSSiriAudioPlaybackService__handleExecutionForSession___block_invoke;
-  v9[3] = &unk_2784C67C8;
-  v9[4] = self;
-  v10 = request;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__CSSiriAudioPlaybackService__handleExecutionForSession___block_invoke;
+  v8[3] = &unk_2784C67C8;
+  v8[4] = self;
+  v9 = request;
   v7 = request;
-  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v8];
 }
 
 - (void)_handlePreparationForSession:(id)session
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v5 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[CSSiriAudioPlaybackService _handlePreparationForSession:]";
-    v13 = 2112;
-    v14 = sessionCopy;
+    v11 = "[CSSiriAudioPlaybackService _handlePreparationForSession:]";
+    v12 = 2112;
+    v13 = sessionCopy;
     _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s session = %@", buf, 0x16u);
   }
 
   request = [sessionCopy request];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__CSSiriAudioPlaybackService__handlePreparationForSession___block_invoke;
-  v9[3] = &unk_2784C67C8;
-  v9[4] = self;
-  v10 = request;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__CSSiriAudioPlaybackService__handlePreparationForSession___block_invoke;
+  v8[3] = &unk_2784C67C8;
+  v8[4] = self;
+  v9 = request;
   v7 = request;
-  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v8];
 }
 
 - (void)_startRequest:(id)request options:(unint64_t)options preparationHandler:(id)handler executionHandler:(id)executionHandler finalizationHandler:(id)finalizationHandler
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   executionHandlerCopy = executionHandler;
@@ -555,9 +545,9 @@ uint64_t __58__CSSiriAudioPlaybackService__stopAllRequests_completion___block_in
       if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v41 = "[CSSiriAudioPlaybackService _startRequest:options:preparationHandler:executionHandler:finalizationHandler:]";
-        v42 = 2112;
-        v43 = v16;
+        v40 = "[CSSiriAudioPlaybackService _startRequest:options:preparationHandler:executionHandler:finalizationHandler:]";
+        v41 = 2112;
+        v42 = v16;
         _os_log_impl(&dword_222E4D000, v17, OS_LOG_TYPE_INFO, "%s Reuse existing session %@ from reusable session pool.", buf, 0x16u);
       }
     }
@@ -598,9 +588,9 @@ uint64_t __58__CSSiriAudioPlaybackService__stopAllRequests_completion___block_in
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v41 = "[CSSiriAudioPlaybackService _startRequest:options:preparationHandler:executionHandler:finalizationHandler:]";
-      v42 = 2112;
-      v43 = v16;
+      v40 = "[CSSiriAudioPlaybackService _startRequest:options:preparationHandler:executionHandler:finalizationHandler:]";
+      v41 = 2112;
+      v42 = v16;
       _os_log_impl(&dword_222E4D000, v22, OS_LOG_TYPE_INFO, "%s Create new session %@.", buf, 0x16u);
     }
   }
@@ -609,45 +599,43 @@ uint64_t __58__CSSiriAudioPlaybackService__stopAllRequests_completion___block_in
   objc_initWeak(buf, self);
   objc_initWeak(&location, v16);
   _audioSession = [(CSSiriAudioPlaybackService *)self _audioSession];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke;
-  v35[3] = &unk_2784C6818;
-  v36 = handlerCopy;
-  objc_copyWeak(&v37, buf);
-  objc_copyWeak(&v38, &location);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_3;
-  v29[3] = &unk_2784C6840;
-  v32 = executionHandlerCopy;
-  objc_copyWeak(&v33, buf);
-  objc_copyWeak(&v34, &location);
-  v30 = requestCopy;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke;
+  v34[3] = &unk_2784C6818;
+  v35 = handlerCopy;
+  objc_copyWeak(&v36, buf);
+  objc_copyWeak(&v37, &location);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_3;
+  v28[3] = &unk_2784C6840;
+  v31 = executionHandlerCopy;
+  objc_copyWeak(&v32, buf);
+  objc_copyWeak(&v33, &location);
+  v29 = requestCopy;
   selfCopy = self;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_2_15;
-  v25[3] = &unk_2784C6868;
-  v26 = finalizationHandlerCopy;
-  objc_copyWeak(&v27, buf);
-  objc_copyWeak(&v28, &location);
-  [v16 startWithOptions:0 audioSession:_audioSession preparationHandler:v35 executionHandler:v29 finalizationHandler:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_2_15;
+  v24[3] = &unk_2784C6868;
+  v25 = finalizationHandlerCopy;
+  objc_copyWeak(&v26, buf);
+  objc_copyWeak(&v27, &location);
+  [v16 startWithOptions:0 audioSession:_audioSession preparationHandler:v34 executionHandler:v28 finalizationHandler:v24];
 
-  objc_destroyWeak(&v28);
   objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
 
-  objc_destroyWeak(&v34);
   objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
 
-  objc_destroyWeak(&v38);
   objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
 
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
 LABEL_14:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke(uint64_t a1)
@@ -676,7 +664,7 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
 
 void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -696,9 +684,9 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
       if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v14 = "[CSSiriAudioPlaybackService _startRequest:options:preparationHandler:executionHandler:finalizationHandler:]_block_invoke_3";
-        v15 = 2112;
-        v16 = v6;
+        v13 = "[CSSiriAudioPlaybackService _startRequest:options:preparationHandler:executionHandler:finalizationHandler:]_block_invoke_3";
+        v14 = 2112;
+        v15 = v6;
         _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s Failed to play haptic for playback request: %@", buf, 0x16u);
       }
     }
@@ -707,16 +695,14 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
   if (WeakRetained && v4)
   {
     v8 = WeakRetained[1];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_14;
-    v10[3] = &unk_2784C6FA8;
-    v11 = WeakRetained;
-    v12 = v4;
-    dispatch_async(v8, v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_14;
+    v9[3] = &unk_2784C6FA8;
+    v10 = WeakRetained;
+    v11 = v4;
+    dispatch_async(v8, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_2_15(uint64_t a1, void *a2)
@@ -747,7 +733,7 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
 
 - (void)_prewarmRequest:(id)request completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   reusableSessionsByRequest = self->_reusableSessionsByRequest;
   completionCopy = completion;
@@ -758,11 +744,11 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
     v11 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
     {
-      v19 = 136315394;
-      v20 = "[CSSiriAudioPlaybackService _prewarmRequest:completion:]";
-      v21 = 2112;
-      v22 = v10;
-      _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s Reuse existing session %@ from reusable session pool.", &v19, 0x16u);
+      v18 = 136315394;
+      v19 = "[CSSiriAudioPlaybackService _prewarmRequest:completion:]";
+      v20 = 2112;
+      v21 = v10;
+      _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s Reuse existing session %@ from reusable session pool.", &v18, 0x16u);
     }
   }
 
@@ -772,11 +758,11 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
     v12 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
     {
-      v19 = 136315394;
-      v20 = "[CSSiriAudioPlaybackService _prewarmRequest:completion:]";
-      v21 = 2112;
-      v22 = v10;
-      _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s Create new session %@.", &v19, 0x16u);
+      v18 = 136315394;
+      v19 = "[CSSiriAudioPlaybackService _prewarmRequest:completion:]";
+      v20 = 2112;
+      v21 = v10;
+      _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s Create new session %@.", &v18, 0x16u);
     }
 
     v13 = self->_reusableSessionsByRequest;
@@ -801,13 +787,11 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
 
   _audioSession = [(CSSiriAudioPlaybackService *)self _audioSession];
   [v10 prepareWithOptions:0 audioSession:_audioSession completion:completionCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startHapticOnlyRequest:(id)request options:(unint64_t)options preparationHandler:(id)handler executionHandler:(id)executionHandler finalizationHandler:(id)finalizationHandler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   executionHandlerCopy = executionHandler;
@@ -821,14 +805,14 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
     _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s No audio file set, but haptic playback request present", &buf, 0xCu);
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __118__CSSiriAudioPlaybackService__startHapticOnlyRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke;
-  v25[3] = &unk_2784C67C8;
-  v25[4] = self;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __118__CSSiriAudioPlaybackService__startHapticOnlyRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke;
+  v24[3] = &unk_2784C67C8;
+  v24[4] = self;
   v17 = requestCopy;
-  v26 = v17;
-  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v25];
+  v25 = v17;
+  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v24];
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy);
@@ -841,45 +825,44 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__25207;
-  v34 = __Block_byref_object_dispose__25208;
-  v35 = [(CSSiriAudioPlaybackService *)self _playHapticForRequest:v17];
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__25207;
+  v33 = __Block_byref_object_dispose__25208;
+  v34 = [(CSSiriAudioPlaybackService *)self _playHapticForRequest:v17];
   v18 = *(*(&buf + 1) + 40);
   if (v18)
   {
     v19 = *v15;
     if (os_log_type_enabled(*v15, OS_LOG_TYPE_INFO))
     {
-      *v27 = 136315394;
-      v28 = "[CSSiriAudioPlaybackService _startHapticOnlyRequest:options:preparationHandler:executionHandler:finalizationHandler:]";
-      v29 = 2112;
-      v30 = v18;
-      _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_INFO, "%s Failed to play haptic for playback request: %@", v27, 0x16u);
+      *v26 = 136315394;
+      v27 = "[CSSiriAudioPlaybackService _startHapticOnlyRequest:options:preparationHandler:executionHandler:finalizationHandler:]";
+      v28 = 2112;
+      v29 = v18;
+      _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_INFO, "%s Failed to play haptic for playback request: %@", v26, 0x16u);
     }
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __118__CSSiriAudioPlaybackService__startHapticOnlyRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_13;
-  v22[3] = &unk_2784C67F0;
-  v22[4] = self;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __118__CSSiriAudioPlaybackService__startHapticOnlyRequest_options_preparationHandler_executionHandler_finalizationHandler___block_invoke_13;
+  v21[3] = &unk_2784C67F0;
+  v21[4] = self;
   v20 = v17;
-  v23 = v20;
+  v22 = v20;
   p_buf = &buf;
-  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v22];
+  [(CSSiriAudioPlaybackService *)self _enumerateListenersUsingBlock:v21];
   if (finalizationHandlerCopy)
   {
     finalizationHandlerCopy[2](finalizationHandlerCopy, *(*(&buf + 1) + 40));
   }
 
   _Block_object_dispose(&buf, 8);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initializeAndPrewarmHapticEngineIfNeededForRequest:(id)request
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   _hapticEngine = [(CSSiriAudioPlaybackService *)self _hapticEngine];
   v6 = MEMORY[0x277CEF0A0];
@@ -890,9 +873,9 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
     if (v8)
     {
       *buf = 136315394;
-      v22 = "[CSSiriAudioPlaybackService _initializeAndPrewarmHapticEngineIfNeededForRequest:]";
-      v23 = 2112;
-      v24 = requestCopy;
+      v21 = "[CSSiriAudioPlaybackService _initializeAndPrewarmHapticEngineIfNeededForRequest:]";
+      v22 = 2112;
+      v23 = requestCopy;
       _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s haptic engine already created, adding %@ to pendingHapticRequests", buf, 0x16u);
     }
 
@@ -902,15 +885,15 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
   if (v8)
   {
     *buf = 136315138;
-    v22 = "[CSSiriAudioPlaybackService _initializeAndPrewarmHapticEngineIfNeededForRequest:]";
+    v21 = "[CSSiriAudioPlaybackService _initializeAndPrewarmHapticEngineIfNeededForRequest:]";
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, "%s creating haptic engine for audio playback request", buf, 0xCu);
   }
 
   v9 = objc_alloc(MEMORY[0x277CBF6B0]);
   _audioSession = [(CSSiriAudioPlaybackService *)self _audioSession];
-  v20 = 0;
-  _hapticEngine = [v9 initWithAudioSession:_audioSession error:&v20];
-  v11 = v20;
+  v19 = 0;
+  _hapticEngine = [v9 initWithAudioSession:_audioSession error:&v19];
+  v11 = v19;
 
   if (v11)
   {
@@ -918,9 +901,9 @@ void __108__CSSiriAudioPlaybackService__startRequest_options_preparationHandler_
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[CSSiriAudioPlaybackService _initializeAndPrewarmHapticEngineIfNeededForRequest:]";
-      v23 = 2112;
-      v24 = v11;
+      v21 = "[CSSiriAudioPlaybackService _initializeAndPrewarmHapticEngineIfNeededForRequest:]";
+      v22 = 2112;
+      v23 = v11;
       v13 = "%s error creating haptic engine %@";
       v14 = v12;
       v15 = 22;
@@ -933,9 +916,9 @@ LABEL_15:
   }
 
   [_hapticEngine setPlaysHapticsOnly:1];
-  v19 = 0;
-  [_hapticEngine startAndReturnError:&v19];
-  v16 = v19;
+  v18 = 0;
+  [_hapticEngine startAndReturnError:&v18];
+  v16 = v18;
   if (v16)
   {
     v11 = v16;
@@ -943,7 +926,7 @@ LABEL_15:
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v22 = "[CSSiriAudioPlaybackService _initializeAndPrewarmHapticEngineIfNeededForRequest:]";
+      v21 = "[CSSiriAudioPlaybackService _initializeAndPrewarmHapticEngineIfNeededForRequest:]";
       v13 = "%s Failed to start haptic engine";
       v14 = v17;
       v15 = 12;
@@ -958,8 +941,6 @@ LABEL_12:
 LABEL_4:
   [(NSMutableDictionary *)self->_pendingHapticRequests setObject:_hapticEngine forKey:requestCopy];
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hapticPlaybackDidCompleteForAllActiveRequests
@@ -975,43 +956,41 @@ LABEL_13:
 
 void __76__CSSiriAudioPlaybackService__hapticPlaybackDidCompleteForAllActiveRequests__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(*(a1 + 32) + 72) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(a1 + 32) + 72) removeObjectForKey:*(*(&v8 + 1) + 8 * v6++)];
+        [*(*(a1 + 32) + 72) removeObjectForKey:*(*(&v7 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_playHapticForRequest:(id)request
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (requestCopy)
   {
@@ -1025,9 +1004,9 @@ void __76__CSSiriAudioPlaybackService__hapticPlaybackDidCompleteForAllActiveRequ
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[CSSiriAudioPlaybackService _playHapticForRequest:]";
-      v24 = 2112;
-      v25 = requestCopy;
+      v22 = "[CSSiriAudioPlaybackService _playHapticForRequest:]";
+      v23 = 2112;
+      v24 = requestCopy;
       _os_log_error_impl(&dword_222E4D000, v12, OS_LOG_TYPE_ERROR, "%s Failed to start playing haptic for request: %@", buf, 0x16u);
     }
 
@@ -1036,15 +1015,15 @@ void __76__CSSiriAudioPlaybackService__hapticPlaybackDidCompleteForAllActiveRequ
     {
 LABEL_3:
       hapticLibraryKey = [requestCopy hapticLibraryKey];
-      v21 = 0;
-      v7 = [MEMORY[0x277CBF6D0] patternForKey:hapticLibraryKey error:&v21];
-      v8 = v21;
+      v20 = 0;
+      v7 = [MEMORY[0x277CBF6D0] patternForKey:hapticLibraryKey error:&v20];
+      v8 = v20;
 
       if (!v8)
       {
-        v20 = 0;
-        v9 = [_hapticEngine createPlayerWithPattern:v7 error:&v20];
-        v10 = v20;
+        v19 = 0;
+        v9 = [_hapticEngine createPlayerWithPattern:v7 error:&v19];
+        v10 = v19;
         if (v10)
         {
           v8 = v10;
@@ -1052,28 +1031,28 @@ LABEL_3:
 
         else
         {
-          v16 = *MEMORY[0x277CEF098];
+          v15 = *MEMORY[0x277CEF098];
           if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v23 = "[CSSiriAudioPlaybackService _playHapticForRequest:]";
-            _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_DEFAULT, "%s Starting haptic playback", buf, 0xCu);
+            v22 = "[CSSiriAudioPlaybackService _playHapticForRequest:]";
+            _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s Starting haptic playback", buf, 0xCu);
           }
 
-          v19 = 0;
-          [v9 startAtTime:&v19 error:0.0];
-          v17 = v19;
-          v8 = v17;
-          if (_hapticEngine && !v17)
+          v18 = 0;
+          [v9 startAtTime:&v18 error:0.0];
+          v16 = v18;
+          v8 = v16;
+          if (_hapticEngine && !v16)
           {
             [(NSMutableDictionary *)self->_activeHapticRequests setObject:_hapticEngine forKey:requestCopy];
             [(NSMutableDictionary *)self->_pendingHapticRequests removeObjectForKey:requestCopy];
-            v18[0] = MEMORY[0x277D85DD0];
-            v18[1] = 3221225472;
-            v18[2] = __52__CSSiriAudioPlaybackService__playHapticForRequest___block_invoke;
-            v18[3] = &unk_2784C67A0;
-            v18[4] = self;
-            [_hapticEngine notifyWhenPlayersFinished:v18];
+            v17[0] = MEMORY[0x277D85DD0];
+            v17[1] = 3221225472;
+            v17[2] = __52__CSSiriAudioPlaybackService__playHapticForRequest___block_invoke;
+            v17[3] = &unk_2784C67A0;
+            v17[4] = self;
+            [_hapticEngine notifyWhenPlayersFinished:v17];
             goto LABEL_15;
           }
         }
@@ -1100,30 +1079,28 @@ LABEL_15:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v23 = "[CSSiriAudioPlaybackService _playHapticForRequest:]";
+    v22 = "[CSSiriAudioPlaybackService _playHapticForRequest:]";
     _os_log_error_impl(&dword_222E4D000, v11, OS_LOG_TYPE_ERROR, "%s audio playback request can not be nil", buf, 0xCu);
   }
 
   v8 = [MEMORY[0x277CEF2A0] errorWithCode:1401];
 LABEL_16:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 uint64_t __52__CSSiriAudioPlaybackService__playHapticForRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CEF098];
   v5 = *MEMORY[0x277CEF098];
   if (v3 && os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v13 = "[CSSiriAudioPlaybackService _playHapticForRequest:]_block_invoke";
-    v14 = 2112;
-    v15 = v3;
+    v12 = "[CSSiriAudioPlaybackService _playHapticForRequest:]_block_invoke";
+    v13 = 2112;
+    v14 = v3;
     _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s Haptic playback stopped with error: %@", buf, 0x16u);
     v5 = *v4;
   }
@@ -1131,7 +1108,7 @@ uint64_t __52__CSSiriAudioPlaybackService__playHapticForRequest___block_invoke(u
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v13 = "[CSSiriAudioPlaybackService _playHapticForRequest:]_block_invoke";
+    v12 = "[CSSiriAudioPlaybackService _playHapticForRequest:]_block_invoke";
     _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s Haptic playback stopped", buf, 0xCu);
   }
 
@@ -1145,7 +1122,6 @@ uint64_t __52__CSSiriAudioPlaybackService__playHapticForRequest___block_invoke(u
   block[4] = v7;
   dispatch_after(v6, v8, block);
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

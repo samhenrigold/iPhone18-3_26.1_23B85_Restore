@@ -22,10 +22,10 @@
 
 - (void)setCurrentPosition:(NSTimeInterval)currentPosition
 {
-  v27 = *MEMORY[0x1E69E9840];
-  impl = [(AVMIDIPlayer *)self impl];
+  v26 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_impl(self, a2);
   outBeats = 0.0;
-  BeatsForSeconds = MusicSequenceGetBeatsForSeconds(impl->var2, currentPosition, &outBeats);
+  BeatsForSeconds = MusicSequenceGetBeatsForSeconds(*(v4 + 16), currentPosition, &outBeats);
   if (BeatsForSeconds)
   {
     v6 = BeatsForSeconds;
@@ -38,26 +38,26 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
-      v14 = "AVAEInternal.h";
-      v15 = 1024;
-      v16 = 104;
-      v17 = 2080;
-      v18 = "AVMIDIPlayer.mm";
-      v19 = 1024;
-      v20 = 200;
-      v21 = 2080;
-      v22 = "[AVMIDIPlayer setCurrentPosition:]";
-      v23 = 2080;
-      v24 = "MusicSequenceGetBeatsForSeconds(impl->mSequence, (Float64) currentPosition, &positionInBeats)";
-      v25 = 1024;
-      v26 = v6;
+      v13 = "AVAEInternal.h";
+      v14 = 1024;
+      v15 = 104;
+      v16 = 2080;
+      v17 = "AVMIDIPlayer.mm";
+      v18 = 1024;
+      v19 = 200;
+      v20 = 2080;
+      v21 = "[AVMIDIPlayer setCurrentPosition:]";
+      v22 = 2080;
+      v23 = "MusicSequenceGetBeatsForSeconds(impl->mSequence, (Float64) currentPosition, &positionInBeats)";
+      v24 = 1024;
+      v25 = v6;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v6}];
   }
 
-  v8 = MusicPlayerSetTime(impl->var1, outBeats);
+  v8 = MusicPlayerSetTime(*(v4 + 8), outBeats);
   if (v8)
   {
     v9 = v8;
@@ -70,35 +70,33 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
-      v14 = "AVAEInternal.h";
-      v15 = 1024;
-      v16 = 104;
-      v17 = 2080;
-      v18 = "AVMIDIPlayer.mm";
-      v19 = 1024;
-      v20 = 201;
-      v21 = 2080;
-      v22 = "[AVMIDIPlayer setCurrentPosition:]";
-      v23 = 2080;
-      v24 = "MusicPlayerSetTime(impl->mPlayer, positionInBeats)";
-      v25 = 1024;
-      v26 = v9;
+      v13 = "AVAEInternal.h";
+      v14 = 1024;
+      v15 = 104;
+      v16 = 2080;
+      v17 = "AVMIDIPlayer.mm";
+      v18 = 1024;
+      v19 = 201;
+      v20 = 2080;
+      v21 = "[AVMIDIPlayer setCurrentPosition:]";
+      v22 = 2080;
+      v23 = "MusicPlayerSetTime(impl->mPlayer, positionInBeats)";
+      v24 = 1024;
+      v25 = v9;
       _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v9}];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSTimeInterval)currentPosition
 {
-  v27 = *MEMORY[0x1E69E9840];
-  impl = [(AVMIDIPlayer *)self impl];
+  v26 = *MEMORY[0x1E69E9840];
+  v2 = objc_msgSend_impl(self, a2);
   outSeconds = 0.0;
   outTime = 0.0;
-  Time = MusicPlayerGetTime(impl->var1, &outTime);
+  Time = MusicPlayerGetTime(*(v2 + 8), &outTime);
   if (Time)
   {
     v4 = Time;
@@ -111,26 +109,26 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
-      v14 = "AVAEInternal.h";
-      v15 = 1024;
-      v16 = 104;
-      v17 = 2080;
-      v18 = "AVMIDIPlayer.mm";
-      v19 = 1024;
-      v20 = 191;
-      v21 = 2080;
-      v22 = "[AVMIDIPlayer currentPosition]";
-      v23 = 2080;
-      v24 = "MusicPlayerGetTime(impl->mPlayer, &positionInBeats)";
-      v25 = 1024;
-      v26 = v4;
+      v13 = "AVAEInternal.h";
+      v14 = 1024;
+      v15 = 104;
+      v16 = 2080;
+      v17 = "AVMIDIPlayer.mm";
+      v18 = 1024;
+      v19 = 191;
+      v20 = 2080;
+      v21 = "[AVMIDIPlayer currentPosition]";
+      v22 = 2080;
+      v23 = "MusicPlayerGetTime(impl->mPlayer, &positionInBeats)";
+      v24 = 1024;
+      v25 = v4;
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v4}];
   }
 
-  SecondsForBeats = MusicSequenceGetSecondsForBeats(impl->var2, outTime, &outSeconds);
+  SecondsForBeats = MusicSequenceGetSecondsForBeats(*(v2 + 16), outTime, &outSeconds);
   if (SecondsForBeats)
   {
     v7 = SecondsForBeats;
@@ -143,36 +141,34 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
-      v14 = "AVAEInternal.h";
-      v15 = 1024;
-      v16 = 104;
-      v17 = 2080;
-      v18 = "AVMIDIPlayer.mm";
-      v19 = 1024;
-      v20 = 192;
-      v21 = 2080;
-      v22 = "[AVMIDIPlayer currentPosition]";
-      v23 = 2080;
-      v24 = "MusicSequenceGetSecondsForBeats(impl->mSequence, positionInBeats, &positionInTime)";
-      v25 = 1024;
-      v26 = v7;
+      v13 = "AVAEInternal.h";
+      v14 = 1024;
+      v15 = 104;
+      v16 = 2080;
+      v17 = "AVMIDIPlayer.mm";
+      v18 = 1024;
+      v19 = 192;
+      v20 = 2080;
+      v21 = "[AVMIDIPlayer currentPosition]";
+      v22 = 2080;
+      v23 = "MusicSequenceGetSecondsForBeats(impl->mSequence, positionInBeats, &positionInTime)";
+      v24 = 1024;
+      v25 = v7;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v7}];
   }
 
-  result = outSeconds;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return outSeconds;
 }
 
 - (NSTimeInterval)duration
 {
-  v23 = *MEMORY[0x1E69E9840];
-  impl = [(AVMIDIPlayer *)self impl];
+  v22 = *MEMORY[0x1E69E9840];
+  v2 = objc_msgSend_impl(self, a2);
   outSeconds = 0.0;
-  SecondsForBeats = MusicSequenceGetSecondsForBeats(impl->var2, impl->var3, &outSeconds);
+  SecondsForBeats = MusicSequenceGetSecondsForBeats(*(v2 + 16), *(v2 + 24), &outSeconds);
   if (SecondsForBeats)
   {
     v4 = SecondsForBeats;
@@ -185,82 +181,80 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
-      v10 = "AVAEInternal.h";
-      v11 = 1024;
-      v12 = 104;
-      v13 = 2080;
-      v14 = "AVMIDIPlayer.mm";
-      v15 = 1024;
-      v16 = 182;
-      v17 = 2080;
-      v18 = "[AVMIDIPlayer duration]";
-      v19 = 2080;
-      v20 = "MusicSequenceGetSecondsForBeats(impl->mSequence, impl->mLength, &durInSeconds)";
-      v21 = 1024;
-      v22 = v4;
+      v9 = "AVAEInternal.h";
+      v10 = 1024;
+      v11 = 104;
+      v12 = 2080;
+      v13 = "AVMIDIPlayer.mm";
+      v14 = 1024;
+      v15 = 182;
+      v16 = 2080;
+      v17 = "[AVMIDIPlayer duration]";
+      v18 = 2080;
+      v19 = "MusicSequenceGetSecondsForBeats(impl->mSequence, impl->mLength, &durInSeconds)";
+      v20 = 1024;
+      v21 = v4;
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v4}];
   }
 
-  result = outSeconds;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return outSeconds;
 }
 
 - (void)setRate:(float)rate
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v3 = MusicPlayerSetPlayRateScalar([(AVMIDIPlayer *)self impl][8], rate);
-  if (v3)
+  v22 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_impl(self, a2);
+  v5 = MusicPlayerSetPlayRateScalar(*(v4 + 8), rate);
+  if (v5)
   {
-    v4 = v3;
+    v6 = v5;
+    if (AVAudioEngineLogCategory(void)::once != -1)
+    {
+      dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
+    }
+
+    v7 = *AVAudioEngineLogCategory(void)::category;
+    if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136316674;
+      v9 = "AVAEInternal.h";
+      v10 = 1024;
+      v11 = 104;
+      v12 = 2080;
+      v13 = "AVMIDIPlayer.mm";
+      v14 = 1024;
+      v15 = 175;
+      v16 = 2080;
+      v17 = "[AVMIDIPlayer setRate:]";
+      v18 = 2080;
+      v19 = "MusicPlayerSetPlayRateScalar(impl->mPlayer, rate)";
+      v20 = 1024;
+      v21 = v6;
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
+    }
+
+    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v6}];
+  }
+}
+
+- (float)rate
+{
+  v22 = *MEMORY[0x1E69E9840];
+  v2 = objc_msgSend_impl(self, a2);
+  outScaleRate = 0.0;
+  PlayRateScalar = MusicPlayerGetPlayRateScalar(*(v2 + 8), &outScaleRate);
+  if (PlayRateScalar)
+  {
+    v4 = PlayRateScalar;
     if (AVAudioEngineLogCategory(void)::once != -1)
     {
       dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
     }
 
     v5 = *AVAudioEngineLogCategory(void)::category;
-    if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136316674;
-      v8 = "AVAEInternal.h";
-      v9 = 1024;
-      v10 = 104;
-      v11 = 2080;
-      v12 = "AVMIDIPlayer.mm";
-      v13 = 1024;
-      v14 = 175;
-      v15 = 2080;
-      v16 = "[AVMIDIPlayer setRate:]";
-      v17 = 2080;
-      v18 = "MusicPlayerSetPlayRateScalar(impl->mPlayer, rate)";
-      v19 = 1024;
-      v20 = v4;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
-    }
-
-    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v4}];
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (float)rate
-{
-  v22 = *MEMORY[0x1E69E9840];
-  outScaleRate = 0.0;
-  PlayRateScalar = MusicPlayerGetPlayRateScalar([(AVMIDIPlayer *)self impl][8], &outScaleRate);
-  if (PlayRateScalar)
-  {
-    v3 = PlayRateScalar;
-    if (AVAudioEngineLogCategory(void)::once != -1)
-    {
-      dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
-    }
-
-    v4 = *AVAudioEngineLogCategory(void)::category;
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
@@ -276,31 +270,31 @@
       v18 = 2080;
       v19 = "MusicPlayerGetPlayRateScalar(impl->mPlayer, &scalar)";
       v20 = 1024;
-      v21 = v3;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
+      v21 = v4;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
-    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v3}];
+    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v4}];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return outScaleRate;
 }
 
 - (BOOL)isPlaying
 {
   v22 = *MEMORY[0x1E69E9840];
+  v2 = objc_msgSend_impl(self, a2);
   outIsPlaying = 0;
-  IsPlaying = MusicPlayerIsPlaying([(AVMIDIPlayer *)self impl][8], &outIsPlaying);
+  IsPlaying = MusicPlayerIsPlaying(*(v2 + 8), &outIsPlaying);
   if (IsPlaying)
   {
-    v3 = IsPlaying;
+    v4 = IsPlaying;
     if (AVAudioEngineLogCategory(void)::once != -1)
     {
       dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
     }
 
-    v4 = *AVAudioEngineLogCategory(void)::category;
+    v5 = *AVAudioEngineLogCategory(void)::category;
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
@@ -316,23 +310,21 @@
       v18 = 2080;
       v19 = "MusicPlayerIsPlaying(impl->mPlayer, &playing)";
       v20 = 1024;
-      v21 = v3;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
+      v21 = v4;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
-    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v3}];
+    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v4}];
   }
 
-  result = outIsPlaying != 0;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return outIsPlaying != 0;
 }
 
 - (void)stop
 {
-  v14 = *MEMORY[0x1E69E9840];
-  impl = [(AVMIDIPlayer *)self impl];
-  v3 = MusicPlayerStop(impl->var1);
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = objc_msgSend_impl(self, a2);
+  v3 = MusicPlayerStop(*(v2 + 8));
   if (v3)
   {
     v4 = v3;
@@ -354,38 +346,36 @@
       *&buf[30] = 303;
       *&buf[34] = 2080;
       *&buf[36] = "stop";
-      v10 = 2080;
-      v11 = "MusicPlayerStop(mPlayer)";
-      v12 = 1024;
-      v13 = v4;
+      v9 = 2080;
+      v10 = "MusicPlayerStop(mPlayer)";
+      v11 = 1024;
+      v12 = v4;
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v4}];
   }
 
-  var4 = impl->var4;
-  if (var4)
+  v6 = *(v2 + 32);
+  if (v6)
   {
-    impl->var4 = 0;
-    var5 = impl->var5;
+    *(v2 + 32) = 0;
+    v7 = *(v2 + 40);
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = ___ZN14MIDIPlayerImpl4stopEv_block_invoke;
     *&buf[24] = &unk_1E7EF6548;
-    *&buf[32] = var4;
-    dispatch_async(var5, buf);
+    *&buf[32] = v6;
+    dispatch_async(v7, buf);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)play:(AVMIDIPlayerCompletionHandler)completionHandler
 {
-  v23 = *MEMORY[0x1E69E9840];
-  impl = [(AVMIDIPlayer *)self impl];
-  impl->var4 = _Block_copy(completionHandler);
-  v5 = MusicPlayerStart(impl->var1);
+  v22 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_impl(self, a2);
+  *(v4 + 32) = _Block_copy(completionHandler);
+  v5 = MusicPlayerStart(*(v4 + 8));
   if (v5)
   {
     v6 = v5;
@@ -398,41 +388,40 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
-      v10 = "AVAEInternal.h";
-      v11 = 1024;
-      v12 = 104;
-      v13 = 2080;
-      v14 = "AVMIDIPlayer.mm";
-      v15 = 1024;
-      v16 = 298;
-      v17 = 2080;
-      v18 = "start";
-      v19 = 2080;
-      v20 = "MusicPlayerStart(mPlayer)";
-      v21 = 1024;
-      v22 = v6;
+      v9 = "AVAEInternal.h";
+      v10 = 1024;
+      v11 = 104;
+      v12 = 2080;
+      v13 = "AVMIDIPlayer.mm";
+      v14 = 1024;
+      v15 = 298;
+      v16 = 2080;
+      v17 = "start";
+      v18 = 2080;
+      v19 = "MusicPlayerStart(mPlayer)";
+      v20 = 1024;
+      v21 = v6;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v6}];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareToPlay
 {
   v20 = *MEMORY[0x1E69E9840];
-  v2 = MusicPlayerPreroll([(AVMIDIPlayer *)self impl][8]);
-  if (v2)
+  v2 = objc_msgSend_impl(self, a2);
+  v3 = MusicPlayerPreroll(*(v2 + 8));
+  if (v3)
   {
-    v3 = v2;
+    v4 = v3;
     if (AVAudioEngineLogCategory(void)::once != -1)
     {
       dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
     }
 
-    v4 = *AVAudioEngineLogCategory(void)::category;
+    v5 = *AVAudioEngineLogCategory(void)::category;
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316674;
@@ -448,20 +437,19 @@
       v16 = 2080;
       v17 = "MusicPlayerPreroll(impl->mPlayer)";
       v18 = 1024;
-      v19 = v3;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
+      v19 = v4;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d [%s:%d:%s: (%s): error %d", buf, 0x3Cu);
     }
 
-    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v3}];
+    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"error %d", v4}];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (double)beatsForHostTime:(unint64_t)time
 {
+  v4 = objc_msgSend_impl(self, a2);
   outBeats = 0.0;
-  BeatsForHostTime = MusicPlayerGetBeatsForHostTime([(AVMIDIPlayer *)self impl][8], time, &outBeats);
+  BeatsForHostTime = MusicPlayerGetBeatsForHostTime(*(v4 + 8), time, &outBeats);
   result = outBeats;
   if (BeatsForHostTime)
   {
@@ -473,8 +461,9 @@
 
 - (unint64_t)hostTimeForBeats:(double)beats
 {
+  v4 = objc_msgSend_impl(self, a2);
   outHostTime = 0;
-  if (MusicPlayerGetHostTimeForBeats([(AVMIDIPlayer *)self impl][8], beats, &outHostTime))
+  if (MusicPlayerGetHostTimeForBeats(*(v4 + 8), beats, &outHostTime))
   {
     return 0;
   }
@@ -503,9 +492,9 @@ LABEL_9:
       *outError = 0;
     }
 
-    impl = [(AVMIDIPlayer *)initBase impl];
-    v11 = MusicSequenceFileLoadData(impl->var2, data, kMusicSequenceFile_AnyType, 1u);
-    if (v11 || (v11 = MIDIPlayerImpl::finishLoad(impl, bankURL)) != 0)
+    v10 = objc_msgSend_impl(initBase);
+    v11 = MusicSequenceFileLoadData(v10->var2, data, kMusicSequenceFile_AnyType, 1u);
+    if (v11 || (v11 = MIDIPlayerImpl::finishLoad(v10, bankURL)) != 0)
     {
       if (outError)
       {
@@ -537,10 +526,10 @@ LABEL_9:
       *outError = 0;
     }
 
-    impl = [(AVMIDIPlayer *)initBase impl];
-    *(impl + 24) = 0;
-    v11 = MusicSequenceFileLoad(*(impl + 16), inURL, kMusicSequenceFile_AnyType, 1u);
-    if (v11 || (v11 = MIDIPlayerImpl::finishLoad(impl, bankURL)) != 0)
+    v10 = objc_msgSend_impl(initBase);
+    *(v10 + 24) = 0;
+    v11 = MusicSequenceFileLoad(*(v10 + 16), inURL, kMusicSequenceFile_AnyType, 1u);
+    if (v11 || (v11 = MIDIPlayerImpl::finishLoad(v10, bankURL)) != 0)
     {
       if (outError)
       {
@@ -556,7 +545,7 @@ LABEL_9:
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (kAVMPScope)
   {
     v3 = *kAVMPScope;
@@ -574,20 +563,19 @@ LABEL_9:
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v7 = "AVMIDIPlayer.mm";
-    v8 = 1024;
-    v9 = 73;
-    v10 = 2048;
+    v6 = "AVMIDIPlayer.mm";
+    v7 = 1024;
+    v8 = 73;
+    v9 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ---> self = %p", buf, 0x1Cu);
   }
 
 LABEL_7:
   [(AVMIDIPlayer *)self destroyBase];
-  v5.receiver = self;
-  v5.super_class = AVMIDIPlayer;
-  [(AVMIDIPlayer *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = AVMIDIPlayer;
+  [(AVMIDIPlayer *)&v4 dealloc];
 }
 
 - (void)finalize
@@ -600,11 +588,11 @@ LABEL_7:
 
 - (void)destroyBase
 {
-  v16 = *MEMORY[0x1E69E9840];
-  impl = [(AVMIDIPlayer *)self impl];
-  if (impl)
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = objc_msgSend_impl(self, a2);
+  if (v2)
   {
-    v3 = impl;
+    v3 = v2;
     if (kAVMPScope)
     {
       v4 = *kAVMPScope;
@@ -621,53 +609,49 @@ LABEL_7:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315650;
-      v11 = "AVMIDIPlayer.mm";
-      v12 = 1024;
-      v13 = 268;
-      v14 = 2048;
-      v15 = v3;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d ---> this = %p", &v10, 0x1Cu);
+      v8 = 136315650;
+      v9 = "AVMIDIPlayer.mm";
+      v10 = 1024;
+      v11 = 268;
+      v12 = 2048;
+      v13 = v3;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d ---> this = %p", &v8, 0x1Cu);
     }
 
 LABEL_9:
-    var5 = v3->var5;
-    if (var5)
+    v5 = *(v3 + 40);
+    if (v5)
     {
-      dispatch_release(var5);
+      dispatch_release(v5);
     }
 
-    var1 = v3->var1;
-    if (var1)
+    v6 = *(v3 + 8);
+    if (v6)
     {
-      DisposeMusicPlayer(var1);
+      DisposeMusicPlayer(v6);
     }
 
-    var2 = v3->var2;
-    if (var2)
+    v7 = *(v3 + 16);
+    if (v7)
     {
-      DisposeMusicSequence(var2);
+      DisposeMusicSequence(v7);
     }
 
-    if (v3->var0)
+    if (*v3)
     {
-      DisposeAUGraph(v3->var0);
+      DisposeAUGraph(*v3);
     }
-
-    v9 = *MEMORY[0x1E69E9840];
 
     JUMPOUT(0x1BFAF5800);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initBase
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4.receiver = self;
-  v4.super_class = AVMIDIPlayer;
-  if ([(AVMIDIPlayer *)&v4 init])
+  v4 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = AVMIDIPlayer;
+  if ([(AVMIDIPlayer *)&v3 init])
   {
     if ([AVMIDIPlayer(AVMIDIPlayerPriv) initBase]::once != -1)
     {
@@ -677,7 +661,6 @@ LABEL_9:
     operator new();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

@@ -106,7 +106,7 @@
   swift_beginAccess();
   outlined init with copy of PKStrokeStruct(self + v10, v5, type metadata accessor for PKStrokeInheritedProperties);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo5PKInkCSgAfA7CRValueHpAeaG8PaperKityHC_HCg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo5PKInkCSgAfA7CRValueHpAeaG8PaperKityHC_HCg_GMd, &_s9Coherence10CRRegisterVySo5PKInkCSgAfA7CRValueHpAeaG8PaperKityHC_HCg_GMR);
   CRRegister.wrappedValue.getter();
   result = _s8PaperKit12TaggedStrokeOWOhTm_1(v5, type metadata accessor for PKStrokeInheritedProperties);
   v13 = v15;
@@ -140,7 +140,7 @@
   v12 = OBJC_IVAR___PKStrokeCoherence_model;
   swift_beginAccess();
   outlined init with copy of PKStrokeStruct(self + v12, v11, type metadata accessor for PKStrokeStruct);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   CRRegister.wrappedValue.getter();
   _s8PaperKit12TaggedStrokeOWOhTm_1(v11, type metadata accessor for PKStrokeStruct);
   v13 = &v8[*(v6 + 52)];
@@ -221,7 +221,7 @@
   v9 = OBJC_IVAR___PKStrokeCoherence_model;
   swift_beginAccess();
   outlined init with copy of PKStrokeStruct(self + v9, v8, type metadata accessor for PKStrokeStruct);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   CRRegister.wrappedValue.getter();
   _s8PaperKit12TaggedStrokeOWOhTm_1(v8, type metadata accessor for PKStrokeStruct);
   v10 = *v5;
@@ -238,7 +238,7 @@
   swift_beginAccess();
   type metadata accessor for PKStrokeStruct(0);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   v6 = CRRegister.wrappedValue.modify();
   *v7 = var1;
   v6(v8, 0);
@@ -254,16 +254,16 @@
   v7 = type metadata accessor for PKStrokeStruct(0);
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v20 - v11;
   v13 = OBJC_IVAR___PKStrokeCoherence_model;
   swift_beginAccess();
   outlined init with copy of PKStrokeStruct(self + v13, v9, type metadata accessor for PKStrokeStruct);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   CRRegister.wrappedValue.getter();
   _s8PaperKit12TaggedStrokeOWOhTm_1(v9, type metadata accessor for PKStrokeStruct);
-  outlined init with copy of Date?(&v6[*(v4 + 28)], v12, &_s10Foundation4UUIDVSgMd);
+  outlined init with copy of Date?(&v6[*(v4 + 28)], v12, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   _s8PaperKit12TaggedStrokeOWOhTm_1(v6, type metadata accessor for PKStrokeProperties);
   v14 = type metadata accessor for UUID();
   v15 = *(v14 - 8);
@@ -281,7 +281,7 @@
 
 - (void)_setGroupID:(id)d
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v16[-v6 - 8];
   if (d)
@@ -300,7 +300,7 @@
   swift_beginAccess();
   type metadata accessor for PKStrokeStruct(0);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   v11 = CRRegister.wrappedValue.modify();
   v13 = v12;
   v14 = type metadata accessor for PKStrokeProperties(0);
@@ -308,7 +308,7 @@
   v11(v16, 0);
   swift_endAccess();
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_s10Foundation4UUIDVSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 }
 
 - (NSUUID)_renderGroupID
@@ -320,16 +320,16 @@
   v7 = type metadata accessor for PKStrokeStruct(0);
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v20 - v11;
   v13 = OBJC_IVAR___PKStrokeCoherence_model;
   swift_beginAccess();
   outlined init with copy of PKStrokeStruct(self + v13, v9, type metadata accessor for PKStrokeStruct);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   CRRegister.wrappedValue.getter();
   _s8PaperKit12TaggedStrokeOWOhTm_1(v9, type metadata accessor for PKStrokeStruct);
-  outlined init with copy of Date?(&v6[*(v4 + 32)], v12, &_s10Foundation4UUIDVSgMd);
+  outlined init with copy of Date?(&v6[*(v4 + 32)], v12, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   _s8PaperKit12TaggedStrokeOWOhTm_1(v6, type metadata accessor for PKStrokeProperties);
   v14 = type metadata accessor for UUID();
   v15 = *(v14 - 8);
@@ -347,7 +347,7 @@
 
 - (void)_setRenderGroupID:(id)d
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v16[-v6 - 8];
   if (d)
@@ -366,7 +366,7 @@
   swift_beginAccess();
   type metadata accessor for PKStrokeStruct(0);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   v11 = CRRegister.wrappedValue.modify();
   v13 = v12;
   v14 = type metadata accessor for PKStrokeProperties(0);
@@ -374,7 +374,7 @@
   v11(v16, 0);
   swift_endAccess();
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_s10Foundation4UUIDVSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 }
 
 - (int64_t)_shapeType
@@ -389,7 +389,7 @@
   v10 = OBJC_IVAR___PKStrokeCoherence_model;
   swift_beginAccess();
   outlined init with copy of PKStrokeStruct(self + v10, v9, type metadata accessor for PKStrokeStruct);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   CRRegister.wrappedValue.getter();
   _s8PaperKit12TaggedStrokeOWOhTm_1(v9, type metadata accessor for PKStrokeStruct);
   v11 = *&v6[*(v4 + 36)];
@@ -402,7 +402,7 @@
   swift_beginAccess();
   type metadata accessor for PKStrokeStruct(0);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMd, &_s9Coherence10CRRegisterVy8PaperKit18PKStrokePropertiesVGMR);
   v6 = CRRegister.wrappedValue.modify();
   *(v7 + *(type metadata accessor for PKStrokeProperties(0) + 28)) = type;
   v6(v8, 0);
@@ -457,7 +457,7 @@
   v8 = OBJC_IVAR___PKStrokeCoherence_resolvedProperties;
   swift_beginAccess();
   outlined init with copy of PKStrokeStruct(self + v8, v7, type metadata accessor for PKStrokeInheritedProperties);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMR);
   CRRegister.wrappedValue.getter();
   result = _s8PaperKit12TaggedStrokeOWOhTm_1(v7, type metadata accessor for PKStrokeInheritedProperties);
   v10 = v12[1];

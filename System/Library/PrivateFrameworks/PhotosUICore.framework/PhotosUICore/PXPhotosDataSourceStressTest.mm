@@ -231,7 +231,7 @@ void __40__PXPhotosDataSourceStressTest__prepare__block_invoke(uint64_t a1, void
   }
 }
 
-uint64_t __43__PXPhotosDataSourceStressTest_setRunning___block_invoke(uint64_t a1)
+void *__43__PXPhotosDataSourceStressTest_setRunning___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 136) = *(a1 + 40);
   result = [*(a1 + 32) signalChange:1];

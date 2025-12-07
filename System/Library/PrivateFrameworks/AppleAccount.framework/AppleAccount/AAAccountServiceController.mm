@@ -23,7 +23,7 @@
 
 - (void)updatePropertiesForAppleAccount:(id)account options:(id)options completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   optionsCopy = options;
   completionCopy = completion;
@@ -31,44 +31,43 @@
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v11, &state);
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x3032000000;
-  v30[3] = __Block_byref_object_copy_;
-  v30[4] = __Block_byref_object_dispose_;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x3032000000;
+  v29[3] = __Block_byref_object_copy_;
+  v29[4] = __Block_byref_object_dispose_;
   selfCopy = self;
-  v31 = selfCopy;
+  v30 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __81__AAAccountServiceController_updatePropertiesForAppleAccount_options_completion___block_invoke;
   aBlock[3] = &unk_1E7C9A7A8;
-  v29 = v30;
+  v28 = v29;
   v13 = completionCopy;
-  v28 = v13;
+  v27 = v13;
   v14 = _Block_copy(aBlock);
   daemonConnection = selfCopy->_daemonConnection;
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __81__AAAccountServiceController_updatePropertiesForAppleAccount_options_completion___block_invoke_2;
-  v24 = &unk_1E7C9A7D0;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __81__AAAccountServiceController_updatePropertiesForAppleAccount_options_completion___block_invoke_2;
+  v23 = &unk_1E7C9A7D0;
   v16 = v14;
-  v26 = v16;
+  v25 = v16;
   v17 = accountCopy;
-  v25 = v17;
-  v18 = [(AAAccountServiceDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:&v21];
-  v19 = _AALogSystem();
+  v24 = v17;
+  v18 = [(AAAccountServiceDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:&v20];
+  v19 = _AALogSystem(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = v18;
+    v33 = v18;
     _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Account service updating account properties for account with service: %@", buf, 0xCu);
   }
 
-  [v18 updatePropertiesForAppleAccount:v17 options:optionsCopy completion:{v16, v21, v22, v23, v24}];
-  _Block_object_dispose(v30, 8);
+  [v18 updatePropertiesForAppleAccount:v17 options:optionsCopy completion:{v16, v20, v21, v22, v23}];
+  _Block_object_dispose(v29, 8);
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __81__AAAccountServiceController_updatePropertiesForAppleAccount_options_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -89,23 +88,21 @@ void __81__AAAccountServiceController_updatePropertiesForAppleAccount_options_co
 void __81__AAAccountServiceController_updatePropertiesForAppleAccount_options_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __81__AAAccountServiceController_updatePropertiesForAppleAccount_options_completion___block_invoke_2_cold_1(v3, v4);
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
 void __81__AAAccountServiceController_updatePropertiesForAppleAccount_options_completion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Account service connection error handler called with: %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Account service connection error handler called with: %@.", &v2, 0xCu);
 }
 
 @end

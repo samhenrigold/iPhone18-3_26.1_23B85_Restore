@@ -42,7 +42,7 @@ flatbuffers::DetachedBuffer *__44__QSSTextNormalizationResponse_flatbuffData__bl
 
 - (Offset<siri::speech::schema_fb::TextNormalizationResponse>)addObjectToBuffer:(void *)buffer
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSTextNormalizationResponse *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -63,7 +63,7 @@ flatbuffers::DetachedBuffer *__44__QSSTextNormalizationResponse_flatbuffData__bl
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v12 = strlen(uTF8String2);
-  v31 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  v29 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
   tokens = [(QSSTextNormalizationResponse *)self tokens];
   v14 = [tokens count];
@@ -77,16 +77,11 @@ flatbuffers::DetachedBuffer *__44__QSSTextNormalizationResponse_flatbuffData__bl
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  memset(v32, 0, sizeof(v32));
   obj = [(QSSTextNormalizationResponse *)self tokens];
-  if ([obj countByEnumeratingWithState:&v34 objects:v38 count:16])
+  if ([obj countByEnumeratingWithState:v32 objects:v33 count:16])
   {
-    *v35;
-    *v35;
-    [**(&v34 + 1) addObjectToBuffer:buffer];
+    [**(&v32[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -112,7 +107,7 @@ flatbuffers::DetachedBuffer *__44__QSSTextNormalizationResponse_flatbuffData__bl
   v25 = *(v23 + 12);
   v26 = *(v23 + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(v23, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(v23, 6, v31);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(v23, 6, v29);
   if (v16)
   {
     v27 = flatbuffers::FlatBufferBuilder::ReferTo(v23, v16);
@@ -121,9 +116,7 @@ flatbuffers::DetachedBuffer *__44__QSSTextNormalizationResponse_flatbuffData__bl
 
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(v23, 10, error_code);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(v23, 12, v22);
-  v28.var0 = flatbuffers::FlatBufferBuilder::EndTable(v23, v24 - v25 + v26);
-  v29 = *MEMORY[0x277D85DE8];
-  return v28;
+  return flatbuffers::FlatBufferBuilder::EndTable(v23, v24 - v25 + v26);
 }
 
 - (NSString)error_str

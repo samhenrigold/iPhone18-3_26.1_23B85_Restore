@@ -124,9 +124,7 @@
 
 - (void)setHandler:(id)handler
 {
-  v4 = _Block_copy(handler);
-  handler = self->_handler;
-  self->_handler = v4;
+  self->_handler = _Block_copy(handler);
 
   MEMORY[0x2821F96F8]();
 }

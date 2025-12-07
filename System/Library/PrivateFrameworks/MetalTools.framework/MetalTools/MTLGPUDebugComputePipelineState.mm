@@ -18,7 +18,7 @@
 
 - (void)_initConstantsBuffer:(id)buffer
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(buffer "debugInstrumentationData")];
   self->_threadgroupArgumentOffset = [objc_msgSend(buffer "debugInstrumentationData")];
   self->_activeThreadgroupMask = [objc_msgSend(buffer "debugInstrumentationData")];
@@ -52,33 +52,33 @@
         GlobalResidentBufferList::addBuffer(&self->super.super._device[5].super._parent, v9);
       }
 
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       binaryFunctionData = self->_binaryFunctionData;
-      v11 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v18;
+        v13 = *v17;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v18 != v13)
+            if (*v17 != v13)
             {
               objc_enumerationMutation(binaryFunctionData);
             }
 
-            v15 = *(*(*(&v17 + 1) + 8 * i) + 8);
+            v15 = *(*(*(&v16 + 1) + 8 * i) + 8);
             if (v15)
             {
               GlobalResidentBufferList::addBuffer(&self->super.super._device[5].super._parent, v15);
             }
           }
 
-          v12 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v12 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v12);
@@ -87,16 +87,14 @@
 
     GlobalResidentBufferList::addBuffer(&self->super.super._device[5].super._parent, self->_indirectStateBuffer);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (MTLGPUDebugComputePipelineState)initWithComputePipelineState:(id)state descriptor:(id)descriptor unwrappedDescriptor:(id)unwrappedDescriptor reflection:(id)reflection device:(id)device pipelineOptions:(unint64_t)options
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v44.receiver = self;
-  v44.super_class = MTLGPUDebugComputePipelineState;
-  v14 = [(MTLToolsObject *)&v44 initWithBaseObject:state parent:device];
+  v46 = *MEMORY[0x277D85DE8];
+  v43.receiver = self;
+  v43.super_class = MTLGPUDebugComputePipelineState;
+  v14 = [(MTLToolsObject *)&v43 initWithBaseObject:state parent:device];
   if (v14)
   {
     reflectionCopy = reflection;
@@ -124,62 +122,62 @@
     {
       unwrappedDescriptorCopy = unwrappedDescriptor;
       v14->_binaryFunctionData = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v19];
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v20 = [objc_msgSend(descriptor "linkedFunctions")];
-      v21 = [v20 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v39 objects:v45 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v41;
+        v23 = *v40;
         do
         {
           v24 = 0;
           do
           {
-            if (*v41 != v23)
+            if (*v40 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            [(NSMutableArray *)v14->_binaryFunctionData addObject:*(*(*(&v40 + 1) + 8 * v24++) + 48), unwrappedDescriptorCopy];
+            [(NSMutableArray *)v14->_binaryFunctionData addObject:*(*(*(&v39 + 1) + 8 * v24++) + 48), unwrappedDescriptorCopy];
           }
 
           while (v22 != v24);
-          v22 = [v20 countByEnumeratingWithState:&v40 objects:v46 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v39 objects:v45 count:16];
         }
 
         while (v22);
       }
 
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       preloadedLibraries = [descriptor preloadedLibraries];
-      v26 = [preloadedLibraries countByEnumeratingWithState:&v36 objects:v45 count:16];
-      unwrappedDescriptor = v34;
+      v26 = [preloadedLibraries countByEnumeratingWithState:&v35 objects:v44 count:16];
+      unwrappedDescriptor = v33;
       if (v26)
       {
         v27 = v26;
-        v28 = *v37;
+        v28 = *v36;
         do
         {
           v29 = 0;
           do
           {
-            if (*v37 != v28)
+            if (*v36 != v28)
             {
               objc_enumerationMutation(preloadedLibraries);
             }
 
-            -[NSMutableArray addObject:](v14->_binaryFunctionData, "addObject:", [*(*(&v36 + 1) + 8 * v29++) imageData]);
+            -[NSMutableArray addObject:](v14->_binaryFunctionData, "addObject:", [*(*(&v35 + 1) + 8 * v29++) imageData]);
           }
 
           while (v27 != v29);
-          v27 = [preloadedLibraries countByEnumeratingWithState:&v36 objects:v45 count:16];
+          v27 = [preloadedLibraries countByEnumeratingWithState:&v35 objects:v44 count:16];
         }
 
         while (v27);
@@ -199,16 +197,15 @@
     [(MTLGPUDebugComputePipelineState *)v14 _initConstantsBuffer:state];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (MTLGPUDebugComputePipelineState)initWithComputePipelineState:(id)state binaryFunctions:(id)functions withState:(id)withState device:(id)device pipelineOptions:(unint64_t)options
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = MTLGPUDebugComputePipelineState;
-  v11 = [(MTLToolsObject *)&v27 initWithBaseObject:state parent:device];
+  v28 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = MTLGPUDebugComputePipelineState;
+  v11 = [(MTLToolsObject *)&v26 initWithBaseObject:state parent:device];
   v12 = v11;
   if (v11)
   {
@@ -233,30 +230,30 @@
       [(NSMutableArray *)v12->_binaryFunctionData addObjectsFromArray:?];
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v16 = [functions countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v16 = [functions countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v24;
+      v18 = *v23;
       do
       {
         v19 = 0;
         do
         {
-          if (*v24 != v18)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(functions);
           }
 
-          [(NSMutableArray *)v12->_binaryFunctionData addObject:*(*(*(&v23 + 1) + 8 * v19++) + 48)];
+          [(NSMutableArray *)v12->_binaryFunctionData addObject:*(*(*(&v22 + 1) + 8 * v19++) + 48)];
         }
 
         while (v17 != v19);
-        v17 = [functions countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v17 = [functions countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v17);
@@ -276,115 +273,115 @@
     [(MTLGPUDebugComputePipelineState *)v12 _initConstantsBuffer:state];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (MTLGPUDebugComputePipelineState)initWithComputePipelineState:(id)state descriptor:(id)descriptor dynamicLinkingDescriptor:(id)linkingDescriptor device:(id)device
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = MTLGPUDebugComputePipelineState;
-  v9 = [(MTLToolsObject *)&v35 initWithBaseObject:state parent:device];
+  v40 = *MEMORY[0x277D85DE8];
+  v37.receiver = self;
+  v37.super_class = MTLGPUDebugComputePipelineState;
+  v9 = [(MTLToolsObject *)&v37 initWithBaseObject:state parent:device];
   if (v9)
   {
-    v9->_kernelFunctionData = -[MTLGPUDebugImageData initWithFunctionName:functionType:debugInstrumentationData:device:]([MTLGPUDebugImageData alloc], "initWithFunctionName:functionType:debugInstrumentationData:device:", getFunctionDescriptorName([descriptor computeFunctionDescriptor]), 3, objc_msgSend(state, "debugInstrumentationData"), v9->super.super._device);
+    computeFunctionDescriptor = [descriptor computeFunctionDescriptor];
+    v11 = [MTLGPUDebugImageData alloc];
+    v9->_kernelFunctionData = -[MTLGPUDebugImageData initWithFunctionName:functionType:debugInstrumentationData:device:](v11, "initWithFunctionName:functionType:debugInstrumentationData:device:", getFunctionDescriptorName(computeFunctionDescriptor, v12), 3, [state debugInstrumentationData], v9->super.super._device);
     if (linkingDescriptor)
     {
-      v10 = [objc_msgSend(linkingDescriptor "preloadedLibraries")];
-      v11 = [objc_msgSend(linkingDescriptor "binaryLinkedFunctions")] + v10;
-      if (v11)
+      v13 = [objc_msgSend(linkingDescriptor "preloadedLibraries")];
+      v14 = [objc_msgSend(linkingDescriptor "binaryLinkedFunctions")] + v13;
+      if (v14)
       {
-        v9->_binaryFunctionData = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v11];
+        v9->_binaryFunctionData = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v14];
+        v35 = 0u;
+        v36 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v31 = 0u;
-        v32 = 0u;
         binaryLinkedFunctions = [linkingDescriptor binaryLinkedFunctions];
-        v13 = [binaryLinkedFunctions countByEnumeratingWithState:&v31 objects:v37 count:16];
-        if (v13)
+        v16 = [binaryLinkedFunctions countByEnumeratingWithState:&v33 objects:v39 count:16];
+        if (v16)
         {
-          v14 = v13;
-          v15 = *v32;
+          v17 = v16;
+          v18 = *v34;
           do
           {
-            for (i = 0; i != v14; ++i)
+            for (i = 0; i != v17; ++i)
             {
-              if (*v32 != v15)
+              if (*v34 != v18)
               {
                 objc_enumerationMutation(binaryLinkedFunctions);
               }
 
-              [(NSMutableArray *)v9->_binaryFunctionData addObject:*(*(*(&v31 + 1) + 8 * i) + 48)];
+              [(NSMutableArray *)v9->_binaryFunctionData addObject:*(*(*(&v33 + 1) + 8 * i) + 48)];
             }
 
-            v14 = [binaryLinkedFunctions countByEnumeratingWithState:&v31 objects:v37 count:16];
+            v17 = [binaryLinkedFunctions countByEnumeratingWithState:&v33 objects:v39 count:16];
           }
 
-          while (v14);
+          while (v17);
         }
 
+        v31 = 0u;
+        v32 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
         preloadedLibraries = [linkingDescriptor preloadedLibraries];
-        v18 = [preloadedLibraries countByEnumeratingWithState:&v27 objects:v36 count:16];
-        if (v18)
+        v21 = [preloadedLibraries countByEnumeratingWithState:&v29 objects:v38 count:16];
+        if (v21)
         {
-          v19 = v18;
-          v20 = *v28;
+          v22 = v21;
+          v23 = *v30;
           do
           {
-            for (j = 0; j != v19; ++j)
+            for (j = 0; j != v22; ++j)
             {
-              if (*v28 != v20)
+              if (*v30 != v23)
               {
                 objc_enumerationMutation(preloadedLibraries);
               }
 
-              -[NSMutableArray addObject:](v9->_binaryFunctionData, "addObject:", [*(*(&v27 + 1) + 8 * j) imageData]);
+              -[NSMutableArray addObject:](v9->_binaryFunctionData, "addObject:", [*(*(&v29 + 1) + 8 * j) imageData]);
             }
 
-            v19 = [preloadedLibraries countByEnumeratingWithState:&v27 objects:v36 count:16];
+            v22 = [preloadedLibraries countByEnumeratingWithState:&v29 objects:v38 count:16];
           }
 
-          while (v19);
+          while (v22);
         }
       }
     }
 
-    v22 = [objc_msgSend(descriptor "options")];
-    if ([v22 enableBoundsChecking] & 1) != 0 || (objc_msgSend(v22, "enableThreadgroupMemoryChecks") & 1) != 0 || (objc_msgSend(v22, "enableTextureChecks") & 1) != 0 || (objc_msgSend(v22, "enableResourceUsageValidation"))
+    v25 = [objc_msgSend(descriptor "options")];
+    if ([v25 enableBoundsChecking] & 1) != 0 || (objc_msgSend(v25, "enableThreadgroupMemoryChecks") & 1) != 0 || (objc_msgSend(v25, "enableTextureChecks") & 1) != 0 || (objc_msgSend(v25, "enableResourceUsageValidation"))
     {
-      v23 = 1;
+      v26 = 1;
     }
 
     else
     {
-      enableStackOverflow = [v22 enableStackOverflow];
-      v23 = 1;
+      enableStackOverflow = [v25 enableStackOverflow];
+      v26 = 1;
       if (!enableStackOverflow)
       {
-        v23 = 2;
+        v26 = 2;
       }
     }
 
-    v9->_shaderValidation = v23;
+    v9->_shaderValidation = v26;
     v9->_supportsIndirectCommandBuffers = [descriptor supportIndirectCommandBuffers] != 0;
     [(MTLGPUDebugComputePipelineState *)v9 _initConstantsBuffer:state];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (MTLGPUDebugComputePipelineState)initWithComputePipelineState:(id)state binaryFunctions:(id)functions withState:(id)withState device:(id)device
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = MTLGPUDebugComputePipelineState;
-  v9 = [(MTLToolsObject *)&v22 initWithBaseObject:state parent:device];
+  v23 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = MTLGPUDebugComputePipelineState;
+  v9 = [(MTLToolsObject *)&v21 initWithBaseObject:state parent:device];
   if (v9)
   {
     v9->_kernelFunctionData = [withState kernelFunctionData];
@@ -400,28 +397,28 @@
       -[NSMutableArray addObjectsFromArray:](v9->_binaryFunctionData, "addObjectsFromArray:", [withState binaryFunctionData]);
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v12 = [functions countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v12 = [functions countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(functions);
           }
 
-          [(NSMutableArray *)v9->_binaryFunctionData addObject:*(*(*(&v18 + 1) + 8 * i) + 48)];
+          [(NSMutableArray *)v9->_binaryFunctionData addObject:*(*(*(&v17 + 1) + 8 * i) + 48)];
         }
 
-        v13 = [functions countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v13 = [functions countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v13);
@@ -432,11 +429,10 @@
     [(MTLGPUDebugComputePipelineState *)v9 _initConstantsBuffer:state];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t __58__MTLGPUDebugComputePipelineState_functionHandleWithName___block_invoke(uint64_t a1)
+MTLGPUDebugFunctionHandle *__58__MTLGPUDebugComputePipelineState_functionHandleWithName___block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugFunctionHandle alloc];
   v3 = *(a1 + 32);
@@ -445,7 +441,7 @@ uint64_t __58__MTLGPUDebugComputePipelineState_functionHandleWithName___block_in
   return [(MTLGPUDebugFunctionHandle *)v2 initWithFunctionHandle:v3 computePipelineState:v4];
 }
 
-uint64_t __68__MTLGPUDebugComputePipelineState_functionHandleWithBinaryFunction___block_invoke(uint64_t a1)
+MTLGPUDebugFunctionHandle *__68__MTLGPUDebugComputePipelineState_functionHandleWithBinaryFunction___block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugFunctionHandle alloc];
   v3 = *(a1 + 32);
@@ -456,32 +452,32 @@ uint64_t __68__MTLGPUDebugComputePipelineState_functionHandleWithBinaryFunction_
 
 - (id)newComputePipelineStateWithBinaryFunctions:(id)functions error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(functions, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [functions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [functions countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(functions);
         }
 
-        [v7 addObject:*(*(&v16 + 1) + 8 * v11++)];
+        [v7 addObject:*(*(&v15 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [functions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [functions countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -495,7 +491,6 @@ uint64_t __68__MTLGPUDebugComputePipelineState_functionHandleWithBinaryFunction_
 
   v13 = [[MTLGPUDebugComputePipelineState alloc] initWithComputePipelineState:v12 binaryFunctions:v7 withState:self device:self->super.super._device];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -548,7 +543,7 @@ uint64_t __68__MTLGPUDebugComputePipelineState_functionHandleWithBinaryFunction_
   return [MTLToolsObjectCache getCachedObjectForKey:"getCachedObjectForKey:onMiss:" onMiss:?];
 }
 
-uint64_t __62__MTLGPUDebugComputePipelineState_functionHandleWithFunction___block_invoke(void *a1)
+MTLGPUDebugFunctionHandle *__62__MTLGPUDebugComputePipelineState_functionHandleWithFunction___block_invoke(void *a1)
 {
   v2 = [MTLGPUDebugFunctionHandle alloc];
   v3 = a1[4];
@@ -560,32 +555,32 @@ uint64_t __62__MTLGPUDebugComputePipelineState_functionHandleWithFunction___bloc
 
 - (id)newComputePipelineStateWithAdditionalBinaryFunctions:(id)functions error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(functions, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [functions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [functions countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(functions);
         }
 
-        [v7 addObject:{objc_msgSend(*(*(&v16 + 1) + 8 * v11++), "baseObject")}];
+        [v7 addObject:{objc_msgSend(*(*(&v15 + 1) + 8 * v11++), "baseObject")}];
       }
 
       while (v9 != v11);
-      v9 = [functions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [functions countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -600,7 +595,6 @@ uint64_t __62__MTLGPUDebugComputePipelineState_functionHandleWithFunction___bloc
 
   v13 = [[MTLGPUDebugComputePipelineState alloc] initWithComputePipelineState:v12 binaryFunctions:functions withState:self device:self->super.super._device pipelineOptions:0];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -620,7 +614,7 @@ uint64_t __62__MTLGPUDebugComputePipelineState_functionHandleWithFunction___bloc
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->_supportsIndirectCommandBuffers)
   {
     v3 = *(self->_kernelFunctionData + 1);
@@ -629,33 +623,33 @@ uint64_t __62__MTLGPUDebugComputePipelineState_functionHandleWithFunction___bloc
       GlobalResidentBufferList::removeBuffer(&self->super.super._device[5].super._parent, v3);
     }
 
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     binaryFunctionData = self->_binaryFunctionData;
-    v5 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(binaryFunctionData);
           }
 
-          v9 = *(*(*(&v12 + 1) + 8 * i) + 8);
+          v9 = *(*(*(&v11 + 1) + 8 * i) + 8);
           if (v9)
           {
             GlobalResidentBufferList::removeBuffer(&self->super.super._device[5].super._parent, v9);
           }
         }
 
-        v6 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [(NSMutableArray *)binaryFunctionData countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -664,10 +658,9 @@ uint64_t __62__MTLGPUDebugComputePipelineState_functionHandleWithFunction___bloc
     GlobalResidentBufferList::removeBuffer(&self->super.super._device[5].super._parent, self->_indirectStateBuffer);
   }
 
-  v11.receiver = self;
-  v11.super_class = MTLGPUDebugComputePipelineState;
-  [(MTLToolsComputePipelineState *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = MTLGPUDebugComputePipelineState;
+  [(MTLToolsComputePipelineState *)&v10 dealloc];
 }
 
 @end

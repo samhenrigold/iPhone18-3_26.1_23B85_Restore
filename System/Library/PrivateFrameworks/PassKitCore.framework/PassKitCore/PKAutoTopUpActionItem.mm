@@ -51,7 +51,7 @@
           v19 = MEMORY[0x1E696AB90];
           if (v18)
           {
-            [v18 decimalValue];
+            objc_msgSend_decimalValue(v18);
           }
 
           else
@@ -106,7 +106,7 @@
           v30 = MEMORY[0x1E696AB90];
           if (v29)
           {
-            [v29 decimalValue];
+            objc_msgSend_decimalValue(v29);
           }
 
           else
@@ -162,7 +162,7 @@
           v41 = MEMORY[0x1E696AB90];
           if (v40)
           {
-            [v40 decimalValue];
+            objc_msgSend_decimalValue(v40);
           }
 
           else

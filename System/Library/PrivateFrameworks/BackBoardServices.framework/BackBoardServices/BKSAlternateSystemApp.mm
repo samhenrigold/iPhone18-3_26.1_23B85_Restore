@@ -28,12 +28,12 @@
 
 - (BKSAlternateSystemApp)alternateSystemAppWithBundleIDDidTerminate:(id)terminate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v10 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidTerminate:]";
+    v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidTerminate:]";
     _os_log_debug_impl(&dword_186345000, v4, OS_LOG_TYPE_DEBUG, "%s: message from server", buf, 0xCu);
   }
 
@@ -44,35 +44,32 @@
   block[3] = &unk_1E6F477B8;
   block[4] = self;
   dispatch_async(queue, block);
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __68__BKSAlternateSystemApp_alternateSystemAppWithBundleIDDidTerminate___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = [*(*(a1 + 32) + 32) remoteObjectProxy];
   [v1 unblockSystemAppForAlternateSystemApp];
 
   v2 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 136315138;
-    v5 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidTerminate:]_block_invoke";
-    _os_log_debug_impl(&dword_186345000, v2, OS_LOG_TYPE_DEBUG, "%s: requested unblock of system app", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidTerminate:]_block_invoke";
+    _os_log_debug_impl(&dword_186345000, v2, OS_LOG_TYPE_DEBUG, "%s: requested unblock of system app", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (BKSAlternateSystemApp)alternateSystemAppWithBundleIDDidOpen:(id)open
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v10 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidOpen:]";
+    v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidOpen:]";
     _os_log_debug_impl(&dword_186345000, v4, OS_LOG_TYPE_DEBUG, "%s: message from server", buf, 0xCu);
   }
 
@@ -83,97 +80,93 @@ void __68__BKSAlternateSystemApp_alternateSystemAppWithBundleIDDidTerminate___bl
   block[3] = &unk_1E6F477B8;
   block[4] = self;
   dispatch_async(queue, block);
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __63__BKSAlternateSystemApp_alternateSystemAppWithBundleIDDidOpen___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
   if (WeakRetained && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    [WeakRetained alternateSystemAppDidLaunch:*(a1 + 32)];
-    v3 = BKLogAlternateSystemApp();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    [WeakRetained alternateSystemAppDidLaunch:?];
+    v2 = BKLogAlternateSystemApp();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315138;
-      v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidOpen:]_block_invoke";
-      v4 = "%s: called out to delegate alternateSystemAppDidLaunch:";
-      v5 = v3;
-      v6 = 12;
+      v6 = 136315138;
+      v7 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidOpen:]_block_invoke";
+      v3 = "%s: called out to delegate alternateSystemAppDidLaunch:";
+      v4 = v2;
+      v5 = 12;
 LABEL_8:
-      _os_log_debug_impl(&dword_186345000, v5, OS_LOG_TYPE_DEBUG, v4, &v8, v6);
+      _os_log_debug_impl(&dword_186345000, v4, OS_LOG_TYPE_DEBUG, v3, &v6, v5);
     }
   }
 
   else
   {
-    v3 = BKLogAlternateSystemApp();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v2 = BKLogAlternateSystemApp();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315394;
-      v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidOpen:]_block_invoke";
-      v10 = 2114;
-      v11 = WeakRetained;
-      v4 = "%s: did not call out to alternateSystemAppDidLaunch: for delegate %{public}@";
-      v5 = v3;
-      v6 = 22;
+      v6 = 136315394;
+      v7 = "[BKSAlternateSystemApp alternateSystemAppWithBundleIDDidOpen:]_block_invoke";
+      v8 = 2114;
+      v9 = WeakRetained;
+      v3 = "%s: did not call out to alternateSystemAppDidLaunch: for delegate %{public}@";
+      v4 = v2;
+      v5 = 22;
       goto LABEL_8;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BKSAlternateSystemApp)alternateSystemAppWithBundleID:(id)d didExitWithContext:(id)context
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v6 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v14 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]";
+    v13 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]";
     _os_log_debug_impl(&dword_186345000, v6, OS_LOG_TYPE_DEBUG, "%s: message from server", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __75__BKSAlternateSystemApp_alternateSystemAppWithBundleID_didExitWithContext___block_invoke;
-  v11[3] = &unk_1E6F47C78;
-  v11[4] = self;
-  v12 = contextCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __75__BKSAlternateSystemApp_alternateSystemAppWithBundleID_didExitWithContext___block_invoke;
+  v10[3] = &unk_1E6F47C78;
+  v10[4] = self;
+  v11 = contextCopy;
   v8 = contextCopy;
-  dispatch_async(queue, v11);
+  dispatch_async(queue, v10);
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __75__BKSAlternateSystemApp_alternateSystemAppWithBundleID_didExitWithContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _queue_changeState:2];
+  v12 = *MEMORY[0x1E69E9840];
+  [*(a1 + 32) _queue_changeState:?];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
   v3 = [*(a1 + 40) status];
   if ([v3 isSignal])
   {
     if (WeakRetained && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      [WeakRetained alternateSystemApp:*(a1 + 32) didTerminateWithSignal:0xFFFFFFFFLL];
+      [WeakRetained alternateSystemApp:? didTerminateWithSignal:?];
       v4 = BKLogAlternateSystemApp();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v10 = 136315138;
-        v11 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]_block_invoke";
+        v8 = 136315138;
+        v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]_block_invoke";
         v5 = "%s called out to delegate alternateSystemApp:didTerminateWithSignal:";
 LABEL_10:
-        v7 = v4;
-        v8 = 12;
+        v6 = v4;
+        v7 = 12;
 LABEL_17:
-        _os_log_debug_impl(&dword_186345000, v7, OS_LOG_TYPE_DEBUG, v5, &v10, v8);
+        _os_log_debug_impl(&dword_186345000, v6, OS_LOG_TYPE_DEBUG, v5, &v8, v7);
         goto LABEL_14;
       }
 
@@ -186,18 +179,18 @@ LABEL_17:
       goto LABEL_14;
     }
 
-    v10 = 136315394;
-    v11 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]_block_invoke";
-    v12 = 2114;
-    v13 = WeakRetained;
+    v8 = 136315394;
+    v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]_block_invoke";
+    v10 = 2114;
+    v11 = WeakRetained;
     v5 = "%s did not call out to alternateSystemApp:didTerminateWithSignal: for delegate %{public}@";
 LABEL_16:
-    v7 = v4;
-    v8 = 22;
+    v6 = v4;
+    v7 = 22;
     goto LABEL_17;
   }
 
-  v6 = [*(a1 + 40) type] != 1;
+  [*(a1 + 40) type];
   if (!WeakRetained || (objc_opt_respondsToSelector() & 1) == 0)
   {
     v4 = BKLogAlternateSystemApp();
@@ -206,73 +199,70 @@ LABEL_16:
       goto LABEL_14;
     }
 
-    v10 = 136315394;
-    v11 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]_block_invoke";
-    v12 = 2114;
-    v13 = WeakRetained;
+    v8 = 136315394;
+    v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]_block_invoke";
+    v10 = 2114;
+    v11 = WeakRetained;
     v5 = "%s did not call out to alternateSystemApp:didExitWithStatus: for delegate %{public}@";
     goto LABEL_16;
   }
 
-  [WeakRetained alternateSystemApp:*(a1 + 32) didExitWithStatus:v6];
+  [WeakRetained alternateSystemApp:? didExitWithStatus:?];
   v4 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315138;
-    v11 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]_block_invoke";
+    v8 = 136315138;
+    v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:didExitWithContext:]_block_invoke";
     v5 = "%s called out to delegate alternateSystemApp:didExitWithStatus:";
     goto LABEL_10;
   }
 
 LABEL_14:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BKSAlternateSystemApp)alternateSystemAppWithBundleID:(id)d failedToOpenWithResult:(id)result
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v6 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v14 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:failedToOpenWithResult:]";
+    v13 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:failedToOpenWithResult:]";
     _os_log_debug_impl(&dword_186345000, v6, OS_LOG_TYPE_DEBUG, "%s: message from server", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __79__BKSAlternateSystemApp_alternateSystemAppWithBundleID_failedToOpenWithResult___block_invoke;
-  v11[3] = &unk_1E6F47C78;
-  v11[4] = self;
-  v12 = resultCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __79__BKSAlternateSystemApp_alternateSystemAppWithBundleID_failedToOpenWithResult___block_invoke;
+  v10[3] = &unk_1E6F47C78;
+  v10[4] = self;
+  v11 = resultCopy;
   v8 = resultCopy;
-  dispatch_async(queue, v11);
+  dispatch_async(queue, v10);
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __79__BKSAlternateSystemApp_alternateSystemAppWithBundleID_failedToOpenWithResult___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _queue_changeState:2];
+  v11 = *MEMORY[0x1E69E9840];
+  [*(a1 + 32) _queue_changeState:?];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
   if (WeakRetained && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    [WeakRetained alternateSystemApp:*(a1 + 32) didFailToLaunchWithError:*(a1 + 40)];
+    [WeakRetained alternateSystemApp:? didFailToLaunchWithError:?];
     v3 = BKLogAlternateSystemApp();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315138;
-      v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:failedToOpenWithResult:]_block_invoke";
+      v7 = 136315138;
+      v8 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:failedToOpenWithResult:]_block_invoke";
       v4 = "%s called out to delegate alternateSystemApp:didFailToLaunchWithError:";
       v5 = v3;
       v6 = 12;
 LABEL_8:
-      _os_log_debug_impl(&dword_186345000, v5, OS_LOG_TYPE_DEBUG, v4, &v8, v6);
+      _os_log_debug_impl(&dword_186345000, v5, OS_LOG_TYPE_DEBUG, v4, &v7, v6);
     }
   }
 
@@ -281,28 +271,26 @@ LABEL_8:
     v3 = BKLogAlternateSystemApp();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315394;
-      v9 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:failedToOpenWithResult:]_block_invoke";
-      v10 = 2114;
-      v11 = WeakRetained;
+      v7 = 136315394;
+      v8 = "[BKSAlternateSystemApp alternateSystemAppWithBundleID:failedToOpenWithResult:]_block_invoke";
+      v9 = 2114;
+      v10 = WeakRetained;
       v4 = "%s did not call out to alternateSystemApp:didFailToLaunchWithError: for delegate %{public}@";
       v5 = v3;
       v6 = 22;
       goto LABEL_8;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didUnblockSystemAppForAlternateSystemApp
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v8 = "[BKSAlternateSystemApp didUnblockSystemAppForAlternateSystemApp]";
+    v7 = "[BKSAlternateSystemApp didUnblockSystemAppForAlternateSystemApp]";
     _os_log_debug_impl(&dword_186345000, v3, OS_LOG_TYPE_DEBUG, "%s: message from server", buf, 0xCu);
   }
 
@@ -313,17 +301,16 @@ LABEL_8:
   block[3] = &unk_1E6F477B8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didBlockSystemAppForAlternateSystemApp
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v8 = "[BKSAlternateSystemApp didBlockSystemAppForAlternateSystemApp]";
+    v7 = "[BKSAlternateSystemApp didBlockSystemAppForAlternateSystemApp]";
     _os_log_debug_impl(&dword_186345000, v3, OS_LOG_TYPE_DEBUG, "%s: message from server", buf, 0xCu);
   }
 
@@ -334,31 +321,28 @@ LABEL_8:
   block[3] = &unk_1E6F477B8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __63__BKSAlternateSystemApp_didBlockSystemAppForAlternateSystemApp__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(v1 + 48) != 2)
   {
     v3 = [*(v1 + 32) remoteObjectProxy];
-    [v3 openAlternateSystemAppWithBundleID:*(*(a1 + 32) + 24)];
+    [v3 openAlternateSystemAppWithBundleID:?];
 
     v4 = BKLogAlternateSystemApp();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = *(*(a1 + 32) + 24);
-      v7 = 136315394;
-      v8 = "[BKSAlternateSystemApp didBlockSystemAppForAlternateSystemApp]_block_invoke";
-      v9 = 2114;
-      v10 = v6;
-      _os_log_debug_impl(&dword_186345000, v4, OS_LOG_TYPE_DEBUG, "%s: requested open of alternate system app %{public}@", &v7, 0x16u);
+      v5 = *(*(a1 + 32) + 24);
+      v6 = 136315394;
+      v7 = "[BKSAlternateSystemApp didBlockSystemAppForAlternateSystemApp]_block_invoke";
+      v8 = 2114;
+      v9 = v5;
+      _os_log_debug_impl(&dword_186345000, v4, OS_LOG_TYPE_DEBUG, "%s: requested open of alternate system app %{public}@", &v6, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleInterruptedConnection
@@ -380,7 +364,7 @@ void __53__BKSAlternateSystemApp__handleInterruptedConnection__block_invoke(uint
   {
     case 3:
 
-      [v2 _queue_changeState:0];
+      [v2 _queue_changeState:?];
       break;
     case 2:
       v4 = [*(v2 + 32) remoteObjectProxy];
@@ -398,11 +382,11 @@ void __53__BKSAlternateSystemApp__handleInterruptedConnection__block_invoke(uint
 {
   dispatch_assert_queue_V2(self->_queue);
   [(NSXPCConnection *)self->_connection invalidate];
-  [(NSXPCConnection *)self->_connection setInterruptionHandler:0];
-  [(NSXPCConnection *)self->_connection setInvalidationHandler:0];
-  [(NSXPCConnection *)self->_connection setExportedObject:0];
+  [(NSXPCConnection *)self->_connection setInterruptionHandler:?];
+  [(NSXPCConnection *)self->_connection setInvalidationHandler:?];
+  [(NSXPCConnection *)self->_connection setExportedObject:?];
 
-  [(BKSAlternateSystemApp *)self setConnection:0];
+  [(BKSAlternateSystemApp *)self setConnection:?];
 }
 
 - (void)_waitForState:(int64_t)state
@@ -438,7 +422,7 @@ void __53__BKSAlternateSystemApp__handleInterruptedConnection__block_invoke(uint
 
 - (void)_queue_changeState:(int64_t)state
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v5 = BKLogAlternateSystemApp();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -453,14 +437,13 @@ void __53__BKSAlternateSystemApp__handleInterruptedConnection__block_invoke(uint
       v6 = off_1E6F46FD8[state];
     }
 
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_186345000, v5, OS_LOG_TYPE_DEFAULT, "Setting state to %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_186345000, v5, OS_LOG_TYPE_DEFAULT, "Setting state to %{public}@", &v7, 0xCu);
   }
 
   self->_state = state;
   dispatch_semaphore_signal(self->_stateChangeSemaphore);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_ensureConnection
@@ -471,52 +454,48 @@ void __53__BKSAlternateSystemApp__handleInterruptedConnection__block_invoke(uint
     if (self->_state)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v13 = currentHandler;
+      v12 = currentHandler;
       state = self->_state;
       if (state > 3)
       {
-        v15 = @"Unknown";
+        v14 = @"Unknown";
       }
 
       else
       {
-        v15 = off_1E6F46FD8[state];
+        v14 = off_1E6F46FD8[state];
       }
 
-      [currentHandler handleFailureInMethod:a2 object:self file:@"BKSAlternateSystemApp.m" lineNumber:119 description:{@"BKSAlternateSystemApp %@ has no connection but is in state %@ instead of Idle", self, v15}];
+      [currentHandler handleFailureInMethod:self object:v14 file:? lineNumber:? description:?];
     }
 
-    v4 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.backboard.altsysapp" options:4096];
+    v3 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:? options:?];
     connection = self->_connection;
-    self->_connection = v4;
+    self->_connection = v3;
 
-    v6 = self->_connection;
-    v7 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1EF579470];
-    [(NSXPCConnection *)v6 setRemoteObjectInterface:v7];
+    v5 = self->_connection;
+    v6 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:?];
+    [(NSXPCConnection *)v5 setRemoteObjectInterface:?];
 
-    v8 = self->_connection;
-    v9 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1EF573330];
-    [(NSXPCConnection *)v8 setExportedInterface:v9];
+    v7 = self->_connection;
+    v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:?];
+    [(NSXPCConnection *)v7 setExportedInterface:?];
 
-    [(NSXPCConnection *)self->_connection setExportedObject:self];
+    [(NSXPCConnection *)self->_connection setExportedObject:?];
     objc_initWeak(&location, self);
+    v9 = self->_connection;
+    v15[1] = MEMORY[0x1E69E9820];
+    v15[2] = 3221225472;
+    v15[3] = __48__BKSAlternateSystemApp__queue_ensureConnection__block_invoke;
+    v15[4] = &unk_1E6F46F90;
+    objc_copyWeak(&v16, &location);
+    [(NSXPCConnection *)v9 setInterruptionHandler:?];
     v10 = self->_connection;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __48__BKSAlternateSystemApp__queue_ensureConnection__block_invoke;
-    v18[3] = &unk_1E6F46F90;
-    objc_copyWeak(&v19, &location);
-    [(NSXPCConnection *)v10 setInterruptionHandler:v18];
-    v11 = self->_connection;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __48__BKSAlternateSystemApp__queue_ensureConnection__block_invoke_3;
-    v16[3] = &unk_1E6F46F90;
-    objc_copyWeak(&v17, &location);
-    [(NSXPCConnection *)v11 setInvalidationHandler:v16];
+    objc_copyWeak(v15, &location);
+    [(NSXPCConnection *)v10 setInvalidationHandler:?];
     [(NSXPCConnection *)self->_connection resume];
-    objc_destroyWeak(&v17);
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 }
@@ -556,7 +535,7 @@ void __48__BKSAlternateSystemApp__queue_ensureConnection__block_invoke_3(uint64_
   block[3] = &unk_1E6F477B8;
   block[4] = self;
   dispatch_async(queue, block);
-  [(BKSAlternateSystemApp *)self _waitForState:0];
+  [(BKSAlternateSystemApp *)self _waitForState:?];
   v4 = self->_queue;
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
@@ -566,18 +545,18 @@ void __48__BKSAlternateSystemApp__queue_ensureConnection__block_invoke_3(uint64_
   dispatch_sync(v4, v5);
 }
 
-void __34__BKSAlternateSystemApp_terminate__block_invoke(uint64_t a1)
+void __34__BKSAlternateSystemApp_terminate__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = BKLogAlternateSystemApp();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = BKLogAlternateSystemApp();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_186345000, v2, OS_LOG_TYPE_DEFAULT, "Terminating", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_186345000, v3, OS_LOG_TYPE_DEFAULT, "Terminating", v5, 2u);
   }
 
-  [*(a1 + 32) _queue_changeState:3];
-  v3 = [*(*(a1 + 32) + 32) remoteObjectProxy];
-  [v3 terminateAlternateSystemAppWithBundleID:*(*(a1 + 32) + 24)];
+  [*(a1 + 32) _queue_changeState:?];
+  v4 = [*(*(a1 + 32) + 32) remoteObjectProxy];
+  [v4 terminateAlternateSystemAppWithBundleID:?];
 }
 
 - (void)activate
@@ -591,19 +570,19 @@ void __34__BKSAlternateSystemApp_terminate__block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __33__BKSAlternateSystemApp_activate__block_invoke(uint64_t a1)
+void __33__BKSAlternateSystemApp_activate__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = BKLogAlternateSystemApp();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = BKLogAlternateSystemApp();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_186345000, v2, OS_LOG_TYPE_DEFAULT, "Activating", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_186345000, v3, OS_LOG_TYPE_DEFAULT, "Activating", v5, 2u);
   }
 
   [*(a1 + 32) _queue_ensureConnection];
-  [*(a1 + 32) _queue_changeState:1];
-  v3 = [*(*(a1 + 32) + 32) remoteObjectProxy];
-  [v3 blockSystemAppForAlternateSystemApp];
+  [*(a1 + 32) _queue_changeState:?];
+  v4 = [*(*(a1 + 32) + 32) remoteObjectProxy];
+  [v4 blockSystemAppForAlternateSystemApp];
 }
 
 - (void)dealloc
@@ -611,12 +590,12 @@ void __33__BKSAlternateSystemApp_activate__block_invoke(uint64_t a1)
   if (self->_connection)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSAlternateSystemApp.m" lineNumber:81 description:{@"BKSAlternateSystemApp %@: you must call -terminate before -dealloc", self}];
+    [currentHandler handleFailureInMethod:self object:? file:? lineNumber:? description:?];
   }
 
-  v5.receiver = self;
-  v5.super_class = BKSAlternateSystemApp;
-  [(BKSAlternateSystemApp *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = BKSAlternateSystemApp;
+  [(BKSAlternateSystemApp *)&v4 dealloc];
 }
 
 - (BKSAlternateSystemApp)initWithBundleId:(id)id
@@ -629,7 +608,7 @@ void __33__BKSAlternateSystemApp_activate__block_invoke(uint64_t a1)
   if (v5)
   {
     v5->_state = 0;
-    [(BKSAlternateSystemApp *)v5 setBundleId:idCopy];
+    [(BKSAlternateSystemApp *)v5 setBundleId:?];
     v6->_stateChangeWaiter = 0;
     v7 = dispatch_semaphore_create(0);
     stateChangeSemaphore = v6->_stateChangeSemaphore;

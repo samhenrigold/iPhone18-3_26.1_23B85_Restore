@@ -16,112 +16,111 @@
 
 - (ABDeviceDisplayView)initWithFrame:(CGRect)frame
 {
-  v50[4] = *MEMORY[0x277D85DE8];
-  v49.receiver = self;
-  v49.super_class = ABDeviceDisplayView;
-  v3 = [(ABDeviceDisplayView *)&v49 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v51[4] = *MEMORY[0x277D85DE8];
+  v50.receiver = self;
+  v50.super_class = ABDeviceDisplayView;
+  v3 = [(ABDeviceDisplayView *)&v50 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
-    v45 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v4 = ABDisplayPackageName();
-    v44 = [v45 URLForResource:v4 withExtension:@"ca"];
+    v46 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v5 = ABDisplayPackageName(v46, v4);
+    v45 = [v46 URLForResource:v5 withExtension:@"ca"];
 
-    v5 = [MEMORY[0x277CD9F28] packageWithContentsOfURL:v44 type:*MEMORY[0x277CDA7F8] options:0 error:0];
+    v6 = [MEMORY[0x277CD9F28] packageWithContentsOfURL:v45 type:*MEMORY[0x277CDA7F8] options:0 error:0];
     package = v3->_package;
-    v3->_package = v5;
+    v3->_package = v6;
 
     rootLayer = [(CAPackage *)v3->_package rootLayer];
     [rootLayer setGeometryFlipped:1];
 
-    v8 = [(CAPackage *)v3->_package publishedObjectWithName:@"island"];
+    v9 = [(CAPackage *)v3->_package publishedObjectWithName:@"island"];
     islandLayer = v3->_islandLayer;
-    v3->_islandLayer = v8;
+    v3->_islandLayer = v9;
 
-    v10 = [(CAPackage *)v3->_package publishedObjectWithName:@"ringer"];
+    v11 = [(CAPackage *)v3->_package publishedObjectWithName:@"ringer"];
     ringerLayer = v3->_ringerLayer;
-    v3->_ringerLayer = v10;
+    v3->_ringerLayer = v11;
 
-    v12 = [(CAPackage *)v3->_package publishedObjectWithName:@"Wallpaper"];
+    v13 = [(CAPackage *)v3->_package publishedObjectWithName:@"Wallpaper"];
     wallpaperLayer = v3->_wallpaperLayer;
-    v3->_wallpaperLayer = v12;
+    v3->_wallpaperLayer = v13;
 
-    v14 = [objc_alloc(MEMORY[0x277CD9FB8]) initWithLayer:v3->_ringerLayer];
+    v15 = [objc_alloc(MEMORY[0x277CD9FB8]) initWithLayer:v3->_ringerLayer];
     ringerStateController = v3->_ringerStateController;
-    v3->_ringerStateController = v14;
+    v3->_ringerStateController = v15;
 
     [(ABDeviceDisplayView *)v3 _setSilentModeEnabled:1 animated:0];
-    v16 = objc_opt_new();
+    v17 = objc_opt_new();
     islandY = v3->_islandY;
-    v3->_islandY = v16;
+    v3->_islandY = v17;
 
-    v18 = objc_opt_new();
+    v19 = objc_opt_new();
     islandWidth = v3->_islandWidth;
-    v3->_islandWidth = v18;
+    v3->_islandWidth = v19;
 
-    v20 = objc_opt_new();
+    v21 = objc_opt_new();
     islandHeight = v3->_islandHeight;
-    v3->_islandHeight = v20;
+    v3->_islandHeight = v21;
 
-    v22 = objc_opt_new();
+    v23 = objc_opt_new();
     islandShake1 = v3->_islandShake1;
-    v3->_islandShake1 = v22;
+    v3->_islandShake1 = v23;
 
     [(ABFloatSpringProperty *)v3->_islandShake1 setBounce:0.0 duration:0.45];
-    v24 = objc_opt_new();
+    v25 = objc_opt_new();
     islandShake2 = v3->_islandShake2;
-    v3->_islandShake2 = v24;
+    v3->_islandShake2 = v25;
 
     [(ABFloatSpringProperty *)v3->_islandShake2 setBounce:0.82322 duration:0.22214];
-    v26 = objc_opt_new();
+    v27 = objc_opt_new();
     ringerVisible = v3->_ringerVisible;
-    v3->_ringerVisible = v26;
+    v3->_ringerVisible = v27;
 
-    v28 = MEMORY[0x277D755B8];
-    v29 = ABHeroWallpaperImageName();
-    v30 = [v28 imageNamed:v29 inBundle:v45 withConfiguration:0];
+    v29 = MEMORY[0x277D755B8];
+    v30 = ABHeroWallpaperImageName();
+    v31 = [v29 imageNamed:v30 inBundle:v46 withConfiguration:0];
 
-    if (v30)
+    if (v31)
     {
-      v31 = v30;
-      -[CALayer setContents:](v3->_wallpaperLayer, "setContents:", [v30 CGImage]);
+      v32 = v31;
+      -[CALayer setContents:](v3->_wallpaperLayer, "setContents:", [v31 CGImage]);
     }
 
     [(ABDeviceDisplayView *)v3 _transitionIslandToInert];
     [(ABDeviceDisplayView *)v3 _resetSprings];
     objc_initWeak(&location, v3);
-    v32 = MEMORY[0x277D75D18];
-    v50[0] = v3->_islandY;
-    v50[1] = v3->_islandWidth;
-    v50[2] = v3->_islandHeight;
-    v50[3] = v3->_ringerVisible;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:4];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __37__ABDeviceDisplayView_initWithFrame___block_invoke;
-    v46[3] = &unk_278BFFD20;
-    objc_copyWeak(&v47, &location);
-    [v32 _createTransformerWithInputAnimatableProperties:v33 presentationValueChangedCallback:v46];
+    v33 = MEMORY[0x277D75D18];
+    v51[0] = v3->_islandY;
+    v51[1] = v3->_islandWidth;
+    v51[2] = v3->_islandHeight;
+    v51[3] = v3->_ringerVisible;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:4];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __37__ABDeviceDisplayView_initWithFrame___block_invoke;
+    v47[3] = &unk_278BFFD20;
+    objc_copyWeak(&v48, &location);
+    [v33 _createTransformerWithInputAnimatableProperties:v34 presentationValueChangedCallback:v47];
 
-    [(CALayer *)v3->_islandLayer position];
-    v35 = v34;
+    position = [(CALayer *)v3->_islandLayer position];
     v37 = v36;
-    IsD23 = ABDeviceIsD23();
-    v39 = 0.0;
+    v39 = v38;
+    IsD23 = ABDeviceIsD23(position);
+    v41 = 0.0;
     if (IsD23)
     {
-      v39 = 14.0;
+      v41 = 14.0;
     }
 
-    [(CALayer *)v3->_islandLayer setPosition:v35, v37 + v39];
+    [(CALayer *)v3->_islandLayer setPosition:v37, v39 + v41];
     layer = [(ABDeviceDisplayView *)v3 layer];
     rootLayer2 = [(CAPackage *)v3->_package rootLayer];
     [layer addSublayer:rootLayer2];
 
-    objc_destroyWeak(&v47);
+    objc_destroyWeak(&v48);
     objc_destroyWeak(&location);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -223,15 +222,14 @@ void __37__ABDeviceDisplayView_initWithFrame___block_invoke(uint64_t a1)
   }
 
   v8 = [(CALayer *)ringerLayer stateWithName:v7];
-  v9 = self->_ringerLayer;
-  v10 = 0.0;
+  v9 = 0.0;
   if (animatedCopy)
   {
-    *&v10 = 1.0;
+    *&v9 = 1.0;
   }
 
-  v12 = v8;
-  [CAStateController setState:"setState:ofLayer:transitionSpeed:" ofLayer:v10 transitionSpeed:?];
+  v11 = v8;
+  [CAStateController setState:"setState:ofLayer:transitionSpeed:" ofLayer:v9 transitionSpeed:?];
   if (self->_isSilentModeEnabled && animatedCopy)
   {
     [(ABDeviceDisplayView *)self _shake];
@@ -267,8 +265,7 @@ uint64_t __29__ABDeviceDisplayView__shake__block_invoke(uint64_t a1)
   [(ABFloatSpringProperty *)self->_islandWidth setInput:371.0];
   [(ABFloatSpringProperty *)self->_islandHeight setBounce:0.0 duration:0.5];
   [(ABFloatSpringProperty *)self->_islandHeight setInput:110.0];
-  [(ABFloatSpringProperty *)self->_islandY setBounce:0.0 duration:0.55];
-  IsD23 = ABDeviceIsD23();
+  IsD23 = ABDeviceIsD23([(ABFloatSpringProperty *)self->_islandY setBounce:0.0 duration:0.55]);
   v4 = 90.0;
   if (IsD23)
   {
@@ -287,8 +284,7 @@ uint64_t __29__ABDeviceDisplayView__shake__block_invoke(uint64_t a1)
   [(ABFloatSpringProperty *)self->_islandWidth setInput:540.0];
   [(ABFloatSpringProperty *)self->_islandHeight setBounce:0.0 duration:0.35];
   [(ABFloatSpringProperty *)self->_islandHeight setInput:110.0];
-  [(ABFloatSpringProperty *)self->_islandY setBounce:0.0 duration:0.55];
-  IsD23 = ABDeviceIsD23();
+  IsD23 = ABDeviceIsD23([(ABFloatSpringProperty *)self->_islandY setBounce:0.0 duration:0.55]);
   v4 = 90.0;
   if (IsD23)
   {
@@ -307,8 +303,7 @@ uint64_t __29__ABDeviceDisplayView__shake__block_invoke(uint64_t a1)
   [(ABFloatSpringProperty *)self->_islandWidth setInput:624.0];
   [(ABFloatSpringProperty *)self->_islandHeight setBounce:0.0 duration:2.5];
   [(ABFloatSpringProperty *)self->_islandHeight setInput:171.0];
-  [(ABFloatSpringProperty *)self->_islandY setBounce:0.0 duration:2.5];
-  IsD23 = ABDeviceIsD23();
+  IsD23 = ABDeviceIsD23([(ABFloatSpringProperty *)self->_islandY setBounce:0.0 duration:2.5]);
   v4 = 105.0;
   if (IsD23)
   {
@@ -327,8 +322,7 @@ uint64_t __29__ABDeviceDisplayView__shake__block_invoke(uint64_t a1)
   [(ABFloatSpringProperty *)self->_islandWidth setInput:624.0];
   [(ABFloatSpringProperty *)self->_islandHeight setBounce:0.4 duration:0.55];
   [(ABFloatSpringProperty *)self->_islandHeight setInput:171.0];
-  [(ABFloatSpringProperty *)self->_islandY setBounce:0.0 duration:0.55];
-  IsD23 = ABDeviceIsD23();
+  IsD23 = ABDeviceIsD23([(ABFloatSpringProperty *)self->_islandY setBounce:0.0 duration:0.55]);
   v4 = 105.0;
   if (IsD23)
   {

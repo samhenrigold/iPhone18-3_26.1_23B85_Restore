@@ -70,18 +70,16 @@
   v4 = *(&self->super.isa + OBJC_IVAR____TtC13BookDataStore13BDSSyncEngine_zoneLock);
   selfCopy = self;
   [v4 lock];
-  v6 = OBJC_IVAR____TtC13BookDataStore13BDSSyncEngine_validCKZones;
   swift_beginAccess();
-  v7 = *(&selfCopy->super.isa + v6);
-  v8 = *(&self->super.isa + v3);
+  v6 = *(&self->super.isa + v3);
 
-  [v8 unlock];
+  [v6 unlock];
 
   sub_1E45E2DE8(0, &unk_1ECF75C30, 0x1E695BA90);
   sub_1E46B93D0();
-  v9 = sub_1E470B15C();
+  v7 = sub_1E470B15C();
 
-  return v9;
+  return v7;
 }
 
 - (void)resetCloudKitZone:(id)zone

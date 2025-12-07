@@ -75,7 +75,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_3E9F30();
+  sub_3E9F30(selfCopy, v2);
 }
 
 - (unint64_t)supportedInterfaceOrientations
@@ -99,7 +99,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_3EA0D8(change);
+  sub_3EA0D8(change, selfCopy);
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
@@ -127,7 +127,7 @@
   sub_757590();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_3EA384(viewCopy);
+  v12 = sub_3EA384(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -149,7 +149,7 @@
   viewCopy = view;
   headerViewCopy = headerView;
   selfCopy = self;
-  sub_3EBD68(viewCopy, headerViewCopy);
+  sub_3EBD68(viewCopy, headerViewCopy, section);
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

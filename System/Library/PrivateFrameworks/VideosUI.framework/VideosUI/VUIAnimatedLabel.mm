@@ -266,7 +266,7 @@ void __41__VUIAnimatedLabel_setAttributedStrings___block_invoke_2(uint64_t a1)
 
 - (void)setAnimating:(BOOL)animating
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_animating == animating)
   {
     if (animating && self->_stopping)
@@ -312,26 +312,26 @@ LABEL_13:
     layer = [(VUIAnimatedLabel *)self layer];
     [layer setOpaque:0];
 
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       text = [(VUIAnimatedLabel *)self text];
       *buf = 138412290;
-      v15 = text;
-      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "AL(%@): starting timeout begin", buf, 0xCu);
+      v16 = text;
+      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "AL(%@): starting timeout begin", buf, 0xCu);
     }
 
     self->_starting = 1;
     objc_initWeak(buf, self);
-    v9 = dispatch_time(0, 100000000);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __33__VUIAnimatedLabel_setAnimating___block_invoke;
-    v12[3] = &unk_1E872F038;
-    objc_copyWeak(&v13, buf);
-    v12[4] = self;
-    dispatch_after(v9, MEMORY[0x1E69E96A0], v12);
-    objc_destroyWeak(&v13);
+    v10 = dispatch_time(0, 100000000);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __33__VUIAnimatedLabel_setAnimating___block_invoke;
+    v13[3] = &unk_1E872F038;
+    objc_copyWeak(&v14, buf);
+    v13[4] = self;
+    dispatch_after(v10, MEMORY[0x1E69E96A0], v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
     return;
   }
@@ -341,8 +341,8 @@ LABEL_13:
   self->_starting = 0;
   self->_currentAttributedStringIndex = 0;
   firstObject = [(NSArray *)self->_attributedStrings firstObject];
-  v11 = [firstObject copy];
-  [(VUIAnimatedLabel *)self setAttributedText:v11];
+  v12 = [firstObject copy];
+  [(VUIAnimatedLabel *)self setAttributedText:v12];
 
   [(VUIAnimatedLabel *)self setNeedsDisplay];
 }
@@ -354,7 +354,7 @@ void __33__VUIAnimatedLabel_setAnimating___block_invoke(uint64_t a1)
   v3 = WeakRetained;
   if (WeakRetained && *(WeakRetained + 1019) == 1)
   {
-    v4 = VUIDefaultLogObject();
+    v4 = VUIDefaultLogObject(WeakRetained);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = [*(a1 + 32) text];
@@ -381,31 +381,32 @@ void __33__VUIAnimatedLabel_setAnimating___block_invoke(uint64_t a1)
 
 - (void)stopAnimatingWithoutResetWithDuration:(double)duration
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if ([(VUIAnimatedLabel *)self isAnimating])
+  v13 = *MEMORY[0x1E69E9840];
+  isAnimating = [(VUIAnimatedLabel *)self isAnimating];
+  if (isAnimating)
   {
     if (self->_marqueeNeeded)
     {
-      v5 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = VUIDefaultLogObject(isAnimating);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         text = [(VUIAnimatedLabel *)self text];
         *buf = 138412290;
-        v11 = text;
-        _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "AL(%@): stopping timeout begin", buf, 0xCu);
+        v12 = text;
+        _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "AL(%@): stopping timeout begin", buf, 0xCu);
       }
 
       self->_stopping = 1;
       objc_initWeak(buf, self);
-      v7 = dispatch_time(0, (duration * 1000000000.0));
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __58__VUIAnimatedLabel_stopAnimatingWithoutResetWithDuration___block_invoke;
-      v8[3] = &unk_1E872F038;
-      objc_copyWeak(&v9, buf);
-      v8[4] = self;
-      dispatch_after(v7, MEMORY[0x1E69E96A0], v8);
-      objc_destroyWeak(&v9);
+      v8 = dispatch_time(0, (duration * 1000000000.0));
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __58__VUIAnimatedLabel_stopAnimatingWithoutResetWithDuration___block_invoke;
+      v9[3] = &unk_1E872F038;
+      objc_copyWeak(&v10, buf);
+      v9[4] = self;
+      dispatch_after(v8, MEMORY[0x1E69E96A0], v9);
+      objc_destroyWeak(&v10);
       objc_destroyWeak(buf);
     }
 
@@ -424,7 +425,7 @@ void __58__VUIAnimatedLabel_stopAnimatingWithoutResetWithDuration___block_invoke
   v3 = WeakRetained;
   if (WeakRetained && WeakRetained[1020] == 1)
   {
-    v4 = VUIDefaultLogObject();
+    v4 = VUIDefaultLogObject(WeakRetained);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = [*(a1 + 32) text];
@@ -501,8 +502,7 @@ void __58__VUIAnimatedLabel_stopAnimatingWithoutResetWithDuration___block_invoke
     v55[3] = &unk_1E872F758;
     v55[4] = self;
     v39 = currentMarqueeView;
-    [v38 animateWithDuration:327686 delay:v56 options:v55 animations:duration completion:0.0];
-    v40 = VUIDefaultLogObject();
+    v40 = VUIDefaultLogObject([v38 animateWithDuration:327686 delay:v56 options:v55 animations:duration completion:0.0]);
     if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
       text = [(VUIAnimatedLabel *)self text];
@@ -561,7 +561,7 @@ void __51__VUIAnimatedLabel_stopAndResetScrollWithDuration___block_invoke(uint64
 uint64_t __51__VUIAnimatedLabel_stopAndResetScrollWithDuration___block_invoke_37(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) text];
@@ -1119,7 +1119,7 @@ void __49__VUIAnimatedLabel__prepareNextMarqueeWithDelay___block_invoke_2(id *a1
   }
 }
 
-uint64_t __41__VUIAnimatedLabel__startMarqueeIfNeeded__block_invoke(uint64_t a1)
+void *__41__VUIAnimatedLabel__startMarqueeIfNeeded__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 1018) = 0;
   result = [*(a1 + 32) isAnimating];

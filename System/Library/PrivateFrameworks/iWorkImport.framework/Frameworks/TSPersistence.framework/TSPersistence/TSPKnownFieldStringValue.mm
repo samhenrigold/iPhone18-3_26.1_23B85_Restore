@@ -9,8 +9,8 @@
 
 - (TSPKnownFieldStringValue)initWithFieldDescriptor:(const void *)descriptor fieldInfo:(const void *)info message:(const Message *)message reflection:(const Reflection *)reflection
 {
-  v25.receiver = self;
-  v25.super_class = TSPKnownFieldStringValue;
+  v23.receiver = self;
+  v23.super_class = TSPKnownFieldStringValue;
   v9 = [TSPKnownField initWithFieldDescriptor:sel_initWithFieldDescriptor_fieldInfo_message_reflection_ fieldInfo:descriptor message:info reflection:?];
   v10 = v9;
   if (!v9)
@@ -21,7 +21,7 @@
   type = v9->super._type;
   if (type == 9)
   {
-    google::protobuf::Reflection::GetString(reflection, message, descriptor, &v23);
+    google::protobuf::Reflection::GetString(&v22, reflection, message, descriptor);
   }
 
   else
@@ -30,10 +30,9 @@
     {
       if ((type - 1) < 8)
       {
-        v22 = v9->super._type;
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected field descriptor type (%d).", "[TSPKnownFieldStringValue initWithFieldDescriptor:fieldInfo:message:reflection:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 740, type);
         v12 = MEMORY[0x277D81150];
-        v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPKnownFieldStringValue initWithFieldDescriptor:fieldInfo:message:reflection:]", "[TSPKnownFieldStringValue initWithFieldDescriptor:fieldInfo:message:reflection:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 740, v22);
+        v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPKnownFieldStringValue initWithFieldDescriptor:fieldInfo:message:reflection:]");
         v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v17, v14, v16, 740, 1, "Unexpected field descriptor type (%d).", v10->super._type);
 
@@ -45,7 +44,7 @@
     }
 
     Message = google::protobuf::Reflection::GetMessage(reflection, message, descriptor, 0);
-    google::protobuf::MessageLite::SerializePartialAsString(Message, &v23);
+    google::protobuf::MessageLite::SerializePartialAsString(&v22, Message);
   }
 
   p_value = &v10->_value;
@@ -54,8 +53,8 @@
     operator delete(*p_value);
   }
 
-  v20 = v23;
-  *(&v10->_value.__rep_.__l + 2) = v24;
+  v20 = *&v22.__r_.__value_.__l.__data_;
+  *(&v10->_value.__rep_.__l + 2) = *(&v22.__r_.__value_.__l + 2);
   *p_value = v20;
   return v10;
 }
@@ -80,11 +79,11 @@
       else
       {
         *__p = *p_value->__rep_.__s.__data_;
-        v30 = *(&self->_value.__rep_.__l + 2);
+        v29 = *(&self->_value.__rep_.__l + 2);
       }
 
       google::protobuf::Reflection::SetString(reflection, message, v10, __p);
-      if (SHIBYTE(v30) < 0)
+      if (SHIBYTE(v29) < 0)
       {
         operator delete(__p[0]);
       }
@@ -99,10 +98,9 @@
 
     else if ((type - 1) < 8)
     {
-      v28 = self->super._type;
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected field descriptor type (%d).", "[TSPKnownFieldStringValue mergeToMessage:reflection:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 781, type);
       v12 = MEMORY[0x277D81150];
-      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPKnownFieldStringValue mergeToMessage:reflection:]", "[TSPKnownFieldStringValue mergeToMessage:reflection:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 781, v28);
+      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSPKnownFieldStringValue mergeToMessage:reflection:]");
       v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v17, v14, v16, 781, 1, "Unexpected field descriptor type (%d).", self->super._type);
 

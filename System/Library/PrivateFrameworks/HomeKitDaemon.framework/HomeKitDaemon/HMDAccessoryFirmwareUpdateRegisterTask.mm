@@ -15,7 +15,7 @@
 
 - (BOOL)shouldRun
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   session = [(HMDAccessoryFirmwareUpdateTask *)self session];
   shouldRunOnCurrentDevice = [(HMDAccessoryFirmwareUpdateTask *)self shouldRunOnCurrentDevice];
   if (!shouldRunOnCurrentDevice)
@@ -40,19 +40,18 @@
       }
 
       v12 = v11;
-      v15 = 138543874;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Register task shouldn't run - runOnCurrentDevice:%@ (%@)", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Register task shouldn't run - runOnCurrentDevice:%@ (%@)", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return shouldRunOnCurrentDevice;
 }
 

@@ -96,24 +96,21 @@ uint64_t __27__FLEnvironment_isInternal__block_invoke()
 
 void __43__FLEnvironment_supportedBundleIdentifiers__block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) stressMode])
   {
     supportedBundleIdentifiers_bundleIdentifiers = [*(a1 + 32) stressBundleIdentifiers];
-    v2 = *MEMORY[0x277D85DE8];
 
     MEMORY[0x2821F96F8]();
   }
 
   else
   {
-    v6[0] = @"com.apple.Preferences";
-    v6[1] = @"com.apple.Bridge";
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-    v4 = supportedBundleIdentifiers_bundleIdentifiers;
-    supportedBundleIdentifiers_bundleIdentifiers = v3;
-
-    v5 = *MEMORY[0x277D85DE8];
+    v4[0] = @"com.apple.Preferences";
+    v4[1] = @"com.apple.Bridge";
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
+    v3 = supportedBundleIdentifiers_bundleIdentifiers;
+    supportedBundleIdentifiers_bundleIdentifiers = v2;
   }
 }
 
@@ -130,17 +127,16 @@ void __43__FLEnvironment_supportedBundleIdentifiers__block_invoke(uint64_t a1)
 void __27__FLEnvironment_stressMode__block_invoke()
 {
   v5 = *MEMORY[0x277D85DE8];
-  stressMode_stress = CFPreferencesGetAppBooleanValue(@"StressMode", @"com.apple.followup", 0) != 0;
-  v0 = _FLLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"StressMode", @"com.apple.followup", 0);
+  stressMode_stress = AppBooleanValue != 0;
+  v1 = _FLLogSystem(AppBooleanValue);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = [MEMORY[0x277CCABB0] numberWithBool:stressMode_stress];
+    v2 = [MEMORY[0x277CCABB0] numberWithBool:stressMode_stress];
     v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_22E696000, v0, OS_LOG_TYPE_DEFAULT, "Read StressMode: %@", &v3, 0xCu);
+    v4 = v2;
+    _os_log_impl(&dword_22E696000, v1, OS_LOG_TYPE_DEFAULT, "Read StressMode: %@", &v3, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldShowUnapprovedItems
@@ -164,12 +160,12 @@ void __42__FLEnvironment_shouldShowUnapprovedItems__block_invoke(uint64_t a1)
   v1 = [*(a1 + 32) followupDefaults];
   v2 = [v1 valueForKey:@"ShouldShowUnapprovedItems"];
 
-  v3 = _FLLogSystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _FLLogSystem(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
     v6 = v2;
-    _os_log_impl(&dword_22E696000, v3, OS_LOG_TYPE_DEFAULT, "Read ShouldShowUnapprovedItems: %@", &v5, 0xCu);
+    _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "Read ShouldShowUnapprovedItems: %@", &v5, 0xCu);
   }
 
   if (v2)
@@ -180,24 +176,21 @@ void __42__FLEnvironment_shouldShowUnapprovedItems__block_invoke(uint64_t a1)
       shouldShowUnapprovedItems_shouldShowUnapprovedItems = [v2 BOOLValue];
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __39__FLEnvironment_shouldHideAllFollowUps__block_invoke()
 {
   v5 = *MEMORY[0x277D85DE8];
-  shouldHideAllFollowUps_hideAll = CFPreferencesGetAppBooleanValue(@"HideAll", @"com.apple.followup", 0) != 0;
-  v0 = _FLLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"HideAll", @"com.apple.followup", 0);
+  shouldHideAllFollowUps_hideAll = AppBooleanValue != 0;
+  v1 = _FLLogSystem(AppBooleanValue);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = [MEMORY[0x277CCABB0] numberWithBool:shouldHideAllFollowUps_hideAll];
+    v2 = [MEMORY[0x277CCABB0] numberWithBool:shouldHideAllFollowUps_hideAll];
     v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_22E696000, v0, OS_LOG_TYPE_DEFAULT, "Read HideAll: %@", &v3, 0xCu);
+    v4 = v2;
+    _os_log_impl(&dword_22E696000, v1, OS_LOG_TYPE_DEFAULT, "Read HideAll: %@", &v3, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stressBundleIdentifiers
@@ -214,18 +207,16 @@ void __39__FLEnvironment_shouldHideAllFollowUps__block_invoke()
 
 void __40__FLEnvironment_stressBundleIdentifiers__block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"com.apple.Preferences";
-  v3[1] = @"com.apple.Bridge";
-  v3[2] = @"com.apple.Home";
-  v3[3] = @"com.apple.mobilesafari";
-  v3[4] = @"com.apple.MobileSMS";
-  v3[5] = @"com.apple.mobileslideshow";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"com.apple.Preferences";
+  v2[1] = @"com.apple.Bridge";
+  v2[2] = @"com.apple.Home";
+  v2[3] = @"com.apple.mobilesafari";
+  v2[4] = @"com.apple.MobileSMS";
+  v2[5] = @"com.apple.mobileslideshow";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:6];
   v1 = stressBundleIdentifiers_bundleIdentifiers;
   stressBundleIdentifiers_bundleIdentifiers = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)normalizeExpirationToMidnight
@@ -234,12 +225,12 @@ void __40__FLEnvironment_stressBundleIdentifiers__block_invoke()
   followupDefaults = [(FLEnvironment *)self followupDefaults];
   v3 = [followupDefaults valueForKey:@"NormalizeToMidnight"];
 
-  v4 = _FLLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _FLLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
     v9 = v3;
-    _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "Read NormalizeToMidnight: %@", &v8, 0xCu);
+    _os_log_impl(&dword_22E696000, v5, OS_LOG_TYPE_DEFAULT, "Read NormalizeToMidnight: %@", &v8, 0xCu);
   }
 
   if (v3)
@@ -254,7 +245,6 @@ void __40__FLEnvironment_stressBundleIdentifiers__block_invoke()
 
   normalizeExpirationToMidnight_result = bOOLValue;
 
-  v6 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -279,22 +269,20 @@ void __35__FLEnvironment_oneDayTimeInterval__block_invoke(uint64_t a1)
   v1 = [*(a1 + 32) followupDefaults];
   v2 = [v1 valueForKey:@"OneDayInterval"];
 
-  v3 = _FLLogSystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _FLLogSystem(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
     v8 = v2;
-    _os_log_impl(&dword_22E696000, v3, OS_LOG_TYPE_DEFAULT, "Read OneDayInterval: %@", &v7, 0xCu);
+    _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "Read OneDayInterval: %@", &v7, 0xCu);
   }
 
   [v2 doubleValue];
-  if (v4 > 0.0)
+  if (v5 > 0.0)
   {
     [v2 doubleValue];
-    oneDayTimeInterval_timeInterval = v5;
+    oneDayTimeInterval_timeInterval = v6;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)supportedNotifyingAppIds
@@ -311,16 +299,14 @@ void __35__FLEnvironment_oneDayTimeInterval__block_invoke(uint64_t a1)
 
 void __41__FLEnvironment_supportedNotifyingAppIds__block_invoke()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"com.apple.Preferences";
-  v3[1] = @"com.apple.iCloud.FollowUp";
-  v3[2] = @"com.apple.NDO.FollowUp";
-  v3[3] = @"com.apple.ThreatNotification.FollowUp";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"com.apple.Preferences";
+  v2[1] = @"com.apple.iCloud.FollowUp";
+  v2[2] = @"com.apple.NDO.FollowUp";
+  v2[3] = @"com.apple.ThreatNotification.FollowUp";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v1 = supportedNotifyingAppIds_appIds;
   supportedNotifyingAppIds_appIds = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

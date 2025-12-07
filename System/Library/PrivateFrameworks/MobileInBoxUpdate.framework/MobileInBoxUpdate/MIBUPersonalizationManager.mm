@@ -7,10 +7,10 @@
 
 + (id)requestTatsuTicketForDevice:(id)device error:(id *)error
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v93 = 49;
-  v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v93 length:1];
+  v92 = 49;
+  v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v92 length:1];
   v8 = objc_opt_new();
   theDict = 0;
   if (MIBUOnceToken != -1)
@@ -34,53 +34,53 @@
   v10 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v95[0] = @"SerialNumber";
+    v94[0] = @"SerialNumber";
     v11 = v10;
     serialNumber = [deviceCopy serialNumber];
-    v96[0] = serialNumber;
-    v95[1] = @"ECID";
+    v95[0] = serialNumber;
+    v94[1] = @"ECID";
     ecid = [deviceCopy ecid];
-    v96[1] = ecid;
-    v95[2] = @"BoardID";
+    v95[1] = ecid;
+    v94[2] = @"BoardID";
     boardID = [deviceCopy boardID];
-    v96[2] = boardID;
-    v95[3] = @"ChipID";
+    v95[2] = boardID;
+    v94[3] = @"ChipID";
     chipID = [deviceCopy chipID];
-    v96[3] = chipID;
-    v95[4] = @"Security Domain";
+    v95[3] = chipID;
+    v94[4] = @"Security Domain";
     securityDomain = [deviceCopy securityDomain];
-    v96[4] = securityDomain;
-    v95[5] = @"APNounce";
+    v95[4] = securityDomain;
+    v94[5] = @"APNounce";
     apNonce = [deviceCopy apNonce];
-    v96[5] = apNonce;
-    v95[6] = @"Production Mode";
-    v84 = v7;
+    v95[5] = apNonce;
+    v94[6] = @"Production Mode";
+    v83 = v7;
     v12 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(deviceCopy, "productionMode")}];
-    v96[6] = v12;
-    v95[7] = @"Security Mode";
+    v95[6] = v12;
+    v94[7] = @"Security Mode";
     v13 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(deviceCopy, "securityMode")}];
-    v96[7] = v13;
-    v95[8] = @"UID Mode";
+    v95[7] = v13;
+    v94[8] = @"UID Mode";
     selfCopy = self;
     v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(deviceCopy, "uidMode")}];
-    v96[8] = v14;
-    v95[9] = @"SEPNonce";
+    v95[8] = v14;
+    v94[9] = @"SEPNonce";
     [deviceCopy sepNonce];
     v16 = v15 = error;
-    v96[9] = v16;
-    v95[10] = @"Entitlement";
+    v95[9] = v16;
+    v94[10] = @"Entitlement";
     v17 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(deviceCopy, "entitlement")}];
-    v96[10] = v17;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:11];
+    v95[10] = v17;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:11];
     v19 = v18 = v8;
     *buf = 138543618;
     *&buf[4] = deviceCopy;
-    v98 = 2114;
-    v99 = v19;
+    v97 = 2114;
+    v98 = v19;
     _os_log_impl(&dword_259ABF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Device Info: %{public}@", buf, 0x16u);
 
     v8 = v18;
-    v7 = v84;
+    v7 = v83;
 
     error = v15;
     self = selfCopy;
@@ -122,8 +122,8 @@
         {
           *buf = 138543618;
           *&buf[4] = deviceCopy;
-          v98 = 2114;
-          v99 = fakeTatsuPayloadPath;
+          v97 = 2114;
+          v98 = fakeTatsuPayloadPath;
           _os_log_impl(&dword_259ABF000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@: Loading tatsu payload from file: %{public}@", buf, 0x16u);
         }
 
@@ -141,9 +141,9 @@
             +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
           }
 
-          v91 = 0;
-          safeAssignError(&v91, 100663296, 0, @"Failed load tatsu payload from file: %@", v72, v73, v74, v75, fakeTatsuPayloadPath);
-          v23 = v91;
+          v90 = 0;
+          safeAssignError(&v90, 100663296, 0, @"Failed load tatsu payload from file: %@", v71, v72, v73, v74, fakeTatsuPayloadPath);
+          v23 = v90;
 
           v36 = 0;
           goto LABEL_51;
@@ -177,13 +177,13 @@ LABEL_51:
     }
   }
 
-  v90 = 0;
-  v22 = [self _createBaseAMAIObjectForDevice:deviceCopy error:&v90];
-  v23 = v90;
+  v89 = 0;
+  v22 = [self _createBaseAMAIObjectForDevice:deviceCopy error:&v89];
+  v23 = v89;
   if (!v22)
   {
-    [(MIBUPersonalizationManager *)deviceCopy requestTatsuTicketForDevice:v23 error:&v94, buf];
-    v23 = v94;
+    [(MIBUPersonalizationManager *)deviceCopy requestTatsuTicketForDevice:v23 error:&v93, buf];
+    v23 = v93;
     v36 = *buf;
     goto LABEL_52;
   }
@@ -217,7 +217,7 @@ LABEL_51:
   v27 = AMAuthInstallSsoInitialize();
   if (v27)
   {
-    v61 = v27;
+    v60 = v27;
     if (MIBUOnceToken != -1)
     {
       +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
@@ -228,9 +228,9 @@ LABEL_51:
       +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
     }
 
-    v89 = v23;
-    safeAssignError(&v89, 100663296, 0, @"Failed load SSOClient.framework; status: %d", v62, v63, v64, v65, v61);
-    v52 = v89;
+    v88 = v23;
+    safeAssignError(&v88, 100663296, 0, @"Failed load SSOClient.framework; status: %d", v61, v62, v63, v64, v60);
+    v51 = v88;
   }
 
   else
@@ -258,7 +258,7 @@ LABEL_20:
       v32 = AMAuthInstallApImg4ServerRequestAddRequiredTags();
       if (v32)
       {
-        v47 = v32;
+        v46 = v32;
         if (MIBUOnceToken != -1)
         {
           +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
@@ -269,9 +269,9 @@ LABEL_20:
           +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
         }
 
-        v87 = v23;
-        safeAssignError(&v87, 100663296, 0, @"Failed to add measurement dict, status: %d", v48, v49, v50, v51, v47);
-        v52 = v87;
+        v86 = v23;
+        safeAssignError(&v86, 100663296, 0, @"Failed to add measurement dict, status: %d", v47, v48, v49, v50, v46);
+        v51 = v86;
       }
 
       else
@@ -302,9 +302,9 @@ LABEL_20:
             +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
           }
 
-          v86 = v23;
-          safeAssignError(&v86, 100663296, 0, @"Fail Tatsu personalization, status: %d", v53, v54, v55, v56, PersonalizedResponse);
-          v52 = v86;
+          v85 = v23;
+          safeAssignError(&v85, 100663296, 0, @"Fail Tatsu personalization, status: %d", v52, v53, v54, v55, PersonalizedResponse);
+          v51 = v85;
         }
 
         else
@@ -323,19 +323,19 @@ LABEL_20:
 
           if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
           {
-            [MIBUPersonalizationManager requestTatsuTicketForDevice:deviceCopy error:&theDict];
+            +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
           }
 
-          v85 = v23;
-          safeAssignError(&v85, 100663296, 0, @"Failed to parse payload from personalization response", v57, v58, v59, v60, v76);
-          v52 = v85;
+          v84 = v23;
+          safeAssignError(&v84, 100663296, 0, @"Failed to parse payload from personalization response", v56, v57, v58, v59, v75);
+          v51 = v84;
         }
       }
 
       goto LABEL_83;
     }
 
-    v66 = v28;
+    v65 = v28;
     if (MIBUOnceToken != -1)
     {
       +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
@@ -346,16 +346,16 @@ LABEL_20:
       +[MIBUPersonalizationManager requestTatsuTicketForDevice:error:];
     }
 
-    v88 = v23;
-    safeAssignError(&v88, 100663296, 0, @"Failed to enable AC SSO, status: %d", v67, v68, v69, v70, v66);
-    v52 = v88;
+    v87 = v23;
+    safeAssignError(&v87, 100663296, 0, @"Failed to enable AC SSO, status: %d", v66, v67, v68, v69, v65);
+    v51 = v87;
   }
 
 LABEL_83:
-  v71 = v52;
+  v70 = v51;
 
   v36 = 0;
-  v23 = v71;
+  v23 = v70;
 LABEL_52:
   if (error)
   {
@@ -364,8 +364,6 @@ LABEL_52:
   }
 
   AMSupportSafeRelease();
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -596,7 +594,7 @@ void __64__MIBUPersonalizationManager_requestTatsuTicketForDevice_error___block_
 
 + (__AMAuthInstall)_createBaseAMAIObjectForDevice:(id)device error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   AMAuthInstallLogSetHandler();
   if (MIBUOnceToken != -1)
@@ -609,8 +607,8 @@ void __64__MIBUPersonalizationManager_requestTatsuTicketForDevice_error___block_
   {
     v7 = v6;
     *buf = 138543618;
-    v50 = deviceCopy;
-    v51 = 2112;
+    v49 = deviceCopy;
+    v50 = 2112;
     LibraryVersionString = AMAuthInstallSupportGetLibraryVersionString();
     _os_log_impl(&dword_259ABF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Building base AMAI object from %@", buf, 0x16u);
   }
@@ -624,8 +622,8 @@ void __64__MIBUPersonalizationManager_requestTatsuTicketForDevice_error___block_
     {
       if (AMAuthInstallSetSigningServerURL())
       {
-        v42 = &v46;
-        [(MIBUPersonalizationManager *)deviceCopy _createBaseAMAIObjectForDevice:v10 error:&v46];
+        v41 = &v45;
+        [(MIBUPersonalizationManager *)deviceCopy _createBaseAMAIObjectForDevice:v10 error:&v45];
       }
 
       else
@@ -633,7 +631,7 @@ void __64__MIBUPersonalizationManager_requestTatsuTicketForDevice_error___block_
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         if (!Mutable)
         {
-          v42 = &v45;
+          v41 = v44;
           +[MIBUPersonalizationManager _createBaseAMAIObjectForDevice:error:];
           v38 = 1;
           goto LABEL_47;
@@ -747,7 +745,7 @@ void __64__MIBUPersonalizationManager_requestTatsuTicketForDevice_error___block_
         CFDictionarySetValue(Mutable, *MEMORY[0x277D82518], v26);
         if (AMAuthInstallApSetParameters())
         {
-          v42 = &v44;
+          v41 = v43;
           +[MIBUPersonalizationManager _createBaseAMAIObjectForDevice:error:];
         }
 
@@ -766,28 +764,28 @@ void __64__MIBUPersonalizationManager_requestTatsuTicketForDevice_error___block_
             goto LABEL_36;
           }
 
-          v42 = &v43;
-          [(MIBUPersonalizationManager *)deviceCopy _createBaseAMAIObjectForDevice:v36 error:&v43];
+          v41 = &v42;
+          [(MIBUPersonalizationManager *)deviceCopy _createBaseAMAIObjectForDevice:v36 error:&v42];
         }
       }
     }
 
     else
     {
-      v42 = &v47;
+      v41 = v46;
       +[MIBUPersonalizationManager _createBaseAMAIObjectForDevice:error:];
     }
   }
 
   else
   {
-    v42 = &v48;
+    v41 = v47;
     +[MIBUPersonalizationManager _createBaseAMAIObjectForDevice:error:];
   }
 
   v38 = 0;
 LABEL_47:
-  v37 = *v42;
+  v37 = *v41;
   if (error)
   {
 LABEL_36:
@@ -804,7 +802,6 @@ LABEL_37:
     v9 = 0;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -922,62 +919,49 @@ void __67__MIBUPersonalizationManager__createBaseAMAIObjectForDevice_error___blo
 
 + (void)requestTatsuTicketForDevice:error:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestTatsuTicketForDevice:error:.cold.10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestTatsuTicketForDevice:error:.cold.12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestTatsuTicketForDevice:error:.cold.14()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-+ (void)requestTatsuTicketForDevice:(uint64_t)a1 error:(uint64_t *)a2 .cold.17(uint64_t a1, uint64_t *a2)
++ (void)requestTatsuTicketForDevice:error:.cold.17()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 + (void)requestTatsuTicketForDevice:error:.cold.19()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestTatsuTicketForDevice:(void *)a3 error:(void *)a4 .cold.20(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_70);
@@ -986,19 +970,18 @@ void __67__MIBUPersonalizationManager__createBaseAMAIObjectForDevice_error___blo
   v8 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
-    v11 = a1;
-    _os_log_error_impl(&dword_259ABF000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create AMAI object", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = a1;
+    _os_log_error_impl(&dword_259ABF000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create AMAI object", &v9, 0xCu);
   }
 
   *a4 = 0;
   *a3 = a2;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_createBaseAMAIObjectForDevice:(void *)a3 error:.cold.2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_132);
@@ -1009,21 +992,19 @@ void __67__MIBUPersonalizationManager__createBaseAMAIObjectForDevice_error___blo
   if (v7)
   {
     *buf = 138543618;
-    v16 = a1;
-    v17 = 2114;
-    v18 = a2;
+    v15 = a1;
+    v16 = 2114;
+    v17 = a2;
     _os_log_error_impl(&dword_259ABF000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to set signing server URL to %{public}@", buf, 0x16u);
   }
 
   *a3 = 0;
   OUTLINED_FUNCTION_3(v7, v8, v9, @"Failed to set signing server URL to %@", v10, v11, v12, v13, a2);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_createBaseAMAIObjectForDevice:error:.cold.3()
 {
   OUTLINED_FUNCTION_7();
-  v15 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_144);
@@ -1034,17 +1015,16 @@ void __67__MIBUPersonalizationManager__createBaseAMAIObjectForDevice_error___blo
   {
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_4();
-    _os_log_error_impl(v9, v10, v11, v12, v13, 0xCu);
+    _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
   }
 
   *v0 = 0;
-  OUTLINED_FUNCTION_3(v1, v2, v3, @"Failed to set auth install ap img4 parameters", v4, v5, v6, v7, v14);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(v1, v2, v3, @"Failed to set auth install ap img4 parameters", v4, v5, v6, v7, v13);
 }
 
 + (void)_createBaseAMAIObjectForDevice:(void *)a3 error:.cold.4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_150);
@@ -1055,21 +1035,19 @@ void __67__MIBUPersonalizationManager__createBaseAMAIObjectForDevice_error___blo
   if (v7)
   {
     *buf = 138543618;
-    v16 = a1;
-    v17 = 1024;
-    v18 = a2;
+    v15 = a1;
+    v16 = 1024;
+    v17 = a2;
     _os_log_error_impl(&dword_259ABF000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed server signing, status: %d", buf, 0x12u);
   }
 
   *a3 = 0;
   OUTLINED_FUNCTION_3(v7, v8, v9, @"Failed server signing, status: %d", v10, v11, v12, v13, a2);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_createBaseAMAIObjectForDevice:error:.cold.5()
 {
   OUTLINED_FUNCTION_7();
-  v15 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_138);
@@ -1080,18 +1058,16 @@ void __67__MIBUPersonalizationManager__createBaseAMAIObjectForDevice_error___blo
   {
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_4();
-    _os_log_error_impl(v9, v10, v11, v12, v13, 0xCu);
+    _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
   }
 
   *v0 = 0;
-  OUTLINED_FUNCTION_3(v1, v2, v3, @"Failed to allocate options dictionary", v4, v5, v6, v7, v14);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(v1, v2, v3, @"Failed to allocate options dictionary", v4, v5, v6, v7, v13);
 }
 
 + (void)_createBaseAMAIObjectForDevice:error:.cold.6()
 {
   OUTLINED_FUNCTION_7();
-  v15 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_126);
@@ -1102,18 +1078,16 @@ void __67__MIBUPersonalizationManager__createBaseAMAIObjectForDevice_error___blo
   {
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_4();
-    _os_log_error_impl(v9, v10, v11, v12, v13, 0x16u);
+    _os_log_error_impl(v8, v9, v10, v11, v12, 0x16u);
   }
 
   *v0 = 0;
-  OUTLINED_FUNCTION_3(v1, v2, v3, @"Failed to create server URL object", v4, v5, v6, v7, v14);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(v1, v2, v3, @"Failed to create server URL object", v4, v5, v6, v7, v13);
 }
 
 + (void)_createBaseAMAIObjectForDevice:error:.cold.7()
 {
   OUTLINED_FUNCTION_7();
-  v15 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_120);
@@ -1124,12 +1098,11 @@ void __67__MIBUPersonalizationManager__createBaseAMAIObjectForDevice_error___blo
   {
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_4();
-    _os_log_error_impl(v9, v10, v11, v12, v13, 0xCu);
+    _os_log_error_impl(v8, v9, v10, v11, v12, 0xCu);
   }
 
   *v0 = 0;
-  OUTLINED_FUNCTION_3(v1, v2, v3, @"Failed to create AMAuthInstall object", v4, v5, v6, v7, v14);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(v1, v2, v3, @"Failed to create AMAuthInstall object", v4, v5, v6, v7, v13);
 }
 
 @end

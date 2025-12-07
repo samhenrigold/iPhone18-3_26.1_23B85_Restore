@@ -5,6 +5,9 @@
 - (Class)_ax_UIInteractiveHighlightContentViewClass;
 - (id)_axLongLookView;
 - (id)_axModalAncestorsForLongLookView:(id)view;
+- (void)_axSetModalAncestorsModal:(BOOL)modal;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation NCNotificationLongLookViewControllerAccessibility
@@ -22,6 +25,25 @@
   [validationsCopy validateClass:@"NCNotificationLongLookViewController" isKindOfClass:@"UIViewController"];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = NCNotificationLongLookViewControllerAccessibility;
+  [(NCNotificationLongLookViewControllerAccessibility *)&v6 viewDidAppear:appear];
+  [(NCNotificationLongLookViewControllerAccessibility *)self _axSetModalAncestorsModal:1];
+  v4 = *MEMORY[0x29EDC7ED8];
+  _axLongLookView = [(NCNotificationLongLookViewControllerAccessibility *)self _axLongLookView];
+  UIAccessibilityPostNotification(v4, _axLongLookView);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = NCNotificationLongLookViewControllerAccessibility;
+  [(NCNotificationLongLookViewControllerAccessibility *)&v4 viewWillDisappear:disappear];
+  [(NCNotificationLongLookViewControllerAccessibility *)self _axSetModalAncestorsModal:0];
+}
+
 - (id)_axLongLookView
 {
   objc_opt_class();
@@ -29,6 +51,42 @@
   view = [v2 view];
 
   return view;
+}
+
+- (void)_axSetModalAncestorsModal:(BOOL)modal
+{
+  modalCopy = modal;
+  v16 = *MEMORY[0x29EDCA608];
+  _axLongLookView = [(NCNotificationLongLookViewControllerAccessibility *)self _axLongLookView];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v6 = [(NCNotificationLongLookViewControllerAccessibility *)self _axModalAncestorsForLongLookView:_axLongLookView, 0];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10++) setAccessibilityViewIsModal:modalCopy];
+      }
+
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (id)_axModalAncestorsForLongLookView:(id)view

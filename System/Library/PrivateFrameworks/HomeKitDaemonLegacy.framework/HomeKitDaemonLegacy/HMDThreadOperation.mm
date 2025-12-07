@@ -87,7 +87,7 @@ void __38__HMDThreadOperation_cancelWithError___block_invoke(uint64_t a1)
 
 void __52__HMDThreadOperation_executeWithTimeout_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = *(*(a1 + 40) + 8);
@@ -104,11 +104,11 @@ void __52__HMDThreadOperation_executeWithTimeout_completion___block_invoke(uint6
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Thread operation timeout %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Thread operation timeout %@", &v12, 0x16u);
     }
   }
 
@@ -128,11 +128,11 @@ LABEL_9:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Thread operation response occurred after timeout %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Thread operation response occurred after timeout %@", &v12, 0x16u);
     }
   }
 
@@ -144,8 +144,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HMDThreadOperation_executeWithTimeout_completion___block_invoke_1(uint64_t a1)
@@ -201,12 +199,11 @@ void __52__HMDThreadOperation_executeWithTimeout_completion___block_invoke_2(uin
 
 uint64_t __33__HMDThreadOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_89523;
-  logCategory__hmf_once_v3_89523 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_89523;
+  logCategory__hmf_once_v3_89523 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

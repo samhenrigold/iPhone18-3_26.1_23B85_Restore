@@ -57,7 +57,7 @@
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7257AEC();
   v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8NewsFeed25PuzzleEmbedViewController_webContentViewController);
-  sub_1D5B5A498(0, &qword_1EC88B4C0);
+  sub_1D5B5A498(0, &qword_1EC88B4C0, 0x1E69DC720);
   selfCopy = self;
   v11 = sub_1D726265C();
   v12 = sub_1D726265C();

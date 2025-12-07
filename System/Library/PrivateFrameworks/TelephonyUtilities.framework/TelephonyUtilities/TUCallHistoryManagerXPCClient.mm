@@ -136,11 +136,11 @@ void __37__TUCallHistoryManagerXPCClient_init__block_invoke(uint64_t a1)
   queue = [(TUCallHistoryManagerXPCClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v3 = TUDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = TUDefaultLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Server disconnected.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Server disconnected.", v5, 2u);
   }
 }
 
@@ -188,7 +188,7 @@ void __109__TUCallHistoryManagerXPCClient_updateOutgoingLocalParticipantUUID_for
 void __109__TUCallHistoryManagerXPCClient_updateOutgoingLocalParticipantUUID_forCallsWithOutgoingLocalParticipantUUID___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __109__TUCallHistoryManagerXPCClient_updateOutgoingLocalParticipantUUID_forCallsWithOutgoingLocalParticipantUUID___block_invoke_2_cold_1(v2, v3);
@@ -222,7 +222,7 @@ void __86__TUCallHistoryManagerXPCClient_reportRecentCallForConversation_withSta
 void __86__TUCallHistoryManagerXPCClient_reportRecentCallForConversation_withStartDate_avMode___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __86__TUCallHistoryManagerXPCClient_reportRecentCallForConversation_withStartDate_avMode___block_invoke_2_cold_1(v2, v3);
@@ -289,7 +289,7 @@ void __46__TUCallHistoryManagerXPCClient_xpcConnection__block_invoke(uint64_t a1
 
 uint64_t __46__TUCallHistoryManagerXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -321,7 +321,7 @@ void __46__TUCallHistoryManagerXPCClient_xpcConnection__block_invoke_70(uint64_t
 
 uint64_t __46__TUCallHistoryManagerXPCClient_xpcConnection__block_invoke_2_71(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -374,20 +374,18 @@ uint64_t __46__TUCallHistoryManagerXPCClient_xpcConnection__block_invoke_2_71(ui
 
 void __109__TUCallHistoryManagerXPCClient_updateOutgoingLocalParticipantUUID_forCallsWithOutgoingLocalParticipantUUID___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error updating outgoing local participant UUID: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error updating outgoing local participant UUID: %@", &v2, 0xCu);
 }
 
 void __86__TUCallHistoryManagerXPCClient_reportRecentCallForConversation_withStartDate_avMode___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error reporting recent call for conversation: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Error reporting recent call for conversation: %@", &v2, 0xCu);
 }
 
 @end

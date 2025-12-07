@@ -13,18 +13,17 @@
   WeakRetained = objc_loadWeakRetained(&self->_ui);
   [WeakRetained dismiss];
 
-  v4 = LA_LOG();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = LA_LOG(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_238BCD000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ deallocated", buf, 0xCu);
+    _os_log_impl(&dword_238BCD000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ deallocated", buf, 0xCu);
   }
 
   v6.receiver = self;
   v6.super_class = LAContextUIHelper;
   [(LAContextUIHelper *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticateWithOptions:(id)options availableMechanisms:(id)mechanisms hostVC:(id)c context:(id)context reply:(id)reply
@@ -78,9 +77,9 @@ id __86__LAContextUIHelper_authenticateWithOptions_availableMechanisms_hostVC_co
 
 void __86__LAContextUIHelper_authenticateWithOptions_availableMechanisms_hostVC_context_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LA_LOG();
+  v4 = LA_LOG(v3);
   v5 = v4;
   if (v3)
   {
@@ -105,7 +104,7 @@ void __86__LAContextUIHelper_authenticateWithOptions_availableMechanisms_hostVC_
   }
 
   *buf = 138543362;
-  v11 = v7;
+  v10 = v7;
   _os_log_impl(&dword_238BCD000, v5, v6, "Authorization sheet finished %{public}@", buf, 0xCu);
   if (v3)
   {
@@ -124,26 +123,22 @@ LABEL_8:
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v8, v3);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
   v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v3 = LA_LOG();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = LA_LOG(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_238BCD000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ cancelled", &v6, 0xCu);
+    _os_log_impl(&dword_238BCD000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ cancelled", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_ui);
   [WeakRetained dismiss];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contextDidBecomeInvalid:(id)invalid

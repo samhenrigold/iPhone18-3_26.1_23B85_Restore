@@ -19,6 +19,7 @@
 - (NSURL)storeLocation;
 - (id)lockProvider;
 - (id)serialQueueProvider;
+- (void)flushResourcesForEnteringBackground;
 @end
 
 @implementation AVTUIEnvironment
@@ -116,6 +117,13 @@ void __38__AVTUIEnvironment_defaultEnvironment__block_invoke()
   v8 = dispatch_queue_create(label, v7);
 
   return v8;
+}
+
+- (void)flushResourcesForEnteringBackground
+{
+  inMemoryImageCache = self->_inMemoryImageCache;
+  self->_inMemoryImageCache = 0;
+  MEMORY[0x1EEE66BB8](self, inMemoryImageCache);
 }
 
 - (AVTCoreModel)editorCoreModel

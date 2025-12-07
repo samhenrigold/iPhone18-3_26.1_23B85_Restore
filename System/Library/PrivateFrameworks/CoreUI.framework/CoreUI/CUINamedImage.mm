@@ -28,9 +28,9 @@
 
 - (BOOL)_cacheRenditionProperties
 {
-  v28.receiver = self;
-  v28.super_class = CUINamedImage;
-  _cacheRenditionProperties = [(CUINamedLookup *)&v28 _cacheRenditionProperties];
+  v19.receiver = self;
+  v19.super_class = CUINamedImage;
+  _cacheRenditionProperties = [(CUINamedLookup *)&v19 _cacheRenditionProperties];
   if (_cacheRenditionProperties)
   {
     _rendition = [(CUINamedLookup *)self _rendition];
@@ -84,15 +84,15 @@
       {
         if ([(CUIThemeRendition *)v5 preservedVectorRepresentation])
         {
-          v26 = 0x8000;
+          v17 = 0x8000;
         }
 
         else
         {
-          v26 = 0;
+          v17 = 0;
         }
 
-        v15 = (*&self->_imageProperties & 0xFFFF7FFF | v26);
+        v15 = (*&self->_imageProperties & 0xFFFF7FFF | v17);
       }
 
       else
@@ -106,12 +106,9 @@
 
     else
     {
-      storageRef = [(CUINamedLookup *)self storageRef];
-      v18 = _LookupStructuredThemeProvider(storageRef, v17);
-      name = [(CUINamedLookup *)self name];
       [(CUINamedLookup *)self storageRef];
-      [objc_msgSend(v18 "themeStore")];
-      _CUILog(4, "CoreUI: could not find rendition for '%@' in %d:'%@'", v20, v21, v22, v23, v24, v25, name);
+      v16 = _LookupStructuredThemeProvider();
+      _CUILog(4, "CoreUI: could not find rendition for '%@' in %d:'%@'", -[CUINamedLookup name](self, "name"), -[CUINamedLookup storageRef](self, "storageRef"), [objc_msgSend(v16 "themeStore")]);
       LOBYTE(_cacheRenditionProperties) = 0;
     }
   }
@@ -237,12 +234,12 @@
 
 - (CUINamedImage)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme
 {
-  v14.receiver = self;
-  v14.super_class = CUINamedImage;
-  v6 = [(CUINamedLookup *)&v14 initWithName:name usingRenditionKey:key fromTheme:theme];
+  v8.receiver = self;
+  v8.super_class = CUINamedImage;
+  v6 = [(CUINamedLookup *)&v8 initWithName:name usingRenditionKey:key fromTheme:theme];
   if ([(CUIThemeRendition *)[(CUINamedLookup *)v6 _rendition] type]== 1000)
   {
-    _CUILog(4, "CoreUI: attempting to lookup a named image '%@' with a type that is not a data type in the AssetCatalog", v7, v8, v9, v10, v11, v12, name);
+    _CUILog(4, "CoreUI: attempting to lookup a named image '%@' with a type that is not a data type in the AssetCatalog", name);
 
     return 0;
   }

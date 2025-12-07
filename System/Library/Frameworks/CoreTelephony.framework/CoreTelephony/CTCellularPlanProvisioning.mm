@@ -28,7 +28,7 @@
 
 - (BOOL)supportsCellularPlan
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   infoDictionary = [mainBundle infoDictionary];
   v5 = [infoDictionary objectForKey:@"SmdpUrl"];
@@ -48,15 +48,15 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
-      v25 = 138413058;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v8;
-      v29 = 2112;
-      v30 = bundleIdentifier;
-      v31 = 2048;
-      v32 = [v11 count];
-      _os_log_impl(&dword_182E9B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "SMDP Url: [%@], Iccid Prefix: [%@], Bundle ID: [%@], Carrier Descriptors count: %lu", &v25, 0x2Au);
+      v24 = 138413058;
+      v25 = v5;
+      v26 = 2112;
+      v27 = v8;
+      v28 = 2112;
+      v29 = bundleIdentifier;
+      v30 = 2048;
+      v31 = [v11 count];
+      _os_log_impl(&dword_182E9B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "SMDP Url: [%@], Iccid Prefix: [%@], Bundle ID: [%@], Carrier Descriptors count: %lu", &v24, 0x2Au);
     }
 
     v22 = [(CoreTelephonyClient *)self->_client supportsPlanProvisioning:0 carrierDescriptors:v11 smdpUrl:v5 iccidPrefix:v8 bundleId:bundleIdentifier];
@@ -73,7 +73,6 @@
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -85,18 +84,8 @@
   infoDictionary = [mainBundle infoDictionary];
   v10 = [infoDictionary objectForKey:@"CFBundleDisplayName"];
 
-  if (v10)
+  if (v10 || ([MEMORY[0x1E696AAE8] mainBundle], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "infoDictionary"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "objectForKey:", @"CFBundleName"), v10 = objc_claimAutoreleasedReturnValue(), v12, v11, v10))
   {
-    goto LABEL_3;
-  }
-
-  mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
-  infoDictionary2 = [mainBundle2 infoDictionary];
-  v10 = [infoDictionary2 objectForKey:@"CFBundleName"];
-
-  if (v10)
-  {
-LABEL_3:
     client = self->_client;
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
@@ -127,18 +116,8 @@ LABEL_3:
   infoDictionary = [mainBundle infoDictionary];
   v13 = [infoDictionary objectForKey:@"CFBundleDisplayName"];
 
-  if (v13)
+  if (v13 || ([MEMORY[0x1E696AAE8] mainBundle], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "infoDictionary"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "objectForKey:", @"CFBundleName"), v13 = objc_claimAutoreleasedReturnValue(), v15, v14, v13))
   {
-    goto LABEL_3;
-  }
-
-  mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
-  infoDictionary2 = [mainBundle2 infoDictionary];
-  v13 = [infoDictionary2 objectForKey:@"CFBundleName"];
-
-  if (v13)
-  {
-LABEL_3:
     client = self->_client;
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
@@ -168,18 +147,8 @@ LABEL_3:
   infoDictionary = [mainBundle infoDictionary];
   v10 = [infoDictionary objectForKey:@"CFBundleDisplayName"];
 
-  if (v10)
+  if (v10 || ([MEMORY[0x1E696AAE8] mainBundle], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "infoDictionary"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "objectForKey:", @"CFBundleName"), v10 = objc_claimAutoreleasedReturnValue(), v12, v11, v10))
   {
-    goto LABEL_3;
-  }
-
-  mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
-  infoDictionary2 = [mainBundle2 infoDictionary];
-  v10 = [infoDictionary2 objectForKey:@"CFBundleName"];
-
-  if (v10)
-  {
-LABEL_3:
     client = self->_client;
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;

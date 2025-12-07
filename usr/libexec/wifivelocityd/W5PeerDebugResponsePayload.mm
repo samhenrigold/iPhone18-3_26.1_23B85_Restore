@@ -17,9 +17,9 @@
 - (W5PeerDebugResponsePayload)initWithRequest:(id)request
 {
   requestCopy = request;
-  v27.receiver = self;
-  v27.super_class = W5PeerDebugResponsePayload;
-  v5 = [(W5PeerDebugResponsePayload *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = W5PeerDebugResponsePayload;
+  v5 = [(W5PeerDebugResponsePayload *)&v28 init];
   if (!v5 || (v6 = [requestCopy objectForKey:@"version"], (v5->_version = v6) == 0))
   {
     v8 = 0;
@@ -46,9 +46,9 @@ LABEL_13:
 
   v10 = objc_opt_class();
   v11 = [NSSet setWithObjects:v10, objc_opt_class(), 0];
-  v26 = 0;
-  v12 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v9 error:&v26];
-  v13 = v26;
+  v27 = 0;
+  v12 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v9 error:&v27];
+  v13 = v27;
   configuration = v5->_configuration;
   v5->_configuration = v12;
 
@@ -60,15 +60,16 @@ LABEL_15:
     v22 = sub_100098A04();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 136315906;
-      v29 = "[W5PeerDebugResponsePayload initWithRequest:]";
-      v30 = 2080;
-      v31 = "W5PeerDebugResponsePayload.m";
-      v32 = 1024;
-      v33 = 63;
-      v34 = 2114;
-      v35 = v13;
-      _os_log_send_and_compose_impl();
+      v29 = 136315906;
+      v30 = "[W5PeerDebugResponsePayload initWithRequest:]";
+      v31 = 2080;
+      v32 = "W5PeerDebugResponsePayload.m";
+      v33 = 1024;
+      v34 = 63;
+      v35 = 2114;
+      v36 = v13;
+      LODWORD(v26) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 0, "[wifivelocity] %s (%s:%u) init error, decoding errror='%{public}@'", &v29, v26);
     }
 
     v5 = 0;
@@ -93,15 +94,16 @@ LABEL_15:
       {
         configuration = [(W5PeerDebugResponsePayload *)v5 configuration];
         diagnosticsMode4 = [configuration diagnosticsMode];
-        v28 = 136315906;
-        v29 = "[W5PeerDebugResponsePayload initWithRequest:]";
-        v30 = 2080;
-        v31 = "W5PeerDebugResponsePayload.m";
-        v32 = 1024;
-        v33 = 56;
-        v34 = 2114;
-        v35 = diagnosticsMode4;
-        _os_log_send_and_compose_impl();
+        v29 = 136315906;
+        v30 = "[W5PeerDebugResponsePayload initWithRequest:]";
+        v31 = 2080;
+        v32 = "W5PeerDebugResponsePayload.m";
+        v33 = 1024;
+        v34 = 56;
+        v35 = 2114;
+        v36 = diagnosticsMode4;
+        LODWORD(v26) = 38;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 0, "[wifivelocity] %s (%s:%u) generating UUID for diagnosticsMode='%{public}@'", &v29, v26);
       }
 
 LABEL_10:
@@ -138,9 +140,9 @@ LABEL_10:
   if (version)
   {
     configuration = [(W5PeerDebugResponsePayload *)self configuration];
-    v18 = 0;
-    v8 = [NSKeyedArchiver archivedDataWithRootObject:configuration requiringSecureCoding:1 error:&v18];
-    version = v18;
+    v16 = 0;
+    v8 = [NSKeyedArchiver archivedDataWithRootObject:configuration requiringSecureCoding:1 error:&v16];
+    version = v16;
 
     if (!version && v8)
     {
@@ -153,17 +155,15 @@ LABEL_7:
     v9 = sub_100098A04();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315906;
-      v20 = "[W5PeerDebugResponsePayload encode]";
-      v21 = 2080;
-      v22 = "W5PeerDebugResponsePayload.m";
-      v23 = 1024;
-      v24 = 87;
-      v25 = 2114;
-      v26 = version;
-      LODWORD(v17) = 38;
-      v16 = &v19;
-      _os_log_send_and_compose_impl();
+      v17 = 136315906;
+      v18 = "[W5PeerDebugResponsePayload encode]";
+      v19 = 2080;
+      v20 = "W5PeerDebugResponsePayload.m";
+      v21 = 1024;
+      v22 = 87;
+      v23 = 2114;
+      v24 = version;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) failed to encode configuration with error='%{public}@'", &v17, 38);
     }
   }
 

@@ -16,18 +16,16 @@
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"key" number:1 type:13 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"defaultValue" number:2 type:13 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"table" number:3 type:13 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bundleURL" number:4 type:13 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
@@ -125,44 +123,44 @@ LABEL_20:
 
 - (id)jsonDictionary
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v3 = [(BMAppIntentInvocationStaticDeferredLocalizedString *)self key];
   defaultValue = [(BMAppIntentInvocationStaticDeferredLocalizedString *)self defaultValue];
   table = [(BMAppIntentInvocationStaticDeferredLocalizedString *)self table];
   bundleURL = [(BMAppIntentInvocationStaticDeferredLocalizedString *)self bundleURL];
-  v14[0] = @"key";
+  v13[0] = @"key";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"defaultValue";
+  v14[0] = null;
+  v13[1] = @"defaultValue";
   null2 = defaultValue;
   if (!defaultValue)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"table";
+  v14[1] = null2;
+  v13[2] = @"table";
   null3 = table;
   if (!table)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v14[3] = @"bundleURL";
+  v14[2] = null3;
+  v13[3] = @"bundleURL";
   null4 = bundleURL;
   if (!bundleURL)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = null4;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   if (bundleURL)
   {
     if (table)
@@ -207,14 +205,13 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (BMAppIntentInvocationStaticDeferredLocalizedString)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"key"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -222,7 +219,7 @@ LABEL_13:
     v8 = 0;
 LABEL_4:
     v9 = [dictionaryCopy objectForKeyedSubscript:@"defaultValue"];
-    v32 = v7;
+    v31 = v7;
     if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -234,24 +231,24 @@ LABEL_4:
           goto LABEL_16;
         }
 
-        v21 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v22 = *MEMORY[0x1E698F240];
-        v37 = *MEMORY[0x1E696A578];
+        v20 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v21 = *MEMORY[0x1E698F240];
+        v36 = *MEMORY[0x1E696A578];
         v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"defaultValue"];
-        v38 = v12;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        v37 = v12;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
         v15 = 0;
-        *error = [v21 initWithDomain:v22 code:2 userInfo:v10];
+        *error = [v20 initWithDomain:v21 code:2 userInfo:v10];
         error = 0;
         goto LABEL_15;
       }
 
-      v31 = v9;
+      v30 = v9;
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"table"];
@@ -265,22 +262,22 @@ LABEL_4:
         {
           v12 = 0;
           v15 = 0;
-          error = v31;
+          error = v30;
           goto LABEL_15;
         }
 
-        v23 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v22 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
-        v24 = *MEMORY[0x1E698F240];
-        v35 = *MEMORY[0x1E696A578];
+        v23 = *MEMORY[0x1E698F240];
+        v34 = *MEMORY[0x1E696A578];
         v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"table"];
-        v36 = v14;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-        v25 = [v23 initWithDomain:v24 code:2 userInfo:v13];
+        v35 = v14;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+        v24 = [v22 initWithDomain:v23 code:2 userInfo:v13];
         v12 = 0;
         v15 = 0;
-        error = v31;
-        *errorCopy = v25;
+        error = v30;
+        *errorCopy = v24;
         goto LABEL_14;
       }
 
@@ -300,18 +297,18 @@ LABEL_4:
       {
         if (error)
         {
-          v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v28 = *MEMORY[0x1E698F240];
-          v33 = *MEMORY[0x1E696A578];
-          v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleURL"];
-          v34 = v26;
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-          *error = [v30 initWithDomain:v28 code:2 userInfo:v27];
+          v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v27 = *MEMORY[0x1E698F240];
+          v32 = *MEMORY[0x1E696A578];
+          v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleURL"];
+          v33 = v25;
+          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+          *error = [v29 initWithDomain:v27 code:2 userInfo:v26];
         }
 
         v14 = 0;
         v15 = 0;
-        error = v31;
+        error = v30;
         goto LABEL_14;
       }
 
@@ -323,15 +320,15 @@ LABEL_4:
       v14 = 0;
     }
 
-    error = v31;
-    v15 = [(BMAppIntentInvocationStaticDeferredLocalizedString *)selfCopy initWithKey:v8 defaultValue:v31 table:v12 bundleURL:v14];
+    error = v30;
+    v15 = [(BMAppIntentInvocationStaticDeferredLocalizedString *)selfCopy initWithKey:v8 defaultValue:v30 table:v12 bundleURL:v14];
     selfCopy = v15;
 LABEL_14:
 
     self = selfCopy;
 LABEL_15:
 
-    v7 = v32;
+    v7 = v31;
     goto LABEL_16;
   }
 
@@ -349,20 +346,19 @@ LABEL_15:
     goto LABEL_17;
   }
 
-  v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v19 = *MEMORY[0x1E698F240];
-  v39 = *MEMORY[0x1E696A578];
-  v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"key"];
-  v40[0] = v20;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+  v17 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v18 = *MEMORY[0x1E698F240];
+  v38 = *MEMORY[0x1E696A578];
+  v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"key"];
+  v39[0] = v19;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
   v8 = 0;
   v15 = 0;
-  *error = [v18 initWithDomain:v19 code:2 userInfo:v9];
-  error = v20;
+  *error = [v17 initWithDomain:v18 code:2 userInfo:v9];
+  error = v19;
 LABEL_16:
 
 LABEL_17:
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -540,18 +536,16 @@ LABEL_24:
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"key" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"defaultValue" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"table" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bundleURL" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

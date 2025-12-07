@@ -1,13 +1,3 @@
-void sub_217FB7E48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 uint64_t MIL::IRTypedTensorValue<short>::GetValues(uint64_t a1)
 {
   result = MIL::IRValueContiguousData<short>::GetView(*(a1 + 16));
@@ -154,23 +144,6 @@ void MIL::IRTypedTensorValue<int>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<int>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB8404(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -227,6 +200,15 @@ void sub_217FB8620(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<int>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB8708(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -534,23 +516,6 @@ void MIL::IRTypedTensorValue<long long>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<long long>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB8FD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -607,6 +572,15 @@ void sub_217FB91F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<long long>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB92DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -903,23 +877,6 @@ void MIL::IRTypedTensorValue<MIL::UInt1>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::UInt1>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FB9B58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -976,6 +933,15 @@ void sub_217FB9D74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::UInt1>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FB9E5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -1163,23 +1129,6 @@ void MIL::IRTypedTensorValue<MIL::UInt2>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::UInt2>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FBA544(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -1236,6 +1185,15 @@ void sub_217FBA760(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::UInt2>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FBA848(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -1423,23 +1381,6 @@ void MIL::IRTypedTensorValue<MIL::UInt3>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::UInt3>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FBAF30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -1496,6 +1437,15 @@ void sub_217FBB14C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::UInt3>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FBB234(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -1683,23 +1633,6 @@ void MIL::IRTypedTensorValue<MIL::UInt4>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::UInt4>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FBB91C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -1756,6 +1689,15 @@ void sub_217FBBB38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::UInt4>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FBBC20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -1943,23 +1885,6 @@ void MIL::IRTypedTensorValue<MIL::UInt6>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<MIL::UInt6>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FBC308(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -2016,6 +1941,15 @@ void sub_217FBC524(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<MIL::UInt6>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FBC60C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -2203,23 +2137,6 @@ void MIL::IRTypedTensorValue<unsigned char>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<unsigned char>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FBCCF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -2276,6 +2193,15 @@ void sub_217FBCF10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<unsigned char>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FBCFF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -2533,23 +2459,6 @@ void MIL::IRTypedTensorValue<unsigned short>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<unsigned short>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FBD804(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -2606,6 +2515,15 @@ void sub_217FBDA20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<unsigned short>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FBDB08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -2913,23 +2831,6 @@ void MIL::IRTypedTensorValue<unsigned int>::~IRTypedTensorValue(uint64_t a1)
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<unsigned int>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FBE3D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -2986,6 +2887,15 @@ void sub_217FBE5F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<unsigned int>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FBE6DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -3293,23 +3203,6 @@ void MIL::IRTypedTensorValue<unsigned long long>::~IRTypedTensorValue(uint64_t a
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::IRTypedTensorValue<unsigned long long>::IRTypedTensorValue()
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
-{
-  operator new();
-}
-
 void sub_217FBEFAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
@@ -3366,6 +3259,15 @@ void sub_217FBF1C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void MIL::IRTypedTensorValue<unsigned long long>::IRTypedTensorValue(void *a1, uint64_t a2, uint64_t a3)
+{
+  operator new();
+}
+
+{
+  operator new();
 }
 
 void sub_217FBF2B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -4329,7 +4231,7 @@ void MIL::IRDictionaryValue::~IRDictionaryValue(MIL::IRDictionaryValue *this)
   JUMPOUT(0x21CEAFEA0);
 }
 
-BOOL MIL::IRDictionaryValue::Equals(MIL::IRDictionaryValue *this, const MIL::IRValue *a2)
+uint64_t MIL::IRDictionaryValue::Equals(MIL::IRDictionaryValue *this, const MIL::IRValue *a2)
 {
   if (this == a2)
   {
@@ -4360,7 +4262,7 @@ BOOL MIL::IRDictionaryValue::Equals(MIL::IRDictionaryValue *this, const MIL::IRV
       break;
     }
 
-    MIL::IRDictionaryValue::TryGetValueForKey(v4, v7[2], &v11);
+    MIL::IRDictionaryValue::TryGetValueForKey(&v11, v4, v7[2]);
     if (!v11)
     {
       if (v12)
@@ -4392,7 +4294,7 @@ void sub_217FC0EF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::IRDictionaryValue::TryGetValueForKey(MIL::IRDictionaryValue *this@<X0>, const MIL::IRValue *a2@<X1>, void *a3@<X8>)
+void MIL::IRDictionaryValue::TryGetValueForKey(uint64_t *__return_ptr a1@<X8>, MIL::IRDictionaryValue *this@<X0>, const MIL::IRValue *a3@<X1>)
 {
   v4 = *(this + 3);
   if (v4)
@@ -4411,7 +4313,7 @@ void MIL::IRDictionaryValue::TryGetValueForKey(MIL::IRDictionaryValue *this@<X0>
         atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v8 = (*(*a2 + 16))(a2);
+      v8 = (*(*a3 + 16))(a3);
       if (v7)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -4435,8 +4337,8 @@ void MIL::IRDictionaryValue::TryGetValueForKey(MIL::IRDictionaryValue *this@<X0>
     }
 
     v9 = v4[5];
-    *a3 = v4[4];
-    a3[1] = v9;
+    *a1 = v4[4];
+    a1[1] = v9;
     if (v9)
     {
       atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
@@ -4446,8 +4348,8 @@ void MIL::IRDictionaryValue::TryGetValueForKey(MIL::IRDictionaryValue *this@<X0>
   else
   {
 LABEL_12:
-    *a3 = 0;
-    a3[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 }
 
@@ -4488,9 +4390,9 @@ uint64_t MIL::IRDictionaryValue::GetHash(MIL::IRDictionaryValue *this)
   return v5;
 }
 
-void MIL::IRDictionaryValue::GetValueForKey(MIL::IRDictionaryValue *this@<X0>, const MIL::IRValue *a2@<X1>, void *a3@<X8>)
+void MIL::IRDictionaryValue::GetValueForKey(MIL::IRDictionaryValue *this@<X0>, const MIL::IRValue *a2@<X1>, uint64_t *a3@<X8>)
 {
-  MIL::IRDictionaryValue::TryGetValueForKey(this, a2, a3);
+  MIL::IRDictionaryValue::TryGetValueForKey(a3, this, a2);
   if (!*a3)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -4898,7 +4800,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t CompareSubByteValues<MIL::UInt1>(unsigned __int8 *a1, unint64_t a2, unsigned __int8 *a3)
+BOOL CompareSubByteValues<MIL::UInt1>(unsigned __int8 *a1, unint64_t a2, unsigned __int8 *a3)
 {
   v4 = a2;
   v6 = a2 >> 3;
@@ -8892,28 +8794,27 @@ void sub_217FC8C74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::anonymous namespace::ValidateAndExtractProperty<unsigned long long>(const void **a1, void *a2)
+uint64_t MIL::anonymous namespace::ValidateAndExtractProperty<unsigned long long>(uint64_t *a1, void *a2)
 {
-  v2 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a2, a1);
-  if (!v2)
+  if (!std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a2, a1))
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::runtime_error::runtime_error(exception, &v7);
+    std::runtime_error::runtime_error(exception, &v6);
     exception->__vftable = (MEMORY[0x277D828C8] + 16);
     __cxa_throw(exception, off_278235F68, MEMORY[0x277D825E0]);
   }
 
-  v3 = MIL::IRValue::TryGetScalar<unsigned long long>(v2[5]);
-  if (!v3)
+  v2 = MIL::IRValue::TryGetScalar<unsigned long long>();
+  if (!v2)
   {
-    v6 = __cxa_allocate_exception(0x10uLL);
+    v5 = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::runtime_error::runtime_error(v6, &v7);
-    __cxa_throw(v6, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    std::runtime_error::runtime_error(v5, &v6);
+    __cxa_throw(v5, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  return *v3;
+  return *v2;
 }
 
 void sub_217FC8E08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -9846,6 +9747,181 @@ uint64_t MIL::IRValueStorageData<MIL::Fp16>::IRValueStorageData(uint64_t a1, uin
   *(a1 + 56) = 0;
   *(a1 + 64) = a2;
   *a1 = &unk_2829E1C70;
+  *(a1 + 72) = *a4;
+  *a4 = 0;
+  *(a4 + 8) = 0;
+  std::string::basic_string[abi:ne200100]<0>(&__p, "offset");
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  *(a1 + 88) = v9;
+  *(a1 + 96) = a5;
+  Filename = MIL::Blob::StorageReader::GetFilename(*(a1 + 72));
+  std::string::basic_string[abi:ne200100]<0>(v24, "path");
+  v11 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((a1 + 8), v24);
+  if (!v11)
+  {
+    std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+  }
+
+  MIL::IRValue::GetScalar<std::string>(v11[5], &__p);
+  v12 = *(Filename + 23);
+  if (v12 >= 0)
+  {
+    v13 = *(Filename + 23);
+  }
+
+  else
+  {
+    v13 = *(Filename + 8);
+  }
+
+  size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v15 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    size = __p.__r_.__value_.__l.__size_;
+  }
+
+  if (v13 != size)
+  {
+    v18 = 0;
+    if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_19;
+  }
+
+  if (v12 >= 0)
+  {
+    v16 = Filename;
+  }
+
+  else
+  {
+    v16 = *Filename;
+  }
+
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  v18 = memcmp(v16, p_p, v13) == 0;
+  if (v15 < 0)
+  {
+LABEL_19:
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+LABEL_20:
+  if (v25 < 0)
+  {
+    operator delete(v24[0]);
+  }
+
+  if (!v18)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v22 = MEMORY[0x277D825D8];
+    std::logic_error::logic_error(exception, "Storage and properties have different filenames.");
+    v23 = MEMORY[0x277D82750];
+    goto LABEL_30;
+  }
+
+  if (*(a1 + 32) != 3)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v22 = MEMORY[0x277D82600];
+    std::runtime_error::runtime_error(exception, "Too many file properties provided.");
+    v23 = MEMORY[0x277D82760];
+LABEL_30:
+    __cxa_throw(exception, v23, v22);
+  }
+
+  if ((*(a1 + 96) & 1) == 0)
+  {
+    v19 = MIL::Blob::StorageReader::GetFilename(*(a1 + 72));
+  }
+
+  return a1;
+}
+
+void sub_217FCA55C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  __cxa_free_exception(v22);
+  v24 = *(v20 + 80);
+  if (v24)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+  }
+
+  *v20 = v21;
+  if (*(v20 + 48) == 1)
+  {
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v20 + 8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t MIL::IRValueStorageData<MIL::Fp16>::GetViewImpl(uint64_t a1)
+{
+  if (*(a1 + 96) == 1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "This program was parsed specifying ignoreWeightFile, cannot fetch the data value.");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v1 = *(a1 + 88);
+  v2 = *(a1 + 72);
+
+  return MIL::Blob::StorageReader::GetDataView<MIL::Fp16>(v2, v1);
+}
+
+uint64_t MIL::IRValueStorageData<MIL::Fp8E4M3FN>::~IRValueStorageData(uint64_t a1)
+{
+  *a1 = &unk_2829E1CC0;
+  v2 = *(a1 + 80);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  *a1 = &unk_2829E09B0;
+  if (*(a1 + 48) == 1)
+  {
+    std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(a1 + 8);
+  }
+
+  return a1;
+}
+
+void MIL::IRValueStorageData<MIL::Fp8E4M3FN>::~IRValueStorageData(uint64_t a1)
+{
+  MIL::IRValueStorageData<MIL::Fp8E4M3FN>::~IRValueStorageData(a1);
+
+  JUMPOUT(0x21CEAFEA0);
+}
+
+uint64_t MIL::IRValueStorageData<MIL::Fp8E4M3FN>::IRValueStorageData(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, char a5)
+{
+  *a1 = &unk_2829E09B0;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__hash_table(a1 + 8, a3);
+  *(a1 + 48) = 1;
+  *(a1 + 56) = 0;
+  *(a1 + 64) = a2;
+  *a1 = &unk_2829E1CC0;
   *(a1 + 72) = *a4;
   *a4 = 0;
   *(a4 + 8) = 0;

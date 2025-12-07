@@ -103,7 +103,7 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
 
 - (WKWallpaperRepresentingCollection)initWithURL:(id)l downloadManager:(id)manager
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   lCopy = l;
   managerCopy = manager;
   v7 = [objc_opt_class() _loadCollectionMetadataWithURL:lCopy];
@@ -140,10 +140,10 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
 
   v13 = v12;
 
-  v75 = [MEMORY[0x1E696AAE8] bundleWithURL:lCopy];
-  v76 = v13;
-  v74 = [v75 localizedStringForKey:v13 value:0 table:0];
-  v78 = [objc_opt_class() _loadWallpaperRepresentingContentFromURL:lCopy collectionMetadata:v7];
+  v74 = [MEMORY[0x1E696AAE8] bundleWithURL:lCopy];
+  v75 = v13;
+  v73 = [v74 localizedStringForKey:v13 value:0 table:0];
+  v77 = [objc_opt_class() _loadWallpaperRepresentingContentFromURL:lCopy collectionMetadata:v7];
   objc_opt_class();
   v14 = [v7 objectForKeyedSubscript:@"wallpapersShareBaseAppearance"];
   if (objc_opt_isKindOfClass())
@@ -156,7 +156,7 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
     v15 = 0;
   }
 
-  v64 = v15;
+  v63 = v15;
 
   objc_opt_class();
   v16 = [v7 objectForKeyedSubscript:@"hiddenFromPicker"];
@@ -186,7 +186,7 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
 
   v21 = v20;
 
-  v72 = v21;
+  v71 = v21;
   if (v21)
   {
     bOOLValue = [v21 BOOLValue];
@@ -221,20 +221,20 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
     bOOLValue2 = 0;
   }
 
-  v70 = v24;
+  v69 = v24;
   if ([v18 BOOLValue])
   {
     v25 = WKLogForCategory(4uLL);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v82 = "[WKWallpaperRepresentingCollection initWithURL:downloadManager:]";
-      v83 = 2114;
-      v84 = v10;
+      v81 = "[WKWallpaperRepresentingCollection initWithURL:downloadManager:]";
+      v82 = 2114;
+      v83 = v10;
       _os_log_impl(&dword_1E4A23000, v25, OS_LOG_TYPE_DEFAULT, "%s: Hiding Wallpaper '%{public}@': Explicitly hidden", buf, 0x16u);
     }
 
-    v68 = 1;
+    v67 = 1;
   }
 
   else
@@ -260,24 +260,24 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v82 = "[WKWallpaperRepresentingCollection initWithURL:downloadManager:]";
-        v83 = 2114;
-        v84 = v10;
-        v85 = 2114;
-        v86 = v28;
+        v81 = "[WKWallpaperRepresentingCollection initWithURL:downloadManager:]";
+        v82 = 2114;
+        v83 = v10;
+        v84 = 2114;
+        v85 = v28;
         _os_log_impl(&dword_1E4A23000, v29, OS_LOG_TYPE_DEFAULT, "%s: Hiding Wallpaper '%{public}@': Device class '%{public}@' not in supported list", buf, 0x20u);
       }
 
-      v68 = 1;
+      v67 = 1;
     }
 
     else
     {
-      v68 = 0;
+      v67 = 0;
     }
   }
 
-  v73 = v18;
+  v72 = v18;
 
   objc_opt_class();
   v30 = [v7 objectForKeyedSubscript:@"disableRotation"];
@@ -293,7 +293,7 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
 
   v32 = v31;
 
-  v67 = v32;
+  v66 = v32;
   bOOLValue3 = [v32 BOOLValue];
   objc_opt_class();
   v33 = [v7 objectForKeyedSubscript:@"previewWallpaperMatchesDeviceTraits"];
@@ -309,13 +309,13 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
 
   v35 = v34;
 
-  v65 = v35;
+  v64 = v35;
   if (![v35 BOOLValue])
   {
     goto LABEL_73;
   }
 
-  v62 = v10;
+  v61 = v10;
   selfCopy = self;
   objc_opt_class();
   v36 = [v7 objectForKeyedSubscript:@"previewWallpaperDeviceTraitsLookup"];
@@ -344,7 +344,7 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
     [objc_opt_class() _raiseInvalidMetadataExceptionForMetadataKeypath:@"previewWallpaperDeviceTraitsLookup" collectionURL:lCopy];
   }
 
-  v61 = lCopy;
+  v60 = lCopy;
   deviceColor = [(WKWallpaperRepresentingCollection *)self deviceColor];
   deviceEnclosureColor = [(WKWallpaperRepresentingCollection *)self deviceEnclosureColor];
   objc_opt_class();
@@ -373,13 +373,13 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
 
     v49 = v48;
 
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __65__WKWallpaperRepresentingCollection_initWithURL_downloadManager___block_invoke;
-    v79[3] = &unk_1E8766F10;
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = __65__WKWallpaperRepresentingCollection_initWithURL_downloadManager___block_invoke;
+    v78[3] = &unk_1E8766F10;
     v50 = v49;
-    v80 = v50;
-    firstObject2 = [v78 na_firstObjectPassingTest:v79];
+    v79 = v50;
+    firstObject2 = [v77 na_firstObjectPassingTest:v78];
     if (firstObject2)
     {
       v52 = WKLogForCategory(4uLL);
@@ -387,11 +387,11 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
       {
         identifierString = [firstObject2 identifierString];
         *buf = 136315650;
-        v82 = "[WKWallpaperRepresentingCollection initWithURL:downloadManager:]";
-        v83 = 2114;
-        v84 = identifierString;
-        v85 = 2114;
-        v86 = v62;
+        v81 = "[WKWallpaperRepresentingCollection initWithURL:downloadManager:]";
+        v82 = 2114;
+        v83 = identifierString;
+        v84 = 2114;
+        v85 = v61;
         _os_log_impl(&dword_1E4A23000, v52, OS_LOG_TYPE_DEFAULT, "%s: Using Preview Wallpaper Representing '%{public}@' for collection identifier '%{public}@' based on device traits.", buf, 0x20u);
       }
     }
@@ -402,8 +402,8 @@ void __269__WKWallpaperRepresentingCollection_initWithWallpaperCollectionIdentif
     firstObject2 = 0;
   }
 
-  lCopy = v61;
-  v10 = v62;
+  lCopy = v60;
+  v10 = v61;
   self = selfCopy;
   if (!firstObject2)
   {
@@ -411,25 +411,24 @@ LABEL_73:
     v54 = WKLogForCategory(4uLL);
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
-      firstObject = [v78 firstObject];
+      firstObject = [v77 firstObject];
       identifierString2 = [firstObject identifierString];
       *buf = 136315650;
-      v82 = "[WKWallpaperRepresentingCollection initWithURL:downloadManager:]";
-      v83 = 2114;
-      v84 = v10;
-      v85 = 2114;
-      v86 = identifierString2;
+      v81 = "[WKWallpaperRepresentingCollection initWithURL:downloadManager:]";
+      v82 = 2114;
+      v83 = v10;
+      v84 = 2114;
+      v85 = identifierString2;
       _os_log_impl(&dword_1E4A23000, v54, OS_LOG_TYPE_DEFAULT, "%s: Preview Wallpaper Representing for collection identifier '%{public}@' not set, defaulting to first wallpaper '%{public}@'.", buf, 0x20u);
     }
 
-    firstObject2 = [v78 firstObject];
+    firstObject2 = [v77 firstObject];
   }
 
-  BYTE1(v60) = bOOLValue3;
-  LOBYTE(v60) = bOOLValue2;
-  v57 = -[WKWallpaperRepresentingCollection initWithWallpaperCollectionIdentifier:displayName:previewWallpaperRepresenting:wallpapersShareBaseAppearance:hiddenFromPicker:depthEffectDisabled:motionEffectsDisabled:disableRotation:wallpaperRepresentingCollection:downloadManager:](self, "initWithWallpaperCollectionIdentifier:displayName:previewWallpaperRepresenting:wallpapersShareBaseAppearance:hiddenFromPicker:depthEffectDisabled:motionEffectsDisabled:disableRotation:wallpaperRepresentingCollection:downloadManager:", v10, v74, firstObject2, [v64 BOOLValue], v68, bOOLValue, v60, v78, managerCopy);
+  BYTE1(v59) = bOOLValue3;
+  LOBYTE(v59) = bOOLValue2;
+  v57 = -[WKWallpaperRepresentingCollection initWithWallpaperCollectionIdentifier:displayName:previewWallpaperRepresenting:wallpapersShareBaseAppearance:hiddenFromPicker:depthEffectDisabled:motionEffectsDisabled:disableRotation:wallpaperRepresentingCollection:downloadManager:](self, "initWithWallpaperCollectionIdentifier:displayName:previewWallpaperRepresenting:wallpapersShareBaseAppearance:hiddenFromPicker:depthEffectDisabled:motionEffectsDisabled:disableRotation:wallpaperRepresentingCollection:downloadManager:", v10, v73, firstObject2, [v63 BOOLValue], v67, bOOLValue, v59, v77, managerCopy);
 
-  v58 = *MEMORY[0x1E69E9840];
   return v57;
 }
 
@@ -444,21 +443,21 @@ uint64_t __65__WKWallpaperRepresentingCollection_initWithURL_downloadManager___b
 
 + (BOOL)shouldLoadWallpaperCollectionAtURL:(id)l
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v4 = WKLogForCategory(4uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "+[WKWallpaperRepresentingCollection shouldLoadWallpaperCollectionAtURL:]";
+    v17 = "+[WKWallpaperRepresentingCollection shouldLoadWallpaperCollectionAtURL:]";
     _os_log_impl(&dword_1E4A23000, v4, OS_LOG_TYPE_DEFAULT, "%s: start.", buf, 0xCu);
   }
 
-  v16 = 0;
+  v15 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [lCopy path];
-  v7 = [defaultManager fileExistsAtPath:path isDirectory:&v16];
-  v8 = v16;
+  v7 = [defaultManager fileExistsAtPath:path isDirectory:&v15];
+  v8 = v15;
 
   if (v7 & v8)
   {
@@ -493,22 +492,19 @@ uint64_t __65__WKWallpaperRepresentingCollection_initWithURL_downloadManager___b
   }
 
   __72__WKWallpaperRepresentingCollection_shouldLoadWallpaperCollectionAtURL___block_invoke();
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __72__WKWallpaperRepresentingCollection_shouldLoadWallpaperCollectionAtURL___block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = WKLogForCategory(4uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "+[WKWallpaperRepresentingCollection shouldLoadWallpaperCollectionAtURL:]_block_invoke";
-    _os_log_impl(&dword_1E4A23000, v0, OS_LOG_TYPE_DEFAULT, "%s: complete.", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "+[WKWallpaperRepresentingCollection shouldLoadWallpaperCollectionAtURL:]_block_invoke";
+    _os_log_impl(&dword_1E4A23000, v0, OS_LOG_TYPE_DEFAULT, "%s: complete.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)numberOfWallpapers
@@ -625,21 +621,21 @@ void __101__WKWallpaperRepresentingCollection_downloadWallpaperRepresentingWithI
 
 + (id)_loadCollectionMetadataWithURL:(id)l
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v4 = WKLogForCategory(4uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v48 = "+[WKWallpaperRepresentingCollection _loadCollectionMetadataWithURL:]";
+    v47 = "+[WKWallpaperRepresentingCollection _loadCollectionMetadataWithURL:]";
     _os_log_impl(&dword_1E4A23000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: start.", buf, 0xCu);
   }
 
-  v46 = 0;
+  v45 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [lCopy path];
-  v7 = [defaultManager fileExistsAtPath:path isDirectory:&v46];
-  v8 = v46;
+  v7 = [defaultManager fileExistsAtPath:path isDirectory:&v45];
+  v8 = v45;
 
   v9 = MEMORY[0x1E695D940];
   if ((v7 & v8 & 1) == 0)
@@ -689,23 +685,23 @@ void __101__WKWallpaperRepresentingCollection_downloadWallpaperRepresentingWithI
     [v29 raise];
   }
 
-  v45 = 0;
-  v30 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v18 error:&v45];
-  v31 = v45;
+  v44 = 0;
+  v30 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v18 error:&v44];
+  v31 = v44;
   if (v31)
   {
     v32 = WKLogForCategory(4uLL);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v42 = objc_opt_class();
-      v44 = NSStringFromClass(v42);
+      v41 = objc_opt_class();
+      v43 = NSStringFromClass(v41);
       path5 = [v18 path];
       *buf = 138543874;
-      v48 = v44;
-      v49 = 2114;
-      v50 = path5;
-      v51 = 2114;
-      v52 = v31;
+      v47 = v43;
+      v48 = 2114;
+      v49 = path5;
+      v50 = 2114;
+      v51 = v31;
       _os_log_error_impl(&dword_1E4A23000, v32, OS_LOG_TYPE_ERROR, "%{public}@: Encountered error in loading Wallpaper Collection metadata file '%{public}@', error '%{public}@'", buf, 0x20u);
     }
 
@@ -721,28 +717,25 @@ void __101__WKWallpaperRepresentingCollection_downloadWallpaperRepresentingWithI
   }
 
   __68__WKWallpaperRepresentingCollection__loadCollectionMetadataWithURL___block_invoke();
-  v40 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
 
 void __68__WKWallpaperRepresentingCollection__loadCollectionMetadataWithURL___block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = WKLogForCategory(4uLL);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136446210;
-    v3 = "+[WKWallpaperRepresentingCollection _loadCollectionMetadataWithURL:]_block_invoke";
-    _os_log_impl(&dword_1E4A23000, v0, OS_LOG_TYPE_DEFAULT, "%{public}s: complete.", &v2, 0xCu);
+    v1 = 136446210;
+    v2 = "+[WKWallpaperRepresentingCollection _loadCollectionMetadataWithURL:]_block_invoke";
+    _os_log_impl(&dword_1E4A23000, v0, OS_LOG_TYPE_DEFAULT, "%{public}s: complete.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_loadWallpaperRepresentingContentFromURL:(id)l collectionMetadata:(id)metadata
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   lCopy = l;
   metadataCopy = metadata;
   objc_opt_class();
@@ -766,21 +759,21 @@ void __68__WKWallpaperRepresentingCollection__loadCollectionMetadataWithURL___bl
 
   v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v10, "count")}];
   v12 = [lCopy URLByAppendingPathComponent:@"Wallpapers"];
-  v49 = 0;
+  v48 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v42 = v12;
+  v41 = v12;
   path = [v12 path];
-  v15 = [defaultManager fileExistsAtPath:path isDirectory:&v49];
-  v16 = v49;
+  v15 = [defaultManager fileExistsAtPath:path isDirectory:&v48];
+  v16 = v48;
 
   if (v15 && (v16 & 1) != 0)
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v48 = 0;
-    v18 = [defaultManager2 contentsOfDirectoryAtURL:v42 includingPropertiesForKeys:0 options:0 error:&v48];
-    v19 = v48;
+    v47 = 0;
+    v18 = [defaultManager2 contentsOfDirectoryAtURL:v41 includingPropertiesForKeys:0 options:0 error:&v47];
+    v19 = v47;
 
-    v40 = metadataCopy;
+    v39 = metadataCopy;
     if (v19)
     {
       v20 = WKLogForCategory(4uLL);
@@ -793,14 +786,14 @@ void __68__WKWallpaperRepresentingCollection__loadCollectionMetadataWithURL___bl
       v22 = *MEMORY[0x1E695D940];
       v23 = MEMORY[0x1E696AEC0];
       v24 = NSStringFromClass(self);
-      path2 = [v42 path];
+      path2 = [v41 path];
       v26 = [v23 stringWithFormat:@"%@: Encountered error in loading contents of directory for system wallpape collection (path: '%@') (error: '%@').", v24, path2, v19];
       v27 = [v21 exceptionWithName:v22 reason:v26 userInfo:0];
 
       [v27 raise];
     }
 
-    v41 = lCopy;
+    v40 = lCopy;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     v29 = [v18 na_filter:&__block_literal_global_82];
     if (![v29 count])
@@ -812,44 +805,44 @@ void __68__WKWallpaperRepresentingCollection__loadCollectionMetadataWithURL___bl
       }
     }
 
-    v39 = v18;
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __97__WKWallpaperRepresentingCollection__loadWallpaperRepresentingContentFromURL_collectionMetadata___block_invoke_84;
-    v47[3] = &unk_1E8766F80;
-    v47[4] = dictionary;
-    [v29 na_each:v47];
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
+    v38 = v18;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __97__WKWallpaperRepresentingCollection__loadWallpaperRepresentingContentFromURL_collectionMetadata___block_invoke_84;
+    v46[3] = &unk_1E8766F80;
+    v46[4] = dictionary;
+    [v29 na_each:v46];
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v31 = v10;
-    v32 = [v31 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v42 objects:v49 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v44;
+      v34 = *v43;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v44 != v34)
+          if (*v43 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v36 = [dictionary objectForKeyedSubscript:*(*(&v43 + 1) + 8 * i)];
+          v36 = [dictionary objectForKeyedSubscript:*(*(&v42 + 1) + 8 * i)];
           [v11 na_safeAddObject:v36];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v42 objects:v49 count:16];
       }
 
       while (v33);
     }
 
-    metadataCopy = v40;
-    lCopy = v41;
+    metadataCopy = v39;
+    lCopy = v40;
   }
 
   else
@@ -860,8 +853,6 @@ void __68__WKWallpaperRepresentingCollection__loadCollectionMetadataWithURL___bl
       [WKWallpaperRepresentingCollection _loadWallpaperRepresentingContentFromURL:lCopy collectionMetadata:v19];
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -927,35 +918,30 @@ void __97__WKWallpaperRepresentingCollection__loadWallpaperRepresentingContentFr
 
 + (void)_loadWallpaperRepresentingContentFromURL:(void *)a1 collectionMetadata:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 path];
-  v5[0] = 136446466;
+  v4[0] = 136446466;
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_1E4A23000, a2, OS_LOG_TYPE_FAULT, "%{public}s: No 'Wallpapers' directory found in wallpaper collection at path '%{public}@'.", v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1E4A23000, a2, OS_LOG_TYPE_FAULT, "%{public}s: No 'Wallpapers' directory found in wallpaper collection at path '%{public}@'.", v4, 0x16u);
 }
 
 + (void)_loadWallpaperRepresentingContentFromURL:(NSObject *)a3 collectionMetadata:.cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 path];
-  v8[0] = 136446722;
+  v7[0] = 136446722;
   OUTLINED_FUNCTION_0();
-  v9 = v6;
-  v10 = a2;
-  _os_log_error_impl(&dword_1E4A23000, a3, OS_LOG_TYPE_ERROR, "%{public}s: Encountered error in retrieving contents of collection at path '%{public}@', error '%{public}@'", v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = v6;
+  v9 = a2;
+  _os_log_error_impl(&dword_1E4A23000, a3, OS_LOG_TYPE_ERROR, "%{public}s: Encountered error in retrieving contents of collection at path '%{public}@', error '%{public}@'", v7, 0x20u);
 }
 
 + (void)_loadWallpaperRepresentingContentFromURL:(os_log_t)log collectionMetadata:.cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136446210;
-  v3 = "+[WKWallpaperRepresentingCollection _loadWallpaperRepresentingContentFromURL:collectionMetadata:]";
-  _os_log_error_impl(&dword_1E4A23000, log, OS_LOG_TYPE_ERROR, "%{public}s: no bundles that we want to load", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136446210;
+  v2 = "+[WKWallpaperRepresentingCollection _loadWallpaperRepresentingContentFromURL:collectionMetadata:]";
+  _os_log_error_impl(&dword_1E4A23000, log, OS_LOG_TYPE_ERROR, "%{public}s: no bundles that we want to load", &v1, 0xCu);
 }
 
 @end

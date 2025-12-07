@@ -10,7 +10,7 @@
   computeEvaluator = self->_computeEvaluator;
   if (computeEvaluator)
   {
-    OpenSubdiv::v3_1_1::Osd::MTLLegacyGregoryPatchTable::~MTLLegacyGregoryPatchTable(computeEvaluator);
+    OpenSubdiv::v3_1_1::Osd::MTLLegacyGregoryPatchTable::~MTLLegacyGregoryPatchTable(&computeEvaluator->var0);
     MEMORY[0x21CF07610]();
   }
 

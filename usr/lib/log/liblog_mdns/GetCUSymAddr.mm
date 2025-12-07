@@ -3,7 +3,7 @@
 
 @implementation GetCUSymAddr
 
-void *___GetCUSymAddr_DataBuffer_Free_block_invoke()
+uint64_t (*___GetCUSymAddr_DataBuffer_Free_block_invoke())(void)
 {
   if (_GetCULibHandle_sOnce != -1)
   {
@@ -105,7 +105,7 @@ void *___GetCUSymAddr_SNPrintF_block_invoke()
   return result;
 }
 
-void *___GetCUSymAddr_DataBuffer_AppendF_block_invoke()
+uint64_t (*___GetCUSymAddr_DataBuffer_AppendF_block_invoke())(void, const char *, ...)
 {
   if (_GetCULibHandle_sOnce != -1)
   {

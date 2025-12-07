@@ -22,10 +22,10 @@
 
 - (void)_queue_start
 {
-  v63 = *MEMORY[0x277D85DE8];
-  v53.receiver = self;
-  v53.super_class = HDSourceQueryServer;
-  [(HDQueryServer *)&v53 _queue_start];
+  v62 = *MEMORY[0x277D85DE8];
+  v52.receiver = self;
+  v52.super_class = HDSourceQueryServer;
+  [(HDQueryServer *)&v52 _queue_start];
   if (self)
   {
     clientProxy = [(HDQueryServer *)self clientProxy];
@@ -38,7 +38,7 @@
 
   sampleType = [(HDQueryServer *)self sampleType];
   filter = [(HDQueryServer *)self filter];
-  v52 = 0;
+  v51 = 0;
   v6 = sampleType;
   v7 = filter;
   if (self)
@@ -49,7 +49,7 @@
     profile2 = [(HDQueryServer *)self profile];
     v11 = [v7 predicateWithProfile:profile2];
 
-    v12 = [(HDQueryServer *)self authorizationStatusRecordForType:v6 error:&v52];
+    v12 = [(HDQueryServer *)self authorizationStatusRecordForType:v6 error:&v51];
     v13 = v12;
     if (!v12)
     {
@@ -75,108 +75,108 @@ LABEL_44:
       goto LABEL_45;
     }
 
-    v51 = v13;
+    v50 = v13;
     v14 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v15 = [objc_msgSend(v6 "dataObjectClass")];
     profile3 = [(HDQueryServer *)self profile];
-    v61 = 0;
-    v17 = [v15 sourceIDsForSamplesWithType:v6 profile:profile3 predicate:v11 error:&v61];
-    v18 = v61;
+    v60 = 0;
+    v17 = [v15 sourceIDsForSamplesWithType:v6 profile:profile3 predicate:v11 error:&v60];
+    v18 = v60;
 
     if (!v17)
     {
 
       v30 = 0;
-      v13 = v51;
+      v13 = v50;
       goto LABEL_44;
     }
 
-    v50 = v18;
+    v49 = v18;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __61__HDSourceQueryServer__sourcesForObjectsOfType_filter_error___block_invoke;
     aBlock[3] = &unk_278616EF0;
-    v59 = sourceManager;
+    v58 = sourceManager;
     obj = v14;
-    v48 = v14;
-    v60 = v48;
+    v47 = v14;
+    v59 = v47;
     v19 = _Block_copy(aBlock);
-    restrictedSourceEntities = [v51 restrictedSourceEntities];
+    restrictedSourceEntities = [v50 restrictedSourceEntities];
 
-    v49 = v17;
+    v48 = v17;
     if (restrictedSourceEntities)
     {
-      v45 = v11;
-      v46 = sourceManager;
-      v47 = v7;
-      v43 = clientProxy;
-      restrictedSourceEntities2 = [v51 restrictedSourceEntities];
+      v44 = v11;
+      v45 = sourceManager;
+      v46 = v7;
+      v42 = clientProxy;
+      restrictedSourceEntities2 = [v50 restrictedSourceEntities];
       [restrictedSourceEntities2 hk_map:&__block_literal_global_31];
       v23 = v22 = v17;
 
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
       v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       v24 = v22;
-      v25 = [v24 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v53 objects:v61 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v55;
+        v27 = *v54;
         do
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v55 != v27)
+            if (*v54 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            v29 = *(*(&v54 + 1) + 8 * i);
+            v29 = *(*(&v53 + 1) + 8 * i);
             if ([v23 containsObject:v29])
             {
               v19[2](v19, v29);
             }
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v54 objects:v62 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v53 objects:v61 count:16];
         }
 
         while (v26);
       }
 
-      clientProxy = v43;
+      clientProxy = v42;
     }
 
     else
     {
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
       v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       v23 = v17;
-      v31 = [v23 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v31 = [v23 countByEnumeratingWithState:&v53 objects:v61 count:16];
       if (!v31)
       {
         goto LABEL_19;
       }
 
       v32 = v31;
-      v45 = v11;
-      v46 = sourceManager;
-      v47 = v7;
-      v33 = *v55;
+      v44 = v11;
+      v45 = sourceManager;
+      v46 = v7;
+      v33 = *v54;
 LABEL_31:
       v34 = 0;
       while (1)
       {
-        if (*v55 != v33)
+        if (*v54 != v33)
         {
           objc_enumerationMutation(v23);
         }
 
-        v35 = *(*(&v54 + 1) + 8 * v34);
+        v35 = *(*(&v53 + 1) + 8 * v34);
         if ([(HDQueryServer *)self _shouldStopProcessingQuery])
         {
           break;
@@ -185,29 +185,29 @@ LABEL_31:
         v19[2](v19, v35);
         if (v32 == ++v34)
         {
-          v32 = [v23 countByEnumeratingWithState:&v54 objects:v62 count:16];
-          v18 = v50;
+          v32 = [v23 countByEnumeratingWithState:&v53 objects:v61 count:16];
+          v18 = v49;
           if (v32)
           {
             goto LABEL_31;
           }
 
-          v7 = v47;
-          v11 = v45;
+          v7 = v46;
+          v11 = v44;
           goto LABEL_20;
         }
       }
     }
 
-    sourceManager = v46;
-    v7 = v47;
-    v11 = v45;
+    sourceManager = v45;
+    v7 = v46;
+    v11 = v44;
 LABEL_19:
-    v18 = v50;
+    v18 = v49;
 LABEL_20:
 
-    v17 = v48;
-    v13 = v51;
+    v17 = v47;
+    v13 = v50;
     if (![(HDQueryServer *)self _shouldStopProcessingQuery])
     {
       if (v17)
@@ -229,7 +229,7 @@ LABEL_43:
         v36 = v18;
 LABEL_40:
         v37 = v18;
-        v52 = v18;
+        v51 = v18;
         sources = v18;
 LABEL_42:
 
@@ -251,7 +251,7 @@ LABEL_41:
   v30 = 0;
 LABEL_46:
 
-  v40 = v52;
+  v40 = v51;
   queryUUID = [(HDQueryServer *)self queryUUID];
   if (v40)
   {
@@ -262,8 +262,6 @@ LABEL_46:
   {
     [clientProxy client_deliverSources:v30 forQuery:queryUUID];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
@@ -283,7 +281,7 @@ LABEL_46:
 
 void __43__HDSourceQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = [*(a1 + 32) objectAtIndexedSubscript:0];
@@ -296,9 +294,9 @@ void __43__HDSourceQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
 
     v4 = *(a1 + 40);
     v5 = [v4 sampleType];
-    v34 = 0;
-    v6 = [v4 authorizationStatusRecordForType:v5 error:&v34];
-    v7 = v34;
+    v33 = 0;
+    v6 = [v4 authorizationStatusRecordForType:v5 error:&v33];
+    v7 = v33;
 
     if (v6)
     {
@@ -321,9 +319,9 @@ void __43__HDSourceQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
 
         v11 = [*(a1 + 40) profile];
         v12 = [v11 sourceManager];
-        v33 = 0;
-        v13 = [v12 clientSourceForSourceEntity:v10 error:&v33];
-        v14 = v33;
+        v32 = 0;
+        v13 = [v12 clientSourceForSourceEntity:v10 error:&v32];
+        v14 = v32;
 
         if (!v13)
         {
@@ -332,7 +330,7 @@ void __43__HDSourceQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
           if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v37 = v14;
+            v36 = v14;
             _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "Failed to retrieve client source: %{public}@:", buf, 0xCu);
           }
         }
@@ -348,33 +346,33 @@ void __43__HDSourceQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
       v17 = [*(a1 + 40) filter];
       if (v17)
       {
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v18 = *(a1 + 32);
-        v19 = [v18 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v28 objects:v34 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v30;
+          v21 = *v29;
           while (2)
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v30 != v21)
+              if (*v29 != v21)
               {
                 objc_enumerationMutation(v18);
               }
 
-              if (([v17 acceptsDataObject:*(*(&v29 + 1) + 8 * i)]& 1) != 0)
+              if (([v17 acceptsDataObject:*(*(&v28 + 1) + 8 * i)]& 1) != 0)
               {
 
                 goto LABEL_25;
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v29 objects:v35 count:16];
+            v20 = [v18 countByEnumeratingWithState:&v28 objects:v34 count:16];
             if (v20)
             {
               continue;
@@ -390,14 +388,17 @@ void __43__HDSourceQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
 LABEL_25:
         v23 = *(a1 + 40);
         v18 = v3;
-        if (v23 && ([v23 _shouldStopProcessingQuery] & 1) == 0)
+        if (v23)
         {
-          [v23[27] addObject:v18];
-          v24 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v18, 0}];
-          v25 = [v23 clientProxy];
-          v26 = v23[27];
-          v27 = [v23 queryUUID];
-          [v25 client_deliverUpdatedSources:v26 added:v24 forQuery:v27];
+          if (([v23 _shouldStopProcessingQuery] & 1) == 0)
+          {
+            [v23[27] addObject:v18];
+            v24 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v18, 0}];
+            v25 = [v23 clientProxy];
+            v26 = v23[27];
+            v27 = [v23 queryUUID];
+            [v25 client_deliverUpdatedSources:v26 added:v24 forQuery:v27];
+          }
         }
       }
     }
@@ -409,7 +410,7 @@ LABEL_25:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v37 = v7;
+        v36 = v7;
         _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "Failed to retrieve authorization status; ignoring added samples: %{public}@", buf, 0xCu);
       }
     }
@@ -417,19 +418,20 @@ LABEL_25:
 LABEL_30:
 LABEL_31:
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__HDSourceQueryServer__sourcesForObjectsOfType_filter_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) clientSourceForPersistentID:a2 error:0];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 40) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 40) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 uint64_t __61__HDSourceQueryServer__sourcesForObjectsOfType_filter_error___block_invoke_2(uint64_t a1, void *a2)

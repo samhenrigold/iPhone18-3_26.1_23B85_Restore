@@ -42,7 +42,7 @@
   v4 = sub_1E4709BDC();
   v6 = v5;
 
-  LOBYTE(emptyCopy) = _s13BookDataStore016SecureEngagementB6HelperC7isEmpty9timeSliceSb10Foundation0B0V_tFZ_0(v4, v6);
+  LOBYTE(emptyCopy) = _s13BookDataStore016SecureEngagementB6HelperC7isEmpty9timeSliceSb10Foundation0B0V_tFZ_0(v4, v6, v7);
   sub_1E465746C(v4, v6);
   return emptyCopy & 1;
 }

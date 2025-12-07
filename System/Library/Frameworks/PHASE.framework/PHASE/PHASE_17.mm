@@ -35,7 +35,7 @@ void Phase::Controller::LoadBalancer::ClearProfileOverride(Phase::Controller::Lo
   }
 }
 
-uint64_t Phase::LockFreeQueueMPSC::GetWriteBuffer(atomic_uchar *this, uint64_t a2, unint64_t *a3, BOOL *a4)
+uint64_t Phase::LockFreeQueueMPSC::GetWriteBuffer(atomic_uchar *this, unint64_t a2, unint64_t *a3, BOOL *a4)
 {
   v8 = (this + 40);
   Phase::SpinLock::Lock(this + 40);
@@ -53,7 +53,7 @@ uint64_t Phase::LockFreeQueueMPSC::GetWriteBuffer(atomic_uchar *this, uint64_t a
   }
 
   v10 = *this;
-  if (a2 + 32 <= (2 * v10))
+  if (a2 + 32 <= 2 * v10)
   {
     v11 = 2 * v10;
   }
@@ -441,7 +441,7 @@ void Phase::sReadDefaultsValue<char const*>(void *a1, uint64_t a2, void *a3)
   }
 }
 
-uint64_t Phase::Logger::CreateAudioCapturer@<X0>(Phase::Logger *this@<X0>, const char *a2@<X1>, void *a3@<X8>)
+uint64_t *Phase::Logger::CreateAudioCapturer@<X0>(uint64_t *__return_ptr a1@<X8>, Phase::Logger *this@<X0>, const char *a3@<X1>)
 {
   if (qword_27DF97B60 != -1)
   {
@@ -450,7 +450,7 @@ uint64_t Phase::Logger::CreateAudioCapturer@<X0>(Phase::Logger *this@<X0>, const
 
   if (off_27DF97B58)
   {
-    result = off_27DF97B58(4386, "AudioCapture/PHASE", this, 1667327590, 0, a2);
+    result = off_27DF97B58(4386, "AudioCapture/PHASE", this, 1667327590, 0, a3);
   }
 
   else
@@ -458,7 +458,7 @@ uint64_t Phase::Logger::CreateAudioCapturer@<X0>(Phase::Logger *this@<X0>, const
     result = 0;
   }
 
-  *a3 = result;
+  *a1 = result;
   return result;
 }
 
@@ -791,19 +791,17 @@ void applesauce::CF::TypeRefPair::~TypeRefPair(applesauce::CF::TypeRefPair *this
   }
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(a1, a2);
     }
 
     std::vector<Phase::Controller::DVM23::SubmixController *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(uint64_t a1, unint64_t a2)
@@ -1093,8 +1091,8 @@ void Phase::LookupInterpolator::EvaluateFractionsFromInterpolationRanges(Phase::
         while (v8);
       }
 
-      std::vector<std::vector<float>>::push_back[abi:ne200100](this + 80, v23);
-      std::vector<std::vector<float>>::push_back[abi:ne200100](this + 104, __p);
+      std::vector<std::vector<float>>::push_back[abi:ne200100](this + 10, v23);
+      std::vector<std::vector<float>>::push_back[abi:ne200100](this + 13, __p);
       if (__p[0])
       {
         __p[1] = __p[0];
@@ -1145,10 +1143,10 @@ uint64_t Phase::LookupInterpolator::GetSubbandCountBelowFirstFFTBin(Phase::Looku
   return result;
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](const void **a1, uint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (v5 >= v4)
   {
     v8 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 3);
@@ -1188,16 +1186,16 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, u
     *v12 = 0;
     *(v12 + 8) = 0;
     *(v12 + 16) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(24 * v8, *a2, a2[1], (a2[1] - *a2) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((24 * v8), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
     v7 = (v19 + 24);
-    v13 = *(a1 + 8) - *a1;
+    v13 = a1[1] - *a1;
     v14 = &v18[-v13];
     memcpy(&v18[-v13], *a1, v13);
     v15 = *a1;
     *a1 = v14;
-    *(a1 + 8) = v7;
-    v16 = *(a1 + 16);
-    *(a1 + 16) = v20;
+    a1[1] = v7;
+    v16 = a1[2];
+    a1[2] = v20;
     v19 = v15;
     v20 = v16;
     v17 = v15;
@@ -1210,18 +1208,18 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, u
     *v5 = 0;
     v5[1] = 0;
     v5[2] = 0;
-    result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v5, *a2, a2[1], (a2[1] - *a2) >> 2);
+    result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v5, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
     v7 = v5 + 3;
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 
-  *(a1 + 8) = v7;
+  a1[1] = v7;
   return result;
 }
 
-void sub_23A43E640(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A43E640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1386,7 +1384,7 @@ LABEL_15:
   while (1)
   {
     v19 = -1;
-    result = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(this, &v19, 0x1CuLL);
+    result = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(this, &v19, 0x1CuLL, *v4);
     if (result)
     {
       break;
@@ -1487,7 +1485,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t Phase::Controller::DVM23::MasterController::SetPlaystate(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
+uint64_t Phase::Controller::DVM23::MasterController::SetPlaystate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v10[8] = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) >= 1)
@@ -1511,11 +1509,11 @@ uint64_t Phase::Controller::DVM23::MasterController::SetPlaystate(uint64_t a1, u
   return 0;
 }
 
-void sub_23A43EDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23A43EDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(unsigned long long)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v8 + 16);
+  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v15 + 16);
   _Unwind_Resume(a1);
 }
 
@@ -2131,7 +2129,7 @@ LABEL_163:
   }
 }
 
-void Phase::Zeppelin::MathUtils::ComputeSphHankelYUpToOrder(Phase::Zeppelin::MathUtils *this@<X0>, long double a2@<D0>, void *a3@<X8>)
+void Phase::Zeppelin::MathUtils::ComputeSphHankelYUpToOrder(Phase::Zeppelin::MathUtils *this@<X0>, long double a2@<D0>, double **a3@<X8>)
 {
   __p[3] = *MEMORY[0x277D85DE8];
   if (a2 <= 0.0)
@@ -2333,22 +2331,20 @@ void sub_23A44138C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, a2);
     }
 
     std::vector<Phase::Controller::DVM23::SubmixController *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2397,7 +2393,7 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -2413,29 +2409,29 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::complex<double>>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void Phase::sGetStdStringFromNsString(Phase *this@<X0>, _BYTE *a2@<X8>)
+void Phase::sGetStdStringFromNsString(uint64_t *__return_ptr a1@<X8>, Phase *this@<X0>)
 {
-  v7 = this;
-  v4 = [(Phase *)v7 UTF8String];
-  v5 = [(Phase *)v7 lengthOfBytesUsingEncoding:4];
-  v6 = v5;
-  if (v5 >= 0x7FFFFFFFFFFFFFF8)
+  v6 = this;
+  v3 = [(Phase *)v6 UTF8String];
+  v4 = [(Phase *)v6 lengthOfBytesUsingEncoding:4];
+  v5 = v4;
+  if (v4 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v5 >= 0x17)
+  if (v4 >= 0x17)
   {
     operator new();
   }
 
-  a2[23] = v5;
-  if (v5)
+  *(a1 + 23) = v4;
+  if (v4)
   {
-    memmove(a2, v4, v5);
+    memmove(a1, v3, v4);
   }
 
-  a2[v6] = 0;
+  *(a1 + v5) = 0;
 }
 
 void Phase::MdlMeshAsset::~MdlMeshAsset(Phase::MdlMeshAsset *this)
@@ -2843,9 +2839,9 @@ uint64_t Phase::SetMetaParameterValue(void *a1, int a2, uint64_t a3, double a4)
   return 0;
 }
 
-void sub_23A442550(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A442550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2975,9 +2971,9 @@ LABEL_30:
   return 0;
 }
 
-void sub_23A4428D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A4428D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,void *>>>>::~unique_ptr[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -3001,7 +2997,7 @@ BOOL Phase::GlobalMetaParameterManager::RegisterGlobalMetaParam(Phase::GlobalMet
       objc_initWeak(&location, v4);
       v13 = *v6;
       objc_copyWeak(&v14, &location);
-      std::__hash_table<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>>(this + 6, &v13);
+      std::__hash_table<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>>(this + 6, &v13, &v13);
       v9 = v8;
       objc_destroyWeak(&v14);
       objc_destroyWeak(&location);
@@ -3124,33 +3120,33 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long l
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>>(void *a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3158,49 +3154,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_23A442EAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A442EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,PHASEGlobalMetaParameterAsset * {__weak}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3841,9 +3837,9 @@ void Phase::SpatialModeler::convertDirectionalMetadataToRayTracingPlaneWaveList<
   }
 }
 
-void sub_23A443D00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A443D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4016,9 +4012,9 @@ void Phase::SpatialModeler::convertDirectionalMetadataToRayTracingPlaneWaveList<
   }
 }
 
-void sub_23A444074(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A444074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4198,9 +4194,9 @@ void Phase::SpatialModeler::convertDirectionalMetadataToRayTracingPlaneWaveList<
   }
 }
 
-void sub_23A444460(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A444460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4279,7 +4275,7 @@ void Phase::SpatialModeler::PrecalculateDbLevels<Phase::SpatialModeler::PhaseSpa
   }
 }
 
-uint64_t Phase::SpatialModeler::TerminateAndWeightRemainder_dBDomain<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>(uint64_t result, float *a2, float *a3, float *a4, uint64_t a5, float a6, float a7)
+char **Phase::SpatialModeler::TerminateAndWeightRemainder_dBDomain<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>(char **result, float *a2, float *a3, float *a4, char **a5, float a6, float a7)
 {
   v9 = a3;
   if (a2 == result)
@@ -4670,9 +4666,9 @@ uint64_t Phase::SpatialModeler::FindPairAndMerge<Phase::SpatialModeler::PhaseSpa
   return result;
 }
 
-void sub_23A444F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23A444F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4697,11 +4693,11 @@ uint64_t Phase::SpatialModeler::WeightSingleReflection_dBDomain<Phase::SpatialMo
   return result;
 }
 
-uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+char **std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::push_back[abi:ne200100](char **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v8 = (v4 - *result) >> 5;
@@ -4743,7 +4739,7 @@ uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::
     *(v12 + 8) = v13;
     v14[2] = 32 * v8 + 32;
     std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::__swap_out_circular_buffer(result, v14);
-    v7 = *(v3 + 8);
+    v7 = v3[1];
     result = std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::~__split_buffer(v14);
   }
 
@@ -4751,18 +4747,18 @@ uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::
   {
     *v4 = &unk_284D33CC8;
     v6 = *(a2 + 8);
-    *(v4 + 24) = *(a2 + 24);
+    *(v4 + 3) = *(a2 + 24);
     *(v4 + 8) = v6;
     v7 = v4 + 32;
   }
 
-  *(v3 + 8) = v7;
+  v3[1] = v7;
   return result;
 }
 
-void sub_23A44512C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A44512C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_3Band>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4921,7 +4917,7 @@ void Phase::SpatialModeler::PrecalculateDbLevels<Phase::SpatialModeler::PhaseSpa
   }
 }
 
-uint64_t Phase::SpatialModeler::TerminateAndWeightRemainder_dBDomain<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>(uint64_t result, float *a2, float *a3, float *a4, uint64_t a5, float a6, float a7)
+float *Phase::SpatialModeler::TerminateAndWeightRemainder_dBDomain<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>(float *result, float *a2, float *a3, float *a4, char **a5, float a6, float a7)
 {
   v9 = a3;
   if (a2 == result)
@@ -5318,18 +5314,18 @@ uint64_t Phase::SpatialModeler::FindPairAndMerge<Phase::SpatialModeler::PhaseSpa
   return result;
 }
 
-void sub_23A445B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23A445B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+char **std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::push_back[abi:ne200100](char **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v10 = (v4 - *result) >> 6;
@@ -5375,7 +5371,7 @@ uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>:
     *(v14 + 40) = v15;
     v18[2] = (v10 << 6) + 64;
     std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::__swap_out_circular_buffer(result, v18);
-    v9 = *(v3 + 8);
+    v9 = v3[1];
     result = std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::~__split_buffer(v18);
   }
 
@@ -5385,20 +5381,20 @@ uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>:
     v6 = *(a2 + 8);
     v7 = *(a2 + 24);
     v8 = *(a2 + 40);
-    *(v4 + 56) = *(a2 + 56);
+    *(v4 + 14) = *(a2 + 56);
     *(v4 + 40) = v8;
     *(v4 + 24) = v7;
     *(v4 + 8) = v6;
     v9 = v4 + 64;
   }
 
-  *(v3 + 8) = v9;
+  v3[1] = v9;
   return result;
 }
 
-void sub_23A445C70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A445C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_Octave>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5557,7 +5553,7 @@ void Phase::SpatialModeler::PrecalculateDbLevels<Phase::SpatialModeler::PhaseSpa
   }
 }
 
-uint64_t Phase::SpatialModeler::TerminateAndWeightRemainder_dBDomain<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>(uint64_t result, float *a2, float *a3, float *a4, uint64_t a5, float a6, float a7)
+float *Phase::SpatialModeler::TerminateAndWeightRemainder_dBDomain<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>(float *result, float *a2, float *a3, float *a4, char **a5, float a6, float a7)
 {
   v9 = a3;
   if (a2 == result)
@@ -5978,11 +5974,18 @@ uint64_t Phase::SpatialModeler::FindPairAndMerge<Phase::SpatialModeler::PhaseSpa
   return result;
 }
 
-uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+void sub_23A446750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+char **std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::push_back[abi:ne200100](char **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v13 = 0x8E38E38E38E38E39 * ((v4 - *result) >> 4);
@@ -6036,7 +6039,7 @@ uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOct
     *(v17 + 8) = *(a2 + 8);
     v24[2] = 144 * v13 + 144;
     std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::__swap_out_circular_buffer(result, v24);
-    v12 = *(v3 + 8);
+    v12 = v3[1];
     result = std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::~__split_buffer(v24);
   }
 
@@ -6054,20 +6057,20 @@ uint64_t std::vector<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOct
     v9 = *(a2 + 88);
     v10 = *(a2 + 104);
     v11 = *(a2 + 120);
-    *(v4 + 136) = *(a2 + 136);
+    *(v4 + 17) = *(a2 + 136);
     *(v4 + 120) = v11;
     *(v4 + 104) = v10;
     *(v4 + 88) = v9;
     v12 = v4 + 144;
   }
 
-  *(v3 + 8) = v12;
+  v3[1] = v12;
   return result;
 }
 
-void sub_23A446934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A446934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::SpatialModeler::PhaseSpatialModelerMetadata_ThirdOctave>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6196,7 +6199,7 @@ LABEL_23:
   return llroundf((v22 * v15) + ((1.0 - v22) * v12));
 }
 
-void Phase::DspLayer::NUPConvolver::NUPConvolver(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
+void Phase::DspLayer::NUPConvolver::NUPConvolver(uint64_t a1, uint64_t a2, int a3, int a4)
 {
   *a1 = &unk_284D35C68;
   *(a1 + 12) = 0;
@@ -6204,8 +6207,8 @@ void Phase::DspLayer::NUPConvolver::NUPConvolver(uint64_t a1, uint64_t *a2, uint
   *(a1 + 8) = a4;
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 32, *a2, a2[1], (a2[1] - *a2) >> 2);
-  v6 = *(a2[1] - 4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 32), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
+  v6 = *(*(a2 + 8) - 4);
   v7 = malloc_type_malloc(4 * v6, 0x100004052888210uLL);
   *(a1 + 56) = v7;
   *(a1 + 64) = v6;
@@ -7050,7 +7053,7 @@ LABEL_13:
         }
 
         std::string::basic_string[abi:ne200100]<0>(v214, v212);
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v169, v214);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v169, v214, v214);
         if (v215 < 0)
         {
           operator delete(v214[0]);
@@ -7979,7 +7982,7 @@ LABEL_245:
 
 void sub_23A44A110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, _Unwind_Exception *exception_objecta, void *a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, void *a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  Phase::ActionTreeBuilder::~ActionTreeBuilder(&a66);
+  Phase::ActionTreeBuilder::~ActionTreeBuilder(&a65);
 
   _Unwind_Resume(a1);
 }
@@ -8031,7 +8034,7 @@ LABEL_8:
   return v14;
 }
 
-uint64_t Phase::BuildParameters(uint64_t a1, void *a2, void *a3, void *a4)
+uint64_t Phase::BuildParameters(uint64_t a1, void *a2, void **a3, void *a4)
 {
   v79 = *MEMORY[0x277D85DE8];
   v7 = a2;
@@ -8102,7 +8105,7 @@ uint64_t Phase::BuildParameters(uint64_t a1, void *a2, void *a3, void *a4)
       }
 
       std::string::basic_string[abi:ne200100]<0>(__p, __s);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v74, __p);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v74, __p, __p);
       if (v68 < 0)
       {
         operator delete(__p[0]);
@@ -8462,7 +8465,7 @@ LABEL_29:
       else
       {
         memcpy(a3[1], __src, 0x1D0uLL);
-        v38 = v37 + 464;
+        v38 = (v37 + 464);
       }
 
       v58[1] = v38;
@@ -8496,7 +8499,7 @@ void sub_23A44B378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::BuildObjArray<Phase::MetaParameter>(void *a1, uint64_t *a2)
+void *Phase::BuildObjArray<Phase::MetaParameter>(uint64_t *a1, void **a2)
 {
   v2 = a1[1] - *a1;
   if (v2)
@@ -8516,7 +8519,7 @@ uint64_t Phase::BuildObjArray<Phase::MetaParameter>(void *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t Phase::BuildObjArray<unsigned long long>(void *a1, uint64_t *a2)
+uint64_t Phase::BuildObjArray<unsigned long long>(uint64_t **a1, uint64_t *a2)
 {
   if (a1[1] != *a1)
   {
@@ -9029,7 +9032,7 @@ LABEL_19:
 id Phase::GetNSErrorFromParserError(uint64_t *a1)
 {
   v29 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 17);
+  v2 = a1 + 17;
   if (*(a1 + 136))
   {
     v3 = MEMORY[0x277CCACA8];
@@ -9094,13 +9097,13 @@ id Phase::GetNSErrorFromParserError(uint64_t *a1)
   return v17;
 }
 
-void sub_23A44D1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, ...)
+void sub_23A44D1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, ...)
 {
-  va_start(va, a7);
-  v9 = *(v7 - 224);
-  if (v9)
+  va_start(va, a13);
+  v15 = *(v13 - 224);
+  if (v15)
   {
-    operator delete(v9);
+    operator delete(v15);
   }
 
   std::unique_ptr<Phase::DataBundle>::~unique_ptr[abi:ne200100](va);
@@ -9148,22 +9151,22 @@ void *std::unique_ptr<Phase::DataBundle>::~unique_ptr[abi:ne200100](void *a1)
   return a1;
 }
 
-void Phase::MakeActionTree(void *a1, uint64_t a2, void *a3, void *a4)
+void Phase::MakeActionTree(void *a1, void x1_0, void *a2, void *a3)
 {
   v8 = *MEMORY[0x277D85DE8];
   v6 = a1;
-  v7 = a3;
-  if (a4)
+  v7 = a2;
+  if (a3)
   {
-    *a4 = 0;
+    *a3 = 0;
   }
 
   operator new();
 }
 
-void sub_23A44D504(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A44D504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<Phase::ActionTree>::~unique_ptr[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -9182,7 +9185,7 @@ Phase::ActionTree **std::unique_ptr<Phase::ActionTree>::~unique_ptr[abi:ne200100
   return a1;
 }
 
-void Phase::MakeGlobalMetaParameters(void *a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
+void Phase::MakeGlobalMetaParameters(void *a1@<X0>, void *a2@<X1>, void *a3@<X2>, void **a4@<X8>)
 {
   v10[65] = *MEMORY[0x277D85DE8];
   v7 = a1;
@@ -9258,7 +9261,7 @@ uint64_t Phase::AddStringToPool(uint64_t a1, void *a2, void *a3)
   if ([v4 length])
   {
     std::string::basic_string[abi:ne200100]<0>(__p, [v4 UTF8String]);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a2, __p);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a2, __p, __p);
     if (v7 < 0)
     {
       operator delete(__p[0]);
@@ -9286,35 +9289,35 @@ void sub_23A44D7C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2)
+BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -9322,39 +9325,39 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2);
+  result = std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2);
   if (!result)
   {
     goto LABEL_17;
@@ -9442,7 +9445,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,voi
   operator delete(__p);
 }
 
-uint64_t Phase::ReadParamIdx(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE *a5, void *a6)
+uint64_t Phase::ReadParamIdx(uint64_t a1, void *a2, void *a3, Phase *a4, _BYTE *a5, void *a6)
 {
   v11 = a2;
   v12 = a3;
@@ -9473,8 +9476,8 @@ uint64_t Phase::ReadParamIdx(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE
         v28 = v20;
         if (v20)
         {
-          v21 = *(a4 + 136);
-          v22 = *(a4 + 144);
+          v21 = *(a4 + 17);
+          v22 = *(a4 + 18);
           if (v21 != v22)
           {
             while (*v21 != v20)
@@ -9489,7 +9492,7 @@ uint64_t Phase::ReadParamIdx(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE
           if (v21 == v22)
           {
 LABEL_19:
-            std::vector<unsigned long long>::push_back[abi:ne200100]((a4 + 136), &v28);
+            std::vector<unsigned long long>::push_back[abi:ne200100](a4 + 17, &v28);
           }
         }
       }

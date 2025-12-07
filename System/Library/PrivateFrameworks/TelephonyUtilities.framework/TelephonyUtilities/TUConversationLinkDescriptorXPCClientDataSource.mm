@@ -20,6 +20,7 @@
 - (unint64_t)conversationLinkDescriptorCountWithPredicate:(id)predicate error:(id *)error;
 - (unint64_t)removeConversationLinkDescriptorsWithPredicate:(id)predicate deleteReason:(int64_t)reason error:(id *)error;
 - (unint64_t)removeLinkDescriptorsFromDataSourceWithPredicate:(id)predicate error:(id *)error;
+- (unint64_t)setActivated:(BOOL)activated withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate error:(id *)error;
 - (unint64_t)setExpirationDate:(id)date withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate error:(id *)error;
 - (unint64_t)setInvitedHandles:(id)handles withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate error:(id *)error;
 - (unint64_t)setName:(id)name withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate error:(id *)error;
@@ -32,6 +33,7 @@
 - (void)integerForKey:(id)key completion:(id)completion;
 - (void)removeConversationLinkDescriptorsWithPredicate:(id)predicate deleteReason:(int64_t)reason completion:(id)completion;
 - (void)removeLinkDescriptorsFromDataSourceWithPredicate:(id)predicate completion:(id)completion;
+- (void)setActivated:(BOOL)activated withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate completion:(id)completion;
 - (void)setConversationLinkDescriptorDataSourceDelegate:(id)delegate;
 - (void)setExpirationDate:(id)date withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate completion:(id)completion;
 - (void)setInteger:(int64_t)integer forKey:(id)key completion:(id)completion;
@@ -273,7 +275,7 @@ void __69__TUConversationLinkDescriptorXPCClientDataSource_serverXPCInterface__b
 
 void __64__TUConversationLinkDescriptorXPCClientDataSource_xpcConnection__block_invoke(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -288,13 +290,13 @@ void __64__TUConversationLinkDescriptorXPCClientDataSource_xpcConnection__block_
   }
 }
 
-void __64__TUConversationLinkDescriptorXPCClientDataSource_xpcConnection__block_invoke_100()
+void __64__TUConversationLinkDescriptorXPCClientDataSource_xpcConnection__block_invoke_100(uint64_t a1)
 {
-  v0 = TUDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1956FD000, v0, OS_LOG_TYPE_DEFAULT, "XPC connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1956FD000, v1, OS_LOG_TYPE_DEFAULT, "XPC connection interrupted.", v2, 2u);
   }
 }
 
@@ -377,7 +379,7 @@ void __64__TUConversationLinkDescriptorXPCClientDataSource_xpcConnection__block_
 void __88__TUConversationLinkDescriptorXPCClientDataSource_addConversationLinkDescriptors_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __88__TUConversationLinkDescriptorXPCClientDataSource_addConversationLinkDescriptors_error___block_invoke_cold_1();
@@ -411,7 +413,7 @@ void __88__TUConversationLinkDescriptorXPCClientDataSource_addConversationLinkDe
 void __93__TUConversationLinkDescriptorXPCClientDataSource_addConversationLinkDescriptors_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __93__TUConversationLinkDescriptorXPCClientDataSource_addConversationLinkDescriptors_completion___block_invoke_cold_1();
@@ -481,7 +483,7 @@ uint64_t __93__TUConversationLinkDescriptorXPCClientDataSource_addConversationLi
 void __96__TUConversationLinkDescriptorXPCClientDataSource_addOrUpdateConversationLinkDescriptors_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __96__TUConversationLinkDescriptorXPCClientDataSource_addOrUpdateConversationLinkDescriptors_error___block_invoke_cold_1();
@@ -515,7 +517,7 @@ void __96__TUConversationLinkDescriptorXPCClientDataSource_addOrUpdateConversati
 void __101__TUConversationLinkDescriptorXPCClientDataSource_addOrUpdateConversationLinkDescriptors_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __101__TUConversationLinkDescriptorXPCClientDataSource_addOrUpdateConversationLinkDescriptors_completion___block_invoke_cold_1();
@@ -585,7 +587,7 @@ uint64_t __101__TUConversationLinkDescriptorXPCClientDataSource_addOrUpdateConve
 void __102__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorCountWithPredicate_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __102__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorCountWithPredicate_error___block_invoke_cold_1();
@@ -619,7 +621,7 @@ void __102__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDesc
 void __107__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorCountWithPredicate_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __102__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorCountWithPredicate_error___block_invoke_cold_1();
@@ -692,7 +694,7 @@ uint64_t __107__TUConversationLinkDescriptorXPCClientDataSource_conversationLink
 void __111__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorsWithPredicate_limit_offset_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __111__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorsWithPredicate_limit_offset_error___block_invoke_cold_1();
@@ -740,7 +742,7 @@ void __111__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDesc
 void __116__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorsWithPredicate_limit_offset_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __111__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorsWithPredicate_limit_offset_error___block_invoke_cold_1();
@@ -810,7 +812,7 @@ uint64_t __116__TUConversationLinkDescriptorXPCClientDataSource_conversationLink
 void __117__TUConversationLinkDescriptorXPCClientDataSource_removeConversationLinkDescriptorsWithPredicate_deleteReason_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __117__TUConversationLinkDescriptorXPCClientDataSource_removeConversationLinkDescriptorsWithPredicate_deleteReason_error___block_invoke_cold_1();
@@ -844,7 +846,7 @@ void __117__TUConversationLinkDescriptorXPCClientDataSource_removeConversationLi
 void __122__TUConversationLinkDescriptorXPCClientDataSource_removeConversationLinkDescriptorsWithPredicate_deleteReason_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __117__TUConversationLinkDescriptorXPCClientDataSource_removeConversationLinkDescriptorsWithPredicate_deleteReason_error___block_invoke_cold_1();
@@ -914,7 +916,7 @@ uint64_t __122__TUConversationLinkDescriptorXPCClientDataSource_removeConversati
 void __106__TUConversationLinkDescriptorXPCClientDataSource_removeLinkDescriptorsFromDataSourceWithPredicate_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __117__TUConversationLinkDescriptorXPCClientDataSource_removeConversationLinkDescriptorsWithPredicate_deleteReason_error___block_invoke_cold_1();
@@ -948,7 +950,7 @@ void __106__TUConversationLinkDescriptorXPCClientDataSource_removeLinkDescriptor
 void __111__TUConversationLinkDescriptorXPCClientDataSource_removeLinkDescriptorsFromDataSourceWithPredicate_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __111__TUConversationLinkDescriptorXPCClientDataSource_removeLinkDescriptorsFromDataSourceWithPredicate_completion___block_invoke_cold_1();
@@ -972,10 +974,54 @@ uint64_t __111__TUConversationLinkDescriptorXPCClientDataSource_removeLinkDescri
   return result;
 }
 
+- (unint64_t)setActivated:(BOOL)activated withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate error:(id *)error
+{
+  activatedCopy = activated;
+  predicateCopy = predicate;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0x7FFFFFFFFFFFFFFFLL;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy_;
+  v21 = __Block_byref_object_dispose_;
+  v22 = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke;
+  v16[3] = &unk_1E74249C0;
+  v16[4] = &v17;
+  v11 = [(TUConversationLinkDescriptorXPCClientDataSource *)self synchronousServerWithErrorHandler:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_119;
+  v15[3] = &unk_1E7424A60;
+  v15[4] = &v23;
+  v15[5] = &v17;
+  [v11 setActivated:activatedCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy reply:v15];
+
+  if (error)
+  {
+    v12 = v18[5];
+    if (v12)
+    {
+      *error = v12;
+    }
+  }
+
+  v13 = v24[3];
+  _Block_object_dispose(&v17, 8);
+
+  _Block_object_dispose(&v23, 8);
+  return v13;
+}
+
 void __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -986,10 +1032,31 @@ void __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRev
   *(v5 + 40) = v3;
 }
 
+- (void)setActivated:(BOOL)activated withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate completion:(id)completion
+{
+  activatedCopy = activated;
+  completionCopy = completion;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __132__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_completion___block_invoke;
+  v17[3] = &unk_1E7424A10;
+  v11 = completionCopy;
+  v18 = v11;
+  predicateCopy = predicate;
+  v13 = [(TUConversationLinkDescriptorXPCClientDataSource *)self asynchronousServerWithErrorHandler:v17];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __132__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_completion___block_invoke_120;
+  v15[3] = &unk_1E7424A88;
+  v16 = v11;
+  v14 = v11;
+  [v13 setActivated:activatedCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy reply:v15];
+}
+
 void __132__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1060,7 +1127,7 @@ uint64_t __132__TUConversationLinkDescriptorXPCClientDataSource_setActivated_wit
 void __132__TUConversationLinkDescriptorXPCClientDataSource_setExpirationDate_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1095,7 +1162,7 @@ void __132__TUConversationLinkDescriptorXPCClientDataSource_setExpirationDate_wi
 void __137__TUConversationLinkDescriptorXPCClientDataSource_setExpirationDate_withRevision_forConversationLinkDescriptorsWithPredicate_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1166,7 +1233,7 @@ uint64_t __137__TUConversationLinkDescriptorXPCClientDataSource_setExpirationDat
 void __132__TUConversationLinkDescriptorXPCClientDataSource_setInvitedHandles_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1201,7 +1268,7 @@ void __132__TUConversationLinkDescriptorXPCClientDataSource_setInvitedHandles_wi
 void __137__TUConversationLinkDescriptorXPCClientDataSource_setInvitedHandles_withRevision_forConversationLinkDescriptorsWithPredicate_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1272,7 +1339,7 @@ uint64_t __137__TUConversationLinkDescriptorXPCClientDataSource_setInvitedHandle
 void __122__TUConversationLinkDescriptorXPCClientDataSource_setName_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1307,7 +1374,7 @@ void __122__TUConversationLinkDescriptorXPCClientDataSource_setName_withRevision
 void __127__TUConversationLinkDescriptorXPCClientDataSource_setName_withRevision_forConversationLinkDescriptorsWithPredicate_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1377,7 +1444,7 @@ uint64_t __127__TUConversationLinkDescriptorXPCClientDataSource_setName_withRevi
 void __75__TUConversationLinkDescriptorXPCClientDataSource_setInteger_forKey_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1411,7 +1478,7 @@ void __75__TUConversationLinkDescriptorXPCClientDataSource_setInteger_forKey_err
 void __80__TUConversationLinkDescriptorXPCClientDataSource_setInteger_forKey_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __80__TUConversationLinkDescriptorXPCClientDataSource_setInteger_forKey_completion___block_invoke_cold_1();
@@ -1458,7 +1525,7 @@ uint64_t __80__TUConversationLinkDescriptorXPCClientDataSource_setInteger_forKey
 void __76__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_completion___block_invoke_cold_1();
@@ -1528,7 +1595,7 @@ uint64_t __76__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_com
 void __71__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_error___block_invoke_cold_1();
@@ -1586,7 +1653,7 @@ void __71__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_error__
 void __74__TUConversationLinkDescriptorXPCClientDataSource_setString_forKey_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1();
@@ -1621,7 +1688,7 @@ void __74__TUConversationLinkDescriptorXPCClientDataSource_setString_forKey_erro
 void __79__TUConversationLinkDescriptorXPCClientDataSource_setString_forKey_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __80__TUConversationLinkDescriptorXPCClientDataSource_setInteger_forKey_completion___block_invoke_cold_1();
@@ -1668,7 +1735,7 @@ uint64_t __79__TUConversationLinkDescriptorXPCClientDataSource_setString_forKey_
 void __75__TUConversationLinkDescriptorXPCClientDataSource_stringForKey_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_completion___block_invoke_cold_1();
@@ -1741,7 +1808,7 @@ uint64_t __75__TUConversationLinkDescriptorXPCClientDataSource_stringForKey_comp
 void __70__TUConversationLinkDescriptorXPCClientDataSource_stringForKey_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_error___block_invoke_cold_1();
@@ -1770,102 +1837,6 @@ void __70__TUConversationLinkDescriptorXPCClientDataSource_stringForKey_error___
 {
   conversationLinkDescriptorDataSourceDelegate = [(TUConversationLinkDescriptorXPCClientDataSource *)self conversationLinkDescriptorDataSourceDelegate];
   [conversationLinkDescriptorDataSourceDelegate conversationLinkDescriptorsDidChangeForDataSource:self];
-}
-
-void __88__TUConversationLinkDescriptorXPCClientDataSource_addConversationLinkDescriptors_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not add converation links due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __93__TUConversationLinkDescriptorXPCClientDataSource_addConversationLinkDescriptors_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not add conversation link descriptors due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __96__TUConversationLinkDescriptorXPCClientDataSource_addOrUpdateConversationLinkDescriptors_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not add or update converation links due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __101__TUConversationLinkDescriptorXPCClientDataSource_addOrUpdateConversationLinkDescriptors_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not add or update conversation link descriptors due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __102__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorCountWithPredicate_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not retrieve conversation link count due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __111__TUConversationLinkDescriptorXPCClientDataSource_conversationLinkDescriptorsWithPredicate_limit_offset_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not retrieve conversation link descriptors due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __117__TUConversationLinkDescriptorXPCClientDataSource_removeConversationLinkDescriptorsWithPredicate_deleteReason_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not remove conversation link descriptors due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __111__TUConversationLinkDescriptorXPCClientDataSource_removeLinkDescriptorsFromDataSourceWithPredicate_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not remove conversation link descriptors from data source due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __127__TUConversationLinkDescriptorXPCClientDataSource_setActivated_withRevision_forConversationLinkDescriptorsWithPredicate_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not update conversation link descriptors due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __80__TUConversationLinkDescriptorXPCClientDataSource_setInteger_forKey_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not update TU KV due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not fetch TU KV due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__TUConversationLinkDescriptorXPCClientDataSource_integerForKey_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Could not synch fetch conversation link descriptors due to connection error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -103,7 +103,7 @@ LABEL_9:
   return result;
 }
 
-unint64_t __68__PUParallaxComputer_contentParallaxOffsetForViewFrame_visibleRect___block_invoke(uint64_t a1)
+void *__68__PUParallaxComputer_contentParallaxOffsetForViewFrame_visibleRect___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) model];
   if (result < 2)

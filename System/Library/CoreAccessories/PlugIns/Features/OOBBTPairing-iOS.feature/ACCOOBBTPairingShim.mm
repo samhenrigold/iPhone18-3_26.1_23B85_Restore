@@ -55,7 +55,7 @@
 
 - (void)beginPairingWithCurrentAccessory:(id)accessory
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (gLogObjects)
   {
@@ -85,20 +85,18 @@
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = accessoryCopy;
-    _os_log_impl(&dword_23361B000, v7, OS_LOG_TYPE_DEFAULT, "Beginning OOB BT pairing: accessory=%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = accessoryCopy;
+    _os_log_impl(&dword_23361B000, v7, OS_LOG_TYPE_DEFAULT, "Beginning OOB BT pairing: accessory=%@", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained startOOBBTPairing:accessoryCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryAttached:(id)attached accInfoDict:(id)dict
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   attachedCopy = attached;
   dictCopy = dict;
   v7 = *MEMORY[0x277CE84D0];
@@ -146,17 +144,15 @@
 
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = attachedCopy;
-    _os_log_impl(&dword_23361B000, v16, OS_LOG_TYPE_DEFAULT, "accessoryAttached: %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = attachedCopy;
+    _os_log_impl(&dword_23361B000, v16, OS_LOG_TYPE_DEFAULT, "accessoryAttached: %@", &v18, 0xCu);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryDetached:(id)detached
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   detachedCopy = detached;
   if (gLogObjects)
   {
@@ -186,17 +182,15 @@
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = detachedCopy;
-    _os_log_impl(&dword_23361B000, v6, OS_LOG_TYPE_DEFAULT, "accessoryDetached: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = detachedCopy;
+    _os_log_impl(&dword_23361B000, v6, OS_LOG_TYPE_DEFAULT, "accessoryDetached: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryInfo:(id)info oobBtPairingUID:(id)d accessoryMacAddr:(id)addr deviceClass:(unsigned int)class
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dCopy = d;
   addrCopy = addr;
@@ -234,23 +228,23 @@
     *&buf[14] = dCopy;
     *&buf[22] = 2112;
     *&buf[24] = addrCopy;
-    LOWORD(v45) = 1024;
-    *(&v45 + 2) = class;
+    LOWORD(v41) = 1024;
+    *(&v41 + 2) = class;
     _os_log_impl(&dword_23361B000, v15, OS_LOG_TYPE_DEFAULT, "accessoryInfo: %@ oobBtPairingUID:%@ accessoryMacAddr:%@ deviceClass:%d", buf, 0x26u);
   }
 
   if (infoCopy && dCopy)
   {
-    v40 = -21846;
-    v39 = -1431655766;
+    v36 = -21846;
+    v35 = -1431655766;
     *&v16 = 0xAAAAAAAAAAAAAAAALL;
     *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v45 = v16;
-    v46 = v16;
+    v41 = v16;
+    v42 = v16;
     *buf = v16;
     *&buf[16] = v16;
-    v43[0] = 0xAAAAAAAAAAAAAAAALL;
-    v43[1] = 0xAAAAAAAAAAAAAAAALL;
+    v39[0] = 0xAAAAAAAAAAAAAAAALL;
+    v39[1] = 0xAAAAAAAAAAAAAAAALL;
     if (gLogObjects && gNumLogObjects >= 1)
     {
       v17 = *gLogObjects;
@@ -269,19 +263,17 @@
 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      *v41 = 138412290;
-      v42 = addrCopy;
-      _os_log_impl(&dword_23361B000, v17, OS_LOG_TYPE_INFO, "Remote MAC Address: %@", v41, 0xCu);
+      *v37 = 138412290;
+      v38 = addrCopy;
+      _os_log_impl(&dword_23361B000, v17, OS_LOG_TYPE_INFO, "Remote MAC Address: %@", v37, 0xCu);
     }
 
-    bytes = [addrCopy bytes];
-    v37 = *bytes;
-    v38 = *(bytes + 4);
+    [addrCopy bytes];
     [infoCopy setCurrentRemoteMACAddress:addrCopy];
     [infoCopy setCurrentOOBBTPairingUID:dCopy];
     if (gLogObjects && gNumLogObjects >= 1)
     {
-      v22 = *gLogObjects;
+      v21 = *gLogObjects;
     }
 
     else
@@ -291,16 +283,16 @@
         [ACCOOBBTPairingAccessory init];
       }
 
+      v21 = MEMORY[0x277D86220];
       v22 = MEMORY[0x277D86220];
-      v23 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       currentRemoteMACAddress = [infoCopy currentRemoteMACAddress];
-      *v41 = 138412290;
-      v42 = currentRemoteMACAddress;
-      _os_log_impl(&dword_23361B000, v22, OS_LOG_TYPE_INFO, "Storing remote MAC Address: %@", v41, 0xCu);
+      *v37 = 138412290;
+      v38 = currentRemoteMACAddress;
+      _os_log_impl(&dword_23361B000, v21, OS_LOG_TYPE_INFO, "Storing remote MAC Address: %@", v37, 0xCu);
     }
 
     [infoCopy BTSession];
@@ -319,7 +311,7 @@
         }
 
         WeakRetained = MEMORY[0x277D86220];
-        v26 = MEMORY[0x277D86220];
+        v25 = MEMORY[0x277D86220];
       }
 
       if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
@@ -343,7 +335,7 @@
         }
 
         WeakRetained = MEMORY[0x277D86220];
-        v27 = MEMORY[0x277D86220];
+        v26 = MEMORY[0x277D86220];
       }
 
       if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
@@ -382,7 +374,7 @@ LABEL_63:
           }
 
           WeakRetained = MEMORY[0x277D86220];
-          v29 = MEMORY[0x277D86220];
+          v27 = MEMORY[0x277D86220];
         }
 
         if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
@@ -424,26 +416,26 @@ LABEL_63:
 
           [infoCopy BTAccessoryManager];
           [WeakRetained UTF8String];
-          v31 = BTAccessoryManagerSetLinkKeyEx();
-          v32 = logObjectForModule();
-          v33 = v32;
-          if (!v31)
+          v29 = BTAccessoryManagerSetLinkKeyEx();
+          v30 = logObjectForModule();
+          v31 = v30;
+          if (!v29)
           {
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              *v41 = 0;
-              _os_log_impl(&dword_23361B000, v33, OS_LOG_TYPE_DEFAULT, "Sending Link Key to accessory", v41, 2u);
+              *v37 = 0;
+              _os_log_impl(&dword_23361B000, v31, OS_LOG_TYPE_DEFAULT, "Sending Link Key to accessory", v37, 2u);
             }
 
-            v34 = [MEMORY[0x277CBEA90] dataWithBytes:v43 length:16];
-            v35 = [MEMORY[0x277CBEA90] dataWithBytes:&v39 length:6];
-            v36 = objc_loadWeakRetained(&self->_delegate);
-            [v36 linkKey:v34 deviceMacAddr:v35 accessory:infoCopy];
+            v32 = [MEMORY[0x277CBEA90] dataWithBytes:v39 length:16];
+            v33 = [MEMORY[0x277CBEA90] dataWithBytes:&v35 length:6];
+            v34 = objc_loadWeakRetained(&self->_delegate);
+            [v34 linkKey:v32 deviceMacAddr:v33 accessory:infoCopy];
 
             goto LABEL_63;
           }
 
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             [ACCOOBBTPairingShim accessoryInfo:oobBtPairingUID:accessoryMacAddr:deviceClass:];
           }
@@ -480,14 +472,13 @@ LABEL_63:
   }
 
 LABEL_64:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryPairingCompletion:(id)completion oobBtPairingUID:(id)d accessoryMacAddr:(id)addr sendStop:(BOOL)stop result:(unsigned __int8)result
 {
   resultCopy = result;
   stopCopy = stop;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dCopy = d;
   addrCopy = addr;
@@ -519,17 +510,17 @@ LABEL_64:
 
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    *v33 = 138413314;
-    *&v33[4] = completionCopy;
-    v34 = 2112;
-    v35 = dCopy;
-    v36 = 2112;
-    v37 = addrCopy;
-    v38 = 1024;
-    v39 = stopCopy;
-    v40 = 1024;
-    v41 = resultCopy;
-    _os_log_impl(&dword_23361B000, v17, OS_LOG_TYPE_DEFAULT, "accessoryPairingCompletion: %@ oobBtPairingUID:%@ accessoryMacAddr:%@ sendStop:%d result:%d", v33, 0x2Cu);
+    *v32 = 138413314;
+    *&v32[4] = completionCopy;
+    v33 = 2112;
+    v34 = dCopy;
+    v35 = 2112;
+    v36 = addrCopy;
+    v37 = 1024;
+    v38 = stopCopy;
+    v39 = 1024;
+    v40 = resultCopy;
+    _os_log_impl(&dword_23361B000, v17, OS_LOG_TYPE_DEFAULT, "accessoryPairingCompletion: %@ oobBtPairingUID:%@ accessoryMacAddr:%@ sendStop:%d result:%d", v32, 0x2Cu);
   }
 
   if (completionCopy && dCopy)
@@ -552,8 +543,8 @@ LABEL_64:
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v33 = 0;
-      _os_log_impl(&dword_23361B000, v18, OS_LOG_TYPE_DEFAULT, "Asking BTServer to connect to the remote device...", v33, 2u);
+      *v32 = 0;
+      _os_log_impl(&dword_23361B000, v18, OS_LOG_TYPE_DEFAULT, "Asking BTServer to connect to the remote device...", v32, 2u);
     }
 
     if (resultCopy)
@@ -585,7 +576,7 @@ LABEL_64:
     if ([completionCopy currentRemoteBTDevice] && (objc_msgSend(completionCopy, "carPlaySupported") & 1) == 0)
     {
       [completionCopy currentRemoteBTDevice];
-      v25 = BTDeviceConnect();
+      v24 = BTDeviceConnect();
       if (gLogObjects && gNumLogObjects >= 1)
       {
         v20 = *gLogObjects;
@@ -599,7 +590,7 @@ LABEL_64:
         }
 
         v20 = MEMORY[0x277D86220];
-        v26 = MEMORY[0x277D86220];
+        v25 = MEMORY[0x277D86220];
       }
 
       if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
@@ -607,12 +598,12 @@ LABEL_64:
         goto LABEL_36;
       }
 
-      *v33 = 67109120;
-      *&v33[4] = v25;
-      v27 = "BTDeviceConnect(device) result (zero == success): %d";
-      v28 = v20;
-      v29 = OS_LOG_TYPE_INFO;
-      v30 = 8;
+      *v32 = 67109120;
+      *&v32[4] = v24;
+      v26 = "BTDeviceConnect(device) result (zero == success): %d";
+      v27 = v20;
+      v28 = OS_LOG_TYPE_INFO;
+      v29 = 8;
     }
 
     else
@@ -632,13 +623,13 @@ LABEL_64:
           }
 
           v21 = MEMORY[0x277D86220];
-          v31 = MEMORY[0x277D86220];
+          v30 = MEMORY[0x277D86220];
         }
 
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          *v33 = 0;
-          _os_log_impl(&dword_23361B000, v21, OS_LOG_TYPE_DEFAULT, "No stored remote BTDevice, not connecting.", v33, 2u);
+          *v32 = 0;
+          _os_log_impl(&dword_23361B000, v21, OS_LOG_TYPE_DEFAULT, "No stored remote BTDevice, not connecting.", v32, 2u);
         }
       }
 
@@ -660,7 +651,7 @@ LABEL_64:
         }
 
         v20 = MEMORY[0x277D86220];
-        v32 = MEMORY[0x277D86220];
+        v31 = MEMORY[0x277D86220];
       }
 
       if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
@@ -668,7 +659,7 @@ LABEL_64:
 LABEL_36:
 
 LABEL_37:
-        [completionCopy setCurrentRemoteMACAddress:{0, *v33}];
+        [completionCopy setCurrentRemoteMACAddress:{0, *v32}];
         if (stopCopy)
         {
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -678,25 +669,23 @@ LABEL_37:
         goto LABEL_39;
       }
 
-      *v33 = 0;
-      v27 = "BT connection not initiated due to CarPlay support.";
-      v28 = v20;
-      v29 = OS_LOG_TYPE_DEFAULT;
-      v30 = 2;
+      *v32 = 0;
+      v26 = "BT connection not initiated due to CarPlay support.";
+      v27 = v20;
+      v28 = OS_LOG_TYPE_DEFAULT;
+      v29 = 2;
     }
 
-    _os_log_impl(&dword_23361B000, v28, v29, v27, v33, v30);
+    _os_log_impl(&dword_23361B000, v27, v28, v26, v32, v29);
     goto LABEL_36;
   }
 
 LABEL_39:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)tryProcessXPCMessage:(id)message connection:(id)connection server:(id)server
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   string = xpc_dictionary_get_string(messageCopy, MEMORY[0x277CE8508]);
   if (!string)
@@ -729,8 +718,8 @@ LABEL_39:
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24[0]) = 0;
-      _os_log_impl(&dword_23361B000, v10, OS_LOG_TYPE_DEFAULT, "RequestType not specified in xpc message!", v24, 2u);
+      LOWORD(v23[0]) = 0;
+      _os_log_impl(&dword_23361B000, v10, OS_LOG_TYPE_DEFAULT, "RequestType not specified in xpc message!", v23, 2u);
     }
 
     string = "<nil>";
@@ -792,11 +781,11 @@ LABEL_39:
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v24[0] = 67109378;
-      v24[1] = uint64;
-      v25 = 2112;
-      v26 = v17;
-      _os_log_impl(&dword_23361B000, v18, OS_LOG_TYPE_INFO, "Handling kXPCIAPAppBeginOOBPairingStr: connectionID=%d accessory=%@", v24, 0x12u);
+      v23[0] = 67109378;
+      v23[1] = uint64;
+      v24 = 2112;
+      v25 = v17;
+      _os_log_impl(&dword_23361B000, v18, OS_LOG_TYPE_INFO, "Handling kXPCIAPAppBeginOOBPairingStr: connectionID=%d accessory=%@", v23, 0x12u);
     }
 
     if (v17)
@@ -826,7 +815,6 @@ LABEL_39:
     [ACCOOBBTPairingShim tryProcessXPCMessage:v14 == 0 connection:v20 server:?];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v14 == 0;
 }
 
@@ -879,32 +867,22 @@ LABEL_39:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)accessoryPairingCompletion:oobBtPairingUID:accessoryMacAddr:sendStop:result:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)tryProcessXPCMessage:(uint64_t)a1 connection:(NSObject *)a2 server:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_23361B000, a2, OS_LOG_TYPE_DEBUG, "tryProcessXPCMessage: messagetype=%s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_23361B000, a2, OS_LOG_TYPE_DEBUG, "tryProcessXPCMessage: messagetype=%s", &v2, 0xCu);
 }
 
 - (void)tryProcessXPCMessage:(uint64_t)a1 connection:(char)a2 server:(os_log_t)log .cold.6(uint64_t a1, char a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 136315394;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2 & 1;
-  _os_log_debug_impl(&dword_23361B000, log, OS_LOG_TYPE_DEBUG, "tryProcessXPCMessage: messagetype=%s processed=%d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2 & 1;
+  _os_log_debug_impl(&dword_23361B000, log, OS_LOG_TYPE_DEBUG, "tryProcessXPCMessage: messagetype=%s processed=%d", &v3, 0x12u);
 }
 
 @end

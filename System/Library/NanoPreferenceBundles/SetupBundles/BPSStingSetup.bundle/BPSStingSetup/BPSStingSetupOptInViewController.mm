@@ -118,9 +118,9 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v8.receiver = self;
-  v8.super_class = BPSStingSetupOptInViewController;
-  [(BPSStingSetupOptInViewController *)&v8 viewDidLayoutSubviews];
+  v9.receiver = self;
+  v9.super_class = BPSStingSetupOptInViewController;
+  [(BPSStingSetupOptInViewController *)&v9 viewDidLayoutSubviews];
   view = [(BPSStingSetupOptInViewController *)self view];
   [view safeAreaInsets];
   if (v4 == 0.0)
@@ -133,11 +133,11 @@
 
     if ((doneSettingUpViews & 1) == 0)
     {
-      v6 = bps_setup_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = bps_setup_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Safe insets are set, can now setup views", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Safe insets are set, can now setup views", v8, 2u);
       }
 
       [(BPSStingSetupOptInViewController *)self setupViews];
@@ -338,8 +338,7 @@
     CATransform3DMakeScale(&v18, v9, v9, 1.0);
     animationView = self->_animationView;
     buf = v18;
-    [(_UICAPackageView *)animationView setTransform3D:&buf];
-    v11 = bps_setup_log();
+    v11 = bps_setup_log([(_UICAPackageView *)animationView setTransform3D:&buf]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       [(BPSStingSetupOptInViewController *)self availableContentViewHeight];

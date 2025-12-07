@@ -4,6 +4,7 @@
 - (XxyDq1mpwtvCuJnm)init;
 - (id)xusy7Jyby2KbKh9r:(int)kh9r bjbqetmBxg55daaO:(double)o pCfijpsS4m8yGvnw:(id)gvnw gk4SFBckVtkbwrej:(id)vtkbwrej cI4BozMHCMeHTVXZ:(id)z waitingTime:(double)time errorCode:(int64_t)code;
 - (void)UupMWO2j2nYek7xf:(_KUwyEjpVZR65eUyl *)yek7xf TYPlhTGwKuAdWgfx:(id)wgfx TWWnmIjkBlMfHmma:(id)hmma withCompletion:(id)completion;
+- (void)jEx0mo2jM4HTfcdS:(id)s pRoPFwkNebqWzDu0:(unsigned int)du0 bjbqetmBxg55daaO:(double)o pCfijpsS4m8yGvnw:(id)gvnw gk4SFBckVtkbwrej:(id)vtkbwrej cI4BozMHCMeHTVXZ:(id)z veRLfRQYSQxKOWNa:(double)na g6zbwvXxUAZNoblY:(double)self0 sX1qLiPSUO5sF5EE:(id)self1 withCompletion:(id)self2;
 - (void)locationManager:(id)manager didFailWithError:(id)error;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
 - (void)locationManagerDidChangeAuthorization:(id)authorization;
@@ -175,6 +176,42 @@
   }
 
   return v9;
+}
+
+- (void)jEx0mo2jM4HTfcdS:(id)s pRoPFwkNebqWzDu0:(unsigned int)du0 bjbqetmBxg55daaO:(double)o pCfijpsS4m8yGvnw:(id)gvnw gk4SFBckVtkbwrej:(id)vtkbwrej cI4BozMHCMeHTVXZ:(id)z veRLfRQYSQxKOWNa:(double)na g6zbwvXxUAZNoblY:(double)self0 sX1qLiPSUO5sF5EE:(id)self1 withCompletion:(id)self2
+{
+  v17 = *&du0;
+  gvnwCopy = gvnw;
+  vtkbwrejCopy = vtkbwrej;
+  zCopy = z;
+  eCopy = e;
+  completionCopy = completion;
+  if ([(XxyDq1mpwtvCuJnm *)self iww2ALffDR8ZLPHe:0])
+  {
+    [eCopy timeIntervalSinceNow];
+    v25 = [(XxyDq1mpwtvCuJnm *)self xusy7Jyby2KbKh9r:v17 bjbqetmBxg55daaO:gvnwCopy pCfijpsS4m8yGvnw:vtkbwrejCopy gk4SFBckVtkbwrej:zCopy cI4BozMHCMeHTVXZ:0 waitingTime:o errorCode:v24];
+    completionCopy[2](completionCopy, v25);
+  }
+
+  else
+  {
+    [eCopy timeIntervalSinceNow];
+    v27 = y - v26;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_10000B58C;
+    v28[3] = &unk_10068F218;
+    v28[4] = self;
+    v33 = completionCopy;
+    v36 = v17;
+    oCopy = o;
+    v29 = gvnwCopy;
+    v30 = vtkbwrejCopy;
+    v31 = zCopy;
+    v32 = eCopy;
+    yCopy = y;
+    [(XxyDq1mpwtvCuJnm *)self ywKhQxUL6Utg1cmH:v28 andCompletion:v27];
+  }
 }
 
 - (id)xusy7Jyby2KbKh9r:(int)kh9r bjbqetmBxg55daaO:(double)o pCfijpsS4m8yGvnw:(id)gvnw gk4SFBckVtkbwrej:(id)vtkbwrej cI4BozMHCMeHTVXZ:(id)z waitingTime:(double)time errorCode:(int64_t)code
@@ -391,18 +428,8 @@ LABEL_8:
 
         v10 = *(*(&v33 + 1) + 8 * v9);
         lUsBOf3PLbri6v6o = [(XxyDq1mpwtvCuJnm *)self LUsBOf3PLbri6v6o];
-        if (!lUsBOf3PLbri6v6o)
+        if (!lUsBOf3PLbri6v6o || (v12 = lUsBOf3PLbri6v6o, [v10 timestamp], v13 = objc_claimAutoreleasedReturnValue(), -[XxyDq1mpwtvCuJnm LUsBOf3PLbri6v6o](self, "LUsBOf3PLbri6v6o"), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v12, v13 > v14))
         {
-          goto LABEL_8;
-        }
-
-        v12 = lUsBOf3PLbri6v6o;
-        timestamp = [v10 timestamp];
-        lUsBOf3PLbri6v6o2 = [(XxyDq1mpwtvCuJnm *)self LUsBOf3PLbri6v6o];
-
-        if (timestamp > lUsBOf3PLbri6v6o2)
-        {
-LABEL_8:
           [v10 coordinate];
           v15 = [NSNumber numberWithDouble:?];
           [(XxyDq1mpwtvCuJnm *)self setYABQBiEYyLNkt6IY:v15];
@@ -413,8 +440,8 @@ LABEL_8:
 
           [v10 horizontalAccuracy];
           [(XxyDq1mpwtvCuJnm *)self setZDlKxUFITTJsP8iN:?];
-          timestamp2 = [v10 timestamp];
-          [(XxyDq1mpwtvCuJnm *)self setLUsBOf3PLbri6v6o:timestamp2];
+          timestamp = [v10 timestamp];
+          [(XxyDq1mpwtvCuJnm *)self setLUsBOf3PLbri6v6o:timestamp];
 
           sourceInformation = [v10 sourceInformation];
           [(XxyDq1mpwtvCuJnm *)self setVCWRguBEmim3giZ9:sourceInformation];

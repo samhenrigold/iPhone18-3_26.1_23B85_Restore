@@ -63,7 +63,7 @@ LABEL_6:
   infoCopy = info;
   selfCopy = self;
   _s12Applications34AAPCommandSearchMarketplaceWrapperC7perform10completion13serviceHelper13executionInfoyySDys11AnyHashableVypGSgcSg_So09AFServiceI0_pSgSo018AFCommandExecutionK0CSgtF_0(v7, v8);
-  sub_EE20(v7);
+  sub_EE20(v7, v8);
   swift_unknownObjectRelease();
 }
 

@@ -1,6 +1,7 @@
 @interface PGGraphPlaceBusinessEdge
 + (id)filter;
 - (PGGraphPlaceBusinessEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (id)initFromMomentNode:(id)node toBusinessNode:(id)businessNode confidence:(double)confidence hasRoutineInfo:(BOOL)info universalStartDate:(id)date universalEndDate:(id)endDate;
 @end
 
 @implementation PGGraphPlaceBusinessEdge
@@ -47,6 +48,13 @@
   v24 = [(PGGraphBusinessEdge *)self initFromSourceNode:nodeCopy toBusinessNode:targetNodeCopy confidence:bOOLValue hasRoutineInfo:v20 universalStartDate:v23 universalEndDate:v15];
 
   return v24;
+}
+
+- (id)initFromMomentNode:(id)node toBusinessNode:(id)businessNode confidence:(double)confidence hasRoutineInfo:(BOOL)info universalStartDate:(id)date universalEndDate:(id)endDate
+{
+  v9.receiver = self;
+  v9.super_class = PGGraphPlaceBusinessEdge;
+  return [(PGGraphBusinessEdge *)&v9 initFromSourceNode:node toBusinessNode:businessNode confidence:info hasRoutineInfo:date universalStartDate:endDate universalEndDate:confidence];
 }
 
 + (id)filter

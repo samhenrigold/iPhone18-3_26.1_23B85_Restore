@@ -41,7 +41,7 @@
   _s7ChatKit22TextEffectsMenuFactoryC20textStyleKeyCommands6action15configureImages0L16AttributedTitles06activeC6Styles08selectedC0SaySo12UIKeyCommandCG10ObjectiveC8SelectorVSg_S2bSo06IMTextH0VSStFZ_0(action, images, titles, 0);
   sub_1908A2500(v6);
 
-  sub_1902188FC(0, &qword_1EAD44E30);
+  sub_1902188FC(0, &qword_1EAD44E30, 0x1E69DC8B0);
   v7 = sub_190D57160();
 
   return v7;
@@ -50,7 +50,7 @@
 + (id)textStyleCommandsWithAction:(SEL)action configureImages:(BOOL)images configureAttributedTitles:(BOOL)titles selectedText:(id)text
 {
   _s7ChatKit22TextEffectsMenuFactoryC17textStyleCommands6action15configureImages0K16AttributedTitles06activeC6Styles08selectedC0SaySo9UICommandCG10ObjectiveC8SelectorVSg_S2bSo06IMTextH0VSStFZ_0(action, images, titles, 0);
-  sub_1902188FC(0, &qword_1EAD44E30);
+  sub_1902188FC(0, &qword_1EAD44E30, 0x1E69DC8B0);
   v6 = sub_190D57160();
 
   return v6;
@@ -85,7 +85,7 @@
   *(v4 + 16) = v3;
   _s7ChatKit22TextEffectsMenuFactoryC012inlineEffectE7Actions7handler06activecH4TypeSaySo8UIActionCGySo06IMTexthL0V_AHtc_AKtFZ_0(sub_190AE1DD8, v4, 0);
 
-  sub_1902188FC(0, &qword_1EAD464F0);
+  sub_1902188FC(0, &qword_1EAD464F0, 0x1E69DC628);
   v5 = sub_190D57160();
 
   return v5;
@@ -98,7 +98,7 @@
   *(v6 + 16) = v5;
   _s7ChatKit22TextEffectsMenuFactoryC012inlineEffectE7Actions7handler06activecH4TypeSaySo8UIActionCGySo06IMTexthL0V_AHtc_AKtFZ_0(sub_190AE1DD8, v6, type);
 
-  sub_1902188FC(0, &qword_1EAD464F0);
+  sub_1902188FC(0, &qword_1EAD464F0, 0x1E69DC628);
   v7 = sub_190D57160();
 
   return v7;

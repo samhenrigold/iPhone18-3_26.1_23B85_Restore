@@ -14,62 +14,62 @@
 
 + (unsigned)mattingOutputTypeForAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:0x1F21AABD0])
+  if (objc_msgSend_isEqualToString_(key, a2, 0x1F21AABD0))
   {
     return 1;
   }
 
-  if ([key isEqualToString:0x1F21AABB0])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 2;
   }
 
-  if ([key isEqualToString:@"PersonSemanticsHair"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 4;
   }
 
-  if ([key isEqualToString:@"PersonSemanticsSkin"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 8;
   }
 
-  if ([key isEqualToString:@"PersonSemanticsTeeth"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 16;
   }
 
-  if ([key isEqualToString:@"PersonSemanticsGlasses"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 32;
   }
 
-  if ([key isEqualToString:0x1F21AAD30])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 64;
   }
 
-  if ([key isEqualToString:0x1F21AAD70])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 512;
   }
 
-  if ([key isEqualToString:0x1F21AAD90])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 1024;
   }
 
-  if ([key isEqualToString:0x1F21AADB0])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 4096;
   }
 
-  if ([key isEqualToString:0x1F21AADD0])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 0x2000;
   }
 
-  if ([key isEqualToString:0x1F21AADF0])
+  if (objc_msgSend_isEqualToString_(key))
   {
     return 128;
   }

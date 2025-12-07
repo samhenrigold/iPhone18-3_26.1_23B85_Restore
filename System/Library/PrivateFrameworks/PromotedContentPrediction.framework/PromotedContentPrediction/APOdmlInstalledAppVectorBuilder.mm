@@ -10,167 +10,161 @@
 
 - (APOdmlInstalledAppVectorBuilder)initWithVersion:(id)version lookbackPeriod:(id)period maxQueryElements:(id)elements task:(id)task exponentialDecayConstant:(id)constant weightByDuration:(id)duration isCounterfactual:(BOOL)counterfactual
 {
-  v16.receiver = self;
-  v16.super_class = APOdmlInstalledAppVectorBuilder;
-  v11 = [(APOdmlVectorBuilder *)&v16 initWithVersion:version lookbackPeriod:period maxQueryElements:elements task:task exponentialDecayConstant:constant weightByDuration:duration isCounterfactual:counterfactual];
-  if (v11)
+  v14.receiver = self;
+  v14.super_class = APOdmlInstalledAppVectorBuilder;
+  v9 = [(APOdmlVectorBuilder *)&v14 initWithVersion:version lookbackPeriod:period maxQueryElements:elements task:task exponentialDecayConstant:constant weightByDuration:duration isCounterfactual:counterfactual];
+  if (v9)
   {
-    v12 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v9, v10);
-    bundleIDtoAppInfo = v11->_bundleIDtoAppInfo;
-    v11->_bundleIDtoAppInfo = v12;
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    bundleIDtoAppInfo = v9->_bundleIDtoAppInfo;
+    v9->_bundleIDtoAppInfo = dictionary;
   }
 
-  return v11;
+  return v9;
 }
 
 - (id)eventsBetween:(id)between and:(id)and
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   betweenCopy = between;
   andCopy = and;
-  v8 = objc_msgSend_set(MEMORY[0x277CBEB58], v6, v7);
+  v6 = [MEMORY[0x277CBEB58] set];
   context = objc_autoreleasePoolPush();
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v11 = objc_msgSend__installedStoreAppEnumerator(self, v9, v10);
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v47, v51, 16);
-  if (v13)
-  {
-    v16 = v13;
-    v17 = *v48;
-    do
-    {
-      for (i = 0; i != v16; ++i)
-      {
-        if (*v48 != v17)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v19 = *(*(&v47 + 1) + 8 * i);
-        v20 = objc_msgSend_bundleIdentifier(v19, v14, v15);
-
-        if (v20)
-        {
-          v21 = objc_msgSend_iTunesMetadata(v19, v14, v15);
-          v24 = objc_msgSend_storeItemIdentifier(v21, v22, v23);
-
-          v25 = [APOdmlAppInfo alloc];
-          v28 = objc_msgSend_bundleIdentifier(v19, v26, v27);
-          v30 = objc_msgSend_initWithBundleID_adamID_(v25, v29, v28, v24);
-
-          objc_msgSend_addObject_(v8, v31, v30);
-          v34 = objc_msgSend_bundleIDtoAppInfo(self, v32, v33);
-          v37 = objc_msgSend_bundleIdentifier(v19, v35, v36);
-          objc_msgSend_setObject_forKeyedSubscript_(v34, v38, v30, v37);
-        }
-      }
-
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v47, v51, 16);
-    }
-
-    while (v16);
-  }
-
-  objc_autoreleasePoolPop(context);
-  v41 = objc_msgSend_allObjects(v8, v39, v40);
-
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v41;
-}
-
-- (void)buildBundleIDtoAdamIDCache:(id)cache
-{
-  v30 = *MEMORY[0x277D85DE8];
-  cacheCopy = cache;
-  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(cacheCopy, v5, &v25, v29, 16);
-  if (v6)
+  v29 = 0u;
+  _installedStoreAppEnumerator = [(APOdmlInstalledAppVectorBuilder *)self _installedStoreAppEnumerator];
+  v8 = [_installedStoreAppEnumerator countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v8)
   {
-    v9 = v6;
-    v10 = *v26;
+    v9 = v8;
+    v10 = *v27;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v27 != v10)
         {
-          objc_enumerationMutation(cacheCopy);
+          objc_enumerationMutation(_installedStoreAppEnumerator);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
-        v13 = objc_msgSend_bundleID(v12, v7, v8);
-        v16 = objc_msgSend_adamIDtoBundleID(self, v14, v15);
-        v17 = MEMORY[0x277CCABB0];
-        v20 = objc_msgSend_adamID(v12, v18, v19);
-        v22 = objc_msgSend_numberWithUnsignedLongLong_(v17, v21, v20);
-        objc_msgSend_setObject_forKeyedSubscript_(v16, v23, v13, v22);
+        v12 = *(*(&v26 + 1) + 8 * i);
+        bundleIdentifier = [v12 bundleIdentifier];
+
+        if (bundleIdentifier)
+        {
+          iTunesMetadata = [v12 iTunesMetadata];
+          storeItemIdentifier = [iTunesMetadata storeItemIdentifier];
+
+          v16 = [APOdmlAppInfo alloc];
+          bundleIdentifier2 = [v12 bundleIdentifier];
+          v18 = [(APOdmlAppInfo *)v16 initWithBundleID:bundleIdentifier2 adamID:storeItemIdentifier];
+
+          [v6 addObject:v18];
+          bundleIDtoAppInfo = [(APOdmlInstalledAppVectorBuilder *)self bundleIDtoAppInfo];
+          bundleIdentifier3 = [v12 bundleIdentifier];
+          [bundleIDtoAppInfo setObject:v18 forKeyedSubscript:bundleIdentifier3];
+        }
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(cacheCopy, v7, &v25, v29, 16);
+      v9 = [_installedStoreAppEnumerator countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v9);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(context);
+  allObjects = [v6 allObjects];
+
+  return allObjects;
+}
+
+- (void)buildBundleIDtoAdamIDCache:(id)cache
+{
+  v18 = *MEMORY[0x277D85DE8];
+  cacheCopy = cache;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v5 = [cacheCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v14;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v14 != v7)
+        {
+          objc_enumerationMutation(cacheCopy);
+        }
+
+        v9 = *(*(&v13 + 1) + 8 * i);
+        bundleID = [v9 bundleID];
+        adamIDtoBundleID = [(APOdmlVectorBuilder *)self adamIDtoBundleID];
+        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v9, "adamID")}];
+        [adamIDtoBundleID setObject:bundleID forKeyedSubscript:v12];
+      }
+
+      v6 = [cacheCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 - (id)retrieveFilteredEvents:(id)events
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
-  v7 = objc_msgSend_bundleIDtoAppInfo(self, v5, v6);
-  v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, eventsCopy);
+  bundleIDtoAppInfo = [(APOdmlInstalledAppVectorBuilder *)self bundleIDtoAppInfo];
+  v6 = [bundleIDtoAppInfo objectForKeyedSubscript:eventsCopy];
 
-  if (v9)
+  if (v6)
   {
-    v31 = v9;
-    v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, &v31, 1);
+    v21 = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
   }
 
   else
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v13 = objc_msgSend_events(self, v10, v11, 0);
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v27, v33, 16);
-    if (v15)
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    events = [(APOdmlVectorBuilder *)self events];
+    v9 = [events countByEnumeratingWithState:&v17 objects:v23 count:16];
+    if (v9)
     {
-      v18 = v15;
-      v19 = *v28;
+      v10 = v9;
+      v11 = *v18;
       while (2)
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v28 != v19)
+          if (*v18 != v11)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(events);
           }
 
-          v21 = *(*(&v27 + 1) + 8 * i);
-          v22 = objc_msgSend_bundleID(v21, v16, v17);
-          isEqualToString = objc_msgSend_isEqualToString_(v22, v23, eventsCopy);
+          v13 = *(*(&v17 + 1) + 8 * i);
+          bundleID = [v13 bundleID];
+          v15 = [bundleID isEqualToString:eventsCopy];
 
-          if (isEqualToString)
+          if (v15)
           {
-            v32 = v21;
-            v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v16, &v32, 1);
+            v22 = v13;
+            v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
 
             goto LABEL_13;
           }
         }
 
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v27, v33, 16);
-        if (v18)
+        v10 = [events countByEnumeratingWithState:&v17 objects:v23 count:16];
+        if (v10)
         {
           continue;
         }
@@ -179,20 +173,18 @@
       }
     }
 
-    v12 = 0;
+    v7 = 0;
   }
 
 LABEL_13:
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v7;
 }
 
 - (id)_installedStoreAppEnumerator
 {
-  v2 = objc_msgSend_enumeratorWithOptions_(MEMORY[0x277CC1E70], a2, 0);
-  objc_msgSend_setFilter_(v2, v3, &unk_287367620);
+  v2 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
+  [v2 setFilter:&unk_287367620];
 
   return v2;
 }

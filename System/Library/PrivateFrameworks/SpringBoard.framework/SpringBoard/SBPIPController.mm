@@ -945,7 +945,7 @@ LABEL_3:
     lockStateProviders = self->_lockStateProviders;
   }
 
-  if (![(NSHashTable *)lockStateProviders containsObject:uiLockStateProvider])
+  if ((objc_msgSend_containsObject_(lockStateProviders, uiLockStateProvider, uiLockStateProvider) & 1) == 0)
   {
     [(NSHashTable *)self->_lockStateProviders addObject:v8];
     [v8 addLockStateObserver:self];
@@ -957,9 +957,9 @@ LABEL_3:
   v19 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   uiLockStateProvider = [sceneCopy uiLockStateProvider];
-  if ([(NSHashTable *)self->_lockStateProviders containsObject:uiLockStateProvider])
+  if (objc_msgSend_containsObject_(self->_lockStateProviders))
   {
-    if ([(NSHashTable *)self->_connectedWindowScenes containsObject:sceneCopy])
+    if (objc_msgSend_containsObject_(self->_connectedWindowScenes))
     {
       v6 = SBLogPIP();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1021,7 +1021,7 @@ LABEL_16:
 - (void)_windowSceneDidConnect:(id)connect
 {
   connectCopy = connect;
-  if (![(NSHashTable *)self->_connectedWindowScenes containsObject:?])
+  if ((objc_msgSend_containsObject_(self->_connectedWindowScenes) & 1) == 0)
   {
     connectedWindowScenes = self->_connectedWindowScenes;
     if (!connectedWindowScenes)
@@ -1050,7 +1050,7 @@ LABEL_16:
 {
   v23 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
-  v5 = [(NSHashTable *)self->_connectedWindowScenes containsObject:disconnectCopy];
+  v5 = objc_msgSend_containsObject_(self->_connectedWindowScenes);
   if (v5)
   {
     [(NSHashTable *)self->_connectedWindowScenes removeObject:disconnectCopy];
@@ -1910,17 +1910,17 @@ void __66__SBPIPController__shouldStashForTransitionContext_onWindowScene___bloc
   pictureInPictureManager = [v13 pictureInPictureManager];
   [pictureInPictureManager _updateFloatingDockInsetsWithoutNotifyingControllers];
 
-  if (![(NSHashTable *)self->_connectedWindowScenes containsObject:v13])
+  if ((objc_msgSend_containsObject_(self->_connectedWindowScenes) & 1) == 0)
   {
     [(SBPIPController *)self _windowSceneDidConnect:v13];
   }
 
-  if (![(NSHashTable *)self->_connectedWindowScenes containsObject:embeddedDisplayWindowScene])
+  if ((objc_msgSend_containsObject_(self->_connectedWindowScenes) & 1) == 0)
   {
     [(SBPIPController *)self _windowSceneDidConnect:embeddedDisplayWindowScene];
   }
 
-  if ([(SBPIPController *)self contentType]!= 1 && ![(NSHashTable *)self->_connectedWindowScenes containsObject:activeDisplayWindowScene])
+  if ([(SBPIPController *)self contentType]!= 1 && (objc_msgSend_containsObject_(self->_connectedWindowScenes) & 1) == 0)
   {
     [(SBPIPController *)self _windowSceneDidConnect:activeDisplayWindowScene];
   }
@@ -2172,16 +2172,16 @@ LABEL_11:
   dispatch_after(v10, MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __79__SBPIPController__updateZStackIfNeededForDisappearingContainerViewController___block_invoke(uint64_t a1)
+uint64_t __79__SBPIPController__updateZStackIfNeededForDisappearingContainerViewController___block_invoke(void *a1)
 {
   if (BSEqualStrings())
   {
-    v2 = *(a1 + 40);
+    v2 = a1[5];
     v3 = *(v2 + 184);
     *(v2 + 184) = 0;
   }
 
-  v4 = *(a1 + 48);
+  v4 = a1[6];
 
   return [v4 setNeedsUpdateZStackParticipantPreferencesWithReason:@"removed container view controller"];
 }
@@ -2347,7 +2347,7 @@ uint64_t __106__SBPIPController_restoreContentViewController_appSceneEntity_morp
   hiddenCopy = hidden;
   v18 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v7 = [(NSMutableSet *)self->_pictureInPictureWindowHiddenReasons containsObject:reasonCopy];
+  v7 = objc_msgSend_containsObject_(self->_pictureInPictureWindowHiddenReasons);
   if (hiddenCopy)
   {
     if (v7)
@@ -2995,7 +2995,7 @@ uint64_t __148__SBPIPController_startPictureInPictureForApplicationWithProcessId
 
         v11 = *(*(&v13 + 1) + 8 * i);
         hostedAppSceneHandle = [v11 hostedAppSceneHandle];
-        if ([handlesCopy containsObject:hostedAppSceneHandle])
+        if (objc_msgSend_containsObject_(handlesCopy))
         {
           [v11 handleDestructionRequestForSceneHandle:hostedAppSceneHandle];
         }
@@ -3313,7 +3313,7 @@ void __60__SBPIPController_bringTetheredContentToFrontOnWindowScene___block_invo
   v18 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   connectedWindowScenes = [(SBPIPController *)self connectedWindowScenes];
-  if ([connectedWindowScenes containsObject:sceneCopy])
+  if (objc_msgSend_containsObject_(connectedWindowScenes))
   {
     v15 = 0u;
     v16 = 0u;
@@ -3628,7 +3628,7 @@ uint64_t __82__SBPIPController__managePictureInPictureWindowVisibilityForWindowS
   return [*(a1 + 32) _setAlpha:*(a1 + 40) forWindowsOnWindowScene:v1];
 }
 
-uint64_t __82__SBPIPController__managePictureInPictureWindowVisibilityForWindowScene_animated___block_invoke_2(uint64_t a1)
+void *__82__SBPIPController__managePictureInPictureWindowVisibilityForWindowScene_animated___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldHideWindowScene:*(a1 + 40)];
   if (result)

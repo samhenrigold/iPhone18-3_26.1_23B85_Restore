@@ -13,23 +13,24 @@
 - (CRVehicleVideoSettings)initWithVehicleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v10.receiver = self;
-  v10.super_class = CRVehicleVideoSettings;
-  v6 = [(CRVehicleVideoSettings *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = CRVehicleVideoSettings;
+  v6 = [(CRVehicleVideoSettings *)&v11 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = CarGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = CarGeneralLogging(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [(CRVehicleVideoSettings *)v6 initWithVehicleIdentifier:v7];
+      [(CRVehicleVideoSettings *)v7 initWithVehicleIdentifier:v8];
     }
 
-    objc_storeStrong(&v6->_vehicleID, identifier);
-    v8 = objc_alloc_init(CRCarKitServiceClient);
-    [(CRVehicleVideoSettings *)v6 setServiceClient:v8];
+    objc_storeStrong(&v7->_vehicleID, identifier);
+    v9 = objc_alloc_init(CRCarKitServiceClient);
+    [(CRVehicleVideoSettings *)v7 setServiceClient:v9];
   }
 
-  return v6;
+  return v7;
 }
 
 - (CRSubtitleSettings)subtitleSettings
@@ -40,7 +41,7 @@
   v11 = __Block_byref_object_copy__1;
   v12 = __Block_byref_object_dispose__1;
   v13 = 0;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CRVehicleVideoSettings subtitleSettings];
@@ -76,26 +77,27 @@ void __42__CRVehicleVideoSettings_subtitleSettings__block_invoke(uint64_t a1, vo
 
 void __42__CRVehicleVideoSettings_subtitleSettings__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v6)
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-    v8 = CarGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = CarGeneralLogging(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = *(*(*(a1 + 32) + 8) + 40);
-      v10 = 138543362;
-      v11 = v9;
-      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_INFO, "subtitleSettings: %{public}@", &v10, 0xCu);
+      v11 = *(*(*(a1 + 32) + 8) + 40);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_INFO, "subtitleSettings: %{public}@", &v12, 0xCu);
     }
   }
 
   else
   {
-    v8 = CarGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __42__CRVehicleVideoSettings_subtitleSettings__block_invoke_2_cold_1();
     }
@@ -105,7 +107,7 @@ void __42__CRVehicleVideoSettings_subtitleSettings__block_invoke_2(uint64_t a1, 
 void __42__CRVehicleVideoSettings_subtitleSettings__block_invoke_21(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __42__CRVehicleVideoSettings_subtitleSettings__block_invoke_21_cold_1();
@@ -116,7 +118,7 @@ void __42__CRVehicleVideoSettings_subtitleSettings__block_invoke_21(uint64_t a1,
 {
   v13 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(settingsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -147,7 +149,7 @@ void __46__CRVehicleVideoSettings_setSubtitleSettings___block_invoke(uint64_t a1
 void __46__CRVehicleVideoSettings_setSubtitleSettings___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(v4);
   v6 = v5;
   if (a2)
   {
@@ -166,7 +168,7 @@ void __46__CRVehicleVideoSettings_setSubtitleSettings___block_invoke_2(uint64_t 
 void __46__CRVehicleVideoSettings_setSubtitleSettings___block_invoke_26(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __46__CRVehicleVideoSettings_setSubtitleSettings___block_invoke_2_cold_1();
@@ -179,7 +181,7 @@ void __46__CRVehicleVideoSettings_setSubtitleSettings___block_invoke_26(uint64_t
   v9 = &v8;
   v10 = 0x2020000000;
   v11 = 0;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CRVehicleVideoSettings diagnosticsEnabled];
@@ -214,34 +216,36 @@ void __44__CRVehicleVideoSettings_diagnosticsEnabled__block_invoke(uint64_t a1, 
 
 void __44__CRVehicleVideoSettings_diagnosticsEnabled__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    *(*(*(a1 + 32) + 8) + 24) = [a2 BOOLValue];
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = [a2 BOOLValue];
+    *(*(*(a1 + 32) + 8) + 24) = v7;
+    v8 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       if (*(*(*(a1 + 32) + 8) + 24))
       {
-        v7 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v7 = @"NO";
+        v9 = @"NO";
       }
 
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_INFO, "diagnosticsEnabled: %{public}@", &v8, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_INFO, "diagnosticsEnabled: %{public}@", &v10, 0xCu);
     }
   }
 
   else
   {
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __44__CRVehicleVideoSettings_diagnosticsEnabled__block_invoke_2_cold_1();
     }
@@ -251,7 +255,7 @@ void __44__CRVehicleVideoSettings_diagnosticsEnabled__block_invoke_2(uint64_t a1
 void __44__CRVehicleVideoSettings_diagnosticsEnabled__block_invoke_36(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __44__CRVehicleVideoSettings_diagnosticsEnabled__block_invoke_36_cold_1();
@@ -262,7 +266,7 @@ void __44__CRVehicleVideoSettings_diagnosticsEnabled__block_invoke_36(uint64_t a
 {
   enabledCopy = enabled;
   v12 = *MEMORY[0x1E69E9840];
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -298,7 +302,7 @@ void __48__CRVehicleVideoSettings_setDiagnosticsEnabled___block_invoke(uint64_t 
 void __48__CRVehicleVideoSettings_setDiagnosticsEnabled___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(v4);
   v6 = v5;
   if (a2)
   {
@@ -317,7 +321,7 @@ void __48__CRVehicleVideoSettings_setDiagnosticsEnabled___block_invoke_2(uint64_
 void __48__CRVehicleVideoSettings_setDiagnosticsEnabled___block_invoke_41(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __48__CRVehicleVideoSettings_setDiagnosticsEnabled___block_invoke_2_cold_1();
@@ -327,7 +331,7 @@ void __48__CRVehicleVideoSettings_setDiagnosticsEnabled___block_invoke_41(uint64
 - (void)fetchAnalyticsDataWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [CRVehicleVideoSettings fetchAnalyticsDataWithCompletion:];
@@ -361,7 +365,7 @@ void __59__CRVehicleVideoSettings_fetchAnalyticsDataWithCompletion___block_invok
 {
   v5 = a2;
   v6 = a3;
-  v7 = CarGeneralLogging();
+  v7 = CarGeneralLogging(v6);
   v8 = v7;
   if (v5)
   {
@@ -387,7 +391,7 @@ void __59__CRVehicleVideoSettings_fetchAnalyticsDataWithCompletion___block_invok
 void __59__CRVehicleVideoSettings_fetchAnalyticsDataWithCompletion___block_invoke_45(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __59__CRVehicleVideoSettings_fetchAnalyticsDataWithCompletion___block_invoke_45_cold_1();
@@ -397,7 +401,7 @@ void __59__CRVehicleVideoSettings_fetchAnalyticsDataWithCompletion___block_invok
 - (void)fetchLicensesTextWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [CRVehicleVideoSettings fetchLicensesTextWithCompletion:];
@@ -431,7 +435,7 @@ void __58__CRVehicleVideoSettings_fetchLicensesTextWithCompletion___block_invoke
 {
   v5 = a2;
   v6 = a3;
-  v7 = CarGeneralLogging();
+  v7 = CarGeneralLogging(v6);
   v8 = v7;
   if (v5)
   {
@@ -457,7 +461,7 @@ void __58__CRVehicleVideoSettings_fetchLicensesTextWithCompletion___block_invoke
 void __58__CRVehicleVideoSettings_fetchLicensesTextWithCompletion___block_invoke_49(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __58__CRVehicleVideoSettings_fetchLicensesTextWithCompletion___block_invoke_49_cold_1();

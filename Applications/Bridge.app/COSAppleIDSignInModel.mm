@@ -226,7 +226,7 @@
 
 + (id)accountForServiceType:(int64_t)type
 {
-  v4 = sub_10002C8C8();
+  v4 = sub_10002C8C8(self);
   v5 = [objc_opt_class() aidaServiceTypeFromAppleIDServiceType:type];
   v6 = [v4 accountForService:v5];
 

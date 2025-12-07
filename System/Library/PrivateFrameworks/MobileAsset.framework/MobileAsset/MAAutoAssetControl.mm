@@ -1,15 +1,24 @@
 @interface MAAutoAssetControl
 + (id)_privateStateQueue;
++ (id)activeJobSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error;
 + (id)assetSelectorOrAllSelector:(id)selector;
 + (id)autoAssetControl;
 + (id)availableForStagingAssetSummary:(id *)summary;
++ (id)controlStatistics:(BOOL)statistics error:(id *)error;
 + (id)defaultDispatchQueue;
 + (id)forceGlobalAbandon:(id)abandon;
 + (id)forceGlobalForget:(id)forget;
++ (id)forceGlobalPurge:(id)purge forcingUnlock:(BOOL)unlock;
 + (id)forceGlobalUnlock:(id)unlock;
 + (id)frameworkInstanceUUID;
++ (id)knownAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error;
++ (id)lockedAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error;
++ (id)scheduledJobSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error;
 + (id)simulateSetJobOperation:(int64_t)operation withEndEvent:(int64_t)event forSelector:(id)selector;
++ (id)stagedAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error;
 + (id)stagerOverview:(id *)overview;
++ (int64_t)simulateCacheDeleteDetermineReclaimableSpace:(id)space withUrgency:(int)urgency error:(id *)error;
++ (int64_t)simulateCacheDeleteReclaimSpace:(id)space withUrgency:(int)urgency targetingPurgeAmount:(int64_t)amount error:(id *)error;
 + (void)frameworkInstanceSetLogDomain;
 - (BOOL)_simulateCacheDeleteDetermineReclaimableSpace:(id)space withUrgency:(int)urgency error:(id *)error isSynchronous:(BOOL)synchronous completion:(id)completion;
 - (BOOL)_simulateCacheDeleteReclaimSpace:(id)space withUrgency:(int)urgency targetingPurgeAmount:(int64_t)amount isSynchronous:(BOOL)synchronous completion:(id)completion;
@@ -65,6 +74,42 @@
   return v2;
 }
 
++ (id)controlStatistics:(BOOL)statistics error:(id *)error
+{
+  statisticsCopy = statistics;
+  v6 = +[MAAutoAssetControl autoAssetControl];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__6;
+  v20 = __Block_byref_object_dispose__6;
+  v21 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy__6;
+  v14 = __Block_byref_object_dispose__6;
+  v15 = 0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __46__MAAutoAssetControl_controlStatistics_error___block_invoke;
+  v9[3] = &unk_1E74CAFE0;
+  v9[4] = &v16;
+  v9[5] = &v10;
+  [v6 _controlStatistics:statisticsCopy isSynchronous:1 completion:v9];
+  if (error)
+  {
+    *error = v11[5];
+  }
+
+  v7 = v17[5];
+  _Block_object_dispose(&v10, 8);
+
+  _Block_object_dispose(&v16, 8);
+
+  return v7;
+}
+
 void __46__MAAutoAssetControl_controlStatistics_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -84,22 +129,22 @@ void __46__MAAutoAssetControl_controlStatistics_error___block_invoke(uint64_t a1
 
 - (void)_controlStatistics:(BOOL)statistics isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v9 = +[MAAutoAssetControl _privateStateQueue];
   dispatch_assert_queue_not_V2(v9);
 
   if (completionCopy)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __66__MAAutoAssetControl__controlStatistics_isSynchronous_completion___block_invoke;
-    v13[3] = &unk_1E74CB008;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __66__MAAutoAssetControl__controlStatistics_isSynchronous_completion___block_invoke;
+    v12[3] = &unk_1E74CB008;
     statisticsCopy = statistics;
-    v13[4] = self;
+    v12[4] = self;
     synchronousCopy = synchronous;
-    v14 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v13];
+    v13 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v12];
   }
 
   else
@@ -109,12 +154,10 @@ void __46__MAAutoAssetControl_controlStatistics_error___block_invoke(uint64_t a1
     {
       v11 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"controlStatistics"];
       *buf = 138543362;
-      v18 = v11;
+      v17 = v11;
       _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_ERROR, "MA-auto-control{controlStatistics} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MAAutoAssetControl__controlStatistics_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -275,6 +318,43 @@ void __54__MAAutoAssetControl_availableForStagingAssetSummary___block_invoke(uin
   *(v10 + 40) = v6;
 }
 
++ (id)knownAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error
+{
+  summaryCopy = summary;
+  typesCopy = types;
+  v8 = +[MAAutoAssetControl autoAssetControl];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__6;
+  v22 = __Block_byref_object_dispose__6;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__6;
+  v16 = __Block_byref_object_dispose__6;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __66__MAAutoAssetControl_knownAssetSummary_limitedToAssetTypes_error___block_invoke;
+  v11[3] = &unk_1E74C9778;
+  v11[4] = &v18;
+  v11[5] = &v12;
+  [v8 _knownAssetSummary:summaryCopy limitedToAssetTypes:typesCopy isSynchronous:1 completion:v11];
+  if (error)
+  {
+    *error = v13[5];
+  }
+
+  v9 = v19[5];
+  _Block_object_dispose(&v12, 8);
+
+  _Block_object_dispose(&v18, 8);
+
+  return v9;
+}
+
 void __66__MAAutoAssetControl_knownAssetSummary_limitedToAssetTypes_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -294,21 +374,21 @@ void __66__MAAutoAssetControl_knownAssetSummary_limitedToAssetTypes_error___bloc
 
 - (void)_availableForStagingAssetSummaryIsSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = +[MAAutoAssetControl _privateStateQueue];
   dispatch_assert_queue_not_V2(v7);
 
   if (completionCopy)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __79__MAAutoAssetControl__availableForStagingAssetSummaryIsSynchronous_completion___block_invoke;
-    v11[3] = &unk_1E74CAC20;
-    v11[4] = self;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __79__MAAutoAssetControl__availableForStagingAssetSummaryIsSynchronous_completion___block_invoke;
+    v10[3] = &unk_1E74CAC20;
+    v10[4] = self;
     synchronousCopy = synchronous;
-    v12 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v11];
+    v11 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v10];
   }
 
   else
@@ -318,12 +398,10 @@ void __66__MAAutoAssetControl_knownAssetSummary_limitedToAssetTypes_error___bloc
     {
       v9 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"availableForStagingAssetSummary"];
       *buf = 138543362;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_197AD5000, v8, OS_LOG_TYPE_ERROR, "MA-auto-control{availableForStagingAssetSummary} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __79__MAAutoAssetControl__availableForStagingAssetSummaryIsSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -432,7 +510,7 @@ void __79__MAAutoAssetControl__availableForStagingAssetSummaryIsSynchronous_comp
 
 - (void)_knownAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   completionCopy = completion;
   v12 = +[MAAutoAssetControl _privateStateQueue];
@@ -440,18 +518,18 @@ void __79__MAAutoAssetControl__availableForStagingAssetSummaryIsSynchronous_comp
 
   if (completionCopy)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __86__MAAutoAssetControl__knownAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
-    v16[3] = &unk_1E74CB030;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __86__MAAutoAssetControl__knownAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
+    v15[3] = &unk_1E74CB030;
     summaryCopy = summary;
-    v17 = typesCopy;
+    v16 = typesCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v19 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v16];
+    v18 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v15];
 
-    v13 = v17;
+    v13 = v16;
   }
 
   else
@@ -461,12 +539,10 @@ void __79__MAAutoAssetControl__availableForStagingAssetSummaryIsSynchronous_comp
     {
       v14 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"knownAssetSummary"];
       *buf = 138543362;
-      v23 = v14;
+      v22 = v14;
       _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{knownAssetSummary} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MAAutoAssetControl__knownAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -575,6 +651,43 @@ void __86__MAAutoAssetControl__knownAssetSummary_limitedToAssetTypes_isSynchrono
   }
 }
 
++ (id)lockedAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error
+{
+  summaryCopy = summary;
+  typesCopy = types;
+  v8 = +[MAAutoAssetControl autoAssetControl];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__6;
+  v22 = __Block_byref_object_dispose__6;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__6;
+  v16 = __Block_byref_object_dispose__6;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__MAAutoAssetControl_lockedAssetSummary_limitedToAssetTypes_error___block_invoke;
+  v11[3] = &unk_1E74C9778;
+  v11[4] = &v18;
+  v11[5] = &v12;
+  [v8 _lockedAssetSummary:summaryCopy limitedToAssetTypes:typesCopy isSynchronous:1 completion:v11];
+  if (error)
+  {
+    *error = v13[5];
+  }
+
+  v9 = v19[5];
+  _Block_object_dispose(&v12, 8);
+
+  _Block_object_dispose(&v18, 8);
+
+  return v9;
+}
+
 void __67__MAAutoAssetControl_lockedAssetSummary_limitedToAssetTypes_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -594,7 +707,7 @@ void __67__MAAutoAssetControl_lockedAssetSummary_limitedToAssetTypes_error___blo
 
 - (void)_lockedAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   completionCopy = completion;
   v12 = +[MAAutoAssetControl _privateStateQueue];
@@ -602,18 +715,18 @@ void __67__MAAutoAssetControl_lockedAssetSummary_limitedToAssetTypes_error___blo
 
   if (completionCopy)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __87__MAAutoAssetControl__lockedAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
-    v16[3] = &unk_1E74CB030;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __87__MAAutoAssetControl__lockedAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
+    v15[3] = &unk_1E74CB030;
     summaryCopy = summary;
-    v17 = typesCopy;
+    v16 = typesCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v19 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v16];
+    v18 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v15];
 
-    v13 = v17;
+    v13 = v16;
   }
 
   else
@@ -623,12 +736,10 @@ void __67__MAAutoAssetControl_lockedAssetSummary_limitedToAssetTypes_error___blo
     {
       v14 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"lockedAssetSummary"];
       *buf = 138543362;
-      v23 = v14;
+      v22 = v14;
       _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{lockedAssetSummary} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __87__MAAutoAssetControl__lockedAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -737,6 +848,43 @@ void __87__MAAutoAssetControl__lockedAssetSummary_limitedToAssetTypes_isSynchron
   }
 }
 
++ (id)stagedAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error
+{
+  summaryCopy = summary;
+  typesCopy = types;
+  v8 = +[MAAutoAssetControl autoAssetControl];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__6;
+  v22 = __Block_byref_object_dispose__6;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__6;
+  v16 = __Block_byref_object_dispose__6;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__MAAutoAssetControl_stagedAssetSummary_limitedToAssetTypes_error___block_invoke;
+  v11[3] = &unk_1E74C9778;
+  v11[4] = &v18;
+  v11[5] = &v12;
+  [v8 _stagedAssetSummary:summaryCopy limitedToAssetTypes:typesCopy isSynchronous:1 completion:v11];
+  if (error)
+  {
+    *error = v13[5];
+  }
+
+  v9 = v19[5];
+  _Block_object_dispose(&v12, 8);
+
+  _Block_object_dispose(&v18, 8);
+
+  return v9;
+}
+
 void __67__MAAutoAssetControl_stagedAssetSummary_limitedToAssetTypes_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -756,7 +904,7 @@ void __67__MAAutoAssetControl_stagedAssetSummary_limitedToAssetTypes_error___blo
 
 - (void)_stagedAssetSummary:(BOOL)summary limitedToAssetTypes:(id)types isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   completionCopy = completion;
   v12 = +[MAAutoAssetControl _privateStateQueue];
@@ -764,18 +912,18 @@ void __67__MAAutoAssetControl_stagedAssetSummary_limitedToAssetTypes_error___blo
 
   if (completionCopy)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __87__MAAutoAssetControl__stagedAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
-    v16[3] = &unk_1E74CB030;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __87__MAAutoAssetControl__stagedAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
+    v15[3] = &unk_1E74CB030;
     summaryCopy = summary;
-    v17 = typesCopy;
+    v16 = typesCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v19 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v16];
+    v18 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v15];
 
-    v13 = v17;
+    v13 = v16;
   }
 
   else
@@ -785,12 +933,10 @@ void __67__MAAutoAssetControl_stagedAssetSummary_limitedToAssetTypes_error___blo
     {
       v14 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"stagedAssetSummary"];
       *buf = 138543362;
-      v23 = v14;
+      v22 = v14;
       _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{stagedAssetSummary} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __87__MAAutoAssetControl__stagedAssetSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -899,6 +1045,43 @@ void __87__MAAutoAssetControl__stagedAssetSummary_limitedToAssetTypes_isSynchron
   }
 }
 
++ (id)activeJobSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error
+{
+  summaryCopy = summary;
+  typesCopy = types;
+  v8 = +[MAAutoAssetControl autoAssetControl];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__6;
+  v22 = __Block_byref_object_dispose__6;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__6;
+  v16 = __Block_byref_object_dispose__6;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __65__MAAutoAssetControl_activeJobSummary_limitedToAssetTypes_error___block_invoke;
+  v11[3] = &unk_1E74C9778;
+  v11[4] = &v18;
+  v11[5] = &v12;
+  [v8 _activeJobSummary:summaryCopy limitedToAssetTypes:typesCopy isSynchronous:1 completion:v11];
+  if (error)
+  {
+    *error = v13[5];
+  }
+
+  v9 = v19[5];
+  _Block_object_dispose(&v12, 8);
+
+  _Block_object_dispose(&v18, 8);
+
+  return v9;
+}
+
 void __65__MAAutoAssetControl_activeJobSummary_limitedToAssetTypes_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -918,7 +1101,7 @@ void __65__MAAutoAssetControl_activeJobSummary_limitedToAssetTypes_error___block
 
 - (void)_activeJobSummary:(BOOL)summary limitedToAssetTypes:(id)types isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   completionCopy = completion;
   v12 = +[MAAutoAssetControl _privateStateQueue];
@@ -926,18 +1109,18 @@ void __65__MAAutoAssetControl_activeJobSummary_limitedToAssetTypes_error___block
 
   if (completionCopy)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __85__MAAutoAssetControl__activeJobSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
-    v16[3] = &unk_1E74CB030;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __85__MAAutoAssetControl__activeJobSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
+    v15[3] = &unk_1E74CB030;
     summaryCopy = summary;
-    v17 = typesCopy;
+    v16 = typesCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v19 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v16];
+    v18 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v15];
 
-    v13 = v17;
+    v13 = v16;
   }
 
   else
@@ -947,12 +1130,10 @@ void __65__MAAutoAssetControl_activeJobSummary_limitedToAssetTypes_error___block
     {
       v14 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"activeJobSummary"];
       *buf = 138543362;
-      v23 = v14;
+      v22 = v14;
       _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{activeJobSummary} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MAAutoAssetControl__activeJobSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -1061,6 +1242,43 @@ void __85__MAAutoAssetControl__activeJobSummary_limitedToAssetTypes_isSynchronou
   }
 }
 
++ (id)scheduledJobSummary:(BOOL)summary limitedToAssetTypes:(id)types error:(id *)error
+{
+  summaryCopy = summary;
+  typesCopy = types;
+  v8 = +[MAAutoAssetControl autoAssetControl];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__6;
+  v22 = __Block_byref_object_dispose__6;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__6;
+  v16 = __Block_byref_object_dispose__6;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__MAAutoAssetControl_scheduledJobSummary_limitedToAssetTypes_error___block_invoke;
+  v11[3] = &unk_1E74C9778;
+  v11[4] = &v18;
+  v11[5] = &v12;
+  [v8 _scheduledJobSummary:summaryCopy limitedToAssetTypes:typesCopy isSynchronous:1 completion:v11];
+  if (error)
+  {
+    *error = v13[5];
+  }
+
+  v9 = v19[5];
+  _Block_object_dispose(&v12, 8);
+
+  _Block_object_dispose(&v18, 8);
+
+  return v9;
+}
+
 void __68__MAAutoAssetControl_scheduledJobSummary_limitedToAssetTypes_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -1080,7 +1298,7 @@ void __68__MAAutoAssetControl_scheduledJobSummary_limitedToAssetTypes_error___bl
 
 - (void)_scheduledJobSummary:(BOOL)summary limitedToAssetTypes:(id)types isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   completionCopy = completion;
   v12 = +[MAAutoAssetControl _privateStateQueue];
@@ -1088,18 +1306,18 @@ void __68__MAAutoAssetControl_scheduledJobSummary_limitedToAssetTypes_error___bl
 
   if (completionCopy)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __88__MAAutoAssetControl__scheduledJobSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
-    v16[3] = &unk_1E74CB030;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __88__MAAutoAssetControl__scheduledJobSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke;
+    v15[3] = &unk_1E74CB030;
     summaryCopy = summary;
-    v17 = typesCopy;
+    v16 = typesCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v19 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v16];
+    v18 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v15];
 
-    v13 = v17;
+    v13 = v16;
   }
 
   else
@@ -1109,12 +1327,10 @@ void __68__MAAutoAssetControl_scheduledJobSummary_limitedToAssetTypes_error___bl
     {
       v14 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"scheduledJobSummary"];
       *buf = 138543362;
-      v23 = v14;
+      v22 = v14;
       _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{scheduledJobSummary} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __88__MAAutoAssetControl__scheduledJobSummary_limitedToAssetTypes_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -1277,7 +1493,7 @@ void __37__MAAutoAssetControl_stagerOverview___block_invoke(uint64_t a1, void *a
 
 - (void)_stagerOverview:(BOOL)overview limitedToAssetTypes:(id)types isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   completionCopy = completion;
   v12 = +[MAAutoAssetControl _privateStateQueue];
@@ -1285,18 +1501,18 @@ void __37__MAAutoAssetControl_stagerOverview___block_invoke(uint64_t a1, void *a
 
   if (completionCopy)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __83__MAAutoAssetControl__stagerOverview_limitedToAssetTypes_isSynchronous_completion___block_invoke;
-    v16[3] = &unk_1E74CB030;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __83__MAAutoAssetControl__stagerOverview_limitedToAssetTypes_isSynchronous_completion___block_invoke;
+    v15[3] = &unk_1E74CB030;
     overviewCopy = overview;
-    v17 = typesCopy;
+    v16 = typesCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v19 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v16];
+    v18 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v15];
 
-    v13 = v17;
+    v13 = v16;
   }
 
   else
@@ -1306,12 +1522,10 @@ void __37__MAAutoAssetControl_stagerOverview___block_invoke(uint64_t a1, void *a
     {
       v14 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"stagerOverview"];
       *buf = 138543362;
-      v23 = v14;
+      v22 = v14;
       _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{stagerOverview} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __83__MAAutoAssetControl__stagerOverview_limitedToAssetTypes_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -1455,7 +1669,7 @@ void __40__MAAutoAssetControl_forceGlobalUnlock___block_invoke(uint64_t a1, void
 
 - (void)_forceGlobalUnlock:(id)unlock isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   unlockCopy = unlock;
   completionCopy = completion;
   v10 = +[MAAutoAssetControl _privateStateQueue];
@@ -1463,17 +1677,17 @@ void __40__MAAutoAssetControl_forceGlobalUnlock___block_invoke(uint64_t a1, void
 
   if (completionCopy)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __66__MAAutoAssetControl__forceGlobalUnlock_isSynchronous_completion___block_invoke;
-    v14[3] = &unk_1E74C9840;
-    v15 = unlockCopy;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __66__MAAutoAssetControl__forceGlobalUnlock_isSynchronous_completion___block_invoke;
+    v13[3] = &unk_1E74C9840;
+    v14 = unlockCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v17 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v14];
+    v16 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v13];
 
-    v11 = v15;
+    v11 = v14;
   }
 
   else
@@ -1483,12 +1697,10 @@ void __40__MAAutoAssetControl_forceGlobalUnlock___block_invoke(uint64_t a1, void
     {
       v12 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"forceGlobalUnlock"];
       *buf = 138543362;
-      v20 = v12;
+      v19 = v12;
       _os_log_impl(&dword_197AD5000, v11, OS_LOG_TYPE_ERROR, "MA-auto-control{forceGlobalUnlock} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MAAutoAssetControl__forceGlobalUnlock_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -1616,7 +1828,7 @@ void __40__MAAutoAssetControl_forceGlobalForget___block_invoke(uint64_t a1, void
 
 - (void)_forceGlobalForget:(id)forget isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   forgetCopy = forget;
   completionCopy = completion;
   v10 = +[MAAutoAssetControl _privateStateQueue];
@@ -1624,17 +1836,17 @@ void __40__MAAutoAssetControl_forceGlobalForget___block_invoke(uint64_t a1, void
 
   if (completionCopy)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __66__MAAutoAssetControl__forceGlobalForget_isSynchronous_completion___block_invoke;
-    v14[3] = &unk_1E74C9840;
-    v15 = forgetCopy;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __66__MAAutoAssetControl__forceGlobalForget_isSynchronous_completion___block_invoke;
+    v13[3] = &unk_1E74C9840;
+    v14 = forgetCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v17 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v14];
+    v16 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v13];
 
-    v11 = v15;
+    v11 = v14;
   }
 
   else
@@ -1644,12 +1856,10 @@ void __40__MAAutoAssetControl_forceGlobalForget___block_invoke(uint64_t a1, void
     {
       v12 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"forceGlobalForget"];
       *buf = 138543362;
-      v20 = v12;
+      v19 = v12;
       _os_log_impl(&dword_197AD5000, v11, OS_LOG_TYPE_ERROR, "MA-auto-control{forceGlobalForget} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MAAutoAssetControl__forceGlobalForget_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -1742,6 +1952,29 @@ void __66__MAAutoAssetControl__forceGlobalForget_isSynchronous_completion___bloc
   }
 }
 
++ (id)forceGlobalPurge:(id)purge forcingUnlock:(BOOL)unlock
+{
+  unlockCopy = unlock;
+  purgeCopy = purge;
+  v6 = +[MAAutoAssetControl autoAssetControl];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy__6;
+  v14 = __Block_byref_object_dispose__6;
+  v15 = 0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __53__MAAutoAssetControl_forceGlobalPurge_forcingUnlock___block_invoke;
+  v9[3] = &unk_1E74CAA18;
+  v9[4] = &v10;
+  [v6 _forceGlobalPurge:purgeCopy forcingUnlock:unlockCopy isSynchronous:1 completion:v9];
+  v7 = v11[5];
+  _Block_object_dispose(&v10, 8);
+
+  return v7;
+}
+
 void __53__MAAutoAssetControl_forceGlobalPurge_forcingUnlock___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1755,7 +1988,7 @@ void __53__MAAutoAssetControl_forceGlobalPurge_forcingUnlock___block_invoke(uint
 
 - (void)_forceGlobalPurge:(id)purge forcingUnlock:(BOOL)unlock isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   purgeCopy = purge;
   completionCopy = completion;
   v12 = +[MAAutoAssetControl _privateStateQueue];
@@ -1763,18 +1996,18 @@ void __53__MAAutoAssetControl_forceGlobalPurge_forcingUnlock___block_invoke(uint
 
   if (completionCopy)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __79__MAAutoAssetControl__forceGlobalPurge_forcingUnlock_isSynchronous_completion___block_invoke;
-    v16[3] = &unk_1E74CB030;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __79__MAAutoAssetControl__forceGlobalPurge_forcingUnlock_isSynchronous_completion___block_invoke;
+    v15[3] = &unk_1E74CB030;
     unlockCopy = unlock;
-    v17 = purgeCopy;
+    v16 = purgeCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v19 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v16];
+    v18 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v15];
 
-    v13 = v17;
+    v13 = v16;
   }
 
   else
@@ -1784,12 +2017,10 @@ void __53__MAAutoAssetControl_forceGlobalPurge_forcingUnlock___block_invoke(uint
     {
       v14 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"forceGlobalPurge"];
       *buf = 138543362;
-      v23 = v14;
+      v22 = v14;
       _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{forceGlobalPurge} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __79__MAAutoAssetControl__forceGlobalPurge_forcingUnlock_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -1919,7 +2150,7 @@ void __41__MAAutoAssetControl_forceGlobalAbandon___block_invoke(uint64_t a1, voi
 
 - (void)_forceGlobalAbandon:(id)abandon isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   abandonCopy = abandon;
   completionCopy = completion;
   v10 = +[MAAutoAssetControl _privateStateQueue];
@@ -1927,15 +2158,15 @@ void __41__MAAutoAssetControl_forceGlobalAbandon___block_invoke(uint64_t a1, voi
 
   if (completionCopy)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __67__MAAutoAssetControl__forceGlobalAbandon_isSynchronous_completion___block_invoke;
-    v14[3] = &unk_1E74C9840;
-    v14[4] = self;
-    v15 = abandonCopy;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __67__MAAutoAssetControl__forceGlobalAbandon_isSynchronous_completion___block_invoke;
+    v13[3] = &unk_1E74C9840;
+    v13[4] = self;
+    v14 = abandonCopy;
     synchronousCopy = synchronous;
-    v16 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v14];
+    v15 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v13];
   }
 
   else
@@ -1945,12 +2176,10 @@ void __41__MAAutoAssetControl_forceGlobalAbandon___block_invoke(uint64_t a1, voi
     {
       v12 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"forceGlobalAbandon"];
       *buf = 138543362;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_197AD5000, v11, OS_LOG_TYPE_ERROR, "MA-auto-control{forceGlobalAbandon} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __67__MAAutoAssetControl__forceGlobalAbandon_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -2042,6 +2271,42 @@ void __67__MAAutoAssetControl__forceGlobalAbandon_isSynchronous_completion___blo
   }
 }
 
++ (int64_t)simulateCacheDeleteDetermineReclaimableSpace:(id)space withUrgency:(int)urgency error:(id *)error
+{
+  v6 = *&urgency;
+  spaceCopy = space;
+  v8 = +[MAAutoAssetControl autoAssetControl];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__6;
+  v17 = __Block_byref_object_dispose__6;
+  v18 = 0;
+  v11[5] = &v13;
+  obj = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __85__MAAutoAssetControl_simulateCacheDeleteDetermineReclaimableSpace_withUrgency_error___block_invoke;
+  v11[3] = &unk_1E74CB080;
+  v11[4] = &v19;
+  [v8 _simulateCacheDeleteDetermineReclaimableSpace:spaceCopy withUrgency:v6 error:&obj isSynchronous:1 completion:v11];
+  objc_storeStrong(&v18, obj);
+  if (error)
+  {
+    *error = v14[5];
+  }
+
+  v9 = v20[3];
+  _Block_object_dispose(&v13, 8);
+
+  _Block_object_dispose(&v19, 8);
+  return v9;
+}
+
 void __85__MAAutoAssetControl_simulateCacheDeleteDetermineReclaimableSpace_withUrgency_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
@@ -2056,7 +2321,7 @@ void __85__MAAutoAssetControl_simulateCacheDeleteDetermineReclaimableSpace_withU
 
 - (BOOL)_simulateCacheDeleteDetermineReclaimableSpace:(id)space withUrgency:(int)urgency error:(id *)error isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   spaceCopy = space;
   completionCopy = completion;
   v14 = +[MAAutoAssetControl _privateStateQueue];
@@ -2064,18 +2329,18 @@ void __85__MAAutoAssetControl_simulateCacheDeleteDetermineReclaimableSpace_withU
 
   if (completionCopy)
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __111__MAAutoAssetControl__simulateCacheDeleteDetermineReclaimableSpace_withUrgency_error_isSynchronous_completion___block_invoke;
-    v22[3] = &unk_1E74CB0A8;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __111__MAAutoAssetControl__simulateCacheDeleteDetermineReclaimableSpace_withUrgency_error_isSynchronous_completion___block_invoke;
+    v21[3] = &unk_1E74CB0A8;
     urgencyCopy = urgency;
-    v23 = spaceCopy;
+    v22 = spaceCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v25 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v22];
+    v24 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v21];
 
-    v15 = v23;
+    v15 = v22;
   }
 
   else
@@ -2093,12 +2358,11 @@ void __85__MAAutoAssetControl_simulateCacheDeleteDetermineReclaimableSpace_withU
     {
       v19 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"simulateCacheDeleteDetermineReclaimableSpace"];
       *buf = 138543362;
-      v29 = v19;
+      v28 = v19;
       _os_log_impl(&dword_197AD5000, v18, OS_LOG_TYPE_ERROR, "MA-auto-control{simulateCacheDeleteDetermineReclaimableSpace} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return completionCopy != 0;
 }
 
@@ -2207,6 +2471,40 @@ void __111__MAAutoAssetControl__simulateCacheDeleteDetermineReclaimableSpace_wit
   }
 }
 
++ (int64_t)simulateCacheDeleteReclaimSpace:(id)space withUrgency:(int)urgency targetingPurgeAmount:(int64_t)amount error:(id *)error
+{
+  v8 = *&urgency;
+  spaceCopy = space;
+  v10 = +[MAAutoAssetControl autoAssetControl];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__6;
+  v18 = __Block_byref_object_dispose__6;
+  v19 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __93__MAAutoAssetControl_simulateCacheDeleteReclaimSpace_withUrgency_targetingPurgeAmount_error___block_invoke;
+  v13[3] = &unk_1E74CB080;
+  v13[4] = &v20;
+  v13[5] = &v14;
+  [v10 _simulateCacheDeleteReclaimSpace:spaceCopy withUrgency:v8 targetingPurgeAmount:amount isSynchronous:1 completion:v13];
+  if (error)
+  {
+    *error = v15[5];
+  }
+
+  v11 = v21[3];
+  _Block_object_dispose(&v14, 8);
+
+  _Block_object_dispose(&v20, 8);
+  return v11;
+}
+
 void __93__MAAutoAssetControl_simulateCacheDeleteReclaimSpace_withUrgency_targetingPurgeAmount_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
@@ -2221,7 +2519,7 @@ void __93__MAAutoAssetControl_simulateCacheDeleteReclaimSpace_withUrgency_target
 
 - (BOOL)_simulateCacheDeleteReclaimSpace:(id)space withUrgency:(int)urgency targetingPurgeAmount:(int64_t)amount isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   spaceCopy = space;
   completionCopy = completion;
   v14 = +[MAAutoAssetControl _privateStateQueue];
@@ -2229,19 +2527,19 @@ void __93__MAAutoAssetControl_simulateCacheDeleteReclaimSpace_withUrgency_target
 
   if (completionCopy)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __113__MAAutoAssetControl__simulateCacheDeleteReclaimSpace_withUrgency_targetingPurgeAmount_isSynchronous_completion___block_invoke;
-    v19[3] = &unk_1E74CB0D0;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __113__MAAutoAssetControl__simulateCacheDeleteReclaimSpace_withUrgency_targetingPurgeAmount_isSynchronous_completion___block_invoke;
+    v18[3] = &unk_1E74CB0D0;
     urgencyCopy = urgency;
     amountCopy = amount;
-    v20 = spaceCopy;
+    v19 = spaceCopy;
     selfCopy = self;
     synchronousCopy = synchronous;
-    v22 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v19];
+    v21 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v18];
 
-    v15 = v20;
+    v15 = v19;
   }
 
   else
@@ -2251,12 +2549,11 @@ void __93__MAAutoAssetControl_simulateCacheDeleteReclaimSpace_withUrgency_target
     {
       v16 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"simulateCacheDeleteDetermineReclaimableSpace"];
       *buf = 138543362;
-      v27 = v16;
+      v26 = v16;
       _os_log_impl(&dword_197AD5000, v15, OS_LOG_TYPE_ERROR, "MA-auto-control{simulateCacheDeleteReclaimSpace} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return completionCopy != 0;
 }
 
@@ -2400,7 +2697,7 @@ void __71__MAAutoAssetControl_simulateSetJobOperation_withEndEvent_forSelector__
 
 - (void)_simulateSetJobOperation:(int64_t)operation withEndEvent:(int64_t)event forSelector:(id)selector isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   selectorCopy = selector;
   completionCopy = completion;
   v14 = +[MAAutoAssetControl _privateStateQueue];
@@ -2408,17 +2705,17 @@ void __71__MAAutoAssetControl_simulateSetJobOperation_withEndEvent_forSelector__
 
   if (completionCopy)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __97__MAAutoAssetControl__simulateSetJobOperation_withEndEvent_forSelector_isSynchronous_completion___block_invoke;
-    v18[3] = &unk_1E74CB0F8;
-    v18[4] = self;
-    v19 = selectorCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __97__MAAutoAssetControl__simulateSetJobOperation_withEndEvent_forSelector_isSynchronous_completion___block_invoke;
+    v17[3] = &unk_1E74CB0F8;
+    v17[4] = self;
+    v18 = selectorCopy;
     operationCopy = operation;
     eventCopy = event;
     synchronousCopy = synchronous;
-    v20 = completionCopy;
-    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v18];
+    v19 = completionCopy;
+    [(MAAutoAssetControl *)self connectToServerFrameworkCompletion:v17];
   }
 
   else
@@ -2428,12 +2725,10 @@ void __71__MAAutoAssetControl_simulateSetJobOperation_withEndEvent_forSelector__
     {
       v16 = [MAAutoAssetError summaryForCode:6102 fromOperation:@"simulateSetJobOperation"];
       *buf = 138543362;
-      v25 = v16;
+      v24 = v16;
       _os_log_impl(&dword_197AD5000, v15, OS_LOG_TYPE_ERROR, "MA-auto-control{simulateSetJobOperation} | no client completion block | %{public}@", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __97__MAAutoAssetControl__simulateSetJobOperation_withEndEvent_forSelector_isSynchronous_completion___block_invoke(uint64_t a1, void *a2)
@@ -2683,7 +2978,7 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
 
 - (void)_successControlStatistics:(id)statistics withControlStatistics:(id)controlStatistics isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
   controlStatisticsCopy = controlStatistics;
   completionCopy = completion;
@@ -2696,9 +2991,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = statisticsCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControlStatistics} | %{public}@ | SUCCESS", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = statisticsCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControlStatistics} | %{public}@ | SUCCESS", &v14, 0xCu);
     }
 
     completionCopy[2](completionCopy, controlStatisticsCopy, 0);
@@ -2708,18 +3003,16 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = statisticsCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControlStatistics} | %{public}@ | no client completion block", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = statisticsCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControlStatistics} | %{public}@ | no client completion block", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControlStatistics:(id)statistics withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
   errorCopy = error;
   descriptionCopy = description;
@@ -2741,9 +3034,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControlStatistics} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -2771,19 +3064,17 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = statisticsCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = statisticsCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControlStatistics} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_successControl:(id)control isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   completionCopy = completion;
   v8 = +[MAAutoAssetControl _privateStateQueue];
@@ -2795,9 +3086,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = controlCopy;
-      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControl} | %{public}@ | SUCCESS", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = controlCopy;
+      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControl} | %{public}@ | SUCCESS", &v11, 0xCu);
     }
 
     completionCopy[2](completionCopy, 0);
@@ -2807,18 +3098,16 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = controlCopy;
-      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControl} | %{public}@ | no client completion block", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = controlCopy;
+      _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControl} | %{public}@ | no client completion block", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControl:(id)control withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   errorCopy = error;
   descriptionCopy = description;
@@ -2840,9 +3129,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControl} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -2870,19 +3159,17 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = controlCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = controlCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControl} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_successControlSummary:(id)summary withJobSummaryEntries:(id)entries isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   entriesCopy = entries;
   completionCopy = completion;
@@ -2895,9 +3182,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = summaryCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControlSummary} | %{public}@ | SUCCESS", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = summaryCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControlSummary} | %{public}@ | SUCCESS", &v14, 0xCu);
     }
 
     completionCopy[2](completionCopy, entriesCopy, 0);
@@ -2907,18 +3194,16 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = summaryCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControlSummary} | %{public}@ | no client completion block", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = summaryCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControlSummary} | %{public}@ | no client completion block", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControlSummary:(id)summary withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   errorCopy = error;
   descriptionCopy = description;
@@ -2940,9 +3225,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControlSummary} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -2970,19 +3255,17 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = summaryCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = summaryCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControlSummary} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_successControlLockSummary:(id)summary withLockSummaryEntries:(id)entries isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   entriesCopy = entries;
   completionCopy = completion;
@@ -2995,9 +3278,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = summaryCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControlLockSummary} | %{public}@ | SUCCESS", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = summaryCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControlLockSummary} | %{public}@ | SUCCESS", &v14, 0xCu);
     }
 
     completionCopy[2](completionCopy, entriesCopy, 0);
@@ -3007,18 +3290,16 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = summaryCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControlLockSummary} | %{public}@ | no client completion block", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = summaryCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControlLockSummary} | %{public}@ | no client completion block", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControlLockSummary:(id)summary withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   summaryCopy = summary;
   errorCopy = error;
   descriptionCopy = description;
@@ -3040,9 +3321,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControlLockSummary} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -3070,19 +3351,17 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = summaryCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = summaryCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControlLockSummary} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_successControlStagerOverview:(id)overview withStagerInformation:(id)information isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   overviewCopy = overview;
   informationCopy = information;
   completionCopy = completion;
@@ -3096,11 +3375,11 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       summary = [informationCopy summary];
-      v16 = 138543618;
-      v17 = overviewCopy;
-      v18 = 2114;
-      v19 = summary;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControlStagerOverview} | %{public}@ | stagerInformation:%{public}@ | SUCCESS", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = overviewCopy;
+      v17 = 2114;
+      v18 = summary;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successControlStagerOverview} | %{public}@ | stagerInformation:%{public}@ | SUCCESS", &v15, 0x16u);
     }
 
     completionCopy[2](completionCopy, informationCopy, 0);
@@ -3110,18 +3389,16 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543362;
-      v17 = overviewCopy;
-      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControlStagerOverview} | %{public}@ | no client completion block", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = overviewCopy;
+      _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_ERROR, "MA-auto-control{_successControlStagerOverview} | %{public}@ | no client completion block", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedControlStagerOverview:(id)overview withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   overviewCopy = overview;
   errorCopy = error;
   descriptionCopy = description;
@@ -3143,9 +3420,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControlStagerOverview} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -3173,19 +3450,17 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = overviewCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = overviewCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedControlStagerOverview} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_successSimulateCacheDeleteOperation:(id)operation withReclaimableSpace:(int64_t)space isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   completionCopy = completion;
   v10 = +[MAAutoAssetControl _privateStateQueue];
@@ -3197,9 +3472,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = operationCopy;
-      _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successSimulateCacheDeleteOperation} | %{public}@ | SUCCESS", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = operationCopy;
+      _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_DEFAULT, "MA-auto-control{_successSimulateCacheDeleteOperation} | %{public}@ | SUCCESS", &v13, 0xCu);
     }
 
     completionCopy[2](completionCopy, space, 0);
@@ -3209,18 +3484,16 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138543362;
-      v15 = operationCopy;
-      _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_ERROR, "MA-auto-control{_successSimulateCacheDeleteOperation} | %{public}@ | no client completion block", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = operationCopy;
+      _os_log_impl(&dword_197AD5000, v12, OS_LOG_TYPE_ERROR, "MA-auto-control{_successSimulateCacheDeleteOperation} | %{public}@ | no client completion block", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failedSimulateCacheDeleteOperation:(id)operation withErrorCode:(int64_t)code withResponseError:(id)error description:(id)description isSynchronous:(BOOL)synchronous completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   errorCopy = error;
   descriptionCopy = description;
@@ -3242,9 +3515,9 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     {
       checkedSummary = [v18 checkedSummary];
       *buf = 138543618;
-      v27 = descriptionCopy;
-      v28 = 2114;
-      v29 = checkedSummary;
+      v26 = descriptionCopy;
+      v27 = 2114;
+      v28 = checkedSummary;
       _os_log_impl(&dword_197AD5000, v19, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedSimulateCacheDeleteOperation} | %{public}@ | error:%{public}@", buf, 0x16u);
     }
 
@@ -3272,14 +3545,12 @@ uint64_t __38__MAAutoAssetControl_autoAssetControl__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v27 = operationCopy;
-      v28 = 2114;
-      v29 = v18;
+      v26 = operationCopy;
+      v27 = 2114;
+      v28 = v18;
       _os_log_impl(&dword_197AD5000, v24, OS_LOG_TYPE_ERROR, "MA-auto-control{_failedSimulateCacheDeleteOperation} | %{public}@ | no client completion block | %{public}@", buf, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 + (void)frameworkInstanceSetLogDomain

@@ -7,7 +7,7 @@
 
 + (id)fetchAllMatterRegistrationsForEndpointID:(id)d accessoryModelID:(id)iD managedObjectContext:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   contextCopy = context;
@@ -29,9 +29,9 @@ LABEL_12:
   iDCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) && (%K == %@)", @"endpointID", dCopy, @"accessoryModelID", iDCopy];
   [v12 setPredicate:iDCopy];
 
-  v23 = 0;
-  v14 = [v11 executeFetchRequest:v12 error:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [v11 executeFetchRequest:v12 error:&v22];
+  v15 = v22;
   if (v14)
   {
     v16 = v14;
@@ -46,27 +46,25 @@ LABEL_12:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v25 = v20;
-      v26 = 2112;
-      v27 = dCopy;
-      v28 = 2112;
-      v29 = iDCopy;
-      v30 = 2112;
-      v31 = v15;
+      v24 = v20;
+      v25 = 2112;
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = iDCopy;
+      v29 = 2112;
+      v30 = v15;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local Matter registration for endpointID: %@ accessoryModelID: %@ error: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v17);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)fetchMatterRegistrationForEndpointID:(id)d clusterID:(id)iD attributeID:(id)attributeID eventID:(id)eventID accessoryModelID:(id)modelID managedObjectContext:(id)context
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   attributeIDCopy = attributeID;
@@ -105,9 +103,9 @@ LABEL_16:
   modelIDCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) && (%K == %@) && (%K == %@) && (%K == %@) && (%K == %@)", @"endpointID", dCopy, @"clusterID", iDCopy, @"attributeID", attributeIDCopy, @"eventID", eventIDCopy, @"accessoryModelID", modelIDCopy];
   [v21 setPredicate:modelIDCopy];
 
-  v32 = 0;
-  v23 = [v20 executeFetchRequest:v21 error:&v32];
-  v24 = v32;
+  v31 = 0;
+  v23 = [v20 executeFetchRequest:v21 error:&v31];
+  v24 = v31;
   if (v23)
   {
     firstObject = [v23 firstObject];
@@ -120,29 +118,27 @@ LABEL_16:
     v26 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v29 = HMFGetLogIdentifier();
+      v28 = HMFGetLogIdentifier();
       *buf = 138544898;
-      v34 = v29;
-      v35 = 2112;
-      v36 = dCopy;
-      v37 = 2112;
-      v38 = iDCopy;
-      v39 = 2112;
-      v40 = attributeIDCopy;
-      v41 = 2112;
-      v42 = eventIDCopy;
-      v43 = 2112;
-      v44 = modelIDCopy;
-      v45 = 2112;
-      v46 = v24;
+      v33 = v28;
+      v34 = 2112;
+      v35 = dCopy;
+      v36 = 2112;
+      v37 = iDCopy;
+      v38 = 2112;
+      v39 = attributeIDCopy;
+      v40 = 2112;
+      v41 = eventIDCopy;
+      v42 = 2112;
+      v43 = modelIDCopy;
+      v44 = 2112;
+      v45 = v24;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local Matter registration for endpointID: %@ clusterID: %@ attributeID: %@ eventID: %@ accessoryModelID: %@ error: %@", buf, 0x48u);
     }
 
     objc_autoreleasePoolPop(context);
     firstObject = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

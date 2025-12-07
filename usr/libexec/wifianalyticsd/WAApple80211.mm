@@ -43,36 +43,36 @@
 {
   obj = 0;
   theArray = 0;
-  v30.receiver = self;
-  v30.super_class = WAApple80211;
-  v2 = [(WAApple80211 *)&v30 init];
+  v26.receiver = self;
+  v26.super_class = WAApple80211;
+  v2 = [(WAApple80211 *)&v26 init];
   if (!v2)
   {
     IfListCopy = 0;
 LABEL_30:
-    v28 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v24 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v34 = "[WAApple80211 initByFindingInterfaceName]";
-      *&v34[8] = 1024;
-      *&v34[10] = 126;
-      v35 = 1024;
-      LODWORD(v36) = IfListCopy;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to init WAApple80211 err is: %d", buf, 0x18u);
+      *v30 = "[WAApple80211 initByFindingInterfaceName]";
+      *&v30[8] = 1024;
+      *&v30[10] = 126;
+      v31 = 1024;
+      LODWORD(v32) = IfListCopy;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to init WAApple80211 err is: %d", buf, 0x18u);
     }
 
-    v29 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v25 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109378;
-      *v34 = IfListCopy;
-      *&v34[4] = 2112;
-      *&v34[6] = obj;
-      _os_log_fault_impl(&_mh_execute_header, v29, OS_LOG_TYPE_FAULT, "Failed to init WAApple80211 err is: %d, interface %@", buf, 0x12u);
+      *v30 = IfListCopy;
+      *&v30[4] = 2112;
+      *&v30[6] = obj;
+      _os_log_fault_impl(&_mh_execute_header, v25, OS_LOG_TYPE_FAULT, "Failed to init WAApple80211 err is: %d, interface %@", buf, 0x12u);
     }
 
-    v16 = 0;
+    v12 = 0;
     if (obj)
     {
       CFRelease(obj);
@@ -86,55 +86,54 @@ LABEL_30:
   IfListCopy = Apple80211Open();
   if (IfListCopy)
   {
-    v22 = WALogCategoryDefaultHandle();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v18 = WALogCategoryDefaultHandle();
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
 
     *buf = 136446722;
-    *v34 = "[WAApple80211 initByFindingInterfaceName]";
-    *&v34[8] = 1024;
-    *&v34[10] = 80;
-    v35 = 1024;
-    LODWORD(v36) = IfListCopy;
-    v23 = "%{public}s::%d:Apple80211Open failed with: %d";
+    *v30 = "[WAApple80211 initByFindingInterfaceName]";
+    *&v30[8] = 1024;
+    *&v30[10] = 80;
+    v31 = 1024;
+    LODWORD(v32) = IfListCopy;
+    v19 = "%{public}s::%d:Apple80211Open failed with: %d";
     goto LABEL_20;
   }
 
-  apple80211Ref = v2->_apple80211Ref;
   IfListCopy = Apple80211GetIfListCopy();
   if (IfListCopy)
   {
-    v22 = WALogCategoryDefaultHandle();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v18 = WALogCategoryDefaultHandle();
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
 
     *buf = 136446722;
-    *v34 = "[WAApple80211 initByFindingInterfaceName]";
-    *&v34[8] = 1024;
-    *&v34[10] = 83;
-    v35 = 1024;
-    LODWORD(v36) = IfListCopy;
-    v23 = "%{public}s::%d:Apple80211GetIfListCopy failed with: %d";
+    *v30 = "[WAApple80211 initByFindingInterfaceName]";
+    *&v30[8] = 1024;
+    *&v30[10] = 83;
+    v31 = 1024;
+    LODWORD(v32) = IfListCopy;
+    v19 = "%{public}s::%d:Apple80211GetIfListCopy failed with: %d";
 LABEL_20:
-    v24 = v22;
-    v25 = 24;
+    v20 = v18;
+    v21 = 24;
     goto LABEL_28;
   }
 
   if (!CFArrayGetCount(theArray))
   {
-    v22 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v18 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      *v34 = "[WAApple80211 initByFindingInterfaceName]";
-      *&v34[8] = 1024;
-      *&v34[10] = 85;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetIfListCopy returned 0 interfaces", buf, 0x12u);
+      *v30 = "[WAApple80211 initByFindingInterfaceName]";
+      *&v30[8] = 1024;
+      *&v30[10] = 85;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetIfListCopy returned 0 interfaces", buf, 0x12u);
     }
 
     IfListCopy = 0;
@@ -142,65 +141,62 @@ LABEL_20:
   }
 
   ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
-  v6 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446722;
-    *v34 = "[WAApple80211 initByFindingInterfaceName]";
-    *&v34[8] = 1024;
-    *&v34[10] = 89;
-    v35 = 2112;
-    v36 = ValueAtIndex;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Found WiFi interface %@\n", buf, 0x1Cu);
+    *v30 = "[WAApple80211 initByFindingInterfaceName]";
+    *&v30[8] = 1024;
+    *&v30[10] = 89;
+    v31 = 2112;
+    v32 = ValueAtIndex;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Found WiFi interface %@\n", buf, 0x1Cu);
   }
 
   objc_storeStrong(&v2->_ifName, ValueAtIndex);
-  v7 = v2->_apple80211Ref;
-  ifName = v2->_ifName;
   IfListCopy = Apple80211BindToInterface();
   if (IfListCopy)
   {
-    v22 = WALogCategoryDefaultHandle();
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v18 = WALogCategoryDefaultHandle();
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
 
-    v26 = v2->_ifName;
-    v27 = Apple80211ErrToStr();
+    ifName = v2->_ifName;
+    v23 = Apple80211ErrToStr();
     *buf = 136447234;
-    *v34 = "[WAApple80211 initByFindingInterfaceName]";
-    *&v34[8] = 1024;
-    *&v34[10] = 95;
-    v35 = 2112;
-    v36 = v26;
-    v37 = 1024;
-    v38 = IfListCopy;
-    v39 = 2080;
-    v40 = v27;
-    v23 = "%{public}s::%d:Apple80211BindToInterface (for interface with name: %@) failed with: %d - %s";
-    v24 = v22;
-    v25 = 44;
+    *v30 = "[WAApple80211 initByFindingInterfaceName]";
+    *&v30[8] = 1024;
+    *&v30[10] = 95;
+    v31 = 2112;
+    v32 = ifName;
+    v33 = 1024;
+    v34 = IfListCopy;
+    v35 = 2080;
+    v36 = v23;
+    v19 = "%{public}s::%d:Apple80211BindToInterface (for interface with name: %@) failed with: %d - %s";
+    v20 = v18;
+    v21 = 44;
 LABEL_28:
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, v23, buf, v25);
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, v19, buf, v21);
     goto LABEL_29;
   }
 
-  v9 = v2->_apple80211Ref;
   IfListCopy = Apple80211GetInterfaceNameCopy();
   objc_storeStrong(&v2->_ifName, obj);
   if (!v2->_ifName)
   {
-    v22 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v18 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      *v34 = "[WAApple80211 initByFindingInterfaceName]";
-      *&v34[8] = 1024;
-      *&v34[10] = 102;
-      v23 = "%{public}s::%d:No interface name to use with Apple80211";
-      v24 = v22;
-      v25 = 18;
+      *v30 = "[WAApple80211 initByFindingInterfaceName]";
+      *&v30[8] = 1024;
+      *&v30[10] = 102;
+      v19 = "%{public}s::%d:No interface name to use with Apple80211";
+      v20 = v18;
+      v21 = 18;
       goto LABEL_28;
     }
 
@@ -209,26 +205,26 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v10 = +[NSDate distantPast];
+  v6 = +[NSDate distantPast];
   lastDateChannelQueried = v2->_lastDateChannelQueried;
-  v2->_lastDateChannelQueried = v10;
+  v2->_lastDateChannelQueried = v6;
 
   dword_10010DE10 = 0;
   qword_10010DE08 = 0;
-  v12 = +[NSDate distantPast];
+  v8 = +[NSDate distantPast];
   lastDateBSSIDQueried = v2->_lastDateBSSIDQueried;
-  v2->_lastDateBSSIDQueried = v12;
+  v2->_lastDateBSSIDQueried = v8;
 
-  v14 = qword_10010DDE8;
+  v10 = qword_10010DDE8;
   qword_10010DDE8 = @"00:00:00:00:00:00";
 
-  v15 = qword_10010DDF0;
+  v11 = qword_10010DDF0;
   qword_10010DDF0 = @"Uninit lastSSID";
 
-  v16 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
-  v17 = dispatch_queue_create("com.apple.wifi.recoveryMO.queue", v16);
+  v12 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
+  v13 = dispatch_queue_create("com.apple.wifi.recoveryMO.queue", v12);
   analyticsMOCQueue = v2->analyticsMOCQueue;
-  v2->analyticsMOCQueue = v17;
+  v2->analyticsMOCQueue = v13;
 
   byte_10010DDE0 = 0;
   if (v2->_dummyWAMessage)
@@ -236,9 +232,9 @@ LABEL_29:
     goto LABEL_12;
   }
 
-  v19 = objc_alloc_init(WAMessage);
+  v15 = objc_alloc_init(WAMessage);
   dummyWAMessage = v2->_dummyWAMessage;
-  v2->_dummyWAMessage = v19;
+  v2->_dummyWAMessage = v15;
 LABEL_11:
 
 LABEL_12:
@@ -253,37 +249,37 @@ LABEL_12:
 - (WAApple80211)initWithInterfaceName:(id)name
 {
   nameCopy = name;
-  v31.receiver = self;
-  v31.super_class = WAApple80211;
-  v6 = [(WAApple80211 *)&v31 init];
+  v29.receiver = self;
+  v29.super_class = WAApple80211;
+  v6 = [(WAApple80211 *)&v29 init];
   v7 = v6;
   if (!v6)
   {
     v8 = 0;
 LABEL_19:
-    v29 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v27 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v33 = "[WAApple80211 initWithInterfaceName:]";
-      *&v33[8] = 1024;
-      *&v33[10] = 184;
-      v34 = 1024;
-      LODWORD(v35) = v8;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to init WAApple80211 err is: %d", buf, 0x18u);
+      *v31 = "[WAApple80211 initWithInterfaceName:]";
+      *&v31[8] = 1024;
+      *&v31[10] = 184;
+      v32 = 1024;
+      LODWORD(v33) = v8;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to init WAApple80211 err is: %d", buf, 0x18u);
     }
 
-    v30 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+    v28 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109378;
-      *v33 = v8;
-      *&v33[4] = 2112;
-      *&v33[6] = nameCopy;
-      _os_log_fault_impl(&_mh_execute_header, v30, OS_LOG_TYPE_FAULT, "Failed to init WAApple80211 err is: %d, interface %@", buf, 0x12u);
+      *v31 = v8;
+      *&v31[4] = 2112;
+      *&v31[6] = nameCopy;
+      _os_log_fault_impl(&_mh_execute_header, v28, OS_LOG_TYPE_FAULT, "Failed to init WAApple80211 err is: %d, interface %@", buf, 0x12u);
     }
 
-    v17 = 0;
+    v15 = 0;
     dummyWAMessage = v7;
     v7 = 0;
     goto LABEL_7;
@@ -292,14 +288,14 @@ LABEL_19:
   objc_storeStrong(&v6->_ifName, name);
   if (!v7->_ifName)
   {
-    v23 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      *v33 = "[WAApple80211 initWithInterfaceName:]";
-      *&v33[8] = 1024;
-      *&v33[10] = 153;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}s::%d:No interface name to use with Apple80211", buf, 0x12u);
+      *v31 = "[WAApple80211 initWithInterfaceName:]";
+      *&v31[8] = 1024;
+      *&v31[10] = 153;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}s::%d:No interface name to use with Apple80211", buf, 0x12u);
     }
 
     v8 = 0;
@@ -309,20 +305,20 @@ LABEL_19:
   v8 = Apple80211Open();
   if (v8)
   {
-    v23 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v33 = "[WAApple80211 initWithInterfaceName:]";
-      *&v33[8] = 1024;
-      *&v33[10] = 156;
-      v34 = 1024;
-      LODWORD(v35) = v8;
-      v24 = "%{public}s::%d:Apple80211Open failed with: %d";
-      v25 = v23;
-      v26 = 24;
+      *v31 = "[WAApple80211 initWithInterfaceName:]";
+      *&v31[8] = 1024;
+      *&v31[10] = 156;
+      v32 = 1024;
+      LODWORD(v33) = v8;
+      v22 = "%{public}s::%d:Apple80211Open failed with: %d";
+      v23 = v21;
+      v24 = 24;
 LABEL_17:
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, v24, buf, v26);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, v22, buf, v24);
     }
 
 LABEL_18:
@@ -330,62 +326,60 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  apple80211Ref = v7->_apple80211Ref;
-  ifName = v7->_ifName;
   v8 = Apple80211BindToInterface();
   if (v8)
   {
-    v23 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v27 = v7->_ifName;
-      v28 = Apple80211ErrToStr();
+      ifName = v7->_ifName;
+      v26 = Apple80211ErrToStr();
       *buf = 136447234;
-      *v33 = "[WAApple80211 initWithInterfaceName:]";
-      *&v33[8] = 1024;
-      *&v33[10] = 159;
-      v34 = 2112;
-      v35 = v27;
-      v36 = 1024;
-      v37 = v8;
-      v38 = 2080;
-      v39 = v28;
-      v24 = "%{public}s::%d:Apple80211BindToInterface (for interface with name: %@) failed with: %d - %s";
-      v25 = v23;
-      v26 = 44;
+      *v31 = "[WAApple80211 initWithInterfaceName:]";
+      *&v31[8] = 1024;
+      *&v31[10] = 159;
+      v32 = 2112;
+      v33 = ifName;
+      v34 = 1024;
+      v35 = v8;
+      v36 = 2080;
+      v37 = v26;
+      v22 = "%{public}s::%d:Apple80211BindToInterface (for interface with name: %@) failed with: %d - %s";
+      v23 = v21;
+      v24 = 44;
       goto LABEL_17;
     }
 
     goto LABEL_18;
   }
 
-  v11 = +[NSDate distantPast];
+  v9 = +[NSDate distantPast];
   lastDateChannelQueried = v7->_lastDateChannelQueried;
-  v7->_lastDateChannelQueried = v11;
+  v7->_lastDateChannelQueried = v9;
 
   dword_10010DE10 = 0;
   qword_10010DE08 = 0;
-  v13 = +[NSDate distantPast];
+  v11 = +[NSDate distantPast];
   lastDateBSSIDQueried = v7->_lastDateBSSIDQueried;
-  v7->_lastDateBSSIDQueried = v13;
+  v7->_lastDateBSSIDQueried = v11;
 
-  v15 = qword_10010DDE8;
+  v13 = qword_10010DDE8;
   qword_10010DDE8 = @"00:00:00:00:00:00";
 
-  v16 = qword_10010DDF0;
+  v14 = qword_10010DDF0;
   qword_10010DDF0 = @"Uninit lastSSID";
 
-  v17 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
-  v18 = dispatch_queue_create("com.apple.wifi.recoveryMO.queue", v17);
+  v15 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_BACKGROUND, 0);
+  v16 = dispatch_queue_create("com.apple.wifi.recoveryMO.queue", v15);
   analyticsMOCQueue = v7->analyticsMOCQueue;
-  v7->analyticsMOCQueue = v18;
+  v7->analyticsMOCQueue = v16;
 
   byte_10010DDE0 = 0;
   if (!v7->_dummyWAMessage)
   {
-    v20 = objc_alloc_init(WAMessage);
+    v18 = objc_alloc_init(WAMessage);
     dummyWAMessage = v7->_dummyWAMessage;
-    v7->_dummyWAMessage = v20;
+    v7->_dummyWAMessage = v18;
 LABEL_7:
   }
 
@@ -396,233 +390,228 @@ LABEL_7:
 {
   if ([(WAApple80211 *)self apple80211Ref])
   {
-    apple80211Ref = self->_apple80211Ref;
     Apple80211Close();
   }
 
-  v4.receiver = self;
-  v4.super_class = WAApple80211;
-  [(WAApple80211 *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = WAApple80211;
+  [(WAApple80211 *)&v3 dealloc];
 }
 
 - (BOOL)hasSoftAPInterfaceListed
 {
-  apple80211Ref = self->_apple80211Ref;
   VirtualIfListCopy = Apple80211GetVirtualIfListCopy();
   if (VirtualIfListCopy)
   {
-    v10 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v17 = "[WAApple80211 hasSoftAPInterfaceListed]";
-      v18 = 1024;
-      v19 = 206;
-      v20 = 1024;
-      v21 = VirtualIfListCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetVirtualIfListCopy failed with: %d", buf, 0x18u);
+      v16 = "[WAApple80211 hasSoftAPInterfaceListed]";
+      v17 = 1024;
+      v18 = 206;
+      v19 = 1024;
+      v20 = VirtualIfListCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetVirtualIfListCopy failed with: %d", buf, 0x18u);
     }
 
-    LOBYTE(v5) = 0;
+    LOBYTE(v4) = 0;
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v3 = 0;
     v4 = 0;
-    v5 = 0;
-    v6 = [v4 countByEnumeratingWithState:&v12 objects:v11 count:16];
-    if (v6)
+    v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+    if (v5)
     {
-      v7 = *v13;
+      v6 = *v12;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v5; i = i + 1)
         {
-          if (*v13 != v7)
+          if (*v12 != v6)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          v5 |= [*(*(&v12 + 1) + 8 * i) containsString:@"ap"];
+          v4 |= [*(*(&v11 + 1) + 8 * i) containsString:@"ap"];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v11 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
   }
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)hasNANInterfaceListed
 {
-  apple80211Ref = self->_apple80211Ref;
   VirtualIfListCopy = Apple80211GetVirtualIfListCopy();
   if (VirtualIfListCopy)
   {
-    v10 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v17 = "[WAApple80211 hasNANInterfaceListed]";
-      v18 = 1024;
-      v19 = 231;
-      v20 = 1024;
-      v21 = VirtualIfListCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetVirtualIfListCopy failed with: %d", buf, 0x18u);
+      v16 = "[WAApple80211 hasNANInterfaceListed]";
+      v17 = 1024;
+      v18 = 231;
+      v19 = 1024;
+      v20 = VirtualIfListCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetVirtualIfListCopy failed with: %d", buf, 0x18u);
     }
 
-    LOBYTE(v5) = 0;
+    LOBYTE(v4) = 0;
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v3 = 0;
     v4 = 0;
-    v5 = 0;
-    v6 = [v4 countByEnumeratingWithState:&v12 objects:v11 count:16];
-    if (v6)
+    v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+    if (v5)
     {
-      v7 = *v13;
+      v6 = *v12;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v5; i = i + 1)
         {
-          if (*v13 != v7)
+          if (*v12 != v6)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          v5 |= [*(*(&v12 + 1) + 8 * i) containsString:@"nan"];
+          v4 |= [*(*(&v11 + 1) + 8 * i) containsString:@"nan"];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v11 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
   }
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)hasIRInterfaceListed
 {
-  apple80211Ref = self->_apple80211Ref;
   VirtualIfListCopy = Apple80211GetVirtualIfListCopy();
   if (VirtualIfListCopy)
   {
-    v10 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v17 = "[WAApple80211 hasIRInterfaceListed]";
-      v18 = 1024;
-      v19 = 256;
-      v20 = 1024;
-      v21 = VirtualIfListCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetVirtualIfListCopy failed with: %d", buf, 0x18u);
+      v16 = "[WAApple80211 hasIRInterfaceListed]";
+      v17 = 1024;
+      v18 = 256;
+      v19 = 1024;
+      v20 = VirtualIfListCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetVirtualIfListCopy failed with: %d", buf, 0x18u);
     }
 
-    LOBYTE(v5) = 0;
+    LOBYTE(v4) = 0;
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v3 = 0;
     v4 = 0;
-    v5 = 0;
-    v6 = [v4 countByEnumeratingWithState:&v12 objects:v11 count:16];
-    if (v6)
+    v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+    if (v5)
     {
-      v7 = *v13;
+      v6 = *v12;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v5; i = i + 1)
         {
-          if (*v13 != v7)
+          if (*v12 != v6)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          v5 |= [*(*(&v12 + 1) + 8 * i) containsString:@"ir"];
+          v4 |= [*(*(&v11 + 1) + 8 * i) containsString:@"ir"];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v11 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
   }
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)hasAWDLInterfaceListed
 {
-  apple80211Ref = self->_apple80211Ref;
   VirtualIfListCopy = Apple80211GetVirtualIfListCopy();
   if (VirtualIfListCopy)
   {
-    v10 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v17 = "[WAApple80211 hasAWDLInterfaceListed]";
-      v18 = 1024;
-      v19 = 281;
-      v20 = 1024;
-      v21 = VirtualIfListCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetVirtualIfListCopy failed with: %d", buf, 0x18u);
+      v16 = "[WAApple80211 hasAWDLInterfaceListed]";
+      v17 = 1024;
+      v18 = 281;
+      v19 = 1024;
+      v20 = VirtualIfListCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:Apple80211GetVirtualIfListCopy failed with: %d", buf, 0x18u);
     }
 
-    LOBYTE(v5) = 0;
+    LOBYTE(v4) = 0;
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v3 = 0;
     v4 = 0;
-    v5 = 0;
-    v6 = [v4 countByEnumeratingWithState:&v12 objects:v11 count:16];
-    if (v6)
+    v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+    if (v5)
     {
-      v7 = *v13;
+      v6 = *v12;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v5; i = i + 1)
         {
-          if (*v13 != v7)
+          if (*v12 != v6)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          v5 |= [*(*(&v12 + 1) + 8 * i) containsString:@"awdl"];
+          v4 |= [*(*(&v11 + 1) + 8 * i) containsString:@"awdl"];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v11 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
   }
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (int)currentPHYMode
@@ -717,21 +706,21 @@ LABEL_11:
     if (v5)
     {
 LABEL_22:
-      v16 = WALogCategoryDefaultHandle();
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = WALogCategoryDefaultHandle();
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_30;
       }
 
-      v27 = 136446722;
-      v28 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
+      v25 = 136446722;
+      v26 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
+      v27 = 1024;
+      v28 = 324;
       v29 = 1024;
-      v30 = 324;
-      v31 = 1024;
-      LODWORD(v32) = v6;
-      v23 = "%{public}s::%d:Apple80211Get(APPLE80211_IOC_TRAP_CRASHTRACER_MINI_DUMP) failed: %d";
-      v24 = v16;
-      v25 = 24;
+      LODWORD(v30) = v6;
+      v21 = "%{public}s::%d:Apple80211Get(APPLE80211_IOC_TRAP_CRASHTRACER_MINI_DUMP) failed: %d";
+      v22 = v15;
+      v23 = 24;
       goto LABEL_24;
     }
 
@@ -739,110 +728,106 @@ LABEL_22:
     v8 = v7;
     if (v7)
     {
-      bytes = [v7 bytes];
-      [v8 length];
-      CCSubmitLogToCrashTracer(bytes);
-      v10 = WALogCategoryDefaultHandle();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      CCSubmitLogToCrashTracer([v7 bytes], [v7 length]);
+      v9 = WALogCategoryDefaultHandle();
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
 LABEL_15:
 
-        v15 = [v3 objectForKeyedSubscript:&off_100102D70];
-        v16 = v15;
+        v14 = [v3 objectForKeyedSubscript:&off_100102D70];
+        v15 = v14;
         if (v8)
         {
-          v17 = v15;
-          bytes2 = [v16 bytes];
-          [v16 length];
-          CCSubmitBinaryToCrashTracer(bytes2);
-          v19 = WALogCategoryDefaultHandle();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          v16 = v14;
+          CCSubmitBinaryToCrashTracer([v15 bytes], [v15 length]);
+          v17 = WALogCategoryDefaultHandle();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
-            v20 = [v16 length];
-            v27 = 136446978;
-            v28 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
-            v29 = 1024;
-            v30 = 336;
-            v31 = 2048;
-            v32 = v20;
-            v33 = 2112;
-            v34 = v16;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Did pass binary readable to CCSubmitBinaryToCrashTracer() of length(%ld): %@", &v27, 0x26u);
+            v18 = [v15 length];
+            v25 = 136446978;
+            v26 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
+            v27 = 1024;
+            v28 = 336;
+            v29 = 2048;
+            v30 = v18;
+            v31 = 2112;
+            v32 = v15;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Did pass binary readable to CCSubmitBinaryToCrashTracer() of length(%ld): %@", &v25, 0x26u);
           }
 
-          v21 = 1;
-          v16 = v8;
+          v19 = 1;
+          v15 = v8;
           goto LABEL_19;
         }
 
-        v26 = WALogCategoryDefaultHandle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v24 = WALogCategoryDefaultHandle();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v27 = 136446466;
-          v28 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
-          v29 = 1024;
-          v30 = 334;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%{public}s::%d:No bainry tag represented in dictionary, skipping.", &v27, 0x12u);
+          v25 = 136446466;
+          v26 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
+          v27 = 1024;
+          v28 = 334;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}s::%d:No bainry tag represented in dictionary, skipping.", &v25, 0x12u);
         }
 
         goto LABEL_30;
       }
 
-      v27 = 136446978;
-      v28 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
-      v29 = 1024;
-      v30 = 330;
-      v31 = 2048;
-      v32 = [v8 length];
-      v33 = 2112;
-      v34 = v8;
-      v11 = "%{public}s::%d:Did pass human readable to CCSubmitLogToCrashTracer() of length(%ld): %@";
-      v12 = v10;
-      v13 = OS_LOG_TYPE_DEBUG;
-      v14 = 38;
+      v25 = 136446978;
+      v26 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
+      v27 = 1024;
+      v28 = 330;
+      v29 = 2048;
+      v30 = [v8 length];
+      v31 = 2112;
+      v32 = v8;
+      v10 = "%{public}s::%d:Did pass human readable to CCSubmitLogToCrashTracer() of length(%ld): %@";
+      v11 = v9;
+      v12 = OS_LOG_TYPE_DEBUG;
+      v13 = 38;
     }
 
     else
     {
-      v10 = WALogCategoryDefaultHandle();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = WALogCategoryDefaultHandle();
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_15;
       }
 
-      v27 = 136446466;
-      v28 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
-      v29 = 1024;
-      v30 = 328;
-      v11 = "%{public}s::%d:No human readable tag represented in dictionary, skipping.";
-      v12 = v10;
-      v13 = OS_LOG_TYPE_ERROR;
-      v14 = 18;
+      v25 = 136446466;
+      v26 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
+      v27 = 1024;
+      v28 = 328;
+      v10 = "%{public}s::%d:No human readable tag represented in dictionary, skipping.";
+      v11 = v9;
+      v12 = OS_LOG_TYPE_ERROR;
+      v13 = 18;
     }
 
-    _os_log_impl(&_mh_execute_header, v12, v13, v11, &v27, v14);
+    _os_log_impl(&_mh_execute_header, v11, v12, v10, &v25, v13);
     goto LABEL_15;
   }
 
-  v16 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v15 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v27 = 136446466;
-    v28 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
-    v29 = 1024;
-    v30 = 321;
-    v23 = "%{public}s::%d:Failure as Apple80211Ref is NULL";
-    v24 = v16;
-    v25 = 18;
+    v25 = 136446466;
+    v26 = "[WAApple80211 grabAndSubmitFWTrapInfo]";
+    v27 = 1024;
+    v28 = 321;
+    v21 = "%{public}s::%d:Failure as Apple80211Ref is NULL";
+    v22 = v15;
+    v23 = 18;
 LABEL_24:
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, v23, &v27, v25);
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, v21, &v25, v23);
   }
 
 LABEL_30:
-  v21 = 0;
+  v19 = 0;
 LABEL_19:
 
-  return v21;
+  return v19;
 }
 
 - (BOOL)grabAndSubmitLqmMetrics
@@ -886,15 +871,15 @@ LABEL_18:
         goto LABEL_24;
       }
 
-      v16 = 136446722;
-      v17 = "[WAApple80211 grabAndSubmitLqmMetrics]";
-      v18 = 1024;
-      v19 = 352;
-      v20 = 1024;
-      LODWORD(v21) = v6;
-      v13 = "%{public}s::%d:Apple80211Get(APPLE80211_IOC_LQM_METRICS_CRASHTRACER_DATA) failed: %d";
-      v14 = v8;
-      v15 = 24;
+      v15 = 136446722;
+      v16 = "[WAApple80211 grabAndSubmitLqmMetrics]";
+      v17 = 1024;
+      v18 = 352;
+      v19 = 1024;
+      LODWORD(v20) = v6;
+      v12 = "%{public}s::%d:Apple80211Get(APPLE80211_IOC_LQM_METRICS_CRASHTRACER_DATA) failed: %d";
+      v13 = v8;
+      v14 = 24;
       goto LABEL_23;
     }
 
@@ -902,24 +887,22 @@ LABEL_18:
     v8 = v7;
     if (v7)
     {
-      bytes = [v7 bytes];
-      [v8 length];
-      CCSubmitLqmMetricsTLVBlockToCrashTracer(bytes);
-      v10 = WALogCategoryDefaultHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      CCSubmitLqmMetricsTLVBlockToCrashTracer([v7 bytes], [v7 length]);
+      v9 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136446978;
-        v17 = "[WAApple80211 grabAndSubmitLqmMetrics]";
-        v18 = 1024;
-        v19 = 357;
-        v20 = 2048;
-        v21 = [v8 length];
-        v22 = 2112;
-        v23 = v8;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:CCSubmitLqmMetricsTLVBlockToCrashTracer() length(%ld): %@", &v16, 0x26u);
+        v15 = 136446978;
+        v16 = "[WAApple80211 grabAndSubmitLqmMetrics]";
+        v17 = 1024;
+        v18 = 357;
+        v19 = 2048;
+        v20 = [v8 length];
+        v21 = 2112;
+        v22 = v8;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:CCSubmitLqmMetricsTLVBlockToCrashTracer() length(%ld): %@", &v15, 0x26u);
       }
 
-      v11 = 1;
+      v10 = 1;
       goto LABEL_15;
     }
 
@@ -929,11 +912,11 @@ LABEL_18:
       goto LABEL_24;
     }
 
-    v16 = 136446466;
-    v17 = "[WAApple80211 grabAndSubmitLqmMetrics]";
-    v18 = 1024;
-    v19 = 355;
-    v13 = "%{public}s::%d:No LQM bainry tag represented in dictionary, skipping.";
+    v15 = 136446466;
+    v16 = "[WAApple80211 grabAndSubmitLqmMetrics]";
+    v17 = 1024;
+    v18 = 355;
+    v12 = "%{public}s::%d:No LQM bainry tag represented in dictionary, skipping.";
   }
 
   else
@@ -944,42 +927,40 @@ LABEL_18:
       goto LABEL_24;
     }
 
-    v16 = 136446466;
-    v17 = "[WAApple80211 grabAndSubmitLqmMetrics]";
-    v18 = 1024;
-    v19 = 349;
-    v13 = "%{public}s::%d:Failure as Apple80211Ref is NULL";
+    v15 = 136446466;
+    v16 = "[WAApple80211 grabAndSubmitLqmMetrics]";
+    v17 = 1024;
+    v18 = 349;
+    v12 = "%{public}s::%d:Failure as Apple80211Ref is NULL";
   }
 
-  v14 = v8;
-  v15 = 18;
+  v13 = v8;
+  v14 = 18;
 LABEL_23:
-  _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, v13, &v16, v15);
+  _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v12, &v15, v14);
 LABEL_24:
-  v11 = 0;
+  v10 = 0;
 LABEL_15:
 
-  return v11;
+  return v10;
 }
 
 - (void)submitLqmMetrics:(id)metrics
 {
   metricsCopy = metrics;
-  bytes = [metricsCopy bytes];
-  [metricsCopy length];
-  CCSubmitLqmMetricsTLVBlockToCrashTracer(bytes);
-  v5 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  CCSubmitLqmMetricsTLVBlockToCrashTracer([metricsCopy bytes], objc_msgSend(metricsCopy, "length"));
+  v4 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446978;
-    v7 = "[WAApple80211 submitLqmMetrics:]";
-    v8 = 1024;
-    v9 = 367;
-    v10 = 2048;
-    v11 = [metricsCopy length];
-    v12 = 2112;
-    v13 = metricsCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:CCSubmitLqmMetricsTLVBlockToCrashTracer() length(%ld): %@", &v6, 0x26u);
+    v5 = 136446978;
+    v6 = "[WAApple80211 submitLqmMetrics:]";
+    v7 = 1024;
+    v8 = 367;
+    v9 = 2048;
+    v10 = [metricsCopy length];
+    v11 = 2112;
+    v12 = metricsCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:CCSubmitLqmMetricsTLVBlockToCrashTracer() length(%ld): %@", &v5, 0x26u);
   }
 }
 

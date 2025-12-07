@@ -23,26 +23,24 @@
 
 - (id)attributeDescriptions
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = HMDAccessoryBackgroundOperation;
-  attributeDescriptions = [(HMDBackgroundOperation *)&v17 attributeDescriptions];
+  v17[3] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = HMDAccessoryBackgroundOperation;
+  attributeDescriptions = [(HMDBackgroundOperation *)&v16 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryUUID = [(HMDAccessoryBackgroundOperation *)self accessoryUUID];
   v6 = [v4 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v18[0] = v6;
+  v17[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryIdentifier = [(HMDAccessoryBackgroundOperation *)self accessoryIdentifier];
   v9 = [v7 initWithName:@"accessoryIdentifier" value:accessoryIdentifier];
-  v18[1] = v9;
+  v17[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   homeUUID = [(HMDAccessoryBackgroundOperation *)self homeUUID];
   v12 = [v10 initWithName:@"homeUUID" value:homeUUID];
-  v18[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
   v14 = [attributeDescriptions arrayByAddingObjectsFromArray:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -103,7 +101,7 @@
 
 - (unint64_t)accessoryOperationStatus
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   accessoryIdentifier = [(HMDAccessoryBackgroundOperation *)self accessoryIdentifier];
   userData = [(HMDBackgroundOperation *)self userData];
   v6 = [userData objectForKeyedSubscript:@"homeUUID"];
@@ -173,17 +171,17 @@ LABEL_13:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v49 = v6;
-        v51 = v17;
+        v48 = v6;
+        v50 = v17;
         v25 = v24 = accessoryIdentifier;
         [v18 shortDescription];
         v26 = v20;
         v27 = v14;
         v29 = v28 = accessoryUUID;
         *buf = 138543618;
-        v54 = v25;
-        v55 = 2112;
-        v56 = v29;
+        v53 = v25;
+        v54 = 2112;
+        v55 = v29;
         _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@We will need a valid instance of HAP/AirPlay/Matter : [%@]", buf, 0x16u);
 
         accessoryUUID = v28;
@@ -191,8 +189,8 @@ LABEL_13:
         v20 = v26;
 
         accessoryIdentifier = v24;
-        v6 = v49;
-        v17 = v51;
+        v6 = v48;
+        v17 = v50;
       }
 
       objc_autoreleasePoolPop(v21);
@@ -225,9 +223,9 @@ LABEL_13:
   }
 
 LABEL_24:
-  v48 = v20;
-  v50 = accessoryIdentifier;
-  v52 = v17;
+  v47 = v20;
+  v49 = accessoryIdentifier;
+  v51 = v17;
   v33 = accessoryUUID;
   home = [v18 home];
   uuid = [home uuid];
@@ -247,43 +245,42 @@ LABEL_24:
     {
       v42 = HMFGetLogIdentifier();
       [home uuid];
-      v43 = v47 = v39;
+      v43 = v46 = v39;
       uuid2 = [v18 uuid];
       *buf = 138544642;
-      v54 = v42;
-      v55 = 2112;
-      v56 = v50;
-      v57 = 2112;
-      v58 = v6;
-      v59 = 2112;
-      v60 = v33;
-      v61 = 2112;
-      v62 = v43;
-      v63 = 2112;
-      v64 = uuid2;
+      v53 = v42;
+      v54 = 2112;
+      v55 = v49;
+      v56 = 2112;
+      v57 = v6;
+      v58 = 2112;
+      v59 = v33;
+      v60 = 2112;
+      v61 = v43;
+      v62 = 2112;
+      v63 = uuid2;
       _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Cannot execute accessory operation as the home or accessory UUIDs are different. Expected : [home: %@, accessory: %@], Got : [home: %@, accessory: %@]", buf, 0x3Eu);
 
-      v39 = v47;
+      v39 = v46;
     }
 
     objc_autoreleasePoolPop(v39);
     v30 = 1;
   }
 
-  accessoryIdentifier = v50;
+  accessoryIdentifier = v49;
   accessoryUUID = v33;
 
-  v17 = v52;
-  v20 = v48;
+  v17 = v51;
+  v20 = v47;
 LABEL_31:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (HMDAccessoryBackgroundOperation)initWithAccessoryUUID:(id)d accessoryIdentifier:(id)identifier homeUUIDWhereAccessoryWasPaired:(id)paired userData:(id)data
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   identifierCopy = identifier;
   pairedCopy = paired;
@@ -341,10 +338,10 @@ LABEL_18:
     [v18 setObject:identifierCopy forKeyedSubscript:@"accessoryIdentifier"];
     [v18 setObject:pairedCopy forKeyedSubscript:@"homeUUID"];
     [v18 setObject:dCopy forKeyedSubscript:@"accessoryUUIDWhenPaired"];
-    v19 = [v18 copy];
-    v27.receiver = self;
-    v27.super_class = HMDAccessoryBackgroundOperation;
-    selfCopy = [(HMDBackgroundOperation *)&v27 initWithUserData:v19];
+    v19 = objc_msgSend_copy(v18);
+    v26.receiver = self;
+    v26.super_class = HMDAccessoryBackgroundOperation;
+    selfCopy = [(HMDBackgroundOperation *)&v26 initWithUserData:v19];
 
     v21 = selfCopy;
   }
@@ -358,11 +355,11 @@ LABEL_18:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v29 = v24;
-      v30 = 2112;
-      v31 = dCopy;
-      v32 = 2112;
-      v33 = identifierCopy;
+      v28 = v24;
+      v29 = 2112;
+      v30 = dCopy;
+      v31 = 2112;
+      v32 = identifierCopy;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Accessory is not associated with a home, cannot create background operation for accessory: %@/%@", buf, 0x20u);
     }
 
@@ -370,7 +367,6 @@ LABEL_18:
     v21 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -411,10 +407,9 @@ LABEL_18:
 
 void __46__HMDAccessoryBackgroundOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_249049;
-  logCategory__hmf_once_v7_249049 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_249049;
+  logCategory__hmf_once_v7_249049 = v0;
 }
 
 + (id)predicate

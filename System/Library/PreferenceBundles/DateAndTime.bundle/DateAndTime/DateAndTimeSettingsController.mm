@@ -23,18 +23,20 @@
 
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
-    v7 = sub_ACF4;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = sub_ACF4;
   }
 
   else
   {
+    v8 = 0;
     v7 = 0;
   }
 
   selfCopy = self;
-  sub_A398(l, v7);
-  sub_ACAC(v7);
+  sub_A398(l, v8);
+  sub_ACAC(v8, v7);
 }
 
 - (_TtC11DateAndTime29DateAndTimeSettingsController)initWithNibName:(id)name bundle:(id)bundle

@@ -12,6 +12,7 @@
 - (void)_handleFocusMovedToElement:(id)element;
 - (void)_handleIOHIDEvent:(id)event;
 - (void)_registerForAXNotifications:(BOOL)notifications;
+- (void)_registerForNotifications:(BOOL)notifications;
 - (void)_setLockScreenDimTimerEnabled:(BOOL)enabled;
 - (void)_startListening;
 - (void)_stopListening;
@@ -255,6 +256,17 @@
   }
 }
 
+- (void)_registerForNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  if ([(XADEventManager *)self _registeredForNotifications]!= notifications)
+  {
+    [(XADEventManager *)self set_registeredForNotifications:notificationsCopy];
+
+    [(XADEventManager *)self _registerForAXNotifications:notificationsCopy];
+  }
+}
+
 - (BOOL)_initializeAXObserverIfNeeded
 {
   if ([(XADEventManager *)self _axEventObserver])
@@ -427,65 +439,65 @@ LABEL_11:
 
 - (void)_handleAccessibilityNotification:(int)notification forElement:(__AXUIElement *)element
 {
-  v15 = [(XADEventManager *)self _localizedNotificationString:?];
-  v58[0] = 0;
-  v58[1] = v58;
-  v58[2] = 0x3032000000;
-  v58[3] = sub_100001DDC;
-  v58[4] = sub_100001DEC;
-  v59 = 0;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = sub_100001DDC;
-  v56 = sub_100001DEC;
+  v13 = [(XADEventManager *)self _localizedNotificationString:?];
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x3032000000;
+  v56[3] = sub_100001DDC;
+  v56[4] = sub_100001DEC;
   v57 = 0;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = sub_100001DDC;
-  v50 = sub_100001DEC;
-  v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_100001DDC;
-  v44 = sub_100001DEC;
-  v45 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = sub_100001DDC;
-  v38 = sub_100001DEC;
-  v39 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = sub_100001DDC;
-  v32 = sub_100001DEC;
-  v33 = 0;
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x3032000000;
-  v26[3] = sub_100001DDC;
-  v26[4] = sub_100001DEC;
-  v27 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = sub_100001DDC;
+  v54 = sub_100001DEC;
+  v55 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = sub_100001DDC;
+  v48 = sub_100001DEC;
+  v49 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_100001DDC;
+  v42 = sub_100001DEC;
+  v43 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_100001DDC;
+  v36 = sub_100001DEC;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_100001DDC;
+  v30 = sub_100001DEC;
+  v31 = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = sub_100001DDC;
+  v24[4] = sub_100001DEC;
+  v25 = 0;
   v5 = dispatch_semaphore_create(0);
   v6 = dispatch_get_global_queue(0, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000027F0;
   block[3] = &unk_1000188F0;
-  v18 = v58;
-  v19 = &v52;
-  v20 = &v46;
-  v21 = &v40;
-  v22 = &v34;
-  v23 = v26;
-  v24 = &v28;
+  v16 = v56;
+  v17 = &v50;
+  v18 = &v44;
+  v19 = &v38;
+  v20 = &v32;
+  v21 = v24;
+  v22 = &v26;
   elementCopy = element;
   v7 = v5;
-  v17 = v7;
+  v15 = v7;
   dispatch_async(v6, block);
 
   v8 = dispatch_time(0, 3000000000);
@@ -495,23 +507,21 @@ LABEL_11:
   }
 
   delegate = [(XADEventManager *)self delegate];
-  v10 = v41[5];
-  [delegate eventManager:self notificationReceived:notification notification:v15 traits:v29[5] label:v53[5] value:v47[5] hint:v10 identifier:v35[5]];
+  [delegate eventManager:self notificationReceived:notification notification:v13 traits:v27[5] label:v51[5] value:v45[5] hint:v39[5] identifier:v33[5]];
 
   delegateForInspectorManager = [(XADEventManager *)self delegateForInspectorManager];
-  v12 = v41[5];
-  [delegateForInspectorManager eventManager:self notificationReceived:notification notification:v15 traits:v29[5] label:v53[5] value:v47[5] hint:v12 identifier:v35[5]];
+  [delegateForInspectorManager eventManager:self notificationReceived:notification notification:v13 traits:v27[5] label:v51[5] value:v45[5] hint:v39[5] identifier:v33[5]];
 
-  _Block_object_dispose(v26, 8);
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(v24, 8);
+  _Block_object_dispose(&v26, 8);
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 
-  _Block_object_dispose(&v46, 8);
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v50, 8);
 
-  _Block_object_dispose(v58, 8);
+  _Block_object_dispose(v56, 8);
 }
 
 - (id)_localizedNotificationString:(int)string

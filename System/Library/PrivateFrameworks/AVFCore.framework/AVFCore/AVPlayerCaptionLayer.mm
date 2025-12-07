@@ -394,10 +394,10 @@ LABEL_10:
   }
 }
 
-uint64_t __71__AVPlayerCaptionLayer_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t result)
+void *__71__AVPlayerCaptionLayer_observeValueForKeyPath_ofObject_change_context___block_invoke(void *result)
 {
-  v1 = *(result + 32);
-  if (*(result + 40) == *(v1 + 104))
+  v1 = result[4];
+  if (result[5] == *(v1 + 104))
   {
     v2 = *(v1 + 48);
     if (v2)

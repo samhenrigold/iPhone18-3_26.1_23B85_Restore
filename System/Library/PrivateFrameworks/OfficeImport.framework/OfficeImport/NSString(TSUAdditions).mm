@@ -10,6 +10,7 @@
 - (__CFString)tsu_stringByTrimmingCharactersInSetFromFront:()TSUAdditions;
 - (__CFString)tsu_stringWithPathRelativeTo:()TSUAdditions;
 - (__CFString)tsu_stringWithPathRelativeTo:()TSUAdditions allowBacktracking:;
+- (char)tsu_rangeOfString:()TSUAdditions options:updatingSearchRange:;
 - (id)tsu_escapeForIcuRegex;
 - (id)tsu_escapeXML;
 - (id)tsu_middleTruncateToLength:()TSUAdditions;
@@ -34,7 +35,6 @@
 - (uint64_t)tsu_isChildOfPath:()TSUAdditions;
 - (uint64_t)tsu_isDescendantOfPath:()TSUAdditions;
 - (uint64_t)tsu_isEqualToString:()TSUAdditions;
-- (uint64_t)tsu_rangeOfString:()TSUAdditions options:updatingSearchRange:;
 - (uint64_t)tsu_stringWithNormalizedHyphens;
 - (uint64_t)tsu_stringWithNormalizedQuotationMarks;
 - (uint64_t)tsu_stringWithoutAttachmentCharacters;
@@ -1388,10 +1388,10 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([self isEqualToString:@"\\\\""])
+  if ([self isEqualToString:@"\\\"])
   {
-    v8 = [@"\\"" stringByAppendingPathExtension:v4];
-    v9 = [@"\\"" stringByAppendingString:v8];
+    v8 = [@"\" stringByAppendingPathExtension:v4];
+    v9 = [@"\" stringByAppendingString:v8];
   }
 
   else
@@ -1439,7 +1439,7 @@ LABEL_5:
   return v9;
 }
 
-- (uint64_t)tsu_rangeOfString:()TSUAdditions options:updatingSearchRange:
+- (char)tsu_rangeOfString:()TSUAdditions options:updatingSearchRange:
 {
   v8 = a3;
   v9 = v8;

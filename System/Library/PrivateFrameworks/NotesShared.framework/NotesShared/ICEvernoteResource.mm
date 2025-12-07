@@ -63,7 +63,7 @@
   [(ICEvernoteResource *)self imageHeight];
   *&v9 = v9;
   [coderCopy encodeFloat:@"imageHeight" forKey:v9];
-  [(ICEvernoteResource *)self duration];
+  objc_msgSend_duration(self);
   *&v10 = v10;
   [coderCopy encodeFloat:@"duration" forKey:v10];
 }

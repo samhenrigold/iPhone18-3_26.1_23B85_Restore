@@ -12,6 +12,7 @@
 - (void)handleConnectionStateUpdate;
 - (void)notifyChargingIconographyStateChanges;
 - (void)setChargingIconographyChargeState:(id)state andUISOC:(id)c andIsEOC:(id)oC andTLCState:(BOOL)cState;
+- (void)setChncOnHoldReasons:(id)reasons andTLCState:(BOOL)state;
 - (void)updateChncOnHoldArray:(BOOL)array andName:(id)name;
 @end
 
@@ -770,6 +771,95 @@ LABEL_11:
   else if (!array)
   {
     [(NSMutableArray *)self->_chncOnHoldReasons removeObjectAtIndex:i];
+  }
+}
+
+- (void)setChncOnHoldReasons:(id)reasons andTLCState:(BOOL)state
+{
+  stateCopy = state;
+  reasonsCopy = reasons;
+  dispatch_assert_queue_V2(qword_1000AD330);
+  v7 = [NSNumber numberWithInt:0x4000];
+  v21 = v7;
+  v22 = @"SetBatt";
+  v8 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+
+  if (byte_1000AD360 != stateCopy)
+  {
+    [(BatteryChargingStateManager *)self updateChncOnHoldArray:stateCopy andName:@"TLC"];
+  }
+
+  byte_1000AD360 = stateCopy;
+  longLongValue = [reasonsCopy longLongValue];
+  v10 = 1;
+  if (!longLongValue)
+  {
+    v11 = qword_1000AD368;
+    if (qword_1000AD368)
+    {
+      v10 = 1;
+      do
+      {
+        if ((v10 & ~v11) == 0)
+        {
+          qword_1000AD368 = v11 & ~v10;
+          v12 = [NSNumber numberWithUnsignedLongLong:v10];
+          v13 = [v8 objectForKeyedSubscript:v12];
+          [(BatteryChargingStateManager *)self updateChncOnHoldArray:0 andName:v13];
+
+          v11 = qword_1000AD368;
+        }
+
+        v10 *= 2;
+      }
+
+      while (v11);
+    }
+  }
+
+  if (longLongValue)
+  {
+    do
+    {
+      v14 = [NSNumber numberWithUnsignedLongLong:v10];
+      if (longLongValue)
+      {
+        v16 = [v8 objectForKey:v14];
+        v17 = qword_1000AD368;
+
+        if (v16)
+        {
+          v18 = v17 == 0;
+        }
+
+        else
+        {
+          v18 = 0;
+        }
+
+        if (v18)
+        {
+          v19 = [v8 objectForKeyedSubscript:v14];
+          [(BatteryChargingStateManager *)self updateChncOnHoldArray:1 andName:v19];
+
+          qword_1000AD368 |= v10;
+        }
+      }
+
+      else if ((v10 & ~qword_1000AD368) == 0)
+      {
+        qword_1000AD368 &= ~v10;
+        v15 = [v8 objectForKeyedSubscript:v14];
+        [(BatteryChargingStateManager *)self updateChncOnHoldArray:0 andName:v15];
+      }
+
+      v10 *= 2;
+
+      v20 = longLongValue > 1;
+      longLongValue >>= 1;
+    }
+
+    while (v20);
   }
 }
 

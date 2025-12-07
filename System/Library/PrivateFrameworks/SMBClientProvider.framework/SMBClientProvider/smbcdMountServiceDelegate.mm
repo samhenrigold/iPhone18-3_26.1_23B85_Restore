@@ -4,6 +4,7 @@
 - (void)LiveMountService:(id)service addVolume:(id)volume atServer:(id)server credentialType:(int64_t)type credential:(id)credential reply:(id)reply;
 - (void)LiveMountService:(id)service ejectDisk:(id)disk reply:(id)reply;
 - (void)LiveMountService:(id)service ejectDisk:(id)disk usingFlags:(unsigned int)flags reply:(id)reply;
+- (void)LiveMountService:(id)service ejectVolume:(id)volume named:(id)named withFlags:(unsigned int)flags reply:(id)reply;
 - (void)LiveMountService:(id)service ejectVolumeCluster:(id)cluster withFlags:(unsigned int)flags reply:(id)reply;
 - (void)LiveMountService:(id)service sharesAtServer:(id)server credentialType:(int64_t)type credential:(id)credential reply:(id)reply;
 - (void)LiveMountService:(id)service unlockVolume:(id)volume password:(id)password saveToKeychain:(BOOL)keychain completionHandler:(id)handler;
@@ -83,6 +84,51 @@ LABEL_8:
 LABEL_12:
 }
 
+- (void)LiveMountService:(id)service ejectVolume:(id)volume named:(id)named withFlags:(unsigned int)flags reply:(id)reply
+{
+  v8 = *&flags;
+  serviceCopy = service;
+  volumeCopy = volume;
+  namedCopy = named;
+  replyCopy = reply;
+  v15 = volumeCopy;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = 136315650;
+    v23 = "[smbcdMountServiceDelegate LiveMountService:ejectVolume:named:withFlags:reply:]";
+    v24 = 2112;
+    v25 = namedCopy;
+    v26 = 1024;
+    v27 = v8;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s: called on vol name %@, how %x", &v22, 0x1Cu);
+  }
+
+  mountURL = [v15 mountURL];
+  lastPathComponent = [mountURL lastPathComponent];
+
+  [v15 SetShutDownReason:4];
+  v18 = qword_1000954F0;
+  mountURL2 = [v15 mountURL];
+  v20 = [mountURL2 copy];
+  v21 = [v18 ejectVolumeForURL:v20 share:lastPathComponent how:v8];
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    v22 = 138412290;
+    v23 = v21;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Got reply from fskitd: %@.", &v22, 0xCu);
+  }
+
+  [v15 disconnect];
+  [v15 setTransaction:0];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10004B840();
+  }
+
+  replyCopy[2](replyCopy, 0);
+}
+
 - (void)LiveMountService:(id)service ejectVolumeCluster:(id)cluster withFlags:(unsigned int)flags reply:(id)reply
 {
   serviceCopy = service;
@@ -153,7 +199,7 @@ LABEL_12:
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10004B91C(&v22);
+      sub_10004B91C();
     }
 
     v21 = [LiveFSFPExtensionHelper getNSErrorFromLiveFSErrno:v22];

@@ -16,10 +16,25 @@
 - (unsigned)platform;
 - (void)encodeWithCoder:(id)coder;
 - (void)setExtensionPointIdentifier:(id)identifier;
+- (void)setPlatform:(unsigned int)platform;
 - (void)setPredicate:(id)predicate;
 @end
 
 @implementation _EXQuery
+
+- (void)setPlatform:(unsigned int)platform
+{
+  v3 = *&platform;
+  v5 = self + OBJC_IVAR____EXQuery_inner;
+  swift_beginAccess();
+  v6 = *(v5 + 3);
+  v7 = *(v5 + 4);
+  __swift_mutable_project_boxed_opaque_existential_1(v5, v6);
+  v8 = *(v7 + 48);
+  selfCopy = self;
+  v8(v3, v6, v7);
+  swift_endAccess();
+}
 
 - (id)copyWithZone:(void *)zone
 {
@@ -196,14 +211,13 @@
   queryCopy = query;
   v6 = specialized static QueryController.execute(queries:)(inited);
   swift_setDeallocating();
-  v7 = *(inited + 16);
   swift_arrayDestroy();
   specialized _arrayForceCast<A, B>(_:)(v6);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24_EXExtensionRepresenting_pMd, &_sSo24_EXExtensionRepresenting_pMR);
-  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v8.super.isa;
+  return v7.super.isa;
 }
 
 + (void)executeQuery:(id)query completionHandler:(id)handler

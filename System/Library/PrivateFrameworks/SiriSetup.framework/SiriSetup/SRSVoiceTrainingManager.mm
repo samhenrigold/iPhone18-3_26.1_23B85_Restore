@@ -8,6 +8,8 @@
 - (void)getAudioSessionID:(id)d;
 - (void)playSoundsEffect:(int64_t)effect;
 - (void)setRecordingStartHostTime:(unint64_t)time;
+- (void)trainUtterance:(int64_t)utterance shouldUseASR:(BOOL)r completion:(id)completion;
+- (void)trainUtterance:(int64_t)utterance shouldUseASR:(BOOL)r loggingUUID:(id)d completion:(id)completion;
 @end
 
 @implementation SRSVoiceTrainingManager
@@ -49,12 +51,42 @@
   return v5;
 }
 
+- (void)trainUtterance:(int64_t)utterance shouldUseASR:(BOOL)r completion:(id)completion
+{
+  rCopy = r;
+  completionCopy = completion;
+  trainingManager = self->_trainingManager;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __66__SRSVoiceTrainingManager_trainUtterance_shouldUseASR_completion___block_invoke;
+  v11[3] = &unk_279C4A0B0;
+  v11[4] = self;
+  v12 = completionCopy;
+  v10 = completionCopy;
+  [(SSRVTUITrainingManager *)trainingManager trainUtterance:utterance shouldUseASR:rCopy completion:v11];
+}
+
 uint64_t __66__SRSVoiceTrainingManager_trainUtterance_shouldUseASR_completion___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) convertStatus:?];
   v2 = *(*(a1 + 40) + 16);
 
   return v2();
+}
+
+- (void)trainUtterance:(int64_t)utterance shouldUseASR:(BOOL)r loggingUUID:(id)d completion:(id)completion
+{
+  rCopy = r;
+  completionCopy = completion;
+  trainingManager = self->_trainingManager;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __78__SRSVoiceTrainingManager_trainUtterance_shouldUseASR_loggingUUID_completion___block_invoke;
+  v13[3] = &unk_279C4A0D8;
+  v13[4] = self;
+  v14 = completionCopy;
+  v12 = completionCopy;
+  [(SSRVTUITrainingManager *)trainingManager trainUtterance:utterance shouldUseASR:rCopy mhUUID:d completionWithResult:v13];
 }
 
 uint64_t __78__SRSVoiceTrainingManager_trainUtterance_shouldUseASR_loggingUUID_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -81,7 +113,7 @@ uint64_t __78__SRSVoiceTrainingManager_trainUtterance_shouldUseASR_loggingUUID_c
 - (void)getAudioSessionID:(id)d
 {
   dCopy = d;
-  v5 = SRSLog();
+  v5 = SRSLog(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -100,33 +132,31 @@ uint64_t __78__SRSVoiceTrainingManager_trainUtterance_shouldUseASR_loggingUUID_c
 
 uint64_t __45__SRSVoiceTrainingManager_getAudioSessionID___block_invoke(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = SRSLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = SRSLog(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_269002000, v4, OS_LOG_TYPE_INFO, "Fetched audio session [%i]", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_269002000, v4, OS_LOG_TYPE_INFO, "Fetched audio session [%i]", v6, 8u);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)setRecordingStartHostTime:(unint64_t)time
 {
-  trainingManager = self->_trainingManager;
-  if (objc_opt_respondsToSelector())
+  v5 = objc_opt_respondsToSelector();
+  if (v5)
   {
-    v6 = self->_trainingManager;
+    trainingManager = self->_trainingManager;
 
-    [(SSRVTUITrainingManager *)v6 setRecordingStartHostTime:time];
+    [(SSRVTUITrainingManager *)trainingManager setRecordingStartHostTime:time];
   }
 
   else
   {
-    v7 = SRSLog();
+    v7 = SRSLog(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SRSVoiceTrainingManager setRecordingStartHostTime:v7];

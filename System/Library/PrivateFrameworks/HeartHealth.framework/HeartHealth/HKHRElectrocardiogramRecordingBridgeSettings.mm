@@ -1,10 +1,43 @@
 @interface HKHRElectrocardiogramRecordingBridgeSettings
 - (BOOL)_isSettingsVisibleWithFeatureStatus:(id)status;
 - (BOOL)_userInteractionEnabledWithFeatureStatus:(id)status;
+- (HKHRElectrocardiogramRecordingBridgeSettings)initWithFeatureStatus:(id)status isAppInstalled:(BOOL)installed;
 - (id)_footerWithFeatureStatus:(id)status isAppInstalled:(BOOL)installed;
 @end
 
 @implementation HKHRElectrocardiogramRecordingBridgeSettings
+
+- (HKHRElectrocardiogramRecordingBridgeSettings)initWithFeatureStatus:(id)status isAppInstalled:(BOOL)installed
+{
+  installedCopy = installed;
+  statusCopy = status;
+  v14.receiver = self;
+  v14.super_class = HKHRElectrocardiogramRecordingBridgeSettings;
+  v7 = [(HKHRElectrocardiogramRecordingBridgeSettings *)&v14 init];
+  v8 = v7;
+  if (v7)
+  {
+    v9 = [(HKHRElectrocardiogramRecordingBridgeSettings *)v7 _isSettingsVisibleWithFeatureStatus:statusCopy];
+    v8->_settingVisible = v9;
+    if (v9)
+    {
+      v10 = ![(HKHRElectrocardiogramRecordingBridgeSettings *)v8 _featureOnboardedWithFeatureStatus:statusCopy];
+    }
+
+    else
+    {
+      LOBYTE(v10) = 0;
+    }
+
+    v8->_showOnboarding = v10;
+    v8->_userInteractionEnabled = [(HKHRElectrocardiogramRecordingBridgeSettings *)v8 _userInteractionEnabledWithFeatureStatus:statusCopy];
+    v11 = [(HKHRElectrocardiogramRecordingBridgeSettings *)v8 _footerWithFeatureStatus:statusCopy isAppInstalled:installedCopy];
+    footer = v8->_footer;
+    v8->_footer = v11;
+  }
+
+  return v8;
+}
 
 - (BOOL)_userInteractionEnabledWithFeatureStatus:(id)status
 {

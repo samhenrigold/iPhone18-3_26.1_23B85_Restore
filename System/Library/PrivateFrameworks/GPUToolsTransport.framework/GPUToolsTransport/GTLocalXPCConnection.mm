@@ -156,29 +156,29 @@ void __45__GTLocalXPCConnection_deregisterDispatcher___block_invoke(uint64_t a1)
 
 void __56__GTLocalXPCConnection_dispatchMessage_replyConnection___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (xpc_dictionary_get_flag(*(a1 + 32), "_flags", 1))
   {
-    v17 = 0u;
-    v18 = 0u;
     v15 = 0u;
     v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v2 = *(*(a1 + 40) + 32);
-    v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v16;
+      v5 = *v14;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v16 != v5)
+          if (*v14 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v15 + 1) + 8 * i);
+          v7 = *(*(&v13 + 1) + 8 * i);
           if (IsServicePort([v7 unsignedLongLongValue]))
           {
             v8 = [*(*(a1 + 40) + 32) objectForKeyedSubscript:v7];
@@ -186,24 +186,21 @@ void __56__GTLocalXPCConnection_dispatchMessage_replyConnection___block_invoke(u
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v4);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     uint64 = xpc_dictionary_get_uint64(*(a1 + 32), "_port");
-    v11 = *(*(a1 + 40) + 32);
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:uint64];
-    v14 = [v11 objectForKeyedSubscript:v12];
+    v10 = *(*(a1 + 40) + 32);
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:uint64];
+    v12 = [v10 objectForKeyedSubscript:v11];
 
-    [v14 dispatchMessage:*(a1 + 32) replyConnection:*(a1 + 48)];
-    v13 = *MEMORY[0x277D85DE8];
+    [v12 dispatchMessage:*(a1 + 32) replyConnection:*(a1 + 48)];
   }
 }
 
@@ -331,10 +328,9 @@ uint64_t __67__GTLocalXPCConnection_activateWithMessageHandler_andErrorHandler__
     v2 = 56;
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + v2) + 16);
+  v3 = *(*(a1 + v2) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (void)cancel

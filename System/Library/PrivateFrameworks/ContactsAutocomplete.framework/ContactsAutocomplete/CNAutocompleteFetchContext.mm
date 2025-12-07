@@ -214,16 +214,16 @@
 
 - (BOOL)isValid:(id *)valid
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   otherAddressesAlreadyChosen = [(CNAutocompleteFetchContext *)self otherAddressesAlreadyChosen];
   v5 = [otherAddressesAlreadyChosen _cn_any:*MEMORY[0x277CFBD20]];
 
   if (v5)
   {
     v6 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA470];
-    v12[0] = @"otherAddressesAlreadyChosen contains NSNull";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA470];
+    v11[0] = @"otherAddressesAlreadyChosen contains NSNull";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [v6 errorWithDomain:@"CNContactAutocompleteErrorDomain" code:2 userInfo:v7];
     if (valid)
     {
@@ -232,7 +232,6 @@
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5 ^ 1;
 }
 

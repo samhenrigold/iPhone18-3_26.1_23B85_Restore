@@ -19,38 +19,38 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v18.receiver = self;
-  v18.super_class = TabOverviewDisplayItemAccessibility;
-  [(TabOverviewDisplayItemAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
+  v19 = *MEMORY[0x29EDCA608];
+  v17.receiver = self;
+  v17.super_class = TabOverviewDisplayItemAccessibility;
+  [(TabOverviewDisplayItemAccessibility *)&v17 _accessibilityLoadAccessibilityInformation];
   v3 = [(TabOverviewDisplayItemAccessibility *)self safeSwiftValueForKey:@"$__lazy_storage_$_barManager"];
   [v3 safeSwiftArrayForKey:@"registrations"];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v4 = v15 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v13 = 0u;
+  v4 = v14 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*(*(&v14 + 1) + 8 * v7) safeSwiftDictionaryForKey:@"barButtonItems"];
+        v8 = [*(*(&v13 + 1) + 8 * v7) safeSwiftDictionaryForKey:@"barButtonItems"];
         [v8 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_2];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v5);
@@ -60,17 +60,15 @@
   if (v9)
   {
     objc_initWeak(&location, self);
-    v11[0] = MEMORY[0x29EDCA5F8];
-    v11[1] = 3221225472;
-    v11[2] = __81__TabOverviewDisplayItemAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
-    v11[3] = &unk_29F2D6910;
-    objc_copyWeak(&v12, &location);
-    [v9 setAccessibilityLabelBlock:v11];
-    objc_destroyWeak(&v12);
+    v10[0] = MEMORY[0x29EDCA5F8];
+    v10[1] = 3221225472;
+    v10[2] = __81__TabOverviewDisplayItemAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
+    v10[3] = &unk_29F2D6910;
+    objc_copyWeak(&v11, &location);
+    [v9 setAccessibilityLabelBlock:v10];
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void __81__TabOverviewDisplayItemAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, void *a2, void *a3)

@@ -35,12 +35,12 @@
   if (self->_formulaOwnerUID._lower || self->_formulaOwnerUID._upper)
   {
     WeakRetained = objc_loadWeakRetained(&self->_calcEngine);
-    v12 = objc_msgSend_duringSubOwnerUIDUpgrade(WeakRetained, v8, v9, v10, v11);
+    v11 = objc_msgSend_duringSubOwnerUIDUpgrade(WeakRetained, v8, v9, v10);
 
-    if ((v12 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      v13 = objc_loadWeakRetained(&self->_calcEngine);
-      objc_msgSend_removeAllFormulasFromOwner_(v13, v14, p_formulaOwnerUID, v15, v16);
+      v12 = objc_loadWeakRetained(&self->_calcEngine);
+      objc_msgSend_removeAllFormulasFromOwner_(v12, v13, p_formulaOwnerUID, v14);
     }
   }
 
@@ -72,25 +72,25 @@
 
 - (TSUCellCoord)reserveNextCoordinate
 {
-  Index = objc_msgSend_reserveNextIndex(self, a2, v2, v3, v4);
+  Index = objc_msgSend_reserveNextIndex(self, a2, v2, v3);
 
-  return objc_msgSend_coordFromIndex_(TSTFormulaStore, v5, Index, v7, v8);
+  return objc_msgSend_coordFromIndex_(TSTFormulaStore, v4, Index, v6);
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
-  v8 = objc_msgSend_stringWithFormat_(v3, v5, @"<%@: %p>\n", v6, v7, v4, self);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_2211B0AD8;
-  v14[3] = &unk_278460990;
-  v9 = v8;
-  v15 = v9;
-  objc_msgSend_foreach_(self, v10, v14, v11, v12);
+  v7 = objc_msgSend_stringWithFormat_(v3, v5, @"<%@: %p>\n", v6, v4, self);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_2211B0AD8;
+  v12[3] = &unk_278460990;
+  v8 = v7;
+  v13 = v8;
+  objc_msgSend_foreach_(self, v9, v12, v10);
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)reserveNextIndex
@@ -104,16 +104,16 @@
 {
   if (mark != 0x7FFFFFFFFFFFFFFFLL && self->_nextIndex > mark)
   {
-    v15 = v8;
-    v16 = v7;
-    v17 = v6;
-    v18 = v5;
+    v14 = v7;
+    v15 = v6;
+    v16 = v5;
+    v17 = v4;
+    v18 = v8;
     v19 = v9;
-    v20 = v10;
     markCopy = mark;
     do
     {
-      objc_msgSend_clearFormulaAtIndex_(self, a2, markCopy++, v3, v4, v15, v16, v17, v18, v19, v20);
+      objc_msgSend_clearFormulaAtIndex_(self, a2, markCopy++, v3, v14, v15, v16, v17, v18, v19);
     }
 
     while (markCopy < self->_nextIndex);
@@ -124,8 +124,8 @@
 - (unint64_t)appendIndexedFormula:(id)formula
 {
   formulaCopy = formula;
-  Index = objc_msgSend_reserveNextIndex(self, v5, v6, v7, v8);
-  objc_msgSend_setFormulaObject_atIndex_(self, v10, formulaCopy, Index, v11);
+  Index = objc_msgSend_reserveNextIndex(self, v5, v6, v7);
+  objc_msgSend_setFormulaObject_atIndex_(self, v9, formulaCopy, Index);
 
   return Index;
 }
@@ -134,21 +134,21 @@
 {
   objectCopy = object;
   replacerCopy = replacer;
-  objc_msgSend_setObject_forKey_(self->_formulas, v10, objectCopy, index, v11);
+  objc_msgSend_setObject_forKey_(self->_formulas, v10, objectCopy, index);
   WeakRetained = objc_loadWeakRetained(&self->_calcEngine);
 
   if (WeakRetained)
   {
-    v19 = objc_msgSend_coordFromIndex_(TSTFormulaStore, v13, index, v14, v15);
+    v17 = objc_msgSend_coordFromIndex_(TSTFormulaStore, v12, index, v13);
     if (replacerCopy)
     {
-      objc_msgSend_replaceFormula_atCellCoord_inOwner_(replacerCopy, v16, objectCopy, &v19, &self->_formulaOwnerUID);
+      objc_msgSend_replaceFormula_atCellCoord_inOwner_(replacerCopy, v14, objectCopy, &v17, &self->_formulaOwnerUID);
     }
 
     else
     {
-      v17 = objc_loadWeakRetained(&self->_calcEngine);
-      objc_msgSend_replaceFormula_atCellCoord_inOwner_(v17, v18, objectCopy, &v19, &self->_formulaOwnerUID);
+      v15 = objc_loadWeakRetained(&self->_calcEngine);
+      objc_msgSend_replaceFormula_atCellCoord_inOwner_(v15, v16, objectCopy, &v17, &self->_formulaOwnerUID);
     }
   }
 }
@@ -156,17 +156,17 @@
 - (void)clearFormulaAtIndex:(unint64_t)index formulaReplacer:(id)replacer
 {
   replacerCopy = replacer;
-  v17 = objc_msgSend_coordFromIndex_(TSTFormulaStore, v7, index, v8, v9);
-  objc_msgSend_setObject_forKey_(self->_formulas, v10, 0, index, v11);
+  v13 = objc_msgSend_coordFromIndex_(TSTFormulaStore, v7, index, v8);
+  objc_msgSend_setObject_forKey_(self->_formulas, v9, 0, index);
   if (replacerCopy)
   {
-    objc_msgSend_removeFormulaAt_inOwner_(replacerCopy, v12, &v17, &self->_formulaOwnerUID, v13);
+    objc_msgSend_removeFormulaAt_inOwner_(replacerCopy, v10, &v13, &self->_formulaOwnerUID);
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained(&self->_calcEngine);
-    objc_msgSend_removeFormulaAt_inOwner_(WeakRetained, v15, &v17, &self->_formulaOwnerUID, v16);
+    objc_msgSend_removeFormulaAt_inOwner_(WeakRetained, v12, &v13, &self->_formulaOwnerUID);
   }
 }
 
@@ -176,26 +176,26 @@
 
   if (WeakRetained)
   {
-    v11[0] = 0;
-    v11[1] = v11;
-    v11[2] = 0x9812000000;
-    v11[3] = sub_2211B0EE4;
-    v11[4] = nullsub_19;
-    v11[5] = TSTCategoryAggregateFormulaOwner__ivarLayout;
+    v10[0] = 0;
+    v10[1] = v10;
+    v10[2] = 0x9812000000;
+    v10[3] = sub_2211B0EE4;
+    v10[4] = nullsub_19;
+    v10[5] = TSTCategoryAggregateFormulaOwner__ivarLayout;
     v4 = objc_loadWeakRetained(&self->_calcEngine);
-    v10.coordinate = 0;
-    v10._tableUID = self->_formulaOwnerUID;
-    TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v12, v4, &v10);
+    v9.coordinate = 0;
+    v9._tableUID = self->_formulaOwnerUID;
+    TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v11, v4, &v9);
 
     formulas = self->_formulas;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = sub_2211B0F34;
-    v9[3] = &unk_2784609B8;
-    v9[4] = self;
-    v9[5] = v11;
-    objc_msgSend_foreach_(formulas, v6, v9, v7, v8);
-    _Block_object_dispose(v11, 8);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = sub_2211B0F34;
+    v8[3] = &unk_2784609B8;
+    v8[4] = self;
+    v8[5] = v10;
+    objc_msgSend_foreach_(formulas, v6, v8, v7);
+    _Block_object_dispose(v10, 8);
   }
 }
 
@@ -203,129 +203,129 @@
 {
   foreachCopy = foreach;
   formulas = self->_formulas;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_2211B11F0;
-  v10[3] = &unk_2784609E0;
-  v11 = foreachCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_2211B11F0;
+  v9[3] = &unk_2784609E0;
+  v10 = foreachCopy;
   v6 = foreachCopy;
-  objc_msgSend_foreach_(formulas, v7, v10, v8, v9);
+  objc_msgSend_foreach_(formulas, v7, v9, v8);
 }
 
 - (id)createFormulaObjectForRange:(TSUModelCellRect)range atIndex:(unint64_t)index tableUID:(const TSKUIDStruct *)d
 {
   size = range.var0.size;
   origin = range.var0.origin;
-  v9 = objc_msgSend_coordFromIndex_(TSTFormulaStore, x1_0, index, *&range.var0.size, index);
-  objc_msgSend_formulaOwnerUID(self, v10, v11, v12, v13);
-  v26._cppCellTractRef._columns._singleRange._begin = origin;
-  v26._cppCellTractRef._columns._singleRange._end = size;
-  TSCERangeRef::TSCERangeRef(&v26._cppCellTractRef._columns._multipleRanges, &v26._cppCellTractRef._columns._singleRange, d);
-  LOBYTE(v26._cppCellTractRef._columns._singleRange._begin) = 15;
-  TSCERangeRef::setPreserveFlags(&v26._cppCellTractRef._columns._multipleRanges, &v26._cppCellTractRef._columns._singleRange);
-  v14 = [TSCECellTractRef alloc];
-  v18 = objc_msgSend_initWithRangeRef_(v14, v15, &v26._cppCellTractRef._columns._multipleRanges, v16, v17);
-  v26.super.isa = v9;
-  TSCEFormulaCreationMagic::absColonTractRef(v18, &v26, &v26._cppCellTractRef);
-  TSCEFormulaCreationMagic::RANGE_TRACKING_FORMULA(&v26._cppCellTractRef, v28, &v26._cppCellTractRef._columns._singleRange._begin);
+  v9 = objc_msgSend_coordFromIndex_(TSTFormulaStore, x1_0, index, *&range.var0.size);
+  objc_msgSend_formulaOwnerUID(self, v10, v11, v12);
+  v23._cppCellTractRef._columns._singleRange._begin = origin;
+  v23._cppCellTractRef._columns._singleRange._end = size;
+  TSCERangeRef::TSCERangeRef(&v23._cppCellTractRef._columns._multipleRanges, &v23._cppCellTractRef._columns._singleRange, d);
+  LOBYTE(v23._cppCellTractRef._columns._singleRange._begin) = 15;
+  TSCERangeRef::setPreserveFlags(&v23._cppCellTractRef._columns._multipleRanges, &v23._cppCellTractRef._columns._singleRange);
+  v13 = [TSCECellTractRef alloc];
+  v16 = objc_msgSend_initWithRangeRef_(v13, v14, &v23._cppCellTractRef._columns._multipleRanges, v15);
+  v23.super.isa = v9;
+  TSCEFormulaCreationMagic::absColonTractRef(v16, &v23, &v23._cppCellTractRef);
+  TSCEFormulaCreationMagic::RANGE_TRACKING_FORMULA(&v23._cppCellTractRef, v25, &v23._cppCellTractRef._columns._singleRange._begin);
 
-  v19 = [TSCEFormulaObject alloc];
-  TSCEFormulaCreator::TSCEFormulaCreator(&v25, &v26._cppCellTractRef._columns._singleRange);
-  v23 = objc_msgSend_initWithCreator_(v19, v20, &v25, v21, v22);
+  v17 = [TSCEFormulaObject alloc];
+  TSCEFormulaCreator::TSCEFormulaCreator(&v22, &v23._cppCellTractRef._columns._singleRange);
+  v20 = objc_msgSend_initWithCreator_(v17, v18, &v22, v19);
 
-  return v23;
+  return v20;
 }
 
 + (id)createFormulaForUIDRange:(const void *)range tableUID:(const TSKUIDStruct *)d
 {
   lower = d->_lower;
   upper = d->_upper;
-  v17 = 0;
-  v18 = 0;
   v16 = 0;
-  sub_221086EBC(&v16, *range, *(range + 1), (*(range + 1) - *range) >> 4);
-  __p = 0;
-  v14 = 0;
+  v17 = 0;
   v15 = 0;
+  sub_221086EBC(&v15, *range, *(range + 1), (*(range + 1) - *range) >> 4);
+  __p = 0;
+  v13 = 0;
+  v14 = 0;
   sub_221086EBC(&__p, *(range + 3), *(range + 4), (*(range + 4) - *(range + 3)) >> 4);
-  TSCEFormulaCreationMagic::uidRef(lower, upper, &v16, &__p, &v19);
-  TSCEFormulaCreationMagic::RANGE_TRACKING_FORMULA(&v19, v22, &v20);
+  TSCEFormulaCreationMagic::uidRef(lower, upper, &v15, &__p, &v18);
+  TSCEFormulaCreationMagic::RANGE_TRACKING_FORMULA(&v18, v21, &v19);
 
   if (__p)
   {
-    v14 = __p;
+    v13 = __p;
     operator delete(__p);
   }
 
-  if (v16)
+  if (v15)
   {
-    v17 = v16;
-    operator delete(v16);
+    v16 = v15;
+    operator delete(v15);
   }
 
   v7 = [TSCEFormulaObject alloc];
-  TSCEFormulaCreator::TSCEFormulaCreator(&v12, &v20);
-  v10 = objc_msgSend_initWithCreator_translationFlags_(v7, v8, &v12, 32, v9);
+  TSCEFormulaCreator::TSCEFormulaCreator(&v11, &v19);
+  v9 = objc_msgSend_initWithCreator_translationFlags_(v7, v8, &v11, 32);
 
-  return v10;
+  return v9;
 }
 
 + (id)createFormulaForUIDTract:(const void *)tract tableUID:(const TSKUIDStruct *)d
 {
   lower = d->_lower;
   upper = d->_upper;
-  v17 = 0;
-  v18 = 0;
   v16 = 0;
-  sub_221086EBC(&v16, *tract, *(tract + 1), (*(tract + 1) - *tract) >> 4);
-  __p = 0;
-  v14 = 0;
+  v17 = 0;
   v15 = 0;
+  sub_221086EBC(&v15, *tract, *(tract + 1), (*(tract + 1) - *tract) >> 4);
+  __p = 0;
+  v13 = 0;
+  v14 = 0;
   sub_221086EBC(&__p, *(tract + 3), *(tract + 4), (*(tract + 4) - *(tract + 3)) >> 4);
-  TSCEFormulaCreationMagic::uidTractRef(lower, upper, &v16, &__p, &v19);
-  TSCEFormulaCreationMagic::RANGE_TRACKING_FORMULA(&v19, v22, &v20);
+  TSCEFormulaCreationMagic::uidTractRef(lower, upper, &v15, &__p, &v18);
+  TSCEFormulaCreationMagic::RANGE_TRACKING_FORMULA(&v18, v21, &v19);
 
   if (__p)
   {
-    v14 = __p;
+    v13 = __p;
     operator delete(__p);
   }
 
-  if (v16)
+  if (v15)
   {
-    v17 = v16;
-    operator delete(v16);
+    v16 = v15;
+    operator delete(v15);
   }
 
   v7 = [TSCEFormulaObject alloc];
-  TSCEFormulaCreator::TSCEFormulaCreator(&v12, &v20);
-  v10 = objc_msgSend_initWithCreator_translationFlags_(v7, v8, &v12, 32, v9);
+  TSCEFormulaCreator::TSCEFormulaCreator(&v11, &v19);
+  v9 = objc_msgSend_initWithCreator_translationFlags_(v7, v8, &v11, 32);
 
-  return v10;
+  return v9;
 }
 
 - (TSUModelCellRect)rangeFromFormulaAtIndex:(unint64_t)index useBoundingRange:(BOOL)range
 {
   rangeCopy = range;
-  v10 = objc_msgSend_formulaObjectAtIndex_(self, a2, index, range, v4);
-  if (v10)
+  v8 = objc_msgSend_formulaObjectAtIndex_(self, a2, index, range);
+  if (v8)
   {
-    v18 = objc_msgSend_coordFromIndex_(TSTFormulaStore, v7, index, v8, v9);
-    v11 = objc_opt_class();
-    v13 = objc_msgSend_rangeFromFormulaObject_atCoord_useBoundingRange_(v11, v12, v10, &v18, rangeCopy);
-    v15 = v14;
+    v16 = objc_msgSend_coordFromIndex_(TSTFormulaStore, v6, index, v7);
+    v9 = objc_opt_class();
+    v11 = objc_msgSend_rangeFromFormulaObject_atCoord_useBoundingRange_(v9, v10, v8, &v16, rangeCopy);
+    v13 = v12;
   }
 
   else
   {
-    v15 = 0;
-    v13 = 0x7FFF7FFFFFFFLL;
+    v13 = 0;
+    v11 = 0x7FFF7FFFFFFFLL;
   }
 
-  v16 = v13;
-  v17 = v15;
-  result.var0.size = v17;
-  result.var0.origin = v16;
+  v14 = v11;
+  v15 = v13;
+  result.var0.size = v15;
+  result.var0.origin = v14;
   return result;
 }
 
@@ -341,60 +341,60 @@
 {
   objectCopy = object;
   coord = coord->_coord;
-  v25._tableUID._lower = 0;
-  v25._tableUID._upper = 0;
-  v25.coordinate = coord;
-  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v33, 0, &v25);
-  v13 = objc_msgSend_const_astNodeArray(objectCopy, v9, v10, v11, v12);
-  sub_2212BB9E8(&v25, v13, &v33, range);
-  TSCEASTStreamIterator::rewrite(&v25, v14, v15, v16, v17);
-  if (v26 == 1)
+  v23._tableUID._lower = 0;
+  v23._tableUID._upper = 0;
+  v23.coordinate = coord;
+  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v31, 0, &v23);
+  v12 = objc_msgSend_const_astNodeArray(objectCopy, v9, v10, v11);
+  sub_2212BB9E8(&v23, v12, &v31, range);
+  TSCEASTStreamIterator::rewrite(&v23, v13, v14, v15);
+  if (v24 == 1)
   {
     TSUCellRectFromTSCERangeCoordinate();
+    v17 = v16;
     v19 = v18;
-    v21 = v20;
   }
 
   else
   {
-    v21 = 0;
-    v19 = 0x7FFF7FFFFFFFLL;
+    v19 = 0;
+    v17 = 0x7FFF7FFFFFFFLL;
   }
 
-  v25.coordinate = &unk_2834A3EA8;
+  v23.coordinate = &unk_2834A3EA8;
 
   if (__p)
   {
-    v31 = __p;
+    v29 = __p;
     operator delete(__p);
   }
 
-  if (v28)
+  if (v26)
   {
-    v29 = v28;
-    operator delete(v28);
+    v27 = v26;
+    operator delete(v26);
   }
 
-  TSCEASTStreamIterator::~TSCEASTStreamIterator(&v25, v22);
-  v23 = v19;
-  v24 = v21;
-  result.var0.size = v24;
-  result.var0.origin = v23;
+  TSCEASTStreamIterator::~TSCEASTStreamIterator(&v23, v20);
+  v21 = v17;
+  v22 = v19;
+  result.var0.size = v22;
+  result.var0.origin = v21;
   return result;
 }
 
 - (TSKUIDStruct)tableUIDFromFormulaAtIndex:(unint64_t)index
 {
-  v6 = objc_msgSend_formulaObjectAtIndex_(self, a2, index, v3, v4);
-  v18 = objc_msgSend_coordFromIndex_(TSTFormulaStore, v7, index, v8, v9);
-  v10 = objc_opt_class();
-  v13 = objc_msgSend_tableUIDFromFormula_atCoord_(v10, v11, v6, &v18, v12);
-  v15 = v14;
+  v5 = objc_msgSend_formulaObjectAtIndex_(self, a2, index, v3);
+  v15 = objc_msgSend_coordFromIndex_(TSTFormulaStore, v6, index, v7);
+  v8 = objc_opt_class();
+  v10 = objc_msgSend_tableUIDFromFormula_atCoord_(v8, v9, v5, &v15);
+  v12 = v11;
 
-  v16 = v13;
-  v17 = v15;
-  result._upper = v17;
-  result._lower = v16;
+  v13 = v10;
+  v14 = v12;
+  result._upper = v14;
+  result._lower = v13;
   return result;
 }
 
@@ -402,53 +402,53 @@
 {
   formulaCopy = formula;
   coord = coord->_coord;
-  v22._tableUID._lower = 0;
-  v22._tableUID._upper = 0;
-  v22.coordinate = coord;
-  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v32, 0, &v22);
-  v11 = objc_msgSend_const_astNodeArray(formulaCopy, v7, v8, v9, v10);
-  sub_2212BB9E8(&v22, v11, &v32, 1);
-  TSCEASTStreamIterator::rewrite(&v22, v12, v13, v14, v15);
+  v20._tableUID._lower = 0;
+  v20._tableUID._upper = 0;
+  v20.coordinate = coord;
+  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v30, 0, &v20);
+  v10 = objc_msgSend_const_astNodeArray(formulaCopy, v7, v8, v9);
+  sub_2212BB9E8(&v20, v10, &v30, 1);
+  TSCEASTStreamIterator::rewrite(&v20, v11, v12, v13);
+  v14 = v21;
+  v15 = v22;
   v16 = v23;
-  v17 = v24;
-  v18 = v25;
-  v22.coordinate = &unk_2834A3EA8;
+  v20.coordinate = &unk_2834A3EA8;
 
   if (__p)
   {
-    v30 = __p;
+    v28 = __p;
     operator delete(__p);
   }
 
-  if (v27)
+  if (v25)
   {
-    v28 = v27;
-    operator delete(v27);
+    v26 = v25;
+    operator delete(v25);
   }
 
-  if (!v16)
+  if (!v14)
   {
-    v17 = 0;
-    v18 = 0;
+    v15 = 0;
+    v16 = 0;
   }
 
-  TSCEASTStreamIterator::~TSCEASTStreamIterator(&v22, v19);
-  v20 = v17;
-  v21 = v18;
-  result._upper = v21;
-  result._lower = v20;
+  TSCEASTStreamIterator::~TSCEASTStreamIterator(&v20, v17);
+  v18 = v15;
+  v19 = v16;
+  result._upper = v19;
+  result._lower = v18;
   return result;
 }
 
 - (void)remapRangeFormulasToOwnerUID:(const TSKUIDStruct *)d
 {
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = sub_2211B1AC4;
-  v5[3] = &unk_278460A08;
-  v5[4] = self;
-  v5[5] = d;
-  objc_msgSend_foreach_(self, a2, v5, v3, v4);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = sub_2211B1AC4;
+  v4[3] = &unk_278460A08;
+  v4[4] = self;
+  v4[5] = d;
+  objc_msgSend_foreach_(self, a2, v4, v3);
 }
 
 - (TSTFormulaStore)initWithOwnerUID:(const TSKUIDStruct *)d archive:(const void *)archive unarchiver:(id)unarchiver
@@ -469,16 +469,16 @@
         v12 = [TSCEFormulaObject alloc];
         if (*(v10 + 24))
         {
-          isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v12, v13, *(v10 + 24), 0, v14);
+          isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v12, v13, *(v10 + 24), 0);
         }
 
         else
         {
-          isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v12, v13, &TSCE::_FormulaArchive_default_instance_, 0, v14);
+          isPreUFF = objc_msgSend_initWithArchive_isPreUFF_(v12, v13, TSCE::_FormulaArchive_default_instance_, 0);
         }
 
-        v18 = isPreUFF;
-        objc_msgSend_setObject_forKey_(v7->_formulas, v16, isPreUFF, v11, v17);
+        v16 = isPreUFF;
+        objc_msgSend_setObject_forKey_(v7->_formulas, v15, isPreUFF, v11);
 
         v9 += 8;
         --v8;
@@ -498,14 +498,14 @@
   *(archive + 4) |= 1u;
   *(archive + 12) = nextIndex;
   formulas = self->_formulas;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_2211B1D1C;
-  v13[3] = &unk_278460A30;
-  v14 = archiverCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_2211B1D1C;
+  v12[3] = &unk_278460A30;
+  v13 = archiverCopy;
   archiveCopy = archive;
   v9 = archiverCopy;
-  objc_msgSend_foreach_(formulas, v10, v13, v11, v12);
+  objc_msgSend_foreach_(formulas, v10, v12, v11);
 }
 
 - (TSKUIDStruct)formulaOwnerUID

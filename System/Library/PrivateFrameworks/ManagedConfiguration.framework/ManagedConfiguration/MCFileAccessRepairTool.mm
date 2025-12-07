@@ -34,7 +34,7 @@
 
 - (BOOL)fileNeedsRepairAtPath:(id)path
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   fileManager = [(MCFileAccessRepairTool *)self fileManager];
   v6 = [fileManager fileExistsAtPath:pathCopy];
@@ -51,13 +51,13 @@
         v10 = v9;
         v11 = MCStringForBool(v7);
         v12 = MCStringForBool(v8);
-        v16 = 138543874;
-        v17 = v11;
-        v18 = 2114;
-        v19 = v12;
-        v20 = 2114;
-        v21 = pathCopy;
-        _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_INFO, "File Manager (%{public}@) and POSIX (%{public}@) disagree on whether a file (%{public}@) needs repair.", &v16, 0x20u);
+        v15 = 138543874;
+        v16 = v11;
+        v17 = 2114;
+        v18 = v12;
+        v19 = 2114;
+        v20 = pathCopy;
+        _os_log_impl(&dword_1A795B000, v10, OS_LOG_TYPE_INFO, "File Manager (%{public}@) and POSIX (%{public}@) disagree on whether a file (%{public}@) needs repair.", &v15, 0x20u);
       }
     }
 
@@ -69,7 +69,6 @@
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

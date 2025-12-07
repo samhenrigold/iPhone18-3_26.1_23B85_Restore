@@ -41,6 +41,7 @@
 - (void)_scheduleNextSyncSession;
 - (void)_setRequiredFirstState:(unint64_t)requiredFirstState;
 - (void)_startRequiredSyncSession:(id)session;
+- (void)_startSyncSession:(id)session withMinimalPhase:(unint64_t)phase rewind:(BOOL)rewind;
 - (void)_stopPreparingFirstSession;
 - (void)_unscheduleNextSyncSession;
 - (void)_updateLastSyncDateIfNecessaryLocked;
@@ -339,16 +340,14 @@ LABEL_7:
 
 - (void)_writeFirstSynchronizationMarker
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   self->_didWriteFirstSyncMarker = 1;
   date = [MEMORY[0x1E695DF00] date];
-  v7 = @"date";
-  v8[0] = date;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"date";
+  v7[0] = date;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   _pathToFirstSynchronizationMarker = [(CPLEngineScheduler *)self _pathToFirstSynchronizationMarker];
   [v4 writeToURL:_pathToFirstSynchronizationMarker atomically:1];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_pathToFirstSynchronizationMarker
@@ -514,35 +513,35 @@ void __63__CPLEngineScheduler_getStatusDictionaryWithCompletionHandler___block_i
 
 void __63__CPLEngineScheduler_getStatusDictionaryWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 152) count])
   {
     v2 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithSet:*(*(a1 + 32) + 152)];
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     v3 = [*(*(a1 + 32) + 160) allKeys];
-    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         v7 = 0;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v2 removeObject:*(*(&v11 + 1) + 8 * v7++)];
+          [v2 removeObject:*(*(&v10 + 1) + 8 * v7++)];
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -560,8 +559,6 @@ void __63__CPLEngineScheduler_getStatusDictionaryWithCompletionHandler___block_i
       [*(a1 + 40) setObject:v9 forKeyedSubscript:@"blocked"];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__CPLEngineScheduler_getStatusDictionaryWithCompletionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -569,17 +566,11 @@ uint64_t __63__CPLEngineScheduler_getStatusDictionaryWithCompletionHandler___blo
   if (a2)
   {
     [*(a1 + 32) addEntriesFromDictionary:a2];
-    v3 = *(a1 + 32);
   }
 
-  else
-  {
-    v5 = *(a1 + 40);
-  }
+  v3 = *(*(a1 + 40) + 16);
 
-  v4 = *(*(a1 + 40) + 16);
-
-  return v4();
+  return v3();
 }
 
 - (void)getStatusWithCompletionHandler:(id)handler
@@ -983,35 +974,35 @@ void __53__CPLEngineScheduler_getStatusWithCompletionHandler___block_invoke_4(ui
 
 void __53__CPLEngineScheduler_getStatusWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 152) count])
   {
     v2 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithSet:*(*(a1 + 32) + 152)];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v3 = [*(*(a1 + 32) + 160) allKeys];
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v16;
+      v6 = *v15;
       do
       {
         v7 = 0;
         do
         {
-          if (*v16 != v6)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v2 removeObject:*(*(&v15 + 1) + 8 * v7++)];
+          [v2 removeObject:*(*(&v14 + 1) + 8 * v7++)];
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v5);
@@ -1033,25 +1024,22 @@ void __53__CPLEngineScheduler_getStatusWithCompletionHandler___block_invoke_2(ui
       [v11 appendFormat:@"\nBlocked elements: %@", v13];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __53__CPLEngineScheduler_getStatusWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v8 = a2;
   v5 = a3;
-  if (v9)
+  if (v8)
   {
-    if ([v9 length])
+    if ([v8 length])
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@\n%@", *(a1 + 32), v9];
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@\n%@", *(a1 + 32), v8];
       (*(*(a1 + 40) + 16))();
 
       goto LABEL_7;
     }
 
-    v8 = *(a1 + 32);
     v7 = *(*(a1 + 40) + 16);
   }
 
@@ -1171,7 +1159,7 @@ void __42__CPLEngineScheduler__prepareFirstSession__block_invoke(uint64_t a1, vo
 
 void __42__CPLEngineScheduler__prepareFirstSession__block_invoke_2(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   if (*(v2 + 8))
@@ -1182,7 +1170,7 @@ void __42__CPLEngineScheduler__prepareFirstSession__block_invoke_2(uint64_t a1)
     {
       if (_CPLSilentLogging)
       {
-        goto LABEL_34;
+        goto LABEL_33;
       }
 
       v5 = __CPLSchedulerOSLogDomain_7603();
@@ -1190,14 +1178,14 @@ void __42__CPLEngineScheduler__prepareFirstSession__block_invoke_2(uint64_t a1)
       {
         v6 = *(*(a1 + 32) + 48);
         *buf = 138543362;
-        v27 = v6;
+        v26 = v6;
         _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Found persisted %{public}@", buf, 0xCu);
       }
 
       v4 = *(a1 + 32);
       if (*(v4 + 48))
       {
-LABEL_34:
+LABEL_33:
         if ([*(v4 + 144) count])
         {
           if ((_CPLSilentLogging & 1) == 0)
@@ -1208,7 +1196,7 @@ LABEL_34:
               v8 = [*(*(a1 + 32) + 144) allObjects];
               v9 = [v8 componentsJoinedByString:{@", "}];
               *buf = 138543362;
-              v27 = v9;
+              v26 = v9;
               _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Unscheduling persisted sync session. Reasons: %{public}@", buf, 0xCu);
             }
           }
@@ -1263,24 +1251,25 @@ LABEL_34:
 
     else
     {
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __42__CPLEngineScheduler__prepareFirstSession__block_invoke_153;
-      v23[3] = &unk_1E86205B8;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __42__CPLEngineScheduler__prepareFirstSession__block_invoke_153;
+      v22[3] = &unk_1E86205B8;
       v11 = v11;
       v17 = *(a1 + 32);
-      v24 = v11;
-      v25 = v17;
-      v18 = [v11 performReadTransactionWithBlock:v23];
+      v23 = v11;
+      v24 = v17;
+      v18 = [v11 performReadTransactionWithBlock:v22];
     }
-
-LABEL_30:
-
-    goto LABEL_31;
   }
 
-  if (v3)
+  else
   {
+    if (!v3)
+    {
+      return;
+    }
+
     if ((_CPLSilentLogging & 1) == 0)
     {
       v15 = __CPLSchedulerOSLogDomain_7603();
@@ -1288,7 +1277,7 @@ LABEL_30:
       {
         v16 = *(a1 + 40);
         *buf = 138412290;
-        v27 = v16;
+        v26 = v16;
         _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_DEFAULT, "Ignoring persisted sync session %@", buf, 0xCu);
       }
 
@@ -1297,11 +1286,7 @@ LABEL_30:
 
     v11 = [v2 platformObject];
     [v11 unscheduleSyncSession:*(a1 + 40)];
-    goto LABEL_30;
   }
-
-LABEL_31:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __42__CPLEngineScheduler__prepareFirstSession__block_invoke_153(uint64_t a1)
@@ -1360,26 +1345,26 @@ void __42__CPLEngineScheduler__prepareFirstSession__block_invoke_153(uint64_t a1
   }
 }
 
-uint64_t __42__CPLEngineScheduler__prepareFirstSession__block_invoke_154(uint64_t result)
+void *__42__CPLEngineScheduler__prepareFirstSession__block_invoke_154(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(v1 + 8);
   if (v2)
   {
     v3 = result;
     *(v1 + 8) = 0;
 
-    *(*(v3 + 32) + 227) = [*(v3 + 32) _justInCaseSessionIsPossible];
-    v4 = *(v3 + 32);
+    *(v3[4] + 227) = [v3[4] _justInCaseSessionIsPossible];
+    v4 = v3[4];
     if (v4[6])
     {
       [v4 _unscheduleNextSyncSession];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     v4[7] = 0x4014000000000000;
-    result = [*(v3 + 32) _noteSyncSessionNeededFromState:2 proposedScheduleDate:0];
-    *(*(v3 + 32) + 56) = 0x3FB99999A0000000;
+    result = [v3[4] _noteSyncSessionNeededFromState:2 proposedScheduleDate:0];
+    *(v3[4] + 56) = 0x3FB99999A0000000;
   }
 
   return result;
@@ -1456,34 +1441,33 @@ uint64_t __48__CPLEngineScheduler_openWithCompletionHandler___block_invoke_2(uin
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
   }
 
   else
   {
     *(*(a1 + 40) + 112) = 1;
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 272));
-    v5 = [WeakRetained containerHasBeenWiped];
+    v4 = [WeakRetained containerHasBeenWiped];
 
-    v6 = *(a1 + 40);
-    if (v5)
+    v5 = *(a1 + 40);
+    if (v4)
     {
-      v7 = [v6 platformObject];
-      [v7 unschedulePersistedSyncSession];
+      v6 = [v5 platformObject];
+      [v6 unschedulePersistedSyncSession];
 
       [*(a1 + 40) _disableSynchronizationBecauseContainerHasBeenWipedLocked];
     }
 
     else
     {
-      [v6 _prepareFirstSession];
+      [v5 _prepareFirstSession];
     }
 
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
   }
 
-  return v3();
+  return v2();
 }
 
 - (void)getCurrentRequiredStateWithCompletionHandler:(id)handler
@@ -1611,7 +1595,7 @@ void __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke(uint64_t a1, voi
 
 void __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -1624,17 +1608,17 @@ void __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke_3(uint64_t a1, v
 
     v8 = *(a1 + 32);
     v9 = *(v8 + 72);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke_151;
-    v13[3] = &unk_1E861A940;
-    v13[4] = v8;
-    v10 = v13;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke_151;
+    v12[3] = &unk_1E861A940;
+    v12[4] = v8;
+    v10 = v12;
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v15 = __cpl_dispatch_async_block_invoke_7513;
-    v16 = &unk_1E861B4E0;
-    v17 = v10;
+    v14 = __cpl_dispatch_async_block_invoke_7513;
+    v15 = &unk_1E861B4E0;
+    v16 = v10;
     v5 = v9;
     v11 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
     dispatch_async(v5, v11);
@@ -1666,8 +1650,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke_151(uint64_t a1)
@@ -1697,39 +1679,39 @@ uint64_t __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke_151(uint64_t
 
 uint64_t __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) scopes];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = [v4 enumeratorForScopesIncludeInactive:0];
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v20 = a2;
+    v19 = a2;
     v8 = 0;
-    v9 = *v23;
+    v9 = *v22;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         if (v11)
         {
-          v12 = [v4 flagsForScope:*(*(&v22 + 1) + 8 * i)];
+          v12 = [v4 flagsForScope:*(*(&v21 + 1) + 8 * i)];
           if ([v12 valueForFlag:2])
           {
             [v12 setValue:0 forFlag:2];
-            v21 = v8;
-            v13 = [v4 updateFlags:v12 forScope:v11 error:&v21];
-            v14 = v21;
+            v20 = v8;
+            v13 = [v4 updateFlags:v12 forScope:v11 error:&v20];
+            v14 = v20;
 
             if (*(*(*(a1 + 40) + 8) + 24))
             {
@@ -1749,11 +1731,11 @@ uint64_t __41__CPLEngineScheduler_noteQuotaHasChanged__block_invoke_2(uint64_t a
               {
 LABEL_17:
 
-                if (v20)
+                if (v19)
                 {
                   v16 = v14;
                   v17 = 0;
-                  *v20 = v14;
+                  *v19 = v14;
                 }
 
                 else
@@ -1774,7 +1756,7 @@ LABEL_17:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v7)
       {
         continue;
@@ -1793,7 +1775,6 @@ LABEL_17:
   v14 = v8;
 LABEL_22:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -1872,7 +1853,7 @@ void __49__CPLEngineScheduler_noteBlockedStateHasChanged___block_invoke(uint64_t
 
 uint64_t __66__CPLEngineScheduler_noteSyncSession_failedDuringPhase_withError___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) syncSessionShouldRequestMoreTime])
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -1881,9 +1862,9 @@ uint64_t __66__CPLEngineScheduler_noteSyncSession_failedDuringPhase_withError___
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
         v3 = *(a1 + 40);
-        v6 = 138412290;
-        v7 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "%@ has been deferred and should request more time", &v6, 0xCu);
+        v5 = 138412290;
+        v6 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "%@ has been deferred and should request more time", &v5, 0xCu);
       }
     }
 
@@ -1891,9 +1872,7 @@ uint64_t __66__CPLEngineScheduler_noteSyncSession_failedDuringPhase_withError___
     [*(a1 + 40) setShouldHaveRequestedMoreTime:1];
   }
 
-  result = [*(a1 + 48) _noteSyncSession:*(a1 + 40) failedDuringPhase:*(a1 + 64) withError:*(a1 + 56)];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) _noteSyncSession:*(a1 + 40) failedDuringPhase:*(a1 + 64) withError:*(a1 + 56)];
 }
 
 - (void)_noteSyncSession:(id)session failedDuringPhase:(unint64_t)phase withError:(id)error
@@ -1925,7 +1904,7 @@ uint64_t __66__CPLEngineScheduler_noteSyncSession_failedDuringPhase_withError___
 
 void __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke(uint64_t a1)
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 104) == *(a1 + 40))
   {
     v6 = *(a1 + 48);
@@ -2025,7 +2004,7 @@ LABEL_31:
               *&buf[12] = 2112;
               *&buf[14] = v27;
               *&buf[22] = 2112;
-              v101 = v6;
+              v100 = v6;
               _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_DEBUG, "%@ failed %@: %@", buf, 0x20u);
             }
           }
@@ -2038,17 +2017,17 @@ LABEL_31:
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
-          LOBYTE(v101) = 1;
-          v94[0] = MEMORY[0x1E69E9820];
-          v94[1] = 3221225472;
-          v94[2] = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_133;
-          v94[3] = &unk_1E861C520;
-          v94[4] = *(a1 + 32);
-          v95 = *(a1 + 40);
+          LOBYTE(v100) = 1;
+          v93[0] = MEMORY[0x1E69E9820];
+          v93[1] = 3221225472;
+          v93[2] = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_133;
+          v93[3] = &unk_1E861C520;
+          v93[4] = *(a1 + 32);
+          v94 = *(a1 + 40);
           v2 = v6;
-          v96 = v2;
-          v97 = buf;
-          v30 = MEMORY[0x1E128EBA0](v94);
+          v95 = v2;
+          v96 = buf;
+          v30 = MEMORY[0x1E128EBA0](v93);
           if (![v2 isCPLError])
           {
             v32 = 0;
@@ -2074,14 +2053,14 @@ LABEL_31:
                 else if (v31 == 20)
                 {
                   v34 = *(a1 + 32);
-                  v91[0] = MEMORY[0x1E69E9820];
-                  v91[1] = 3221225472;
-                  v91[2] = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_134;
-                  v91[3] = &unk_1E861B1C8;
-                  v91[4] = v34;
-                  v92 = *(a1 + 40);
-                  v93 = v2;
-                  [v34 _handleResetClientCacheWithError:v93 completionHandler:v91];
+                  v90[0] = MEMORY[0x1E69E9820];
+                  v90[1] = 3221225472;
+                  v90[2] = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_134;
+                  v90[3] = &unk_1E861B1C8;
+                  v90[4] = v34;
+                  v91 = *(a1 + 40);
+                  v92 = v2;
+                  [v34 _handleResetClientCacheWithError:v92 completionHandler:v90];
                   v35 = *(a1 + 32);
                   v36 = *(v35 + 104);
                   *(v35 + 104) = 0;
@@ -2098,14 +2077,14 @@ LABEL_145:
               if (v31 == 21)
               {
                 v54 = *(a1 + 32);
-                v78 = MEMORY[0x1E69E9820];
-                v79 = 3221225472;
-                v80 = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_2;
-                v81 = &unk_1E861B1C8;
-                v82 = v54;
-                v83 = *(a1 + 40);
-                v84 = v2;
-                [v54 _handleResetCloudCacheWithError:v84 completionHandler:&v78];
+                v77 = MEMORY[0x1E69E9820];
+                v78 = 3221225472;
+                v79 = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_2;
+                v80 = &unk_1E861B1C8;
+                v81 = v54;
+                v82 = *(a1 + 40);
+                v83 = v2;
+                [v54 _handleResetCloudCacheWithError:v83 completionHandler:&v77];
                 v55 = *(a1 + 32);
                 v56 = *(v55 + 104);
                 *(v55 + 104) = 0;
@@ -2235,26 +2214,26 @@ LABEL_105:
               {
                 if ((_CPLSilentLogging & 1) == 0)
                 {
-                  v74 = __CPLSchedulerOSLogDomain_7603();
-                  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                  v73 = __CPLSchedulerOSLogDomain_7603();
+                  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v98 = 0;
-                    _os_log_impl(&dword_1DC05A000, v74, OS_LOG_TYPE_DEFAULT, "Sync anchor expired, we can't trust the cloud cache anymore", v98, 2u);
+                    *v97 = 0;
+                    _os_log_impl(&dword_1DC05A000, v73, OS_LOG_TYPE_DEFAULT, "Sync anchor expired, we can't trust the cloud cache anymore", v97, 2u);
                   }
                 }
 
+                v74 = *(a1 + 32);
+                v84[0] = MEMORY[0x1E69E9820];
+                v84[1] = 3221225472;
+                v84[2] = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_136;
+                v84[3] = &unk_1E861B1C8;
+                v84[4] = v74;
+                v85 = *(a1 + 40);
+                v86 = v2;
+                [v74 _handleResetCloudCacheWithError:v86 completionHandler:v84];
                 v75 = *(a1 + 32);
-                v85[0] = MEMORY[0x1E69E9820];
-                v85[1] = 3221225472;
-                v85[2] = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_136;
-                v85[3] = &unk_1E861B1C8;
-                v85[4] = v75;
-                v86 = *(a1 + 40);
-                v87 = v2;
-                [v75 _handleResetCloudCacheWithError:v87 completionHandler:v85];
-                v76 = *(a1 + 32);
-                v77 = *(v76 + 104);
-                *(v76 + 104) = 0;
+                v76 = *(v75 + 104);
+                *(v75 + 104) = 0;
 
                 *(*&buf[8] + 24) = 0;
                 goto LABEL_145;
@@ -2265,20 +2244,20 @@ LABEL_105:
                 v43 = __CPLSchedulerOSLogDomain_7603();
                 if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v98 = 0;
-                  _os_log_impl(&dword_1DC05A000, v43, OS_LOG_TYPE_DEFAULT, "Glboal sync anchor expired, will pull all scopes from the beginning", v98, 2u);
+                  *v97 = 0;
+                  _os_log_impl(&dword_1DC05A000, v43, OS_LOG_TYPE_DEFAULT, "Glboal sync anchor expired, will pull all scopes from the beginning", v97, 2u);
                 }
               }
 
               v44 = *(a1 + 32);
-              v88[0] = MEMORY[0x1E69E9820];
-              v88[1] = 3221225472;
-              v88[2] = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_135;
-              v88[3] = &unk_1E861B1C8;
-              v88[4] = v44;
-              v89 = *(a1 + 40);
-              v90 = v2;
-              [v44 _handleResetGlobalAnchorWithError:v90 completionHandler:v88];
+              v87[0] = MEMORY[0x1E69E9820];
+              v87[1] = 3221225472;
+              v87[2] = __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_135;
+              v87[3] = &unk_1E861B1C8;
+              v87[4] = v44;
+              v88 = *(a1 + 40);
+              v89 = v2;
+              [v44 _handleResetGlobalAnchorWithError:v89 completionHandler:v87];
               v45 = *(a1 + 32);
               v46 = *(v45 + 104);
               *(v45 + 104) = 0;
@@ -2338,8 +2317,8 @@ LABEL_86:
                 v37 = __CPLSchedulerOSLogDomain_7603();
                 if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v98 = 0;
-                  _os_log_impl(&dword_1DC05A000, v37, OS_LOG_TYPE_DEFAULT, "Scheduler has been asked to retry sync session immediately", v98, 2u);
+                  *v97 = 0;
+                  _os_log_impl(&dword_1DC05A000, v37, OS_LOG_TYPE_DEFAULT, "Scheduler has been asked to retry sync session immediately", v97, 2u);
                 }
 
                 goto LABEL_85;
@@ -2354,8 +2333,8 @@ LABEL_86:
               v39 = __CPLSchedulerOSLogDomain_7603();
               if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
               {
-                *v98 = 0;
-                _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_DEFAULT, "Encryption keys are not available yet - disabling synchronization temporarily", v98, 2u);
+                *v97 = 0;
+                _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_DEFAULT, "Encryption keys are not available yet - disabling synchronization temporarily", v97, 2u);
               }
 
               v40 = @"waiting for encryption keys";
@@ -2399,8 +2378,8 @@ LABEL_86:
               v39 = __CPLSchedulerOSLogDomain_7603();
               if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                *v98 = 0;
-                _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_ERROR, "Encryption keys are invalid - disabling synchronization temporarily", v98, 2u);
+                *v97 = 0;
+                _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_ERROR, "Encryption keys are invalid - disabling synchronization temporarily", v97, 2u);
               }
 
               v40 = @"encryption keys are invalid";
@@ -2427,9 +2406,9 @@ LABEL_86:
                 if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                 {
                   v38 = *(a1 + 40);
-                  *v98 = 138412290;
-                  v99 = v38;
-                  _os_log_impl(&dword_1DC05A000, v37, OS_LOG_TYPE_DEFAULT, "%@ has been deferred and should have requested more time - retrying immediately", v98, 0xCu);
+                  *v97 = 138412290;
+                  v98 = v38;
+                  _os_log_impl(&dword_1DC05A000, v37, OS_LOG_TYPE_DEFAULT, "%@ has been deferred and should have requested more time - retrying immediately", v97, 0xCu);
                 }
 
 LABEL_85:
@@ -2503,27 +2482,27 @@ LABEL_102:
     goto LABEL_26;
   }
 
-  if ((_CPLSilentLogging & 1) == 0)
+  if (_CPLSilentLogging)
   {
-    v2 = __CPLSchedulerOSLogDomain_7603();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = NSStringFromSelector(*(a1 + 56));
-      v4 = *(a1 + 40);
-      v5 = *(*(a1 + 32) + 104);
-      *buf = 138412802;
-      *&buf[4] = v3;
-      *&buf[12] = 2114;
-      *&buf[14] = v4;
-      *&buf[22] = 2114;
-      v101 = v5;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "%@: ignoring %{public}@ - current session is %{public}@", buf, 0x20u);
-    }
-
-LABEL_138:
+    return;
   }
 
-  v73 = *MEMORY[0x1E69E9840];
+  v2 = __CPLSchedulerOSLogDomain_7603();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = NSStringFromSelector(*(a1 + 56));
+    v4 = *(a1 + 40);
+    v5 = *(*(a1 + 32) + 104);
+    *buf = 138412802;
+    *&buf[4] = v3;
+    *&buf[12] = 2114;
+    *&buf[14] = v4;
+    *&buf[22] = 2114;
+    v100 = v5;
+    _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "%@: ignoring %{public}@ - current session is %{public}@", buf, 0x20u);
+  }
+
+LABEL_138:
 }
 
 void __67__CPLEngineScheduler__noteSyncSession_failedDuringPhase_withError___block_invoke_133(uint64_t a1)
@@ -2756,7 +2735,7 @@ void __68__CPLEngineScheduler__handleResetAnchorWithError_completionHandler___bl
 
 uint64_t __68__CPLEngineScheduler__handleResetAnchorWithError_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (![*(a1 + 32) count])
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2766,7 +2745,7 @@ uint64_t __68__CPLEngineScheduler__handleResetAnchorWithError_completionHandler_
       {
         v16 = *(a1 + 48);
         *buf = 138543362;
-        v24 = v16;
+        v23 = v16;
         _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_DEFAULT, "Reset sync anchor for all scopes with reason '%{public}@'", buf, 0xCu);
       }
     }
@@ -2778,12 +2757,12 @@ uint64_t __68__CPLEngineScheduler__handleResetAnchorWithError_completionHandler_
   }
 
   v4 = [*(a1 + 40) scopes];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
   v7 = v6 == 0;
   if (!v6)
   {
@@ -2794,17 +2773,17 @@ LABEL_25:
 
   v8 = v6;
   v9 = 0;
-  v10 = *v20;
+  v10 = *v19;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v20 != v10)
+      if (*v19 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = [v4 scopeWithIdentifier:{*(*(&v19 + 1) + 8 * i), v19}];
+      v12 = [v4 scopeWithIdentifier:{*(*(&v18 + 1) + 8 * i), v18}];
       if (v12)
       {
         if (([v4 resetSyncAnchorForScope:v12 error:a2] & 1) == 0)
@@ -2817,7 +2796,7 @@ LABEL_25:
       }
     }
 
-    v8 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v8 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v8)
     {
       continue;
@@ -2835,9 +2814,9 @@ LABEL_25:
       {
         v14 = [*(a1 + 32) componentsJoinedByString:{@", "}];
         *buf = 134218242;
-        v24 = v9;
-        v25 = 2112;
-        v26 = v14;
+        v23 = v9;
+        v24 = 2112;
+        v25 = v14;
         _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Reset sync anchor for %lu scopes of %@", buf, 0x16u);
       }
     }
@@ -2848,7 +2827,6 @@ LABEL_25:
   v7 = 1;
 LABEL_26:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -3064,7 +3042,7 @@ uint64_t __73__CPLEngineScheduler__handleResetClientCacheWithError_completionHan
 
 void __47__CPLEngineScheduler_noteSyncSessionSucceeded___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (*(v3 + 104) == v2)
@@ -3075,9 +3053,9 @@ void __47__CPLEngineScheduler_noteSyncSessionSucceeded___block_invoke(uint64_t a
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = *(a1 + 40);
-        v35 = 138412290;
-        v36 = v9;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "%@ with extended running time succeeded", &v35, 0xCu);
+        v34 = 138412290;
+        v35 = v9;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "%@ with extended running time succeeded", &v34, 0xCu);
       }
     }
 
@@ -3128,11 +3106,11 @@ void __47__CPLEngineScheduler_noteSyncSessionSucceeded___block_invoke(uint64_t a
         {
           v23 = *(a1 + 40);
           v24 = [CPLEngineSyncManager shortDescriptionForState:*(*(a1 + 32) + 16)];
-          v35 = 138543618;
-          v36 = v23;
-          v37 = 2114;
-          v38 = v24;
-          _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ did succeed but we were asked to do %{public}@ meanwhile. Restarting immediately", &v35, 0x16u);
+          v34 = 138543618;
+          v35 = v23;
+          v36 = 2114;
+          v37 = v24;
+          _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ did succeed but we were asked to do %{public}@ meanwhile. Restarting immediately", &v34, 0x16u);
         }
 
         v18 = *(a1 + 32);
@@ -3186,31 +3164,30 @@ void __47__CPLEngineScheduler_noteSyncSessionSucceeded___block_invoke(uint64_t a
     {
       [*(v33 + 280) removePredictedValueForType:@"lastEvent"];
     }
-
-    goto LABEL_29;
   }
 
-  if ((_CPLSilentLogging & 1) == 0)
+  else
   {
+    if (_CPLSilentLogging)
+    {
+      return;
+    }
+
     v4 = __CPLSchedulerOSLogDomain_7603();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = NSStringFromSelector(*(a1 + 48));
       v6 = *(a1 + 40);
       v7 = *(*(a1 + 32) + 104);
-      v35 = 138412802;
-      v36 = v5;
-      v37 = 2114;
-      v38 = v6;
-      v39 = 2114;
-      v40 = v7;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%@: ignoring %{public}@ - current session is %{public}@", &v35, 0x20u);
+      v34 = 138412802;
+      v35 = v5;
+      v36 = 2114;
+      v37 = v6;
+      v38 = 2114;
+      v39 = v7;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "%@: ignoring %{public}@ - current session is %{public}@", &v34, 0x20u);
     }
-
-LABEL_29:
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_keepSessionInformation:(id)information
@@ -3258,40 +3235,38 @@ LABEL_29:
 
 void __59__CPLEngineScheduler_noteSyncSession_stateWillBeAttempted___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 104) != *(a1 + 40))
   {
-    if ((_CPLSilentLogging & 1) == 0)
+    if (_CPLSilentLogging)
     {
-      v3 = __CPLSchedulerOSLogDomain_7603();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-      {
-        v4 = NSStringFromSelector(*(a1 + 48));
-        v5 = *(a1 + 40);
-        v6 = *(*(a1 + 32) + 104);
-        v22 = 138412802;
-        v23 = v4;
-        v24 = 2112;
-        v25 = v5;
-        v26 = 2112;
-        v27 = v6;
-        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%@: ignoring %@ - current session is %@", &v22, 0x20u);
-      }
-
-LABEL_5:
-
-      goto LABEL_6;
+      return;
     }
 
-    goto LABEL_6;
+    v3 = __CPLSchedulerOSLogDomain_7603();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = NSStringFromSelector(*(a1 + 48));
+      v5 = *(a1 + 40);
+      v6 = *(*(a1 + 32) + 104);
+      v20 = 138412802;
+      v21 = v4;
+      v22 = 2112;
+      v23 = v5;
+      v24 = 2112;
+      v25 = v6;
+      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%@: ignoring %@ - current session is %@", &v20, 0x20u);
+    }
+
+    goto LABEL_5;
   }
 
   if (*(v2 + 120))
   {
     [*(v2 + 120) timeIntervalSinceNow];
     v2 = *(a1 + 32);
-    if (v8 < 0.0)
+    if (v7 < 0.0)
     {
       [v2 _disableRetryAfterLocked];
       v2 = *(a1 + 32);
@@ -3300,8 +3275,8 @@ LABEL_5:
 
   if (*(v2 + 88) > 0xDuLL || *(a1 + 56) < 0xCuLL)
   {
-    v10 = *(v2 + 80);
-    if (v10 <= *(v2 + 16) && *(a1 + 56) > v10 && *(v2 + 24) == *(v2 + 32))
+    v8 = *(v2 + 80);
+    if (v8 <= *(v2 + 16) && *(a1 + 56) > v8 && *(v2 + 24) == *(v2 + 32))
     {
       [v2 _setRequiredFirstState:?];
       v2 = *(a1 + 32);
@@ -3309,67 +3284,66 @@ LABEL_5:
 
     *(v2 + 80) = *(a1 + 56);
     [*(a1 + 32) _updateLastSyncDateIfNecessaryLocked];
-    v11 = [MEMORY[0x1E695DF00] date];
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 232);
-    *(v12 + 232) = v11;
+    v9 = [MEMORY[0x1E695DF00] date];
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 232);
+    *(v10 + 232) = v9;
 
-    v14 = *(a1 + 56);
-    if (v14 <= 0xD)
+    v12 = *(a1 + 56);
+    if (v12 > 0xD)
     {
-      v15 = *(a1 + 32);
-      v16 = v15[4];
-      if (v15[3] < v16 && v14 <= v15[2])
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v3 = __CPLSchedulerOSLogDomain_7603();
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+        {
+          v18 = *(a1 + 40);
+          v19 = [CPLEngineSyncManager shortDescriptionForState:*(a1 + 56)];
+          v20 = 138543618;
+          v21 = v18;
+          v22 = 2114;
+          v23 = v19;
+          _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ has reached %{public}@", &v20, 0x16u);
+        }
+
+LABEL_5:
+      }
+    }
+
+    else
+    {
+      v13 = *(a1 + 32);
+      v14 = v13[4];
+      if (v13[3] < v14 && v12 <= v13[2])
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v17 = __CPLSchedulerOSLogDomain_7603();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v15 = __CPLSchedulerOSLogDomain_7603();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            v18 = [CPLEngineSyncManager shortDescriptionForState:*(a1 + 56)];
-            v19 = [CPLEngineSyncManager shortDescriptionForState:*(*(a1 + 32) + 16)];
-            v22 = 138412546;
-            v23 = v18;
-            v24 = 2112;
-            v25 = v19;
-            _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEBUG, "Sync manager is attempting %@ so we don't need to schedule %@", &v22, 0x16u);
+            v16 = [CPLEngineSyncManager shortDescriptionForState:*(a1 + 56)];
+            v17 = [CPLEngineSyncManager shortDescriptionForState:*(*(a1 + 32) + 16)];
+            v20 = 138412546;
+            v21 = v16;
+            v22 = 2112;
+            v23 = v17;
+            _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_DEBUG, "Sync manager is attempting %@ so we don't need to schedule %@", &v20, 0x16u);
           }
 
-          v15 = *(a1 + 32);
-          v16 = v15[4];
+          v13 = *(a1 + 32);
+          v14 = v13[4];
         }
 
-        v15[3] = v16;
+        v13[3] = v14;
       }
-
-      goto LABEL_6;
     }
-
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v3 = __CPLSchedulerOSLogDomain_7603();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-      {
-        v20 = *(a1 + 40);
-        v21 = [CPLEngineSyncManager shortDescriptionForState:*(a1 + 56)];
-        v22 = 138543618;
-        v23 = v20;
-        v24 = 2114;
-        v25 = v21;
-        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ has reached %{public}@", &v22, 0x16u);
-      }
-
-      goto LABEL_5;
-    }
-
-LABEL_6:
-    v7 = *MEMORY[0x1E69E9840];
-    return;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  else
+  {
 
-  [v2 _noteSyncSessionNeededFromState:? proposedScheduleDate:?];
+    [v2 _noteSyncSessionNeededFromState:? proposedScheduleDate:?];
+  }
 }
 
 - (void)noteNetworkStateDidChange
@@ -3477,7 +3451,7 @@ void *__47__CPLEngineScheduler_noteNetworkStateDidChange__block_invoke(uint64_t 
 
 - (void)_noteServerIsUnavailableWithErrorLocked:(id)locked reason:(id)reason
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   lockedCopy = locked;
   reasonCopy = reason;
   unavailabilityLimitDate = self->_unavailabilityLimitDate;
@@ -3533,7 +3507,7 @@ LABEL_14:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v30 = v19;
+        v29 = v19;
         _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_DEFAULT, "Server will be unavailable for %llds", buf, 0xCu);
       }
     }
@@ -3575,8 +3549,6 @@ LABEL_14:
 
 LABEL_22:
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__CPLEngineScheduler__noteServerIsUnavailableWithErrorLocked_reason___block_invoke(uint64_t a1)
@@ -3596,7 +3568,7 @@ uint64_t __69__CPLEngineScheduler__noteServerIsUnavailableWithErrorLocked_reason
 
 - (void)_disableRetryAfterLocked
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   unavailabilityLimitDate = self->_unavailabilityLimitDate;
   if (unavailabilityLimitDate)
   {
@@ -3612,8 +3584,8 @@ uint64_t __69__CPLEngineScheduler__noteServerIsUnavailableWithErrorLocked_reason
         v7 = __CPLSchedulerOSLogDomain_7603();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v9) = 0;
-          _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Server should be available now", &v9, 2u);
+          LOWORD(v8) = 0;
+          _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Server should be available now", &v8, 2u);
         }
       }
     }
@@ -3626,9 +3598,9 @@ uint64_t __69__CPLEngineScheduler__noteServerIsUnavailableWithErrorLocked_reason
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           v6 = [CPLEngineSyncManager shortDescriptionForState:self->_requiredFirstState];
-          v9 = 138412290;
-          v10 = v6;
-          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Server should be available now. Rescheduling a sync session from at least %@", &v9, 0xCu);
+          v8 = 138412290;
+          v9 = v6;
+          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Server should be available now. Rescheduling a sync session from at least %@", &v8, 0xCu);
         }
       }
 
@@ -3636,8 +3608,6 @@ uint64_t __69__CPLEngineScheduler__noteServerIsUnavailableWithErrorLocked_reason
       [(CPLEngineScheduler *)self _scheduleNextSyncSession];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isSynchronizationDisabledWithReasonError:(id *)error
@@ -3674,7 +3644,7 @@ uint64_t __69__CPLEngineScheduler__noteServerIsUnavailableWithErrorLocked_reason
   return v5 & 1;
 }
 
-uint64_t __63__CPLEngineScheduler_isSynchronizationDisabledWithReasonError___block_invoke(void *a1)
+void *__63__CPLEngineScheduler_isSynchronizationDisabledWithReasonError___block_invoke(void *a1)
 {
   v2 = a1[4];
   if (v2[15])
@@ -3771,7 +3741,7 @@ uint64_t __63__CPLEngineScheduler_isSynchronizationDisabledWithReasonError___blo
 
 void *__36__CPLEngineScheduler_enableMingling__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 120))
   {
@@ -3789,22 +3759,22 @@ void *__36__CPLEngineScheduler_enableMingling__block_invoke(uint64_t a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v8 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9 = NSStringFromSelector(*(a1 + 40));
+        v8 = NSStringFromSelector(*(a1 + 40));
         *buf = 138412290;
-        v16 = v9;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "%@ has been called too many times", buf, 0xCu);
+        v15 = v8;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "%@ has been called too many times", buf, 0xCu);
       }
     }
 
-    v10 = [MEMORY[0x1E696AAA8] currentHandler];
-    v12 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
-    v14 = NSStringFromSelector(*(a1 + 40));
-    [v10 handleFailureInMethod:v11 object:v12 file:v13 lineNumber:1158 description:{@"%@ has been called too many times", v14}];
+    v9 = [MEMORY[0x1E696AAA8] currentHandler];
+    v11 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
+    v13 = NSStringFromSelector(*(a1 + 40));
+    [v9 handleFailureInMethod:v10 object:v11 file:v12 lineNumber:1158 description:{@"%@ has been called too many times", v13}];
 
     abort();
   }
@@ -3825,10 +3795,9 @@ void *__36__CPLEngineScheduler_enableMingling__block_invoke(uint64_t a1)
       result = *(a1 + 32);
     }
 
-    result = [result _noteSyncSessionNeededFromState:10 proposedScheduleDate:0];
+    return [result _noteSyncSessionNeededFromState:10 proposedScheduleDate:0];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3913,29 +3882,29 @@ void __37__CPLEngineScheduler_disableMingling__block_invoke(uint64_t a1)
 
 void __55__CPLEngineScheduler_noteClientIsEndingSignificantWork__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 192);
   if (!v3)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(*(a1 + 40));
+        v9 = NSStringFromSelector(*(a1 + 40));
         *buf = 138412290;
-        v17 = v10;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "%@ has been called too many times", buf, 0xCu);
+        v16 = v9;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "%@ has been called too many times", buf, 0xCu);
       }
     }
 
-    v11 = [MEMORY[0x1E696AAA8] currentHandler];
-    v13 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
-    v15 = NSStringFromSelector(*(a1 + 40));
-    [v11 handleFailureInMethod:v12 object:v13 file:v14 lineNumber:1133 description:{@"%@ has been called too many times", v15}];
+    v10 = [MEMORY[0x1E696AAA8] currentHandler];
+    v12 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
+    v14 = NSStringFromSelector(*(a1 + 40));
+    [v10 handleFailureInMethod:v11 object:v12 file:v13 lineNumber:1133 description:{@"%@ has been called too many times", v14}];
 
     abort();
   }
@@ -3960,8 +3929,6 @@ void __55__CPLEngineScheduler_noteClientIsEndingSignificantWork__block_invoke(ui
     v7 = [v6 transport];
     [v7 noteClientIsEndingSignificantWork];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteClientIsBeginningSignificantWork
@@ -4023,44 +3990,42 @@ void __58__CPLEngineScheduler_noteClientIsBeginningSignificantWork__block_invoke
 
 void __47__CPLEngineScheduler_unblockEngineElementOnce___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 176) addObject:*(a1 + 40)];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = [*(*(a1 + 32) + 160) objectForKeyedSubscript:{*(a1 + 40), 0}];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) signal];
+        [*(*(&v7 + 1) + 8 * v6++) signal];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)waitForEngineElementToBeBlocked:(id)blocked timeout:(double)timeout
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   blockedCopy = blocked;
   date = [MEMORY[0x1E695DF00] date];
   if (timeout <= 0.0)
@@ -4073,15 +4038,15 @@ void __47__CPLEngineScheduler_unblockEngineElementOnce___block_invoke(uint64_t a
     [date dateByAddingTimeInterval:timeout];
   }
   v7 = ;
-  v20 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__7661;
-  v33 = __Block_byref_object_dispose__7662;
-  v34 = 0;
+  v19 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__7661;
+  v32 = __Block_byref_object_dispose__7662;
+  v33 = 0;
   *&v8 = 138412546;
-  v18 = v8;
+  v17 = v8;
   do
   {
     [v7 timeIntervalSinceNow];
@@ -4090,26 +4055,26 @@ void __47__CPLEngineScheduler_unblockEngineElementOnce___block_invoke(uint64_t a
       break;
     }
 
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2020000000;
-    v28 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
     blockingLock = self->_blockingLock;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __62__CPLEngineScheduler_waitForEngineElementToBeBlocked_timeout___block_invoke;
     block[3] = &unk_1E86209B8;
     block[4] = self;
-    v22 = blockedCopy;
-    v23 = &v25;
-    v24 = &v29;
+    v21 = blockedCopy;
+    v22 = &v24;
+    v23 = &v28;
     dispatch_sync(blockingLock, block);
-    v11 = *(v26 + 24);
+    v11 = *(v25 + 24);
     if (v11 == 1)
     {
       if (_CPLSilentLogging)
       {
-        v20 = 1;
+        v19 = 1;
         goto LABEL_13;
       }
 
@@ -4117,121 +4082,112 @@ void __47__CPLEngineScheduler_unblockEngineElementOnce___block_invoke(uint64_t a
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         [date timeIntervalSinceNow];
-        *buf = v18;
-        v36 = blockedCopy;
-        v37 = 2048;
-        v38 = -v13;
+        *buf = v17;
+        v35 = blockedCopy;
+        v36 = 2048;
+        v37 = -v13;
         _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "Engine is blocked on %@ - waited for %.2fs", buf, 0x16u);
       }
 
-      v20 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v14 = v30[5];
+      v14 = v29[5];
       v12 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:10.0];
       v15 = [v12 earlierDate:v7];
       [v14 waitUntilDate:v15];
     }
 
 LABEL_13:
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
   while ((v11 & 1) == 0);
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v20 & 1;
+  return v19 & 1;
 }
 
 void __62__CPLEngineScheduler_waitForEngineElementToBeBlocked_timeout___block_invoke(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 160) objectForKeyedSubscript:a1[5]];
   if (v2 && (v3 = v2, v4 = [*(a1[4] + 176) containsObject:a1[5]], v3, (v4 & 1) == 0))
   {
     *(*(a1[6] + 8) + 24) = 1;
-    if (!*(*(a1[7] + 8) + 40))
+    if (*(*(a1[7] + 8) + 40))
     {
-LABEL_12:
-      v10 = *MEMORY[0x1E69E9840];
-      return;
+      [*(a1[4] + 168) removeObject:?];
+      [*(*(a1[7] + 8) + 40) unlock];
+      v7 = *(a1[7] + 8);
+      v8 = *(v7 + 40);
+      *(v7 + 40) = 0;
     }
+  }
 
-    [*(a1[4] + 168) removeObject:?];
-    [*(*(a1[7] + 8) + 40) unlock];
-    v7 = *(a1[7] + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = 0;
-    v9 = *MEMORY[0x1E69E9840];
+  else if (*(*(a1[7] + 8) + 40))
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v5 = __CPLSchedulerOSLogDomain_7603();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = a1[5];
+        v13 = 138412290;
+        v14 = v6;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Still waiting for %@ to be blocked", &v13, 0xCu);
+      }
+    }
   }
 
   else
   {
-    if (*(*(a1[7] + 8) + 40))
-    {
-      if ((_CPLSilentLogging & 1) == 0)
-      {
-        v5 = __CPLSchedulerOSLogDomain_7603();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-        {
-          v6 = a1[5];
-          v16 = 138412290;
-          v17 = v6;
-          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Still waiting for %@ to be blocked", &v16, 0xCu);
-        }
-      }
-
-      goto LABEL_12;
-    }
-
-    v11 = objc_alloc_init(MEMORY[0x1E696AB30]);
-    v12 = *(a1[7] + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v9 = objc_alloc_init(MEMORY[0x1E696AB30]);
+    v10 = *(a1[7] + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
     [*(a1[4] + 168) addObject:*(*(a1[7] + 8) + 40)];
-    v14 = *(*(a1[7] + 8) + 40);
-    v15 = *MEMORY[0x1E69E9840];
+    v12 = *(*(a1[7] + 8) + 40);
 
-    [v14 lock];
+    [v12 lock];
   }
 }
 
 - (void)willRunEngineElement:(id)element
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   elementCopy = element;
   v5 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__7661;
-  v28 = __Block_byref_object_dispose__7662;
-  v29 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__7661;
+  v27 = __Block_byref_object_dispose__7662;
+  v28 = 0;
   v6 = MEMORY[0x1E69E9820];
   *&v7 = 138412290;
-  v15 = v7;
+  v14 = v7;
   do
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
     blockingLock = self->_blockingLock;
     block[0] = v6;
     block[1] = 3221225472;
     block[2] = __43__CPLEngineScheduler_willRunEngineElement___block_invoke;
     block[3] = &unk_1E86209B8;
-    v18 = &v20;
+    v17 = &v19;
     block[4] = self;
     v9 = elementCopy;
-    v17 = v9;
-    v19 = &v24;
+    v16 = v9;
+    v18 = &v23;
     dispatch_sync(blockingLock, block);
-    v10 = *(v21 + 24);
+    v10 = *(v20 + 24);
     if (v10)
     {
       if ((v5 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
@@ -4239,14 +4195,14 @@ LABEL_12:
         v11 = __CPLSchedulerOSLogDomain_7603();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v15;
-          v31 = elementCopy;
+          *buf = v14;
+          v30 = elementCopy;
           _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Blocked engine for %@", buf, 0xCu);
         }
       }
 
-      v12 = v25[5];
-      v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:{3.0, v15}];
+      v12 = v24[5];
+      v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:{3.0, v14}];
       [v12 waitUntilDate:v13];
       goto LABEL_9;
     }
@@ -4261,8 +4217,8 @@ LABEL_12:
       v13 = __CPLSchedulerOSLogDomain_7603();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v15;
-        v31 = elementCopy;
+        *buf = v14;
+        v30 = elementCopy;
         _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Unblocked engine for %@", buf, 0xCu);
       }
 
@@ -4276,18 +4232,16 @@ LABEL_10:
     v5 = 0;
 LABEL_16:
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   while ((v10 & 1) != 0);
-  _Block_object_dispose(&v24, 8);
-
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 }
 
 void __43__CPLEngineScheduler_willRunEngineElement___block_invoke(void *a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   *(*(a1[6] + 8) + 24) = [*(a1[4] + 152) containsObject:a1[5]];
   if (*(*(a1[6] + 8) + 24) == 1 && [*(a1[4] + 176) containsObject:a1[5]])
   {
@@ -4298,7 +4252,7 @@ void __43__CPLEngineScheduler_willRunEngineElement___block_invoke(void *a1)
       {
         v3 = a1[5];
         *buf = 138412290;
-        v27 = v3;
+        v26 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Unblocking engine once for %@", buf, 0xCu);
       }
     }
@@ -4310,7 +4264,24 @@ void __43__CPLEngineScheduler_willRunEngineElement___block_invoke(void *a1)
   v4 = *(*(a1[7] + 8) + 40);
   if (*(*(a1[6] + 8) + 24) == 1)
   {
-    if (!v4)
+    if (v4)
+    {
+      if (_CPLSilentLogging)
+      {
+        return;
+      }
+
+      v5 = __CPLSchedulerOSLogDomain_7603();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = a1[5];
+        *buf = 138412290;
+        v26 = v6;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Still blocked on %@", buf, 0xCu);
+      }
+    }
+
+    else
     {
       v9 = objc_alloc_init(MEMORY[0x1E696AB30]);
       v10 = *(a1[7] + 8);
@@ -4334,63 +4305,52 @@ void __43__CPLEngineScheduler_willRunEngineElement___block_invoke(void *a1)
           v13 = [*(a1[4] + 168) count];
           v14 = a1[5];
           *buf = 134218242;
-          v27 = v13;
-          v28 = 2112;
-          v29 = v14;
+          v26 = v13;
+          v27 = 2112;
+          v28 = v14;
           _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "Informing %lu waiters that %@ is blocked", buf, 0x16u);
         }
       }
 
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v15 = *(a1[4] + 168);
-      v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v22;
+        v18 = *v21;
         do
         {
           v19 = 0;
           do
           {
-            if (*v22 != v18)
+            if (*v21 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            [*(*(&v21 + 1) + 8 * v19++) signal];
+            [*(*(&v20 + 1) + 8 * v19++) signal];
           }
 
           while (v17 != v19);
-          v17 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v17);
       }
-
-      goto LABEL_32;
-    }
-
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v5 = __CPLSchedulerOSLogDomain_7603();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v6 = a1[5];
-        *buf = 138412290;
-        v27 = v6;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Still blocked on %@", buf, 0xCu);
-      }
-
-LABEL_32:
     }
   }
 
-  else if (v4)
+  else
   {
+    if (!v4)
+    {
+      return;
+    }
+
     v5 = [*(a1[4] + 160) objectForKeyedSubscript:a1[5]];
     [v5 removeObject:*(*(a1[7] + 8) + 40)];
     if (![v5 count])
@@ -4402,11 +4362,7 @@ LABEL_32:
     v7 = *(a1[7] + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = 0;
-
-    goto LABEL_32;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unblockEngineElement:(id)element
@@ -4426,11 +4382,31 @@ LABEL_32:
 
 void __43__CPLEngineScheduler_unblockEngineElement___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 152) countForObject:*(a1 + 40)])
   {
     [*(*(a1 + 32) + 152) removeObject:*(a1 + 40)];
-    if (![*(*(a1 + 32) + 152) countForObject:*(a1 + 40)])
+    if ([*(*(a1 + 32) + 152) countForObject:*(a1 + 40)])
+    {
+      if (_CPLSilentLogging)
+      {
+        return;
+      }
+
+      v2 = __CPLSchedulerOSLogDomain_7603();
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      {
+        v3 = *(a1 + 40);
+        v4 = [*(*(a1 + 32) + 152) countForObject:v3];
+        *buf = 138412546;
+        v19 = v3;
+        v20 = 2048;
+        v21 = v4;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Unblocking '%@' but it is still blocked by %lu clients.", buf, 0x16u);
+      }
+    }
+
+    else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
@@ -4439,78 +4415,60 @@ void __43__CPLEngineScheduler_unblockEngineElement___block_invoke(uint64_t a1)
         {
           v8 = *(a1 + 40);
           *buf = 138412290;
-          v20 = v8;
+          v19 = v8;
           _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Unblocking '%@'.", buf, 0xCu);
         }
       }
 
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v2 = [*(*(a1 + 32) + 160) objectForKeyedSubscript:{*(a1 + 40), 0}];
-      v9 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v15;
+        v11 = *v14;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v15 != v11)
+            if (*v14 != v11)
             {
               objc_enumerationMutation(v2);
             }
 
-            [*(*(&v14 + 1) + 8 * i) signal];
+            [*(*(&v13 + 1) + 8 * i) signal];
           }
 
-          v10 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v10 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v10);
       }
-
-      goto LABEL_20;
-    }
-
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v2 = __CPLSchedulerOSLogDomain_7603();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-      {
-        v3 = *(a1 + 40);
-        v4 = [*(*(a1 + 32) + 152) countForObject:v3];
-        *buf = 138412546;
-        v20 = v3;
-        v21 = 2048;
-        v22 = v4;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Unblocking '%@' but it is still blocked by %lu clients.", buf, 0x16u);
-      }
-
-LABEL_20:
     }
   }
 
-  else if ((_CPLSilentLogging & 1) == 0)
+  else
   {
+    if (_CPLSilentLogging)
+    {
+      return;
+    }
+
     v2 = __CPLSchedulerOSLogDomain_7603();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       v5 = NSStringFromSelector(*(a1 + 48));
       v6 = *(a1 + 40);
       *buf = 138412546;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v6;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v6;
       _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "%@ has been called too many times with element '%@'", buf, 0x16u);
     }
-
-    goto LABEL_20;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)blockEngineElement:(id)element
@@ -4527,10 +4485,9 @@ LABEL_20:
   dispatch_async(blockingLock, v7);
 }
 
-void __41__CPLEngineScheduler_blockEngineElement___block_invoke(uint64_t a1)
+void __41__CPLEngineScheduler_blockEngineElement___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [objc_opt_class() validElements];
   v4 = [v3 containsObject:*(a1 + 40)];
 
@@ -4545,15 +4502,15 @@ void __41__CPLEngineScheduler_blockEngineElement___block_invoke(uint64_t a1)
         {
           v6 = *(a1 + 40);
           v7 = [*(*(a1 + 32) + 152) countForObject:v6];
-          *v15 = 138412546;
-          *&v15[4] = v6;
-          *&v15[12] = 2048;
-          *&v15[14] = v7 + 1;
+          *v14 = 138412546;
+          *&v14[4] = v6;
+          *&v14[12] = 2048;
+          *&v14[14] = v7 + 1;
           v8 = "Blocking '%@' (%lu clients).";
           v9 = v5;
           v10 = 22;
 LABEL_13:
-          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, v8, v15, v10);
+          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, v8, v14, v10);
           goto LABEL_14;
         }
 
@@ -4567,8 +4524,8 @@ LABEL_13:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v13 = *(a1 + 40);
-        *v15 = 138412290;
-        *&v15[4] = v13;
+        *v14 = 138412290;
+        *&v14[4] = v13;
         v8 = "Blocking '%@'.";
         v9 = v5;
         v10 = 12;
@@ -4578,8 +4535,8 @@ LABEL_13:
 LABEL_14:
     }
 
-    [*(*(a1 + 32) + 152) addObject:{*(a1 + 40), *v15, *&v15[16], v16}];
-    goto LABEL_16;
+    [*(*(a1 + 32) + 152) addObject:{*(a1 + 40), *v14, *&v14[8], v15}];
+    return;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
@@ -4588,14 +4545,11 @@ LABEL_14:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = *(a1 + 40);
-      *v15 = 138412290;
-      *&v15[4] = v12;
-      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "'%@' is an invalid element to block", v15, 0xCu);
+      *v14 = 138412290;
+      *&v14[4] = v12;
+      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "'%@' is an invalid element to block", v14, 0xCu);
     }
   }
-
-LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)blockAllSyncSessionsWithReason:(id)reason onlyIfBlocked:(BOOL)blocked block:(id)block
@@ -4701,28 +4655,28 @@ uint64_t __54__CPLEngineScheduler_enableSynchronizationWithReason___block_invoke
 
 - (void)_enableSynchronizationWithReasonLocked:(id)locked
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   lockedCopy = locked;
   if (![(NSCountedSet *)self->_disablingReasons countForObject:lockedCopy])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = NSStringFromSelector(a2);
+        v13 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v19 = v14;
-        v20 = 2112;
-        v21 = lockedCopy;
-        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "%@ has been called too many times with reason '%@'", buf, 0x16u);
+        v18 = v13;
+        v19 = 2112;
+        v20 = lockedCopy;
+        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@ has been called too many times with reason '%@'", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
-    v17 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:913 description:{@"%@ has been called too many times with reason '%@'", v17, lockedCopy}];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
+    v16 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:913 description:{@"%@ has been called too many times with reason '%@'", v16, lockedCopy}];
 
     abort();
   }
@@ -4738,9 +4692,9 @@ uint64_t __54__CPLEngineScheduler_enableSynchronizationWithReason___block_invoke
         allObjects = [(NSCountedSet *)self->_disablingReasons allObjects];
         v8 = [allObjects componentsJoinedByString:{@", "}];
         *buf = 138543618;
-        v19 = lockedCopy;
-        v20 = 2114;
-        v21 = v8;
+        v18 = lockedCopy;
+        v19 = 2114;
+        v20 = v8;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Reenabling synchonization for reason '%{public}@'. Synchronization is still disabled for reasons: %{public}@", buf, 0x16u);
       }
     }
@@ -4754,7 +4708,7 @@ uint64_t __54__CPLEngineScheduler_enableSynchronizationWithReason___block_invoke
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v19 = lockedCopy;
+        v18 = lockedCopy;
         _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Reenabling synchonization for reason '%{public}@'. Synchronization is now fully enabled", buf, 0xCu);
       }
     }
@@ -4769,9 +4723,9 @@ uint64_t __54__CPLEngineScheduler_enableSynchronizationWithReason___block_invoke
       {
         v10 = [CPLEngineSyncManager shortDescriptionForState:self->_requiredFirstState];
         *buf = 138543618;
-        v19 = lockedCopy;
-        v20 = 2114;
-        v21 = v10;
+        v18 = lockedCopy;
+        v19 = 2114;
+        v20 = v10;
         _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Reenabling synchonization for reason '%{public}@'. Synchronization is now fully enabled and should restart soon from at least %{public}@", buf, 0x16u);
       }
     }
@@ -4782,8 +4736,6 @@ uint64_t __54__CPLEngineScheduler_enableSynchronizationWithReason___block_invoke
       [(CPLEngineScheduler *)self _scheduleNextSyncSession];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disableSynchronizationIfBlockedWithReason:(id)reason completionHandler:(id)handler
@@ -4884,16 +4836,16 @@ uint64_t __55__CPLEngineScheduler_disableSynchronizationWithReason___block_invok
 
 - (void)_disableSynchronizationWithReasonLocked:(id)locked
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   lockedCopy = locked;
   if ((_CPLSilentLogging & 1) == 0)
   {
     v5 = __CPLSchedulerOSLogDomain_7603();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = lockedCopy;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Disabling synchronization for reason '%{public}@'", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = lockedCopy;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Disabling synchronization for reason '%{public}@'", &v8, 0xCu);
     }
   }
 
@@ -4906,8 +4858,6 @@ uint64_t __55__CPLEngineScheduler_disableSynchronizationWithReason___block_invok
   engineLibrary = [(CPLEngineScheduler *)self engineLibrary];
   syncManager = [engineLibrary syncManager];
   [syncManager cancelCurrentSyncSession];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_disableSynchronizationBecauseContainerHasBeenWipedLocked
@@ -4948,13 +4898,13 @@ uint64_t __55__CPLEngineScheduler_disableSynchronizationWithReason___block_invok
   dispatch_async(v4, v5);
 }
 
-uint64_t __46__CPLEngineScheduler_noteClientIsInBackground__block_invoke(uint64_t a1)
+id *__46__CPLEngineScheduler_noteClientIsInBackground__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
-  if (*(result + 120))
+  if (result[15])
   {
-    [*(result + 120) timeIntervalSinceNow];
+    [result[15] timeIntervalSinceNow];
     result = *(a1 + 32);
     if (v3 < 0.0)
     {
@@ -4963,32 +4913,32 @@ uint64_t __46__CPLEngineScheduler_noteClientIsInBackground__block_invoke(uint64_
     }
   }
 
-  v4 = *(result + 136);
+  v4 = result[17];
   if (!v4)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v20 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v21 = NSStringFromSelector(*(a1 + 40));
+        v20 = NSStringFromSelector(*(a1 + 40));
         *buf = 138412290;
-        v28 = v21;
-        _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "%@ has been called too many times", buf, 0xCu);
+        v27 = v20;
+        _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "%@ has been called too many times", buf, 0xCu);
       }
     }
 
-    v22 = [MEMORY[0x1E696AAA8] currentHandler];
-    v24 = *(a1 + 32);
-    v23 = *(a1 + 40);
-    v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
-    v26 = NSStringFromSelector(*(a1 + 40));
-    [v22 handleFailureInMethod:v23 object:v24 file:v25 lineNumber:838 description:{@"%@ has been called too many times", v26}];
+    v21 = [MEMORY[0x1E696AAA8] currentHandler];
+    v23 = *(a1 + 32);
+    v22 = *(a1 + 40);
+    v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
+    v25 = NSStringFromSelector(*(a1 + 40));
+    [v21 handleFailureInMethod:v22 object:v23 file:v24 lineNumber:838 description:{@"%@ has been called too many times", v25}];
 
     abort();
   }
 
-  *(result + 136) = v4 - 1;
+  result[17] = v4 - 1;
   v5 = *(a1 + 32);
   if (!*(v5 + 136))
   {
@@ -5024,7 +4974,7 @@ uint64_t __46__CPLEngineScheduler_noteClientIsInBackground__block_invoke(uint64_
             {
               v18 = [CPLEngineSyncManager shortDescriptionForState:*(*(a1 + 32) + 16)];
               *buf = 138412290;
-              v28 = v18;
+              v27 = v18;
               _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEBUG, "All clients are now in background and we need a sync session, scheduling one now from at least %@", buf, 0xCu);
             }
           }
@@ -5037,10 +4987,9 @@ uint64_t __46__CPLEngineScheduler_noteClientIsInBackground__block_invoke(uint64_
       v13 = *(a1 + 32);
     }
 
-    result = [v13 _updateOverridingForeground];
+    return [v13 _updateOverridingForeground];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5066,7 +5015,7 @@ uint64_t __46__CPLEngineScheduler_noteClientIsInBackground__block_invoke(uint64_
 
 void __54__CPLEngineScheduler_noteClientIsInForegroundQuietly___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 120))
   {
@@ -5129,7 +5078,7 @@ void __54__CPLEngineScheduler_noteClientIsInForegroundQuietly___block_invoke(uin
     v22 = __CPLSchedulerOSLogDomain_7603();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      *v37 = 0;
+      *v36 = 0;
       v25 = "Some client is in foreground but supervisor asked not to trigger a sync session";
       goto LABEL_22;
     }
@@ -5151,13 +5100,13 @@ LABEL_24:
       v22 = __CPLSchedulerOSLogDomain_7603();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        *v37 = 0;
+        *v36 = 0;
         v25 = "Some client is in foreground but we have been asked not to trigger a sync session";
 LABEL_22:
         v26 = v22;
         v27 = 2;
 LABEL_23:
-        _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_DEFAULT, v25, v37, v27);
+        _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_DEFAULT, v25, v36, v27);
         goto LABEL_24;
       }
 
@@ -5166,31 +5115,31 @@ LABEL_23:
 
     *(*(a1 + 32) + 227) = [*(a1 + 32) _justInCaseSessionIsPossible];
     *(*(a1 + 32) + 56) = 0x3FB99999A0000000;
-    v29 = *(a1 + 32);
-    if (*(v29 + 16) <= 0xDuLL && *(v29 + 80) <= 0xDuLL)
+    v28 = *(a1 + 32);
+    if (*(v28 + 16) <= 0xDuLL && *(v28 + 80) <= 0xDuLL)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v30 = __CPLSchedulerOSLogDomain_7603();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v29 = __CPLSchedulerOSLogDomain_7603();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = [CPLEngineSyncManager shortDescriptionForState:*(*(a1 + 32) + 16)];
-          *v37 = 138543362;
-          *&v37[4] = v31;
-          _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_DEFAULT, "Some client is in foreground, current required state is %{public}@", v37, 0xCu);
+          v30 = [CPLEngineSyncManager shortDescriptionForState:*(*(a1 + 32) + 16)];
+          *v36 = 138543362;
+          *&v36[4] = v30;
+          _os_log_impl(&dword_1DC05A000, v29, OS_LOG_TYPE_DEFAULT, "Some client is in foreground, current required state is %{public}@", v36, 0xCu);
         }
 
-        v29 = *(a1 + 32);
+        v28 = *(a1 + 32);
       }
 
-      [v29 _disableFastRelaunchProtection];
+      [v28 _disableFastRelaunchProtection];
       goto LABEL_25;
     }
 
-    if (*(v29 + 208))
+    if (*(v28 + 208))
     {
       [v4 timeIntervalSinceDate:?];
-      if (v32 <= 600.0)
+      if (v31 <= 600.0)
       {
         if (_CPLSilentLogging)
         {
@@ -5204,8 +5153,8 @@ LABEL_23:
         }
 
         [v4 timeIntervalSinceDate:*(*(a1 + 32) + 208)];
-        *v37 = 134217984;
-        *&v37[4] = v35;
+        *v36 = 134217984;
+        *&v36[4] = v34;
         v25 = "Some client is in foreground but we already did a sync session for foreground clients %.0fs ago";
 LABEL_43:
         v26 = v22;
@@ -5213,26 +5162,26 @@ LABEL_43:
         goto LABEL_23;
       }
 
-      v29 = *(a1 + 32);
+      v28 = *(a1 + 32);
     }
 
-    objc_storeStrong((v29 + 208), v4);
-    v33 = *(a1 + 32);
-    if (!v33[13])
+    objc_storeStrong((v28 + 208), v4);
+    v32 = *(a1 + 32);
+    if (!v32[13])
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v36 = __CPLSchedulerOSLogDomain_7603();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v35 = __CPLSchedulerOSLogDomain_7603();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          *v37 = 0;
-          _os_log_impl(&dword_1DC05A000, v36, OS_LOG_TYPE_DEFAULT, "Some client is in foreground. Scheduling a sync session soon", v37, 2u);
+          *v36 = 0;
+          _os_log_impl(&dword_1DC05A000, v35, OS_LOG_TYPE_DEFAULT, "Some client is in foreground. Scheduling a sync session soon", v36, 2u);
         }
 
-        v33 = *(a1 + 32);
+        v32 = *(a1 + 32);
       }
 
-      [v33 _noteSyncSessionNeededFromState:2 proposedScheduleDate:0];
+      [v32 _noteSyncSessionNeededFromState:2 proposedScheduleDate:0];
       goto LABEL_25;
     }
 
@@ -5247,9 +5196,9 @@ LABEL_43:
       goto LABEL_24;
     }
 
-    v34 = *(*(a1 + 32) + 104);
-    *v37 = 138543362;
-    *&v37[4] = v34;
+    v33 = *(*(a1 + 32) + 104);
+    *v36 = 138543362;
+    *&v36[4] = v33;
     v25 = "Some client is in foreground but we are already in %{public}@";
     goto LABEL_43;
   }
@@ -5261,9 +5210,9 @@ LABEL_43:
     {
       v23 = [*(*(a1 + 32) + 144) allObjects];
       v24 = [v23 componentsJoinedByString:{@", "}];
-      *v37 = 138543362;
-      *&v37[4] = v24;
-      _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "Some client is in foreground but synchronization is disabled because of %{public}@", v37, 0xCu);
+      *v36 = 138543362;
+      *&v36[4] = v24;
+      _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "Some client is in foreground but synchronization is disabled because of %{public}@", v36, 0xCu);
     }
 
     goto LABEL_24;
@@ -5271,8 +5220,6 @@ LABEL_43:
 
 LABEL_25:
   [*(a1 + 32) _updateOverridingForeground];
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteResourceDownloadQueueIsFull
@@ -5438,41 +5385,35 @@ uint64_t __55__CPLEngineScheduler__reallyNoteServerHasChangesLocked__block_invok
 
 - (void)_noteSyncSessionNeededFromStateDontRewindImmediately:(unint64_t)immediately
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   currentSyncState = self->_currentSyncState;
   if (currentSyncState <= immediately || currentSyncState > 0xB)
   {
-    v7 = *MEMORY[0x1E69E9840];
 
     [CPLEngineScheduler _noteSyncSessionNeededFromState:"_noteSyncSessionNeededFromState:proposedScheduleDate:" proposedScheduleDate:?];
   }
 
-  else
+  else if (self->_requiredFirstState > immediately && self->_pendingRequiredFirstState > immediately)
   {
-    if (self->_requiredFirstState > immediately && self->_pendingRequiredFirstState > immediately)
+    if ((_CPLSilentLogging & 1) == 0)
     {
-      if ((_CPLSilentLogging & 1) == 0)
+      v7 = __CPLSchedulerOSLogDomain_7603();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = __CPLSchedulerOSLogDomain_7603();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-        {
-          v9 = [CPLEngineSyncManager shortDescriptionForState:immediately];
-          v10 = [CPLEngineSyncManager shortDescriptionForState:self->_currentSyncState];
-          v11 = [CPLEngineSyncManager shortDescriptionForState:11];
-          v13 = 138543874;
-          v14 = v9;
-          v15 = 2114;
-          v16 = v10;
-          v17 = 2114;
-          v18 = v11;
-          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Notified that we need to rewind to %{public}@ but we will wait for %{public}@...%{public}@ to be finished", &v13, 0x20u);
-        }
+        v8 = [CPLEngineSyncManager shortDescriptionForState:immediately];
+        v9 = [CPLEngineSyncManager shortDescriptionForState:self->_currentSyncState];
+        v10 = [CPLEngineSyncManager shortDescriptionForState:11];
+        v11 = 138543874;
+        v12 = v8;
+        v13 = 2114;
+        v14 = v9;
+        v15 = 2114;
+        v16 = v10;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Notified that we need to rewind to %{public}@ but we will wait for %{public}@...%{public}@ to be finished", &v11, 0x20u);
       }
-
-      self->_pendingRequiredFirstState = immediately;
     }
 
-    v12 = *MEMORY[0x1E69E9840];
+    self->_pendingRequiredFirstState = immediately;
   }
 }
 
@@ -5497,11 +5438,11 @@ uint64_t __55__CPLEngineScheduler__reallyNoteServerHasChangesLocked__block_invok
 
 void *__58__CPLEngineScheduler_noteClientIsNotInSyncWithClientCache__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
-  if (result[10] <= 0xDuLL)
+  if (result[10] > 0xDuLL)
   {
-    if (_CPLSilentLogging)
+    if (result[2] > 0xDuLL || (_CPLSilentLogging & 1) != 0)
     {
       goto LABEL_11;
     }
@@ -5512,42 +5453,40 @@ void *__58__CPLEngineScheduler_noteClientIsNotInSyncWithClientCache__block_invok
       goto LABEL_10;
     }
 
-    v4 = *(*(a1 + 32) + 104);
-    v9 = 138543362;
-    v10 = v4;
-    v5 = "Stopping %{public}@ until client is in sync with the engine";
-    v6 = v3;
-    v7 = 12;
-    goto LABEL_9;
-  }
-
-  if (result[2] <= 0xDuLL && (_CPLSilentLogging & 1) == 0)
-  {
-    v3 = __CPLSchedulerOSLogDomain_7603();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-LABEL_10:
-
-      result = *(a1 + 32);
-      goto LABEL_11;
-    }
-
-    LOWORD(v9) = 0;
+    LOWORD(v8) = 0;
     v5 = "Unscheduling sync session until client is in sync with the engine";
     v6 = v3;
     v7 = 2;
-LABEL_9:
-    _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, v7);
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
+  if (_CPLSilentLogging)
+  {
+    goto LABEL_11;
+  }
+
+  v3 = __CPLSchedulerOSLogDomain_7603();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = *(*(a1 + 32) + 104);
+    v8 = 138543362;
+    v9 = v4;
+    v5 = "Stopping %{public}@ until client is in sync with the engine";
+    v6 = v3;
+    v7 = 12;
+LABEL_9:
+    _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
+  }
+
+LABEL_10:
+
+  result = *(a1 + 32);
 LABEL_11:
   if (result[2] >= 7uLL)
   {
-    result = [result _unscheduleNextSyncSession];
+    return [result _unscheduleNextSyncSession];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5616,7 +5555,7 @@ uint64_t __55__CPLEngineScheduler_noteClientIsInSyncWithClientCache__block_invok
 
 void __43__CPLEngineScheduler_noteClientNeedsToPull__block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [a1[4] scopes];
   if ([v2 hasStagedSyncAnchors])
   {
@@ -5629,18 +5568,16 @@ LABEL_7:
       {
         v7 = [a1[5] store];
         v8 = [v7 pullQueue];
-        v10 = 134217984;
-        v11 = [v8 countOfQueuedBatches];
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "There is %lu batches in the pull queue and staged sync anchors. Notifying who might be interested", &v10, 0xCu);
+        v9 = 134217984;
+        v10 = [v8 countOfQueuedBatches];
+        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "There is %lu batches in the pull queue and staged sync anchors. Notifying who might be interested", &v9, 0xCu);
       }
     }
 
     [a1[5] notifyAttachedObjectsPullQueueIsFull];
     v5 = [a1[6] platformObject];
     [v5 noteClientNeedsToPull];
-LABEL_12:
-
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   v3 = [a1[4] pullQueue];
@@ -5651,20 +5588,19 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  if ((_CPLSilentLogging & 1) == 0)
+  if (_CPLSilentLogging)
   {
-    v5 = __CPLSchedulerOSLogDomain_7603();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "There is no changes in the pull queue and no staged sync anchors", &v10, 2u);
-    }
-
-    goto LABEL_12;
+    return;
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
+  v5 = __CPLSchedulerOSLogDomain_7603();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "There is no changes in the pull queue and no staged sync anchors", &v9, 2u);
+  }
+
+LABEL_12:
 }
 
 - (void)noteScopeNeedsToUploadComputeState
@@ -6145,7 +6081,7 @@ uint64_t __41__CPLEngineScheduler_noteStoreNeedsSetup__block_invoke(uint64_t a1)
   dispatch_async(v4, v5);
 }
 
-uint64_t __40__CPLEngineScheduler_kickOffSyncSession__block_invoke(uint64_t a1)
+void *__40__CPLEngineScheduler_kickOffSyncSession__block_invoke(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -6279,54 +6215,51 @@ uint64_t __61__CPLEngineScheduler_forceStartSyncSession_withMinimalPhase___block
 
 void __50__CPLEngineScheduler_startRequiredSyncSessionNow___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  if (*(v2 + 112) != 1)
+  if (*(v2 + 112) == 1)
   {
-LABEL_14:
-    v9 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (*(v2 + 48) == *(a1 + 40))
-  {
-    v4 = *(v2 + 120);
-    if (v4)
+    if (*(v2 + 48) == *(a1 + 40))
     {
-      [v4 timeIntervalSinceNow];
-      if (v5 < 0.0)
+      v3 = *(v2 + 120);
+      if (v3)
       {
-        [*(a1 + 32) _disableRetryAfterLocked];
+        [v3 timeIntervalSinceNow];
+        if (v4 < 0.0)
+        {
+          [*(a1 + 32) _disableRetryAfterLocked];
+        }
       }
+
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v5 = __CPLSchedulerOSLogDomain_7603();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        {
+          v6 = *(a1 + 40);
+          v7 = [CPLEngineSyncManager shortDescriptionForState:*(*(a1 + 32) + 16)];
+          *buf = 138412546;
+          v10 = v6;
+          v11 = 2112;
+          v12 = v7;
+          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "It's time to start %@ from %@", buf, 0x16u);
+        }
+      }
+
+      [*(a1 + 32) _startRequiredSyncSession:*(a1 + 40)];
     }
 
-    if ((_CPLSilentLogging & 1) == 0)
+    else
     {
-      v6 = __CPLSchedulerOSLogDomain_7603();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-      {
-        v7 = *(a1 + 40);
-        v8 = [CPLEngineSyncManager shortDescriptionForState:*(*(a1 + 32) + 16)];
-        *buf = 138412546;
-        v12 = v7;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "It's time to start %@ from %@", buf, 0x16u);
-      }
+      v8 = [v2 platformObject];
+      [v8 noteSyncSessionSucceeded:*(a1 + 40)];
     }
-
-    [*(a1 + 32) _startRequiredSyncSession:*(a1 + 40)];
-    goto LABEL_14;
   }
-
-  v10 = [v2 platformObject];
-  [v10 noteSyncSessionSucceeded:*(a1 + 40)];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_backOff
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   unavailabilityLimitDate = self->_unavailabilityLimitDate;
   if (unavailabilityLimitDate)
   {
@@ -6351,13 +6284,11 @@ LABEL_14:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       intervalForRetry = self->_intervalForRetry;
-      v10 = 134217984;
-      v11 = intervalForRetry;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Will back-off retry to %.0fs", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = intervalForRetry;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Will back-off retry to %.0fs", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_noteSyncSessionNeededFromState:(unint64_t)state minimumDelay:(double)intervalForRetry
@@ -6390,7 +6321,7 @@ LABEL_14:
 
 - (void)_noteSyncSessionNeededFromState:(unint64_t)state proposedScheduleDate:(id)date
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   unavailabilityLimitDate = self->_unavailabilityLimitDate;
   if (unavailabilityLimitDate)
@@ -6421,11 +6352,11 @@ LABEL_14:
         {
           intervalForRetry = self->_intervalForRetry;
           v15 = [CPLEngineSyncManager shortDescriptionForState:state];
-          v38 = 134218242;
-          v39 = intervalForRetry;
-          v40 = 2114;
-          v41 = v15;
-          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Resetting backoff interval to %.0fs because we are asked to start from %{public}@", &v38, 0x16u);
+          v37 = 134218242;
+          v38 = intervalForRetry;
+          v39 = 2114;
+          v40 = v15;
+          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Resetting backoff interval to %.0fs because we are asked to start from %{public}@", &v37, 0x16u);
         }
       }
 
@@ -6447,9 +6378,9 @@ LABEL_14:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           v25 = [CPLEngineSyncManager shortDescriptionForState:state];
-          v38 = 138543362;
-          v39 = *&v25;
-          _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEFAULT, "We are asked to schedule a sync session from %{public}@", &v38, 0xCu);
+          v37 = 138543362;
+          v38 = *&v25;
+          _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEFAULT, "We are asked to schedule a sync session from %{public}@", &v37, 0xCu);
         }
       }
 
@@ -6465,11 +6396,11 @@ LABEL_14:
           {
             v28 = self->_currentSession;
             v29 = [CPLEngineSyncManager shortDescriptionForState:state];
-            v38 = 138543618;
-            v39 = *&v28;
-            v40 = 2114;
-            v41 = v29;
-            _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_DEFAULT, "We are in the middle of %{public}@. Let's use it and rewind to %{public}@", &v38, 0x16u);
+            v37 = 138543618;
+            v38 = *&v28;
+            v39 = 2114;
+            v40 = v29;
+            _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_DEFAULT, "We are in the middle of %{public}@. Let's use it and rewind to %{public}@", &v37, 0x16u);
           }
 
           currentSession = self->_currentSession;
@@ -6503,13 +6434,13 @@ LABEL_14:
       v20 = [CPLEngineSyncManager shortDescriptionForState:self->_currentSyncState];
       v21 = [CPLEngineSyncManager shortDescriptionForState:state];
       v22 = [CPLEngineSyncManager shortDescriptionForState:self->_requiredFirstState];
-      v38 = 138543874;
-      v39 = *&v20;
-      v40 = 2114;
-      v41 = v21;
-      v42 = 2114;
-      v43 = v22;
-      _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "We are in the middle of %{public}@ and are requested to rewind to %{public}@ but we will already rewind to %{public}@", &v38, 0x20u);
+      v37 = 138543874;
+      v38 = *&v20;
+      v39 = 2114;
+      v40 = v21;
+      v41 = 2114;
+      v42 = v22;
+      _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "We are in the middle of %{public}@ and are requested to rewind to %{public}@ but we will already rewind to %{public}@", &v37, 0x20u);
     }
 
     else
@@ -6517,7 +6448,7 @@ LABEL_14:
       if (currentSyncState >= state)
       {
         nextSession = self->_nextSession;
-        if (!nextSession || self->_deferDate || ([(CPLSyncSession *)nextSession expectedDate], v37 = objc_claimAutoreleasedReturnValue(), v37, !v37))
+        if (!nextSession || self->_deferDate || ([(CPLSyncSession *)nextSession expectedDate], v36 = objc_claimAutoreleasedReturnValue(), v36, !v36))
         {
           [(CPLEngineScheduler *)self _scheduleNextSyncSession];
         }
@@ -6538,13 +6469,13 @@ LABEL_14:
           v31 = [CPLEngineSyncManager shortDescriptionForState:state];
           v32 = [CPLEngineSyncManager shortDescriptionForState:self->_requiredFirstState];
           whenItWillStartDescription = [(CPLSyncSession *)self->_nextSession whenItWillStartDescription];
-          v38 = 138543874;
-          v39 = *&v31;
-          v40 = 2114;
-          v41 = v32;
-          v42 = 2114;
-          v43 = whenItWillStartDescription;
-          _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "We are asked to schedule a sync session from %{public}@ but we have already been asked to start from %{public}@ (should happen %{public}@)", &v38, 0x20u);
+          v37 = 138543874;
+          v38 = *&v31;
+          v39 = 2114;
+          v40 = v32;
+          v41 = 2114;
+          v42 = whenItWillStartDescription;
+          _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "We are asked to schedule a sync session from %{public}@ but we have already been asked to start from %{public}@ (should happen %{public}@)", &v37, 0x20u);
         }
 
         else
@@ -6579,11 +6510,11 @@ LABEL_56:
 
           v31 = [CPLEngineSyncManager shortDescriptionForState:state];
           v32 = [CPLEngineSyncManager shortDescriptionForState:self->_requiredFirstState];
-          v38 = 138543618;
-          v39 = *&v31;
-          v40 = 2114;
-          v41 = v32;
-          _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "We are asked to schedule a sync session from %{public}@ but we have already been asked to start from %{public}@ (no date scheduled yet)", &v38, 0x16u);
+          v37 = 138543618;
+          v38 = *&v31;
+          v39 = 2114;
+          v40 = v32;
+          _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "We are asked to schedule a sync session from %{public}@ but we have already been asked to start from %{public}@ (no date scheduled yet)", &v37, 0x16u);
         }
 
         goto LABEL_55;
@@ -6602,11 +6533,11 @@ LABEL_56:
 
       v20 = [CPLEngineSyncManager shortDescriptionForState:self->_currentSyncState];
       v21 = [CPLEngineSyncManager shortDescriptionForState:state];
-      v38 = 138543618;
-      v39 = *&v20;
-      v40 = 2114;
-      v41 = v21;
-      _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEBUG, "We are in the middle of %{public}@ and requested %{public}@ will happen later in the sync session.", &v38, 0x16u);
+      v37 = 138543618;
+      v38 = *&v20;
+      v39 = 2114;
+      v40 = v21;
+      _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEBUG, "We are in the middle of %{public}@ and requested %{public}@ will happen later in the sync session.", &v37, 0x16u);
     }
 
     goto LABEL_55;
@@ -6617,15 +6548,13 @@ LABEL_56:
     v23 = __CPLSchedulerOSLogDomain_7603();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v38) = 0;
-      _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_DEFAULT, "Not scheduling sync sessions until the scheduler is fully ready", &v38, 2u);
+      LOWORD(v37) = 0;
+      _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_DEFAULT, "Not scheduling sync sessions until the scheduler is fully ready", &v37, 2u);
     }
   }
 
 LABEL_60:
   self->_nextSessionIsJustInCase = 0;
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_allowsJustInCaseSessions
@@ -6663,7 +6592,7 @@ LABEL_60:
 
 - (void)_scheduleNextSyncSession
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   unavailabilityLimitDate = self->_unavailabilityLimitDate;
   if (unavailabilityLimitDate)
   {
@@ -6696,190 +6625,196 @@ LABEL_60:
   }
 
   nextSession = self->_nextSession;
-  if (nextSession)
+  if (!nextSession)
   {
-    if (self->_deferDate)
+    if (!self->_currentSession)
     {
-      if (_CPLSilentLogging)
-      {
-LABEL_15:
-        [(CPLEngineScheduler *)self _reallyUnscheduleSession];
-        goto LABEL_27;
-      }
+      goto LABEL_27;
+    }
 
-      v9 = __CPLSchedulerOSLogDomain_7603();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = self->_nextSession;
-        v11 = [CPLDateFormatter stringForTimeIntervalAgo:self->_deferDate now:0];
-        v41 = 138543618;
-        v42 = v10;
-        v43 = 2114;
-        v44 = v11;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ has been deferred %{public}@ - scheduling a new sync session", &v41, 0x16u);
-      }
+    if (_CPLSilentLogging)
+    {
+      return;
+    }
+
+    expectedDate2 = __CPLSchedulerOSLogDomain_7603();
+    if (os_log_type_enabled(expectedDate2, OS_LOG_TYPE_DEFAULT))
+    {
+      currentSession = self->_currentSession;
+      v40 = 138543362;
+      v41 = currentSession;
+      _os_log_impl(&dword_1DC05A000, expectedDate2, OS_LOG_TYPE_DEFAULT, "No need to schedule a sync session as we are already in the middle of %{public}@", &v40, 0xCu);
+    }
+
+LABEL_42:
+
+    return;
+  }
+
+  if (self->_deferDate)
+  {
+    if (_CPLSilentLogging)
+    {
+LABEL_15:
+      [(CPLEngineScheduler *)self _reallyUnscheduleSession];
+      goto LABEL_27;
+    }
+
+    v9 = __CPLSchedulerOSLogDomain_7603();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = self->_nextSession;
+      v11 = [CPLDateFormatter stringForTimeIntervalAgo:self->_deferDate now:0];
+      v40 = 138543618;
+      v41 = v10;
+      v42 = 2114;
+      v43 = v11;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ has been deferred %{public}@ - scheduling a new sync session", &v40, 0x16u);
+    }
 
 LABEL_14:
 
+    goto LABEL_15;
+  }
+
+  expectedDate = [(CPLSyncSession *)nextSession expectedDate];
+
+  if (!expectedDate)
+  {
+    if (_CPLSilentLogging)
+    {
       goto LABEL_15;
     }
 
-    expectedDate = [(CPLSyncSession *)nextSession expectedDate];
-
-    if (!expectedDate)
+    v9 = __CPLSchedulerOSLogDomain_7603();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      if (_CPLSilentLogging)
-      {
-        goto LABEL_15;
-      }
-
-      v9 = __CPLSchedulerOSLogDomain_7603();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        v29 = self->_nextSession;
-        v41 = 138543362;
-        v42 = v29;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ has no expected date - scheduling a new sync session", &v41, 0xCu);
-      }
-
-      goto LABEL_14;
+      v29 = self->_nextSession;
+      v40 = 138543362;
+      v41 = v29;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ has no expected date - scheduling a new sync session", &v40, 0xCu);
     }
 
-    expectedDate2 = [(CPLSyncSession *)self->_nextSession expectedDate];
-    [expectedDate2 timeIntervalSinceNow];
-    if (v15 > intervalForRetry)
-    {
-      if ((_CPLSilentLogging & 1) == 0)
-      {
-        v16 = __CPLSchedulerOSLogDomain_7603();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-        {
-          v17 = self->_nextSession;
-          v41 = 138543362;
-          v42 = v17;
-          _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@'s expected date is too far away - scheduling a new sync session", &v41, 0xCu);
-        }
-      }
+    goto LABEL_14;
+  }
 
-      [(CPLEngineScheduler *)self _reallyUnscheduleSession];
-
-LABEL_27:
-      requiredFirstState = self->_requiredFirstState;
-      if (requiredFirstState > 0xD || requiredFirstState >= 7 && (-[CPLEngineScheduler engineLibrary](self, "engineLibrary"), v19 = objc_claimAutoreleasedReturnValue(), [v19 store], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isClientInSyncWithClientCache"), v20, v19, !v21) || !-[CPLEngineScheduler _syncSessionIsPossible](self, "_syncSessionIsPossible"))
-      {
-LABEL_55:
-        [(CPLEngineScheduler *)self _updateOverridingForeground];
-        goto LABEL_56;
-      }
-
-      v22 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:intervalForRetry];
-      lastSuccessfulSyncSessionDate = self->_lastSuccessfulSyncSessionDate;
-      v24 = v22;
-      v25 = lastSuccessfulSyncSessionDate;
-      v26 = v25;
-      if (_decentNextSessionDate_onceToken == -1)
-      {
-        if (!v25)
-        {
-          goto LABEL_44;
-        }
-      }
-
-      else
-      {
-        dispatch_once(&_decentNextSessionDate_onceToken, &__block_literal_global_591);
-        if (!v26)
-        {
-          goto LABEL_44;
-        }
-      }
-
-      [v24 timeIntervalSinceDate:v26];
-      if (v27 < *&_decentNextSessionDate_secondSessionCoalescingInterval)
-      {
-        v28 = [(NSDate *)v26 dateByAddingTimeInterval:?];
-LABEL_45:
-        v32 = v28;
-
-        if (self->_protectAgainstFastRelaunch)
-        {
-          _minimalDateForFirstSync = [(CPLEngineScheduler *)self _minimalDateForFirstSync];
-          if (_minimalDateForFirstSync && [v32 compare:_minimalDateForFirstSync] == -1)
-          {
-            if ((_CPLSilentLogging & 1) == 0)
-            {
-              v34 = __CPLSchedulerOSLogDomain_7603();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
-              {
-                LOWORD(v41) = 0;
-                _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_DEFAULT, "Delaying first sync because we relaunched too fast", &v41, 2u);
-              }
-            }
-
-            v35 = _minimalDateForFirstSync;
-
-            self->_delayedFirstSyncBecauseOfRapidLaunch = 1;
-            v32 = v35;
-          }
-        }
-
-        platformObject = [(CPLEngineScheduler *)self platformObject];
-        v37 = [platformObject scheduleNextSyncSessionAtDate:v32];
-        v38 = self->_nextSession;
-        self->_nextSession = v37;
-
-        deferDate = self->_deferDate;
-        self->_deferDate = 0;
-
-        goto LABEL_55;
-      }
-
-LABEL_44:
-      v28 = v24;
-      goto LABEL_45;
-    }
-
+  expectedDate2 = [(CPLSyncSession *)self->_nextSession expectedDate];
+  [expectedDate2 timeIntervalSinceNow];
+  if (v15 <= intervalForRetry)
+  {
     if ((_CPLSilentLogging & 1) == 0)
     {
       v30 = __CPLSchedulerOSLogDomain_7603();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         whenItWillStartDescription = [(CPLSyncSession *)self->_nextSession whenItWillStartDescription];
-        v41 = 138543362;
-        v42 = whenItWillStartDescription;
-        _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_DEBUG, "No need to reschedule a sync session. A session is expected to start %{public}@", &v41, 0xCu);
+        v40 = 138543362;
+        v41 = whenItWillStartDescription;
+        _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_DEBUG, "No need to reschedule a sync session. A session is expected to start %{public}@", &v40, 0xCu);
       }
     }
 
     goto LABEL_42;
   }
 
-  if (!self->_currentSession)
-  {
-    goto LABEL_27;
-  }
-
   if ((_CPLSilentLogging & 1) == 0)
   {
-    expectedDate2 = __CPLSchedulerOSLogDomain_7603();
-    if (os_log_type_enabled(expectedDate2, OS_LOG_TYPE_DEFAULT))
+    v16 = __CPLSchedulerOSLogDomain_7603();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      currentSession = self->_currentSession;
-      v41 = 138543362;
-      v42 = currentSession;
-      _os_log_impl(&dword_1DC05A000, expectedDate2, OS_LOG_TYPE_DEFAULT, "No need to schedule a sync session as we are already in the middle of %{public}@", &v41, 0xCu);
+      v17 = self->_nextSession;
+      v40 = 138543362;
+      v41 = v17;
+      _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@'s expected date is too far away - scheduling a new sync session", &v40, 0xCu);
     }
-
-LABEL_42:
   }
 
-LABEL_56:
-  v40 = *MEMORY[0x1E69E9840];
+  [(CPLEngineScheduler *)self _reallyUnscheduleSession];
+
+LABEL_27:
+  requiredFirstState = self->_requiredFirstState;
+  if (requiredFirstState <= 0xD)
+  {
+    if (requiredFirstState < 7 || (-[CPLEngineScheduler engineLibrary](self, "engineLibrary"), v19 = objc_claimAutoreleasedReturnValue(), [v19 store], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isClientInSyncWithClientCache"), v20, v19, v21))
+    {
+      if ([(CPLEngineScheduler *)self _syncSessionIsPossible])
+      {
+        v22 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:intervalForRetry];
+        lastSuccessfulSyncSessionDate = self->_lastSuccessfulSyncSessionDate;
+        v24 = v22;
+        v25 = lastSuccessfulSyncSessionDate;
+        v26 = v25;
+        if (_decentNextSessionDate_onceToken == -1)
+        {
+          if (!v25)
+          {
+            goto LABEL_44;
+          }
+        }
+
+        else
+        {
+          dispatch_once(&_decentNextSessionDate_onceToken, &__block_literal_global_591);
+          if (!v26)
+          {
+            goto LABEL_44;
+          }
+        }
+
+        [v24 timeIntervalSinceDate:v26];
+        if (v27 < *&_decentNextSessionDate_secondSessionCoalescingInterval)
+        {
+          v28 = [(NSDate *)v26 dateByAddingTimeInterval:?];
+LABEL_45:
+          v32 = v28;
+
+          if (self->_protectAgainstFastRelaunch)
+          {
+            _minimalDateForFirstSync = [(CPLEngineScheduler *)self _minimalDateForFirstSync];
+            if (_minimalDateForFirstSync && [v32 compare:_minimalDateForFirstSync] == -1)
+            {
+              if ((_CPLSilentLogging & 1) == 0)
+              {
+                v34 = __CPLSchedulerOSLogDomain_7603();
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                {
+                  LOWORD(v40) = 0;
+                  _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_DEFAULT, "Delaying first sync because we relaunched too fast", &v40, 2u);
+                }
+              }
+
+              v35 = _minimalDateForFirstSync;
+
+              self->_delayedFirstSyncBecauseOfRapidLaunch = 1;
+              v32 = v35;
+            }
+          }
+
+          platformObject = [(CPLEngineScheduler *)self platformObject];
+          v37 = [platformObject scheduleNextSyncSessionAtDate:v32];
+          v38 = self->_nextSession;
+          self->_nextSession = v37;
+
+          deferDate = self->_deferDate;
+          self->_deferDate = 0;
+
+          goto LABEL_55;
+        }
+
+LABEL_44:
+        v28 = v24;
+        goto LABEL_45;
+      }
+    }
+  }
+
+LABEL_55:
+  [(CPLEngineScheduler *)self _updateOverridingForeground];
 }
 
 - (void)_startRequiredSyncSession:(id)session
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   unavailabilityLimitDate = self->_unavailabilityLimitDate;
   if (unavailabilityLimitDate)
@@ -6902,12 +6837,12 @@ LABEL_56:
         {
           if (self->_deferDate && (_CPLSilentLogging & 1) == 0)
           {
-            v15 = __CPLSchedulerOSLogDomain_7603();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v14 = __CPLSchedulerOSLogDomain_7603();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              v16 = 138543362;
-              v17 = sessionCopy;
-              _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_DEFAULT, "Restarting deferred %{public}@", &v16, 0xCu);
+              v15 = 138543362;
+              v16 = sessionCopy;
+              _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "Restarting deferred %{public}@", &v15, 0xCu);
             }
           }
 
@@ -6920,10 +6855,10 @@ LABEL_56:
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
             v12 = self->_nextSession;
-            v16 = 138412546;
-            v17 = sessionCopy;
-            v18 = 2112;
-            v19 = v12;
+            v15 = 138412546;
+            v16 = sessionCopy;
+            v17 = 2112;
+            v18 = v12;
             v9 = "Dropping request for sync session %@ from implementation as we scheduled %@";
             goto LABEL_18;
           }
@@ -6934,12 +6869,12 @@ LABEL_19:
 
       else if ((_CPLSilentLogging & 1) == 0)
       {
-        v14 = __CPLSchedulerOSLogDomain_7603();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v13 = __CPLSchedulerOSLogDomain_7603();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          v16 = 138412290;
-          v17 = sessionCopy;
-          _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEBUG, "Dropping request for sync session %@ from implementation as we cancelled that scheduling", &v16, 0xCu);
+          v15 = 138412290;
+          v16 = sessionCopy;
+          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEBUG, "Dropping request for sync session %@ from implementation as we cancelled that scheduling", &v15, 0xCu);
         }
       }
     }
@@ -6950,13 +6885,13 @@ LABEL_19:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         currentSession = self->_currentSession;
-        v16 = 138412546;
-        v17 = sessionCopy;
-        v18 = 2112;
-        v19 = currentSession;
+        v15 = 138412546;
+        v16 = sessionCopy;
+        v17 = 2112;
+        v18 = currentSession;
         v9 = "Dropping request for sync session %@ from implementation as we are already in the middle of %@";
 LABEL_18:
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, v9, &v16, 0x16u);
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, v9, &v15, 0x16u);
         goto LABEL_19;
       }
 
@@ -6970,41 +6905,39 @@ LABEL_18:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v10 = [CPLEngineSyncManager shortDescriptionForState:self->_requiredFirstState];
-      v16 = 138412290;
-      v17 = v10;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Dropping one request for a sync session from %@ because we are closed", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v10;
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Dropping one request for a sync session from %@ because we are closed", &v15, 0xCu);
     }
 
     goto LABEL_19;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reallyStartSyncSession:(id)session
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   currentSession = self->_currentSession;
   if (currentSession != sessionCopy && currentSession != 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v21 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v22 = self->_currentSession;
+        v21 = self->_currentSession;
         *buf = 138412546;
-        v26 = sessionCopy;
-        v27 = 2112;
-        v28 = v22;
-        _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Trying to start %@ while %@ is already running", buf, 0x16u);
+        v25 = sessionCopy;
+        v26 = 2112;
+        v27 = v21;
+        _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Trying to start %@ while %@ is already running", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v24 lineNumber:274 description:{@"Trying to start %@ while %@ is already running", sessionCopy, self->_currentSession}];
+    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v23 lineNumber:274 description:{@"Trying to start %@ while %@ is already running", sessionCopy, self->_currentSession}];
 
     abort();
   }
@@ -7062,8 +6995,102 @@ LABEL_18:
   }
 
   [(CPLEngineScheduler *)self _updateOverridingForeground];
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (void)_startSyncSession:(id)session withMinimalPhase:(unint64_t)phase rewind:(BOOL)rewind
+{
+  rewindCopy = rewind;
+  v24 = *MEMORY[0x1E69E9840];
+  sessionCopy = session;
+  v10 = sessionCopy;
+  if (rewindCopy && self->_currentSession != sessionCopy)
+  {
+    goto LABEL_24;
+  }
+
+  if (self->_protectAgainstFastRelaunch)
+  {
+    self->_protectAgainstFastRelaunch = 0;
+    [(CPLEngineScheduler *)self _writeFirstSynchronizationMarker];
+  }
+
+  if (self->_delayedFirstSyncBecauseOfRapidLaunch)
+  {
+    self->_delayedFirstSyncBecauseOfRapidLaunch = 0;
+  }
+
+  if (self->_currentSession != v10)
+  {
+    if (_CPLSilentLogging)
+    {
+      goto LABEL_20;
+    }
+
+    v11 = __CPLSchedulerOSLogDomain_7603();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_19;
+    }
+
+    v12 = [CPLEngineSyncManager shortDescriptionForState:phase];
+    v13 = v12;
+    v14 = " (don't rewind)";
+    *v22 = 138412802;
+    *&v22[4] = v10;
+    if (rewindCopy)
+    {
+      v14 = "";
+    }
+
+    *&v22[12] = 2112;
+    *&v22[14] = v12;
+    *&v22[22] = 2080;
+    v23 = v14;
+    v15 = "Starting %@ with minimal phase %@%s";
+    goto LABEL_18;
+  }
+
+  if (_CPLSilentLogging)
+  {
+    goto LABEL_20;
+  }
+
+  v11 = __CPLSchedulerOSLogDomain_7603();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = [CPLEngineSyncManager shortDescriptionForState:phase];
+    v13 = v16;
+    v17 = " (don't rewind)";
+    *v22 = 138412802;
+    *&v22[4] = v10;
+    if (rewindCopy)
+    {
+      v17 = "";
+    }
+
+    *&v22[12] = 2112;
+    *&v22[14] = v16;
+    *&v22[22] = 2080;
+    v23 = v17;
+    v15 = "Ensure %@ goes through phase %@%s";
+LABEL_18:
+    _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, v15, v22, 0x20u);
+  }
+
+LABEL_19:
+
+LABEL_20:
+  if (self->_nextSessionShouldRequestMoreTime || ([MEMORY[0x1E695E000] standardUserDefaults], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "BOOLForKey:", @"CPLAllSessionsShouldRequestMoreTime"), v18, v19))
+  {
+    [(CPLSyncSession *)v10 setShouldRequestMoreTime:1, *v22, *&v22[8], v23];
+  }
+
+  objc_storeStrong(&self->_currentSession, session);
+  WeakRetained = objc_loadWeakRetained(&self->_engineLibrary);
+  syncManager = [WeakRetained syncManager];
+  [syncManager startSyncSession:v10 withMinimalPhase:phase rewind:rewindCopy];
+
+LABEL_24:
 }
 
 - (BOOL)_justInCaseSessionIsPossible
@@ -7133,11 +7160,11 @@ LABEL_9:
 
 - (CPLEngineScheduler)initWithEngineLibrary:(id)library
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  v38.receiver = self;
-  v38.super_class = CPLEngineScheduler;
-  v6 = [(CPLEngineScheduler *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = CPLEngineScheduler;
+  v6 = [(CPLEngineScheduler *)&v37 init];
   v7 = v6;
   if (v6)
   {
@@ -7192,26 +7219,25 @@ LABEL_9:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v33 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v32 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          v34 = objc_opt_class();
+          v33 = objc_opt_class();
           *buf = 138412290;
-          v40 = v34;
-          v35 = v34;
-          _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
+          v39 = v33;
+          v34 = v33;
+          _os_log_impl(&dword_1DC05A000, v32, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
-      [currentHandler handleFailureInMethod:a2 object:v7 file:v37 lineNumber:196 description:{@"No platform object specified for %@", objc_opt_class()}];
+      v36 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineScheduler.m"];
+      [currentHandler handleFailureInMethod:a2 object:v7 file:v36 lineNumber:196 description:{@"No platform object specified for %@", objc_opt_class()}];
 
       abort();
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

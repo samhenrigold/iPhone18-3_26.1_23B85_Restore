@@ -274,32 +274,34 @@ HKCodableTimePeriodData *__69__HKTimePeriodSeriesDataSource__codableTimePeriodDa
   [(HKCodableTimePeriodData *)v4 setDateInterval:v5];
 
   v6 = [v3 startDate];
-  v7 = HKEncodeValueForDate();
-  v8 = [(HKCodableTimePeriodData *)v4 dateInterval];
-  [v8 setStartDate:v7];
+  HKEncodeValueForDate(v6);
+  v8 = v7;
+  v9 = [(HKCodableTimePeriodData *)v4 dateInterval];
+  [v9 setStartDate:v8];
 
-  v9 = [v3 endDate];
-  v10 = HKEncodeValueForDate();
-  v11 = [(HKCodableTimePeriodData *)v4 dateInterval];
-  [v11 setEndDate:v10];
+  v10 = [v3 endDate];
+  HKEncodeValueForDate(v10);
+  v12 = v11;
+  v13 = [(HKCodableTimePeriodData *)v4 dateInterval];
+  [v13 setEndDate:v12];
 
-  v12 = [*(a1 + 32) objectForKeyedSubscript:v3];
+  v14 = [*(a1 + 32) objectForKeyedSubscript:v3];
 
-  v13 = [*(a1 + 40) displayType];
-  v14 = [v13 roundingMode];
+  v15 = [*(a1 + 40) displayType];
+  v16 = [v15 roundingMode];
 
-  if (v14 == 1)
+  if (v16 == 1)
   {
-    v15 = [v12 integerValue];
+    v17 = [v14 integerValue];
   }
 
   else
   {
-    [v12 doubleValue];
-    v15 = llround(v16);
+    [v14 doubleValue];
+    v17 = llround(v18);
   }
 
-  [(HKCodableTimePeriodData *)v4 setTotal:v15];
+  [(HKCodableTimePeriodData *)v4 setTotal:v17];
 
   return v4;
 }

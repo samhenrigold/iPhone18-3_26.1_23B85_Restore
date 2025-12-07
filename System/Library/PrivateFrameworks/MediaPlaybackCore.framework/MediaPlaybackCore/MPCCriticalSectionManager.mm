@@ -48,7 +48,7 @@
   _Block_copy(v7);
   selfCopy = self;
   v14 = sub_1C5C6CAEC(v9, v11, v8, v12, selfCopy, v7);
-  sub_1C5C74C18(v8);
+  sub_1C5C74C18(v8, v12);
   _Block_release(v7);
   _Block_release(v7);
 
@@ -98,7 +98,7 @@
   _Block_copy(v7);
   selfCopy = self;
   v14 = sub_1C5E3EEB8(v9, v11, v8, v12, selfCopy, v7);
-  sub_1C5C74C18(v8);
+  sub_1C5C74C18(v8, v12);
   _Block_release(v7);
   _Block_release(v7);
 

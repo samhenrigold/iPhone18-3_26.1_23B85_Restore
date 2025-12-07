@@ -258,7 +258,6 @@ LABEL_41:
             NSStringFromClass(v35);
             v36 = dataCopy;
             v38 = v37 = error;
-            v39 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             error = v37;
@@ -294,22 +293,21 @@ LABEL_34:
 LABEL_44:
   if (!*&v7[*v10])
   {
-    v43 = 1;
+    v41 = 1;
     goto LABEL_48;
   }
 
 LABEL_45:
-  v40 = objc_opt_class();
-  v11 = NSStringFromClass(v40);
-  v41 = *&v7[*v10];
-  v42 = CCInvalidBufferErrorForMessage();
+  v39 = objc_opt_class();
+  v11 = NSStringFromClass(v39);
+  v40 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_46:
-  v43 = 0;
+  v41 = 0;
 LABEL_48:
 
-  return v43;
+  return v41;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValuePersonHandle)initWithValue:(id)value type:(unsigned int)type label:(id)label error:(id *)error

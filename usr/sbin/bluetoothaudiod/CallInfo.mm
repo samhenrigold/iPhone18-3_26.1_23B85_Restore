@@ -2,6 +2,7 @@
 - (CallInfo)init;
 - (id)callDescription;
 - (id)callFlagsDescriptionForFlags:(unsigned __int8)flags;
+- (id)tbsCallStateToString:(unsigned __int8)string;
 @end
 
 @implementation CallInfo
@@ -77,6 +78,21 @@
   [v5 appendString:v8];
 
   return v5;
+}
+
+- (id)tbsCallStateToString:(unsigned __int8)string
+{
+  if (string >= 7u)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN CALL STATE: %u", string];
+  }
+
+  else
+  {
+    string = *(&off_100095D10 + string);
+  }
+
+  return string;
 }
 
 @end

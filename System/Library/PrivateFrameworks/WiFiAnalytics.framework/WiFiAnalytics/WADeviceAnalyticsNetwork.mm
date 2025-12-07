@@ -16,42 +16,42 @@
 
 - (WADeviceAnalyticsNetwork)initWith:(id)with
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   withCopy = with;
-  v34.receiver = self;
-  v34.super_class = WADeviceAnalyticsNetwork;
-  v5 = [(WADeviceAnalyticsNetwork *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = WADeviceAnalyticsNetwork;
+  v5 = [(WADeviceAnalyticsNetwork *)&v33 init];
   if (v5)
   {
     ssid = [withCopy ssid];
     ssid = v5->_ssid;
     v5->_ssid = ssid;
 
-    v28 = v5;
+    v27 = v5;
     v5->_isHome = [withCopy isHome];
     v8 = objc_opt_new();
     v9 = objc_opt_new();
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v29 = withCopy;
+    v28 = withCopy;
     v10 = [withCopy bss];
-    v11 = [v10 countByEnumeratingWithState:&v30 objects:v41 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v29 objects:v40 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v31;
+      v13 = *v30;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v31 != v13)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v30 + 1) + 8 * i);
+          v15 = *(*(&v29 + 1) + 8 * i);
           v16 = [v15 lan];
 
           if (!v16)
@@ -60,11 +60,11 @@
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136446722;
-              v36 = "[WADeviceAnalyticsNetwork initWith:]";
-              v37 = 1024;
-              v38 = 1538;
-              v39 = 2112;
-              v40 = v15;
+              v35 = "[WADeviceAnalyticsNetwork initWith:]";
+              v36 = 1024;
+              v37 = 1538;
+              v38 = 2112;
+              v39 = v15;
               _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Warning: nil LAN for %@", buf, 0x1Cu);
             }
           }
@@ -78,25 +78,24 @@
           [(NSDictionary *)v9 setObject:allValues forKeyedSubscript:bssid];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v30 objects:v41 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v29 objects:v40 count:16];
       }
 
       while (v12);
     }
 
-    v5 = v28;
-    bssidsAndLans = v28->_bssidsAndLans;
-    v28->_bssidsAndLans = v9;
+    v5 = v27;
+    bssidsAndLans = v27->_bssidsAndLans;
+    v27->_bssidsAndLans = v9;
     v23 = v9;
 
     v24 = [MEMORY[0x1E695DFD8] setWithSet:v8];
-    lans = v28->_lans;
-    v28->_lans = v24;
+    lans = v27->_lans;
+    v27->_lans = v24;
 
-    withCopy = v29;
+    withCopy = v28;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -108,8 +107,7 @@
     v2 = @"(isHome)";
   }
 
-  lans = self->_lans;
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ lans:%@ bssidsAndLans:%@", self->_ssid, v2, lans, self->_bssidsAndLans];
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ lans:%@ bssidsAndLans:%@", self->_ssid, v2, self->_lans, self->_bssidsAndLans];
 }
 
 @end

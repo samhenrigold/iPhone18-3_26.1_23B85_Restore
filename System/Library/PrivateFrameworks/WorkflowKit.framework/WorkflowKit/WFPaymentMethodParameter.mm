@@ -123,7 +123,7 @@ uint64_t __50__WFPaymentMethodParameter_parameterStateIsValid___block_invoke(uin
 
     else
     {
-      v12 = 0;
+      isEqualToString = 0;
       v13 = v10;
       v14 = v9;
       if (!v9 || !v10)
@@ -134,9 +134,9 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      v12 = [v9 isEqualToString:v10];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-      if (!v12)
+      if (!isEqualToString)
       {
         goto LABEL_21;
       }
@@ -149,25 +149,25 @@ LABEL_21:
     v13 = v17;
     if (v14 == v17)
     {
-      v12 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v12 = 0;
+      isEqualToString = 0;
       if (v14 && v17)
       {
-        v12 = [v14 isEqualToString:v17];
+        isEqualToString = objc_msgSend_isEqualToString_(v14);
       }
     }
 
     goto LABEL_20;
   }
 
-  v12 = 0;
+  isEqualToString = 0;
 LABEL_22:
 
-  return v12;
+  return isEqualToString;
 }
 
 @end

@@ -20,60 +20,61 @@
 
 - (SBHAddWidgetButton)initWithFrame:(CGRect)frame
 {
-  v23[1] = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = SBHAddWidgetButton;
-  v3 = [(SBHAddWidgetButton *)&v22 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v24[1] = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = SBHAddWidgetButton;
+  v3 = [(SBHAddWidgetButton *)&v23 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v4 = v3;
   if (v3)
   {
-    v4 = SBHBundle();
-    v5 = [v4 localizedStringForKey:@"WIDGET_ADD_SHEET_ADD_WIDGET_THIS_STRING_NEEDS_TO_HAVE_A_LEADING_SPACE_FOR_LAYOUT_PURPOSES" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    [(SBHAddWidgetButton *)v3 setTitle:v5 forState:0];
+    v5 = SBHBundle(v3);
+    v6 = [v5 localizedStringForKey:@"WIDGET_ADD_SHEET_ADD_WIDGET_THIS_STRING_NEEDS_TO_HAVE_A_LEADING_SPACE_FOR_LAYOUT_PURPOSES" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    [(SBHAddWidgetButton *)v4 setTitle:v6 forState:0];
 
-    imageView = [(SBHAddWidgetButton *)v3 imageView];
+    imageView = [(SBHAddWidgetButton *)v4 imageView];
     [imageView setContentMode:1];
 
-    titleLabel = [(SBHAddWidgetButton *)v3 titleLabel];
+    titleLabel = [(SBHAddWidgetButton *)v4 titleLabel];
     [titleLabel setAdjustsFontSizeToFitWidth:1];
-    _titleLabelFont = [(SBHAddWidgetButton *)v3 _titleLabelFont];
+    _titleLabelFont = [(SBHAddWidgetButton *)v4 _titleLabelFont];
     [titleLabel setFont:_titleLabelFont];
 
-    _addSymbolImage = [(SBHAddWidgetButton *)v3 _addSymbolImage];
-    [(SBHAddWidgetButton *)v3 setImage:_addSymbolImage forState:0];
+    _addSymbolImage = [(SBHAddWidgetButton *)v4 _addSymbolImage];
+    [(SBHAddWidgetButton *)v4 setImage:_addSymbolImage forState:0];
 
-    [(SBHAddWidgetButton *)v3 setAdjustsImageWhenHighlighted:0];
-    v10 = objc_alloc_init(MEMORY[0x1E69AE168]);
-    backgroundView = v3->_backgroundView;
-    v3->_backgroundView = v10;
+    [(SBHAddWidgetButton *)v4 setAdjustsImageWhenHighlighted:0];
+    v11 = objc_alloc_init(MEMORY[0x1E69AE168]);
+    backgroundView = v4->_backgroundView;
+    v4->_backgroundView = v11;
 
-    [(MTStylingProvidingSolidColorView *)v3->_backgroundView setUserInteractionEnabled:0];
-    [(MTStylingProvidingSolidColorView *)v3->_backgroundView setHidden:1];
-    [(SBHAddWidgetButton *)v3 addSubview:v3->_backgroundView];
-    v12 = [(MTStylingProvidingSolidColorView *)v3->_backgroundView visualStylingProviderForCategory:1];
-    [v12 automaticallyUpdateView:v3 withStyle:0];
+    [(MTStylingProvidingSolidColorView *)v4->_backgroundView setUserInteractionEnabled:0];
+    [(MTStylingProvidingSolidColorView *)v4->_backgroundView setHidden:1];
+    [(SBHAddWidgetButton *)v4 addSubview:v4->_backgroundView];
+    v13 = [(MTStylingProvidingSolidColorView *)v4->_backgroundView visualStylingProviderForCategory:1];
+    [v13 automaticallyUpdateView:v4 withStyle:0];
 
     prominentGlassButtonConfiguration = [MEMORY[0x1E69DC740] prominentGlassButtonConfiguration];
-    [(SBHAddWidgetButton *)v3 setConfiguration:prominentGlassButtonConfiguration];
-    v14 = objc_alloc_init(MEMORY[0x1E69DD250]);
-    highlightView = v3->_highlightView;
-    v3->_highlightView = v14;
+    [(SBHAddWidgetButton *)v4 setConfiguration:prominentGlassButtonConfiguration];
+    v15 = objc_alloc_init(MEMORY[0x1E69DD250]);
+    highlightView = v4->_highlightView;
+    v4->_highlightView = v15;
 
-    [(UIView *)v3->_highlightView setUserInteractionEnabled:0];
-    [(UIView *)v3->_highlightView setAlpha:0.0];
-    [(SBHAddWidgetButton *)v3 insertSubview:v3->_highlightView atIndex:0];
-    [(SBHAddWidgetButton *)v3 layoutIfNeeded];
-    v16 = [objc_alloc(MEMORY[0x1E69DCDB0]) initWithDelegate:v3];
-    [(SBHAddWidgetButton *)v3 addInteraction:v16];
+    [(UIView *)v4->_highlightView setUserInteractionEnabled:0];
+    [(UIView *)v4->_highlightView setAlpha:0.0];
+    [(SBHAddWidgetButton *)v4 insertSubview:v4->_highlightView atIndex:0];
+    [(SBHAddWidgetButton *)v4 layoutIfNeeded];
+    v17 = [objc_alloc(MEMORY[0x1E69DCDB0]) initWithDelegate:v4];
+    [(SBHAddWidgetButton *)v4 addInteraction:v17];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    [defaultCenter addObserver:v3 selector:sel__contentSizeCategoryDidChange name:*MEMORY[0x1E69DDC48] object:0];
+    [defaultCenter addObserver:v4 selector:sel__contentSizeCategoryDidChange name:*MEMORY[0x1E69DDC48] object:0];
 
-    v18 = objc_opt_self();
-    v23[0] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
-    v20 = [(SBHAddWidgetButton *)v3 registerForTraitChanges:v19 withAction:sel__contentSizeCategoryDidChange];
+    v19 = objc_opt_self();
+    v24[0] = v19;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v21 = [(SBHAddWidgetButton *)v4 registerForTraitChanges:v20 withAction:sel__contentSizeCategoryDidChange];
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)dealloc
@@ -128,7 +129,7 @@ uint64_t __37__SBHAddWidgetButton_setHighlighted___block_invoke(uint64_t a1)
   v6.super_class = SBHAddWidgetButton;
   [(SBHAddWidgetButton *)&v6 layoutSubviews];
   highlightView = self->_highlightView;
-  [(SBHAddWidgetButton *)self bounds];
+  objc_msgSend_bounds(self);
   [(UIView *)highlightView setFrame:?];
   [(SBHAddWidgetButton *)self sendSubviewToBack:self->_highlightView];
   [(SBHAddWidgetButton *)self _buttonCornerRadius];
@@ -148,7 +149,7 @@ uint64_t __37__SBHAddWidgetButton_setHighlighted___block_invoke(uint64_t a1)
     [traitCollection displayCornerRadius];
     v8 = v7;
 
-    [(SBHAddWidgetButton *)self bounds];
+    objc_msgSend_bounds(self);
     result = v9 * 0.5;
     if (addWidgetSheetStyle != 1)
     {
@@ -295,7 +296,7 @@ void __44__SBHAddWidgetButton_mt_applyVisualStyling___block_invoke(uint64_t a1, 
 {
   v6 = MEMORY[0x1E69DCDC0];
   regionCopy = region;
-  [(SBHAddWidgetButton *)self bounds];
+  objc_msgSend_bounds(self);
   v9 = v8;
   v11 = v10;
   v13 = v12;

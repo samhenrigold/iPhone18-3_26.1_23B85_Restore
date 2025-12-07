@@ -29,15 +29,15 @@
 
 - (APSigningAuthorityPoolManager)initWithName:(id)name poolSize:(unint64_t)size numberToStash:(unint64_t)stash stateChangeHandler:(id)handler setupCompletion:(id)completion
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   completionCopy = completion;
   if (objc_msgSend_isAllowedClient(APSigningClientValidator, v16, v17, v18))
   {
-    v65.receiver = self;
-    v65.super_class = APSigningAuthorityPoolManager;
-    v19 = [(APSigningAuthorityPoolManager *)&v65 init];
+    v64.receiver = self;
+    v64.super_class = APSigningAuthorityPoolManager;
+    v19 = [(APSigningAuthorityPoolManager *)&v64 init];
     if (v19)
     {
       v20 = _Block_copy(handlerCopy);
@@ -103,7 +103,7 @@
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v67 = @"Unable to create pool manager, not a valid client.";
+      v66 = @"Unable to create pool manager, not a valid client.";
       _os_log_impl(&dword_1BADC1000, v48, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -118,13 +118,12 @@
     selfCopy = 0;
   }
 
-  v63 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (APSigningAuthorityPoolManager)initWithName:(id)name poolSize:(unint64_t)size numberToStash:(unint64_t)stash
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if ((objc_msgSend_isAllowedClient(APSigningClientValidator, v10, v11, v12) & 1) == 0)
   {
@@ -132,7 +131,7 @@
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v44 = @"Unable to create pool manager, not a valid client.";
+      v43 = @"Unable to create pool manager, not a valid client.";
       _os_log_impl(&dword_1BADC1000, v39, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -140,9 +139,9 @@
     goto LABEL_10;
   }
 
-  v42.receiver = self;
-  v42.super_class = APSigningAuthorityPoolManager;
-  v13 = [(APSigningAuthorityPoolManager *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = APSigningAuthorityPoolManager;
+  v13 = [(APSigningAuthorityPoolManager *)&v41 init];
   if (!v13)
   {
     self = APLogForCategory(0x30uLL);
@@ -189,7 +188,6 @@ LABEL_10:
   objc_msgSend__clearStashedContextsIfIndicated(v14, v36, v37, v38);
 LABEL_11:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -264,7 +262,7 @@ LABEL_11:
 
 - (void)setState:(int64_t)state
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   Current = CFAbsoluteTimeGetCurrent();
   v6 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -276,28 +274,28 @@ LABEL_11:
     v17 = Current - v16;
     v18 = CFAbsoluteTimeGetCurrent();
     objc_msgSend_refillStartTime(self, v19, v20, v21);
-    v40 = 134219010;
+    v39 = 134219010;
     selfCopy2 = self;
-    v42 = 2112;
+    v41 = 2112;
     stateCopy = v11;
-    v44 = 2112;
-    v45 = v12;
-    v46 = 2048;
-    v47 = v17;
-    v48 = 2048;
-    v49 = v18 - v22;
-    _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_INFO, "Signing pool manager %p state %@ -> %@ (%.6f) (%.6f)", &v40, 0x34u);
+    v43 = 2112;
+    v44 = v12;
+    v45 = 2048;
+    v46 = v17;
+    v47 = 2048;
+    v48 = v18 - v22;
+    _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_INFO, "Signing pool manager %p state %@ -> %@ (%.6f) (%.6f)", &v39, 0x34u);
   }
 
   objc_msgSend_setLastStateChangeTime_(self, v23, v24, v25, Current);
   v26 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
-    v40 = 134218240;
+    v39 = 134218240;
     selfCopy2 = self;
-    v42 = 2050;
+    v41 = 2050;
     stateCopy = state;
-    _os_log_impl(&dword_1BADC1000, v26, OS_LOG_TYPE_INFO, "Pool manager %p state changed to %{public}ld", &v40, 0x16u);
+    _os_log_impl(&dword_1BADC1000, v26, OS_LOG_TYPE_INFO, "Pool manager %p state changed to %{public}ld", &v39, 0x16u);
   }
 
   self->_state = state;
@@ -309,28 +307,25 @@ LABEL_11:
     v38 = objc_msgSend_state(self, v35, v36, v37);
     v34[2](v34, v38);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPoolSize:(unint64_t)size
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (size >= 5)
   {
     v4 = APLogForCategory(0x30uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138543362;
-      v7 = @"Requested pool size is greater than max allowed pool size, setting poolSize to max pool size.";
-      _os_log_impl(&dword_1BADC1000, v4, OS_LOG_TYPE_ERROR, "%{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = @"Requested pool size is greater than max allowed pool size, setting poolSize to max pool size.";
+      _os_log_impl(&dword_1BADC1000, v4, OS_LOG_TYPE_ERROR, "%{public}@", &v5, 0xCu);
     }
 
     size = 4;
   }
 
   self->_poolSize = size;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_evaluateRotationEntitlement
@@ -350,16 +345,16 @@ LABEL_11:
 
 - (void)setCurrentSigningAuthority:(id)authority
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   authorityCopy = authority;
   v6 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v22 = 134218240;
+    v21 = 134218240;
     selfCopy = self;
-    v24 = 2048;
-    v25 = authorityCopy;
-    _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_INFO, "Pool manager %p setting current authority %p", &v22, 0x16u);
+    v23 = 2048;
+    v24 = authorityCopy;
+    _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_INFO, "Pool manager %p setting current authority %p", &v21, 0x16u);
   }
 
   if (self->_currentSigningAuthority != authorityCopy)
@@ -371,13 +366,11 @@ LABEL_11:
     v17 = objc_msgSend_lock(self, v14, v15, v16);
     objc_msgSend_unlock(v17, v18, v19, v20);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refillSigningAuthorityPool
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v116 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_state(self, a2, v2, v3) == 18002)
   {
     v8 = APLogForCategory(0x30uLL);
@@ -401,8 +394,8 @@ LABEL_11:
     {
       *buf = 134218240;
       selfCopy5 = self;
-      v115 = 2048;
-      v116 = objc_msgSend_retryLevel(self, v17, v18, v19);
+      v114 = 2048;
+      v115 = objc_msgSend_retryLevel(self, v17, v18, v19);
       _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_INFO, "Pool manager %p refilling (retry %ld)", buf, 0x16u);
     }
 
@@ -410,30 +403,30 @@ LABEL_11:
     {
       Current = CFAbsoluteTimeGetCurrent();
       objc_msgSend_setRefillStartTime_(self, v24, v25, v26, Current);
-      v110 = 0u;
-      v111 = 0u;
-      v108 = 0u;
       v109 = 0u;
+      v110 = 0u;
+      v107 = 0u;
+      v108 = 0u;
       v30 = objc_msgSend_signingAuthorityPool(self, v27, v28, v29);
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v108, v112, 16);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v107, v111, 16);
       if (v32)
       {
         v36 = v32;
         v37 = 0;
-        v38 = *v109;
+        v38 = *v108;
         do
         {
           for (i = 0; i != v36; ++i)
           {
-            if (*v109 != v38)
+            if (*v108 != v38)
             {
               objc_enumerationMutation(v30);
             }
 
-            v37 += objc_msgSend_usingStashedContext(*(*(&v108 + 1) + 8 * i), v33, v34, v35);
+            v37 += objc_msgSend_usingStashedContext(*(*(&v107 + 1) + 8 * i), v33, v34, v35);
           }
 
-          v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v108, v112, 16);
+          v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v107, v111, 16);
         }
 
         while (v36);
@@ -464,12 +457,12 @@ LABEL_11:
           block[1] = 3221225472;
           block[2] = sub_1BAF0BD70;
           block[3] = &unk_1E7F1CE70;
-          v107 = v54;
-          v105 = v62;
+          v106 = v54;
+          v104 = v62;
           selfCopy3 = self;
           dispatch_after(v90, v94, block);
 
-          v95 = v105;
+          v95 = v104;
         }
 
         else
@@ -513,26 +506,24 @@ LABEL_11:
       objc_msgSend_unlock(v47, v48, v49, v50);
     }
   }
-
-  v103 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCompletedSigningAuthority:(id)authority
 {
-  v114 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   authorityCopy = authority;
   v5 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     Current = CFAbsoluteTimeGetCurrent();
     objc_msgSend_refillStartTime(self, v7, v8, v9);
-    v108 = 134218498;
+    v107 = 134218498;
     selfCopy6 = self;
-    v110 = 2112;
-    v111 = authorityCopy;
-    v112 = 2048;
-    v113 = Current - v10;
-    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Pool manager %p received completed signing authority %@ in %.6f seconds since refill started.", &v108, 0x20u);
+    v109 = 2112;
+    v110 = authorityCopy;
+    v111 = 2048;
+    v112 = Current - v10;
+    _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_INFO, "Pool manager %p received completed signing authority %@ in %.6f seconds since refill started.", &v107, 0x20u);
   }
 
   if (objc_msgSend_isAppleInternalInstall(APSystemInternal, v11, v12, v13))
@@ -567,11 +558,11 @@ LABEL_11:
         v96 = APLogForCategory(0x30uLL);
         if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
         {
-          v108 = 134218240;
+          v107 = 134218240;
           selfCopy6 = self;
-          v110 = 2048;
-          v111 = authorityCopy;
-          _os_log_impl(&dword_1BADC1000, v96, OS_LOG_TYPE_INFO, "Pool manager %p rejecting authority %p due to exceeding max allowed count.", &v108, 0x16u);
+          v109 = 2048;
+          v110 = authorityCopy;
+          _os_log_impl(&dword_1BADC1000, v96, OS_LOG_TYPE_INFO, "Pool manager %p rejecting authority %p due to exceeding max allowed count.", &v107, 0x16u);
         }
 
         objc_msgSend_setState_(self, v97, 18005, v98);
@@ -590,11 +581,11 @@ LABEL_11:
         v63 = APLogForCategory(0x30uLL);
         if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
-          v108 = 134218240;
+          v107 = 134218240;
           selfCopy6 = self;
-          v110 = 2048;
-          v111 = authorityCopy;
-          _os_log_impl(&dword_1BADC1000, v63, OS_LOG_TYPE_ERROR, "Pool manager %p encountered an error signing with authority %p.", &v108, 0x16u);
+          v109 = 2048;
+          v110 = authorityCopy;
+          _os_log_impl(&dword_1BADC1000, v63, OS_LOG_TYPE_ERROR, "Pool manager %p encountered an error signing with authority %p.", &v107, 0x16u);
         }
 
         objc_msgSend__sendJourneyAnalyticsForAuthority_(self, v64, authorityCopy, v65);
@@ -613,13 +604,13 @@ LABEL_28:
     if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
     {
       v87 = objc_msgSend_failureError(authorityCopy, v84, v85, v86);
-      v108 = 134218496;
+      v107 = 134218496;
       selfCopy6 = self;
-      v110 = 2048;
-      v111 = authorityCopy;
-      v112 = 2048;
-      v113 = *&v87;
-      _os_log_impl(&dword_1BADC1000, v83, OS_LOG_TYPE_ERROR, "Pool manager %p encountered an error setting up authority %p with error %ld. Retrying.", &v108, 0x20u);
+      v109 = 2048;
+      v110 = authorityCopy;
+      v111 = 2048;
+      v112 = *&v87;
+      _os_log_impl(&dword_1BADC1000, v83, OS_LOG_TYPE_ERROR, "Pool manager %p encountered an error setting up authority %p with error %ld. Retrying.", &v107, 0x20u);
     }
 
     v91 = objc_msgSend_finalState(authorityCopy, v88, v89, v90);
@@ -648,11 +639,11 @@ LABEL_28:
     v44 = APLogForCategory(0x30uLL);
     if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
-      v108 = 134218240;
+      v107 = 134218240;
       selfCopy6 = self;
-      v110 = 2048;
-      v111 = authorityCopy;
-      _os_log_impl(&dword_1BADC1000, v44, OS_LOG_TYPE_INFO, "Pool manager %p adding signing authority %p to pool.", &v108, 0x16u);
+      v109 = 2048;
+      v110 = authorityCopy;
+      _os_log_impl(&dword_1BADC1000, v44, OS_LOG_TYPE_INFO, "Pool manager %p adding signing authority %p to pool.", &v107, 0x16u);
     }
 
     objc_msgSend__addSigningAuthorityToPool_(self, v45, authorityCopy, v46);
@@ -674,11 +665,11 @@ LABEL_25:
   v72 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
   {
-    v108 = 134218240;
+    v107 = 134218240;
     selfCopy6 = self;
-    v110 = 2048;
-    v111 = authorityCopy;
-    _os_log_impl(&dword_1BADC1000, v72, OS_LOG_TYPE_ERROR, "Pool manager %p: authority %p is either not supported on this platform or the caller does not have sufficient permissions.", &v108, 0x16u);
+    v109 = 2048;
+    v110 = authorityCopy;
+    _os_log_impl(&dword_1BADC1000, v72, OS_LOG_TYPE_ERROR, "Pool manager %p: authority %p is either not supported on this platform or the caller does not have sufficient permissions.", &v107, 0x16u);
   }
 
   objc_msgSend_setState_(self, v73, 18002, v74);
@@ -686,13 +677,11 @@ LABEL_25:
   objc_msgSend__sendJourneyAnalyticsForAuthority_(self, v78, authorityCopy, v79);
   objc_msgSend__callSetupCompletionHandler(self, v80, v81, v82);
 LABEL_35:
-
-  v107 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callSetupCompletionHandler
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_lock(self, a2, v2, v3);
   objc_msgSend_lock(v5, v6, v7, v8);
 
@@ -704,9 +693,9 @@ LABEL_35:
     Current = CFAbsoluteTimeGetCurrent();
     objc_msgSend_refillStartTime(self, v16, v17, v18);
     *buf = 138412546;
-    v68 = v14;
-    v69 = 2048;
-    v70 = Current - v19;
+    v67 = v14;
+    v68 = 2048;
+    v69 = Current - v19;
     _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_INFO, "Pool manager calling setup completion handler with state %@ (%.6f)", buf, 0x16u);
   }
 
@@ -760,7 +749,6 @@ LABEL_10:
   objc_msgSend_unlock(v52, v53, v54, v55);
 
 LABEL_11:
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_numSigningAuthoritiesToCreate
@@ -780,17 +768,17 @@ LABEL_11:
 
 - (void)_addSigningAuthorityToPool:(id)pool
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   poolCopy = pool;
   Current = CFAbsoluteTimeGetCurrent();
   v6 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v46 = 134218240;
+    v45 = 134218240;
     selfCopy3 = self;
-    v48 = 2048;
-    v49 = poolCopy;
-    _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_INFO, "Pool manager %p adding signing authority %p", &v46, 0x16u);
+    v47 = 2048;
+    v48 = poolCopy;
+    _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_INFO, "Pool manager %p adding signing authority %p", &v45, 0x16u);
   }
 
   v10 = objc_msgSend_lock(self, v7, v8, v9);
@@ -814,20 +802,20 @@ LABEL_11:
         v28 = CFAbsoluteTimeGetCurrent() - Current;
         v29 = CFAbsoluteTimeGetCurrent();
         objc_msgSend_refillStartTime(self, v30, v31, v32);
-        v46 = 134218752;
+        v45 = 134218752;
         selfCopy3 = self;
-        v48 = 2048;
-        v49 = poolCopy;
-        v50 = 2048;
-        v51 = v28;
-        v52 = 2048;
-        v53 = v29 - v33;
+        v47 = 2048;
+        v48 = poolCopy;
+        v49 = 2048;
+        v50 = v28;
+        v51 = 2048;
+        v52 = v29 - v33;
         v34 = "Pool manager %p added and validated signing authority %p (%.6f) (%.6f)";
         v35 = v27;
         v36 = OS_LOG_TYPE_INFO;
         v37 = 42;
 LABEL_13:
-        _os_log_impl(&dword_1BADC1000, v35, v36, v34, &v46, v37);
+        _os_log_impl(&dword_1BADC1000, v35, v36, v34, &v45, v37);
       }
     }
 
@@ -836,10 +824,10 @@ LABEL_13:
       v27 = APLogForCategory(0x30uLL);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v46 = 134218240;
+        v45 = 134218240;
         selfCopy3 = self;
-        v48 = 2048;
-        v49 = poolCopy;
+        v47 = 2048;
+        v48 = poolCopy;
         v34 = "Pool manager %p not adding authority %p to pool, it is already full.";
         v35 = v27;
         v36 = OS_LOG_TYPE_ERROR;
@@ -854,7 +842,7 @@ LABEL_13:
     v27 = APLogForCategory(0x30uLL);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v46) = 0;
+      LOWORD(v45) = 0;
       v34 = "Signing authority is nil, unable to add to pool";
       v35 = v27;
       v36 = OS_LOG_TYPE_ERROR;
@@ -865,14 +853,12 @@ LABEL_13:
 
   v41 = objc_msgSend_lock(self, v38, v39, v40);
   objc_msgSend_unlock(v41, v42, v43, v44);
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeSigningAuthority:(id)authority shouldRefill:(BOOL)refill
 {
   refillCopy = refill;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   authorityCopy = authority;
   Current = CFAbsoluteTimeGetCurrent();
   v8 = APLogForCategory(0x30uLL);
@@ -880,8 +866,8 @@ LABEL_13:
   {
     *buf = 134218240;
     selfCopy2 = self;
-    v40 = 2048;
-    v41 = authorityCopy;
+    v39 = 2048;
+    v40 = authorityCopy;
     _os_log_impl(&dword_1BADC1000, v8, OS_LOG_TYPE_INFO, "Pool manager %p removing signing authority %p", buf, 0x16u);
   }
 
@@ -898,9 +884,9 @@ LABEL_13:
     }
 
     objc_msgSend_setCurrentSigningAuthority_(self, v21, 0, v22);
-    v37 = 0;
-    objc_msgSend__rotateWithError_(self, v23, &v37, v24);
-    v18 = v37;
+    v36 = 0;
+    objc_msgSend__rotateWithError_(self, v23, &v36, v24);
+    v18 = v36;
     if (v18)
     {
       v25 = APLogForCategory(0x30uLL);
@@ -938,16 +924,14 @@ LABEL_13:
     objc_msgSend_refillStartTime(self, v32, v33, v34);
     *buf = 134218752;
     selfCopy2 = self;
-    v40 = 2048;
-    v41 = authorityCopy;
-    v42 = 2048;
-    v43 = v30;
-    v44 = 2048;
-    v45 = v31 - v35;
+    v39 = 2048;
+    v40 = authorityCopy;
+    v41 = 2048;
+    v42 = v30;
+    v43 = 2048;
+    v44 = v31 - v35;
     _os_log_impl(&dword_1BADC1000, v29, OS_LOG_TYPE_INFO, "Pool manager %p finished removing signing authority %p (%.6f) (%.6f)", buf, 0x2Au);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeAllSigningAuthorities
@@ -988,7 +972,7 @@ LABEL_13:
 
 - (void)_clearStashedContextsIfIndicated
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (objc_msgSend_isAppleInternalInstall(APSystemInternal, a2, v2, v3))
   {
     v5 = objc_alloc_init(APSigningAuthoritySettings);
@@ -1001,17 +985,15 @@ LABEL_13:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v18 = objc_msgSend_name(self, v15, v16, v17);
-        v26 = 138412290;
-        v27 = v18;
-        _os_log_impl(&dword_1BADC1000, v14, OS_LOG_TYPE_INFO, "Clearing all contexts for pool '%@'", &v26, 0xCu);
+        v25 = 138412290;
+        v26 = v18;
+        _os_log_impl(&dword_1BADC1000, v14, OS_LOG_TYPE_INFO, "Clearing all contexts for pool '%@'", &v25, 0xCu);
       }
 
       v22 = objc_msgSend_name(self, v19, v20, v21);
       objc_msgSend_destroyAndClearAllContextsForPool_(APSigningContextStorage, v23, v22, v24);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)rotateWithError:(id *)error
@@ -1035,7 +1017,7 @@ LABEL_13:
 
 - (BOOL)_rotateWithError:(id *)error
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   Current = CFAbsoluteTimeGetCurrent();
   v6 = APLogForCategory(0x30uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -1045,10 +1027,10 @@ LABEL_13:
     _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_INFO, "Pool manager %p rotating", &buf, 0xCu);
   }
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
   if (objc_msgSend_state(self, v7, v8, v9) == 18002)
   {
     v13 = APLogForCategory(0x30uLL);
@@ -1059,9 +1041,9 @@ LABEL_13:
     }
 
     v14 = MEMORY[0x1E696ABC0];
-    v52 = *MEMORY[0x1E696A578];
-    v53[0] = @"Pool manager in permanent error state, unable to rotate.";
-    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v53, &v52, 1);
+    v51 = *MEMORY[0x1E696A578];
+    v52[0] = @"Pool manager in permanent error state, unable to rotate.";
+    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v52, &v51, 1);
     v18 = objc_msgSend_errorWithDomain_code_userInfo_(v14, v17, @"com.apple.ap.signingAuthorityPoolManagerErrorDomain", 6101, v16);
 
     if (error)
@@ -1070,7 +1052,7 @@ LABEL_13:
       *error = v18;
     }
 
-    v20 = *(v44 + 24);
+    v20 = *(v43 + 24);
   }
 
   else
@@ -1092,44 +1074,43 @@ LABEL_13:
     objc_msgSend_setCurrentSigningAuthority_(self, v24, v26, v25);
     objc_msgSend__refillSigningAuthorityPool(self, v30, v31, v32);
     v20 = 1;
-    *(v44 + 24) = 1;
+    *(v43 + 24) = 1;
     if (qword_1EDBA1F10 == 1)
     {
       v33 = objc_alloc_init(APRotationRequestor);
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v48 = 0x3032000000;
-      v49 = sub_1BAF0D400;
-      v50 = sub_1BAF0D410;
-      v51 = 0;
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = sub_1BAF0D418;
-      v38[3] = &unk_1E7F1CEC0;
-      v40 = &v43;
+      v47 = 0x3032000000;
+      v48 = sub_1BAF0D400;
+      v49 = sub_1BAF0D410;
+      v50 = 0;
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = sub_1BAF0D418;
+      v37[3] = &unk_1E7F1CEC0;
+      v39 = &v42;
       p_buf = &buf;
-      v38[4] = self;
-      v39 = v18;
-      v42 = Current;
-      objc_msgSend_rotate_(v33, v34, v38, v35);
+      v37[4] = self;
+      v38 = v18;
+      v41 = Current;
+      objc_msgSend_rotate_(v33, v34, v37, v35);
       if (error)
       {
         *error = *(*(&buf + 1) + 40);
       }
 
       _Block_object_dispose(&buf, 8);
-      v20 = *(v44 + 24);
+      v20 = *(v43 + 24);
     }
   }
 
-  _Block_object_dispose(&v43, 8);
-  v36 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v42, 8);
   return v20 & 1;
 }
 
 - (id)signatureForData:(id)data error:(id *)error
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v10 = objc_msgSend_lock(self, v7, v8, v9);
   objc_msgSend_lock(v10, v11, v12, v13);
@@ -1167,9 +1148,9 @@ LABEL_13:
     v37 = 6100;
 LABEL_16:
     v39 = MEMORY[0x1E696ABC0];
-    v58 = *MEMORY[0x1E696A578];
-    v59[0] = v38;
-    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, v59, &v58, 1);
+    v57 = *MEMORY[0x1E696A578];
+    v58[0] = v38;
+    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, v58, &v57, 1);
     v33 = objc_msgSend_errorWithDomain_code_userInfo_(v39, v41, @"com.apple.ap.signingAuthorityPoolManagerErrorDomain", v37, v40);
 
     if (!error)
@@ -1183,7 +1164,7 @@ LABEL_16:
     {
       v46 = objc_msgSend_localizedDescription(v33, v43, v44, v45);
       *buf = 138543362;
-      v57 = v46;
+      v56 = v46;
       _os_log_impl(&dword_1BADC1000, v42, OS_LOG_TYPE_ERROR, "Error: %{public}@", buf, 0xCu);
     }
 
@@ -1194,9 +1175,9 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  v55 = 0;
-  v32 = objc_msgSend_signatureForData_error_(v17, v29, dataCopy, &v55);
-  v33 = v55;
+  v54 = 0;
+  v32 = objc_msgSend_signatureForData_error_(v17, v29, dataCopy, &v54);
+  v33 = v54;
   v34 = APLogForCategory(0x30uLL);
   v35 = v34;
   if (!v33 && v32)
@@ -1213,28 +1194,26 @@ LABEL_20:
 
   if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
-    v53 = objc_msgSend_localizedDescription(v33, v50, v51, v52);
+    v52 = objc_msgSend_localizedDescription(v33, v49, v50, v51);
     *buf = 138543362;
-    v57 = v53;
+    v56 = v52;
     _os_log_impl(&dword_1BADC1000, v35, OS_LOG_TYPE_ERROR, "Error getting signature: %{public}@", buf, 0xCu);
   }
 
   if (error)
   {
-    v54 = v33;
+    v53 = v33;
     goto LABEL_20;
   }
 
 LABEL_22:
-
-  v48 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
 
 - (id)signatureForRawData:(id)data error:(id *)error
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v10 = objc_msgSend_lock(self, v7, v8, v9);
   objc_msgSend_lock(v10, v11, v12, v13);
@@ -1272,9 +1251,9 @@ LABEL_22:
     v37 = 6100;
 LABEL_16:
     v39 = MEMORY[0x1E696ABC0];
-    v58 = *MEMORY[0x1E696A578];
-    v59[0] = v38;
-    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, v59, &v58, 1);
+    v57 = *MEMORY[0x1E696A578];
+    v58[0] = v38;
+    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, v58, &v57, 1);
     v33 = objc_msgSend_errorWithDomain_code_userInfo_(v39, v41, @"com.apple.ap.signingAuthorityPoolManagerErrorDomain", v37, v40);
 
     if (!error)
@@ -1288,7 +1267,7 @@ LABEL_16:
     {
       v46 = objc_msgSend_localizedDescription(v33, v43, v44, v45);
       *buf = 138543362;
-      v57 = v46;
+      v56 = v46;
       _os_log_impl(&dword_1BADC1000, v42, OS_LOG_TYPE_ERROR, "Error: %{public}@", buf, 0xCu);
     }
 
@@ -1299,9 +1278,9 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  v55 = 0;
-  v32 = objc_msgSend_signatureForRawData_error_(v17, v29, dataCopy, &v55);
-  v33 = v55;
+  v54 = 0;
+  v32 = objc_msgSend_signatureForRawData_error_(v17, v29, dataCopy, &v54);
+  v33 = v54;
   v34 = APLogForCategory(0x30uLL);
   v35 = v34;
   if (!v33 && v32)
@@ -1318,28 +1297,26 @@ LABEL_20:
 
   if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
-    v53 = objc_msgSend_localizedDescription(v33, v50, v51, v52);
+    v52 = objc_msgSend_localizedDescription(v33, v49, v50, v51);
     *buf = 138543362;
-    v57 = v53;
+    v56 = v52;
     _os_log_impl(&dword_1BADC1000, v35, OS_LOG_TYPE_ERROR, "Error getting signature: %{public}@", buf, 0xCu);
   }
 
   if (error)
   {
-    v54 = v33;
+    v53 = v33;
     goto LABEL_20;
   }
 
 LABEL_22:
-
-  v48 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
 
 - (BOOL)_trySetup
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_lock(self, a2, v2, v3);
   objc_msgSend_lock(v5, v6, v7, v8);
 
@@ -1368,8 +1345,8 @@ LABEL_22:
     if (!v43)
     {
       objc_msgSend_setState_(self, v44, 18004, v45);
-      objc_msgSend__callSetupCompletionHandler(self, v59, v60, v61);
-      objc_msgSend__endSetup(self, v62, v63, v64);
+      objc_msgSend__callSetupCompletionHandler(self, v58, v59, v60);
+      objc_msgSend__endSetup(self, v61, v62, v63);
       goto LABEL_11;
     }
 
@@ -1379,8 +1356,8 @@ LABEL_22:
       v49 = objc_msgSend_currentSigningAuthority(self, v46, v47, v48);
       *buf = 134218240;
       selfCopy = self;
-      v68 = 2048;
-      v69 = v49;
+      v67 = 2048;
+      v68 = v49;
       _os_log_impl(&dword_1BADC1000, v33, OS_LOG_TYPE_INFO, "Pool manager %p has a current signing authority (%p), but has exceeded retries to get another one.", buf, 0x16u);
     }
   }
@@ -1404,13 +1381,12 @@ LABEL_11:
   v53 = objc_msgSend_lock(self, v50, v51, v52);
   objc_msgSend_unlock(v53, v54, v55, v56);
 
-  v57 = *MEMORY[0x1E69E9840];
   return v22 < v29;
 }
 
 - (BOOL)_retrySetupWithError:(unint64_t)error
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v6 = objc_msgSend_lock(self, a2, error, v3);
   objc_msgSend_lock(v6, v7, v8, v9);
 
@@ -1431,28 +1407,27 @@ LABEL_11:
       v39 = signingAuthorityFinalStateToString(error);
       *buf = 134218498;
       selfCopy = self;
-      v63 = 2048;
-      v64 = v38;
-      v65 = 2112;
-      v66 = v39;
+      v62 = 2048;
+      v63 = v38;
+      v64 = 2112;
+      v65 = v39;
       _os_log_impl(&dword_1BADC1000, v34, OS_LOG_TYPE_INFO, "Starting pool manager %p retry number %ld due to failure %@", buf, 0x20u);
     }
 
-    v59 = @"failureMode";
+    v58 = @"failureMode";
     v42 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v40, error, v41);
-    v60 = v42;
-    v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v43, &v60, &v59, 1);
+    v59 = v42;
+    v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v43, &v59, &v58, 1);
     AnalyticsSendEvent();
 
     v45 = MEMORY[0x1E696AD98];
     v49 = objc_msgSend_retryLevel(self, v46, v47, v48, @"retryCount");
     v52 = objc_msgSend_numberWithUnsignedInteger_(v45, v50, v49, v51);
-    v58 = v52;
-    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v53, &v58, &v57, 1);
+    v57 = v52;
+    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v53, &v57, &v56, 1);
     AnalyticsSendEvent();
   }
 
-  v55 = *MEMORY[0x1E69E9840];
   return v33;
 }
 

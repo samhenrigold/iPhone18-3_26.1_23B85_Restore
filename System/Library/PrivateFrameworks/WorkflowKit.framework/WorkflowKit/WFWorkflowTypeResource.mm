@@ -18,7 +18,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  if ([path isEqualToString:{@"workflowTypes", object, change, context}])
+  if (objc_msgSend_isEqualToString_(path, a2, @"workflowTypes", object, change, context))
   {
 
     [(WFResource *)self refreshAvailabilityWithNotification];

@@ -9,6 +9,7 @@
 - (void)refreshGroupForSpecifier:(id)specifier;
 - (void)setSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ICSCallAnnouncementSettingsController
@@ -26,6 +27,22 @@
   }
 
   return v4;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = ICSCallAnnouncementSettingsController;
+  [(ICSCallAnnouncementSettingsController *)&v7 viewDidAppear:appear];
+  specifier = [(ICSCallAnnouncementSettingsController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(ICSCallAnnouncementSettingsController *)self emitNavigationEvent];
+  }
 }
 
 - (void)emitNavigationEvent

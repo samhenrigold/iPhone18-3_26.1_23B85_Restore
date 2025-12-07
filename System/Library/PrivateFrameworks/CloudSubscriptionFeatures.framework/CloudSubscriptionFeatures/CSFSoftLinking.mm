@@ -8,7 +8,7 @@
 
 + (void)registerForLoggedOutPushNotifications
 {
-  v2 = _CSFGetLogSystem();
+  v2 = _CSFGetLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -23,35 +23,34 @@ void __55__CSFSoftLinking_registerForLoggedOutPushNotifications__block_invoke(ui
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _CSFGetLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CSFGetLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __55__CSFSoftLinking_registerForLoggedOutPushNotifications__block_invoke_cold_1(v4, v5);
+      __55__CSFSoftLinking_registerForLoggedOutPushNotifications__block_invoke_cold_1(v5, v6);
     }
   }
 
-  v6 = _CSFGetLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CSFGetLogSystem(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NO";
+    v8 = @"NO";
     if (a2)
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
     v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1DF47C000, v6, OS_LOG_TYPE_DEFAULT, "Registering for logged out push was successful? %@", &v9, 0xCu);
+    v10 = v8;
+    _os_log_impl(&dword_1DF47C000, v7, OS_LOG_TYPE_DEFAULT, "Registering for logged out push was successful? %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unregisterForLoggedOutPushNotifications
 {
-  v2 = _CSFGetLogSystem();
+  v2 = _CSFGetLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -66,54 +65,53 @@ void __57__CSFSoftLinking_unregisterForLoggedOutPushNotifications__block_invoke(
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _CSFGetLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CSFGetLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __57__CSFSoftLinking_unregisterForLoggedOutPushNotifications__block_invoke_cold_1(v4, v5);
+      __57__CSFSoftLinking_unregisterForLoggedOutPushNotifications__block_invoke_cold_1(v5, v6);
     }
   }
 
-  v6 = _CSFGetLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CSFGetLogSystem(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NO";
+    v8 = @"NO";
     if (a2)
     {
-      v7 = @"YES";
+      v8 = @"YES";
     }
 
     v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_1DF47C000, v6, OS_LOG_TYPE_DEFAULT, "Unregistering for logged out push was successful? %@", &v9, 0xCu);
+    v10 = v8;
+    _os_log_impl(&dword_1DF47C000, v7, OS_LOG_TYPE_DEFAULT, "Unregistering for logged out push was successful? %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isDeviceEnrolledWithDeKOTA:(id *)a
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   MSDKDemoStateClass = getMSDKDemoStateClass();
-  sharedInstance = _CSFGetLogSystem();
+  sharedInstance = _CSFGetLogSystem(MSDKDemoStateClass);
   v6 = os_log_type_enabled(sharedInstance, OS_LOG_TYPE_DEFAULT);
   if (MSDKDemoStateClass)
   {
     if (v6)
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_1DF47C000, sharedInstance, OS_LOG_TYPE_DEFAULT, "CSFSoftLinking isDeviceEnrolledWithDeKOTA querying MSDKDemoState", v11, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_1DF47C000, sharedInstance, OS_LOG_TYPE_DEFAULT, "CSFSoftLinking isDeviceEnrolledWithDeKOTA querying MSDKDemoState", v10, 2u);
     }
 
     sharedInstance = [getMSDKDemoStateClass() sharedInstance];
     v7 = [sharedInstance isDeviceEnrolledWithDeKOTA:a];
-    v8 = _CSFGetLogSystem();
+    v8 = _CSFGetLogSystem(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 67109120;
-      v11[1] = v7;
-      _os_log_impl(&dword_1DF47C000, v8, OS_LOG_TYPE_DEFAULT, "CSFSoftLinking isDeviceEnrolledWithDeKOTA %d", v11, 8u);
+      v10[0] = 67109120;
+      v10[1] = v7;
+      _os_log_impl(&dword_1DF47C000, v8, OS_LOG_TYPE_DEFAULT, "CSFSoftLinking isDeviceEnrolledWithDeKOTA %d", v10, 8u);
     }
   }
 
@@ -121,33 +119,30 @@ void __57__CSFSoftLinking_unregisterForLoggedOutPushNotifications__block_invoke(
   {
     if (v6)
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_1DF47C000, sharedInstance, OS_LOG_TYPE_DEFAULT, "CSFSoftLinking isDeviceEnrolledWithDeKOTA no access to MSDKDemoState. Returning false", v11, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_1DF47C000, sharedInstance, OS_LOG_TYPE_DEFAULT, "CSFSoftLinking isDeviceEnrolledWithDeKOTA no access to MSDKDemoState. Returning false", v10, 2u);
     }
 
     LOBYTE(v7) = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 void __55__CSFSoftLinking_registerForLoggedOutPushNotifications__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF47C000, a2, OS_LOG_TYPE_ERROR, "Error while registering for logged out push notifications: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF47C000, a2, OS_LOG_TYPE_ERROR, "Error while registering for logged out push notifications: %@", &v2, 0xCu);
 }
 
 void __57__CSFSoftLinking_unregisterForLoggedOutPushNotifications__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF47C000, a2, OS_LOG_TYPE_ERROR, "Error while unregistering for logged out push notifications: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF47C000, a2, OS_LOG_TYPE_ERROR, "Error while unregistering for logged out push notifications: %@", &v2, 0xCu);
 }
 
 @end

@@ -75,28 +75,26 @@
 
 - (void)_beginExtensionDiscovery
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (!self->_extensionMatchingToken)
   {
     objc_initWeak(&location, self);
     v3 = MEMORY[0x1E696ABD0];
-    v11 = *MEMORY[0x1E696A2F8];
-    v12[0] = *MEMORY[0x1E69C8E30];
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __80___ASAccountAuthenticationModificationExtensionManager__beginExtensionDiscovery__block_invoke;
-    v8[3] = &unk_1E7AF7A30;
-    objc_copyWeak(&v9, &location);
-    v5 = [v3 beginMatchingExtensionsWithAttributes:v4 completion:v8];
+    v10 = *MEMORY[0x1E696A2F8];
+    v11[0] = *MEMORY[0x1E69C8E30];
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __80___ASAccountAuthenticationModificationExtensionManager__beginExtensionDiscovery__block_invoke;
+    v7[3] = &unk_1E7AF7A30;
+    objc_copyWeak(&v8, &location);
+    v5 = [v3 beginMatchingExtensionsWithAttributes:v4 completion:v7];
     extensionMatchingToken = self->_extensionMatchingToken;
     self->_extensionMatchingToken = v5;
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(&location);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endExtensionDiscovery
@@ -117,30 +115,30 @@
 
 - (void)_buildDomainToExtensionDictionaryWithSharedWebCredentialsDatabaseEntries:(id)entries
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   entriesCopy = entries;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v5 = entriesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
-    v21 = *v26;
+    v8 = *v27;
+    v22 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         v11 = MEMORY[0x1E69C8DE8];
         domain = [v10 domain];
         v13 = [v11 domainByStrippingSubdomainWildcardPrefixIfNecessary:domain];
@@ -150,22 +148,22 @@
           safari_highLevelDomainFromHost = [v13 safari_highLevelDomainFromHost];
           if (safari_highLevelDomainFromHost && (![MEMORY[0x1E69C8DE8] highLevelDomainHasSuiteOfAssociatedApps:safari_highLevelDomainFromHost] || objc_msgSend(v10, "service") == 7))
           {
-            v24 = 0;
+            v25 = 0;
             appID = [v10 appID];
             CPCopyBundleIdentifierAndTeamFromApplicationIdentifier();
 
-            v16 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v18 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(v16, v17);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              [(_ASAccountAuthenticationModificationExtensionManager *)v29 _buildDomainToExtensionDictionaryWithSharedWebCredentialsDatabaseEntries:v16, v10, &v30];
+              [(_ASAccountAuthenticationModificationExtensionManager *)v30 _buildDomainToExtensionDictionaryWithSharedWebCredentialsDatabaseEntries:v18, v10, &v31];
             }
 
-            v8 = v21;
+            v8 = v22;
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v7);
@@ -177,11 +175,9 @@
   block[2] = __129___ASAccountAuthenticationModificationExtensionManager__buildDomainToExtensionDictionaryWithSharedWebCredentialsDatabaseEntries___block_invoke;
   block[3] = &unk_1E7AF76A8;
   block[4] = self;
-  v23 = dictionary;
-  v18 = dictionary;
+  v24 = dictionary;
+  v20 = dictionary;
   dispatch_async(dataConstructionQueue, block);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)extensionForDomain:(id)domain completionHandler:(id)handler

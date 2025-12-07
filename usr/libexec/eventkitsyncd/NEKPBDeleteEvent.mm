@@ -90,49 +90,47 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_eventIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_eventTitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    eventStart = self->_eventStart;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_calendarIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_calendarTitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_storeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    span = self->_span;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -247,7 +245,6 @@
     }
   }
 
-  v7 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_eventStart != *(equalCopy + 1))
@@ -259,7 +256,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_21:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_22;
   }
 
@@ -287,7 +284,7 @@ LABEL_21:
     }
   }
 
-  v11 = (*(equalCopy + 64) & 2) == 0;
+  v10 = (*(equalCopy + 64) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 64) & 2) == 0 || self->_span != *(equalCopy + 12))
@@ -295,12 +292,12 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_22:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

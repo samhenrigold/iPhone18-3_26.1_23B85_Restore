@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1BA0547C0();
+  sub_1BA0547C0(selfCopy);
 }
 
 - (void)didTapDone:(id)done
@@ -28,7 +28,7 @@
   swift_unknownObjectRelease();
   [(InternalFeedItemDetailViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI36InternalFeedItemDetailViewController)initWithCollectionViewLayout:(id)layout

@@ -38,12 +38,14 @@
 - (HMHome)home;
 - (NSSet)accessoriesSupportingSoftwareUpdate;
 - (NSString)description;
+- (id)_decorateWithDiagnosticInfoKeys:(id)keys cdpStatusGood:(BOOL)good;
 - (id)_subclass_updateWithOptions:(id)options;
 - (id)accessories;
 - (id)copyWithValueSource:(id)source;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)createControlItemsWithOptions:(id)options;
 - (id)currentStateActionBuildersForHome:(id)home;
+- (id)enableDoorbellChime:(BOOL)chime;
 - (id)iconDescriptor:(id)descriptor;
 - (id)mediaProfileContainers;
 - (id)namingComponentForHomeKitObject;
@@ -52,6 +54,8 @@
 - (id)room;
 - (id)serviceLikeBuilderInHome:(id)home;
 - (id)serviceNameComponents;
+- (id)setEnableAnnounce:(BOOL)announce;
+- (id)setEnableAudioAnalysis:(BOOL)analysis;
 - (id)setSiriDisabled:(BOOL)disabled;
 - (id)settings;
 - (unint64_t)_effectiveLoadingStateForSuggestedLoadingState:(unint64_t)state;
@@ -72,7 +76,7 @@
 
 + (id)itemWithAccessoryRepresentableObject:(id)object valueSource:(id)source
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   sourceCopy = source;
   objc_opt_class();
@@ -94,17 +98,17 @@
   {
     hf_homeKitObject2 = [objectCopy hf_homeKitObject];
     hf_containedProfiles = [objectCopy hf_containedProfiles];
-    v21 = 136316162;
-    v22 = "+[HFMediaAccessoryItem(RepresentableItem) itemWithAccessoryRepresentableObject:valueSource:]";
-    v23 = 2112;
-    v24 = objectCopy;
-    v25 = 2112;
-    v26 = hf_homeKitObject2;
-    v27 = 2112;
-    v28 = v10;
-    v29 = 2112;
-    v30 = hf_containedProfiles;
-    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "(%s) object: %@, homeKitObject: %@, accessory: %@, containedProfiles: %@", &v21, 0x34u);
+    v20 = 136316162;
+    v21 = "+[HFMediaAccessoryItem(RepresentableItem) itemWithAccessoryRepresentableObject:valueSource:]";
+    v22 = 2112;
+    v23 = objectCopy;
+    v24 = 2112;
+    v25 = hf_homeKitObject2;
+    v26 = 2112;
+    v27 = v10;
+    v28 = 2112;
+    v29 = hf_containedProfiles;
+    _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "(%s) object: %@, homeKitObject: %@, accessory: %@, containedProfiles: %@", &v20, 0x34u);
   }
 
   if (v10)
@@ -129,8 +133,6 @@
     mediaProfile = [objectCopy hf_homeKitObject];
     v17 = [v18 initWithValueSource:sourceCopy mediaProfileContainer:mediaProfile];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -174,7 +176,7 @@
 
 - (HFMediaAccessoryItem)initWithValueSource:(id)source mediaProfileContainer:(id)container
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   containerCopy = container;
   v10 = containerCopy;
@@ -201,9 +203,9 @@
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"HFMediaAccessoryItem.m" lineNumber:90 description:{@"Invalid parameter not satisfying: %@", @"mediaProfileContainer"}];
 
 LABEL_3:
-  v51.receiver = self;
-  v51.super_class = HFMediaAccessoryItem;
-  v11 = [(HFMediaAccessoryItem *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = HFMediaAccessoryItem;
+  v11 = [(HFMediaAccessoryItem *)&v50 init];
   v12 = v11;
   if (!v11)
   {
@@ -359,9 +361,9 @@ LABEL_25:
       mediaProfile = [anyObject mediaProfile];
       hf_siriLanguageOptionsManager = [mediaProfile hf_siriLanguageOptionsManager];
       *buf = 67109378;
-      v53 = isSiriEndpointAccessory;
-      v54 = 2112;
-      v55 = hf_siriLanguageOptionsManager;
+      v52 = isSiriEndpointAccessory;
+      v53 = 2112;
+      v54 = hf_siriLanguageOptionsManager;
       _os_log_debug_impl(&dword_20D9BF000, v41, OS_LOG_TYPE_DEBUG, "isSiriEndPoint %{BOOL}d siriLanguageOptionsManager = %@", buf, 0x12u);
     }
 
@@ -376,7 +378,6 @@ LABEL_25:
   v12->_mediaAccessoryItemType = v40;
 LABEL_45:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -544,8 +545,8 @@ LABEL_18:
     [v4 na_safeAddObject:v8];
   }
 
-  home = [(HFMediaAccessoryItem *)self home];
-  hf_currentUserIsAdministrator = [home hf_currentUserIsAdministrator];
+  v9 = objc_msgSend_home(self);
+  hf_currentUserIsAdministrator = [v9 hf_currentUserIsAdministrator];
 
   if (hf_currentUserIsAdministrator)
   {
@@ -587,7 +588,7 @@ LABEL_18:
 
 id __52__HFMediaAccessoryItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = HFItemUpdateOptionActionBuilders;
   v5 = a2;
@@ -597,7 +598,7 @@ id __52__HFMediaAccessoryItem__subclass_updateWithOptions___block_invoke(uint64_
   v8 = [*(a1 + 32) objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
   v9 = [v8 BOOLValue];
 
-  v79 = v7;
+  v78 = v7;
   [*(a1 + 40) setIsItemInActionBuilder:v7 != 0];
   v10 = [HFMutableItemUpdateOutcome alloc];
   v11 = [v5 standardResults];
@@ -706,26 +707,26 @@ LABEL_24:
     v35 = HFLogForCategory(0);
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      v73 = [*(a1 + 40) mediaProfileContainer];
-      v74 = [v73 hf_backingAccessory];
-      v75 = [v74 uniqueIdentifier];
+      v72 = [*(a1 + 40) mediaProfileContainer];
+      v73 = [v72 hf_backingAccessory];
+      v74 = [v73 uniqueIdentifier];
       *buf = 136315394;
-      v83 = "[HFMediaAccessoryItem _subclass_updateWithOptions:]_block_invoke";
-      v84 = 2112;
-      v85 = v75;
+      v82 = "[HFMediaAccessoryItem _subclass_updateWithOptions:]_block_invoke";
+      v83 = 2112;
+      v84 = v74;
       _os_log_debug_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_DEBUG, "%s container is a solo HomePod that's restarting (uuid: %@)", buf, 0x16u);
     }
 
     v36 = HFLogForCategory(0);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      v76 = [*(a1 + 40) mediaProfileContainer];
-      v77 = [v76 uniqueIdentifier];
-      v78 = [v77 UUIDString];
+      v75 = [*(a1 + 40) mediaProfileContainer];
+      v76 = [v75 uniqueIdentifier];
+      v77 = [v76 UUIDString];
       *buf = 136315394;
-      v83 = "[HFMediaAccessoryItem _subclass_updateWithOptions:]_block_invoke";
-      v84 = 2112;
-      v85 = v78;
+      v82 = "[HFMediaAccessoryItem _subclass_updateWithOptions:]_block_invoke";
+      v83 = 2112;
+      v84 = v77;
       _os_log_debug_impl(&dword_20D9BF000, v36, OS_LOG_TYPE_DEBUG, "%s container is a stereo pair HomePod that's restarting (uuid: %@)", buf, 0x16u);
     }
 
@@ -757,7 +758,7 @@ LABEL_33:
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v83 = "[HFMediaAccessoryItem _subclass_updateWithOptions:]_block_invoke";
+      v82 = "[HFMediaAccessoryItem _subclass_updateWithOptions:]_block_invoke";
       _os_log_debug_impl(&dword_20D9BF000, v38, OS_LOG_TYPE_DEBUG, "%s Decorating with Software Update State keys", buf, 0xCu);
     }
 
@@ -769,7 +770,7 @@ LABEL_33:
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v83 = "[HFMediaAccessoryItem _subclass_updateWithOptions:]_block_invoke";
+    v82 = "[HFMediaAccessoryItem _subclass_updateWithOptions:]_block_invoke";
     _os_log_debug_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_DEBUG, "%s NOT decorating with Software Update State keys", buf, 0xCu);
   }
 
@@ -777,14 +778,14 @@ LABEL_36:
   v39 = [*(a1 + 40) createControlItemsWithOptions:*(a1 + 32)];
   if ([*(a1 + 40) isItemInActionBuilder])
   {
-    v40 = [[HFMediaActionSetting alloc] initWithActionBuilder:v79];
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __52__HFMediaAccessoryItem__subclass_updateWithOptions___block_invoke_305;
-    v80[3] = &unk_277E02820;
-    v81 = v40;
+    v40 = [[HFMediaActionSetting alloc] initWithActionBuilder:v78];
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __52__HFMediaAccessoryItem__subclass_updateWithOptions___block_invoke_305;
+    v79[3] = &unk_277E02820;
+    v80 = v40;
     v41 = v40;
-    [v39 na_each:v80];
+    [v39 na_each:v79];
   }
 
   v42 = [*(a1 + 40) mediaProfileContainer];
@@ -847,8 +848,6 @@ LABEL_36:
   }
 
   v70 = [MEMORY[0x277D2C900] futureWithResult:v12];
-
-  v71 = *MEMORY[0x277D85DE8];
 
   return v70;
 }
@@ -988,9 +987,50 @@ LABEL_12:
   return v7;
 }
 
+- (id)setEnableAnnounce:(BOOL)announce
+{
+  announceCopy = announce;
+  mediaProfileContainer = [(HFMediaAccessoryItem *)self mediaProfileContainer];
+  hf_settingsValueManager = [mediaProfileContainer hf_settingsValueManager];
+  hf_backingAccessory = [mediaProfileContainer hf_backingAccessory];
+  uniqueIdentifier = [hf_backingAccessory uniqueIdentifier];
+
+  if ([(HFMediaAccessoryItem *)self isSiriEndpointAccessory])
+  {
+    commonSettingsManager = [(HFMediaAccessoryItem *)self commonSettingsManager];
+    hf_backingAccessory2 = [mediaProfileContainer hf_backingAccessory];
+    v11 = objc_msgSend_home(hf_backingAccessory2);
+    uniqueIdentifier2 = [v11 uniqueIdentifier];
+    v13 = HFAnnounceEnabledKeyPath;
+    v14 = [MEMORY[0x277CCABB0] numberWithBool:announceCopy];
+    v15 = [commonSettingsManager updateAccessorySettingWithHomeIdentifier:uniqueIdentifier2 accessoryIdentifier:uniqueIdentifier keyPath:v13 rawSettingValue:v14];
+  }
+
+  else
+  {
+    settings = [mediaProfileContainer settings];
+    commonSettingsManager = [settings hf_accessorySettingAtKeyPath:@"root.announce.enabled"];
+
+    hf_backingAccessory2 = [MEMORY[0x277CCABB0] numberWithBool:announceCopy];
+    if (hf_settingsValueManager)
+    {
+      v17 = hf_settingsValueManager;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    v15 = [v17 changeValueForSetting:commonSettingsManager toValue:hf_backingAccessory2];
+  }
+
+  return v15;
+}
+
 - (BOOL)isAudioAnalysisEnabled
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   mediaProfileContainer = [(HFMediaAccessoryItem *)self mediaProfileContainer];
   hf_settingsValueManager = [mediaProfileContainer hf_settingsValueManager];
   if (![(HFMediaAccessoryItem *)self isSiriEndpointAccessory])
@@ -1017,13 +1057,13 @@ LABEL_12:
       v11 = HFLogForCategory(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315650;
-        v15 = "[HFMediaAccessoryItem isAudioAnalysisEnabled]";
-        v16 = 2112;
-        v17 = v6;
-        v18 = 2112;
-        v19 = mediaProfileContainer;
-        _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%s audioAnalysisEnabledSetting = %@ for mediaProfileContainer = %@", &v14, 0x20u);
+        v13 = 136315650;
+        v14 = "[HFMediaAccessoryItem isAudioAnalysisEnabled]";
+        v15 = 2112;
+        v16 = v6;
+        v17 = 2112;
+        v18 = mediaProfileContainer;
+        _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%s audioAnalysisEnabledSetting = %@ for mediaProfileContainer = %@", &v13, 0x20u);
       }
 
       if (v7)
@@ -1053,8 +1093,38 @@ LABEL_13:
 LABEL_12:
 
 LABEL_14:
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
+}
+
+- (id)setEnableAudioAnalysis:(BOOL)analysis
+{
+  analysisCopy = analysis;
+  mediaProfileContainer = [(HFMediaAccessoryItem *)self mediaProfileContainer];
+  hf_settingsValueManager = [mediaProfileContainer hf_settingsValueManager];
+  hf_backingAccessory = [mediaProfileContainer hf_backingAccessory];
+  uniqueIdentifier = [hf_backingAccessory uniqueIdentifier];
+
+  if ([(HFMediaAccessoryItem *)self isSiriEndpointAccessory])
+  {
+    commonSettingsManager = [(HFMediaAccessoryItem *)self commonSettingsManager];
+    hf_backingAccessory2 = [mediaProfileContainer hf_backingAccessory];
+    v11 = objc_msgSend_home(hf_backingAccessory2);
+    uniqueIdentifier2 = [v11 uniqueIdentifier];
+    v13 = HFAudioAnalysisEnabledKeyPath;
+    v14 = [MEMORY[0x277CCABB0] numberWithBool:analysisCopy];
+    v15 = [commonSettingsManager updateAccessorySettingWithHomeIdentifier:uniqueIdentifier2 accessoryIdentifier:uniqueIdentifier keyPath:v13 rawSettingValue:v14];
+  }
+
+  else
+  {
+    settings = [mediaProfileContainer settings];
+    commonSettingsManager = [settings hf_accessorySettingAtKeyPath:@"root.audioAnalysis.enabled"];
+
+    hf_backingAccessory2 = [MEMORY[0x277CCABB0] numberWithBool:analysisCopy];
+    v15 = [hf_settingsValueManager changeValueForSetting:commonSettingsManager toValue:hf_backingAccessory2];
+  }
+
+  return v15;
 }
 
 - (id)profiles
@@ -1395,10 +1465,10 @@ uint64_t __59__HFMediaAccessoryItem_accessoriesSupportingSoftwareUpdate__block_i
   }
 
   room = [(HFMediaAccessoryItem *)self room];
-  home = [room home];
+  v5 = objc_msgSend_home(room);
   mediaProfileContainer = [(HFMediaAccessoryItem *)self mediaProfileContainer];
   hf_backingAccessory = [mediaProfileContainer hf_backingAccessory];
-  v8 = [home hf_mediaSystemForAccessory:hf_backingAccessory];
+  v8 = [v5 hf_mediaSystemForAccessory:hf_backingAccessory];
   v3 = v8 != 0;
 
   return v3;
@@ -1452,7 +1522,7 @@ uint64_t __59__HFMediaAccessoryItem_accessoriesSupportingSoftwareUpdate__block_i
 
 - (BOOL)isSiriDisabled
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   mediaProfileContainer = [(HFMediaAccessoryItem *)self mediaProfileContainer];
   hf_settingsValueManager = [mediaProfileContainer hf_settingsValueManager];
 
@@ -1483,13 +1553,13 @@ LABEL_14:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       mediaProfileContainer3 = [(HFMediaAccessoryItem *)self mediaProfileContainer];
-      v19 = 138412802;
-      v20 = mediaProfileContainer3;
-      v21 = 2080;
-      v22 = "[HFMediaAccessoryItem isSiriDisabled]";
-      v23 = 2112;
-      v24 = v9;
-      _os_log_debug_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEBUG, "%@:%s heySiriSetting = %@", &v19, 0x20u);
+      v18 = 138412802;
+      v19 = mediaProfileContainer3;
+      v20 = 2080;
+      v21 = "[HFMediaAccessoryItem isSiriDisabled]";
+      v22 = 2112;
+      v23 = v9;
+      _os_log_debug_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEBUG, "%@:%s heySiriSetting = %@", &v18, 0x20u);
     }
 
     objc_opt_class();
@@ -1522,7 +1592,6 @@ LABEL_14:
   LOBYTE(v10) = 0;
 LABEL_15:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1541,8 +1610,8 @@ LABEL_15:
     uniqueIdentifier = [hf_backingAccessory2 uniqueIdentifier];
 
     commonSettingsManager = [(HFMediaAccessoryItem *)self commonSettingsManager];
-    home = [(HFMediaAccessoryItem *)self home];
-    uniqueIdentifier2 = [home uniqueIdentifier];
+    v13 = objc_msgSend_home(self);
+    uniqueIdentifier2 = [v13 uniqueIdentifier];
     v15 = HFAllowHeySiriSettingKeyPath;
     v16 = [MEMORY[0x277CCABB0] numberWithInt:!disabledCopy];
     v17 = [commonSettingsManager updateAccessorySettingWithHomeIdentifier:uniqueIdentifier2 accessoryIdentifier:uniqueIdentifier keyPath:v15 rawSettingValue:v16];
@@ -1555,8 +1624,8 @@ LABEL_15:
     settings = [(HFMediaAccessoryItem *)self settings];
     commonSettingsManager = [settings hf_accessorySettingAtKeyPath:@"root.siri.allowHeySiri"];
 
-    home = [MEMORY[0x277CCABB0] numberWithBool:!disabledCopy];
-    v17 = [uniqueIdentifier changeValueForSetting:commonSettingsManager toValue:home];
+    v13 = [MEMORY[0x277CCABB0] numberWithBool:!disabledCopy];
+    v17 = [uniqueIdentifier changeValueForSetting:commonSettingsManager toValue:v13];
   }
 
   return v17;
@@ -1568,6 +1637,41 @@ LABEL_15:
   v3 = [HFMediaHelper isDoorbellChimeEnabled:mediaProfileContainer];
 
   return v3;
+}
+
+- (id)enableDoorbellChime:(BOOL)chime
+{
+  chimeCopy = chime;
+  mediaProfileContainer = [(HFMediaAccessoryItem *)self mediaProfileContainer];
+  hf_settingsValueManager = [mediaProfileContainer hf_settingsValueManager];
+
+  settings = [(HFMediaAccessoryItem *)self settings];
+  v8 = [settings hf_accessorySettingAtKeyPath:@"root.doorbellChime.enabled"];
+
+  if (v8 || ![(HFMediaAccessoryItem *)self isSiriEndpointAccessory])
+  {
+    hf_mediaAccessoryCommonSettingsManager = [MEMORY[0x277CCABB0] numberWithBool:chimeCopy];
+    v19 = [hf_settingsValueManager changeValueForSetting:v8 toValue:hf_mediaAccessoryCommonSettingsManager];
+  }
+
+  else
+  {
+    mediaProfileContainer2 = [(HFMediaAccessoryItem *)self mediaProfileContainer];
+    hf_backingAccessory = [mediaProfileContainer2 hf_backingAccessory];
+    mediaProfile = [hf_backingAccessory mediaProfile];
+    hf_mediaAccessoryCommonSettingsManager = [mediaProfile hf_mediaAccessoryCommonSettingsManager];
+
+    v21 = objc_msgSend_home(self);
+    uniqueIdentifier = [v21 uniqueIdentifier];
+    mediaProfileContainer3 = [(HFMediaAccessoryItem *)self mediaProfileContainer];
+    hf_backingAccessory2 = [mediaProfileContainer3 hf_backingAccessory];
+    identifier = [hf_backingAccessory2 identifier];
+    v17 = HFDoorbellChimeEnabledKeyPath;
+    v18 = [MEMORY[0x277CCABB0] numberWithBool:chimeCopy];
+    v19 = [hf_mediaAccessoryCommonSettingsManager updateAccessorySettingWithHomeIdentifier:uniqueIdentifier accessoryIdentifier:identifier keyPath:v17 rawSettingValue:v18];
+  }
+
+  return v19;
 }
 
 - (BOOL)supportsMediaQuickControls
@@ -1701,21 +1805,21 @@ uint64_t __62__HFMediaAccessoryItem_supportsCoordinationForAlarmsAndTimers__bloc
 
 - (BOOL)shouldShowMutedMicIcon
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   isSiriDisabled = [(HFMediaAccessoryItem *)self isSiriDisabled];
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     mediaProfileContainer = [(HFMediaAccessoryItem *)self mediaProfileContainer];
-    v21 = 138413058;
-    v22 = mediaProfileContainer;
-    v23 = 2080;
-    v24 = "[HFMediaAccessoryItem shouldShowMutedMicIcon]";
-    v25 = 1024;
-    v26 = isSiriDisabled;
-    v27 = 1024;
-    LODWORD(v28) = [(HFMediaAccessoryItem *)self isSiriDisabled];
-    _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "%@:%s shouldShowMutedMicIcon = %{BOOL}d AND  self.isSiriDisabled = %{BOOL}d", &v21, 0x22u);
+    v20 = 138413058;
+    v21 = mediaProfileContainer;
+    v22 = 2080;
+    v23 = "[HFMediaAccessoryItem shouldShowMutedMicIcon]";
+    v24 = 1024;
+    v25 = isSiriDisabled;
+    v26 = 1024;
+    LODWORD(v27) = [(HFMediaAccessoryItem *)self isSiriDisabled];
+    _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "%@:%s shouldShowMutedMicIcon = %{BOOL}d AND  self.isSiriDisabled = %{BOOL}d", &v20, 0x22u);
   }
 
   mediaProfileContainer2 = [(HFMediaAccessoryItem *)self mediaProfileContainer];
@@ -1726,26 +1830,26 @@ uint64_t __62__HFMediaAccessoryItem_supportsCoordinationForAlarmsAndTimers__bloc
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     mediaProfileContainer3 = [(HFMediaAccessoryItem *)self mediaProfileContainer];
-    home = [(HFMediaAccessoryItem *)self home];
-    audioAnalysisClassifierOptions = [home audioAnalysisClassifierOptions];
+    v16 = objc_msgSend_home(self);
+    audioAnalysisClassifierOptions = [v16 audioAnalysisClassifierOptions];
     isAudioAnalysisEnabled = [(HFMediaAccessoryItem *)self isAudioAnalysisEnabled];
-    v21 = 138413314;
-    v22 = mediaProfileContainer3;
-    v23 = 2080;
-    v24 = "[HFMediaAccessoryItem shouldShowMutedMicIcon]";
-    v25 = 1024;
-    v26 = v7;
-    v27 = 2048;
-    v28 = audioAnalysisClassifierOptions;
-    v29 = 1024;
-    v30 = isAudioAnalysisEnabled;
-    _os_log_debug_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEBUG, "%@:%s supportsAudioAnalysis = %{BOOL}d AND self.home.audioAnalysisClassifierOptions = %lu, isAudioAnalysisEnabled = %{BOOL}d", &v21, 0x2Cu);
+    v20 = 138413314;
+    v21 = mediaProfileContainer3;
+    v22 = 2080;
+    v23 = "[HFMediaAccessoryItem shouldShowMutedMicIcon]";
+    v24 = 1024;
+    v25 = v7;
+    v26 = 2048;
+    v27 = audioAnalysisClassifierOptions;
+    v28 = 1024;
+    v29 = isAudioAnalysisEnabled;
+    _os_log_debug_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEBUG, "%@:%s supportsAudioAnalysis = %{BOOL}d AND self.home.audioAnalysisClassifierOptions = %lu, isAudioAnalysisEnabled = %{BOOL}d", &v20, 0x2Cu);
   }
 
   if (v7)
   {
-    home2 = [(HFMediaAccessoryItem *)self home];
-    audioAnalysisClassifierOptions2 = [home2 audioAnalysisClassifierOptions];
+    v9 = objc_msgSend_home(self);
+    audioAnalysisClassifierOptions2 = [v9 audioAnalysisClassifierOptions];
 
     v11 = audioAnalysisClassifierOptions2 == 0 && isSiriDisabled;
     if (audioAnalysisClassifierOptions2 && isSiriDisabled)
@@ -1763,16 +1867,15 @@ uint64_t __62__HFMediaAccessoryItem_supportsCoordinationForAlarmsAndTimers__bloc
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     mediaProfileContainer4 = [(HFMediaAccessoryItem *)self mediaProfileContainer];
-    v21 = 138412802;
-    v22 = mediaProfileContainer4;
-    v23 = 2080;
-    v24 = "[HFMediaAccessoryItem shouldShowMutedMicIcon]";
-    v25 = 1024;
-    v26 = v11;
-    _os_log_debug_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEBUG, "%@:%s Returning  shouldShowMutedMicIcon = %{BOOL}d", &v21, 0x1Cu);
+    v20 = 138412802;
+    v21 = mediaProfileContainer4;
+    v22 = 2080;
+    v23 = "[HFMediaAccessoryItem shouldShowMutedMicIcon]";
+    v24 = 1024;
+    v25 = v11;
+    _os_log_debug_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEBUG, "%@:%s Returning  shouldShowMutedMicIcon = %{BOOL}d", &v20, 0x1Cu);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2049,7 +2152,7 @@ uint64_t __54__HFMediaAccessoryItem__decorateWithMediaSessionKeys___block_invoke
 
 - (void)_decorateSettingsSyncKeys:(id)keys
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   if (([(HFMediaAccessoryItem *)self isHomePod]|| [(HFMediaAccessoryItem *)self isHomePodMediaSystem]) && ![(HFMediaAccessoryItem *)self isItemInActionBuilder])
   {
@@ -2063,15 +2166,13 @@ uint64_t __54__HFMediaAccessoryItem__decorateWithMediaSessionKeys___block_invoke
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       mediaProfileContainer = [(HFMediaAccessoryItem *)self mediaProfileContainer];
-      v10 = 136315394;
-      v11 = "[HFMediaAccessoryItem _decorateSettingsSyncKeys:]";
-      v12 = 2112;
-      v13 = mediaProfileContainer;
-      _os_log_debug_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEBUG, "%s mediaProfileContainer: %@ is Configuring", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[HFMediaAccessoryItem _decorateSettingsSyncKeys:]";
+      v11 = 2112;
+      v12 = mediaProfileContainer;
+      _os_log_debug_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEBUG, "%s mediaProfileContainer: %@ is Configuring", &v9, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_decorateServiceLikeItemKeys:(id)keys
@@ -2173,6 +2274,59 @@ uint64_t __54__HFMediaAccessoryItem__decorateWithMediaSessionKeys___block_invoke
   }
 }
 
+- (id)_decorateWithDiagnosticInfoKeys:(id)keys cdpStatusGood:(BOOL)good
+{
+  goodCopy = good;
+  keysCopy = keys;
+  if ([(HFMediaAccessoryItem *)self _shouldDecorateDiagnosticInfoWithKeys:keysCopy cdpStatusGood:goodCopy])
+  {
+    v7 = _HFLocalizedStringWithDefaultValue(@"HFSymptomDescriptionProblemAccount", @"HFSymptomDescriptionProblemAccount", 1);
+    [keysCopy setObject:v7 forKeyedSubscript:@"description"];
+
+    if ([(HFMediaAccessoryItem *)self isAppleTV])
+    {
+      v8 = @"HFSymptomDescriptionProblemAccountMessageAppleTV";
+    }
+
+    else
+    {
+      v8 = @"HFSymptomDescriptionProblemAccountMessageHomePod";
+    }
+
+    v9 = _HFLocalizedStringWithDefaultValue(v8, v8, 1);
+    [keysCopy setObject:v9 forKeyedSubscript:@"longErrorDescription"];
+
+    if ([(HFMediaAccessoryItem *)self isAppleTV])
+    {
+      v10 = @"HFSymptomDescriptionProblemFixAccountMessageAppleTV";
+    }
+
+    else
+    {
+      v10 = @"HFSymptomDescriptionProblemFixAccountMessageHomePod";
+    }
+
+    v11 = _HFLocalizedStringWithDefaultValue(v10, v10, 1);
+    [keysCopy setObject:v11 forKeyedSubscript:@"errorMessageTitle"];
+
+    v12 = [keysCopy objectForKeyedSubscript:@"descriptionBadge"];
+    v13 = v12;
+    if (v12)
+    {
+      v14 = v12;
+    }
+
+    else
+    {
+      v14 = &unk_2825253C8;
+    }
+
+    [keysCopy setObject:v14 forKeyedSubscript:@"descriptionBadge"];
+  }
+
+  return keysCopy;
+}
+
 - (void)_decorateWithSymptomFixInFlightKeys:(id)keys
 {
   keysCopy = keys;
@@ -2229,33 +2383,33 @@ uint64_t __54__HFMediaAccessoryItem__decorateWithMediaSessionKeys___block_invoke
 
 - (BOOL)_isInstallingSoftwareUpdate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   accessoriesSupportingSoftwareUpdate = [(HFMediaAccessoryItem *)self accessoriesSupportingSoftwareUpdate];
-  v3 = [accessoriesSupportingSoftwareUpdate countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [accessoriesSupportingSoftwareUpdate countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(accessoriesSupportingSoftwareUpdate);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) hf_isInstallingSoftwareUpdate])
+        if ([*(*(&v7 + 1) + 8 * i) hf_isInstallingSoftwareUpdate])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [accessoriesSupportingSoftwareUpdate countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [accessoriesSupportingSoftwareUpdate countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -2267,7 +2421,6 @@ uint64_t __54__HFMediaAccessoryItem__decorateWithMediaSessionKeys___block_invoke
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

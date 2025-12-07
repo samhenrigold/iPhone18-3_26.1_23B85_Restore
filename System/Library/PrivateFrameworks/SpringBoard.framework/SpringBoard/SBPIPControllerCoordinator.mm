@@ -50,7 +50,7 @@ void __51__SBPIPControllerCoordinator_hostedAppSceneHandles__block_invoke(uint64
   [v2 addObjectsFromArray:v3];
 }
 
-uint64_t __64__SBPIPControllerCoordinator_isAnyPictureInPictureWindowVisible__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__64__SBPIPControllerCoordinator_isAnyPictureInPictureWindowVisible__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isPictureInPictureWindowVisibleOnWindowScene:0];
   if (result)
@@ -96,7 +96,7 @@ uint64_t __64__SBPIPControllerCoordinator_isAnyPictureInPictureWindowVisible__bl
   return v2;
 }
 
-uint64_t __51__SBPIPControllerCoordinator_hasIdleTimerBehaviors__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__51__SBPIPControllerCoordinator_hasIdleTimerBehaviors__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 hasIdleTimerBehaviors];
   if (result)
@@ -125,7 +125,7 @@ uint64_t __51__SBPIPControllerCoordinator_hasIdleTimerBehaviors__block_invoke(ui
   return v2;
 }
 
-uint64_t __81__SBPIPControllerCoordinator_isPresentingPictureInPictureRequiringMedusaKeyboard__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__81__SBPIPControllerCoordinator_isPresentingPictureInPictureRequiringMedusaKeyboard__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isPresentingPictureInPictureRequiringMedusaKeyboard];
   if (result)
@@ -337,7 +337,7 @@ void __72__SBPIPControllerCoordinator__enumerateControllersByDescendingPriority_
 {
   hiddenCopy = hidden;
   reasonCopy = reason;
-  v7 = [(NSMutableSet *)self->_pictureInPictureWindowsHiddenReasons containsObject:reasonCopy];
+  v7 = objc_msgSend_containsObject_(self->_pictureInPictureWindowsHiddenReasons);
   if (hiddenCopy)
   {
     if ((v7 & 1) == 0)

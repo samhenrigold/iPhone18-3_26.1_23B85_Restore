@@ -27,7 +27,7 @@
 
 + (id)hf_requiredCharacteristicTypesForDisplayMetadataWithServiceType:()HFCharacteristicValueDisplayMetadataAdditions
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [[HFServiceDescriptor alloc] initWithServiceType:v3 serviceSubtype:0 parentServiceDescriptor:0];
   v5 = [HFServiceState stateClassForServiceDescriptor:v4];
@@ -50,8 +50,8 @@
   {
     v12 = MEMORY[0x277CBEB98];
     v13 = [objc_opt_class() hf_sensorCharacteristicTypeForServiceType:v3];
-    v43[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+    v42[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
     requiredCharacteristicTypes = [v12 setWithArray:v14];
 
     goto LABEL_14;
@@ -60,9 +60,9 @@
   if ([v8 containsObject:v3])
   {
     v15 = MEMORY[0x277CBEB98];
-    v42 = *MEMORY[0x277CCF9F0];
+    v41 = *MEMORY[0x277CCF9F0];
     v16 = MEMORY[0x277CBEA60];
-    v17 = &v42;
+    v17 = &v41;
 LABEL_12:
     v18 = 1;
 LABEL_13:
@@ -75,21 +75,21 @@ LABEL_13:
   if ([v9 containsObject:v3])
   {
     v15 = MEMORY[0x277CBEB98];
-    v41 = *MEMORY[0x277CCF748];
+    v40 = *MEMORY[0x277CCF748];
     v16 = MEMORY[0x277CBEA60];
-    v17 = &v41;
+    v17 = &v40;
     goto LABEL_12;
   }
 
   if ([v10 containsObject:v3])
   {
     v15 = MEMORY[0x277CBEB98];
-    v22 = *MEMORY[0x277CCFB50];
-    v40[0] = *MEMORY[0x277CCF848];
-    v40[1] = v22;
-    v40[2] = *MEMORY[0x277CCF9A0];
+    v21 = *MEMORY[0x277CCFB50];
+    v39[0] = *MEMORY[0x277CCF848];
+    v39[1] = v21;
+    v39[2] = *MEMORY[0x277CCF9A0];
     v16 = MEMORY[0x277CBEA60];
-    v17 = v40;
+    v17 = v39;
 LABEL_22:
     v18 = 3;
     goto LABEL_13;
@@ -98,23 +98,23 @@ LABEL_22:
   if ([v3 isEqualToString:*MEMORY[0x277CD0E58]])
   {
     v15 = MEMORY[0x277CBEB98];
-    v23 = *MEMORY[0x277CCFB08];
-    v39[0] = *MEMORY[0x277CCF800];
-    v39[1] = v23;
-    v39[2] = *MEMORY[0x277CCF9A0];
+    v22 = *MEMORY[0x277CCFB08];
+    v38[0] = *MEMORY[0x277CCF800];
+    v38[1] = v22;
+    v38[2] = *MEMORY[0x277CCF9A0];
     v16 = MEMORY[0x277CBEA60];
-    v17 = v39;
+    v17 = v38;
     goto LABEL_22;
   }
 
   if ([v3 isEqualToString:*MEMORY[0x277CD0EB0]])
   {
     v15 = MEMORY[0x277CBEB98];
-    v24 = *MEMORY[0x277CCFB40];
-    v38[0] = *MEMORY[0x277CCF838];
-    v38[1] = v24;
+    v23 = *MEMORY[0x277CCFB40];
+    v37[0] = *MEMORY[0x277CCF838];
+    v37[1] = v23;
     v16 = MEMORY[0x277CBEA60];
-    v17 = v38;
+    v17 = v37;
 LABEL_27:
     v18 = 2;
     goto LABEL_13;
@@ -123,25 +123,25 @@ LABEL_27:
   if ([v3 isEqualToString:*MEMORY[0x277CD0ED8]])
   {
     v15 = MEMORY[0x277CBEB98];
-    v25 = *MEMORY[0x277CCFB60];
-    v37[0] = *MEMORY[0x277CCF858];
-    v37[1] = v25;
+    v24 = *MEMORY[0x277CCFB60];
+    v36[0] = *MEMORY[0x277CCF858];
+    v36[1] = v24;
     v16 = MEMORY[0x277CBEA60];
-    v17 = v37;
+    v17 = v36;
     goto LABEL_27;
   }
 
   if ([v3 isEqualToString:*MEMORY[0x277CD0F30]])
   {
     v15 = MEMORY[0x277CBEB98];
-    v26 = *MEMORY[0x277CCFB68];
-    v36[0] = *MEMORY[0x277CCF868];
-    v36[1] = v26;
-    v27 = *MEMORY[0x277CCFB20];
-    v36[2] = *MEMORY[0x277CCF818];
-    v36[3] = v27;
+    v25 = *MEMORY[0x277CCFB68];
+    v35[0] = *MEMORY[0x277CCF868];
+    v35[1] = v25;
+    v26 = *MEMORY[0x277CCFB20];
+    v35[2] = *MEMORY[0x277CCF818];
+    v35[3] = v26;
     v16 = MEMORY[0x277CBEA60];
-    v17 = v36;
+    v17 = v35;
 LABEL_32:
     v18 = 4;
     goto LABEL_13;
@@ -150,39 +150,39 @@ LABEL_32:
   if ([v3 isEqualToString:*MEMORY[0x277CD0E60]])
   {
     v15 = MEMORY[0x277CBEB98];
-    v28 = *MEMORY[0x277CCF868];
-    v35[0] = *MEMORY[0x277CCF748];
-    v35[1] = v28;
-    v29 = *MEMORY[0x277CCFB18];
-    v35[2] = *MEMORY[0x277CCF810];
-    v35[3] = v29;
+    v27 = *MEMORY[0x277CCF868];
+    v34[0] = *MEMORY[0x277CCF748];
+    v34[1] = v27;
+    v28 = *MEMORY[0x277CCFB18];
+    v34[2] = *MEMORY[0x277CCF810];
+    v34[3] = v28;
     v16 = MEMORY[0x277CBEA60];
-    v17 = v35;
+    v17 = v34;
     goto LABEL_32;
   }
 
   if ([v3 isEqualToString:*MEMORY[0x277CD0DD8]])
   {
     v15 = MEMORY[0x277CBEB98];
-    v30 = *MEMORY[0x277CCF7F8];
-    v34[0] = *MEMORY[0x277CCF748];
-    v34[1] = v30;
+    v29 = *MEMORY[0x277CCF7F8];
+    v33[0] = *MEMORY[0x277CCF748];
+    v33[1] = v29;
     v16 = MEMORY[0x277CBEA60];
-    v17 = v34;
+    v17 = v33;
     goto LABEL_27;
   }
 
   if ([v3 isEqualToString:*MEMORY[0x277CD0E68]])
   {
     v15 = MEMORY[0x277CBEB98];
-    v31 = *MEMORY[0x277CCF850];
-    v33[0] = *MEMORY[0x277CCF748];
-    v33[1] = v31;
-    v32 = *MEMORY[0x277CCFB30];
-    v33[2] = *MEMORY[0x277CCF828];
-    v33[3] = v32;
+    v30 = *MEMORY[0x277CCF850];
+    v32[0] = *MEMORY[0x277CCF748];
+    v32[1] = v30;
+    v31 = *MEMORY[0x277CCFB30];
+    v32[2] = *MEMORY[0x277CCF828];
+    v32[3] = v31;
     v16 = MEMORY[0x277CBEA60];
-    v17 = v33;
+    v17 = v32;
     goto LABEL_32;
   }
 
@@ -206,7 +206,6 @@ LABEL_5:
 LABEL_14:
 
 LABEL_15:
-  v20 = *MEMORY[0x277D85DE8];
 
   return requiredCharacteristicTypes;
 }
@@ -225,11 +224,11 @@ LABEL_15:
 
 - (id)hf_requiredCharacteristicTypesForDisplayMetadata
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   serviceType = [self serviceType];
-  v4 = [v2 hf_requiredCharacteristicTypesForDisplayMetadataWithServiceType:serviceType];
+  v5 = [v3 hf_requiredCharacteristicTypesForDisplayMetadataWithServiceType:serviceType];
 
-  return v4;
+  return v5;
 }
 
 @end

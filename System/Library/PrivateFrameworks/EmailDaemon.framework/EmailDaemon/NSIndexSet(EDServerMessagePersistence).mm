@@ -12,7 +12,7 @@
 
 - (void)ed_enumerateUIDsWithLimit:()EDServerMessagePersistence reverseEnumeration:queryRangeCountLimit:batchLimit:usingBlock:
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v11 = a7;
   if (a3)
   {
@@ -24,23 +24,23 @@
     v12 = -1;
   }
 
-  v34 = v12;
-  v35 = v11;
+  v33 = v12;
+  v34 = v11;
   v13 = +[EDServerMessagePersistence log];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134219264;
     selfCopy = self;
-    v38 = 2048;
-    v39 = [self count];
-    v40 = 2048;
-    v41 = v34;
-    v42 = 1024;
-    v43 = a4;
-    v44 = 2048;
-    v45 = a5;
-    v46 = 2048;
-    v47 = a6;
+    v37 = 2048;
+    v38 = [self count];
+    v39 = 2048;
+    v40 = v33;
+    v41 = 1024;
+    v42 = a4;
+    v43 = 2048;
+    v44 = a5;
+    v45 = 2048;
+    v46 = a6;
     _os_log_debug_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEBUG, "%p: fetching %llu UIDs, limit %llu, reverse %{BOOL}d, range count limit %llu, batch limit %llu.", buf, 0x3Au);
   }
 
@@ -49,18 +49,18 @@
   v14 = [self mutableCopy];
   v15 = 0;
   *&v16 = 134218496;
-  v31 = v16;
-  while ([v14 count] && v34 > v15)
+  v30 = v16;
+  while ([v14 count] && v33 > v15)
   {
     v17 = objc_autoreleasePoolPush();
-    if (v34 - v15 >= a6)
+    if (v33 - v15 >= a6)
     {
       v18 = a6;
     }
 
     else
     {
-      v18 = v34 - v15;
+      v18 = v33 - v15;
     }
 
     v19 = [v14 ed_nextRangesWithRangeCountLimit:a5 reverseEnumeration:a4];
@@ -70,22 +70,22 @@
       ed_logDescription = [v19 ed_logDescription];
       *buf = 134218498;
       selfCopy = selfCopy2;
-      v38 = 2114;
-      v39 = ed_logDescription;
-      v40 = 2048;
-      v41 = v18;
+      v37 = 2114;
+      v38 = ed_logDescription;
+      v39 = 2048;
+      v40 = v18;
       _os_log_debug_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEBUG, "%p: fetching UIDs {%{public}@} with limit %llu", buf, 0x20u);
     }
 
-    v21 = (v35)[2](v35, v19, v18);
+    v21 = (v34)[2](v34, v19, v18);
     v22 = +[EDServerMessagePersistence log];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       ed_logDescription2 = [v21 ed_logDescription];
       *buf = 134218242;
       selfCopy = selfCopy2;
-      v38 = 2114;
-      v39 = ed_logDescription2;
+      v37 = 2114;
+      v38 = ed_logDescription2;
       _os_log_debug_impl(&dword_1C61EF000, v22, OS_LOG_TYPE_DEBUG, "%p: got UIDs {%{public}@}", buf, 0x16u);
     }
 
@@ -98,12 +98,12 @@
         v25 = +[EDServerMessagePersistence log];
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          *buf = v31;
+          *buf = v30;
           selfCopy = selfCopy2;
-          v38 = 2048;
-          v39 = v24;
-          v40 = 2048;
-          v41 = v18;
+          v37 = 2048;
+          v38 = v24;
+          v39 = 2048;
+          v40 = v18;
           _os_log_error_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_ERROR, "%p: got more UIDs in batch (%lu) than allowed (%lu)", buf, 0x20u);
         }
       }
@@ -139,8 +139,6 @@
   {
     [NSIndexSet(EDServerMessagePersistence) ed_enumerateUIDsWithLimit:selfCopy2 reverseEnumeration:v29 queryRangeCountLimit:? batchLimit:? usingBlock:?];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (id)ed_nextRangesWithRangeCountLimit:()EDServerMessagePersistence reverseEnumeration:
@@ -185,7 +183,7 @@
 
 - (id)ed_uidQueryExpressionWithTableName:()EDServerMessagePersistence
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = [self _uidRangesAndSingleUIDs:v5];
@@ -194,28 +192,28 @@
     v7 = [v6 sortedArrayUsingComparator:&__block_literal_global_596];
 
     [v7 ef_suffix:{objc_msgSend(v7, "count") - 990}];
+    v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v8 = v18 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v16 = 0u;
+    v8 = v17 = 0u;
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          rangeValue = [*(*(&v17 + 1) + 8 * i) rangeValue];
+          rangeValue = [*(*(&v16 + 1) + 8 * i) rangeValue];
           [self _addUIDsFromRange:rangeValue toArray:{v13, v5}];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -224,9 +222,7 @@
     v6 = [v7 ef_prefix:990];
   }
 
-  v14 = [self _uidQueryExpressionForRanges:v6 andSingleUIDs:v5 withTableName:{v4, v17}];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = [self _uidQueryExpressionForRanges:v6 andSingleUIDs:v5 withTableName:{v4, v16}];
 
   return v14;
 }
@@ -277,7 +273,7 @@
 
 - (__CFString)_uidQueryExpressionForRanges:()EDServerMessagePersistence andSingleUIDs:withTableName:
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = a5;
@@ -292,13 +288,13 @@
     v11 = @"remote_id";
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __99__NSIndexSet_EDServerMessagePersistence___uidQueryExpressionForRanges_andSingleUIDs_withTableName___block_invoke;
-  v21[3] = &unk_1E8257C28;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __99__NSIndexSet_EDServerMessagePersistence___uidQueryExpressionForRanges_andSingleUIDs_withTableName___block_invoke;
+  v20[3] = &unk_1E8257C28;
   v12 = v11;
-  v22 = v12;
-  v13 = [v7 ef_map:v21];
+  v21 = v12;
+  v13 = [v7 ef_map:v20];
   if ([v8 count])
   {
     v14 = MEMORY[0x1E696AEC0];
@@ -314,8 +310,8 @@
 
     else
     {
-      v23[0] = v16;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+      v22[0] = v16;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     }
   }
 
@@ -337,8 +333,6 @@
   {
     v18 = @"0";
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -363,11 +357,10 @@
 
 - (void)ed_enumerateUIDsWithLimit:()EDServerMessagePersistence reverseEnumeration:queryRangeCountLimit:batchLimit:usingBlock:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "%p: done.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "%p: done.", &v2, 0xCu);
 }
 
 @end

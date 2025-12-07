@@ -39,13 +39,13 @@
 
   string = [MEMORY[0x1E696AD60] string];
   header = [componentsCopy header];
-  if (([header isEqualToString:&stru_1EFB14550] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(header) & 1) == 0)
   {
     [string appendFormat:@"%@\n", header];
   }
 
   body = [componentsCopy body];
-  if (([body isEqualToString:&stru_1EFB14550] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(body) & 1) == 0)
   {
     extraBodyIndentLevel = self->_extraBodyIndentLevel;
     if (extraBodyIndentLevel)
@@ -63,7 +63,7 @@
   }
 
   footer = [componentsCopy footer];
-  if (([footer isEqualToString:&stru_1EFB14550] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(footer) & 1) == 0)
   {
     [string appendFormat:@"\n%@", footer];
   }

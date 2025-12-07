@@ -87,19 +87,19 @@
 
 - (id)_symmetricKeyAttributesForIdentifier:(id)identifier accessPolicy:(id)policy key:(id)key
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   keyCopy = key;
   v9 = *MEMORY[0x277CDC080];
-  v17[0] = *MEMORY[0x277CDC228];
-  v17[1] = v9;
-  v18[0] = *MEMORY[0x277CDC250];
-  v18[1] = identifier;
-  v17[2] = *MEMORY[0x277CDC090];
-  v18[2] = *MEMORY[0x277CBED28];
+  v16[0] = *MEMORY[0x277CDC228];
+  v16[1] = v9;
+  v17[0] = *MEMORY[0x277CDC250];
+  v17[1] = identifier;
+  v16[2] = *MEMORY[0x277CDC090];
+  v17[2] = *MEMORY[0x277CBED28];
   v10 = MEMORY[0x277CBEAC0];
   identifierCopy = identifier;
-  v12 = [v10 dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   v13 = [v12 mutableCopy];
   if (keyCopy)
@@ -112,8 +112,6 @@
   {
     [v13 addEntriesFromDictionary:{objc_msgSend(policyCopy, "secAccessibilityAttributes")}];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -327,7 +325,7 @@
 
 - (id)foundPrivateKey:(__SecKey *)key certificate:(id)certificate
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   certificateCopy = certificate;
   v6 = SecKeyCopyAttributes(key);
   v7 = CFDictionaryGetValue(v6, *MEMORY[0x277CDC028]);
@@ -353,15 +351,13 @@ LABEL_5:
   CFRelease(key);
   CFRelease(v6);
   v12 = MEMORY[0x277CCA9B8];
-  v16 = @"SFKeychainErrorKeyType";
-  v17[0] = v7;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v15 = @"SFKeychainErrorKeyType";
+  v16[0] = v7;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   v9 = [v12 errorWithDomain:@"SFKeychainErrorDomain" code:1 userInfo:v13];
 
   v11 = [(_SFKeychainFetchResult *)_SFKeychainIdentityFetchResult fetchResultWithError:v9];
 LABEL_7:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -392,7 +388,7 @@ LABEL_7:
 
 - (id)publicKeyLookupWithIdentifier:(id)identifier certificate:(id)certificate result:(int)result
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   certificateCopy = certificate;
   key = 0;
@@ -441,9 +437,9 @@ LABEL_9:
       CFRelease(key);
       CFRelease(v16);
       v23 = MEMORY[0x277CCA9B8];
-      v28 = @"SFKeychainErrorKeyType";
-      v29[0] = v17;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v27 = @"SFKeychainErrorKeyType";
+      v28[0] = v17;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
       v21 = [v23 errorWithDomain:@"SFKeychainErrorDomain" code:1 userInfo:v24];
 
       v19 = [(_SFKeychainFetchResult *)_SFKeychainIdentityFetchResult fetchResultWithError:v21];
@@ -462,8 +458,6 @@ LABEL_9:
 
 LABEL_14:
 LABEL_15:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

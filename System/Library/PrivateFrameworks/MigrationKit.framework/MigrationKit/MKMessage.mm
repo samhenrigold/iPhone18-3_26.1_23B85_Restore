@@ -6,19 +6,19 @@
 
 - (MKMessage)initWithData:(id)data
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v89.receiver = self;
-  v89.super_class = MKMessage;
-  v5 = [(MKMessage *)&v89 init];
+  v88.receiver = self;
+  v88.super_class = MKMessage;
+  v5 = [(MKMessage *)&v88 init];
   if (!v5)
   {
     goto LABEL_85;
   }
 
-  v88 = 0;
-  v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v88];
-  v7 = v88;
+  v87 = 0;
+  v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v87];
+  v7 = v87;
   if (!v7)
   {
     objc_opt_class();
@@ -93,32 +93,32 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v73 = v9;
-        v75 = dataCopy;
+        v72 = v9;
+        v74 = dataCopy;
         v28 = v5;
         v29 = v27;
         v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v83 = 0u;
         v84 = 0u;
         v85 = 0u;
         v86 = 0u;
-        v87 = 0u;
         v31 = v29;
-        v32 = [v31 countByEnumeratingWithState:&v84 objects:v92 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v83 objects:v91 count:16];
         if (v32)
         {
           v33 = v32;
           v34 = 0;
-          v35 = *v85;
+          v35 = *v84;
           do
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v85 != v35)
+              if (*v84 != v35)
               {
                 objc_enumerationMutation(v31);
               }
 
-              v37 = *(*(&v84 + 1) + 8 * i);
+              v37 = *(*(&v83 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) != 0 && [v37 length])
               {
@@ -139,7 +139,7 @@
               }
             }
 
-            v33 = [v31 countByEnumeratingWithState:&v84 objects:v92 count:16];
+            v33 = [v31 countByEnumeratingWithState:&v83 objects:v91 count:16];
           }
 
           while (v33);
@@ -153,8 +153,8 @@
         v5 = v28;
         [(MKMessage *)v28 setRecipients:v30];
 
-        v9 = v73;
-        dataCopy = v75;
+        v9 = v72;
+        dataCopy = v74;
         v18 = 0x277CCA000;
       }
     }
@@ -167,8 +167,8 @@
         if ([(NSString *)v5->_sender length])
         {
           v42 = [(NSString *)v5->_sender copy];
-          v91 = v42;
-          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
+          v90 = v42;
+          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
           [(MKMessage *)v5 setRecipients:v43];
 
           goto LABEL_43;
@@ -181,38 +181,38 @@ LABEL_44:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v72 = v27;
-            v74 = v9;
+            v71 = v27;
+            v73 = v9;
             p_isa = &v5->super.isa;
-            v79 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            v71 = v44;
-            v45 = v44;
             v78 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v70 = v44;
+            v45 = v44;
+            v77 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v79 = 0u;
             v80 = 0u;
             v81 = 0u;
             v82 = 0u;
-            v83 = 0u;
             v46 = v45;
-            v47 = [v46 countByEnumeratingWithState:&v80 objects:v90 count:16];
+            v47 = [v46 countByEnumeratingWithState:&v79 objects:v89 count:16];
             if (!v47)
             {
               goto LABEL_64;
             }
 
             v48 = v47;
-            v49 = *v81;
-            v76 = v46;
+            v49 = *v80;
+            v75 = v46;
             while (1)
             {
               for (j = 0; j != v48; ++j)
               {
-                if (*v81 != v49)
+                if (*v80 != v49)
                 {
                   objc_enumerationMutation(v46);
                 }
 
-                v51 = *(*(&v80 + 1) + 8 * j);
-                v52 = [v51 mk_stringForKey:{@"id", v71}];
+                v51 = *(*(&v79 + 1) + 8 * j);
+                v52 = [v51 mk_stringForKey:{@"id", v70}];
                 v53 = [v51 mk_stringForKey:@"content_type"];
                 v54 = [v51 mk_stringForKey:@"data"];
                 if ([v52 length] && objc_msgSend(v53, "length") && objc_msgSend(v54, "length") && (objc_msgSend(v53, "isEqualToString:", @"application/smil") & 1) == 0)
@@ -226,7 +226,7 @@ LABEL_44:
                       v57 = [p_isa[9] stringByAppendingString:uUID2];
                       [p_isa setBody:v57];
 
-                      v46 = v76;
+                      v46 = v75;
                     }
 
 LABEL_60:
@@ -237,32 +237,32 @@ LABEL_60:
                     v55 = [[MKMessageAttachment alloc] initWithID:v52 contentType:v53 base64Data:v54];
                     if (v55)
                     {
-                      [v79 addObject:v55];
+                      [v78 addObject:v55];
                       uUID2 = [(MKMessageAttachment *)v55 UUID];
-                      [v78 addObject:uUID2];
+                      [v77 addObject:uUID2];
                       goto LABEL_60;
                     }
                   }
                 }
               }
 
-              v48 = [v46 countByEnumeratingWithState:&v80 objects:v90 count:16];
+              v48 = [v46 countByEnumeratingWithState:&v79 objects:v89 count:16];
               if (!v48)
               {
 LABEL_64:
 
                 v5 = p_isa;
-                [p_isa setAttachments:v79];
+                [p_isa setAttachments:v78];
                 v58 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:p_isa[9]];
                 v59 = IMCreateSuperFormatStringWithAppendedFileTransfers();
 
                 v60 = [MEMORY[0x277CCA880] archivedDataWithRootObject:v59];
                 [p_isa setAttributedBody:v60];
 
-                v9 = v74;
+                v9 = v73;
                 v18 = 0x277CCA000uLL;
-                v44 = v71;
-                v27 = v72;
+                v44 = v70;
+                v27 = v71;
                 break;
               }
             }
@@ -280,7 +280,7 @@ LABEL_64:
             [v61 addObject:v5->_sender];
           }
 
-          [v61 addObjectsFromArray:{v5->_recipients, v71}];
+          [v61 addObjectsFromArray:{v5->_recipients, v70}];
 LABEL_76:
           if ([v61 count])
           {
@@ -320,7 +320,7 @@ LABEL_85:
         {
           if (v5->_isSent || ![(NSString *)v5->_sender length])
           {
-            v64 = [(NSArray *)v5->_recipients objectAtIndexedSubscript:0, v71];
+            v64 = [(NSArray *)v5->_recipients objectAtIndexedSubscript:0, v70];
             [v61 addObject:v64];
 
             goto LABEL_76;
@@ -332,7 +332,7 @@ LABEL_85:
           goto LABEL_76;
         }
 
-        [v61 addObject:{v5->_sender, v71}];
+        [v61 addObject:{v5->_sender, v70}];
         goto LABEL_76;
       }
 
@@ -362,7 +362,6 @@ LABEL_31:
   v40 = 0;
 LABEL_86:
 
-  v69 = *MEMORY[0x277D85DE8];
   return v40;
 }
 

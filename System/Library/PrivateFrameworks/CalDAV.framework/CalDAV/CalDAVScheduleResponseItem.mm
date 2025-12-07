@@ -20,7 +20,7 @@
 
 - (void)addNewTopLevelItem:(id)item
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -93,9 +93,9 @@ LABEL_23:
     v23 = v22;
     if (v22 && os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      v27 = 138412290;
-      v28 = mEMORY[0x277CFDC18]2;
-      _os_log_impl(&dword_242742000, v23, OS_LOG_TYPE_DEBUG, "Ignoring strange response item with no parsed recipient %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = mEMORY[0x277CFDC18]2;
+      _os_log_impl(&dword_242742000, v23, OS_LOG_TYPE_DEBUG, "Ignoring strange response item with no parsed recipient %@", &v26, 0xCu);
     }
   }
 
@@ -106,14 +106,13 @@ LABEL_23:
     mEMORY[0x277CFDC18] = v20;
     if (v20 && os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v27 = 138412290;
-      v28 = itemCopy;
-      _os_log_impl(&dword_242742000, mEMORY[0x277CFDC18], OS_LOG_TYPE_DEBUG, "Dropping unexpected child %@", &v27, 0xCu);
+      v26 = 138412290;
+      v27 = itemCopy;
+      _os_log_impl(&dword_242742000, mEMORY[0x277CFDC18], OS_LOG_TYPE_DEBUG, "Dropping unexpected child %@", &v26, 0xCu);
     }
   }
 
 LABEL_24:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -121,10 +120,9 @@ LABEL_24:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  failedResponseItems = self->_failedResponseItems;
-  v7 = [v3 stringWithFormat:@"%@ %p: FailedAttendees:\n%@\nSuccessfulICS:\n%@", v5, self, failedResponseItems, self->_successfulICS];
+  v6 = [v3 stringWithFormat:@"%@ %p: FailedAttendees:\n%@\nSuccessfulICS:\n%@", v5, self, self->_failedResponseItems, self->_successfulICS];
 
-  return v7;
+  return v6;
 }
 
 @end

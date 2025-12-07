@@ -48,7 +48,7 @@ void __54__SVVideoDurationObserver_initWithPlayerItemObserver___block_invoke(uin
   if (v3)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    [v3 duration];
+    objc_msgSend_duration(v3);
     [WeakRetained updateDuration:v10];
 
     v5 = [SVKeyValueObserver alloc];
@@ -78,7 +78,7 @@ void __54__SVVideoDurationObserver_initWithPlayerItemObserver___block_invoke_2(u
   v5 = v4;
   if (v4)
   {
-    [v4 CMTimeValue];
+    objc_msgSend_CMTimeValue(v4);
   }
 
   else

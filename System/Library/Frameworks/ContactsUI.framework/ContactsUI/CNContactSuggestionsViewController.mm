@@ -39,10 +39,10 @@
 - (void)collectionView:(id)view didDeselectItemAtIndexPath:(id)path
 {
   pathCopy = path;
-  contacts = [(CNContactSuggestionsViewController *)self contacts];
+  v6 = objc_msgSend_contacts(self);
   item = [pathCopy item];
 
-  v9 = [contacts objectAtIndexedSubscript:item];
+  v9 = [v6 objectAtIndexedSubscript:item];
 
   delegate = [(CNContactSuggestionsViewController *)self delegate];
   [delegate suggestionsController:self didDeselectContact:v9];
@@ -52,8 +52,8 @@
 {
   viewCopy = view;
   pathCopy = path;
-  contacts = [(CNContactSuggestionsViewController *)self contacts];
-  v8 = [contacts objectAtIndexedSubscript:{objc_msgSend(pathCopy, "item")}];
+  v7 = objc_msgSend_contacts(self);
+  v8 = [v7 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "item")}];
 
   delegate = [(CNContactSuggestionsViewController *)self delegate];
   [delegate suggestionsController:self didSelectContact:v8];
@@ -72,8 +72,8 @@
 
   if (v7)
   {
-    contacts = [(CNContactSuggestionsViewController *)self contacts];
-    v9 = [contacts objectAtIndexedSubscript:{objc_msgSend(pathCopy, "item")}];
+    v8 = objc_msgSend_contacts(self);
+    v9 = [v8 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "item")}];
 
     delegate2 = [(CNContactSuggestionsViewController *)self delegate];
     v11 = [delegate2 suggestionsController:self shouldSelectContact:v9 atIndexPath:pathCopy];
@@ -142,8 +142,8 @@
         }
 
         v10 = *(*(&v14 + 1) + 8 * i);
-        contacts = [(CNContactSuggestionsViewController *)self contacts];
-        v12 = [contacts objectAtIndexedSubscript:{objc_msgSend(v10, "item")}];
+        v11 = objc_msgSend_contacts(self);
+        v12 = [v11 objectAtIndexedSubscript:{objc_msgSend(v10, "item")}];
         [v3 addObject:v12];
       }
 
@@ -233,8 +233,8 @@ void __71__CNContactSuggestionsViewController_imageForContact_imageUpdateBlock__
     v3 = 4.0;
   }
 
-  contacts = [(CNContactSuggestionsViewController *)self contacts];
-  v5 = ceil([contacts count] / v3);
+  v4 = objc_msgSend_contacts(self);
+  v5 = ceil([v4 count] / v3);
 
   [(CNContactSuggestionsViewController *)self sectionInsets];
   v7 = v6;
@@ -287,15 +287,15 @@ void __71__CNContactSuggestionsViewController_imageForContact_imageUpdateBlock__
     v6 = 4.0;
   }
 
-  contacts = [(CNContactSuggestionsViewController *)self contacts];
-  v8 = ceil([contacts count] / v6);
+  v7 = objc_msgSend_contacts(self);
+  v8 = ceil([v7 count] / v6);
 
-  LODWORD(contacts) = [(CNContactSuggestionsViewController *)self useAccessibleLayout];
+  LODWORD(v7) = [(CNContactSuggestionsViewController *)self useAccessibleLayout];
   view = [(CNContactSuggestionsViewController *)self view];
   [view bounds];
   Height = CGRectGetHeight(v27);
   v11 = -(v5 + 10.0);
-  if (contacts)
+  if (v7)
   {
     v11 = -44.0;
   }
@@ -354,8 +354,8 @@ void __71__CNContactSuggestionsViewController_imageForContact_imageUpdateBlock__
 - (double)estimatedHeight
 {
   v3 = *MEMORY[0x1E6996530];
-  contacts = [(CNContactSuggestionsViewController *)self contacts];
-  LOBYTE(v3) = (*(v3 + 16))(v3, contacts);
+  v4 = objc_msgSend_contacts(self, a2);
+  LOBYTE(v3) = (*(v3 + 16))(v3, v4);
 
   result = 0.0;
   if ((v3 & 1) == 0)
@@ -370,8 +370,8 @@ void __71__CNContactSuggestionsViewController_imageForContact_imageUpdateBlock__
       v6 = 4.0;
     }
 
-    contacts2 = [(CNContactSuggestionsViewController *)self contacts];
-    v8 = ceil([contacts2 count] / v6);
+    v7 = objc_msgSend_contacts(self);
+    v8 = ceil([v7 count] / v6);
 
     v9 = +[CNUIFontRepository contactSuggestionsNameFont];
     [v9 lineHeight];
@@ -453,8 +453,8 @@ void __71__CNContactSuggestionsViewController_imageForContact_imageUpdateBlock__
       v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
       [v15 appendSectionsWithIdentifiers:v16];
 
-      contacts = [(CNContactSuggestionsViewController *)self contacts];
-      [v15 appendItemsWithIdentifiers:contacts];
+      v17 = objc_msgSend_contacts(self);
+      [v15 appendItemsWithIdentifiers:v17];
     }
 
     diffableDataSource = [(CNContactSuggestionsViewController *)self diffableDataSource];
@@ -625,9 +625,9 @@ void __51__CNContactSuggestionsViewController_fetchContacts__block_invoke(uint64
 
 - (void)fetchContactsIfNeeded
 {
-  contacts = [(CNContactSuggestionsViewController *)self contacts];
+  v3 = objc_msgSend_contacts(self, a2);
 
-  if (!contacts)
+  if (!v3)
   {
 
     [(CNContactSuggestionsViewController *)self fetchContacts];
@@ -714,7 +714,7 @@ id __57__CNContactSuggestionsViewController_buildCollectionView__block_invoke(ui
   v8 = +[CNContactSuggestionsCollectionViewCell cellIdentifier];
   v9 = [v6 dequeueReusableCellWithReuseIdentifier:v8 forIndexPath:v5];
 
-  v10 = [WeakRetained contacts];
+  v10 = objc_msgSend_contacts(WeakRetained);
   v11 = [v5 item];
 
   v12 = [v10 objectAtIndexedSubscript:v11];
@@ -933,7 +933,7 @@ void __89__CNContactSuggestionsViewController_viewWillTransitionToSize_withTrans
   v2 = [(CNContactSuggestionsViewController *)&v9 init];
   if (v2)
   {
-    v3 = objc_alloc_init(get_PSContactSuggesterClass[0]());
+    v3 = objc_alloc_init(get_PSContactSuggesterClass());
     contactSuggester = v2->_contactSuggester;
     v2->_contactSuggester = v3;
 

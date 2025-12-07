@@ -41,169 +41,169 @@
 
 - (id)copyForArchiving
 {
-  v204 = *MEMORY[0x277D85DE8];
+  v288 = *MEMORY[0x277D85DE8];
   if (self->_isCopyForCaching)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint copyForArchiving]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 103, 0, "Should not copy TPPageHint that was created for caching");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint copyForArchiving]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 103, 0, "Should not copy TPPageHint that was created for caching");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
-  v25 = objc_alloc_init(objc_opt_class());
-  v192 = v25;
-  if (v25)
+  v35 = objc_alloc_init(objc_opt_class());
+  v276 = v35;
+  if (v35)
   {
-    *(v25 + 3) = self->_pageColumn;
-    *(v25 + 8) = *&self->_pageKind;
-    v31 = objc_alloc(MEMORY[0x277CBEA60]);
-    v37 = objc_msgSend_initWithArray_copyItems_(v31, v32, v33, v34, v35, v36, self->_hints, 1);
-    v38 = *(v192 + 4);
-    *(v192 + 4) = v37;
+    *(v35 + 3) = self->_pageColumn;
+    *(v35 + 8) = *&self->_pageKind;
+    v44 = objc_alloc(MEMORY[0x277CBEA60]);
+    v52 = objc_msgSend_initWithArray_copyItems_(v44, v45, v48, v49, v50, v51, self->_hints, 1, v46, v47);
+    v53 = *(v276 + 4);
+    *(v276 + 4) = v52;
 
-    v39 = objc_alloc_init(MEMORY[0x277D81278]);
-    v40 = *(v192 + 5);
-    *(v192 + 5) = v39;
+    v54 = objc_alloc_init(MEMORY[0x277D81278]);
+    v55 = *(v276 + 5);
+    *(v276 + 5) = v54;
 
-    v200 = 0u;
-    v201 = 0u;
-    v198 = 0u;
-    v199 = 0u;
-    v41 = self->_flowHints;
-    v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, v43, v44, v45, v46, &v198, v203, 16);
-    if (v48)
+    v284 = 0u;
+    v285 = 0u;
+    v282 = 0u;
+    v283 = 0u;
+    v56 = self->_flowHints;
+    v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v56, v57, v59, v60, v61, v62, &v282, v287, 16, v58);
+    if (v67)
     {
-      v53 = *v199;
+      v72 = *v283;
       do
       {
-        for (i = 0; i != v48; ++i)
+        for (i = 0; i != v67; ++i)
         {
-          if (*v199 != v53)
+          if (*v283 != v72)
           {
-            objc_enumerationMutation(v41);
+            objc_enumerationMutation(v56);
           }
 
-          v55 = *(*(&v198 + 1) + 8 * i);
-          v56 = *(v192 + 5);
-          v57 = objc_msgSend_objectForKeyedSubscript_(self->_flowHints, v47, v49, v50, v51, v52, v55);
-          v63 = objc_msgSend_copy(v57, v58, v59, v60, v61, v62);
-          objc_msgSend_setObject_forUncopiedKey_(v56, v64, v65, v66, v67, v68, v63, v55);
+          v74 = *(*(&v282 + 1) + 8 * i);
+          v75 = *(v276 + 5);
+          v76 = objc_msgSend_objectForKeyedSubscript_(self->_flowHints, v63, v68, v69, v70, v71, v74, v64, v65, v66);
+          v86 = objc_msgSend_copy(v76, v77, v82, v83, v84, v85, v78, v79, v80, v81);
+          objc_msgSend_setObject_forUncopiedKey_(v75, v87, v90, v91, v92, v93, v86, v74, v88, v89);
         }
 
-        v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v47, v49, v50, v51, v52, &v198, v203, 16);
+        v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v56, v63, v68, v69, v70, v71, &v282, v287, 16, v66);
       }
 
-      while (v48);
+      while (v67);
     }
 
-    objc_storeStrong(v192 + 14, self->_flowTopicNumberHints);
-    objc_msgSend_setFootnoteAutoNumberRange_(v192, v69, v70, v71, v72, v73, self->_footnoteAutoNumberRange.location, self->_footnoteAutoNumberRange.length);
-    objc_msgSend_setFootnoteLayoutRange_(v192, v74, v75, v76, v77, v78, self->_footnoteLayoutRange.location, self->_footnoteLayoutRange.length);
-    v79 = objc_alloc(MEMORY[0x277CBEB18]);
-    v85 = objc_msgSend_count(self->_childHints, v80, v81, v82, v83, v84);
-    v91 = objc_msgSend_initWithCapacity_(v79, v86, v87, v88, v89, v90, v85);
+    objc_storeStrong(v276 + 14, self->_flowTopicNumberHints);
+    objc_msgSend_setFootnoteAutoNumberRange_(v276, v94, v97, v98, v99, v100, self->_footnoteAutoNumberRange.location, self->_footnoteAutoNumberRange.length, v95, v96);
+    objc_msgSend_setFootnoteLayoutRange_(v276, v101, v104, v105, v106, v107, self->_footnoteLayoutRange.location, self->_footnoteLayoutRange.length, v102, v103);
+    v108 = objc_alloc(MEMORY[0x277CBEB18]);
+    v118 = objc_msgSend_count(self->_childHints, v109, v114, v115, v116, v117, v110, v111, v112, v113);
+    v127 = objc_msgSend_initWithCapacity_(v108, v119, v123, v124, v125, v126, v118, v120, v121, v122);
     childHints = self->_childHints;
-    v197[0] = MEMORY[0x277D85DD0];
-    v93.n128_u64[0] = 3221225472;
-    v197[1] = 3221225472;
-    v197[2] = sub_275FE08F0;
-    v197[3] = &unk_27A6A8790;
-    v197[4] = v91;
-    v191 = v91;
-    objc_msgSend_enumerateObjectsUsingBlock_(childHints, v94, v93, v95, v96, v97, v197);
-    objc_msgSend_setChildHints_(v192, v98, v99, v100, v101, v102, v91);
-    v103 = objc_alloc(MEMORY[0x277D81278]);
-    v109 = objc_msgSend_count(self->_anchoredDrawablePositions, v104, v105, v106, v107, v108);
-    v115 = objc_msgSend_initWithCapacity_(v103, v110, v111, v112, v113, v114, v109);
-    v195 = 0u;
-    v196 = 0u;
-    v193 = 0u;
-    v194 = 0u;
-    v116 = self->_anchoredDrawablePositions;
-    v123 = objc_msgSend_countByEnumeratingWithState_objects_count_(v116, v117, v118, v119, v120, v121, &v193, v202, 16);
-    if (v123)
+    v281[0] = MEMORY[0x277D85DD0];
+    v129.n128_u64[0] = 3221225472;
+    v281[1] = 3221225472;
+    v281[2] = sub_275FE08F0;
+    v281[3] = &unk_27A6A8790;
+    v281[4] = v127;
+    v275 = v127;
+    objc_msgSend_enumerateObjectsUsingBlock_(childHints, v130, v129, v134, v135, v136, v281, v131, v132, v133);
+    objc_msgSend_setChildHints_(v276, v137, v141, v142, v143, v144, v127, v138, v139, v140);
+    v145 = objc_alloc(MEMORY[0x277D81278]);
+    v155 = objc_msgSend_count(self->_anchoredDrawablePositions, v146, v151, v152, v153, v154, v147, v148, v149, v150);
+    v164 = objc_msgSend_initWithCapacity_(v145, v156, v160, v161, v162, v163, v155, v157, v158, v159);
+    v279 = 0u;
+    v280 = 0u;
+    v277 = 0u;
+    v278 = 0u;
+    v165 = self->_anchoredDrawablePositions;
+    v176 = objc_msgSend_countByEnumeratingWithState_objects_count_(v165, v166, v168, v169, v170, v171, &v277, v286, 16, v167);
+    if (v176)
     {
-      v128 = *v194;
+      v181 = *v278;
       do
       {
-        for (j = 0; j != v123; ++j)
+        for (j = 0; j != v176; ++j)
         {
-          if (*v194 != v128)
+          if (*v278 != v181)
           {
-            objc_enumerationMutation(v116);
+            objc_enumerationMutation(v165);
           }
 
-          v130 = *(*(&v193 + 1) + 8 * j);
-          v131 = MEMORY[0x277CCAE60];
-          v132 = objc_msgSend_objectForKeyedSubscript_(self->_anchoredDrawablePositions, v122, v124, v125, v126, v127, v130);
-          objc_msgSend_CGPointValue(v132, v133, v134, v135, v136, v137);
-          v143 = objc_msgSend_valueWithCGPoint_(v131, v138, v139, v140, v141, v142);
+          v183 = *(*(&v277 + 1) + 8 * j);
+          v184 = MEMORY[0x277CCAE60];
+          v185 = objc_msgSend_objectForKeyedSubscript_(self->_anchoredDrawablePositions, v172, v177, v178, v179, v180, v183, v173, v174, v175);
+          objc_msgSend_CGPointValue(v185, v186, v191, v192, v193, v194, v187, v188, v189, v190);
+          v204 = objc_msgSend_valueWithCGPoint_(v184, v195, v200, v201, v202, v203, v196, v197, v198, v199);
 
-          objc_msgSend_setObject_forUncopiedKey_(v115, v144, v145, v146, v147, v148, v143, v130);
+          objc_msgSend_setObject_forUncopiedKey_(v164, v205, v208, v209, v210, v211, v204, v183, v206, v207);
         }
 
-        v123 = objc_msgSend_countByEnumeratingWithState_objects_count_(v116, v122, v124, v125, v126, v127, &v193, v202, 16);
+        v176 = objc_msgSend_countByEnumeratingWithState_objects_count_(v165, v172, v177, v178, v179, v180, &v277, v286, 16, v175);
       }
 
-      while (v123);
+      while (v176);
     }
 
-    objc_msgSend_setAnchoredDrawablePositions_(v192, v149, v150, v151, v152, v153, v115);
-    v159 = objc_msgSend_copy(self->_topicNumberHints, v154, v155, v156, v157, v158);
-    v160 = *(v192 + 13);
-    *(v192 + 13) = v159;
+    objc_msgSend_setAnchoredDrawablePositions_(v276, v212, v216, v217, v218, v219, v164, v213, v214, v215);
+    v229 = objc_msgSend_copy(self->_topicNumberHints, v220, v225, v226, v227, v228, v221, v222, v223, v224);
+    v230 = *(v276 + 13);
+    *(v276 + 13) = v229;
 
-    v166 = objc_msgSend_copy(self->_startingPartitionedAttachments, v161, v162, v163, v164, v165);
-    objc_msgSend_setStartingPartitionedAttachments_(v192, v167, v168, v169, v170, v171, v166);
+    v240 = objc_msgSend_copy(self->_startingPartitionedAttachments, v231, v236, v237, v238, v239, v232, v233, v234, v235);
+    objc_msgSend_setStartingPartitionedAttachments_(v276, v241, v245, v246, v247, v248, v240, v242, v243, v244);
   }
 
   else
   {
-    v172 = MEMORY[0x277D81150];
-    v173 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, v27, v28, v29, v30, "[TPPageHint copyForArchiving]");
-    v179 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v174, v175, v176, v177, v178, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v172, v180, v181, v182, v183, v184, v173, v179, 106, 0, "invalid nil value for '%{public}s'", "copy");
+    v249 = MEMORY[0x277D81150];
+    v250 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v40, v41, v42, v43, "[TPPageHint copyForArchiving]", v37, v38, v39);
+    v259 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v251, v255, v256, v257, v258, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v252, v253, v254);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v249, v260, v261, v262, v263, v264, v250, v259, 106, 0, "invalid nil value for '%{public}s'", "copy");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v185, v186, v187, v188, v189);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v265, v270, v271, v272, v273, v266, v267, v268, v269);
   }
 
-  return v192;
+  return v276;
 }
 
 - (id)copyForCaching
 {
   if (self->_isCopyForCaching)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint copyForCaching]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 147, 0, "Should not copy TPPageHint that was created for caching");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint copyForCaching]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 147, 0, "Should not copy TPPageHint that was created for caching");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
-  v25 = objc_alloc_init(objc_opt_class());
-  v31 = v25;
-  if (v25)
+  v35 = objc_alloc_init(objc_opt_class());
+  v44 = v35;
+  if (v35)
   {
-    *(v25 + 3) = self->_pageColumn;
-    *(v25 + 8) = *&self->_pageKind;
-    v25[120] = 1;
+    *(v35 + 3) = self->_pageColumn;
+    *(v35 + 8) = *&self->_pageKind;
+    v35[120] = 1;
   }
 
   else
   {
-    v32 = MEMORY[0x277D81150];
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, v27, v28, v29, v30, "[TPPageHint copyForCaching]");
-    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, v35, v36, v37, v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v40, v41, v42, v43, v44, v33, v39, 150, 0, "invalid nil value for '%{public}s'", "copy");
+    v45 = MEMORY[0x277D81150];
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v40, v41, v42, v43, "[TPPageHint copyForCaching]", v37, v38, v39);
+    v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v51, v52, v53, v54, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v48, v49, v50);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v56, v57, v58, v59, v60, v46, v55, 150, 0, "invalid nil value for '%{public}s'", "copy");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47, v48, v49);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v61, v66, v67, v68, v69, v62, v63, v64, v65);
   }
 
-  return v31;
+  return v44;
 }
 
 - (void)setHints:(id)hints topicNumberHints:(id)numberHints
@@ -212,17 +212,17 @@
   numberHintsCopy = numberHints;
   if (self->_pageKind == 5)
   {
-    v13 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, v12, "[TPPageHint setHints:topicNumberHints:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v21, v22, v23, v24, v25, v14, v20, 166, 0, "shouldn't ask for the properties of a dirty page hint");
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v12, v13, v14, v15, "[TPPageHint setHints:topicNumberHints:]", v8, v9, v10);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v19, v20, v21);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v27, v28, v29, v30, v31, v17, v26, 166, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v37, v38, v39, v40, v33, v34, v35, v36);
   }
 
   hints = self->_hints;
   self->_hints = hintsCopy;
-  v33 = hintsCopy;
+  v43 = hintsCopy;
 
   topicNumberHints = self->_topicNumberHints;
   self->_topicNumberHints = numberHintsCopy;
@@ -234,28 +234,28 @@
   numberHintsCopy = numberHints;
   if (self->_pageKind == 5)
   {
-    v13 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, v12, "[TPPageHint setFlowHints:flowTopicNumberHints:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v21, v22, v23, v24, v25, v14, v20, 172, 0, "shouldn't ask for the properties of a dirty page hint");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v13, v14, v15, v16, "[TPPageHint setFlowHints:flowTopicNumberHints:]", v9, v10, v11);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v23, v24, v25, v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v20, v21, v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v28, v29, v30, v31, v32, v18, v27, 172, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v38, v39, v40, v41, v34, v35, v36, v37);
   }
 
-  v31 = objc_msgSend_count(self->_flowHints, v7, v9, v10, v11, v12);
-  if (v31 != objc_msgSend_count(self->_flowTopicNumberHints, v32, v33, v34, v35, v36))
+  v42 = objc_msgSend_count(self->_flowHints, v7, v13, v14, v15, v16, v8, v9, v10, v11);
+  if (v42 != objc_msgSend_count(self->_flowTopicNumberHints, v43, v48, v49, v50, v51, v44, v45, v46, v47))
   {
-    v42 = MEMORY[0x277D81150];
-    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v38, v39, v40, v41, "[TPPageHint setFlowHints:flowTopicNumberHints:]");
-    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v50, v51, v52, v53, v54, v43, v49, 173, 0, "Mismatch between flow hints and flow topic number hints");
+    v60 = MEMORY[0x277D81150];
+    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, v56, v57, v58, v59, "[TPPageHint setFlowHints:flowTopicNumberHints:]", v53, v54, v55);
+    v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, v66, v67, v68, v69, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v63, v64, v65);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v71, v72, v73, v74, v75, v61, v70, 173, 0, "Mismatch between flow hints and flow topic number hints");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v56, v57, v58, v59);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v76, v81, v82, v83, v84, v77, v78, v79, v80);
   }
 
   flowHints = self->_flowHints;
   self->_flowHints = hintsCopy;
-  v62 = hintsCopy;
+  v87 = hintsCopy;
 
   flowTopicNumberHints = self->_flowTopicNumberHints;
   self->_flowTopicNumberHints = numberHintsCopy;
@@ -265,12 +265,12 @@
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint firstColumn]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 179, 0, "shouldn't ask for the properties of a dirty page hint");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint firstColumn]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 179, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   return self;
@@ -280,12 +280,12 @@
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint lastColumn]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 184, 0, "shouldn't ask for the properties of a dirty page hint");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint lastColumn]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 184, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   return self;
@@ -295,76 +295,76 @@
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint firstHint]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 189, 0, "shouldn't ask for the properties of a dirty page hint");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint firstHint]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 189, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
   if (self->_isCopyForCaching)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint firstHint]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 190, 0, "Cannot access first hint from page hint that is intended for caching only");
+    v36 = MEMORY[0x277D81150];
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint firstHint]", v3, v4, v5);
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v39, v40, v41);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v47, v48, v49, v50, v51, v37, v46, 190, 0, "Cannot access first hint from page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v57, v58, v59, v60, v53, v54, v55, v56);
   }
 
   hints = self->_hints;
 
-  return objc_msgSend_firstObject(hints, a2, v2, v3, v4, v5);
+  return objc_msgSend_firstObject(hints, a2, v6, v7, v8, v9, v2, v3, v4, v5);
 }
 
 - (id)lastHint
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint lastHint]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 196, 0, "shouldn't ask for the properties of a dirty page hint");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint lastHint]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 196, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
   if (self->_isCopyForCaching)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint lastHint]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 197, 0, "Cannot access last hint from page hint that is intended for caching only");
+    v36 = MEMORY[0x277D81150];
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint lastHint]", v3, v4, v5);
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v39, v40, v41);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v47, v48, v49, v50, v51, v37, v46, 197, 0, "Cannot access last hint from page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v57, v58, v59, v60, v53, v54, v55, v56);
   }
 
   hints = self->_hints;
 
-  return objc_msgSend_lastObject(hints, a2, v2, v3, v4, v5);
+  return objc_msgSend_lastObject(hints, a2, v6, v7, v8, v9, v2, v3, v4, v5);
 }
 
 - (id)hints
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint hints]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 203, 0, "shouldn't ask for the properties of a dirty page hint");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint hints]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 203, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   if (self->_isCopyForCaching)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint hints]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 204, 0, "Cannot access hints from page hint that is intended for caching only");
+    v35 = MEMORY[0x277D81150];
+    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint hints]", v2, v3, v4);
+    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v41, v42, v43, v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v38, v39, v40);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v46, v47, v48, v49, v50, v36, v45, 204, 0, "Cannot access hints from page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v56, v57, v58, v59, v52, v53, v54, v55);
   }
 
   hints = self->_hints;
@@ -376,22 +376,22 @@
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint flowHints]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 210, 0, "shouldn't ask for the properties of a dirty page hint");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint flowHints]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 210, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   if (self->_isCopyForCaching)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint flowHints]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 211, 0, "Cannot access flow hints from page hint that is intended for caching only");
+    v35 = MEMORY[0x277D81150];
+    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint flowHints]", v2, v3, v4);
+    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v41, v42, v43, v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v38, v39, v40);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v46, v47, v48, v49, v50, v36, v45, 211, 0, "Cannot access flow hints from page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v56, v57, v58, v59, v52, v53, v54, v55);
   }
 
   flowHints = self->_flowHints;
@@ -403,22 +403,22 @@
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint flowTopicNumberHints]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 217, 0, "shouldn't ask for the properties of a dirty page hint");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint flowTopicNumberHints]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 217, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   if (self->_isCopyForCaching)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint flowTopicNumberHints]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 218, 0, "Cannot access flow topic numbers from page hint that is intended for caching only");
+    v35 = MEMORY[0x277D81150];
+    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint flowTopicNumberHints]", v2, v3, v4);
+    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v41, v42, v43, v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v38, v39, v40);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v46, v47, v48, v49, v50, v36, v45, 218, 0, "Cannot access flow topic numbers from page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v56, v57, v58, v59, v52, v53, v54, v55);
   }
 
   flowTopicNumberHints = self->_flowTopicNumberHints;
@@ -430,79 +430,79 @@
 {
   if (self->_pageKind == 5)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageHint offsetStartCharIndexBy:charIndex:]", index);
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v13, v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v18, v19, v20, v21, v22, v11, v17, 224, 0, "shouldn't ask for the properties of a dirty page hint");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint offsetStartCharIndexBy:charIndex:]", index, v4, v5);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v15, v16, v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v23, v24, v25, v26, v27, v13, v22, 224, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26, v27);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v33, v34, v35, v36, v29, v30, v31, v32);
   }
 
   if (self->_isCopyForCaching)
   {
-    v28 = MEMORY[0x277D81150];
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v4, v5, v6, v7, "[TPPageHint offsetStartCharIndexBy:charIndex:]");
-    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, v31, v32, v33, v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v36, v37, v38, v39, v40, v29, v35, 225, 0, "Cannot modify page hint that is intended for caching only");
+    v37 = MEMORY[0x277D81150];
+    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint offsetStartCharIndexBy:charIndex:]", index, v4, v5);
+    v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v43, v44, v45, v46, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v40, v41, v42);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v48, v49, v50, v51, v52, v38, v47, 225, 0, "Cannot modify page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42, v43, v44, v45);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v53, v58, v59, v60, v61, v54, v55, v56, v57);
   }
 
-  if (objc_msgSend_count(self->_hints, a2, v4, v5, v6, v7))
+  if (objc_msgSend_count(self->_hints, a2, v6, v7, v8, v9, by, index, v4, v5))
   {
-    v50 = 0;
-    v51 = ~by;
-    v52 = MEMORY[0x277D81490];
-    v53 = xmmword_27605FCE0;
-    v108 = xmmword_27605FCE0;
+    v69 = 0;
+    v70 = ~by;
+    v71 = MEMORY[0x277D81490];
+    v72 = xmmword_27605FCE0;
+    v162 = xmmword_27605FCE0;
     do
     {
-      v54 = objc_msgSend_objectAtIndexedSubscript_(self->_hints, v46, v53, v47, v48, v49, v50, v108);
-      if (objc_msgSend_range(v54, v55, v56, v57, v58, v59) <= v51)
+      v73 = objc_msgSend_objectAtIndexedSubscript_(self->_hints, v62, v72, v66, v67, v68, v69, v63, v64, v65, v162);
+      if (objc_msgSend_range(v73, v74, v79, v80, v81, v82, v75, v76, v77, v78) <= v70)
       {
-        objc_msgSend_setRange_(v54, v60, v61, v62, v63, v64, *v52, v52[1]);
-        v72 = v108;
-        *&self->_pageKind = v108;
+        objc_msgSend_setRange_(v73, v83, v88, v89, v90, v91, *v71, v71[1], v86, v87);
+        v105 = v162;
+        *&self->_pageKind = v162;
         self->_pageColumn = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v65 = objc_msgSend_range(v54, v60, v61, v62, v63, v64);
-        objc_msgSend_setRange_(v54, v66, v67, v68, v69, v70, v65 + by, v66);
+        v92 = objc_msgSend_range(v73, v83, v88, v89, v90, v91, v84, v85, v86, v87);
+        objc_msgSend_setRange_(v73, v93, v96, v97, v98, v99, v92 + by, v93, v94, v95);
       }
 
-      if (objc_msgSend_nextWidowPullsDownFromCharIndex(v54, v71, v72, v73, v74, v75) <= v51)
+      if (objc_msgSend_nextWidowPullsDownFromCharIndex(v73, v100, v105, v106, v107, v108, v101, v102, v103, v104) <= v70)
       {
-        objc_msgSend_setNextWidowPullsDownFromCharIndex_(v54, v76, v77, v78, v79, v80, 0x7FFFFFFFFFFFFFFFLL);
-        v88 = v108;
-        *&self->_pageKind = v108;
+        objc_msgSend_setNextWidowPullsDownFromCharIndex_(v73, v109, v114, v115, v116, v117, 0x7FFFFFFFFFFFFFFFLL, v111, v112, v113);
+        v132 = v162;
+        *&self->_pageKind = v162;
         self->_pageColumn = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(v54, v76, v77, v78, v79, v80);
-        objc_msgSend_setNextWidowPullsDownFromCharIndex_(v54, v82, v83, v84, v85, v86, WidowPullsDownFromCharIndex + by);
+        WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(v73, v109, v114, v115, v116, v117, v110, v111, v112, v113);
+        objc_msgSend_setNextWidowPullsDownFromCharIndex_(v73, v119, v123, v124, v125, v126, WidowPullsDownFromCharIndex + by, v120, v121, v122);
       }
 
-      if (objc_msgSend_anchoredRange(v54, v87, v88, v89, v90, v91) <= v51)
+      if (objc_msgSend_anchoredRange(v73, v127, v132, v133, v134, v135, v128, v129, v130, v131) <= v70)
       {
-        objc_msgSend_setAnchoredRange_(v54, v92, v93, v94, v95, v96, *v52, v52[1]);
-        *&self->_pageKind = v108;
+        objc_msgSend_setAnchoredRange_(v73, v136, v141, v142, v143, v144, *v71, v71[1], v139, v140);
+        *&self->_pageKind = v162;
         self->_pageColumn = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v97 = objc_msgSend_anchoredRange(v54, v92, v93, v94, v95, v96);
-        objc_msgSend_setAnchoredRange_(v54, v98, v99, v100, v101, v102, v97 + by, v98);
+        v145 = objc_msgSend_anchoredRange(v73, v136, v141, v142, v143, v144, v137, v138, v139, v140);
+        objc_msgSend_setAnchoredRange_(v73, v146, v149, v150, v151, v152, v145 + by, v146, v147, v148);
       }
 
-      ++v50;
+      ++v69;
     }
 
-    while (v50 < objc_msgSend_count(self->_hints, v103, v104, v105, v106, v107));
+    while (v69 < objc_msgSend_count(self->_hints, v153, v158, v159, v160, v161, v154, v155, v156, v157));
   }
 }
 
@@ -513,41 +513,41 @@
   rangesCopy = ranges;
   if (!hintCopy)
   {
-    v16 = MEMORY[0x277D81150];
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v12, v13, v14, v15, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]");
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v19, v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v24, v25, v26, v27, v28, v17, v23, 265, 0, "invalid nil value for '%{public}s'", "otherPageHint");
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v16, v17, v18, v19, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]", v12, v13, v14);
+    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, v26, v27, v28, v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v23, v24, v25);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v31, v32, v33, v34, v35, v21, v30, 265, 0, "invalid nil value for '%{public}s'", "otherPageHint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32, v33);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v41, v42, v43, v44, v37, v38, v39, v40);
   }
 
   if (self->_isCopyForCaching)
   {
-    v34 = MEMORY[0x277D81150];
-    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v12, v13, v14, v15, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]");
-    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v37, v38, v39, v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v42, v43, v44, v45, v46, v35, v41, 266, 0, "Do not call method on page hint that is intended for caching only");
+    v45 = MEMORY[0x277D81150];
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v16, v17, v18, v19, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]", v12, v13, v14);
+    v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v51, v52, v53, v54, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v48, v49, v50);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v56, v57, v58, v59, v60, v46, v55, 266, 0, "Do not call method on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v47, v48, v49, v50, v51);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v61, v66, v67, v68, v69, v62, v63, v64, v65);
   }
 
-  v52 = objc_msgSend_range(self, v10, v12, v13, v14, v15);
-  v58 = objc_msgSend_range(hintCopy, v53, v54, v55, v56, v57);
-  if (&v59[v58] != v52 || (v64 = objc_msgSend_footnoteAutoNumberRange(hintCopy, v59, v60, v61, v62, v63), &v74[v64] != objc_msgSend_footnoteAutoNumberRange(self, v74, v65, v66, v67, v68)) || (v75 = objc_msgSend_footnoteLayoutRange(hintCopy, v69, v70, v71, v72, v73), &v85[v75] != objc_msgSend_footnoteLayoutRange(self, v85, v76, v77, v78, v79)) || (v86 = objc_msgSend_anchoredRange(hintCopy, v80, v81, v82, v83, v84), &v96[v86] != objc_msgSend_anchoredRange(self, v96, v87, v88, v89, v90)))
+  v70 = objc_msgSend_range(self, v10, v16, v17, v18, v19, v11, v12, v13, v14);
+  v80 = objc_msgSend_range(hintCopy, v71, v76, v77, v78, v79, v72, v73, v74, v75);
+  if (&v81[v80] != v70 || (v90 = objc_msgSend_footnoteAutoNumberRange(hintCopy, v81, v86, v87, v88, v89, v82, v83, v84, v85), &v108[v90] != objc_msgSend_footnoteAutoNumberRange(self, v108, v95, v96, v97, v98, v91, v92, v93, v94)) || (v109 = objc_msgSend_footnoteLayoutRange(hintCopy, v99, v104, v105, v106, v107, v100, v101, v102, v103), &v127[v109] != objc_msgSend_footnoteLayoutRange(self, v127, v114, v115, v116, v117, v110, v111, v112, v113)) || (v128 = objc_msgSend_anchoredRange(hintCopy, v118, v123, v124, v125, v126, v119, v120, v121, v122), &v146[v128] != objc_msgSend_anchoredRange(self, v146, v133, v134, v135, v136, v129, v130, v131, v132)))
   {
-    v110 = 0;
+    v168 = 0;
     goto LABEL_16;
   }
 
-  v97 = objc_msgSend_firstChildHint(self, v91, v92, v93, v94, v95);
-  v103 = objc_msgSend_lastChildHint(hintCopy, v98, v99, v100, v101, v102);
-  v109 = v103;
-  if (v97 && !v103 || v103 && !v97)
+  v147 = objc_msgSend_firstChildHint(self, v137, v142, v143, v144, v145, v138, v139, v140, v141);
+  v157 = objc_msgSend_lastChildHint(hintCopy, v148, v153, v154, v155, v156, v149, v150, v151, v152);
+  v167 = v157;
+  if (v147 && !v157 || v157 && !v147)
   {
     goto LABEL_13;
   }
 
-  if (!v97 || !v103)
+  if (!v147 || !v157)
   {
 LABEL_21:
     if (self->_pageKind != 1)
@@ -555,76 +555,76 @@ LABEL_21:
       goto LABEL_35;
     }
 
-    v137 = objc_msgSend_hints(self, v104, v105, v106, v107, v108);
-    v143 = objc_msgSend_firstObject(v137, v138, v139, v140, v141, v142);
+    v207 = objc_msgSend_hints(self, v158, v163, v164, v165, v166, v159, v160, v161, v162);
+    v217 = objc_msgSend_firstObject(v207, v208, v213, v214, v215, v216, v209, v210, v211, v212);
 
-    v294 = v143;
-    if (!v143)
+    v433 = v217;
+    if (!v217)
     {
-      v149 = MEMORY[0x277D81150];
-      v150 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v144, v145, v146, v147, v148, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]");
-      v156 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v151, v152, v153, v154, v155, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v149, v157, v158, v159, v160, v161, v150, v156, 299, 0, "invalid nil value for '%{public}s'", "hint");
+      v227 = MEMORY[0x277D81150];
+      v228 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v218, v223, v224, v225, v226, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]", v220, v221, v222);
+      v237 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v229, v233, v234, v235, v236, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v230, v231, v232);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v227, v238, v239, v240, v241, v242, v228, v237, 299, 0, "invalid nil value for '%{public}s'", "hint");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v162, v163, v164, v165, v166);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v243, v248, v249, v250, v251, v244, v245, v246, v247);
     }
 
-    v291 = objc_msgSend_columnCount(v294, v144, v145, v146, v147, v148);
-    v172 = objc_msgSend_range(hintCopy, v167, v168, v169, v170, v171);
-    v293 = objc_msgSend_columnStyleAtCharIndex_effectiveRange_(storageCopy, v173, v174, v175, v176, v177, v172, 0);
-    if (!v293)
+    v430 = objc_msgSend_columnCount(v433, v218, v223, v224, v225, v226, v219, v220, v221, v222);
+    v261 = objc_msgSend_range(hintCopy, v252, v257, v258, v259, v260, v253, v254, v255, v256);
+    v432 = objc_msgSend_columnStyleAtCharIndex_effectiveRange_(storageCopy, v262, v265, v266, v267, v268, v261, 0, v263, v264);
+    if (!v432)
     {
-      v183 = MEMORY[0x277D81150];
-      v184 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v178, v179, v180, v181, v182, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]");
-      v190 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v185, v186, v187, v188, v189, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v183, v191, v192, v193, v194, v195, v184, v190, 302, 0, "invalid nil value for '%{public}s'", "colStyle");
+      v277 = MEMORY[0x277D81150];
+      v278 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v269, v273, v274, v275, v276, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]", v270, v271, v272);
+      v287 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v279, v283, v284, v285, v286, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v280, v281, v282);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v277, v288, v289, v290, v291, v292, v278, v287, 302, 0, "invalid nil value for '%{public}s'", "colStyle");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v196, v197, v198, v199, v200);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v293, v298, v299, v300, v301, v294, v295, v296, v297);
     }
 
     objc_opt_class();
-    v206 = objc_msgSend_objectForProperty_(v293, v201, v202, v203, v204, v205, 148);
-    v207 = TSUCheckedDynamicCast();
+    v310 = objc_msgSend_objectForProperty_(v432, v302, v306, v307, v308, v309, 148, v303, v304, v305);
+    v311 = TSUCheckedDynamicCast();
 
-    v292 = v207;
-    if (!v207)
+    v431 = v311;
+    if (!v311)
     {
-      v213 = MEMORY[0x277D81150];
-      v214 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v208, v209, v210, v211, v212, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]");
-      v220 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v215, v216, v217, v218, v219, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v213, v221, v222, v223, v224, v225, v214, v220, 304, 0, "invalid nil value for '%{public}s'", "cols");
+      v321 = MEMORY[0x277D81150];
+      v322 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v312, v317, v318, v319, v320, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]", v314, v315, v316);
+      v331 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v323, v327, v328, v329, v330, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v324, v325, v326);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v321, v332, v333, v334, v335, v336, v322, v331, 304, 0, "invalid nil value for '%{public}s'", "cols");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v226, v227, v228, v229, v230);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v337, v342, v343, v344, v345, v338, v339, v340, v341);
     }
 
-    v232 = objc_msgSend_columnCount(v292, v208, v209, v210, v211, v212);
-    if (!v232)
+    v350 = objc_msgSend_columnCount(v431, v312, v317, v318, v319, v320, v313, v314, v315, v316);
+    if (!v350)
     {
-      v237 = MEMORY[0x277D81150];
-      v238 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v231, v233, v234, v235, v236, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]");
-      v244 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v239, v240, v241, v242, v243, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v237, v245, v246, v247, v248, v249, v238, v244, 306, 0, "Unexpected 0 curColCount");
+      v355 = MEMORY[0x277D81150];
+      v356 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v346, v351, v352, v353, v354, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]", v347, v348, v349);
+      v365 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v357, v361, v362, v363, v364, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v358, v359, v360);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v355, v366, v367, v368, v369, v370, v356, v365, 306, 0, "Unexpected 0 curColCount");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v250, v251, v252, v253, v254);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v371, v376, v377, v378, v379, v372, v373, v374, v375);
     }
 
-    if (!v291)
+    if (!v430)
     {
-      v255 = MEMORY[0x277D81150];
-      v256 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v231, v233, v234, v235, v236, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]");
-      v262 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v257, v258, v259, v260, v261, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v255, v263, v264, v265, v266, v267, v256, v262, 307, 0, "Unexpected 0 nextColCount");
+      v380 = MEMORY[0x277D81150];
+      v381 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v346, v351, v352, v353, v354, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]", v347, v348, v349);
+      v390 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v382, v386, v387, v388, v389, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v383, v384, v385);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v380, v391, v392, v393, v394, v395, v381, v390, 307, 0, "Unexpected 0 nextColCount");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v268, v269, v270, v271, v272);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v396, v401, v402, v403, v404, v397, v398, v399, v400);
     }
 
-    v110 = 0;
-    if (v232)
+    v168 = 0;
+    if (v350)
     {
-      if (v291 && v291 == v232)
+      if (v430 && v430 == v350)
       {
 LABEL_35:
-        v110 = objc_msgSend_syncsFlowRanges_withEndOfPageHint_(self, v104, v105, v106, v107, v108, rangesCopy, hintCopy);
+        v168 = objc_msgSend_syncsFlowRanges_withEndOfPageHint_(self, v158, v163, v164, v165, v166, rangesCopy, hintCopy, v161, v162);
       }
     }
 
@@ -632,14 +632,14 @@ LABEL_35:
   }
 
   objc_opt_class();
-  v117 = objc_msgSend_attachmentAtCharIndex_(storageCopy, v112, v113, v114, v115, v116, v52);
-  v118 = TSUDynamicCast();
+  v178 = objc_msgSend_attachmentAtCharIndex_(storageCopy, v170, v174, v175, v176, v177, v70, v171, v172, v173);
+  v179 = TSUDynamicCast();
 
-  if (v118)
+  if (v179)
   {
-    v124 = objc_msgSend_drawable(v118, v119, v120, v121, v122, v123);
-    v130 = objc_msgSend_partitioner(v124, v125, v126, v127, v128, v129);
-    Hint_horizontally = objc_msgSend_didHint_syncWithNextHint_horizontally_(v130, v131, v132, v133, v134, v135, v109, v97, 0);
+    v189 = objc_msgSend_drawable(v179, v180, v185, v186, v187, v188, v181, v182, v183, v184);
+    v199 = objc_msgSend_partitioner(v189, v190, v195, v196, v197, v198, v191, v192, v193, v194);
+    Hint_horizontally = objc_msgSend_didHint_syncWithNextHint_horizontally_(v199, v200, v202, v203, v204, v205, v167, v147, 0, v201);
 
     if (Hint_horizontally)
     {
@@ -649,81 +649,81 @@ LABEL_35:
 
   else
   {
-    v273 = MEMORY[0x277D81150];
-    v274 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v119, v120, v121, v122, v123, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]");
-    v280 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v275, v276, v277, v278, v279, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v273, v281, v282, v283, v284, v285, v274, v280, 286, 0, "invalid nil value for '%{public}s'", "attachment");
+    v405 = MEMORY[0x277D81150];
+    v406 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v180, v185, v186, v187, v188, "[TPPageHint syncsWithEndOfPageHint:bodyStorage:flowRanges:]", v182, v183, v184);
+    v415 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v407, v411, v412, v413, v414, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v408, v409, v410);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v405, v416, v417, v418, v419, v420, v406, v415, 286, 0, "invalid nil value for '%{public}s'", "attachment");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v286, v287, v288, v289, v290);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v421, v426, v427, v428, v429, v422, v423, v424, v425);
   }
 
 LABEL_13:
-  v110 = 0;
+  v168 = 0;
 LABEL_14:
 
 LABEL_16:
-  return v110;
+  return v168;
 }
 
 - (BOOL)syncsFlowRanges:(id)ranges withEndOfPageHint:(id)hint
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   rangesCopy = ranges;
   hintCopy = hint;
-  v87 = hintCopy;
+  v121 = hintCopy;
   if (self->_isCopyForCaching)
   {
-    v13 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, v12, "[TPPageHint syncsFlowRanges:withEndOfPageHint:]", hintCopy);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v21, v22, v23, v24, v25, v14, v20, 322, 0, "Do not call method on page hint that is intended for caching only");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v13, v14, v15, v16, "[TPPageHint syncsFlowRanges:withEndOfPageHint:]", v10, v11, v12, hintCopy);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v23, v24, v25, v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v20, v21, v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v28, v29, v30, v31, v32, v18, v27, 322, 0, "Do not call method on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v38, v39, v40, v41, v34, v35, v36, v37);
   }
 
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v31 = objc_msgSend_flowHints(self, v8, 0, v10, v11, v12, v87);
-  v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, v33, v34, v35, v36, &v90, v94, 16);
-  if (v38)
+  v126 = 0u;
+  v127 = 0u;
+  v124 = 0u;
+  v125 = 0u;
+  v42 = objc_msgSend_flowHints(self, v8, 0, v14, v15, v16, v9, v10, v11, v12, v121);
+  v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v43, v45, v46, v47, v48, &v124, v128, 16, v44);
+  if (v54)
   {
-    v43 = *v91;
-    obj = v31;
+    v59 = *v125;
+    obj = v42;
     while (2)
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v54; ++i)
       {
-        if (*v91 != v43)
+        if (*v125 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v45 = *(*(&v90 + 1) + 8 * i);
-        v46 = objc_msgSend_flowHints(self, v37, v39, v40, v41, v42);
-        v52 = objc_msgSend_objectForKeyedSubscript_(v46, v47, v48, v49, v50, v51, v45);
-        v58 = objc_msgSend_range(v52, v53, v54, v55, v56, v57);
-        v60 = v59;
+        v61 = *(*(&v124 + 1) + 8 * i);
+        v62 = objc_msgSend_flowHints(self, v49, v55, v56, v57, v58, v50, v51, v52, v53);
+        v71 = objc_msgSend_objectForKeyedSubscript_(v62, v63, v67, v68, v69, v70, v61, v64, v65, v66);
+        v81 = objc_msgSend_range(v71, v72, v77, v78, v79, v80, v73, v74, v75, v76);
+        v83 = v82;
 
-        v66 = objc_msgSend_objectForKeyedSubscript_(rangesCopy, v61, v62, v63, v64, v65, v45);
-        v72 = v66;
-        v73 = v66 == 0;
-        if (!v66 || (v74 = objc_msgSend_rangeValue(v66, v67, v68, v69, v70, v71), &v75[v74] != v58))
+        v92 = objc_msgSend_objectForKeyedSubscript_(rangesCopy, v84, v88, v89, v90, v91, v61, v85, v86, v87);
+        v102 = v92;
+        v103 = v92 == 0;
+        if (!v92 || (v104 = objc_msgSend_rangeValue(v92, v93, v98, v99, v100, v101, v94, v95, v96, v97), &v105[v104] != v81))
         {
 
-          v31 = obj;
+          v42 = obj;
           goto LABEL_15;
         }
 
-        v80 = objc_msgSend_valueWithRange_(MEMORY[0x277CCAE60], v75, v76, v77, v78, v79, v58, v60);
-        objc_msgSend_setObject_forUncopiedKey_(rangesCopy, v81, v82, v83, v84, v85, v80, v45);
+        v112 = objc_msgSend_valueWithRange_(MEMORY[0x277CCAE60], v105, v108, v109, v110, v111, v81, v83, v106, v107);
+        objc_msgSend_setObject_forUncopiedKey_(rangesCopy, v113, v116, v117, v118, v119, v112, v61, v114, v115);
       }
 
-      v31 = obj;
-      v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v37, v39, v40, v41, v42, &v90, v94, 16);
-      v73 = 1;
-      if (v38)
+      v42 = obj;
+      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v49, v55, v56, v57, v58, &v124, v128, 16, v53);
+      v103 = 1;
+      if (v54)
       {
         continue;
       }
@@ -734,59 +734,59 @@ LABEL_16:
 
   else
   {
-    v73 = 1;
+    v103 = 1;
   }
 
 LABEL_15:
 
-  return v73;
+  return v103;
 }
 
 - (void)updateRangeForIndexPath:(id)path withStorage:(id)storage
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v100[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   storageCopy = storage;
   if (self->_pageKind != 6)
   {
-    v13 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, v12, "[TPPageHint updateRangeForIndexPath:withStorage:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v21, v22, v23, v24, v25, v14, v20, 355, 0, "Unexpected page kind %lu", self->_pageKind);
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v13, v14, v15, v16, "[TPPageHint updateRangeForIndexPath:withStorage:]", v9, v10, v11);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v23, v24, v25, v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v20, v21, v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v28, v29, v30, v31, v32, v18, v27, 355, 0, "Unexpected page kind %lu", self->_pageKind);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v38, v39, v40, v41, v34, v35, v36, v37);
   }
 
   if (self->_isCopyForCaching)
   {
-    v31 = MEMORY[0x277D81150];
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, v12, "[TPPageHint updateRangeForIndexPath:withStorage:]");
-    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, v34, v35, v36, v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v39, v40, v41, v42, v43, v32, v38, 356, 0, "Do not call method on page hint that is intended for caching only");
+    v42 = MEMORY[0x277D81150];
+    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v13, v14, v15, v16, "[TPPageHint updateRangeForIndexPath:withStorage:]", v9, v10, v11);
+    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, v48, v49, v50, v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v45, v46, v47);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v42, v53, v54, v55, v56, v57, v43, v52, 356, 0, "Do not call method on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47, v48);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v63, v64, v65, v66, v59, v60, v61, v62);
   }
 
-  v73 = *MEMORY[0x277D81490];
-  v49 = objc_msgSend_sectionIndex(pathCopy, v7, v73, v10, v11, v12);
-  v55 = objc_msgSend_sectionAtSectionIndex_effectiveRange_(storageCopy, v50, v51, v52, v53, v54, v49, &v73);
-  v56 = objc_opt_new();
-  objc_msgSend_setRange_(v56, v57, v58, v59, v60, v61, *&v73);
-  v74[0] = v56;
-  v67 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v62, v63, v64, v65, v66, v74, 1);
-  objc_msgSend_setHints_topicNumberHints_(self, v68, v69, v70, v71, v72, v67, self->_topicNumberHints);
+  v99 = *MEMORY[0x277D81490];
+  v67 = objc_msgSend_sectionIndex(pathCopy, v7, v99, v14, v15, v16, v8, v9, v10, v11);
+  v75 = objc_msgSend_sectionAtSectionIndex_effectiveRange_(storageCopy, v68, v71, v72, v73, v74, v67, &v99, v69, v70);
+  v76 = objc_opt_new();
+  objc_msgSend_setRange_(v76, v77, v80, v81, v82, v83, v99.n128_i64[0], v99.n128_i64[1], v78, v79);
+  v100[0] = v76;
+  v91 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v84, v87, v88, v89, v90, v100, 1, v85, v86);
+  objc_msgSend_setHints_topicNumberHints_(self, v92, v95, v96, v97, v98, v91, self->_topicNumberHints, v93, v94);
 }
 
 - (_NSRange)footnoteAutoNumberRange
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint footnoteAutoNumberRange]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 378, 0, "shouldn't ask for the properties of a dirty page hint");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint footnoteAutoNumberRange]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 378, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   location = self->_footnoteAutoNumberRange.location;
@@ -800,12 +800,12 @@ LABEL_15:
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint footnoteLayoutRange]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 383, 0, "shouldn't ask for the properties of a dirty page hint");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint footnoteLayoutRange]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 383, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   location = self->_footnoteLayoutRange.location;
@@ -819,22 +819,22 @@ LABEL_15:
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint anchoredDrawablePositions]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 388, 0, "shouldn't ask for the properties of a dirty page hint");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint anchoredDrawablePositions]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 388, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   if (self->_isCopyForCaching)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint anchoredDrawablePositions]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 389, 0, "Do not call method on page hint that is intended for caching only");
+    v35 = MEMORY[0x277D81150];
+    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint anchoredDrawablePositions]", v2, v3, v4);
+    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, v41, v42, v43, v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v38, v39, v40);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v46, v47, v48, v49, v50, v36, v45, 389, 0, "Do not call method on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v56, v57, v58, v59, v52, v53, v54, v55);
   }
 
   anchoredDrawablePositions = self->_anchoredDrawablePositions;
@@ -846,90 +846,90 @@ LABEL_15:
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint firstChildHint]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 395, 0, "shouldn't ask for the properties of a dirty page hint");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint firstChildHint]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 395, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
   if (self->_isCopyForCaching)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint firstChildHint]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 396, 0, "Can not get first child hint on page hint that is intended for caching only");
+    v36 = MEMORY[0x277D81150];
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint firstChildHint]", v3, v4, v5);
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v39, v40, v41);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v47, v48, v49, v50, v51, v37, v46, 396, 0, "Can not get first child hint on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v57, v58, v59, v60, v53, v54, v55, v56);
   }
 
-  v43 = objc_msgSend_firstObject(self->_childHints, a2, v2, v3, v4, v5);
-  v49 = objc_msgSend_null(MEMORY[0x277CBEB68], v44, v45, v46, v47, v48);
-  if (v43 == v49)
+  v61 = objc_msgSend_firstObject(self->_childHints, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v71 = objc_msgSend_null(MEMORY[0x277CBEB68], v62, v67, v68, v69, v70, v63, v64, v65, v66);
+  if (v61 == v71)
   {
-    v50 = 0;
+    v72 = 0;
   }
 
   else
   {
-    v50 = v43;
+    v72 = v61;
   }
 
-  v51 = v50;
+  v73 = v72;
 
-  return v50;
+  return v72;
 }
 
 - (TSDHint)lastChildHint
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint lastChildHint]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 403, 0, "shouldn't ask for the properties of a dirty page hint");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint lastChildHint]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 403, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
   if (self->_isCopyForCaching)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint lastChildHint]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v33, v34, v35, v36, v37, v26, v32, 404, 0, "Can not get last child hint on page hint that is intended for caching only");
+    v36 = MEMORY[0x277D81150];
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint lastChildHint]", v3, v4, v5);
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v39, v40, v41);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v47, v48, v49, v50, v51, v37, v46, 404, 0, "Can not get last child hint on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v57, v58, v59, v60, v53, v54, v55, v56);
   }
 
-  v43 = objc_msgSend_lastObject(self->_childHints, a2, v2, v3, v4, v5);
-  v49 = objc_msgSend_null(MEMORY[0x277CBEB68], v44, v45, v46, v47, v48);
-  if (v43 == v49)
+  v61 = objc_msgSend_lastObject(self->_childHints, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v71 = objc_msgSend_null(MEMORY[0x277CBEB68], v62, v67, v68, v69, v70, v63, v64, v65, v66);
+  if (v61 == v71)
   {
-    v50 = 0;
+    v72 = 0;
   }
 
   else
   {
-    v50 = v43;
+    v72 = v61;
   }
 
-  v51 = v50;
+  v73 = v72;
 
-  return v50;
+  return v72;
 }
 
 - (TSWPTopicNumberHints)topicNumberHints
 {
   if (self->_isCopyForCaching)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint topicNumberHints]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 411, 0, "Can not get topic numbers on page hint that is intended for caching only");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v5, v6, v7, v8, "[TPPageHint topicNumberHints]", v2, v3, v4);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v13, v14, v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v21, v22, v23, v24, v25, v11, v20, 411, 0, "Can not get topic numbers on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v31, v32, v33, v34, v27, v28, v29, v30);
   }
 
   topicNumberHints = self->_topicNumberHints;
@@ -941,17 +941,17 @@ LABEL_15:
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint range]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 419, 0, "shouldn't ask for the properties of a dirty page hint");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint range]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 419, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  v25 = objc_msgSend_p_range(self, a2, v2, v3, v4, v5);
-  result.length = v26;
-  result.location = v25;
+  v36 = objc_msgSend_p_range(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  result.length = v37;
+  result.location = v36;
   return result;
 }
 
@@ -959,27 +959,27 @@ LABEL_15:
 {
   if (self->_isCopyForCaching)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint p_range]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 424, 0, "Can not get range on page hint that is intended for caching only");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint p_range]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 424, 0, "Can not get range on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  if (objc_msgSend_count(self->_hints, a2, v2, v3, v4, v5))
+  if (objc_msgSend_count(self->_hints, a2, v6, v7, v8, v9, v2, v3, v4, v5))
   {
-    v30 = objc_msgSend_firstObject(self->_hints, v25, v26, v27, v28, v29);
-    v36 = objc_msgSend_range(v30, v31, v32, v33, v34, v35);
-    v38 = v37;
-    v43 = objc_msgSend_lastObject(self->_hints, v37, v39, v40, v41, v42);
-    v57.location = objc_msgSend_range(v43, v44, v45, v46, v47, v48);
-    v57.length = v49;
-    v55.location = v36;
-    v55.length = v38;
-    v50 = NSUnionRange(v55, v57);
-    location = v50.location;
-    length = v50.length;
+    v45 = objc_msgSend_firstObject(self->_hints, v36, v41, v42, v43, v44, v37, v38, v39, v40);
+    v55 = objc_msgSend_range(v45, v46, v51, v52, v53, v54, v47, v48, v49, v50);
+    v57 = v56;
+    v66 = objc_msgSend_lastObject(self->_hints, v56, v62, v63, v64, v65, v58, v59, v60, v61);
+    v84.location = objc_msgSend_range(v66, v67, v72, v73, v74, v75, v68, v69, v70, v71);
+    v84.length = v76;
+    v82.location = v55;
+    v82.length = v57;
+    v77 = NSUnionRange(v82, v84);
+    location = v77.location;
+    length = v77.length;
   }
 
   else
@@ -988,22 +988,22 @@ LABEL_15:
     length = *(MEMORY[0x277D81490] + 8);
   }
 
-  v53 = location;
-  v54 = length;
-  result.length = v54;
-  result.location = v53;
+  v80 = location;
+  v81 = length;
+  result.length = v81;
+  result.location = v80;
   return result;
 }
 
 - (_NSRange)rangeAndChildHints:(id *)hints
 {
-  v9 = objc_msgSend_p_range(self, a2, v3, v4, v5, v6);
-  v11 = v10;
+  v12 = objc_msgSend_p_range(self, a2, v6, v7, v8, v9, hints, v3, v4, v5);
+  v14 = v13;
   *hints = self->_childHints;
-  v12 = v9;
-  v13 = v11;
-  result.length = v13;
-  result.location = v12;
+  v15 = v12;
+  v16 = v14;
+  result.length = v16;
+  result.location = v15;
   return result;
 }
 
@@ -1011,27 +1011,27 @@ LABEL_15:
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint anchoredRange]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 438, 0, "shouldn't ask for the properties of a dirty page hint");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint anchoredRange]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 438, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  if (objc_msgSend_count(self->_hints, a2, v2, v3, v4, v5))
+  if (objc_msgSend_count(self->_hints, a2, v6, v7, v8, v9, v2, v3, v4, v5))
   {
-    v30 = objc_msgSend_firstObject(self->_hints, v25, v26, v27, v28, v29);
-    v36 = objc_msgSend_anchoredRange(v30, v31, v32, v33, v34, v35);
-    v38 = v37;
-    v43 = objc_msgSend_lastObject(self->_hints, v37, v39, v40, v41, v42);
-    v57.location = objc_msgSend_anchoredRange(v43, v44, v45, v46, v47, v48);
-    v57.length = v49;
-    v55.location = v36;
-    v55.length = v38;
-    v50 = NSUnionRange(v55, v57);
-    location = v50.location;
-    length = v50.length;
+    v45 = objc_msgSend_firstObject(self->_hints, v36, v41, v42, v43, v44, v37, v38, v39, v40);
+    v55 = objc_msgSend_anchoredRange(v45, v46, v51, v52, v53, v54, v47, v48, v49, v50);
+    v57 = v56;
+    v66 = objc_msgSend_lastObject(self->_hints, v56, v62, v63, v64, v65, v58, v59, v60, v61);
+    v84.location = objc_msgSend_anchoredRange(v66, v67, v72, v73, v74, v75, v68, v69, v70, v71);
+    v84.length = v76;
+    v82.location = v55;
+    v82.length = v57;
+    v77 = NSUnionRange(v82, v84);
+    location = v77.location;
+    length = v77.length;
   }
 
   else
@@ -1040,10 +1040,10 @@ LABEL_15:
     length = *(MEMORY[0x277D81490] + 8);
   }
 
-  v53 = location;
-  v54 = length;
-  result.length = v54;
-  result.location = v53;
+  v80 = location;
+  v81 = length;
+  result.length = v81;
+  result.location = v80;
   return result;
 }
 
@@ -1051,19 +1051,19 @@ LABEL_15:
 {
   if (self->_pageKind == 5)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint nextWidowPullsDownFromCharIndex]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 443, 0, "shouldn't ask for the properties of a dirty page hint");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint nextWidowPullsDownFromCharIndex]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 443, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  v26 = objc_msgSend_lastHint(self, a2, v2, v3, v4, v5);
-  if (v26 && objc_msgSend_count(self->_hints, v25, v27, v28, v29, v30))
+  v41 = objc_msgSend_lastHint(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  if (v41 && objc_msgSend_count(self->_hints, v36, v42, v43, v44, v45, v37, v38, v39, v40))
   {
-    v36 = objc_msgSend_lastHint(self, v31, v32, v33, v34, v35);
-    WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(v36, v37, v38, v39, v40, v41);
+    v55 = objc_msgSend_lastHint(self, v46, v51, v52, v53, v54, v47, v48, v49, v50);
+    WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(v55, v56, v61, v62, v63, v64, v57, v58, v59, v60);
   }
 
   else
@@ -1076,11 +1076,11 @@ LABEL_15:
 
 - (BOOL)lastLineIsEmptyAndHasListLabel
 {
-  v6 = objc_msgSend_lastHint(self, a2, v2, v3, v4, v5);
-  v12 = v6;
-  if (v6)
+  v10 = objc_msgSend_lastHint(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v20 = v10;
+  if (v10)
   {
-    HasListLabel = objc_msgSend_lastLineIsEmptyAndHasListLabel(v6, v7, v8, v9, v10, v11);
+    HasListLabel = objc_msgSend_lastLineIsEmptyAndHasListLabel(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
@@ -1093,19 +1093,19 @@ LABEL_15:
 
 - (BOOL)terminatedByBreak
 {
-  v6 = objc_msgSend_lastHint(self, a2, v2, v3, v4, v5);
-  v12 = v6;
-  if (v6)
+  v10 = objc_msgSend_lastHint(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v20 = v10;
+  if (v10)
   {
-    v13 = objc_msgSend_terminatedByBreak(v6, v7, v8, v9, v10, v11);
+    v21 = objc_msgSend_terminatedByBreak(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
   else
   {
-    v13 = 0;
+    v21 = 0;
   }
 
-  return v13;
+  return v21;
 }
 
 - (void)trimToCharIndex:(unint64_t)index inTarget:(id)target removeFootnoteReferenceCount:(unint64_t)count removeAutoNumberFootnoteCount:(unint64_t)footnoteCount
@@ -1113,189 +1113,189 @@ LABEL_15:
   targetCopy = target;
   if (self->_pageKind == 5)
   {
-    v14 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]");
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v22, v23, v24, v25, v26, v15, v21, 465, 0, "shouldn't ask for the properties of a dirty page hint");
+    v18 = MEMORY[0x277D81150];
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v14, v15, v16, v17, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]", v11, v12, v13);
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v21, v22, v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v29, v30, v31, v32, v33, v19, v28, 465, 0, "shouldn't ask for the properties of a dirty page hint");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30, v31);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v39, v40, v41, v42, v35, v36, v37, v38);
   }
 
   if (self->_isCopyForCaching)
   {
-    v32 = MEMORY[0x277D81150];
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]");
-    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, v35, v36, v37, v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v40, v41, v42, v43, v44, v33, v39, 466, 0, "Do not call method on page hint that is intended for caching only");
+    v43 = MEMORY[0x277D81150];
+    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v14, v15, v16, v17, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]", v11, v12, v13);
+    v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, v49, v50, v51, v52, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v46, v47, v48);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v54, v55, v56, v57, v58, v44, v53, 466, 0, "Do not call method on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47, v48, v49);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v59, v64, v65, v66, v67, v60, v61, v62, v63);
   }
 
-  if (!objc_msgSend_count(self->_hints, v9, v10, v11, v12, v13))
+  if (!objc_msgSend_count(self->_hints, v9, v14, v15, v16, v17, v10, v11, v12, v13))
   {
-    v55 = MEMORY[0x277D81150];
-    v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, v51, v52, v53, v54, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]");
-    v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v58, v59, v60, v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v63, v64, v65, v66, v67, v56, v62, 468, 0, "bad page hint: no text hints");
+    v77 = MEMORY[0x277D81150];
+    v78 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, v73, v74, v75, v76, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]", v70, v71, v72);
+    v87 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v79, v83, v84, v85, v86, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v80, v81, v82);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v77, v88, v89, v90, v91, v92, v78, v87, 468, 0, "bad page hint: no text hints");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v69, v70, v71, v72);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v93, v98, v99, v100, v101, v94, v95, v96, v97);
   }
 
-  if (objc_msgSend_count(self->_hints, v50, v51, v52, v53, v54))
+  if (objc_msgSend_count(self->_hints, v68, v73, v74, v75, v76, v69, v70, v71, v72))
   {
-    v78 = objc_msgSend_objectAtIndexedSubscript_(self->_hints, v73, v74, v75, v76, v77, 0);
-    v84 = objc_msgSend_range(v78, v79, v80, v81, v82, v83);
+    v110 = objc_msgSend_objectAtIndexedSubscript_(self->_hints, v102, v106, v107, v108, v109, 0, v103, v104, v105);
+    v120 = objc_msgSend_range(v110, v111, v116, v117, v118, v119, v112, v113, v114, v115);
 
-    if (v84 >= index)
+    if (v120 >= index)
     {
-      v90 = MEMORY[0x277D81150];
-      v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v85, v86, v87, v88, v89, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]");
-      v97 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, v93, v94, v95, v96, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v98, v99, v100, v101, v102, v91, v97, 470, 0, "trimming will remove all characters from this page hint");
+      v130 = MEMORY[0x277D81150];
+      v131 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v121, v126, v127, v128, v129, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]", v123, v124, v125);
+      v140 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v132, v136, v137, v138, v139, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v133, v134, v135);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v130, v141, v142, v143, v144, v145, v131, v140, 470, 0, "trimming will remove all characters from this page hint");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v103, v104, v105, v106, v107);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v146, v151, v152, v153, v154, v147, v148, v149, v150);
     }
 
     hints = self->_hints;
-    v109 = objc_msgSend_count(hints, v85, v86, v87, v88, v89);
-    v115 = objc_msgSend_objectAtIndexedSubscript_(hints, v110, v111, v112, v113, v114, v109 - 1);
-    v121 = objc_msgSend_range(v115, v116, v117, v118, v119, v120);
-    if (&v122[v121] > index)
+    v156 = objc_msgSend_count(hints, v121, v126, v127, v128, v129, v122, v123, v124, v125);
+    v165 = objc_msgSend_objectAtIndexedSubscript_(hints, v157, v161, v162, v163, v164, v156 - 1, v158, v159, v160);
+    v175 = objc_msgSend_range(v165, v166, v171, v172, v173, v174, v167, v168, v169, v170);
+    if (&v176[v175] > index)
     {
-      if (objc_msgSend_count(self->_childHints, v122, v123, v124, v125, v126))
+      if (objc_msgSend_count(self->_childHints, v176, v181, v182, v183, v184, v177, v178, v179, v180))
       {
-        v127 = objc_msgSend_lastObject(self->_childHints, v122, v123, v124, v125, v126);
-        v133 = objc_msgSend_null(MEMORY[0x277CBEB68], v128, v129, v130, v131, v132);
+        v185 = objc_msgSend_lastObject(self->_childHints, v176, v181, v182, v183, v184, v177, v178, v179, v180);
+        v195 = objc_msgSend_null(MEMORY[0x277CBEB68], v186, v191, v192, v193, v194, v187, v188, v189, v190);
 
-        if (v127 != v133)
+        if (v185 != v195)
         {
           childHints = self->_childHints;
-          v135 = objc_msgSend_count(childHints, v122, v123, v124, v125, v126);
-          v141 = objc_msgSend_subarrayWithRange_(childHints, v136, v137, v138, v139, v140, 0, v135 - 1);
-          v147 = objc_msgSend_null(MEMORY[0x277CBEB68], v142, v143, v144, v145, v146);
-          v153 = objc_msgSend_arrayByAddingObject_(v141, v148, v149, v150, v151, v152, v147);
-          objc_msgSend_setChildHints_(self, v154, v155, v156, v157, v158, v153);
+          v197 = objc_msgSend_count(childHints, v176, v181, v182, v183, v184, v177, v178, v179, v180);
+          v205 = objc_msgSend_subarrayWithRange_(childHints, v198, v201, v202, v203, v204, 0, v197 - 1, v199, v200);
+          v215 = objc_msgSend_null(MEMORY[0x277CBEB68], v206, v211, v212, v213, v214, v207, v208, v209, v210);
+          v224 = objc_msgSend_arrayByAddingObject_(v205, v216, v220, v221, v222, v223, v215, v217, v218, v219);
+          objc_msgSend_setChildHints_(self, v225, v229, v230, v231, v232, v224, v226, v227, v228);
         }
       }
     }
 
-    if (objc_msgSend_nextWidowPullsDownFromCharIndex(v115, v122, v123, v124, v125, v126) < index || objc_msgSend_range(v115, v159, v160, v161, v162, v163) > index)
+    if (objc_msgSend_nextWidowPullsDownFromCharIndex(v165, v176, v181, v182, v183, v184, v177, v178, v179, v180) < index || objc_msgSend_range(v165, v233, v238, v239, v240, v241, v234, v235, v236, v237) > index)
     {
-      v164 = MEMORY[0x277D81150];
-      v165 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v159, v160, v161, v162, v163, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]");
-      v171 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v166, v167, v168, v169, v170, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      v360.location = objc_msgSend_range(v115, v172, v173, v174, v175, v176);
-      v177 = NSStringFromRange(v360);
-      WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(v115, v178, v179, v180, v181, v182);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v164, v184, v185, v186, v187, v188, v165, v171, 479, 0, "Bad charIndex: %lu %{public}@ %lu", index, v177, WidowPullsDownFromCharIndex);
+      v243 = MEMORY[0x277D81150];
+      v244 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v233, v238, v239, v240, v241, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]", v235, v236, v237);
+      v253 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v245, v249, v250, v251, v252, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v246, v247, v248);
+      v534.location = objc_msgSend_range(v165, v254, v259, v260, v261, v262, v255, v256, v257, v258);
+      v263 = NSStringFromRange(v534);
+      WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(v165, v264, v269, v270, v271, v272, v265, v266, v267, v268);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v243, v274, v275, v276, v277, v278, v244, v253, 479, 0, "Bad charIndex: %lu %{public}@ %lu", index, v263, WidowPullsDownFromCharIndex);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v189, v190, v191, v192, v193);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v279, v284, v285, v286, v287, v280, v281, v282, v283);
     }
 
-    v194 = objc_msgSend_range(v115, v159, v160, v161, v162, v163);
-    indexCopy2 = &v195[v194];
-    if (&v195[v194] <= index)
+    v288 = objc_msgSend_range(v165, v233, v238, v239, v240, v241, v242, v235, v236, v237);
+    indexCopy2 = &v289[v288];
+    if (&v289[v288] <= index)
     {
       indexCopy = index;
     }
 
     else
     {
-      indexCopy = &v195[v194];
+      indexCopy = &v289[v288];
     }
 
-    if (&v195[v194] >= index)
+    if (&v289[v288] >= index)
     {
       indexCopy2 = index;
     }
 
-    v355 = indexCopy2;
-    v202 = objc_msgSend_range(v115, v195, v196, v197, v198, v199);
-    v208 = objc_msgSend_range(v115, v203, v204, v205, v206, v207);
-    objc_msgSend_setRange_(v115, v209, v210, v211, v212, v213, v202, index - v208);
-    objc_msgSend_setNextWidowPullsDownFromCharIndex_(v115, v214, v215, v216, v217, v218, index);
-    objc_msgSend_setLineFragmentCount_(v115, v219, v220, v221, v222, v223, 0x7FFFFFFFFFFFFFFFLL);
+    v529 = indexCopy2;
+    v300 = objc_msgSend_range(v165, v289, v294, v295, v296, v297, v290, v291, v292, v293);
+    v310 = objc_msgSend_range(v165, v301, v306, v307, v308, v309, v302, v303, v304, v305);
+    objc_msgSend_setRange_(v165, v311, v314, v315, v316, v317, v300, index - v310, v312, v313);
+    objc_msgSend_setNextWidowPullsDownFromCharIndex_(v165, v318, v322, v323, v324, v325, index, v319, v320, v321);
+    objc_msgSend_setLineFragmentCount_(v165, v326, v330, v331, v332, v333, 0x7FFFFFFFFFFFFFFFLL, v327, v328, v329);
     length = self->_footnoteAutoNumberRange.length;
     if (length < footnoteCount)
     {
-      v230 = MEMORY[0x277D81150];
-      v231 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v224, v225, v226, v227, v228, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]");
-      v237 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v232, v233, v234, v235, v236, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v230, v238, v239, v240, v241, v242, v231, v237, 488, 0, "Hint doesn't know about auto-numbered footnotes being removed");
+      v344 = MEMORY[0x277D81150];
+      v345 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v334, v339, v340, v341, v342, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]", v336, v337, v338);
+      v354 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v346, v350, v351, v352, v353, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v347, v348, v349);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v344, v355, v356, v357, v358, v359, v345, v354, 488, 0, "Hint doesn't know about auto-numbered footnotes being removed");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v243, v244, v245, v246, v247);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v360, v365, v366, v367, v368, v361, v362, v363, v364);
       length = self->_footnoteAutoNumberRange.length;
     }
 
-    v248 = length >= footnoteCount;
-    v249 = length - footnoteCount;
-    if (v248)
+    v369 = length >= footnoteCount;
+    v370 = length - footnoteCount;
+    if (v369)
     {
-      self->_footnoteAutoNumberRange.length = v249;
+      self->_footnoteAutoNumberRange.length = v370;
     }
 
-    v250 = objc_msgSend_storage(targetCopy, v224, v225, v226, v227, v228);
-    v256 = objc_msgSend_documentRoot(v250, v251, v252, v253, v254, v255);
+    v371 = objc_msgSend_storage(targetCopy, v334, v339, v340, v341, v342, v335, v336, v337, v338);
+    v381 = objc_msgSend_documentRoot(v371, v372, v377, v378, v379, v380, v373, v374, v375, v376);
 
-    v262 = objc_msgSend_settings(v256, v257, v258, v259, v260, v261);
-    v268 = objc_msgSend_footnoteKind(v262, v263, v264, v265, v266, v267);
+    v391 = objc_msgSend_settings(v381, v382, v387, v388, v389, v390, v383, v384, v385, v386);
+    v401 = objc_msgSend_footnoteKind(v391, v392, v397, v398, v399, v400, v393, v394, v395, v396);
 
-    v274 = self->_footnoteLayoutRange.length;
-    if (v268)
+    v411 = self->_footnoteLayoutRange.length;
+    if (v401)
     {
-      if (v274)
+      if (v411)
       {
-        v275 = MEMORY[0x277D81150];
-        v276 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v269, v270, v271, v272, v273, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]");
-        v282 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v277, v278, v279, v280, v281, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v275, v283, v284, v285, v286, v287, v276, v282, 501, 0, "Shouldn't have footnotes due to endnote setting");
+        v412 = MEMORY[0x277D81150];
+        v413 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v402, v407, v408, v409, v410, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]", v404, v405, v406);
+        v422 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v414, v418, v419, v420, v421, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v415, v416, v417);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v412, v423, v424, v425, v426, v427, v413, v422, 501, 0, "Shouldn't have footnotes due to endnote setting");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v288, v289, v290, v291, v292);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v428, v433, v434, v435, v436, v429, v430, v431, v432);
       }
     }
 
     else
     {
-      if (v274 < count)
+      if (v411 < count)
       {
-        v293 = MEMORY[0x277D81150];
-        v294 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v269, v270, v271, v272, v273, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]");
-        v300 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v295, v296, v297, v298, v299, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v293, v301, v302, v303, v304, v305, v294, v300, 496, 0, "Hint doesn't know about footnotes being removed");
+        v437 = MEMORY[0x277D81150];
+        v438 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v402, v407, v408, v409, v410, "[TPPageHint trimToCharIndex:inTarget:removeFootnoteReferenceCount:removeAutoNumberFootnoteCount:]", v404, v405, v406);
+        v447 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v439, v443, v444, v445, v446, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v440, v441, v442);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v437, v448, v449, v450, v451, v452, v438, v447, 496, 0, "Hint doesn't know about footnotes being removed");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v306, v307, v308, v309, v310);
-        v274 = self->_footnoteLayoutRange.length;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v453, v458, v459, v460, v461, v454, v455, v456, v457);
+        v411 = self->_footnoteLayoutRange.length;
       }
 
-      v248 = v274 >= count;
-      v311 = v274 - count;
-      if (v248)
+      v369 = v411 >= count;
+      v462 = v411 - count;
+      if (v369)
       {
-        self->_footnoteLayoutRange.length = v311;
+        self->_footnoteLayoutRange.length = v462;
       }
     }
 
-    v312 = indexCopy - v355;
-    if (indexCopy - v355 - 1 <= 0x7FFFFFFFFFFFFFFDLL && objc_msgSend_count(self->_startingPartitionedAttachments, v269, v270, v271, v272, v273))
+    v463 = indexCopy - v529;
+    if (indexCopy - v529 - 1 <= 0x7FFFFFFFFFFFFFFDLL && objc_msgSend_count(self->_startingPartitionedAttachments, v402, v407, v408, v409, v410, v403, v404, v405, v406))
     {
-      v318 = objc_msgSend_set(MEMORY[0x277CBEB58], v313, v314, v315, v316, v317);
-      v324 = objc_msgSend_storage(targetCopy, v319, v320, v321, v322, v323);
-      v325 = objc_opt_class();
-      v358[0] = MEMORY[0x277D85DD0];
-      v358[1] = 3221225472;
-      v358[2] = sub_275FE39FC;
-      v358[3] = &unk_27A6A87B8;
-      v326 = v318;
-      v359 = v326;
-      objc_msgSend_enumerateAttachmentsOfClass_inTextRange_usingBlock_(v324, v327, v328, v329, v330, v331, v325, v355, v312, v358);
+      v473 = objc_msgSend_set(MEMORY[0x277CBEB58], v464, v469, v470, v471, v472, v465, v466, v467, v468);
+      v483 = objc_msgSend_storage(targetCopy, v474, v479, v480, v481, v482, v475, v476, v477, v478);
+      v484 = objc_opt_class();
+      v532[0] = MEMORY[0x277D85DD0];
+      v532[1] = 3221225472;
+      v532[2] = sub_275FE39FC;
+      v532[3] = &unk_27A6A87B8;
+      v485 = v473;
+      v533 = v485;
+      objc_msgSend_enumerateAttachmentsOfClass_inTextRange_usingBlock_(v483, v486, v487, v488, v489, v490, v484, v529, v463, v532);
 
-      if (objc_msgSend_count(v326, v332, v333, v334, v335, v336))
+      if (objc_msgSend_count(v485, v491, v496, v497, v498, v499, v492, v493, v494, v495))
       {
-        v342 = objc_msgSend_mutableCopy(self->_startingPartitionedAttachments, v337, v338, v339, v340, v341);
-        objc_msgSend_minusSet_(v342, v343, v344, v345, v346, v347, v326);
-        v353 = objc_msgSend_copy(v342, v348, v349, v350, v351, v352);
+        v509 = objc_msgSend_mutableCopy(self->_startingPartitionedAttachments, v500, v505, v506, v507, v508, v501, v502, v503, v504);
+        objc_msgSend_minusSet_(v509, v510, v514, v515, v516, v517, v485, v511, v512, v513);
+        v527 = objc_msgSend_copy(v509, v518, v523, v524, v525, v526, v519, v520, v521, v522);
         startingPartitionedAttachments = self->_startingPartitionedAttachments;
-        self->_startingPartitionedAttachments = v353;
+        self->_startingPartitionedAttachments = v527;
       }
     }
   }
@@ -1305,35 +1305,35 @@ LABEL_15:
 {
   if (self->_isCopyForCaching)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v2, v3, v4, v5, "[TPPageHint lineCount]");
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v15, v16, v17, v18, v19, v8, v14, 525, 0, "Do not call method on page hint that is intended for caching only");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v6, v7, v8, v9, "[TPPageHint lineCount]", v3, v4, v5);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v17, v18, v19, v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v14, v15, v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v22, v23, v24, v25, v26, v12, v21, 525, 0, "Do not call method on page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v32, v33, v34, v35, v28, v29, v30, v31);
   }
 
-  if (!objc_msgSend_count(self->_hints, a2, v2, v3, v4, v5))
+  if (!objc_msgSend_count(self->_hints, a2, v6, v7, v8, v9, v2, v3, v4, v5))
   {
     return 0;
   }
 
-  v30 = 0;
-  v31 = 0;
+  v44 = 0;
+  v45 = 0;
   while (1)
   {
-    v32 = objc_msgSend_objectAtIndexedSubscript_(self->_hints, v25, v26, v27, v28, v29, v30);
-    v38 = objc_msgSend_lineFragmentCount(v32, v33, v34, v35, v36, v37);
+    v46 = objc_msgSend_objectAtIndexedSubscript_(self->_hints, v36, v40, v41, v42, v43, v44, v37, v38, v39);
+    v56 = objc_msgSend_lineFragmentCount(v46, v47, v52, v53, v54, v55, v48, v49, v50, v51);
 
-    if (v38 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v56 == 0x7FFFFFFFFFFFFFFFLL)
     {
       break;
     }
 
-    v31 += v38;
-    if (++v30 >= objc_msgSend_count(self->_hints, v39, v40, v41, v42, v43))
+    v45 += v56;
+    if (++v44 >= objc_msgSend_count(self->_hints, v57, v62, v63, v64, v65, v58, v59, v60, v61))
     {
-      return v31;
+      return v45;
     }
   }
 
@@ -1343,39 +1343,39 @@ LABEL_15:
 - (TPPageHint)initWithArchive:(const void *)archive unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v13 = objc_msgSend_init(self, v7, v8, v9, v10, v11);
-  if (!v13)
+  v21 = objc_msgSend_init(self, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+  if (!v21)
   {
     goto LABEL_52;
   }
 
-  v18 = 0;
-  v19 = *(archive + 4);
-  if ((~v19 & 0xC0) == 0 && *(archive + 59) >= 0x35u && *(archive + 60) == 1)
+  v26 = 0;
+  v27 = *(archive + 4);
+  if ((~v27 & 0xC0) == 0 && *(archive + 59) >= 0x35u && *(archive + 60) == 1)
   {
-    v20 = *(archive + 8);
-    if (v20 >= 1)
+    v28 = *(archive + 8);
+    if (v28 >= 1)
     {
-      v21 = objc_alloc(MEMORY[0x277CBEB18]);
-      v27 = objc_msgSend_initWithCapacity_(v21, v22, v23, v24, v25, v26, v20);
-      v28 = 8;
+      v29 = objc_alloc(MEMORY[0x277CBEB18]);
+      v38 = objc_msgSend_initWithCapacity_(v29, v30, v34, v35, v36, v37, v28, v31, v32, v33);
+      v39 = 8;
       while (1)
       {
-        v29 = objc_opt_new();
-        if ((objc_msgSend_p_unarchiveHint_fromArchive_(v13, v30, v31, v32, v33, v34, v29, *(*(archive + 5) + v28)) & 1) == 0)
+        v40 = objc_opt_new();
+        if ((objc_msgSend_p_unarchiveHint_fromArchive_(v21, v41, v44, v45, v46, v47, v40, *(*(archive + 5) + v39), v42, v43) & 1) == 0)
         {
           break;
         }
 
-        objc_msgSend_addObject_(v27, v35, v36, v37, v38, v39, v29);
+        objc_msgSend_addObject_(v38, v48, v52, v53, v54, v55, v40, v49, v50, v51);
 
-        v28 += 8;
-        if (!--v20)
+        v39 += 8;
+        if (!--v28)
         {
-          v40 = *(v13 + 32);
-          *(v13 + 32) = v27;
+          v56 = *(v21 + 32);
+          *(v21 + 32) = v38;
 
-          v19 = *(archive + 4);
+          v27 = *(archive + 4);
           goto LABEL_10;
         }
       }
@@ -1384,240 +1384,240 @@ LABEL_15:
     }
 
 LABEL_10:
-    if ((v19 & 0x20) == 0)
+    if ((v27 & 0x20) == 0)
     {
       goto LABEL_36;
     }
 
-    v41 = *(archive + 58);
-    *(v13 + 8) = v41;
-    if (v41 == 1)
+    v57 = *(archive + 58);
+    *(v21 + 8) = v57;
+    if (v57 == 1)
     {
-      if (!objc_msgSend_count(*(v13 + 32), v12, v14, v15, v16, v17))
+      if (!objc_msgSend_count(*(v21 + 32), v16, v22, v23, v24, v25, v17, v18, v19, v20))
       {
-        v47 = MEMORY[0x277D81150];
-        v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, v43, v44, v45, v46, "[TPPageHint initWithArchive:unarchiver:]");
-        v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, v50, v51, v52, v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v55, v56, v57, v58, v59, v48, v54, 734, 0, "text page hint has no text hints");
+        v67 = MEMORY[0x277D81150];
+        v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, v63, v64, v65, v66, "[TPPageHint initWithArchive:unarchiver:]", v60, v61, v62);
+        v77 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v69, v73, v74, v75, v76, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v70, v71, v72);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v67, v78, v79, v80, v81, v82, v68, v77, 734, 0, "text page hint has no text hints");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v60, v61, v62, v63, v64);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v83, v88, v89, v90, v91, v84, v85, v86, v87);
       }
 
-      if (!objc_msgSend_count(*(v13 + 32), v42, v43, v44, v45, v46))
+      if (!objc_msgSend_count(*(v21 + 32), v58, v63, v64, v65, v66, v59, v60, v61, v62))
       {
         goto LABEL_36;
       }
 
-      v19 = *(archive + 4);
+      v27 = *(archive + 4);
     }
 
-    if ((v19 & 0x400) == 0 || (*(v13 + 16) = *(archive + 63), (v19 & 0x200) == 0))
+    if ((v27 & 0x400) == 0 || (*(v21 + 16) = *(archive + 63), (v27 & 0x200) == 0))
     {
 LABEL_36:
-      v18 = 0;
+      v26 = 0;
       goto LABEL_53;
     }
 
-    *(v13 + 24) = *(archive + 62);
-    if (v19)
+    *(v21 + 24) = *(archive + 62);
+    if (v27)
     {
-      *(v13 + 48) = TSPNSRangeFromMessage();
-      *(v13 + 56) = v65;
-      v19 = *(archive + 4);
+      *(v21 + 48) = TSPNSRangeFromMessage();
+      *(v21 + 56) = v92;
+      v27 = *(archive + 4);
     }
 
-    if ((v19 & 2) != 0)
+    if ((v27 & 2) != 0)
     {
-      *(v13 + 64) = TSPNSRangeFromMessage();
-      *(v13 + 72) = v66;
+      *(v21 + 64) = TSPNSRangeFromMessage();
+      *(v21 + 72) = v93;
     }
 
-    v296[0] = MEMORY[0x277D85DD0];
-    v296[1] = 3221225472;
-    v296[2] = sub_275FE45C8;
-    v296[3] = &unk_27A6A8508;
-    v67 = v13;
-    v297 = v67;
-    sub_275FE451C(unarchiverCopy, archive + 72, &unk_288528398, v296);
-    v73 = *(archive + 14);
-    v290 = v67;
-    if (v73 >= 1)
+    v411[0] = MEMORY[0x277D85DD0];
+    v411[1] = 3221225472;
+    v411[2] = sub_275FE45C8;
+    v411[3] = &unk_27A6A8508;
+    v94 = v21;
+    v412 = v94;
+    sub_275FE451C(unarchiverCopy, archive + 72, &unk_288528398, v411);
+    v103 = *(archive + 14);
+    v405 = v94;
+    if (v103 >= 1)
     {
-      v74 = objc_alloc(MEMORY[0x277D81278]);
-      v81 = objc_msgSend_initWithCapacity_(v74, v75, v76, v77, v78, v79, v73);
-      v86 = 8;
-      v87 = MEMORY[0x277D80A10];
+      v104 = objc_alloc(MEMORY[0x277D81278]);
+      v117 = objc_msgSend_initWithCapacity_(v104, v105, v109, v110, v111, v112, v103, v106, v107, v108);
+      v122 = 8;
+      v123 = MEMORY[0x277D80A10];
       while (1)
       {
-        v88 = *(*(archive + 8) + v86);
-        if ((*(v88 + 16) & 8) == 0)
+        v124 = *(*(archive + 8) + v122);
+        if ((*(v124 + 16) & 8) == 0)
         {
           break;
         }
 
-        v89 = *(v88 + 48);
-        v90 = *(v89 + 24);
-        v91 = *(v89 + 32);
-        v92 = *(v88 + 40);
-        if (v92)
+        v125 = *(v124 + 48);
+        v126 = *(v125 + 24);
+        v127 = *(v125 + 32);
+        v128 = *(v124 + 40);
+        if (v128)
         {
-          objc_msgSend_readWeakObjectUUIDPathReferenceMessage_(unarchiverCopy, v80, v82, v83, v84, v85, v92);
+          objc_msgSend_readWeakObjectUUIDPathReferenceMessage_(unarchiverCopy, v113, v118, v119, v120, v121, v128, v114, v115, v116);
         }
 
         else
         {
-          objc_msgSend_readWeakObjectUUIDPathReferenceMessage_(unarchiverCopy, v80, v82, v83, v84, v85, v87);
+          objc_msgSend_readWeakObjectUUIDPathReferenceMessage_(unarchiverCopy, v113, v118, v119, v120, v121, v123, v114, v115, v116);
         }
-        v93 = ;
-        v94.n128_u64[0] = v90;
-        v95.n128_u64[0] = v91;
-        v99 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v96, v94, v95, v97, v98);
-        objc_msgSend_setObject_forKey_(v81, v100, v101, v102, v103, v104, v99, v93);
+        v129 = ;
+        v130.n128_u64[0] = v126;
+        v131.n128_u64[0] = v127;
+        v139 = objc_msgSend_valueWithCGPoint_(MEMORY[0x277CCAE60], v132, v130, v131, v137, v138, v133, v134, v135, v136);
+        objc_msgSend_setObject_forKey_(v117, v140, v143, v144, v145, v146, v139, v129, v141, v142);
 
-        v86 += 8;
-        if (!--v73)
+        v122 += 8;
+        if (!--v103)
         {
-          v105 = v67[11];
-          v67[11] = v81;
+          v147 = v94[11];
+          v94[11] = v117;
 
           goto LABEL_30;
         }
       }
 
-      v150 = MEMORY[0x277D81150];
-      v151 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v80, v82, v83, v84, v85, "[TPPageHint initWithArchive:unarchiver:]");
-      v157 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v152, v153, v154, v155, v156, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v150, v158, v159, v160, v161, v162, v151, v157, 806, 0, "missing anchored drawable position");
+      v212 = MEMORY[0x277D81150];
+      v213 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, v118, v119, v120, v121, "[TPPageHint initWithArchive:unarchiver:]", v114, v115, v116);
+      v222 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v214, v218, v219, v220, v221, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v215, v216, v217);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v212, v223, v224, v225, v226, v227, v213, v222, 806, 0, "missing anchored drawable position");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v163, v164, v165, v166, v167);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v228, v233, v234, v235, v236, v229, v230, v231, v232);
       goto LABEL_38;
     }
 
 LABEL_30:
-    v106 = *(archive + 26);
-    v81 = objc_msgSend_setWithCapacity_(MEMORY[0x277CBEB58], v68, v69, v70, v71, v72, v106);
-    if (v106)
+    v148 = *(archive + 26);
+    v117 = objc_msgSend_setWithCapacity_(MEMORY[0x277CBEB58], v95, v99, v100, v101, v102, v148, v96, v97, v98);
+    if (v148)
     {
-      v112 = 0;
+      v158 = 0;
       do
       {
-        v113 = objc_alloc(MEMORY[0x277CCAD78]);
-        v119 = objc_msgSend_tsp_initWithMessage_(v113, v114, v115, v116, v117, v118, *(*(archive + 14) + (v112 >> 29) + 8));
-        objc_msgSend_addObject_(v81, v120, v121, v122, v123, v124, v119);
+        v159 = objc_alloc(MEMORY[0x277CCAD78]);
+        v168 = objc_msgSend_tsp_initWithMessage_(v159, v160, v164, v165, v166, v167, *(*(archive + 14) + (v158 >> 29) + 8), v161, v162, v163);
+        objc_msgSend_addObject_(v117, v169, v173, v174, v175, v176, v168, v170, v171, v172);
 
-        v112 += 0x100000000;
-        --v106;
+        v158 += 0x100000000;
+        --v148;
       }
 
-      while (v106);
+      while (v148);
     }
 
-    v125 = objc_msgSend_copy(v81, v107, v108, v109, v110, v111);
-    v126 = v290[12];
-    v290[12] = v125;
+    v177 = objc_msgSend_copy(v117, v149, v154, v155, v156, v157, v150, v151, v152, v153);
+    v178 = v405[12];
+    v405[12] = v177;
 
     if ((*(archive + 16) & 0x10) == 0)
     {
-      v132 = MEMORY[0x277D81150];
-      v133 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v127, v128, v129, v130, v131, "[TPPageHint initWithArchive:unarchiver:]");
-      v139 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v134, v135, v136, v137, v138, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v132, v140, v141, v142, v143, v144, v133, v139, 843, 0, "shouldn't need to upgrade page hints");
+      v187 = MEMORY[0x277D81150];
+      v188 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v179, v183, v184, v185, v186, "[TPPageHint initWithArchive:unarchiver:]", v180, v181, v182);
+      v197 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v189, v193, v194, v195, v196, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v190, v191, v192);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v187, v198, v199, v200, v201, v202, v188, v197, 843, 0, "shouldn't need to upgrade page hints");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v145, v146, v147, v148, v149);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v203, v208, v209, v210, v211, v204, v205, v206, v207);
 LABEL_38:
 
       goto LABEL_36;
     }
 
-    v168 = *(archive + 28);
-    v169 = objc_opt_new();
-    v170 = v290[13];
-    v290[13] = v169;
+    v237 = *(archive + 28);
+    v238 = objc_opt_new();
+    v239 = v405[13];
+    v405[13] = v238;
 
-    objc_msgSend_p_unarchiveTopicNumberHints_fromArchive_unarchiver_(v290, v171, v172, v173, v174, v175, v290[13], v168, unarchiverCopy);
-    v181 = *(archive + 38);
-    if (v181 != *(archive + 32) || v181 != *(archive + 44))
+    objc_msgSend_p_unarchiveTopicNumberHints_fromArchive_unarchiver_(v405, v240, v242, v243, v244, v245, v405[13], v237, unarchiverCopy, v241);
+    v254 = *(archive + 38);
+    if (v254 != *(archive + 32) || v254 != *(archive + 44))
     {
       goto LABEL_38;
     }
 
-    if ((v181 & 0x80000000) != 0)
+    if ((v254 & 0x80000000) != 0)
     {
-      v185 = MEMORY[0x277D81150];
-      v186 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v176, v177, v178, v179, v180, "[TPPageHint initWithArchive:unarchiver:]");
-      v192 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v187, v188, v189, v190, v191, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v185, v193, v194, v195, v196, v197, v186, v192, 854, 0, "Invalid flow hint count %d", v181);
+      v258 = MEMORY[0x277D81150];
+      v259 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v246, v250, v251, v252, v253, "[TPPageHint initWithArchive:unarchiver:]", v247, v248, v249);
+      v268 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v260, v264, v265, v266, v267, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v261, v262, v263);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v258, v269, v270, v271, v272, v273, v259, v268, 854, 0, "Invalid flow hint count %d", v254);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v198, v199, v200, v201, v202);
-      v203 = MEMORY[0x277D81150];
-      v209 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v204, v205, v206, v207, v208, "[TPPageHint initWithArchive:unarchiver:]");
-      v215 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v210, v211, v212, v213, v214, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v203, v216, v217, v218, v219, v220, v209, v215, 855, 0, "Invalid flow reference count %d", v181);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v274, v279, v280, v281, v282, v275, v276, v277, v278);
+      v283 = MEMORY[0x277D81150];
+      v292 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v284, v288, v289, v290, v291, "[TPPageHint initWithArchive:unarchiver:]", v285, v286, v287);
+      v301 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v293, v297, v298, v299, v300, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v294, v295, v296);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v283, v302, v303, v304, v305, v306, v292, v301, 855, 0, "Invalid flow reference count %d", v254);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v221, v222, v223, v224, v225);
-      v226 = MEMORY[0x277D81150];
-      v232 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v227, v228, v229, v230, v231, "[TPPageHint initWithArchive:unarchiver:]");
-      v238 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v233, v234, v235, v236, v237, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v226, v239, v240, v241, v242, v243, v232, v238, 856, 0, "Invalid flow topic numbers count %d", v181);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v307, v312, v313, v314, v315, v308, v309, v310, v311);
+      v316 = MEMORY[0x277D81150];
+      v325 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v317, v321, v322, v323, v324, "[TPPageHint initWithArchive:unarchiver:]", v318, v319, v320);
+      v334 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v326, v330, v331, v332, v333, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v327, v328, v329);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v316, v335, v336, v337, v338, v339, v325, v334, 856, 0, "Invalid flow topic numbers count %d", v254);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v244, v245, v246, v247, v248);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v340, v345, v346, v347, v348, v341, v342, v343, v344);
     }
 
     else
     {
-      v182 = v290;
-      if (!v181)
+      v255 = v405;
+      if (!v254)
       {
-        v183 = 0;
-        v184 = 0;
+        v256 = 0;
+        v257 = 0;
 LABEL_51:
-        v291[0] = MEMORY[0x277D85DD0];
-        v291[1] = 3221225472;
-        v291[2] = sub_275FE4808;
-        v291[3] = &unk_27A6A87E0;
-        v295 = v181;
-        v285 = v183;
-        v292 = v285;
-        v293 = v184;
-        v294 = v182;
-        v286 = v184;
-        sub_275FE4778(unarchiverCopy, archive + 120, v291);
+        v406[0] = MEMORY[0x277D85DD0];
+        v406[1] = 3221225472;
+        v406[2] = sub_275FE4808;
+        v406[3] = &unk_27A6A87E0;
+        v410 = v254;
+        v400 = v256;
+        v407 = v400;
+        v408 = v257;
+        v409 = v255;
+        v401 = v257;
+        sub_275FE4778(unarchiverCopy, archive + 120, v406);
 
 LABEL_52:
-        v18 = v13;
+        v26 = v21;
         goto LABEL_53;
       }
     }
 
-    v249 = objc_alloc(MEMORY[0x277CBEB18]);
-    v183 = objc_msgSend_initWithCapacity_(v249, v250, v251, v252, v253, v254, v181);
-    v255 = objc_alloc(MEMORY[0x277CBEB18]);
-    v184 = objc_msgSend_initWithCapacity_(v255, v256, v257, v258, v259, v260, v181);
-    if (v181 >= 1)
+    v349 = objc_alloc(MEMORY[0x277CBEB18]);
+    v256 = objc_msgSend_initWithCapacity_(v349, v350, v354, v355, v356, v357, v254, v351, v352, v353);
+    v358 = objc_alloc(MEMORY[0x277CBEB18]);
+    v257 = objc_msgSend_initWithCapacity_(v358, v359, v363, v364, v365, v366, v254, v360, v361, v362);
+    if (v254 >= 1)
     {
-      v261 = v181;
-      v262 = 8;
-      v288 = v261;
-      v289 = v183;
-      v182 = v290;
+      v367 = v254;
+      v368 = 8;
+      v403 = v367;
+      v404 = v256;
+      v255 = v405;
       while (1)
       {
-        v263 = objc_opt_new();
-        if ((objc_msgSend_p_unarchiveHint_fromArchive_(v290, v264, v265, v266, v267, v268, v263, *(*(archive + 20) + v262)) & 1) == 0)
+        v369 = objc_opt_new();
+        if ((objc_msgSend_p_unarchiveHint_fromArchive_(v405, v370, v373, v374, v375, v376, v369, *(*(archive + 20) + v368), v371, v372) & 1) == 0)
         {
           break;
         }
 
-        v269 = objc_opt_new();
-        objc_msgSend_p_unarchiveTopicNumberHints_fromArchive_unarchiver_(v290, v270, v271, v272, v273, v274, v269, *(*(archive + 23) + v262), unarchiverCopy);
-        objc_msgSend_addObject_(v289, v275, v276, v277, v278, v279, v263);
-        objc_msgSend_addObject_(v184, v280, v281, v282, v283, v284, v269);
+        v377 = objc_opt_new();
+        objc_msgSend_p_unarchiveTopicNumberHints_fromArchive_unarchiver_(v405, v378, v380, v381, v382, v383, v377, *(*(archive + 23) + v368), unarchiverCopy, v379);
+        objc_msgSend_addObject_(v404, v384, v388, v389, v390, v391, v369, v385, v386, v387);
+        objc_msgSend_addObject_(v257, v392, v396, v397, v398, v399, v377, v393, v394, v395);
 
-        v262 += 8;
-        if (!--v261)
+        v368 += 8;
+        if (!--v367)
         {
-          LODWORD(v181) = v288;
-          v183 = v289;
+          LODWORD(v254) = v403;
+          v256 = v404;
           goto LABEL_51;
         }
       }
@@ -1625,235 +1625,235 @@ LABEL_52:
       goto LABEL_38;
     }
 
-    v182 = v290;
+    v255 = v405;
     goto LABEL_51;
   }
 
 LABEL_53:
 
-  return v18;
+  return v26;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver context:(id)context
 {
-  v416 = *MEMORY[0x277D85DE8];
+  v554 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
   contextCopy = context;
   if (self->_isCopyForCaching)
   {
-    v13 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, v12, "[TPPageHint saveToArchive:archiver:context:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v21, v22, v23, v24, v25, v14, v20, 909, 0, "Cannot archive a page hint that is intended for caching only");
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v12, v13, v14, v15, "[TPPageHint saveToArchive:archiver:context:]", v9, v10, v11);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v19, v20, v21);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v27, v28, v29, v30, v31, v17, v26, 909, 0, "Cannot archive a page hint that is intended for caching only");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v37, v38, v39, v40, v33, v34, v35, v36);
   }
 
   *(archive + 4) |= 1u;
   if (!*(archive + 24))
   {
-    v31 = *(archive + 1);
-    if (v31)
+    v41 = *(archive + 1);
+    if (v41)
     {
-      v31 = *(v31 & 0xFFFFFFFFFFFFFFFELL);
+      v41 = *(v41 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    *(archive + 24) = MEMORY[0x277C92D40](v31);
+    *(archive + 24) = MEMORY[0x277C92D40](v41);
   }
 
   TSPNSRangeCopyToMessage();
   *(archive + 4) |= 2u;
   if (!*(archive + 25))
   {
-    v32 = *(archive + 1);
-    if (v32)
+    v42 = *(archive + 1);
+    if (v42)
     {
-      v32 = *(v32 & 0xFFFFFFFFFFFFFFFELL);
+      v42 = *(v42 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    *(archive + 25) = MEMORY[0x277C92D40](v32);
+    *(archive + 25) = MEMORY[0x277C92D40](v42);
   }
 
   TSPNSRangeCopyToMessage();
   *(archive + 4) |= 0xC0u;
-  v33.n128_u64[0] = 0x100000035;
+  v43.n128_u64[0] = 0x100000035;
   *(archive + 236) = 0x100000035;
-  if (!objc_msgSend_count(self->_hints, v34, v33, v35, v36, v37))
+  if (!objc_msgSend_count(self->_hints, v44, v43, v49, v50, v51, v45, v46, v47, v48))
   {
-    v43 = MEMORY[0x277D81150];
-    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, v39, v40, v41, v42, "[TPPageHint saveToArchive:archiver:context:]");
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v51, v52, v53, v54, v55, v44, v50, 917, 0, "Page hint is empty");
+    v60 = MEMORY[0x277D81150];
+    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, v56, v57, v58, v59, "[TPPageHint saveToArchive:archiver:context:]", v53, v54, v55);
+    v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, v66, v67, v68, v69, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v63, v64, v65);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v71, v72, v73, v74, v75, v61, v70, 917, 0, "Page hint is empty");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57, v58, v59, v60);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v76, v81, v82, v83, v84, v77, v78, v79, v80);
   }
 
-  v409 = 0u;
-  v410 = 0u;
-  v407 = 0u;
-  v408 = 0u;
-  v61 = self->_hints;
-  v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v62, v63, v64, v65, v66, &v407, v415, 16);
-  if (v68)
+  v547 = 0u;
+  v548 = 0u;
+  v545 = 0u;
+  v546 = 0u;
+  v85 = self->_hints;
+  v95 = objc_msgSend_countByEnumeratingWithState_objects_count_(v85, v86, v88, v89, v90, v91, &v545, v553, 16, v87);
+  if (v95)
   {
-    v73 = *v408;
+    v100 = *v546;
     do
     {
-      for (i = 0; i != v68; ++i)
+      for (i = 0; i != v95; ++i)
       {
-        if (*v408 != v73)
+        if (*v546 != v100)
         {
-          objc_enumerationMutation(v61);
+          objc_enumerationMutation(v85);
         }
 
-        v75 = *(*(&v407 + 1) + 8 * i);
-        v76 = *(archive + 5);
-        if (!v76)
+        v102 = *(*(&v545 + 1) + 8 * i);
+        v103 = *(archive + 5);
+        if (!v103)
         {
           goto LABEL_23;
         }
 
-        v77 = *(archive + 8);
-        v78 = *v76;
-        if (v77 < *v76)
+        v104 = *(archive + 8);
+        v105 = *v103;
+        if (v104 < *v103)
         {
-          *(archive + 8) = v77 + 1;
-          objc_msgSend_p_archiveHint_intoArchive_(self, v67, v69, v70, v71, v72, v75, *&v76[2 * v77 + 2]);
+          *(archive + 8) = v104 + 1;
+          objc_msgSend_p_archiveHint_intoArchive_(self, v92, v96, v97, v98, v99, v102, *&v103[2 * v104 + 2], v93, v94);
           continue;
         }
 
-        if (v78 == *(archive + 9))
+        if (v105 == *(archive + 9))
         {
 LABEL_23:
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 24));
-          v76 = *(archive + 5);
-          v78 = *v76;
+          v103 = *(archive + 5);
+          v105 = *v103;
         }
 
-        *v76 = v78 + 1;
-        v79 = sub_275FAF71C(*(archive + 3));
-        v80 = *(archive + 8);
-        v81 = *(archive + 5) + 8 * v80;
-        *(archive + 8) = v80 + 1;
-        *(v81 + 8) = v79;
-        objc_msgSend_p_archiveHint_intoArchive_(self, v82, v83, v84, v85, v86, v75, v79);
+        *v103 = v105 + 1;
+        v106 = sub_275FAF71C(*(archive + 3));
+        v107 = *(archive + 8);
+        v108 = *(archive + 5) + 8 * v107;
+        *(archive + 8) = v107 + 1;
+        *(v108 + 8) = v106;
+        objc_msgSend_p_archiveHint_intoArchive_(self, v109, v112, v113, v114, v115, v102, v106, v110, v111);
       }
 
-      v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v67, v69, v70, v71, v72, &v407, v415, 16);
+      v95 = objc_msgSend_countByEnumeratingWithState_objects_count_(v85, v92, v96, v97, v98, v99, &v545, v553, 16, v94);
     }
 
-    while (v68);
+    while (v95);
   }
 
-  v92 = objc_msgSend_anchoredDrawablePositions(self, v87, v88, v89, v90, v91);
-  v404[0] = MEMORY[0x277D85DD0];
-  v404[1] = 3221225472;
-  v404[2] = sub_275FE57BC;
-  v404[3] = &unk_27A6A8808;
+  v125 = objc_msgSend_anchoredDrawablePositions(self, v116, v121, v122, v123, v124, v117, v118, v119, v120);
+  v542[0] = MEMORY[0x277D85DD0];
+  v542[1] = 3221225472;
+  v542[2] = sub_275FE57BC;
+  v542[3] = &unk_27A6A8808;
   archiveCopy = archive;
-  v386 = archiverCopy;
-  v405 = v386;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v92, v93, v94, v95, v96, v97, v404);
+  v524 = archiverCopy;
+  v543 = v524;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v125, v126, v130, v131, v132, v133, v542, v127, v128, v129);
 
-  v402 = 0u;
-  v403 = 0u;
-  v400 = 0u;
-  v401 = 0u;
-  v98 = self->_startingPartitionedAttachments;
-  v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(v98, v99, v100, v101, v102, v103, &v400, v414, 16);
-  if (!v105)
+  v540 = 0u;
+  v541 = 0u;
+  v538 = 0u;
+  v539 = 0u;
+  v134 = self->_startingPartitionedAttachments;
+  v145 = objc_msgSend_countByEnumeratingWithState_objects_count_(v134, v135, v137, v138, v139, v140, &v538, v552, 16, v136);
+  if (!v145)
   {
     goto LABEL_41;
   }
 
-  v110 = *v401;
+  v150 = *v539;
   do
   {
-    for (j = 0; j != v105; ++j)
+    for (j = 0; j != v145; ++j)
     {
-      if (*v401 != v110)
+      if (*v539 != v150)
       {
-        objc_enumerationMutation(v98);
+        objc_enumerationMutation(v134);
       }
 
-      v112 = *(*(&v400 + 1) + 8 * j);
-      v113 = *(archive + 14);
-      if (!v113)
+      v152 = *(*(&v538 + 1) + 8 * j);
+      v153 = *(archive + 14);
+      if (!v153)
       {
         goto LABEL_37;
       }
 
-      v114 = *(archive + 26);
-      v115 = *v113;
-      if (v114 < *v113)
+      v154 = *(archive + 26);
+      v155 = *v153;
+      if (v154 < *v153)
       {
-        *(archive + 26) = v114 + 1;
-        objc_msgSend_tsp_saveToMessage_(v112, v104, v106, v107, v108, v109, *&v113[2 * v114 + 2]);
+        *(archive + 26) = v154 + 1;
+        objc_msgSend_tsp_saveToMessage_(v152, v141, v146, v147, v148, v149, *&v153[2 * v154 + 2], v142, v143, v144);
         continue;
       }
 
-      if (v115 == *(archive + 27))
+      if (v155 == *(archive + 27))
       {
 LABEL_37:
         google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 96));
-        v113 = *(archive + 14);
-        v115 = *v113;
+        v153 = *(archive + 14);
+        v155 = *v153;
       }
 
-      *v113 = v115 + 1;
-      v116 = MEMORY[0x277C92D20](*(archive + 12));
-      v117 = *(archive + 26);
-      v118 = *(archive + 14) + 8 * v117;
-      *(archive + 26) = v117 + 1;
-      *(v118 + 8) = v116;
-      objc_msgSend_tsp_saveToMessage_(v112, v119, v120, v121, v122, v123, v116);
+      *v153 = v155 + 1;
+      v156 = MEMORY[0x277C92D20](*(archive + 12));
+      v157 = *(archive + 26);
+      v158 = *(archive + 14) + 8 * v157;
+      *(archive + 26) = v157 + 1;
+      *(v158 + 8) = v156;
+      objc_msgSend_tsp_saveToMessage_(v152, v159, v163, v164, v165, v166, v156, v160, v161, v162);
     }
 
-    v105 = objc_msgSend_countByEnumeratingWithState_objects_count_(v98, v104, v106, v107, v108, v109, &v400, v414, 16);
+    v145 = objc_msgSend_countByEnumeratingWithState_objects_count_(v134, v141, v146, v147, v148, v149, &v538, v552, 16, v144);
   }
 
-  while (v105);
+  while (v145);
 LABEL_41:
 
-  v129 = objc_msgSend_count(self->_flowHints, v124, v125, v126, v127, v128);
-  if (v129 != objc_msgSend_count(self->_flowTopicNumberHints, v130, v131, v132, v133, v134))
+  v176 = objc_msgSend_count(self->_flowHints, v167, v172, v173, v174, v175, v168, v169, v170, v171);
+  if (v176 != objc_msgSend_count(self->_flowTopicNumberHints, v177, v182, v183, v184, v185, v178, v179, v180, v181))
   {
-    v140 = MEMORY[0x277D81150];
-    v141 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v135, v136, v137, v138, v139, "[TPPageHint saveToArchive:archiver:context:]");
-    v147 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v142, v143, v144, v145, v146, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v140, v148, v149, v150, v151, v152, v141, v147, 946, 0, "mismatch in _flowHints and _flowTopicNumberHints");
+    v195 = MEMORY[0x277D81150];
+    v196 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v186, v191, v192, v193, v194, "[TPPageHint saveToArchive:archiver:context:]", v188, v189, v190);
+    v205 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v197, v201, v202, v203, v204, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v198, v199, v200);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v195, v206, v207, v208, v209, v210, v196, v205, 946, 0, "mismatch in _flowHints and _flowTopicNumberHints");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v153, v154, v155, v156, v157);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v211, v216, v217, v218, v219, v212, v213, v214, v215);
   }
 
-  v158 = objc_msgSend_count(self->_flowHints, v135, v136, v137, v138, v139);
-  if (v158 == objc_msgSend_count(self->_flowTopicNumberHints, v159, v160, v161, v162, v163))
+  v220 = objc_msgSend_count(self->_flowHints, v186, v191, v192, v193, v194, v187, v188, v189, v190);
+  if (v220 == objc_msgSend_count(self->_flowTopicNumberHints, v221, v226, v227, v228, v229, v222, v223, v224, v225))
   {
-    v398 = 0u;
-    v399 = 0u;
-    v396 = 0u;
-    v397 = 0u;
-    v169 = self->_flowHints;
-    v176 = objc_msgSend_countByEnumeratingWithState_objects_count_(v169, v170, v171, v172, v173, v174, &v396, v413, 16);
-    if (!v176)
+    v536 = 0u;
+    v537 = 0u;
+    v534 = 0u;
+    v535 = 0u;
+    v239 = self->_flowHints;
+    v250 = objc_msgSend_countByEnumeratingWithState_objects_count_(v239, v240, v242, v243, v244, v245, &v534, v551, 16, v241);
+    if (!v250)
     {
       goto LABEL_52;
     }
 
-    v181 = *v397;
+    v255 = *v535;
     do
     {
-      for (k = 0; k != v176; ++k)
+      for (k = 0; k != v250; ++k)
       {
-        if (*v397 != v181)
+        if (*v535 != v255)
         {
-          objc_enumerationMutation(v169);
+          objc_enumerationMutation(v239);
         }
 
-        v183 = objc_msgSend_objectForKeyedSubscript_(self->_flowTopicNumberHints, v175, v177, v178, v179, v180, *(*(&v396 + 1) + 8 * k));
-        v184 = v183 == 0;
+        v257 = objc_msgSend_objectForKeyedSubscript_(self->_flowTopicNumberHints, v246, v251, v252, v253, v254, *(*(&v534 + 1) + 8 * k), v247, v248, v249);
+        v258 = v257 == 0;
 
-        if (v184)
+        if (v258)
         {
 LABEL_80:
 
@@ -1861,134 +1861,134 @@ LABEL_80:
         }
       }
 
-      v176 = objc_msgSend_countByEnumeratingWithState_objects_count_(v169, v175, v177, v178, v179, v180, &v396, v413, 16);
+      v250 = objc_msgSend_countByEnumeratingWithState_objects_count_(v239, v246, v251, v252, v253, v254, &v534, v551, 16, v249);
     }
 
-    while (v176);
+    while (v250);
 LABEL_52:
 
-    v394 = 0u;
-    v395 = 0u;
-    v392 = 0u;
-    v393 = 0u;
-    v169 = self->_flowHints;
-    v191 = objc_msgSend_countByEnumeratingWithState_objects_count_(v169, v185, v186, v187, v188, v189, &v392, v412, 16);
-    if (!v191)
+    v532 = 0u;
+    v533 = 0u;
+    v530 = 0u;
+    v531 = 0u;
+    v239 = self->_flowHints;
+    v269 = objc_msgSend_countByEnumeratingWithState_objects_count_(v239, v259, v261, v262, v263, v264, &v530, v550, 16, v260);
+    if (!v269)
     {
       goto LABEL_80;
     }
 
-    v196 = *v393;
+    v274 = *v531;
     while (2)
     {
-      v197 = 0;
+      v275 = 0;
 LABEL_55:
-      if (*v393 != v196)
+      if (*v531 != v274)
       {
-        objc_enumerationMutation(v169);
+        objc_enumerationMutation(v239);
       }
 
-      v198 = *(*(&v392 + 1) + 8 * v197);
-      v200 = objc_msgSend_objectForKeyedSubscript_(self->_flowHints, v190, v192, v193, v194, v195, v198);
-      v205 = *(archive + 17);
-      if (!v205)
+      v276 = *(*(&v530 + 1) + 8 * v275);
+      v280 = objc_msgSend_objectForKeyedSubscript_(self->_flowHints, v265, v270, v271, v272, v273, v276, v266, v267, v268);
+      v285 = *(archive + 17);
+      if (!v285)
       {
         goto LABEL_62;
       }
 
-      v206 = *(archive + 32);
-      v207 = *v205;
-      if (v206 < *v205)
+      v286 = *(archive + 32);
+      v287 = *v285;
+      if (v286 < *v285)
       {
-        *(archive + 32) = v206 + 1;
-        objc_msgSend_setWeakReference_message_(v386, v199, v201, v202, v203, v204, v198, *&v205[2 * v206 + 2]);
+        *(archive + 32) = v286 + 1;
+        objc_msgSend_setWeakReference_message_(v524, v277, v281, v282, v283, v284, v276, *&v285[2 * v286 + 2], v278, v279);
         goto LABEL_64;
       }
 
-      if (v207 == *(archive + 33))
+      if (v287 == *(archive + 33))
       {
 LABEL_62:
         google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 120));
-        v205 = *(archive + 17);
-        v207 = *v205;
+        v285 = *(archive + 17);
+        v287 = *v285;
       }
 
-      *v205 = v207 + 1;
-      v213 = MEMORY[0x277C92D60](*(archive + 15));
-      v214 = *(archive + 32);
-      v215 = *(archive + 17) + 8 * v214;
-      *(archive + 32) = v214 + 1;
-      *(v215 + 8) = v213;
-      objc_msgSend_setWeakReference_message_(v386, v216, v217, v218, v219, v220, v198, v213);
+      *v285 = v287 + 1;
+      v295 = MEMORY[0x277C92D60](*(archive + 15));
+      v296 = *(archive + 32);
+      v297 = *(archive + 17) + 8 * v296;
+      *(archive + 32) = v296 + 1;
+      *(v297 + 8) = v295;
+      objc_msgSend_setWeakReference_message_(v524, v298, v301, v302, v303, v304, v276, v295, v299, v300);
 LABEL_64:
-      v221 = *(archive + 20);
-      if (!v221)
+      v305 = *(archive + 20);
+      if (!v305)
       {
         goto LABEL_69;
       }
 
-      v222 = *(archive + 38);
-      v223 = *v221;
-      if (v222 < *v221)
+      v306 = *(archive + 38);
+      v307 = *v305;
+      if (v306 < *v305)
       {
-        *(archive + 38) = v222 + 1;
-        objc_msgSend_p_archiveHint_intoArchive_(self, v208, v209, v210, v211, v212, v200, *&v221[2 * v222 + 2]);
+        *(archive + 38) = v306 + 1;
+        objc_msgSend_p_archiveHint_intoArchive_(self, v288, v291, v292, v293, v294, v280, *&v305[2 * v306 + 2], v289, v290);
         goto LABEL_71;
       }
 
-      if (v223 == *(archive + 39))
+      if (v307 == *(archive + 39))
       {
 LABEL_69:
         google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 144));
-        v221 = *(archive + 20);
-        v223 = *v221;
+        v305 = *(archive + 20);
+        v307 = *v305;
       }
 
-      *v221 = v223 + 1;
-      v229 = sub_275FAF71C(*(archive + 18));
-      v230 = *(archive + 38);
-      v231 = *(archive + 20) + 8 * v230;
-      *(archive + 38) = v230 + 1;
-      *(v231 + 8) = v229;
-      objc_msgSend_p_archiveHint_intoArchive_(self, v232, v233, v234, v235, v236, v200, v229);
+      *v305 = v307 + 1;
+      v316 = sub_275FAF71C(*(archive + 18));
+      v317 = *(archive + 38);
+      v318 = *(archive + 20) + 8 * v317;
+      *(archive + 38) = v317 + 1;
+      *(v318 + 8) = v316;
+      objc_msgSend_p_archiveHint_intoArchive_(self, v319, v322, v323, v324, v325, v280, v316, v320, v321);
 LABEL_71:
-      v238 = objc_msgSend_objectForKeyedSubscript_(self->_flowTopicNumberHints, v224, v225, v226, v227, v228, v198);
-      v243 = *(archive + 23);
-      if (!v243)
+      v328 = objc_msgSend_objectForKeyedSubscript_(self->_flowTopicNumberHints, v308, v312, v313, v314, v315, v276, v309, v310, v311);
+      v333 = *(archive + 23);
+      if (!v333)
       {
         goto LABEL_76;
       }
 
-      v244 = *(archive + 44);
-      v245 = *v243;
-      if (v244 < *v243)
+      v334 = *(archive + 44);
+      v335 = *v333;
+      if (v334 < *v333)
       {
-        *(archive + 44) = v244 + 1;
-        objc_msgSend_p_archiveTopicNumberHints_intoArchive_archiver_(self, v237, v239, v240, v241, v242, v238, *&v243[2 * v244 + 2], v386);
+        *(archive + 44) = v334 + 1;
+        objc_msgSend_p_archiveTopicNumberHints_intoArchive_archiver_(self, v326, v329, v330, v331, v332, v328, *&v333[2 * v334 + 2], v524, v327);
         goto LABEL_78;
       }
 
-      if (v245 == *(archive + 45))
+      if (v335 == *(archive + 45))
       {
 LABEL_76:
         google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 168));
-        v243 = *(archive + 23);
-        v245 = *v243;
+        v333 = *(archive + 23);
+        v335 = *v333;
       }
 
-      *v243 = v245 + 1;
-      v246 = sub_275FAFB4C(*(archive + 21));
-      v247 = *(archive + 44);
-      v248 = *(archive + 23) + 8 * v247;
-      *(archive + 44) = v247 + 1;
-      *(v248 + 8) = v246;
-      objc_msgSend_p_archiveTopicNumberHints_intoArchive_archiver_(self, v249, v250, v251, v252, v253, v238, v246, v386);
+      *v333 = v335 + 1;
+      v336 = sub_275FAFB4C(*(archive + 21));
+      v337 = *(archive + 44);
+      v338 = *(archive + 23) + 8 * v337;
+      *(archive + 44) = v337 + 1;
+      *(v338 + 8) = v336;
+      objc_msgSend_p_archiveTopicNumberHints_intoArchive_archiver_(self, v339, v341, v342, v343, v344, v328, v336, v524, v340);
 LABEL_78:
 
-      if (v191 == ++v197)
+      if (v269 == ++v275)
       {
-        v191 = objc_msgSend_countByEnumeratingWithState_objects_count_(v169, v190, v192, v193, v194, v195, &v392, v412, 16);
-        if (!v191)
+        v269 = objc_msgSend_countByEnumeratingWithState_objects_count_(v239, v265, v270, v271, v272, v273, &v530, v550, 16, v268);
+        if (!v269)
         {
           goto LABEL_80;
         }
@@ -2006,608 +2006,608 @@ LABEL_81:
   *(archive + 58) = pageKind;
   if (pageKind != 5)
   {
-    v255 = MEMORY[0x277CBEB18];
-    v256 = objc_msgSend_count(self->_childHints, v164, v165, v166, v167, v168);
-    v385 = objc_msgSend_arrayWithCapacity_(v255, v257, v258, v259, v260, v261, v256);
-    v390 = 0u;
-    v391 = 0u;
-    v388 = 0u;
-    v389 = 0u;
+    v346 = MEMORY[0x277CBEB18];
+    v347 = objc_msgSend_count(self->_childHints, v230, v235, v236, v237, v238, v231, v232, v233, v234);
+    v523 = objc_msgSend_arrayWithCapacity_(v346, v348, v352, v353, v354, v355, v347, v349, v350, v351);
+    v528 = 0u;
+    v529 = 0u;
+    v526 = 0u;
+    v527 = 0u;
     obj = self->_childHints;
-    v267 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v262, v263, v264, v265, v266, &v388, v411, 16);
-    if (v267)
+    v362 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v356, v358, v359, v360, v361, &v526, v549, 16, v357);
+    if (v362)
     {
-      v268 = *v389;
+      v363 = *v527;
       do
       {
-        for (m = 0; m != v267; ++m)
+        for (m = 0; m != v362; ++m)
         {
-          if (*v389 != v268)
+          if (*v527 != v363)
           {
             objc_enumerationMutation(obj);
           }
 
-          v382 = &unk_288546710;
-          v270 = TSUProtocolCast();
-          if (v270)
+          v520 = &unk_288546710;
+          v365 = TSUProtocolCast();
+          if (v365)
           {
-            v271 = objc_opt_class();
-            v277 = objc_msgSend_archivedHintClass(v271, v272, v273, v274, v275, v276, &unk_288546710);
-            if (!v277)
+            v366 = objc_opt_class();
+            v376 = objc_msgSend_archivedHintClass(v366, v367, v372, v373, v374, v375, v368, v369, v370, v371, &unk_288546710);
+            if (!v376)
             {
-              v283 = MEMORY[0x277D81150];
-              v284 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v278, v279, v280, v281, v282, "[TPPageHint saveToArchive:archiver:context:]");
-              v290 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v285, v286, v287, v288, v289, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v283, v291, v292, v293, v294, v295, v284, v290, 984, 0, "invalid nil value for '%{public}s'", "archivedHintClass");
+              v385 = MEMORY[0x277D81150];
+              v386 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v377, v381, v382, v383, v384, "[TPPageHint saveToArchive:archiver:context:]", v378, v379, v380);
+              v395 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v387, v391, v392, v393, v394, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v388, v389, v390);
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v385, v396, v397, v398, v399, v400, v386, v395, 984, 0, "invalid nil value for '%{public}s'", "archivedHintClass");
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v296, v297, v298, v299, v300);
-              v277 = 0;
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v401, v406, v407, v408, v409, v402, v403, v404, v405);
+              v376 = 0;
             }
           }
 
           else
           {
-            v277 = objc_opt_class();
+            v376 = objc_opt_class();
           }
 
-          v301 = [v277 alloc];
-          v308 = objc_msgSend_initWithContext_hint_(v301, v302, v303, v304, v305, v306, contextCopy, v270);
-          if (v308)
+          v410 = [v376 alloc];
+          v422 = objc_msgSend_initWithContext_hint_(v410, v411, v414, v415, v416, v417, contextCopy, v365, v412, v413);
+          if (v422)
           {
-            objc_msgSend_addObject_(v385, v307, v309, v310, v311, v312, v308);
+            objc_msgSend_addObject_(v523, v418, v423, v424, v425, v426, v422, v419, v420, v421);
           }
 
           else
           {
-            v313 = MEMORY[0x277D81150];
-            v314 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v307, v309, v310, v311, v312, "[TPPageHint saveToArchive:archiver:context:]");
-            v320 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v315, v316, v317, v318, v319, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v313, v321, v322, v323, v324, v325, v314, v320, 993, 0, "invalid nil value for '%{public}s'", "archivedHint");
+            v427 = MEMORY[0x277D81150];
+            v428 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v418, v423, v424, v425, v426, "[TPPageHint saveToArchive:archiver:context:]", v419, v420, v421);
+            v437 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v429, v433, v434, v435, v436, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v430, v431, v432);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v427, v438, v439, v440, v441, v442, v428, v437, 993, 0, "invalid nil value for '%{public}s'", "archivedHint");
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v326, v327, v328, v329, v330);
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v443, v448, v449, v450, v451, v444, v445, v446, v447);
           }
         }
 
-        v267 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v331, v332, v333, v334, v335, &v388, v411, 16);
+        v362 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v452, v454, v455, v456, v457, &v526, v549, 16, v453);
       }
 
-      while (v267);
+      while (v362);
     }
 
-    objc_msgSend_setStrongReferenceArray_message_(v386, v336, v337, v338, v339, v340, v385, archive + 72);
+    objc_msgSend_setStrongReferenceArray_message_(v524, v458, v461, v462, v463, v464, v523, archive + 72, v459, v460);
   }
 
   pageRow = self->_pageRow;
   if (HIDWORD(pageRow))
   {
-    v346 = MEMORY[0x277D81150];
-    v347 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v164, v165, v166, v167, v168, "[TPPageHint saveToArchive:archiver:context:]");
-    v353 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v348, v349, v350, v351, v352, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v346, v354, v355, v356, v357, v358, v347, v353, 1000, 0, "Out-of-bounds type assignment was clamped to max");
+    v470 = MEMORY[0x277D81150];
+    v471 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v230, v235, v236, v237, v238, "[TPPageHint saveToArchive:archiver:context:]", v232, v233, v234);
+    v480 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v472, v476, v477, v478, v479, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v473, v474, v475);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v470, v481, v482, v483, v484, v485, v471, v480, 1000, 0, "Out-of-bounds type assignment was clamped to max");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v359, v360, v361, v362, v363);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v486, v491, v492, v493, v494, v487, v488, v489, v490);
     LODWORD(pageRow) = -1;
   }
 
-  v342 = *(archive + 4) | 0x400;
-  *(archive + 4) = v342;
+  v466 = *(archive + 4) | 0x400;
+  *(archive + 4) = v466;
   *(archive + 63) = pageRow;
   pageColumn = self->_pageColumn;
   if (HIDWORD(pageColumn))
   {
-    v364 = MEMORY[0x277D81150];
-    v365 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v164, v165, v166, v167, v168, "[TPPageHint saveToArchive:archiver:context:]");
-    v371 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v366, v367, v368, v369, v370, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v364, v372, v373, v374, v375, v376, v365, v371, 1001, 0, "Out-of-bounds type assignment was clamped to max");
+    v495 = MEMORY[0x277D81150];
+    v496 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v230, v235, v236, v237, v238, "[TPPageHint saveToArchive:archiver:context:]", v232, v233, v234);
+    v505 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v497, v501, v502, v503, v504, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v498, v499, v500);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v495, v506, v507, v508, v509, v510, v496, v505, 1001, 0, "Out-of-bounds type assignment was clamped to max");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v377, v378, v379, v380, v381);
-    v342 = *(archive + 4);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v511, v516, v517, v518, v519, v512, v513, v514, v515);
+    v466 = *(archive + 4);
     LODWORD(pageColumn) = -1;
   }
 
   *(archive + 62) = pageColumn;
-  *(archive + 4) = v342 | 0x210;
-  v344 = *(archive + 28);
-  if (!v344)
+  *(archive + 4) = v466 | 0x210;
+  v468 = *(archive + 28);
+  if (!v468)
   {
-    v345 = *(archive + 1);
-    if (v345)
+    v469 = *(archive + 1);
+    if (v469)
     {
-      v345 = *(v345 & 0xFFFFFFFFFFFFFFFELL);
+      v469 = *(v469 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v344 = sub_275FAFB4C(v345);
-    *(archive + 28) = v344;
+    v468 = sub_275FAFB4C(v469);
+    *(archive + 28) = v468;
   }
 
-  objc_msgSend_p_archiveTopicNumberHints_intoArchive_archiver_(self, v164, v165, v166, v167, v168, self->_topicNumberHints, v344, v386, v382);
+  objc_msgSend_p_archiveTopicNumberHints_intoArchive_archiver_(self, v230, v235, v236, v237, v238, self->_topicNumberHints, v468, v524, v234, v520);
 }
 
 - (void)p_archiveHint:(id)hint intoArchive:(void *)archive
 {
   hintCopy = hint;
-  objc_msgSend_frameBounds(hintCopy, v5, v6, v7, v8, v9);
-  v15 = v11.n128_u64[0];
-  v16 = v12.n128_u64[0];
-  v17 = v13.n128_f64[0];
-  v18 = v14.n128_f64[0];
+  objc_msgSend_frameBounds(hintCopy, v5, v10, v11, v12, v13, v6, v7, v8, v9);
+  v23 = v19.n128_u64[0];
+  v24 = v20.n128_u64[0];
+  v25 = v21.n128_f64[0];
+  v26 = v22.n128_f64[0];
   *(archive + 4) |= 0x10u;
-  v19 = *(archive + 7);
-  if (!v19)
+  v27 = *(archive + 7);
+  if (!v27)
   {
-    v20 = *(archive + 1);
-    if (v20)
+    v28 = *(archive + 1);
+    if (v28)
     {
-      v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
+      v28 = *(v28 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v19 = sub_275FAF560(v20);
-    *(archive + 7) = v19;
+    v27 = sub_275FAF560(v28);
+    *(archive + 7) = v27;
   }
 
-  *(v19 + 16) |= 3u;
-  *(v19 + 24) = v15;
-  *(v19 + 32) = v16;
+  *(v27 + 16) |= 3u;
+  *(v27 + 24) = v23;
+  *(v27 + 32) = v24;
   *(archive + 4) |= 0x20u;
-  v21 = *(archive + 8);
-  if (!v21)
+  v29 = *(archive + 8);
+  if (!v29)
   {
-    v22 = *(archive + 1);
-    if (v22)
+    v30 = *(archive + 1);
+    if (v30)
     {
-      v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+      v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v21 = sub_275FAF5D4(v22);
-    *(archive + 8) = v21;
+    v29 = sub_275FAF5D4(v30);
+    *(archive + 8) = v29;
   }
 
-  if ((*&v17 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  if ((*&v25 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     goto LABEL_41;
   }
 
-  v23 = hintCopy;
-  if (v17 > 0.0)
+  v31 = hintCopy;
+  if (v25 > 0.0)
   {
-    v11.n128_u64[0] = 0x7FEFFFFFFFFFFFFFLL;
-    if (v17 > 1.79769313e308)
+    v19.n128_u64[0] = 0x7FEFFFFFFFFFFFFFLL;
+    if (v25 > 1.79769313e308)
     {
-      v109 = MEMORY[0x277D81150];
-      v110 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "[TPPageHint p_archiveHint:intoArchive:]");
-      v116 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v111, v112, v113, v114, v115, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v109, v117, v118, v119, v120, v121, v110, v116, 1017, 0, "Out-of-bounds type assignment was clamped to max");
+      v163 = MEMORY[0x277D81150];
+      v164 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v19, v20, v21, v22, "[TPPageHint p_archiveHint:intoArchive:]", v16, v17, v18);
+      v173 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v165, v169, v170, v171, v172, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v166, v167, v168);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v163, v174, v175, v176, v177, v178, v164, v173, 1017, 0, "Out-of-bounds type assignment was clamped to max");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v122, v123, v124, v125, v126);
-      v127 = 0x7FEFFFFFFFFFFFFFLL;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v179, v184, v185, v186, v187, v180, v181, v182, v183);
+      v188 = 0x7FEFFFFFFFFFFFFFLL;
 LABEL_40:
-      v17 = *&v127;
+      v25 = *&v188;
 LABEL_41:
-      v23 = hintCopy;
+      v31 = hintCopy;
       goto LABEL_14;
     }
   }
 
-  if (v17 < 0.0)
+  if (v25 < 0.0)
   {
-    v11.n128_u64[0] = 0xFFEFFFFFFFFFFFFFLL;
-    if (v17 < -1.79769313e308)
+    v19.n128_u64[0] = 0xFFEFFFFFFFFFFFFFLL;
+    if (v25 < -1.79769313e308)
     {
-      v147 = MEMORY[0x277D81150];
-      v148 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "[TPPageHint p_archiveHint:intoArchive:]");
-      v154 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v149, v150, v151, v152, v153, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v147, v155, v156, v157, v158, v159, v148, v154, 1017, 0, "Out-of-bounds type assignment was clamped to min");
+      v215 = MEMORY[0x277D81150];
+      v216 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v19, v20, v21, v22, "[TPPageHint p_archiveHint:intoArchive:]", v16, v17, v18);
+      v225 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v217, v221, v222, v223, v224, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v218, v219, v220);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v215, v226, v227, v228, v229, v230, v216, v225, 1017, 0, "Out-of-bounds type assignment was clamped to min");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v160, v161, v162, v163, v164);
-      v127 = 0xFFEFFFFFFFFFFFFFLL;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v231, v236, v237, v238, v239, v232, v233, v234, v235);
+      v188 = 0xFFEFFFFFFFFFFFFFLL;
       goto LABEL_40;
     }
   }
 
 LABEL_14:
-  *(v21 + 16) |= 1u;
-  *(v21 + 24) = v17;
-  if ((*&v18 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  *(v29 + 16) |= 1u;
+  *(v29 + 24) = v25;
+  if ((*&v26 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     goto LABEL_19;
   }
 
-  if (v18 > 0.0)
+  if (v26 > 0.0)
   {
-    v11.n128_u64[0] = 0x7FEFFFFFFFFFFFFFLL;
-    if (v18 > 1.79769313e308)
+    v19.n128_u64[0] = 0x7FEFFFFFFFFFFFFFLL;
+    if (v26 > 1.79769313e308)
     {
-      v128 = MEMORY[0x277D81150];
-      v129 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "[TPPageHint p_archiveHint:intoArchive:]");
-      v135 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v130, v131, v132, v133, v134, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v128, v136, v137, v138, v139, v140, v129, v135, 1018, 0, "Out-of-bounds type assignment was clamped to max");
+      v189 = MEMORY[0x277D81150];
+      v190 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v19, v20, v21, v22, "[TPPageHint p_archiveHint:intoArchive:]", v16, v17, v18);
+      v199 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v191, v195, v196, v197, v198, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v192, v193, v194);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v189, v200, v201, v202, v203, v204, v190, v199, 1018, 0, "Out-of-bounds type assignment was clamped to max");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v141, v142, v143, v144, v145);
-      v146 = 0x7FEFFFFFFFFFFFFFLL;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v205, v210, v211, v212, v213, v206, v207, v208, v209);
+      v214 = 0x7FEFFFFFFFFFFFFFLL;
 LABEL_43:
-      v18 = *&v146;
-      v23 = hintCopy;
+      v26 = *&v214;
+      v31 = hintCopy;
       goto LABEL_19;
     }
   }
 
-  if (v18 < 0.0)
+  if (v26 < 0.0)
   {
-    v11.n128_u64[0] = 0xFFEFFFFFFFFFFFFFLL;
-    if (v18 < -1.79769313e308)
+    v19.n128_u64[0] = 0xFFEFFFFFFFFFFFFFLL;
+    if (v26 < -1.79769313e308)
     {
-      v165 = MEMORY[0x277D81150];
-      v166 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, v14, "[TPPageHint p_archiveHint:intoArchive:]");
-      v172 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v167, v168, v169, v170, v171, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v165, v173, v174, v175, v176, v177, v166, v172, 1018, 0, "Out-of-bounds type assignment was clamped to min");
+      v240 = MEMORY[0x277D81150];
+      v241 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v19, v20, v21, v22, "[TPPageHint p_archiveHint:intoArchive:]", v16, v17, v18);
+      v250 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v242, v246, v247, v248, v249, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v243, v244, v245);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v240, v251, v252, v253, v254, v255, v241, v250, 1018, 0, "Out-of-bounds type assignment was clamped to min");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v178, v179, v180, v181, v182);
-      v146 = 0xFFEFFFFFFFFFFFFFLL;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v256, v261, v262, v263, v264, v257, v258, v259, v260);
+      v214 = 0xFFEFFFFFFFFFFFFFLL;
       goto LABEL_43;
     }
   }
 
 LABEL_19:
-  *(v21 + 16) |= 2u;
-  *(v21 + 32) = v18;
-  objc_msgSend_range(v23, v10, v11, v12, v13, v14);
+  *(v29 + 16) |= 2u;
+  *(v29 + 32) = v26;
+  objc_msgSend_range(v31, v14, v19, v20, v21, v22, v15, v16, v17, v18);
   *(archive + 4) |= 4u;
   if (!*(archive + 5))
   {
-    v24 = *(archive + 1);
-    if (v24)
+    v32 = *(archive + 1);
+    if (v32)
     {
-      v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
+      v32 = *(v32 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    *(archive + 5) = MEMORY[0x277C92D40](v24);
+    *(archive + 5) = MEMORY[0x277C92D40](v32);
   }
 
   TSPNSRangeCopyToMessage();
-  WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(hintCopy, v25, v26, v27, v28, v29);
+  WidowPullsDownFromCharIndex = objc_msgSend_nextWidowPullsDownFromCharIndex(hintCopy, v33, v38, v39, v40, v41, v34, v35, v36, v37);
   if (HIDWORD(WidowPullsDownFromCharIndex))
   {
-    v73 = MEMORY[0x277D81150];
-    v74 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, v32, v33, v34, v35, "[TPPageHint p_archiveHint:intoArchive:]");
-    v80 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v75, v76, v77, v78, v79, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v73, v81, v82, v83, v84, v85, v74, v80, 1029, 0, "Out-of-bounds type assignment was clamped to max");
+    v113 = MEMORY[0x277D81150];
+    v114 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, v48, v49, v50, v51, "[TPPageHint p_archiveHint:intoArchive:]", v45, v46, v47);
+    v123 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v115, v119, v120, v121, v122, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v116, v117, v118);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v113, v124, v125, v126, v127, v128, v114, v123, 1029, 0, "Out-of-bounds type assignment was clamped to max");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v86, v87, v88, v89, v90);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v129, v134, v135, v136, v137, v130, v131, v132, v133);
     LODWORD(WidowPullsDownFromCharIndex) = -1;
   }
 
   *(archive + 4) |= 0x40u;
   *(archive + 18) = WidowPullsDownFromCharIndex;
-  objc_msgSend_anchoredRange(hintCopy, v31, v32, v33, v34, v35);
+  objc_msgSend_anchoredRange(hintCopy, v43, v48, v49, v50, v51, v44, v45, v46, v47);
   *(archive + 4) |= 8u;
   if (!*(archive + 6))
   {
-    v36 = *(archive + 1);
-    if (v36)
+    v52 = *(archive + 1);
+    if (v52)
     {
-      v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
+      v52 = *(v52 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    *(archive + 6) = MEMORY[0x277C92D40](v36);
+    *(archive + 6) = MEMORY[0x277C92D40](v52);
   }
 
   TSPNSRangeCopyToMessage();
-  v42 = objc_msgSend_columnCount(hintCopy, v37, v38, v39, v40, v41);
-  if (HIDWORD(v42))
+  v62 = objc_msgSend_columnCount(hintCopy, v53, v58, v59, v60, v61, v54, v55, v56, v57);
+  if (HIDWORD(v62))
   {
-    v91 = MEMORY[0x277D81150];
-    v92 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, v44, v45, v46, v47, "[TPPageHint p_archiveHint:intoArchive:]");
-    v98 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v93, v94, v95, v96, v97, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v91, v99, v100, v101, v102, v103, v92, v98, 1033, 0, "Out-of-bounds type assignment was clamped to max");
+    v138 = MEMORY[0x277D81150];
+    v139 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, v68, v69, v70, v71, "[TPPageHint p_archiveHint:intoArchive:]", v65, v66, v67);
+    v148 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v140, v144, v145, v146, v147, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v141, v142, v143);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v138, v149, v150, v151, v152, v153, v139, v148, 1033, 0, "Out-of-bounds type assignment was clamped to max");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v104, v105, v106, v107, v108);
-    LODWORD(v42) = -1;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v154, v159, v160, v161, v162, v155, v156, v157, v158);
+    LODWORD(v62) = -1;
   }
 
   *(archive + 4) |= 0x80u;
-  *(archive + 19) = v42;
-  if (objc_msgSend_lineFragmentCount(hintCopy, v43, v44, v45, v46, v47) == 0x7FFFFFFFFFFFFFFFLL)
+  *(archive + 19) = v62;
+  if (objc_msgSend_lineFragmentCount(hintCopy, v63, v68, v69, v70, v71, v64, v65, v66, v67) == 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_32;
   }
 
-  v53 = objc_msgSend_lineFragmentCount(hintCopy, v48, v49, v50, v51, v52);
-  if (HIDWORD(v53))
+  v81 = objc_msgSend_lineFragmentCount(hintCopy, v72, v77, v78, v79, v80, v73, v74, v75, v76);
+  if (HIDWORD(v81))
   {
-    v183 = MEMORY[0x277D81150];
-    v184 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, v49, v50, v51, v52, "[TPPageHint p_archiveHint:intoArchive:]");
-    v190 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v185, v186, v187, v188, v189, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v183, v191, v192, v193, v194, v195, v184, v190, 1035, 0, "Out-of-bounds type assignment was clamped to max");
+    v265 = MEMORY[0x277D81150];
+    v266 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v72, v77, v78, v79, v80, "[TPPageHint p_archiveHint:intoArchive:]", v74, v75, v76);
+    v275 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v267, v271, v272, v273, v274, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v268, v269, v270);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v265, v276, v277, v278, v279, v280, v266, v275, 1035, 0, "Out-of-bounds type assignment was clamped to max");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v196, v197, v198, v199, v200);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v281, v286, v287, v288, v289, v282, v283, v284, v285);
 LABEL_32:
-    LODWORD(v53) = -1;
+    LODWORD(v81) = -1;
   }
 
   *(archive + 4) |= 0x100u;
-  *(archive + 20) = v53;
-  HasListLabel = objc_msgSend_lastLineIsEmptyAndHasListLabel(hintCopy, v48, v49, v50, v51, v52);
+  *(archive + 20) = v81;
+  HasListLabel = objc_msgSend_lastLineIsEmptyAndHasListLabel(hintCopy, v72, v77, v78, v79, v80, v73, v74, v75, v76);
   *(archive + 4) |= 0x400u;
   *(archive + 85) = HasListLabel;
-  v60 = objc_msgSend_endOfLayout(hintCopy, v55, v56, v57, v58, v59);
+  v92 = objc_msgSend_endOfLayout(hintCopy, v83, v88, v89, v90, v91, v84, v85, v86, v87);
   *(archive + 4) |= 0x200u;
-  *(archive + 84) = v60;
-  IsVertical = objc_msgSend_textIsVertical(hintCopy, v61, v62, v63, v64, v65);
+  *(archive + 84) = v92;
+  IsVertical = objc_msgSend_textIsVertical(hintCopy, v93, v98, v99, v100, v101, v94, v95, v96, v97);
   *(archive + 4) |= 0x800u;
   *(archive + 86) = IsVertical;
-  v72 = objc_msgSend_terminatedByBreak(hintCopy, v67, v68, v69, v70, v71);
+  v112 = objc_msgSend_terminatedByBreak(hintCopy, v103, v108, v109, v110, v111, v104, v105, v106, v107);
   *(archive + 4) |= 0x1000u;
-  *(archive + 87) = v72;
+  *(archive + 87) = v112;
 }
 
 - (BOOL)p_unarchiveHint:(id)hint fromArchive:(const void *)archive
 {
   hintCopy = hint;
-  v11 = hintCopy;
+  v15 = hintCopy;
   if ((*(archive + 16) & 0x10) == 0)
   {
     goto LABEL_12;
   }
 
-  v12 = *(archive + 7);
-  objc_msgSend_frameBounds(hintCopy, v6, v7, v8, v9, v10);
-  v13.n128_u64[0] = *(v12 + 24);
-  v14.n128_u64[0] = *(v12 + 32);
-  objc_msgSend_setFrameBounds_(v11, v15, v13, v14, v16, v17);
+  v16 = *(archive + 7);
+  objc_msgSend_frameBounds(hintCopy, v6, v11, v12, v13, v14, v7, v8, v9, v10);
+  v17.n128_u64[0] = *(v16 + 24);
+  v18.n128_u64[0] = *(v16 + 32);
+  objc_msgSend_setFrameBounds_(v15, v19, v17, v18, v24, v25, v20, v21, v22, v23);
   if ((*(archive + 16) & 0x20) == 0)
   {
     goto LABEL_12;
   }
 
-  v23 = *(archive + 8);
-  objc_msgSend_frameBounds(v11, v18, v19, v20, v21, v22);
-  v24.n128_u64[0] = *(v23 + 24);
-  v25.n128_u64[0] = *(v23 + 32);
-  objc_msgSend_setFrameBounds_(v11, v26, v27, v28, v24, v25);
+  v35 = *(archive + 8);
+  objc_msgSend_frameBounds(v15, v26, v31, v32, v33, v34, v27, v28, v29, v30);
+  v36.n128_u64[0] = *(v35 + 24);
+  v37.n128_u64[0] = *(v35 + 32);
+  objc_msgSend_setFrameBounds_(v15, v38, v43, v44, v36, v37, v39, v40, v41, v42);
   if ((*(archive + 16) & 4) == 0)
   {
     goto LABEL_12;
   }
 
-  v29 = TSPNSRangeFromMessage();
-  objc_msgSend_setRange_(v11, v30, v31, v32, v33, v34, v29, v30);
+  v45 = TSPNSRangeFromMessage();
+  objc_msgSend_setRange_(v15, v46, v49, v50, v51, v52, v45, v46, v47, v48);
   if ((*(archive + 16) & 0x40) == 0)
   {
     goto LABEL_12;
   }
 
-  objc_msgSend_setNextWidowPullsDownFromCharIndex_(v11, v35, v36, v37, v38, v39, *(archive + 18));
+  objc_msgSend_setNextWidowPullsDownFromCharIndex_(v15, v53, v57, v58, v59, v60, *(archive + 18), v54, v55, v56);
   if ((*(archive + 16) & 8) == 0)
   {
     goto LABEL_12;
   }
 
-  v40 = TSPNSRangeFromMessage();
-  objc_msgSend_setAnchoredRange_(v11, v41, v42, v43, v44, v45, v40, v41);
+  v61 = TSPNSRangeFromMessage();
+  objc_msgSend_setAnchoredRange_(v15, v62, v65, v66, v67, v68, v61, v62, v63, v64);
   if ((*(archive + 16) & 0x80) == 0)
   {
     goto LABEL_12;
   }
 
-  objc_msgSend_setColumnCount_(v11, v46, v47, v48, v49, v50, *(archive + 19));
+  objc_msgSend_setColumnCount_(v15, v69, v73, v74, v75, v76, *(archive + 19), v70, v71, v72);
   if ((*(archive + 17) & 1) == 0)
   {
     goto LABEL_12;
   }
 
-  objc_msgSend_setLineFragmentCount_(v11, v51, v52, v53, v54, v55, *(archive + 20));
-  if (objc_msgSend_lineFragmentCount(v11, v56, v57, v58, v59, v60) == 0xFFFFFFFFLL)
+  objc_msgSend_setLineFragmentCount_(v15, v77, v81, v82, v83, v84, *(archive + 20), v78, v79, v80);
+  if (objc_msgSend_lineFragmentCount(v15, v85, v90, v91, v92, v93, v86, v87, v88, v89) == 0xFFFFFFFFLL)
   {
-    objc_msgSend_setLineFragmentCount_(v11, v61, v62, v63, v64, v65, 0x7FFFFFFFFFFFFFFFLL);
+    objc_msgSend_setLineFragmentCount_(v15, v94, v98, v99, v100, v101, 0x7FFFFFFFFFFFFFFFLL, v95, v96, v97);
   }
 
-  if ((*(archive + 17) & 2) != 0 && (objc_msgSend_setEndOfLayout_(v11, v61, v62, v63, v64, v65, *(archive + 84)), (*(archive + 17) & 4) != 0))
+  if ((*(archive + 17) & 2) != 0 && (objc_msgSend_setEndOfLayout_(v15, v94, v98, v99, v100, v101, *(archive + 84), v95, v96, v97), (*(archive + 17) & 4) != 0))
   {
-    objc_msgSend_setLastLineIsEmptyAndHasListLabel_(v11, v66, v67, v68, v69, v70, *(archive + 85));
-    v78 = *(archive + 4);
-    if ((v78 & 0x800) != 0)
+    objc_msgSend_setLastLineIsEmptyAndHasListLabel_(v15, v102, v106, v107, v108, v109, *(archive + 85), v103, v104, v105);
+    v120 = *(archive + 4);
+    if ((v120 & 0x800) != 0)
     {
-      objc_msgSend_setTextIsVertical_(v11, v73, v74, v75, v76, v77, *(archive + 86));
-      v78 = *(archive + 4);
+      objc_msgSend_setTextIsVertical_(v15, v112, v116, v117, v118, v119, *(archive + 86), v113, v114, v115);
+      v120 = *(archive + 4);
     }
 
-    if ((v78 & 0x1000) != 0)
+    if ((v120 & 0x1000) != 0)
     {
-      objc_msgSend_setTerminatedByBreak_(v11, v73, v74, v75, v76, v77, *(archive + 87));
+      objc_msgSend_setTerminatedByBreak_(v15, v112, v116, v117, v118, v119, *(archive + 87), v113, v114, v115);
     }
 
-    v71 = 1;
+    v110 = 1;
   }
 
   else
   {
 LABEL_12:
-    v71 = 0;
+    v110 = 0;
   }
 
-  return v71;
+  return v110;
 }
 
 - (void)p_archiveTopicNumberHints:(id)hints intoArchive:(void *)archive archiver:(id)archiver
 {
-  v153 = *MEMORY[0x277D85DE8];
+  v205 = *MEMORY[0x277D85DE8];
   hintsCopy = hints;
   archiverCopy = archiver;
-  v132 = hintsCopy;
-  objc_msgSend_entryForListStyle(hintsCopy, v7, v8, v9, v10, v11);
-  v149 = 0u;
-  v150 = 0u;
-  v147 = 0u;
-  obj = v148 = 0u;
-  v138 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, v13, v14, v15, v16, &v147, v152, 16);
-  if (v138)
+  v184 = hintsCopy;
+  objc_msgSend_entryForListStyle(hintsCopy, v7, v12, v13, v14, v15, v8, v9, v10, v11);
+  v201 = 0u;
+  v202 = 0u;
+  v199 = 0u;
+  obj = v200 = 0u;
+  v190 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, v18, v19, v20, v21, &v199, v204, 16, v17);
+  if (v190)
   {
-    v136 = *v148;
+    v188 = *v200;
     do
     {
-      for (i = 0; i != v138; ++i)
+      for (i = 0; i != v190; ++i)
       {
-        if (*v148 != v136)
+        if (*v200 != v188)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v147 + 1) + 8 * i);
-        v141 = objc_msgSend_objectForKey_(obj, v17, v18, v19, v20, v21, v22);
+        v30 = *(*(&v199 + 1) + 8 * i);
+        v193 = objc_msgSend_objectForKey_(obj, v22, v26, v27, v28, v29, v30, v23, v24, v25);
         archiveCopy2 = archive;
-        v29 = *(archive + 4);
-        if (!v29)
+        v39 = *(archive + 4);
+        if (!v39)
         {
           goto LABEL_11;
         }
 
-        v30 = *(archive + 6);
-        v31 = *v29;
-        if (v30 < *v29)
+        v40 = *(archive + 6);
+        v41 = *v39;
+        if (v40 < *v39)
         {
-          *(archive + 6) = v30 + 1;
-          v32 = *&v29[2 * v30 + 2];
+          *(archive + 6) = v40 + 1;
+          v42 = *&v39[2 * v40 + 2];
           goto LABEL_13;
         }
 
-        if (v31 == *(archive + 7))
+        if (v41 == *(archive + 7))
         {
 LABEL_11:
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 16));
           archiveCopy2 = archive;
-          v29 = *(archive + 4);
-          v31 = *v29;
+          v39 = *(archive + 4);
+          v41 = *v39;
         }
 
-        *v29 = v31 + 1;
-        v32 = sub_275FAFAC0(archiveCopy2[2]);
-        v33 = *(archive + 6);
-        v34 = *(archive + 4) + 8 * v33;
-        *(archive + 6) = v33 + 1;
-        *(v34 + 8) = v32;
+        *v39 = v41 + 1;
+        v42 = sub_275FAFAC0(archiveCopy2[2]);
+        v43 = *(archive + 6);
+        v44 = *(archive + 4) + 8 * v43;
+        *(archive + 6) = v43 + 1;
+        *(v44 + 8) = v42;
 LABEL_13:
-        *(v32 + 16) |= 1u;
-        v35 = *(v32 + 48);
-        if (!v35)
+        *(v42 + 16) |= 1u;
+        v45 = *(v42 + 48);
+        if (!v45)
         {
-          v36 = *(v32 + 8);
-          if (v36)
+          v46 = *(v42 + 8);
+          if (v46)
           {
-            v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
+            v46 = *(v46 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v35 = MEMORY[0x277C92D60](v36);
-          *(v32 + 48) = v35;
+          v45 = MEMORY[0x277C92D60](v46);
+          *(v42 + 48) = v45;
         }
 
-        objc_msgSend_setWeakReference_message_(archiverCopy, v23, v24, v25, v26, v27, v22, v35);
-        v145 = 0u;
-        v146 = 0u;
-        v143 = 0u;
-        v144 = 0u;
-        v41 = objc_msgSend_topicNumbers(v141, v37, 0, v38, v39, v40);
-        v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, v43, v44, v45, v46, &v143, v151, 16);
-        if (v48)
+        objc_msgSend_setWeakReference_message_(archiverCopy, v31, v34, v35, v36, v37, v30, v45, v32, v33);
+        v197 = 0u;
+        v198 = 0u;
+        v195 = 0u;
+        v196 = 0u;
+        v55 = objc_msgSend_topicNumbers(v193, v47, 0, v52, v53, v54, v48, v49, v50, v51);
+        v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v56, v58, v59, v60, v61, &v195, v203, 16, v57);
+        if (v67)
         {
-          v53 = *v144;
+          v72 = *v196;
           do
           {
-            for (j = 0; j != v48; ++j)
+            for (j = 0; j != v67; ++j)
             {
-              if (*v144 != v53)
+              if (*v196 != v72)
               {
-                objc_enumerationMutation(v41);
+                objc_enumerationMutation(v55);
               }
 
-              v55 = *(*(&v143 + 1) + 8 * j);
-              v56 = *(v32 + 40);
-              if (!v56)
+              v74 = *(*(&v195 + 1) + 8 * j);
+              v75 = *(v42 + 40);
+              if (!v75)
               {
                 goto LABEL_27;
               }
 
-              v57 = *(v32 + 32);
-              v58 = *v56;
-              if (v57 < *v56)
+              v76 = *(v42 + 32);
+              v77 = *v75;
+              if (v76 < *v75)
               {
-                *(v32 + 32) = v57 + 1;
-                v59 = *&v56[2 * v57 + 2];
+                *(v42 + 32) = v76 + 1;
+                v78 = *&v75[2 * v76 + 2];
                 goto LABEL_29;
               }
 
-              if (v58 == *(v32 + 36))
+              if (v77 == *(v42 + 36))
               {
 LABEL_27:
-                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v32 + 24));
-                v56 = *(v32 + 40);
-                v58 = *v56;
+                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v42 + 24));
+                v75 = *(v42 + 40);
+                v77 = *v75;
               }
 
-              *v56 = v58 + 1;
-              v59 = sub_275FAFA4C(*(v32 + 24));
-              v60 = *(v32 + 32);
-              v61 = *(v32 + 40) + 8 * v60;
-              *(v32 + 32) = v60 + 1;
-              *(v61 + 8) = v59;
+              *v75 = v77 + 1;
+              v78 = sub_275FAFA4C(*(v42 + 24));
+              v79 = *(v42 + 32);
+              v80 = *(v42 + 40) + 8 * v79;
+              *(v42 + 32) = v79 + 1;
+              *(v80 + 8) = v78;
 LABEL_29:
-              v62 = objc_msgSend_number(v55, v47, v49, v50, v51, v52);
-              if (HIDWORD(v62))
+              v81 = objc_msgSend_number(v74, v62, v68, v69, v70, v71, v63, v64, v65, v66);
+              if (HIDWORD(v81))
               {
-                v81 = MEMORY[0x277D81150];
-                v133 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, v64, v65, v66, v67, "[TPPageHint p_archiveTopicNumberHints:intoArchive:archiver:]");
-                v87 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, v83, v84, v85, v86, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v81, v88, v89, v90, v91, v92, v133, v87, 1153, 0, "Out-of-bounds type assignment was clamped to max");
+                v112 = MEMORY[0x277D81150];
+                v185 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, v87, v88, v89, v90, "[TPPageHint p_archiveTopicNumberHints:intoArchive:archiver:]", v84, v85, v86);
+                v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, v117, v118, v119, v120, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v114, v115, v116);
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v112, v122, v123, v124, v125, v126, v185, v121, 1153, 0, "Out-of-bounds type assignment was clamped to max");
 
-                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v93, v94, v95, v96, v97);
-                LODWORD(v62) = -1;
+                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v127, v132, v133, v134, v135, v128, v129, v130, v131);
+                LODWORD(v81) = -1;
               }
 
-              *(v59 + 16) |= 1u;
-              *(v59 + 24) = v62;
-              v68 = objc_msgSend_numberType(v55, v63, v64, v65, v66, v67);
-              if (v68 >= 0x100000000)
+              *(v78 + 16) |= 1u;
+              *(v78 + 24) = v81;
+              v91 = objc_msgSend_numberType(v74, v82, v87, v88, v89, v90, v83, v84, v85, v86);
+              if (v91 >= 0x100000000)
               {
-                v98 = MEMORY[0x277D81150];
-                v134 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v69, v70, v71, v72, v73, "[TPPageHint p_archiveTopicNumberHints:intoArchive:archiver:]");
-                v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v99, v100, v101, v102, v103, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v98, v105, v106, v107, v108, v109, v134, v104, 1154, 0, "Out-of-bounds type assignment was clamped to max");
+                v136 = MEMORY[0x277D81150];
+                v186 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, v97, v98, v99, v100, "[TPPageHint p_archiveTopicNumberHints:intoArchive:archiver:]", v94, v95, v96);
+                v145 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v137, v141, v142, v143, v144, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v138, v139, v140);
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v136, v146, v147, v148, v149, v150, v186, v145, 1154, 0, "Out-of-bounds type assignment was clamped to max");
 
-                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v110, v111, v112, v113, v114);
-                LODWORD(v68) = -1;
+                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v151, v156, v157, v158, v159, v152, v153, v154, v155);
+                LODWORD(v91) = -1;
               }
 
-              *(v59 + 16) |= 4u;
-              *(v59 + 32) = v68;
-              v74 = objc_msgSend_labelType(v55, v69, v70, v71, v72, v73);
-              if (v74 >= 0x100000000)
+              *(v78 + 16) |= 4u;
+              *(v78 + 32) = v91;
+              v101 = objc_msgSend_labelType(v74, v92, v97, v98, v99, v100, v93, v94, v95, v96);
+              if (v101 >= 0x100000000)
               {
-                v115 = MEMORY[0x277D81150];
-                v135 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v75, v76, v77, v78, v79, "[TPPageHint p_archiveTopicNumberHints:intoArchive:archiver:]");
-                v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v116, v117, v118, v119, v120, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v115, v122, v123, v124, v125, v126, v135, v121, 1155, 0, "Out-of-bounds type assignment was clamped to max");
+                v160 = MEMORY[0x277D81150];
+                v187 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v102, v107, v108, v109, v110, "[TPPageHint p_archiveTopicNumberHints:intoArchive:archiver:]", v104, v105, v106);
+                v169 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v161, v165, v166, v167, v168, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v162, v163, v164);
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v160, v170, v171, v172, v173, v174, v187, v169, 1155, 0, "Out-of-bounds type assignment was clamped to max");
 
-                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v127, v128, v129, v130, v131);
-                LODWORD(v74) = -1;
+                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v175, v180, v181, v182, v183, v176, v177, v178, v179);
+                LODWORD(v101) = -1;
               }
 
-              *(v59 + 16) |= 2u;
-              *(v59 + 28) = v74;
-              isTiered = objc_msgSend_isTiered(v55, v75, v76, v77, v78, v79);
-              *(v59 + 16) |= 8u;
-              *(v59 + 36) = isTiered;
+              *(v78 + 16) |= 2u;
+              *(v78 + 28) = v101;
+              isTiered = objc_msgSend_isTiered(v74, v102, v107, v108, v109, v110, v103, v104, v105, v106);
+              *(v78 + 16) |= 8u;
+              *(v78 + 36) = isTiered;
             }
 
-            v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v47, v49, v50, v51, v52, &v143, v151, 16);
+            v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v62, v68, v69, v70, v71, &v195, v203, 16, v66);
           }
 
-          while (v48);
+          while (v67);
         }
       }
 
-      v138 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, v18, v19, v20, v21, &v147, v152, 16);
+      v190 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, v26, v27, v28, v29, &v199, v204, 16, v25);
     }
 
-    while (v138);
+    while (v190);
   }
 }
 
@@ -2622,49 +2622,49 @@ LABEL_29:
     {
       v9 = *(*(archive + 4) + 8 * i + 8);
       v10 = *(v9 + 32);
-      v12 = objc_opt_new();
+      v16 = objc_opt_new();
       if (v10 == 9)
       {
         for (j = 0; j != 9; ++j)
         {
-          v18 = *(*(v9 + 40) + 8 * j + 8);
-          v19 = objc_msgSend_topicNumbers(v12, v11, v13, v14, v15, v16);
-          v25 = objc_msgSend_objectAtIndexedSubscript_(v19, v20, v21, v22, v23, v24, j);
+          v22 = *(*(v9 + 40) + 8 * j + 8);
+          v23 = objc_msgSend_topicNumbers(v16, v11, v17, v18, v19, v20, v12, v13, v14, v15);
+          v32 = objc_msgSend_objectAtIndexedSubscript_(v23, v24, v28, v29, v30, v31, j, v25, v26, v27);
 
-          objc_msgSend_setNumber_(v25, v26, v27, v28, v29, v30, *(v18 + 24));
-          objc_msgSend_setNumberType_(v25, v31, v32, v33, v34, v35, *(v18 + 32));
-          objc_msgSend_setLabelType_(v25, v36, v37, v38, v39, v40, *(v18 + 28));
-          objc_msgSend_setIsTiered_(v25, v41, v42, v43, v44, v45, *(v18 + 36));
+          objc_msgSend_setNumber_(v32, v33, v37, v38, v39, v40, *(v22 + 24), v34, v35, v36);
+          objc_msgSend_setNumberType_(v32, v41, v45, v46, v47, v48, *(v22 + 32), v42, v43, v44);
+          objc_msgSend_setLabelType_(v32, v49, v53, v54, v55, v56, *(v22 + 28), v50, v51, v52);
+          objc_msgSend_setIsTiered_(v32, v57, v61, v62, v63, v64, *(v22 + 36), v58, v59, v60);
         }
 
-        v46 = *(v9 + 48);
-        v74[0] = MEMORY[0x277D85DD0];
-        v74[1] = 3221225472;
-        v74[2] = sub_275FE6AFC;
-        v74[3] = &unk_27A6A8830;
-        v75 = hintsCopy;
-        v76 = v12;
-        v47 = unarchiverCopy;
-        v49 = objc_opt_class();
-        if (v46)
+        v65 = *(v9 + 48);
+        v100[0] = MEMORY[0x277D85DD0];
+        v100[1] = 3221225472;
+        v100[2] = sub_275FE6AFC;
+        v100[3] = &unk_27A6A8830;
+        v101 = hintsCopy;
+        v102 = v16;
+        v66 = unarchiverCopy;
+        v68 = objc_opt_class();
+        if (v65)
         {
-          objc_msgSend_readWeakReferenceMessage_class_protocol_completion_(v47, v48, v50, v51, v52, v53, v46, v49, 0, v74);
+          objc_msgSend_readWeakReferenceMessage_class_protocol_completion_(v66, v67, v69, v70, v71, v72, v65, v68, 0, v100);
         }
 
         else
         {
-          objc_msgSend_readWeakReferenceMessage_class_protocol_completion_(v47, v48, v50, v51, v52, v53, MEMORY[0x277D80A18], v49, 0, v74);
+          objc_msgSend_readWeakReferenceMessage_class_protocol_completion_(v66, v67, v69, v70, v71, v72, MEMORY[0x277D80A18], v68, 0, v100);
         }
       }
 
       else
       {
-        v54 = MEMORY[0x277D81150];
-        v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v13, v14, v15, v16, "[TPPageHint p_unarchiveTopicNumberHints:fromArchive:unarchiver:]");
-        v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, v57, v58, v59, v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v62, v63, v64, v65, v66, v55, v61, 1169, 0, "expected equality between %{public}s and %{public}s", "levelCount", "kMaxListLevel");
+        v73 = MEMORY[0x277D81150];
+        v74 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v17, v18, v19, v20, "[TPPageHint p_unarchiveTopicNumberHints:fromArchive:unarchiver:]", v13, v14, v15);
+        v83 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v75, v79, v80, v81, v82, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageHint.mm", v76, v77, v78);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v73, v84, v85, v86, v87, v88, v74, v83, 1169, 0, "expected equality between %{public}s and %{public}s", "levelCount", "kMaxListLevel");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v67, v68, v69, v70, v71);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v89, v94, v95, v96, v97, v90, v91, v92, v93);
       }
     }
   }

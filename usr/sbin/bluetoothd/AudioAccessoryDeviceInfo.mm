@@ -318,148 +318,105 @@
   v7 = sub_1000E3218(device, 0xB0u);
   if (v7 < 3)
   {
-    LODWORD(v8) = v7 + 1;
+    LODWORD(v10) = v7 + 1;
   }
 
   else
   {
-    if (dword_100B51310 <= 90 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
+    if (dword_100B51310 <= 90)
     {
-      sub_10080F4A0();
+      if (dword_100B51310 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_10080F4A0(v7, v8, v9);
+      }
     }
 
-    LODWORD(v8) = 0;
+    LODWORD(v10) = 0;
   }
 
-  v9 = sub_1000E3218(device, 0x18u);
-  if (v9)
+  v11 = sub_1000E3218(device, 0x18u);
+  if (v11)
   {
-    v8 = (v9 + 1);
+    v10 = (v11 + 1);
   }
 
   else
   {
-    v8 = v8;
+    v10 = v10;
   }
 
-  if (v8 != [(AudioAccessoryDeviceInfo *)self autoANCCapability])
+  if (v10 != [(AudioAccessoryDeviceInfo *)self autoANCCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setAutoANCCapability:v8];
+    [(AudioAccessoryDeviceInfo *)self setAutoANCCapability:v10];
     v6 = 0x80000000000;
   }
 
-  v10 = sub_100549574(device);
-  if (v10)
+  v12 = sub_100549574(device);
+  if (v12)
   {
-    if (v10 == 50 || v10 == 100)
+    if (v12 == 50 || v12 == 100)
     {
-      v11 = (v10 + 1000);
+      v15 = (v12 + 1000);
     }
 
     else
     {
-      if (dword_100B51310 <= 90 && (dword_100B51310 != -1 || _LogCategory_Initialize()))
+      if (dword_100B51310 <= 90)
       {
-        sub_10080F4BC();
+        if (dword_100B51310 != -1 || (v12 = _LogCategory_Initialize(), v12))
+        {
+          sub_10080F4BC(v12, v13, v14);
+        }
       }
 
-      v11 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v11 = 1000;
+    v15 = 1000;
   }
 
-  if (v11 != [(AudioAccessoryDeviceInfo *)self autoANCStrength])
+  if (v15 != [(AudioAccessoryDeviceInfo *)self autoANCStrength])
   {
-    [(AudioAccessoryDeviceInfo *)self setAutoANCStrength:v11];
+    [(AudioAccessoryDeviceInfo *)self setAutoANCStrength:v15];
     v6 = 0x80000000000;
   }
 
   if (sub_1000E3218(device, 0xF0u) == 1)
   {
-    v12 = 2;
+    v16 = 2;
   }
 
   else
   {
-    v12 = 1;
+    v16 = 1;
   }
 
-  if (v12 != [(AudioAccessoryDeviceInfo *)self bobbleCapability])
+  if (v16 != [(AudioAccessoryDeviceInfo *)self bobbleCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setBobbleCapability:v12];
+    [(AudioAccessoryDeviceInfo *)self setBobbleCapability:v16];
     v6 = 0x80000000000;
   }
 
   if (sub_1000E3218(device, 0x23u))
   {
-    v13 = 2;
+    v17 = 2;
   }
 
   else
-  {
-    v13 = 1;
-  }
-
-  if (v13 != [(AudioAccessoryDeviceInfo *)self cameraControlCapability])
-  {
-    [(AudioAccessoryDeviceInfo *)self setCameraControlCapability:v13];
-    v6 |= 0x80000000000uLL;
-  }
-
-  if (sub_1000E012C(device, 18))
-  {
-    v14 = 2;
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  if (v14 != [(AudioAccessoryDeviceInfo *)self caseSoundCapability])
-  {
-    [(AudioAccessoryDeviceInfo *)self setCaseSoundCapability:v14];
-    v6 |= 0x80000000000uLL;
-  }
-
-  if (sub_1000E3218(device, 0x29u))
-  {
-    v15 = 2;
-  }
-
-  else
-  {
-    v15 = 1;
-  }
-
-  if (v15 != [(AudioAccessoryDeviceInfo *)self dynamicEndOfChargeCapability])
-  {
-    [(AudioAccessoryDeviceInfo *)self setDynamicEndOfChargeCapability:v15];
-    v6 |= 0x80000000000uLL;
-  }
-
-  v16 = sub_10054976C(device);
-  if (v16 == 1)
   {
     v17 = 1;
   }
 
-  else
+  if (v17 != [(AudioAccessoryDeviceInfo *)self cameraControlCapability])
   {
-    v17 = 2 * (v16 == 2);
-  }
-
-  if (v17 != [(AudioAccessoryDeviceInfo *)self dynamicEndOfChargeEnabled])
-  {
-    [(AudioAccessoryDeviceInfo *)self setDynamicEndOfChargeEnabled:v17];
+    [(AudioAccessoryDeviceInfo *)self setCameraControlCapability:v17];
     v6 |= 0x80000000000uLL;
   }
 
-  if (sub_1000E3218(device, 0x17u))
+  if (sub_1000E012C(device, 0x12u))
   {
     v18 = 2;
   }
@@ -469,46 +426,46 @@
     v18 = 1;
   }
 
-  if (v18 != [(AudioAccessoryDeviceInfo *)self earTipFitTestCapability])
+  if (v18 != [(AudioAccessoryDeviceInfo *)self caseSoundCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setEarTipFitTestCapability:v18];
+    [(AudioAccessoryDeviceInfo *)self setCaseSoundCapability:v18];
     v6 |= 0x80000000000uLL;
   }
 
-  v19 = sub_1000E3218(device, 6u);
-  if ((v19 - 1) >= 3)
+  if (sub_1000E3218(device, 0x29u))
   {
-    v20 = 4 * (v19 == 4);
+    v19 = 2;
   }
 
   else
   {
-    v20 = v19;
+    v19 = 1;
   }
 
-  if ([(AudioAccessoryDeviceInfo *)self enhancedTransparencyVersion]!= v20)
+  if (v19 != [(AudioAccessoryDeviceInfo *)self dynamicEndOfChargeCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setEnhancedTransparencyVersion:v20];
+    [(AudioAccessoryDeviceInfo *)self setDynamicEndOfChargeCapability:v19];
     v6 |= 0x80000000000uLL;
   }
 
-  if (sub_1000E3218(device, 0x25u) == 1)
-  {
-    v21 = 2;
-  }
-
-  else
+  v20 = sub_10054976C(device);
+  if (v20 == 1)
   {
     v21 = 1;
   }
 
-  if (v21 != [(AudioAccessoryDeviceInfo *)self farFieldUplinkCapability])
+  else
   {
-    [(AudioAccessoryDeviceInfo *)self setFarFieldUplinkCapability:v21];
+    v21 = 2 * (v20 == 2);
+  }
+
+  if (v21 != [(AudioAccessoryDeviceInfo *)self dynamicEndOfChargeEnabled])
+  {
+    [(AudioAccessoryDeviceInfo *)self setDynamicEndOfChargeEnabled:v21];
     v6 |= 0x80000000000uLL;
   }
 
-  if (*(device + 1437))
+  if (sub_1000E3218(device, 0x17u))
   {
     v22 = 2;
   }
@@ -518,79 +475,94 @@
     v22 = 1;
   }
 
-  if (v22 != [(AudioAccessoryDeviceInfo *)self frequencyBand])
+  if (v22 != [(AudioAccessoryDeviceInfo *)self earTipFitTestCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setFrequencyBand:v22];
+    [(AudioAccessoryDeviceInfo *)self setEarTipFitTestCapability:v22];
+    v6 |= 0x80000000000uLL;
+  }
+
+  v23 = sub_1000E3218(device, 6u);
+  if ((v23 - 1) >= 3)
+  {
+    v24 = 4 * (v23 == 4);
+  }
+
+  else
+  {
+    v24 = v23;
+  }
+
+  if ([(AudioAccessoryDeviceInfo *)self enhancedTransparencyVersion]!= v24)
+  {
+    [(AudioAccessoryDeviceInfo *)self setEnhancedTransparencyVersion:v24];
+    v6 |= 0x80000000000uLL;
+  }
+
+  if (sub_1000E3218(device, 0x25u) == 1)
+  {
+    v25 = 2;
+  }
+
+  else
+  {
+    v25 = 1;
+  }
+
+  if (v25 != [(AudioAccessoryDeviceInfo *)self farFieldUplinkCapability])
+  {
+    [(AudioAccessoryDeviceInfo *)self setFarFieldUplinkCapability:v25];
+    v6 |= 0x80000000000uLL;
+  }
+
+  if (*(device + 1437))
+  {
+    v26 = 2;
+  }
+
+  else
+  {
+    v26 = 1;
+  }
+
+  if (v26 != [(AudioAccessoryDeviceInfo *)self frequencyBand])
+  {
+    [(AudioAccessoryDeviceInfo *)self setFrequencyBand:v26];
     v6 |= 0x80000000000uLL;
   }
 
   if (sub_1000E3218(device, 0x24u) == 1)
   {
-    v23 = 2;
+    v27 = 2;
   }
 
   else
   {
-    v23 = 1;
+    v27 = 1;
   }
 
-  if (v23 != [(AudioAccessoryDeviceInfo *)self ovadStreamingCapability])
+  if (v27 != [(AudioAccessoryDeviceInfo *)self ovadStreamingCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setOvadStreamingCapability:v23];
+    [(AudioAccessoryDeviceInfo *)self setOvadStreamingCapability:v27];
     v6 |= 0x80000000000uLL;
   }
 
   if (sub_1000E3218(device, 0xC0u) == 2)
   {
-    v24 = 2;
+    v28 = 2;
   }
 
   else
-  {
-    v24 = 1;
-  }
-
-  if (v24 != [(AudioAccessoryDeviceInfo *)self hearingAidCapability])
-  {
-    [(AudioAccessoryDeviceInfo *)self setHearingAidCapability:v24];
-    v6 |= 0x80000000000uLL;
-  }
-
-  v25 = sub_10054FC88(device);
-  if (v25 == 1)
-  {
-    v26 = 1;
-  }
-
-  else
-  {
-    v26 = 2 * (v25 == 2);
-  }
-
-  if (v26 != [(AudioAccessoryDeviceInfo *)self hearingAidConfig])
-  {
-    [(AudioAccessoryDeviceInfo *)self setHearingAidConfig:v26];
-    v6 |= 0x80000000000uLL;
-  }
-
-  v27 = sub_10054FBB0(device);
-  if (v27 == 1)
   {
     v28 = 1;
   }
 
-  else
+  if (v28 != [(AudioAccessoryDeviceInfo *)self hearingAidCapability])
   {
-    v28 = 2 * (v27 == 2);
-  }
-
-  if (v28 != [(AudioAccessoryDeviceInfo *)self hearingAidEnrolled])
-  {
-    [(AudioAccessoryDeviceInfo *)self setHearingAidEnrolled:v28];
+    [(AudioAccessoryDeviceInfo *)self setHearingAidCapability:v28];
     v6 |= 0x80000000000uLL;
   }
 
-  v29 = sub_1005495BC(device);
+  v29 = sub_10054FC88(device);
   if (v29 == 1)
   {
     v30 = 1;
@@ -601,13 +573,13 @@
     v30 = 2 * (v29 == 2);
   }
 
-  if (v30 != [(AudioAccessoryDeviceInfo *)self hearingAidGainSwipeEnabled])
+  if (v30 != [(AudioAccessoryDeviceInfo *)self hearingAidConfig])
   {
-    [(AudioAccessoryDeviceInfo *)self setHearingAidGainSwipeEnabled:v30];
+    [(AudioAccessoryDeviceInfo *)self setHearingAidConfig:v30];
     v6 |= 0x80000000000uLL;
   }
 
-  v31 = sub_100549604(device);
+  v31 = sub_10054FBB0(device);
   if (v31 == 1)
   {
     v32 = 1;
@@ -618,101 +590,95 @@
     v32 = 2 * (v31 == 2);
   }
 
-  if (v32 != [(AudioAccessoryDeviceInfo *)self hearingAssistEnabled])
+  if (v32 != [(AudioAccessoryDeviceInfo *)self hearingAidEnrolled])
   {
-    [(AudioAccessoryDeviceInfo *)self setHearingAssistEnabled:v32];
+    [(AudioAccessoryDeviceInfo *)self setHearingAidEnrolled:v32];
+    v6 |= 0x80000000000uLL;
+  }
+
+  v33 = sub_1005495BC(device);
+  if (v33 == 1)
+  {
+    v34 = 1;
+  }
+
+  else
+  {
+    v34 = 2 * (v33 == 2);
+  }
+
+  if (v34 != [(AudioAccessoryDeviceInfo *)self hearingAidGainSwipeEnabled])
+  {
+    [(AudioAccessoryDeviceInfo *)self setHearingAidGainSwipeEnabled:v34];
+    v6 |= 0x80000000000uLL;
+  }
+
+  v35 = sub_100549604(device);
+  if (v35 == 1)
+  {
+    v36 = 1;
+  }
+
+  else
+  {
+    v36 = 2 * (v35 == 2);
+  }
+
+  if (v36 != [(AudioAccessoryDeviceInfo *)self hearingAssistEnabled])
+  {
+    [(AudioAccessoryDeviceInfo *)self setHearingAssistEnabled:v36];
     v6 |= 0x80000000000uLL;
   }
 
   if (sub_1000E3218(device, 0x30u) == 1)
   {
-    v33 = 2;
+    v37 = 2;
   }
 
   else
   {
-    v33 = 1;
+    v37 = 1;
   }
 
-  if (v33 != [(AudioAccessoryDeviceInfo *)self hearingProtectionCapability])
+  if (v37 != [(AudioAccessoryDeviceInfo *)self hearingProtectionCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setHearingProtectionCapability:v33];
+    [(AudioAccessoryDeviceInfo *)self setHearingProtectionCapability:v37];
     v6 |= 0x80000000000uLL;
   }
 
   if (sub_1000E3218(device, 0xD0u) == 2)
   {
-    v34 = 2;
+    v38 = 2;
   }
 
   else
   {
-    v34 = 1;
+    v38 = 1;
   }
 
-  if (v34 != [(AudioAccessoryDeviceInfo *)self hearingTestCapability])
+  if (v38 != [(AudioAccessoryDeviceInfo *)self hearingTestCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setHearingTestCapability:v34];
+    [(AudioAccessoryDeviceInfo *)self setHearingTestCapability:v38];
     v6 |= 0x80000000000uLL;
   }
 
   if (sub_1000E3218(device, 0x31u))
   {
-    v35 = 2;
+    v39 = 2;
   }
 
   else
-  {
-    v35 = 1;
-  }
-
-  if (v35 != [(AudioAccessoryDeviceInfo *)self hearingAidV2Capability])
-  {
-    [(AudioAccessoryDeviceInfo *)self setHearingAidV2Capability:v35];
-    v6 |= 0x80000000000uLL;
-  }
-
-  if (sub_1000E3218(device, 0x28u) == 1)
-  {
-    v36 = 2;
-  }
-
-  else
-  {
-    v36 = 1;
-  }
-
-  if (v36 != [(AudioAccessoryDeviceInfo *)self hearingProtectionPPECapability])
-  {
-    [(AudioAccessoryDeviceInfo *)self setHearingProtectionPPECapability:v36];
-    v6 |= 0x80000000000uLL;
-  }
-
-  v37 = sub_1005496DC(device);
-  if (v37 != [(AudioAccessoryDeviceInfo *)self hearingProtectionPPECapLevel])
-  {
-    [(AudioAccessoryDeviceInfo *)self setHearingProtectionPPECapLevel:v37];
-    v6 |= 0x80000000000uLL;
-  }
-
-  v38 = sub_100549724(device);
-  if (v38 == 1)
   {
     v39 = 1;
   }
 
-  else
+  if (v39 != [(AudioAccessoryDeviceInfo *)self hearingAidV2Capability])
   {
-    v39 = 2 * (v38 == 2);
-  }
-
-  if (v39 != [(AudioAccessoryDeviceInfo *)self hearingProtectionPPEEnabled])
-  {
-    [(AudioAccessoryDeviceInfo *)self setHearingProtectionPPEEnabled:v39];
+    [(AudioAccessoryDeviceInfo *)self setHearingAidV2Capability:v39];
     v6 |= 0x80000000000uLL;
   }
 
-  if (sub_1000E3218(device, 0x26u))
+  if (sub_1000E3218(device, 0x28u) == 1)
   {
     v40 = 2;
   }
@@ -722,46 +688,37 @@
     v40 = 1;
   }
 
-  if (v40 != [(AudioAccessoryDeviceInfo *)self heartRateMonitorCapable])
+  if (v40 != [(AudioAccessoryDeviceInfo *)self hearingProtectionPPECapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setHeartRateMonitorCapable:v40];
+    [(AudioAccessoryDeviceInfo *)self setHearingProtectionPPECapability:v40];
     v6 |= 0x80000000000uLL;
   }
 
-  v41 = sub_100549694(device);
-  if (v41 == 1)
+  v41 = sub_1005496DC(device);
+  if (v41 != [(AudioAccessoryDeviceInfo *)self hearingProtectionPPECapLevel])
   {
-    v42 = 1;
-  }
-
-  else
-  {
-    v42 = 2 * (v41 == 2);
-  }
-
-  if (v42 != [(AudioAccessoryDeviceInfo *)self heartRateMonitorEnabled])
-  {
-    [(AudioAccessoryDeviceInfo *)self setHeartRateMonitorEnabled:v42];
+    [(AudioAccessoryDeviceInfo *)self setHearingProtectionPPECapLevel:v41];
     v6 |= 0x80000000000uLL;
   }
 
-  if (sub_1000E3218(device, 0x16u))
-  {
-    v43 = 2;
-  }
-
-  else
+  v42 = sub_100549724(device);
+  if (v42 == 1)
   {
     v43 = 1;
   }
 
-  if (v43 != [(AudioAccessoryDeviceInfo *)self hideEarDetectionCapability])
+  else
   {
-    [(AudioAccessoryDeviceInfo *)self setHideEarDetectionCapability:v43];
+    v43 = 2 * (v42 == 2);
+  }
+
+  if (v43 != [(AudioAccessoryDeviceInfo *)self hearingProtectionPPEEnabled])
+  {
+    [(AudioAccessoryDeviceInfo *)self setHearingProtectionPPEEnabled:v43];
     v6 |= 0x80000000000uLL;
   }
 
-  if (sub_1000E3218(device, 0x13u) == 1)
+  if (sub_1000E3218(device, 0x26u))
   {
     v44 = 2;
   }
@@ -771,24 +728,30 @@
     v44 = 1;
   }
 
-  if (v44 != [(AudioAccessoryDeviceInfo *)self hideOffListeningModeCapability])
+  if (v44 != [(AudioAccessoryDeviceInfo *)self heartRateMonitorCapable])
   {
-    [(AudioAccessoryDeviceInfo *)self setHideOffListeningModeCapability:v44];
+    [(AudioAccessoryDeviceInfo *)self setHeartRateMonitorCapable:v44];
     v6 |= 0x80000000000uLL;
   }
 
-  v45 = sub_10054D4E0(device);
-  if (v45 >= 1)
+  v45 = sub_100549694(device);
+  if (v45 == 1)
   {
-    v46 = v45;
-    if (v45 != [(AudioAccessoryDeviceInfo *)self lastSeenTime])
-    {
-      [(AudioAccessoryDeviceInfo *)self setLastSeenTime:v46];
-      v6 |= 0x80000000000uLL;
-    }
+    v46 = 1;
   }
 
-  if (sub_1000E012C(device, 17))
+  else
+  {
+    v46 = 2 * (v45 == 2);
+  }
+
+  if (v46 != [(AudioAccessoryDeviceInfo *)self heartRateMonitorEnabled])
+  {
+    [(AudioAccessoryDeviceInfo *)self setHeartRateMonitorEnabled:v46];
+    v6 |= 0x80000000000uLL;
+  }
+
+  if (sub_1000E3218(device, 0x16u))
   {
     v47 = 2;
   }
@@ -798,13 +761,13 @@
     v47 = 1;
   }
 
-  if (v47 != [(AudioAccessoryDeviceInfo *)self pmeEverywhereCapability])
+  if (v47 != [(AudioAccessoryDeviceInfo *)self hideEarDetectionCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setPmeEverywhereCapability:v47];
+    [(AudioAccessoryDeviceInfo *)self setHideEarDetectionCapability:v47];
     v6 |= 0x80000000000uLL;
   }
 
-  if (sub_1000E3218(device, 0x15u) == 1)
+  if (sub_1000E3218(device, 0x13u) == 1)
   {
     v48 = 2;
   }
@@ -814,42 +777,85 @@
     v48 = 1;
   }
 
-  if (v48 != [(AudioAccessoryDeviceInfo *)self siriMultitoneCapability])
+  if (v48 != [(AudioAccessoryDeviceInfo *)self hideOffListeningModeCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setSiriMultitoneCapability:v48];
+    [(AudioAccessoryDeviceInfo *)self setHideOffListeningModeCapability:v48];
+    v6 |= 0x80000000000uLL;
+  }
+
+  v49 = sub_10054D4E0(device);
+  if (v49 >= 1)
+  {
+    v50 = v49;
+    if (v49 != [(AudioAccessoryDeviceInfo *)self lastSeenTime])
+    {
+      [(AudioAccessoryDeviceInfo *)self setLastSeenTime:v50];
+      v6 |= 0x80000000000uLL;
+    }
+  }
+
+  if (sub_1000E012C(device, 0x11u))
+  {
+    v51 = 2;
+  }
+
+  else
+  {
+    v51 = 1;
+  }
+
+  if (v51 != [(AudioAccessoryDeviceInfo *)self pmeEverywhereCapability])
+  {
+    [(AudioAccessoryDeviceInfo *)self setPmeEverywhereCapability:v51];
+    v6 |= 0x80000000000uLL;
+  }
+
+  if (sub_1000E3218(device, 0x15u) == 1)
+  {
+    v52 = 2;
+  }
+
+  else
+  {
+    v52 = 1;
+  }
+
+  if (v52 != [(AudioAccessoryDeviceInfo *)self siriMultitoneCapability])
+  {
+    [(AudioAccessoryDeviceInfo *)self setSiriMultitoneCapability:v52];
     v6 |= 0x80000000000uLL;
   }
 
   if (sub_1000E3218(device, 0x21u) == 1)
   {
-    v49 = 2;
+    v53 = 2;
   }
 
   else
   {
-    v49 = 1;
+    v53 = 1;
   }
 
-  if (v49 != [(AudioAccessoryDeviceInfo *)self sleepDetectionCapability])
+  if (v53 != [(AudioAccessoryDeviceInfo *)self sleepDetectionCapability])
   {
-    [(AudioAccessoryDeviceInfo *)self setSleepDetectionCapability:v49];
+    [(AudioAccessoryDeviceInfo *)self setSleepDetectionCapability:v53];
     v6 |= 0x80000000000uLL;
   }
 
-  v50 = sub_10054991C(device);
-  if (v50 == 1)
+  v54 = sub_10054991C(device);
+  if (v54 == 1)
   {
-    v51 = 1;
+    v55 = 1;
   }
 
   else
   {
-    v51 = 2 * (v50 == 2);
+    v55 = 2 * (v54 == 2);
   }
 
-  if (v51 != [(AudioAccessoryDeviceInfo *)self sleepDetectionEnabled])
+  if (v55 != [(AudioAccessoryDeviceInfo *)self sleepDetectionEnabled])
   {
-    [(AudioAccessoryDeviceInfo *)self setSleepDetectionEnabled:v51];
+    [(AudioAccessoryDeviceInfo *)self setSleepDetectionEnabled:v55];
     v6 |= 0x80000000000uLL;
   }
 
@@ -857,17 +863,17 @@
   {
     if (*(device + 1045))
     {
-      v52 = 1;
+      v56 = 1;
     }
 
     else
     {
-      v52 = 2;
+      v56 = 2;
     }
 
-    if (v52 != [(AudioAccessoryDeviceInfo *)self temporaryManagedPairedStatus])
+    if (v56 != [(AudioAccessoryDeviceInfo *)self temporaryManagedPairedStatus])
     {
-      [(AudioAccessoryDeviceInfo *)self setTemporaryManagedPairedStatus:v52];
+      [(AudioAccessoryDeviceInfo *)self setTemporaryManagedPairedStatus:v56];
       v6 |= 0x80000000000uLL;
     }
   }

@@ -27,7 +27,9 @@
   if (userData != dataCopy)
   {
     v13 = dataCopy;
-    if (([(PXTitleLegibilityDimmingViewConfiguration *)userData isEqual:dataCopy]& 1) == 0)
+    userData = [(PXTitleLegibilityDimmingViewConfiguration *)userData isEqual:dataCopy];
+    dataCopy = v13;
+    if ((userData & 1) == 0)
     {
       v6 = [(PXTitleLegibilityDimmingViewConfiguration *)v13 copy];
       v7 = self->_userData;
@@ -39,10 +41,12 @@
       bundle = [gradientImageConfiguration bundle];
       v12 = [v9 px_imageNamed:imageName bundle:bundle];
       -[CALayer setContents:](self->_filterLayer, "setContents:", [v12 CGImage]);
+
+      dataCopy = v13;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](userData, dataCopy);
 }
 
 - (void)layoutSubviews

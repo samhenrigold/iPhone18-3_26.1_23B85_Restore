@@ -1,6 +1,5 @@
 @interface BCSActionPickerViewAssistant
 - (BOOL)showActionPickerWithItems:(id)items fromViewController:(id)controller presentingRect:(CGRect)rect;
-- (void)_cleanUpAlertController;
 @end
 
 @implementation BCSActionPickerViewAssistant
@@ -11,13 +10,13 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   controllerCopy = controller;
   v12 = controllerCopy;
   if (controllerCopy)
   {
-    v56 = controllerCopy;
+    v55 = controllerCopy;
     presentedViewController = [controllerCopy presentedViewController];
 
     if (presentedViewController)
@@ -33,76 +32,76 @@
     {
       if (![(BCSActionPickerViewAssistant *)self isShowingPicker])
       {
-        v41 = objc_alloc_init(getUIAlertControllerClass());
+        v40 = objc_alloc_init(getUIAlertControllerClass());
         alertController = self->_alertController;
-        self->_alertController = v41;
+        self->_alertController = v40;
 
         objc_initWeak(&location, self);
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
         v66 = 0u;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
         obj = itemsCopy;
-        v43 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
-        if (v43)
+        v42 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+        if (v42)
         {
-          v44 = *v66;
+          v43 = *v65;
           do
           {
-            for (i = 0; i != v43; ++i)
+            for (i = 0; i != v42; ++i)
             {
-              if (*v66 != v44)
+              if (*v65 != v43)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v46 = *(*(&v65 + 1) + 8 * i);
-              [v46 setActionPickerItemDelegate:self];
-              shouldDismissAlertWhenActionIsTaken = [v46 shouldDismissAlertWhenActionIsTaken];
-              v48 = self->_alertController;
-              label = [v46 label];
-              v62[0] = MEMORY[0x277D85DD0];
-              v62[1] = 3221225472;
-              v62[2] = __92__BCSActionPickerViewAssistant_showActionPickerWithItems_fromViewController_presentingRect___block_invoke;
-              v62[3] = &unk_278CFE8D0;
-              v62[4] = v46;
-              v64 = shouldDismissAlertWhenActionIsTaken;
-              objc_copyWeak(&v63, &location);
+              v45 = *(*(&v64 + 1) + 8 * i);
+              [v45 setActionPickerItemDelegate:self];
+              shouldDismissAlertWhenActionIsTaken = [v45 shouldDismissAlertWhenActionIsTaken];
+              v47 = self->_alertController;
+              label = [v45 label];
               v61[0] = MEMORY[0x277D85DD0];
               v61[1] = 3221225472;
-              v61[2] = __92__BCSActionPickerViewAssistant_showActionPickerWithItems_fromViewController_presentingRect___block_invoke_2;
-              v61[3] = &unk_278CFE8F8;
-              v61[4] = v46;
-              [(UIAlertController *)v48 _addActionWithTitle:label style:0 handler:v62 shouldDismissHandler:v61];
+              v61[2] = __92__BCSActionPickerViewAssistant_showActionPickerWithItems_fromViewController_presentingRect___block_invoke;
+              v61[3] = &unk_278CFE8D0;
+              v61[4] = v45;
+              v63 = shouldDismissAlertWhenActionIsTaken;
+              objc_copyWeak(&v62, &location);
+              v60[0] = MEMORY[0x277D85DD0];
+              v60[1] = 3221225472;
+              v60[2] = __92__BCSActionPickerViewAssistant_showActionPickerWithItems_fromViewController_presentingRect___block_invoke_2;
+              v60[3] = &unk_278CFE8F8;
+              v60[4] = v45;
+              [(UIAlertController *)v47 _addActionWithTitle:label style:0 handler:v61 shouldDismissHandler:v60];
 
-              objc_destroyWeak(&v63);
+              objc_destroyWeak(&v62);
             }
 
-            v43 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
+            v42 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
           }
 
-          while (v43);
+          while (v42);
         }
 
-        v50 = self->_alertController;
+        v49 = self->_alertController;
         UIAlertActionClass = getUIAlertActionClass();
-        v52 = _BCSLocalizedString(@"Cancel", &_BCSLocalizableStringsBundleOnceToken, &_BCSLocalizableStringsBundle);
-        v59[0] = MEMORY[0x277D85DD0];
-        v59[1] = 3221225472;
-        v59[2] = __92__BCSActionPickerViewAssistant_showActionPickerWithItems_fromViewController_presentingRect___block_invoke_3;
-        v59[3] = &unk_278CFE920;
-        objc_copyWeak(&v60, &location);
-        v53 = [UIAlertActionClass actionWithTitle:v52 style:1 handler:v59];
-        [(UIAlertController *)v50 addAction:v53];
+        v51 = _BCSLocalizedString(@"Cancel", &_BCSLocalizableStringsBundleOnceToken, &_BCSLocalizableStringsBundle);
+        v58[0] = MEMORY[0x277D85DD0];
+        v58[1] = 3221225472;
+        v58[2] = __92__BCSActionPickerViewAssistant_showActionPickerWithItems_fromViewController_presentingRect___block_invoke_3;
+        v58[3] = &unk_278CFE920;
+        objc_copyWeak(&v59, &location);
+        v52 = [UIAlertActionClass actionWithTitle:v51 style:1 handler:v58];
+        [(UIAlertController *)v49 addAction:v52];
 
         popoverPresentationController = [(UIAlertController *)self->_alertController popoverPresentationController];
-        view = [v56 view];
+        view = [v55 view];
         [popoverPresentationController setSourceView:view];
 
         [popoverPresentationController setSourceRect:{x, y, width, height}];
-        [v56 presentViewController:self->_alertController animated:1 completion:0];
+        [v55 presentViewController:self->_alertController animated:1 completion:0];
 
-        objc_destroyWeak(&v60);
+        objc_destroyWeak(&v59);
         objc_destroyWeak(&location);
         v30 = 1;
         goto LABEL_12;
@@ -117,7 +116,7 @@
 
     v30 = 0;
 LABEL_12:
-    v12 = v56;
+    v12 = v55;
     goto LABEL_13;
   }
 
@@ -130,7 +129,6 @@ LABEL_12:
   v30 = 0;
 LABEL_13:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -148,13 +146,6 @@ void __92__BCSActionPickerViewAssistant_showActionPickerWithItems_fromViewContro
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _cleanUpAlertController];
-}
-
-- (void)_cleanUpAlertController
-{
-  alertController = self->_alertController;
-  self->_alertController = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 @end

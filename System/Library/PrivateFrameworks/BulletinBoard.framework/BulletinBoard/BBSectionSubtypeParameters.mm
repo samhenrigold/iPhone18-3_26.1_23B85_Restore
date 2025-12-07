@@ -45,10 +45,33 @@
 - (unint64_t)subtypePriority;
 - (void)encodeWithCoder:(id)coder;
 - (void)setAlertSuppressionAppIDs:(id)ds;
+- (void)setAllowsAddingToLockScreenWhenUnlocked:(BOOL)unlocked;
+- (void)setAllowsAutomaticRemovalFromLockScreen:(BOOL)screen;
+- (void)setAllowsPersistentBannersInCarPlay:(BOOL)play;
+- (void)setAllowsSupplementaryActionsInCarPlay:(BOOL)play;
+- (void)setCanBeSilencedByMenuButtonPress:(BOOL)press;
+- (void)setCoalescesWhenLocked:(BOOL)locked;
+- (void)setHideDismissActionInCarPlay:(BOOL)play;
 - (void)setIPodOutAlertType:(int64_t)type;
+- (void)setIgnoresQuietMode:(BOOL)mode;
+- (void)setInertWhenLocked:(BOOL)locked;
+- (void)setPlaysMediaWhenRaised:(BOOL)raised;
+- (void)setPlaysSoundForModify:(BOOL)modify;
+- (void)setPreservesUnlockActionCase:(BOOL)case;
+- (void)setPreventLock:(BOOL)lock;
+- (void)setPrioritizeAtTopOfLockScreen:(BOOL)screen;
 - (void)setPrivacySettings:(unint64_t)settings;
+- (void)setRevealsAdditionalContentOnPresentation:(BOOL)presentation;
 - (void)setSectionIconOverride:(id)override;
+- (void)setShouldDismissBulletinWhenClosed:(BOOL)closed;
+- (void)setShowsContactPhoto:(BOOL)photo;
+- (void)setShowsUnreadIndicatorForNoticesFeed:(BOOL)feed;
 - (void)setSubtypePriority:(unint64_t)priority;
+- (void)setSuppressDelayForForwardedBulletins:(BOOL)bulletins;
+- (void)setSuppressPresentationInAmbient:(BOOL)ambient;
+- (void)setSuppressesAlertsWhenAppIsActive:(BOOL)active;
+- (void)setSuppressesTitle:(BOOL)title;
+- (void)setVisuallyIndicatesWhenDateIsInFuture:(BOOL)future;
 @end
 
 @implementation BBSectionSubtypeParameters
@@ -777,6 +800,78 @@
   }
 }
 
+- (void)setSuppressesAlertsWhenAppIsActive:(BOOL)active
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:active];
+  [(BBSectionSubtypeParameters *)self setBoxedSuppressesAlertsWhenAppIsActive:v4];
+}
+
+- (void)setCoalescesWhenLocked:(BOOL)locked
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:locked];
+  [(BBSectionSubtypeParameters *)self setBoxedCoalescesWhenLocked:v4];
+}
+
+- (void)setInertWhenLocked:(BOOL)locked
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:locked];
+  [(BBSectionSubtypeParameters *)self setBoxedInertWhenLocked:v4];
+}
+
+- (void)setPreservesUnlockActionCase:(BOOL)case
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:case];
+  [(BBSectionSubtypeParameters *)self setBoxedPreservesUnlockActionCase:v4];
+}
+
+- (void)setVisuallyIndicatesWhenDateIsInFuture:(BOOL)future
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:future];
+  [(BBSectionSubtypeParameters *)self setBoxedVisuallyIndicatesWhenDateIsInFuture:v4];
+}
+
+- (void)setCanBeSilencedByMenuButtonPress:(BOOL)press
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:press];
+  [(BBSectionSubtypeParameters *)self setBoxedCanBeSilencedByMenuButtonPress:v4];
+}
+
+- (void)setPreventLock:(BOOL)lock
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:lock];
+  [(BBSectionSubtypeParameters *)self setBoxedPreventLock:v4];
+}
+
+- (void)setIgnoresQuietMode:(BOOL)mode
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mode];
+  [(BBSectionSubtypeParameters *)self setBoxedIgnoresQuietMode:v4];
+}
+
+- (void)setSuppressesTitle:(BOOL)title
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:title];
+  [(BBSectionSubtypeParameters *)self setBoxedSuppressesTitle:v4];
+}
+
+- (void)setShowsUnreadIndicatorForNoticesFeed:(BOOL)feed
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:feed];
+  [(BBSectionSubtypeParameters *)self setBoxedShowsUnreadIndicatorForNoticesFeed:v4];
+}
+
+- (void)setShowsContactPhoto:(BOOL)photo
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:photo];
+  [(BBSectionSubtypeParameters *)self setBoxedShowsContactPhoto:v4];
+}
+
+- (void)setPlaysSoundForModify:(BOOL)modify
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:modify];
+  [(BBSectionSubtypeParameters *)self setBoxedPlaysSoundForModify:v4];
+}
+
 - (void)setSubtypePriority:(unint64_t)priority
 {
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:priority];
@@ -789,10 +884,76 @@
   [(BBSectionSubtypeParameters *)self setBoxedIPodOutAlertType:v4];
 }
 
+- (void)setAllowsAutomaticRemovalFromLockScreen:(BOOL)screen
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:screen];
+  [(BBSectionSubtypeParameters *)self setBoxedAllowsAutomaticRemovalFromLockScreen:v4];
+}
+
+- (void)setAllowsAddingToLockScreenWhenUnlocked:(BOOL)unlocked
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:unlocked];
+  [(BBSectionSubtypeParameters *)self setBoxedAllowsAddingToLockScreenWhenUnlocked:v4];
+}
+
+- (void)setPrioritizeAtTopOfLockScreen:(BOOL)screen
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:screen];
+  [(BBSectionSubtypeParameters *)self setBoxedPrioritizeAtTopOfLockScreen:v4];
+}
+
+- (void)setRevealsAdditionalContentOnPresentation:(BOOL)presentation
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:presentation];
+  [(BBSectionSubtypeParameters *)self setBoxedRevealsAdditionalContentOnPresentation:v4];
+}
+
 - (void)setPrivacySettings:(unint64_t)settings
 {
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:settings];
   [(BBSectionSubtypeParameters *)self setBoxedPrivacySettings:v4];
+}
+
+- (void)setShouldDismissBulletinWhenClosed:(BOOL)closed
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:closed];
+  [(BBSectionSubtypeParameters *)self setBoxedShouldDismissBulletinWhenClosed:v4];
+}
+
+- (void)setAllowsPersistentBannersInCarPlay:(BOOL)play
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:play];
+  [(BBSectionSubtypeParameters *)self setBoxedAllowsPersistentBannersInCarPlay:v4];
+}
+
+- (void)setAllowsSupplementaryActionsInCarPlay:(BOOL)play
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:play];
+  [(BBSectionSubtypeParameters *)self setBoxedAllowsSupplementaryActionsInCarPlay:v4];
+}
+
+- (void)setPlaysMediaWhenRaised:(BOOL)raised
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:raised];
+  [(BBSectionSubtypeParameters *)self setBoxedPlaysMediaWhenRaised:v4];
+}
+
+- (void)setSuppressDelayForForwardedBulletins:(BOOL)bulletins
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:bulletins];
+  [(BBSectionSubtypeParameters *)self setBoxedSuppressDelayForForwardedBulletins:v4];
+}
+
+- (void)setHideDismissActionInCarPlay:(BOOL)play
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:play];
+  [(BBSectionSubtypeParameters *)self setBoxedHideDismissActionInCarPlay:v4];
+}
+
+- (void)setSuppressPresentationInAmbient:(BOOL)ambient
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:ambient];
+  [(BBSectionSubtypeParameters *)self setBoxedSuppressPresentationInAmbient:v4];
 }
 
 - (BOOL)isEqual:(id)equal

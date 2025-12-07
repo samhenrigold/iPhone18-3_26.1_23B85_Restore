@@ -886,15 +886,16 @@
   pass = [model pass];
 
   PKPassFrontFaceContentSize();
-  PKFloatRoundToPixel();
-  v6 = v5;
-  v7 = +[PKPassSnapshotter sharedInstance];
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __52__PKContinuityPaymentViewController__updateCardView__block_invoke;
-  v32[3] = &unk_1E8010A38;
-  v32[4] = self;
-  [v7 snapshotWithPass:pass size:v32 completion:{41.0, v6}];
+  v7.n128_f64[0] = v6.n128_f64[0] / v5 * 41.0;
+  PKFloatRoundToPixel(v7, v6);
+  v9 = v8;
+  v10 = +[PKPassSnapshotter sharedInstance];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __52__PKContinuityPaymentViewController__updateCardView__block_invoke;
+  v35[3] = &unk_1E8010A38;
+  v35[4] = self;
+  [v10 snapshotWithPass:pass size:v35 completion:{41.0, v9}];
 
   hasAssociatedPeerPaymentAccount = [pass hasAssociatedPeerPaymentAccount];
   if (!hasAssociatedPeerPaymentAccount)
@@ -906,7 +907,7 @@
     peerPaymentBalance = [model2 acceptedPaymentApplicationsForPass:pass];
 
     model3 = [(PKPaymentAuthorizationStateMachine *)self->_stateMachine model];
-    v16 = [model3 unavailablePaymentApplicationsForPass:pass];
+    v19 = [model3 unavailablePaymentApplicationsForPass:pass];
 
     model4 = [(PKPaymentAuthorizationStateMachine *)self->_stateMachine model];
     paymentApplication = [model4 paymentApplication];
@@ -919,45 +920,45 @@
         goto LABEL_9;
       }
 
-      v24 = [peerPaymentBalance count];
-      v25 = [v16 count] + v24;
+      v27 = [peerPaymentBalance count];
+      v28 = [v19 count] + v27;
 
-      if (v25 >= 2)
+      if (v28 >= 2)
       {
-        v26 = MEMORY[0x1E696AEC0];
+        v29 = MEMORY[0x1E696AEC0];
         displayName = [paymentApplication displayName];
-        v27 = [v26 stringWithFormat:@"%@ - %@", pk_uppercaseStringForPreferredLocale, displayName];
+        v30 = [v29 stringWithFormat:@"%@ - %@", pk_uppercaseStringForPreferredLocale, displayName];
 
-        pk_uppercaseStringForPreferredLocale = v27;
+        pk_uppercaseStringForPreferredLocale = v30;
 LABEL_9:
       }
     }
 
-    v28 = PKSanitizedPrimaryAccountRepresentationForPass();
-    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@)", v28];
-    v30 = [v28 length];
-    v31 = &stru_1F3BD7330;
-    if (v30)
+    v31 = PKSanitizedPrimaryAccountRepresentationForPass();
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@)", v31];
+    v33 = [v31 length];
+    v34 = &stru_1F3BD7330;
+    if (v33)
     {
-      v31 = v29;
+      v34 = v32;
     }
 
-    pk_uppercaseStringForPreferredLocale3 = v31;
+    pk_uppercaseStringForPreferredLocale3 = v34;
 
     goto LABEL_13;
   }
 
   peerPaymentBalance = [pass peerPaymentBalance];
-  v10 = MEMORY[0x1E696AEC0];
+  v13 = MEMORY[0x1E696AEC0];
   localizedDescription2 = [pass localizedDescription];
   pk_uppercaseStringForPreferredLocale2 = [localizedDescription2 pk_uppercaseStringForPreferredLocale];
   minimalFormattedStringValue = [peerPaymentBalance minimalFormattedStringValue];
-  pk_uppercaseStringForPreferredLocale = [v10 stringWithFormat:@"%@ - %@", pk_uppercaseStringForPreferredLocale2, minimalFormattedStringValue];
+  pk_uppercaseStringForPreferredLocale = [v13 stringWithFormat:@"%@ - %@", pk_uppercaseStringForPreferredLocale2, minimalFormattedStringValue];
 
   model5 = [(PKPaymentAuthorizationStateMachine *)self->_stateMachine model];
-  v16 = [model5 itemForType:3];
+  v19 = [model5 itemForType:3];
 
-  if ([v16 status] != 5)
+  if ([v19 status] != 5)
   {
     hasAssociatedPeerPaymentAccount = 0;
     pk_uppercaseStringForPreferredLocale3 = 0;

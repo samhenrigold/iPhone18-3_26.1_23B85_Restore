@@ -21,12 +21,12 @@
 - (uint64_t)avkit_isInAScrollView;
 - (uint64_t)avkit_isVideoGravityFrozen;
 - (uint64_t)avkit_setFrame:()AVAdditions inLayoutDirection:;
-- (uint64_t)avkit_wantsAnimatedViewTransitions;
 - (void)avkit_hitTestControlForPoint:()AVAdditions withEvent:bestSoFar:shortestDistanceSoFar:;
 - (void)avkit_intrinsicContentSizeOfSubviewWasInvalidated:()AVAdditions;
 - (void)avkit_makeSubtreeDisallowGroupBlending;
 - (void)avkit_needsUpdateBackdropCaptureViewHidden;
 - (void)avkit_reevaluateHiddenStateOfItem:()AVAdditions;
+- (void)avkit_wantsAnimatedViewTransitions;
 - (void)setAvkit_extendedDynamicRangeGain:()AVAdditions;
 @end
 
@@ -320,12 +320,12 @@
   return avkit_isDescendantOfNonPagingScrollView;
 }
 
-- (uint64_t)avkit_wantsAnimatedViewTransitions
+- (void)avkit_wantsAnimatedViewTransitions
 {
   result = [self _isInAWindow];
   if (result)
   {
-    return [self avkit_isBeingScrolledQuickly] ^ 1;
+    return ([self avkit_isBeingScrolledQuickly] ^ 1);
   }
 
   return result;

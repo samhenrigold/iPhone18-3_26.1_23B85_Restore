@@ -1669,9 +1669,9 @@ void __100__CAMCameraViewController__handleLivePhotoVideoLocalPersistenceResult_
   v21 = 0uLL;
   v22 = 0;
   v8 = *(a1 + 56);
-  if (v8 && ([v8 duration], v9 = *(a1 + 56), v19 = 0uLL, v20 = 0, v9))
+  if (v8 && (objc_msgSend_duration(v8), v9 = *(a1 + 56), v19 = 0uLL, v20 = 0, v9))
   {
-    [v9 stillDisplayTime];
+    objc_msgSend_stillDisplayTime(v9);
   }
 
   else
@@ -1737,8 +1737,7 @@ void __94__CAMCameraViewController__handleCTMVideoLocalPersistenceResult_forCapt
   v45 = *MEMORY[0x1E69E9840];
   [CAMOrientationUtilities videoTrackOrientationForVideoRequest:*(a1 + 32)];
   v2 = PLExifOrientationFromImageOrientation();
-  [*(a1 + 40) dimensions];
-  CAMSizeForDimensions();
+  CAMSizeForDimensions([*(a1 + 40) dimensions], v2);
   v4 = v3;
   v6 = v5;
   if (*(a1 + 72) == 1)
@@ -1749,7 +1748,7 @@ void __94__CAMCameraViewController__handleCTMVideoLocalPersistenceResult_forCapt
     v10 = *(a1 + 48);
     if (v10)
     {
-      [v10 duration];
+      objc_msgSend_duration(v10);
     }
 
     else
@@ -1874,7 +1873,7 @@ void __94__CAMCameraViewController__handleCTMVideoLocalPersistenceResult_forCapt
   adjustmentsCopy = adjustments;
   if (resultCopy)
   {
-    [resultCopy duration];
+    objc_msgSend_duration(resultCopy);
   }
 
   else
@@ -1917,7 +1916,7 @@ void __94__CAMCameraViewController__handleCTMVideoLocalPersistenceResult_forCapt
 
     memset(buf, 0, sizeof(buf));
     v38 = 0;
-    [resultCopy duration];
+    objc_msgSend_duration(resultCopy);
     creationDate = [resultCopy creationDate];
     captureOrientation = [requestCopy captureOrientation];
     localPersistenceUUID = [resultCopy localPersistenceUUID];
@@ -1968,7 +1967,7 @@ void __91__CAMCameraViewController__handleVideoLocalPersistenceResult_forCapture
   v8 = v7;
   if (v4)
   {
-    [v4 preferredTransform];
+    objc_msgSend_preferredTransform(v4);
     v9 = *(&v34 + 1);
     v10 = *&v34;
     v11 = *(&v35 + 1);
@@ -2004,7 +2003,7 @@ void __91__CAMCameraViewController__handleVideoLocalPersistenceResult_forCapture
       v34 = 0u;
       v31 = *(a1 + 88);
       *&v32 = *(a1 + 104);
-      [MEMORY[0x1E69C0910] defaultSlowMotionTimeRangeForDuration:&v31];
+      objc_msgSend_defaultSlowMotionTimeRangeForDuration_(MEMORY[0x1E69C0910]);
       v20 = objc_alloc(MEMORY[0x1E69C0910]);
       v31 = v34;
       v32 = v35;
@@ -2257,7 +2256,7 @@ void __76__CAMCameraViewController__resultQueue_forceCompletionIfPossibleForRequ
       v39 = v24;
       if (v24)
       {
-        [v24 CMTimeValue];
+        objc_msgSend_CMTimeValue(v24);
       }
 
       else
@@ -2788,11 +2787,11 @@ LABEL_15:
         v14 = *(a1 + 80);
         if (v10)
         {
-          [v10 CMTimeValue];
+          objc_msgSend_CMTimeValue(v10);
           if (v12)
           {
 LABEL_17:
-            [v12 CMTimeValue];
+            objc_msgSend_CMTimeValue(v12);
 LABEL_20:
             v15 = [v13 _clientPropertiesForLivePhotoVideoURL:v14 duration:buf stillDisplayTime:v17 error:*(a1 + 32)];
             v16 = [*(a1 + 56) _clientPropertiesForPhotoProperties:*(a1 + 64) withFilteredImageURL:*(a1 + 88) conversionOutputInfo:*(a1 + 96) error:*(a1 + 32)];

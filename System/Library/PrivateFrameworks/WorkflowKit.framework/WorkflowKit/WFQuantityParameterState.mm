@@ -55,15 +55,14 @@ LABEL_5:
 
 void __85__WFQuantityParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v6 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v7 = a3;
-  v8 = a2;
-  v9 = objc_alloc(objc_opt_class());
-  v11 = [*(a1 + 32) unitString];
-  v10 = [v9 initWithMagnitudeState:v7 unitString:v11];
+  v6 = a3;
+  v7 = a2;
+  v8 = objc_alloc(objc_opt_class());
+  v10 = [*(a1 + 32) unitString];
+  v9 = [v8 initWithMagnitudeState:v6 unitString:v10];
 
-  (*(v5 + 16))(v5, v8, v10);
+  (*(v5 + 16))(v5, v7, v9);
 }
 
 void __85__WFQuantityParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -108,7 +107,7 @@ void __85__WFQuantityParameterState_processWithContext_userInputRequiredHandler_
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v9 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -124,14 +123,14 @@ void __85__WFQuantityParameterState_processWithContext_userInputRequiredHandler_
         unitString2 = [(WFQuantityParameterState *)self unitString];
         if (unitString == unitString2)
         {
-          v9 = 1;
+          isEqualToString = 1;
         }
 
         else
         {
           unitString3 = [(WFQuantityParameterState *)equalCopy unitString];
           unitString4 = [(WFQuantityParameterState *)self unitString];
-          v9 = [unitString3 isEqualToString:unitString4];
+          isEqualToString = objc_msgSend_isEqualToString_(unitString3);
         }
 
         if (magnitudeState == magnitudeState2)
@@ -142,24 +141,24 @@ void __85__WFQuantityParameterState_processWithContext_userInputRequiredHandler_
 
       else
       {
-        v9 = 0;
+        isEqualToString = 0;
       }
 
 LABEL_13:
       goto LABEL_14;
     }
 
-    v9 = 0;
+    isEqualToString = 0;
   }
 
 LABEL_14:
 
-  return v9;
+  return isEqualToString;
 }
 
 - (WFPropertyListObject)serializedRepresentation
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   magnitudeState = [(WFQuantityParameterState *)self magnitudeState];
   variable = [magnitudeState variable];
   serializedRepresentation = [variable serializedRepresentation];
@@ -181,13 +180,11 @@ LABEL_14:
   unitString = [(WFQuantityParameterState *)self unitString];
   [v9 setValue:unitString forKey:*MEMORY[0x1E6997130]];
 
-  v14[0] = @"WFSerializationType";
-  v14[1] = @"Value";
-  v15[0] = @"WFQuantityFieldValue";
-  v15[1] = v9;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = @"WFSerializationType";
+  v13[1] = @"Value";
+  v14[0] = @"WFQuantityFieldValue";
+  v14[1] = v9;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v11;
 }

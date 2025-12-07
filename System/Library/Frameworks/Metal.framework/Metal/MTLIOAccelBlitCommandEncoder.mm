@@ -23,18 +23,17 @@
 
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color pixelFormat:(unint64_t)format
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v17.f64[0] = color.var0;
-  v17.f64[1] = color.var1;
+  v20 = *MEMORY[0x1E69E9840];
+  v16.f64[0] = color.var0;
+  v16.f64[1] = color.var1;
   var2 = color.var2;
   var3 = color.var3;
-  v13 = MTLPackColor(format, &v17, v20);
+  v13 = MTLPackColor(format, &v16, v19);
   v14 = *&region->var0.var2;
-  v16[0] = *&region->var0.var0;
-  v16[1] = v14;
-  v16[2] = *&region->var1.var1;
-  [(MTLIOAccelBlitCommandEncoder *)self fillTexture:texture level:level slice:slice region:v16 bytes:v20 length:v13];
-  v15 = *MEMORY[0x1E69E9840];
+  v15[0] = *&region->var0.var0;
+  v15[1] = v14;
+  v15[2] = *&region->var1.var1;
+  [(MTLIOAccelBlitCommandEncoder *)self fillTexture:texture level:level slice:slice region:v15 bytes:v19 length:v13];
 }
 
 - (void)copyFromTexture:(id)texture sourceSlice:(unint64_t)slice sourceLevel:(unint64_t)level toTexture:(id)toTexture destinationSlice:(unint64_t)destinationSlice destinationLevel:(unint64_t)destinationLevel sliceCount:(unint64_t)count levelCount:(unint64_t)self0

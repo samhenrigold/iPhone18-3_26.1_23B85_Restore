@@ -46,7 +46,7 @@
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC4Maps28SearchHomeCategoriesViewCell_categories) = _swiftEmptyArrayStorage;
   swift_unknownObjectWeakInit();
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SearchHomeCategoriesViewCell();
+  v8.super_class = type metadata accessor for SearchHomeCategoriesViewCell(0);
   return [(SearchHomeCategoriesViewCell *)&v8 initWithFrame:0.0, 0.0, 0.0, 0.0];
 }
 
@@ -68,7 +68,7 @@
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC4Maps28SearchHomeCategoriesViewCell_categories) = _swiftEmptyArrayStorage;
   swift_unknownObjectWeakInit();
   v13.receiver = self;
-  v13.super_class = type metadata accessor for SearchHomeCategoriesViewCell();
+  v13.super_class = type metadata accessor for SearchHomeCategoriesViewCell(0);
   return [(SearchHomeCategoriesViewCell *)&v13 initWithFrame:x, y, width, height];
 }
 

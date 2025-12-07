@@ -9,11 +9,11 @@
 
 - (CKKSCurrentItemQueryResult)initWithCoder:(id)coder
 {
-  v20[5] = *MEMORY[0x1E69E9840];
+  v19[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = CKKSCurrentItemQueryResult;
-  v5 = [(CKKSCurrentItemQueryResult *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = CKKSCurrentItemQueryResult;
+  v5 = [(CKKSCurrentItemQueryResult *)&v18 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
@@ -29,12 +29,12 @@
     v5->_zoneID = v10;
 
     v12 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v20[2] = objc_opt_class();
-    v20[3] = objc_opt_class();
-    v20[4] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:5];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v19[2] = objc_opt_class();
+    v19[3] = objc_opt_class();
+    v19[4] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:5];
     v14 = [v12 setWithArray:v13];
 
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"decryptedRecord"];
@@ -42,7 +42,6 @@
     v5->_decryptedRecord = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

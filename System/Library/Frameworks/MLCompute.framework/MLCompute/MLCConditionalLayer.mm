@@ -135,26 +135,22 @@
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(NSObject *)a2 resultTensor:.cold.1(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: Conditional must not be present in the graph during compilation.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: Conditional must not be present in the graph during compilation.", &v4, 0xCu);
 }
 
 - (void)resultSizeForOutputIndex:(NSObject *)a3 dimension:.cold.1(const char *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2048;
-  v10 = a2;
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Result tensors of true and false branches have different shape at dimension = %lu", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2048;
+  v9 = a2;
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Result tensors of true and false branches have different shape at dimension = %lu", &v6, 0x16u);
 }
 
 @end

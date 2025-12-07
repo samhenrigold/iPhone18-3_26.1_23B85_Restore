@@ -598,22 +598,22 @@ LABEL_47:
 
 - (id)da_urlForLogging
 {
-  v2 = DALoggingwithCategory();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
+  v3 = DALoggingwithCategory();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
 
-  if (v3)
+  if (v4)
   {
     selfCopy = self;
   }
 
   else
   {
-    v5 = MEMORY[0x277CBEBC0];
-    v6 = MEMORY[0x277CCACA8];
+    v6 = MEMORY[0x277CBEBC0];
+    v7 = MEMORY[0x277CCACA8];
     scheme = [self scheme];
     host = [self host];
-    v9 = [v6 stringWithFormat:@"%@://%@", scheme, host];
-    selfCopy = [v5 URLWithString:v9];
+    v10 = [v7 stringWithFormat:@"%@://%@", scheme, host];
+    selfCopy = [v6 URLWithString:v10];
   }
 
   return selfCopy;

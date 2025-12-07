@@ -50,13 +50,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_100139ECC(&qword_100220DF8, type metadata accessor for NSKeyValueChangeKey);
+  sub_100139ECC(&qword_100220DF8, type metadata accessor for NSKeyValueChangeKey, &unk_1001B33E8);
   v14 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_8:
   sub_10013A720(v9, v11, v17, v14);
 
-  sub_1000050C4(v17, &unk_100227380);
+  sub_1000050C4(v17, &unk_100227380, &unk_1001B74B0);
 }
 
 - (void)playerDidFinishPlaying

@@ -22,7 +22,7 @@
   }
 
   v10 = v9;
-  sub_1000132E4(0, &unk_10009FAC0);
+  sub_1000132E4(0, &unk_10009FAC0, UIView_ptr);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = static NSObject.== infix(_:_:)();

@@ -177,17 +177,17 @@
   v7 = VOTLogActivities();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = activity;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Saving activity: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = activity;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Saving activity: %@", &v12, 0xCu);
   }
 
   v8 = +[AXSettings sharedInstance];
   [v8 setVoiceOverActivities:v5];
 
-  v9 = AXAssetAndDataClient();
-  v10 = +[AXAccessQueue mainAccessQueue];
-  [v9 sendAsynchronousMessage:&__NSDictionary0__struct withIdentifier:2 targetAccessQueue:v10 completion:0];
+  v10 = AXAssetAndDataClient(v9);
+  v11 = +[AXAccessQueue mainAccessQueue];
+  [v10 sendAsynchronousMessage:&__NSDictionary0__struct withIdentifier:2 targetAccessQueue:v11 completion:0];
 }
 
 - (id)specifiers

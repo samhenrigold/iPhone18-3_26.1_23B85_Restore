@@ -130,74 +130,71 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    eventType = self->_eventType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_termsText)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_documentationID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_presentationReason)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    presentationLocation = self->_presentationLocation;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_acknowledgedDeviceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_acknowledgedDeviceSerialNumber)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_displayDeviceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_displayDeviceSerialNumber)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    eventDate = self->_eventDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_loggingProcessName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 
@@ -337,7 +334,6 @@
     goto LABEL_33;
   }
 
-  v5 = *(equalCopy + 96);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 96) & 2) == 0 || self->_eventType != *(equalCopy + 14))
@@ -349,7 +345,7 @@
   else if ((*(equalCopy + 96) & 2) != 0)
   {
 LABEL_33:
-    v16 = 0;
+    v13 = 0;
     goto LABEL_34;
   }
 
@@ -377,7 +373,6 @@ LABEL_33:
     }
   }
 
-  v9 = *(equalCopy + 96);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 96) & 4) == 0 || self->_presentationLocation != *(equalCopy + 18))
@@ -424,7 +419,6 @@ LABEL_33:
     }
   }
 
-  v14 = *(equalCopy + 96);
   if (*&self->_has)
   {
     if ((*(equalCopy + 96) & 1) == 0 || self->_eventDate != *(equalCopy + 1))
@@ -441,17 +435,17 @@ LABEL_33:
   loggingProcessName = self->_loggingProcessName;
   if (loggingProcessName | *(equalCopy + 8))
   {
-    v16 = [(NSString *)loggingProcessName isEqual:?];
+    v13 = [(NSString *)loggingProcessName isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v13 = 1;
   }
 
 LABEL_34:
 
-  return v16;
+  return v13;
 }
 
 - (unint64_t)hash

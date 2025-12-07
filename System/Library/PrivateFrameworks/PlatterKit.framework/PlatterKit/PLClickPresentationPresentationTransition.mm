@@ -36,7 +36,7 @@
   result = self->super._transitionContext;
   if (result)
   {
-    return [(CGAffineTransform *)result targetTransform];
+    return objc_msgSend_targetTransform(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -76,7 +76,7 @@
     transitionContext = self->super._transitionContext;
     if (viewCopy)
     {
-      [viewCopy transform];
+      objc_msgSend_transform(viewCopy);
     }
 
     else

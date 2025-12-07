@@ -88,20 +88,21 @@ void __61__PPSHostConfigurationManager_sharedHostConfigurationManager__block_inv
 - (void)_lock_setHostConfiguration:(id)configuration forRole:(id)role
 {
   roleCopy = role;
-  v10 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:configuration requiringSecureCoding:1 error:&v10];
-  v8 = v10;
+  v11 = 0;
+  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:configuration requiringSecureCoding:1 error:&v11];
+  v8 = v11;
+  v9 = v8;
   if (v7)
   {
-    v9 = [(PPSHostConfigurationManager *)self defaultsKeyForRole:roleCopy];
-    [(NSUserDefaults *)self->_userDefaults setObject:v7 forKey:v9];
+    v10 = [(PPSHostConfigurationManager *)self defaultsKeyForRole:roleCopy];
+    [(NSUserDefaults *)self->_userDefaults setObject:v7 forKey:v10];
     [(NSMutableSet *)self->_lock_rolesWithoutHostConfigurations removeObject:roleCopy];
   }
 
   else
   {
-    v9 = PPSLogHostConfiguration();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PPSLogHostConfiguration(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PPSHostConfigurationManager _lock_setHostConfiguration:forRole:];
     }
@@ -110,38 +111,36 @@ void __61__PPSHostConfigurationManager_sharedHostConfigurationManager__block_inv
 
 - (id)hostConfigurationForRole:(id)role
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   roleCopy = role;
-  v5 = PPSLogHostConfiguration();
+  v5 = PPSLogHostConfiguration(roleCopy);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = PPSLogHostConfiguration();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = PPSLogHostConfiguration(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25EDC0000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "hostConfigurationForRole", &unk_25EDC366A, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25EDC0000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "hostConfigurationForRole", &unk_25EDC366A, buf, 2u);
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v14 = 0;
-  v9 = [(PPSHostConfigurationManager *)self _lock_hostConfigurationForRole:roleCopy outCacheHit:&v14];
+  v15 = 0;
+  v10 = [(PPSHostConfigurationManager *)self _lock_hostConfigurationForRole:roleCopy outCacheHit:&v15];
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = PPSLogHostConfiguration();
-  v11 = v10;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = PPSLogHostConfiguration(v11);
+  v13 = v12;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 67109376;
-    v16 = v9 != 0;
-    v17 = 1024;
-    v18 = v14;
-    _os_signpost_emit_with_name_impl(&dword_25EDC0000, v11, OS_SIGNPOST_INTERVAL_END, v6, "hostConfigurationForRole", "wasHostConfigurationLoaded=%{BOOL}u wasCacheHit=%{BOOL}u", buf, 0xEu);
+    v17 = v10 != 0;
+    v18 = 1024;
+    v19 = v15;
+    _os_signpost_emit_with_name_impl(&dword_25EDC0000, v13, OS_SIGNPOST_INTERVAL_END, v6, "hostConfigurationForRole", "wasHostConfigurationLoaded=%{BOOL}u wasCacheHit=%{BOOL}u", buf, 0xEu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 - (id)_lock_hostConfigurationForRole:(id)role outCacheHit:(BOOL *)hit
@@ -152,7 +151,7 @@ void __61__PPSHostConfigurationManager_sharedHostConfigurationManager__block_inv
   if (v7)
   {
     v8 = v7;
-    v9 = PPSLogHostConfiguration();
+    v9 = PPSLogHostConfiguration(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [PPSHostConfigurationManager _lock_hostConfigurationForRole:roleCopy outCacheHit:v9];
@@ -163,14 +162,15 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ([(NSMutableSet *)self->_lock_rolesWithoutHostConfigurations containsObject:roleCopy])
+  v10 = [(NSMutableSet *)self->_lock_rolesWithoutHostConfigurations containsObject:roleCopy];
+  if (v10)
   {
-    v10 = PPSLogHostConfiguration();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PPSLogHostConfiguration(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v18 = 138543362;
       v19 = roleCopy;
-      _os_log_impl(&dword_25EDC0000, v10, OS_LOG_TYPE_DEFAULT, "Already know there's no bundle for role: %{public}@", &v18, 0xCu);
+      _os_log_impl(&dword_25EDC0000, v11, OS_LOG_TYPE_DEFAULT, "Already know there's no bundle for role: %{public}@", &v18, 0xCu);
     }
 
     v8 = 0;
@@ -178,7 +178,7 @@ LABEL_9:
   }
 
   v8 = [(PPSHostConfigurationManager *)self _lock_loadBundledHostConfigurationForRole:roleCopy currentSwitcherConfiguration:0];
-  v13 = PPSLogHostConfiguration();
+  v13 = PPSLogHostConfiguration(v8);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v8)
   {
@@ -219,8 +219,6 @@ LABEL_9:
 
 LABEL_10:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
@@ -228,61 +226,62 @@ LABEL_10:
 {
   roleCopy = role;
   configurationCopy = configuration;
-  v32 = 0;
-  v8 = [(PPSHostConfigurationManager *)self _lock_bundleURLForRole:roleCopy error:&v32];
-  v9 = v32;
+  v33 = 0;
+  v8 = [(PPSHostConfigurationManager *)self _lock_bundleURLForRole:roleCopy error:&v33];
+  v9 = v33;
+  v10 = v9;
   if (v8)
   {
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy_;
+    v31 = __Block_byref_object_dispose_;
+    v32 = 0;
     v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
-    v31 = 0;
-    v25 = 0;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke;
-    v22[3] = &unk_279A55030;
-    v10 = roleCopy;
-    v23 = v10;
-    v24 = &v26;
-    v11 = [(PPSHostConfigurationManager *)self _connectionToBundleServiceForRole:v10 outProxy:&v25 errorHandler:v22];
-    v12 = v25;
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_8;
-    v19 = &unk_279A55058;
-    v21 = &v26;
-    v20 = v10;
-    [v12 hostConfigurationForBundleAtURL:v8 currentSwitcherConfiguration:configurationCopy forRole:v20 completion:&v16];
-    [v11 invalidate];
-    v13 = v27[5];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke;
+    v23[3] = &unk_279A55030;
+    v11 = roleCopy;
+    v24 = v11;
+    v25 = &v27;
+    v12 = [(PPSHostConfigurationManager *)self _connectionToBundleServiceForRole:v11 outProxy:&v26 errorHandler:v23];
+    v13 = v26;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_8;
+    v20 = &unk_279A55058;
+    v22 = &v27;
+    v21 = v11;
+    [v13 hostConfigurationForBundleAtURL:v8 currentSwitcherConfiguration:configurationCopy forRole:v21 completion:&v17];
+    [v12 invalidate];
+    v14 = v28[5];
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v27, 8);
   }
 
   else
   {
-    v14 = PPSLogHostConfiguration();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PPSLogHostConfiguration(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PPSHostConfigurationManager _lock_loadBundledHostConfigurationForRole:currentSwitcherConfiguration:];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 void __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PPSLogHostConfiguration();
+  v4 = PPSLogHostConfiguration(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_cold_1(a1);
+    __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -297,8 +296,8 @@ void __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRol
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   if (v7)
   {
-    v8 = PPSLogHostConfiguration();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PPSLogHostConfiguration(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_8_cold_1(a1, v7);
     }
@@ -321,8 +320,7 @@ void __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRol
   v6 = [(PPSHostConfigurationManager *)self defaultsKeyForRole:roleCopy];
   [(NSUserDefaults *)userDefaults removeObjectForKey:v6];
 
-  [(NSMutableSet *)self->_lock_rolesWithoutHostConfigurations removeObject:roleCopy];
-  v7 = PPSLogHostConfiguration();
+  v7 = PPSLogHostConfiguration([(NSMutableSet *)self->_lock_rolesWithoutHostConfigurations removeObject:roleCopy]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(PPSHostConfigurationManager *)roleCopy _lock_deleteHostConfigurationForRole:v7];
@@ -331,46 +329,44 @@ void __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRol
 
 - (id)updatedSwitcherConfigurationForRole:(id)role currentSwitcherConfiguration:(id)configuration error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   configurationCopy = configuration;
-  v9 = PPSLogHostConfiguration();
+  v9 = PPSLogHostConfiguration(configurationCopy);
   v10 = os_signpost_id_generate(v9);
 
-  v11 = PPSLogHostConfiguration();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = PPSLogHostConfiguration(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    LOWORD(v23[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25EDC0000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "updatedSwitcherConfigurationForRole", &unk_25EDC366A, v23, 2u);
+    LOWORD(v24[0]) = 0;
+    _os_signpost_emit_with_name_impl(&dword_25EDC0000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "updatedSwitcherConfigurationForRole", &unk_25EDC366A, v24, 2u);
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v13 = [(PPSHostConfigurationManager *)self _lock_loadBundledHostConfigurationForRole:roleCopy currentSwitcherConfiguration:configurationCopy];
-  v14 = v13;
-  if (v13)
+  v14 = [(PPSHostConfigurationManager *)self _lock_loadBundledHostConfigurationForRole:roleCopy currentSwitcherConfiguration:configurationCopy];
+  v15 = v14;
+  if (v14)
   {
-    entries = [v13 entries];
-    v16 = [entries bs_compactMap:&__block_literal_global];
+    entries = [v14 entries];
+    v17 = [entries bs_compactMap:&__block_literal_global];
 
-    v17 = [MEMORY[0x277D3E950] hostConfigurationWithConfigurationEntries:v16];
-    [(PPSHostConfigurationManager *)self _lock_setHostConfiguration:v17 forRole:roleCopy];
+    v18 = [MEMORY[0x277D3E950] hostConfigurationWithConfigurationEntries:v17];
+    [(PPSHostConfigurationManager *)self _lock_setHostConfiguration:v18 forRole:roleCopy];
   }
 
-  v18 = [(PPSHostConfigurationManager *)self _lock_loadSwitcherConfigurationForRole:roleCopy currentSwitcherConfiguration:configurationCopy];
+  v19 = [(PPSHostConfigurationManager *)self _lock_loadSwitcherConfigurationForRole:roleCopy currentSwitcherConfiguration:configurationCopy];
   os_unfair_lock_unlock(&self->_lock);
-  v19 = PPSLogHostConfiguration();
-  v20 = v19;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v21 = PPSLogHostConfiguration(v20);
+  v22 = v21;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v23[0] = 67109120;
-    v23[1] = v18 != 0;
-    _os_signpost_emit_with_name_impl(&dword_25EDC0000, v20, OS_SIGNPOST_INTERVAL_END, v10, "updatedSwitcherConfigurationForRole", "success=%{BOOL}u", v23, 8u);
+    v24[0] = 67109120;
+    v24[1] = v19 != 0;
+    _os_signpost_emit_with_name_impl(&dword_25EDC0000, v22, OS_SIGNPOST_INTERVAL_END, v10, "updatedSwitcherConfigurationForRole", "success=%{BOOL}u", v24, 8u);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v19;
 }
 
 id __102__PPSHostConfigurationManager_updatedSwitcherConfigurationForRole_currentSwitcherConfiguration_error___block_invoke(uint64_t a1, void *a2)
@@ -389,61 +385,62 @@ id __102__PPSHostConfigurationManager_updatedSwitcherConfigurationForRole_curren
 {
   roleCopy = role;
   configurationCopy = configuration;
-  v32 = 0;
-  v8 = [(PPSHostConfigurationManager *)self _lock_bundleURLForRole:roleCopy error:&v32];
-  v9 = v32;
+  v33 = 0;
+  v8 = [(PPSHostConfigurationManager *)self _lock_bundleURLForRole:roleCopy error:&v33];
+  v9 = v33;
+  v10 = v9;
   if (v8)
   {
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy_;
+    v31 = __Block_byref_object_dispose_;
+    v32 = 0;
     v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
-    v31 = 0;
-    v25 = 0;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_currentSwitcherConfiguration___block_invoke;
-    v22[3] = &unk_279A55030;
-    v10 = roleCopy;
-    v23 = v10;
-    v24 = &v26;
-    v11 = [(PPSHostConfigurationManager *)self _connectionToBundleServiceForRole:v10 outProxy:&v25 errorHandler:v22];
-    v12 = v25;
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_currentSwitcherConfiguration___block_invoke_16;
-    v19 = &unk_279A55058;
-    v21 = &v26;
-    v20 = v10;
-    [v12 switcherConfigurationForBundleAtURL:v8 currentSwitcherConfiguration:configurationCopy forRole:v20 completion:&v16];
-    [v11 invalidate];
-    v13 = v27[5];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_currentSwitcherConfiguration___block_invoke;
+    v23[3] = &unk_279A55030;
+    v11 = roleCopy;
+    v24 = v11;
+    v25 = &v27;
+    v12 = [(PPSHostConfigurationManager *)self _connectionToBundleServiceForRole:v11 outProxy:&v26 errorHandler:v23];
+    v13 = v26;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_currentSwitcherConfiguration___block_invoke_16;
+    v20 = &unk_279A55058;
+    v22 = &v27;
+    v21 = v11;
+    [v13 switcherConfigurationForBundleAtURL:v8 currentSwitcherConfiguration:configurationCopy forRole:v21 completion:&v17];
+    [v12 invalidate];
+    v14 = v28[5];
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v27, 8);
   }
 
   else
   {
-    v14 = PPSLogHostConfiguration();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PPSLogHostConfiguration(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PPSHostConfigurationManager _lock_loadBundledHostConfigurationForRole:currentSwitcherConfiguration:];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 void __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_currentSwitcherConfiguration___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PPSLogHostConfiguration();
+  v4 = PPSLogHostConfiguration(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_cold_1(a1);
+    __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -458,8 +455,8 @@ void __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_cu
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   if (v7)
   {
-    v8 = PPSLogHostConfiguration();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PPSLogHostConfiguration(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_8_cold_1(a1, v7);
     }
@@ -553,7 +550,7 @@ void __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_cu
 
 - (id)_lock_findBundleURLForRole:(id)role error:(id *)error
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   roleCopy = role;
   v6 = [objc_opt_class() bundleNameForRole:roleCopy];
   if (v6)
@@ -567,28 +564,28 @@ void __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_cu
       v11 = [v10 URLByAppendingPathComponent:@"HostConfigurationProviders"];
       v12 = [v11 URLByAppendingPathComponent:v6];
 
-      v13 = PPSLogHostConfiguration();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = PPSLogHostConfiguration(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v30 = v12;
-        v31 = 2114;
-        v32 = roleCopy;
-        _os_log_impl(&dword_25EDC0000, v13, OS_LOG_TYPE_DEFAULT, "Checking for host configuration bundle %{public}@ for role %{public}@", buf, 0x16u);
+        v31 = v12;
+        v32 = 2114;
+        v33 = roleCopy;
+        _os_log_impl(&dword_25EDC0000, v14, OS_LOG_TYPE_DEFAULT, "Checking for host configuration bundle %{public}@ for role %{public}@", buf, 0x16u);
       }
 
       path = [v12 path];
-      v15 = [defaultManager fileExistsAtPath:path];
+      v16 = [defaultManager fileExistsAtPath:path];
 
-      if (v15)
+      if (v16)
       {
-        v16 = v12;
+        v18 = v12;
       }
 
       else
       {
-        v21 = PPSLogHostConfiguration();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v23 = PPSLogHostConfiguration(v17);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [PPSHostConfigurationManager _lock_findBundleURLForRole:error:];
         }
@@ -596,70 +593,68 @@ void __99__PPSHostConfigurationManager__lock_loadSwitcherConfigurationForRole_cu
         if (error)
         {
           roleCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"No bundle at %@ for role %@", v12, roleCopy];
-          v23 = MEMORY[0x277CCA9B8];
-          v27 = *MEMORY[0x277CCA470];
-          v28 = roleCopy;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-          *error = [v23 errorWithDomain:@"com.apple.PosterBoard.PPSHostConfigurationManager" code:-3 userInfo:v24];
+          v25 = MEMORY[0x277CCA9B8];
+          v28 = *MEMORY[0x277CCA470];
+          v29 = roleCopy;
+          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          *error = [v25 errorWithDomain:@"com.apple.PosterBoard.PPSHostConfigurationManager" code:-3 userInfo:v26];
         }
 
-        v16 = 0;
+        v18 = 0;
       }
     }
 
     else
     {
-      v19 = PPSLogHostConfiguration();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = PPSLogHostConfiguration(0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [PPSHostConfigurationManager _lock_findBundleURLForRole:roleCopy error:v19];
+        [PPSHostConfigurationManager _lock_findBundleURLForRole:roleCopy error:v21];
       }
 
       if (!error)
       {
-        v16 = 0;
+        v18 = 0;
         goto LABEL_22;
       }
 
-      v20 = MEMORY[0x277CCA9B8];
-      v33 = *MEMORY[0x277CCA470];
-      v34 = @"There is no /System/Library directory";
-      firstObject = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      [v20 errorWithDomain:@"com.apple.PosterBoard.PPSHostConfigurationManager" code:-2 userInfo:firstObject];
-      *error = v16 = 0;
+      v22 = MEMORY[0x277CCA9B8];
+      v34 = *MEMORY[0x277CCA470];
+      v35 = @"There is no /System/Library directory";
+      firstObject = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      [v22 errorWithDomain:@"com.apple.PosterBoard.PPSHostConfigurationManager" code:-2 userInfo:firstObject];
+      *error = v18 = 0;
     }
 
 LABEL_22:
     goto LABEL_23;
   }
 
-  v17 = PPSLogHostConfiguration();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = PPSLogHostConfiguration(0);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = roleCopy;
-    _os_log_impl(&dword_25EDC0000, v17, OS_LOG_TYPE_DEFAULT, "Role %{public}@ not compatible with bundle-based host configuration", buf, 0xCu);
+    v31 = roleCopy;
+    _os_log_impl(&dword_25EDC0000, v19, OS_LOG_TYPE_DEFAULT, "Role %{public}@ not compatible with bundle-based host configuration", buf, 0xCu);
   }
 
   if (error)
   {
-    v18 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA470];
-    v36[0] = @"Role not compatible with bundle-based host configuration";
-    defaultManager = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-    [v18 errorWithDomain:@"com.apple.PosterBoard.PPSHostConfigurationManager" code:-1 userInfo:defaultManager];
-    *error = v16 = 0;
+    v20 = MEMORY[0x277CCA9B8];
+    v36 = *MEMORY[0x277CCA470];
+    v37[0] = @"Role not compatible with bundle-based host configuration";
+    defaultManager = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    [v20 errorWithDomain:@"com.apple.PosterBoard.PPSHostConfigurationManager" code:-1 userInfo:defaultManager];
+    *error = v18 = 0;
 LABEL_23:
 
     goto LABEL_24;
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_24:
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v18;
 }
 
 - (id)_lock_cachedHostConfigurationForRole:(id)role
@@ -669,13 +664,14 @@ LABEL_24:
   v6 = [(NSUserDefaults *)self->_userDefaults objectForKey:v5];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v11 = 0;
-    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v11];
-    v8 = v11;
+    v12 = 0;
+    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v12];
+    v8 = v12;
+    v9 = v8;
     if (!v7)
     {
-      v9 = PPSLogHostConfiguration();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = PPSLogHostConfiguration(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [PPSHostConfigurationManager _lock_cachedHostConfigurationForRole:];
       }
@@ -687,7 +683,7 @@ LABEL_24:
   else
   {
     v7 = 0;
-    v8 = 0;
+    v9 = 0;
   }
 
   return v7;
@@ -720,83 +716,35 @@ uint64_t __87__PPSHostConfigurationManager__connectionToBundleServiceForRole_out
   return MEMORY[0x2821F96F8]();
 }
 
-- (void)_lock_setHostConfiguration:forRole:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25EDC0000, v0, v1, "Failed to set PRSHostConfiguration for role %{public}@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_lock_hostConfigurationForRole:(uint64_t)a1 outCacheHit:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25EDC0000, a2, OS_LOG_TYPE_DEBUG, "Found cached host configuration for %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_loadBundledHostConfigurationForRole:currentSwitcherConfiguration:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25EDC0000, v0, v1, "Failed loading host configuration bundle for role %{public}@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_25EDC0000, v2, v3, "Connection failed loading host configuration for role %{public}@: %{public}@");
   v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25EDC0000, a2, OS_LOG_TYPE_DEBUG, "Found cached host configuration for %{public}@", &v2, 0xCu);
 }
 
 void __102__PPSHostConfigurationManager__lock_loadBundledHostConfigurationForRole_currentSwitcherConfiguration___block_invoke_8_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [a2 localizedDescription];
+  v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_25EDC0000, v4, v5, "Failed to load host configuration for role %{public}@: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_25EDC0000, v3, v4, "Failed to load host configuration for role %{public}@: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_lock_deleteHostConfigurationForRole:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25EDC0000, a2, OS_LOG_TYPE_DEBUG, "Deleted cached host configuration for %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_findBundleURLForRole:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25EDC0000, v0, v1, "No bundle at %{public}@ for role %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25EDC0000, a2, OS_LOG_TYPE_DEBUG, "Deleted cached host configuration for %{public}@", &v2, 0xCu);
 }
 
 - (void)_lock_findBundleURLForRole:(uint64_t)a1 error:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25EDC0000, a2, OS_LOG_TYPE_ERROR, "Failed to load host configuration for role %{public}@: There is no /System/Library directory??", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_cachedHostConfigurationForRole:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25EDC0000, v0, v1, "Error unarchiving PRSHostConfiguration for %{public}@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25EDC0000, a2, OS_LOG_TYPE_ERROR, "Failed to load host configuration for role %{public}@: There is no /System/Library directory??", &v2, 0xCu);
 }
 
 @end

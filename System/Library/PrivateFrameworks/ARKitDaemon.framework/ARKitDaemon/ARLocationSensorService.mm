@@ -104,7 +104,7 @@
 
 - (void)sensor:(id)sensor didOutputSensorData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -124,13 +124,13 @@
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
       *buf = 138544130;
-      v17 = v11;
-      v18 = 2048;
+      v16 = v11;
+      v17 = 2048;
       selfCopy = self;
-      v20 = 2048;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v7;
+      v19 = 2048;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v7;
       _os_log_impl(&dword_23D391000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: sensor:didOutputSensorData: - Calling processLocationData on geoTrackingTechniqueService (%p): %@", buf, 0x2Au);
     }
 
@@ -138,11 +138,9 @@
   }
 
   sensor = [(ARSensorService *)self sensor];
-  v15.receiver = self;
-  v15.super_class = ARLocationSensorService;
-  [(ARSensorService *)&v15 sensor:sensor didOutputSensorData:dataCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = ARLocationSensorService;
+  [(ARSensorService *)&v14 sensor:sensor didOutputSensorData:dataCopy];
 }
 
 @end

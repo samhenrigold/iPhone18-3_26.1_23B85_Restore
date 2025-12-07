@@ -85,7 +85,7 @@
   v22.super_class = SBSwipeToKillSwitcherModifier;
   v5 = [(SBSwitcherModifier *)&v22 handleSwipeToKillEvent:eventCopy];
   appLayout = [eventCopy appLayout];
-  if (appLayout && (-[SBSwipeToKillSwitcherModifier appLayouts](self, "appLayouts"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 containsObject:appLayout], v7, (v8 & 1) != 0))
+  if (appLayout && ([(SBSwipeToKillSwitcherModifier *)self appLayouts], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend_containsObject_(v7), v7, (v8 & 1) != 0))
   {
     if ([(SBAppLayout *)self->_appLayout isEqual:appLayout])
     {
@@ -111,7 +111,7 @@
         if (![(SBSwipeToKillSwitcherModifier *)self _dragHasBeenReleasedTowardKill])
         {
           v15 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:3];
-          v16 = SBAppendSwitcherModifierResponse(v15, v14);
+          v16 = SBAppendSwitcherModifierResponse();
 
           v14 = v16;
         }

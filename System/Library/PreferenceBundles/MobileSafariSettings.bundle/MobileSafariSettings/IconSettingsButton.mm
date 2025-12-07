@@ -1,5 +1,7 @@
 @interface IconSettingsButton
 - (IconSettingsButton)initWithButtonConfiguration:(id)configuration;
+- (void)setEnabled:(BOOL)enabled;
+- (void)setSelected:(BOOL)selected;
 - (void)stateDidChange;
 @end
 
@@ -101,6 +103,14 @@
   return v5;
 }
 
+- (void)setSelected:(BOOL)selected
+{
+  v4.receiver = self;
+  v4.super_class = IconSettingsButton;
+  [(IconSettingsButton *)&v4 setSelected:selected];
+  [(IconSettingsButton *)self stateDidChange];
+}
+
 - (void)stateDidChange
 {
   v9 = [UIImageSymbolConfiguration configurationWithScale:3];
@@ -147,6 +157,14 @@
   }
   v8 = ;
   [(UILabel *)self->_titleLabel setTextColor:v8];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v4.receiver = self;
+  v4.super_class = IconSettingsButton;
+  [(IconSettingsButton *)&v4 setEnabled:enabled];
+  [(IconSettingsButton *)self stateDidChange];
 }
 
 @end

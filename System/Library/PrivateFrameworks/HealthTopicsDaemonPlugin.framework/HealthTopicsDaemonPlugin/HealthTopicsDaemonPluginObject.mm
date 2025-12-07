@@ -20,19 +20,19 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = sub_251F5C8F8();
+  v6 = sub_251F5C8F8(selfCopy, v5);
   swift_unknownObjectRelease();
 
-  return v5;
+  return v6;
 }
 
 - (id)extensionForProfile:(id)profile
 {
   profileCopy = profile;
   selfCopy = self;
-  v6 = sub_251F5BDF8(profileCopy);
+  v7 = sub_251F5BDF8(profileCopy, v6);
 
-  return v6;
+  return v7;
 }
 
 - (_TtC24HealthTopicsDaemonPlugin30HealthTopicsDaemonPluginObject)init
@@ -44,7 +44,7 @@
 
 - (id)taskServerClasses
 {
-  sub_251F5CB1C();
+  sub_251F5CB1C(0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_251F64670;
   *(v2 + 32) = type metadata accessor for HealthTopicsTaskServer();

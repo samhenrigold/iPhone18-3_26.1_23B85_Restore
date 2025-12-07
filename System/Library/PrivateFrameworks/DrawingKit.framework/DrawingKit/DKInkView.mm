@@ -1262,7 +1262,7 @@ void __35__DKInkView__setDrawingOnRenderer___block_invoke(uint64_t a1, uint64_t 
             v73 = 0u;
             if (v46)
             {
-              [v46 dk_renderPointValue];
+              objc_msgSend_dk_renderPointValue(v46);
             }
 
             if ((v43 & 1) == 0)
@@ -1316,7 +1316,7 @@ void __35__DKInkView__setDrawingOnRenderer___block_invoke(uint64_t a1, uint64_t 
             v73 = 0u;
             if (v53)
             {
-              [v53 dk_renderPointValue];
+              objc_msgSend_dk_renderPointValue(v53);
             }
 
             if ((v50 & 1) == 0)
@@ -1548,7 +1548,7 @@ void __54__DKInkView__setDrawingOnRendererWithReplayAnimation___block_invoke(uin
           v12 = v11;
           if (v11)
           {
-            [v11 dk_renderPointValue];
+            objc_msgSend_dk_renderPointValue(v11);
           }
 
           if (v6 != *v4 || v7 != v4[1])
@@ -1630,7 +1630,7 @@ void __54__DKInkView__setDrawingOnRendererWithReplayAnimation___block_invoke(uin
         v13 = 0u;
         if (v8)
         {
-          [v8 dk_renderPointValue];
+          objc_msgSend_dk_renderPointValue(v8);
         }
 
         renderer = [(DKInkView *)self renderer];
@@ -1879,7 +1879,7 @@ void __54__DKInkView__setDrawingOnRendererWithReplayAnimation___block_invoke(uin
   return v7;
 }
 
-uint64_t __28__DKInkView_weightForValue___block_invoke(uint64_t a1)
+void *__28__DKInkView_weightForValue___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) minPressure];
   [DKInkView weightForValue:]::MIN_PRESSURE = v2;

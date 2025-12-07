@@ -37,7 +37,7 @@
   v10 = 0u;
   if (v5)
   {
-    [v5 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v5);
   }
 
   [coderCopy decodeDoubleForKey:@"risk"];

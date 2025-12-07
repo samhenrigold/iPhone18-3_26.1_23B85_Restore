@@ -113,7 +113,7 @@ intptr_t __50__PPRoutineSupport_fetchLocationOfInterestByType___block_invoke(uin
 
 void __71__PPRoutineSupport_locationsOfInterestVisitedBetweenStartDate_endDate___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -122,28 +122,28 @@ void __71__PPRoutineSupport_locationsOfInterestVisitedBetweenStartDate_endDate__
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v23 = v3;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = v3;
     obj = v3;
-    v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v26;
+      v9 = *v25;
       do
       {
         v10 = 0;
         do
         {
-          if (*v26 != v9)
+          if (*v25 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * v10);
+          v11 = *(*(&v24 + 1) + 8 * v10);
           v12 = *(*(*(a1 + 40) + 8) + 40);
           v13 = objc_alloc(MEMORY[0x277CE41F8]);
           v14 = [v11 mapItem];
@@ -160,23 +160,21 @@ void __71__PPRoutineSupport_locationsOfInterestVisitedBetweenStartDate_endDate__
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v8);
     }
 
-    v3 = v23;
+    v3 = v22;
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)importCoreRoutineDataWithError:(id *)error shouldContinueBlock:(id)block
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = pp_default_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -224,9 +222,9 @@ LABEL_27:
   }
 
   v14 = +[PPLocalNamedEntityStore defaultStore];
-  v61 = 0;
-  v15 = [v14 deleteAllNamedEntitiesFromSourcesWithBundleId:@"com.apple.CoreRoutine" deletedCount:0 error:&v61];
-  v16 = v61;
+  v60 = 0;
+  v15 = [v14 deleteAllNamedEntitiesFromSourcesWithBundleId:@"com.apple.CoreRoutine" deletedCount:0 error:&v60];
+  v16 = v60;
 
   if ((v15 & 1) == 0)
   {
@@ -240,9 +238,9 @@ LABEL_27:
   }
 
   v18 = +[PPLocalLocationStore defaultStore];
-  v60 = 0;
-  v19 = [v18 deleteAllLocationsFromSourcesWithBundleId:@"com.apple.CoreRoutine" deletedCount:0 error:&v60];
-  v20 = v60;
+  v59 = 0;
+  v19 = [v18 deleteAllLocationsFromSourcesWithBundleId:@"com.apple.CoreRoutine" deletedCount:0 error:&v59];
+  v20 = v59;
 
   if ((v19 & 1) == 0)
   {
@@ -267,16 +265,16 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 1;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 1;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v63 = 0x3032000000;
-  v64 = __Block_byref_object_copy__3148;
-  v65 = __Block_byref_object_dispose__3149;
-  v66 = 0;
+  v62 = 0x3032000000;
+  v63 = __Block_byref_object_copy__3148;
+  v64 = __Block_byref_object_dispose__3149;
+  v65 = 0;
   v22 = objc_opt_new();
   v23 = [v22 dateByAddingTimeInterval:-4233600.0];
   v24 = defaultRTRoutineManager();
@@ -295,39 +293,39 @@ LABEL_27:
     v33 = v32;
 
     v34 = dispatch_semaphore_create(0);
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __71__PPRoutineSupport_importCoreRoutineDataWithError_shouldContinueBlock___block_invoke;
-    v44[3] = &unk_2789724C8;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __71__PPRoutineSupport_importCoreRoutineDataWithError_shouldContinueBlock___block_invoke;
+    v43[3] = &unk_2789724C8;
     p_buf = &buf;
-    v48 = &v56;
+    v47 = &v55;
     v35 = v34;
-    v45 = v35;
+    v44 = v35;
     selfCopy = self;
-    v46 = blockCopy;
-    v50 = v27;
-    v51 = v30;
-    v52 = 0.693 / (v33 * 86400.0);
-    v53 = v11;
-    v54 = v13;
-    [v24 fetchLocationsOfInterestVisitedBetweenStartDate:v23 endDate:v22 withHandler:v44];
+    v45 = blockCopy;
+    v49 = v27;
+    v50 = v30;
+    v51 = 0.693 / (v33 * 86400.0);
+    v52 = v11;
+    v53 = v13;
+    [v24 fetchLocationsOfInterestVisitedBetweenStartDate:v23 endDate:v22 withHandler:v43];
     [MEMORY[0x277D425A0] waitForSemaphore:v35];
 
-    v36 = *(v57 + 24);
-    if (error && (v57[3] & 1) == 0)
+    v36 = *(v56 + 24);
+    if (error && (v56[3] & 1) == 0)
     {
       *error = *(*(&buf + 1) + 40);
-      v36 = *(v57 + 24);
+      v36 = *(v56 + 24);
     }
   }
 
   else
   {
-    v41 = pp_default_log_handle();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v40 = pp_default_log_handle();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      *v55 = 0;
-      _os_log_error_impl(&dword_23224A000, v41, OS_LOG_TYPE_ERROR, "PPRoutineSupport failed to initialize default RTRoutineManager.", v55, 2u);
+      *v54 = 0;
+      _os_log_error_impl(&dword_23224A000, v40, OS_LOG_TYPE_ERROR, "PPRoutineSupport failed to initialize default RTRoutineManager.", v54, 2u);
     }
 
     if (error)
@@ -340,16 +338,15 @@ LABEL_27:
 
   _Block_object_dispose(&buf, 8);
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v55, 8);
 LABEL_28:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v36 & 1;
 }
 
 void __71__PPRoutineSupport_importCoreRoutineDataWithError_shouldContinueBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v169 = *MEMORY[0x277D85DE8];
+  v166 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = pp_default_log_handle();
@@ -377,412 +374,410 @@ void __71__PPRoutineSupport_importCoreRoutineDataWithError_shouldContinueBlock__
   }
 
   v9 = objc_autoreleasePoolPush();
-  v10 = *(a1 + 64);
   objc_opt_self();
-  v11 = objc_opt_new();
-  [v11 setLimit:-1];
-  v12 = +[PPLocalLocationStore defaultStore];
-  v163 = 0;
-  v13 = [v12 locationRecordsWithQuery:v11 error:&v163];
-  v14 = v163;
+  v10 = objc_opt_new();
+  [v10 setLimit:-1];
+  v11 = +[PPLocalLocationStore defaultStore];
+  v160 = 0;
+  v12 = [v11 locationRecordsWithQuery:v10 error:&v160];
+  v13 = v160;
 
-  if (v13)
+  if (v12)
   {
-    v15 = [PPLocationClusterID lookupTableWithRecords:v13];
+    v14 = [PPLocationClusterID lookupTableWithRecords:v12];
   }
 
   else
   {
-    v16 = pp_default_log_handle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = pp_default_log_handle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *&buf[4] = v14;
-      _os_log_error_impl(&dword_23224A000, v16, OS_LOG_TYPE_ERROR, "PPRoutineSupport error during unlimited record query: %@", buf, 0xCu);
+      *&buf[4] = v13;
+      _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, "PPRoutineSupport error during unlimited record query: %@", buf, 0xCu);
     }
 
-    v15 = 0;
+    v14 = 0;
   }
 
   objc_autoreleasePoolPop(v9);
-  v161 = 0u;
-  v162 = 0u;
+  v158 = 0u;
   v159 = 0u;
-  v160 = 0u;
+  v156 = 0u;
+  v157 = 0u;
   obj = v5;
-  v127 = [obj countByEnumeratingWithState:&v159 objects:v165 count:16];
-  if (!v127)
+  v124 = [obj countByEnumeratingWithState:&v156 objects:v162 count:16];
+  if (!v124)
   {
     goto LABEL_85;
   }
 
-  v124 = v5;
+  v121 = v5;
+  v16 = 0;
   v17 = 0;
-  v18 = 0;
-  v125 = *v160;
-  v126 = v15;
+  v122 = *v157;
+  v123 = v14;
   while (2)
   {
-    for (i = 0; i != v127; i = v121 + 1)
+    for (i = 0; i != v124; i = v119 + 1)
     {
-      if (*v160 != v125)
+      if (*v157 != v122)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v159 + 1) + 8 * i);
-      v21 = objc_autoreleasePoolPush();
+      v19 = *(*(&v156 + 1) + 8 * i);
+      v20 = objc_autoreleasePoolPush();
       if (((*(*(a1 + 40) + 16))() & 1) == 0)
       {
-        v122 = pp_default_log_handle();
-        if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+        v120 = pp_default_log_handle();
+        if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_23224A000, v122, OS_LOG_TYPE_DEFAULT, "PPRoutineSupport: deferring during result iteration.", buf, 2u);
+          _os_log_impl(&dword_23224A000, v120, OS_LOG_TYPE_DEFAULT, "PPRoutineSupport: deferring during result iteration.", buf, 2u);
         }
 
-        objc_autoreleasePoolPop(v21);
+        objc_autoreleasePoolPop(v20);
         goto LABEL_84;
       }
 
-      v143 = v18;
-      v144 = v17;
-      v129 = i;
-      v130 = v21;
-      v151 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{9 * objc_msgSend(obj, "count")}];
-      v150 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(obj, "count")}];
-      v22 = [v20 mapItem];
-      v23 = [v22 address];
+      v140 = v17;
+      v141 = v16;
+      v126 = i;
+      v127 = v20;
+      v148 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{9 * objc_msgSend(obj, "count")}];
+      v147 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(obj, "count")}];
+      v21 = [v19 mapItem];
+      v22 = [v21 address];
 
-      v137 = MEMORY[0x277D3A3F8];
-      v149 = v20;
-      v145 = [v20 mapItem];
-      v141 = [v145 name];
-      v139 = [v23 thoroughfare];
-      v136 = [v23 subThoroughfare];
-      v135 = [v23 locality];
-      v147 = [v23 subLocality];
-      v134 = [v23 administrativeArea];
-      v133 = [v23 subAdministrativeArea];
-      v132 = [v23 postalCode];
-      v131 = [v23 countryCode];
-      v24 = [v23 country];
-      v25 = [v23 inlandWater];
-      v26 = [v23 ocean];
-      v27 = [v23 areasOfInterest];
-      v138 = [v137 placemarkWithLatitudeDegrees:0 longitudeDegrees:0 name:v141 thoroughfare:v139 subthoroughFare:v136 locality:v135 subLocality:v147 administrativeArea:v134 subAdministrativeArea:v133 postalCode:v132 countryCode:v131 country:v24 inlandWater:v25 ocean:v26 areasOfInterest:v27];
+      v134 = MEMORY[0x277D3A3F8];
+      v146 = v19;
+      v142 = [v19 mapItem];
+      v138 = [v142 name];
+      v136 = [v22 thoroughfare];
+      v133 = [v22 subThoroughfare];
+      v132 = [v22 locality];
+      v144 = [v22 subLocality];
+      v131 = [v22 administrativeArea];
+      v130 = [v22 subAdministrativeArea];
+      v129 = [v22 postalCode];
+      v128 = [v22 countryCode];
+      v23 = [v22 country];
+      v24 = [v22 inlandWater];
+      v25 = [v22 ocean];
+      v26 = [v22 areasOfInterest];
+      v135 = [v134 placemarkWithLatitudeDegrees:0 longitudeDegrees:0 name:v138 thoroughfare:v136 subthoroughFare:v133 locality:v132 subLocality:v144 administrativeArea:v131 subAdministrativeArea:v130 postalCode:v129 countryCode:v128 country:v23 inlandWater:v24 ocean:v25 areasOfInterest:v26];
 
-      v28 = *(a1 + 64);
-      v29 = v23;
-      v30 = v138;
-      v31 = v126;
+      v27 = v22;
+      v28 = v135;
+      v29 = v123;
       objc_opt_self();
-      v32 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:9];
+      v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:9];
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __81__PPRoutineSupport__scoredNamedEntitiesForAddress_placemark_locationLookupTable___block_invoke;
-      v167 = &unk_2789724A0;
-      v33 = v32;
-      v168 = v33;
-      v34 = _Block_copy(buf);
-      v35 = [v30 postalAddress];
-      v148 = [v35 street];
-      v36 = [v30 name];
+      v164 = &unk_2789724A0;
+      v31 = v30;
+      v165 = v31;
+      v32 = _Block_copy(buf);
+      v33 = [v28 postalAddress];
+      v145 = [v33 street];
+      v34 = [v28 name];
 
-      v146 = v30;
-      if (v36)
+      v143 = v28;
+      if (v34)
       {
-        v37 = [v30 name];
-        v34[2](v34, v37, 3);
+        v35 = [v28 name];
+        v32[2](v32, v35, 3);
       }
 
       else
       {
-        v38 = v149;
-        if (!v126)
+        v36 = v146;
+        if (!v123)
         {
           goto LABEL_25;
         }
 
-        v140 = v35;
-        v142 = v33;
-        v39 = [PPLocationClusterID alloc];
-        v40 = [v29 subThoroughfare];
-        v41 = [v29 thoroughfare];
-        v42 = [v29 subLocality];
-        v43 = [v29 locality];
-        [v29 administrativeArea];
-        v45 = v44 = v31;
-        v37 = [(PPLocationClusterID *)v39 initWithName:0 subThoroughfare:v40 thoroughfare:v41 subLocality:v42 locality:v43 administrativeArea:v45];
+        v137 = v33;
+        v139 = v31;
+        v37 = [PPLocationClusterID alloc];
+        v38 = [v27 subThoroughfare];
+        v39 = [v27 thoroughfare];
+        v40 = [v27 subLocality];
+        v41 = [v27 locality];
+        [v27 administrativeArea];
+        v43 = v42 = v29;
+        v35 = [(PPLocationClusterID *)v37 initWithName:0 subThoroughfare:v38 thoroughfare:v39 subLocality:v40 locality:v41 administrativeArea:v43];
 
-        v31 = v44;
-        v46 = [v44 objectForKeyedSubscript:v37];
-        v47 = [v46 location];
-        v48 = [v47 placemark];
-        v49 = [v48 name];
+        v29 = v42;
+        v44 = [v42 objectForKeyedSubscript:v35];
+        v45 = [v44 location];
+        v46 = [v45 placemark];
+        v47 = [v46 name];
 
-        if (v49)
+        if (v47)
         {
-          v50 = [v46 location];
-          v51 = [v50 placemark];
-          v52 = [v51 name];
-          v34[2](v34, v52, 3);
+          v48 = [v44 location];
+          v49 = [v48 placemark];
+          v50 = [v49 name];
+          v32[2](v32, v50, 3);
         }
 
-        v30 = v146;
-        v35 = v140;
-        v33 = v142;
+        v28 = v143;
+        v33 = v137;
+        v31 = v139;
       }
 
-      v38 = v149;
+      v36 = v146;
 LABEL_25:
-      if ([v148 length])
+      if ([v145 length])
       {
-        v34[2](v34, v148, 8);
+        v32[2](v32, v145, 8);
       }
 
-      v53 = [v29 subLocality];
-      v54 = [v53 length];
+      v51 = [v27 subLocality];
+      v52 = [v51 length];
 
-      if (v54)
+      if (v52)
       {
-        v55 = [v29 subLocality];
-        v34[2](v34, v55, 9);
+        v53 = [v27 subLocality];
+        v32[2](v32, v53, 9);
       }
 
-      v56 = [v29 locality];
-      v57 = [v56 length];
+      v54 = [v27 locality];
+      v55 = [v54 length];
 
-      if (v57)
+      if (v55)
       {
-        v58 = [v29 locality];
-        v34[2](v34, v58, 9);
+        v56 = [v27 locality];
+        v32[2](v32, v56, 9);
       }
 
-      v59 = [v29 administrativeArea];
-      v60 = [v59 length];
+      v57 = [v27 administrativeArea];
+      v58 = [v57 length];
 
-      if (v60)
+      if (v58)
       {
-        v61 = [v29 administrativeArea];
-        v34[2](v34, v61, 10);
+        v59 = [v27 administrativeArea];
+        v32[2](v32, v59, 10);
       }
 
-      v62 = [v29 administrativeAreaCode];
-      v63 = [v62 length];
+      v60 = [v27 administrativeAreaCode];
+      v61 = [v60 length];
 
-      if (v63)
+      if (v61)
       {
-        v64 = [v29 administrativeAreaCode];
-        v34[2](v34, v64, 10);
+        v62 = [v27 administrativeAreaCode];
+        v32[2](v32, v62, 10);
       }
 
-      v65 = [v29 country];
-      v66 = [v65 length];
+      v63 = [v27 country];
+      v64 = [v63 length];
 
-      if (v66)
+      if (v64)
       {
-        v67 = [v29 country];
-        v34[2](v34, v67, 11);
+        v65 = [v27 country];
+        v32[2](v32, v65, 11);
       }
 
-      v68 = [v29 countryCode];
-      v69 = [v68 length];
+      v66 = [v27 countryCode];
+      v67 = [v66 length];
 
-      if (v69)
+      if (v67)
       {
-        v70 = [v29 countryCode];
-        v34[2](v34, v70, 11);
+        v68 = [v27 countryCode];
+        v32[2](v32, v68, 11);
       }
 
-      v71 = [v29 locality];
-      v72 = [v71 length];
+      v69 = [v27 locality];
+      v70 = [v69 length];
 
-      if (v72)
+      if (v70)
       {
-        v73 = [MEMORY[0x277CBDB80] singleLineStringFromPostalAddress:v35 addCountryName:0];
-        if (v73)
+        v71 = [MEMORY[0x277CBDB80] singleLineStringFromPostalAddress:v33 addCountryName:0];
+        if (v71)
         {
-          v34[2](v34, v73, 12);
+          v32[2](v32, v71, 12);
         }
       }
 
-      v74 = v33;
+      v72 = v31;
 
-      [v151 addObjectsFromArray:v74];
-      v75 = objc_alloc(MEMORY[0x277D3A3D8]);
-      v76 = [v38 type];
+      [v148 addObjectsFromArray:v72];
+      v73 = objc_alloc(MEMORY[0x277D3A3D8]);
+      v74 = [v36 type];
       objc_opt_self();
-      if ((v76 + 1) > 4)
+      if ((v74 + 1) > 4)
       {
-        v77 = 5;
+        v75 = 5;
       }
 
       else
       {
-        v77 = word_232418944[v76 + 1];
+        v75 = word_232418944[v74 + 1];
       }
 
-      v78 = [v75 initWithPlacemark:v30 category:v77 mostRelevantRecord:0];
+      v76 = [v73 initWithPlacemark:v28 category:v75 mostRelevantRecord:0];
+      v152 = 0u;
+      v153 = 0u;
+      v154 = 0u;
       v155 = 0u;
-      v156 = 0u;
-      v157 = 0u;
-      v158 = 0u;
-      v79 = [v38 visits];
-      v80 = [v79 countByEnumeratingWithState:&v155 objects:v164 count:16];
-      if (v80)
+      v77 = [v36 visits];
+      v78 = [v77 countByEnumeratingWithState:&v152 objects:v161 count:16];
+      if (v78)
       {
-        v81 = v80;
-        v82 = *v156;
-        v83 = 0.0;
+        v79 = v78;
+        v80 = *v153;
+        v81 = 0.0;
         do
         {
-          for (j = 0; j != v81; ++j)
+          for (j = 0; j != v79; ++j)
           {
-            if (*v156 != v82)
+            if (*v153 != v80)
             {
-              objc_enumerationMutation(v79);
+              objc_enumerationMutation(v77);
             }
 
-            v85 = *(*(&v155 + 1) + 8 * j);
-            v86 = *(a1 + 72);
-            v87 = [v85 exitDate];
-            v88 = [v85 entryDate];
-            [v87 timeIntervalSinceDate:v88];
-            v90 = v86 + log2(v89 + 1.0) * *(a1 + 80);
+            v83 = *(*(&v152 + 1) + 8 * j);
+            v84 = *(a1 + 72);
+            v85 = [v83 exitDate];
+            v86 = [v83 entryDate];
+            [v85 timeIntervalSinceDate:v86];
+            v88 = v84 + log2(v87 + 1.0) * *(a1 + 80);
 
-            v91 = *(a1 + 88);
-            v92 = [v85 exitDate];
-            [v92 timeIntervalSinceNow];
-            v83 = v83 + v90 * exp(-fabs(v91 * v93));
+            v89 = *(a1 + 88);
+            v90 = [v83 exitDate];
+            [v90 timeIntervalSinceNow];
+            v81 = v81 + v88 * exp(-fabs(v89 * v91));
           }
 
-          v81 = [v79 countByEnumeratingWithState:&v155 objects:v164 count:16];
+          v79 = [v77 countByEnumeratingWithState:&v152 objects:v161 count:16];
         }
 
-        while (v81);
+        while (v79);
       }
 
       else
       {
-        v83 = 0.0;
+        v81 = 0.0;
       }
 
-      v94 = [objc_alloc(MEMORY[0x277D3A4A8]) initWithLocation:v78 score:v83 / (v83 + 1.0) sentimentScore:0.0];
-      [v150 addObject:v94];
-      v95 = pp_default_log_handle();
-      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+      v92 = [objc_alloc(MEMORY[0x277D3A4A8]) initWithLocation:v76 score:v81 / (v81 + 1.0) sentimentScore:0.0];
+      [v147 addObject:v92];
+      v93 = pp_default_log_handle();
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
       {
-        v96 = [v151 count];
-        v97 = [v150 count];
+        v94 = [v148 count];
+        v95 = [v147 count];
         *buf = 134218240;
-        *&buf[4] = v96;
+        *&buf[4] = v94;
         *&buf[12] = 2048;
-        *&buf[14] = v97;
-        _os_log_impl(&dword_23224A000, v95, OS_LOG_TYPE_DEFAULT, "PPRoutineSupport extracted %tu entities and %tu locations from LOI", buf, 0x16u);
+        *&buf[14] = v95;
+        _os_log_impl(&dword_23224A000, v93, OS_LOG_TYPE_DEFAULT, "PPRoutineSupport extracted %tu entities and %tu locations from LOI", buf, 0x16u);
       }
 
-      v98 = [v149 visits];
-      v99 = [v98 lastObject];
-      v18 = [v99 exitDate];
+      v96 = [v146 visits];
+      v97 = [v96 lastObject];
+      v17 = [v97 exitDate];
 
-      v100 = objc_alloc(MEMORY[0x277D3A4D8]);
+      v98 = objc_alloc(MEMORY[0x277D3A4D8]);
+      v99 = objc_opt_new();
+      v100 = [v99 UUIDString];
       v101 = objc_opt_new();
-      v102 = [v101 UUIDString];
-      v103 = objc_opt_new();
-      v17 = [v100 initWithBundleId:@"com.apple.CoreRoutine" groupId:0 documentId:v102 date:v103 relevanceDate:v18 contactHandles:0 language:0 metadata:0];
+      v16 = [v98 initWithBundleId:@"com.apple.CoreRoutine" groupId:0 documentId:v100 date:v101 relevanceDate:v17 contactHandles:0 language:0 metadata:0];
 
-      if ([v151 count] && *(a1 + 96) == 1)
+      if ([v148 count] && *(a1 + 96) == 1)
       {
-        v104 = +[PPLocalNamedEntityStore defaultStore];
-        v154 = 0;
-        v105 = [v104 donateNamedEntities:v151 source:v17 algorithm:3 cloudSync:0 sentimentScore:&v154 error:0.0];
-        v106 = v154;
+        v102 = +[PPLocalNamedEntityStore defaultStore];
+        v151 = 0;
+        v103 = [v102 donateNamedEntities:v148 source:v16 algorithm:3 cloudSync:0 sentimentScore:&v151 error:0.0];
+        v104 = v151;
 
-        if (v105)
+        if (v103)
         {
-          v107 = +[PPLocalNamedEntityStore defaultStore];
-          v153 = 0;
-          v108 = [v107 flushDonationsWithError:&v153];
-          v109 = v153;
+          v105 = +[PPLocalNamedEntityStore defaultStore];
+          v150 = 0;
+          v106 = [v105 flushDonationsWithError:&v150];
+          v107 = v150;
 
-          if ((v108 & 1) == 0)
+          if ((v106 & 1) == 0)
           {
-            v110 = pp_default_log_handle();
-            if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+            v108 = pp_default_log_handle();
+            if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              *&buf[4] = v109;
-              _os_log_impl(&dword_23224A000, v110, OS_LOG_TYPE_DEFAULT, "PPRoutineSupport: importCoreRoutineDataWithCompletion: Warning: failed to flush: %@", buf, 0xCu);
+              *&buf[4] = v107;
+              _os_log_impl(&dword_23224A000, v108, OS_LOG_TYPE_DEFAULT, "PPRoutineSupport: importCoreRoutineDataWithCompletion: Warning: failed to flush: %@", buf, 0xCu);
             }
           }
         }
 
         else
         {
-          v111 = pp_default_log_handle();
-          if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+          v109 = pp_default_log_handle();
+          if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *&buf[4] = v106;
-            _os_log_error_impl(&dword_23224A000, v111, OS_LOG_TYPE_ERROR, "PPRoutineSupport failed to store CoreRoutine-derived named entities: %@", buf, 0xCu);
+            *&buf[4] = v104;
+            _os_log_error_impl(&dword_23224A000, v109, OS_LOG_TYPE_ERROR, "PPRoutineSupport failed to store CoreRoutine-derived named entities: %@", buf, 0xCu);
           }
 
           *(*(*(a1 + 56) + 8) + 24) = 0;
-          v112 = *(*(a1 + 48) + 8);
-          v113 = v106;
-          v109 = *(v112 + 40);
-          *(v112 + 40) = v113;
+          v110 = *(*(a1 + 48) + 8);
+          v111 = v104;
+          v107 = *(v110 + 40);
+          *(v110 + 40) = v111;
         }
       }
 
-      v114 = v150;
-      if ([v150 count] && *(a1 + 97) == 1)
+      v112 = v147;
+      if ([v147 count] && *(a1 + 97) == 1)
       {
-        v115 = +[PPLocalLocationStore defaultStore];
-        v152 = 0;
-        v116 = [v115 donateLocations:v150 source:v17 contextualNamedEntities:0 algorithm:3 cloudSync:0 error:&v152];
-        v117 = v152;
-        v118 = v152;
+        v113 = +[PPLocalLocationStore defaultStore];
+        v149 = 0;
+        v114 = [v113 donateLocations:v147 source:v16 contextualNamedEntities:0 algorithm:3 cloudSync:0 error:&v149];
+        v115 = v149;
+        v116 = v149;
 
-        if ((v116 & 1) == 0)
+        if ((v114 & 1) == 0)
         {
-          v119 = pp_default_log_handle();
-          if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
+          v117 = pp_default_log_handle();
+          if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *&buf[4] = v118;
-            _os_log_error_impl(&dword_23224A000, v119, OS_LOG_TYPE_ERROR, "PPRoutineSupport failed to store CoreRoutine-derived locations: %@", buf, 0xCu);
+            *&buf[4] = v116;
+            _os_log_error_impl(&dword_23224A000, v117, OS_LOG_TYPE_ERROR, "PPRoutineSupport failed to store CoreRoutine-derived locations: %@", buf, 0xCu);
           }
 
           *(*(*(a1 + 56) + 8) + 24) = 0;
-          objc_storeStrong((*(*(a1 + 48) + 8) + 40), v117);
+          objc_storeStrong((*(*(a1 + 48) + 8) + 40), v115);
         }
 
-        v121 = v129;
-        v120 = v130;
-        v114 = v150;
+        v119 = v126;
+        v118 = v127;
+        v112 = v147;
       }
 
       else
       {
-        v118 = pp_default_log_handle();
-        if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
+        v116 = pp_default_log_handle();
+        if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           *&buf[4] = 0;
-          _os_log_impl(&dword_23224A000, v118, OS_LOG_TYPE_DEFAULT, "PPRoutineSupport failed to submit CoreRoutine locations to location store: %@", buf, 0xCu);
+          _os_log_impl(&dword_23224A000, v116, OS_LOG_TYPE_DEFAULT, "PPRoutineSupport failed to submit CoreRoutine locations to location store: %@", buf, 0xCu);
         }
 
-        v121 = v129;
-        v120 = v130;
+        v119 = v126;
+        v118 = v127;
       }
 
-      objc_autoreleasePoolPop(v120);
+      objc_autoreleasePoolPop(v118);
     }
 
-    v127 = [obj countByEnumeratingWithState:&v159 objects:v165 count:16];
-    if (v127)
+    v124 = [obj countByEnumeratingWithState:&v156 objects:v162 count:16];
+    if (v124)
     {
       continue;
     }
@@ -793,35 +788,33 @@ LABEL_25:
 LABEL_84:
 
   v6 = 0;
-  v5 = v124;
-  v15 = v126;
+  v5 = v121;
+  v14 = v123;
 LABEL_85:
 
   dispatch_semaphore_signal(*(a1 + 32));
 LABEL_86:
-
-  v123 = *MEMORY[0x277D85DE8];
 }
 
 void __81__PPRoutineSupport__scoredNamedEntitiesForAddress_placemark_locationLookupTable___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = pp_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v14 = [MEMORY[0x277D3A420] describeCategory:a3];
-    v15 = 138412290;
-    v16 = v14;
-    _os_log_debug_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEBUG, "PPRoutineSupport adding entity of category %@", &v15, 0xCu);
+    v13 = [MEMORY[0x277D3A420] describeCategory:a3];
+    v14 = 138412290;
+    v15 = v13;
+    _os_log_debug_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEBUG, "PPRoutineSupport adding entity of category %@", &v14, 0xCu);
   }
 
   v7 = pp_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138739971;
-    v16 = v5;
-    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPRoutineSupport adding entity: %{sensitive}@", &v15, 0xCu);
+    v14 = 138739971;
+    v15 = v5;
+    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPRoutineSupport adding entity: %{sensitive}@", &v14, 0xCu);
   }
 
   v8 = objc_alloc(MEMORY[0x277D3A420]);
@@ -831,8 +824,6 @@ void __81__PPRoutineSupport__scoredNamedEntitiesForAddress_placemark_locationLoo
 
   v12 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v11 score:1.0];
   [*(a1 + 32) addObject:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -25,9 +25,11 @@
 
 uint64_t __32__HANanoSettings_sharedInstance__block_invoke()
 {
-  sharedInstance_Settings_363 = objc_alloc_init(HANanoSettings);
+  v0 = objc_alloc_init(HANanoSettings);
+  v1 = sharedInstance_Settings_363;
+  sharedInstance_Settings_363 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (HANanoSettings)init
@@ -70,7 +72,7 @@ uint64_t __32__HANanoSettings_sharedInstance__block_invoke()
 {
   domainAccessor = self->_domainAccessor;
   self->_domainAccessor = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, domainAccessor);
 }
 
 - (id)nanoDomainAccessor
@@ -116,16 +118,16 @@ uint64_t __32__HANanoSettings_sharedInstance__block_invoke()
 
 void __44__HANanoSettings_setValue_forPreferenceKey___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = HCLogHearingAids();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v22 = v3;
-    v23 = 2112;
-    v24 = v4;
+    v21 = v3;
+    v22 = 2112;
+    v23 = v4;
     _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "Setting nano value %@ - %@", buf, 0x16u);
   }
 
@@ -144,12 +146,10 @@ void __44__HANanoSettings_setValue_forPreferenceKey___block_invoke(uint64_t a1)
   v14 = objc_opt_new();
   v15 = *MEMORY[0x1E69E4D90];
   v16 = MEMORY[0x1E695DFD8];
-  v20 = *(a1 + 32);
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+  v19 = *(a1 + 32);
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
   v18 = [v16 setWithArray:v17];
   [v14 synchronizeNanoDomain:v15 keys:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_valueForPreferenceKey:(id)key
@@ -199,9 +199,9 @@ void __41__HANanoSettings__valueForPreferenceKey___block_invoke(uint64_t a1)
 
 void __44__HANanoSettings_setValue_forPreferenceKey___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, a2, a3, "Error synchronizing accessor %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, a2, a3, "Error synchronizing accessor %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

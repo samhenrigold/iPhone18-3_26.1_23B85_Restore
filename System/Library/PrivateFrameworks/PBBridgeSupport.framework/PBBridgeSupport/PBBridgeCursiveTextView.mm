@@ -57,11 +57,11 @@
   self->_textPath = v10;
 
   v12 = self->_textPath;
-  v13 = pbb_setup_log();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  v14 = pbb_setup_log(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (v12)
   {
-    if (v14)
+    if (v15)
     {
       *buf = 138412802;
       *&buf[4] = textCopy;
@@ -69,14 +69,14 @@
       *&buf[14] = size;
       *&buf[22] = 2112;
       *&buf[24] = optionsCopy;
-      _os_log_impl(&dword_25DE64000, v13, OS_LOG_TYPE_DEFAULT, "Loading text from url: %@ at pointSize: %f with options: %@", buf, 0x20u);
+      _os_log_impl(&dword_25DE64000, v14, OS_LOG_TYPE_DEFAULT, "Loading text from url: %@ at pointSize: %f with options: %@", buf, 0x20u);
     }
 
-    v15 = self->_textPath;
+    v16 = self->_textPath;
     [(CAShapeLayer *)self->_textLayer bounds];
-    if (v15)
+    if (v16)
     {
-      [PBBridgeCursiveTextPath transformForRect:v15 pointSize:"transformForRect:pointSize:flipped:" flipped:1];
+      objc_msgSend_transformForRect_pointSize_flipped_(v16);
     }
 
     else
@@ -85,15 +85,15 @@
       memset(buf, 0, sizeof(buf));
     }
 
-    v16 = *&buf[16];
+    v17 = *&buf[16];
     *&self->_textTransform.a = *buf;
-    *&self->_textTransform.c = v16;
+    *&self->_textTransform.c = v17;
     *&self->_textTransform.tx = v23;
     layer = [(PBBridgeCursiveTextView *)self layer];
     [layer opacity];
-    v19 = v18;
+    v20 = v19;
 
-    if (v19 < 1.0)
+    if (v20 < 1.0)
     {
       v21[0] = MEMORY[0x277D85DD0];
       v21[1] = 3221225472;
@@ -106,14 +106,12 @@
 
   else
   {
-    if (v14)
+    if (v15)
     {
       *buf = 0;
-      _os_log_impl(&dword_25DE64000, v13, OS_LOG_TYPE_DEFAULT, "No text path", buf, 2u);
+      _os_log_impl(&dword_25DE64000, v14, OS_LOG_TYPE_DEFAULT, "No text path", buf, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PBBridgeCursiveTextView_loadText_pointSize_options___block_invoke(uint64_t a1)

@@ -12,7 +12,9 @@
 + (void)initializeOverrides;
 + (void)moveInvertFilterToFront:(id)front;
 + (void)removeBackgroundView:(id)view;
++ (void)setInitializedOverrides:(BOOL)overrides;
 + (void)toggleDarkModeWindowInvertFilterToLayer:(id)layer enabled:(BOOL)enabled;
++ (void)toggleInvertColors:(id)colors moveFilterToFront:(BOOL)front;
 + (void)toggleInvertColorsOnLayer:(id)layer moveFilterToFront:(BOOL)front;
 + (void)toggleInvertColorsOnView:(id)view;
 + (void)unapplyInvertFilterToLayer:(id)layer;
@@ -28,6 +30,20 @@
   bOOLValue = [v4 BOOLValue];
 
   return bOOLValue;
+}
+
++ (void)setInitializedOverrides:(BOOL)overrides
+{
+  overridesCopy = overrides;
+  if (qword_834E8 != -1)
+  {
+    sub_20550();
+  }
+
+  v7 = [NSNumber numberWithBool:overridesCopy];
+  v5 = qword_834E0;
+  v6 = NSStringFromClass(self);
+  [v5 setObject:v7 forKeyedSubscript:v6];
 }
 
 + (id)insertBackgroundView:(id)view color:(id)color
@@ -499,6 +515,37 @@ LABEL_11:
 LABEL_16:
     }
   }
+}
+
++ (void)toggleInvertColors:(id)colors moveFilterToFront:(BOOL)front
+{
+  frontCopy = front;
+  colorsCopy = colors;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [AXInvertColorsAppHelper toggleInvertColorsOnView:colorsCopy];
+  }
+
+  else
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      [AXInvertColorsAppHelper toggleInvertColorsOnLayer:colorsCopy moveFilterToFront:frontCopy];
+    }
+
+    else
+    {
+      v6 = AXLogInvertColorsTraversal();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      {
+        sub_20564(colorsCopy, v6, v7, v8, v9, v10, v11, v12);
+      }
+    }
+  }
+
+  [AXInvertColorsManager updateClassicInvertColors:colorsCopy];
 }
 
 + (void)toggleInvertColorsOnLayer:(id)layer moveFilterToFront:(BOOL)front

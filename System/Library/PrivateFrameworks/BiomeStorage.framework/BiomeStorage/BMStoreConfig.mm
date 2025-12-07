@@ -236,13 +236,11 @@
 {
   nameCopy = name;
   v5 = [BMStoreConfig alloc];
-  streamType = self->_streamType;
-  streamIdentifierForLogging = self->_streamIdentifierForLogging;
-  BYTE4(v10) = self->_isManaged;
-  LODWORD(v10) = self->_uid;
-  v8 = [(BMStoreConfig *)v5 _initWithStoreVersion:self->_configDatastoreVersion storeBasePath:self->_datastorePath segmentSize:self->_segmentSize protectionClass:self->_protectionClass storeLocationOption:self->_storeLocationOption account:self->_account remoteName:nameCopy pruningPolicy:self->_pruningPolicy streamType:streamType domain:self->_domain user:v10 isManaged:streamIdentifierForLogging streamIdentifier:self->_currentDevice currentDevice:?];
+  BYTE4(v8) = self->_isManaged;
+  LODWORD(v8) = self->_uid;
+  v6 = [(BMStoreConfig *)v5 _initWithStoreVersion:self->_configDatastoreVersion storeBasePath:self->_datastorePath segmentSize:self->_segmentSize protectionClass:self->_protectionClass storeLocationOption:self->_storeLocationOption account:self->_account remoteName:nameCopy pruningPolicy:self->_pruningPolicy streamType:self->_streamType domain:self->_domain user:v8 isManaged:self->_streamIdentifierForLogging streamIdentifier:self->_currentDevice currentDevice:?];
 
-  return v8;
+  return v6;
 }
 
 - (id)copyWithStoreBasePath:(id)path
@@ -280,13 +278,11 @@
   account = self->_account;
   storeLocationOption = self->_storeLocationOption;
   v12 = [(BMPruningPolicy *)self->_pruningPolicy copy];
-  streamType = self->_streamType;
-  streamIdentifierForLogging = self->_streamIdentifierForLogging;
-  BYTE4(v17) = self->_isManaged;
-  LODWORD(v17) = self->_uid;
-  v15 = [(BMStoreConfig *)v4 _initWithStoreVersion:configDatastoreVersion storeBasePath:v6 segmentSize:segmentSize protectionClass:protectionClass storeLocationOption:storeLocationOption account:account remoteName:remoteName pruningPolicy:v12 streamType:streamType domain:self->_domain user:v17 isManaged:streamIdentifierForLogging streamIdentifier:self->_currentDevice currentDevice:?];
+  BYTE4(v15) = self->_isManaged;
+  LODWORD(v15) = self->_uid;
+  v13 = [(BMStoreConfig *)v4 _initWithStoreVersion:configDatastoreVersion storeBasePath:v6 segmentSize:segmentSize protectionClass:protectionClass storeLocationOption:storeLocationOption account:account remoteName:remoteName pruningPolicy:v12 streamType:self->_streamType domain:self->_domain user:v15 isManaged:self->_streamIdentifierForLogging streamIdentifier:self->_currentDevice currentDevice:?];
 
-  return v15;
+  return v13;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -428,11 +424,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  datastorePath = self->_datastorePath;
-  v5 = [v3 initWithFormat:@"<BMStoreConfig datastorePath: %@ version: %lu>", datastorePath, self->_configDatastoreVersion];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<BMStoreConfig datastorePath: %@ version: %lu>", self->_datastorePath, self->_configDatastoreVersion];
 
-  return v5;
+  return v2;
 }
 
 - (id)resolvedPathWithStreamIdentifier:(id)identifier

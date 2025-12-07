@@ -3,7 +3,7 @@
 
 @implementation CAMediaTimingFunction
 
-uint64_t __69__CAMediaTimingFunction_TSDCAAnimationAdditions__TSD_valueAtPercent___block_invoke()
+void *__69__CAMediaTimingFunction_TSDCAAnimationAdditions__TSD_valueAtPercent___block_invoke()
 {
   v20 = *MEMORY[0x277D85DE8];
   v10 = 0u;
@@ -44,7 +44,7 @@ uint64_t __69__CAMediaTimingFunction_TSDCAAnimationAdditions__TSD_valueAtPercent
         [v8 curveToPoint:v14[0] controlPoint1:v14[1] controlPoint2:{v16[0], v16[1], v15[0], v15[1]}];
         TSD_valueAtPercent__s_CAMediaTimingFunctionsCacheArray[v4] = v7;
         TSD_valueAtPercent__s_TSDBezierPathsCacheArray[v4++] = v8;
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v3 != v6);

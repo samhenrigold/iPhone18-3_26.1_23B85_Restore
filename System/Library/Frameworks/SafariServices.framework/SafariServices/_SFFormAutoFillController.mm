@@ -485,7 +485,7 @@ LABEL_7:
 
 - (void)fieldWillFocusWithInputSession:(id)session
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   if (self->_isCurrentlyClearing)
   {
@@ -495,34 +495,35 @@ LABEL_7:
 
   else
   {
-    if ([(_SFFormAutoFillInputSession *)self->_inputSessionForAutomaticPasswords isForStreamlinedLogin])
+    isForStreamlinedLogin = [(_SFFormAutoFillInputSession *)self->_inputSessionForAutomaticPasswords isForStreamlinedLogin];
+    if (isForStreamlinedLogin)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = WBS_LOG_CHANNEL_PREFIXAutoFill(isForStreamlinedLogin, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         inputSessionForAutomaticPasswords = self->_inputSessionForAutomaticPasswords;
         focusedControlMetadata = [(_SFFormAutoFillInputSession *)inputSessionForAutomaticPasswords focusedControlMetadata];
         uniqueID = [focusedControlMetadata uniqueID];
         *buf = 134218242;
-        v26 = inputSessionForAutomaticPasswords;
-        v27 = 2112;
-        v28 = uniqueID;
-        _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "%p Field %@ will focus as part of existing streamlined login input session", buf, 0x16u);
+        v28 = inputSessionForAutomaticPasswords;
+        v29 = 2112;
+        v30 = uniqueID;
+        _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "%p Field %@ will focus as part of existing streamlined login input session", buf, 0x16u);
       }
 
       [(_SFFormAutoFillInputSession *)self->_inputSessionForAutomaticPasswords updateWithAdditionalInputSession:sessionCopy];
-      v10 = self->_inputSessionForAutomaticPasswords;
+      v12 = self->_inputSessionForAutomaticPasswords;
 
-      sessionCopy = v10;
+      sessionCopy = v12;
     }
 
     [(_SFFormAutoFillController *)self _restoreInputAssistantItemsIfNecessary];
-    v11 = self->_externalCredentialIdentitiesForStreamlinedAutoFill;
+    v13 = self->_externalCredentialIdentitiesForStreamlinedAutoFill;
     externalCredentialIdentitiesForStreamlinedAutoFill = self->_externalCredentialIdentitiesForStreamlinedAutoFill;
     self->_externalCredentialIdentitiesForStreamlinedAutoFill = 0;
 
     frameHandle = [(_SFFormAutoFillInputSession *)sessionCopy frameHandle];
-    v14 = frameHandle;
+    v16 = frameHandle;
     if (frameHandle)
     {
       webui_URL = [frameHandle webui_URL];
@@ -537,12 +538,12 @@ LABEL_7:
         aBlock[2] = __60___SFFormAutoFillController_fieldWillFocusWithInputSession___block_invoke;
         aBlock[3] = &unk_1E8491200;
         aBlock[4] = self;
-        v24 = safari_isEligibleToShowNotSecureWarning;
-        v21 = v14;
-        v22 = sessionCopy;
-        v23 = v11;
-        v19 = _Block_copy(aBlock);
-        v19[2](v19, formMetadata, focusedControlMetadata2);
+        v26 = safari_isEligibleToShowNotSecureWarning;
+        v23 = v16;
+        v24 = sessionCopy;
+        v25 = v13;
+        v21 = _Block_copy(aBlock);
+        v21[2](v21, formMetadata, focusedControlMetadata2);
       }
     }
   }
@@ -651,54 +652,55 @@ LABEL_9:
     autoFillQuirksManager = [v19 autoFillQuirksManager];
     passwordGenerationManager = [autoFillQuirksManager passwordGenerationManager];
 
-    v42 = [passwordGenerationManager defaultRequirementsForURL:webui_URL];
-    v22 = [passwordGenerationManager passwordGenerationIsDisallowedByRequirements:v42];
+    v44 = [passwordGenerationManager defaultRequirementsForURL:webui_URL];
+    v22 = [passwordGenerationManager passwordGenerationIsDisallowedByRequirements:v44];
+    v24 = v22;
     if ((v22 & 1) == 0)
     {
-      v40 = passwordGenerationManager;
-      v41 = webui_URL;
-      v23 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v42 = passwordGenerationManager;
+      v43 = webui_URL;
+      v25 = WBS_LOG_CHANNEL_PREFIXAutoFill(v22, v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v23, OS_LOG_TYPE_DEFAULT, "Presenting streamlined strong password view in custom input view", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v25, OS_LOG_TYPE_DEFAULT, "Presenting streamlined strong password view in custom input view", buf, 2u);
       }
 
-      v24 = +[_SFFormDataController sharedController];
+      v26 = +[_SFFormDataController sharedController];
       formMetadata = [sessionCopy formMetadata];
       frameHandle2 = [sessionCopy frameHandle];
       webui_URL2 = [frameHandle2 webui_URL];
       savedAccountContext = [(_SFFormAutoFillController *)self savedAccountContext];
-      v29 = [v24 extractUserNameFromForm:formMetadata atURL:webui_URL2 inContext:savedAccountContext];
-      v30 = v29;
-      v31 = &stru_1F4FE9E38;
-      if (v29)
+      v31 = [v26 extractUserNameFromForm:formMetadata atURL:webui_URL2 inContext:savedAccountContext];
+      v32 = v31;
+      v33 = &stru_1F4FE9E38;
+      if (v31)
       {
-        v31 = v29;
+        v33 = v31;
       }
 
-      v32 = v31;
+      v34 = v33;
 
-      v33 = v32;
-      v34 = [objc_alloc(MEMORY[0x1E69BC7E8]) initForSafariWithURL:v41 userName:v32];
-      passwordGenerationManager = v40;
-      v35 = [[_SFAutoFillInputView alloc] initWithStreamlinedStrongPasswordViewController:v34];
+      v35 = v34;
+      v36 = [objc_alloc(MEMORY[0x1E69BC7E8]) initForSafariWithURL:v43 userName:v34];
+      passwordGenerationManager = v42;
+      v37 = [[_SFAutoFillInputView alloc] initWithStreamlinedStrongPasswordViewController:v36];
       autoFillInputView = self->_autoFillInputView;
-      self->_autoFillInputView = v35;
+      self->_autoFillInputView = v37;
 
       [(_SFAutoFillInputView *)self->_autoFillInputView setDelegate:self];
-      v37 = self->_autoFillInputView;
+      v39 = self->_autoFillInputView;
       formInputSession = [sessionCopy formInputSession];
-      [formInputSession setCustomInputView:v37];
+      [formInputSession setCustomInputView:v39];
 
       formInputSession2 = [sessionCopy formInputSession];
       [formInputSession2 setAccessoryViewShouldNotShow:1];
 
       [(_SFFormAutoFillController *)self _hideInputAssistantItemsIfNecessary];
-      webui_URL = v41;
+      webui_URL = v43;
     }
 
-    v15 = v22 ^ 1;
+    v15 = v24 ^ 1;
   }
 
   return v15;
@@ -706,7 +708,7 @@ LABEL_9:
 
 - (BOOL)_presentStrongPasswordIntroductionIfNeededWithAutoFillInputSession:(id)session
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   formMetadata = [sessionCopy formMetadata];
   type = [formMetadata type];
@@ -722,23 +724,24 @@ LABEL_9:
     v13 = [passwordGenerationManager defaultRequirementsForURL:webui_URL];
 
     v14 = [passwordGenerationManager passwordGenerationIsDisallowedByRequirements:v13];
+    v16 = v14;
     if ((v14 & 1) == 0)
     {
       if (!self->_strongPasswordIntroductionViewController)
       {
-        v15 = [objc_alloc(MEMORY[0x1E69BC7D8]) initWithMode:0];
+        v17 = [objc_alloc(MEMORY[0x1E69BC7D8]) initWithMode:0];
         strongPasswordIntroductionViewController = self->_strongPasswordIntroductionViewController;
-        self->_strongPasswordIntroductionViewController = v15;
+        self->_strongPasswordIntroductionViewController = v17;
 
-        [(PMSafariAutoFillStrongPasswordIntroductionViewController *)self->_strongPasswordIntroductionViewController setDelegate:self];
+        v14 = [(PMSafariAutoFillStrongPasswordIntroductionViewController *)self->_strongPasswordIntroductionViewController setDelegate:self];
       }
 
-      v17 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = WBS_LOG_CHANNEL_PREFIXAutoFill(v14, v15);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v25[0] = 67109120;
-        v25[1] = 0;
-        _os_log_impl(&dword_1D4644000, v17, OS_LOG_TYPE_DEFAULT, "Presenting strong password introduction in custom input view; mode=%d", v25, 8u);
+        v27[0] = 67109120;
+        v27[1] = 0;
+        _os_log_impl(&dword_1D4644000, v19, OS_LOG_TYPE_DEFAULT, "Presenting strong password introduction in custom input view; mode=%d", v27, 8u);
       }
 
       autoFillInputView = self->_autoFillInputView;
@@ -749,14 +752,14 @@ LABEL_9:
 
       else
       {
-        v19 = [[_SFAutoFillInputView alloc] initWithIntroductionViewController:self->_strongPasswordIntroductionViewController];
-        v20 = self->_autoFillInputView;
-        self->_autoFillInputView = v19;
+        v21 = [[_SFAutoFillInputView alloc] initWithIntroductionViewController:self->_strongPasswordIntroductionViewController];
+        v22 = self->_autoFillInputView;
+        self->_autoFillInputView = v21;
       }
 
-      v21 = self->_autoFillInputView;
+      v23 = self->_autoFillInputView;
       formInputSession = [sessionCopy formInputSession];
-      [formInputSession setCustomInputView:v21];
+      [formInputSession setCustomInputView:v23];
 
       formInputSession2 = [sessionCopy formInputSession];
       [formInputSession2 setAccessoryViewShouldNotShow:1];
@@ -764,7 +767,7 @@ LABEL_9:
       [(_SFFormAutoFillController *)self _hideInputAssistantItemsIfNecessary];
     }
 
-    v7 = v14 ^ 1;
+    v7 = v16 ^ 1;
   }
 
   else
@@ -1743,10 +1746,10 @@ LABEL_5:
 
   if ((eventsCopy & 1) == 0)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [_SFFormAutoFillController _dismissKeyboardAndSimulateCarriageReturnKeyEvents:v5];
+      [_SFFormAutoFillController _dismissKeyboardAndSimulateCarriageReturnKeyEvents:v7];
     }
   }
 }
@@ -1943,12 +1946,12 @@ LABEL_5:
       {
         if (self->_didFillStrongPasswordFromStreamlinedAutoFillView)
         {
-          v16[0] = MEMORY[0x1E69E9820];
-          v16[1] = 3221225472;
-          v16[2] = __57___SFFormAutoFillController_makePasswordFields_viewable___block_invoke;
-          v16[3] = &unk_1E84914E8;
-          v16[4] = self;
-          v9 = [(NSArray *)v7 safari_filterObjectsUsingBlock:v16];
+          v17[0] = MEMORY[0x1E69E9820];
+          v17[1] = 3221225472;
+          v17[2] = __57___SFFormAutoFillController_makePasswordFields_viewable___block_invoke;
+          v17[3] = &unk_1E84914E8;
+          v17[4] = self;
+          v9 = [(NSArray *)v7 safari_filterObjectsUsingBlock:v17];
         }
 
         else
@@ -1958,11 +1961,11 @@ LABEL_5:
 
         if (![(NSArray *)v9 count])
         {
-          v14 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v10);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = 0;
-            _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "No password fields to make viewable", &v15, 2u);
+            v16 = 0;
+            _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_DEFAULT, "No password fields to make viewable", &v16, 2u);
           }
 
           goto LABEL_17;
@@ -1977,16 +1980,16 @@ LABEL_5:
       [(SFFormAutoFiller *)self->_autoFiller setStrongPasswordElementViewableIfAppropriate:viewableCopy frame:self->_frameHandleForAutomaticPasswords passwordControlUniqueIDs:v9];
       if (([MEMORY[0x1E69C8880] isPasswordsAppInstalled] & 1) == 0)
       {
-        v10 = +[_SFFormDataController sharedController];
-        generatedPassword = [v10 generatedPassword];
+        v11 = +[_SFFormDataController sharedController];
+        generatedPassword = [v11 generatedPassword];
 
         if (generatedPassword)
         {
           mEMORY[0x1E69C8898] = [MEMORY[0x1E69C8898] sharedStore];
           [mEMORY[0x1E69C8898] removeGeneratedPassword:generatedPassword completionHandler:0];
 
-          v13 = +[_SFFormDataController sharedController];
-          [v13 setGeneratedPassword:0];
+          v14 = +[_SFFormDataController sharedController];
+          [v14 setGeneratedPassword:0];
         }
       }
 
@@ -2035,33 +2038,34 @@ LABEL_17:
 - (id)_beginAutomaticPasswordInteractionWithInputSession:(id)session generatedPassword:(id)password ignorePreviousDecision:(BOOL)decision
 {
   decisionCopy = decision;
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   passwordCopy = password;
-  if ([(_SFFormAutoFillInputSession *)self->_inputSessionForAutomaticPasswords isForStreamlinedLogin])
+  isForStreamlinedLogin = [(_SFFormAutoFillInputSession *)self->_inputSessionForAutomaticPasswords isForStreamlinedLogin];
+  if (isForStreamlinedLogin)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(isForStreamlinedLogin, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       inputSessionForAutomaticPasswords = self->_inputSessionForAutomaticPasswords;
       focusedControlMetadata = [(_SFFormAutoFillInputSession *)inputSessionForAutomaticPasswords focusedControlMetadata];
       uniqueID = [focusedControlMetadata uniqueID];
-      v27 = 134218242;
-      v28 = inputSessionForAutomaticPasswords;
-      v29 = 2112;
-      v30 = uniqueID;
-      _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "%p Beginning Automatic Strong Password interaction for Streamlined Login input session in control %@", &v27, 0x16u);
+      v29 = 134218242;
+      v30 = inputSessionForAutomaticPasswords;
+      v31 = 2112;
+      v32 = uniqueID;
+      _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_DEFAULT, "%p Beginning Automatic Strong Password interaction for Streamlined Login input session in control %@", &v29, 0x16u);
     }
 
     [(_SFFormAutoFillInputSession *)self->_inputSessionForAutomaticPasswords updateWithAdditionalInputSession:sessionCopy];
-    v14 = self->_inputSessionForAutomaticPasswords;
+    v16 = self->_inputSessionForAutomaticPasswords;
 
-    sessionCopy = v14;
+    sessionCopy = v16;
   }
 
-  if ([MEMORY[0x1E69C8880] isPasswordsAppInstalled] && (!objc_msgSend(MEMORY[0x1E69C8880], "isAutomaticStrongPasswordsEnabled") || self->_didCloseStrongPasswordIntroductionView) || objc_msgSend(MEMORY[0x1E69C8880], "hasInternalContent") && (objc_msgSend(MEMORY[0x1E695E000], "safari_browserDefaults"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "BOOLForKey:", @"SFDebugEnableAutomaticStrongPasswords"), v15, (v16 & 1) != 0) || (-[_SFFormAutoFillInputSession focusedElementInfo](sessionCopy, "focusedElementInfo"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "type") == 3, v17, !v18))
+  if ([MEMORY[0x1E69C8880] isPasswordsAppInstalled] && (!objc_msgSend(MEMORY[0x1E69C8880], "isAutomaticStrongPasswordsEnabled") || self->_didCloseStrongPasswordIntroductionView) || objc_msgSend(MEMORY[0x1E69C8880], "hasInternalContent") && (objc_msgSend(MEMORY[0x1E695E000], "safari_browserDefaults"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "BOOLForKey:", @"SFDebugEnableAutomaticStrongPasswords"), v17, (v18 & 1) != 0) || (-[_SFFormAutoFillInputSession focusedElementInfo](sessionCopy, "focusedElementInfo"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "type") == 3, v19, !v20))
   {
-    v25 = 0;
+    v27 = 0;
   }
 
   else
@@ -2075,41 +2079,41 @@ LABEL_17:
         focusedControlMetadata2 = [(_SFFormAutoFillInputSession *)sessionCopy focusedControlMetadata];
         if ([focusedControlMetadata2 isSecureTextField])
         {
-          v22 = +[_SFFormDataController sharedController];
-          v23 = [v22 isPasswordFieldForUserCredentialsWithMetadata:focusedControlMetadata2 formMetadata:formMetadata];
+          v24 = +[_SFFormDataController sharedController];
+          v25 = [v24 isPasswordFieldForUserCredentialsWithMetadata:focusedControlMetadata2 formMetadata:formMetadata];
 
-          if (v23)
+          if (v25)
           {
-            v24 = focusedControlMetadata2;
+            v26 = focusedControlMetadata2;
           }
 
           else
           {
-            v24 = 0;
+            v26 = 0;
           }
         }
 
         else
         {
-          v24 = 0;
+          v26 = 0;
         }
 
-        v25 = [(_SFFormAutoFillController *)self _beginAutomaticPasswordInteractionWithPasswordFieldMetadata:v24 formMetadata:formMetadata frame:frameHandle inputSession:sessionCopy generatedPassword:passwordCopy ignorePreviousDecision:decisionCopy];
+        v27 = [(_SFFormAutoFillController *)self _beginAutomaticPasswordInteractionWithPasswordFieldMetadata:v26 formMetadata:formMetadata frame:frameHandle inputSession:sessionCopy generatedPassword:passwordCopy ignorePreviousDecision:decisionCopy];
       }
 
       else
       {
-        v25 = 0;
+        v27 = 0;
       }
     }
 
     else
     {
-      v25 = 0;
+      v27 = 0;
     }
   }
 
-  return v25;
+  return v27;
 }
 
 - (id)_beginAutomaticPasswordInteractionWithPasswordFieldMetadata:(id)metadata formMetadata:(id)formMetadata frame:(id)frame inputSession:(id)session generatedPassword:(id)password ignorePreviousDecision:(BOOL)decision
@@ -2267,75 +2271,75 @@ LABEL_17:
 
   if (self->_currentStrongPassword || (objc_storeStrong(&self->_currentStrongPassword, self->_defaultStrongPassword), self->_currentStrongPassword))
   {
-    v32 = v10;
-    v33 = handlerCopy;
-    v34 = frame;
-    v35 = formMetadata;
-    v30 = webui_URL;
-    v31 = +[_SFFormDataController sharedController];
-    v15 = substitutionCopy;
-    v48[0] = 0;
-    v48[1] = v48;
-    v48[2] = 0x3032000000;
-    v48[3] = __Block_byref_object_copy__0;
-    v48[4] = __Block_byref_object_dispose__0;
-    v49 = 0;
-    v29 = dispatch_group_create();
-    dispatch_group_enter(v29);
+    v34 = v10;
+    v35 = handlerCopy;
+    v36 = frame;
+    v37 = formMetadata;
+    v32 = webui_URL;
+    v33 = +[_SFFormDataController sharedController];
+    v17 = substitutionCopy;
+    v50[0] = 0;
+    v50[1] = v50;
+    v50[2] = 0x3032000000;
+    v50[3] = __Block_byref_object_copy__0;
+    v50[4] = __Block_byref_object_dispose__0;
+    v51 = 0;
+    v31 = dispatch_group_create();
+    dispatch_group_enter(v31);
     mEMORY[0x1E69C8898] = [MEMORY[0x1E69C8898] sharedStore];
     currentStrongPassword = self->_currentStrongPassword;
-    v18 = [MEMORY[0x1E695AC58] safari_HTMLFormProtectionSpaceForURL:webui_URL];
+    v20 = [MEMORY[0x1E695AC58] safari_HTMLFormProtectionSpaceForURL:webui_URL];
     webui_privateBrowsingEnabled = [WeakRetained webui_privateBrowsingEnabled];
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __121___SFFormAutoFillController_fillCurrentAutomaticStrongPasswordInCurrentFrameBlurringAfterSubstitution_completionHandler___block_invoke;
-    v45[3] = &unk_1E8491560;
-    v20 = v29;
-    v46 = v20;
-    v28 = v31;
-    v47 = v28;
-    [mEMORY[0x1E69C8898] addGeneratedPassword:currentStrongPassword forProtectionSpace:v18 inPrivateBrowsingSession:webui_privateBrowsingEnabled completionHandler:v45];
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __121___SFFormAutoFillController_fillCurrentAutomaticStrongPasswordInCurrentFrameBlurringAfterSubstitution_completionHandler___block_invoke;
+    v47[3] = &unk_1E8491560;
+    v22 = v31;
+    v48 = v22;
+    v30 = v33;
+    v49 = v30;
+    [mEMORY[0x1E69C8898] addGeneratedPassword:currentStrongPassword forProtectionSpace:v20 inPrivateBrowsingSession:webui_privateBrowsingEnabled completionHandler:v47];
 
-    dispatch_group_enter(v20);
+    dispatch_group_enter(v22);
     autoFiller = self->_autoFiller;
-    uniqueID = [(WBSFormMetadata *)v35 uniqueID];
+    uniqueID = [(WBSFormMetadata *)v37 uniqueID];
     uniqueIDOfFocusedPasswordElementWithAutomaticPassword = self->_uniqueIDOfFocusedPasswordElementWithAutomaticPassword;
     uniqueIDsOfFocusedAndRelatedControls = self->_uniqueIDsOfFocusedAndRelatedControls;
-    v25 = self->_currentStrongPassword;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __121___SFFormAutoFillController_fillCurrentAutomaticStrongPasswordInCurrentFrameBlurringAfterSubstitution_completionHandler___block_invoke_3;
-    v42[3] = &unk_1E8491588;
-    v44 = v48;
-    v42[4] = self;
-    v26 = v20;
-    v43 = v26;
-    frame = v34;
-    [(SFFormAutoFiller *)autoFiller substitutePasswordElementsWithAutomaticPasswordElementsInFrame:v34 formID:uniqueID focusedPasswordControlUniqueID:uniqueIDOfFocusedPasswordElementWithAutomaticPassword passwordControlUniqueIDs:uniqueIDsOfFocusedAndRelatedControls automaticPassword:v25 blurAfterSubstitution:v15 completionHandler:v42];
+    v27 = self->_currentStrongPassword;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __121___SFFormAutoFillController_fillCurrentAutomaticStrongPasswordInCurrentFrameBlurringAfterSubstitution_completionHandler___block_invoke_3;
+    v44[3] = &unk_1E8491588;
+    v46 = v50;
+    v44[4] = self;
+    v28 = v22;
+    v45 = v28;
+    frame = v36;
+    [(SFFormAutoFiller *)autoFiller substitutePasswordElementsWithAutomaticPasswordElementsInFrame:v36 formID:uniqueID focusedPasswordControlUniqueID:uniqueIDOfFocusedPasswordElementWithAutomaticPassword passwordControlUniqueIDs:uniqueIDsOfFocusedAndRelatedControls automaticPassword:v27 blurAfterSubstitution:v17 completionHandler:v44];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __121___SFFormAutoFillController_fillCurrentAutomaticStrongPasswordInCurrentFrameBlurringAfterSubstitution_completionHandler___block_invoke_4;
     block[3] = &unk_1E84915B0;
-    v37 = v34;
+    v39 = v36;
     selfCopy = self;
-    v41 = v48;
-    formMetadata = v35;
-    v39 = v35;
-    handlerCopy = v33;
-    v40 = v33;
-    dispatch_group_notify(v26, MEMORY[0x1E69E96A0], block);
+    v43 = v50;
+    formMetadata = v37;
+    v41 = v37;
+    handlerCopy = v35;
+    v42 = v35;
+    dispatch_group_notify(v28, MEMORY[0x1E69E96A0], block);
 
-    _Block_object_dispose(v48, 8);
-    v10 = v32;
-    webui_URL = v30;
+    _Block_object_dispose(v50, 8);
+    v10 = v34;
+    webui_URL = v32;
   }
 
   else
   {
-    v27 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = WBS_LOG_CHANNEL_PREFIXAutoFill(v15, v16);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      [_SFFormAutoFillController fillCurrentAutomaticStrongPasswordInCurrentFrameBlurringAfterSubstitution:v27 completionHandler:?];
+      [_SFFormAutoFillController fillCurrentAutomaticStrongPasswordInCurrentFrameBlurringAfterSubstitution:v29 completionHandler:?];
     }
   }
 }
@@ -2609,21 +2613,22 @@ LABEL_17:
 
 - (id)_customInputViewFromAutoFillInputSession
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   formInputSession = [(_SFFormAutoFillInputSession *)self->_inputSessionForAutomaticPasswords formInputSession];
   customInputView = [formInputSession customInputView];
 
   if (customInputView)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = WBS_LOG_CHANNEL_PREFIXAutoFill(isKindOfClass, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v5 = objc_opt_class();
-        v6 = NSStringFromClass(v5);
-        [(_SFFormAutoFillController *)v6 _customInputViewFromAutoFillInputSession];
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
+        [(_SFFormAutoFillController *)v8 _customInputViewFromAutoFillInputSession];
       }
 
       customInputView = 0;
@@ -2676,19 +2681,20 @@ LABEL_17:
 - (void)_showICloudKeychainViewInCurrentInputView
 {
   _customInputViewFromAutoFillInputSession = [(_SFFormAutoFillController *)self _customInputViewFromAutoFillInputSession];
+  v5 = _customInputViewFromAutoFillInputSession;
   if (_customInputViewFromAutoFillInputSession)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = WBS_LOG_CHANNEL_PREFIXAutoFill(_customInputViewFromAutoFillInputSession, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_DEFAULT, "Transitioning to iCloud Keychain view", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "Transitioning to iCloud Keychain view", v8, 2u);
     }
 
-    v5 = [objc_alloc(MEMORY[0x1E69BC7D8]) initWithMode:3];
-    [v5 setDelegate:self];
-    [_customInputViewFromAutoFillInputSession replaceContentsOfViewWithStrongPasswordIntroductionViewController:v5];
-    objc_storeStrong(&self->_strongPasswordIntroductionViewController, v5);
+    v7 = [objc_alloc(MEMORY[0x1E69BC7D8]) initWithMode:3];
+    [v7 setDelegate:self];
+    [v5 replaceContentsOfViewWithStrongPasswordIntroductionViewController:v7];
+    objc_storeStrong(&self->_strongPasswordIntroductionViewController, v7);
     [(_SFFormAutoFillController *)self hideInputAccessoryView];
   }
 }
@@ -2785,23 +2791,23 @@ LABEL_6:
       else
       {
         mEMORY[0x1E69C89C0] = [MEMORY[0x1E69C89C0] sharedNotificationManager];
-        v10[0] = MEMORY[0x1E69E9820];
-        v10[1] = 3221225472;
-        v10[2] = __83___SFFormAutoFillController_handleDidSaveAccountWithGeneratedPasswordNotification___block_invoke;
-        v10[3] = &unk_1E8491850;
-        v10[4] = self;
-        v11 = v7;
-        [mEMORY[0x1E69C89C0] requestStatusWithCompletionHandler:v10];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __83___SFFormAutoFillController_handleDidSaveAccountWithGeneratedPasswordNotification___block_invoke;
+        v12[3] = &unk_1E8491850;
+        v12[4] = self;
+        v13 = v7;
+        [mEMORY[0x1E69C89C0] requestStatusWithCompletionHandler:v12];
       }
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "No account saved; dismissing keyboard", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "No account saved; dismissing keyboard", buf, 2u);
       }
 
       [(_SFFormAutoFillController *)self _dismissKeyboardAndSimulateCarriageReturnKeyEvents:0];
@@ -2812,21 +2818,22 @@ LABEL_6:
 - (void)handleDidUpdatePasswordForPreviouslySavedAccount:(id)account
 {
   accountCopy = account;
+  v6 = accountCopy;
   if (__PAIR64__(self->_didPostAccountSavedNotificationForAccountSavedWithFilledStrongPassword, self->_didFillStrongPasswordFromStreamlinedAutoFillView) == 0x100000001)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill(accountCopy, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_DEFAULT, "Scheduling password updated notification", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Scheduling password updated notification", v11, 2u);
     }
 
-    userInfo = [accountCopy userInfo];
-    v7 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69E30D8]];
+    userInfo = [v6 userInfo];
+    v9 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69E30D8]];
 
-    objc_storeStrong(&self->_recentlySavedAccountFromStreamlinedAutoFill, v7);
+    objc_storeStrong(&self->_recentlySavedAccountFromStreamlinedAutoFill, v9);
     mEMORY[0x1E69C89C0] = [MEMORY[0x1E69C89C0] sharedNotificationManager];
-    [mEMORY[0x1E69C89C0] schedulePasswordUpdatedNotificationForSavedAccount:v7 completionHandler:&__block_literal_global_295];
+    [mEMORY[0x1E69C89C0] schedulePasswordUpdatedNotificationForSavedAccount:v9 completionHandler:&__block_literal_global_295];
   }
 }
 

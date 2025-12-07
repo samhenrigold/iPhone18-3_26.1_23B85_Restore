@@ -58,24 +58,22 @@ uint64_t __37__NACEndpointObserver_sharedObserver__block_invoke()
 
 void __49__NACEndpointObserver_invalidateDiscoverySession__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 16))
   {
     v2 = NMLogForCategory(4);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(*(a1 + 32) + 16);
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_25AEBF000, v2, OS_LOG_TYPE_DEFAULT, "[NACEndpointObserver] Invalidating session %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_25AEBF000, v2, OS_LOG_TYPE_DEFAULT, "[NACEndpointObserver] Invalidating session %@", &v6, 0xCu);
     }
 
     v4 = *(a1 + 32);
     v5 = *(v4 + 16);
     *(v4 + 16) = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchRouteForOriginIdentifier:(id)identifier completion:(id)completion
@@ -97,7 +95,7 @@ void __49__NACEndpointObserver_invalidateDiscoverySession__block_invoke(uint64_t
 
 uint64_t __64__NACEndpointObserver_fetchRouteForOriginIdentifier_completion___block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1[4] + 16);
   if (!v2)
   {
@@ -110,17 +108,15 @@ uint64_t __64__NACEndpointObserver_fetchRouteForOriginIdentifier_completion___bl
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1[4] + 16);
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_25AEBF000, v6, OS_LOG_TYPE_DEFAULT, "[NACEndpointObserver] Starting a new discovery session %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_25AEBF000, v6, OS_LOG_TYPE_DEFAULT, "[NACEndpointObserver] Starting a new discovery session %@", &v9, 0xCu);
     }
 
     v2 = *(a1[4] + 16);
   }
 
-  result = [v2 fetchRouteForOriginIdentifier:a1[5] completion:a1[6]];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v2 fetchRouteForOriginIdentifier:a1[5] completion:a1[6]];
 }
 
 @end

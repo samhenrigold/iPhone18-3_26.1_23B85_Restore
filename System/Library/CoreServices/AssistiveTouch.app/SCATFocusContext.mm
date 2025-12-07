@@ -166,7 +166,7 @@
     else
     {
       v14 = +[NSThread callStackSymbols];
-      _AXLogWithFacility();
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"unable to make focusContext, element:(%@) or manager:(%@) was nil. %@");
 
       v12 = 0;
     }

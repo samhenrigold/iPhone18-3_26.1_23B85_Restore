@@ -18,10 +18,9 @@
 
 - (id)getAddressStringForDevice:(BTDeviceImpl *)device
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   BTDeviceGetAddressString();
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", v6];
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", v5];
 
   return v3;
 }

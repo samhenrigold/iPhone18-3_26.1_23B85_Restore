@@ -13,8 +13,8 @@ id NMLogForCategory(uint64_t a1)
 uint64_t __NMLogForCategory_block_invoke()
 {
   v0 = os_log_create("com.apple.nanomusic", "NanoMusicCore");
-  v1 = NMLogForCategory_logObjects;
-  NMLogForCategory_logObjects = v0;
+  v1 = NMLogForCategory_logObjects[0];
+  NMLogForCategory_logObjects[0] = v0;
 
   v2 = os_log_create("com.apple.nanomusic", "NanoMusicCore-Oversize");
   v3 = qword_27FA406F0;

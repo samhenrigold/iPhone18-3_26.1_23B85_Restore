@@ -26,21 +26,19 @@
 
 - (id)infoArray
 {
-  v11[6] = *MEMORY[0x277D85DE8];
+  v10[6] = *MEMORY[0x277D85DE8];
   maxValue = self->_maxValue;
-  v11[0] = self->_name;
+  v10[0] = self->_name;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:maxValue];
-  v11[1] = v4;
+  v10[1] = v4;
   functionName = self->_functionName;
-  v11[2] = self->_counterDescription;
-  v11[3] = functionName;
+  v10[2] = self->_counterDescription;
+  v10[3] = functionName;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_multiplier];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_groupIndex];
-  v11[5] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[5] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:6];
 
   return v8;
 }

@@ -6,7 +6,7 @@
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   uncanonicalizedPath = self->uncanonicalizedPath;
   if (uncanonicalizedPath)
   {
@@ -19,10 +19,9 @@
     CFRelease(cloudPath);
   }
 
-  v6.receiver = self;
-  v6.super_class = CFPDSourceLookUpKey;
-  [(CFPDSourceLookUpKey *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = CFPDSourceLookUpKey;
+  [(CFPDSourceLookUpKey *)&v5 dealloc];
 }
 
 @end

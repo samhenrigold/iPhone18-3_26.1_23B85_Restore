@@ -5,6 +5,7 @@
 - (BOOL)eligibleToAdvertise;
 - (BOOL)eligibleToAlwaysAdvertise;
 - (BOOL)isDirty;
+- (BOOL)requestPayloadWithCompletionHandlerEvenIfClean:(BOOL)clean withCompletionHandler:(id)handler;
 - (BOOL)update:(id)update;
 - (BOOL)wasResumedOnAnotherDeviceWithCompletionHandler:(id)handler;
 - (NSString)proxiedBundleIdentifier;
@@ -105,23 +106,7 @@
   uuid = [(UAUserActivityAdvertisableItem *)self uuid];
   v5 = [client isEligibleToAdvertiseWithUUID:uuid];
 
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  expirationDate = [(UAUserActivityAdvertisableItem *)self expirationDate];
-  if (!expirationDate)
-  {
-    goto LABEL_4;
-  }
-
-  v7 = expirationDate;
-  expirationDate2 = [(UAUserActivityAdvertisableItem *)self expirationDate];
-  v9 = +[NSDate date];
-  v10 = [expirationDate2 compare:v9];
-
-  if ((v10 & 0x8000000000000000) != 0)
+  if (v5 && (-[UAUserActivityAdvertisableItem expirationDate](self, "expirationDate"), (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, -[UAUserActivityAdvertisableItem expirationDate](self, "expirationDate"), v8 = objc_claimAutoreleasedReturnValue(), +[NSDate date](NSDate, "date"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v8 compare:v9], v9, v8, v7, (v10 & 0x8000000000000000) != 0))
   {
     v13 = sub_100001A30(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
@@ -129,13 +114,13 @@
       uuid2 = [(UAUserActivityAdvertisableItem *)self uuid];
       uUIDString = [uuid2 UUIDString];
       statusString = [(UAAdvertisableItem *)self statusString];
-      expirationDate3 = [(UAUserActivityAdvertisableItem *)self expirationDate];
+      expirationDate = [(UAUserActivityAdvertisableItem *)self expirationDate];
       v18 = 138543875;
       v19 = uUIDString;
       v20 = 2113;
       v21 = statusString;
       v22 = 2114;
-      v23 = expirationDate3;
+      v23 = expirationDate;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "-- item %{public}@/%{private}@ not eligible, because it has expired (on %{public}@)", &v18, 0x20u);
     }
 
@@ -144,7 +129,6 @@
 
   else
   {
-LABEL_4:
     v11 = [(UAUserActivityAdvertisableItem *)self eligibleToAlwaysAdvertise]| v5;
   }
 
@@ -247,8 +231,8 @@ LABEL_4:
   if (client)
   {
     client2 = [(UAUserActivityAdvertisableItem *)self client];
-    auditToken = [client2 auditToken];
-    v7 = [auditToken pid];
+    v6 = objc_msgSend_auditToken(client2);
+    v7 = [v6 pid];
     activityType = [(UAUserActivityAdvertisableItem *)self activityType];
     dynamicActivityType = [(UAUserActivityAdvertisableItem *)self dynamicActivityType];
     v10 = dynamicActivityType;
@@ -265,7 +249,7 @@ LABEL_4:
   {
     client2 = [(UAUserActivityAdvertisableItem *)self activityType];
     dynamicActivityType2 = [(UAUserActivityAdvertisableItem *)self dynamicActivityType];
-    auditToken = dynamicActivityType2;
+    v6 = dynamicActivityType2;
     v14 = &stru_1000C67D0;
     if (dynamicActivityType2)
     {
@@ -325,6 +309,40 @@ LABEL_4:
   return v5;
 }
 
+- (BOOL)requestPayloadWithCompletionHandlerEvenIfClean:(BOOL)clean withCompletionHandler:(id)handler
+{
+  cleanCopy = clean;
+  handlerCopy = handler;
+  v7 = sub_100001A30(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    uuid = [(UAUserActivityAdvertisableItem *)self uuid];
+    uUIDString = [uuid UUIDString];
+    client = [(UAUserActivityAdvertisableItem *)self client];
+    v11 = objc_msgSend_auditToken(client);
+    v17 = 138543618;
+    v18 = uUIDString;
+    v19 = 2114;
+    v20 = v11;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "requestPayload...:, %{public}@ from client application %{public}@", &v17, 0x16u);
+  }
+
+  client2 = [(UAUserActivityAdvertisableItem *)self client];
+  if (client2)
+  {
+    client3 = [(UAUserActivityAdvertisableItem *)self client];
+    uuid2 = [(UAUserActivityAdvertisableItem *)self uuid];
+    v15 = [client3 askSourceProcessToUpdateActivityWithUUID:uuid2 evenIfClean:cleanCopy completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
+}
+
 - (BOOL)wasResumedOnAnotherDeviceWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -334,11 +352,11 @@ LABEL_4:
     uuid = [(UAUserActivityAdvertisableItem *)self uuid];
     uUIDString = [uuid UUIDString];
     client = [(UAUserActivityAdvertisableItem *)self client];
-    auditToken = [client auditToken];
+    v9 = objc_msgSend_auditToken(client);
     v15 = 138543618;
     v16 = uUIDString;
     v17 = 2048;
-    v18 = [auditToken pid];
+    v18 = [v9 pid];
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "wasResumedOnAnotherDevice, %{public}@ to client pid=%ld", &v15, 0x16u);
   }
 

@@ -11,9 +11,9 @@
     +[RMLog(configurationMultipleApplicator) configurationMultipleApplicator];
   }
 
-  v1 = configurationMultipleApplicator_result;
+  v2 = configurationMultipleApplicator_result;
 
-  return v1;
+  return v2;
 }
 
 @end

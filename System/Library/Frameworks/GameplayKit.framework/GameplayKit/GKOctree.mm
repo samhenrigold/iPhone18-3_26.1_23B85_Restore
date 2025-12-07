@@ -1,4 +1,5 @@
 @interface GKOctree
++ (GKOctree)octreeWithBoundingBox:(GKBox *)box minimumCellSize:(float)minCellSize;
 - (BOOL)removeElement:(id)element withNode:(GKOctreeNode *)node;
 - (GKOctree)initWithBoundingBox:(GKBox *)box minimumCellSize:(float)minCellSize;
 - (GKOctreeNode)addElement:(id)element withBox:(GKBox *)box;
@@ -9,6 +10,18 @@
 @end
 
 @implementation GKOctree
+
++ (GKOctree)octreeWithBoundingBox:(GKBox *)box minimumCellSize:(float)minCellSize
+{
+  v6 = v5;
+  v11 = *&minCellSize;
+  v12 = v4;
+  v7 = [GKOctree alloc];
+  LODWORD(v8) = v6;
+  v9 = [(GKOctree *)v7 initWithBoundingBox:v11 minimumCellSize:v12, v8];
+
+  return v9;
+}
 
 - (GKOctree)initWithBoundingBox:(GKBox *)box minimumCellSize:(float)minCellSize
 {
@@ -51,38 +64,37 @@
 
 - (NSArray)elementsAtPoint:(vector_float3)point
 {
-  v27 = v3;
+  v26 = v3;
   __p = 0;
+  v28 = 0;
   v29 = 0;
-  v30 = 0;
   array = [MEMORY[0x277CBEB18] array];
   v6 = *(self->_cOctree + 1);
   v7 = *(v6 + 96);
   if (COERCE_FLOAT(*(v6 + 48)) < v7 || COERCE_FLOAT(HIDWORD(*(v6 + 48))) < v7 || COERCE_FLOAT(*(v6 + 56)) < v7)
   {
 LABEL_26:
-    v18 = *(v6 + 176);
-    v19 = *(v6 + 184);
-    v20 = *(v6 + 176);
-    if (v19 != v20)
+    v18 = *(v6 + 184);
+    v19 = *(v6 + 176);
+    if (v18 != v19)
     {
-      std::vector<NSObject * {__strong}>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NSObject * const {__strong}*>,NSObject * const {__strong}*>(&__p, 0, v20, v19, v19 - v20);
-      v21 = __p;
-      if (__p != v29)
+      std::vector<NSObject * {__strong}>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NSObject * const {__strong}*>,NSObject * const {__strong}*>(&__p, 0, v19, v18, v18 - v19);
+      v20 = __p;
+      if (__p != v28)
       {
         do
         {
-          [array addObject:*v21++];
+          [array addObject:*v20++];
         }
 
-        while (v21 != v29);
+        while (v20 != v28);
       }
     }
   }
 
   else
   {
-    v10 = vext_s8(*v27.i8, *&vextq_s8(v27, v27, 8uLL), 4uLL);
+    v10 = vext_s8(*v26.i8, *&vextq_s8(v26, v26, 8uLL), 4uLL);
     while (1)
     {
       v11 = *(v6 + 80);
@@ -97,7 +109,7 @@ LABEL_26:
         v13 = 0;
       }
 
-      if (*v27.i32 >= *v11.i32)
+      if (*v26.i32 >= *v11.i32)
       {
         ++v13;
       }
@@ -117,24 +129,24 @@ LABEL_26:
     }
   }
 
-  v22 = __p;
+  v21 = __p;
   if (__p)
   {
-    v23 = v29;
-    v24 = __p;
-    if (v29 != __p)
+    v22 = v28;
+    v23 = __p;
+    if (v28 != __p)
     {
       do
       {
-        v25 = *--v23;
+        v24 = *--v22;
       }
 
-      while (v23 != v22);
-      v24 = __p;
+      while (v22 != v21);
+      v23 = __p;
     }
 
-    v29 = v22;
-    operator delete(v24);
+    v28 = v21;
+    operator delete(v23);
   }
 
   return array;

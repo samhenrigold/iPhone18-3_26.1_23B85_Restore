@@ -89,8 +89,8 @@ LABEL_21:
   }
 
   v18 = [HFUserNameFormatter alloc];
-  home = [optionsCopy home];
-  v20 = [(HFUserNameFormatter *)v18 initWithHome:home];
+  v19 = objc_msgSend_home(optionsCopy);
+  v20 = [(HFUserNameFormatter *)v18 initWithHome:v19];
 
   [(HFUserNameFormatter *)v20 setStyle:1];
   users3 = [presenceEvent users];
@@ -100,10 +100,10 @@ LABEL_21:
   {
     v36 = [(__CFString *)v12 stringByAppendingString:@"_oneUserFormat"];
 
-    home2 = [optionsCopy home];
+    v23 = objc_msgSend_home(optionsCopy);
     users4 = [presenceEvent users];
     firstObject = [users4 firstObject];
-    v26 = [home2 hf_handleForUser:firstObject];
+    v26 = [v23 hf_handleForUser:firstObject];
 
     type = [(HFUserNameFormatter *)v20 stringForObjectValue:v26];
 

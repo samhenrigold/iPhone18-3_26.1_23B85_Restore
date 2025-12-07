@@ -9,39 +9,39 @@
 + (id)createWithViewModel:(id)model
 {
   swift_getObjCClassMetadata();
-  MEMORY[0x1E69E5928](model);
+  MEMORY[0x1E69E5928](model, v3);
   swift_getObjCClassMetadata();
-  v5 = sub_1C5418FC8(model);
+  v6 = sub_1C5418FC8(model);
   MEMORY[0x1E69E5920](model);
 
-  return v5;
+  return v6;
 }
 
 + (id)createViewModelWithAccountManager:(id)manager
 {
   swift_getObjCClassMetadata();
-  MEMORY[0x1E69E5928](manager);
+  MEMORY[0x1E69E5928](manager, v3);
   swift_getObjCClassMetadata();
-  v5 = sub_1C54195EC(manager);
+  v6 = sub_1C54195EC(manager);
   MEMORY[0x1E69E5920](manager);
 
-  return v5;
+  return v6;
 }
 
 + (id)createViewModelWithAccountManager:(id)manager telemetryFlowID:(id)d
 {
   swift_getObjCClassMetadata();
-  MEMORY[0x1E69E5928](manager);
-  MEMORY[0x1E69E5928](d);
-  v6 = sub_1C5596574();
-  v7 = v4;
+  MEMORY[0x1E69E5928](manager, v4);
+  MEMORY[0x1E69E5928](d, v5);
+  v8 = sub_1C5596574();
+  v9 = v6;
   swift_getObjCClassMetadata();
-  v10 = sub_1C5419708(manager, v6, v7);
+  v12 = sub_1C5419708(manager, v8, v9);
 
   MEMORY[0x1E69E5920](d);
   MEMORY[0x1E69E5920](manager);
 
-  return v10;
+  return v12;
 }
 
 @end

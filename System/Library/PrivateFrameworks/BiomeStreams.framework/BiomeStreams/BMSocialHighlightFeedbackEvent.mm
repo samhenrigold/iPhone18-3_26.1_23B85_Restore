@@ -6,6 +6,7 @@
 - (id)encodeAsProto;
 - (id)proto;
 - (int)_protoFeedbackType;
+- (unint64_t)_feedbackTypeForProtoType:(int)type;
 @end
 
 @implementation BMSocialHighlightFeedbackEvent
@@ -25,6 +26,23 @@
   }
 
   return feedbackType;
+}
+
+- (unint64_t)_feedbackTypeForProtoType:(int)type
+{
+  v3 = *&type;
+  if (type < 0xB)
+  {
+    return type;
+  }
+
+  v5 = __biome_log_for_category();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    [BMSocialHighlightFeedbackEvent _feedbackTypeForProtoType:v3];
+  }
+
+  return 11;
 }
 
 - (BMSocialHighlightFeedbackEvent)initWithClientIdentifier:(id)identifier feedbackType:(unint64_t)type feedbackCreationDate:(id)date highlight:(id)highlight clientVariant:(id)variant

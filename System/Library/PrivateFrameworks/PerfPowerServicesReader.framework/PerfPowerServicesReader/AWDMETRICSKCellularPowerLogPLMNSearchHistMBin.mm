@@ -1,5 +1,6 @@
 @interface AWDMETRICSKCellularPowerLogPLMNSearchHistMBin
 - (BOOL)isEqual:(id)equal;
+- (id)binIdAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -26,6 +27,21 @@
   {
     return 0;
   }
+}
+
+- (id)binIdAsString:(int)string
+{
+  if (string >= 0x25)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A0FCB8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBinId:(id)id
@@ -309,12 +325,11 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    binId = self->_binId;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -333,15 +348,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    searchDurationBinIndex = self->_searchDurationBinIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

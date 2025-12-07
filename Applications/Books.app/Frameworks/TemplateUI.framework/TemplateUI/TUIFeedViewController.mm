@@ -146,96 +146,97 @@
   contentCopy = content;
   managerCopy = manager;
   factoryCopy = factory;
-  v41.receiver = self;
-  v41.super_class = TUIFeedViewController;
-  v12 = [(TUIFeedViewController *)&v41 initWithNibName:0 bundle:0];
+  v42.receiver = self;
+  v42.super_class = TUIFeedViewController;
+  v12 = [(TUIFeedViewController *)&v42 initWithNibName:0 bundle:0];
   if (v12)
   {
-    *(v12 + 20) = TUIFeedIdentifierGenerate();
-    v13 = TUIDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v13 = TUIFeedIdentifierGenerate();
+    *(v12 + 20) = v13;
+    v14 = TUIDefaultLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = *(v12 + 20);
+      v15 = *(v12 + 20);
       *buf = 134218242;
-      v43 = v14;
-      v44 = 2112;
-      v45 = v12;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "[fid:%lu] created view controller %@", buf, 0x16u);
+      v44 = v15;
+      v45 = 2112;
+      v46 = v12;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "[fid:%lu] created view controller %@", buf, 0x16u);
     }
 
     *(v12 + 2) = 0;
     objc_storeStrong(v12 + 15, content);
     v12[27] = contentCopy != 0;
     currentStackName = [*(v12 + 15) currentStackName];
-    v16 = [currentStackName instanceForObserver:v12];
-    v17 = *(v12 + 48);
-    *(v12 + 48) = v16;
+    v17 = [currentStackName instanceForObserver:v12];
+    v18 = *(v12 + 48);
+    *(v12 + 48) = v17;
 
     *(v12 + 28) = 1061158912;
     *(v12 + 29) = 1048576000;
     v12[106] = 1;
     v12[108] = 1;
-    v18 = +[UIColor systemBackgroundColor];
-    v19 = *(v12 + 36);
-    *(v12 + 36) = v18;
+    v19 = +[UIColor systemBackgroundColor];
+    v20 = *(v12 + 36);
+    *(v12 + 36) = v19;
 
     *(v12 + 38) = 0x3FF0000000000000;
     *(v12 + 37) = 0x3FF0000000000000;
     *(v12 + 40) = 1;
     objc_storeStrong(v12 + 31, manager);
     objc_storeStrong(v12 + 30, factory);
-    v20 = [[TUIFeedLayoutController alloc] initWithFeedId:*(v12 + 20) environment:0 factory:*(v12 + 30) manager:managerCopy renderMode:0];
-    v21 = *(v12 + 59);
-    *(v12 + 59) = v20;
+    v21 = [[TUIFeedLayoutController alloc] initWithFeedId:*(v12 + 20) environment:0 factory:*(v12 + 30) manager:managerCopy renderMode:0];
+    v22 = *(v12 + 59);
+    *(v12 + 59) = v21;
 
-    LODWORD(v22) = *(v12 + 29);
-    [*(v12 + 59) setPriority:v22];
+    LODWORD(v23) = *(v12 + 29);
+    [*(v12 + 59) setPriority:v23];
     [*(v12 + 59) setDelegate:v12];
     [*(v12 + 59) setActionHandlerDelegate:v12];
-    v23 = [[TUIFeedAutoScrollController alloc] initWithDelegate:v12];
-    v24 = *(v12 + 51);
-    *(v12 + 51) = v23;
+    v24 = [[TUIFeedAutoScrollController alloc] initWithDelegate:v12];
+    v25 = *(v12 + 51);
+    *(v12 + 51) = v24;
 
-    v25 = objc_alloc_init(_TUIFeedViewControllerQueueContext);
-    v26 = *(v12 + 52);
-    *(v12 + 52) = v25;
+    v26 = objc_alloc_init(_TUIFeedViewControllerQueueContext);
+    v27 = *(v12 + 52);
+    *(v12 + 52) = v26;
 
-    v27 = [[TUIHostingController alloc] initWithFeedId:*(v12 + 20) delegate:v12 viewController:v12 manager:*(v12 + 31)];
-    v28 = *(v12 + 22);
-    *(v12 + 22) = v27;
+    v28 = [[TUIHostingController alloc] initWithFeedId:*(v12 + 20) delegate:v12 viewController:v12 manager:*(v12 + 31)];
+    v29 = *(v12 + 22);
+    *(v12 + 22) = v28;
 
-    v29 = [TUILinkEntityController alloc];
-    v30 = +[TUIVisibilityController sharedQueue];
-    v31 = [(TUILinkEntityController *)v29 initWithFeedId:*(v12 + 20) queue:v30 viewResolver:v12];
-    v32 = *(v12 + 26);
-    *(v12 + 26) = v31;
+    v30 = [TUILinkEntityController alloc];
+    v31 = +[TUIVisibilityController sharedQueue];
+    v32 = [(TUILinkEntityController *)v30 initWithFeedId:*(v12 + 20) queue:v31 viewResolver:v12];
+    v33 = *(v12 + 26);
+    *(v12 + 26) = v32;
 
     *(v12 + 504) = CGSizeZero;
     *(v12 + 488) = CGPointZero;
     [v12 _setupControllers];
-    v33 = +[NSUserDefaults standardUserDefaults];
-    LODWORD(v30) = [v33 BOOLForKey:@"TUIRecordStats"];
+    v34 = +[NSUserDefaults standardUserDefaults];
+    LODWORD(v31) = [v34 BOOLForKey:@"TUIRecordStats"];
 
-    if (v30)
+    if (v31)
     {
       [*(v12 + 59) setStatsMode:31];
     }
 
-    v34 = +[NSNotificationCenter defaultCenter];
-    [v34 addObserver:v12 selector:"setNeedsEnvironmentUpdate" name:kAXSApplicationAccessibilityEnabledNotification object:0];
-    [v34 addObserver:v12 selector:"_applicationWillEnterForegroundNotification:" name:UIApplicationWillEnterForegroundNotification object:0];
-    [v34 addObserver:v12 selector:"setNeedsEnvironmentUpdate" name:NSCurrentLocaleDidChangeNotification object:0];
-    v35 = +[NSUserDefaults standardUserDefaults];
-    [v35 addObserver:v12 forKeyPath:@"TUIForceFallbackFont" options:0 context:off_2E4400];
+    v35 = +[NSNotificationCenter defaultCenter];
+    [v35 addObserver:v12 selector:"setNeedsEnvironmentUpdate" name:kAXSApplicationAccessibilityEnabledNotification object:0];
+    [v35 addObserver:v12 selector:"_applicationWillEnterForegroundNotification:" name:UIApplicationWillEnterForegroundNotification object:0];
+    [v35 addObserver:v12 selector:"setNeedsEnvironmentUpdate" name:NSCurrentLocaleDidChangeNotification object:0];
+    v36 = +[NSUserDefaults standardUserDefaults];
+    [v36 addObserver:v12 forKeyPath:@"TUIForceFallbackFont" options:0 context:off_2E4400];
 
-    v36 = objc_alloc_init(TUIRenderReferenceOverrideProvider);
-    v37 = *(v12 + 21);
-    *(v12 + 21) = v36;
+    v37 = objc_alloc_init(TUIRenderReferenceOverrideProvider);
+    v38 = *(v12 + 21);
+    *(v12 + 21) = v37;
 
     [*(v12 + 21) setDelegate:v12];
     [v12 setContainmentSupport:1];
-    v38 = +[UITraitCollection tui_allAPITraits];
-    v39 = [v12 registerForTraitChanges:v38 withTarget:v12 action:"tui_traitCollectionDidChange:previousTraitCollection:"];
+    v39 = +[UITraitCollection tui_allAPITraits];
+    v40 = [v12 registerForTraitChanges:v39 withTarget:v12 action:"tui_traitCollectionDidChange:previousTraitCollection:"];
   }
 
   return v12;
@@ -948,22 +949,27 @@ LABEL_10:
   [(TUIRenderReferenceOverrideProvider *)self->_renderOverrideProvider beginLayout];
   [(TUIFeedViewController *)self _updateHeightLayoutConditions];
   _didSizeChangeComparedToEnvironment = [(TUIFeedViewController *)self _didSizeChangeComparedToEnvironment];
-  if (!self->_auxiliaryRenderModel && ![(TUIFeedViewController *)self avoidSyncTransactionInViewWillAppear])
+  v4 = _didSizeChangeComparedToEnvironment;
+  if (!self->_auxiliaryRenderModel)
   {
-    content = [(TUIFeedViewController *)self content];
-    if (content)
+    _didSizeChangeComparedToEnvironment = [(TUIFeedViewController *)self avoidSyncTransactionInViewWillAppear];
+    if ((_didSizeChangeComparedToEnvironment & 1) == 0)
     {
-      needUpdate = self->_pendingViewAppearingTransition.needUpdate;
-
-      if (needUpdate)
+      _didSizeChangeComparedToEnvironment = [(TUIFeedViewController *)self content];
+      if (_didSizeChangeComparedToEnvironment)
       {
-        [TUIFeedViewController _createSyncTransactionIfNeededAnimated:"_createSyncTransactionIfNeededAnimated:duration:timingParameters:timeout:isLayingOutFeed:ignoreWindow:flags:" duration:self->_pendingViewAppearingTransition.duration > 0.0 timingParameters:0 timeout:0 isLayingOutFeed:1 ignoreWindow:4 flags:?];
+        needUpdate = self->_pendingViewAppearingTransition.needUpdate;
+
+        if (needUpdate)
+        {
+          _didSizeChangeComparedToEnvironment = [TUIFeedViewController _createSyncTransactionIfNeededAnimated:"_createSyncTransactionIfNeededAnimated:duration:timingParameters:timeout:isLayingOutFeed:ignoreWindow:flags:" duration:self->_pendingViewAppearingTransition.duration > 0.0 timingParameters:0 timeout:0 isLayingOutFeed:1 ignoreWindow:4 flags:?];
+        }
       }
     }
   }
 
   self->_pendingViewAppearingTransition.needUpdate = 0;
-  if (_didSizeChangeComparedToEnvironment)
+  if (v4)
   {
     viewIfLoaded = [(TUIFeedViewController *)self viewIfLoaded];
     window = [viewIfLoaded window];
@@ -981,22 +987,22 @@ LABEL_10:
       }
     }
 
-    content2 = [(TUIFeedViewController *)self content];
-    if (content2)
+    _didSizeChangeComparedToEnvironment = [(TUIFeedViewController *)self content];
+    if (_didSizeChangeComparedToEnvironment)
     {
-      v9 = content2;
+      v8 = _didSizeChangeComparedToEnvironment;
       viewIfLoaded2 = [(TUIFeedViewController *)self viewIfLoaded];
       window2 = [viewIfLoaded2 window];
-      v12 = window2;
+      v11 = window2;
       if (window2 && !self->_auxiliaryRenderModel)
       {
         +[UIView inheritedAnimationDuration];
-        v23 = v22;
+        v22 = v21;
 
-        if (v23 == 0.0)
+        if (v22 == 0.0)
         {
           self->_needsVisibleStateUpdate = 1;
-          [(TUIFeedViewController *)self _createSyncTransactionIfNeededAnimated:0 duration:0 timingParameters:1 timeout:0 isLayingOutFeed:4 ignoreWindow:0.0 flags:*&self->_feedBackgroundColor];
+          _didSizeChangeComparedToEnvironment = [(TUIFeedViewController *)self _createSyncTransactionIfNeededAnimated:0 duration:0 timingParameters:1 timeout:0 isLayingOutFeed:4 ignoreWindow:0.0 flags:*&self->_feedBackgroundColor];
         }
       }
 
@@ -1006,29 +1012,29 @@ LABEL_10:
     }
   }
 
-  if (self->_auxiliaryRenderModel || (*&self->_flags & 1) != 0 || (self->_environment == 0) | _didSizeChangeComparedToEnvironment & 1)
+  if (self->_auxiliaryRenderModel || (*&self->_flags & 1) != 0 || (self->_environment == 0) | v4 & 1)
   {
-    v13 = TUILayoutLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = TUILayoutLog(_didSizeChangeComparedToEnvironment);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       visibilityController = self->_visibilityController;
-      v15 = self->_auxiliaryRenderModel != 0;
-      v16 = *&self->_flags & 1;
-      v17 = self->_environment != 0;
+      v14 = self->_auxiliaryRenderModel != 0;
+      v15 = *&self->_flags & 1;
+      v16 = self->_environment != 0;
       feedView = self->_feedView;
       *buf = 134219266;
-      v27 = visibilityController;
-      v28 = 2048;
-      v29 = v15;
-      v30 = 2048;
-      v31 = v16;
-      v32 = 2048;
-      v33 = v17;
-      v34 = 2048;
-      v35 = _didSizeChangeComparedToEnvironment;
-      v36 = 2112;
-      v37 = feedView;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "[fid:%lu] viewWillLayoutSubviews start sync layout: wasSync=%ld, force=%ld, hasEnv=%ld, changedSize=%ld, FeedLayoutController=%@", buf, 0x3Eu);
+      v26 = visibilityController;
+      v27 = 2048;
+      v28 = v14;
+      v29 = 2048;
+      v30 = v15;
+      v31 = 2048;
+      v32 = v16;
+      v33 = 2048;
+      v34 = v4;
+      v35 = 2112;
+      v36 = feedView;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "[fid:%lu] viewWillLayoutSubviews start sync layout: wasSync=%ld, force=%ld, hasEnv=%ld, changedSize=%ld, FeedLayoutController=%@", buf, 0x3Eu);
     }
 
     [(TUIFeedViewController *)self _layoutFeedIgnoringWindow:self->_auxiliaryRenderModel != 0];
@@ -1036,25 +1042,25 @@ LABEL_10:
 
   else
   {
-    v19 = TUILayoutLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = TUILayoutLog(_didSizeChangeComparedToEnvironment);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = self->_visibilityController;
-      v21 = self->_feedView;
+      v19 = self->_visibilityController;
+      v20 = self->_feedView;
       *buf = 134218242;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v21;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "[fid:%lu] viewWillLayoutSubviews start async layout: FeedLayoutController=%@", buf, 0x16u);
+      v26 = v19;
+      v27 = 2112;
+      v28 = v20;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "[fid:%lu] viewWillLayoutSubviews start async layout: FeedLayoutController=%@", buf, 0x16u);
     }
 
     [(TUIFeedViewController *)self layoutIfNeeded];
   }
 
   *&self->_flags &= ~1u;
-  v25.receiver = self;
-  v25.super_class = TUIFeedViewController;
-  [(TUIFeedViewController *)&v25 viewWillLayoutSubviews];
+  v24.receiver = self;
+  v24.super_class = TUIFeedViewController;
+  [(TUIFeedViewController *)&v24 viewWillLayoutSubviews];
 }
 
 - (void)viewDidLayoutSubviews
@@ -1167,16 +1173,16 @@ LABEL_10:
         [view setNeedsLayout];
       }
 
-      v26 = TUITransactionLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v27 = TUITransactionLog(v25);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         visibilityController = self->_visibilityController;
-        v28 = [(TUIRenderModelAuxiliary *)self->_auxiliaryRenderModel tx];
-        v29 = 134218242;
-        v30 = visibilityController;
-        v31 = 2114;
-        v32 = v28;
-        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_INFO, "[fid:%lu] _createSyncTransactionIfNeededAnimated:... syncTransaction=%{public}@", &v29, 0x16u);
+        v29 = [(TUIRenderModelAuxiliary *)self->_auxiliaryRenderModel tx];
+        v30 = 134218242;
+        v31 = visibilityController;
+        v32 = 2114;
+        v33 = v29;
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "[fid:%lu] _createSyncTransactionIfNeededAnimated:... syncTransaction=%{public}@", &v30, 0x16u);
       }
     }
   }
@@ -1204,8 +1210,7 @@ LABEL_10:
       auxiliaryRenderModel = self->_auxiliaryRenderModel;
       self->_auxiliaryRenderModel = 0;
 
-      [(TUIRenderModelAuxiliary *)v8 commit];
-      v10 = TUITransactionLog();
+      v10 = TUITransactionLog([(TUIRenderModelAuxiliary *)v8 commit]);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         visibilityController = self->_visibilityController;
@@ -1586,7 +1591,7 @@ LABEL_6:
   }
 
   v24 = auxiliaryRenderModel;
-  v25 = TUITransactionLog();
+  v25 = TUITransactionLog(v24);
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     visibilityController = self->_visibilityController;
@@ -1805,7 +1810,7 @@ LABEL_11:
 {
   if (self->_auxiliaryRenderModel)
   {
-    v4 = TUIDefaultLog();
+    v4 = TUIDefaultLog(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_19B87C(self, v4);
@@ -1864,7 +1869,7 @@ LABEL_11:
 - (void)suspendAndTeardownForReason:(id)reason
 {
   reasonCopy = reason;
-  v5 = TUIDefaultLog();
+  v5 = TUIDefaultLog(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     visibilityController = self->_visibilityController;
@@ -1908,7 +1913,7 @@ LABEL_11:
 - (id)resumeAndRebuildForReason:(id)reason
 {
   reasonCopy = reason;
-  v5 = TUIDefaultLog();
+  v5 = TUIDefaultLog(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     visibilityController = self->_visibilityController;
@@ -2432,7 +2437,7 @@ LABEL_14:
 {
   actionCopy = action;
   argumentsCopy = arguments;
-  v8 = TUIDefaultLog();
+  v8 = TUIDefaultLog(argumentsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     visibilityController = self->_visibilityController;
@@ -2502,7 +2507,7 @@ LABEL_14:
   updateCopy = update;
   completionCopy = completion;
   controllerCopy = controller;
-  v11 = TUIViewUpdateLog();
+  v11 = TUIViewUpdateLog(controllerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_19B900(self, updateCopy, v11);
@@ -2950,8 +2955,8 @@ LABEL_29:
   firstObject = [accessibilityElements2 firstObject];
   v57 = TUIDynamicCast(v53, firstObject);
 
-  children = [(TUIAXElement *)selfCopy->_topLevelAXElement children];
-  if ([children count])
+  v58 = objc_msgSend_children(selfCopy->_topLevelAXElement);
+  if ([v58 count])
   {
     v59 = selfCopy->_topLevelAXElement;
 
@@ -3098,39 +3103,39 @@ LABEL_29:
 - (id)waitForVisibleImageResourcesToLoadAssertionWithTimeout:(double)timeout completion:(id)completion
 {
   completionCopy = completion;
-  v7 = TUISignpostFeedViewController();
+  v7 = TUISignpostFeedViewController(completionCopy);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = TUISignpostFeedViewController();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = TUISignpostFeedViewController(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "waitForVisibleImageResources", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "waitForVisibleImageResources", "", buf, 2u);
   }
 
   [(TUISyncLayoutController *)self->_syncLayoutController saveViewStateForVisibleViews];
-  v11 = +[_TUIRunLoopWaiter sharedInstance];
+  v12 = +[_TUIRunLoopWaiter sharedInstance];
   userInteractiveCallbackQueue = [(TUIFeedAutoScrollController *)self->_autoScrollController userInteractiveCallbackQueue];
-  v13 = [v11 notReadyAssertionWithTimeout:userInteractiveCallbackQueue queue:timeout];
+  v14 = [v12 notReadyAssertionWithTimeout:userInteractiveCallbackQueue queue:timeout];
 
-  v14 = +[_TUIRunLoopWaiter sharedInstance];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_11E298;
-  v20[3] = &unk_261F80;
-  v20[4] = self;
-  v15 = v13;
-  v22 = completionCopy;
-  v23 = v8;
-  v21 = v15;
-  v16 = completionCopy;
-  [v14 addPreCommitBlock:v20];
+  v15 = +[_TUIRunLoopWaiter sharedInstance];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_11E298;
+  v21[3] = &unk_261F80;
+  v21[4] = self;
+  v16 = v14;
+  v23 = completionCopy;
+  v24 = v8;
+  v22 = v16;
+  v17 = completionCopy;
+  [v15 addPreCommitBlock:v21];
 
-  v17 = v22;
-  v18 = v15;
+  v18 = v23;
+  v19 = v16;
 
-  return v15;
+  return v16;
 }
 
 - (void)notifyWhenVisibleImageResourcesAreLoadedWithTimeout:(double)timeout completion:(id)completion
@@ -3323,30 +3328,31 @@ LABEL_16:
   v11 = objc_opt_class();
   v12 = TUIDynamicCast(v11, objectCopy);
 
-  v13 = TUIDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = TUIDefaultLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     visibilityController = self->_visibilityController;
-    v18 = 134218498;
-    v19 = visibilityController;
-    v20 = 2112;
-    v21 = nameCopy;
+    v20 = 134218498;
+    v21 = visibilityController;
     v22 = 2112;
-    v23 = argumentsCopy;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "[fid:%lu] handling action: %@: parameters: %@", &v18, 0x20u);
+    v23 = nameCopy;
+    v24 = 2112;
+    v25 = argumentsCopy;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "[fid:%lu] handling action: %@: parameters: %@", &v20, 0x20u);
   }
 
-  v15 = [v12 handleBehaviorWithName:nameCopy arguments:argumentsCopy];
-  if ((v15 & 1) == 0)
+  v16 = [v12 handleBehaviorWithName:nameCopy arguments:argumentsCopy];
+  v17 = v16;
+  if ((v16 & 1) == 0)
   {
-    v16 = TUIDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = TUIDefaultLog(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_19BA30(self, nameCopy, v16);
+      sub_19BA30(self, nameCopy, v18);
     }
   }
 
-  return v15;
+  return v17;
 }
 
 - (id)dragItemForObject:(id)object withName:(id)name arguments:(id)arguments
@@ -3370,17 +3376,17 @@ LABEL_16:
 - (void)didBeginDraggingView:(id)view
 {
   viewCopy = view;
-  objc_opt_class();
-  v4 = TUIPlatformAncestorOfClass(viewCopy);
-  [v4 suspendReuseOfView:viewCopy];
+  v4 = objc_opt_class();
+  v5 = TUIPlatformAncestorOfClass(viewCopy, v4);
+  [v5 suspendReuseOfView:viewCopy];
 }
 
 - (void)didEndDraggingView:(id)view
 {
   viewCopy = view;
-  objc_opt_class();
-  v4 = TUIPlatformAncestorOfClass(viewCopy);
-  [v4 resumeReuseOfView:viewCopy];
+  v4 = objc_opt_class();
+  v5 = TUIPlatformAncestorOfClass(viewCopy, v4);
+  [v5 resumeReuseOfView:viewCopy];
 }
 
 - (void)performDropWithSession:(id)session actionObject:(id)object behavior:(id)behavior
@@ -3582,61 +3588,62 @@ LABEL_16:
   layerCopy = layer;
   modelCopy = model;
   v8 = objc_opt_class();
-  if (v8 != objc_opt_class())
+  v9 = objc_opt_class();
+  if (v8 != v9)
   {
-    v9 = TUIDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = TUIDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       visibilityController = self->_visibilityController;
       [layerCopy bounds];
-      v36.width = v11;
-      v36.height = v12;
-      v13 = NSStringFromCGSize(v36);
+      v39.width = v14;
+      v39.height = v15;
+      v16 = NSStringFromCGSize(v39);
       content = [(TUIFeedViewController *)self content];
       *buf = 134219010;
-      v27 = visibilityController;
-      v28 = 2114;
-      v29 = layerCopy;
-      v30 = 2114;
-      v31 = v13;
-      v32 = 2114;
-      v33 = modelCopy;
-      v34 = 2114;
-      v35 = content;
-      _os_log_error_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "[fid:%lu] unexpected large layer used: layer=%{public}@ size=%{public}@ renderModel=%{public}@ content=%{public}@", buf, 0x34u);
+      v30 = visibilityController;
+      v31 = 2114;
+      v32 = layerCopy;
+      v33 = 2114;
+      v34 = v16;
+      v35 = 2114;
+      v36 = modelCopy;
+      v37 = 2114;
+      v38 = content;
+      _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "[fid:%lu] unexpected large layer used: layer=%{public}@ size=%{public}@ renderModel=%{public}@ content=%{public}@", buf, 0x34u);
     }
 
-    if (_TUIDeviceHasInternalInstall())
+    if (_TUIDeviceHasInternalInstall(v11, v12))
     {
-      v15 = [NSException alloc];
-      v23 = @"layer";
-      v16 = layerCopy;
+      v18 = [NSException alloc];
+      v26 = @"layer";
+      v19 = layerCopy;
       if (!layerCopy)
-      {
-        v16 = +[NSNull null];
-      }
-
-      v25[0] = v16;
-      v24 = @"renderModel";
-      v17 = modelCopy;
-      if (!modelCopy)
-      {
-        v17 = +[NSNull null];
-      }
-
-      v18 = [(TUIFeedViewController *)self content:v23];
-      v19 = v18;
-      if (!v18)
       {
         v19 = +[NSNull null];
       }
 
-      v25[2] = v19;
-      v20 = [NSDictionary dictionaryWithObjects:v25 forKeys:&v23 count:3];
-      v21 = [v15 initWithName:@"LargeLayer" reason:@"A very large layer was used; this is not expected" userInfo:v20];
-      v22 = v21;
+      v28[0] = v19;
+      v27 = @"renderModel";
+      v20 = modelCopy;
+      if (!modelCopy)
+      {
+        v20 = +[NSNull null];
+      }
 
-      if (!v18)
+      v21 = [(TUIFeedViewController *)self content:v26];
+      v22 = v21;
+      if (!v21)
+      {
+        v22 = +[NSNull null];
+      }
+
+      v28[2] = v22;
+      v23 = [NSDictionary dictionaryWithObjects:v28 forKeys:&v26 count:3];
+      v24 = [v18 initWithName:@"LargeLayer" reason:@"A very large layer was used; this is not expected" userInfo:v23];
+      v25 = v24;
+
+      if (!v21)
       {
       }
 
@@ -3648,7 +3655,7 @@ LABEL_16:
       {
       }
 
-      objc_exception_throw(v21);
+      objc_exception_throw(v24);
     }
   }
 }

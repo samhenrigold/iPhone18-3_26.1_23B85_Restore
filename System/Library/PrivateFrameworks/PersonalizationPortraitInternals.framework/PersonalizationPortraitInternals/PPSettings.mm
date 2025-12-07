@@ -24,7 +24,7 @@
 - (id)trialPathOverrides;
 - (int)registerDisabledBundleIdentifierChangeHandler:(id)handler;
 - (int)registerQueryPlanLoggingChangeHandler:(id)handler;
-- (uint64_t)_invokeChangeHandlersAsync;
+- (void)_invokeChangeHandlersAsync;
 - (void)_purgeRecordsForDisabledBundleIdsAsync;
 - (void)_refreshCloudKitDisabledBundleIds;
 - (void)_refreshDisabledBundleIds;
@@ -45,6 +45,7 @@
 - (void)setEntitiesMappingTrieSha256:(id)sha256;
 - (void)setQueryPlanLoggingEnabled:(BOOL)enabled;
 - (void)setTrialPathOverrideForNamespaceName:(id)name factorName:(id)factorName path:(id)path;
+- (void)setTrialUseDefaultFiles:(BOOL)files;
 - (void)triggerDelayedCloudSyncRewrite;
 @end
 
@@ -64,7 +65,7 @@ void __18__PPSettings_init__block_invoke(uint64_t a1)
 
 - (void)_updateAppConnectionsSettings
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = pp_default_log_handle();
@@ -75,23 +76,21 @@ void __18__PPSettings_init__block_invoke(uint64_t a1)
     }
 
     v3 = self[3];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __43__PPSettings__updateAppConnectionsSettings__block_invoke;
-    v7[3] = &unk_278972568;
-    v7[4] = self;
-    [v3 runWithLockAcquired:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __43__PPSettings__updateAppConnectionsSettings__block_invoke;
+    v6[3] = &unk_278972568;
+    v6[4] = self;
+    [v3 runWithLockAcquired:v6];
     v4 = pp_default_log_handle();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       isAppConnectionsLocationsEnabled = [self isAppConnectionsLocationsEnabled];
       *buf = 67109120;
-      v9 = isAppConnectionsLocationsEnabled;
+      v8 = isAppConnectionsLocationsEnabled;
       _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_INFO, "PPSettings: appConnectionsLocationsEnabled = %d", buf, 8u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__PPSettings__updateAppConnectionsSettings__block_invoke(uint64_t a1, void *a2)
@@ -170,84 +169,84 @@ uint64_t __43__PPSettings__updateAppConnectionsSettings__block_invoke(uint64_t a
 
 void __52__PPSettings__purgeRecordsForDisabledBundleIdsAsync__block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   [(PPSettings *)*(a1 + 32) _refreshDisabledBundleIds];
   v2 = [(PPSettings *)*(a1 + 32) _donationDisabledBundleIds];
   v3 = pp_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v35 = [v2 count];
+    v34 = [v2 count];
     _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEFAULT, "PPSettings triggering purge of records from %lu disabled bundleIds.", buf, 0xCu);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v30;
+    v7 = *v29;
     *&v5 = 138412290;
-    v24 = v5;
+    v23 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * v8);
+        v9 = *(*(&v28 + 1) + 8 * v8);
         v10 = +[PPLocalNamedEntityStore defaultStore];
-        v28 = 0;
-        v11 = [v10 deleteAllNamedEntitiesFromSourcesWithBundleId:v9 deletedCount:0 error:&v28];
-        v12 = v28;
+        v27 = 0;
+        v11 = [v10 deleteAllNamedEntitiesFromSourcesWithBundleId:v9 deletedCount:0 error:&v27];
+        v12 = v27;
 
         if ((v11 & 1) == 0)
         {
           v13 = pp_default_log_handle();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            *buf = v24;
-            v35 = v12;
+            *buf = v23;
+            v34 = v12;
             _os_log_error_impl(&dword_23224A000, v13, OS_LOG_TYPE_ERROR, "PPSettings failed to purge named entity records from disabled bundleId: %@", buf, 0xCu);
           }
         }
 
         v14 = +[PPLocalTopicStore defaultStore];
-        v27 = 0;
-        v15 = [v14 deleteAllTopicsFromSourcesWithBundleId:v9 deletedCount:0 error:&v27];
-        v16 = v27;
+        v26 = 0;
+        v15 = [v14 deleteAllTopicsFromSourcesWithBundleId:v9 deletedCount:0 error:&v26];
+        v16 = v26;
 
         if ((v15 & 1) == 0)
         {
           v17 = pp_default_log_handle();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            *buf = v24;
-            v35 = v16;
+            *buf = v23;
+            v34 = v16;
             _os_log_error_impl(&dword_23224A000, v17, OS_LOG_TYPE_ERROR, "PPSettings failed to purge topic records from disabled bundleId: %@", buf, 0xCu);
           }
         }
 
         v18 = +[PPLocalLocationStore defaultStore];
-        v26 = 0;
-        v19 = [v18 deleteAllLocationsFromSourcesWithBundleId:v9 deletedCount:0 error:&v26];
-        v20 = v26;
+        v25 = 0;
+        v19 = [v18 deleteAllLocationsFromSourcesWithBundleId:v9 deletedCount:0 error:&v25];
+        v20 = v25;
 
         if ((v19 & 1) == 0)
         {
           v21 = pp_default_log_handle();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            *buf = v24;
-            v35 = v20;
+            *buf = v23;
+            v34 = v20;
             _os_log_error_impl(&dword_23224A000, v21, OS_LOG_TYPE_ERROR, "PPSettings failed to purge location records from disabled bundleId: %@", buf, 0xCu);
           }
         }
@@ -256,7 +255,7 @@ void __52__PPSettings__purgeRecordsForDisabledBundleIdsAsync__block_invoke(uint6
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v6);
@@ -270,12 +269,11 @@ void __52__PPSettings__purgeRecordsForDisabledBundleIdsAsync__block_invoke(uint6
   }
 
   atomic_store(0, _purgeRecordsForDisabledBundleIdsAsync_isInQueue);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshDisabledBundleIds
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = *(self + 16);
@@ -312,21 +310,21 @@ void __52__PPSettings__purgeRecordsForDisabledBundleIdsAsync__block_invoke(uint6
 
         v10 = [v7 mutableCopy];
         v11 = *(self + 24);
-        v17 = MEMORY[0x277D85DD0];
-        v18 = 3221225472;
-        v19 = __39__PPSettings__refreshDisabledBundleIds__block_invoke;
-        v20 = &unk_278972590;
-        v21 = v10;
+        v16 = MEMORY[0x277D85DD0];
+        v17 = 3221225472;
+        v18 = __39__PPSettings__refreshDisabledBundleIds__block_invoke;
+        v19 = &unk_278972590;
+        v20 = v10;
         v12 = v7;
-        v22 = v12;
+        v21 = v12;
         v13 = v10;
-        [v11 runWithLockAcquired:&v17];
+        [v11 runWithLockAcquired:&v16];
         v14 = pp_default_log_handle();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = [v12 count:v17];
+          v15 = [v12 count:v16];
           *buf = 134217984;
-          v24 = v15;
+          v23 = v15;
           _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_DEFAULT, "PPSettings loaded %lu disabled bundleIds from prefs", buf, 0xCu);
         }
       }
@@ -342,8 +340,6 @@ void __52__PPSettings__purgeRecordsForDisabledBundleIdsAsync__block_invoke(uint6
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isVoiceAssistantEnabled
@@ -356,7 +352,7 @@ void __52__PPSettings__purgeRecordsForDisabledBundleIdsAsync__block_invoke(uint6
 
 void __39__PPSettings__refreshDisabledBundleIds__block_invoke(uint64_t a1, id *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2 + 2;
   v5 = a2[2];
@@ -365,17 +361,16 @@ void __39__PPSettings__refreshDisabledBundleIds__block_invoke(uint64_t a1, id *a
   v7 = pp_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v11 = 138412546;
-    v12 = v9;
-    v13 = 2112;
-    v14 = v10;
-    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPSettings disabled bundles: %@ newly disabled: %@", &v11, 0x16u);
+    v9 = *(a1 + 32);
+    v8 = *(a1 + 40);
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPSettings disabled bundles: %@ newly disabled: %@", &v10, 0x16u);
   }
 
   objc_storeStrong(v4, *(a1 + 40));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_donationDisabledBundleIds
@@ -466,7 +461,7 @@ void __39__PPSettings__refreshDisabledBundleIds__block_invoke(uint64_t a1, id *a
 
 - (void)_refreshCloudKitDisabledBundleIds
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = objc_alloc(MEMORY[0x277CBEB58]);
@@ -475,14 +470,14 @@ void __39__PPSettings__refreshDisabledBundleIds__block_invoke(uint64_t a1, id *a
 
     v5 = *MEMORY[0x277D3A698];
     v6 = *MEMORY[0x277CB89F0];
-    v31[0] = *MEMORY[0x277CB8928];
-    v31[1] = v6;
+    v28[0] = *MEMORY[0x277CB8928];
+    v28[1] = v6;
     v7 = *MEMORY[0x277D3A668];
-    v32[0] = v5;
-    v32[1] = v7;
-    v31[2] = *MEMORY[0x277CB8A48];
-    v32[2] = *MEMORY[0x277D3A6A8];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+    v29[0] = v5;
+    v29[1] = v7;
+    v28[2] = *MEMORY[0x277CB8A48];
+    v29[2] = *MEMORY[0x277D3A6A8];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
     v9 = objc_opt_new();
     if (!v9)
     {
@@ -494,143 +489,137 @@ void __39__PPSettings__refreshDisabledBundleIds__block_invoke(uint64_t a1, id *a
       }
     }
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __47__PPSettings__refreshCloudKitDisabledBundleIds__block_invoke;
-    v26[3] = &unk_2789726E8;
-    v27 = v9;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __47__PPSettings__refreshCloudKitDisabledBundleIds__block_invoke;
+    v23[3] = &unk_2789726E8;
+    v24 = v9;
     v11 = v4;
-    v28 = v11;
+    v25 = v11;
     v12 = v9;
-    [v8 enumerateKeysAndObjectsUsingBlock:v26];
+    [v8 enumerateKeysAndObjectsUsingBlock:v23];
 
-    v13 = *MEMORY[0x277D6C230];
+    v13 = TCCAccessCopyBundleIdentifiersDisabledForService();
     v14 = TCCAccessCopyBundleIdentifiersDisabledForService();
-    v15 = *MEMORY[0x277D6C190];
-    v16 = TCCAccessCopyBundleIdentifiersDisabledForService();
+    if (v13)
+    {
+      [v11 addObjectsFromArray:v13];
+      v15 = pp_default_log_handle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v27 = v13;
+        _os_log_debug_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEBUG, "PPSettings TCC disabled for Ubiquity: %@", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v15 = pp_default_log_handle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_23224A000, v15, OS_LOG_TYPE_ERROR, "PPSettings failed to load bundleIds disabled for Ubiquity.", buf, 2u);
+      }
+    }
+
     if (v14)
     {
       [v11 addObjectsFromArray:v14];
-      v17 = pp_default_log_handle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v16 = pp_default_log_handle();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v30 = v14;
-        _os_log_debug_impl(&dword_23224A000, v17, OS_LOG_TYPE_DEBUG, "PPSettings TCC disabled for Ubiquity: %@", buf, 0xCu);
+        v27 = v14;
+        _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "PPSettings TCC disabled for Liverpool: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v17 = pp_default_log_handle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = pp_default_log_handle();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_23224A000, v17, OS_LOG_TYPE_ERROR, "PPSettings failed to load bundleIds disabled for Ubiquity.", buf, 2u);
+        _os_log_error_impl(&dword_23224A000, v16, OS_LOG_TYPE_ERROR, "PPSettings failed to load bundleIds disabled for Liverpool.", buf, 2u);
       }
     }
 
-    if (v16)
+    v17 = *(self + 24);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __47__PPSettings__refreshCloudKitDisabledBundleIds__block_invoke_232;
+    v21[3] = &unk_278972568;
+    v18 = v11;
+    v22 = v18;
+    [v17 runWithLockAcquired:v21];
+    v19 = pp_default_log_handle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      [v11 addObjectsFromArray:v16];
-      v18 = pp_default_log_handle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 138412290;
-        v30 = v16;
-        _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "PPSettings TCC disabled for Liverpool: %@", buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v18 = pp_default_log_handle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_error_impl(&dword_23224A000, v18, OS_LOG_TYPE_ERROR, "PPSettings failed to load bundleIds disabled for Liverpool.", buf, 2u);
-      }
-    }
-
-    v19 = *(self + 24);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __47__PPSettings__refreshCloudKitDisabledBundleIds__block_invoke_232;
-    v24[3] = &unk_278972568;
-    v20 = v11;
-    v25 = v20;
-    [v19 runWithLockAcquired:v24];
-    v21 = pp_default_log_handle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-    {
-      v22 = [v20 count];
+      v20 = [v18 count];
       *buf = 134217984;
-      v30 = v22;
-      _os_log_impl(&dword_23224A000, v21, OS_LOG_TYPE_DEFAULT, "PPSettings loaded %lu disabled bundleIds from CloudKit prefs.", buf, 0xCu);
+      v27 = v20;
+      _os_log_impl(&dword_23224A000, v19, OS_LOG_TYPE_DEFAULT, "PPSettings loaded %lu disabled bundleIds from CloudKit prefs.", buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)cloudSyncDisabledFirstPartyBundleIds
 {
-  v22[8] = *MEMORY[0x277D85DE8];
+  v21[8] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D3A658];
-  v22[0] = *MEMORY[0x277D3A648];
-  v22[1] = v2;
+  v21[0] = *MEMORY[0x277D3A648];
+  v21[1] = v2;
   v3 = *MEMORY[0x277D3A5F0];
-  v22[2] = *MEMORY[0x277D3A680];
-  v22[3] = v3;
+  v21[2] = *MEMORY[0x277D3A680];
+  v21[3] = v3;
   v4 = *MEMORY[0x277D3A5F8];
-  v22[4] = *MEMORY[0x277D3A670];
-  v22[5] = v4;
+  v21[4] = *MEMORY[0x277D3A670];
+  v21[5] = v4;
   v5 = *MEMORY[0x277D3A638];
-  v22[6] = *MEMORY[0x277D3A690];
-  v22[7] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:8];
+  v21[6] = *MEMORY[0x277D3A690];
+  v21[7] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:8];
   v7 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v6];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     v12 = *MEMORY[0x277D3A6C8];
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = [v12 objectForKeyedSubscript:{*(*(&v17 + 1) + 8 * i), v17}];
+        v14 = [v12 objectForKeyedSubscript:{*(*(&v16 + 1) + 8 * i), v16}];
         if (v14)
         {
           [v7 addObjectsFromArray:v14];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 void __47__PPSettings__refreshCloudKitDisabledBundleIds__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) accountIdentifiersEnabledForDataclass:v5];
@@ -642,44 +631,42 @@ void __47__PPSettings__refreshCloudKitDisabledBundleIds__block_invoke(uint64_t a
   v8 = pp_default_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = [v7 count];
-    v11 = "sync ok";
-    v12 = 138412802;
-    v13 = v5;
-    if (!v10)
+    v9 = [v7 count];
+    v10 = "sync ok";
+    v11 = 138412802;
+    v12 = v5;
+    if (!v9)
     {
-      v11 = "sync disable";
+      v10 = "sync disable";
     }
 
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2080;
-    v17 = v11;
-    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "PPSettings checking dataclass %@ --> %@: %s", &v12, 0x20u);
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2080;
+    v16 = v10;
+    _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "PPSettings checking dataclass %@ --> %@: %s", &v11, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __55__PPSettings_rewriteSyncStateForDisabledBundleIdsAsync__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v13 = 0x3032000000;
-    v14 = __Block_byref_object_copy__3300;
-    v15 = __Block_byref_object_dispose__3301;
-    v16 = 0;
+    v12 = 0x3032000000;
+    v13 = __Block_byref_object_copy__3300;
+    v14 = __Block_byref_object_dispose__3301;
+    v15 = 0;
     v2 = *(v1 + 24);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __40__PPSettings__cloudKitDisabledBundleIds__block_invoke;
-    v11[3] = &unk_2789725B8;
-    v11[4] = &buf;
-    [v2 runWithLockAcquired:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __40__PPSettings__cloudKitDisabledBundleIds__block_invoke;
+    v10[3] = &unk_2789725B8;
+    v10[4] = &buf;
+    [v2 runWithLockAcquired:v10];
     v3 = *(*(&buf + 1) + 40);
     _Block_object_dispose(&buf, 8);
 
@@ -688,17 +675,17 @@ void __55__PPSettings_rewriteSyncStateForDisabledBundleIdsAsync__block_invoke(ui
       [(PPSettings *)v1 _refreshCloudKitDisabledBundleIds];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v13 = 0x3032000000;
-      v14 = __Block_byref_object_copy__3300;
-      v15 = __Block_byref_object_dispose__3301;
-      v16 = 0;
+      v12 = 0x3032000000;
+      v13 = __Block_byref_object_copy__3300;
+      v14 = __Block_byref_object_dispose__3301;
+      v15 = 0;
       v4 = *(v1 + 24);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __40__PPSettings__cloudKitDisabledBundleIds__block_invoke_2;
-      v10[3] = &unk_2789725B8;
-      v10[4] = &buf;
-      [v4 runWithLockAcquired:v10];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __40__PPSettings__cloudKitDisabledBundleIds__block_invoke_2;
+      v9[3] = &unk_2789725B8;
+      v9[4] = &buf;
+      [v4 runWithLockAcquired:v9];
       v3 = *(*(&buf + 1) + 40);
       _Block_object_dispose(&buf, 8);
     }
@@ -725,7 +712,6 @@ void __55__PPSettings_rewriteSyncStateForDisabledBundleIdsAsync__block_invoke(ui
   [v8 disableSyncForBundleIds:v3];
 
   atomic_store(0, rewriteSyncStateForDisabledBundleIdsAsync_isInQueue);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAuthorizedToLogLocation
@@ -790,7 +776,7 @@ void __52__PPSettings_registerQueryPlanLoggingChangeHandler___block_invoke(uint6
   v4 = *(a1 + 32);
   v5 = a2;
   v8 = _Block_copy(v4);
-  v6 = v5[5];
+  v6 = *(v5 + 5);
   v7 = [MEMORY[0x277CCABB0] numberWithInt:*(*(*(a1 + 40) + 8) + 24)];
   [v6 setObject:v8 forKeyedSubscript:v7];
 }
@@ -985,6 +971,13 @@ LABEL_3:
   return v11;
 }
 
+- (void)setTrialUseDefaultFiles:(BOOL)files
+{
+  portraitDefaults = self->_portraitDefaults;
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:files];
+  [(NSUserDefaults *)portraitDefaults setObject:v4 forKey:@"trialUseDefaultFiles"];
+}
+
 - (BOOL)trialUseDefaultFiles
 {
   v2 = [(NSUserDefaults *)self->_portraitDefaults objectForKey:@"trialUseDefaultFiles"];
@@ -1059,7 +1052,7 @@ LABEL_3:
 
 - (double)assetMetadataRefreshIntervalSeconds
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [(NSUserDefaults *)self->_portraitDefaults objectForKey:@"assetMetadataUpdateIntervalSeconds"];
   if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -1067,9 +1060,9 @@ LABEL_3:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       [v2 doubleValue];
-      v10 = 134217984;
-      v11 = v4;
-      _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEFAULT, "Using asset metadata update interval override: %f sec", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = v4;
+      _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEFAULT, "Using asset metadata update interval override: %f sec", &v9, 0xCu);
     }
 
     [v2 doubleValue];
@@ -1081,15 +1074,14 @@ LABEL_3:
     v7 = pp_default_log_handle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134217984;
-      v11 = 2;
-      _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "Asset metadata update interval is unset, using default value of %tu days.", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = 2;
+      _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "Asset metadata update interval is unset, using default value of %tu days.", &v9, 0xCu);
     }
 
     v6 = 172800.0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1107,7 +1099,7 @@ LABEL_3:
 
 - (void)setAssetMetadataRefreshIntervalSeconds:(double)seconds
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (seconds >= 1.0)
   {
     secondsCopy = seconds;
@@ -1121,16 +1113,14 @@ LABEL_3:
   v5 = pp_default_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = secondsCopy;
-    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEFAULT, "Setting asset metadata update interval to: %f sec", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = secondsCopy;
+    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEFAULT, "Setting asset metadata update interval to: %f sec", &v8, 0xCu);
   }
 
   portraitDefaults = self->_portraitDefaults;
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:secondsCopy];
   [(NSUserDefaults *)portraitDefaults setObject:v7 forKey:@"assetMetadataUpdateIntervalSeconds"];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)abGroupOverride
@@ -1219,7 +1209,7 @@ LABEL_10:
 
 - (BOOL)bundleIdentifierIsEnabledForDonation:(id)donation
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   donationCopy = donation;
   if ([MEMORY[0x277D425A0] waitForSemaphore:self->_initializationComplete timeoutSeconds:5.0] == 1)
   {
@@ -1239,16 +1229,16 @@ LABEL_10:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v19 = __Block_byref_object_copy__3300;
-    v20 = __Block_byref_object_dispose__3301;
-    v21 = 0;
+    v18 = __Block_byref_object_copy__3300;
+    v19 = __Block_byref_object_dispose__3301;
+    v20 = 0;
     lock = self->_lock;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __51__PPSettings_bundleIdentifierIsEnabledForDonation___block_invoke;
-    v17[3] = &unk_2789725B8;
-    v17[4] = buf;
-    [(_PASLock *)lock runWithLockAcquired:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __51__PPSettings_bundleIdentifierIsEnabledForDonation___block_invoke;
+    v16[3] = &unk_2789725B8;
+    v16[4] = buf;
+    [(_PASLock *)lock runWithLockAcquired:v16];
     v5 = *(*&buf[8] + 40);
     _Block_object_dispose(buf, 8);
 
@@ -1271,32 +1261,31 @@ LABEL_10:
         v10 = MEMORY[0x277CBEBF8];
       }
 
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __51__PPSettings_bundleIdentifierIsEnabledForDonation___block_invoke_2;
-      v15[3] = &unk_278972710;
-      v16 = v5;
-      v6 = [v10 indexOfObjectPassingTest:v15] == 0x7FFFFFFFFFFFFFFFLL;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __51__PPSettings_bundleIdentifierIsEnabledForDonation___block_invoke_2;
+      v14[3] = &unk_278972710;
+      v15 = v5;
+      v6 = [v10 indexOfObjectPassingTest:v14] == 0x7FFFFFFFFFFFFFFFLL;
     }
 
     v11 = pp_default_log_handle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v14 = @"Blocking";
+      v13 = @"Blocking";
       if (v6)
       {
-        v14 = @"Admitting";
+        v13 = @"Admitting";
       }
 
       *buf = 138412546;
-      *&buf[4] = v14;
+      *&buf[4] = v13;
       *&buf[12] = 2112;
       *&buf[14] = donationCopy;
       _os_log_debug_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEBUG, "PPSettings: %@ content from bundleIdentifier: %@", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1436,7 +1425,7 @@ void __68__PPSettings__triggerDelayedOperationWithCoalescingToken_operation___bl
 
 void __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [(PPSettings *)*(a1 + 32) _purgeRecordsForDisabledBundleIdsAsync];
   v2 = *(a1 + 32);
   v3 = *(v2 + 32);
@@ -1457,14 +1446,14 @@ void __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke(uint64_
   v7 = *(v6 + 16);
   if (v7)
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke_2_221;
-    v18[3] = &unk_278977560;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke_2_221;
+    v17[3] = &unk_278977560;
     v8 = v4;
-    v18[4] = *(a1 + 32);
-    v19 = v8;
-    v9 = [PPKVOObserver observerWithName:@"purgeObserver" object:v7 key:@"SiriCanLearnFromAppBlacklist" handler:v18];
+    v17[4] = *(a1 + 32);
+    v18 = v8;
+    v9 = [PPKVOObserver observerWithName:@"purgeObserver" object:v7 key:@"SiriCanLearnFromAppBlacklist" handler:v17];
     v10 = registerDisabledBundleIdPurgeHandler__purgeObserver;
     registerDisabledBundleIdPurgeHandler__purgeObserver = v9;
 
@@ -1479,19 +1468,17 @@ void __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke(uint64_
   handler[3] = &unk_2789726C0;
   v12 = v5;
   handler[4] = *(a1 + 32);
-  v16 = v12;
+  v15 = v12;
   if (notify_register_dispatch("kAFPreferencesDidChangeDarwinNotification", &out_token, v11, handler))
   {
     v13 = pp_default_log_handle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "kAFPreferencesDidChangeDarwinNotification";
+      v22 = "kAFPreferencesDidChangeDarwinNotification";
       _os_log_error_impl(&dword_23224A000, v13, OS_LOG_TYPE_ERROR, "PPSettings failed to associate bundleId purge handler with notification %s .", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke_2(uint64_t a1)
@@ -1544,7 +1531,7 @@ void __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke_3_222(u
 
 void __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke_4(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   [(PPSettings *)*(a1 + 32) _refreshDisabledBundleIds];
   v2 = [(PPSettings *)*(a1 + 32) _donationDisabledBundleIds];
   v3 = [v2 mutableCopy];
@@ -1555,23 +1542,21 @@ void __50__PPSettings_registerDisabledBundleIdPurgeHandler__block_invoke_4(uint6
     v4 = pp_default_log_handle();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
-      v7 = [v3 count];
-      _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPSettings invalidating client caches due to %lu newly disabled bundleId(s).", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = [v3 count];
+      _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPSettings invalidating client caches due to %lu newly disabled bundleId(s).", &v5, 0xCu);
     }
 
     [(PPSettings *)*(a1 + 32) _invokeChangeHandlersAsync];
     dispatch_async(*(*(a1 + 32) + 32), &__block_literal_global_217);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_invokeChangeHandlersAsync
+- (void)_invokeChangeHandlersAsync
 {
   if (result)
   {
-    v1 = *(result + 24);
+    v1 = result[3];
     v2[0] = MEMORY[0x277D85DD0];
     v2[1] = 3221225472;
     v2[2] = __40__PPSettings__invokeChangeHandlersAsync__block_invoke;
@@ -1617,7 +1602,7 @@ uint64_t __40__PPSettings__invokeChangeHandlersAsync__block_invoke(uint64_t a1, 
 
 void __60__PPSettings_registerCloudKitDisabledBundleIdRewriteHandler__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) rewriteSyncStateForDisabledBundleIdsAsync];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
@@ -1632,14 +1617,14 @@ void __60__PPSettings_registerCloudKitDisabledBundleIdRewriteHandler__block_invo
   handler[2] = __60__PPSettings_registerCloudKitDisabledBundleIdRewriteHandler__block_invoke_3;
   handler[3] = &unk_278972670;
   v4 = v2;
-  v19 = v4;
+  v18 = v4;
   if (notify_register_dispatch("com.apple.tcc.access.changed", &out_token, v3, handler))
   {
     v5 = pp_default_log_handle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v23 = "com.apple.tcc.access.changed";
+      v22 = "com.apple.tcc.access.changed";
       _os_log_error_impl(&dword_23224A000, v5, OS_LOG_TYPE_ERROR, "PPSettings failed to register for notification: %s", buf, 0xCu);
     }
   }
@@ -1652,19 +1637,17 @@ void __60__PPSettings_registerCloudKitDisabledBundleIdRewriteHandler__block_invo
   v6 = kPPCanLearnFromAppKey_block_invoke__pasExprOnceResult;
   v7 = [MEMORY[0x277CCAB98] defaultCenter];
   v8 = *MEMORY[0x277CB8DB8];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __60__PPSettings_registerCloudKitDisabledBundleIdRewriteHandler__block_invoke_2_213;
-  v14[3] = &unk_278972698;
-  v15 = v6;
-  v16 = v3;
-  v17 = v4;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __60__PPSettings_registerCloudKitDisabledBundleIdRewriteHandler__block_invoke_2_213;
+  v13[3] = &unk_278972698;
+  v14 = v6;
+  v15 = v3;
+  v16 = v4;
   v9 = v4;
   v10 = v3;
   v11 = v6;
-  v12 = [v7 addObserverForName:v8 object:0 queue:0 usingBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [v7 addObserverForName:v8 object:0 queue:0 usingBlock:v13];
 }
 
 uint64_t __60__PPSettings_registerCloudKitDisabledBundleIdRewriteHandler__block_invoke_2(uint64_t a1)
@@ -1752,7 +1735,7 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
   v4 = *(a1 + 32);
   v5 = a2;
   v8 = _Block_copy(v4);
-  v6 = v5[4];
+  v6 = *(v5 + 4);
   v7 = [MEMORY[0x277CCABB0] numberWithInt:*(*(*(a1 + 40) + 8) + 24)];
   [v6 setObject:v8 forKeyedSubscript:v7];
 }
@@ -1798,10 +1781,10 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
 
 - (PPSettings)init
 {
-  v77 = *MEMORY[0x277D85DE8];
-  v73.receiver = self;
-  v73.super_class = PPSettings;
-  v2 = [(PPSettings *)&v73 init];
+  v76 = *MEMORY[0x277D85DE8];
+  v72.receiver = self;
+  v72.super_class = PPSettings;
+  v2 = [(PPSettings *)&v72 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -1848,7 +1831,7 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
     handler[2] = __18__PPSettings_init__block_invoke;
     handler[3] = &unk_278972520;
     v21 = v2;
-    v71 = v21;
+    v70 = v21;
     v22 = notify_register_dispatch("com.apple.suggestions.settingsChanged", &out_token, v20, handler);
     if (v22)
     {
@@ -1857,8 +1840,8 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
       {
         *location = 136315394;
         *&location[4] = "com.apple.suggestions.settingsChanged";
-        v75 = 1024;
-        v76 = v22;
+        v74 = 1024;
+        v75 = v22;
         _os_log_error_impl(&dword_23224A000, v23, OS_LOG_TYPE_ERROR, "failed to register for notification for %s: status code %d", location, 0x12u);
       }
     }
@@ -1875,34 +1858,34 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
       aBlock[1] = 3221225472;
       aBlock[2] = __18__PPSettings_init__block_invoke_159;
       aBlock[3] = &unk_2789797B8;
-      objc_copyWeak(&v69, location);
+      objc_copyWeak(&v68, location);
       v27 = _Block_copy(aBlock);
-      v66[0] = MEMORY[0x277D85DD0];
-      v66[1] = 3221225472;
-      v66[2] = __18__PPSettings_init__block_invoke_164;
-      v66[3] = &unk_2789797B8;
-      objc_copyWeak(&v67, location);
-      v28 = _Block_copy(v66);
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = __18__PPSettings_init__block_invoke_166;
-      v64[3] = &unk_2789797B8;
-      objc_copyWeak(&v65, location);
-      v29 = _Block_copy(v64);
+      v65[0] = MEMORY[0x277D85DD0];
+      v65[1] = 3221225472;
+      v65[2] = __18__PPSettings_init__block_invoke_164;
+      v65[3] = &unk_2789797B8;
+      objc_copyWeak(&v66, location);
+      v28 = _Block_copy(v65);
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = __18__PPSettings_init__block_invoke_166;
+      v63[3] = &unk_2789797B8;
+      objc_copyWeak(&v64, location);
+      v29 = _Block_copy(v63);
       v27[2](v27);
       v28[2](v28);
       v30 = [(NSUserDefaults *)v21->_portraitDefaults objectForKey:@"entityBackfillTimestamp"];
       v31 = [(NSUserDefaults *)v21->_portraitDefaults objectForKey:@"entityMappingTrieSha256"];
       v32 = v2->_lock;
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __18__PPSettings_init__block_invoke_2_167;
-      v61[3] = &unk_278972590;
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __18__PPSettings_init__block_invoke_2_167;
+      v60[3] = &unk_278972590;
       v33 = v30;
-      v62 = v33;
+      v61 = v33;
       v34 = v31;
-      v63 = v34;
-      [(_PASLock *)v32 runWithLockAcquired:v61];
+      v62 = v34;
+      [(_PASLock *)v32 runWithLockAcquired:v60];
 
       v24 = 0x277CBE000;
       v35 = [PPKVOObserver observerWithName:@"weightObserver" object:v21->_portraitDefaults key:@"weightMultiplier" handler:v27];
@@ -1917,10 +1900,10 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
       queryPlanLoggingKVOObserver = v21->_queryPlanLoggingKVOObserver;
       v21->_queryPlanLoggingKVOObserver = v39;
 
-      objc_destroyWeak(&v65);
-      objc_destroyWeak(&v67);
+      objc_destroyWeak(&v64);
+      objc_destroyWeak(&v66);
 
-      objc_destroyWeak(&v69);
+      objc_destroyWeak(&v68);
       objc_destroyWeak(location);
     }
 
@@ -1942,14 +1925,14 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
     if (v21->_canLearnFromAppDefaults)
     {
       objc_initWeak(location, v21);
-      v58[0] = MEMORY[0x277D85DD0];
-      v58[1] = 3221225472;
-      v58[2] = __18__PPSettings_init__block_invoke_178;
-      v58[3] = &unk_2789791D8;
+      v57[0] = MEMORY[0x277D85DD0];
+      v57[1] = 3221225472;
+      v57[2] = __18__PPSettings_init__block_invoke_178;
+      v57[3] = &unk_2789791D8;
       v44 = v21;
-      v59 = v44;
-      objc_copyWeak(&v60, location);
-      v45 = _Block_copy(v58);
+      v58 = v44;
+      objc_copyWeak(&v59, location);
+      v45 = _Block_copy(v57);
       v46 = [PPKVOObserver observerWithName:@"canLearnFromAppKVOObserver" object:v21->_canLearnFromAppDefaults key:@"SiriCanLearnFromAppBlacklist" handler:v45];
       canLearnFromAppKVOObserver = v44->_canLearnFromAppKVOObserver;
       v44->_canLearnFromAppKVOObserver = v46;
@@ -1959,10 +1942,10 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
       block[1] = 3221225472;
       block[2] = __18__PPSettings_init__block_invoke_4;
       block[3] = &unk_2789790A8;
-      v57 = v44;
+      v56 = v44;
       dispatch_async(v48, block);
 
-      objc_destroyWeak(&v60);
+      objc_destroyWeak(&v59);
       objc_destroyWeak(location);
     }
 
@@ -1979,12 +1962,12 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
 
     out_token = 0;
     v50 = v2->_queue;
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __18__PPSettings_init__block_invoke_187;
-    v54[3] = &unk_278972520;
-    v55 = v21;
-    if (notify_register_dispatch("kAFPreferencesDidChangeDarwinNotification", &out_token, v50, v54))
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __18__PPSettings_init__block_invoke_187;
+    v53[3] = &unk_278972520;
+    v54 = v21;
+    if (notify_register_dispatch("kAFPreferencesDidChangeDarwinNotification", &out_token, v50, v53))
     {
       v51 = pp_default_log_handle();
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
@@ -1996,13 +1979,12 @@ void __60__PPSettings_registerDisabledBundleIdentifierChangeHandler___block_invo
     }
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __18__PPSettings_init__block_invoke_159(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -2020,9 +2002,9 @@ void __18__PPSettings_init__block_invoke_159(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v12 = @"weightMultiplier";
-        v13 = 2112;
-        v14 = @"com.apple.proactive.PersonalizationPortrait";
+        v11 = @"weightMultiplier";
+        v12 = 2112;
+        v13 = @"com.apple.proactive.PersonalizationPortrait";
         _os_log_debug_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEBUG, "Did not find numeric value for key %@ in NSUserDefaults domain %@.", buf, 0x16u);
       }
 
@@ -2030,103 +2012,97 @@ void __18__PPSettings_init__block_invoke_159(uint64_t a1)
     }
 
     v7 = v2[3];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __18__PPSettings_init__block_invoke_161;
-    v10[3] = &__block_descriptor_40_e31_v16__0__PPSettingsGuardedData_8l;
-    *&v10[4] = v5;
-    [v7 runWithLockAcquired:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __18__PPSettings_init__block_invoke_161;
+    v9[3] = &__block_descriptor_40_e31_v16__0__PPSettingsGuardedData_8l;
+    *&v9[4] = v5;
+    [v7 runWithLockAcquired:v9];
     v8 = pp_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v12 = *&v5;
+      v11 = *&v5;
       _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "Selected new weight multiplier: %g", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __18__PPSettings_init__block_invoke_164(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
     v3 = [*(WeakRetained + 1) objectForKey:@"abGroupOverride"];
     v4 = v2[3];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __18__PPSettings_init__block_invoke_2;
-    v8[3] = &unk_278972568;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __18__PPSettings_init__block_invoke_2;
+    v7[3] = &unk_278972568;
     v5 = v3;
-    v9 = v5;
-    [v4 runWithLockAcquired:v8];
+    v8 = v5;
+    [v4 runWithLockAcquired:v7];
     PPPostNotification("com.apple.proactive.PersonalizationPortrait.abGroupOverrideChanged");
     v6 = pp_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_debug_impl(&dword_23224A000, v6, OS_LOG_TYPE_DEBUG, "Detected new abGroupOverride: %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __18__PPSettings_init__block_invoke_166(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__3300;
-    v17 = __Block_byref_object_dispose__3301;
-    v18 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy__3300;
+    v16 = __Block_byref_object_dispose__3301;
+    v17 = 0;
     v1 = WeakRetained[3];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __37__PPSettings__updateQueryPlanLogging__block_invoke;
-    v12[3] = &unk_2789725B8;
-    v12[4] = &v13;
-    [v1 runWithLockAcquired:v12];
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __37__PPSettings__updateQueryPlanLogging__block_invoke;
+    v11[3] = &unk_2789725B8;
+    v11[4] = &v12;
+    [v1 runWithLockAcquired:v11];
     v9 = 0u;
-    v2 = v14[5];
-    v3 = [v2 countByEnumeratingWithState:&v8 objects:v19 count:16];
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v2 = v13[5];
+    v3 = [v2 countByEnumeratingWithState:&v7 objects:v18 count:16];
     if (v3)
     {
-      v4 = *v9;
+      v4 = *v8;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v9 != v4)
+          if (*v8 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          (*(*(*(&v8 + 1) + 8 * i) + 16))();
+          (*(*(*(&v7 + 1) + 8 * i) + 16))();
         }
 
-        v3 = [v2 countByEnumeratingWithState:&v8 objects:v19 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v7 objects:v18 count:16];
       }
 
       while (v3);
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v12, 8);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __18__PPSettings_init__block_invoke_2_167(uint64_t a1, id *a2)
@@ -2180,22 +2156,22 @@ void __18__PPSettings_init__block_invoke_187(uint64_t a1)
   }
 }
 
-void __46__PPSettings__handleCloudStorageDeletedByUser__block_invoke_2()
+void __46__PPSettings__handleCloudStorageDeletedByUser__block_invoke_2(uint64_t a1)
 {
-  v0 = pp_default_log_handle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = pp_default_log_handle();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_23224A000, v0, OS_LOG_TYPE_DEFAULT, "PPSettings: clearing remote records from database because user triggered Siri cloud storage deletion", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_23224A000, v1, OS_LOG_TYPE_DEFAULT, "PPSettings: clearing remote records from database because user triggered Siri cloud storage deletion", v6, 2u);
   }
 
-  v1 = +[PPLocalNamedEntityStore defaultStore];
-  v2 = [v1 storage];
-  [v2 clearRemoteRecordsMissingFromDuetWithShouldContinueBlock:&__block_literal_global_202];
+  v2 = +[PPLocalNamedEntityStore defaultStore];
+  v3 = [v2 storage];
+  [v3 clearRemoteRecordsMissingFromDuetWithShouldContinueBlock:&__block_literal_global_202];
 
-  v3 = +[PPLocalTopicStore defaultStore];
-  v4 = [v3 storage];
-  [v4 clearRemoteRecordsMissingFromDuetWithShouldContinueBlock:&__block_literal_global_206];
+  v4 = +[PPLocalTopicStore defaultStore];
+  v5 = [v4 storage];
+  [v5 clearRemoteRecordsMissingFromDuetWithShouldContinueBlock:&__block_literal_global_206];
 
   atomic_store(0, _handleCloudStorageDeletedByUser_isInQueue);
 }
@@ -2297,13 +2273,12 @@ double __18__PPSettings_init__block_invoke_161(uint64_t a1, uint64_t a2)
 
 void __28__PPSettings_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_3396;
-  sharedInstance__pasExprOnceResult_3396 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_3396;
+  sharedInstance__pasExprOnceResult_3396 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 + (BOOL)isCloudSyncEnabled

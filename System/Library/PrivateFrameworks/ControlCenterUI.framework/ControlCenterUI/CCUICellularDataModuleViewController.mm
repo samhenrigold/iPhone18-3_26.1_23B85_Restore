@@ -15,6 +15,8 @@
 - (id)_glyphImageForSignalStrength:(id)strength;
 - (id)_subtitleTextWithState:(BOOL)state;
 - (id)contextMenuPreviewForControlTemplateView:(id)view;
+- (void)_currentCellularPlanName;
+- (void)_multipleSubscriptionsAvailable;
 - (void)_updateContentMenuActions;
 - (void)_updateGlyphImagesWithSignalStrength:(id)strength;
 - (void)_updateSignalStrength;
@@ -717,72 +719,9 @@ LABEL_6:
 
 - (void)_updateContentMenuActions
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v3 = self->_contentMenuActions;
-  [(NSMutableArray *)v3 removeAllObjects];
-  if ([(CCUICellularDataModuleViewController *)self _multipleSubscriptionsAvailable])
-  {
-    coreTelephonyClient = self->_coreTelephonyClient;
-    v27 = 0;
-    v5 = [(CoreTelephonyClient *)coreTelephonyClient getSubscriptionInfoWithError:&v27];
-    v6 = v27;
-    if (v6)
-    {
-      v7 = *MEMORY[0x277CFC8F8];
-      if (os_log_type_enabled(*MEMORY[0x277CFC8F8], OS_LOG_TYPE_ERROR))
-      {
-        [(CCUICellularDataModuleViewController *)v6 _updateContentMenuActions:v7];
-      }
-    }
-
-    else
-    {
-      if (v5)
-      {
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        subscriptionsInUse = [v5 subscriptionsInUse];
-        v15 = [subscriptionsInUse countByEnumeratingWithState:&v23 objects:v28 count:16];
-        if (v15)
-        {
-          v16 = v15;
-          v17 = *v24;
-          do
-          {
-            for (i = 0; i != v16; ++i)
-            {
-              if (*v24 != v17)
-              {
-                objc_enumerationMutation(subscriptionsInUse);
-              }
-
-              v19 = [(CCUICellularDataModuleViewController *)self _actionFromSubscriptionContext:*(*(&v23 + 1) + 8 * i)];
-              if (v19)
-              {
-                [(NSMutableArray *)v3 addObject:v19];
-              }
-            }
-
-            v16 = [subscriptionsInUse countByEnumeratingWithState:&v23 objects:v28 count:16];
-          }
-
-          while (v16);
-        }
-      }
-
-      _templateView = [(CCUIButtonModuleViewController *)self _templateView];
-      isPresentingContextMenu = [_templateView isPresentingContextMenu];
-      templateViewForExpandedConnectivityModule = _templateView;
-      if ((isPresentingContextMenu & 1) == 0)
-      {
-        templateViewForExpandedConnectivityModule = self->_templateViewForExpandedConnectivityModule;
-      }
-
-      [(CCUIControlTemplateView *)templateViewForExpandedConnectivityModule updateVisibleMenuIfNeeded];
-    }
-  }
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_21E9F5000, a2, a3, "[Cellular Data Module] Could not get subscriptions Info. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (id)_formatPhoneNumber:(id)number
@@ -904,6 +843,20 @@ void __71__CCUICellularDataModuleViewController__actionFromSubscriptionContext__
   WeakRetained = objc_loadWeakRetained(&self->_contentModuleContext);
 
   return WeakRetained;
+}
+
+- (void)_currentCellularPlanName
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_21E9F5000, a2, a3, "[Cellular Data Module] Error getting plan name: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_multipleSubscriptionsAvailable
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_21E9F5000, a2, a3, "[Cellular Data Module] Could not get subscription info. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __71__CCUICellularDataModuleViewController__actionFromSubscriptionContext___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)

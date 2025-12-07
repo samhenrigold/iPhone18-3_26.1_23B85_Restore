@@ -35,12 +35,13 @@
 void __67__SBProactiveHomeScreenUsageObserver_pushCurrentTodayConfiguration__block_invoke_30(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = SBLogProactiveHome();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = SBLogProactiveHome(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__block_invoke_28_cold_1(v2, v3);
+      __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__block_invoke_28_cold_1(v3, v4);
     }
   }
 }
@@ -49,7 +50,7 @@ void __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfigur
 {
   v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogProactiveHome();
+  v4 = SBLogProactiveHome(v3);
   v5 = v4;
   if (v3)
   {
@@ -71,12 +72,13 @@ void __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfigur
 void __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__block_invoke_28(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = SBLogProactiveHome();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = SBLogProactiveHome(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__block_invoke_28_cold_1(v2, v3);
+      __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__block_invoke_28_cold_1(v3, v4);
     }
   }
 }
@@ -124,7 +126,7 @@ void __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__bloc
 
 - (void)pushCurrentHomeScreenConfiguration
 {
-  v3 = SBLogProactiveHome();
+  v3 = SBLogProactiveHome(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -142,7 +144,7 @@ void __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__bloc
 
   else
   {
-    v6 = SBLogProactiveHome();
+    v6 = SBLogProactiveHome(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *v7 = 0;
@@ -202,7 +204,7 @@ void __67__SBProactiveHomeScreenUsageObserver_pushCurrentTodayConfiguration__blo
   if ([v5 isWidgetIcon])
   {
     v6 = [*(a1 + 32) proactiveStackForWidgetIcon:v5 atIndex:a3 gridCellInfo:*(a1 + 40)];
-    v7 = SBLogProactiveHome();
+    v7 = SBLogProactiveHome(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v10 = 138412290;
@@ -227,7 +229,7 @@ void __67__SBProactiveHomeScreenUsageObserver_pushCurrentTodayConfiguration__blo
   iconModel = [(SBProactiveHomeScreenUsageObserver *)self iconModel];
   rootFolder = [iconModel rootFolder];
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v6 = SBLogProactiveHome();
+  v6 = SBLogProactiveHome(uUID);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
@@ -251,8 +253,7 @@ void __67__SBProactiveHomeScreenUsageObserver_pushCurrentTodayConfiguration__blo
   selfCopy = self;
   v12 = v7;
   v21 = v12;
-  [rootFolder enumerateListsWithOptions:4 usingBlock:v18];
-  v13 = SBLogProactiveHome();
+  v13 = SBLogProactiveHome([rootFolder enumerateListsWithOptions:4 usingBlock:v18]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -274,15 +275,15 @@ void __67__SBProactiveHomeScreenUsageObserver_pushCurrentTodayConfiguration__blo
 
 - (void)pushCurrentTodayConfiguration
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   iconModel = [(SBProactiveHomeScreenUsageObserver *)self iconModel];
   rootFolder = [iconModel rootFolder];
   todayList = [rootFolder todayList];
-  v16 = todayList;
+  v17 = todayList;
   if (todayList)
   {
-    v33[0] = todayList;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:{1, todayList}];
+    v34[0] = todayList;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:{1, todayList}];
   }
 
   else
@@ -292,53 +293,53 @@ void __67__SBProactiveHomeScreenUsageObserver_pushCurrentTodayConfiguration__blo
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
-        v12 = [v11 gridCellInfoWithOptions:{objc_msgSend(*MEMORY[0x277D76620], "userInterfaceLayoutDirection", v16) == 1}];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __67__SBProactiveHomeScreenUsageObserver_pushCurrentTodayConfiguration__block_invoke;
-        v20[3] = &unk_2783B6A70;
-        v20[4] = self;
-        v21 = v12;
-        v22 = v6;
-        v23 = v5;
+        v11 = *(*(&v25 + 1) + 8 * i);
+        v12 = [v11 gridCellInfoWithOptions:{objc_msgSend(*MEMORY[0x277D76620], "userInterfaceLayoutDirection", v17) == 1}];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __67__SBProactiveHomeScreenUsageObserver_pushCurrentTodayConfiguration__block_invoke;
+        v21[3] = &unk_2783B6A70;
+        v21[4] = self;
+        v22 = v12;
+        v23 = v6;
+        v24 = v5;
         v13 = v12;
-        [v11 enumerateIconsUsingBlock:v20];
+        [v11 enumerateIconsUsingBlock:v21];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v8);
   }
 
-  v14 = SBLogProactiveHome();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v15 = SBLogProactiveHome(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v29 = v5;
-    v30 = 2112;
-    v31 = v6;
-    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "Pushing today list stacks: %@, app prediction stacks: %@", buf, 0x16u);
+    v30 = v5;
+    v31 = 2112;
+    v32 = v6;
+    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_INFO, "Pushing today list stacks: %@, app prediction stacks: %@", buf, 0x16u);
   }
 
   mEMORY[0x277CEB5A0] = [MEMORY[0x277CEB5A0] sharedInstance];
@@ -358,7 +359,7 @@ void __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfigur
       v15[0] = *(a1 + 48);
       v15[1] = [v6 sbListIndex];
       v8 = [MEMORY[0x277CCAA70] indexPathWithIndexes:v15 length:2];
-      v9 = SBLogProactiveHome();
+      v9 = SBLogProactiveHome(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = *(a1 + 32);
@@ -376,25 +377,25 @@ void __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfigur
 
 - (void)pushCurrentDockConfiguration
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   iconModel = [(SBProactiveHomeScreenUsageObserver *)self iconModel];
   rootFolder = [iconModel rootFolder];
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   dock = [rootFolder dock];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__block_invoke;
-  v9[3] = &unk_2783B6A48;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __66__SBProactiveHomeScreenUsageObserver_pushCurrentDockConfiguration__block_invoke;
+  v10[3] = &unk_2783B6A48;
   v6 = v4;
-  v10 = v6;
-  [dock enumerateIconsUsingBlock:v9];
+  v11 = v6;
+  [dock enumerateIconsUsingBlock:v10];
 
-  v7 = SBLogProactiveHome();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = SBLogProactiveHome(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v12 = v6;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Pushing dock app list: %@", buf, 0xCu);
+    v13 = v6;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Pushing dock app list: %@", buf, 0xCu);
   }
 
   mEMORY[0x277CEB5A0] = [MEMORY[0x277CEB5A0] sharedInstance];
@@ -403,7 +404,7 @@ void __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfigur
 
 void __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfiguration__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([v5 isLeafIcon])
   {
@@ -411,15 +412,14 @@ void __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfigur
     if (v6)
     {
       v7 = [MEMORY[0x277CCAA70] indexPathWithIndex:a3];
-      [*(a1 + 32) setObject:v7 forKey:v6];
-      v8 = SBLogProactiveHome();
+      v8 = SBLogProactiveHome([*(a1 + 32) setObject:v7 forKey:v6]);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = *(a1 + 40);
         *buf = 138543618;
-        v25 = v9;
-        v26 = 2112;
-        v27 = v7;
+        v27 = v9;
+        v28 = 2112;
+        v29 = v7;
         v10 = "(%{public}@: iconLocation: %@";
 LABEL_10:
         _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, v10, buf, 0x16u);
@@ -436,14 +436,14 @@ LABEL_10:
       v12 = [v5 uniqueIdentifier];
       [v11 setObject:v7 forKey:v12];
 
-      v8 = SBLogProactiveHome();
+      v8 = SBLogProactiveHome(v13);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v13 = *(a1 + 40);
+        v14 = *(a1 + 40);
         *buf = 138543618;
-        v25 = v13;
-        v26 = 2112;
-        v27 = v7;
+        v27 = v14;
+        v28 = 2112;
+        v29 = v7;
         v10 = "(%{public}@: bookmark iconLocation: %@";
         goto LABEL_10;
       }
@@ -459,40 +459,41 @@ LABEL_11:
     }
 
     v7 = [*(a1 + 56) proactiveStackForWidgetIcon:v5 atIndex:a3 gridCellInfo:*(a1 + 64)];
-    v14 = [v7 sb_isAppPredictionStack];
-    v15 = SBLogProactiveHome();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-    if (v14)
+    v15 = [v7 sb_isAppPredictionStack];
+    v16 = v15;
+    v17 = SBLogProactiveHome(v15);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    if (v16)
     {
-      if (v16)
+      if (v18)
       {
-        v17 = *(a1 + 40);
+        v19 = *(a1 + 40);
         *buf = 138543618;
-        v25 = v17;
-        v26 = 2112;
-        v27 = v7;
-        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "(%{public}@: Panel configuration: %@", buf, 0x16u);
+        v27 = v19;
+        v28 = 2112;
+        v29 = v7;
+        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "(%{public}@: Panel configuration: %@", buf, 0x16u);
       }
 
-      v18 = 72;
+      v20 = 72;
     }
 
     else
     {
-      if (v16)
+      if (v18)
       {
-        v19 = *(a1 + 40);
+        v21 = *(a1 + 40);
         *buf = 138543618;
-        v25 = v19;
-        v26 = 2112;
-        v27 = v7;
-        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "(%{public}@: Stack configuration: %@", buf, 0x16u);
+        v27 = v21;
+        v28 = 2112;
+        v29 = v7;
+        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "(%{public}@: Stack configuration: %@", buf, 0x16u);
       }
 
-      v18 = 80;
+      v20 = 80;
     }
 
-    [*(a1 + v18) addObject:v7];
+    [*(a1 + v20) addObject:v7];
 LABEL_12:
 
 LABEL_13:
@@ -502,16 +503,16 @@ LABEL_13:
   if ([v5 isFolderIcon])
   {
     v6 = [v5 folder];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfiguration__block_invoke_20;
-    v20[3] = &unk_2783B69D0;
-    v23 = a3;
-    v21 = *(a1 + 40);
-    v22 = *(a1 + 32);
-    [v6 enumerateAllIconsUsingBlock:v20];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __77__SBProactiveHomeScreenUsageObserver_pushCurrentHomeScreenPagesConfiguration__block_invoke_20;
+    v22[3] = &unk_2783B69D0;
+    v25 = a3;
+    v23 = *(a1 + 40);
+    v24 = *(a1 + 32);
+    [v6 enumerateAllIconsUsingBlock:v22];
 
-    v7 = v21;
+    v7 = v23;
     goto LABEL_12;
   }
 

@@ -44,14 +44,14 @@
 {
   itemsCopy = items;
   contextCopy = context;
-  v16.receiver = self;
-  v16.super_class = TSTPopUpMenuModel;
-  v9 = [(TSTPopUpMenuModel *)&v16 initWithContext:contextCopy];
+  v15.receiver = self;
+  v15.super_class = TSTPopUpMenuModel;
+  v9 = [(TSTPopUpMenuModel *)&v15 initWithContext:contextCopy];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_items, items);
-    v10->_count = objc_msgSend_count(itemsCopy, v11, v12, v13, v14);
+    v10->_count = objc_msgSend_count(itemsCopy, v11, v12, v13);
   }
 
   return v10;
@@ -59,10 +59,10 @@
 
 - (void)didInitFromSOS
 {
-  v7.receiver = self;
-  v7.super_class = TSTPopUpMenuModel;
-  [(TSTPopUpMenuModel *)&v7 didInitFromSOS];
-  self->_count = objc_msgSend_count(self->_items, v3, v4, v5, v6);
+  v6.receiver = self;
+  v6.super_class = TSTPopUpMenuModel;
+  [(TSTPopUpMenuModel *)&v6 didInitFromSOS];
+  self->_count = objc_msgSend_count(self->_items, v3, v4, v5);
 }
 
 - (BOOL)isEqualToChoices:(id)choices
@@ -74,29 +74,29 @@
   }
 
   count = self->_count;
-  if (count != objc_msgSend_count(self->_items, v4, v5, v6, v7))
+  if (count != objc_msgSend_count(self->_items, v4, v5, v6))
   {
-    TSUSetCrashReporterInfo();
-    v46 = MEMORY[0x277D81150];
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "[TSTPopUpMenuModel isEqualToChoices:]", v48, v49, "[TSTPopUpMenuModel isEqualToChoices:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", 76);
-    v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v52, v53);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v55, v50, v54, 76, 1, "Unarchiving is incomplete. Equality comparison is bogus and can lead to document corruption. Crashing now.");
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unarchiving is incomplete. Equality comparison is bogus and can lead to document corruption. Crashing now.", "[TSTPopUpMenuModel isEqualToChoices:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", 76);
+    v38 = MEMORY[0x277D81150];
+    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "[TSTPopUpMenuModel isEqualToChoices:]", v40);
+    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v43);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v45, v41, v44, 76, 1, "Unarchiving is incomplete. Equality comparison is bogus and can lead to document corruption. Crashing now.");
 
     TSUCrashBreakpoint();
     abort();
   }
 
-  v14 = objc_msgSend_count(self->_items, v10, v11, v12, v13);
-  v19 = objc_msgSend_choices(choicesCopy, v15, v16, v17, v18);
-  v24 = objc_msgSend_count(v19, v20, v21, v22, v23);
+  v12 = objc_msgSend_count(self->_items, v9, v10, v11);
+  v16 = objc_msgSend_choices(choicesCopy, v13, v14, v15);
+  v20 = objc_msgSend_count(v16, v17, v18, v19);
 
-  if (v14 != v24)
+  if (v12 != v20)
   {
     LOBYTE(isEqualToCellValue) = 0;
     goto LABEL_12;
   }
 
-  if (!v14)
+  if (!v12)
   {
 LABEL_10:
     LOBYTE(isEqualToCellValue) = 1;
@@ -104,22 +104,22 @@ LABEL_10:
 
   else
   {
-    v28 = 0;
-    v29 = v14 - 1;
+    v23 = 0;
+    v24 = v12 - 1;
     do
     {
-      v30 = objc_msgSend_objectAtIndexedSubscript_(self->_items, v25, v28, v26, v27);
-      v35 = objc_msgSend_choices(choicesCopy, v31, v32, v33, v34);
-      v39 = objc_msgSend_objectAtIndexedSubscript_(v35, v36, v28, v37, v38);
+      v25 = objc_msgSend_objectAtIndexedSubscript_(self->_items, v21, v23, v22);
+      v29 = objc_msgSend_choices(choicesCopy, v26, v27, v28);
+      v32 = objc_msgSend_objectAtIndexedSubscript_(v29, v30, v23, v31);
 
-      isEqualToCellValue = objc_msgSend_isEqualToCellValue_(v30, v40, v39, v41, v42);
+      isEqualToCellValue = objc_msgSend_isEqualToCellValue_(v25, v33, v32, v34);
       if (!isEqualToCellValue)
       {
         break;
       }
     }
 
-    while (v29 != v28++);
+    while (v24 != v23++);
   }
 
 LABEL_12:
@@ -129,21 +129,21 @@ LABEL_12:
 
 - (id)description
 {
-  v5 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], a2, @"TSTPopUpMenuModel: (\n"), v2, v3;
-  v13 = objc_msgSend_count(self->_items, v6, v7, v8, v9);
-  if (v13)
+  v4 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], a2, @"TSTPopUpMenuModel: (\n"), v2;
+  v10 = objc_msgSend_count(self->_items, v5, v6, v7);
+  if (v10)
   {
-    for (i = 0; i != v13; ++i)
+    for (i = 0; i != v10; ++i)
     {
-      v15 = objc_msgSend_objectAtIndex_(self->_items, v10, i, v11, v12);
-      v20 = objc_msgSend_displayString(v15, v16, v17, v18, v19);
-      objc_msgSend_appendFormat_(v5, v21, @"\t%@,\n", v22, v23, v20);
+      v12 = objc_msgSend_objectAtIndex_(self->_items, v8, i, v9);
+      v16 = objc_msgSend_displayString(v12, v13, v14, v15);
+      objc_msgSend_appendFormat_(v4, v17, @"\t%@,\n", v18, v16);
     }
   }
 
-  objc_msgSend_appendString_(v5, v10, @""), v11, v12);
+  objc_msgSend_appendString_(v4, v8, @""), v9);
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -159,7 +159,7 @@ LABEL_12:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      isEqualToChoices = objc_msgSend_isEqualToChoices_(self, v5, equalCopy, v6, v7);
+      isEqualToChoices = objc_msgSend_isEqualToChoices_(self, v5, equalCopy, v6);
     }
 
     else
@@ -173,21 +173,21 @@ LABEL_12:
 
 - (id)p_listItemAtIndex:(unint64_t)index
 {
-  v7 = objc_msgSend_choices(self, a2, index, v3, v4);
-  v12 = objc_msgSend_count(v7, v8, v9, v10, v11);
+  v6 = objc_msgSend_choices(self, a2, index, v3);
+  v10 = objc_msgSend_count(v6, v7, v8, v9);
 
-  if (v12 <= index)
+  if (v10 <= index)
   {
-    v21 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v17 = objc_msgSend_choices(self, v13, v14, v15, v16);
-    v21 = objc_msgSend_objectAtIndex_(v17, v18, index, v19, v20);
+    v14 = objc_msgSend_choices(self, v11, v12, v13);
+    v17 = objc_msgSend_objectAtIndex_(v14, v15, index, v16);
   }
 
-  return v21;
+  return v17;
 }
 
 - (int)p_mcListTypeForArgType:(char)type
@@ -197,447 +197,447 @@ LABEL_12:
     return dword_2217F3084[type];
   }
 
-  v6 = MEMORY[0x277D81150];
-  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTPopUpMenuModel p_mcListTypeForArgType:]", v3, v4);
-  v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v9, v10);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v11, 155, 0, "Unexpected TSCEArgumentType for popup list.");
+  v5 = MEMORY[0x277D81150];
+  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTPopUpMenuModel p_mcListTypeForArgType:]", v3);
+  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v8);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v9, 155, 0, "Unexpected TSCEArgumentType for popup list.");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15, v16);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13);
   return 0;
 }
 
 - (int)p_mcListTypeOfListItem:(id)item
 {
   itemCopy = item;
-  v9 = itemCopy;
+  v8 = itemCopy;
   if (itemCopy)
   {
-    v10 = objc_msgSend_valueType(itemCopy, v5, v6, v7, v8);
-    v14 = objc_msgSend_p_mcListTypeForArgType_(self, v11, v10, v12, v13);
+    v9 = objc_msgSend_valueType(itemCopy, v5, v6, v7);
+    v12 = objc_msgSend_p_mcListTypeForArgType_(self, v10, v9, v11);
   }
 
   else
   {
-    v14 = objc_msgSend_p_mcListTypeForArgType_(self, v5, 0, v7, v8);
+    v12 = objc_msgSend_p_mcListTypeForArgType_(self, v5, 0, v7);
   }
 
-  v15 = v14;
+  v13 = v12;
 
-  return v15;
+  return v13;
 }
 
 - (double)p_numberForListItem:(id)item
 {
   itemCopy = item;
-  v12 = 0.0;
-  if (objc_msgSend_p_mcListTypeOfListItem_(self, v5, itemCopy, v6, v7) == 5)
+  v10 = 0.0;
+  if (objc_msgSend_p_mcListTypeOfListItem_(self, v5, itemCopy, v6) == 5)
   {
-    v13 = objc_msgSend_numberValue(itemCopy, v8, v9, v10, v11);
-    objc_msgSend_rawDoubleValue(v13, v14, v15, v16, v17);
-    v12 = v18;
+    v11 = objc_msgSend_numberValue(itemCopy, v7, v8, v9);
+    objc_msgSend_rawDoubleValue(v11, v12, v13, v14);
+    v10 = v15;
   }
 
-  return v12;
+  return v10;
 }
 
 - (id)p_stringForListItem:(id)item
 {
   itemCopy = item;
-  if (objc_msgSend_p_mcListTypeOfListItem_(self, v5, itemCopy, v6, v7) == 7)
+  if (objc_msgSend_p_mcListTypeOfListItem_(self, v5, itemCopy, v6) == 7)
   {
-    v12 = objc_msgSend_stringValue(itemCopy, v8, v9, v10, v11);
-    v17 = objc_msgSend_asString(v12, v13, v14, v15, v16);
+    v10 = objc_msgSend_stringValue(itemCopy, v7, v8, v9);
+    v14 = objc_msgSend_asString(v10, v11, v12, v13);
   }
 
   else
   {
-    v17 = 0;
+    v14 = 0;
   }
 
-  return v17;
+  return v14;
 }
 
 - (id)p_dateForListItem:(id)item
 {
   itemCopy = item;
-  if (objc_msgSend_p_mcListTypeOfListItem_(self, v5, itemCopy, v6, v7) == 3)
+  if (objc_msgSend_p_mcListTypeOfListItem_(self, v5, itemCopy, v6) == 3)
   {
-    v12 = objc_msgSend_dateValue(itemCopy, v8, v9, v10, v11);
-    v17 = objc_msgSend_asDate(v12, v13, v14, v15, v16);
+    v10 = objc_msgSend_dateValue(itemCopy, v7, v8, v9);
+    v14 = objc_msgSend_asDate(v10, v11, v12, v13);
   }
 
   else
   {
-    v17 = 0;
+    v14 = 0;
   }
 
-  return v17;
+  return v14;
 }
 
 - (BOOL)p_BOOLeanForListItem:(id)item
 {
   itemCopy = item;
-  if (objc_msgSend_p_mcListTypeOfListItem_(self, v5, itemCopy, v6, v7) == 2)
+  if (objc_msgSend_p_mcListTypeOfListItem_(self, v5, itemCopy, v6) == 2)
   {
-    v12 = objc_msgSend_BOOLeanValue(itemCopy, v8, v9, v10, v11);
-    v17 = objc_msgSend_asBool(v12, v13, v14, v15, v16);
+    v10 = objc_msgSend_BOOLeanValue(itemCopy, v7, v8, v9);
+    v14 = objc_msgSend_asBool(v10, v11, v12, v13);
   }
 
   else
   {
-    v17 = 0;
+    v14 = 0;
   }
 
-  return v17;
+  return v14;
 }
 
 - (int)valueTypeOfItemAtIndex:(unint64_t)index
 {
   selfCopy = self;
-  v6 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3, v4);
-  LODWORD(selfCopy) = objc_msgSend_p_mcListTypeOfListItem_(selfCopy, v7, v6, v8, v9);
+  v5 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3);
+  LODWORD(selfCopy) = objc_msgSend_p_mcListTypeOfListItem_(selfCopy, v6, v5, v7);
 
   return selfCopy;
 }
 
 - (double)numberAtIndex:(unint64_t)index
 {
-  v6 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3, v4);
-  objc_msgSend_p_numberForListItem_(self, v7, v6, v8, v9);
-  v11 = v10;
+  v5 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3);
+  objc_msgSend_p_numberForListItem_(self, v6, v5, v7);
+  v9 = v8;
 
-  return v11;
+  return v9;
 }
 
 - (id)stringAtIndex:(unint64_t)index
 {
-  v6 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3, v4);
-  v10 = objc_msgSend_p_stringForListItem_(self, v7, v6, v8, v9);
+  v5 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3);
+  v8 = objc_msgSend_p_stringForListItem_(self, v6, v5, v7);
 
-  return v10;
+  return v8;
 }
 
 - (id)dateAtIndex:(unint64_t)index
 {
-  v6 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3, v4);
-  v10 = objc_msgSend_p_dateForListItem_(self, v7, v6, v8, v9);
+  v5 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3);
+  v8 = objc_msgSend_p_dateForListItem_(self, v6, v5, v7);
 
-  return v10;
+  return v8;
 }
 
 - (id)formatAtIndex:(unint64_t)index
 {
-  v5 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3, v4);
-  v10 = objc_msgSend_format(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3);
+  v8 = objc_msgSend_format(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (BOOL)BOOLeanAtIndex:(unint64_t)index
 {
   selfCopy = self;
-  v6 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3, v4);
-  LOBYTE(selfCopy) = objc_msgSend_p_BOOLeanForListItem_(selfCopy, v7, v6, v8, v9);
+  v5 = objc_msgSend_p_listItemAtIndex_(self, a2, index, v3);
+  LOBYTE(selfCopy) = objc_msgSend_p_BOOLeanForListItem_(selfCopy, v6, v5, v7);
 
   return selfCopy;
 }
 
 - (id)displayStringAtIndex:(unint64_t)index
 {
-  v7 = objc_msgSend_choices(self, a2, index, v3, v4);
-  v12 = objc_msgSend_count(v7, v8, v9, v10, v11);
+  v6 = objc_msgSend_choices(self, a2, index, v3);
+  v10 = objc_msgSend_count(v6, v7, v8, v9);
 
-  if (v12 <= index)
+  if (v10 <= index)
   {
-    v21 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v17 = objc_msgSend_choices(self, v13, v14, v15, v16);
-    v21 = objc_msgSend_objectAtIndex_(v17, v18, index, v19, v20);
+    v14 = objc_msgSend_choices(self, v11, v12, v13);
+    v17 = objc_msgSend_objectAtIndex_(v14, v15, index, v16);
 
-    if (v21)
+    if (v17)
     {
-      v26 = objc_msgSend_displayString(v21, v22, v23, v24, v25);
+      v21 = objc_msgSend_displayString(v17, v18, v19, v20);
       goto LABEL_6;
     }
   }
 
-  v26 = 0;
+  v21 = 0;
 LABEL_6:
 
-  return v26;
+  return v21;
 }
 
 - (id)popUpItemFromNumber:(double)number format:(id)format
 {
   formatCopy = format;
-  if (objc_msgSend_formatType(formatCopy, v6, v7, v8, v9) == 268)
+  if (objc_msgSend_formatType(formatCopy, v6, v7, v8) == 268)
   {
-    v10 = [TSCENumberValue alloc];
+    v9 = [TSCENumberValue alloc];
     TSUDecimal::operator=();
-    TSCEFormat::TSCEFormat(&v26, formatCopy, 0);
-    v12 = objc_msgSend_initWithDecimal_format_baseUnit_(v10, v11, v27, &v26, 6);
+    TSCEFormat::TSCEFormat(&v22, formatCopy, 0);
+    v11 = objc_msgSend_initWithDecimal_format_baseUnit_(v9, v10, v23, &v22, 6);
   }
 
   else
   {
-    v21 = [TSCENumberValue alloc];
+    v18 = [TSCENumberValue alloc];
     TSUDecimal::operator=();
-    TSCEFormat::TSCEFormat(&v26, formatCopy, 0);
-    v12 = objc_msgSend_initWithDecimal_format_(v21, v22, v27, &v26, v23);
+    TSCEFormat::TSCEFormat(&v22, formatCopy, 0);
+    v11 = objc_msgSend_initWithDecimal_format_(v18, v19, v23, &v22);
   }
 
-  v13 = [TSCENumberCellValue alloc];
-  v18 = objc_msgSend_objectLocale(self, v14, v15, v16, v17);
-  v24 = objc_msgSend_initWithNumberValue_locale_(v13, v19, v12, v18, v20);
+  v12 = [TSCENumberCellValue alloc];
+  v16 = objc_msgSend_objectLocale(self, v13, v14, v15);
+  v20 = objc_msgSend_initWithNumberValue_locale_(v12, v17, v11, v16);
 
-  return v24;
+  return v20;
 }
 
 - (id)popUpItemFromBoolean:(BOOL)boolean
 {
   booleanCopy = boolean;
   v5 = [TSCEBooleanCellValue alloc];
-  v10 = objc_msgSend_objectLocale(self, v6, v7, v8, v9);
-  v13 = objc_msgSend_initWithBoolean_locale_(v5, v11, booleanCopy, v10, v12);
+  v9 = objc_msgSend_objectLocale(self, v6, v7, v8);
+  v11 = objc_msgSend_initWithBoolean_locale_(v5, v10, booleanCopy, v9);
 
-  return v13;
+  return v11;
 }
 
 - (id)popUpItemFromString:(id)string
 {
   stringCopy = string;
   v5 = [TSCEStringCellValue alloc];
-  v10 = objc_msgSend_objectLocale(self, v6, v7, v8, v9);
-  v13 = objc_msgSend_initWithString_locale_(v5, v11, stringCopy, v10, v12);
+  v9 = objc_msgSend_objectLocale(self, v6, v7, v8);
+  v11 = objc_msgSend_initWithString_locale_(v5, v10, stringCopy, v9);
 
-  return v13;
+  return v11;
 }
 
 - (id)popUpItemFromDate:(id)date format:(id)format
 {
   dateCopy = date;
   formatCopy = format;
-  TSCEFormat::TSCEFormat(&v21, formatCopy, 0);
-  v10 = objc_msgSend_dateValue_format_(TSCEDateValue, v8, dateCopy, &v21, v9);
-  v11 = [TSCEDateCellValue alloc];
-  v16 = objc_msgSend_objectLocale(self, v12, v13, v14, v15);
-  v19 = objc_msgSend_initWithDateValue_locale_(v11, v17, v10, v16, v18);
+  TSCEFormat::TSCEFormat(&v18, formatCopy, 0);
+  v9 = objc_msgSend_dateValue_format_(TSCEDateValue, v8, dateCopy, &v18);
+  v10 = [TSCEDateCellValue alloc];
+  v14 = objc_msgSend_objectLocale(self, v11, v12, v13);
+  v16 = objc_msgSend_initWithDateValue_locale_(v10, v15, v9, v14);
 
-  return v19;
+  return v16;
 }
 
 - (void)loadFromArchive:(const void *)archive
 {
-  v7 = *(archive + 6);
-  v8 = *(archive + 12);
-  if (v7)
+  v6 = *(archive + 6);
+  v7 = *(archive + 12);
+  if (v6)
   {
-    v9 = v8 == 0;
+    v8 = v7 == 0;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  if (v9)
+  if (v8)
   {
-    v18 = objc_alloc(MEMORY[0x277CBEB18]);
-    v164 = objc_msgSend_initWithCapacity_(v18, v19, v7, v20, v21);
-    if (v7 < 1)
+    v16 = objc_alloc(MEMORY[0x277CBEB18]);
+    v133 = objc_msgSend_initWithCapacity_(v16, v17, v6, v18);
+    if (v6 < 1)
     {
 LABEL_42:
-      v111 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v22, v164, v23, v24);
+      v89 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v19, v133, v20);
       items = self->_items;
-      self->_items = v111;
+      self->_items = v89;
 
       return;
     }
 
-    v25 = 8;
+    v21 = 8;
     while (1)
     {
-      v26 = *(*(archive + 4) + v25);
-      v27 = *(v26 + 56);
-      if (v27 <= 2)
+      v22 = *(*(archive + 4) + v21);
+      v23 = *(v22 + 56);
+      if (v23 <= 2)
       {
         break;
       }
 
-      if (v27 == 3)
+      if (v23 == 3)
       {
-        v67 = [TSCEDateCellValue alloc];
-        v68 = *(v26 + 32);
-        v75 = objc_msgSend_objectLocale(self, v77, v78, v79, v80);
-        if (v68)
+        v55 = [TSCEDateCellValue alloc];
+        v56 = *(v22 + 32);
+        v61 = objc_msgSend_objectLocale(self, v63, v64, v65);
+        if (v56)
         {
           goto LABEL_35;
         }
 
-        v76 = objc_msgSend_initWithArchive_locale_(v67, v73, TSCE::_DateCellValueArchive_default_instance_, v75, v74);
+        v62 = objc_msgSend_initWithArchive_locale_(v55, v60, TSCE::_DateCellValueArchive_default_instance_, v61);
 LABEL_36:
-        v38 = v76;
+        v32 = v62;
 
-        objc_msgSend_addObject_(v164, v85, v38, v86, v87);
+        objc_msgSend_addObject_(v133, v69, v32, v70);
         goto LABEL_38;
       }
 
-      if (v27 == 4)
+      if (v23 == 4)
       {
-        v67 = [TSCENumberCellValue alloc];
-        v68 = *(v26 + 40);
-        v75 = objc_msgSend_objectLocale(self, v81, v82, v83, v84);
-        if (!v68)
+        v55 = [TSCENumberCellValue alloc];
+        v56 = *(v22 + 40);
+        v61 = objc_msgSend_objectLocale(self, v66, v67, v68);
+        if (!v56)
         {
-          v76 = objc_msgSend_initWithArchive_locale_(v67, v73, &TSCE::_NumberCellValueArchive_default_instance_, v75, v74);
+          v62 = objc_msgSend_initWithArchive_locale_(v55, v60, &TSCE::_NumberCellValueArchive_default_instance_, v61);
           goto LABEL_36;
         }
 
 LABEL_35:
-        v76 = objc_msgSend_initWithArchive_locale_(v67, v73, v68, v75, v74);
+        v62 = objc_msgSend_initWithArchive_locale_(v55, v60, v56, v61);
         goto LABEL_36;
       }
 
-      if (v27 != 5)
+      if (v23 != 5)
       {
         goto LABEL_41;
       }
 
-      v28 = [TSCEStringCellValue alloc];
-      v29 = *(v26 + 48);
-      v36 = objc_msgSend_objectLocale(self, v30, v31, v32, v33);
-      if (v29)
+      v24 = [TSCEStringCellValue alloc];
+      v25 = *(v22 + 48);
+      v30 = objc_msgSend_objectLocale(self, v26, v27, v28);
+      if (v25)
       {
-        v37 = objc_msgSend_initWithArchive_locale_(v28, v34, v29, v36, v35);
+        v31 = objc_msgSend_initWithArchive_locale_(v24, v29, v25, v30);
       }
 
       else
       {
-        v37 = objc_msgSend_initWithArchive_locale_(v28, v34, &TSCE::_StringCellValueArchive_default_instance_, v36, v35);
+        v31 = objc_msgSend_initWithArchive_locale_(v24, v29, &TSCE::_StringCellValueArchive_default_instance_, v30);
       }
 
-      v38 = v37;
+      v32 = v31;
 
-      v43 = objc_msgSend_format(v38, v39, v40, v41, v42);
-      v48 = objc_msgSend_formatType(v43, v44, v45, v46, v47);
+      v36 = objc_msgSend_format(v32, v33, v34, v35);
+      v40 = objc_msgSend_formatType(v36, v37, v38, v39);
 
-      if (v48 == 1)
+      if (v40 == 1)
       {
-        objc_msgSend_willModifyForUpgrade(self, v49, v50, v51, v52);
-        v57 = objc_msgSend_displayString(v38, v53, v54, v55, v56);
-        v58 = [TSCEStringCellValue alloc];
-        v63 = objc_msgSend_objectLocale(self, v59, v60, v61, v62);
-        v66 = objc_msgSend_initWithString_locale_(v58, v64, v57, v63, v65);
+        objc_msgSend_willModifyForUpgrade(self, v41, v42, v43);
+        v47 = objc_msgSend_displayString(v32, v44, v45, v46);
+        v48 = [TSCEStringCellValue alloc];
+        v52 = objc_msgSend_objectLocale(self, v49, v50, v51);
+        v54 = objc_msgSend_initWithString_locale_(v48, v53, v47, v52);
 
-        v38 = v66;
+        v32 = v54;
       }
 
-      objc_msgSend_addObject_(v164, v49, v38, v51, v52);
+      objc_msgSend_addObject_(v133, v41, v32, v43);
 LABEL_38:
 
 LABEL_39:
-      v25 += 8;
-      if (!--v7)
+      v21 += 8;
+      if (!--v6)
       {
         goto LABEL_42;
       }
     }
 
-    if (v27 == 1)
+    if (v23 == 1)
     {
-      v88 = [TSCENilCellValue alloc];
-      v93 = objc_msgSend_objectLocale(self, v89, v90, v91, v92);
-      v38 = objc_msgSend_initWithLocale_(v88, v94, v93, v95, v96);
+      v71 = [TSCENilCellValue alloc];
+      v75 = objc_msgSend_objectLocale(self, v72, v73, v74);
+      v32 = objc_msgSend_initWithLocale_(v71, v76, v75, v77);
 
-      objc_msgSend_addObject_(v164, v97, v38, v98, v99);
+      objc_msgSend_addObject_(v133, v78, v32, v79);
       goto LABEL_38;
     }
 
-    if (v27 != 2)
+    if (v23 != 2)
     {
 LABEL_41:
-      v100 = MEMORY[0x277D81150];
-      v101 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSTPopUpMenuModel loadFromArchive:]", v23, v24);
-      v105 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v102, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v103, v104);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v100, v106, v101, v105, 343, 0, "We are not handling this type of TSCECellValue");
+      v80 = MEMORY[0x277D81150];
+      v81 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTPopUpMenuModel loadFromArchive:]", v20);
+      v84 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v83);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v80, v85, v81, v84, 343, 0, "We are not handling this type of TSCECellValue");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v107, v108, v109, v110);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v86, v87, v88);
       goto LABEL_39;
     }
 
-    v67 = [TSCEBooleanCellValue alloc];
-    v68 = *(v26 + 24);
-    v75 = objc_msgSend_objectLocale(self, v69, v70, v71, v72);
-    if (v68)
+    v55 = [TSCEBooleanCellValue alloc];
+    v56 = *(v22 + 24);
+    v61 = objc_msgSend_objectLocale(self, v57, v58, v59);
+    if (v56)
     {
       goto LABEL_35;
     }
 
-    v76 = objc_msgSend_initWithArchive_locale_(v67, v73, TSCE::_BooleanCellValueArchive_default_instance_, v75, v74);
+    v62 = objc_msgSend_initWithArchive_locale_(v55, v60, TSCE::_BooleanCellValueArchive_default_instance_, v61);
     goto LABEL_36;
   }
 
-  if (v7)
+  if (v6)
   {
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v10 = v8 == 0;
+    v9 = v7 == 0;
   }
 
-  if (v10)
+  if (v9)
   {
-    v11 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTPopUpMenuModel loadFromArchive:]", v3, v4);
-    if (v7 && v8)
+    v10 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTPopUpMenuModel loadFromArchive:]", v3);
+    if (v6 && v7)
     {
-      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v13, v14);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v17, v15, v16, 373, 0, "TSTPopUpMenuModel Archiving: Only one of item and tsce_item should exist");
+      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v12);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v13, v14, 373, 0, "TSTPopUpMenuModel Archiving: Only one of item and tsce_item should exist");
     }
 
     else
     {
-      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v13, v14);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v158, v15, v16, 376, 0, "TSTPopUpMenuModel Archiving: No items to unarchive");
+      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v12);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v128, v13, v14, 376, 0, "TSTPopUpMenuModel Archiving: No items to unarchive");
     }
 
-    v163 = MEMORY[0x277D81150];
+    v132 = MEMORY[0x277D81150];
 
-    objc_msgSend_logBacktraceThrottled(v163, v159, v160, v161, v162);
+    objc_msgSend_logBacktraceThrottled(v132, v129, v130, v131);
   }
 
   else
   {
-    v113 = objc_alloc(MEMORY[0x277CBEB18]);
-    v117 = objc_msgSend_initWithCapacity_(v113, v114, v8, v115, v116);
-    v122 = v117;
-    v165 = v117;
-    if (v8 >= 1)
+    v91 = objc_alloc(MEMORY[0x277CBEB18]);
+    v94 = objc_msgSend_initWithCapacity_(v91, v92, v7, v93);
+    v98 = v94;
+    v134 = v94;
+    if (v7 >= 1)
     {
-      v123 = 8;
+      v99 = 8;
       do
       {
-        v124 = *(*(archive + 7) + v123);
-        v125 = objc_msgSend_objectLocale(self, v118, v119, v120, v121);
-        v128 = objc_msgSend_cellValueWithArchive_locale_(TSCECellValue, v126, v124, v125, v127);
+        v100 = *(*(archive + 7) + v99);
+        v101 = objc_msgSend_objectLocale(self, v95, v96, v97);
+        v103 = objc_msgSend_cellValueWithArchive_locale_(TSCECellValue, v102, v100, v101);
 
         objc_opt_class();
-        v129 = TSUDynamicCast();
-        v134 = v129;
-        if (v129)
+        v104 = TSUDynamicCast();
+        v108 = v104;
+        if (v104)
         {
-          v135 = objc_msgSend_stringValue(v129, v130, v131, v132, v133);
-          v140 = v135;
-          if (v135)
+          v109 = objc_msgSend_stringValue(v104, v105, v106, v107);
+          v113 = v109;
+          if (v109)
           {
-            objc_msgSend_format(v135, v136, v137, v138, v139);
+            objc_msgSend_format(v109, v110, v111, v112);
 
-            if (DWORD2(v166) > 1)
+            if (DWORD2(v135) > 1)
             {
               goto LABEL_53;
             }
@@ -645,32 +645,32 @@ LABEL_41:
 
           else
           {
-            v166 = 0u;
+            v135 = 0u;
           }
 
-          objc_msgSend_willModifyForUpgrade(self, v130, v141, v132, v133);
-          v146 = objc_msgSend_displayString(v134, v142, v143, v144, v145);
-          v147 = [TSCEStringCellValue alloc];
-          v152 = objc_msgSend_objectLocale(self, v148, v149, v150, v151);
-          v155 = objc_msgSend_initWithString_locale_(v147, v153, v146, v152, v154);
+          objc_msgSend_willModifyForUpgrade(self, v105, v114, v107);
+          v118 = objc_msgSend_displayString(v108, v115, v116, v117);
+          v119 = [TSCEStringCellValue alloc];
+          v123 = objc_msgSend_objectLocale(self, v120, v121, v122);
+          v125 = objc_msgSend_initWithString_locale_(v119, v124, v118, v123);
 
-          v128 = v155;
-          v122 = v165;
+          v103 = v125;
+          v98 = v134;
         }
 
 LABEL_53:
-        objc_msgSend_addObject_(v122, v130, v128, v132, v133);
+        objc_msgSend_addObject_(v98, v105, v103, v107);
 
-        v123 += 8;
-        --v8;
+        v99 += 8;
+        --v7;
       }
 
-      while (v8);
+      while (v7);
     }
 
-    v156 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v118, v122, v120, v121);
-    v157 = self->_items;
-    self->_items = v156;
+    v126 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v95, v98, v97);
+    v127 = self->_items;
+    self->_items = v126;
   }
 }
 
@@ -680,72 +680,72 @@ LABEL_53:
   self->_count = 0;
   v5 = unarchiverCopy;
   google::protobuf::internal::AssignDescriptors();
-  objc_msgSend_messageWithDescriptor_(v5, v6, off_2812E4498[26], v7, v8);
+  objc_msgSend_messageWithDescriptor_(v5, v6, off_2812E4498[26], v7);
 
   operator new();
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
-  v7 = objc_msgSend_count(self->_items, a2, archive, archiver, v4);
-  if (v7)
+  v6 = objc_msgSend_count(self->_items, a2, archive, archiver);
+  if (v6)
   {
-    v11 = v7;
-    v12 = 0;
-    v13 = v7 - 1;
+    v9 = v6;
+    v10 = 0;
+    v11 = v6 - 1;
     while (1)
     {
-      v14 = objc_msgSend_objectAtIndex_(self->_items, v8, v12, v9, v10);
-      v19 = objc_msgSend_valueType(v14, v15, v16, v17, v18);
-      if (v13 == v12 && v19 == 7)
+      v12 = objc_msgSend_objectAtIndex_(self->_items, v7, v10, v8);
+      v16 = objc_msgSend_valueType(v12, v13, v14, v15);
+      if (v11 == v10 && v16 == 7)
       {
-        v24 = objc_msgSend_displayString(v14, v20, v21, v22, v23);
-        v29 = objc_msgSend_length(v24, v25, v26, v27, v28);
+        v20 = objc_msgSend_displayString(v12, v17, v18, v19);
+        v24 = objc_msgSend_length(v20, v21, v22, v23);
 
-        if (!v29)
+        if (!v24)
         {
           goto LABEL_13;
         }
       }
 
-      v30 = *(archive + 7);
-      if (!v30)
+      v25 = *(archive + 7);
+      if (!v25)
       {
         goto LABEL_11;
       }
 
-      v31 = *(archive + 12);
-      v32 = *v30;
-      if (v31 >= *v30)
+      v26 = *(archive + 12);
+      v27 = *v25;
+      if (v26 >= *v25)
       {
         break;
       }
 
-      *(archive + 12) = v31 + 1;
-      objc_msgSend_encodeCellValueToArchive_(v14, v20, *&v30[2 * v31 + 2], v22, v23);
+      *(archive + 12) = v26 + 1;
+      objc_msgSend_encodeCellValueToArchive_(v12, v17, *&v25[2 * v26 + 2], v19);
 LABEL_13:
 
-      if (v11 == ++v12)
+      if (v9 == ++v10)
       {
         return;
       }
     }
 
-    if (v32 == *(archive + 13))
+    if (v27 == *(archive + 13))
     {
 LABEL_11:
       google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 40));
-      v30 = *(archive + 7);
-      v32 = *v30;
+      v25 = *(archive + 7);
+      v27 = *v25;
     }
 
-    *v30 = v32 + 1;
-    v33 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellValueArchive>(*(archive + 5));
-    v34 = *(archive + 12);
-    v35 = *(archive + 7) + 8 * v34;
-    *(archive + 12) = v34 + 1;
-    *(v35 + 8) = v33;
-    objc_msgSend_encodeCellValueToArchive_(v14, v36, v33, v37, v38);
+    *v25 = v27 + 1;
+    v28 = google::protobuf::Arena::CreateMaybeMessage<TSCE::CellValueArchive>(*(archive + 5));
+    v29 = *(archive + 12);
+    v30 = *(archive + 7) + 8 * v29;
+    *(archive + 12) = v29 + 1;
+    *(v30 + 8) = v28;
+    objc_msgSend_encodeCellValueToArchive_(v12, v31, v28, v32);
     goto LABEL_13;
   }
 }
@@ -754,468 +754,468 @@ LABEL_11:
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2215ABA24, off_2812E4498[26], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2215ABA24, off_2812E4498[26]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (id)copyWithContext:(id)context
 {
   contextCopy = context;
   v5 = objc_alloc(objc_opt_class());
-  v8 = objc_msgSend_initWithItems_context_(v5, v6, self->_items, contextCopy, v7);
+  v7 = objc_msgSend_initWithItems_context_(v5, v6, self->_items, contextCopy);
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v6 = objc_msgSend_context(self, a2, zone, v3, v4);
-  v10 = objc_msgSend_copyWithContext_(self, v7, v6, v8, v9);
+  v5 = objc_msgSend_context(self, a2, zone, v3);
+  v8 = objc_msgSend_copyWithContext_(self, v6, v5, v7);
 
-  return v10;
+  return v8;
 }
 
 + (id)popupMenuModelFromTable:(id)table region:(id)region initialValue:(BOOL *)value overflow:(BOOL *)overflow
 {
   tableCopy = table;
   regionCopy = region;
-  v15 = objc_msgSend_documentRoot(tableCopy, v11, v12, v13, v14);
-  v20 = objc_msgSend_documentLocale(v15, v16, v17, v18, v19);
+  v14 = objc_msgSend_documentRoot(tableCopy, v11, v12, v13);
+  v18 = objc_msgSend_documentLocale(v14, v15, v16, v17);
 
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
-  v91 = 1;
-  v84 = 0;
-  v85 = &v84;
-  v86 = 0x2020000000;
-  v87 = 0;
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x2020000000;
-  v83 = 1;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2020000000;
-  v79 = 1;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x2020000000;
+  v81 = 1;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x2020000000;
+  v77 = 0;
   v70 = 0;
   v71 = &v70;
-  v72 = 0x3032000000;
-  v73 = sub_2215AA6F0;
-  v74 = sub_2215AA700;
-  v75 = 0;
-  v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v22 = [TSCENilCellValue alloc];
-  v26 = objc_msgSend_initWithLocale_(v22, v23, v20, v24, v25, v20);
-  objc_msgSend_addObject_(v21, v27, v26, v28, v29);
-  v68[0] = 0;
-  v68[1] = v68;
-  v68[2] = 0x3032000000;
-  v68[3] = sub_2215AA6F0;
-  v68[4] = sub_2215AA700;
-  v69 = 0;
-  v32 = objc_msgSend_prunedCellRegionAgainstTable_behavior_(regionCopy, v30, tableCopy, 1, v31);
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = sub_2215AA708;
-  v58[3] = &unk_2784673C8;
-  v61 = &v80;
-  v62 = &v88;
-  v63 = &v70;
-  v64 = &v76;
+  v72 = 0x2020000000;
+  v73 = 1;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x2020000000;
+  v69 = 1;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = sub_2215AA6F0;
+  v64 = sub_2215AA700;
+  v65 = 0;
+  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = [TSCENilCellValue alloc];
+  v23 = objc_msgSend_initWithLocale_(v20, v21, v18, v22, v18);
+  objc_msgSend_addObject_(v19, v24, v23, v25);
+  v58[0] = 0;
+  v58[1] = v58;
+  v58[2] = 0x3032000000;
+  v58[3] = sub_2215AA6F0;
+  v58[4] = sub_2215AA700;
+  v59 = 0;
+  v27 = objc_msgSend_prunedCellRegionAgainstTable_behavior_(regionCopy, v26, tableCopy, 1);
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = sub_2215AA708;
+  v48[3] = &unk_2784673C8;
+  v51 = &v70;
+  v52 = &v78;
+  v53 = &v60;
+  v54 = &v66;
   selfCopy = self;
-  v33 = v20;
-  v59 = v33;
-  v34 = v21;
-  v60 = v34;
-  v65 = &v84;
-  v66 = v68;
-  objc_msgSend_iterateCellsInRegion_flags_searchFlags_usingBlock_(tableCopy, v35, v32, 2, 0x20000000, v58);
-  if (objc_msgSend_count(v34, v36, v37, v38, v39) == 1)
+  v28 = v18;
+  v49 = v28;
+  v29 = v19;
+  v50 = v29;
+  v55 = &v74;
+  v56 = v58;
+  objc_msgSend_iterateCellsInRegion_flags_searchFlags_usingBlock_(tableCopy, v30, v27, 2, 0x20000000, v48);
+  if (objc_msgSend_count(v29, v31, v32, v33) == 1)
   {
-    v44 = objc_msgSend_context(tableCopy, v40, v41, v42, v43);
-    v47 = objc_msgSend_p_PopUpMenuModelDefaultWithContext_locale_(TSTPopUpMenuModel, v45, v44, v33, v46);
+    v37 = objc_msgSend_context(tableCopy, v34, v35, v36);
+    v39 = objc_msgSend_p_PopUpMenuModelDefaultWithContext_locale_(TSTPopUpMenuModel, v38, v37, v28);
 
-    *(v89 + 24) = 1;
+    *(v79 + 24) = 1;
   }
 
-  else if (*(v81 + 24) == 1 && *(v77 + 24) == 1)
+  else if (*(v71 + 24) == 1 && *(v67 + 24) == 1)
   {
-    v47 = objc_msgSend_popupModel(v71[5], v40, v41, v42, v43);
-    *(v85 + 24) = 0;
+    v39 = objc_msgSend_popupModel(v61[5], v34, v35, v36);
+    *(v75 + 24) = 0;
   }
 
   else
   {
-    v48 = [TSTPopUpMenuModel alloc];
-    v53 = objc_msgSend_context(tableCopy, v49, v50, v51, v52);
-    v47 = objc_msgSend_initWithItems_context_(v48, v54, v34, v53, v55);
+    v40 = [TSTPopUpMenuModel alloc];
+    v44 = objc_msgSend_context(tableCopy, v41, v42, v43);
+    v39 = objc_msgSend_initWithItems_context_(v40, v45, v29, v44);
   }
 
   if (overflow)
   {
-    *overflow = *(v85 + 24);
+    *overflow = *(v75 + 24);
   }
 
   if (value)
   {
-    *value = *(v89 + 24);
+    *value = *(v79 + 24);
   }
 
-  _Block_object_dispose(v68, 8);
+  _Block_object_dispose(v58, 8);
+  _Block_object_dispose(&v60, 8);
+
+  _Block_object_dispose(&v66, 8);
   _Block_object_dispose(&v70, 8);
+  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v78, 8);
 
-  _Block_object_dispose(&v76, 8);
-  _Block_object_dispose(&v80, 8);
-  _Block_object_dispose(&v84, 8);
-  _Block_object_dispose(&v88, 8);
-
-  return v47;
+  return v39;
 }
 
 + (void)p_appendChoices:(id)choices uniquelyToChoices:(id)toChoices
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   choicesCopy = choices;
   toChoicesCopy = toChoices;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   v7 = choicesCopy;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v28, v32, 16);
-  if (v13)
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v25, v29, 16);
+  if (v12)
   {
-    v14 = *v29;
+    v13 = *v26;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v29 != v14)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v7);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * v15);
-        v17 = 0;
-        v18 = objc_msgSend_count(toChoicesCopy, v9, v10, v11, v12, v28);
-        if (v18)
+        v15 = *(*(&v25 + 1) + 8 * v14);
+        v16 = 0;
+        v17 = objc_msgSend_count(toChoicesCopy, v9, v10, v11, v25);
+        if (v17)
         {
           while (1)
           {
-            v19 = objc_msgSend_objectAtIndex_(toChoicesCopy, v9, v17, v11, v12);
-            isEqualToCellValue = objc_msgSend_isEqualToCellValue_(v16, v20, v19, v21, v22);
+            v18 = objc_msgSend_objectAtIndex_(toChoicesCopy, v9, v16, v11);
+            isEqualToCellValue = objc_msgSend_isEqualToCellValue_(v15, v19, v18, v20);
 
             if (isEqualToCellValue)
             {
               break;
             }
 
-            if (v18 == ++v17)
+            if (v17 == ++v16)
             {
               goto LABEL_11;
             }
           }
         }
 
-        if (v17 == v18)
+        if (v16 == v17)
         {
 LABEL_11:
-          v24 = objc_msgSend_copy(v16, v9, v10, v11, v12);
-          objc_msgSend_addObject_(toChoicesCopy, v25, v24, v26, v27);
+          v22 = objc_msgSend_copy(v15, v9, v10, v11);
+          objc_msgSend_addObject_(toChoicesCopy, v23, v22, v24);
         }
 
-        ++v15;
+        ++v14;
       }
 
-      while (v15 != v13);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v28, v32, 16);
+      while (v14 != v12);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v25, v29, 16);
     }
 
-    while (v13);
+    while (v12);
   }
 }
 
 + (id)p_PopUpMenuModelDefaultWithContext:(id)context locale:(id)locale
 {
-  v53[4] = *MEMORY[0x277D85DE8];
+  v44[4] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   localeCopy = locale;
   v6 = [TSCENilCellValue alloc];
-  v10 = objc_msgSend_initWithLocale_(v6, v7, localeCopy, v8, v9);
-  v15 = sub_2214AAEA8(v10, v11, v12, v13, v14);
-  v17 = objc_msgSend_localizedStringForKey_value_table_(v15, v16, @"Item 1", &stru_2834BADA0, @"TSTables");
+  v9 = objc_msgSend_initWithLocale_(v6, v7, localeCopy, v8);
+  v13 = sub_2214AAEA8(v9, v10, v11, v12);
+  v15 = objc_msgSend_localizedStringForKey_value_table_(v13, v14, @"Item 1", &stru_2834BADA0, @"TSTables");
 
-  v18 = [TSCEStringCellValue alloc];
-  v21 = objc_msgSend_initWithString_locale_(v18, v19, v17, localeCopy, v20);
-  v26 = sub_2214AAEA8(v21, v22, v23, v24, v25);
-  v28 = objc_msgSend_localizedStringForKey_value_table_(v26, v27, @"Item 2", &stru_2834BADA0, @"TSTables");
+  v16 = [TSCEStringCellValue alloc];
+  v18 = objc_msgSend_initWithString_locale_(v16, v17, v15, localeCopy);
+  v22 = sub_2214AAEA8(v18, v19, v20, v21);
+  v24 = objc_msgSend_localizedStringForKey_value_table_(v22, v23, @"Item 2", &stru_2834BADA0, @"TSTables");
 
-  v29 = [TSCEStringCellValue alloc];
-  v32 = objc_msgSend_initWithString_locale_(v29, v30, v28, localeCopy, v31);
-  v37 = sub_2214AAEA8(v32, v33, v34, v35, v36);
-  v39 = objc_msgSend_localizedStringForKey_value_table_(v37, v38, @"Item 3", &stru_2834BADA0, @"TSTables");
+  v25 = [TSCEStringCellValue alloc];
+  v27 = objc_msgSend_initWithString_locale_(v25, v26, v24, localeCopy);
+  v31 = sub_2214AAEA8(v27, v28, v29, v30);
+  v33 = objc_msgSend_localizedStringForKey_value_table_(v31, v32, @"Item 3", &stru_2834BADA0, @"TSTables");
 
-  v40 = [TSCEStringCellValue alloc];
-  v43 = objc_msgSend_initWithString_locale_(v40, v41, v39, localeCopy, v42);
-  v44 = [TSTPopUpMenuModel alloc];
-  v53[0] = v10;
-  v53[1] = v21;
-  v53[2] = v32;
-  v53[3] = v43;
-  v47 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v45, v53, 4, v46);
-  v50 = objc_msgSend_initWithItems_context_(v44, v48, v47, contextCopy, v49);
+  v34 = [TSCEStringCellValue alloc];
+  v36 = objc_msgSend_initWithString_locale_(v34, v35, v33, localeCopy);
+  v37 = [TSTPopUpMenuModel alloc];
+  v44[0] = v9;
+  v44[1] = v18;
+  v44[2] = v27;
+  v44[3] = v36;
+  v39 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v38, v44, 4);
+  v41 = objc_msgSend_initWithItems_context_(v37, v40, v39, contextCopy);
 
-  return v50;
+  return v41;
 }
 
 + (id)p_cellValueFromCellWithCustomFormat:(id)format locale:(id)locale
 {
   localeCopy = locale;
-  v10 = objc_msgSend_formattedValue(format, v6, v7, v8, v9);
-  if (objc_msgSend_length(v10, v11, v12, v13, v14))
+  v9 = objc_msgSend_formattedValue(format, v6, v7, v8);
+  if (objc_msgSend_length(v9, v10, v11, v12))
   {
-    TSCEFormat::TSCEFormat(v27, 260);
-    v17 = objc_msgSend_stringValue_format_(TSCEStringValue, v15, v10, v27, v16);
-    v18 = [TSCEStringCellValue alloc];
-    v21 = objc_msgSend_initWithStringValue_locale_(v18, v19, v17, localeCopy, v20);
+    TSCEFormat::TSCEFormat(v22, 260);
+    v14 = objc_msgSend_stringValue_format_(TSCEStringValue, v13, v9, v22);
+    v15 = [TSCEStringCellValue alloc];
+    v17 = objc_msgSend_initWithStringValue_locale_(v15, v16, v14, localeCopy);
   }
 
   else
   {
-    v22 = [TSCENilCellValue alloc];
-    v21 = objc_msgSend_initWithLocale_(v22, v23, localeCopy, v24, v25);
+    v18 = [TSCENilCellValue alloc];
+    v17 = objc_msgSend_initWithLocale_(v18, v19, localeCopy, v20);
   }
 
-  return v21;
+  return v17;
 }
 
 + (id)cellValueFromCell:(id)cell locale:(id)locale
 {
   cellCopy = cell;
   localeCopy = locale;
-  v12 = objc_msgSend_currentFormat(cellCopy, v8, v9, v10, v11);
-  if (objc_msgSend_formatType(v12, v13, v14, v15, v16) == 267)
+  v11 = objc_msgSend_currentFormat(cellCopy, v8, v9, v10);
+  if (objc_msgSend_formatType(v11, v12, v13, v14) == 267)
   {
-    v19 = objc_msgSend_defaultFormatWithFormatType_locale_(MEMORY[0x277D80680], v17, 256, localeCopy, v18);
+    v16 = objc_msgSend_defaultFormatWithFormatType_locale_(MEMORY[0x277D80680], v15, 256, localeCopy);
 
-    v12 = v19;
+    v11 = v16;
   }
 
-  TSCEFormat::TSCEFormat(&v131, v12, 0);
-  v28 = objc_msgSend_formatType(v12, v20, v21, v22, v23) - 270;
-  if (v28 <= 4 && v28 != 3)
+  TSCEFormat::TSCEFormat(&v103, v11, 0);
+  v23 = objc_msgSend_formatType(v11, v17, v18, v19) - 270;
+  if (v23 <= 4 && v23 != 3)
   {
-    v29 = objc_msgSend_p_cellValueFromCellWithCustomFormat_locale_(self, v24, cellCopy, localeCopy, v27);
+    v24 = objc_msgSend_p_cellValueFromCellWithCustomFormat_locale_(self, v20, cellCopy, localeCopy);
 LABEL_6:
-    v30 = v29;
+    v25 = v24;
     goto LABEL_7;
   }
 
-  v32 = objc_msgSend_valueType(cellCopy, v24, v25, v26, v27);
-  v30 = 0;
-  if (v32 <= 5)
+  v27 = objc_msgSend_valueType(cellCopy, v20, v21, v22);
+  v25 = 0;
+  if (v27 <= 5)
   {
-    if (v32 <= 2)
+    if (v27 <= 2)
     {
-      if (v32)
+      if (v27)
       {
-        if (v32 != 2)
+        if (v27 != 2)
         {
           goto LABEL_7;
         }
 
-        v55 = [TSCENumberValue alloc];
-        objc_msgSend_numberDoubleValue(cellCopy, v56, v57, v58, v59);
+        v45 = [TSCENumberValue alloc];
+        objc_msgSend_numberDoubleValue(cellCopy, v46, v47, v48);
         TSUDecimal::operator=();
-        v40 = objc_msgSend_initWithDecimal_format_(v55, v60, v130, &v131, v61);
-        v62 = [TSCENumberCellValue alloc];
-        v44 = objc_msgSend_initWithNumberValue_locale_(v62, v63, v40, localeCopy, v64);
+        v33 = objc_msgSend_initWithDecimal_format_(v45, v49, v102, &v103);
+        v50 = [TSCENumberCellValue alloc];
+        v36 = objc_msgSend_initWithNumberValue_locale_(v50, v51, v33, localeCopy);
         goto LABEL_32;
       }
     }
 
     else
     {
-      if (v32 == 3)
+      if (v27 == 3)
       {
-        v97 = [TSCEStringCellValue alloc];
-        v40 = objc_msgSend_stringValue(cellCopy, v98, v99, v100, v101);
-        v44 = objc_msgSend_initWithString_locale_(v97, v102, v40, localeCopy, v103);
+        v77 = [TSCEStringCellValue alloc];
+        v33 = objc_msgSend_stringValue(cellCopy, v78, v79, v80);
+        v36 = objc_msgSend_initWithString_locale_(v77, v81, v33, localeCopy);
         goto LABEL_32;
       }
 
-      if (v32 != 4)
+      if (v27 != 4)
       {
-        v37 = objc_msgSend_dateValue(cellCopy, v33, v34, v35, v36);
-        v40 = objc_msgSend_dateValue_format_(TSCEDateValue, v38, v37, &v131, v39);
+        v31 = objc_msgSend_dateValue(cellCopy, v28, v29, v30);
+        v33 = objc_msgSend_dateValue_format_(TSCEDateValue, v32, v31, &v103);
 
-        v41 = [TSCEDateCellValue alloc];
-        v44 = objc_msgSend_initWithDateValue_locale_(v41, v42, v40, localeCopy, v43);
+        v34 = [TSCEDateCellValue alloc];
+        v36 = objc_msgSend_initWithDateValue_locale_(v34, v35, v33, localeCopy);
 LABEL_32:
-        v30 = v44;
+        v25 = v36;
         goto LABEL_33;
       }
     }
 
 LABEL_24:
-    v65 = [TSCENilCellValue alloc];
-    v29 = objc_msgSend_initWithLocale_(v65, v66, localeCopy, v67, v68);
+    v52 = [TSCENilCellValue alloc];
+    v24 = objc_msgSend_initWithLocale_(v52, v53, localeCopy, v54);
     goto LABEL_6;
   }
 
-  if (v32 <= 7)
+  if (v27 <= 7)
   {
-    if (v32 == 6)
+    if (v27 == 6)
     {
-      v89 = [TSCEBooleanCellValue alloc];
-      v94 = objc_msgSend_BOOLValue(cellCopy, v90, v91, v92, v93);
-      v29 = objc_msgSend_initWithBoolean_locale_(v89, v95, v94, localeCopy, v96);
+      v71 = [TSCEBooleanCellValue alloc];
+      v75 = objc_msgSend_BOOLValue(cellCopy, v72, v73, v74);
+      v24 = objc_msgSend_initWithBoolean_locale_(v71, v76, v75, localeCopy);
       goto LABEL_6;
     }
 
-    v69 = objc_msgSend_asDurationFormat(v12, v33, v34, v35, v36);
-    objc_msgSend_durationTimeIntervalValue(cellCopy, v70, v71, v72, v73);
-    v78 = objc_msgSend_durationUnitLargestWithTimeInterval_(v69, v74, v75, v76, v77);
-    v79 = sub_221387C78(v78);
+    v55 = objc_msgSend_asDurationFormat(v11, v28, v29, v30);
+    objc_msgSend_durationTimeIntervalValue(cellCopy, v56, v57, v58);
+    v62 = objc_msgSend_durationUnitLargestWithTimeInterval_(v55, v59, v60, v61);
+    v63 = sub_221387C78(v62);
 
-    v80 = [TSCENumberValue alloc];
-    objc_msgSend_durationTimeIntervalValue(cellCopy, v81, v82, v83, v84);
+    v64 = [TSCENumberValue alloc];
+    objc_msgSend_durationTimeIntervalValue(cellCopy, v65, v66, v67);
     TSUDecimal::operator=();
-    v40 = objc_msgSend_initWithDecimal_format_baseUnit_(v80, v85, v130, &v131, v79);
-    v86 = [TSCENumberCellValue alloc];
-    v44 = objc_msgSend_initWithNumberValue_locale_(v86, v87, v40, localeCopy, v88);
+    v33 = objc_msgSend_initWithDecimal_format_baseUnit_(v64, v68, v102, &v103, v63);
+    v69 = [TSCENumberCellValue alloc];
+    v36 = objc_msgSend_initWithNumberValue_locale_(v69, v70, v33, localeCopy);
     goto LABEL_32;
   }
 
-  if (v32 == 8)
+  if (v27 == 8)
   {
     goto LABEL_24;
   }
 
-  if (v32 != 9)
+  if (v27 != 9)
   {
-    if (v32 != 10)
+    if (v27 != 10)
     {
       goto LABEL_7;
     }
 
-    if (v131._formatType == 257)
+    if (v103._formatType == 257)
     {
-      v45 = objc_msgSend_asCurrencyFormat(v12, v33, v34, v35, v36);
-      v50 = objc_msgSend_currencyCode(v45, v46, v47, v48, v49);
+      v37 = objc_msgSend_asCurrencyFormat(v11, v28, v29, v30);
+      v41 = objc_msgSend_currencyCode(v37, v38, v39, v40);
 
-      v54 = objc_msgSend_unitForCurrencyCode_(TSCEUnitRegistry, v51, v50, v52, v53);
+      v44 = objc_msgSend_unitForCurrencyCode_(TSCEUnitRegistry, v42, v41, v43);
     }
 
     else
     {
-      v54 = 0;
+      v44 = 0;
     }
 
-    v121 = [TSCENumberValue alloc];
-    objc_msgSend_currencyDoubleValue(cellCopy, v122, v123, v124, v125);
+    v95 = [TSCENumberValue alloc];
+    objc_msgSend_currencyDoubleValue(cellCopy, v96, v97, v98);
     TSUDecimal::operator=();
-    v40 = objc_msgSend_initWithDecimal_format_baseUnit_(v121, v126, v130, &v131, v54);
-    v127 = [TSCENumberCellValue alloc];
-    v44 = objc_msgSend_initWithNumberValue_locale_(v127, v128, v40, localeCopy, v129);
+    v33 = objc_msgSend_initWithDecimal_format_baseUnit_(v95, v99, v102, &v103, v44);
+    v100 = [TSCENumberCellValue alloc];
+    v36 = objc_msgSend_initWithNumberValue_locale_(v100, v101, v33, localeCopy);
     goto LABEL_32;
   }
 
-  v104 = [TSCEStringCellValue alloc];
-  v40 = objc_msgSend_richTextValue(cellCopy, v105, v106, v107, v108);
-  v113 = objc_msgSend_string(v40, v109, v110, v111, v112);
-  v118 = objc_msgSend_tsu_stringWithoutAttachmentCharacters(v113, v114, v115, v116, v117);
-  v30 = objc_msgSend_initWithString_locale_(v104, v119, v118, localeCopy, v120);
+  v82 = [TSCEStringCellValue alloc];
+  v33 = objc_msgSend_richTextValue(cellCopy, v83, v84, v85);
+  v89 = objc_msgSend_string(v33, v86, v87, v88);
+  v93 = objc_msgSend_tsu_stringWithoutAttachmentCharacters(v89, v90, v91, v92);
+  v25 = objc_msgSend_initWithString_locale_(v82, v94, v93, localeCopy);
 
 LABEL_33:
 LABEL_7:
 
-  return v30;
+  return v25;
 }
 
 + (id)popupMenuModelDeletingItemFromModel:(id)model index:(unint64_t)index
 {
   modelCopy = model;
-  v10 = objc_msgSend_choices(modelCopy, v6, v7, v8, v9);
-  v15 = objc_msgSend_mutableCopy(v10, v11, v12, v13, v14);
+  v9 = objc_msgSend_choices(modelCopy, v6, v7, v8);
+  v13 = objc_msgSend_mutableCopy(v9, v10, v11, v12);
 
-  objc_msgSend_removeObjectAtIndex_(v15, v16, index, v17, v18);
-  v19 = [TSTPopUpMenuModel alloc];
-  v24 = objc_msgSend_context(modelCopy, v20, v21, v22, v23);
-  v27 = objc_msgSend_initWithItems_context_(v19, v25, v15, v24, v26);
+  objc_msgSend_removeObjectAtIndex_(v13, v14, index, v15);
+  v16 = [TSTPopUpMenuModel alloc];
+  v20 = objc_msgSend_context(modelCopy, v17, v18, v19);
+  v22 = objc_msgSend_initWithItems_context_(v16, v21, v13, v20);
 
-  return v27;
+  return v22;
 }
 
 + (id)popupMenuModelEditingItemInModel:(id)model index:(unint64_t)index newContent:(id)content
 {
   modelCopy = model;
   contentCopy = content;
-  v14 = objc_msgSend_choices(modelCopy, v10, v11, v12, v13);
-  v19 = objc_msgSend_mutableCopy(v14, v15, v16, v17, v18);
+  v13 = objc_msgSend_choices(modelCopy, v10, v11, v12);
+  v17 = objc_msgSend_mutableCopy(v13, v14, v15, v16);
 
-  v20 = [TSTCell alloc];
-  v25 = objc_msgSend_objectLocale(modelCopy, v21, v22, v23, v24);
-  v29 = objc_msgSend_initWithLocale_(v20, v26, v25, v27, v28);
+  v18 = [TSTCell alloc];
+  v22 = objc_msgSend_objectLocale(modelCopy, v19, v20, v21);
+  v25 = objc_msgSend_initWithLocale_(v18, v23, v22, v24);
 
-  objc_msgSend_parseContentFromString_flags_(v29, v30, contentCopy, 0, v31);
-  v36 = objc_msgSend_objectLocale(modelCopy, v32, v33, v34, v35);
-  v39 = objc_msgSend_cellValueFromCell_locale_(self, v37, v29, v36, v38);
+  objc_msgSend_parseContentFromString_flags_(v25, v26, contentCopy, 0);
+  v30 = objc_msgSend_objectLocale(modelCopy, v27, v28, v29);
+  v32 = objc_msgSend_cellValueFromCell_locale_(self, v31, v25, v30);
 
-  if (objc_msgSend_count(v19, v40, v41, v42, v43) <= index)
+  if (objc_msgSend_count(v17, v33, v34, v35) <= index)
   {
-    objc_msgSend_addObject_(v19, v44, v39, v45, v46);
+    objc_msgSend_addObject_(v17, v36, v32, v37);
   }
 
   else
   {
-    objc_msgSend_setObject_atIndexedSubscript_(v19, v44, v39, index, v46);
+    objc_msgSend_setObject_atIndexedSubscript_(v17, v36, v32, index);
   }
 
-  v47 = [TSTPopUpMenuModel alloc];
-  v52 = objc_msgSend_context(modelCopy, v48, v49, v50, v51);
-  v55 = objc_msgSend_initWithItems_context_(v47, v53, v19, v52, v54);
+  v38 = [TSTPopUpMenuModel alloc];
+  v42 = objc_msgSend_context(modelCopy, v39, v40, v41);
+  v44 = objc_msgSend_initWithItems_context_(v38, v43, v17, v42);
 
-  return v55;
+  return v44;
 }
 
 + (id)popupMenuModelReorderingModel:(id)model fromIndex:(unint64_t)index toIndex:(unint64_t)toIndex
 {
   modelCopy = model;
-  v12 = objc_msgSend_choices(modelCopy, v8, v9, v10, v11);
-  v17 = objc_msgSend_mutableCopy(v12, v13, v14, v15, v16);
+  v11 = objc_msgSend_choices(modelCopy, v8, v9, v10);
+  v15 = objc_msgSend_mutableCopy(v11, v12, v13, v14);
 
-  if (objc_msgSend_count(v17, v18, v19, v20, v21) <= index)
+  if (objc_msgSend_count(v15, v16, v17, v18) <= index)
   {
-    v26 = MEMORY[0x277D81150];
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "+[TSTPopUpMenuModel popupMenuModelReorderingModel:fromIndex:toIndex:]", v24, v25);
-    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v29, v30);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v32, v27, v31, 766, 0, "Bad index");
+    v22 = MEMORY[0x277D81150];
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "+[TSTPopUpMenuModel popupMenuModelReorderingModel:fromIndex:toIndex:]", v21);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v25);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 766, 0, "Bad index");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
   }
 
-  if (objc_msgSend_count(v17, v22, v23, v24, v25) <= toIndex)
+  if (objc_msgSend_count(v15, v19, v20, v21) <= toIndex)
   {
-    v40 = MEMORY[0x277D81150];
-    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "+[TSTPopUpMenuModel popupMenuModelReorderingModel:fromIndex:toIndex:]", v38, v39);
-    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v43, v44);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v46, v41, v45, 767, 0, "Bad index");
+    v33 = MEMORY[0x277D81150];
+    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "+[TSTPopUpMenuModel popupMenuModelReorderingModel:fromIndex:toIndex:]", v32);
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPopUpMenuModel.mm", v36);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v38, v34, v37, 767, 0, "Bad index");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v47, v48, v49, v50);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40, v41);
   }
 
-  v51 = objc_msgSend_objectAtIndex_(v17, v37, index, v38, v39);
-  objc_msgSend_removeObjectAtIndex_(v17, v52, index, v53, v54);
-  objc_msgSend_insertObject_atIndex_(v17, v55, v51, toIndex, v56);
-  v57 = [TSTPopUpMenuModel alloc];
-  v62 = objc_msgSend_context(modelCopy, v58, v59, v60, v61);
-  v65 = objc_msgSend_initWithItems_context_(v57, v63, v17, v62, v64);
+  v42 = objc_msgSend_objectAtIndex_(v15, v31, index, v32);
+  objc_msgSend_removeObjectAtIndex_(v15, v43, index, v44);
+  objc_msgSend_insertObject_atIndex_(v15, v45, v42, toIndex);
+  v46 = [TSTPopUpMenuModel alloc];
+  v50 = objc_msgSend_context(modelCopy, v47, v48, v49);
+  v52 = objc_msgSend_initWithItems_context_(v46, v51, v15, v50);
 
-  return v65;
+  return v52;
 }
 
 @end

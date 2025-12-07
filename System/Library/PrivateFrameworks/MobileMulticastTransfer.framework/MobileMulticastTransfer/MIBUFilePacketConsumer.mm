@@ -69,7 +69,7 @@
   return v3;
 }
 
-uint64_t __35__MIBUFilePacketConsumer_bootstrap__block_invoke(uint64_t a1)
+void *__35__MIBUFilePacketConsumer_bootstrap__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _bootstrap];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -115,7 +115,7 @@ uint64_t __35__MIBUFilePacketConsumer_bootstrap__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __36__MIBUFilePacketConsumer_isComplete__block_invoke(uint64_t a1)
+void *__36__MIBUFilePacketConsumer_isComplete__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isComplete];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -161,7 +161,7 @@ uint64_t __36__MIBUFilePacketConsumer_isComplete__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __34__MIBUFilePacketConsumer_assemble__block_invoke(uint64_t a1)
+void *__34__MIBUFilePacketConsumer_assemble__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _assembleOutputFile];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -190,7 +190,7 @@ uint64_t __34__MIBUFilePacketConsumer_assemble__block_invoke(uint64_t a1)
 
 - (void)consumePackets:(id)packets arrivalTime:(id)time withCompletion:(id)completion inQueue:(id)queue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   packetsCopy = packets;
   timeCopy = time;
   completionCopy = completion;
@@ -203,12 +203,10 @@ uint64_t __34__MIBUFilePacketConsumer_assemble__block_invoke(uint64_t a1)
   v13 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[MIBUFilePacketConsumer consumePackets:arrivalTime:withCompletion:inQueue:]";
-    _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "%s is not implemented yet.", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[MIBUFilePacketConsumer consumePackets:arrivalTime:withCompletion:inQueue:]";
+    _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "%s is not implemented yet.", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __76__MIBUFilePacketConsumer_consumePackets_arrivalTime_withCompletion_inQueue___block_invoke()
@@ -229,7 +227,7 @@ void __76__MIBUFilePacketConsumer_consumePackets_arrivalTime_withCompletion_inQu
 
 - (BOOL)_bootstrap
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if (MIBUOnceToken != -1)
   {
@@ -248,16 +246,16 @@ void __76__MIBUFilePacketConsumer_consumePackets_arrivalTime_withCompletion_inQu
   if ([defaultManager fileExistsAtPath:self->_workFolder])
   {
     v6 = self->_workFolder;
-    v17 = 0;
-    v7 = [defaultManager removeItemAtPath:v6 error:&v17];
-    v8 = v17;
+    v16 = 0;
+    v7 = [defaultManager removeItemAtPath:v6 error:&v16];
+    v8 = v16;
     v9 = v8;
     if ((v7 & 1) == 0)
     {
       [(MIBUFilePacketConsumer *)v8 _bootstrap];
 LABEL_12:
       v13 = *buf;
-      v11 = v18;
+      v11 = v17;
       goto LABEL_10;
     }
   }
@@ -268,10 +266,10 @@ LABEL_12:
   }
 
   v10 = self->_workFolder;
-  v16 = v9;
+  v15 = v9;
   v11 = 1;
-  v12 = [defaultManager createDirectoryAtPath:v10 withIntermediateDirectories:1 attributes:0 error:&v16];
-  v13 = v16;
+  v12 = [defaultManager createDirectoryAtPath:v10 withIntermediateDirectories:1 attributes:0 error:&v15];
+  v13 = v15;
 
   if ((v12 & 1) == 0)
   {
@@ -281,7 +279,6 @@ LABEL_12:
 
 LABEL_10:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -335,20 +332,20 @@ void __36__MIBUFilePacketConsumer__bootstrap__block_invoke_10()
 
 - (void)_consumePacket:(id)packet withCompletion:(id)completion inQueue:(id)queue
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   completionCopy = completion;
   queueCopy = queue;
   dispatch_assert_queue_V2(self->_queue);
-  v32 = 0;
-  v33 = 0;
   v31 = 0;
-  [(MIBUFilePacketConsumer *)self _decodePacket:packetCopy outPayload:&v31 outPacketCount:&v33 outPacketUID:&v32];
-  v11 = v31;
+  v32 = 0;
+  v30 = 0;
+  [(MIBUFilePacketConsumer *)self _decodePacket:packetCopy outPayload:&v30 outPacketCount:&v32 outPacketUID:&v31];
+  v11 = v30;
   packetCount = self->_packetCount;
   if (packetCount)
   {
-    if (packetCount != v33)
+    if (packetCount != v32)
     {
       if (MIBUOnceToken != -1)
       {
@@ -359,16 +356,16 @@ void __36__MIBUFilePacketConsumer__bootstrap__block_invoke_10()
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v35 = v33;
+        v34 = v32;
         _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "Received unexpected packet count: %llu", buf, 0xCu);
       }
 
-      v14 = v30;
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke_19;
-      v30[3] = &unk_2798EBD68;
-      v30[4] = completionCopy;
+      v14 = v29;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke_19;
+      v29[3] = &unk_2798EBD68;
+      v29[4] = completionCopy;
       goto LABEL_25;
     }
   }
@@ -384,20 +381,20 @@ void __36__MIBUFilePacketConsumer__bootstrap__block_invoke_10()
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v35 = v33;
+      v34 = v32;
       _os_log_impl(&dword_259B04000, v15, OS_LOG_TYPE_DEFAULT, "Set expected packet count to: %llu", buf, 0xCu);
     }
 
-    self->_packetCount = v33;
+    self->_packetCount = v32;
     v16 = objc_alloc(MEMORY[0x277CCAB58]);
-    v17 = [v16 initWithIndexesInRange:{0, v33}];
+    v17 = [v16 initWithIndexesInRange:{0, v32}];
     missingPackets = self->_missingPackets;
     self->_missingPackets = v17;
 
-    packetCount = v33;
+    packetCount = v32;
   }
 
-  if (v32 >= packetCount)
+  if (v31 >= packetCount)
   {
     if (MIBUOnceToken != -1)
     {
@@ -408,27 +405,27 @@ void __36__MIBUFilePacketConsumer__bootstrap__block_invoke_10()
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v35 = v32;
+      v34 = v31;
       _os_log_impl(&dword_259B04000, v23, OS_LOG_TYPE_DEFAULT, "Received unexpected packet UID: %llu", buf, 0xCu);
     }
 
-    v14 = v29;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke_22;
-    v29[3] = &unk_2798EBD68;
-    v29[4] = completionCopy;
+    v14 = v28;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke_22;
+    v28[3] = &unk_2798EBD68;
+    v28[4] = completionCopy;
   }
 
   else if (([(NSMutableIndexSet *)self->_missingPackets containsIndex:?]& 1) != 0)
   {
-    v19 = [(MIBUFilePacketConsumer *)self _writePayloadToFile:v11 forPacketUID:v32];
+    v19 = [(MIBUFilePacketConsumer *)self _writePayloadToFile:v11 forPacketUID:v31];
     v20 = v19;
     if (v19)
     {
       v21 = self->_missingPackets;
       objc_sync_enter(v21);
-      [(NSMutableIndexSet *)self->_missingPackets removeIndex:v32];
+      [(NSMutableIndexSet *)self->_missingPackets removeIndex:v31];
       v22 = [(NSMutableIndexSet *)self->_missingPackets count]== 0;
       objc_sync_exit(v21);
     }
@@ -438,30 +435,28 @@ void __36__MIBUFilePacketConsumer__bootstrap__block_invoke_10()
       v22 = 0;
     }
 
-    v14 = v25;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke_3;
-    v25[3] = &unk_2798EBFC8;
-    v25[4] = completionCopy;
-    v26 = v20;
-    v27 = v22;
+    v14 = v24;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke_3;
+    v24[3] = &unk_2798EBFC8;
+    v24[4] = completionCopy;
+    v25 = v20;
+    v26 = v22;
   }
 
   else
   {
-    v14 = v28;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke_2_23;
-    v28[3] = &unk_2798EBD68;
-    v28[4] = completionCopy;
+    v14 = v27;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke_2_23;
+    v27[3] = &unk_2798EBD68;
+    v27[4] = completionCopy;
   }
 
 LABEL_25:
   dispatch_async(queueCopy, v14);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __64__MIBUFilePacketConsumer__consumePacket_withCompletion_inQueue___block_invoke()
@@ -582,7 +577,7 @@ uint64_t __79__MIBUFilePacketConsumer__decodePacket_outPayload_outPacketCount_ou
 
 - (BOOL)_writePayloadToFile:(id)file forPacketUID:(unint64_t)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"data.%llu", d];
@@ -598,7 +593,7 @@ uint64_t __79__MIBUFilePacketConsumer__decodePacket_outPayload_outPacketCount_ou
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_259B04000, v10, OS_LOG_TYPE_DEFAULT, "Skip writing packet to existing file: %{public}@", buf, 0xCu);
     }
 
@@ -608,10 +603,10 @@ uint64_t __79__MIBUFilePacketConsumer__decodePacket_outPayload_outPacketCount_ou
 
   else
   {
-    v16 = 0;
+    v15 = 0;
     v12 = 1;
-    v13 = [fileCopy writeToFile:v9 options:1 error:&v16];
-    v11 = v16;
+    v13 = [fileCopy writeToFile:v9 options:1 error:&v15];
+    v11 = v15;
     if ((v13 & 1) == 0)
     {
       if (MIBUOnceToken != -1)
@@ -628,7 +623,6 @@ uint64_t __79__MIBUFilePacketConsumer__decodePacket_outPayload_outPacketCount_ou
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -686,7 +680,7 @@ void __59__MIBUFilePacketConsumer__writePayloadToFile_forPacketUID___block_invok
 
 - (BOOL)_assembleOutputFile
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if (MIBUOnceToken != -1)
   {
@@ -703,9 +697,9 @@ void __59__MIBUFilePacketConsumer__writePayloadToFile_forPacketUID___block_invok
   if ([defaultManager fileExistsAtPath:self->_outputFile])
   {
     outputFile = self->_outputFile;
-    v40 = 0;
-    v6 = [defaultManager removeItemAtPath:outputFile error:&v40];
-    v7 = v40;
+    v39 = 0;
+    v6 = [defaultManager removeItemAtPath:outputFile error:&v39];
+    v7 = v39;
     if ((v6 & 1) == 0)
     {
       if (MIBUOnceToken == -1)
@@ -763,9 +757,9 @@ LABEL_41:
 
   v8 = MEMORY[0x277CCA9F8];
   v9 = [MEMORY[0x277CBEBC0] fileURLWithPath:self->_outputFile];
-  v39 = v7;
-  v10 = [v8 fileHandleForWritingToURL:v9 error:&v39];
-  v11 = v39;
+  v38 = v7;
+  v10 = [v8 fileHandleForWritingToURL:v9 error:&v38];
+  v11 = v38;
 
   if (!v10)
   {
@@ -797,9 +791,9 @@ LABEL_45:
 
   v12 = v10;
   workFolder = self->_workFolder;
-  v38 = v11;
-  v14 = [defaultManager contentsOfDirectoryAtPath:workFolder error:&v38];
-  v7 = v38;
+  v37 = v11;
+  v14 = [defaultManager contentsOfDirectoryAtPath:workFolder error:&v37];
+  v7 = v37;
 
   if (!v14)
   {
@@ -818,31 +812,31 @@ LABEL_37:
     goto LABEL_48;
   }
 
-  v32 = v14;
-  v33 = defaultManager;
+  v31 = v14;
+  v32 = defaultManager;
   if (v15)
   {
     v16 = 0;
-    v35 = 1;
-    v34 = v12;
+    v34 = 1;
+    v33 = v12;
     while (1)
     {
       v17 = v7;
       v18 = objc_autoreleasePoolPush();
       v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"data.%lu", v16];
       v20 = [(NSString *)self->_workFolder stringByAppendingPathComponent:v19];
-      v37 = v7;
-      v21 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v20 options:0 error:&v37];
-      v7 = v37;
+      v36 = v7;
+      v21 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v20 options:0 error:&v36];
+      v7 = v36;
 
       if (!v21)
       {
         break;
       }
 
-      v36 = 0;
-      v22 = [v12 writeData:v21 error:&v36];
-      v23 = v36;
+      v35 = 0;
+      v22 = [v12 writeData:v21 error:&v35];
+      v23 = v35;
 
       if (v22)
       {
@@ -852,7 +846,7 @@ LABEL_37:
 
         v26 = 0;
         v27 = 1;
-        v35 = 1;
+        v34 = 1;
       }
 
       else
@@ -866,12 +860,12 @@ LABEL_37:
         if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v42 = v23;
+          v41 = v23;
           _os_log_error_impl(&dword_259B04000, v29, OS_LOG_TYPE_ERROR, "Failed to write data to output file: %{public}@", buf, 0xCu);
         }
 
         v27 = 0;
-        v35 = 0;
+        v34 = 0;
         v26 = 1;
       }
 
@@ -884,7 +878,7 @@ LABEL_37:
       }
 
       ++v16;
-      v12 = v34;
+      v12 = v33;
       if (v16 >= self->_packetCount)
       {
         goto LABEL_33;
@@ -900,7 +894,7 @@ LABEL_37:
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v42 = v7;
+      v41 = v7;
       _os_log_error_impl(&dword_259B04000, v28, OS_LOG_TYPE_ERROR, "Failed to read data from file: %{public}@", buf, 0xCu);
     }
 
@@ -908,18 +902,18 @@ LABEL_37:
 
     objc_autoreleasePoolPop(v18);
 LABEL_35:
-    defaultManager = v33;
+    defaultManager = v32;
     if ((v26 & 1) == 0)
     {
-      v12 = v34;
-      v14 = v32;
+      v12 = v33;
+      v14 = v31;
       goto LABEL_34;
     }
 
-    v12 = v34;
-    [v34 closeFile];
-    v14 = v32;
-    if ((v35 & 1) == 0)
+    v12 = v33;
+    [v33 closeFile];
+    v14 = v31;
+    if ((v34 & 1) == 0)
     {
 LABEL_42:
       [defaultManager removeItemAtPath:self->_outputFile error:0];
@@ -933,11 +927,10 @@ LABEL_42:
 LABEL_33:
   [v12 closeFile];
   LOBYTE(self) = 1;
-  v14 = v32;
-  defaultManager = v33;
+  v14 = v31;
+  defaultManager = v32;
 LABEL_34:
 
-  v30 = *MEMORY[0x277D85DE8];
   return self & 1;
 }
 
@@ -1071,7 +1064,7 @@ void __45__MIBUFilePacketConsumer__assembleOutputFile__block_invoke_60()
 
 - (void)_bootstrap
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_12_1);
@@ -1080,32 +1073,27 @@ void __45__MIBUFilePacketConsumer__assembleOutputFile__block_invoke_60()
   v6 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    OUTLINED_FUNCTION_2_2(&dword_259B04000, v6, v7, "Failed to create work directory: %{public}@", &v9);
+    OUTLINED_FUNCTION_2_2(&dword_259B04000, v6, v7, "Failed to create work directory: %{public}@", &v8);
   }
 
   *a3 = 0;
   *a2 = self;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writePayloadToFile:forPacketUID:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_assembleOutputFile
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

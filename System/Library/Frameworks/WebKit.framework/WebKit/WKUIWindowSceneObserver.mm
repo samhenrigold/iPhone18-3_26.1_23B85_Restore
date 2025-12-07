@@ -3,7 +3,7 @@
 - (id).cxx_construct;
 - (uint64_t)observeValueForKeyPath:(WTF *)this ofObject:(void *)object change:context:;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
-- (void)observeValueForKeyPath:(uint64_t)path ofObject:change:context:;
+- (void)observeValueForKeyPath:(id)result ofObject:change:context:;
 - (void)observeValueForKeyPath:(void *)path ofObject:change:context:;
 - (void)setObservedWindow:(id)window;
 @end
@@ -78,6 +78,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
+  v6 = WebKit::WKUIWindowSceneObserverContext;
   if (WebKit::WKUIWindowSceneObserverContext == context)
   {
     if (self)
@@ -90,16 +91,16 @@
       changeCopy = change;
     }
 
-    v10 = WTF::fastMalloc(0x20);
-    *v10 = &unk_1F10F3258;
-    v10[1] = self;
-    v10[2] = self;
-    v10[3] = change;
-    v11 = v10;
+    v11 = WTF::fastMalloc(v6, 0x20);
+    *v11 = &unk_1F10F3258;
+    v11[1] = self;
+    v11[2] = self;
+    v11[3] = change;
+    v12 = v11;
     WTF::ensureOnMainThread();
-    if (v11)
+    if (v12)
     {
-      (*(*v11 + 8))(v11);
+      (*(*v12 + 8))(v12);
     }
   }
 }
@@ -140,18 +141,18 @@
   return WTF::fastFree(this, object);
 }
 
-- (void)observeValueForKeyPath:(uint64_t)path ofObject:change:context:
+- (void)observeValueForKeyPath:(id)result ofObject:change:context:
 {
-  v1 = *(*(path + 8) + 8);
+  v1 = *(*(result + 1) + 8);
   if (!v1 || !*(v1 + 8))
   {
     return;
   }
 
-  v3 = [*(path + 24) valueForKey:*MEMORY[0x1E696A4F0]];
+  v3 = [*(result + 3) valueForKey:*MEMORY[0x1E696A4F0]];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v5 = *(*(path + 8) + 8);
+  v5 = *(*(result + 1) + 8);
   if ((isKindOfClass & 1) == 0)
   {
     if (v5)

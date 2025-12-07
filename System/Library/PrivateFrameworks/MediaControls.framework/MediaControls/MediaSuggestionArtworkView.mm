@@ -8,7 +8,7 @@
 - (_TtC13MediaControls26MediaSuggestionArtworkView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC13MediaControls26MediaSuggestionArtworkView_iconView;
-  type metadata accessor for ArtworkView();
+  type metadata accessor for ArtworkView(0, a2);
   *(&self->super.super.super.super.isa + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC13MediaControls26MediaSuggestionArtworkView_icon) = 0;
   result = sub_1A22E7028();
@@ -19,7 +19,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A22CDA00();
+  sub_1A22CDA00(selfCopy, v2);
 }
 
 @end

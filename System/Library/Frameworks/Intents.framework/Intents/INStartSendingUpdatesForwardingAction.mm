@@ -57,12 +57,12 @@ void __93__INStartSendingUpdatesForwardingAction_executeLocallyWithIntentDeliver
 
 - (BOOL)executeRemotelyWithVendorRemote:(id)remote completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   remoteCopy = remote;
   handlerCopy = handler;
-  v16.receiver = self;
-  v16.super_class = INStartSendingUpdatesForwardingAction;
-  if ([(INIntentForwardingAction *)&v16 executeRemotelyWithVendorRemote:remoteCopy completionHandler:handlerCopy])
+  v15.receiver = self;
+  v15.super_class = INStartSendingUpdatesForwardingAction;
+  if ([(INIntentForwardingAction *)&v15 executeRemotelyWithVendorRemote:remoteCopy completionHandler:handlerCopy])
   {
     goto LABEL_4;
   }
@@ -87,14 +87,13 @@ LABEL_4:
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v18 = "[INStartSendingUpdatesForwardingAction executeRemotelyWithVendorRemote:completionHandler:]";
+    v17 = "[INStartSendingUpdatesForwardingAction executeRemotelyWithVendorRemote:completionHandler:]";
     _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s The extension context doesn't implement startSendingUpdatesForIntent:toObserver:", buf, 0xCu);
   }
 
   v12 = 0;
 LABEL_8:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

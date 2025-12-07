@@ -497,7 +497,7 @@ void __96__MPStoreModelTVEpisodeBuilder_modelObjectWithStoreItemMetadata_sourceM
 
   if ((*(*(a1 + 32) + 48) & 8) != 0 && ([v4 hasLoadedValueForKey:@"MPModelPropertyTVEpisodeDuration"] & 1) == 0)
   {
-    [*(a1 + 40) duration];
+    objc_msgSend_duration(*(a1 + 40));
     [v4 setDuration:?];
   }
 

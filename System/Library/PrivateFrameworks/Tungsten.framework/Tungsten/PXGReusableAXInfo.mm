@@ -836,7 +836,7 @@ LABEL_6:
 
 - (CGRect)axFrame
 {
-  [(PXGReusableAXInfo *)self spriteGeometry];
+  objc_msgSend_spriteGeometry(self, a2);
   PXRectWithCenterAndSize();
   result.size.height = v5;
   result.size.width = v4;

@@ -3,10 +3,11 @@
 - (int)_doBuildErrorMapWithCommandBuffer:(id)buffer in_res_tex:(id)in_res_tex out_tex:(id)out_tex;
 - (int)_doComputeResidualErrorOffsetWithCommandBuffer:(id)buffer in_res_tex:(id)in_res_tex;
 - (int)_doComputeResidualErrorWithCommandBuffer:(id)buffer in_I0_u32_tex:(id)i0_u32_tex in_I1_tex:(id)i1_tex in_uv_tex:(id)in_uv_tex out_tex:(id)out_tex disparity_axis:;
+- (int)_doOcclusionHandlingWithCommandBuffer:(id)buffer in_uv_old_tex:(id)in_uv_old_tex in_uv_new_tex:(id)in_uv_new_tex in_I0_u32_tex:(id)i0_u32_tex in_I1_tex:(id)i1_tex out_tex:(id)out_tex disparity_axis:(float)disparity_axis disparity_scaling_factor:;
+- (int)doFilterWithCommandBuffer:(id)buffer in_I0_u32_tex:(id)i0_u32_tex in_I1_tex:(id)i1_tex in_uv_tex:(id)in_uv_tex out_uv_tex:(id)out_uv_tex tmp_res_tex:(id)tmp_res_tex tmp_err_tex:(id)tmp_err_tex tmp_uv0_tex:(id)self0 tmp_uv1_tex:(id)self1 needToComputeResidualOffset:(BOOL)self2 disparity_axis:(float)self3 disparity_scaling_factor:;
 - (int)doFilterWithCommandBuffer:(id)buffer in_I_tex:(id)i_tex in_J_u32_tex:(id)j_u32_tex in_W_tex:(id)w_tex out_tex:(id)out_tex disparity_scaling_factor:(float)disparity_scaling_factor;
 - (void)_setupPipelines;
 - (void)dealloc;
-- (void)releaseResouces;
 - (void)waitUntilCompleted;
 @end
 
@@ -37,13 +38,6 @@
   return v7;
 }
 
-- (void)releaseResouces
-{
-  res_off_buf = self->_res_off_buf;
-  self->_res_off_buf = 0;
-  MEMORY[0x2A1C71028]();
-}
-
 - (void)dealloc
 {
   objc_msgSend_waitForIdle(self->_mtlContext, a2, v2);
@@ -59,6 +53,136 @@
   objc_msgSend_setLabel_(v8, v3, @"HBF:waitUntilCompleted");
   objc_msgSend_commit(v8, v4, v5);
   objc_msgSend_waitUntilCompleted(v8, v6, v7);
+}
+
+- (int)doFilterWithCommandBuffer:(id)buffer in_I0_u32_tex:(id)i0_u32_tex in_I1_tex:(id)i1_tex in_uv_tex:(id)in_uv_tex out_uv_tex:(id)out_uv_tex tmp_res_tex:(id)tmp_res_tex tmp_err_tex:(id)tmp_err_tex tmp_uv0_tex:(id)self0 tmp_uv1_tex:(id)self1 needToComputeResidualOffset:(BOOL)self2 disparity_axis:(float)self3 disparity_scaling_factor:
+{
+  v14 = v13;
+  v15 = *&disparity_axis;
+  bufferCopy = buffer;
+  i0_u32_texCopy = i0_u32_tex;
+  i1_texCopy = i1_tex;
+  in_uv_texCopy = in_uv_tex;
+  out_uv_texCopy = out_uv_tex;
+  tmp_res_texCopy = tmp_res_tex;
+  tmp_err_texCopy = tmp_err_tex;
+  tmp_uv0_texCopy = tmp_uv0_tex;
+  tmp_uv1_texCopy = tmp_uv1_tex;
+  v30 = objc_msgSend_iterations(self->_params, v28, v29);
+  objc_msgSend_occ_thres(self->_params, v31, v32);
+  v34 = v33;
+  v35 = tmp_uv0_texCopy;
+  v67[0] = v35;
+  v63 = tmp_uv1_texCopy;
+  v67[1] = v63;
+  v65 = i0_u32_texCopy;
+  v36 = in_uv_texCopy;
+  v38 = objc_msgSend__doComputeResidualErrorWithCommandBuffer_in_I0_u32_tex_in_I1_tex_in_uv_tex_out_tex_disparity_axis_(self, v37, bufferCopy, i0_u32_texCopy, i1_texCopy, in_uv_texCopy, tmp_res_texCopy, v15);
+  if (v38)
+  {
+    v56 = v38;
+    sub_2957A12E4();
+LABEL_35:
+    v57 = i1_texCopy;
+    goto LABEL_28;
+  }
+
+  if (offset)
+  {
+    v40 = objc_msgSend__doComputeResidualErrorOffsetWithCommandBuffer_in_res_tex_(self, v39, bufferCopy, tmp_res_texCopy);
+    if (v40)
+    {
+      v56 = v40;
+      sub_2957A133C();
+      goto LABEL_35;
+    }
+  }
+
+  v41 = objc_msgSend__doBuildErrorMapWithCommandBuffer_in_res_tex_out_tex_(self, v39, bufferCopy, tmp_res_texCopy, tmp_err_texCopy);
+  if (v41)
+  {
+    v56 = v41;
+    sub_2957A1394();
+    goto LABEL_35;
+  }
+
+  v60 = v35;
+  v61 = tmp_res_texCopy;
+  if (v30 >= 1)
+  {
+    v44 = 0;
+    v45 = 0;
+    while (1)
+    {
+      v47 = v34 <= 0.0 && v30 == 1;
+      v48 = v36;
+      if (v44)
+      {
+        v48 = v67[v45];
+      }
+
+      v49 = v48;
+      if (v47)
+      {
+        v50 = out_uv_texCopy;
+        v51 = v14;
+      }
+
+      else
+      {
+        v45 ^= 1uLL;
+        v50 = v67[v45];
+        v51 = 1.0;
+      }
+
+      v52 = v50;
+      *&v53 = v51;
+      v55 = objc_msgSend_doFilterWithCommandBuffer_in_I_tex_in_J_u32_tex_in_W_tex_out_tex_disparity_scaling_factor_(self, v54, bufferCopy, v49, v65, tmp_err_texCopy, v52, v53);
+      if (v55)
+      {
+        break;
+      }
+
+      --v44;
+      if (!--v30)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    v56 = v55;
+    sub_2957A13EC(v55, v52, v49);
+    goto LABEL_24;
+  }
+
+  v45 = 0;
+LABEL_22:
+  if (v34 <= 0.0)
+  {
+    v56 = 0;
+LABEL_24:
+    v57 = i1_texCopy;
+    v35 = v60;
+    tmp_res_texCopy = v61;
+    goto LABEL_28;
+  }
+
+  v57 = i1_texCopy;
+  *&v43 = v14;
+  v56 = objc_msgSend__doOcclusionHandlingWithCommandBuffer_in_uv_old_tex_in_uv_new_tex_in_I0_u32_tex_in_I1_tex_out_tex_disparity_axis_disparity_scaling_factor_(self, v42, bufferCopy, v36, v67[v45], v65, i1_texCopy, out_uv_texCopy, v15, v43);
+  v35 = v60;
+  if (v56)
+  {
+    sub_2957A146C();
+  }
+
+  tmp_res_texCopy = v61;
+LABEL_28:
+  for (i = 1; i != -1; --i)
+  {
+  }
+
+  return v56;
 }
 
 - (int)doFilterWithCommandBuffer:(id)buffer in_I_tex:(id)i_tex in_J_u32_tex:(id)j_u32_tex in_W_tex:(id)w_tex out_tex:(id)out_tex disparity_scaling_factor:(float)disparity_scaling_factor
@@ -295,6 +419,59 @@
   }
 
   return v44;
+}
+
+- (int)_doOcclusionHandlingWithCommandBuffer:(id)buffer in_uv_old_tex:(id)in_uv_old_tex in_uv_new_tex:(id)in_uv_new_tex in_I0_u32_tex:(id)i0_u32_tex in_I1_tex:(id)i1_tex out_tex:(id)out_tex disparity_axis:(float)disparity_axis disparity_scaling_factor:
+{
+  v10 = v9;
+  v11 = *&disparity_axis;
+  in_uv_old_texCopy = in_uv_old_tex;
+  in_uv_new_texCopy = in_uv_new_tex;
+  i0_u32_texCopy = i0_u32_tex;
+  i1_texCopy = i1_tex;
+  out_texCopy = out_tex;
+  v59 = 0u;
+  v60 = 0u;
+  v58 = 0u;
+  v57 = v11;
+  params = self->_params;
+  bufferCopy = buffer;
+  objc_msgSend_occ_thres(params, v25, v26);
+  DWORD1(v58) = v27;
+  DWORD2(v57) = v10;
+  v28 = self->_computePipelines[3];
+  v31 = objc_msgSend_computeCommandEncoder(bufferCopy, v29, v30);
+
+  if (v31)
+  {
+    objc_msgSend_setComputePipelineState_(v31, v32, v28);
+    objc_msgSend_setTexture_atIndex_(v31, v33, in_uv_old_texCopy, 0);
+    objc_msgSend_setTexture_atIndex_(v31, v34, in_uv_new_texCopy, 1);
+    objc_msgSend_setTexture_atIndex_(v31, v35, i0_u32_texCopy, 2);
+    objc_msgSend_setTexture_atIndex_(v31, v36, i1_texCopy, 3);
+    objc_msgSend_setTexture_atIndex_(v31, v37, out_texCopy, 4);
+    objc_msgSend_setBuffer_offset_atIndex_(v31, v38, self->_res_off_buf, 0, 0);
+    objc_msgSend_setBytes_length_atIndex_(v31, v39, &v57, 64, 1);
+    v42 = objc_msgSend_threadExecutionWidth(v28, v40, v41);
+    v45 = objc_msgSend_maxTotalThreadsPerThreadgroup(v28, v43, v44) / v42;
+    v56[0] = (v42 + objc_msgSend_width(out_texCopy, v46, v47) / 2 - 1) / v42;
+    v56[1] = (v45 + objc_msgSend_height(out_texCopy, v48, v49) / 2 - 1) / v45;
+    v56[2] = 1;
+    v55[0] = v42;
+    v55[1] = v45;
+    v55[2] = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v31, v50, v56, v55);
+    objc_msgSend_endEncoding(v31, v51, v52);
+    v53 = 0;
+  }
+
+  else
+  {
+    sub_2957A175C(v56);
+    v53 = v56[0];
+  }
+
+  return v53;
 }
 
 @end

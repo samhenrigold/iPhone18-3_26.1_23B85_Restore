@@ -16,15 +16,15 @@
 
 - (BOOL)applyPolicyWithError:(id *)error shouldContinueBlock:(id)block
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v95 = 0u;
   v96 = 0u;
   v97 = 0u;
   v98 = 0u;
-  v99 = 0u;
   v7 = [(NSArray *)self->_rules _pas_shuffledArrayUsingRng:0];
-  v86 = [v7 countByEnumeratingWithState:&v96 objects:v100 count:16];
-  if (!v86)
+  v85 = [v7 countByEnumeratingWithState:&v95 objects:v99 count:16];
+  if (!v85)
   {
 
     v9 = 0;
@@ -35,22 +35,22 @@
   obj = v7;
   v9 = 0;
   v10 = 1;
-  v87 = *v97;
+  v86 = *v96;
   *&v8 = 138412546;
-  v83 = v8;
-  v88 = blockCopy;
+  v82 = v8;
+  v87 = blockCopy;
   errorCopy = error;
   do
   {
     v11 = 0;
     do
     {
-      if (*v97 != v87)
+      if (*v96 != v86)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v96 + 1) + 8 * v11);
+      v12 = *(*(&v95 + 1) + 8 * v11);
       context = objc_autoreleasePoolPush();
       if (!blockCopy[2](blockCopy))
       {
@@ -66,7 +66,7 @@ LABEL_85:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v102 = v12;
+        v101 = v12;
         _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEFAULT, "PPMaintenance: TTLBasedDonationCleanup: Performing Named Entity cleanup for rule: %@", buf, 0xCu);
       }
 
@@ -80,7 +80,7 @@ LABEL_12:
         maxAgeSeconds = [v12 maxAgeSeconds];
         [maxAgeSeconds doubleValue];
         v20 = v19;
-        v94 = v9;
+        v93 = v9;
         v21 = bundleIdentifier2;
         v22 = groupIdentifier;
         if (self)
@@ -88,22 +88,22 @@ LABEL_12:
           v23 = objc_opt_new();
           v24 = [v23 dateByAddingTimeInterval:-v20];
 
-          v25 = [(PPLocalNamedEntityStore *)self->_namedEntityStore deleteAllNamedEntitiesFromSourcesWithBundleId:v21 groupId:v22 olderThan:v24 deletedCount:0 error:&v94];
+          v25 = [(PPLocalNamedEntityStore *)self->_namedEntityStore deleteAllNamedEntitiesFromSourcesWithBundleId:v21 groupId:v22 olderThan:v24 deletedCount:0 error:&v93];
           if (!v25)
           {
             v26 = pp_default_log_handle();
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v102 = v21;
-              v103 = 2112;
-              v104 = v22;
-              v105 = 2112;
-              v106 = v94;
+              v101 = v21;
+              v102 = 2112;
+              v103 = v22;
+              v104 = 2112;
+              v105 = v93;
               _os_log_error_impl(&dword_23224A000, v26, OS_LOG_TYPE_ERROR, "PPMaintenance failed to age-out named entity extractions from %@ with groupId %@: %@", buf, 0x20u);
             }
 
-            blockCopy = v88;
+            blockCopy = v87;
           }
         }
 
@@ -112,7 +112,7 @@ LABEL_12:
           v25 = 0;
         }
 
-        v27 = v94;
+        v27 = v93;
         if (!v25)
         {
           goto LABEL_80;
@@ -130,28 +130,28 @@ LABEL_12:
 
       maxAgeSeconds2 = [v12 maxAgeSeconds];
       [maxAgeSeconds2 doubleValue];
-      v95 = v9;
+      v94 = v9;
       if (self)
       {
         v58 = v57;
         v59 = objc_opt_new();
         v60 = [v59 dateByAddingTimeInterval:-v58];
 
-        v61 = [(PPLocalNamedEntityStore *)self->_namedEntityStore deleteAllNamedEntitiesOlderThanDate:v60 deletedCount:0 error:&v95];
+        v61 = [(PPLocalNamedEntityStore *)self->_namedEntityStore deleteAllNamedEntitiesOlderThanDate:v60 deletedCount:0 error:&v94];
         if (!v61)
         {
           v62 = pp_default_log_handle();
           if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
           {
-            *buf = v83;
-            v102 = v60;
-            v103 = 2112;
-            v104 = v95;
+            *buf = v82;
+            v101 = v60;
+            v102 = 2112;
+            v103 = v94;
             _os_log_error_impl(&dword_23224A000, v62, OS_LOG_TYPE_ERROR, "PPMaintenance failed to age-out named entity extractions older than %@: %@", buf, 0x16u);
           }
         }
 
-        v63 = v95;
+        v63 = v94;
       }
 
       else
@@ -180,7 +180,7 @@ LABEL_19:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v102 = v12;
+        v101 = v12;
         _os_log_impl(&dword_23224A000, v28, OS_LOG_TYPE_DEFAULT, "PPMaintenance: TTLBasedDonationCleanup: Performing Topic cleanup for rule: %@", buf, 0xCu);
       }
 
@@ -194,7 +194,7 @@ LABEL_25:
         maxAgeSeconds3 = [v12 maxAgeSeconds];
         [maxAgeSeconds3 doubleValue];
         v35 = v34;
-        v92 = v27;
+        v91 = v27;
         v36 = bundleIdentifier4;
         if (self)
         {
@@ -202,16 +202,16 @@ LABEL_25:
           v38 = objc_opt_new();
           v39 = [v38 dateByAddingTimeInterval:-v35];
 
-          v40 = [(PPLocalTopicStore *)self->_topicStore deleteAllTopicsFromSourcesWithBundleId:v36 groupId:v37 olderThan:v39 deletedCount:0 error:&v92];
+          v40 = [(PPLocalTopicStore *)self->_topicStore deleteAllTopicsFromSourcesWithBundleId:v36 groupId:v37 olderThan:v39 deletedCount:0 error:&v91];
           if (!v40)
           {
             v41 = pp_default_log_handle();
             if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
             {
-              *buf = v83;
-              v102 = v36;
-              v103 = 2112;
-              v104 = v92;
+              *buf = v82;
+              v101 = v36;
+              v102 = 2112;
+              v103 = v91;
               _os_log_error_impl(&dword_23224A000, v41, OS_LOG_TYPE_ERROR, "PPMaintenance failed to age-out topic extractions from %@: %@", buf, 0x16u);
             }
           }
@@ -222,8 +222,8 @@ LABEL_25:
           v40 = 0;
         }
 
-        v42 = v92;
-        blockCopy = v88;
+        v42 = v91;
+        blockCopy = v87;
         if (!v40)
         {
           goto LABEL_82;
@@ -241,28 +241,28 @@ LABEL_25:
 
       maxAgeSeconds4 = [v12 maxAgeSeconds];
       [maxAgeSeconds4 doubleValue];
-      v93 = v27;
+      v92 = v27;
       if (self)
       {
         v66 = v65;
         v67 = objc_opt_new();
         v68 = [v67 dateByAddingTimeInterval:-v66];
 
-        v69 = [(PPLocalTopicStore *)self->_topicStore deleteAllTopicsOlderThanDate:v68 deletedCount:0 error:&v93];
+        v69 = [(PPLocalTopicStore *)self->_topicStore deleteAllTopicsOlderThanDate:v68 deletedCount:0 error:&v92];
         if (!v69)
         {
           v70 = pp_default_log_handle();
           if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
           {
-            *buf = v83;
-            v102 = v68;
-            v103 = 2112;
-            v104 = v93;
+            *buf = v82;
+            v101 = v68;
+            v102 = 2112;
+            v103 = v92;
             _os_log_error_impl(&dword_23224A000, v70, OS_LOG_TYPE_ERROR, "PPMaintenance failed to age-out topic extractions older than %@: %@", buf, 0x16u);
           }
         }
 
-        v71 = v93;
+        v71 = v92;
       }
 
       else
@@ -293,7 +293,7 @@ LABEL_32:
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v102 = v12;
+        v101 = v12;
         _os_log_impl(&dword_23224A000, v43, OS_LOG_TYPE_DEFAULT, "PPMaintenance: TTLBasedDonationCleanup: Performing Location cleanup for rule: %@", buf, 0xCu);
       }
 
@@ -307,7 +307,7 @@ LABEL_38:
         maxAgeSeconds5 = [v12 maxAgeSeconds];
         [maxAgeSeconds5 doubleValue];
         v50 = v49;
-        v90 = v42;
+        v89 = v42;
         maxAgeSeconds6 = bundleIdentifier6;
         v52 = groupIdentifier5;
         if (self)
@@ -315,18 +315,18 @@ LABEL_38:
           v53 = objc_opt_new();
           v54 = [v53 dateByAddingTimeInterval:-v50];
 
-          v10 = [(PPLocalLocationStore *)self->_locationStore deleteAllLocationsFromSourcesWithBundleId:maxAgeSeconds6 groupId:v52 olderThan:v54 deletedCount:0 error:&v90];
+          v10 = [(PPLocalLocationStore *)self->_locationStore deleteAllLocationsFromSourcesWithBundleId:maxAgeSeconds6 groupId:v52 olderThan:v54 deletedCount:0 error:&v89];
           if (!v10)
           {
             v55 = pp_default_log_handle();
             if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v102 = maxAgeSeconds6;
-              v103 = 2112;
-              v104 = v52;
-              v105 = 2112;
-              v106 = v90;
+              v101 = maxAgeSeconds6;
+              v102 = 2112;
+              v103 = v52;
+              v104 = 2112;
+              v105 = v89;
               _os_log_error_impl(&dword_23224A000, v55, OS_LOG_TYPE_ERROR, "PPMaintenance failed to age-out location extractions from %@ with groupId %@: %@", buf, 0x20u);
             }
           }
@@ -337,7 +337,7 @@ LABEL_38:
           v10 = 0;
         }
 
-        v9 = v90;
+        v9 = v89;
         v42 = v52;
         goto LABEL_45;
       }
@@ -351,28 +351,28 @@ LABEL_38:
 
       maxAgeSeconds6 = [v12 maxAgeSeconds];
       [maxAgeSeconds6 doubleValue];
-      v91 = v42;
+      v90 = v42;
       if (self)
       {
         v73 = v72;
         v74 = objc_opt_new();
         v75 = [v74 dateByAddingTimeInterval:-v73];
 
-        v10 = [(PPLocalLocationStore *)self->_locationStore deleteAllLocationsOlderThanDate:v75 deletedCount:0 error:&v91];
+        v10 = [(PPLocalLocationStore *)self->_locationStore deleteAllLocationsOlderThanDate:v75 deletedCount:0 error:&v90];
         if (!v10)
         {
           v76 = pp_default_log_handle();
           if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
           {
-            *buf = v83;
-            v102 = v75;
-            v103 = 2112;
-            v104 = v91;
+            *buf = v82;
+            v101 = v75;
+            v102 = 2112;
+            v103 = v90;
             _os_log_error_impl(&dword_23224A000, v76, OS_LOG_TYPE_ERROR, "PPMaintenance failed to age-out location extractions older than %@: %@", buf, 0x16u);
           }
         }
 
-        v77 = v91;
+        v77 = v90;
       }
 
       else
@@ -388,10 +388,10 @@ LABEL_45:
       ++v11;
     }
 
-    while (v86 != v11);
-    v78 = [obj countByEnumeratingWithState:&v96 objects:v100 count:16];
+    while (v85 != v11);
+    v78 = [obj countByEnumeratingWithState:&v95 objects:v99 count:16];
     v79 = errorCopy;
-    v86 = v78;
+    v85 = v78;
   }
 
   while (v78);
@@ -406,7 +406,6 @@ LABEL_86:
 
 LABEL_89:
 
-  v81 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -433,42 +432,42 @@ LABEL_89:
 
 + (id)defaultPolicy
 {
-  v33[11] = *MEMORY[0x277D85DE8];
-  v32 = [[PPTTLDeletionPolicyRule alloc] initWithBundleIdentifier:0 groupIdentifier:0 maxAgeSeconds:&unk_2847860C0];
-  v33[0] = v32;
+  v32[11] = *MEMORY[0x277D85DE8];
+  v31 = [[PPTTLDeletionPolicyRule alloc] initWithBundleIdentifier:0 groupIdentifier:0 maxAgeSeconds:&unk_2847860C0];
+  v32[0] = v31;
   v2 = [PPTTLDeletionPolicyRule alloc];
-  v31 = [(PPTTLDeletionPolicyRule *)v2 initWithBundleIdentifier:*MEMORY[0x277D3A6A8] groupIdentifier:*MEMORY[0x277D3A728] maxAgeSeconds:&unk_2847860D0];
-  v33[1] = v31;
+  v30 = [(PPTTLDeletionPolicyRule *)v2 initWithBundleIdentifier:*MEMORY[0x277D3A6A8] groupIdentifier:*MEMORY[0x277D3A728] maxAgeSeconds:&unk_2847860D0];
+  v32[1] = v30;
   v3 = [PPTTLDeletionPolicyRule alloc];
   v4 = *MEMORY[0x277D3A680];
   v5 = *MEMORY[0x277D3A720];
   v6 = [(PPTTLDeletionPolicyRule *)v3 initWithBundleIdentifier:*MEMORY[0x277D3A680] groupIdentifier:*MEMORY[0x277D3A720] maxAgeSeconds:&unk_2847860E0];
-  v33[2] = v6;
+  v32[2] = v6;
   v7 = [PPTTLDeletionPolicyRule alloc];
   v8 = [(PPTTLDeletionPolicyRule *)v7 initWithBundleIdentifier:*MEMORY[0x277D3A5F8] groupIdentifier:v5 maxAgeSeconds:&unk_2847860E0];
-  v33[3] = v8;
+  v32[3] = v8;
   v9 = [PPTTLDeletionPolicyRule alloc];
   v10 = [(PPTTLDeletionPolicyRule *)v9 initWithBundleIdentifier:v4 groupIdentifier:*MEMORY[0x277D3A718] maxAgeSeconds:&unk_2847860D0];
-  v33[4] = v10;
+  v32[4] = v10;
   v11 = [PPTTLDeletionPolicyRule alloc];
   v12 = [(PPTTLDeletionPolicyRule *)v11 initWithBundleIdentifier:*MEMORY[0x277D3A678] groupIdentifier:0 maxAgeSeconds:&unk_2847860D0];
-  v33[5] = v12;
+  v32[5] = v12;
   v13 = [PPTTLDeletionPolicyRule alloc];
   v14 = [(PPTTLDeletionPolicyRule *)v13 initWithBundleIdentifier:*MEMORY[0x277D3A688] groupIdentifier:0 maxAgeSeconds:&unk_2847860D0];
-  v33[6] = v14;
+  v32[6] = v14;
   v15 = [PPTTLDeletionPolicyRule alloc];
   v16 = [(PPTTLDeletionPolicyRule *)v15 initWithBundleIdentifier:@"PortraitBundleIdWildCardMatchingAll" groupIdentifier:*MEMORY[0x277D3A700] maxAgeSeconds:&unk_2847860D0];
-  v33[7] = v16;
+  v32[7] = v16;
   v17 = [PPTTLDeletionPolicyRule alloc];
   v18 = [(PPTTLDeletionPolicyRule *)v17 initWithBundleIdentifier:@"PortraitBundleIdWildCardMatchingAll" groupIdentifier:*MEMORY[0x277D3A708] maxAgeSeconds:&unk_2847860D0];
-  v33[8] = v18;
+  v32[8] = v18;
   v19 = [PPTTLDeletionPolicyRule alloc];
   v20 = [(PPTTLDeletionPolicyRule *)v19 initWithBundleIdentifier:*MEMORY[0x277D3A618] groupIdentifier:*MEMORY[0x277D3A6E8] maxAgeSeconds:&unk_2847860D0];
-  v33[9] = v20;
+  v32[9] = v20;
   v21 = [PPTTLDeletionPolicyRule alloc];
   v22 = [(PPTTLDeletionPolicyRule *)v21 initWithBundleIdentifier:*MEMORY[0x277D3A650] groupIdentifier:0 maxAgeSeconds:&unk_2847860D0];
-  v33[10] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:11];
+  v32[10] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:11];
 
   v24 = +[PPLocalNamedEntityStore defaultStore];
   v25 = +[PPLocalTopicStore defaultStore];
@@ -479,8 +478,6 @@ LABEL_89:
   {
     v28 = [[PPTTLDeletionPolicy alloc] initWithRules:v23 namedEntityStore:v24 topicStore:v25 locationStore:v26];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

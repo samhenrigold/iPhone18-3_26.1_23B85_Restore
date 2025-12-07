@@ -47,12 +47,12 @@
 
 - (uint64_t)ccui_setCompensationAlpha:()CCUIGroupRenderingSupport
 {
-  if (a3 > 0.4)
+  if (a2 > 0.4)
   {
-    a3 = 0.4;
+    a2 = 0.4;
   }
 
-  return [self setAlpha:a3];
+  return [self setAlpha:a2];
 }
 
 @end

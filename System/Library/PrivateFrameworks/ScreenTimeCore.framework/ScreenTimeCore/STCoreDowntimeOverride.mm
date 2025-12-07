@@ -55,7 +55,7 @@
 
 - (BOOL)updateWithDictionaryRepresentation:(id)representation
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [representationCopy objectForKeyedSubscript:@"isTombstoned"];
   -[STCoreDowntimeOverride setIsTombstoned:](self, "setIsTombstoned:", [v5 BOOLValue]);
@@ -65,9 +65,9 @@
     v6 = +[STLog blueprint];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
+      v13 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1B831F000, v6, OS_LOG_TYPE_DEFAULT, "Deleting tombstoned downtime override: %@", &v14, 0xCu);
+      _os_log_impl(&dword_1B831F000, v6, OS_LOG_TYPE_DEFAULT, "Deleting tombstoned downtime override: %@", &v13, 0xCu);
     }
 
     managedObjectContext = [(STCoreDowntimeOverride *)self managedObjectContext];
@@ -92,7 +92,6 @@
     [(STCoreDowntimeOverride *)self setEndDate:managedObjectContext];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -156,7 +155,7 @@
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STCoreDowntimeOverride validateForUpdate:update];
+      [STCoreDowntimeOverride validateForUpdate:];
     }
 
     v7 = 0;
@@ -199,7 +198,7 @@
     v5 = +[STLog coreDataValidation];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [STCoreDowntimeOverride validateForInsert:insert];
+      [STCoreDowntimeOverride validateForInsert:];
     }
 
     v7 = 0;
@@ -210,127 +209,116 @@
 
 - (BOOL)validateForDelete:(id *)delete
 {
-  v7.receiver = self;
-  v7.super_class = STCoreDowntimeOverride;
-  v4 = [(STCoreDowntimeOverride *)&v7 validateForDelete:?];
-  if (v4)
+  v6.receiver = self;
+  v6.super_class = STCoreDowntimeOverride;
+  v3 = [(STCoreDowntimeOverride *)&v6 validateForDelete:?];
+  if (v3)
   {
     _os_feature_enabled_impl();
   }
 
   else
   {
-    v5 = +[STLog coreDataValidation];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = +[STLog coreDataValidation];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      [STCoreDowntimeOverride validateForDelete:delete];
+      [STCoreDowntimeOverride validateForDelete:];
     }
   }
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)_validateState:(id)state
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   state = [(STCoreDowntimeOverride *)self state];
   if (state >= 2)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"CoreDowntimeOverride has an unexpected state.";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"CoreDowntimeOverride has an unexpected state.";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [v6 errorWithDomain:@"STErrorDomain" code:544 userInfo:v7];
     [stateCopy addObject:v8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return state < 2;
 }
 
 - (BOOL)_validateType:(id)type
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   type = [(STCoreDowntimeOverride *)self type];
   if (type >= 2)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"CoreDowntimeOverride has an unexpected type.";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"CoreDowntimeOverride has an unexpected type.";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [v6 errorWithDomain:@"STErrorDomain" code:544 userInfo:v7];
     [typeCopy addObject:v8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return type < 2;
 }
 
 - (BOOL)_validateAssociatedDowntime:(id)downtime
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   downtimeCopy = downtime;
   downtime = [(STCoreDowntimeOverride *)self downtime];
 
   if (!downtime)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = @"CoreDowntimeOverride does not have an associated Downtime blueprint.";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = @"CoreDowntimeOverride does not have an associated Downtime blueprint.";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v8 = [v6 errorWithDomain:@"STErrorDomain" code:546 userInfo:v7];
     [downtimeCopy addObject:v8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return downtime != 0;
 }
 
-- (void)validateForUpdate:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForUpdate:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v2, v3, "%{public}s Built-in CoreData Validation for update on CoreDowntimeOverride failed with: %{public}@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for update on CoreDowntimeOverride failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)validateForUpdate:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136446466;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136446466;
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "%{public}s Validate for update on CoreDowntimeOverride failed with error: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "%{public}s Validate for update on CoreDowntimeOverride failed with error: %{public}@", v1, 0x16u);
 }
 
-- (void)validateForInsert:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForInsert:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v2, v3, "%{public}s Built-in CoreData Validation for Insert on CoreDowntimeOverride failed with: %{public}@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for Insert on CoreDowntimeOverride failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)validateForInsert:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136446466;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136446466;
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "%{public}s Validate for Insert on CoreDowntimeOverride failed with error: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "%{public}s Validate for Insert on CoreDowntimeOverride failed with error: %{public}@", v1, 0x16u);
 }
 
-- (void)validateForDelete:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)validateForDelete:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v2, v3, "%{public}s Built-in CoreData Validation for Delete on CoreDowntimeOverride failed with: %{public}@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B831F000, v0, v1, "%{public}s Built-in CoreData Validation for Delete on CoreDowntimeOverride failed with: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

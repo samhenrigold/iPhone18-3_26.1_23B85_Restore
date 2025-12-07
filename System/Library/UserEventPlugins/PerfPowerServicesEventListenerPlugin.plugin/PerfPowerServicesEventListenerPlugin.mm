@@ -63,7 +63,7 @@ LABEL_8:
   objc_autoreleasePoolPop(v7);
 }
 
-void *logHandle()
+void *logHandle(uint64_t a1, uint64_t a2)
 {
   if (qword_13B48 != -1)
   {
@@ -272,13 +272,14 @@ NSDictionary *sub_4B98(uint64_t a1)
   return [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:5];
 }
 
-void sub_4F74(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_4F74(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void *PELLog()
+void *PELLog(uint64_t a1, uint64_t a2)
 {
   if (qword_13B50 != -1)
   {
@@ -732,22 +733,22 @@ uint64_t makeBucket(int a1, int a2)
   return result;
 }
 
-id sub_8464(uint64_t a1)
+id sub_8464(uint64_t a1, uint64_t a2)
 {
   if (qword_13B50 != -1)
   {
     sub_96F0();
   }
 
-  v2 = off_13990;
+  v3 = off_13990;
   if (os_log_type_enabled(off_13990, OS_LOG_TYPE_DEBUG))
   {
-    sub_9918(a1, v2);
+    sub_9918(a1, v3);
   }
 
-  v4 = @"value";
-  v5 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [+[BLSBacklight sharedBacklight](BLSBacklight "sharedBacklight")]);
-  return [+[NSNotificationCenter defaultCenter](NSNotificationCenter postNotificationName:"postNotificationName:object:userInfo:" object:@"PLAODModeNotification" userInfo:*(a1 + 32), [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObjects:&v5 forKeys:&v4 count:1] forKey:@"PLAODModeNotification"]];
+  v5 = @"value";
+  v6 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [+[BLSBacklight sharedBacklight](BLSBacklight "sharedBacklight")]);
+  return [+[NSNotificationCenter defaultCenter](NSNotificationCenter postNotificationName:"postNotificationName:object:userInfo:" object:@"PLAODModeNotification" userInfo:*(a1 + 32), [NSDictionary dictionaryWithObject:[NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1] forKey:@"PLAODModeNotification"]];
 }
 
 void sub_8D28(id a1)
@@ -778,12 +779,12 @@ void sub_8DF0(id a1)
   }
 }
 
-void PLEventModuleInitializer()
+void PLEventModuleInitializer(uint64_t a1)
 {
   if (!qword_13C50)
   {
-    v0 = objc_autoreleasePoolPush();
-    v1 = [PLEventListener alloc];
+    v1 = objc_autoreleasePoolPush();
+    v2 = [PLEventListener alloc];
     xpc_event_module_get_queue();
   }
 }
@@ -816,7 +817,7 @@ uint64_t sub_94BC(char a1, char a2, uint8_t *buf, os_log_t log)
 uint64_t sub_954C()
 {
   sub_4F5C();
-  sub_4F74(&dword_0, v0, v1, "energy:%.2f, unclamped:%.2f", v2, v3, v4, v5, v7);
+  sub_4F74(&dword_0, v0, v1, "energy:%.2f, unclamped:%.2f", v2, v3, v4, v5);
   if (qword_13B48 == -1)
   {
     return 1;
@@ -829,7 +830,7 @@ uint64_t sub_954C()
 uint64_t sub_95E8()
 {
   sub_4F5C();
-  sub_4F74(&dword_0, v0, v1, "energyAbsolute:%.2f, unclamped:%.2f", v2, v3, v4, v5, v7);
+  sub_4F74(&dword_0, v0, v1, "energyAbsolute:%.2f, unclamped:%.2f", v2, v3, v4, v5);
   if (qword_13B48 == -1)
   {
     return 1;

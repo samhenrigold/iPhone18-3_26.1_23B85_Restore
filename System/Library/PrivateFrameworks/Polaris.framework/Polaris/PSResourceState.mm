@@ -92,42 +92,42 @@
     if ([(NSMutableDictionary *)selfCopy->_supportedStrides count])
     {
       __src = 0;
-      v52 = 0;
-      v53 = 0;
+      v49 = 0;
+      v50 = 0;
+      v44 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v50 = 0u;
       v3 = selfCopy->_supportedStrides;
-      v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v47 objects:v58 count:16];
+      v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v44 objects:v55 count:16];
       v40 = selfCopy;
       if (v4)
       {
-        v5 = *v48;
+        v5 = *v45;
         do
         {
           for (i = 0; i != v4; i = i + 1)
           {
-            if (*v48 != v5)
+            if (*v45 != v5)
             {
               objc_enumerationMutation(v3);
             }
 
-            unsignedIntValue = [*(*(&v47 + 1) + 8 * i) unsignedIntValue];
-            v8 = v52;
-            if (v52 >= v53)
+            unsignedIntValue = [*(*(&v44 + 1) + 8 * i) unsignedIntValue];
+            v8 = v49;
+            if (v49 >= v50)
             {
               v10 = __src;
-              v11 = v52 - __src;
-              v12 = (v52 - __src) >> 2;
+              v11 = v49 - __src;
+              v12 = (v49 - __src) >> 2;
               v13 = v12 + 1;
               if ((v12 + 1) >> 62)
               {
                 sub_1000092A8();
               }
 
-              v14 = v53 - __src;
-              if ((v53 - __src) >> 1 > v13)
+              v14 = v50 - __src;
+              if ((v50 - __src) >> 1 > v13)
               {
                 v13 = v14 >> 1;
               }
@@ -152,8 +152,8 @@
               memcpy(0, v10, v11);
               v16 = __src;
               __src = 0;
-              v52 = v9;
-              v53 = 0;
+              v49 = v9;
+              v50 = 0;
               if (v16)
               {
                 operator delete(v16);
@@ -164,34 +164,29 @@
 
             else
             {
-              *v52 = unsignedIntValue;
+              *v49 = unsignedIntValue;
               v9 = (v8 + 4);
             }
 
-            v52 = v9;
+            v49 = v9;
           }
 
-          v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v47 objects:v58 count:16];
+          v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v44 objects:v55 count:16];
         }
 
         while (v4);
       }
 
       std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
-      v46[0] = 0;
-      v46[1] = 0;
-      v45 = v46;
-      v41 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v44 = 0u;
+      v43[0] = 0;
+      v43[1] = 0;
+      v42 = v43;
+      memset(v41, 0, sizeof(v41));
       obj = selfCopy->_consumersForStride;
-      if ([(NSMutableDictionary *)obj countByEnumeratingWithState:&v41 objects:v57 count:16])
+      if ([(NSMutableDictionary *)obj countByEnumeratingWithState:v41 objects:v54 count:16])
       {
-        *v42;
-        *v42;
-        v17 = **(&v41 + 1);
-        name = [**(&v41 + 1) name];
+        v17 = **(&v41[0] + 1);
+        name = [**(&v41[0] + 1) name];
         v19 = name;
         uTF8String = [name UTF8String];
         [(NSMutableDictionary *)selfCopy->_consumersForStride objectForKeyedSubscript:v17];
@@ -202,15 +197,15 @@
           v23 = v22;
           if (v22 < 0x17)
           {
-            HIBYTE(v55) = v22;
+            HIBYTE(v52) = v22;
             if (v22)
             {
               memmove(&__dst, uTF8String, v22);
             }
 
             *(&__dst + v23) = 0;
-            v56 = unsignedIntValue2;
-            sub_10000936C();
+            v53 = unsignedIntValue2;
+            sub_10000936C(&v42);
           }
 
           operator new();
@@ -219,9 +214,9 @@
         sub_10000235C();
       }
 
-      v24 = v45;
-      v25 = *(v45 + 14);
-      if (v45 != v46)
+      v24 = v42;
+      v25 = *(v42 + 14);
+      if (v42 != v43)
       {
         do
         {
@@ -233,12 +228,12 @@
           else
           {
             __dst = *(v24 + 2);
-            v55 = v24[6];
+            v52 = v24[6];
           }
 
-          v56 = *(v24 + 14);
-          v25 = sub_100009770(v25, v56);
-          if (SHIBYTE(v55) < 0)
+          v53 = *(v24 + 14);
+          v25 = sub_100009770(v25, v53);
+          if (SHIBYTE(v52) < 0)
           {
             operator delete(__dst);
           }
@@ -270,13 +265,13 @@
           v24 = v27;
         }
 
-        while (v27 != v46);
+        while (v27 != v43);
       }
 
-      v29 = v52;
-      if (v52 != __src)
+      v29 = v49;
+      if (v49 != __src)
       {
-        v30 = (v52 - __src) >> 2;
+        v30 = (v49 - __src) >> 2;
         v29 = __src;
         do
         {
@@ -323,10 +318,10 @@ LABEL_54:
 
       v37 = 0;
 LABEL_58:
-      sub_100009308(&v45, v46[0]);
+      sub_100009308(&v42, v43[0]);
       if (__src)
       {
-        v52 = __src;
+        v49 = __src;
         operator delete(__src);
       }
     }

@@ -2,9 +2,11 @@
 + (id)sharedNetworkController;
 - (id)getDataContext:(id)context;
 - (int)cellNetworkType;
+- (int)dataIndicatorToConnection:(int)connection;
 - (int)networkType;
 - (void)_checkForNetwork;
 - (void)_checkForNetworkAndNotify;
+- (void)_updateStatus:(BOOL)status;
 - (void)start;
 @end
 
@@ -36,6 +38,33 @@ uint64_t __46__ADNetworkController_sharedNetworkController__block_invoke(uint64_
   sharedNetworkController_sharedNetworkController = v1;
 
   return [sharedNetworkController_sharedNetworkController start];
+}
+
+- (void)_updateStatus:(BOOL)status
+{
+  statusCopy = status;
+  if ([(ADNetworkController *)self canReachTheNetwork]!= status)
+  {
+    v5 = MEMORY[0x277CCACA8];
+    v6 = objc_opt_class();
+    v7 = @"is not";
+    if (statusCopy)
+    {
+      v7 = @"is";
+    }
+
+    v8 = [v5 stringWithFormat:@"[%@] Network %@ connected.", v6, v7];
+    _ADLog(@"iAdInternalLogging", v8, 0);
+
+    [(ADNetworkController *)self setCanReachTheNetwork:statusCopy];
+    queue = self->_queue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __37__ADNetworkController__updateStatus___block_invoke;
+    block[3] = &unk_278C551F8;
+    block[4] = self;
+    dispatch_async(queue, block);
+  }
 }
 
 - (void)start
@@ -92,6 +121,53 @@ LABEL_7:
   objc_sync_exit(selfCopy);
 
   return networkType;
+}
+
+- (int)dataIndicatorToConnection:(int)connection
+{
+  v3 = *&connection;
+  v12[13] = *MEMORY[0x277D85DE8];
+  v4 = dataIndicatorToConnection__indicatorToConnectionDictionary;
+  if (!dataIndicatorToConnection__indicatorToConnectionDictionary)
+  {
+    v11[0] = &unk_2851048F0;
+    v11[1] = &unk_285104920;
+    v12[0] = &unk_285104908;
+    v12[1] = &unk_285104938;
+    v11[2] = &unk_285104950;
+    v11[3] = &unk_285104980;
+    v12[2] = &unk_285104968;
+    v12[3] = &unk_285104998;
+    v11[4] = &unk_2851049B0;
+    v11[5] = &unk_2851049E0;
+    v12[4] = &unk_2851049C8;
+    v12[5] = &unk_2851049F8;
+    v11[6] = &unk_285104A10;
+    v11[7] = &unk_285104A40;
+    v12[6] = &unk_285104A28;
+    v12[7] = &unk_285104A58;
+    v11[8] = &unk_285104A70;
+    v11[9] = &unk_285104AA0;
+    v12[8] = &unk_285104A88;
+    v12[9] = &unk_285104A88;
+    v11[10] = &unk_285104AB8;
+    v11[11] = &unk_285104AD0;
+    v12[10] = &unk_285104A88;
+    v12[11] = &unk_285104A88;
+    v11[12] = &unk_285104AE8;
+    v12[12] = &unk_285104A88;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:13];
+    v6 = dataIndicatorToConnection__indicatorToConnectionDictionary;
+    dataIndicatorToConnection__indicatorToConnectionDictionary = v5;
+
+    v4 = dataIndicatorToConnection__indicatorToConnectionDictionary;
+  }
+
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v8 = [v4 objectForKeyedSubscript:v7];
+  integerValue = [v8 integerValue];
+
+  return integerValue;
 }
 
 - (int)cellNetworkType

@@ -32,7 +32,7 @@
 
 - (SRSpeechMetrics)initWithSessionIdentifier:(id)identifier sessionFlags:(unint64_t)flags timestamp:(double)timestamp audioLevel:(id)level speechRecognition:(id)recognition soundClassification:(id)classification speechExpression:(id)expression
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   if (qword_1EE02AB60 != -1)
   {
     dispatch_once(&qword_1EE02AB60, &__block_literal_global_10);
@@ -60,68 +60,68 @@
       if ([v18 count] >= 0xF)
       {
         v19 = 14;
-        v44 = v18;
+        v43 = v18;
         do
         {
           v20 = [v18 objectAtIndexedSubscript:v19];
           [qword_1EE02AB68 setObject:0 forKeyedSubscript:v20];
           array = [MEMORY[0x1E695DF70] array];
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
           v46 = 0u;
+          v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
           v22 = qword_1EE02AB70;
-          v23 = [qword_1EE02AB70 countByEnumeratingWithState:&v45 objects:v51 count:16];
+          v23 = [qword_1EE02AB70 countByEnumeratingWithState:&v44 objects:v50 count:16];
           if (v23)
           {
-            v24 = *v46;
+            v24 = *v45;
             do
             {
               for (i = 0; i != v23; ++i)
               {
-                if (*v46 != v24)
+                if (*v45 != v24)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v26 = *(*(&v45 + 1) + 8 * i);
+                v26 = *(*(&v44 + 1) + 8 * i);
                 if ([objc_msgSend(qword_1EE02AB70 objectForKeyedSubscript:{v26), "isEqual:", v20}])
                 {
                   [array addObject:v26];
                 }
               }
 
-              v23 = [v22 countByEnumeratingWithState:&v45 objects:v51 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v44 objects:v50 count:16];
             }
 
             while (v23);
           }
 
           [qword_1EE02AB70 removeObjectsForKeys:array];
-          v18 = v44;
+          v18 = v43;
           v27 = qword_1EE02AB58;
           if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
-            v50 = v20;
+            v49 = v20;
             _os_log_impl(&dword_1C914D000, v27, OS_LOG_TYPE_INFO, "Removing session UUID %{public}@ from tracking", buf, 0xCu);
           }
 
           ++v19;
         }
 
-        while (v19 < [v44 count]);
+        while (v19 < [v43 count]);
       }
     }
 
     v28 = qword_1EE02AB58;
     if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_INFO))
     {
-      *v51 = 138412546;
-      v52 = qword_1EE02AB70;
-      v53 = 2112;
-      v54 = qword_1EE02AB68;
-      _os_log_impl(&dword_1C914D000, v28, OS_LOG_TYPE_INFO, "Detected a new audio session. Sessions in flight: %@, session times: %@", v51, 0x16u);
+      *v50 = 138412546;
+      v51 = qword_1EE02AB70;
+      v52 = 2112;
+      v53 = qword_1EE02AB68;
+      _os_log_impl(&dword_1C914D000, v28, OS_LOG_TYPE_INFO, "Detected a new audio session. Sessions in flight: %@, session times: %@", v50, 0x16u);
     }
 
     classification = classificationCopy;
@@ -141,23 +141,21 @@
   if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_DEBUG))
   {
     [objc_msgSend(recognition "speechRecognitionMetadata")];
-    *v51 = 138413314;
-    v52 = v16;
-    v53 = 2048;
-    v54 = *&v30;
-    v55 = 2048;
+    *v50 = 138413314;
+    v51 = v16;
+    v52 = 2048;
+    v53 = *&v30;
+    v54 = 2048;
     timestampCopy = timestamp;
-    v57 = 2048;
-    v58 = v36;
-    v59 = 2048;
-    v60 = v32;
-    _os_log_debug_impl(&dword_1C914D000, v33, OS_LOG_TYPE_DEBUG, "session UUID: %@, sessionStartTime: %.09f, timestamp: %.09f, speechstart: %.09f, computed; %.09f", v51, 0x34u);
+    v56 = 2048;
+    v57 = v35;
+    v58 = 2048;
+    v59 = v32;
+    _os_log_debug_impl(&dword_1C914D000, v33, OS_LOG_TYPE_DEBUG, "session UUID: %@, sessionStartTime: %.09f, timestamp: %.09f, speechstart: %.09f, computed; %.09f", v50, 0x34u);
   }
 
   os_unfair_lock_unlock(&_MergedGlobals_8);
-  result = -[SRSpeechMetrics initWithSessionIdentifier:sessionFlags:timestamp:timeSinceAudioStart:audioLevel:speechRecognition:soundClassification:speechExpression:](self, "initWithSessionIdentifier:sessionFlags:timestamp:timeSinceAudioStart:audioLevel:speechRecognition:soundClassification:speechExpression:", [MEMORY[0x1E696AEC0] stringWithFormat:@"%@;%@", v16, identifierCopy], flags, level, recognition, classification, expression, timestamp, v32);
-  v35 = *MEMORY[0x1E69E9840];
-  return result;
+  return -[SRSpeechMetrics initWithSessionIdentifier:sessionFlags:timestamp:timeSinceAudioStart:audioLevel:speechRecognition:soundClassification:speechExpression:](self, "initWithSessionIdentifier:sessionFlags:timestamp:timeSinceAudioStart:audioLevel:speechRecognition:soundClassification:speechExpression:", [MEMORY[0x1E696AEC0] stringWithFormat:@"%@;%@", v16, identifierCopy], flags, level, recognition, classification, expression, timestamp, v32);
 }
 
 - (SRSpeechMetrics)initWithSessionIdentifier:(id)identifier sessionFlags:(unint64_t)flags timestamp:(double)timestamp timeSinceAudioStart:(double)start audioLevel:(id)level speechRecognition:(id)recognition soundClassification:(id)classification speechExpression:(id)self0
@@ -402,7 +400,7 @@ LABEL_27:
 
 - (SRSpeechMetrics)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (![representation length])
   {
 
@@ -413,96 +411,90 @@ LABEL_27:
       _os_log_error_impl(&dword_1C914D000, v21, OS_LOG_TYPE_ERROR, "Failed to unarchive data because binary data length is zero", buf, 2u);
     }
 
-    goto LABEL_13;
+    return 0;
   }
 
-  v25.receiver = self;
-  v25.super_class = SRSpeechMetrics;
-  result = [(SRSpeechMetrics *)&v25 init];
-  if (result)
+  v24.receiver = self;
+  v24.super_class = SRSpeechMetrics;
+  result = [(SRSpeechMetrics *)&v24 init];
+  if (!result)
   {
-    v9 = result;
-    v24 = 0;
-    v10 = MEMORY[0x1E696ACD0];
-    v11 = MEMORY[0x1E695DFD8];
-    v12 = objc_opt_class();
-    v13 = [v10 unarchivedObjectOfClasses:objc_msgSend(v11 fromData:"setWithObjects:" error:{v12, objc_opt_class(), 0), representation, &v24}];
-    if (!v13)
-    {
-      v22 = qword_1EE02AB58;
-      if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138543362;
-        v27 = v24;
-        _os_log_error_impl(&dword_1C914D000, v22, OS_LOG_TYPE_ERROR, "Failed to unarchive legacy data because %{public}@", buf, 0xCu);
-      }
+    return result;
+  }
 
-      goto LABEL_12;
+  v9 = result;
+  v23 = 0;
+  v10 = MEMORY[0x1E696ACD0];
+  v11 = MEMORY[0x1E695DFD8];
+  v12 = objc_opt_class();
+  v13 = [v10 unarchivedObjectOfClasses:objc_msgSend(v11 fromData:"setWithObjects:" error:{v12, objc_opt_class(), 0), representation, &v23}];
+  if (!v13)
+  {
+    v22 = qword_1EE02AB58;
+    if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543362;
+      v26 = v23;
+      _os_log_error_impl(&dword_1C914D000, v22, OS_LOG_TYPE_ERROR, "Failed to unarchive legacy data because %{public}@", buf, 0xCu);
     }
 
-    v14 = v13;
-    v15 = objc_opt_class();
-    if (v15 == objc_opt_class())
-    {
+    goto LABEL_12;
+  }
 
-      result = v14;
-      goto LABEL_14;
+  v14 = v13;
+  v15 = objc_opt_class();
+  if (v15 == objc_opt_class())
+  {
+
+    return v14;
+  }
+
+  v16 = objc_opt_class();
+  v17 = objc_opt_class();
+  v18 = qword_1EE02AB58;
+  if (v16 != v17)
+  {
+    if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_FAULT))
+    {
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      *buf = 138543362;
+      v26 = v20;
+      _os_log_fault_impl(&dword_1C914D000, v18, OS_LOG_TYPE_FAULT, "Marshalled an object of an unexpected class %{public}@", buf, 0xCu);
     }
-
-    v16 = objc_opt_class();
-    v17 = objc_opt_class();
-    v18 = qword_1EE02AB58;
-    if (v16 != v17)
-    {
-      if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_FAULT))
-      {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
-        *buf = 138543362;
-        v27 = v20;
-        _os_log_fault_impl(&dword_1C914D000, v18, OS_LOG_TYPE_FAULT, "Marshalled an object of an unexpected class %{public}@", buf, 0xCu);
-      }
 
 LABEL_12:
 
-LABEL_13:
-      result = 0;
-      goto LABEL_14;
-    }
-
-    if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138477827;
-      v27 = v14;
-      _os_log_impl(&dword_1C914D000, v18, OS_LOG_TYPE_INFO, "Found legacy data %{private}@", buf, 0xCu);
-    }
-
-    result = [(SRSpeechMetrics *)v9 initWithSessionIdentifier:&stru_1F48BB5C0 sessionFlags:0 timestamp:0 audioLevel:v14 speechRecognition:0 soundClassification:0 speechExpression:SRAbsoluteTimeToCFAbsoluteTime(timestamp)];
+    return 0;
   }
 
-LABEL_14:
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138477827;
+    v26 = v14;
+    _os_log_impl(&dword_1C914D000, v18, OS_LOG_TYPE_INFO, "Found legacy data %{private}@", buf, 0xCu);
+  }
+
+  return [(SRSpeechMetrics *)v9 initWithSessionIdentifier:&stru_1F48BB5C0 sessionFlags:0 timestamp:0 audioLevel:v14 speechRecognition:0 soundClassification:0 speechExpression:SRAbsoluteTimeToCFAbsoluteTime(timestamp)];
 }
 
 - (id)binarySampleRepresentation
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
-  v3 = v7;
-  if (v7)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v6];
+  v3 = v6;
+  if (v6)
   {
     v4 = qword_1EE02AB58;
     if (os_log_type_enabled(qword_1EE02AB58, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v9 = v3;
+      v8 = v3;
       _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to archive data because %{public}@", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

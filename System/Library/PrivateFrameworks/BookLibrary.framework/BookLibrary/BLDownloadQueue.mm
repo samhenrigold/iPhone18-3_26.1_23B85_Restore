@@ -26,42 +26,40 @@
 
 - (void)purchaseWithRequest:(id)request uiManager:(id)manager completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   managerCopy = manager;
   completionCopy = completion;
-  v14 = objc_msgSend_presentingSceneIdentifier(requestCopy, v11, v12, v13);
+  v13 = objc_msgSend_presentingSceneIdentifier(requestCopy, v11, v12);
 
-  if (!v14)
+  if (!v13)
   {
-    v18 = objc_msgSend_presentingSceneIdentifier(managerCopy, v15, v16, v17);
-    objc_msgSend_setPresentingSceneIdentifier_(requestCopy, v19, v18, v20);
+    v16 = objc_msgSend_presentingSceneIdentifier(managerCopy, v14, v15);
+    objc_msgSend_setPresentingSceneIdentifier_(requestCopy, v17, v16);
   }
 
-  v21 = BLDefaultLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v18 = BLDefaultLog();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = objc_msgSend_storeIdentifier(requestCopy, v22, v23, v24);
-    v29 = objc_msgSend_presentingSceneIdentifier(requestCopy, v26, v27, v28);
-    v35 = 141558530;
-    v36 = 1752392040;
-    v37 = 2112;
-    v38 = v25;
-    v39 = 2112;
-    v40 = v29;
-    _os_log_impl(&dword_241D0D000, v21, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: purchaseWithRequest:uiManager:completion: for asset %{mask.hash}@ with additional presentingSceneIdentifier: %@", &v35, 0x20u);
+    v21 = objc_msgSend_storeIdentifier(requestCopy, v19, v20);
+    v24 = objc_msgSend_presentingSceneIdentifier(requestCopy, v22, v23);
+    v29 = 141558530;
+    v30 = 1752392040;
+    v31 = 2112;
+    v32 = v21;
+    v33 = 2112;
+    v34 = v24;
+    _os_log_impl(&dword_241D0D000, v18, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: purchaseWithRequest:uiManager:completion: for asset %{mask.hash}@ with additional presentingSceneIdentifier: %@", &v29, 0x20u);
   }
 
-  v30 = [BLUIHostServiceProxy alloc];
-  v32 = objc_msgSend_initWithUIManager_forRequest_inDownloadQueue_(v30, v31, managerCopy, requestCopy, self);
-  objc_msgSend__purchaseWithRequest_uiHostProxy_completion_(self, v33, requestCopy, v32, completionCopy);
-
-  v34 = *MEMORY[0x277D85DE8];
+  v25 = [BLUIHostServiceProxy alloc];
+  v27 = objc_msgSend_initWithUIManager_forRequest_inDownloadQueue_(v25, v26, managerCopy, requestCopy, self);
+  objc_msgSend__purchaseWithRequest_uiHostProxy_completion_(self, v28, requestCopy, v27, completionCopy);
 }
 
 - (void)addDownloadsWithManifestRequest:(id)request uiManager:(id)manager completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   managerCopy = manager;
   completionCopy = completion;
@@ -69,25 +67,23 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = requestCopy;
+    v22 = requestCopy;
     _os_log_impl(&dword_241D0D000, v11, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: addDownloadsWithManifestRequest:uiManager:completion: for manifestRequest: %@", buf, 0xCu);
   }
 
   v12 = _os_activity_create(&dword_241D0D000, "addDownloadsWithManifestRequest:uiManager:completion:", MEMORY[0x277D86218], OS_ACTIVITY_FLAG_DEFAULT);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = sub_241D1301C;
-  v17[3] = &unk_278D159C8;
-  v18 = managerCopy;
-  v19 = requestCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = sub_241D1301C;
+  v16[3] = &unk_278D159C8;
+  v17 = managerCopy;
+  v18 = requestCopy;
   selfCopy = self;
-  v21 = completionCopy;
+  v20 = completionCopy;
   v13 = completionCopy;
   v14 = requestCopy;
   v15 = managerCopy;
-  os_activity_apply(v12, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  os_activity_apply(v12, v16);
 }
 
 - (void)setAutomaticDownloadEnabled:(BOOL)enabled uiManager:(id)manager withCompletion:(id)completion

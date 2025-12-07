@@ -8,11 +8,11 @@
 
 - (TVRCFilmographyCategory)initWithDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v22.receiver = self;
-  v22.super_class = TVRCFilmographyCategory;
-  v5 = [(TVRCFilmographyCategory *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = TVRCFilmographyCategory;
+  v5 = [(TVRCFilmographyCategory *)&v21 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"title"];
@@ -21,33 +21,33 @@
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v9 = [dictionaryCopy objectForKeyedSubscript:@"items"];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [TVRCMediaInfo mediaInfoWithDictionary:*(*(&v18 + 1) + 8 * v13)];
+          v14 = [TVRCMediaInfo mediaInfoWithDictionary:*(*(&v17 + 1) + 8 * v13)];
           [(NSArray *)v8 addObject:v14];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v11);
@@ -57,7 +57,6 @@
     v5->_items = v8;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

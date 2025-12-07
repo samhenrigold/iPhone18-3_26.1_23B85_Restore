@@ -39,7 +39,7 @@
 
 void __47__HDAggregateDataCollector__queue_beginUpdates__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = v5;
@@ -57,9 +57,9 @@ LABEL_7:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __66__HDAggregateDataCollector__beginUpdatesHandlerWithSuccess_error___block_invoke;
-        v15 = &unk_278618990;
-        v17 = a2;
-        v16 = WeakRetained;
+        v14 = &unk_278618990;
+        v16 = a2;
+        v15 = WeakRetained;
         dispatch_async(v11, buf);
         goto LABEL_8;
       }
@@ -91,16 +91,14 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_beginStreaming
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = HDAggregateDataCollector;
-  [(HDDataCollector *)&v9 _queue_beginStreaming];
+  v11 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HDAggregateDataCollector;
+  [(HDDataCollector *)&v8 _queue_beginStreaming];
   if (self && self->super._disabled)
   {
     _HKInitializeLogging();
@@ -110,7 +108,7 @@ LABEL_8:
       v4 = v3;
       v5 = objc_opt_class();
       *buf = 138543362;
-      v11 = v5;
+      v10 = v5;
       v6 = v5;
       _os_log_debug_impl(&dword_228986000, v4, OS_LOG_TYPE_DEBUG, "%{public}@: Data collector disabled, not beginning streaming.", buf, 0xCu);
     }
@@ -118,23 +116,21 @@ LABEL_8:
 
   else
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __49__HDAggregateDataCollector__queue_beginStreaming__block_invoke;
-    v8[3] = &unk_2786130B0;
-    v8[4] = self;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __49__HDAggregateDataCollector__queue_beginStreaming__block_invoke;
+    v7[3] = &unk_2786130B0;
+    v7[4] = self;
     if (self)
     {
-      [(HDAggregateDataCollector *)self _queue_handleUpdatingHistoricalDataForcedUpdate:v8 completion:?];
+      [(HDAggregateDataCollector *)self _queue_handleUpdatingHistoricalDataForcedUpdate:v7 completion:?];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HDAggregateDataCollector__queue_beginStreaming__block_invoke(uint64_t a1, int a2)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (a2)
   {
@@ -160,36 +156,33 @@ void __49__HDAggregateDataCollector__queue_beginStreaming__block_invoke(uint64_t
       {
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = v4;
+          v9 = v4;
           LODWORD(buf) = 138543362;
           *(&buf + 4) = objc_opt_class();
-          v11 = *(&buf + 4);
-          _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Begin updates", &buf, 0xCu);
+          v10 = *(&buf + 4);
+          _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Begin updates", &buf, 0xCu);
         }
 
-        v12 = [v2 _queue_lastReceivedSensorDatum];
+        v11 = [v2 _queue_lastReceivedSensorDatum];
         [v2 stopPerformingUpdatesWithErrorEncountered:0];
         objc_initWeak(&location, v2);
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v16 = __47__HDAggregateDataCollector__queue_beginUpdates__block_invoke;
-        v17 = &unk_278628890;
-        objc_copyWeak(v18, &location);
-        [v2 beginUpdatesFromDatum:v12 withHandler:&buf];
-        objc_destroyWeak(v18);
+        v14 = __47__HDAggregateDataCollector__queue_beginUpdates__block_invoke;
+        v15 = &unk_278628890;
+        objc_copyWeak(v16, &location);
+        [v2 beginUpdatesFromDatum:v11 withHandler:&buf];
+        objc_destroyWeak(v16);
         objc_destroyWeak(&location);
       }
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85DE8];
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
 
-    [(HDDataCollector *)v9 _queue_transitionToFailure];
+    [(HDDataCollector *)v8 _queue_transitionToFailure];
   }
 }
 
@@ -206,7 +199,7 @@ void __49__HDAggregateDataCollector__queue_beginStreaming__block_invoke(uint64_t
 
 void __48__HDAggregateDataCollector_updateHistoricalData__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 40) == 3)
   {
@@ -214,30 +207,26 @@ void __48__HDAggregateDataCollector_updateHistoricalData__block_invoke(uint64_t 
     v3 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = v3;
-      v10 = 138543362;
-      v11 = objc_opt_class();
-      v6 = v11;
-      _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Detected failure state, beginning streaming", &v10, 0xCu);
+      v4 = v3;
+      v7 = 138543362;
+      v8 = objc_opt_class();
+      v5 = v8;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Detected failure state, beginning streaming", &v7, 0xCu);
     }
 
-    v7 = *(a1 + 32);
-    if (v7)
+    v6 = *(a1 + 32);
+    if (v6)
     {
-      if (v7[5] != 2)
+      if (v6[5] != 2)
       {
-        [(HDDataCollector *)v7 _queue_transitionToStreaming];
-        [v7 _queue_beginStreaming];
+        [(HDDataCollector *)v6 _queue_transitionToStreaming];
+        [v6 _queue_beginStreaming];
       }
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     [(HDAggregateDataCollector *)v2 _queue_handleUpdatingHistoricalDataForcedUpdate:0 completion:?];
   }
@@ -245,7 +234,7 @@ void __48__HDAggregateDataCollector_updateHistoricalData__block_invoke(uint64_t 
 
 - (id)_queue_lastReceivedSecondaryContext
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lastReceivedSecondaryContext = self->_lastReceivedSecondaryContext;
   if (!lastReceivedSecondaryContext)
   {
@@ -255,9 +244,9 @@ void __48__HDAggregateDataCollector_updateHistoricalData__block_invoke(uint64_t 
     {
       v6 = MEMORY[0x277CCAAC8];
       secondaryContextClasses = [objc_opt_class() secondaryContextClasses];
-      v18 = 0;
-      v8 = [v6 unarchivedObjectOfClasses:secondaryContextClasses fromData:v5 error:&v18];
-      v9 = v18;
+      v17 = 0;
+      v8 = [v6 unarchivedObjectOfClasses:secondaryContextClasses fromData:v5 error:&v17];
+      v9 = v17;
 
       if (!v8)
       {
@@ -265,17 +254,17 @@ void __48__HDAggregateDataCollector_updateHistoricalData__block_invoke(uint64_t 
         v10 = *MEMORY[0x277CCC298];
         if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
         {
-          v14 = v10;
-          v15 = objc_opt_class();
-          v16 = v15;
-          v17 = [v5 length];
+          v13 = v10;
+          v14 = objc_opt_class();
+          v15 = v14;
+          v16 = [v5 length];
           *buf = 138543874;
-          v20 = v15;
-          v21 = 2048;
-          v22 = v17;
-          v23 = 2114;
-          v24 = v9;
-          _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Error decoding context (%lu bytes): %{public}@", buf, 0x20u);
+          v19 = v14;
+          v20 = 2048;
+          v21 = v16;
+          v22 = 2114;
+          v23 = v9;
+          _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Error decoding context (%lu bytes): %{public}@", buf, 0x20u);
         }
       }
     }
@@ -290,8 +279,6 @@ void __48__HDAggregateDataCollector_updateHistoricalData__block_invoke(uint64_t 
 
     lastReceivedSecondaryContext = self->_lastReceivedSecondaryContext;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return lastReceivedSecondaryContext;
 }
@@ -361,7 +348,7 @@ void __44__HDAggregateDataCollector_initWithProfile___block_invoke_2(uint64_t a1
 
 void __66__HDAggregateDataCollector__queue_executeHistoricalFetchOperation__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -369,21 +356,18 @@ void __66__HDAggregateDataCollector__queue_executeHistoricalFetchOperation__bloc
     v6 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      *v11 = 138543618;
-      *&v11[4] = objc_opt_class();
-      *&v11[12] = 2114;
-      *&v11[14] = v5;
-      v10 = *&v11[4];
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Error occurred during historical fetch for update handler: %{public}@", v11, 0x16u);
+      v7 = v6;
+      *v9 = 138543618;
+      *&v9[4] = objc_opt_class();
+      *&v9[12] = 2114;
+      *&v9[14] = v5;
+      v8 = *&v9[4];
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Error occurred during historical fetch for update handler: %{public}@", v9, 0x16u);
     }
 
-    [*(a1 + 32) stopPerformingUpdatesWithErrorEncountered:{0, *v11, *&v11[16], v12}];
+    [*(a1 + 32) stopPerformingUpdatesWithErrorEncountered:{0, *v9, *&v9[8], v10}];
     [(HDDataCollector *)*(a1 + 32) _queue_transitionToFailure];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (double)maxDatumDuration
@@ -404,7 +388,7 @@ void __66__HDAggregateDataCollector__queue_executeHistoricalFetchOperation__bloc
   return v2;
 }
 
-uint64_t __44__HDAggregateDataCollector_maxDatumDuration__block_invoke(uint64_t a1)
+void *__44__HDAggregateDataCollector_maxDatumDuration__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_maxDatumDuration];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -454,74 +438,73 @@ void __66__HDAggregateDataCollector__beginUpdatesHandlerWithSuccess_error___bloc
 
 - (void)_queue_updateLastReceivedSensorDatum:(id)datum
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   objc_storeStrong(&self->_lastReceivedSensorDatum, datum);
   datumCopy = datum;
   v6 = self->_lastReceivedSensorDatum;
   v7 = v6;
-  v14 = 0;
+  v13 = 0;
   if (self && v6)
   {
-    v15 = 0;
-    v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v15];
-    v8 = v15;
-    if (!v14)
+    v14 = 0;
+    v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v14];
+    v8 = v14;
+    if (!v13)
     {
       _HKInitializeLogging();
       v9 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
       {
-        v11 = v9;
-        v12 = objc_opt_class();
+        v10 = v9;
+        v11 = objc_opt_class();
         *buf = 138543874;
-        v17 = v12;
-        v18 = 2112;
-        v19 = v7;
-        v20 = 2114;
-        v21 = v8;
-        v13 = v12;
-        _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Error encoding context (%@) %{public}@", buf, 0x20u);
+        v16 = v11;
+        v17 = 2112;
+        v18 = v7;
+        v19 = 2114;
+        v20 = v8;
+        v12 = v11;
+        _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Error encoding context (%@) %{public}@", buf, 0x20u);
       }
     }
   }
 
-  [(HDDataCollector *)self _persistContext:v14 forKey:@"context"];
-  v10 = *MEMORY[0x277D85DE8];
+  [(HDDataCollector *)self _persistContext:v13 forKey:@"context"];
 }
 
 - (void)_queue_updateLastReceivedSecondaryContext:(id)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objc_storeStrong(&self->_lastReceivedSecondaryContext, context);
   contextCopy = context;
-  v13 = 0;
-  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v13];
-  v6 = v13;
-  if (!v12)
+  v12 = 0;
+  v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v12];
+  v6 = v12;
+  if (!v11)
   {
     _HKInitializeLogging();
     v7 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v9 = v7;
-      v10 = objc_opt_class();
+      v8 = v7;
+      v9 = objc_opt_class();
       *buf = 138543874;
-      v15 = v10;
-      v16 = 2112;
-      v17 = contextCopy;
-      v18 = 2114;
-      v19 = v6;
-      v11 = v10;
-      _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Error encoding dictionary context (%@) %{public}@", buf, 0x20u);
+      v14 = v9;
+      v15 = 2112;
+      v16 = contextCopy;
+      v17 = 2114;
+      v18 = v6;
+      v10 = v9;
+      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Error encoding dictionary context (%@) %{public}@", buf, 0x20u);
     }
   }
 
-  [(HDDataCollector *)self _persistContext:v12 forKey:@"secondaryContext"];
-  v8 = *MEMORY[0x277D85DE8];
+  [(HDDataCollector *)self _persistContext:v11 forKey:@"secondaryContext"];
 }
 
 - (void)_queue_handleUpdatingHistoricalDataForcedUpdate:(void *)update completion:
 {
+  v3 = a2;
   updateCopy = update;
   v6 = updateCopy;
   if (self)
@@ -531,15 +514,15 @@ void __66__HDAggregateDataCollector__beginUpdatesHandlerWithSuccess_error___bloc
     v7[2] = __87__HDAggregateDataCollector__queue_handleUpdatingHistoricalDataForcedUpdate_completion___block_invoke;
     v7[3] = &unk_278626D18;
     v7[4] = self;
-    v9 = a2;
+    v9 = v3;
     v8 = updateCopy;
-    [(HDAggregateDataCollector *)self _queue_fetchHistoricalDataForcedUpdate:a2 completion:v7];
+    [(HDAggregateDataCollector *)self _queue_fetchHistoricalDataForcedUpdate:v3 completion:v7];
   }
 }
 
 void __87__HDAggregateDataCollector__queue_handleUpdatingHistoricalDataForcedUpdate_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -556,10 +539,10 @@ void __87__HDAggregateDataCollector__queue_handleUpdatingHistoricalDataForcedUpd
   if (![v5 hk_isHealthKitError] || objc_msgSend(v6, "code") != 450)
   {
 LABEL_12:
-    v17 = *(a1 + 40);
-    if (v17)
+    v16 = *(a1 + 40);
+    if (v16)
     {
-      (*(v17 + 16))(v17, a2, v6);
+      (*(v16 + 16))(v16, a2, v6);
     }
 
     goto LABEL_14;
@@ -570,39 +553,36 @@ LABEL_12:
   v9 = *MEMORY[0x277CCC298];
   if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = v9;
-    v19 = 138543362;
-    v20 = objc_opt_class();
-    v12 = v20;
-    _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Detected CoreMotion database reset, resetting state", &v19, 0xCu);
+    v10 = v9;
+    v17 = 138543362;
+    v18 = objc_opt_class();
+    v11 = v18;
+    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Detected CoreMotion database reset, resetting state", &v17, 0xCu);
   }
 
   if (*(a1 + 32))
   {
     [*(a1 + 32) _queue_updateLastReceivedSensorDatum:0];
     _HKInitializeLogging();
-    v13 = *v8;
+    v12 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = v13;
-      v15 = objc_opt_class();
-      v19 = 138543362;
-      v20 = v15;
-      v16 = v15;
-      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Set last received sensor datum to nil, persisting nil context", &v19, 0xCu);
+      v13 = v12;
+      v14 = objc_opt_class();
+      v17 = 138543362;
+      v18 = v14;
+      v15 = v14;
+      _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Set last received sensor datum to nil, persisting nil context", &v17, 0xCu);
     }
   }
 
   [(HDAggregateDataCollector *)*(a1 + 32) _queue_handleUpdatingHistoricalDataForcedUpdate:*(a1 + 40) completion:?];
 LABEL_14:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_fetchHistoricalDataForcedUpdate:(void *)update completion:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (self[72] != 1)
   {
@@ -614,8 +594,8 @@ LABEL_14:
       {
         v10 = v9;
         *buf = 138543362;
-        v27 = objc_opt_class();
-        v11 = v27;
+        v26 = objc_opt_class();
+        v11 = v26;
         _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Requested update while fetching historical data. Marking _needsHistoricalFetch", buf, 0xCu);
       }
 
@@ -638,11 +618,11 @@ LABEL_14:
         v18 = v17;
         v19 = _IdentifierStringsFromSensorDatum(_queue_lastReceivedSensorDatum);
         *buf = 138543874;
-        v27 = v17;
-        v28 = 2112;
-        v29 = _queue_lastReceivedSensorDatum;
-        v30 = 2114;
-        v31 = v19;
+        v26 = v17;
+        v27 = 2112;
+        v28 = _queue_lastReceivedSensorDatum;
+        v29 = 2114;
+        v30 = v19;
         v20 = "%{public}@: Forced fetch of historical data since last record: %@ %{public}@";
 LABEL_16:
         _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, v20, buf, 0x20u);
@@ -656,23 +636,23 @@ LABEL_16:
       v18 = v21;
       v19 = _IdentifierStringsFromSensorDatum(_queue_lastReceivedSensorDatum);
       *buf = 138543874;
-      v27 = v21;
-      v28 = 2112;
-      v29 = _queue_lastReceivedSensorDatum;
-      v30 = 2114;
-      v31 = v19;
+      v26 = v21;
+      v27 = 2112;
+      v28 = _queue_lastReceivedSensorDatum;
+      v29 = 2114;
+      v30 = v19;
       v20 = "%{public}@: Fetching historical data since last record: %@ %{public}@";
       goto LABEL_16;
     }
 
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke;
-    v23[3] = &unk_278622808;
-    v23[4] = self;
-    v25 = Current;
-    v24 = updateCopy;
-    [self fetchHistoricalSensorDataSinceDatum:_queue_lastReceivedSensorDatum databaseIdentifier:0 completion:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke;
+    v22[3] = &unk_278622808;
+    v22[4] = self;
+    v24 = Current;
+    v23 = updateCopy;
+    [self fetchHistoricalSensorDataSinceDatum:_queue_lastReceivedSensorDatum databaseIdentifier:0 completion:v22];
 
     goto LABEL_18;
   }
@@ -683,8 +663,8 @@ LABEL_16:
   {
     v7 = v6;
     *buf = 138543362;
-    v27 = objc_opt_class();
-    v8 = v27;
+    v26 = objc_opt_class();
+    v8 = v26;
     _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%{public}@: Data collector disabled, not beginning streaming.", buf, 0xCu);
   }
 
@@ -695,13 +675,11 @@ LABEL_9:
   }
 
 LABEL_18:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _HKInitializeLogging();
@@ -713,35 +691,33 @@ void __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_compl
     v10 = [v5 count];
     v11 = CFAbsoluteTimeGetCurrent() - *(a1 + 48);
     *buf = 138543874;
-    v23 = v8;
-    v24 = 2048;
-    v25 = v10;
-    v26 = 2048;
-    v27 = v11;
+    v22 = v8;
+    v23 = 2048;
+    v24 = v10;
+    v25 = 2048;
+    v26 = v11;
     _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Historical fetch returned %ld datums in %0.2lfs", buf, 0x20u);
   }
 
   v13 = *(a1 + 32);
   v12 = *(a1 + 40);
   v14 = *(v13 + 24);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_433;
-  v18[3] = &unk_278613680;
-  v18[4] = v13;
-  v19 = v5;
-  v20 = v6;
-  v21 = v12;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_433;
+  v17[3] = &unk_278613680;
+  v17[4] = v13;
+  v18 = v5;
+  v19 = v6;
+  v20 = v12;
   v15 = v6;
   v16 = v5;
-  dispatch_async(v14, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(v14, v17);
 }
 
 void __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_433(id *a1)
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] _queue_lastReceivedSensorDatum];
   v3 = a1[6];
   v4 = a1[5];
@@ -807,21 +783,20 @@ LABEL_16:
     v13 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v59 = a1[4];
-      v60 = v13;
-      v61 = objc_opt_class();
-      v63 = a1[5];
-      v62 = a1[6];
+      v58 = v13;
+      v59 = objc_opt_class();
+      v61 = a1[5];
+      v60 = a1[6];
       *buf = 138544130;
-      *&buf[4] = v61;
+      *&buf[4] = v59;
       *&buf[12] = 2114;
-      *&buf[14] = v62;
+      *&buf[14] = v60;
       *&buf[22] = 2112;
-      v88 = v6;
-      *v89 = 2112;
-      *&v89[2] = v63;
-      v64 = v61;
-      _os_log_error_impl(&dword_228986000, v60, OS_LOG_TYPE_ERROR, "%{public}@: Detected a database reset with the following results: %{public}@, %@, %@", buf, 0x2Au);
+      v85 = v6;
+      *v86 = 2112;
+      *&v86[2] = v61;
+      v62 = v59;
+      _os_log_error_impl(&dword_228986000, v58, OS_LOG_TYPE_ERROR, "%{public}@: Detected a database reset with the following results: %{public}@, %@, %@", buf, 0x2Au);
     }
 
     *(a1[4] + 120) = 0;
@@ -839,15 +814,15 @@ LABEL_16:
   if (v16)
   {
     v17 = a1[4];
-    v76[0] = MEMORY[0x277D85DD0];
-    v76[1] = 3221225472;
-    v77 = __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_438;
-    v78 = &unk_2786173C8;
-    v79 = v17;
-    v80 = a1[7];
+    v73[0] = MEMORY[0x277D85DD0];
+    v73[1] = 3221225472;
+    v74 = __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_438;
+    v75 = &unk_2786173C8;
+    v76 = v17;
+    v77 = a1[7];
     v18 = v16;
     v19 = v6;
-    v75 = v76;
+    v72 = v73;
     if (v17)
     {
       v20 = v18;
@@ -860,9 +835,9 @@ LABEL_16:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __54__HDAggregateDataCollector__queue_filteredSensorData___block_invoke;
-        v88 = &unk_2786288B8;
-        *v89 = v23;
-        *&v89[8] = v17;
+        v85 = &unk_2786288B8;
+        *v86 = v23;
+        *&v86[8] = v17;
         v27 = [v20 hk_filter:buf];
       }
 
@@ -875,14 +850,14 @@ LABEL_16:
 
       if ([v18 count])
       {
-        v74 = v19;
+        v71 = v19;
         v28 = v19;
-        v73 = v28;
+        v70 = v28;
         if ([v17 requiresSampleAggregation])
         {
-          v86 = v28;
-          v29 = [v17 _queue_processSensorDataBatched:v18 firstDatum:v28 lastSensorDatum:&v86];
-          v30 = v86;
+          v83 = v28;
+          v29 = [v17 _queue_processSensorDataBatched:v18 firstDatum:v28 lastSensorDatum:&v83];
+          v30 = v83;
         }
 
         else
@@ -898,7 +873,7 @@ LABEL_16:
         {
           log = v39;
           v40 = objc_opt_class();
-          v71 = v40;
+          v68 = v40;
           v41 = [v18 count];
           v42 = v29;
           v43 = [v29 count];
@@ -908,24 +883,24 @@ LABEL_16:
           *&buf[12] = 2048;
           *&buf[14] = v41;
           *&buf[22] = 2048;
-          v88 = v43;
+          v85 = v43;
           v29 = v42;
-          *v89 = 2112;
-          *&v89[2] = v38;
-          *&v89[10] = 2114;
-          *&v89[12] = v44;
+          *v86 = 2112;
+          *&v86[2] = v38;
+          *&v86[10] = 2114;
+          *&v86[12] = v44;
           _os_log_impl(&dword_228986000, log, OS_LOG_TYPE_DEFAULT, "%{public}@: (Processed: %ld, Persisting: %ld, Context: %@ %{public}@)", buf, 0x34u);
         }
 
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum_completion___block_invoke;
-        v88 = &unk_27861A028;
-        *v89 = v17;
-        v72 = v38;
-        *&v89[8] = v72;
+        v85 = &unk_27861A028;
+        *v86 = v17;
+        v69 = v38;
+        *&v86[8] = v69;
         v45 = v29;
-        *&v89[16] = v45;
+        *&v86[16] = v45;
         v46 = _Block_copy(buf);
         v47 = objc_loadWeakRetained(v17 + 2);
         v48 = [v47 dataCollectionManager];
@@ -934,25 +909,25 @@ LABEL_16:
 
         v51 = objc_loadWeakRetained(v17 + 2);
         v52 = [v51 database];
-        v85 = 0;
-        v83[0] = MEMORY[0x277D85DD0];
-        v83[1] = 3221225472;
-        v83[2] = __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum_completion___block_invoke_2;
-        v83[3] = &unk_27861A528;
-        v84 = v46;
-        v81[0] = MEMORY[0x277D85DD0];
-        v81[1] = 3221225472;
-        v81[2] = __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum_completion___block_invoke_3;
-        v81[3] = &unk_278618968;
-        v53 = v84;
-        v82 = v53;
-        v54 = [(HDHealthEntity *)HDDataEntity performWriteTransactionWithHealthDatabase:v52 context:v50 error:&v85 block:v83 inaccessibilityHandler:v81];
-        v55 = v85;
+        v82 = 0;
+        v80[0] = MEMORY[0x277D85DD0];
+        v80[1] = 3221225472;
+        v80[2] = __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum_completion___block_invoke_2;
+        v80[3] = &unk_27861A528;
+        v81 = v46;
+        v78[0] = MEMORY[0x277D85DD0];
+        v78[1] = 3221225472;
+        v78[2] = __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum_completion___block_invoke_3;
+        v78[3] = &unk_278618968;
+        v53 = v81;
+        v79 = v53;
+        v54 = [(HDHealthEntity *)HDDataEntity performWriteTransactionWithHealthDatabase:v52 context:v50 error:&v82 block:v80 inaccessibilityHandler:v78];
+        v55 = v82;
 
-        v37 = v75;
-        (v77)(v75, v54, v55);
+        v37 = v72;
+        (v74)(v72, v54, v55);
 
-        v19 = v74;
+        v19 = v71;
       }
 
       else
@@ -969,14 +944,14 @@ LABEL_16:
           _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@: Received empty array of sensor data. Exiting early", buf, 0xCu);
         }
 
-        v37 = v75;
-        (v77)(v75, 1, 0);
+        v37 = v72;
+        (v74)(v72, 1, 0);
       }
     }
 
     else
     {
-      v37 = v75;
+      v37 = v72;
     }
 
     goto LABEL_46;
@@ -991,16 +966,15 @@ LABEL_42:
     v56 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
     {
-      v65 = a1[4];
-      v66 = v56;
-      v67 = objc_opt_class();
-      v68 = a1[6];
+      v63 = v56;
+      v64 = objc_opt_class();
+      v65 = a1[6];
       *buf = 138543618;
-      *&buf[4] = v67;
+      *&buf[4] = v64;
       *&buf[12] = 2114;
-      *&buf[14] = v68;
-      v69 = v67;
-      _os_log_error_impl(&dword_228986000, v66, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching historical sensor data: %{public}@", buf, 0x16u);
+      *&buf[14] = v65;
+      v66 = v64;
+      _os_log_error_impl(&dword_228986000, v63, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching historical sensor data: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_44;
@@ -1022,86 +996,77 @@ LABEL_44:
   }
 
 LABEL_46:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_438(uint64_t a1)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v2 = *MEMORY[0x277CCC298];
+  if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = v2;
+    *buf = 138543362;
+    v11 = objc_opt_class();
+    v4 = v11;
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished fetching historical data.", buf, 0xCu);
+  }
+
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = *(v6 + 24);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_439;
+  v8[3] = &unk_278614E28;
+  v8[4] = v6;
+  v9 = v5;
+  dispatch_async(v7, v8);
+}
+
+void __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_439(uint64_t a1)
 {
   v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC298];
   if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    *buf = 138543362;
-    v13 = objc_opt_class();
-    v5 = v13;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished fetching historical data.", buf, 0xCu);
-  }
-
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(v7 + 24);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_439;
-  v10[3] = &unk_278614E28;
-  v10[4] = v7;
-  v11 = v6;
-  dispatch_async(v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __78__HDAggregateDataCollector__queue_fetchHistoricalDataForcedUpdate_completion___block_invoke_439(uint64_t a1)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC298];
-  if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = *(*(a1 + 32) + 121);
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 1024;
-    v14 = v6;
-    v7 = v5;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Needs historical fetch: %{BOOL}d", &v11, 0x12u);
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = *(*(a1 + 32) + 121);
+    v10 = 138543618;
+    v11 = v4;
+    v12 = 1024;
+    v13 = v5;
+    v6 = v4;
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Needs historical fetch: %{BOOL}d", &v10, 0x12u);
   }
 
   *(*(a1 + 32) + 120) = 0;
-  v8 = *(a1 + 32);
-  if (*(v8 + 121) == 1)
+  v7 = *(a1 + 32);
+  if (*(v7 + 121) == 1)
   {
-    *(v8 + 121) = 0;
-    result = *(a1 + 32);
-    if (result)
+    *(v7 + 121) = 0;
+    v8 = *(a1 + 32);
+    if (v8)
     {
-      result = [(HDAggregateDataCollector *)result _queue_fetchHistoricalDataForcedUpdate:*(a1 + 40) completion:?];
+      [(HDAggregateDataCollector *)v8 _queue_fetchHistoricalDataForcedUpdate:*(a1 + 40) completion:?];
     }
   }
 
   else
   {
-    result = *(a1 + 40);
-    if (result)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      result = (*(result + 16))(result, 1, 0);
+      (*(v9 + 16))(v9, 1, 0);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _queue_updateLastReceivedSensorDatum:*(a1 + 40)];
   [*(a1 + 32) willPersistHKObjects:*(a1 + 48)];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
@@ -1115,9 +1080,9 @@ uint64_t __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum
     {
       v9 = objc_loadWeakRetained(v7 + 2);
       v10 = [v9 deviceManager];
-      v21 = 0;
-      v11 = [v10 currentDeviceEntityWithError:&v21];
-      v12 = v21;
+      v20 = 0;
+      v11 = [v10 currentDeviceEntityWithError:&v20];
+      v12 = v20;
 
       if (!v11)
       {
@@ -1125,14 +1090,14 @@ uint64_t __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum
         v13 = *MEMORY[0x277CCC298];
         if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
         {
-          v18 = v13;
-          v19 = objc_opt_class();
+          v17 = v13;
+          v18 = objc_opt_class();
           *buf = 138543618;
-          v23 = v19;
-          v24 = 2114;
-          v25 = v12;
-          v20 = v19;
-          _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching local device: %{public}@", buf, 0x16u);
+          v22 = v18;
+          v23 = 2114;
+          v24 = v12;
+          v19 = v18;
+          _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching local device: %{public}@", buf, 0x16u);
         }
       }
 
@@ -1147,13 +1112,12 @@ uint64_t __80__HDAggregateDataCollector__queue_processSensorData_lastSensorDatum
 
   v15 = [v5 sensorDataArrayReceived:v6 deviceEntity:v7 error:a2];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t __54__HDAggregateDataCollector__queue_filteredSensorData___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 startDate];
   v5 = [v4 hk_isBeforeDate:*(a1 + 32)];
@@ -1164,16 +1128,15 @@ uint64_t __54__HDAggregateDataCollector__queue_filteredSensorData___block_invoke
     v6 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEBUG))
     {
-      v9 = *(a1 + 40);
-      v10 = 138543618;
-      v11 = v9;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: Rejecting sensor datum from pre-obliteration: %@", &v10, 0x16u);
+      v8 = *(a1 + 40);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: Rejecting sensor datum from pre-obliteration: %@", &v9, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5 ^ 1u;
 }
 
@@ -1209,7 +1172,7 @@ uint64_t __54__HDAggregateDataCollector__queue_filteredSensorData___block_invoke
 
 BOOL __87__HDAggregateDataCollector__queue_processSensorDataBatched_firstDatum_lastSensorDatum___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -1220,16 +1183,15 @@ BOOL __87__HDAggregateDataCollector__queue_processSensorDataBatched_firstDatum_l
     v13 = *MEMORY[0x277CCC298];
     if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_FAULT))
     {
-      v18 = *(a1 + 32);
-      v19 = v13;
-      *v21 = 138543874;
-      *&v21[4] = objc_opt_class();
-      *&v21[12] = 2112;
-      *&v21[14] = v11;
-      *&v21[22] = 2112;
-      v22 = v12;
-      v20 = *&v21[4];
-      _os_log_fault_impl(&dword_228986000, v19, OS_LOG_TYPE_FAULT, "%{public}@: Tried to create HKObjects with start date (%@) later than end date (%@)", v21, 0x20u);
+      v17 = v13;
+      *v19 = 138543874;
+      *&v19[4] = objc_opt_class();
+      *&v19[12] = 2112;
+      *&v19[14] = v11;
+      *&v19[22] = 2112;
+      v20 = v12;
+      v18 = *&v19[4];
+      _os_log_fault_impl(&dword_228986000, v17, OS_LOG_TYPE_FAULT, "%{public}@: Tried to create HKObjects with start date (%@) later than end date (%@)", v19, 0x20u);
     }
 
     v14 = v12;
@@ -1237,13 +1199,12 @@ BOOL __87__HDAggregateDataCollector__queue_processSensorDataBatched_firstDatum_l
     v11 = v14;
   }
 
-  v15 = [*(a1 + 32) hkObjectsFromSensorData:v9 baseSensorDatum:v10 startDate:v11 endDate:{v12, *v21, *&v21[16], v22}];
+  v15 = [*(a1 + 32) hkObjectsFromSensorData:v9 baseSensorDatum:v10 startDate:v11 endDate:{v12, *v19, *&v19[8], v20}];
   if (v15)
   {
     [*(a1 + 40) addObjectsFromArray:v15];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15 != 0;
 }
 

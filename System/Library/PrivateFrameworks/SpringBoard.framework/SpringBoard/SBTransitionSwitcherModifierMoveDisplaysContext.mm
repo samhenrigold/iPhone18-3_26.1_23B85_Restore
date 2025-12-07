@@ -73,7 +73,7 @@
   itemCopy = item;
   WeakRetained = objc_loadWeakRetained(&self->_coordinatedLayoutStateTransitionContext);
   displayItems = [WeakRetained displayItems];
-  v7 = [displayItems containsObject:itemCopy];
+  v7 = objc_msgSend_containsObject_(displayItems);
 
   return v7;
 }

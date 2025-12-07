@@ -71,10 +71,10 @@
 {
   keysCopy = keys;
   countsCopy = counts;
-  v8 = [keysCopy count];
-  if (v8 == [countsCopy count])
+  v8 = objc_msgSend_count(keysCopy);
+  if (v8 == objc_msgSend_count(countsCopy))
   {
-    v9 = [keysCopy count];
+    v9 = objc_msgSend_count(keysCopy);
     if (v9)
     {
       v10 = v9;

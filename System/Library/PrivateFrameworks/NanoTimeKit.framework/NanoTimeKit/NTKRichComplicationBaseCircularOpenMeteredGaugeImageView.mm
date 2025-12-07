@@ -55,7 +55,7 @@
   if (v4)
   {
     v6 = [(CDRichComplicationView *)v4 device:0];
-    [(NTKRichComplicationBaseCircularOpenMeteredGaugeImageView *)v5 _layoutConstraintsWithDevice:v6 family:family];
+    objc_msgSend__layoutConstraintsWithDevice_family_(v5);
 
     v7 = [off_27877BEA8 alloc];
     device = [(CDRichComplicationView *)v5 device];
@@ -95,7 +95,8 @@
   v46.super_class = NTKRichComplicationBaseCircularOpenMeteredGaugeImageView;
   [(NTKRichComplicationCircularBaseView *)&v46 layoutSubviews];
   device = [(CDRichComplicationView *)self device];
-  [(NTKRichComplicationBaseCircularOpenMeteredGaugeImageView *)self _layoutConstraintsWithDevice:device family:[(CDRichComplicationView *)self family]];
+  [(CDRichComplicationView *)self family];
+  objc_msgSend__layoutConstraintsWithDevice_family_(self);
 
   contentView = [(NTKRichComplicationCircularBaseView *)self contentView];
   [contentView bounds];

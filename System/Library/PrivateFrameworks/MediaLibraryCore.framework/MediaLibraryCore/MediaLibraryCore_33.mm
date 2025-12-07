@@ -6207,7 +6207,7 @@ void sub_1D5A848C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
 void sub_1D5A848EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a72 < 0)
+  if (a66 < 0)
   {
     operator delete(__p);
   }
@@ -6400,10 +6400,10 @@ void mlcore::ItemExtraTable::persistentIDColumn(mlcore::ItemExtraTable *this@<X0
   *a2 = &unk_1F50D7AC0;
 }
 
-void mlcore::ItemExtraTable::titleColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::titleColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2031) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 251), *(this + 252));
@@ -6412,24 +6412,24 @@ void mlcore::ItemExtraTable::titleColumn(mlcore::ItemExtraTable *this@<X0>, uint
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2008);
-    *(a2 + 24) = *(this + 253);
+    a1[3] = *(this + 253);
   }
 
-  *(a2 + 32) = *(this + 508);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 2036);
+  *(a1 + 8) = *(this + 508);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 2036);
   if (*(this + 2063) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 255), *(this + 256));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 255), *(this + 256));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 2040);
-    *(a2 + 56) = *(this + 257);
+    *(a1 + 5) = *(this + 2040);
+    a1[7] = *(this + 257);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A84F5C(_Unwind_Exception *exception_object)
@@ -6443,10 +6443,10 @@ void sub_1D5A84F5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::sortTitleColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::sortTitleColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2095) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 259), *(this + 260));
@@ -6455,24 +6455,24 @@ void mlcore::ItemExtraTable::sortTitleColumn(mlcore::ItemExtraTable *this@<X0>, 
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2072);
-    *(a2 + 24) = *(this + 261);
+    a1[3] = *(this + 261);
   }
 
-  *(a2 + 32) = *(this + 524);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 2100);
+  *(a1 + 8) = *(this + 524);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 2100);
   if (*(this + 2127) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 263), *(this + 264));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 263), *(this + 264));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 2104);
-    *(a2 + 56) = *(this + 265);
+    *(a1 + 5) = *(this + 2104);
+    a1[7] = *(this + 265);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A85074(_Unwind_Exception *exception_object)
@@ -6486,10 +6486,10 @@ void sub_1D5A85074(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::discCountColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::discCountColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2159) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 267), *(this + 268));
@@ -6498,18 +6498,18 @@ void mlcore::ItemExtraTable::discCountColumn(mlcore::ItemExtraTable *this@<X0>, 
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2136);
-    *(a2 + 24) = *(this + 269);
+    a1[3] = *(this + 269);
   }
 
-  *(a2 + 32) = *(this + 540);
-  *(a2 + 36) = *(this + 2164);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 540);
+  *(a1 + 36) = *(this + 2164);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::trackCountColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::trackCountColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2207) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 273), *(this + 274));
@@ -6518,18 +6518,18 @@ void mlcore::ItemExtraTable::trackCountColumn(mlcore::ItemExtraTable *this@<X0>,
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2184);
-    *(a2 + 24) = *(this + 275);
+    a1[3] = *(this + 275);
   }
 
-  *(a2 + 32) = *(this + 552);
-  *(a2 + 36) = *(this + 2212);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 552);
+  *(a1 + 36) = *(this + 2212);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::totalTimeColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::totalTimeColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2255) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 279), *(this + 280));
@@ -6538,19 +6538,19 @@ void mlcore::ItemExtraTable::totalTimeColumn(mlcore::ItemExtraTable *this@<X0>, 
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2232);
-    *(a2 + 24) = *(this + 281);
+    a1[3] = *(this + 281);
   }
 
-  *(a2 + 32) = *(this + 564);
-  *(a2 + 44) = *(this + 567);
-  *(a2 + 36) = *(this + 2260);
-  *a2 = &unk_1F50D7B00;
+  *(a1 + 8) = *(this + 564);
+  *(a1 + 11) = *(this + 567);
+  *(a1 + 36) = *(this + 2260);
+  *a1 = &unk_1F50D7B00;
 }
 
-void mlcore::ItemExtraTable::yearColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::yearColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2303) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 285), *(this + 286));
@@ -6559,18 +6559,18 @@ void mlcore::ItemExtraTable::yearColumn(mlcore::ItemExtraTable *this@<X0>, uint6
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2280);
-    *(a2 + 24) = *(this + 287);
+    a1[3] = *(this + 287);
   }
 
-  *(a2 + 32) = *(this + 576);
-  *(a2 + 36) = *(this + 2308);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 576);
+  *(a1 + 36) = *(this + 2308);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::locationColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::locationColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2351) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 291), *(this + 292));
@@ -6579,24 +6579,24 @@ void mlcore::ItemExtraTable::locationColumn(mlcore::ItemExtraTable *this@<X0>, u
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2328);
-    *(a2 + 24) = *(this + 293);
+    a1[3] = *(this + 293);
   }
 
-  *(a2 + 32) = *(this + 588);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 2356);
+  *(a1 + 8) = *(this + 588);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 2356);
   if (*(this + 2383) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 295), *(this + 296));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 295), *(this + 296));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 2360);
-    *(a2 + 56) = *(this + 297);
+    *(a1 + 5) = *(this + 2360);
+    a1[7] = *(this + 297);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A85414(_Unwind_Exception *exception_object)
@@ -6610,10 +6610,10 @@ void sub_1D5A85414(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::fileSizeColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::fileSizeColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2415) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 299), *(this + 300));
@@ -6622,13 +6622,13 @@ void mlcore::ItemExtraTable::fileSizeColumn(mlcore::ItemExtraTable *this@<X0>, u
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2392);
-    *(a2 + 24) = *(this + 301);
+    a1[3] = *(this + 301);
   }
 
-  *(a2 + 32) = *(this + 604);
-  *(a2 + 44) = *(this + 607);
-  *(a2 + 36) = *(this + 2420);
-  *a2 = &unk_1F50D7AC0;
+  *(a1 + 8) = *(this + 604);
+  *(a1 + 11) = *(this + 607);
+  *(a1 + 36) = *(this + 2420);
+  *a1 = &unk_1F50D7AC0;
 }
 
 mediaplatform::Data *mlcore::ItemExtraTable::integrityColumn@<X0>(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
@@ -6685,10 +6685,10 @@ void mlcore::ItemExtraTable::isAudibleAudioBookColumn(mlcore::ItemExtraTable *th
   *a2 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::dateModifiedColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::dateModifiedColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2591) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 321), *(this + 322));
@@ -6697,19 +6697,19 @@ void mlcore::ItemExtraTable::dateModifiedColumn(mlcore::ItemExtraTable *this@<X0
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2568);
-    *(a2 + 24) = *(this + 323);
+    a1[3] = *(this + 323);
   }
 
-  *(a2 + 32) = *(this + 648);
-  *(a2 + 44) = *(this + 651);
-  *(a2 + 36) = *(this + 2596);
-  *a2 = &unk_1F50D7AC0;
+  *(a1 + 8) = *(this + 648);
+  *(a1 + 11) = *(this + 651);
+  *(a1 + 36) = *(this + 2596);
+  *a1 = &unk_1F50D7AC0;
 }
 
-void mlcore::ItemExtraTable::mediaKindColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::mediaKindColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2639) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 327), *(this + 328));
@@ -6718,18 +6718,18 @@ void mlcore::ItemExtraTable::mediaKindColumn(mlcore::ItemExtraTable *this@<X0>, 
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2616);
-    *(a2 + 24) = *(this + 329);
+    a1[3] = *(this + 329);
   }
 
-  *(a2 + 32) = *(this + 660);
-  *(a2 + 36) = *(this + 2644);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 660);
+  *(a1 + 36) = *(this + 2644);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::contentRatingColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::contentRatingColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2687) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 333), *(this + 334));
@@ -6738,18 +6738,18 @@ void mlcore::ItemExtraTable::contentRatingColumn(mlcore::ItemExtraTable *this@<X
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2664);
-    *(a2 + 24) = *(this + 335);
+    a1[3] = *(this + 335);
   }
 
-  *(a2 + 32) = *(this + 672);
-  *(a2 + 36) = *(this + 2692);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 672);
+  *(a1 + 36) = *(this + 2692);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::contentRatingLevelColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::contentRatingLevelColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2735) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 339), *(this + 340));
@@ -6758,18 +6758,18 @@ void mlcore::ItemExtraTable::contentRatingLevelColumn(mlcore::ItemExtraTable *th
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2712);
-    *(a2 + 24) = *(this + 341);
+    a1[3] = *(this + 341);
   }
 
-  *(a2 + 32) = *(this + 684);
-  *(a2 + 36) = *(this + 2740);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 684);
+  *(a1 + 36) = *(this + 2740);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::isUserDisabledColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::isUserDisabledColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2783) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 345), *(this + 346));
@@ -6778,18 +6778,18 @@ void mlcore::ItemExtraTable::isUserDisabledColumn(mlcore::ItemExtraTable *this@<
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2760);
-    *(a2 + 24) = *(this + 347);
+    a1[3] = *(this + 347);
   }
 
-  *(a2 + 32) = *(this + 696);
-  *(a2 + 36) = *(this + 2788);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 696);
+  *(a1 + 36) = *(this + 2788);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::BPMColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::BPMColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2831) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 351), *(this + 352));
@@ -6798,18 +6798,18 @@ void mlcore::ItemExtraTable::BPMColumn(mlcore::ItemExtraTable *this@<X0>, uint64
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2808);
-    *(a2 + 24) = *(this + 353);
+    a1[3] = *(this + 353);
   }
 
-  *(a2 + 32) = *(this + 708);
-  *(a2 + 36) = *(this + 2836);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 708);
+  *(a1 + 36) = *(this + 2836);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::geniusPersistentIDColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::geniusPersistentIDColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2879) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 357), *(this + 358));
@@ -6818,19 +6818,19 @@ void mlcore::ItemExtraTable::geniusPersistentIDColumn(mlcore::ItemExtraTable *th
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2856);
-    *(a2 + 24) = *(this + 359);
+    a1[3] = *(this + 359);
   }
 
-  *(a2 + 32) = *(this + 720);
-  *(a2 + 44) = *(this + 723);
-  *(a2 + 36) = *(this + 2884);
-  *a2 = &unk_1F50D7AC0;
+  *(a1 + 8) = *(this + 720);
+  *(a1 + 11) = *(this + 723);
+  *(a1 + 36) = *(this + 2884);
+  *a1 = &unk_1F50D7AC0;
 }
 
-void mlcore::ItemExtraTable::commentColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::commentColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2927) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 363), *(this + 364));
@@ -6839,24 +6839,24 @@ void mlcore::ItemExtraTable::commentColumn(mlcore::ItemExtraTable *this@<X0>, ui
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2904);
-    *(a2 + 24) = *(this + 365);
+    a1[3] = *(this + 365);
   }
 
-  *(a2 + 32) = *(this + 732);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 2932);
+  *(a1 + 8) = *(this + 732);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 2932);
   if (*(this + 2959) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 367), *(this + 368));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 367), *(this + 368));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 2936);
-    *(a2 + 56) = *(this + 369);
+    *(a1 + 5) = *(this + 2936);
+    a1[7] = *(this + 369);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A85BE0(_Unwind_Exception *exception_object)
@@ -6870,10 +6870,10 @@ void sub_1D5A85BE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::groupingColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::groupingColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 2991) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 371), *(this + 372));
@@ -6882,24 +6882,24 @@ void mlcore::ItemExtraTable::groupingColumn(mlcore::ItemExtraTable *this@<X0>, u
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 2968);
-    *(a2 + 24) = *(this + 373);
+    a1[3] = *(this + 373);
   }
 
-  *(a2 + 32) = *(this + 748);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 2996);
+  *(a1 + 8) = *(this + 748);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 2996);
   if (*(this + 3023) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 375), *(this + 376));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 375), *(this + 376));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 3000);
-    *(a2 + 56) = *(this + 377);
+    *(a1 + 5) = *(this + 3000);
+    a1[7] = *(this + 377);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A85CF8(_Unwind_Exception *exception_object)
@@ -6913,10 +6913,10 @@ void sub_1D5A85CF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::descriptionColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::descriptionColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3055) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 379), *(this + 380));
@@ -6925,24 +6925,24 @@ void mlcore::ItemExtraTable::descriptionColumn(mlcore::ItemExtraTable *this@<X0>
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3032);
-    *(a2 + 24) = *(this + 381);
+    a1[3] = *(this + 381);
   }
 
-  *(a2 + 32) = *(this + 764);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 3060);
+  *(a1 + 8) = *(this + 764);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 3060);
   if (*(this + 3087) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 383), *(this + 384));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 383), *(this + 384));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 3064);
-    *(a2 + 56) = *(this + 385);
+    *(a1 + 5) = *(this + 3064);
+    a1[7] = *(this + 385);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A85E10(_Unwind_Exception *exception_object)
@@ -6956,10 +6956,10 @@ void sub_1D5A85E10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::descriptionLongColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::descriptionLongColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3119) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 387), *(this + 388));
@@ -6968,24 +6968,24 @@ void mlcore::ItemExtraTable::descriptionLongColumn(mlcore::ItemExtraTable *this@
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3096);
-    *(a2 + 24) = *(this + 389);
+    a1[3] = *(this + 389);
   }
 
-  *(a2 + 32) = *(this + 780);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 3124);
+  *(a1 + 8) = *(this + 780);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 3124);
   if (*(this + 3151) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 391), *(this + 392));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 391), *(this + 392));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 3128);
-    *(a2 + 56) = *(this + 393);
+    *(a1 + 5) = *(this + 3128);
+    a1[7] = *(this + 393);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A85F28(_Unwind_Exception *exception_object)
@@ -6999,10 +6999,10 @@ void sub_1D5A85F28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::collectionDescriptionColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::collectionDescriptionColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3183) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 395), *(this + 396));
@@ -7011,24 +7011,24 @@ void mlcore::ItemExtraTable::collectionDescriptionColumn(mlcore::ItemExtraTable 
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3160);
-    *(a2 + 24) = *(this + 397);
+    a1[3] = *(this + 397);
   }
 
-  *(a2 + 32) = *(this + 796);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 3188);
+  *(a1 + 8) = *(this + 796);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 3188);
   if (*(this + 3215) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 399), *(this + 400));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 399), *(this + 400));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 3192);
-    *(a2 + 56) = *(this + 401);
+    *(a1 + 5) = *(this + 3192);
+    a1[7] = *(this + 401);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A86040(_Unwind_Exception *exception_object)
@@ -7042,10 +7042,10 @@ void sub_1D5A86040(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::copyrightColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::copyrightColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3247) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 403), *(this + 404));
@@ -7054,24 +7054,24 @@ void mlcore::ItemExtraTable::copyrightColumn(mlcore::ItemExtraTable *this@<X0>, 
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3224);
-    *(a2 + 24) = *(this + 405);
+    a1[3] = *(this + 405);
   }
 
-  *(a2 + 32) = *(this + 812);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 3252);
+  *(a1 + 8) = *(this + 812);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 3252);
   if (*(this + 3279) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 407), *(this + 408));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 407), *(this + 408));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 3256);
-    *(a2 + 56) = *(this + 409);
+    *(a1 + 5) = *(this + 3256);
+    a1[7] = *(this + 409);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A86158(_Unwind_Exception *exception_object)
@@ -7106,10 +7106,10 @@ void mlcore::ItemExtraTable::pendingGeniusChecksumColumn(mlcore::ItemExtraTable 
   *a2 = &unk_1F50D7AC0;
 }
 
-void mlcore::ItemExtraTable::categoryIDColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::categoryIDColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3359) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 417), *(this + 418));
@@ -7118,19 +7118,19 @@ void mlcore::ItemExtraTable::categoryIDColumn(mlcore::ItemExtraTable *this@<X0>,
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3336);
-    *(a2 + 24) = *(this + 419);
+    a1[3] = *(this + 419);
   }
 
-  *(a2 + 32) = *(this + 840);
-  *(a2 + 44) = *(this + 843);
-  *(a2 + 36) = *(this + 3364);
-  *a2 = &unk_1F50D7AC0;
+  *(a1 + 8) = *(this + 840);
+  *(a1 + 11) = *(this + 843);
+  *(a1 + 36) = *(this + 3364);
+  *a1 = &unk_1F50D7AC0;
 }
 
-void mlcore::ItemExtraTable::locationKindIDColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::locationKindIDColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3407) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 423), *(this + 424));
@@ -7139,12 +7139,12 @@ void mlcore::ItemExtraTable::locationKindIDColumn(mlcore::ItemExtraTable *this@<
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3384);
-    *(a2 + 24) = *(this + 425);
+    a1[3] = *(this + 425);
   }
 
-  *(a2 + 32) = *(this + 852);
-  *(a2 + 36) = *(this + 3412);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 852);
+  *(a1 + 36) = *(this + 3412);
+  *a1 = &unk_1F50D7AE0;
 }
 
 void mlcore::ItemExtraTable::versionColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
@@ -7233,10 +7233,10 @@ void sub_1D5A86578(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::classicalWorkColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::classicalWorkColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3583) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 445), *(this + 446));
@@ -7245,24 +7245,24 @@ void mlcore::ItemExtraTable::classicalWorkColumn(mlcore::ItemExtraTable *this@<X
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3560);
-    *(a2 + 24) = *(this + 447);
+    a1[3] = *(this + 447);
   }
 
-  *(a2 + 32) = *(this + 896);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 3588);
+  *(a1 + 8) = *(this + 896);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 3588);
   if (*(this + 3615) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 449), *(this + 450));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 449), *(this + 450));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 3592);
-    *(a2 + 56) = *(this + 451);
+    *(a1 + 5) = *(this + 3592);
+    a1[7] = *(this + 451);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A86690(_Unwind_Exception *exception_object)
@@ -7276,10 +7276,10 @@ void sub_1D5A86690(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::classicalMovementColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::classicalMovementColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3647) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 453), *(this + 454));
@@ -7288,24 +7288,24 @@ void mlcore::ItemExtraTable::classicalMovementColumn(mlcore::ItemExtraTable *thi
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3624);
-    *(a2 + 24) = *(this + 455);
+    a1[3] = *(this + 455);
   }
 
-  *(a2 + 32) = *(this + 912);
-  *a2 = &unk_1F50D89B8;
-  *(a2 + 36) = *(this + 3652);
+  *(a1 + 8) = *(this + 912);
+  *a1 = &unk_1F50D89B8;
+  *(a1 + 36) = *(this + 3652);
   if (*(this + 3679) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 40), *(this + 457), *(this + 458));
+    std::string::__init_copy_ctor_external((a1 + 5), *(this + 457), *(this + 458));
   }
 
   else
   {
-    *(a2 + 40) = *(this + 3656);
-    *(a2 + 56) = *(this + 459);
+    *(a1 + 5) = *(this + 3656);
+    a1[7] = *(this + 459);
   }
 
-  *a2 = &unk_1F50D7B20;
+  *a1 = &unk_1F50D7B20;
 }
 
 void sub_1D5A867A8(_Unwind_Exception *exception_object)
@@ -7319,10 +7319,10 @@ void sub_1D5A867A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::ItemExtraTable::classicalMovementCountColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::classicalMovementCountColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3711) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 461), *(this + 462));
@@ -7331,18 +7331,18 @@ void mlcore::ItemExtraTable::classicalMovementCountColumn(mlcore::ItemExtraTable
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3688);
-    *(a2 + 24) = *(this + 463);
+    a1[3] = *(this + 463);
   }
 
-  *(a2 + 32) = *(this + 928);
-  *(a2 + 36) = *(this + 3716);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 928);
+  *(a1 + 36) = *(this + 3716);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::classicalMovementNumberColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::classicalMovementNumberColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3759) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 467), *(this + 468));
@@ -7351,18 +7351,18 @@ void mlcore::ItemExtraTable::classicalMovementNumberColumn(mlcore::ItemExtraTabl
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3736);
-    *(a2 + 24) = *(this + 469);
+    a1[3] = *(this + 469);
   }
 
-  *(a2 + 32) = *(this + 940);
-  *(a2 + 36) = *(this + 3764);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 940);
+  *(a1 + 36) = *(this + 3764);
+  *a1 = &unk_1F50D7AE0;
 }
 
-void mlcore::ItemExtraTable::isPreorderColumn(mlcore::ItemExtraTable *this@<X0>, uint64_t a2@<X8>)
+void mlcore::ItemExtraTable::isPreorderColumn(uint64_t *__return_ptr a1@<X8>, mlcore::ItemExtraTable *this@<X0>)
 {
-  *a2 = &unk_1F50D86E0;
-  v4 = (a2 + 8);
+  *a1 = &unk_1F50D86E0;
+  v4 = (a1 + 1);
   if (*(this + 3807) < 0)
   {
     std::string::__init_copy_ctor_external(v4, *(this + 473), *(this + 474));
@@ -7371,12 +7371,12 @@ void mlcore::ItemExtraTable::isPreorderColumn(mlcore::ItemExtraTable *this@<X0>,
   else
   {
     *&v4->__r_.__value_.__l.__data_ = *(this + 3784);
-    *(a2 + 24) = *(this + 475);
+    a1[3] = *(this + 475);
   }
 
-  *(a2 + 32) = *(this + 952);
-  *(a2 + 36) = *(this + 3812);
-  *a2 = &unk_1F50D7AE0;
+  *(a1 + 8) = *(this + 952);
+  *(a1 + 36) = *(this + 3812);
+  *a1 = &unk_1F50D7AE0;
 }
 
 uint64_t mediaplatform::DatabaseColumnBase::DatabaseColumnBase(uint64_t a1, __int128 *a2, int a3)
@@ -7408,23 +7408,21 @@ void mediaplatform::DatabaseColumnBase::name(mediaplatform::DatabaseColumnBase *
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 8);
-    a2->__r_.__value_.__r.__words[2] = *(this + 3);
+    *a2 = *(this + 8);
   }
 }
 
-void mlcore::NullPredicateBase::_SQLExpression(uint64_t a1, uint64_t *a2)
+void mlcore::NullPredicateBase::_SQLExpression(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 8);
-  v3 = a2[1];
-  v4 = *a2;
-  v5 = v3;
-  if (v3)
+  v3 = *(a1 + 8);
+  v4 = *(a2 + 8);
+  v5 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v2 + 96))(&v6);
+  (*(*v3 + 96))(&v6);
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -7464,11 +7462,9 @@ void std::__shared_ptr_emplace<mediaplatform::SQLNullExpression>::~__shared_ptr_
 
 uint64_t mlcore::NullPredicateBase::_allProperties@<X0>(mlcore::NullPredicateBase *this@<X0>, uint64_t a2@<X8>)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = *(this + 1);
-  result = mlcore::OrderedSet<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>>::OrderedSet(a2, v4, 1);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = *(this + 1);
+  return mlcore::OrderedSet<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>>::OrderedSet(a2, v3, 1);
 }
 
 void mlcore::NullPredicateBase::description(mlcore::NullPredicateBase *this@<X0>, std::string *a2@<X8>)
@@ -7780,33 +7776,33 @@ void mediaplatform::DatabaseFunction::~DatabaseFunction(void **this)
 
 uint64_t mediaplatform::DatabaseFunction::setCallback(uint64_t a1, uint64_t a2)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<void ()(mediaplatform::DatabaseContext,std::vector<mediaplatform::DatabaseValue> &)>::__value_func[abi:ne200100](v8, a2);
+  v9[3] = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(mediaplatform::DatabaseContext,std::vector<mediaplatform::DatabaseValue> &)>::__value_func[abi:ne200100](v7, a2);
   v3 = a1 + 32;
-  if ((a1 + 32) != v8)
+  if ((a1 + 32) != v7)
   {
-    v4 = v9;
+    v4 = v8;
     v5 = *(a1 + 56);
-    if (v9 == v8)
+    if (v8 == v7)
     {
       if (v5 == v3)
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = 0;
-        (*(**(a1 + 56) + 24))(*(a1 + 56), v8);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = 0;
+        (*(**(a1 + 56) + 24))(*(a1 + 56), v7);
         (*(**(a1 + 56) + 32))(*(a1 + 56));
         *(a1 + 56) = 0;
-        v9 = v8;
-        (*(v10[0] + 24))(v10, a1 + 32);
-        (*(v10[0] + 32))(v10);
+        v8 = v7;
+        (*(v9[0] + 24))(v9, a1 + 32);
+        (*(v9[0] + 32))(v9);
       }
 
       else
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = *(a1 + 56);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = *(a1 + 56);
       }
 
       *(a1 + 56) = v3;
@@ -7814,22 +7810,20 @@ uint64_t mediaplatform::DatabaseFunction::setCallback(uint64_t a1, uint64_t a2)
 
     else if (v5 == v3)
     {
-      (*(*v5 + 24))(*(a1 + 56), v8);
+      (*(*v5 + 24))(*(a1 + 56), v7);
       (*(**(a1 + 56) + 32))(*(a1 + 56));
-      *(a1 + 56) = v9;
-      v9 = v8;
+      *(a1 + 56) = v8;
+      v8 = v7;
     }
 
     else
     {
-      v9 = *(a1 + 56);
+      v8 = *(a1 + 56);
       *(a1 + 56) = v4;
     }
   }
 
-  result = std::__function::__value_func<void ()(mediaplatform::DatabaseContext,std::vector<mediaplatform::DatabaseValue> &)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__function::__value_func<void ()(mediaplatform::DatabaseContext,std::vector<mediaplatform::DatabaseValue> &)>::~__value_func[abi:ne200100](v7);
 }
 
 void sub_1D5A876A0(_Unwind_Exception *a1, int a2)
@@ -8246,19 +8240,19 @@ mlcore::ContainerItemMediaTypeTable *mlcore::ContainerItemMediaTypeTable::Contai
 
 void sub_1D5A882AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, uint64_t a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
 {
-  *(v73 + 272) = v75;
-  if (*(v73 + 303) < 0)
+  *(v67 + 272) = v69;
+  if (*(v67 + 303) < 0)
   {
-    operator delete(*v74);
+    operator delete(*v68);
   }
 
-  *(v73 + 224) = v72;
-  if (*(v73 + 255) < 0)
+  *(v67 + 224) = v66;
+  if (*(v67 + 255) < 0)
   {
-    operator delete(*(v73 + 232));
+    operator delete(*(v67 + 232));
   }
 
-  mediaplatform::DatabaseTable<long long,int,int>::~DatabaseTable(v73);
+  mediaplatform::DatabaseTable<long long,int,int>::~DatabaseTable(v67);
   if (a34 < 0)
   {
     operator delete(__p);
@@ -8289,9 +8283,9 @@ void sub_1D5A882AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a52);
   }
 
-  if (a72 < 0)
+  if (a66 < 0)
   {
-    operator delete(a67);
+    operator delete(a65);
   }
 
   _Unwind_Resume(a1);
@@ -8345,9 +8339,16 @@ void mlcore::MediaTable<long long,int,int>::~MediaTable(mediaplatform::DatabaseT
   mediaplatform::DatabaseTableBase::~DatabaseTableBase(this);
 }
 
-void sub_1D5A88758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,int,int>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D5A88758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8362,9 +8363,9 @@ void mediaplatform::DatabaseTable<long long,int,int>::columnNames(uint64_t a1@<X
   mediaplatform::ColumnNamesApplier::operator()<int>(a2, a1 + 80);
 }
 
-void sub_1D5A887C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D5A887C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }

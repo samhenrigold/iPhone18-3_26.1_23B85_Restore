@@ -181,7 +181,7 @@
       if (isHighlighted)
       {
 LABEL_23:
-        sub_10014A83C();
+        sub_10014A83C(MessageListCellView);
         v14 = LABEL_25:;
         [dateLabel _setTextEncapsulation:v14];
 
@@ -204,7 +204,7 @@ LABEL_23:
       }
     }
 
-    sub_100023C80();
+    sub_100023C80(MessageListCellView);
     goto LABEL_25;
   }
 
@@ -527,12 +527,12 @@ LABEL_71:
 
     if (isHighlighted)
     {
-      sub_10014A83C();
+      sub_10014A83C(MessageListCellView);
     }
 
     else
     {
-      sub_100023C80();
+      sub_100023C80(MessageListCellView);
     }
     v89 = ;
     [categorizationStateLabel _setTextEncapsulation:v89];
@@ -638,7 +638,7 @@ LABEL_71:
   v146.height = NAN;
   v183.origin = v146;
   v183.size = v146;
-  [(MessageListCellView *)self _layoutStatusIndicatorViews];
+  objc_msgSend__layoutStatusIndicatorViews(self);
   v192.origin.x = CGRectZero.origin.x;
   v192.origin.y = CGRectZero.origin.y;
   v192.size.width = CGRectZero.size.width;
@@ -1741,7 +1741,7 @@ LABEL_92:
       ++v11;
     }
 
-    [(MessageListCellView *)self _layoutStatusIndicatorViews];
+    objc_msgSend__layoutStatusIndicatorViews(self);
     preferredContentSizeCategory = [UIApp preferredContentSizeCategory];
     IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
 
@@ -2109,11 +2109,12 @@ LABEL_92:
     if (centerCopy)
     {
       [labelCopy frame];
-      CGRectGetMinY(v17);
+      MinY = CGRectGetMinY(v23);
       [labelCopy _firstBaselineOffsetFromTop];
+      v13 = v12;
       [v9 capHeight];
-      UIRoundToViewScale();
-      v12 = v11;
+      v15 = UIRoundToViewScale(v14 * 0.5);
+      v16 = MinY + v13;
     }
 
     else
@@ -2121,23 +2122,24 @@ LABEL_92:
       if (MUISolariumFeatureEnabled())
       {
         [labelCopy frame];
-        CGRectGetMinY(v18);
+        v17 = CGRectGetMinY(v24);
         [labelCopy _firstLineBaseline];
+        v16 = v17 + v18;
       }
 
       else
       {
         [labelCopy frame];
         [v9 mf_baselinePointFromOriginPoint:?];
+        v16 = v19;
       }
 
-      v12 = 0.0;
+      v15 = 0.0;
     }
 
-    UIRoundToViewScale();
-    v14 = v13 - v12;
-    *&v14 = v14;
-    v10 = [NSNumber numberWithFloat:v14];
+    v20 = UIRoundToViewScale(v16) - v15;
+    *&v20 = v20;
+    v10 = [NSNumber numberWithFloat:v20];
   }
 
   return v10;
@@ -2167,19 +2169,19 @@ LABEL_92:
   else
   {
     [v7 frame];
-    [v8 frame];
-    UIRoundToViewScale();
     v14 = v13;
+    [v8 frame];
+    v16 = UIRoundToViewScale(v14 + v15 * 0.5);
     layoutValues = [(MessageListCellView *)self layoutValues];
     [layoutValues indicatorMaxWidth];
-    v17 = v16;
+    v19 = v18;
 
     layoutValues2 = [(MessageListCellView *)self layoutValues];
     if (item)
     {
       if (item == 1)
       {
-        MaxY = v14;
+        MaxY = v16;
       }
 
       else
@@ -2190,13 +2192,13 @@ LABEL_92:
           if (MUISolariumFeatureEnabled())
           {
             [layoutValues2 indicatorVerticalSpacing];
-            MaxY = v17 * 0.5 + v14 + v17 * 0.5 + v20;
+            MaxY = v19 * 0.5 + v16 + v19 * 0.5 + v22;
           }
 
           else
           {
             [v8 frame];
-            MaxY = CGRectGetMaxY(v25);
+            MaxY = CGRectGetMaxY(v27);
           }
         }
       }
@@ -2205,13 +2207,13 @@ LABEL_92:
     else if (MUISolariumFeatureEnabled())
     {
       [layoutValues2 indicatorVerticalSpacing];
-      MaxY = v14 - v17 * 0.5 - v21 - v17 * 0.5;
+      MaxY = v16 - v19 * 0.5 - v23 - v19 * 0.5;
     }
 
     else
     {
       [v8 frame];
-      MaxY = CGRectGetMinY(v24);
+      MaxY = CGRectGetMinY(v26);
     }
 
     v12 = [NSNumber numberWithDouble:MaxY];
@@ -2357,23 +2359,25 @@ LABEL_34:
   addressFont = [layoutValues addressFont];
   [(UILabel *)self->_primaryLabel frame];
   [addressFont mf_baselinePointFromOriginPoint:?];
+  v8 = v7;
 
   addressFont2 = [layoutValues addressFont];
   [addressFont2 capHeight];
+  v11 = v10;
 
   [imageCopy size];
-  UIRoundToViewScale();
+  UIRoundToViewScale(v8 - v11 + (v11 - v12) * 0.5);
   [(MessageListCellView *)self bounds];
   UIRectInset();
-  v9 = v8;
-  v11 = v10;
+  v14 = v13;
+  v16 = v15;
   [layoutValues padding];
-  v13 = v12;
-  v14 = v12;
+  v18 = v17;
+  v19 = v17;
   if (MUISolariumFeatureEnabled())
   {
     [layoutValues indicatorMaxWidth];
-    v14 = v15;
+    v19 = v20;
   }
 
   if ([(MessageListCellView *)self mf_prefersRightToLeftInterfaceLayout])
@@ -2381,31 +2385,31 @@ LABEL_34:
     if (MUISolariumFeatureEnabled())
     {
       [(MessageListCellView *)self bounds];
-      MaxX = CGRectGetMaxX(v22);
+      MaxX = CGRectGetMaxX(v27);
       [layoutValues indicatorMaxWidth];
-      v13 = MaxX - v13 - v17;
+      v18 = MaxX - v18 - v22;
     }
 
     else
     {
       [(MessageListCellView *)self bounds];
-      v13 = CGRectGetMaxX(v23) - v14;
+      v18 = CGRectGetMaxX(v28) - v19;
     }
   }
 
   else if (!MUISolariumFeatureEnabled())
   {
-    v13 = 0.0;
+    v18 = 0.0;
   }
 
-  v18 = v13;
-  v19 = v9;
-  v20 = v14;
-  v21 = v11;
-  result.size.height = v21;
-  result.size.width = v20;
-  result.origin.y = v19;
-  result.origin.x = v18;
+  v23 = v18;
+  v24 = v14;
+  v25 = v19;
+  v26 = v16;
+  result.size.height = v26;
+  result.size.width = v25;
+  result.origin.y = v24;
+  result.origin.x = v23;
   return result;
 }
 
@@ -2908,41 +2912,41 @@ LABEL_22:
 
   if (mf_prefersRightToLeftInterfaceLayout)
   {
-    v27.origin.x = v10;
-    v27.origin.y = v9;
-    v27.size.width = width;
-    v27.size.height = height;
-    CGRectGetMinX(v27);
-  }
-
-  else if (MUISolariumFeatureEnabled())
-  {
-    v28.origin.x = v10;
-    v28.origin.y = v9;
-    v28.size.width = width;
-    v28.size.height = height;
-    CGRectGetMaxX(v28);
-    UIRoundToViewScale();
-  }
-
-  else
-  {
     v29.origin.x = v10;
     v29.origin.y = v9;
     v29.size.width = width;
     v29.size.height = height;
-    CGRectGetMaxX(v29);
+    CGRectGetMinX(v29);
+  }
+
+  else if (MUISolariumFeatureEnabled())
+  {
+    v30.origin.x = v10;
+    v30.origin.y = v9;
+    v30.size.width = width;
+    v30.size.height = height;
+    MaxX = CGRectGetMaxX(v30);
+    UIRoundToViewScale(MaxX - v27);
+  }
+
+  else
+  {
+    v31.origin.x = v10;
+    v31.origin.y = v9;
+    v31.size.width = width;
+    v31.size.height = height;
+    CGRectGetMaxX(v31);
   }
 
   UICeilToViewScale();
-  v21 = v20;
+  v22 = v21;
   UICeilToViewScale();
-  v23 = v22;
+  v24 = v23;
 
-  v24 = v21;
-  v25 = v23;
-  result.y = v25;
-  result.x = v24;
+  v25 = v22;
+  v26 = v24;
+  result.y = v26;
+  result.x = v25;
   return result;
 }
 
@@ -3059,22 +3063,25 @@ LABEL_22:
   tertiaryLabel = [(MessageListCellView *)self tertiaryLabel];
   v14 = [(MessageListCellView *)self _isLabelValid:tertiaryLabel];
 
+  v15 = 0.0;
   if (v14)
   {
     layoutValues3 = [(MessageListCellView *)self layoutValues];
     summary = [(MessageListCellView *)self summary];
-    [layoutValues3 actualLineCountForSummary:summary hasGeneratedSummary:-[MessageListCellView hasGeneratedSummary](self bounds:{"hasGeneratedSummary"), x, y, width, height}];
+    v18 = [layoutValues3 actualLineCountForSummary:summary hasGeneratedSummary:-[MessageListCellView hasGeneratedSummary](self bounds:{"hasGeneratedSummary"), x, y, width, height}];
+
+    v15 = v18;
   }
 
   [summaryFont _bodyLeading];
+  v20 = v19;
   [summaryFont descender];
-  UIRoundToViewScale();
-  v18 = y + v12 + v17;
+  v22 = y + v12 + UIRoundToViewScale(-(v21 - v15 * v20));
 
-  v19 = x;
-  v20 = v18;
-  result.y = v20;
-  result.x = v19;
+  v23 = x;
+  v24 = v22;
+  result.y = v24;
+  result.x = v23;
   return result;
 }
 
@@ -3428,8 +3435,8 @@ LABEL_5:
 
   else
   {
-    UIRoundToViewScale();
-    UIRoundToViewScale();
+    UIRoundToViewScale(v12);
+    UIRoundToViewScale(v12);
     if ([(MessageListCellView *)self numberOfPreviewLines])
     {
       viewModel = [(MessageListCellView *)self viewModel];
@@ -3533,8 +3540,7 @@ LABEL_5:
   }
 
   [addressFont lineHeight];
-  UIRoundToViewScale();
-  v52 = v33;
+  v52 = UIRoundToViewScale(v33);
   if (!MUISolariumFeatureEnabled())
   {
     [addressFont descender];
@@ -3654,22 +3660,23 @@ LABEL_5:
   [summaryFont lineHeight];
   [summaryFont mf_originPointFromBaselinePoint:{x + UIEdgeInsetsZero.left, y + UIEdgeInsetsZero.top + v9 + 2.0 + v11 * (position + 1) + (2 * position)}];
   [summaryFont lineHeight];
-  [summaryFont descender];
-  UIRoundToViewScale();
-  MFIntegralRectToViewScale();
   v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
+  [summaryFont descender];
+  UIRoundToViewScale(v13 - v14);
+  MFIntegralRectToViewScale();
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
 
-  v20 = v13;
-  v21 = v15;
-  v22 = v17;
-  v23 = v19;
-  result.size.height = v23;
-  result.size.width = v22;
-  result.origin.y = v21;
-  result.origin.x = v20;
+  v23 = v16;
+  v24 = v18;
+  v25 = v20;
+  v26 = v22;
+  result.size.height = v26;
+  result.size.width = v25;
+  result.origin.y = v24;
+  result.origin.x = v23;
   return result;
 }
 

@@ -125,12 +125,12 @@
   source = self->_source;
   if (*&self->_flags)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Relationship fault for %@ on %p", self->_relationship, source, v9];
+    v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_relationship, source);
   }
 
   else
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Relationship objects for %@ on %p: %@", self->_relationship, source, -[NSMutableArray description](self->_realArray, "description")];
+    v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_relationship, source, [(NSMutableArray *)self->_realArray description]);
   }
 
   v6 = v5;
@@ -146,12 +146,12 @@
   source = self->_source;
   if (*&self->_flags)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Relationship fault for %@ on %p", self->_relationship, source, v11];
+    v7 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_relationship, source);
   }
 
   else
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Relationship objects for %@ on %p: %@", self->_relationship, source, -[NSMutableArray descriptionWithLocale:](self->_realArray, "descriptionWithLocale:", locale)];
+    v7 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_relationship, source, [(NSMutableArray *)self->_realArray descriptionWithLocale:locale]);
   }
 
   v8 = v7;
@@ -167,12 +167,12 @@
   source = self->_source;
   if (*&self->_flags)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Relationship fault for %@ on %p", self->_relationship, source, v13];
+    v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_relationship, source);
   }
 
   else
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Relationship objects for %@ on %p: %@", self->_relationship, source, -[NSMutableArray descriptionWithLocale:indent:](self->_realArray, "descriptionWithLocale:indent:", locale, indent)];
+    v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_relationship, source, [(NSMutableArray *)self->_realArray descriptionWithLocale:locale indent:indent]);
   }
 
   v10 = v9;
@@ -323,7 +323,7 @@
   [(_NSFaultingMutableArray *)self willRead];
   realArray = self->_realArray;
 
-  return [(NSMutableArray *)realArray valueForKey:key];
+  return objc_msgSend_valueForKey_(realArray);
 }
 
 - (id)valueForKeyPath:(id)path

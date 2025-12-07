@@ -112,34 +112,34 @@ void __29__MCManagedDomainsCache_init__block_invoke(uint64_t a1)
 
 void __38__MCManagedDomainsCache_isURLManaged___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) memberQueueCache];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) matchesURL:*(a1 + 40)])
+        if ([*(*(&v7 + 1) + 8 * i) matchesURL:*(a1 + 40)])
         {
           *(*(*(a1 + 48) + 8) + 24) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v4)
       {
         continue;
@@ -150,8 +150,6 @@ void __38__MCManagedDomainsCache_isURLManaged___block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rereadCache
@@ -167,7 +165,7 @@ LABEL_11:
 
 - (void)memberQueueRereadCache
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   memberQueueCache = [(MCManagedDomainsCache *)self memberQueueCache];
   [memberQueueCache removeAllObjects];
 
@@ -175,26 +173,26 @@ LABEL_11:
   v5 = [v4 effectiveUnionValuesForSetting:@"managedWebDomains"];
 
   v6 = [v5 sortedArrayUsingComparator:&__block_literal_global_8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [[MCDomainsCacheEntry alloc] initWithPattern:*(*(&v14 + 1) + 8 * v10)];
+        v11 = [[MCDomainsCacheEntry alloc] initWithPattern:*(*(&v13 + 1) + 8 * v10)];
         memberQueueCache2 = [(MCManagedDomainsCache *)self memberQueueCache];
         [memberQueueCache2 addObject:v11];
 
@@ -202,13 +200,11 @@ LABEL_11:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47__MCManagedDomainsCache_memberQueueRereadCache__block_invoke(uint64_t a1, void *a2, void *a3)

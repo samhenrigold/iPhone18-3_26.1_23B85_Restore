@@ -8,6 +8,8 @@
 + (id)buildPersonRelationshipUSOGraphWithIdentifier:(id)identifier withSemantic:(id)semantic withInput:(id)input withStartCharIndex:(unsigned int)index withEndCharIndex:(unsigned int)charIndex withTokenCount:(unsigned int)count;
 + (id)buildPhoneContactUSOGraphWithIdentifier:(id)identifier withSemantic:(id)semantic withInput:(id)input withStartCharIndex:(unsigned int)index withEndCharIndex:(unsigned int)charIndex withTokenCount:(unsigned int)count;
 + (id)buildSettingUSOGraphWithIdentifier:(id)identifier withSemantic:(id)semantic withInput:(id)input withStartCharIndex:(unsigned int)index withEndCharIndex:(unsigned int)charIndex withTokenCount:(unsigned int)count;
++ (id)buildVocUSOGraphWithVocLabel:(id)label withSemantic:(id)semantic withInput:(id)input withStartCharIndex:(unsigned int)index withEndCharIndex:(unsigned int)charIndex;
++ (id)buildVocUSOGraphWithVocLabel:(id)label withSemantic:(id)semantic withInput:(id)input withStartCharIndex:(unsigned int)index withEndCharIndex:(unsigned int)charIndex withTokenCount:(unsigned int)count;
 + (id)emergencyPhoneNumberSemantic;
 + (id)emergencyPhonePersonSemantic;
 + (id)listPositionSemantic;
@@ -19,11 +21,194 @@
 
 @implementation CDMVocUsoGraphMapper
 
++ (id)buildVocUSOGraphWithVocLabel:(id)label withSemantic:(id)semantic withInput:(id)input withStartCharIndex:(unsigned int)index withEndCharIndex:(unsigned int)charIndex withTokenCount:(unsigned int)count
+{
+  v8 = *&count;
+  v9 = *&charIndex;
+  v10 = *&index;
+  v39 = *MEMORY[0x1E69E9840];
+  labelCopy = label;
+  semanticCopy = semantic;
+  inputCopy = input;
+  settingVocLabel = [self settingVocLabel];
+  v18 = [settingVocLabel containsObject:labelCopy];
+
+  if (v18)
+  {
+    v19 = [self buildSettingUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+LABEL_38:
+    v25 = v19;
+    goto LABEL_39;
+  }
+
+  if ([labelCopy isEqualToString:@"contactType"])
+  {
+    v19 = [self buildContactTypeUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+    goto LABEL_38;
+  }
+
+  if ([labelCopy isEqualToString:@"emailType"])
+  {
+    v19 = [self buildEmailContactUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+    goto LABEL_38;
+  }
+
+  if ([labelCopy isEqualToString:@"phoneType"])
+  {
+    v19 = [self buildPhoneContactUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+    goto LABEL_38;
+  }
+
+  if ([labelCopy isEqualToString:@"answerProduct"])
+  {
+    v19 = [self buildDeviceCategoryUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+    goto LABEL_38;
+  }
+
+  emergencyPhoneNumberSemantic = [self emergencyPhoneNumberSemantic];
+  v21 = [emergencyPhoneNumberSemantic containsObject:semanticCopy];
+
+  if (v21)
+  {
+    v19 = [self buildEmergencyPhoneNumberUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+    goto LABEL_38;
+  }
+
+  emergencyPhonePersonSemantic = [self emergencyPhonePersonSemantic];
+  v23 = [emergencyPhonePersonSemantic containsObject:semanticCopy];
+
+  if (v23)
+  {
+    v19 = [self buildEmergencyPhonePersonUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+    goto LABEL_38;
+  }
+
+  if ([labelCopy isEqualToString:@"phoneNumber"])
+  {
+    v19 = [self buildPhoneNumberRegexUSOGraphWithIdentifier:labelCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9];
+    goto LABEL_38;
+  }
+
+  if ([labelCopy isEqualToString:@"emailAddress"])
+  {
+    v19 = [self buildEmailAddressRegexUSOGraphWithIdentifier:labelCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9];
+    goto LABEL_38;
+  }
+
+  if ([labelCopy isEqualToString:@"appName"])
+  {
+    v19 = [self buildAppNameUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+    goto LABEL_38;
+  }
+
+  if ([labelCopy isEqualToString:@"integer"])
+  {
+    v24 = [MEMORY[0x1E696AE88] scannerWithString:semanticCopy];
+    v33 = 0;
+    if ([v24 scanInt:&v33])
+    {
+      if ([v24 isAtEnd])
+      {
+        v25 = [self buildIntegerRegexUSOGraphWithIdentifier:labelCopy withInput:semanticCopy withStartCharIndex:v10 withEndCharIndex:v9];
+        if (v25)
+        {
+
+          goto LABEL_39;
+        }
+      }
+    }
+
+    goto LABEL_29;
+  }
+
+  if ([labelCopy isEqualToString:@"decimal"])
+  {
+    v19 = [self buildDecimalRegexUSOGraphWithIdentifier:labelCopy withInput:semanticCopy withStartCharIndex:v10 withEndCharIndex:v9];
+    goto LABEL_38;
+  }
+
+  ordinalsSemantic = [self ordinalsSemantic];
+  v28 = [ordinalsSemantic containsObject:semanticCopy];
+
+  if (v28)
+  {
+    v19 = [self buildVocUSOGraphForRegexOrdinal:objc_msgSend(semanticCopy withVocLabel:"intValue") withInput:labelCopy withStartCharIndex:inputCopy withEndCharIndex:{v10, v9}];
+    goto LABEL_38;
+  }
+
+  if ([labelCopy isEqualToString:@"personRelationship"])
+  {
+    v19 = [self buildPersonRelationshipUSOGraphWithIdentifier:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9 withTokenCount:v8];
+    goto LABEL_38;
+  }
+
+  listPositionSemantic = [self listPositionSemantic];
+  v30 = [listPositionSemantic containsObject:semanticCopy];
+
+  if (v30)
+  {
+    v19 = [self buildVocUSOGraphForHandsFreeListPosition:labelCopy withSemantic:semanticCopy withInput:inputCopy withStartCharIndex:v10 withEndCharIndex:v9];
+    goto LABEL_38;
+  }
+
+  if ([@"fractional" isEqualToString:labelCopy])
+  {
+    v32 = [self buildFractionNumberUSOGraphWithIdentifier:labelCopy withFractionSemantic:semanticCopy withStartCharIndex:v10 withEndCharIndex:v9];
+  }
+
+  else if ([@"smsAttributes" isEqualToString:labelCopy])
+  {
+    v32 = [self buildSmsAttributesUSOGraph:labelCopy withFractionSemantic:semanticCopy withStartCharIndex:v10 withEndCharIndex:v9];
+  }
+
+  else
+  {
+    if (![@"smsSharedEntity" isEqualToString:labelCopy])
+    {
+LABEL_29:
+      v26 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      {
+        v33 = 136315650;
+        v34 = "+[CDMVocUsoGraphMapper buildVocUSOGraphWithVocLabel:withSemantic:withInput:withStartCharIndex:withEndCharIndex:withTokenCount:]";
+        v35 = 2112;
+        v36 = labelCopy;
+        v37 = 2112;
+        v38 = semanticCopy;
+        _os_log_debug_impl(&dword_1DC287000, v26, OS_LOG_TYPE_DEBUG, "%s USO not supported for voc label : %@, vocSemantic : %@", &v33, 0x20u);
+      }
+
+      v19 = [self buildRootUSOGraphWithStartCharIndex:v10 withEndCharIndex:v9];
+      goto LABEL_38;
+    }
+
+    v32 = [self buildAttachmentTypeUSOGraph:labelCopy withSemantic:semanticCopy withStartCharIndex:v10 withEndCharIndex:v9];
+  }
+
+  v25 = v32;
+  if (!v32)
+  {
+    goto LABEL_29;
+  }
+
+LABEL_39:
+
+  return v25;
+}
+
++ (id)buildVocUSOGraphWithVocLabel:(id)label withSemantic:(id)semantic withInput:(id)input withStartCharIndex:(unsigned int)index withEndCharIndex:(unsigned int)charIndex
+{
+  v7 = [self buildVocUSOGraphWithVocLabel:label withSemantic:semantic withInput:input withStartCharIndex:*&index withEndCharIndex:*&charIndex withTokenCount:0];
+
+  return v7;
+}
+
 + (unique_ptr<siri::ontology::UsoEntitySpan,)buildEntitySpanWithSemantic:(id)semantic withVocLabel:(id)label withStartIndex:(unsigned int)index withEndIndex:(unsigned int)endIndex withTokenCount:(unsigned int)count
 {
+  v9 = v7;
   semanticCopy = semantic;
   labelCopy = label;
-  _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_();
+  _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_(v9);
 }
 
 + (unique_ptr<siri::ontology::UsoIdentifier,)buildIdentifierWithSemantic:(id)semantic withVocLabel:(id)label

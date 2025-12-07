@@ -69,7 +69,7 @@ void __83__OspreyDeviceAuthentication_initWithChannel_connectionPreferences_allP
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:version];
   v7 = [allKeys containsObject:v6];
 
-  OspreyLoggingInit();
+  OspreyLoggingInit(v8, v9);
   if (v7)
   {
     if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_DEBUG))
@@ -84,11 +84,11 @@ void __83__OspreyDeviceAuthentication_initWithChannel_connectionPreferences_allP
 
     if (integerValue != self->_currentStrategyVersion)
     {
-      OspreyLoggingInit();
-      v10 = OspreyLogContextDeviceAuth;
+      OspreyLoggingInit(v12, v13);
+      v14 = OspreyLogContextDeviceAuth;
       if (os_log_type_enabled(OspreyLogContextDeviceAuth, OS_LOG_TYPE_DEBUG))
       {
-        [(OspreyDeviceAuthentication *)&self->_currentStrategyVersion setCurrentStrategyVersion:integerValue, v10];
+        [(OspreyDeviceAuthentication *)&self->_currentStrategyVersion setCurrentStrategyVersion:integerValue, v14];
       }
 
       [(OspreyConnectionPreferences *)self->_connectionPreferences resetCachedDeviceAttestation];

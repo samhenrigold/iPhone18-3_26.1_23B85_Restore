@@ -146,49 +146,49 @@ void __58__WBSKeychainSyncingMonitor__primaryAppleAccountDidChange__block_invoke
 void __56__WBSKeychainSyncingMonitor__fetchKeychainSyncingStatus__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v11 = 0;
-  v3 = [v2 fetchUserControllableViewsSyncingEnabled:&v11];
-  v4 = v11;
-  v5 = v4;
+  v12 = 0;
+  v3 = [v2 fetchUserControllableViewsSyncingEnabled:&v12];
+  v4 = v12;
+  v6 = v4;
   if (v3)
   {
-    v6 = 2;
+    v7 = 2;
   }
 
   else
   {
     if (v4)
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXKeychain();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXKeychain(v4, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __56__WBSKeychainSyncingMonitor__fetchKeychainSyncingStatus__block_invoke_cold_1(v7, v5);
+        __56__WBSKeychainSyncingMonitor__fetchKeychainSyncingStatus__block_invoke_cold_1(v8, v6);
       }
     }
 
-    v6 = v5 == 0;
+    v7 = v6 == 0;
   }
 
-  v8 = *(a1 + 40);
-  v9 = *(v8 + 8);
+  v9 = *(a1 + 40);
+  v10 = *(v9 + 8);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __56__WBSKeychainSyncingMonitor__fetchKeychainSyncingStatus__block_invoke_11;
   block[3] = &unk_1E7CF2260;
-  block[4] = v8;
-  block[5] = v6;
-  dispatch_async(v9, block);
+  block[4] = v9;
+  block[5] = v7;
+  dispatch_async(v10, block);
   dispatch_activate(*(*(a1 + 40) + 24));
 }
 
-uint64_t __56__WBSKeychainSyncingMonitor__fetchKeychainSyncingStatus__block_invoke_11(uint64_t result)
+void *__56__WBSKeychainSyncingMonitor__fetchKeychainSyncingStatus__block_invoke_11(void *result)
 {
-  v2 = *(result + 32);
-  v1 = *(result + 40);
+  v2 = *(result + 4);
+  v1 = *(result + 5);
   if (v1 != *(v2 + 40))
   {
     *(v2 + 40) = v1;
-    return [*(result + 32) _keychainSyncingStatusMayHaveChanged];
+    return [*(result + 4) _keychainSyncingStatusMayHaveChanged];
   }
 
   return result;
@@ -255,11 +255,11 @@ void *__53__WBSKeychainSyncingMonitor_keychainSyncSettingValue__block_invoke(voi
     return [(WBSKeychainSyncingMonitor *)self keychainSyncSettingValue]== 2;
   }
 
-  v5 = WBS_LOG_CHANNEL_PREFIXKeychain();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = WBS_LOG_CHANNEL_PREFIXKeychain(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEFAULT, "Overriding iCloud Keychain check due to iCloudKeychainEnabledOverrideDefault", v8, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_1B8447000, v7, OS_LOG_TYPE_DEFAULT, "Overriding iCloud Keychain check due to iCloudKeychainEnabledOverrideDefault", v10, 2u);
   }
 
   bOOLValue = [v4 BOOLValue];
@@ -301,14 +301,12 @@ void *__53__WBSKeychainSyncingMonitor_keychainSyncSettingValue__block_invoke(voi
 
 void __56__WBSKeychainSyncingMonitor__fetchKeychainSyncingStatus__block_invoke_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B8447000, v3, OS_LOG_TYPE_ERROR, "Failed to read keychain sync status with error: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B8447000, v3, OS_LOG_TYPE_ERROR, "Failed to read keychain sync status with error: %{public}@", &v5, 0xCu);
 }
 
 @end

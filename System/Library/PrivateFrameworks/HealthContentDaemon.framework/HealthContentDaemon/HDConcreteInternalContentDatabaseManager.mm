@@ -281,16 +281,15 @@
 
 uint64_t __101__HDConcreteInternalContentDatabaseManager_grouperConceptForOntologyConcept_grouperConceptOut_error___block_invoke(void *a1, void *a2, uint64_t a3)
 {
-  v5 = a1[4];
-  v6 = a2;
-  v7 = objc_opt_class();
-  v8 = a1[5];
-  v9 = *(a1[6] + 8);
-  obj = *(v9 + 40);
-  v10 = [v7 grouperConceptForOntologyConcept:v8 ontologyTransaction:v6 grouperConceptOut:&obj error:a3];
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = a1[5];
+  v8 = *(a1[6] + 8);
+  obj = *(v8 + 40);
+  v9 = [v6 grouperConceptForOntologyConcept:v7 ontologyTransaction:v5 grouperConceptOut:&obj error:a3];
 
-  objc_storeStrong((v9 + 40), obj);
-  return v10;
+  objc_storeStrong((v8 + 40), obj);
+  return v9;
 }
 
 + (BOOL)grouperConceptForOntologyConcept:(id)concept ontologyTransaction:(id)transaction grouperConceptOut:(id *)out error:(id *)error
@@ -415,7 +414,7 @@ uint64_t __101__HDConcreteInternalContentDatabaseManager_grouperConceptForOntolo
 
 - (void)ontologyShardImporter:(id)importer didImportEntry:(id)entry
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   schemaType = [entryCopy schemaType];
   v7 = [schemaType isEqualToString:*MEMORY[0x277CCC630]];
@@ -427,19 +426,17 @@ uint64_t __101__HDConcreteInternalContentDatabaseManager_grouperConceptForOntolo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [entryCopy identifier];
-      v11 = 138543874;
+      v10 = 138543874;
       selfCopy = self;
-      v13 = 2114;
-      v14 = identifier;
-      v15 = 2048;
+      v12 = 2114;
+      v13 = identifier;
+      v14 = 2048;
       availableVersion = [entryCopy availableVersion];
-      _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: imported ontology shard with identifier %{public}@ and available version %ld", &v11, 0x20u);
+      _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: imported ontology shard with identifier %{public}@ and available version %ld", &v10, 0x20u);
     }
 
     [(HKObserverSet *)self->_ontologyContentShardImportObservers notifyObservers:&__block_literal_global];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ontologyBackingStore:(id)store didBecomeAvailable:(BOOL)available

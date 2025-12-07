@@ -121,7 +121,7 @@
     {
 LABEL_23:
 
-      v18 = sub_1003A4EE0();
+      v18 = sub_1003A4EE0(InstallAttributionManager);
       sub_1003A57CC(v18, v12, handlerCopy);
       goto LABEL_24;
     }
@@ -268,7 +268,7 @@ LABEL_24:
     {
 LABEL_23:
 
-      v18 = sub_1003A4EE0();
+      v18 = sub_1003A4EE0(InstallAttributionManager);
       sub_1003A6D58(v18, v12, handlerCopy);
       goto LABEL_24;
     }
@@ -322,7 +322,7 @@ LABEL_24:
     goto LABEL_9;
   }
 
-  v4 = sub_1003A4EE0();
+  v4 = sub_1003A4EE0(InstallAttributionManager);
   v5 = v4;
   if (v4)
   {
@@ -343,7 +343,7 @@ LABEL_9:
   handlerCopy = handler;
   if (sub_1003BD50C(self))
   {
-    sub_1003A4EE0();
+    sub_1003A4EE0(InstallAttributionManager);
 
     v4 = handlerCopy;
     if (!handlerCopy)
@@ -609,7 +609,7 @@ LABEL_17:
   }
 
   v6 = sub_10023FF1C(InstallAttributionParams, propertiesCopy);
-  v7 = sub_1003A4EE0();
+  v7 = sub_1003A4EE0(InstallAttributionManager);
   v8 = sub_1003A9838(v7, v6);
 
   if (handlerCopy)

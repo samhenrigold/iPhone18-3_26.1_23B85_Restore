@@ -15,16 +15,16 @@ int main(int argc, const char **argv, const char **envp)
   xpc_main(sub_10000171C);
 }
 
-id sub_1000016D8()
+id sub_1000016D8(uint64_t a1)
 {
   if (qword_100021B60 != -1)
   {
     sub_100012934();
   }
 
-  v1 = qword_100021B68;
+  v2 = qword_100021B68;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000171C(void *a1)
@@ -165,10 +165,10 @@ LABEL_100:
           pid = xpc_connection_get_pid(v12);
           name[0] = 67109632;
           name[1] = pid;
-          v114 = 2048;
-          v115 = v12;
-          v116 = 1024;
-          v117 = v28;
+          v117 = 2048;
+          v118 = v12;
+          v119 = 1024;
+          v120 = v28;
           _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "Operation status (%d : %p): %d", name, 0x18u);
         }
 
@@ -291,13 +291,13 @@ LABEL_141:
               }
 
               v66 = v65;
-              v109 = reply;
+              v112 = reply;
               v67 = v65 / v64;
               v68 = objc_opt_new();
               if (v67 < 2)
               {
                 v63 = 0;
-                reply = v109;
+                reply = v112;
                 goto LABEL_183;
               }
 
@@ -313,7 +313,7 @@ LABEL_141:
 
               while (v69 != v66);
               v63 = [v68 copy];
-              reply = v109;
+              reply = v112;
               v4 = &selRef_errorWithDomain_code_userInfo_;
             }
 
@@ -326,11 +326,11 @@ LABEL_184:
                 ktrace_machine_destroy();
                 if (v63)
                 {
-                  v100 = [NSKeyedArchiver archivedDataWithRootObject:v63 requiringSecureCoding:1 error:0];
-                  if (v100)
+                  v103 = [NSKeyedArchiver archivedDataWithRootObject:v63 requiringSecureCoding:1 error:0];
+                  if (v103)
                   {
-                    v101 = v100;
-                    xpc_dictionary_set_data(reply, "ktrace_machine_cores_data", [v100 bytes], objc_msgSend(v100, "length"));
+                    v104 = v103;
+                    xpc_dictionary_set_data(reply, "ktrace_machine_cores_data", [v103 bytes], objc_msgSend(v103, "length"));
 
                     goto LABEL_69;
                   }
@@ -341,40 +341,40 @@ LABEL_187:
                 goto LABEL_71;
               }
 
-              v111 = reply;
+              v114 = reply;
               v68 = objc_opt_new();
-              v88 = ktrace_machine_max_cpus();
-              if (v88)
+              v90 = ktrace_machine_max_cpus();
+              if (v90)
               {
-                v89 = v88;
-                v90 = 0;
+                v91 = v90;
+                v92 = 0;
                 do
                 {
                   name[0] = 0;
                   *buf = 0;
                   if (!ktrace_machine_cpu_cluster() && !ktrace_machine_cluster_flags())
                   {
-                    v91 = [DTCPUClusterInfo alloc];
-                    v92 = [(DTCPUClusterInfo *)v91 initWithClusterID:name[0] flags:buf[0] & 3];
-                    if (v92)
+                    v93 = [DTCPUClusterInfo alloc];
+                    v94 = [(DTCPUClusterInfo *)v93 initWithClusterID:name[0] flags:buf[0] & 3];
+                    if (v94)
                     {
-                      v93 = v92;
-                      [NSNumber numberWithUnsignedInt:v90];
-                      v95 = v94 = v4;
-                      [v68 setObject:v93 forKeyedSubscript:v95];
+                      v95 = v94;
+                      [NSNumber numberWithUnsignedInt:v92];
+                      v97 = v96 = v4;
+                      [v68 setObject:v95 forKeyedSubscript:v97];
 
-                      v4 = v94;
+                      v4 = v96;
                     }
                   }
 
-                  v90 = (v90 + 1);
+                  v92 = (v92 + 1);
                 }
 
-                while (v89 != v90);
+                while (v91 != v92);
               }
 
               v63 = [v68 copy];
-              reply = v111;
+              reply = v114;
             }
 
             v17 = &selRef_errorWithDomain_code_userInfo_;
@@ -432,10 +432,11 @@ LABEL_183:
           {
             if (stackshot_config_create())
             {
-              if (stackshot_config_set_flags())
+              v77 = stackshot_config_set_flags();
+              if (v77)
               {
-                v77 = sub_1000016D8();
-                if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+                v78 = sub_1000016D8(v77);
+                if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
                 {
                   sub_100012AE4();
                 }
@@ -444,10 +445,11 @@ LABEL_183:
                 goto LABEL_193;
               }
 
-              if (stackshot_capture_with_config())
+              v99 = stackshot_capture_with_config();
+              if (v99)
               {
-                v97 = sub_1000016D8();
-                if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+                v100 = sub_1000016D8(v99);
+                if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
                 {
                   sub_100012B68();
                 }
@@ -483,7 +485,7 @@ LABEL_138:
               if (ktrace_current_session)
               {
                 *buf = 0;
-                v85 = [ktrace_current_session stopWithError:buf];
+                v87 = [ktrace_current_session stopWithError:buf];
                 v63 = *buf;
                 if (dword_1000218E8 == -1)
                 {
@@ -500,18 +502,18 @@ LABEL_138:
                   v28 = 0;
                 }
 
-                if ((v85 & 1) == 0)
+                if ((v87 & 1) == 0)
                 {
                   if (v63)
                   {
-                    v98 = [NSKeyedArchiver archivedDataWithRootObject:v63 requiringSecureCoding:1 error:0];
-                    xpc_dictionary_set_data(reply, "ns_error", [v98 bytes], objc_msgSend(v98, "length"));
+                    v101 = [NSKeyedArchiver archivedDataWithRootObject:v63 requiringSecureCoding:1 error:0];
+                    xpc_dictionary_set_data(reply, "ns_error", [v101 bytes], objc_msgSend(v101, "length"));
                   }
 
                   v28 = 5;
                 }
 
-                v99 = ktrace_current_session;
+                v102 = ktrace_current_session;
                 ktrace_current_session = 0;
 
                 dword_1000218E8 = -1;
@@ -523,11 +525,11 @@ LABEL_138:
             {
               if (!strcmp(v16, "processor_trace_version"))
               {
-                v86 = +[DTProcessorTraceRecorder recordingVersionString];
-                v87 = v86;
-                if (v86)
+                v88 = +[DTProcessorTraceRecorder recordingVersionString];
+                v89 = v88;
+                if (v88)
                 {
-                  xpc_dictionary_set_string(reply, "processor_trace_version", [v86 UTF8String]);
+                  xpc_dictionary_set_string(reply, "processor_trace_version", [v88 UTF8String]);
                 }
 
                 goto LABEL_21;
@@ -543,33 +545,33 @@ LABEL_138:
             goto LABEL_138;
           }
 
-          v78 = xpc_dictionary_dup_fd(v13, "ktrace_file_fd");
+          v79 = xpc_dictionary_dup_fd(v13, "ktrace_file_fd");
           *buf = 0;
-          v79 = xpc_dictionary_get_data(v13, "ktrace_session_config", buf);
+          v80 = xpc_dictionary_get_data(v13, "ktrace_session_config", buf);
           name[0] = -1;
-          if (v79)
+          if (v80)
           {
-            v110 = v78;
-            v80 = [NSData dataWithBytesNoCopy:v79 length:*buf freeWhenDone:0];
-            v81 = [NSSet setWithObjects:objc_opt_class(), 0];
-            v112 = 0;
-            v82 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v81 fromData:v80 error:&v112];
-            v83 = v112;
+            v113 = v79;
+            v81 = [NSData dataWithBytesNoCopy:v80 length:*buf freeWhenDone:0];
+            v82 = [NSSet setWithObjects:objc_opt_class(), 0];
+            v115 = 0;
+            v83 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v82 fromData:v81 error:&v115];
+            v84 = v115;
 
             v4 = &selRef_errorWithDomain_code_userInfo_;
-            if (v83)
+            if (v84)
             {
-              v84 = sub_1000016D8();
-              if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+              v86 = sub_1000016D8(v85);
+              if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
               {
-                sub_100012A18(v83);
+                sub_100012A18(v84);
               }
             }
 
             v17 = &selRef_errorWithDomain_code_userInfo_;
-            if (v82)
+            if (v83)
             {
-              if (sub_100002E00(v82, v110, name))
+              if (sub_100002E00(v83, v113, name))
               {
                 v28 = 0;
 LABEL_165:
@@ -592,15 +594,15 @@ LABEL_164:
 
           else
           {
-            v96 = sub_1000016D8();
-            if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+            v98 = sub_1000016D8(0);
+            if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
             {
-              sub_100012AA0(v96);
+              sub_100012AA0(v98);
             }
           }
 
           xpc_dictionary_set_int64(reply, "errno_status", -1);
-          v82 = 0;
+          v83 = 0;
           goto LABEL_164;
         }
 
@@ -624,9 +626,9 @@ LABEL_71:
       goto LABEL_100;
     }
 
-    v108 = reply;
+    v111 = reply;
     v37 = v12;
-    v107 = v13;
+    v110 = v13;
     v38 = v13;
     v39 = xpc_dictionary_get_int64(v38, "pid");
     v40 = DVTIUUidForPid(v39);
@@ -669,12 +671,12 @@ LABEL_71:
 
     else
     {
-      v105 = v12;
-      v104 = v40;
+      v108 = v12;
+      v107 = v40;
       v50 = v40 == v42;
       v51 = DVTIsProcessDebuggable(name[0]);
       v52 = DVTIsSimulatorProcess();
-      v106 = (v50 | v43) & (v51 | v52);
+      v109 = (v50 | v43) & (v51 | v52);
       if (qword_100021B60 != -1)
       {
         sub_100012948();
@@ -718,35 +720,35 @@ LABEL_71:
         *&buf[14] = 1024;
         v59 = "success";
         *&buf[16] = v39;
-        if ((v106 & 1) == 0)
+        if ((v109 & 1) == 0)
         {
           v59 = "fail";
         }
 
         *&buf[20] = 1024;
-        *&buf[22] = v104;
+        *&buf[22] = v107;
         *&buf[26] = 2080;
         *&buf[28] = v54;
         *&buf[36] = 2080;
         *&buf[38] = v55;
-        v119 = 2080;
-        v120 = v58;
-        v121 = 2080;
-        v122 = v59;
+        v122 = 2080;
+        v123 = v58;
+        v124 = 2080;
+        v125 = v59;
         _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "Caller: {%u:%u} requesting task_control_t for Target: {%u:%u} (%s%s) [Authorization: %s] - %s", buf, 0x42u);
       }
 
-      v12 = v105;
+      v12 = v108;
       v4 = &selRef_errorWithDomain_code_userInfo_;
-      if (v106)
+      if (v109)
       {
         v60 = name[0];
 
-        reply = v108;
+        reply = v111;
         xpc_dictionary_set_mach_send();
         mach_port_deallocate(mach_task_self_, v60);
         v28 = 0;
-        v13 = v107;
+        v13 = v110;
 LABEL_78:
         v17 = &selRef_errorWithDomain_code_userInfo_;
         goto LABEL_100;
@@ -756,8 +758,8 @@ LABEL_78:
       v28 = 8;
     }
 
-    v13 = v107;
-    reply = v108;
+    v13 = v110;
+    reply = v111;
 
     goto LABEL_78;
   }
@@ -896,10 +898,11 @@ BOOL sub_100002E00(void *a1, uint64_t a2, int *a3)
   return v6;
 }
 
-void sub_100002F14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002F14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_1000030A0(uint64_t a1, uint64_t a2, dispatch_object_t object)
@@ -911,9 +914,10 @@ uint64_t sub_1000030A0(uint64_t a1, uint64_t a2, dispatch_object_t object)
   return a1;
 }
 
-void sub_100003104(uint64_t a1, int a2)
+void sub_100003104(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100005868();
+  v2 = a2;
+  v4 = sub_100005868(a1, a2);
   if (qword_100021B70 != -1)
   {
     sub_100012C70();
@@ -926,17 +930,17 @@ void sub_100003104(uint64_t a1, int a2)
     *buf = 67109376;
     v13 = v6;
     v14 = 1024;
-    v15 = a2;
+    v15 = v2;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Changing tracking state: %d->%d", buf, 0xEu);
   }
 
   v7 = *(a1 + 8);
-  if (v7 != 1 || (a2 & 1) != 0)
+  if (v7 != 1 || (v2 & 1) != 0)
   {
-    if (a2 && (v7 & 1) == 0)
+    if (v2 && (v7 & 1) == 0)
     {
       *buf = 0;
-      *(a1 + 8) = a2;
+      *(a1 + 8) = v2;
       sub_1000058D8(v4, buf);
       if ((*buf - 1) > 0xFFFFFFFD)
       {
@@ -974,16 +978,16 @@ void sub_100003104(uint64_t a1, int a2)
 
   else
   {
-    *(a1 + 8) = a2;
+    *(a1 + 8) = v2;
     dispatch_source_cancel(*(a1 + 16));
     dispatch_release(*(a1 + 16));
     sub_100005B54(v4);
   }
 }
 
-void sub_100004048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100004048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1001,9 +1005,8 @@ void sub_10000408C(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   v9 = a3;
   v10 = [[DVTProviderLogger alloc] initWithProviderName:v8];
   [*(a1 + 32) addObject:v10];
-  v11 = *(a1 + 48);
   [v8 UTF8String];
-  LODWORD(v11) = ktrace_session_provide();
+  v11 = ktrace_session_provide();
 
   if (v11)
   {
@@ -1049,7 +1052,7 @@ uint64_t sub_10000476C(uint64_t a1)
   return a1;
 }
 
-uint64_t *sub_1000047C4(uint64_t *result, int a2)
+uint64_t *sub_1000047C4(uint64_t *result, unsigned int a2)
 {
   v6 = a2;
   if (*(result + 12))
@@ -1080,7 +1083,7 @@ uint64_t *sub_1000047C4(uint64_t *result, int a2)
       if (Signature)
       {
         *buf = &v6;
-        sub_1000051D0(v2 + 1, &v6)[3] = Signature;
+        sub_1000051D0((v2 + 8), &v6, &unk_100015F98, buf)[3] = Signature;
       }
 
       return CSRelease();
@@ -1135,8 +1138,6 @@ uint64_t sub_100004A7C(CFDictionaryRef *a1, int a2, uint64_t a3)
     return 0;
   }
 
-  v6 = *Value;
-  v5 = Value[1];
   CSSymbolicatorGetSymbolOwnerWithCFUUIDBytesAtTime();
   if (CSIsNull())
   {
@@ -1146,77 +1147,72 @@ uint64_t sub_100004A7C(CFDictionaryRef *a1, int a2, uint64_t a3)
   return CSSymbolOwnerCreateSignature();
 }
 
-uint64_t sub_100004B00(CFDictionaryRef *a1, int a2, int a3)
+uint64_t sub_100004B00(CFDictionaryRef *a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   v6 = a2;
-  v7 = CFDictionaryGetValue(*a1, a2);
-  if (v7)
+  if (CFDictionaryGetValue(*a1, a2))
   {
-    v8 = v7;
     if (qword_100021B90 != -1)
     {
       sub_100012EA8();
     }
 
-    v9 = qword_100021B98;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v7 = qword_100021B98;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = *v8;
-      v11 = v8[1];
       CSSymbolicatorGetAOutSymbolOwner();
       *buf = 136315394;
       Name = CSSymbolOwnerGetName();
-      v23 = 1024;
-      LODWORD(v24) = a2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Returning cached live symbolicator for %s[%u]", buf, 0x12u);
+      v17 = 1024;
+      LODWORD(v18) = v4;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Returning cached live symbolicator for %s[%u]", buf, 0x12u);
     }
 
-    v12 = *v8;
-    v13 = v8[1];
     return CSSymbolicatorCreateSignature();
   }
 
   else
   {
-    if (getpid() == a2)
+    if (getpid() == v4)
     {
-      v15 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v15 = a3;
+      v9 = a3;
     }
 
     value[0] = CSSymbolicatorCreateWithPidFlagsAndNotification();
-    value[1] = v16;
+    value[1] = v10;
     Signature = CSSymbolicatorCreateSignature();
     if (qword_100021B90 != -1)
     {
       sub_100012E80();
     }
 
-    v17 = qword_100021B98;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v11 = qword_100021B98;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      if (v15)
+      if (v9)
       {
-        v18 = "tracking ";
+        v12 = "tracking ";
       }
 
       else
       {
-        v18 = "";
+        v12 = "";
       }
 
       CSSymbolicatorGetAOutSymbolOwner();
       *buf = 136315650;
-      Name = v18;
-      v23 = 2080;
-      v24 = CSSymbolOwnerGetName();
-      v25 = 1024;
-      v26 = a2;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Created live %ssymbolicator for %s[%u]", buf, 0x1Cu);
+      Name = v12;
+      v17 = 2080;
+      v18 = CSSymbolOwnerGetName();
+      v19 = 1024;
+      v20 = v4;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Created live %ssymbolicator for %s[%u]", buf, 0x1Cu);
     }
 
     CFDictionarySetValue(*a1, v6, value);
@@ -1226,35 +1222,33 @@ uint64_t sub_100004B00(CFDictionaryRef *a1, int a2, int a3)
   return Signature;
 }
 
-void sub_100004DA8(uint64_t a1, uint64_t a2, uint64_t *a3)
+void sub_100004DA8(uint64_t a1, uint64_t a2, void *a3)
 {
   if ((a2 & 0xFFFFFFFE) == 0x100)
   {
-    v6 = *(a1 + 32);
-    v7 = a3[2];
-    v8 = a3[3];
+    v5 = *(a1 + 32);
+    v6 = a3[2];
+    v7 = a3[3];
     if (qword_100021B90 != -1)
     {
       sub_100012EA8();
     }
 
-    v9 = qword_100021B98;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = qword_100021B98;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = "unload";
+      v9 = "unload";
       if (a2 == 256)
       {
-        v10 = "load";
+        v9 = "load";
       }
 
-      v18 = v10;
-      v11 = *a3;
-      v12 = a3[1];
+      v15 = v9;
       CSSymbolicatorGetAOutSymbolOwner();
       Name = CSSymbolOwnerGetName();
-      v14 = *(a1 + 40);
+      v11 = *(a1 + 40);
       BaseAddress = CSSymbolOwnerGetBaseAddress();
-      v16 = CSSymbolOwnerGetName();
+      v13 = CSSymbolOwnerGetName();
       if (a2 == 256)
       {
         LoadTimestamp = CSSymbolOwnerGetLoadTimestamp();
@@ -1266,21 +1260,21 @@ void sub_100004DA8(uint64_t a1, uint64_t a2, uint64_t *a3)
       }
 
       *buf = 136316418;
-      v20 = v18;
-      v21 = 2080;
-      v22 = Name;
-      v23 = 1024;
-      v24 = v14;
-      v25 = 2048;
-      v26 = BaseAddress;
-      v27 = 2080;
-      v28 = v16;
-      v29 = 2048;
-      v30 = LoadTimestamp;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Sending %s notification for %s[%u]: %#llx %s at time %llu", buf, 0x3Au);
+      v17 = v15;
+      v18 = 2080;
+      v19 = Name;
+      v20 = 1024;
+      v21 = v11;
+      v22 = 2048;
+      v23 = BaseAddress;
+      v24 = 2080;
+      v25 = v13;
+      v26 = 2048;
+      v27 = LoadTimestamp;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Sending %s notification for %s[%u]: %#llx %s at time %llu", buf, 0x3Au);
     }
 
-    sub_10000493C(v6, v7, v8, *(a1 + 40), a2);
+    sub_10000493C(v5, v6, v7, *(a1 + 40), a2);
   }
 }
 
@@ -1410,33 +1404,33 @@ uint64_t *sub_10000511C(void *a1, int *a2)
   return result;
 }
 
-uint64_t *sub_1000051D0(void *a1, int *a2)
+uint64_t *sub_1000051D0(float *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1444,44 +1438,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void sub_100005404()
@@ -1490,7 +1484,7 @@ void sub_100005404()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void sub_100005438(uint64_t a1, size_t __n)
+void sub_100005438(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1506,7 +1500,7 @@ void sub_100005438(uint64_t a1, size_t __n)
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1514,7 +1508,7 @@ void sub_100005438(uint64_t a1, size_t __n)
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1538,7 +1532,7 @@ void sub_100005438(uint64_t a1, size_t __n)
     {
 LABEL_6:
 
-      sub_100005528(a1, prime);
+      sub_100005528(result, prime);
     }
   }
 }
@@ -1679,7 +1673,7 @@ BOOL DTProcessShouldCaptureOutputWithOptions(void *a1)
   return v4;
 }
 
-uint64_t sub_100005868()
+uint64_t sub_100005868(uint64_t a1, uint64_t a2)
 {
   if (qword_100021BA0 != -1)
   {
@@ -1866,8 +1860,9 @@ void sub_100005EB4(uint64_t a1)
   }
 }
 
-uint64_t sub_100005FD4(uint64_t a1, int a2, uint64_t a3)
+uint64_t sub_100005FD4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   if (qword_1000219B8 != -1)
   {
     sub_100012F38();
@@ -1875,7 +1870,7 @@ uint64_t sub_100005FD4(uint64_t a1, int a2, uint64_t a3)
 
   v6 = off_1000219B0;
 
-  return sub_100006040(v6, a1, a2, a3);
+  return sub_100006040(v6, a1, v4, a3);
 }
 
 uint64_t sub_100006040(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
@@ -1900,8 +1895,10 @@ uint64_t sub_100006040(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return v5;
 }
 
-uint64_t sub_1000060F4(uint64_t a1, int a2, char a3)
+uint64_t sub_1000060F4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   if (qword_1000219B8 != -1)
   {
     sub_100012F38();
@@ -1909,7 +1906,7 @@ uint64_t sub_1000060F4(uint64_t a1, int a2, char a3)
 
   v6 = off_1000219B0;
 
-  return sub_100006160(v6, a1, a2, a3);
+  return sub_100006160(v6, a1, v4, v3);
 }
 
 uint64_t sub_100006160(uint64_t a1, uint64_t a2, int a3, char a4)
@@ -1934,8 +1931,9 @@ uint64_t sub_100006160(uint64_t a1, uint64_t a2, int a3, char a4)
   return v5;
 }
 
-uint64_t sub_100006218(uint64_t a1, char a2, uint64_t a3)
+uint64_t sub_100006218(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   if (qword_1000219B8 != -1)
   {
     sub_100012F38();
@@ -1943,7 +1941,7 @@ uint64_t sub_100006218(uint64_t a1, char a2, uint64_t a3)
 
   v6 = off_1000219B0;
 
-  return sub_100006284(v6, a1, a2, a3);
+  return sub_100006284(v6, a1, v4, a3);
 }
 
 uint64_t sub_100006284(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
@@ -2051,7 +2049,7 @@ void sub_1000066AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1000066DC(uint64_t a1, int a2)
+void sub_1000066DC(uint64_t a1, unsigned int a2)
 {
   dispatch_assert_queue_V2(*(a1 + 8));
   for (i = *(a1 + 40); i; i = *i)
@@ -2067,9 +2065,9 @@ void sub_100006728(uint64_t a1)
   operator delete();
 }
 
-uint64_t sub_100006760(uint64_t a1)
+void **sub_100006760(void **a1)
 {
-  sub_10000679C(a1, *(a1 + 16));
+  sub_10000679C(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2118,7 +2116,7 @@ uint64_t sub_100006850(uint64_t a1)
   dispatch_release(*(a1 + 8));
   dispatch_release(*(a1 + 16));
   sub_1000030D8(a1 + 80);
-  sub_100006760(a1 + 24);
+  sub_100006760((a1 + 24));
   return a1;
 }
 
@@ -2244,45 +2242,37 @@ void *sub_100006AF0(void *a1, void *a2)
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -2295,7 +2285,7 @@ uint64_t sub_100006C0C(uint64_t a1)
   return result;
 }
 
-uint64_t sub_100006C4C(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t sub_100006C4C(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   dispatch_assert_queue_V2(*(a1 + 8));
   sub_100006988(a1, a2, &v10);
@@ -2329,19 +2319,18 @@ void sub_100006CD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_100006CE8(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   if (qword_100021BC0 != -1)
   {
     sub_100012F74();
   }
 
-  v3 = qword_100021BC8;
+  v2 = qword_100021BC8;
   if (os_log_type_enabled(qword_100021BC8, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 48);
+    v3 = *(a1 + 48);
     buf = 134217984;
-    *buf_4 = v4;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Added client %p", &buf, 0xCu);
+    *buf_4 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Added client %p", &buf, 0xCu);
   }
 
   sub_100006E78();
@@ -2352,8 +2341,7 @@ void *sub_100006EEC(void *a1, id *a2, unsigned __int8 *a3)
   a1[1] = 0;
   a1[2] = 0;
   *a1 = off_10001D318;
-  v4 = *a3;
-  sub_100004768(a1 + 24, *a2);
+  sub_100004768((a1 + 3), *a2, *a3);
   return a1;
 }
 
@@ -2365,35 +2353,35 @@ void sub_100006F70(std::__shared_weak_count *a1)
   operator delete();
 }
 
-void *sub_100006FD0(void *a1, void *a2)
+void *sub_100006FD0(void *a1, void *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -2401,44 +2389,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 void sub_100007258(uint64_t a1, void *__p)
@@ -2460,10 +2448,10 @@ void sub_100007258(uint64_t a1, void *__p)
   operator delete(__p);
 }
 
-uint64_t sub_1000072B8(uint64_t a1)
+uint64_t sub_1000072B8(void *a1)
 {
-  result = sub_1000072F4(*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64));
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  result = sub_1000072F4(a1[5], a1[6], a1[7], a1[8]);
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -2590,7 +2578,7 @@ void sub_1000075A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_1000075D0(uint64_t a1)
+uint64_t *sub_1000075D0(uint64_t a1)
 {
   v2 = *(a1 + 32);
   result = sub_100006AF0((v2 + 24), (a1 + 40));
@@ -2756,7 +2744,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t DVTIUIsAppleInternalOSEnvironment()
+uint64_t DVTIUIsAppleInternalOSEnvironment(uint64_t a1, uint64_t a2)
 {
   if (qword_100021BD8 != -1)
   {
@@ -2897,18 +2885,18 @@ uint64_t sub_100009528(uint64_t result, uint64_t a2)
 
 void sub_100009540(uint64_t a1)
 {
-  v29[0] = _NSConcreteStackBlock;
-  v29[1] = 3221225472;
-  v29[2] = sub_1000099A4;
-  v29[3] = &unk_10001D3E8;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_1000099A4;
+  v23[3] = &unk_10001D3E8;
   v2 = *(a1 + 32);
-  v30 = *(a1 + 40);
-  v33 = *(a1 + 96);
+  v24 = *(a1 + 40);
+  v27 = *(a1 + 96);
   v3 = *(a1 + 48);
   v4 = *(a1 + 72);
-  v31 = v3;
-  v32 = v4;
-  [v2 _matchRemove:v29];
+  v25 = v3;
+  v26 = v4;
+  [v2 _matchRemove:v23];
   if ((*(*(*(a1 + 72) + 8) + 24) & 1) == 0)
   {
     v5 = *(*(a1 + 32) + 8);
@@ -2925,12 +2913,6 @@ void sub_100009540(uint64_t a1)
 
     if (*(a1 + 104) == 1)
     {
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
-      v63 = 0u;
       v60 = 0u;
       v61 = 0u;
       v58 = 0u;
@@ -2955,78 +2937,78 @@ void sub_100009540(uint64_t a1)
       v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      *__str = 0u;
+      v36 = 0u;
       v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      *__str = 0u;
+      v31 = 0u;
       if ((*(a1 + 105) & 1) != 0 || *(a1 + 106) == 1)
       {
         if ((+[NSProcessInfo isAppleInternal]& 1) == 0)
         {
-          v12 = *(a1 + 64);
-          v13 = *(a1 + 40);
-          v14 = *(a1 + 96);
-          v34 = NSLocalizedDescriptionKey;
-          v15 = [NSString stringWithFormat:@"Launching a Daemon or Agent is not supported on iOS devices."];
-          v35 = v15;
-          v16 = [NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-          v17 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v16];
-          (*(v12 + 16))(v12, v13, 0, v14, 0xFFFFFFFFLL, v17);
+          v11 = *(a1 + 64);
+          v12 = *(a1 + 40);
+          v13 = *(a1 + 96);
+          v28 = NSLocalizedDescriptionKey;
+          v14 = [NSString stringWithFormat:@"Launching a Daemon or Agent is not supported on iOS devices."];
+          v29 = v14;
+          v15 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          v16 = [NSError errorWithDomain:@"DTXPCServiceController" code:1 userInfo:v15];
+          (*(v11 + 16))(v11, v12, 0, v13, 0xFFFFFFFFLL, v16);
 
 LABEL_29:
           goto LABEL_30;
         }
 
         snprintf(__str, 0x200uLL, "system/%s", [*(a1 + 56) UTF8String]);
-        v10 = *(*(a1 + 32) + 16);
-        v11 = xpc_service_create_from_specifier();
+        v10 = xpc_service_create_from_specifier();
       }
 
       else
       {
-        v18 = *(a1 + 100);
         [*(a1 + 40) UTF8String];
-        v19 = *(a1 + 96) & ~(*(a1 + 96) >> 31);
-        v20 = *(*(a1 + 32) + 16);
-        v11 = xpc_service_create();
+        v10 = xpc_service_create();
       }
 
-      v21 = *(*(a1 + 80) + 8);
-      v22 = *(v21 + 40);
-      *(v21 + 40) = v11;
+      v17 = *(*(a1 + 80) + 8);
+      v18 = *(v17 + 40);
+      *(v17 + 40) = v10;
     }
 
-    v23 = sub_100007DE4();
-    v24 = *(a1 + 104);
-    if (!v23 || (*(a1 + 104) & 1) != 0)
+    if (!sub_100007DE4() || (*(a1 + 104) & 1) != 0)
     {
       if ((*(a1 + 104) & 1) == 0)
       {
 LABEL_17:
-        v25 = xpc_connection_create("com.apple.dt.instruments.dtsecurity.xpc", 0);
-        v26 = 0;
+        v19 = xpc_connection_create("com.apple.dt.instruments.dtsecurity.xpc", 0);
+        v20 = 0;
 LABEL_20:
-        objc_storeStrong((*(*(a1 + 88) + 8) + 40), v25);
-        if ((v26 & 1) == 0)
+        objc_storeStrong((*(*(a1 + 88) + 8) + 40), v19);
+        if ((v20 & 1) == 0)
         {
         }
 
         if (*(*(*(a1 + 80) + 8) + 40) || *(*(*(a1 + 88) + 8) + 40))
         {
-          v27 = objc_opt_new();
-          [v27 setServiceIdentifier:*(a1 + 40)];
-          [v27 setClient:*(a1 + 48)];
-          v28 = *(*(*(a1 + 80) + 8) + 40);
-          if (!v28)
+          v21 = objc_opt_new();
+          [v21 setServiceIdentifier:*(a1 + 40)];
+          [v21 setClient:*(a1 + 48)];
+          v22 = *(*(*(a1 + 80) + 8) + 40);
+          if (!v22)
           {
-            v28 = *(*(*(a1 + 88) + 8) + 40);
+            v22 = *(*(*(a1 + 88) + 8) + 40);
           }
 
-          [v27 setXpcObject:v28];
+          [v21 setXpcObject:v22];
           if (*(a1 + 107) == 1)
           {
-            [v27 setOneshotHandler:*(a1 + 64)];
+            [v21 setOneshotHandler:*(a1 + 64)];
           }
 
-          [v7 addObject:v27];
+          [v7 addObject:v21];
         }
 
         goto LABEL_29;
@@ -3048,18 +3030,19 @@ LABEL_20:
       }
     }
 
-    v25 = 0;
-    v26 = 1;
+    v19 = 0;
+    v20 = 1;
     goto LABEL_20;
   }
 
 LABEL_30:
 }
 
-uint64_t sub_1000099A4(uint64_t a1, void *a2, int a3, void *a4)
+uint64_t sub_1000099A4(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
+  v4 = a3;
   v7 = a4;
-  if (!sub_100009A1C(*(a1 + 32), a2, *(a1 + 56), a3))
+  if (!sub_100009A1C(*(a1 + 32), a2, *(a1 + 56), v4))
   {
     goto LABEL_4;
   }
@@ -3335,19 +3318,15 @@ void sub_10000A460(uint64_t a1)
       v14 = *(a1 + 72);
       v15 = [*(a1 + 40) UTF8String];
       *buf = 67109378;
-      v24 = v14;
-      v25 = 2080;
-      v26 = v15;
+      v20 = v14;
+      v21 = 2080;
+      v22 = v15;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Service pid %d '%s' exec-ed", buf, 0x12u);
     }
 
     v16 = +[DTAssertionManager sharedInstance];
     [v16 takeAssertionsForPid:*(a1 + 72) onBehalfOfClient:*(a1 + 48) withOptions:*(a1 + 56)];
 
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 72);
-    v19 = *(a1 + 76);
-    v20 = *(a1 + 80);
     (*(*(a1 + 64) + 16))();
   }
 
@@ -3358,9 +3337,9 @@ void sub_10000A460(uint64_t a1)
       v4 = *(a1 + 72);
       v5 = [*(a1 + 40) UTF8String];
       *buf = 67109378;
-      v24 = v4;
-      v25 = 2080;
-      v26 = v5;
+      v20 = v4;
+      v21 = 2080;
+      v22 = v5;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Service pid %d '%s'  exited before exec", buf, 0x12u);
     }
 
@@ -3370,8 +3349,8 @@ void sub_10000A460(uint64_t a1)
     v9 = *(a1 + 76);
     v10 = *(a1 + 80);
     v11 = [NSString stringWithFormat:@"Service exited before exec %d '%@'. ", v8, v7, NSLocalizedDescriptionKey];
-    v22 = v11;
-    v12 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v18 = v11;
+    v12 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v13 = [NSError errorWithDomain:@"DTXPCServiceController" code:2 userInfo:v12];
     (*(v6 + 16))(v6, v7, v8, v9, v10, v13);
   }
@@ -3475,7 +3454,7 @@ void sub_10000AFDC(uint64_t a1, void *a2)
     if (*(a1 + 96) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v27) = pid;
+      LODWORD(v25) = pid;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: daemon launch xpc attach handler, pid = %d", buf, 8u);
     }
 
@@ -3487,7 +3466,7 @@ void sub_10000AFDC(uint64_t a1, void *a2)
     }
 
     v7 = [*(a1 + 32) objectForKeyedSubscript:@"CPUType"];
-    v24 = v7;
+    v22 = v7;
     if (v7)
     {
       [v7 intValue];
@@ -3496,7 +3475,7 @@ void sub_10000AFDC(uint64_t a1, void *a2)
     xpc_service_instance_set_binpref();
     v8 = [*(a1 + 32) objectForKeyedSubscript:@"CPUSubType"];
     v9 = v8;
-    v25 = v6;
+    v23 = v6;
     if (v8)
     {
       v10 = [v8 intValue];
@@ -3519,39 +3498,38 @@ void sub_10000AFDC(uint64_t a1, void *a2)
     if (*(a1 + 96) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v27) = v17;
+      LODWORD(v25) = v17;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: daemon launch outputFD = %d", buf, 8u);
     }
 
-    v18 = *(a1 + 48);
     (*(*(a1 + 88) + 16))();
-    v19 = [*(a1 + 32) objectForKeyedSubscript:@"SkipSetPath"];
-    if ([v19 BOOLValue])
+    v18 = [*(a1 + 32) objectForKeyedSubscript:@"SkipSetPath"];
+    if ([v18 BOOLValue])
     {
     }
 
     else
     {
-      v20 = [*(a1 + 72) length];
+      v19 = [*(a1 + 72) length];
 
-      if (v20)
+      if (v19)
       {
         if (*(a1 + 96) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          v21 = *(a1 + 72);
+          v20 = *(a1 + 72);
           *buf = 138412290;
-          v27 = v21;
+          v25 = v20;
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "DTXPCServiceController: daemon launch instance path = %@", buf, 0xCu);
         }
 
         [*(a1 + 72) UTF8String];
         xpc_service_instance_set_path();
-        v22 = v25;
+        v21 = v23;
         goto LABEL_28;
       }
     }
 
-    v22 = v25;
+    v21 = v23;
     if (*(a1 + 96) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -3560,7 +3538,6 @@ void sub_10000AFDC(uint64_t a1, void *a2)
 
 LABEL_28:
     xpc_service_instance_run();
-    v23 = *(a1 + 80);
     xpc_service_set_attach_handler();
   }
 }
@@ -3702,21 +3679,21 @@ uint64_t sub_10000BC18(uint64_t a1, void *a2, int a3, uint64_t a4)
   }
 }
 
-id sub_10000BEC0()
+id sub_10000BEC0(uint64_t a1)
 {
   if (qword_100021BF8 != -1)
   {
     sub_100013038();
   }
 
-  v1 = qword_100021BF0;
+  v2 = qword_100021BF0;
 
-  return v1;
+  return v2;
 }
 
 id sub_10000BF04(uint64_t a1)
 {
-  v2 = sub_10000BEC0();
+  v2 = sub_10000BEC0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
@@ -3900,7 +3877,7 @@ LABEL_9:
   }
 
 LABEL_17:
-  v18 = [v5 assertionForPid:{*(a1 + 56), *v22, *&v22[16]}];
+  v18 = [v5 assertionForPid:{*(a1 + 56), *v22, *&v22[8]}];
   v19 = v18;
   if (v18)
   {
@@ -4010,10 +3987,6 @@ uint64_t sub_10000D2A4(uint64_t a1, uint64_t a2)
       v5 = *(a1 + 64);
       if (v5 <= 2 && v5 <= (v2 - 68) >> 3 && v2 == ((8 * v5) | 0x44))
       {
-        v6 = *(a1 + 12);
-        v7 = *(a1 + 28);
-        v8 = *(a1 + 40);
-        v9 = *(a1 + 60);
         sub_100005EA4();
       }
     }
@@ -4046,8 +4019,6 @@ _DWORD *sub_10000D36C(_DWORD *result, uint64_t a2)
             if (v6 <= (v7 - 48) >> 2 && v7 == 4 * v6 + 48)
             {
               *(a2 + 40) = 1296;
-              v9 = result[3];
-              v10 = result[8];
               sub_100005EA4();
             }
           }
@@ -4112,10 +4083,6 @@ uint64_t sub_10000D48C(uint64_t result, uint64_t a2)
         if (v7 <= (v8 - 76) >> 2 && v8 == 4 * v7 + 76)
         {
           *(a2 + 40) = 1296;
-          v9 = *(result + 12);
-          v10 = *(result + 28);
-          v11 = *(result + 40);
-          v12 = *(result + 60);
           sub_100005EA4();
         }
       }
@@ -4203,11 +4170,11 @@ Swift::Int sub_10000D794()
   return sub_1000133EC();
 }
 
-Swift::Int sub_10000D7DC()
+Swift::Int sub_10000D7DC(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1000133CC();
-  sub_1000133DC(v1);
+  sub_1000133DC(v2);
   return sub_1000133EC();
 }
 
@@ -4229,56 +4196,54 @@ uint64_t variable initialization expression of ProcessorTraceRecorder.signposter
 {
   v0 = sub_10001324C();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v0);
+  v3 = &v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_1000219D0 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_1000105D4(v0, qword_100022030);
-  (*(v1 + 16))(v4, v5, v0);
+  v4 = sub_1000105D4(v0, qword_100022030);
+  (*(v1 + 16))(v3, v4, v0);
   return sub_1000131AC();
 }
 
-uint64_t static ProcessorTraceRecorder.recordingVersionString.getter()
+uint64_t static ProcessorTraceRecorder.recordingVersionString.getter(uint64_t a1, uint64_t a2)
 {
   if (!hwtrace_version_info())
   {
     return 0;
   }
 
-  v0 = sub_10001328C();
+  v2 = sub_10001328C();
 
-  return v0;
+  return v2;
 }
 
 id ProcessorTraceRecorder.__allocating_init(configuration:)(uint64_t a1)
 {
   v3 = sub_10001324C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin();
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = objc_allocWithZone(v1);
-  *&v8[OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording] = 0;
-  v8[OBJC_IVAR___DTProcessorTraceRecorder_state] = 0;
-  v9 = OBJC_IVAR___DTProcessorTraceRecorder_logger;
+  __chkstk_darwin(v3);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = objc_allocWithZone(v1);
+  *&v7[OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording] = 0;
+  v7[OBJC_IVAR___DTProcessorTraceRecorder_state] = 0;
+  v8 = OBJC_IVAR___DTProcessorTraceRecorder_logger;
   if (qword_1000219D0 != -1)
   {
     swift_once();
   }
 
-  v10 = sub_1000105D4(v3, qword_100022030);
-  v11 = *(v4 + 16);
-  v11(&v8[v9], v10, v3);
-  v11(v7, v10, v3);
+  v9 = sub_1000105D4(v3, qword_100022030);
+  v10 = *(v4 + 16);
+  v10(&v7[v8], v9, v3);
+  v10(v6, v9, v3);
   sub_1000131AC();
-  *&v8[OBJC_IVAR___DTProcessorTraceRecorder_configuration] = a1;
-  v13.receiver = v8;
-  v13.super_class = v1;
-  return objc_msgSendSuper2(&v13, "init");
+  *&v7[OBJC_IVAR___DTProcessorTraceRecorder_configuration] = a1;
+  v12.receiver = v7;
+  v12.super_class = v1;
+  return objc_msgSendSuper2(&v12, "init");
 }
 
 id ProcessorTraceRecorder.init(configuration:)(uint64_t a1)
@@ -4286,26 +4251,25 @@ id ProcessorTraceRecorder.init(configuration:)(uint64_t a1)
   ObjectType = swift_getObjectType();
   v4 = sub_10001324C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin();
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   *&v1[OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording] = 0;
   v1[OBJC_IVAR___DTProcessorTraceRecorder_state] = 0;
-  v9 = OBJC_IVAR___DTProcessorTraceRecorder_logger;
+  v8 = OBJC_IVAR___DTProcessorTraceRecorder_logger;
   if (qword_1000219D0 != -1)
   {
     swift_once();
   }
 
-  v10 = sub_1000105D4(v4, qword_100022030);
-  v11 = *(v5 + 16);
-  v11(&v1[v9], v10, v4);
-  v11(v8, v10, v4);
+  v9 = sub_1000105D4(v4, qword_100022030);
+  v10 = *(v5 + 16);
+  v10(&v1[v8], v9, v4);
+  v10(v7, v9, v4);
   sub_1000131AC();
   *&v1[OBJC_IVAR___DTProcessorTraceRecorder_configuration] = a1;
-  v13.receiver = v1;
-  v13.super_class = ObjectType;
-  return objc_msgSendSuper2(&v13, "init");
+  v12.receiver = v1;
+  v12.super_class = ObjectType;
+  return objc_msgSendSuper2(&v12, "init");
 }
 
 id ProcessorTraceRecorder.__deallocating_deinit()
@@ -4321,40 +4285,40 @@ id ProcessorTraceRecorder.__deallocating_deinit()
   return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-NSObject *sub_10000E138()
+NSObject *sub_10000E138(uint64_t a1)
 {
   if (hwtrace_live_topology())
   {
-    v11 = v0;
+    v12 = v1;
     hwtrace_live_recording_options_init();
-    v13 = 0;
+    v14 = 0;
     hwtrace_live_topology_systems();
     hwtrace_live_recording_options_set_session_policy();
-    v12 = 0;
-    v1 = hwtrace_live_recording_init_with_options();
-    v2 = v12;
-    if (v12)
+    v13 = 0;
+    v2 = hwtrace_live_recording_init_with_options();
+    v3 = v13;
+    if (v13)
     {
-      *(v11 + OBJC_IVAR___DTProcessorTraceRecorder_state) = 1;
+      *(v12 + OBJC_IVAR___DTProcessorTraceRecorder_state) = 1;
       hwtrace_live_recording_options_deinit();
     }
 
     else
     {
-      v6 = v1;
-      v2 = sub_10001322C();
-      v7 = sub_1000132DC();
-      if (os_log_type_enabled(v2, v7))
+      v7 = v2;
+      v3 = sub_10001322C();
+      v8 = sub_1000132DC();
+      if (os_log_type_enabled(v3, v8))
       {
-        v8 = swift_slowAlloc();
-        *v8 = 67109120;
-        *(v8 + 4) = v6;
-        _os_log_impl(&_mh_execute_header, v2, v7, "Failed to initialize recording: %d", v8, 8u);
+        v9 = swift_slowAlloc();
+        *v9 = 67109120;
+        *(v9 + 4) = v7;
+        _os_log_impl(&_mh_execute_header, v3, v8, "Failed to initialize recording: %d", v9, 8u);
       }
 
       sub_100010CCC();
       swift_allocError();
-      *v9 = 0;
+      *v10 = 0;
       swift_willThrow();
       hwtrace_live_recording_options_deinit();
     }
@@ -4362,22 +4326,22 @@ NSObject *sub_10000E138()
 
   else
   {
-    v3 = sub_10001322C();
-    v2 = sub_1000132DC();
-    if (os_log_type_enabled(v3, v2))
+    v4 = sub_10001322C();
+    v3 = sub_1000132DC();
+    if (os_log_type_enabled(v4, v3))
     {
-      v4 = swift_slowAlloc();
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v3, v2, "Failed to initialize hwtrace_live_topology.", v4, 2u);
+      v5 = swift_slowAlloc();
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v4, v3, "Failed to initialize hwtrace_live_topology.", v5, 2u);
     }
 
     sub_100010CCC();
     swift_allocError();
-    *v5 = 0;
+    *v6 = 0;
     swift_willThrow();
   }
 
-  return v2;
+  return v3;
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> ProcessorTraceRecorder.startRecording()()
@@ -4386,34 +4350,31 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v3 = v0;
   v4 = sub_10001319C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = (__chkstk_darwin)();
-  v9 = &v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v32 - v10;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v27 - v9;
   sub_10001318C();
-  v12 = sub_1000131BC();
-  v13 = sub_1000132FC();
+  v11 = sub_1000131BC();
+  v12 = sub_1000132FC();
   if (sub_10001331C())
   {
-    v14 = swift_slowAlloc();
-    v33 = v1;
-    v15 = v14;
-    *v14 = 0;
-    v16 = sub_10001317C();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, v13, v16, "start", "", v15, 2u);
+    v13 = swift_slowAlloc();
+    v28 = v1;
+    v14 = v13;
+    *v13 = 0;
+    v15 = sub_10001317C();
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, v12, v15, "start", "", v14, 2u);
     v3 = v0;
-    v2 = v33;
+    v2 = v28;
   }
 
-  (*(v5 + 16))(v9, v11, v4);
-  v17 = sub_10001320C();
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  (*(v5 + 16))(v8, v10, v4);
+  sub_10001320C();
   swift_allocObject();
-  v20 = sub_1000131FC();
-  (*(v5 + 8))(v11, v4);
-  v21 = OBJC_IVAR___DTProcessorTraceRecorder_state;
+  v16 = sub_1000131FC();
+  (*(v5 + 8))(v10, v4);
+  v17 = OBJC_IVAR___DTProcessorTraceRecorder_state;
   if (*(v3 + OBJC_IVAR___DTProcessorTraceRecorder_state))
   {
     if (*(v3 + OBJC_IVAR___DTProcessorTraceRecorder_state) != 1)
@@ -4424,12 +4385,11 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     goto LABEL_5;
   }
 
-  v27 = *(v3 + OBJC_IVAR___DTProcessorTraceRecorder_configuration);
-  v28 = sub_10000E138();
+  v23 = sub_10000E138(*(v3 + OBJC_IVAR___DTProcessorTraceRecorder_configuration));
   if (!v2)
   {
-    *(v3 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording) = v28;
-    if (*(v3 + v21) != 1)
+    *(v3 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording) = v23;
+    if (*(v3 + v17) != 1)
     {
       goto LABEL_11;
     }
@@ -4437,52 +4397,52 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 LABEL_5:
     if (*(v3 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording))
     {
-      v22 = hwtrace_live_recording_start();
-      if (!v22)
+      v18 = hwtrace_live_recording_start();
+      if (!v18)
       {
-        *(v3 + v21) = 2;
+        *(v3 + v17) = 2;
         goto LABEL_15;
       }
 
-      v23 = v22;
-      v24 = sub_10001322C();
-      v25 = sub_1000132DC();
-      if (!os_log_type_enabled(v24, v25))
+      v19 = v18;
+      v20 = sub_10001322C();
+      v21 = sub_1000132DC();
+      if (!os_log_type_enabled(v20, v21))
       {
         goto LABEL_14;
       }
 
-      v26 = swift_slowAlloc();
-      *v26 = 67109120;
-      *(v26 + 4) = v23;
-      _os_log_impl(&_mh_execute_header, v24, v25, "Failed to start recording: %d", v26, 8u);
+      v22 = swift_slowAlloc();
+      *v22 = 67109120;
+      *(v22 + 4) = v19;
+      _os_log_impl(&_mh_execute_header, v20, v21, "Failed to start recording: %d", v22, 8u);
       goto LABEL_13;
     }
 
 LABEL_11:
-    v24 = sub_10001322C();
-    v29 = sub_1000132DC();
-    if (!os_log_type_enabled(v24, v29))
+    v20 = sub_10001322C();
+    v24 = sub_1000132DC();
+    if (!os_log_type_enabled(v20, v24))
     {
 LABEL_14:
 
       sub_100010CCC();
       swift_allocError();
-      *v31 = 1;
+      *v26 = 1;
       swift_willThrow();
       goto LABEL_15;
     }
 
-    v30 = swift_slowAlloc();
-    *v30 = 0;
-    _os_log_impl(&_mh_execute_header, v24, v29, "Recording is not in configured state or is not initialized.", v30, 2u);
+    v25 = swift_slowAlloc();
+    *v25 = 0;
+    _os_log_impl(&_mh_execute_header, v20, v24, "Recording is not in configured state or is not initialized.", v25, 2u);
 LABEL_13:
 
     goto LABEL_14;
   }
 
 LABEL_15:
-  sub_100010228(v3, v20, "start");
+  sub_100010228(v3, v16, "start");
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> ProcessorTraceRecorder.pauseRecording()()
@@ -4490,82 +4450,79 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v2 = v0;
   v3 = sub_10001319C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = v33 - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = v29 - v8;
   sub_10001318C();
-  v11 = sub_1000131BC();
-  v12 = sub_1000132FC();
+  v10 = sub_1000131BC();
+  v11 = sub_1000132FC();
   if (sub_10001331C())
   {
-    v13 = swift_slowAlloc();
-    v33[1] = v1;
-    v14 = v13;
-    *v13 = 0;
-    v15 = sub_10001317C();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, v12, v15, "pause", "", v14, 2u);
+    v12 = swift_slowAlloc();
+    v29[1] = v1;
+    v13 = v12;
+    *v12 = 0;
+    v14 = sub_10001317C();
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, v11, v14, "pause", "", v13, 2u);
     v2 = v0;
   }
 
-  (*(v4 + 16))(v8, v10, v3);
-  v16 = sub_10001320C();
-  v17 = *(v16 + 48);
-  v18 = *(v16 + 52);
+  (*(v4 + 16))(v7, v9, v3);
+  sub_10001320C();
   swift_allocObject();
-  v19 = sub_1000131FC();
-  (*(v4 + 8))(v10, v3);
+  v15 = sub_1000131FC();
+  (*(v4 + 8))(v9, v3);
   if (*(v2 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording))
   {
-    v20 = hwtrace_live_recording_pause();
-    if (!v20)
+    v16 = hwtrace_live_recording_pause();
+    if (!v16)
     {
       *(v2 + OBJC_IVAR___DTProcessorTraceRecorder_state) = 3;
       goto LABEL_12;
     }
 
-    v21 = v20;
-    v22 = sub_10001322C();
-    v23 = sub_1000132DC();
-    if (os_log_type_enabled(v22, v23))
+    v17 = v16;
+    v18 = sub_10001322C();
+    v19 = sub_1000132DC();
+    if (os_log_type_enabled(v18, v19))
     {
-      v24 = swift_slowAlloc();
-      *v24 = 67109120;
-      *(v24 + 1) = v21;
-      v25 = "Failed to pause recording: %d";
-      v26 = v23;
-      v27 = v22;
-      v28 = v24;
-      v29 = 8;
+      v20 = swift_slowAlloc();
+      *v20 = 67109120;
+      *(v20 + 1) = v17;
+      v21 = "Failed to pause recording: %d";
+      v22 = v19;
+      v23 = v18;
+      v24 = v20;
+      v25 = 8;
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v27, v26, v25, v28, v29);
+      _os_log_impl(&_mh_execute_header, v23, v22, v21, v24, v25);
     }
   }
 
   else
   {
-    v22 = sub_10001322C();
-    v30 = sub_1000132DC();
-    if (os_log_type_enabled(v22, v30))
+    v18 = sub_10001322C();
+    v26 = sub_1000132DC();
+    if (os_log_type_enabled(v18, v26))
     {
-      v31 = swift_slowAlloc();
-      *v31 = 0;
-      v25 = "Failed to pause recording. currentLiveRecording is nil.";
-      v26 = v30;
-      v27 = v22;
-      v28 = v31;
-      v29 = 2;
+      v27 = swift_slowAlloc();
+      *v27 = 0;
+      v21 = "Failed to pause recording. currentLiveRecording is nil.";
+      v22 = v26;
+      v23 = v18;
+      v24 = v27;
+      v25 = 2;
       goto LABEL_9;
     }
   }
 
   sub_100010CCC();
   swift_allocError();
-  *v32 = 2;
+  *v28 = 2;
   swift_willThrow();
 LABEL_12:
-  sub_100010228(v2, v19, "pause");
+  sub_100010228(v2, v15, "pause");
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> ProcessorTraceRecorder.unpauseRecording()()
@@ -4573,56 +4530,53 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v2 = v0;
   v3 = sub_10001319C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = v25 - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = v21 - v8;
   sub_10001318C();
-  v11 = sub_1000131BC();
-  v12 = sub_1000132FC();
+  v10 = sub_1000131BC();
+  v11 = sub_1000132FC();
   if (sub_10001331C())
   {
-    v13 = swift_slowAlloc();
-    v25[1] = v1;
-    v14 = v13;
-    *v13 = 0;
-    v15 = sub_10001317C();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, v12, v15, "unpause", "", v14, 2u);
+    v12 = swift_slowAlloc();
+    v21[1] = v1;
+    v13 = v12;
+    *v12 = 0;
+    v14 = sub_10001317C();
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, v11, v14, "unpause", "", v13, 2u);
   }
 
-  (*(v4 + 16))(v8, v10, v3);
-  v16 = sub_10001320C();
-  v17 = *(v16 + 48);
-  v18 = *(v16 + 52);
+  (*(v4 + 16))(v7, v9, v3);
+  sub_10001320C();
   swift_allocObject();
-  v19 = sub_1000131FC();
-  (*(v4 + 8))(v10, v3);
-  v20 = OBJC_IVAR___DTProcessorTraceRecorder_state;
+  v15 = sub_1000131FC();
+  (*(v4 + 8))(v9, v3);
+  v16 = OBJC_IVAR___DTProcessorTraceRecorder_state;
   if (*(v2 + OBJC_IVAR___DTProcessorTraceRecorder_state) == 3 && *(v2 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording))
   {
     hwtrace_live_recording_resume();
-    *(v2 + v20) = 2;
+    *(v2 + v16) = 2;
   }
 
   else
   {
-    v21 = sub_10001322C();
-    v22 = sub_1000132DC();
-    if (os_log_type_enabled(v21, v22))
+    v17 = sub_10001322C();
+    v18 = sub_1000132DC();
+    if (os_log_type_enabled(v17, v18))
     {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&_mh_execute_header, v21, v22, "Failed to unpause recording", v23, 2u);
+      v19 = swift_slowAlloc();
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v17, v18, "Failed to unpause recording", v19, 2u);
     }
 
     sub_100010CCC();
     swift_allocError();
-    *v24 = 3;
+    *v20 = 3;
     swift_willThrow();
   }
 
-  sub_100010228(v2, v19, "unpause");
+  sub_100010228(v2, v15, "unpause");
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> ProcessorTraceRecorder.stopRecording()()
@@ -4630,92 +4584,89 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v2 = v0;
   v3 = sub_10001319C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = v31 - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = v27 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = v27 - v8;
   sub_10001318C();
-  v11 = sub_1000131BC();
-  v12 = sub_1000132FC();
+  v10 = sub_1000131BC();
+  v11 = sub_1000132FC();
   if (sub_10001331C())
   {
-    v13 = swift_slowAlloc();
-    v31[1] = v1;
-    v14 = v13;
-    *v13 = 0;
-    v15 = sub_10001317C();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, v12, v15, "stop", "", v14, 2u);
+    v12 = swift_slowAlloc();
+    v27[1] = v1;
+    v13 = v12;
+    *v12 = 0;
+    v14 = sub_10001317C();
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, v11, v14, "stop", "", v13, 2u);
     v2 = v0;
   }
 
-  (*(v4 + 16))(v8, v10, v3);
-  v16 = sub_10001320C();
-  v17 = *(v16 + 48);
-  v18 = *(v16 + 52);
+  (*(v4 + 16))(v7, v9, v3);
+  sub_10001320C();
   swift_allocObject();
-  v19 = sub_1000131FC();
-  (*(v4 + 8))(v10, v3);
-  v20 = OBJC_IVAR___DTProcessorTraceRecorder_state;
-  v21 = *(v2 + OBJC_IVAR___DTProcessorTraceRecorder_state);
-  if (v21 != 2)
+  v15 = sub_1000131FC();
+  (*(v4 + 8))(v9, v3);
+  v16 = OBJC_IVAR___DTProcessorTraceRecorder_state;
+  v17 = *(v2 + OBJC_IVAR___DTProcessorTraceRecorder_state);
+  if (v17 != 2)
   {
 LABEL_6:
-    if (v21 == 3 && *(v2 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording))
+    if (v17 == 3 && *(v2 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording))
     {
-      v23 = hwtrace_live_recording_stop();
-      if (!v23)
+      v19 = hwtrace_live_recording_stop();
+      if (!v19)
       {
-        *(v2 + v20) = 4;
+        *(v2 + v16) = 4;
         goto LABEL_15;
       }
 
-      v24 = v23;
-      v25 = sub_10001322C();
-      v26 = sub_1000132DC();
-      if (!os_log_type_enabled(v25, v26))
+      v20 = v19;
+      v21 = sub_10001322C();
+      v22 = sub_1000132DC();
+      if (!os_log_type_enabled(v21, v22))
       {
         goto LABEL_14;
       }
 
-      v27 = swift_slowAlloc();
-      *v27 = 67109120;
-      *(v27 + 4) = v24;
-      _os_log_impl(&_mh_execute_header, v25, v26, "Failed to stop recording: %d", v27, 8u);
+      v23 = swift_slowAlloc();
+      *v23 = 67109120;
+      *(v23 + 4) = v20;
+      _os_log_impl(&_mh_execute_header, v21, v22, "Failed to stop recording: %d", v23, 8u);
     }
 
     else
     {
-      v25 = sub_10001322C();
-      v28 = sub_1000132DC();
-      if (!os_log_type_enabled(v25, v28))
+      v21 = sub_10001322C();
+      v24 = sub_1000132DC();
+      if (!os_log_type_enabled(v21, v24))
       {
 LABEL_14:
 
         sub_100010CCC();
         swift_allocError();
-        *v30 = 4;
+        *v26 = 4;
         swift_willThrow();
         goto LABEL_15;
       }
 
-      v29 = swift_slowAlloc();
-      *v29 = 0;
-      _os_log_impl(&_mh_execute_header, v25, v28, "Failed to stop recording", v29, 2u);
+      v25 = swift_slowAlloc();
+      *v25 = 0;
+      _os_log_impl(&_mh_execute_header, v21, v24, "Failed to stop recording", v25, 2u);
     }
 
     goto LABEL_14;
   }
 
   ProcessorTraceRecorder.pauseRecording()();
-  if (!v22)
+  if (!v18)
   {
-    v21 = *(v2 + v20);
+    v17 = *(v2 + v16);
     goto LABEL_6;
   }
 
 LABEL_15:
-  sub_100010228(v2, v19, "stop");
+  sub_100010228(v2, v15, "stop");
 }
 
 uint64_t sub_10000F6CC(void *a1, uint64_t a2, uint64_t a3, void (*a4)(void))
@@ -4730,227 +4681,222 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 {
   v3 = sub_10001319C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = v81 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = v81 - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = v73 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = v73 - v8;
   sub_10001318C();
-  v89 = v1;
-  v11 = sub_1000131BC();
-  v12 = sub_1000132FC();
+  v81 = v1;
+  v10 = sub_1000131BC();
+  v11 = sub_1000132FC();
   if (sub_10001331C())
   {
-    v13 = swift_slowAlloc();
-    *v13 = 0;
-    v14 = sub_10001317C();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, v12, v14, "save", "", v13, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    v13 = sub_10001317C();
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, v11, v13, "save", "", v12, 2u);
   }
 
-  (*(v4 + 16))(v8, v10, v3);
-  v15 = sub_10001320C();
-  v16 = *(v15 + 48);
-  v17 = *(v15 + 52);
+  (*(v4 + 16))(v7, v9, v3);
+  sub_10001320C();
   swift_allocObject();
-  v18 = sub_1000131FC();
-  (*(v4 + 8))(v10, v3);
+  v14 = sub_1000131FC();
+  (*(v4 + 8))(v9, v3);
   if (fd < 0)
   {
-    v20 = v89;
-    v30 = sub_10001322C();
-    v31 = sub_1000132DC();
-    if (os_log_type_enabled(v30, v31))
-    {
-      v32 = swift_slowAlloc();
-      *v32 = 67109120;
-      *(v32 + 1) = fd;
-      v33 = "Invalid file descriptor %d";
-      v34 = v31;
-      v35 = v30;
-      v36 = v32;
-      v37 = 8;
-LABEL_15:
-      _os_log_impl(&_mh_execute_header, v35, v34, v33, v36, v37);
-    }
-
-LABEL_16:
-
-    sub_100010CCC();
-    swift_allocError();
-    *v40 = 6;
-    swift_willThrow();
-LABEL_23:
-    sub_100010228(v20, v18, "save");
-
-    return;
-  }
-
-  v19 = ktrace_file_create_fd();
-  v20 = v89;
-  if (!v19)
-  {
-    v30 = sub_10001322C();
-    v38 = sub_1000132DC();
-    if (os_log_type_enabled(v30, v38))
-    {
-      v39 = swift_slowAlloc();
-      *v39 = 0;
-      v33 = "Can't create ktrace file";
-      v34 = v38;
-      v35 = v30;
-      v36 = v39;
-      v37 = 2;
-      goto LABEL_15;
-    }
-
-    goto LABEL_16;
-  }
-
-  v21 = OBJC_IVAR___DTProcessorTraceRecorder_state;
-  if (*(v89 + OBJC_IVAR___DTProcessorTraceRecorder_state) != 4)
-  {
-    ProcessorTraceRecorder.stopRecording()();
-    if (v41)
-    {
-      goto LABEL_22;
-    }
-
-    v88 = 0;
-    if (*(v20 + v21) != 4)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  v22 = OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording;
-  if (!*(v20 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording))
-  {
-LABEL_19:
-    v42 = sub_10001322C();
-    v43 = sub_1000132DC();
-    if (os_log_type_enabled(v42, v43))
-    {
-      v44 = swift_slowAlloc();
-      *v44 = 0;
-      _os_log_impl(&_mh_execute_header, v42, v43, "Failed to save the recording", v44, 2u);
-    }
-
-    sub_100010CCC();
-    swift_allocError();
-    *v45 = 6;
-    swift_willThrow();
-    goto LABEL_22;
-  }
-
-  v23 = hwtrace_live_recording_postprocess_options_init();
-  hwtrace_live_recording_postprocess_options_set_ktrace_session();
-  v24 = hwtrace_live_recording_postprocess();
-  if (v24)
-  {
-    v25 = v24;
+    v16 = v81;
     v26 = sub_10001322C();
     v27 = sub_1000132DC();
     if (os_log_type_enabled(v26, v27))
     {
       v28 = swift_slowAlloc();
       *v28 = 67109120;
-      *(v28 + 4) = v25;
-      _os_log_impl(&_mh_execute_header, v26, v27, "Failed to postprocess recording: %d", v28, 8u);
+      *(v28 + 1) = fd;
+      v29 = "Invalid file descriptor %d";
+      v30 = v27;
+      v31 = v26;
+      v32 = v28;
+      v33 = 8;
+LABEL_15:
+      _os_log_impl(&_mh_execute_header, v31, v30, v29, v32, v33);
+    }
+
+LABEL_16:
+
+    sub_100010CCC();
+    swift_allocError();
+    *v36 = 6;
+    swift_willThrow();
+LABEL_23:
+    sub_100010228(v16, v14, "save");
+
+    return;
+  }
+
+  v15 = ktrace_file_create_fd();
+  v16 = v81;
+  if (!v15)
+  {
+    v26 = sub_10001322C();
+    v34 = sub_1000132DC();
+    if (os_log_type_enabled(v26, v34))
+    {
+      v35 = swift_slowAlloc();
+      *v35 = 0;
+      v29 = "Can't create ktrace file";
+      v30 = v34;
+      v31 = v26;
+      v32 = v35;
+      v33 = 2;
+      goto LABEL_15;
+    }
+
+    goto LABEL_16;
+  }
+
+  v17 = OBJC_IVAR___DTProcessorTraceRecorder_state;
+  if (*(v81 + OBJC_IVAR___DTProcessorTraceRecorder_state) != 4)
+  {
+    ProcessorTraceRecorder.stopRecording()();
+    if (v37)
+    {
+      goto LABEL_22;
+    }
+
+    v80 = 0;
+    if (*(v16 + v17) != 4)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  v18 = OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording;
+  if (!*(v16 + OBJC_IVAR___DTProcessorTraceRecorder_currentLiveRecording))
+  {
+LABEL_19:
+    v38 = sub_10001322C();
+    v39 = sub_1000132DC();
+    if (os_log_type_enabled(v38, v39))
+    {
+      v40 = swift_slowAlloc();
+      *v40 = 0;
+      _os_log_impl(&_mh_execute_header, v38, v39, "Failed to save the recording", v40, 2u);
     }
 
     sub_100010CCC();
     swift_allocError();
-    *v29 = 5;
+    *v41 = 6;
+    swift_willThrow();
+    goto LABEL_22;
+  }
+
+  v19 = hwtrace_live_recording_postprocess_options_init();
+  hwtrace_live_recording_postprocess_options_set_ktrace_session();
+  v20 = hwtrace_live_recording_postprocess();
+  if (v20)
+  {
+    v21 = v20;
+    v22 = sub_10001322C();
+    v23 = sub_1000132DC();
+    if (os_log_type_enabled(v22, v23))
+    {
+      v24 = swift_slowAlloc();
+      *v24 = 67109120;
+      *(v24 + 4) = v21;
+      _os_log_impl(&_mh_execute_header, v22, v23, "Failed to postprocess recording: %d", v24, 8u);
+    }
+
+    sub_100010CCC();
+    swift_allocError();
+    *v25 = 5;
     swift_willThrow();
     hwtrace_live_recording_postprocess_options_deinit();
     goto LABEL_22;
   }
 
-  v87 = v23;
+  v79 = v19;
   hwtrace_live_recording_finalize_postprocessing();
-  v98 = 0;
-  v46 = hwtrace_recording_init_from_live_recording();
-  if (v46 || (v51 = v98) == 0)
+  v90 = 0;
+  v42 = hwtrace_recording_init_from_live_recording();
+  if (v42 || (v47 = v90) == 0)
   {
-    v47 = sub_10001322C();
-    v48 = sub_1000132DC();
-    if (os_log_type_enabled(v47, v48))
+    v43 = sub_10001322C();
+    v44 = sub_1000132DC();
+    if (os_log_type_enabled(v43, v44))
     {
-      v49 = swift_slowAlloc();
-      *v49 = 67109120;
-      *(v49 + 4) = v46;
-      _os_log_impl(&_mh_execute_header, v47, v48, "Failed to init recording from live recording: %d", v49, 8u);
+      v45 = swift_slowAlloc();
+      *v45 = 67109120;
+      *(v45 + 4) = v42;
+      _os_log_impl(&_mh_execute_header, v43, v44, "Failed to init recording from live recording: %d", v45, 8u);
     }
 
     sub_100010CCC();
     swift_allocError();
-    *v50 = 6;
+    *v46 = 6;
     swift_willThrow();
     goto LABEL_28;
   }
 
-  v20 = v89;
-  v52 = *(*(v89 + OBJC_IVAR___DTProcessorTraceRecorder_configuration) + OBJC_IVAR___DVTProcessorTraceRecorderConfiguration_copyImagesOnSave);
-  v83 = *(v89 + OBJC_IVAR___DTProcessorTraceRecorder_configuration);
-  if (v52 > 1)
+  v16 = v81;
+  v48 = *(*(v81 + OBJC_IVAR___DTProcessorTraceRecorder_configuration) + OBJC_IVAR___DVTProcessorTraceRecorderConfiguration_copyImagesOnSave);
+  v75 = *(v81 + OBJC_IVAR___DTProcessorTraceRecorder_configuration);
+  if (v48 > 1)
   {
     options_init = hwtrace_load_options_init();
     if (options_init)
     {
-      v61 = options_init;
-      v97 = 0;
+      v56 = options_init;
+      v89 = 0;
       if (!hwtrace_trace_init_from_recording())
       {
-        v81[0] = v61;
-        v81[1] = v51;
+        v73[0] = v56;
+        v73[1] = v47;
         hwtrace_trace_topology();
-        v92 = 0;
-        v96 = 0;
+        v84 = 0;
+        v88 = 0;
         hwtrace_topology_systems();
-        v68 = v96;
-        if (v96 && v92)
+        v63 = v88;
+        if (v88 && v84)
         {
-          v82 = &v96[v92];
+          v74 = v88 + 8 * v84;
           do
           {
-            v84 = v68;
-            v69 = *v68;
-            v91 = 0;
-            v95 = 0;
+            v76 = v63;
+            v83 = 0;
+            v87 = 0;
             hwtrace_system_tasks();
-            v70 = v95;
-            if (v95 && v91)
+            v64 = v87;
+            if (v87 && v83)
             {
-              v85 = 0;
-              v71 = &v95[v91];
-              v86 = v71;
+              v77 = 0;
+              v65 = v87 + 8 * v83;
+              v78 = v65;
               do
               {
-                v72 = *v70;
-                v90 = 0;
-                v94 = 0;
+                v82 = 0;
+                v86 = 0;
                 hwtrace_task_threads();
-                v73 = v94;
-                if (v94)
+                v66 = v86;
+                if (v86)
                 {
-                  if (v90)
+                  if (v82)
                   {
-                    v74 = &v94[v90];
+                    v67 = v86 + 8 * v82;
                     while (2)
                     {
                       while (1)
                       {
-                        v75 = *v73++;
-                        v93 = 0;
-                        v76 = hwtrace_cursor_init_from_thread();
-                        if (v93 && v76 == 0)
+                        v66 += 8;
+                        v85 = 0;
+                        v68 = hwtrace_cursor_init_from_thread();
+                        if (v85 && v68 == 0)
                         {
                           break;
                         }
 
-                        if (v73 == v74)
+                        if (v66 == v67)
                         {
-                          v79 = 0;
+                          v71 = 0;
                           goto LABEL_63;
                         }
                       }
@@ -4958,17 +4904,17 @@ LABEL_19:
                       do
                       {
                         hwtrace_cursor_range();
-                        v78 = hwtrace_range_terminator();
-                        v79 = v78 == 1;
-                        if (v78 == 1)
+                        v70 = hwtrace_range_terminator();
+                        v71 = v70 == 1;
+                        if (v70 == 1)
                         {
-                          v85 = 1;
+                          v77 = 1;
                           goto LABEL_63;
                         }
                       }
 
                       while (!hwtrace_cursor_next_range());
-                      if (v73 != v74)
+                      if (v66 != v67)
                       {
                         continue;
                       }
@@ -4977,36 +4923,36 @@ LABEL_19:
                     }
 
 LABEL_63:
-                    v71 = v86;
+                    v65 = v78;
                   }
 
                   else
                   {
-                    v79 = 0;
+                    v71 = 0;
                   }
                 }
 
                 else
                 {
-                  v79 = 0;
+                  v71 = 0;
                 }
 
-                ++v70;
+                v64 += 8;
               }
 
-              while (v70 != v71 && !v79);
-              v80 = v85;
+              while (v64 != v65 && !v71);
+              v72 = v77;
             }
 
             else
             {
-              v80 = 0;
+              v72 = 0;
             }
 
-            v68 = v84 + 1;
+            v63 = v76 + 8;
           }
 
-          while (v84 + 1 != v82 && (v80 & 1) == 0);
+          while (v76 + 8 != v74 && (v72 & 1) == 0);
         }
 
         hwtrace_trace_deinit();
@@ -5016,7 +4962,7 @@ LABEL_63:
 
       sub_100010CCC();
       swift_allocError();
-      *v62 = 7;
+      *v57 = 7;
       swift_willThrow();
       hwtrace_load_options_deinit();
       hwtrace_recording_deinit();
@@ -5027,7 +4973,7 @@ LABEL_63:
     {
       sub_100010CCC();
       swift_allocError();
-      *v67 = 7;
+      *v62 = 7;
       swift_willThrow();
       hwtrace_recording_deinit();
       hwtrace_live_recording_postprocess_options_deinit();
@@ -5042,95 +4988,92 @@ LABEL_31:
   hwtrace_recording_save_options_init();
   hwtrace_recording_save_options_set_ktrace_file();
   hwtrace_recording_save_options_set_port_mode();
-  v53 = *(v83 + OBJC_IVAR___DVTProcessorTraceRecorderConfiguration_decodeOnSave);
   hwtrace_recording_save_options_set_decode_trace();
   hwtrace_recording_save_options_set_decode_compression();
-  v54 = hwtrace_recording_save();
-  if (v54)
+  v49 = hwtrace_recording_save();
+  if (v49)
   {
-    v55 = v54;
-    v56 = sub_10001322C();
-    v57 = sub_1000132DC();
-    if (os_log_type_enabled(v56, v57))
+    v50 = v49;
+    v51 = sub_10001322C();
+    v52 = sub_1000132DC();
+    if (os_log_type_enabled(v51, v52))
     {
-      v58 = swift_slowAlloc();
-      *v58 = 67109120;
-      *(v58 + 4) = v55;
-      _os_log_impl(&_mh_execute_header, v56, v57, "Failed to save recording: %d", v58, 8u);
+      v53 = swift_slowAlloc();
+      *v53 = 67109120;
+      *(v53 + 4) = v50;
+      _os_log_impl(&_mh_execute_header, v51, v52, "Failed to save recording: %d", v53, 8u);
     }
 
     sub_100010CCC();
     swift_allocError();
-    *v59 = 6;
+    *v54 = 6;
     swift_willThrow();
     hwtrace_recording_save_options_deinit();
 LABEL_28:
     hwtrace_recording_deinit();
     hwtrace_live_recording_postprocess_options_deinit();
     ktrace_file_close();
-    v20 = v89;
+    v16 = v81;
     goto LABEL_23;
   }
 
   hwtrace_live_recording_deinit();
-  v63 = v89;
-  *(v89 + v22) = 0;
-  *(v63 + v21) = 0;
-  v64 = sub_10001322C();
-  v65 = sub_1000132CC();
-  if (os_log_type_enabled(v64, v65))
+  v58 = v81;
+  *(v81 + v18) = 0;
+  *(v58 + v17) = 0;
+  v59 = sub_10001322C();
+  v60 = sub_1000132CC();
+  if (os_log_type_enabled(v59, v60))
   {
-    v66 = swift_slowAlloc();
-    *v66 = 0;
-    _os_log_impl(&_mh_execute_header, v64, v65, "Successfully saved recording to tracev3 file.", v66, 2u);
+    v61 = swift_slowAlloc();
+    *v61 = 0;
+    _os_log_impl(&_mh_execute_header, v59, v60, "Successfully saved recording to tracev3 file.", v61, 2u);
   }
 
   hwtrace_recording_save_options_deinit();
   hwtrace_recording_deinit();
   hwtrace_live_recording_postprocess_options_deinit();
   ktrace_file_close();
-  sub_100010228(v89, v18, "save");
+  sub_100010228(v81, v14, "save");
 }
 
 uint64_t sub_100010228(uint64_t a1, uint64_t a2, const char *a3)
 {
-  v20 = a3;
+  v18 = a3;
   v3 = sub_1000131DC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin();
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_10001319C();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin();
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_1000131BC();
+  __chkstk_darwin(v3);
+  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_10001319C();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_1000131BC();
   sub_1000131EC();
-  v14 = sub_1000132EC();
+  v12 = sub_1000132EC();
   if (sub_10001331C())
   {
 
     sub_10001321C();
 
-    if ((*(v4 + 88))(v7, v3) == enum case for OSSignpostError.doubleEnd(_:))
+    if ((*(v4 + 88))(v6, v3) == enum case for OSSignpostError.doubleEnd(_:))
     {
-      v15 = "[Error] Interval already ended";
+      v13 = "[Error] Interval already ended";
     }
 
     else
     {
-      (*(v4 + 8))(v7, v3);
-      v15 = "";
+      (*(v4 + 8))(v6, v3);
+      v13 = "";
     }
 
-    v16 = swift_slowAlloc();
-    *v16 = 0;
-    v17 = sub_10001317C();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, v14, v17, v20, v15, v16, 2u);
+    v14 = swift_slowAlloc();
+    *v14 = 0;
+    v15 = sub_10001317C();
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, v12, v15, v18, v13, v14, 2u);
   }
 
-  return (*(v9 + 8))(v12, v8);
+  return (*(v8 + 8))(v10, v7);
 }
 
 id ProcessorTraceRecorderConfiguration.__allocating_init()()
@@ -5150,7 +5093,7 @@ uint64_t sub_1000105D4(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_10001060C(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_10001060C(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_1000106D8(v11, 0, 0, 1, a1, a2);
@@ -5250,11 +5193,9 @@ LABEL_8:
 
 char *sub_1000107E4(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100010830(a1, a2);
+  v3 = sub_100010830(a1, a2);
   sub_100010960(&off_10001D928);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100010830(uint64_t a1, unint64_t a2)
@@ -5354,7 +5295,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -5368,15 +5308,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100010AC0(result, v12, 1, v3);
+  result = sub_100010AC0(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -5391,15 +5331,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -5408,12 +5348,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -5545,7 +5485,7 @@ unint64_t sub_100010CCC()
   return result;
 }
 
-uint64_t type metadata accessor for ProcessorTraceRecorder()
+uint64_t type metadata accessor for ProcessorTraceRecorder(uint64_t a1)
 {
   result = qword_100021A30;
   if (!qword_100021A30)
@@ -5556,16 +5496,14 @@ uint64_t type metadata accessor for ProcessorTraceRecorder()
   return result;
 }
 
-uint64_t sub_100010D74()
+uint64_t sub_100010D74(uint64_t a1)
 {
   result = sub_10001324C();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v3 = *(result - 8) + 64;
     result = sub_1000131CC();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v4 = *(result - 8) + 64;
       result = swift_updateClassMetadata2();
       if (!result)
       {
@@ -5925,15 +5863,17 @@ unint64_t sub_100011188()
   return result;
 }
 
-uint64_t sub_1000111DC(uint64_t *a1)
+uint64_t sub_1000111DC(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_100011228(uint64_t a1, uint64_t a2)
@@ -5949,7 +5889,6 @@ uint64_t sub_100011284(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -5997,38 +5936,35 @@ LABEL_6:
     [(objc_class *)with.super.isa encodeObject:v9 forKey:v10];
   }
 
-  v11 = *(v2 + OBJC_IVAR___DVTProcessorTraceRecorderConfiguration_copyImagesOnSave);
-  v12 = sub_1000132BC().super.super.isa;
-  v13 = sub_10001325C();
-  [(objc_class *)with.super.isa encodeObject:v12 forKey:v13];
+  v11 = sub_1000132BC().super.super.isa;
+  v12 = sub_10001325C();
+  [(objc_class *)with.super.isa encodeObject:v11 forKey:v12];
 
   if (*(v2 + OBJC_IVAR___DVTProcessorTraceRecorderConfiguration_decodeOnSave) == 1)
   {
     sub_100011678();
-    v14 = sub_10001330C(1).super.super.isa;
-    v15 = sub_10001325C();
-    [(objc_class *)with.super.isa encodeObject:v14 forKey:v15];
+    v13 = sub_10001330C(1).super.super.isa;
+    v14 = sub_10001325C();
+    [(objc_class *)with.super.isa encodeObject:v13 forKey:v14];
   }
 
   if (*(v2 + OBJC_IVAR___DVTProcessorTraceRecorderConfiguration_recordingMode + 8) > 1u)
   {
     sub_100011678();
-    v17.super.super.isa = sub_10001330C(1).super.super.isa;
+    v15.super.super.isa = sub_10001330C(1).super.super.isa;
   }
 
   else
   {
-    v16 = *(v2 + OBJC_IVAR___DVTProcessorTraceRecorderConfiguration_recordingMode);
-    v17.super.super.isa = sub_1000133FC().super.super.isa;
+    v15.super.super.isa = sub_1000133FC().super.super.isa;
   }
 
-  v18 = sub_10001325C();
-  [(objc_class *)with.super.isa encodeObject:v17.super.super.isa forKey:v18];
+  v16 = sub_10001325C();
+  [(objc_class *)with.super.isa encodeObject:v15.super.super.isa forKey:v16];
 
-  v19 = *(v2 + OBJC_IVAR___DVTProcessorTraceRecorderConfiguration_systems);
-  v20 = sub_1000132AC().super.isa;
-  v21 = sub_10001325C();
-  [(objc_class *)with.super.isa encodeObject:v20 forKey:v21];
+  v17 = sub_1000132AC().super.isa;
+  v18 = sub_10001325C();
+  [(objc_class *)with.super.isa encodeObject:v17 forKey:v18];
 }
 
 unint64_t sub_100011678()
@@ -6485,7 +6421,7 @@ id ProcessorTraceRecorderConfiguration.init(target:isProductionModeEnabled:isThr
   return objc_msgSendSuper2(&v21, "init");
 }
 
-uint64_t *sub_100012280@<X0>(uint64_t *result@<X0>, _BYTE *a2@<X8>)
+unint64_t *sub_100012280@<X0>(unint64_t *result@<X0>, _BYTE *a2@<X8>)
 {
   v2 = *result;
   if (*result >= 3)
@@ -6971,14 +6907,11 @@ uint64_t sub_100012814()
 
 uint64_t *sub_1000128D0(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -6997,21 +6930,25 @@ void sub_100012970(void *a1, _xpc_connection_s *a2)
 void sub_100012A18(void *a1)
 {
   v1 = [a1 localizedDescription];
-  sub_100002F14(&_mh_execute_header, v2, v3, "Failed to unarchive config data: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_100002F14(&_mh_execute_header, v2, v3, "Failed to unarchive config data: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100012AE4()
 {
   v0 = __error();
-  strerror(*v0);
-  sub_100002F14(&_mh_execute_header, v1, v2, "failed to set flags on stackshot config (%s)", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = strerror(*v0);
+  sub_100002F14(&_mh_execute_header, v1, v2, "failed to set flags on stackshot config (%s)", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_100012B68()
 {
   v0 = __error();
-  strerror(*v0);
-  sub_100002F14(&_mh_execute_header, v1, v2, "stackshot failed (%s)", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = strerror(*v0);
+  sub_100002F14(&_mh_execute_header, v1, v2, "stackshot failed (%s)", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_100012BEC(os_log_t log)

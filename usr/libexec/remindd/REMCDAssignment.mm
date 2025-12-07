@@ -58,6 +58,8 @@
   contextCopy = context;
   v12 = static REMCDAssignment.existingCloudObject(for:accountID:managedObjectContext:)(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -88,6 +90,8 @@
   v11._countAndFlagsBits = v6;
   v11._object = v8;
   REMCDAssignment.mergeData(from:accountID:)(recordCopy, v11);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (id)newlyCreatedRecord

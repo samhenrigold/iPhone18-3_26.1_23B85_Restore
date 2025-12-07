@@ -39,7 +39,7 @@
 
 void __69__CALNPersistentTimeToLeaveRefreshStorage_persistentStorageWithPath___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v4 = *(a1 + 32);
   v3 = (a1 + 32);
@@ -48,9 +48,9 @@ void __69__CALNPersistentTimeToLeaveRefreshStorage_persistentStorageWithPath___b
   v6 = v3[1];
   if (v5)
   {
-    v18 = 0;
-    v7 = [v6 _loadDataWithError:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [v6 _loadDataWithError:&v17];
+    v8 = v17;
     v9 = +[CALNLogSubsystem defaultCategory];
     v10 = v9;
     if (v7)
@@ -59,7 +59,7 @@ void __69__CALNPersistentTimeToLeaveRefreshStorage_persistentStorageWithPath___b
       {
         v11 = *v3;
         *buf = 138543362;
-        v20 = v11;
+        v19 = v11;
         v12 = "Time to Leave refresh storage file loaded from path %{public}@.";
 LABEL_8:
         _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
@@ -74,9 +74,9 @@ LABEL_8:
 
   else
   {
-    v17 = 0;
-    v13 = [v6 _saveDataWithError:&v17];
-    v8 = v17;
+    v16 = 0;
+    v13 = [v6 _saveDataWithError:&v16];
+    v8 = v16;
     v14 = +[CALNLogSubsystem defaultCategory];
     v10 = v14;
     if (v13)
@@ -85,7 +85,7 @@ LABEL_8:
       {
         v15 = *v3;
         *buf = 138543362;
-        v20 = v15;
+        v19 = v15;
         v12 = "Time to Leave refresh storage file did not exist at path = %{public}@. Created a new file.";
         goto LABEL_8;
       }
@@ -96,8 +96,6 @@ LABEL_8:
       __69__CALNPersistentTimeToLeaveRefreshStorage_persistentStorageWithPath___block_invoke_cold_1(v3);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)timeToLeaveRefreshDataFromPersistentStorageWithPath:(id)path error:(id *)error
@@ -116,19 +114,17 @@ LABEL_8:
   return v8;
 }
 
-void __101__CALNPersistentTimeToLeaveRefreshStorage_timeToLeaveRefreshDataFromPersistentStorageWithPath_error___block_invoke()
+void __101__CALNPersistentTimeToLeaveRefreshStorage_timeToLeaveRefreshDataFromPersistentStorageWithPath_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
-  v3 = timeToLeaveRefreshDataFromPersistentStorageWithPath_error__allowedClasses;
-  timeToLeaveRefreshDataFromPersistentStorageWithPath_error__allowedClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
+  v5 = timeToLeaveRefreshDataFromPersistentStorageWithPath_error__allowedClasses;
+  timeToLeaveRefreshDataFromPersistentStorageWithPath_error__allowedClasses = v4;
 }
 
 - (CALNPersistentTimeToLeaveRefreshStorage)initWithPath:(id)path
@@ -271,7 +267,7 @@ void __69__CALNPersistentTimeToLeaveRefreshStorage_refreshDateWithIdentifier___b
 
 - (void)_addRefreshDate:(id)date withIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   identifierCopy = identifier;
   workQueue = [(CALNPersistentTimeToLeaveRefreshStorage *)self workQueue];
@@ -280,25 +276,23 @@ void __69__CALNPersistentTimeToLeaveRefreshStorage_refreshDateWithIdentifier___b
   inMemoryStorage = [(CALNPersistentTimeToLeaveRefreshStorage *)self inMemoryStorage];
   [inMemoryStorage addRefreshDate:dateCopy withIdentifier:identifierCopy];
 
-  v13 = 0;
-  LOBYTE(inMemoryStorage) = [(CALNPersistentTimeToLeaveRefreshStorage *)self _saveDataWithError:&v13];
-  v10 = v13;
+  v12 = 0;
+  LOBYTE(inMemoryStorage) = [(CALNPersistentTimeToLeaveRefreshStorage *)self _saveDataWithError:&v12];
+  v10 = v12;
   if ((inMemoryStorage & 1) == 0)
   {
     v11 = +[CALNLogSubsystem calendar];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v15 = v10;
-      v16 = 2114;
-      v17 = identifierCopy;
-      v18 = 2112;
-      v19 = dateCopy;
+      v14 = v10;
+      v15 = 2114;
+      v16 = identifierCopy;
+      v17 = 2112;
+      v18 = dateCopy;
       _os_log_error_impl(&dword_242909000, v11, OS_LOG_TYPE_ERROR, "Could not save time to leave refresh date. error = %{public}@, identifier = %{public}@, data = %@", buf, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeRefreshDateWithIdentifier:(id)identifier
@@ -325,15 +319,14 @@ void __69__CALNPersistentTimeToLeaveRefreshStorage_refreshDateWithIdentifier___b
 
 - (void)_removeData
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_242909000, v0, OS_LOG_TYPE_ERROR, "Could not save after removing time to leave refresh dates. error = %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_242909000, v0, OS_LOG_TYPE_ERROR, "Could not save after removing time to leave refresh dates. error = %{public}@", v1, 0xCu);
 }
 
 - (BOOL)_loadDataWithError:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   workQueue = [(CALNPersistentTimeToLeaveRefreshStorage *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -347,19 +340,18 @@ void __69__CALNPersistentTimeToLeaveRefreshStorage_refreshDateWithIdentifier___b
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v14 = [v8 count];
+      v13 = [v8 count];
       _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Loaded time to leave refresh timer dates, count = %lu", buf, 0xCu);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __62__CALNPersistentTimeToLeaveRefreshStorage__loadDataWithError___block_invoke;
-    v12[3] = &unk_278D6FA18;
-    v12[4] = self;
-    [v8 enumerateKeysAndObjectsUsingBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __62__CALNPersistentTimeToLeaveRefreshStorage__loadDataWithError___block_invoke;
+    v11[3] = &unk_278D6FA18;
+    v11[4] = self;
+    [v8 enumerateKeysAndObjectsUsingBlock:v11];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8 != 0;
 }
 
@@ -435,51 +427,35 @@ LABEL_12:
 
 void __69__CALNPersistentTimeToLeaveRefreshStorage_persistentStorageWithPath___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Time to leave refresh storage file did not exist at path = %{public}@. Creating a new file FAILED with error: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Time to leave refresh storage file did not exist at path = %{public}@. Creating a new file FAILED with error: %@", v3, DWORD2(v3));
 }
 
 void __69__CALNPersistentTimeToLeaveRefreshStorage_persistentStorageWithPath___block_invoke_cold_2(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Couldn't read existing persistent time to leave refresh storage at path %{public}@. Will proceed anyway, which may mean contents will be overwritten. Error: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_removeRefreshDateWithIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v0, v1, "Could not save after removing time to leave refresh date. error = %{public}@, identifier = %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_242909000, v1, v2, "Couldn't read existing persistent time to leave refresh storage at path %{public}@. Will proceed anyway, which may mean contents will be overwritten. Error: %@", v3, DWORD2(v3));
 }
 
 - (void)_saveDataWithError:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [a1 path];
   OUTLINED_FUNCTION_1_0();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_242909000, a3, OS_LOG_TYPE_ERROR, "Error writing archived data to path = %{public}@, error = %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_242909000, a3, OS_LOG_TYPE_ERROR, "Error writing archived data to path = %{public}@, error = %@", v6, 0x16u);
 }
 
 - (void)_saveDataWithError:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_2_0(&dword_242909000, v0, v1, "Error archiving time to leave refresh dates (%@). error = %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -20,12 +20,12 @@
 
 - (void)discardCurrentSpeechGroup
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[SRUIFSpeechRequestHandler discardCurrentSpeechGroup]";
+    v15 = "[SRUIFSpeechRequestHandler discardCurrentSpeechGroup]";
     _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -46,34 +46,32 @@
     {
       [(NSMutableSet *)self->_speechRequestGroupGraveyard addObject:v4];
       objc_initWeak(buf, self);
-      v9 = MEMORY[0x277D85DD0];
-      v10 = 3221225472;
-      v11 = __54__SRUIFSpeechRequestHandler_discardCurrentSpeechGroup__block_invoke;
-      v12 = &unk_279C61898;
-      objc_copyWeak(&v14, buf);
-      v13 = v4;
-      dispatch_group_notify(v13, MEMORY[0x277D85CD0], &v9);
+      v8 = MEMORY[0x277D85DD0];
+      v9 = 3221225472;
+      v10 = __54__SRUIFSpeechRequestHandler_discardCurrentSpeechGroup__block_invoke;
+      v11 = &unk_279C61898;
+      objc_copyWeak(&v13, buf);
+      v12 = v4;
+      dispatch_group_notify(v12, MEMORY[0x277D85CD0], &v8);
 
-      objc_destroyWeak(&v14);
+      objc_destroyWeak(&v13);
       objc_destroyWeak(buf);
     }
 
-    [(SRUIFSpeechRequestHandler *)self _continuePendingSpeechRequest:v9];
+    [(SRUIFSpeechRequestHandler *)self _continuePendingSpeechRequest:v8];
     [(SRUIFSpeechRequestHandler *)self _setCurrentSpeechRequestGroup:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)prepareForNewSpeechRequest
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[SRUIFSpeechRequestHandler prepareForNewSpeechRequest]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[SRUIFSpeechRequestHandler prepareForNewSpeechRequest]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v8, 0xCu);
   }
 
   v4 = dispatch_group_create();
@@ -81,14 +79,13 @@
   self->_currentSpeechRequestGroup = v4;
 
   v6 = self->_currentSpeechRequestGroup;
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)nonSpeechRequestWillBegin
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   delegate = [(SRUIFSpeechRequestHandler *)self delegate];
   v4 = [delegate connectionForSpeechRequestHandler:self];
 
@@ -97,15 +94,13 @@
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[SRUIFSpeechRequestHandler nonSpeechRequestWillBegin]";
-      _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s Request will begin while recording is ongoing. Cancelling speech request", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[SRUIFSpeechRequestHandler nonSpeechRequestWillBegin]";
+      _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s Request will begin while recording is ongoing. Cancelling speech request", &v6, 0xCu);
     }
 
     [(SRUIFSpeechRequestHandler *)self cancelSpeechRequest];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (SRUIFSpeechRequestHandlerDelegate)delegate
@@ -117,18 +112,18 @@
 
 - (void)_continuePendingSpeechRequest
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     continuePendingRequest = self->_continuePendingRequest;
     v5 = v3;
     v6 = _Block_copy(continuePendingRequest);
-    v10 = 136315394;
-    v11 = "[SRUIFSpeechRequestHandler _continuePendingSpeechRequest]";
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SRUIFSpeechRequestHandler _continuePendingSpeechRequest]";
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v9, 0x16u);
   }
 
   v7 = self->_continuePendingRequest;
@@ -140,8 +135,6 @@
 
     self->_sendContextBeforeContinuingSpeechRequest = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SRUIFSpeechRequestHandler_discardCurrentSpeechGroup__block_invoke(uint64_t a1)
@@ -173,7 +166,7 @@ void __54__SRUIFSpeechRequestHandler_discardCurrentSpeechGroup__block_invoke(uin
 - (void)startSpeechRequestWithSpeechRequestOptions:(id)options instrumentationTurn:(id)turn isInitialBringUp:(BOOL)up completion:(id)completion
 {
   upCopy = up;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   turnCopy = turn;
   completionCopy = completion;
@@ -189,11 +182,11 @@ void __54__SRUIFSpeechRequestHandler_discardCurrentSpeechGroup__block_invoke(uin
     {
       v18 = v17;
       turnIdentifier = [turnCopy turnIdentifier];
-      v33 = 136315394;
-      v34 = "[SRUIFSpeechRequestHandler startSpeechRequestWithSpeechRequestOptions:instrumentationTurn:isInitialBringUp:completion:]";
-      v35 = 2112;
-      v36 = turnIdentifier;
-      _os_log_impl(&dword_26951F000, v18, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Setting turn identifier for speech request %@", &v33, 0x16u);
+      v32 = 136315394;
+      v33 = "[SRUIFSpeechRequestHandler startSpeechRequestWithSpeechRequestOptions:instrumentationTurn:isInitialBringUp:completion:]";
+      v34 = 2112;
+      v35 = turnIdentifier;
+      _os_log_impl(&dword_26951F000, v18, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Setting turn identifier for speech request %@", &v32, 0x16u);
     }
 
     turnIdentifier2 = [turnCopy turnIdentifier];
@@ -204,11 +197,11 @@ void __54__SRUIFSpeechRequestHandler_discardCurrentSpeechGroup__block_invoke(uin
     {
       v22 = v21;
       userProfileHeadphoneConnected = [optionsCopy userProfileHeadphoneConnected];
-      v33 = 136315394;
-      v34 = "[SRUIFSpeechRequestHandler startSpeechRequestWithSpeechRequestOptions:instrumentationTurn:isInitialBringUp:completion:]";
-      v35 = 1024;
-      LODWORD(v36) = userProfileHeadphoneConnected;
-      _os_log_impl(&dword_26951F000, v22, OS_LOG_TYPE_DEFAULT, "%s #shih startSpeech headphone connected %d", &v33, 0x12u);
+      v32 = 136315394;
+      v33 = "[SRUIFSpeechRequestHandler startSpeechRequestWithSpeechRequestOptions:instrumentationTurn:isInitialBringUp:completion:]";
+      v34 = 1024;
+      LODWORD(v35) = userProfileHeadphoneConnected;
+      _os_log_impl(&dword_26951F000, v22, OS_LOG_TYPE_DEFAULT, "%s #shih startSpeech headphone connected %d", &v32, 0x12u);
     }
 
     if (([v15 isRecording] & 1) == 0)
@@ -226,11 +219,11 @@ void __54__SRUIFSpeechRequestHandler_discardCurrentSpeechGroup__block_invoke(uin
         v27 = *v16;
         if (os_log_type_enabled(*v16, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = 136315394;
-          v34 = "[SRUIFSpeechRequestHandler startSpeechRequestWithSpeechRequestOptions:instrumentationTurn:isInitialBringUp:completion:]";
-          v35 = 1024;
-          LODWORD(v36) = upCopy;
-          _os_log_impl(&dword_26951F000, v27, OS_LOG_TYPE_DEFAULT, "%s Captured pending speech request dispatch block. Is Initial Bring up %{BOOL}d", &v33, 0x12u);
+          v32 = 136315394;
+          v33 = "[SRUIFSpeechRequestHandler startSpeechRequestWithSpeechRequestOptions:instrumentationTurn:isInitialBringUp:completion:]";
+          v34 = 1024;
+          LODWORD(v35) = upCopy;
+          _os_log_impl(&dword_26951F000, v27, OS_LOG_TYPE_DEFAULT, "%s Captured pending speech request dispatch block. Is Initial Bring up %{BOOL}d", &v32, 0x12u);
         }
 
         v28 = _Block_copy(v24);
@@ -251,13 +244,13 @@ void __54__SRUIFSpeechRequestHandler_discardCurrentSpeechGroup__block_invoke(uin
           v24[2](v24);
         }
 
-        v31 = self->_continuePendingRequest;
+        v30 = self->_continuePendingRequest;
         self->_continuePendingRequest = 0;
 
         if (completionCopy)
         {
-          v32 = [MEMORY[0x277CEF2A0] errorWithCode:2510 description:@"No AFConnection." underlyingError:0];
-          (completionCopy)[2](completionCopy, v32);
+          v31 = [MEMORY[0x277CEF2A0] errorWithCode:2510 description:@"No AFConnection." underlyingError:0];
+          (completionCopy)[2](completionCopy, v31);
         }
       }
 
@@ -297,8 +290,6 @@ LABEL_11:
   }
 
 LABEL_21:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSpeechRequestWithSpeechFileAtURL:(id)l completion:(id)completion
@@ -365,15 +356,15 @@ uint64_t __78__SRUIFSpeechRequestHandler_startSpeechRequestWithSpeechFileAtURL_c
 
 - (void)speechRecordingWillBegin
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     sendContextBeforeContinuingSpeechRequest = self->_sendContextBeforeContinuingSpeechRequest;
     *buf = 136315394;
-    v10 = "[SRUIFSpeechRequestHandler speechRecordingWillBegin]";
-    v11 = 1024;
-    v12 = sendContextBeforeContinuingSpeechRequest;
+    v9 = "[SRUIFSpeechRequestHandler speechRecordingWillBegin]";
+    v10 = 1024;
+    v11 = sendContextBeforeContinuingSpeechRequest;
     _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s Should send context before speech request continuation: %{BOOL}d", buf, 0x12u);
   }
 
@@ -381,14 +372,14 @@ uint64_t __78__SRUIFSpeechRequestHandler_startSpeechRequestWithSpeechFileAtURL_c
   {
     objc_initWeak(buf, self);
     delegate = [(SRUIFSpeechRequestHandler *)self delegate];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __53__SRUIFSpeechRequestHandler_speechRecordingWillBegin__block_invoke;
-    v7[3] = &unk_279C61870;
-    objc_copyWeak(&v8, buf);
-    [delegate sendContextForSpeechRequestContinuationWithCompletion:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __53__SRUIFSpeechRequestHandler_speechRecordingWillBegin__block_invoke;
+    v6[3] = &unk_279C61870;
+    objc_copyWeak(&v7, buf);
+    [delegate sendContextForSpeechRequestContinuationWithCompletion:v6];
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v7);
     objc_destroyWeak(buf);
   }
 
@@ -396,8 +387,6 @@ uint64_t __78__SRUIFSpeechRequestHandler_startSpeechRequestWithSpeechFileAtURL_c
   {
     [(SRUIFSpeechRequestHandler *)self _continuePendingSpeechRequest];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SRUIFSpeechRequestHandler_speechRecordingWillBegin__block_invoke(uint64_t a1)
@@ -408,47 +397,44 @@ void __53__SRUIFSpeechRequestHandler_speechRecordingWillBegin__block_invoke(uint
 
 - (void)speechRecordingDidFail
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SRUIFSpeechRequestHandler speechRecordingDidFail]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SRUIFSpeechRequestHandler speechRecordingDidFail]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v4, 0xCu);
   }
 
   [(SRUIFSpeechRequestHandler *)self _continuePendingSpeechRequest];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSpeechRequestWithOptions:(id)options
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SRUIFSpeechRequestHandler stopSpeechRequestWithOptions:]";
-    v13 = 2112;
-    v14 = optionsCopy;
+    v11 = "[SRUIFSpeechRequestHandler stopSpeechRequestWithOptions:]";
+    v12 = 2112;
+    v13 = optionsCopy;
     _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __58__SRUIFSpeechRequestHandler_stopSpeechRequestWithOptions___block_invoke;
-  v8[3] = &unk_279C61898;
-  objc_copyWeak(&v10, buf);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __58__SRUIFSpeechRequestHandler_stopSpeechRequestWithOptions___block_invoke;
+  v7[3] = &unk_279C61898;
+  objc_copyWeak(&v9, buf);
   v6 = optionsCopy;
-  v9 = v6;
-  [(SRUIFSpeechRequestHandler *)self _performOnCurrentSpeechDipatchGroup:v8];
+  v8 = v6;
+  [(SRUIFSpeechRequestHandler *)self _performOnCurrentSpeechDipatchGroup:v7];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SRUIFSpeechRequestHandler_stopSpeechRequestWithOptions___block_invoke(uint64_t a1)
@@ -462,50 +448,46 @@ void __58__SRUIFSpeechRequestHandler_stopSpeechRequestWithOptions___block_invoke
 
 - (void)stopSpeechRequest
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SRUIFSpeechRequestHandler stopSpeechRequest]";
-    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SRUIFSpeechRequestHandler stopSpeechRequest]";
+    _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
   }
 
   delegate = [(SRUIFSpeechRequestHandler *)self delegate];
   v5 = [delegate connectionForSpeechRequestHandler:self];
   [v5 stopSpeech];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSpeechRequestOptions:(id)options
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SRUIFSpeechRequestHandler updateSpeechRequestOptions:]";
-    v13 = 2112;
-    v14 = optionsCopy;
+    v11 = "[SRUIFSpeechRequestHandler updateSpeechRequestOptions:]";
+    v12 = 2112;
+    v13 = optionsCopy;
     _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __56__SRUIFSpeechRequestHandler_updateSpeechRequestOptions___block_invoke;
-  v8[3] = &unk_279C61898;
-  objc_copyWeak(&v10, buf);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __56__SRUIFSpeechRequestHandler_updateSpeechRequestOptions___block_invoke;
+  v7[3] = &unk_279C61898;
+  objc_copyWeak(&v9, buf);
   v6 = optionsCopy;
-  v9 = v6;
-  [(SRUIFSpeechRequestHandler *)self _performOnCurrentSpeechDipatchGroup:v8];
+  v8 = v6;
+  [(SRUIFSpeechRequestHandler *)self _performOnCurrentSpeechDipatchGroup:v7];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SRUIFSpeechRequestHandler_updateSpeechRequestOptions___block_invoke(uint64_t a1)
@@ -567,14 +549,14 @@ void __65__SRUIFSpeechRequestHandler__performOnCurrentSpeechDipatchGroup___block
 
 - (void)cancelSpeechRequest
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF098];
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SRUIFSpeechRequestHandler cancelSpeechRequest]";
-    _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SRUIFSpeechRequestHandler cancelSpeechRequest]";
+    _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v12, 0xCu);
   }
 
   delegate = [(SRUIFSpeechRequestHandler *)self delegate];
@@ -591,9 +573,9 @@ void __65__SRUIFSpeechRequestHandler__performOnCurrentSpeechDipatchGroup___block
     v10 = *v3;
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "[SRUIFSpeechRequestHandler cancelSpeechRequest]";
-      _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s Delegate specified a rollback is necessary", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[SRUIFSpeechRequestHandler cancelSpeechRequest]";
+      _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s Delegate specified a rollback is necessary", &v12, 0xCu);
     }
 
     [v7 rollbackRequest];
@@ -602,26 +584,22 @@ void __65__SRUIFSpeechRequestHandler__performOnCurrentSpeechDipatchGroup___block
   [v7 cancelRequest];
   delegate4 = [(SRUIFSpeechRequestHandler *)self delegate];
   [delegate4 speechRequestHandlerDidCancelSpeechRequest:self];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSpeechRequestWithSpeechRequestOptions:(os_log_t)log instrumentationTurn:isInitialBringUp:completion:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SRUIFSpeechRequestHandler startSpeechRequestWithSpeechRequestOptions:instrumentationTurn:isInitialBringUp:completion:]";
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s couldn't find a speech request dispatch group", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SRUIFSpeechRequestHandler startSpeechRequestWithSpeechRequestOptions:instrumentationTurn:isInitialBringUp:completion:]";
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s couldn't find a speech request dispatch group", &v1, 0xCu);
 }
 
 - (void)_performOnCurrentSpeechDipatchGroup:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SRUIFSpeechRequestHandler _performOnCurrentSpeechDipatchGroup:]";
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s Speech Request Dispatch Group nil.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SRUIFSpeechRequestHandler _performOnCurrentSpeechDipatchGroup:]";
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s Speech Request Dispatch Group nil.", &v1, 0xCu);
 }
 
 @end

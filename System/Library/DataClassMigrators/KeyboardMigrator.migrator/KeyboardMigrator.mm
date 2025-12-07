@@ -1,4 +1,4 @@
-uint64_t _KBLogger()
+uint64_t _KBLogger(uint64_t a1, uint64_t a2)
 {
   if (qword_10420 != -1)
   {
@@ -194,11 +194,11 @@ void sub_35B4()
     v6 = MGGetSInt32Answer();
     IsCurrentDevice12InchPad = TIKeyboardMigratorIsCurrentDevice12InchPad();
     v8 = sub_5D84();
-    v222 = 0;
+    v218 = 0;
     v9 = v8 <= 0xB || v8 == 0x7FFFFFFFFFFFFFFFLL;
     if (v9 && v6 == 3)
     {
-      v222 = [v4 isEqualToString:@"ja"];
+      v218 = [v4 isEqualToString:@"ja"];
     }
 
     v10 = sub_5D84();
@@ -208,39 +208,39 @@ void sub_35B4()
     v16 = v14 == 0x7FFFFFFFFFFFFFFFLL || v14 < 0x10;
     v17 = sub_5D84();
     v19 = v17 == 0x7FFFFFFFFFFFFFFFLL || v17 < 0x11;
-    v234 = v19;
+    v230 = v19;
     v20 = sub_5D84();
     v22 = v20 == 0x7FFFFFFFFFFFFFFFLL || v20 < 0x13;
-    v232 = v22;
-    v230 = (v13 == 0x7FFFFFFFFFFFFFFFLL || v13 <= 0xE) && v6 == 3 && !IsCurrentDevice12InchPad;
+    v228 = v22;
+    v226 = (v13 == 0x7FFFFFFFFFFFFFFFLL || v13 <= 0xE) && v6 == 3 && !IsCurrentDevice12InchPad;
     applicationID = v1;
     obj = CFPreferencesCopyAppValue(@"AppleKeyboards", v1);
     if (!obj)
     {
-      if (v222)
+      if (v218)
       {
         v27 = +[NSMutableArray array];
-        v255 = 0u;
-        v256 = 0u;
-        v257 = 0u;
-        v258 = 0u;
+        v251 = 0u;
+        v252 = 0u;
+        v253 = 0u;
+        v254 = 0u;
         v28 = [+[TIInputModeController sharedInputModeController](TIInputModeController "sharedInputModeController")];
-        v29 = [v28 countByEnumeratingWithState:&v255 objects:v311 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v251 objects:v307 count:16];
         if (v29)
         {
           v30 = v29;
           v31 = 0;
-          v32 = *v256;
+          v32 = *v252;
           do
           {
             for (i = 0; i != v30; i = i + 1)
             {
-              if (*v256 != v32)
+              if (*v252 != v32)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v34 = *(*(&v255 + 1) + 8 * i);
+              v34 = *(*(&v251 + 1) + 8 * i);
               v35 = [(__CFString *)v34 isEqualToString:@"ja_JP-Kana"];
               v31 |= v35;
               if (v35)
@@ -256,7 +256,7 @@ void sub_35B4()
               [v27 addObject:v36];
             }
 
-            v30 = [v28 countByEnumeratingWithState:&v255 objects:v311 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v251 objects:v307 count:16];
           }
 
           while (v30);
@@ -282,13 +282,13 @@ LABEL_410:
       v26 = CFPreferencesCopyAppValue(@"SuchengCangjie", v24);
       if (v26)
       {
-        v219 = [objc_msgSend(v26 objectForKey:{@"zh_Hant-Cangjie", "BOOLValue"}];
+        v215 = [objc_msgSend(v26 objectForKey:{@"zh_Hant-Cangjie", "BOOLValue"}];
         CFPreferencesSetAppValue(@"SuchengCangjie", 0, v25);
       }
 
       else
       {
-        v219 = 0;
+        v215 = 0;
       }
 
       CFRelease(v25);
@@ -296,7 +296,7 @@ LABEL_410:
 
     else
     {
-      v219 = 0;
+      v215 = 0;
     }
 
     v37 = &KeyboardMigrator__metaData;
@@ -331,40 +331,40 @@ LABEL_410:
         v42 = +[NSLocale currentLocale];
       }
 
-      v234 &= [(NSString *)[(NSLocale *)v42 countryCode] isEqualToString:@"MO"];
+      v230 &= [(NSString *)[(NSLocale *)v42 countryCode] isEqualToString:@"MO"];
     }
 
-    v276 = 0u;
-    v277 = 0u;
-    v274 = 0u;
-    v275 = 0u;
-    v225 = v23;
-    v236 = [obj countByEnumeratingWithState:&v274 objects:v315 count:16];
-    if (v236)
+    v272 = 0u;
+    v273 = 0u;
+    v270 = 0u;
+    v271 = 0u;
+    v221 = v23;
+    v232 = [obj countByEnumeratingWithState:&v270 objects:v311 count:16];
+    if (v232)
     {
-      v217 = v39;
-      v228 = 0;
-      v226 = *v275;
-      v220 = v12;
-      v221 = v6;
+      v213 = v39;
+      v224 = 0;
+      v222 = *v271;
+      v216 = v12;
+      v217 = v6;
       while (1)
       {
         v43 = 0;
         do
         {
-          if (*v275 != v226)
+          if (*v271 != v222)
           {
             objc_enumerationMutation(obj);
           }
 
-          v240 = v43;
-          v44 = [*(*(&v274 + 1) + 8 * v43) stringByReplacingOccurrencesOfString:@"ja_JP-50On" withString:@"ja_JP-Kana"];
+          v236 = v43;
+          v44 = [*(*(&v270 + 1) + 8 * v43) stringByReplacingOccurrencesOfString:@"ja_JP-50On" withString:@"ja_JP-Kana"];
           if ([v44 hasPrefix:@"ko_KO"])
           {
             v44 = [v44 stringByReplacingOccurrencesOfString:@"ko_KO" withString:@"ko_KR"];
           }
 
-          if (v232)
+          if (v228)
           {
             v44 = [v44 stringByReplacingOccurrencesOfString:@"vi_VN" withString:@"vi_VN-Telex"];
           }
@@ -378,7 +378,7 @@ LABEL_87:
             goto LABEL_88;
           }
 
-          if (!v222)
+          if (!v218)
           {
             v47 = [v44 stringByReplacingOccurrencesOfString:@"Japanese3x3Flick" withString:@"Kana-RTL-Flick"];
             v48 = @"Kana-RTL";
@@ -414,45 +414,45 @@ LABEL_88:
               v46 = sub_5A48(v46, v49);
             }
 
-            v272 = 0u;
-            v273 = 0u;
-            v270 = 0u;
-            v271 = 0u;
-            v247 = [&off_DC60 countByEnumeratingWithState:&v270 objects:v314 count:16];
-            if (v247)
+            v268 = 0u;
+            v269 = 0u;
+            v266 = 0u;
+            v267 = 0u;
+            v243 = [&off_DC60 countByEnumeratingWithState:&v266 objects:v310 count:16];
+            if (v243)
             {
-              v244 = *v271;
+              v240 = *v267;
               do
               {
                 v50 = 0;
                 do
                 {
-                  if (*v271 != v244)
+                  if (*v267 != v240)
                   {
                     objc_enumerationMutation(&off_DC60);
                   }
 
-                  v251 = v50;
-                  v51 = *(*(&v270 + 1) + 8 * v50);
-                  v266 = 0u;
-                  v267 = 0u;
-                  v268 = 0u;
-                  v269 = 0u;
-                  v52 = [&off_DD38 countByEnumeratingWithState:&v266 objects:v313 count:16];
+                  v247 = v50;
+                  v51 = *(*(&v266 + 1) + 8 * v50);
+                  v262 = 0u;
+                  v263 = 0u;
+                  v264 = 0u;
+                  v265 = 0u;
+                  v52 = [&off_DD38 countByEnumeratingWithState:&v262 objects:v309 count:16];
                   if (v52)
                   {
                     v53 = v52;
-                    v54 = *v267;
+                    v54 = *v263;
                     do
                     {
                       for (j = 0; j != v53; j = j + 1)
                       {
-                        if (*v267 != v54)
+                        if (*v263 != v54)
                         {
                           objc_enumerationMutation(&off_DD38);
                         }
 
-                        v56 = *(*(&v266 + 1) + 8 * j);
+                        v56 = *(*(&v262 + 1) + 8 * j);
                         v57 = [NSString stringWithFormat:@"zh_%@-%@", v56, v51];
                         v58 = sub_590C(v46);
                         if (-[__CFString hasPrefix:](v46, "hasPrefix:", v57) && [v58 isEqualToString:v51])
@@ -461,30 +461,30 @@ LABEL_88:
                         }
                       }
 
-                      v53 = [&off_DD38 countByEnumeratingWithState:&v266 objects:v313 count:16];
+                      v53 = [&off_DD38 countByEnumeratingWithState:&v262 objects:v309 count:16];
                     }
 
                     while (v53);
                   }
 
-                  v50 = v251 + 1;
+                  v50 = v247 + 1;
                 }
 
-                while ((v251 + 1) != v247);
-                v247 = [&off_DC60 countByEnumeratingWithState:&v270 objects:v314 count:16];
+                while ((v247 + 1) != v243);
+                v243 = [&off_DC60 countByEnumeratingWithState:&v266 objects:v310 count:16];
               }
 
-              while (v247);
+              while (v243);
             }
 
             if ([(__CFString *)v46 hasPrefix:@"zh_Hant-Cangjie"])
             {
               v59 = [(__CFString *)v46 stringByReplacingOccurrencesOfString:@"sw=Pinyin" withString:@"sw=Cangjie-QWERTY"];
               v46 = v59;
-              v23 = v225;
-              v12 = v220;
-              v6 = v221;
-              if (v219)
+              v23 = v221;
+              v12 = v216;
+              v6 = v217;
+              if (v215)
               {
                 v46 = [-[__CFString stringByReplacingOccurrencesOfString:withString:](v59 stringByReplacingOccurrencesOfString:@"sw=Cangjie" withString:{@"sw=Sucheng", "stringByReplacingOccurrencesOfString:withString:", @"zh_Hant-Cangjie", @"zh_Hant-Sucheng"}];
               }
@@ -497,9 +497,9 @@ LABEL_88:
 
             else
             {
-              v23 = v225;
-              v12 = v220;
-              v6 = v221;
+              v23 = v221;
+              v12 = v216;
+              v6 = v217;
             }
           }
 
@@ -513,35 +513,35 @@ LABEL_88:
             [v23 addObject:@"hi-Translit"];
           }
 
-          if (v234)
+          if (v230)
           {
             if ([(__CFString *)v46 hasPrefix:@"zh_Hant"])
             {
-              v264 = 0u;
-              v265 = 0u;
-              v262 = 0u;
-              v263 = 0u;
-              v60 = [&off_DC78 countByEnumeratingWithState:&v262 objects:v312 count:16];
+              v260 = 0u;
+              v261 = 0u;
+              v258 = 0u;
+              v259 = 0u;
+              v60 = [&off_DC78 countByEnumeratingWithState:&v258 objects:v308 count:16];
               if (v60)
               {
                 v61 = v60;
-                v62 = *v263;
+                v62 = *v259;
                 do
                 {
                   for (k = 0; k != v61; k = k + 1)
                   {
-                    if (*v263 != v62)
+                    if (*v259 != v62)
                     {
                       objc_enumerationMutation(&off_DC78);
                     }
 
-                    if ([(__CFString *)v46 hasPrefix:*(*(&v262 + 1) + 8 * k)])
+                    if ([(__CFString *)v46 hasPrefix:*(*(&v258 + 1) + 8 * k)])
                     {
                       v46 = [(__CFString *)v46 stringByReplacingOccurrencesOfString:@"zh_Hant-" withString:@"yue_Hant-"];
                     }
                   }
 
-                  v61 = [&off_DC78 countByEnumeratingWithState:&v262 objects:v312 count:16];
+                  v61 = [&off_DC78 countByEnumeratingWithState:&v258 objects:v308 count:16];
                 }
 
                 while (v61);
@@ -550,10 +550,10 @@ LABEL_88:
           }
 
           [v23 addObject:v46];
-          if (v230)
+          if (v226)
           {
-            v228 |= [(__CFString *)v46 hasPrefix:@"ja_JP-Romaji"];
-            v64 = v228 ^ 1;
+            v224 |= [(__CFString *)v46 hasPrefix:@"ja_JP-Romaji"];
+            v64 = v224 ^ 1;
           }
 
           else
@@ -561,12 +561,12 @@ LABEL_88:
             v64 = 1;
           }
 
-          v43 = v240 + 1;
+          v43 = v236 + 1;
         }
 
-        while (v240 + 1 != v236);
-        v236 = [obj countByEnumeratingWithState:&v274 objects:v315 count:16];
-        if (!v236)
+        while (v236 + 1 != v232);
+        v232 = [obj countByEnumeratingWithState:&v270 objects:v311 count:16];
+        if (!v232)
         {
           v37 = &KeyboardMigrator__metaData;
           if (v64)
@@ -574,19 +574,19 @@ LABEL_88:
             break;
           }
 
-          v338 = 0;
-          v339 = &v338;
-          v340 = 0x3052000000;
-          v341 = sub_5B0C;
-          v342 = sub_5B1C;
-          v343 = 0;
-          v260[0] = _NSConcreteStackBlock;
-          v260[1] = 3221225472;
-          v260[2] = sub_5B28;
-          v260[3] = &unk_C2B8;
-          v261 = v217;
-          v260[4] = &v338;
-          v70 = [v23 indexesOfObjectsPassingTest:v260];
+          v334 = 0;
+          v335 = &v334;
+          v336 = 0x3052000000;
+          v337 = sub_5B0C;
+          v338 = sub_5B1C;
+          v339 = 0;
+          v256[0] = _NSConcreteStackBlock;
+          v256[1] = 3221225472;
+          v256[2] = sub_5B28;
+          v256[3] = &unk_C2B8;
+          v257 = v213;
+          v256[4] = &v334;
+          v70 = [v23 indexesOfObjectsPassingTest:v256];
           if ([v70 count])
           {
             [v23 removeObjectsAtIndexes:v70];
@@ -600,9 +600,9 @@ LABEL_88:
 
           v72 = v71;
           v65 = applicationID;
-          if (v339[5])
+          if (v335[5])
           {
-            v73 = [NSString stringWithFormat:@"en_JP@hw=%@;sw=QWERTY-JIS", v339[5]];
+            v73 = [NSString stringWithFormat:@"en_JP@hw=%@;sw=QWERTY-JIS", v335[5]];
           }
 
           else
@@ -612,7 +612,7 @@ LABEL_88:
 
           [v23 insertObject:v73 atIndex:v72];
 LABEL_160:
-          _Block_object_dispose(&v338, 8);
+          _Block_object_dispose(&v334, 8);
           goto LABEL_161;
         }
       }
@@ -621,33 +621,33 @@ LABEL_160:
     v65 = applicationID;
     if (v40)
     {
-      v338 = 0;
-      v339 = &v338;
-      v340 = 0x3052000000;
-      v341 = sub_5B0C;
-      v342 = sub_5B1C;
-      v343 = 0;
+      v334 = 0;
+      v335 = &v334;
+      v336 = 0x3052000000;
+      v337 = sub_5B0C;
+      v338 = sub_5B1C;
+      v339 = 0;
       *buf = 0;
       *&buf[8] = buf;
-      *&v335 = 0x3052000000;
-      *(&v335 + 1) = sub_5B0C;
-      *&v336 = sub_5B1C;
-      *(&v336 + 1) = 0;
-      v259[0] = _NSConcreteStackBlock;
-      v259[1] = 3221225472;
-      v259[2] = sub_5D10;
-      v259[3] = &unk_C2E0;
-      v259[4] = &v338;
-      v259[5] = buf;
-      v66 = [v23 indexesOfObjectsPassingTest:v259];
+      *&v331 = 0x3052000000;
+      *(&v331 + 1) = sub_5B0C;
+      *&v332 = sub_5B1C;
+      *(&v332 + 1) = 0;
+      v255[0] = _NSConcreteStackBlock;
+      v255[1] = 3221225472;
+      v255[2] = sub_5D10;
+      v255[3] = &unk_C2E0;
+      v255[4] = &v334;
+      v255[5] = buf;
+      v66 = [v23 indexesOfObjectsPassingTest:v255];
       if ([v66 count])
       {
         [v23 removeObjectsAtIndexes:v66];
         v67 = [v66 firstIndex];
         v68 = +[NSMutableArray array];
-        if ([v339[5] length])
+        if ([v335[5] length])
         {
-          [v68 addObject:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"hw=%@", v339[5])}];
+          [v68 addObject:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"hw=%@", v335[5])}];
         }
 
         if ([*(*&buf[8] + 40) length])
@@ -684,45 +684,44 @@ LABEL_347:
           base_props = +[NSLocale currentLocale];
         }
 
-        v250 = base_props;
-        v254 = [(NSLocale *)base_props regionCode];
-        if ([(NSString *)v254 length])
+        v246 = base_props;
+        v250 = [(NSLocale *)base_props regionCode];
+        if ([(NSString *)v250 length])
         {
-          if (([&off_DC90 containsObject:v254] & 1) == 0)
+          if (([&off_DC90 containsObject:v250] & 1) == 0)
           {
-            v190 = CPCopySharedResourcesPreferencesDomainForDomain();
-            if (!v190 || (v191 = CFPreferencesCopyAppValue(@"ArabicTransliterationMigrationVersion", v190)) == 0 || (v192 = v191, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![v192 unsignedIntegerValue])
+            v188 = CPCopySharedResourcesPreferencesDomainForDomain();
+            if (!v188 || (v189 = CFPreferencesCopyAppValue(@"ArabicTransliterationMigrationVersion", v188)) == 0 || (v190 = v189, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![v190 unsignedIntegerValue])
             {
-              v193 = CPCopySharedResourcesPreferencesDomainForDomain();
+              v191 = CPCopySharedResourcesPreferencesDomainForDomain();
+              if (v191)
+              {
+                v192 = v191;
+                CFPreferencesSetAppValue(@"ArabicTransliterationMigrationVersion", [NSNumber numberWithUnsignedInteger:1], v191);
+                CFPreferencesAppSynchronize(v192);
+              }
+
+              v333 = 0u;
+              v332 = 0u;
+              v331 = 0u;
+              *buf = 0u;
+              v193 = [v23 countByEnumeratingWithState:buf objects:&v334 count:16];
               if (v193)
               {
                 v194 = v193;
-                CFPreferencesSetAppValue(@"ArabicTransliterationMigrationVersion", [NSNumber numberWithUnsignedInteger:1], v193);
-                CFPreferencesAppSynchronize(v194);
-              }
-
-              v337 = 0u;
-              v336 = 0u;
-              v335 = 0u;
-              *buf = 0u;
-              v195 = [v23 countByEnumeratingWithState:buf objects:&v338 count:16];
-              if (v195)
-              {
-                v196 = v195;
+                v195 = 0;
+                v196 = 0;
                 v197 = 0;
-                v198 = 0;
-                v199 = 0;
-                v200 = *v335;
+                v198 = *v331;
                 while (1)
                 {
-                  for (m = 0; m != v196; m = m + 1)
+                  for (m = 0; m != v194; ++m)
                   {
-                    if (*v335 != v200)
+                    if (*v331 != v198)
                     {
                       objc_enumerationMutation(v23);
                     }
 
-                    v202 = *(*&buf[8] + 8 * m);
                     if ([TIInputModeGetLanguage() isEqualToString:@"ar"])
                     {
                       if ([TIInputModeGetNormalizedIdentifier() isEqualToString:@"ar-Translit"])
@@ -730,7 +729,7 @@ LABEL_347:
                         goto LABEL_408;
                       }
 
-                      v199 = 1;
+                      v197 = 1;
                     }
 
                     else
@@ -739,11 +738,11 @@ LABEL_347:
                       SWLayout = TIInputModeGetSWLayout();
                       if (SWLayout)
                       {
-                        v205 = SWLayout;
-                        if (v198)
+                        v202 = SWLayout;
+                        if (v196)
                         {
-                          v198 = 1;
-                          if (v197)
+                          v196 = 1;
+                          if (v195)
                           {
                             goto LABEL_376;
                           }
@@ -751,14 +750,14 @@ LABEL_347:
 
                         else
                         {
-                          v198 = [SWLayout containsString:@"AZERTY"];
-                          if (v197)
+                          v196 = [SWLayout containsString:@"AZERTY"];
+                          if (v195)
                           {
                             goto LABEL_376;
                           }
                         }
 
-                        v197 = [v205 containsString:@"QWERTY"];
+                        v195 = [v202 containsString:@"QWERTY"];
                       }
 
                       else
@@ -766,56 +765,56 @@ LABEL_347:
                         if ([LanguageWithRegion hasPrefix:@"en_"] & 1) != 0 || (objc_msgSend(LanguageWithRegion, "isEqualToString:", @"fr_CA"))
                         {
 LABEL_376:
-                          v197 = 1;
+                          v195 = 1;
                           continue;
                         }
 
                         if (([LanguageWithRegion isEqualToString:@"fr_BE"] & 1) != 0 || objc_msgSend(LanguageWithRegion, "isEqualToString:", @"fr_FR"))
                         {
-                          v198 = 1;
+                          v196 = 1;
                         }
                       }
                     }
                   }
 
-                  v196 = [v23 countByEnumeratingWithState:buf objects:&v338 count:16];
-                  if (!v196)
+                  v194 = [v23 countByEnumeratingWithState:buf objects:&v334 count:16];
+                  if (!v194)
                   {
-                    if (v199)
+                    if (v197)
                     {
-                      if (v198)
+                      if (v196)
                       {
-                        v206 = @"ar-Translit@sw=AZERTY-Arabic";
+                        v203 = @"ar-Translit@sw=AZERTY-Arabic";
                       }
 
                       else
                       {
-                        v206 = @"ar-Translit";
+                        v203 = @"ar-Translit";
                       }
 
-                      if ((v198 & 1 & v197) == 1)
+                      if ((v196 & 1 & v195) == 1)
                       {
-                        v206 = @"ar-Translit@sw=AZERTY-Arabic";
-                        v207 = v23;
-                        if (!-[NSString isEqualToString:](-[NSLocale languageCode](v250, "languageCode"), "isEqualToString:", @"fr") && ![&off_DCA8 containsObject:v254])
+                        v203 = @"ar-Translit@sw=AZERTY-Arabic";
+                        v204 = v23;
+                        if (!-[NSString isEqualToString:](-[NSLocale languageCode](v246, "languageCode"), "isEqualToString:", @"fr") && ![&off_DCA8 containsObject:v250])
                         {
-                          v206 = @"ar-Translit";
+                          v203 = @"ar-Translit";
                         }
                       }
 
                       else
                       {
-                        v207 = v23;
+                        v204 = v23;
                       }
 
-                      if ([objc_msgSend(v207 "lastObject")])
+                      if ([objc_msgSend(v204 "lastObject")])
                       {
-                        [v207 insertObject:v206 atIndex:{objc_msgSend(v207, "count") - 1}];
+                        [v204 insertObject:v203 atIndex:{objc_msgSend(v204, "count") - 1}];
                       }
 
                       else
                       {
-                        [v207 addObject:v206];
+                        [v204 addObject:v203];
                       }
                     }
 
@@ -850,10 +849,10 @@ LABEL_408:
 LABEL_340:
           if ([v23 count])
           {
-            v187 = 0;
+            v185 = 0;
             while (1)
             {
-              [v23 objectAtIndexedSubscript:v187];
+              [v23 objectAtIndexedSubscript:v185];
               if ([TIInputModeGetNormalizedIdentifier() isEqualToString:@"ko_KR"])
               {
                 ComponentsFromIdentifier = TIInputModeGetComponentsFromIdentifier();
@@ -866,60 +865,59 @@ LABEL_340:
                 }
               }
 
-              if (++v187 >= [v23 count])
+              if (++v185 >= [v23 count])
               {
                 goto LABEL_346;
               }
             }
 
-            if (v187 != 0x7FFFFFFFFFFFFFFFLL)
+            if (v185 != 0x7FFFFFFFFFFFFFFFLL)
             {
               *buf = 0u;
-              v335 = 0u;
-              v336 = 0u;
-              v337 = 0u;
-              v208 = [v23 countByEnumeratingWithState:buf objects:&v338 count:16];
-              if (v208)
+              v331 = 0u;
+              v332 = 0u;
+              v333 = 0u;
+              v205 = [v23 countByEnumeratingWithState:buf objects:&v334 count:16];
+              if (v205)
               {
-                v209 = v208;
-                v210 = *v335;
-                v211 = 1;
+                v206 = v205;
+                v207 = *v331;
+                v208 = 1;
                 do
                 {
-                  for (n = 0; n != v209; n = n + 1)
+                  for (n = 0; n != v206; ++n)
                   {
-                    if (*v335 != v210)
+                    if (*v331 != v207)
                     {
                       objc_enumerationMutation(v23);
                     }
 
-                    v213 = *(*&buf[8] + 8 * n);
-                    v214 = [TIInputModeGetComponentsFromIdentifier() objectForKeyedSubscript:@"ml"];
-                    if ([v214 length])
+                    v210 = [TIInputModeGetComponentsFromIdentifier() objectForKeyedSubscript:@"ml"];
+                    if ([v210 length])
                     {
-                      v215 = [v214 integerValue];
-                      if (v211 <= v215 + 1)
+                      v211 = [v210 integerValue];
+                      if (v208 <= v211 + 1)
                       {
-                        v211 = v215 + 1;
+                        v208 = v211 + 1;
                       }
                     }
                   }
 
-                  v209 = [v23 countByEnumeratingWithState:buf objects:&v338 count:16];
+                  v206 = [v23 countByEnumeratingWithState:buf objects:&v334 count:16];
                 }
 
-                while (v209);
+                while (v206);
               }
 
               else
               {
-                v211 = 1;
+                v208 = 1;
               }
 
-              v216 = [NSString stringWithFormat:@"%u", v211];
-              v338 = sub_5E34([v23 objectAtIndexedSubscript:v187], v216);
-              v339 = sub_5E34(@"en_US", v216);
-              [v23 replaceObjectsInRange:v187 withObjectsFromArray:{1, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v338, 2)}];
+              v212 = [NSString stringWithFormat:@"%u", v208];
+              v334 = sub_5E34([v23 objectAtIndexedSubscript:v185], v212);
+              v335 = sub_5E34(@"en_US", v212);
+              [v23 replaceObjectsInRange:v185 withObjectsFromArray:{1, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v334, 2)}];
             }
           }
 
@@ -931,32 +929,31 @@ LABEL_346:
       }
     }
 
-    v310 = 0u;
-    v309 = 0u;
-    v308 = 0u;
-    v307 = 0u;
-    v76 = [v23 countByEnumeratingWithState:&v307 objects:&v338 count:16];
+    v306 = 0u;
+    v305 = 0u;
+    v304 = 0u;
+    v303 = 0u;
+    v76 = [v23 countByEnumeratingWithState:&v303 objects:&v334 count:16];
     if (v76)
     {
       v77 = v76;
-      v78 = *v308;
+      v78 = *v304;
       do
       {
-        for (ii = 0; ii != v77; ii = ii + 1)
+        for (ii = 0; ii != v77; ++ii)
         {
-          if (*v308 != v78)
+          if (*v304 != v78)
           {
             objc_enumerationMutation(v23);
           }
 
-          v80 = *(*(&v307 + 1) + 8 * ii);
           if ([objc_msgSend(TIInputModeGetComponentsFromIdentifier() objectForKeyedSubscript:{@"ml", "length"}])
           {
             goto LABEL_340;
           }
         }
 
-        v77 = [v23 countByEnumeratingWithState:&v307 objects:&v338 count:16];
+        v77 = [v23 countByEnumeratingWithState:&v303 objects:&v334 count:16];
       }
 
       while (v77);
@@ -969,315 +966,315 @@ LABEL_346:
       sub_614C();
     }
 
-    v81 = qword_10428;
+    v80 = qword_10428;
     if (os_log_type_enabled(qword_10428, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = v23;
-      _os_log_impl(&dword_0, v81, OS_LOG_TYPE_DEFAULT, "Beginning migration to multilingual sets with previous input modes %@", buf, 0xCu);
+      _os_log_impl(&dword_0, v80, OS_LOG_TYPE_DEFAULT, "Beginning migration to multilingual sets with previous input modes %@", buf, 0xCu);
     }
 
-    v245 = +[NSMutableArray array];
-    v82 = +[NSMutableDictionary dictionary];
-    v248 = +[NSMutableDictionary dictionary];
-    v303 = 0u;
-    v304 = 0u;
-    v305 = 0u;
-    v306 = 0u;
-    v83 = [+[TIInputModeController sharedInputModeController](TIInputModeController "sharedInputModeController")];
-    v84 = [v83 countByEnumeratingWithState:&v303 objects:buf count:16];
-    if (v84)
-    {
-      v85 = v84;
-      v86 = *v304;
-      v87 = TIInputModePropertiesSupportsMultilingual;
-      v88 = TIInputModePropertiesMultilingualOnly;
-      v252 = TIInputModePropertiesSupportedMultiscriptInputModes;
-      v241 = TIInputModePropertiesRequiredMultilingualInputModes;
-      v237 = TIInputModePropertiesPairedMultilingualInputMode;
-      do
-      {
-        for (jj = 0; jj != v85; jj = jj + 1)
-        {
-          if (*v304 != v86)
-          {
-            objc_enumerationMutation(v83);
-          }
-
-          v90 = *(*(&v303 + 1) + 8 * jj);
-          if ([objc_msgSend(TIGetInputModeProperties() objectForKeyedSubscript:{v87), "BOOLValue"}])
-          {
-            v91 = [objc_msgSend(TIGetInputModeProperties() objectForKeyedSubscript:{v88), "BOOLValue"}];
-            v92 = TIGetInputModeProperties();
-            if (v91)
-            {
-              v93 = [v92 objectForKeyedSubscript:v241];
-              v94 = [TIGetInputModeProperties() objectForKeyedSubscript:v237];
-              if ([v93 count])
-              {
-                v332[0] = @"required";
-                v332[1] = @"paired";
-                v95 = &stru_CEE0;
-                if (v94)
-                {
-                  v95 = v94;
-                }
-
-                v333[0] = v93;
-                v333[1] = v95;
-                [v82 setObject:+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", v333, v332, 2), v90}];
-              }
-
-              if ([(__CFString *)v94 length])
-              {
-                [v248 setObject:v90 forKeyedSubscript:v94];
-              }
-            }
-
-            else if (![v92 objectForKeyedSubscript:v252])
-            {
-              [v245 addObject:v90];
-            }
-          }
-        }
-
-        v85 = [v83 countByEnumeratingWithState:&v303 objects:buf count:16];
-      }
-
-      while (v85);
-    }
-
-    v96 = +[NSMutableArray array];
-    v242 = +[NSMutableDictionary dictionary];
+    v241 = +[NSMutableArray array];
+    v81 = +[NSMutableDictionary dictionary];
+    v244 = +[NSMutableDictionary dictionary];
     v299 = 0u;
     v300 = 0u;
     v301 = 0u;
     v302 = 0u;
-    v97 = [v225 countByEnumeratingWithState:&v299 objects:v331 count:16];
-    if (v97)
+    v82 = [+[TIInputModeController sharedInputModeController](TIInputModeController "sharedInputModeController")];
+    v83 = [v82 countByEnumeratingWithState:&v299 objects:buf count:16];
+    if (v83)
     {
-      v98 = v97;
-      v99 = *v300;
+      v84 = v83;
+      v85 = *v300;
+      v86 = TIInputModePropertiesSupportsMultilingual;
+      v87 = TIInputModePropertiesMultilingualOnly;
+      v248 = TIInputModePropertiesSupportedMultiscriptInputModes;
+      v237 = TIInputModePropertiesRequiredMultilingualInputModes;
+      v233 = TIInputModePropertiesPairedMultilingualInputMode;
       do
       {
-        for (kk = 0; kk != v98; kk = kk + 1)
+        for (jj = 0; jj != v84; jj = jj + 1)
         {
-          if (*v300 != v99)
+          if (*v300 != v85)
           {
-            objc_enumerationMutation(v225);
+            objc_enumerationMutation(v82);
           }
 
-          v101 = *(*(&v299 + 1) + 8 * kk);
-          NormalizedIdentifier = TIInputModeGetNormalizedIdentifier();
-          v103 = v96;
-          if (([v245 containsObject:NormalizedIdentifier] & 1) == 0)
+          v89 = *(*(&v299 + 1) + 8 * jj);
+          if ([objc_msgSend(TIGetInputModeProperties() objectForKeyedSubscript:{v86), "BOOLValue"}])
           {
-            if (![v82 objectForKey:NormalizedIdentifier])
+            v90 = [objc_msgSend(TIGetInputModeProperties() objectForKeyedSubscript:{v87), "BOOLValue"}];
+            v91 = TIGetInputModeProperties();
+            if (v90)
             {
-              if (![v248 objectForKey:NormalizedIdentifier])
+              v92 = [v91 objectForKeyedSubscript:v237];
+              v93 = [TIGetInputModeProperties() objectForKeyedSubscript:v233];
+              if ([v92 count])
               {
-                continue;
+                v328[0] = @"required";
+                v328[1] = @"paired";
+                v94 = &stru_CEE0;
+                if (v93)
+                {
+                  v94 = v93;
+                }
+
+                v329[0] = v92;
+                v329[1] = v94;
+                [v81 setObject:+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary forKeyedSubscript:{"dictionaryWithObjects:forKeys:count:", v329, v328, 2), v89}];
               }
 
-              NormalizedIdentifier = [v248 objectForKeyedSubscript:NormalizedIdentifier];
+              if ([(__CFString *)v93 length])
+              {
+                [v244 setObject:v89 forKeyedSubscript:v93];
+              }
             }
 
-            v104 = [v242 objectForKeyedSubscript:NormalizedIdentifier];
-            if (v104)
+            else if (![v91 objectForKeyedSubscript:v248])
             {
-              v103 = v104;
-            }
-
-            else
-            {
-              v103 = +[NSMutableArray array];
-              [v242 setObject:v103 forKeyedSubscript:NormalizedIdentifier];
+              [v241 addObject:v89];
             }
           }
-
-          [v103 addObject:v101];
         }
 
-        v98 = [v225 countByEnumeratingWithState:&v299 objects:v331 count:16];
+        v84 = [v82 countByEnumeratingWithState:&v299 objects:buf count:16];
       }
 
-      while (v98);
+      while (v84);
     }
 
-    v253 = v82;
-    v105 = +[NSMutableDictionary dictionary];
+    v95 = +[NSMutableArray array];
+    v238 = +[NSMutableDictionary dictionary];
     v295 = 0u;
     v296 = 0u;
     v297 = 0u;
     v298 = 0u;
-    v106 = [v96 countByEnumeratingWithState:&v295 objects:v330 count:16];
-    if (v106)
+    v96 = [v221 countByEnumeratingWithState:&v295 objects:v327 count:16];
+    if (v96)
     {
-      v107 = v106;
-      v108 = *v296;
+      v97 = v96;
+      v98 = *v296;
       do
       {
-        for (mm = 0; mm != v107; mm = mm + 1)
+        for (kk = 0; kk != v97; kk = kk + 1)
         {
-          if (*v296 != v108)
+          if (*v296 != v98)
           {
-            objc_enumerationMutation(v96);
+            objc_enumerationMutation(v221);
           }
 
-          v110 = *(*(&v295 + 1) + 8 * mm);
-          v111 = TIInputModeGetNormalizedIdentifier();
-          if (qword_10440)
+          v100 = *(*(&v295 + 1) + 8 * kk);
+          NormalizedIdentifier = TIInputModeGetNormalizedIdentifier();
+          v102 = v95;
+          if (([v241 containsObject:NormalizedIdentifier] & 1) == 0)
           {
-            v112 = [qword_10440 objectForKeyedSubscript:TIInputModeGetNormalizedIdentifier()];
-          }
-
-          else
-          {
-            v112 = UIKeyboardSimulatedImplicitInputModeDetectionForPrimaryInputMode();
-          }
-
-          v113 = v112;
-          if ([v112 count])
-          {
-            v294[0] = _NSConcreteStackBlock;
-            v294[1] = 3221225472;
-            v294[2] = sub_5DD8;
-            v294[3] = &unk_C308;
-            v294[4] = v111;
-            v294[5] = v245;
-            v114 = [v113 indexesOfObjectsPassingTest:v294];
-            if ([v114 count])
+            if (![v81 objectForKey:NormalizedIdentifier])
             {
-              [v105 setObject:objc_msgSend(v113 forKeyedSubscript:{"objectsAtIndexes:", v114), v110}];
-            }
-          }
-        }
-
-        v107 = [v96 countByEnumeratingWithState:&v295 objects:v330 count:16];
-      }
-
-      while (v107);
-    }
-
-    v246 = [v225 mutableCopy];
-    if ([v105 count])
-    {
-      v328 = 0u;
-      v327 = 0u;
-      v326 = 0u;
-      v325 = 0u;
-      v115 = [v105 countByEnumeratingWithState:&v325 objects:v329 count:16];
-      if (v115)
-      {
-        v116 = v115;
-        v117 = *v326;
-        v118 = 1;
-        do
-        {
-          for (nn = 0; nn != v116; nn = nn + 1)
-          {
-            if (*v326 != v117)
-            {
-              objc_enumerationMutation(v105);
-            }
-
-            v120 = *(*(&v325 + 1) + 8 * nn);
-            v121 = [objc_msgSend(v105 objectForKeyedSubscript:{v120), "firstObject"}];
-            if ([v121 length])
-            {
-              v122 = [NSString stringWithFormat:@"%u", v118];
-              v123 = sub_5E34(v120, v122);
-              v124 = sub_5E34(v121, v122);
-              v125 = [v246 indexOfObject:v120];
-              if (v125 != 0x7FFFFFFFFFFFFFFFLL)
+              if (![v244 objectForKey:NormalizedIdentifier])
               {
-                v126 = v125;
-                [v246 replaceObjectAtIndex:v125 withObject:v123];
-                [v246 insertObject:v124 atIndex:v126 + 1];
+                continue;
               }
 
-              v118 = (v118 + 1);
+              NormalizedIdentifier = [v244 objectForKeyedSubscript:NormalizedIdentifier];
             }
-          }
 
-          v116 = [v105 countByEnumeratingWithState:&v325 objects:v329 count:16];
-        }
-
-        while (v116);
-      }
-
-      goto LABEL_316;
-    }
-
-    v127 = v242;
-    if (![v242 count] && objc_msgSend(v96, "count") == &dword_0 + 2)
-    {
-      v128 = [v96 objectAtIndexedSubscript:0];
-      v129 = [v96 objectAtIndexedSubscript:1];
-      Language = TIInputModeGetLanguage();
-      if (([Language isEqualToString:TIInputModeGetLanguage()] & 1) == 0)
-      {
-        v131 = sub_590C(v128);
-        v132 = sub_590C(v129);
-        if (v131)
-        {
-          v133 = v132;
-          if (v132)
-          {
-            v249 = v128;
-            v328 = 0u;
-            v327 = 0u;
-            v326 = 0u;
-            v325 = 0u;
-            v134 = [v96 countByEnumeratingWithState:&v325 objects:v329 count:16];
-            v238 = v133;
-            v243 = v131;
-            if (v134)
+            v103 = [v238 objectForKeyedSubscript:NormalizedIdentifier];
+            if (v103)
             {
-              v135 = v134;
-              v136 = *v326;
-              v137 = 0x7FFFFFFFFFFFFFFFLL;
-              do
-              {
-                for (i1 = 0; i1 != v135; i1 = i1 + 1)
-                {
-                  if (*v326 != v136)
-                  {
-                    objc_enumerationMutation(v96);
-                  }
-
-                  v139 = *(*(&v325 + 1) + 8 * i1);
-                  v140 = sub_5E34(v139, @"1");
-                  v141 = [v246 indexOfObject:v139];
-                  if (v141 != 0x7FFFFFFFFFFFFFFFLL)
-                  {
-                    v142 = v141;
-                    [v246 replaceObjectAtIndex:v141 withObject:v140];
-                    v137 = v142 + 1;
-                  }
-                }
-
-                v135 = [v96 countByEnumeratingWithState:&v325 objects:v329 count:16];
-              }
-
-              while (v135);
+              v102 = v103;
             }
 
             else
             {
-              v137 = 0x7FFFFFFFFFFFFFFFLL;
+              v102 = +[NSMutableArray array];
+              [v238 setObject:v102 forKeyedSubscript:NormalizedIdentifier];
+            }
+          }
+
+          [v102 addObject:v100];
+        }
+
+        v97 = [v221 countByEnumeratingWithState:&v295 objects:v327 count:16];
+      }
+
+      while (v97);
+    }
+
+    v249 = v81;
+    v104 = +[NSMutableDictionary dictionary];
+    v291 = 0u;
+    v292 = 0u;
+    v293 = 0u;
+    v294 = 0u;
+    v105 = [v95 countByEnumeratingWithState:&v291 objects:v326 count:16];
+    if (v105)
+    {
+      v106 = v105;
+      v107 = *v292;
+      do
+      {
+        for (mm = 0; mm != v106; mm = mm + 1)
+        {
+          if (*v292 != v107)
+          {
+            objc_enumerationMutation(v95);
+          }
+
+          v109 = *(*(&v291 + 1) + 8 * mm);
+          v110 = TIInputModeGetNormalizedIdentifier();
+          if (qword_10440)
+          {
+            v111 = [qword_10440 objectForKeyedSubscript:TIInputModeGetNormalizedIdentifier()];
+          }
+
+          else
+          {
+            v111 = UIKeyboardSimulatedImplicitInputModeDetectionForPrimaryInputMode();
+          }
+
+          v112 = v111;
+          if ([v111 count])
+          {
+            v290[0] = _NSConcreteStackBlock;
+            v290[1] = 3221225472;
+            v290[2] = sub_5DD8;
+            v290[3] = &unk_C308;
+            v290[4] = v110;
+            v290[5] = v241;
+            v113 = [v112 indexesOfObjectsPassingTest:v290];
+            if ([v113 count])
+            {
+              [v104 setObject:objc_msgSend(v112 forKeyedSubscript:{"objectsAtIndexes:", v113), v109}];
+            }
+          }
+        }
+
+        v106 = [v95 countByEnumeratingWithState:&v291 objects:v326 count:16];
+      }
+
+      while (v106);
+    }
+
+    v242 = [v221 mutableCopy];
+    if ([v104 count])
+    {
+      v324 = 0u;
+      v323 = 0u;
+      v322 = 0u;
+      v321 = 0u;
+      v114 = [v104 countByEnumeratingWithState:&v321 objects:v325 count:16];
+      if (v114)
+      {
+        v115 = v114;
+        v116 = *v322;
+        v117 = 1;
+        do
+        {
+          for (nn = 0; nn != v115; nn = nn + 1)
+          {
+            if (*v322 != v116)
+            {
+              objc_enumerationMutation(v104);
+            }
+
+            v119 = *(*(&v321 + 1) + 8 * nn);
+            v120 = [objc_msgSend(v104 objectForKeyedSubscript:{v119), "firstObject"}];
+            if ([v120 length])
+            {
+              v121 = [NSString stringWithFormat:@"%u", v117];
+              v122 = sub_5E34(v119, v121);
+              v123 = sub_5E34(v120, v121);
+              v124 = [v242 indexOfObject:v119];
+              if (v124 != 0x7FFFFFFFFFFFFFFFLL)
+              {
+                v125 = v124;
+                [v242 replaceObjectAtIndex:v124 withObject:v122];
+                [v242 insertObject:v123 atIndex:v125 + 1];
+              }
+
+              v117 = (v117 + 1);
+            }
+          }
+
+          v115 = [v104 countByEnumeratingWithState:&v321 objects:v325 count:16];
+        }
+
+        while (v115);
+      }
+
+      goto LABEL_316;
+    }
+
+    v126 = v238;
+    if (![v238 count] && objc_msgSend(v95, "count") == &dword_0 + 2)
+    {
+      v127 = [v95 objectAtIndexedSubscript:0];
+      v128 = [v95 objectAtIndexedSubscript:1];
+      Language = TIInputModeGetLanguage();
+      if (([Language isEqualToString:TIInputModeGetLanguage()] & 1) == 0)
+      {
+        v130 = sub_590C(v127);
+        v131 = sub_590C(v128);
+        if (v130)
+        {
+          v132 = v131;
+          if (v131)
+          {
+            v245 = v127;
+            v324 = 0u;
+            v323 = 0u;
+            v322 = 0u;
+            v321 = 0u;
+            v133 = [v95 countByEnumeratingWithState:&v321 objects:v325 count:16];
+            v234 = v132;
+            v239 = v130;
+            if (v133)
+            {
+              v134 = v133;
+              v135 = *v322;
+              v136 = 0x7FFFFFFFFFFFFFFFLL;
+              do
+              {
+                for (i1 = 0; i1 != v134; i1 = i1 + 1)
+                {
+                  if (*v322 != v135)
+                  {
+                    objc_enumerationMutation(v95);
+                  }
+
+                  v138 = *(*(&v321 + 1) + 8 * i1);
+                  v139 = sub_5E34(v138, @"1");
+                  v140 = [v242 indexOfObject:v138];
+                  if (v140 != 0x7FFFFFFFFFFFFFFFLL)
+                  {
+                    v141 = v140;
+                    [v242 replaceObjectAtIndex:v140 withObject:v139];
+                    v136 = v141 + 1;
+                  }
+                }
+
+                v134 = [v95 countByEnumeratingWithState:&v321 objects:v325 count:16];
+              }
+
+              while (v134);
+            }
+
+            else
+            {
+              v136 = 0x7FFFFFFFFFFFFFFFLL;
             }
 
             Variant = TIInputModeGetVariant();
-            v172 = TIInputModeGetVariant();
-            if (![v243 isEqualToString:v238] || (v172 ? (v173 = v172) : (v173 = &stru_CEE0), Variant ? (v174 = Variant) : (v174 = &stru_CEE0), (-[__CFString isEqualToString:](v174, "isEqualToString:", v173) & 1) == 0))
+            v170 = TIInputModeGetVariant();
+            if (![v239 isEqualToString:v234] || (v170 ? (v171 = v170) : (v171 = &stru_CEE0), Variant ? (v172 = Variant) : (v172 = &stru_CEE0), (-[__CFString isEqualToString:](v172, "isEqualToString:", v171) & 1) == 0))
             {
-              if (v137 != 0x7FFFFFFFFFFFFFFFLL)
+              if (v136 != 0x7FFFFFFFFFFFFFFFLL)
               {
-                v175 = sub_5E34(v129, @"2");
-                v176 = sub_5E34(v249, @"2");
-                [v246 insertObject:v175 atIndex:v137];
-                [v246 insertObject:v176 atIndex:v137 + 1];
+                v173 = sub_5E34(v128, @"2");
+                v174 = sub_5E34(v245, @"2");
+                [v242 insertObject:v173 atIndex:v136];
+                [v242 insertObject:v174 atIndex:v136 + 1];
               }
             }
           }
@@ -1287,92 +1284,92 @@ LABEL_346:
       goto LABEL_316;
     }
 
-    if (![v242 count] || objc_msgSend(v96, "count") != &dword_0 + 1)
+    if (![v238 count] || objc_msgSend(v95, "count") != &dword_0 + 1)
     {
 LABEL_316:
-      v23 = v246;
-      v177 = v225;
-      if ([v246 count])
+      v23 = v242;
+      v175 = v221;
+      if ([v242 count])
       {
-        v178 = 0;
+        v176 = 0;
         while (1)
         {
-          v179 = [v246 objectAtIndexedSubscript:v178];
+          v177 = [v242 objectAtIndexedSubscript:v176];
           if ([TIInputModeGetNormalizedIdentifier() isEqualToString:@"hi_Latn"])
           {
-            if (([v179 containsString:@"ml="] & 1) == 0)
+            if (([v177 containsString:@"ml="] & 1) == 0)
             {
               break;
             }
           }
 
-          if (++v178 >= [v246 count])
+          if (++v176 >= [v242 count])
           {
             goto LABEL_336;
           }
         }
 
-        if (![v246 count])
+        if (![v242 count])
         {
           goto LABEL_329;
         }
 
-        v180 = 0;
+        v178 = 0;
         while (1)
         {
-          v181 = [objc_msgSend(v253 objectForKeyedSubscript:{@"hi_Latn", "objectForKeyedSubscript:", @"required"}];
-          [v246 objectAtIndexedSubscript:v180];
-          if ([v181 containsObject:TIInputModeGetNormalizedIdentifier()])
+          v179 = [objc_msgSend(v249 objectForKeyedSubscript:{@"hi_Latn", "objectForKeyedSubscript:", @"required"}];
+          [v242 objectAtIndexedSubscript:v178];
+          if ([v179 containsObject:TIInputModeGetNormalizedIdentifier()])
           {
-            if (![objc_msgSend(v246 objectAtIndexedSubscript:{v180), "containsString:", @"ml="}])
+            if (![objc_msgSend(v242 objectAtIndexedSubscript:{v178), "containsString:", @"ml="}])
             {
               break;
             }
           }
 
-          if (++v180 >= [v246 count])
+          if (++v178 >= [v242 count])
           {
             goto LABEL_329;
           }
         }
 
-        if (v180 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v178 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v320 = sub_5E34([v246 objectAtIndexedSubscript:v180], @"1");
-          v321 = sub_5E34(@"hi_Latn", @"1");
-          v322 = sub_5E34(@"hi-Translit", @"1");
-          [v246 replaceObjectsInRange:v180 withObjectsFromArray:{1, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v320, 3)}];
-          [v246 removeObject:v179];
+          v316 = sub_5E34([v242 objectAtIndexedSubscript:v178], @"1");
+          v317 = sub_5E34(@"hi_Latn", @"1");
+          v318 = sub_5E34(@"hi-Translit", @"1");
+          [v242 replaceObjectsInRange:v178 withObjectsFromArray:{1, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v316, 3)}];
+          [v242 removeObject:v177];
         }
 
         else
         {
 LABEL_329:
-          v182 = sub_590C(v179);
+          v180 = sub_590C(v177);
+          if (v180)
+          {
+            v181 = v180;
+          }
+
+          else
+          {
+            v181 = @"QWERTY";
+          }
+
+          v182 = sub_5BD4(v177);
+          v183 = @"Automatic";
           if (v182)
           {
             v183 = v182;
           }
 
-          else
-          {
-            v183 = @"QWERTY";
-          }
-
-          v184 = sub_5BD4(v179);
-          v185 = @"Automatic";
-          if (v184)
-          {
-            v185 = v184;
-          }
-
-          v320 = sub_5E34([NSString stringWithFormat:@"en_IN@sw=%@;hw=%@", v183, v185], @"1");
-          v321 = sub_5E34(@"hi_Latn", @"1");
-          v322 = sub_5E34(@"hi-Translit", @"1");
-          [v246 replaceObjectsInRange:v178 withObjectsFromArray:{1, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v320, 3)}];
+          v316 = sub_5E34([NSString stringWithFormat:@"en_IN@sw=%@;hw=%@", v181, v183], @"1");
+          v317 = sub_5E34(@"hi_Latn", @"1");
+          v318 = sub_5E34(@"hi-Translit", @"1");
+          [v242 replaceObjectsInRange:v176 withObjectsFromArray:{1, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v316, 3)}];
         }
 
-        v177 = v225;
+        v175 = v221;
       }
 
 LABEL_336:
@@ -1381,96 +1378,95 @@ LABEL_336:
         sub_614C();
       }
 
-      v186 = qword_10428;
+      v184 = qword_10428;
       if (os_log_type_enabled(qword_10428, OS_LOG_TYPE_DEFAULT))
       {
-        *v316 = 138412546;
-        v317 = v177;
-        v318 = 2112;
-        v319 = v246;
-        _os_log_impl(&dword_0, v186, OS_LOG_TYPE_DEFAULT, "Completed migration to multilingual sets with previous input modes %@ and new input modes %@", v316, 0x16u);
+        *v312 = 138412546;
+        v313 = v175;
+        v314 = 2112;
+        v315 = v242;
+        _os_log_impl(&dword_0, v184, OS_LOG_TYPE_DEFAULT, "Completed migration to multilingual sets with previous input modes %@ and new input modes %@", v312, 0x16u);
       }
 
       goto LABEL_340;
     }
 
-    v229 = +[NSMutableSet set];
-    v227 = +[NSMutableArray array];
+    v225 = +[NSMutableSet set];
     v223 = +[NSMutableArray array];
-    v290 = 0u;
-    v291 = 0u;
-    v292 = 0u;
-    v293 = 0u;
-    v143 = v253;
-    v233 = [v242 countByEnumeratingWithState:&v290 objects:v329 count:16];
-    if (v233)
+    v219 = +[NSMutableArray array];
+    v286 = 0u;
+    v287 = 0u;
+    v288 = 0u;
+    v289 = 0u;
+    v142 = v249;
+    v229 = [v238 countByEnumeratingWithState:&v286 objects:v325 count:16];
+    if (v229)
     {
-      v231 = *v291;
+      v227 = *v287;
       do
       {
-        v144 = 0;
+        v143 = 0;
         do
         {
-          if (*v291 != v231)
+          if (*v287 != v227)
           {
-            objc_enumerationMutation(v127);
+            objc_enumerationMutation(v126);
           }
 
-          v235 = *(*(&v290 + 1) + 8 * v144);
-          v239 = v144;
-          v145 = [v127 objectForKeyedSubscript:?];
-          v286 = 0u;
-          v287 = 0u;
-          v288 = 0u;
-          v289 = 0u;
-          v146 = [v145 countByEnumeratingWithState:&v286 objects:&v325 count:16];
-          if (v146)
+          v231 = *(*(&v286 + 1) + 8 * v143);
+          v235 = v143;
+          v144 = [v126 objectForKeyedSubscript:?];
+          v282 = 0u;
+          v283 = 0u;
+          v284 = 0u;
+          v285 = 0u;
+          v145 = [v144 countByEnumeratingWithState:&v282 objects:&v321 count:16];
+          if (v145)
           {
-            v147 = v146;
-            v148 = *v287;
+            v146 = v145;
+            v147 = *v283;
             while (2)
             {
-              for (i2 = 0; i2 != v147; i2 = i2 + 1)
+              for (i2 = 0; i2 != v146; ++i2)
               {
-                if (*v287 != v148)
+                if (*v283 != v147)
                 {
-                  objc_enumerationMutation(v145);
+                  objc_enumerationMutation(v144);
                 }
 
-                v150 = *(*(&v286 + 1) + 8 * i2);
-                v151 = TIInputModeGetNormalizedIdentifier();
-                v152 = [v143 objectForKeyedSubscript:v151];
-                if (v152 || (v152 = [v143 objectForKeyedSubscript:{objc_msgSend(v248, "objectForKeyedSubscript:", v151)}]) != 0)
+                v149 = TIInputModeGetNormalizedIdentifier();
+                v150 = [v142 objectForKeyedSubscript:v149];
+                if (v150 || (v150 = [v142 objectForKeyedSubscript:{objc_msgSend(v244, "objectForKeyedSubscript:", v149)}]) != 0)
                 {
-                  v153 = [v152 objectForKeyedSubscript:@"required"];
-                  v282 = 0u;
-                  v283 = 0u;
-                  v284 = 0u;
-                  v285 = 0u;
-                  v154 = [v96 countByEnumeratingWithState:&v282 objects:v324 count:16];
-                  if (v154)
+                  v151 = [v150 objectForKeyedSubscript:@"required"];
+                  v278 = 0u;
+                  v279 = 0u;
+                  v280 = 0u;
+                  v281 = 0u;
+                  v152 = [v95 countByEnumeratingWithState:&v278 objects:v320 count:16];
+                  if (v152)
                   {
-                    v155 = v154;
-                    v156 = *v283;
+                    v153 = v152;
+                    v154 = *v279;
 LABEL_266:
-                    v157 = 0;
+                    v155 = 0;
                     while (1)
                     {
-                      if (*v283 != v156)
+                      if (*v279 != v154)
                       {
-                        objc_enumerationMutation(v96);
+                        objc_enumerationMutation(v95);
                       }
 
-                      v158 = *(*(&v282 + 1) + 8 * v157);
-                      if ([v153 containsObject:TIInputModeGetNormalizedIdentifier()])
+                      v156 = *(*(&v278 + 1) + 8 * v155);
+                      if ([v151 containsObject:TIInputModeGetNormalizedIdentifier()])
                       {
                         break;
                       }
 
-                      if (v155 == ++v157)
+                      if (v153 == ++v155)
                       {
-                        v155 = [v96 countByEnumeratingWithState:&v282 objects:v324 count:16];
-                        if (v155)
+                        v153 = [v95 countByEnumeratingWithState:&v278 objects:v320 count:16];
+                        if (v153)
                         {
                           goto LABEL_266;
                         }
@@ -1479,23 +1475,23 @@ LABEL_266:
                       }
                     }
 
-                    if (!v158)
+                    if (!v156)
                     {
                       goto LABEL_274;
                     }
 
-                    [v229 addObject:v158];
-                    v159 = v235;
+                    [v225 addObject:v156];
+                    v157 = v231;
                     goto LABEL_278;
                   }
                 }
 
 LABEL_274:
-                v143 = v253;
+                v142 = v249;
               }
 
-              v147 = [v145 countByEnumeratingWithState:&v286 objects:&v325 count:16];
-              if (v147)
+              v146 = [v144 countByEnumeratingWithState:&v282 objects:&v321 count:16];
+              if (v146)
               {
                 continue;
               }
@@ -1504,86 +1500,86 @@ LABEL_274:
             }
           }
 
-          v159 = v235;
-          [v227 addObject:v235];
+          v157 = v231;
+          [v223 addObject:v231];
 LABEL_278:
-          v127 = v242;
-          if (([v159 isEqualToString:@"hi_Latn"] & 1) == 0 && (objc_msgSend(v159, "isEqualToString:", @"hi-Translit") & 1) == 0)
+          v126 = v238;
+          if (([v157 isEqualToString:@"hi_Latn"] & 1) == 0 && (objc_msgSend(v157, "isEqualToString:", @"hi-Translit") & 1) == 0)
           {
-            [v223 addObject:v159];
+            [v219 addObject:v157];
           }
 
-          v144 = v239 + 1;
-          v143 = v253;
+          v143 = v235 + 1;
+          v142 = v249;
         }
 
-        while ((v239 + 1) != v233);
-        v233 = [v242 countByEnumeratingWithState:&v290 objects:v329 count:16];
+        while ((v235 + 1) != v229);
+        v229 = [v238 countByEnumeratingWithState:&v286 objects:v325 count:16];
       }
 
-      while (v233);
+      while (v229);
     }
 
-    [v127 removeObjectsForKeys:v227];
+    [v126 removeObjectsForKeys:v223];
     if (qword_10438)
     {
       if ([qword_10438 BOOLValue])
       {
 LABEL_286:
-        if ([v229 count] == &dword_0 + 1 && objc_msgSend(v127, "count") && objc_msgSend(v127, "count") <= 2)
+        if ([v225 count] == &dword_0 + 1 && objc_msgSend(v126, "count") && objc_msgSend(v126, "count") <= 2)
         {
-          v160 = [v229 anyObject];
-          v161 = [NSMutableArray arrayWithObject:v160];
-          v162 = [NSMutableArray arrayWithObject:sub_5E34(v160, @"1")];
-          v278 = 0u;
-          v279 = 0u;
-          v280 = 0u;
-          v281 = 0u;
-          v163 = [v127 countByEnumeratingWithState:&v278 objects:v323 count:16];
-          if (v163)
+          v158 = [v225 anyObject];
+          v159 = [NSMutableArray arrayWithObject:v158];
+          v160 = [NSMutableArray arrayWithObject:sub_5E34(v158, @"1")];
+          v274 = 0u;
+          v275 = 0u;
+          v276 = 0u;
+          v277 = 0u;
+          v161 = [v126 countByEnumeratingWithState:&v274 objects:v319 count:16];
+          if (v161)
           {
-            v164 = v163;
-            v165 = *v279;
+            v162 = v161;
+            v163 = *v275;
             do
             {
-              for (i3 = 0; i3 != v164; i3 = i3 + 1)
+              for (i3 = 0; i3 != v162; i3 = i3 + 1)
               {
-                if (*v279 != v165)
+                if (*v275 != v163)
                 {
-                  objc_enumerationMutation(v242);
+                  objc_enumerationMutation(v238);
                 }
 
-                v167 = *(*(&v278 + 1) + 8 * i3);
-                -[NSMutableArray addObjectsFromArray:](v161, "addObjectsFromArray:", [v242 objectForKeyedSubscript:v167]);
-                [(NSMutableArray *)v162 addObject:sub_5E34(v167, @"1")];
-                v168 = [objc_msgSend(v253 objectForKeyedSubscript:{v167), "objectForKeyedSubscript:", @"paired"}];
-                if ([v168 length])
+                v165 = *(*(&v274 + 1) + 8 * i3);
+                -[NSMutableArray addObjectsFromArray:](v159, "addObjectsFromArray:", [v238 objectForKeyedSubscript:v165]);
+                [(NSMutableArray *)v160 addObject:sub_5E34(v165, @"1")];
+                v166 = [objc_msgSend(v249 objectForKeyedSubscript:{v165), "objectForKeyedSubscript:", @"paired"}];
+                if ([v166 length])
                 {
-                  [(NSMutableArray *)v162 addObject:sub_5E34(v168, @"1")];
+                  [(NSMutableArray *)v160 addObject:sub_5E34(v166, @"1")];
                 }
               }
 
-              v164 = [v242 countByEnumeratingWithState:&v278 objects:v323 count:16];
+              v162 = [v238 countByEnumeratingWithState:&v274 objects:v319 count:16];
             }
 
-            while (v164);
+            while (v162);
           }
 
-          if ([(NSMutableArray *)v161 count]>= 2)
+          if ([(NSMutableArray *)v159 count]>= 2)
           {
-            v169 = 1;
+            v167 = 1;
             do
             {
-              [v246 removeObject:{-[NSMutableArray objectAtIndexedSubscript:](v161, "objectAtIndexedSubscript:", v169++)}];
+              [v242 removeObject:{-[NSMutableArray objectAtIndexedSubscript:](v159, "objectAtIndexedSubscript:", v167++)}];
             }
 
-            while (v169 < [(NSMutableArray *)v161 count]);
+            while (v167 < [(NSMutableArray *)v159 count]);
           }
 
-          v170 = [v246 indexOfObject:{-[NSMutableArray objectAtIndexedSubscript:](v161, "objectAtIndexedSubscript:", 0)}];
-          if (v170 != 0x7FFFFFFFFFFFFFFFLL)
+          v168 = [v242 indexOfObject:{-[NSMutableArray objectAtIndexedSubscript:](v159, "objectAtIndexedSubscript:", 0)}];
+          if (v168 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            [v246 replaceObjectsInRange:v170 withObjectsFromArray:{1, v162}];
+            [v242 replaceObjectsInRange:v168 withObjectsFromArray:{1, v160}];
           }
         }
 
@@ -1596,7 +1592,7 @@ LABEL_286:
       goto LABEL_286;
     }
 
-    [v127 removeObjectsForKeys:v223];
+    [v126 removeObjectsForKeys:v219];
     goto LABEL_286;
   }
 }

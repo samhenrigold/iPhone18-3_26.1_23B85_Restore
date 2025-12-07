@@ -20,7 +20,7 @@
 - (UIColor)tintColor
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for AlarmComplicationView();
+  v4.super_class = type metadata accessor for AlarmComplicationView(0);
   tintColor = [(AlarmComplicationView *)&v4 tintColor];
 
   return tintColor;
@@ -30,13 +30,13 @@
 {
   colorCopy = color;
   selfCopy = self;
-  sub_1E4994C60(color);
+  sub_1E4994C60(color, selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1E4994F40();
+  sub_1E4994F40(selfCopy, v2);
 }
 
 - (_TtC11ClockPoster21AlarmComplicationView)initWithFrame:(CGRect)frame

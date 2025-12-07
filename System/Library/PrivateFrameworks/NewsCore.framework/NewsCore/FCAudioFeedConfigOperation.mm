@@ -51,7 +51,7 @@
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     LOBYTE(v2) = 1;
@@ -62,22 +62,21 @@
     v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
     if (v2)
     {
-      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"audio feed config operation requires a context"];
-      v6 = 136315906;
-      v7 = "[FCAudioFeedConfigOperation validateOperation]";
-      v8 = 2080;
-      v9 = "FCAudioFeedConfigOperation.m";
-      v10 = 1024;
-      v11 = 58;
-      v12 = 2114;
-      v13 = v4;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+      v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"audio feed config operation requires a context"];
+      v5 = 136315906;
+      v6 = "[FCAudioFeedConfigOperation validateOperation]";
+      v7 = 2080;
+      v8 = "FCAudioFeedConfigOperation.m";
+      v9 = 1024;
+      v10 = 58;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
 
       LOBYTE(v2) = 0;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -201,7 +200,7 @@ uint64_t __46__FCAudioFeedConfigOperation_performOperation__block_invoke_3(uint6
 
 void __61__FCAudioFeedConfigOperation__promiseAudioConfigsWithConfig___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(FCRecordChainFetchOperation);
@@ -219,51 +218,49 @@ void __61__FCAudioFeedConfigOperation__promiseAudioConfigsWithConfig___block_inv
 
   [(FCRecordChainFetchOperation *)v7 setContext:v10];
   v11 = [*(a1 + 40) audioConfigRecordID];
-  v32[0] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+  v31[0] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
   [(FCRecordChainFetchOperation *)v8 setTopLevelRecordIDs:v12];
 
-  v30[0] = @"AudioConfig";
-  v29[0] = @"curatedArticleIDs";
-  v29[1] = @"dailyBriefingArticleID";
-  v29[2] = @"heroArticleIDs";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
-  v31[0] = v13;
-  v30[1] = @"ArticleList";
-  v28 = @"articleIDs";
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-  v31[1] = v14;
-  v30[2] = @"Article";
-  v27[0] = @"sourceChannelTagID";
-  v27[1] = @"parentIssueID";
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
-  v31[2] = v15;
-  v31[3] = MEMORY[0x1E695E0F0];
-  v30[3] = @"Tag";
-  v30[4] = @"Issue";
-  v31[4] = MEMORY[0x1E695E0F0];
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:5];
+  v29[0] = @"AudioConfig";
+  v28[0] = @"curatedArticleIDs";
+  v28[1] = @"dailyBriefingArticleID";
+  v28[2] = @"heroArticleIDs";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
+  v30[0] = v13;
+  v29[1] = @"ArticleList";
+  v27 = @"articleIDs";
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+  v30[1] = v14;
+  v29[2] = @"Article";
+  v26[0] = @"sourceChannelTagID";
+  v26[1] = @"parentIssueID";
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v30[2] = v15;
+  v30[3] = MEMORY[0x1E695E0F0];
+  v29[3] = @"Tag";
+  v29[4] = @"Issue";
+  v30[4] = MEMORY[0x1E695E0F0];
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:5];
   [(FCRecordChainFetchOperation *)v8 setLinkKeysByRecordType:v16];
 
-  v25 = @"AudioConfig";
+  v24 = @"AudioConfig";
   v17 = [FCCachePolicy cachePolicyWithSoftMaxAge:300.0];
-  v26 = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  v25 = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
   [(FCRecordChainFetchOperation *)v8 setCachePoliciesByRecordType:v18];
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __61__FCAudioFeedConfigOperation__promiseAudioConfigsWithConfig___block_invoke_2;
-  v22[3] = &unk_1E7C3EF48;
-  v23 = v6;
-  v24 = v5;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __61__FCAudioFeedConfigOperation__promiseAudioConfigsWithConfig___block_invoke_2;
+  v21[3] = &unk_1E7C3EF48;
+  v22 = v6;
+  v23 = v5;
   v19 = v5;
   v20 = v6;
-  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:v22];
+  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:v21];
   [*(a1 + 32) associateChildOperation:v8];
   [(FCOperation *)v8 start];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __61__FCAudioFeedConfigOperation__promiseAudioConfigsWithConfig___block_invoke_2(uint64_t a1, void *a2, void *a3)

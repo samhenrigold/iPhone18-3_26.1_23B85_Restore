@@ -61,7 +61,7 @@
 
 - (BOOL)sendMessage:(id)message error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v7 = [(HMDXPCClientConnection *)self canSendMessage:messageCopy];
   if (v7)
@@ -76,9 +76,9 @@
         v11 = HMFGetLogIdentifier();
         shortDescription = [messageCopy shortDescription];
         *buf = 138543618;
-        v30 = v11;
-        v31 = 2112;
-        v32 = shortDescription;
+        v29 = v11;
+        v30 = 2112;
+        v31 = shortDescription;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Marking location for message: %@", buf, 0x16u);
       }
 
@@ -96,16 +96,16 @@
     [v15 setHeaderValue:date forKey:*MEMORY[0x277CD15E0]];
 
     xpcConnection = [(HMDXPCClientConnection *)self xpcConnection];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __44__HMDXPCClientConnection_sendMessage_error___block_invoke;
-    v28[3] = &unk_2797359D8;
-    v28[4] = self;
-    v19 = [xpcConnection remoteObjectProxyWithErrorHandler:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __44__HMDXPCClientConnection_sendMessage_error___block_invoke;
+    v27[3] = &unk_2797359D8;
+    v27[4] = self;
+    v19 = [xpcConnection remoteObjectProxyWithErrorHandler:v27];
 
     responseHandler = [v15 responseHandler];
 
-    v21 = [v15 copy];
+    v21 = objc_msgSend_copy(v15);
     if (responseHandler)
     {
       responseHandler2 = [v15 responseHandler];
@@ -131,13 +131,12 @@
     *error = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -145,15 +144,14 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to get remote object proxy for sending message: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to get remote object proxy for sending message: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(id)message completionHandler:(id)handler
@@ -221,7 +219,7 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
 
 - (void)_invalidate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queue = [(HMDXPCClientConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -235,9 +233,9 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Not invalidating already invalidated XPC connection", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Not invalidating already invalidated XPC connection", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -248,9 +246,9 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Invalidating XPC connection", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Invalidating XPC connection", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -259,13 +257,11 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     delegate = [(HMDXPCClientConnection *)selfCopy delegate];
     [delegate connectionDidInvalidate:selfCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deactivate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queue = [(HMDXPCClientConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -284,9 +280,9 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Not de-activating already de-activated XPC connection", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Not de-activating already de-activated XPC connection", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -297,9 +293,9 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Deactivating XPC connection", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Deactivating XPC connection", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -307,13 +303,11 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     delegate = [(HMDXPCClientConnection *)selfCopy delegate];
     [delegate connectionDidDeactivate:selfCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queue = [(HMDXPCClientConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -332,9 +326,9 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v9 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Not activating already activated XPC connection", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Not activating already activated XPC connection", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -345,9 +339,9 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Activating XPC connection", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Activating XPC connection", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -361,13 +355,11 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
       [(HMDXPCClientConnection *)selfCopy initiateRefresh];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_start
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queue = [(HMDXPCClientConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -386,9 +378,9 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Not starting already started XPC connection", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Not starting already started XPC connection", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -399,9 +391,9 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Starting XPC connection", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Starting XPC connection", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -415,8 +407,6 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
 
     [(HMDXPCClientConnection *)selfCopy handleProcessStateDidChange];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -465,18 +455,18 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
 
 - (void)_handleMessage:(id)message responseHandler:(id)handler
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   queue = [(HMDXPCClientConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v52 = objc_autoreleasePoolPush();
+  v51 = objc_autoreleasePoolPush();
   v8 = objc_alloc(MEMORY[0x277D0F770]);
   v9 = MEMORY[0x277D0F818];
   name = [messageCopy name];
   v11 = [v9 activityNameWithMessageName:name];
-  v57 = [v8 initWithName:v11];
+  v56 = [v8 initWithName:v11];
 
   headers = [messageCopy headers];
   v13 = [headers objectForKeyedSubscript:*MEMORY[0x277CCF1D0]];
@@ -494,7 +484,7 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
 
   v15 = v14;
 
-  [v57 setClientMetricIdentifier:v15];
+  [v56 setClientMetricIdentifier:v15];
   name2 = [messageCopy name];
   identifier = [messageCopy identifier];
   context = objc_autoreleasePoolPush();
@@ -502,8 +492,8 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
   v17 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v48 = HMFGetLogIdentifier();
-    identifier2 = [v57 identifier];
+    v47 = HMFGetLogIdentifier();
+    identifier2 = [v56 identifier];
     shortDescription = [identifier2 shortDescription];
     uUIDString = [identifier UUIDString];
     name3 = [(HMDXPCClientConnection *)selfCopy name];
@@ -531,23 +521,23 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
     [messageCopy qualityOfService];
     v24 = HMFQualityOfServiceToString();
     *buf = 138545411;
-    v65 = v48;
-    v66 = 2114;
-    v67 = shortDescription;
-    v68 = 2114;
-    v69 = name2;
-    v70 = 2114;
-    v71 = uUIDString;
-    v72 = 2114;
-    v73 = name3;
-    v74 = 2114;
-    v75 = uUIDString2;
-    v76 = 2082;
-    v77 = v20;
-    v78 = 2113;
-    v79 = v23;
-    v80 = 2114;
-    v81 = v24;
+    v64 = v47;
+    v65 = 2114;
+    v66 = shortDescription;
+    v67 = 2114;
+    v68 = name2;
+    v69 = 2114;
+    v70 = uUIDString;
+    v71 = 2114;
+    v72 = name3;
+    v73 = 2114;
+    v74 = uUIDString2;
+    v75 = 2082;
+    v76 = v20;
+    v77 = 2113;
+    v78 = v23;
+    v79 = 2114;
+    v80 = v24;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Received incoming message %{public}@ (%{public}@) from client '%{public}@' for target %{public}@ that does%{public}s expect a response, payload %{private}@, QoS: %{public}@", buf, 0x5Cu);
   }
 
@@ -592,12 +582,12 @@ void __44__HMDXPCClientConnection_sendMessage_error___block_invoke(uint64_t a1, 
   uUIDString3 = [uUID UUIDString];
   [v34 setObject:uUIDString3 forKeyedSubscript:v30];
 
-  v37 = [v34 copy];
+  v37 = objc_msgSend_copy(v34);
   [v28 setMessagePayload:v37];
 
 LABEL_20:
   [v28 setTransport:selfCopy];
-  [v28 setActivity:v57];
+  [v28 setActivity:v56];
   if (handlerCopy)
   {
     requestTracker = [(HMDXPCClientConnection *)selfCopy requestTracker];
@@ -607,33 +597,32 @@ LABEL_20:
 
     clientName = [(HMDXPCClientConnection *)selfCopy clientName];
     objc_initWeak(buf, selfCopy);
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __57__HMDXPCClientConnection__handleMessage_responseHandler___block_invoke;
-    v58[3] = &unk_279731A58;
-    objc_copyWeak(&v63, buf);
-    v59 = v57;
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __57__HMDXPCClientConnection__handleMessage_responseHandler___block_invoke;
+    v57[3] = &unk_279731A58;
+    objc_copyWeak(&v62, buf);
+    v58 = v56;
     v42 = clientName;
-    v60 = v42;
-    v61 = identifier;
-    v62 = messageCopy;
-    [v28 setResponseHandler:v58];
+    v59 = v42;
+    v60 = identifier;
+    v61 = messageCopy;
+    [v28 setResponseHandler:v57];
 
-    objc_destroyWeak(&v63);
+    objc_destroyWeak(&v62);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    [v57 end];
+    [v56 end];
   }
 
   delegate = [(HMDXPCClientConnection *)selfCopy delegate];
-  v44 = [v28 copy];
+  v44 = objc_msgSend_copy(v28);
   [delegate messageTransport:selfCopy didReceiveMessage:v44];
 
-  objc_autoreleasePoolPop(v52);
-  v45 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v51);
 }
 
 void __57__HMDXPCClientConnection__handleMessage_responseHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -666,7 +655,7 @@ void __57__HMDXPCClientConnection__handleMessage_responseHandler___block_invoke(
 
 - (BOOL)canSendMessage:(id)message
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   transport = [messageCopy transport];
   v6 = transport;
@@ -679,17 +668,17 @@ void __57__HMDXPCClientConnection__handleMessage_responseHandler___block_invoke(
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543874;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
-      v46 = 2112;
-      v47 = v6;
+      v41 = 138543874;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
+      v45 = 2112;
+      v46 = v6;
       v12 = "%{public}@Cannot send message %@: This XPC client connection does not match the message's transport: %@";
       v24 = v9;
       v25 = 32;
 LABEL_53:
-      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEBUG, v12, &v42, v25);
+      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEBUG, v12, &v41, v25);
 
 LABEL_54:
       goto LABEL_55;
@@ -707,10 +696,10 @@ LABEL_54:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not SPI entitled and message requires SPI entitlement";
       goto LABEL_52;
     }
@@ -731,10 +720,10 @@ LABEL_55:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is SPI entitled and message requires no SPI entitlement";
 LABEL_52:
       v24 = v9;
@@ -754,10 +743,10 @@ LABEL_52:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not location authorized and message requires location authorization";
       goto LABEL_52;
     }
@@ -774,10 +763,10 @@ LABEL_52:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not entitled for the HomeKit location data. Please make sure the client has com.apple.private.homekit.home-location & com.apple.private.homekit.location entitlements.";
       goto LABEL_52;
     }
@@ -794,10 +783,10 @@ LABEL_52:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not camera clips entitled and message requires camera clips entitlement";
       goto LABEL_52;
     }
@@ -814,10 +803,10 @@ LABEL_52:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not multi user entitled and message requires multi user entitlement";
       goto LABEL_52;
     }
@@ -834,10 +823,10 @@ LABEL_52:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not setup payload entitled and message requires setup payload entitlement";
       goto LABEL_52;
     }
@@ -854,10 +843,10 @@ LABEL_52:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not matter setup payload entitled and message requires matter setup payload entitlement";
       goto LABEL_52;
     }
@@ -874,10 +863,10 @@ LABEL_52:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not person manager entitled and message requires person manager entitlement";
       goto LABEL_52;
     }
@@ -894,10 +883,10 @@ LABEL_52:
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v42 = 138543618;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription;
+      v41 = 138543618;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription;
       v12 = "%{public}@Cannot send message %@: Client is not wallet key entitled and message requires wallet key entitlement";
       goto LABEL_52;
     }
@@ -921,10 +910,10 @@ LABEL_52:
       {
         v10 = HMFGetLogIdentifier();
         shortDescription = [messageCopy shortDescription];
-        v42 = 138543618;
-        v43 = v10;
-        v44 = 2112;
-        v45 = shortDescription;
+        v41 = 138543618;
+        v42 = v10;
+        v43 = 2112;
+        v44 = shortDescription;
         v12 = "%{public}@Cannot send message %@: Connection is not activated and the message isn't responding to a pending request";
         goto LABEL_52;
       }
@@ -955,15 +944,15 @@ LABEL_52:
       shortDescription2 = [messageCopy shortDescription];
       sendPolicy3 = [messageCopy sendPolicy];
       sendPolicyParameters2 = [(HMDXPCClientConnection *)selfCopy13 sendPolicyParameters];
-      v42 = 138544130;
-      v43 = v10;
-      v44 = 2112;
-      v45 = shortDescription2;
-      v46 = 2112;
-      v47 = sendPolicy3;
-      v48 = 2112;
-      v49 = sendPolicyParameters2;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Cannot send message %@: Message send policy %@ does not pass client connection send policy: %@", &v42, 0x2Au);
+      v41 = 138544130;
+      v42 = v10;
+      v43 = 2112;
+      v44 = shortDescription2;
+      v45 = 2112;
+      v46 = sendPolicy3;
+      v47 = 2112;
+      v48 = sendPolicyParameters2;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Cannot send message %@: Message send policy %@ does not pass client connection send policy: %@", &v41, 0x2Au);
 
       goto LABEL_54;
     }
@@ -972,7 +961,6 @@ LABEL_52:
   v22 = 1;
 LABEL_56:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -1004,14 +992,14 @@ LABEL_56:
   requestIdentifiers = [requestTracker requestIdentifiers];
   [dictionary setObject:requestIdentifiers forKeyedSubscript:@"Active Requests"];
 
-  v13 = [dictionary copy];
+  v13 = objc_msgSend_copy(dictionary);
 
   return v13;
 }
 
 - (void)updateSendPolicyParameters:(id)parameters
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1019,22 +1007,20 @@ LABEL_56:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = parametersCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Updating sendPolicyParameters to %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = parametersCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Updating sendPolicyParameters to %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDXPCClientConnection *)selfCopy setSendPolicyParameters:parametersCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initiateRefresh
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   queue = [(HMDXPCClientConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -1069,20 +1055,18 @@ LABEL_56:
       *buf = *MEMORY[0x277D0F960];
     }
 
-    v15 = *buf;
+    v14 = *buf;
     *buf = 138543874;
     *&buf[4] = v11;
     *&buf[12] = 1042;
     *&buf[14] = 16;
-    v17 = 2098;
-    v18 = &v15;
+    v16 = 2098;
+    v17 = &v14;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Initiating refresh using message with identifier: %{public,uuid_t}.16P", buf, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDXPCClientConnection *)selfCopy sendMessage:v7 completionHandler:0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)applicationBundleIdentifier
@@ -1103,7 +1087,7 @@ LABEL_56:
 {
   parametersCopy = parameters;
   os_unfair_lock_lock_with_options();
-  v4 = [parametersCopy copy];
+  v4 = objc_msgSend_copy(parametersCopy);
   sendPolicyParameters = self->_sendPolicyParameters;
   self->_sendPolicyParameters = v4;
 
@@ -1139,7 +1123,7 @@ LABEL_56:
 
 - (void)handleProcessStateDidChange
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   queue = [(HMDXPCClientConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -1158,9 +1142,9 @@ LABEL_56:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           v13 = HMFGetLogIdentifier();
-          v15 = 138543362;
-          v16 = v13;
-          _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Deactivating XPC connection that is now in the background", &v15, 0xCu);
+          v14 = 138543362;
+          v15 = v13;
+          _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Deactivating XPC connection that is now in the background", &v14, 0xCu);
         }
 
         objc_autoreleasePoolPop(v10);
@@ -1176,17 +1160,15 @@ LABEL_56:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v9;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Activating XPC connection that is now in the foreground and initiating refresh", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v9;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Activating XPC connection that is now in the foreground and initiating refresh", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
       [(HMDXPCClientConnection *)selfCopy2 _activate];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setProcessInfo:(id)info
@@ -1214,7 +1196,7 @@ LABEL_56:
   v4 = v3;
   if (v3)
   {
-    [v3 auditToken];
+    objc_msgSend_auditToken(v3);
   }
 
   [(HMDXPCClientConnection *)self clientPid];
@@ -1334,32 +1316,30 @@ LABEL_6:
 
 - (BOOL)isAuthorizedForMicrophoneAccess
 {
-  v2 = *MEMORY[0x277D6C1A8];
   xpcConnection = [(HMDXPCClientConnection *)self xpcConnection];
-  v4 = xpcConnection;
+  v3 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
-  v5 = TCCAccessCheckAuditToken() != 0;
+  v4 = TCCAccessCheckAuditToken() != 0;
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isAuthorizedForHomeDataAccess
 {
-  v2 = *MEMORY[0x277D6C258];
   xpcConnection = [(HMDXPCClientConnection *)self xpcConnection];
-  v4 = xpcConnection;
+  v3 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
-  v5 = TCCAccessCheckAuditToken() != 0;
+  v4 = TCCAccessCheckAuditToken() != 0;
 
-  return v5;
+  return v4;
 }
 
 - (NSString)clientIdentifier
@@ -1482,13 +1462,12 @@ LABEL_6:
 
 - (void)setUserInfo:(id)info
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   queue = [(HMDXPCClientConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
   os_unfair_lock_lock_with_options();
-  userInfo = self->_userInfo;
   if (HMFEqualObjects())
   {
     os_unfair_lock_unlock(&self->_lock);
@@ -1496,10 +1475,10 @@ LABEL_6:
 
   else
   {
-    v7 = self->_userInfo;
-    v8 = [infoCopy copy];
-    v9 = self->_userInfo;
-    self->_userInfo = v8;
+    userInfo = self->_userInfo;
+    v7 = objc_msgSend_copy(infoCopy);
+    v8 = self->_userInfo;
+    self->_userInfo = v7;
 
     os_unfair_lock_unlock(&self->_lock);
     clientName = [(HMDXPCClientConnection *)self clientName];
@@ -1509,34 +1488,32 @@ LABEL_6:
       [requestTracker setClientName:clientName];
     }
 
-    v12 = MEMORY[0x277CCACA8];
+    v11 = MEMORY[0x277CCACA8];
     name = [(HMDXPCClientConnection *)self name];
     clientPid = [(HMDXPCClientConnection *)self clientPid];
     clientUUID = [(HMDXPCClientConnection *)self clientUUID];
-    v16 = [v12 stringWithFormat:@"%@/%d/%@", name, clientPid, clientUUID];
-    [(HMDXPCClientConnection *)self setLogIdentifier:v16];
+    v15 = [v11 stringWithFormat:@"%@/%d/%@", name, clientPid, clientUUID];
+    [(HMDXPCClientConnection *)self setLogIdentifier:v15];
 
-    v17 = objc_autoreleasePoolPush();
+    v16 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v20;
-      v24 = 2112;
-      v25 = infoCopy;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Updated user info: %@", buf, 0x16u);
+      v21 = v19;
+      v22 = 2112;
+      v23 = infoCopy;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Updated user info: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    if (!v7)
+    objc_autoreleasePoolPop(v16);
+    if (!userInfo)
     {
       [(HMDXPCClientConnection *)selfCopy _start];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)userInfo
@@ -1550,22 +1527,20 @@ LABEL_6:
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   _displayName = [(HMDXPCClientConnection *)self _displayName];
   v5 = [v3 initWithName:@"Name" value:_displayName];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   v7 = [MEMORY[0x277CCABB0] numberWithInt:{-[HMDXPCClientConnection clientPid](self, "clientPid", v5)}];
   v8 = [v6 initWithName:@"PID" value:v7];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDXPCClientConnection *)self entitlements];
   v10 = HMXPCClientEntitlementsShortDescription();
   v11 = [v9 initWithName:@"Entitlements" value:v10];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }
@@ -1582,7 +1557,7 @@ LABEL_6:
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
@@ -1596,15 +1571,14 @@ LABEL_6:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v8;
+    v11 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@XPC connection got deallocated.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10.receiver = selfCopy;
-  v10.super_class = HMDXPCClientConnection;
-  [(HMDXPCClientConnection *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = selfCopy;
+  v9.super_class = HMDXPCClientConnection;
+  [(HMDXPCClientConnection *)&v9 dealloc];
 }
 
 - (HMDXPCClientConnection)initWithConnection:(id)connection queue:(id)queue messageCountTracker:(id)tracker requestTracker:(id)requestTracker
@@ -1706,17 +1680,16 @@ LABEL_11:
 
 uint64_t __37__HMDXPCClientConnection_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v43_37346;
-  logCategory__hmf_once_v43_37346 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v43_37346;
+  logCategory__hmf_once_v43_37346 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (unint64_t)entitlementsForConnection:(id)connection
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = validateEntitlementForConnection(@"com.apple.developer.homekit", connectionCopy);
   if (validateEntitlementForConnection(@"com.apple.developer.homekit.background-mode", connectionCopy))
@@ -1742,13 +1715,13 @@ uint64_t __37__HMDXPCClientConnection_logCategory__block_invoke()
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543874;
-      v15 = v10;
-      v16 = 2112;
-      v17 = @"com.apple.private.homekit";
-      v18 = 2112;
-      v19 = connectionCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Client should adopt %@ entitlement: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v10;
+      v15 = 2112;
+      v16 = @"com.apple.private.homekit";
+      v17 = 2112;
+      v18 = connectionCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Client should adopt %@ entitlement: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1861,7 +1834,6 @@ LABEL_10:
     v11 |= 0x400000uLL;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

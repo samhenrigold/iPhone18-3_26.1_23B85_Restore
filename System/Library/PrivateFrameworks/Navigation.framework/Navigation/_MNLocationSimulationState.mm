@@ -44,7 +44,7 @@
     goto LABEL_15;
   }
 
-  v36 = var2;
+  v45 = var2;
   v13 = -180.0;
   if (from.var0 <= 90.0)
   {
@@ -54,44 +54,51 @@
     [data speedOverride];
     v22 = v21;
 
-    v23 = 5.0;
+    v27 = 5.0;
     if (v22 >= 0.0)
     {
       data2 = [(_MNLocationSimulationState *)self data];
       [data2 speedOverride];
-      v23 = v25;
+      v27 = v29;
     }
 
     if (speed)
     {
-      *speed = v23;
+      *speed = v27;
     }
 
-    v26 = v23 * delta;
-    GEOCalculateDistance();
-    if (v26 <= v27)
+    v30 = v27 * delta;
+    v46.var0 = v10;
+    v46.var1 = var1;
+    v46.var2 = var0;
+    v31 = v18;
+    v34 = GEOCalculateDistance(v23, v24, v46, *(&v25 - 1));
+    if (v30 <= v34)
     {
-      v28 = v26 / v27;
-      v13 = v10 + v28 * (var0 - v10);
-      v11 = var1 + v28 * (v18 - var1);
+      v37 = v30 / v34;
+      v13 = v10 + v37 * (var0 - v10);
+      v11 = var1 + v37 * (v18 - var1);
       if (course)
       {
-        GEOCalculateDistance();
-        if (v29 >= 0.000001)
+        v47.var0 = v10;
+        v47.var1 = var1;
+        v47.var2 = var0;
+        v38 = v18;
+        if (GEOCalculateDistance(v32, v33, v47, *(&v35 - 1)) >= 0.000001)
         {
-          [(_MNLocationSimulationState *)self _courseFromCoordinate:v10 toCoordinate:var1, v36, var0, v18, v17];
-          *course = v33;
-          v12 = v36;
+          [(_MNLocationSimulationState *)self _courseFromCoordinate:v10 toCoordinate:var1, v45, var0, v18, v17];
+          *course = v42;
+          v12 = v45;
           goto LABEL_15;
         }
 
         data3 = [(_MNLocationSimulationState *)self data];
         lastLocation = [data3 lastLocation];
         [lastLocation course];
-        *course = v32;
+        *course = v41;
       }
 
-      v12 = v36;
+      v12 = v45;
     }
 
     else
@@ -103,11 +110,11 @@
   }
 
 LABEL_15:
-  v34 = v13;
-  v35 = v11;
+  v43 = v13;
+  v44 = v11;
   result.var2 = v12;
-  result.var1 = v35;
-  result.var0 = v34;
+  result.var1 = v44;
+  result.var0 = v43;
   return result;
 }
 
@@ -171,7 +178,7 @@ LABEL_15:
 
 - (void)updateWithRouteInfo:(id)info rerouteReason:(unint64_t)reason
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   data = [(_MNLocationSimulationState *)self data];
   if ([data simulationType] == 2)
@@ -191,71 +198,78 @@ LABEL_15:
 
   lastLocation = [(_MNLocationSimulationData *)self->_data lastLocation];
   [lastLocation coordinate];
+  v11 = v10;
+  v13 = v12;
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   route = [infoCopy route];
   legs = [route legs];
 
-  v12 = [legs countByEnumeratingWithState:&v29 objects:v35 count:16];
-  if (v12)
+  v16 = [legs countByEnumeratingWithState:&v38 objects:v44 count:16];
+  if (v16)
   {
-    v13 = v12;
-    v14 = *v30;
-    v15 = 1.79769313e308;
+    v17 = v16;
+    v18 = *v39;
+    v19 = 1.79769313e308;
     do
     {
-      v16 = 0;
+      v20 = 0;
       do
       {
-        if (*v30 != v14)
+        if (*v39 != v18)
         {
           objc_enumerationMutation(legs);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * v16);
+        v21 = *(*(&v38 + 1) + 8 * v20);
         route2 = [infoCopy route];
-        [route2 pointAtRouteCoordinate:{objc_msgSend(v17, "startRouteCoordinate")}];
+        [route2 pointAtRouteCoordinate:{objc_msgSend(v21, "startRouteCoordinate")}];
+        v24 = v23;
+        v26 = v25;
 
-        GEOCalculateDistance();
-        if (v19 < v15)
+        v46.var0 = v11;
+        v46.var1 = v13;
+        v46.var2 = v24;
+        v47.var0 = v26;
+        v29 = GEOCalculateDistance(v27, v28, v46, v47);
+        if (v29 < v19)
         {
-          v20 = v19;
-          legIndex = [v17 legIndex];
+          v30 = v29;
+          legIndex = [v21 legIndex];
           data3 = [(_MNLocationSimulationState *)self data];
           [data3 setCurrentLegIndex:legIndex];
 
-          v15 = v20;
+          v19 = v30;
         }
 
-        ++v16;
+        ++v20;
       }
 
-      while (v13 != v16);
-      v13 = [legs countByEnumeratingWithState:&v29 objects:v35 count:16];
+      while (v17 != v20);
+      v17 = [legs countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
-    while (v13);
+    while (v17);
   }
 
-  v23 = MNGetMNNavigationSimulationLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v33 = MNGetMNNavigationSimulationLog();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     data4 = [(_MNLocationSimulationState *)self data];
     currentLegIndex = [data4 currentLegIndex];
     *buf = 67109120;
-    v34 = currentLegIndex;
-    _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_DEFAULT, "Proceeding to start of leg %d of new route.", buf, 8u);
+    v43 = currentLegIndex;
+    _os_log_impl(&dword_1D311E000, v33, OS_LOG_TYPE_DEFAULT, "Proceeding to start of leg %d of new route.", buf, 8u);
   }
 
   delegate = [(_MNLocationSimulationState *)self delegate];
-  v27 = objc_alloc_init(_MNLocationSimulationState_ProceedingToStartOfLeg);
-  [delegate changeState:v27];
+  v37 = objc_alloc_init(_MNLocationSimulationState_ProceedingToStartOfLeg);
+  [delegate changeState:v37];
 
 LABEL_16:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nextSimulatedLocationWithElapsedTime:(double)time

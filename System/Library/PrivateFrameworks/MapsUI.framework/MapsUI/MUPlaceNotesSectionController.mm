@@ -15,12 +15,10 @@
 
 - (MULibraryAccessProviding)libraryAccessProvider
 {
-  v3 = OBJC_IVAR____TtC6MapsUI29MUPlaceNotesSectionController_libraryAccessProvider;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setLibraryAccessProvider:(id)provider
@@ -66,12 +64,11 @@
 
 - (NSArray)sectionViews
 {
-  v2 = *(self + OBJC_IVAR____TtC6MapsUI29MUPlaceNotesSectionController__sectionViews);
   sub_1C5626E40(0, &qword_1ED77E800, 0x1E69DD250);
 
-  v3 = sub_1C584F750();
+  v2 = sub_1C584F750();
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)hasContentBeforePersonalizedSuggestionArbitration
@@ -107,11 +104,6 @@
     v6 = *(selfCopy + OBJC_IVAR____TtC6MapsUI29MUPlaceNotesSectionController__sectionViews);
     if (v6 >> 62)
     {
-      if (v6 < 0)
-      {
-        v8 = *(selfCopy + OBJC_IVAR____TtC6MapsUI29MUPlaceNotesSectionController__sectionViews);
-      }
-
       v7 = sub_1C584FB90();
     }
 

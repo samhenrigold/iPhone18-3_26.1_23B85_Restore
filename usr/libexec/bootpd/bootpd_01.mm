@@ -131,12 +131,13 @@ CFDataRef sub_10000F214(int a1, unsigned int a2)
   return CFDataCreate(0, p_bytes, v5);
 }
 
-void *sub_10000F2C0(unsigned int a1, uint64_t a2)
+void *sub_10000F2C0(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   v4 = malloc_type_malloc(0x30uLL, 0x10A0040A76AC297uLL);
   if (v4)
   {
-    *v4 = sub_10000FF90(a1, a2);
+    *v4 = sub_10000FF90(v3, a2);
     v4[1] = v5;
     v4[4] = 0;
     v4[5] = 0;
@@ -145,11 +146,11 @@ void *sub_10000F2C0(unsigned int a1, uint64_t a2)
   return v4;
 }
 
-void sub_10000F324(uint64_t a1)
+void sub_10000F324(unsigned int *a1)
 {
   sub_10000FF24(a1);
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
   *a1 = 0u;
 
   free(a1);
@@ -443,17 +444,13 @@ uint64_t sub_10000F864(unsigned int **a1, const std::__fs::filesystem::path *a2)
         v8 = 0;
         do
         {
-          v9 = (*(i + 1) + v7);
-          v10 = *v9;
-          if (*(v9 + 2))
+          if (*(*(i + 1) + v7 + 8))
           {
-            v14 = *v9[2];
             fprintf(v5, "\t%s=%s\n");
           }
 
           else
           {
-            v13 = *v9;
             fprintf(v5, "\t%s\n");
           }
 
@@ -468,7 +465,7 @@ uint64_t sub_10000F864(unsigned int **a1, const std::__fs::filesystem::path *a2)
     }
 
     fclose(v5);
-    rename(__str, a2, v11);
+    rename(__str, a2, v9);
     return 1;
   }
 
@@ -677,7 +674,7 @@ LABEL_10:
   return v2;
 }
 
-uint64_t sub_10000FD30(unsigned int *a1, uint64_t a2, unint64_t a3)
+char *sub_10000FD30(unsigned int *a1, uint64_t a2, unint64_t a3)
 {
   v6 = *(a1 + 1);
   v7 = *a1 + 1;
@@ -730,7 +727,7 @@ uint64_t sub_10000FD30(unsigned int *a1, uint64_t a2, unint64_t a3)
 void *sub_10000FE28(int *a1, uint64_t a2)
 {
   v2 = a2;
-  sub_10000FEE0(*(a1 + 1) + 24 * a2);
+  sub_10000FEE0((*(a1 + 1) + 24 * a2));
   v4 = v2 + 1;
   v5 = *a1;
   if (v2 + 1 < *a1)
@@ -760,7 +757,7 @@ void *sub_10000FE28(int *a1, uint64_t a2)
   return result;
 }
 
-void sub_10000FEE0(uint64_t a1)
+void sub_10000FEE0(void **a1)
 {
   v2 = *a1;
   if (v2)
@@ -769,7 +766,7 @@ void sub_10000FEE0(uint64_t a1)
     *a1 = 0;
   }
 
-  sub_10001013C((a1 + 8));
+  sub_10001013C(a1 + 1);
 }
 
 void sub_10000FF24(unsigned int *a1)
@@ -783,7 +780,7 @@ void sub_10000FF24(unsigned int *a1)
       v4 = 0;
       do
       {
-        sub_10000FEE0(*(a1 + 1) + v3);
+        sub_10000FEE0((*(a1 + 1) + v3));
         ++v4;
         v3 += 24;
       }
@@ -1314,7 +1311,7 @@ LABEL_14:
   return v11;
 }
 
-CFMutableArrayRef sub_1000109EC(uint64_t a1, int a2)
+CFMutableArrayRef sub_1000109EC(uint64_t a1, unsigned int a2)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
   v49 = Mutable;
@@ -1642,7 +1639,6 @@ LABEL_43:
           v13 = *v7;
         }
 
-        *v7;
         if (*v7)
         {
           v14 = v13;
@@ -1684,7 +1680,6 @@ LABEL_22:
         v10 = *v9;
       }
 
-      *v9;
       if (*v9)
       {
         v11 = v10;
@@ -1832,8 +1827,9 @@ void inetroute_list_print_cfstr(__CFString *a1, int *a2)
   }
 }
 
-ssize_t sub_100011388(int a1, _WORD *a2, uint64_t a3, int a4, uint64_t a5, int a6, int a7, unsigned int a8, unsigned __int16 a9, void *a10, int a11)
+ssize_t sub_100011388(uint64_t a1, _WORD *a2, const char *a3, int a4, uint64_t a5, int a6, int a7, unsigned int a8, __int16 a9, void *a10, int a11)
 {
+  v18 = a1;
   if ((byte_10001D858 & 1) == 0)
   {
     byte_10001D858 = 1;
@@ -1851,35 +1847,36 @@ ssize_t sub_100011388(int a1, _WORD *a2, uint64_t a3, int a4, uint64_t a5, int a
     else
     {
       v21 = v20;
-      v40 = a3;
+      v43 = a3;
+      v45 = a9;
       if (a4 == 24)
       {
         *a2 = -1;
         a2[8] = 8;
-        v22 = (a2 + 9);
-        v23 = (a2 + 13);
+        v22 = a2 + 9;
+        v23 = a2 + 13;
         v24 = a2 + 23;
         v25 = 46;
       }
 
       else
       {
-        v22 = (a2 + 7);
-        v23 = (a2 + 11);
+        v22 = a2 + 7;
+        v23 = a2 + 11;
         v24 = a2 + 21;
         if (a6 == -1)
         {
-          v29 = -1;
+          v30 = -1;
           a2[2] = -1;
         }
 
         else
         {
-          v29 = *a5;
+          v30 = *a5;
           a2[2] = *(a5 + 4);
         }
 
-        *a2 = v29;
+        *a2 = v30;
         a2[6] = 8;
         v25 = 42;
       }
@@ -1887,23 +1884,23 @@ ssize_t sub_100011388(int a1, _WORD *a2, uint64_t a3, int a4, uint64_t a5, int a
       memmove(v24, a10, a11);
       *v23 = a7;
       *(v23 + 1) = a6;
-      *(v23 + 4) = 4352;
-      v30 = bswap32(a11 + 8) >> 16;
-      *(v23 + 5) = v30;
-      *(v22 + 10) = __rev16(a9);
-      *(v22 + 11) = __rev16(a8);
-      *(v22 + 6) = v30;
-      *(v22 + 13) = sub_10000C010(v23, a11 + 20);
+      v23[4] = 4352;
+      v31 = bswap32(a11 + 8) >> 16;
+      v23[5] = v31;
+      v22[10] = __rev16(v45);
+      v22[11] = __rev16(a8);
+      *(v22 + 6) = v31;
+      v22[13] = sub_10000C010(v23, a11 + 20);
       *v22 = 0;
       *(v22 + 1) = 0;
       *v22 = 69;
       *(v22 + 2) = 4607;
       *(v22 + 3) = a7;
       *(v22 + 4) = a6;
-      *(v22 + 1) = bswap32(a11 + 28) >> 16;
-      v31 = dword_10001D85C++;
-      *(v22 + 2) = bswap32(v31) >> 16;
-      *(v22 + 5) = sub_10000C010(v22, 20);
+      v22[1] = bswap32(a11 + 28) >> 16;
+      v32 = dword_10001D85C++;
+      v22[2] = bswap32(v32) >> 16;
+      v22[5] = sub_10000C010(v22, 0x14u);
       v19 = sub_100008594(v21, a2, v25 + a11);
       if ((v19 & 0x80000000) != 0)
       {
@@ -1911,19 +1908,19 @@ ssize_t sub_100011388(int a1, _WORD *a2, uint64_t a3, int a4, uint64_t a5, int a
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v32 = _os_log_pack_size();
-          __chkstk_darwin(v32, v33);
-          v34 = *__error();
-          v35 = _os_log_pack_fill();
+          v33 = _os_log_pack_size();
+          v35 = &v42 - ((__chkstk_darwin(v33, v34) + 15) & 0xFFFFFFFFFFFFFFF0);
           v36 = __error();
-          v37 = strerror(*v36);
-          v38 = *__error();
-          *v35 = 136315650;
-          *(v35 + 4) = v40;
-          *(v35 + 12) = 2080;
-          *(v35 + 14) = v37;
-          *(v35 + 22) = 1024;
-          *(v35 + 24) = v38;
+          v37 = _os_log_pack_fill(v35, v33, *v36, &_mh_execute_header, "bpf_write(%s) failed: %s (%d)", v42, v43, v44);
+          v38 = __error();
+          v39 = strerror(*v38);
+          v40 = *__error();
+          *v37 = 136315650;
+          *(v37 + 4) = v43;
+          *(v37 + 12) = 2080;
+          *(v37 + 14) = v39;
+          *(v37 + 22) = 1024;
+          *(v37 + 24) = v40;
           __SC_log_send();
         }
       }
@@ -1932,16 +1929,16 @@ ssize_t sub_100011388(int a1, _WORD *a2, uint64_t a3, int a4, uint64_t a5, int a
     }
   }
 
-  else if (a1 < 0)
+  else if (v18 < 0)
   {
     sub_100011AC8();
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
       v26 = _os_log_pack_size();
-      __chkstk_darwin(v26, v27);
-      v28 = *__error();
-      *_os_log_pack_fill() = 0;
+      v28 = &v42 - ((__chkstk_darwin(v26, v27) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v29 = __error();
+      *_os_log_pack_fill(v28, v26, *v29, &_mh_execute_header, "neither bpf nor socket send available") = 0;
       __SC_log_send();
     }
 
@@ -1950,11 +1947,11 @@ ssize_t sub_100011388(int a1, _WORD *a2, uint64_t a3, int a4, uint64_t a5, int a
 
   else
   {
-    *&v41.sa_data[6] = 0;
-    *&v41.sa_len = 528;
-    *v41.sa_data = __rev16(a8);
-    *&v41.sa_data[2] = a6;
-    if (sendto(a1, a10, a11, 0, &v41, 0x10u) >= a11)
+    *&v46.sa_data[6] = 0;
+    *&v46.sa_len = 528;
+    *v46.sa_data = __rev16(a8);
+    *&v46.sa_data[2] = a6;
+    if (sendto(v18, a10, a11, 0, &v46, 0x10u) >= a11)
     {
       return 0;
     }
@@ -1978,17 +1975,17 @@ uint64_t sub_100011784(uint64_t a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v11 = _os_log_pack_size();
-      __chkstk_darwin(v11, v12);
-      v13 = *__error();
-      v14 = _os_log_pack_fill();
+      v12 = _os_log_pack_size();
+      v14 = &v29 - ((__chkstk_darwin(v12, v13) + 15) & 0xFFFFFFFFFFFFFFF0);
       v15 = __error();
-      v16 = strerror(*v15);
-      v17 = *__error();
-      *v14 = 136315394;
-      *(v14 + 4) = v16;
-      *(v14 + 12) = 1024;
-      *(v14 + 14) = v17;
+      v16 = _os_log_pack_fill(v14, v12, *v15, &_mh_execute_header, "Transmitter: bpf_fd() failed, %s (%d)", v29, v30);
+      v17 = __error();
+      v18 = strerror(*v17);
+      v19 = *__error();
+      *v16 = 136315394;
+      *(v16 + 4) = v18;
+      *(v16 + 12) = 1024;
+      *(v16 + 14) = v19;
       __SC_log_send();
     }
   }
@@ -2001,24 +1998,24 @@ uint64_t sub_100011784(uint64_t a1)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v18 = _os_log_pack_size();
-        __chkstk_darwin(v18, v19);
-        v20 = *__error();
-        v21 = _os_log_pack_fill();
-        v22 = __error();
-        v23 = strerror(*v22);
-        v24 = *__error();
-        *v21 = 136315394;
-        *(v21 + 4) = v23;
-        *(v21 + 12) = 1024;
-        *(v21 + 14) = v24;
+        v20 = _os_log_pack_size();
+        v22 = &v29 - ((__chkstk_darwin(v20, v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v23 = __error();
+        v24 = _os_log_pack_fill(v22, v20, *v23, &_mh_execute_header, "Transmitter: failed to set filter, %s (%d)", v29, v30);
+        v25 = __error();
+        v26 = strerror(*v25);
+        v27 = *__error();
+        *v24 = 136315394;
+        *(v24 + 4) = v26;
+        *(v24 + 12) = 1024;
+        *(v24 + 14) = v27;
         __SC_log_send();
       }
 
       goto LABEL_11;
     }
 
-    if ((sub_10000849C(v3) & 0x80000000) != 0)
+    if ((sub_10000849C(v3, a1) & 0x80000000) != 0)
     {
       if (*__error() != 6)
       {
@@ -2027,18 +2024,18 @@ uint64_t sub_100011784(uint64_t a1)
         if (__SC_log_enabled())
         {
           v4 = _os_log_pack_size();
-          __chkstk_darwin(v4, v5);
-          v6 = *__error();
-          v7 = _os_log_pack_fill();
-          v8 = __error();
-          v9 = strerror(*v8);
-          v10 = *__error();
-          *v7 = 136315650;
-          *(v7 + 4) = a1;
-          *(v7 + 12) = 2080;
-          *(v7 + 14) = v9;
-          *(v7 + 22) = 1024;
-          *(v7 + 24) = v10;
+          v6 = &v29 - ((__chkstk_darwin(v4, v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v7 = __error();
+          v8 = _os_log_pack_fill(v6, v4, *v7, &_mh_execute_header, "Transmitter: bpf_setif (%s) failed: %s (%d)", v29, v30, v31);
+          v9 = __error();
+          v10 = strerror(*v9);
+          v11 = *__error();
+          *v8 = 136315650;
+          *(v8 + 4) = a1;
+          *(v8 + 12) = 2080;
+          *(v8 + 14) = v10;
+          *(v8 + 22) = 1024;
+          *(v8 + 24) = v11;
           __SC_log_send();
         }
       }

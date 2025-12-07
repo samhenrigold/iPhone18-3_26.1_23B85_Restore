@@ -40,16 +40,16 @@
   end = self->_archives.__end_;
   if (end >= self->_archives.__cap_)
   {
-    v7 = std::vector<GPUTools::objc_ref<DYCaptureArchive *>>::__emplace_back_slow_path<DYCaptureArchive *&>(&self->_archives.__begin_, &pushCopy);
+    v11 = std::vector<GPUTools::objc_ref<DYCaptureArchive *>>::__emplace_back_slow_path<DYCaptureArchive *&>(&self->_archives.__begin_, &pushCopy, v6, v7, v8, v9);
   }
 
   else
   {
     *end = push;
-    v7 = end + 1;
+    v11 = end + 1;
   }
 
-  self->_archives.__end_ = v7;
+  self->_archives.__end_ = v11;
 }
 
 - (id)top
@@ -140,7 +140,7 @@
       self = *end;
       if (*end)
       {
-        unk_2860B1198(self, "getSortedFilePositionsForDataCaching");
+        objc_msgSend_getSortedFilePositionsForDataCaching(self);
         self = v3->__begin_;
         if (v3->__begin_)
         {
@@ -151,13 +151,13 @@
 
       else
       {
-        v62 = 0uLL;
-        *&v63 = 0;
+        v61 = 0uLL;
+        *&v62 = 0;
       }
 
-      v33 = v62;
-      *&v3->__begin_ = v62;
-      v3->__cap_ = v63;
+      v33 = v61;
+      *&v3->__begin_ = v61;
+      v3->__cap_ = v62;
       for (i = v33; i != *(&v33 + 1); ++i)
       {
         *i |= 0x8000000000000000;
@@ -167,8 +167,8 @@
     else
     {
       __p = 0;
+      v65 = 0;
       v66 = 0;
-      v67 = 0;
       std::vector<dy_capture_index_file_entry_t *>::reserve(&__p, v5);
       v7 = selfCopy->__end_;
       cap = selfCopy->__cap_;
@@ -177,22 +177,22 @@
         do
         {
           _fileTable = [*v7 _fileTable];
-          v9 = v66;
-          if (v66 >= v67)
+          v9 = v65;
+          if (v65 >= v66)
           {
-            v11 = (v66 - __p) >> 3;
+            v11 = (v65 - __p) >> 3;
             if ((v11 + 1) >> 61)
             {
               std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
             }
 
-            v12 = (v67 - __p) >> 2;
+            v12 = (v66 - __p) >> 2;
             if (v12 <= v11 + 1)
             {
               v12 = v11 + 1;
             }
 
-            if (v67 - __p >= 0x7FFFFFFFFFFFFFF8)
+            if (v66 - __p >= 0x7FFFFFFFFFFFFFF8)
             {
               v13 = 0x1FFFFFFFFFFFFFFFLL;
             }
@@ -210,12 +210,12 @@
             v14 = (8 * v11);
             *v14 = _fileTable;
             v10 = 8 * v11 + 8;
-            v15 = v14 - (v66 - __p);
-            memcpy(v15, __p, v66 - __p);
+            v15 = v14 - (v65 - __p);
+            memcpy(v15, __p, v65 - __p);
             v16 = __p;
             __p = v15;
-            v66 = v10;
-            v67 = 0;
+            v65 = v10;
+            v66 = 0;
             if (v16)
             {
               operator delete(v16);
@@ -224,11 +224,11 @@
 
           else
           {
-            *v66 = _fileTable;
+            *v65 = _fileTable;
             v10 = (v9 + 8);
           }
 
-          v66 = v10;
+          v65 = v10;
           ++v7;
         }
 
@@ -237,9 +237,9 @@
         cap = selfCopy->__cap_;
       }
 
+      v61 = 0u;
       v62 = 0u;
-      v63 = 0u;
-      v64 = 1065353216;
+      v63 = 1065353216;
       if (v7 == cap)
       {
         v32 = 0;
@@ -268,11 +268,11 @@
               v28 = *(v26 - 2);
               if (v28 != -1 && *v26 == -1)
               {
-                v68 = (*(v24 + 8 * *(v26 - 1)) + _stringTableStorage);
+                v67 = (*(v24 + 8 * *(v26 - 1)) + _stringTableStorage);
                 v29 = (_fileTable2 + 24 * v28);
-                v59 = v29;
-                v60 = v25;
-                v30 = std::__hash_table<std::__hash_value_type<char const*,std::pair<dy_capture_index_file_entry_t *,unsigned long>>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,std::pair<dy_capture_index_file_entry_t *,unsigned long>>,GPUTools::CStringHash::hash,GPUTools::CStringHash::equal,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,std::pair<dy_capture_index_file_entry_t *,unsigned long>>,GPUTools::CStringHash::equal,GPUTools::CStringHash::hash,true>,std::allocator<std::__hash_value_type<char const*,std::pair<dy_capture_index_file_entry_t *,unsigned long>>>>::__emplace_unique_key_args<char const*,char const*&,std::pair<dy_capture_index_file_entry_t *,unsigned long>>(&v62, &v68);
+                *&v59 = v29;
+                *(&v59 + 1) = v25;
+                v30 = std::__hash_table<std::__hash_value_type<char const*,std::pair<dy_capture_index_file_entry_t *,unsigned long>>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,std::pair<dy_capture_index_file_entry_t *,unsigned long>>,GPUTools::CStringHash::hash,GPUTools::CStringHash::equal,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,std::pair<dy_capture_index_file_entry_t *,unsigned long>>,GPUTools::CStringHash::equal,GPUTools::CStringHash::hash,true>,std::allocator<std::__hash_value_type<char const*,std::pair<dy_capture_index_file_entry_t *,unsigned long>>>>::__emplace_unique_key_args<char const*,char const*&,std::pair<dy_capture_index_file_entry_t *,unsigned long>>(&v61, &v67, &v67, &v59);
                 if ((v31 & 1) == 0)
                 {
                   v30[3] = v29;
@@ -292,35 +292,34 @@
         }
 
         while (v7 != v17);
-        v32 = *(&v63 + 1);
+        v32 = *(&v62 + 1);
         v3 = v57;
       }
 
-      v59 = 0;
+      v59 = 0uLL;
       v60 = 0;
-      v61 = 0;
       std::vector<std::pair<dy_capture_index_file_entry_t *,unsigned long>>::reserve(&v59, v32);
-      v35 = v63;
-      if (v63)
+      v35 = v62;
+      if (v62)
       {
-        v36 = v60;
+        v36 = *(&v59 + 1);
         do
         {
-          if (v36 >= v61)
+          if (v36 >= v60)
           {
-            v37 = (v36 - v59) >> 4;
+            v37 = &v36[-v59] >> 4;
             if ((v37 + 1) >> 60)
             {
               std::vector<unsigned int>::__throw_length_error[abi:ne200100]();
             }
 
-            v38 = (v61 - v59) >> 3;
+            v38 = (v60 - v59) >> 3;
             if (v38 <= v37 + 1)
             {
               v38 = v37 + 1;
             }
 
-            if (v61 - v59 >= 0x7FFFFFFFFFFFFFF0)
+            if (v60 - v59 >= 0x7FFFFFFFFFFFFFF0)
             {
               v39 = 0xFFFFFFFFFFFFFFFLL;
             }
@@ -338,12 +337,12 @@
             v40 = (16 * v37);
             *v40 = *(v35 + 3);
             v36 = (16 * v37 + 16);
-            v41 = v40 - (v60 - v59);
-            memcpy(v41, v59, v60 - v59);
+            v41 = v40 - (*(&v59 + 1) - v59);
+            memcpy(v41, v59, *(&v59 + 1) - v59);
             v42 = v59;
-            v59 = v41;
-            v60 = v36;
-            v61 = 0;
+            *&v59 = v41;
+            *(&v59 + 1) = v36;
+            v60 = 0;
             if (v42)
             {
               operator delete(v42);
@@ -356,7 +355,7 @@
             v36 += 16;
           }
 
-          v60 = v36;
+          *(&v59 + 1) = v36;
           v35 = *v35;
         }
 
@@ -365,11 +364,11 @@
 
       else
       {
-        v36 = v60;
+        v36 = *(&v59 + 1);
       }
 
-      v43 = 126 - 2 * __clz((v36 - v59) >> 4);
-      v68 = &__block_literal_global_0;
+      v43 = 126 - 2 * __clz(&v36[-v59] >> 4);
+      v67 = &__block_literal_global_0;
       if (v36 == v59)
       {
         v44 = 0;
@@ -380,16 +379,16 @@
         v44 = v43;
       }
 
-      std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(std::pair<dy_capture_index_file_entry_t *,unsigned long> &,std::pair<dy_capture_index_file_entry_t *,unsigned long> &),std::pair<dy_capture_index_file_entry_t *,unsigned long>*,false>(v59, v36, &v68, v44, 1);
-      std::vector<unsigned long long>::reserve(v3, (v60 - v59) >> 4);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(std::pair<dy_capture_index_file_entry_t *,unsigned long> &,std::pair<dy_capture_index_file_entry_t *,unsigned long> &),std::pair<dy_capture_index_file_entry_t *,unsigned long>*,false>(v59, v36, &v67, v44, 1);
+      std::vector<unsigned long long>::reserve(v3, (*(&v59 + 1) - v59) >> 4);
+      v46 = *(&v59 + 1);
       v45 = v59;
-      v46 = v60;
-      if (v59 != v60)
+      if (v59 != *(&v59 + 1))
       {
         v47 = v3->__end_;
         do
         {
-          v48 = (0xAAAAAAAAAAAAAAABLL * ((*v45 - *(__p + *(v45 + 1))) >> 3)) | (*(v45 + 1) << 32) | 0x8000000000000000;
+          v48 = (0xAAAAAAAAAAAAAAABLL * ((*v45 - *(__p + v45[1])) >> 3)) | (v45[1] << 32) | 0x8000000000000000;
           v49 = v3->__cap_;
           if (v47 >= v49)
           {
@@ -442,7 +441,7 @@
           }
 
           v3->__end_ = v47;
-          v45 += 16;
+          v45 += 2;
         }
 
         while (v45 != v46);
@@ -451,15 +450,15 @@
 
       if (v45)
       {
-        v60 = v45;
+        *(&v59 + 1) = v45;
         operator delete(v45);
       }
 
-      std::unordered_map<void *,unsigned long>::~unordered_map[abi:ne200100](&v62);
+      std::unordered_map<void *,unsigned long>::~unordered_map[abi:ne200100](&v61);
       self = __p;
       if (__p)
       {
-        v66 = __p;
+        v65 = __p;
         operator delete(__p);
       }
     }

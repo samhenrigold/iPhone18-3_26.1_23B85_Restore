@@ -20,11 +20,11 @@
 
 - (id)init:(id)init contentVersion:(int64_t)version
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   initCopy = init;
-  v14.receiver = self;
-  v14.super_class = SFSSResourceAsset;
-  v7 = [(SFSSResourceAsset *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = SFSSResourceAsset;
+  v7 = [(SFSSResourceAsset *)&v13 init];
   if (v7)
   {
     v8 = [initCopy stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
@@ -39,21 +39,20 @@
   {
     v11 = [(SFSSResourceAsset *)v7 key];
     *buf = 138412290;
-    v16 = v11;
+    v15 = v11;
     _os_log_impl(&dword_269079000, v10, OS_LOG_TYPE_INFO, "Init ResourceAsset with key=%@", buf, 0xCu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (SFSSResourceAsset)initWithPath:(id)path
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v12.receiver = self;
-  v12.super_class = SFSSResourceAsset;
-  v6 = [(SFSSResourceAsset *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = SFSSResourceAsset;
+  v6 = [(SFSSResourceAsset *)&v11 init];
   v7 = v6;
   if (v6)
   {
@@ -63,12 +62,11 @@
     {
       assetPath = v7->_assetPath;
       *buf = 138412290;
-      v14 = assetPath;
+      v13 = assetPath;
       _os_log_impl(&dword_269079000, v8, OS_LOG_TYPE_INFO, "Init ResourceAsset with assetPath=%@", buf, 0xCu);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

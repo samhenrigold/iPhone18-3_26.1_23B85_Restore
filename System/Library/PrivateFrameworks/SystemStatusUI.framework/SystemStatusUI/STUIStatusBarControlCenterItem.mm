@@ -22,9 +22,11 @@
 - (void)_create_grabberView
 {
   v3 = [STUIStatusBarControlCenterGrabberView alloc];
-  self->_grabberView = [(STUIStatusBarControlCenterGrabberView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarControlCenterGrabberView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  grabberView = self->_grabberView;
+  self->_grabberView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, grabberView);
 }
 
 - (id)systemImageNameForUpdate:(id)update

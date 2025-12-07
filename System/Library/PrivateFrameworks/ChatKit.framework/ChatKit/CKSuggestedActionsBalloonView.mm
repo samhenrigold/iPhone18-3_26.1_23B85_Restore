@@ -57,14 +57,14 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_190CA45C8();
+  sub_190CA45C8(selfCopy, v2);
 }
 
 - (void)configureForMessagePart:(id)part
 {
   partCopy = part;
   selfCopy = self;
-  sub_190CA47A4(part);
+  sub_190CA47A4(part, selfCopy);
 }
 
 @end

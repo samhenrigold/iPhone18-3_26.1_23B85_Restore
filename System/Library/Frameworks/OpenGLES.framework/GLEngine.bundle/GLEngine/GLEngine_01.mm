@@ -1,6 +1,6 @@
 uint64_t gliSetInteger(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
-  v135 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     return 10004;
@@ -38,18 +38,18 @@ uint64_t gliSetInteger(uint64_t a1, uint64_t a2, unsigned int *a3)
       {
         case 973:
           v7 = 0;
-          v58 = (v4 + 3841);
-          v59 = *(v4 + 3841) & 0xFEFF | ((*a3 != 0) << 8);
+          v60 = (v4 + 3841);
+          v61 = *(v4 + 3841) & 0xFEFF | ((*a3 != 0) << 8);
           goto LABEL_200;
         case 974:
           v7 = 0;
-          v63 = (v4 + 3841);
-          v64 = *(v4 + 3841) & 0xFF7F | ((*a3 != 0) << 7);
+          v65 = (v4 + 3841);
+          v66 = *(v4 + 3841) & 0xFF7F | ((*a3 != 0) << 7);
           goto LABEL_167;
         case 975:
           v7 = 0;
-          v63 = (v4 + 3841);
-          v64 = *(v4 + 3841) & 0xFFBF | ((*a3 != 0) << 6);
+          v65 = (v4 + 3841);
+          v66 = *(v4 + 3841) & 0xFFBF | ((*a3 != 0) << 6);
           goto LABEL_167;
         case 976:
         case 981:
@@ -64,291 +64,291 @@ uint64_t gliSetInteger(uint64_t a1, uint64_t a2, unsigned int *a3)
           goto LABEL_294;
         case 977:
           v7 = 0;
-          v58 = (v4 + 3841);
-          v59 = *(v4 + 3841) & 0xFFDF | (32 * (*a3 != 0));
+          v60 = (v4 + 3841);
+          v61 = *(v4 + 3841) & 0xFFDF | (32 * (*a3 != 0));
           goto LABEL_200;
         case 978:
           v7 = 0;
-          v63 = (v4 + 3841);
-          v64 = *(v4 + 3841) & 0xFBFF | ((*a3 != 0) << 10);
+          v65 = (v4 + 3841);
+          v66 = *(v4 + 3841) & 0xFBFF | ((*a3 != 0) << 10);
           goto LABEL_167;
         case 979:
           v7 = 0;
-          v63 = (v4 + 3841);
-          v64 = *(v4 + 3841) & 0xF7FF | ((*a3 != 0) << 11);
+          v65 = (v4 + 3841);
+          v66 = *(v4 + 3841) & 0xF7FF | ((*a3 != 0) << 11);
           goto LABEL_167;
         case 980:
           v7 = 0;
-          v63 = (v4 + 3841);
-          v64 = *(v4 + 3841) & 0xEFFF | ((*a3 != 0) << 12);
+          v65 = (v4 + 3841);
+          v66 = *(v4 + 3841) & 0xEFFF | ((*a3 != 0) << 12);
 LABEL_167:
-          *v63 = v64;
+          *v65 = v66;
           goto LABEL_294;
         case 982:
           v7 = 0;
-          v58 = (v4 + 3841);
-          v59 = *(v4 + 3841) & 0xFFEF | (16 * (*a3 != 0));
+          v60 = (v4 + 3841);
+          v61 = *(v4 + 3841) & 0xFFEF | (16 * (*a3 != 0));
           goto LABEL_200;
         case 986:
           v7 = 0;
-          v58 = (v4 + 3841);
-          v59 = *(v4 + 3841) & 0xFFF7 | (8 * (*a3 != 0));
+          v60 = (v4 + 3841);
+          v61 = *(v4 + 3841) & 0xFFF7 | (8 * (*a3 != 0));
           goto LABEL_200;
         case 989:
-          v60 = *a3;
+          v62 = *a3;
           *(v4 + 3841) = *(v4 + 3841) & 0xFFFB | (4 * (*a3 != 0));
-          v61 = *(a1 + 28984);
-          if (!*(v61 + 816))
+          v63 = *(a1 + 28984);
+          if (!*(v63 + 816))
           {
-            v61 = *(a1 + 28976);
+            v63 = *(a1 + 28976);
           }
 
           v7 = 0;
           if (*(a1 + 27648))
           {
-            if (v60)
+            if (v62)
             {
-              v62 = glGetError_NoSync;
+              v64 = glGetError_NoSync;
             }
 
             else
             {
-              v62 = glGetError_ExecThread;
+              v64 = glGetError_ExecThread;
             }
           }
 
           else
           {
-            v62 = glGetError_Exec;
+            v64 = glGetError_Exec;
           }
 
-          *(v61 + 816) = v62;
+          *(v63 + 816) = v64;
           return v7;
         case 990:
           v7 = 0;
-          v58 = (v4 + 3841);
-          v59 = *(v4 + 3841) & 0xFFFD | (2 * (*a3 != 0));
+          v60 = (v4 + 3841);
+          v61 = *(v4 + 3841) & 0xFFFD | (2 * (*a3 != 0));
           goto LABEL_200;
         case 992:
         case 993:
-          v44 = *a3;
-          v45 = *(v4 + 3841) & 0xFFFE;
+          v46 = *a3;
+          v47 = *(v4 + 3841) & 0xFFFE;
           if (*a3)
           {
-            ++v45;
+            ++v47;
           }
 
-          *(v4 + 3841) = v45;
-          v46 = *(a1 + 27648);
-          v47 = *(a1 + 28984);
-          v48 = *(a1 + 28976);
-          if (v47[301])
+          *(v4 + 3841) = v47;
+          v48 = *(a1 + 27648);
+          v49 = *(a1 + 28984);
+          v50 = *(a1 + 28976);
+          if (v49[301])
           {
-            v49 = *(a1 + 28984);
+            v51 = *(a1 + 28984);
           }
 
           else
           {
-            v49 = *(a1 + 28976);
+            v51 = *(a1 + 28976);
           }
 
-          if (v44)
+          if (v46)
           {
-            if (v46)
+            if (v48)
             {
-              *(v49 + 2408) = glTexImage2D_FlushExecThread;
-              if (v47[307])
+              *(v51 + 2408) = glTexImage2D_FlushExecThread;
+              if (v49[307])
               {
-                v50 = v47;
+                v52 = v49;
               }
 
               else
               {
-                v50 = v48;
+                v52 = v50;
               }
 
-              v50[307] = glTexSubImage2D_FlushExecThread;
-              if (v47[380])
+              v52[307] = glTexSubImage2D_FlushExecThread;
+              if (v49[380])
               {
-                v51 = v47;
+                v53 = v49;
               }
 
               else
               {
-                v51 = v48;
+                v53 = v50;
               }
 
-              v51[380] = glCompressedTexImage2D_FlushExecThread;
-              if (v47[383])
+              v53[380] = glCompressedTexImage2D_FlushExecThread;
+              if (v49[383])
               {
-                v52 = v47;
+                v54 = v49;
               }
 
               else
               {
-                v52 = v48;
+                v54 = v50;
               }
 
-              v52[383] = glCompressedTexSubImage2D_FlushExecThread;
+              v54[383] = glCompressedTexSubImage2D_FlushExecThread;
               if (a2 != 993)
               {
                 v7 = 0;
-                if (!v47[12])
+                if (!v49[12])
                 {
-                  v47 = v48;
+                  v49 = v50;
                 }
 
-                v53 = glClearColor_FlushExecThread;
+                v55 = glClearColor_FlushExecThread;
 LABEL_317:
-                v47[12] = v53;
+                v49[12] = v55;
                 return v7;
               }
             }
 
             else
             {
-              *(v49 + 2408) = glTexImage2D_FlushExec;
-              if (v47[307])
+              *(v51 + 2408) = glTexImage2D_FlushExec;
+              if (v49[307])
               {
-                v94 = v47;
+                v96 = v49;
               }
 
               else
               {
-                v94 = v48;
+                v96 = v50;
               }
 
-              v94[307] = glTexSubImage2D_FlushExec;
-              if (v47[380])
+              v96[307] = glTexSubImage2D_FlushExec;
+              if (v49[380])
               {
-                v95 = v47;
+                v97 = v49;
               }
 
               else
               {
-                v95 = v48;
+                v97 = v50;
               }
 
-              v95[380] = glCompressedTexImage2D_FlushExec;
-              if (v47[383])
+              v97[380] = glCompressedTexImage2D_FlushExec;
+              if (v49[383])
               {
-                v96 = v47;
+                v98 = v49;
               }
 
               else
               {
-                v96 = v48;
+                v98 = v50;
               }
 
-              v96[383] = glCompressedTexSubImage2D_FlushExec;
+              v98[383] = glCompressedTexSubImage2D_FlushExec;
               if (a2 != 993)
               {
                 v7 = 0;
-                if (!v47[12])
+                if (!v49[12])
                 {
-                  v47 = v48;
+                  v49 = v50;
                 }
 
-                v53 = glClearColor_FlushExec;
+                v55 = glClearColor_FlushExec;
                 goto LABEL_317;
               }
             }
           }
 
-          else if (v46)
+          else if (v48)
           {
-            *(v49 + 2408) = glTexImage2D_PackThread;
-            if (v47[307])
+            *(v51 + 2408) = glTexImage2D_PackThread;
+            if (v49[307])
             {
-              v80 = v47;
+              v82 = v49;
             }
 
             else
             {
-              v80 = v48;
+              v82 = v50;
             }
 
-            v80[307] = glTexSubImage2D_PackThread;
-            if (v47[380])
+            v82[307] = glTexSubImage2D_PackThread;
+            if (v49[380])
             {
-              v81 = v47;
+              v83 = v49;
             }
 
             else
             {
-              v81 = v48;
+              v83 = v50;
             }
 
-            v81[380] = glCompressedTexImage2D_PackThread;
-            if (v47[383])
+            v83[380] = glCompressedTexImage2D_PackThread;
+            if (v49[383])
             {
-              v82 = v47;
+              v84 = v49;
             }
 
             else
             {
-              v82 = v48;
+              v84 = v50;
             }
 
-            v82[383] = glCompressedTexSubImage2D_PackThread;
+            v84[383] = glCompressedTexSubImage2D_PackThread;
             if (a2 != 993)
             {
               v7 = 0;
-              if (!v47[12])
+              if (!v49[12])
               {
-                v47 = v48;
+                v49 = v50;
               }
 
-              v53 = glClearColor_Comp;
+              v55 = glClearColor_Comp;
               goto LABEL_317;
             }
           }
 
           else
           {
-            *(v49 + 2408) = glTexImage2D_Exec;
-            if (v47[307])
+            *(v51 + 2408) = glTexImage2D_Exec;
+            if (v49[307])
             {
-              v105 = v47;
+              v107 = v49;
             }
 
             else
             {
-              v105 = v48;
+              v107 = v50;
             }
 
-            v105[307] = glTexSubImage2D_Exec;
-            if (v47[380])
+            v107[307] = glTexSubImage2D_Exec;
+            if (v49[380])
             {
-              v106 = v47;
+              v108 = v49;
             }
 
             else
             {
-              v106 = v48;
+              v108 = v50;
             }
 
-            v106[380] = glCompressedTexImage2D_Exec;
-            if (v47[383])
+            v108[380] = glCompressedTexImage2D_Exec;
+            if (v49[383])
             {
-              v107 = v47;
+              v109 = v49;
             }
 
             else
             {
-              v107 = v48;
+              v109 = v50;
             }
 
-            v107[383] = glCompressedTexSubImage2D_Exec;
+            v109[383] = glCompressedTexSubImage2D_Exec;
             if (a2 != 993)
             {
               v7 = 0;
-              if (!v47[12])
+              if (!v49[12])
               {
-                v47 = v48;
+                v49 = v50;
               }
 
-              v53 = glClearColor_Exec;
+              v55 = glClearColor_Exec;
               goto LABEL_317;
             }
           }
@@ -356,23 +356,23 @@ LABEL_317:
           break;
         case 995:
           v7 = 0;
-          v65 = *(a1 + 19296);
-          v66 = *(v65 + 344) & 0xFE;
+          v67 = *(a1 + 19296);
+          v68 = *(v67 + 344) & 0xFE;
           if (*a3)
           {
-            ++v66;
+            ++v68;
           }
 
-          *(v65 + 344) = v66;
+          *(v67 + 344) = v68;
           return v7;
         case 997:
         case 998:
         case 999:
-          v129 = 0;
+          v131 = 0;
           v10 = *a3;
           v9 = a3[1];
           v11 = a3[2];
-          v127 = a3[3];
+          v129 = a3[3];
           buffer = a3[4];
           v12 = v9 == 34067;
           if (v9 == 34067)
@@ -391,25 +391,25 @@ LABEL_317:
             v14 = 1;
           }
 
-          v124 = v14;
+          v126 = v14;
           if (a2 == 997 || v11 != 6402)
           {
-            v15 = gleCheckTexImage2DArgs(a1, v13, 0, v11, v127, buffer, 0, 32993, 33639, &v129);
+            v15 = gleCheckTexImage2DArgs(a1, v13, 0, v11, v129, buffer, 0, 32993, 33639, &v131);
           }
 
           else
           {
-            v15 = gleCheckTexImage2DArgs(a1, v13, 0, 6402, v127, buffer, 0, 6402, 5125, &v129);
+            v15 = gleCheckTexImage2DArgs(a1, v13, 0, 6402, v129, buffer, 0, 6402, 5125, &v131);
           }
 
-          v56 = v15;
+          v58 = v15;
           if (!v15)
           {
             return 10008;
           }
 
-          v57 = *(v15 + 768);
-          if ((v57 & 0x1C00) == 0x400)
+          v59 = *(v15 + 768);
+          if ((v59 & 0x1C00) == 0x400)
           {
             goto LABEL_222;
           }
@@ -424,7 +424,7 @@ LABEL_317:
 
           else
           {
-            *(v15 + 768) = v57 | 0x400;
+            *(v15 + 768) = v59 | 0x400;
           }
 
 LABEL_222:
@@ -433,91 +433,91 @@ LABEL_222:
             *(v15 + 784) = gle_io_data(v10);
           }
 
-          *(v56 + 780) = v10;
+          *(v58 + 780) = v10;
           if (a2 == 997)
           {
-            v83 = a3[6];
+            v85 = a3[6];
           }
 
           else
           {
-            LOWORD(v83) = 4352;
+            LOWORD(v85) = 4352;
           }
 
-          *(v56 + 774) = v83;
-          v84 = vdupq_n_s64(v124 - 1);
-          v85 = vmovn_s64(vcgeq_u64(v84, xmmword_23A102AE0));
-          if (vuzp1_s8(vuzp1_s16(v85, *v84.i8), *v84.i8).u8[0])
+          *(v58 + 774) = v85;
+          v86 = vdupq_n_s64(v126 - 1);
+          v87 = vmovn_s64(vcgeq_u64(v86, xmmword_23A102AE0));
+          if (vuzp1_s8(vuzp1_s16(v87, *v86.i8), *v86.i8).u8[0])
           {
-            *(v56 + 560) = v11;
+            *(v58 + 560) = v11;
           }
 
-          if (vuzp1_s8(vuzp1_s16(v85, *&v84), *&v84).i8[1])
+          if (vuzp1_s8(vuzp1_s16(v87, *&v86), *&v86).i8[1])
           {
-            *(v56 + 590) = v11;
+            *(v58 + 590) = v11;
           }
 
-          if (vuzp1_s8(vuzp1_s16(*&v84, vmovn_s64(vcgeq_u64(v84, xmmword_23A102AF0))), *&v84).i8[2])
+          if (vuzp1_s8(vuzp1_s16(*&v86, vmovn_s64(vcgeq_u64(v86, xmmword_23A102AF0))), *&v86).i8[2])
           {
-            *(v56 + 620) = v11;
-            *(v56 + 650) = v11;
+            *(v58 + 620) = v11;
+            *(v58 + 650) = v11;
           }
 
-          v86 = vmovn_s64(vcgeq_u64(v84, xmmword_23A103650));
-          if (vuzp1_s8(*&v84, vuzp1_s16(v86, *&v84)).i32[1])
+          v88 = vmovn_s64(vcgeq_u64(v86, xmmword_23A103650));
+          if (vuzp1_s8(*&v86, vuzp1_s16(v88, *&v86)).i32[1])
           {
-            *(v56 + 680) = v11;
+            *(v58 + 680) = v11;
           }
 
-          if (vuzp1_s8(*&v84, vuzp1_s16(v86, *&v84)).i8[5])
+          if (vuzp1_s8(*&v86, vuzp1_s16(v88, *&v86)).i8[5])
           {
-            *(v56 + 710) = v11;
+            *(v58 + 710) = v11;
           }
 
-          v87 = vmovn_s64(vcgeq_u64(v84, xmmword_23A103640));
-          if (vuzp1_s8(*&v87, vuzp1_s16(v87, v87)).i8[6])
+          v89 = vmovn_s64(vcgeq_u64(v86, xmmword_23A103640));
+          if (vuzp1_s8(*&v89, vuzp1_s16(v89, v89)).i8[6])
           {
-            *(v56 + 740) = v11;
+            *(v58 + 740) = v11;
           }
 
-          v88 = vuzp1_s16(v87, v87);
-          if (vuzp1_s8(v88, v88).i8[7])
+          v90 = vuzp1_s16(v89, v89);
+          if (vuzp1_s8(v90, v90).i8[7])
           {
-            *(v56 + 770) = v11;
+            *(v58 + 770) = v11;
           }
 
-          v89 = gleStandardizeIntegerFormat(0x1908u);
+          v91 = gleStandardizeIntegerFormat(0x1908u);
           gfxReqToBase();
-          v90 = 0;
-          *(v56 + 968) = 65539;
-          v91 = v56 + 1032;
+          v92 = 0;
+          *(v58 + 968) = 65539;
+          v93 = v58 + 1032;
           do
           {
-            v133 = 0;
+            v135 = 0;
             *buf = 0u;
-            v132 = 0u;
-            if (*(v91 + 11) & 0x20 | gfxEvaluateTextureForGeometryChange() & 1)
+            v134 = 0u;
+            if (*(v93 + 11) & 0x20 | gfxEvaluateTextureForGeometryChange() & 1)
             {
-              (*(*(a1 + 29496) + 272))(*(a1 + 29464), 1, 0, *(v56 + 8 * *(v4 + 3848)));
+              (*(*(a1 + 29496) + 272))(*(a1 + 29464), 1, 0, *(v58 + 8 * *(v4 + 3848)));
             }
 
-            gleCreateSurfaceLevel(a1, v91, v127, buffer, v89, 5121);
+            gleCreateSurfaceLevel(a1, v93, v129, buffer, v91, 5121);
             gfxUpdateTextureForGeometryChange();
             gfxUpdatePluginTextureLevelGeometry();
             if (a2 == 997)
             {
-              v92 = a3[7];
-              if (v92)
+              v94 = a3[7];
+              if (v94)
               {
-                gleGenSurfaceMipmaps(a1, v56, v90, v92, *(v56 + 898) & 1);
+                gleGenSurfaceMipmaps(a1, v58, v92, v94, *(v58 + 898) & 1);
               }
             }
 
-            v91 += 480;
-            ++v90;
+            v93 += 480;
+            ++v92;
           }
 
-          while (v124 != v90);
+          while (v126 != v92);
           v7 = 0;
           *(a1 + 1524) |= 1 << (*(a1 + 23768) & 0xF);
           *v4 = 0;
@@ -527,8 +527,8 @@ LABEL_222:
           if (a2 == 928)
           {
             v7 = 0;
-            v41 = *(a1 + 19296);
-            v42 = *(v41 + 344) & 0xFD | (2 * (*a3 != 0));
+            v43 = *(a1 + 19296);
+            v44 = *(v43 + 344) & 0xFD | (2 * (*a3 != 0));
           }
 
           else
@@ -539,8 +539,8 @@ LABEL_222:
             }
 
             v7 = 0;
-            v41 = *(a1 + 19296);
-            v42 = *(v41 + 344) & 0xFB | (4 * (*a3 != 0));
+            v43 = *(a1 + 19296);
+            v44 = *(v43 + 344) & 0xFB | (4 * (*a3 != 0));
           }
 
           goto LABEL_198;
@@ -628,36 +628,36 @@ LABEL_222:
 LABEL_294:
       if (*(v4 + 3844))
       {
-        v101 = 0;
-        v102 = (a1 + 32512);
+        v103 = 0;
+        v104 = (a1 + 32512);
         do
         {
-          v103 = (*(v102[206] + 1248))(*v102, a2, a3);
+          v105 = (*(v104[206] + 1248))(*v104, a2, a3);
           if (v7)
           {
-            v104 = 1;
+            v106 = 1;
           }
 
           else
           {
-            v104 = v103 == 0;
+            v106 = v105 == 0;
           }
 
-          if (v104)
+          if (v106)
           {
             v7 = v7;
           }
 
           else
           {
-            v7 = v103;
+            v7 = v105;
           }
 
-          ++v101;
-          v102 += 209;
+          ++v103;
+          v104 += 209;
         }
 
-        while (v101 < *(v4 + 3844));
+        while (v103 < *(v4 + 3844));
       }
 
       return v7;
@@ -669,10 +669,10 @@ LABEL_294:
       {
         if (a2 == 1613)
         {
-          v74 = *a3;
-          v73 = a3[1];
+          v76 = *a3;
+          v75 = a3[1];
           os_unfair_lock_lock((*(a1 + 19296) + 324));
-          ShaderObjectNamed = gleCreateShaderObjectNamed(a1, v74, v73);
+          ShaderObjectNamed = gleCreateShaderObjectNamed(a1, v76, v75);
         }
 
         else
@@ -701,9 +701,9 @@ LABEL_294:
         return 10010;
       }
 
-      v75 = gleReserveVertexArray(a1, a3[1]) == 0;
+      v77 = gleReserveVertexArray(a1, a3[1]) == 0;
 LABEL_339:
-      if (v75)
+      if (v77)
       {
         return 10008;
       }
@@ -737,7 +737,7 @@ LABEL_339:
         {
           if (v38 == 1600)
           {
-            v110 = *(a1 + 19296) + 72;
+            v112 = *(a1 + 19296) + 72;
           }
 
           else
@@ -747,20 +747,20 @@ LABEL_339:
               return v7;
             }
 
-            v110 = *(a1 + 19296) + 104;
+            v112 = *(a1 + 19296) + 104;
           }
         }
 
         else if (v38 == 1605)
         {
-          v110 = *(a1 + 19296) + 264;
+          v112 = *(a1 + 19296) + 264;
         }
 
         else
         {
           if (v38 == 1606)
           {
-            v97 = 25904;
+            v99 = 25904;
           }
 
           else
@@ -770,10 +770,10 @@ LABEL_339:
               return v7;
             }
 
-            v97 = 25872;
+            v99 = 25872;
           }
 
-          v110 = a1 + v97;
+          v112 = a1 + v99;
         }
       }
 
@@ -786,43 +786,43 @@ LABEL_339:
             case 1611:
               os_unfair_lock_lock((*(a1 + 19296) + 324));
               SamplerHashObject = gleCreateSamplerHashObject(a1, v39);
-              v109 = *(a1 + 19296) + 232;
+              v111 = *(a1 + 19296) + 232;
               break;
             case 1616:
-              v112 = a3[2];
-              v111 = a3[3];
+              v114 = a3[2];
+              v113 = a3[3];
               os_unfair_lock_lock((*(a1 + 19296) + 324));
-              ProgramPipelineHashObject = gleFenceSync(a1, v39, v112, v111);
+              ProgramPipelineHashObject = gleFenceSync(a1, v39, v114, v113);
 LABEL_334:
               SamplerHashObject = ProgramPipelineHashObject;
 LABEL_344:
               os_unfair_lock_unlock((*(a1 + 19296) + 324));
-              v75 = SamplerHashObject == 0;
+              v77 = SamplerHashObject == 0;
               goto LABEL_339;
             case 1617:
               os_unfair_lock_lock((*(a1 + 19296) + 324));
               SamplerHashObject = gleCreateTransformFeedbackObject(a1, v39);
-              v109 = a1 + 26400;
+              v111 = a1 + 26400;
               break;
             default:
               return v7;
           }
 
-          gleAddHashNameAndObject(a1, v109, SamplerHashObject);
+          gleAddHashNameAndObject(a1, v111, SamplerHashObject);
           goto LABEL_344;
         }
 
         switch(v38)
         {
           case 1608:
-            v110 = *(a1 + 19296) + 8;
+            v112 = *(a1 + 19296) + 8;
             break;
           case 1609:
-            v110 = *(a1 + 19296) + 40;
+            v112 = *(a1 + 19296) + 40;
             break;
           case 1610:
             os_unfair_lock_lock((*(a1 + 19296) + 324));
-            ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, v39);
+            ProgramPipelineHashObject = gleCreateProgramPipelineHashObject(a1, v39, v40, v41);
             goto LABEL_334;
           default:
             return v7;
@@ -830,19 +830,19 @@ LABEL_344:
       }
 
       os_unfair_lock_lock((*(a1 + 19296) + 324));
-      ShaderObjectNamed = gleAddHashName(v110, v39);
+      ShaderObjectNamed = gleAddHashName(v112, v39);
 LABEL_338:
-      v113 = ShaderObjectNamed;
+      v115 = ShaderObjectNamed;
       os_unfair_lock_unlock((*(a1 + 19296) + 324));
-      v75 = v113 == 0;
+      v77 = v115 == 0;
       goto LABEL_339;
     }
 
     v7 = 0;
-    v58 = (v4 + 3841);
-    v59 = *(v4 + 3841) & 0xDFFF | ((*a3 != 0) << 13);
+    v60 = (v4 + 3841);
+    v61 = *(v4 + 3841) & 0xDFFF | ((*a3 != 0) << 13);
 LABEL_200:
-    *v58 = v59;
+    *v60 = v61;
     return v7;
   }
 
@@ -986,48 +986,48 @@ LABEL_293:
       {
         if (*a3 == 36161)
         {
-          v71 = *(a1 + 28952);
-          if (!v71)
+          v73 = *(a1 + 28952);
+          if (!v73)
           {
             return 0;
           }
 
-          v72 = v71 + 40;
+          v74 = v73 + 40;
         }
 
         else
         {
-          v72 = gleLookUpTexture(a1, *a3);
-          if (!v72)
+          v74 = gleLookUpTexture(a1, *a3);
+          if (!v74)
           {
             return 0;
           }
         }
 
         v7 = 0;
-        v93 = *(v72 + 792) & 0xFE;
+        v95 = *(v74 + 792) & 0xFE;
         if (a3[1])
         {
-          ++v93;
+          ++v95;
         }
 
-        *(v72 + 792) = v93;
+        *(v74 + 792) = v95;
         return v7;
       }
 
       if (a2 == 927)
       {
-        v43 = *a3;
+        v45 = *a3;
         if (*a3)
         {
-          v43 = (*(*(a1 + 29032) + 564) >> 10) & 0x10;
+          v45 = (*(*(a1 + 29032) + 564) >> 10) & 0x10;
         }
 
         v7 = 0;
-        v41 = *(a1 + 19296);
-        v42 = *(v41 + 344) & 0xEF | v43;
+        v43 = *(a1 + 19296);
+        v44 = *(v43 + 344) & 0xEF | v45;
 LABEL_198:
-        *(v41 + 344) = v42;
+        *(v43 + 344) = v44;
         return v7;
       }
 
@@ -1038,37 +1038,37 @@ LABEL_198:
     {
       if (*(v4 + 3844))
       {
-        v67 = 0;
+        v69 = 0;
         LODWORD(v7) = 0;
-        v68 = (a1 + 32512);
+        v70 = (a1 + 32512);
         do
         {
-          v69 = (*(v68[206] + 1248))(*v68, 703, a3);
+          v71 = (*(v70[206] + 1248))(*v70, 703, a3);
           if (v7)
           {
-            v70 = 1;
+            v72 = 1;
           }
 
           else
           {
-            v70 = v69 == 0;
+            v72 = v71 == 0;
           }
 
-          if (v70)
+          if (v72)
           {
             v7 = v7;
           }
 
           else
           {
-            v7 = v69;
+            v7 = v71;
           }
 
-          ++v67;
-          v68 += 209;
+          ++v69;
+          v70 += 209;
         }
 
-        while (v67 < *(v4 + 3844));
+        while (v69 < *(v4 + 3844));
         goto LABEL_294;
       }
 
@@ -1080,7 +1080,7 @@ LABEL_198:
       goto LABEL_294;
     }
 
-    v129 = 0;
+    v131 = 0;
     v30 = *a3;
     v29 = a3[1];
     v32 = a3[2];
@@ -1091,8 +1091,8 @@ LABEL_198:
     v36 = a3[8];
     if (v29 == 3553)
     {
-      v128 = a3[6];
-      v37 = gleCheckTexImage2DArgs(a1, 3553, 0, v32, v31, v33, 0, v34, v128, &v129);
+      v130 = a3[6];
+      v37 = gleCheckTexImage2DArgs(a1, 3553, 0, v32, v31, v33, 0, v34, v130, &v131);
       if (!v37)
       {
         return 10008;
@@ -1106,7 +1106,7 @@ LABEL_198:
         return 10008;
       }
 
-      v128 = a3[6];
+      v130 = a3[6];
       if (!gleCheckRenderbufferStorageArgs(a1, 36161, 0, v32, v31, v33))
       {
         return 10008;
@@ -1115,8 +1115,8 @@ LABEL_198:
       v37 = *(a1 + 28952) + 40;
     }
 
-    v98 = *(v37 + 768);
-    if ((v98 & 0x1C00) != 0x800)
+    v100 = *(v37 + 768);
+    if ((v100 & 0x1C00) != 0x800)
     {
       if ((*(v37 + 768) & 0x1C00) != 0)
       {
@@ -1129,7 +1129,7 @@ LABEL_288:
         return 10007;
       }
 
-      *(v37 + 768) = v98 | 0x800;
+      *(v37 + 768) = v100 | 0x800;
     }
 
     if ((v35 >> 24) > 4u)
@@ -1167,12 +1167,12 @@ LABEL_355:
 
       *(v37 + 868) = v36;
       Width = IOSurfaceGetWidth(buffera);
-      v115 = IOSurfaceGetHeight(buffera) * Width;
-      *(v37 + 872) = (*MEMORY[0x277D85FA0] + v115 * IOSurfaceGetBytesPerElement(buffera) - 1) & -*MEMORY[0x277D85FA0];
+      v117 = IOSurfaceGetHeight(buffera) * Width;
+      *(v37 + 872) = (*MEMORY[0x277D85FA0] + v117 * IOSurfaceGetBytesPerElement(buffera) - 1) & -*MEMORY[0x277D85FA0];
       *(v37 + 864) = v36;
       *(v37 + 816) = buffera;
       *(v37 + 848) = v36;
-      if (v128 == 5126)
+      if (v130 == 5126)
       {
         if (v32 == 6408)
         {
@@ -1190,19 +1190,19 @@ LABEL_355:
         }
       }
 
-      v116 = gleStandardizeIntegerFormat(v34);
-      v117 = v116;
-      *(v37 + 560) = gleSizedInternalFormat(a1, v37, v32, v116, v128, 0, 0);
+      v118 = gleStandardizeIntegerFormat(v34);
+      v119 = v118;
+      *(v37 + 560) = gleSizedInternalFormat(a1, v37, v32, v118, v130, 0, 0);
       *(v37 + 968) = 65539;
-      v133 = 0;
+      v135 = 0;
       *buf = 0u;
-      v132 = 0u;
+      v134 = 0u;
       if (*(v37 + 1043) & 0x20 | gfxEvaluateTextureForGeometryChange() & 1)
       {
         (*(*(a1 + 29496) + 272))(*(a1 + 29464), 1, 0, *(v37 + 8 * *(v4 + 3848)));
       }
 
-      gleCreateIOSurfaceLevel(a1, v37 + 1032, v31, v33, 1, v117, v128);
+      gleCreateIOSurfaceLevel(a1, v37 + 1032, v31, v33, 1, v119, v130);
       gfxUpdateTextureForGeometryChange();
       gfxUpdatePluginTextureLevelGeometry();
       (*(*(a1 + 29448) + 328))(*(a1 + 29024), *(v37 + 8 * *(v4 + 3847)));
@@ -1212,19 +1212,19 @@ LABEL_355:
       return 0;
     }
 
-    v122 = gfxPixelBytes();
+    v124 = gfxPixelBytes();
     BytesPerRowOfPlane = IOSurfaceGetBytesPerRowOfPlane(buffera, planeIndex);
-    if (IOSurfaceAllowsPixelSizeCasting(buffera) || (BytesPerElementOfPlane = IOSurfaceGetBytesPerElementOfPlane(buffera, planeIndex), v120 = BytesPerElementOfPlane / IOSurfaceGetElementWidthOfPlane(buffera, planeIndex), v120 == v122))
+    if (IOSurfaceAllowsPixelSizeCasting(buffera) || (BytesPerElementOfPlane = IOSurfaceGetBytesPerElementOfPlane(buffera, planeIndex), v122 = BytesPerElementOfPlane / IOSurfaceGetElementWidthOfPlane(buffera, planeIndex), v122 == v124))
     {
-      if (BytesPerRowOfPlane >= v122 * v31 || v34 == 35429)
+      if (BytesPerRowOfPlane >= v124 * v31 || v34 == 35429)
       {
         goto LABEL_352;
       }
 
       if (v34 - 35430 <= 0xE)
       {
-        v99 = 1 << (v34 - 102);
-        v100 = 32383;
+        v101 = 1 << (v34 - 102);
+        v102 = 32383;
         goto LABEL_349;
       }
     }
@@ -1237,24 +1237,24 @@ LABEL_355:
         *buf = 67110400;
         *&buf[4] = ID;
         *&buf[8] = 1024;
-        *&buf[10] = v122;
+        *&buf[10] = v124;
         *&buf[14] = 1024;
-        LODWORD(v132) = v34;
-        WORD2(v132) = 1024;
-        *(&v132 + 6) = v128;
-        WORD5(v132) = 1024;
-        HIDWORD(v132) = v120;
-        v133 = 1024;
-        v134 = v35 & 0xFFFFFF;
+        LODWORD(v134) = v34;
+        WORD2(v134) = 1024;
+        *(&v134 + 6) = v130;
+        WORD5(v134) = 1024;
+        HIDWORD(v134) = v122;
+        v135 = 1024;
+        v136 = v35 & 0xFFFFFF;
         _os_log_error_impl(&dword_23A041000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "TexImageIOSurface2D, IOSurface %08x pixel size (%d) for format %04x, type %04x doesn't match bytes per element/elementwidth (%d) of plane %d\n", buf, 0x26u);
       }
 
       if (v34 - 35429 <= 0xF)
       {
-        v99 = 1 << (v34 - 101);
-        v100 = 64767;
+        v101 = 1 << (v34 - 101);
+        v102 = 64767;
 LABEL_349:
-        if ((v99 & v100) != 0)
+        if ((v101 & v102) != 0)
         {
           goto LABEL_352;
         }
@@ -1288,8 +1288,8 @@ LABEL_352:
       if (a2 == 316)
       {
         v7 = 0;
-        v58 = (v4 + 3841);
-        v59 = *(v4 + 3841) & 0xFDFF | ((*a3 != 0) << 9);
+        v60 = (v4 + 3841);
+        v61 = *(v4 + 3841) & 0xFDFF | ((*a3 != 0) << 9);
         goto LABEL_200;
       }
 
@@ -1302,26 +1302,26 @@ LABEL_352:
 
     if (a2 == 313)
     {
-      v76 = *a3;
+      v78 = *a3;
       if (*a3 != (*(a1 + 27648) != 0))
       {
-        if (v76)
+        if (v78)
         {
-          if (v76 != 1)
+          if (v78 != 1)
           {
             return 10019;
           }
 
-          v129 = 8;
-          *v130 = 0x300000006;
+          v131 = 8;
+          *v132 = 0x300000006;
           *buf = 0;
-          sysctl(v130, 2u, buf, &v129, 0, 0);
+          sysctl(v132, 2u, buf, &v131, 0, 0);
           if (*buf < 2uLL)
           {
             return 10019;
           }
 
-          glFinish_Exec(a1, v77, v78, v79);
+          glFinish_Exec(a1, v79, v80, v81);
           if (gleCreateCmdBufMachine(a1))
           {
             return 10019;
@@ -1344,17 +1344,17 @@ LABEL_352:
       goto LABEL_294;
     }
 
-    v54 = *a3 & ~(*a3 >> 31);
-    if (*(v4 + 1116) != v54)
+    v56 = *a3 & ~(*a3 >> 31);
+    if (*(v4 + 1116) != v56)
     {
-      *(v4 + 1116) = v54;
+      *(v4 + 1116) = v56;
       if (*(a1 + 27648))
       {
         dispatch_release(*(a1 + 27728));
-        v55 = *(v4 + 1116);
-        *(a1 + 27740) = v55;
+        v57 = *(v4 + 1116);
+        *(a1 + 27740) = v57;
         v7 = 0;
-        *(a1 + 27728) = dispatch_semaphore_create(v55);
+        *(a1 + 27728) = dispatch_semaphore_create(v57);
         goto LABEL_294;
       }
     }
@@ -1408,7 +1408,7 @@ LABEL_146:
   return v20(v21, v22, a3);
 }
 
-float glGetIntegerv_Exec(uint64_t a1, int a2, _DWORD *a3, double a4, double a5, double a6)
+float glGetIntegerv_Exec(uint64_t a1, uint64_t a2, _DWORD *a3, double a4, double a5, double a6)
 {
   v27 = *MEMORY[0x277D85DE8];
   v25 = 0;
@@ -1513,7 +1513,7 @@ uint64_t gleGetState(uint64_t a1, int a2, uint64_t a3, _DWORD *a4, _BYTE *a5, do
   v119[3] = *MEMORY[0x277D85DE8];
   v13 = a1 + 29672;
   v14 = (a1 + 23768);
-  v15 = a1 + 17572;
+  v15 = (a1 + 17572);
   v16 = (a1 + 12516);
   *a4 = 5124;
   *a5 = 0;
@@ -2735,13 +2735,13 @@ LABEL_370:
           {
             if (a2 == 3315)
             {
-              ClampedStencilValue = *(v15 + 928);
+              ClampedStencilValue = v15[232];
               goto LABEL_212;
             }
 
             if (a2 == 3316)
             {
-              ClampedStencilValue = *(v15 + 932);
+              ClampedStencilValue = v15[233];
               goto LABEL_212;
             }
           }
@@ -2766,7 +2766,7 @@ LABEL_370:
 
             if (a2 == 3314)
             {
-              ClampedStencilValue = *(v15 + 912);
+              ClampedStencilValue = v15[228];
               goto LABEL_212;
             }
           }
@@ -2778,12 +2778,12 @@ LABEL_370:
           {
             if (a2 == 3330)
             {
-              ClampedStencilValue = *(v15 + 876);
+              ClampedStencilValue = v15[219];
             }
 
             else
             {
-              ClampedStencilValue = *(v15 + 892);
+              ClampedStencilValue = v15[223];
             }
 
             goto LABEL_212;
@@ -2792,13 +2792,13 @@ LABEL_370:
           switch(a2)
           {
             case 3332:
-              ClampedStencilValue = *(v15 + 896);
+              ClampedStencilValue = v15[224];
               goto LABEL_212;
             case 32874:
               ClampedStencilValue = *(a1 + 88 * *v14 + 20784);
               goto LABEL_211;
             case 32877:
-              ClampedStencilValue = *(v15 + 936);
+              ClampedStencilValue = v15[234];
               goto LABEL_212;
           }
         }
@@ -2827,7 +2827,7 @@ LABEL_370:
         {
           if (a2 == 32878)
           {
-            ClampedStencilValue = *(v15 + 920);
+            ClampedStencilValue = v15[230];
             goto LABEL_212;
           }
 
@@ -3888,18 +3888,18 @@ LABEL_165:
         {
           if (a2 == 2976)
           {
-            v99 = *(v15 + 2912);
-            if ((v99 - 5) >= 0xB)
+            v99 = v15[728];
+            if (v99 - 5 >= 0xB)
             {
               switch(v99)
               {
-                case 2:
+                case 2u:
                   ClampedStencilValue = 6144;
                   break;
-                case 3:
+                case 3u:
                   ClampedStencilValue = 5889;
                   break;
-                case 4:
+                case 4u:
                   ClampedStencilValue = 5888;
                   break;
                 default:
@@ -3949,12 +3949,12 @@ LABEL_165:
 
       if (a2 == 2979)
       {
-        v94 = *(v15 + 2444);
+        v94 = v15[611];
       }
 
       else
       {
-        v94 = *(v15 + 2440);
+        v94 = v15[610];
       }
 
       goto LABEL_689;
@@ -4253,8 +4253,9 @@ uint64_t gliDestroyRendererInfo(void *a1)
   return 0;
 }
 
-uint64_t gliAttachDrawableWithOptions(unint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5)
+uint64_t gliAttachDrawableWithOptions(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v6 = a4;
   v10 = a1 + 28652;
   if (*(a1 + 27648))
   {
@@ -4276,21 +4277,21 @@ uint64_t gliAttachDrawableWithOptions(unint64_t a1, uint64_t a2, uint64_t a3, un
     gleFallbackForceEnd(a1);
   }
 
-  if ((a4 & 0x80000000) != 0 || *(v10 + 3844) <= a4)
+  if ((v6 & 0x80000000) != 0 || *(v10 + 3844) <= v6)
   {
     return 10008;
   }
 
-  *(v10 + 3846) = a4;
+  *(v10 + 3846) = v6;
   v11 = *(v10 + 3847);
-  if (v11 != a4)
+  if (v11 != v6)
   {
     (*(*(a1 + 29448) + 240))(*(a1 + 29016));
   }
 
-  v12 = (*(*(a1 + 32512 + 1672 * a4 + 1648) + 1184))(*(a1 + 32512 + 1672 * a4), a2, a3, a5, a1 + 29632);
+  v12 = (*(*(a1 + 32512 + 1672 * v6 + 1648) + 1184))(*(a1 + 32512 + 1672 * v6), a2, a3, a5, a1 + 29632);
   v13 = v12;
-  if (v12 <= 3 && *(v10 + 3847) != a4)
+  if (v12 <= 3 && *(v10 + 3847) != v6)
   {
     v16 = 1;
 LABEL_34:
@@ -4322,12 +4323,12 @@ LABEL_35:
 
     v17 = *(v10 + 3845);
     v13 = 10016;
-    if (v17 == 255 || v17 == a4)
+    if (v17 == 255 || v17 == v6)
     {
       goto LABEL_45;
     }
 
-    if (v11 == a4)
+    if (v11 == v6)
     {
       (*(*(a1 + 29448) + 240))(*(a1 + 29016));
     }
@@ -4343,7 +4344,7 @@ LABEL_35:
         v15 = 0;
         v16 = 0;
 LABEL_57:
-        a4 = v22;
+        v6 = v22;
         goto LABEL_36;
       }
 
@@ -4390,7 +4391,7 @@ LABEL_36:
       *(a1 + 28648) = 0;
       *(v10 + 28) = 0;
       *(v10 + 30) = 0;
-      gleSwitchPlugin(a1, a4);
+      gleSwitchPlugin(a1, v6);
     }
 
     if (v15)
@@ -4443,7 +4444,7 @@ LABEL_46:
   return v13;
 }
 
-uint64_t gleUpdateDispatchCodeChange(unint64_t a1, char a2, unsigned int a3)
+uint64_t gleUpdateDispatchCodeChange(unint64_t a1, char a2, uint64_t a3)
 {
   v4 = a1 + 28652;
   if ((a2 & 4) != 0)
@@ -4464,6 +4465,7 @@ uint64_t gleUpdateDispatchCodeChange(unint64_t a1, char a2, unsigned int a3)
 
     else
     {
+      v31 = a3;
       v32 = *(a1 + 28960);
       if (v32)
       {
@@ -4483,7 +4485,7 @@ uint64_t gleUpdateDispatchCodeChange(unint64_t a1, char a2, unsigned int a3)
       a2 = 0;
       if (v35 <= 3)
       {
-        a2 = gleFallbackBegin(a1, a3);
+        a2 = gleFallbackBegin(a1, v31);
       }
 
       v6 = 0;
@@ -4752,7 +4754,7 @@ uint64_t glScissor_Exec(uint64_t a1, int a2, int a3, int a4, int a5)
   v6[1] = a3;
   v6[2] = a4;
   v6[3] = a5;
-  return glScissorArrayv_Core(a1, 0, 1, v6);
+  return glScissorArrayv_Core(a1, 0, 1u, v6);
 }
 
 uint64_t glViewport_Exec(uint64_t a1, int a2, int a3, int a4, int a5)
@@ -4832,7 +4834,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t glGetString_Exec(uint64_t a1, int a2)
+char *glGetString_Exec(uint64_t a1, int a2)
 {
   v38 = *MEMORY[0x277D85DE8];
   v3 = (a1 + 28672);
@@ -4842,7 +4844,7 @@ uint64_t glGetString_Exec(uint64_t a1, int a2)
     {
       if (a2 == 35358)
       {
-        v4 = a1 + 31894;
+        v4 = (a1 + 31894);
         v35 = 0;
         v36 = 0;
         v37 = 0;
@@ -4955,7 +4957,7 @@ uint64_t glGetString_Exec(uint64_t a1, int a2)
         v36 = 0;
         v37 = 0;
         gleGetFilteredExtensions(a1, &v35);
-        v4 = (v3 + 1174);
+        v4 = v3 + 1174;
         if (v3[3829] - 2 > 2)
         {
           v5 = 1;
@@ -5030,7 +5032,7 @@ LABEL_17:
 
     gleDeriveVersion(a1);
     v10 = (*(*(a1 + 29496) + 176))(*(*(a1 + 1672 * v3[3828] + 34168) + 24), 7938);
-    v4 = a1 + 32410;
+    v4 = (a1 + 32410);
     if (v3[3829] == 2)
     {
       v11 = "OpenGL ES-CM ";
@@ -5074,7 +5076,7 @@ uint64_t glActiveTexture_Exec(uint64_t result, int a2)
   return result;
 }
 
-void glGenTextures_Exec(uint64_t a1, unsigned int a2, uint64_t a3)
+void glGenTextures_Exec(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((a2 & 0x80000000) != 0)
   {
@@ -5086,12 +5088,13 @@ void glGenTextures_Exec(uint64_t a1, unsigned int a2, uint64_t a3)
 
   else
   {
+    v5 = a2;
     os_unfair_lock_lock((*(a1 + 19296) + 324));
-    v6 = gleGenHashNames(*(a1 + 19296) + 72, a2);
+    v6 = gleGenHashNames(*(a1 + 19296) + 72, v5);
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
     if (v6)
     {
-      v7 = a2 == 0;
+      v7 = v5 == 0;
     }
 
     else
@@ -5101,8 +5104,8 @@ void glGenTextures_Exec(uint64_t a1, unsigned int a2, uint64_t a3)
 
     if (!v7)
     {
-      v8 = (a2 + 3) & 0xFFFFFFFC;
-      v9 = vdupq_n_s64(a2 - 1);
+      v8 = (v5 + 3) & 0xFFFFFFFC;
+      v9 = vdupq_n_s64(v5 - 1);
       v10 = xmmword_23A102AF0;
       v11 = xmmword_23A102AE0;
       v12 = (a3 + 8);
@@ -5205,7 +5208,7 @@ LABEL_8:
   return v6;
 }
 
-void glBindTexture_Exec(uint64_t a1, int a2, int a3)
+void glBindTexture_Exec(uint64_t a1, int a2, uint64_t a3)
 {
   v5 = (a1 + 29832);
   if (a2 > 35863)
@@ -5253,12 +5256,13 @@ LABEL_19:
   }
 }
 
-void gleBindTexture(uint64_t a1, unsigned int a2, int a3, unsigned int a4)
+void gleBindTexture(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v7 = a1 + 28652;
+  v7 = result + 28652;
   if (a3)
   {
-    v9 = *(a1 + 19296);
+    v8 = a3;
+    v9 = *(result + 19296);
     v10 = gleLookupHashObject(v9 + 72, a3);
     if (v10)
     {
@@ -5276,44 +5280,44 @@ void gleBindTexture(uint64_t a1, unsigned int a2, int a3, unsigned int a4)
 
     else
     {
-      TextureObject = gleCreateTextureObject(*(a1 + 19296), a2, a3);
+      TextureObject = gleCreateTextureObject(*(result + 19296), a2, v8);
       v11 = TextureObject;
       if (*(v7 + 3849) == 4)
       {
         *(TextureObject + 461) = 6403;
       }
 
-      gleAddHashNameAndObject(a1, v9 + 72, TextureObject);
+      gleAddHashNameAndObject(result, v9 + 72, TextureObject);
     }
   }
 
   else
   {
-    v11 = *(a1 + 8 * a2 + 23592);
+    v11 = *(result + 8 * a2 + 23592);
   }
 
   ++*(v11 + 5);
-  v13 = a1 + 88 * a4 + 8 * a2;
+  v13 = result + 88 * a4 + 8 * a2;
   v14 = *(v13 + 20776);
   v15 = *(v14 + 20) - 1;
   *(v14 + 20) = v15;
   if (!v15)
   {
-    gleUnbindTextureObject(a1, v14);
-    gleFreeTextureObject(*(a1 + 19296), v14);
+    gleUnbindTextureObject(result, v14);
+    gleFreeTextureObject(*(result + 19296), v14);
   }
 
   *(v13 + 20776) = v11;
   v16 = v11[72];
-  if (!v16 || v16 == *(a1 + 29024))
+  if (!v16 || v16 == *(result + 29024))
   {
     v17 = *(v7 + 1172);
-    v18 = *(*(a1 + 19296) + 4);
+    v18 = *(*(result + 19296) + 4);
     if (v17 != v18)
     {
-      v19 = *(a1 + 28960);
-      v20 = *(a1 + 28968);
-      if (*(a1 + 28960) != 0)
+      v19 = *(result + 28960);
+      v20 = *(result + 28968);
+      if (*(result + 28960) != 0)
       {
         if (v19 && *(v19 + 556) != v17)
         {
@@ -5338,25 +5342,25 @@ void gleBindTexture(uint64_t a1, unsigned int a2, int a3, unsigned int a4)
             v21 = 2;
           }
 
-          gleUpdateFBODirtyStateForTexStampChange(a1, (v19 + 40), v21);
-          *(v19 + 556) = *(*(a1 + 19296) + 4);
+          gleUpdateFBODirtyStateForTexStampChange(result, (v19 + 40), v21);
+          *(v19 + 556) = *(*(result + 19296) + 4);
         }
 
-        if (v20 != v19 && v20 && *(v20 + 556) != *(*(a1 + 19296) + 4))
+        if (v20 != v19 && v20 && *(v20 + 556) != *(*(result + 19296) + 4))
         {
-          gleUpdateFBODirtyStateForTexStampChange(a1, (v20 + 40), 1);
-          *(v20 + 556) = *(*(a1 + 19296) + 4);
+          gleUpdateFBODirtyStateForTexStampChange(result, (v20 + 40), 1);
+          *(v20 + 556) = *(*(result + 19296) + 4);
         }
       }
 
-      gleUpdateCtxDirtyStateForTexStampChange(a1);
-      *(v7 + 1172) = *(*(a1 + 19296) + 4);
+      gleUpdateCtxDirtyStateForTexStampChange(result);
+      *(v7 + 1172) = *(*(result + 19296) + 4);
     }
   }
 
   else
   {
-    gleSynchronizePluginTextureLevels(a1, (v11 + 5));
+    gleSynchronizePluginTextureLevels(result, (v11 + 5));
   }
 
   if (a2 == 7)
@@ -5367,9 +5371,9 @@ void gleBindTexture(uint64_t a1, unsigned int a2, int a3, unsigned int a4)
       v23 = *(v22 + 192);
       if (v23)
       {
-        if (v23 != *(a1 + 29024))
+        if (v23 != *(result + 29024))
         {
-          gleSynchronizePluginBufferStorage(a1, v22 + 40);
+          gleSynchronizePluginBufferStorage(result, v22 + 40);
           if (*(v7 + 3844))
           {
             v24 = 0;
@@ -5409,32 +5413,32 @@ void gleBindTexture(uint64_t a1, unsigned int a2, int a3, unsigned int a4)
         while (v27 < v26);
       }
 
-      v31 = *(a1 + 23776) | (1 << a4);
+      v31 = *(result + 23776) | (1 << a4);
     }
 
     else
     {
-      v31 = *(a1 + 23776) & ~(1 << a4);
+      v31 = *(result + 23776) & ~(1 << a4);
     }
 
-    *(a1 + 23776) = v31;
+    *(result + 23776) = v31;
   }
 
-  if (((*(a1 + 8 * (a4 >> 4) + 14976) >> (4 * (a4 & 0xF))) & 0xF) == a2)
+  if (((*(result + 8 * (a4 >> 4) + 14976) >> (4 * (a4 & 0xF))) & 0xF) == a2)
   {
     v32 = 1 << (a4 & 0xF);
-    *(a1 + 1524) |= v32;
-    *(a1 + 1536) |= v32;
-    v33 = *(a1 + 1548) | 0x8000000;
+    *(result + 1524) |= v32;
+    *(result + 1536) |= v32;
+    v33 = *(result + 1548) | 0x8000000;
   }
 
   else
   {
-    v33 = *(a1 + 1548);
+    v33 = *(result + 1548);
   }
 
   *v7 = 0;
-  *(a1 + 1548) = v33 | 0x22000;
+  *(result + 1548) = v33 | 0x22000;
 }
 
 uint64_t *gleLookupHashObject(uint64_t a1, int a2)
@@ -6146,13 +6150,17 @@ uint64_t gleLookUpNonProxyTexture(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t glTexImage2D_Exec(uint64_t result, int a2, uint64_t a3, unsigned int a4, int a5, unsigned int a6, int a7, unsigned int a8, unsigned int a9, uint64_t a10)
+uint64_t glTexImage2D_Exec(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, uint64_t a10)
 {
   v10 = a8;
+  v11 = a7;
+  v12 = a5;
+  v13 = a4;
+  v14 = a2;
   v15 = result;
   v16 = a10;
   v17 = result + 18504;
-  v74 = result + 28652;
+  v73 = result + 28652;
   if (!a10 && *(result + 18518))
   {
     if (*(result + 29832))
@@ -6162,7 +6170,7 @@ uint64_t glTexImage2D_Exec(uint64_t result, int a2, uint64_t a3, unsigned int a4
 
     v23 = 1281;
 LABEL_17:
-    *(v74 + 1180) = v23;
+    *(v73 + 1180) = v23;
     return result;
   }
 
@@ -6191,23 +6199,24 @@ LABEL_16:
     }
   }
 
-  v75 = 0;
-  result = gleCheckTexImage2DArgs(result, a2, a3, a4, a5, a6, a7, v10, a9, &v75);
+  v74 = 0;
+  v72 = a6;
+  result = gleCheckTexImage2DArgs(result, a2, a3, a4, a5, a6, a7, v10, a9, &v74);
   if (result)
   {
     v18 = result;
     if (!*(result + 770))
     {
-      v71 = a5;
+      v70 = v12;
       v19 = *(v15 + 19336);
-      v68 = v19;
-      v69 = v17;
+      v67 = v19;
+      v68 = v17;
       if (v19)
       {
-        v20 = gleOffsetLimitStorage((v15 + 18484), v71, a6, v75, a10);
+        v20 = gleOffsetLimitStorage((v15 + 18484), v70, v72, v74, a10);
         v21 = v19;
-        v22 = v71;
-        result = gleHandleUnpackBufferInEngineNoSync(v15, v21, v20, (BYTE4(v75) & 0x1F) + 1, a10);
+        v22 = v70;
+        result = gleHandleUnpackBufferInEngineNoSync(v15, v21, v20, (BYTE4(v74) & 0x1F) + 1, a10);
         v16 = result;
         if (!result)
         {
@@ -6217,10 +6226,10 @@ LABEL_16:
 
       else
       {
-        v22 = v71;
+        v22 = v70;
       }
 
-      if (*(v74 + 3851))
+      if (*(v73 + 3851))
       {
         result = mach_absolute_time();
       }
@@ -6245,30 +6254,30 @@ LABEL_16:
       if ((*(v18 + 768) & 0xC00) == 0)
       {
 LABEL_28:
-        v67 = result;
+        v66 = result;
         v25 = gleStandardizeIntegerFormat(v10);
         if ((*(v15 + 1540) & 4) != 0)
         {
           MatrixIdentifier = gleGenerateMatrixIdentifier(v15, v15 + 9488, v26, v27, v28);
-          v29 = *(v69 + 648) & 0xFFFFFEFF | ((MatrixIdentifier != -1074791426) << 8);
-          *(v69 + 648) = v29;
-          *(v74 + 1080) = MatrixIdentifier;
+          v29 = *(v68 + 648) & 0xFFFFFEFF | ((MatrixIdentifier != -1074791426) << 8);
+          *(v68 + 648) = v29;
+          *(v73 + 1080) = MatrixIdentifier;
         }
 
         else
         {
-          v29 = *(v69 + 648);
+          v29 = *(v68 + 648);
         }
 
         v31 = v22;
-        v32 = a6;
+        v32 = v72;
         if ((v29 & 6) != 0)
         {
           if ((v29 & 2) != 0)
           {
             v31 = v22;
-            v32 = a6;
-            if (*(v69 + 352) != 32790)
+            v32 = v72;
+            if (*(v68 + 352) != 32790)
             {
               goto LABEL_39;
             }
@@ -6280,15 +6289,15 @@ LABEL_28:
           else
           {
             v31 = v22;
-            v32 = a6;
+            v32 = v72;
             if ((v29 & 4) == 0)
             {
               goto LABEL_39;
             }
 
             v31 = v22;
-            v32 = a6;
-            if (*(v69 + 424) != 32790)
+            v32 = v72;
+            if (*(v68 + 424) != 32790)
             {
               goto LABEL_39;
             }
@@ -6298,7 +6307,7 @@ LABEL_28:
           }
 
           v31 = v22 - *(v15 + v34) + 1;
-          v32 = a6 - *(v15 + v33) + 1;
+          v32 = v72 - *(v15 + v33) + 1;
         }
 
 LABEL_39:
@@ -6314,7 +6323,7 @@ LABEL_39:
 
         if (v32)
         {
-          v36 = a7;
+          v36 = v11;
         }
 
         else
@@ -6322,38 +6331,37 @@ LABEL_39:
           v36 = 0;
         }
 
-        if ((a2 - 34069) >= 6)
+        if ((v14 - 34069) >= 6)
         {
           v37 = 0;
         }
 
         else
         {
-          v37 = (a2 - 34069);
+          v37 = (v14 - 34069);
         }
 
         v38 = v18 + 480 * v37 + 32 * a3 + 1032;
-        LOWORD(v61) = 256;
-        v39 = gleEvaluateTextureImageChange(v15, v18, v38, v37, a3, v35, v32, 1, v36, a4, v25, a9, v61, v16);
+        v39 = gleEvaluateTextureImageChange(v15, v18, v38, v37, a3, v35, v32, 1, v36, v13, v25, a9, 256, v16);
         if (!v35)
         {
           result = 0;
-          v51 = v74;
+          v51 = v73;
           goto LABEL_92;
         }
 
-        if (!v16 || (v40 = *(v18 + 768), (v40 & 0x100) != 0) || !*(*(v15 + 29032) + 174) || (v41 = v35, a9 == 6656) && (*v69 & 7) != 0 || (*(v18 + 480 * v37 + 32 * a3 + 1043) & 1) != 0 || *(v18 + 976) > a3 || *(v18 + 978) < a3 || ((*(v18 + 2 * v37 + 984) >> a3) & 1) == 0)
+        if (!v16 || (v40 = *(v18 + 768), (v40 & 0x100) != 0) || !*(*(v15 + 29032) + 174) || (v41 = v35, a9 == 6656) && (*v68 & 7) != 0 || (*(v18 + 480 * v37 + 32 * a3 + 1043) & 1) != 0 || *(v18 + 976) > a3 || *(v18 + 978) < a3 || ((*(v18 + 2 * v37 + 984) >> a3) & 1) == 0)
         {
-          v51 = v74;
-          if (v68 && *(v68 + 192))
+          v51 = v73;
+          if (v67 && *(v67 + 192))
           {
             v55 = v39;
-            gleSynchronizeBufferOnCurrentDevicesForRead(v15, v68 + 40);
+            gleSynchronizeBufferOnCurrentDevicesForRead(v15, v67 + 40);
             v39 = v55;
           }
 
           v42 = 1;
-          v56 = v71;
+          v56 = v70;
           if (!v16)
           {
             goto LABEL_84;
@@ -6362,7 +6370,7 @@ LABEL_39:
 
         else
         {
-          v70 = v25;
+          v69 = v25;
           v42 = 1;
           if ((*(v18 + 898) & 1) != 0 && *(v18 + 884) == a3 && (v40 & 0xF) != 2)
           {
@@ -6372,7 +6380,7 @@ LABEL_39:
             v42 = 0;
           }
 
-          v66 = v39;
+          v65 = v39;
           v44 = *(v15 + 8 * *(v15 + 23768) + 23936);
           if (v44)
           {
@@ -6388,20 +6396,20 @@ LABEL_39:
           v47 = *(v18 + 982);
           v48 = (v47 >> 15);
           v49 = (((v47 >> 13) & 1) - 1) & (v47 >> 15);
-          v50 = v70;
-          *(v18 + 968) = v70;
+          v50 = v69;
+          *(v18 + 968) = v69;
           *(v18 + 970) = a9;
-          if (v68)
+          if (v67)
           {
-            v63 = v46;
-            v64 = (((v47 >> 13) & 1) - 1) & (v47 >> 15);
-            v65 = v47 >> 15;
-            result = (*(*(v15 + 29448) + 368))(*(v15 + 29016), *(v18 + 8 * *(v74 + 3847)), v37, a3);
+            v62 = v46;
+            v63 = (((v47 >> 13) & 1) - 1) & (v47 >> 15);
+            v64 = v47 >> 15;
+            result = (*(*(v15 + 29448) + 368))(*(v15 + 29016), *(v18 + 8 * *(v73 + 3847)), v37, a3);
             if (result)
             {
 LABEL_70:
-              v51 = v74;
-              v39 = v66;
+              v51 = v73;
+              v39 = v65;
               *(v18 + 536) = *(v15 + 29024);
               *(v38 + 11) |= 0x40u;
               if ((v42 & 1) == 0)
@@ -6425,28 +6433,28 @@ LABEL_70:
               goto LABEL_92;
             }
 
-            v50 = v70;
-            v49 = v64;
-            v48 = v65;
-            v46 = v63;
-            if (*(v68 + 192))
+            v50 = v69;
+            v49 = v63;
+            v48 = v64;
+            v46 = v62;
+            if (*(v67 + 192))
             {
-              gleSynchronizeBufferOnCurrentDevicesForRead(v15, v68 + 40);
-              v46 = v63;
-              v49 = v64;
-              v48 = v65;
+              gleSynchronizeBufferOnCurrentDevicesForRead(v15, v67 + 40);
+              v46 = v62;
+              v49 = v63;
+              v48 = v64;
             }
           }
 
-          result = (*(*(v15 + 29448) + 368))(*(v15 + 29016), *(v18 + 8 * *(v74 + 3847)), v37, a3, v48, v49, 0, v41, v32 | 0x100000000, __PAIR64__(a9, v50), v16, 0, 0, v46);
+          result = (*(*(v15 + 29448) + 368))(*(v15 + 29016), *(v18 + 8 * *(v73 + 3847)), v37, a3, v48, v49, 0, v41, v32 | 0x100000000, __PAIR64__(a9, v50), v16, 0, 0, v46);
           if (result)
           {
             goto LABEL_70;
           }
 
-          v51 = v74;
-          v39 = v66;
-          v56 = v71;
+          v51 = v73;
+          v39 = v65;
+          v56 = v70;
         }
 
         if ((*(v18 + 768) & 0x100) == 0)
@@ -6454,13 +6462,13 @@ LABEL_70:
           v57 = v39;
           if ((*(v18 + 480 * v37 + 32 * a3 + 1043) & 1) != 0 || gfxAllocateTextureLevel())
           {
-            LOBYTE(v62) = 1;
-            gleTextureImagePut(v15, v18, v38, 0, 0, 0, v56, a6, 1, v75, v62, v15 + 18484, v16);
+            LOBYTE(v61) = 1;
+            gleTextureImagePut(v15, v18, v38, 0, 0, 0, v56, v72, 1, v74, v61, v15 + 18484, v16);
             *(v18 + 968) = *(v18 + 480 * v37 + 32 * a3 + 1048);
             *(v38 + 11) |= 0x10u;
-            v51 = v74;
+            v51 = v73;
             *(v18 + 2 * v37 + 996) |= *(v18 + 2 * v37 + 984) & (1 << a3);
-            v58 = v18 + 24 * *(v74 + 3847);
+            v58 = v18 + 24 * *(v73 + 3847);
             *(v58 + 116) |= 4u;
             *(v58 + 2 * v37 + 104) |= 1 << a3;
           }
@@ -6516,13 +6524,13 @@ LABEL_99:
         if (*(v51 + 3851))
         {
           result = mach_absolute_time();
-          *(v15 + 19168) += result - v67;
+          *(v15 + 19168) += result - v66;
         }
 
         return result;
       }
 
-      if (*(v74 + 1180))
+      if (*(v73 + 1180))
       {
         return result;
       }
@@ -6706,7 +6714,7 @@ LABEL_51:
   return v9;
 }
 
-uint64_t gleCreateTextureLevel(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, char a8, unsigned int a9, unsigned int a10, uint64_t a11)
+uint64_t gleCreateTextureLevel(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, char a8, unsigned int a9, unsigned int a10, uint64_t a11)
 {
   v11 = a6;
   v12 = a5;
@@ -6816,8 +6824,10 @@ LABEL_27:
   return result;
 }
 
-uint64_t glTexSubImage2D_Exec(uint64_t a1, int a2, uint64_t a3, unsigned int a4, int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, uint64_t a10)
+uint64_t glTexSubImage2D_Exec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7, uint64_t a8, unsigned int a9, uint64_t a10)
 {
+  v11 = a5;
+  v12 = a4;
   v16 = a1 + 29732;
   v53 = 0;
   if (*(a1 + 32501) == 3)
@@ -6863,8 +6873,8 @@ uint64_t glTexSubImage2D_Exec(uint64_t a1, int a2, uint64_t a3, unsigned int a4,
     }
   }
 
-  v50 = a5;
-  result = gleCheckTexSubImage2DArgs(a1, a2, a3, a4, a5, a6, a7, a8, a9, &v53);
+  v50 = v11;
+  result = gleCheckTexSubImage2DArgs(a1, a2, a3, v12, v11, a6, a7, a8, a9, &v53);
   if (result)
   {
     v21 = result;
@@ -6905,7 +6915,7 @@ uint64_t glTexSubImage2D_Exec(uint64_t a1, int a2, uint64_t a3, unsigned int a4,
             v30 = (a2 - 34069);
           }
 
-          v31 = a9 == 6656 && (*(a1 + 18504) & 7) != 0 || checkFastPath(a1, v21 + 480 * v30 + 32 * a3 + 1032, a4, v50, 0, a6, a7, v53, v48, 2) == 0;
+          v31 = a9 == 6656 && (*(a1 + 18504) & 7) != 0 || checkFastPath(a1, v21 + 480 * v30 + 32 * a3 + 1032, v12, v50, 0, a6, a7, v53, v48, 2) == 0;
           if (!*(v21 + 536) && (*(v21 + 768) & 0x800) == 0)
           {
             gfxWaitTextureOnDevices();
@@ -6956,7 +6966,7 @@ uint64_t glTexSubImage2D_Exec(uint64_t a1, int a2, uint64_t a3, unsigned int a4,
             if (v23)
             {
               v45 = (v34 & 1) == 0;
-              result = (*(*(a1 + 29448) + 368))(*(a1 + 29016), *(v21 + 8 * *(v16 + 2767)), v30, a3, a4, v50, 0, a6, a7 | 0x100000000, __PAIR64__(a9, v25), v48, 0, *(v23 + 40 + 8 * *(v16 + 2767)), v36);
+              result = (*(*(a1 + 29448) + 368))(*(a1 + 29016), *(v21 + 8 * *(v16 + 2767)), v30, a3, v12, v50, 0, a6, a7 | 0x100000000, __PAIR64__(a9, v25), v48, 0, *(v23 + 40 + 8 * *(v16 + 2767)), v36);
               if (result)
               {
                 goto LABEL_55;
@@ -6970,7 +6980,7 @@ uint64_t glTexSubImage2D_Exec(uint64_t a1, int a2, uint64_t a3, unsigned int a4,
               }
             }
 
-            result = (*(*(a1 + 29448) + 368))(*(a1 + 29016), *(v21 + 8 * *(v16 + 2767)), v30, a3, a4, v50, 0, a6, a7 | 0x100000000, __PAIR64__(a9, v25), v48, 0, 0, v36);
+            result = (*(*(a1 + 29448) + 368))(*(a1 + 29016), *(v21 + 8 * *(v16 + 2767)), v30, a3, v12, v50, 0, a6, a7 | 0x100000000, __PAIR64__(a9, v25), v48, 0, 0, v36);
             if (result)
             {
 LABEL_55:
@@ -7029,7 +7039,7 @@ LABEL_80:
           v39 = *(v21 + 480 * v30 + 32 * a3 + 1043);
           if ((v39 & 0x40) != 0)
           {
-            gleSynchronizeTextureLevelOnCurrentDevices(a1, v21);
+            gleSynchronizeTextureLevelOnCurrentDevices(a1, v21, v21 + 480 * v30 + 32 * a3 + 1032, v30, a3);
           }
 
           else if ((*(v21 + 480 * v30 + 32 * a3 + 1043) & 0x10) == 0)
@@ -7072,7 +7082,7 @@ LABEL_69:
             }
 
             LOBYTE(v44) = 1;
-            gleTextureImagePut(a1, v21, v21 + 480 * v30 + 32 * a3 + 1032, *(v21 + 480 * v30 + 32 * a3 + 1042) + a4, v40 + v50, 0, a6, a7, 1, v53, v44, a1 + 18484, v48);
+            gleTextureImagePut(a1, v21, v21 + 480 * v30 + 32 * a3 + 1032, *(v21 + 480 * v30 + 32 * a3 + 1042) + v12, v40 + v50, 0, a6, a7, 1, v53, v44, a1 + 18484, v48);
           }
 
           if ((*(v21 + 898) & 1) == 0 || *(v21 + 884) != a3 || (result = gleGenMipmaps(a1, v21, v30, a3, 1, v35 == 0), !result))
@@ -7089,10 +7099,12 @@ LABEL_69:
   return result;
 }
 
-uint64_t gleCheckTexSubImage2DArgs(uint64_t a1, int a2, unsigned int a3, int a4, int a5, int a6, int a7, int a8, int a9, unint64_t *a10)
+uint64_t gleCheckTexSubImage2DArgs(uint64_t a1, uint64_t a2, unsigned int a3, int a4, int a5, int a6, int a7, uint64_t a8, int a9, unint64_t *a10)
 {
+  v10 = a8;
+  v13 = a2;
   v15 = gleLookUpNonProxyTexture2D(a1, a2);
-  v16 = glePixelStorageFromFormatType(a1, a8, a9);
+  v16 = glePixelStorageFromFormatType(a1, v10, a9);
   *a10 = v16;
   if (!v15)
   {
@@ -7107,7 +7119,7 @@ uint64_t gleCheckTexSubImage2DArgs(uint64_t a1, int a2, unsigned int a3, int a4,
   }
 
   v17 = v16;
-  if (a8 == 35359 && ((a6 & 1) != 0 || a3 || (a4 & 1) != 0 || (*(v15 + 768) & 0xF) == 0))
+  if (v10 == 35359 && ((a6 & 1) != 0 || a3 || (a4 & 1) != 0 || (*(v15 + 768) & 0xF) == 0))
   {
     goto LABEL_31;
   }
@@ -7115,7 +7127,7 @@ uint64_t gleCheckTexSubImage2DArgs(uint64_t a1, int a2, unsigned int a3, int a4,
   v18 = *(v15 + 772);
   v19 = v18 == 6402 || v18 == 34041;
   v20 = v19;
-  v21 = a8 == 6402 || a8 == 34041;
+  v21 = v10 == 6402 || v10 == 34041;
   v22 = !v21;
   if (v22 == v20)
   {
@@ -7143,7 +7155,7 @@ uint64_t gleCheckTexSubImage2DArgs(uint64_t a1, int a2, unsigned int a3, int a4,
     return 0;
   }
 
-  if (a3 >= 0xF || a2 == 34037 && a3)
+  if (a3 >= 0xF || v13 == 34037 && a3)
   {
 LABEL_24:
     if (!*(a1 + 29832))
@@ -7158,8 +7170,8 @@ LABEL_34:
     return 0;
   }
 
-  v24 = a2 - 34069;
-  if ((a2 - 34069) >= 6)
+  v24 = v13 - 34069;
+  if ((v13 - 34069) >= 6)
   {
     v24 = 0;
   }
@@ -7173,12 +7185,12 @@ LABEL_34:
 
   v40 = 0;
   v28 = *(v15 + 30 * v24 + 2 * v25 + 560);
-  if (v28 == 32856 && *(v26 + 1048) != a8 || (a8 == 35359 || a8 == 34233) && *(v26 + 1050) != a9)
+  if (v28 == 32856 && *(v26 + 1048) != v10 || (v10 == 35359 || v10 == 34233) && *(v26 + 1050) != a9)
   {
     goto LABEL_88;
   }
 
-  if (!gleCheckTexFormatArgs(a1, v28, a8, v16, 1, &v40))
+  if (!gleCheckTexFormatArgs(a1, v28, v10, v16, 1, &v40))
   {
     return 0;
   }
@@ -7281,7 +7293,7 @@ LABEL_64:
     goto LABEL_24;
   }
 
-  if (a2 == 35864)
+  if (v13 == 35864)
   {
     if ((v29 | a5) < 0 || v29 + a5 > *(v26 + 1038))
     {
@@ -7318,19 +7330,21 @@ uint64_t gleLookUpNonProxyTexture2D(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t checkFastPath(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, unint64_t a8, uint64_t a9, char a10)
+uint64_t checkFastPath(uint64_t a1, uint64_t a2, int a3, int a4, int a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, char a10)
 {
   if ((*(a2 + 11) & 1) == 0)
   {
     return 1;
   }
 
+  v11 = a7;
+  v12 = a6;
   v23 = 0;
   v24 = 0;
   v18 = glePixelBytes(*(a2 + 16), *(a2 + 18));
   v22 = gleRowBytes(*(a2 + 16), *(a2 + 18), *(a2 + 12));
   v19 = *(a2 + 24) + (a3 + (a4 + *(a2 + 14) * a5) * *(a2 + 12)) * v18;
-  glePixelStorageSettings(a1, a8, a6, a7, (a1 + 18484), &v24, &v23 + 1, &v24 + 1, &v23, a10);
+  glePixelStorageSettings(a1, a8, v12, v11, (a1 + 18484), &v24, &v23 + 1, &v24 + 1, &v23, a10);
   result = 0;
   if (a9 + HIDWORD(v23) != v19 || HIDWORD(v24) != v22)
   {
@@ -7575,7 +7589,8 @@ uint64_t gleClipPoly(uint64_t result, char *a2, int a3, int a4, char *a5, _DWORD
     v12 = a2;
     do
     {
-      v13 = *v12++;
+      v13 = *v12;
+      v12 += 8;
       v14 = *(v13 + 3);
       v11 &= v14;
       v10 |= v14;
@@ -7617,8 +7632,8 @@ LABEL_8:
         do
         {
           v21 = *v20;
-          v23 = v20[1];
-          ++v20;
+          v23 = *(v20 + 1);
+          v20 += 8;
           v22 = v23;
           if ((*(v21 + 3) & v17) != 0)
           {
@@ -7704,7 +7719,8 @@ LABEL_28:
     v28 = v15;
     do
     {
-      v29 = *v25++;
+      v29 = *v25;
+      v25 += 8;
       *v27 = v29;
       v27 += 8;
       --v28;
@@ -8517,7 +8533,7 @@ uint64_t gleFreeQueryMachine(void *a1)
   return gleFreeCtxHashMachine(a1, (a1 + 3238), gleFreeQueryObject);
 }
 
-void gleFreeVertexArrayState(uint64_t *a1)
+void gleFreeVertexArrayState(void *a1)
 {
   v1 = a1[3298];
   if (v1)
@@ -8907,7 +8923,7 @@ void gleFreePipelineProgramObject(uint64_t a1, uint64_t a2)
   free(a2);
 }
 
-void gleFreeFramebufferState(uint64_t *a1)
+void gleFreeFramebufferState(void *a1)
 {
   v2 = a1[3620];
   v3 = a1[3621];
@@ -9231,15 +9247,16 @@ void gleDestroyEnableHashTable(int a1)
 
 void gleFreeEnableHashObject(void *a1)
 {
-  if (a1[2])
+  v2 = a1[2];
+  if (v2)
   {
-    gleFreeEnableHashObject();
+    gleFreeEnableHashObject(v2);
   }
 
   free(a1);
 }
 
-uint64_t glTestObjectAPPLE_Exec(uint64_t a1, int a2, int a3)
+uint64_t glTestObjectAPPLE_Exec(uint64_t a1, int a2, uint64_t a3)
 {
   if (a2 <= 35337)
   {

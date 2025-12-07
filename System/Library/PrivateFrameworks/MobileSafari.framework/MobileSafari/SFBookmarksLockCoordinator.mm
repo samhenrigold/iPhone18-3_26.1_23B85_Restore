@@ -52,7 +52,7 @@ void __47__SFBookmarksLockCoordinator_sharedCoordinator__block_invoke()
 
 - (void)_willResignActive
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync();
+  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -65,7 +65,7 @@ void __47__SFBookmarksLockCoordinator_sharedCoordinator__block_invoke()
 
 - (void)_didBecomeActive
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync();
+  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -82,17 +82,17 @@ void __47__SFBookmarksLockCoordinator_sharedCoordinator__block_invoke()
 
 - (BOOL)lockBookmarks
 {
-  [(SFBookmarksLockCoordinator *)self _clearBookmarkLockTimer];
+  _clearBookmarkLockTimer = [(SFBookmarksLockCoordinator *)self _clearBookmarkLockTimer];
   if (self->_haveBookmarksLock)
   {
     return 1;
   }
 
-  v4 = WBS_LOG_CHANNEL_PREFIXBookmarkSync();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXBookmarkSync(_clearBookmarkLockTimer, v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_18B7AC000, v4, OS_LOG_TYPE_INFO, "Lock coordinator locking bookmarks", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_18B7AC000, v6, OS_LOG_TYPE_INFO, "Lock coordinator locking bookmarks", v7, 2u);
   }
 
   result = [MEMORY[0x1E69E20F8] lockSync];
@@ -117,7 +117,7 @@ void __47__SFBookmarksLockCoordinator_sharedCoordinator__block_invoke()
 
 - (void)_unlockBookmarksNow
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync();
+  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;

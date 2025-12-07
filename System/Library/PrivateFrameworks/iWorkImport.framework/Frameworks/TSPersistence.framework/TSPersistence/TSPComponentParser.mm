@@ -147,7 +147,7 @@ LABEL_13:
     v20 = 0;
     v21 = 0;
     google::protobuf::io::CodedInputStream::Refresh(&v13);
-    google::protobuf::io::CodedInputStream::PushLimit(&v13, 5u);
+    google::protobuf::io::CodedInputStream::PushLimit(&v13, 5);
     v7 = v13;
     if (v13 >= v14)
     {

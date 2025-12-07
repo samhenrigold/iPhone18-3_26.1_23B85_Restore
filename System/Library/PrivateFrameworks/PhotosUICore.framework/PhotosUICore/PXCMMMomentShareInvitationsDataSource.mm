@@ -25,7 +25,7 @@
   {
     if (v6)
     {
-      [v6 indexPath];
+      objc_msgSend_indexPath(v6);
       v8 = v18;
       v9 = v19 == 0x7FFFFFFFFFFFFFFFLL;
     }

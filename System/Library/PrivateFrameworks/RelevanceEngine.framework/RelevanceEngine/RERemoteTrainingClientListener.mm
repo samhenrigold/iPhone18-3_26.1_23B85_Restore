@@ -104,28 +104,26 @@ uint64_t __62__RERemoteTrainingClientListener_sharedTrainingClientListener__bloc
 
 void __69__RERemoteTrainingClientListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = RELogForDomain(17);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) description];
     *buf = 136315138;
-    v9 = [v3 UTF8String];
+    v8 = [v3 UTF8String];
     _os_log_impl(&dword_22859F000, v2, OS_LOG_TYPE_INFO, "New connection: %s", buf, 0xCu);
   }
 
   v4 = [[_RELocalTrainingContext alloc] initWithConnection:*(a1 + 40)];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __69__RERemoteTrainingClientListener_listener_shouldAcceptNewConnection___block_invoke_7;
-  v7[3] = &unk_2785FB048;
-  v7[4] = *(a1 + 48);
-  [(_RELocalTrainingContext *)v4 setInvalidationHandler:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __69__RERemoteTrainingClientListener_listener_shouldAcceptNewConnection___block_invoke_7;
+  v6[3] = &unk_2785FB048;
+  v6[4] = *(a1 + 48);
+  [(_RELocalTrainingContext *)v4 setInvalidationHandler:v6];
   [*(*(a1 + 48) + 8) addObject:v4];
   WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 32));
   [WeakRetained remoteTrainingClientListenerDidConnectContext:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __69__RERemoteTrainingClientListener_listener_shouldAcceptNewConnection___block_invoke_7(uint64_t a1, void *a2)

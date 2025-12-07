@@ -5,7 +5,7 @@
 
 void __42___HDAWDPeriodicAction__beginWaitingToRun__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[18];
   if (!(v3 % v2[8]))
@@ -30,9 +30,9 @@ void __42___HDAWDPeriodicAction__beginWaitingToRun__block_invoke(uint64_t a1)
 
       WeakRetained = objc_loadWeakRetained((v4 + 88));
       v12 = [WeakRetained database];
-      v21 = 0;
-      v13 = [v12 takeAccessibilityAssertionWithOwnerIdentifier:v10 timeout:&v21 error:300.0];
-      v14 = v21;
+      v20 = 0;
+      v13 = [v12 takeAccessibilityAssertionWithOwnerIdentifier:v10 timeout:&v20 error:300.0];
+      v14 = v20;
 
       if (v13)
       {
@@ -55,16 +55,14 @@ void __42___HDAWDPeriodicAction__beginWaitingToRun__block_invoke(uint64_t a1)
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v23 = v4;
-          v24 = 2114;
-          v25 = v14;
+          v22 = v4;
+          v23 = 2114;
+          v24 = v14;
           _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Failed to take database accessibility assertion during activity preparation: %{public}@", buf, 0x16u);
         }
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __29___HDAWDPeriodicAction_reset__block_invoke(uint64_t a1)
@@ -79,7 +77,7 @@ void __29___HDAWDPeriodicAction_reset__block_invoke(uint64_t a1)
 
 void __29___HDAWDPeriodicAction_start__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
@@ -95,44 +93,42 @@ void __29___HDAWDPeriodicAction_start__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_INFO))
     {
       v8 = *(v1 + 160);
-      v10 = 138543618;
-      v11 = v1;
-      v12 = 2114;
-      v13 = v8;
-      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "%{public}@: Registered XPC activity %{public}@ for periodic updates", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v1;
+      v11 = 2114;
+      v12 = v8;
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "%{public}@: Registered XPC activity %{public}@ for periodic updates", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __69___HDAWDPeriodicAction__doIfWaitingOnMaintenanceQueueWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   if (v3)
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 1;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__97;
-    v33 = __Block_byref_object_dispose__97;
     v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 1;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__97;
+    v32 = __Block_byref_object_dispose__97;
+    v33 = 0;
     v5 = *(v3 + 96);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __46___HDAWDPeriodicAction__doIfWaitingWithError___block_invoke;
     block[3] = &unk_27861A1D0;
     block[4] = v3;
-    block[5] = &v35;
-    block[6] = &v29;
+    block[5] = &v34;
+    block[6] = &v28;
     dispatch_sync(v5, block);
-    if (*(v36 + 24) == 1)
+    if (*(v35 + 24) == 1)
     {
       _HKInitializeLogging();
       v6 = *MEMORY[0x277CCC2B0];
@@ -145,8 +141,8 @@ void __69___HDAWDPeriodicAction__doIfWaitingOnMaintenanceQueueWithCompletion___b
       }
 
       v8 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:v3 activityName:*(v3 + 160)];
-      v9 = v30[5];
-      v27 = 0;
+      v9 = v29[5];
+      v26 = 0;
       v10 = v9;
       v11 = objc_alloc_init(HDMutableDatabaseTransactionContext);
       [(HDMutableDatabaseTransactionContext *)v11 setCacheScope:1];
@@ -160,11 +156,11 @@ void __69___HDAWDPeriodicAction__doIfWaitingOnMaintenanceQueueWithCompletion___b
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __66___HDAWDPeriodicAction__runBlockWithAccessibilityAssertion_error___block_invoke;
-      v40 = &unk_278616D40;
-      v41 = v3;
-      v14 = [v13 performWithTransactionContext:v11 error:&v27 block:buf];
+      v39 = &unk_278616D40;
+      v40 = v3;
+      v14 = [v13 performWithTransactionContext:v11 error:&v26 block:buf];
 
-      v15 = v27;
+      v15 = v26;
       _HKInitializeLogging();
       v16 = *MEMORY[0x277CCC2B0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_INFO))
@@ -181,7 +177,7 @@ void __69___HDAWDPeriodicAction__doIfWaitingOnMaintenanceQueueWithCompletion___b
         *&buf[12] = 2114;
         *&buf[14] = v18;
         *&buf[22] = 2114;
-        v40 = v15;
+        v39 = v15;
         _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_INFO, "%@ Submission success: %{public}@, error: %{public}@", buf, 0x20u);
       }
 
@@ -196,9 +192,9 @@ void __69___HDAWDPeriodicAction__doIfWaitingOnMaintenanceQueueWithCompletion___b
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __46___HDAWDPeriodicAction__doIfWaitingWithError___block_invoke_347;
-      v40 = &unk_278618990;
-      v41 = v3;
-      v42 = v14;
+      v39 = &unk_278618990;
+      v40 = v3;
+      v41 = v14;
       dispatch_sync(v22, buf);
       [v8 invalidate];
     }
@@ -209,15 +205,15 @@ void __69___HDAWDPeriodicAction__doIfWaitingOnMaintenanceQueueWithCompletion___b
     }
 
     v23 = *(v3 + 96);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __46___HDAWDPeriodicAction__doIfWaitingWithError___block_invoke_2;
-    v26[3] = &unk_278616E90;
-    v26[4] = &v29;
-    dispatch_sync(v23, v26);
-    _Block_object_dispose(&v29, 8);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __46___HDAWDPeriodicAction__doIfWaitingWithError___block_invoke_2;
+    v25[3] = &unk_278616E90;
+    v25[4] = &v28;
+    dispatch_sync(v23, v25);
+    _Block_object_dispose(&v28, 8);
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v34, 8);
   }
 
   else
@@ -229,25 +225,24 @@ void __69___HDAWDPeriodicAction__doIfWaitingOnMaintenanceQueueWithCompletion___b
   v4[2](v4);
 
   (*(*(a1 + 40) + 16))();
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __46___HDAWDPeriodicAction__doIfWaitingWithError___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC2B0];
   v3 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEBUG))
   {
-    v11 = a1[4];
-    v12 = *(v11 + 160);
-    v13 = *(v11 + 136);
-    v15 = 138412546;
-    v16 = v12;
-    v17 = 2112;
-    v18 = v13;
-    _os_log_debug_impl(&dword_228986000, v3, OS_LOG_TYPE_DEBUG, "%@ Last submitted at %@", &v15, 0x16u);
+    v10 = a1[4];
+    v11 = *(v10 + 160);
+    v12 = *(v10 + 136);
+    v14 = 138412546;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v12;
+    _os_log_debug_impl(&dword_228986000, v3, OS_LOG_TYPE_DEBUG, "%@ Last submitted at %@", &v14, 0x16u);
   }
 
   v4 = a1[4];
@@ -273,10 +268,10 @@ void __46___HDAWDPeriodicAction__doIfWaitingWithError___block_invoke(void *a1)
     v7 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(a1[4] + 160);
-      v15 = 138412290;
-      v16 = v14;
-      _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%@ Skipping submission: last attempt was too recent", &v15, 0xCu);
+      v13 = *(a1[4] + 160);
+      v14 = 138412290;
+      v15 = v13;
+      _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%@ Skipping submission: last attempt was too recent", &v14, 0xCu);
     }
   }
 
@@ -284,8 +279,6 @@ void __46___HDAWDPeriodicAction__doIfWaitingWithError___block_invoke(void *a1)
   v8 = a1[4];
   v9 = *(v8 + 104);
   *(v8 + 104) = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __46___HDAWDPeriodicAction__doIfWaitingWithError___block_invoke_347(uint64_t a1)

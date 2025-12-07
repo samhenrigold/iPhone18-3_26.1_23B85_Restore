@@ -239,10 +239,10 @@ LABEL_31:
 
 + (GCGenericDeviceModel)modelWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v27[2] = *MEMORY[0x1E69E9840];
-  v23[0] = 0;
-  v7 = [representation gc_objectForKey:@"ProductClass" ofClass:objc_opt_class() error:v23];
-  v8 = v23[0];
+  v26[2] = *MEMORY[0x1E69E9840];
+  v22[0] = 0;
+  v7 = [representation gc_objectForKey:@"ProductClass" ofClass:objc_opt_class() error:v22];
+  v8 = v22[0];
   v9 = v8;
   if (v7)
   {
@@ -264,15 +264,15 @@ LABEL_24:
       goto LABEL_13;
     }
 
-    v18 = MEMORY[0x1E696ABC0];
-    v26[0] = *MEMORY[0x1E696A578];
+    v17 = MEMORY[0x1E696ABC0];
+    v25[0] = *MEMORY[0x1E696A578];
     v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-    v27[0] = v12;
-    v26[1] = *MEMORY[0x1E696A588];
+    v26[0] = v12;
+    v25[1] = *MEMORY[0x1E696A588];
     localizedFailureReason = [v9 localizedFailureReason];
-    v27[1] = localizedFailureReason;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
-    *error = [(NSError *)v18 gc_modelError:v20 userInfo:?];
+    v26[1] = localizedFailureReason;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    *error = [(NSError *)v17 gc_modelError:v19 userInfo:?];
     goto LABEL_22;
   }
 
@@ -290,15 +290,15 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      v21 = MEMORY[0x1E696ABC0];
-      v24[0] = *MEMORY[0x1E696A578];
+      v20 = MEMORY[0x1E696ABC0];
+      v23[0] = *MEMORY[0x1E696A578];
       localizedFailureReason = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v25[0] = localizedFailureReason;
-      v24[1] = *MEMORY[0x1E696A588];
-      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"'%@' is not a valid product class.", v7];
-      v25[1] = v20;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
-      *error = [(NSError *)v21 gc_modelError:v22 userInfo:?];
+      v24[0] = localizedFailureReason;
+      v23[1] = *MEMORY[0x1E696A588];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"'%@' is not a valid product class.", v7];
+      v24[1] = v19;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      *error = [(NSError *)v20 gc_modelError:v21 userInfo:?];
 
 LABEL_22:
       goto LABEL_23;
@@ -323,7 +323,6 @@ LABEL_13:
 
   build = 0;
 LABEL_15:
-  v16 = *MEMORY[0x1E69E9840];
 
   return build;
 }

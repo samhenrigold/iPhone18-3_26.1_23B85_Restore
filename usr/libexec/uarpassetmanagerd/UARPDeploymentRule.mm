@@ -385,7 +385,7 @@
           v11 = +[NSProcessInfo processInfo];
           if (v11)
           {
-            [(NSProcessInfo *)v11 operatingSystemVersion];
+            objc_msgSend_operatingSystemVersion(v11);
           }
 
           else

@@ -13,11 +13,11 @@
 
 - (CCSerializedSetChangeEnumerator)initWithSetMessage:(id)message
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v32.receiver = self;
-  v32.super_class = CCSerializedSetChangeEnumerator;
-  v6 = [(CCSerializedSetChangeEnumerator *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = CCSerializedSetChangeEnumerator;
+  v6 = [(CCSerializedSetChangeEnumerator *)&v31 init];
   v7 = v6;
   if (v6)
   {
@@ -47,27 +47,27 @@ LABEL_17:
     if ([remoteDevices count])
     {
       v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(remoteDevices, "count")}];
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
       v16 = remoteDevices;
-      v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v29;
+        v19 = *v28;
         while (2)
         {
           v20 = 0;
           do
           {
-            if (*v29 != v19)
+            if (*v28 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = _decodeDevice(*(*(&v28 + 1) + 8 * v20));
+            v21 = _decodeDevice(*(*(&v27 + 1) + 8 * v20));
             if (!v21)
             {
 
@@ -75,13 +75,13 @@ LABEL_17:
             }
 
             v22 = v21;
-            [v15 addObject:{v21, v28}];
+            [v15 addObject:{v21, v27}];
 
             ++v20;
           }
 
           while (v18 != v20);
-          v18 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
           if (v18)
           {
             continue;
@@ -100,13 +100,12 @@ LABEL_17:
   v25 = v7;
 LABEL_18:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 - (BOOL)beginWithBookmark:(id)bookmark error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   if (bookmarkCopy)
   {
@@ -114,15 +113,15 @@ LABEL_18:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v8 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v19 = *MEMORY[0x1E696A578];
+      v18 = *MEMORY[0x1E696A578];
       v9 = MEMORY[0x1E696AEC0];
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       v14 = [v9 stringWithFormat:@"The provided bookmark was of class %@, but we expected %@", v11, v13];
-      v20[0] = v14;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v19[0] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       v16 = [v8 initWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v15];
       CCSetError(error, v16);
 
@@ -141,7 +140,6 @@ LABEL_18:
   v7 = 1;
 LABEL_7:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -331,7 +329,7 @@ void __50__CCSerializedSetChangeEnumerator__nextWithError___block_invoke_2(uint6
     v7 = __biome_log_for_category();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [CCSerializedSetChangeEnumerator isBookmarkUpToDate:];
+      [CCSerializedSetChangeEnumerator isBookmarkUpToDate:dateCopy];
     }
 
     v6 = 0;
@@ -342,21 +340,17 @@ void __50__CCSerializedSetChangeEnumerator__nextWithError___block_invoke_2(uint6
 
 - (void)next
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1B6DB2000, v0, OS_LOG_TYPE_ERROR, "Error enumerating serialized set change: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B6DB2000, v0, OS_LOG_TYPE_ERROR, "Error enumerating serialized set change: %@", v1, 0xCu);
 }
 
-- (void)isBookmarkUpToDate:.cold.1()
+- (void)isBookmarkUpToDate:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B6DB2000, v2, v3, "Unexpected bookmark class: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1B6DB2000, v3, v4, "Unexpected bookmark class: %@", v5, v6, v7, v8);
 }
 
 @end

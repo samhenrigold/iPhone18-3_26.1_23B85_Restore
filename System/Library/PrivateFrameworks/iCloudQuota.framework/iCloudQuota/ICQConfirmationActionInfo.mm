@@ -19,29 +19,29 @@
     goto LABEL_23;
   }
 
-  v6 = [dictionaryCopy objectForKeyedSubscript:@"isDefault"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   bOOLValue = [v6 BOOLValue];
 
   [(ICQConfirmationActionInfo *)v5 setIsDefault:bOOLValue];
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"isDestructive"];
+  v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   bOOLValue2 = [v8 BOOLValue];
 
   [(ICQConfirmationActionInfo *)v5 setIsDestructive:bOOLValue2];
-  v10 = [dictionaryCopy objectForKeyedSubscript:@"title"];
+  v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(ICQConfirmationActionInfo *)v5 setTitle:v10];
   }
 
-  v11 = [dictionaryCopy objectForKeyedSubscript:@"subTitle"];
+  v11 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(ICQConfirmationActionInfo *)v5 setSubtitle:v11];
   }
 
-  v12 = [dictionaryCopy objectForKeyedSubscript:@"actionURL"];
+  v12 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -52,15 +52,15 @@
     }
   }
 
-  v14 = [dictionaryCopy objectForKeyedSubscript:@"actionType"];
-  v15 = [dictionaryCopy objectForKeyedSubscript:@"actionParameters"];
+  v14 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
+  v15 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
   if (v14)
   {
     v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
     if (v15)
     {
-      v17 = [v15 objectForKeyedSubscript:@"purchaseAttribution"];
-      v18 = [v15 objectForKeyedSubscript:@"route"];
+      v17 = objc_msgSend_objectForKeyedSubscript_(v15);
+      v18 = objc_msgSend_objectForKeyedSubscript_(v15);
       if (v17)
       {
         [v16 setObject:v17 forKeyedSubscript:@"purchaseAttribution"];

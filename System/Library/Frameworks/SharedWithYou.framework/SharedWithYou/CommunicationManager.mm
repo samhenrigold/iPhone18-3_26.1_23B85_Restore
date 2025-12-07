@@ -20,7 +20,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC13SharedWithYou20CommunicationManager_videoEnabled) = 0;
   *(&self->super.isa + OBJC_IVAR____TtC13SharedWithYou20CommunicationManager_presentingViewController) = 0;
   v4.receiver = self;
-  v4.super_class = type metadata accessor for CommunicationManager();
+  v4.super_class = type metadata accessor for CommunicationManager(self, a2);
   return [(CommunicationManager *)&v4 init];
 }
 

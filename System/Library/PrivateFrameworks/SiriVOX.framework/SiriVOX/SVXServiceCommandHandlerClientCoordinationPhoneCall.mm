@@ -18,7 +18,6 @@
 
   if ([commandCopy emergencyCall])
   {
-    sessionManager = self->_sessionManager;
     if (objc_opt_respondsToSelector())
     {
       [(SVXSessionManager *)self->_sessionManager initiateEmergency:completionCopy];
@@ -27,8 +26,8 @@
 
   else if (completionCopy)
   {
-    v11 = [SVXServiceCommandResult resultFailureWithErrorCode:-1 reason:@"unsupported type"];
-    completionCopy[2](completionCopy, v11);
+    v10 = [SVXServiceCommandResult resultFailureWithErrorCode:-1 reason:@"unsupported type"];
+    completionCopy[2](completionCopy, v10);
   }
 }
 

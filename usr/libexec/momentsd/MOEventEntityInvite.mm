@@ -27,51 +27,50 @@
   selfCopy = self;
   locationCopy = location;
   v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v19 = __chkstk_darwin(v16 - 8, v18);
-  v21 = &v58 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v19, v22);
-  v24 = &v58 - v23;
+  v18 = __chkstk_darwin(v16 - 8, v17);
+  v20 = &v57 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v18, v21);
+  v23 = &v57 - v22;
   if (title)
   {
-    v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v60 = v26;
-    v61 = v25;
+    v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v59 = v25;
+    v60 = v24;
     if (date)
     {
 LABEL_3:
       static Date._unconditionallyBridgeFromObjectiveC(_:)();
-      v27 = type metadata accessor for Date();
-      (*(*(v27 - 8) + 56))(v24, 0, 1, v27);
+      v26 = type metadata accessor for Date();
+      (*(*(v26 - 8) + 56))(v23, 0, 1, v26);
       goto LABEL_6;
     }
   }
 
   else
   {
+    v59 = 0;
     v60 = 0;
-    v61 = 0;
     if (date)
     {
       goto LABEL_3;
     }
   }
 
-  v28 = type metadata accessor for Date();
-  (*(*(v28 - 8) + 56))(v24, 1, 1, v28);
+  v27 = type metadata accessor for Date();
+  (*(*(v27 - 8) + 56))(v23, 1, 1, v27);
 LABEL_6:
   if (endDate)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v29 = type metadata accessor for Date();
-    v30 = *(*(v29 - 8) + 56);
-    v31 = locationCopy;
+    v28 = type metadata accessor for Date();
+    v29 = *(*(v28 - 8) + 56);
+    v30 = locationCopy;
     nameCopy = name;
     identifierCopy = identifier;
     bundleCopy = bundle;
     organizersCopy = organizers;
     attendeesCopy = attendees;
-    v30(v21, 0, 1, v29);
+    v29(v20, 0, 1, v28);
     if (name)
     {
       goto LABEL_8;
@@ -80,9 +79,9 @@ LABEL_6:
 
   else
   {
-    v47 = type metadata accessor for Date();
-    (*(*(v47 - 8) + 56))(v21, 1, 1, v47);
-    v48 = locationCopy;
+    v46 = type metadata accessor for Date();
+    (*(*(v46 - 8) + 56))(v20, 1, 1, v46);
+    v47 = locationCopy;
     nameCopy2 = name;
     identifierCopy2 = identifier;
     bundleCopy2 = bundle;
@@ -91,8 +90,8 @@ LABEL_6:
     if (name)
     {
 LABEL_8:
-      v59 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v38 = v37;
+      v58 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v37 = v36;
 
       if (identifier)
       {
@@ -103,13 +102,13 @@ LABEL_8:
     }
   }
 
-  v59 = 0;
-  v38 = 0;
+  v58 = 0;
+  v37 = 0;
   if (identifier)
   {
 LABEL_9:
-    v39 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v41 = v40;
+    v38 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v40 = v39;
 
     if (bundle)
     {
@@ -120,13 +119,13 @@ LABEL_9:
   }
 
 LABEL_15:
-  v39 = 0;
-  v41 = 0;
+  v38 = 0;
+  v40 = 0;
   if (bundle)
   {
 LABEL_10:
-    v42 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v44 = v43;
+    v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v43 = v42;
 
     if (organizers)
     {
@@ -134,20 +133,20 @@ LABEL_10:
     }
 
 LABEL_17:
-    v45 = 0;
+    v44 = 0;
     if (attendees)
     {
       goto LABEL_12;
     }
 
 LABEL_18:
-    v46 = 0;
+    v45 = 0;
     goto LABEL_19;
   }
 
 LABEL_16:
-  v42 = 0;
-  v44 = 0;
+  v41 = 0;
+  v43 = 0;
   if (!organizers)
   {
     goto LABEL_17;
@@ -155,7 +154,7 @@ LABEL_16:
 
 LABEL_11:
   type metadata accessor for MOEventEntityInvitePerson();
-  v45 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v44 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!attendees)
   {
@@ -164,14 +163,14 @@ LABEL_11:
 
 LABEL_12:
   type metadata accessor for MOEventEntityInvitePerson();
-  v46 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v45 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_19:
-  v54 = v21;
-  v55 = locationCopy;
-  v56 = specialized MOEventEntityInvite.init(title:startDate:endDate:location:placeName:identifier:appBundle:organizers:attendees:)(v61, v60, v24, v54, locationCopy, v59, v38, v39, v41, v42, v44, v45, v46);
+  v53 = v20;
+  v54 = locationCopy;
+  v55 = specialized MOEventEntityInvite.init(title:startDate:endDate:location:placeName:identifier:appBundle:organizers:attendees:)(v60, v59, v23, v53, locationCopy, v58, v37, v38, v40, v41, v43, v44, v45);
 
-  return v56;
+  return v55;
 }
 
 @end

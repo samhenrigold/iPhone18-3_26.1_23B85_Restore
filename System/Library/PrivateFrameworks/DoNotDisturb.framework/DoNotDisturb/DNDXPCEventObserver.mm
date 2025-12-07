@@ -44,15 +44,15 @@ uint64_t __63__DNDXPCEventObserver_setFocusConfigurationStreamEventHandler___blo
 
 void __55__DNDXPCEventObserver__registerEventHandler_forStream___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DNDLogXPCEventObserver;
   if (os_log_type_enabled(DNDLogXPCEventObserver, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 40);
-    v12 = 136315138;
-    v13 = v5;
-    _os_log_impl(&dword_22002F000, v4, OS_LOG_TYPE_INFO, "Received XPC event for %s", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = v5;
+    _os_log_impl(&dword_22002F000, v4, OS_LOG_TYPE_INFO, "Received XPC event for %s", &v11, 0xCu);
   }
 
   v6 = MEMORY[0x223D764A0](v3);
@@ -80,8 +80,6 @@ void __55__DNDXPCEventObserver__registerEventHandler_forStream___block_invoke(ui
       __55__DNDXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_1(v9, v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_subscribeToStream:(const char *)stream clientIdentifier:(const char *)identifier
@@ -92,25 +90,21 @@ void __55__DNDXPCEventObserver__registerEventHandler_forStream___block_invoke(ui
 
 void __55__DNDXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_1(void *a1, const _xpc_type_s *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v5 = 136315138;
+  v4 = 136315138;
   name = xpc_type_get_name(a2);
-  _os_log_error_impl(&dword_22002F000, v3, OS_LOG_TYPE_ERROR, "XPC events subscriber received event of unexpected type %s", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22002F000, v3, OS_LOG_TYPE_ERROR, "XPC events subscriber received event of unexpected type %s", &v4, 0xCu);
 }
 
 void __55__DNDXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_2(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D86400];
   v4 = a1;
-  v6 = 136315138;
+  v5 = 136315138;
   string = xpc_dictionary_get_string(a2, v3);
-  _os_log_error_impl(&dword_22002F000, v4, OS_LOG_TYPE_ERROR, "XPC events subscriber received error: %s", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22002F000, v4, OS_LOG_TYPE_ERROR, "XPC events subscriber received error: %s", &v5, 0xCu);
 }
 
 @end

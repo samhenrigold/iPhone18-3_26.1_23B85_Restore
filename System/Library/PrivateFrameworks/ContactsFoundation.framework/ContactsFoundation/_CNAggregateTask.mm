@@ -38,34 +38,34 @@
 
 - (id)run:(id *)run
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   null = [MEMORY[0x1E695DFB0] null];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   tasks = [(_CNAggregateTask *)self tasks];
-  v7 = [tasks countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [tasks countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v20;
+    v10 = *v19;
 LABEL_3:
     v11 = 0;
     v12 = v9;
     v13 = null;
     while (1)
     {
-      if (*v20 != v10)
+      if (*v19 != v10)
       {
         objc_enumerationMutation(tasks);
       }
 
-      v14 = *(*(&v19 + 1) + 8 * v11);
-      v18 = v12;
-      null = [(_CNAggregateTask *)self runSubtask:v14 error:&v18];
-      v9 = v18;
+      v14 = *(*(&v18 + 1) + 8 * v11);
+      v17 = v12;
+      null = [(_CNAggregateTask *)self runSubtask:v14 error:&v17];
+      v9 = v17;
 
       if (!null)
       {
@@ -77,7 +77,7 @@ LABEL_3:
       v13 = null;
       if (v8 == v11)
       {
-        v8 = [tasks countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [tasks countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -94,8 +94,6 @@ LABEL_3:
   }
 
   v15 = [CNFoundationError ifResultIsNil:null setOutputError:run toError:v9];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -138,38 +136,36 @@ LABEL_3:
 
 - (void)cancelSubtasks
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   tasks = [(_CNAggregateTask *)self tasks];
-  v3 = [tasks countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [tasks countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(tasks);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) cancel];
+        [*(*(&v7 + 1) + 8 * v6++) cancel];
       }
 
       while (v4 != v6);
-      v4 = [tasks countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [tasks countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

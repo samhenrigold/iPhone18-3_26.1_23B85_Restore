@@ -22,9 +22,9 @@
     +[PSListController(PIN) st_sharedPINSpecifier];
   }
 
-  v1 = st_sharedPINSpecifier_specifier;
+  v2 = st_sharedPINSpecifier_specifier;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)st_shouldShowPINSheetForPINSpecifier

@@ -1,5 +1,6 @@
 @interface HeadphoneNotYoursViewController
 - (_TtC20HeadphoneProxService31HeadphoneNotYoursViewController)initWithContentView:(id)view;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)appear;
 @end
@@ -9,7 +10,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for HeadphoneNotYoursViewController();
+  v3.super_class = type metadata accessor for HeadphoneNotYoursViewController(0);
   v2 = v3.receiver;
   [(HeadphoneNotYoursViewController *)&v3 viewDidLoad];
   [v2 setDismissalType:{1, v3.receiver, v3.super_class}];
@@ -19,6 +20,17 @@
 {
   selfCopy = self;
   sub_1000B3C28(appear);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for HeadphoneNotYoursViewController(0);
+  v4 = v6.receiver;
+  [(HeadphoneNotYoursViewController *)&v6 viewDidDisappear:disappearCopy];
+  v5 = *&v4[OBJC_IVAR____TtC20HeadphoneProxService31HeadphoneNotYoursViewController_movieView];
+  [v5 stop];
 }
 
 - (_TtC20HeadphoneProxService31HeadphoneNotYoursViewController)initWithContentView:(id)view
@@ -32,7 +44,7 @@
   swift_unknownObjectWeakInit();
   self->PRXCardContentViewController_opaque[OBJC_IVAR____TtC20HeadphoneProxService31HeadphoneNotYoursViewController_type] = 20;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for HeadphoneNotYoursViewController();
+  v8.super_class = type metadata accessor for HeadphoneNotYoursViewController(0);
   return [(HeadphoneNotYoursViewController *)&v8 initWithContentView:view];
 }
 

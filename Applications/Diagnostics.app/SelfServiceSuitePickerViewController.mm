@@ -10,15 +10,15 @@
 
 - (void)viewDidLoad
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for SelfServiceSuitePickerViewController();
-  v2 = v4.receiver;
-  [(SelfServiceBaseNavigationController *)&v4 viewDidLoad];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for SelfServiceSuitePickerViewController();
+  v2 = v5.receiver;
+  [(SelfServiceBaseNavigationController *)&v5 viewDidLoad];
   sub_1000B2984();
   contentView = [v2 contentView];
   [contentView addSubview:*&v2[OBJC_IVAR____TtC11Diagnostics36SelfServiceSuitePickerViewController_tableView]];
 
-  sub_1000B2B44();
+  sub_1000B2B44(v4);
 }
 
 - (void)viewDidAppear:(BOOL)appear

@@ -16,12 +16,11 @@
 - (id)badgeNumberForBundleIdentifier:(id)identifier
 {
   sub_1DA940A14();
-  v4 = *(*(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore18RemoteBadgeService_systemServiceClient) + OBJC_IVAR____TtC21UserNotificationsCore31NotificationSystemServiceClient_queue);
   selfCopy = self;
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECBD7740, &unk_1DA964EA0);
   sub_1DA940FE4();
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)setBadgeValue:(id)value forBundleIdentifier:(id)identifier
@@ -37,17 +36,18 @@
 
   else
   {
-    memset(v12, 0, sizeof(v12));
+    memset(v15, 0, sizeof(v15));
     identifierCopy2 = identifier;
     selfCopy2 = self;
   }
 
-  sub_1DA940A14();
+  v10 = sub_1DA940A14();
+  v12 = v11;
 
-  v10 = sub_1DA921AC0(v12);
+  v13 = sub_1DA921AC0(v15, v10, v12);
 
-  sub_1DA896614(v12);
-  return v10 & 1;
+  sub_1DA896614(v15);
+  return v13 & 1;
 }
 
 @end

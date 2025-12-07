@@ -11,7 +11,7 @@
   sharedConfiguration = [getGEOCountryConfigurationClass() sharedConfiguration];
   countryCode = [sharedConfiguration countryCode];
 
-  if ([countryCode isEqualToString:@"CN"])
+  if (objc_msgSend_isEqualToString_(countryCode))
   {
     goto LABEL_5;
   }
@@ -40,7 +40,7 @@ LABEL_5:
   sharedConfiguration = [getGEOCountryConfigurationClass() sharedConfiguration];
   countryCode = [sharedConfiguration countryCode];
 
-  if ([countryCode isEqualToString:@"CN"])
+  if (objc_msgSend_isEqualToString_(countryCode))
   {
     v4 = 1;
   }

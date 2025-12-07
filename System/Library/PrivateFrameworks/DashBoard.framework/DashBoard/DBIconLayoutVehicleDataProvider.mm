@@ -24,7 +24,7 @@
   selfCopy = self;
   DBIconLayoutVehicleDataProvider.allApplicationIcons.getter();
 
-  sub_24814FB28(0, &unk_27EE93D00);
+  sub_24814FB28(0, &unk_27EE93D00, 0x277D66368);
   v3 = sub_248383B00();
 
   return v3;
@@ -79,7 +79,7 @@
 
 - (Class)iconManager:(id)manager folderControllerClassForFolderClass:(Class)class proposedClass:(Class)proposedClass
 {
-  sub_24814FB28(0, &qword_27EE935A8);
+  sub_24814FB28(0, &qword_27EE935A8, off_278EFEEB0);
 
   return swift_getObjCClassFromMetadata();
 }

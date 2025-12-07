@@ -175,7 +175,6 @@
 
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)getValueForKey:(id)key
@@ -333,7 +332,6 @@
   }
 
   objc_storeStrong(v37, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

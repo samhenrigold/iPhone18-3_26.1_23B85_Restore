@@ -55,7 +55,7 @@
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v3 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFAuthenticateAccountsSession *)v3 _cleanup];
   }
 
@@ -70,37 +70,37 @@
 
 - (void)_cleanup
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   self->_targetedAccountTypes = 0;
   [(TROperationQueue *)self->_trOperationQueue invalidate];
   trOperationQueue = self->_trOperationQueue;
   self->_trOperationQueue = 0;
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v4 = self->_trOperations;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         [v9 cancel];
         [v9 setCompletionBlock:0];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -140,8 +140,6 @@
 
   promptForPINHandler = self->_promptForPINHandler;
   self->_promptForPINHandler = 0;
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activate
@@ -155,30 +153,34 @@
   dispatch_async(dispatchQueue, block);
 }
 
-void __41__SFAuthenticateAccountsSession_activate__block_invoke(uint64_t a1)
+void __41__SFAuthenticateAccountsSession_activate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFAuthenticateAccountsSession <= 30)
   {
-    __41__SFAuthenticateAccountsSession_activate__block_invoke_cold_1();
+    if (gLogCategory_SFAuthenticateAccountsSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __41__SFAuthenticateAccountsSession_activate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 8) = 1;
-  *(*(a1 + 32) + 16) = mach_absolute_time();
-  v7 = [(objc_class *)getHMHomeManagerConfigurationClass() defaultPrivateConfiguration];
-  v2 = [objc_alloc(getHMHomeManagerClass()) initWithHomeMangerConfiguration:v7];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 112);
-  *(v3 + 112) = v2;
+  *(*(v3 + 32) + 8) = 1;
+  *(*(v3 + 32) + 16) = mach_absolute_time();
+  v9 = [(objc_class *)getHMHomeManagerConfigurationClass() defaultPrivateConfiguration];
+  v4 = [objc_alloc(getHMHomeManagerClass()) initWithHomeMangerConfiguration:v9];
+  v5 = *(v3 + 32);
+  v6 = *(v5 + 112);
+  *(v5 + 112) = v4;
 
-  v5 = *(a1 + 32);
-  v6 = v5[27];
-  if (v6)
+  v7 = *(v3 + 32);
+  v8 = v7[27];
+  if (v8)
   {
-    (*(v6 + 16))(v5[27], 10, 0);
-    v5 = *(a1 + 32);
+    (*(v8 + 16))(v7[27], 10, 0);
+    v7 = *(v3 + 32);
   }
 
-  [v5 _run];
+  [v7 _run];
 }
 
 - (void)invalidate
@@ -192,17 +194,21 @@ void __41__SFAuthenticateAccountsSession_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __43__SFAuthenticateAccountsSession_invalidate__block_invoke(uint64_t a1)
+uint64_t __43__SFAuthenticateAccountsSession_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(a1 + 32) + 9) & 1) == 0 && gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if ((*(*(a1 + 32) + 9) & 1) == 0 && gLogCategory_SFAuthenticateAccountsSession <= 30)
   {
-    __43__SFAuthenticateAccountsSession_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFAuthenticateAccountsSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __43__SFAuthenticateAccountsSession_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 9) = 1;
-  v2 = *(a1 + 32);
+  *(*(v3 + 32) + 9) = 1;
+  v4 = *(v3 + 32);
 
-  return [v2 _cleanup];
+  return [v4 _cleanup];
 }
 
 - (void)pairSetupTryPIN:(id)n
@@ -221,23 +227,23 @@ uint64_t __43__SFAuthenticateAccountsSession_invalidate__block_invoke(uint64_t a
 
 - (void)_reportError:(id)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (gLogCategory_SFAuthenticateAccountsSession <= 90 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
   {
-    [SFAuthenticateAccountsSession _reportError:];
+    [SFAuthenticateAccountsSession _reportError:errorCopy];
   }
 
   progressHandler = self->_progressHandler;
   if (progressHandler)
   {
-    v17 = @"eo";
+    v16 = @"eo";
     v8 = errorCopy;
     if (!errorCopy)
     {
       v9 = MEMORY[0x1E696ABC0];
       v10 = *MEMORY[0x1E696A768];
-      v15 = *MEMORY[0x1E696A578];
+      v14 = *MEMORY[0x1E696A578];
       v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
       v3 = v11;
       v12 = @"?";
@@ -246,25 +252,24 @@ uint64_t __43__SFAuthenticateAccountsSession_invalidate__block_invoke(uint64_t a
         v12 = v11;
       }
 
-      v16 = v12;
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v15 = v12;
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
       v8 = [v9 errorWithDomain:v10 code:-6700 userInfo:v4];
     }
 
-    v18[0] = v8;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v8;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     progressHandler[2](progressHandler, 30, v13);
 
     if (!errorCopy)
     {
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (int)_runSFSessionStart
 {
+  selfCopy = self;
   sfSessionState = self->_sfSessionState;
   if (sfSessionState != 4)
   {
@@ -276,73 +281,76 @@ uint64_t __43__SFAuthenticateAccountsSession_invalidate__block_invoke(uint64_t a
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_sfSessionState;
+            return selfCopy->_sfSessionState;
           }
 
-          v9 = self->_sfSessionState;
+          sfSessionState = selfCopy->_sfSessionState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runSFSessionStart]", 30, "SFSession hasn't succeeded yet (%d)\n", sfSessionState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 30)
       {
-        [SFAuthenticateAccountsSession _runSFSessionStart];
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFAuthenticateAccountsSession *)self _runSFSessionStart];
+        }
       }
 
-      self->_sfSessionState = 1;
-      [(SFSession *)self->_sfSession invalidate];
-      v4 = objc_alloc_init(SFSession);
-      sfSession = self->_sfSession;
-      self->_sfSession = v4;
+      selfCopy->_sfSessionState = 1;
+      [(SFSession *)selfCopy->_sfSession invalidate];
+      v5 = objc_alloc_init(SFSession);
+      sfSession = selfCopy->_sfSession;
+      selfCopy->_sfSession = v5;
 
-      [(SFSession *)self->_sfSession setDispatchQueue:self->_dispatchQueue];
-      [(SFSession *)self->_sfSession setLabel:@"AuthenticateAccounts"];
-      [(SFSession *)self->_sfSession setPeerDevice:self->_peerDevice];
-      [(SFSession *)self->_sfSession setServiceIdentifier:@"com.apple.sharing.AuthenticateAccounts"];
-      [(SFSession *)self->_sfSession setSessionFlags:4097];
-      [(SFSession *)self->_sfSession setTouchRemoteEnabled:1];
-      objc_initWeak(&location, self);
+      [(SFSession *)selfCopy->_sfSession setDispatchQueue:selfCopy->_dispatchQueue];
+      [(SFSession *)selfCopy->_sfSession setLabel:@"AuthenticateAccounts"];
+      [(SFSession *)selfCopy->_sfSession setPeerDevice:selfCopy->_peerDevice];
+      [(SFSession *)selfCopy->_sfSession setServiceIdentifier:@"com.apple.sharing.AuthenticateAccounts"];
+      [(SFSession *)selfCopy->_sfSession setSessionFlags:4097];
+      [(SFSession *)selfCopy->_sfSession setTouchRemoteEnabled:1];
+      objc_initWeak(&location, selfCopy);
       v16[0] = MEMORY[0x1E69E9820];
       v16[1] = 3221225472;
       v16[2] = __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke;
       v16[3] = &unk_1E788B4A8;
       objc_copyWeak(&v17, &location);
-      [(SFSession *)self->_sfSession setErrorHandler:v16];
+      [(SFSession *)selfCopy->_sfSession setErrorHandler:v16];
       v14[0] = MEMORY[0x1E69E9820];
       v14[1] = 3221225472;
       v14[2] = __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_2;
       v14[3] = &unk_1E788B4D0;
       objc_copyWeak(&v15, &location);
-      [(SFSession *)self->_sfSession setInterruptionHandler:v14];
+      [(SFSession *)selfCopy->_sfSession setInterruptionHandler:v14];
       v12[0] = MEMORY[0x1E69E9820];
       v12[1] = 3221225472;
       v12[2] = __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_3;
       v12[3] = &unk_1E788B4D0;
       objc_copyWeak(&v13, &location);
-      [(SFSession *)self->_sfSession setInvalidationHandler:v12];
-      if (self->_promptForPINHandler)
+      [(SFSession *)selfCopy->_sfSession setInvalidationHandler:v12];
+      if (selfCopy->_promptForPINHandler)
       {
-        [(SFSession *)self->_sfSession setPromptForPINHandler:?];
+        [(SFSession *)selfCopy->_sfSession setPromptForPINHandler:?];
       }
 
-      v6 = self->_sfSession;
+      v7 = selfCopy->_sfSession;
       v11[0] = MEMORY[0x1E69E9820];
       v11[1] = 3221225472;
       v11[2] = __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_4;
       v11[3] = &unk_1E788B4F8;
-      v11[4] = self;
-      [(SFSession *)v6 registerRequestID:@"_aaTerms" options:0 handler:v11];
-      v7 = self->_sfSession;
+      v11[4] = selfCopy;
+      [(SFSession *)v7 registerRequestID:@"_aaTerms" options:0 handler:v11];
+      v8 = selfCopy->_sfSession;
       v10[0] = MEMORY[0x1E69E9820];
       v10[1] = 3221225472;
       v10[2] = __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_5;
       v10[3] = &unk_1E788B238;
-      v10[4] = self;
-      [(SFSession *)v7 activateWithCompletion:v10];
+      v10[4] = selfCopy;
+      [(SFSession *)v8 activateWithCompletion:v10];
       objc_destroyWeak(&v13);
       objc_destroyWeak(&v15);
       objc_destroyWeak(&v17);
@@ -350,7 +358,7 @@ uint64_t __43__SFAuthenticateAccountsSession_invalidate__block_invoke(uint64_t a
     }
   }
 
-  return self->_sfSessionState;
+  return selfCopy->_sfSessionState;
 }
 
 void __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke(uint64_t a1, void *a2)
@@ -358,7 +366,7 @@ void __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke(uint64
   v4 = a2;
   if (gLogCategory_SFAuthenticateAccountsSession <= 90 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
   {
-    __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_cold_1();
+    __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_cold_1(v4);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -367,11 +375,11 @@ void __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke(uint64
 
 void __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_2(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A768];
-  v10 = *MEMORY[0x1E696A578];
+  v9 = *MEMORY[0x1E696A578];
   v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
   v5 = v4;
   v6 = @"?";
@@ -380,17 +388,15 @@ void __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_2(uint
     v6 = v4;
   }
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v8 = [v2 errorWithDomain:v3 code:-6762 userInfo:v7];
   [WeakRetained _reportError:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_3(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained && (*(WeakRetained + 9) & 1) == 0)
@@ -398,7 +404,7 @@ void __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_3(uint
     v4 = objc_loadWeakRetained((a1 + 32));
     v5 = MEMORY[0x1E696ABC0];
     v6 = *MEMORY[0x1E696A768];
-    v13 = *MEMORY[0x1E696A578];
+    v12 = *MEMORY[0x1E696A578];
     v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
     v8 = v7;
     v9 = @"?";
@@ -407,13 +413,11 @@ void __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_3(uint
       v9 = v7;
     }
 
-    v14[0] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v11 = [v5 errorWithDomain:v6 code:-6736 userInfo:v10];
     [v4 _reportError:v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_5(uint64_t a1, uint64_t a2)
@@ -448,10 +452,10 @@ uint64_t __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_5(
             return self->_pairVerifyState;
           }
 
-          v7 = self->_pairVerifyState;
+          pairVerifyState = self->_pairVerifyState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runPairVerify]", 30, "PairVerify hasn't succeeded yet (%d)\n", pairVerifyState);
       }
     }
 
@@ -465,12 +469,12 @@ uint64_t __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_5(
       }
 
       sfSession = self->_sfSession;
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __47__SFAuthenticateAccountsSession__runPairVerify__block_invoke;
-      v8[3] = &unk_1E788B238;
-      v8[4] = self;
-      [(SFSession *)sfSession pairVerifyWithFlags:8 completion:v8];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __47__SFAuthenticateAccountsSession__runPairVerify__block_invoke;
+      v7[3] = &unk_1E788B238;
+      v7[4] = self;
+      [(SFSession *)sfSession pairVerifyWithFlags:8 completion:v7];
     }
   }
 
@@ -479,39 +483,46 @@ uint64_t __51__SFAuthenticateAccountsSession__runSFSessionStart__block_invoke_5(
 
 void __47__SFAuthenticateAccountsSession__runPairVerify__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  if (v8)
+  v3 = a2;
+  v11 = v3;
+  if (v3)
   {
-    if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFAuthenticateAccountsSession <= 30)
     {
-      __47__SFAuthenticateAccountsSession__runPairVerify__block_invoke_cold_1();
+      if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __47__SFAuthenticateAccountsSession__runPairVerify__block_invoke_cold_1(v3, v4, v5);
+      }
     }
 
-    v4 = *(a1 + 32);
-    v3 = a1 + 32;
-    *(v4 + 72) = 2;
+    v7 = *(a1 + 32);
+    v6 = a1 + 32;
+    *(v7 + 72) = 2;
     goto LABEL_11;
   }
 
-  if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFAuthenticateAccountsSession <= 30)
   {
-    __47__SFAuthenticateAccountsSession__runPairVerify__block_invoke_cold_2();
+    if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      __47__SFAuthenticateAccountsSession__runPairVerify__block_invoke_cold_2(v3, v4, v5);
+    }
   }
 
-  v5 = *(a1 + 32);
-  v3 = a1 + 32;
-  *(v5 + 68) = 1;
-  *(*v3 + 72) = 4;
-  v6 = *v3;
-  v7 = *(*v3 + 216);
-  if (v7)
+  v8 = *(a1 + 32);
+  v6 = a1 + 32;
+  *(v8 + 68) = 1;
+  *(*v6 + 72) = 4;
+  v9 = *v6;
+  v10 = *(*v6 + 216);
+  if (v10)
   {
-    (*(v7 + 16))(*(*v3 + 216), 70, 0);
+    (*(v10 + 16))(*(*v6 + 216), 70, 0);
 LABEL_11:
-    v6 = *v3;
+    v9 = *v6;
   }
 
-  [v6 _run];
+  [v9 _run];
 }
 
 - (int)_runPairSetup
@@ -530,10 +541,10 @@ LABEL_11:
             return self->_pairSetupState;
           }
 
-          v7 = self->_pairSetupState;
+          pairSetupState = self->_pairSetupState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runPairSetup]", 30, "PairSetup hasn't succeeded yet (%d)\n", pairSetupState);
       }
     }
 
@@ -547,12 +558,12 @@ LABEL_11:
       }
 
       sfSession = self->_sfSession;
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __46__SFAuthenticateAccountsSession__runPairSetup__block_invoke;
-      v8[3] = &unk_1E788B238;
-      v8[4] = self;
-      [(SFSession *)sfSession pairSetupWithFlags:8 completion:v8];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __46__SFAuthenticateAccountsSession__runPairSetup__block_invoke;
+      v7[3] = &unk_1E788B238;
+      v7[4] = self;
+      [(SFSession *)sfSession pairSetupWithFlags:8 completion:v7];
     }
   }
 
@@ -588,6 +599,7 @@ void __46__SFAuthenticateAccountsSession__runPairSetup__block_invoke(uint64_t a1
 
 - (int)_runInfoExchange
 {
+  selfCopy = self;
   infoExchangeState = self->_infoExchangeState;
   if (infoExchangeState != 4 && infoExchangeState != 2)
   {
@@ -599,49 +611,55 @@ void __46__SFAuthenticateAccountsSession__runPairSetup__block_invoke(uint64_t a1
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_infoExchangeState;
+            return selfCopy->_infoExchangeState;
           }
 
-          v6 = self->_infoExchangeState;
+          infoExchangeState = selfCopy->_infoExchangeState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runInfoExchange]", 30, "InfoExchange not done yet (%d)\n", infoExchangeState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 30)
       {
-        [SFAuthenticateAccountsSession _runInfoExchange];
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFAuthenticateAccountsSession *)self _runInfoExchange];
+        }
       }
 
-      self->_infoExchangeState = 1;
-      [(SFAuthenticateAccountsSession *)self _runInfoExchangeRequest];
-      self->_trAuthenticationEnabled = 1;
-      [(SFAuthenticateAccountsSession *)self _run];
+      selfCopy->_infoExchangeState = 1;
+      [(SFAuthenticateAccountsSession *)selfCopy _runInfoExchangeRequest];
+      selfCopy->_trAuthenticationEnabled = 1;
+      [(SFAuthenticateAccountsSession *)selfCopy _run];
     }
   }
 
-  return self->_infoExchangeState;
+  return selfCopy->_infoExchangeState;
 }
 
 - (void)_runInfoExchangeRequest
 {
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
-  v5 = preferredLanguages;
-  if (preferredLanguages && [preferredLanguages count])
+  v7 = preferredLanguages;
+  if (preferredLanguages && (preferredLanguages = [preferredLanguages count]) != 0)
   {
-    firstObject = [v5 firstObject];
+    firstObject = [v7 firstObject];
     [v3 setObject:firstObject forKeyedSubscript:@"lang"];
 
-    [v3 setObject:v5 forKeyedSubscript:@"langs"];
+    [v3 setObject:v7 forKeyedSubscript:@"langs"];
   }
 
-  else if (gLogCategory_SFAuthenticateAccountsSession <= 60 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFAuthenticateAccountsSession <= 60)
   {
-    [SFAuthenticateAccountsSession _runInfoExchangeRequest];
+    if (gLogCategory_SFAuthenticateAccountsSession != -1 || (preferredLanguages = _LogCategory_Initialize(), preferredLanguages))
+    {
+      [(SFAuthenticateAccountsSession *)preferredLanguages _runInfoExchangeRequest];
+    }
   }
 
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
@@ -652,18 +670,21 @@ void __46__SFAuthenticateAccountsSession__runPairSetup__block_invoke(uint64_t a1
     [v3 setObject:localeIdentifier forKeyedSubscript:@"locale"];
   }
 
-  else if (gLogCategory_SFAuthenticateAccountsSession <= 60 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFAuthenticateAccountsSession <= 60)
   {
-    [SFAuthenticateAccountsSession _runInfoExchangeRequest];
+    if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v11 = _LogCategory_Initialize(), v11))
+    {
+      [(SFAuthenticateAccountsSession *)v11 _runInfoExchangeRequest];
+    }
   }
 
-  v21 = 0;
+  v26 = 0;
   CFArrayGetTypeID();
-  v9 = CFPrefs_CopyTypedValue();
-  v10 = v9;
-  if (v9)
+  v14 = CFPrefs_CopyTypedValue();
+  v15 = v14;
+  if (v14)
   {
-    [v3 setObject:v9 forKeyedSubscript:@"kbs"];
+    [v3 setObject:v14 forKeyedSubscript:@"kbs"];
   }
 
   else if (gLogCategory_SFAuthenticateAccountsSession <= 60 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
@@ -677,37 +698,38 @@ void __46__SFAuthenticateAccountsSession__runPairSetup__block_invoke(uint64_t a1
     [v3 addEntriesFromDictionary:_availableAccountsToSignIn];
   }
 
-  v12 = SFDeviceSetupHomeKitCurrentUserIdentifiers(self->_homeManager);
-  if ([v12 count])
+  v17 = SFDeviceSetupHomeKitCurrentUserIdentifiers(self->_homeManager);
+  if ([v17 count])
   {
-    [v3 setObject:v12 forKeyedSubscript:@"hkcuis"];
+    [v3 setObject:v17 forKeyedSubscript:@"hkcuis"];
   }
 
-  v13 = SFDeviceSetupHomeKitRMVEnabledForAllHomes(self->_homeManager);
-  if ([v13 count])
+  v18 = SFDeviceSetupHomeKitRMVEnabledForAllHomes(self->_homeManager);
+  v19 = [v18 count];
+  if (v19)
   {
-    [v3 setObject:v13 forKeyedSubscript:@"hkhrmve"];
+    v19 = [v3 setObject:v18 forKeyedSubscript:@"hkhrmve"];
   }
 
-  sharedPreferences = [(objc_class *)getVTPreferencesClass() sharedPreferences];
+  sharedPreferences = [getVTPreferencesClass(v19) sharedPreferences];
   voiceTriggerEnabled = [sharedPreferences voiceTriggerEnabled];
 
-  v16 = [MEMORY[0x1E696AD98] numberWithBool:voiceTriggerEnabled];
-  [v3 setObject:v16 forKeyedSubscript:@"siriVP"];
+  v22 = [MEMORY[0x1E696AD98] numberWithBool:voiceTriggerEnabled];
+  [v3 setObject:v22 forKeyedSubscript:@"siriVP"];
 
   if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
   {
-    [SFAuthenticateAccountsSession _runInfoExchangeRequest];
+    [(SFAuthenticateAccountsSession *)v3 _runInfoExchangeRequest];
   }
 
   sfSession = self->_sfSession;
-  v18 = [v3 copy];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __56__SFAuthenticateAccountsSession__runInfoExchangeRequest__block_invoke;
-  v20[3] = &unk_1E788B548;
-  v20[4] = self;
-  [(SFSession *)sfSession sendRequestID:@"_info" options:0 request:v18 responseHandler:v20];
+  v24 = [v3 copy];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __56__SFAuthenticateAccountsSession__runInfoExchangeRequest__block_invoke;
+  v25[3] = &unk_1E788B548;
+  v25[4] = self;
+  [(SFSession *)sfSession sendRequestID:@"_info" options:0 request:v24 responseHandler:v25];
 }
 
 - (id)_availableAccountsToSignIn
@@ -752,16 +774,17 @@ void __46__SFAuthenticateAccountsSession__runPairSetup__block_invoke(uint64_t a1
     self->_infoExchangeState = 3;
     if (!errorCopy)
     {
-      goto LABEL_14;
+      NSErrorWithOSStatusF(4294960596, "No response, no error?");
+      goto LABEL_15;
     }
 
     [(SFAuthenticateAccountsSession *)self _reportError:errorCopy];
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
   {
-    [SFAuthenticateAccountsSession _runInfoExchangeResponse:error:];
+    [SFAuthenticateAccountsSession _runInfoExchangeResponse:responseCopy error:?];
   }
 
   self->_peerFeatureFlags = CFDictionaryGetInt64();
@@ -770,11 +793,11 @@ void __46__SFAuthenticateAccountsSession__runPairSetup__block_invoke(uint64_t a1
   if (!v10 && (Int64Ranged & 2) == 0)
   {
     self->_infoExchangeState = 3;
-LABEL_14:
-    v14 = NSErrorWithOSStatusF();
+    NSErrorWithOSStatusF(4294960591, "No account types to authenticate.");
+    v14 = LABEL_15:;
     [(SFAuthenticateAccountsSession *)self _reportError:v14];
 
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   self->_targetedAccountTypes = v10;
@@ -782,7 +805,7 @@ LABEL_14:
   self->_problemFlags = Int64;
   if ((self->_peerFeatureFlags & 0x10) == 0)
   {
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v12 = Int64;
@@ -799,9 +822,9 @@ LABEL_14:
     self->_isSigningInNewiCloud = targetedAccountTypes & 1;
     if (targetedAccountTypes)
     {
-LABEL_21:
-
 LABEL_22:
+
+LABEL_23:
       progressHandler = self->_progressHandler;
       if (progressHandler)
       {
@@ -810,13 +833,13 @@ LABEL_22:
 
       self->_infoExchangeState = 4;
       [(SFAuthenticateAccountsSession *)self _run];
-      goto LABEL_25;
+      goto LABEL_26;
     }
   }
 
   if ((v12 & 0x20000) == 0)
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   aa_primaryAppleAccount = [(ACAccountStore *)self->_accountStore aa_primaryAppleAccount];
@@ -825,89 +848,100 @@ LABEL_22:
   if (v13 && aa_altDSID && [v13 isEqual:aa_altDSID])
   {
 
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   if (gLogCategory_SFAuthenticateAccountsSession <= 90 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runInfoExchangeResponse:error:]", 90, "InfoExchange asked to repair CDP but iCloud account don't match. {remoteiCloud=%@, localiCloud=%@}", v13, aa_altDSID);
   }
 
   self->_infoExchangeState = 3;
-  v19 = NSErrorWithOSStatusF();
+  v19 = NSErrorWithOSStatusF(301015, "Mismatched, or missing, iCloud account. CDP cannot be repaired.");
   [(SFAuthenticateAccountsSession *)self _reportError:v19];
 
-LABEL_25:
+LABEL_26:
 }
 
 - (int)_runTRSessionStart
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  v23[1] = *MEMORY[0x1E69E9840];
   trSessionState = self->_trSessionState;
   if (trSessionState == 4)
   {
-    goto LABEL_13;
+    return selfCopy->_trSessionState;
   }
 
   if (!trSessionState)
   {
-    if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFAuthenticateAccountsSession <= 30)
     {
-      [SFAuthenticateAccountsSession _runTRSessionStart];
+      if (gLogCategory_SFAuthenticateAccountsSession != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFAuthenticateAccountsSession *)self _runTRSessionStart];
+      }
     }
 
-    self->_trSessionState = 1;
-    trSession = [(SFSession *)self->_sfSession trSession];
-    trSession = self->_trSession;
-    self->_trSession = trSession;
+    selfCopy->_trSessionState = 1;
+    trSession = [(SFSession *)selfCopy->_sfSession trSession];
+    trSession = selfCopy->_trSession;
+    selfCopy->_trSession = trSession;
 
-    if (self->_trSession)
+    if (selfCopy->_trSession)
     {
-      v6 = objc_alloc_init(getTROperationQueueClass());
-      trOperationQueue = self->_trOperationQueue;
-      self->_trOperationQueue = v6;
+      v9 = objc_alloc_init(getTROperationQueueClass());
+      trOperationQueue = selfCopy->_trOperationQueue;
+      selfCopy->_trOperationQueue = v9;
 
-      if (self->_trOperationQueue)
+      if (selfCopy->_trOperationQueue)
       {
-        v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        trOperations = self->_trOperations;
-        self->_trOperations = v8;
+        v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        trOperations = selfCopy->_trOperations;
+        selfCopy->_trOperations = v11;
 
-        self->_trSessionState = 4;
-        goto LABEL_13;
+        selfCopy->_trSessionState = 4;
+        return selfCopy->_trSessionState;
       }
 
       if (gLogCategory_SFAuthenticateAccountsSession > 90 || gLogCategory_SFAuthenticateAccountsSession == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_22;
       }
+
+      v14 = "### Create TROperationQueue failed\n";
     }
 
-    else if (gLogCategory_SFAuthenticateAccountsSession > 90 || gLogCategory_SFAuthenticateAccountsSession == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_22;
+      if (gLogCategory_SFAuthenticateAccountsSession > 90 || gLogCategory_SFAuthenticateAccountsSession == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_22;
+      }
+
+      v14 = "### No TRSession on SFSession\n";
     }
 
-    [SFAuthenticateAccountsSession _runTRSessionStart];
+    [(SFAuthenticateAccountsSession *)v14 _runTRSessionStart];
 LABEL_22:
-    self->_trSessionState = 3;
-    v12 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A768];
-    v20 = *MEMORY[0x1E696A578];
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-    v15 = v14;
-    v16 = @"?";
-    if (v14)
+    selfCopy->_trSessionState = 3;
+    v15 = MEMORY[0x1E696ABC0];
+    v16 = *MEMORY[0x1E696A768];
+    v22 = *MEMORY[0x1E696A578];
+    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+    v18 = v17;
+    v19 = @"?";
+    if (v17)
     {
-      v16 = v14;
+      v19 = v17;
     }
 
-    v21[0] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-    v18 = [v12 errorWithDomain:v13 code:-6700 userInfo:v17];
-    [(SFAuthenticateAccountsSession *)self _reportError:v18];
+    v23[0] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = [v15 errorWithDomain:v16 code:-6700 userInfo:v20];
+    [(SFAuthenticateAccountsSession *)selfCopy _reportError:v21];
 
-    goto LABEL_13;
+    return selfCopy->_trSessionState;
   }
 
   if (gLogCategory_SFAuthenticateAccountsSession <= 30)
@@ -916,19 +950,16 @@ LABEL_22:
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_13;
+        return selfCopy->_trSessionState;
       }
 
-      v19 = self->_trSessionState;
+      trSessionState = selfCopy->_trSessionState;
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runTRSessionStart]", 30, "TRSession hasn't succeeded yet (%d)\n", trSessionState);
   }
 
-LABEL_13:
-  result = self->_trSessionState;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return selfCopy->_trSessionState;
 }
 
 - (int)_runTRAuthentication
@@ -938,7 +969,8 @@ LABEL_13:
   trAuthenticationState = self->_trAuthenticationState;
   if (!trAuthenticationState)
   {
-    if (![_trTargetedServices count])
+    v7 = [_trTargetedServices count];
+    if (!v7)
     {
       if (gLogCategory_SFAuthenticateAccountsSession <= 40 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
       {
@@ -952,31 +984,34 @@ LABEL_13:
     trAuthenticationState = self->_trAuthenticationState;
     if (!trAuthenticationState)
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 30)
       {
-        [SFAuthenticateAccountsSession _runTRAuthentication];
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v7 = _LogCategory_Initialize(), v7))
+        {
+          [(SFAuthenticateAccountsSession *)v7 _runTRAuthentication];
+        }
       }
 
       self->_trAuthenticationState = 1;
-      v7 = [objc_alloc(getTRAuthenticationOperationClass()) initWithSession:self->_trSession];
-      [v7 setShouldIgnoreAuthFailures:0];
-      [(NSMutableArray *)self->_trOperations addObject:v7];
-      [v7 setTargetedServices:v4];
+      v10 = [objc_alloc(getTRAuthenticationOperationClass()) initWithSession:self->_trSession];
+      [v10 setShouldIgnoreAuthFailures:0];
+      [(NSMutableArray *)self->_trOperations addObject:v10];
+      [v10 setTargetedServices:v4];
       if (self->_presentingViewController)
       {
-        [v7 setPresentingViewController:?];
+        [v10 setPresentingViewController:?];
       }
 
-      objc_initWeak(&location, v7);
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke;
-      v11[3] = &unk_1E788AF18;
-      v11[4] = self;
-      objc_copyWeak(&v12, &location);
-      [v7 setCompletionBlock:v11];
-      [(TROperationQueue *)self->_trOperationQueue addOperation:v7];
-      objc_destroyWeak(&v12);
+      objc_initWeak(&location, v10);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke;
+      v13[3] = &unk_1E788AF18;
+      v13[4] = self;
+      objc_copyWeak(&v14, &location);
+      [v10 setCompletionBlock:v13];
+      [(TROperationQueue *)self->_trOperationQueue addOperation:v10];
+      objc_destroyWeak(&v14);
       objc_destroyWeak(&location);
 
       goto LABEL_22;
@@ -993,16 +1028,16 @@ LABEL_13:
         goto LABEL_22;
       }
 
-      v10 = self->_trAuthenticationState;
+      trAuthenticationState = self->_trAuthenticationState;
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runTRAuthentication]", 30, "TRAuthentication hasn't succeeded yet (%d)\n", trAuthenticationState);
   }
 
 LABEL_22:
-  v8 = self->_trAuthenticationState;
+  v11 = self->_trAuthenticationState;
 
-  return v8;
+  return v11;
 }
 
 void __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke(uint64_t a1)
@@ -1025,40 +1060,45 @@ void __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke_2(ui
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     v2 = [WeakRetained result];
+    v3 = v2;
     if (v2)
     {
-      v3 = getTRAuthenticationOperationUnauthenticatedServicesKey();
-      v4 = [v2 objectForKeyedSubscript:v3];
+      v4 = getTRAuthenticationOperationUnauthenticatedServicesKey(v2);
+      v5 = [v3 objectForKeyedSubscript:v4];
 
-      if ([v4 count])
+      v6 = [v5 count];
+      if (v6)
       {
         if (gLogCategory_SFAuthenticateAccountsSession <= 60 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
         {
-          __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke_2_cold_1();
+          __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke_2_cold_1(v5);
         }
 
         *(*(a1 + 32) + 156) = 3;
-        v5 = [WeakRetained error];
-        if (!v5)
+        v9 = [WeakRetained error];
+        if (!v9)
         {
-          getTRAuthenticationOperationErrorKey();
+          getTRAuthenticationOperationErrorKey(0);
           CFErrorGetTypeID();
-          v5 = CFDictionaryGetTypedValue();
-          if (!v5)
+          v9 = CFDictionaryGetTypedValue();
+          if (!v9)
           {
-            v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-6736 userInfo:0];
+            v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-6736 userInfo:0];
           }
         }
 
-        v6 = v5;
-        [*(a1 + 32) _reportError:v5];
+        v10 = v9;
+        [*(a1 + 32) _reportError:v9];
       }
 
       else
       {
-        if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+        if (gLogCategory_SFAuthenticateAccountsSession <= 30)
         {
-          __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke_2_cold_2();
+          if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v6 = _LogCategory_Initialize(), v6))
+          {
+            __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke_2_cold_2(v6, v7, v8);
+          }
         }
 
         *(*(a1 + 32) + 156) = 4;
@@ -1068,14 +1108,14 @@ void __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke_2(ui
 
     else
     {
-      v4 = [WeakRetained error];
+      v5 = [WeakRetained error];
       if (gLogCategory_SFAuthenticateAccountsSession <= 60 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
       {
-        __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke_2_cold_3();
+        __53__SFAuthenticateAccountsSession__runTRAuthentication__block_invoke_2_cold_3(v5);
       }
 
       *(*(a1 + 32) + 156) = 3;
-      [*(a1 + 32) _reportError:v4];
+      [*(a1 + 32) _reportError:v5];
     }
   }
 }
@@ -1121,6 +1161,7 @@ LABEL_5:
 
 - (int)_runRepairCDP
 {
+  selfCopy = self;
   cdpState = self->_cdpState;
   if (cdpState != 4)
   {
@@ -1132,93 +1173,104 @@ LABEL_5:
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_cdpState;
+            return selfCopy->_cdpState;
           }
 
-          v8 = self->_cdpState;
+          cdpState = selfCopy->_cdpState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runRepairCDP]", 30, "Repair CDP hasn't succeeded yet (%d)\n", cdpState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 30)
       {
-        [SFAuthenticateAccountsSession _runRepairCDP];
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFAuthenticateAccountsSession *)self _runRepairCDP];
+        }
       }
 
-      self->_cdpState = 1;
-      progressHandler = self->_progressHandler;
+      selfCopy->_cdpState = 1;
+      progressHandler = selfCopy->_progressHandler;
       if (progressHandler)
       {
         progressHandler[2](progressHandler, 236, 0);
       }
 
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation invalidate];
-      v5 = objc_alloc_init(SFDeviceOperationCDPSetup);
-      cdpSetupOperation = self->_cdpSetupOperation;
-      self->_cdpSetupOperation = v5;
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation invalidate];
+      v6 = objc_alloc_init(SFDeviceOperationCDPSetup);
+      cdpSetupOperation = selfCopy->_cdpSetupOperation;
+      selfCopy->_cdpSetupOperation = v6;
 
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setDispatchQueue:self->_dispatchQueue];
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setSfSession:self->_sfSession];
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setIsRepair:!self->_isSigningInNewiCloud];
-      if (self->_presentingViewController)
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setDispatchQueue:selfCopy->_dispatchQueue];
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setSfSession:selfCopy->_sfSession];
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setIsRepair:!selfCopy->_isSigningInNewiCloud];
+      if (selfCopy->_presentingViewController)
       {
-        [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setPresentingViewController:?];
+        [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setPresentingViewController:?];
       }
 
-      objc_initWeak(&location, self);
+      objc_initWeak(&location, selfCopy);
       v9[0] = MEMORY[0x1E69E9820];
       v9[1] = 3221225472;
       v9[2] = __46__SFAuthenticateAccountsSession__runRepairCDP__block_invoke;
       v9[3] = &unk_1E788D048;
       objc_copyWeak(&v10, &location);
-      v9[4] = self;
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation setCompletionHandler:v9];
-      [(SFDeviceOperationCDPSetup *)self->_cdpSetupOperation activate];
+      v9[4] = selfCopy;
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation setCompletionHandler:v9];
+      [(SFDeviceOperationCDPSetup *)selfCopy->_cdpSetupOperation activate];
       objc_destroyWeak(&v10);
       objc_destroyWeak(&location);
     }
   }
 
-  return self->_cdpState;
+  return selfCopy->_cdpState;
 }
 
 void __46__SFAuthenticateAccountsSession__runRepairCDP__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v8 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v4 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained && *(WeakRetained + 20))
   {
-    if (v5)
+    v7 = v8;
+    if (v8)
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 90 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 90)
       {
-        __46__SFAuthenticateAccountsSession__runRepairCDP__block_invoke_cold_1();
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v7 = _LogCategory_Initialize(), v7))
+        {
+          __46__SFAuthenticateAccountsSession__runRepairCDP__block_invoke_cold_1(v7, v4, v5);
+        }
       }
 
       *(*(a1 + 32) + 168) = 3;
-      [v4 _reportError:v5];
+      [v6 _reportError:v8];
     }
 
     else
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 30)
       {
-        __46__SFAuthenticateAccountsSession__runRepairCDP__block_invoke_cold_2();
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v7 = _LogCategory_Initialize(), v7))
+        {
+          __46__SFAuthenticateAccountsSession__runRepairCDP__block_invoke_cold_2(v7, v4, v5);
+        }
       }
 
       *(*(a1 + 32) + 168) = 4;
-      [v4 _run];
+      [v6 _run];
     }
   }
 }
 
 - (int)_runHomeKitSetup
 {
+  selfCopy = self;
   homeKitSetupState = self->_homeKitSetupState;
   if (homeKitSetupState != 4)
   {
@@ -1230,88 +1282,96 @@ void __46__SFAuthenticateAccountsSession__runRepairCDP__block_invoke(uint64_t a1
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_homeKitSetupState;
+            return selfCopy->_homeKitSetupState;
           }
 
-          v8 = self->_homeKitSetupState;
+          homeKitSetupState = selfCopy->_homeKitSetupState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runHomeKitSetup]", 30, "HomeKitSetup hasn't succeeded yet (%d)\n", homeKitSetupState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 30)
       {
-        [SFAuthenticateAccountsSession _runHomeKitSetup];
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFAuthenticateAccountsSession *)self _runHomeKitSetup];
+        }
       }
 
-      self->_homeKitSetupState = 1;
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetupOperation invalidate];
-      progressHandler = self->_progressHandler;
+      selfCopy->_homeKitSetupState = 1;
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetupOperation invalidate];
+      progressHandler = selfCopy->_progressHandler;
       if (progressHandler)
       {
         progressHandler[2](progressHandler, 234, 0);
       }
 
-      v5 = objc_alloc_init(SFDeviceOperationHomeKitSetup);
-      homeKitSetupOperation = self->_homeKitSetupOperation;
-      self->_homeKitSetupOperation = v5;
+      v6 = objc_alloc_init(SFDeviceOperationHomeKitSetup);
+      homeKitSetupOperation = selfCopy->_homeKitSetupOperation;
+      selfCopy->_homeKitSetupOperation = v6;
 
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetupOperation setDispatchQueue:self->_dispatchQueue];
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetupOperation setKeyExchangeOnly:1];
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetupOperation setUserInteractive:1];
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetupOperation setTrSession:self->_trSession];
-      objc_initWeak(&location, self);
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetupOperation setDispatchQueue:selfCopy->_dispatchQueue];
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetupOperation setKeyExchangeOnly:1];
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetupOperation setUserInteractive:1];
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetupOperation setTrSession:selfCopy->_trSession];
+      objc_initWeak(&location, selfCopy);
       v9[0] = MEMORY[0x1E69E9820];
       v9[1] = 3221225472;
       v9[2] = __49__SFAuthenticateAccountsSession__runHomeKitSetup__block_invoke;
       v9[3] = &unk_1E788B4A8;
       objc_copyWeak(&v10, &location);
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetupOperation setCompletionHandler:v9];
-      [(SFDeviceOperationHomeKitSetup *)self->_homeKitSetupOperation activate];
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetupOperation setCompletionHandler:v9];
+      [(SFDeviceOperationHomeKitSetup *)selfCopy->_homeKitSetupOperation activate];
       objc_destroyWeak(&v10);
       objc_destroyWeak(&location);
     }
   }
 
-  return self->_homeKitSetupState;
+  return selfCopy->_homeKitSetupState;
 }
 
 void __49__SFAuthenticateAccountsSession__runHomeKitSetup__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v8 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    if (v5)
+    v6 = v8;
+    if (v8)
     {
       if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
       {
-        __49__SFAuthenticateAccountsSession__runHomeKitSetup__block_invoke_cold_1();
+        __49__SFAuthenticateAccountsSession__runHomeKitSetup__block_invoke_cold_1(v8);
       }
 
-      v4 = 2;
+      v7 = 2;
     }
 
     else
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 30)
       {
-        __49__SFAuthenticateAccountsSession__runHomeKitSetup__block_invoke_cold_2();
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v6 = _LogCategory_Initialize(), v6))
+        {
+          __49__SFAuthenticateAccountsSession__runHomeKitSetup__block_invoke_cold_2(v6, v3, v4);
+        }
       }
 
-      v4 = 4;
+      v7 = 4;
     }
 
-    WeakRetained[46] = v4;
+    WeakRetained[46] = v7;
     [WeakRetained _run];
   }
 }
 
 - (int)_runFinish
 {
+  selfCopy = self;
   finishState = self->_finishState;
   if (finishState != 4 && finishState != 2)
   {
@@ -1323,49 +1383,52 @@ void __49__SFAuthenticateAccountsSession__runHomeKitSetup__block_invoke(uint64_t
         {
           if (!_LogCategory_Initialize())
           {
-            return self->_finishState;
+            return selfCopy->_finishState;
           }
 
-          v9 = self->_finishState;
+          finishState = selfCopy->_finishState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _runFinish]", 30, "Finish hasn't succeeded yet (%d)\n", finishState);
       }
     }
 
     else
     {
-      if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFAuthenticateAccountsSession <= 30)
       {
-        [SFAuthenticateAccountsSession _runFinish];
+        if (gLogCategory_SFAuthenticateAccountsSession != -1 || (self = _LogCategory_Initialize(), self))
+        {
+          [(SFAuthenticateAccountsSession *)self _runFinish];
+        }
       }
 
-      self->_finishState = 1;
-      v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      [v5 setObject:&unk_1F1D7CD78 forKeyedSubscript:@"op"];
-      if ((self->_problemFlags & 8) != 0)
+      selfCopy->_finishState = 1;
+      v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      [v6 setObject:&unk_1F1D7CD78 forKeyedSubscript:@"op"];
+      if ((selfCopy->_problemFlags & 8) != 0)
       {
-        v6 = [MEMORY[0x1E696AD98] numberWithInt:self->_homeKitSetupState == 4];
-        [v5 setObject:v6 forKeyedSubscript:@"aaHKSetup"];
+        v7 = [MEMORY[0x1E696AD98] numberWithInt:selfCopy->_homeKitSetupState == 4];
+        [v6 setObject:v7 forKeyedSubscript:@"aaHKSetup"];
       }
 
-      sfSession = self->_sfSession;
+      sfSession = selfCopy->_sfSession;
       v10[0] = MEMORY[0x1E69E9820];
       v10[1] = 3221225472;
       v10[2] = __43__SFAuthenticateAccountsSession__runFinish__block_invoke;
       v10[3] = &unk_1E788D070;
-      v10[4] = self;
-      [(SFSession *)sfSession sendRequestWithFlags:1 object:v5 responseHandler:v10];
-      self->_finishState = 4;
+      v10[4] = selfCopy;
+      [(SFSession *)sfSession sendRequestWithFlags:1 object:v6 responseHandler:v10];
+      selfCopy->_finishState = 4;
     }
   }
 
-  return self->_finishState;
+  return selfCopy->_finishState;
 }
 
 void __43__SFAuthenticateAccountsSession__runFinish__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v6)
@@ -1382,7 +1445,7 @@ void __43__SFAuthenticateAccountsSession__runFinish__block_invoke(uint64_t a1, u
   v9 = MEMORY[0x1E696ABC0];
   v10 = *MEMORY[0x1E696A768];
   v11 = Int64Ranged;
-  v25 = *MEMORY[0x1E696A578];
+  v24 = *MEMORY[0x1E696A578];
   v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
   v13 = v12;
   v14 = @"?";
@@ -1391,8 +1454,8 @@ void __43__SFAuthenticateAccountsSession__runFinish__block_invoke(uint64_t a1, u
     v14 = v12;
   }
 
-  v26[0] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v25[0] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   v6 = [v9 errorWithDomain:v10 code:v11 userInfo:v15];
 
   if (v6)
@@ -1400,7 +1463,7 @@ void __43__SFAuthenticateAccountsSession__runFinish__block_invoke(uint64_t a1, u
 LABEL_21:
     if (gLogCategory_SFAuthenticateAccountsSession <= 90 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
     {
-      __43__SFAuthenticateAccountsSession__runFinish__block_invoke_cold_1();
+      __43__SFAuthenticateAccountsSession__runFinish__block_invoke_cold_1(v6);
     }
 
     *(*(a1 + 32) + 188) = 3;
@@ -1416,13 +1479,13 @@ LABEL_22:
     }
 
     v16 = objc_alloc_init(SFClient);
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __43__SFAuthenticateAccountsSession__runFinish__block_invoke_2;
-    v23 = &unk_1E788B238;
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __43__SFAuthenticateAccountsSession__runFinish__block_invoke_2;
+    v22 = &unk_1E788B238;
     v6 = v16;
-    v24 = v6;
-    [(SFClient *)v6 reenableProxCardType:32 completion:&v20];
+    v23 = v6;
+    [(SFClient *)v6 reenableProxCardType:32 completion:&v19];
     v17 = *(a1 + 32);
     v18 = v17[27];
     if (v18)
@@ -1433,8 +1496,6 @@ LABEL_22:
 
     [v17 _cleanup];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SFAuthenticateAccountsSession__runFinish__block_invoke_2(uint64_t a1, void *a2)
@@ -1442,7 +1503,7 @@ void __43__SFAuthenticateAccountsSession__runFinish__block_invoke_2(uint64_t a1,
   v3 = a2;
   if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
   {
-    __43__SFAuthenticateAccountsSession__runFinish__block_invoke_2_cold_1();
+    __43__SFAuthenticateAccountsSession__runFinish__block_invoke_2_cold_1(v3);
   }
 
   [*(a1 + 32) invalidate];
@@ -1471,10 +1532,10 @@ void __43__SFAuthenticateAccountsSession__runFinish__block_invoke_2(uint64_t a1,
             return self->_accountsState;
           }
 
-          v9 = self->_accountsState;
+          accountsState = self->_accountsState;
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _validateAccounts]", 30, "Account validation hasn't succeeded yet (%d)\n", accountsState);
       }
     }
 
@@ -1509,10 +1570,13 @@ void __43__SFAuthenticateAccountsSession__runFinish__block_invoke_2(uint64_t a1,
 
 - (void)_handleShowTermsUI:(id)i responseHandler:(id)handler
 {
-  (*(handler + 2))(handler, 0, 0, MEMORY[0x1E695E0F8]);
-  if (gLogCategory_SFAuthenticateAccountsSession <= 30 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
+  v5 = (*(handler + 2))(handler, 0, 0, MEMORY[0x1E695E0F8]);
+  if (gLogCategory_SFAuthenticateAccountsSession <= 30)
   {
-    [SFAuthenticateAccountsSession _handleShowTermsUI:responseHandler:];
+    if (gLogCategory_SFAuthenticateAccountsSession != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      [(SFAuthenticateAccountsSession *)v5 _handleShowTermsUI:v6 responseHandler:v7];
+    }
   }
 
   self->_trSessionState = 0;
@@ -1579,10 +1643,10 @@ LABEL_7:
         return self->_iCloudTermsState;
       }
 
-      v6 = self->_iCloudTermsState;
+      iCloudTermsState = self->_iCloudTermsState;
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFAuthenticateAccountsSession, "[SFAuthenticateAccountsSession _validateiCloudAccountTerms]", 30, "iCloud Terms of Service hasn't succeeded yet (%d)\n", iCloudTermsState);
   }
 
   return self->_iCloudTermsState;
@@ -1608,7 +1672,7 @@ LABEL_7:
   iCopy = i;
   if (gLogCategory_SFAuthenticateAccountsSession <= 50 && (gLogCategory_SFAuthenticateAccountsSession != -1 || _LogCategory_Initialize()))
   {
-    [SFAuthenticateAccountsSession genericTermsRemoteUI:didFinishWithSuccess:];
+    [SFAuthenticateAccountsSession genericTermsRemoteUI:successCopy didFinishWithSuccess:?];
   }
 
   termsRemoteUI = self->_termsRemoteUI;
@@ -1636,7 +1700,7 @@ LABEL_7:
 
 + (id)_myGameCenterAccount
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   defaultStore = [MEMORY[0x1E6959A48] defaultStore];
   v3 = [defaultStore accountTypeWithAccountTypeIdentifier:*MEMORY[0x1E6959860]];
   v4 = [defaultStore accountsWithAccountType:v3];
@@ -1646,16 +1710,14 @@ LABEL_7:
     v6 = NSStringFromSelector(sel_creationDate);
     v7 = [v5 sortDescriptorWithKey:v6 ascending:0];
 
-    v13[0] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     v9 = [v4 sortedArrayUsingDescriptors:v8];
 
     v4 = v9;
   }
 
   firstObject = [v4 firstObject];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

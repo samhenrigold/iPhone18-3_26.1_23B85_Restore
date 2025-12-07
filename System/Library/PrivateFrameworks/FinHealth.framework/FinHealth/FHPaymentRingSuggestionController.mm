@@ -31,30 +31,27 @@
 
 - (id)generatePaymentRingSuggestionsFromConvertedObjects:(id)objects previousStatementPaymentsSum:(id)sum currentStatementPaymentsSum:(id)paymentsSum statementPurchasesSum:(id)purchasesSum merchantCategoryTransactionSums:(id)sums billPaymentSelectedSuggestedAmountData:(id)data isMonthZero:(BOOL)zero isMonthOne:(BOOL)self0
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v11 = RequestFromPKAccountSummary(objects, sum, paymentsSum, purchasesSum, sums, data, zero, one);
   v12 = [(FHPaymentRingSuggestionController *)self generatePaymentRingSuggestion:v11];
   v13 = ResponseToPKBillPaymentSuggestion(v12);
-  v14 = *MEMORY[0x277D087C0];
-  v15 = FinHealthLogObject();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v14 = FinHealthLogObject();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v16 = [v13 description];
-    v19 = 136315394;
-    v20 = "[FHPaymentRingSuggestionController generatePaymentRingSuggestionsFromConvertedObjects:previousStatementPaymentsSum:currentStatementPaymentsSum:statementPurchasesSum:merchantCategoryTransactionSums:billPaymentSelectedSuggestedAmountData:isMonthZero:isMonthOne:]";
-    v21 = 2112;
-    v22 = v16;
-    _os_log_impl(&dword_24ABD8000, v15, OS_LOG_TYPE_DEBUG, "%s FinHealth final suggestions: %@", &v19, 0x16u);
+    v15 = [v13 description];
+    v17 = 136315394;
+    v18 = "[FHPaymentRingSuggestionController generatePaymentRingSuggestionsFromConvertedObjects:previousStatementPaymentsSum:currentStatementPaymentsSum:statementPurchasesSum:merchantCategoryTransactionSums:billPaymentSelectedSuggestedAmountData:isMonthZero:isMonthOne:]";
+    v19 = 2112;
+    v20 = v15;
+    _os_log_impl(&dword_24ABD8000, v14, OS_LOG_TYPE_DEBUG, "%s FinHealth final suggestions: %@", &v17, 0x16u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)generatePaymentRingSuggestion:(id)suggestion
 {
-  v226 = *MEMORY[0x277D85DE8];
+  v223 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   currentStatement = [suggestionCopy currentStatement];
   remainingMinimumPayment = [currentStatement remainingMinimumPayment];
@@ -90,12 +87,12 @@
   previousSelectedSuggestion = self->_previousSelectedSuggestion;
   self->_previousSelectedSuggestion = paymentDetails;
 
-  v204 = 0;
-  v205 = &v204;
-  v206 = 0x3032000000;
-  v207 = __Block_byref_object_copy_;
-  v208 = __Block_byref_object_dispose_;
-  v209 = objc_opt_new();
+  v201 = 0;
+  v202 = &v201;
+  v203 = 0x3032000000;
+  v204 = __Block_byref_object_copy_;
+  v205 = __Block_byref_object_dispose_;
+  v206 = objc_opt_new();
   if (remainingStatementBalance)
   {
     zero = [MEMORY[0x277CCA980] zero];
@@ -143,38 +140,21 @@
     }
   }
 
-  if ((isMonthZero | isMonthOne))
+  if (((isMonthZero | isMonthOne) & 1) != 0 || ([suggestionCopy previousStatementPaymentsSum], (v31 = objc_claimAutoreleasedReturnValue()) == 0) || (objc_msgSend(suggestionCopy, "previousStatementPaymentsSum"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCA980], "zero"), v33 = objc_claimAutoreleasedReturnValue(), v34 = -[FHPaymentRingSuggestionController _fhEqualObjects:obj2:](self, "_fhEqualObjects:obj2:", v32, v33), v33, v32, v31, v34))
   {
-    goto LABEL_14;
-  }
-
-  previousStatementPaymentsSum = [suggestionCopy previousStatementPaymentsSum];
-  if (!previousStatementPaymentsSum)
-  {
-    goto LABEL_14;
-  }
-
-  previousStatementPaymentsSum2 = [suggestionCopy previousStatementPaymentsSum];
-  zero4 = [MEMORY[0x277CCA980] zero];
-  v34 = [(FHPaymentRingSuggestionController *)self _fhEqualObjects:previousStatementPaymentsSum2 obj2:zero4];
-
-  if (v34)
-  {
-LABEL_14:
-    v35 = *MEMORY[0x277D087C0];
-    v36 = FinHealthLogObject();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v35 = FinHealthLogObject();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      v37 = [suggestionCopy description];
+      v36 = [suggestionCopy description];
       *buf = 136315394;
       *&buf[4] = "[FHPaymentRingSuggestionController generatePaymentRingSuggestion:]";
       *&buf[12] = 2112;
-      *&buf[14] = v37;
-      _os_log_impl(&dword_24ABD8000, v36, OS_LOG_TYPE_DEBUG, "%s Request %@", buf, 0x16u);
+      *&buf[14] = v36;
+      _os_log_impl(&dword_24ABD8000, v35, OS_LOG_TYPE_DEBUG, "%s Request %@", buf, 0x16u);
     }
 
-    v38 = [(FHPaymentRingSuggestionController *)self _zerothOrFirstMonthPaymentRingSuggestionsForList:suggestionCopy];
-    [v20 addObjectsFromArray:v38];
+    v37 = [(FHPaymentRingSuggestionController *)self _zerothOrFirstMonthPaymentRingSuggestionsForList:suggestionCopy];
+    [v20 addObjectsFromArray:v37];
 
     goto LABEL_17;
   }
@@ -186,106 +166,96 @@ LABEL_17:
     goto LABEL_18;
   }
 
+  v197 = 0;
+  v198 = &v197;
+  v199 = 0x2020000000;
   v200 = 0;
-  v201 = &v200;
-  v202 = 0x2020000000;
-  v203 = 0;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v223 = __Block_byref_object_copy_;
-  v224 = __Block_byref_object_dispose_;
-  v225 = 0;
+  v220 = __Block_byref_object_copy_;
+  v221 = __Block_byref_object_dispose_;
+  v222 = 0;
   if (v19)
   {
-    v42 = self->_previousSelectedSuggestion;
-    v195[0] = MEMORY[0x277D85DD0];
-    v195[1] = 3221225472;
-    v195[2] = __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___block_invoke;
-    v195[3] = &unk_278FFB4F8;
-    v198 = &v200;
-    v195[4] = self;
-    v196 = suggestionCopy;
-    v197 = remainingStatementBalance;
-    v199 = buf;
-    [(NSArray *)v42 enumerateObjectsUsingBlock:v195];
+    v40 = self->_previousSelectedSuggestion;
+    v192[0] = MEMORY[0x277D85DD0];
+    v192[1] = 3221225472;
+    v192[2] = __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___block_invoke;
+    v192[3] = &unk_278FFB4F8;
+    v195 = &v197;
+    v192[4] = self;
+    v193 = suggestionCopy;
+    v194 = remainingStatementBalance;
+    v196 = buf;
+    [(NSArray *)v40 enumerateObjectsUsingBlock:v192];
 
-    v43 = v201[3] == 13;
+    v41 = v198[3] == 13;
   }
 
   else
   {
-    v43 = 0;
-    v203 = 18;
+    v41 = 0;
+    v200 = 18;
   }
 
-  self->_isOnPlanCompletion = v43;
-  previousStatementPaymentsSum3 = [suggestionCopy previousStatementPaymentsSum];
-  v45 = 0x277CCA000;
-  if (previousStatementPaymentsSum3)
+  self->_isOnPlanCompletion = v41;
+  previousStatementPaymentsSum = [suggestionCopy previousStatementPaymentsSum];
+  v43 = 0x277CCA000;
+  if (previousStatementPaymentsSum)
   {
     isOnPaymentPlan = self->_isOnPaymentPlan;
 
     if (isOnPaymentPlan)
     {
-      v47 = 0;
-      v45 = 0x277CCA000;
+      v45 = 0;
+      v43 = 0x277CCA000;
     }
 
     else
     {
-      v48 = objc_alloc(MEMORY[0x277D08818]);
-      previousStatementPaymentsSum4 = [suggestionCopy previousStatementPaymentsSum];
-      v47 = [v48 initWithAmount:previousStatementPaymentsSum4 category:2];
+      v46 = objc_alloc(MEMORY[0x277D08818]);
+      previousStatementPaymentsSum2 = [suggestionCopy previousStatementPaymentsSum];
+      v45 = [v46 initWithAmount:previousStatementPaymentsSum2 category:2];
 
-      [v20 addObject:v47];
-      v45 = 0x277CCA000uLL;
+      [v20 addObject:v45];
+      v43 = 0x277CCA000uLL;
     }
   }
 
   else
   {
-    v47 = 0;
+    v45 = 0;
   }
 
   statementPurchasesSum = [suggestionCopy statementPurchasesSum];
-  if (!statementPurchasesSum)
+  if (statementPurchasesSum && ([suggestionCopy statementPurchasesSum], v49 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(v43 + 2432), "zero"), v50 = objc_claimAutoreleasedReturnValue(), v51 = -[FHPaymentRingSuggestionController _fhEqualObjects:obj2:](self, "_fhEqualObjects:obj2:", v49, v50), v50, v49, statementPurchasesSum, !v51))
   {
-    goto LABEL_32;
-  }
+    statementPurchasesSum2 = [suggestionCopy statementPurchasesSum];
+    v52 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:statementPurchasesSum2 category:5];
 
-  statementPurchasesSum2 = [suggestionCopy statementPurchasesSum];
-  zero5 = [*(v45 + 2432) zero];
-  v53 = [(FHPaymentRingSuggestionController *)self _fhEqualObjects:statementPurchasesSum2 obj2:zero5];
-
-  if (!v53)
-  {
-    statementPurchasesSum3 = [suggestionCopy statementPurchasesSum];
-    v54 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:statementPurchasesSum3 category:5];
-
-    [v20 addObject:v54];
+    [v20 addObject:v52];
   }
 
   else
   {
-LABEL_32:
-    v54 = v47;
+    v52 = v45;
   }
 
-  v193 = 0;
-  v194 = 0;
-  zero6 = [*(v45 + 2432) zero];
-  if ([remainingMinimumPayment compare:zero6] != 1)
+  v190 = 0;
+  v191 = 0;
+  zero4 = [*(v43 + 2432) zero];
+  if ([remainingMinimumPayment compare:zero4] != 1)
   {
 
 LABEL_40:
-    zero7 = [MEMORY[0x277CCA980] zero];
-    if ([remainingStatementBalance compare:zero7] == 1)
+    zero5 = [MEMORY[0x277CCA980] zero];
+    if ([remainingStatementBalance compare:zero5] == 1)
     {
-      v61 = [remainingStatementBalance compare:currentBalance] == -1;
+      v59 = [remainingStatementBalance compare:currentBalance] == -1;
 
-      v59 = remainingStatementBalance;
-      if (v61)
+      v57 = remainingStatementBalance;
+      if (v59)
       {
         goto LABEL_45;
       }
@@ -295,219 +265,218 @@ LABEL_40:
     {
     }
 
-    v59 = currentBalance;
+    v57 = currentBalance;
     goto LABEL_45;
   }
 
-  v57 = [remainingMinimumPayment compare:remainingStatementBalance] == -1;
+  v55 = [remainingMinimumPayment compare:remainingStatementBalance] == -1;
 
-  if (!v57)
+  if (!v55)
   {
     goto LABEL_40;
   }
 
-  v58 = [remainingMinimumPayment compare:currentBalance];
-  v59 = remainingMinimumPayment;
-  if (v58 != -1)
+  v56 = [remainingMinimumPayment compare:currentBalance];
+  v57 = remainingMinimumPayment;
+  if (v56 != -1)
   {
-    v59 = currentBalance;
+    v57 = currentBalance;
   }
 
 LABEL_45:
-  v154 = v59;
-  v155 = *MEMORY[0x277D087C0];
-  v62 = FinHealthLogObject();
-  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+  v152 = v57;
+  v60 = FinHealthLogObject();
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
   {
-    *v214 = 134218754;
-    v215 = v194;
-    v216 = 2048;
-    v217 = v193;
-    v218 = 2112;
-    v219 = 0;
-    v220 = 2112;
-    v221 = 0;
-    _os_log_impl(&dword_24ABD8000, v62, OS_LOG_TYPE_DEBUG, "Printing _merchantCategoryTransactionSums %lu, %lu, %@, %@", v214, 0x2Au);
+    *v211 = 134218754;
+    v212 = v191;
+    v213 = 2048;
+    v214 = v190;
+    v215 = 2112;
+    v216 = 0;
+    v217 = 2112;
+    v218 = 0;
+    _os_log_impl(&dword_24ABD8000, v60, OS_LOG_TYPE_DEBUG, "Printing _merchantCategoryTransactionSums %lu, %lu, %@, %@", v211, 0x2Au);
   }
 
-  v191 = 0;
-  v192 = 0;
+  v188 = 0;
+  v189 = 0;
   merchantCategoryTransactionSums = [suggestionCopy merchantCategoryTransactionSums];
-  [(FHPaymentRingSuggestionController *)self _minimumMerchcantCategoriesAboveMinimumAmount:v154 minMerchantCategory1:&v194 minMerchantCategory2:&v193 minMerchantCategorySum1:&v192 minMerchantCategorySum2:&v191 merchantCategoryTransactionSums:merchantCategoryTransactionSums];
-  v158 = v192;
-  v157 = v191;
+  [(FHPaymentRingSuggestionController *)self _minimumMerchcantCategoriesAboveMinimumAmount:v152 minMerchantCategory1:&v191 minMerchantCategory2:&v190 minMerchantCategorySum1:&v189 minMerchantCategorySum2:&v188 merchantCategoryTransactionSums:merchantCategoryTransactionSums];
+  v155 = v189;
+  v154 = v188;
 
-  previousStatementPaymentsSum5 = [suggestionCopy previousStatementPaymentsSum];
+  previousStatementPaymentsSum3 = [suggestionCopy previousStatementPaymentsSum];
 
-  if (previousStatementPaymentsSum5)
+  if (previousStatementPaymentsSum3)
   {
-    if (v158)
+    if (v155)
     {
-      previousStatementPaymentsSum6 = [suggestionCopy previousStatementPaymentsSum];
-      v66 = [v158 decimalNumberByAdding:previousStatementPaymentsSum6];
+      previousStatementPaymentsSum4 = [suggestionCopy previousStatementPaymentsSum];
+      v64 = [v155 decimalNumberByAdding:previousStatementPaymentsSum4];
+
+      statementPurchasesSum3 = [suggestionCopy statementPurchasesSum];
+      v66 = [v64 compare:statementPurchasesSum3] == -1;
+
+      if (v66)
+      {
+        v67 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:v64 category:3];
+
+        [v67 setMerchantCategory:v191];
+        [v20 addObject:v67];
+      }
+
+      else
+      {
+        v67 = v52;
+      }
+    }
+
+    else
+    {
+      v67 = v52;
+    }
+
+    if (v154)
+    {
+      previousStatementPaymentsSum5 = [suggestionCopy previousStatementPaymentsSum];
+      v69 = [v154 decimalNumberByAdding:previousStatementPaymentsSum5];
 
       statementPurchasesSum4 = [suggestionCopy statementPurchasesSum];
-      v68 = [v66 compare:statementPurchasesSum4] == -1;
+      v71 = [v69 compare:statementPurchasesSum4] == -1;
 
-      if (v68)
+      if (v71)
       {
-        v69 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:v66 category:3];
+        v52 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:v69 category:4];
 
-        [v69 setMerchantCategory:v194];
-        [v20 addObject:v69];
+        [v52 setMerchantCategory:v190];
+        [v20 addObject:v52];
       }
 
       else
       {
-        v69 = v54;
+        v52 = v67;
       }
     }
 
     else
     {
-      v69 = v54;
-    }
-
-    if (v157)
-    {
-      previousStatementPaymentsSum7 = [suggestionCopy previousStatementPaymentsSum];
-      v71 = [v157 decimalNumberByAdding:previousStatementPaymentsSum7];
-
-      statementPurchasesSum5 = [suggestionCopy statementPurchasesSum];
-      v73 = [v71 compare:statementPurchasesSum5] == -1;
-
-      if (v73)
-      {
-        v54 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:v71 category:4];
-
-        [v54 setMerchantCategory:v193];
-        [v20 addObject:v54];
-      }
-
-      else
-      {
-        v54 = v69;
-      }
-    }
-
-    else
-    {
-      v54 = v69;
+      v52 = v67;
     }
   }
 
   if (statementBalance)
   {
-    statementPurchasesSum6 = [suggestionCopy statementPurchasesSum];
-    v75 = !statementPurchasesSum6 || zero2 == 0;
-    v76 = !v75;
+    statementPurchasesSum5 = [suggestionCopy statementPurchasesSum];
+    v73 = !statementPurchasesSum5 || zero2 == 0;
+    v74 = !v73;
 
-    if (v76)
+    if (v74)
     {
-      statementPurchasesSum7 = [suggestionCopy statementPurchasesSum];
-      v78 = [(FHPaymentRingSuggestionController *)self _suggestedAmountsForPayOffDateForStatementBalance:statementBalance statementPurchasesSum:statementPurchasesSum7 creditUtilization:zero2 lastPaymentCategory:v201[3]];
+      statementPurchasesSum6 = [suggestionCopy statementPurchasesSum];
+      v76 = [(FHPaymentRingSuggestionController *)self _suggestedAmountsForPayOffDateForStatementBalance:statementBalance statementPurchasesSum:statementPurchasesSum6 creditUtilization:zero2 lastPaymentCategory:v198[3]];
 
-      [v20 addObject:v78];
-      v54 = v78;
+      [v20 addObject:v76];
+      v52 = v76;
     }
   }
 
-  v79 = dispatch_semaphore_create(0);
+  v77 = dispatch_semaphore_create(0);
   searchController = self->_searchController;
-  v188[0] = MEMORY[0x277D85DD0];
-  v188[1] = 3221225472;
-  v188[2] = __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___block_invoke_89;
-  v188[3] = &unk_278FFB520;
-  v190 = &v204;
-  v81 = v79;
-  v189 = v81;
-  [(FHSearchSuggestionController *)searchController paymentRingSuggestionsFromSearchFeatures:@"Payment Ring" startDate:openingDate endDate:closingDate completion:v188];
-  v82 = dispatch_time(0, 1000000000);
-  dispatch_semaphore_wait(v81, v82);
-  v186 = 0u;
-  v187 = 0u;
+  v185[0] = MEMORY[0x277D85DD0];
+  v185[1] = 3221225472;
+  v185[2] = __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___block_invoke_89;
+  v185[3] = &unk_278FFB520;
+  v187 = &v201;
+  v79 = v77;
+  v186 = v79;
+  [(FHSearchSuggestionController *)searchController paymentRingSuggestionsFromSearchFeatures:@"Payment Ring" startDate:openingDate endDate:closingDate completion:v185];
+  v80 = dispatch_time(0, 1000000000);
+  dispatch_semaphore_wait(v79, v80);
+  v183 = 0u;
   v184 = 0u;
-  v185 = 0u;
-  v83 = v205[5];
-  v84 = [v83 countByEnumeratingWithState:&v184 objects:v213 count:16];
-  v153 = v81;
-  if (v84)
+  v181 = 0u;
+  v182 = 0u;
+  v81 = v202[5];
+  v82 = [v81 countByEnumeratingWithState:&v181 objects:v210 count:16];
+  v151 = v79;
+  if (v82)
   {
-    v85 = *v185;
+    v83 = *v182;
     do
     {
-      for (i = 0; i != v84; ++i)
+      for (i = 0; i != v82; ++i)
       {
-        if (*v185 != v85)
+        if (*v182 != v83)
         {
-          objc_enumerationMutation(v83);
+          objc_enumerationMutation(v81);
         }
 
-        v87 = *(*(&v184 + 1) + 8 * i);
-        featureRank = [v87 featureRank];
-        featureLabel = [v87 featureLabel];
-        v90 = FHPaymentRingSuggestionCategoryFromString();
+        v85 = *(*(&v181 + 1) + 8 * i);
+        featureRank = [v85 featureRank];
+        featureLabel = [v85 featureLabel];
+        v88 = FHPaymentRingSuggestionCategoryFromString();
 
-        if (v90 != 32)
+        if (v88 != 32)
         {
-          v91 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:featureRank category:v90];
+          v89 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:featureRank category:v88];
 
-          [v20 addObject:v91];
-          v54 = v91;
+          [v20 addObject:v89];
+          v52 = v89;
         }
       }
 
-      v84 = [v83 countByEnumeratingWithState:&v184 objects:v213 count:16];
+      v82 = [v81 countByEnumeratingWithState:&v181 objects:v210 count:16];
     }
 
-    while (v84);
+    while (v82);
   }
 
   if (self->_isOnPaymentPlan)
   {
     paymentAmountCategory = [*(*&buf[8] + 40) paymentAmountCategory];
-    v93 = 0x277CCA000;
-    v94 = paymentAmountCategory;
+    v91 = 0x277CCA000;
+    v92 = paymentAmountCategory;
   }
 
   else
   {
-    v94 = v201[3];
-    v93 = 0x277CCA000uLL;
+    v92 = v198[3];
+    v91 = 0x277CCA000uLL;
   }
 
-  zero8 = [*(v93 + 2432) zero];
-  v182 = 0u;
-  v183 = 0u;
+  zero6 = [*(v91 + 2432) zero];
+  v179 = 0u;
   v180 = 0u;
-  v181 = 0u;
+  v177 = 0u;
+  v178 = 0u;
   paymentDetails2 = [suggestionCopy paymentDetails];
-  v96 = [paymentDetails2 countByEnumeratingWithState:&v180 objects:v212 count:16];
-  if (v96)
+  v94 = [paymentDetails2 countByEnumeratingWithState:&v177 objects:v209 count:16];
+  if (v94)
   {
-    v97 = *v181;
+    v95 = *v178;
     while (2)
     {
-      for (j = 0; j != v96; ++j)
+      for (j = 0; j != v94; ++j)
       {
-        if (*v181 != v97)
+        if (*v178 != v95)
         {
           objc_enumerationMutation(paymentDetails2);
         }
 
-        v99 = *(*(&v180 + 1) + 8 * j);
-        paymentAmountCategory2 = [v99 paymentAmountCategory];
-        if (paymentAmountCategory2 == v201[3])
+        v97 = *(*(&v177 + 1) + 8 * j);
+        paymentAmountCategory2 = [v97 paymentAmountCategory];
+        if (paymentAmountCategory2 == v198[3])
         {
-          transactionAmount = [v99 transactionAmount];
+          transactionAmount = [v97 transactionAmount];
 
-          zero8 = transactionAmount;
+          zero6 = transactionAmount;
           goto LABEL_91;
         }
       }
 
-      v96 = [paymentDetails2 countByEnumeratingWithState:&v180 objects:v212 count:16];
-      if (v96)
+      v94 = [paymentDetails2 countByEnumeratingWithState:&v177 objects:v209 count:16];
+      if (v94)
       {
         continue;
       }
@@ -518,27 +487,27 @@ LABEL_45:
 
 LABEL_91:
 
-  previousStatementPaymentsSum8 = [suggestionCopy previousStatementPaymentsSum];
-  statementPurchasesSum8 = [suggestionCopy statementPurchasesSum];
-  v159 = [(FHPaymentRingSuggestionController *)self _calculateThresholdForLastPaymentCategory:v94 statementBalance:statementBalance lastPaymentCategoryAmount:zero8 previousStatementPaymentsSum:previousStatementPaymentsSum8 statementPurchasesSum:statementPurchasesSum8];
+  previousStatementPaymentsSum6 = [suggestionCopy previousStatementPaymentsSum];
+  statementPurchasesSum7 = [suggestionCopy statementPurchasesSum];
+  v156 = [(FHPaymentRingSuggestionController *)self _calculateThresholdForLastPaymentCategory:v92 statementBalance:statementBalance lastPaymentCategoryAmount:zero6 previousStatementPaymentsSum:previousStatementPaymentsSum6 statementPurchasesSum:statementPurchasesSum7];
+
+  v102 = FinHealthLogObject();
+  if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
+  {
+    *v211 = 138412290;
+    v212 = v156;
+    _os_log_impl(&dword_24ABD8000, v102, OS_LOG_TYPE_DEBUG, "Calculated Threshold value : %@", v211, 0xCu);
+  }
+
+  v103 = [(FHPaymentRingSuggestionController *)self _filterSuggestions:v20 belowThreshold:v156];
 
   v104 = FinHealthLogObject();
   if (os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
   {
-    *v214 = 138412290;
-    v215 = v159;
-    _os_log_impl(&dword_24ABD8000, v104, OS_LOG_TYPE_DEBUG, "Calculated Threshold value : %@", v214, 0xCu);
-  }
-
-  v105 = [(FHPaymentRingSuggestionController *)self _filterSuggestions:v20 belowThreshold:v159];
-
-  v106 = FinHealthLogObject();
-  if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
-  {
-    previousStatementPaymentsSum8 = [v105 description];
-    *v214 = 138412290;
-    v215 = previousStatementPaymentsSum8;
-    _os_log_impl(&dword_24ABD8000, v106, OS_LOG_TYPE_DEBUG, "FinHealth Suggestions after threshold value : %@", v214, 0xCu);
+    previousStatementPaymentsSum6 = [v103 description];
+    *v211 = 138412290;
+    v212 = previousStatementPaymentsSum6;
+    _os_log_impl(&dword_24ABD8000, v104, OS_LOG_TYPE_DEBUG, "FinHealth Suggestions after threshold value : %@", v211, 0xCu);
   }
 
   if (!statementBalance)
@@ -546,18 +515,18 @@ LABEL_91:
     goto LABEL_108;
   }
 
-  statementPurchasesSum9 = [suggestionCopy statementPurchasesSum];
-  if (statementPurchasesSum9)
+  statementPurchasesSum8 = [suggestionCopy statementPurchasesSum];
+  if (statementPurchasesSum8)
   {
-    statementPurchasesSum10 = [suggestionCopy statementPurchasesSum];
-    v109 = [statementBalance compare:statementPurchasesSum10];
-    if (!v109 || ([suggestionCopy statementPurchasesSum], previousStatementPaymentsSum8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(statementBalance, "compare:", previousStatementPaymentsSum8) == -1))
+    statementPurchasesSum9 = [suggestionCopy statementPurchasesSum];
+    v107 = [statementBalance compare:statementPurchasesSum9];
+    if (!v107 || ([suggestionCopy statementPurchasesSum], previousStatementPaymentsSum6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(statementBalance, "compare:", previousStatementPaymentsSum6) == -1))
     {
-      v110 = [creditLimit compare:statementBalance] == 1;
-      if (v109)
+      v108 = [creditLimit compare:statementBalance] == 1;
+      if (v107)
       {
 
-        if (!v110)
+        if (!v108)
         {
           goto LABEL_106;
         }
@@ -566,175 +535,174 @@ LABEL_91:
       else
       {
 
-        if (!v110)
+        if (!v108)
         {
           goto LABEL_106;
         }
       }
 
-      v111 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
-      v112 = [statementBalance decimalNumberByDividingBy:v111];
-      v113 = [statementBalance decimalNumberBySubtracting:v112];
-      v114 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
-      v115 = [statementBalance decimalNumberByDividingBy:v114];
-      v116 = [creditLimit decimalNumberBySubtracting:v115];
-      v117 = [v113 decimalNumberByDividingBy:v116];
+      v109 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
+      v110 = [statementBalance decimalNumberByDividingBy:v109];
+      v111 = [statementBalance decimalNumberBySubtracting:v110];
+      v112 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
+      v113 = [statementBalance decimalNumberByDividingBy:v112];
+      v114 = [creditLimit decimalNumberBySubtracting:v113];
+      v115 = [v111 decimalNumberByDividingBy:v114];
 
-      v118 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.33"];
-      v119 = [v117 compare:v118] == -1;
+      v116 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.33"];
+      v117 = [v115 compare:v116] == -1;
 
-      if (v119)
+      if (v117)
       {
-        v152 = objc_alloc(MEMORY[0x277D08818]);
-        v123 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
-        v124 = [statementBalance decimalNumberByDividingBy:v123];
-        v125 = [statementBalance decimalNumberBySubtracting:v124];
-        v167 = [MEMORY[0x277CCA980] decimalNumberWithString:@"3"];
-        v156 = [v125 decimalNumberByDividingBy:v167];
-        v126 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
-        v127 = [statementBalance decimalNumberByDividingBy:v126];
-        v128 = [v156 decimalNumberByAdding:v127];
-        v129 = [v152 initWithAmount:v128 category:23];
+        v150 = objc_alloc(MEMORY[0x277D08818]);
+        v121 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
+        v122 = [statementBalance decimalNumberByDividingBy:v121];
+        v123 = [statementBalance decimalNumberBySubtracting:v122];
+        v164 = [MEMORY[0x277CCA980] decimalNumberWithString:@"3"];
+        v153 = [v123 decimalNumberByDividingBy:v164];
+        v124 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
+        v125 = [statementBalance decimalNumberByDividingBy:v124];
+        v126 = [v153 decimalNumberByAdding:v125];
+        v127 = [v150 initWithAmount:v126 category:23];
       }
 
       else
       {
-        v120 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.67"];
-        v121 = [v117 compare:v120] == -1;
+        v118 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.67"];
+        v119 = [v115 compare:v118] == -1;
 
-        v122 = objc_alloc(MEMORY[0x277D08818]);
-        v123 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
-        v124 = [statementBalance decimalNumberByDividingBy:v123];
-        v125 = [statementBalance decimalNumberBySubtracting:v124];
-        if (v121)
+        v120 = objc_alloc(MEMORY[0x277D08818]);
+        v121 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
+        v122 = [statementBalance decimalNumberByDividingBy:v121];
+        v123 = [statementBalance decimalNumberBySubtracting:v122];
+        if (v119)
         {
-          v167 = [MEMORY[0x277CCA980] decimalNumberWithString:@"6"];
-          v156 = [v125 decimalNumberByDividingBy:v167];
-          v126 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
-          v127 = [statementBalance decimalNumberByDividingBy:v126];
-          v128 = [v156 decimalNumberByAdding:v127];
-          v129 = [v122 initWithAmount:v128 category:24];
+          v164 = [MEMORY[0x277CCA980] decimalNumberWithString:@"6"];
+          v153 = [v123 decimalNumberByDividingBy:v164];
+          v124 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
+          v125 = [statementBalance decimalNumberByDividingBy:v124];
+          v126 = [v153 decimalNumberByAdding:v125];
+          v127 = [v120 initWithAmount:v126 category:24];
         }
 
         else
         {
-          v167 = [MEMORY[0x277CCA980] decimalNumberWithString:@"9"];
-          v156 = [v125 decimalNumberByDividingBy:v167];
-          v126 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
-          v127 = [statementBalance decimalNumberByDividingBy:v126];
-          v128 = [v156 decimalNumberByAdding:v127];
-          v129 = [v122 initWithAmount:v128 category:25];
+          v164 = [MEMORY[0x277CCA980] decimalNumberWithString:@"9"];
+          v153 = [v123 decimalNumberByDividingBy:v164];
+          v124 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
+          v125 = [statementBalance decimalNumberByDividingBy:v124];
+          v126 = [v153 decimalNumberByAdding:v125];
+          v127 = [v120 initWithAmount:v126 category:25];
         }
       }
 
-      v30 = v129;
+      v30 = v127;
 
-      [v105 addObject:v30];
+      [v103 addObject:v30];
       goto LABEL_109;
     }
   }
 
 LABEL_106:
-  if (remainingMinimumPayment && ![(FHPaymentRingSuggestionController *)self _categoryIsPaymentPlan:v201[3]])
+  if (remainingMinimumPayment && ![(FHPaymentRingSuggestionController *)self _categoryIsPaymentPlan:v198[3]])
   {
-    v148 = objc_alloc(MEMORY[0x277D08818]);
-    v149 = [statementBalance decimalNumberByAdding:remainingMinimumPayment];
-    v150 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
-    v151 = [v149 decimalNumberByDividingBy:v150];
-    v30 = [v148 initWithAmount:v151 category:29];
+    v146 = objc_alloc(MEMORY[0x277D08818]);
+    v147 = [statementBalance decimalNumberByAdding:remainingMinimumPayment];
+    v148 = [MEMORY[0x277CCA980] decimalNumberWithString:@"2"];
+    v149 = [v147 decimalNumberByDividingBy:v148];
+    v30 = [v146 initWithAmount:v149 category:29];
 
-    [v105 addObject:v30];
+    [v103 addObject:v30];
     goto LABEL_109;
   }
 
 LABEL_108:
-  v30 = v54;
+  v30 = v52;
 LABEL_109:
-  v178 = 0u;
-  v179 = 0u;
+  v175 = 0u;
   v176 = 0u;
-  v177 = 0u;
-  v130 = v205[5];
-  v131 = [v130 countByEnumeratingWithState:&v176 objects:v211 count:16];
-  if (v131)
+  v173 = 0u;
+  v174 = 0u;
+  v128 = v202[5];
+  v129 = [v128 countByEnumeratingWithState:&v173 objects:v208 count:16];
+  if (v129)
   {
-    v132 = *v177;
+    v130 = *v174;
     do
     {
-      for (k = 0; k != v131; ++k)
+      for (k = 0; k != v129; ++k)
       {
-        if (*v177 != v132)
+        if (*v174 != v130)
         {
-          objc_enumerationMutation(v130);
+          objc_enumerationMutation(v128);
         }
 
-        v134 = *(*(&v176 + 1) + 8 * k);
-        featureRank2 = [v134 featureRank];
-        featureLabel2 = [v134 featureLabel];
-        v137 = FHPaymentRingSuggestionCategoryFromString();
+        v132 = *(*(&v173 + 1) + 8 * k);
+        featureRank2 = [v132 featureRank];
+        featureLabel2 = [v132 featureLabel];
+        v135 = FHPaymentRingSuggestionCategoryFromString();
 
-        if (v137 == 32)
+        if (v135 == 32)
         {
-          v138 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:featureRank2 category:32];
+          v136 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:featureRank2 category:32];
 
-          [v105 addObject:v138];
-          v30 = v138;
+          [v103 addObject:v136];
+          v30 = v136;
         }
       }
 
-      v131 = [v130 countByEnumeratingWithState:&v176 objects:v211 count:16];
+      v129 = [v128 countByEnumeratingWithState:&v173 objects:v208 count:16];
     }
 
-    while (v131);
+    while (v129);
   }
 
   currentStatementPaymentsSum = [suggestionCopy currentStatementPaymentsSum];
 
   if (currentStatementPaymentsSum)
   {
-    v174 = 0u;
-    v175 = 0u;
+    v171 = 0u;
     v172 = 0u;
-    v173 = 0u;
-    v140 = v105;
-    v141 = [v140 countByEnumeratingWithState:&v172 objects:v210 count:16];
-    if (v141)
+    v169 = 0u;
+    v170 = 0u;
+    v138 = v103;
+    v139 = [v138 countByEnumeratingWithState:&v169 objects:v207 count:16];
+    if (v139)
     {
-      v142 = *v173;
+      v140 = *v170;
       do
       {
-        for (m = 0; m != v141; ++m)
+        for (m = 0; m != v139; ++m)
         {
-          if (*v173 != v142)
+          if (*v170 != v140)
           {
-            objc_enumerationMutation(v140);
+            objc_enumerationMutation(v138);
           }
 
-          v144 = *(*(&v172 + 1) + 8 * m);
-          amount = [v144 amount];
+          v142 = *(*(&v169 + 1) + 8 * m);
+          amount = [v142 amount];
           currentStatementPaymentsSum2 = [suggestionCopy currentStatementPaymentsSum];
-          v147 = [amount decimalNumberBySubtracting:currentStatementPaymentsSum2];
+          v145 = [amount decimalNumberBySubtracting:currentStatementPaymentsSum2];
 
-          [v144 setAmount:v147];
+          [v142 setAmount:v145];
         }
 
-        v141 = [v140 countByEnumeratingWithState:&v172 objects:v210 count:16];
+        v139 = [v138 countByEnumeratingWithState:&v169 objects:v207 count:16];
       }
 
-      while (v141);
+      while (v139);
     }
   }
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v200, 8);
-  v20 = v105;
+  _Block_object_dispose(&v197, 8);
+  v20 = v103;
 LABEL_18:
-  v39 = v20;
+  v38 = v20;
 
-  _Block_object_dispose(&v204, 8);
-  v40 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v201, 8);
 
-  return v39;
+  return v38;
 }
 
 void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -757,50 +725,48 @@ void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___blo
 
 void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___block_invoke_89(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v13 = a1;
+  v11 = a1;
   [*(*(*(a1 + 40) + 8) + 40) addObjectsFromArray:v3];
-  v16 = 0u;
-  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
-    v8 = *MEMORY[0x277D087C0];
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = FinHealthLogObject();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v9 = *(*(&v12 + 1) + 8 * i);
+        v10 = FinHealthLogObject();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v19 = "[FHPaymentRingSuggestionController generatePaymentRingSuggestion:]_block_invoke";
-          v20 = 2112;
-          v21 = v10;
-          _os_log_impl(&dword_24ABD8000, v11, OS_LOG_TYPE_DEBUG, "[%s] FinHealth suggestion: %@", buf, 0x16u);
+          v17 = "[FHPaymentRingSuggestionController generatePaymentRingSuggestion:]_block_invoke";
+          v18 = 2112;
+          v19 = v9;
+          _os_log_impl(&dword_24ABD8000, v10, OS_LOG_TYPE_DEBUG, "[%s] FinHealth suggestion: %@", buf, 0x16u);
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  dispatch_semaphore_signal(*(v13 + 32));
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_semaphore_signal(*(v11 + 32));
 }
 
 - (void)recordPaymentRingAction:(id)action
@@ -831,7 +797,7 @@ void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___blo
 
 - (id)_zerothOrFirstMonthPaymentRingSuggestionsForList:(id)list
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   listCopy = list;
   currentStatement = [listCopy currentStatement];
   creditLimit = [currentStatement creditLimit];
@@ -846,7 +812,7 @@ void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___blo
     zero = [MEMORY[0x277CCA980] zero];
   }
 
-  v101 = zero;
+  v99 = zero;
 
   currentStatement2 = [listCopy currentStatement];
   currentBalanceForMonthZero = [currentStatement2 currentBalanceForMonthZero];
@@ -864,8 +830,8 @@ void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___blo
     zero2 = [MEMORY[0x277CCA980] zero];
   }
 
-  v104 = zero2;
-  v14 = v101;
+  v102 = zero2;
+  v14 = v99;
 
   currentStatement4 = [listCopy currentStatement];
   remainingStatementBalance = [currentStatement4 remainingStatementBalance];
@@ -880,7 +846,7 @@ void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___blo
     zero3 = [MEMORY[0x277CCA980] zero];
   }
 
-  v103 = zero3;
+  v101 = zero3;
 
   currentStatement5 = [listCopy currentStatement];
   minimumDue = [currentStatement5 minimumDue];
@@ -895,7 +861,7 @@ void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___blo
     zero4 = [MEMORY[0x277CCA980] zero];
   }
 
-  v105 = zero4;
+  v103 = zero4;
 
   currentStatement6 = [listCopy currentStatement];
   statementBalance = [currentStatement6 statementBalance];
@@ -910,7 +876,7 @@ void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___blo
     zero5 = [MEMORY[0x277CCA980] zero];
   }
 
-  v106 = zero5;
+  v104 = zero5;
 
   currentStatement7 = [listCopy currentStatement];
   isMonthZero = [currentStatement7 isMonthZero];
@@ -918,84 +884,83 @@ void __67__FHPaymentRingSuggestionController_generatePaymentRingSuggestion___blo
   currentStatement8 = [listCopy currentStatement];
   LODWORD(v30) = [currentStatement8 isMonthOne];
 
-  v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v31 = *MEMORY[0x277D087C0];
-  v32 = FinHealthLogObject();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v100 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = FinHealthLogObject();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138414082;
-    *&buf[4] = v101;
+    *&buf[4] = v99;
+    v115 = 2112;
+    v116 = currentBalanceForMonthZero;
     v117 = 2112;
-    v118 = currentBalanceForMonthZero;
+    v118 = v102;
     v119 = 2112;
-    v120 = v104;
+    v120 = v101;
     v121 = 2112;
     v122 = v103;
     v123 = 2112;
-    v124 = v105;
-    v125 = 2112;
-    v126 = v106;
+    v124 = v104;
+    v125 = 1024;
+    v126 = isMonthZero;
     v127 = 1024;
-    v128 = isMonthZero;
-    v129 = 1024;
-    v130 = v30;
-    _os_log_impl(&dword_24ABD8000, v32, OS_LOG_TYPE_DEBUG, "Month-zero values CL, CB, RMP, RSB, MD, SB, isMonthZero, isMonthOne, %@, %@, %@, %@, %@, %@, %d, %d", buf, 0x4Au);
+    v128 = v30;
+    _os_log_impl(&dword_24ABD8000, v31, OS_LOG_TYPE_DEBUG, "Month-zero values CL, CB, RMP, RSB, MD, SB, isMonthZero, isMonthOne, %@, %@, %@, %@, %@, %@, %d, %d", buf, 0x4Au);
   }
 
   zero6 = [MEMORY[0x277CCA980] zero];
-  v34 = zero6;
-  if (currentBalanceForMonthZero && v101)
+  v33 = zero6;
+  if (currentBalanceForMonthZero && v99)
   {
-    v35 = v30;
+    v34 = v30;
     zero7 = [MEMORY[0x277CCA980] zero];
-    v37 = [v101 isEqualToNumber:zero7];
+    v36 = [v99 isEqualToNumber:zero7];
 
-    if (v37)
+    if (v36)
     {
-      v38 = v34;
+      v37 = v33;
     }
 
     else
     {
-      v39 = [currentBalanceForMonthZero decimalNumberByDividingBy:v101];
+      v38 = [currentBalanceForMonthZero decimalNumberByDividingBy:v99];
 
-      v40 = FinHealthLogObject();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v39 = FinHealthLogObject();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        *&buf[4] = v39;
-        _os_log_impl(&dword_24ABD8000, v40, OS_LOG_TYPE_DEBUG, "Logging creditUtilizationForMonthZero %@", buf, 0xCu);
+        *&buf[4] = v38;
+        _os_log_impl(&dword_24ABD8000, v39, OS_LOG_TYPE_DEBUG, "Logging creditUtilizationForMonthZero %@", buf, 0xCu);
       }
 
-      v38 = v39;
+      v37 = v38;
     }
 
-    LOBYTE(v30) = v35;
+    LOBYTE(v30) = v34;
   }
 
   else
   {
-    v38 = zero6;
+    v37 = zero6;
   }
 
   zero8 = [MEMORY[0x277CCA980] zero];
-  if (currentBalanceForMonthZero && v106)
+  if (currentBalanceForMonthZero && v104)
   {
-    v41 = v38;
+    v40 = v37;
     zero9 = [MEMORY[0x277CCA980] zero];
     if (([currentBalanceForMonthZero isEqualToNumber:zero9] & 1) == 0)
     {
       zero10 = [MEMORY[0x277CCA980] zero];
-      v44 = [v101 isEqualToNumber:zero10];
+      v43 = [v99 isEqualToNumber:zero10];
 
-      if (v44)
+      if (v43)
       {
 LABEL_33:
-        v38 = v41;
+        v37 = v40;
         goto LABEL_34;
       }
 
-      [v106 decimalNumberByDividingBy:v101];
+      [v104 decimalNumberByDividingBy:v99];
       zero8 = zero9 = zero8;
     }
 
@@ -1009,153 +974,153 @@ LABEL_34:
   }
 
   *buf = 0;
-  v113 = 0;
-  v114 = 0;
+  v111 = 0;
   v112 = 0;
+  v110 = 0;
   merchantCategoryTransactionSums = [listCopy merchantCategoryTransactionSums];
-  [(FHPaymentRingSuggestionController *)self _minimumMerchcantCategoriesAboveMinimumAmount:v104 minMerchantCategory1:buf minMerchantCategory2:&v114 minMerchantCategorySum1:&v113 minMerchantCategorySum2:&v112 merchantCategoryTransactionSums:merchantCategoryTransactionSums];
-  v46 = v113;
-  v98 = v112;
+  [(FHPaymentRingSuggestionController *)self _minimumMerchcantCategoriesAboveMinimumAmount:v102 minMerchantCategory1:buf minMerchantCategory2:&v112 minMerchantCategorySum1:&v111 minMerchantCategorySum2:&v110 merchantCategoryTransactionSums:merchantCategoryTransactionSums];
+  v45 = v111;
+  v96 = v110;
 
-  v96 = v46;
-  if (!v46)
+  v94 = v45;
+  if (!v45)
   {
-    v99 = 0;
-    v48 = v102;
+    v97 = 0;
+    v47 = v100;
     goto LABEL_45;
   }
 
-  v47 = [v46 decimalNumberByAdding:{v105, v46}];
-  v48 = v102;
+  v46 = [v45 decimalNumberByAdding:{v103, v45}];
+  v47 = v100;
   if (isMonthZero)
   {
     goto LABEL_43;
   }
 
-  if ((v30 & 1) != 0 || ([listCopy previousStatementPaymentsSum], (v49 = objc_claimAutoreleasedReturnValue()) == 0))
+  if ((v30 & 1) != 0 || ([listCopy previousStatementPaymentsSum], (v48 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    if ([v47 compare:v103] != -1)
+    if ([v46 compare:v101] != -1)
     {
       goto LABEL_42;
     }
 
 LABEL_43:
-    v50 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:v47 category:3];
-    [v50 setMerchantCategory:*buf];
-    v99 = v50;
-    [v102 addObject:v50];
+    v49 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:v46 category:3];
+    [v49 setMerchantCategory:*buf];
+    v97 = v49;
+    [v100 addObject:v49];
     goto LABEL_44;
   }
 
 LABEL_42:
-  v99 = 0;
+  v97 = 0;
 LABEL_44:
 
 LABEL_45:
-  if (!v98)
+  if (!v96)
   {
     goto LABEL_53;
   }
 
-  v51 = [v98 decimalNumberByAdding:v105];
+  v50 = [v96 decimalNumberByAdding:v103];
   if (isMonthZero)
   {
     goto LABEL_51;
   }
 
-  if ((v30 & 1) != 0 || ([listCopy previousStatementPaymentsSum], (v52 = objc_claimAutoreleasedReturnValue()) == 0))
+  if ((v30 & 1) != 0 || ([listCopy previousStatementPaymentsSum], (v51 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     currentStatement9 = [listCopy currentStatement];
     [currentStatement9 remainingStatementBalance];
-    v30 = v54 = v30;
-    v55 = [v51 compare:v30];
+    v30 = v53 = v30;
+    v54 = [v50 compare:v30];
 
-    LOBYTE(v30) = v54;
-    v48 = v102;
+    LOBYTE(v30) = v53;
+    v47 = v100;
 
-    if (v55 != -1)
+    if (v54 != -1)
     {
       goto LABEL_52;
     }
 
 LABEL_51:
-    v56 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:v51 category:4];
+    v55 = [objc_alloc(MEMORY[0x277D08818]) initWithAmount:v50 category:4];
 
-    [v56 setMerchantCategory:v114];
-    [v48 addObject:v56];
-    v99 = v56;
+    [v55 setMerchantCategory:v112];
+    [v47 addObject:v55];
+    v97 = v55;
     goto LABEL_52;
   }
 
 LABEL_52:
 LABEL_53:
-  if (v38)
+  if (v37)
   {
-    v57 = isMonthZero;
+    v56 = isMonthZero;
   }
 
   else
   {
-    v57 = 0;
+    v56 = 0;
   }
 
-  v97 = v38;
-  if (currentBalanceForMonthZero && v57)
+  v95 = v37;
+  if (currentBalanceForMonthZero && v56)
   {
-    v58 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.33"];
-    v59 = [v38 compare:v58];
+    v57 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.33"];
+    v58 = [v37 compare:v57];
 
-    if (v59 == -1)
+    if (v58 == -1)
     {
-      v80 = objc_alloc(MEMORY[0x277D08818]);
-      v63 = [MEMORY[0x277CCA980] decimalNumberWithString:@"3"];
-      v64 = [currentBalanceForMonthZero decimalNumberByDividingBy:v63];
-      v65 = v80;
-      v66 = v64;
-      v67 = 20;
+      v79 = objc_alloc(MEMORY[0x277D08818]);
+      v62 = [MEMORY[0x277CCA980] decimalNumberWithString:@"3"];
+      v63 = [currentBalanceForMonthZero decimalNumberByDividingBy:v62];
+      v64 = v79;
+      v65 = v63;
+      v66 = 20;
     }
 
     else
     {
-      v60 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.67"];
-      v61 = [v38 compare:v60];
+      v59 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.67"];
+      v60 = [v37 compare:v59];
 
-      v62 = objc_alloc(MEMORY[0x277D08818]);
-      if (v61 == -1)
+      v61 = objc_alloc(MEMORY[0x277D08818]);
+      if (v60 == -1)
       {
-        v63 = [MEMORY[0x277CCA980] decimalNumberWithString:@"6"];
-        v64 = [currentBalanceForMonthZero decimalNumberByDividingBy:v63];
-        v65 = v62;
-        v66 = v64;
-        v67 = 21;
+        v62 = [MEMORY[0x277CCA980] decimalNumberWithString:@"6"];
+        v63 = [currentBalanceForMonthZero decimalNumberByDividingBy:v62];
+        v64 = v61;
+        v65 = v63;
+        v66 = 21;
       }
 
       else
       {
-        v63 = [MEMORY[0x277CCA980] decimalNumberWithString:@"9"];
-        v64 = [currentBalanceForMonthZero decimalNumberByDividingBy:v63];
-        v65 = v62;
-        v66 = v64;
-        v67 = 22;
+        v62 = [MEMORY[0x277CCA980] decimalNumberWithString:@"9"];
+        v63 = [currentBalanceForMonthZero decimalNumberByDividingBy:v62];
+        v64 = v61;
+        v65 = v63;
+        v66 = 22;
       }
     }
 
-    v82 = [v65 initWithAmount:v66 category:{v67, v96}];
+    v81 = [v64 initWithAmount:v65 category:{v66, v94}];
   }
 
   else
   {
     if (zero8)
     {
-      v68 = v30;
+      v67 = v30;
     }
 
     else
     {
-      v68 = 0;
+      v67 = 0;
     }
 
-    if (!v106 || (v68 & 1) == 0)
+    if (!v104 || (v67 & 1) == 0)
     {
       previousStatementPaymentsSum = [listCopy previousStatementPaymentsSum];
 
@@ -1165,104 +1130,102 @@ LABEL_53:
       }
     }
 
-    v70 = [MEMORY[0x277CCA980] decimalNumberWithString:{@"0.33", v96}];
-    v71 = [zero8 compare:v70];
+    v69 = [MEMORY[0x277CCA980] decimalNumberWithString:{@"0.33", v94}];
+    v70 = [zero8 compare:v69];
 
-    if (v71 == -1)
+    if (v70 == -1)
     {
-      v81 = objc_alloc(MEMORY[0x277D08818]);
-      v75 = [MEMORY[0x277CCA980] decimalNumberWithString:@"3"];
-      v76 = [v106 decimalNumberByDividingBy:v75];
-      v77 = v81;
-      v78 = v76;
-      v79 = 26;
+      v80 = objc_alloc(MEMORY[0x277D08818]);
+      v74 = [MEMORY[0x277CCA980] decimalNumberWithString:@"3"];
+      v75 = [v104 decimalNumberByDividingBy:v74];
+      v76 = v80;
+      v77 = v75;
+      v78 = 26;
     }
 
     else
     {
-      v72 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.67"];
-      v73 = [zero8 compare:v72];
+      v71 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.67"];
+      v72 = [zero8 compare:v71];
 
-      v74 = objc_alloc(MEMORY[0x277D08818]);
-      if (v73 == -1)
+      v73 = objc_alloc(MEMORY[0x277D08818]);
+      if (v72 == -1)
       {
-        v75 = [MEMORY[0x277CCA980] decimalNumberWithString:@"6"];
-        v76 = [v106 decimalNumberByDividingBy:v75];
-        v77 = v74;
-        v78 = v76;
-        v79 = 27;
+        v74 = [MEMORY[0x277CCA980] decimalNumberWithString:@"6"];
+        v75 = [v104 decimalNumberByDividingBy:v74];
+        v76 = v73;
+        v77 = v75;
+        v78 = 27;
       }
 
       else
       {
-        v75 = [MEMORY[0x277CCA980] decimalNumberWithString:@"9"];
-        v76 = [v106 decimalNumberByDividingBy:v75];
-        v77 = v74;
-        v78 = v76;
-        v79 = 28;
+        v74 = [MEMORY[0x277CCA980] decimalNumberWithString:@"9"];
+        v75 = [v104 decimalNumberByDividingBy:v74];
+        v76 = v73;
+        v77 = v75;
+        v78 = 28;
       }
     }
 
-    v82 = [v77 initWithAmount:v78 category:v79];
+    v81 = [v76 initWithAmount:v77 category:v78];
 
-    amount = [v82 amount];
-    v84 = [amount compare:v103];
+    amount = [v81 amount];
+    v83 = [amount compare:v101];
 
-    v99 = v82;
-    if (v84 != -1)
+    v97 = v81;
+    if (v83 != -1)
     {
       goto LABEL_77;
     }
   }
 
-  [v48 addObject:v82];
-  v99 = v82;
+  [v47 addObject:v81];
+  v97 = v81;
 LABEL_77:
   currentStatementPaymentsSum = [listCopy currentStatementPaymentsSum];
+  v106 = 0u;
+  v107 = 0u;
   v108 = 0u;
   v109 = 0u;
-  v110 = 0u;
-  v111 = 0u;
-  v86 = v48;
-  v87 = [v86 countByEnumeratingWithState:&v108 objects:v115 count:16];
-  if (v87)
+  v85 = v47;
+  v86 = [v85 countByEnumeratingWithState:&v106 objects:v113 count:16];
+  if (v86)
   {
-    v88 = v87;
-    v89 = *v109;
+    v87 = v86;
+    v88 = *v107;
     do
     {
-      for (i = 0; i != v88; ++i)
+      for (i = 0; i != v87; ++i)
       {
-        if (*v109 != v89)
+        if (*v107 != v88)
         {
-          objc_enumerationMutation(v86);
+          objc_enumerationMutation(v85);
         }
 
         if (currentStatementPaymentsSum)
         {
-          v91 = *(*(&v108 + 1) + 8 * i);
-          amount2 = [v91 amount];
-          if (!-[FHPaymentRingSuggestionController _categoryIsCurrentBalanceType:](self, "_categoryIsCurrentBalanceType:", [v91 category]))
+          v90 = *(*(&v106 + 1) + 8 * i);
+          amount2 = [v90 amount];
+          if (!-[FHPaymentRingSuggestionController _categoryIsCurrentBalanceType:](self, "_categoryIsCurrentBalanceType:", [v90 category]))
           {
-            v93 = [amount2 decimalNumberBySubtracting:currentStatementPaymentsSum];
-            [v91 setAmount:v93];
+            v92 = [amount2 decimalNumberBySubtracting:currentStatementPaymentsSum];
+            [v90 setAmount:v92];
           }
         }
       }
 
-      v88 = [v86 countByEnumeratingWithState:&v108 objects:v115 count:16];
+      v87 = [v85 countByEnumeratingWithState:&v106 objects:v113 count:16];
     }
 
-    while (v88);
+    while (v87);
   }
 
-  v14 = v101;
-  v38 = v97;
+  v14 = v99;
+  v37 = v95;
 LABEL_89:
 
-  v94 = *MEMORY[0x277D85DE8];
-
-  return v102;
+  return v100;
 }
 
 - (BOOL)_allMandatoryValuesAreSameAmount:(id)amount
@@ -1686,30 +1649,30 @@ LABEL_16:
 
 - (id)_filterSuggestions:(id)suggestions belowThreshold:(id)threshold
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   thresholdCopy = threshold;
   v7 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = suggestionsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         amount = [v13 amount];
         if ([amount compare:thresholdCopy] == 1)
         {
@@ -1729,13 +1692,11 @@ LABEL_16:
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

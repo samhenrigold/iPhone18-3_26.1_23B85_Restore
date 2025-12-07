@@ -42,66 +42,64 @@
 
 - (void)_fulfillWithResult:(id)result
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   resultCopy = result;
-  if ([(_CUTUnsafePromise *)self done])
+  if (objc_msgSend_done(self, v6, v7))
   {
-    sub_1B2330F88(a2, self);
+    sub_1B2330F88(a2, self, v9);
   }
 
-  [(_CUTUnsafePromise *)self setDone:1];
-  [(_CUTUnsafePromise *)self setResult:resultCopy];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v6 = self->_resultBlocks;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  objc_msgSend_setDone_(self, v8, 1);
+  objc_msgSend_setResult_(self, v10, resultCopy);
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v11 = self->_resultBlocks;
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v19, v23, 16);
+  if (v13)
   {
-    v8 = v7;
-    v9 = *v14;
+    v14 = v13;
+    v15 = *v20;
     do
     {
-      v10 = 0;
+      v16 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v20 != v15)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v11);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v10) + 16))(*(*(&v13 + 1) + 8 * v10));
-        ++v10;
+        (*(*(*(&v19 + 1) + 8 * v16) + 16))(*(*(&v19 + 1) + 8 * v16));
+        ++v16;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v14 != v16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v17, &v19, v23, 16);
     }
 
-    while (v8);
+    while (v14);
   }
 
   resultBlocks = self->_resultBlocks;
   self->_resultBlocks = 0;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerResultBlock:(id)block
 {
   blockCopy = block;
-  if ([(_CUTUnsafePromise *)self done])
+  if (objc_msgSend_done(self, v4, v5))
   {
-    result = [(_CUTUnsafePromise *)self result];
-    blockCopy[2](blockCopy, result);
+    v8 = objc_msgSend_result(self, v6, v7);
+    blockCopy[2](blockCopy, v8);
   }
 
   else
   {
     resultBlocks = self->_resultBlocks;
-    result = MEMORY[0x1B2746240](blockCopy);
-    [(NSMutableArray *)resultBlocks addObject:result];
+    v8 = MEMORY[0x1B2746240](blockCopy);
+    objc_msgSend_addObject_(resultBlocks, v10, v8);
   }
 }
 

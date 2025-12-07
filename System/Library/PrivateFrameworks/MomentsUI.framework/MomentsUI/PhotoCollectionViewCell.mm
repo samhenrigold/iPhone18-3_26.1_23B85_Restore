@@ -12,7 +12,7 @@
   }
 
   v3 = static MutablePhotoViewModel.empty;
-  v4 = objc_allocWithZone(type metadata accessor for PhotoView());
+  v4 = objc_allocWithZone(type metadata accessor for PhotoView(0));
   v5 = OBJC_IVAR____TtC9MomentsUI9PhotoView_photoImageView;
   v6 = objc_allocWithZone(MEMORY[0x277D755E8]);
   v7 = v3;
@@ -36,7 +36,7 @@
   swift_unknownObjectWeakAssign();
   v4[OBJC_IVAR____TtC9MomentsUI9AssetView_viewStyle] = 2;
   v34.receiver = v4;
-  v34.super_class = type metadata accessor for AssetView();
+  v34.super_class = type metadata accessor for AssetView(0);
   v15 = [(CollectionViewAssetCell *)&v34 initWithFrame:0.0, 0.0, 0.0, 0.0];
   v16 = *((*MEMORY[0x277D85000] & v15->super.super.super.super.super.super.isa) + 0xE8);
   v17 = v15;
@@ -59,7 +59,7 @@
   v21 = MEMORY[0x21CE91FC0](v9, *(&v9 + 1));
   [(PhotoCollectionViewCell *)v17 setAccessibilityLabel:v21];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR);
   v22 = swift_allocObject();
   *(v22 + 16) = xmmword_21658CA50;
   v23 = type metadata accessor for UITraitUserInterfaceStyle();

@@ -1,6 +1,7 @@
 @interface NEIKEv2IKESAConfiguration
 - (NEIKEv2IKESAConfiguration)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)setProposals:(id)proposals;
 @end
 
@@ -8,32 +9,32 @@
 
 - (void)setProposals:(id)proposals
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = [proposals copy];
   proposals = self->_proposals;
   self->_proposals = v4;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_proposals;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
+        v12 = *(*(&v13 + 1) + 8 * i);
         ++v9;
         if (v12)
         {
@@ -41,13 +42,11 @@
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -135,6 +134,45 @@
   }
 
   return v4;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  localEndpoint = [(NEIKEv2IKESAConfiguration *)self localEndpoint];
+  [v7 appendPrettyObject:localEndpoint withName:@"Local Endpoint" andIndent:v5 options:options];
+
+  remoteEndpoint = [(NEIKEv2IKESAConfiguration *)self remoteEndpoint];
+  [v7 appendPrettyObject:remoteEndpoint withName:@"Remote Endpoint" andIndent:v5 options:options];
+
+  outgoingInterfaceName = [(NEIKEv2IKESAConfiguration *)self outgoingInterfaceName];
+  [v7 appendPrettyObject:outgoingInterfaceName withName:@"Outgoing Interface" andIndent:v5 options:options];
+
+  [v7 appendPrettyBOOL:-[NEIKEv2IKESAConfiguration randomizeLocalPort](self withName:"randomizeLocalPort") andIndent:@"Randomize Local Port" options:{v5, options}];
+  proposals = [(NEIKEv2IKESAConfiguration *)self proposals];
+  [v7 appendPrettyObject:proposals withName:@"Proposals" andIndent:v5 options:options];
+
+  customIKESAInitPayloads = [(NEIKEv2IKESAConfiguration *)self customIKESAInitPayloads];
+  [v7 appendPrettyObject:customIKESAInitPayloads withName:@"Custom Payloads" andIndent:v5 options:options];
+
+  customIKESAInitVendorPayloads = [(NEIKEv2IKESAConfiguration *)self customIKESAInitVendorPayloads];
+  [v7 appendPrettyObject:customIKESAInitVendorPayloads withName:@"Vendor Payloads" andIndent:v5 options:options];
+
+  redirectedFromServer = [(NEIKEv2IKESAConfiguration *)self redirectedFromServer];
+  [v7 appendPrettyObject:redirectedFromServer withName:@"Redirected From" andIndent:v5 options:options];
+
+  [v7 appendPrettyBOOL:-[NEIKEv2IKESAConfiguration allowRedirect](self withName:"allowRedirect") andIndent:@"Allow Redirect" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEIKEv2IKESAConfiguration disableSwitchToNATTPorts](self withName:"disableSwitchToNATTPorts") andIndent:@"Disable NAT Ports" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEIKEv2IKESAConfiguration forceUDPEncapsulation](self withName:"forceUDPEncapsulation") andIndent:@"Force UDP Encapsulation" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEIKEv2IKESAConfiguration serverMode](self withName:"serverMode") andIndent:@"Server Mode" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEIKEv2IKESAConfiguration preferInitiatorProposalOrder](self withName:"preferInitiatorProposalOrder") andIndent:@"Prefer Initiator Proposal Order" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEIKEv2IKESAConfiguration nonceSize](self withName:"nonceSize") andIndent:@"Nonce Size" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEIKEv2IKESAConfiguration requestPPK](self withName:"requestPPK") andIndent:@"Request PPK" options:{v5, options}];
+  extraSupportedSignatureHashes = [(NEIKEv2IKESAConfiguration *)self extraSupportedSignatureHashes];
+  [v7 appendPrettyObject:extraSupportedSignatureHashes withName:@"Extra Supported Signature Hashes" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (NEIKEv2IKESAConfiguration)init

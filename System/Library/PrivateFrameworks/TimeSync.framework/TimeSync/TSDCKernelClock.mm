@@ -21,7 +21,10 @@
 - (void)_getInitialSyncInfo;
 - (void)dealloc;
 - (void)didChangeClockMasterForClock:(id)clock;
+- (void)didChangeLockStateTo:(int)to forClock:(id)clock;
 - (void)didResetClock:(id)clock;
+- (void)postLockStateChange:(int)change;
+- (void)updateLockState:(int)state;
 - (void)updateTimeSyncTime:(unint64_t)time timeSyncInterval:(unint64_t)interval domainTime:(unint64_t)domainTime domainInterval:(unint64_t)domainInterval;
 @end
 
@@ -59,37 +62,37 @@
 
 + (id)clockWithIdentifier:(unint64_t)identifier
 {
-  v4 = +[_TSF_TSDClockManager sharedClockManager];
-  v5 = [v4 clockWithClockIdentifier:identifier];
+  v3 = +[_TSF_TSDClockManager sharedClockManager];
+  v4 = [v3 clockWithClockIdentifier:?];
 
-  if (v5)
+  if (v4)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = off_279DBD220;
+      v5 = off_279DBD220;
     }
 
     else
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v6 = off_279DBD208;
+      v5 = off_279DBD208;
       if (isKindOfClass)
       {
-        v6 = off_279DBD218;
+        v5 = off_279DBD218;
       }
     }
 
-    v7 = [objc_alloc(*v6) initWithKernelClock:v5];
+    v6 = [objc_alloc(*v5) initWithKernelClock:?];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (TSDCKernelClock)initWithKernelClock:(id)clock
@@ -111,13 +114,14 @@
     v7->_translationClock = translationClock;
 
     objc_storeStrong(&v7->_kernelClock, clock);
-    [(_TSF_TSDKernelClock *)v7->_kernelClock addClient:v7];
+    [(_TSF_TSDKernelClock *)v7->_kernelClock addClient:?];
     v11 = +[_TSF_TSDClockSyncManager sharedClockSyncManager];
-    v12 = [v11 clockSyncForClockIdentifier:-[_TSF_TSDKernelClock clockIdentifier](v7->_kernelClock pid:{"clockIdentifier"), 0}];
+    [(_TSF_TSDKernelClock *)v7->_kernelClock clockIdentifier];
+    v12 = [v11 clockSyncForClockIdentifier:? pid:?];
     clockSync = v7->_clockSync;
     v7->_clockSync = v12;
 
-    [(_TSF_TSDClockSync *)v7->_clockSync addUpdateClient:v7];
+    [(_TSF_TSDClockSync *)v7->_clockSync addUpdateClient:?];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -130,12 +134,13 @@
 
 - (void)dealloc
 {
-  [(_TSF_TSDClockSync *)self->_clockSync removeUpdateClient:self];
+  [(_TSF_TSDClockSync *)self->_clockSync removeUpdateClient:?];
   v3 = +[_TSF_TSDClockSyncManager sharedClockSyncManager];
-  [v3 releaseClockSyncForClockIdentifier:{-[_TSF_TSDKernelClock clockIdentifier](self->_kernelClock, "clockIdentifier")}];
+  [(_TSF_TSDKernelClock *)self->_kernelClock clockIdentifier];
+  [v3 releaseClockSyncForClockIdentifier:?];
 
   [(_TSF_TSDKernelClock *)self->_kernelClock finalizeNotifications];
-  [(_TSF_TSDKernelClock *)self->_kernelClock removeClient:self];
+  [(_TSF_TSDKernelClock *)self->_kernelClock removeClient:?];
   v4.receiver = self;
   v4.super_class = TSDCKernelClock;
   [(TSDCKernelClock *)&v4 dealloc];
@@ -143,7 +148,7 @@
 
 - (unint64_t)convertFromMachAbsoluteToDomainTime:(unint64_t)time
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   getOsLog = [(TSDCKernelClock *)self getOsLog];
   getSignpostId = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -151,15 +156,15 @@
     v7 = getSignpostId;
     if (os_signpost_enabled(getOsLog))
     {
-      v16 = 136315138;
-      v17 = "[TSDCKernelClock convertFromMachAbsoluteToDomainTime:]";
-      _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, v7, &unk_26F0DFDB1, "%s", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[TSDCKernelClock convertFromMachAbsoluteToDomainTime:]";
+      _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, v7, &unk_26F0DFDB1, "%s", &v15, 0xCu);
     }
   }
 
-  v8 = [(TSClock *)self->_translationClock convertFromMachAbsoluteToDomainTime:time];
-  v9 = [(TSClock *)self->_translationClock convertFromDomainToTimeSyncTime:v8];
-  v10 = [(TSDCKernelClock *)self convertFromTimeSyncToDomainTime:v9];
+  v8 = [(TSClock *)self->_translationClock convertFromMachAbsoluteToDomainTime:?];
+  v9 = [(TSClock *)self->_translationClock convertFromDomainToTimeSyncTime:?];
+  v10 = [(TSDCKernelClock *)self convertFromTimeSyncToDomainTime:?];
   getOsLog2 = [(TSDCKernelClock *)self getOsLog];
   getSignpostId2 = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -167,27 +172,26 @@
     v13 = getSignpostId2;
     if (os_signpost_enabled(getOsLog2))
     {
-      v16 = 136316162;
-      v17 = "[TSDCKernelClock convertFromMachAbsoluteToDomainTime:]";
-      v18 = 2048;
+      v15 = 136316162;
+      v16 = "[TSDCKernelClock convertFromMachAbsoluteToDomainTime:]";
+      v17 = 2048;
       timeCopy = time;
-      v20 = 2048;
-      v21 = v8;
-      v22 = 2048;
-      v23 = v9;
-      v24 = 2048;
-      v25 = v10;
-      _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, v13, &unk_26F0DFDB1, "%s MachAbsoluteTime=%llu intermediateTime=%llu timeSyncTime=%llu  domainTime=%llu", &v16, 0x34u);
+      v19 = 2048;
+      v20 = v8;
+      v21 = 2048;
+      v22 = v9;
+      v23 = 2048;
+      v24 = v10;
+      _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, v13, &unk_26F0DFDB1, "%s MachAbsoluteTime=%llu intermediateTime=%llu timeSyncTime=%llu  domainTime=%llu", &v15, 0x34u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (unint64_t)convertFromDomainToMachAbsoluteTime:(unint64_t)time
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   getOsLog = [(TSDCKernelClock *)self getOsLog];
   getSignpostId = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -195,15 +199,15 @@
     v7 = getSignpostId;
     if (os_signpost_enabled(getOsLog))
     {
-      v16 = 136315138;
-      v17 = "[TSDCKernelClock convertFromDomainToMachAbsoluteTime:]";
-      _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, v7, &unk_26F0DFDB1, "%s", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[TSDCKernelClock convertFromDomainToMachAbsoluteTime:]";
+      _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, v7, &unk_26F0DFDB1, "%s", &v15, 0xCu);
     }
   }
 
-  v8 = [(TSDCKernelClock *)self convertFromDomainToTimeSyncTime:time];
-  v9 = [(TSClock *)self->_translationClock convertFromTimeSyncToDomainTime:v8];
-  v10 = [(TSClock *)self->_translationClock convertFromDomainToMachAbsoluteTime:v9];
+  v8 = [(TSDCKernelClock *)self convertFromDomainToTimeSyncTime:?];
+  v9 = [(TSClock *)self->_translationClock convertFromTimeSyncToDomainTime:?];
+  v10 = [(TSClock *)self->_translationClock convertFromDomainToMachAbsoluteTime:?];
   getOsLog2 = [(TSDCKernelClock *)self getOsLog];
   getSignpostId2 = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -211,33 +215,31 @@
     v13 = getSignpostId2;
     if (os_signpost_enabled(getOsLog2))
     {
-      v16 = 136316162;
-      v17 = "[TSDCKernelClock convertFromDomainToMachAbsoluteTime:]";
-      v18 = 2048;
+      v15 = 136316162;
+      v16 = "[TSDCKernelClock convertFromDomainToMachAbsoluteTime:]";
+      v17 = 2048;
       timeCopy = time;
-      v20 = 2048;
-      v21 = v8;
-      v22 = 2048;
-      v23 = v9;
-      v24 = 2048;
-      v25 = v10;
-      _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, v13, &unk_26F0DFDB1, "%s domainTime=%llu timeSyncTime=%llu intermediateTime=%llu MachAbsoluteTime=%llu", &v16, 0x34u);
+      v19 = 2048;
+      v20 = v8;
+      v21 = 2048;
+      v22 = v9;
+      v23 = 2048;
+      v24 = v10;
+      _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, v13, &unk_26F0DFDB1, "%s domainTime=%llu timeSyncTime=%llu intermediateTime=%llu MachAbsoluteTime=%llu", &v15, 0x34u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __27__TSDCKernelClock_getOsLog__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v6 = NSStringFromClass(v2);
-  v3 = v6;
-  v4 = os_log_create("TimeSync", [v6 UTF8String]);
-  v5 = getOsLog_clockLog;
-  getOsLog_clockLog = v4;
+  v1 = objc_opt_class();
+  v5 = NSStringFromClass(v1);
+  v2 = v5;
+  v3 = os_log_create("TimeSync", [v5 UTF8String]);
+  v4 = getOsLog_clockLog;
+  getOsLog_clockLog = v3;
 }
 
 void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
@@ -259,8 +261,8 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *domainTimeCopy++ = [(TSDCKernelClock *)self convertFromMachAbsoluteToDomainTime:v9];
+          ++timeCopy;
+          *domainTimeCopy++ = [(TSDCKernelClock *)self convertFromMachAbsoluteToDomainTime:?];
           --countCopy;
         }
 
@@ -273,14 +275,14 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
     else
     {
       [TSDCKernelClock convertFromMachAbsoluteTime:toDomainTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCKernelClock convertFromMachAbsoluteTime:toDomainTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -297,8 +299,8 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *absoluteTimeCopy++ = [(TSDCKernelClock *)self convertFromDomainToMachAbsoluteTime:v9];
+          ++timeCopy;
+          *absoluteTimeCopy++ = [(TSDCKernelClock *)self convertFromDomainToMachAbsoluteTime:?];
           --countCopy;
         }
 
@@ -311,30 +313,32 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
     else
     {
       [TSDCKernelClock convertFromDomainTime:toMachAbsoluteTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCKernelClock convertFromDomainTime:toMachAbsoluteTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
 - (unint64_t)convertFromMachAbsoluteIntervalToDomainInterval:(unint64_t)interval
 {
-  v4 = [(TSClock *)self->_translationClock convertFromDomainIntervalToTimeSyncTimeInterval:[(TSClock *)self->_translationClock convertFromMachAbsoluteIntervalToDomainInterval:interval]];
+  [(TSClock *)self->_translationClock convertFromMachAbsoluteIntervalToDomainInterval:?];
+  [(TSClock *)self->_translationClock convertFromDomainIntervalToTimeSyncTimeInterval:?];
 
-  return [(TSDCKernelClock *)self convertFromTimeSyncTimeIntervalToDomainInterval:v4];
+  return [(TSDCKernelClock *)self convertFromTimeSyncTimeIntervalToDomainInterval:?];
 }
 
 - (unint64_t)convertFromDomainIntervalToMachAbsoluteInterval:(unint64_t)interval
 {
-  v4 = [(TSClock *)self->_translationClock convertFromTimeSyncTimeIntervalToDomainInterval:[(TSDCKernelClock *)self convertFromDomainIntervalToTimeSyncTimeInterval:interval]];
+  [(TSDCKernelClock *)self convertFromDomainIntervalToTimeSyncTimeInterval:?];
+  [(TSClock *)self->_translationClock convertFromTimeSyncTimeIntervalToDomainInterval:?];
   translationClock = self->_translationClock;
 
-  return [(TSClock *)translationClock convertFromDomainIntervalToMachAbsoluteInterval:v4];
+  return [(TSClock *)translationClock convertFromDomainIntervalToMachAbsoluteInterval:?];
 }
 
 - (BOOL)getMachAbsoluteRateRatioNumerator:(unint64_t *)numerator denominator:(unint64_t *)denominator machAnchor:(unint64_t *)anchor andDomainAnchor:(unint64_t *)domainAnchor withError:(id *)error
@@ -359,31 +363,30 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
     *domainAnchor = -1;
   }
 
-  v17 = 0;
-  v18 = 0;
-  v16 = 0;
-  if (![(TSDCKernelClock *)self getTimeSyncTimeRateRatioNumerator:&v18 denominator:&v17 timeSyncAnchor:&v16 andDomainAnchor:0 withError:0, 0, 0])
+  if (![(TSDCKernelClock *)self getTimeSyncTimeRateRatioNumerator:0 denominator:0 timeSyncAnchor:0 andDomainAnchor:0 withError:?])
   {
     [TSDCKernelClock getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:];
-    return v19;
+    return v17;
   }
 
-  if (![(TSClock *)self->_translationClock getTimeSyncTimeRateRatioNumerator:&v15 denominator:&v14 timeSyncAnchor:0 andDomainAnchor:0 withError:0])
+  if (![TSClock getTimeSyncTimeRateRatioNumerator:"getTimeSyncTimeRateRatioNumerator:denominator:timeSyncAnchor:andDomainAnchor:withError:" denominator:? timeSyncAnchor:? andDomainAnchor:? withError:?])
   {
     [TSDCKernelClock getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:];
-    return v19;
+    return v17;
   }
 
-  if (![(TSClock *)self->_translationClock getMachAbsoluteRateRatioNumerator:&v13 denominator:&v12 machAnchor:0 andDomainAnchor:0 withError:0])
+  if (![TSClock getMachAbsoluteRateRatioNumerator:"getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:" denominator:? machAnchor:? andDomainAnchor:? withError:?])
   {
     [TSDCKernelClock getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:];
-    return v19;
+    return v17;
   }
 
-  __C(v18, v15, v13, v17, v14, v12, numerator, denominator);
+  __C(0, v16, v14, 0, v15, v13, numerator, denominator);
   if (anchor)
   {
-    *anchor = [(TSClock *)self->_translationClock convertFromDomainToMachAbsoluteTime:[(TSClock *)self->_translationClock convertFromTimeSyncToDomainTime:v16]];
+    translationClock = self->_translationClock;
+    [(TSClock *)translationClock convertFromTimeSyncToDomainTime:?];
+    *anchor = [(TSClock *)translationClock convertFromDomainToMachAbsoluteTime:?];
   }
 
   return 1;
@@ -450,8 +453,8 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *domainTimeCopy++ = [(TSDCKernelClock *)self convertFromTimeSyncToDomainTime:v9];
+          ++timeCopy;
+          *domainTimeCopy++ = [(TSDCKernelClock *)self convertFromTimeSyncToDomainTime:?];
           --countCopy;
         }
 
@@ -464,14 +467,14 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
     else
     {
       [TSDCKernelClock convertFromTimeSyncTime:toDomainTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCKernelClock convertFromTimeSyncTime:toDomainTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -488,8 +491,8 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *syncTimeCopy++ = [(TSDCKernelClock *)self convertFromDomainToTimeSyncTime:v9];
+          ++timeCopy;
+          *syncTimeCopy++ = [(TSDCKernelClock *)self convertFromDomainToTimeSyncTime:?];
           --countCopy;
         }
 
@@ -502,14 +505,14 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
     else
     {
       [TSDCKernelClock convertFromDomainTime:toTimeSyncTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCKernelClock convertFromDomainTime:toTimeSyncTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -613,21 +616,72 @@ void __32__TSDCKernelClock_getSignpostId__block_invoke(uint64_t a1)
 
 - (void)_getInitialSyncInfo
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = [0 description];
-  v2 = 136315138;
+  v1 = 136315138;
   uTF8String = [v0 UTF8String];
-  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error getting initial sync info %s", &v2, 0xCu);
+  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error getting initial sync info %s", &v1, 0xCu);
+}
 
-  v1 = *MEMORY[0x277D85DE8];
+- (void)postLockStateChange:(int)change
+{
+  v14 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
+    v12 = 1024;
+    changeCopy = change;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCKernelClock(0x%016llx) postLockStateChange:%d", buf, 0x12u);
+  }
+
+  propertyUpdateQueue = [(TSDCKernelClock *)self propertyUpdateQueue];
+
+  if (propertyUpdateQueue)
+  {
+    propertyUpdateQueue2 = [(TSDCKernelClock *)self propertyUpdateQueue];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __39__TSDCKernelClock_postLockStateChange___block_invoke;
+    v8[3] = &unk_279DBD7D0;
+    v8[4] = self;
+    changeCopy2 = change;
+    dispatch_async(propertyUpdateQueue2, v8);
+  }
+
+  else
+  {
+    [(TSDCKernelClock *)self setLockState:?];
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_client);
+  [WeakRetained didChangeLockStateTo:?];
 }
 
 void __39__TSDCKernelClock_postLockStateChange___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) setLockState:*(a1 + 40)];
+  [*(a1 + 32) setLockState:?];
 
   objc_autoreleasePoolPop(v2);
+}
+
+- (void)updateLockState:(int)state
+{
+  v9 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 134218240;
+    clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
+    v7 = 1024;
+    stateCopy = state;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCKernelClock(0x%016llx) updateLockState:%d", &v5, 0x12u);
+  }
+
+  os_unfair_lock_lock(&self->_updateLock);
+  self->_internalLockState = state;
+  os_unfair_lock_unlock(&self->_updateLock);
+  [(TSDCKernelClock *)self postLockStateChange:?];
 }
 
 - (void)updateTimeSyncTime:(unint64_t)time timeSyncInterval:(unint64_t)interval domainTime:(unint64_t)domainTime domainInterval:(unint64_t)domainInterval
@@ -658,7 +712,7 @@ void __39__TSDCKernelClock_postLockStateChange___block_invoke(uint64_t a1)
       self->_validIndex = v13;
       v24 = 0;
       v25 = 0;
-      [(TSDCKernelClock *)self getMachAbsoluteRateRatioNumerator:&v25 denominator:&v24 machAnchor:0 andDomainAnchor:0 withError:0];
+      [TSDCKernelClock getMachAbsoluteRateRatioNumerator:"getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:" denominator:? machAnchor:? andDomainAnchor:? withError:?];
       info = 0;
       mach_timebase_info(&info);
       v24 /= info.denom;
@@ -680,7 +734,7 @@ void __39__TSDCKernelClock_postLockStateChange___block_invoke(uint64_t a1)
 
       else
       {
-        [(TSDCKernelClock *)self setHostRateRatio:v15];
+        [(TSDCKernelClock *)self setHostRateRatio:?];
       }
 
       internalLockState = self->_internalLockState;
@@ -707,7 +761,7 @@ void __39__TSDCKernelClock_postLockStateChange___block_invoke(uint64_t a1)
       os_unfair_lock_unlock(&self->_updateLock);
       if (v12 != v21)
       {
-        [(TSDCKernelClock *)self postLockStateChange:v21];
+        [(TSDCKernelClock *)self postLockStateChange:?];
       }
     }
 
@@ -726,41 +780,50 @@ void __39__TSDCKernelClock_postLockStateChange___block_invoke(uint64_t a1)
 void __81__TSDCKernelClock_updateTimeSyncTime_timeSyncInterval_domainTime_domainInterval___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) setHostRateRatio:*(a1 + 40)];
+  [*(a1 + 32) setHostRateRatio:?];
 
   objc_autoreleasePoolPop(v2);
 }
 
 - (void)didResetClock:(id)clock
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCKernelClock(0x%016llx) didResetClock", &v6, 0xCu);
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCKernelClock(0x%016llx) didResetClock", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_client);
   [WeakRetained didResetClock];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didChangeClockMasterForClock:(id)clock
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCKernelClock(0x%016llx) didChangeClockMasterForClock", &v6, 0xCu);
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCKernelClock(0x%016llx) didChangeClockMasterForClock", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_client);
   [WeakRetained didChangeClockMaster];
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (void)didChangeLockStateTo:(int)to forClock:(id)clock
+{
+  v7 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 134217984;
+    clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCKernelClock(0x%016llx) didChangeLockStateTo", &v5, 0xCu);
+  }
+
+  [(TSDCKernelClock *)self updateLockState:?];
 }
 
 - (TSKernelClock)client
@@ -772,341 +835,312 @@ void __81__TSDCKernelClock_updateTimeSyncTime_timeSyncInterval_domainTime_domain
 
 - (void)convertFromMachAbsoluteTime:toDomainTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromMachAbsoluteTime:toDomainTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toMachAbsoluteTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toMachAbsoluteTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncToDomainTime:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncToDomainTime:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainToTimeSyncTime:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainToTimeSyncTime:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTime:toDomainTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTime:toDomainTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toTimeSyncTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toTimeSyncTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTimeIntervalToDomainInterval:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTimeIntervalToDomainInterval:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainIntervalToTimeSyncTimeInterval:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainIntervalToTimeSyncTimeInterval:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getTimeSyncTimeRateRatioNumerator:denominator:timeSyncAnchor:andDomainAnchor:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTimeSyncTime:timeSyncInterval:domainTime:domainInterval:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTimeSyncTime:timeSyncInterval:domainTime:domainInterval:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTimeSyncTime:timeSyncInterval:domainTime:domainInterval:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTimeSyncTime:timeSyncInterval:domainTime:domainInterval:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -63,95 +63,91 @@
   {
     deviceUUID = [deviceCopy deviceUUID];
     *buf = 138543618;
-    v126 = deviceUUID;
-    v127 = 2114;
-    v128 = accountIdentifier;
+    v123 = deviceUUID;
+    v124 = 2114;
+    v125 = accountIdentifier;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=keybag= Setting up a new keybag for device %{public}@ (%{public}@)", buf, 0x16u);
 
     deviceUUID2 = [deviceCopy deviceUUID];
-    v82 = accountIdentifier;
-    _MBLog();
+    _MBLog(@"Df", "=keybag= Setting up a new keybag for device %{public}@ (%{public}@)", deviceUUID2, accountIdentifier);
   }
 
-  v95 = v14;
-  v87 = trackerCopy;
-  v88 = deviceCopy;
+  v92 = v14;
+  v84 = trackerCopy;
+  v85 = deviceCopy;
 
-  v86 = v12;
+  v83 = v12;
   persona = [v12 persona];
   [persona volumesToBackUp];
-  v118 = 0u;
-  v119 = 0u;
-  v120 = 0u;
-  obj = v121 = 0u;
-  v17 = [obj countByEnumeratingWithState:&v118 objects:v132 count:16];
-  if (v17)
+  v115 = 0u;
+  v116 = 0u;
+  v117 = 0u;
+  obj = v118 = 0u;
+  v18 = [obj countByEnumeratingWithState:&v115 objects:v129 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v19 = 0;
-    v20 = *v119;
+    v19 = v18;
+    v20 = 0;
+    v21 = *v116;
     while (2)
     {
-      for (i = 0; i != v18; i = i + 1)
+      for (i = 0; i != v19; i = i + 1)
       {
-        if (*v119 != v20)
+        if (*v116 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v118 + 1) + 8 * i);
-        v117 = 0;
-        v23 = [MBKeyBag OTAKeybagUUIDStringWithVolume:v22 error:&v117, deviceUUID2, v82];
-        v24 = v117;
-        if (!v23 && ![MBError isError:v24 withCode:4])
+        v23 = *(*(&v115 + 1) + 8 * i);
+        v114 = 0;
+        v24 = [MBKeyBag OTAKeybagUUIDStringWithVolume:v23 error:&v114];
+        v25 = v114;
+        if (!v24 && ![MBError isError:v25 withCode:4])
         {
-          v27 = v24;
-          v28 = 0;
-          v29 = deviceCopy;
-          *errorCopy = v24;
-          v30 = obj;
-          v31 = v87;
+          v28 = v25;
+          v29 = 0;
+          v30 = deviceCopy;
+          *errorCopy = v25;
+          v31 = obj;
+          v32 = v84;
 LABEL_26:
-          v32 = v86;
+          v33 = v83;
 LABEL_27:
-          v33 = v95;
+          v34 = v92;
           goto LABEL_28;
         }
 
-        v25 = MBGetDefaultLog();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v26 = MBGetDefaultLog();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v126 = v23;
-          v127 = 2112;
-          v128 = v22;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=keybag= Fetched OTAKeybagUUID:%{public}@ for %@", buf, 0x16u);
-          deviceUUID2 = v23;
-          v82 = v22;
-          _MBLog();
+          v123 = v24;
+          v124 = 2112;
+          v125 = v23;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=keybag= Fetched OTAKeybagUUID:%{public}@ for %@", buf, 0x16u);
+          _MBLog(@"Df", "=keybag= Fetched OTAKeybagUUID:%{public}@ for %@", v24, v23);
         }
 
-        if (v23 && [v95 hasKeybagWithUUID:v23])
+        if (v24 && [v92 hasKeybagWithUUID:v24])
         {
-          ++v19;
+          ++v20;
         }
 
         else
         {
-          v26 = MBGetDefaultLog();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v27 = MBGetDefaultLog();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v126 = accountIdentifier;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=keybag= Replacing existing backup keybag (%{public}@)", buf, 0xCu);
-            deviceUUID2 = accountIdentifier;
-            _MBLog();
+            v123 = accountIdentifier;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=keybag= Replacing existing backup keybag (%{public}@)", buf, 0xCu);
+            _MBLog(@"Df", "=keybag= Replacing existing backup keybag (%{public}@)", accountIdentifier);
           }
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v118 objects:v132 count:16];
-      if (v18)
+      v19 = [obj countByEnumeratingWithState:&v115 objects:v129 count:16];
+      if (v19)
       {
         continue;
       }
@@ -162,145 +158,138 @@ LABEL_27:
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  if (v19 == [obj count])
+  if (v20 == [obj count])
   {
-    v28 = 1;
-    v31 = v87;
-    v29 = deviceCopy;
-    v32 = v86;
-    v33 = v95;
+    v29 = 1;
+    v32 = v84;
+    v30 = deviceCopy;
+    v33 = v83;
+    v34 = v92;
     goto LABEL_32;
   }
 
-  v35 = MBGetDefaultLog();
-  v33 = v95;
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v36 = MBGetDefaultLog();
+  v34 = v92;
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v126 = accountIdentifier;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "=keybag= Registering new keybags for (%{public}@)", buf, 0xCu);
-    deviceUUID2 = accountIdentifier;
-    _MBLog();
+    v123 = accountIdentifier;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "=keybag= Registering new keybags for (%{public}@)", buf, 0xCu);
+    _MBLog(@"Df", "=keybag= Registering new keybags for (%{public}@)", accountIdentifier);
   }
 
-  v30 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(obj, "count")}];
+  v31 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(obj, "count")}];
+  v110 = 0u;
+  v111 = 0u;
+  v112 = 0u;
   v113 = 0u;
-  v114 = 0u;
-  v115 = 0u;
-  v116 = 0u;
-  v24 = obj;
-  v36 = [v24 countByEnumeratingWithState:&v113 objects:v131 count:16];
-  v29 = deviceCopy;
-  v91 = v30;
-  if (v36)
+  v25 = obj;
+  v37 = [v25 countByEnumeratingWithState:&v110 objects:v128 count:16];
+  v30 = deviceCopy;
+  v88 = v31;
+  if (v37)
   {
-    v37 = v36;
-    v93 = *v114;
+    v38 = v37;
+    v90 = *v111;
     while (2)
     {
-      for (j = 0; j != v37; j = j + 1)
+      for (j = 0; j != v38; j = j + 1)
       {
-        if (*v114 != v93)
+        if (*v111 != v90)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v25);
         }
 
-        v39 = *(*(&v113 + 1) + 8 * j);
-        v40 = MBGetDefaultLog();
-        v41 = os_log_type_enabled(v40, OS_LOG_TYPE_INFO);
+        v40 = *(*(&v110 + 1) + 8 * j);
+        v41 = MBGetDefaultLog();
+        v42 = os_log_type_enabled(v41, OS_LOG_TYPE_INFO);
         if (passcodeCopy)
         {
-          if (v41)
+          if (v42)
           {
             *buf = 138543362;
-            v126 = v39;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "=keybag= Using passcode as keybag secret for %{public}@", buf, 0xCu);
-            deviceUUID2 = v39;
-            _MBLog();
+            v123 = v40;
+            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "=keybag= Using passcode as keybag secret for %{public}@", buf, 0xCu);
+            _MBLog(@"I ", "=keybag= Using passcode as keybag secret for %{public}@", v40);
           }
 
-          v42 = [passcodeCopy dataUsingEncoding:4];
+          v43 = [passcodeCopy dataUsingEncoding:4];
         }
 
         else
         {
-          if (v41)
+          if (v42)
           {
             *buf = 138543362;
-            v126 = v39;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "=keybag= Creating random secret for %{public}@", buf, 0xCu);
-            deviceUUID2 = v39;
-            _MBLog();
+            v123 = v40;
+            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "=keybag= Creating random secret for %{public}@", buf, 0xCu);
+            _MBLog(@"I ", "=keybag= Creating random secret for %{public}@", v40);
           }
 
-          v42 = +[MBKeyBag randomSecret];
+          v43 = +[MBKeyBag randomSecret];
         }
 
-        v43 = v42;
-        if (!v42)
+        v44 = v43;
+        if (!v43)
         {
           [MBError errorWithCode:1 format:@"Failed to generate secret for keybag"];
-          *errorCopy = v28 = 0;
-          v32 = v86;
-          v31 = v87;
+          *errorCopy = v29 = 0;
+          v33 = v83;
+          v32 = v84;
           goto LABEL_27;
         }
 
-        v112 = 0;
-        v44 = [MBKeyBag registerOTAKeyBagWithVolume:v39 secret:v42 keybagUUIDData:&v112 error:errorCopy];
-        v45 = v112;
-        v46 = v45;
-        if (!v44)
+        v109 = 0;
+        v45 = [MBKeyBag registerOTAKeyBagWithVolume:v40 secret:v43 keybagUUIDData:&v109 error:errorCopy];
+        v46 = v109;
+        v47 = v46;
+        if (!v45)
         {
-          v54 = MBGetDefaultLog();
-          v31 = v87;
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          v55 = MBGetDefaultLog();
+          v32 = v84;
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
-            v55 = *errorCopy;
+            v56 = *errorCopy;
             *buf = 138543874;
-            v126 = v39;
-            v127 = 2114;
-            v128 = accountIdentifier;
-            v129 = 2112;
-            v130 = v55;
-            _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "=keybag= Failed to register keybag for volume %{public}@ (%{public}@): %@", buf, 0x20u);
-            v84 = *errorCopy;
-            _MBLog();
+            v123 = v40;
+            v124 = 2114;
+            v125 = accountIdentifier;
+            v126 = 2112;
+            v127 = v56;
+            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "=keybag= Failed to register keybag for volume %{public}@ (%{public}@): %@", buf, 0x20u);
+            _MBLog(@"E ", "=keybag= Failed to register keybag for volume %{public}@ (%{public}@): %@", v40, accountIdentifier, *errorCopy);
           }
 
-          v28 = 0;
+          v29 = 0;
           goto LABEL_26;
         }
 
-        v47 = [v45 base64EncodedStringWithOptions:0];
-        v48 = MBGetDefaultLog();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+        v48 = [v46 base64EncodedStringWithOptions:0];
+        v49 = MBGetDefaultLog();
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
         {
-          v49 = [v44 length];
+          v50 = [v45 length];
           *buf = 138412802;
-          v126 = v39;
-          v127 = 2048;
-          v128 = v49;
-          v129 = 2114;
-          v130 = v47;
-          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "=keybag= Registered a new keybag for %@ (%lu bytes): %{public}@", buf, 0x20u);
-          v82 = [v44 length];
-          v83 = v47;
-          deviceUUID2 = v39;
-          _MBLog();
+          v123 = v40;
+          v124 = 2048;
+          v125 = v50;
+          v126 = 2114;
+          v127 = v48;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "=keybag= Registered a new keybag for %@ (%lu bytes): %{public}@", buf, 0x20u);
+          _MBLog(@"Df", "=keybag= Registered a new keybag for %@ (%lu bytes): %{public}@", v40, [v45 length], v48);
         }
 
-        v50 = [[MBCKKeyBag alloc] initWithUUID:v46 data:v44 secret:v43 device:v88];
-        v30 = v91;
-        [v91 addObject:v50];
+        v51 = [[MBCKKeyBag alloc] initWithUUID:v47 data:v45 secret:v44 device:v85];
+        v31 = v88;
+        [v88 addObject:v51];
       }
 
-      v33 = v95;
-      v37 = [v24 countByEnumeratingWithState:&v113 objects:v131 count:16];
-      if (v37)
+      v34 = v92;
+      v38 = [v25 countByEnumeratingWithState:&v110 objects:v128 count:16];
+      if (v38)
       {
         continue;
       }
@@ -309,26 +298,26 @@ LABEL_27:
     }
   }
 
-  v31 = v87;
+  v32 = v84;
   if (MBIsInternalInstall())
   {
-    v51 = +[MBBehaviorOptions sharedOptions];
-    if ([v51 isAutomation])
+    v52 = +[MBBehaviorOptions sharedOptions];
+    if ([v52 isAutomation])
     {
-      v52 = +[MBBehaviorOptions sharedOptions];
-      forceInvalidKeyBagReference = [v52 forceInvalidKeyBagReference];
+      v53 = +[MBBehaviorOptions sharedOptions];
+      forceInvalidKeyBagReference = [v53 forceInvalidKeyBagReference];
 
       if (forceInvalidKeyBagReference)
       {
-        v24 = MBGetDefaultLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v25 = MBGetDefaultLog();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "=keybag= !!!! WARNING: Intentionally sending an invalid keybag reference during automation run. This will intentionally create an unrestorable snapshot", buf, 2u);
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "=keybag= !!!! WARNING: Intentionally sending an invalid keybag reference during automation run. This will intentionally create an unrestorable snapshot", buf, 2u);
+          _MBLog(@"E ", "=keybag= !!!! WARNING: Intentionally sending an invalid keybag reference during automation run. This will intentionally create an unrestorable snapshot");
         }
 
-        v32 = v86;
+        v33 = v83;
         goto LABEL_73;
       }
     }
@@ -338,169 +327,167 @@ LABEL_27:
     }
   }
 
-  v24 = dispatch_group_create();
-  v56 = [[MBCKBatchSave alloc] initWithOperationTracker:v87];
+  v25 = dispatch_group_create();
+  v57 = [[MBCKBatchSave alloc] initWithOperationTracker:v84];
+  v105 = 0u;
+  v106 = 0u;
+  v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
-  v110 = 0u;
-  v111 = 0u;
-  v57 = v30;
-  v58 = [v57 countByEnumeratingWithState:&v108 objects:v124 count:16];
-  if (v58)
+  v58 = v31;
+  v59 = [v58 countByEnumeratingWithState:&v105 objects:v121 count:16];
+  if (v59)
   {
-    v59 = v58;
-    v60 = *v109;
+    v60 = v59;
+    v61 = *v106;
     do
     {
-      for (k = 0; k != v59; k = k + 1)
+      for (k = 0; k != v60; k = k + 1)
       {
-        if (*v109 != v60)
+        if (*v106 != v61)
         {
-          objc_enumerationMutation(v57);
+          objc_enumerationMutation(v58);
         }
 
-        v62 = *(*(&v108 + 1) + 8 * k);
-        dispatch_group_enter(v24);
-        v106[0] = _NSConcreteStackBlock;
-        v106[1] = 3221225472;
-        v106[2] = sub_100067BB0;
-        v106[3] = &unk_1003BC308;
-        v106[4] = v62;
-        v107 = v24;
-        [v62 saveWithBatchSave:v56 completion:v106];
+        v63 = *(*(&v105 + 1) + 8 * k);
+        dispatch_group_enter(v25);
+        v103[0] = _NSConcreteStackBlock;
+        v103[1] = 3221225472;
+        v103[2] = sub_100067BB0;
+        v103[3] = &unk_1003BC308;
+        v103[4] = v63;
+        v104 = v25;
+        [v63 saveWithBatchSave:v57 completion:v103];
       }
 
-      v59 = [v57 countByEnumeratingWithState:&v108 objects:v124 count:16];
+      v60 = [v58 countByEnumeratingWithState:&v105 objects:v121 count:16];
     }
 
-    while (v59);
+    while (v60);
   }
 
-  v105 = 0;
-  v63 = [(MBCKBatchSave *)v56 finishWithError:&v105];
-  v64 = v105;
-  v65 = v64;
-  if ((v63 & 1) == 0)
+  v102 = 0;
+  v64 = [(MBCKBatchSave *)v57 finishWithError:&v102];
+  v65 = v102;
+  v66 = v65;
+  if ((v64 & 1) == 0)
   {
-    v72 = MBGetDefaultLog();
-    v29 = v88;
-    v32 = v86;
-    v33 = v95;
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+    v73 = MBGetDefaultLog();
+    v30 = v85;
+    v33 = v83;
+    v34 = v92;
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v126 = v65;
-      _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "=keybag= Failed to batch save keybags records to server %@", buf, 0xCu);
-      _MBLog();
+      v123 = v66;
+      _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "=keybag= Failed to batch save keybags records to server %@", buf, 0xCu);
+      _MBLog(@"E ", "=keybag= Failed to batch save keybags records to server %@", v66);
     }
 
-    v73 = v65;
-    *errorCopy = v65;
+    v74 = v66;
+    *errorCopy = v66;
 
-    v28 = 0;
-    v30 = v57;
-    v31 = v87;
+    v29 = 0;
+    v31 = v58;
+    v32 = v84;
     goto LABEL_28;
   }
 
-  v31 = v87;
-  v29 = v88;
-  v32 = v86;
-  v33 = v95;
-  v30 = v91;
+  v32 = v84;
+  v30 = v85;
+  v33 = v83;
+  v34 = v92;
+  v31 = v88;
 LABEL_73:
 
-  v103 = 0u;
-  v104 = 0u;
+  v100 = 0u;
   v101 = 0u;
-  v102 = 0u;
-  v30 = v30;
-  v66 = [v30 countByEnumeratingWithState:&v101 objects:v123 count:16];
-  if (v66)
+  v98 = 0u;
+  v99 = 0u;
+  v31 = v31;
+  v67 = [v31 countByEnumeratingWithState:&v98 objects:v120 count:16];
+  if (v67)
   {
-    v67 = v66;
-    v68 = *v102;
+    v68 = v67;
+    v69 = *v99;
     do
     {
-      for (m = 0; m != v67; m = m + 1)
+      for (m = 0; m != v68; m = m + 1)
       {
-        if (*v102 != v68)
+        if (*v99 != v69)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v31);
         }
 
-        [v33 addKeybag:{*(*(&v101 + 1) + 8 * m), deviceUUID2, v82, v83}];
+        [v34 addKeybag:*(*(&v98 + 1) + 8 * m)];
       }
 
-      v67 = [v30 countByEnumeratingWithState:&v101 objects:v123 count:16];
+      v68 = [v31 countByEnumeratingWithState:&v98 objects:v120 count:16];
     }
 
-    while (v67);
+    while (v68);
   }
 
-  recordRepresentation = [v29 recordRepresentation];
-  v100 = 0;
-  v71 = [v31 saveRecord:recordRepresentation delegate:0 error:&v100];
-  v24 = v100;
+  recordRepresentation = [v30 recordRepresentation];
+  v97 = 0;
+  v72 = [v32 saveRecord:recordRepresentation delegate:0 error:&v97];
+  v25 = v97;
 
-  if (v71)
+  if (v72)
   {
-    v28 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v74 = MBGetDefaultLog();
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+    v75 = MBGetDefaultLog();
+    if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v126 = accountIdentifier;
-      v127 = 2112;
-      v128 = v24;
-      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "=keybag= Failed to save device record with new keybag references (%{public}@): %@", buf, 0x16u);
-      deviceUUID2 = accountIdentifier;
-      v82 = v24;
-      _MBLog();
+      v123 = accountIdentifier;
+      v124 = 2112;
+      v125 = v25;
+      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "=keybag= Failed to save device record with new keybag references (%{public}@): %@", buf, 0x16u);
+      _MBLog(@"E ", "=keybag= Failed to save device record with new keybag references (%{public}@): %@", accountIdentifier, v25);
     }
 
-    v98 = 0u;
-    v99 = 0u;
+    v95 = 0u;
     v96 = 0u;
-    v97 = 0u;
-    v30 = v30;
-    v75 = [v30 countByEnumeratingWithState:&v96 objects:v122 count:16];
-    if (v75)
+    v93 = 0u;
+    v94 = 0u;
+    v31 = v31;
+    v76 = [v31 countByEnumeratingWithState:&v93 objects:v119 count:16];
+    if (v76)
     {
-      v76 = v75;
-      v77 = *v97;
+      v77 = v76;
+      v78 = *v94;
       do
       {
-        for (n = 0; n != v76; n = n + 1)
+        for (n = 0; n != v77; n = n + 1)
         {
-          if (*v97 != v77)
+          if (*v94 != v78)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v31);
           }
 
-          keybagUUIDString = [*(*(&v96 + 1) + 8 * n) keybagUUIDString];
-          [v33 removeKeybagWithUUID:keybagUUIDString];
+          keybagUUIDString = [*(*(&v93 + 1) + 8 * n) keybagUUIDString];
+          [v34 removeKeybagWithUUID:keybagUUIDString];
         }
 
-        v76 = [v30 countByEnumeratingWithState:&v96 objects:v122 count:16];
+        v77 = [v31 countByEnumeratingWithState:&v93 objects:v119 count:16];
       }
 
-      while (v76);
+      while (v77);
     }
 
-    v80 = v24;
-    v28 = 0;
-    *errorCopy = v24;
+    v81 = v25;
+    v29 = 0;
+    *errorCopy = v25;
   }
 
 LABEL_28:
 
 LABEL_32:
-  return v28;
+  return v29;
 }
 
 + (id)keybagWithDevice:(id)device keybagUUID:(id)d operationTracker:(id)tracker error:(id *)error
@@ -758,7 +745,7 @@ LABEL_10:
       *buf = 138412290;
       v11 = v4;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "=keybag= Error opening keybag with data: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=keybag= Error opening keybag with data: %@", v4);
     }
   }
 
@@ -803,24 +790,24 @@ LABEL_10:
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "=keybag= Unlocked keybag %{public}@", buf, 0xCu);
 
           keybagUUIDString2 = [(MBCKKeyBag *)self keybagUUIDString];
-          _MBLog();
+          _MBLog(@"Db", "=keybag= Unlocked keybag %{public}@", keybagUUIDString2);
         }
       }
 
       else
       {
-        v16 = MBGetDefaultLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = MBGetDefaultLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
           v22 = v13;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=keybag= Failed to unlock key bag: %{public}@", buf, 0xCu);
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=keybag= Failed to unlock key bag: %{public}@", buf, 0xCu);
+          _MBLog(@"E ", "=keybag= Failed to unlock key bag: %{public}@", v13);
         }
 
         if (error)
         {
-          v17 = v13;
+          v18 = v13;
           *error = v13;
         }
       }
@@ -851,7 +838,7 @@ LABEL_10:
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "=keybag= Locked keybag %{public}@", buf, 0xCu);
 
       keybagUUIDString2 = [(MBCKKeyBag *)self keybagUUIDString];
-      _MBLog();
+      _MBLog(@"Db", "=keybag= Locked keybag %{public}@", keybagUUIDString2);
     }
   }
 }
@@ -1089,9 +1076,9 @@ LABEL_10:
   if (hasFetchedKeybags)
   {
     errorCopy = error;
-    v53 = persona;
-    v54 = stateCopy;
-    v55 = trackerCopy;
+    v51 = persona;
+    v52 = stateCopy;
+    v53 = trackerCopy;
     keybagManager2 = [deviceCopy keybagManager];
     keybagRefs = [keybagManager2 keybagRefs];
     v18 = [keybagRefs copy];
@@ -1100,29 +1087,29 @@ LABEL_10:
     keybagsByUUIDString = [keybagManager3 keybagsByUUIDString];
     v21 = [keybagsByUUIDString copy];
 
-    v61 = 0u;
-    v62 = 0u;
     v59 = 0u;
     v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     obj = v18;
-    v22 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-    v56 = deviceCopy;
+    v22 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v54 = deviceCopy;
     if (v22)
     {
       v23 = v22;
       v24 = 0;
       v25 = 0;
-      v26 = *v60;
+      v26 = *v58;
       do
       {
         for (i = 0; i != v23; i = i + 1)
         {
-          if (*v60 != v26)
+          if (*v58 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          recordID = [*(*(&v59 + 1) + 8 * i) recordID];
+          recordID = [*(*(&v57 + 1) + 8 * i) recordID];
           v29 = [MBCKKeyBag UUIDStringFromRecordID:recordID];
 
           v30 = [v21 objectForKeyedSubscript:v29];
@@ -1135,17 +1122,15 @@ LABEL_10:
               keybagData = [v30 keybagData];
               v34 = [keybagData length];
               *buf = 138412546;
-              v64 = v29;
-              v65 = 2048;
-              v66 = v34;
+              v62 = v29;
+              v63 = 2048;
+              v64 = v34;
               _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "=keybag= Fetched keybag %@ (%llu bytes)", buf, 0x16u);
 
               keybagData2 = [v30 keybagData];
-              v50 = v29;
-              v51 = [keybagData2 length];
-              _MBLog();
+              _MBLog(@"Df", "=keybag= Fetched keybag %@ (%llu bytes)", v29, [keybagData2 length]);
 
-              deviceCopy = v56;
+              deviceCopy = v54;
             }
 
             ++v25;
@@ -1156,10 +1141,9 @@ LABEL_10:
             if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v64 = v29;
+              v62 = v29;
               _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "=keybag= Found invalid keybag ref:%@", buf, 0xCu);
-              v50 = v29;
-              _MBLog();
+              _MBLog(@"E ", "=keybag= Found invalid keybag ref:%@", v29);
             }
 
             keybagManager4 = [deviceCopy keybagManager];
@@ -1169,7 +1153,7 @@ LABEL_10:
           }
         }
 
-        v23 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
+        v23 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
       }
 
       while (v23);
@@ -1191,21 +1175,21 @@ LABEL_10:
       __assert_rtn("+[MBCKKeyBag _removeInvalidKeyBagReferencesFromDevice:tracker:validationState:error:]", "MBCKKeyBag.m", 490, "device.keybagManager.keybagsByUUIDString.count == device.keybagManager.keybagRefs.count");
     }
 
-    stateCopy = v54;
+    stateCopy = v52;
     v43 = v24;
-    persona = v53;
-    if ([v54 trackValidationFailureWithInvalidKeyBagCount:v43 validKeyBagCount:v25 persona:v53 error:errorCopy])
+    persona = v51;
+    if ([v52 trackValidationFailureWithInvalidKeyBagCount:v43 validKeyBagCount:v25 persona:v51 error:errorCopy])
     {
-      deviceCopy = v56;
-      recordRepresentation = [v56 recordRepresentation];
-      v58 = 0;
-      trackerCopy = v55;
-      v45 = [v55 saveRecord:recordRepresentation delegate:0 error:&v58];
-      v46 = v58;
+      deviceCopy = v54;
+      recordRepresentation = [v54 recordRepresentation];
+      v56 = 0;
+      trackerCopy = v53;
+      v45 = [v53 saveRecord:recordRepresentation delegate:0 error:&v56];
+      v46 = v56;
 
       if (v45)
       {
-        v37 = [v54 trackRepairedDeviceRecordWithPersona:v53 error:errorCopy];
+        v37 = [v52 trackRepairedDeviceRecordWithPersona:v51 error:errorCopy];
       }
 
       else
@@ -1220,9 +1204,9 @@ LABEL_10:
         if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v64 = v46;
+          v62 = v46;
           _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "=keybag= Failed to save repaired device record: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "=keybag= Failed to save repaired device record: %@", v46);
         }
 
         v37 = 0;
@@ -1232,8 +1216,8 @@ LABEL_10:
     else
     {
       v37 = 0;
-      deviceCopy = v56;
-      trackerCopy = v55;
+      deviceCopy = v54;
+      trackerCopy = v53;
     }
   }
 
@@ -1284,10 +1268,9 @@ LABEL_10:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v36 = v14;
+    v35 = v14;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=keybag= Loaded keybag validation state: %@", buf, 0xCu);
-    v32 = v14;
-    _MBLog();
+    _MBLog(@"Df", "=keybag= Loaded keybag validation state: %@", v14);
   }
 
   v16 = +[MBRemoteConfiguration sharedInstance];
@@ -1303,9 +1286,9 @@ LABEL_10:
     *state = v14;
     v22 = +[MBCKManager sharedInstance];
     v23 = MBDeviceUUID();
-    v34 = 0;
-    v24 = [MBCKAccount fetchDeviceRecordSnapshotsAndKeybags:v23 account:v11 manager:v22 tracker:v9 error:&v34];
-    v25 = v34;
+    v33 = 0;
+    v24 = [MBCKAccount fetchDeviceRecordSnapshotsAndKeybags:v23 account:v11 manager:v22 tracker:v9 error:&v33];
+    v25 = v33;
 
     if (v24)
     {
@@ -1327,7 +1310,7 @@ LABEL_10:
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "=keybag= Resuming pending encryption key repair", buf, 2u);
-            _MBLog();
+            _MBLog(@"Df", "=keybag= Resuming pending encryption key repair");
           }
 
           v27 = 1;

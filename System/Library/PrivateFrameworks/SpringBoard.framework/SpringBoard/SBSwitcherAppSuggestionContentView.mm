@@ -27,7 +27,7 @@
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * i) frame];
+        objc_msgSend_frame(*(*(&v11 + 1) + 8 * i));
         v17.x = x;
         v17.y = y;
         if (CGRectContainsPoint(v18, v17))

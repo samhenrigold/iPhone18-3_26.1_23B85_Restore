@@ -54,7 +54,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     v8 = *&v6[*(v3 + 28)];
     swift_endAccess();
@@ -87,7 +87,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     v8 = *&v6[*(v3 + 32)];
     swift_endAccess();
@@ -120,7 +120,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     v8 = v6[*(v3 + 36)];
     swift_endAccess();
@@ -153,7 +153,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     v8 = v6[*(v3 + 48)];
     swift_endAccess();
@@ -194,7 +194,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     v8 = *&v6[*(v3 + 24)];
     swift_endAccess();
@@ -225,7 +225,7 @@
     type metadata accessor for CRLMovieItemCRDTData(0);
     selfCopy = self;
 
-    sub_1005B981C(&unk_101A2C7E0);
+    sub_1005B981C(&unk_101A2C7E0, &unk_10149A510);
     CRRegister.wrappedValue.getter();
     swift_endAccess();
 
@@ -247,14 +247,14 @@
 - (void)setVolume:(float)volume
 {
   selfCopy = self;
-  if (sub_1011255D0(selfCopy))
+  if (sub_1011255D0())
   {
     if (**&selfCopy->super.super.super._TtC8Freeform12CRLBoardItem_opaque[OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData] == &off_1019F58C8)
     {
       swift_beginAccess();
       type metadata accessor for CRLMovieItemCRDTData(0);
 
-      sub_1005B981C(&unk_101A2C7E0);
+      sub_1005B981C(&unk_101A2C7E0, &unk_10149A510);
       CRRegister.wrappedValue.setter();
       swift_endAccess();
     }
@@ -273,7 +273,7 @@
 - (void)setCornerRadius:(float)radius
 {
   selfCopy = self;
-  sub_100D91544(selfCopy, radius);
+  sub_100D91544(radius);
 }
 
 - (NSString)title
@@ -286,7 +286,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     swift_endAccess();
 
@@ -324,7 +324,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     swift_endAccess();
 
@@ -450,7 +450,7 @@ LABEL_6:
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     v8 = v6[*(v3 + 36)];
     swift_endAccess();
@@ -570,7 +570,7 @@ LABEL_6:
 
 - (Class)editorClass
 {
-  sub_100006370(0, &qword_101A1F878);
+  sub_100006370(0, &qword_101A1F878, off_10182F8C8);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -679,7 +679,7 @@ LABEL_6:
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&qword_101A28680);
+    sub_1005B981C(&qword_101A28680, qword_10147AB10);
     CRRegister.wrappedValue.getter();
     v8 = v6[*(v3 + 36)];
     swift_endAccess();

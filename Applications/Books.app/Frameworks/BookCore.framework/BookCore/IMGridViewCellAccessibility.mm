@@ -7,157 +7,158 @@
 
 - (void)accessibilityScrollToVisible
 {
-  v51 = [(IMGridViewCellAccessibility *)self imaxValueForKey:@"gridView"];
+  v53 = [(IMGridViewCellAccessibility *)self imaxValueForKey:@"gridView"];
   NSClassFromString(@"IMGridView");
-  if ((objc_opt_isKindOfClass() & 1) == 0 && IMAccessibilityShouldPerformValidationChecks())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 && IMAccessibilityShouldPerformValidationChecks(isKindOfClass, v4))
   {
-    v3 = [NSString stringWithFormat:@"AX: expected superview of %@ to be IMGridView. was: %@", self, v51];
-    v4 = [NSException exceptionWithName:@"AX Error" reason:v3 userInfo:0];
+    v5 = [NSString stringWithFormat:@"AX: expected superview of %@ to be IMGridView. was: %@", self, v53];
+    v6 = [NSException exceptionWithName:@"AX Error" reason:v5 userInfo:0];
   }
 
   [(IMGridViewCellAccessibility *)self frame];
-  v6 = v5;
   v8 = v7;
   v10 = v9;
   v12 = v11;
-  [v51 bounds];
   v14 = v13;
+  [v53 bounds];
   v16 = v15;
   v18 = v17;
-  rect = v19;
-  v20 = v12 * 0.5;
-  if (v8 < v12)
+  v20 = v19;
+  rect = v21;
+  v22 = v14 * 0.5;
+  if (v10 < v14)
   {
-    v20 = 10.0;
+    v22 = 10.0;
   }
 
-  v45 = v20;
-  window = [v51 window];
+  v47 = v22;
+  window = [v53 window];
   windowScene = [window windowScene];
   statusBarManager = [windowScene statusBarManager];
 
-  [v51 contentInset];
-  v44 = v24;
+  [v53 contentInset];
+  v46 = v26;
   [statusBarManager statusBarHeight];
-  v43 = v25;
-  [v51 contentOffset];
-  v49 = v26;
-  v53.origin.x = v6;
-  v53.origin.y = v8;
-  v53.size.width = v10;
-  v53.size.height = v12;
-  MinY = CGRectGetMinY(v53);
-  v27 = v6;
-  v54.origin.x = v6;
-  v47 = v8;
-  v54.origin.y = v8;
-  v54.size.width = v10;
-  v54.size.height = v12;
-  MaxX = CGRectGetMaxX(v54);
-  v29 = v14;
-  v55.origin.x = v14;
-  v30 = v16;
-  v55.origin.y = v16;
-  v31 = v18;
-  v55.size.width = v18;
-  v55.size.height = rect;
-  v32 = rect;
-  if (MaxX >= CGRectGetMaxX(v55))
+  v45 = v27;
+  [v53 contentOffset];
+  v51 = v28;
+  v55.origin.x = v8;
+  v55.origin.y = v10;
+  v55.size.width = v12;
+  v55.size.height = v14;
+  MinY = CGRectGetMinY(v55);
+  v29 = v8;
+  v56.origin.x = v8;
+  v49 = v10;
+  v56.origin.y = v10;
+  v56.size.width = v12;
+  v56.size.height = v14;
+  MaxX = CGRectGetMaxX(v56);
+  v31 = v16;
+  v57.origin.x = v16;
+  v32 = v18;
+  v57.origin.y = v18;
+  v33 = v20;
+  v57.size.width = v20;
+  v57.size.height = rect;
+  v34 = rect;
+  if (MaxX >= CGRectGetMaxX(v57))
   {
-    v59.origin.x = v27;
-    v34 = v47;
-    v59.origin.y = v47;
-    v59.size.width = v10;
-    v59.size.height = v12;
-    v50 = CGRectGetMaxX(v59);
-    v60.origin.x = v29;
-    v60.origin.y = v30;
-    v60.size.width = v31;
-    v60.size.height = rect;
-    v49 = v50 - CGRectGetWidth(v60) + 10.0;
+    v61.origin.x = v29;
+    v36 = v49;
+    v61.origin.y = v49;
+    v61.size.width = v12;
+    v61.size.height = v14;
+    v52 = CGRectGetMaxX(v61);
+    v62.origin.x = v31;
+    v62.origin.y = v32;
+    v62.size.width = v33;
+    v62.size.height = rect;
+    v51 = v52 - CGRectGetWidth(v62) + 10.0;
   }
 
   else
   {
-    v56.origin.x = v27;
-    v56.origin.y = v47;
-    v56.size.width = v10;
-    v56.size.height = v12;
-    MinX = CGRectGetMinX(v56);
-    v57.origin.x = v29;
-    v57.origin.y = v30;
-    v57.size.width = v31;
-    v57.size.height = rect;
-    if (MinX >= CGRectGetMinX(v57))
+    v58.origin.x = v29;
+    v58.origin.y = v49;
+    v58.size.width = v12;
+    v58.size.height = v14;
+    MinX = CGRectGetMinX(v58);
+    v59.origin.x = v31;
+    v59.origin.y = v32;
+    v59.size.width = v33;
+    v59.size.height = rect;
+    if (MinX >= CGRectGetMinX(v59))
     {
-      v34 = v47;
+      v36 = v49;
     }
 
     else
     {
-      v58.origin.x = v27;
-      v34 = v47;
-      v58.origin.y = v47;
-      v58.size.width = v10;
-      v58.size.height = v12;
-      v49 = CGRectGetMinX(v58) + -10.0;
+      v60.origin.x = v29;
+      v36 = v49;
+      v60.origin.y = v49;
+      v60.size.width = v12;
+      v60.size.height = v14;
+      v51 = CGRectGetMinX(v60) + -10.0;
     }
 
-    v32 = rect;
+    v34 = rect;
   }
 
-  v46 = v10;
-  v61.origin.x = v27;
-  v61.origin.y = v34;
-  v61.size.width = v10;
-  v61.size.height = v12;
-  v35 = v34;
-  MaxY = CGRectGetMaxY(v61);
-  v62.origin.x = v29;
-  v62.origin.y = v30;
-  v62.size.width = v31;
-  v62.size.height = v32;
-  if (MaxY >= CGRectGetMaxY(v62))
+  v48 = v12;
+  v63.origin.x = v29;
+  v63.origin.y = v36;
+  v63.size.width = v12;
+  v63.size.height = v14;
+  v37 = v36;
+  MaxY = CGRectGetMaxY(v63);
+  v64.origin.x = v31;
+  v64.origin.y = v32;
+  v64.size.width = v33;
+  v64.size.height = v34;
+  if (MaxY >= CGRectGetMaxY(v64))
   {
-    v66.origin.x = v27;
-    v66.origin.y = v35;
-    v66.size.width = v46;
-    v66.size.height = v12;
-    v40 = CGRectGetMaxY(v66);
-    v67.origin.x = v29;
-    v67.origin.y = v30;
-    v67.size.width = v31;
-    v67.size.height = v32;
-    v38 = v40 - CGRectGetHeight(v67);
-    v39 = 10.0;
+    v68.origin.x = v29;
+    v68.origin.y = v37;
+    v68.size.width = v48;
+    v68.size.height = v14;
+    v42 = CGRectGetMaxY(v68);
+    v69.origin.x = v31;
+    v69.origin.y = v32;
+    v69.size.width = v33;
+    v69.size.height = v34;
+    v40 = v42 - CGRectGetHeight(v69);
+    v41 = 10.0;
     goto LABEL_16;
   }
 
-  v63.origin.x = v27;
-  v63.origin.y = v35;
-  v63.size.width = v46;
-  v63.size.height = v12;
-  v37 = CGRectGetMinY(v63);
-  v64.origin.x = v29;
-  v64.origin.y = v30;
-  v64.size.width = v31;
-  v64.size.height = v32;
-  if (v37 < CGRectGetMinY(v64))
+  v65.origin.x = v29;
+  v65.origin.y = v37;
+  v65.size.width = v48;
+  v65.size.height = v14;
+  v39 = CGRectGetMinY(v65);
+  v66.origin.x = v31;
+  v66.origin.y = v32;
+  v66.size.width = v33;
+  v66.size.height = v34;
+  if (v39 < CGRectGetMinY(v66))
   {
-    v65.origin.x = v27;
-    v65.origin.y = v35;
-    v65.size.width = v46;
-    v65.size.height = v12;
-    v38 = CGRectGetMinY(v65);
-    v39 = -10.0;
+    v67.origin.x = v29;
+    v67.origin.y = v37;
+    v67.size.width = v48;
+    v67.size.height = v14;
+    v40 = CGRectGetMinY(v67);
+    v41 = -10.0;
 LABEL_16:
-    v41 = v38 + v39;
+    v43 = v40 + v41;
     goto LABEL_18;
   }
 
-  v41 = MinY - v45 - (v44 + v43);
+  v43 = MinY - v47 - (v46 + v45);
 LABEL_18:
-  [v51 setContentOffset:0 animated:{v49, v41}];
+  [v53 setContentOffset:0 animated:{v51, v43}];
   UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, 0);
 }
 

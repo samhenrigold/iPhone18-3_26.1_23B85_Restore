@@ -1,4 +1,563 @@
-uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO011CustomSmartE13SectionsModelV08sectionsK0AC0jK0Vvg_0@<X0>(uint64_t a1@<X8>)
+uint64_t sub_23025B864@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = sub_230282944(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_23025B88C(uint64_t a1)
+{
+  v2 = sub_2302728D4();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t sub_23025B8C8(uint64_t a1)
+{
+  v2 = sub_2302728D4();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t sub_23025B904(uint64_t a1)
+{
+  v2 = sub_230272880();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t sub_23025B940(uint64_t a1)
+{
+  v2 = sub_230272880();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t REMRemindersListDataView.SectionLite.SectionType.encode(to:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB183F8, &qword_23032DC98);
+  v21 = *(v3 - 8);
+  v22 = v3;
+  MEMORY[0x28223BE20](v3);
+  v20 = v19 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18400, &qword_23032DCA0);
+  v23 = *(v5 - 8);
+  v24 = v5;
+  MEMORY[0x28223BE20](v5);
+  v7 = v19 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18408, &qword_23032DCA8);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v19 - v10;
+  v13 = *v1;
+  v12 = v1[1];
+  v14 = v1[3];
+  v19[3] = v1[2];
+  v19[4] = v12;
+  v19[1] = v1[4];
+  v19[2] = v14;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  sub_23027282C();
+  sub_230311448();
+  if (v13)
+  {
+    v30 = 0;
+    sub_2302728D4();
+    sub_230310D48();
+    v26 = v13;
+    v29 = 0;
+    type metadata accessor for REMObjectID_Codable();
+    sub_230271420(qword_280C9BFD8, type metadata accessor for REMObjectID_Codable, &protocol conformance descriptor for REMObjectID_Codable);
+    v16 = v24;
+    v15 = v25;
+    sub_230310DF8();
+    if (v15)
+    {
+      (*(v23 + 8))(v7, v16);
+    }
+
+    else
+    {
+      v28 = 1;
+      sub_230310DA8();
+      v27 = 2;
+      sub_230310D58();
+      (*(v23 + 8))(v7, v16);
+    }
+
+    return (*(v9 + 8))(v11, v8);
+  }
+
+  else
+  {
+    v31 = 1;
+    sub_230272880();
+    v18 = v20;
+    sub_230310D48();
+    (*(v21 + 8))(v18, v22);
+    return (*(v9 + 8))(v11, v8);
+  }
+}
+
+uint64_t REMRemindersListDataView.SectionLite.SectionType.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v39 = a2;
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18418, &qword_23032DCB0);
+  v38 = *(v36 - 8);
+  MEMORY[0x28223BE20](v36);
+  v4 = &v35 - v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18420, &qword_23032DCB8);
+  v37 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v7 = &v35 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18428, &qword_23032DCC0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v35 - v10;
+  v12 = a1[3];
+  v41 = a1;
+  __swift_project_boxed_opaque_existential_1(a1, v12);
+  sub_23027282C();
+  v13 = v40;
+  sub_230311428();
+  if (v13)
+  {
+    return __swift_destroy_boxed_opaque_existential_1(v41);
+  }
+
+  v35 = v5;
+  v14 = v38;
+  v15 = v39;
+  v40 = v9;
+  v16 = sub_230310D08();
+  v17 = (2 * *(v16 + 16)) | 1;
+  v43 = v16;
+  v44 = v16 + 32;
+  v45 = 0;
+  v46 = v17;
+  v18 = sub_2300DB8E4();
+  if (v18 == 2 || v45 != v46 >> 1)
+  {
+    v20 = sub_230310918();
+    swift_allocError();
+    v22 = v21;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8, &qword_2303233E0);
+    *v22 = &type metadata for REMRemindersListDataView.SectionLite.SectionType;
+    sub_230310C38();
+    sub_2303108F8();
+    (*(*(v20 - 8) + 104))(v22, *MEMORY[0x277D84160], v20);
+    swift_willThrow();
+    (*(v40 + 8))(v11, v8);
+    swift_unknownObjectRelease();
+    return __swift_destroy_boxed_opaque_existential_1(v41);
+  }
+
+  if (v18)
+  {
+    LOBYTE(v47) = 1;
+    sub_230272880();
+    sub_230310C28();
+    v19 = v40;
+    (*(v14 + 8))(v4, v36);
+    (*(v19 + 8))(v11, v8);
+    swift_unknownObjectRelease();
+    v24 = 0;
+    v25 = 0;
+    v26 = 0;
+    v27 = 0;
+    v28 = 0;
+  }
+
+  else
+  {
+    LOBYTE(v47) = 0;
+    sub_2302728D4();
+    sub_230310C28();
+    type metadata accessor for REMObjectID_Codable();
+    v42 = 0;
+    sub_230271420(&qword_280C9C5D0, type metadata accessor for REMObjectID_Codable, &protocol conformance descriptor for REMObjectID_Codable);
+    v29 = v35;
+    sub_230310CE8();
+    v38 = v47;
+    v42 = 1;
+    v30 = sub_230310C98();
+    v26 = v31;
+    v36 = v30;
+    v42 = 2;
+    v32 = sub_230310C48();
+    v33 = v29;
+    v27 = v32;
+    v28 = v34;
+    (*(v37 + 8))(v7, v33);
+    (*(v40 + 8))(v11, v8);
+    swift_unknownObjectRelease();
+    v25 = v36;
+    v24 = v38;
+  }
+
+  *v15 = v24;
+  v15[1] = v25;
+  v15[2] = v26;
+  v15[3] = v27;
+  v15[4] = v28;
+  return __swift_destroy_boxed_opaque_existential_1(v41);
+}
+
+double REMRemindersListDataView.SectionLite.type.getter@<D0>(void *a1@<X8>)
+{
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = *(v1 + 32);
+  *a1 = *v1;
+  a1[1] = v3;
+  a1[2] = v4;
+  a1[3] = v5;
+  a1[4] = v6;
+  return sub_23019E990(v2, v3, v4, v5, v6);
+}
+
+__n128 REMRemindersListDataView.SectionLite.init(type:reminders:)@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v3 = *(a1 + 32);
+  result = *a1;
+  v5 = *(a1 + 16);
+  *a3 = *a1;
+  *(a3 + 16) = v5;
+  *(a3 + 32) = v3;
+  *(a3 + 40) = a2;
+  return result;
+}
+
+uint64_t sub_23025C410()
+{
+  if (*v0)
+  {
+    return 0x7265646E696D6572;
+  }
+
+  else
+  {
+    return 1701869940;
+  }
+}
+
+uint64_t sub_23025C448@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v5 = a1 == 1701869940 && a2 == 0xE400000000000000;
+  if (v5 || (sub_230311048() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0x7265646E696D6572 && a2 == 0xE900000000000073)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = sub_230311048();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t sub_23025C52C(uint64_t a1)
+{
+  v2 = sub_230272928();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t sub_23025C568(uint64_t a1)
+{
+  v2 = sub_230272928();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t REMRemindersListDataView.SectionLite.encode(to:)(void *a1)
+{
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18430, &qword_23032DCC8);
+  v19 = *(v17 - 8);
+  MEMORY[0x28223BE20](v17);
+  v3 = *v1;
+  v4 = *(v1 + 8);
+  v5 = *(v1 + 16);
+  v6 = *(v1 + 24);
+  v7 = *(v1 + 32);
+  v16 = *(v1 + 40);
+  v8 = a1[3];
+  v9 = a1;
+  v11 = &v15 - v10;
+  __swift_project_boxed_opaque_existential_1(v9, v8);
+  sub_23019E990(v3, v4, v5, v6, v7);
+  sub_230272928();
+  v12 = v17;
+  sub_230311448();
+  v20 = v3;
+  v21 = v4;
+  v22 = v5;
+  v23 = v6;
+  v24 = v7;
+  v25 = 0;
+  sub_23027297C();
+  v13 = v18;
+  sub_230310DF8();
+  sub_23019E9DC(v20);
+  if (!v13)
+  {
+    v20 = v16;
+    v25 = 1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
+    sub_230271A74();
+    sub_230310DF8();
+  }
+
+  return (*(v19 + 8))(v11, v12);
+}
+
+uint64_t REMRemindersListDataView.SectionLite.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18438, &qword_23032DCD0);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v16 - v7;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  sub_230272928();
+  sub_230311428();
+  if (v2)
+  {
+    return __swift_destroy_boxed_opaque_existential_1(a1);
+  }
+
+  v24 = 0;
+  sub_2302729D0();
+  sub_230310CE8();
+  v10 = v19;
+  v9 = v20;
+  v16 = v21;
+  v17 = v22;
+  v18 = v23;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
+  v24 = 1;
+  sub_230271B4C();
+  sub_230310CE8();
+  (*(v6 + 8))(v8, v5);
+  v12 = v18;
+  v11 = v19;
+  *a2 = v10;
+  a2[1] = v9;
+  v14 = v16;
+  v13 = v17;
+  a2[2] = v16;
+  a2[3] = v13;
+  a2[4] = v12;
+  a2[5] = v11;
+  sub_23019E990(v10, v9, v14, v13, v12);
+
+  __swift_destroy_boxed_opaque_existential_1(a1);
+  sub_23019E9DC(v10);
+}
+
+__n128 REMRemindersListDataView.SectionsModel.remindersCount.getter@<Q0>(__n128 *a1@<X8>)
+{
+  v2 = *(v1 + 24);
+  result = *(v1 + 8);
+  *a1 = result;
+  a1[1].n128_u8[0] = v2;
+  return result;
+}
+
+__n128 sub_23025CA64@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v6 = a2[1].n128_u8[0];
+  *a6 = a1;
+  result = *a2;
+  *(a6 + 8) = *a2;
+  *(a6 + 24) = v6;
+  *(a6 + 25) = a3;
+  *(a6 + 32) = a4;
+  *(a6 + 40) = a5;
+  return result;
+}
+
+unint64_t sub_23025CA84()
+{
+  v1 = *v0;
+  v2 = 0x736E6F6974636573;
+  v3 = 0xD000000000000021;
+  v4 = 0xD000000000000013;
+  if (v1 != 3)
+  {
+    v4 = 0xD000000000000016;
+  }
+
+  if (v1 != 2)
+  {
+    v3 = v4;
+  }
+
+  if (*v0)
+  {
+    v2 = 0x7265646E696D6572;
+  }
+
+  if (*v0 <= 1u)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+uint64_t sub_23025CB38@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = sub_230282A70(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_23025CB60(uint64_t a1)
+{
+  v2 = sub_230272A24();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t sub_23025CB9C(uint64_t a1)
+{
+  v2 = sub_230272A24();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t REMRemindersListDataView.SectionsModel.encode(to:)(void *a1)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18440, &qword_23032DCD8);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v14 - v6;
+  v9 = *v1;
+  v8 = v1[1];
+  v17 = v1[2];
+  v18 = v8;
+  v22 = *(v1 + 24);
+  v16 = *(v1 + 25);
+  v10 = v1[4];
+  v14 = v1[5];
+  v15 = v10;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  sub_230272A24();
+
+  sub_230311448();
+  v19 = v9;
+  v23 = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18448, &qword_23032DCE0);
+  sub_230272A78();
+  sub_230310DF8();
+  if (v2)
+  {
+  }
+
+  else
+  {
+    v12 = v14;
+    v11 = v15;
+
+    v19 = v18;
+    v20 = v17;
+    v21 = v22;
+    v23 = 1;
+    sub_230271CCC();
+    sub_230310D98();
+    LOBYTE(v19) = 2;
+    sub_230310D68();
+    v19 = v11;
+    v23 = 3;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
+    sub_2300E0EE4();
+    sub_230310DF8();
+    v19 = v12;
+    v23 = 4;
+    sub_230310DF8();
+  }
+
+  return (*(v5 + 8))(v7, v4);
+}
+
+uint64_t REMRemindersListDataView.SectionsModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18450, &qword_23032DCE8);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v17 - v7;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  sub_230272A24();
+  sub_230311428();
+  if (v2)
+  {
+    return __swift_destroy_boxed_opaque_existential_1(a1);
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18448, &qword_23032DCE0);
+  v26 = 0;
+  sub_230272B50();
+  sub_230310CE8();
+  v9 = v22;
+  v26 = 1;
+  sub_230271D20();
+  sub_230310C88();
+  v20 = v22;
+  v21 = v9;
+  v10 = v23;
+  v11 = v24;
+  LOBYTE(v22) = 2;
+  v12 = sub_230310C58();
+  v18 = v11;
+  v19 = v10;
+  v25 = v12;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
+  v26 = 3;
+  sub_2300DB820();
+  sub_230310CE8();
+  v17 = v22;
+  v26 = 4;
+  sub_230310CE8();
+  (*(v6 + 8))(v8, v5);
+  v14 = v22;
+  v15 = v19;
+  v16 = v20;
+  *a2 = v21;
+  *(a2 + 8) = v16;
+  *(a2 + 16) = v15;
+  *(a2 + 24) = v18;
+  *(a2 + 25) = v25;
+  *(a2 + 32) = v17;
+  *(a2 + 40) = v14;
+
+  __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+double _s19ReminderKitInternal24REMRemindersListDataViewO011CustomSmartE13SectionsModelV08sectionsK0AC0jK0Vvg_0@<D0>(uint64_t a1@<X8>)
 {
   v2 = *(v1 + 24);
   v3 = *(v1 + 25);
@@ -10,6 +569,8 @@ uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO011CustomSmartE13Sect
   *(a1 + 25) = v3;
   *(a1 + 32) = v4;
   *(a1 + 40) = v5;
+
+  return result;
 }
 
 uint64_t sub_23025D2A8()
@@ -75,7 +636,7 @@ uint64_t sub_23025D408(uint64_t a1)
 
 uint64_t REMRemindersListDataView.ListSectionsModel.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18458);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18458, &qword_23032DCF0);
   v17 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v5 = &v12 - v4;
@@ -109,7 +670,7 @@ uint64_t REMRemindersListDataView.ListSectionsModel.encode(to:)(void *a1)
     v18 = v12;
     v26 = 1;
     type metadata accessor for REMList_Codable();
-    sub_230271420(&qword_280C9C348, type metadata accessor for REMList_Codable);
+    sub_230271420(&qword_280C9C348, type metadata accessor for REMList_Codable, &protocol conformance descriptor for REMList_Codable);
     sub_230310DF8();
   }
 
@@ -118,7 +679,7 @@ uint64_t REMRemindersListDataView.ListSectionsModel.encode(to:)(void *a1)
 
 uint64_t REMRemindersListDataView.ListSectionsModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18460);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18460, &qword_23032DCF8);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v19 - v7;
@@ -142,7 +703,7 @@ uint64_t REMRemindersListDataView.ListSectionsModel.init(from:)@<X0>(void *a1@<X
   v41 = v30;
   type metadata accessor for REMList_Codable();
   v37 = 1;
-  sub_230271420(&qword_280C9C340, type metadata accessor for REMList_Codable);
+  sub_230271420(&qword_280C9C340, type metadata accessor for REMList_Codable, &protocol conformance descriptor for REMList_Codable);
   sub_230310CE8();
   (*(v6 + 8))(v8, v5);
   v11 = v38;
@@ -182,7 +743,7 @@ uint64_t REMRemindersListDataView.ListSectionsModel.init(from:)@<X0>(void *a1@<X
   return sub_2301A7C98(&v27);
 }
 
-uint64_t sub_23025D9E0()
+unint64_t sub_23025D9E0()
 {
   v1 = 0x73694C7472616D73;
   if (*v0 != 1)
@@ -201,10 +762,10 @@ uint64_t sub_23025D9E0()
   }
 }
 
-uint64_t sub_23025DA50@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_23025DA50@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_230282C30(a1, a2);
-  *a3 = result;
+  result = sub_230282C30(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -224,7 +785,7 @@ uint64_t sub_23025DAB4(uint64_t a1)
 
 uint64_t REMRemindersListDataView.CustomSmartListSectionsModel.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18468);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18468, &qword_23032DD00);
   v29 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v5 = &v20 - v4;
@@ -273,14 +834,14 @@ uint64_t REMRemindersListDataView.CustomSmartListSectionsModel.encode(to:)(void 
   v30 = v24;
   v37 = 1;
   type metadata accessor for REMSmartList_Codable();
-  sub_230271420(qword_280C9AC10, type metadata accessor for REMSmartList_Codable);
+  sub_230271420(qword_280C9AC10, type metadata accessor for REMSmartList_Codable, &protocol conformance descriptor for REMSmartList_Codable);
   sub_230310DF8();
   v30 = v17;
   v31 = v18;
   v32 = v15;
   v33 = v16;
   v37 = 2;
-  sub_2300E0488(v17);
+  sub_2300E0488(v17, v18, v15, v16);
   sub_230272280();
   sub_230310D98();
   sub_2300E04C8(v30);
@@ -289,7 +850,7 @@ uint64_t REMRemindersListDataView.CustomSmartListSectionsModel.encode(to:)(void 
 
 void REMRemindersListDataView.CustomSmartListSectionsModel.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18478);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18478, &qword_23032DD08);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v20 - v7;
@@ -315,7 +876,7 @@ void REMRemindersListDataView.CustomSmartListSectionsModel.init(from:)(void *a1@
     v55 = v38;
     type metadata accessor for REMSmartList_Codable();
     LOBYTE(v29) = 1;
-    sub_230271420(&qword_280C9B750, type metadata accessor for REMSmartList_Codable);
+    sub_230271420(&qword_280C9B750, type metadata accessor for REMSmartList_Codable, &protocol conformance descriptor for REMSmartList_Codable);
     sub_230310CE8();
     v24 = v9;
     v10 = v35;
@@ -385,7 +946,7 @@ void *_s19ReminderKitInternal24REMRemindersListDataViewO011CustomSmartE13Section
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return sub_2300E0488(v2);
+  return sub_2300E0488(v2, v3, v4, v5);
 }
 
 __n128 _s19ReminderKitInternal24REMRemindersListDataViewO011CustomSmartE13SectionsModelV08sectionsK005smartE016manualOrderingIDAeC0jK0V_AA08REMSmartE8_CodableCSo09REMManualO0CAAE06ManualoP0VSgtcfC_0@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
@@ -405,7 +966,7 @@ __n128 _s19ReminderKitInternal24REMRemindersListDataViewO011CustomSmartE13Sectio
   return result;
 }
 
-uint64_t sub_23025E2B8()
+unint64_t sub_23025E2B8()
 {
   v1 = 0xD00000000000001CLL;
   if (*v0 != 1)
@@ -424,10 +985,10 @@ uint64_t sub_23025E2B8()
   }
 }
 
-uint64_t sub_23025E32C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_23025E32C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_230282D60(a1, a2);
-  *a3 = result;
+  result = sub_230282D60(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -447,7 +1008,7 @@ uint64_t sub_23025E390(uint64_t a1)
 
 uint64_t REMRemindersListDataView.TemplateSectionsModel.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18480);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18480, &qword_23032DD10);
   v29 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v5 = &v20 - v4;
@@ -496,14 +1057,14 @@ uint64_t REMRemindersListDataView.TemplateSectionsModel.encode(to:)(void *a1)
   v30 = v24;
   v37 = 1;
   type metadata accessor for REMList_Codable();
-  sub_230271420(&qword_280C9C348, type metadata accessor for REMList_Codable);
+  sub_230271420(&qword_280C9C348, type metadata accessor for REMList_Codable, &protocol conformance descriptor for REMList_Codable);
   sub_230310DF8();
   v30 = v17;
   v31 = v18;
   v32 = v15;
   v33 = v16;
   v37 = 2;
-  sub_2300E0488(v17);
+  sub_2300E0488(v17, v18, v15, v16);
   sub_230272280();
   sub_230310D98();
   sub_2300E04C8(v30);
@@ -512,7 +1073,7 @@ uint64_t REMRemindersListDataView.TemplateSectionsModel.encode(to:)(void *a1)
 
 void REMRemindersListDataView.TemplateSectionsModel.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18490);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18490, &qword_23032DD18);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v20 - v7;
@@ -538,7 +1099,7 @@ void REMRemindersListDataView.TemplateSectionsModel.init(from:)(void *a1@<X0>, u
     v55 = v38;
     type metadata accessor for REMList_Codable();
     LOBYTE(v29) = 1;
-    sub_230271420(&qword_280C9C340, type metadata accessor for REMList_Codable);
+    sub_230271420(&qword_280C9C340, type metadata accessor for REMList_Codable, &protocol conformance descriptor for REMList_Codable);
     sub_230310CE8();
     v24 = v9;
     v10 = v35;
@@ -617,10 +1178,10 @@ uint64_t sub_23025EB44()
   }
 }
 
-uint64_t sub_23025EBAC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_23025EBAC@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_230282E90(a1, a2);
-  *a3 = result;
+  result = sub_230282E90(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -682,22 +1243,22 @@ uint64_t sub_23025ED78(uint64_t a1)
 
 uint64_t REMRemindersListDataView.ListsSectionsModel.List.ListType.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18498);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18498, &qword_23032DD20);
   v25 = *(v3 - 8);
   v26 = v3;
   MEMORY[0x28223BE20](v3);
   v24 = &v18 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184A0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184A0, &qword_23032DD28);
   v22 = *(v5 - 8);
   v23 = v5;
   MEMORY[0x28223BE20](v5);
   v21 = &v18 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184A8);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184A8, &qword_23032DD30);
   v19 = *(v7 - 8);
   v20 = v7;
   MEMORY[0x28223BE20](v7);
   v9 = &v18 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184B0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184B0, &qword_23032DD38);
   v11 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
   v13 = &v18 - v12;
@@ -744,20 +1305,20 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.List.ListType.encode(to:)(v
 uint64_t REMRemindersListDataView.ListsSectionsModel.List.ListType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v35 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184C8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184C8, &qword_23032DD40);
   v31 = *(v3 - 8);
   v32 = v3;
   MEMORY[0x28223BE20](v3);
   v34 = &v28 - v4;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184D0);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184D0, &qword_23032DD48);
   v30 = *(v33 - 8);
   MEMORY[0x28223BE20](v33);
   v6 = &v28 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184D8);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184D8, &qword_23032DD50);
   v29 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
   v9 = &v28 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184E0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184E0, &qword_23032DD58);
   v11 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
   v13 = &v28 - v12;
@@ -785,7 +1346,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.List.ListType.init(from:)@<
       v22 = sub_230310918();
       swift_allocError();
       v24 = v23;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8, &qword_2303233E0);
       *v24 = &type metadata for REMRemindersListDataView.ListsSectionsModel.List.ListType;
       sub_230310C38();
       sub_2303108F8();
@@ -897,10 +1458,10 @@ uint64_t sub_23025F744()
   }
 }
 
-uint64_t sub_23025F7E0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_23025F7E0@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_230282FB0(a1, a2);
-  *a3 = result;
+  result = sub_230282FB0(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -920,7 +1481,7 @@ uint64_t sub_23025F844(uint64_t a1)
 
 uint64_t REMRemindersListDataView.ListsSectionsModel.List.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184E8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184E8, &qword_23032DD60);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v6 = &v16 - v5;
@@ -939,7 +1500,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.List.encode(to:)(void *a1)
   v24 = v10;
   v23 = 0;
   type metadata accessor for REMObjectID_Codable();
-  sub_230271420(qword_280C9BFD8, type metadata accessor for REMObjectID_Codable);
+  sub_230271420(qword_280C9BFD8, type metadata accessor for REMObjectID_Codable, &protocol conformance descriptor for REMObjectID_Codable);
   v11 = v22;
   sub_230310DF8();
   if (v11)
@@ -957,7 +1518,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.List.encode(to:)(void *a1)
     v24 = v12;
     v23 = 2;
     type metadata accessor for REMColor_Codable();
-    sub_230271420(&qword_280C9AFF0, type metadata accessor for REMColor_Codable);
+    sub_230271420(&qword_280C9AFF0, type metadata accessor for REMColor_Codable, &protocol conformance descriptor for REMColor_Codable);
     sub_230310D98();
     LOBYTE(v24) = v13;
     v23 = 3;
@@ -965,7 +1526,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.List.encode(to:)(void *a1)
     sub_230310DF8();
     v24 = v14;
     v23 = 4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18448);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18448, &qword_23032DCE0);
     sub_230272A78();
     sub_230310DF8();
   }
@@ -975,7 +1536,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.List.encode(to:)(void *a1)
 
 void REMRemindersListDataView.ListsSectionsModel.List.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184F0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184F0, &qword_23032DD68);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v17 - v7;
@@ -991,7 +1552,7 @@ void REMRemindersListDataView.ListsSectionsModel.List.init(from:)(void *a1@<X0>,
   {
     type metadata accessor for REMObjectID_Codable();
     v22 = 0;
-    sub_230271420(&qword_280C9C5D0, type metadata accessor for REMObjectID_Codable);
+    sub_230271420(&qword_280C9C5D0, type metadata accessor for REMObjectID_Codable, &protocol conformance descriptor for REMObjectID_Codable);
     sub_230310CE8();
     v9 = v23;
     LOBYTE(v23) = 1;
@@ -999,14 +1560,14 @@ void REMRemindersListDataView.ListsSectionsModel.List.init(from:)(void *a1@<X0>,
     v21 = v10;
     type metadata accessor for REMColor_Codable();
     v22 = 2;
-    sub_230271420(&qword_280C9AFE8, type metadata accessor for REMColor_Codable);
+    sub_230271420(&qword_280C9AFE8, type metadata accessor for REMColor_Codable, &protocol conformance descriptor for REMColor_Codable);
     sub_230310C88();
     v19 = v23;
     v22 = 3;
     sub_230272FC4();
     sub_230310CE8();
     v18 = v23;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18448);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18448, &qword_23032DCE0);
     v22 = 4;
     sub_230272B50();
     sub_230310CE8();
@@ -1061,10 +1622,10 @@ unint64_t sub_23025FF90()
   }
 }
 
-uint64_t sub_230260034@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_230260034@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_230283164(a1, a2);
-  *a3 = result;
+  result = sub_230283164(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -1084,7 +1645,7 @@ uint64_t sub_230260098(uint64_t a1)
 
 uint64_t REMRemindersListDataView.ListsSectionsModel.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184F8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB184F8, &qword_23032DD70);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v14 - v6;
@@ -1102,7 +1663,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.encode(to:)(void *a1)
   sub_230311448();
   v21 = v8;
   v20 = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18500);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18500, &qword_23032DD78);
   sub_23027306C();
   sub_230310DF8();
   if (v2)
@@ -1120,7 +1681,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.encode(to:)(void *a1)
     sub_230310D68();
     v21 = v11;
     v20 = 3;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
     sub_2300E0EE4();
     sub_230310DF8();
     v21 = v12;
@@ -1133,7 +1694,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.encode(to:)(void *a1)
 
 uint64_t REMRemindersListDataView.ListsSectionsModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18508);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18508, &qword_23032DD80);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v15 - v7;
@@ -1145,7 +1706,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.init(from:)@<X0>(void *a1@<
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18500);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18500, &qword_23032DD78);
   v21 = 0;
   sub_230273144();
   sub_230310CE8();
@@ -1156,7 +1717,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.init(from:)@<X0>(void *a1@<
   v19 = v10;
   LOBYTE(v22) = 2;
   v17 = sub_230310C58();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
   v21 = 3;
   v18 = sub_2300DB820();
   sub_230310CE8();
@@ -1176,7 +1737,7 @@ uint64_t REMRemindersListDataView.ListsSectionsModel.init(from:)@<X0>(void *a1@<
   __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
-uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO10GroupModelV05listsI0AC05ListsI0Vvg_0@<X0>(uint64_t a1@<X8>)
+double _s19ReminderKitInternal24REMRemindersListDataViewO10GroupModelV05listsI0AC05ListsI0Vvg_0@<D0>(uint64_t a1@<X8>)
 {
   v2 = *v1;
   v3 = v1[1];
@@ -1190,6 +1751,8 @@ uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO10GroupModelV05listsI
   *(a1 + 17) = v5;
   *(a1 + 24) = v6;
   *(a1 + 32) = v7;
+
+  return result;
 }
 
 __n128 _s19ReminderKitInternal24REMRemindersListDataViewO10GroupModelV05listsI005groupE0AeC05ListsI0V_So7REMListCtcfC_0@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -1270,7 +1833,7 @@ uint64_t sub_230260894(uint64_t a1)
 
 uint64_t REMRemindersListDataView.GroupSectionsModel.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18510);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18510, &qword_23032DD88);
   v15 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v5 = &v11 - v4;
@@ -1301,7 +1864,7 @@ uint64_t REMRemindersListDataView.GroupSectionsModel.encode(to:)(void *a1)
     v16 = v11;
     v23 = 1;
     type metadata accessor for REMList_Codable();
-    sub_230271420(&qword_280C9C348, type metadata accessor for REMList_Codable);
+    sub_230271420(&qword_280C9C348, type metadata accessor for REMList_Codable, &protocol conformance descriptor for REMList_Codable);
     sub_230310DF8();
   }
 
@@ -1310,7 +1873,7 @@ uint64_t REMRemindersListDataView.GroupSectionsModel.encode(to:)(void *a1)
 
 uint64_t REMRemindersListDataView.GroupSectionsModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18528);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18528, &qword_23032DD90);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v16 - v7;
@@ -1333,7 +1896,7 @@ uint64_t REMRemindersListDataView.GroupSectionsModel.init(from:)@<X0>(void *a1@<
   v25 = v21;
   type metadata accessor for REMList_Codable();
   v26 = 1;
-  sub_230271420(&qword_280C9C340, type metadata accessor for REMList_Codable);
+  sub_230271420(&qword_280C9C340, type metadata accessor for REMList_Codable, &protocol conformance descriptor for REMList_Codable);
   sub_230310CE8();
   (*(v6 + 8))(v8, v5);
   v11 = v19;
@@ -1384,7 +1947,7 @@ void static REMRemindersListDataView.fetchAll_Sections(store:configuration:diffi
 
     v17 = v20;
 
-    sub_230061918(v25, &qword_27DB18538);
+    sub_230061918(v25, &qword_27DB18538, &qword_23032DD98);
     v18 = v33;
     *a3 = v11;
     *(a3 + 8) = v18;
@@ -1409,7 +1972,7 @@ void static REMRemindersListDataView.fetchGroup_Sections(store:group:includePinn
   v8 = type metadata accessor for REMRemindersListDataView.GroupSectionsInvocation.Parameters(0);
   v9 = v8 - 8;
   MEMORY[0x28223BE20](v8);
-  v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = (&v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   v12 = type metadata accessor for REMList_Codable();
   v13 = objc_allocWithZone(v12);
   v14 = [a2 store];
@@ -1423,9 +1986,9 @@ void static REMRemindersListDataView.fetchGroup_Sections(store:group:includePinn
   v19 = [a2 parentList];
   [v18 setParentList_];
 
-  sub_2302706F4(v33, &v11[*(v9 + 32)], type metadata accessor for REMRemindersListDataView.FetchConfiguration);
+  sub_2302706F4(v33, v11 + *(v9 + 32), type metadata accessor for REMRemindersListDataView.FetchConfiguration);
   *v11 = v18;
-  v11[8] = v34;
+  *(v11 + 8) = v34;
   v20 = objc_allocWithZone(type metadata accessor for REMRemindersListDataView.GroupSectionsInvocation());
   v21 = [v20 initWithFetchResultTokenToDiffAgainst_];
   v22 = v45;
@@ -1457,7 +2020,7 @@ void static REMRemindersListDataView.fetchGroup_Sections(store:group:includePinn
 
     v29 = v32;
 
-    sub_230061918(v37, &qword_27DB18540);
+    sub_230061918(v37, &qword_27DB18540, &qword_23032DDA0);
     v30 = v36;
     *a6 = v45;
     *(a6 + 8) = v30;
@@ -1522,7 +2085,7 @@ uint64_t static REMRemindersListDataView.fetchAppIntents_Sections(store:diffingA
 
   v20 = v23;
 
-  result = sub_230061918(v28, &qword_27DB18538);
+  result = sub_230061918(v28, &qword_27DB18538, &qword_23032DD98);
   v21 = v36;
   *a2 = v14;
   *(a2 + 8) = v21;
@@ -1614,10 +2177,10 @@ uint64_t sub_230261838()
   }
 }
 
-uint64_t sub_230261930@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_230261930@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_230283318(a1, a2);
-  *a3 = result;
+  result = sub_230283318(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -1721,45 +2284,45 @@ uint64_t sub_230261C64(uint64_t a1)
 
 uint64_t REMRemindersListDataView.TodayGroupModel.Group.GroupType.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18548);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18548, &qword_23032DDA8);
   v52 = *(v3 - 8);
   v53 = v3;
   MEMORY[0x28223BE20](v3);
   v51 = &v33 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18550);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18550, &qword_23032DDB0);
   v49 = *(v5 - 8);
   v50 = v5;
   MEMORY[0x28223BE20](v5);
   v48 = &v33 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18558);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18558, &qword_23032DDB8);
   v46 = *(v7 - 8);
   v47 = v7;
   MEMORY[0x28223BE20](v7);
   v45 = &v33 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18560);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18560, &qword_23032DDC0);
   v43 = *(v9 - 8);
   v44 = v9;
   MEMORY[0x28223BE20](v9);
   v42 = &v33 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18568);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18568, &qword_23032DDC8);
   v40 = *(v11 - 8);
   v41 = v11;
   MEMORY[0x28223BE20](v11);
   v39 = &v33 - v12;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18570);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18570, &qword_23032DDD0);
   v37 = *(v13 - 8);
   v38 = v13;
   MEMORY[0x28223BE20](v13);
   v36 = &v33 - v14;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18578);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18578, &qword_23032DDD8);
   v34 = *(v35 - 8);
   MEMORY[0x28223BE20](v35);
   v16 = &v33 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18580);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18580, &qword_23032DDE0);
   v33 = *(v17 - 8);
   MEMORY[0x28223BE20](v17);
   v19 = &v33 - v18;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18588);
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18588, &qword_23032DDE8);
   v20 = *(v54 - 8);
   MEMORY[0x28223BE20](v54);
   v21 = *v1;
@@ -1872,44 +2435,44 @@ LABEL_16:
 uint64_t REMRemindersListDataView.TodayGroupModel.Group.GroupType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v83 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18598);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18598, &qword_23032DDF0);
   v75 = *(v3 - 8);
   v76 = v3;
   MEMORY[0x28223BE20](v3);
   v78 = &v57 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185A0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185A0, &qword_23032DDF8);
   v73 = *(v5 - 8);
   v74 = v5;
   MEMORY[0x28223BE20](v5);
   v82 = &v57 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185A8);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185A8, &qword_23032DE00);
   v71 = *(v7 - 8);
   v72 = v7;
   MEMORY[0x28223BE20](v7);
   v81 = &v57 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185B0, &qword_23032DE08);
   v10 = *(v9 - 8);
   v69 = v9;
   v70 = v10;
   MEMORY[0x28223BE20](v9);
   v80 = &v57 - v11;
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185B8);
+  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185B8, &qword_23032DE10);
   v67 = *(v68 - 8);
   MEMORY[0x28223BE20](v68);
   v79 = &v57 - v12;
-  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185C0);
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185C0, &qword_23032DE18);
   v65 = *(v66 - 8);
   MEMORY[0x28223BE20](v66);
   v77 = &v57 - v13;
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185C8);
+  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185C8, &qword_23032DE20);
   v63 = *(v64 - 8);
   MEMORY[0x28223BE20](v64);
   v15 = &v57 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185D0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185D0, &qword_23032DE28);
   v62 = *(v16 - 8);
   MEMORY[0x28223BE20](v16);
   v18 = &v57 - v17;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185D8);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185D8, &qword_23032DE30);
   v20 = *(v19 - 8);
   MEMORY[0x28223BE20](v19);
   v22 = &v57 - v21;
@@ -2064,7 +2627,7 @@ LABEL_25:
     v37 = sub_230310918();
     swift_allocError();
     v39 = v38;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8, &qword_2303233E0);
     *v39 = &type metadata for REMRemindersListDataView.TodayGroupModel.Group.GroupType;
     v40 = v61;
     v41 = v60;
@@ -2151,7 +2714,7 @@ uint64_t sub_230263138(uint64_t a1)
 
 uint64_t REMRemindersListDataView.TodayGroupModel.Group.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185E0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185E0, &qword_23032DE38);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = v10 - v6;
@@ -2168,7 +2731,7 @@ uint64_t REMRemindersListDataView.TodayGroupModel.Group.encode(to:)(void *a1)
   {
     v10[1] = v10[0];
     v11 = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
     sub_230271A74();
     sub_230310DF8();
   }
@@ -2178,7 +2741,7 @@ uint64_t REMRemindersListDataView.TodayGroupModel.Group.encode(to:)(void *a1)
 
 uint64_t REMRemindersListDataView.TodayGroupModel.Group.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185E8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185E8, &qword_23032DE40);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v12 - v7;
@@ -2191,7 +2754,7 @@ uint64_t REMRemindersListDataView.TodayGroupModel.Group.init(from:)@<X0>(void *a
     sub_2302736B4();
     sub_230310CE8();
     v9 = v15;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
     v13 = 1;
     sub_230271B4C();
     sub_230310CE8();
@@ -2241,34 +2804,36 @@ __n128 REMRemindersListDataView.TodayGroupModel.init(groups:remindersCount:curre
   return result;
 }
 
-uint64_t REMRemindersListDataView.TodayGroupModel.todayReminders.getter()
+double REMRemindersListDataView.TodayGroupModel.todayReminders.getter()
 {
   v1 = (*v0 + 32);
   v2 = *(*v0 + 16) + 1;
-  result = MEMORY[0x277D84F90];
   while (--v2)
   {
-    v4 = *v1;
+    v3 = *v1;
     v1 += 16;
-    if (!v4)
+    if (!v3)
     {
+
+      return result;
     }
   }
 
   return result;
 }
 
-uint64_t REMRemindersListDataView.TodayGroupModel.nearbyReminders.getter()
+double REMRemindersListDataView.TodayGroupModel.nearbyReminders.getter()
 {
   v1 = (*v0 + 32);
   v2 = *(*v0 + 16) + 1;
-  result = MEMORY[0x277D84F90];
   while (--v2)
   {
-    v4 = *v1;
+    v3 = *v1;
     v1 += 16;
-    if (v4 == 6)
+    if (v3 == 6)
     {
+
+      return result;
     }
   }
 
@@ -2313,10 +2878,10 @@ unint64_t sub_23026367C()
   }
 }
 
-uint64_t sub_23026375C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_23026375C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_2302835B8(a1, a2);
-  *a3 = result;
+  result = sub_2302835B8(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2336,7 +2901,7 @@ uint64_t sub_2302637C0(uint64_t a1)
 
 uint64_t REMRemindersListDataView.TodayGroupModel.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185F0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185F0, &qword_23032DE48);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v19 - v6;
@@ -2359,7 +2924,7 @@ uint64_t REMRemindersListDataView.TodayGroupModel.encode(to:)(void *a1)
   sub_230311448();
   v24 = v9;
   v28 = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185F8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185F8, &qword_23032DE50);
   sub_23027375C();
   sub_230310DF8();
   if (v2)
@@ -2380,11 +2945,11 @@ uint64_t REMRemindersListDataView.TodayGroupModel.encode(to:)(void *a1)
     v24 = v16;
     v28 = 2;
     type metadata accessor for REMStructuredLocation_Codable();
-    sub_230271420(&qword_280C9C308, type metadata accessor for REMStructuredLocation_Codable);
+    sub_230271420(&qword_280C9C308, type metadata accessor for REMStructuredLocation_Codable, &protocol conformance descriptor for REMStructuredLocation_Codable);
     sub_230310D98();
     v24 = v17;
     v28 = 3;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
     sub_2300E0EE4();
     sub_230310DF8();
     v24 = v19;
@@ -2393,7 +2958,7 @@ uint64_t REMRemindersListDataView.TodayGroupModel.encode(to:)(void *a1)
     v24 = v11;
     v28 = 5;
     type metadata accessor for REMSmartList_Codable();
-    sub_230271420(qword_280C9AC10, type metadata accessor for REMSmartList_Codable);
+    sub_230271420(qword_280C9AC10, type metadata accessor for REMSmartList_Codable, &protocol conformance descriptor for REMSmartList_Codable);
     sub_230310D98();
   }
 
@@ -2402,7 +2967,7 @@ uint64_t REMRemindersListDataView.TodayGroupModel.encode(to:)(void *a1)
 
 void REMRemindersListDataView.TodayGroupModel.init(from:)(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18600);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18600, &qword_23032DE58);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v22 - v7;
@@ -2416,7 +2981,7 @@ void REMRemindersListDataView.TodayGroupModel.init(from:)(void *a1@<X0>, _OWORD 
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185F8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB185F8, &qword_23032DE50);
     LOBYTE(v29) = 0;
     sub_230273834();
     sub_230310CE8();
@@ -2430,12 +2995,12 @@ void REMRemindersListDataView.TodayGroupModel.init(from:)(void *a1@<X0>, _OWORD 
     v45 = v35;
     type metadata accessor for REMStructuredLocation_Codable();
     LOBYTE(v29) = 2;
-    sub_230271420(&qword_280C9C300, type metadata accessor for REMStructuredLocation_Codable);
+    sub_230271420(&qword_280C9C300, type metadata accessor for REMStructuredLocation_Codable, &protocol conformance descriptor for REMStructuredLocation_Codable);
     sub_230310C88();
     v26 = v10;
     v27 = v11;
     v28 = v33;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
     LOBYTE(v29) = 3;
     sub_2300DB820();
     sub_230310CE8();
@@ -2446,7 +3011,7 @@ void REMRemindersListDataView.TodayGroupModel.init(from:)(void *a1@<X0>, _OWORD 
     v24 = v33;
     type metadata accessor for REMSmartList_Codable();
     v42 = 5;
-    sub_230271420(&qword_280C9B750, type metadata accessor for REMSmartList_Codable);
+    sub_230271420(&qword_280C9B750, type metadata accessor for REMSmartList_Codable, &protocol conformance descriptor for REMSmartList_Codable);
     sub_230310C88();
     (*(v6 + 8))(v8, v5);
     v23 = v43;
@@ -2524,7 +3089,7 @@ uint64_t sub_230264218(uint64_t a1)
 
 uint64_t REMRemindersListDataView.TodaySectionOrderingModel.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18608);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18608, &unk_23032DE60);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v6 = v9 - v5;
@@ -2534,7 +3099,7 @@ uint64_t REMRemindersListDataView.TodaySectionOrderingModel.encode(to:)(void *a1
 
   sub_230311448();
   v9[1] = v7;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15210);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15210, &qword_230318C08);
   sub_2302739C8();
   sub_230310DF8();
 
@@ -2543,7 +3108,7 @@ uint64_t REMRemindersListDataView.TodaySectionOrderingModel.encode(to:)(void *a1
 
 uint64_t REMRemindersListDataView.TodaySectionOrderingModel.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18628);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18628, &qword_23032DE70);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v10 - v7;
@@ -2552,7 +3117,7 @@ uint64_t REMRemindersListDataView.TodaySectionOrderingModel.init(from:)@<X0>(voi
   sub_230311428();
   if (!v2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15210);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15210, &qword_230318C08);
     sub_230273AA0();
     sub_230310CE8();
     (*(v6 + 8))(v8, v5);
@@ -2568,7 +3133,7 @@ double static REMRemindersListDataView.fetchToday_Groups(store:grouped:currentLo
   v27[1] = a1;
   v12 = type metadata accessor for REMRemindersListDataView.TodayGroupInvocation.Parameters(0);
   MEMORY[0x28223BE20](v12);
-  v14 = v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = (v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (a3)
   {
     objc_allocWithZone(type metadata accessor for REMStructuredLocation_Codable());
@@ -2577,10 +3142,10 @@ double static REMRemindersListDataView.fetchToday_Groups(store:grouped:currentLo
 
   v15 = *(v12 + 24);
   v16 = sub_23030EB58();
-  (*(*(v16 - 8) + 16))(&v14[v15], a4, v16);
-  sub_2302706F4(a5, &v14[*(v12 + 28)], type metadata accessor for REMRemindersListDataView.FetchConfiguration);
+  (*(*(v16 - 8) + 16))(v14 + v15, a4, v16);
+  sub_2302706F4(a5, v14 + *(v12 + 28), type metadata accessor for REMRemindersListDataView.FetchConfiguration);
   *v14 = a2 & 1;
-  *(v14 + 1) = a3;
+  v14[1] = a3;
   v17 = objc_allocWithZone(type metadata accessor for REMRemindersListDataView.TodayGroupInvocation());
   v18 = [v17 initWithFetchResultTokenToDiffAgainst_];
   v19 = v40;
@@ -2602,7 +3167,7 @@ double static REMRemindersListDataView.fetchToday_Groups(store:grouped:currentLo
     sub_23027390C(&v29, &v28);
     v24 = *(&v23 + 1);
 
-    sub_230061918(&v29, &qword_27DB18640);
+    sub_230061918(&v29, &qword_27DB18640, &qword_23032DE78);
     v25 = v30;
     *a7 = v29;
     a7[1] = v25;
@@ -2660,10 +3225,10 @@ uint64_t sub_230264938()
   }
 }
 
-uint64_t sub_230264990@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_230264990@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_2302837D4(a1, a2);
-  *a3 = result;
+  result = sub_2302837D4(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2684,7 +3249,7 @@ uint64_t sub_2302649F4(uint64_t a1)
 uint64_t REMRemindersListDataView.DatesModel.Group.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18648);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18648, &qword_23032DE80);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v10[-v7];
@@ -2693,13 +3258,13 @@ uint64_t REMRemindersListDataView.DatesModel.Group.encode(to:)(void *a1)
   sub_230311448();
   v12 = 0;
   sub_23030EB58();
-  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
   sub_230310DF8();
   if (!v2)
   {
     v11 = *(v3 + *(type metadata accessor for REMRemindersListDataView.DatesModel.Group(0) + 20));
     v10[15] = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
     sub_230271A74();
     sub_230310DF8();
     v10[14] = 2;
@@ -2716,7 +3281,7 @@ uint64_t REMRemindersListDataView.DatesModel.Group.init(from:)@<X0>(void *a1@<X0
   v24 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v25 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18658);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18658, &qword_23032DE88);
   v23 = *(v26 - 8);
   MEMORY[0x28223BE20](v26);
   v7 = &v20 - v6;
@@ -2736,12 +3301,12 @@ uint64_t REMRemindersListDataView.DatesModel.Group.init(from:)@<X0>(void *a1@<X0
   v20 = v8;
   v21 = v10;
   v30 = 0;
-  sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
   v14 = v25;
   v13 = v26;
   sub_230310CE8();
   (*(v11 + 32))(v21, v14, v4);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
   v29 = 1;
   sub_230271B4C();
   sub_230310CE8();
@@ -2792,10 +3357,10 @@ unint64_t sub_2302650A8()
   }
 }
 
-uint64_t sub_230265124@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_230265124@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_2302838F4(a1, a2);
-  *a3 = result;
+  result = sub_2302838F4(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2815,7 +3380,7 @@ uint64_t sub_230265188(uint64_t a1)
 
 uint64_t REMRemindersListDataView.DatesModel.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18660);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18660, &qword_23032DE90);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v13 - v6;
@@ -2831,7 +3396,7 @@ uint64_t REMRemindersListDataView.DatesModel.encode(to:)(void *a1)
   sub_230311448();
   v19 = v8;
   v18 = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18668);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18668, &qword_23032DE98);
   sub_230273C40();
   sub_230310DF8();
 
@@ -2843,7 +3408,7 @@ uint64_t REMRemindersListDataView.DatesModel.encode(to:)(void *a1)
     sub_230310D88();
     v19 = v10;
     v18 = 2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
     sub_2300E0EE4();
     sub_230310DF8();
     v19 = v11;
@@ -2856,7 +3421,7 @@ uint64_t REMRemindersListDataView.DatesModel.encode(to:)(void *a1)
 
 uint64_t REMRemindersListDataView.DatesModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18670);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18670, &qword_23032DEA0);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v16 - v7;
@@ -2868,7 +3433,7 @@ uint64_t REMRemindersListDataView.DatesModel.init(from:)@<X0>(void *a1@<X0>, uin
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18668);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18668, &qword_23032DE98);
   v21 = 0;
   sub_230273CF4();
   sub_230310CE8();
@@ -2878,7 +3443,7 @@ uint64_t REMRemindersListDataView.DatesModel.init(from:)@<X0>(void *a1@<X0>, uin
   v20 = v9;
   v19 = v11;
   v18 = v10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
   v21 = 2;
   sub_2300DB820();
   sub_230310CE8();
@@ -2898,9 +3463,11 @@ uint64_t REMRemindersListDataView.DatesModel.init(from:)@<X0>(void *a1@<X0>, uin
   __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
-uint64_t sub_230265780(void (*a1)(void))
+double sub_230265780(void (*a1)(void))
 {
   a1(0);
+
+  return result;
 }
 
 uint64_t sub_2302657D4(uint64_t a1)
@@ -2920,7 +3487,7 @@ uint64_t sub_230265810(uint64_t a1)
 uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Day.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18678);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18678, &qword_23032DEA8);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v10[-v7];
@@ -2929,13 +3496,13 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Day.encode(to:)(void
   sub_230311448();
   v12 = 0;
   sub_23030EB58();
-  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
   sub_230310DF8();
   if (!v2)
   {
     v11 = *(v3 + *(type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day(0) + 20));
     v10[15] = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
     sub_230271A74();
     sub_230310DF8();
   }
@@ -2950,7 +3517,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Day.init(from:)@<X0>
   v23 = *(v26 - 8);
   MEMORY[0x28223BE20](v26);
   v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18680);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18680, &qword_23032DEB0);
   v7 = *(v6 - 8);
   v24 = v6;
   v25 = v7;
@@ -2971,14 +3538,14 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Day.init(from:)@<X0>
   v13 = v12;
   v14 = v23;
   v29 = 0;
-  sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
   v15 = v26;
   v16 = v24;
   sub_230310CE8();
   v17 = *(v14 + 32);
   v20 = v13;
   v17(v13, v5, v15);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
   v28 = 1;
   sub_230271B4C();
   sub_230310CE8();
@@ -3022,10 +3589,10 @@ uint64_t sub_230265DFC()
   }
 }
 
-uint64_t sub_230265E8C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_230265E8C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_230283A60(a1, a2);
-  *a3 = result;
+  result = sub_230283A60(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -3134,17 +3701,17 @@ uint64_t sub_2302661E0(uint64_t a1)
 
 uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18688);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18688, &qword_23032DEB8);
   v70 = *(v2 - 8);
   v71 = v2;
   MEMORY[0x28223BE20](v2);
   v69 = &v60 - v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18690);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18690, &qword_23032DEC0);
   v67 = *(v4 - 8);
   v68 = v4;
   MEMORY[0x28223BE20](v4);
   v66 = &v60 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18698);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18698, &qword_23032DEC8);
   v64 = *(v6 - 8);
   v65 = v6;
   MEMORY[0x28223BE20](v6);
@@ -3152,7 +3719,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
   v61 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day(0);
   MEMORY[0x28223BE20](v61);
   v62 = &v60 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186A0);
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186A0, &qword_23032DED0);
   v60 = *(v76 - 8);
   MEMORY[0x28223BE20](v76);
   v75 = &v60 - v9;
@@ -3166,14 +3733,14 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
   v72 = &v60 - v15;
   MEMORY[0x28223BE20](v14);
   v17 = &v60 - v16;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186A8);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186A8, &qword_23032DED8);
   v74 = *(v18 - 8);
   MEMORY[0x28223BE20](v18);
   v20 = &v60 - v19;
   v21 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket(0);
   MEMORY[0x28223BE20](v21);
   v23 = (&v60 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B0);
+  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B0, &qword_23032DEE0);
   v81 = *(v83 - 8);
   MEMORY[0x28223BE20](v83);
   v25 = &v60 - v24;
@@ -3195,7 +3762,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
       v45 = v82;
       v44 = v83;
       sub_230310D48();
-      sub_230271420(&qword_280C97788, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day);
+      sub_230271420(&qword_280C97788, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day, &protocol conformance descriptor for REMRemindersListDataView.ScheduledDateBucketsModel.Day);
       v46 = v65;
       sub_230310DF8();
       (*(v64 + 8))(v43, v46);
@@ -3206,7 +3773,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
     v27 = v83;
     if (EnumCaseMultiPayload == 3)
     {
-      v79 = *(v23 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8) + 48));
+      v79 = *(v23 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8, &qword_23032DEE8) + 48));
       v29 = v77;
       v28 = v78;
       v30 = v72;
@@ -3217,7 +3784,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
       v32 = v82;
       sub_230310D48();
       LOBYTE(v85) = 0;
-      sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+      sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
       v33 = v68;
       v34 = v80;
       sub_230310DF8();
@@ -3231,7 +3798,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
 
       v85 = v79;
       v84 = 1;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8, &qword_23032DEF0);
       sub_230273EE4();
       sub_230310DF8();
       (*(v67 + 8))(v31, v33);
@@ -3241,7 +3808,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
 
     else
     {
-      v79 = *(v23 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8) + 48));
+      v79 = *(v23 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8, &qword_23032DEE8) + 48));
       v48 = v77;
       v47 = v78;
       v49 = v73;
@@ -3252,7 +3819,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
       v51 = v82;
       sub_230310D48();
       LOBYTE(v85) = 0;
-      sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+      sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
       v52 = v71;
       v53 = v80;
       sub_230310DF8();
@@ -3266,7 +3833,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
 
       v85 = v79;
       v84 = 1;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8, &qword_23032DEF0);
       sub_230273EE4();
       sub_230310DF8();
       (*(v70 + 8))(v50, v52);
@@ -3288,14 +3855,14 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
     v40 = v83;
     sub_230310D48();
     v85 = v39;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8, &qword_23032DEF0);
     sub_230273EE4();
     sub_230310DF8();
     (*(v37 + 8))(v20, v18);
     (*(v81 + 8))(v41, v40);
   }
 
-  v54 = *(v23 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8) + 48));
+  v54 = *(v23 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8, &qword_23032DEE8) + 48));
   v56 = v78;
   v55 = v79;
   v57 = v77;
@@ -3305,14 +3872,14 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
   v58 = v82;
   sub_230310D48();
   LOBYTE(v85) = 0;
-  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
   v59 = v80;
   sub_230310DF8();
   if (!v59)
   {
     v85 = v54;
     v84 = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8, &qword_23032DEF0);
     sub_230273EE4();
     sub_230310DF8();
     (*(v60 + 8))(v36, v38);
@@ -3328,27 +3895,27 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.encode(to:)(v
 uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v77 = a2;
-  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186D8);
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186D8, &qword_23032DEF8);
   v73 = *(v69 - 8);
   MEMORY[0x28223BE20](v69);
   v76 = &v61 - v3;
-  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186E0);
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186E0, &qword_23032DF00);
   v72 = *(v66 - 8);
   MEMORY[0x28223BE20](v66);
   v75 = &v61 - v4;
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186E8);
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186E8, &qword_23032DF08);
   v70 = *(v84 - 8);
   MEMORY[0x28223BE20](v84);
   v83 = &v61 - v5;
-  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186F0);
+  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186F0, &qword_23032DF10);
   v71 = *(v82 - 8);
   MEMORY[0x28223BE20](v82);
   v74 = &v61 - v6;
-  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186F8);
+  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186F8, &qword_23032DF18);
   v67 = *(v81 - 8);
   MEMORY[0x28223BE20](v81);
   v80 = &v61 - v7;
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18700);
+  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18700, &qword_23032DF20);
   v79 = *(v85 - 8);
   MEMORY[0x28223BE20](v85);
   v9 = &v61 - v8;
@@ -3403,12 +3970,12 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.init(from:)@<
           sub_230310C28();
           sub_23030EB58();
           LOBYTE(v92) = 0;
-          sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+          sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
           v52 = v64;
           v53 = v32;
           sub_230310CE8();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8, &qword_23032DEE8);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8, &qword_23032DEF0);
           LOBYTE(v92) = 1;
           sub_2302740E8();
           v60 = v74;
@@ -3425,7 +3992,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.init(from:)@<
           LOBYTE(v92) = 0;
           sub_230274094();
           sub_230310C28();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8, &qword_23032DEF0);
           sub_2302740E8();
           sub_230310CE8();
           (*(v67 + 8))(v29, v28);
@@ -3448,7 +4015,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.init(from:)@<
           v49 = v77;
           v50 = v79;
           type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day(0);
-          sub_230271420(&qword_280C97780, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day);
+          sub_230271420(&qword_280C97780, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day, &protocol conformance descriptor for REMRemindersListDataView.ScheduledDateBucketsModel.Day);
           v54 = v63;
           sub_230310CE8();
           (*(v70 + 8))(v30, v31);
@@ -3474,12 +4041,12 @@ LABEL_18:
           sub_230310C28();
           sub_23030EB58();
           LOBYTE(v92) = 0;
-          sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+          sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
           v40 = v65;
           v41 = v66;
           sub_230310CE8();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8, &qword_23032DEE8);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8, &qword_23032DEF0);
           LOBYTE(v92) = 1;
           sub_2302740E8();
           v58 = v75;
@@ -3495,12 +4062,12 @@ LABEL_18:
           sub_230310C28();
           sub_23030EB58();
           LOBYTE(v92) = 0;
-          sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+          sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
           v40 = v68;
           v51 = v69;
           sub_230310CE8();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186B8, &qword_23032DEE8);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB186C8, &qword_23032DEF0);
           LOBYTE(v92) = 1;
           sub_2302740E8();
           v59 = v76;
@@ -3524,7 +4091,7 @@ LABEL_18:
     v42 = sub_230310918();
     swift_allocError();
     v44 = v43;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8, &qword_2303233E0);
     *v44 = v78;
     sub_230310C38();
     sub_2303108F8();
@@ -3554,7 +4121,7 @@ uint64_t sub_230267DE4(uint64_t a1)
 
 uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18708);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18708, &qword_23032DF28);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v14 - v6;
@@ -3572,7 +4139,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.encode(to:)(void *a1
   sub_230311448();
   v19 = v9;
   v23 = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18710);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18710, &qword_23032DF30);
   sub_2302741F0();
   sub_230310DF8();
 
@@ -3588,7 +4155,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.encode(to:)(void *a1
     sub_230310D98();
     v19 = v11;
     v23 = 2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
     sub_2300E0EE4();
     sub_230310DF8();
     v19 = v12;
@@ -3601,7 +4168,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.encode(to:)(void *a1
 
 uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18718);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18718, &qword_23032DF38);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v14 - v7;
@@ -3613,7 +4180,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.init(from:)@<X0>(voi
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18710);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18710, &qword_23032DF30);
   v23 = 0;
   sub_2302742A4();
   sub_230310CE8();
@@ -3625,7 +4192,7 @@ uint64_t REMRemindersListDataView.ScheduledDateBucketsModel.init(from:)@<X0>(voi
   v18 = v9;
   v16 = v20;
   v22 = v21;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
   v23 = 2;
   sub_2300DB820();
   sub_230310CE8();
@@ -3679,7 +4246,7 @@ void static REMRemindersListDataView.fetchScheduled_Flat(store:configuration:dif
 
     v16 = v20;
 
-    sub_230061918(v26, &qword_27DB183E8);
+    sub_230061918(v26, &qword_27DB183E8, &qword_23032DC88);
     v17 = v25;
     *a3 = v33;
     *(a3 + 8) = v17;
@@ -3806,7 +4373,7 @@ uint64_t sub_230268964(uint64_t a1)
 
 uint64_t REMRemindersListDataView.ScheduledTodayGroup.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18720);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18720, &qword_23032DF40);
   v27 = *(v2 - 8);
   v28 = v2;
   MEMORY[0x28223BE20](v2);
@@ -3816,14 +4383,14 @@ uint64_t REMRemindersListDataView.ScheduledTodayGroup.encode(to:)(void *a1)
   v26 = v4;
   MEMORY[0x28223BE20](v4);
   v30 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18728);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18728, &qword_23032DF48);
   v6 = *(v23 - 8);
   MEMORY[0x28223BE20](v23);
   v8 = &v22 - v7;
   v9 = type metadata accessor for REMRemindersListDataView.ScheduledTodayGroup(0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18730);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18730, &unk_23032DF50);
   v13 = *(v12 - 8);
   MEMORY[0x28223BE20](v12);
   v15 = &v22 - v14;
@@ -3831,7 +4398,7 @@ uint64_t REMRemindersListDataView.ScheduledTodayGroup.encode(to:)(void *a1)
   sub_230274378();
   sub_230311448();
   sub_2302706F4(v29, v11, type metadata accessor for REMRemindersListDataView.ScheduledTodayGroup);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18738);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18738, &unk_23033B7D0);
   if ((*(*(v16 - 8) + 48))(v11, 1, v16) == 1)
   {
     v31 = 0;
@@ -3849,7 +4416,7 @@ uint64_t REMRemindersListDataView.ScheduledTodayGroup.encode(to:)(void *a1)
     sub_2302743CC();
     v20 = v24;
     sub_230310D48();
-    sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+    sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
     v21 = v28;
     sub_230310DF8();
     (*(v27 + 8))(v20, v21);
@@ -3862,19 +4429,19 @@ uint64_t REMRemindersListDataView.ScheduledTodayGroup.encode(to:)(void *a1)
 uint64_t REMRemindersListDataView.ScheduledTodayGroup.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v48 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18748);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18748, &qword_23032DF60);
   v4 = *(v3 - 8);
   v45 = v3;
   v46 = v4;
   MEMORY[0x28223BE20](v3);
   v47 = &v40 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18750);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18750, &qword_23032DF68);
   v7 = *(v6 - 8);
   v43 = v6;
   v44 = v7;
   MEMORY[0x28223BE20](v6);
   v9 = &v40 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18758);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18758, &qword_23032DF70);
   v49 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
   v12 = &v40 - v11;
@@ -3909,7 +4476,7 @@ uint64_t REMRemindersListDataView.ScheduledTodayGroup.init(from:)@<X0>(void *a1@
       v34 = sub_230310918();
       swift_allocError();
       v36 = v35;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8, &qword_2303233E0);
       *v36 = v50;
       sub_230310C38();
       sub_2303108F8();
@@ -3930,14 +4497,14 @@ uint64_t REMRemindersListDataView.ScheduledTodayGroup.init(from:)@<X0>(void *a1@
         v28 = v49;
         v29 = v21;
         sub_23030EB58();
-        sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+        sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
         v30 = v41;
         v31 = v45;
         sub_230310CE8();
         (*(v46 + 8))(v27, v31);
         (*(v28 + 8))(v12, v26);
         swift_unknownObjectRelease();
-        v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18738);
+        v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18738, &unk_23033B7D0);
         (*(*(v32 - 8) + 56))(v30, 0, 1, v32);
         v33 = v42;
         sub_23027079C(v30, v42, type metadata accessor for REMRemindersListDataView.ScheduledTodayGroup);
@@ -3953,7 +4520,7 @@ uint64_t REMRemindersListDataView.ScheduledTodayGroup.init(from:)@<X0>(void *a1@
         (*(v44 + 8))(v9, v43);
         (*(v38 + 8))(v12, v26);
         swift_unknownObjectRelease();
-        v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18738);
+        v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18738, &unk_23033B7D0);
         v33 = v42;
         (*(*(v39 - 8) + 56))(v42, 1, 1, v39);
       }
@@ -3999,7 +4566,7 @@ void static REMRemindersListDataView.fetchScheduled_ByDay(store:includeTodayGrou
 
     v19 = *(&v23 + 1);
 
-    sub_230061918(v27, &qword_27DB18760);
+    sub_230061918(v27, &qword_27DB18760, &qword_23032DF78);
     v20 = v35;
     *a4 = v24;
     *(a4 + 8) = v20;
@@ -4105,17 +4672,17 @@ uint64_t sub_230269974(uint64_t a1)
 
 uint64_t REMRemindersListDataView.ScheduledByDateBucketsStyle.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18768);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18768, &qword_23032DF80);
   v19 = *(v3 - 8);
   v20 = v3;
   MEMORY[0x28223BE20](v3);
   v18 = &v16 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18770);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18770, &qword_23032DF88);
   v16 = *(v5 - 8);
   v17 = v5;
   MEMORY[0x28223BE20](v5);
   v7 = &v16 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18778);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18778, &qword_23032DF90);
   v9 = *(v8 - 8);
   MEMORY[0x28223BE20](v8);
   v11 = &v16 - v10;
@@ -4147,16 +4714,16 @@ uint64_t REMRemindersListDataView.ScheduledByDateBucketsStyle.encode(to:)(void *
 uint64_t REMRemindersListDataView.ScheduledByDateBucketsStyle.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v29 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18788);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18788, &qword_23032DF98);
   v27 = *(v3 - 8);
   v28 = v3;
   MEMORY[0x28223BE20](v3);
   v5 = &v24 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18790);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18790, &qword_23032DFA0);
   v26 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v8 = &v24 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18798);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18798, &qword_23032DFA8);
   v30 = *(v9 - 8);
   MEMORY[0x28223BE20](v9);
   v11 = &v24 - v10;
@@ -4187,7 +4754,7 @@ uint64_t REMRemindersListDataView.ScheduledByDateBucketsStyle.init(from:)@<X0>(v
       v20 = sub_230310918();
       swift_allocError();
       v22 = v21;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8, &qword_2303233E0);
       *v22 = &type metadata for REMRemindersListDataView.ScheduledByDateBucketsStyle;
       sub_230310C38();
       sub_2303108F8();
@@ -4234,12 +4801,12 @@ void static REMRemindersListDataView.fetchScheduled_ByDateBuckets(store:style:to
   v10 = type metadata accessor for REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters(0);
   v11 = v10 - 8;
   MEMORY[0x28223BE20](v10);
-  v13 = &v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = (&v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
   LOBYTE(a1) = *a1;
   v14 = *(v11 + 28);
   v15 = sub_23030EB58();
-  (*(*(v15 - 8) + 16))(&v13[v14], a2, v15);
-  sub_2302706F4(a3, &v13[*(v11 + 32)], type metadata accessor for REMRemindersListDataView.FetchConfiguration);
+  (*(*(v15 - 8) + 16))(v13 + v14, a2, v15);
+  sub_2302706F4(a3, v13 + *(v11 + 32), type metadata accessor for REMRemindersListDataView.FetchConfiguration);
   *v13 = a1;
   v16 = [objc_allocWithZone(type metadata accessor for REMRemindersListDataView.ScheduledByDateBucketsInvocation()) initWithFetchResultTokenToDiffAgainst_];
   v17 = v39;
@@ -4268,7 +4835,7 @@ void static REMRemindersListDataView.fetchScheduled_ByDateBuckets(store:style:to
 
     v23 = v27;
 
-    sub_230061918(v32, &qword_27DB187A0);
+    sub_230061918(v32, &qword_27DB187A0, &qword_23032DFB0);
     v24 = v31;
     *a5 = v39;
     *(a5 + 8) = v24;
@@ -4317,7 +4884,7 @@ uint64_t static REMRemindersListDataView.fetchScheduled(store:sortingStyle:showC
     v22 = 1;
   }
 
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18738);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18738, &unk_23033B7D0);
   (*(*(v23 - 8) + 56))(v17, v22, 1, v23);
   sub_2302706F4(v17, v14, type metadata accessor for REMRemindersListDataView.ScheduledTodayGroup);
   sub_2302706F4(v21, v14 + *(v12 + 20), type metadata accessor for REMRemindersListDataView.FetchConfiguration);
@@ -4351,7 +4918,7 @@ uint64_t static REMRemindersListDataView.fetchScheduled(store:sortingStyle:showC
   v33 = v47;
   v34 = v48;
 
-  result = sub_230061918(v41, &qword_27DB18760);
+  result = sub_230061918(v41, &qword_27DB18760, &qword_23032DF78);
   v35 = v37;
   v36 = v49;
   *v37 = v29;
@@ -4433,7 +5000,7 @@ uint64_t sub_23026AAA4(uint64_t a1)
 uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Day.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187A8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187A8, &qword_23032DFB8);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v10[-v7];
@@ -4442,13 +5009,13 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Day.encode(to:)(void
   sub_230311448();
   v12 = 0;
   sub_23030EB58();
-  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
   sub_230310DF8();
   if (!v2)
   {
     v11 = *(v3 + *(type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day(0) + 20));
     v10[15] = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
     sub_230271A74();
     sub_230310DF8();
   }
@@ -4463,7 +5030,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Day.init(from:)@<X0>
   v23 = *(v26 - 8);
   MEMORY[0x28223BE20](v26);
   v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187B8);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187B8, &qword_23032DFC0);
   v7 = *(v6 - 8);
   v24 = v6;
   v25 = v7;
@@ -4484,14 +5051,14 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Day.init(from:)@<X0>
   v13 = v12;
   v14 = v23;
   v29 = 0;
-  sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
   v15 = v26;
   v16 = v24;
   sub_230310CE8();
   v17 = *(v14 + 32);
   v20 = v13;
   v17(v13, v5, v15);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18270, &qword_23032DB70);
   v28 = 1;
   sub_230271B4C();
   sub_230310CE8();
@@ -4535,10 +5102,10 @@ uint64_t sub_23026B090()
   }
 }
 
-uint64_t sub_23026B130@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_23026B130@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_230283C10(a1, a2);
-  *a3 = result;
+  result = sub_230283C10(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -4708,7 +5275,7 @@ uint64_t sub_23026B5F0(uint64_t a1)
 
 uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187C0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187C0, &qword_23032DFC8);
   v71 = *(v2 - 8);
   v72 = v2;
   MEMORY[0x28223BE20](v2);
@@ -4716,16 +5283,16 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
   v63 = type metadata accessor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate(0);
   MEMORY[0x28223BE20](v63);
   v70 = &v60 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187C8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187C8, &qword_23032DFD0);
   v67 = *(v5 - 8);
   v68 = v5;
   MEMORY[0x28223BE20](v5);
   v66 = &v60 - v6;
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187D0);
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187D0, &qword_23032DFD8);
   v64 = *(v65 - 8);
   MEMORY[0x28223BE20](v65);
   v62 = &v60 - v7;
-  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187D8);
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187D8, &qword_23032DFE0);
   v61 = *(v78 - 8);
   MEMORY[0x28223BE20](v78);
   v77 = &v60 - v8;
@@ -4739,7 +5306,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
   v74 = &v60 - v14;
   MEMORY[0x28223BE20](v13);
   v73 = &v60 - v15;
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187E0);
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187E0, &qword_23032DFE8);
   v60 = *(v76 - 8);
   MEMORY[0x28223BE20](v76);
   v17 = &v60 - v16;
@@ -4749,7 +5316,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
   v21 = type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Bucket(0);
   MEMORY[0x28223BE20](v21);
   v23 = &v60 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187E8);
+  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187E8, &qword_23032DFF0);
   v83 = *(v85 - 8);
   MEMORY[0x28223BE20](v85);
   v25 = &v60 - v24;
@@ -4763,7 +5330,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
   {
     if (EnumCaseMultiPayload == 2)
     {
-      v81 = *&v23[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828) + 48)];
+      v81 = *&v23[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828, &qword_23032E008) + 48)];
       v42 = v79;
       v41 = v80;
       v43 = v74;
@@ -4775,7 +5342,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
       v46 = v85;
       sub_230310D48();
       LOBYTE(v87) = 0;
-      sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+      sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
       v47 = v65;
       v48 = v82;
       sub_230310DF8();
@@ -4789,7 +5356,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
 
       v87 = v81;
       v86 = 1;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810, &qword_23032E000);
       sub_2302746AC();
       sub_230310DF8();
       (*(v64 + 8))(v44, v47);
@@ -4804,7 +5371,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
       v29 = v80;
       if (EnumCaseMultiPayload != 3)
       {
-        v49 = *&v23[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187F8) + 48)];
+        v49 = *&v23[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187F8, &qword_23032DFF8) + 48)];
         v50 = v70;
         sub_23027079C(v23, v70, type metadata accessor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate);
         LOBYTE(v87) = 4;
@@ -4812,7 +5379,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
         v51 = v69;
         sub_230310D48();
         LOBYTE(v87) = 0;
-        sub_230271420(&qword_27DB18808, type metadata accessor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate);
+        sub_230271420(&qword_27DB18808, type metadata accessor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate, &protocol conformance descriptor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate);
         v52 = v72;
         v53 = v82;
         sub_230310DF8();
@@ -4826,7 +5393,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
 
         v87 = v49;
         v86 = 1;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810, &qword_23032E000);
         sub_2302746AC();
         sub_230310DF8();
         (*(v71 + 8))(v51, v52);
@@ -4834,7 +5401,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
         (*(v83 + 8))(v28, v27);
       }
 
-      v81 = *&v23[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828) + 48)];
+      v81 = *&v23[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828, &qword_23032E008) + 48)];
       v31 = v75;
       (*(v29 + 32))(v75, v23, v30);
       LOBYTE(v87) = 3;
@@ -4842,7 +5409,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
       v32 = v66;
       sub_230310D48();
       LOBYTE(v87) = 0;
-      sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+      sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
       v33 = v68;
       v34 = v82;
       sub_230310DF8();
@@ -4856,7 +5423,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
 
       v87 = v81;
       v86 = 1;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810, &qword_23032E000);
       sub_2302746AC();
       sub_230310DF8();
       (*(v67 + 8))(v32, v33);
@@ -4877,14 +5444,14 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
     v38 = v84;
     v39 = v85;
     sub_230310D48();
-    sub_230271420(&qword_27DB18820, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
+    sub_230271420(&qword_27DB18820, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day, &protocol conformance descriptor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
     sub_230310DF8();
     (*(v60 + 8))(v17, v36);
     sub_230270804(v20, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
     return (*(v83 + 8))(v38, v39);
   }
 
-  v54 = *&v23[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828) + 48)];
+  v54 = *&v23[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828, &qword_23032E008) + 48)];
   v56 = v79;
   v55 = v80;
   v57 = v73;
@@ -4894,14 +5461,14 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
   v58 = v84;
   sub_230310D48();
   LOBYTE(v87) = 0;
-  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
   v59 = v82;
   sub_230310DF8();
   if (!v59)
   {
     v87 = v54;
     v86 = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810, &qword_23032E000);
     sub_2302746AC();
     sub_230310DF8();
     (*(v61 + 8))(v35, v37);
@@ -4917,29 +5484,29 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.encode(to:)(v
 uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v91 = a2;
-  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18850);
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18850, &qword_23032E010);
   v81 = *(v78 - 8);
   MEMORY[0x28223BE20](v78);
   v83 = &v67 - v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18858);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18858, &qword_23032E018);
   v5 = *(v4 - 8);
   v79 = v4;
   v80 = v5;
   MEMORY[0x28223BE20](v4);
   v90 = &v67 - v6;
-  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18860);
+  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18860, &qword_23032E020);
   v77 = *(v89 - 8);
   MEMORY[0x28223BE20](v89);
   v88 = &v67 - v7;
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18868);
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18868, &qword_23032E028);
   v75 = *(v76 - 8);
   MEMORY[0x28223BE20](v76);
   v82 = &v67 - v8;
-  v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18870);
+  v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18870, &qword_23032E030);
   v72 = *(v73 - 8);
   MEMORY[0x28223BE20](v73);
   v86 = &v67 - v9;
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18878);
+  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18878, &qword_23032E038);
   v85 = *(v87 - 8);
   MEMORY[0x28223BE20](v87);
   v11 = &v67 - v10;
@@ -4991,7 +5558,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.Bucket.init(from:)@<
     v45 = sub_230310918();
     swift_allocError();
     v47 = v46;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14AE8, &qword_2303233E0);
     *v47 = v84;
     sub_230310C38();
     sub_2303108F8();
@@ -5019,11 +5586,11 @@ LABEL_24:
 
         sub_23030EB58();
         v98 = 0;
-        sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+        sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
         v63 = v76;
         sub_230310CE8();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828, &qword_23032E008);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810, &qword_23032E000);
         v98 = 1;
         sub_2302748B0();
         v65 = v82;
@@ -5049,7 +5616,7 @@ LABEL_26:
       if (!v50)
       {
         type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day(0);
-        sub_230271420(&qword_27DB18890, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
+        sub_230271420(&qword_27DB18890, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day, &protocol conformance descriptor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
         v52 = v68;
         v53 = v73;
         sub_230310CE8();
@@ -5085,13 +5652,13 @@ LABEL_27:
           v41 = v33;
           v42 = sub_23030EB58();
           v98 = 0;
-          sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+          sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
           v43 = v70;
           v44 = v79;
           sub_230310CE8();
           v93 = v42;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828, &qword_23032E008);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810, &qword_23032E000);
           v98 = 1;
           sub_2302748B0();
           sub_230310CE8();
@@ -5118,12 +5685,12 @@ LABEL_25:
       {
         type metadata accessor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate(0);
         v98 = 0;
-        sub_230271420(&qword_27DB18880, type metadata accessor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate);
+        sub_230271420(&qword_27DB18880, type metadata accessor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate, &protocol conformance descriptor for REMRemindersListDataView.DateBucketsModel.RepresentativeDate);
         v60 = v74;
         v61 = v78;
         sub_230310CE8();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187F8);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB187F8, &qword_23032DFF8);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810, &qword_23032E000);
         v98 = 1;
         sub_2302748B0();
         v64 = v83;
@@ -5151,11 +5718,11 @@ LABEL_21:
     {
       sub_23030EB58();
       v98 = 0;
-      sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+      sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
       v43 = v69;
       sub_230310CE8();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18828, &qword_23032E008);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18810, &qword_23032E000);
       v98 = 1;
       sub_2302748B0();
       sub_230310CE8();
@@ -5225,7 +5792,7 @@ uint64_t sub_23026D4E4(uint64_t a1)
 
 uint64_t REMRemindersListDataView.CompletedDateBucketsModel.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18898);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18898, &qword_23032E040);
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v14 - v6;
@@ -5243,7 +5810,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.encode(to:)(void *a1
   sub_230311448();
   v19 = v9;
   v23 = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188A8, &qword_23032E048);
   sub_2302749B8();
   sub_230310DF8();
 
@@ -5259,7 +5826,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.encode(to:)(void *a1
     sub_230310D98();
     v19 = v11;
     v23 = 2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
     sub_2300E0EE4();
     sub_230310DF8();
     v19 = v12;
@@ -5272,7 +5839,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.encode(to:)(void *a1
 
 uint64_t REMRemindersListDataView.CompletedDateBucketsModel.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188C0, &qword_23032E050);
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = &v14 - v7;
@@ -5284,7 +5851,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.init(from:)@<X0>(voi
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188A8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188A8, &qword_23032E048);
   v23 = 0;
   sub_230274A6C();
   sub_230310CE8();
@@ -5296,7 +5863,7 @@ uint64_t REMRemindersListDataView.CompletedDateBucketsModel.init(from:)@<X0>(voi
   v18 = v9;
   v16 = v20;
   v22 = v21;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14F78, &qword_230318208);
   v23 = 2;
   sub_2300DB820();
   sub_230310CE8();
@@ -5322,13 +5889,13 @@ void static REMRemindersListDataView.fetchCompleted_ByDateBuckets(store:today:ca
   v11 = type metadata accessor for REMRemindersListDataView.CompletedByDateBucketsInvocation.Parameters(0);
   v12 = v11 - 8;
   MEMORY[0x28223BE20](v11);
-  v14 = &v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = (&v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
   v15 = sub_23030EB58();
   (*(*(v15 - 8) + 16))(v14, a1, v15);
   v16 = *(v12 + 28);
   v17 = sub_23030EE08();
-  (*(*(v17 - 8) + 16))(&v14[v16], a2, v17);
-  sub_2302706F4(a3, &v14[*(v12 + 32)], type metadata accessor for REMRemindersListDataView.FetchConfiguration);
+  (*(*(v17 - 8) + 16))(v14 + v16, a2, v17);
+  sub_2302706F4(a3, v14 + *(v12 + 32), type metadata accessor for REMRemindersListDataView.FetchConfiguration);
   v18 = [objc_allocWithZone(type metadata accessor for REMRemindersListDataView.CompletedByDateBucketsInvocation()) initWithFetchResultTokenToDiffAgainst_];
   sub_2300D6A7C(v18, v14, &v34);
   sub_230270804(v14, type metadata accessor for REMRemindersListDataView.CompletedByDateBucketsInvocation.Parameters);
@@ -5355,7 +5922,7 @@ void static REMRemindersListDataView.fetchCompleted_ByDateBuckets(store:today:ca
 
     v24 = v28;
 
-    sub_230061918(v33, &qword_27DB188D8);
+    sub_230061918(v33, &qword_27DB188D8, &qword_23032E058);
     v25 = v32;
     *a5 = v40;
     *(a5 + 8) = v25;
@@ -5395,7 +5962,7 @@ uint64_t static REMRemindersListDataView.fetchRecentlyDeleted(store:accountID:de
   v16 = *(v15 - 8);
   MEMORY[0x28223BE20](v15);
   v18 = &v47 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DB15AA0);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DB15AA0, &unk_23031A950);
   MEMORY[0x28223BE20](v19 - 8);
   v69 = &v47 - v20;
   v54 = sub_23030EB58();
@@ -5437,7 +6004,7 @@ uint64_t static REMRemindersListDataView.fetchRecentlyDeleted(store:accountID:de
 
     v31 = v53;
     v32 = v69;
-    sub_230055F74(v69, v10 + *(v53 + 20), &unk_27DB15AA0);
+    sub_230055F74(v69, v10 + *(v53 + 20), &unk_27DB15AA0, &unk_23031A950);
     sub_2302706F4(v55, v10 + *(v31 + 24), type metadata accessor for REMRemindersListDataView.RemindersPrefetch);
     *v10 = v30;
     *(v10 + *(v31 + 28)) = v56 & 1;
@@ -5450,7 +6017,7 @@ uint64_t static REMRemindersListDataView.fetchRecentlyDeleted(store:accountID:de
     {
 
       sub_230270804(v10, type metadata accessor for REMRemindersListDataView.RecentlyDeletedInvocation.Parameters);
-      sub_230061918(v32, &unk_27DB15AA0);
+      sub_230061918(v32, &unk_27DB15AA0, &unk_23031A950);
       return (*v36)(v60, v54);
     }
 
@@ -5458,7 +6025,7 @@ uint64_t static REMRemindersListDataView.fetchRecentlyDeleted(store:accountID:de
     {
 
       sub_230270804(v10, type metadata accessor for REMRemindersListDataView.RecentlyDeletedInvocation.Parameters);
-      sub_230061918(v32, &unk_27DB15AA0);
+      sub_230061918(v32, &unk_27DB15AA0, &unk_23031A950);
       (*v36)(v60, v54);
       v61[0] = v62;
       v61[1] = v63;
@@ -5481,7 +6048,7 @@ uint64_t static REMRemindersListDataView.fetchRecentlyDeleted(store:accountID:de
 
       v43 = v56;
 
-      result = sub_230061918(v61, &qword_27DB183E8);
+      result = sub_230061918(v61, &qword_27DB183E8, &qword_23032DC88);
       v44 = v48;
       v45 = v69;
       *v48 = v37;
@@ -5586,12 +6153,12 @@ uint64_t sub_23026E650()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026E6F4()
+uint64_t sub_23026E6F4(uint64_t a1)
 {
   sub_23030F9C8();
 }
 
-uint64_t sub_23026E784()
+uint64_t sub_23026E784(uint64_t a1)
 {
   sub_230311358();
   sub_23030F9C8();
@@ -5599,10 +6166,10 @@ uint64_t sub_23026E784()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026E824@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_23026E824@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_230283F44();
-  *a1 = result;
+  result = sub_230283F44(*a1, a1[1]);
+  *a2 = result;
   return result;
 }
 
@@ -5638,7 +6205,7 @@ void sub_23026E854(uint64_t *a1@<X8>)
   a1[1] = v3;
 }
 
-uint64_t sub_23026E8B4()
+unint64_t sub_23026E8B4()
 {
   v1 = 0x7461447265746661;
   if (*v0 != 1)
@@ -5657,10 +6224,10 @@ uint64_t sub_23026E8B4()
   }
 }
 
-uint64_t sub_23026E910@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_23026E910@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_230283F44();
-  *a1 = result;
+  result = sub_230283F44(a1, a2);
+  *a3 = result;
   return result;
 }
 
@@ -5686,12 +6253,12 @@ uint64_t sub_23026E9BC()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026EA6C()
+uint64_t sub_23026EA6C(uint64_t a1)
 {
   sub_23030F9C8();
 }
 
-uint64_t sub_23026EB08()
+uint64_t sub_23026EB08(uint64_t a1)
 {
   sub_230311358();
   sub_23030F9C8();
@@ -5699,10 +6266,10 @@ uint64_t sub_23026EB08()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026EBB4@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_23026EBB4@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_230283FE4();
-  *a1 = result;
+  result = sub_230283FE4(*a1, a1[1]);
+  *a2 = result;
   return result;
 }
 
@@ -5807,12 +6374,12 @@ uint64_t sub_23026EDAC()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026EE34()
+uint64_t sub_23026EE34(uint64_t a1)
 {
   sub_23030F9C8();
 }
 
-uint64_t sub_23026EEA8()
+uint64_t sub_23026EEA8(uint64_t a1)
 {
   sub_230311358();
   sub_23030F9C8();
@@ -5820,26 +6387,26 @@ uint64_t sub_23026EEA8()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026EF2C@<X0>(char *a1@<X8>)
+uint64_t sub_23026EF2C@<X0>(char *a2@<X8>)
 {
-  v2 = sub_230310C08();
+  v3 = sub_230310C08();
 
-  if (v2 == 1)
+  if (v3 == 1)
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v4 = 2;
+    v5 = 2;
   }
 
-  if (!v2)
+  if (!v3)
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  *a1 = v4;
+  *a2 = v5;
   return result;
 }
 
@@ -5874,26 +6441,26 @@ uint64_t sub_23026EFD0()
   }
 }
 
-uint64_t sub_23026F010@<X0>(char *a1@<X8>)
+uint64_t sub_23026F010@<X0>(char *a3@<X8>)
 {
-  v2 = sub_230310C08();
+  v4 = sub_230310C08();
 
-  if (v2 == 1)
+  if (v4 == 1)
   {
-    v4 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v4 = 2;
+    v6 = 2;
   }
 
-  if (!v2)
+  if (!v4)
   {
-    v4 = 0;
+    v6 = 0;
   }
 
-  *a1 = v4;
+  *a3 = v6;
   return result;
 }
 
@@ -5911,15 +6478,15 @@ uint64_t sub_23026F0B0(uint64_t a1)
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t sub_23026F100()
+uint64_t sub_23026F100(uint64_t a1)
 {
   sub_23030F9C8();
 }
 
-uint64_t sub_23026F200@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_23026F200@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_230284030();
-  *a1 = result;
+  result = sub_230284030(*a1, a1[1]);
+  *a2 = result;
   return result;
 }
 
@@ -5985,12 +6552,12 @@ uint64_t sub_23026F3B4()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026F470()
+uint64_t sub_23026F470(uint64_t a1)
 {
   sub_23030F9C8();
 }
 
-uint64_t sub_23026F518()
+uint64_t sub_23026F518(uint64_t a1)
 {
   sub_230311358();
   sub_23030F9C8();
@@ -5998,10 +6565,10 @@ uint64_t sub_23026F518()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026F5D0@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_23026F5D0@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_23028407C();
-  *a1 = result;
+  result = sub_23028407C(*a1, a1[1]);
+  *a2 = result;
   return result;
 }
 
@@ -6067,10 +6634,10 @@ uint64_t sub_23026F678()
   }
 }
 
-uint64_t sub_23026F6EC@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_23026F6EC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = sub_23028407C();
-  *a1 = result;
+  result = sub_23028407C(a1, a2);
+  *a3 = result;
   return result;
 }
 
@@ -6096,12 +6663,12 @@ uint64_t sub_23026F798()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026F864()
+uint64_t sub_23026F864(uint64_t a1)
 {
   sub_23030F9C8();
 }
 
-uint64_t sub_23026F91C()
+uint64_t sub_23026F91C(uint64_t a1)
 {
   sub_230311358();
   sub_23030F9C8();
@@ -6109,10 +6676,10 @@ uint64_t sub_23026F91C()
   return sub_2303113A8();
 }
 
-uint64_t sub_23026F9E4@<X0>(_BYTE *a1@<X8>)
+unint64_t sub_23026F9E4@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_23028411C();
-  *a1 = result;
+  result = sub_23028411C(*a1, a1[1]);
+  *a2 = result;
   return result;
 }
 
@@ -6156,18 +6723,18 @@ void sub_23026FA14(unint64_t *a1@<X8>)
 uint64_t REMRemindersListDataView.RemindersPrefetch.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v49 = a2;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15AB0);
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15AB0, &qword_23031CC00);
   v3 = MEMORY[0x28223BE20](v47);
   v51 = &v41 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v3);
-  v46 = &v41 - v5;
+  v46 = (&v41 - v5);
   v52 = sub_23030EB58();
   v48 = *(v52 - 8);
   v6 = MEMORY[0x28223BE20](v52);
   v8 = &v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v6);
   v10 = &v41 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E0, &qword_23032E060);
   v50 = *(v11 - 8);
   MEMORY[0x28223BE20](v11);
   v13 = &v41 - v12;
@@ -6229,14 +6796,14 @@ LABEL_11:
   v25 = v13;
   v43 = sub_230310CC8();
   v58 = 2;
-  sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9B738, MEMORY[0x277CC9578], MEMORY[0x277CC95A0]);
   sub_230310CE8();
   v57 = 3;
   sub_230310CE8();
-  v42 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8) + 48);
+  v42 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8, &unk_23033B5F0) + 48);
   v26 = v16;
   *v16 = v43;
-  sub_230271420(&qword_280C9C418, MEMORY[0x277CC9578]);
+  sub_230271420(&qword_280C9C418, MEMORY[0x277CC9578], MEMORY[0x277CC9590]);
   v27 = v54;
   v28 = v45;
   v29 = sub_23030F7F8();
@@ -6256,15 +6823,15 @@ LABEL_11:
     v36 = v32;
     v44 = v32;
     v37 = v20;
-    sub_230055F74(v33, v20, &qword_27DB15AB0);
+    sub_230055F74(v33, v20, &qword_27DB15AB0, &qword_23031CC00);
     v38 = v47;
     v45 = *(v47 + 48);
     v36(v50, v37, v35);
     v54 = *(v31 + 8);
     v54(&v45[v37], v35);
-    sub_230112AF4(v33, v37, &qword_27DB15AB0);
+    sub_230112AF4(v33, v37, &qword_27DB15AB0, &qword_23031CC00);
     v39 = *(v38 + 48);
-    v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78);
+    v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78, &qword_23031CBE0);
     v44(v50 + *(v40 + 36), v37 + v39, v35);
     v54(v37, v35);
     v24 = v49;
@@ -6279,13 +6846,13 @@ LABEL_11:
 uint64_t REMRemindersListDataView.RemindersPrefetch.encode(to:)(void *a1)
 {
   v2 = v1;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78, &qword_23031CBE0);
   MEMORY[0x28223BE20](v18);
   v5 = &v18 - v4;
   v6 = type metadata accessor for REMRemindersListDataView.RemindersPrefetch(0);
   MEMORY[0x28223BE20](v6);
   v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188F0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188F0, &qword_23032E068);
   v20 = *(v9 - 8);
   MEMORY[0x28223BE20](v9);
   v11 = &v18 - v10;
@@ -6298,8 +6865,8 @@ uint64_t REMRemindersListDataView.RemindersPrefetch.encode(to:)(void *a1)
   {
     if (EnumCaseMultiPayload == 2)
     {
-      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8);
-      sub_230112AF4(&v8[*(v14 + 48)], v5, &qword_27DB15A78);
+      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8, &unk_23033B5F0);
+      sub_230112AF4(&v8[*(v14 + 48)], v5, &qword_27DB15A78, &qword_23031CBE0);
       v32 = 3;
       v31 = 0;
       sub_230274BC8();
@@ -6311,13 +6878,13 @@ uint64_t REMRemindersListDataView.RemindersPrefetch.encode(to:)(void *a1)
         sub_230310DD8();
         v29 = 2;
         sub_23030EB58();
-        sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578]);
+        sub_230271420(&qword_280C9B760, MEMORY[0x277CC9578], MEMORY[0x277CC9580]);
         sub_230310DF8();
         v28 = 3;
         sub_230310DF8();
       }
 
-      sub_230061918(v5, &qword_27DB15A78);
+      sub_230061918(v5, &qword_27DB15A78, &qword_23031CBE0);
     }
 
     else
@@ -6405,7 +6972,7 @@ void sub_230270864(unint64_t a1, uint64_t a2, char a3, uint64_t a4)
       }
 
       MEMORY[0x231912470](a1, a2, v7);
-      sub_23004CBA4(0, &qword_280C9C478);
+      sub_23004CBA4(0, &qword_280C9C478, 0x277D44700);
       swift_dynamicCast();
       return;
     }
@@ -6417,7 +6984,7 @@ LABEL_26:
 
   if (a3)
   {
-    sub_23004CBA4(0, &qword_280C9C478);
+    sub_23004CBA4(0, &qword_280C9C478, 0x277D44700);
     if (sub_2303106B8() != *(a4 + 36))
     {
       __break(1u);
@@ -6477,7 +7044,7 @@ LABEL_19:
   v14 = v13;
 }
 
-BOOL _s19ReminderKitInternal24REMRemindersListDataViewO11SectionLiteV0H4TypeO2eeoiySbAG_AGtFZ_0(uint64_t a1, uint64_t *a2)
+BOOL _s19ReminderKitInternal24REMRemindersListDataViewO11SectionLiteV0H4TypeO2eeoiySbAG_AGtFZ_0(uint64_t a1, uint64_t a2)
 {
   v2 = *a1;
   v3 = *(a1 + 8);
@@ -6485,10 +7052,10 @@ BOOL _s19ReminderKitInternal24REMRemindersListDataViewO11SectionLiteV0H4TypeO2ee
   v4 = *(a1 + 24);
   v6 = *(a1 + 32);
   v8 = *a2;
-  v7 = a2[1];
-  v9 = a2[2];
-  v10 = a2[3];
-  v11 = a2[4];
+  v7 = *(a2 + 8);
+  v9 = *(a2 + 16);
+  v10 = *(a2 + 24);
+  v11 = *(a2 + 32);
   if (!*a1)
   {
     if (!v8)
@@ -6504,8 +7071,8 @@ BOOL _s19ReminderKitInternal24REMRemindersListDataViewO11SectionLiteV0H4TypeO2ee
   if (!v8)
   {
 LABEL_13:
-    sub_23019E990(*a2);
-    sub_23019E990(v2);
+    sub_23019E990(*a2, *(a2 + 8), v9, v10, v11);
+    sub_23019E990(v2, v3, v5, v4, v6);
     sub_23019E9DC(v2);
     v13 = v8;
 LABEL_15:
@@ -6513,9 +7080,9 @@ LABEL_15:
     return 0;
   }
 
-  sub_23004CBA4(0, &qword_280C9B980);
-  sub_23019E990(v8);
-  sub_23019E990(v2);
+  sub_23004CBA4(0, &qword_280C9B980, 0x277D82BB8);
+  sub_23019E990(v8, v7, v9, v10, v11);
+  sub_23019E990(v2, v3, v5, v4, v6);
   if ((sub_230310448() & 1) == 0 || (v3 != v7 || v5 != v9) && (sub_230311048() & 1) == 0)
   {
     goto LABEL_14;
@@ -6557,7 +7124,7 @@ LABEL_18:
   return (v15 & 1) != 0;
 }
 
-uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO12SortingStyleO2eeoiySbAE_AEtFZ_0(unsigned __int8 *a1, unsigned __int8 *a2)
+BOOL _s19ReminderKitInternal24REMRemindersListDataViewO12SortingStyleO2eeoiySbAE_AEtFZ_0(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -6690,7 +7257,7 @@ uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO13ShowCompletedO2eeoi
   v10 = (&v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x28223BE20](v8);
   v12 = &v24 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18CC8);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB18CC8, &qword_2303344F8);
   v14 = MEMORY[0x28223BE20](v13 - 8);
   v16 = &v24 - v15;
   v17 = *(v14 + 56);
@@ -6719,7 +7286,7 @@ uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO13ShowCompletedO2eeoi
       {
         (*(v25 + 8))(v12, v4);
 LABEL_13:
-        sub_230061918(v16, &qword_27DB18CC8);
+        sub_230061918(v16, &qword_27DB18CC8, &qword_2303344F8);
         v20 = 0;
         return v20 & 1;
       }
@@ -6778,7 +7345,7 @@ unint64_t sub_2302713CC()
   return result;
 }
 
-uint64_t sub_230271420(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_230271420(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6863,19 +7430,19 @@ unint64_t sub_23027160C()
   return result;
 }
 
-uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO21HashtagLabelPredicateO2eeoiySbAE_AEtFZ_0(uint64_t a1, uint64_t a2)
+uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO21HashtagLabelPredicateO2eeoiySbAE_AEtFZ_0(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v4 = *(a1 + 16);
   v6 = *a2;
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   v7 = *(a2 + 16);
   if (!*(a1 + 16))
   {
     if (!*(a2 + 16))
     {
-      sub_2302727E4(*a2, *(a2 + 8), 0);
+      sub_2302727E4(*a2, a2[1], 0);
       sub_2302727E4(v3, v2, 0);
       if (sub_2300A7274(v3, v6))
       {
@@ -6901,7 +7468,7 @@ uint64_t _s19ReminderKitInternal24REMRemindersListDataViewO21HashtagLabelPredica
   {
     if (v7 == 1)
     {
-      sub_2302727E4(*a2, *(a2 + 8), 1u);
+      sub_2302727E4(*a2, a2[1], 1u);
       sub_2302727E4(v3, v2, 1u);
       if (sub_2300A7274(v3, v6))
       {
@@ -6940,7 +7507,7 @@ LABEL_9:
   if (v7 != 2 || v6 != 1 || v5 != 0)
   {
 LABEL_24:
-    sub_2302727E4(*a2, *(a2 + 8), v7);
+    sub_2302727E4(*a2, a2[1], v7);
     sub_2302727E4(v3, v2, v4);
     sub_230276494(v3, v2, v4);
     v17 = v6;
@@ -7034,7 +7601,7 @@ unint64_t sub_230271A74()
   result = qword_280C96F58;
   if (!qword_280C96F58)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18270);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18270, &qword_23032DB70);
     sub_230271AF8();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F58);
@@ -7060,7 +7627,7 @@ unint64_t sub_230271B4C()
   result = qword_280C99D20;
   if (!qword_280C99D20)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18270);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18270, &qword_23032DB70);
     sub_230271BD0();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C99D20);
@@ -7158,7 +7725,7 @@ unint64_t sub_230271E1C()
   result = qword_280C96F40;
   if (!qword_280C96F40)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB182B8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB182B8, &qword_23032DBC0);
     sub_230271EA0();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F40);
@@ -7184,7 +7751,7 @@ unint64_t sub_230271EF4()
   result = qword_280C96F38;
   if (!qword_280C96F38)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB182B8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB182B8, &qword_23032DBC0);
     sub_230271F78();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F38);
@@ -7452,7 +8019,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_2302727E4(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+double sub_2302727E4(uint64_t a1, uint64_t a2, unsigned __int8 a3)
 {
   if (a3 <= 1u)
   {
@@ -7550,7 +8117,7 @@ unint64_t sub_230272A78()
   result = qword_280C96F30;
   if (!qword_280C96F30)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18448);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18448, &qword_23032DCE0);
     sub_230272AFC();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F30);
@@ -7576,7 +8143,7 @@ unint64_t sub_230272B50()
   result = qword_280C96F28;
   if (!qword_280C96F28)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18448);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18448, &qword_23032DCE0);
     sub_230272BD4();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F28);
@@ -7758,7 +8325,7 @@ unint64_t sub_23027306C()
   result = qword_280C96F18;
   if (!qword_280C96F18)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18500);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18500, &qword_23032DD78);
     sub_2302730F0();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F18);
@@ -7784,7 +8351,7 @@ unint64_t sub_230273144()
   result = qword_280C96F10;
   if (!qword_280C96F10)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18500);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18500, &qword_23032DD78);
     sub_2302731C8();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F10);
@@ -8002,7 +8569,7 @@ unint64_t sub_23027375C()
   result = qword_280C96F20;
   if (!qword_280C96F20)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB185F8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB185F8, &qword_23032DE50);
     sub_2302737E0();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F20);
@@ -8028,7 +8595,7 @@ unint64_t sub_230273834()
   result = qword_280C99D18;
   if (!qword_280C99D18)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB185F8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB185F8, &qword_23032DE50);
     sub_2302738B8();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C99D18);
@@ -8066,7 +8633,7 @@ unint64_t sub_2302739C8()
   result = qword_27DB18618;
   if (!qword_27DB18618)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB15210);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB15210, &qword_230318C08);
     sub_230273A4C();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DB18618);
@@ -8092,7 +8659,7 @@ unint64_t sub_230273AA0()
   result = qword_27DB18630;
   if (!qword_27DB18630)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB15210);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB15210, &qword_230318C08);
     sub_230273B24();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DB18630);
@@ -8142,8 +8709,8 @@ unint64_t sub_230273C40()
   result = qword_280C96F50;
   if (!qword_280C96F50)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18668);
-    sub_230271420(&qword_280C97D28, type metadata accessor for REMRemindersListDataView.DatesModel.Group);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18668, &qword_23032DE98);
+    sub_230271420(&qword_280C97D28, type metadata accessor for REMRemindersListDataView.DatesModel.Group, &protocol conformance descriptor for REMRemindersListDataView.DatesModel.Group);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F50);
   }
@@ -8156,8 +8723,8 @@ unint64_t sub_230273CF4()
   result = qword_280C96F48;
   if (!qword_280C96F48)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18668);
-    sub_230271420(&qword_280C97D20, type metadata accessor for REMRemindersListDataView.DatesModel.Group);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18668, &qword_23032DE98);
+    sub_230271420(&qword_280C97D20, type metadata accessor for REMRemindersListDataView.DatesModel.Group, &protocol conformance descriptor for REMRemindersListDataView.DatesModel.Group);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F48);
   }
@@ -8206,8 +8773,8 @@ unint64_t sub_230273EE4()
   result = qword_280C96F08;
   if (!qword_280C96F08)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB186C8);
-    sub_230271420(&qword_280C97788, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB186C8, &qword_23032DEF0);
+    sub_230271420(&qword_280C97788, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day, &protocol conformance descriptor for REMRemindersListDataView.ScheduledDateBucketsModel.Day);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F08);
   }
@@ -8268,8 +8835,8 @@ unint64_t sub_2302740E8()
   result = qword_280C96F00;
   if (!qword_280C96F00)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB186C8);
-    sub_230271420(&qword_280C97780, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB186C8, &qword_23032DEF0);
+    sub_230271420(&qword_280C97780, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day, &protocol conformance descriptor for REMRemindersListDataView.ScheduledDateBucketsModel.Day);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96F00);
   }
@@ -8294,8 +8861,8 @@ unint64_t sub_2302741F0()
   result = qword_280C96EF8;
   if (!qword_280C96EF8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18710);
-    sub_230271420(&qword_280C97778, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18710, &qword_23032DF30);
+    sub_230271420(&qword_280C97778, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket, &protocol conformance descriptor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96EF8);
   }
@@ -8308,8 +8875,8 @@ unint64_t sub_2302742A4()
   result = qword_280C96EF0;
   if (!qword_280C96EF0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18710);
-    sub_230271420(&qword_280C97770, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18710, &qword_23032DF30);
+    sub_230271420(&qword_280C97770, type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket, &protocol conformance descriptor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C96EF0);
   }
@@ -8430,8 +8997,8 @@ unint64_t sub_2302746AC()
   result = qword_27DB18818;
   if (!qword_27DB18818)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18810);
-    sub_230271420(&qword_27DB18820, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18810, &qword_23032E000);
+    sub_230271420(&qword_27DB18820, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day, &protocol conformance descriptor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DB18818);
   }
@@ -8492,8 +9059,8 @@ unint64_t sub_2302748B0()
   result = qword_27DB18888;
   if (!qword_27DB18888)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18810);
-    sub_230271420(&qword_27DB18890, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18810, &qword_23032E000);
+    sub_230271420(&qword_27DB18890, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Day, &protocol conformance descriptor for REMRemindersListDataView.CompletedDateBucketsModel.Day);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DB18888);
   }
@@ -8518,8 +9085,8 @@ unint64_t sub_2302749B8()
   result = qword_27DB188B0;
   if (!qword_27DB188B0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB188A8);
-    sub_230271420(&qword_27DB188B8, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Bucket);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB188A8, &qword_23032E048);
+    sub_230271420(&qword_27DB188B8, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Bucket, &protocol conformance descriptor for REMRemindersListDataView.CompletedDateBucketsModel.Bucket);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DB188B0);
   }
@@ -8532,8 +9099,8 @@ unint64_t sub_230274A6C()
   result = qword_27DB188C8;
   if (!qword_27DB188C8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB188A8);
-    sub_230271420(&qword_27DB188D0, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Bucket);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB188A8, &qword_23032E048);
+    sub_230271420(&qword_27DB188D0, type metadata accessor for REMRemindersListDataView.CompletedDateBucketsModel.Bucket, &protocol conformance descriptor for REMRemindersListDataView.CompletedDateBucketsModel.Bucket);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DB188C8);
   }
@@ -8606,7 +9173,7 @@ unint64_t sub_230274CD0()
   result = qword_27DB18908;
   if (!qword_27DB18908)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18910);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27DB18910, &qword_23032E1F0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27DB18908);
   }
@@ -8898,7 +9465,7 @@ LABEL_7:
   return memcpy(a1, a2, v11);
 }
 
-uint64_t destroy for REMRemindersListDataView.ShowCompleted(uint64_t a1)
+uint64_t destroy for REMRemindersListDataView.ShowCompleted(uint64_t a1, uint64_t a2)
 {
   result = swift_getEnumCaseMultiPayload();
   if (result == 1)
@@ -8907,10 +9474,10 @@ uint64_t destroy for REMRemindersListDataView.ShowCompleted(uint64_t a1)
 
   else if (!result)
   {
-    v3 = sub_23030EB58();
-    v4 = *(*(v3 - 8) + 8);
+    v4 = sub_23030EB58();
+    v5 = *(*(v4 - 8) + 8);
 
-    return v4(a1, v3);
+    return v5(a1, v4);
   }
 
   return result;
@@ -9009,10 +9576,10 @@ void *assignWithTake for REMRemindersListDataView.ShowCompleted(void *a1, const 
   return memcpy(a1, a2, v6);
 }
 
-uint64_t sub_230275660()
+uint64_t sub_230275660(uint64_t a1)
 {
   result = sub_23030EB58();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initEnumMetadataMultiPayload();
     return 0;
@@ -9065,13 +9632,13 @@ char *initializeBufferWithCopyOfBuffer for REMRemindersListDataView.FetchConfigu
     if (swift_getEnumCaseMultiPayload() == 2)
     {
       *v13 = *v14;
-      v16 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8) + 48);
+      v16 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8, &unk_23033B5F0) + 48);
       v17 = &v13[v16];
       v18 = &v14[v16];
       v19 = sub_23030EB58();
       v20 = *(*(v19 - 8) + 16);
       v20(v17, v18, v19);
-      v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78);
+      v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78, &qword_23031CBE0);
       v20(&v17[*(v21 + 36)], &v18[*(v21 + 36)], v19);
       swift_storeEnumTagMultiPayload();
     }
@@ -9107,11 +9674,11 @@ uint64_t destroy for REMRemindersListDataView.FetchConfiguration(uint64_t a1, ui
   result = swift_getEnumCaseMultiPayload();
   if (result == 2)
   {
-    v9 = v7 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8) + 48);
+    v9 = v7 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8, &unk_23033B5F0) + 48);
     v10 = sub_23030EB58();
     v12 = *(*(v10 - 8) + 8);
     (v12)((v10 - 8), v9, v10);
-    v11 = v9 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78) + 36);
+    v11 = v9 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78, &qword_23031CBE0) + 36);
 
     return v12(v11, v10);
   }
@@ -9152,13 +9719,13 @@ _BYTE *initializeWithCopy for REMRemindersListDataView.FetchConfiguration(_BYTE 
   if (swift_getEnumCaseMultiPayload() == 2)
   {
     *v11 = *v12;
-    v14 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8) + 48);
+    v14 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8, &unk_23033B5F0) + 48);
     v15 = v11 + v14;
     v16 = v12 + v14;
     v17 = sub_23030EB58();
     v18 = *(*(v17 - 8) + 16);
     v18(v15, v16, v17);
-    v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78);
+    v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78, &qword_23031CBE0);
     v18(&v15[*(v19 + 36)], &v16[*(v19 + 36)], v17);
     swift_storeEnumTagMultiPayload();
   }
@@ -9212,13 +9779,13 @@ LABEL_9:
   if (swift_getEnumCaseMultiPayload() == 2)
   {
     *v11 = *v12;
-    v14 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8) + 48);
+    v14 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8, &unk_23033B5F0) + 48);
     v15 = v11 + v14;
     v16 = v12 + v14;
     v17 = sub_23030EB58();
     v18 = *(*(v17 - 8) + 16);
     v18(v15, v16, v17);
-    v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78);
+    v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78, &qword_23031CBE0);
     v18(&v15[*(v19 + 36)], &v16[*(v19 + 36)], v17);
     swift_storeEnumTagMultiPayload();
   }
@@ -9258,13 +9825,13 @@ _BYTE *initializeWithTake for REMRemindersListDataView.FetchConfiguration(_BYTE 
   if (swift_getEnumCaseMultiPayload() == 2)
   {
     *v10 = *v11;
-    v13 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8) + 48);
+    v13 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8, &unk_23033B5F0) + 48);
     v14 = v10 + v13;
     v15 = v11 + v13;
     v16 = sub_23030EB58();
     v17 = *(*(v16 - 8) + 32);
     v17(v14, v15, v16);
-    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78);
+    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78, &qword_23031CBE0);
     v17(&v14[*(v18 + 36)], &v15[*(v18 + 36)], v16);
     swift_storeEnumTagMultiPayload();
   }
@@ -9312,13 +9879,13 @@ _BYTE *assignWithTake for REMRemindersListDataView.FetchConfiguration(_BYTE *a1,
     if (swift_getEnumCaseMultiPayload() == 2)
     {
       *v10 = *v11;
-      v13 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8) + 48);
+      v13 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB188E8, &unk_23033B5F0) + 48);
       v14 = v10 + v13;
       v15 = v11 + v13;
       v16 = sub_23030EB58();
       v17 = *(*(v16 - 8) + 32);
       v17(v14, v15, v16);
-      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78);
+      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB15A78, &qword_23031CBE0);
       v17(&v14[*(v18 + 36)], &v15[*(v18 + 36)], v16);
       swift_storeEnumTagMultiPayload();
     }
@@ -9333,13 +9900,13 @@ _BYTE *assignWithTake for REMRemindersListDataView.FetchConfiguration(_BYTE *a1,
   return a1;
 }
 
-uint64_t sub_2302763A0()
+uint64_t sub_2302763A0(uint64_t a1)
 {
   result = type metadata accessor for REMRemindersListDataView.ShowCompleted(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for REMRemindersListDataView.RemindersPrefetch(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_initStructMetadata();
       return 0;
@@ -9347,595 +9914,4 @@ uint64_t sub_2302763A0()
   }
 
   return result;
-}
-
-uint64_t sub_230276494(uint64_t a1, uint64_t a2, unsigned __int8 a3)
-{
-  if (a3 <= 1u)
-  {
-  }
-
-  return result;
-}
-
-uint64_t sub_2302764DC(uint64_t a1, uint64_t a2)
-{
-  v3 = *a2;
-  v4 = *(a2 + 8);
-  v5 = *(a2 + 16);
-  sub_2302727E4(*a2, v4, v5);
-  *a1 = v3;
-  *(a1 + 8) = v4;
-  *(a1 + 16) = v5;
-  return a1;
-}
-
-uint64_t assignWithCopy for REMRemindersListDataView.HashtagLabelPredicate(uint64_t a1, uint64_t a2)
-{
-  v3 = *a2;
-  v4 = *(a2 + 8);
-  v5 = *(a2 + 16);
-  sub_2302727E4(*a2, v4, v5);
-  v6 = *a1;
-  v7 = *(a1 + 8);
-  *a1 = v3;
-  *(a1 + 8) = v4;
-  v8 = *(a1 + 16);
-  *(a1 + 16) = v5;
-  sub_230276494(v6, v7, v8);
-  return a1;
-}
-
-uint64_t assignWithTake for REMRemindersListDataView.HashtagLabelPredicate(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 16);
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  *a1 = *a2;
-  v6 = *(a1 + 16);
-  *(a1 + 16) = v3;
-  sub_230276494(v4, v5, v6);
-  return a1;
-}
-
-uint64_t sub_2302765C8(uint64_t a1)
-{
-  if (*(a1 + 16) <= 1u)
-  {
-    return *(a1 + 16);
-  }
-
-  else
-  {
-    return (*a1 + 2);
-  }
-}
-
-uint64_t sub_2302765E0(uint64_t result, unsigned int a2)
-{
-  if (a2 >= 2)
-  {
-    *result = a2 - 2;
-    *(result + 8) = 0;
-    LOBYTE(a2) = 2;
-  }
-
-  *(result + 16) = a2;
-  return result;
-}
-
-uint64_t initializeWithCopy for REMRemindersListDataView.ReminderLite(uint64_t a1, uint64_t a2)
-{
-  v3 = *a2;
-  *a1 = *a2;
-  *(a1 + 8) = *(a2 + 8);
-  v4 = *(a2 + 24);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = v4;
-  v5 = v3;
-
-  return a1;
-}
-
-uint64_t assignWithCopy for REMRemindersListDataView.ReminderLite(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *a1;
-  *a1 = *a2;
-  v6 = v4;
-
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = *(a2 + 24);
-
-  return a1;
-}
-
-uint64_t assignWithTake for REMRemindersListDataView.ReminderLite(uint64_t a1, uint64_t a2)
-{
-  v4 = *a1;
-  *a1 = *a2;
-
-  *(a1 + 8) = *(a2 + 8);
-  v5 = *(a2 + 24);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = v5;
-
-  return a1;
-}
-
-uint64_t destroy for REMRemindersListDataView.ListsModel.Sublist(id *a1)
-{
-}
-
-uint64_t initializeWithCopy for REMRemindersListDataView.ListsModel.Sublist(uint64_t a1, uint64_t a2)
-{
-  v3 = *a2;
-  v4 = *(a2 + 8);
-  *a1 = *a2;
-  *(a1 + 8) = v4;
-  v5 = *(a2 + 24);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = v5;
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = *(a2 + 40);
-  v6 = v3;
-
-  v7 = v5;
-
-  return a1;
-}
-
-uint64_t assignWithCopy for REMRemindersListDataView.ListsModel.Sublist(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *a1;
-  *a1 = *a2;
-  v6 = v4;
-
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-
-  v7 = *(a1 + 24);
-  v8 = *(a2 + 24);
-  *(a1 + 24) = v8;
-  v9 = v8;
-
-  *(a1 + 32) = *(a2 + 32);
-
-  *(a1 + 40) = *(a2 + 40);
-  return a1;
-}
-
-uint64_t assignWithTake for REMRemindersListDataView.ListsModel.Sublist(uint64_t a1, uint64_t a2)
-{
-  v4 = *a1;
-  *a1 = *a2;
-
-  *(a1 + 8) = *(a2 + 8);
-
-  v5 = *(a1 + 24);
-  *(a1 + 16) = *(a2 + 16);
-
-  *(a1 + 32) = *(a2 + 32);
-
-  *(a1 + 40) = *(a2 + 40);
-  return a1;
-}
-
-uint64_t assignWithCopy for REMRemindersListDataView.FlaggedModel(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-
-  v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 8) = v4;
-  *(a1 + 25) = *(a2 + 25);
-  *(a1 + 32) = *(a2 + 32);
-
-  *(a1 + 40) = *(a2 + 40);
-
-  v5 = *(a1 + 48);
-  v6 = *(a2 + 48);
-  *(a1 + 48) = v6;
-  v7 = v6;
-
-  return a1;
-}
-
-uint64_t assignWithTake for REMRemindersListDataView.FlaggedModel(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-
-  *(a1 + 32) = *(a2 + 32);
-
-  v4 = *(a1 + 48);
-  *(a1 + 48) = *(a2 + 48);
-
-  return a1;
-}
-
-uint64_t assignWithCopy for REMRemindersListDataView.AssignedModel(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-
-  v4 = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 8) = v4;
-  *(a1 + 17) = *(a2 + 17);
-  *(a1 + 24) = *(a2 + 24);
-
-  *(a1 + 32) = *(a2 + 32);
-
-  v5 = *(a1 + 40);
-  v6 = *(a2 + 40);
-  *(a1 + 40) = v6;
-  v7 = v6;
-
-  return a1;
-}
-
-uint64_t assignWithTake for REMRemindersListDataView.AssignedModel(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-
-  *(a1 + 24) = *(a2 + 24);
-
-  v4 = *(a1 + 40);
-  *(a1 + 40) = *(a2 + 40);
-
-  return a1;
-}
-
-void destroy for REMRemindersListDataView.TaggedModel(uint64_t a1)
-{
-
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-  }
-}
-
-uint64_t initializeWithCopy for REMRemindersListDataView.TaggedModel(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-  v4 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v4;
-  v5 = *(a2 + 56);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 56) = v5;
-  *(a1 + 64) = *(a2 + 64);
-  v6 = *(a2 + 72);
-  *(a1 + 72) = v6;
-  v8 = (a2 + 80);
-  v7 = *(a2 + 80);
-
-  v9 = v6;
-  if (v7)
-  {
-    *(a1 + 80) = v7;
-    *(a1 + 88) = *(a2 + 88);
-    v10 = *(a2 + 96);
-    v11 = *(a2 + 104);
-    *(a1 + 96) = v10;
-    *(a1 + 104) = v11;
-    v12 = v7;
-  }
-
-  else
-  {
-    v13 = v8[1];
-    *(a1 + 80) = *v8;
-    *(a1 + 96) = v13;
-  }
-
-  return a1;
-}
-
-uint64_t assignWithCopy for REMRemindersListDataView.TaggedModel(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-
-  v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 8) = v4;
-  *(a1 + 25) = *(a2 + 25);
-  *(a1 + 32) = *(a2 + 32);
-
-  *(a1 + 40) = *(a2 + 40);
-
-  *(a1 + 48) = *(a2 + 48);
-
-  *(a1 + 56) = *(a2 + 56);
-
-  *(a1 + 64) = *(a2 + 64);
-  v5 = *(a1 + 72);
-  v6 = *(a2 + 72);
-  *(a1 + 72) = v6;
-  v7 = v6;
-
-  v8 = (a1 + 80);
-  v9 = *(a1 + 80);
-  v11 = (a2 + 80);
-  v10 = *(a2 + 80);
-  if (v9)
-  {
-    if (v10)
-    {
-      *(a1 + 80) = v10;
-      v12 = v10;
-
-      *(a1 + 88) = *(a2 + 88);
-      *(a1 + 96) = *(a2 + 96);
-      *(a1 + 104) = *(a2 + 104);
-    }
-
-    else
-    {
-      sub_23027674C(a1 + 80);
-      v14 = *(a2 + 96);
-      *v8 = *v11;
-      *(a1 + 96) = v14;
-    }
-  }
-
-  else if (v10)
-  {
-    *(a1 + 80) = v10;
-    *(a1 + 88) = *(a2 + 88);
-    *(a1 + 96) = *(a2 + 96);
-    *(a1 + 104) = *(a2 + 104);
-    v13 = v10;
-  }
-
-  else
-  {
-    v15 = *(a2 + 96);
-    *v8 = *v11;
-    *(a1 + 96) = v15;
-  }
-
-  return a1;
-}
-
-__n128 __swift_memcpy112_8(uint64_t a1, __int128 *a2)
-{
-  v2 = *a2;
-  v3 = a2[2];
-  *(a1 + 16) = a2[1];
-  *(a1 + 32) = v3;
-  *a1 = v2;
-  result = a2[3];
-  v5 = a2[4];
-  v6 = a2[6];
-  *(a1 + 80) = a2[5];
-  *(a1 + 96) = v6;
-  *(a1 + 48) = result;
-  *(a1 + 64) = v5;
-  return result;
-}
-
-uint64_t assignWithTake for REMRemindersListDataView.TaggedModel(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 32) = *(a2 + 32);
-
-  *(a1 + 40) = *(a2 + 40);
-
-  *(a1 + 48) = *(a2 + 48);
-
-  *(a1 + 56) = *(a2 + 56);
-
-  *(a1 + 64) = *(a2 + 64);
-  v4 = *(a1 + 72);
-  *(a1 + 72) = *(a2 + 72);
-
-  v5 = *(a1 + 80);
-  v6 = *(a2 + 80);
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  if (!v6)
-  {
-    sub_23027674C(a1 + 80);
-LABEL_5:
-    v8 = *(a2 + 96);
-    *(a1 + 80) = *(a2 + 80);
-    *(a1 + 96) = v8;
-    return a1;
-  }
-
-  *(a1 + 80) = v6;
-
-  *(a1 + 88) = *(a2 + 88);
-  v7 = *(a2 + 104);
-  *(a1 + 96) = *(a2 + 96);
-  *(a1 + 104) = v7;
-
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for REMRemindersListDataView.TaggedModel(uint64_t *a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0 && *(a1 + 112))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for REMRemindersListDataView.TaggedModel(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 104) = 0;
-    *(result + 88) = 0u;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 112) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *result = (a2 - 1);
-      return result;
-    }
-
-    *(result + 112) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t destroy for REMRemindersListDataView.TemplateModel(uint64_t a1)
-{
-
-  v3 = *(a1 + 56);
-  if (v3)
-  {
-  }
-
-  return result;
-}
-
-uint64_t initializeWithCopy for REMRemindersListDataView.TemplateModel(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  *a1 = *a2;
-  *(a1 + 8) = v5;
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 32) = *(a2 + 32);
-  v6 = *(a2 + 48);
-  *(a1 + 40) = *(a2 + 40);
-  *(a1 + 48) = v6;
-  v8 = (a2 + 56);
-  v7 = *(a2 + 56);
-  v9 = v4;
-
-  if (v7)
-  {
-    *(a1 + 56) = v7;
-    *(a1 + 64) = *(a2 + 64);
-    v10 = *(a2 + 72);
-    v11 = *(a2 + 80);
-    *(a1 + 72) = v10;
-    *(a1 + 80) = v11;
-    v12 = v7;
-  }
-
-  else
-  {
-    v13 = v8[1];
-    *(a1 + 56) = *v8;
-    *(a1 + 72) = v13;
-  }
-
-  return a1;
-}
-
-uint64_t assignWithCopy for REMRemindersListDataView.TemplateModel(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *a1;
-  *a1 = *a2;
-  v6 = v4;
-
-  *(a1 + 8) = *(a2 + 8);
-
-  v7 = *(a2 + 16);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 16) = v7;
-  *(a1 + 33) = *(a2 + 33);
-  *(a1 + 40) = *(a2 + 40);
-
-  *(a1 + 48) = *(a2 + 48);
-
-  v8 = (a1 + 56);
-  v9 = *(a1 + 56);
-  v11 = (a2 + 56);
-  v10 = *(a2 + 56);
-  if (v9)
-  {
-    if (v10)
-    {
-      *(a1 + 56) = v10;
-      v12 = v10;
-
-      *(a1 + 64) = *(a2 + 64);
-      *(a1 + 72) = *(a2 + 72);
-      *(a1 + 80) = *(a2 + 80);
-    }
-
-    else
-    {
-      sub_23027674C(a1 + 56);
-      v14 = *(a2 + 72);
-      *v8 = *v11;
-      *(a1 + 72) = v14;
-    }
-  }
-
-  else if (v10)
-  {
-    *(a1 + 56) = v10;
-    *(a1 + 64) = *(a2 + 64);
-    *(a1 + 72) = *(a2 + 72);
-    *(a1 + 80) = *(a2 + 80);
-    v13 = v10;
-  }
-
-  else
-  {
-    v15 = *(a2 + 72);
-    *v8 = *v11;
-    *(a1 + 72) = v15;
-  }
-
-  return a1;
 }

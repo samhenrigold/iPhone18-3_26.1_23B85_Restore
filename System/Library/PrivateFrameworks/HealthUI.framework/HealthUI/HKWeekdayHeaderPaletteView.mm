@@ -192,7 +192,7 @@
   weekdayFont = [objc_opt_class() weekdayFont];
   [weekdayFont _bodyLeading];
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-  [mainScreen scale];
+  objc_msgSend_scale(mainScreen);
   UIRoundToScale();
   v5 = v4;
 

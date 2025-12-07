@@ -25,7 +25,6 @@
 - (uint64_t)_canSelectDrawing;
 - (uint64_t)_cropDrawingAttachmentsWhenViewIsSmaller;
 - (uint64_t)_isHandwritingToolSelected;
-- (uint64_t)isFingerDrawingEnabled;
 - (uint64_t)isRulerEnabled;
 - (uint64_t)setPaperEnabled:()UITextViewDrawing;
 - (uint64_t)setStylusDrawingEnabled:()UITextViewDrawing;
@@ -47,6 +46,7 @@
 - (void)_upgradeDrawingAtCharacterIndex:()UITextViewDrawing itemProviders:insertionLocationInDrawing:;
 - (void)_willBeginInteractiveResize;
 - (void)_willBeginNewStrokeForTouch:()UITextViewDrawing;
+- (void)isFingerDrawingEnabled;
 - (void)setDrawingDelegate:()UITextViewDrawing;
 - (void)setInk:()UITextViewDrawing;
 - (void)setLinedPaper:()UITextViewDrawing;
@@ -470,7 +470,7 @@
   return [self setStylusDrawingEnabled:a3 drawingClass:v6 sixChannelBlending:v5 & a3];
 }
 
-- (uint64_t)isFingerDrawingEnabled
+- (void)isFingerDrawingEnabled
 {
   result = [self isStylusDrawingEnabled];
   if (result)

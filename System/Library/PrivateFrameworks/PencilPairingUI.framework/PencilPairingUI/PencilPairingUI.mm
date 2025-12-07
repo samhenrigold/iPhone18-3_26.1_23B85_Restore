@@ -66,23 +66,23 @@ id PKLocalizedStringForLanguageInBundle(void *a1, void *a2, void *a3, void *a4)
   return v10;
 }
 
-void sub_25E1C6270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E1C6270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id PencilPairingUIBundle()
+id PencilPairingUIBundle(uint64_t a1)
 {
   if (PencilPairingUIBundle_onceToken != -1)
   {
     PencilPairingUIBundle_cold_1();
   }
 
-  v1 = PencilPairingUIBundle___PencilPairingUIBundle;
+  v2 = PencilPairingUIBundle___PencilPairingUIBundle;
 
-  return v1;
+  return v2;
 }
 
 void __PencilPairingUIBundle_block_invoke()
@@ -196,9 +196,9 @@ void __PNPChargingStatusConfigureAutoDismissWithTime_block_invoke(uint64_t a1)
   }
 }
 
-void sub_25E1CAF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E1CAF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -210,23 +210,23 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25E1CB5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E1CB5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id _PNPSignpostLog()
+id _PNPSignpostLog(uint64_t a1)
 {
   if (_PNPSignpostLog_onceToken != -1)
   {
     _PNPSignpostLog_cold_1();
   }
 
-  v1 = _PNPSignpostLog____PNPSignpostLog;
+  v2 = _PNPSignpostLog____PNPSignpostLog;
 
-  return v1;
+  return v2;
 }
 
 void sub_25E1CCF90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -250,16 +250,16 @@ void sub_25E1D2ED4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25E1D32C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E1D32C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25E1D3854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25E1D3854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -299,7 +299,7 @@ void FindMyUICoreLibrary()
   v0 = v1[0];
   if (!FindMyUICoreLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -310,7 +310,7 @@ LABEL_7:
   }
 }
 
-uint64_t __FindMyUICoreLibraryCore_block_invoke()
+uint64_t __FindMyUICoreLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   FindMyUICoreLibraryCore_frameworkLibrary = result;
@@ -329,7 +329,7 @@ PNPWizardInkWeightControl *__getFMUIAccessoryOnboardingCoordinatorClass_block_in
 
   else
   {
-    v3 = __getFMUIAccessoryOnboardingCoordinatorClass_block_invoke_cold_1();
+    __getFMUIAccessoryOnboardingCoordinatorClass_block_invoke_cold_1();
     return [(PNPWizardInkWeightControl *)v3 initWithFrame:v4, v5];
   }
 
@@ -422,9 +422,9 @@ void sub_25E1DC0E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25E1DFAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25E1DFAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -556,7 +556,7 @@ void sub_25E1E5A00(void *a1)
 
 Swift::Void __swiftcall UIView.ppuiSetCapsuleCornerMaskingConfiguration()()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FCE0580);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FCE0580, &qword_25E1EAA60);
   MEMORY[0x28223BE20]();
   v1 = &v3 - v0;
   sub_25E1E5FCC();
@@ -565,7 +565,7 @@ Swift::Void __swiftcall UIView.ppuiSetCapsuleCornerMaskingConfiguration()()
   sub_25E1E606C();
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -579,7 +579,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
 
 void sub_25E1E5C2C(void *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FCE0580);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FCE0580, &qword_25E1EAA60);
   MEMORY[0x28223BE20]();
   v3 = &v6 - v2;
   sub_25E1E604C();

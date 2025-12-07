@@ -33,39 +33,38 @@
     }
 
     deviceMap = self->_deviceMap;
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1000E6DFC;
-    v18[3] = &unk_100ADF8B0;
-    v18[4] = self;
-    [(NSMutableDictionary *)deviceMap enumerateKeysAndObjectsUsingBlock:v18];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1000E6DFC;
+    v17[3] = &unk_100ADF8B0;
+    v17[4] = self;
+    [(NSMutableDictionary *)deviceMap enumerateKeysAndObjectsUsingBlock:v17];
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     allKeys = [(NSMutableDictionary *)self->_deviceMap allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
-          v10 = [(NSMutableDictionary *)self->_deviceMap objectForKeyedSubscript:v9, v13];
+          v9 = *(*(&v13 + 1) + 8 * i);
+          v10 = [(NSMutableDictionary *)self->_deviceMap objectForKeyedSubscript:v9];
           if (([v10 discoveryFlags] & 0xA00000) == 0)
           {
             [(NSMutableDictionary *)self->_deviceMap setObject:0 forKeyedSubscript:v9];
             if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
             {
-              v13 = v10;
-              LogPrintF_safe();
+              LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack updateDevices]", 30, "Device lost: %@", v10);
             }
 
             v11 = objc_retainBlock(self->_deviceLostHandler);
@@ -77,7 +76,7 @@
           }
         }
 
-        v6 = [allKeys countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v6 = [allKeys countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v6);
@@ -104,23 +103,22 @@
 
     if (dword_100B507C8 != -1 || _LogCategory_Initialize())
     {
-      v10 = CUPrintErrorCode();
-      LogPrintF_safe();
+      v3 = CUPrintErrorCode();
+      LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updateDevicesPaired]", 90, "### GetPairedDevices failed: %@", v3);
     }
   }
 
   if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
   {
-    v10 = (v16 - __p) >> 3;
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updateDevicesPaired]", 30, "Update devices: paired, classic, %zu total", (v16 - __p) >> 3);
   }
 
 LABEL_12:
-  v3 = __p;
-  v4 = v16;
-  while (v3 != v4)
+  v4 = __p;
+  v5 = v16;
+  while (v4 != v5)
   {
-    [(CBStackDeviceMonitorBTStack *)self _updateDeviceClassic:*v3++ flags:0x800000];
+    [(CBStackDeviceMonitorBTStack *)self _updateDeviceClassic:*v4++ flags:0x800000];
   }
 
   v13 = 0u;
@@ -132,37 +130,37 @@ LABEL_12:
     sub_1007FFB18();
   }
 
-  v5 = sub_10009DA04(off_100B508B8);
-  v6 = 0;
-  v7 = [v5 countByEnumeratingWithState:&v11 objects:v18 count:16];
-  if (v7)
+  v6 = sub_10009DA04(off_100B508B8);
+  v7 = 0;
+  v8 = [v6 countByEnumeratingWithState:&v11 objects:v18 count:16];
+  if (v8)
   {
-    v8 = *v12;
+    v9 = *v12;
     do
     {
-      v9 = 0;
-      v6 += v7;
+      v10 = 0;
+      v7 += v8;
       do
       {
-        if (*v12 != v8)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        [(CBStackDeviceMonitorBTStack *)self _updateDeviceBLE:*(*(&v11 + 1) + 8 * v9) flags:0x800000, v10];
-        v9 = v9 + 1;
+        [(CBStackDeviceMonitorBTStack *)self _updateDeviceBLE:*(*(&v11 + 1) + 8 * v10) flags:0x800000];
+        v10 = v10 + 1;
       }
 
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v18 count:16];
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v18 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
   if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updateDevicesPaired]", 30, "Update devices: paired, BLE, %d total", v7);
   }
 
   if (__p)
@@ -175,8 +173,8 @@ LABEL_12:
 - (void)_updateDevicesConnected
 {
   __p = 0;
-  v16 = 0;
   v17 = 0;
+  v18 = 0;
   if (qword_100B508A0 != -1)
   {
     sub_1007FFA20();
@@ -191,75 +189,79 @@ LABEL_12:
 
     if (dword_100B507C8 != -1 || _LogCategory_Initialize())
     {
-      v10 = CUPrintErrorCode();
-      LogPrintF_safe();
+      v3 = CUPrintErrorCode();
+      LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updateDevicesConnected]", 90, "### GetConnectedDevices failed: %@", v3);
     }
   }
 
   if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
   {
-    v10 = (v16 - __p) >> 3;
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updateDevicesConnected]", 30, "Update devices: connected, classic, %zu total", (v17 - __p) >> 3);
   }
 
 LABEL_12:
-  v3 = __p;
-  v4 = v16;
-  while (v3 != v4)
+  v4 = __p;
+  v5 = v17;
+  while (v4 != v5)
   {
-    [(CBStackDeviceMonitorBTStack *)self _updateDeviceClassic:*v3++ flags:0x200000];
+    [(CBStackDeviceMonitorBTStack *)self _updateDeviceClassic:*v4++ flags:0x200000];
   }
 
-  v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
   if (qword_100B508B0 != -1)
   {
     sub_1007FFAF0();
   }
 
-  v5 = sub_100029630(off_100B508A8);
-  v6 = 0;
-  v7 = [v5 countByEnumeratingWithState:&v11 objects:v18 count:16];
-  if (v7)
+  v6 = sub_100029630(off_100B508A8);
+  v7 = 0;
+  v8 = [v6 countByEnumeratingWithState:&v12 objects:v19 count:16];
+  if (v8)
   {
-    v8 = *v12;
+    v9 = *v13;
     do
     {
-      v9 = 0;
-      v6 += v7;
+      v10 = 0;
+      v7 += v8;
       do
       {
-        if (*v12 != v8)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        [(CBStackDeviceMonitorBTStack *)self _updateDeviceBLE:*(*(&v11 + 1) + 8 * v9) flags:0x200000, v10];
-        v9 = v9 + 1;
+        [(CBStackDeviceMonitorBTStack *)self _updateDeviceBLE:*(*(&v12 + 1) + 8 * v10) flags:0x200000];
+        v10 = v10 + 1;
       }
 
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v18 count:16];
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v19 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
-  if ((_os_feature_enabled_impl() & 1) == 0)
+  if (_os_feature_enabled_impl())
   {
-    [(CBStackDeviceMonitorBTStack *)self _updatePowerSources];
+    _updatePowerSources = 0;
+  }
+
+  else
+  {
+    _updatePowerSources = [(CBStackDeviceMonitorBTStack *)self _updatePowerSources];
   }
 
   if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updateDevicesConnected]", 30, "Update devices: connected, BLE, %d total, power sources %d", v7, _updatePowerSources);
   }
 
   if (__p)
   {
-    v16 = __p;
+    v17 = __p;
     operator delete(__p);
   }
 }
@@ -290,64 +292,67 @@ LABEL_12:
   v5 = [(NSMutableDictionary *)self->_deviceMap count];
   if (levelCopy < 0x15)
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = sub_100042194;
-    v24 = sub_10004255C;
-    v25 = 0;
-    v19 = 0;
-    v11 = CUPrintFlags64();
-    NSAppendPrintF_safe();
-    objc_storeStrong(&v25, 0);
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = sub_100042194;
+    v27 = sub_10004255C;
+    v28 = 0;
+    v22 = 0;
+    v8 = CUPrintFlags64();
+    NSAppendPrintF_safe(&v22, "== CBStackDeviceMonitor: DF %@, Devices %d ==\n", v8, v5);
+    objc_storeStrong(&v28, v22);
 
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
     v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
     deviceMap = self->_deviceMap;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000EF15C;
-    v13[3] = &unk_100ADF7F8;
-    v13[4] = &v20;
-    v13[5] = &v15;
-    v14 = levelCopy;
-    [(NSMutableDictionary *)deviceMap enumerateKeysAndObjectsUsingBlock:v13, v11, v5];
-    if (v5 > v16[3])
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000EF15C;
+    v16[3] = &unk_100ADF7F8;
+    v16[4] = &v23;
+    v16[5] = &v18;
+    v17 = levelCopy;
+    [(NSMutableDictionary *)deviceMap enumerateKeysAndObjectsUsingBlock:v16];
+    v10 = v19[3];
+    v11 = v5 >= v10;
+    v12 = &v5[-v10];
+    if (v12 != 0 && v11)
     {
-      v8 = v21;
-      obj = v21[5];
-      NSAppendPrintF_safe();
-      objc_storeStrong(v8 + 5, obj);
+      v13 = v24;
+      obj = v24[5];
+      NSAppendPrintF_safe(&obj, "... %d more, %d total\n", v12, v5);
+      objc_storeStrong(v13 + 5, obj);
     }
 
-    v6 = v21[5];
-    _Block_object_dispose(&v15, 8);
-    _Block_object_dispose(&v20, 8);
+    v7 = v24[5];
+    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v23, 8);
   }
 
   else
   {
-    v10 = CUPrintFlags64();
-    v6 = NSPrintF_safe();
+    v6 = CUPrintFlags64();
+    v7 = NSPrintF_safe("CBStackDeviceMonitor: DF %@, Devices %d", v6, v5);
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)activate
 {
   if (!self->_deviceFoundHandler)
   {
-    sub_1007FF9E0();
+    sub_1007FF9E0(self, a2);
     goto LABEL_21;
   }
 
   if (!self->_deviceLostHandler)
   {
 LABEL_21:
-    sub_1007FF9C8();
+    dispatchQueue = sub_1007FF9C8(self, a2);
     goto LABEL_22;
   }
 
@@ -355,11 +360,11 @@ LABEL_21:
   if (!dispatchQueue)
   {
 LABEL_22:
-    sub_1007FF9B0();
+    v5 = sub_1007FF9B0(dispatchQueue, a2);
 LABEL_23:
-    v10 = sub_1007FF998();
+    v13 = sub_1007FF998(v5, v6);
 
-    _Unwind_Resume(v10);
+    _Unwind_Resume(v13);
   }
 
   dispatch_assert_queue_V2(dispatchQueue);
@@ -368,13 +373,16 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
+  if (dword_100B507C8 <= 30)
   {
-    sub_1007FF97C();
+    if (dword_100B507C8 != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      sub_1007FF97C(v5, v6, v7);
+    }
   }
 
-  v5 = sub_10000E92C();
-  self->_logPrivateData = (*(*v5 + 160))(v5);
+  v8 = sub_10000E92C();
+  self->_logPrivateData = (*(*v8 + 160))(v8);
   if (!self->_addedMonitor)
   {
     os_unfair_lock_lock(&unk_100B55260);
@@ -388,44 +396,44 @@ LABEL_23:
     self->_addedMonitor = 1;
   }
 
-  v6 = self->_powerTimeRemainingCoalescer;
-  if (!v6)
+  v9 = self->_powerTimeRemainingCoalescer;
+  if (!v9)
   {
-    v7 = objc_alloc_init(CUCoalescer);
-    objc_storeStrong(&self->_powerTimeRemainingCoalescer, v7);
-    [v7 setDispatchQueue:self->_dispatchQueue];
-    [v7 setMinDelay:1.0];
-    [v7 setMaxDelay:5.0];
-    [v7 setLeeway:1.0];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000EF854;
-    v13[3] = &unk_100ADF820;
-    v13[4] = self;
-    [v7 setActionHandler:v13];
-    v6 = v7;
+    v10 = objc_alloc_init(CUCoalescer);
+    objc_storeStrong(&self->_powerTimeRemainingCoalescer, v10);
+    [v10 setDispatchQueue:self->_dispatchQueue];
+    [v10 setMinDelay:1.0];
+    [v10 setMaxDelay:5.0];
+    [v10 setLeeway:1.0];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000EF854;
+    v16[3] = &unk_100ADF820;
+    v16[4] = self;
+    [v10 setActionHandler:v16];
+    v9 = v10;
   }
 
   if (self->_powerTimeRemainingToken == -1)
   {
-    v8 = self->_dispatchQueue;
+    v11 = self->_dispatchQueue;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_1000EF8BC;
     handler[3] = &unk_100ADF848;
     handler[4] = self;
-    notify_register_dispatch("com.apple.system.accpowersources.timeremaining", &self->_powerTimeRemainingToken, v8, handler);
+    notify_register_dispatch("com.apple.system.accpowersources.timeremaining", &self->_powerTimeRemainingToken, v11, handler);
   }
 
   if (self->_profileChangedToken == -1)
   {
-    v9 = self->_dispatchQueue;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000EF928;
-    v11[3] = &unk_100ADF848;
-    v11[4] = self;
-    notify_register_dispatch("com.apple.MCX._managementStatusChangedForDomains", &self->_profileChangedToken, v9, v11);
+    v12 = self->_dispatchQueue;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000EF928;
+    v14[3] = &unk_100ADF848;
+    v14[4] = self;
+    notify_register_dispatch("com.apple.MCX._managementStatusChangedForDomains", &self->_profileChangedToken, v12, v14);
   }
 
   [(CBStackDeviceMonitorBTStack *)self updateDevices];
@@ -437,9 +445,12 @@ LABEL_23:
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
+    if (dword_100B507C8 <= 30)
     {
-      sub_1007FFAD4();
+      if (dword_100B507C8 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1007FFAD4(v3, v4, v5);
+      }
     }
 
     powerTimeRemainingToken = self->_powerTimeRemainingToken;
@@ -498,7 +509,7 @@ LABEL_23:
     self->_invalidateDone = 1;
     if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _invalidated]", 30, "Invalidated");
     }
   }
 }
@@ -607,7 +618,7 @@ LABEL_23:
 
   else if (dword_100B507C8 <= 90 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updateDeviceClassic:flags:]", 90, "### Get identifier failed");
   }
 }
 
@@ -668,7 +679,7 @@ LABEL_23:
 
           else if (dword_100B507C8 <= 90 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updatePowerSources]", 90, "### Get power source desc failed", v18);
           }
 
           ++v9;
@@ -686,7 +697,7 @@ LABEL_23:
     {
       if (dword_100B507C8 <= 90 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack _updatePowerSources]", 90, "### Get power source array failed");
       }
 
       v16 = 0;
@@ -706,41 +717,36 @@ LABEL_23:
 
 - (void)localDeviceEvent:(int)event
 {
-  if (!self->_addedMonitor)
+  if (self->_addedMonitor)
   {
-    return;
+    if (event == 4)
+    {
+      if ((self->_discoveryFlags & 0x800000) == 0)
+      {
+        return;
+      }
+
+      if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack localDeviceEvent:]", 30, "Pairing status changed");
+      }
+    }
+
+    else
+    {
+      if (event != 5 || (self->_discoveryFlags & 0x200000) == 0)
+      {
+        return;
+      }
+
+      if (dword_100B507C8 <= 30 && (dword_100B507C8 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF_safe(&dword_100B507C8, "[CBStackDeviceMonitorBTStack localDeviceEvent:]", 30, "Connection status changed");
+      }
+    }
+
+    [(CBStackDeviceMonitorBTStack *)self updateDevices];
   }
-
-  if (event == 4)
-  {
-    if ((self->_discoveryFlags & 0x800000) == 0)
-    {
-      return;
-    }
-
-    if (dword_100B507C8 > 30 || dword_100B507C8 == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    if (event != 5 || (self->_discoveryFlags & 0x200000) == 0)
-    {
-      return;
-    }
-
-    if (dword_100B507C8 > 30 || dword_100B507C8 == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_16;
-    }
-  }
-
-  LogPrintF_safe();
-LABEL_16:
-
-  [(CBStackDeviceMonitorBTStack *)self updateDevices];
 }
 
 @end

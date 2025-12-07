@@ -458,16 +458,16 @@
   }
 
   v23 = +[UIBezierPath bezierPath];
-  v42 = 0.0;
   v43 = 0.0;
-  v41[0] = 0.0;
-  v41[1] = 0.0;
+  v44 = 0.0;
+  v41 = 0.0;
+  v42 = 0.0;
   v39 = 0.0;
   v40 = 0.0;
   [v23 moveToPoint:{v18 * 0.5, v12 + 5.0}];
   v24 = 0.0;
   [v23 addLineToPoint:{v18 * 0.5, 0.0}];
-  v25 = [(NTKSquallBezelView *)self _calculateCrossingStrokeForDialFraction:&v42 bezelBounds:v41 screenSize:&v39 cornerRadius:v22 length:self->_insetBounds.origin.x point1:self->_insetBounds.origin.y point2:self->_insetBounds.size.width auxPoint:self->_insetBounds.size.height, v18, v20, self->_reducedCornerRadius, v12 + 10.0];
+  v25 = [(NTKSquallBezelView *)self _calculateCrossingStrokeForDialFraction:&v43 bezelBounds:&v41 screenSize:&v39 cornerRadius:v22 length:self->_insetBounds.origin.x point1:self->_insetBounds.origin.y point2:self->_insetBounds.size.width auxPoint:self->_insetBounds.size.height, v18, v20, self->_reducedCornerRadius, v12 + 10.0];
   switch(v25)
   {
     case 3uLL:
@@ -488,7 +488,7 @@ LABEL_10:
       break;
   }
 
-  _addToPath(v23, v14, v16, v18, v20, v39, v40, v42, v43, v41[0]);
+  _addToPath(v23, v14, v16, v18, v20, v39, v40, v43, v44, v41, v42);
   [v23 closePath];
 LABEL_12:
   [aCopy size];

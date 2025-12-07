@@ -41,9 +41,8 @@
 - (_TtC9WidgetKit17WidgetHostContext)initWithInputItems:(id)items contextUUID:(id)d
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EADF2B90, &qword_1922474C0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v13 - v8;
+  v8 = &v12 - v7;
   if (items)
   {
     items = sub_192227B70();
@@ -52,25 +51,24 @@
   if (d)
   {
     sub_192225190();
-    v10 = sub_1922251B0();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v9 = sub_1922251B0();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v11 = sub_1922251B0();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v10 = sub_1922251B0();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
-  return sub_19218B26C(items, v9);
+  return sub_19218B26C(items, v8);
 }
 
 - (_TtC9WidgetKit17WidgetHostContext)initWithInputItems:(id)items listenerEndpoint:(id)endpoint contextUUID:(id)d
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EADF2B90, &qword_1922474C0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v16 - v10;
+  v10 = &v15 - v9;
   if (items)
   {
     items = sub_192227B70();
@@ -79,18 +77,18 @@
   if (d)
   {
     sub_192225190();
-    v12 = sub_1922251B0();
-    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
+    v11 = sub_1922251B0();
+    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
   }
 
   else
   {
-    v13 = sub_1922251B0();
-    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
+    v12 = sub_1922251B0();
+    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
   endpointCopy = endpoint;
-  return sub_19218B52C(items, endpoint, v11);
+  return sub_19218B52C(items, endpoint, v10);
 }
 
 @end

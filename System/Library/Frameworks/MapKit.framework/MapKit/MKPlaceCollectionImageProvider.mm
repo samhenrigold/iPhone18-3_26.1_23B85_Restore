@@ -437,7 +437,7 @@ void __131__MKPlaceCollectionImageProvider_loadGradientCoverImageWithCuratedColl
     v10 = [*(a1 + 32) requiresGradientOperationForSource:*(a1 + 80)];
     v11 = [v9 absoluteString];
     v12 = MEMORY[0x1E696AEC0];
-    v13 = [v9 path];
+    v13 = objc_msgSend_path(v9);
     v14 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 80)];
     v15 = [v12 stringWithFormat:@"[Url:%@ Source:%@ preferredContentSizeCategory:%@]", v13, v14, *(a1 + 48)];
 

@@ -44,7 +44,7 @@ void __27__FBSInvocation_initialize__block_invoke(uint64_t a1, void *a2)
   v5 = v4;
   if (v3 && !v4)
   {
-    v6 = FBLogCommon();
+    v6 = FBLogCommon(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(FBSInvocation(FBSComponentScene) *)v3 extension];
@@ -78,7 +78,7 @@ void __27__FBSInvocation_initialize__block_invoke(uint64_t a1, void *a2)
     v10 = [v7 methodForSelector:selector];
     if (!v10)
     {
-      [FBSInvocation initWithInvocation:selector interface:sel_initWithInvocation_interface_];
+      [(FBSInvocation *)selector initWithInvocation:self interface:?];
     }
 
     v11 = v10;
@@ -87,27 +87,27 @@ void __27__FBSInvocation_initialize__block_invoke(uint64_t a1, void *a2)
 
     if ((isVoid & 1) == 0)
     {
-      v47 = MEMORY[0x1E696AEC0];
-      v48 = NSStringFromSelector(selector);
+      v48 = MEMORY[0x1E696AEC0];
+      v49 = NSStringFromSelector(selector);
       name = [v7 name];
-      v50 = [v47 stringWithFormat:@"return value is not void for @selector(%@) in <%@>", v48, name];
+      v51 = [v48 stringWithFormat:@"return value is not void for @selector(%@) in <%@>", v49, name];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        [FBSInvocation initWithInvocation:? interface:?];
+        [FBSInvocation initWithInvocation:self interface:?];
       }
 
-      [v50 UTF8String];
+      [v51 UTF8String];
       _bs_set_crash_log_message();
     }
 
-    v62 = 0;
+    v63 = 0;
     v14 = objc_opt_new();
     arguments = [v11 arguments];
     if ([arguments count])
     {
-      v52 = selector;
-      v53 = methodSignature;
+      v53 = selector;
+      v54 = methodSignature;
       v16 = 0;
       while (1)
       {
@@ -122,16 +122,16 @@ void __27__FBSInvocation_initialize__block_invoke(uint64_t a1, void *a2)
 
         if (++v16 >= [arguments count])
         {
-          v54 = 0;
+          v55 = 0;
           v19 = 0;
 LABEL_18:
-          methodSignature = v53;
+          methodSignature = v54;
           goto LABEL_19;
         }
       }
 
       v20 = v17;
-      v19 = [v53 _signatureForBlockAtArgumentIndex:v16 + 2];
+      v19 = [v54 _signatureForBlockAtArgumentIndex:v16 + 2];
       lastObject = [arguments lastObject];
 
       if (v20 != lastObject)
@@ -139,7 +139,7 @@ LABEL_18:
         [FBSInvocation initWithInvocation:? interface:?];
       }
 
-      v54 = v20;
+      v55 = v20;
       blockReturnValue = [v20 blockReturnValue];
       isVoid2 = [blockReturnValue isVoid];
 
@@ -153,49 +153,49 @@ LABEL_18:
         [FBSInvocation initWithInvocation:? interface:?];
       }
 
-      [v5 getArgument:&v62 atIndex:v16 + 2];
-      v24 = [v62 copy];
-      v25 = v62;
-      v62 = v24;
+      [v5 getArgument:&v63 atIndex:v16 + 2];
+      v24 = [v63 copy];
+      v25 = v63;
+      v63 = v24;
 
-      if (!v62)
+      if (!v63)
       {
         goto LABEL_18;
       }
 
-      blockArguments = [v54 blockArguments];
+      blockArguments = [v55 blockArguments];
       numberOfArguments = [v19 numberOfArguments];
-      methodSignature = v53;
+      methodSignature = v54;
       if ([blockArguments count] != numberOfArguments - 1)
       {
         [FBSInvocation initWithInvocation:? interface:?];
       }
 
       v27 = objc_opt_new();
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = __46__FBSInvocation_initWithInvocation_interface___block_invoke;
-      v55[3] = &unk_1E76BE2D0;
-      v56 = v27;
-      v60 = v52;
+      v56[0] = MEMORY[0x1E69E9820];
+      v56[1] = 3221225472;
+      v56[2] = __46__FBSInvocation_initWithInvocation_interface___block_invoke;
+      v56[3] = &unk_1E76BE2D0;
+      v57 = v27;
+      v61 = v53;
       v19 = v19;
-      v57 = v19;
-      v58 = blockArguments;
-      v61 = numberOfArguments;
-      v59 = v62;
+      v58 = v19;
+      v59 = blockArguments;
+      v62 = numberOfArguments;
+      v60 = v63;
       v28 = blockArguments;
       v29 = v27;
-      v30 = [v55 copy];
+      v30 = [v56 copy];
       v31 = self[7];
       self[7] = v30;
 
 LABEL_19:
-      selector = v52;
+      selector = v53;
     }
 
     else
     {
-      v54 = 0;
+      v55 = 0;
       v19 = 0;
     }
 
@@ -223,10 +223,10 @@ LABEL_19:
     v43 = self[6];
     self[6] = v42;
 
-    v44 = FBLogSceneInvocation();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+    v45 = FBLogSceneInvocation(v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
-      [FBSInvocation initWithInvocation:self interface:v44];
+      [FBSInvocation initWithInvocation:self interface:v45];
     }
 
     selfCopy = self;
@@ -389,7 +389,7 @@ LABEL_24:
           if (v15 != 102)
           {
 LABEL_46:
-            v24 = FBLogSceneInvocation();
+            v24 = FBLogSceneInvocation(v16);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
@@ -451,13 +451,14 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_2(uint64_t 
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"deallocation of un-resolved invocation"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = self;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -500,13 +501,13 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_2(uint64_t 
 
 - (void)_invokeWithTarget:(void *)target loggingID:(void *)d replyHandler:
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   v7 = a2;
   targetCopy = target;
   dCopy = d;
   if (!self)
   {
-    v69 = targetCopy;
+    v70 = targetCopy;
     goto LABEL_71;
   }
 
@@ -521,29 +522,29 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_2(uint64_t 
     v9 = targetCopy;
   }
 
-  v69 = v9;
+  v70 = v9;
 
   selector = [self selector];
   if (!v7 || (v11 = selector, (objc_opt_respondsToSelector() & 1) == 0))
   {
     v43 = MEMORY[0x1E696ABC0];
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __58__FBSInvocation__invokeWithTarget_loggingID_replyHandler___block_invoke;
-    v78[3] = &unk_1E76BE2F8;
-    v79 = v7;
+    v79[0] = MEMORY[0x1E69E9820];
+    v79[1] = 3221225472;
+    v79[2] = __58__FBSInvocation__invokeWithTarget_loggingID_replyHandler___block_invoke;
+    v79[3] = &unk_1E76BE2F8;
+    v80 = v7;
     selfCopy = self;
-    v44 = [v43 bs_errorWithDomain:@"FBSInvocation" code:1 configuration:v78];
+    v44 = [v43 bs_errorWithDomain:@"FBSInvocation" code:1 configuration:v79];
     dCopy[2](dCopy, 0, v44);
 
-    v45 = v79;
+    v45 = v80;
     goto LABEL_70;
   }
 
-  v68 = [MEMORY[0x1E695DF68] signatureWithObjCTypes:{objc_msgSend(*(self + 24), "UTF8String")}];
-  v12 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v68];
+  v69 = [MEMORY[0x1E695DF68] signatureWithObjCTypes:{objc_msgSend(*(self + 24), "UTF8String")}];
+  v12 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v69];
   [v12 setSelector:v11];
-  v73 = v12;
+  v74 = v12;
   v13 = NSProtocolFromString(*(self + 8));
   v14 = _interfaceFromProtocol(v13);
   v15 = [v14 methodForSelector:v11];
@@ -554,30 +555,30 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_2(uint64_t 
     [currentHandler handleFailureInMethod:sel__invokeWithTarget_loggingID_replyHandler_ object:self file:@"FBSInvocation.m" lineNumber:382 description:{@"no method found for %@ in %@", *(self + 16), *(self + 8)}];
   }
 
-  v67 = v15;
+  v68 = v15;
   arguments = [v15 arguments];
-  v70 = 0;
   v71 = 0;
+  v72 = 0;
   for (i = 2; i - 2 < [arguments count]; ++i)
   {
     v18 = [arguments objectAtIndex:i - 2];
     type = [v18 type];
     v20 = [*(self + 40) objectForSetting:i - 2];
     v21 = v20;
-    v98 = 0u;
     v99 = 0u;
-    v96 = 0u;
+    v100 = 0u;
     v97 = 0u;
-    v94 = 0u;
+    v98 = 0u;
     v95 = 0u;
-    memset(v93, 0, sizeof(v93));
+    v96 = 0u;
+    memset(v94, 0, sizeof(v94));
     if (type > 0x3Fu)
     {
       if (type == 66)
       {
         bOOLValue = [v20 BOOLValue];
 LABEL_29:
-        v93[0] = bOOLValue;
+        v94[0] = bOOLValue;
         goto LABEL_34;
       }
 
@@ -587,31 +588,31 @@ LABEL_29:
         {
           if (!dCopy)
           {
-            v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"reply handler is expected"];
-            v50 = MEMORY[0x1E69E9C10];
+            v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"reply handler is expected"];
             v51 = MEMORY[0x1E69E9C10];
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+            v52 = MEMORY[0x1E69E9C10];
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
             {
-              v52 = NSStringFromSelector(sel__invokeWithTarget_loggingID_replyHandler_);
-              v53 = objc_opt_class();
-              v54 = NSStringFromClass(v53);
+              v53 = NSStringFromSelector(sel__invokeWithTarget_loggingID_replyHandler_);
+              v54 = objc_opt_class();
+              v55 = NSStringFromClass(v54);
               *buf = 138544642;
-              v82 = v52;
-              v83 = 2114;
-              v84 = v54;
-              v85 = 2048;
+              v83 = v53;
+              v84 = 2114;
+              v85 = v55;
+              v86 = 2048;
               selfCopy3 = self;
-              v87 = 2114;
-              v88 = @"FBSInvocation.m";
-              v89 = 1024;
-              v90 = 397;
-              v91 = 2114;
-              v92 = v49;
+              v88 = 2114;
+              v89 = @"FBSInvocation.m";
+              v90 = 1024;
+              v91 = 397;
+              v92 = 2114;
+              v93 = v50;
               _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
             }
 
-            v55 = v49;
-            [v49 UTF8String];
+            v56 = v50;
+            [v50 UTF8String];
             _bs_set_crash_log_message();
           }
 
@@ -620,61 +621,61 @@ LABEL_29:
 
           if (!v24)
           {
-            v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"block is not the last argument"];
-            v57 = MEMORY[0x1E69E9C10];
+            v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"block is not the last argument"];
             v58 = MEMORY[0x1E69E9C10];
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+            v59 = MEMORY[0x1E69E9C10];
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
             {
-              v59 = NSStringFromSelector(sel__invokeWithTarget_loggingID_replyHandler_);
-              v60 = objc_opt_class();
-              v61 = NSStringFromClass(v60);
+              v60 = NSStringFromSelector(sel__invokeWithTarget_loggingID_replyHandler_);
+              v61 = objc_opt_class();
+              v62 = NSStringFromClass(v61);
               *buf = 138544642;
-              v82 = v59;
-              v83 = 2114;
-              v84 = v61;
-              v85 = 2048;
+              v83 = v60;
+              v84 = 2114;
+              v85 = v62;
+              v86 = 2048;
               selfCopy3 = self;
-              v87 = 2114;
-              v88 = @"FBSInvocation.m";
-              v89 = 1024;
-              v90 = 398;
-              v91 = 2114;
-              v92 = v56;
+              v88 = 2114;
+              v89 = @"FBSInvocation.m";
+              v90 = 1024;
+              v91 = 398;
+              v92 = 2114;
+              v93 = v57;
               _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
             }
 
-            v62 = v56;
-            [v56 UTF8String];
+            v63 = v57;
+            [v57 UTF8String];
             _bs_set_crash_log_message();
           }
 
-          v25 = [v68 _signatureForBlockAtArgumentIndex:i];
-          v76[0] = MEMORY[0x1E69E9820];
-          v76[1] = 3221225472;
-          v76[2] = __58__FBSInvocation__invokeWithTarget_loggingID_replyHandler___block_invoke_146;
-          v76[3] = &unk_1E76BE370;
-          v76[4] = self;
+          v25 = [v69 _signatureForBlockAtArgumentIndex:i];
+          v77[0] = MEMORY[0x1E69E9820];
+          v77[1] = 3221225472;
+          v77[2] = __58__FBSInvocation__invokeWithTarget_loggingID_replyHandler___block_invoke_146;
+          v77[3] = &unk_1E76BE370;
+          v77[4] = self;
           v26 = dCopy;
-          v77 = v26;
-          v27 = [off_1E76BC9A0 sentinelWithCompletion:v76];
+          v78 = v26;
+          v27 = [off_1E76BC9A0 sentinelWithCompletion:v77];
 
           blockArguments = [v18 blockArguments];
-          v74[0] = MEMORY[0x1E69E9820];
-          v74[1] = 3221225472;
-          v74[2] = __58__FBSInvocation__invokeWithTarget_loggingID_replyHandler___block_invoke_3;
-          v74[3] = &unk_1E76BE398;
-          v71 = v27;
-          v75 = v71;
-          v29 = [(FBSInvocation *)self _createReplyBlockWithSignature:v25 arguments:blockArguments handler:v74];
+          v75[0] = MEMORY[0x1E69E9820];
+          v75[1] = 3221225472;
+          v75[2] = __58__FBSInvocation__invokeWithTarget_loggingID_replyHandler___block_invoke_3;
+          v75[3] = &unk_1E76BE398;
+          v72 = v27;
+          v76 = v72;
+          v29 = [(FBSInvocation *)self _createReplyBlockWithSignature:v25 arguments:blockArguments handler:v75];
 
-          *v93 = v29;
+          *v94 = v29;
           dCopy = 0;
-          v70 = v29;
+          v71 = v29;
         }
 
         else
         {
-          *v93 = v21;
+          *v94 = v21;
         }
 
         goto LABEL_34;
@@ -693,7 +694,7 @@ LABEL_29:
       {
         longValue = NSSelectorFromString(v20);
 LABEL_27:
-        *v93 = longValue;
+        *v94 = longValue;
         goto LABEL_34;
       }
     }
@@ -709,7 +710,7 @@ LABEL_27:
 
       if (v30 == 73)
       {
-        *v93 = [v20 intValue];
+        *v94 = [v20 intValue];
         goto LABEL_34;
       }
     }
@@ -725,7 +726,7 @@ LABEL_27:
           longValue = [v20 longLongValue];
           goto LABEL_27;
         case 'S':
-          *v93 = [v20 shortValue];
+          *v94 = [v20 shortValue];
           goto LABEL_34;
       }
     }
@@ -742,16 +743,16 @@ LABEL_27:
       if (type == 100)
       {
         [v20 doubleValue];
-        *v93 = v32;
+        *v94 = v32;
         goto LABEL_34;
       }
 
 LABEL_45:
-      v34 = FBLogSceneInvocation();
+      v34 = FBLogSceneInvocation(v20);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v82 = v18;
+        v83 = v18;
         _os_log_error_impl(&dword_1A2DBB000, v34, OS_LOG_TYPE_ERROR, "Parameter is not supported: %@", buf, 0xCu);
       }
 
@@ -767,7 +768,7 @@ LABEL_45:
       if (type == 102)
       {
         [v20 floatValue];
-        *v93 = v33;
+        *v94 = v33;
         goto LABEL_34;
       }
 
@@ -782,7 +783,7 @@ LABEL_45:
       [currentHandler3 handleFailureInFunction:v42 file:@"FBSInvocation.m" lineNumber:451 description:@"struct is too large"];
     }
 
-    if (([v21 bs_getValue:v93 ofSize:v38] & 1) == 0)
+    if (([v21 bs_getValue:v94 ofSize:v38] & 1) == 0)
     {
       currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
       v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[FBSInvocation _invokeWithTarget:loggingID:replyHandler:]"];
@@ -790,26 +791,26 @@ LABEL_45:
     }
 
 LABEL_34:
-    [v73 setArgument:v93 atIndex:i];
+    [v74 setArgument:v94 atIndex:i];
   }
 
-  if (v73)
+  if (v74)
   {
-    v46 = FBLogSceneInvocation();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v47 = FBLogSceneInvocation(v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = *(self + 16);
-      v48 = [off_1E76BC9B0 succinctDescriptionForObject:v7];
-      *v93 = 138543874;
-      *&v93[4] = v69;
-      *&v93[12] = 2114;
-      *&v93[14] = v47;
-      *&v93[22] = 2114;
-      *&v93[24] = v48;
-      _os_log_impl(&dword_1A2DBB000, v46, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invoking %{public}@ on target: %{public}@", v93, 0x20u);
+      v48 = *(self + 16);
+      v49 = [off_1E76BC9B0 succinctDescriptionForObject:v7];
+      *v94 = 138543874;
+      *&v94[4] = v70;
+      *&v94[12] = 2114;
+      *&v94[14] = v48;
+      *&v94[22] = 2114;
+      *&v94[24] = v49;
+      _os_log_impl(&dword_1A2DBB000, v47, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invoking %{public}@ on target: %{public}@", v94, 0x20u);
     }
 
-    [v73 invokeWithTarget:v7];
+    [v74 invokeWithTarget:v7];
   }
 
   if (dCopy)
@@ -822,13 +823,13 @@ LABEL_34:
     dCopy = 0;
   }
 
-  v65 = *(self + 40);
-  v64 = (self + 40);
-  [v65 removeAllSettings];
-  v66 = *v64;
-  *v64 = 0;
+  v66 = *(self + 40);
+  v65 = (self + 40);
+  [v66 removeAllSettings];
+  v67 = *v65;
+  *v65 = 0;
 
-  v45 = v70;
+  v45 = v71;
 LABEL_70:
 
 LABEL_71:
@@ -895,7 +896,7 @@ LABEL_71:
   v17 = v7;
   selfCopy = self;
   v8 = [v6 bs_errorWithDomain:@"FBSInvocation" code:1 configuration:&v13];
-  v9 = FBLogSceneInvocation();
+  v9 = FBLogSceneInvocation(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [v8 descriptionWithMultilinePrefix:{0, v13, v14, v15, v16}];
@@ -1405,15 +1406,17 @@ LABEL_43:
   return v3;
 }
 
-- (void)initWithInvocation:(const char *)a1 interface:.cold.1(const char *a1)
+- (void)initWithInvocation:(const char *)a1 interface:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)initWithInvocation:(char *)a1 interface:.cold.2(char *a1)
@@ -1421,13 +1424,14 @@ LABEL_43:
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"a block can only be the last argument of a message"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -1439,13 +1443,14 @@ LABEL_43:
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"block return value is not void"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -1454,15 +1459,14 @@ LABEL_43:
 
 - (void)initWithInvocation:(char *)a1 interface:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[replyArguments count] == (numberOfArguments - 1)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[replyArguments count] == (numberOfArguments - 1)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1474,13 +1478,14 @@ LABEL_43:
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"block signature returned nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -1495,35 +1500,34 @@ LABEL_43:
   _os_log_debug_impl(&dword_1A2DBB000, a2, OS_LOG_TYPE_DEBUG, "Created %@", &v2, 0xCu);
 }
 
-- (void)initWithInvocation:(const char *)a1 interface:(const char *)a2 .cold.7(const char *a1, const char *a2)
+- (void)initWithInvocation:(uint64_t)a3 interface:.cold.7(const char *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v12 = NSStringFromSelector(a1);
-  v4 = [v3 stringWithFormat:@"No associated method was found for invocation of %@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = NSStringFromSelector(a1);
+  v6 = [v4 stringWithFormat:@"No associated method was found for invocation of %@", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v14 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, 2u);
+    v7 = NSStringFromSelector(a2);
+    v8 = objc_opt_class();
+    v16 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)initWithInvocation:(char *)a1 interface:.cold.8(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"invocation"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"invocation", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1532,15 +1536,14 @@ LABEL_43:
 
 - (void)initWithInvocation:(char *)a1 interface:.cold.9(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"interface"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"interface", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1561,16 +1564,17 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_cold_1(void
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invocation was invoked twice"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v13) = 138544642;
+    *(&v13 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, DWORD2(v13));
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
@@ -1591,13 +1595,14 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_cold_1(void
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invocation has already been resolved"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = self;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -1609,13 +1614,14 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_cold_1(void
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invocation has already been resolved"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -1624,15 +1630,14 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_cold_1(void
 
 - (void)_createReplyBlockWithSignature:(char *)a1 arguments:handler:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"handler", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1641,15 +1646,14 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_cold_1(void
 
 - (void)_createReplyBlockWithSignature:(char *)a1 arguments:handler:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"arguments"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"arguments", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1658,15 +1662,14 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_cold_1(void
 
 - (void)_createReplyBlockWithSignature:(char *)a1 arguments:handler:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"signature"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"signature", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1675,13 +1678,13 @@ void __46__FBSInvocation_initWithInvocation_interface___block_invoke_cold_1(void
 
 void __66__FBSInvocation__createReplyBlockWithSignature_arguments_handler___block_invoke_cold_1(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[arguments count] == ([signature numberOfArguments] - blockOffset)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v3 = NSStringFromSelector(*(a1 + 64));
     v4 = objc_opt_class();
-    v11 = NSStringFromClass(v4);
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[arguments count] == ([signature numberOfArguments] - blockOffset)", v10, 2u);
+    v12 = NSStringFromClass(v4);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

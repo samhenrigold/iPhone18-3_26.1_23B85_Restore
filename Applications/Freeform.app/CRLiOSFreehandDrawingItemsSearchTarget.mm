@@ -27,7 +27,7 @@
 
   selfCopy = self;
   sub_10070FB90(v11, v13, options, sub_1007127A4, v14, v10, v15);
-  sub_1000C1014(v10);
+  sub_1000C1014(v10, v15);
 }
 
 - (_TtC8Freeform38CRLiOSFreehandDrawingItemsSearchTarget)init

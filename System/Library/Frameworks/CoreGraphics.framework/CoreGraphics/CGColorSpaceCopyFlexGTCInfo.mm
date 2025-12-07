@@ -30,7 +30,7 @@ uint64_t (*__CGColorSpaceCopyFlexGTCInfo_block_invoke_2())()
   return result;
 }
 
-uint64_t (*__CGColorSpaceCopyFlexGTCInfo_block_invoke())()
+uint64_t (*__CGColorSpaceCopyFlexGTCInfo_block_invoke())(void)
 {
   if (CGLibraryLoadColorSyncDYLD_once != -1)
   {

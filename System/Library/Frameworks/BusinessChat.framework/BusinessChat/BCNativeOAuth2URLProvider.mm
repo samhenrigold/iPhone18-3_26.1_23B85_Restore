@@ -14,7 +14,7 @@
 
 + (id)URLProviderWithDictionary:(id)dictionary
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy objectForKeyedSubscript:@"authorizationUrl"];
   null = [MEMORY[0x277CBEB68] null];
@@ -32,12 +32,12 @@
   null2 = [MEMORY[0x277CBEB68] null];
   if (v7 == null2)
   {
-    v42 = 0;
+    v41 = 0;
   }
 
   else
   {
-    v42 = [dictionaryCopy objectForKeyedSubscript:@"accessTokenUrl"];
+    v41 = [dictionaryCopy objectForKeyedSubscript:@"accessTokenUrl"];
   }
 
   v9 = [dictionaryCopy objectForKeyedSubscript:@"clientIdentifier"];
@@ -56,12 +56,12 @@
   null4 = [MEMORY[0x277CBEB68] null];
   if (v12 == null4)
   {
-    v41 = 0;
+    v40 = 0;
   }
 
   else
   {
-    v41 = [dictionaryCopy objectForKeyedSubscript:@"clientSecret"];
+    v40 = [dictionaryCopy objectForKeyedSubscript:@"clientSecret"];
   }
 
   v14 = [dictionaryCopy objectForKeyedSubscript:@"responseType"];
@@ -92,12 +92,12 @@
   null7 = [MEMORY[0x277CBEB68] null];
   if (v20 == null7)
   {
-    v40 = 0;
+    v39 = 0;
   }
 
   else
   {
-    v40 = [dictionaryCopy objectForKeyedSubscript:@"state"];
+    v39 = [dictionaryCopy objectForKeyedSubscript:@"state"];
   }
 
   v22 = [dictionaryCopy objectForKeyedSubscript:@"scope"];
@@ -183,7 +183,7 @@ LABEL_54:
     }
 
     *buf = 138412290;
-    v49 = v25;
+    v48 = v25;
     v32 = "BCNativeOAuth2URLProvider: Unable to create object. Could not create a valid authorizationURL from string:%@";
     goto LABEL_72;
   }
@@ -194,32 +194,32 @@ LABEL_54:
     goto LABEL_42;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = v24;
-  v27 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v27 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (!v27)
   {
     goto LABEL_41;
   }
 
   v28 = v27;
-  v29 = *v44;
+  v29 = *v43;
   while (2)
   {
     for (i = 0; i != v28; ++i)
     {
-      if (*v44 != v29)
+      if (*v43 != v29)
       {
         objc_enumerationMutation(obj);
       }
 
-      if ([*(*(&v43 + 1) + 8 * i) length])
+      if ([*(*(&v42 + 1) + 8 * i) length])
       {
 
-        if ([v16 isEqualToString:@"code"] && !objc_msgSend(v42, "length"))
+        if ([v16 isEqualToString:@"code"] && !objc_msgSend(v41, "length"))
         {
           v31 = LogCategory_Daemon();
           if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
@@ -239,7 +239,7 @@ LABEL_73:
 
         if ([v16 isEqualToString:@"code"])
         {
-          v31 = [MEMORY[0x277CBEBC0] URLWithString:v42];
+          v31 = [MEMORY[0x277CBEBC0] URLWithString:v41];
           if (!v31)
           {
             v31 = LogCategory_Daemon();
@@ -249,7 +249,7 @@ LABEL_73:
             }
 
             *buf = 138412290;
-            v49 = v42;
+            v48 = v41;
             v32 = "BCNativeOAuth2URLProvider: Unable to create object. Could not create a valid accessTokenURL from string:%@";
 LABEL_72:
             v33 = v31;
@@ -263,12 +263,12 @@ LABEL_72:
           v31 = 0;
         }
 
-        v36 = [[BCNativeOAuth2URLProvider alloc] _initWithAuthorizationURL:v26 accessTokenURL:v31 clientSecret:v41 clientIdentifier:v11 responseEncryptionKey:v19 scope:obj state:v40 responseType:v16];
+        v36 = [[BCNativeOAuth2URLProvider alloc] _initWithAuthorizationURL:v26 accessTokenURL:v31 clientSecret:v40 clientIdentifier:v11 responseEncryptionKey:v19 scope:obj state:v39 responseType:v16];
         goto LABEL_60;
       }
     }
 
-    v28 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v28 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v28)
     {
       continue;
@@ -293,7 +293,6 @@ LABEL_59:
 LABEL_60:
 
 LABEL_55:
-  v37 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -393,9 +392,9 @@ LABEL_55:
 
 - (id)authenticationSessionURL
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18 = [(NSURL *)self->_authorizationURL copy];
-  v3 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:v18 resolvingAgainstBaseURL:0];
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17 = [(NSURL *)self->_authorizationURL copy];
+  v3 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:v17 resolvingAgainstBaseURL:0];
   v4 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"response_type" value:self->_responseType];
   v5 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"client_id" value:self->_clientIdentifier];
   v6 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"redirect_uri" value:@"https://auth.businesschat.apple.com"];
@@ -423,11 +422,11 @@ LABEL_55:
   }
 
   v12 = MEMORY[0x277CBEB18];
-  v19[0] = v5;
-  v19[1] = v6;
-  v19[2] = v7;
-  v19[3] = v4;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+  v18[0] = v5;
+  v18[1] = v6;
+  v18[2] = v7;
+  v18[3] = v4;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
   v14 = [v12 arrayWithArray:v13];
 
   if (self->_scope)
@@ -442,8 +441,6 @@ LABEL_55:
 
   [v3 setQueryItems:v14];
   v15 = [v3 URL];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -466,7 +463,7 @@ LABEL_55:
 
 - (id)tokenExchangeBodyWithCode:(id)code
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACE0];
   codeCopy = code;
   v6 = objc_alloc_init(v4);
@@ -479,30 +476,28 @@ LABEL_55:
   if (self->_clientSecret)
   {
     v12 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"client_secret" value:self->_clientSecret];
-    v19[0] = v7;
-    v19[1] = v8;
-    v19[2] = v9;
-    v19[3] = v11;
-    v19[4] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:5];
+    v18[0] = v7;
+    v18[1] = v8;
+    v18[2] = v9;
+    v18[3] = v11;
+    v18[4] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:5];
     [v6 setQueryItems:v13];
   }
 
   else
   {
-    v20[0] = v7;
-    v20[1] = v8;
-    v20[2] = v9;
-    v20[3] = v10;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+    v19[0] = v7;
+    v19[1] = v8;
+    v19[2] = v9;
+    v19[3] = v10;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
     [v6 setQueryItems:v12];
   }
 
   query = [v6 query];
   uRLQueryAllowedCharacterSet = [MEMORY[0x277CCA900] URLQueryAllowedCharacterSet];
   v16 = [query stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

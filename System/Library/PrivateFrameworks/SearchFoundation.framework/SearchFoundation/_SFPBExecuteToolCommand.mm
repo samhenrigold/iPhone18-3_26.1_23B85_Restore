@@ -220,18 +220,14 @@ LABEL_13:
 
 - (void)setToolInvocationData:(id)data
 {
-  v4 = [data copy];
-  toolInvocationData = self->_toolInvocationData;
-  self->_toolInvocationData = v4;
+  self->_toolInvocationData = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setToolIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  toolIdentifier = self->_toolIdentifier;
-  self->_toolIdentifier = v4;
+  self->_toolIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

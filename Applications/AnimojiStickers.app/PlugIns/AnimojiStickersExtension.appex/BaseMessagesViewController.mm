@@ -30,6 +30,7 @@
 - (void)updateLandscapeOverlayIfNecessaryWithCoordinator:(id)coordinator;
 - (void)updateLandscapeOverlayImmediately;
 - (void)updateSnapshotWithCompletionBlock:(id)block;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
@@ -415,6 +416,16 @@ LABEL_20:
   v3 = +[AVTUIColorRepository appBackgroundColor];
   view = [(BaseMessagesViewController *)self view];
   [view setBackgroundColor:v3];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = BaseMessagesViewController;
+  [(BaseMessagesViewController *)&v5 viewDidAppear:appear];
+  [(BaseMessagesViewController *)self scheduleSnapshotEnabledUpdateAfter:0 currentValue:&__kCFBooleanTrue futureValue:1.0];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 postNotificationName:@"BaseMessagesViewControllerDidAppearNotification" object:self];
 }
 
 - (void)scheduleSnapshotEnabledUpdateAfter:(double)after currentValue:(id)value futureValue:(id)futureValue

@@ -65,40 +65,38 @@ uint64_t __43__ACAccountUniquingCache_sharedUniqueCache__block_invoke()
 
 void __40__ACAccountUniquingCache_cacheAccounts___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        [*(a1 + 40) _lock_cacheParentChain:{v7, v11}];
+        v7 = *(*(&v10 + 1) + 8 * i);
+        [*(a1 + 40) _lock_cacheParentChain:{v7, v10}];
         v8 = *(*(a1 + 40) + 16);
         v9 = [v7 identifier];
         [v8 setObject:v7 forKeyedSubscript:v9];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_cacheParentChain:(id)chain
@@ -140,29 +138,29 @@ void __40__ACAccountUniquingCache_cacheAccounts___block_invoke(uint64_t a1)
 
 id __54__ACAccountUniquingCache_cachedAccountsByIdentifiers___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
-        v9 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:{v8, v15}];
+        v8 = *(*(&v14 + 1) + 8 * i);
+        v9 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:{v8, v14}];
 
         if (!v9)
         {
@@ -183,7 +181,7 @@ LABEL_12:
         [v2 addObject:v11];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -195,8 +193,6 @@ LABEL_12:
 
   v12 = [v2 copy];
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -255,28 +251,28 @@ LABEL_13:
 
 void __53__ACAccountUniquingCache_clearAccountsByIdentifiers___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
-        v8 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:{v7, v12}];
+        v7 = *(*(&v11 + 1) + 8 * i);
+        v8 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:{v7, v11}];
 
         if (v8)
         {
@@ -288,13 +284,11 @@ void __53__ACAccountUniquingCache_clearAccountsByIdentifiers___block_invoke(uint
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_clearParentChains:(id)chains

@@ -380,7 +380,7 @@ LABEL_10:
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  [(PAEStyleTransfer *)self renderResourceForQuality:v12 forModel:v24];
+  objc_msgSend_renderResourceForQuality_forModel_(self);
   v14 = MEMORY[0x277CCACA8];
   width = [input width];
   height = [input height];
@@ -443,7 +443,7 @@ LABEL_10:
     self->_modelName = name;
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else
@@ -479,7 +479,7 @@ LABEL_10:
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else

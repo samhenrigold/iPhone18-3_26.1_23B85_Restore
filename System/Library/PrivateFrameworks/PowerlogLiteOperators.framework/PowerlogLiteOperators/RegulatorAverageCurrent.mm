@@ -135,7 +135,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    regulatorId = self->_regulatorId;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -155,7 +154,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sampleCount = self->_sampleCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -170,12 +168,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  duration64ms = self->_duration64ms;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_5:
-    averageCurrentMa = self->_averageCurrentMa;
     PBDataWriterWriteUint32Field();
   }
 

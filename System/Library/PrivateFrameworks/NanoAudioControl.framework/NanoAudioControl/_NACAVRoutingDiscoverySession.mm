@@ -8,9 +8,9 @@
 
 - (_NACAVRoutingDiscoverySession)init
 {
-  v12.receiver = self;
-  v12.super_class = _NACAVRoutingDiscoverySession;
-  v2 = [(_NACAVRoutingDiscoverySession *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = _NACAVRoutingDiscoverySession;
+  v2 = [(_NACAVRoutingDiscoverySession *)&v11 init];
   if (v2)
   {
     *(v2 + 1) = MRAVRoutingDiscoverySessionCreate();
@@ -26,10 +26,9 @@
 
     dispatch_group_enter(*(v2 + 3));
     objc_initWeak(&location, v2);
-    v8 = *(v2 + 1);
-    objc_copyWeak(&v10, &location);
+    objc_copyWeak(&v9, &location);
     *(v2 + 2) = MRAVRoutingDiscoverySessionAddEndpointsChangedCallback();
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
   }
 

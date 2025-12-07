@@ -43,7 +43,7 @@
 
 - (id)jsonDictionary
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   if ([(BMVisualIntelligenceCameraLookupEventPillAttribute *)self hasIsMaybe])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMVisualIntelligenceCameraLookupEventPillAttribute isMaybe](self, "isMaybe")}];
@@ -55,23 +55,23 @@
   }
 
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMVisualIntelligenceCameraLookupEventPillAttribute pillType](self, "pillType")}];
-  v10[0] = @"isMaybe";
+  v9[0] = @"isMaybe";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"pillType";
-  v11[0] = null;
+  v9[1] = @"pillType";
+  v10[0] = null;
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (v4)
   {
     if (v3)
@@ -90,14 +90,13 @@
   }
 
 LABEL_10:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (BMVisualIntelligenceCameraLookupEventPillAttribute)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"isMaybe"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -114,10 +113,10 @@ LABEL_10:
 
       v12 = objc_alloc(MEMORY[0x1E696ABC0]);
       v13 = *MEMORY[0x1E698F240];
-      v24 = *MEMORY[0x1E696A578];
+      v23 = *MEMORY[0x1E696A578];
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isMaybe"];
-      v25[0] = v10;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v24[0] = v10;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       v14 = [v12 initWithDomain:v13 code:2 userInfo:v9];
       v8 = 0;
       selfCopy = 0;
@@ -149,13 +148,13 @@ LABEL_10:
       {
         if (error)
         {
-          v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v19 = *MEMORY[0x1E698F240];
-          v22 = *MEMORY[0x1E696A578];
-          v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"pillType"];
-          v23 = v20;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-          *error = [v18 initWithDomain:v19 code:2 userInfo:v21];
+          v17 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v18 = *MEMORY[0x1E698F240];
+          v21 = *MEMORY[0x1E696A578];
+          v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"pillType"];
+          v22 = v19;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+          *error = [v17 initWithDomain:v18 code:2 userInfo:v20];
         }
 
         v10 = 0;
@@ -179,7 +178,6 @@ LABEL_10:
 LABEL_17:
 
 LABEL_18:
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -197,11 +195,9 @@ LABEL_18:
   toCopy = to;
   if (self->_hasIsMaybe)
   {
-    isMaybe = self->_isMaybe;
     PBDataWriterWriteBOOLField();
   }
 
-  pillType = self->_pillType;
   PBDataWriterWriteUint32Field();
 }
 
@@ -420,28 +416,24 @@ LABEL_49:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMaybe" number:1 type:12 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"pillType" number:2 type:4 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMaybe" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"pillType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

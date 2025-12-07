@@ -197,7 +197,7 @@ LABEL_10:
           v11 = *(*(&v22 + 1) + 8 * i);
           if (v11)
           {
-            [*(*(&v22 + 1) + 8 * i) timeMapping];
+            objc_msgSend_timeMapping(*(*(&v22 + 1) + 8 * i));
           }
 
           else
@@ -330,6 +330,7 @@ LABEL_21:
 
 - (void)_cancelPendingSeekAndRegisterSeekID:(int)d seekTime:(id *)time withCompletionHandler:(id)handler
 {
+  v14 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
   pendingSeekID = self->_pendingSeekID;
   seekCompletionHandler = self->_seekCompletionHandler;
@@ -365,6 +366,7 @@ LABEL_21:
 - (void)_unregisterInvokeAndReleasePendingSeekCompletionHandlerForSeekID:(int)d finished:(BOOL)finished
 {
   finishedCopy = finished;
+  v12 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
   pendingSeekID = self->_pendingSeekID;
   if (pendingSeekID)
@@ -439,7 +441,7 @@ LABEL_21:
       Weak = objc_loadWeak(&self->_seekDelegate);
       if (currentSnapshot)
       {
-        [(AVPlayerItemIntegratedTimelineSnapshot *)currentSnapshot currentTime];
+        objc_msgSend_currentTime(currentSnapshot);
       }
 
       else

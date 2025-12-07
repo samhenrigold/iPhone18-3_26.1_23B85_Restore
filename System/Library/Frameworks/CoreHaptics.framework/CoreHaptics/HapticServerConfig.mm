@@ -17,13 +17,13 @@
 
 - (HapticServerConfig)initWithHapticPlayer:(id)player withOptions:(id)options error:(id *)error
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   playerCopy = player;
   optionsCopy = options;
-  v67.receiver = self;
-  v67.super_class = HapticServerConfig;
-  v53 = [(HapticServerConfig *)&v67 init];
-  if (!v53)
+  v66.receiver = self;
+  v66.super_class = HapticServerConfig;
+  v52 = [(HapticServerConfig *)&v66 init];
+  if (!v52)
   {
     v10 = 0;
     goto LABEL_73;
@@ -38,7 +38,7 @@
       v9 = *kHAPIScope;
       if (!v9)
       {
-        v60 = @"Default";
+        v59 = @"Default";
         goto LABEL_18;
       }
     }
@@ -49,7 +49,7 @@
       v13 = MEMORY[0x277D86220];
     }
 
-    v60 = @"Default";
+    v59 = @"Default";
     if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
@@ -67,7 +67,7 @@
     goto LABEL_16;
   }
 
-  v60 = v7;
+  v59 = v7;
   if (!kHAPIScope)
   {
     v9 = MEMORY[0x277D86220];
@@ -128,12 +128,12 @@ LABEL_18:
     v20 = 0;
   }
 
-  v54 = [v14 numberWithBool:v20];
+  v53 = [v14 numberWithBool:v20];
   v21 = MEMORY[0x277CBEB38];
-  v58 = [MEMORY[0x277CCABB0] numberWithBool:0];
   v57 = [MEMORY[0x277CCABB0] numberWithBool:0];
   v56 = [MEMORY[0x277CCABB0] numberWithBool:0];
   v55 = [MEMORY[0x277CCABB0] numberWithBool:0];
+  v54 = [MEMORY[0x277CCABB0] numberWithBool:0];
   v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
   v23 = [MEMORY[0x277CCABB0] numberWithFloat:0.0];
   v24 = [MEMORY[0x277CCABB0] numberWithFloat:0.0];
@@ -143,7 +143,7 @@ LABEL_18:
   array2 = [MEMORY[0x277CBEA60] array];
   array3 = [MEMORY[0x277CBEA60] array];
   dictionary = [MEMORY[0x277CBEAC0] dictionary];
-  v31 = [v21 dictionaryWithObjectsAndKeys:{v60, @"RequestedLocality", v54, @"AllowBackgroundHaptics", v58, @"SupportsAudioPlayback", v57, @"SupportsHapticPlayback", v56, @"SupportsAdvancedPatternPlayers", v55, @"UsingInternalHaptics", v22, @"HapticContinuousTimeLimit", v23, @"HapticTransientDefaultIntensity", v24, @"HapticTransientDefaultSharpness", v25, @"HapticContinuousDefaultIntensity", v26, @"HapticContinuousDefaultSharpness", array, @"HapticTransientEventIDs", array2, @"HapticContinuousSustainedEventIDs", array3, @"HapticContinuousNonsustainedEventIDs", dictionary, @"BuiltInAudioEventIDs", 0}];
+  v31 = [v21 dictionaryWithObjectsAndKeys:{v59, @"RequestedLocality", v53, @"AllowBackgroundHaptics", v57, @"SupportsAudioPlayback", v56, @"SupportsHapticPlayback", v55, @"SupportsAdvancedPatternPlayers", v54, @"UsingInternalHaptics", v22, @"HapticContinuousTimeLimit", v23, @"HapticTransientDefaultIntensity", v24, @"HapticTransientDefaultSharpness", v25, @"HapticContinuousDefaultIntensity", v26, @"HapticContinuousDefaultSharpness", array, @"HapticTransientEventIDs", array2, @"HapticContinuousSustainedEventIDs", array3, @"HapticContinuousNonsustainedEventIDs", dictionary, @"BuiltInAudioEventIDs", 0}];
 
   v32 = [optionsCopy objectForKey:@"Priority"];
   if (!v32)
@@ -201,16 +201,16 @@ LABEL_66:
         *&buf[16] = 0x3032000000;
         *&buf[24] = __Block_byref_object_copy_;
         *&buf[32] = __Block_byref_object_dispose_;
-        v69 = 0;
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = __61__HapticServerConfig_initWithHapticPlayer_withOptions_error___block_invoke;
-        v63[3] = &unk_2781C8FB8;
-        v66 = buf;
-        v10 = v53;
-        v64 = v10;
-        v65 = v60;
-        [playerCopy queryServerCapabilities:v31 reply:v63];
+        v68 = 0;
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = __61__HapticServerConfig_initWithHapticPlayer_withOptions_error___block_invoke;
+        v62[3] = &unk_2781C8FB8;
+        v65 = buf;
+        v10 = v52;
+        v63 = v10;
+        v64 = v59;
+        [playerCopy queryServerCapabilities:v31 reply:v62];
         if (error)
         {
           *error = *(*&buf[8] + 40);
@@ -268,8 +268,8 @@ LABEL_65:
 
     if (kHAPIScope)
     {
-      v49 = *kHAPIScope;
-      if (!v49)
+      v48 = *kHAPIScope;
+      if (!v48)
       {
 LABEL_83:
         if (error)
@@ -285,7 +285,7 @@ LABEL_83:
           v10 = 0;
         }
 
-        v42 = v53;
+        v42 = v52;
 LABEL_71:
 
         goto LABEL_72;
@@ -294,11 +294,11 @@ LABEL_71:
 
     else
     {
+      v48 = MEMORY[0x277D86220];
       v49 = MEMORY[0x277D86220];
-      v50 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
       *&buf[4] = "HapticServerConfig.mm";
@@ -308,7 +308,7 @@ LABEL_71:
       *&buf[20] = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]";
       *&buf[28] = 2112;
       *&buf[30] = v37;
-      _os_log_impl(&dword_21569A000, v49, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Illegal power usage: %@", buf, 0x26u);
+      _os_log_impl(&dword_21569A000, v48, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Illegal power usage: %@", buf, 0x26u);
     }
 
     goto LABEL_83;
@@ -373,16 +373,16 @@ LABEL_43:
 
   if (!kHAPIScope)
   {
+    v50 = MEMORY[0x277D86220];
     v51 = MEMORY[0x277D86220];
-    v52 = MEMORY[0x277D86220];
     goto LABEL_91;
   }
 
-  v51 = *kHAPIScope;
-  if (v51)
+  v50 = *kHAPIScope;
+  if (v50)
   {
 LABEL_91:
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
       *&buf[4] = "HapticServerConfig.mm";
@@ -392,7 +392,7 @@ LABEL_91:
       *&buf[20] = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]";
       *&buf[28] = 2112;
       *&buf[30] = v32;
-      _os_log_impl(&dword_21569A000, v51, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Illegal priority: %@", buf, 0x26u);
+      _os_log_impl(&dword_21569A000, v50, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Illegal priority: %@", buf, 0x26u);
     }
   }
 
@@ -409,7 +409,7 @@ LABEL_91:
     v10 = 0;
   }
 
-  v37 = v53;
+  v37 = v52;
 LABEL_72:
 
   if ((v45 & 1) == 0)
@@ -423,13 +423,12 @@ LABEL_73:
   v46 = v10;
 LABEL_75:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v46;
 }
 
 void __61__HapticServerConfig_initWithHapticPlayer_withOptions_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -437,14 +436,14 @@ void __61__HapticServerConfig_initWithHapticPlayer_withOptions_error___block_inv
   {
     v8 = [v5 objectForKey:@"SupportsHapticPlayback"];
     *(*(a1 + 32) + 18) = [v8 BOOLValue];
-    v62 = [v5 objectForKey:@"SupportsAudioPlayback"];
-    *(*(a1 + 32) + 17) = [v62 BOOLValue];
-    v61 = [v5 objectForKey:@"SupportsAdvancedPatternPlayers"];
-    *(*(a1 + 32) + 19) = [v61 BOOLValue];
-    v60 = [v5 objectForKey:@"UsingInternalHaptics"];
-    *(*(a1 + 32) + 16) = [v60 BOOLValue];
-    v59 = [v5 objectForKey:@"HapticContinuousTimeLimit"];
-    *(*(a1 + 32) + 20) = [v59 unsignedIntValue];
+    v61 = [v5 objectForKey:@"SupportsAudioPlayback"];
+    *(*(a1 + 32) + 17) = [v61 BOOLValue];
+    v60 = [v5 objectForKey:@"SupportsAdvancedPatternPlayers"];
+    *(*(a1 + 32) + 19) = [v60 BOOLValue];
+    v59 = [v5 objectForKey:@"UsingInternalHaptics"];
+    *(*(a1 + 32) + 16) = [v59 BOOLValue];
+    v58 = [v5 objectForKey:@"HapticContinuousTimeLimit"];
+    *(*(a1 + 32) + 20) = [v58 unsignedIntValue];
     if (kHAPIScope)
     {
       v9 = *kHAPIScope;
@@ -469,18 +468,18 @@ void __61__HapticServerConfig_initWithHapticPlayer_withOptions_error___block_inv
       LODWORD(v13) = *(v13 + 20);
       *buf = 136316674;
       *&buf[4] = "HapticServerConfig.mm";
-      v82 = 1024;
-      v83 = 128;
-      v84 = 2080;
-      v85 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
-      v86 = 1024;
-      *v87 = v14;
-      *&v87[4] = 1024;
-      *&v87[6] = v15;
-      v88 = 1024;
-      v89 = v16;
-      v90 = 1024;
-      v91 = v13;
+      v81 = 1024;
+      v82 = 128;
+      v83 = 2080;
+      v84 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
+      v85 = 1024;
+      *v86 = v14;
+      *&v86[4] = 1024;
+      *&v86[6] = v15;
+      v87 = 1024;
+      v88 = v16;
+      v89 = 1024;
+      v90 = v13;
       _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Server returned: supports audio: %d adv players: %d internal: %d cont time limit: %us", buf, 0x34u);
     }
 
@@ -497,11 +496,11 @@ LABEL_16:
 
     [v21 floatValue];
     *(*(a1 + 32) + 36) = v22;
-    v64 = [v5 objectForKey:@"HapticContinuousDefaultSharpness"];
+    v63 = [v5 objectForKey:@"HapticContinuousDefaultSharpness"];
 
-    [v64 floatValue];
+    [v63 floatValue];
     *(*(a1 + 32) + 28) = v23;
-    v65 = [v5 objectForKey:@"HapticTransientEventIDs"];
+    v64 = [v5 objectForKey:@"HapticTransientEventIDs"];
     if (kHAPIScope)
     {
       v24 = *kHAPIScope;
@@ -520,51 +519,51 @@ LABEL_16:
     v26 = v24;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v27 = [v65 count];
+      v27 = [v64 count];
       *buf = 136315906;
       *&buf[4] = "HapticServerConfig.mm";
-      v82 = 1024;
-      v83 = 141;
-      v84 = 2080;
-      v85 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
-      v86 = 1024;
-      *v87 = v27;
+      v81 = 1024;
+      v82 = 141;
+      v83 = 2080;
+      v84 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
+      v85 = 1024;
+      *v86 = v27;
       _os_log_impl(&dword_21569A000, v26, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Received %u haptic transient IDs", buf, 0x22u);
     }
 
 LABEL_23:
-    v63 = v8;
-    if ([v65 count])
+    v62 = v8;
+    if ([v64 count])
     {
-      v76 = 0u;
-      v77 = 0u;
-      v74 = 0u;
       v75 = 0u;
-      v28 = v65;
-      v29 = [v28 countByEnumeratingWithState:&v74 objects:v80 count:16];
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v28 = v64;
+      v29 = [v28 countByEnumeratingWithState:&v73 objects:v79 count:16];
       if (v29)
       {
-        v30 = *v75;
+        v30 = *v74;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v75 != v30)
+            if (*v74 != v30)
             {
               objc_enumerationMutation(v28);
             }
 
-            *buf = [*(*(&v74 + 1) + 8 * i) unsignedIntegerValue];
+            *buf = [*(*(&v73 + 1) + 8 * i) unsignedIntegerValue];
             std::vector<unsigned long>::push_back[abi:ne200100]((*(a1 + 32) + 48), buf);
           }
 
-          v29 = [v28 countByEnumeratingWithState:&v74 objects:v80 count:16];
+          v29 = [v28 countByEnumeratingWithState:&v73 objects:v79 count:16];
         }
 
         while (v29);
       }
 
-      v8 = v63;
+      v8 = v62;
     }
 
     v32 = [v5 objectForKey:@"HapticContinuousSustainedEventIDs"];
@@ -589,47 +588,47 @@ LABEL_23:
       v36 = [v32 count];
       *buf = 136315906;
       *&buf[4] = "HapticServerConfig.mm";
-      v82 = 1024;
-      v83 = 150;
-      v84 = 2080;
-      v85 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
-      v86 = 1024;
-      *v87 = v36;
+      v81 = 1024;
+      v82 = 150;
+      v83 = 2080;
+      v84 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
+      v85 = 1024;
+      *v86 = v36;
       _os_log_impl(&dword_21569A000, v35, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Received %u haptic continuous sustained IDs", buf, 0x22u);
     }
 
 LABEL_39:
     if ([v32 count])
     {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
       v37 = v32;
-      v38 = [v37 countByEnumeratingWithState:&v70 objects:v79 count:16];
+      v38 = [v37 countByEnumeratingWithState:&v69 objects:v78 count:16];
       if (v38)
       {
-        v39 = *v71;
+        v39 = *v70;
         do
         {
           for (j = 0; j != v38; ++j)
           {
-            if (*v71 != v39)
+            if (*v70 != v39)
             {
               objc_enumerationMutation(v37);
             }
 
-            *buf = [*(*(&v70 + 1) + 8 * j) unsignedIntegerValue];
+            *buf = [*(*(&v69 + 1) + 8 * j) unsignedIntegerValue];
             std::vector<unsigned long>::push_back[abi:ne200100]((*(a1 + 32) + 72), buf);
           }
 
-          v38 = [v37 countByEnumeratingWithState:&v70 objects:v79 count:16];
+          v38 = [v37 countByEnumeratingWithState:&v69 objects:v78 count:16];
         }
 
         while (v38);
       }
 
-      v8 = v63;
+      v8 = v62;
     }
 
     v41 = [v5 objectForKey:@"HapticContinuousNonsustainedEventIDs"];
@@ -654,47 +653,47 @@ LABEL_39:
       v45 = [v41 count];
       *buf = 136315906;
       *&buf[4] = "HapticServerConfig.mm";
-      v82 = 1024;
-      v83 = 159;
-      v84 = 2080;
-      v85 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
-      v86 = 1024;
-      *v87 = v45;
+      v81 = 1024;
+      v82 = 159;
+      v83 = 2080;
+      v84 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
+      v85 = 1024;
+      *v86 = v45;
       _os_log_impl(&dword_21569A000, v44, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Received %u haptic continuous nonsustained IDs", buf, 0x22u);
     }
 
 LABEL_55:
     if ([v41 count])
     {
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
       v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       v46 = v41;
-      v47 = [v46 countByEnumeratingWithState:&v66 objects:v78 count:16];
+      v47 = [v46 countByEnumeratingWithState:&v65 objects:v77 count:16];
       if (v47)
       {
-        v48 = *v67;
+        v48 = *v66;
         do
         {
           for (k = 0; k != v47; ++k)
           {
-            if (*v67 != v48)
+            if (*v66 != v48)
             {
               objc_enumerationMutation(v46);
             }
 
-            *buf = [*(*(&v66 + 1) + 8 * k) unsignedIntegerValue];
+            *buf = [*(*(&v65 + 1) + 8 * k) unsignedIntegerValue];
             std::vector<unsigned long>::push_back[abi:ne200100]((*(a1 + 32) + 96), buf);
           }
 
-          v47 = [v46 countByEnumeratingWithState:&v66 objects:v78 count:16];
+          v47 = [v46 countByEnumeratingWithState:&v65 objects:v77 count:16];
         }
 
         while (v47);
       }
 
-      v8 = v63;
+      v8 = v62;
     }
 
     v50 = [v5 objectForKey:@"BuiltInAudioEventIDs"];
@@ -731,12 +730,12 @@ LABEL_72:
       v57 = [v50 count];
       *buf = 136315906;
       *&buf[4] = "HapticServerConfig.mm";
-      v82 = 1024;
-      v83 = 170;
-      v84 = 2080;
-      v85 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
-      v86 = 1024;
-      *v87 = v57;
+      v81 = 1024;
+      v82 = 170;
+      v83 = 2080;
+      v84 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
+      v85 = 1024;
+      *v86 = v57;
       _os_log_impl(&dword_21569A000, v56, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Received %u built-in audio event IDs", buf, 0x22u);
     }
 
@@ -763,17 +762,16 @@ LABEL_72:
     v11 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 136315906;
     *&buf[4] = "HapticServerConfig.mm";
-    v82 = 1024;
-    v83 = 179;
-    v84 = 2080;
-    v85 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
-    v86 = 2112;
-    *v87 = v11;
+    v81 = 1024;
+    v82 = 179;
+    v83 = 2080;
+    v84 = "[HapticServerConfig initWithHapticPlayer:withOptions:error:]_block_invoke";
+    v85 = 2112;
+    *v86 = v11;
     _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Server query returned error '%@'", buf, 0x26u);
   }
 
 LABEL_73:
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 @end

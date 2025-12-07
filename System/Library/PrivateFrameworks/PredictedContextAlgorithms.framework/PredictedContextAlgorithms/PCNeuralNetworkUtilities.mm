@@ -1,7 +1,9 @@
 @interface PCNeuralNetworkUtilities
 + (id)buildMutableArrayCopyOfSwiftBridgedArray:(id)array;
++ (id)calculateVisitValues:(double)values endTime:(float)time probs:(id)probs thresholdStartTime:(float)startTime loi:(int)loi probabilityCalculationMode:(int64_t)mode probabilityPercentile:(float)percentile startIdx:(int)self0;
 + (id)convertToTimestepDataset:(double)dataset currentTime:(double)time visitHistory:(id)history transitionHistory:(id)transitionHistory startTime:(double)startTime visitIndicies:(id)indicies;
 + (id)createPredictedContextFromPredSequence:(float)sequence timestepSize:(double)size currentTime:(double)time preds:(id)preds probabilityCalculationMode:(int64_t)mode probabilityPercentile:(float)percentile;
++ (id)generateClustersAndRemoveBias:(float)bias calcMode:(int64_t)mode currentTime:(double)time loiIdx:(int)idx percentile:(float)percentile predSample:(id)sample predictionArray:(id)array timestepSizeMinutes:(double)self0;
 + (id)removeBiasFromCluster:(id)cluster percentile:(float)percentile prediction:(id)prediction startIdx:(int)idx;
 + (id)sequenceDataMatrix:(id)matrix seqLength:(int)length;
 + (id)sortDictionaryByValues:(id)values;
@@ -15,7 +17,7 @@
 
 + (id)convertToTimestepDataset:(double)dataset currentTime:(double)time visitHistory:(id)history transitionHistory:(id)transitionHistory startTime:(double)startTime visitIndicies:(id)indicies
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   transitionHistoryCopy = transitionHistory;
   indiciesCopy = indicies;
@@ -26,27 +28,27 @@
   }
 
   v16 = dataset * 60.0;
-  v58 = ((time - startTime) / (dataset * 60.0) + 1.0);
-  v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v57 = ((time - startTime) / (dataset * 60.0) + 1.0);
   v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v17 = _plc_log_get_normal_handle(PCLogCategoryNeuralNetwork);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
     timeCopy = time;
-    v64 = 2048;
+    v63 = 2048;
     startTimeCopy = startTime;
-    v66 = 2048;
-    v67 = time - startTime;
+    v65 = 2048;
+    v66 = time - startTime;
     _os_log_impl(&dword_1CEE74000, v17, OS_LOG_TYPE_DEFAULT, "current time: %f, start time: %f, window size: %f", buf, 0x20u);
   }
 
-  v55 = v15;
+  v54 = v15;
 
   v18 = [historyCopy count];
   v19 = [transitionHistoryCopy count];
-  if (v58 < 1)
+  if (v57 < 1)
   {
     v20 = 0;
     goto LABEL_46;
@@ -54,7 +56,7 @@
 
   v20 = 0;
   v21 = 0;
-  v57 = v19 - 1;
+  v56 = v19 - 1;
   v22 = v18 - 1;
   v23 = 0.0;
   do
@@ -133,12 +135,12 @@ LABEL_26:
     v39 = +[PCNeuralNetworkUtilities kUnknownString];
     v40 = [v25 isEqual:v39];
 
-    if (!v40 || (v57 & 0x80000000) != 0)
+    if (!v40 || (v56 & 0x80000000) != 0)
     {
       goto LABEL_43;
     }
 
-    v41 = v57;
+    v41 = v56;
     while (2)
     {
       v42 = [transitionHistoryCopy objectAtIndexedSubscript:v41];
@@ -185,7 +187,7 @@ LABEL_39:
     v48 = +[PCNeuralNetworkUtilities kTravelingString];
 
     v25 = v48;
-    v57 = v41;
+    v56 = v41;
 LABEL_42:
 
 LABEL_43:
@@ -193,21 +195,21 @@ LABEL_43:
     v50 = [v25 isEqual:v49];
 
     v20 += v50;
-    [v61 insertObject:v25 atIndex:0];
-    [v60 insertObject:v26 atIndex:0];
+    [v60 insertObject:v25 atIndex:0];
+    [v59 insertObject:v26 atIndex:0];
     v51 = [objc_alloc(MEMORY[0x1E696AD98]) initWithDouble:time - v23 * v16];
-    [v59 insertObject:v51 atIndex:0];
+    [v58 insertObject:v51 atIndex:0];
 
     v23 = v23 + 1.0;
     ++v21;
   }
 
-  while (v21 != v58);
+  while (v21 != v57);
 LABEL_46:
-  v15 = v55;
-  [(TimestepDataset *)v55 setLoiAtTimestepArray:v61, v55];
-  [(TimestepDataset *)v15 setLocationAtTimestepArray:v60];
-  [(TimestepDataset *)v15 setTimestepCFAbsArray:v59];
+  v15 = v54;
+  [(TimestepDataset *)v54 setLoiAtTimestepArray:v60, v54];
+  [(TimestepDataset *)v15 setLocationAtTimestepArray:v59];
+  [(TimestepDataset *)v15 setTimestepCFAbsArray:v58];
   v52 = _plc_log_get_normal_handle(PCLogCategoryNeuralNetwork);
   if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
   {
@@ -217,7 +219,6 @@ LABEL_46:
   }
 
 LABEL_49:
-  v53 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -339,7 +340,7 @@ LABEL_49:
 
 + (int)sequenceYlabels:(int)ylabels xTrain:(id *)train outData:(id)data seqDataMat:(id)mat yRows:(id *)rows
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   matCopy = mat;
   if ([matCopy count] == ylabels)
@@ -347,11 +348,11 @@ LABEL_49:
     v13 = _plc_log_get_normal_handle(PCLogCategoryNeuralNetwork);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 134218240;
-      v29 = [matCopy count];
-      v30 = 1024;
+      v27 = 134218240;
+      v28 = [matCopy count];
+      v29 = 1024;
       ylabelsCopy3 = ylabels;
-      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "Error: not enough data in data matrix to create training data. Data count: %lu, requested out steps: %d", &v28, 0x12u);
+      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "Error: not enough data in data matrix to create training data. Data count: %lu, requested out steps: %d", &v27, 0x12u);
     }
 
 LABEL_7:
@@ -370,11 +371,11 @@ LABEL_7:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       ordinalLoiLabels2 = [dataCopy ordinalLoiLabels];
-      v28 = 134218240;
-      v29 = [ordinalLoiLabels2 count];
-      v30 = 1024;
+      v27 = 134218240;
+      v28 = [ordinalLoiLabels2 count];
+      v29 = 1024;
       ylabelsCopy3 = ylabels;
-      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "Error: not enough data in y labels to create training data. Data count: %lu, requested out steps: %d", &v28, 0x12u);
+      _os_log_impl(&dword_1CEE74000, v13, OS_LOG_TYPE_DEFAULT, "Error: not enough data in y labels to create training data. Data count: %lu, requested out steps: %d", &v27, 0x12u);
     }
 
     goto LABEL_7;
@@ -404,13 +405,12 @@ LABEL_7:
   *train = v18 = 0;
 LABEL_12:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (id)removeBiasFromCluster:(id)cluster percentile:(float)percentile prediction:(id)prediction startIdx:(int)idx
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   clusterCopy = cluster;
   predictionCopy = prediction;
   v10 = [predictionCopy visitStartIdx] - idx;
@@ -422,17 +422,17 @@ LABEL_12:
   v14 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 138412290;
-    v30 = v12;
-    _os_log_impl(&dword_1CEE74000, v14, OS_LOG_TYPE_DEFAULT, "subarray: %@", &v29, 0xCu);
+    v28 = 138412290;
+    v29 = v12;
+    _os_log_impl(&dword_1CEE74000, v14, OS_LOG_TYPE_DEFAULT, "subarray: %@", &v28, 0xCu);
   }
 
   v15 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 138412290;
-    v30 = v13;
-    _os_log_impl(&dword_1CEE74000, v15, OS_LOG_TYPE_DEFAULT, "bias in cluster: %@", &v29, 0xCu);
+    v28 = 138412290;
+    v29 = v13;
+    _os_log_impl(&dword_1CEE74000, v15, OS_LOG_TYPE_DEFAULT, "bias in cluster: %@", &v28, 0xCu);
   }
 
   v10 = v10;
@@ -444,9 +444,9 @@ LABEL_12:
   v20 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 134217984;
-    v30 = v19;
-    _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_DEFAULT, "bias diff from max probability: %f", &v29, 0xCu);
+    v28 = 134217984;
+    v29 = v19;
+    _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_DEFAULT, "bias diff from max probability: %f", &v28, 0xCu);
   }
 
   v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -485,9 +485,267 @@ LABEL_12:
     while (!v26);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v21;
+}
+
++ (id)calculateVisitValues:(double)values endTime:(float)time probs:(id)probs thresholdStartTime:(float)startTime loi:(int)loi probabilityCalculationMode:(int64_t)mode probabilityPercentile:(float)percentile startIdx:(int)self0
+{
+  v10 = *&idx;
+  v73 = *MEMORY[0x1E69E9840];
+  probsCopy = probs;
+  v18 = [probsCopy count];
+  v19 = 0.0;
+  v20 = 0.0;
+  if (v18)
+  {
+    v21 = v18;
+    if (mode == 1)
+    {
+      v29 = [probsCopy sortedArrayUsingSelector:sel_compare_];
+      v30 = v29;
+      percentileCopy = percentile;
+      if (percentile < 0.0)
+      {
+        percentileCopy = 0.0;
+      }
+
+      v32 = fmin(percentileCopy, 1.0);
+      v33 = [v29 objectAtIndexedSubscript:vcvtas_u32_f32(v32 * (v21 - 1))];
+      [v33 floatValue];
+      v20 = v34;
+    }
+
+    else if (!mode)
+    {
+      v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v22 = probsCopy;
+      v23 = [v22 countByEnumeratingWithState:&v56 objects:v72 count:16];
+      if (v23)
+      {
+        v24 = v23;
+        v25 = *v57;
+        v26 = 0.0;
+        do
+        {
+          for (i = 0; i != v24; ++i)
+          {
+            if (*v57 != v25)
+            {
+              objc_enumerationMutation(v22);
+            }
+
+            [*(*(&v56 + 1) + 8 * i) floatValue];
+            v26 = v26 + v28;
+          }
+
+          v24 = [v22 countByEnumeratingWithState:&v56 objects:v72 count:16];
+        }
+
+        while (v24);
+      }
+
+      else
+      {
+        v26 = 0.0;
+      }
+
+      v20 = v26 / v21;
+    }
+  }
+
+  v35 = v20;
+  if ([probsCopy count])
+  {
+    v36 = 0;
+    v38 = v10;
+    while (1)
+    {
+      v39 = [probsCopy objectAtIndexedSubscript:v36];
+      [v39 floatValue];
+      v37 = v35 * 0.8;
+      v41 = v37 - v40;
+
+      if (v41 < 0.1)
+      {
+        break;
+      }
+
+      ++v36;
+      v38 = (v38 + 1);
+      if ([probsCopy count] <= v36)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    v19 = startTime + (v36 + 1) * values * 60.0;
+  }
+
+  else
+  {
+LABEL_21:
+    v38 = 0;
+  }
+
+  v42 = [probsCopy count];
+  LODWORD(v10) = v10 + v42;
+  v43 = v42 - 1;
+  while (1)
+  {
+    v44 = __OFSUB__(v42--, 1);
+    if (v42 < 0 != v44)
+    {
+      break;
+    }
+
+    v45 = [probsCopy objectAtIndexedSubscript:v43];
+    [v45 doubleValue];
+    v47 = v35 - v46;
+
+    v10 = (v10 - 1);
+    --v43;
+    if (v47 < 0.100000001)
+    {
+      v48 = startTime + (v42 + 1) * values * 60.0;
+      goto LABEL_28;
+    }
+  }
+
+  v10 = 0;
+  v48 = 0.0;
+LABEL_28:
+  v49 = (v19 - startTime) * 0.5;
+  v50 = (time - v48) * 0.5;
+  v51 = (v19 + startTime) * 0.5;
+  v52 = (v48 + time) * 0.5;
+  v53 = _plc_log_get_normal_handle(PCLogCategoryNeuralNetwork);
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67110400;
+    loiCopy = loi;
+    v62 = 2048;
+    v63 = v35;
+    v64 = 2048;
+    v65 = v51;
+    v66 = 2048;
+    v67 = v52;
+    v68 = 2048;
+    v69 = v49;
+    v70 = 2048;
+    v71 = v50;
+    _os_log_impl(&dword_1CEE74000, v53, OS_LOG_TYPE_DEFAULT, "Visit: %d, Prob: %f, Start Time: %f, End Time: %f , Entry Unc: %f, Exit Unc: %f", buf, 0x3Au);
+  }
+
+  v54 = objc_alloc_init(PredictionCluster);
+  [(PredictionCluster *)v54 setVisitLoiIdx:loi];
+  [(PredictionCluster *)v54 setVisitEntryTime:v51];
+  [(PredictionCluster *)v54 setVisitExitTime:v52];
+  [(PredictionCluster *)v54 setVisitProbability:v35];
+  [(PredictionCluster *)v54 setVisitEntryUnc:v49];
+  [(PredictionCluster *)v54 setVisitExitUnc:v50];
+  [(PredictionCluster *)v54 setVisitStartIdx:v38];
+  [(PredictionCluster *)v54 setVisitEndIdx:v10];
+
+  return v54;
+}
+
++ (id)generateClustersAndRemoveBias:(float)bias calcMode:(int64_t)mode currentTime:(double)time loiIdx:(int)idx percentile:(float)percentile predSample:(id)sample predictionArray:(id)array timestepSizeMinutes:(double)self0
+{
+  v12 = *&idx;
+  sampleCopy = sample;
+  arrayCopy = array;
+  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (![sampleCopy count])
+  {
+    goto LABEL_14;
+  }
+
+  v18 = 0;
+  v19 = 0;
+  v20 = v12;
+  v21 = 0.0;
+  v51 = v12;
+  do
+  {
+    v22 = [sampleCopy objectAtIndexedSubscript:{v18, v51}];
+    v23 = [v22 objectAtIndexedSubscript:v20];
+
+    v24 = time + v18 * minutes * 60.0;
+    [v23 floatValue];
+    v26 = v25;
+    v27 = v25 >= bias;
+    if (v25 < bias)
+    {
+      if (v19)
+      {
+        v31 = v18 - [v16 count];
+        *&v32 = v24;
+        *&v33 = v21;
+        *&v34 = percentile;
+        v35 = [PCNeuralNetworkUtilities calculateVisitValues:v16 endTime:v12 probs:mode thresholdStartTime:v31 loi:minutes probabilityCalculationMode:v32 probabilityPercentile:v33 startIdx:v34];
+        [arrayCopy addObject:v35];
+        *&v36 = percentile;
+        v37 = [PCNeuralNetworkUtilities removeBiasFromCluster:v16 percentile:v35 prediction:v31 startIdx:v36];
+        [v17 addObjectsFromArray:v37];
+        [v17 addObject:&unk_1F4BDE0E0];
+        v38 = v17;
+        v39 = v12;
+        v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
+
+        v21 = 0.0;
+        v16 = v40;
+        v12 = v39;
+        v17 = v38;
+        v20 = v51;
+        goto LABEL_11;
+      }
+
+      v29 = v17;
+      v30 = &unk_1F4BDE0E0;
+    }
+
+    else
+    {
+      if (!v19)
+      {
+        v28 = v24 + -minutes * 60.0;
+        v21 = v28;
+      }
+
+      v29 = v16;
+      v30 = v23;
+    }
+
+    [v29 addObject:v30];
+LABEL_11:
+
+    ++v18;
+    v19 = v27;
+  }
+
+  while ([sampleCopy count] > v18);
+  if (v26 >= bias)
+  {
+    v41 = time + [sampleCopy count] * minutes * 60.0;
+    v42 = [sampleCopy count];
+    v43 = v42 - [v16 count];
+    *&v44 = v41;
+    *&v45 = v21;
+    *&v46 = percentile;
+    v47 = [PCNeuralNetworkUtilities calculateVisitValues:v16 endTime:v12 probs:mode thresholdStartTime:v43 loi:minutes probabilityCalculationMode:v44 probabilityPercentile:v45 startIdx:v46];
+    [arrayCopy addObject:v47];
+    *&v48 = percentile;
+    v49 = [PCNeuralNetworkUtilities removeBiasFromCluster:v16 percentile:v47 prediction:v43 startIdx:v48];
+    [v17 addObjectsFromArray:v49];
+  }
+
+LABEL_14:
+
+  return v17;
 }
 
 + (id)buildMutableArrayCopyOfSwiftBridgedArray:(id)array
@@ -563,10 +821,10 @@ LABEL_12:
 
 + (id)createPredictedContextFromPredSequence:(float)sequence timestepSize:(double)size currentTime:(double)time preds:(id)preds probabilityCalculationMode:(int64_t)mode probabilityPercentile:(float)percentile
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   predsCopy = preds;
   v13 = [PCNeuralNetworkUtilities buildMutableArrayCopyOfSwiftBridgedArray:predsCopy];
-  v76 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v75 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (predsCopy && [predsCopy count] && (objc_msgSend(predsCopy, "objectAtIndexedSubscript:", 0), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "count"), v14, v15))
   {
     v16 = [predsCopy objectAtIndexedSubscript:0];
@@ -576,45 +834,45 @@ LABEL_12:
     {
       v18 = 0;
       v19 = 0x1E696A000uLL;
-      v81 = v13;
-      v75 = predsCopy;
+      v80 = v13;
+      v74 = predsCopy;
       do
       {
         v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v82 = v18;
+        v81 = v18;
         while (1)
         {
           *&v21 = sequence;
           *&v22 = percentile;
-          v23 = [PCNeuralNetworkUtilities generateClustersAndRemoveBias:mode calcMode:v18 currentTime:v13 loiIdx:v20 percentile:v21 predSample:time predictionArray:v22 timestepSizeMinutes:size, v75];
+          v23 = [PCNeuralNetworkUtilities generateClustersAndRemoveBias:mode calcMode:v18 currentTime:v13 loiIdx:v20 percentile:v21 predSample:time predictionArray:v22 timestepSizeMinutes:size, v74];
+          v89 = 0u;
           v90 = 0u;
           v91 = 0u;
           v92 = 0u;
-          v93 = 0u;
           v24 = v23;
-          v25 = [v24 countByEnumeratingWithState:&v90 objects:v97 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v89 objects:v96 count:16];
           if (!v25)
           {
             break;
           }
 
           v26 = v25;
-          v27 = *v91;
+          v27 = *v90;
           v28 = 0.0;
           do
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v91 != v27)
+              if (*v90 != v27)
               {
                 objc_enumerationMutation(v24);
               }
 
-              [*(*(&v90 + 1) + 8 * i) floatValue];
+              [*(*(&v89 + 1) + 8 * i) floatValue];
               v28 = v28 + v30;
             }
 
-            v26 = [v24 countByEnumeratingWithState:&v90 objects:v97 count:16];
+            v26 = [v24 countByEnumeratingWithState:&v89 objects:v96 count:16];
           }
 
           while (v26);
@@ -648,7 +906,7 @@ LABEL_12:
               {
                 v35 = [v24 objectAtIndexedSubscript:v33];
                 *buf = 138412290;
-                *v95 = v35;
+                *v94 = v35;
                 _os_log_impl(&dword_1CEE74000, v34, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
               }
 
@@ -665,7 +923,7 @@ LABEL_12:
             _os_log_impl(&dword_1CEE74000, v36, OS_LOG_TYPE_DEFAULT, "pred probs:", buf, 2u);
           }
 
-          v85 = v24;
+          v84 = v24;
           if ([v13 count])
           {
             v37 = 0;
@@ -677,12 +935,12 @@ LABEL_12:
                 v39 = [v13 objectAtIndexedSubscript:v37];
                 v40 = [v39 objectAtIndexedSubscript:v18];
                 *buf = 138412290;
-                *v95 = v40;
+                *v94 = v40;
                 _os_log_impl(&dword_1CEE74000, v38, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
 
-                v24 = v85;
-                v13 = v81;
-                v18 = v82;
+                v24 = v84;
+                v13 = v80;
+                v18 = v81;
               }
 
               ++v37;
@@ -691,48 +949,48 @@ LABEL_12:
             while ([v13 count] > v37);
           }
 
-          v77 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v76 = objc_alloc_init(MEMORY[0x1E695DF70]);
 
           [PCNeuralNetworkUtilities removeBiasesWith:v24 loiIdx:v18 mutablePreds:v13];
           v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
           *&v42 = sequence;
           *&v43 = percentile;
           v44 = [PCNeuralNetworkUtilities generateClustersAndRemoveBias:mode calcMode:v18 currentTime:v13 loiIdx:v41 percentile:v42 predSample:time predictionArray:v43 timestepSizeMinutes:size];
+          v85 = 0u;
           v86 = 0u;
           v87 = 0u;
           v88 = 0u;
-          v89 = 0u;
           obj = v41;
-          v83 = [obj countByEnumeratingWithState:&v86 objects:v96 count:16];
-          if (v83)
+          v82 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
+          if (v82)
           {
-            v80 = *v87;
+            v79 = *v86;
             do
             {
               v45 = 0;
               do
               {
-                if (*v87 != v80)
+                if (*v86 != v79)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v84 = v45;
-                v46 = *(*(&v86 + 1) + 8 * v45);
+                v83 = v45;
+                v46 = *(*(&v85 + 1) + 8 * v45);
                 v47 = _plc_log_get_normal_handle(PCLogCategoryNeuralNetwork);
                 if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
                 {
                   visitStartIdx = [v46 visitStartIdx];
                   visitEndIdx = [v46 visitEndIdx];
                   *buf = 67109376;
-                  *v95 = visitStartIdx;
-                  *&v95[4] = 1024;
-                  *&v95[6] = visitEndIdx;
+                  *v94 = visitStartIdx;
+                  *&v94[4] = 1024;
+                  *&v94[6] = visitEndIdx;
                   _os_log_impl(&dword_1CEE74000, v47, OS_LOG_TYPE_DEFAULT, "restoring biases from index %d to %d", buf, 0xEu);
                 }
 
                 visitStartIdx2 = [v46 visitStartIdx];
-                v51 = v85;
+                v51 = v84;
                 if (visitStartIdx2 < [v46 visitEndIdx])
                 {
                   v52 = visitStartIdx2;
@@ -740,36 +998,36 @@ LABEL_12:
                   {
                     v53 = v19;
                     v54 = *(v19 + 3480);
-                    v55 = [v81 objectAtIndexedSubscript:v52];
-                    v56 = [v55 objectAtIndexedSubscript:v82];
+                    v55 = [v80 objectAtIndexedSubscript:v52];
+                    v56 = [v55 objectAtIndexedSubscript:v81];
                     [v56 floatValue];
                     v58 = v57;
                     v59 = [v51 objectAtIndexedSubscript:v52];
                     [v59 floatValue];
                     *&v61 = v58 + v60;
                     v62 = [v54 numberWithFloat:v61];
-                    [v81 objectAtIndexedSubscript:v52];
+                    [v80 objectAtIndexedSubscript:v52];
                     v64 = v63 = v46;
-                    [v64 setObject:v62 atIndexedSubscript:v82];
+                    [v64 setObject:v62 atIndexedSubscript:v81];
 
                     v46 = v63;
                     v19 = v53;
 
-                    v51 = v85;
+                    v51 = v84;
                     ++v52;
                   }
 
                   while (v52 < [v63 visitEndIdx]);
                 }
 
-                v45 = v84 + 1;
+                v45 = v83 + 1;
               }
 
-              while (v84 + 1 != v83);
-              v83 = [obj countByEnumeratingWithState:&v86 objects:v96 count:16];
+              while (v83 + 1 != v82);
+              v82 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
             }
 
-            while (v83);
+            while (v82);
           }
 
           v65 = _plc_log_get_normal_handle(PCLogCategoryNeuralNetwork);
@@ -779,9 +1037,9 @@ LABEL_12:
             _os_log_impl(&dword_1CEE74000, v65, OS_LOG_TYPE_DEFAULT, "prediction probabilities after restoration", buf, 2u);
           }
 
-          v13 = v81;
-          v18 = v82;
-          if ([v81 count])
+          v13 = v80;
+          v18 = v81;
+          if ([v80 count])
           {
             v66 = 0;
             do
@@ -789,28 +1047,28 @@ LABEL_12:
               v67 = _plc_log_get_normal_handle(PCLogCategoryNeuralNetwork);
               if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
               {
-                v68 = [v81 objectAtIndexedSubscript:v66];
-                v69 = [v68 objectAtIndexedSubscript:v82];
+                v68 = [v80 objectAtIndexedSubscript:v66];
+                v69 = [v68 objectAtIndexedSubscript:v81];
                 *buf = 138412290;
-                *v95 = v69;
+                *v94 = v69;
                 _os_log_impl(&dword_1CEE74000, v67, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
               }
 
               ++v66;
             }
 
-            while ([v81 count] > v66);
+            while ([v80 count] > v66);
           }
 
-          v20 = v77;
+          v20 = v76;
         }
 
 LABEL_52:
-        [v76 addObjectsFromArray:v20];
+        [v75 addObjectsFromArray:v20];
 
         ++v18;
-        predsCopy = v75;
-        v70 = [v75 objectAtIndexedSubscript:0];
+        predsCopy = v74;
+        v70 = [v74 objectAtIndexedSubscript:0];
         v71 = [v70 count];
       }
 
@@ -828,9 +1086,7 @@ LABEL_52:
     }
   }
 
-  v73 = *MEMORY[0x1E69E9840];
-
-  return v76;
+  return v75;
 }
 
 uint64_t __45__PCNeuralNetworkUtilities_sortVisitHistory___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -934,15 +1190,13 @@ uint64_t __50__PCNeuralNetworkUtilities_sortTransitionHistory___block_invoke(uin
 
 + (id)sortLocationHistory:(id)history
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEB0];
   historyCopy = history;
   v5 = [[v3 alloc] initWithKey:@"timeCFAbsolute" ascending:1];
-  v10[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v7 = [historyCopy sortedArrayUsingDescriptors:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

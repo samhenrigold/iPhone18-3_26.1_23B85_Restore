@@ -33,15 +33,15 @@
 - (uint64_t)px_isFrontRear;
 - (uint64_t)px_isH264;
 - (uint64_t)px_isHEVC;
-- (uint64_t)px_isProResRAW;
 - (uint64_t)px_isSelfie;
 - (uint64_t)px_originalType;
 - (uint64_t)px_resolution;
 - (uint64_t)px_reverseLocationDataIsValid;
-- (uint64_t)px_supportsImageProperties;
 - (uint64_t)px_type;
 - (unint64_t)px_fileType;
 - (unint64_t)px_originalFileType;
+- (void)px_isProResRAW;
+- (void)px_supportsImageProperties;
 @end
 
 @implementation PHAsset(PXMetadataDetailsContentItem)
@@ -72,7 +72,7 @@
   return v3;
 }
 
-- (uint64_t)px_isProResRAW
+- (void)px_isProResRAW
 {
   result = [self px_isExtendedPropertiesProcessed];
   if (result)
@@ -283,18 +283,18 @@
 
 - (uint64_t)px_duration
 {
-  v1 = MEMORY[0x1E696AD98];
-  [self duration];
+  v2 = MEMORY[0x1E696AD98];
+  objc_msgSend_duration(self, a2);
 
-  return [v1 numberWithDouble:?];
+  return [v2 numberWithDouble:?];
 }
 
-- (uint64_t)px_supportsImageProperties
+- (void)px_supportsImageProperties
 {
   result = [self mediaType];
   if (result != 1)
   {
-    return [self mediaType] == 2;
+    return ([self mediaType] == 2);
   }
 
   return result;

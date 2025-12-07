@@ -649,7 +649,7 @@ LABEL_6:
   result = self->_visualProvider;
   if (result)
   {
-    return [(CGAffineTransform *)result activeTransformForTouchedPage];
+    return objc_msgSend_activeTransformForTouchedPage(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -678,7 +678,7 @@ LABEL_6:
   result = self->_visualProvider;
   if (result)
   {
-    return [(CGAffineTransform *)result targetTransformForTouchedPage];
+    return objc_msgSend_targetTransformForTouchedPage(result, a3);
   }
 
   *&retstr->c = 0u;
@@ -707,7 +707,7 @@ LABEL_6:
   result = self->_visualProvider;
   if (result)
   {
-    return [(CAColorMatrix *)result pageIndicatorVibrantColorMatrix];
+    return objc_msgSend_pageIndicatorVibrantColorMatrix(result, a3);
   }
 
   *&retstr->m33 = 0u;
@@ -741,7 +741,7 @@ LABEL_6:
   result = self->_visualProvider;
   if (result)
   {
-    return [(CAColorMatrix *)result activePageIndicatorVibrantColorMatrix];
+    return objc_msgSend_activePageIndicatorVibrantColorMatrix(result, a3);
   }
 
   *&retstr->m33 = 0u;

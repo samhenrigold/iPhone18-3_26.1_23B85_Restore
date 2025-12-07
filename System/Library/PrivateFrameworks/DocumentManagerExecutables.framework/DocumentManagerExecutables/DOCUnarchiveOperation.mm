@@ -10,7 +10,7 @@
 - (NSString)actionNameForUndoing
 {
   selfCopy = self;
-  v3 = DOCUnarchiveOperation.actionNameForUndoing.getter();
+  v3 = DOCUnarchiveOperation.actionNameForUndoing.getter(selfCopy);
   v5 = v4;
 
   if (v5)

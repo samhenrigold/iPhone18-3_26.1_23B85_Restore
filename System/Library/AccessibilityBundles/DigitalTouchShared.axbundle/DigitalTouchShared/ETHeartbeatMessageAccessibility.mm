@@ -1,5 +1,6 @@
 @interface ETHeartbeatMessageAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (void)_displayInScene:(id)scene useDuration:(BOOL)duration fastStart:(BOOL)start;
 - (void)stopPlaying;
 @end
 
@@ -12,6 +13,34 @@
   [validationsCopy validateClass:@"ETHeartbeatMessage" isKindOfClass:@"ETMessage"];
   [validationsCopy validateClass:@"ETHeartbeatMessage" hasInstanceMethod:@"_displayInScene: useDuration: fastStart:" withFullSignature:{"v", "@", "B", "B", 0}];
   [validationsCopy validateClass:@"ETHeartbeatMessage" hasInstanceMethod:@"stopPlaying" withFullSignature:{"v", 0}];
+}
+
+- (void)_displayInScene:(id)scene useDuration:(BOOL)duration fastStart:(BOOL)start
+{
+  startCopy = start;
+  durationCopy = duration;
+  sceneCopy = scene;
+  if (UIAccessibilityIsVoiceOverRunning())
+  {
+    UIAccessibilityPostNotification(0x418u, 0);
+    _axSetIsWaitingOnETMessageStart(1);
+    v10 = MEMORY[0x29EDCA5F8];
+    v11 = 3221225472;
+    v12 = __73__ETHeartbeatMessageAccessibility__displayInScene_useDuration_fastStart___block_invoke;
+    v13 = &unk_29F2BAB40;
+    v16 = durationCopy;
+    v17 = startCopy;
+    v14 = sceneCopy;
+    selfCopy = self;
+    AXPerformBlockOnMainThreadAfterDelay();
+  }
+
+  else
+  {
+    v9.receiver = self;
+    v9.super_class = ETHeartbeatMessageAccessibility;
+    [(ETHeartbeatMessageAccessibility *)&v9 _displayInScene:sceneCopy useDuration:durationCopy fastStart:startCopy];
+  }
 }
 
 uint64_t __73__ETHeartbeatMessageAccessibility__displayInScene_useDuration_fastStart___block_invoke(uint64_t a1)

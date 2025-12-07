@@ -172,9 +172,11 @@ void __25__ASDUpdatesService_init__block_invoke(uint64_t a1)
 
 uint64_t __35__ASDUpdatesService_defaultService__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_39 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_39;
+  _MergedGlobals_39 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)registerBadgeCountNotificationBlock:(id)block
@@ -198,37 +200,36 @@ uint64_t __35__ASDUpdatesService_defaultService__block_invoke(uint64_t a1)
     registerBadgeCountNotificationBlock__s_storeChangedNotificationToken = -1;
   }
 
-  v6 = +[ASDUpdatesService badgeCount];
+  v6 = +[(ASDUpdatesService *)self];
 
   return v6;
 }
 
 void __57__ASDUpdatesService_registerBadgeCountNotificationBlock___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = +[ASDUpdatesService badgeCount];
-  (*(v2 + 16))(v2, v3);
+  v1 = *(a1 + 32);
+  v2 = +[(ASDUpdatesService *)*(a1];
+  (*(v1 + 16))(v1, v2);
 }
 
 + (void)badgeCount
 {
   objc_opt_self();
-  v0 = CFPreferencesCopyAppValue(@"BadgeCount", @"com.apple.appstored");
-  v1 = v0;
-  if (v0)
+  v1 = CFPreferencesCopyAppValue(@"BadgeCount", @"com.apple.appstored");
+  v2 = v1;
+  if (v1)
   {
-    v2 = v0;
+    v3 = v1;
   }
 
   else
   {
-    v2 = &unk_1F3033320;
+    v3 = &unk_1F3033320;
   }
 
-  v3 = v2;
+  v4 = v3;
 
-  return v2;
+  return v3;
 }
 
 + (BOOL)isAutomaticUpdateAuthorizationEnabled
@@ -295,44 +296,44 @@ LABEL_12:
 
 + (BOOL)areAllAppsAuthorizedForAutomaticUpdates
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (_autoUpdatesEnabled())
   {
     if (+[ASDUpdatesService isAutomaticUpdateAuthorizationEnabled])
     {
       v2 = CFPreferencesCopyValue(@"AutomaticUpdateAuthorizations", @"com.apple.appstored", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __60__ASDUpdatesService_areAllAppsAuthorizedForAutomaticUpdates__block_invoke;
-      v33[3] = &unk_1E7CDCD48;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __60__ASDUpdatesService_areAllAppsAuthorizedForAutomaticUpdates__block_invoke;
+      v32[3] = &unk_1E7CDCD48;
       v3 = v2;
-      v34 = v3;
-      v4 = MEMORY[0x1B8CBC4F0](v33);
+      v33 = v3;
+      v4 = MEMORY[0x1B8CBC4F0](v32);
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       allKeys = [v3 allKeys];
       v6 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:7];
       [v6 addObjectsFromArray:&unk_1F30333C8];
       [v6 addObjectsFromArray:allKeys];
       v7 = [v6 copy];
 
-      v8 = [v7 countByEnumeratingWithState:&v29 objects:v36 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v28 objects:v35 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v30;
+        v10 = *v29;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v30 != v10)
+            if (*v29 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v29 + 1) + 8 * i);
+            v12 = *(*(&v28 + 1) + 8 * i);
             v13 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v12 allowPlaceholder:0 error:0];
             if (v13 && !(v4)[2](v4, v12, v13))
             {
@@ -342,7 +343,7 @@ LABEL_12:
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v29 objects:v36 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v28 objects:v35 count:16];
           if (v9)
           {
             continue;
@@ -359,26 +360,26 @@ LABEL_12:
         _os_log_debug_impl(&dword_1B8220000, v14, OS_LOG_TYPE_DEBUG, "Checking all apps", buf, 2u);
       }
 
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v7 = [MEMORY[0x1E69635F8] enumeratorWithOptions:{0, 0}];
-      v15 = [v7 countByEnumeratingWithState:&v24 objects:v35 count:16];
+      v15 = [v7 countByEnumeratingWithState:&v23 objects:v34 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v25;
+        v17 = *v24;
 LABEL_16:
         v18 = 0;
         while (1)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(v7);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * v18);
+          v19 = *(*(&v23 + 1) + 8 * v18);
           bundleIdentifier = [v19 bundleIdentifier];
           v21 = (v4)[2](v4, bundleIdentifier, v19);
 
@@ -389,7 +390,7 @@ LABEL_16:
 
           if (v16 == ++v18)
           {
-            v16 = [v7 countByEnumeratingWithState:&v24 objects:v35 count:16];
+            v16 = [v7 countByEnumeratingWithState:&v23 objects:v34 count:16];
             LOBYTE(v21) = 1;
             if (v16)
             {
@@ -420,7 +421,6 @@ LABEL_27:
     LOBYTE(v21) = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -443,15 +443,15 @@ uint64_t __60__ASDUpdatesService_areAllAppsAuthorizedForAutomaticUpdates__block_
 
 - (void)requestAutomaticUpdateAuthorizationIfNecessaryForProcessHandle:(id)handle completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   completionCopy = completion;
   v8 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v24 = objc_opt_class();
-    v9 = v24;
+    v23 = objc_opt_class();
+    v9 = v23;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: requestAutomaticUpdateAuthorizationIfNecessaryForProcessHandle", buf, 0xCu);
   }
 
@@ -466,11 +466,11 @@ uint64_t __60__ASDUpdatesService_areAllAppsAuthorizedForAutomaticUpdates__block_
       block[2] = __95__ASDUpdatesService_requestAutomaticUpdateAuthorizationIfNecessaryForProcessHandle_completion___block_invoke;
       block[3] = &unk_1E7CDCDC0;
       block[4] = self;
-      v22 = completionCopy;
-      v21 = handleCopy;
-      v18 = accessQueue;
-      v19 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
-      dispatch_async(v18, v19);
+      v21 = completionCopy;
+      v20 = handleCopy;
+      v17 = accessQueue;
+      v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
+      dispatch_async(v17, v18);
     }
 
     else
@@ -499,8 +499,6 @@ uint64_t __60__ASDUpdatesService_areAllAppsAuthorizedForAutomaticUpdates__block_
     bundleIdentifier = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASDErrorDomain" code:1300 userInfo:0];
     (*(completionCopy + 2))(completionCopy, bundleIdentifier);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __95__ASDUpdatesService_requestAutomaticUpdateAuthorizationIfNecessaryForProcessHandle_completion___block_invoke(uint64_t a1)
@@ -664,7 +662,7 @@ void __95__ASDUpdatesService_requestAutomaticUpdateAuthorizationIfNecessaryForPr
 
 - (void)getManagedUpdatesWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -675,22 +673,20 @@ void __95__ASDUpdatesService_requestAutomaticUpdateAuthorizationIfNecessaryForPr
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: getManagedUpdatesWithCompletionBlock", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __58__ASDUpdatesService_getManagedUpdatesWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __58__ASDUpdatesService_getManagedUpdatesWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __58__ASDUpdatesService_getManagedUpdatesWithCompletionBlock___block_invoke(uint64_t a1)
@@ -772,7 +768,7 @@ void __58__ASDUpdatesService_getManagedUpdatesWithCompletionBlock___block_invoke
 
 - (void)getUpdatesWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -783,22 +779,20 @@ void __58__ASDUpdatesService_getManagedUpdatesWithCompletionBlock___block_invoke
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: getUpdatesWithCompletionBlock", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __51__ASDUpdatesService_getUpdatesWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__ASDUpdatesService_getUpdatesWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __51__ASDUpdatesService_getUpdatesWithCompletionBlock___block_invoke(uint64_t a1)
@@ -880,27 +874,26 @@ void __51__ASDUpdatesService_getUpdatesWithCompletionBlock___block_invoke_5(uint
 
 - (void)refreshUpdateForApp:(int64_t)app
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v11 = objc_opt_class();
-    v12 = 2050;
+    v10 = objc_opt_class();
+    v11 = 2050;
     appCopy = app;
-    v6 = v11;
+    v6 = v10;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: refreshUpdateForApp %{public}lld", buf, 0x16u);
   }
 
   accessQueue = self->_accessQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __41__ASDUpdatesService_refreshUpdateForApp___block_invoke;
-  v9[3] = &unk_1E7CDCE60;
-  v9[4] = self;
-  v9[5] = app;
-  dispatch_async(accessQueue, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __41__ASDUpdatesService_refreshUpdateForApp___block_invoke;
+  v8[3] = &unk_1E7CDCE60;
+  v8[4] = self;
+  v8[5] = app;
+  dispatch_async(accessQueue, v8);
 }
 
 uint64_t __41__ASDUpdatesService_refreshUpdateForApp___block_invoke(uint64_t a1)
@@ -919,18 +912,18 @@ uint64_t __41__ASDUpdatesService_refreshUpdateForApp___block_invoke(uint64_t a1)
 
 void __41__ASDUpdatesService_refreshUpdateForApp___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __41__ASDUpdatesService_refreshUpdateForApp___block_invoke_3;
-    v13[3] = &unk_1E7CDCE10;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __41__ASDUpdatesService_refreshUpdateForApp___block_invoke_3;
+    v11[3] = &unk_1E7CDCE10;
     v6 = *(a1 + 40);
-    v13[4] = *(a1 + 32);
-    v13[5] = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v11[4] = *(a1 + 32);
+    v11[5] = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v11];
     [v7 refreshUpdateForApp:MEMORY[0x1E69E9820] reply:3221225472, __41__ASDUpdatesService_refreshUpdateForApp___block_invoke_35, &unk_1E7CDCE10, *(a1 + 32), *(a1 + 40)];
   }
 
@@ -939,75 +932,66 @@ void __41__ASDUpdatesService_refreshUpdateForApp___block_invoke_2(uint64_t a1, v
     v7 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = *(a1 + 40);
+      v8 = objc_opt_class();
+      v9 = *(a1 + 40);
       *buf = 138543874;
-      v15 = v10;
-      v16 = 2050;
-      v17 = v11;
-      v18 = 2114;
-      v19 = v5;
-      v12 = v10;
+      v13 = v8;
+      v14 = 2050;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v5;
+      v10 = v8;
       _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[%{public}@]: refreshUpdateForApp %{public}lld failed with error: %{public}@", buf, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __41__ASDUpdatesService_refreshUpdateForApp___block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = *(a1 + 40);
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2050;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v3;
-    v9 = v7;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: refreshUpdateForApp %{public}lld failed with error: %{public}@", &v10, 0x20u);
+    v5 = objc_opt_class();
+    v6 = *(a1 + 40);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2050;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v3;
+    v7 = v5;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: refreshUpdateForApp %{public}lld failed with error: %{public}@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __41__ASDUpdatesService_refreshUpdateForApp___block_invoke_35(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = objc_opt_class();
-      v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2050;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v3;
-      v9 = v7;
-      _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: refreshUpdateForApp %{public}lld failed with error: %{public}@", &v10, 0x20u);
+      v5 = objc_opt_class();
+      v6 = *(a1 + 40);
+      v8 = 138543874;
+      v9 = v5;
+      v10 = 2050;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v3;
+      v7 = v5;
+      _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: refreshUpdateForApp %{public}lld failed with error: %{public}@", &v8, 0x20u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshUpdateCountWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -1018,22 +1002,20 @@ void __41__ASDUpdatesService_refreshUpdateForApp___block_invoke_35(uint64_t a1, 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: refreshUpdateCountWithCompletionBlock", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __59__ASDUpdatesService_refreshUpdateCountWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __59__ASDUpdatesService_refreshUpdateCountWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __59__ASDUpdatesService_refreshUpdateCountWithCompletionBlock___block_invoke(uint64_t a1)
@@ -1122,15 +1104,15 @@ void __59__ASDUpdatesService_refreshUpdateCountWithCompletionBlock___block_invok
 
 - (void)refreshUpdatesWithCompletionBlock:(id)block completionBlock:(id)completionBlock
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   completionBlockCopy = completionBlock;
   v8 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = objc_opt_class();
-    v9 = v18;
+    v17 = objc_opt_class();
+    v9 = v17;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: refreshUpdatesWithCompletionBlock", buf, 0xCu);
   }
 
@@ -1139,14 +1121,12 @@ void __59__ASDUpdatesService_refreshUpdateCountWithCompletionBlock___block_invok
   block[1] = 3221225472;
   block[2] = __71__ASDUpdatesService_refreshUpdatesWithCompletionBlock_completionBlock___block_invoke;
   block[3] = &unk_1E7CDCDC0;
-  v15 = blockCopy;
-  v16 = completionBlockCopy;
+  v14 = blockCopy;
+  v15 = completionBlockCopy;
   block[4] = self;
   v11 = blockCopy;
   v12 = completionBlockCopy;
   dispatch_async(accessQueue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __71__ASDUpdatesService_refreshUpdatesWithCompletionBlock_completionBlock___block_invoke(uint64_t a1)
@@ -1238,59 +1218,57 @@ void __71__ASDUpdatesService_refreshUpdatesWithCompletionBlock_completionBlock__
 
 - (id)reloadFromServer
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__9;
-  v25 = __Block_byref_object_dispose__9;
-  v26 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__9;
-  v19 = __Block_byref_object_dispose__9;
-  v20 = MEMORY[0x1E695E0F0];
+  v30 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__9;
+  v24 = __Block_byref_object_dispose__9;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__9;
+  v18 = __Block_byref_object_dispose__9;
+  v19 = MEMORY[0x1E695E0F0];
   serviceBroker = self->_serviceBroker;
   obj = 0;
   v3 = [(ASDServiceBroker *)serviceBroker getUpdatesServiceWithError:&obj];
-  objc_storeStrong(&v26, obj);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __37__ASDUpdatesService_reloadFromServer__block_invoke;
-  v13[3] = &unk_1E7CDBB80;
-  v13[4] = &v21;
-  v4 = [v3 synchronousRemoteObjectProxyWithErrorHandler:v13];
+  objc_storeStrong(&v25, obj);
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __37__ASDUpdatesService_reloadFromServer__block_invoke_2;
-  v12[3] = &unk_1E7CDCEB0;
-  v12[4] = &v21;
-  v12[5] = &v15;
-  [v4 reloadFromServerWithReplyHandler:v12];
+  v12[2] = __37__ASDUpdatesService_reloadFromServer__block_invoke;
+  v12[3] = &unk_1E7CDBB80;
+  v12[4] = &v20;
+  v4 = [v3 synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __37__ASDUpdatesService_reloadFromServer__block_invoke_2;
+  v11[3] = &unk_1E7CDCEB0;
+  v11[4] = &v20;
+  v11[5] = &v14;
+  [v4 reloadFromServerWithReplyHandler:v11];
 
-  if (v22[5])
+  if (v21[5])
   {
     v5 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = objc_opt_class();
-      v10 = v22[5];
+      v8 = objc_opt_class();
+      v9 = v21[5];
       *buf = 138543618;
-      v28 = v9;
-      v29 = 2114;
-      v30 = v10;
-      v11 = v9;
+      v27 = v8;
+      v28 = 2114;
+      v29 = v9;
+      v10 = v8;
       _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "[%{public}@]: error in reloadFromServer: %{public}@", buf, 0x16u);
     }
   }
 
-  v6 = v16[5];
+  v6 = v15[5];
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v21, 8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v6;
 }
@@ -1307,7 +1285,7 @@ void __37__ASDUpdatesService_reloadFromServer__block_invoke_2(uint64_t a1, void 
 
 - (void)reloadFromServerWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -1318,22 +1296,20 @@ void __37__ASDUpdatesService_reloadFromServer__block_invoke_2(uint64_t a1, void 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: reloadFromServerWithCompletionBlock", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __57__ASDUpdatesService_reloadFromServerWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __57__ASDUpdatesService_reloadFromServerWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __57__ASDUpdatesService_reloadFromServerWithCompletionBlock___block_invoke(uint64_t a1)
@@ -1425,7 +1401,7 @@ void __57__ASDUpdatesService_reloadFromServerWithCompletionBlock___block_invoke_
 
 - (void)reloadManagedUpdatesWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -1436,22 +1412,20 @@ void __57__ASDUpdatesService_reloadFromServerWithCompletionBlock___block_invoke_
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: reloadManagedUpdatesWithCompletionBlock", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __61__ASDUpdatesService_reloadManagedUpdatesWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __61__ASDUpdatesService_reloadManagedUpdatesWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __61__ASDUpdatesService_reloadManagedUpdatesWithCompletionBlock___block_invoke(uint64_t a1)
@@ -1575,15 +1549,15 @@ void __42__ASDUpdatesService_setAutoUpdateEnabled___block_invoke_2(uint64_t a1, 
 
 - (void)updateAllWithOrder:(id)order completionBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   orderCopy = order;
   blockCopy = block;
   v8 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = objc_opt_class();
-    v9 = v18;
+    v17 = objc_opt_class();
+    v9 = v17;
     _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: updateAllWithOrder", buf, 0xCu);
   }
 
@@ -1592,14 +1566,12 @@ void __42__ASDUpdatesService_setAutoUpdateEnabled___block_invoke_2(uint64_t a1, 
   block[1] = 3221225472;
   block[2] = __56__ASDUpdatesService_updateAllWithOrder_completionBlock___block_invoke;
   block[3] = &unk_1E7CDCDC0;
-  v15 = orderCopy;
-  v16 = blockCopy;
+  v14 = orderCopy;
+  v15 = blockCopy;
   block[4] = self;
   v11 = orderCopy;
   v12 = blockCopy;
   dispatch_async(accessQueue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __56__ASDUpdatesService_updateAllWithOrder_completionBlock___block_invoke(uint64_t a1)
@@ -1681,49 +1653,49 @@ void __56__ASDUpdatesService_updateAllWithOrder_completionBlock___block_invoke_3
   dispatch_async(v4, v9);
 }
 
-void __56__ASDUpdatesService_updateAllWithOrder_completionBlock___block_invoke_4(uint64_t a1)
+void __56__ASDUpdatesService_updateAllWithOrder_completionBlock___block_invoke_4(void *a1)
 {
-  v2 = *(a1 + 56);
-  v3 = [(ASDUpdatesService *)*(a1 + 32) _failedJobResultsForBundleIDs:?];
-  (*(v2 + 16))(v2, 0, v3, *(a1 + 48));
+  v2 = a1[7];
+  v3 = [(ASDUpdatesService *)a1[4] _failedJobResultsForBundleIDs:?];
+  (*(v2 + 16))(v2, 0, v3, a1[6]);
 }
 
 - (id)_failedJobResultsForBundleIDs:(uint64_t)ds
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v16 = v3;
+  v15 = v3;
   if (ds)
   {
     v4 = v3;
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count", v3)}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     obj = v4;
-    v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"ASDErrorDomain" code:901 userInfo:0];
           v12 = [ASDJobResult resultWithPersistentID:0 bundleID:v10 status:1 error:v11];
 
           [v5 addObject:v12];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -1736,8 +1708,6 @@ void __56__ASDUpdatesService_updateAllWithOrder_completionBlock___block_invoke_4
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1771,162 +1741,148 @@ void __56__ASDUpdatesService_updateAllWithOrder_completionBlock___block_invoke_7
 
 - (void)reloadFromServerInBackgroundWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: reloadFromServerInBackground", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __69__ASDUpdatesService_reloadFromServerInBackgroundWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDCDE8;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __69__ASDUpdatesService_reloadFromServerInBackgroundWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDCDE8;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getUpdatesServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getUpdatesServiceWithCompletionHandler:v9];
 }
 
 void __69__ASDUpdatesService_reloadFromServerInBackgroundWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __69__ASDUpdatesService_reloadFromServerInBackgroundWithCompletionBlock___block_invoke_2;
-    v6[3] = &unk_1E7CDB980;
-    v6[4] = *(a1 + 32);
-    v3 = [a2 remoteObjectProxyWithErrorHandler:v6];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __69__ASDUpdatesService_reloadFromServerInBackgroundWithCompletionBlock___block_invoke_2;
+    v5[3] = &unk_1E7CDB980;
+    v5[4] = *(a1 + 32);
+    v3 = [a2 remoteObjectProxyWithErrorHandler:v5];
     [v3 reloadFromServerInBackgroundWithCompletionBlock:*(a1 + 40)];
   }
 
   else
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 }
 
 void __69__ASDUpdatesService_reloadFromServerInBackgroundWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = ASDLogHandleForCategory(13);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = ASDLogHandleForCategory(13);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: error: %{public}@", &v8, 0x16u);
+    v5 = 138543618;
+    v6 = objc_opt_class();
+    v7 = 2114;
+    v8 = v2;
+    v4 = v6;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[%{public}@]: error: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getUpdateMetricsEventsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: getUpdateMetricsEventsWithCompletionBlock", buf, 0xCu);
   }
 
   serviceBroker = self->_serviceBroker;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __63__ASDUpdatesService_getUpdateMetricsEventsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDCDE8;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __63__ASDUpdatesService_getUpdateMetricsEventsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDCDE8;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  [(ASDServiceBroker *)serviceBroker getUpdatesServiceWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [(ASDServiceBroker *)serviceBroker getUpdatesServiceWithCompletionHandler:v9];
 }
 
 void __63__ASDUpdatesService_getUpdateMetricsEventsWithCompletionBlock___block_invoke(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __63__ASDUpdatesService_getUpdateMetricsEventsWithCompletionBlock___block_invoke_2;
-    v6[3] = &unk_1E7CDB980;
-    v6[4] = *(a1 + 32);
-    v3 = [a2 remoteObjectProxyWithErrorHandler:v6];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __63__ASDUpdatesService_getUpdateMetricsEventsWithCompletionBlock___block_invoke_2;
+    v5[3] = &unk_1E7CDB980;
+    v5[4] = *(a1 + 32);
+    v3 = [a2 remoteObjectProxyWithErrorHandler:v5];
     [v3 getUpdateMetricsEventsWithReplyHandler:*(a1 + 40)];
   }
 
   else
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 }
 
 void __63__ASDUpdatesService_getUpdateMetricsEventsWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = ASDLogHandleForCategory(13);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = ASDLogHandleForCategory(13);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: error: %{public}@", &v8, 0x16u);
+    v5 = 138543618;
+    v6 = objc_opt_class();
+    v7 = 2114;
+    v8 = v2;
+    v4 = v6;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[%{public}@]: error: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getMetricsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Get metrics with completion block", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke(uint64_t a1)
@@ -1945,28 +1901,28 @@ void __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke(uint64
 
 void __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_3;
-    v20[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v20[4] = *(a1 + 32);
-    v21 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v20];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
-    v18[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_2_45;
-    v18[3] = &unk_1E7CDCF70;
-    v8 = *(a1 + 40);
+    v18[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_3;
+    v18[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
     v18[4] = *(a1 + 32);
-    v19 = v8;
-    [v7 getMetricsWithReplyHandler:v18];
+    v19 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v18];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_2_45;
+    v16[3] = &unk_1E7CDCF70;
+    v8 = *(a1 + 40);
+    v16[4] = *(a1 + 32);
+    v17 = v8;
+    [v7 getMetricsWithReplyHandler:v16];
 
-    v9 = v21;
+    v9 = v19;
   }
 
   else
@@ -1974,63 +1930,57 @@ void __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_2(uint
     v10 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
       *buf = 138543618;
-      v23 = objc_opt_class();
-      v24 = 2114;
-      v25 = v5;
-      v14 = v23;
+      v21 = objc_opt_class();
+      v22 = 2114;
+      v23 = v5;
+      v12 = v21;
       _os_log_error_impl(&dword_1B8220000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
 
     v11 = *(*(a1 + 32) + 24);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_48;
-    v15[3] = &unk_1E7CDB890;
-    v17 = *(a1 + 40);
-    v16 = v5;
-    dispatch_async(v11, v15);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_48;
+    v13[3] = &unk_1E7CDB890;
+    v15 = *(a1 + 40);
+    v14 = v5;
+    dispatch_async(v11, v13);
 
-    v9 = v17;
+    v9 = v15;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = *(a1 + 32);
     *buf = 138543618;
-    v15 = objc_opt_class();
-    v16 = 2114;
-    v17 = v3;
-    v10 = v15;
+    v13 = objc_opt_class();
+    v14 = 2114;
+    v15 = v3;
+    v8 = v13;
     _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 24);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_44;
-  v11[3] = &unk_1E7CDB890;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_44;
+  v9[3] = &unk_1E7CDB890;
   v6 = *(a1 + 40);
-  v12 = v3;
-  v13 = v6;
+  v10 = v3;
+  v11 = v6;
   v7 = v3;
-  dispatch_async(v5, v11);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v5, v9);
 }
 
 void __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_2_45(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2038,12 +1988,11 @@ void __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_2_45(u
     v7 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
       *buf = 138543618;
-      v20 = objc_opt_class();
-      v21 = 2114;
-      v22 = v6;
-      v14 = v20;
+      v18 = objc_opt_class();
+      v19 = 2114;
+      v20 = v6;
+      v12 = v18;
       _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
   }
@@ -2054,40 +2003,36 @@ void __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_2_45(u
   block[2] = __51__ASDUpdatesService_getMetricsWithCompletionBlock___block_invoke_46;
   block[3] = &unk_1E7CDBAE0;
   v9 = *(a1 + 40);
-  v17 = v6;
-  v18 = v9;
-  v16 = v5;
+  v15 = v6;
+  v16 = v9;
+  v14 = v5;
   v10 = v6;
   v11 = v5;
   dispatch_async(v8, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getUpdatesIncludingMetricsWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Get updates including metrics with completion block", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke(uint64_t a1)
@@ -2106,28 +2051,28 @@ void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___blo
 
 void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_3;
-    v19[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v19[4] = *(a1 + 32);
-    v20 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v19];
     v17[0] = MEMORY[0x1E69E9820];
     v17[1] = 3221225472;
-    v17[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_2_50;
-    v17[3] = &unk_1E7CDB8E0;
-    v8 = *(a1 + 40);
+    v17[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_3;
+    v17[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
     v17[4] = *(a1 + 32);
-    v18 = v8;
-    [v7 getUpdatesIncludingMetricsWithReplyHandler:v17];
+    v18 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v17];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_2_50;
+    v15[3] = &unk_1E7CDB8E0;
+    v8 = *(a1 + 40);
+    v15[4] = *(a1 + 32);
+    v16 = v8;
+    [v7 getUpdatesIncludingMetricsWithReplyHandler:v15];
 
-    v9 = v20;
+    v9 = v18;
   }
 
   else
@@ -2135,12 +2080,11 @@ void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___blo
     v10 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
       *buf = 138543618;
-      v22 = objc_opt_class();
-      v23 = 2114;
-      v24 = v5;
-      v14 = v22;
+      v20 = objc_opt_class();
+      v21 = 2114;
+      v22 = v5;
+      v12 = v20;
       _os_log_error_impl(&dword_1B8220000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
 
@@ -2149,27 +2093,24 @@ void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___blo
     block[1] = 3221225472;
     block[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_52;
     block[3] = &unk_1E7CDCD70;
-    v16 = *(a1 + 40);
+    v14 = *(a1 + 40);
     dispatch_async(v11, block);
-    v9 = v16;
+    v9 = v14;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
     *buf = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2114;
-    v14 = v3;
-    v8 = v12;
+    v10 = objc_opt_class();
+    v11 = 2114;
+    v12 = v3;
+    v6 = v10;
     _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
   }
 
@@ -2178,15 +2119,13 @@ void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___blo
   block[1] = 3221225472;
   block[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_49;
   block[3] = &unk_1E7CDCD70;
-  v10 = *(a1 + 40);
+  v8 = *(a1 + 40);
   dispatch_async(v5, block);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_2_50(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2194,39 +2133,36 @@ void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___blo
     v7 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
       *buf = 138543618;
-      v18 = objc_opt_class();
-      v19 = 2114;
-      v20 = v6;
-      v13 = v18;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v6;
+      v11 = v16;
       _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
   }
 
   v8 = *(*(a1 + 32) + 24);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_51;
-  v14[3] = &unk_1E7CDB890;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___block_invoke_51;
+  v12[3] = &unk_1E7CDB890;
   v9 = *(a1 + 40);
-  v15 = v5;
-  v16 = v9;
+  v13 = v5;
+  v14 = v9;
   v10 = v5;
-  dispatch_async(v8, v14);
-
-  v11 = *MEMORY[0x1E69E9840];
+  dispatch_async(v8, v12);
 }
 
 - (void)hideApplicationBadgeForPendingUpdates
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v9 = objc_opt_class();
-    v4 = v9;
+    v8 = objc_opt_class();
+    v4 = v8;
     _os_log_impl(&dword_1B8220000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Hide application badge for pending updates", buf, 0xCu);
   }
 
@@ -2237,7 +2173,6 @@ void __67__ASDUpdatesService_getUpdatesIncludingMetricsWithCompletionBlock___blo
   block[3] = &unk_1E7CDB930;
   block[4] = self;
   dispatch_async(accessQueue, block);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__ASDUpdatesService_hideApplicationBadgeForPendingUpdates__block_invoke(uint64_t a1)
@@ -2254,16 +2189,16 @@ uint64_t __58__ASDUpdatesService_hideApplicationBadgeForPendingUpdates__block_in
 
 void __58__ASDUpdatesService_hideApplicationBadgeForPendingUpdates__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __58__ASDUpdatesService_hideApplicationBadgeForPendingUpdates__block_invoke_3;
-    v10[3] = &unk_1E7CDB980;
-    v10[4] = *(a1 + 32);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v10];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __58__ASDUpdatesService_hideApplicationBadgeForPendingUpdates__block_invoke_3;
+    v8[3] = &unk_1E7CDB980;
+    v8[4] = *(a1 + 32);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v8];
     [v6 hideApplicationBadgeForPendingUpdates];
   }
 
@@ -2272,62 +2207,54 @@ void __58__ASDUpdatesService_hideApplicationBadgeForPendingUpdates__block_invoke
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
       *buf = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = v5;
-      v9 = v12;
+      v10 = objc_opt_class();
+      v11 = 2114;
+      v12 = v5;
+      v7 = v10;
       _os_log_error_impl(&dword_1B8220000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__ASDUpdatesService_hideApplicationBadgeForPendingUpdates__block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = ASDLogHandleForCategory(13);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = ASDLogHandleForCategory(13);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", &v8, 0x16u);
+    v5 = 138543618;
+    v6 = objc_opt_class();
+    v7 = 2114;
+    v8 = v2;
+    v4 = v6;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reloadForSettingsFromServerWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Reload for settings from server with completion block", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke(uint64_t a1)
@@ -2346,28 +2273,28 @@ void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___bl
 
 void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_3;
-    v20[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v20[4] = *(a1 + 32);
-    v21 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v20];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
-    v18[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_2_54;
-    v18[3] = &unk_1E7CDB8E0;
-    v8 = *(a1 + 40);
+    v18[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_3;
+    v18[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
     v18[4] = *(a1 + 32);
-    v19 = v8;
-    [v7 reloadForSettingsFromServerWithReplyHandler:v18];
+    v19 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v18];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_2_54;
+    v16[3] = &unk_1E7CDB8E0;
+    v8 = *(a1 + 40);
+    v16[4] = *(a1 + 32);
+    v17 = v8;
+    [v7 reloadForSettingsFromServerWithReplyHandler:v16];
 
-    v9 = v21;
+    v9 = v19;
   }
 
   else
@@ -2375,63 +2302,57 @@ void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___bl
     v10 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
       *buf = 138543618;
-      v23 = objc_opt_class();
-      v24 = 2114;
-      v25 = v5;
-      v14 = v23;
+      v21 = objc_opt_class();
+      v22 = 2114;
+      v23 = v5;
+      v12 = v21;
       _os_log_error_impl(&dword_1B8220000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
 
     v11 = *(*(a1 + 32) + 24);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_56;
-    v15[3] = &unk_1E7CDB890;
-    v17 = *(a1 + 40);
-    v16 = v5;
-    dispatch_async(v11, v15);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_56;
+    v13[3] = &unk_1E7CDB890;
+    v15 = *(a1 + 40);
+    v14 = v5;
+    dispatch_async(v11, v13);
 
-    v9 = v17;
+    v9 = v15;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = *(a1 + 32);
     *buf = 138543618;
-    v15 = objc_opt_class();
-    v16 = 2114;
-    v17 = v3;
-    v10 = v15;
+    v13 = objc_opt_class();
+    v14 = 2114;
+    v15 = v3;
+    v8 = v13;
     _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 24);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_53;
-  v11[3] = &unk_1E7CDB890;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_53;
+  v9[3] = &unk_1E7CDB890;
   v6 = *(a1 + 40);
-  v12 = v3;
-  v13 = v6;
+  v10 = v3;
+  v11 = v6;
   v7 = v3;
-  dispatch_async(v5, v11);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v5, v9);
 }
 
 void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_2_54(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2439,12 +2360,11 @@ void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___bl
     v7 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
       *buf = 138543618;
-      v20 = objc_opt_class();
-      v21 = 2114;
-      v22 = v6;
-      v14 = v20;
+      v18 = objc_opt_class();
+      v19 = 2114;
+      v20 = v6;
+      v12 = v18;
       _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
   }
@@ -2455,25 +2375,23 @@ void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___bl
   block[2] = __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___block_invoke_55;
   block[3] = &unk_1E7CDBAE0;
   v9 = *(a1 + 40);
-  v17 = v6;
-  v18 = v9;
-  v16 = v5;
+  v15 = v6;
+  v16 = v9;
+  v14 = v5;
   v10 = v6;
   v11 = v5;
   dispatch_async(v8, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)showApplicationBadgeForPendingUpdates
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v9 = objc_opt_class();
-    v4 = v9;
+    v8 = objc_opt_class();
+    v4 = v8;
     _os_log_impl(&dword_1B8220000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Show application badge for pending updates", buf, 0xCu);
   }
 
@@ -2484,7 +2402,6 @@ void __68__ASDUpdatesService_reloadForSettingsFromServerWithCompletionBlock___bl
   block[3] = &unk_1E7CDB930;
   block[4] = self;
   dispatch_async(accessQueue, block);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__ASDUpdatesService_showApplicationBadgeForPendingUpdates__block_invoke(uint64_t a1)
@@ -2501,16 +2418,16 @@ uint64_t __58__ASDUpdatesService_showApplicationBadgeForPendingUpdates__block_in
 
 void __58__ASDUpdatesService_showApplicationBadgeForPendingUpdates__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __58__ASDUpdatesService_showApplicationBadgeForPendingUpdates__block_invoke_3;
-    v10[3] = &unk_1E7CDB980;
-    v10[4] = *(a1 + 32);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v10];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __58__ASDUpdatesService_showApplicationBadgeForPendingUpdates__block_invoke_3;
+    v8[3] = &unk_1E7CDB980;
+    v8[4] = *(a1 + 32);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v8];
     [v6 showApplicationBadgeForPendingUpdates];
   }
 
@@ -2519,62 +2436,54 @@ void __58__ASDUpdatesService_showApplicationBadgeForPendingUpdates__block_invoke
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
       *buf = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = v5;
-      v9 = v12;
+      v10 = objc_opt_class();
+      v11 = 2114;
+      v12 = v5;
+      v7 = v10;
       _os_log_error_impl(&dword_1B8220000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__ASDUpdatesService_showApplicationBadgeForPendingUpdates__block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = ASDLogHandleForCategory(13);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = ASDLogHandleForCategory(13);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v3;
-    v7 = v9;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", &v8, 0x16u);
+    v5 = 138543618;
+    v6 = objc_opt_class();
+    v7 = 2114;
+    v8 = v2;
+    v4 = v6;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAllWithCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Update all with completion block", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke(uint64_t a1)
@@ -2593,28 +2502,28 @@ void __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke(uint64_
 
 void __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_3;
-    v20[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v20[4] = *(a1 + 32);
-    v21 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v20];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
-    v18[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_2_58;
-    v18[3] = &unk_1E7CDCFC0;
-    v8 = *(a1 + 40);
+    v18[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_3;
+    v18[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
     v18[4] = *(a1 + 32);
-    v19 = v8;
-    [v7 updateAllWithReplyHandler:v18];
+    v19 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v18];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_2_58;
+    v16[3] = &unk_1E7CDCFC0;
+    v8 = *(a1 + 40);
+    v16[4] = *(a1 + 32);
+    v17 = v8;
+    [v7 updateAllWithReplyHandler:v16];
 
-    v9 = v21;
+    v9 = v19;
   }
 
   else
@@ -2622,75 +2531,68 @@ void __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_2(uint6
     v10 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
       *buf = 138543618;
-      v23 = objc_opt_class();
-      v24 = 2114;
-      v25 = v5;
-      v14 = v23;
+      v21 = objc_opt_class();
+      v22 = 2114;
+      v23 = v5;
+      v12 = v21;
       _os_log_error_impl(&dword_1B8220000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
 
     v11 = *(*(a1 + 32) + 24);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_60;
-    v15[3] = &unk_1E7CDB890;
-    v17 = *(a1 + 40);
-    v16 = v5;
-    dispatch_async(v11, v15);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_60;
+    v13[3] = &unk_1E7CDB890;
+    v15 = *(a1 + 40);
+    v14 = v5;
+    dispatch_async(v11, v13);
 
-    v9 = v17;
+    v9 = v15;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = *(a1 + 32);
     *buf = 138543618;
-    v15 = objc_opt_class();
-    v16 = 2114;
-    v17 = v3;
-    v10 = v15;
+    v13 = objc_opt_class();
+    v14 = 2114;
+    v15 = v3;
+    v8 = v13;
     _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 24);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_57;
-  v11[3] = &unk_1E7CDB890;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_57;
+  v9[3] = &unk_1E7CDB890;
   v6 = *(a1 + 40);
-  v12 = v3;
-  v13 = v6;
+  v10 = v3;
+  v11 = v6;
   v7 = v3;
-  dispatch_async(v5, v11);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v5, v9);
 }
 
 void __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_2_58(uint64_t a1, char a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
       *buf = 138543618;
-      v18 = objc_opt_class();
-      v19 = 2114;
-      v20 = v5;
-      v12 = v18;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v5;
+      v10 = v16;
       _os_log_error_impl(&dword_1B8220000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
   }
@@ -2701,39 +2603,35 @@ void __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_2_58(ui
   block[2] = __50__ASDUpdatesService_updateAllWithCompletionBlock___block_invoke_59;
   block[3] = &unk_1E7CDBB30;
   v8 = *(a1 + 40);
-  v16 = a2;
-  v14 = v5;
-  v15 = v8;
+  v14 = a2;
+  v12 = v5;
+  v13 = v8;
   v9 = v5;
   dispatch_async(v7, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAllWithJobResultsCompletionBlock:(id)block
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Update all with job results completion block", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke;
-  v10[3] = &unk_1E7CDBE48;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke;
+  v9[3] = &unk_1E7CDBE48;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(accessQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(accessQueue, v9);
 }
 
 void __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke(uint64_t a1)
@@ -2752,28 +2650,28 @@ void __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invo
 
 void __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_3;
-    v20[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v20[4] = *(a1 + 32);
-    v21 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v20];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
-    v18[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_2_62;
-    v18[3] = &unk_1E7CDBF38;
-    v8 = *(a1 + 40);
+    v18[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_3;
+    v18[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
     v18[4] = *(a1 + 32);
-    v19 = v8;
-    [v7 updateAllGettingJobResultsWithReplyHandler:v18];
+    v19 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v18];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_2_62;
+    v16[3] = &unk_1E7CDBF38;
+    v8 = *(a1 + 40);
+    v16[4] = *(a1 + 32);
+    v17 = v8;
+    [v7 updateAllGettingJobResultsWithReplyHandler:v16];
 
-    v9 = v21;
+    v9 = v19;
   }
 
   else
@@ -2781,63 +2679,57 @@ void __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invo
     v10 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
       *buf = 138543618;
-      v23 = objc_opt_class();
-      v24 = 2114;
-      v25 = v5;
-      v14 = v23;
+      v21 = objc_opt_class();
+      v22 = 2114;
+      v23 = v5;
+      v12 = v21;
       _os_log_error_impl(&dword_1B8220000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
 
     v11 = *(*(a1 + 32) + 24);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_64;
-    v15[3] = &unk_1E7CDB890;
-    v17 = *(a1 + 40);
-    v16 = v5;
-    dispatch_async(v11, v15);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_64;
+    v13[3] = &unk_1E7CDB890;
+    v15 = *(a1 + 40);
+    v14 = v5;
+    dispatch_async(v11, v13);
 
-    v9 = v17;
+    v9 = v15;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = *(a1 + 32);
     *buf = 138543618;
-    v15 = objc_opt_class();
-    v16 = 2114;
-    v17 = v3;
-    v10 = v15;
+    v13 = objc_opt_class();
+    v14 = 2114;
+    v15 = v3;
+    v8 = v13;
     _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 24);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_61;
-  v11[3] = &unk_1E7CDB890;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_61;
+  v9[3] = &unk_1E7CDB890;
   v6 = *(a1 + 40);
-  v12 = v3;
-  v13 = v6;
+  v10 = v3;
+  v11 = v6;
   v7 = v3;
-  dispatch_async(v5, v11);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v5, v9);
 }
 
 void __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_2_62(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if (v8)
@@ -2845,31 +2737,28 @@ void __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invo
     v9 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
       *buf = 138543618;
-      v23 = objc_opt_class();
-      v24 = 2114;
-      v25 = v8;
-      v16 = v23;
+      v21 = objc_opt_class();
+      v22 = 2114;
+      v23 = v8;
+      v14 = v21;
       _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error: %{public}@", buf, 0x16u);
     }
   }
 
   v10 = *(*(a1 + 32) + 24);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_63;
-  v17[3] = &unk_1E7CDBF10;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __60__ASDUpdatesService_updateAllWithJobResultsCompletionBlock___block_invoke_63;
+  v15[3] = &unk_1E7CDBF10;
   v11 = *(a1 + 40);
-  v19 = v8;
-  v20 = v11;
-  v21 = a2;
-  v18 = v7;
+  v17 = v8;
+  v18 = v11;
+  v19 = a2;
+  v16 = v7;
   v12 = v8;
   v13 = v7;
-  dispatch_async(v10, v17);
-
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_async(v10, v15);
 }
 
 @end

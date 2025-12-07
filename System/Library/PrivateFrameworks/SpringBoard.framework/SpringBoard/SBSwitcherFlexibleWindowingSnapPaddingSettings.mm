@@ -37,7 +37,7 @@
   return *&_statusBarHeight___statusBarHeight;
 }
 
-uint64_t __66__SBSwitcherFlexibleWindowingSnapPaddingSettings__statusBarHeight__block_invoke()
+void *__66__SBSwitcherFlexibleWindowingSnapPaddingSettings__statusBarHeight__block_invoke()
 {
   result = [MEMORY[0x277D75A78] heightForStyle:0 orientation:1];
   _statusBarHeight___statusBarHeight = v1;

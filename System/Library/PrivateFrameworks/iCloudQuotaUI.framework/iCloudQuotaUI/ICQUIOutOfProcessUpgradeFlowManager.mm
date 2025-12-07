@@ -34,11 +34,11 @@
   return v2;
 }
 
-void __52__ICQUIOutOfProcessUpgradeFlowManager_sharedManager__block_invoke()
+void __52__ICQUIOutOfProcessUpgradeFlowManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedManager_sRemoteUpgradeFlowManager;
-  sharedManager_sRemoteUpgradeFlowManager = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedManager_sRemoteUpgradeFlowManager;
+  sharedManager_sRemoteUpgradeFlowManager = v1;
 }
 
 - (ICQUIOutOfProcessUpgradeFlowManager)init
@@ -357,7 +357,7 @@ void __113__ICQUIOutOfProcessUpgradeFlowManager__startUpsellWithOffer_link_prelo
     v13 = _ICQGetLogSystem();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __113__ICQUIOutOfProcessUpgradeFlowManager__startUpsellWithOffer_link_preloadedRemoteUIData_error_isPostPurchaseFlow___block_invoke_cold_1();
+      __113__ICQUIOutOfProcessUpgradeFlowManager__startUpsellWithOffer_link_preloadedRemoteUIData_error_isPostPurchaseFlow___block_invoke_cold_1(a1);
     }
 
     goto LABEL_18;
@@ -657,15 +657,15 @@ void __80__ICQUIOutOfProcessUpgradeFlowManager__beginExtensionKitFlowWithViewCon
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Unable to present at this time, %@.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Unable to present at this time, %@.", v4, v5, v6, v7);
 }
 
-void __113__ICQUIOutOfProcessUpgradeFlowManager__startUpsellWithOffer_link_preloadedRemoteUIData_error_isPostPurchaseFlow___block_invoke_cold_1()
+void __113__ICQUIOutOfProcessUpgradeFlowManager__startUpsellWithOffer_link_preloadedRemoteUIData_error_isPostPurchaseFlow___block_invoke_cold_1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v1 = v0;
-  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "%@ instance no longer exist.", v4, v5, v6, v7, v8);
+  v2 = v1;
+  OUTLINED_FUNCTION_0_2(&dword_275623000, v3, v4, "%@ instance no longer exist.", v5, v6, v7, v8);
 }
 
 - (void)_topMostPresentingViewController

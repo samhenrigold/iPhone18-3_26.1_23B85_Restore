@@ -7530,7 +7530,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
   if (v3)
   {
     v4 = 0;
-    v5 = &v9[8 * *(a1 + 72)].f64[*(a1 + 76)];
+    v5 = &v9[8 * *(a1 + 72)].i8[8 * *(a1 + 76)];
     LODWORD(v6) = *(a1 + 84);
     do
     {
@@ -7567,7 +7567,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
   if (v3)
   {
     v4 = 0;
-    v5 = &v9[8 * *(a1 + 72)].f64[*(a1 + 76)];
+    v5 = &v9[8 * *(a1 + 72)].i8[8 * *(a1 + 76)];
     LODWORD(v6) = *(a1 + 84);
     do
     {
@@ -7604,7 +7604,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
   if (v3)
   {
     v4 = 0;
-    v5 = &v9[8 * *(a1 + 72)].f64[*(a1 + 76)];
+    v5 = &v9[8 * *(a1 + 72)].i8[8 * *(a1 + 76)];
     LODWORD(v6) = *(a1 + 84);
     do
     {
@@ -7641,7 +7641,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
   if (v3)
   {
     v4 = 0;
-    v5 = &v9[8 * *(a1 + 72)].f64[*(a1 + 76)];
+    v5 = &v9[8 * *(a1 + 72)].i8[8 * *(a1 + 76)];
     LODWORD(v6) = *(a1 + 84);
     do
     {
@@ -9297,7 +9297,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
   if (v3)
   {
     v4 = 0;
-    v5 = &v9[8 * *(a1 + 72)].f64[*(a1 + 76)];
+    v5 = &v9[8 * *(a1 + 72)].i8[8 * *(a1 + 76)];
     LODWORD(v6) = *(a1 + 84);
     do
     {
@@ -9500,9 +9500,9 @@ void ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7Clas
         if (v13 == 63)
         {
           v14 = *v6;
-          a3 = *(v6 + 16);
-          a4 = *(v6 + 32);
-          a5 = *(v6 + 48);
+          a3 = v6[1];
+          a4 = v6[2];
+          a5 = v6[3];
           *v12 = vuzp1q_s32(*v6, a4);
           v12[2] = vuzp2q_s32(v14, a4);
           v12[4] = vuzp1q_s32(a3, a5);
@@ -9513,7 +9513,7 @@ void ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7Clas
 
         else if (v13 == 1)
         {
-          a2 = vld1q_dup_s16(v6);
+          a2 = vld1q_dup_s16(v6->i16);
           *v12 = a2;
           v12[2] = a2;
           v12[4] = a2;
@@ -9547,7 +9547,7 @@ void ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7Clas
       v12[6].i64[1] = 0;
     }
 
-    v6 += v11;
+    v6 = (v6 + v11);
     ++v7;
     v9 += 2;
     v10 -= 2;
@@ -9759,9 +9759,9 @@ void ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7Clas
         if (v11 == 31)
         {
           v12 = *v4;
-          a3 = *(v4 + 8);
-          v13 = *(v4 + 16);
-          v14 = *(v4 + 24);
+          a3 = v4[1];
+          v13 = v4[2];
+          v14 = v4[3];
           *v10 = vuzp1_s16(*v4, v13);
           v10[2] = vuzp2_s16(v12, v13);
           v10[4] = vuzp1_s16(a3, v14);
@@ -9802,7 +9802,7 @@ void ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7Clas
       v10[6] = 0;
     }
 
-    v4 += v9;
+    v4 = (v4 + v9);
     ++v5;
     v7 += 2;
     v8 -= 2;

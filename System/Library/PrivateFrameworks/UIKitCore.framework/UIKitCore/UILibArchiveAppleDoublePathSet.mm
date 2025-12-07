@@ -22,13 +22,13 @@ void __111___UILibArchiveAppleDoublePathSet_confirmExactAppleDoubleFilesAppearin
     if (_isPossibleAppleDoublePath_MACOSX(v3))
     {
       v8 = [v14 fileType];
-      v9 = [v8 isEqualToString:*MEMORY[0x1E696A3E8]];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
       v10 = [v14 pathInArchive];
       v11 = [v10 lastPathComponent];
-      v12 = [v11 isEqualToString:@"__MACOSX"];
+      v12 = objc_msgSend_isEqualToString_(v11);
 
-      if ((_isPossibleAppleDoublePath_DotUnderscore(v3) & 1) == 0 && v9 && (v12 & 1) == 0)
+      if ((_isPossibleAppleDoublePath_DotUnderscore(v3) & 1) == 0 && isEqualToString && (v12 & 1) == 0)
       {
         *(*(*(a1 + 40) + 8) + 24) = 1;
         goto LABEL_13;

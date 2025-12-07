@@ -143,13 +143,13 @@ uint64_t __26__HKSeriesBuilder_discard__block_invoke(uint64_t a1)
   return [v1 _resourceQueue_discardWithHandler:v3];
 }
 
-void __26__HKSeriesBuilder_discard__block_invoke_2(uint64_t a1)
+void __26__HKSeriesBuilder_discard__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
-  v2 = HKLogDefault;
+  _HKInitializeLogging(a1, a2);
+  v3 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEBUG))
   {
-    __26__HKSeriesBuilder_discard__block_invoke_2_cold_1(a1, v2);
+    __26__HKSeriesBuilder_discard__block_invoke_2_cold_1(a1, v3);
   }
 }
 
@@ -489,14 +489,11 @@ void __26__HKSeriesBuilder_discard__block_invoke_cold_1(void *a1, uint64_t a2, u
 
 void __26__HKSeriesBuilder_discard__block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  _os_log_debug_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEBUG, "%@ series discarded", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = 138412290;
+  v4 = objc_opt_class();
+  _os_log_debug_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEBUG, "%@ series discarded", &v3, 0xCu);
 }
 
 @end

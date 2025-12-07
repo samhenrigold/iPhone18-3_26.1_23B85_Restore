@@ -21,9 +21,11 @@
 - (void)sceneDidActivate:(id)activate;
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error;
 - (void)setActive:(BOOL)active;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -61,10 +63,10 @@
 
 - (void)viewDidLoad
 {
-  v30[4] = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = ICSystemPaperSceneViewController;
-  [(ICSystemPaperSceneViewController *)&v29 viewDidLoad];
+  v29[4] = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = ICSystemPaperSceneViewController;
+  [(ICSystemPaperSceneViewController *)&v28 viewDidLoad];
   v3 = objc_alloc(MEMORY[0x277D75D18]);
   view = [(ICSystemPaperSceneViewController *)self view];
   [view bounds];
@@ -76,36 +78,53 @@
   view2 = [(ICSystemPaperSceneViewController *)self view];
   [view2 addSubview:self->_sceneContainerView];
 
-  v21 = MEMORY[0x277CCAAD0];
+  v20 = MEMORY[0x277CCAAD0];
   leadingAnchor = [(UIView *)self->_sceneContainerView leadingAnchor];
   view3 = [(ICSystemPaperSceneViewController *)self view];
   leadingAnchor2 = [view3 leadingAnchor];
-  v25 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v30[0] = v25;
+  v24 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v29[0] = v24;
   trailingAnchor = [(UIView *)self->_sceneContainerView trailingAnchor];
   view4 = [(ICSystemPaperSceneViewController *)self view];
   trailingAnchor2 = [view4 trailingAnchor];
-  v20 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v30[1] = v20;
+  v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v29[1] = v19;
   topAnchor = [(UIView *)self->_sceneContainerView topAnchor];
   view5 = [(ICSystemPaperSceneViewController *)self view];
   topAnchor2 = [view5 topAnchor];
   v11 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v30[2] = v11;
+  v29[2] = v11;
   bottomAnchor = [(UIView *)self->_sceneContainerView bottomAnchor];
   view6 = [(ICSystemPaperSceneViewController *)self view];
   bottomAnchor2 = [view6 bottomAnchor];
   v15 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v30[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
-  [v21 activateConstraints:v16];
+  v29[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+  [v20 activateConstraints:v16];
 
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   view7 = [(ICSystemPaperSceneViewController *)self view];
   [view7 setBackgroundColor:systemBackgroundColor];
 
   [(ICSystemPaperSceneViewController *)self registerForTraitChanges];
-  v19 = *MEMORY[0x277D85DE8];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSystemPaperSceneViewController;
+  [(ICSystemPaperSceneViewController *)&v4 viewWillAppear:appear];
+  self->_visible = 1;
+  [(ICSystemPaperSceneViewController *)self _update];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ICSystemPaperSceneViewController;
+  [(ICSystemPaperSceneViewController *)&v4 viewDidDisappear:disappear];
+  self->_visible = 0;
+  [(ICSystemPaperSceneViewController *)self invalidate];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -166,7 +185,7 @@
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   if (!self->_invalidated)
   {
@@ -174,23 +193,21 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       invalidated = self->_invalidated;
-      v5 = 134218240;
+      v4 = 134218240;
       selfCopy = self;
-      v7 = 1024;
-      v8 = invalidated;
-      _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: invalidated is now %{BOOL}i", &v5, 0x12u);
+      v6 = 1024;
+      v7 = invalidated;
+      _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: invalidated is now %{BOOL}i", &v4, 0x12u);
     }
 
     [(ICSystemPaperSceneViewController *)self _teardown];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActive:(BOOL)active
 {
   activeCopy = active;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssertMain();
   if (self->_active != activeCopy)
   {
@@ -198,22 +215,20 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       active = self->_active;
-      v7 = 134218240;
+      v6 = 134218240;
       selfCopy = self;
-      v9 = 1024;
+      v8 = 1024;
       activeCopy2 = active;
-      _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: active is now %{BOOL}i", &v7, 0x12u);
+      _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: active is now %{BOOL}i", &v6, 0x12u);
     }
 
     [(ICSystemPaperSceneViewController *)self _update];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_teardown
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   scenePresenter = self->_scenePresenter;
   if (scenePresenter)
   {
@@ -228,11 +243,11 @@
     {
       identityToken = [(FBScene *)self->_scene identityToken];
       stringRepresentation = [identityToken stringRepresentation];
-      v9 = 134218242;
+      v8 = 134218242;
       selfCopy = self;
-      v11 = 2112;
-      v12 = stringRepresentation;
-      _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: invalidating scene %@", &v9, 0x16u);
+      v10 = 2112;
+      v11 = stringRepresentation;
+      _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: invalidating scene %@", &v8, 0x16u);
     }
 
     [(FBScene *)self->_scene setDelegate:0];
@@ -240,8 +255,6 @@
     scene = self->_scene;
     self->_scene = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_update
@@ -279,7 +292,7 @@ void __43__ICSystemPaperSceneViewController__update__block_invoke(uint64_t a1, v
 
 - (void)_adjustParentScene
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   view = [(ICSystemPaperSceneViewController *)self view];
   window = [view window];
   windowScene = [window windowScene];
@@ -291,8 +304,8 @@ void __43__ICSystemPaperSceneViewController__update__block_invoke(uint64_t a1, v
     {
       objc_storeStrong(&self->_uiParentScene, windowScene);
       v7 = self->_uiParentScene;
-      v15[0] = self;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+      v14[0] = self;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
       v9 = objc_opt_class();
       v10 = NSStringFromClass(v9);
       [(UIScene *)v7 _registerSettingsDiffActionArray:v8 forKey:v10];
@@ -308,15 +321,13 @@ void __43__ICSystemPaperSceneViewController__update__block_invoke(uint64_t a1, v
       self->_uiParentScene = 0;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSceneToSize:(CGSize)size orientation:(int64_t)orientation withAnimationSettings:(id)settings fence:(id)fence
 {
   height = size.height;
   width = size.width;
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   fenceCopy = fence;
   if ((orientation - 3) >= 2)
@@ -344,7 +355,7 @@ void __43__ICSystemPaperSceneViewController__update__block_invoke(uint64_t a1, v
 
     if (!userActivityData)
     {
-      v63 = 0;
+      v62 = 0;
       goto LABEL_15;
     }
   }
@@ -353,7 +364,7 @@ void __43__ICSystemPaperSceneViewController__update__block_invoke(uint64_t a1, v
   [v18 setAnimationSettings:settingsCopy];
   [v18 setAnimationFence:fenceCopy];
   userActivityData2 = [(ICSystemPaperSceneViewController *)self userActivityData];
-  v63 = v18;
+  v62 = v18;
   if (!userActivityData2)
   {
     goto LABEL_15;
@@ -386,7 +397,7 @@ LABEL_15:
     definition = [MEMORY[0x277D0AD48] definition];
     v28 = MEMORY[0x277D0ADC0];
     [MEMORY[0x277CCAD78] UUID];
-    v62 = deactivationReasons;
+    v61 = deactivationReasons;
     v30 = v29 = settingsCopy;
     [v30 UUIDString];
     orientationCopy = orientation;
@@ -399,7 +410,7 @@ LABEL_15:
     orientation = orientationCopy;
 
     settingsCopy = v29;
-    deactivationReasons = v62;
+    deactivationReasons = v61;
     v36 = MEMORY[0x277D0ADA8];
     v37 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.mobilenotes"];
     v38 = [v36 identityForProcessIdentity:v37];
@@ -450,10 +461,10 @@ LABEL_15:
     stringRepresentation = [identityToken stringRepresentation];
     *buf = 134218498;
     selfCopy2 = self;
-    v68 = 1024;
-    v69 = active;
-    v70 = 2112;
-    v71 = stringRepresentation;
+    v67 = 1024;
+    v68 = active;
+    v69 = 2112;
+    v70 = stringRepresentation;
     _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: foreground changed to %{BOOL}i on %@", buf, 0x1Cu);
   }
 
@@ -480,10 +491,10 @@ LABEL_25:
       stringRepresentation2 = [identityToken2 stringRepresentation];
       *buf = 134218498;
       selfCopy2 = self;
-      v68 = 1024;
-      v69 = v43 >> 8;
-      v70 = 2112;
-      v71 = stringRepresentation2;
+      v67 = 1024;
+      v68 = v43 >> 8;
+      v69 = 2112;
+      v70 = stringRepresentation2;
       _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: keyboardSuppression changed to %{BOOL}i on %@", buf, 0x1Cu);
     }
 
@@ -494,28 +505,26 @@ LABEL_25:
   v58 = self->_scene;
   if (isActive2)
   {
-    v59 = v63;
-    [(FBScene *)self->_scene updateSettings:v45 withTransitionContext:v63];
+    v59 = v62;
+    [(FBScene *)self->_scene updateSettings:v45 withTransitionContext:v62];
   }
 
   else
   {
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __95__ICSystemPaperSceneViewController__updateSceneToSize_orientation_withAnimationSettings_fence___block_invoke;
-    v64[3] = &unk_279D33D08;
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __95__ICSystemPaperSceneViewController__updateSceneToSize_orientation_withAnimationSettings_fence___block_invoke;
+    v63[3] = &unk_279D33D08;
     v60 = v45;
-    v65 = v60;
-    [(FBScene *)v58 configureParameters:v64];
+    v64 = v60;
+    [(FBScene *)v58 configureParameters:v63];
     if ([v60 isForeground])
     {
-      [(FBScene *)self->_scene activateWithTransitionContext:v63];
+      [(FBScene *)self->_scene activateWithTransitionContext:v62];
     }
 
-    v59 = v63;
+    v59 = v62;
   }
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSceneUIApplicationSceneSettingsWithBlock:(id)block
@@ -533,7 +542,7 @@ LABEL_25:
 
 void __84__ICSystemPaperSceneViewController__updateSceneUIApplicationSceneSettingsWithBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -543,18 +552,16 @@ void __84__ICSystemPaperSceneViewController__updateSceneUIApplicationSceneSettin
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "#sceneHosting Expected scene's settings to be UIMutableApplicationSceneSettings, but they weren't {actualClass: %@}", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "#sceneHosting Expected scene's settings to be UIMutableApplicationSceneSettings, but they weren't {actualClass: %@}", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSceneSafeAreaInsets
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   view = [(ICSystemPaperSceneViewController *)self view];
   [view safeAreaInsets];
   v5 = v4;
@@ -564,26 +571,25 @@ void __84__ICSystemPaperSceneViewController__updateSceneUIApplicationSceneSettin
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v18.top = v5;
-    v18.left = v7;
-    v18.bottom = v9;
-    v18.right = v11;
-    v12 = NSStringFromUIEdgeInsets(v18);
+    v17.top = v5;
+    v17.left = v7;
+    v17.bottom = v9;
+    v17.right = v11;
+    v12 = NSStringFromUIEdgeInsets(v17);
     *buf = 138412290;
-    v16 = v12;
+    v15 = v12;
     _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "#sceneHosting Updating scene's safe area insets {newSafeAreaInsets: %@}", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __62__ICSystemPaperSceneViewController__updateSceneSafeAreaInsets__block_invoke;
-  v14[3] = &__block_descriptor_64_e43_v16__0__UIMutableApplicationSceneSettings_8l;
-  *&v14[4] = v5;
-  *&v14[5] = v7;
-  *&v14[6] = v9;
-  *&v14[7] = v11;
-  [(ICSystemPaperSceneViewController *)self _updateSceneUIApplicationSceneSettingsWithBlock:v14];
-  v13 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __62__ICSystemPaperSceneViewController__updateSceneSafeAreaInsets__block_invoke;
+  v13[3] = &__block_descriptor_64_e43_v16__0__UIMutableApplicationSceneSettings_8l;
+  *&v13[4] = v5;
+  *&v13[5] = v7;
+  *&v13[6] = v9;
+  *&v13[7] = v11;
+  [(ICSystemPaperSceneViewController *)self _updateSceneUIApplicationSceneSettingsWithBlock:v13];
 }
 
 - (void)viewSafeAreaInsetsDidChange
@@ -614,7 +620,7 @@ void __66__ICSystemPaperSceneViewController__updateSceneUserInterfaceStyle__bloc
 
 - (void)scene:(id)scene didReceiveActions:(id)actions
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   actionsCopy = actions;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -623,34 +629,34 @@ void __66__ICSystemPaperSceneViewController__updateSceneUserInterfaceStyle__bloc
     stringRepresentation = [identityToken stringRepresentation];
     *buf = 134218498;
     selfCopy2 = self;
-    v27 = 2112;
-    v28 = stringRepresentation;
-    v29 = 2112;
-    v30 = actionsCopy;
+    v26 = 2112;
+    v27 = stringRepresentation;
+    v28 = 2112;
+    v29 = actionsCopy;
     _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did receive actions %@", buf, 0x20u);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v10 = actionsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     v14 = MEMORY[0x277D86220];
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
+        v16 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -659,8 +665,8 @@ void __66__ICSystemPaperSceneViewController__updateSceneUserInterfaceStyle__bloc
             dismissalReason = [v16 dismissalReason];
             *buf = 134218242;
             selfCopy2 = self;
-            v27 = 2114;
-            v28 = dismissalReason;
+            v26 = 2114;
+            v27 = dismissalReason;
             _os_log_impl(&dword_26C4A3000, v14, OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: dismiss for reason: %{public}@", buf, 0x16u);
           }
 
@@ -669,18 +675,16 @@ void __66__ICSystemPaperSceneViewController__updateSceneUserInterfaceStyle__bloc
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneContentStateDidChange:(id)change
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     changeCopy = change;
@@ -689,51 +693,47 @@ void __66__ICSystemPaperSceneViewController__updateSceneUserInterfaceStyle__bloc
     [changeCopy contentState];
 
     v8 = NSStringFromFBSceneContentState();
-    v10 = 134218498;
+    v9 = 134218498;
     selfCopy = self;
-    v12 = 2112;
-    v13 = stringRepresentation;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did change content state to %@", &v10, 0x20u);
+    v11 = 2112;
+    v12 = stringRepresentation;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did change content state to %@", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneDidActivate:(id)activate
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     identityToken = [activate identityToken];
     stringRepresentation = [identityToken stringRepresentation];
-    v8 = 134218242;
+    v7 = 134218242;
     selfCopy = self;
-    v10 = 2112;
-    v11 = stringRepresentation;
-    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did activate", &v8, 0x16u);
+    v9 = 2112;
+    v10 = stringRepresentation;
+    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did activate", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   deactivateCopy = deactivate;
   errorCopy = error;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     identityToken = [deactivateCopy identityToken];
     stringRepresentation = [identityToken stringRepresentation];
-    v17 = 134218498;
+    v16 = 134218498;
     selfCopy3 = self;
-    v19 = 2112;
-    v20 = stringRepresentation;
-    v21 = 2112;
-    v22 = errorCopy;
-    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did deactivate with error %@", &v17, 0x20u);
+    v18 = 2112;
+    v19 = stringRepresentation;
+    v20 = 2112;
+    v21 = errorCopy;
+    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did deactivate with error %@", &v16, 0x20u);
   }
 
   domain = [errorCopy domain];
@@ -747,13 +747,13 @@ void __66__ICSystemPaperSceneViewController__updateSceneUserInterfaceStyle__bloc
       {
         identityToken2 = [deactivateCopy identityToken];
         stringRepresentation2 = [identityToken2 stringRepresentation];
-        v17 = 134218498;
+        v16 = 134218498;
         selfCopy3 = self;
-        v19 = 2112;
-        v20 = stringRepresentation2;
-        v21 = 2112;
-        v22 = errorCopy;
-        _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did deactivate with fatal error %@", &v17, 0x20u);
+        v18 = 2112;
+        v19 = stringRepresentation2;
+        v20 = 2112;
+        v21 = errorCopy;
+        _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did deactivate with fatal error %@", &v16, 0x20u);
       }
 
       goto LABEL_11;
@@ -768,24 +768,22 @@ void __66__ICSystemPaperSceneViewController__updateSceneUserInterfaceStyle__bloc
   {
     identityToken3 = [deactivateCopy identityToken];
     stringRepresentation3 = [identityToken3 stringRepresentation];
-    v17 = 134218498;
+    v16 = 134218498;
     selfCopy3 = self;
-    v19 = 2112;
-    v20 = stringRepresentation3;
-    v21 = 2112;
-    v22 = errorCopy;
-    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did deactivate with transient error %@", &v17, 0x20u);
+    v18 = 2112;
+    v19 = stringRepresentation3;
+    v20 = 2112;
+    v21 = errorCopy;
+    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did deactivate with transient error %@", &v16, 0x20u);
   }
 
   [(ICSystemPaperSceneViewController *)self _update];
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scene:(id)scene didUpdateClientSettingsWithDiff:(id)diff oldClientSettings:(id)settings transitionContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     contextCopy = context;
@@ -793,18 +791,16 @@ LABEL_11:
     identityToken = [scene identityToken];
     stringRepresentation = [identityToken stringRepresentation];
 
-    v15 = 134218754;
+    v14 = 134218754;
     selfCopy = self;
-    v17 = 2112;
-    v18 = stringRepresentation;
-    v19 = 2112;
-    v20 = diffCopy;
-    v21 = 2112;
-    v22 = contextCopy;
-    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did update client settings with diff %@, transition %@", &v15, 0x2Au);
+    v16 = 2112;
+    v17 = stringRepresentation;
+    v18 = 2112;
+    v19 = diffCopy;
+    v20 = 2112;
+    v21 = contextCopy;
+    _os_log_impl(&dword_26C4A3000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ICSystemPaperSceneViewController-%p: scene %@ did update client settings with diff %@, transition %@", &v14, 0x2Au);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performActionsForUIScene:(id)scene withUpdatedFBSScene:(id)sScene settingsDiff:(id)diff fromSettings:(id)settings transitionContext:(id)context lifecycleActionType:(unsigned int)type
@@ -831,38 +827,35 @@ LABEL_11:
 
 - (id)uiActivityContinuationActionForUserActivityData:(id)data
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAE58];
   dataCopy = data;
   v5 = [[v3 alloc] _initWithUserActivityData:dataCopy];
   v6 = objc_alloc(MEMORY[0x277D750D8]);
-  v15[0] = dataCopy;
-  v14[0] = &unk_287CFD1A8;
-  v14[1] = &unk_287CFD1C0;
+  v14[0] = dataCopy;
+  v13[0] = &unk_287CFD1A8;
+  v13[1] = &unk_287CFD1C0;
   activityType = [v5 activityType];
-  v15[1] = activityType;
-  v14[2] = &unk_287CFD1D8;
+  v14[1] = activityType;
+  v13[2] = &unk_287CFD1D8;
   activityType2 = [v5 activityType];
-  v15[2] = activityType2;
-  v14[3] = &unk_287CFD1F0;
+  v14[2] = activityType2;
+  v13[3] = &unk_287CFD1F0;
   date = [MEMORY[0x277CBEAA8] date];
-  v15[3] = date;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = date;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   v11 = [v6 initWithSettings:v10];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (void)registerForTraitChanges
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   v4 = [(ICSystemPaperSceneViewController *)self registerForTraitChanges:v3 withAction:sel__updateSceneUserInterfaceStyle];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

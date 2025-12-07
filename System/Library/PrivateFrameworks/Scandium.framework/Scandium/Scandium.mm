@@ -302,7 +302,7 @@ NSNumber *numberOrNsNull(NSNumber *a1)
   return v4;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -316,13 +316,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -339,13 +339,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -489,22 +489,23 @@ Scandium::ScandiumMvmt::scandium_mvmt_processor_t ***std::unique_ptr<scandium::P
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
-id sc_get_log()
+id sc_get_log(uint64_t a1)
 {
   if (sc_get_log_onceToken != -1)
   {
     sc_get_log_cold_1();
   }
 
-  v1 = sc_get_log_log;
+  v2 = sc_get_log_log;
 
-  return v1;
+  return v2;
 }
 
 void __sc_get_log_block_invoke()
@@ -642,26 +643,27 @@ uint64_t iirSOS_process(uint64_t a1, float *a2, float *a3, unsigned int a4)
 void Scandium::ScandiumPPG::find_slope(const float *a1, unsigned int a2, unsigned int a3, std::vector<int> *a4)
 {
   v8 = (2 * a3) | 1;
-  LODWORD(v10[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](__C, v8);
+  LODWORD(v11[0]) = 0;
+  std::vector<float>::vector[abi:ne200100](__C, v8, v11);
   __A = a3;
   __B = -a3;
   vDSP_vgen(&__A, &__B, __C[0], 1, v8);
-  v11 = 0.0;
-  vDSP_svesq(__C[0], 1, &v11, v8);
-  vDSP_vsdiv(__C[0], 1, &v11, __C[0], 1, v8);
+  v12 = 0.0;
+  vDSP_svesq(__C[0], 1, &v12, v8);
+  vDSP_vsdiv(__C[0], 1, &v12, __C[0], 1, v8);
   v9 = 2 * a3 + a2;
-  std::vector<float>::vector[abi:ne200100](v10, 2 * a3 + v9);
-  vDSP_vclr(v10[0], 1, a3);
-  vDSP_vclr(&v10[0][v9 - 1], -1, a3);
-  vDSP_mmov(a1, &v10[0][a3], a2, 1uLL, a2, a2);
+  v10 = 0;
+  std::vector<float>::vector[abi:ne200100](v11, 2 * a3 + v9, &v10);
+  vDSP_vclr(v11[0], 1, a3);
+  vDSP_vclr(&v11[0][v9 - 1], -1, a3);
+  vDSP_mmov(a1, &v11[0][a3], a2, 1uLL, a2, a2);
   std::vector<float>::resize(a4, v9);
-  vDSP_conv(v10[0], 1, &__C[0][2 * a3], -1, a4->__begin_, 1, v9, v8);
+  vDSP_conv(v11[0], 1, &__C[0][2 * a3], -1, a4->__begin_, 1, v9, v8);
   std::vector<float>::resize(a4, a2);
-  if (v10[0])
+  if (v11[0])
   {
-    v10[1] = v10[0];
-    operator delete(v10[0]);
+    v11[1] = v11[0];
+    operator delete(v11[0]);
   }
 
   if (__C[0])
@@ -698,29 +700,17 @@ void std::vector<float>::resize(std::vector<int> *this, std::vector<int>::size_t
   }
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_2647FC42C(_Unwind_Exception *exception_object)
@@ -735,7 +725,7 @@ void sub_2647FC42C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1152,7 +1142,7 @@ uint64_t Scandium::ScandiumPPG::scandium_signal_conditioning_t::process(uint64_t
   v28 = 0;
   v29 = 0;
   v27 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v27, v6, v6 + 4 * v7, v7);
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v27, v6, &v6[v7], v7);
   memset(&v26, 0, sizeof(v26));
   memset(&__p, 0, sizeof(__p));
   if (*(a2 + 8))
@@ -1487,7 +1477,6 @@ void std::vector<float>::reserve(std::vector<int> *this, std::vector<int>::size_
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(this, __n);
     }
 
@@ -1495,7 +1484,7 @@ void std::vector<float>::reserve(std::vector<int> *this, std::vector<int>::size_
   }
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1549,20 +1538,20 @@ uint64_t std::__function::__value_func<void ()(std::string const&,std::unordered
 
 uint64_t Scandium::ScandiumPPG::get_blank_path_idx(Scandium::ScandiumPPG *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6 = this;
-  v7[4] = xmmword_26481F3F0;
-  v7[5] = unk_26481F400;
-  v7[6] = xmmword_26481F410;
-  v7[7] = unk_26481F420;
-  v7[0] = xmmword_26481F3B0;
-  v7[1] = unk_26481F3C0;
-  v7[2] = xmmword_26481F3D0;
-  v7[3] = unk_26481F3E0;
-  std::unordered_map<int,int>::unordered_map(v5, v7, 16);
-  if (std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(v5, &v6))
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = this;
+  v6[4] = xmmword_26481F3F0;
+  v6[5] = unk_26481F400;
+  v6[6] = xmmword_26481F410;
+  v6[7] = unk_26481F420;
+  v6[0] = xmmword_26481F3B0;
+  v6[1] = unk_26481F3C0;
+  v6[2] = xmmword_26481F3D0;
+  v6[3] = unk_26481F3E0;
+  std::unordered_map<int,int>::unordered_map(v4, v6, 16);
+  if (std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(v4, &v5))
   {
-    v1 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(v5, &v6);
+    v1 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(v4, &v5);
     if (!v1)
     {
       std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -1576,15 +1565,14 @@ uint64_t Scandium::ScandiumPPG::get_blank_path_idx(Scandium::ScandiumPPG *this)
     v2 = 0xFFFFFFFFLL;
   }
 
-  std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(v5);
-  v3 = *MEMORY[0x277D85DE8];
+  std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(v4);
   return v2;
 }
 
-uint64_t Scandium::ScandiumPPG::scandium_calibration_t::process(float a1, float a2, uint64_t a3, int a4, int a5, float *a6)
+uint64_t Scandium::ScandiumPPG::scandium_calibration_t::process(uint64_t a1, int a2, int a3, float *a4, float a5, float a6)
 {
-  coeff = Scandium::ScandiumPPG::scandium_calibration_t::get_coeff(Scandium::ScandiumPPG::path_array[4 * a4 + a5], __p);
-  Scandium::ScandiumPPG::scandium_calibration_t::compute_calibration_coeffs(a1, a2, coeff, __p, a6);
+  coeff = Scandium::ScandiumPPG::scandium_calibration_t::get_coeff(Scandium::ScandiumPPG::path_array[4 * a2 + a3], __p);
+  Scandium::ScandiumPPG::scandium_calibration_t::compute_calibration_coeffs(a5, a6, coeff, __p, a4);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -1594,75 +1582,75 @@ uint64_t Scandium::ScandiumPPG::scandium_calibration_t::process(float a1, float 
   return 0;
 }
 
-uint64_t Scandium::ScandiumPPG::scandium_calibration_t::get_coeff@<X0>(unsigned __int8 a1@<W1>, void *a2@<X8>)
+void **Scandium::ScandiumPPG::scandium_calibration_t::get_coeff@<X0>(char a1@<W1>, uint64_t *a2@<X8>)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v18 = a1;
-  v25[0] = xmmword_26481F430;
-  memset(&v25[1], 0, 32);
-  v25[3] = *"j;g?";
-  v26 = 0;
-  v15 = 0;
-  v16 = 0;
+  v32[2] = *MEMORY[0x277D85DE8];
+  v17 = a1;
+  v24[0] = xmmword_26481F430;
+  memset(&v24[1], 0, 32);
+  v24[3] = *"j;g?";
+  v25 = 0;
   v14 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v14, v25, v27, 0x12uLL);
-  v27[0] = 0;
-  memset(v28, 0, sizeof(v28));
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v28, v14, v15, (v15 - v14) >> 2);
-  v22[0] = xmmword_26481F478;
-  memset(&v22[1], 0, 32);
-  v22[3] = unk_26481F4A8;
-  v23 = 0;
-  v12 = 0;
+  v15 = 0;
   v13 = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v13, v24, &v26, 0x12uLL);
+  LOBYTE(v26) = 0;
+  memset(v27, 0, sizeof(v27));
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v27, v13, v14, (v14 - v13) >> 2);
+  v21[0] = xmmword_26481F478;
+  memset(&v21[1], 0, 32);
+  v21[3] = unk_26481F4A8;
+  v22 = 0;
   v11 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v11, v22, &v24, 0x12uLL);
-  v29 = 1;
-  memset(v30, 0, sizeof(v30));
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v30, v11, v12, (v12 - v11) >> 2);
-  v19[0] = xmmword_26481F4C0;
-  memset(&v19[1], 0, 32);
-  v19[3] = unk_26481F4F0;
-  v20 = 0;
-  v9 = 0;
+  v12 = 0;
   v10 = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v10, v21, &v23, 0x12uLL);
+  v28 = 1;
+  memset(v29, 0, sizeof(v29));
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v29, v10, v11, (v11 - v10) >> 2);
+  v18[0] = xmmword_26481F4C0;
+  memset(&v18[1], 0, 32);
+  v18[3] = unk_26481F4F0;
+  v19 = 0;
+  v8 = 0;
+  v9 = 0;
   __p = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, v19, &v21, 0x12uLL);
-  v31 = 2;
-  v33[0] = 0;
-  v33[1] = 0;
-  v32 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v32, __p, v9, (v9 - __p) >> 2);
-  std::unordered_map<Scandium::ScandiumPPG::PathType,std::vector<float>>::unordered_map(v17, v27, 3);
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&__p, v18, &v20, 0x12uLL);
+  v30 = 2;
+  v32[0] = 0;
+  v32[1] = 0;
+  v31 = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v31, __p, v8, (v8 - __p) >> 2);
+  std::unordered_map<Scandium::ScandiumPPG::PathType,std::vector<float>>::unordered_map(v16, &v26, 3);
   for (i = 0; i != -12; i -= 4)
   {
-    v4 = v33[i - 1];
+    v4 = v32[i - 1];
     if (v4)
     {
-      v33[i] = v4;
+      v32[i] = v4;
       operator delete(v4);
     }
   }
 
   if (__p)
   {
-    v9 = __p;
+    v8 = __p;
     operator delete(__p);
   }
 
-  if (v11)
+  if (v10)
   {
-    v12 = v11;
-    operator delete(v11);
+    v11 = v10;
+    operator delete(v10);
   }
 
-  if (v14)
+  if (v13)
   {
-    v15 = v14;
-    operator delete(v14);
+    v14 = v13;
+    operator delete(v13);
   }
 
-  v5 = std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::find<Scandium::ScandiumPPG::PathType>(v17, &v18);
+  v5 = std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::find<Scandium::ScandiumPPG::PathType>(v16, &v17);
   if (!v5)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -1672,9 +1660,7 @@ uint64_t Scandium::ScandiumPPG::scandium_calibration_t::get_coeff@<X0>(unsigned 
   a2[1] = 0;
   a2[2] = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a2, v5[3], v5[4], (v5[4] - v5[3]) >> 2);
-  result = std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::~__hash_table(v17);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::~__hash_table(v16);
 }
 
 void sub_2647FD7A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, char a19)
@@ -1725,7 +1711,7 @@ uint64_t Scandium::ScandiumPPG::scandium_calibration_t::compute_calibration_coef
   return 0;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1757,7 +1743,7 @@ uint64_t std::unordered_map<int,int>::unordered_map(uint64_t a1, int *a2, uint64
     v5 = 8 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int const,int> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int const,int> const&>(a1, a2, a2);
       a2 += 2;
       v5 -= 8;
     }
@@ -1768,33 +1754,33 @@ uint64_t std::unordered_map<int,int>::unordered_map(uint64_t a1, int *a2, uint64
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int const,int> const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::pair<int const,int> const&>(float *a1, int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -1802,47 +1788,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1858,7 +1844,7 @@ void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hash
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1866,7 +1852,7 @@ void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hash
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1890,7 +1876,7 @@ void std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hash
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2030,7 +2016,7 @@ uint64_t std::unordered_map<Scandium::ScandiumPPG::PathType,std::vector<float>>:
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::__emplace_unique_key_args<Scandium::ScandiumPPG::PathType,std::pair<Scandium::ScandiumPPG::PathType const,std::vector<float>> const&>(void *a1, unsigned __int8 *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::__emplace_unique_key_args<Scandium::ScandiumPPG::PathType,std::pair<Scandium::ScandiumPPG::PathType const,std::vector<float>> const&>(void *a1, unsigned __int8 *a2)
 {
   v2 = *a2;
   v3 = a1[1];
@@ -2059,7 +2045,6 @@ uint64_t **std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathT
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::__construct_node_hash<std::pair<Scandium::ScandiumPPG::PathType const,std::vector<float>> const&>();
   }
 
@@ -2142,9 +2127,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2178,7 +2163,7 @@ void std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,st
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::find<Scandium::ScandiumPPG::PathType>(void *a1, unsigned __int8 *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::find<Scandium::ScandiumPPG::PathType>(void *a1, unsigned __int8 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -2245,7 +2230,7 @@ uint64_t **std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathT
   return result;
 }
 
-uint64_t Scandium::find_optical_gen(unsigned __int8 *a1)
+uint64_t Scandium::find_optical_gen(void **a1)
 {
   std::string::basic_string[abi:ne200100]<0>(v51, "N157");
   v53 = *v51;
@@ -2413,10 +2398,10 @@ uint64_t Scandium::find_optical_gen(unsigned __int8 *a1)
   }
 
   v3 = 0;
-  v4 = a1[23];
-  v20 = (a1 + 23);
+  v4 = *(a1 + 23);
+  v20 = a1 + 23;
   v21 = a1;
-  if ((v4 & 0x80u) == 0)
+  if (v4 >= 0)
   {
     v5 = a1;
   }
@@ -2426,18 +2411,18 @@ uint64_t Scandium::find_optical_gen(unsigned __int8 *a1)
     v5 = *a1;
   }
 
-  if ((v4 & 0x80u) == 0)
+  if (v4 >= 0)
   {
-    v6 = a1[23];
+    v6 = *(a1 + 23);
   }
 
   else
   {
-    v6 = *(a1 + 1);
+    v6 = a1[1];
   }
 
   __s = v5;
-  v7 = &v5[v6];
+  v7 = &v6[v5];
   do
   {
     v8 = v55[v3 - 1];
@@ -2471,13 +2456,13 @@ uint64_t Scandium::find_optical_gen(unsigned __int8 *a1)
         v2 = __s;
         do
         {
-          v14 = v13 - v11;
+          v14 = &v13[-v11];
           if (v14 == -1)
           {
             break;
           }
 
-          v2 = memchr(v2, v12, v14 + 1);
+          v2 = memchr(v2, v12, (v14 + 1));
           if (!v2)
           {
             break;
@@ -2496,7 +2481,7 @@ uint64_t Scandium::find_optical_gen(unsigned __int8 *a1)
           }
 
           v2 = v15 + 1;
-          v13 = v7 - (v15 + 1);
+          v13 = (v7 - (v15 + 1));
         }
 
         while (v13 >= v11);
@@ -2525,7 +2510,7 @@ LABEL_52:
         std::string::__throw_out_of_range[abi:ne200100]();
       }
 
-      if ((*(MEMORY[0x277D85DE0] + 4 * __s[v8] + 60) & 0x400) == 0)
+      if ((*(MEMORY[0x277D85DE0] + 4 * *(__s + v8) + 60) & 0x400) == 0)
       {
 LABEL_62:
         v17 = v55[v3];
@@ -2934,11 +2919,11 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
   return result;
 }
 
-void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(float *a1, float *a2, float *a3, float a4)
+void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(float *result, float *a2, float *a3, float a4)
 {
   while (a3 != a2)
   {
-    v4 = a3 - a1;
+    v4 = a3 - result;
     if (v4 < 2)
     {
       break;
@@ -2946,11 +2931,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 == 3)
     {
-      v37 = a1[1];
+      v37 = result[1];
       v38 = *(a3 - 1);
       if (v37 < v38)
       {
-        v39 = *(a1 + 1);
+        v39 = *(result + 1);
       }
 
       else
@@ -2964,46 +2949,46 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       }
 
       *(a3 - 1) = v37;
-      *(a1 + 1) = v39;
+      *(result + 1) = v39;
       v40 = *(a3 - 1);
-      if (v40 < *a1)
+      if (v40 < *result)
       {
         v41 = *(a3 - 1);
       }
 
       else
       {
-        v41 = *a1;
+        v41 = *result;
       }
 
-      if (v40 < *a1)
+      if (v40 < *result)
       {
-        v40 = *a1;
+        v40 = *result;
       }
 
       *(a3 - 1) = v40;
-      v42 = a1[1];
+      v42 = result[1];
       if (v41 < v42)
       {
-        v41 = a1[1];
+        v41 = result[1];
       }
 
       else
       {
-        *a1 = v42;
+        *result = v42;
       }
 
-      a1[1] = v41;
+      result[1] = v41;
       return;
     }
 
     if (v4 == 2)
     {
       v43 = *(a3 - 1);
-      v44 = *a1;
-      if (v43 < *a1)
+      v44 = *result;
+      if (v43 < *result)
       {
-        *a1 = v43;
+        *result = v43;
         *(a3 - 1) = v44;
       }
 
@@ -3012,11 +2997,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 <= 7)
     {
-      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(a1, a3, a4);
+      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(result, a3, a4);
       return;
     }
 
-    v5 = &a1[(a3 - a1) >> 3];
+    v5 = &result[(a3 - result) >> 3];
     v6 = a3 - 1;
     v7 = *(a3 - 1);
     v8 = *v5;
@@ -3043,20 +3028,20 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     *v6 = v10;
     *v5 = v9;
     v11 = *v6;
-    v12 = *a1;
-    if (*v6 < *a1)
+    v12 = *result;
+    if (*v6 < *result)
     {
       v13 = *v6;
     }
 
     else
     {
-      v13 = *a1;
+      v13 = *result;
     }
 
-    if (*v6 < *a1)
+    if (*v6 < *result)
     {
-      v14 = *a1;
+      v14 = *result;
     }
 
     else
@@ -3069,7 +3054,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     v16 = *v5;
     if (v13 >= *v5)
     {
-      *a1 = v15;
+      *result = v15;
       v16 = v13;
     }
 
@@ -3085,15 +3070,15 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       v17 = 1;
     }
 
-    a4 = *a1;
-    if (*a1 >= v16)
+    a4 = *result;
+    if (*result >= v16)
     {
       v18 = a3 - 1;
-      while (--v18 != a1)
+      while (--v18 != result)
       {
         if (*v18 < v16)
         {
-          *a1 = *v18;
+          *result = *v18;
           *v18 = a4;
           if (v17)
           {
@@ -3109,7 +3094,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
         }
       }
 
-      v28 = a1 + 1;
+      v28 = result + 1;
       if (a4 >= *v6)
       {
         while (v28 != v6)
@@ -3136,7 +3121,7 @@ LABEL_65:
 
       while (1)
       {
-        v32 = *a1;
+        v32 = *result;
         do
         {
           v33 = *v28++;
@@ -3161,7 +3146,7 @@ LABEL_65:
         *v6 = a4;
       }
 
-      a1 = v28 - 1;
+      result = v28 - 1;
       if (v34 > a2)
       {
         return;
@@ -3172,15 +3157,15 @@ LABEL_65:
     {
       v18 = a3 - 1;
 LABEL_33:
-      v19 = a1 + 1;
-      if (a1 + 1 >= v18)
+      v19 = result + 1;
+      if (result + 1 >= v18)
       {
-        v23 = a1 + 1;
+        v23 = result + 1;
       }
 
       else
       {
-        v20 = a1 + 1;
+        v20 = result + 1;
         while (1)
         {
           v21 = *v5;
@@ -3266,7 +3251,7 @@ LABEL_33:
 LABEL_49:
       if (v23 <= a2)
       {
-        a1 = v23 + 1;
+        result = v23 + 1;
       }
 
       else
@@ -3314,31 +3299,31 @@ float std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<voi
   return result;
 }
 
-void sub_2647FF5B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2647FF5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v15 = va_arg(va3, void);
-  v17 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
   v18 = va_arg(va3, void);
   v19 = va_arg(va3, void);
+  v20 = va_arg(va3, void);
   std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](va1);
   std::__function::__value_func<void ()(Scandium::AbortReason)>::~__value_func[abi:ne200100](va2);
   std::__function::__value_func<void ()(Scandium::ScandiumMvmt::MvmtResult)>::~__value_func[abi:ne200100](va3);
-  MEMORY[0x266741650](v3, v2);
+  MEMORY[0x266741650](v4, v3);
   _Unwind_Resume(a1);
 }
 
@@ -3374,7 +3359,7 @@ double Scandium::ScandiumMvmt::scandium_mvmt_processor_t::reset(Scandium::Scandi
 
 void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::process(Scandium::ScandiumMvmt::scandium_mvmt_processor_t *this, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = this + 36864;
   v3 = *(this + 9392);
   if (v3 > 0x63F)
@@ -3428,14 +3413,14 @@ LABEL_11:
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 0;
-      v24 = 11;
+      v23 = 11;
       strcpy(__p, "00000000000");
       v14 = 10;
       do
       {
         if ((*v10 >> v13))
         {
-          if (v24 >= 0)
+          if (v23 >= 0)
           {
             v15 = __p;
           }
@@ -3454,15 +3439,15 @@ LABEL_11:
 
       while (v13 != 11);
       v16 = __p;
-      if (v24 < 0)
+      if (v23 < 0)
       {
         v16 = __p[0];
       }
 
       *buf = 136315138;
-      v26 = v16;
+      v25 = v16;
       _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "scandium invalid session reason: %s - force processing", buf, 0xCu);
-      if (v24 < 0)
+      if (v23 < 0)
       {
         operator delete(__p[0]);
       }
@@ -3510,22 +3495,20 @@ LABEL_11:
       Scandium::ScandiumMvmt::scandium_mvmt_processor_t::result_handler_proxy(this);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t Scandium::ScandiumMvmt::scandium_mvmt_processor_t::scandium_mvmt_processor_t(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v30[4] = *MEMORY[0x277D85DE8];
-  v30[0] = &unk_287620308;
-  v30[1] = a1;
-  v30[3] = v30;
-  v29[0] = &unk_287620398;
+  v29[4] = *MEMORY[0x277D85DE8];
+  v29[0] = &unk_287620308;
   v29[1] = a1;
   v29[3] = v29;
-  Scandium::scandium_mvmt_detection_t::scandium_mvmt_detection_t(a1 + 37128, v30, v29);
+  v28[0] = &unk_287620398;
+  v28[1] = a1;
+  v28[3] = v28;
+  Scandium::scandium_mvmt_detection_t::scandium_mvmt_detection_t(a1 + 37128, v29, v28);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v28);
   std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v29);
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v30);
   std::__function::__value_func<void ()(Scandium::ScandiumMvmt::MvmtResult)>::__value_func[abi:ne200100](a1 + 37296, a3);
   std::__function::__value_func<void ()(Scandium::AbortReason)>::__value_func[abi:ne200100](a1 + 37328, a4);
   std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100](a1 + 37360, a5);
@@ -3534,19 +3517,19 @@ uint64_t Scandium::ScandiumMvmt::scandium_mvmt_processor_t::scandium_mvmt_proces
   *(a1 + 37592) = 0;
   *(a1 + 37664) = 0;
   Scandium::ScandiumMvmt::scandium_mvmt_processor_t::reset(a1);
-  memset(v28, 0, sizeof(v28));
-  Scandium::convert_legacy_start_pkt(a2, v28);
+  memset(v27, 0, sizeof(v27));
+  Scandium::convert_legacy_start_pkt(a2, v27);
   *(a1 + 37540) = 3;
-  v12 = v28[13];
-  *(a1 + 37536) = v28[13];
+  v12 = v27[13];
+  *(a1 + 37536) = v27[13];
   *(a1 + 37568) = 0;
   *(a1 + 37560) = 0;
-  *(a1 + 37424) = v28[0];
-  *(a1 + 37426) = *&v28[1];
-  *(a1 + 37432) = *&v28[3];
-  *(a1 + 37440) = *&v28[11];
-  *(a1 + 37442) = __PAIR16__(v28[14], v12);
-  v13 = std::string::basic_string[abi:ne200100]<0>(&v23, "movement");
+  *(a1 + 37424) = v27[0];
+  *(a1 + 37426) = *&v27[1];
+  *(a1 + 37432) = *&v27[3];
+  *(a1 + 37440) = *&v27[11];
+  *(a1 + 37442) = __PAIR16__(v27[14], v12);
+  v13 = std::string::basic_string[abi:ne200100]<0>(&v22, "movement");
   v14 = *(a1 + 37442);
   if (v14 == 1)
   {
@@ -3577,30 +3560,29 @@ uint64_t Scandium::ScandiumMvmt::scandium_mvmt_processor_t::scandium_mvmt_proces
   *(a1 + 37616) = v15;
   *(a1 + 37632) = 1060439283;
   *(a1 + 37624) = 0;
-  v13 = std::string::append(&v23, v17, 0xBuLL);
+  v13 = std::string::append(&v22, v17, 0xBuLL);
 LABEL_6:
   log = Scandium::algs_get_log(v13);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = &v23;
-    if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v20 = &v22;
+    if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v20 = v23.__r_.__value_.__r.__words[0];
+      v20 = v22.__r_.__value_.__r.__words[0];
     }
 
     *buf = 136315394;
-    v25 = "11.3.2";
-    v26 = 2080;
-    v27 = v20;
+    v24 = "11.3.2";
+    v25 = 2080;
+    v26 = v20;
     _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "Scandium Algs v%s Mode: %s", buf, 0x16u);
   }
 
-  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v23.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -3629,14 +3611,14 @@ void sub_2647FFD40()
 
 void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::~scandium_mvmt_processor_t(Scandium::ScandiumMvmt::scandium_mvmt_processor_t *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   log = Scandium::algs_get_log(this);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(this + 9392);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "scandium process packet counts: %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "scandium process packet counts: %d", v4, 8u);
   }
 
   std::__function::__value_func<void ()(std::string const&,std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>> const&)>::~__value_func[abi:ne200100](this + 37640);
@@ -3645,7 +3627,6 @@ void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::~scandium_mvmt_processor
   std::__function::__value_func<void ()(Scandium::AbortReason)>::~__value_func[abi:ne200100](this + 37328);
   std::__function::__value_func<void ()(Scandium::ScandiumMvmt::MvmtResult)>::~__value_func[abi:ne200100](this + 37296);
   Scandium::scandium_mvmt_detection_t::~scandium_mvmt_detection_t((this + 37128));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2647FFE48(_Unwind_Exception *a1, int a2)
@@ -3820,17 +3801,18 @@ void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::invoke_abort(Scandium *a
   Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(a1, v5);
 }
 
-void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(Scandium *a1, int a2)
+void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(Scandium *a1, uint64_t a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v39 = *MEMORY[0x277D85DE8];
   v4 = a1 + 36864;
   log = Scandium::algs_get_log(a1);
   v6 = os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT);
-  if (a2 <= 4)
+  if (v2 <= 4)
   {
-    if (a2 > 1)
+    if (v2 > 1)
     {
-      if (a2 == 2)
+      if (v2 == 2)
       {
         if (!v6)
         {
@@ -3843,7 +3825,7 @@ void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(Scan
         v8 = "scandium abort handler pkt %d: posture";
       }
 
-      else if (a2 == 3)
+      else if (v2 == 3)
       {
         if (!v6)
         {
@@ -3872,7 +3854,7 @@ void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(Scan
       goto LABEL_35;
     }
 
-    if (!a2)
+    if (!v2)
     {
       if (!v6)
       {
@@ -3886,7 +3868,7 @@ void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(Scan
       goto LABEL_35;
     }
 
-    if (a2 == 1)
+    if (v2 == 1)
     {
       if (!v6)
       {
@@ -3903,9 +3885,9 @@ void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(Scan
 
   else
   {
-    if (a2 <= 7)
+    if (v2 <= 7)
     {
-      if (a2 == 5)
+      if (v2 == 5)
       {
         if (!v6)
         {
@@ -3918,7 +3900,7 @@ void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(Scan
         v8 = "scandium abort handler pkt %d: poor_signal";
       }
 
-      else if (a2 == 6)
+      else if (v2 == 6)
       {
         if (!v6)
         {
@@ -3947,7 +3929,7 @@ void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::abort_handler_proxy(Scan
       goto LABEL_35;
     }
 
-    switch(a2)
+    switch(v2)
     {
       case 8:
         if (!v6)
@@ -3992,11 +3974,11 @@ LABEL_36:
 
   if (v6)
   {
-    v24 = *(v4 + 176);
+    v23 = *(v4 + 176);
     *buf = 67109376;
-    *&buf[4] = v24;
-    v29 = 1024;
-    v30 = a2;
+    *&buf[4] = v23;
+    v28 = 1024;
+    v29 = v2;
     v8 = "scandium abort handler pkt %d: %d";
     v19 = log;
     v20 = 14;
@@ -4008,29 +3990,29 @@ LABEL_37:
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "abort");
     std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[13],char const(&)[7],0>(buf, "algs_version", "11.3.2");
-    std::string::basic_string[abi:ne200100]<0>(v31, "algs_mode");
-    v32 = v4[578];
-    v33 = 1;
-    std::string::basic_string[abi:ne200100]<0>(v34, "abort_reason");
-    v35 = a2;
-    v36 = 1;
-    std::string::basic_string[abi:ne200100]<0>(v37, "packet_idx");
-    v38 = *(v4 + 176);
-    v39 = 1;
-    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v25, buf, 4);
+    std::string::basic_string[abi:ne200100]<0>(v30, "algs_mode");
+    v31 = v4[578];
+    v32 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v33, "abort_reason");
+    v34 = v2;
+    v35 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v36, "packet_idx");
+    v37 = *(v4 + 176);
+    v38 = 1;
+    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v24, buf, 4);
     v21 = *(v4 + 100);
     if (!v21)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v21 + 48))(v21, __p, v25);
-    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v25);
+    (*(*v21 + 48))(v21, __p, v24);
+    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v24);
     v22 = 288;
     do
     {
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v25[v22 + 24]);
-      if (v25[v22 + 15] < 0)
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v24[v22 + 24]);
+      if (v24[v22 + 15] < 0)
       {
         operator delete(*&buf[v22 - 72]);
       }
@@ -4039,7 +4021,7 @@ LABEL_37:
     }
 
     while (v22);
-    if (v27 < 0)
+    if (v26 < 0)
     {
       operator delete(__p[0]);
     }
@@ -4047,10 +4029,8 @@ LABEL_37:
 
   if (*(v4 + 61))
   {
-    std::function<void ()(Scandium::AbortReason)>::operator()(a1 + 37328, a2);
+    std::function<void ()(Scandium::AbortReason)>::operator()(a1 + 37328, v2);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2648005A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47)
@@ -4095,27 +4075,26 @@ uint64_t std::function<void ()(Scandium::AbortReason)>::operator()(uint64_t a1, 
   return (*(*v2 + 48))(v2, &v4);
 }
 
-void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::motion_status_handler_proxy(Scandium::ScandiumMvmt::scandium_mvmt_processor_t *this, int a2)
+void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::motion_status_handler_proxy(Scandium::ScandiumMvmt::scandium_mvmt_processor_t *this, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v10 = *MEMORY[0x277D85DE8];
   v4 = this + 36864;
   log = Scandium::algs_get_log(this);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(v4 + 176);
-    v8[0] = 67109376;
-    v8[1] = v6;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "scandium motion handler pkt %d: %d", v8, 0xEu);
+    v7[0] = 67109376;
+    v7[1] = v6;
+    v8 = 1024;
+    v9 = v2;
+    _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "scandium motion handler pkt %d: %d", v7, 0xEu);
   }
 
   if (*(v4 + 65))
   {
-    std::function<void ()(BOOL)>::operator()(this + 37360, a2);
+    std::function<void ()(BOOL)>::operator()(this + 37360, v2);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::function<void ()(BOOL)>::operator()(uint64_t a1, char a2)
@@ -4132,31 +4111,29 @@ uint64_t std::function<void ()(BOOL)>::operator()(uint64_t a1, char a2)
 
 void Scandium::ScandiumMvmt::scandium_mvmt_processor_t::posture_status_handler_proxy(Scandium::ScandiumMvmt::scandium_mvmt_processor_t *this, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = this + 36864;
   log = Scandium::algs_get_log(this);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(v4 + 176);
-    v8[0] = 67109376;
-    v8[1] = v6;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "scandium posture handler pkt %d: %d", v8, 0xEu);
+    v7[0] = 67109376;
+    v7[1] = v6;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "scandium posture handler pkt %d: %d", v7, 0xEu);
   }
 
   if (*(v4 + 69))
   {
     std::function<void ()(BOOL)>::operator()(this + 37392, a2);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[13],char const(&)[7],0>(uint64_t a1, char *a2, char *a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
-  std::string::basic_string[abi:ne200100]<0>(v5 + 32, a3);
+  std::string::basic_string[abi:ne200100]<0>(v5 + 4, a3);
   *(a1 + 64) = 5;
   return a1;
 }
@@ -4496,7 +4473,7 @@ void std::__throw_bad_function_call[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82728], MEMORY[0x277D82660]);
 }
 
-uint64_t std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -4506,7 +4483,7 @@ uint64_t std::unordered_map<std::string,std::variant<BOOL,int,long long,float,do
     v5 = 72 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>> const&>(a1, a2, a2);
       a2 += 9;
       v5 -= 72;
     }
@@ -4517,35 +4494,35 @@ uint64_t std::unordered_map<std::string,std::variant<BOOL,int,long long,float,do
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::__construct_node_hash<std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>> const&>();
@@ -4553,54 +4530,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_264801384(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_264801384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -4617,9 +4594,9 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -4936,43 +4913,43 @@ uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<std::vect
   return result;
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(void **a1, uint64_t *a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(uint64_t **a1, uint64_t a2)
 {
   v2 = *a1;
   *v2 = 0;
   v2[1] = 0;
   v2[2] = 0;
-  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v2, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(void **a1, uint64_t *a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(uint64_t **a1, uint64_t a2)
 {
   v2 = *a1;
   *v2 = 0;
   v2[1] = 0;
   v2[2] = 0;
-  return std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v2, *a2, a2[1], (a2[1] - *a2) >> 3);
+  return std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(v2, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(void **a1, uint64_t *a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(uint64_t **a1, uint64_t a2)
 {
   v2 = *a1;
   *v2 = 0;
   v2[1] = 0;
   v2[2] = 0;
-  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  return std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v2, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(void **a1, uint64_t *a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(uint64_t **a1, uint64_t a2)
 {
   v2 = *a1;
   *v2 = 0;
   v2[1] = 0;
   v2[2] = 0;
-  return std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v2, *a2, a2[1], (a2[1] - *a2) >> 3);
+  return std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v2, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(void **a1, uint64_t *a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5EEE10__dispatchB8ne200100IOZNS0_6__ctorINS0_8__traitsIJNS_6vectorIbNS_9allocatorIbEEEENS8_IiNS9_IiEEEENS8_IxNS9_IxEEEENS8_IfNS9_IfEEEENS8_IdNS9_IdEEEENS8_INS_12basic_stringIcNS_11char_traitsIcEENS9_IcEEEENS9_ISO_EEEEEEEE19__generic_constructB8ne200100IRKNS0_18__copy_constructorISR_LNS0_6_TraitE1EEEEEvRSS_OT_EUlS11_E_JRKNS0_6__baseILSV_1EJSB_SD_SF_SH_SJ_SQ_EEEEEEDcS10_DpT0_(uint64_t **a1, void *a2)
 {
   v2 = *a1;
   *v2 = 0;
@@ -4981,21 +4958,21 @@ uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm5EEE1
   return std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v2, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  v2 = *(a2 + 8);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v2 = a2[1];
   if (v2)
   {
-    std::vector<BOOL>::__vallocate[abi:ne200100](result, v2);
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, v2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -5106,7 +5083,7 @@ void std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<
   *(a6 + 24) = v8;
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5128,7 +5105,7 @@ void sub_264801FA4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5150,7 +5127,7 @@ void sub_264802020(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<long long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<long long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -5160,7 +5137,7 @@ void std::vector<long long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5182,7 +5159,7 @@ void sub_2648020D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5199,7 +5176,7 @@ void sub_26480215C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5382,7 +5359,7 @@ void sub_264802560(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float stats::covariance(stats *this, std::vector<int>::size_type __sz, const float *a3, const float *a4, int a5)
+float stats::covariance(stats *this, std::vector<int>::size_type __sz, float *a3, const float *a4, int a5)
 {
   if (__sz <= 0)
   {
@@ -5570,7 +5547,7 @@ float stats::min(stats *this, const float *a2)
   return v3;
 }
 
-void stats::median_vdsp(stats *this, vDSP_Length *a2, unint64_t *a3)
+void stats::median_vdsp(stats *this, vDSP_Length *a2, unint64_t *a3, int a4)
 {
   if (a3 <= 0)
   {
@@ -5612,29 +5589,10 @@ void stats::percentile(stats *this, vDSP_Length *__I, vDSP_Length __N, float a4)
     stats::percentile();
   }
 
-  v7 = __N;
   vDSP_vsorti(this->cp_time, __I, 0, __N, 1);
-  v8 = v7 / 100.0 * a4 + -0.5;
-  if (v8 <= 0.0)
-  {
-    v10 = *__I;
-  }
-
-  else
-  {
-    if ((v7 - 1) > v8)
-    {
-      v9 = (v8 - v8) * *&this->cp_time[__I[v8 + 1]] + (1.0 - (v8 - v8)) * *&this->cp_time[__I[v8]];
-      return;
-    }
-
-    v10 = __I[v7 - 1];
-  }
-
-  v11 = this->cp_time[v10];
 }
 
-stats *stats::linear_interp(stats *this, const float *a2, float *a3, int a4, int16x4_t a5)
+stats *stats::linear_interp(stats *this, const float *a2, float *a3, unsigned int a4, int16x4_t a5)
 {
   if (a4 >= 1)
   {
@@ -5847,10 +5805,10 @@ double Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection
 
 void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_process(uint64_t a1, stats *a2, stats *a3, stats *this, int16x4_t a5)
 {
-  v108 = *MEMORY[0x277D85DE8];
-  memset(&v89, 0, sizeof(v89));
+  v107 = *MEMORY[0x277D85DE8];
+  memset(&v88, 0, sizeof(v88));
   Scandium::ScandiumPPG::scandium_beat_detection_t::compute_mav(a1, this, a1 + 132624, a5);
-  stats::linear_interp(a2, (a1 + 92304), 0x3C0, 4, v7);
+  stats::linear_interp(a2, (a1 + 92304), 0x3C0, 4u, v7);
   v8 = (a1 + 132784);
   v9 = *(a1 + 92304);
   v10 = 3840;
@@ -5864,7 +5822,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
   }
 
   while (v10);
-  Scandium::ScandiumPPG::scandium_beat_detection_t::get_beats_and_flags(a1, a1 + 92304, a1 + 107664, a1 + 132624, 0x4Du, (a1 + 88), (a1 + 130704), (a1 + 132760), (a1 + 132784));
+  Scandium::ScandiumPPG::scandium_beat_detection_t::get_beats_and_flags(a1, a1 + 92304, (a1 + 107664), a1 + 132624, 0x4Du, (a1 + 88), (a1 + 130704), (a1 + 132760), (a1 + 132784));
   v13 = *(a1 + 88);
   v14 = *(a1 + 96);
   v15 = v14 - v13;
@@ -5897,12 +5855,12 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
   std::vector<float>::resize((a1 + 88), v20);
   std::vector<float>::resize((a1 + 120), v20);
   Scandium::ScandiumPPG::scandium_beat_detection_t::get_hr_from_beat_times(v21, (a1 + 88));
-  Scandium::ScandiumPPG::scandium_beat_detection_t::get_beats_and_flags(a1, a1 + 92304, a1 + 107664, a1 + 132624, (45.0 / *(a1 + 112) * 256.0 + 0.5), (a1 + 88), (a1 + 130704), (a1 + 132760), (a1 + 132784));
-  stats::linear_interp(a3, (a1 + 92304), 0x3C0, 4, v22);
-  memset(&v88, 0, sizeof(v88));
-  Scandium::ScandiumPPG::find_slope((a1 + 92304), 0xF00u, 5u, &v88);
+  Scandium::ScandiumPPG::scandium_beat_detection_t::get_beats_and_flags(a1, a1 + 92304, (a1 + 107664), a1 + 132624, (45.0 / *(a1 + 112) * 256.0 + 0.5), (a1 + 88), (a1 + 130704), (a1 + 132760), (a1 + 132784));
+  stats::linear_interp(a3, (a1 + 92304), 0x3C0, 4u, v22);
   memset(&v87, 0, sizeof(v87));
-  Scandium::ScandiumPPG::scandium_beat_detection_t::find_max_slope(v23, &v88, a1 + 130704, (a1 + 132760), &v87);
+  Scandium::ScandiumPPG::find_slope((a1 + 92304), 0xF00u, 5u, &v87);
+  memset(&v86, 0, sizeof(v86));
+  Scandium::ScandiumPPG::scandium_beat_detection_t::find_max_slope(v23, &v87, a1 + 130704, (a1 + 132760), &v86);
   v25 = *(a1 + 120);
   *(a1 + 128) = v25;
   v26 = *(a1 + 132792);
@@ -5949,7 +5907,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
 
           v36 = v32;
           v37 = (4 * v32);
-          v38 = v87.__begin_[v27];
+          v38 = v86.__begin_[v27];
           v39 = &v37[-v36];
           *v37 = v38;
           v25 = (v37 + 1);
@@ -5966,7 +5924,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
 
         else
         {
-          *v25 = v87.__begin_[v27];
+          *v25 = v86.__begin_[v27];
           v25 += 4;
         }
 
@@ -6032,16 +5990,16 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
     while (v41);
   }
 
-  if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
   {
-    v89.__r_.__value_.__l.__size_ = 21;
-    v56 = v89.__r_.__value_.__r.__words[0];
+    v88.__r_.__value_.__l.__size_ = 21;
+    v56 = v88.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    *(&v89.__r_.__value_.__s + 23) = 21;
-    v56 = &v89;
+    *(&v88.__r_.__value_.__s + 23) = 21;
+    v56 = &v88;
   }
 
   strcpy(v56, "scandium beat times: ");
@@ -6051,15 +6009,15 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
     v58 = 1;
     do
     {
-      std::to_string(&v84, *(*(a1 + 88) + 4 * v57));
-      v59 = std::string::append(&v84, " ", 1uLL);
+      std::to_string(&v83, *(*(a1 + 88) + 4 * v57));
+      v59 = std::string::append(&v83, " ", 1uLL);
       v60 = *&v59->__r_.__value_.__l.__data_;
-      v91 = v59->__r_.__value_.__r.__words[2];
+      v90 = v59->__r_.__value_.__r.__words[2];
       *__p = v60;
       v59->__r_.__value_.__l.__size_ = 0;
       v59->__r_.__value_.__r.__words[2] = 0;
       v59->__r_.__value_.__r.__words[0] = 0;
-      if (v91 >= 0)
+      if (v90 >= 0)
       {
         v61 = __p;
       }
@@ -6069,9 +6027,9 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
         v61 = __p[0];
       }
 
-      if (v91 >= 0)
+      if (v90 >= 0)
       {
-        v62 = HIBYTE(v91);
+        v62 = HIBYTE(v90);
       }
 
       else
@@ -6079,15 +6037,15 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
         v62 = __p[1];
       }
 
-      v50 = std::string::append(&v89, v61, v62);
-      if (SHIBYTE(v91) < 0)
+      v50 = std::string::append(&v88, v61, v62);
+      if (SHIBYTE(v90) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v84.__r_.__value_.__l.__data_);
+        operator delete(v83.__r_.__value_.__l.__data_);
       }
 
       v57 = v58++;
@@ -6100,19 +6058,19 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
   v64 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
   if (v64)
   {
-    Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_process(&v89.__r_.__value_.__r.__words[2] + 7, &v89);
+    Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_process();
   }
 
-  if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
   {
-    v89.__r_.__value_.__l.__size_ = 21;
-    v65 = v89.__r_.__value_.__r.__words[0];
+    v88.__r_.__value_.__l.__size_ = 21;
+    v65 = v88.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    *(&v89.__r_.__value_.__s + 23) = 21;
-    v65 = &v89;
+    *(&v88.__r_.__value_.__s + 23) = 21;
+    v65 = &v88;
   }
 
   strcpy(v65, "scandium beat index: ");
@@ -6123,15 +6081,15 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
     v68 = 1;
     do
     {
-      std::to_string(&v84, *(v66 + 4 * v67));
-      v69 = std::string::append(&v84, " ", 1uLL);
+      std::to_string(&v83, *(v66 + 4 * v67));
+      v69 = std::string::append(&v83, " ", 1uLL);
       v70 = *&v69->__r_.__value_.__l.__data_;
-      v91 = v69->__r_.__value_.__r.__words[2];
+      v90 = v69->__r_.__value_.__r.__words[2];
       *__p = v70;
       v69->__r_.__value_.__l.__size_ = 0;
       v69->__r_.__value_.__r.__words[2] = 0;
       v69->__r_.__value_.__r.__words[0] = 0;
-      if (v91 >= 0)
+      if (v90 >= 0)
       {
         v71 = __p;
       }
@@ -6141,9 +6099,9 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
         v71 = __p[0];
       }
 
-      if (v91 >= 0)
+      if (v90 >= 0)
       {
-        v72 = HIBYTE(v91);
+        v72 = HIBYTE(v90);
       }
 
       else
@@ -6151,15 +6109,15 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
         v72 = __p[1];
       }
 
-      v64 = std::string::append(&v89, v71, v72);
-      if (SHIBYTE(v91) < 0)
+      v64 = std::string::append(&v88, v71, v72);
+      if (SHIBYTE(v90) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v84.__r_.__value_.__l.__data_);
+        operator delete(v83.__r_.__value_.__l.__data_);
       }
 
       v67 = v68;
@@ -6173,94 +6131,100 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
   v73 = Scandium::algs_get_log(v64);
   if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
   {
-    Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_process(&v89.__r_.__value_.__r.__words[2] + 7, &v89);
+    Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_process();
   }
 
   if (*(a1 + 132832))
   {
-    std::string::basic_string[abi:ne200100]<0>(v85, "beat_detection");
-    v82[0] = 0;
-    v82[1] = 0;
-    v83 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v82, a2, &a2[53].dk_xfer[2], 0x3C0uLL);
+    std::string::basic_string[abi:ne200100]<0>(v84, "beat_detection");
+    v81[0] = 0;
+    v81[1] = 0;
+    v82 = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v81, a2->cp_time, &a2[53].dk_xfer[2], 0x3C0uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, "average_dcs_signal");
-    v92 = *v82;
-    v93 = v83;
-    v82[1] = 0;
-    v83 = 0;
-    v82[0] = 0;
-    v94 = 3;
-    v95 = 6;
-    v80[0] = 0;
-    v80[1] = 0;
-    v81 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v80, a3, &a3[53].dk_xfer[2], 0x3C0uLL);
-    std::string::basic_string[abi:ne200100]<0>(v96, "average_ppg_ir");
-    v97 = *v80;
-    v98 = v81;
-    v80[1] = 0;
-    v81 = 0;
-    v80[0] = 0;
-    v99 = 3;
-    v100 = 6;
-    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[10],std::vector<float>&,0>(&v101, "beat_time", (a1 + 88));
-    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[9],std::vector<int>&,0>(&v102, "beat_idx", (a1 + 120));
-    v78[0] = 0;
-    v78[1] = 0;
-    v79 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v78, a1 + 132624, a1 + 132684, 0xFuLL);
-    std::string::basic_string[abi:ne200100]<0>(v103, "mav_1s");
-    v104 = *v78;
-    v105 = v79;
-    v78[1] = 0;
-    v79 = 0;
-    v78[0] = 0;
-    v106 = 3;
-    v107 = 6;
-    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(&v84, __p, 5);
+    v91 = *v81;
+    v92 = v82;
+    v81[1] = 0;
+    v82 = 0;
+    v81[0] = 0;
+    v93 = 3;
+    v94 = 6;
+    v79[0] = 0;
+    v79[1] = 0;
+    v80 = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(v79, a3->cp_time, &a3[53].dk_xfer[2], 0x3C0uLL);
+    std::string::basic_string[abi:ne200100]<0>(v95, "average_ppg_ir");
+    v96 = *v79;
+    v97 = v80;
+    v79[1] = 0;
+    v80 = 0;
+    v79[0] = 0;
+    v98 = 3;
+    v99 = 6;
+    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[10],std::vector<float>&,0>(&v100, "beat_time", a1 + 88);
+    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[9],std::vector<int>&,0>(&v101, "beat_idx", a1 + 120);
+    v77[0] = 0;
+    v77[1] = 0;
+    v78 = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v77, (a1 + 132624), a1 + 132684, 0xFuLL);
+    std::string::basic_string[abi:ne200100]<0>(v102, "mav_1s");
+    v103 = *v77;
+    v104 = v78;
+    v77[1] = 0;
+    v78 = 0;
+    v77[0] = 0;
+    v105 = 3;
+    v106 = 6;
+    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(&v83, __p, 5);
     v74 = *(a1 + 132832);
     if (!v74)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v74 + 48))(v74, v85, &v84);
-    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(&v84);
+    (*(*v74 + 48))(v74, v84, &v83);
+    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(&v83);
     v75 = 360;
     do
     {
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v88.__end_ + v75);
-      if (*(&v87.__end_cap_.__value_ + v75 + 7) < 0)
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v87.__end_ + v75);
+      if (*(&v86.__end_cap_.__value_ + v75 + 7) < 0)
       {
-        operator delete(*(&v87.__begin_ + v75));
+        operator delete(*(&v86.__begin_ + v75));
       }
 
       v75 -= 72;
     }
 
     while (v75);
-    if (v78[0])
+    if (v77[0])
     {
-      v78[1] = v78[0];
-      operator delete(v78[0]);
+      v77[1] = v77[0];
+      operator delete(v77[0]);
     }
 
-    if (v80[0])
+    if (v79[0])
     {
-      v80[1] = v80[0];
-      operator delete(v80[0]);
+      v79[1] = v79[0];
+      operator delete(v79[0]);
     }
 
-    if (v82[0])
+    if (v81[0])
     {
-      v82[1] = v82[0];
-      operator delete(v82[0]);
+      v81[1] = v81[0];
+      operator delete(v81[0]);
     }
 
-    if (v86 < 0)
+    if (v85 < 0)
     {
-      operator delete(v85[0]);
+      operator delete(v84[0]);
     }
+  }
+
+  if (v86.__begin_)
+  {
+    v86.__end_ = v86.__begin_;
+    operator delete(v86.__begin_);
   }
 
   if (v87.__begin_)
@@ -6269,18 +6233,10 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::scandium_beat_detection_p
     operator delete(v87.__begin_);
   }
 
-  if (v88.__begin_)
+  if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
   {
-    v88.__end_ = v88.__begin_;
-    operator delete(v88.__begin_);
+    operator delete(v88.__r_.__value_.__l.__data_);
   }
-
-  if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v89.__r_.__value_.__l.__data_);
-  }
-
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 void sub_264803698(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, void *a48, uint64_t a49, int a50, __int16 a51, char a52, char a53)
@@ -6340,8 +6296,8 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::compute_mav(uint64_t a1, 
   v9 = (a1 + 46224);
   do
   {
-    stats::linear_interp(this, v6, 0x3C0, 4, a4);
-    Scandium::ScandiumPPG::median_filt(v6, v9, 0x10uLL, 3840, 0);
+    stats::linear_interp(this, v6, 0x3C0, 4u, a4);
+    Scandium::ScandiumPPG::median_filt(v6, v9, 0x10uLL, 0xF00u, 0);
     this = (this + 3840);
     v6 += 3840;
     v9 += 3840;
@@ -6372,7 +6328,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::compute_mav(uint64_t a1, 
   }
 }
 
-double Scandium::ScandiumPPG::iirSos<float,4>::process(unsigned int *a1, float a2)
+double Scandium::ScandiumPPG::iirSos<float,4>::process(float *a1, float a2)
 {
   v2 = *a1;
   if (v2 < 1)
@@ -6380,9 +6336,9 @@ double Scandium::ScandiumPPG::iirSos<float,4>::process(unsigned int *a1, float a
     return 0.0;
   }
 
-  result = (*(a1 + 20) * (a2 - *(a1 + 21)));
+  result = (a1[20] * (a2 - a1[21]));
   v4 = (a1 + 14);
-  v5 = (a1 + 3);
+  v5 = a1 + 3;
   do
   {
     v6 = result;
@@ -6401,11 +6357,11 @@ double Scandium::ScandiumPPG::iirSos<float,4>::process(unsigned int *a1, float a
   return result;
 }
 
-void Scandium::ScandiumPPG::scandium_beat_detection_t::get_beats_and_flags(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t *a6, int *a7, std::vector<int> *a8, uint64_t *a9)
+void Scandium::ScandiumPPG::scandium_beat_detection_t::get_beats_and_flags(uint64_t a1, uint64_t a2, float *a3, uint64_t a4, unsigned int a5, uint64_t *a6, int *a7, std::vector<int> *a8, char **a9)
 {
   LODWORD(__n) = 0;
   v15 = a1 + 126864;
-  findPeaks((a3 + 512), 3584, (a1 + 123024), -INFINITY, a5, 0, (a1 + 126864), (a1 + 128784), a7, &__n);
+  findPeaks(a3 + 128, 3584, (a1 + 123024), -INFINITY, a5, 0, (a1 + 126864), (a1 + 128784), a7, &__n);
   v17 = __n;
   if (__n)
   {
@@ -6480,7 +6436,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::get_beats_and_flags(uint6
       {
         v33 = &a7[v32];
         v34 = *(v33 - 1);
-        v35 = (a3 + 4 * v34);
+        v35 = &a3[v34];
         v36 = (*v28 + 4 * v32);
         v37 = *v33 - v34;
       }
@@ -6495,18 +6451,18 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::get_beats_and_flags(uint6
       vDSP_minv_wrapper(v35, 1, v36, v37);
       *__u = 0;
       v38 = a7[v32];
-      v39 = a3 + 4 * v38;
+      v39 = &a3[v38];
       v40 = (*v29 + 4 * v32);
       if (v32 == __n - 1)
       {
-        vDSP_minvi_wrapper((v39 + 4), 1, v40, __u, 3839 - v38);
+        vDSP_minvi_wrapper(v39 + 1, 1, v40, __u, 3839 - v38);
         v41 = v32 + 1;
       }
 
       else
       {
         v41 = v32 + 1;
-        vDSP_minvi_wrapper((v39 + 4), 1, v40, __u, a7[v32 + 1] + ~v38);
+        vDSP_minvi_wrapper(v39 + 1, 1, v40, __u, a7[v32 + 1] + ~v38);
       }
 
       a8->__begin_[v32] = __u[0] + a7[v32] + 1;
@@ -6540,7 +6496,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::get_hr_from_beat_times(Sc
   v5 = *a2;
   v6 = a2[1];
   v7 = __p;
-  if (*a2 != v6)
+  if (*a2 != *&v6)
   {
     v9 = *v5;
     v8 = v5 + 1;
@@ -6709,7 +6665,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::find_max_slope(int a1, vo
   }
 }
 
-_DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+_DWORD *std::vector<float>::assign(uint64_t *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
   v6 = a1[2];
   result = *a1;
@@ -6841,7 +6797,7 @@ _DWORD *std::vector<float>::assign(void *a1, unint64_t a2, __int32 *a3, int16x4_
   return result;
 }
 
-void Scandium::ScandiumPPG::median_filt(Scandium::ScandiumPPG *this, const float *a2, std::vector<int>::size_type __n, int a4, int a5)
+void Scandium::ScandiumPPG::median_filt(Scandium::ScandiumPPG *this, const float *a2, std::vector<int>::size_type __n, unsigned int a4, int a5)
 {
   if (__n <= 0)
   {
@@ -6866,7 +6822,7 @@ void Scandium::ScandiumPPG::median_filt(Scandium::ScandiumPPG *this, const float
     v9 = 0;
     v10 = a4;
     v11 = v8 >> 1;
-    v24 = a4 - v11;
+    v24 = (a4 - v11);
     v25 = v8 - v11;
     if (v8)
     {
@@ -7091,7 +7047,7 @@ void std::vector<int>::assign(std::vector<int> *this, std::vector<int>::size_typ
   }
 }
 
-void Scandium::ScandiumPPG::scandium_beat_detection_t::pulse_sanitizer(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t *a6)
+void Scandium::ScandiumPPG::scandium_beat_detection_t::pulse_sanitizer(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, char **a6)
 {
   v11 = a2[1] - *a2;
   v12 = v11 >> 2;
@@ -7156,7 +7112,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::pulse_sanitizer(uint64_t 
 
       else
       {
-        *(v18 + (((v14 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << (v14 + 1);
+        *&v18[((v14 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << (v14 + 1);
       }
 
       ++v14;
@@ -7188,7 +7144,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::pulse_sanitizer(uint64_t 
 
         if (!v40)
         {
-          *(v38 + ((v36 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v36;
+          *&v38[(v36 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v36;
         }
 
         ++v36;
@@ -7199,7 +7155,7 @@ void Scandium::ScandiumPPG::scandium_beat_detection_t::pulse_sanitizer(uint64_t 
   }
 }
 
-void std::vector<BOOL>::assign(void *a1, unint64_t a2, _BYTE *a3)
+void std::vector<BOOL>::assign(char **a1, unint64_t a2, _BYTE *a3)
 {
   a1[1] = 0;
   if (a2)
@@ -7213,8 +7169,8 @@ void std::vector<BOOL>::assign(void *a1, unint64_t a2, _BYTE *a3)
 
     else
     {
-      v15 = 0;
-      v16 = 0uLL;
+      v14 = 0;
+      v15 = 0uLL;
       if ((a2 & 0x8000000000000000) != 0)
       {
         std::vector<float>::__throw_length_error[abi:ne200100]();
@@ -7236,35 +7192,34 @@ void std::vector<BOOL>::assign(void *a1, unint64_t a2, _BYTE *a3)
         v9 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      std::vector<BOOL>::reserve(&v15, v9);
-      v11 = v15;
-      v12 = *(&v16 + 1);
-      v15 = *a1;
-      v10 = v15;
+      std::vector<BOOL>::reserve(&v14, v9);
+      v11 = v14;
+      v12 = *(&v15 + 1);
+      v14 = *a1;
+      v10 = v14;
       v13 = *(a1 + 1);
       *a1 = v11;
       a1[1] = a2;
       a1[2] = v12;
-      v16 = v13;
+      v15 = v13;
       if (v10)
       {
         operator delete(v10);
       }
     }
 
-    v14 = *a1;
     if (*a3 == 1)
     {
-      v15 = *a1;
-      LODWORD(v16) = 0;
-      std::__fill_n_BOOL[abi:ne200100]<true,std::vector<BOOL>>(&v15, a2);
+      v14 = *a1;
+      LODWORD(v15) = 0;
+      std::__fill_n_BOOL[abi:ne200100]<true,std::vector<BOOL>>(&v14, a2);
     }
 
     else
     {
-      v15 = *a1;
-      LODWORD(v16) = 0;
-      std::__fill_n_BOOL[abi:ne200100]<false,std::__bitset<1ul,11ul>>(&v15, a2);
+      v14 = *a1;
+      LODWORD(v15) = 0;
+      std::__fill_n_BOOL[abi:ne200100]<false,std::__bitset<1ul,11ul>>(&v14, a2);
     }
   }
 }
@@ -7279,31 +7234,31 @@ void sub_264804A48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void std::vector<float>::resize(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
+    std::vector<float>::__append(result, a2 - v4, a3, a4);
   }
 }
 
-uint64_t std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[10],std::vector<float>&,0>(uint64_t a1, char *a2, uint64_t *a3)
+uint64_t std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[10],std::vector<float>&,0>(uint64_t a1, char *a2, uint64_t a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   v5[4] = 0;
   v5[5] = 0;
   v5 += 4;
   v5[2] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v5, *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v5, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   *(a1 + 56) = 3;
   *(a1 + 64) = 6;
   return a1;
@@ -7319,14 +7274,14 @@ void sub_264804AEC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[9],std::vector<int>&,0>(uint64_t a1, char *a2, uint64_t *a3)
+uint64_t std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[9],std::vector<int>&,0>(uint64_t a1, char *a2, uint64_t a3)
 {
   v5 = std::string::basic_string[abi:ne200100]<0>(a1, a2);
   v5[4] = 0;
   v5[5] = 0;
   v5 += 4;
   v5[2] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5, *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   *(a1 + 56) = 1;
   *(a1 + 64) = 6;
   return a1;
@@ -7342,9 +7297,9 @@ void sub_264804B5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -7355,8 +7310,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_264804C1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -7369,7 +7322,7 @@ void sub_264804C1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -7391,9 +7344,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -7401,7 +7354,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
 }
 
 void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -7523,6 +7476,19 @@ void *std::__fill_n_BOOL[abi:ne200100]<true,std::vector<BOOL>>(void *result, uni
   }
 
   return result;
+}
+
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_264804F48(_Unwind_Exception *exception_object)
@@ -7666,17 +7632,6 @@ void std::vector<float>::__append(uint64_t a1, unint64_t a2, __int32 *a3, int16x
   }
 }
 
-char *OUTLINED_FUNCTION_0_0@<X0>(char *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  *(v3 - 8) = a3;
-  if (*result < 0)
-  {
-    v4 = *a2;
-  }
-
-  return result;
-}
-
 void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
 {
   va_start(va, a4);
@@ -7684,7 +7639,7 @@ void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void vDSP_maxv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
+void vDSP_maxv_wrapper(float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(4 * a4, 0x100004052888210uLL);
   if (v8)
@@ -7720,7 +7675,7 @@ void vDSP_maxv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
   }
 }
 
-void vDSP_minv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
+void vDSP_minv_wrapper(float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(4 * a4, 0x100004052888210uLL);
   if (v8)
@@ -7756,7 +7711,7 @@ void vDSP_minv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
   }
 }
 
-void vDSP_maxvi_wrapper(const float *a1, vDSP_Stride a2, float *a3, vDSP_Length *a4, uint64_t a5)
+void vDSP_maxvi_wrapper(float *a1, vDSP_Stride a2, float *a3, vDSP_Length *a4, uint64_t a5)
 {
   v10 = malloc_type_malloc(4 * a5, 0x100004052888210uLL);
   if (v10)
@@ -7792,7 +7747,7 @@ void vDSP_maxvi_wrapper(const float *a1, vDSP_Stride a2, float *a3, vDSP_Length 
   }
 }
 
-void vDSP_minvi_wrapper(const float *a1, vDSP_Stride a2, float *a3, vDSP_Length *a4, uint64_t a5)
+void vDSP_minvi_wrapper(float *a1, vDSP_Stride a2, float *a3, vDSP_Length *a4, uint64_t a5)
 {
   v10 = malloc_type_malloc(4 * a5, 0x100004052888210uLL);
   if (v10)
@@ -7828,7 +7783,7 @@ void vDSP_minvi_wrapper(const float *a1, vDSP_Stride a2, float *a3, vDSP_Length 
   }
 }
 
-void vDSP_meanv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
+void vDSP_meanv_wrapper(float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(4 * a4, 0x100004052888210uLL);
   if (v8)
@@ -7884,7 +7839,7 @@ os_log_t ___ZN8Scandium12algs_get_logEv_block_invoke()
 uint64_t Scandium::ScandiumPPG::scandium_quality_metric_t::scandium_quality_metric_t(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *a1 = 0;
-  Scandium::ScandiumPPG::scandium_optical_fom_t::scandium_optical_fom_t(a1 + 8, a3, a4, a5);
+  Scandium::ScandiumPPG::scandium_optical_fom_t::scandium_optical_fom_t(a1 + 8);
   *(a1 + 432) = 0;
   *a1 = 0;
   *(a1 + 440) = a2;
@@ -7893,102 +7848,102 @@ uint64_t Scandium::ScandiumPPG::scandium_quality_metric_t::scandium_quality_metr
 
 void Scandium::ScandiumPPG::scandium_quality_metric_t::process(float32x2_t *a1, uint64_t a2)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   if (a1[54])
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "quality_metric_in");
-    std::string::basic_string[abi:ne200100]<0>(v25, "ir_snip_corr");
-    LODWORD(v26) = *a2;
-    LODWORD(v28[0]) = 3;
-    std::string::basic_string[abi:ne200100]<0>(v28 + 8, "red_snip_corr");
-    DWORD2(v29) = *(a2 + 4);
-    *&v30[24] = 3;
-    std::string::basic_string[abi:ne200100]<0>(v31, "bga_corr");
-    v32 = *(a2 + 8);
-    v33 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v34, "spo2");
-    v35 = *(a2 + 12);
-    v36 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v37, "hr");
-    v38 = *(a2 + 16);
-    v39 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v40, "girpir");
-    v41 = *(a2 + 28);
-    v42 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v43, "num_good_beats");
-    v44 = *(a2 + 20);
-    v45 = 1;
-    std::string::basic_string[abi:ne200100]<0>(v46, "num_total_beats");
-    v47 = *(a2 + 24);
-    v48 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v24, "ir_snip_corr");
+    LODWORD(v25) = *a2;
+    LODWORD(v27[0]) = 3;
+    std::string::basic_string[abi:ne200100]<0>(v27 + 1, "red_snip_corr");
+    DWORD2(v28) = *(a2 + 4);
+    *&v29[24] = 3;
+    std::string::basic_string[abi:ne200100]<0>(v30, "bga_corr");
+    v31 = *(a2 + 8);
+    v32 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v33, "spo2");
+    v34 = *(a2 + 12);
+    v35 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v36, "hr");
+    v37 = *(a2 + 16);
+    v38 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v39, "girpir");
+    v40 = *(a2 + 28);
+    v41 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v42, "num_good_beats");
+    v43 = *(a2 + 20);
+    v44 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v45, "num_total_beats");
+    v46 = *(a2 + 24);
+    v47 = 1;
     v4 = *(a2 + 32);
-    std::string::basic_string[abi:ne200100]<0>(v49, "path_type");
-    v50 = v4;
-    v51 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v48, "path_type");
+    v49 = v4;
+    v50 = 1;
     v5 = *(a2 + 36);
-    std::string::basic_string[abi:ne200100]<0>(v52, "emitter_idx");
-    v53 = v5;
-    v54 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v51, "emitter_idx");
+    v52 = v5;
+    v53 = 1;
     v6 = *(a2 + 37);
-    std::string::basic_string[abi:ne200100]<0>(v55, "detector_idx");
-    v56 = v6;
-    v57 = 1;
-    std::string::basic_string[abi:ne200100]<0>(v58, "ir_pi");
-    v59 = *(a2 + 40);
-    v60 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v61, "red_pi");
-    v62 = *(a2 + 44);
-    v63 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v64, "green_pi");
-    v65 = *(a2 + 48);
-    v66 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v67, "ir_idc");
-    v68 = *(a2 + 52);
-    v69 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v70, "red_idc");
-    v71 = *(a2 + 56);
-    v72 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v73, "green_idc");
-    v74 = *(a2 + 60);
-    v75 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v76, "ir_idc_agg");
-    v77 = *(a2 + 64);
-    v78 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v79, "red_idc_agg");
-    v80 = *(a2 + 68);
-    v81 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v82, "green_idc_agg");
-    v83 = *(a2 + 72);
-    v84 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v85, "iAmb");
-    v86 = *(a2 + 76);
-    v87 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v88, "amb_blankslot_noise");
-    v89 = *(a2 + 80);
-    v90 = 3;
-    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v22, v25, 22);
+    std::string::basic_string[abi:ne200100]<0>(v54, "detector_idx");
+    v55 = v6;
+    v56 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v57, "ir_pi");
+    v58 = *(a2 + 40);
+    v59 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v60, "red_pi");
+    v61 = *(a2 + 44);
+    v62 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v63, "green_pi");
+    v64 = *(a2 + 48);
+    v65 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v66, "ir_idc");
+    v67 = *(a2 + 52);
+    v68 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v69, "red_idc");
+    v70 = *(a2 + 56);
+    v71 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v72, "green_idc");
+    v73 = *(a2 + 60);
+    v74 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v75, "ir_idc_agg");
+    v76 = *(a2 + 64);
+    v77 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v78, "red_idc_agg");
+    v79 = *(a2 + 68);
+    v80 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v81, "green_idc_agg");
+    v82 = *(a2 + 72);
+    v83 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v84, "iAmb");
+    v85 = *(a2 + 76);
+    v86 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v87, "amb_blankslot_noise");
+    v88 = *(a2 + 80);
+    v89 = 3;
+    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v21, v24, 22);
     v7 = a1[54];
     if (!*&v7)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(**&v7 + 48))(v7, __p, v22);
-    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v22);
+    (*(**&v7 + 48))(v7, __p, v21);
+    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v21);
     v8 = 1584;
     do
     {
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v22[v8 + 24]);
-      if (v22[v8 + 15] < 0)
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v21[v8 + 24]);
+      if (v21[v8 + 15] < 0)
       {
-        operator delete(*(&v25[-4] + v8 - 8));
+        operator delete(*(&v24[-4] + v8 - 8));
       }
 
       v8 -= 72;
     }
 
     while (v8);
-    if (v24 < 0)
+    if (v23 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7998,17 +7953,17 @@ void Scandium::ScandiumPPG::scandium_quality_metric_t::process(float32x2_t *a1, 
   v10 = *(a2 + 32);
   v11 = *(a2 + 116);
   v12 = *(a2 + 148);
-  v29 = *(a2 + 132);
-  *v30 = v12;
-  *&v30[12] = *(a2 + 160);
+  v28 = *(a2 + 132);
+  *v29 = v12;
+  *&v29[12] = *(a2 + 160);
   v13 = *(a2 + 52);
   v14 = *(a2 + 84);
-  v26 = *(a2 + 68);
-  v27 = v14;
-  v28[0] = *(a2 + 100);
-  v28[1] = v11;
-  v25[0] = *(a2 + 36);
-  v25[1] = v13;
+  v25 = *(a2 + 68);
+  v26 = v14;
+  v27[0] = *(a2 + 100);
+  v27[1] = v11;
+  v24[0] = *(a2 + 36);
+  v24[1] = v13;
   v15 = 10.0;
   v16 = v10 == 2;
   v17 = v10 == 2;
@@ -8032,8 +7987,7 @@ void Scandium::ScandiumPPG::scandium_quality_metric_t::process(float32x2_t *a1, 
   }
 
   *a1 = (v19 | v20);
-  Scandium::ScandiumPPG::scandium_quality_metric_t::compute_hw_metric_validity(a1, v25);
-  v21 = *MEMORY[0x277D85DE8];
+  Scandium::ScandiumPPG::scandium_quality_metric_t::compute_hw_metric_validity(a1, v24);
 }
 
 void sub_264805BF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20)
@@ -8057,21 +8011,21 @@ void sub_264805BF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void Scandium::ScandiumPPG::scandium_quality_metric_t::compute_hw_metric_validity(float32x2_t *a1, _OWORD *a2)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = a2[7];
-  v40 = a2[6];
-  *v41 = v3;
-  *&v41[12] = *(a2 + 124);
+  v39 = a2[6];
+  *v40 = v3;
+  *&v40[12] = *(a2 + 124);
   v4 = a2[3];
-  v37 = a2[2];
-  v38 = v4;
+  v36 = a2[2];
+  v37 = v4;
   v5 = a2[5];
-  v39[0] = a2[4];
-  v39[1] = v5;
+  v38[0] = a2[4];
+  v38[1] = v5;
   v6 = a2[1];
-  v36[0] = *a2;
-  v36[1] = v6;
-  Scandium::ScandiumPPG::scandium_optical_fom_t::process(a1 + 1, v36);
+  v35[0] = *a2;
+  v35[1] = v6;
+  Scandium::ScandiumPPG::scandium_optical_fom_t::process(a1 + 1, v35);
   v7 = a1[46].f32[0];
   v8 = a1[46].f32[1];
   v9 = a1[47].f32[0];
@@ -8110,9 +8064,9 @@ void Scandium::ScandiumPPG::scandium_quality_metric_t::compute_hw_metric_validit
     v24 = 0;
   }
 
-  v31 = a1[50].f32[1];
-  v32 = a1[50].i32[0];
-  v25 = v31 > 0.04 || a1[50].f32[0] > 0.04;
+  v30 = a1[50].f32[1];
+  v31 = a1[50].i32[0];
+  v25 = v30 > 0.04 || a1[50].f32[0] > 0.04;
   v26 = 64;
   if (v25)
   {
@@ -8123,69 +8077,67 @@ void Scandium::ScandiumPPG::scandium_quality_metric_t::compute_hw_metric_validit
   if (a1[54])
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "optical_fom_out");
-    std::string::basic_string[abi:ne200100]<0>(v36, "ir_snr");
-    *&v37 = v7;
-    LODWORD(v39[0]) = 3;
-    std::string::basic_string[abi:ne200100]<0>(v39 + 8, "red_snr");
-    *(&v40 + 2) = v8;
-    *&v41[24] = 3;
-    std::string::basic_string[abi:ne200100]<0>(v42, "ir_snbr");
-    v43 = v9;
-    v44 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v45, "red_snbr");
-    v46 = v10;
-    v47 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v48, "ir_scnr");
-    v49 = v11;
-    v50 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v51, "red_scnr");
-    v52 = v12;
-    v53 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v54, "ir_sxr");
-    v55 = v13;
-    v56 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v57, "red_sxr");
-    v58 = v14;
-    v59 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v60, "ir_sxr_ch");
-    v61 = v32;
-    v62 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v63, "red_sxr_ch");
-    v64 = v31;
-    v65 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v35, "ir_snr");
+    *&v36 = v7;
+    LODWORD(v38[0]) = 3;
+    std::string::basic_string[abi:ne200100]<0>(v38 + 1, "red_snr");
+    *(&v39 + 2) = v8;
+    *&v40[24] = 3;
+    std::string::basic_string[abi:ne200100]<0>(v41, "ir_snbr");
+    v42 = v9;
+    v43 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v44, "red_snbr");
+    v45 = v10;
+    v46 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v47, "ir_scnr");
+    v48 = v11;
+    v49 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v50, "red_scnr");
+    v51 = v12;
+    v52 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v53, "ir_sxr");
+    v54 = v13;
+    v55 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v56, "red_sxr");
+    v57 = v14;
+    v58 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v59, "ir_sxr_ch");
+    v60 = v31;
+    v61 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v62, "red_sxr_ch");
+    v63 = v30;
+    v64 = 3;
     v27 = *a1;
-    std::string::basic_string[abi:ne200100]<0>(v66, "valid_flags");
-    v67 = v27.i32[0];
-    v68 = 1;
-    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v33, v36, 11);
+    std::string::basic_string[abi:ne200100]<0>(v65, "valid_flags");
+    v66 = v27.i32[0];
+    v67 = 1;
+    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v32, v35, 11);
     v28 = a1[54];
     if (!*&v28)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(**&v28 + 48))(v28, __p, v33);
-    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v33);
+    (*(**&v28 + 48))(v28, __p, v32);
+    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v32);
     v29 = 792;
     do
     {
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v33[v29 + 24]);
-      if (v33[v29 + 15] < 0)
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v32[v29 + 24]);
+      if (v32[v29 + 15] < 0)
       {
-        operator delete(*(&v36[-4] + v29 - 8));
+        operator delete(*(&v35[-4] + v29 - 8));
       }
 
       v29 -= 72;
     }
 
     while (v29);
-    if (v35 < 0)
+    if (v34 < 0)
     {
       operator delete(__p[0]);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void sub_264805FE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22)
@@ -8214,18 +8166,18 @@ Scandium::ScandiumPPG::scandium_spo2_t *Scandium::ScandiumPPG::scandium_spo2_t::
   return this;
 }
 
-void Scandium::ScandiumPPG::scandium_spo2_t::~scandium_spo2_t(Scandium::ScandiumPPG::scandium_spo2_t *this)
+void Scandium::ScandiumPPG::scandium_spo2_t::~scandium_spo2_t(id **this)
 {
-  Scandium::ScandiumPPG::scandium_r_ir_ratio_model_wrapper_t::~scandium_r_ir_ratio_model_wrapper_t((this + 32));
+  Scandium::ScandiumPPG::scandium_r_ir_ratio_model_wrapper_t::~scandium_r_ir_ratio_model_wrapper_t(this + 4);
 
   std::__function::__value_func<void ()(std::string const&,std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>> const&)>::~__value_func[abi:ne200100](this);
 }
 
 uint64_t Scandium::ScandiumPPG::scandium_spo2_t::process(uint64_t a1, int *a2, uint64_t a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v33 = 0x7FC000007FC00000;
-  v6 = Scandium::ScandiumPPG::scandium_r_ir_ratio_model_wrapper_t::process((a1 + 32), *(a2 + 1), *(a2 + 2), &v33);
+  v58 = *MEMORY[0x277D85DE8];
+  v32 = 0x7FC000007FC00000;
+  v6 = Scandium::ScandiumPPG::scandium_r_ir_ratio_model_wrapper_t::process((a1 + 32), *(a2 + 1), *(a2 + 2), &v32);
   if (v6)
   {
     v7 = 2143289344;
@@ -8234,10 +8186,10 @@ uint64_t Scandium::ScandiumPPG::scandium_spo2_t::process(uint64_t a1, int *a2, u
   else
   {
     v8 = *a3;
-    **(a3 + 8) = HIDWORD(v33);
-    v7 = v33;
-    v9 = (*&v33 * 1.04) + -0.02;
-    *&v33 = v9;
+    **(a3 + 8) = HIDWORD(v32);
+    v7 = v32;
+    v9 = (*&v32 * 1.04) + -0.02;
+    *&v32 = v9;
     v10 = *(a2 + 8) + (*(a2 + 7) * v9);
     if (v10 == 0.0)
     {
@@ -8256,72 +8208,72 @@ uint64_t Scandium::ScandiumPPG::scandium_spo2_t::process(uint64_t a1, int *a2, u
 
   if (*(a1 + 24))
   {
-    std::string::basic_string[abi:ne200100]<0>(v31, "ratio_dl_model");
+    std::string::basic_string[abi:ne200100]<0>(v30, "ratio_dl_model");
     v12 = *a2;
-    std::string::basic_string[abi:ne200100]<0>(v34, "path_idx");
-    v35 = v12;
-    v36 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v33, "path_idx");
+    v34 = v12;
+    v35 = 1;
     v13 = *(a2 + 2);
     v14 = *v13;
-    v15 = v13[1];
+    v15 = *(v13 + 8);
     v16 = (v15 - *v13) >> 2;
-    v28[1] = 0;
-    v29 = 0;
-    v28[0] = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(v28, v14, v15, v16);
-    std::string::basic_string[abi:ne200100]<0>(v37, "input_red");
-    v38 = *v28;
-    v39 = v29;
-    v28[1] = 0;
-    v29 = 0;
-    v28[0] = 0;
-    v40 = 3;
-    v41 = 6;
+    v27[1] = 0;
+    v28 = 0;
+    v27[0] = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(v27, v14, v15, v16);
+    std::string::basic_string[abi:ne200100]<0>(v36, "input_red");
+    v37 = *v27;
+    v38 = v28;
+    v27[1] = 0;
+    v28 = 0;
+    v27[0] = 0;
+    v39 = 3;
+    v40 = 6;
     v17 = *(a2 + 1);
     v18 = *v17;
-    v19 = v17[1];
+    v19 = *(v17 + 8);
     v20 = (v19 - *v17) >> 2;
     __p[1] = 0;
-    v27 = 0;
+    v26 = 0;
     __p[0] = 0;
     std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(__p, v18, v19, v20);
-    std::string::basic_string[abi:ne200100]<0>(v42, "input_ir");
-    v43 = *__p;
-    v44 = v27;
+    std::string::basic_string[abi:ne200100]<0>(v41, "input_ir");
+    v42 = *__p;
+    v43 = v26;
     __p[1] = 0;
-    v27 = 0;
+    v26 = 0;
     __p[0] = 0;
-    v45 = 3;
-    v46 = 6;
-    std::string::basic_string[abi:ne200100]<0>(v47, "ratio");
-    v48 = v33;
-    v49 = 3;
+    v44 = 3;
+    v45 = 6;
+    std::string::basic_string[abi:ne200100]<0>(v46, "ratio");
+    v47 = v32;
+    v48 = 3;
     v21 = *a3;
-    std::string::basic_string[abi:ne200100]<0>(v50, "spo2_out");
-    v51 = *v21;
-    v52 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v53, "raw_ratio");
-    v54 = v7;
-    v55 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v56, "raw_conf");
-    v57 = HIDWORD(v33);
-    v58 = 3;
-    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v30, v34, 7);
+    std::string::basic_string[abi:ne200100]<0>(v49, "spo2_out");
+    v50 = *v21;
+    v51 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v52, "raw_ratio");
+    v53 = v7;
+    v54 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v55, "raw_conf");
+    v56 = HIDWORD(v32);
+    v57 = 3;
+    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v29, v33, 7);
     v22 = *(a1 + 24);
     if (!v22)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v22 + 48))(v22, v31, v30);
-    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v30);
+    (*(*v22 + 48))(v22, v30, v29);
+    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v29);
     v23 = 504;
     do
     {
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v30[v23 + 32]);
-      if (v30[v23 + 23] < 0)
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v29[v23 + 32]);
+      if (v29[v23 + 23] < 0)
       {
-        operator delete(*&v30[v23]);
+        operator delete(*&v29[v23]);
       }
 
       v23 -= 72;
@@ -8334,19 +8286,18 @@ uint64_t Scandium::ScandiumPPG::scandium_spo2_t::process(uint64_t a1, int *a2, u
       operator delete(__p[0]);
     }
 
-    if (v28[0])
+    if (v27[0])
     {
-      v28[1] = v28[0];
-      operator delete(v28[0]);
+      v27[1] = v27[0];
+      operator delete(v27[0]);
     }
 
-    if (v32 < 0)
+    if (v31 < 0)
     {
-      operator delete(v31[0]);
+      operator delete(v30[0]);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -8409,7 +8360,7 @@ uint64_t Scandium::ScandiumPPG::scandium_spo2_t::compute_orthogonal_regression(u
   return result;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8517,11 +8468,11 @@ id **std::unique_ptr<Scandium::ScandiumPPG::scandium_r_ir_ratio_model_t>::~uniqu
   return a1;
 }
 
-BOOL Scandium::ScandiumPPG::scandium_r_ir_ratio_model_t::process(Scandium *a1, uint64_t a2, uint64_t a3, _DWORD *a4, _DWORD *a5)
+BOOL Scandium::ScandiumPPG::scandium_r_ir_ratio_model_t::process(id *a1, uint64_t a2, uint64_t a3, _DWORD *a4, _DWORD *a5)
 {
   if (*(a3 + 8) - *a3 == 3840 && *(a2 + 8) - *a2 == 3840)
   {
-    memmove([*(a1 + 1) dataPointer], *a2, 0xF00uLL);
+    memmove([a1[1] dataPointer], *a2, 0xF00uLL);
     v10 = *a3;
     v9 = *(a3 + 8);
     v11 = [*a1 dataPointer];
@@ -8530,12 +8481,12 @@ BOOL Scandium::ScandiumPPG::scandium_r_ir_ratio_model_t::process(Scandium *a1, u
       memmove(v11, v10, v9 - v10);
     }
 
-    v12 = [[ScandiumRIrRatioModelInput alloc] initWithIr:*(a1 + 1) red:*a1];
-    v13 = *(a1 + 2);
-    *(a1 + 2) = v12;
+    v12 = [[ScandiumRIrRatioModelInput alloc] initWithIr:a1[1] red:*a1];
+    v13 = a1[2];
+    a1[2] = v12;
 
-    v14 = [*(a1 + 3) model];
-    v15 = *(a1 + 2);
+    v14 = [a1[3] model];
+    v15 = a1[2];
     v32 = 0;
     v16 = [v14 predictionFromFeatures:v15 error:&v32];
     v17 = v32;
@@ -8645,7 +8596,7 @@ void Scandium::ScandiumPPG::scandium_channel_combination_t::~scandium_channel_co
 
 float32x2_t Scandium::ScandiumPPG::scandium_channel_combination_t::init_module(std::string *this, std::string *__str)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = this[5].__r_.__value_.__r.__words[2];
   if (*v4 == 2)
   {
@@ -8655,9 +8606,9 @@ float32x2_t Scandium::ScandiumPPG::scandium_channel_combination_t::init_module(s
       *&this[1].__r_.__value_.__l.__data_ = xmmword_264821600;
       this[1].__r_.__value_.__r.__words[2] = 0x4079999A40480000;
       LOWORD(this[2].__r_.__value_.__l.__data_) = 257;
-      v13 = xmmword_26481F928;
-      v14 = 0x3F19999A00000000;
-      std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__assign_unique<std::pair<Scandium::ScandiumPPG::PathType const,float> const*>(&this[2].__r_.__value_.__l.__size_, &v13, &v15);
+      v12 = xmmword_26481F928;
+      v13 = 0x3F19999A00000000;
+      std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__assign_unique<std::pair<Scandium::ScandiumPPG::PathType const,float> const*>(&this[2].__r_.__value_.__l.__size_, &v12, &v14);
     }
 
     else
@@ -8678,9 +8629,9 @@ float32x2_t Scandium::ScandiumPPG::scandium_channel_combination_t::init_module(s
       *&this[1].__r_.__value_.__l.__data_ = xmmword_264821600;
       this[1].__r_.__value_.__r.__words[2] = 0x4079999A40480000;
       LOWORD(this[2].__r_.__value_.__l.__data_) = 257;
-      v13 = xmmword_26481F928;
-      v14 = 0x3F19999A00000000;
-      std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__assign_unique<std::pair<Scandium::ScandiumPPG::PathType const,float> const*>(&this[2].__r_.__value_.__l.__size_, &v13, &v15);
+      v12 = xmmword_26481F928;
+      v13 = 0x3F19999A00000000;
+      std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__assign_unique<std::pair<Scandium::ScandiumPPG::PathType const,float> const*>(&this[2].__r_.__value_.__l.__size_, &v12, &v14);
     }
   }
 
@@ -8707,9 +8658,9 @@ float32x2_t Scandium::ScandiumPPG::scandium_channel_combination_t::init_module(s
     *&this[1].__r_.__value_.__l.__data_ = xmmword_264821610;
     this[1].__r_.__value_.__r.__words[2] = 0x4079999A40480000;
     LOWORD(this[2].__r_.__value_.__l.__data_) = 256;
-    v13 = xmmword_26481F928;
-    v14 = 0x3F19999A00000000;
-    std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__assign_unique<std::pair<Scandium::ScandiumPPG::PathType const,float> const*>(&this[2].__r_.__value_.__l.__size_, &v13, &v15);
+    v12 = xmmword_26481F928;
+    v13 = 0x3F19999A00000000;
+    std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__assign_unique<std::pair<Scandium::ScandiumPPG::PathType const,float> const*>(&this[2].__r_.__value_.__l.__size_, &v12, &v14);
   }
 
   this[4].__r_.__value_.__r.__words[0] = 0xBF80000041266666;
@@ -8761,11 +8712,10 @@ LABEL_14:
   *(v10 + 1) = 0u;
   result = vneg_f32(0x3F0000003FLL);
   *(v10 + 40) = result;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t Scandium::ScandiumPPG::scandium_channel_combination_t::unpack_input_values(Scandium::ScandiumPPG::scandium_channel_combination_t *this)
+void Scandium::ScandiumPPG::scandium_channel_combination_t::unpack_input_values(Scandium::ScandiumPPG::scandium_channel_combination_t *this)
 {
   *(this + 20) = *(this + 19);
   v2 = this + 176;
@@ -8775,37 +8725,35 @@ uint64_t Scandium::ScandiumPPG::scandium_channel_combination_t::unpack_input_val
   *(this + 26) = v3;
   *(this + 29) = 0;
   v5 = *(this + 18);
-  v15 = this + 152;
+  v14 = this + 152;
   for (i = 20; i != 660; i += 40)
   {
-    v14 = *(v5 + i);
-    std::back_insert_iterator<std::vector<float>>::operator=[abi:ne200100](&v15, &v14);
+    v13 = *(v5 + i);
+    std::back_insert_iterator<std::vector<float>>::operator=[abi:ne200100](&v14, &v13);
   }
 
   v7 = *(this + 18);
-  v15 = v2;
+  v14 = v2;
   for (j = 16; j != 656; j += 40)
   {
-    v14 = *(v7 + j);
-    std::back_insert_iterator<std::vector<float>>::operator=[abi:ne200100](&v15, &v14);
+    v13 = *(v7 + j);
+    std::back_insert_iterator<std::vector<float>>::operator=[abi:ne200100](&v14, &v13);
   }
 
   v9 = *(this + 18);
-  v15 = v4;
+  v14 = v4;
   for (k = 24; k != 664; k += 40)
   {
-    v14 = *(v9 + k);
-    std::back_insert_iterator<std::vector<float>>::operator=[abi:ne200100](&v15, &v14);
+    v13 = *(v9 + k);
+    std::back_insert_iterator<std::vector<float>>::operator=[abi:ne200100](&v14, &v13);
   }
 
   v11 = *(this + 18);
   for (m = 36; m != 676; m += 40)
   {
-    LOBYTE(v15) = *(v11 + m);
-    result = std::vector<BOOL>::push_back(this + 224, &v15);
+    LOBYTE(v14) = *(v11 + m);
+    std::vector<BOOL>::push_back(this + 224, &v14);
   }
-
-  return result;
 }
 
 float Scandium::ScandiumPPG::scandium_channel_combination_t::log_coreanalytics_metrics(uint64_t a1, uint64_t a2)
@@ -8892,58 +8840,56 @@ void std::vector<std::array<float,16ul>>::push_back[abi:ne200100](uint64_t a1, _
   *(a1 + 8) = v9;
 }
 
-uint64_t Scandium::ScandiumPPG::scandium_channel_combination_t::get_return_message@<X0>(unsigned __int8 a1@<W1>, std::string *a2@<X8>)
+void **Scandium::ScandiumPPG::scandium_channel_combination_t::get_return_message@<X0>(unsigned __int8 a1@<W1>, std::string *a2@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v8 = a1;
-  LOBYTE(v9) = 0;
-  std::string::basic_string[abi:ne200100]<0>(v10, "SUCCESS");
-  v10[24] = 1;
+  v21[3] = *MEMORY[0x277D85DE8];
+  v7 = a1;
+  LOBYTE(v8) = 0;
+  std::string::basic_string[abi:ne200100]<0>(v9, "SUCCESS");
+  v10 = 1;
   std::string::basic_string[abi:ne200100]<0>(v11, "MOTION");
-  v11[24] = 2;
-  std::string::basic_string[abi:ne200100]<0>(v12, "POSTURE");
-  v12[24] = 5;
-  std::string::basic_string[abi:ne200100]<0>(v13, "LOW-Conf");
-  v13[24] = 3;
-  std::string::basic_string[abi:ne200100]<0>(v14, "STD-DEV");
-  v14[24] = 4;
-  std::string::basic_string[abi:ne200100]<0>(v15, "HWFoMs");
-  v15[24] = 6;
-  std::string::basic_string[abi:ne200100]<0>(v16, "NOT_REACHED");
-  std::unordered_map<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>::unordered_map(v7, &v9, 7);
-  for (i = 0; i != -224; i -= 32)
+  v12 = 2;
+  std::string::basic_string[abi:ne200100]<0>(v13, "POSTURE");
+  v14 = 5;
+  std::string::basic_string[abi:ne200100]<0>(v15, "LOW-Conf");
+  v16 = 3;
+  std::string::basic_string[abi:ne200100]<0>(v17, "STD-DEV");
+  v18 = 4;
+  std::string::basic_string[abi:ne200100]<0>(v19, "HWFoMs");
+  v20 = 6;
+  std::string::basic_string[abi:ne200100]<0>(v21, "NOT_REACHED");
+  std::unordered_map<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>::unordered_map(v6, &v8, 7);
+  for (i = 0; i != -28; i -= 4)
   {
-    if (v16[i + 23] < 0)
+    if (SHIBYTE(v21[i + 2]) < 0)
     {
-      operator delete(*&v16[i]);
+      operator delete(v21[i]);
     }
   }
 
   a2->__r_.__value_.__r.__words[0] = 0;
   a2->__r_.__value_.__l.__size_ = 0;
   a2->__r_.__value_.__r.__words[2] = 0;
-  if (std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::find<Scandium::ScandiumPPG::PathType>(v7, &v8))
+  if (std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,std::vector<float>>>>::find<Scandium::ScandiumPPG::PathType>(v6, &v7))
   {
-    v9 = &v8;
-    v4 = std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::__unordered_map_hasher<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>>>::__emplace_unique_key_args<Scandium::ScandiumPPG::channel_combination_ret_t,std::piecewise_construct_t const&,std::tuple<Scandium::ScandiumPPG::channel_combination_ret_t const&>,std::tuple<>>(v7, &v8);
+    v8 = &v7;
+    v4 = std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::__unordered_map_hasher<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>>>::__emplace_unique_key_args<Scandium::ScandiumPPG::channel_combination_ret_t,std::piecewise_construct_t const&,std::tuple<Scandium::ScandiumPPG::channel_combination_ret_t const&>,std::tuple<>>(v6, &v7, &std::piecewise_construct, &v8);
     std::string::operator=(a2, v4 + 1);
   }
 
-  result = std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::__unordered_map_hasher<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>>>::~__hash_table(v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::__unordered_map_hasher<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>>>::~__hash_table(v6);
 }
 
-void sub_264807404(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_264807404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::__unordered_map_hasher<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::channel_combination_ret_t,std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>,std::equal_to<Scandium::ScandiumPPG::channel_combination_ret_t>,std::hash<Scandium::ScandiumPPG::channel_combination_ret_t>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::channel_combination_ret_t,std::string>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t Scandium::ScandiumPPG::scandium_channel_combination_t::combine_channels(std::string *a1, int a2, float *a3, float *a4, float *a5, int *a6, std::string *__str)
 {
-  v58[9] = *MEMORY[0x277D85DE8];
+  v60[9] = *MEMORY[0x277D85DE8];
   Scandium::ScandiumPPG::scandium_channel_combination_t::init_module(a1, __str);
   *a3 = NAN;
   *a4 = NAN;
@@ -9010,7 +8956,7 @@ uint64_t Scandium::ScandiumPPG::scandium_channel_combination_t::combine_channels
     *a3 = stats::mean(a1[6].__r_.__value_.__l.__size_, ((a1[6].__r_.__value_.__r.__words[2] - a1[6].__r_.__value_.__l.__size_) >> 2));
   }
 
-  return_message = Scandium::ScandiumPPG::scandium_channel_combination_t::get_return_message(v13, &v31);
+  return_message = Scandium::ScandiumPPG::scandium_channel_combination_t::get_return_message(v13, &v30);
   log = Scandium::algs_get_log(return_message);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
@@ -9020,16 +8966,16 @@ uint64_t Scandium::ScandiumPPG::scandium_channel_combination_t::combine_channels
       v19 = a1->__r_.__value_.__r.__words[0];
     }
 
-    v20 = &v31;
-    if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v20 = &v30;
+    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v20 = v31.__r_.__value_.__r.__words[0];
+      v20 = v30.__r_.__value_.__r.__words[0];
     }
 
     *buf = 136315394;
-    v33 = v19;
-    v34 = 2080;
-    v35 = v20;
+    v32 = v19;
+    v33 = 2080;
+    v34 = v20;
     _os_log_impl(&dword_2647F6000, log, OS_LOG_TYPE_DEFAULT, "scandium channel combination mode: %s result: %s", buf, 0x16u);
   }
 
@@ -9038,68 +8984,67 @@ uint64_t Scandium::ScandiumPPG::scandium_channel_combination_t::combine_channels
     std::string::basic_string[abi:ne200100]<0>(__p, "channel_combination");
     v21 = a1[5].__r_.__value_.__r.__words[2];
     std::string::basic_string[abi:ne200100]<0>(buf, "algs_mode");
-    v36 = *v21;
-    v37 = 1;
-    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[10],std::string&,0>(&v38, "comb_mode", a1);
-    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[11],std::vector<float>&,0>(&v39, "input_spo2", &a1[6].__r_.__value_.__l.__size_);
-    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[11],std::vector<float>&,0>(&v40, "input_conf", &a1[7].__r_.__value_.__l.__size_);
-    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[13],std::vector<float>&,0>(&v41, "input_girpir", &a1[8].__r_.__value_.__l.__size_);
-    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[15],std::vector<BOOL>&,0>(&v42, "input_valid_hw", &a1[9].__r_.__value_.__l.__size_);
+    v35 = *v21;
+    v36 = 1;
+    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[10],std::string&,0>(&v37, "comb_mode", a1);
+    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[11],std::vector<float>&,0>(&v38, "input_spo2", &a1[6].__r_.__value_.__l.__size_);
+    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[11],std::vector<float>&,0>(&v39, "input_conf", &a1[7].__r_.__value_.__l.__size_);
+    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[13],std::vector<float>&,0>(&v40, "input_girpir", &a1[8].__r_.__value_.__l.__size_);
+    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[15],std::vector<BOOL>&,0>(&v41, "input_valid_hw", &a1[9].__r_.__value_.__l.__size_);
     v22 = a1[5].__r_.__value_.__r.__words[2];
-    std::string::basic_string[abi:ne200100]<0>(v43, "input_motion_flag");
-    v43[32] = *(v22 + 9);
+    std::string::basic_string[abi:ne200100]<0>(v42, "input_motion_flag");
+    v43 = *(v22 + 9);
     v44 = 0;
     v23 = a1[5].__r_.__value_.__r.__words[2];
     std::string::basic_string[abi:ne200100]<0>(v45, "input_posture_flag");
-    v45[32] = *(v23 + 8);
-    v46 = 0;
-    std::string::basic_string[abi:ne200100]<0>(v47, "combined_spo2");
-    v48 = *a3;
-    v49 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v50, "combined_conf");
-    v51 = *a4;
-    v52 = 3;
-    std::string::basic_string[abi:ne200100]<0>(v53, "num_valid_channels");
-    v54 = *a6;
-    v55 = 1;
-    std::string::basic_string[abi:ne200100]<0>(v56, "enable_metrics");
-    v56[32] = a2;
-    v57 = 0;
-    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[7],std::string&,0>(v58, "result", &v31);
-    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v28, buf, 13);
+    v46 = *(v23 + 8);
+    v47 = 0;
+    std::string::basic_string[abi:ne200100]<0>(v48, "combined_spo2");
+    v49 = *a3;
+    v50 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v51, "combined_conf");
+    v52 = *a4;
+    v53 = 3;
+    std::string::basic_string[abi:ne200100]<0>(v54, "num_valid_channels");
+    v55 = *a6;
+    v56 = 1;
+    std::string::basic_string[abi:ne200100]<0>(v57, "enable_metrics");
+    v58 = a2;
+    v59 = 0;
+    std::pair<std::string const,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::pair[abi:ne200100]<char const(&)[7],std::string&,0>(v60, "result", &v30);
+    std::unordered_map<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>::unordered_map(v27, buf, 13);
     size = a1[25].__r_.__value_.__l.__size_;
     if (!size)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*size + 48))(size, __p, v28);
-    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v28);
+    (*(*size + 48))(size, __p, v27);
+    std::__hash_table<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>>>>::~__hash_table(v27);
     v25 = 936;
     do
     {
       std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,long long,float,double,std::string,std::variant<std::vector<BOOL>,std::vector<int>,std::vector<long long>,std::vector<float>,std::vector<double>,std::vector<std::string>>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&__p[v25 / 8 + 1]);
-      if (v28[v25 + 39] < 0)
+      if (v27[v25 + 39] < 0)
       {
-        operator delete(*&v28[v25 + 16]);
+        operator delete(*&v27[v25 + 16]);
       }
 
       v25 -= 72;
     }
 
     while (v25);
-    if (v30 < 0)
+    if (v29 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v31.__r_.__value_.__l.__data_);
+    operator delete(v30.__r_.__value_.__l.__data_);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -9226,7 +9171,7 @@ uint64_t Scandium::ScandiumPPG::scandium_channel_combination_t::combine_dl(Scand
     *(v78 + v19) = v25;
     v26 = v75;
     __p = &v71;
-    v26[v19] = *(std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__emplace_unique_key_args<Scandium::ScandiumPPG::PathType,std::piecewise_construct_t const&,std::tuple<Scandium::ScandiumPPG::PathType const&>,std::tuple<>>(this + 7, &v71) + 5) * v26[v19];
+    v26[v19] = *(std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__emplace_unique_key_args<Scandium::ScandiumPPG::PathType,std::piecewise_construct_t const&,std::tuple<Scandium::ScandiumPPG::PathType const&>,std::tuple<>>(this + 7, &v71, &std::piecewise_construct, &__p) + 5) * v26[v19];
     v27 = v72;
     if (v71 == 2)
     {
@@ -9563,7 +9508,7 @@ void std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,fl
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__emplace_multi<std::pair<Scandium::ScandiumPPG::PathType const,float> const&>();
+    std::__hash_table<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::__unordered_map_hasher<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::hash<Scandium::ScandiumPPG::PathType>,std::equal_to<Scandium::ScandiumPPG::PathType>,true>,std::__unordered_map_equal<Scandium::ScandiumPPG::PathType,std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>,std::equal_to<Scandium::ScandiumPPG::PathType>,std::hash<Scandium::ScandiumPPG::PathType>,true>,std::allocator<std::__hash_value_type<Scandium::ScandiumPPG::PathType,float>>>::__emplace_multi<std::pair<Scandium::ScandiumPPG::PathType const,float> const&>(a1, a2 + 2);
   }
 }
 

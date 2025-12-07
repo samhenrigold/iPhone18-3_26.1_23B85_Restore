@@ -377,7 +377,7 @@ LABEL_8:
   if (((isKindOfClass | v9) & 1) != 0 && (([viewCopy conformsToProtocol:v10] & 1) != 0 || objc_msgSend(nextViewCopy, "conformsToProtocol:", v10)))
   {
     device = [(NTKUtilityComplicationView *)self device];
-    ___LayoutConstants_block_invoke_70(device, &v15);
+    ___LayoutConstants_block_invoke_70(device, v15);
     v12 = &v16;
     goto LABEL_8;
   }

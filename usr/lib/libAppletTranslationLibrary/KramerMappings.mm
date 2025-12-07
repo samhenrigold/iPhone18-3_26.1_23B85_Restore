@@ -97,7 +97,7 @@
 
 + (id)mapLogEntryToHistory:(id)history withIpeList:(id)list withNormalLogFlag:(BOOL)flag
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   listCopy = list;
   v10 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:10];
@@ -112,12 +112,12 @@
       v22 = [self mapEnterExitIndicator:{objc_msgSend(v12, "unsignedCharValue")}];
       v20 = [self mapTransitDetailRaw:0];
       [historyCopy objectForKeyedSubscript:@"LogDateTimeStampRaw"];
-      v54 = v50 = self;
+      v55 = v51 = self;
       v26 = [self calculateTransactionSN:? withDifferentiator:?];
       v27 = [historyCopy objectForKeyedSubscript:@"LogDateTimeStamp"];
       v14 = [historyCopy objectForKeyedSubscript:@"LogIpePointer"];
       unsignedShortValue = [v14 unsignedShortValue];
-      v57 = @"Transit";
+      v58 = @"Transit";
       goto LABEL_12;
     }
 
@@ -134,14 +134,14 @@ LABEL_8:
   }
 
   v12 = [historyCopy objectForKeyedSubscript:@"TTTransactionType"];
-  v57 = [self mapTransactionTypeCode:{objc_msgSend(v12, "unsignedCharValue")}];
+  v58 = [self mapTransactionTypeCode:{objc_msgSend(v12, "unsignedCharValue")}];
   v13 = [self mapTransitDetailRaw:{objc_msgSend(v12, "unsignedCharValue")}];
-  v55 = [self mapInternalEnRouteStatus:{objc_msgSend(v12, "unsignedCharValue")}];
+  v56 = [self mapInternalEnRouteStatus:{objc_msgSend(v12, "unsignedCharValue")}];
   v14 = [historyCopy objectForKeyedSubscript:@"RecordOffset"];
   [historyCopy objectForKeyedSubscript:@"TTDateTimeStampRaw"];
-  v54 = v50 = self;
-  v48 = [self calculateTransactionSN:? withDifferentiator:?];
-  v52 = [historyCopy objectForKeyedSubscript:@"TTDateTimeStamp"];
+  v55 = v51 = self;
+  v49 = [self calculateTransactionSN:? withDifferentiator:?];
+  v53 = [historyCopy objectForKeyedSubscript:@"TTDateTimeStamp"];
   v15 = [historyCopy objectForKeyedSubscript:@"TTIpeId"];
   unsignedShortValue = [v15 unsignedShortValue];
 
@@ -162,122 +162,121 @@ LABEL_8:
     v21 = v20 = v13;
     [v10 setObject:v21 forKeyedSubscript:@"EndStation"];
 
-    v22 = v55;
+    v22 = v56;
   }
 
   else
   {
-    v22 = v55;
+    v22 = v56;
     v20 = v13;
   }
 
-  v26 = v48;
-  v27 = v52;
+  v26 = v49;
+  v27 = v53;
 LABEL_12:
 
   [v10 setObject:v27 forKeyedSubscript:@"TransactionTime"];
   [v10 setObject:v22 forKeyedSubscript:@"InternalEnRouteStatus"];
-  [v10 setObject:v57 forKeyedSubscript:@"TypeDetail"];
-  v56 = v20;
+  [v10 setObject:v58 forKeyedSubscript:@"TypeDetail"];
+  v57 = v20;
   [v10 setObject:v20 forKeyedSubscript:@"TypeDetailRaw"];
-  [v10 setObject:v26 forKeyedSubscript:@"SerialNumber"];
+  v28 = [v10 setObject:v26 forKeyedSubscript:@"SerialNumber"];
   if ((unsignedShortValue - 1) > 6)
   {
-    v28 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v28 = [listCopy objectAtIndex:?];
-    if ([v28 count])
+    v29 = [listCopy objectAtIndex:?];
+    v28 = [v29 count];
+    if (v28)
     {
-      v53 = v27;
-      v29 = [v28 objectForKeyedSubscript:@"CommutePlanIdentifier"];
-      v49 = [v28 objectForKeyedSubscript:@"CommutePlanUniqueIdentifier"];
-      v47 = [v28 objectForKeyedSubscript:@"CommutePlanValidityEndDate"];
-      v30 = [v28 objectForKeyedSubscript:@"CountBasedFlag"];
-      bOOLValue2 = [v30 BOOLValue];
+      v54 = v27;
+      v30 = [v29 objectForKeyedSubscript:@"CommutePlanIdentifier"];
+      v50 = [v29 objectForKeyedSubscript:@"CommutePlanUniqueIdentifier"];
+      v48 = [v29 objectForKeyedSubscript:@"CommutePlanValidityEndDate"];
+      v31 = [v29 objectForKeyedSubscript:@"CountBasedFlag"];
+      bOOLValue2 = [v31 BOOLValue];
 
       if (bOOLValue2)
       {
-        v51 = listCopy;
-        v32 = v22;
-        v33 = [historyCopy objectForKeyedSubscript:@"Amount"];
-        v34 = [historyCopy objectForKeyedSubscript:@"AmountCurrency"];
-        v35 = v29;
-        v36 = v34;
+        v52 = listCopy;
+        v33 = v22;
+        v34 = [historyCopy objectForKeyedSubscript:@"Amount"];
+        v35 = [historyCopy objectForKeyedSubscript:@"AmountCurrency"];
+        v36 = v30;
         v37 = v35;
-        v38 = [v50 addAmount:v33 withCurrency:v34 withIdentifier:@"AmountIdentifier" usingAmountKey:0 usingCurrencyKey:0 usingExponentKey:? usingPlanIdentifier:? withExpirationDate:? usingBalanceExpiryKey:?];
+        v38 = v36;
+        v39 = [v51 addAmount:v34 withCurrency:v35 withIdentifier:@"AmountIdentifier" usingAmountKey:0 usingCurrencyKey:0 usingExponentKey:? usingPlanIdentifier:? withExpirationDate:? usingBalanceExpiryKey:?];
 
-        v39 = ATLLogObject();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        v41 = ATLLogObject(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v61 = v38;
-          _os_log_impl(&dword_22EEF5000, v39, OS_LOG_TYPE_DEBUG, "Adding Amounts %@", buf, 0xCu);
+          v62 = v39;
+          _os_log_impl(&dword_22EEF5000, v41, OS_LOG_TYPE_DEBUG, "Adding Amounts %@", buf, 0xCu);
         }
 
-        v59 = v38;
-        v40 = @"Amounts";
-        v41 = &v59;
-        v29 = v37;
+        v60 = v39;
+        v42 = @"Amounts";
+        v43 = &v60;
+        v30 = v38;
       }
 
       else
       {
-        if (!v28)
+        if (!v29)
         {
 LABEL_24:
 
-          v27 = v53;
+          v27 = v54;
           goto LABEL_25;
         }
 
-        v51 = listCopy;
-        v32 = v22;
-        v38 = [v50 commutePlanWithIdAndExpiry:v29 withExpiry:v47 withUniqueId:v49];
-        v42 = ATLLogObject();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+        v52 = listCopy;
+        v33 = v22;
+        v39 = [v51 commutePlanWithIdAndExpiry:v30 withExpiry:v48 withUniqueId:v50];
+        v44 = ATLLogObject(v39);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v61 = v38;
-          _os_log_impl(&dword_22EEF5000, v42, OS_LOG_TYPE_DEBUG, "Adding commutePlanWithIdAndExpiry %@", buf, 0xCu);
+          v62 = v39;
+          _os_log_impl(&dword_22EEF5000, v44, OS_LOG_TYPE_DEBUG, "Adding commutePlanWithIdAndExpiry %@", buf, 0xCu);
         }
 
-        v58 = v38;
-        v40 = @"CommutePlans";
-        v41 = &v58;
+        v59 = v39;
+        v42 = @"CommutePlans";
+        v43 = &v59;
       }
 
-      v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
-      [v10 setObject:v43 forKeyedSubscript:v40];
+      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+      [v10 setObject:v45 forKeyedSubscript:v42];
 
-      v22 = v32;
-      listCopy = v51;
+      v22 = v33;
+      listCopy = v52;
       goto LABEL_24;
     }
   }
 
 LABEL_25:
-  v44 = ATLLogObject();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+  v46 = ATLLogObject(v28);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v61 = v10;
-    _os_log_impl(&dword_22EEF5000, v44, OS_LOG_TYPE_DEBUG, "historyEntry %@", buf, 0xCu);
+    v62 = v10;
+    _os_log_impl(&dword_22EEF5000, v46, OS_LOG_TYPE_DEBUG, "historyEntry %@", buf, 0xCu);
   }
 
   v25 = v10;
 LABEL_28:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
 
 + (id)getMergedHistory:(id)history withDirectory:(id)directory withIpeList:(id)list
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   listCopy = list;
   directoryCopy = directory;
   historyCopy = history;
@@ -285,47 +284,45 @@ LABEL_28:
   v11 = [KramerMappings convertLogToHistory:historyCopy withDirectory:directoryCopy withIpeList:listCopy];
 
   v12 = [KramerMappings mergeTransitAndTopupHistory:v11 withTopupHistory:v10];
-  v13 = ATLLogObject();
+  v13 = ATLLogObject(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 138412290;
-    v17 = v12;
-    _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_DEBUG, "Merged history: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v12;
+    _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_DEBUG, "Merged history: %@", &v15, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)convertTopupsToHistory:(id)history
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   historyCopy = history;
-  v52 = [MEMORY[0x277CBEB18] arrayWithCapacity:{5 * objc_msgSend(historyCopy, "count")}];
-  v68 = 0u;
+  v53 = [MEMORY[0x277CBEB18] arrayWithCapacity:{5 * objc_msgSend(historyCopy, "count")}];
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
   obj = historyCopy;
-  v4 = [obj countByEnumeratingWithState:&v68 objects:v76 count:16];
+  v4 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v69;
-    v47 = *v69;
+    v6 = *v70;
+    v48 = *v70;
     do
     {
       v7 = 0;
-      v48 = v5;
+      v49 = v5;
       do
       {
-        if (*v69 != v6)
+        if (*v70 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v68 + 1) + 8 * v7);
+        v8 = *(*(&v69 + 1) + 8 * v7);
         v9 = [v8 objectForKeyedSubscript:@"VGTopups"];
         v10 = v9;
         if (v8)
@@ -340,47 +337,47 @@ LABEL_28:
 
         if (!v11)
         {
-          v66 = 0u;
           v67 = 0u;
-          v64 = 0u;
+          v68 = 0u;
           v65 = 0u;
-          v55 = [v9 countByEnumeratingWithState:&v64 objects:v75 count:16];
-          if (v55)
+          v66 = 0u;
+          v56 = [v9 countByEnumeratingWithState:&v65 objects:v76 count:16];
+          if (v56)
           {
-            v49 = v7;
+            v50 = v7;
             v12 = 0;
             v13 = 0;
-            v62 = 0;
+            v63 = 0;
             v14 = 0;
             v15 = 0;
             v16 = 0;
-            v53 = *v65;
-            v50 = v10;
+            v54 = *v66;
+            v51 = v10;
             do
             {
               v17 = 0;
               v18 = v12;
               v19 = v13;
-              v20 = v62;
+              v20 = v63;
               v21 = v14;
               v22 = v15;
               v23 = v16;
               do
               {
-                v63 = v19;
-                v59 = v18;
-                if (*v65 != v53)
+                v64 = v19;
+                v60 = v18;
+                if (*v66 != v54)
                 {
-                  objc_enumerationMutation(v50);
+                  objc_enumerationMutation(v51);
                 }
 
-                v61 = v17;
-                v24 = *(*(&v64 + 1) + 8 * v17);
+                v62 = v17;
+                v24 = *(*(&v65 + 1) + 8 * v17);
                 v25 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:10];
                 v26 = [v24 objectForKeyedSubscript:@"VGTrxType"];
                 v27 = [self mapTransactionTypeCode:{objc_msgSend(v26, "unsignedCharValue")}];
 
-                v57 = v26;
+                v58 = v26;
                 v28 = [self mapTransitDetailRaw:{objc_msgSend(v26, "unsignedCharValue")}];
 
                 v29 = [v24 objectForKeyedSubscript:@"VGDateTimeStampRaw"];
@@ -389,10 +386,10 @@ LABEL_28:
 
                 v31 = [v24 objectForKeyedSubscript:@"VGIpePointer"];
 
-                v56 = [obj objectAtIndex:{objc_msgSend(v31, "unsignedShortValue") - 1}];
-                v32 = [v56 objectForKeyedSubscript:@"CommutePlanIdentifier"];
-                v58 = v29;
-                v62 = v30;
+                v57 = [obj objectAtIndex:{objc_msgSend(v31, "unsignedShortValue") - 1}];
+                v32 = [v57 objectForKeyedSubscript:@"CommutePlanIdentifier"];
+                v59 = v29;
+                v63 = v30;
                 v33 = v30;
                 v13 = v31;
                 v34 = [self calculateTopupTransactionSN:v29 withDifferentiator:v33 withIpeId:v31];
@@ -400,7 +397,7 @@ LABEL_28:
                 v35 = [v24 objectForKeyedSubscript:@"VGDateTimeStamp"];
                 [v25 setObject:v35 forKeyedSubscript:@"TransactionTime"];
 
-                v60 = v27;
+                v61 = v27;
                 [v25 setObject:v27 forKeyedSubscript:@"TypeDetail"];
                 v22 = v28;
                 v36 = v28;
@@ -414,40 +411,40 @@ LABEL_28:
                 v40 = [v24 objectForKeyedSubscript:@"VGCurrencyCode"];
                 v41 = [self addAmount:v39 withCurrency:v40 withIdentifier:v32 usingAmountKey:@"Amount" usingCurrencyKey:@"AmountCurrency" usingExponentKey:@"AmountCurrencyExponent" usingPlanIdentifier:@"AmountIdentifier" withExpirationDate:0 usingBalanceExpiryKey:0];
 
-                v42 = ATLLogObject();
-                if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+                v43 = ATLLogObject(v42);
+                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v74 = v41;
-                  _os_log_impl(&dword_22EEF5000, v42, OS_LOG_TYPE_DEFAULT, "Adding Amounts %@", buf, 0xCu);
+                  v75 = v41;
+                  _os_log_impl(&dword_22EEF5000, v43, OS_LOG_TYPE_DEFAULT, "Adding Amounts %@", buf, 0xCu);
                 }
 
-                v72 = v41;
-                v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
-                [v25 setObject:v43 forKeyedSubscript:@"Amounts"];
+                v73 = v41;
+                v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
+                [v25 setObject:v44 forKeyedSubscript:@"Amounts"];
 
-                [v52 addObject:v25];
-                v20 = v62;
-                v17 = v61 + 1;
+                [v53 addObject:v25];
+                v20 = v63;
+                v17 = v62 + 1;
                 v18 = v12;
                 v19 = v13;
-                v14 = v58;
-                v16 = v60;
-                v21 = v58;
-                v23 = v60;
+                v14 = v59;
+                v16 = v61;
+                v21 = v59;
+                v23 = v61;
               }
 
-              while (v55 != v61 + 1);
+              while (v56 != v62 + 1);
               v15 = v22;
-              v10 = v50;
-              v55 = [v50 countByEnumeratingWithState:&v64 objects:v75 count:16];
+              v10 = v51;
+              v56 = [v51 countByEnumeratingWithState:&v65 objects:v76 count:16];
             }
 
-            while (v55);
+            while (v56);
 
-            v6 = v47;
-            v5 = v48;
-            v7 = v49;
+            v6 = v48;
+            v5 = v49;
+            v7 = v50;
           }
         }
 
@@ -455,23 +452,21 @@ LABEL_28:
       }
 
       while (v7 != v5);
-      v5 = [obj countByEnumeratingWithState:&v68 objects:v76 count:16];
+      v5 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
     }
 
     while (v5);
   }
 
-  v44 = ATLLogObject();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+  v46 = ATLLogObject(v45);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v74 = v52;
-    _os_log_impl(&dword_22EEF5000, v44, OS_LOG_TYPE_DEFAULT, "historyEntries %@", buf, 0xCu);
+    v75 = v53;
+    _os_log_impl(&dword_22EEF5000, v46, OS_LOG_TYPE_DEFAULT, "historyEntries %@", buf, 0xCu);
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v52;
+  return v53;
 }
 
 + (id)mapTransactionTypeCode:(unsigned __int8)code
@@ -490,53 +485,41 @@ LABEL_28:
 + (id)mapInternalEnRouteStatus:(unsigned __int8)status
 {
   statusCopy = status;
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (status - 1) < 0x17 && ((0x7DBC7Bu >> (status - 1)))
   {
-    result = off_278874F68[(status - 1)];
+    return off_278874F68[(status - 1)];
   }
 
-  else
+  v5 = ATLLogObject(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v7[0] = 67109120;
-      v7[1] = statusCopy;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_DEFAULT, "Unexpected Transaction Type code: %u", v7, 8u);
-    }
-
-    result = @"Unknown";
+    v6[0] = 67109120;
+    v6[1] = statusCopy;
+    _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_DEFAULT, "Unexpected Transaction Type code: %u", v6, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"Unknown";
 }
 
 + (id)mapEnterExitIndicator:(unsigned __int8)indicator
 {
   indicatorCopy = indicator;
-  v8 = *MEMORY[0x277D85DE8];
-  if (indicator >= 4u)
+  v7 = *MEMORY[0x277D85DE8];
+  if (indicator < 4u)
   {
-    v5 = ATLLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v7[0] = 67109120;
-      v7[1] = indicatorCopy;
-      _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_DEFAULT, "Unexpected Enter / Exit Indicatorcode: %u (expected for topup transactions)", v7, 8u);
-    }
-
-    result = @"Unknown";
+    return off_278875020[indicator];
   }
 
-  else
+  v5 = ATLLogObject(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    result = off_278875020[indicator];
+    v6[0] = 67109120;
+    v6[1] = indicatorCopy;
+    _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_DEFAULT, "Unexpected Enter / Exit Indicatorcode: %u (expected for topup transactions)", v6, 8u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"Unknown";
 }
 
 + (id)mapTransitDetailRaw:(unsigned __int8)raw
@@ -564,32 +547,32 @@ LABEL_28:
   unsignedShortValue = [differentiatorCopy unsignedShortValue];
 
   v10 = unsignedShortValue + 100 * id;
-  v11 = +[HashHelper hashHelper];
-  v12 = [(HashHelper *)v11 addNumber:nCopy];
+  v12 = +[HashHelper hashHelper];
+  v13 = [(HashHelper *)v12 addNumber:nCopy];
 
-  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v10];
-  v14 = [(HashHelper *)v12 addNumber:v13];
-  getHash = [(HashHelper *)v14 getHash];
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v10];
+  v15 = [(HashHelper *)v13 addNumber:v14];
+  getHash = [(HashHelper *)v15 getHash];
 
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(getHash, "u32BE:", 0)}];
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(getHash, "u32BE:", 0)}];
 
-  return v16;
+  return v17;
 }
 
 + (id)calculateTransactionSN:(id)n withDifferentiator:(id)differentiator
 {
   differentiatorCopy = differentiator;
   nCopy = n;
-  v7 = +[HashHelper hashHelper];
-  v8 = [(HashHelper *)v7 addNumber:nCopy];
+  v8 = +[HashHelper hashHelper];
+  v9 = [(HashHelper *)v8 addNumber:nCopy];
 
-  v9 = [(HashHelper *)v8 addNumber:differentiatorCopy];
+  v10 = [(HashHelper *)v9 addNumber:differentiatorCopy];
 
-  getHash = [(HashHelper *)v9 getHash];
+  getHash = [(HashHelper *)v10 getHash];
 
-  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(getHash, "u32BE:", 0)}];
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(getHash, "u32BE:", 0)}];
 
-  return v11;
+  return v12;
 }
 
 + (id)addBalance:(id)balance withIpe:(id)ipe
@@ -650,7 +633,7 @@ LABEL_6:
 
   unsignedCharValue = [currencyCopy unsignedCharValue];
   v22 = amountCopy;
-  if (unsignedCharValue || ![amountCopy integerValue])
+  if (unsignedCharValue || (v46 = [amountCopy integerValue]) == 0)
   {
     v23 = [self mapCurrencyCode:unsignedCharValue];
     v24 = [self mapCurrencyExponent:unsignedCharValue];
@@ -660,10 +643,10 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v46 = ATLLogObject();
+  v47 = ATLLogObject(v46);
   v25 = keyCopy;
   v26 = identifierCopy;
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     v71 = currencyCopy;
@@ -671,7 +654,7 @@ LABEL_5:
     v73 = identifierCopy;
     v74 = 2112;
     v75 = amountCopy;
-    _os_log_impl(&dword_22EEF5000, v46, OS_LOG_TYPE_DEFAULT, "Warning: Currency code field is %@ for %@. Defaulting to GBP with exponent 2. Amount is %@.", buf, 0x20u);
+    _os_log_impl(&dword_22EEF5000, v47, OS_LOG_TYPE_DEFAULT, "Warning: Currency code field is %@ for %@. Defaulting to GBP with exponent 2. Amount is %@.", buf, 0x20u);
   }
 
   v23 = @"GBP";
@@ -711,11 +694,11 @@ LABEL_6:
       v34 = [identifierCopy dataUsingEncoding:4];
       asHexString = [v34 asHexString];
       v67[3] = asHexString;
-      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:4];
-      v38 = [v31 dictionaryWithDictionary:v48];
+      v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:4];
+      v38 = [v31 dictionaryWithDictionary:v49];
 
       v39 = exponentKeyCopy;
-      v49 = amountCopy;
+      v50 = amountCopy;
       v36 = v55;
       goto LABEL_24;
     }
@@ -748,7 +731,7 @@ LABEL_6:
     v42 = v29;
     v43 = v23;
     v52 = planIdentifierCopy;
-    v44 = ATLLogObject();
+    v44 = ATLLogObject(v29);
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
@@ -793,17 +776,15 @@ LABEL_6:
     v30 = v52;
   }
 
-  v49 = amountCopy;
+  v50 = amountCopy;
 LABEL_24:
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
 
 + (id)mergeTransitAndTopupHistory:(id)history withTopupHistory:(id)topupHistory
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   topupHistoryCopy = topupHistory;
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(topupHistoryCopy, "count") + objc_msgSend(historyCopy, "count")}];
@@ -822,38 +803,38 @@ LABEL_25:
   }
 
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v31 = topupHistoryCopy;
-  v33 = [topupHistoryCopy mutableCopy];
+  v30 = topupHistoryCopy;
+  v32 = [topupHistoryCopy mutableCopy];
   if ([historyCopy count])
   {
     v9 = 0;
     v10 = 0;
-    v32 = historyCopy;
-    v36 = v7;
+    v31 = historyCopy;
+    v35 = v7;
     do
     {
-      v34 = v10;
+      v33 = v10;
       v11 = [historyCopy objectAtIndex:v9];
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
-      obj = v33;
-      v12 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+      obj = v32;
+      v12 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v42;
+        v14 = *v41;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v42 != v14)
+            if (*v41 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v41 + 1) + 8 * i);
+            v16 = *(*(&v40 + 1) + 8 * i);
             v17 = [v16 objectForKeyedSubscript:@"TransactionTime"];
             v18 = [currentCalendar dateFromComponents:v17];
 
@@ -862,51 +843,51 @@ LABEL_25:
 
             if ([v18 compare:v20] != -1)
             {
-              [v36 insertObject:v16 atIndex:0];
+              [v35 insertObject:v16 atIndex:0];
             }
           }
 
-          v13 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+          v13 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
         }
 
         while (v13);
       }
 
-      v7 = v36;
-      [v36 insertObject:v11 atIndex:0];
-      [obj removeObjectsInArray:v36];
+      v7 = v35;
+      [v35 insertObject:v11 atIndex:0];
+      [obj removeObjectsInArray:v35];
 
-      v10 = v34 + 1;
-      v9 = (v34 + 1);
-      historyCopy = v32;
+      v10 = v33 + 1;
+      v9 = (v33 + 1);
+      historyCopy = v31;
     }
 
-    while ([v32 count] > v9);
+    while ([v31 count] > v9);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
-  v21 = v33;
-  v22 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v21 = v32;
+  v22 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v38;
+    v24 = *v37;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v38 != v24)
+        if (*v37 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [v7 insertObject:*(*(&v37 + 1) + 8 * j) atIndex:0];
+        [v7 insertObject:*(*(&v36 + 1) + 8 * j) atIndex:0];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v23);
@@ -915,10 +896,8 @@ LABEL_25:
   reverseObjectEnumerator = [v7 reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator allObjects];
 
-  topupHistoryCopy = v31;
+  topupHistoryCopy = v30;
 LABEL_26:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -1011,44 +990,42 @@ LABEL_26:
 
 + (id)commutePlanWithIdAndExpiry:(id)expiry withExpiry:(id)withExpiry withUniqueId:(id)id
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   if (id)
   {
-    v23[0] = @"CommutePlanIdentifier";
-    v23[1] = @"CommutePlanValidityEndDate";
-    v24[0] = expiry;
-    v24[1] = withExpiry;
-    v23[2] = @"CommutePlanUniqueIdentifier";
-    v24[2] = id;
+    v22[0] = @"CommutePlanIdentifier";
+    v22[1] = @"CommutePlanValidityEndDate";
+    v23[0] = expiry;
+    v23[1] = withExpiry;
+    v22[2] = @"CommutePlanUniqueIdentifier";
+    v23[2] = id;
     v7 = MEMORY[0x277CBEAC0];
     idCopy = id;
     withExpiryCopy = withExpiry;
     expiryCopy = expiry;
-    v11 = v24;
-    v12 = v23;
+    v11 = v23;
+    v12 = v22;
     v13 = v7;
     v14 = 3;
   }
 
   else
   {
-    v21[0] = @"CommutePlanIdentifier";
-    v21[1] = @"CommutePlanValidityEndDate";
-    v22[0] = expiry;
-    v22[1] = withExpiry;
+    v20[0] = @"CommutePlanIdentifier";
+    v20[1] = @"CommutePlanValidityEndDate";
+    v21[0] = expiry;
+    v21[1] = withExpiry;
     v15 = MEMORY[0x277CBEAC0];
     idCopy = 0;
     withExpiryCopy2 = withExpiry;
     expiryCopy2 = expiry;
-    v11 = v22;
-    v12 = v21;
+    v11 = v21;
+    v12 = v20;
     v13 = v15;
     v14 = 2;
   }
 
   v18 = [v13 dictionaryWithObjects:v11 forKeys:v12 count:v14];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

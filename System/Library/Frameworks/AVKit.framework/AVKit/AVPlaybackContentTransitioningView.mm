@@ -1170,13 +1170,13 @@ LABEL_106:
 LABEL_120:
 }
 
-uint64_t __97__AVPlaybackContentTransitioningView__setTransitionState_transitionDirection_transitionProgress___block_invoke(uint64_t result)
+void *__97__AVPlaybackContentTransitioningView__setTransitionState_transitionDirection_transitionProgress___block_invoke(void *result)
 {
-  v1 = *(result + 40);
+  v1 = *(result + 5);
   v2 = v1 == 6 || v1 == 4;
-  if (!v2 && (v1 != 3 || *(result + 48) == 1))
+  if (!v2 && (v1 != 3 || *(result + 6) == 1))
   {
-    return [*(result + 32) _updateSizeAndContentFrame];
+    return [*(result + 4) _updateSizeAndContentFrame];
   }
 
   return result;

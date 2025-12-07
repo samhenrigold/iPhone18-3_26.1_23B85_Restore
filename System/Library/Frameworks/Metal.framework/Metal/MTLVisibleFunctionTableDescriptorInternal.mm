@@ -59,31 +59,29 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v12[9] = *MEMORY[0x1E69E9840];
+  v11[9] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v11.receiver = self;
-  v11.super_class = MTLVisibleFunctionTableDescriptorInternal;
-  v6 = [(MTLVisibleFunctionTableDescriptorInternal *)&v11 description];
-  v12[0] = v4;
-  v12[1] = @"functionCount =";
+  v10.receiver = self;
+  v10.super_class = MTLVisibleFunctionTableDescriptorInternal;
+  v6 = [(MTLVisibleFunctionTableDescriptorInternal *)&v10 description];
+  v11[0] = v4;
+  v11[1] = @"functionCount =";
   p_private = &self->_private;
-  v12[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->functionCount];
-  v12[3] = v4;
+  v11[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->functionCount];
+  v11[3] = v4;
   v8 = @"YES";
   if (!p_private->forceResourceIndex)
   {
     v8 = @"NO";
   }
 
-  v12[4] = @"forceResourceIndex =";
-  v12[5] = v8;
-  v12[6] = v4;
-  v12[7] = @"resourceIndex =";
-  v12[8] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:p_private->resourceIndex];
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v12, 9), "componentsJoinedByString:", @" "];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v11[4] = @"forceResourceIndex =";
+  v11[5] = v8;
+  v11[6] = v4;
+  v11[7] = @"resourceIndex =";
+  v11[8] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:p_private->resourceIndex];
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v11, 9), "componentsJoinedByString:", @" "];
 }
 
 @end

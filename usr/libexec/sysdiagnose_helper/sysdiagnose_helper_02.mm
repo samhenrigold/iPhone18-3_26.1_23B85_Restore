@@ -1,8 +1,8 @@
 uint64_t extract_all_magazine_stats(const char *a1)
 {
-  v32 = 0xDEADBEEFDEADBEEFLL;
+  v35 = 0xDEADBEEFDEADBEEFLL;
   __ptr = 0;
-  v30 = 0;
+  v33 = 0;
   __size = 0;
   if (!a1)
   {
@@ -16,19 +16,19 @@ uint64_t extract_all_magazine_stats(const char *a1)
   {
 LABEL_31:
     fprintf(__stderrp, "Error: cannot open dest file %s", v1);
-    v25 = 0;
+    v28 = 0;
     v3 = 0;
     goto LABEL_35;
   }
 
   v3 = v2;
   v4 = 0;
-  v34[0] = xmmword_10003EB70;
-  v34[1] = xmmword_10003EB80;
-  v34[2] = xmmword_10003EB90;
-  v35 = 168;
+  v37[0] = xmmword_10003EB70;
+  v37[1] = xmmword_10003EB80;
+  v37[2] = xmmword_10003EB90;
+  v38 = 168;
   v5 = xmmword_10003EBA0;
-  v6 = v36;
+  v6 = v39;
   v7 = vdupq_n_s64(7uLL);
   v8.i64[0] = 0x100000001;
   v8.i64[1] = 0x100000001;
@@ -62,10 +62,10 @@ LABEL_31:
 
   while (v4 != 8);
   v13 = 0;
-  v36[1] = xmmword_10003EBD0;
-  v37 = 8064;
+  v39[1] = xmmword_10003EBD0;
+  v40 = 8064;
   v14 = xmmword_10003EBA0;
-  v15 = &v38;
+  v15 = &v41;
   v16 = vdupq_n_s64(9uLL);
   v17.i64[0] = 0x100000001;
   v17.i64[1] = 0x100000001;
@@ -98,15 +98,15 @@ LABEL_31:
   }
 
   while (v13 != 12);
-  if (sub_100039314(&v30) && v30 && *(v30 + 4))
+  if (sub_100039314(&v33) && v33 && *(v33 + 4))
   {
-    v22 = 0;
+    v25 = 0;
     while (1)
     {
-      v23 = *(v34 + v22);
-      if (!sub_10002A738(v30, v23, 1, &__ptr, &__size))
+      v26 = *(v37 + v25);
+      if (!sub_10002A738(v33, v26, 1, &__ptr, &__size, v22, v23, v24))
       {
-        fprintf(__stderrp, "Error: failed to extract stats magazine for %u hours back", v23);
+        fprintf(__stderrp, "Error: failed to extract stats magazine for %u hours back", v26);
         goto LABEL_34;
       }
 
@@ -115,40 +115,40 @@ LABEL_31:
         break;
       }
 
-      v22 += 4;
+      v25 += 4;
       fwrite(__ptr, __size, 1uLL, v3);
-      fwrite(&v32, 8uLL, 1uLL, v3);
+      fwrite(&v35, 8uLL, 1uLL, v3);
       free(__ptr);
       __ptr = 0;
       __size = 0;
-      if (v22 == 136)
+      if (v25 == 136)
       {
         syslog(5, "All stats magazine extracted.");
-        v25 = 1;
+        v28 = 1;
         goto LABEL_35;
       }
     }
 
-    v26 = __stderrp;
-    v27 = "Error: extracted stats magazine but did not generate proper buffer";
-    v28 = 66;
+    v29 = __stderrp;
+    v30 = "Error: extracted stats magazine but did not generate proper buffer";
+    v31 = 66;
   }
 
   else
   {
-    v26 = __stderrp;
-    v27 = "Unable to get nand connection\n";
-    v28 = 30;
+    v29 = __stderrp;
+    v30 = "Unable to get nand connection\n";
+    v31 = 30;
   }
 
-  fwrite(v27, v28, 1uLL, v26);
+  fwrite(v30, v31, 1uLL, v29);
 LABEL_34:
-  v25 = 0;
+  v28 = 0;
 LABEL_35:
-  if (v30)
+  if (v33)
   {
-    sub_100039460(v30);
-    v30 = 0;
+    sub_100039460(v33);
+    v33 = 0;
   }
 
   if (v3)
@@ -161,53 +161,53 @@ LABEL_35:
     free(__ptr);
   }
 
-  return v25;
+  return v28;
 }
 
-uint64_t print_band_stats_v2(char *a1, int a2)
+uint64_t print_band_stats_v2(char *a1, int a2, __n128 a3, __n128 a4, __n128 a5)
 {
   LODWORD(outputStruct) = 0;
-  v4 = sub_100039190(0, 299, 0, &outputStruct);
-  v5 = outputStruct & 0xF;
-  if (!v4)
+  v7 = sub_100039190(0, 299, 0, &outputStruct, a3, a4, a5);
+  v11 = outputStruct & 0xF;
+  if (!v7)
   {
-    v5 = 1;
+    v11 = 1;
   }
 
-  v13 = 0;
+  v22 = 0;
   outputStruct = 0;
-  if (v5 != 2)
+  if (v11 != 2)
   {
-    if (v5 == 3)
+    if (v11 == 3)
     {
-      v6 = sub_100039158(0, 297, &v13, 0, 1);
-      outputStruct = v6;
-      if (v6)
+      v12 = sub_100039158(0, 297, &v22, 0, 1, v8, v9, v10);
+      outputStruct = v12;
+      if (v12)
       {
-        v7 = v6;
-        sub_100037570(a1, v6, v13);
+        v16 = v12;
+        sub_100037570(a1, v12, v22, v13, v14, v15);
 LABEL_12:
-        free(v7);
+        free(v16);
         return 1;
       }
 
-      v10 = __stderrp;
-      v11 = "Error: Cannot Extract Band Stats for ASP3\n";
-      v12 = 42;
+      v19 = __stderrp;
+      v20 = "Error: Cannot Extract Band Stats for ASP3\n";
+      v21 = 42;
       goto LABEL_16;
     }
 
 LABEL_10:
-    if (sub_10002A610(7u, &outputStruct, &v13))
+    if (sub_10002A610(7u, &outputStruct, &v22, v8, v9, v10))
     {
-      sub_1000379A0(a1, outputStruct, v13, a2);
-      v7 = outputStruct;
+      sub_1000379A0(a1, outputStruct, v22, a2);
+      v16 = outputStruct;
       goto LABEL_12;
     }
 
-    v10 = __stderrp;
-    v11 = "Error: IO NVMe Smart cmd failed to extract ASP excport stats!\n";
-    v12 = 62;
+    v19 = __stderrp;
+    v20 = "Error: IO NVMe Smart cmd failed to extract ASP excport stats!\n";
+    v21 = 62;
     goto LABEL_16;
   }
 
@@ -216,40 +216,40 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v8 = sub_100039158(0, 262, &v13, 0, 1);
-  outputStruct = v8;
-  if (v8)
+  v17 = sub_100039158(0, 262, &v22, 0, 1, v8, v9, v10);
+  outputStruct = v17;
+  if (v17)
   {
-    v7 = v8;
-    sub_1000379A0(a1, v8, v13, 1);
+    v16 = v17;
+    sub_1000379A0(a1, v17, v22, 1);
     goto LABEL_12;
   }
 
-  v10 = __stderrp;
-  v11 = "Error: Cannot Extract Band Stats and Validity\n";
-  v12 = 46;
+  v19 = __stderrp;
+  v20 = "Error: Cannot Extract Band Stats and Validity\n";
+  v21 = 46;
 LABEL_16:
-  fwrite(v11, v12, 1uLL, v10);
+  fwrite(v20, v21, 1uLL, v19);
   return 0;
 }
 
-void sub_100037570(char *__filename, unsigned int *a2, unsigned int a3)
+void sub_100037570(char *__filename, uint64_t a2, unsigned int a3, __n128 a4, __n128 a5, __n128 a6)
 {
+  v36 = 0;
   v35 = 0;
-  v34 = 0;
+  v34 = -1;
   v33 = -1;
-  v32 = -1;
+  v32 = 0;
   v31 = 0;
   v30 = 0;
   v29 = 0;
   v28 = 0;
   v27 = 0;
-  v26 = 0;
-  v23 = 0;
+  v24 = 0;
   if (__filename)
   {
-    v6 = fopen(__filename, "a");
-    if (!v6)
+    v9 = fopen(__filename, "a");
+    if (!v9)
     {
       fprintf(__stderrp, "Unable to open %s\n", __filename);
       return;
@@ -258,18 +258,17 @@ void sub_100037570(char *__filename, unsigned int *a2, unsigned int a3)
 
   else
   {
-    v6 = __stdoutp;
+    v9 = __stdoutp;
   }
 
-  if (a2[2] != 1)
+  if (*(a2 + 8) != 1)
   {
-    v21 = a2[2];
     fprintf(__stderrp, "Version mismatch, expected 1 got %d\n");
 LABEL_9:
     if (__filename)
     {
 
-      fclose(v6);
+      fclose(v9);
     }
 
     return;
@@ -277,54 +276,53 @@ LABEL_9:
 
   if (*a2 > a3)
   {
-    v20 = *a2;
     fprintf(__stderrp, "Insufficient size, expected %d got %d\n");
     goto LABEL_9;
   }
 
-  v7 = a2[1];
-  v8 = sub_100039158(0, 264, &v23, 0, 1);
-  if (v8)
+  v10 = *(a2 + 4);
+  v11 = sub_100039158(0, 264, &v24, 0, 1, a4, a5, a6);
+  if (v11)
   {
-    v9 = v8;
-    if (v23 >= 2 && 22 * *v8 + 2 <= v23)
+    v12 = v11;
+    if (v24 >= 2 && 22 * *v11 + 2 <= v24)
     {
-      v11 = &xmmword_100079500;
+      v14 = &xmmword_100079500;
       strcpy(&xmmword_100079500, "USER PARTITION");
       strcpy(qword_10007951E, "INTERMEDIATE PARTITION");
       strcpy(byte_10007953C, "SKINNY PARTITION");
-      fwrite("Band stats:\n", 0xCuLL, 1uLL, v6);
-      fwrite("Flags: Bits/Cell (1/3/4), r: retrace, C: GCcan, M: GCmust, S: Special, R: GCrd, E: erased, I: toInvalidate\n", 0x6BuLL, 1uLL, v6);
-      v12 = *(a2 + 3);
-      v25 = v12.i32[0];
-      v24 = vrev64_s32(v12);
-      v22 = v9;
-      v13 = (v9 + 1);
-      v14 = sub_1000388F0(v6, a2 + 5, v7, 1u, &v24, &v26, &v34, &v32, &v30, &v28, v13);
-      v15 = sub_1000388F0(v6, v14, v7, 0, &v24, &v26, &v34, &v32, &v30, &v28, v13);
-      sub_1000388F0(v6, v15, v7, 2u, &v24, &v26, &v34, &v32, &v30, &v28, v13);
+      fwrite("Band stats:\n", 0xCuLL, 1uLL, v9);
+      fwrite("Flags: Bits/Cell (1/3/4), r: retrace, C: GCcan, M: GCmust, S: Special, R: GCrd, E: erased, I: toInvalidate\n", 0x6BuLL, 1uLL, v9);
+      v15 = *(a2 + 12);
+      v26 = v15.i32[0];
+      v25 = vrev64_s32(v15);
+      v23 = v12;
+      v16 = (v12 + 1);
+      v17 = sub_1000388F0(v9, (a2 + 20), v10, 1u, &v25, &v27, &v35, &v33, &v31, &v29, v16);
+      v18 = sub_1000388F0(v9, v17, v10, 0, &v25, &v27, &v35, &v33, &v31, &v29, v16);
+      sub_1000388F0(v9, v18, v10, 2u, &v25, &v27, &v35, &v33, &v31, &v29, v16);
       for (i = 0; i != 12; i += 4)
       {
-        v17 = *(&v28 + i);
-        if (v17)
+        v20 = *(&v29 + i);
+        if (v20)
         {
-          v18 = *(&v30 + i) / v17;
-          *(&v30 + i) = v18;
-          v19 = v24.u32[i / 4];
-          fprintf(v6, "%-23s: Erase Cycles: Max(%d, %d%% of EoL) Min(%d, %d%% of EoL) Avg(%d, %d%% of EoL)\n", v11, *(&v34 + i), 100 * *(&v34 + i) / v19, *(&v32 + i), 100 * *(&v32 + i) / v19, v18, 100 * v18 / v19);
-          fprintf(v6, "%24s Max band age:    (%d)\n", " ", *(&v26 + i));
-          fprintf(v6, "%24s EoL erase cycles:(%d)\n", " ", v19);
+          v21 = *(&v31 + i) / v20;
+          *(&v31 + i) = v21;
+          v22 = v25.u32[i / 4];
+          fprintf(v9, "%-23s: Erase Cycles: Max(%d, %d%% of EoL) Min(%d, %d%% of EoL) Avg(%d, %d%% of EoL)\n", v14, *(&v35 + i), 100 * *(&v35 + i) / v22, *(&v33 + i), 100 * *(&v33 + i) / v22, v21, 100 * v21 / v22);
+          fprintf(v9, "%24s Max band age:    (%d)\n", " ", *(&v27 + i));
+          fprintf(v9, "%24s EoL erase cycles:(%d)\n", " ", v22);
         }
 
-        v11 += 30;
+        v14 += 30;
       }
 
       if (__filename)
       {
-        fclose(v6);
+        fclose(v9);
       }
 
-      v10 = v22;
+      v13 = v23;
     }
 
     else
@@ -332,13 +330,13 @@ LABEL_9:
       fwrite("Flow list too small", 0x13uLL, 1uLL, __stderrp);
       if (__filename)
       {
-        fclose(v6);
+        fclose(v9);
       }
 
-      v10 = v9;
+      v13 = v12;
     }
 
-    free(v10);
+    free(v13);
   }
 
   else
@@ -346,7 +344,7 @@ LABEL_9:
     fwrite("Can't get flow list", 0x13uLL, 1uLL, __stderrp);
     if (__filename)
     {
-      fclose(v6);
+      fclose(v9);
     }
   }
 }
@@ -436,7 +434,7 @@ void sub_1000379A0(char *__filename, unsigned int *a2, unsigned int a3, int a4)
         v94[1] = v22;
         if (v13 == v12)
         {
-          v23 = *(v14 - 4);
+          v23 = *(v14 - 1);
         }
 
         else
@@ -751,23 +749,23 @@ LABEL_69:
   }
 }
 
-uint64_t sub_10003825C(char *a1, int a2, _DWORD *a3, uint64_t a4)
+uint64_t sub_10003825C(char *a1, int a2, _DWORD *a3, uint64_t a4, __n128 a5, __n128 a6, __n128 a7)
 {
-  v9 = 0;
-  v10 = 0;
-  if (sub_10002A610(8u, &v10, &v9))
+  v12 = 0;
+  v13 = 0;
+  if (sub_10002A610(8u, &v13, &v12, a5, a6, a7))
   {
     if (a2)
     {
-      *a3 = sub_100038310(a1, v10, 1, a4);
+      *a3 = sub_100038310(a1, v13, 1, a4);
     }
 
     else
     {
-      sub_100038310(a1, v10, 0, a4);
+      sub_100038310(a1, v13, 0, a4);
     }
 
-    free(v10);
+    free(v13);
     return 1;
   }
 
@@ -780,10 +778,10 @@ uint64_t sub_10003825C(char *a1, int a2, _DWORD *a3, uint64_t a4)
 
 uint64_t sub_100038310(char *__filename, uint64_t a2, char a3, uint64_t a4)
 {
-  strcpy(v30, "InvalidPage");
-  strcpy(v29, "InvalidTemp");
-  strcpy(v27, "Unknown");
-  v28 = 0;
+  strcpy(v29, "InvalidPage");
+  strcpy(v28, "InvalidTemp");
+  strcpy(v26, "Unknown");
+  v27 = 0;
   if (__filename)
   {
     __stream = fopen(__filename, "a");
@@ -841,10 +839,10 @@ LABEL_11:
     return v8;
   }
 
-  v23 = *(a2 + 4);
-  v24 = __filename;
+  v22 = *(a2 + 4);
+  v23 = __filename;
   fwrite("===Grown Bad Blocks===\n", 0x17uLL, 1uLL, __stream);
-  v25 = v8;
+  v24 = v8;
   if (v8)
   {
     v13 = v8;
@@ -860,42 +858,41 @@ LABEL_11:
       v20 = *(v9 + 4);
       if (*(v9 + 5) == 4095)
       {
-        __sprintf_chk(v30, 0, 0xCuLL, "%s");
-      }
-
-      else
-      {
-        v22 = *(v9 + 5);
-        __sprintf_chk(v30, 0, 0xCuLL, "%u");
-      }
-
-      if (v18 << 24 == -2130706432)
-      {
         __sprintf_chk(v29, 0, 0xCuLL, "%s");
       }
 
       else
       {
-        __sprintf_chk(v29, 0, 0xCuLL, "%d");
+        __sprintf_chk(v29, 0, 0xCuLL, "%u");
+      }
+
+      if (v18 << 24 == -2130706432)
+      {
+        __sprintf_chk(v28, 0, 0xCuLL, "%s");
+      }
+
+      else
+      {
+        __sprintf_chk(v28, 0, 0xCuLL, "%d");
       }
 
       if (v19 <= 3)
       {
-        __sprintf_chk(v27, 0, 0xCuLL, "%s", (&off_100074E98)[v19]);
+        __sprintf_chk(v26, 0, 0xCuLL, "%s", (&off_100074E98)[v19]);
       }
 
       v9 += 16;
-      fprintf(__stream, "Bus: %u CE: %u CAU: %u Block: %u Cycles: %u Reason: %u Page: %s Temp: %s mode: %s\n", v14, v15, v17, v16, v21, v20, v30, v29, v27);
+      fprintf(__stream, "Bus: %u CE: %u CAU: %u Block: %u Cycles: %u Reason: %u Page: %s Temp: %s mode: %s\n", v14, v15, v17, v16, v21, v20, v29, v28, v26);
       --v13;
     }
 
     while (v13);
   }
 
-  v8 = v25;
-  fprintf(__stream, "Grown Bad Blocks Count: %u\n", v25);
-  fprintf(__stream, "Factory Bad Blocks Count: %u\n", v23);
-  if (v24)
+  v8 = v24;
+  fprintf(__stream, "Grown Bad Blocks Count: %u\n", v24);
+  fprintf(__stream, "Factory Bad Blocks Count: %u\n", v22);
+  if (v23)
   {
     goto LABEL_11;
   }
@@ -903,24 +900,24 @@ LABEL_11:
   return v8;
 }
 
-uint64_t print_snapshots(char *__filename)
+uint64_t print_snapshots(char *__filename, __n128 a2, __n128 a3, __n128 a4)
 {
-  v14 = 0;
-  *v15 = 0;
-  v13 = 0;
+  v23 = 0;
+  *v24 = 0;
+  v22 = 0;
   if (__filename)
   {
-    v2 = fopen(__filename, "a");
-    if (!v2)
+    v5 = fopen(__filename, "a");
+    if (!v5)
     {
       fprintf(__stderrp, "Unable to open %s\n", __filename);
       return 0;
     }
 
-    v3 = v2;
+    v6 = v5;
     syslog(5, "printing ASP snapshots to %s", __filename);
-    v4 = sub_100039170(22, v15);
-    if (!v4)
+    v10 = sub_100039170(22, v24, v7, v8, v9);
+    if (!v10)
     {
       goto LABEL_19;
     }
@@ -928,90 +925,90 @@ uint64_t print_snapshots(char *__filename)
 
   else
   {
-    v3 = __stdoutp;
-    v4 = sub_100039170(22, v15);
-    if (!v4)
+    v6 = __stdoutp;
+    v10 = sub_100039170(22, v24, a2, a3, a4);
+    if (!v10)
     {
       return 0;
     }
   }
 
-  v5 = v4;
+  v11 = v10;
   syslog(5, "ASP get snapshot data done.");
-  v16 = 40 * vm_page_size;
-  v6 = malloc_type_valloc(40 * vm_page_size, 0x100004077774924uLL);
-  if (!v6)
+  v25 = 40 * vm_page_size;
+  v12 = malloc_type_valloc(40 * vm_page_size, 0x100004077774924uLL);
+  if (!v12)
   {
-    v16 = 4 * vm_page_size;
-    v6 = malloc_type_valloc(4 * vm_page_size, 0x100004077774924uLL);
-    if (!v6)
+    v25 = 4 * vm_page_size;
+    v12 = malloc_type_valloc(4 * vm_page_size, 0x100004077774924uLL);
+    if (!v12)
     {
       fwrite("can't allocate buffer!\n", 0x17uLL, 1uLL, __stderrp);
-      free(v5);
+      free(v11);
       if (__filename)
       {
 LABEL_19:
-        fclose(v3);
+        fclose(v6);
       }
 
       return 0;
     }
   }
 
-  v7 = v6;
-  v8 = sub_100039170(145, &v14);
+  v16 = v12;
+  v17 = sub_100039170(145, &v23, v13, v14, v15);
   syslog(5, "ASP get snapshot header done.");
-  if (v8 && v8[1] > 5u)
+  if (v17 && v17[1] > 5u)
   {
-    v10 = v8[5];
-    if (v14 == v10)
+    v19 = v17[5];
+    if (v23 == v19)
     {
-      v13 = 0;
-      if ((sub_100029920(v5, v15[0], v7, &v16, v8, &v13) & 1) == 0)
+      v22 = 0;
+      if ((sub_100029920(v11, v24[0], v16, &v25, v17, &v22) & 1) == 0)
       {
         do
         {
-          fputs(v7, v3);
+          fputs(v16, v6);
         }
 
-        while (!sub_100029920(v5, v15[0], v7, &v16, v8, &v13));
+        while (!sub_100029920(v11, v24[0], v16, &v25, v17, &v22));
       }
 
       goto LABEL_11;
     }
 
-    fprintf(__stderrp, "Read snapshot header %zu bytes, expect %u bytes\n", v14, v10);
+    fprintf(__stderrp, "Read snapshot header %zu bytes, expect %u bytes\n", v23, v19);
 LABEL_22:
-    v9 = 0;
+    v18 = 0;
     goto LABEL_23;
   }
 
-  if ((sub_10002A144(v5, *v15, v7, &v16) & 1) == 0)
+  if ((sub_10002A144(v11, *v24, v16, &v25) & 1) == 0)
   {
-    fwrite("Snapshot parser requires a larger string buffer\n", 0x30uLL, 1uLL, v3);
+    fwrite("Snapshot parser requires a larger string buffer\n", 0x30uLL, 1uLL, v6);
     goto LABEL_22;
   }
 
 LABEL_11:
-  fputs(v7, v3);
-  v9 = 1;
+  fputs(v16, v6);
+  v18 = 1;
 LABEL_23:
-  free(v5);
-  free(v7);
-  free(v8);
-  v11 = "stdout";
+  free(v11);
+  free(v16);
+  free(v17);
+  v20 = "stdout";
   if (__filename)
   {
-    v11 = __filename;
+    v20 = __filename;
   }
 
-  syslog(5, "ASP snapshot written to %s done", v11);
+  syslog(5, "ASP snapshot written to %s done", v20);
   if (__filename)
   {
-    fclose(v3);
+    fclose(v6);
   }
 
-  return v9;
+  return v18;
 }
 
 unsigned int *sub_1000388F0(FILE *__stream, unsigned int *a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
@@ -1226,14 +1223,14 @@ uint64_t sub_100038C58(char *__filename, const char *a2)
   return result;
 }
 
-uint64_t print_trace_dump(char *a1)
+uint64_t print_trace_dump(char *a1, __n128 a2, __n128 a3, __n128 a4)
 {
-  v3 = 0;
-  v4 = 0;
-  if (sub_10002A610(9u, &v4, &v3))
+  v6 = 0;
+  v7 = 0;
+  if (sub_10002A610(9u, &v7, &v6, a2, a3, a4))
   {
-    sub_100038C58(a1, v4);
-    free(v4);
+    sub_100038C58(a1, v7);
+    free(v7);
     return 1;
   }
 
@@ -1244,43 +1241,47 @@ uint64_t print_trace_dump(char *a1)
   }
 }
 
-void *sub_100038DA4(char **a1, int a2, int a3, int a4, void *a5, char a6, char a7)
+void *sub_100038DA4(char **a1, uint64_t a2, int a3, uint64_t a4, void *a5, __n128 a6, __n128 a7, __n128 a8, uint64_t a9, uint64_t a10)
 {
-  v13 = a1;
-  v21 = 0;
+  v10 = a10;
+  v11 = a9;
+  v13 = a4;
+  v15 = a2;
+  v16 = a1;
+  v24 = 0;
   *a5 = 0;
-  if (!a1 && (!sub_100039314(&v21) || (v13 = v21) == 0 || !*(v21 + 4)))
+  if (!a1 && (!sub_100039314(&v24) || (v16 = v24) == 0 || !*(v24 + 4)))
   {
     fwrite("Err: Finding internal NAND exporter failed for fetch tunnel buffer.\n", 0x44uLL, 1uLL, __stderrp);
 LABEL_11:
-    v19 = 0;
+    v22 = 0;
     goto LABEL_14;
   }
 
-  v14 = a3;
-  v15 = sub_100038F54(v13, a2, a3, a4, a7);
-  if (!v15)
+  v17 = a3;
+  v18 = sub_100038F54(v16, v15, a3, v13, v10);
+  if (!v18)
   {
-    fprintf(__stderrp, "failed to get data size for cmd option %d\n", a2);
+    fprintf(__stderrp, "failed to get data size for cmd option %d\n", v15);
     goto LABEL_11;
   }
 
-  v16 = v15;
-  v17 = (vm_page_size + v15 - 1) / vm_page_size * vm_page_size;
-  v18 = malloc_type_valloc(v17, 0x100004077774924uLL);
   v19 = v18;
-  if (v18)
+  v20 = (vm_page_size + v18 - 1) / vm_page_size * vm_page_size;
+  v21 = malloc_type_valloc(v20, 0x100004077774924uLL);
+  v22 = v21;
+  if (v21)
   {
-    bzero(v18, v17);
-    if (sub_10003901C(v13, a2, v14, a4, v19, v17, a6, a7))
+    bzero(v21, v20);
+    if (sub_10003901C(v16, v15, v17, v13, v22, v20, v11, v10))
     {
-      *a5 = v16;
+      *a5 = v19;
     }
 
     else
     {
-      free(v19);
-      v19 = 0;
+      free(v22);
+      v22 = 0;
       *a5 = 0;
     }
   }
@@ -1291,12 +1292,12 @@ LABEL_11:
   }
 
 LABEL_14:
-  if (v21)
+  if (v24)
   {
-    sub_100039460(v21);
+    sub_100039460(v24);
   }
 
-  return v19;
+  return v22;
 }
 
 uint64_t sub_100038F54(uint64_t a1, int a2, int a3, int a4, char a5)
@@ -1382,50 +1383,50 @@ LABEL_10:
   return 0;
 }
 
-uint64_t sub_100039190(char **a1, int a2, int a3, void *outputStruct)
+uint64_t sub_100039190(char **a1, int a2, int a3, void *outputStruct, __n128 a5, __n128 a6, __n128 a7)
 {
-  v15 = 0;
-  v14 = 0;
-  v16 = 0;
+  v18 = 0;
+  v17 = 0;
+  v19 = 0;
   outputStructCnt = 4;
-  v11 = 0;
+  v14 = 0;
   inputStruct = a2;
-  v13 = 1;
-  *(&v14 + 2) = a3;
+  v16 = 1;
+  *(&v17 + 2) = a3;
   if (!outputStruct)
   {
-    syslog(3, "Error: must provide valid pointer for output value");
+    syslog(3, "Error: must provide valid pointer for output value", a5.n128_f64[0], a6.n128_f64[0], a7.n128_f64[0]);
     goto LABEL_11;
   }
 
   if (a1)
   {
-    v6 = *(a1 + 4);
+    v9 = *(a1 + 4);
   }
 
-  else if (!sub_100039314(&v11) || (a1 = v11) == 0 || (v6 = *(v11 + 4)) == 0)
+  else if (!sub_100039314(&v14) || (a1 = v14) == 0 || (v9 = *(v14 + 4)) == 0)
   {
     fwrite("Err: Finding internal NAND exporter failed.\n", 0x2CuLL, 1uLL, __stderrp);
     goto LABEL_11;
   }
 
-  v7 = IOConnectCallStructMethod(v6, *(a1 + 8), &inputStruct, 0x18uLL, outputStruct, &outputStructCnt);
-  if (v7)
+  v10 = IOConnectCallStructMethod(v9, *(a1 + 8), &inputStruct, 0x18uLL, outputStruct, &outputStructCnt);
+  if (v10)
   {
-    fprintf(__stderrp, "Error fetching the tunnel output buffer for opcode [%d], Result [0x%X]\n", a2, v7);
+    fprintf(__stderrp, "Error fetching the tunnel output buffer for opcode [%d], Result [0x%X]\n", a2, v10);
 LABEL_11:
-    v8 = 0;
+    v11 = 0;
     goto LABEL_12;
   }
 
-  v8 = 1;
+  v11 = 1;
 LABEL_12:
-  if (v11)
+  if (v14)
   {
-    sub_100039460(v11);
+    sub_100039460(v14);
   }
 
-  return v8;
+  return v11;
 }
 
 char *sub_100039314(char ***a1)
@@ -1630,17 +1631,12 @@ void sub_10003B144(void *a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Crashlog (%d) does not have a full header: header size %ld, crashlog header+blob size %d", v4, 0x18u);
 }
 
-void sub_10003B204(uint64_t a1, uint64_t *a2)
+void sub_10003B204()
 {
-  if (a2)
-  {
-    v2 = *a2;
-  }
-
   sub_10000D4F4();
-  v6 = 2112;
-  v7 = v3;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to create directory %@: error %@", v5, 0x16u);
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Failed to create directory %@: error %@", v2, 0x16u);
 }
 
 void sub_10003B368(uint64_t a1, NSObject *a2)
@@ -1770,7 +1766,7 @@ void sub_10003C078(int a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_10003C138(uint64_t *a1, _OWORD *a2)
+void sub_10003C138(void *a1, _OWORD *a2)
 {
   v4 = *__error();
   *a1 = 0;
@@ -1779,10 +1775,19 @@ void sub_10003C138(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  strerror(v4);
-  _os_log_send_and_compose_impl();
-  v5 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v6 = 136315138;
+  v7 = strerror(v4);
+  _os_log_send_and_compose_impl(v5, a1, a2, 80, &_mh_execute_header, &_os_log_default, 16, "Unable to set root mode with error: %s. Aborting because this thread is in a bad state.", &v6);
   _os_crash_msg();
   __break(1u);
 }

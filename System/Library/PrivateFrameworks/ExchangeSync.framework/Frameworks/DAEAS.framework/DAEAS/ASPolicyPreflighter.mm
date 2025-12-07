@@ -4,6 +4,7 @@
 - (ASPolicyPreflighterDelegate)delegate;
 - (id)_originalKey;
 - (id)contextInfo;
+- (void)acknowledgeAccountOnlyRemoteWipeWithSuccess:(BOOL)success;
 - (void)acknowledgeIntentionToRemoteWipe;
 - (void)acknowledgePolicyCompliance;
 - (void)cancelPendingPreflightRequest;
@@ -75,7 +76,7 @@
 {
   ripeRequestedCopy = ripeRequested;
   requestedCopy = requested;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   policiesCopy = policies;
   type = [task type];
   if (status != 2)
@@ -98,7 +99,7 @@
       v26 = *(MEMORY[0x277D03988] + 6);
       if (os_log_type_enabled(v25, v26))
       {
-        LOWORD(v45) = 0;
+        LOWORD(v44) = 0;
         v27 = "Remote Wipe acknowledgement ack'd by server";
         goto LABEL_21;
       }
@@ -118,10 +119,10 @@
       v26 = *(MEMORY[0x277D03988] + 6);
       if (os_log_type_enabled(v25, v26))
       {
-        LOWORD(v45) = 0;
+        LOWORD(v44) = 0;
         v27 = "Account Only Remote Wipe acknowledgement ack'd by server";
 LABEL_21:
-        _os_log_impl(&dword_24A0AC000, v25, v26, v27, &v45, 2u);
+        _os_log_impl(&dword_24A0AC000, v25, v26, v27, &v44, 2u);
       }
     }
 
@@ -150,9 +151,9 @@ LABEL_21:
       {
         account2 = [(ASPolicyPreflighter *)self account];
         accountID = [account2 accountID];
-        v45 = 138412290;
-        v46 = accountID;
-        _os_log_impl(&dword_24A0AC000, v30, v31, "Exchange device wipe command is converted to account wipe for account: %@", &v45, 0xCu);
+        v44 = 138412290;
+        v45 = accountID;
+        _os_log_impl(&dword_24A0AC000, v30, v31, "Exchange device wipe command is converted to account wipe for account: %@", &v44, 0xCu);
       }
     }
 
@@ -176,18 +177,18 @@ LABEL_37:
       v39 = status;
       if (status != 1)
       {
-        v41 = DALoggingwithCategory();
-        v42 = *(MEMORY[0x277D03988] + 3);
-        if (os_log_type_enabled(v41, v42))
+        v40 = DALoggingwithCategory();
+        v41 = *(MEMORY[0x277D03988] + 3);
+        if (os_log_type_enabled(v40, v41))
         {
-          v45 = 67109120;
-          LODWORD(v46) = v39;
-          _os_log_impl(&dword_24A0AC000, v41, v42, "policy request failed with policy status: %d", &v45, 8u);
+          v44 = 67109120;
+          LODWORD(v45) = v39;
+          _os_log_impl(&dword_24A0AC000, v40, v41, "policy request failed with policy status: %d", &v44, 8u);
         }
 
         delegate5 = [(ASPolicyPreflighter *)self delegate];
-        v44 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASPolicyStatusError" code:v39 userInfo:0];
-        [delegate5 preflighter:self error:v44];
+        v43 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASPolicyStatusError" code:v39 userInfo:0];
+        [delegate5 preflighter:self error:v43];
 
         goto LABEL_37;
       }
@@ -215,8 +216,8 @@ LABEL_36:
       v36 = *(MEMORY[0x277D03988] + 3);
       if (os_log_type_enabled(v35, v36))
       {
-        LOWORD(v45) = 0;
-        _os_log_impl(&dword_24A0AC000, v35, v36, "no policies to acknowledge!", &v45, 2u);
+        LOWORD(v44) = 0;
+        _os_log_impl(&dword_24A0AC000, v35, v36, "no policies to acknowledge!", &v44, 2u);
       }
 
       delegate7 = [(ASPolicyPreflighter *)self delegate];
@@ -251,15 +252,13 @@ LABEL_29:
   }
 
 LABEL_38:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startPreflight
 {
   v3 = [ASProvisionTask alloc];
   originalKey = [(ASPolicyPreflighter *)self originalKey];
-  v9 = [(ASProvisionTask *)v3 initWithOriginalKeyForPolicyRequest:originalKey];
+  v10 = [(ASProvisionTask *)v3 initWithOriginalKeyForPolicyRequest:originalKey];
 
   account = [(ASPolicyPreflighter *)self account];
   if (([account isGoogleAccount] & 1) == 0)
@@ -272,14 +271,14 @@ LABEL_38:
       goto LABEL_5;
     }
 
-    account = ASDeviceInfo();
-    [(ASProvisionTask *)v9 setDeviceInfo:account];
+    account = ASDeviceInfo(v8);
+    [(ASProvisionTask *)v10 setDeviceInfo:account];
   }
 
 LABEL_5:
-  [(ASTask *)v9 setDelegate:self];
+  [(ASTask *)v10 setDelegate:self];
   taskManager = [(ASPolicyPreflighter *)self taskManager];
-  [taskManager submitExclusiveTask:v9];
+  [taskManager submitExclusiveTask:v10];
 }
 
 - (void)acknowledgePolicyCompliance
@@ -309,6 +308,20 @@ LABEL_5:
   [(ASTask *)v8 setDelegate:self];
   taskManager = [(ASPolicyPreflighter *)self taskManager];
   [taskManager submitExclusiveTask:v8];
+}
+
+- (void)acknowledgeAccountOnlyRemoteWipeWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v5 = [ASProvisionTask alloc];
+  policy = [(ASPolicyPreflighter *)self policy];
+  policy2 = [(ASPolicyPreflighter *)self policy];
+  v8 = [policy2 key];
+  v10 = [(ASProvisionTask *)v5 initWithAccountOnlyRemoteWipeAcknowledgement:policy withKey:v8 accountOnlyRemoteWipeSuccess:successCopy];
+
+  [(ASTask *)v10 setDelegate:self];
+  taskManager = [(ASPolicyPreflighter *)self taskManager];
+  [taskManager submitExclusiveTask:v10];
 }
 
 - (void)cancelPendingPreflightRequest

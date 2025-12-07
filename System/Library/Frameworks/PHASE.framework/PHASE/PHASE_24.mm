@@ -154,7 +154,7 @@ Phase::SpatialModeler::ReverbPresetDatabase::Implementation *Phase::SpatialModel
 void sub_23A50617C(_Unwind_Exception *a1)
 {
   std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>>>::~__hash_table(v2 + 992);
-  Phase::HeapAllocator::Destroy(v1);
+  Phase::HeapAllocator::Destroy(v1, v4, v5);
   _Unwind_Resume(a1);
 }
 
@@ -197,9 +197,9 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialM
 void Phase::SpatialModeler::ReverbPresetDatabase::Implementation::~Implementation(Phase::SpatialModeler::ReverbPresetDatabase::Implementation *this)
 {
   std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>>>::clear(this + 992);
-  Phase::HeapAllocator::Destroy((this + 8));
+  Phase::HeapAllocator::Destroy((this + 8), v2, v3);
   std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>>>::~__hash_table(this + 992);
-  Phase::HeapAllocator::Destroy((this + 8));
+  Phase::HeapAllocator::Destroy((this + 8), v4, v5);
 }
 
 void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ReverbPresetDatabase::Implementation::Entry>>>::clear(uint64_t a1)
@@ -221,11 +221,11 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialM
   }
 }
 
-void Phase::SpatialModeler::ReverbPresetFile::Load(std::string *a1, const std::string *a2)
+void Phase::SpatialModeler::ReverbPresetFile::Load(std::string *a1, std::string *a2)
 {
   v26[72] = *MEMORY[0x277D85DE8];
   std::string::operator=(a1, a2);
-  v3 = std::ifstream::basic_ifstream(v26);
+  v3 = std::ifstream::basic_ifstream(v26, a2, 4);
   if (v26[17])
   {
     std::istream::seekg();
@@ -303,10 +303,10 @@ void sub_23A506F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<Phase::SpatialModeler::ReverbPresetFile::ReflectionEntry>::resize(uint64_t a1, unint64_t a2)
+void std::vector<Phase::SpatialModeler::ReverbPresetFile::ReflectionEntry>::resize(uint64_t *a1, unint64_t a2)
 {
   v3 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
   v6 = a2 - v5;
   if (a2 <= v5)
@@ -321,7 +321,7 @@ void std::vector<Phase::SpatialModeler::ReverbPresetFile::ReflectionEntry>::resi
 
   else
   {
-    v7 = *(a1 + 16);
+    v7 = a1[2];
     if (0xAAAAAAAAAAAAAAABLL * ((v7 - v4) >> 3) < v6)
     {
       if (a2 <= 0xAAAAAAAAAAAAAAALL)
@@ -354,8 +354,8 @@ void std::vector<Phase::SpatialModeler::ReverbPresetFile::ReflectionEntry>::resi
       std::vector<Phase::Controller::DVM23::SubmixController *>::__throw_length_error[abi:ne200100]();
     }
 
-    bzero(*(a1 + 8), 24 * ((24 * v6 - 24) / 0x18) + 24);
-    *(a1 + 8) = v4 + 24 * ((24 * v6 - 24) / 0x18) + 24;
+    bzero(a1[1], 24 * ((24 * v6 - 24) / 0x18) + 24);
+    a1[1] = v4 + 24 * ((24 * v6 - 24) / 0x18) + 24;
   }
 }
 
@@ -574,7 +574,7 @@ uint64_t Phase::SpatialModeler::Scheduler::InitGraphSequence(uint64_t a1, uint64
   return 0;
 }
 
-void *std::vector<Phase::SpatialModeler::Graph>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<Phase::SpatialModeler::Graph>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 6) < a2)
   {
@@ -589,9 +589,9 @@ void *std::vector<Phase::SpatialModeler::Graph>::reserve(void *result, unint64_t
   return result;
 }
 
-void sub_23A507A48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A507A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Phase::SpatialModeler::Graph>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -705,7 +705,7 @@ uint64_t Phase::SpatialModeler::Scheduler::InitGraph(uint64_t a1, void *a2, unin
     }
 
     *(v4 + 64) = v5;
-    Phase::Geometry::System::ObserveSystemState(*(a1 + 8));
+    Phase::Geometry::System::ObserveSystemState();
   }
 
   return 0;
@@ -979,10 +979,11 @@ LABEL_36:
   return std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](&v28, 0);
 }
 
-void sub_23A508678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, uint64_t *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_23A508678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   __cxa_end_catch();
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&a15);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](&a9, 0);
   std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](&a10, 0);
   _Unwind_Resume(a1);
@@ -1323,18 +1324,18 @@ LABEL_42:
   return std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](&v43, 0);
 }
 
-void sub_23A508D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A508D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, uint64_t *);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, uint64_t *);
   va_copy(va2, va1);
-  v8 = va_arg(va2, uint64_t *);
-  v10 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v12 = va_arg(va2, uint64_t *);
+  v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
   __cxa_end_catch();
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va2);
   std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](va, 0);
@@ -1423,10 +1424,11 @@ uint64_t **Phase::SpatialModeler::Scheduler::RunSceneQueries(uint64_t a1, uint64
   return std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](&v20, 0);
 }
 
-void sub_23A508EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, uint64_t *a10)
+void sub_23A508EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](&a9, 0);
-  std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](&a10, 0);
+  std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
 
@@ -1605,16 +1607,16 @@ uint64_t **std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne2001
   *result = a2;
   if (v2)
   {
-    std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100](v2 + 10, 0);
-    v3 = v2[6];
+    std::unique_ptr<Phase::SpatialModeler::ActiveQuery>::reset[abi:ne200100]((v2 + 80), 0);
+    v3 = *(v2 + 48);
     if (v3)
     {
-      v2[7] = v3;
+      *(v2 + 56) = v3;
       operator delete(v3);
     }
 
-    std::unique_ptr<Phase::SpatialModeler::QueryState,std::function<void ()(void *)>>::reset[abi:ne200100](v2 + 1, 0);
-    std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100]((v2 + 2));
+    std::unique_ptr<Phase::SpatialModeler::QueryState,std::function<void ()(void *)>>::reset[abi:ne200100]((v2 + 8), 0);
+    std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v2 + 16);
 
     JUMPOUT(0x23EE864A0);
   }
@@ -1880,9 +1882,9 @@ uint64_t std::vector<Phase::SpatialModeler::Graph>::__emplace_back_slow_path<Pha
   return v13;
 }
 
-void sub_23A509830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A509830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Phase::SpatialModeler::Graph>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2566,7 +2568,7 @@ LABEL_61:
     if ((Phase::Controller::StreamRenderer::SupportsInputLayout(v18, 2 * v17) & 1) == 0)
     {
       v40 = MEMORY[0x277CCACA8];
-      Phase::ChannelLayout::GetStringFromLayoutTag([v18 layoutTag], buf);
+      Phase::ChannelLayout::GetStringFromLayoutTag(buf, [v18 layoutTag]);
       if ((v92 & 0x80000000) == 0)
       {
         v41 = buf;
@@ -2621,7 +2623,7 @@ LABEL_61:
     {
       v29 = MEMORY[0x277CCACA8];
       v30 = buf;
-      Phase::ChannelLayout::GetStringFromLayoutTag([v18 layoutTag], buf);
+      Phase::ChannelLayout::GetStringFromLayoutTag(buf, [v18 layoutTag]);
       if ((v92 & 0x80000000) != 0)
       {
         v30 = *buf;
@@ -2700,12 +2702,12 @@ LABEL_59:
   return a5;
 }
 
-uint64_t Phase::Controller::StreamedSoundAssetInfo::InitWithData(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, double a5, double a6, uint64_t a7, void *a8, uint64_t a9, void *a10)
+uint64_t Phase::Controller::StreamedSoundAssetInfo::InitWithData(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, AudioFileTypeID a5, void *a6, double a7, double a8, uint64_t a9, void *a10)
 {
   v37 = *MEMORY[0x277D85DE8];
   v16 = a4;
-  v17 = a8;
-  v18 = Phase::Controller::SoundAssetInfo::BaseInit(a1, 1, a2, a3, a10, a6);
+  v17 = a6;
+  v18 = Phase::Controller::SoundAssetInfo::BaseInit(a1, 1, a2, a3, a10, a8);
   if (v18)
   {
     v19 = **(Phase::Logger::GetInstance(v18) + 832);
@@ -2786,11 +2788,12 @@ Phase::Controller::InMemoryAudioFile *std::unique_ptr<Phase::Controller::InMemor
   return result;
 }
 
-void Phase::Controller::StreamedSoundAssetInfo::CreateStreamRenderer(Phase::Controller::StreamedSoundAssetInfo *this@<X0>, NSString *a2@<X2>, int a3@<W1>, void *a4@<X8>)
+void Phase::Controller::StreamedSoundAssetInfo::CreateStreamRenderer(Phase::Controller::StreamRenderer **__return_ptr a1@<X8>, Phase::Controller::StreamedSoundAssetInfo *this@<X0>, NSString *a3@<X2>, uint64_t a4@<X1>)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v7 = a2;
-  if (!a3 || (v8 = v7) == 0)
+  v5 = a4;
+  v22 = *MEMORY[0x277D85DE8];
+  v8 = a3;
+  if (!v5 || (v9 = v8) == 0)
   {
     std::terminate();
   }
@@ -2800,36 +2803,37 @@ void Phase::Controller::StreamedSoundAssetInfo::CreateStreamRenderer(Phase::Cont
     operator new();
   }
 
-  v9 = **(Phase::Logger::GetInstance(v7) + 832);
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = **(Phase::Logger::GetInstance(v8) + 832);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v10 = [*(this + 7) description];
-    v11 = [v10 UTF8String];
-    v12 = [*(this + 8) description];
+    v11 = [*(this + 7) description];
+    v12 = [v11 UTF8String];
+    v13 = [*(this + 8) description];
     *buf = 136315906;
-    v14 = "StreamedSoundAssetInfo.mm";
-    v15 = 1024;
-    v16 = 200;
-    v17 = 2080;
-    v18 = v11;
-    v19 = 2080;
-    v20 = [v12 UTF8String];
-    _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: invalid stream formats, inputFormat %s, outputFormat %s!", buf, 0x26u);
+    v15 = "StreamedSoundAssetInfo.mm";
+    v16 = 1024;
+    v17 = 200;
+    v18 = 2080;
+    v19 = v12;
+    v20 = 2080;
+    v21 = [v13 UTF8String];
+    _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: invalid stream formats, inputFormat %s, outputFormat %s!", buf, 0x26u);
   }
 
-  *a4 = 0;
+  *a1 = 0;
 }
 
-void sub_23A50C278(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A50C278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::unique_ptr<Phase::Controller::StreamRenderer>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Controller::StreamedSoundAssetInfo::ScheduleFile(uint64_t a1, uint64_t a2, void *a3, char a4, uint64_t a5, void *a6)
+Phase::Logger *Phase::Controller::StreamedSoundAssetInfo::ScheduleFile(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
 {
+  v8 = a4;
   v28 = *MEMORY[0x277D85DE8];
   v11 = a3;
   v12 = a6;
@@ -2839,7 +2843,7 @@ uint64_t Phase::Controller::StreamedSoundAssetInfo::ScheduleFile(uint64_t a1, ui
   }
 
   v13 = v12;
-  v14 = Phase::Controller::StreamRenderer::ScheduleFile(a2, *(a1 + 48), v11, a4, a5, v12);
+  v14 = Phase::Controller::StreamRenderer::ScheduleFile(a2, *(a1 + 48), v11, v8, a5, v12);
   v15 = v14;
   if ((v14 & 1) == 0)
   {
@@ -2863,7 +2867,7 @@ uint64_t Phase::Controller::StreamedSoundAssetInfo::ScheduleFile(uint64_t a1, ui
   return v15;
 }
 
-BOOL Phase::Controller::StreamedSoundAssetInfo::ScheduleSegment(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
+Phase::Logger *Phase::Controller::StreamedSoundAssetInfo::ScheduleSegment(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
 {
   v30 = *MEMORY[0x277D85DE8];
   v13 = a3;
@@ -2908,12 +2912,12 @@ double Phase::Controller::StreamedSoundAssetInfo::GetFileLengthInSeconds(id *thi
   return v5;
 }
 
-uint64_t Phase::Controller::StreamRenderer::StreamRenderer(uint64_t a1, void *a2, void *a3, unsigned int a4, unsigned int a5, uint64_t a6, void *a7)
+uint64_t Phase::Controller::StreamRenderer::StreamRenderer(uint64_t a1, void *a2, void *a3, unsigned int a4, unsigned int a5, uint64_t a6, void *a7, __int128 *a8)
 {
-  v77 = *MEMORY[0x277D85DE8];
-  v13 = a2;
-  v14 = a3;
-  v59 = a7;
+  v78 = *MEMORY[0x277D85DE8];
+  v14 = a2;
+  v15 = a3;
+  v60 = a7;
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -2922,15 +2926,15 @@ uint64_t Phase::Controller::StreamRenderer::StreamRenderer(uint64_t a1, void *a2
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
   *(a1 + 80) = 0u;
-  v58 = v13;
-  *(a1 + 96) = v58;
-  v15 = v14;
-  *(a1 + 104) = v15;
+  v59 = v14;
+  *(a1 + 96) = v59;
+  v16 = v15;
+  *(a1 + 104) = v16;
   *(a1 + 112) = a5;
-  v60 = v15;
-  [v15 sampleRate];
+  v61 = v16;
+  [v16 sampleRate];
   *(a1 + 144) = 0;
-  *(a1 + 120) = v16;
+  *(a1 + 120) = v17;
   *(a1 + 128) = a6;
   *(a1 + 136) = 0;
   *(a1 + 152) = 0;
@@ -2939,7 +2943,7 @@ uint64_t Phase::Controller::StreamRenderer::StreamRenderer(uint64_t a1, void *a2
   *(a1 + 184) = 0u;
   *(a1 + 200) = 0u;
   *(a1 + 216) = 0;
-  v17 = caulk::pooled_semaphore_mutex::pooled_semaphore_mutex((a1 + 220));
+  v18 = caulk::pooled_semaphore_mutex::pooled_semaphore_mutex((a1 + 220));
   *(a1 + 224) = 0;
   *(a1 + 288) = 0;
   *(a1 + 376) = 0;
@@ -2950,69 +2954,69 @@ uint64_t Phase::Controller::StreamRenderer::StreamRenderer(uint64_t a1, void *a2
   *(a1 + 360) = 0u;
   *(a1 + 384) = xmmword_23A554AC0;
   *(a1 + 400) = 0;
-  Phase::Logger::GetInstance(v17);
-  [v60 sampleRate];
-  v19 = v18;
-  [v58 sampleRate];
-  v21 = vcvtmd_u64_f64(v19 * a4 / v20);
-  *(a1 + 200) = v21;
-  if (v21 < a5 && v21 != 0)
+  Phase::Logger::GetInstance(v18);
+  [v61 sampleRate];
+  v20 = v19;
+  [v59 sampleRate];
+  v22 = vcvtmd_u64_f64(v20 * a4 / v21);
+  *(a1 + 200) = v22;
+  if (v22 < a5 && v22 != 0)
   {
-    v23 = [objc_alloc(MEMORY[0x277CB83C8]) initWithPCMFormat:v60 frameCapacity:*(a1 + 200)];
-    v24 = *(a1 + 184);
-    *(a1 + 184) = v23;
+    v24 = [objc_alloc(MEMORY[0x277CB83C8]) initWithPCMFormat:v61 frameCapacity:*(a1 + 200)];
+    v25 = *(a1 + 184);
+    *(a1 + 184) = v24;
 
     [*(a1 + 184) setFrameLength:*(a1 + 200)];
-    v25 = [*(a1 + 184) mutableAudioBufferList];
-    *(a1 + 192) = v25;
+    v26 = [*(a1 + 184) mutableAudioBufferList];
+    *(a1 + 192) = v26;
     *(a1 + 204) = *(a1 + 200);
-    if (!v25 || !*v25 || !*(v25 + 16) || [v58 isInterleaved] && objc_msgSend(v58, "channelCount") != 1)
+    if (!v26 || !*v26 || !*(v26 + 16) || [v59 isInterleaved] && objc_msgSend(v59, "channelCount") != 1)
     {
       goto LABEL_28;
     }
 
-    if ([v60 isInterleaved] && objc_msgSend(v60, "channelCount") != 1 || *(*(a1 + 192) + 12) != 4 * *(a1 + 200))
+    if ([v61 isInterleaved] && objc_msgSend(v61, "channelCount") != 1 || *(*(a1 + 192) + 12) != 4 * *(a1 + 200))
     {
       goto LABEL_28;
     }
   }
 
-  v26 = dispatch_queue_create("Phase.StreamRenderer", 0);
-  v27 = *(a1 + 208);
-  *(a1 + 208) = v26;
+  v27 = dispatch_queue_create("Phase.StreamRenderer", 0);
+  v28 = *(a1 + 208);
+  *(a1 + 208) = v27;
 
-  v28 = applesauce::dispatch::v1::queue::operator*((a1 + 208));
-  v29 = dispatch_get_global_queue(0, 0);
-  dispatch_set_target_queue(v28, v29);
+  v29 = applesauce::dispatch::v1::queue::operator*((a1 + 208));
+  v30 = dispatch_get_global_queue(0, 0);
+  dispatch_set_target_queue(v29, v30);
 
-  if (v59)
+  if (v60)
   {
-    v31 = **(Phase::Logger::GetInstance(v30) + 400);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v32 = **(Phase::Logger::GetInstance(v31) + 400);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = [*(a1 + 96) description];
-      v33 = [v32 UTF8String];
-      v34 = [*(a1 + 104) description];
-      v35 = [v34 UTF8String];
-      v36 = *(a1 + 112);
-      v37 = *(a1 + 128);
+      v33 = [*(a1 + 96) description];
+      v34 = [v33 UTF8String];
+      v35 = [*(a1 + 104) description];
+      v36 = [v35 UTF8String];
+      v37 = *(a1 + 112);
+      v38 = *(a1 + 128);
       buf[0] = 136316930;
       *&buf[1] = "StreamRenderer.mm";
-      v63 = 1024;
-      v64 = 199;
-      v65 = 2048;
-      v66 = a1;
-      v67 = 2080;
-      v68 = v33;
-      v69 = 2080;
-      v70 = v35;
-      v71 = 1024;
-      v72 = a4;
-      v73 = 1024;
-      v74 = v36;
-      v75 = 2048;
-      v76 = v37;
-      _os_log_impl(&dword_23A302000, v31, OS_LOG_TYPE_DEFAULT, "%25s:%-5d bufferstream@%p: initializing render block with buffer format %s, output format %s, in max #frames %d, out max #frames %d, config options 0x%lx", buf, 0x46u);
+      v64 = 1024;
+      v65 = 199;
+      v66 = 2048;
+      v67 = a1;
+      v68 = 2080;
+      v69 = v34;
+      v70 = 2080;
+      v71 = v36;
+      v72 = 1024;
+      v73 = a4;
+      v74 = 1024;
+      v75 = v37;
+      v76 = 2048;
+      v77 = v38;
+      _os_log_impl(&dword_23A302000, v32, OS_LOG_TYPE_DEFAULT, "%25s:%-5d bufferstream@%p: initializing render block with buffer format %s, output format %s, in max #frames %d, out max #frames %d, config options 0x%lx", buf, 0x46u);
     }
   }
 
@@ -3022,62 +3026,62 @@ LABEL_28:
     std::terminate();
   }
 
-  v38 = objc_opt_new();
-  v39 = *(a1 + 48);
-  *(a1 + 48) = v38;
+  v39 = objc_opt_new();
+  v40 = *(a1 + 48);
+  *(a1 + 48) = v39;
 
-  v40 = 200;
+  v41 = 200;
   if (!*(a1 + 192))
   {
-    v40 = 112;
+    v41 = 112;
   }
 
-  v41 = *(a1 + v40);
-  v42 = ~*(a1 + 128);
-  v43 = *(a1 + 48);
-  v44 = *(a1 + 104);
-  v61 = 0;
-  v45 = [v43 enableManualRenderingMode:v42 & 1 format:v44 maximumFrameCount:v41 error:&v61];
-  v46 = v61;
-  v47 = v46;
-  if (v46)
+  v42 = *(a1 + v41);
+  v43 = ~*(a1 + 128);
+  v44 = *(a1 + 48);
+  v45 = *(a1 + 104);
+  v62 = 0;
+  v46 = [v44 enableManualRenderingMode:v43 & 1 format:v45 maximumFrameCount:v42 error:&v62];
+  v47 = v62;
+  v48 = v47;
+  if (v47)
   {
-    v48 = 0;
+    v49 = 0;
   }
 
   else
   {
-    v48 = v45;
+    v49 = v46;
   }
 
-  if (v48)
+  if (v49)
   {
     operator new();
   }
 
-  v49 = **(Phase::Logger::GetInstance(v46) + 400);
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+  v50 = **(Phase::Logger::GetInstance(v47) + 400);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
   {
-    v50 = [*(a1 + 104) description];
-    v51 = v50;
-    v52 = [v50 UTF8String];
-    v53 = [(Phase::Logger *)v47 description];
-    v54 = v53;
-    v55 = [v53 UTF8String];
+    v51 = [*(a1 + 104) description];
+    v52 = v51;
+    v53 = [v51 UTF8String];
+    v54 = [(Phase::Logger *)v48 description];
+    v55 = v54;
+    v56 = [v54 UTF8String];
     buf[0] = 136316162;
     *&buf[1] = "StreamRenderer.mm";
-    v63 = 1024;
-    v64 = 229;
-    v65 = 2048;
-    v66 = a1;
-    v67 = 2080;
-    v68 = v52;
-    v69 = 2080;
-    v70 = v55;
-    _os_log_impl(&dword_23A302000, v49, OS_LOG_TYPE_ERROR, "%25s:%-5d bufferstream@%p: could not configure AVAE in ManualRenderingModeRealtime with format %s, err = %s", buf, 0x30u);
+    v64 = 1024;
+    v65 = 229;
+    v66 = 2048;
+    v67 = a1;
+    v68 = 2080;
+    v69 = v53;
+    v70 = 2080;
+    v71 = v56;
+    _os_log_impl(&dword_23A302000, v50, OS_LOG_TYPE_ERROR, "%25s:%-5d bufferstream@%p: could not configure AVAE in ManualRenderingModeRealtime with format %s, err = %s", buf, 0x30u);
   }
 
-  v56 = *(a1 + 48);
+  v57 = *(a1 + 48);
   *(a1 + 48) = 0;
 
   return a1;
@@ -3106,6 +3110,13 @@ void sub_23A50D3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   std::array<Phase::Controller::StreamRenderer::IOConfiguration,2ul>::~array(v16);
   _Unwind_Resume(a1);
+}
+
+uint64_t Phase::Controller::StreamRenderer::StreamRenderer(uint64_t a1, void *a2, void *a3, unsigned int a4, uint64_t a5)
+{
+  LOBYTE(v6) = 0;
+  v7 = 0;
+  return Phase::Controller::StreamRenderer::StreamRenderer(a1, a2, a3, 0, a4, a5, 0, &v6);
 }
 
 uint64_t ___ZN5Phase10Controller14StreamRendererC2EP13AVAudioFormatS3_jjNSt3__16bitsetILm8EEEU13block_pointerFiPbPK14AudioTimeStampjP15AudioBufferListENS4_8optionalINS1_29AudioIssueDetectorInformationEEE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const AudioBufferList *a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -3339,7 +3350,7 @@ void Phase::Controller::StreamRenderer::StartStopInternalCaptures(Phase::Control
     v8 = v7;
     v9 = (this + 24 * v5);
     *v9 = v5;
-    v10 = (v9 + 1);
+    v10 = v9 + 1;
     if (v7)
     {
       v11 = 104;
@@ -3353,7 +3364,7 @@ void Phase::Controller::StreamRenderer::StartStopInternalCaptures(Phase::Control
     objc_storeStrong(v10, *(this + v11));
     if (v6)
     {
-      Phase::Controller::StreamRenderer::IOConfiguration::StopCaptures(this + 3 * v5);
+      Phase::Controller::StreamRenderer::IOConfiguration::StopCaptures((this + 24 * v5));
     }
 
     else if (!v9[2])
@@ -3388,7 +3399,7 @@ void Phase::Controller::StreamRenderer::StartStopInternalCaptures(Phase::Control
       }
 
       v18 = getpid();
-      caulk::platform::process_name(v18);
+      caulk::platform::process_name(v44, v18);
       v19 = v44;
       if (SBYTE3(v48) < 0)
       {
@@ -3404,7 +3415,7 @@ void Phase::Controller::StreamRenderer::StartStopInternalCaptures(Phase::Control
       v20 = [*v10 streamDescription];
       if (*(v20 + 7) && *v20 > 0.0)
       {
-        Phase::Logger::CreateAudioCapturer(buf, v20, v44);
+        Phase::Logger::CreateAudioCapturer(v44, buf, v20);
         v21 = *v44;
         *v44 = 0;
         v22 = v9[2];
@@ -3976,9 +3987,9 @@ LABEL_9:
   return v2 & 1;
 }
 
-void sub_23A50ED78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A50ED78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4171,15 +4182,15 @@ LABEL_16:
   return this;
 }
 
-void sub_23A50F384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A50F384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  caulk::pooled_semaphore_mutex::_unlock((v7 + 220));
+  caulk::pooled_semaphore_mutex::_unlock((v13 + 220));
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN5Phase10Controller14StreamRenderer5ResetEv_block_invoke(uint64_t a1)
+void *___ZN5Phase10Controller14StreamRenderer5ResetEv_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   *(*(*(a1 + 32) + 8) + 24) = [*(v2 + 72) isPlaying];
@@ -4260,7 +4271,7 @@ LABEL_14:
     v21 = **(Phase::Logger::GetInstance(v7) + 400);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v22 = [(Phase::Logger *)v8 description];
+      v22 = [v8 description];
       *buf = 136315650;
       *&buf[4] = "StreamRenderer.mm";
       *&buf[12] = 1024;
@@ -4307,7 +4318,7 @@ LABEL_14:
     v13 = **(Phase::Logger::GetInstance(v12) + 400);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = [(Phase::Logger *)v11 description];
+      v14 = [v11 description];
       v15 = v14;
       v16 = [v14 UTF8String];
       v17 = [*(*&buf[8] + 40) description];
@@ -4334,12 +4345,12 @@ LABEL_15:
   return v20;
 }
 
-void sub_23A50F8A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23A50F8A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 144), 8);
+  _Block_object_dispose((v19 - 144), 8);
 
   _Unwind_Resume(a1);
 }
@@ -4644,7 +4655,7 @@ BOOL Phase::Controller::StreamRenderer::ScheduleBuffer(uint64_t a1, void *a2, vo
 
     if (v14)
     {
-      (*(v14 + 2))(v14, a5);
+      v14[2](v14, a5);
     }
   }
 
@@ -4787,7 +4798,7 @@ uint64_t Phase::Controller::StreamRenderer::ScheduleFile(uint64_t a1, void *a2, 
 
   if (v14)
   {
-    (*(v14 + 2))(v14, a5);
+    v14[2](v14, a5);
   }
 
   v21 = 0;
@@ -5278,7 +5289,7 @@ LABEL_19:
 
     if (v16)
     {
-      (*(v16 + 2))(v16, a6);
+      v16[2](v16, a6);
     }
   }
 
@@ -5315,12 +5326,12 @@ void ___ZN5Phase10Controller14StreamRenderer15ScheduleSegmentEP11AVAudioFileP11A
   }
 }
 
-BOOL Phase::Controller::StreamRenderer::RenderOffline(Phase::Controller::StreamRenderer *this, unint64_t a2, AVAudioPCMBuffer *a3)
+uint64_t Phase::Controller::StreamRenderer::RenderOffline(id *this, unint64_t a2, AVAudioPCMBuffer *a3)
 {
   v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
-  if ((*(this + 128) & 1) == 0)
+  if ((this[16] & 1) == 0)
   {
     v7 = **(Phase::Logger::GetInstance(v5) + 400);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -5340,14 +5351,14 @@ LABEL_15:
   }
 
   v8 = [(AVAudioPCMBuffer *)v5 format];
-  v9 = [v8 isEqual:*(this + 13)];
+  v9 = [v8 isEqual:this[13]];
 
   if ((v9 & 1) == 0)
   {
     v17 = **(Phase::Logger::GetInstance(v10) + 400);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v18 = [*(this + 13) description];
+      v18 = [this[13] description];
       v19 = [v18 UTF8String];
       v20 = [(AVAudioPCMBuffer *)v6 format];
       v21 = [v20 description];
@@ -5398,7 +5409,7 @@ LABEL_16:
   return v15;
 }
 
-BOOL Phase::Controller::StreamRenderer::IORender(Phase::Controller::StreamRenderer *this, const AudioTimeStamp *a2, uint64_t a3, unsigned int *a4, AudioBufferList *a5)
+uint64_t Phase::Controller::StreamRenderer::IORender(Phase::Controller::StreamRenderer *this, const AudioTimeStamp *a2, unint64_t a3, unsigned int *a4, AudioBufferList *a5)
 {
   v89 = *MEMORY[0x277D85DE8];
   if (!a4 || !*a4)
@@ -5562,10 +5573,10 @@ BOOL Phase::Controller::StreamRenderer::IORender(Phase::Controller::StreamRender
     goto LABEL_94;
   }
 
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v9);
   v39 = (&v76 - ((v38 + 15) & 0x7FFFFFFF0));
   bzero(v39, v38);
-  v41 = (a4 + 3);
+  v41 = a4 + 3;
   v42 = v39;
   v43 = v37;
   do
@@ -5799,7 +5810,7 @@ LABEL_83:
   if (*(Phase::Logger::GetInstance(ShouldFire) + 1632) == 1)
   {
     v72 = *(this + 15);
-    Phase::Trace::PostSignalStatsTraceIfSignificant(0x1621, *(a4 + 2), a3, v72);
+    Phase::Trace::PostSignalStatsTraceIfSignificant(5665, *(a4 + 2), a3, v72);
   }
 
 LABEL_85:
@@ -5812,10 +5823,10 @@ LABEL_86:
   return v62;
 }
 
-void *Phase::Controller::StreamRenderer::IOConfiguration::StopCaptures(void *this)
+Phase::Logger *Phase::Controller::StreamRenderer::IOConfiguration::StopCaptures(Phase::Logger *this)
 {
   v12 = *MEMORY[0x277D85DE8];
-  if (this[2])
+  if (*(this + 2))
   {
     v1 = this;
     v2 = **(Phase::Logger::GetInstance(this) + 400);
@@ -5833,8 +5844,8 @@ void *Phase::Controller::StreamRenderer::IOConfiguration::StopCaptures(void *thi
       _os_log_impl(&dword_23A302000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d bufferstream@%p [%d]: stopping capture", &v4, 0x22u);
     }
 
-    this = v1[2];
-    v1[2] = 0;
+    this = *(v1 + 2);
+    *(v1 + 2) = 0;
     if (this)
     {
       return (*(*this + 8))(this);
@@ -6140,9 +6151,9 @@ LABEL_4:
   return 0;
 }
 
-void sub_23A5134E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A5134E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<Phase::StringPool>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6158,7 +6169,7 @@ uint64_t Phase::Controller::DVM23::SubmixChannelStripController::InitGraph(Phase
 
 uint64_t Phase::Controller::DVM23::SubmixChannelStripController::ConfigureGraph(uint64_t a1, Phase::Controller::DVM23::VoiceGraph **this, uint64_t *a3, uint64_t a4)
 {
-  if (!Phase::Controller::DVM23::DspVoiceManager23::IsGraphEmpty(this))
+  if (!Phase::Controller::DVM23::DspVoiceManager23::IsGraphEmpty(this, *(a1 + 24)))
   {
     return 13;
   }
@@ -6195,7 +6206,7 @@ uint64_t Phase::Controller::DVM23::SubmixChannelStripController::ConfigureGraph(
           v15 = a4;
           v16 = (*(v28 + 24) + 88 * a4);
           v31 = -1;
-          v10 = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(this, &v31, *v16);
+          v10 = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(this, &v31, *v16, *(a1 + 24));
           if (v10)
           {
             break;
@@ -6204,7 +6215,7 @@ uint64_t Phase::Controller::DVM23::SubmixChannelStripController::ConfigureGraph(
           v17 = v13;
           v18 = v31;
           v16[1] = v31;
-          Phase::Controller::CvmVoiceData::PackDirtyDspParameters(v16, &__p);
+          Phase::Controller::CvmVoiceData::PackDirtyDspParameters(&__p, v16);
           v20 = __p;
           v19 = v30;
           while (v20 != v19)
@@ -6276,17 +6287,18 @@ void sub_23A5137C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void Phase::Controller::DVM23::SubmixChannelStripController::SetPlaystate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4[9] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::__value_func[abi:ne200100](v4, a4);
-  v4[8] = 0;
+  v5[9] = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 8);
+  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::__value_func[abi:ne200100](v5, a4);
+  v5[8] = 0;
   operator new();
 }
 
-void sub_23A5138F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23A5138F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<void ()(unsigned long long,Phase::Controller::DVM23::Playstate)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v10 + 16);
+  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v17 + 16);
   _Unwind_Resume(a1);
 }
 
@@ -6450,10 +6462,10 @@ uint64_t Phase::Controller::DVM23::SubmixController::SubmixController(uint64_t a
   return a1;
 }
 
-void sub_23A513DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A513DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::vector<unsigned long long>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::vector<unsigned long long>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::vector<unsigned long long>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::vector<unsigned long long>>>>::~__hash_table(v4 + 64);
+  va_start(va, a7);
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::vector<unsigned long long>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::vector<unsigned long long>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::vector<unsigned long long>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::vector<unsigned long long>>>>::~__hash_table(v7 + 64);
   std::vector<Phase::Controller::DVM23::SubmixChannelStripController>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6634,10 +6646,10 @@ void sub_23A51424C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Phase::Controller::DVM23::SubmixController::ConfigureGraph(void *a1, Phase::Controller::DVM23::VoiceGraph **this, uint64_t a3)
+uint64_t Phase::Controller::DVM23::SubmixController::ConfigureGraph(unint64_t *a1, Phase::Controller::DVM23::VoiceGraph **this, uint64_t a3)
 {
   v12[4] = *MEMORY[0x277D85DE8];
-  if (!Phase::Controller::DVM23::DspVoiceManager23::IsGraphEmpty(this))
+  if (!Phase::Controller::DVM23::DspVoiceManager23::IsGraphEmpty(this, a1[3]))
   {
     return 13;
   }
@@ -6675,14 +6687,14 @@ uint64_t Phase::Controller::DVM23::SubmixController::ConfigureGraph(void *a1, Ph
   return v10;
 }
 
-void sub_23A514424(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A514424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Controller::DVM23::SubmixController::SetPlaystate(uint64_t a1, Phase::Controller::DVM23::VoiceGraph **a2, int a3, uint64_t a4)
+uint64_t Phase::Controller::DVM23::SubmixController::SetPlaystate(uint64_t a1, Phase::Controller::DVM23::VoiceGraph **a2, uint64_t a3, uint64_t a4)
 {
   v8[9] = *MEMORY[0x277D85DE8];
   if (a3 != 1 || (Phase::Controller::DVM23::DspVoiceManager23::IsGraphPlaystateUniform(a2, *(a1 + 24), 0) & 1) == 0)
@@ -6696,15 +6708,15 @@ uint64_t Phase::Controller::DVM23::SubmixController::SetPlaystate(uint64_t a1, P
   return 0;
 }
 
-void sub_23A5146AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23A5146AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<void ()(unsigned long long,Phase::Controller::DVM23::Playstate)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v10 + 16);
+  std::__function::__value_func<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::~__value_func[abi:ne200100](v17 + 16);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::Controller::DVM23::SubmixController::ConnectToGraph(uint64_t *a1, Phase::Controller::DVM23::VoiceGraph **a2, void *a3, uint64_t a4, double a5, double a6)
+uint64_t Phase::Controller::DVM23::SubmixController::ConnectToGraph(unint64_t *a1, Phase::Controller::DVM23::VoiceGraph **a2, void *a3, uint64_t a4, double a5, double a6)
 {
   v12 = (*(**a2 + 80))(*a2, a1[3]);
   if (v12)
@@ -6720,7 +6732,7 @@ uint64_t Phase::Controller::DVM23::SubmixController::ConnectToGraph(uint64_t *a1
 
   v15 = a5;
   v21 = v15;
-  std::vector<float>::vector[abi:ne200100](&v22, v14);
+  std::vector<float>::vector[abi:ne200100](&v22, v14, &v21);
   v19 = 0;
   v20 = 0;
   __p = 0;
@@ -6756,7 +6768,7 @@ void sub_23A514800(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Phase::Controller::DVM23::SubmixController::ConnectToGraph(uint64_t *a1, Phase::Controller::DVM23::VoiceGraph **a2, void *a3, void *a4, uint64_t a5, double a6)
+uint64_t Phase::Controller::DVM23::SubmixController::ConnectToGraph(unint64_t *a1, Phase::Controller::DVM23::VoiceGraph **a2, void *a3, void *a4, uint64_t a5, double a6)
 {
   v12 = (*(**a2 + 80))(*a2, a1[3]);
   if (v12)
@@ -6805,7 +6817,7 @@ uint64_t Phase::Controller::DVM23::SubmixController::ConnectToGraph(uint64_t *a1
     do
     {
       v38[0] = -1;
-      v20 = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(a2, v38, 0xFuLL);
+      v20 = Phase::Controller::DVM23::DspVoiceManager23::AddVoice(a2, v38, 0xFuLL, *(*a2 + 8));
       if (v20)
       {
         goto LABEL_61;
@@ -6990,19 +7002,19 @@ uint64_t Phase::Controller::DVM23::SubmixController::DisconnectFromGraph(int8x8_
   v13.i16[0] = vaddlv_u8(v13);
   if (v13.u32[0] > 1uLL)
   {
-    if (v12 >= *&v10)
+    if (*&v12 >= *&v10)
     {
-      v12 %= *&v10;
+      *&v12 %= *&v10;
     }
   }
 
   else
   {
-    v12 &= *&v10 - 1;
+    *&v12 &= *&v10 - 1;
   }
 
   v15 = this[8];
-  v16 = *(*&v15 + 8 * v12);
+  v16 = *(*&v15 + 8 * *&v12);
   do
   {
     v17 = v16;
@@ -7018,18 +7030,18 @@ uint64_t Phase::Controller::DVM23::SubmixController::DisconnectFromGraph(int8x8_
   v18 = v17[1];
   if (v13.u32[0] > 1uLL)
   {
-    if (v18 >= *&v10)
+    if (*&v18 >= *&v10)
     {
-      v18 %= *&v10;
+      *&v18 %= *&v10;
     }
   }
 
   else
   {
-    v18 &= *&v10 - 1;
+    *&v18 &= *&v10 - 1;
   }
 
-  if (v18 != v12)
+  if (*&v18 != *&v12)
   {
 LABEL_20:
     if (v11)
@@ -7049,13 +7061,13 @@ LABEL_20:
         v20 = v19 & (*&v10 - 1);
       }
 
-      if (v20 == v12)
+      if (v20 == *&v12)
       {
         goto LABEL_24;
       }
     }
 
-    *(*&v15 + 8 * v12) = 0;
+    *(*&v15 + 8 * *&v12) = 0;
     v11 = *v9;
   }
 
@@ -7079,7 +7091,7 @@ LABEL_24:
     v19 &= *&v10 - 1;
   }
 
-  if (v19 != v12)
+  if (v19 != *&v12)
   {
     *(*&this[8] + 8 * v19) = v17;
     v11 = *v9;
@@ -7123,7 +7135,7 @@ LABEL_41:
     }
 
     Phase::Controller::DVM23::SubmixController::SetSendLevel(this, a2, *(a3 + 1), *(a3 + 2), 0.0, a4);
-    v14 = Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(a2, *&v29[8 * v22], 2u, a4 * 1000.0);
+    v14 = Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(a2, *&v29[8 * v22], 2, a4 * 1000.0);
     if (v14)
     {
       break;
@@ -7222,15 +7234,15 @@ void std::vector<Phase::Controller::DVM23::SubmixChannelStripController>::__dest
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 40;
-      v7 = v4 - 40;
-      v8 = v4 - 40;
+      v6 = v4 - 5;
+      v7 = v4 - 5;
+      v8 = v4 - 5;
       do
       {
         v9 = *v8;
-        v8 -= 40;
+        v8 -= 5;
         (*v9)(v7);
-        v6 -= 40;
+        v6 -= 5;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -7316,7 +7328,7 @@ __n128 std::__function::__func<Phase::Controller::DVM23::SubmixController::SetPl
   return result;
 }
 
-uint64_t std::__function::__func<Phase::Controller::DVM23::SubmixController::SetPlaystate(Phase::Controller::DVM23::DspVoiceManager23 *,Phase::Controller::DVM23::PlaystateCommand,std::function<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)> &&)::$_1,std::allocator<std::function<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)> &&>,void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::operator()(uint64_t result, uint64_t a2, uint64_t *a3, _DWORD *a4)
+uint64_t std::__function::__func<Phase::Controller::DVM23::SubmixController::SetPlaystate(Phase::Controller::DVM23::DspVoiceManager23 *,Phase::Controller::DVM23::PlaystateCommand,std::function<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)> &&)::$_1,std::allocator<std::function<void ()(unsigned long long,Phase::UniqueObjectId,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)> &&>,void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::operator()(uint64_t result, uint64_t a2, unint64_t *a3, _DWORD *a4)
 {
   if (*a4 != 7)
   {
@@ -7355,7 +7367,7 @@ __n128 std::__function::__func<Phase::Controller::DVM23::SubmixController::Disco
   return result;
 }
 
-uint64_t std::__function::__func<Phase::Controller::DVM23::SubmixController::DisconnectFromGraph(Phase::Controller::DVM23::DspVoiceManager23 *,Phase::Controller::DVM23::GraphController *,double)::$_0,std::allocator<Phase::Controller::DVM23::SubmixController::DisconnectFromGraph(Phase::Controller::DVM23::DspVoiceManager23 *,Phase::Controller::DVM23::GraphController *,double)::$_0>,void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::operator()(uint64_t a1, uint64_t a2, uint64_t *a3, _DWORD *a4)
+uint64_t std::__function::__func<Phase::Controller::DVM23::SubmixController::DisconnectFromGraph(Phase::Controller::DVM23::DspVoiceManager23 *,Phase::Controller::DVM23::GraphController *,double)::$_0,std::allocator<Phase::Controller::DVM23::SubmixController::DisconnectFromGraph(Phase::Controller::DVM23::DspVoiceManager23 *,Phase::Controller::DVM23::GraphController *,double)::$_0>,void ()(unsigned long long,unsigned long long,Phase::Controller::DVM23::Playstate,Phase::DspLayer23::DspLayerError)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, _DWORD *a4)
 {
   v5 = *a3;
   if (*a4 == 7)
@@ -7372,7 +7384,7 @@ uint64_t std::__function::__func<Phase::Controller::DVM23::SubmixController::Dis
     v9 = *(a1 + 8);
     v10 = *(a1 + 16) * 1000.0;
 
-    return Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(v9, v5, 2u, v10);
+    return Phase::Controller::DVM23::DspVoiceManager23::SetVoicePlaystate(v9, v5, 2, v10);
   }
 }
 
@@ -8136,7 +8148,7 @@ void Phase::SpatialModeler::TailCorrection::modifyHistograms(Phase::SpatialModel
             v25 = vdupq_n_s64(v15);
             v26 = vcgeq_u64(v18, vorrq_s8(v25, xmmword_23A554B70));
             v27 = vmovn_s64(v26);
-            *v21.f32 = vuzp1_s16(v27, *v18.i8);
+            *v21.i8 = vuzp1_s16(v27, *v18.i8);
             if (v21.i8[0])
             {
               v21.i32[0] = *(v22 - 2);
@@ -8214,7 +8226,7 @@ void sub_23A516AF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Phase::SpatialModeler::TailCorrection::modifyDirectivityHistogram(const float **this, const Phase::SpatialModeler::RayTracerState *a2, const Phase::SpatialModeler::EnergyHistogram *a3, float a4, float a5)
+void Phase::SpatialModeler::TailCorrection::modifyDirectivityHistogram(float **this, const Phase::SpatialModeler::RayTracerState *a2, const Phase::SpatialModeler::EnergyHistogram *a3, float a4, float a5)
 {
   v7 = *(a2 + 4975);
   if (v7)
@@ -8462,7 +8474,7 @@ void Phase::SpatialModeler::TailCorrection::execute(uint64_t a1, Phase::SpatialM
   }
 }
 
-void Phase::SpatialModeler::TailCorrection::totalEnergyCorrectionUsingPrediction(uint64_t *a1, unsigned int a2, uint64_t a3, float a4)
+void Phase::SpatialModeler::TailCorrection::totalEnergyCorrectionUsingPrediction(uint64_t *a1, int a2, uint64_t a3, float a4)
 {
   v42 = *MEMORY[0x277D85DE8];
   v8 = *a1;
@@ -8752,8 +8764,8 @@ void Phase::Controller::TapManager::~TapManager(Phase::Controller::TapManager *t
       v1 = this;
       do
       {
-        Phase::Controller::TapManager::DeRegisterTapReceiver(this, *v14, v14[1], v14[2]);
-        v14 += 3;
+        Phase::Controller::TapManager::DeRegisterTapReceiver(this, *v14, *(v14 + 1), *(v14 + 2));
+        v14 += 24;
       }
 
       while (v14 != v5);
@@ -8833,7 +8845,7 @@ void Phase::Controller::TapManager::~TapManager(Phase::Controller::TapManager *t
 
   std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>>>::~__hash_table(v1 + 192);
   caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::TapReceiverObject *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::~guarded_lookup_hash_table(v1 + 80);
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>>>::~__hash_table(v1 + 40);
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>>>::~__hash_table(v1 + 5);
 
   Phase::Commandable<128,Phase::LockFreeQueueMPSC>::~Commandable(v1);
 }
@@ -8859,7 +8871,7 @@ void sub_23A517A58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void Phase::Controller::TapManager::DeRegisterTapReceiver(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void Phase::Controller::TapManager::DeRegisterTapReceiver(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v16 = *MEMORY[0x277D85DE8];
   v7[0] = a2;
@@ -8910,14 +8922,14 @@ uint64_t *Phase::Controller::TapManager::RemoveTapSourceObject(Phase::Controller
   return result;
 }
 
-void Phase::Controller::TapManager::RegisterTapReceiver(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void Phase::Controller::TapManager::RegisterTapReceiver(Phase::Controller::TapManager *a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
   v8 = *MEMORY[0x277D85DE8];
   v7[0] = a2;
   v7[1] = a3;
   v5 = a5;
   v6 = a4;
-  if (std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>((a1 + 192), v7))
+  if (std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>(a1 + 24, v7))
   {
     operator new();
   }
@@ -8925,9 +8937,9 @@ void Phase::Controller::TapManager::RegisterTapReceiver(uint64_t a1, uint64_t a2
   operator new();
 }
 
-void sub_23A518560(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A518560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<Phase::Controller::TapReceiverObject>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8979,34 +8991,34 @@ void *Phase::Controller::TapManager::CheckUnregisterTap(Phase::Controller::TapMa
   return result;
 }
 
-void Phase::Controller::TapManager::CreatePreSpatialTap(uint64_t a1, uint64_t a2, uint64_t a3)
+void Phase::Controller::TapManager::CreatePreSpatialTap(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  *&v5[0] = a2;
-  *(&v5[0] + 1) = a3;
-  v3 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>((a1 + 40), v5);
-  if (!v3)
+  v12 = *MEMORY[0x277D85DE8];
+  *&v8[0] = a2;
+  *(&v8[0] + 1) = a3;
+  v6 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>((a1 + 40), v8);
+  if (!v6)
   {
-    v5[1] = v5[0];
+    v8[1] = v8[0];
     operator new();
   }
 
-  v4 = **(Phase::Logger::GetInstance(v3) + 960);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v7 = **(Phase::Logger::GetInstance(v6) + 960);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
     *&buf[4] = "TapManager.mm";
     *&buf[12] = 1024;
     *&buf[14] = 252;
-    v7 = 2048;
-    v8 = *&v5[0];
-    _os_log_impl(&dword_23A302000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Couldn't create source tapId %llu because it already exists.", buf, 0x1Cu);
+    v10 = 2048;
+    v11 = *&v8[0];
+    _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Couldn't create source tapId %llu because it already exists.", buf, 0x1Cu);
   }
 }
 
-void sub_23A518D20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A518D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::unique_ptr<Phase::Controller::PreSpatialTapSourceObject>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -9144,9 +9156,9 @@ void *Phase::Controller::TapManager::EngineStartNotify(void *this)
   return this;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapSourceObjectInterface>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -9379,32 +9391,32 @@ LABEL_17:
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,unsigned long long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long long>>>::__emplace_unique_key_args<unsigned long,unsigned long &,unsigned long long &>(void *result, unint64_t a2)
+void std::__hash_table<std::__hash_value_type<unsigned long,unsigned long long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long long>>>::__emplace_unique_key_args<unsigned long,unsigned long &,unsigned long long &>(void *a1, unint64_t a2, void *a3, uint64_t *a4)
 {
-  v2 = result[1];
-  if (!*&v2)
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v6 = a2;
+    if (*&v4 <= a2)
     {
-      v4 = a2 % *&v2;
+      v6 = a2 % *&v4;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v6 = (*&v4 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -9412,44 +9424,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v9 = v8[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v9 >= *&v4)
       {
-        v7 %= *&v2;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v7 != v4)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v8[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void caulk::concurrent::guarded_lookup_hash_table<Phase::UniqueObjectId,Phase::Controller::TapReceiverObject *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<Phase::UniqueObjectId>>::_addOrReplace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -9505,40 +9515,40 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::UniqueOb
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>>>::__emplace_unique_key_args<Phase::UniqueObjectId,Phase::UniqueObjectId&,std::unique_ptr<Phase::Controller::TapReceiverObject>>(void *result, void *a2)
+float *std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>>>::__emplace_unique_key_args<Phase::UniqueObjectId,Phase::UniqueObjectId&,std::unique_ptr<Phase::Controller::TapReceiverObject>>(float *result, void *a2, _OWORD *a3, uint64_t *a4)
 {
-  v2 = 0;
-  v3 = 0xCBF29CE484222325;
+  v4 = 0;
+  v5 = 0xCBF29CE484222325;
   do
   {
-    v3 = 0x100000001B3 * (v3 ^ *(a2 + v2++));
+    v5 = 0x100000001B3 * (v5 ^ *(a2 + v4++));
   }
 
-  while (v2 != 16);
-  v4 = result[1];
-  if (!*&v4)
+  while (v4 != 16);
+  v6 = *(result + 2);
+  if (!*&v6)
   {
     goto LABEL_24;
   }
 
-  v5 = vcnt_s8(v4);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v6 = v3;
-    if (v3 >= *&v4)
+    v8 = v5;
+    if (v5 >= *&v6)
     {
-      v6 = v3 % *&v4;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v6 = (*&v4 - 1) & v3;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v7 = *(*result + 8 * v6);
-  if (!v7 || (v8 = *v7) == 0)
+  v9 = *(*result + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_24:
     operator new();
@@ -9546,39 +9556,39 @@ LABEL_24:
 
   while (1)
   {
-    v9 = v8[1];
-    if (v9 == v3)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v5.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v9 >= *&v4)
+      if (v11 >= *&v6)
       {
-        v9 %= *&v4;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v9 &= *&v4 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v9 != v6)
+    if (v11 != v8)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v8 = *v8;
-    if (!v8)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_24;
     }
   }
 
-  if (v8[2] != *a2 || v8[3] != a2[1])
+  if (v10[2] != *a2 || v10[3] != a2[1])
   {
     goto LABEL_23;
   }
@@ -9586,9 +9596,9 @@ LABEL_23:
   return result;
 }
 
-void sub_23A519E88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A519E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::Controller::TapReceiverObject>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }

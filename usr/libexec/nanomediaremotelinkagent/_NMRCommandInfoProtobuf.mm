@@ -2,9 +2,14 @@
 - (BOOL)isEqual:(id)equal;
 - (double)preferredIntervalAtIndex:(unint64_t)index;
 - (float)supportedPlaybackRateAtIndex:(unint64_t)index;
+- (id)commandAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)currentQueueEndActionAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)repeatModeAsString:(int)string;
+- (id)shuffleModeAsString:(int)string;
+- (id)supportedQueueEndActionsAsString:(int)string;
 - (int)StringAsCommand:(id)command;
 - (int)StringAsCurrentQueueEndAction:(id)action;
 - (int)StringAsRepeatMode:(id)mode;
@@ -53,6 +58,216 @@
   else
   {
     return 0;
+  }
+}
+
+- (id)commandAsString:(int)string
+{
+  v4 = @"Unknown";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_10;
+    case 1:
+      v4 = @"Play";
+
+      return v4;
+    case 2:
+      v4 = @"Pause";
+
+      return v4;
+    case 3:
+      v4 = @"TogglePlayPause";
+
+      return v4;
+    case 4:
+      v4 = @"Stop";
+
+      return v4;
+    case 5:
+      v4 = @"NextTrack";
+
+      return v4;
+    case 6:
+      v4 = @"PreviousTrack";
+
+      return v4;
+    case 7:
+      v4 = @"AdvanceShuffleMode";
+
+      return v4;
+    case 8:
+      v4 = @"AdvanceRepeatMode";
+
+      return v4;
+    case 9:
+      v4 = @"BeginFastForward";
+
+      return v4;
+    case 10:
+      v4 = @"EndFastForward";
+
+      return v4;
+    case 11:
+      v4 = @"BeginRewind";
+
+      return v4;
+    case 12:
+      v4 = @"EndRewind";
+
+      return v4;
+    case 13:
+      v4 = @"Rewind15Seconds";
+
+      return v4;
+    case 14:
+      v4 = @"FastForward15Seconds";
+
+      return v4;
+    case 15:
+      v4 = @"Rewind30Seconds";
+
+      return v4;
+    case 16:
+      v4 = @"FastForward30Seconds";
+
+      return v4;
+    case 17:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 42:
+    case 43:
+    case 44:
+      goto LABEL_9;
+    case 18:
+      v4 = @"SkipForward";
+
+      return v4;
+    case 19:
+      v4 = @"SkipBackward";
+
+      return v4;
+    case 20:
+      v4 = @"ChangePlaybackRate";
+
+      return v4;
+    case 21:
+      v4 = @"RateTrack";
+
+      return v4;
+    case 22:
+      v4 = @"LikeTrack";
+
+      return v4;
+    case 23:
+      v4 = @"DislikeTrack";
+
+      return v4;
+    case 24:
+      v4 = @"BookmarkTrack";
+
+      return v4;
+    case 25:
+      v4 = @"NextChapter";
+
+      return v4;
+    case 26:
+      v4 = @"PreviousChapter";
+
+      return v4;
+    case 27:
+      v4 = @"NextAlbum";
+
+      return v4;
+    case 28:
+      v4 = @"PreviousAlbum";
+
+      return v4;
+    case 29:
+      v4 = @"NextPlaylist";
+
+      return v4;
+    case 30:
+      v4 = @"PreviousPlaylist";
+
+      return v4;
+    case 31:
+      v4 = @"BanTrack";
+
+      return v4;
+    case 32:
+      v4 = @"AddTrackToWishList";
+
+      return v4;
+    case 33:
+      v4 = @"RemoveTrackFromWishList";
+
+      return v4;
+    case 34:
+      v4 = @"NextInContext";
+
+      return v4;
+    case 35:
+      v4 = @"PreviousInContext";
+
+      return v4;
+    case 41:
+      v4 = @"ResetPlaybackTimeout";
+
+      return v4;
+    case 45:
+      v4 = @"SeekToPlaybackPosition";
+
+      return v4;
+    case 46:
+      v4 = @"ChangeRepeatMode";
+
+      return v4;
+    case 47:
+      v4 = @"ChangeShuffleMode";
+
+      return v4;
+    case 48:
+      v4 = @"SetPlaybackQueue";
+
+      return v4;
+    case 49:
+      v4 = @"AddNowPlayingItemToLibrary";
+
+      return v4;
+    case 50:
+      v4 = @"CreateRadioStation";
+
+      return v4;
+    case 51:
+      v4 = @"AddItemToLibrary";
+
+      return v4;
+    case 52:
+      v4 = @"InsertIntoPlaybackQueue";
+
+      return v4;
+    case 53:
+      v4 = @"PlayItemInPlaybackQueue";
+
+      return v4;
+    default:
+      if (string == 135)
+      {
+        v4 = @"ChangeQueueEndAction";
+      }
+
+      else
+      {
+LABEL_9:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_10:
+      }
+
+      return v4;
   }
 }
 
@@ -413,6 +628,21 @@
   *&self->_has = *&self->_has & 0xFFBF | v3;
 }
 
+- (id)repeatModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1000493B0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRepeatMode:(id)mode
 {
   modeCopy = mode;
@@ -470,6 +700,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFF7F | v3;
+}
+
+- (id)shuffleModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1000493D0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsShuffleMode:(id)mode
@@ -561,6 +806,21 @@
   *&self->_has = *&self->_has & 0xFFFD | v3;
 }
 
+- (id)currentQueueEndActionAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1000493F0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCurrentQueueEndAction:(id)action
 {
   actionCopy = action;
@@ -609,6 +869,21 @@
   }
 
   return p_supportedQueueEndActions->list[index];
+}
+
+- (id)supportedQueueEndActionsAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1000493F0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSupportedQueueEndActions:(id)actions
@@ -1019,12 +1294,11 @@ LABEL_83:
 {
   toCopy = to;
   has = self->_has;
-  v25 = toCopy;
+  v12 = toCopy;
   if (has)
   {
-    command = self->_command;
     PBDataWriterWriteInt32Field();
-    toCopy = v25;
+    toCopy = v12;
     has = self->_has;
     if ((has & 0x200) == 0)
     {
@@ -1043,85 +1317,78 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  enabled = self->_enabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v25;
+  toCopy = v12;
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_4:
-    active = self->_active;
     PBDataWriterWriteBOOLField();
-    toCopy = v25;
+    toCopy = v12;
   }
 
 LABEL_5:
   if (self->_preferredIntervals.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_preferredIntervals.list[v7];
       PBDataWriterWriteDoubleField();
-      toCopy = v25;
-      ++v7;
+      toCopy = v12;
+      ++v6;
     }
 
-    while (v7 < self->_preferredIntervals.count);
+    while (v6 < self->_preferredIntervals.count);
   }
 
   if (self->_localizedTitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v25;
+    toCopy = v12;
   }
 
-  v9 = self->_has;
-  if ((v9 & 8) != 0)
+  v7 = self->_has;
+  if ((v7 & 8) != 0)
   {
-    minimumRating = self->_minimumRating;
     PBDataWriterWriteFloatField();
-    toCopy = v25;
-    v9 = self->_has;
+    toCopy = v12;
+    v7 = self->_has;
   }
 
-  if ((v9 & 4) != 0)
+  if ((v7 & 4) != 0)
   {
-    maximumRating = self->_maximumRating;
     PBDataWriterWriteFloatField();
-    toCopy = v25;
+    toCopy = v12;
   }
 
   if (self->_supportedPlaybackRates.count)
   {
-    v12 = 0;
+    v8 = 0;
     do
     {
-      v13 = self->_supportedPlaybackRates.list[v12];
       PBDataWriterWriteFloatField();
-      toCopy = v25;
-      ++v12;
+      toCopy = v12;
+      ++v8;
     }
 
-    while (v12 < self->_supportedPlaybackRates.count);
+    while (v8 < self->_supportedPlaybackRates.count);
   }
 
   if (self->_localizedShortTitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v25;
+    toCopy = v12;
   }
 
-  v14 = self->_has;
-  if ((v14 & 0x40) != 0)
+  v9 = self->_has;
+  if ((v9 & 0x40) != 0)
   {
-    repeatMode = self->_repeatMode;
     PBDataWriterWriteInt32Field();
-    toCopy = v25;
-    v14 = self->_has;
-    if ((v14 & 0x80) == 0)
+    toCopy = v12;
+    v9 = self->_has;
+    if ((v9 & 0x80) == 0)
     {
 LABEL_21:
-      if ((v14 & 0x20) == 0)
+      if ((v9 & 0x20) == 0)
       {
         goto LABEL_22;
       }
@@ -1130,19 +1397,18 @@ LABEL_21:
     }
   }
 
-  else if ((v14 & 0x80) == 0)
+  else if ((v9 & 0x80) == 0)
   {
     goto LABEL_21;
   }
 
-  shuffleMode = self->_shuffleMode;
   PBDataWriterWriteInt32Field();
-  toCopy = v25;
-  v14 = self->_has;
-  if ((v14 & 0x20) == 0)
+  toCopy = v12;
+  v9 = self->_has;
+  if ((v9 & 0x20) == 0)
   {
 LABEL_22:
-    if ((v14 & 0x10) == 0)
+    if ((v9 & 0x10) == 0)
     {
       goto LABEL_23;
     }
@@ -1151,14 +1417,13 @@ LABEL_22:
   }
 
 LABEL_36:
-  presentationStyle = self->_presentationStyle;
   PBDataWriterWriteInt32Field();
-  toCopy = v25;
-  v14 = self->_has;
-  if ((v14 & 0x10) == 0)
+  toCopy = v12;
+  v9 = self->_has;
+  if ((v9 & 0x10) == 0)
   {
 LABEL_23:
-    if ((v14 & 2) == 0)
+    if ((v9 & 2) == 0)
     {
       goto LABEL_25;
     }
@@ -1167,31 +1432,28 @@ LABEL_23:
   }
 
 LABEL_37:
-  preferredPlaybackRate = self->_preferredPlaybackRate;
   PBDataWriterWriteFloatField();
-  toCopy = v25;
+  toCopy = v12;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_24:
-    currentQueueEndAction = self->_currentQueueEndAction;
     PBDataWriterWriteInt32Field();
-    toCopy = v25;
+    toCopy = v12;
   }
 
 LABEL_25:
   p_supportedQueueEndActions = &self->_supportedQueueEndActions;
   if (p_supportedQueueEndActions->count)
   {
-    v17 = 0;
+    v11 = 0;
     do
     {
-      v18 = p_supportedQueueEndActions->list[v17];
       PBDataWriterWriteInt32Field();
-      toCopy = v25;
-      ++v17;
+      toCopy = v12;
+      ++v11;
     }
 
-    while (v17 < p_supportedQueueEndActions->count);
+    while (v11 < p_supportedQueueEndActions->count);
   }
 }
 
@@ -1524,7 +1786,6 @@ LABEL_15:
       goto LABEL_65;
     }
 
-    v9 = *(equalCopy + 129);
     if (self->_enabled)
     {
       if ((*(equalCopy + 129) & 1) == 0)
@@ -1561,7 +1822,6 @@ LABEL_65:
     goto LABEL_65;
   }
 
-  v10 = *(equalCopy + 128);
   if (self->_active)
   {
     if ((*(equalCopy + 128) & 1) == 0)
@@ -1632,69 +1892,69 @@ LABEL_11:
     }
   }
 
-  v12 = self->_has;
-  v13 = *(equalCopy + 66);
-  if ((v12 & 0x40) != 0)
+  v10 = self->_has;
+  v11 = *(equalCopy + 66);
+  if ((v10 & 0x40) != 0)
   {
-    if ((v13 & 0x40) == 0 || self->_repeatMode != *(equalCopy + 30))
+    if ((v11 & 0x40) == 0 || self->_repeatMode != *(equalCopy + 30))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 0x40) != 0)
+  else if ((v11 & 0x40) != 0)
   {
     goto LABEL_65;
   }
 
-  if ((v12 & 0x80) != 0)
+  if ((v10 & 0x80) != 0)
   {
-    if ((v13 & 0x80) == 0 || self->_shuffleMode != *(equalCopy + 31))
+    if ((v11 & 0x80) == 0 || self->_shuffleMode != *(equalCopy + 31))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 0x80) != 0)
+  else if ((v11 & 0x80) != 0)
   {
     goto LABEL_65;
   }
 
-  if ((v12 & 0x20) != 0)
+  if ((v10 & 0x20) != 0)
   {
-    if ((v13 & 0x20) == 0 || self->_presentationStyle != *(equalCopy + 29))
+    if ((v11 & 0x20) == 0 || self->_presentationStyle != *(equalCopy + 29))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 0x20) != 0)
+  else if ((v11 & 0x20) != 0)
   {
     goto LABEL_65;
   }
 
-  if ((v12 & 0x10) != 0)
+  if ((v10 & 0x10) != 0)
   {
-    if ((v13 & 0x10) == 0 || self->_preferredPlaybackRate != *(equalCopy + 28))
+    if ((v11 & 0x10) == 0 || self->_preferredPlaybackRate != *(equalCopy + 28))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 0x10) != 0)
+  else if ((v11 & 0x10) != 0)
   {
     goto LABEL_65;
   }
 
-  if ((v12 & 2) != 0)
+  if ((v10 & 2) != 0)
   {
-    if ((v13 & 2) == 0 || self->_currentQueueEndAction != *(equalCopy + 21))
+    if ((v11 & 2) == 0 || self->_currentQueueEndAction != *(equalCopy + 21))
     {
       goto LABEL_65;
     }
   }
 
-  else if ((v13 & 2) != 0)
+  else if ((v11 & 2) != 0)
   {
     goto LABEL_65;
   }

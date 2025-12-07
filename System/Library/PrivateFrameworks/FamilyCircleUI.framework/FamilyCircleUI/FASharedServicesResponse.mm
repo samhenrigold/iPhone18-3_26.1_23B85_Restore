@@ -52,121 +52,120 @@
       responseDictionary5 = [(AAResponse *)v5 responseDictionary];
       v16 = [responseDictionary5 objectForKeyedSubscript:@"status-message"];
 
-      v17 = _FALogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = _FALogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         v22 = v14;
         v23 = 2112;
         v24 = v16;
-        _os_log_impl(&dword_21BB35000, v17, OS_LOG_TYPE_DEFAULT, "Error: Shared services not seen in server response data with status=%@ message=%@", buf, 0x16u);
+        _os_log_impl(&dword_21BB35000, v18, OS_LOG_TYPE_DEFAULT, "Error: Shared services not seen in server response data with status=%@ message=%@", buf, 0x16u);
       }
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_initializeServicesMapWithGroups:(id)groups andServices:(id)services
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
-  v45 = objc_opt_new();
+  v5 = objc_opt_new();
+  v46 = v5;
   if (groupsCopy)
   {
-    v48 = 0u;
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v43 = groupsCopy;
-    v5 = groupsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v46 objects:v51 count:16];
-    if (v6)
+    v48 = 0u;
+    v44 = groupsCopy;
+    v6 = groupsCopy;
+    v7 = [v6 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v47;
+      v8 = v7;
+      v9 = *v48;
       do
       {
-        v9 = 0;
+        v10 = 0;
         do
         {
-          if (*v47 != v8)
+          if (*v48 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v10 = [objc_alloc(MEMORY[0x277D08340]) initWithServerResponse:*(*(&v46 + 1) + 8 * v9)];
+          v11 = [objc_alloc(MEMORY[0x277D08340]) initWithServerResponse:*(*(&v47 + 1) + 8 * v10)];
           services = self->_services;
-          v12 = MEMORY[0x277CCAC30];
-          groupID = [v10 groupID];
-          v14 = [v12 predicateWithFormat:@"SELF.groupID == %@", groupID];
-          v15 = [(NSArray *)services filteredArrayUsingPredicate:v14];
+          v13 = MEMORY[0x277CCAC30];
+          groupID = [v11 groupID];
+          v15 = [v13 predicateWithFormat:@"SELF.groupID == %@", groupID];
+          v16 = [(NSArray *)services filteredArrayUsingPredicate:v15];
 
-          [v10 setServices:v15];
-          [v45 addObject:v10];
+          [v11 setServices:v16];
+          [v46 addObject:v11];
 
-          ++v9;
+          ++v10;
         }
 
-        while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v46 objects:v51 count:16];
+        while (v8 != v10);
+        v8 = [v6 countByEnumeratingWithState:&v47 objects:v52 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
-    v16 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"groupID" ascending:1];
-    v50 = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
-    v18 = [v45 sortedArrayUsingDescriptors:v17];
+    v17 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"groupID" ascending:1];
+    v51 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+    v19 = [v46 sortedArrayUsingDescriptors:v18];
     serviceGroups = self->_serviceGroups;
-    self->_serviceGroups = v18;
+    self->_serviceGroups = v19;
 
-    v20 = self->_services;
-    v21 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF.groupID == %@", &stru_282D9AA68];
-    v22 = [(NSArray *)v20 filteredArrayUsingPredicate:v21];
+    v21 = self->_services;
+    v22 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF.groupID == %@", &stru_282D9AA68];
+    v23 = [(NSArray *)v21 filteredArrayUsingPredicate:v22];
 
-    if ([v22 count])
+    v24 = [v23 count];
+    if (v24)
     {
-      v23 = _FALogSystem();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = _FALogSystem(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [(FASharedServicesResponse *)v23 _initializeServicesMapWithGroups:v24 andServices:v25, v26, v27, v28, v29, v30];
+        [(FASharedServicesResponse *)v25 _initializeServicesMapWithGroups:v26 andServices:v27, v28, v29, v30, v31, v32];
       }
 
       firstObject = [(NSArray *)self->_serviceGroups firstObject];
       services = [firstObject services];
-      v33 = [v22 arrayByAddingObjectsFromArray:services];
+      v35 = [v23 arrayByAddingObjectsFromArray:services];
 
       firstObject2 = [(NSArray *)self->_serviceGroups firstObject];
-      [firstObject2 setServices:v33];
+      [firstObject2 setServices:v35];
     }
 
-    groupsCopy = v43;
+    groupsCopy = v44;
   }
 
   else
   {
-    v16 = _FALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _FALogSystem(v5);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(FASharedServicesResponse *)v16 _initializeServicesMapWithGroups:v35 andServices:v36, v37, v38, v39, v40, v41];
+      [(FASharedServicesResponse *)v17 _initializeServicesMapWithGroups:v37 andServices:v38, v39, v40, v41, v42, v43];
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sharedServicesWithNoGrouping:(id)grouping
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   if (grouping)
   {
     v4 = [grouping fa_map:&__block_literal_global_21];
     v5 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"order" ascending:1];
-    v17[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v7 = [v4 sortedArrayUsingDescriptors:v6];
     services = self->_services;
     self->_services = v7;
@@ -174,14 +173,12 @@
 
   else
   {
-    v4 = _FALogSystem();
+    v4 = _FALogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(FASharedServicesResponse *)v4 _sharedServicesWithNoGrouping:v9, v10, v11, v12, v13, v14, v15];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 id __58__FASharedServicesResponse__sharedServicesWithNoGrouping___block_invoke(uint64_t a1, void *a2)

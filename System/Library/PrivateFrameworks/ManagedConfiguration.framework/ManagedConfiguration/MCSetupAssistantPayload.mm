@@ -11,26 +11,25 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.SetupAssistant.managed";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.SetupAssistant.managed";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCSetupAssistantPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = MCSetupAssistantPayload;
-  v9 = [(MCPayload *)&v27 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v26.receiver = self;
+  v26.super_class = MCSetupAssistantPayload;
+  v9 = [(MCPayload *)&v26 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (v9)
   {
-    v26 = 0;
-    v10 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"SkipSetupItems" isRequired:0 outError:&v26];
-    v11 = v26;
+    v25 = 0;
+    v10 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"SkipSetupItems" isRequired:0 outError:&v25];
+    v11 = v25;
     if (v11)
     {
 
@@ -50,9 +49,9 @@
         v17 = v16;
         mCVerboseDescription = [v10 MCVerboseDescription];
         *buf = 138543618;
-        v29 = v16;
-        v30 = 2114;
-        v31 = mCVerboseDescription;
+        v28 = v16;
+        v29 = 2114;
+        v30 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v15, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -75,15 +74,14 @@
         v22 = v21;
         friendlyName = [(MCPayload *)v9 friendlyName];
         *buf = 138543618;
-        v29 = friendlyName;
-        v30 = 2114;
-        v31 = dictionaryCopy;
+        v28 = friendlyName;
+        v29 = 2114;
+        v30 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v22, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

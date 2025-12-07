@@ -43,7 +43,7 @@
     return 0;
   }
 
-  loadVEFrameworkOnce();
+  loadVEFrameworkOnce(self, a2);
   v10.receiver = self;
   v10.super_class = VTFrameProcessorFrame;
   v7 = [(VTFrameProcessorFrame *)&v10 init];

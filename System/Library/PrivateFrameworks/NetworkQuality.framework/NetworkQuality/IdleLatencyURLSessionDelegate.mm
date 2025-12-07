@@ -8,7 +8,7 @@
 
 - (void)executeTaskWithRequest:(id)request completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v8 = MEMORY[0x25F873620](handler);
   completionHandler = self->super._completionHandler;
@@ -19,7 +19,7 @@
   {
     v11 = 0;
     *&v10 = 136315906;
-    v17 = v10;
+    v18 = v10;
     do
     {
       createDefaultNSURLSessionConfiguration = [(NetworkQualityExecutions *)self->super._execution createDefaultNSURLSessionConfiguration];
@@ -27,20 +27,20 @@
       [(NSMutableArray *)self->super._sessions addObject:v13];
       v14 = [v13 dataTaskWithRequest:requestCopy];
       [v14 set_hostOverride:self->super._testEndpoint];
-      [(NSMutableArray *)self->super._tasks addObject:v14];
-      netqual_log_init();
-      v15 = os_log_netqual;
+      v15 = [(NSMutableArray *)self->super._tasks addObject:v14];
+      netqual_log_init(v15, v16);
+      v17 = os_log_netqual;
       if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = v17;
-        v19 = "[IdleLatencyURLSessionDelegate executeTaskWithRequest:completionHandler:]";
-        v20 = 1024;
-        v21 = 325;
-        v22 = 2112;
-        v23 = v14;
-        v24 = 2112;
-        v25 = v13;
-        _os_log_impl(&dword_25B962000, v15, OS_LOG_TYPE_DEFAULT, "%s:%u - Created IdleLatencyTask %@ on session %@", buf, 0x26u);
+        *buf = v18;
+        v20 = "[IdleLatencyURLSessionDelegate executeTaskWithRequest:completionHandler:]";
+        v21 = 1024;
+        v22 = 325;
+        v23 = 2112;
+        v24 = v14;
+        v25 = 2112;
+        v26 = v13;
+        _os_log_impl(&dword_25B962000, v17, OS_LOG_TYPE_DEFAULT, "%s:%u - Created IdleLatencyTask %@ on session %@", buf, 0x26u);
       }
 
       [v14 resume];
@@ -50,8 +50,6 @@
 
     while (v11 < self->super._parallel);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
@@ -79,7 +77,7 @@
   }
 
   p_tasks = &self->super._tasks;
-  [(NSMutableArray *)self->super._tasks removeObject:taskCopy];
+  v15 = [(NSMutableArray *)self->super._tasks removeObject:taskCopy];
   if (v13)
   {
 LABEL_7:
@@ -95,7 +93,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  netqual_log_init();
+  netqual_log_init(v15, v16);
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
   {
     [IdleLatencyURLSessionDelegate URLSession:task:didCompleteWithError:];
@@ -555,11 +553,10 @@ LABEL_13:
 
 - (void)URLSession:task:didCompleteWithError:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2(&dword_25B962000, v0, v1, "%s:%u - Load failed with error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25B962000, v0, v1, "%s:%u - Load failed with error: %@", v2, v3, v4, v5, v6);
 }
 
 @end

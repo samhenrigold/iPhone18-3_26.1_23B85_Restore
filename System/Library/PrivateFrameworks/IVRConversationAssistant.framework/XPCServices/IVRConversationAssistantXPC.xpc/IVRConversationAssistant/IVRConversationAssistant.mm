@@ -1,6 +1,6 @@
 int main(int argc, const char **argv, const char **envp)
 {
-  v3 = sub_100000D6C();
+  v3 = sub_100000D6C(*&argc);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v10 = 0;
@@ -20,21 +20,21 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id sub_100000D6C()
+id sub_100000D6C(uint64_t a1)
 {
   if (qword_100008840 != -1)
   {
     sub_1000014F8();
   }
 
-  v1 = qword_100008838;
+  v2 = qword_100008838;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000DB0(id a1)
 {
-  v1 = sub_100000D6C();
+  v1 = sub_100000D6C(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;

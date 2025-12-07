@@ -52,7 +52,7 @@
   v11 = objc_opt_class();
   if (v11)
   {
-    [v11 _itemFramesForBoundingSize:{v8, v10}];
+    objc_msgSend__itemFramesForBoundingSize_(v11, v8, v10);
   }
 
   else
@@ -117,9 +117,9 @@
 
     rightDockItem5 = [(UIKeyboardDockView *)self rightDockItem];
     identifier = [rightDockItem5 identifier];
-    v51 = [identifier isEqualToString:@"keyboardkeyboard"];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-    if (v51)
+    if (isEqualToString)
     {
       v44 = *&v89 + -5.0;
     }
@@ -302,7 +302,7 @@
   v5 = v4;
   v7 = v6;
 
-  [self _itemFramesForBoundingSize:{v5, v7}];
+  objc_msgSend__itemFramesForBoundingSize_(self, v5, v7);
   v8 = [MEMORY[0x1E696B098] valueWithCGRect:{0, 0}];
   v12[0] = v8;
   v9 = [MEMORY[0x1E696B098] valueWithCGRect:{0, 0}];
@@ -410,7 +410,7 @@ LABEL_9:
 - (void)setLeftDockItem:(id)item
 {
   itemCopy = item;
-  if (![(UIKeyboardDockItem *)self->_leftDockItem isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_leftDockItem) & 1) == 0)
   {
     button = [(UIKeyboardDockItem *)self->_leftDockItem button];
     [button removeFromSuperview];
@@ -423,7 +423,7 @@ LABEL_9:
 - (void)setRightDockItem:(id)item
 {
   itemCopy = item;
-  if (![(UIKeyboardDockItem *)self->_rightDockItem isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_rightDockItem) & 1) == 0)
   {
     button = [(UIKeyboardDockItem *)self->_rightDockItem button];
     [button removeFromSuperview];
@@ -436,7 +436,7 @@ LABEL_9:
 - (void)setCenterDockItem:(id)item
 {
   itemCopy = item;
-  if (![(UIKeyboardDockItem *)self->_centerDockItem isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_centerDockItem) & 1) == 0)
   {
     button = [(UIKeyboardDockItem *)self->_centerDockItem button];
     [button removeFromSuperview];
@@ -449,7 +449,7 @@ LABEL_9:
 - (void)setCenterView:(id)view
 {
   viewCopy = view;
-  if (([(UIView *)self->_centerView isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_centerView) & 1) == 0)
   {
     [(UIView *)self->_centerView removeFromSuperview];
     objc_storeStrong(&self->_centerView, view);
@@ -489,7 +489,7 @@ LABEL_9:
   v7 = objc_opt_class();
   if (v7)
   {
-    [v7 _itemFramesForBoundingSize:{v4, v6}];
+    objc_msgSend__itemFramesForBoundingSize_(v7, v4, v6);
   }
 
   else

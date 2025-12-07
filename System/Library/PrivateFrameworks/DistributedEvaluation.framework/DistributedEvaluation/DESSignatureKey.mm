@@ -333,21 +333,11 @@ LABEL_33:
 
 + (void)keyFromCertificateChain:(OSStatus)a1 .cold.4(OSStatus a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = SecCopyErrorMessageString(a1, 0);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "DESSignatureKey: trust creation for the certificate chain failed with error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)keyFromCertificateChain:.cold.5()
-{
   v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = SecCopyErrorMessageString(a1, 0);
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "DESSignatureKey: trust creation for the certificate chain failed with error: %@", &v4, 0xCu);
 }
 
 - (void)validateSignature:(void *)a3 data:(void *)a4 algorithm:.cold.1(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -356,14 +346,6 @@ LABEL_33:
   [v8 handleFailureInMethod:a1 object:a2 file:@"DESSignatureKey.m" lineNumber:206 description:{@"Invalid parameter not satisfying: %@", @"_key"}];
 
   *a4 = *a3;
-}
-
-- (void)validateSignature:data:algorithm:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

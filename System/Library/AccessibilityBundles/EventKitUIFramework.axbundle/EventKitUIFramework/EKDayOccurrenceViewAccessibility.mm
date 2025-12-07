@@ -17,6 +17,7 @@
 - (id)accessibilityUserInputLabels;
 - (unint64_t)accessibilityTraits;
 - (void)prepareForReuse;
+- (void)setDrawsResizeHandles:(BOOL)handles;
 @end
 
 @implementation EKDayOccurrenceViewAccessibility
@@ -332,36 +333,34 @@
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v7[1] = *MEMORY[0x29EDCA608];
+  v6[1] = *MEMORY[0x29EDCA608];
   _axDraggingView = [(EKDayOccurrenceViewAccessibility *)self _axDraggingView];
   v3 = [_axDraggingView safeValueForKey:@"_endResizeHandle"];
 
   if ([v3 _accessibilityViewIsVisible])
   {
-    v7[0] = v3;
-    v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
+    v6[0] = v3;
+    v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 
   return v4;
 }
 
 - (id)_accessibilitySupplementaryHeaderViews
 {
-  v7[1] = *MEMORY[0x29EDCA608];
+  v6[1] = *MEMORY[0x29EDCA608];
   _axDraggingView = [(EKDayOccurrenceViewAccessibility *)self _axDraggingView];
   v3 = [_axDraggingView safeValueForKey:@"_startResizeHandle"];
 
   if ([v3 _accessibilityViewIsVisible])
   {
-    v7[0] = v3;
-    v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
+    v6[0] = v3;
+    v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:1];
   }
 
   else
@@ -369,9 +368,21 @@
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
-
   return v4;
+}
+
+- (void)setDrawsResizeHandles:(BOOL)handles
+{
+  v6.receiver = self;
+  v6.super_class = EKDayOccurrenceViewAccessibility;
+  [(EKDayOccurrenceViewAccessibility *)&v6 setDrawsResizeHandles:handles];
+  v4 = [(EKDayOccurrenceViewAccessibility *)self safeValueForKey:@"_startResizeHandle"];
+  [v4 setAccessibilityIdentifier:@"StartHandle"];
+  [v4 setAccessibilityContainer:self];
+  v5 = [(EKDayOccurrenceViewAccessibility *)self safeValueForKey:@"_endResizeHandle"];
+  [v5 setAccessibilityContainer:self];
+  [v5 setAccessibilityIdentifier:@"EndHandle"];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 - (id)_axDraggingView
@@ -438,7 +449,7 @@ LABEL_12:
 
 - (id)accessibilityCustomRotors
 {
-  v16[1] = *MEMORY[0x29EDCA608];
+  v15[1] = *MEMORY[0x29EDCA608];
   _axDraggingView = [(EKDayOccurrenceViewAccessibility *)self _axDraggingView];
 
   if (_axDraggingView)
@@ -449,28 +460,26 @@ LABEL_12:
       objc_initWeak(&location, self);
       v5 = objc_alloc(MEMORY[0x29EDC78E8]);
       v6 = accessibilityLocalizedString(@"handles");
-      v10 = MEMORY[0x29EDCA5F8];
-      v11 = 3221225472;
-      v12 = __61__EKDayOccurrenceViewAccessibility_accessibilityCustomRotors__block_invoke;
-      v13 = &unk_29F2BCA78;
-      objc_copyWeak(&v14, &location);
-      v4 = [v5 initWithName:v6 itemSearchBlock:&v10];
+      v9 = MEMORY[0x29EDCA5F8];
+      v10 = 3221225472;
+      v11 = __61__EKDayOccurrenceViewAccessibility_accessibilityCustomRotors__block_invoke;
+      v12 = &unk_29F2BCA78;
+      objc_copyWeak(&v13, &location);
+      v4 = [v5 initWithName:v6 itemSearchBlock:&v9];
 
-      [(EKDayOccurrenceViewAccessibility *)self _accessibilitySetRetainedValue:v4 forKey:@"AXCustomRotor", v10, v11, v12, v13];
-      objc_destroyWeak(&v14);
+      [(EKDayOccurrenceViewAccessibility *)self _accessibilitySetRetainedValue:v4 forKey:@"AXCustomRotor", v9, v10, v11, v12];
+      objc_destroyWeak(&v13);
       objc_destroyWeak(&location);
     }
 
-    v16[0] = v4;
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:1];
+    v15[0] = v4;
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v15 count:1];
   }
 
   else
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return v7;
 }
@@ -579,8 +588,8 @@ id __61__EKDayOccurrenceViewAccessibility_accessibilityCustomRotors__block_invok
 
 - (id)accessibilityDragSourceDescriptors
 {
-  v21[1] = *MEMORY[0x29EDCA608];
-  v20 = 0;
+  v20[1] = *MEMORY[0x29EDCA608];
+  v19 = 0;
   objc_opt_class();
   v3 = __UIAccessibilityCastAsClass();
   v4 = [v3 _accessibilityDragAndDropTargetViewForDrop:0];
@@ -594,31 +603,29 @@ id __61__EKDayOccurrenceViewAccessibility_accessibilityCustomRotors__block_invok
     v12 = v11;
     v13 = objc_alloc(MEMORY[0x29EDC7900]);
     v14 = accessibilityLocalizedString(@"drag.whole.event");
+    v22.origin.x = v6;
+    v22.origin.y = v8;
+    v22.size.width = v10;
+    v22.size.height = v12;
+    CGRectGetMidX(v22);
     v23.origin.x = v6;
     v23.origin.y = v8;
     v23.size.width = v10;
     v23.size.height = v12;
-    CGRectGetMidX(v23);
-    v24.origin.x = v6;
-    v24.origin.y = v8;
-    v24.size.width = v10;
-    v24.size.height = v12;
-    CGRectGetMidY(v24);
+    CGRectGetMidY(v23);
     CalRoundPointToScreenScale();
     v15 = [v13 initWithName:v14 point:v4 inView:?];
 
-    v21[0] = v15;
-    accessibilityDragSourceDescriptors = [MEMORY[0x29EDB8D80] arrayWithObjects:v21 count:1];
+    v20[0] = v15;
+    accessibilityDragSourceDescriptors = [MEMORY[0x29EDB8D80] arrayWithObjects:v20 count:1];
   }
 
   else
   {
-    v19.receiver = self;
-    v19.super_class = EKDayOccurrenceViewAccessibility;
-    accessibilityDragSourceDescriptors = [(EKDayOccurrenceViewAccessibility *)&v19 accessibilityDragSourceDescriptors];
+    v18.receiver = self;
+    v18.super_class = EKDayOccurrenceViewAccessibility;
+    accessibilityDragSourceDescriptors = [(EKDayOccurrenceViewAccessibility *)&v18 accessibilityDragSourceDescriptors];
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 
   return accessibilityDragSourceDescriptors;
 }

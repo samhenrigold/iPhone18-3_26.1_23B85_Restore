@@ -84,153 +84,152 @@
   regionCopy = region;
   selfCopy = self;
   v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F453E10, &unk_251708160);
-  v30 = *(*(v29 - 8) + 64);
-  v31 = MEMORY[0x28223BE20](v29 - 8);
-  v33 = &v108 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = MEMORY[0x28223BE20](v31);
-  v140 = &v108 - v35;
-  v36 = MEMORY[0x28223BE20](v34);
-  v141 = &v108 - v37;
-  MEMORY[0x28223BE20](v36);
-  v139 = &v108 - v38;
-  v39 = sub_251703164();
-  v131 = v40;
-  v132 = v39;
+  v30 = MEMORY[0x28223BE20](v29 - 8);
+  v32 = &v107 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = MEMORY[0x28223BE20](v30);
+  v139 = &v107 - v34;
+  v35 = MEMORY[0x28223BE20](v33);
+  v140 = &v107 - v36;
+  MEMORY[0x28223BE20](v35);
+  v138 = &v107 - v37;
+  v38 = sub_251703164();
+  v130 = v39;
+  v131 = v38;
   if (id)
   {
-    v41 = sub_251703164();
-    v128 = v42;
-    v129 = v41;
+    v40 = sub_251703164();
+    v127 = v41;
+    v128 = v40;
   }
 
   else
   {
+    v127 = 0;
     v128 = 0;
-    v129 = 0;
   }
 
   statusTextCopy = statusText;
   questionTextCopy = questionText;
   introductoryTextCopy = introductoryText;
   regionVersionCopy = reportIntroductoryText;
-  v43 = sub_251703164();
-  v126 = v44;
-  v127 = v43;
+  v42 = sub_251703164();
+  v125 = v43;
+  v126 = v42;
   onsetTextCopy = onsetText;
   if (version)
   {
-    v45 = sub_251703164();
-    v124 = v46;
-    v125 = v45;
+    v44 = sub_251703164();
+    v123 = v45;
+    v124 = v44;
   }
 
   else
   {
+    v123 = 0;
     v124 = 0;
-    v125 = 0;
   }
 
-  v130 = v33;
+  v129 = v32;
   statusCopy = status;
   authorizationCopy = authorization;
   reportURLCopy = reportURL;
   if (l)
   {
-    v47 = v139;
+    v46 = v138;
     sub_251702D84();
-    v48 = sub_251702DA4();
-    v49 = *(*(v48 - 8) + 56);
-    v50 = regionCopy;
-    v51 = headerCopy;
-    v52 = legaleseCopy;
+    v47 = sub_251702DA4();
+    v48 = *(*(v47 - 8) + 56);
+    v49 = regionCopy;
+    v50 = headerCopy;
+    v51 = legaleseCopy;
     statusCopy2 = status;
     authorizationCopy2 = authorization;
     rLCopy = rL;
     consentTextCopy = consentText;
-    v57 = introductoryTextCopy;
-    v58 = regionVersionCopy;
+    v56 = introductoryTextCopy;
+    v57 = regionVersionCopy;
     uRLCopy = uRL;
+    v59 = onsetTextCopy;
     v60 = onsetTextCopy;
-    v61 = onsetTextCopy;
-    v62 = statusTextCopy;
-    v63 = questionTextCopy;
+    v61 = statusTextCopy;
+    v62 = questionTextCopy;
     reportURLCopy2 = reportURL;
-    v49(v47, 0, 1, v48);
-    v65 = v141;
+    v48(v46, 0, 1, v47);
+    v64 = v140;
     if (rL)
     {
 LABEL_9:
       sub_251702D84();
 
-      v66 = 0;
+      v65 = 0;
       goto LABEL_12;
     }
   }
 
   else
   {
-    v67 = sub_251702DA4();
-    (*(*(v67 - 8) + 56))(v139, 1, 1, v67);
-    v68 = regionCopy;
-    v69 = headerCopy;
-    v70 = legaleseCopy;
+    v66 = sub_251702DA4();
+    (*(*(v66 - 8) + 56))(v138, 1, 1, v66);
+    v67 = regionCopy;
+    v68 = headerCopy;
+    v69 = legaleseCopy;
     statusCopy3 = status;
     authorizationCopy3 = authorization;
     rLCopy2 = rL;
     consentTextCopy2 = consentText;
-    v75 = introductoryTextCopy;
-    v76 = regionVersionCopy;
+    v74 = introductoryTextCopy;
+    v75 = regionVersionCopy;
     uRLCopy2 = uRL;
-    v60 = onsetTextCopy;
-    v78 = onsetTextCopy;
-    v79 = statusTextCopy;
-    v80 = questionTextCopy;
+    v59 = onsetTextCopy;
+    v77 = onsetTextCopy;
+    v78 = statusTextCopy;
+    v79 = questionTextCopy;
     reportURLCopy3 = reportURL;
-    v65 = v141;
+    v64 = v140;
     if (rL)
     {
       goto LABEL_9;
     }
   }
 
-  v66 = 1;
+  v65 = 1;
 LABEL_12:
-  v82 = sub_251702DA4();
-  v83 = *(v82 - 8);
-  v84 = *(v83 + 56);
-  v134 = v83 + 56;
-  v84(v65, v66, 1, v82);
+  v81 = sub_251702DA4();
+  v82 = *(v81 - 8);
+  v83 = *(v82 + 56);
+  v133 = v82 + 56;
+  v83(v64, v65, 1, v81);
   if (consentText)
   {
-    v119 = sub_251703164();
-    v118 = v85;
+    v118 = sub_251703164();
+    v117 = v84;
   }
 
   else
   {
-    v119 = 0;
     v118 = 0;
+    v117 = 0;
   }
 
-  v86 = v140;
-  v87 = introductoryTextCopy;
-  v117 = sub_251703164();
-  v116 = v88;
+  v85 = v139;
+  v86 = introductoryTextCopy;
+  v116 = sub_251703164();
+  v115 = v87;
 
-  v89 = regionVersionCopy;
+  v88 = regionVersionCopy;
   introductoryTextCopy = sub_251703164();
-  v115 = v90;
+  v114 = v89;
 
   if (uRL)
   {
     sub_251702D84();
 
-    v91 = 0;
+    v90 = 0;
   }
 
   else
   {
-    v91 = 1;
+    v90 = 1;
   }
 
   consentStatusCopy = consentStatus;
@@ -240,36 +239,36 @@ LABEL_12:
   authorizedCopy = authorized;
   domainAllowedCopy = domainAllowed;
   allowedCopy = allowed;
-  v92 = 1;
-  v93 = v84;
-  v84(v86, v91, 1, v82);
-  v94 = sub_251703164();
-  v96 = v95;
+  v91 = 1;
+  v92 = v83;
+  v83(v85, v90, 1, v81);
+  v93 = sub_251703164();
+  v95 = v94;
 
-  v97 = statusTextCopy;
-  v98 = sub_251703164();
-  v100 = v99;
+  v96 = statusTextCopy;
+  v97 = sub_251703164();
+  v99 = v98;
 
-  v101 = questionTextCopy;
-  v102 = sub_251703164();
-  v104 = v103;
+  v100 = questionTextCopy;
+  v101 = sub_251703164();
+  v103 = v102;
 
   if (reportURLCopy)
   {
-    v105 = reportURLCopy;
-    v106 = v130;
+    v104 = reportURLCopy;
+    v105 = v129;
     sub_251702D84();
 
-    v92 = 0;
+    v91 = 0;
   }
 
   else
   {
-    v106 = v130;
+    v105 = v129;
   }
 
-  v93(v106, v92, 1, v82);
-  return ENUIPublicHealthAgencyModel.init(region:name:appBundleId:introductoryText:header:legalese:consentStatus:consentVersion:diagnosisKeysPreAuthorization:isAssociatedDomainAllowed:isPreauthorizationDomainAllowed:isAuthorized:regionVersion:regionWebsiteURL:regionFAQWebsiteURL:featureFlags:wantsAnalytics:analyticsConsentStatus:analyticsConsentText:verificationIntroductoryText:selfReportIntroductoryText:verificationCodeHelpURL:verificationSymptomOnsetText:verificationTravelStatusText:vaccinationQuestionText:webReportURL:)(regionCopy, v132, v131, v129, v128, v127, v126, headerCopy, legaleseCopy, statusCopy, v125, v124, authorizationCopy, allowedCopy, domainAllowedCopy, authorizedCopy, regionVersionCopy, v139, v141, flagsCopy, analyticsCopy, consentStatusCopy, v119, v118, v117, v116, introductoryTextCopy, v115, v140, v94, v96, v98, v100, v102, v104, v106);
+  v92(v105, v91, 1, v81);
+  return ENUIPublicHealthAgencyModel.init(region:name:appBundleId:introductoryText:header:legalese:consentStatus:consentVersion:diagnosisKeysPreAuthorization:isAssociatedDomainAllowed:isPreauthorizationDomainAllowed:isAuthorized:regionVersion:regionWebsiteURL:regionFAQWebsiteURL:featureFlags:wantsAnalytics:analyticsConsentStatus:analyticsConsentText:verificationIntroductoryText:selfReportIntroductoryText:verificationCodeHelpURL:verificationSymptomOnsetText:verificationTravelStatusText:vaccinationQuestionText:webReportURL:)(regionCopy, v131, v130, v128, v127, v126, v125, headerCopy, legaleseCopy, statusCopy, v124, v123, authorizationCopy, allowedCopy, domainAllowedCopy, authorizedCopy, regionVersionCopy, v138, v140, flagsCopy, analyticsCopy, consentStatusCopy, v118, v117, v116, v115, introductoryTextCopy, v114, v139, v93, v95, v97, v99, v101, v103, v105);
 }
 
 - (BOOL)isAppInstalled
@@ -304,7 +303,7 @@ LABEL_12:
 
         swift_beginAccess();
         v5 = static ENManagerAdapter.defaultAdapter;
-        _s28HealthExposureNotificationUI16ENManagerAdapterC17tccContainsRecord19forBundleIdentifierSbSS_tF_0();
+        _s28HealthExposureNotificationUI16ENManagerAdapterC17tccContainsRecord19forBundleIdentifierSbSS_tF_0(v4, v3);
         LOBYTE(v3) = v6;
       }
 

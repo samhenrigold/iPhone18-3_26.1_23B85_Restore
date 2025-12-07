@@ -105,9 +105,9 @@ BOOL __48__HUExpandableItemContainerModule_isOptionItem___block_invoke(uint64_t 
   }
 }
 
-uint64_t __61__HUExpandableItemContainerModule_setModuleExpanded_forItem___block_invoke(uint64_t result, void *a2)
+void **__61__HUExpandableItemContainerModule_setModuleExpanded_forItem___block_invoke(void **result, void *a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     return [a2 setShowOptions:0];
   }

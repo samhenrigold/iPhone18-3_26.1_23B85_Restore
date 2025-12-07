@@ -110,80 +110,78 @@ void __36__MUPhotoTileView__updateAppearance__block_invoke(uint64_t a1, void *a2
 
 - (void)_setupConstraints
 {
-  v53[16] = *MEMORY[0x1E69E9840];
-  v34 = MEMORY[0x1E696ACD8];
+  v52[16] = *MEMORY[0x1E69E9840];
+  v33 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(MUImageView *)self->_imageView leadingAnchor];
   leadingAnchor2 = [(MUPhotoTileView *)self leadingAnchor];
-  v50 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v53[0] = v50;
+  v49 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v52[0] = v49;
   trailingAnchor = [(MUImageView *)self->_imageView trailingAnchor];
   trailingAnchor2 = [(MUPhotoTileView *)self trailingAnchor];
-  v47 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v53[1] = v47;
+  v46 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v52[1] = v46;
   topAnchor = [(MUImageView *)self->_imageView topAnchor];
   topAnchor2 = [(MUPhotoTileView *)self topAnchor];
-  v44 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v53[2] = v44;
+  v43 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v52[2] = v43;
   bottomAnchor = [(MUImageView *)self->_imageView bottomAnchor];
   bottomAnchor2 = [(MUPhotoTileView *)self bottomAnchor];
-  v41 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v53[3] = v41;
+  v40 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v52[3] = v40;
   leadingAnchor3 = [(MUGradientView *)self->_titleGradientView leadingAnchor];
   leadingAnchor4 = [(MUPhotoTileView *)self leadingAnchor];
-  v38 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v53[4] = v38;
+  v37 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v52[4] = v37;
   topAnchor3 = [(MUGradientView *)self->_titleGradientView topAnchor];
   topAnchor4 = [(MUPhotoTileView *)self topAnchor];
-  v35 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v53[5] = v35;
+  v34 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+  v52[5] = v34;
   trailingAnchor3 = [(MUGradientView *)self->_titleGradientView trailingAnchor];
   trailingAnchor4 = [(MUPhotoTileView *)self trailingAnchor];
-  v31 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v53[6] = v31;
+  v30 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v52[6] = v30;
   heightAnchor = [(MUGradientView *)self->_titleGradientView heightAnchor];
-  v29 = [heightAnchor constraintEqualToConstant:90.0];
-  v53[7] = v29;
+  v28 = [heightAnchor constraintEqualToConstant:90.0];
+  v52[7] = v28;
   leadingAnchor5 = [(UILabel *)self->_titleLabel leadingAnchor];
   leadingAnchor6 = [(MUGradientView *)self->_titleGradientView leadingAnchor];
-  v26 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:16.0];
-  v53[8] = v26;
+  v25 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:16.0];
+  v52[8] = v25;
   topAnchor5 = [(UILabel *)self->_titleLabel topAnchor];
   topAnchor6 = [(MUGradientView *)self->_titleGradientView topAnchor];
-  v23 = [topAnchor5 constraintEqualToAnchor:topAnchor6 constant:12.0];
-  v53[9] = v23;
+  v22 = [topAnchor5 constraintEqualToAnchor:topAnchor6 constant:12.0];
+  v52[9] = v22;
   trailingAnchor5 = [(UILabel *)self->_titleLabel trailingAnchor];
   trailingAnchor6 = [(MUGradientView *)self->_titleGradientView trailingAnchor];
-  v20 = [trailingAnchor5 constraintLessThanOrEqualToAnchor:trailingAnchor6 constant:-16.0];
-  v53[10] = v20;
+  v19 = [trailingAnchor5 constraintLessThanOrEqualToAnchor:trailingAnchor6 constant:-16.0];
+  v52[10] = v19;
   bottomAnchor3 = [(UILabel *)self->_titleLabel bottomAnchor];
   bottomAnchor4 = [(MUGradientView *)self->_titleGradientView bottomAnchor];
-  v17 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-16.0];
-  v53[11] = v17;
+  v16 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-16.0];
+  v52[11] = v16;
   topAnchor7 = [(MUBadgeView *)self->_vendorBadge topAnchor];
   bottomAnchor5 = [(MUGradientView *)self->_titleGradientView bottomAnchor];
-  v14 = [topAnchor7 constraintGreaterThanOrEqualToAnchor:bottomAnchor5 constant:8.0];
-  v53[12] = v14;
+  v13 = [topAnchor7 constraintGreaterThanOrEqualToAnchor:bottomAnchor5 constant:8.0];
+  v52[12] = v13;
   leadingAnchor7 = [(MUBadgeView *)self->_vendorBadge leadingAnchor];
   leadingAnchor8 = [(MUPhotoTileView *)self leadingAnchor];
   v5 = [leadingAnchor7 constraintGreaterThanOrEqualToAnchor:leadingAnchor8 constant:10.0];
-  v53[13] = v5;
+  v52[13] = v5;
   bottomAnchor6 = [(MUBadgeView *)self->_vendorBadge bottomAnchor];
   bottomAnchor7 = [(MUPhotoTileView *)self bottomAnchor];
   v8 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7 constant:-12.0];
-  v53[14] = v8;
+  v52[14] = v8;
   trailingAnchor7 = [(MUBadgeView *)self->_vendorBadge trailingAnchor];
   trailingAnchor8 = [(MUPhotoTileView *)self trailingAnchor];
   v11 = [trailingAnchor7 constraintEqualToAnchor:trailingAnchor8 constant:-14.0];
-  v53[15] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:16];
-  [v34 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v52[15] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:16];
+  [v33 activateConstraints:v12];
 }
 
 - (void)_setupSubviews
 {
-  v37[3] = *MEMORY[0x1E69E9840];
+  v36[3] = *MEMORY[0x1E69E9840];
   v3 = [MUImageView alloc];
   v4 = *MEMORY[0x1E695F058];
   v5 = *(MEMORY[0x1E695F058] + 8);
@@ -225,16 +223,16 @@ void __36__MUPhotoTileView__updateAppearance__block_invoke(uint64_t a1, void *a2
   blackColor3 = [MEMORY[0x1E69DC888] blackColor];
   v20 = [blackColor3 colorWithAlphaComponent:0.0];
 
-  v37[0] = v16;
-  v37[1] = v18;
-  v37[2] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:3];
+  v36[0] = v16;
+  v36[1] = v18;
+  v36[2] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:3];
   [(_MKGradientView *)self->_titleGradientView setColors:v21];
 
-  v36[0] = &unk_1F450E218;
-  v36[1] = &unk_1F450E228;
-  v36[2] = &unk_1F450E238;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:3];
+  v35[0] = &unk_1F450E218;
+  v35[1] = &unk_1F450E228;
+  v35[2] = &unk_1F450E238;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:3];
   [(_MKGradientView *)self->_titleGradientView setLocations:v22];
 
   [(MUPhotoTileView *)self addSubview:self->_titleGradientView];
@@ -273,8 +271,6 @@ void __36__MUPhotoTileView__updateAppearance__block_invoke(uint64_t a1, void *a2
   [(MUBadgeView *)self->_vendorBadge setOverrideUserInterfaceStyle:2];
   [(MUPhotoTileView *)self addSubview:self->_vendorBadge];
   [(UIView *)self _mapsui_setCardCorner];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (MUPhotoTileView)initWithFrame:(CGRect)frame

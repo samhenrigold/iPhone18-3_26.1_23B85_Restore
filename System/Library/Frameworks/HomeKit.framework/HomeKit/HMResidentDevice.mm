@@ -52,41 +52,39 @@
 
 - (NSArray)attributeDescriptions
 {
-  v28[7] = *MEMORY[0x1E69E9840];
+  v27[7] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   device = [(HMResidentDevice *)self device];
-  v26 = [v3 initWithName:@"Device" value:device];
-  v28[0] = v26;
+  v25 = [v3 initWithName:@"Device" value:device];
+  v27[0] = v25;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   uniqueIdentifier = [(HMResidentDevice *)self uniqueIdentifier];
-  v24 = [v4 initWithName:@"Identifier" value:uniqueIdentifier];
-  v28[1] = v24;
+  v23 = [v4 initWithName:@"Identifier" value:uniqueIdentifier];
+  v27[1] = v23;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   uuid = [(HMResidentDevice *)self uuid];
   defaultFormatter = [MEMORY[0x1E69A2A48] defaultFormatter];
   v6 = [v5 initWithName:@"UUID" value:uuid options:0 formatter:defaultFormatter];
-  v28[2] = v6;
+  v27[2] = v6;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMResidentDevice *)self isEnabled];
   v8 = HMFBooleanToString();
   v9 = [v7 initWithName:@"Enabled" value:v8];
-  v28[3] = v9;
+  v27[3] = v9;
   v10 = objc_alloc(MEMORY[0x1E69A29C8]);
   v11 = HMResidentDeviceStatusDescription([(HMResidentDevice *)self status]);
   v12 = [v10 initWithName:@"Status" value:v11];
-  v28[4] = v12;
+  v27[4] = v12;
   v13 = objc_alloc(MEMORY[0x1E69A29C8]);
   v14 = HMResidentDeviceCapabilitiesDescription([(HMResidentDevice *)self capabilities]);
   v15 = [v13 initWithName:@"Capabilities" value:v14];
-  v28[5] = v15;
+  v27[5] = v15;
   v16 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMResidentDevice *)self supportsResidentSelection];
   v17 = HMFBooleanToString();
   v18 = [v16 initWithName:@"Supports Resident Selection" value:v17];
-  v28[6] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:7];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v27[6] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:7];
 
   return v19;
 }
@@ -101,20 +99,20 @@
 
 - (void)handleRuntimeStateUpdate:(id)update
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   context = [(HMResidentDevice *)self context];
   v6 = context;
   if (context)
   {
     queue = [context queue];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke;
-    v13[3] = &unk_1E754E5C0;
-    v14 = updateCopy;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke;
+    v12[3] = &unk_1E754E5C0;
+    v13 = updateCopy;
     selfCopy = self;
-    dispatch_async(queue, v13);
+    dispatch_async(queue, v12);
   }
 
   else
@@ -126,21 +124,19 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v11;
-      v18 = 2080;
-      v19 = "[HMResidentDevice handleRuntimeStateUpdate:]";
+      v16 = v11;
+      v17 = 2080;
+      v18 = "[HMResidentDevice handleRuntimeStateUpdate:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) hmf_BOOLForKey:@"enabled"];
   if (v2 != [*(a1 + 40) isEnabled])
   {
@@ -154,11 +150,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
       v7 = HMFBooleanToString();
       v8 = HMFBooleanToString();
       *buf = 138543874;
-      v89 = v6;
-      v90 = 2112;
-      v91 = v7;
-      v92 = 2112;
-      v93 = v8;
+      v88 = v6;
+      v89 = 2112;
+      v90 = v7;
+      v91 = 2112;
+      v92 = v8;
       _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@<Runtime> Updating enabled from %@ to %@", buf, 0x20u);
     }
 
@@ -176,25 +172,25 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         [*(a1 + 40) isEnabled];
         v14 = HMFBooleanToString();
         *buf = 138543618;
-        v89 = v13;
-        v90 = 2112;
-        v91 = v14;
+        v88 = v13;
+        v89 = 2112;
+        v90 = v14;
         _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@<Runtime> Notifying client of updated enabled value: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
       v15 = [*(a1 + 40) context];
       v16 = [v15 delegateCaller];
-      v84[0] = MEMORY[0x1E69E9820];
-      v84[1] = 3221225472;
-      v84[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke_186;
-      v84[3] = &unk_1E754DC70;
+      v83[0] = MEMORY[0x1E69E9820];
+      v83[1] = 3221225472;
+      v83[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke_186;
+      v83[3] = &unk_1E754DC70;
       v17 = v9;
       v18 = *(a1 + 40);
-      v85 = v17;
-      v86 = v18;
-      v87 = v2;
-      [v16 invokeBlock:v84];
+      v84 = v17;
+      v85 = v18;
+      v86 = v2;
+      [v16 invokeBlock:v83];
     }
   }
 
@@ -212,11 +208,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
       v25 = HMResidentDeviceStatusDescription([*(a1 + 40) status]);
       v26 = HMResidentDeviceStatusDescription(v20);
       *buf = 138543874;
-      v89 = v24;
-      v90 = 2112;
-      v91 = v25;
-      v92 = 2112;
-      v93 = v26;
+      v88 = v24;
+      v89 = 2112;
+      v90 = v25;
+      v91 = 2112;
+      v92 = v26;
       _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@<Runtime> Updating status from %@ to %@", buf, 0x20u);
     }
 
@@ -233,25 +229,25 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         v31 = HMFGetLogIdentifier();
         v32 = HMResidentDeviceStatusDescription([*(a1 + 40) status]);
         *buf = 138543618;
-        v89 = v31;
-        v90 = 2112;
-        v91 = v32;
+        v88 = v31;
+        v89 = 2112;
+        v90 = v32;
         _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_INFO, "%{public}@<Runtime> Notifying client of updated status: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v28);
       v33 = [*(a1 + 40) context];
       v34 = [v33 delegateCaller];
-      v80[0] = MEMORY[0x1E69E9820];
-      v80[1] = 3221225472;
-      v80[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke_187;
-      v80[3] = &unk_1E754E120;
+      v79[0] = MEMORY[0x1E69E9820];
+      v79[1] = 3221225472;
+      v79[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke_187;
+      v79[3] = &unk_1E754E120;
       v35 = v27;
       v36 = *(a1 + 40);
-      v81 = v35;
-      v82 = v36;
-      v83 = v20;
-      [v34 invokeBlock:v80];
+      v80 = v35;
+      v81 = v36;
+      v82 = v20;
+      [v34 invokeBlock:v79];
     }
   }
 
@@ -269,11 +265,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
       v43 = HMResidentDeviceCapabilitiesDescription([*(a1 + 40) capabilities]);
       v44 = HMResidentDeviceCapabilitiesDescription(v38);
       *buf = 138543874;
-      v89 = v42;
-      v90 = 2112;
-      v91 = v43;
-      v92 = 2112;
-      v93 = v44;
+      v88 = v42;
+      v89 = 2112;
+      v90 = v43;
+      v91 = 2112;
+      v92 = v44;
       _os_log_impl(&dword_19BB39000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@<Runtime> Updating capabilities from %@ to %@", buf, 0x20u);
     }
 
@@ -290,25 +286,25 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         v49 = HMFGetLogIdentifier();
         v50 = HMResidentDeviceCapabilitiesDescription([*(a1 + 40) capabilities]);
         *buf = 138543618;
-        v89 = v49;
-        v90 = 2112;
-        v91 = v50;
+        v88 = v49;
+        v89 = 2112;
+        v90 = v50;
         _os_log_impl(&dword_19BB39000, v48, OS_LOG_TYPE_INFO, "%{public}@<Runtime> Notifying client of updated capabilities: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v46);
       v51 = [*(a1 + 40) context];
       v52 = [v51 delegateCaller];
-      v76[0] = MEMORY[0x1E69E9820];
-      v76[1] = 3221225472;
-      v76[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke_188;
-      v76[3] = &unk_1E754E120;
+      v75[0] = MEMORY[0x1E69E9820];
+      v75[1] = 3221225472;
+      v75[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke_188;
+      v75[3] = &unk_1E754E120;
       v53 = v45;
       v54 = *(a1 + 40);
-      v77 = v53;
-      v78 = v54;
-      v79 = v38;
-      [v52 invokeBlock:v76];
+      v76 = v53;
+      v77 = v54;
+      v78 = v38;
+      [v52 invokeBlock:v75];
     }
   }
 
@@ -325,11 +321,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
       v60 = HMFBooleanToString();
       v61 = HMFBooleanToString();
       *buf = 138543874;
-      v89 = v59;
-      v90 = 2112;
-      v91 = v60;
-      v92 = 2112;
-      v93 = v61;
+      v88 = v59;
+      v89 = 2112;
+      v90 = v60;
+      v91 = 2112;
+      v92 = v61;
       _os_log_impl(&dword_19BB39000, v58, OS_LOG_TYPE_DEFAULT, "%{public}@<Runtime> Updating supportsResidentSelection from %@ to %@", buf, 0x20u);
     }
 
@@ -347,33 +343,31 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         [*(a1 + 40) supportsResidentSelection];
         v67 = HMFBooleanToString();
         *buf = 138543618;
-        v89 = v66;
-        v90 = 2112;
-        v91 = v67;
+        v88 = v66;
+        v89 = 2112;
+        v90 = v67;
         _os_log_impl(&dword_19BB39000, v65, OS_LOG_TYPE_INFO, "%{public}@<Runtime> Notifying client of updated supportsResidentSelection value: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v63);
       v68 = [*(a1 + 40) context];
       v69 = [v68 delegateCaller];
-      v73[0] = MEMORY[0x1E69E9820];
-      v73[1] = 3221225472;
-      v73[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke_189;
-      v73[3] = &unk_1E754E5C0;
+      v72[0] = MEMORY[0x1E69E9820];
+      v72[1] = 3221225472;
+      v72[2] = __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke_189;
+      v72[3] = &unk_1E754E5C0;
       v70 = v62;
       v71 = *(a1 + 40);
-      v74 = v70;
-      v75 = v71;
-      [v69 invokeBlock:v73];
+      v73 = v70;
+      v74 = v71;
+      [v69 invokeBlock:v72];
     }
   }
-
-  v72 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mergeFromNewObject:(id)object
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -404,11 +398,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         v13 = HMFGetLogIdentifier();
         name3 = [(HMResidentDevice *)selfCopy name];
         *buf = 138543874;
-        v112 = v13;
-        v113 = 2112;
-        v114 = name3;
-        v115 = 2112;
-        v116 = name;
+        v106 = v13;
+        v107 = 2112;
+        v108 = name3;
+        v109 = 2112;
+        v110 = name;
         _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating name from %@ to %@", buf, 0x20u);
       }
 
@@ -423,8 +417,8 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         block[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke;
         block[3] = &unk_1E754E5E8;
         block[4] = selfCopy;
-        v109 = delegate;
-        v110 = name;
+        v103 = delegate;
+        v104 = name;
         dispatch_async(queue, block);
       }
     }
@@ -448,11 +442,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         v25 = HMFGetLogIdentifier();
         residentName3 = [(HMResidentDevice *)selfCopy2 residentName];
         *buf = 138543874;
-        v112 = v25;
-        v113 = 2112;
-        v114 = residentName3;
-        v115 = 2112;
-        v116 = residentName;
+        v106 = v25;
+        v107 = 2112;
+        v108 = residentName3;
+        v109 = 2112;
+        v110 = residentName;
         _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating resident name from %@ to %@", buf, 0x20u);
       }
 
@@ -474,11 +468,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         v32 = HMFBooleanToString();
         v33 = HMFBooleanToString();
         *buf = 138543874;
-        v112 = v31;
-        v113 = 2112;
-        v114 = v32;
-        v115 = 2112;
-        v116 = v33;
+        v106 = v31;
+        v107 = 2112;
+        v108 = v32;
+        v109 = 2112;
+        v110 = v33;
         _os_log_impl(&dword_19BB39000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating enabled from %@ to %@", buf, 0x20u);
       }
 
@@ -489,14 +483,14 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
       {
         context2 = [(HMResidentDevice *)selfCopy3 context];
         queue2 = [context2 queue];
-        v105[0] = MEMORY[0x1E69E9820];
-        v105[1] = 3221225472;
-        v105[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_170;
-        v105[3] = &unk_1E754DC70;
-        v105[4] = selfCopy3;
-        v106 = delegate2;
-        v107 = isEnabled;
-        dispatch_async(queue2, v105);
+        v99[0] = MEMORY[0x1E69E9820];
+        v99[1] = 3221225472;
+        v99[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_170;
+        v99[3] = &unk_1E754DC70;
+        v99[4] = selfCopy3;
+        v100 = delegate2;
+        v101 = isEnabled;
+        dispatch_async(queue2, v99);
       }
 
       v21 = 1;
@@ -514,11 +508,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         v42 = HMResidentDeviceStatusDescription([(HMResidentDevice *)selfCopy4 status]);
         v43 = HMResidentDeviceStatusDescription(status);
         *buf = 138543874;
-        v112 = v41;
-        v113 = 2112;
-        v114 = v42;
-        v115 = 2112;
-        v116 = v43;
+        v106 = v41;
+        v107 = 2112;
+        v108 = v42;
+        v109 = 2112;
+        v110 = v43;
         _os_log_impl(&dword_19BB39000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating status from %@ to %@", buf, 0x20u);
       }
 
@@ -529,14 +523,14 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
       {
         context3 = [(HMResidentDevice *)selfCopy4 context];
         queue3 = [context3 queue];
-        v102[0] = MEMORY[0x1E69E9820];
-        v102[1] = 3221225472;
-        v102[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_174;
-        v102[3] = &unk_1E754E120;
-        v102[4] = selfCopy4;
-        v103 = delegate3;
-        v104 = status;
-        dispatch_async(queue3, v102);
+        v96[0] = MEMORY[0x1E69E9820];
+        v96[1] = 3221225472;
+        v96[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_174;
+        v96[3] = &unk_1E754E120;
+        v96[4] = selfCopy4;
+        v97 = delegate3;
+        v98 = status;
+        dispatch_async(queue3, v96);
       }
 
       v21 = 1;
@@ -554,11 +548,11 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
         v52 = HMResidentDeviceCapabilitiesDescription([(HMResidentDevice *)selfCopy5 capabilities]);
         v53 = HMResidentDeviceCapabilitiesDescription(capabilities);
         *buf = 138543874;
-        v112 = v51;
-        v113 = 2112;
-        v114 = v52;
-        v115 = 2112;
-        v116 = v53;
+        v106 = v51;
+        v107 = 2112;
+        v108 = v52;
+        v109 = 2112;
+        v110 = v53;
         _os_log_impl(&dword_19BB39000, v50, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating capabilities from %@ to %@", buf, 0x20u);
       }
 
@@ -569,58 +563,54 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
       {
         context4 = [(HMResidentDevice *)selfCopy5 context];
         queue4 = [context4 queue];
-        v99[0] = MEMORY[0x1E69E9820];
-        v99[1] = 3221225472;
-        v99[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_178;
-        v99[3] = &unk_1E754E120;
-        v99[4] = selfCopy5;
-        v100 = delegate4;
-        v101 = capabilities;
-        dispatch_async(queue4, v99);
+        v93[0] = MEMORY[0x1E69E9820];
+        v93[1] = 3221225472;
+        v93[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_178;
+        v93[3] = &unk_1E754E120;
+        v93[4] = selfCopy5;
+        v94 = delegate4;
+        v95 = capabilities;
+        dispatch_async(queue4, v93);
       }
 
       v21 = 1;
     }
 
     supportsResidentSelection = [v6 supportsResidentSelection];
-    v58 = &selRef_cancelUnarchiveWithError_;
     if (supportsResidentSelection != [(HMResidentDevice *)self supportsResidentSelection])
     {
-      v59 = objc_autoreleasePoolPush();
+      v58 = objc_autoreleasePoolPush();
       selfCopy6 = self;
-      v61 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      v60 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
-        v62 = HMFGetLogIdentifier();
+        v61 = HMFGetLogIdentifier();
         [(HMResidentDevice *)selfCopy6 supportsResidentSelection];
+        v62 = HMFBooleanToString();
         v63 = HMFBooleanToString();
-        v64 = HMFBooleanToString();
         *buf = 138543874;
-        v112 = v62;
-        v113 = 2112;
-        v114 = v63;
-        v115 = 2112;
-        v116 = v64;
-        _os_log_impl(&dword_19BB39000, v61, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating supportsResidentSelection from %@ to %@", buf, 0x20u);
-
-        v58 = &selRef_cancelUnarchiveWithError_;
+        v106 = v61;
+        v107 = 2112;
+        v108 = v62;
+        v109 = 2112;
+        v110 = v63;
+        _os_log_impl(&dword_19BB39000, v60, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating supportsResidentSelection from %@ to %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v59);
+      objc_autoreleasePoolPop(v58);
       [(HMResidentDevice *)selfCopy6 setSupportsResidentSelection:supportsResidentSelection];
       delegate5 = [(HMResidentDevice *)selfCopy6 delegate];
-      v66 = v58[405];
       if (objc_opt_respondsToSelector())
       {
         context5 = [(HMResidentDevice *)selfCopy6 context];
         queue5 = [context5 queue];
-        v97[0] = MEMORY[0x1E69E9820];
-        v97[1] = 3221225472;
-        v97[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_182;
-        v97[3] = &unk_1E754E5C0;
-        v97[4] = selfCopy6;
-        v98 = delegate5;
-        dispatch_async(queue5, v97);
+        v91[0] = MEMORY[0x1E69E9820];
+        v91[1] = 3221225472;
+        v91[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_182;
+        v91[3] = &unk_1E754E5C0;
+        v91[4] = selfCopy6;
+        v92 = delegate5;
+        dispatch_async(queue5, v91);
       }
 
       v21 = 1;
@@ -629,44 +619,38 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
     supportsHomeActivityState = [v6 supportsHomeActivityState];
     if (supportsHomeActivityState != [(HMResidentDevice *)self supportsHomeActivityState])
     {
-      v70 = objc_autoreleasePoolPush();
+      v68 = objc_autoreleasePoolPush();
       selfCopy7 = self;
-      v72 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+      v70 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
       {
-        HMFGetLogIdentifier();
-        v94 = objectCopy;
-        v74 = v73 = v58;
+        v71 = HMFGetLogIdentifier();
         [(HMResidentDevice *)selfCopy7 supportsHomeActivityState];
-        v75 = HMFBooleanToString();
-        v76 = HMFBooleanToString();
+        v72 = HMFBooleanToString();
+        v73 = HMFBooleanToString();
         *buf = 138543874;
-        v112 = v74;
-        v113 = 2112;
-        v114 = v75;
-        v115 = 2112;
-        v116 = v76;
-        _os_log_impl(&dword_19BB39000, v72, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating newSupportsHomeActivityState from %@ to %@", buf, 0x20u);
-
-        v58 = v73;
-        objectCopy = v94;
+        v106 = v71;
+        v107 = 2112;
+        v108 = v72;
+        v109 = 2112;
+        v110 = v73;
+        _os_log_impl(&dword_19BB39000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@<Merge> Updating newSupportsHomeActivityState from %@ to %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v70);
+      objc_autoreleasePoolPop(v68);
       [(HMResidentDevice *)selfCopy7 setSupportsHomeActivityState:supportsHomeActivityState];
       delegate6 = [(HMResidentDevice *)selfCopy7 delegate];
-      v78 = v58[405];
       if (objc_opt_respondsToSelector())
       {
         context6 = [(HMResidentDevice *)selfCopy7 context];
         queue6 = [context6 queue];
-        v95[0] = MEMORY[0x1E69E9820];
-        v95[1] = 3221225472;
-        v95[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_184;
-        v95[3] = &unk_1E754E5C0;
-        v95[4] = selfCopy7;
-        v96 = delegate6;
-        dispatch_async(queue6, v95);
+        v89[0] = MEMORY[0x1E69E9820];
+        v89[1] = 3221225472;
+        v89[2] = __39__HMResidentDevice_mergeFromNewObject___block_invoke_184;
+        v89[3] = &unk_1E754E5C0;
+        v89[4] = selfCopy7;
+        v90 = delegate6;
+        dispatch_async(queue6, v89);
       }
 
       v21 = 1;
@@ -674,9 +658,9 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
 
     iDSIdentifier = [v6 IDSIdentifier];
     iDSIdentifier2 = [(HMResidentDevice *)self IDSIdentifier];
-    v83 = HMFEqualObjects();
+    v79 = HMFEqualObjects();
 
-    if ((v83 & 1) == 0)
+    if ((v79 & 1) == 0)
     {
       [(HMResidentDevice *)self setIDSIdentifier:iDSIdentifier];
       v21 = 1;
@@ -684,9 +668,9 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
 
     iDSDestination = [v6 IDSDestination];
     iDSDestination2 = [(HMResidentDevice *)self IDSDestination];
-    v86 = HMFEqualObjects();
+    v82 = HMFEqualObjects();
 
-    if ((v86 & 1) == 0)
+    if ((v82 & 1) == 0)
     {
       [(HMResidentDevice *)self setIDSDestination:iDSDestination];
       v21 = 1;
@@ -694,9 +678,9 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
 
     deviceIRKData = [v6 deviceIRKData];
     deviceIRKData2 = [(HMResidentDevice *)self deviceIRKData];
-    v89 = HMFEqualObjects();
+    v85 = HMFEqualObjects();
 
-    if ((v89 & 1) == 0)
+    if ((v85 & 1) == 0)
     {
       [(HMResidentDevice *)self setDeviceIRKData:deviceIRKData];
       v21 = 1;
@@ -712,7 +696,6 @@ void __45__HMResidentDevice_handleRuntimeStateUpdate___block_invoke(uint64_t a1)
     v21 = 0;
   }
 
-  v92 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -810,7 +793,7 @@ void __39__HMResidentDevice_mergeFromNewObject___block_invoke_184(uint64_t a1)
 
 uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_185(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -819,22 +802,20 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_185(uint64_t
     v5 = HMFGetLogIdentifier();
     [*(a1 + 32) supportsHomeActivityState];
     v6 = HMFBooleanToString();
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated supportsHomeActivityState value: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated supportsHomeActivityState value: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateSupportsHomeActivityState:{objc_msgSend(*(a1 + 32), "supportsHomeActivityState")}];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateSupportsHomeActivityState:{objc_msgSend(*(a1 + 32), "supportsHomeActivityState")}];
 }
 
 uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_183(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -843,22 +824,20 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_183(uint64_t
     v5 = HMFGetLogIdentifier();
     [*(a1 + 32) supportsResidentSelection];
     v6 = HMFBooleanToString();
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated supportsResidentSelection value: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated supportsResidentSelection value: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) didUpdateSupportedCapabilitiesForResidentDevice:*(a1 + 32)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) didUpdateSupportedCapabilitiesForResidentDevice:*(a1 + 32)];
 }
 
 uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_179(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -866,22 +845,20 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_179(uint64_t
   {
     v5 = HMFGetLogIdentifier();
     v6 = HMResidentDeviceCapabilitiesDescription([*(a1 + 32) capabilities]);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated capabilities: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated capabilities: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateCapabilities:*(a1 + 48)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateCapabilities:*(a1 + 48)];
 }
 
 uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_175(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -889,22 +866,20 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_175(uint64_t
   {
     v5 = HMFGetLogIdentifier();
     v6 = HMResidentDeviceStatusDescription([*(a1 + 32) status]);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated status: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated status: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateStatus:*(a1 + 48)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateStatus:*(a1 + 48)];
 }
 
 uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_171(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -913,22 +888,20 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2_171(uint64_t
     v5 = HMFGetLogIdentifier();
     [*(a1 + 32) isEnabled];
     v6 = HMFBooleanToString();
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated enabled value: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated enabled value: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateEnabled:*(a1 + 48)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateEnabled:*(a1 + 48)];
 }
 
 uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -936,17 +909,15 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) name];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated name: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@<Merge> Notifying client of updated name: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateName:*(a1 + 48)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) residentDevice:*(a1 + 32) didUpdateName:*(a1 + 48)];
 }
 
 - (HMResidentDevice)initWithCoder:(id)coder
@@ -996,28 +967,28 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2(uint64_t a1)
 
 - (void)updatedEnabled:(BOOL)enabled completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMResidentDevice *)self context];
   if (!handlerCopy)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMResidentDevice updatedEnabled:completionHandler:]", @"completionHandler"];
-    v17 = objc_autoreleasePoolPush();
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMResidentDevice updatedEnabled:completionHandler:]", @"completionHandler"];
+    v16 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v16;
-      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v19;
+      v27 = 2112;
+      v28 = v15;
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
-    objc_exception_throw(v21);
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
+    objc_exception_throw(v20);
   }
 
   v8 = context;
@@ -1029,9 +1000,9 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2(uint64_t a1)
     block[2] = __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke;
     block[3] = &unk_1E754A040;
     block[4] = self;
-    v24 = handlerCopy;
+    v23 = handlerCopy;
     enabledCopy = enabled;
-    v23 = v8;
+    v22 = v8;
     dispatch_async(queue, block);
   }
 
@@ -1044,9 +1015,9 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2(uint64_t a1)
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v13;
-      v28 = 2080;
-      v29 = "[HMResidentDevice updatedEnabled:completionHandler:]";
+      v26 = v13;
+      v27 = 2080;
+      v28 = "[HMResidentDevice updatedEnabled:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1054,13 +1025,11 @@ uint64_t __39__HMResidentDevice_mergeFromNewObject___block_invoke_2(uint64_t a1)
     v14 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v14);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke(uint64_t a1)
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) home];
   if (v2)
   {
@@ -1072,29 +1041,29 @@ void __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke(uint
       v10 = [v8 initWithTarget:v9];
 
       v11 = MEMORY[0x1E69A2A10];
-      v24[0] = @"kIdentifierKey";
+      v23[0] = @"kIdentifierKey";
       v12 = [*(a1 + 32) uuid];
       v13 = [v12 UUIDString];
-      v24[1] = @"kEnabledKey";
-      v25[0] = v13;
+      v23[1] = @"kEnabledKey";
+      v24[0] = v13;
       v14 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
-      v25[1] = v14;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+      v24[1] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
       v16 = [v11 messageWithName:@"kResidentDeviceUpdateEnabledRequestKey" destination:v10 payload:v15];
 
       objc_initWeak(&location, *(a1 + 32));
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke_2;
-      v19[3] = &unk_1E754D058;
-      objc_copyWeak(&v22, &location);
-      v20 = *(a1 + 40);
-      v21 = *(a1 + 48);
-      [v16 setResponseHandler:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke_2;
+      v18[3] = &unk_1E754D058;
+      objc_copyWeak(&v21, &location);
+      v19 = *(a1 + 40);
+      v20 = *(a1 + 48);
+      [v16 setResponseHandler:v18];
       v17 = [*(a1 + 40) messageDispatcher];
       [v17 sendMessage:v16 completionHandler:0];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(&location);
 
       goto LABEL_7;
@@ -1115,7 +1084,6 @@ void __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke(uint
   }
 
 LABEL_7:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke_2(id *a1, void *a2, void *a3)
@@ -1353,7 +1321,7 @@ void __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke_3(ui
 
 - (void)_unconfigure
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   context = self->_context;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1364,9 +1332,9 @@ void __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke_3(ui
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring residentDevice", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring residentDevice", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1381,15 +1349,13 @@ void __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke_3(ui
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__configureWithContext:(id)context home:(id)home
@@ -1426,10 +1392,11 @@ void __53__HMResidentDevice_updatedEnabled_completionHandler___block_invoke_3(ui
 
 uint64_t __31__HMResidentDevice_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v45 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v45;
+  logCategory__hmf_once_v45 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

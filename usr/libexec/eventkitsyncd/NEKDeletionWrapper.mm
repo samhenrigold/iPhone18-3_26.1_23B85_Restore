@@ -104,10 +104,9 @@ LABEL_11:
     v7 = *(&off_1000B53C0 + type);
   }
 
-  identifier = self->_identifier;
-  v9 = [NSString stringWithFormat:@"<%@ %p type=%@; identifier=%@; calendarIdentifier=%@>", v4, self, v7, identifier, self->_calendarIdentifier];;
+  v8 = [NSString stringWithFormat:@"<%@ %p type=%@; identifier=%@; calendarIdentifier=%@>", v4, self, v7, self->_identifier, self->_calendarIdentifier];;
 
-  return v9;
+  return v8;
 }
 
 - (id)objectIdentifier

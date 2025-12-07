@@ -3,8 +3,10 @@
 + (id)bloomFilterWithPathToFile:(id)file;
 - (BOOL)getWithHashes:(id)hashes;
 - (_PASBloomFilter)initWithData:(id)data numBits:(unsigned int)bits hashFunctionCode:(unsigned int)code numHashFunctions:(int)functions;
+- (id)_computeHashesWithSeed:(int)seed bytes:(const void *)bytes length:(unint64_t)length reuse:(id)reuse;
 - (id)combineHashesWithSeed:(int)seed hashA:(id)a hashB:(id)b reuse:(id)reuse;
 - (id)computeHashesForString:(id)string reuse:(id)reuse;
+- (id)computeHashesWithSeed:(int)seed forData:(id)data reuse:(id)reuse;
 - (id)initDummy;
 - (id)newHashesArray;
 @end
@@ -88,6 +90,45 @@
   return v7;
 }
 
+- (id)_computeHashesWithSeed:(int)seed bytes:(const void *)bytes length:(unint64_t)length reuse:(id)reuse
+{
+  v8 = *&seed;
+  reuseCopy = reuse;
+  if (reuseCopy || (reuseCopy = [(_PASBloomFilter *)self newHashesArray]) != 0)
+  {
+    v12 = reuseCopy;
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"_PASBloomFilter.m" lineNumber:266 description:@"newHashesArray unexpectedly returned nil"];
+
+    v12 = 0;
+  }
+
+  if (self->_numHashFunctions)
+  {
+    (self->_computeHashes)([v12 hashes], self->_numHashFunctions, v8, bytes, length);
+  }
+
+  return v12;
+}
+
+- (id)computeHashesWithSeed:(int)seed forData:(id)data reuse:(id)reuse
+{
+  v7 = *&seed;
+  dataCopy = data;
+  reuseCopy = reuse;
+  dataCopy2 = data;
+  bytes = [dataCopy2 bytes];
+  v13 = [dataCopy2 length];
+
+  v14 = [(_PASBloomFilter *)self _computeHashesWithSeed:v7 bytes:bytes length:v13 reuse:reuseCopy];
+
+  return v14;
+}
+
 - (id)computeHashesForString:(id)string reuse:(id)reuse
 {
   stringCopy = string;
@@ -133,11 +174,11 @@
 
 - (_PASBloomFilter)initWithData:(id)data numBits:(unsigned int)bits hashFunctionCode:(unsigned int)code numHashFunctions:(int)functions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v19.receiver = self;
-  v19.super_class = _PASBloomFilter;
-  v12 = [(_PASBloomFilter *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = _PASBloomFilter;
+  v12 = [(_PASBloomFilter *)&v18 init];
   v13 = v12;
   if (!v12)
   {
@@ -191,13 +232,12 @@ LABEL_8:
   v16 = 0;
 LABEL_14:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 + (id)bloomFilterWithPathToFile:(id)file
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   if (!fileCopy)
   {
@@ -208,13 +248,13 @@ LABEL_14:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v17 = fileCopy;
+    v16 = fileCopy;
     _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "_PASBloomFilter: loading bloom filter from path '%@'", buf, 0xCu);
   }
 
-  v15 = 0;
-  v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:fileCopy options:8 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:fileCopy options:8 error:&v14];
+  v7 = v14;
   v8 = v7;
   if (v6)
   {
@@ -228,7 +268,7 @@ LABEL_14:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v17 = fileCopy;
+        v16 = fileCopy;
         _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "No bloom filter file at path '%@'", buf, 0xCu);
       }
     }
@@ -236,23 +276,21 @@ LABEL_14:
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v17 = fileCopy;
-      v18 = 2112;
-      v19 = v8;
+      v16 = fileCopy;
+      v17 = 2112;
+      v18 = v8;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not load bloom filter at path '%@'. Error: %@", buf, 0x16u);
     }
 
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)bloomFilterWithData:(id)data
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -260,27 +298,27 @@ LABEL_14:
     [currentHandler handleFailureInMethod:a2 object:self file:@"_PASBloomFilter.m" lineNumber:160 description:{@"Invalid parameter not satisfying: %@", @"data"}];
   }
 
-  v18 = 0uLL;
-  [dataCopy getBytes:&v18 range:{0, 16}];
-  v6 = v18;
-  if (v18 == 390004919)
+  v17 = 0uLL;
+  [dataCopy getBytes:&v17 range:{0, 16}];
+  v6 = v17;
+  if (v17 == 390004919)
   {
-    LODWORD(v18) = -1224720617;
-    *(&v18 + 4) = vrev32_s8(*(&v18 + 4));
-    HIDWORD(v18) = bswap32(HIDWORD(v18));
-    v7 = DWORD1(v18);
+    LODWORD(v17) = -1224720617;
+    *(&v17 + 4) = vrev32_s8(*(&v17 + 4));
+    HIDWORD(v17) = bswap32(HIDWORD(v17));
+    v7 = DWORD1(v17);
   }
 
   else
   {
-    if (v18 != -1224720617)
+    if (v17 != -1224720617)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        v20 = v6;
-        v21 = 1024;
-        v22 = -1224720617;
+        v19 = v6;
+        v20 = 1024;
+        v21 = -1224720617;
         v10 = MEMORY[0x1E69E9C10];
         v11 = "Bad header, %i vs. %i.";
         v12 = 14;
@@ -292,7 +330,7 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    v7 = DWORD1(v18);
+    v7 = DWORD1(v17);
   }
 
   if ((v7 - 1) >= 2)
@@ -300,7 +338,7 @@ LABEL_19:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v20 = v7;
+      v19 = v7;
       v10 = MEMORY[0x1E69E9C10];
       v11 = "Unsupported hash function code: %i.";
       goto LABEL_18;
@@ -311,13 +349,13 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v8 = DWORD2(v18);
+  v8 = DWORD2(v17);
   if ([dataCopy length] - 16 != v8)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v20 = DWORD2(v18);
+      v19 = DWORD2(v17);
       v10 = MEMORY[0x1E69E9C10];
       v11 = "Unexpected capacity: %i.";
       goto LABEL_18;
@@ -326,13 +364,13 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v9 = HIDWORD(v18);
-  if ((HIDWORD(v18) - 65) <= 0xFFFFFFBF)
+  v9 = HIDWORD(v17);
+  if ((HIDWORD(v17) - 65) <= 0xFFFFFFBF)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v20 = v9;
+      v19 = v9;
       v10 = MEMORY[0x1E69E9C10];
       v11 = "Unexpected number of hash functions: %i.";
 LABEL_18:
@@ -343,11 +381,9 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v16 = [_PASBloomFilter alloc];
-  v13 = [(_PASBloomFilter *)v16 initWithData:dataCopy numBits:(8 * DWORD2(v18)) hashFunctionCode:DWORD1(v18) numHashFunctions:HIDWORD(v18)];
+  v15 = [_PASBloomFilter alloc];
+  v13 = [(_PASBloomFilter *)v15 initWithData:dataCopy numBits:(8 * DWORD2(v17)) hashFunctionCode:DWORD1(v17) numHashFunctions:HIDWORD(v17)];
 LABEL_21:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

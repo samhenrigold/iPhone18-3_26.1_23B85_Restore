@@ -79,9 +79,9 @@ os_log_t init_default_corebrightness_log()
   return v0;
 }
 
-void DisplayPowerCallback(void *a1, unsigned int a2, int a3, void *a4)
+void DisplayPowerCallback(uint64_t result, unsigned int a2, int a3, void *a4)
 {
-  if (a1)
+  if (result)
   {
     if (a4)
     {
@@ -95,7 +95,7 @@ void DisplayPowerCallback(void *a1, unsigned int a2, int a3, void *a4)
 
     if (a3 == -536870352)
     {
-      inited = a1[7];
+      inited = *(result + 56);
       if (!inited)
       {
         inited = _COREBRIGHTNESS_LOG_DEFAULT;
@@ -110,9 +110,9 @@ void DisplayPowerCallback(void *a1, unsigned int a2, int a3, void *a4)
         sub_C0FC();
       }
 
-      *(a1 + 248) = 0;
+      *(result + 248) = 0;
       v7 = 1;
-      if (*(a1 + 251) != 1)
+      if (*(result + 251) != 1)
       {
         goto LABEL_21;
       }
@@ -122,7 +122,7 @@ void DisplayPowerCallback(void *a1, unsigned int a2, int a3, void *a4)
 
     if (a3 == -536870384)
     {
-      v6 = a1[7];
+      v6 = *(result + 56);
       if (!v6)
       {
         v6 = _COREBRIGHTNESS_LOG_DEFAULT;
@@ -140,11 +140,11 @@ void DisplayPowerCallback(void *a1, unsigned int a2, int a3, void *a4)
       if (v5 <= 2)
       {
         v7 = 0;
-        *(a1 + 248) = 1;
+        *(result + 248) = 1;
 LABEL_20:
-        AppleUSBALS::displayStateUpdate(a1, v7);
+        AppleUSBALS::displayStateUpdate(result, v7);
 LABEL_21:
-        *(a1 + 250) = v7;
+        *(result + 250) = v7;
       }
     }
   }
@@ -227,8 +227,9 @@ void AppleUSBALS::displayStateUpdate(AppleUSBALS *this, int a2)
   }
 }
 
-void clamshellStateCallback(void *a1, io_registry_entry_t a2, int a3, void *a4)
+void clamshellStateCallback(void *a1, io_registry_entry_t a2, uint64_t a3, void *a4)
 {
+  v4 = a3;
   inited = a1[7];
   if (!inited)
   {
@@ -244,7 +245,7 @@ void clamshellStateCallback(void *a1, io_registry_entry_t a2, int a3, void *a4)
     sub_C1A8();
   }
 
-  if (a3 == -536657664)
+  if (v4 == -536657664)
   {
     CFProperty = IORegistryEntryCreateCFProperty(a2, @"AppleClamshellState", kCFAllocatorDefault, 0);
     if (CFProperty)
@@ -298,11 +299,11 @@ LABEL_21:
   }
 }
 
-void DisplayWranglerArrival(void *a1, io_iterator_t a2)
+void DisplayWranglerArrival(AppleUSBALS *a1, io_iterator_t a2)
 {
   if (a1)
   {
-    inited = a1[7];
+    inited = *(a1 + 7);
     if (!inited)
     {
       inited = _COREBRIGHTNESS_LOG_DEFAULT;
@@ -314,7 +315,7 @@ void DisplayWranglerArrival(void *a1, io_iterator_t a2)
 
     if (os_log_type_enabled(inited, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = a1[32];
+      v5 = *(a1 + 32);
       v10 = 136315650;
       if (v5)
       {
@@ -334,7 +335,7 @@ void DisplayWranglerArrival(void *a1, io_iterator_t a2)
       _os_log_impl(&dword_0, inited, OS_LOG_TYPE_DEFAULT, "display wrangler published notification (current %s, refcon=%p, iterator=0x%X)", &v10, 0x1Cu);
     }
 
-    if (a2 && !a1[32])
+    if (a2 && !*(a1 + 32))
     {
       v7 = IOIteratorNext(a2);
       if (v7)
@@ -371,7 +372,7 @@ BOOL AppleUSBALS::initializeDisplayPowerMonitoring(AppleUSBALS *this, io_service
 
   if (os_log_type_enabled(inited, OS_LOG_TYPE_DEBUG))
   {
-    sub_C290(this, this + 32);
+    sub_C290();
   }
 
   CFProperty = IORegistryEntryCreateCFProperty(a2, @"IOPowerManagement", kCFAllocatorDefault, 0);
@@ -432,14 +433,14 @@ BOOL AppleUSBALS::initializeDisplayPowerMonitoring(AppleUSBALS *this, io_service
   return v12 > 2;
 }
 
-void SystemPowerStateUpdateCallback(void *a1, unsigned int a2, int a3, intptr_t notificationID)
+void SystemPowerStateUpdateCallback(uint64_t result, unsigned int a2, int a3, intptr_t notificationID)
 {
-  if (a1)
+  if (result)
   {
     switch(a3)
     {
       case -536870144:
-        inited = *(a1 + 7);
+        inited = *(result + 56);
         if (!inited)
         {
           inited = _COREBRIGHTNESS_LOG_DEFAULT;
@@ -455,10 +456,10 @@ void SystemPowerStateUpdateCallback(void *a1, unsigned int a2, int a3, intptr_t 
           _os_log_impl(&dword_0, inited, OS_LOG_TYPE_DEFAULT, "system has powered on", v10, 2u);
         }
 
-        AppleUSBALS::systemPowerStateUpdate(a1, 1);
+        AppleUSBALS::systemPowerStateUpdate(result, 1);
         break;
       case -536870272:
-        v8 = *(a1 + 7);
+        v8 = *(result + 56);
         if (!v8)
         {
           v8 = _COREBRIGHTNESS_LOG_DEFAULT;
@@ -474,11 +475,11 @@ void SystemPowerStateUpdateCallback(void *a1, unsigned int a2, int a3, intptr_t 
           _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "system will go to sleep", buf, 2u);
         }
 
-        AppleUSBALS::systemPowerStateUpdate(a1, 0);
-        IOAllowPowerChange(*(a1 + 79), notificationID);
+        AppleUSBALS::systemPowerStateUpdate(result, 0);
+        IOAllowPowerChange(*(result + 316), notificationID);
         break;
       case -536870288:
-        v6 = *(a1 + 79);
+        v6 = *(result + 316);
 
         IOAllowPowerChange(v6, notificationID);
         break;
@@ -690,17 +691,17 @@ LABEL_34:
 
 void sub_1798(uint64_t a1)
 {
-  v25 = 0.0;
-  v26 = 0.0;
-  v23 = 0.0;
   v24 = 0.0;
+  v25 = 0.0;
+  v22 = 0.0;
+  v23 = 0.0;
   pValue = 0;
   Element = AppleUSBALS::getElement(*(a1 + 32), 32, 1233, kIOHIDElementTypeInput_Misc);
   if (Element)
   {
     if (!IOHIDDeviceGetValue(*(*(a1 + 32) + 144), Element, &pValue) && pValue != 0)
     {
-      AppleUSBALS::retrieveScaledValue(*(a1 + 32), pValue, &v24);
+      AppleUSBALS::retrieveScaledValue(*(a1 + 32), pValue, &v23);
     }
   }
 
@@ -720,7 +721,7 @@ LABEL_30:
   {
     if (!IOHIDDeviceGetValue(*(*(a1 + 32) + 144), v6, &pValue) && pValue != 0)
     {
-      AppleUSBALS::retrieveScaledValue(*(a1 + 32), pValue, &v26);
+      AppleUSBALS::retrieveScaledValue(*(a1 + 32), pValue, &v25);
     }
   }
 
@@ -730,7 +731,7 @@ LABEL_30:
   {
     if (!IOHIDDeviceGetValue(*(*(a1 + 32) + 144), v8, &pValue) && pValue != 0)
     {
-      AppleUSBALS::retrieveScaledValue(*(a1 + 32), pValue, &v25);
+      AppleUSBALS::retrieveScaledValue(*(a1 + 32), pValue, &v24);
     }
   }
 
@@ -738,7 +739,7 @@ LABEL_30:
   v10 = AppleUSBALS::getElement(*(a1 + 32), 32, 1234, kIOHIDElementTypeInput_Misc);
   if (v10 && !IOHIDDeviceGetValue(*(*(a1 + 32) + 144), v10, &pValue) && pValue)
   {
-    AppleUSBALS::retrieveScaledValue(*(a1 + 32), pValue, &v23);
+    AppleUSBALS::retrieveScaledValue(*(a1 + 32), pValue, &v22);
   }
 
   inited = *(*(a1 + 32) + 56);
@@ -753,17 +754,17 @@ LABEL_30:
 
   if (os_log_type_enabled(inited, OS_LOG_TYPE_INFO))
   {
-    v13 = v25;
-    v12 = v26;
-    v14 = v24;
+    v13 = v24;
+    v12 = v25;
+    v14 = v23;
     *buf = 134218752;
-    v28 = v26;
-    v29 = 2048;
-    v30 = v25;
-    v31 = 2048;
-    v32 = v23;
-    v33 = 2048;
-    v34 = v24;
+    v27 = v25;
+    v28 = 2048;
+    v29 = v24;
+    v30 = 2048;
+    v31 = v22;
+    v32 = 2048;
+    v33 = v23;
     _os_log_impl(&dword_0, inited, OS_LOG_TYPE_INFO, "x=%f y=%f CCT=%f lux=%f", buf, 0x2Au);
     v15 = v14;
     v16 = v12;
@@ -772,9 +773,9 @@ LABEL_30:
 
   else
   {
-    v15 = v24;
-    v17 = v25;
-    v16 = v26;
+    v15 = v23;
+    v17 = v24;
+    v16 = v25;
   }
 
   if (v16 == 0.0 || v17 == 0.0)
@@ -793,17 +794,16 @@ LABEL_35:
       v18 = *(v19 + 416);
       v15 = *(v19 + 424);
       v5 = *(v19 + 432);
-      v23 = *(v19 + 440);
+      v22 = *(v19 + 440);
     }
 
-    v20 = &v24;
+    v20 = &v23;
     if (*(v19 + 392))
     {
       v20 = (v19 + 400);
     }
 
-    v21 = *(a1 + 40);
-    AppleUSBALS::dispatchAmbientLightSensorEvent(v19, *v20, v18, v15, v5, v23);
+    AppleUSBALS::dispatchAmbientLightSensorEvent(v19, *v20, *(a1 + 40), v18, v15, v5, v22);
   }
 }
 
@@ -1000,16 +1000,16 @@ BOOL AppleUSBALS::retrieveScaledValue(AppleUSBALS *this, IOHIDValueRef value, do
   return result;
 }
 
-void AppleUSBALS::dispatchAmbientLightSensorEvent(AppleUSBALS *this, double a2, double a3, double a4, double a5, double a6)
+void AppleUSBALS::dispatchAmbientLightSensorEvent(AppleUSBALS *this, double a2, uint64_t a3, double a4, double a5, double a6, double a7)
 {
   AppleUSBALS::updateCurrentAmbient(this, a2);
-  AppleUSBALS::updateCurrentColourInfo(this, a3, a4, a5, a6);
+  AppleUSBALS::updateCurrentColourInfo(this, a4, a5, a6, a7);
   if (*(this + 14))
   {
     AmbientLightSensorEvent = IOHIDEventCreateAmbientLightSensorEvent();
     if (AmbientLightSensorEvent)
     {
-      v12 = AmbientLightSensorEvent;
+      v13 = AmbientLightSensorEvent;
       IOHIDEventSetDoubleValue();
       if (*(this + 82) == 1)
       {
@@ -1020,9 +1020,9 @@ void AppleUSBALS::dispatchAmbientLightSensorEvent(AppleUSBALS *this, double a2, 
         IOHIDEventSetDoubleValue();
       }
 
-      (*(this + 14))(*(this + 15), *(this + 16), this, v12, 0);
+      (*(this + 14))(*(this + 15), *(this + 16), this, v13, 0);
 
-      CFRelease(v12);
+      CFRelease(v13);
     }
   }
 }
@@ -1236,21 +1236,20 @@ uint64_t AppleUSBALS::copyEvent(AppleUSBALS *this, int a2)
   }
 
   mach_absolute_time();
-  v4 = *(this + 41);
   AmbientLightSensorEvent = IOHIDEventCreateAmbientLightSensorEvent();
   if (!AmbientLightSensorEvent)
   {
-    v12 = *(this + 7);
-    if (!v12)
+    v6 = *(this + 7);
+    if (!v6)
     {
-      v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
       if (!_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v12 = init_default_corebrightness_log();
+        v6 = init_default_corebrightness_log();
       }
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_C544();
     }
@@ -1259,18 +1258,13 @@ uint64_t AppleUSBALS::copyEvent(AppleUSBALS *this, int a2)
   }
 
   v2 = AmbientLightSensorEvent;
-  v6 = *(this + 41);
   IOHIDEventSetDoubleValue();
   if (*(this + 82) == 1)
   {
     IOHIDEventSetIntegerValue();
-    v7 = *(this + 42);
     IOHIDEventSetDoubleValue();
-    v8 = *(this + 43);
     IOHIDEventSetDoubleValue();
-    v9 = *(this + 44);
     IOHIDEventSetDoubleValue();
-    v10 = *(this + 45);
     IOHIDEventSetDoubleValue();
   }
 
@@ -2429,32 +2423,31 @@ uint64_t AppleUSBALS::start(AppleUSBALS *this, const __CFDictionary *a2, io_obje
 
 BOOL AppleUSBALS::getConnectionType(AppleUSBALS *this, uint64_t *a2)
 {
-  v5 = (this + 144);
   v4 = *(this + 18);
-  if (v4 && (v6 = IOHIDTransactionCreate(kCFAllocatorDefault, v4, kIOHIDTransactionDirectionTypeInput, 0)) != 0)
+  if (v4 && (v5 = IOHIDTransactionCreate(kCFAllocatorDefault, v4, kIOHIDTransactionDirectionTypeInput, 0)) != 0)
   {
-    v7 = v6;
+    v6 = v5;
     Element = AppleUSBALS::getElement(this, 32, 2096, kIOHIDElementTypeFeature);
     if (Element)
     {
-      IOHIDTransactionAddElement(v7, Element);
+      IOHIDTransactionAddElement(v6, Element);
     }
 
-    v9 = AppleUSBALS::getElement(this, 32, 2097, kIOHIDElementTypeFeature);
+    v8 = AppleUSBALS::getElement(this, 32, 2097, kIOHIDElementTypeFeature);
+    if (v8)
+    {
+      IOHIDTransactionAddElement(v6, v8);
+    }
+
+    v9 = AppleUSBALS::getElement(this, 32, 2098, kIOHIDElementTypeFeature);
     if (v9)
     {
-      IOHIDTransactionAddElement(v7, v9);
+      IOHIDTransactionAddElement(v6, v9);
     }
 
-    v10 = AppleUSBALS::getElement(this, 32, 2098, kIOHIDElementTypeFeature);
+    v10 = IOHIDTransactionCommit(v6);
+    v11 = v10 == 0;
     if (v10)
-    {
-      IOHIDTransactionAddElement(v7, v10);
-    }
-
-    v11 = IOHIDTransactionCommit(v7);
-    v12 = v11 == 0;
-    if (v11)
     {
       inited = *(this + 7);
       if (!inited)
@@ -2476,7 +2469,7 @@ BOOL AppleUSBALS::getConnectionType(AppleUSBALS *this, uint64_t *a2)
     {
       if (Element)
       {
-        Value = IOHIDTransactionGetValue(v7, Element, 0);
+        Value = IOHIDTransactionGetValue(v6, Element, 0);
         if (Value)
         {
           if (IOHIDValueGetIntegerValue(Value))
@@ -2486,24 +2479,24 @@ BOOL AppleUSBALS::getConnectionType(AppleUSBALS *this, uint64_t *a2)
         }
       }
 
-      if (v9)
+      if (v8)
       {
-        v17 = IOHIDTransactionGetValue(v7, v9, 0);
-        if (v17)
+        v16 = IOHIDTransactionGetValue(v6, v8, 0);
+        if (v16)
         {
-          if (IOHIDValueGetIntegerValue(v17))
+          if (IOHIDValueGetIntegerValue(v16))
           {
             *a2 = 2097;
           }
         }
       }
 
-      if (v10)
+      if (v9)
       {
-        v18 = IOHIDTransactionGetValue(v7, v10, 0);
-        if (v18)
+        v17 = IOHIDTransactionGetValue(v6, v9, 0);
+        if (v17)
         {
-          if (IOHIDValueGetIntegerValue(v18))
+          if (IOHIDValueGetIntegerValue(v17))
           {
             *a2 = 2098;
           }
@@ -2511,55 +2504,54 @@ BOOL AppleUSBALS::getConnectionType(AppleUSBALS *this, uint64_t *a2)
       }
     }
 
-    CFRelease(v7);
+    CFRelease(v6);
   }
 
   else
   {
-    v14 = *(this + 7);
-    if (!v14)
+    v13 = *(this + 7);
+    if (!v13)
     {
-      v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v13 = _COREBRIGHTNESS_LOG_DEFAULT;
       if (!_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v14 = init_default_corebrightness_log();
+        v13 = init_default_corebrightness_log();
       }
     }
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_C818(v5);
+      sub_C818();
     }
 
     return 0;
   }
 
-  return v12;
+  return v11;
 }
 
 uint64_t AppleUSBALS::getLocation(AppleUSBALS *this)
 {
-  v3 = (this + 144);
   v2 = *(this + 18);
   if (v2)
   {
-    v4 = IOHIDTransactionCreate(kCFAllocatorDefault, v2, kIOHIDTransactionDirectionTypeInput, 0);
-    if (v4)
+    v3 = IOHIDTransactionCreate(kCFAllocatorDefault, v2, kIOHIDTransactionDirectionTypeInput, 0);
+    if (v3)
     {
-      v5 = v4;
+      v4 = v3;
       Element = AppleUSBALS::getElement(this, 65301, 257, kIOHIDElementTypeFeature);
       if (Element)
       {
-        IOHIDTransactionAddElement(v5, Element);
+        IOHIDTransactionAddElement(v4, Element);
       }
 
-      v7 = AppleUSBALS::getElement(this, 65301, 258, kIOHIDElementTypeFeature);
-      if (v7)
+      v6 = AppleUSBALS::getElement(this, 65301, 258, kIOHIDElementTypeFeature);
+      if (v6)
       {
-        IOHIDTransactionAddElement(v5, v7);
+        IOHIDTransactionAddElement(v4, v6);
       }
 
-      if (IOHIDTransactionCommit(v5))
+      if (IOHIDTransactionCommit(v4))
       {
         inited = *(this + 7);
         if (!inited)
@@ -2581,7 +2573,7 @@ uint64_t AppleUSBALS::getLocation(AppleUSBALS *this)
       {
         if (Element)
         {
-          Value = IOHIDTransactionGetValue(v5, Element, 0);
+          Value = IOHIDTransactionGetValue(v4, Element, 0);
           if (Value)
           {
             if (IOHIDValueGetIntegerValue(Value))
@@ -2591,78 +2583,78 @@ uint64_t AppleUSBALS::getLocation(AppleUSBALS *this)
           }
         }
 
-        if (v7)
+        if (v6)
         {
-          v12 = IOHIDTransactionGetValue(v5, v7, 0);
-          if (v12)
+          v11 = IOHIDTransactionGetValue(v4, v6, 0);
+          if (v11)
           {
-            if (IOHIDValueGetIntegerValue(v12))
+            if (IOHIDValueGetIntegerValue(v11))
             {
               *(this + 13) = 258;
             }
           }
         }
 
-        v13 = *(this + 7);
+        v12 = *(this + 7);
         if (*(this + 13))
         {
-          if (!v13)
+          if (!v12)
           {
-            v13 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v12 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v13 = init_default_corebrightness_log();
+              v12 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = *(this + 13);
-            v16 = 134217984;
-            v17 = v14;
-            _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "sensor location %lu", &v16, 0xCu);
+            v13 = *(this + 13);
+            v15 = 134217984;
+            v16 = v13;
+            _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "sensor location %lu", &v15, 0xCu);
           }
 
-          v9 = 1;
+          v8 = 1;
           goto LABEL_35;
         }
 
-        if (!v13)
+        if (!v12)
         {
-          v13 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v12 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v13 = init_default_corebrightness_log();
+            v12 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "location is not available", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "location is not available", &v15, 2u);
         }
       }
 
-      v9 = 0;
+      v8 = 0;
 LABEL_35:
-      CFRelease(v5);
-      return v9;
+      CFRelease(v4);
+      return v8;
     }
   }
 
-  v10 = *(this + 7);
-  if (!v10)
+  v9 = *(this + 7);
+  if (!v9)
   {
-    v10 = _COREBRIGHTNESS_LOG_DEFAULT;
+    v9 = _COREBRIGHTNESS_LOG_DEFAULT;
     if (!_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v10 = init_default_corebrightness_log();
+      v9 = init_default_corebrightness_log();
     }
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_C818(v3);
+    sub_C818();
   }
 
   return 0;
@@ -4068,7 +4060,7 @@ uint64_t AppleUSBALS::getElementIntValue(AppleUSBALS *this, __IOHIDElement *a2, 
 
         if (os_log_type_enabled(inited, OS_LOG_TYPE_ERROR))
         {
-          sub_CC04(&pValue);
+          sub_CC04();
         }
       }
 
@@ -4087,7 +4079,7 @@ uint64_t AppleUSBALS::getElementIntValue(AppleUSBALS *this, __IOHIDElement *a2, 
 
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          sub_CC80(&pValue);
+          sub_CC80();
         }
       }
     }
@@ -4176,7 +4168,7 @@ uint64_t AppleUSBALS::getElementFloatValue(AppleUSBALS *this, __IOHIDElement *a2
   return Value;
 }
 
-__IOHIDDevice *AppleUSBALS::copyDataForUsage(__IOHIDDevice **this, int a2, int a3)
+CFDataRef AppleUSBALS::copyDataForUsage(__IOHIDDevice **this, int a2, int a3)
 {
   result = AppleUSBALS::getElement(this, a2, a3, kIOHIDElementTypeFeature);
   if (result)
@@ -4423,7 +4415,7 @@ BOOL AppleUSBALS::setProperty(AppleUSBALS *this, const __CFString *a2, const voi
 
           if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
           {
-            sub_CEB4(buf);
+            sub_CEB4();
           }
 
           return v3;
@@ -4670,8 +4662,8 @@ LABEL_96:
 
         else
         {
-          v71 = CFGetTypeID(v53);
-          if (v71 == CFBooleanGetTypeID())
+          v72 = CFGetTypeID(v53);
+          if (v72 == CFBooleanGetTypeID())
           {
             *(this + 409) = CFBooleanGetValue(v53) != 0;
           }
@@ -4683,22 +4675,22 @@ LABEL_96:
         *(this + 409) = 0;
       }
 
-      v72 = CFDictionaryGetValue(a3, @"IgnoreEvents");
-      v73 = v72;
-      if (v72)
+      v73 = CFDictionaryGetValue(a3, @"IgnoreEvents");
+      v74 = v73;
+      if (v73)
       {
-        v74 = CFGetTypeID(v72);
-        if (v74 == CFNumberGetTypeID())
+        v75 = CFGetTypeID(v73);
+        if (v75 == CFNumberGetTypeID())
         {
-          CFNumberGetValue(v73, kCFNumberIntType, this + 408);
+          CFNumberGetValue(v74, kCFNumberIntType, this + 408);
         }
 
         else
         {
-          v75 = CFGetTypeID(v73);
-          if (v75 == CFBooleanGetTypeID())
+          v76 = CFGetTypeID(v74);
+          if (v76 == CFBooleanGetTypeID())
           {
-            *(this + 408) = CFBooleanGetValue(v73) != 0;
+            *(this + 408) = CFBooleanGetValue(v74) != 0;
           }
         }
       }
@@ -4708,43 +4700,43 @@ LABEL_96:
         *(this + 408) = 0;
       }
 
-      v76 = *(this + 7);
-      if (!v76)
+      v77 = *(this + 7);
+      if (!v77)
       {
-        v76 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v77 = _COREBRIGHTNESS_LOG_DEFAULT;
         if (!_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v76 = init_default_corebrightness_log();
+          v77 = init_default_corebrightness_log();
         }
       }
 
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
       {
-        v77 = *(this + 392);
-        v78 = *(this + 52);
-        v79 = *(this + 53);
-        v80 = *(this + 54);
-        v81 = *(this + 55);
-        v82 = *(this + 408);
+        v78 = *(this + 392);
+        v79 = *(this + 52);
+        v80 = *(this + 53);
+        v81 = *(this + 54);
+        v82 = *(this + 55);
+        v83 = *(this + 408);
         buf[0] = 67110400;
-        buf[1] = v77;
+        buf[1] = v78;
         LOWORD(buf[2]) = 2048;
-        *(&buf[2] + 2) = v78;
+        *(&buf[2] + 2) = v79;
         HIWORD(buf[4]) = 2048;
-        *&buf[5] = v79;
+        *&buf[5] = v80;
         LOWORD(buf[7]) = 2048;
-        *(&buf[7] + 2) = v80;
+        *(&buf[7] + 2) = v81;
         HIWORD(buf[9]) = 2048;
-        *&buf[10] = v81;
-        v257 = 1024;
-        v258 = v82;
-        _os_log_impl(&dword_0, v76, OS_LOG_TYPE_DEFAULT, "override: %d; override values: X=%f Y=%f Z=%f CCT=%f; ignoreEvents: %d", buf, 0x36u);
+        *&buf[10] = v82;
+        v254 = 1024;
+        v255 = v83;
+        _os_log_impl(&dword_0, v77, OS_LOG_TYPE_DEFAULT, "override: %d; override values: X=%f Y=%f Z=%f CCT=%f; ignoreEvents: %d", buf, 0x36u);
       }
 
-      v83 = *(this + 30);
-      if (v83)
+      v84 = *(this + 30);
+      if (v84)
       {
-        CFDictionarySetValue(v83, a2, a3);
+        CFDictionarySetValue(v84, a2, a3);
       }
 
 LABEL_171:
@@ -4783,8 +4775,8 @@ LABEL_171:
 
         else
         {
-          v86 = CFGetTypeID(v61);
-          if (v86 == CFBooleanGetTypeID())
+          v87 = CFGetTypeID(v61);
+          if (v87 == CFBooleanGetTypeID())
           {
             *(this + 392) = CFBooleanGetValue(v61) != 0;
           }
@@ -4796,22 +4788,22 @@ LABEL_171:
         *(this + 392) = 0;
       }
 
-      v87 = CFDictionaryGetValue(a3, @"IgnoreEvents");
-      v88 = v87;
-      if (v87)
+      v88 = CFDictionaryGetValue(a3, @"IgnoreEvents");
+      v89 = v88;
+      if (v88)
       {
-        v89 = CFGetTypeID(v87);
-        if (v89 == CFNumberGetTypeID())
+        v90 = CFGetTypeID(v88);
+        if (v90 == CFNumberGetTypeID())
         {
-          CFNumberGetValue(v88, kCFNumberIntType, this + 408);
+          CFNumberGetValue(v89, kCFNumberIntType, this + 408);
         }
 
         else
         {
-          v90 = CFGetTypeID(v88);
-          if (v90 == CFBooleanGetTypeID())
+          v91 = CFGetTypeID(v89);
+          if (v91 == CFBooleanGetTypeID())
           {
-            *(this + 408) = CFBooleanGetValue(v88) != 0;
+            *(this + 408) = CFBooleanGetValue(v89) != 0;
           }
         }
       }
@@ -4821,34 +4813,34 @@ LABEL_171:
         *(this + 408) = 0;
       }
 
-      v91 = *(this + 7);
-      if (!v91)
+      v92 = *(this + 7);
+      if (!v92)
       {
-        v91 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v92 = _COREBRIGHTNESS_LOG_DEFAULT;
         if (!_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v91 = init_default_corebrightness_log();
+          v92 = init_default_corebrightness_log();
         }
       }
 
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
       {
-        v92 = *(this + 392);
-        v93 = *(this + 50);
-        v94 = *(this + 408);
+        v93 = *(this + 392);
+        v94 = *(this + 50);
+        v95 = *(this + 408);
         buf[0] = 67109632;
-        buf[1] = v92;
+        buf[1] = v93;
         LOWORD(buf[2]) = 1024;
-        *(&buf[2] + 2) = v93;
+        *(&buf[2] + 2) = v94;
         HIWORD(buf[3]) = 1024;
-        buf[4] = v94;
-        _os_log_impl(&dword_0, v91, OS_LOG_TYPE_DEFAULT, "override: %d; override with value: %u; ignoreEvents: %d", buf, 0x14u);
+        buf[4] = v95;
+        _os_log_impl(&dword_0, v92, OS_LOG_TYPE_DEFAULT, "override: %d; override with value: %u; ignoreEvents: %d", buf, 0x14u);
       }
 
-      v95 = *(this + 30);
-      if (v95)
+      v96 = *(this + 30);
+      if (v96)
       {
-        CFDictionarySetValue(v95, a2, a3);
+        CFDictionarySetValue(v96, a2, a3);
       }
 
       goto LABEL_171;
@@ -4871,56 +4863,56 @@ LABEL_171:
 
       v65 = *(this + 409);
       v66 = *buf;
-      mach_absolute_time();
-      v67 = 336;
+      v67 = mach_absolute_time();
+      v68 = 336;
       if (v65)
       {
-        v67 = 416;
+        v68 = 416;
       }
 
-      v68 = 344;
+      v69 = 344;
       if (v65)
       {
-        v68 = 424;
+        v69 = 424;
       }
 
-      v69 = 352;
+      v70 = 352;
       if (v65)
       {
-        v69 = 432;
+        v70 = 432;
       }
 
-      v70 = 360;
+      v71 = 360;
       if (v65)
       {
-        v70 = 440;
+        v71 = 440;
       }
 
-      AppleUSBALS::dispatchAmbientLightSensorEvent(this, v66, *(this + v67), *(this + v68), *(this + v69), *(this + v70));
+      AppleUSBALS::dispatchAmbientLightSensorEvent(this, v66, v67, *(this + v68), *(this + v69), *(this + v70), *(this + v71));
       return 1;
     }
 
     if (CFEqual(a2, @"kUSBContainerID"))
     {
-      v84 = CFGetTypeID(a3);
-      if (v84 == CFStringGetTypeID())
+      v85 = CFGetTypeID(a3);
+      if (v85 == CFStringGetTypeID())
       {
         CFDictionarySetValue(*(this + 30), @"kUSBContainerID", a3);
-        v85 = *(this + 7);
-        if (!v85)
+        v86 = *(this + 7);
+        if (!v86)
         {
-          v85 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v86 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v85 = init_default_corebrightness_log();
+            v86 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
         {
           buf[0] = 138543362;
           *&buf[1] = a3;
-          _os_log_impl(&dword_0, v85, OS_LOG_TYPE_DEFAULT, "override container ID: %{public}@", buf, 0xCu);
+          _os_log_impl(&dword_0, v86, OS_LOG_TYPE_DEFAULT, "override container ID: %{public}@", buf, 0xCu);
         }
       }
 
@@ -4934,59 +4926,59 @@ LABEL_171:
 
     if (CFEqual(a2, @"DFRNits"))
     {
-      v96 = *(this + 18);
-      if (!v96)
-      {
-        return 0;
-      }
-
-      v97 = IOHIDTransactionCreate(kCFAllocatorDefault, v96, kIOHIDTransactionDirectionTypeOutput, 0);
+      v97 = *(this + 18);
       if (!v97)
       {
         return 0;
       }
 
-      v98 = AppleUSBALS::getElement(this, 65298, 16, kIOHIDElementTypeFeature);
-      AppleUSBALS::addElementValueToTransaction(this, v97, v98, 2);
+      v98 = IOHIDTransactionCreate(kCFAllocatorDefault, v97, kIOHIDTransactionDirectionTypeOutput, 0);
+      if (!v98)
+      {
+        return 0;
+      }
+
+      v99 = AppleUSBALS::getElement(this, 65298, 16, kIOHIDElementTypeFeature);
+      AppleUSBALS::addElementValueToTransaction(this, v98, v99, 2);
       TypeID = CFNumberGetTypeID();
       if (TypeID == CFGetTypeID(a3))
       {
         buf[0] = 0;
         if (CFNumberGetValue(a3, kCFNumberFloat32Type, buf))
         {
-          v100 = AppleUSBALS::getElement(this, 65298, 17, kIOHIDElementTypeFeature);
-          AppleUSBALS::addElementValueToTransaction(this, v97, v100, (*buf * 1000.0));
+          v101 = AppleUSBALS::getElement(this, 65298, 17, kIOHIDElementTypeFeature);
+          AppleUSBALS::addElementValueToTransaction(this, v98, v101, (*buf * 1000.0));
         }
       }
 
       else
       {
-        v110 = CFDictionaryGetTypeID();
-        if (v110 == CFGetTypeID(a3))
+        v111 = CFDictionaryGetTypeID();
+        if (v111 == CFGetTypeID(a3))
         {
           buf[0] = 0;
           valuePtr[0] = 0;
-          v111 = CFDictionaryGetValue(a3, @"Brightness");
-          if (v111)
+          v112 = CFDictionaryGetValue(a3, @"Brightness");
+          if (v112)
           {
-            v112 = CFNumberGetTypeID();
-            if (v112 == CFGetTypeID(v111))
+            v113 = CFNumberGetTypeID();
+            if (v113 == CFGetTypeID(v112))
             {
-              CFNumberGetValue(v111, kCFNumberFloat32Type, buf);
-              v113 = AppleUSBALS::getElement(this, 65298, 17, kIOHIDElementTypeFeature);
-              AppleUSBALS::addElementValueToTransaction(this, v97, v113, (*buf * 1000.0));
+              CFNumberGetValue(v112, kCFNumberFloat32Type, buf);
+              v114 = AppleUSBALS::getElement(this, 65298, 17, kIOHIDElementTypeFeature);
+              AppleUSBALS::addElementValueToTransaction(this, v98, v114, (*buf * 1000.0));
             }
           }
 
-          v114 = CFDictionaryGetValue(a3, @"Period");
-          if (v114)
+          v115 = CFDictionaryGetValue(a3, @"Period");
+          if (v115)
           {
-            v115 = CFNumberGetTypeID();
-            if (v115 == CFGetTypeID(v114))
+            v116 = CFNumberGetTypeID();
+            if (v116 == CFGetTypeID(v115))
             {
-              CFNumberGetValue(v114, kCFNumberFloat32Type, valuePtr);
-              v116 = AppleUSBALS::getElement(this, 65298, 19, kIOHIDElementTypeFeature);
-              AppleUSBALS::addElementValueToTransaction(this, v97, v116, (*valuePtr * 1000.0));
+              CFNumberGetValue(v115, kCFNumberFloat32Type, valuePtr);
+              v117 = AppleUSBALS::getElement(this, 65298, 19, kIOHIDElementTypeFeature);
+              AppleUSBALS::addElementValueToTransaction(this, v98, v117, (*valuePtr * 1000.0));
             }
           }
         }
@@ -4997,8 +4989,8 @@ LABEL_171:
 
     if (CFEqual(a2, @"DFRDisplayState"))
     {
-      v101 = *(this + 18);
-      if (!v101)
+      v102 = *(this + 18);
+      if (!v102)
       {
         return 0;
       }
@@ -5008,128 +5000,101 @@ LABEL_171:
         return 0;
       }
 
-      v102 = IOHIDTransactionCreate(kCFAllocatorDefault, v101, kIOHIDTransactionDirectionTypeOutput, 0);
-      if (!v102)
+      v103 = IOHIDTransactionCreate(kCFAllocatorDefault, v102, kIOHIDTransactionDirectionTypeOutput, 0);
+      if (!v103)
       {
         return 0;
       }
 
-      v103 = *(this + 7);
-      if (!v103)
+      v104 = *(this + 7);
+      if (!v104)
       {
-        v103 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v104 = _COREBRIGHTNESS_LOG_DEFAULT;
         if (!_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v103 = init_default_corebrightness_log();
+          v104 = init_default_corebrightness_log();
         }
       }
 
-      if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
       {
         buf[0] = 138543362;
         *&buf[1] = a3;
-        _os_log_impl(&dword_0, v103, OS_LOG_TYPE_DEFAULT, "display state input: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_0, v104, OS_LOG_TYPE_DEFAULT, "display state input: %{public}@", buf, 0xCu);
       }
 
       *buf = 0;
       *&buf[2] = buf;
       *&buf[4] = 0x2000000000;
       *&buf[6] = 0;
-      v104 = CFNumberGetTypeID();
-      if (v104 == CFGetTypeID(a3))
+      v105 = CFNumberGetTypeID();
+      if (v105 == CFGetTypeID(a3))
       {
         if (CFNumberGetValue(a3, kCFNumberLongType, (*&buf[2] + 24)))
         {
-          AppleUSBALS::addElementValueToTransaction(this, v102, *(this + 23), *(*&buf[2] + 24));
+          AppleUSBALS::addElementValueToTransaction(this, v103, *(this + 23), *(*&buf[2] + 24));
         }
       }
 
       else
       {
-        v121 = CFDictionaryGetTypeID();
-        if (v121 == CFGetTypeID(a3))
+        v122 = CFDictionaryGetTypeID();
+        if (v122 == CFGetTypeID(a3))
         {
           valuePtr[0] = 0;
-          v122 = CFDictionaryGetValue(a3, @"State");
-          if (v122)
+          v123 = CFDictionaryGetValue(a3, @"State");
+          if (v123)
           {
-            v123 = CFNumberGetTypeID();
-            if (v123 == CFGetTypeID(v122))
+            v124 = CFNumberGetTypeID();
+            if (v124 == CFGetTypeID(v123))
             {
-              if (CFNumberGetValue(v122, kCFNumberLongType, (*&buf[2] + 24)))
+              if (CFNumberGetValue(v123, kCFNumberLongType, (*&buf[2] + 24)))
               {
-                AppleUSBALS::addElementValueToTransaction(this, v102, *(this + 23), *(*&buf[2] + 24));
-                v124 = *(this + 7);
-                if (!v124)
+                AppleUSBALS::addElementValueToTransaction(this, v103, *(this + 23), *(*&buf[2] + 24));
+                v125 = *(this + 7);
+                if (!v125)
                 {
-                  v124 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v125 = _COREBRIGHTNESS_LOG_DEFAULT;
                   if (!_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v124 = init_default_corebrightness_log();
+                    v125 = init_default_corebrightness_log();
                   }
                 }
 
-                if (os_log_type_enabled(v124, OS_LOG_TYPE_DEBUG))
+                if (os_log_type_enabled(v125, OS_LOG_TYPE_DEBUG))
                 {
                   ReportID = IOHIDElementGetReportID(*(this + 23));
-                  sub_D1C4(v254, ReportID, v124);
+                  sub_D1C4(v251, ReportID, v125);
                 }
               }
             }
           }
 
-          v126 = CFDictionaryGetValue(a3, @"Period");
-          if (v126)
+          v127 = CFDictionaryGetValue(a3, @"Period");
+          if (v127)
           {
-            v127 = CFNumberGetTypeID();
-            if (v127 == CFGetTypeID(v126))
+            v128 = CFNumberGetTypeID();
+            if (v128 == CFGetTypeID(v127))
             {
-              CFNumberGetValue(v126, kCFNumberFloat32Type, valuePtr);
-              AppleUSBALS::addElementValueToTransaction(this, v102, *(this + 24), (*valuePtr * 1000.0));
-              v128 = *(this + 7);
-              if (!v128)
+              CFNumberGetValue(v127, kCFNumberFloat32Type, valuePtr);
+              AppleUSBALS::addElementValueToTransaction(this, v103, *(this + 24), (*valuePtr * 1000.0));
+              v129 = *(this + 7);
+              if (!v129)
               {
-                v128 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v129 = _COREBRIGHTNESS_LOG_DEFAULT;
                 if (!_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v128 = init_default_corebrightness_log();
+                  v129 = init_default_corebrightness_log();
                 }
               }
 
-              if (os_log_type_enabled(v128, OS_LOG_TYPE_DEBUG))
+              if (os_log_type_enabled(v129, OS_LOG_TYPE_DEBUG))
               {
-                v129 = IOHIDElementGetReportID(*(this + 24));
-                sub_D20C(v253, v129, v128);
+                v130 = IOHIDElementGetReportID(*(this + 24));
+                sub_D20C(v250, v130, v129);
               }
             }
           }
-        }
-
-        else
-        {
-          v134 = *(this + 7);
-          if (!v134)
-          {
-            v134 = _COREBRIGHTNESS_LOG_DEFAULT;
-            if (!_COREBRIGHTNESS_LOG_DEFAULT)
-            {
-              v134 = init_default_corebrightness_log();
-            }
-          }
-
-          if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
-          {
-            sub_D190();
-          }
-        }
-      }
-
-      if (*(*&buf[2] + 24) == 2)
-      {
-        if (notify_is_valid_token(*(this + 81)))
-        {
-          notify_set_state(*(this + 81), 2uLL);
-          notify_post("com.apple.DFRBrightness.displayStateUpdate");
         }
 
         else
@@ -5146,64 +5111,90 @@ LABEL_171:
 
           if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
           {
+            sub_D190();
+          }
+        }
+      }
+
+      if (*(*&buf[2] + 24) == 2)
+      {
+        if (notify_is_valid_token(*(this + 81)))
+        {
+          notify_set_state(*(this + 81), 2uLL);
+          notify_post("com.apple.DFRBrightness.displayStateUpdate");
+        }
+
+        else
+        {
+          v136 = *(this + 7);
+          if (!v136)
+          {
+            v136 = _COREBRIGHTNESS_LOG_DEFAULT;
+            if (!_COREBRIGHTNESS_LOG_DEFAULT)
+            {
+              v136 = init_default_corebrightness_log();
+            }
+          }
+
+          if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
+          {
             sub_D254();
           }
         }
       }
 
-      v136 = *(this + 7);
-      if (!v136)
+      v137 = *(this + 7);
+      if (!v137)
       {
-        v136 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v137 = _COREBRIGHTNESS_LOG_DEFAULT;
         if (!_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v136 = init_default_corebrightness_log();
+          v137 = init_default_corebrightness_log();
         }
       }
 
-      if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
       {
-        v137 = *(*&buf[2] + 24);
+        v138 = *(*&buf[2] + 24);
         valuePtr[0] = 134217984;
-        *&valuePtr[1] = v137;
-        _os_log_impl(&dword_0, v136, OS_LOG_TYPE_DEFAULT, "setting DFR state = %lu", valuePtr, 0xCu);
+        *&valuePtr[1] = v138;
+        _os_log_impl(&dword_0, v137, OS_LOG_TYPE_DEFAULT, "setting DFR state = %lu", valuePtr, 0xCu);
       }
 
       if (*(this + 8))
       {
-        CFRetain(v102);
-        v138 = *(this + 8);
+        CFRetain(v103);
+        v139 = *(this + 8);
         block[0] = _NSConcreteStackBlock;
         block[1] = 0x40000000;
         block[2] = sub_9F50;
         block[3] = &unk_14608;
         block[4] = buf;
         block[5] = this;
-        block[6] = v102;
-        dispatch_async(v138, block);
+        block[6] = v103;
+        dispatch_async(v139, block);
         v3 = 1;
       }
 
       else
       {
-        v139 = *(this + 7);
-        if (!v139)
+        v140 = *(this + 7);
+        if (!v140)
         {
-          v139 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v140 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v139 = init_default_corebrightness_log();
+            v140 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
         {
           sub_D288();
         }
 
-        v140 = *(*&buf[2] + 24);
         kdebug_trace();
-        v141 = IOHIDTransactionCommit(v102);
+        v141 = IOHIDTransactionCommit(v103);
         if (v141)
         {
           v142 = *(this + 7);
@@ -5244,7 +5235,6 @@ LABEL_171:
           sub_D36C();
         }
 
-        v150 = *(*&buf[2] + 24);
         kdebug_trace();
         if (!v141 && *(*&buf[2] + 24) == 1)
         {
@@ -5256,17 +5246,17 @@ LABEL_171:
 
           else
           {
-            v208 = *(this + 7);
-            if (!v208)
+            v205 = *(this + 7);
+            if (!v205)
             {
-              v208 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v205 = _COREBRIGHTNESS_LOG_DEFAULT;
               if (!_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v208 = init_default_corebrightness_log();
+                v205 = init_default_corebrightness_log();
               }
             }
 
-            if (os_log_type_enabled(v208, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v205, OS_LOG_TYPE_ERROR))
             {
               sub_D254();
             }
@@ -5275,14 +5265,14 @@ LABEL_171:
       }
 
       _Block_object_dispose(buf, 8);
-      CFRelease(v102);
+      CFRelease(v103);
       return v3;
     }
 
     if (CFEqual(a2, @"DFRDisplayFactor"))
     {
-      v105 = *(this + 18);
-      if (!v105)
+      v106 = *(this + 18);
+      if (!v106)
       {
         return 0;
       }
@@ -5292,51 +5282,51 @@ LABEL_171:
         return 0;
       }
 
-      v106 = IOHIDTransactionCreate(kCFAllocatorDefault, v105, kIOHIDTransactionDirectionTypeOutput, 0);
-      if (!v106)
+      v107 = IOHIDTransactionCreate(kCFAllocatorDefault, v106, kIOHIDTransactionDirectionTypeOutput, 0);
+      if (!v107)
       {
         return 0;
       }
 
-      v107 = *(this + 7);
-      if (!v107)
+      v108 = *(this + 7);
+      if (!v108)
       {
-        v107 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v108 = _COREBRIGHTNESS_LOG_DEFAULT;
         if (!_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v107 = init_default_corebrightness_log();
+          v108 = init_default_corebrightness_log();
         }
       }
 
-      if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
       {
         buf[0] = 138543362;
         *&buf[1] = a3;
-        _os_log_impl(&dword_0, v107, OS_LOG_TYPE_DEFAULT, "display factor input: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_0, v108, OS_LOG_TYPE_DEFAULT, "display factor input: %{public}@", buf, 0xCu);
       }
 
       *buf = 0;
       *&buf[2] = buf;
       *&buf[4] = 0x2000000000;
       *&buf[6] = 0;
-      v108 = CFNumberGetTypeID();
-      if (v108 == CFGetTypeID(a3))
+      v109 = CFNumberGetTypeID();
+      if (v109 == CFGetTypeID(a3))
       {
         valuePtr[0] = 0;
         if (CFNumberGetValue(a3, kCFNumberFloat32Type, valuePtr))
         {
           if (*valuePtr <= 0.0)
           {
-            v109 = 1;
+            v110 = 1;
           }
 
           else
           {
-            v109 = 2;
+            v110 = 2;
           }
 
-          *(*&buf[2] + 24) = v109;
-          AppleUSBALS::addElementValueToTransaction(this, v106, *(this + 23), v109);
+          *(*&buf[2] + 24) = v110;
+          AppleUSBALS::addElementValueToTransaction(this, v107, *(this + 23), v110);
         }
       }
 
@@ -5352,10 +5342,10 @@ LABEL_171:
             v145 = CFNumberGetTypeID();
             if (v145 == CFGetTypeID(v144))
             {
-              *v254 = 0.0;
-              if (CFNumberGetValue(v144, kCFNumberFloat32Type, v254))
+              *v251 = 0.0;
+              if (CFNumberGetValue(v144, kCFNumberFloat32Type, v251))
               {
-                if (*v254 <= 0.0)
+                if (*v251 <= 0.0)
                 {
                   v146 = 1;
                 }
@@ -5366,7 +5356,7 @@ LABEL_171:
                 }
 
                 *(*&buf[2] + 24) = v146;
-                AppleUSBALS::addElementValueToTransaction(this, v106, *(this + 23), v146);
+                AppleUSBALS::addElementValueToTransaction(this, v107, *(this + 23), v146);
               }
             }
           }
@@ -5378,46 +5368,46 @@ LABEL_171:
             if (v148 == CFGetTypeID(v147))
             {
               CFNumberGetValue(v147, kCFNumberFloat32Type, valuePtr);
-              AppleUSBALS::addElementValueToTransaction(this, v106, *(this + 24), (*valuePtr * 1000.0));
+              AppleUSBALS::addElementValueToTransaction(this, v107, *(this + 24), (*valuePtr * 1000.0));
             }
           }
         }
 
         else
         {
-          v178 = *(this + 7);
-          if (!v178)
+          v177 = *(this + 7);
+          if (!v177)
           {
-            v178 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v177 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v178 = init_default_corebrightness_log();
+              v177 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v178, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v177, OS_LOG_TYPE_ERROR))
           {
             sub_D190();
           }
         }
       }
 
-      v179 = *(this + 7);
-      if (!v179)
+      v178 = *(this + 7);
+      if (!v178)
       {
-        v179 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v178 = _COREBRIGHTNESS_LOG_DEFAULT;
         if (!_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v179 = init_default_corebrightness_log();
+          v178 = init_default_corebrightness_log();
         }
       }
 
-      if (os_log_type_enabled(v179, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
       {
-        v180 = *(*&buf[2] + 24);
+        v179 = *(*&buf[2] + 24);
         valuePtr[0] = 134217984;
-        *&valuePtr[1] = v180;
-        _os_log_impl(&dword_0, v179, OS_LOG_TYPE_DEFAULT, "setting DFR state = %lu", valuePtr, 0xCu);
+        *&valuePtr[1] = v179;
+        _os_log_impl(&dword_0, v178, OS_LOG_TYPE_DEFAULT, "setting DFR state = %lu", valuePtr, 0xCu);
       }
 
       if (*(*&buf[2] + 24) == 2)
@@ -5430,17 +5420,17 @@ LABEL_171:
 
         else
         {
-          v181 = *(this + 7);
-          if (!v181)
+          v180 = *(this + 7);
+          if (!v180)
           {
-            v181 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v180 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v181 = init_default_corebrightness_log();
+              v180 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v181, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
           {
             sub_D254();
           }
@@ -5449,52 +5439,51 @@ LABEL_171:
 
       if (*(this + 8))
       {
-        CFRetain(v106);
-        v182 = *(this + 8);
-        v250[0] = _NSConcreteStackBlock;
-        v250[1] = 0x40000000;
-        v250[2] = sub_A114;
-        v250[3] = &unk_14630;
-        v250[4] = buf;
-        v250[5] = this;
-        v250[6] = v106;
-        dispatch_async(v182, v250);
+        CFRetain(v107);
+        v181 = *(this + 8);
+        v247[0] = _NSConcreteStackBlock;
+        v247[1] = 0x40000000;
+        v247[2] = sub_A114;
+        v247[3] = &unk_14630;
+        v247[4] = buf;
+        v247[5] = this;
+        v247[6] = v107;
+        dispatch_async(v181, v247);
         v3 = 1;
       }
 
       else
       {
-        v183 = *(this + 7);
-        if (!v183)
+        v182 = *(this + 7);
+        if (!v182)
         {
-          v183 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v182 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v183 = init_default_corebrightness_log();
+            v182 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v183, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v182, OS_LOG_TYPE_DEBUG))
         {
           sub_D288();
         }
 
-        v184 = *(*&buf[2] + 24);
         kdebug_trace();
-        v185 = IOHIDTransactionCommit(v106);
-        if (v185)
+        v183 = IOHIDTransactionCommit(v107);
+        if (v183)
         {
-          v186 = *(this + 7);
-          if (!v186)
+          v184 = *(this + 7);
+          if (!v184)
           {
-            v186 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v184 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v186 = init_default_corebrightness_log();
+              v184 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v186, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
           {
             sub_D2FC();
           }
@@ -5507,24 +5496,23 @@ LABEL_171:
           v3 = 1;
         }
 
-        v187 = *(this + 7);
-        if (!v187)
+        v185 = *(this + 7);
+        if (!v185)
         {
-          v187 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v185 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v187 = init_default_corebrightness_log();
+            v185 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v187, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v185, OS_LOG_TYPE_DEBUG))
         {
           sub_D36C();
         }
 
-        v188 = *(*&buf[2] + 24);
         kdebug_trace();
-        if (!v185 && *(*&buf[2] + 24) == 1)
+        if (!v183 && *(*&buf[2] + 24) == 1)
         {
           if (notify_is_valid_token(*(this + 81)))
           {
@@ -5534,17 +5522,17 @@ LABEL_171:
 
           else
           {
-            v213 = *(this + 7);
-            if (!v213)
+            v210 = *(this + 7);
+            if (!v210)
             {
-              v213 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v210 = _COREBRIGHTNESS_LOG_DEFAULT;
               if (!_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v213 = init_default_corebrightness_log();
+                v210 = init_default_corebrightness_log();
               }
             }
 
-            if (os_log_type_enabled(v213, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v210, OS_LOG_TYPE_ERROR))
             {
               sub_D254();
             }
@@ -5553,14 +5541,14 @@ LABEL_171:
       }
 
       _Block_object_dispose(buf, 8);
-      CFRelease(v106);
+      CFRelease(v107);
       return v3;
     }
 
     if (CFEqual(a2, @"DFRAutoBrightness"))
     {
-      v117 = CFNumberGetTypeID();
-      if (v117 != CFGetTypeID(a3))
+      v118 = CFNumberGetTypeID();
+      if (v118 != CFGetTypeID(a3))
       {
         return 0;
       }
@@ -5571,36 +5559,36 @@ LABEL_171:
         return 0;
       }
 
-      v118 = IOHIDTransactionCreate(kCFAllocatorDefault, *(this + 18), kIOHIDTransactionDirectionTypeOutput, 0);
-      if (!v118)
+      v119 = IOHIDTransactionCreate(kCFAllocatorDefault, *(this + 18), kIOHIDTransactionDirectionTypeOutput, 0);
+      if (!v119)
       {
         return 0;
       }
 
-      v119 = AppleUSBALS::getElement(this, 65298, 65, kIOHIDElementTypeFeature);
+      v120 = AppleUSBALS::getElement(this, 65298, 65, kIOHIDElementTypeFeature);
       if (buf[0])
       {
-        v120 = 2;
+        v121 = 2;
       }
 
       else
       {
-        v120 = 1;
+        v121 = 1;
       }
 
-      AppleUSBALS::addElementValueToTransaction(this, v118, v119, v120);
-      v3 = IOHIDTransactionCommit(v118) == 0;
-      CFRelease(v118);
+      AppleUSBALS::addElementValueToTransaction(this, v119, v120, v121);
+      v3 = IOHIDTransactionCommit(v119) == 0;
+      CFRelease(v119);
       return v3;
     }
 
     if (CFEqual(a2, @"DFRDimmingStep"))
     {
-      v130 = CFNumberGetTypeID();
-      if (v130 == CFGetTypeID(a3))
+      v131 = CFNumberGetTypeID();
+      if (v131 == CFGetTypeID(a3))
       {
-        v131 = *(this + 18);
-        if (!v131)
+        v132 = *(this + 18);
+        if (!v132)
         {
           return 0;
         }
@@ -5610,8 +5598,8 @@ LABEL_171:
           return 0;
         }
 
-        v132 = IOHIDTransactionCreate(kCFAllocatorDefault, v131, kIOHIDTransactionDirectionTypeOutput, 0);
-        if (!v132)
+        v133 = IOHIDTransactionCreate(kCFAllocatorDefault, v132, kIOHIDTransactionDirectionTypeOutput, 0);
+        if (!v133)
         {
           return 0;
         }
@@ -5620,62 +5608,62 @@ LABEL_171:
         v3 = 0;
         if (CFNumberGetValue(a3, kCFNumberIntType, valuePtr) && valuePtr[0])
         {
-          AppleUSBALS::addElementValueToTransaction(this, v132, *(this + 21), 1);
-          AppleUSBALS::addElementValueToTransaction(this, v132, *(this + 19), valuePtr[0]);
-          v133 = *(this + 7);
-          if (!v133)
+          AppleUSBALS::addElementValueToTransaction(this, v133, *(this + 21), 1);
+          AppleUSBALS::addElementValueToTransaction(this, v133, *(this + 19), valuePtr[0]);
+          v134 = *(this + 7);
+          if (!v134)
           {
-            v133 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v134 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v133 = init_default_corebrightness_log();
+              v134 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v134, OS_LOG_TYPE_DEBUG))
           {
             sub_D3E0();
           }
 
           kdebug_trace();
-          if (IOHIDTransactionCommit(v132))
+          if (IOHIDTransactionCommit(v133))
           {
             v3 = 0;
           }
 
           else
           {
-            v224 = *(this + 7);
-            if (!v224)
+            v221 = *(this + 7);
+            if (!v221)
             {
-              v224 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v221 = _COREBRIGHTNESS_LOG_DEFAULT;
               if (!_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v224 = init_default_corebrightness_log();
+                v221 = init_default_corebrightness_log();
               }
             }
 
-            if (os_log_type_enabled(v224, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v221, OS_LOG_TYPE_DEFAULT))
             {
               buf[0] = 67109120;
               buf[1] = valuePtr[0];
-              _os_log_impl(&dword_0, v224, OS_LOG_TYPE_DEFAULT, "setting dimming step %u", buf, 8u);
+              _os_log_impl(&dword_0, v221, OS_LOG_TYPE_DEFAULT, "setting dimming step %u", buf, 8u);
             }
 
             v3 = 1;
           }
 
-          v225 = *(this + 7);
-          if (!v225)
+          v222 = *(this + 7);
+          if (!v222)
           {
-            v225 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v222 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v225 = init_default_corebrightness_log();
+              v222 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v225, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v222, OS_LOG_TYPE_DEBUG))
           {
             sub_D45C();
           }
@@ -5686,129 +5674,129 @@ LABEL_171:
 
       else
       {
-        v173 = CFDictionaryGetTypeID();
-        if (v173 != CFGetTypeID(a3))
+        v172 = CFDictionaryGetTypeID();
+        if (v172 != CFGetTypeID(a3))
         {
           return 0;
         }
 
-        v174 = *(this + 18);
-        if (!v174)
+        v173 = *(this + 18);
+        if (!v173)
         {
           return 0;
         }
 
-        v132 = IOHIDTransactionCreate(kCFAllocatorDefault, v174, kIOHIDTransactionDirectionTypeOutput, 0);
-        if (!v132)
+        v133 = IOHIDTransactionCreate(kCFAllocatorDefault, v173, kIOHIDTransactionDirectionTypeOutput, 0);
+        if (!v133)
         {
           return 0;
         }
 
         valuePtr[0] = 0;
-        *v254 = 0.5;
-        *v253 = -1.0;
-        v175 = CFDictionaryGetValue(a3, @"Step");
-        if (v175)
+        *v251 = 0.5;
+        *v250 = -1.0;
+        v174 = CFDictionaryGetValue(a3, @"Step");
+        if (v174)
         {
-          v176 = CFNumberGetTypeID();
-          if (v176 == CFGetTypeID(v175))
+          v175 = CFNumberGetTypeID();
+          if (v175 == CFGetTypeID(v174))
           {
-            v177 = CFNumberGetValue(v175, kCFNumberIntType, valuePtr);
-            v175 = 0;
-            if (v177 && valuePtr[0])
+            v176 = CFNumberGetValue(v174, kCFNumberIntType, valuePtr);
+            v174 = 0;
+            if (v176 && valuePtr[0])
             {
-              AppleUSBALS::addElementValueToTransaction(this, v132, *(this + 19), valuePtr[0]);
-              v175 = 1;
+              AppleUSBALS::addElementValueToTransaction(this, v133, *(this + 19), valuePtr[0]);
+              v174 = 1;
             }
           }
 
           else
           {
-            v175 = 0;
+            v174 = 0;
           }
         }
 
-        v219 = CFDictionaryGetValue(a3, @"Factor");
-        if (v219)
+        v216 = CFDictionaryGetValue(a3, @"Factor");
+        if (v216)
         {
-          v220 = CFNumberGetTypeID();
-          if (v220 == CFGetTypeID(v219))
+          v217 = CFNumberGetTypeID();
+          if (v217 == CFGetTypeID(v216))
           {
-            CFNumberGetValue(v219, kCFNumberFloat32Type, v253);
-            AppleUSBALS::addElementValueToTransaction(this, v132, *(this + 22), (*v253 * 1000.0));
-            v175 |= 4uLL;
+            CFNumberGetValue(v216, kCFNumberFloat32Type, v250);
+            AppleUSBALS::addElementValueToTransaction(this, v133, *(this + 22), (*v250 * 1000.0));
+            v174 |= 4uLL;
           }
         }
 
-        v221 = CFDictionaryGetValue(a3, @"Period");
-        if (v221)
+        v218 = CFDictionaryGetValue(a3, @"Period");
+        if (v218)
         {
-          v222 = CFNumberGetTypeID();
-          if (v222 == CFGetTypeID(v221))
+          v219 = CFNumberGetTypeID();
+          if (v219 == CFGetTypeID(v218))
           {
-            CFNumberGetValue(v221, kCFNumberFloat32Type, v254);
-            AppleUSBALS::addElementValueToTransaction(this, v132, *(this + 20), (*v254 * 1000.0));
-            v175 |= 2uLL;
+            CFNumberGetValue(v218, kCFNumberFloat32Type, v251);
+            AppleUSBALS::addElementValueToTransaction(this, v133, *(this + 20), (*v251 * 1000.0));
+            v174 |= 2uLL;
           }
         }
 
-        if (v175)
+        if (v174)
         {
-          AppleUSBALS::addElementValueToTransaction(this, v132, *(this + 21), v175);
-          v223 = *(this + 7);
-          if (!v223)
+          AppleUSBALS::addElementValueToTransaction(this, v133, *(this + 21), v174);
+          v220 = *(this + 7);
+          if (!v220)
           {
-            v223 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v220 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v223 = init_default_corebrightness_log();
+              v220 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v223, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v220, OS_LOG_TYPE_DEBUG))
           {
             sub_D3E0();
           }
 
           kdebug_trace();
-          if (IOHIDTransactionCommit(v132))
+          if (IOHIDTransactionCommit(v133))
           {
             v3 = 0;
           }
 
           else
           {
-            v226 = *(this + 7);
-            if (!v226)
+            v223 = *(this + 7);
+            if (!v223)
             {
-              v226 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v223 = _COREBRIGHTNESS_LOG_DEFAULT;
               if (!_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v226 = init_default_corebrightness_log();
+                v223 = init_default_corebrightness_log();
               }
             }
 
-            if (os_log_type_enabled(v226, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v223, OS_LOG_TYPE_DEFAULT))
             {
               buf[0] = 67109120;
               buf[1] = valuePtr[0];
-              _os_log_impl(&dword_0, v226, OS_LOG_TYPE_DEFAULT, "setting dimming step %u", buf, 8u);
+              _os_log_impl(&dword_0, v223, OS_LOG_TYPE_DEFAULT, "setting dimming step %u", buf, 8u);
             }
 
             v3 = 1;
           }
 
-          v227 = *(this + 7);
-          if (!v227)
+          v224 = *(this + 7);
+          if (!v224)
           {
-            v227 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v224 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v227 = init_default_corebrightness_log();
+              v224 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v227, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v224, OS_LOG_TYPE_DEBUG))
           {
             sub_D45C();
           }
@@ -5823,85 +5811,85 @@ LABEL_171:
       }
 
 LABEL_511:
-      CFRelease(v132);
+      CFRelease(v133);
       return v3;
     }
 
     if (CFEqual(a2, @"DFRCurve"))
     {
-      v151 = *(this + 18);
+      v150 = *(this + 18);
+      if (!v150)
+      {
+        return 0;
+      }
+
+      v151 = IOHIDTransactionCreate(kCFAllocatorDefault, v150, kIOHIDTransactionDirectionTypeOutput, 0);
       if (!v151)
       {
         return 0;
       }
 
-      v152 = IOHIDTransactionCreate(kCFAllocatorDefault, v151, kIOHIDTransactionDirectionTypeOutput, 0);
-      if (!v152)
-      {
-        return 0;
-      }
-
-      v153 = CFDictionaryGetTypeID();
-      if (v153 != CFGetTypeID(a3))
+      v152 = CFDictionaryGetTypeID();
+      if (v152 != CFGetTypeID(a3))
       {
         goto LABEL_358;
       }
 
-      *v253 = 0.0;
-      v154 = CFDictionaryGetValue(a3, @"Period");
-      if (v154)
+      *v250 = 0.0;
+      v153 = CFDictionaryGetValue(a3, @"Period");
+      if (v153)
       {
-        v155 = CFNumberGetTypeID();
-        if (v155 == CFGetTypeID(v154))
+        v154 = CFNumberGetTypeID();
+        if (v154 == CFGetTypeID(v153))
         {
-          CFNumberGetValue(v154, kCFNumberFloat32Type, v253);
+          CFNumberGetValue(v153, kCFNumberFloat32Type, v250);
         }
       }
 
-      v156 = CFDictionaryGetValue(a3, @"L");
-      v157 = CFDictionaryGetValue(a3, @"E");
-      if (!v156)
+      v155 = CFDictionaryGetValue(a3, @"L");
+      v156 = CFDictionaryGetValue(a3, @"E");
+      if (!v155)
       {
         goto LABEL_358;
       }
 
-      v158 = v157;
+      v157 = v156;
+      v158 = CFArrayGetTypeID();
+      if (v158 != CFGetTypeID(v155))
+      {
+        goto LABEL_358;
+      }
+
+      if (!v157)
+      {
+        goto LABEL_358;
+      }
+
       v159 = CFArrayGetTypeID();
-      if (v159 != CFGetTypeID(v156))
+      if (v159 != CFGetTypeID(v157) || CFArrayGetCount(v155) > 12)
       {
         goto LABEL_358;
       }
 
-      if (!v158)
-      {
-        goto LABEL_358;
-      }
-
-      v160 = CFArrayGetTypeID();
-      if (v160 != CFGetTypeID(v158) || CFArrayGetCount(v156) > 12)
-      {
-        goto LABEL_358;
-      }
-
-      Count = CFArrayGetCount(v156);
+      Count = CFArrayGetCount(v155);
       memset(buf, 0, sizeof(buf));
       memset(valuePtr, 0, sizeof(valuePtr));
-      v161 = *(this + 7);
-      if (!v161)
+      v160 = *(this + 7);
+      if (!v160)
       {
-        v161 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v160 = _COREBRIGHTNESS_LOG_DEFAULT;
         if (!_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v161 = init_default_corebrightness_log();
+          v160 = init_default_corebrightness_log();
         }
       }
 
-      if (os_log_type_enabled(v161, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v160, OS_LOG_TYPE_DEBUG))
       {
-        v162 = Count;
-        *v254 = 1.5047e-36;
-        v255 = Count;
-        _os_log_debug_impl(&dword_0, v161, OS_LOG_TYPE_DEBUG, "set DFR curve with size = %d\n", v254, 8u);
+        v161 = Count;
+        *v251 = 1.5047e-36;
+        v252 = Count;
+        _os_log_debug_impl(&dword_0, v160, OS_LOG_TYPE_DEBUG, "set DFR curve with size = %d\n", v251, 8u);
         if (!Count)
         {
           goto LABEL_355;
@@ -5910,114 +5898,114 @@ LABEL_511:
 
       else
       {
-        v162 = Count;
+        v161 = Count;
         if (!Count)
         {
           goto LABEL_355;
         }
       }
 
-      v163 = 0;
+      v162 = 0;
       do
       {
-        *v254 = 0.0;
-        v249 = 0.0;
-        ValueAtIndex = CFArrayGetValueAtIndex(v156, v163);
-        v165 = ValueAtIndex;
+        *v251 = 0.0;
+        v246 = 0.0;
+        ValueAtIndex = CFArrayGetValueAtIndex(v155, v162);
+        v164 = ValueAtIndex;
         if (ValueAtIndex)
         {
-          v166 = CFGetTypeID(ValueAtIndex);
-          if (v166 == CFNumberGetTypeID())
+          v165 = CFGetTypeID(ValueAtIndex);
+          if (v165 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v165, kCFNumberFloatType, v254);
-            buf[v163] = (*v254 * 1000.0);
+            CFNumberGetValue(v164, kCFNumberFloatType, v251);
+            buf[v162] = (*v251 * 1000.0);
           }
         }
 
-        v167 = CFArrayGetValueAtIndex(v158, v163);
-        v168 = v167;
-        if (v167)
+        v166 = CFArrayGetValueAtIndex(v157, v162);
+        v167 = v166;
+        if (v166)
         {
-          v169 = CFGetTypeID(v167);
-          if (v169 == CFNumberGetTypeID())
+          v168 = CFGetTypeID(v166);
+          if (v168 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v168, kCFNumberFloatType, &v249);
-            valuePtr[v163] = (v249 * 1000.0);
+            CFNumberGetValue(v167, kCFNumberFloatType, &v246);
+            valuePtr[v162] = (v246 * 1000.0);
           }
         }
 
-        ++v163;
+        ++v162;
       }
 
-      while (v162 != v163);
+      while (v161 != v162);
 LABEL_355:
-      v170 = AppleUSBALS::getElement(this, 65298, 68, kIOHIDElementTypeFeature);
-      if (AppleUSBALS::addElementValueToTransaction(this, v152, v170, 1))
+      v169 = AppleUSBALS::getElement(this, 65298, 68, kIOHIDElementTypeFeature);
+      if (AppleUSBALS::addElementValueToTransaction(this, v151, v169, 1))
       {
         goto LABEL_358;
       }
 
-      v171 = AppleUSBALS::getElement(this, 65298, 69, kIOHIDElementTypeFeature);
-      if (AppleUSBALS::addElementValueToTransaction(this, v152, v171, Count))
+      v170 = AppleUSBALS::getElement(this, 65298, 69, kIOHIDElementTypeFeature);
+      if (AppleUSBALS::addElementValueToTransaction(this, v151, v170, Count))
       {
         goto LABEL_358;
       }
 
-      v172 = AppleUSBALS::getElement(this, 65298, 70, kIOHIDElementTypeFeature);
-      if (AppleUSBALS::addElementValueToTransaction(this, v152, v172, (*v253 * 1000.0)))
+      v171 = AppleUSBALS::getElement(this, 65298, 70, kIOHIDElementTypeFeature);
+      if (AppleUSBALS::addElementValueToTransaction(this, v151, v171, (*v250 * 1000.0)))
       {
         goto LABEL_358;
       }
 
-      v240 = AppleUSBALS::getElement(this, 65298, 71, kIOHIDElementTypeFeature);
-      if (v240)
+      v237 = AppleUSBALS::getElement(this, 65298, 71, kIOHIDElementTypeFeature);
+      if (v237)
       {
-        v241 = mach_absolute_time();
-        v242 = IOHIDValueCreateWithBytes(kCFAllocatorDefault, v240, v241, valuePtr, 48);
-        v243 = AppleUSBALS::getElement(this, 65298, 72, kIOHIDElementTypeFeature);
-        if (!v243)
+        v238 = mach_absolute_time();
+        v239 = IOHIDValueCreateWithBytes(kCFAllocatorDefault, v237, v238, valuePtr, 48);
+        v240 = AppleUSBALS::getElement(this, 65298, 72, kIOHIDElementTypeFeature);
+        if (!v240)
         {
           goto LABEL_557;
         }
 
-        v244 = v242;
+        v241 = v239;
       }
 
       else
       {
-        v243 = AppleUSBALS::getElement(this, 65298, 72, kIOHIDElementTypeFeature);
-        if (!v243)
+        v240 = AppleUSBALS::getElement(this, 65298, 72, kIOHIDElementTypeFeature);
+        if (!v240)
         {
 LABEL_358:
           v3 = 0;
 LABEL_359:
-          CFRelease(v152);
+          CFRelease(v151);
           return v3;
         }
 
-        v244 = 0;
+        v241 = 0;
       }
 
-      v245 = mach_absolute_time();
-      v246 = IOHIDValueCreateWithBytes(kCFAllocatorDefault, v243, v245, buf, 48);
-      v242 = v246;
-      if (v244 && v246)
+      v242 = mach_absolute_time();
+      v243 = IOHIDValueCreateWithBytes(kCFAllocatorDefault, v240, v242, buf, 48);
+      v239 = v243;
+      if (v241 && v243)
       {
-        IOHIDTransactionAddElement(v152, v240);
-        IOHIDTransactionAddElement(v152, v243);
-        IOHIDTransactionSetValue(v152, v240, v244, 0);
-        IOHIDTransactionSetValue(v152, v243, v242, 0);
-        v3 = IOHIDTransactionCommit(v152) == 0;
-        CFRelease(v244);
+        IOHIDTransactionAddElement(v151, v237);
+        IOHIDTransactionAddElement(v151, v240);
+        IOHIDTransactionSetValue(v151, v237, v241, 0);
+        IOHIDTransactionSetValue(v151, v240, v239, 0);
+        v3 = IOHIDTransactionCommit(v151) == 0;
+        CFRelease(v241);
         goto LABEL_558;
       }
 
-      if (v244)
+      if (v241)
       {
-        v247 = v246 != 0;
-        CFRelease(v244);
+        v244 = v243 != 0;
+        CFRelease(v241);
         v3 = 0;
-        if (!v247)
+        if (!v244)
         {
           goto LABEL_359;
         }
@@ -6027,13 +6015,13 @@ LABEL_359:
 
 LABEL_557:
       v3 = 0;
-      if (!v242)
+      if (!v239)
       {
         goto LABEL_359;
       }
 
 LABEL_558:
-      CFRelease(v242);
+      CFRelease(v239);
       goto LABEL_359;
     }
 
@@ -6048,23 +6036,23 @@ LABEL_558:
             return 0;
           }
 
-          v228 = CFNumberGetTypeID();
-          if (v228 != CFGetTypeID(a3))
+          v225 = CFNumberGetTypeID();
+          if (v225 != CFGetTypeID(a3))
           {
             return 0;
           }
 
-          v229 = *(this + 7);
-          if (!v229)
+          v226 = *(this + 7);
+          if (!v226)
           {
-            v229 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v226 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v229 = init_default_corebrightness_log();
+              v226 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v229, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v226, OS_LOG_TYPE_ERROR))
           {
             sub_D50C();
           }
@@ -6075,23 +6063,23 @@ LABEL_558:
             return 0;
           }
 
-          v230 = AppleUSBALS::setIntValueForUsage(this, 65298, 64, buf[0]);
-          v231 = *(this + 7);
-          if (!v231)
+          v227 = AppleUSBALS::setIntValueForUsage(this, 65298, 64, buf[0]);
+          v228 = *(this + 7);
+          if (!v228)
           {
-            v231 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v228 = _COREBRIGHTNESS_LOG_DEFAULT;
             if (!_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v231 = init_default_corebrightness_log();
+              v228 = init_default_corebrightness_log();
             }
           }
 
-          if (os_log_type_enabled(v231, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v228, OS_LOG_TYPE_ERROR))
           {
             sub_D540();
           }
 
-          return v230 == 0;
+          return v227 == 0;
         }
 
         ScaledValue = IOHIDTransactionCreate(kCFAllocatorDefault, *(this + 18), kIOHIDTransactionDirectionTypeOutput, 0);
@@ -6100,13 +6088,13 @@ LABEL_558:
           return 0;
         }
 
-        v214 = AppleUSBALS::getElement(this, 65298, 80, kIOHIDElementTypeFeature);
-        if (!AppleUSBALS::addElementValueToTransaction(this, ScaledValue, v214, 1) && (v215 = CFNumberGetTypeID(), v215 == CFGetTypeID(a3)) && (*buf = 0, CFNumberGetValue(a3, kCFNumberLongLongType, buf)) && (v216 = AppleUSBALS::getElement(this, 65298, 81, kIOHIDElementTypeFeature)) != 0 && (v217 = mach_absolute_time(), (v218 = IOHIDValueCreateWithBytes(kCFAllocatorDefault, v216, v217, buf, 8)) != 0))
+        v211 = AppleUSBALS::getElement(this, 65298, 80, kIOHIDElementTypeFeature);
+        if (!AppleUSBALS::addElementValueToTransaction(this, ScaledValue, v211, 1) && (v212 = CFNumberGetTypeID(), v212 == CFGetTypeID(a3)) && (*buf = 0, CFNumberGetValue(a3, kCFNumberLongLongType, buf)) && (v213 = AppleUSBALS::getElement(this, 65298, 81, kIOHIDElementTypeFeature)) != 0 && (v214 = mach_absolute_time(), (v215 = IOHIDValueCreateWithBytes(kCFAllocatorDefault, v213, v214, buf, 8)) != 0))
         {
-          IOHIDTransactionAddElement(ScaledValue, v216);
-          IOHIDTransactionSetValue(ScaledValue, v216, v218, 0);
+          IOHIDTransactionAddElement(ScaledValue, v213);
+          IOHIDTransactionSetValue(ScaledValue, v213, v215, 0);
           v3 = IOHIDTransactionCommit(ScaledValue) == 0;
-          CFRelease(v218);
+          CFRelease(v215);
         }
 
         else
@@ -6119,189 +6107,189 @@ LABEL_529:
         return v3;
       }
 
-      v209 = *(this + 18);
-      if (!v209)
+      v206 = *(this + 18);
+      if (!v206)
       {
         return 0;
       }
 
-      v97 = IOHIDTransactionCreate(kCFAllocatorDefault, v209, kIOHIDTransactionDirectionTypeOutput, 0);
-      if (!v97)
+      v98 = IOHIDTransactionCreate(kCFAllocatorDefault, v206, kIOHIDTransactionDirectionTypeOutput, 0);
+      if (!v98)
       {
         return 0;
       }
 
-      v210 = AppleUSBALS::getElement(this, 65298, 16, kIOHIDElementTypeFeature);
-      AppleUSBALS::addElementValueToTransaction(this, v97, v210, 1);
-      v211 = CFNumberGetTypeID();
-      if (v211 == CFGetTypeID(a3))
+      v207 = AppleUSBALS::getElement(this, 65298, 16, kIOHIDElementTypeFeature);
+      AppleUSBALS::addElementValueToTransaction(this, v98, v207, 1);
+      v208 = CFNumberGetTypeID();
+      if (v208 == CFGetTypeID(a3))
       {
         buf[0] = 0;
         if (CFNumberGetValue(a3, kCFNumberFloat32Type, buf))
         {
-          v212 = AppleUSBALS::getElement(this, 65298, 18, kIOHIDElementTypeFeature);
-          AppleUSBALS::addElementValueToTransaction(this, v97, v212, (*buf * 1000.0));
+          v209 = AppleUSBALS::getElement(this, 65298, 18, kIOHIDElementTypeFeature);
+          AppleUSBALS::addElementValueToTransaction(this, v98, v209, (*buf * 1000.0));
         }
       }
 
       else
       {
-        v233 = CFDictionaryGetTypeID();
-        if (v233 == CFGetTypeID(a3))
+        v230 = CFDictionaryGetTypeID();
+        if (v230 == CFGetTypeID(a3))
         {
           buf[0] = 0;
           valuePtr[0] = 0;
-          v234 = CFDictionaryGetValue(a3, @"Brightness");
+          v231 = CFDictionaryGetValue(a3, @"Brightness");
+          if (v231)
+          {
+            v232 = CFNumberGetTypeID();
+            if (v232 == CFGetTypeID(v231))
+            {
+              CFNumberGetValue(v231, kCFNumberFloat32Type, buf);
+              v233 = AppleUSBALS::getElement(this, 65298, 18, kIOHIDElementTypeFeature);
+              AppleUSBALS::addElementValueToTransaction(this, v98, v233, (*buf * 1000.0));
+            }
+          }
+
+          v234 = CFDictionaryGetValue(a3, @"Period");
           if (v234)
           {
             v235 = CFNumberGetTypeID();
             if (v235 == CFGetTypeID(v234))
             {
-              CFNumberGetValue(v234, kCFNumberFloat32Type, buf);
-              v236 = AppleUSBALS::getElement(this, 65298, 18, kIOHIDElementTypeFeature);
-              AppleUSBALS::addElementValueToTransaction(this, v97, v236, (*buf * 1000.0));
-            }
-          }
-
-          v237 = CFDictionaryGetValue(a3, @"Period");
-          if (v237)
-          {
-            v238 = CFNumberGetTypeID();
-            if (v238 == CFGetTypeID(v237))
-            {
-              CFNumberGetValue(v237, kCFNumberFloat32Type, valuePtr);
-              v239 = AppleUSBALS::getElement(this, 65298, 19, kIOHIDElementTypeFeature);
-              AppleUSBALS::addElementValueToTransaction(this, v97, v239, (*valuePtr * 1000.0));
+              CFNumberGetValue(v234, kCFNumberFloat32Type, valuePtr);
+              v236 = AppleUSBALS::getElement(this, 65298, 19, kIOHIDElementTypeFeature);
+              AppleUSBALS::addElementValueToTransaction(this, v98, v236, (*valuePtr * 1000.0));
             }
           }
         }
       }
 
 LABEL_238:
-      v3 = IOHIDTransactionCommit(v97) == 0;
-      CFRelease(v97);
+      v3 = IOHIDTransactionCommit(v98) == 0;
+      CFRelease(v98);
       return v3;
     }
 
-    v189 = *(this + 18);
-    if (!v189)
+    v186 = *(this + 18);
+    if (!v186)
     {
       return 0;
     }
 
-    v132 = IOHIDTransactionCreate(kCFAllocatorDefault, v189, kIOHIDTransactionDirectionTypeOutput, 0);
-    if (!v132)
+    v133 = IOHIDTransactionCreate(kCFAllocatorDefault, v186, kIOHIDTransactionDirectionTypeOutput, 0);
+    if (!v133)
     {
       return 0;
     }
 
-    v190 = CFDictionaryGetTypeID();
-    if (v190 != CFGetTypeID(a3))
+    v187 = CFDictionaryGetTypeID();
+    if (v187 != CFGetTypeID(a3))
     {
       goto LABEL_460;
     }
 
-    v191 = *(this + 7);
-    if (!v191)
+    v188 = *(this + 7);
+    if (!v188)
     {
-      v191 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v188 = _COREBRIGHTNESS_LOG_DEFAULT;
       if (!_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v191 = init_default_corebrightness_log();
+        v188 = init_default_corebrightness_log();
       }
     }
 
-    if (os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v188, OS_LOG_TYPE_DEFAULT))
     {
       buf[0] = 138543362;
       *&buf[1] = a3;
-      _os_log_impl(&dword_0, v191, OS_LOG_TYPE_DEFAULT, "whitepoint: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_0, v188, OS_LOG_TYPE_DEFAULT, "whitepoint: %{public}@", buf, 0xCu);
     }
 
     buf[0] = 0;
     valuePtr[0] = 0;
-    *v254 = 0.0;
-    v192 = CFDictionaryGetValue(a3, @"Period");
-    if (v192)
+    *v251 = 0.0;
+    v189 = CFDictionaryGetValue(a3, @"Period");
+    if (v189)
     {
-      v193 = CFNumberGetTypeID();
-      if (v193 == CFGetTypeID(v192))
+      v190 = CFNumberGetTypeID();
+      if (v190 == CFGetTypeID(v189))
       {
-        CFNumberGetValue(v192, kCFNumberFloat32Type, buf);
+        CFNumberGetValue(v189, kCFNumberFloat32Type, buf);
       }
     }
 
-    v194 = CFDictionaryGetValue(a3, @"Target_x");
-    v195 = CFDictionaryGetValue(a3, @"Target_y");
-    if (!v194)
+    v191 = CFDictionaryGetValue(a3, @"Target_x");
+    v192 = CFDictionaryGetValue(a3, @"Target_y");
+    if (!v191)
     {
       goto LABEL_460;
     }
 
-    v196 = v195;
-    v197 = CFNumberGetTypeID();
+    v193 = v192;
+    v194 = CFNumberGetTypeID();
     v3 = 0;
-    if (v197 != CFGetTypeID(v194) || !v196)
+    if (v194 != CFGetTypeID(v191) || !v193)
     {
       goto LABEL_511;
     }
 
-    v198 = CFNumberGetTypeID();
-    if (v198 != CFGetTypeID(v196) || !CFNumberGetValue(v194, kCFNumberFloat32Type, valuePtr) || !CFNumberGetValue(v196, kCFNumberFloat32Type, v254))
+    v195 = CFNumberGetTypeID();
+    if (v195 != CFGetTypeID(v193) || !CFNumberGetValue(v191, kCFNumberFloat32Type, valuePtr) || !CFNumberGetValue(v193, kCFNumberFloat32Type, v251))
     {
 LABEL_460:
       v3 = 0;
       goto LABEL_511;
     }
 
-    v199 = AppleUSBALS::getElement(this, 65298, 98, kIOHIDElementTypeFeature);
-    if (v199)
+    v196 = AppleUSBALS::getElement(this, 65298, 98, kIOHIDElementTypeFeature);
+    if (v196)
     {
-      v200 = AppleUSBALS::createScaledValue(this, v199, *buf);
-      if (v200)
+      v197 = AppleUSBALS::createScaledValue(this, v196, *buf);
+      if (v197)
       {
-        IOHIDTransactionAddElement(v132, v199);
-        IOHIDTransactionSetValue(v132, v199, v200, 0);
-        CFRelease(v200);
+        IOHIDTransactionAddElement(v133, v196);
+        IOHIDTransactionSetValue(v133, v196, v197, 0);
+        CFRelease(v197);
       }
     }
 
-    v201 = AppleUSBALS::getElement(this, 65298, 96, kIOHIDElementTypeFeature);
-    v202 = AppleUSBALS::getElement(this, 65298, 97, kIOHIDElementTypeFeature);
+    v198 = AppleUSBALS::getElement(this, 65298, 96, kIOHIDElementTypeFeature);
+    v199 = AppleUSBALS::getElement(this, 65298, 97, kIOHIDElementTypeFeature);
     v3 = 0;
-    if (!v201)
+    if (!v198)
     {
       goto LABEL_511;
     }
 
+    v200 = v199;
+    if (!v199)
+    {
+      goto LABEL_511;
+    }
+
+    v201 = AppleUSBALS::createScaledValue(this, v198, *valuePtr);
+    v202 = AppleUSBALS::createScaledValue(this, v200, *v251);
     v203 = v202;
-    if (!v202)
+    if (v201 && v202)
     {
-      goto LABEL_511;
-    }
-
-    v204 = AppleUSBALS::createScaledValue(this, v201, *valuePtr);
-    v205 = AppleUSBALS::createScaledValue(this, v203, *v254);
-    v206 = v205;
-    if (v204 && v205)
-    {
-      IOHIDTransactionAddElement(v132, v201);
-      IOHIDTransactionSetValue(v132, v201, v204, 0);
-      IOHIDTransactionAddElement(v132, v203);
-      IOHIDTransactionSetValue(v132, v203, v206, 0);
-      if (IOHIDTransactionCommit(v132))
+      IOHIDTransactionAddElement(v133, v198);
+      IOHIDTransactionSetValue(v133, v198, v201, 0);
+      IOHIDTransactionAddElement(v133, v200);
+      IOHIDTransactionSetValue(v133, v200, v203, 0);
+      if (IOHIDTransactionCommit(v133))
       {
-        v207 = *(this + 7);
-        if (!v207)
+        v204 = *(this + 7);
+        if (!v204)
         {
-          v207 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v204 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v207 = init_default_corebrightness_log();
+            v204 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v207, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v204, OS_LOG_TYPE_ERROR))
         {
           sub_D4D8();
         }
@@ -6318,19 +6306,19 @@ LABEL_460:
     else
     {
       v3 = 0;
-      if (!v204)
+      if (!v201)
       {
 LABEL_547:
-        if (v206)
+        if (v203)
         {
-          CFRelease(v206);
+          CFRelease(v203);
         }
 
         goto LABEL_511;
       }
     }
 
-    CFRelease(v204);
+    CFRelease(v201);
     goto LABEL_547;
   }
 
@@ -6406,7 +6394,7 @@ LABEL_547:
 
   if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
   {
-    sub_CF60(buf);
+    sub_CF60();
   }
 
   return v3;
@@ -6712,22 +6700,21 @@ void sub_9F50(uint64_t a1)
     sub_D76C();
   }
 
-  v4 = *(*(*(a1 + 32) + 8) + 24);
   kdebug_trace();
-  v5 = IOHIDTransactionCommit(*(a1 + 48));
-  v6 = *(v2 + 56);
-  if (v5)
+  v4 = IOHIDTransactionCommit(*(a1 + 48));
+  v5 = *(v2 + 56);
+  if (v4)
   {
-    if (!v6)
+    if (!v5)
     {
-      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v5 = _COREBRIGHTNESS_LOG_DEFAULT;
       if (!_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v6 = init_default_corebrightness_log();
+        v5 = init_default_corebrightness_log();
       }
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_D2FC();
     }
@@ -6735,21 +6722,20 @@ void sub_9F50(uint64_t a1)
 
   else
   {
-    if (!v6)
+    if (!v5)
     {
-      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v5 = _COREBRIGHTNESS_LOG_DEFAULT;
       if (!_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v6 = init_default_corebrightness_log();
+        v5 = init_default_corebrightness_log();
       }
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_D7E0();
     }
 
-    v7 = *(*(*(a1 + 32) + 8) + 24);
     kdebug_trace();
     if (*(*(*(a1 + 32) + 8) + 24) == 1)
     {
@@ -6761,17 +6747,17 @@ void sub_9F50(uint64_t a1)
 
       else
       {
-        v8 = *(v2 + 56);
-        if (!v8)
+        v6 = *(v2 + 56);
+        if (!v6)
         {
-          v8 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v6 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v8 = init_default_corebrightness_log();
+            v6 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           sub_D254();
         }
@@ -6800,22 +6786,21 @@ void sub_A114(uint64_t a1)
     sub_D76C();
   }
 
-  v4 = *(*(*(a1 + 32) + 8) + 24);
   kdebug_trace();
-  v5 = IOHIDTransactionCommit(*(a1 + 48));
-  v6 = *(v2 + 56);
-  if (v5)
+  v4 = IOHIDTransactionCommit(*(a1 + 48));
+  v5 = *(v2 + 56);
+  if (v4)
   {
-    if (!v6)
+    if (!v5)
     {
-      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v5 = _COREBRIGHTNESS_LOG_DEFAULT;
       if (!_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v6 = init_default_corebrightness_log();
+        v5 = init_default_corebrightness_log();
       }
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_D2FC();
     }
@@ -6823,21 +6808,20 @@ void sub_A114(uint64_t a1)
 
   else
   {
-    if (!v6)
+    if (!v5)
     {
-      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v5 = _COREBRIGHTNESS_LOG_DEFAULT;
       if (!_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v6 = init_default_corebrightness_log();
+        v5 = init_default_corebrightness_log();
       }
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_D7E0();
     }
 
-    v7 = *(*(*(a1 + 32) + 8) + 24);
     kdebug_trace();
     if (*(*(*(a1 + 32) + 8) + 24) == 1)
     {
@@ -6849,17 +6833,17 @@ void sub_A114(uint64_t a1)
 
       else
       {
-        v8 = *(v2 + 56);
-        if (!v8)
+        v6 = *(v2 + 56);
+        if (!v6)
         {
-          v8 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v6 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v8 = init_default_corebrightness_log();
+            v6 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           sub_D254();
         }
@@ -7128,9 +7112,9 @@ void AppleUSBALS::scheduleWithDispatchQueue(AppleUSBALS *this, NSObject *a2)
   }
 }
 
-void sub_A8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_A8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_BF58(va);
   _Unwind_Resume(a1);
 }
@@ -7180,7 +7164,6 @@ void AppleUSBALS::startClamshellStateMonitoring(AppleUSBALS *this)
     if (MatchingService)
     {
       v6 = MatchingService;
-      v7 = *(this + 8);
       active = IOPMScheduleUserActiveChangedNotification();
       *(this + 37) = active;
       if (active)
@@ -7209,17 +7192,17 @@ void AppleUSBALS::startClamshellStateMonitoring(AppleUSBALS *this)
 
       else
       {
-        v12 = *(this + 7);
-        if (!v12)
+        v11 = *(this + 7);
+        if (!v11)
         {
-          v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v11 = _COREBRIGHTNESS_LOG_DEFAULT;
           if (!_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v12 = init_default_corebrightness_log();
+            v11 = init_default_corebrightness_log();
           }
         }
 
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_DBC8();
         }
@@ -7228,17 +7211,17 @@ void AppleUSBALS::startClamshellStateMonitoring(AppleUSBALS *this)
 
     else
     {
-      v11 = *(this + 7);
-      if (!v11)
+      v10 = *(this + 7);
+      if (!v10)
       {
-        v11 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v10 = _COREBRIGHTNESS_LOG_DEFAULT;
         if (!_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v11 = init_default_corebrightness_log();
+          v10 = init_default_corebrightness_log();
         }
       }
 
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_DBFC();
       }
@@ -7247,26 +7230,26 @@ void AppleUSBALS::startClamshellStateMonitoring(AppleUSBALS *this)
 
   else
   {
-    v10 = *(this + 7);
-    if (!v10)
+    v9 = *(this + 7);
+    if (!v9)
     {
-      v10 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v9 = _COREBRIGHTNESS_LOG_DEFAULT;
       if (!_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v10 = init_default_corebrightness_log();
+        v9 = init_default_corebrightness_log();
       }
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_DC30();
     }
   }
 
-  v13 = *(this + 35);
-  if (v13)
+  v12 = *(this + 35);
+  if (v12)
   {
-    IONotificationPortDestroy(v13);
+    IONotificationPortDestroy(v12);
     *(this + 35) = 0;
   }
 
@@ -7460,7 +7443,7 @@ uint64_t AppleUSBALS::stopDisplayPowerMonitoring(AppleUSBALS *this)
 
   if (os_log_type_enabled(inited, OS_LOG_TYPE_DEBUG))
   {
-    sub_DD80(this);
+    sub_DD80();
   }
 
   v3 = *(this + 33);
@@ -7508,7 +7491,7 @@ uint64_t AppleUSBALS::stopClamshellStateMonitoring(AppleUSBALS *this)
 
   if (os_log_type_enabled(inited, OS_LOG_TYPE_DEBUG))
   {
-    sub_DDFC(this);
+    sub_DDFC();
   }
 
   v3 = *(this + 35);
@@ -7537,7 +7520,7 @@ uint64_t AppleUSBALS::stopClamshellStateMonitoring(AppleUSBALS *this)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_DE78(this);
+    sub_DE78();
   }
 
   result = *(this + 37);
@@ -8133,9 +8116,9 @@ uint64_t sub_BDB8(std::__thread_struct **a1)
   return 0;
 }
 
-void sub_BEFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_BEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_BF10(va);
   _Unwind_Resume(a1);
 }
@@ -8166,17 +8149,11 @@ std::__thread_struct **sub_BF58(std::__thread_struct **a1)
   return a1;
 }
 
-void sub_BFA0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_BFA0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
-}
-
-uint64_t *sub_C0A8@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_C0FC()
@@ -8212,14 +8189,6 @@ void sub_C254()
   sub_BFC8();
   sub_BFD4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_C290(uint64_t a1, uint64_t *a2)
-{
-  v7 = *(a1 + 252);
-  v8 = *a2;
-  sub_C028();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 void sub_C34C()
@@ -8264,12 +8233,12 @@ void sub_C7A8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_C818(uint64_t *a1)
+void sub_C818()
 {
-  sub_C0A8(a1, __stack_chk_guard);
+  sub_C0A8(__stack_chk_guard);
   sub_C090();
   sub_BFBC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_C888()
@@ -8321,21 +8290,20 @@ void sub_CB94()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_CC04(uint64_t *a1)
+void sub_CC04()
 {
-  sub_C0A8(a1, __stack_chk_guard);
+  sub_C0A8(__stack_chk_guard);
   sub_BFF4();
-  v4 = v1;
-  _os_log_error_impl(&dword_0, v2, OS_LOG_TYPE_ERROR, "value=%p result=%d", v3, 0x12u);
+  v3 = v0;
+  _os_log_error_impl(&dword_0, v1, OS_LOG_TYPE_ERROR, "value=%p result=%d", v2, 0x12u);
 }
 
-void sub_CC80(uint64_t *a1)
+void sub_CC80()
 {
-  sub_C0A8(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_C0A8(__stack_chk_guard);
   sub_C038();
   sub_C028();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_CD00(__IOHIDElement *a1, NSObject *a2)
@@ -8357,20 +8325,6 @@ void sub_CE04()
   sub_C050();
   sub_C028();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-}
-
-void sub_CEB4(int *a1)
-{
-  v6 = *a1;
-  sub_BFD4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_CF60(int *a1)
-{
-  v6 = *a1;
-  sub_BFD4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_D00C(uint64_t a1)
@@ -8537,30 +8491,25 @@ void sub_DD44()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_DD80(uint64_t a1)
+void sub_DD80()
 {
-  v1 = *(a1 + 256);
-  v2 = *(a1 + 252);
   sub_BFF4();
   sub_BFD4();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_DDFC(uint64_t a1)
+void sub_DDFC()
 {
-  v1 = *(a1 + 280);
-  v2 = *(a1 + 276);
   sub_BFF4();
   sub_BFD4();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_DE78(uint64_t a1)
+void sub_DE78()
 {
-  v1 = *(a1 + 296);
   sub_C038();
   sub_BFD4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_DEEC()

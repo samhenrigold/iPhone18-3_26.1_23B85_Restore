@@ -24,34 +24,13 @@
   v20.receiver = self;
   v20.super_class = SPAKE2Prover;
   v12 = [(SPAKE2Prover *)&v20 init];
-  if (!v12)
+  if (!v12 || (v13 = -[SPAKE2Common initWithSalt:code:rng:cp:]([SPAKE2Common alloc], "initWithSalt:code:rng:cp:", saltCopy, codeCopy, rng, ccspake_cp_256()), -[SPAKE2Prover setCommon:](v12, "setCommon:", v13), v13, -[SPAKE2Prover common](v12, "common"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 generateStateWithError:error], v14, v15) && (-[SPAKE2Prover common](v12, "common"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "setupProver:", error), v16, v17))
   {
-    goto LABEL_4;
-  }
-
-  v13 = [[SPAKE2Common alloc] initWithSalt:saltCopy code:codeCopy rng:rng cp:ccspake_cp_256()];
-  [(SPAKE2Prover *)v12 setCommon:v13];
-
-  common = [(SPAKE2Prover *)v12 common];
-  v15 = [common generateStateWithError:error];
-
-  if (!v15)
-  {
-    goto LABEL_5;
-  }
-
-  common2 = [(SPAKE2Prover *)v12 common];
-  v17 = [common2 setupProver:error];
-
-  if (v17)
-  {
-LABEL_4:
     v18 = v12;
   }
 
   else
   {
-LABEL_5:
     v18 = 0;
   }
 

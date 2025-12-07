@@ -72,30 +72,31 @@
 void __56__TESTriggerPhraseMatcher_matchesForString_searchRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = [*(a1 + 32) createMatchResultForMatchRange:a2 sourceString:a3 effectType:{*(a1 + 40), a4}];
-  if ([v5 effectType] == 1)
+  v6 = [v5 effectType];
+  if (v6 == 1)
   {
-    v6 = [v5 matchingSubString];
-    v7 = [v6 uppercaseString];
-    v8 = [v5 matchingSubString];
-    v9 = [v7 isEqualToString:v8];
+    v7 = [v5 matchingSubString];
+    v8 = [v7 uppercaseString];
+    v9 = [v5 matchingSubString];
+    v10 = [v8 isEqualToString:v9];
 
-    if (v9)
+    if (v10)
     {
-      v10 = 2;
+      v11 = 2;
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
     }
 
-    [v5 setSuggestionBehavior:v10];
+    v6 = [v5 setSuggestionBehavior:v11];
   }
 
-  v11 = emf_logging_get_default_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = emf_logging_get_default_log(v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    __56__TESTriggerPhraseMatcher_matchesForString_searchRange___block_invoke_cold_1(v5, v11);
+    __56__TESTriggerPhraseMatcher_matchesForString_searchRange___block_invoke_cold_1(v5, v12);
   }
 
   [*(a1 + 48) addObject:v5];

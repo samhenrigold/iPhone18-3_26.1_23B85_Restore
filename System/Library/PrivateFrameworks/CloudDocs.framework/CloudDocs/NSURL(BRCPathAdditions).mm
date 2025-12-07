@@ -14,11 +14,11 @@
 
 + (id)brc_fileURLWithFileDescriptor:()BRCPathAdditions
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v13 = xmmword_1AE33DF58;
-  v14 = 0;
-  memset(v21, 0, 512);
-  if (fgetattrlist(a3, &v13, v21, 0x410uLL, 0x20u) < 0)
+  v21 = *MEMORY[0x1E69E9840];
+  v12 = xmmword_1AE33DF58;
+  v13 = 0;
+  memset(v20, 0, 512);
+  if (fgetattrlist(a3, &v12, v20, 0x410uLL, 0x20u) < 0)
   {
     v7 = *__error();
     v8 = brc_bread_crumbs("+[NSURL(BRCPathAdditions) brc_fileURLWithFileDescriptor:]", 40);
@@ -26,11 +26,11 @@
     if (os_log_type_enabled(v9, 0x90u))
     {
       *buf = 67109634;
-      v16 = a3;
-      v17 = 1024;
-      v18 = v7;
-      v19 = 2112;
-      v20 = v8;
+      v15 = a3;
+      v16 = 1024;
+      v17 = v7;
+      v18 = 2112;
+      v19 = v8;
       _os_log_error_impl(&dword_1AE2A9000, v9, 0x90u, "[ERROR] fgetattrlist(%d) failed %{errno}d%@", buf, 0x18u);
     }
 
@@ -41,23 +41,21 @@
 
   else
   {
-    v4 = SDWORD2(v21[0]);
+    v4 = SDWORD2(v20[0]);
     v5 = objc_alloc(MEMORY[0x1E695DFF8]);
-    v6 = [v5 initFileURLWithFileSystemRepresentation:v21 + v4 + 8 isDirectory:(WORD2(v21[0]) & 0xF000) == 0x4000 relativeToURL:0];
+    v6 = [v5 initFileURLWithFileSystemRepresentation:v20 + v4 + 8 isDirectory:(WORD2(v20[0]) & 0xF000) == 0x4000 relativeToURL:0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)brc_fileURLWithVolumeDeviceID:()BRCPathAdditions fileID:isDirectory:withError:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v9 = a4;
   unsignedLongLongValue = [v9 unsignedLongLongValue];
 
-  if (fsgetpath(v17, 0x400uLL, &v16, unsignedLongLongValue) < 0)
+  if (fsgetpath(v16, 0x400uLL, &v15, unsignedLongLongValue) < 0)
   {
     if (a6)
     {
@@ -75,17 +73,15 @@
 
   else
   {
-    v11 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v17 isDirectory:a5 relativeToURL:0];
+    v11 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v16 isDirectory:a5 relativeToURL:0];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)brc_issueSandboxExtensionOfClass:()BRCPathAdditions error:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   path = [self path];
   [path fileSystemRepresentation];
   v8 = sandbox_extension_issue_file();
@@ -109,20 +105,20 @@
       v16 = brc_default_log(0, 0);
       if (os_log_type_enabled(v16, 0x90u))
       {
-        v20 = "(passed to caller)";
+        v19 = "(passed to caller)";
         *buf = 136315906;
-        v22 = "[NSURL(BRCPathAdditions) brc_issueSandboxExtensionOfClass:error:]";
-        v23 = 2080;
+        v21 = "[NSURL(BRCPathAdditions) brc_issueSandboxExtensionOfClass:error:]";
+        v22 = 2080;
         if (!a4)
         {
-          v20 = "(ignored by caller)";
+          v19 = "(ignored by caller)";
         }
 
-        v24 = v20;
-        v25 = 2112;
-        v26 = v14;
-        v27 = 2112;
-        v28 = v15;
+        v23 = v19;
+        v24 = 2112;
+        v25 = v14;
+        v26 = 2112;
+        v27 = v15;
         _os_log_error_impl(&dword_1AE2A9000, v16, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -136,14 +132,12 @@
     v9 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)brc_ciconiaWorkDirForCurrentPersona
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
@@ -172,9 +166,9 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v18 = 1;
-        v19 = 2112;
-        v20 = v10;
+        v17 = 1;
+        v18 = 2112;
+        v19 = v10;
         _os_log_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] container_create_or_lookup_path_for_current_user() failed with %llu%@", buf, 0x16u);
       }
 
@@ -202,14 +196,13 @@ LABEL_10:
   v5 = [v14 URLByAppendingPathComponent:@"ciconia"];
 
 LABEL_14:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)brc_ciconiaDumpDirForCurrentPersona
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
@@ -246,9 +239,9 @@ LABEL_14:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v17 = 1;
-          v18 = 2112;
-          v19 = v11;
+          v16 = 1;
+          v17 = 2112;
+          v18 = v11;
           _os_log_impl(&dword_1AE2A9000, v12, OS_LOG_TYPE_DEFAULT, "[WARNING] container_create_or_lookup_path_for_current_user() failed with %llu%@", buf, 0x16u);
         }
 
@@ -262,14 +255,12 @@ LABEL_14:
     v5 = [v13 URLByAppendingPathComponent:@"session/ciconia_diagnose"];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (BOOL)brc_isDirectory:()BRCPathAdditions isExists:withError:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     *a3 = 0;
@@ -281,13 +272,13 @@ LABEL_14:
   }
 
   path = [self path];
-  v9 = fstatat(-1, [path fileSystemRepresentation], &v18, 32);
+  v9 = fstatat(-1, [path fileSystemRepresentation], &v17, 32);
 
   if (v9 < 0)
   {
     if (*__error() == 2)
     {
-      v10 = 1;
+      return 1;
     }
 
     else
@@ -300,20 +291,20 @@ LABEL_14:
         v13 = brc_default_log(0, 0);
         if (os_log_type_enabled(v13, 0x90u))
         {
-          v17 = "(passed to caller)";
+          v16 = "(passed to caller)";
           *buf = 136315906;
-          v20 = "[NSURL(BRCPathAdditions) brc_isDirectory:isExists:withError:]";
-          v21 = 2080;
+          v19 = "[NSURL(BRCPathAdditions) brc_isDirectory:isExists:withError:]";
+          v20 = 2080;
           if (!a5)
           {
-            v17 = "(ignored by caller)";
+            v16 = "(ignored by caller)";
           }
 
-          v22 = v17;
-          v23 = 2112;
-          v24 = br_errorFromErrno;
-          v25 = 2112;
-          v26 = v12;
+          v21 = v16;
+          v22 = 2112;
+          v23 = br_errorFromErrno;
+          v24 = 2112;
+          v25 = v12;
           _os_log_error_impl(&dword_1AE2A9000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
@@ -330,7 +321,7 @@ LABEL_14:
   {
     if (a3)
     {
-      *a3 = (v18.st_mode & 0xF000) == 0x4000;
+      *a3 = (v17.st_mode & 0xF000) == 0x4000;
     }
 
     v10 = 1;
@@ -340,7 +331,6 @@ LABEL_14:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -374,13 +364,12 @@ LABEL_14:
 
 + (void)brc_ciconiaWorkDirForCurrentPersona
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Unable to retrieve base path for current persona : %@%@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1AE2A9000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Unable to retrieve base path for current persona : %@%@", &v3, 0x16u);
 }
 
 @end

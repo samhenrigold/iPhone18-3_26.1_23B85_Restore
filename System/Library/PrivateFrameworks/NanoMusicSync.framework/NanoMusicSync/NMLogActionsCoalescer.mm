@@ -2,6 +2,7 @@
 - (NMLogActionsCoalescer)initWithIdentifier:(id)identifier logCategory:(id)category;
 - (id)_logMessageFromPendingLogActions:(id)actions includingPartNumber:(BOOL)number;
 - (void)_addAction:(id)action toPendingActions:(id)actions limit:(unint64_t)limit;
+- (void)_writeLogMessageFromActions:(id)actions includingPartNumber:(BOOL)number;
 - (void)flush;
 - (void)setMessageBufferLimit:(unint64_t)limit;
 @end
@@ -43,7 +44,7 @@
     pendingLogActions = self->_pendingLogActions;
     self->_pendingLogActions = v5;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v5, pendingLogActions);
   }
 }
 
@@ -84,10 +85,30 @@
   v8 = [actionsCopy valueForKey:@"logMessage"];
   v9 = [v8 componentsJoinedByString:@"\n"];
 
-  prefix = self->_prefix;
-  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ - %@%@: <\n%@\n>", prefix, self->_identifier, v7, v9];
+  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ - %@%@: <\n%@\n>", self->_prefix, self->_identifier, v7, v9];
 
-  return v11;
+  return v10;
+}
+
+- (void)_writeLogMessageFromActions:(id)actions includingPartNumber:(BOOL)number
+{
+  numberCopy = number;
+  v12 = *MEMORY[0x277D85DE8];
+  actionsCopy = actions;
+  category = self->_category;
+  if (os_log_type_enabled(category, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = category;
+    v9 = [(NMLogActionsCoalescer *)self _logMessageFromPendingLogActions:actionsCopy includingPartNumber:numberCopy];
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@", &v10, 0xCu);
+  }
+
+  if (numberCopy)
+  {
+    ++self->_partNumber;
+  }
 }
 
 @end

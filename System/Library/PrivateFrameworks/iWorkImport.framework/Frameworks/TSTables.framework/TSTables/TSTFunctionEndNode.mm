@@ -18,14 +18,14 @@
 {
   contextCopy = context;
   nodeCopy = node;
-  v18.receiver = self;
-  v18.super_class = TSTFunctionEndNode;
-  v12 = [(TSTExpressionNode *)&v18 initWithContext:contextCopy children:0 firstIndex:index lastIndex:lastIndex];
+  v17.receiver = self;
+  v17.super_class = TSTFunctionEndNode;
+  v12 = [(TSTExpressionNode *)&v17 initWithContext:contextCopy children:0 firstIndex:index lastIndex:lastIndex];
   v13 = v12;
   if (v12)
   {
     objc_storeWeak(&v12->_functionNode, nodeCopy);
-    objc_msgSend_setFunctionEndNode_(nodeCopy, v14, v13, v15, v16);
+    objc_msgSend_setFunctionEndNode_(nodeCopy, v14, v13, v15);
   }
 
   return v13;
@@ -40,86 +40,86 @@
 
 - (unint64_t)firstIndex
 {
-  v6 = objc_msgSend_functionNode(self, a2, v2, v3, v4);
-  v11 = v6;
-  if (v6)
+  v5 = objc_msgSend_functionNode(self, a2, v2, v3);
+  v9 = v5;
+  if (v5)
   {
-    IndexOfSubtree = objc_msgSend_lastIndexOfSubtree(v6, v7, v8, v9, v10);
+    IndexOfSubtree = objc_msgSend_lastIndexOfSubtree(v5, v6, v7, v8);
   }
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = TSTFunctionEndNode;
-    IndexOfSubtree = [(TSTExpressionNode *)&v15 firstIndex];
+    v13.receiver = self;
+    v13.super_class = TSTFunctionEndNode;
+    IndexOfSubtree = [(TSTExpressionNode *)&v13 firstIndex];
   }
 
-  v13 = IndexOfSubtree;
+  v11 = IndexOfSubtree;
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)lastIndex
 {
-  v6 = objc_msgSend_functionNode(self, a2, v2, v3, v4);
-  v11 = v6;
-  if (v6)
+  v5 = objc_msgSend_functionNode(self, a2, v2, v3);
+  v9 = v5;
+  if (v5)
   {
-    IndexOfSubtree = objc_msgSend_lastIndexOfSubtree(v6, v7, v8, v9, v10);
+    IndexOfSubtree = objc_msgSend_lastIndexOfSubtree(v5, v6, v7, v8);
   }
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = TSTFunctionEndNode;
-    IndexOfSubtree = [(TSTExpressionNode *)&v15 lastIndex];
+    v13.receiver = self;
+    v13.super_class = TSTFunctionEndNode;
+    IndexOfSubtree = [(TSTExpressionNode *)&v13 lastIndex];
   }
 
-  v13 = IndexOfSubtree;
+  v11 = IndexOfSubtree;
 
-  return v13;
+  return v11;
 }
 
 - (void)insertFormulaText:(id)text printingOptions:(unsigned int)options
 {
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFunctionEndNode insertFormulaText:printingOptions:]", *&options, v4);
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFunctionEndNode.mm", v8, v9);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 83, 0, "We shouldn't ever buildFormulaText: with a functionEndNode");
+  v4 = MEMORY[0x277D81150];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFunctionEndNode insertFormulaText:printingOptions:]", *&options);
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFunctionEndNode.mm", v7);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v5, v8, 83, 0, "We shouldn't ever buildFormulaText: with a functionEndNode");
 
-  v16 = MEMORY[0x277D81150];
+  v13 = MEMORY[0x277D81150];
 
-  objc_msgSend_logBacktraceThrottled(v16, v12, v13, v14, v15);
+  objc_msgSend_logBacktraceThrottled(v13, v10, v11, v12);
 }
 
 - (void)buildASTNodeArray:(TSCEASTNodeArray *)array hostCell:(TSUCellCoord)cell symbolTable:(void *)table
 {
   v5 = MEMORY[0x277D81150];
   v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTFunctionEndNode buildASTNodeArray:hostCell:symbolTable:]", *&cell, table);
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFunctionEndNode.mm", v8, v9);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 89, 0, "We shouldn't ever buildASTNodeArray: with a functionEndNode");
+  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTFunctionEndNode.mm", v8);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v9, 89, 0, "We shouldn't ever buildASTNodeArray: with a functionEndNode");
 
-  v16 = MEMORY[0x277D81150];
+  v14 = MEMORY[0x277D81150];
 
-  objc_msgSend_logBacktraceThrottled(v16, v12, v13, v14, v15);
+  objc_msgSend_logBacktraceThrottled(v14, v11, v12, v13);
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[220], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[220], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_22130B658, off_2812E4498[220], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_22130B658, off_2812E4498[220]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver

@@ -153,18 +153,18 @@ void __99__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAbo
 
 void __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke_2;
-  v26 = &unk_1E826E110;
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke_2;
+  v25 = &unk_1E826E110;
   v4 = v3;
-  v27 = v4;
-  v28 = *(a1 + 32);
-  v29 = *(a1 + 40);
-  v30 = *(a1 + 48);
-  v5 = _Block_copy(&v23);
+  v26 = v4;
+  v27 = *(a1 + 32);
+  v28 = *(a1 + 40);
+  v29 = *(a1 + 48);
+  v5 = _Block_copy(&v22);
   v6 = v5[2](v5, *(a1 + 56));
   v7 = v5[2](v5, *(a1 + 64));
   v8 = v5[2](v5, *(a1 + 72));
@@ -172,11 +172,11 @@ void __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAb
   {
     if (!*(a1 + 64))
     {
-      v22 = [MEMORY[0x1E696AAA8] currentHandler];
-      [v22 handleFailureInMethod:*(a1 + 80) object:*(a1 + 88) file:@"EMMessageList.m" lineNumber:1555 description:@"itemIDsWithCountChanges cannot be nil if changeObserver responds to collection:changedItemIDs:itemIDsWithCountChanges:"];
+      v21 = [MEMORY[0x1E696AAA8] currentHandler];
+      [v21 handleFailureInMethod:*(a1 + 80) object:*(a1 + 88) file:@"EMMessageList.m" lineNumber:1555 description:@"itemIDsWithCountChanges cannot be nil if changeObserver responds to collection:changedItemIDs:itemIDsWithCountChanges:"];
     }
 
-    v9 = [EMMessageList log:v23];
+    v9 = [EMMessageList log:v22];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v6 count];
@@ -185,17 +185,17 @@ void __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAb
       v13 = objc_opt_class();
       v14 = *(a1 + 88);
       *buf = 134219266;
-      v32 = v10;
-      v33 = 2048;
-      v34 = v11;
-      v35 = 2048;
-      v36 = v12;
-      v37 = 2112;
-      v38 = v13;
-      v39 = 2048;
-      v40 = v4;
-      v41 = 2112;
-      v42 = v14;
+      v31 = v10;
+      v32 = 2048;
+      v33 = v11;
+      v34 = 2048;
+      v35 = v12;
+      v36 = 2112;
+      v37 = v13;
+      v38 = 2048;
+      v39 = v4;
+      v40 = 2112;
+      v41 = v14;
       v15 = v13;
       _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_DEFAULT, "Notifying observer of %lu changed itemIDs (%lu with count changes, %lu with brand indicator changes): <%@: %p>\n%@", buf, 0x3Eu);
     }
@@ -205,52 +205,48 @@ void __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAb
 
   else
   {
-    v16 = [EMMessageList log:v23];
+    v16 = [EMMessageList log:v22];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [v6 count];
       v18 = objc_opt_class();
       v19 = *(a1 + 88);
       *buf = 134218754;
-      v32 = v17;
-      v33 = 2112;
-      v34 = v18;
-      v35 = 2048;
-      v36 = v4;
-      v37 = 2112;
-      v38 = v19;
+      v31 = v17;
+      v32 = 2112;
+      v33 = v18;
+      v34 = 2048;
+      v35 = v4;
+      v36 = 2112;
+      v37 = v19;
       v20 = v18;
       _os_log_impl(&dword_1C6655000, v16, OS_LOG_TYPE_DEFAULT, "Notifying observer of %lu changed itemIDs: <%@: %p>\n%@", buf, 0x2Au);
     }
 
     [v4 collection:*(a1 + 32) changedItemIDs:v6];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 id __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    v5 = [*(a1 + 32) sectionForCollection:*(a1 + 40)];
-    if (v5)
+    v4 = [*(a1 + 32) sectionForCollection:*(a1 + 40)];
+    if (v4)
     {
-      v6 = *(a1 + 40);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke_3;
-        v12[3] = &unk_1E826E050;
-        v13 = *(a1 + 48);
-        v5 = v5;
-        v14 = v5;
-        v7 = [v3 ef_filter:v12];
-        v8 = &v13;
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 3221225472;
+        v10[2] = __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke_3;
+        v10[3] = &unk_1E826E050;
+        v11 = *(a1 + 48);
+        v4 = v4;
+        v12 = v4;
+        v5 = [v3 ef_filter:v10];
+        v6 = &v11;
 
         goto LABEL_7;
       }
@@ -259,19 +255,19 @@ id __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAbou
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke_4;
-  v10[3] = &unk_1E826DD80;
-  v11 = *(a1 + 56);
-  v7 = [v3 ef_filter:v10];
-  v8 = &v11;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke_4;
+  v8[3] = &unk_1E826DD80;
+  v9 = *(a1 + 56);
+  v5 = [v3 ef_filter:v8];
+  v6 = &v9;
 LABEL_7:
 
-  return v7;
+  return v5;
 }
 
 uint64_t __154__EMMessageListChangeObserverHelper_collection_notifyChangeObserversAboutChangedItemIDs_itemIDsWithCountChanges_itemIDsWithBrandIndicatorLocationChanges___block_invoke_3(uint64_t a1, uint64_t a2)

@@ -12,19 +12,27 @@
 - (int64_t)currentAppearanceStyle;
 - (void)_executeDismissBlock:(id)block;
 - (void)_refreshCurrentState;
+- (void)_refreshNavBarAnimated:(BOOL)animated;
 - (void)_setupEventHandlers;
 - (void)_startActivityIndicatorWithTitle:(id)title animated:(BOOL)animated allowCancel:(BOOL)cancel;
 - (void)_startListeningForReturnKey;
 - (void)_startTimeoutWithDuration:(double)duration;
+- (void)_startValidationModeAnimated:(BOOL)animated allowCancel:(BOOL)cancel;
+- (void)_stopActivityIndicatorAnimated:(BOOL)animated;
 - (void)_stopActivityIndicatorWithTitle:(id)title animated:(BOOL)animated;
 - (void)_stopListeningForReturnKey;
 - (void)_stopTimeout;
 - (void)_timeoutFired:(id)fired;
 - (void)_updateControllerState;
 - (void)dealloc;
+- (void)setCellsChecked:(BOOL)checked;
 - (void)setSpecifier:(id)specifier;
 - (void)systemApplicationDidEnterBackground;
 - (void)systemApplicationWillEnterForeground;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFRegFirstRunController
@@ -127,6 +135,75 @@
   [defaultCenter removeObserver:self name:*MEMORY[0x277D76C20] object:0];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = CNFRegFirstRunController;
+  [(CNFRegListController *)&v8 viewDidAppear:appear];
+  [(CNFRegFirstRunController *)self _setupEventHandlers];
+  account = [(CNFRegFirstRunController *)self account];
+  registrationStatus = [account registrationStatus];
+
+  if (registrationStatus == -1)
+  {
+    v6 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v7 = 0;
+      _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Account state was failed so refreshing current state", v7, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled())
+    {
+      if (IMShouldLog())
+      {
+        IMLogString();
+      }
+    }
+
+    [(CNFRegFirstRunController *)self _refreshCurrentState];
+  }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegFirstRunController;
+  [(CNFRegListController *)&v4 viewWillAppear:appear];
+  [(CNFRegFirstRunController *)self _refreshNavBarAnimated:0];
+  [(CNFRegFirstRunController *)self _startListeningForReturnKey];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = CNFRegFirstRunController;
+  [(CNFRegListController *)&v6 viewWillDisappear:disappear];
+  v4 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    *v5 = 0;
+    _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_DEBUG, "Removing event handlers", v5, 2u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    IMLogString();
+  }
+
+  [(CNFRegListController *)self removeAllHandlers];
+  [(CNFRegFirstRunController *)self _stopListeningForReturnKey];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(CNFRegFirstRunController *)self _stopTimeout];
+  v5.receiver = self;
+  v5.super_class = CNFRegFirstRunController;
+  [(CNFRegListController *)&v5 viewDidDisappear:disappearCopy];
+}
+
 - (id)titleString
 {
   regController = [(CNFRegListController *)self regController];
@@ -155,6 +232,33 @@
   v4 = [v2 localizedStringForKey:@"VERIFYING" value:&stru_2856D3978 table:v3];
 
   return v4;
+}
+
+- (void)_refreshNavBarAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  _leftButtonItem = [(CNFRegFirstRunController *)self _leftButtonItem];
+  _rightButtonItem = [(CNFRegFirstRunController *)self _rightButtonItem];
+  _hidesBackButton = [(CNFRegFirstRunController *)self _hidesBackButton];
+  navigationItem = [(CNFRegFirstRunController *)self navigationItem];
+  rightBarButtonItem = [navigationItem rightBarButtonItem];
+
+  if (rightBarButtonItem != _rightButtonItem)
+  {
+    [navigationItem setRightBarButtonItem:_rightButtonItem animated:animatedCopy];
+  }
+
+  leftBarButtonItem = [navigationItem leftBarButtonItem];
+
+  if (leftBarButtonItem != _leftButtonItem)
+  {
+    [navigationItem setLeftBarButtonItem:? animated:?];
+  }
+
+  if (_hidesBackButton != [navigationItem hidesBackButton])
+  {
+    [navigationItem setHidesBackButton:_hidesBackButton animated:animatedCopy];
+  }
 }
 
 - (id)_rightButtonItem
@@ -215,9 +319,7 @@
   if (!self->_timeoutTimer)
   {
     [(CNFRegFirstRunController *)self setTimedOut:0];
-    v5 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__timeoutFired_ selector:0 userInfo:0 repeats:duration];
-    timeoutTimer = self->_timeoutTimer;
-    self->_timeoutTimer = v5;
+    self->_timeoutTimer = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__timeoutFired_ selector:0 userInfo:0 repeats:duration];
 
     MEMORY[0x2821F96F8]();
   }
@@ -339,6 +441,50 @@ void __69__CNFRegFirstRunController__stopActivityIndicatorWithTitle_animated___b
   }
 }
 
+- (void)_stopActivityIndicatorAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  titleString = [(CNFRegFirstRunController *)self titleString];
+  [(CNFRegFirstRunController *)self _stopActivityIndicatorWithTitle:titleString animated:animatedCopy];
+}
+
+- (void)_startValidationModeAnimated:(BOOL)animated allowCancel:(BOOL)cancel
+{
+  cancelCopy = cancel;
+  animatedCopy = animated;
+  self->_cancelled = 0;
+  validationString = [(CNFRegFirstRunController *)self validationString];
+  [(CNFRegFirstRunController *)self _startActivityIndicatorWithTitle:validationString animated:animatedCopy allowCancel:cancelCopy];
+}
+
+- (void)setCellsChecked:(BOOL)checked
+{
+  checkedCopy = checked;
+  v5 = [*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) count];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = 0;
+    v8 = *MEMORY[0x277D3FC60];
+    do
+    {
+      v9 = *(&self->super.super.super.super.super.super.isa + v8);
+      v10 = [(CNFRegFirstRunController *)self indexPathForIndex:v7];
+      v11 = [v9 cellForRowAtIndexPath:v10];
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        [v11 setChecked:checkedCopy];
+      }
+
+      ++v7;
+    }
+
+    while (v6 != v7);
+  }
+}
+
 - (void)systemApplicationWillEnterForeground
 {
   v3.receiver = self;
@@ -420,19 +566,19 @@ LABEL_7:
 
 - (BOOL)pushCompletionControllerIfPossible
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = NSStringFromClass([(CNFRegFirstRunController *)self completionControllerClass]);
     *buf = 138412290;
-    v27 = v4;
+    v26 = v4;
     _os_log_impl(&dword_243BE5000, v3, OS_LOG_TYPE_DEFAULT, "Pushing completion controller %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v25 = NSStringFromClass([(CNFRegFirstRunController *)self completionControllerClass]);
+    v24 = NSStringFromClass([(CNFRegFirstRunController *)self completionControllerClass]);
     IMLogString();
   }
 
@@ -498,7 +644,7 @@ LABEL_7:
       {
         v22 = NSStringFromClass(v6);
         *buf = 138412290;
-        v27 = v22;
+        v26 = v22;
         _os_log_impl(&dword_243BE5000, v21, OS_LOG_TYPE_DEFAULT, "Unexpected completion controller %@", buf, 0xCu);
       }
 
@@ -514,13 +660,10 @@ LABEL_7:
     }
 
 LABEL_25:
-    goto LABEL_26;
+    return v20;
   }
 
-  v20 = 0;
-LABEL_26:
-  v23 = *MEMORY[0x277D85DE8];
-  return v20;
+  return 0;
 }
 
 - (BOOL)dismissWithState:(unint64_t)state

@@ -271,36 +271,35 @@ LABEL_49:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_time)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_deviceIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_userIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_zoneIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -383,7 +382,6 @@ LABEL_49:
     goto LABEL_15;
   }
 
-  v8 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((equalCopy[6] & 1) == 0 || self->_version != *(equalCopy + 8))
@@ -400,37 +398,37 @@ LABEL_15:
   }
 
   time = self->_time;
-  v10 = equalCopy[2];
-  if (time | v10 && !objc_msgSend_isEqual_(time, v7, v10))
+  v9 = equalCopy[2];
+  if (time | v9 && !objc_msgSend_isEqual_(time, v7, v9))
   {
     goto LABEL_15;
   }
 
   deviceIdentifier = self->_deviceIdentifier;
-  v12 = equalCopy[1];
-  if (deviceIdentifier | v12)
+  v11 = equalCopy[1];
+  if (deviceIdentifier | v11)
   {
-    if (!objc_msgSend_isEqual_(deviceIdentifier, v7, v12))
+    if (!objc_msgSend_isEqual_(deviceIdentifier, v7, v11))
     {
       goto LABEL_15;
     }
   }
 
   userIdentifier = self->_userIdentifier;
-  v14 = equalCopy[3];
-  if (userIdentifier | v14)
+  v13 = equalCopy[3];
+  if (userIdentifier | v13)
   {
-    if (!objc_msgSend_isEqual_(userIdentifier, v7, v14))
+    if (!objc_msgSend_isEqual_(userIdentifier, v7, v13))
     {
       goto LABEL_15;
     }
   }
 
   zoneIdentifier = self->_zoneIdentifier;
-  v16 = equalCopy[5];
-  if (zoneIdentifier | v16)
+  v15 = equalCopy[5];
+  if (zoneIdentifier | v15)
   {
-    isEqual = objc_msgSend_isEqual_(zoneIdentifier, v7, v16);
+    isEqual = objc_msgSend_isEqual_(zoneIdentifier, v7, v15);
   }
 
   else

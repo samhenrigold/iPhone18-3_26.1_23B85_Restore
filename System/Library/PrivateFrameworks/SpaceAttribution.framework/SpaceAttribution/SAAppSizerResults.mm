@@ -14,7 +14,6 @@
 - (void)enableAppSizeBreakdown;
 - (void)encodeWithCoder:(id)coder;
 - (void)enumerateAppsDataUsingBlock:(id)block;
-- (void)initDiskUsedAndCapacity;
 - (void)populateAppsData;
 - (void)postProcessMerging;
 - (void)print;
@@ -23,6 +22,7 @@
 - (void)updateBundleIDs:(id)ds fixedSize:(unint64_t)size dataSize:(unint64_t)dataSize cloneSize:(unint64_t)cloneSize purgeableSize:(unint64_t)purgeableSize cloneFixUpSize:(unint64_t)upSize physicalSize:(unint64_t)physicalSize appCacheSize:(unint64_t)self0 CDPluginSize:(unint64_t)self1;
 - (void)updateBundleIDs:(id)ds withAppSize:(id)size;
 - (void)updateBundleIDs:(id)ds withDataSize:(unint64_t)size;
+- (void)updateCacheSize:(unint64_t)size cacheIsPurgeable:(BOOL)purgeable bundleIDs:(id)ds;
 - (void)updateHiddenApp:(id)app withPurgeableTagsSize:(unint64_t)size;
 - (void)updateHiddenApp:(id)app withSUPurgeableSize:(unint64_t)size;
 - (void)updateSystemDataDetailsWith:(id)with andSize:(unint64_t)size;
@@ -126,9 +126,7 @@
 
 - (void)enableAppSizeBreakdown
 {
-  v3 = objc_opt_new();
-  appSizeBreakdownList = self->_appSizeBreakdownList;
-  self->_appSizeBreakdownList = v3;
+  self->_appSizeBreakdownList = objc_opt_new();
 
   MEMORY[0x2821F96F8]();
 }
@@ -203,7 +201,7 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
 
   else
   {
-    v11 = SALog();
+    v11 = SALog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SAAppSizerResults setBundleIDs:vendorName:];
@@ -300,7 +298,7 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
 
   else
   {
-    v9 = SALog();
+    v9 = SALog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SAAppSizerResults updateHiddenApp:withSUPurgeableSize:];
@@ -326,7 +324,7 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
 
   else
   {
-    v9 = SALog();
+    v9 = SALog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SAAppSizerResults updateHiddenApp:withPurgeableTagsSize:];
@@ -433,9 +431,10 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
   *(v51 + 6) = 0;
   v51[0] = 0;
   ctime_r(&self->_time, __s);
-  __s[strlen(__s) - 1] = 0;
-  v3 = SALog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = strlen(__s);
+  __s[v3 - 1] = 0;
+  v4 = SALog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     uTF8String = [@"time" UTF8String];
     uTF8String2 = [@"diskUsed" UTF8String];
@@ -454,7 +453,7 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
     v46 = uTF8String3;
     v47 = 2048;
     v48 = diskUsed;
-    _os_log_impl(&dword_26B26B000, v3, OS_LOG_TYPE_DEFAULT, "%s: %s\n%s: %llu\n%s: %llu\napps data:\n", buf, 0x3Eu);
+    _os_log_impl(&dword_26B26B000, v4, OS_LOG_TYPE_DEFAULT, "%s: %s\n%s: %llu\n%s: %llu\napps data:\n", buf, 0x3Eu);
   }
 
   appsDataInternal = selfCopy->_appsDataInternal;
@@ -465,77 +464,75 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
     v32 = 0u;
     v33 = 0u;
     obj = appsDataInternal;
-    v10 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-    if (v10)
+    v11 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v11)
     {
-      v12 = v10;
-      v13 = *v33;
-      *&v11 = 136316418;
-      v29 = v11;
+      v13 = v11;
+      v14 = *v33;
+      *&v12 = 136316418;
+      v29 = v12;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v33 != v13)
+          if (*v33 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v32 + 1) + 8 * i);
-          v16 = [(SAAppSizerResults *)selfCopy convertBundlesSetToBundlesKey:v15, v29];
-          v17 = [(NSMutableDictionary *)selfCopy->_appsDataInternal objectForKeyedSubscript:v16];
-          v18 = SALog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v16 = *(*(&v32 + 1) + 8 * i);
+          v17 = [(SAAppSizerResults *)selfCopy convertBundlesSetToBundlesKey:v16, v29];
+          v18 = [(NSMutableDictionary *)selfCopy->_appsDataInternal objectForKeyedSubscript:v17];
+          v19 = SALog(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = [v15 count];
-            v20 = "app";
-            if (v19 > 1)
+            v20 = [v16 count];
+            v21 = "app";
+            if (v20 > 1)
             {
-              v20 = "apps";
+              v21 = "apps";
             }
 
-            v31 = v20;
-            fixedSize = [v17 fixedSize];
-            dataSize = [v17 dataSize];
-            v23 = selfCopy;
-            v24 = v12;
+            v31 = v21;
+            fixedSize = [v18 fixedSize];
+            dataSize = [v18 dataSize];
+            v24 = selfCopy;
             v25 = v13;
-            cloneSize = [v17 cloneSize];
-            purgeableSize = [v17 purgeableSize];
+            v26 = v14;
+            cloneSize = [v18 cloneSize];
+            purgeableSize = [v18 purgeableSize];
             *buf = v29;
             v38 = v31;
             v39 = 2112;
-            v40 = v16;
+            v40 = v17;
             v41 = 2048;
             v42 = fixedSize;
             v43 = 2048;
             v44 = dataSize;
             v45 = 2048;
             v46 = cloneSize;
+            v14 = v26;
             v13 = v25;
-            v12 = v24;
-            selfCopy = v23;
+            selfCopy = v24;
             v47 = 2048;
             v48 = purgeableSize;
-            _os_log_impl(&dword_26B26B000, v18, OS_LOG_TYPE_DEFAULT, "%s: %@\nfixed size: %llu\ndata size: %llu\nclone size: %llu\npurgeable size: %llu\n\n", buf, 0x3Eu);
+            _os_log_impl(&dword_26B26B000, v19, OS_LOG_TYPE_DEFAULT, "%s: %@\nfixed size: %llu\ndata size: %llu\nclone size: %llu\npurgeable size: %llu\n\n", buf, 0x3Eu);
           }
         }
 
-        v12 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v13 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBundleIDs:(id)ds withDataSize:(unint64_t)size
 {
   dsCopy = ds;
   v7 = [(NSMutableDictionary *)self->_appsDataInternal objectForKey:dsCopy];
-  v8 = SALog();
+  v8 = SALog(v7);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
   if (v7)
   {
@@ -559,6 +556,41 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
   [(NSMutableDictionary *)self->_appsDataInternal setObject:v7 forKey:dsCopy];
 }
 
+- (void)updateCacheSize:(unint64_t)size cacheIsPurgeable:(BOOL)purgeable bundleIDs:(id)ds
+{
+  purgeableCopy = purgeable;
+  dsCopy = ds;
+  v9 = self->_appsDataInternal;
+  objc_sync_enter(v9);
+  v10 = [(NSMutableDictionary *)self->_appsDataInternal objectForKey:dsCopy];
+  v11 = v10;
+  if (v10)
+  {
+    v12 = SALog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      [SAAppSizerResults updateCacheSize:cacheIsPurgeable:bundleIDs:];
+    }
+  }
+
+  else
+  {
+    v13 = SALog(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    {
+      [SAAppSizerResults updateCacheSize:cacheIsPurgeable:bundleIDs:];
+    }
+
+    v11 = objc_opt_new();
+    [v11 setCacheIsPurgeable:purgeableCopy];
+  }
+
+  [v11 setAppCacheSize:{objc_msgSend(v11, "appCacheSize") + size}];
+  [(NSMutableDictionary *)self->_appsDataInternal setObject:v11 forKey:dsCopy];
+
+  objc_sync_exit(v9);
+}
+
 - (void)removeBundleIDs:(id)ds
 {
   if (ds)
@@ -569,37 +601,37 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
 
 - (void)zeroSizeAppsFiltering
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(NSMutableDictionary *)self->_appsDataInternal allKeys];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v3 = v15 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
         v10 = [(NSMutableDictionary *)self->_appsDataInternal objectForKeyedSubscript:v8];
         if (![v10 dataSize] && !objc_msgSend(v10, "fixedSize"))
         {
-          v11 = SALog();
+          v11 = SALog(0);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v18 = v8;
+            v17 = v8;
             _os_log_debug_impl(&dword_26B26B000, v11, OS_LOG_TYPE_DEBUG, "Bundle set %@ totalSize is 0", buf, 0xCu);
           }
 
@@ -612,13 +644,11 @@ void __37__SAAppSizerResults_populateAppsData__block_invoke(uint64_t a1, uint64_
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)postProcessFilteringWithAppPathList:(id)list
@@ -679,7 +709,7 @@ LABEL_11:
           {
             v14 = [MEMORY[0x277CBEB98] setWithObject:@"com.apple.FileProvider.LocalStorage"];
             v15 = [(SAAppSizerResults *)self convertBundlesSetToBundlesKey:v14];
-            v16 = SALog();
+            v16 = SALog(v15);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
@@ -708,7 +738,7 @@ LABEL_11:
             [v20 removeObject:@"com.apple.Bridge"];
             v21 = [MEMORY[0x277CBEB98] setWithSet:v20];
             v22 = [(SAAppSizerResults *)self convertBundlesSetToBundlesKey:v21];
-            v23 = SALog();
+            v23 = SALog(v22);
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
@@ -753,7 +783,8 @@ LABEL_25:
           if ([v15 count])
           {
             v28 = [v15 count];
-            if (v28 == [v19 count])
+            v29 = [v19 count];
+            if (v28 == v29)
             {
               v18 = v47;
 LABEL_44:
@@ -767,58 +798,57 @@ LABEL_45:
               goto LABEL_46;
             }
 
-            v33 = SALog();
+            v34 = SALog(v29);
             v18 = v47;
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
               v57 = v19;
               v58 = 2112;
               v59 = v15;
-              _os_log_debug_impl(&dword_26B26B000, v33, OS_LOG_TYPE_DEBUG, "Remove hidden: Replacing bundleID set %@ with %@", buf, 0x16u);
+              _os_log_debug_impl(&dword_26B26B000, v34, OS_LOG_TYPE_DEBUG, "Remove hidden: Replacing bundleID set %@ with %@", buf, 0x16u);
             }
 
-            v30 = [(SAAppSizerResults *)self convertBundlesSetToBundlesKey:v15];
-            [(SAAppSizerResults *)self updateBundleIDs:v30 withAppSize:anyObject];
+            v31 = [(SAAppSizerResults *)self convertBundlesSetToBundlesKey:v15];
+            [(SAAppSizerResults *)self updateBundleIDs:v31 withAppSize:anyObject];
             [(NSMutableDictionary *)self->_appsDataInternal removeObjectForKey:v27];
-            v34 = self->_appSizeBreakdownList;
-            if (v34)
+            v35 = self->_appSizeBreakdownList;
+            if (v35)
             {
-              [(SAAppSizeBreakdownList *)v34 updateBundleIDs:v27 newIDs:v30];
+              [(SAAppSizeBreakdownList *)v35 updateBundleIDs:v27 newIDs:v31];
             }
           }
 
           else
           {
-            v29 = [(NSMutableDictionary *)self->_appsDataInternal objectForKeyedSubscript:v27];
-            v30 = v29;
-            if (v29)
+            v30 = [(NSMutableDictionary *)self->_appsDataInternal objectForKeyedSubscript:v27];
+            v31 = v30;
+            if (v30)
             {
-              dataSize = [v29 dataSize];
-              fixedSize = [v30 fixedSize];
-              -[SAAppSizerResults updateSystemDataDetailsWith:andSize:](self, "updateSystemDataDetailsWith:andSize:", v27, [v30 fixedSize] + objc_msgSend(v30, "dataSize"));
-              v31 = SALog();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+              dataSize = [v30 dataSize];
+              fixedSize = [v31 fixedSize];
+              v32 = SALog(-[SAAppSizerResults updateSystemDataDetailsWith:andSize:](self, "updateSystemDataDetailsWith:andSize:", v27, [v31 fixedSize] + objc_msgSend(v31, "dataSize")));
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
               {
-                dataSize2 = [v30 dataSize];
-                fixedSize2 = [v30 fixedSize];
+                dataSize2 = [v31 dataSize];
+                fixedSize2 = [v31 fixedSize];
                 *buf = 134218498;
                 v57 = dataSize2;
                 v58 = 2048;
                 v59 = fixedSize2;
                 v60 = 2112;
                 v61 = v19;
-                _os_log_debug_impl(&dword_26B26B000, v31, OS_LOG_TYPE_DEBUG, "Remove hidden: dataSize %llu and fixedSize %llu for bundleID set %@", buf, 0x20u);
+                _os_log_debug_impl(&dword_26B26B000, v32, OS_LOG_TYPE_DEBUG, "Remove hidden: dataSize %llu and fixedSize %llu for bundleID set %@", buf, 0x20u);
               }
 
               v44 += dataSize + fixedSize;
 
               [(NSMutableDictionary *)self->_appsDataInternal removeObjectForKey:v27];
-              [(NSMutableDictionary *)self->_hiddenAppsData setObject:v30 forKey:v27];
-              v32 = self->_appSizeBreakdownList;
-              if (v32)
+              [(NSMutableDictionary *)self->_hiddenAppsData setObject:v31 forKey:v27];
+              v33 = self->_appSizeBreakdownList;
+              if (v33)
               {
-                [(SAAppSizeBreakdownList *)v32 removeBundleIDs:v10];
+                [(SAAppSizeBreakdownList *)v33 removeBundleIDs:v10];
               }
 
               listCopy = v41;
@@ -826,12 +856,12 @@ LABEL_45:
 
             else
             {
-              v35 = SALog();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v36 = SALog(0);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 *buf = v39;
                 v57 = v19;
-                _os_log_error_impl(&dword_26B26B000, v35, OS_LOG_TYPE_ERROR, "filteredData is nil for %@", buf, 0xCu);
+                _os_log_error_impl(&dword_26B26B000, v36, OS_LOG_TYPE_ERROR, "filteredData is nil for %@", buf, 0xCu);
               }
             }
 
@@ -859,7 +889,6 @@ LABEL_46:
   v44 = 0;
 LABEL_50:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v44;
 }
 
@@ -878,34 +907,34 @@ void __57__SAAppSizerResults_postProcessFilteringWithAppPathList___block_invoke(
 - (void)postProcessMerging
 {
   selfCopy = self;
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   allKeys = [(NSMutableDictionary *)self->_appsDataInternal allKeys];
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:100];
-  v31 = 0u;
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = allKeys;
-  v5 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
-    v25 = selfCopy;
-    v26 = v4;
-    v27 = *v32;
+    v7 = *v34;
+    v27 = selfCopy;
+    v28 = v4;
+    v29 = *v34;
     do
     {
       v8 = 0;
-      v29 = v6;
+      v31 = v6;
       do
       {
-        if (*v32 != v7)
+        if (*v34 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * v8);
+        v9 = *(*(&v33 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         v11 = [(NSMutableDictionary *)selfCopy->_appsDataInternal objectForKeyedSubscript:v9];
         v12 = [(SAAppSizerResults *)selfCopy convertBundlesKeyToBundlesSet:v9];
@@ -918,65 +947,65 @@ void __57__SAAppSizerResults_postProcessFilteringWithAppPathList___block_invoke(
 
             if (v14)
             {
-              v28 = v10;
+              v30 = v10;
               v15 = [v4 objectForKeyedSubscript:vendorName];
               v16 = [SAAppSizerResults mergeAppSet:selfCopy withAppSet:"mergeAppSet:withAppSet:"];
-              v17 = SALog();
+              v17 = SALog(v16);
               if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v36 = v12;
+                v38 = v12;
                 _os_log_debug_impl(&dword_26B26B000, v17, OS_LOG_TYPE_DEBUG, "Merging %@", buf, 0xCu);
               }
 
-              v18 = SALog();
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-              {
-                *buf = 138412290;
-                v36 = v15;
-                _os_log_debug_impl(&dword_26B26B000, v18, OS_LOG_TYPE_DEBUG, "and %@", buf, 0xCu);
-              }
-
-              v19 = SALog();
+              v19 = SALog(v18);
               if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v36 = v16;
-                _os_log_debug_impl(&dword_26B26B000, v19, OS_LOG_TYPE_DEBUG, "to %@", buf, 0xCu);
+                v38 = v15;
+                _os_log_debug_impl(&dword_26B26B000, v19, OS_LOG_TYPE_DEBUG, "and %@", buf, 0xCu);
               }
 
-              v20 = SALog();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+              v21 = SALog(v20);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v36 = vendorName;
-                _os_log_debug_impl(&dword_26B26B000, v20, OS_LOG_TYPE_DEBUG, "for vendor %@", buf, 0xCu);
+                v38 = v16;
+                _os_log_debug_impl(&dword_26B26B000, v21, OS_LOG_TYPE_DEBUG, "to %@", buf, 0xCu);
+              }
+
+              v23 = SALog(v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+              {
+                *buf = 138412290;
+                v38 = vendorName;
+                _os_log_debug_impl(&dword_26B26B000, v23, OS_LOG_TYPE_DEBUG, "for vendor %@", buf, 0xCu);
               }
 
               [v4 setObject:v16 forKeyedSubscript:vendorName];
               appSizeBreakdownList = selfCopy->_appSizeBreakdownList;
               if (appSizeBreakdownList)
               {
-                v22 = [(SAAppSizerResults *)selfCopy convertBundlesSetToBundlesKey:v15];
-                v23 = [(SAAppSizerResults *)selfCopy convertBundlesSetToBundlesKey:v16];
-                [(SAAppSizeBreakdownList *)appSizeBreakdownList mergeBundleIDs:v9 withBundleIDs:v22 newBundleIDs:v23];
+                v25 = [(SAAppSizerResults *)selfCopy convertBundlesSetToBundlesKey:v15];
+                v26 = [(SAAppSizerResults *)selfCopy convertBundlesSetToBundlesKey:v16];
+                [(SAAppSizeBreakdownList *)appSizeBreakdownList mergeBundleIDs:v9 withBundleIDs:v25 newBundleIDs:v26];
 
-                selfCopy = v25;
-                v4 = v26;
+                selfCopy = v27;
+                v4 = v28;
               }
 
-              v7 = v27;
-              v10 = v28;
+              v7 = v29;
+              v10 = v30;
             }
 
             else
             {
               [v4 setObject:v12 forKeyedSubscript:vendorName];
-              v7 = v27;
+              v7 = v29;
             }
           }
 
-          v6 = v29;
+          v6 = v31;
         }
 
         objc_autoreleasePoolPop(v10);
@@ -984,25 +1013,22 @@ void __57__SAAppSizerResults_postProcessFilteringWithAppPathList___block_invoke(
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v6 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v6);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)initDiskUsedAndCapacity
 {
   self->_diskCapacity = +[SASupport getDiskCapacity];
-  p_diskCapacity = &self->_diskCapacity;
-  self->_diskUsed = +[SASupport getDiskUsed];
-  p_diskUsed = &self->_diskUsed;
-  v5 = SALog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v3 = +[SASupport getDiskUsed];
+  self->_diskUsed = v3;
+  v4 = SALog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(SAAppSizerResults *)p_diskUsed initDiskUsedAndCapacity];
+    [SAAppSizerResults initDiskUsedAndCapacity];
   }
 
   return 5;
@@ -1185,75 +1211,51 @@ void __57__SAAppSizerResults_postProcessFilteringWithAppPathList___block_invoke(
 
 - (void)setBundleIDs:vendorName:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateHiddenApp:withSUPurgeableSize:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateHiddenApp:withPurgeableTagsSize:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBundleIDs:withDataSize:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBundleIDs:withDataSize:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCacheSize:cacheIsPurgeable:bundleIDs:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCacheSize:cacheIsPurgeable:bundleIDs:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initDiskUsedAndCapacity
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *self;
-  v9 = *a2;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -7,11 +7,11 @@
 
 - (void)gatherMetricsWithProgressBlock:(id)block
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = 0.0;
-  v90 = _Block_copy(blockCopy);
-  if (!v90 || (v6 = CFAbsoluteTimeGetCurrent(), v6 < 0.01))
+  v89 = _Block_copy(blockCopy);
+  if (!v89 || (v6 = CFAbsoluteTimeGetCurrent(), v6 < 0.01))
   {
 LABEL_7:
     loggingConnection = [(PGManagerWorkingContext *)self->_workingContext loggingConnection];
@@ -24,20 +24,20 @@ LABEL_7:
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "PGGraphSyndicatedAssetsMetricEvent: Only reporting for system photo library.", buf, 2u);
       }
 
-      if (v90)
+      if (v89)
       {
         if (CFAbsoluteTimeGetCurrent() - v5 >= 0.01)
         {
-          v92 = 0;
-          v90[2](v90, &v92, 1.0);
-          if (v92)
+          v91 = 0;
+          v89[2](v89, &v91, 1.0);
+          if (v91)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              *v97 = 55;
-              *&v97[4] = 2080;
-              *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+              *v96 = 55;
+              *&v96[4] = 2080;
+              *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
           }
@@ -47,33 +47,33 @@ LABEL_7:
       goto LABEL_106;
     }
 
-    v91 = 0;
-    v9 = [MEMORY[0x277CD9948] openPhotoLibraryWithWellKnownIdentifier:3 error:&v91];
-    v10 = v91;
+    v90 = 0;
+    v9 = [MEMORY[0x277CD9948] openPhotoLibraryWithWellKnownIdentifier:3 error:&v90];
+    v10 = v90;
     v11 = v10;
     if (!v9 || v10)
     {
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v97 = v11;
+        *v96 = v11;
         _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "PGGraphSyndicatedAssetsMetricEvent: Failed to open syndicated library: %@", buf, 0xCu);
       }
 
-      if (v90)
+      if (v89)
       {
         if (CFAbsoluteTimeGetCurrent() - v5 >= 0.01)
         {
-          v92 = 0;
-          v90[2](v90, &v92, 1.0);
-          if (v92)
+          v91 = 0;
+          v89[2](v89, &v91, 1.0);
+          if (v91)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              *v97 = 63;
-              *&v97[4] = 2080;
-              *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+              *v96 = 63;
+              *&v96[4] = 2080;
+              *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
           }
@@ -86,14 +86,14 @@ LABEL_7:
     librarySpecificFetchOptions = [v9 librarySpecificFetchOptions];
     [librarySpecificFetchOptions setIncludeGuestAssets:1];
     v13 = *MEMORY[0x277CD9AD0];
-    v95[0] = *MEMORY[0x277CD9B10];
-    v95[1] = v13;
-    v95[2] = *MEMORY[0x277CD9A80];
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:3];
+    v94[0] = *MEMORY[0x277CD9B10];
+    v94[1] = v13;
+    v94[2] = *MEMORY[0x277CD9A80];
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:3];
     [librarySpecificFetchOptions setFetchPropertySets:v14];
 
-    v89 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
-    context = [v89 count];
+    v88 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
+    context = [v88 count];
     if (!context)
     {
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
@@ -102,20 +102,20 @@ LABEL_7:
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "PGGraphSyndicatedAssetsMetricEvent: No assets to report.", buf, 2u);
       }
 
-      if (v90)
+      if (v89)
       {
         if (CFAbsoluteTimeGetCurrent() - v5 >= 0.01)
         {
-          v92 = 0;
-          v90[2](v90, &v92, 1.0);
-          if (v92)
+          v91 = 0;
+          v89[2](v89, &v91, 1.0);
+          if (v91)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              *v97 = 76;
-              *&v97[4] = 2080;
-              *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+              *v96 = 76;
+              *&v96[4] = 2080;
+              *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
           }
@@ -126,11 +126,11 @@ LABEL_7:
     }
 
     selfCopy = self;
-    v78 = librarySpecificFetchOptions;
-    v79 = v9;
-    v85 = photoLibrary;
-    v80 = loggingConnection;
-    v81 = blockCopy;
+    v77 = librarySpecificFetchOptions;
+    v78 = v9;
+    v84 = photoLibrary;
+    v79 = loggingConnection;
+    v80 = blockCopy;
     v15 = 0;
     v16 = 0;
     v17 = 0;
@@ -141,11 +141,11 @@ LABEL_7:
     v22 = 0;
     while (2)
     {
-      v82 = v22;
+      v81 = v22;
       while (1)
       {
         v23 = objc_autoreleasePoolPush();
-        v24 = [v89 objectAtIndexedSubscript:v22];
+        v24 = [v88 objectAtIndexedSubscript:v22];
         syndicationEligibility = [v24 syndicationEligibility];
         if (syndicationEligibility == 2)
         {
@@ -268,7 +268,7 @@ LABEL_7:
           v15 = v33;
         }
 
-        if (v90)
+        if (v89)
         {
           break;
         }
@@ -283,16 +283,16 @@ LABEL_7:
       Current = CFAbsoluteTimeGetCurrent();
       if (Current - v5 >= 0.01)
       {
-        v92 = 0;
-        v90[2](v90, &v92, 0.2);
-        if (v92)
+        v91 = 0;
+        v89[2](v89, &v91, 0.2);
+        if (v91)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v97 = 122;
-            *&v97[4] = 2080;
-            *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+            *v96 = 122;
+            *&v96[4] = 2080;
+            *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -304,8 +304,8 @@ LABEL_7:
       }
 
       objc_autoreleasePoolPop(v23);
-      v22 = v82 + 1;
-      if (v82 + 1 != context)
+      v22 = v81 + 1;
+      if (v81 + 1 != context)
       {
         continue;
       }
@@ -316,26 +316,26 @@ LABEL_7:
     v37 = CFAbsoluteTimeGetCurrent();
     if (v37 - v5 >= 0.01)
     {
-      v92 = 0;
-      v90[2](v90, &v92, 0.4);
-      if (v92)
+      v91 = 0;
+      v89[2](v89, &v91, 0.4);
+      if (v91)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v97 = 125;
-          *&v97[4] = 2080;
-          *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+          *v96 = 125;
+          *&v96[4] = 2080;
+          *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
 LABEL_82:
-        loggingConnection = v80;
-        blockCopy = v81;
-        photoLibrary = v85;
+        loggingConnection = v79;
+        blockCopy = v80;
+        photoLibrary = v84;
         v11 = 0;
-        v9 = v79;
-        librarySpecificFetchOptions = v78;
+        v9 = v78;
+        librarySpecificFetchOptions = v77;
         goto LABEL_104;
       }
 
@@ -344,16 +344,16 @@ LABEL_82:
 
 LABEL_84:
     contextb = objc_autoreleasePoolPush();
-    librarySpecificFetchOptions2 = [v85 librarySpecificFetchOptions];
+    librarySpecificFetchOptions2 = [v84 librarySpecificFetchOptions];
     v39 = [MEMORY[0x277D3B248] predicateForIncludeMask:objc_msgSend(MEMORY[0x277D3B248] useIndex:{"maskForGuestAsset"), 1}];
     [librarySpecificFetchOptions2 setIncludeGuestAssets:1];
     [librarySpecificFetchOptions2 setInternalPredicate:v39];
     v40 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions2];
 
     objc_autoreleasePoolPop(contextb);
-    v83 = objc_autoreleasePoolPush();
+    v82 = objc_autoreleasePoolPush();
     v41 = MEMORY[0x277CD98F8];
-    librarySpecificFetchOptions3 = [v85 librarySpecificFetchOptions];
+    librarySpecificFetchOptions3 = [v84 librarySpecificFetchOptions];
     contexta = v40;
     v43 = [v41 fetchMomentUUIDByAssetUUIDForAssets:v40 options:librarySpecificFetchOptions3];
 
@@ -362,22 +362,22 @@ LABEL_84:
     v46 = [v44 setWithArray:allValues];
 
     v47 = [v46 count];
-    objc_autoreleasePoolPop(v83);
-    if (v90)
+    objc_autoreleasePoolPop(v82);
+    if (v89)
     {
       v48 = CFAbsoluteTimeGetCurrent();
       if (v48 - v5 >= 0.01)
       {
-        v92 = 0;
-        v90[2](v90, &v92, 0.6);
-        if (v92)
+        v91 = 0;
+        v89[2](v89, &v91, 0.6);
+        if (v91)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v97 = 144;
-            *&v97[4] = 2080;
-            *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+            *v96 = 144;
+            *&v96[4] = 2080;
+            *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
             v49 = MEMORY[0x277D86220];
 LABEL_95:
             _os_log_impl(&dword_22F0FC000, v49, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -391,40 +391,40 @@ LABEL_95:
       }
     }
 
-    v84 = v47;
+    v83 = v47;
     v50 = objc_autoreleasePoolPush();
     v51 = MEMORY[0x277CD97B8];
-    librarySpecificFetchOptions4 = [v85 librarySpecificFetchOptions];
+    librarySpecificFetchOptions4 = [v84 librarySpecificFetchOptions];
     v53 = [v51 fetchAssetCollectionsContainingAssets:contexta withType:4 options:librarySpecificFetchOptions4];
 
-    v76 = [v53 count];
+    v75 = [v53 count];
     objc_autoreleasePoolPop(v50);
-    if (v90)
+    if (v89)
     {
       v54 = CFAbsoluteTimeGetCurrent();
       if (v54 - v5 >= 0.01)
       {
-        v92 = 0;
-        v90[2](v90, &v92, 0.8);
-        if (v92)
+        v91 = 0;
+        v89[2](v89, &v91, 0.8);
+        if (v91)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v97 = 152;
-            *&v97[4] = 2080;
-            *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+            *v96 = 152;
+            *&v96[4] = 2080;
+            *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
             v49 = MEMORY[0x277D86220];
             goto LABEL_95;
           }
 
 LABEL_96:
-          loggingConnection = v80;
-          blockCopy = v81;
-          photoLibrary = v85;
+          loggingConnection = v79;
+          blockCopy = v80;
+          photoLibrary = v84;
           v11 = 0;
-          v9 = v79;
-          librarySpecificFetchOptions = v78;
+          v9 = v78;
+          librarySpecificFetchOptions = v77;
 LABEL_103:
 
 LABEL_104:
@@ -438,72 +438,72 @@ LABEL_106:
       }
     }
 
-    v74 = objc_autoreleasePoolPush();
-    librarySpecificFetchOptions5 = [v85 librarySpecificFetchOptions];
+    v73 = objc_autoreleasePoolPush();
+    librarySpecificFetchOptions5 = [v84 librarySpecificFetchOptions];
     v56 = [MEMORY[0x277CCAC30] predicateWithFormat:@"type == %d", 18];
-    v72 = librarySpecificFetchOptions5;
+    v71 = librarySpecificFetchOptions5;
     [librarySpecificFetchOptions5 setPredicate:v56];
 
     v57 = [MEMORY[0x277CD9970] fetchAnsweredYesOrNoQuestionsWithOptions:librarySpecificFetchOptions5 validQuestionsOnly:0];
-    v58 = [MEMORY[0x277CD9970] questionsWithValidEntitiesFromQuestions:v57 photoLibrary:v85];
+    v58 = [MEMORY[0x277CD9970] questionsWithValidEntitiesFromQuestions:v57 photoLibrary:v84];
     v59 = [v57 count];
-    v73 = v59 - [v58 count];
+    v72 = v59 - [v58 count];
 
-    objc_autoreleasePoolPop(v74);
-    v93[0] = @"numberOfAssetsWithoutResource";
-    v75 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
-    v94[0] = v75;
-    v93[1] = @"numberOfAssetsWithSyndicationStateIncompatible";
+    objc_autoreleasePoolPop(v73);
+    v92[0] = @"numberOfAssetsWithoutResource";
+    v74 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
+    v93[0] = v74;
+    v92[1] = @"numberOfAssetsWithSyndicationStateIncompatible";
     v60 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v16];
-    v94[1] = v60;
-    v93[2] = @"numberOfAssetsNotProcessed";
+    v93[1] = v60;
+    v92[2] = @"numberOfAssetsNotProcessed";
     v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v17];
-    v94[2] = v61;
-    v93[3] = @"numberOfAssetsNotComputed";
+    v93[2] = v61;
+    v92[3] = @"numberOfAssetsNotComputed";
     v62 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
-    v94[3] = v62;
-    v93[4] = @"numberOfAssetsNotEligible";
+    v93[3] = v62;
+    v92[4] = @"numberOfAssetsNotEligible";
     v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v19];
-    v94[4] = v63;
-    v93[5] = @"numberOfAssetsEligible";
+    v93[4] = v63;
+    v92[5] = @"numberOfAssetsEligible";
     v64 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v20];
-    v94[5] = v64;
-    v93[6] = @"numberOfAssetsInferredAsGuest";
+    v93[5] = v64;
+    v92[6] = @"numberOfAssetsInferredAsGuest";
     v65 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v21];
-    v94[6] = v65;
-    v93[7] = @"numberOfMomentsFeaturingGuestAssets";
-    v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v84];
-    v94[7] = v66;
-    v93[8] = @"numberOfMemoriesFeaturingGuestAssets";
-    v67 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v76];
-    v94[8] = v67;
-    v93[9] = @"numberOfInvalidQuestions";
-    v68 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v73];
-    v94[9] = v68;
-    v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:10];
+    v93[6] = v65;
+    v92[7] = @"numberOfMomentsFeaturingGuestAssets";
+    v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v83];
+    v93[7] = v66;
+    v92[8] = @"numberOfMemoriesFeaturingGuestAssets";
+    v67 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v75];
+    v93[8] = v67;
+    v92[9] = @"numberOfInvalidQuestions";
+    v68 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v72];
+    v93[9] = v68;
+    v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:10];
     payload = selfCopy->_payload;
     selfCopy->_payload = v69;
 
-    photoLibrary = v85;
-    loggingConnection = v80;
-    blockCopy = v81;
+    photoLibrary = v84;
+    loggingConnection = v79;
+    blockCopy = v80;
     v11 = 0;
-    v9 = v79;
-    librarySpecificFetchOptions = v78;
-    if (v90)
+    v9 = v78;
+    librarySpecificFetchOptions = v77;
+    if (v89)
     {
       if (CFAbsoluteTimeGetCurrent() - v5 >= 0.01)
       {
-        v92 = 0;
-        v90[2](v90, &v92, 1.0);
-        if (v92)
+        v91 = 0;
+        v89[2](v89, &v91, 1.0);
+        if (v91)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v97 = 176;
-            *&v97[4] = 2080;
-            *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+            *v96 = 176;
+            *&v96[4] = 2080;
+            *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
@@ -513,9 +513,9 @@ LABEL_106:
     goto LABEL_103;
   }
 
-  v92 = 0;
-  v90[2](v90, &v92, 0.0);
-  if (v92 != 1)
+  v91 = 0;
+  v89[2](v89, &v91, 0.0);
+  if (v91 != 1)
   {
     v5 = v6;
     goto LABEL_7;
@@ -524,15 +524,13 @@ LABEL_106:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v97 = 48;
-    *&v97[4] = 2080;
-    *&v97[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
+    *v96 = 48;
+    *&v96[4] = 2080;
+    *&v96[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGraphSyndicatedAssetsMetricEvent.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_107:
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (PGGraphSyndicatedAssetsMetricEvent)initWithWorkingContext:(id)context

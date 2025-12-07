@@ -81,25 +81,23 @@
 
 - (id)description
 {
-  v14[4] = *MEMORY[0x1E69E9840];
+  v13[4] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  v13[0] = @"angelIdentifier";
+  v12[0] = @"angelIdentifier";
   angelIdentifier = [(LACAngelHostedSceneConfiguration *)self angelIdentifier];
-  v14[0] = angelIdentifier;
-  v13[1] = @"connectionEndpoint";
+  v13[0] = angelIdentifier;
+  v12[1] = @"connectionEndpoint";
   connectionEndpoint = [(LACAngelHostedSceneConfiguration *)self connectionEndpoint];
-  v14[1] = connectionEndpoint;
-  v13[2] = @"evaluationRequestIdentifier";
+  v13[1] = connectionEndpoint;
+  v12[2] = @"evaluationRequestIdentifier";
   evaluationRequestIdentifier = [(LACAngelHostedSceneConfiguration *)self evaluationRequestIdentifier];
-  v14[2] = evaluationRequestIdentifier;
-  v13[3] = @"sceneIdentifier";
+  v13[2] = evaluationRequestIdentifier;
+  v12[3] = @"sceneIdentifier";
   sceneIdentifier = [(LACAngelHostedSceneConfiguration *)self sceneIdentifier];
-  v14[3] = sceneIdentifier;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = sceneIdentifier;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
   v10 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v9];;
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

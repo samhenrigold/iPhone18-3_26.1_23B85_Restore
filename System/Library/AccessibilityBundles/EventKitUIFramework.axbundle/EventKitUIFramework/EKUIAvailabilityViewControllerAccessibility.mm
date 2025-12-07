@@ -3,6 +3,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilitySetup;
 - (void)layout;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation EKUIAvailabilityViewControllerAccessibility
@@ -46,6 +47,14 @@ id __66__EKUIAvailabilityViewControllerAccessibility__accessibilitySetup__block_
   [v3 axSafelyAddObject:v4];
 
   return v3;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = EKUIAvailabilityViewControllerAccessibility;
+  [(EKUIAvailabilityViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(EKUIAvailabilityViewControllerAccessibility *)self _accessibilitySetup];
 }
 
 - (void)layout

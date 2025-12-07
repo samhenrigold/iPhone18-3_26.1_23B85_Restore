@@ -70,13 +70,13 @@
 
 void __35__LKHangDetectionQueue_queueBlock___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LKHangDetectionQueue: task timed out", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LKHangDetectionQueue: task timed out", &v7, 2u);
     }
 
     v2 = [*(a1 + 32) backtraceLogger];
@@ -90,18 +90,16 @@ void __35__LKHangDetectionQueue_queueBlock___block_invoke(uint64_t a1)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         [*(a1 + 32) threshold];
-        v8 = 134218242;
-        v9 = v6;
-        v10 = 2112;
-        v11 = v3;
-        _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Queue was blocked for more than %.1f seconds. Call stack:\n%@", &v8, 0x16u);
+        v7 = 134218242;
+        v8 = v6;
+        v9 = 2112;
+        v10 = v3;
+        _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Queue was blocked for more than %.1f seconds. Call stack:\n%@", &v7, 0x16u);
       }
 
       [*(a1 + 32) setLastPrintedCallStack:v3];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __35__LKHangDetectionQueue_queueBlock___block_invoke_4(uint64_t a1)

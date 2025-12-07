@@ -27,7 +27,7 @@
   if (v7)
   {
     v9 = v7;
-    [(NSDecimalNumber *)v7 decimalValue];
+    objc_msgSend_decimalValue(v7);
     v7 = v9;
   }
 

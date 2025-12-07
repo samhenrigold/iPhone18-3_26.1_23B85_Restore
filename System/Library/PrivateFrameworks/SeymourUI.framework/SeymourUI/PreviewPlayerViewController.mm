@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for PreviewPlayerViewController();
+  v2.super_class = type metadata accessor for PreviewPlayerViewController(0);
   [(PreviewPlayerViewController *)&v2 viewDidLoad];
 }
 
@@ -27,7 +27,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for PreviewPlayerViewController();
+  v5.super_class = type metadata accessor for PreviewPlayerViewController(0);
   v4 = v5.receiver;
   [(PreviewPlayerViewController *)&v5 viewDidAppear:appearCopy];
   sub_20BC3EA28();

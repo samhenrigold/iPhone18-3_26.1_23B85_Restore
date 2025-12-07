@@ -12,6 +12,7 @@
 - (unint64_t)_optionForFileModificationAtPath:(id)path isDeletion:(BOOL)deletion;
 - (void)_accessor_updateDictionaryAtReadPath:(id)path writePath:(id)writePath updateBlock:(id)block;
 - (void)_ensureDirectoryExistsForFilePath:(id)path;
+- (void)_performFileActionAtPath:(id)path asynchronously:(BOOL)asynchronously hasRead:(BOOL)read hasWrite:(BOOL)write isDeletion:(BOOL)deletion action:(id)action;
 - (void)_updateDictionaryAtPath:(id)path updateBlock:(id)block completionHandler:(id)handler;
 - (void)clearAllKeyValueStorage:(id)storage;
 - (void)clearKeys:(id)keys completionHandler:(id)handler;
@@ -129,15 +130,14 @@ void __64__DMCPropertyListStorage_retrieveValueForKey_completionHandler___block_
 {
   if (a4)
   {
-    v5 = *(a1 + 48);
-    v6 = *(*(a1 + 48) + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    v6();
+    v5();
   }
 
   else
   {
-    v7 = [*(a1 + 32) _accessor_valueForKey:*(a1 + 40) atPath:a2];
+    v6 = [*(a1 + 32) _accessor_valueForKey:*(a1 + 40) atPath:a2];
     (*(*(a1 + 48) + 16))();
   }
 }
@@ -231,15 +231,14 @@ void __66__DMCPropertyListStorage_retrieveDictionaryWithCompletionHandler___bloc
 {
   if (a4)
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 
   else
   {
-    v7 = [MEMORY[0x1E695DF20] DMCDictionaryFromFile:a2];
+    v6 = [MEMORY[0x1E695DF20] DMCDictionaryFromFile:a2];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -360,16 +359,15 @@ void __50__DMCPropertyListStorage_clearAllKeyValueStorage___block_invoke(uint64_
 {
   if (a4)
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    v6();
+    v5();
   }
 
   else
   {
-    v7 = [*(a1 + 32) _accessor_removeFileAtPath:?];
-    (*(*(a1 + 40) + 16))(*(a1 + 40), v7 == 0);
+    v6 = [*(a1 + 32) _accessor_removeFileAtPath:a3];
+    (*(*(a1 + 40) + 16))(*(a1 + 40), v6 == 0);
   }
 }
 
@@ -449,7 +447,7 @@ void __59__DMCPropertyListStorage_clearAllKeyValueStorageWithError___block_invok
 
 - (void)_ensureDirectoryExistsForFilePath:(id)path
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   stringByDeletingLastPathComponent = [path stringByDeletingLastPathComponent];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v5 = [defaultManager fileExistsAtPath:stringByDeletingLastPathComponent];
@@ -457,54 +455,163 @@ void __59__DMCPropertyListStorage_clearAllKeyValueStorageWithError___block_invok
   if ((v5 & 1) == 0)
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v10 = 0;
-    [defaultManager2 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v10];
-    v7 = v10;
+    v11 = 0;
+    [defaultManager2 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v11];
+    v7 = v11;
 
     if (v7)
     {
-      v8 = *DMCLogObjects();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = *DMCLogObjects(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v12 = v7;
-        _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_ERROR, "DMCPropertyListStorage: Failed to create file directory with error: %{public}@", buf, 0xCu);
+        v13 = v7;
+        _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_ERROR, "DMCPropertyListStorage: Failed to create file directory with error: %{public}@", buf, 0xCu);
       }
     }
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)_performFileActionAtPath:(id)path asynchronously:(BOOL)asynchronously hasRead:(BOOL)read hasWrite:(BOOL)write isDeletion:(BOOL)deletion action:(id)action
+{
+  deletionCopy = deletion;
+  writeCopy = write;
+  readCopy = read;
+  asynchronouslyCopy = asynchronously;
+  v49 = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  actionCopy = action;
+  v16 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
+  v17 = objc_opt_new();
+  v18 = v17;
+  if (asynchronouslyCopy)
+  {
+    v32 = v17;
+    v19 = objc_opt_new();
+    if (readCopy)
+    {
+      v20 = [MEMORY[0x1E696ABF0] readingIntentWithURL:v16 options:1];
+      [v19 addObject:v20];
+    }
+
+    if (writeCopy)
+    {
+      v21 = MEMORY[0x1E696ABF0];
+      v22 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
+      v23 = [v21 writingIntentWithURL:v22 options:{-[DMCPropertyListStorage _optionForFileModificationAtPath:isDeletion:](self, "_optionForFileModificationAtPath:isDeletion:", pathCopy, deletionCopy)}];
+
+      [v19 addObject:v23];
+    }
+
+    storageQueue = [(DMCPropertyListStorage *)self storageQueue];
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __101__DMCPropertyListStorage__performFileActionAtPath_asynchronously_hasRead_hasWrite_isDeletion_action___block_invoke;
+    v42[3] = &unk_1E7ADD068;
+    v43 = pathCopy;
+    v44 = actionCopy;
+    [v32 coordinateAccessWithIntents:v19 queue:storageQueue byAccessor:v42];
+
+    v18 = v32;
+LABEL_18:
+
+    goto LABEL_19;
+  }
+
+  if (readCopy && writeCopy)
+  {
+    v25 = [(DMCPropertyListStorage *)self _optionForFileModificationAtPath:pathCopy isDeletion:deletionCopy];
+    v41 = 0;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __101__DMCPropertyListStorage__performFileActionAtPath_asynchronously_hasRead_hasWrite_isDeletion_action___block_invoke_9;
+    v39[3] = &unk_1E7ADD090;
+    v26 = &v40;
+    v40 = actionCopy;
+    v27 = &v41;
+    [v18 coordinateReadingItemAtURL:v16 options:1 writingItemAtURL:v16 options:v25 error:&v41 byAccessor:v39];
+  }
+
+  else if (readCopy)
+  {
+    v38 = 0;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __101__DMCPropertyListStorage__performFileActionAtPath_asynchronously_hasRead_hasWrite_isDeletion_action___block_invoke_2;
+    v36[3] = &unk_1E7ADD0B8;
+    v26 = &v37;
+    v37 = actionCopy;
+    v27 = &v38;
+    [v18 coordinateReadingItemAtURL:v16 options:1 error:&v38 byAccessor:v36];
+  }
+
+  else
+  {
+    if (!writeCopy)
+    {
+      goto LABEL_19;
+    }
+
+    v28 = [(DMCPropertyListStorage *)self _optionForFileModificationAtPath:pathCopy isDeletion:deletionCopy];
+    v35 = 0;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __101__DMCPropertyListStorage__performFileActionAtPath_asynchronously_hasRead_hasWrite_isDeletion_action___block_invoke_3;
+    v33[3] = &unk_1E7ADD0B8;
+    v26 = &v34;
+    v34 = actionCopy;
+    v27 = &v35;
+    [v18 coordinateWritingItemAtURL:v16 options:v28 error:&v35 byAccessor:v33];
+  }
+
+  v19 = *v27;
+
+  if (v19)
+  {
+    v31 = *DMCLogObjects(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543618;
+      v46 = pathCopy;
+      v47 = 2114;
+      v48 = v19;
+      _os_log_impl(&dword_1B1630000, v31, OS_LOG_TYPE_ERROR, "DMCPropertyListStorage: Failed to access file at (%{public}@) with error: %{public}@", buf, 0x16u);
+    }
+
+    (*(actionCopy + 2))(actionCopy, 0, 0, v19);
+    goto LABEL_18;
+  }
+
+LABEL_19:
 }
 
 void __101__DMCPropertyListStorage__performFileActionAtPath_asynchronously_hasRead_hasWrite_isDeletion_action___block_invoke(uint64_t a1, void *a2)
 {
   v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = *DMCLogObjects();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = *DMCLogObjects(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
+      v7 = *(a1 + 32);
       v9 = 138543618;
-      v10 = v5;
+      v10 = v7;
       v11 = 2114;
-      v12 = v3;
-      _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_ERROR, "DMCPropertyListStorage: Failed to access file at (%{public}@) with error: %{public}@", &v9, 0x16u);
+      v12 = v5;
+      _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_ERROR, "DMCPropertyListStorage: Failed to access file at (%{public}@) with error: %{public}@", &v9, 0x16u);
     }
 
-    v6 = *(*(a1 + 40) + 16);
+    v8 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    v6 = *(*(a1 + 40) + 16);
+    v8 = *(*(a1 + 40) + 16);
   }
 
-  v6();
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8();
 }
 
 void __101__DMCPropertyListStorage__performFileActionAtPath_asynchronously_hasRead_hasWrite_isDeletion_action___block_invoke_9(uint64_t a1, void *a2, void *a3)
@@ -553,18 +660,17 @@ uint64_t __80__DMCPropertyListStorage__updateDictionaryAtPath_updateBlock_comple
 {
   if (a4)
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    return v6();
+    return v5();
   }
 
   else
   {
     [*(a1 + 32) _accessor_updateDictionaryAtReadPath:a2 writePath:a3 updateBlock:*(a1 + 48)];
-    v8 = *(*(a1 + 40) + 16);
+    v7 = *(*(a1 + 40) + 16);
 
-    return v8();
+    return v7();
   }
 }
 

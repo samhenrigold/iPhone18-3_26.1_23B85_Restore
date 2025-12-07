@@ -85,46 +85,44 @@
 
 - (id)dictionaryRepresntation
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v22 = @"BMBehaviorDatabaseMetadata";
-  v20[0] = @"miningDate";
+  v22[1] = *MEMORY[0x277D85DE8];
+  v21 = @"BMBehaviorDatabaseMetadata";
+  v19[0] = @"miningDate";
   miningDate = [(BMBehaviorDatabaseMetadata *)self miningDate];
-  v21[0] = miningDate;
-  v20[1] = @"eventIntervalStart";
+  v20[0] = miningDate;
+  v19[1] = @"eventIntervalStart";
   eventInterval = [(BMBehaviorDatabaseMetadata *)self eventInterval];
   startDate = [eventInterval startDate];
-  v21[1] = startDate;
-  v20[2] = @"eventIntervalEnd";
+  v20[1] = startDate;
+  v19[2] = @"eventIntervalEnd";
   eventInterval2 = [(BMBehaviorDatabaseMetadata *)self eventInterval];
   endDate = [eventInterval2 endDate];
-  v21[2] = endDate;
-  v20[3] = @"minimumAbsoluteSupport";
+  v20[2] = endDate;
+  v19[3] = @"minimumAbsoluteSupport";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[BMBehaviorDatabaseMetadata minimumAbsoluteSupport](self, "minimumAbsoluteSupport")}];
-  v21[3] = v5;
-  v20[4] = @"minimumConfidence";
+  v20[3] = v5;
+  v19[4] = @"minimumConfidence";
   v6 = MEMORY[0x277CCABB0];
   [(BMBehaviorDatabaseMetadata *)self minimumConfidence];
   v7 = [v6 numberWithDouble:?];
-  v21[4] = v7;
-  v20[5] = @"samplingInterval";
+  v20[4] = v7;
+  v19[5] = @"samplingInterval";
   v8 = MEMORY[0x277CCABB0];
   [(BMBehaviorDatabaseMetadata *)self samplingInterval];
   v9 = [v8 numberWithDouble:?];
-  v21[5] = v9;
-  v20[6] = @"itemTypeIdentifiers";
+  v20[5] = v9;
+  v19[6] = @"itemTypeIdentifiers";
   itemTypeIdentifiers = [(BMBehaviorDatabaseMetadata *)self itemTypeIdentifiers];
-  v21[6] = itemTypeIdentifiers;
-  v20[7] = @"targetTypeIdentifiers";
+  v20[6] = itemTypeIdentifiers;
+  v19[7] = @"targetTypeIdentifiers";
   targetTypeIdentifiers = [(BMBehaviorDatabaseMetadata *)self targetTypeIdentifiers];
-  v21[7] = targetTypeIdentifiers;
-  v20[8] = @"numberOfBaskets";
+  v20[7] = targetTypeIdentifiers;
+  v19[8] = @"numberOfBaskets";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[BMBehaviorDatabaseMetadata numberOfBaskets](self, "numberOfBaskets")}];
-  v21[8] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:9];
-  v23[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v20[8] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:9];
+  v22[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
 
   return v14;
 }

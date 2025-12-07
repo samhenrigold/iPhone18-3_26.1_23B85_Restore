@@ -1,9 +1,9 @@
-void sub_100001810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100001810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  objc_destroyWeak((v15 + 40));
+  va_start(va, a22);
+  objc_destroyWeak((v22 + 40));
   objc_destroyWeak(va);
-  objc_destroyWeak((v16 - 144));
+  objc_destroyWeak((v23 - 144));
   _Unwind_Resume(a1);
 }
 
@@ -15,7 +15,7 @@ void sub_100001860(uint64_t a1, uint64_t a2, void *a3)
     v5 = _NDOLogSystem();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100003294(a1);
+      sub_100003294();
     }
   }
 
@@ -121,7 +121,7 @@ void sub_100001D4C(id *a1, void *a2)
       v13 = _NDOLogSystem();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_10000341C(a1);
+        sub_10000341C();
       }
     }
 
@@ -451,26 +451,22 @@ uint64_t sub_10000315C@<X0>(uint64_t a1@<X8>)
 
 uint64_t *sub_100003230(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-void sub_100003294(uint64_t a1)
+void sub_100003294()
 {
-  v1 = *(a1 + 32);
-  v4[0] = 138412546;
+  v2[0] = 138412546;
   sub_100003028();
-  v5 = v2;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to open url: %@, with error: %@", v4, 0x16u);
+  v3 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Failed to open url: %@, with error: %@", v2, 0x16u);
 }
 
 void sub_100003318()
@@ -486,11 +482,4 @@ void sub_100003398()
   sub_100003028();
   v3 = v0;
   _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "%{public}s: Followup up serial number %@", v2, 0x16u);
-}
-
-void sub_10000341C(uint64_t a1)
-{
-  v6 = *(a1 + 48);
-  sub_100003038();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }

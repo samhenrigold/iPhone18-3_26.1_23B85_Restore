@@ -61,7 +61,7 @@
 
 - (void)mainQueueDidReceiveAppWhitelistChangedNotification
 {
-  v2 = sub_100077780();
+  v2 = sub_100077780(self);
   dispatch_barrier_sync(v2, &stru_1000D0008);
 }
 
@@ -119,8 +119,7 @@
     v30 = titleCopy;
     v31 = identifierCopy;
     [v26 setIdentifier:identifierCopy];
-    [v28 park];
-    v32 = sub_100077780();
+    v32 = sub_100077780([v28 park]);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10007842C;
@@ -162,7 +161,7 @@
   messageCopy = message;
   assertionCopy = assertion;
   blockCopy = block;
-  v13 = sub_100077780();
+  v13 = sub_100077780(blockCopy);
   v18[0] = _NSConcreteStackBlock;
   v18[1] = 3221225472;
   v18[2] = sub_100078B30;

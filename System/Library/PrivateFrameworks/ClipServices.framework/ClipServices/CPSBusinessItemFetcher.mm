@@ -17,105 +17,104 @@
     self->_businessQueryService = v11;
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke;
-  v22[3] = &unk_278DCDB38;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke;
+  v21[3] = &unk_278DCDB38;
   v13 = lCopy;
-  v23 = v13;
+  v22 = v13;
   v14 = handlerCopy;
-  v25 = v14;
+  v24 = v14;
   v15 = completionCopy;
-  v26 = v15;
+  v25 = v15;
   selfCopy = self;
-  v16 = MEMORY[0x245D3D5F0](v22);
-  v17 = self->_businessQueryService;
-  v18 = objc_opt_respondsToSelector();
-  v19 = self->_businessQueryService;
-  if (v18)
+  v16 = MEMORY[0x245D3D5F0](v21);
+  v17 = objc_opt_respondsToSelector();
+  v18 = self->_businessQueryService;
+  if (v17)
   {
-    [(BCSBusinessQueryService *)v19 isBusinessRegisteredForURL:v13 chopURL:1 completion:v16];
+    [(BCSBusinessQueryService *)v18 isBusinessRegisteredForURL:v13 chopURL:1 completion:v16];
   }
 
   else
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_8;
-    v20[3] = &unk_278DCDB60;
-    v21 = v16;
-    [(BCSBusinessQueryService *)v19 isBusinessRegisteredForURL:v13 completion:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_8;
+    v19[3] = &unk_278DCDB60;
+    v20 = v16;
+    [(BCSBusinessQueryService *)v18 isBusinessRegisteredForURL:v13 completion:v19];
   }
 }
 
 void __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
-  v9 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  if (v11)
   {
-    v10 = @"NO";
-    v11 = *(a1 + 32);
+    v13 = @"NO";
+    v14 = *(a1 + 32);
     if (a2)
     {
-      v10 = @"YES";
+      v13 = @"YES";
     }
 
     *buf = 138740227;
-    v21 = v11;
-    v22 = 2112;
-    v23 = v10;
-    _os_log_impl(&dword_2436ED000, v9, OS_LOG_TYPE_INFO, "Remote Client: Has ABR entry for %{sensitive}@, %@", buf, 0x16u);
+    v23 = v14;
+    v24 = 2112;
+    v25 = v13;
+    _os_log_impl(&dword_2436ED000, v10, OS_LOG_TYPE_INFO, "Remote Client: Has ABR entry for %{sensitive}@, %@", buf, 0x16u);
   }
 
   if (v8)
   {
-    v12 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = CPS_LOG_CHANNEL_PREFIXClipServices(v11, v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_cold_1(v8, v12);
+      __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_cold_1(v8, v15);
     }
   }
 
-  v13 = *(a1 + 48);
-  if (v13)
+  v16 = *(a1 + 48);
+  if (v16)
   {
-    (*(v13 + 16))(v13, a2, v7);
+    (*(v16 + 16))(v16, a2, v7);
   }
 
   if (a2)
   {
-    v14 = *(a1 + 32);
-    v15 = *(*(a1 + 40) + 8);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_4;
-    v17[3] = &unk_278DCDB10;
-    v19 = *(a1 + 56);
-    v18 = *(a1 + 32);
-    [v15 fetchLinkItemWithURL:v14 completion:v17];
+    v17 = *(a1 + 32);
+    v18 = *(*(a1 + 40) + 8);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_4;
+    v19[3] = &unk_278DCDB10;
+    v21 = *(a1 + 56);
+    v20 = *(a1 + 32);
+    [v18 fetchLinkItemWithURL:v17 completion:v19];
   }
 
   else
   {
     (*(*(a1 + 56) + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = CPS_LOG_CHANNEL_PREFIXClipServices(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_4_cold_1(v6, v7);
+      __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_4_cold_1(v8, v9);
       if (v5)
       {
         goto LABEL_4;
@@ -133,19 +132,19 @@ LABEL_10:
   }
 
 LABEL_4:
-  v8 = [[CPSClipMetadata alloc] initWithBusinessItem:v5];
-  v9 = [(CPSClipMetadata *)v8 clipURL];
+  v10 = [[CPSClipMetadata alloc] initWithBusinessItem:v5];
+  v11 = [(CPSClipMetadata *)v10 clipURL];
 
-  if (!v9)
+  if (!v11)
   {
-    [(CPSClipMetadata *)v8 setClipURL:*(a1 + 32)];
+    [(CPSClipMetadata *)v10 setClipURL:*(a1 + 32)];
   }
 
-  v10 = [(CPSClipMetadata *)v8 clipRequestURL];
+  v12 = [(CPSClipMetadata *)v10 clipRequestURL];
 
-  if (!v10)
+  if (!v12)
   {
-    [(CPSClipMetadata *)v8 setClipRequestURL:*(a1 + 32)];
+    [(CPSClipMetadata *)v10 setClipRequestURL:*(a1 + 32)];
   }
 
   (*(*(a1 + 40) + 16))();
@@ -193,20 +192,18 @@ void __69__CPSBusinessItemFetcher_fetchBusinessMetadataForURLHash_completion___b
 
 void __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "fetchBusinessMetadataForURL: Error calling -isBusinessRegisteredForURL: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "fetchBusinessMetadataForURL: Error calling -isBusinessRegisteredForURL: %@", &v2, 0xCu);
 }
 
 void __85__CPSBusinessItemFetcher_fetchBusinessMetadataForURL_availabilityHandler_completion___block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "fetchBusinessMetadataForURL: Error calling -fetchLinkItemWithURL: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "fetchBusinessMetadataForURL: Error calling -fetchLinkItemWithURL: %@", &v2, 0xCu);
 }
 
 @end

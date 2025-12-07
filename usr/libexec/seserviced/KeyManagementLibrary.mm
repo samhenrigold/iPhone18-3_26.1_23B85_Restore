@@ -4,6 +4,7 @@
 - (KeyManagementLibrary)init;
 - (unsigned)numberOfPairingSessionsQueued;
 - (void)addNewSession:(id)session firstInQueue:(BOOL *)queue;
+- (void)appletLockStateDidChange:(BOOL)change;
 - (void)clientAppIsBackGrounded:(id)grounded;
 - (void)clientAppIsForeGrounded:(id)grounded;
 - (void)clientAppIsSuspended:(id)suspended;
@@ -65,9 +66,9 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v15 = "[KeyManagementLibrary startServiceWithMachName:]";
-      v16 = 1024;
-      v17 = 77;
+      v14 = "[KeyManagementLibrary startServiceWithMachName:]";
+      v15 = 1024;
+      v16 = 77;
       v6 = "%s : %i : KML: service already running.";
       v7 = v5;
       v8 = 18;
@@ -78,16 +79,15 @@ LABEL_6:
 
   else
   {
-    kmlMainQueue = self->_kmlMainQueue;
     os_state_add_handler();
-    v10 = [[NSXPCListener alloc] initWithMachServiceName:nameCopy];
+    v9 = [[NSXPCListener alloc] initWithMachServiceName:nameCopy];
     kmlListener = self->_kmlListener;
-    self->_kmlListener = v10;
+    self->_kmlListener = v9;
 
     [(NSXPCListener *)self->_kmlListener setDelegate:self];
-    v12 = sub_100389CF0([KmlClientAppStateObserver alloc], self);
+    v11 = sub_100389CF0([KmlClientAppStateObserver alloc], self);
     appObserver = self->_appObserver;
-    self->_appObserver = v12;
+    self->_appObserver = v11;
 
     [(NSXPCListener *)self->_kmlListener resume];
     self->_isRunning = 1;
@@ -95,11 +95,11 @@ LABEL_6:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v15 = "[KeyManagementLibrary startServiceWithMachName:]";
-      v16 = 1024;
-      v17 = 93;
-      v18 = 2112;
-      v19 = nameCopy;
+      v14 = "[KeyManagementLibrary startServiceWithMachName:]";
+      v15 = 1024;
+      v16 = 93;
+      v17 = 2112;
+      v18 = nameCopy;
       v6 = "%s : %i : Service %@ running";
       v7 = v5;
       v8 = 28;
@@ -120,11 +120,11 @@ LABEL_6:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s : %i : ", &v6, 0x12u);
   }
 
-  v4 = sub_10037E00C();
+  v4 = sub_10037E00C(KmlSharingTransport);
   idsListener = self->_idsListener;
   self->_idsListener = v4;
 
-  sub_1003986A0();
+  sub_1003986A0(KmlEndpointManager);
 }
 
 - (void)stopService
@@ -346,9 +346,9 @@ LABEL_9:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v19 = "[KeyManagementLibrary numberOfPairingSessionsQueued]";
-      v20 = 1024;
-      v21 = 191;
+      v18 = "[KeyManagementLibrary numberOfPairingSessionsQueued]";
+      v19 = 1024;
+      v20 = 191;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s : %i : Current session is pairing session", buf, 0x12u);
     }
 
@@ -360,59 +360,58 @@ LABEL_9:
     v4 = 0;
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_sessions;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v24 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v23 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v10 = KmlLogger();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          v9 = KmlLogger();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v19 = "[KeyManagementLibrary numberOfPairingSessionsQueued]";
-            v20 = 1024;
-            v21 = 198;
-            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s : %i : A pairing session is already in queue", buf, 0x12u);
+            v18 = "[KeyManagementLibrary numberOfPairingSessionsQueued]";
+            v19 = 1024;
+            v20 = 198;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s : %i : A pairing session is already in queue", buf, 0x12u);
           }
 
           ++v4;
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v24 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v23 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(obj);
-  v11 = KmlLogger();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v10 = KmlLogger();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[KeyManagementLibrary numberOfPairingSessionsQueued]";
-    v20 = 1024;
-    v21 = 204;
-    v22 = 1024;
-    v23 = v4;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s : %i : Number of pairing sessions in queue : %u", buf, 0x18u);
+    v18 = "[KeyManagementLibrary numberOfPairingSessionsQueued]";
+    v19 = 1024;
+    v20 = 204;
+    v21 = 1024;
+    v22 = v4;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s : %i : Number of pairing sessions in queue : %u", buf, 0x18u);
   }
 
   return v4;
@@ -718,6 +717,25 @@ LABEL_26:
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s : %i : connection is nil", buf, 0x12u);
     }
   }
+}
+
+- (void)appletLockStateDidChange:(BOOL)change
+{
+  changeCopy = change;
+  v4 = KmlLogger();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  {
+    v6 = 136315650;
+    v7 = "[KeyManagementLibrary appletLockStateDidChange:]";
+    v8 = 1024;
+    v9 = 407;
+    v10 = 1024;
+    v11 = changeCopy;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s : %i : %d", &v6, 0x18u);
+  }
+
+  v5 = sub_100388B10(KmlSharingManager);
+  [v5 setAppletLockState:changeCopy];
 }
 
 @end

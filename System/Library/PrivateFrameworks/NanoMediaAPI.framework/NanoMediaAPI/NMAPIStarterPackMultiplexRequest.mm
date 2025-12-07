@@ -1,13 +1,31 @@
 @interface NMAPIStarterPackMultiplexRequest
+- (NMAPIStarterPackMultiplexRequest)initWithUnderageUser:(BOOL)user;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)urlComponentsWithStoreURLBag:(id)bag error:(id *)error;
 @end
 
 @implementation NMAPIStarterPackMultiplexRequest
 
+- (NMAPIStarterPackMultiplexRequest)initWithUnderageUser:(BOOL)user
+{
+  userCopy = user;
+  v7.receiver = self;
+  v7.super_class = NMAPIStarterPackMultiplexRequest;
+  v4 = [(MPStoreModelRequest *)&v7 init];
+  if (v4)
+  {
+    userCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Multiplex Identifier For Underage User: (%d)", userCopy];
+    [(NMAPIStarterPackMultiplexRequest *)v4 setLabel:userCopy];
+
+    [(NMAPIStarterPackMultiplexRequest *)v4 setUnderageUser:userCopy];
+  }
+
+  return v4;
+}
+
 - (id)urlComponentsWithStoreURLBag:(id)bag error:(id *)error
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   bagCopy = bag;
   v7 = MusicURLPathStorefrontWithURLBag(bagCopy);
   if (v7)
@@ -27,15 +45,15 @@
     v11 = [v8 objectForKey:v10];
     if (v11)
     {
-      v20.receiver = self;
-      v20.super_class = NMAPIStarterPackMultiplexRequest;
-      v12 = [(NMAPIRequest *)&v20 urlComponentsWithStoreURLBag:bagCopy error:error];
+      v19.receiver = self;
+      v19.super_class = NMAPIStarterPackMultiplexRequest;
+      v12 = [(NMAPIRequest *)&v19 urlComponentsWithStoreURLBag:bagCopy error:error];
       v13 = MEMORY[0x277CCACA8];
-      v21[0] = @"/v1/editorial";
-      v21[1] = v7;
-      v21[2] = @"multiplex";
-      v21[3] = v11;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+      v20[0] = @"/v1/editorial";
+      v20[1] = v7;
+      v20[2] = @"multiplex";
+      v20[3] = v11;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
       v15 = [v13 pathWithComponents:v14];
       [v12 setPath:v15];
     }
@@ -81,8 +99,6 @@
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
@@ -101,11 +117,10 @@
 
 - (void)urlComponentsWithStoreURLBag:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B251000, a2, OS_LOG_TYPE_ERROR, "[NMAPIRequest] Missing musicStarterPack bag key: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B251000, a2, OS_LOG_TYPE_ERROR, "[NMAPIRequest] Missing musicStarterPack bag key: %@", &v2, 0xCu);
 }
 
 @end

@@ -56,10 +56,10 @@
 
   else
   {
-    v10 = SBLogActivity();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SBLogActivity(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(SBActivityCoverSheetObserver *)itemCopy _dismissAlertForItem:v10];
+      [(SBActivityCoverSheetObserver *)itemCopy _dismissAlertForItem:v11];
     }
   }
 }

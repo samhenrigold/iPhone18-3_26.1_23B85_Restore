@@ -14,7 +14,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = sub_100001F6C();
+  v6 = sub_100001F6C(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -40,7 +40,7 @@
 {
   infoCopy = info;
   completionCopy = completion;
-  v8 = sub_100001F6C();
+  v8 = sub_100001F6C(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -152,47 +152,48 @@
   hostCopy = host;
   dictCopy = dict;
   blockCopy = block;
-  v25 = 0;
-  v10 = [NSJSONSerialization dataWithJSONObject:dictCopy options:0 error:&v25];
-  v11 = v25;
+  v26 = 0;
+  v10 = [NSJSONSerialization dataWithJSONObject:dictCopy options:0 error:&v26];
+  v11 = v26;
+  v12 = v11;
   if (v11)
   {
-    v12 = sub_100001F6C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100001F6C(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Error: Can't parse emergencyCallInfo", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Error: Can't parse emergencyCallInfo", buf, 2u);
     }
 
-    blockCopy[2](blockCopy, 0, v11);
+    blockCopy[2](blockCopy, 0, v12);
   }
 
   else
   {
-    v13 = v10;
-    v14 = v13;
-    CC_SHA256([v13 bytes], objc_msgSend(v13, "length"), buf);
-    v15 = [NSData dataWithBytes:buf length:32];
-    v16 = [[FMDIdentitySigningRequest alloc] initWithData:v15];
-    v17 = objc_alloc_init(FMDDeviceIdentityFactory);
-    v18 = sub_100001F6C();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v14 = v10;
+    v15 = v14;
+    CC_SHA256([v14 bytes], objc_msgSend(v14, "length"), buf);
+    v16 = [NSData dataWithBytes:buf length:32];
+    v17 = [[FMDIdentitySigningRequest alloc] initWithData:v16];
+    v18 = objc_alloc_init(FMDDeviceIdentityFactory);
+    v19 = sub_100001F6C(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v26 = 134217984;
-      v27 = 60;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Sign Using BAA with timeout: %lu seconds", v26, 0xCu);
+      *v27 = 134217984;
+      v28 = 60;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Sign Using BAA with timeout: %lu seconds", v27, 0xCu);
     }
 
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_1000039F4;
-    v21[3] = &unk_10000D0D8;
-    v21[4] = self;
-    v22 = hostCopy;
-    v23 = v13;
-    v24 = blockCopy;
-    v19 = v13;
-    [v17 baaIdentityAttestationForSigningRequest:v16 completion:v21];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_1000039F4;
+    v22[3] = &unk_10000D0D8;
+    v22[4] = self;
+    v23 = hostCopy;
+    v24 = v14;
+    v25 = blockCopy;
+    v20 = v14;
+    [v18 baaIdentityAttestationForSigningRequest:v17 completion:v22];
   }
 }
 
@@ -206,7 +207,7 @@
 
 - (id)_processServerStatusCode:(int64_t)code
 {
-  v4 = sub_100001F6C();
+  v4 = sub_100001F6C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;

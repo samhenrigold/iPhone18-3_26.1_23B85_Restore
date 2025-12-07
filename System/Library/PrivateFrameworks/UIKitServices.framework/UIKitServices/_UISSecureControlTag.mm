@@ -181,7 +181,7 @@
     else
     {
       baseForegroundColor = self->_baseForegroundColor;
-      if (!baseForegroundColor || (isValid = UISIsColorInDisplayP3Gamut(baseForegroundColor)) != 0)
+      if (!baseForegroundColor || (isValid = UISIsColorInDisplayP3Gamut(baseForegroundColor)))
       {
         baseBackgroundColor = self->_baseBackgroundColor;
         if (baseBackgroundColor)

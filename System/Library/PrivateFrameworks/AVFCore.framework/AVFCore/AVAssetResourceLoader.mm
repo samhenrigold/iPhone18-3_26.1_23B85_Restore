@@ -36,10 +36,10 @@
 
 - (AVAssetResourceLoader)initWithURLRequestHelper:(id)helper asset:(id)asset remoteCustomURLHandlerContext:(id)context
 {
-  v32[1] = *MEMORY[0x1E69E9840];
-  v30.receiver = self;
-  v30.super_class = AVAssetResourceLoader;
-  v8 = [(AVAssetResourceLoader *)&v30 init];
+  v33[1] = *MEMORY[0x1E69E9840];
+  v31.receiver = self;
+  v31.super_class = AVAssetResourceLoader;
+  v8 = [(AVAssetResourceLoader *)&v31 init];
   if (v8)
   {
     if (!helper)
@@ -60,7 +60,7 @@
     v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v8->_resourceLoader->stateQueue = dispatch_queue_create("com.apple.avfoundation.avassetresourceloader.state", v10);
     v8->_resourceLoader->pendingRequests = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v8->_resourceLoader->contentInformationCachingQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloader.contentInformationCaching");
+    v8->_resourceLoader->contentInformationCachingQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloader.contentInformationCaching", v11);
     [(AVAssetClientURLRequestHelper *)v8->_resourceLoader->URLRequestHelper setResourceLoader:v8];
     figAsset = [(AVAssetClientURLRequestHelper *)v8->_resourceLoader->URLRequestHelper figAsset];
     if (!figAsset)
@@ -68,11 +68,11 @@
       goto LABEL_15;
     }
 
-    v12 = figAsset;
+    v13 = figAsset;
     resourceLoader = v8->_resourceLoader;
     CMBaseObject = FigAssetGetCMBaseObject();
-    v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (!v15 || v15(CMBaseObject, *MEMORY[0x1E6971200], *MEMORY[0x1E695E480], &resourceLoader->customURLLoader) || !v8->_resourceLoader->customURLLoader)
+    v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (!v16 || v16(CMBaseObject, *MEMORY[0x1E6971200], *MEMORY[0x1E695E480], &resourceLoader->customURLLoader) || !v8->_resourceLoader->customURLLoader)
     {
       goto LABEL_15;
     }
@@ -100,61 +100,61 @@ LABEL_15:
 
     else
     {
-      v17 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v18 = dispatch_queue_create("com.apple.avfoundation.avassetresourceloader.handler", v17);
+      v18 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v19 = dispatch_queue_create("com.apple.avfoundation.avassetresourceloader.handler", v18);
       if ([asset _clientURLLoadingRepresentsAccurateNetworkStatistics])
       {
-        v31 = *MEMORY[0x1E69615E0];
-        v32[0] = MEMORY[0x1E695E118];
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+        v32 = *MEMORY[0x1E69615E0];
+        v33[0] = MEMORY[0x1E695E118];
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
       }
 
       else
       {
-        v19 = MEMORY[0x1E695E0F8];
+        v20 = MEMORY[0x1E695E0F8];
       }
 
-      v20 = v8->_resourceLoader;
-      customURLLoader = v20->customURLLoader;
-      v22 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-      if (v22)
+      v21 = v8->_resourceLoader;
+      customURLLoader = v21->customURLLoader;
+      v23 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+      if (v23)
       {
-        v23 = v22(customURLLoader, 600, "AVAssetResourceLoader", v8, v18, &initWithURLRequestHelper_asset_remoteCustomURLHandlerContext__sHandlerCallbacks, v19, &v20->customURLHandler) == 0;
+        v24 = v23(customURLLoader, 600, "AVAssetResourceLoader", v8, v19, &initWithURLRequestHelper_asset_remoteCustomURLHandlerContext__sHandlerCallbacks, v20, &v21->customURLHandler) == 0;
       }
 
       else
       {
-        v23 = 0;
+        v24 = 0;
       }
 
-      if (v18)
+      if (v19)
       {
-        dispatch_release(v18);
+        dispatch_release(v19);
       }
 
-      if (!v23)
+      if (!v24)
       {
         goto LABEL_15;
       }
 
-      v24 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v25 = dispatch_queue_create("com.apple.avfoundation.avassetresourceloader.authhandler", v24);
-      v26 = v8->_resourceLoader;
-      v27 = v26->customURLLoader;
-      v28 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-      v29 = v28 && v28(v27, 900, "AVAssetResourceLoader-authentication", v8, v25, &initWithURLRequestHelper_asset_remoteCustomURLHandlerContext__sAuthHandlerCallbacks, 0, &v26->authHandler) == 0;
-      if (v25)
+      v25 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v26 = dispatch_queue_create("com.apple.avfoundation.avassetresourceloader.authhandler", v25);
+      v27 = v8->_resourceLoader;
+      v28 = v27->customURLLoader;
+      v29 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+      v30 = v29 && v29(v28, 900, "AVAssetResourceLoader-authentication", v8, v26, &initWithURLRequestHelper_asset_remoteCustomURLHandlerContext__sAuthHandlerCallbacks, 0, &v27->authHandler) == 0;
+      if (v26)
       {
-        dispatch_release(v25);
+        dispatch_release(v26);
       }
 
-      if (!v29)
+      if (!v30)
       {
         goto LABEL_15;
       }
     }
 
-    v8->_resourceLoader->bridgeBetweenHandlerAndSession = [[AVAssetCustomURLBridgeForNSURLSession alloc] initWithFigAsset:v12];
+    v8->_resourceLoader->bridgeBetweenHandlerAndSession = [[AVAssetCustomURLBridgeForNSURLSession alloc] initWithFigAsset:v13];
     v8->_resourceLoader->URLSessionOperationQueue = objc_alloc_init(MEMORY[0x1E696ADC8]);
     [(NSOperationQueue *)v8->_resourceLoader->URLSessionOperationQueue setMaxConcurrentOperationCount:1];
   }
@@ -333,7 +333,7 @@ id __33__AVAssetResourceLoader_delegate__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __38__AVAssetResourceLoader_delegateQueue__block_invoke(uint64_t a1)
+void *__38__AVAssetResourceLoader_delegateQueue__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _getDelegateQueueOnStateQueue];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -648,11 +648,11 @@ uint64_t __87__AVAssetResourceLoader__poseAuthenticationChallengeWithKey_challen
   [(AVAssetResourceLoader *)self _poseAuthenticationChallengeWithKey:v9 challenge:MEMORY[0x1E69E9820] fallbackHandler:3221225472, __89__AVAssetResourceLoader__poseAuthenticationChallengeWithRequestInfo_requestID_challenge___block_invoke, &unk_1E7465A48, self, v10];
 }
 
-uint64_t __89__AVAssetResourceLoader__poseAuthenticationChallengeWithRequestInfo_requestID_challenge___block_invoke(uint64_t result, char a2)
+id *__89__AVAssetResourceLoader__poseAuthenticationChallengeWithRequestInfo_requestID_challenge___block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) performDefaultHandlingForAuthenticationChallenge:*(result + 40)];
+    return [result[4] performDefaultHandlingForAuthenticationChallenge:result[5]];
   }
 
   return result;
@@ -940,7 +940,7 @@ uint64_t __102__AVAssetResourceLoader_AVAssetResourceLoaderContentInformationCac
   return v4;
 }
 
-uint64_t __102__AVAssetResourceLoader_AVAssetResourceLoaderContentInformationCache__cachedContentInformationForURL___block_invoke(uint64_t a1)
+void *__102__AVAssetResourceLoader_AVAssetResourceLoaderContentInformationCache__cachedContentInformationForURL___block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 112) objectForKey:{objc_msgSend(*(a1 + 40), "absoluteString")}];
   *(*(*(a1 + 48) + 8) + 40) = result;

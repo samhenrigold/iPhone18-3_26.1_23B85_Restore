@@ -39,6 +39,7 @@
 - (void)registerConnectionFailureForWHAIdentifier:(id)identifier;
 - (void)setAvailableOutputDevices:(id)devices;
 - (void)setDeviceInfo:(id)info;
+- (void)setDiscoveryMode:(unsigned int)mode;
 - (void)setDiscoveryMode:(unsigned int)mode forClientIdentifiers:(id)identifiers;
 - (void)setLocalEndpointConnection:(id)connection;
 - (void)setNativeOutputDevice:(id)device;
@@ -448,14 +449,12 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [v3 appendFormat:@"  localEndpointConnection=%@\n", selfCopy->_localEndpointConnection];
-  discoveryMode = selfCopy->_discoveryMode;
-  v6 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-  [v3 appendFormat:@"  discoveryMode=%@\n", v6];
+  v5 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
+  [v3 appendFormat:@"  discoveryMode=%@\n", v5];
 
   [v3 appendFormat:@"  lastReportedClientIdentifiers=%@\n", selfCopy->_lastReportedClientIdentifiers];
-  discoveryTracker = selfCopy->_discoveryTracker;
-  v8 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@"  discoveryTracker=%@\n", v8];
+  v6 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@"  discoveryTracker=%@\n", v6];
 
   [v3 appendFormat:@"  routingContextID=%@\n", selfCopy->_routingContextID];
   objc_sync_exit(selfCopy);
@@ -466,27 +465,27 @@
   block[2] = sub_10009BB3C;
   block[3] = &unk_1004B68F0;
   block[4] = selfCopy;
-  v10 = v3;
-  v19 = v10;
+  v8 = v3;
+  v17 = v8;
   dispatch_sync(workerQueue, block);
-  v11 = selfCopy;
-  objc_sync_enter(v11);
-  mr_formattedDebugDescription = [v11[4] mr_formattedDebugDescription];
-  [v10 appendFormat:@"  nativeOutputDevice = %@\n", mr_formattedDebugDescription];
+  v9 = selfCopy;
+  objc_sync_enter(v9);
+  mr_formattedDebugDescription = [v9[4] mr_formattedDebugDescription];
+  [v8 appendFormat:@"  nativeOutputDevice = %@\n", mr_formattedDebugDescription];
 
-  mr_formattedDebugDescription2 = [v11[3] mr_formattedDebugDescription];
-  [v10 appendFormat:@"  unclusteredOutputDevices = %@\n", mr_formattedDebugDescription2];
+  mr_formattedDebugDescription2 = [v9[3] mr_formattedDebugDescription];
+  [v8 appendFormat:@"  unclusteredOutputDevices = %@\n", mr_formattedDebugDescription2];
 
-  mr_formattedDebugDescription3 = [v11[2] mr_formattedDebugDescription];
-  [v10 appendFormat:@"  availableOutputDevices = %@\n", mr_formattedDebugDescription3];
+  mr_formattedDebugDescription3 = [v9[2] mr_formattedDebugDescription];
+  [v8 appendFormat:@"  availableOutputDevices = %@\n", mr_formattedDebugDescription3];
 
-  [v10 appendString:@"}>"];
-  objc_sync_exit(v11);
+  [v8 appendString:@"}>"];
+  objc_sync_exit(v9);
 
-  v15 = v19;
-  v16 = v10;
+  v13 = v17;
+  v14 = v8;
 
-  return v10;
+  return v8;
 }
 
 - (MRAVRoutingDiscoverySessionConfiguration)configuration
@@ -680,6 +679,13 @@ LABEL_6:
     v16 = identifiersCopy;
     dispatch_async(workerQueue, block);
   }
+}
+
+- (void)setDiscoveryMode:(unsigned int)mode
+{
+  v3 = *&mode;
+  v5 = +[NSSet set];
+  [(MRDRemoteControlDiscoverySession *)self setDiscoveryMode:v3 forClientIdentifiers:v5];
 }
 
 - (BOOL)devicePresenceDetected

@@ -88,16 +88,16 @@
 
 - (void)_postNotificationForService:(id)service availability:(int64_t)availability
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   v7 = +[IDSLogging ServiceAvailability];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     selfCopy = self;
-    v14 = 2112;
-    v15 = serviceCopy;
-    v16 = 1024;
+    v13 = 2112;
+    v14 = serviceCopy;
+    v15 = 1024;
     availabilityCopy = availability;
     _os_log_impl(&dword_1959FF000, v7, OS_LOG_TYPE_DEFAULT, "%@ posting availability change notification (%@) - available: %d", buf, 0x1Cu);
   }
@@ -106,8 +106,6 @@
   v9 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v8, @"availability", serviceCopy, @"service", 0}];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter __mainThreadPostNotificationName:@"__IDSServiceAvailabilityDidChangeNotification" object:self userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleServiceMonitorNotification:(id)notification
@@ -147,7 +145,7 @@
 - (id)containerForService:(id)service create:(BOOL)create
 {
   createCopy = create;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   if ([(IDSServiceAvailabilityController *)self _isValidServiceType:serviceCopy])
   {
@@ -167,11 +165,11 @@
       v9 = +[IDSLogging ServiceAvailability];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412546;
+        v13 = 138412546;
         selfCopy = self;
-        v16 = 2112;
-        v17 = serviceCopy;
-        _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "%@ creating monitor for service: %@", &v14, 0x16u);
+        v15 = 2112;
+        v16 = serviceCopy;
+        _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "%@ creating monitor for service: %@", &v13, 0x16u);
       }
 
       v10 = [[IDSServiceContainer alloc] initWithService:serviceCopy];
@@ -190,8 +188,6 @@
   {
     v7 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -224,7 +220,7 @@
 
 - (BOOL)addListenerID:(id)d forService:(id)service
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
   if (dCopy && [dCopy length])
@@ -232,12 +228,12 @@
     v8 = +[IDSLogging ServiceAvailability];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412802;
+      v13 = 138412802;
       selfCopy = self;
-      v16 = 2112;
-      v17 = dCopy;
-      v18 = 2112;
-      v19 = serviceCopy;
+      v15 = 2112;
+      v16 = dCopy;
+      v17 = 2112;
+      v18 = serviceCopy;
     }
 
     v9 = [(IDSServiceAvailabilityController *)self containerForService:serviceCopy create:1];
@@ -258,13 +254,12 @@
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)removeListenerID:(id)d forService:(id)service
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
   if (dCopy)
@@ -272,12 +267,12 @@
     v8 = +[IDSLogging ServiceAvailability];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412802;
+      v16 = 138412802;
       selfCopy2 = self;
-      v19 = 2112;
-      v20 = dCopy;
-      v21 = 2112;
-      v22 = serviceCopy;
+      v18 = 2112;
+      v19 = dCopy;
+      v20 = 2112;
+      v21 = serviceCopy;
     }
 
     v9 = [(IDSServiceAvailabilityController *)self containerForService:serviceCopy create:0];
@@ -293,11 +288,11 @@
         v13 = +[IDSLogging ServiceAvailability];
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = 138412546;
+          v16 = 138412546;
           selfCopy2 = self;
-          v19 = 2112;
-          v20 = serviceCopy;
-          _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "%@ no more listeners for service: %@", &v17, 0x16u);
+          v18 = 2112;
+          v19 = serviceCopy;
+          _os_log_impl(&dword_1959FF000, v13, OS_LOG_TYPE_DEFAULT, "%@ no more listeners for service: %@", &v16, 0x16u);
         }
 
         monitor = [v10 monitor];
@@ -308,13 +303,12 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return dCopy != 0;
 }
 
 - (int64_t)availabilityForListenerID:(id)d forService:(id)service
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   serviceCopy = service;
   if (dCopy)
@@ -335,12 +329,12 @@ LABEL_10:
       v12 = +[IDSLogging ServiceAvailability];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412802;
+        v14 = 138412802;
         selfCopy = self;
-        v17 = 2112;
-        v18 = dCopy;
-        v19 = 2112;
-        v20 = serviceCopy;
+        v16 = 2112;
+        v17 = dCopy;
+        v18 = 2112;
+        v19 = serviceCopy;
       }
     }
 
@@ -351,7 +345,6 @@ LABEL_10:
   serviceAvailability = -2;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return serviceAvailability;
 }
 

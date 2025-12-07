@@ -72,7 +72,7 @@
 
 uint64_t __45__HMDBiomeEventManager_submitAccessoryEvent___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -83,21 +83,19 @@ uint64_t __45__HMDBiomeEventManager_submitAccessoryEvent___block_invoke(uint64_t
     v7 = [*(a1 + 40) base];
     v8 = [v7 source];
     v9 = *(a1 + 40);
-    v12 = 138544130;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Submitting accessory event for %@ with source %@: %@ ", &v12, 0x2Au);
+    v11 = 138544130;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Submitting accessory event for %@ with source %@: %@ ", &v11, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _submitAccessoryEvent:*(a1 + 40)];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _submitAccessoryEvent:*(a1 + 40)];
 }
 
 - (void)_submitActionSetEvent:(id)event
@@ -142,72 +140,70 @@ uint64_t __45__HMDBiomeEventManager_submitAccessoryEvent___block_invoke(uint64_t
 
 void __39__HMDBiomeEventManager_deleteAllEvents__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v16 = WeakRetained;
+    v15 = WeakRetained;
     v2 = [WeakRetained workQueue];
     dispatch_assert_queue_V2(v2);
 
     v3 = objc_autoreleasePoolPush();
-    v4 = v16;
+    v4 = v15;
     v5 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v6;
+      v22 = v6;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Deleting all events in biome", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = [v4 hapAccessoryStream];
-    v21[0] = v7;
+    v20[0] = v7;
     v8 = [v4 mediaAccessoryStream];
-    v21[1] = v8;
+    v20[1] = v8;
     v9 = [v4 actionSetStream];
-    v21[2] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+    v20[2] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
 
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:buf count:16];
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:buf count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         v14 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [HMDBiomeEventManager _deleteEventFromStartDate:v4 toEndDate:*(*(&v17 + 1) + 8 * v14++) stream:&__block_literal_global_31_122019 passingDeleteEventTest:?];
+          [HMDBiomeEventManager _deleteEventFromStartDate:v4 toEndDate:*(*(&v16 + 1) + 8 * v14++) stream:&__block_literal_global_31_122019 passingDeleteEventTest:?];
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v17 objects:buf count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:buf count:16];
       }
 
       while (v12);
     }
 
-    WeakRetained = v16;
+    WeakRetained = v15;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteEventFromStartDate:(void *)date toEndDate:stream:passingDeleteEventTest:
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = a2;
   dateCopy = date;
   workQueue = [self workQueue];
@@ -220,13 +216,13 @@ void __39__HMDBiomeEventManager_deleteAllEvents__block_invoke(uint64_t a1)
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v42 = v11;
-    v43 = 2112;
-    v44 = 0;
-    v45 = 2112;
-    v46 = 0;
-    v47 = 2112;
-    v48 = v5;
+    v41 = v11;
+    v42 = 2112;
+    v43 = 0;
+    v44 = 2112;
+    v45 = 0;
+    v46 = 2112;
+    v47 = v5;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Deleting matching biome events from: (%@) to: (%@) in stream: %@", buf, 0x2Au);
   }
 
@@ -248,17 +244,17 @@ void __39__HMDBiomeEventManager_deleteAllEvents__block_invoke(uint64_t a1)
     prunableStreamFactory = [selfCopy prunableStreamFactory];
     v22 = prunableStreamFactory[2](prunableStreamFactory, v20);
 
-    v40 = 0;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __90__HMDBiomeEventManager__deleteEventFromStartDate_toEndDate_stream_passingDeleteEventTest___block_invoke;
-    v35[3] = &unk_2786794A0;
-    v36 = 0;
-    v38 = v14;
-    v39 = v17;
-    v37 = dateCopy;
-    [v22 pruneEventsWithError:&v40 predicateBlock:v35];
-    v23 = v40;
+    v39 = 0;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __90__HMDBiomeEventManager__deleteEventFromStartDate_toEndDate_stream_passingDeleteEventTest___block_invoke;
+    v34[3] = &unk_2786794A0;
+    v35 = 0;
+    v37 = v14;
+    v38 = v17;
+    v36 = dateCopy;
+    [v22 pruneEventsWithError:&v39 predicateBlock:v34];
+    v23 = v39;
     v24 = objc_autoreleasePoolPush();
     v25 = selfCopy;
     v26 = HMFGetOSLogHandle();
@@ -267,17 +263,17 @@ void __39__HMDBiomeEventManager_deleteAllEvents__block_invoke(uint64_t a1)
       v27 = HMFGetLogIdentifier();
       v28 = HMFBooleanToString();
       *buf = 138544642;
-      v42 = v27;
-      v43 = 2112;
-      v44 = 0;
-      v45 = 2112;
-      v46 = 0;
-      v47 = 2112;
-      v48 = v5;
-      v49 = 2112;
-      v50 = v28;
-      v51 = 2112;
-      v52 = v23;
+      v41 = v27;
+      v42 = 2112;
+      v43 = 0;
+      v44 = 2112;
+      v45 = 0;
+      v46 = 2112;
+      v47 = v5;
+      v48 = 2112;
+      v49 = v28;
+      v50 = 2112;
+      v51 = v23;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Deleted matching biome events from: (%@) to: (%@) in stream: %@ with success: %@ (%@)", buf, 0x3Eu);
     }
 
@@ -294,18 +290,16 @@ void __39__HMDBiomeEventManager_deleteAllEvents__block_invoke(uint64_t a1)
       v32 = HMFGetLogIdentifier();
       identifier2 = [v5 identifier];
       *buf = 138543874;
-      v42 = v32;
-      v43 = 2112;
-      v44 = identifier2;
-      v45 = 2112;
-      v46 = v5;
+      v41 = v32;
+      v42 = 2112;
+      v43 = identifier2;
+      v44 = 2112;
+      v45 = v5;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to find public stream to prune for stream identifier: %@ of stream: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v29);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __90__HMDBiomeEventManager__deleteEventFromStartDate_toEndDate_stream_passingDeleteEventTest___block_invoke(uint64_t a1, void *a2)
@@ -341,7 +335,7 @@ uint64_t __90__HMDBiomeEventManager__deleteEventFromStartDate_toEndDate_stream_p
 
 - (void)_handleActionSetEmptiedNotification:(id)notification
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:@"HMDActionSetNotificationKey"];
@@ -370,8 +364,8 @@ uint64_t __90__HMDBiomeEventManager__deleteEventFromStartDate_toEndDate_stream_p
       block[2] = __60__HMDBiomeEventManager__handleActionSetEmptiedNotification___block_invoke;
       block[3] = &unk_27868A010;
       block[4] = self;
-      v21 = v8;
-      v22 = home;
+      v20 = v8;
+      v21 = home;
       dispatch_async(workQueue, block);
     }
 
@@ -384,11 +378,11 @@ uint64_t __90__HMDBiomeEventManager__deleteEventFromStartDate_toEndDate_stream_p
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v24 = v18;
-        v25 = 2112;
-        v26 = notificationCopy;
-        v27 = 2112;
-        v28 = v8;
+        v23 = v18;
+        v24 = 2112;
+        v25 = notificationCopy;
+        v26 = 2112;
+        v27 = v8;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@No home found for emptied action set notification: %@ for action set: %@", buf, 0x20u);
       }
 
@@ -405,27 +399,25 @@ uint64_t __90__HMDBiomeEventManager__deleteEventFromStartDate_toEndDate_stream_p
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v14;
-      v25 = 2112;
-      v26 = notificationCopy;
+      v23 = v14;
+      v24 = 2112;
+      v25 = notificationCopy;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@No action set found for emptied action set notification: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDBiomeEventManager__handleActionSetEmptiedNotification___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) spiClientIdentifier];
   v4 = [*(a1 + 40) uuid];
   v5 = [*(a1 + 48) spiClientIdentifier];
   v6 = [*(a1 + 48) uuid];
-  v16 = v3;
+  v15 = v3;
   v7 = v4;
   v8 = v5;
   v9 = v6;
@@ -443,13 +435,13 @@ void __60__HMDBiomeEventManager__handleActionSetEmptiedNotification___block_invo
       *buf = 138544386;
       *&buf[4] = v14;
       *&buf[12] = 2112;
-      *&buf[14] = v16;
+      *&buf[14] = v15;
       *&buf[22] = 2112;
-      v18 = v7;
-      *v19 = 2112;
-      *&v19[2] = v8;
-      *&v19[10] = 2112;
-      *&v19[12] = v9;
+      v17 = v7;
+      *v18 = 2112;
+      *&v18[2] = v8;
+      *&v18[10] = 2112;
+      *&v18[12] = v9;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Deleting matching biome events for action set with uniqueIdentifier: %@, uuid: %@, in home with uniqueIdentifier: %@ uuid %@", buf, 0x34u);
     }
 
@@ -457,13 +449,11 @@ void __60__HMDBiomeEventManager__handleActionSetEmptiedNotification___block_invo
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __113__HMDBiomeEventManager__deleteAllEventsForActionSetUniqueIdentifier_actionSetUUID_homeUniqueIdentifier_homeUUID___block_invoke;
-    v18 = &unk_278679400;
-    *v19 = v16;
-    *&v19[8] = v8;
+    v17 = &unk_278679400;
+    *v18 = v15;
+    *&v18[8] = v8;
     [(HMDBiomeEventManager *)v12 _deleteActionSetEventsPassingTest:buf];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __113__HMDBiomeEventManager__deleteAllEventsForActionSetUniqueIdentifier_actionSetUUID_homeUniqueIdentifier_homeUUID___block_invoke(uint64_t a1, void *a2)
@@ -522,7 +512,7 @@ uint64_t __58__HMDBiomeEventManager__deleteActionSetEventsPassingTest___block_in
 
 - (void)_handleServiceRemovedNotification:(id)notification
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:@"HMDServiceNotificationKey"];
@@ -550,15 +540,15 @@ uint64_t __58__HMDBiomeEventManager__deleteActionSetEventsPassingTest___block_in
       if (home)
       {
         workQueue = [(HMDBiomeEventManager *)self workQueue];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __58__HMDBiomeEventManager__handleServiceRemovedNotification___block_invoke;
-        v26[3] = &unk_2786891E0;
-        v26[4] = self;
-        v27 = v8;
-        v28 = v10;
-        v29 = home;
-        dispatch_async(workQueue, v26);
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __58__HMDBiomeEventManager__handleServiceRemovedNotification___block_invoke;
+        v25[3] = &unk_2786891E0;
+        v25[4] = self;
+        v26 = v8;
+        v27 = v10;
+        v28 = home;
+        dispatch_async(workQueue, v25);
       }
 
       else
@@ -570,13 +560,13 @@ uint64_t __58__HMDBiomeEventManager__deleteActionSetEventsPassingTest___block_in
         {
           v24 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v31 = v24;
-          v32 = 2112;
-          v33 = notificationCopy;
-          v34 = 2112;
-          v35 = v8;
-          v36 = 2112;
-          v37 = v10;
+          v30 = v24;
+          v31 = 2112;
+          v32 = notificationCopy;
+          v33 = 2112;
+          v34 = v8;
+          v35 = 2112;
+          v36 = v10;
           _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@No home found for removed service notification: %@ for service: %@ on accessory: %@", buf, 0x2Au);
         }
 
@@ -593,11 +583,11 @@ uint64_t __58__HMDBiomeEventManager__deleteActionSetEventsPassingTest___block_in
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v31 = v20;
-        v32 = 2112;
-        v33 = notificationCopy;
-        v34 = 2112;
-        v35 = v8;
+        v30 = v20;
+        v31 = 2112;
+        v32 = notificationCopy;
+        v33 = 2112;
+        v34 = v8;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@No accessory found for removed service notification: %@ for service: %@", buf, 0x20u);
       }
 
@@ -614,21 +604,19 @@ uint64_t __58__HMDBiomeEventManager__deleteActionSetEventsPassingTest___block_in
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v16;
-      v32 = 2112;
-      v33 = notificationCopy;
+      v30 = v16;
+      v31 = 2112;
+      v32 = notificationCopy;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@No service found for removed service notification: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDBiomeEventManager__handleServiceRemovedNotification___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) spiClientIdentifier];
   v4 = [*(a1 + 40) uuid];
@@ -636,7 +624,7 @@ void __58__HMDBiomeEventManager__handleServiceRemovedNotification___block_invoke
   v6 = [*(a1 + 48) uuid];
   v7 = [*(a1 + 56) spiClientIdentifier];
   v8 = [*(a1 + 56) uuid];
-  v20 = v3;
+  v19 = v3;
   v9 = v4;
   v10 = v5;
   v11 = v6;
@@ -658,15 +646,15 @@ void __58__HMDBiomeEventManager__handleServiceRemovedNotification___block_invoke
       *&buf[12] = 2112;
       *&buf[14] = v10;
       *&buf[22] = 2112;
-      v22 = v11;
-      *v23 = 2112;
-      *&v23[2] = v20;
-      *&v23[10] = 2112;
-      *&v23[12] = v9;
-      *&v23[20] = 2112;
-      *&v23[22] = v12;
-      v24 = 2112;
-      v25 = v13;
+      v21 = v11;
+      *v22 = 2112;
+      *&v22[2] = v19;
+      *&v22[10] = 2112;
+      *&v22[12] = v9;
+      *&v22[20] = 2112;
+      *&v22[22] = v12;
+      v23 = 2112;
+      v24 = v13;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Deleting matching biome events for accessory's (uniqueIdentifier: %@ uuid: %@) service with uniqueIdentifier: %@, uuid: %@, in home with uniqueIdentifier: %@ uuid %@", buf, 0x48u);
     }
 
@@ -674,14 +662,12 @@ void __58__HMDBiomeEventManager__handleServiceRemovedNotification___block_invoke
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __167__HMDBiomeEventManager__deleteAllEventsForAccessoryServiceUniqueIdentifier_accessoryServiceUUID_accessoryUniqueIdentifier_accessoryUUID_homeUniqueIdentifier_homeUUID___block_invoke;
-    v22 = &unk_278679478;
-    *v23 = v20;
-    *&v23[8] = v10;
-    *&v23[16] = v12;
+    v21 = &unk_278679478;
+    *v22 = v19;
+    *&v22[8] = v10;
+    *&v22[16] = v12;
     [(HMDBiomeEventManager *)v16 _deleteAccessoryEventsPassingTest:buf];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __167__HMDBiomeEventManager__deleteAllEventsForAccessoryServiceUniqueIdentifier_accessoryServiceUUID_accessoryUniqueIdentifier_accessoryUUID_homeUniqueIdentifier_homeUUID___block_invoke(void *a1, void *a2)
@@ -750,7 +736,7 @@ uint64_t __58__HMDBiomeEventManager__deleteAccessoryEventsPassingTest___block_in
 
 - (void)_handleAccessoryRemovedNotification:(id)notification
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:@"HMDAccessoryNotificationKey"];
@@ -792,8 +778,8 @@ uint64_t __58__HMDBiomeEventManager__deleteAccessoryEventsPassingTest___block_in
       block[2] = __60__HMDBiomeEventManager__handleAccessoryRemovedNotification___block_invoke;
       block[3] = &unk_27868A010;
       block[4] = self;
-      v23 = v8;
-      v24 = v11;
+      v22 = v8;
+      v23 = v11;
       dispatch_async(workQueue, block);
     }
 
@@ -806,11 +792,11 @@ uint64_t __58__HMDBiomeEventManager__deleteAccessoryEventsPassingTest___block_in
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v26 = v20;
-        v27 = 2112;
-        v28 = notificationCopy;
-        v29 = 2112;
-        v30 = v8;
+        v25 = v20;
+        v26 = 2112;
+        v27 = notificationCopy;
+        v28 = 2112;
+        v29 = v8;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@No home found for removed accessory notification: %@ for accessory: %@", buf, 0x20u);
       }
 
@@ -827,27 +813,25 @@ uint64_t __58__HMDBiomeEventManager__deleteAccessoryEventsPassingTest___block_in
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v16;
-      v27 = 2112;
-      v28 = notificationCopy;
+      v25 = v16;
+      v26 = 2112;
+      v27 = notificationCopy;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@No accessory found for removed accessory notification: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDBiomeEventManager__handleAccessoryRemovedNotification___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) spiClientIdentifier];
   v4 = [*(a1 + 40) uuid];
   v5 = [*(a1 + 48) spiClientIdentifier];
   v6 = [*(a1 + 48) uuid];
-  v18 = v3;
+  v17 = v3;
   v7 = v4;
   v8 = v5;
   v9 = v6;
@@ -865,13 +849,13 @@ void __60__HMDBiomeEventManager__handleAccessoryRemovedNotification___block_invo
       *buf = 138544386;
       *&buf[4] = v14;
       *&buf[12] = 2112;
-      *&buf[14] = v18;
+      *&buf[14] = v17;
       *&buf[22] = 2112;
-      v23 = v7;
-      *v24 = 2112;
-      *&v24[2] = v8;
-      *&v24[10] = 2112;
-      *&v24[12] = v9;
+      v22 = v7;
+      *v23 = 2112;
+      *&v23[2] = v8;
+      *&v23[10] = 2112;
+      *&v23[12] = v9;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Deleting matching biome events for accessory with uniqueIdentifier: %@, uuid: %@, in home with uniqueIdentifier: %@ uuid %@", buf, 0x34u);
     }
 
@@ -879,22 +863,20 @@ void __60__HMDBiomeEventManager__handleAccessoryRemovedNotification___block_invo
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __113__HMDBiomeEventManager__deleteAllEventsForAccessoryUniqueIdentifier_accessoryUUID_homeUniqueIdentifier_homeUUID___block_invoke;
-    v23 = &unk_278679428;
-    v15 = v18;
-    *v24 = v15;
+    v22 = &unk_278679428;
+    v15 = v17;
+    *v23 = v15;
     v16 = v8;
-    *&v24[8] = v16;
+    *&v23[8] = v16;
     [(HMDBiomeEventManager *)v12 _deleteAccessoryEventsPassingTest:buf];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __113__HMDBiomeEventManager__deleteAllEventsForAccessoryUniqueIdentifier_accessoryUUID_homeUniqueIdentifier_homeUUID___block_invoke_2;
-    v19[3] = &unk_278679450;
-    v20 = v15;
-    v21 = v16;
-    [(HMDBiomeEventManager *)v12 _deleteMediaAccessoryEventsPassingTest:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __113__HMDBiomeEventManager__deleteAllEventsForAccessoryUniqueIdentifier_accessoryUUID_homeUniqueIdentifier_homeUUID___block_invoke_2;
+    v18[3] = &unk_278679450;
+    v19 = v15;
+    v20 = v16;
+    [(HMDBiomeEventManager *)v12 _deleteMediaAccessoryEventsPassingTest:v18];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __113__HMDBiomeEventManager__deleteAllEventsForAccessoryUniqueIdentifier_accessoryUUID_homeUniqueIdentifier_homeUUID___block_invoke(uint64_t a1, void *a2)
@@ -974,7 +956,7 @@ uint64_t __63__HMDBiomeEventManager__deleteMediaAccessoryEventsPassingTest___blo
 
 - (void)_handleHomeRemovedNotification:(id)notification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:@"HMDHomeNotificationKey"];
@@ -995,13 +977,13 @@ uint64_t __63__HMDBiomeEventManager__deleteMediaAccessoryEventsPassingTest___blo
   if (v8)
   {
     workQueue = [(HMDBiomeEventManager *)self workQueue];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __55__HMDBiomeEventManager__handleHomeRemovedNotification___block_invoke;
-    v15[3] = &unk_27868A750;
-    v15[4] = self;
-    v16 = v8;
-    dispatch_async(workQueue, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __55__HMDBiomeEventManager__handleHomeRemovedNotification___block_invoke;
+    v14[3] = &unk_27868A750;
+    v14[4] = self;
+    v15 = v8;
+    dispatch_async(workQueue, v14);
   }
 
   else
@@ -1013,25 +995,23 @@ uint64_t __63__HMDBiomeEventManager__deleteMediaAccessoryEventsPassingTest___blo
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = notificationCopy;
+      v17 = v13;
+      v18 = 2112;
+      v19 = notificationCopy;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@No home found for home accessory notification: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDBiomeEventManager__handleHomeRemovedNotification___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) spiClientIdentifier];
   v4 = [*(a1 + 40) uuid];
-  v14 = v3;
+  v13 = v3;
   v5 = v4;
   if (v2)
   {
@@ -1047,9 +1027,9 @@ void __55__HMDBiomeEventManager__handleHomeRemovedNotification___block_invoke(ui
       *buf = 138543874;
       *&buf[4] = v10;
       *&buf[12] = 2112;
-      *&buf[14] = v14;
+      *&buf[14] = v13;
       *&buf[22] = 2112;
-      v20 = v5;
+      v19 = v5;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Deleting matching biome events for home with uniqueIdentifier: %@, uuid: %@", buf, 0x20u);
     }
 
@@ -1057,26 +1037,24 @@ void __55__HMDBiomeEventManager__handleHomeRemovedNotification___block_invoke(ui
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __73__HMDBiomeEventManager__deleteAllEventsForHomeUniqueIdentifier_homeUUID___block_invoke;
-    v20 = &unk_278679388;
-    v11 = v14;
-    v21 = v11;
+    v19 = &unk_278679388;
+    v11 = v13;
+    v20 = v11;
     [(HMDBiomeEventManager *)v8 _deleteActionSetEventsPassingTest:buf];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __73__HMDBiomeEventManager__deleteAllEventsForHomeUniqueIdentifier_homeUUID___block_invoke_2;
-    v17[3] = &unk_2786793B0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __73__HMDBiomeEventManager__deleteAllEventsForHomeUniqueIdentifier_homeUUID___block_invoke_2;
+    v16[3] = &unk_2786793B0;
     v12 = v11;
-    v18 = v12;
-    [(HMDBiomeEventManager *)v8 _deleteAccessoryEventsPassingTest:v17];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __73__HMDBiomeEventManager__deleteAllEventsForHomeUniqueIdentifier_homeUUID___block_invoke_3;
-    v15[3] = &unk_2786793D8;
-    v16 = v12;
-    [(HMDBiomeEventManager *)v8 _deleteMediaAccessoryEventsPassingTest:v15];
+    v17 = v12;
+    [(HMDBiomeEventManager *)v8 _deleteAccessoryEventsPassingTest:v16];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __73__HMDBiomeEventManager__deleteAllEventsForHomeUniqueIdentifier_homeUUID___block_invoke_3;
+    v14[3] = &unk_2786793D8;
+    v15 = v12;
+    [(HMDBiomeEventManager *)v8 _deleteMediaAccessoryEventsPassingTest:v14];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__HMDBiomeEventManager__deleteAllEventsForHomeUniqueIdentifier_homeUUID___block_invoke(uint64_t a1, void *a2)

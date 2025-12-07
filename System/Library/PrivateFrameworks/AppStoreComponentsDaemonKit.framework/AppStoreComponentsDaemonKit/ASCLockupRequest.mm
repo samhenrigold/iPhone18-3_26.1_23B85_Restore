@@ -1,6 +1,9 @@
 @interface ASCLockupRequest
 + (id)_requestWithID:(id)d kind:(id)kind context:(id)context appVersionId:(id)id distributorId:(id)distributorId;
 + (id)_requestWithID:(id)d kind:(id)kind context:(id)context clientID:(id)iD;
++ (id)_requestWithID:(id)d kind:(id)kind context:(id)context clientID:(id)iD enableAppDistribution:(BOOL)distribution;
++ (id)_requestWithID:(id)d kind:(id)kind context:(id)context clientID:(id)iD productVariantID:(id)variantID enableAppDistribution:(BOOL)distribution;
++ (id)_requestWithID:(id)d kind:(id)kind context:(id)context enableAppDistribution:(BOOL)distribution;
 + (id)_requestWithID:(id)d kind:(id)kind context:(id)context minExternalVersionID:(id)iD latestReleaseID:(id)releaseID productVariantID:(id)variantID;
 + (id)_requestWithID:(id)d kind:(id)kind context:(id)context platformOverride:(id)override;
 - (ASCLockupRequest)initWithCoder:(id)coder;
@@ -591,7 +594,7 @@ LABEL_55:
 - (id)_initWithID:(id)d kind:(id)kind context:(id)context clientID:(id)iD productVariantID:(id)variantID enableAppDistribution:(BOOL)distribution
 {
   distributionCopy = distribution;
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   iDCopy = iD;
   variantIDCopy = variantID;
   v16 = [(ASCLockupRequest *)self initWithID:d kind:kind context:context];
@@ -604,9 +607,9 @@ LABEL_55:
 
   if (variantIDCopy)
   {
-    v24 = @"ppid";
-    v25[0] = variantIDCopy;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = @"ppid";
+    v24[0] = variantIDCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v20 = [lockupRequestWithAppDistributionEnabled lockupRequestWithMediaQueryParams:v19];
 
     lockupRequestWithAppDistributionEnabled = v20;
@@ -614,8 +617,43 @@ LABEL_55:
 
   v21 = [lockupRequestWithAppDistributionEnabled _lockupRequestWithClientID:iDCopy];
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
+}
+
++ (id)_requestWithID:(id)d kind:(id)kind context:(id)context enableAppDistribution:(BOOL)distribution
+{
+  distributionCopy = distribution;
+  contextCopy = context;
+  kindCopy = kind;
+  dCopy = d;
+  v12 = [[ASCLockupRequest alloc] _initWithID:dCopy kind:kindCopy context:contextCopy enableAppDistribution:distributionCopy];
+
+  return v12;
+}
+
++ (id)_requestWithID:(id)d kind:(id)kind context:(id)context clientID:(id)iD enableAppDistribution:(BOOL)distribution
+{
+  distributionCopy = distribution;
+  iDCopy = iD;
+  contextCopy = context;
+  kindCopy = kind;
+  dCopy = d;
+  v15 = [[ASCLockupRequest alloc] _initWithID:dCopy kind:kindCopy context:contextCopy clientID:iDCopy enableAppDistribution:distributionCopy];
+
+  return v15;
+}
+
++ (id)_requestWithID:(id)d kind:(id)kind context:(id)context clientID:(id)iD productVariantID:(id)variantID enableAppDistribution:(BOOL)distribution
+{
+  distributionCopy = distribution;
+  variantIDCopy = variantID;
+  iDCopy = iD;
+  contextCopy = context;
+  kindCopy = kind;
+  dCopy = d;
+  v18 = [[ASCLockupRequest alloc] _initWithID:dCopy kind:kindCopy context:contextCopy clientID:iDCopy productVariantID:variantIDCopy enableAppDistribution:distributionCopy];
+
+  return v18;
 }
 
 - (id)_initWithID:(id)d kind:(id)kind context:(id)context appVersionId:(id)id distributorId:(id)distributorId
@@ -685,7 +723,7 @@ LABEL_55:
 
 - (id)_initWithID:(id)d kind:(id)kind context:(id)context minExternalVersionID:(id)iD latestReleaseID:(id)releaseID productVariantID:(id)variantID
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   iDCopy = iD;
   releaseIDCopy = releaseID;
   variantIDCopy = variantID;
@@ -693,17 +731,17 @@ LABEL_55:
   v18 = v17;
   if (iDCopy)
   {
-    v30 = @"minExternalVersionId";
-    v31[0] = iDCopy;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v29 = @"minExternalVersionId";
+    v30[0] = iDCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v18 = [(ASCLockupRequest *)v17 lockupRequestByAddingMediaQueryParams:v19];
   }
 
   if (releaseIDCopy)
   {
-    v28 = @"latestReleaseId";
-    v29 = releaseIDCopy;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = @"latestReleaseId";
+    v28 = releaseIDCopy;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     v21 = [v18 lockupRequestByAddingMediaQueryParams:v20];
 
     v18 = v21;
@@ -711,15 +749,14 @@ LABEL_55:
 
   if (variantIDCopy)
   {
-    v26 = @"ppid";
-    v27 = variantIDCopy;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = @"ppid";
+    v26 = variantIDCopy;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v23 = [v18 lockupRequestByAddingMediaQueryParams:v22];
 
     v18 = v23;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

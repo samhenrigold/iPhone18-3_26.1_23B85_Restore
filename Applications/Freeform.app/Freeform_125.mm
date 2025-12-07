@@ -1,4 +1,4 @@
-uint64_t sub_100F398E0(uint64_t a1)
+double sub_100F398E0(uint64_t a1)
 {
   v2 = v1;
   v55 = a1;
@@ -12,7 +12,7 @@ uint64_t sub_100F398E0(uint64_t a1)
   }
 
   v7 = static OS_os_log.crlFolderUI;
-  v54 = sub_1005B981C(&qword_1019F54E0);
+  v54 = sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v51 = xmmword_10146C6B0;
   *(inited + 16) = xmmword_10146C6B0;
@@ -27,7 +27,7 @@ uint64_t sub_100F398E0(uint64_t a1)
   v12 = static os_log_type_t.default.getter();
   sub_100005404(v7, &_mh_execute_header, v12, "Filter view (%@) received snapshot update", 41, 2, inited);
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
   (*(v4 + 16))(v6, v55, v3);
   sub_100F7CC80(v6, v57);
   v13 = v57[0];
@@ -41,14 +41,14 @@ uint64_t sub_100F398E0(uint64_t a1)
     sub_100636CB4(v17);
     swift_endAccess();
     v58 = v13;
-    sub_10000CAAC(&v58, &unk_1019FB880);
+    sub_10000CAAC(&v58, &unk_1019FB880, &unk_101474EC0);
 
     v59 = v16;
-    sub_10000CAAC(&v59, &unk_101A22E80);
+    sub_10000CAAC(&v59, &unk_101A22E80, &unk_1014A08B0);
     v60 = v15;
-    sub_10000CAAC(&v60, &qword_1019FB890);
+    sub_10000CAAC(&v60, &qword_1019FB890, &qword_101474ED0);
     v61 = v14;
-    sub_10000CAAC(&v61, &qword_1019FB890);
+    sub_10000CAAC(&v61, &qword_1019FB890, &qword_101474ED0);
     v18 = v2;
     v19 = *(sub_100070F30() + 48);
     if (*(v19 + 16) && (Hasher.init(_seed:)(), Hasher._combine(_:)(5uLL), v20 = Hasher._finalize()(), v21 = -1 << *(v19 + 32), v22 = v20 & ~v21, ((*(v19 + 56 + ((v22 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v22) & 1) != 0))
@@ -82,7 +82,7 @@ uint64_t sub_100F398E0(uint64_t a1)
       v37 = static os_log_type_t.default.getter();
       sub_100005404(v7, &_mh_execute_header, v37, "Filter view (%@) ignoring snapshot update", 41, 2, v34);
       swift_setDeallocating();
-      sub_100005070(v34 + 32);
+      sub_100005070((v34 + 32));
       v38 = *(v18 + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController____lazy_storage___libraryProviderRefreshLimiter);
 
       sub_100F5FB78(2, 3u, 0);
@@ -155,7 +155,7 @@ LABEL_15:
       v33 = static os_log_type_t.default.getter();
       sub_100005404(v24, &_mh_execute_header, v33, "Filter view (%@) requesting refresh", 35, 2, v30);
       swift_setDeallocating();
-      sub_100005070(v30 + 32);
+      sub_100005070((v30 + 32));
 
       sub_100F5E4DC();
     }
@@ -164,13 +164,15 @@ LABEL_15:
   else
   {
     v28 = static os_log_type_t.error.getter();
-    return sub_100005404(v7, &_mh_execute_header, v28, "Invalid snapshot update notification.", 37, 2, _swiftEmptyArrayStorage);
+    sub_100005404(v7, &_mh_execute_header, v28, "Invalid snapshot update notification.", 37, 2, _swiftEmptyArrayStorage);
   }
+
+  return result;
 }
 
 uint64_t sub_100F39EE8(uint64_t a1)
 {
-  v2 = sub_1005B981C(&unk_101A15B20);
+  v2 = sub_1005B981C(&unk_101A15B20, &qword_10146F1E0);
   __chkstk_darwin(v2 - 8);
   v4 = &v18 - v3;
   v5 = type metadata accessor for CRLBoardLibraryViewModel.Item(0);
@@ -188,7 +190,7 @@ uint64_t sub_100F39EE8(uint64_t a1)
 
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    return sub_10000CAAC(v4, &unk_101A15B20);
+    return sub_10000CAAC(v4, &unk_101A15B20, &qword_10146F1E0);
   }
 
   sub_100065D50(v4, v14, type metadata accessor for CRLBoardLibraryViewModel.Item);
@@ -201,14 +203,14 @@ uint64_t sub_100F39EE8(uint64_t a1)
   return sub_10000BBC4(v14, type metadata accessor for CRLBoardLibraryViewModel.Item);
 }
 
-uint64_t sub_100F3A144(int64_t a1, uint64_t a2, int a3)
+uint64_t sub_100F3A144(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   sub_10006601C(a1, a2, a3);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v4 = Strong;
+    v5 = Strong;
     *(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_searchComplete) = 1;
     sub_100F373E0();
   }
@@ -231,11 +233,11 @@ uint64_t sub_100F3A24C(uint64_t a1)
   v38 = a1;
   v2 = type metadata accessor for UUID();
   v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
-  v36 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v2);
+  v36 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
   v7 = &v27 - v6;
-  v8 = sub_1005B981C(&unk_101A23860);
+  v8 = sub_1005B981C(&unk_101A23860, qword_10147BC00);
   v28 = *(v8 - 8);
   __chkstk_darwin(v8);
   v10 = &v27 - v9;
@@ -278,7 +280,7 @@ uint64_t sub_100F3A24C(uint64_t a1)
           goto LABEL_4;
         }
 
-        sub_10006852C(&qword_1019F37C0, &type metadata accessor for UUID);
+        sub_10006852C(&qword_1019F37C0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
         v19 += v17;
       }
 
@@ -299,7 +301,7 @@ uint64_t sub_100F3A24C(uint64_t a1)
       v23 = v15[3];
       if (v24 >= v23 >> 1)
       {
-        sub_100776524(v23 > 1, v24 + 1, 1);
+        sub_100776524((v23 > 1), v24 + 1, 1);
         v15 = v41;
       }
 
@@ -397,7 +399,7 @@ LABEL_30:
     else
     {
       v17 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-      v18 = sub_1005B981C(&qword_1019F3480);
+      v18 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
       (*(*(v18 - 8) + 56))(v7, 5, 5, v18);
       sub_100068604(v2 + v17, v7);
       sub_10000BBC4(v7, type metadata accessor for CRLBoardLibraryViewModel.Filter);
@@ -422,7 +424,7 @@ LABEL_30:
 
     else
     {
-      sub_10000BE14(a2, v28, &unk_1019F4D00);
+      sub_10000BE14(a2, v28, &unk_1019F4D00, &unk_10146E7F0);
       v19 = v29;
       if (v29)
       {
@@ -441,7 +443,7 @@ LABEL_30:
         v25 = 0;
       }
 
-      v26 = type metadata accessor for CRLiOSFolderGridViewController();
+      v26 = type metadata accessor for CRLiOSFolderGridViewController(0);
       v27.receiver = v2;
       v27.super_class = v26;
       objc_msgSendSuper2(&v27, "canPerformAction:withSender:", a1, v25);
@@ -459,7 +461,7 @@ uint64_t sub_100F3AB50(void *a1)
   v8 = &v31 - v7;
   __chkstk_darwin(v9);
   v11 = &v31 - v10;
-  v12 = type metadata accessor for CRLiOSFolderGridViewController();
+  v12 = type metadata accessor for CRLiOSFolderGridViewController(0);
   v31.receiver = v1;
   v31.super_class = v12;
   objc_msgSendSuper2(&v31, "validateCommand:", a1);
@@ -520,7 +522,7 @@ LABEL_9:
     {
       [a1 setState:v1[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions] == 1];
       sub_1000652DC(&v1[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter], v11, type metadata accessor for CRLBoardLibraryViewModel.Filter);
-      v20 = sub_1005B981C(&qword_1019F3480);
+      v20 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
       v21 = (*(*(v20 - 8) + 48))(v11, 5, v20);
       if (v21 > 2)
       {
@@ -574,7 +576,7 @@ LABEL_9:
     {
       [a1 setState:v1[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions] == 0];
       sub_1000652DC(&v1[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter], v8, type metadata accessor for CRLBoardLibraryViewModel.Filter);
-      v23 = sub_1005B981C(&qword_1019F3480);
+      v23 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
       v24 = (*(*(v23 - 8) + 48))(v8, 5, v23);
       if (v24 > 2)
       {
@@ -638,7 +640,7 @@ LABEL_9:
 
       [a1 setState:v1[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions] == 2];
       sub_1000652DC(&v1[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter], v5, type metadata accessor for CRLBoardLibraryViewModel.Filter);
-      v26 = sub_1005B981C(&qword_1019F3480);
+      v26 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
       v27 = (*(*(v26 - 8) + 48))(v5, 5, v26);
       if (v27 > 2)
       {
@@ -810,7 +812,7 @@ LABEL_3:
   {
 LABEL_6:
 
-    sub_10000CAAC(&v15, &unk_1019F4D00);
+    sub_10000CAAC(&v15, &unk_1019F4D00, &unk_10146E7F0);
     return;
   }
 
@@ -853,14 +855,14 @@ void sub_100F3B548(uint64_t a1)
 void sub_100F3B66C(uint64_t a1)
 {
   v2 = v1;
-  v4 = sub_1005B981C(&unk_101A23C00);
+  v4 = sub_1005B981C(&unk_101A23C00, &qword_1014B97E8);
   __chkstk_darwin(v4 - 8);
   v6 = &v77[-v5];
-  v7 = sub_1005B981C(&unk_101A23860);
+  v7 = sub_1005B981C(&unk_101A23860, qword_10147BC00);
   v8 = *(v7 - 8);
-  v9 = __chkstk_darwin(v7);
-  v88 = &v77[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v7);
+  v88 = &v77[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v10);
   v12 = &v77[-v11];
   v13 = OBJC_IVAR____TtCC8Freeform30CRLiOSFolderGridViewController13SectionHeader_isCollapsed;
   v14 = *(a1 + OBJC_IVAR____TtCC8Freeform30CRLiOSFolderGridViewController13SectionHeader_isCollapsed);
@@ -869,18 +871,18 @@ void sub_100F3B66C(uint64_t a1)
   *(a1 + v13) = (v14 & 1) == 0;
   sub_1005EB6D8();
   *(a1 + v15) = 0;
-  v16 = a1 + OBJC_IVAR____TtCC8Freeform30CRLiOSFolderGridViewController13SectionHeader_sectionIdentifier;
+  v16 = (a1 + OBJC_IVAR____TtCC8Freeform30CRLiOSFolderGridViewController13SectionHeader_sectionIdentifier);
   v17 = *(a1 + OBJC_IVAR____TtCC8Freeform30CRLiOSFolderGridViewController13SectionHeader_sectionIdentifier + 48);
   if (v17 >= 0xFE)
   {
     v89 = objc_opt_self();
     LODWORD(v18) = [v89 _atomicIncrementAssertCount];
-    v96[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v96);
-    StaticString.description.getter();
+    v96.i64[0] = [objc_allocWithZone(NSString) init];
+    sub_100604538(_swiftEmptyArrayStorage, &v96, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("sectionHeaderDidTapCollapseButton(_:)", 37, 2);
     v19 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v20 = String._bridgeToObjectiveC()();
 
     v21 = [v20 lastPathComponent];
@@ -902,30 +904,30 @@ void sub_100F3B66C(uint64_t a1)
   v87 = v7;
   v89 = v2;
   v40 = *v16;
-  v41 = *(v16 + 8);
-  v43 = *(v16 + 16);
-  v42 = *(v16 + 24);
-  v45 = *(v16 + 32);
-  v44 = *(v16 + 40);
-  v96[0] = *v16;
-  v96[1] = v41;
-  v96[2] = v43;
-  v96[3] = v42;
-  v96[4] = v45;
-  v96[5] = v44;
-  v97 = v17;
+  v41 = v16[1];
+  v43 = v16[2];
+  v42 = v16[3];
+  v45 = v16[4];
+  v44 = v16[5];
+  v96.i64[0] = *v16;
+  v96.i64[1] = v41;
+  v97 = v43;
+  v98 = v42;
+  v99 = v45;
+  v100 = v44;
+  v101 = v17;
   if (*(a1 + v13) == 1)
   {
     v46 = v89;
     swift_beginAccess();
     sub_100076F8C(v40, v41, v43, v42, v45, v44, v17);
-    sub_100E6CEB8(&v92, v96);
+    sub_100E6CEB8(&v92, &v96);
     v47 = v92;
     v48 = v93;
     v49 = v94;
     v50 = v95;
     swift_endAccess();
-    sub_1000771BC(v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50);
+    sub_1000771BC(v47.i64[0], v47.i64[1], v48, *(&v48 + 1), v49, *(&v49 + 1), v50);
     if (v46[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_shouldSaveViewState] == 1)
     {
       goto LABEL_8;
@@ -937,10 +939,10 @@ void sub_100F3B66C(uint64_t a1)
     v46 = v89;
     swift_beginAccess();
     sub_100076F8C(v40, v41, v43, v42, v45, v44, v17);
-    sub_100ED7154(v96, &v92);
-    v51 = v92;
+    sub_100ED7154(&v96, &v92);
+    v51 = v92.i64[0];
     v82 = v93;
-    v83 = *(&v92 + 1);
+    v83 = v92.i64[1];
     v80 = v94;
     v81 = *(&v93 + 1);
     v79 = *(&v94 + 1);
@@ -970,10 +972,10 @@ LABEL_8:
   v57 = v85;
   v58 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__currentSnapshotWithExpandedSections;
   swift_beginAccess();
-  sub_10000BE14(&v46[v58], v57, &unk_101A23C00);
+  sub_10000BE14(&v46[v58], v57, &unk_101A23C00, &qword_1014B97E8);
   if ((*(v56 + 48))(v57, 1, v55) == 1)
   {
-    sub_10000CAAC(v57, &unk_101A23C00);
+    sub_10000CAAC(v57, &unk_101A23C00, &qword_1014B97E8);
     return;
   }
 
@@ -1119,15 +1121,15 @@ LABEL_37:
   swift_once();
 LABEL_3:
   v25 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
   *(inited + 32) = v18;
-  v27 = sub_100006370(0, &qword_1019F4D30);
+  v27 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 96) = v27;
-  v28 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v28 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(inited + 104) = v28;
   *(inited + 72) = v19;
   *(inited + 136) = &type metadata for String;
@@ -1138,7 +1140,7 @@ LABEL_3:
   *(inited + 184) = &protocol witness table for UInt;
   *(inited + 144) = v29;
   *(inited + 152) = 844;
-  v30 = v96[0];
+  v30 = v96.i64[0];
   *(inited + 216) = v27;
   *(inited + 224) = v28;
   *(inited + 192) = v30;
@@ -1147,7 +1149,7 @@ LABEL_3:
   v33 = static os_log_type_t.error.getter();
   sub_100005404(v25, &_mh_execute_header, v33, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v34 = static os_log_type_t.error.getter();
   sub_100005404(v25, &_mh_execute_header, v34, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -1159,19 +1161,19 @@ LABEL_3:
   v35[4] = 0;
   v35[5] = 0;
   v36 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("sectionHeaderDidTapCollapseButton(_:)", 37, 2);
   v37 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
   v38 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
   v39 = String._bridgeToObjectiveC()();
 
   [v89 handleFailureInFunction:v37 file:v38 lineNumber:844 isFatal:0 format:v39 args:v36];
 }
 
-void sub_100F3C0F0()
+double sub_100F3C0F0()
 {
   v3 = v0;
   v4 = sub_100062AD0();
@@ -1179,12 +1181,12 @@ void sub_100F3C0F0()
   {
     v5 = objc_opt_self();
     LODWORD(v6) = [v5 _atomicIncrementAssertCount];
-    v39 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v39);
-    StaticString.description.getter();
+    v40 = [objc_allocWithZone(NSString) init];
+    sub_100604538(_swiftEmptyArrayStorage, &v40, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("updateUserActivities()", 22, 2);
     v7 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v15 = String._bridgeToObjectiveC()();
 
     v16 = [v15 lastPathComponent];
@@ -1196,15 +1198,15 @@ void sub_100F3C0F0()
     {
 LABEL_8:
       v18 = static OS_os_log.crlAssert;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_10146CA70;
       *(inited + 56) = &type metadata for Int32;
       *(inited + 64) = &protocol witness table for Int32;
       *(inited + 32) = v6;
-      v20 = sub_100006370(0, &qword_1019F4D30);
+      v20 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
       *(inited + 96) = v20;
-      v21 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+      v21 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
       *(inited + 104) = v21;
       *(inited + 72) = v7;
       *(inited + 136) = &type metadata for String;
@@ -1215,7 +1217,7 @@ LABEL_8:
       *(inited + 184) = &protocol witness table for UInt;
       *(inited + 144) = v22;
       *(inited + 152) = 864;
-      v23 = v39;
+      v23 = v40;
       *(inited + 216) = v20;
       *(inited + 224) = v21;
       *(inited + 192) = v23;
@@ -1224,7 +1226,7 @@ LABEL_8:
       v26 = static os_log_type_t.error.getter();
       sub_100005404(v18, &_mh_execute_header, v26, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v27 = static os_log_type_t.error.getter();
       sub_100005404(v18, &_mh_execute_header, v27, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -1236,18 +1238,18 @@ LABEL_8:
       v28[4] = 0;
       v28[5] = 0;
       v29 = __VaListBuilder.va_list()();
-      StaticString.description.getter();
+      StaticString.description.getter("updateUserActivities()", 22, 2);
       v30 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
       v31 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
       v32 = String._bridgeToObjectiveC()();
 
       [v5 handleFailureInFunction:v30 file:v31 lineNumber:864 isFatal:0 format:v32 args:v29];
 
-      return;
+      return result;
     }
 
 LABEL_13:
@@ -1256,7 +1258,6 @@ LABEL_13:
   }
 
   v5 = v4;
-  sub_1005B981C(&unk_1019F4D60);
   v6 = swift_initStackObject();
   *(v6 + 16) = xmmword_10146CE00;
   v7 = v5;
@@ -1278,18 +1279,18 @@ LABEL_13:
 LABEL_5:
   v9 = v8;
   [v3 loadViewIfNeeded];
-  sub_1005B981C(&qword_1019FB8A0);
+  sub_1005B981C(&qword_1019FB8A0, &unk_10148CEB0);
   v10 = swift_initStackObject();
   *(v10 + 16) = xmmword_10146C6B0;
-  v39 = sub_100009260();
-  v40 = v11;
+  v40 = sub_100009260();
+  v41 = v11;
   AnyHashable.init<A>(_:)();
   v12 = sub_1012C8634();
-  *(v10 + 96) = sub_1005B981C(&unk_101A07740);
+  *(v10 + 96) = sub_1005B981C(&unk_101A07740, &unk_101486B90);
   *(v10 + 72) = v12;
   sub_100078EA4(v10);
   swift_setDeallocating();
-  sub_10000CAAC(v10 + 32, &unk_1019FB8B0);
+  sub_10000CAAC(v10 + 32, &unk_1019FB8B0, &unk_101471280);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   [v9 addUserInfoEntriesFromDictionary:isa];
@@ -1305,27 +1306,28 @@ LABEL_5:
     v14 = *(v6 + 40);
   }
 
-  v33 = v14;
+  v34 = v14;
   [v3 loadViewIfNeeded];
-  sub_1005B981C(&qword_1019FB8A0);
-  v34 = swift_initStackObject();
-  *(v34 + 16) = v38;
-  v39 = sub_100009260();
-  v40 = v35;
+  sub_1005B981C(&qword_1019FB8A0, &unk_10148CEB0);
+  v35 = swift_initStackObject();
+  *(v35 + 16) = v39;
+  v40 = sub_100009260();
+  v41 = v36;
   AnyHashable.init<A>(_:)();
-  v36 = sub_1012C8634();
-  *(v34 + 96) = sub_1005B981C(&unk_101A07740);
-  *(v34 + 72) = v36;
-  sub_100078EA4(v34);
+  v37 = sub_1012C8634();
+  *(v35 + 96) = sub_1005B981C(&unk_101A07740, &unk_101486B90);
+  *(v35 + 72) = v37;
+  sub_100078EA4(v35);
   swift_setDeallocating();
-  sub_10000CAAC(v34 + 32, &unk_1019FB8B0);
-  v37 = Dictionary._bridgeToObjectiveC()().super.isa;
+  sub_10000CAAC(v35 + 32, &unk_1019FB8B0, &unk_101471280);
+  v38 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  [v33 addUserInfoEntriesFromDictionary:v37];
+  [v34 addUserInfoEntriesFromDictionary:v38];
 
-  [v33 setNeedsSave:1];
+  [v34 setNeedsSave:1];
   swift_setDeallocating();
   swift_arrayDestroy();
+  return result;
 }
 
 void sub_100F3C7C0(void *a1)
@@ -1346,7 +1348,7 @@ void sub_100F3C7C0(void *a1)
       sub_100064288(*(v6 + 56) + 32 * v8, v37);
       sub_100064234(v36);
 
-      sub_1005B981C(&unk_101A07740);
+      sub_1005B981C(&unk_101A07740, &unk_101486B90);
       if (swift_dynamicCast())
       {
         sub_100063338(v34);
@@ -1360,7 +1362,7 @@ void sub_100F3C7C0(void *a1)
     }
 
     v33.receiver = v2;
-    v33.super_class = type metadata accessor for CRLiOSFolderGridViewController();
+    v33.super_class = type metadata accessor for CRLiOSFolderGridViewController(0);
     objc_msgSendSuper2(&v33, "restoreUserActivityState:", a1);
   }
 
@@ -1369,11 +1371,11 @@ void sub_100F3C7C0(void *a1)
     v10 = objc_opt_self();
     v11 = [v10 _atomicIncrementAssertCount];
     v36[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v36);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, v36, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("restoreUserActivityState(_:)", 28, 2);
     v12 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v13 = String._bridgeToObjectiveC()();
 
     v14 = [v13 lastPathComponent];
@@ -1387,15 +1389,15 @@ void sub_100F3C7C0(void *a1)
     }
 
     v18 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v11;
-    v20 = sub_100006370(0, &qword_1019F4D30);
+    v20 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v20;
-    v21 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v21 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v21;
     *(inited + 72) = v12;
     *(inited + 136) = &type metadata for String;
@@ -1415,7 +1417,7 @@ void sub_100F3C7C0(void *a1)
     v26 = static os_log_type_t.error.getter();
     sub_100005404(v18, &_mh_execute_header, v26, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v27 = static os_log_type_t.error.getter();
     sub_100005404(v18, &_mh_execute_header, v27, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -1427,13 +1429,13 @@ void sub_100F3C7C0(void *a1)
     v28[4] = 0;
     v28[5] = 0;
     v29 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("restoreUserActivityState(_:)", 28, 2);
     v30 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v31 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v32 = String._bridgeToObjectiveC()();
 
     [v10 handleFailureInFunction:v30 file:v31 lineNumber:884 isFatal:0 format:v32 args:v29];
@@ -1451,12 +1453,12 @@ objc_class *sub_100F3CD2C()
 
   else
   {
-    sub_100006370(0, &qword_1019F6190);
+    sub_100006370(0, &qword_1019F6190, UIAction_ptr);
     swift_allocObject();
     swift_unknownObjectWeakInit();
     v4 = v0;
     v5 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    sub_100006370(0, &qword_1019F6BF0);
+    sub_100006370(0, &qword_1019F6BF0, UIBarButtonItem_ptr);
     v6 = *(v0 + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_defaultTitleForToolbarItemToSelectAllOrNone);
     v7 = *(v0 + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_defaultTitleForToolbarItemToSelectAllOrNone + 8);
 
@@ -1496,12 +1498,12 @@ objc_class *sub_100F3CE70()
     v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v10 = v9;
 
-    sub_100006370(0, &qword_1019F6190);
+    sub_100006370(0, &qword_1019F6190, UIAction_ptr);
     swift_allocObject();
     swift_unknownObjectWeakInit();
     v11 = v0;
     v12 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-    v19.is_nil = sub_100006370(0, &qword_1019F6BF0);
+    v19.is_nil = sub_100006370(0, &qword_1019F6BF0, UIBarButtonItem_ptr);
     v13.value._countAndFlagsBits = v8;
     v13.value._object = v10;
     v18.value.super.isa = 0;
@@ -1519,19 +1521,19 @@ objc_class *sub_100F3CE70()
   return v3;
 }
 
-void sub_100F3D044()
+void sub_100F3D044(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     [Strong setEditing:objc_msgSend(Strong animated:{"isEditing") ^ 1, 1}];
-    v2 = [v1 collectionView];
-    if (v2)
+    v4 = [v3 collectionView];
+    if (v4)
     {
-      v3 = v2;
-      [v2 selectItemAtIndexPath:0 animated:0 scrollPosition:1];
+      v5 = v4;
+      [v4 selectItemAtIndexPath:0 animated:0 scrollPosition:1];
     }
 
     else
@@ -1552,14 +1554,14 @@ Class sub_100F3D0F8()
 
     v5 = *(v4 + 16);
 
-    sub_100006370(0, &qword_1019F6190);
+    sub_100006370(0, &qword_1019F6190, UIAction_ptr);
     v6 = swift_allocObject();
     swift_unknownObjectWeakInit();
     v21 = v5 == 0;
     v7 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
     if ([v1 isEditing])
     {
-      v24.value.super.super.isa = sub_100006370(0, &qword_1019F6BF0);
+      v24.value.super.super.isa = sub_100006370(0, &qword_1019F6BF0, UIBarButtonItem_ptr);
       v22.value.super.super.isa = v7;
       v22.is_nil = 0;
       return UIBarButtonItem.init(systemItem:primaryAction:menu:)(UIBarButtonSystemItemDone, v22, v24).super.super.isa;
@@ -1573,7 +1575,7 @@ Class sub_100F3D0F8()
     v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v14 = v13;
 
-    sub_100006370(0, &qword_1019F6BF0);
+    sub_100006370(0, &qword_1019F6BF0, UIBarButtonItem_ptr);
     v15 = v7;
     v16.value._countAndFlagsBits = v12;
     v16.value._object = v14;
@@ -1604,13 +1606,13 @@ Class sub_100F3D0F8()
   return result;
 }
 
-void sub_100F3D37C()
+void sub_100F3D37C(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     sub_100F3D3D0();
   }
 }
@@ -1619,62 +1621,62 @@ void sub_100F3D3D0()
 {
   v1 = v0;
   v2 = type metadata accessor for IndexPath();
-  v61 = *(v2 - 8);
-  v3 = __chkstk_darwin(v2);
-  v5 = &v55 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v60 = &v55 - v6;
-  v7 = [v0 collectionView];
-  if (!v7)
+  v62 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v4 = &v56 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v6 = __chkstk_darwin(v5).n128_u64[0];
+  v61 = &v56 - v7;
+  v8 = [v0 collectionView];
+  if (!v8)
   {
 LABEL_35:
     __break(1u);
     goto LABEL_36;
   }
 
-  v8 = v7;
-  v9 = sub_100911C48();
+  v9 = v8;
+  v10 = sub_100911C48();
 
-  if (*(v9 + 16))
+  if (*(v10 + 16))
   {
-    v10 = [v1 collectionView];
-    if (!v10)
+    v11 = [v1 collectionView];
+    if (!v11)
     {
 LABEL_36:
       __break(1u);
       goto LABEL_37;
     }
 
-    v11 = v10;
-    v12 = [v10 indexPathsForSelectedItems];
+    v12 = v11;
+    v13 = [v11 indexPathsForSelectedItems];
 
-    if (v12)
+    if (v13)
     {
-      v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
     }
 
     else
     {
-      v13 = _swiftEmptyArrayStorage;
+      v14 = _swiftEmptyArrayStorage;
     }
 
-    v14 = v13[2];
-    v15 = *(v9 + 16);
-    if (v14 >= v15)
+    v15 = v14[2];
+    v16 = *(v10 + 16);
+    if (v15 >= v16)
     {
-      if (v14 == v15)
+      if (v15 == v16)
       {
-        v22 = [v1 collectionView];
-        if (!v22)
+        v23 = [v1 collectionView];
+        if (!v23)
         {
 LABEL_37:
           __break(1u);
           return;
         }
 
-        v23 = v22;
+        v24 = v23;
 
-        [v23 selectItemAtIndexPath:0 animated:0 scrollPosition:0];
+        [v24 selectItemAtIndexPath:0 animated:0 scrollPosition:0];
 
 LABEL_31:
         sub_10006D850();
@@ -1682,77 +1684,77 @@ LABEL_31:
         return;
       }
 
-      v59 = v1;
+      v60 = v1;
 
-      v61 = objc_opt_self();
-      LODWORD(v34) = [v61 _atomicIncrementAssertCount];
-      v62 = [objc_allocWithZone(NSString) init];
-      sub_100604538(_swiftEmptyArrayStorage, &v62);
-      StaticString.description.getter();
+      v62 = objc_opt_self();
+      LODWORD(v35) = [v62 _atomicIncrementAssertCount];
+      v63 = [objc_allocWithZone(NSString) init];
+      sub_100604538(_swiftEmptyArrayStorage, &v63, "There are more IndexPaths in the current selection than its collection view exists!", 83, 2u);
+      StaticString.description.getter("selectAllOrNone()", 17, 2);
       isa = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
-      v35 = String._bridgeToObjectiveC()();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
+      v36 = String._bridgeToObjectiveC()();
 
-      v36 = [v35 lastPathComponent];
+      v37 = [v36 lastPathComponent];
 
-      v37 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v39 = v38;
+      v38 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v40 = v39;
 
       if (qword_1019F20A0 == -1)
       {
 LABEL_30:
-        v40 = static OS_os_log.crlAssert;
-        sub_1005B981C(&qword_1019F54E0);
+        v41 = static OS_os_log.crlAssert;
+        sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_10146CA70;
         *(inited + 56) = &type metadata for Int32;
         *(inited + 64) = &protocol witness table for Int32;
-        *(inited + 32) = v34;
-        v42 = sub_100006370(0, &qword_1019F4D30);
-        *(inited + 96) = v42;
-        v43 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
-        *(inited + 104) = v43;
+        *(inited + 32) = v35;
+        v43 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+        *(inited + 96) = v43;
+        v44 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
+        *(inited + 104) = v44;
         *(inited + 72) = isa;
         *(inited + 136) = &type metadata for String;
-        v44 = sub_1000053B0();
-        *(inited + 112) = v37;
-        *(inited + 120) = v39;
+        v45 = sub_1000053B0();
+        *(inited + 112) = v38;
+        *(inited + 120) = v40;
         *(inited + 176) = &type metadata for UInt;
         *(inited + 184) = &protocol witness table for UInt;
-        *(inited + 144) = v44;
+        *(inited + 144) = v45;
         *(inited + 152) = 2610;
-        v45 = v62;
-        *(inited + 216) = v42;
-        *(inited + 224) = v43;
-        *(inited + 192) = v45;
-        v46 = isa;
-        v47 = v45;
-        v48 = static os_log_type_t.error.getter();
-        sub_100005404(v40, &_mh_execute_header, v48, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
-        swift_setDeallocating();
-        sub_1005B981C(&unk_1019F5670);
-        swift_arrayDestroy();
+        v46 = v63;
+        *(inited + 216) = v43;
+        *(inited + 224) = v44;
+        *(inited + 192) = v46;
+        v47 = isa;
+        v48 = v46;
         v49 = static os_log_type_t.error.getter();
-        sub_100005404(v40, &_mh_execute_header, v49, "There are more IndexPaths in the current selection than its collection view exists!", 83, 2, _swiftEmptyArrayStorage);
+        sub_100005404(v41, &_mh_execute_header, v49, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
+        swift_setDeallocating();
+        sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+        swift_arrayDestroy();
+        v50 = static os_log_type_t.error.getter();
+        sub_100005404(v41, &_mh_execute_header, v50, "There are more IndexPaths in the current selection than its collection view exists!", 83, 2, _swiftEmptyArrayStorage);
 
         type metadata accessor for __VaListBuilder();
-        v50 = swift_allocObject();
-        v50[2] = 8;
-        v50[3] = 0;
-        v50[4] = 0;
-        v50[5] = 0;
-        v51 = __VaListBuilder.va_list()();
-        StaticString.description.getter();
-        v52 = String._bridgeToObjectiveC()();
-
-        StaticString.description.getter();
+        v51 = swift_allocObject();
+        v51[2] = 8;
+        v51[3] = 0;
+        v51[4] = 0;
+        v51[5] = 0;
+        v52 = __VaListBuilder.va_list()();
+        StaticString.description.getter("selectAllOrNone()", 17, 2);
         v53 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
         v54 = String._bridgeToObjectiveC()();
 
-        [v61 handleFailureInFunction:v52 file:v53 lineNumber:2610 isFatal:0 format:v54 args:v51];
+        StaticString.description.getter("There are more IndexPaths in the current selection than its collection view exists!", 83, 2);
+        v55 = String._bridgeToObjectiveC()();
+
+        [v62 handleFailureInFunction:v53 file:v54 lineNumber:2610 isFatal:0 format:v55 args:v52];
 
         goto LABEL_31;
       }
@@ -1760,69 +1762,69 @@ LABEL_30:
 
     else
     {
-      v59 = v1;
+      v60 = v1;
 
-      isa = sub_100E950A0(v16);
+      isa = sub_100E950A0(v17);
 
-      v19 = sub_100E950A0(v18);
+      v20 = sub_100E950A0(v19);
 
-      v20 = *(v19 + 16);
-      v21 = isa[2];
-      v56 = v9;
-      v55 = v13;
-      if (v20 > v21 >> 3)
+      v21 = *(v20 + 16);
+      v22 = isa[2];
+      v57 = v10;
+      v56 = v14;
+      if (v21 > v22 >> 3)
       {
-        v24 = sub_1012D99BC(v19, isa);
+        v25 = sub_1012D99BC(v20, isa);
       }
 
       else
       {
-        v62 = isa;
-        isa = &v62;
-        sub_1012D5A44(v19);
+        v63 = isa;
+        isa = &v63;
+        sub_1012D5A44(v20);
 
-        v24 = v62;
+        v25 = v63;
       }
 
-      v39 = v24 + 7;
-      v25 = 1 << *(v24 + 32);
-      v26 = -1;
-      if (v25 < 64)
+      v40 = v25 + 7;
+      v26 = 1 << *(v25 + 32);
+      v27 = -1;
+      if (v26 < 64)
       {
-        v26 = ~(-1 << v25);
+        v27 = ~(-1 << v26);
       }
 
-      v27 = v26 & v24[7];
-      v37 = (v25 + 63) >> 6;
-      v58 = v61 + 16;
-      v57 = v61 + 32;
-      v34 = (v61 + 8);
+      v28 = v27 & v25[7];
+      v38 = (v26 + 63) >> 6;
+      v59 = v62 + 16;
+      v58 = v62 + 32;
+      v35 = (v62 + 8);
 
-      v28 = 0;
-      if (v27)
+      v29 = 0;
+      if (v28)
       {
         while (1)
         {
-          v29 = v28;
+          v30 = v29;
 LABEL_25:
-          v30 = v61;
-          v31 = v60;
-          (*(v61 + 2))(v60, v24[6] + *(v61 + 9) * (__clz(__rbit64(v27)) | (v29 << 6)), v2);
-          (*(v30 + 4))(v5, v31, v2);
-          v32 = [v59 collectionView];
-          if (!v32)
+          v31 = v62;
+          v32 = v61;
+          (*(v62 + 2))(v61, v25[6] + *(v62 + 9) * (__clz(__rbit64(v28)) | (v30 << 6)), v2);
+          (*(v31 + 4))(v4, v32, v2);
+          v33 = [v60 collectionView];
+          if (!v33)
           {
             break;
           }
 
-          v33 = v32;
-          v27 &= v27 - 1;
+          v34 = v33;
+          v28 &= v28 - 1;
           isa = IndexPath._bridgeToObjectiveC()().super.isa;
-          [v33 selectItemAtIndexPath:isa animated:0 scrollPosition:0];
+          [v34 selectItemAtIndexPath:isa animated:0 scrollPosition:0];
 
-          (*v34)(v5, v2);
-          v28 = v29;
-          if (!v27)
+          (*v35)(v4, v2);
+          v29 = v30;
+          if (!v28)
           {
             goto LABEL_22;
           }
@@ -1835,21 +1837,21 @@ LABEL_25:
 LABEL_22:
       while (1)
       {
-        v29 = v28 + 1;
-        if (__OFADD__(v28, 1))
+        v30 = v29 + 1;
+        if (__OFADD__(v29, 1))
         {
           break;
         }
 
-        if (v29 >= v37)
+        if (v30 >= v38)
         {
 
           goto LABEL_31;
         }
 
-        v27 = v39[v29];
-        ++v28;
-        if (v27)
+        v28 = v40[v30];
+        ++v29;
+        if (v28)
         {
           goto LABEL_25;
         }
@@ -1863,19 +1865,19 @@ LABEL_22:
   }
 }
 
-void sub_100F3DBD8()
+void sub_100F3DBD8(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_delegate;
+    v3 = Strong;
+    v4 = Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_delegate;
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v3 = *(v2 + 8);
+      v5 = *(v4 + 8);
       ObjectType = swift_getObjectType();
-      (*(v3 + 16))(v1, ObjectType, v3);
+      (*(v5 + 16))(v3, ObjectType, v5);
 
       swift_unknownObjectRelease();
     }
@@ -1886,37 +1888,37 @@ void sub_100F3DBD8()
   }
 }
 
-void sub_100F3DC84()
+void sub_100F3DC84(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for CRLBoardLibraryViewModel.Filter(0);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v9 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = type metadata accessor for CRLBoardLibraryViewModel.Filter(0);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v4 = Strong;
-    v5 = sub_100F378A4()[2];
+    v6 = Strong;
+    v7 = sub_100F378A4()[2];
 
-    if (v5)
+    if (v7)
     {
-      v6 = sub_100F378A4();
-      v7 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-      v8 = sub_1005B981C(&qword_1019F3480);
-      (*(*(v8 - 8) + 56))(v2, 5, 5, v8);
-      LOBYTE(v7) = sub_100068604(v4 + v7, v2);
-      sub_10000BBC4(v2, type metadata accessor for CRLBoardLibraryViewModel.Filter);
-      if (v7)
+      v8 = sub_100F378A4();
+      v9 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
+      v10 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
+      (*(*(v10 - 8) + 56))(v4, 5, 5, v10);
+      LOBYTE(v9) = sub_100068604(v6 + v9, v4);
+      sub_10000BBC4(v4, type metadata accessor for CRLBoardLibraryViewModel.Filter);
+      if (v9)
       {
-        sub_100F549A8(v6);
+        sub_100F549A8(v8);
       }
 
       else
       {
-        sub_100F558C0(v6, 0, 0);
+        sub_100F558C0(v8, 0, 0);
       }
 
-      [v4 setEditing:0 animated:1];
+      [v6 setEditing:0 animated:1];
     }
   }
 }
@@ -1940,11 +1942,11 @@ void sub_100F3DDF4(uint64_t a1, uint64_t a2, void (*a3)(void))
   }
 }
 
-uint64_t sub_100F3DE90(uint64_t a1)
+void sub_100F3DE90(uint64_t a1)
 {
-  v2 = sub_1005B981C(&qword_1019FB750);
+  v2 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v2 - 8);
-  v4 = &v12 - v3;
+  v4 = &v11 - v3;
   v5 = sub_100F8A1C8(a1);
   v6 = sub_10004B3DC(v5);
 
@@ -1971,7 +1973,7 @@ uint64_t sub_100F3DE90(uint64_t a1)
   }
 }
 
-void sub_100F3E03C(void (*a1)(unint64_t), uint64_t a2, void *a3, int a4, int a5)
+void sub_100F3E03C(void (*a1)(uint64_t), uint64_t a2, void *a3, int a4, int a5)
 {
   v10 = type metadata accessor for CRLBoardLibraryViewModel.Filter(0);
   __chkstk_darwin(v10 - 8);
@@ -2005,7 +2007,7 @@ void sub_100F3E03C(void (*a1)(unint64_t), uint64_t a2, void *a3, int a4, int a5)
   v24 = [v23 systemImageNamed:v22];
 
   v96 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout;
-  v25 = sub_100006370(0, &qword_1019F6190);
+  v25 = sub_100006370(0, &qword_1019F6190, UIAction_ptr);
   swift_allocObject();
   swift_beginAccess();
   v26 = swift_unknownObjectWeakLoadStrong();
@@ -2033,8 +2035,7 @@ void sub_100F3E03C(void (*a1)(unint64_t), uint64_t a2, void *a3, int a4, int a5)
   v35 = v92;
   v96 = v25;
   v36 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-  v37 = sub_100006370(0, &qword_1019F6C00);
-  v95 = sub_1005B981C(&unk_1019F4D60);
+  v37 = sub_100006370(0, &qword_1019F6C00, UIMenu_ptr);
   v38 = swift_allocObject();
   *(v38 + 16) = xmmword_10146CE00;
   v39 = v98;
@@ -2049,7 +2050,7 @@ void sub_100F3E03C(void (*a1)(unint64_t), uint64_t a2, void *a3, int a4, int a5)
   v98 = v37;
   v43.super.super.isa = UIMenu.init(title:subtitle:image:identifier:options:preferredElementSize:children:)(v42, 0, v102, 1, 0xFFFFFFFFFFFFFFFFLL, v38, v85).super.super.isa;
   sub_1000652DC(v14 + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter, v35, type metadata accessor for CRLBoardLibraryViewModel.Filter);
-  v44 = sub_1005B981C(&qword_1019F3480);
+  v44 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
   v45 = (*(*(v44 - 8) + 48))(v35, 5, v44);
   v89 = v41;
   if (v45 > 2)
@@ -2155,7 +2156,7 @@ void sub_100F3E03C(void (*a1)(unint64_t), uint64_t a2, void *a3, int a4, int a5)
     }
   }
 
-  sub_1005B981C(&unk_1019F6D10);
+  sub_1005B981C(&unk_1019F6D10, qword_10146FAD0);
   swift_arrayDestroy();
   v101 = v47;
   v62 = "NSt3__120__shared_ptr_pointerIP24CRLWPParagraphTypesetterNS_10shared_ptrIS1_E27__shared_ptr_default_deleteIS1_S1_EENS_9allocatorIS1_EEEE" + 30;
@@ -2242,21 +2243,20 @@ LABEL_40:
   }
 }
 
-void sub_100F3ECA0()
+void sub_100F3ECA0(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     sub_100064314(*(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions), *(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 1), (*(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 2) & 1) == 0);
   }
 }
 
 objc_class *sub_100F3ED14(char a1)
 {
-  sub_100006370(0, &qword_1019F6C00);
-  sub_1005B981C(&unk_1019F4D60);
+  sub_100006370(0, &qword_1019F6C00, UIMenu_ptr);
   preferredElementSize = swift_allocObject();
   *(preferredElementSize + 16) = xmmword_101465920;
   v3 = objc_opt_self();
@@ -2296,7 +2296,7 @@ objc_class *sub_100F3ED14(char a1)
 
   v19 = [objc_opt_self() systemImageNamed:v18];
 
-  sub_100006370(0, &qword_1019F6BF0);
+  sub_100006370(0, &qword_1019F6BF0, UIBarButtonItem_ptr);
   v20 = isa;
   v21 = v19;
   v22.value._countAndFlagsBits = v15;
@@ -2350,7 +2350,7 @@ id sub_100F3F19C()
 
   v10 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout;
   v11 = *(v1 + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout);
-  v12 = sub_100006370(0, &qword_1019F6190);
+  v12 = sub_100006370(0, &qword_1019F6190, UIAction_ptr);
   v13 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v14 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
@@ -2368,7 +2368,7 @@ id sub_100F3F19C()
   swift_unknownObjectWeakInit();
   v32 = v22;
   v23 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-  sub_1005B981C(&unk_101A23C50);
+  sub_1005B981C(&unk_101A23C50, qword_101481860);
   v24 = swift_allocObject();
   *(v24 + 16) = xmmword_10146BDE0;
   *(v24 + 32) = v14;
@@ -2389,32 +2389,32 @@ id sub_100F3F19C()
   return v30;
 }
 
-void sub_100F3F5A8()
+void sub_100F3F5A8(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = *(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout);
+    v3 = Strong;
+    v4 = *(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout);
     *(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout) = 1;
-    if ((v2 & 1) == 0)
+    if ((v4 & 1) == 0)
     {
       sub_10005C940();
     }
   }
 }
 
-void sub_100F3F614()
+void sub_100F3F614(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = *(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout);
+    v3 = Strong;
+    v4 = *(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout);
     *(Strong + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_isGridLayout) = 0;
-    if (v2 == 1)
+    if (v4 == 1)
     {
       sub_10005C940();
     }
@@ -2447,7 +2447,7 @@ void *sub_100F3F680(unsigned __int8 a1)
     v13 = 0;
   }
 
-  sub_100006370(0, &qword_1019F6190);
+  sub_100006370(0, &qword_1019F6190, UIAction_ptr);
   v14 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v15 = swift_allocObject();
@@ -2471,7 +2471,7 @@ void *sub_100F3F680(unsigned __int8 a1)
   return v16;
 }
 
-void sub_100F3F9AC(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+void sub_100F3F9AC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -2583,7 +2583,7 @@ LABEL_21:
   v26 = 0xD00000000000002FLL;
   NSLocalizedString(_:tableName:bundle:value:comment:)(*&v23, 0, v22, v25, *(&v30 - 1));
 
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_10146C6B0;
   *(v27 + 56) = &type metadata for Int;
@@ -2603,110 +2603,110 @@ LABEL_21:
 void sub_100F3FE88()
 {
   v1 = v0;
-  v2 = sub_1005B981C(&unk_1019FA3E0);
+  v2 = sub_1005B981C(&unk_1019FA3E0, &unk_101474F20);
   __chkstk_darwin(v2 - 8);
-  v4 = v73 - v3;
-  v79 = _s5BoardVMa(0);
-  v5 = *(v79 - 8);
-  __chkstk_darwin(v79);
-  v7 = v73 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = v74 - v3;
+  v80 = _s5BoardVMa(0);
+  v5 = *(v80 - 8);
+  __chkstk_darwin(v80);
+  v7 = v74 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for CRLBoardIdentifier(0);
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8 - 8);
-  v76 = v73 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = [v0 toolbarItems];
-  if (v11)
+  *&v10 = __chkstk_darwin(v8 - 8).n128_u64[0];
+  v77 = v74 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = [v0 toolbarItems];
+  if (v12)
   {
-    v12 = v11;
-    sub_100006370(0, &qword_1019F6BF0);
-    v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v13 = v12;
+    sub_100006370(0, &qword_1019F6BF0, UIBarButtonItem_ptr);
+    v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v14 = [v1 collectionView];
-    if (!v14)
+    v15 = [v1 collectionView];
+    if (!v15)
     {
 LABEL_69:
       __break(1u);
       goto LABEL_70;
     }
 
-    v15 = v14;
-    v77 = v5;
-    v16 = [v14 indexPathsForSelectedItems];
+    v16 = v15;
+    v78 = v5;
+    v17 = [v15 indexPathsForSelectedItems];
 
-    if (v16)
+    if (v17)
     {
       type metadata accessor for IndexPath();
-      v17 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v18 = *(v17 + 16);
+      v19 = *(v18 + 16);
 
-      v19 = v18 == 0;
+      v20 = v19 == 0;
     }
 
     else
     {
-      v19 = 1;
+      v20 = 1;
     }
 
-    v40 = [v1 traitCollection];
-    v41 = [v40 horizontalSizeClass];
+    v41 = [v1 traitCollection];
+    v42 = [v41 horizontalSizeClass];
 
-    v42 = _UISolariumEnabled();
-    v78 = v4;
-    v73[1] = v1;
-    v75 = v7;
-    if (v42 && v41 == 1)
+    v43 = _UISolariumEnabled();
+    v79 = v4;
+    v74[1] = v1;
+    v76 = v7;
+    if (v43 && v42 == 1)
     {
-      v43 = [v1 collectionView];
-      if (!v43)
+      v44 = [v1 collectionView];
+      if (!v44)
       {
 LABEL_70:
         __break(1u);
         return;
       }
 
-      v44 = v43;
-      v45 = [v43 isEditing];
+      v45 = v44;
+      v46 = [v44 isEditing];
 
-      v46 = v13 >> 62;
-      if (v45)
+      v47 = v14 >> 62;
+      if (v46)
       {
-        if (v46)
+        if (v47)
         {
-          v20 = _CocoaArrayWrapper.endIndex.getter();
-          if (v20)
+          v21 = _CocoaArrayWrapper.endIndex.getter();
+          if (v21)
           {
 LABEL_14:
-            v47 = 0;
-            v23 = v13 & 0xFFFFFFFFFFFFFF8;
+            v48 = 0;
+            v24 = v14 & 0xFFFFFFFFFFFFFF8;
             while (1)
             {
-              if ((v13 & 0xC000000000000001) != 0)
+              if ((v14 & 0xC000000000000001) != 0)
               {
-                v48 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+                v49 = specialized _ArrayBuffer._getElementSlowPath(_:)();
               }
 
               else
               {
-                if (v47 >= *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
+                if (v48 >= *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10))
                 {
                   goto LABEL_46;
                 }
 
-                v48 = *(v13 + 8 * v47 + 32);
+                v49 = *(v14 + 8 * v48 + 32);
               }
 
-              v49 = v48;
-              v50 = v47 + 1;
-              if (__OFADD__(v47, 1))
+              v50 = v49;
+              v51 = v48 + 1;
+              if (__OFADD__(v48, 1))
               {
                 break;
               }
 
-              [v48 setEnabled:v19 ^ 1];
+              [v49 setEnabled:v20 ^ 1];
 
-              ++v47;
-              if (v50 == v20)
+              ++v48;
+              if (v51 == v21)
               {
                 goto LABEL_54;
               }
@@ -2726,8 +2726,8 @@ LABEL_47:
 
         else
         {
-          v20 = *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10);
-          if (v20)
+          v21 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          if (v21)
           {
             goto LABEL_14;
           }
@@ -2736,51 +2736,51 @@ LABEL_47:
         goto LABEL_54;
       }
 
-      if (v46)
+      if (v47)
       {
-        v20 = _CocoaArrayWrapper.endIndex.getter();
-        if (v20)
+        v21 = _CocoaArrayWrapper.endIndex.getter();
+        if (v21)
         {
 LABEL_34:
-          v55 = 0;
-          v23 = v13 & 0xFFFFFFFFFFFFFF8;
+          v56 = 0;
+          v24 = v14 & 0xFFFFFFFFFFFFFF8;
           do
           {
-            if ((v13 & 0xC000000000000001) != 0)
+            if ((v14 & 0xC000000000000001) != 0)
             {
-              v56 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+              v57 = specialized _ArrayBuffer._getElementSlowPath(_:)();
             }
 
             else
             {
-              if (v55 >= *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
+              if (v56 >= *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10))
               {
                 goto LABEL_47;
               }
 
-              v56 = *(v13 + 8 * v55 + 32);
+              v57 = *(v14 + 8 * v56 + 32);
             }
 
-            v57 = v56;
-            v58 = v55 + 1;
-            if (__OFADD__(v55, 1))
+            v58 = v57;
+            v59 = v56 + 1;
+            if (__OFADD__(v56, 1))
             {
               goto LABEL_45;
             }
 
-            [v56 setEnabled:1];
+            [v57 setEnabled:1];
 
-            ++v55;
+            ++v56;
           }
 
-          while (v58 != v20);
+          while (v59 != v21);
         }
       }
 
       else
       {
-        v20 = *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        if (v20)
+        v21 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        if (v21)
         {
           goto LABEL_34;
         }
@@ -2788,67 +2788,67 @@ LABEL_34:
 
 LABEL_54:
 
-      if (v19)
+      if (v20)
       {
         return;
       }
 
-      v59 = sub_100F378A4();
-      v60 = sub_100F8A1C8(v59);
+      v60 = sub_100F378A4();
+      v61 = sub_100F8A1C8(v60);
 
-      v61 = v60[2];
-      if (!v61)
+      v62 = v61[2];
+      if (!v62)
       {
 LABEL_62:
 
-        v39 = sub_100F3CE70();
-        v72 = sub_100F38610();
+        v40 = sub_100F3CE70();
+        v73 = sub_100F38610();
 LABEL_65:
-        [v39 setEnabled:v72];
+        [v40 setEnabled:v73];
         goto LABEL_66;
       }
 
-      v62 = 0;
-      v63 = v60 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
-      v74 = v75 + 8;
-      v77 += 7;
-      v64 = v76;
-      while (v62 < v60[2])
+      v63 = 0;
+      v64 = v61 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
+      v75 = v76 + 8;
+      v78 += 7;
+      v65 = v77;
+      while (v63 < v61[2])
       {
-        sub_1000652DC(&v63[*(v9 + 72) * v62], v64, type metadata accessor for CRLBoardIdentifier);
-        v65 = v78;
-        sub_1010AB99C(v64, v78);
-        v66 = v63;
-        v67 = v61;
-        v68 = v9;
-        sub_10000BBC4(v64, type metadata accessor for CRLBoardIdentifier);
-        v69 = v79;
-        (*v77)(v65, 0, 1, v79);
-        v70 = v75;
-        sub_100065D50(v65, v75, _s5BoardVMa);
-        if (*(v70 + *(v69 + 72)))
+        sub_1000652DC(&v64[*(v9 + 72) * v63], v65, type metadata accessor for CRLBoardIdentifier);
+        v66 = v79;
+        sub_1010AB99C(v65, v79);
+        v67 = v64;
+        v68 = v62;
+        v69 = v9;
+        sub_10000BBC4(v65, type metadata accessor for CRLBoardIdentifier);
+        v70 = v80;
+        (*v78)(v66, 0, 1, v80);
+        v71 = v76;
+        sub_100065D50(v66, v76, _s5BoardVMa);
+        if (*(v71 + *(v70 + 72)))
         {
 
-          sub_10000BBC4(v70, _s5BoardVMa);
+          sub_10000BBC4(v71, _s5BoardVMa);
           goto LABEL_64;
         }
 
-        v71 = v74[*(v69 + 76)];
-        sub_10000BBC4(v70, _s5BoardVMa);
-        v9 = v68;
-        v64 = v76;
-        v61 = v67;
-        v63 = v66;
-        if ((v71 & 1) == 0)
+        v72 = v75[*(v70 + 76)];
+        sub_10000BBC4(v71, _s5BoardVMa);
+        v9 = v69;
+        v65 = v77;
+        v62 = v68;
+        v64 = v67;
+        if ((v72 & 1) == 0)
         {
 
 LABEL_64:
-          v39 = sub_100F3CE70();
-          v72 = 0;
+          v40 = sub_100F3CE70();
+          v73 = 0;
           goto LABEL_65;
         }
 
-        if (v61 == ++v62)
+        if (v62 == ++v63)
         {
           goto LABEL_62;
         }
@@ -2858,10 +2858,10 @@ LABEL_64:
       goto LABEL_69;
     }
 
-    if (v13 >> 62)
+    if (v14 >> 62)
     {
-      v20 = _CocoaArrayWrapper.endIndex.getter();
-      if (!v20)
+      v21 = _CocoaArrayWrapper.endIndex.getter();
+      if (!v21)
       {
         goto LABEL_54;
       }
@@ -2869,43 +2869,43 @@ LABEL_64:
 
     else
     {
-      v20 = *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (!v20)
+      v21 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (!v21)
       {
         goto LABEL_54;
       }
     }
 
-    v51 = 0;
-    v23 = v13 & 0xFFFFFFFFFFFFFF8;
+    v52 = 0;
+    v24 = v14 & 0xFFFFFFFFFFFFFF8;
     while (1)
     {
-      if ((v13 & 0xC000000000000001) != 0)
+      if ((v14 & 0xC000000000000001) != 0)
       {
-        v52 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v53 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (v51 >= *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v52 >= *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_43;
         }
 
-        v52 = *(v13 + 8 * v51 + 32);
+        v53 = *(v14 + 8 * v52 + 32);
       }
 
-      v53 = v52;
-      v54 = v51 + 1;
-      if (__OFADD__(v51, 1))
+      v54 = v53;
+      v55 = v52 + 1;
+      if (__OFADD__(v52, 1))
       {
         break;
       }
 
-      [v52 setEnabled:v19 ^ 1];
+      [v53 setEnabled:v20 ^ 1];
 
-      ++v51;
-      if (v54 == v20)
+      ++v52;
+      if (v55 == v21)
       {
         goto LABEL_54;
       }
@@ -2917,20 +2917,20 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v19 = objc_opt_self();
-  LODWORD(v20) = [v19 _atomicIncrementAssertCount];
-  v80 = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &v80);
-  StaticString.description.getter();
-  v13 = String._bridgeToObjectiveC()();
+  v20 = objc_opt_self();
+  LODWORD(v21) = [v20 _atomicIncrementAssertCount];
+  v81 = [objc_allocWithZone(NSString) init];
+  sub_100604538(_swiftEmptyArrayStorage, &v81, "invalid nil found when unwrapping value", 39, 2u);
+  StaticString.description.getter("updateEditModeToolbar()", 23, 2);
+  v14 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
-  v21 = String._bridgeToObjectiveC()();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
+  v22 = String._bridgeToObjectiveC()();
 
-  v22 = [v21 lastPathComponent];
+  v23 = [v22 lastPathComponent];
 
-  v23 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = v24;
+  v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v25;
 
   if (qword_1019F20A0 != -1)
   {
@@ -2938,57 +2938,57 @@ LABEL_48:
     swift_once();
   }
 
-  v25 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  v26 = static OS_os_log.crlAssert;
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
-  *(inited + 32) = v20;
-  v27 = sub_100006370(0, &qword_1019F4D30);
-  *(inited + 96) = v27;
-  v28 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
-  *(inited + 104) = v28;
-  *(inited + 72) = v13;
+  *(inited + 32) = v21;
+  v28 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+  *(inited + 96) = v28;
+  v29 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
+  *(inited + 104) = v29;
+  *(inited + 72) = v14;
   *(inited + 136) = &type metadata for String;
-  v29 = sub_1000053B0();
-  *(inited + 112) = v23;
+  v30 = sub_1000053B0();
+  *(inited + 112) = v24;
   *(inited + 120) = v9;
   *(inited + 176) = &type metadata for UInt;
   *(inited + 184) = &protocol witness table for UInt;
-  *(inited + 144) = v29;
+  *(inited + 144) = v30;
   *(inited + 152) = 1398;
-  v30 = v80;
-  *(inited + 216) = v27;
-  *(inited + 224) = v28;
-  *(inited + 192) = v30;
-  v31 = v13;
-  v32 = v30;
-  v33 = static os_log_type_t.error.getter();
-  sub_100005404(v25, &_mh_execute_header, v33, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
-  swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
-  swift_arrayDestroy();
+  v31 = v81;
+  *(inited + 216) = v28;
+  *(inited + 224) = v29;
+  *(inited + 192) = v31;
+  v32 = v14;
+  v33 = v31;
   v34 = static os_log_type_t.error.getter();
-  sub_100005404(v25, &_mh_execute_header, v34, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
+  sub_100005404(v26, &_mh_execute_header, v34, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
+  swift_setDeallocating();
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+  swift_arrayDestroy();
+  v35 = static os_log_type_t.error.getter();
+  sub_100005404(v26, &_mh_execute_header, v35, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
 
   type metadata accessor for __VaListBuilder();
-  v35 = swift_allocObject();
-  v35[2] = 8;
-  v35[3] = 0;
-  v35[4] = 0;
-  v35[5] = 0;
-  v36 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
-  v37 = String._bridgeToObjectiveC()();
-
-  StaticString.description.getter();
+  v36 = swift_allocObject();
+  v36[2] = 8;
+  v36[3] = 0;
+  v36[4] = 0;
+  v36[5] = 0;
+  v37 = __VaListBuilder.va_list()();
+  StaticString.description.getter("updateEditModeToolbar()", 23, 2);
   v38 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
   v39 = String._bridgeToObjectiveC()();
 
-  [v19 handleFailureInFunction:v37 file:v38 lineNumber:1398 isFatal:0 format:v39 args:v36];
+  StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
+  v40 = String._bridgeToObjectiveC()();
+
+  [v20 handleFailureInFunction:v38 file:v39 lineNumber:1398 isFatal:0 format:v40 args:v37];
 
 LABEL_66:
 }
@@ -3000,7 +3000,7 @@ id sub_100F40978(int a1, char a2)
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v30 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for CRLiOSFolderGridViewController();
+  v10 = type metadata accessor for CRLiOSFolderGridViewController(0);
   v38.receiver = v3;
   v38.super_class = v10;
   v31 = a1;
@@ -3113,7 +3113,7 @@ LABEL_26:
 
     v26 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_iCloudStatusObserver;
     swift_beginAccess();
-    sub_10002C638(&v36, v3 + v26, &unk_1019F4D00);
+    sub_10002C638(&v36, v3 + v26, &unk_1019F4D00, &unk_10146E7F0);
     return swift_endAccess();
   }
 
@@ -3132,7 +3132,7 @@ LABEL_29:
 
     v28 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_iCloudStatusObserver;
     swift_beginAccess();
-    sub_10000BE14(v3 + v28, &v34, &unk_1019F4D00);
+    sub_10000BE14(v3 + v28, &v34, &unk_1019F4D00, &unk_10146E7F0);
     if (*(&v35 + 1))
     {
       sub_10000BF3C(&v34, &v36);
@@ -3144,14 +3144,14 @@ LABEL_29:
       v34 = 0u;
       v35 = 0u;
       swift_beginAccess();
-      sub_10002C638(&v34, v3 + v28, &unk_1019F4D00);
+      sub_10002C638(&v34, v3 + v28, &unk_1019F4D00, &unk_10146E7F0);
       swift_endAccess();
       return sub_100005070(&v36);
     }
 
     else
     {
-      return sub_10000CAAC(&v34, &unk_1019F4D00);
+      return sub_10000CAAC(&v34, &unk_1019F4D00, &unk_10146E7F0);
     }
   }
 }
@@ -3162,7 +3162,7 @@ uint64_t sub_100F40F40(uint64_t a1, uint64_t a2)
   v6 = type metadata accessor for CRLBoardLibraryViewModel.Filter(0);
   __chkstk_darwin(v6 - 8);
   v8 = &v65 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_1005B981C(&unk_1019FB770);
+  v9 = sub_1005B981C(&unk_1019FB770, &unk_10146FA30);
   __chkstk_darwin(v9 - 8);
   v11 = (&v65 - v10);
   v12 = type metadata accessor for CRLBoardLibraryViewModel.Item(0);
@@ -3176,12 +3176,12 @@ uint64_t sub_100F40F40(uint64_t a1, uint64_t a2)
   v19 = _s4NodeVMa(0);
   if ((*(*(v19 - 8) + 48))(v11, 1, v19) == 1)
   {
-    sub_10000CAAC(v11, &unk_1019FB770);
-    sub_1005B981C(&qword_1019F54E0);
+    sub_10000CAAC(v11, &unk_1019FB770, &unk_10146FA30);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146C6B0;
     type metadata accessor for IndexPath();
-    sub_10006852C(&qword_101A23D10, &type metadata accessor for IndexPath);
+    sub_10006852C(&qword_101A23D10, &type metadata accessor for IndexPath, &protocol conformance descriptor for IndexPath);
     v8 = inited;
     v21 = dispatch thunk of CustomStringConvertible.description.getter();
     v23 = v22;
@@ -3195,11 +3195,11 @@ uint64_t sub_100F40F40(uint64_t a1, uint64_t a2)
     v65 = objc_opt_self();
     LODWORD(v25) = [v65 _atomicIncrementAssertCount];
     v69 = [objc_allocWithZone(NSString) init];
-    sub_100604538(inited, &v69);
-    StaticString.description.getter();
+    sub_100604538(inited, &v69, "No item for index path: %@", 26, 2u);
+    StaticString.description.getter("collectionView(_:shouldSelectItemAt:)", 37, 2);
     v66 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v26 = String._bridgeToObjectiveC()();
 
     v27 = [v26 lastPathComponent];
@@ -3220,9 +3220,9 @@ uint64_t sub_100F40F40(uint64_t a1, uint64_t a2)
       *(v31 + 56) = &type metadata for Int32;
       *(v31 + 64) = &protocol witness table for Int32;
       *(v31 + 32) = v25;
-      v32 = sub_100006370(0, &qword_1019F4D30);
+      v32 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
       *(v31 + 96) = v32;
-      v33 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+      v33 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
       v34 = v66;
       *(v31 + 72) = v66;
       v35 = v67;
@@ -3243,7 +3243,7 @@ uint64_t sub_100F40F40(uint64_t a1, uint64_t a2)
       v39 = static os_log_type_t.error.getter();
       sub_100005404(v30, &_mh_execute_header, v39, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v31);
       swift_setDeallocating();
-      v67 = sub_1005B981C(&unk_1019F5670);
+      v67 = sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v40 = static os_log_type_t.error.getter();
       sub_100005404(v30, &_mh_execute_header, v40, "No item for index path: %@", 26, 2, v8);
@@ -3260,13 +3260,13 @@ uint64_t sub_100F40F40(uint64_t a1, uint64_t a2)
       {
 LABEL_30:
         v57 = __VaListBuilder.va_list()();
-        StaticString.description.getter();
+        StaticString.description.getter("collectionView(_:shouldSelectItemAt:)", 37, 2);
         v58 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
         v59 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("No item for index path: %@", 26, 2);
         v60 = String._bridgeToObjectiveC()();
 
         [v65 handleFailureInFunction:v58 file:v59 lineNumber:1522 isFatal:0 format:v60 args:v57];
@@ -3412,7 +3412,7 @@ LABEL_28:
   else
   {
     v61 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-    v62 = sub_1005B981C(&qword_1019F3480);
+    v62 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
     (*(*(v62 - 8) + 56))(v8, 5, 5, v62);
     v63 = sub_100068604(v3 + v61, v8);
     sub_10000BBC4(v8, type metadata accessor for CRLBoardLibraryViewModel.Filter);
@@ -3437,10 +3437,10 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
   v6 = &v111 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
   v118 = &v111 - v8;
-  v9 = sub_1005B981C(&unk_1019FB770);
+  v9 = sub_1005B981C(&unk_1019FB770, &unk_10146FA30);
   __chkstk_darwin(v9 - 8);
   v11 = &v111 - v10;
-  v12 = sub_1005B981C(&unk_101A15B20);
+  v12 = sub_1005B981C(&unk_101A15B20, &qword_10146F1E0);
   __chkstk_darwin(v12 - 8);
   v14 = &v111 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v15);
@@ -3465,18 +3465,18 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
     v120 = v3;
     v121 = v24;
     v115 = a2;
-    sub_10000CAAC(v11, &unk_1019FB770);
+    sub_10000CAAC(v11, &unk_1019FB770, &unk_10146FA30);
     v28 = *(v18 + 56);
     v113 = v14;
     v28(v14, 1, 1, v17);
     v112 = objc_opt_self();
     v29 = [v112 _atomicIncrementAssertCount];
     v125[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v125);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, v125, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("collectionView(_:performPrimaryActionForItemAt:)", 48, 2);
     v111 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v30 = String._bridgeToObjectiveC()();
 
     v31 = [v30 lastPathComponent];
@@ -3491,15 +3491,15 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
     }
 
     v36 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v29;
-    v38 = sub_100006370(0, &qword_1019F4D30);
+    v38 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v38;
-    v39 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v39 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v39;
     v40 = v111;
     *(inited + 72) = v111;
@@ -3520,7 +3520,7 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
     v45 = static os_log_type_t.error.getter();
     sub_100005404(v36, &_mh_execute_header, v45, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v46 = static os_log_type_t.error.getter();
     sub_100005404(v36, &_mh_execute_header, v46, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -3532,13 +3532,13 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
     v47[4] = 0;
     v47[5] = 0;
     v48 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("collectionView(_:performPrimaryActionForItemAt:)", 48, 2);
     v49 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v50 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v51 = String._bridgeToObjectiveC()();
 
     [v112 handleFailureInFunction:v49 file:v50 lineNumber:1549 isFatal:0 format:v51 args:v48];
@@ -3562,10 +3562,10 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
   }
 
   v54 = v123;
-  sub_10003DFF8(v53, v123, &unk_101A15B20);
+  sub_10003DFF8(v53, v123, &unk_101A15B20, &qword_10146F1E0);
   if ((*(v35 + 48))(v54, 1, v17) == 1)
   {
-    return sub_10000CAAC(v54, &unk_101A15B20);
+    return sub_10000CAAC(v54, &unk_101A15B20, &qword_10146F1E0);
   }
 
   sub_100065D50(v54, v24, type metadata accessor for CRLBoardLibraryViewModel.Item);
@@ -3578,11 +3578,11 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
     v124 = objc_opt_self();
     v80 = [v124 _atomicIncrementAssertCount];
     v125[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v125);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, v125, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("collectionView(_:performPrimaryActionForItemAt:)", 48, 2);
     v81 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v82 = String._bridgeToObjectiveC()();
 
     v83 = [v82 lastPathComponent];
@@ -3596,15 +3596,15 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
     }
 
     v87 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v88 = swift_initStackObject();
     *(v88 + 16) = xmmword_10146CA70;
     *(v88 + 56) = &type metadata for Int32;
     *(v88 + 64) = &protocol witness table for Int32;
     *(v88 + 32) = v80;
-    v89 = sub_100006370(0, &qword_1019F4D30);
+    v89 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(v88 + 96) = v89;
-    v90 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v90 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(v88 + 104) = v90;
     *(v88 + 72) = v81;
     *(v88 + 136) = &type metadata for String;
@@ -3624,7 +3624,7 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
     v95 = static os_log_type_t.error.getter();
     sub_100005404(v87, &_mh_execute_header, v95, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v88);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v96 = static os_log_type_t.error.getter();
     sub_100005404(v87, &_mh_execute_header, v96, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -3636,13 +3636,13 @@ uint64_t sub_100F419E8(void *a1, uint64_t a2)
     v97[4] = 0;
     v97[5] = 0;
     v98 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("collectionView(_:performPrimaryActionForItemAt:)", 48, 2);
     v99 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v100 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v101 = String._bridgeToObjectiveC()();
 
     [v124 handleFailureInFunction:v99 file:v100 lineNumber:1550 isFatal:0 format:v101 args:v98];
@@ -3738,7 +3738,7 @@ LABEL_25:
   }
 
   v69 = static OS_os_log.shareState;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v70 = swift_initStackObject();
   *(v70 + 16) = xmmword_10146C6B0;
   v71 = URL.absoluteString.getter();
@@ -3750,13 +3750,13 @@ LABEL_25:
   v74 = static os_log_type_t.default.getter();
   sub_100005404(v69, &_mh_execute_header, v74, "Opening URL to accept share: ", 29, 2, v70);
   swift_setDeallocating();
-  sub_100005070(v70 + 32);
+  sub_100005070((v70 + 32));
   v75 = [objc_opt_self() sharedApplication];
   URL._bridgeToObjectiveC()(v76);
   v78 = v77;
   sub_100BD72C0(_swiftEmptyArrayStorage);
   type metadata accessor for OpenExternalURLOptionsKey(0);
-  sub_10006852C(&qword_1019F3CF0, type metadata accessor for OpenExternalURLOptionsKey);
+  sub_10006852C(&qword_1019F3CF0, type metadata accessor for OpenExternalURLOptionsKey, "}~<");
   v79 = Dictionary._bridgeToObjectiveC()().super.isa;
 
   [v75 openURL:v78 options:v79 completionHandler:0];
@@ -3775,7 +3775,7 @@ LABEL_30:
 void sub_100F42A6C(void *a1, uint64_t a2)
 {
   v3 = v2;
-  v6 = sub_1005B981C(&qword_1019F6990);
+  v6 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v6 - 8);
   v8 = &v70 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
@@ -3797,11 +3797,11 @@ void sub_100F42A6C(void *a1, uint64_t a2)
     v73 = objc_opt_self();
     v16 = [v73 _atomicIncrementAssertCount];
     v80 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v80);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v80, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("collectionView(_:didDeselectItemAt:)", 36, 2);
     v72 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v17 = String._bridgeToObjectiveC()();
 
     v18 = [v17 lastPathComponent];
@@ -3816,15 +3816,15 @@ void sub_100F42A6C(void *a1, uint64_t a2)
     }
 
     v21 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v16;
-    v23 = sub_100006370(0, &qword_1019F4D30);
+    v23 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v23;
-    v24 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v24 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v24;
     v25 = v72;
     *(inited + 72) = v72;
@@ -3846,7 +3846,7 @@ void sub_100F42A6C(void *a1, uint64_t a2)
     v31 = static os_log_type_t.error.getter();
     sub_100005404(v21, &_mh_execute_header, v31, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v32 = static os_log_type_t.error.getter();
     sub_100005404(v21, &_mh_execute_header, v32, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -3858,13 +3858,13 @@ void sub_100F42A6C(void *a1, uint64_t a2)
     v33[4] = 0;
     v33[5] = 0;
     v34 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("collectionView(_:didDeselectItemAt:)", 36, 2);
     v35 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v36 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v37 = String._bridgeToObjectiveC()();
 
     [v73 handleFailureInFunction:v35 file:v36 lineNumber:1576 isFatal:0 format:v37 args:v34];
@@ -3874,9 +3874,9 @@ void sub_100F42A6C(void *a1, uint64_t a2)
     v15 = v74;
   }
 
-  sub_10003DFF8(v8, v11, &qword_1019F6990);
+  sub_10003DFF8(v8, v11, &qword_1019F6990, &qword_10146D2F0);
   v38 = v15(v11, 1, v13);
-  sub_10000CAAC(v11, &qword_1019F6990);
+  sub_10000CAAC(v11, &qword_1019F6990, &qword_10146D2F0);
   if (v38 != 1)
   {
     isa = IndexPath._bridgeToObjectiveC()().super.isa;
@@ -3898,7 +3898,7 @@ void sub_100F42A6C(void *a1, uint64_t a2)
         }
 
         v63 = static OS_os_log.crlDefault;
-        sub_1005B981C(&qword_1019F54E0);
+        sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
         v64 = swift_initStackObject();
         *(v64 + 16) = xmmword_10146C6B0;
         v80 = 0;
@@ -3919,7 +3919,7 @@ void sub_100F42A6C(void *a1, uint64_t a2)
         v69 = static os_log_type_t.default.getter();
         sub_100005404(v63, &_mh_execute_header, v69, "%@", 2, 2, v64);
         swift_setDeallocating();
-        sub_100005070(v64 + 32);
+        sub_100005070((v64 + 32));
       }
 
       sub_10006D850();
@@ -3930,11 +3930,11 @@ void sub_100F42A6C(void *a1, uint64_t a2)
       v79 = objc_opt_self();
       v41 = [v79 _atomicIncrementAssertCount];
       v80 = [objc_allocWithZone(NSString) init];
-      sub_100604538(_swiftEmptyArrayStorage, &v80);
-      StaticString.description.getter();
+      sub_100604538(_swiftEmptyArrayStorage, &v80, "invalid nil found when unwrapping value", 39, 2u);
+      StaticString.description.getter("collectionView(_:didDeselectItemAt:)", 36, 2);
       v42 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
       v43 = String._bridgeToObjectiveC()();
 
       v44 = [v43 lastPathComponent];
@@ -3948,15 +3948,15 @@ void sub_100F42A6C(void *a1, uint64_t a2)
       }
 
       v48 = static OS_os_log.crlAssert;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       v49 = swift_initStackObject();
       *(v49 + 16) = xmmword_10146CA70;
       *(v49 + 56) = &type metadata for Int32;
       *(v49 + 64) = &protocol witness table for Int32;
       *(v49 + 32) = v41;
-      v50 = sub_100006370(0, &qword_1019F4D30);
+      v50 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
       *(v49 + 96) = v50;
-      v51 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+      v51 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
       *(v49 + 104) = v51;
       *(v49 + 72) = v42;
       *(v49 + 136) = &type metadata for String;
@@ -3976,7 +3976,7 @@ void sub_100F42A6C(void *a1, uint64_t a2)
       v56 = static os_log_type_t.error.getter();
       sub_100005404(v48, &_mh_execute_header, v56, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v49);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v57 = static os_log_type_t.error.getter();
       sub_100005404(v48, &_mh_execute_header, v57, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -3988,13 +3988,13 @@ void sub_100F42A6C(void *a1, uint64_t a2)
       v58[4] = 0;
       v58[5] = 0;
       v59 = __VaListBuilder.va_list()();
-      StaticString.description.getter();
+      StaticString.description.getter("collectionView(_:didDeselectItemAt:)", 36, 2);
       v60 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
       v61 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
       v62 = String._bridgeToObjectiveC()();
 
       [v79 handleFailureInFunction:v60 file:v61 lineNumber:1577 isFatal:0 format:v62 args:v59];
@@ -4023,7 +4023,7 @@ void sub_100F435B4(uint64_t a1)
   v36 = *(v1 - 8);
   v2 = *(v36 + 64);
   __chkstk_darwin(v1 - 8);
-  sub_100006370(0, &qword_1019F6EE0);
+  sub_100006370(0, &qword_1019F6EE0, OS_os_log_ptr);
   v3 = static OS_os_log.default.getter();
   v4 = static os_log_type_t.default.getter();
   sub_100005404(v3, &_mh_execute_header, v4, "Show recovery alert in response to attempting to open a deleted board", 69, 2, _swiftEmptyArrayStorage);
@@ -4091,14 +4091,14 @@ void sub_100F435B4(uint64_t a1)
   [v29 presentViewController:v16 animated:1 completion:0];
 }
 
-uint64_t sub_100F43B78(uint64_t a1, uint64_t a2, uint64_t a3)
+void *sub_100F43B78(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
     v5 = result;
-    sub_1005B981C(&qword_101A23C10);
+    sub_1005B981C(&qword_101A23C10, &unk_10146F210);
     v6 = *(type metadata accessor for CRLBoardLibraryViewModel.Item(0) - 8);
     v7 = (*(v6 + 80) + 32) & ~*(v6 + 80);
     v8 = swift_allocObject();
@@ -4134,11 +4134,11 @@ uint64_t sub_100F43EE4(void *a1)
   v8 = objc_opt_self();
   v9 = [v8 _atomicIncrementAssertCount];
   v31 = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &v31);
-  StaticString.description.getter();
+  sub_100604538(_swiftEmptyArrayStorage, &v31, "invalid nil found when unwrapping value", 39, 2u);
+  StaticString.description.getter("collectionView(_:contextMenuConfigurationForItemAt:point:)", 58, 2);
   v10 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
   v11 = String._bridgeToObjectiveC()();
 
   v12 = [v11 lastPathComponent];
@@ -4152,15 +4152,15 @@ uint64_t sub_100F43EE4(void *a1)
   }
 
   v16 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
   *(inited + 32) = v9;
-  v18 = sub_100006370(0, &qword_1019F4D30);
+  v18 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 96) = v18;
-  v19 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v19 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(inited + 104) = v19;
   *(inited + 72) = v10;
   *(inited + 136) = &type metadata for String;
@@ -4180,7 +4180,7 @@ uint64_t sub_100F43EE4(void *a1)
   v24 = static os_log_type_t.error.getter();
   sub_100005404(v16, &_mh_execute_header, v24, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v25 = static os_log_type_t.error.getter();
   sub_100005404(v16, &_mh_execute_header, v25, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -4192,13 +4192,13 @@ uint64_t sub_100F43EE4(void *a1)
   v26[4] = 0;
   v26[5] = 0;
   v27 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("collectionView(_:contextMenuConfigurationForItemAt:point:)", 58, 2);
   v28 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
   v29 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
   v30 = String._bridgeToObjectiveC()();
 
   [v8 handleFailureInFunction:v28 file:v29 lineNumber:1646 isFatal:0 format:v30 args:v27];
@@ -4234,7 +4234,7 @@ UIMenu sub_100F44338(uint64_t a1, uint64_t a2, char *a3)
     specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
   }
 
-  sub_100006370(0, &qword_1019F6C00);
+  sub_100006370(0, &qword_1019F6C00, UIMenu_ptr);
   v8._countAndFlagsBits = 0;
   v8._object = 0xE000000000000000;
   v10.value.super.isa = 0;
@@ -4248,7 +4248,7 @@ uint64_t sub_100F444A4(char *a1)
   if (v2)
   {
     v3 = v2;
-    sub_100006370(0, &qword_1019F6190);
+    sub_100006370(0, &qword_1019F6190, UIAction_ptr);
     v4 = [v3 title];
     static String._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -4270,11 +4270,11 @@ uint64_t sub_100F444A4(char *a1)
     v11 = objc_opt_self();
     v12 = [v11 _atomicIncrementAssertCount];
     v34 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v34);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v34, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("contextMenuElementForSharedHighlightHide(_:)", 44, 2);
     v13 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v14 = String._bridgeToObjectiveC()();
 
     v15 = [v14 lastPathComponent];
@@ -4288,15 +4288,15 @@ uint64_t sub_100F444A4(char *a1)
     }
 
     v19 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v12;
-    v21 = sub_100006370(0, &qword_1019F4D30);
+    v21 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v21;
-    v22 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v22 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v22;
     *(inited + 72) = v13;
     *(inited + 136) = &type metadata for String;
@@ -4316,7 +4316,7 @@ uint64_t sub_100F444A4(char *a1)
     v27 = static os_log_type_t.error.getter();
     sub_100005404(v19, &_mh_execute_header, v27, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v28 = static os_log_type_t.error.getter();
     sub_100005404(v19, &_mh_execute_header, v28, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -4328,13 +4328,13 @@ uint64_t sub_100F444A4(char *a1)
     v29[4] = 0;
     v29[5] = 0;
     v30 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("contextMenuElementForSharedHighlightHide(_:)", 44, 2);
     v31 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v32 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v33 = String._bridgeToObjectiveC()();
 
     [v11 handleFailureInFunction:v31 file:v32 lineNumber:2385 isFatal:0 format:v33 args:v30];
@@ -4355,7 +4355,7 @@ uint64_t sub_100F449C4(uint64_t a1)
     v7 = [v4 localizedStringForKey:v5 value:v6 table:0];
 
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    sub_100006370(0, &qword_1019F6190);
+    sub_100006370(0, &qword_1019F6190, UIAction_ptr);
     v8 = String._bridgeToObjectiveC()();
     v9 = [objc_opt_self() systemImageNamed:v8];
 
@@ -4368,11 +4368,11 @@ uint64_t sub_100F449C4(uint64_t a1)
     v11 = objc_opt_self();
     v12 = [v11 _atomicIncrementAssertCount];
     v34 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v34);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v34, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("contextMenuElementForSharedHighlightReply(_:)", 45, 2);
     v13 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v14 = String._bridgeToObjectiveC()();
 
     v15 = [v14 lastPathComponent];
@@ -4386,15 +4386,15 @@ uint64_t sub_100F449C4(uint64_t a1)
     }
 
     v19 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v12;
-    v21 = sub_100006370(0, &qword_1019F4D30);
+    v21 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v21;
-    v22 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v22 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v22;
     *(inited + 72) = v13;
     *(inited + 136) = &type metadata for String;
@@ -4414,7 +4414,7 @@ uint64_t sub_100F449C4(uint64_t a1)
     v27 = static os_log_type_t.error.getter();
     sub_100005404(v19, &_mh_execute_header, v27, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v28 = static os_log_type_t.error.getter();
     sub_100005404(v19, &_mh_execute_header, v28, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -4426,13 +4426,13 @@ uint64_t sub_100F449C4(uint64_t a1)
     v29[4] = 0;
     v29[5] = 0;
     v30 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("contextMenuElementForSharedHighlightReply(_:)", 45, 2);
     v31 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v32 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v33 = String._bridgeToObjectiveC()();
 
     [v11 handleFailureInFunction:v31 file:v32 lineNumber:2374 isFatal:0 format:v33 args:v30];
@@ -4455,7 +4455,7 @@ id sub_100F44F1C(uint64_t a1, uint64_t a2, void *a3)
   v7 = *(v6 - 8);
   v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  sub_1005B981C(&qword_101A23C10);
+  sub_1005B981C(&qword_101A23C10, &unk_10146F210);
   v9 = *(v4 + 80);
   v10 = (v9 + 32) & ~v9;
   v11 = swift_allocObject();
@@ -4465,7 +4465,7 @@ id sub_100F44F1C(uint64_t a1, uint64_t a2, void *a3)
   swift_setDeallocating();
   sub_10000BBC4(v11 + v10, type metadata accessor for CRLBoardLibraryViewModel.Item);
   swift_deallocClassInstance();
-  sub_10006852C(&qword_1019F66A0, type metadata accessor for CRLBoardLibraryViewModel.Item);
+  sub_10006852C(&qword_1019F66A0, type metadata accessor for CRLBoardLibraryViewModel.Item, aY_45);
   isa = Set._bridgeToObjectiveC()().super.isa;
 
   v12 = swift_allocObject();
@@ -4521,7 +4521,7 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
   v130 = v6;
   __chkstk_darwin(v6);
   v128 = &v116 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_1005B981C(&unk_101A23C40);
+  v8 = sub_1005B981C(&unk_101A23C40, &unk_10146F200);
   __chkstk_darwin(v8 - 8);
   v135 = (&v116 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin(v10);
@@ -4534,7 +4534,7 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
   v125 = &v116 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v14);
   v126 = &v116 - v15;
-  v16 = sub_1005B981C(&unk_101A15B20);
+  v16 = sub_1005B981C(&unk_101A15B20, &qword_10146F1E0);
   __chkstk_darwin(v16 - 8);
   v18 = &v116 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v19);
@@ -4549,15 +4549,15 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
   v132 = a3;
   [a3 setPreferredCommitStyle:{0, v26}];
   v29 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-  v30 = sub_1005B981C(&qword_1019F3480);
+  v30 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
   (*(*(v30 - 8) + 56))(v28, 5, 5, v30);
   LOBYTE(v29) = sub_100068604(v3 + v29, v28);
   sub_10000BBC4(v28, type metadata accessor for CRLBoardLibraryViewModel.Filter);
   if ((v29 & 1) == 0)
   {
     v137 = [a2 identifier];
-    sub_1005B981C(&unk_101A23D00);
-    sub_1005B981C(&qword_1019FB8A8);
+    sub_1005B981C(&unk_101A23D00, &unk_1014B9920);
+    sub_1005B981C(&qword_1019FB8A8, &qword_101474F00);
     if (swift_dynamicCast())
     {
       if (v143[2] == 1)
@@ -4576,11 +4576,11 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
           v121 = objc_opt_self();
           v35 = [v121 _atomicIncrementAssertCount];
           v137 = [objc_allocWithZone(NSString) init];
-          sub_100604538(_swiftEmptyArrayStorage, &v137);
-          StaticString.description.getter();
+          sub_100604538(_swiftEmptyArrayStorage, &v137, "invalid nil found when unwrapping value", 39, 2u);
+          StaticString.description.getter("collectionView(_:willPerformPreviewActionForMenuWith:animator:)", 63, 2);
           v119 = String._bridgeToObjectiveC()();
 
-          StaticString.description.getter();
+          StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
           v36 = String._bridgeToObjectiveC()();
 
           v37 = [v36 lastPathComponent];
@@ -4595,16 +4595,16 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
           }
 
           v120 = static OS_os_log.crlAssert;
-          sub_1005B981C(&qword_1019F54E0);
+          sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
           inited = swift_initStackObject();
           *(inited + 16) = xmmword_10146CA70;
           *(inited + 56) = &type metadata for Int32;
           *(inited + 64) = &protocol witness table for Int32;
           *(inited + 32) = v35;
           v118 = inited + 32;
-          v41 = sub_100006370(0, &qword_1019F4D30);
+          v41 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
           *(inited + 96) = v41;
-          v42 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+          v42 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
           *(inited + 104) = v42;
           v43 = v119;
           *(inited + 72) = v119;
@@ -4627,7 +4627,7 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
           v50 = v120;
           sub_100005404(v120, &_mh_execute_header, v49, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
           swift_setDeallocating();
-          sub_1005B981C(&unk_1019F5670);
+          sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
           swift_arrayDestroy();
           v51 = static os_log_type_t.error.getter();
           sub_100005404(v50, &_mh_execute_header, v51, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -4639,13 +4639,13 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
           v52[4] = 0;
           v52[5] = 0;
           v120 = __VaListBuilder.va_list()();
-          StaticString.description.getter();
+          StaticString.description.getter("collectionView(_:willPerformPreviewActionForMenuWith:animator:)", 63, 2);
           v53 = String._bridgeToObjectiveC()();
 
-          StaticString.description.getter();
+          StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
           v54 = String._bridgeToObjectiveC()();
 
-          StaticString.description.getter();
+          StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
           v55 = String._bridgeToObjectiveC()();
 
           [v121 handleFailureInFunction:v53 file:v54 lineNumber:1679 isFatal:0 format:v55 args:v120];
@@ -4653,10 +4653,10 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
           v31 = v122;
         }
 
-        sub_10003DFF8(v18, v21, &unk_101A15B20);
+        sub_10003DFF8(v18, v21, &unk_101A15B20, &qword_10146F1E0);
         if (v31(v21, 1, v22) == 1)
         {
-          sub_10000CAAC(v21, &unk_101A15B20);
+          sub_10000CAAC(v21, &unk_101A15B20, &qword_10146F1E0);
         }
 
         else
@@ -4677,11 +4677,11 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
             v129 = objc_opt_self();
             v83 = [v129 _atomicIncrementAssertCount];
             v137 = [objc_allocWithZone(NSString) init];
-            sub_100604538(_swiftEmptyArrayStorage, &v137);
-            StaticString.description.getter();
+            sub_100604538(_swiftEmptyArrayStorage, &v137, "invalid nil found when unwrapping value", 39, 2u);
+            StaticString.description.getter("collectionView(_:willPerformPreviewActionForMenuWith:animator:)", 63, 2);
             v128 = String._bridgeToObjectiveC()();
 
-            StaticString.description.getter();
+            StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
             v84 = String._bridgeToObjectiveC()();
 
             v85 = [v84 lastPathComponent];
@@ -4695,15 +4695,15 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
             }
 
             v88 = static OS_os_log.crlAssert;
-            sub_1005B981C(&qword_1019F54E0);
+            sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
             v89 = swift_initStackObject();
             *(v89 + 16) = xmmword_10146CA70;
             *(v89 + 56) = &type metadata for Int32;
             *(v89 + 64) = &protocol witness table for Int32;
             *(v89 + 32) = v83;
-            v90 = sub_100006370(0, &qword_1019F4D30);
+            v90 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
             *(v89 + 96) = v90;
-            v91 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+            v91 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
             *(v89 + 104) = v91;
             v92 = v128;
             *(v89 + 72) = v128;
@@ -4724,7 +4724,7 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
             v97 = static os_log_type_t.error.getter();
             sub_100005404(v88, &_mh_execute_header, v97, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v89);
             swift_setDeallocating();
-            sub_1005B981C(&unk_1019F5670);
+            sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
             swift_arrayDestroy();
             v98 = static os_log_type_t.error.getter();
             sub_100005404(v88, &_mh_execute_header, v98, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -4736,13 +4736,13 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
             v99[4] = 0;
             v99[5] = 0;
             v100 = __VaListBuilder.va_list()();
-            StaticString.description.getter();
+            StaticString.description.getter("collectionView(_:willPerformPreviewActionForMenuWith:animator:)", 63, 2);
             v101 = String._bridgeToObjectiveC()();
 
-            StaticString.description.getter();
+            StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
             v102 = String._bridgeToObjectiveC()();
 
-            StaticString.description.getter();
+            StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
             v103 = String._bridgeToObjectiveC()();
 
             [v129 handleFailureInFunction:v101 file:v102 lineNumber:1680 isFatal:0 format:v103 args:v100];
@@ -4752,11 +4752,11 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
           }
 
           v104 = v131;
-          sub_10003DFF8(v135, v131, &unk_101A23C40);
+          sub_10003DFF8(v135, v131, &unk_101A23C40, &unk_10146F200);
           if (v82(v104, 1, v81) == 1)
           {
             sub_10000BBC4(v136, type metadata accessor for CRLBoardLibraryViewModel.Item);
-            sub_10000CAAC(v104, &unk_101A23C40);
+            sub_10000CAAC(v104, &unk_101A23C40, &unk_10146F200);
           }
 
           else
@@ -4815,11 +4815,11 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
       v136 = objc_opt_self();
       v56 = [v136 _atomicIncrementAssertCount];
       v143 = [objc_allocWithZone(NSString) init];
-      sub_100604538(_swiftEmptyArrayStorage, &v143);
-      StaticString.description.getter();
+      sub_100604538(_swiftEmptyArrayStorage, &v143, "invalid nil found when unwrapping value", 39, 2u);
+      StaticString.description.getter("collectionView(_:willPerformPreviewActionForMenuWith:animator:)", 63, 2);
       v57 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
       v58 = String._bridgeToObjectiveC()();
 
       v59 = [v58 lastPathComponent];
@@ -4833,15 +4833,15 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
       }
 
       v63 = static OS_os_log.crlAssert;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       v64 = swift_initStackObject();
       *(v64 + 16) = xmmword_10146CA70;
       *(v64 + 56) = &type metadata for Int32;
       *(v64 + 64) = &protocol witness table for Int32;
       *(v64 + 32) = v56;
-      v65 = sub_100006370(0, &qword_1019F4D30);
+      v65 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
       *(v64 + 96) = v65;
-      v66 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+      v66 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
       *(v64 + 104) = v66;
       *(v64 + 72) = v57;
       *(v64 + 136) = &type metadata for String;
@@ -4861,7 +4861,7 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
       v71 = static os_log_type_t.error.getter();
       sub_100005404(v63, &_mh_execute_header, v71, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v64);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v72 = static os_log_type_t.error.getter();
       sub_100005404(v63, &_mh_execute_header, v72, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -4873,13 +4873,13 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
       v73[4] = 0;
       v73[5] = 0;
       v74 = __VaListBuilder.va_list()();
-      StaticString.description.getter();
+      StaticString.description.getter("collectionView(_:willPerformPreviewActionForMenuWith:animator:)", 63, 2);
       v75 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
       v76 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
       v77 = String._bridgeToObjectiveC()();
 
       [v136 handleFailureInFunction:v75 file:v76 lineNumber:1677 isFatal:0 format:v77 args:v74];
@@ -4887,13 +4887,13 @@ void sub_100F454D0(void *a1, void *a2, void *a3)
   }
 }
 
-void sub_100F46774()
+void sub_100F46774(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     [Strong setEditing:0 animated:1];
   }
 }
@@ -4975,7 +4975,7 @@ void sub_100F46C70()
 
         if (v5)
         {
-          type metadata accessor for CRLiOSSceneDelegate();
+          type metadata accessor for CRLiOSSceneDelegate(0);
           if (swift_dynamicCastClass())
           {
             sub_100C29FB8();
@@ -4993,7 +4993,7 @@ void sub_100F46C70()
   }
 }
 
-uint64_t sub_100F46D70(void *a1, uint64_t a2, uint64_t a3, void (*a4)(id))
+uint64_t sub_100F46D70(void *a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   if (a3)
   {
@@ -5011,7 +5011,7 @@ uint64_t sub_100F46D70(void *a1, uint64_t a2, uint64_t a3, void (*a4)(id))
 
   a4(v7);
 
-  return sub_10000CAAC(v9, &unk_1019F4D00);
+  return sub_10000CAAC(v9, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 uint64_t sub_100F46DFC(char a1, uint64_t a2)
@@ -5019,11 +5019,11 @@ uint64_t sub_100F46DFC(char a1, uint64_t a2)
   *(v3 + 16) = a2;
   *(v3 + 24) = v2;
   *(v3 + 112) = a1;
-  sub_1005B981C(&qword_1019FB750);
+  sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   *(v3 + 32) = swift_task_alloc();
   type metadata accessor for CRLBoardLibraryViewModel.Filter(0);
   *(v3 + 40) = swift_task_alloc();
-  sub_1005B981C(&unk_101A15B20);
+  sub_1005B981C(&unk_101A15B20, &qword_10146F1E0);
   *(v3 + 48) = swift_task_alloc();
   v4 = type metadata accessor for CRLBoardLibraryViewModel.Item(0);
   *(v3 + 56) = v4;
@@ -5046,10 +5046,10 @@ uint64_t sub_100F46FA8()
   v3 = *(v0 + 48);
   v4 = *(v0 + 16);
 
-  sub_10000BE14(v4, v3, &unk_101A15B20);
+  sub_10000BE14(v4, v3, &unk_101A15B20, &qword_10146F1E0);
   if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
-    sub_10000CAAC(*(v0 + 48), &unk_101A15B20);
+    sub_10000CAAC(*(v0 + 48), &unk_101A15B20, &qword_10146F1E0);
     goto LABEL_31;
   }
 
@@ -5100,7 +5100,7 @@ uint64_t sub_100F46FA8()
       {
         v6 = *(v0 + 88);
         v40 = *(v0 + 64);
-        sub_1005B981C(&qword_101A23C10);
+        sub_1005B981C(&qword_101A23C10, &unk_10146F210);
         v8 = (*(v40 + 80) + 32) & ~*(v40 + 80);
         v9 = swift_allocObject();
         *(v9 + 16) = xmmword_10146C6B0;
@@ -5143,13 +5143,13 @@ LABEL_29:
       v32 = *(v0 + 64);
       v33 = *(v0 + 40);
       v34 = *(v0 + 24);
-      sub_1005B981C(&qword_101A23C10);
+      sub_1005B981C(&qword_101A23C10, &unk_10146F210);
       v35 = (*(v32 + 80) + 32) & ~*(v32 + 80);
       v36 = swift_allocObject();
       *(v36 + 16) = xmmword_10146C6B0;
       sub_1000652DC(v31, v36 + v35, type metadata accessor for CRLBoardLibraryViewModel.Item);
       v37 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-      v38 = sub_1005B981C(&qword_1019F3480);
+      v38 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
       (*(*(v38 - 8) + 56))(v33, 5, 5, v38);
       LOBYTE(v37) = sub_100068604(v34 + v37, v33);
       sub_10000BBC4(v33, type metadata accessor for CRLBoardLibraryViewModel.Filter);
@@ -5171,7 +5171,7 @@ LABEL_29:
 
     v6 = *(v0 + 88);
     v7 = *(v0 + 64);
-    sub_1005B981C(&qword_101A23C10);
+    sub_1005B981C(&qword_101A23C10, &unk_10146F210);
     v8 = (*(v7 + 80) + 32) & ~*(v7 + 80);
     v9 = swift_allocObject();
     *(v9 + 16) = xmmword_10146C6B0;
@@ -5184,7 +5184,7 @@ LABEL_29:
   {
     v6 = *(v0 + 88);
     v39 = *(v0 + 64);
-    sub_1005B981C(&qword_101A23C10);
+    sub_1005B981C(&qword_101A23C10, &unk_10146F210);
     v8 = (*(v39 + 80) + 32) & ~*(v39 + 80);
     v9 = swift_allocObject();
     *(v9 + 16) = xmmword_10146C6B0;
@@ -5206,7 +5206,7 @@ LABEL_30:
     if (v21)
     {
       v22 = v21;
-      v23 = [*(v21 + OBJC_IVAR____TtC8Freeform18CRLSharedHighlight_swHighlight) hideContextMenu];
+      v23 = [*&v21[OBJC_IVAR____TtC8Freeform18CRLSharedHighlight_swHighlight] hideContextMenu];
       v10 = *(v0 + 88);
       if (v23)
       {
@@ -5228,7 +5228,7 @@ LABEL_34:
   }
 
   v22 = v42;
-  v23 = [*(v42 + OBJC_IVAR____TtC8Freeform18CRLSharedHighlight_swHighlight) replyContextMenuWithPresentingViewController:*(v0 + 24)];
+  v23 = [*&v42[OBJC_IVAR____TtC8Freeform18CRLSharedHighlight_swHighlight] replyContextMenuWithPresentingViewController:*(v0 + 24)];
   v10 = *(v0 + 88);
   if (v23)
   {
@@ -5251,13 +5251,13 @@ LABEL_31:
   return v45();
 }
 
-uint64_t sub_100F4774C(uint64_t a1)
+void sub_100F4774C(uint64_t a1)
 {
   v3 = type metadata accessor for CRLBoardLibraryViewModel.Item(0);
   v4 = *(v3 - 8);
   v5 = *(v4 + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = sub_100F88220();
   v9 = v8;
   sub_1000652DC(a1, v6, type metadata accessor for CRLBoardLibraryViewModel.Item);
@@ -5270,13 +5270,13 @@ uint64_t sub_100F4774C(uint64_t a1)
 
   v14 = swift_allocObject();
   *(v14 + 16) = v13;
-  v32 = sub_1006301CC;
-  v33 = v14;
-  v29 = *"";
-  v27[1] = &v30;
+  v31 = sub_1006301CC;
+  v32 = v14;
+  v28 = *"";
+  v26[1] = &v29;
   aBlock = _NSConcreteStackBlock;
-  v30 = sub_100007638;
-  v31 = &unk_1018A9C58;
+  v29 = sub_100007638;
+  v30 = &unk_1018A9C58;
   v15 = _Block_copy(&aBlock);
   v16 = v13;
 
@@ -5288,26 +5288,26 @@ uint64_t sub_100F4774C(uint64_t a1)
     swift_once();
   }
 
-  v27[0] = qword_101AD8568;
+  v26[0] = qword_101AD8568;
   v18 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  sub_1000652DC(a1, v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for CRLBoardLibraryViewModel.Item);
+  sub_1000652DC(a1, v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for CRLBoardLibraryViewModel.Item);
   v19 = (v10 + 16) & ~v10;
   v20 = (v5 + v19 + 7) & 0xFFFFFFFFFFFFFFF8;
   v21 = swift_allocObject();
   sub_100065D50(v6, v21 + v19, type metadata accessor for CRLBoardLibraryViewModel.Item);
   *(v21 + v20) = v18;
   *(v21 + ((v20 + 15) & 0xFFFFFFFFFFFFFFF8)) = v16;
-  v32 = sub_100F7835C;
-  v33 = v21;
+  v31 = sub_100F7835C;
+  v32 = v21;
   aBlock = _NSConcreteStackBlock;
-  v29 = *"";
-  v30 = sub_100059694;
-  v31 = &unk_1018A9CA8;
+  v28 = *"";
+  v29 = sub_100059694;
+  v30 = &unk_1018A9CA8;
   v22 = _Block_copy(&aBlock);
   v23 = v16;
 
-  v24 = [v17 addObserverForName:v27[0] object:0 queue:0 usingBlock:v22];
+  v24 = [v17 addObserverForName:v26[0] object:0 queue:0 usingBlock:v22];
   _Block_release(v22);
 
   v25 = *&v12[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_renameDeleteObserver];
@@ -5316,7 +5316,7 @@ uint64_t sub_100F4774C(uint64_t a1)
   sub_100F36EC8(v25);
 
   swift_unknownObjectRelease();
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
 }
 
 void sub_100F47B5C(uint64_t a1)
@@ -5326,7 +5326,7 @@ void sub_100F47B5C(uint64_t a1)
   v5 = *(v4 + 64);
   __chkstk_darwin(v3 - 8);
   v6 = &v88 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v88 - v8;
   v10 = *&v1[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_libraryProvider];
@@ -5535,7 +5535,7 @@ LABEL_16:
   }
 }
 
-uint64_t sub_100F4897C(uint64_t a1)
+void *sub_100F4897C(uint64_t a1)
 {
   v2 = type metadata accessor for CRLBoardLibraryViewModel.Item(0);
   __chkstk_darwin(v2);
@@ -5580,7 +5580,7 @@ char *sub_100F48B98(uint64_t a1, void *a2)
   v4 = type metadata accessor for CRLBoardLibraryViewModel.Filter(0);
   __chkstk_darwin(v4 - 8);
   v6 = &v70[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = sub_1005B981C(&qword_1019F33D0);
+  v7 = sub_1005B981C(&qword_1019F33D0, &unk_101468A70);
   __chkstk_darwin(v7 - 8);
   v9 = &v70[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v10);
@@ -5600,12 +5600,12 @@ char *sub_100F48B98(uint64_t a1, void *a2)
     sub_100065D50(v15, v18, _s5BoardVMa);
     v19 = v18[v16[18]] ^ 1;
     v20 = v16[20];
-    sub_10000BE14(&v18[v20], v12, &qword_1019F33D0);
+    sub_10000BE14(&v18[v20], v12, &qword_1019F33D0, &unk_101468A70);
     v21 = _s5BoardV13ShareMetadataVMa(0);
     v22 = *(*(v21 - 8) + 48);
     if (v22(v12, 1, v21) == 1)
     {
-      sub_10000CAAC(v12, &qword_1019F33D0);
+      sub_10000CAAC(v12, &qword_1019F33D0, &unk_101468A70);
       v73 = 0;
     }
 
@@ -5617,9 +5617,9 @@ char *sub_100F48B98(uint64_t a1, void *a2)
     }
 
     LODWORD(v75) = v18[v16[14]];
-    sub_10000BE14(&v18[v20], v9, &qword_1019F33D0);
+    sub_10000BE14(&v18[v20], v9, &qword_1019F33D0, &unk_101468A70);
     v23 = (v22)(v9, 1, v21) != 1;
-    sub_10000CAAC(v9, &qword_1019F33D0);
+    sub_10000CAAC(v9, &qword_1019F33D0, &unk_101468A70);
     HIDWORD(v75) = v18[v16[19] + 8] ^ 1;
     v24 = v18[v16[15]];
     sub_10000BBC4(v18, _s5BoardVMa);
@@ -5638,7 +5638,7 @@ char *sub_100F48B98(uint64_t a1, void *a2)
   }
 
   v27 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-  v28 = sub_1005B981C(&qword_1019F3480);
+  v28 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
   v29 = *(*(v28 - 8) + 56);
   v29(v6, 5, 5, v28);
   v30 = v77;
@@ -5915,7 +5915,7 @@ id sub_100F495D4()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v50 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1005B981C(&unk_101A23C40);
+  v5 = sub_1005B981C(&unk_101A23C40, &unk_10146F200);
   __chkstk_darwin(v5 - 8);
   v7 = &v50 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
@@ -5939,11 +5939,11 @@ id sub_100F495D4()
     v52 = objc_opt_self();
     v15 = [v52 _atomicIncrementAssertCount];
     v59 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v59);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v59, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("currentSelectionIsMultipleAndIncludes(item:)", 44, 2);
     v51 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v16 = String._bridgeToObjectiveC()();
 
     v17 = [v16 lastPathComponent];
@@ -5957,15 +5957,15 @@ id sub_100F495D4()
     }
 
     v21 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v15;
-    v23 = sub_100006370(0, &qword_1019F4D30);
+    v23 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v23;
-    v24 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v24 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v24;
     v25 = v51;
     *(inited + 72) = v51;
@@ -5986,7 +5986,7 @@ id sub_100F495D4()
     v30 = static os_log_type_t.error.getter();
     sub_100005404(v21, &_mh_execute_header, v30, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v31 = static os_log_type_t.error.getter();
     sub_100005404(v21, &_mh_execute_header, v31, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -5998,13 +5998,13 @@ id sub_100F495D4()
     v32[4] = 0;
     v32[5] = 0;
     v33 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("currentSelectionIsMultipleAndIncludes(item:)", 44, 2);
     v34 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v35 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v36 = String._bridgeToObjectiveC()();
 
     [v52 handleFailureInFunction:v34 file:v35 lineNumber:2988 isFatal:0 format:v36 args:v33];
@@ -6015,10 +6015,10 @@ id sub_100F495D4()
   }
 
   v37 = v58;
-  sub_10003DFF8(v7, v58, &unk_101A23C40);
+  sub_10003DFF8(v7, v58, &unk_101A23C40, &unk_10146F200);
   if (v14(v37, 1, v10) == 1)
   {
-    sub_10000CAAC(v37, &unk_101A23C40);
+    sub_10000CAAC(v37, &unk_101A23C40, &unk_10146F200);
     return 0;
   }
 
@@ -6115,7 +6115,7 @@ uint64_t sub_100F49F68()
   }
 
   v1 = static OS_os_log.shareState;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   swift_getErrorValue();
@@ -6129,7 +6129,7 @@ uint64_t sub_100F49F68()
   sub_100005404(v1, &_mh_execute_header, v6, "Error showing share sheet: %@", 29, 2, inited);
 
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
   v7 = *(v0 + 8);
 
   return v7();
@@ -6499,7 +6499,7 @@ uint64_t sub_100F4AFA4()
 
     v28 = *(v0 + 232);
     v29 = static OS_os_log.shareState;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146BDE0;
     *(inited + 56) = &type metadata for String;
@@ -6514,7 +6514,7 @@ uint64_t sub_100F4AFA4()
     v32 = static os_log_type_t.error.getter();
     sub_100005404(v29, &_mh_execute_header, v32, "Presenting alert: %@ %@", 23, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     [v28 presentViewController:v21 animated:1 completion:0];
     swift_unknownObjectRelease();
@@ -6570,7 +6570,7 @@ uint64_t sub_100F4B648()
   }
 
   v2 = static OS_os_log.shareState;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   swift_getErrorValue();
@@ -6584,7 +6584,7 @@ uint64_t sub_100F4B648()
   sub_100005404(v2, &_mh_execute_header, v7, "Error showing share sheet: %@", 29, 2, inited);
 
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
 
   v8 = *(v0 + 8);
 
@@ -6656,11 +6656,11 @@ uint64_t sub_100F4B954()
       v63 = v37;
       v38 = [v37 _atomicIncrementAssertCount];
       v64 = [objc_allocWithZone(NSString) init];
-      sub_100604538(_swiftEmptyArrayStorage, &v64);
-      StaticString.description.getter();
+      sub_100604538(_swiftEmptyArrayStorage, &v64, "invalid nil found when unwrapping value", 39, 2u);
+      StaticString.description.getter("presentActivityShareOptionsViewController(item:)", 48, 2);
       v60 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
       v39 = String._bridgeToObjectiveC()();
 
       v40 = [v39 lastPathComponent];
@@ -6675,15 +6675,15 @@ uint64_t sub_100F4B954()
 
       v61 = v0[112];
       v44 = static OS_os_log.crlAssert;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_10146CA70;
       *(inited + 56) = &type metadata for Int32;
       *(inited + 64) = &protocol witness table for Int32;
       *(inited + 32) = v38;
-      v46 = sub_100006370(0, &qword_1019F4D30);
+      v46 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
       *(inited + 96) = v46;
-      v47 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+      v47 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
       *(inited + 104) = v47;
       *(inited + 72) = v60;
       *(inited + 136) = &type metadata for String;
@@ -6703,7 +6703,7 @@ uint64_t sub_100F4B954()
       v52 = static os_log_type_t.error.getter();
       sub_100005404(v44, &_mh_execute_header, v52, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v53 = static os_log_type_t.error.getter();
       sub_100005404(v44, &_mh_execute_header, v53, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -6715,13 +6715,13 @@ uint64_t sub_100F4B954()
       v54[4] = 0;
       v54[5] = 0;
       v55 = __VaListBuilder.va_list()();
-      StaticString.description.getter();
+      StaticString.description.getter("presentActivityShareOptionsViewController(item:)", 48, 2);
       v56 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
       v57 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
       v58 = String._bridgeToObjectiveC()();
 
       [v63 handleFailureInFunction:v56 file:v57 lineNumber:2051 isFatal:0 format:v58 args:v55];
@@ -6746,11 +6746,11 @@ uint64_t sub_100F4B954()
     v62 = objc_opt_self();
     v13 = [v62 _atomicIncrementAssertCount];
     v64 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v64);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v64, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("presentActivityShareOptionsViewController(item:)", 48, 2);
     v14 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v15 = String._bridgeToObjectiveC()();
 
     v16 = [v15 lastPathComponent];
@@ -6764,15 +6764,15 @@ uint64_t sub_100F4B954()
     }
 
     v20 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v21 = swift_initStackObject();
     *(v21 + 16) = xmmword_10146CA70;
     *(v21 + 56) = &type metadata for Int32;
     *(v21 + 64) = &protocol witness table for Int32;
     *(v21 + 32) = v13;
-    v22 = sub_100006370(0, &qword_1019F4D30);
+    v22 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(v21 + 96) = v22;
-    v23 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v23 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(v21 + 104) = v23;
     *(v21 + 72) = v14;
     *(v21 + 136) = &type metadata for String;
@@ -6792,7 +6792,7 @@ uint64_t sub_100F4B954()
     v28 = static os_log_type_t.error.getter();
     sub_100005404(v20, &_mh_execute_header, v28, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v21);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v29 = static os_log_type_t.error.getter();
     sub_100005404(v20, &_mh_execute_header, v29, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -6804,13 +6804,13 @@ uint64_t sub_100F4B954()
     v30[4] = 0;
     v30[5] = 0;
     v31 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("presentActivityShareOptionsViewController(item:)", 48, 2);
     v32 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v33 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v34 = String._bridgeToObjectiveC()();
 
     [v62 handleFailureInFunction:v32 file:v33 lineNumber:2049 isFatal:0 format:v34 args:v31];
@@ -6854,7 +6854,6 @@ id sub_100F4C434()
   v6 = type metadata accessor for CRLBoardShareItemProviderHelper();
   v143 = v1;
   v7 = sub_100D193E4(v1, v4, v5, v3, v2, 0, 0xF000000000000000);
-  sub_1005B981C(&unk_1019F4D60);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_101465920;
   *(v8 + 32) = v7;
@@ -6864,7 +6863,7 @@ id sub_100F4C434()
   *(v0 + 672) = 21;
   v142 = v7;
   LOBYTE(v7) = isFeatureEnabled(_:)();
-  sub_100005070(v0 + 672);
+  sub_100005070((v0 + 672));
   if (v7)
   {
     v9 = sub_100D1977C(*(v0 + 936), *(v0 + 864), *(v0 + 960), *(v0 + 968));
@@ -6883,7 +6882,7 @@ id sub_100F4C434()
   v13 = *(v0 + 944);
   v14 = *(v0 + 864);
   v15 = objc_allocWithZone(UIActivityItemsConfiguration);
-  sub_100006370(0, &unk_101A23D20);
+  sub_100006370(0, &unk_101A23D20, NSItemProvider_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
   v17 = [v15 initWithItemProviders:isa];
 
@@ -6895,7 +6894,7 @@ id sub_100F4C434()
   *(v0 + 744) = v145;
   *(v0 + 712) = 21;
   LOBYTE(v13) = isFeatureEnabled(_:)();
-  sub_100005070(v0 + 712);
+  sub_100005070((v0 + 712));
   if (v13)
   {
     v138 = v19;
@@ -7060,12 +7059,12 @@ id sub_100F4C434()
           *(v0 + 752) = 21;
           v144 = v100;
           LOBYTE(v100) = isFeatureEnabled(_:)();
-          sub_100005070(v0 + 752);
+          sub_100005070((v0 + 752));
           if (v100)
           {
             v102 = *(v0 + 856);
             sub_1000652DC(*(v0 + 864), v102, type metadata accessor for CRLBoardIdentifier);
-            v103 = type metadata accessor for CRLSendACopyActivity_i();
+            v103 = type metadata accessor for CRLSendACopyActivity_i(0);
             v104 = objc_allocWithZone(v103);
             *&v104[OBJC_IVAR____TtC8Freeform22CRLSendACopyActivity_i_activityItems] = 0;
             *&v104[OBJC_IVAR____TtC8Freeform22CRLSendACopyActivity_i_collaborationItem] = 0;
@@ -7192,7 +7191,6 @@ id sub_100F4D390()
   v4 = *(v0 + 864);
   v5 = type metadata accessor for CRLBoardShareItemProviderHelper();
   v6 = sub_100D193E4(0, v3, v4, v2, v1, 0, 0xF000000000000000);
-  sub_1005B981C(&unk_1019F4D60);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_101465920;
   *(v7 + 32) = v6;
@@ -7202,7 +7200,7 @@ id sub_100F4D390()
   *(v0 + 672) = 21;
   v141 = v6;
   LOBYTE(v6) = isFeatureEnabled(_:)();
-  sub_100005070(v0 + 672);
+  sub_100005070((v0 + 672));
   if (v6)
   {
     v8 = sub_100D1977C(*(v0 + 936), *(v0 + 864), *(v0 + 960), *(v0 + 968));
@@ -7221,7 +7219,7 @@ id sub_100F4D390()
   v12 = *(v0 + 944);
   v13 = *(v0 + 864);
   v14 = objc_allocWithZone(UIActivityItemsConfiguration);
-  sub_100006370(0, &unk_101A23D20);
+  sub_100006370(0, &unk_101A23D20, NSItemProvider_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
   v16 = [v14 initWithItemProviders:isa];
 
@@ -7233,7 +7231,7 @@ id sub_100F4D390()
   *(v0 + 744) = v143;
   *(v0 + 712) = 21;
   LOBYTE(v12) = isFeatureEnabled(_:)();
-  sub_100005070(v0 + 712);
+  sub_100005070((v0 + 712));
   if (v12)
   {
     v137 = v18;
@@ -7397,12 +7395,12 @@ id sub_100F4D390()
           *(v0 + 752) = 21;
           v136 = v99;
           LOBYTE(v99) = isFeatureEnabled(_:)();
-          sub_100005070(v0 + 752);
+          sub_100005070((v0 + 752));
           if (v99)
           {
             v101 = *(v0 + 856);
             sub_1000652DC(*(v0 + 864), v101, type metadata accessor for CRLBoardIdentifier);
-            v102 = type metadata accessor for CRLSendACopyActivity_i();
+            v102 = type metadata accessor for CRLSendACopyActivity_i(0);
             v103 = objc_allocWithZone(v102);
             *&v103[OBJC_IVAR____TtC8Freeform22CRLSendACopyActivity_i_activityItems] = 0;
             *&v103[OBJC_IVAR____TtC8Freeform22CRLSendACopyActivity_i_collaborationItem] = 0;
@@ -7521,36 +7519,36 @@ LABEL_22:
   return v128();
 }
 
-id sub_100F4E2D0@<X0>(uint64_t a1@<X0>, void *a2@<X2>, uint64_t a3@<X8>)
+id sub_100F4E2D0@<X0>(uint64_t a1@<X0>, void *a3@<X2>, uint64_t a4@<X8>)
 {
-  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v7 = v6;
-  if (v5 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v7 == v8)
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
+  if (v6 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v8 == v9)
   {
 
     if (a1)
     {
 LABEL_7:
-      *a3 = 0u;
-      *(a3 + 16) = 0u;
+      *a4 = 0u;
+      *(a4 + 16) = 0u;
       return result;
     }
   }
 
   else
   {
-    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v10 & 1) == 0 || a1)
+    if ((v11 & 1) == 0 || a1)
     {
       goto LABEL_7;
     }
   }
 
-  *(a3 + 24) = sub_100006370(0, &unk_101A23D30);
-  *a3 = a2;
+  *(a4 + 24) = sub_100006370(0, &unk_101A23D30, LPLinkMetadata_ptr);
+  *a4 = a3;
 
-  return a2;
+  return a3;
 }
 
 id sub_100F4E3E0()
@@ -7559,7 +7557,7 @@ id sub_100F4E3E0()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v41 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1005B981C(&unk_101A23C40);
+  v5 = sub_1005B981C(&unk_101A23C40, &unk_10146F200);
   __chkstk_darwin(v5 - 8);
   v7 = &v41 - v6;
   v8 = type metadata accessor for IndexPath();
@@ -7575,7 +7573,7 @@ id sub_100F4E3E0()
   v13 = v9;
   if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    sub_10000CAAC(v7, &unk_101A23C40);
+    sub_10000CAAC(v7, &unk_101A23C40, &unk_10146F200);
     return 0;
   }
 
@@ -7598,11 +7596,11 @@ id sub_100F4E3E0()
     v41 = objc_opt_self();
     v18 = [v41 _atomicIncrementAssertCount];
     v44 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v44);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v44, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("cellView(for:)", 14, 2);
     v19 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v20 = String._bridgeToObjectiveC()();
 
     v21 = [v20 lastPathComponent];
@@ -7616,15 +7614,15 @@ id sub_100F4E3E0()
     }
 
     v25 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v18;
-    v27 = sub_100006370(0, &qword_1019F4D30);
+    v27 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v27;
-    v28 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v28 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v28;
     *(inited + 72) = v19;
     *(inited + 136) = &type metadata for String;
@@ -7645,7 +7643,7 @@ id sub_100F4E3E0()
     v34 = static os_log_type_t.error.getter();
     sub_100005404(v25, &_mh_execute_header, v34, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v35 = static os_log_type_t.error.getter();
     sub_100005404(v25, &_mh_execute_header, v35, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -7657,13 +7655,13 @@ id sub_100F4E3E0()
     v36[4] = 0;
     v36[5] = 0;
     v37 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("cellView(for:)", 14, 2);
     v38 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v39 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v40 = String._bridgeToObjectiveC()();
 
     [v41 handleFailureInFunction:v38 file:v39 lineNumber:2176 isFatal:0 format:v40 args:v37];
@@ -7698,7 +7696,7 @@ uint64_t sub_100F4EA50(uint64_t a1)
       sub_100065D50(v7, v10, _s5BoardVMa);
       sub_1000652DC(v10, v4, type metadata accessor for CRLBoardIdentifier);
       v13 = *(v12 + OBJC_IVAR____TtC8Freeform15CRLBoardLibrary_store);
-      type metadata accessor for CRLBoardActor();
+      type metadata accessor for CRLBoardActor(0);
       v14 = swift_allocObject();
       v15 = v13;
       swift_defaultActor_initialize();
@@ -7717,11 +7715,11 @@ uint64_t sub_100F4EA50(uint64_t a1)
     v17 = objc_opt_self();
     v18 = [v17 _atomicIncrementAssertCount];
     v41 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v41);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v41, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("boardActor(for:)", 16, 2);
     v19 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v20 = String._bridgeToObjectiveC()();
 
     v21 = [v20 lastPathComponent];
@@ -7735,15 +7733,15 @@ uint64_t sub_100F4EA50(uint64_t a1)
     }
 
     v25 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v18;
-    v27 = sub_100006370(0, &qword_1019F4D30);
+    v27 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v27;
-    v28 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v28 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v28;
     *(inited + 72) = v19;
     *(inited + 136) = &type metadata for String;
@@ -7763,7 +7761,7 @@ uint64_t sub_100F4EA50(uint64_t a1)
     v33 = static os_log_type_t.error.getter();
     sub_100005404(v25, &_mh_execute_header, v33, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v34 = static os_log_type_t.error.getter();
     sub_100005404(v25, &_mh_execute_header, v34, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -7775,13 +7773,13 @@ uint64_t sub_100F4EA50(uint64_t a1)
     v35[4] = 0;
     v35[5] = 0;
     v36 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("boardActor(for:)", 16, 2);
     v37 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v38 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v39 = String._bridgeToObjectiveC()();
 
     [v17 handleFailureInFunction:v37 file:v38 lineNumber:2163 isFatal:0 format:v39 args:v36];
@@ -7790,16 +7788,16 @@ uint64_t sub_100F4EA50(uint64_t a1)
   return 0;
 }
 
-void sub_100F4F03C(uint64_t a1, char a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
+double sub_100F4F03C(uint64_t a1, char a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
 {
   v9 = type metadata accessor for CRLBoardIdentifier(0);
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_1005B981C(&qword_1019FB750);
-  __chkstk_darwin(v13 - 8);
-  v15 = &v23 - v14;
+  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
+  *&result = __chkstk_darwin(v13 - 8).n128_u64[0];
+  v16 = &v24 - v15;
   if ((a2 & 1) == 0)
   {
     if (qword_1019F22C8 != -1)
@@ -7807,23 +7805,25 @@ void sub_100F4F03C(uint64_t a1, char a2, uint64_t a3, uint64_t a4, void *a5, uin
       swift_once();
     }
 
-    v16 = static OS_os_log.shareState;
-    v17 = static os_log_type_t.default.getter();
-    sub_100005404(v16, &_mh_execute_header, v17, "UIActivityViewController returned without completing. Delete any cached shares.", 79, 2, _swiftEmptyArrayStorage);
-    v18 = type metadata accessor for TaskPriority();
-    (*(*(v18 - 8) + 56))(v15, 1, 1, v18);
-    sub_1000652DC(a6, &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for CRLBoardIdentifier);
+    v17 = static OS_os_log.shareState;
+    v18 = static os_log_type_t.default.getter();
+    sub_100005404(v17, &_mh_execute_header, v18, "UIActivityViewController returned without completing. Delete any cached shares.", 79, 2, _swiftEmptyArrayStorage);
+    v19 = type metadata accessor for TaskPriority();
+    (*(*(v19 - 8) + 56))(v16, 1, 1, v19);
+    sub_1000652DC(a6, &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for CRLBoardIdentifier);
     type metadata accessor for MainActor();
-    v19 = a5;
-    v20 = static MainActor.shared.getter();
-    v21 = (*(v10 + 80) + 40) & ~*(v10 + 80);
-    v22 = swift_allocObject();
-    v22[2] = v20;
-    v22[3] = &protocol witness table for MainActor;
-    v22[4] = v19;
-    sub_100065D50(v12, v22 + v21, type metadata accessor for CRLBoardIdentifier);
-    sub_10064191C(0, 0, v15, &unk_1014B99A0, v22);
+    v20 = a5;
+    v21 = static MainActor.shared.getter();
+    v22 = (*(v10 + 80) + 40) & ~*(v10 + 80);
+    v23 = swift_allocObject();
+    v23[2] = v21;
+    v23[3] = &protocol witness table for MainActor;
+    v23[4] = v20;
+    sub_100065D50(v12, v23 + v22, type metadata accessor for CRLBoardIdentifier);
+    sub_10064191C(0, 0, v16, &unk_1014B99A0, v23);
   }
+
+  return result;
 }
 
 uint64_t sub_100F4F2AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -7877,7 +7877,7 @@ uint64_t sub_100F4F580()
   }
 
   v1 = static OS_os_log.shareState;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   swift_getErrorValue();
@@ -7891,7 +7891,7 @@ uint64_t sub_100F4F580()
   sub_100005404(v1, &_mh_execute_header, v6, "Error showing manage share UI. Error: %@", 40, 2, inited);
 
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
   v7 = *(v0 + 8);
 
   return v7();
@@ -7953,11 +7953,11 @@ uint64_t sub_100F4F7D8()
     v34 = objc_opt_self();
     v11 = [v34 _atomicIncrementAssertCount];
     v35 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v35);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v35, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("presentCloudShareOptionsViewController(item:)", 45, 2);
     v12 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v13 = String._bridgeToObjectiveC()();
 
     v14 = [v13 lastPathComponent];
@@ -7971,15 +7971,15 @@ uint64_t sub_100F4F7D8()
     }
 
     v18 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v11;
-    v20 = sub_100006370(0, &qword_1019F4D30);
+    v20 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v20;
-    v21 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v21 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v21;
     *(inited + 72) = v12;
     *(inited + 136) = &type metadata for String;
@@ -7999,7 +7999,7 @@ uint64_t sub_100F4F7D8()
     v26 = static os_log_type_t.error.getter();
     sub_100005404(v18, &_mh_execute_header, v26, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v27 = static os_log_type_t.error.getter();
     sub_100005404(v18, &_mh_execute_header, v27, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8011,13 +8011,13 @@ uint64_t sub_100F4F7D8()
     v28[4] = 0;
     v28[5] = 0;
     v29 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("presentCloudShareOptionsViewController(item:)", 45, 2);
     v30 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v31 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v32 = String._bridgeToObjectiveC()();
 
     [v34 handleFailureInFunction:v30 file:v31 lineNumber:2190 isFatal:0 format:v32 args:v29];
@@ -8111,17 +8111,17 @@ void sub_100F502A0(void *a1)
     }
 
     v4 = static OS_os_log.shareState;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146C6B0;
-    *(inited + 56) = sub_100006370(0, &qword_1019F52C0);
-    *(inited + 64) = sub_10000FDE0(&qword_101A1BA40, &qword_1019F52C0);
+    *(inited + 56) = sub_100006370(0, &qword_1019F52C0, CKShare_ptr);
+    *(inited + 64) = sub_10000FDE0(&qword_101A1BA40, &qword_1019F52C0, CKShare_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 32) = v3;
     v6 = v3;
     v7 = static os_log_type_t.default.getter();
     sub_100005404(v4, &_mh_execute_header, v7, "Share completed or updated for share %@", 39, 2, inited);
     swift_setDeallocating();
-    sub_100005070(inited + 32);
+    sub_100005070((inited + 32));
     v8 = [a1 share];
     sub_100F767A0(v8, 0);
   }
@@ -8131,11 +8131,11 @@ void sub_100F502A0(void *a1)
     v9 = objc_opt_self();
     v10 = [v9 _atomicIncrementAssertCount];
     v30 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v30);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v30, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("cloudSharingControllerDidSaveShare(_:)", 38, 2);
     v11 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v12 = String._bridgeToObjectiveC()();
 
     v13 = [v12 lastPathComponent];
@@ -8149,15 +8149,15 @@ void sub_100F502A0(void *a1)
     }
 
     v17 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v18 = swift_initStackObject();
     *(v18 + 16) = xmmword_10146CA70;
     *(v18 + 56) = &type metadata for Int32;
     *(v18 + 64) = &protocol witness table for Int32;
     *(v18 + 32) = v10;
-    v19 = sub_100006370(0, &qword_1019F4D30);
+    v19 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(v18 + 96) = v19;
-    v20 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v20 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(v18 + 104) = v20;
     *(v18 + 72) = v11;
     *(v18 + 136) = &type metadata for String;
@@ -8177,7 +8177,7 @@ void sub_100F502A0(void *a1)
     v25 = static os_log_type_t.error.getter();
     sub_100005404(v17, &_mh_execute_header, v25, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v18);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v26 = static os_log_type_t.error.getter();
     sub_100005404(v17, &_mh_execute_header, v26, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8189,21 +8189,22 @@ void sub_100F502A0(void *a1)
     v27[4] = 0;
     v27[5] = 0;
     v28 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("cloudSharingControllerDidSaveShare(_:)", 38, 2);
     v29 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v6 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v8 = String._bridgeToObjectiveC()();
 
     [v9 handleFailureInFunction:v29 file:v6 lineNumber:2244 isFatal:0 format:v8 args:v28];
   }
 }
 
-uint64_t sub_100F5095C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7)
+uint64_t sub_100F5095C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v8 = a7;
   v7[2] = type metadata accessor for MainActor();
   v7[3] = static MainActor.shared.getter();
   v11 = swift_task_alloc();
@@ -8211,7 +8212,7 @@ uint64_t sub_100F5095C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *v11 = v7;
   v11[1] = sub_10085FA90;
 
-  return sub_1010A9CB4(a5, a6, a7);
+  return sub_1010A9CB4(a5, a6, v8);
 }
 
 void sub_100F50B74(uint64_t a1, uint64_t a2)
@@ -8278,7 +8279,7 @@ LABEL_11:
 UIMenu sub_100F50D20(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v97 = a4;
-  v6 = sub_1005B981C(&unk_1019FA3E0);
+  v6 = sub_1005B981C(&unk_1019FA3E0, &unk_101474F20);
   __chkstk_darwin(v6 - 8);
   v8 = &v92 - v7;
   v9 = type metadata accessor for CRLBoardIdentifier(0);
@@ -8288,7 +8289,7 @@ UIMenu sub_100F50D20(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   v12 = type metadata accessor for CRLBoardLibraryViewModel.Filter(0);
   __chkstk_darwin(v12 - 8);
   v14 = &v92 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_1005B981C(&qword_1019F33D0);
+  v15 = sub_1005B981C(&qword_1019F33D0, &unk_101468A70);
   __chkstk_darwin(v15 - 8);
   v17 = &v92 - v16;
   v18 = type metadata accessor for CRLBoardLibraryViewModel.Item(0);
@@ -8315,13 +8316,13 @@ UIMenu sub_100F50D20(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   {
     sub_100065D50(v22, v27, _s5BoardVMa);
     v30 = v27[*(v23 + 72)];
-    sub_10000BE14(&v27[*(v23 + 80)], v17, &qword_1019F33D0);
+    sub_10000BE14(&v27[*(v23 + 80)], v17, &qword_1019F33D0, &unk_101468A70);
     v31 = _s5BoardV13ShareMetadataVMa(0);
     v32 = (*(*(v31 - 8) + 48))(v17, 1, v31);
     v98 = v30;
     if (v32 == 1)
     {
-      sub_10000CAAC(v17, &qword_1019F33D0);
+      sub_10000CAAC(v17, &qword_1019F33D0, &unk_101468A70);
     }
 
     else
@@ -8348,7 +8349,7 @@ UIMenu sub_100F50D20(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   }
 
   v37 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-  v38 = sub_1005B981C(&qword_1019F3480);
+  v38 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
   (*(*(v38 - 8) + 56))(v14, 5, 5, v38);
   LOBYTE(v37) = sub_100068604(v104 + v37, v14);
   sub_10000BBC4(v14, type metadata accessor for CRLBoardLibraryViewModel.Filter);
@@ -8406,7 +8407,7 @@ UIMenu sub_100F50D20(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
       if ((v30 & 1) == 0)
       {
         v94 = v33;
-        sub_100006370(0, &qword_1019F6190);
+        sub_100006370(0, &qword_1019F6190, UIAction_ptr);
         v45 = [objc_opt_self() mainBundle];
         v46 = String._bridgeToObjectiveC()();
         v47 = String._bridgeToObjectiveC()();
@@ -8545,7 +8546,7 @@ LABEL_38:
       if (sub_100F38610())
       {
         v77 = v93;
-        sub_100006370(0, &qword_1019F6190);
+        sub_100006370(0, &qword_1019F6190, UIAction_ptr);
         v78 = [objc_opt_self() mainBundle];
         v79 = String._bridgeToObjectiveC()();
         v80 = String._bridgeToObjectiveC()();
@@ -8593,7 +8594,7 @@ LABEL_51:
 
   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
   v88 = v108;
-  sub_100006370(0, &qword_1019F6C00);
+  sub_100006370(0, &qword_1019F6C00, UIMenu_ptr);
   v89._countAndFlagsBits = 0;
   v89._object = 0xE000000000000000;
   v109.value.super.isa = 0;
@@ -8613,20 +8614,20 @@ uint64_t sub_100F51CBC(uint64_t a1)
   __chkstk_darwin(v5);
   v7 = &v59 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-  v9 = sub_1005B981C(&qword_1019F3480);
+  v9 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
   (*(*(v9 - 8) + 56))(v7, 5, 5, v9);
-  v63 = sub_1005B981C(&qword_1019F54E0);
+  v63 = sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   v69 = v5;
-  sub_1005B981C(&qword_101A23C18);
+  sub_1005B981C(&qword_101A23C18, &qword_1014B9850);
   String.init<A>(describing:)();
   v11 = String._bridgeToObjectiveC()();
 
-  v12 = sub_100006370(0, &qword_1019F4D30);
+  v12 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 56) = v12;
   v13 = inited;
-  v14 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v14 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(v13 + 32) = v11;
   v68 = v13 + 32;
   *(v13 + 64) = v14;
@@ -8638,12 +8639,12 @@ uint64_t sub_100F51CBC(uint64_t a1)
     v59 = objc_opt_self();
     v62 = [v59 _atomicIncrementAssertCount];
     v69 = [objc_allocWithZone(NSString) init];
-    sub_100604538(v13, &v69);
-    StaticString.description.getter();
+    sub_100604538(v13, &v69, "expected equality between two values of type %{public}@", 55, 2u);
+    StaticString.description.getter("createContextMenuElementToRecover(item:)", 40, 2);
     v15 = v13;
     v16 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v17 = String._bridgeToObjectiveC()();
 
     v18 = [v17 lastPathComponent];
@@ -8684,7 +8685,7 @@ uint64_t sub_100F51CBC(uint64_t a1)
       v28 = static os_log_type_t.error.getter();
       sub_100005404(v22, &_mh_execute_header, v28, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v23);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v29 = static os_log_type_t.error.getter();
       sub_100005404(v22, &_mh_execute_header, v29, "expected equality between two values of type %{public}@", 55, 2, v15);
@@ -8702,13 +8703,13 @@ uint64_t sub_100F51CBC(uint64_t a1)
       {
 LABEL_29:
         v44 = __VaListBuilder.va_list()();
-        StaticString.description.getter();
+        StaticString.description.getter("createContextMenuElementToRecover(item:)", 40, 2);
         v45 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
         v46 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("expected equality between two values of type %{public}@", 55, 2);
         v47 = String._bridgeToObjectiveC()();
 
         [v59 handleFailureInFunction:v45 file:v46 lineNumber:2524 isFatal:0 format:v47 args:v44];
@@ -8836,7 +8837,7 @@ LABEL_35:
 
 LABEL_30:
   v48 = v67;
-  sub_100006370(0, &qword_1019F6190);
+  sub_100006370(0, &qword_1019F6190, UIAction_ptr);
   v49 = [objc_opt_self() mainBundle];
   v50 = String._bridgeToObjectiveC()();
   v51 = String._bridgeToObjectiveC()();
@@ -8858,7 +8859,7 @@ LABEL_30:
 
 uint64_t sub_100F525A0(uint64_t a1)
 {
-  v3 = sub_1005B981C(&qword_1019F33D0);
+  v3 = sub_1005B981C(&qword_1019F33D0, &unk_101468A70);
   __chkstk_darwin(v3 - 8);
   v5 = &v44 - v4;
   v6 = type metadata accessor for CRLBoardLibraryViewModel.Item(0);
@@ -8880,15 +8881,15 @@ uint64_t sub_100F525A0(uint64_t a1)
   }
 
   sub_100065D50(v12, v15, _s5BoardVMa);
-  sub_10000BE14(&v15[*(v13 + 80)], v5, &qword_1019F33D0);
+  sub_10000BE14(&v15[*(v13 + 80)], v5, &qword_1019F33D0, &unk_101468A70);
   sub_10000BBC4(v15, _s5BoardVMa);
   v16 = _s5BoardV13ShareMetadataVMa(0);
   v17 = (*(*(v16 - 8) + 48))(v5, 1, v16);
-  sub_10000CAAC(v5, &qword_1019F33D0);
+  sub_10000CAAC(v5, &qword_1019F33D0, &unk_101468A70);
   if (v17 == 1)
   {
 LABEL_7:
-    sub_100006370(0, &qword_1019F6190);
+    sub_100006370(0, &qword_1019F6190, UIAction_ptr);
     v33 = [objc_opt_self() mainBundle];
     v34 = String._bridgeToObjectiveC()();
     v35 = String._bridgeToObjectiveC()();
@@ -8912,7 +8913,7 @@ LABEL_7:
   v47 = objc_opt_self();
   v44 = [v47 systemImageNamed:v18];
 
-  v48 = sub_100006370(0, &qword_1019F6190);
+  v48 = sub_100006370(0, &qword_1019F6190, UIAction_ptr);
   v45 = objc_opt_self();
   v19 = [v45 mainBundle];
   v20 = String._bridgeToObjectiveC()();
@@ -8963,7 +8964,7 @@ LABEL_8:
   v41 = v49;
   if (v49 >> 62)
   {
-    sub_100006370(0, &unk_1019F61A0);
+    sub_100006370(0, &unk_1019F61A0, UIMenuElement_ptr);
 
     v42 = _bridgeCocoaArray<A>(_:)();
   }
@@ -8972,7 +8973,7 @@ LABEL_8:
   {
 
     dispatch thunk of __ContiguousArrayStorageBase.staticElementType.getter();
-    sub_100006370(0, &unk_1019F61A0);
+    sub_100006370(0, &unk_1019F61A0, UIMenuElement_ptr);
     v42 = v41;
   }
 
@@ -8985,7 +8986,7 @@ uint64_t sub_100F52ED8(uint64_t a1)
   v3 = *(v2 - 8);
   v4 = *(v3 + 64);
   __chkstk_darwin(v2 - 8);
-  sub_100006370(0, &qword_1019F6190);
+  sub_100006370(0, &qword_1019F6190, UIAction_ptr);
   v5 = [objc_opt_self() mainBundle];
   v6 = String._bridgeToObjectiveC()();
   v7 = String._bridgeToObjectiveC()();
@@ -9019,7 +9020,6 @@ void sub_100F53160(uint64_t a1, uint64_t a2, void *a3, void *a4)
       v8 = [a3 actionBlock];
       v8[2]();
       _Block_release(v8);
-      sub_1005B981C(&unk_1019F4D60);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_101465920;
       *(inited + 32) = a4;
@@ -9054,7 +9054,7 @@ void sub_100F53318(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v8 = *(v7 - 8);
   v9 = *(v8 + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = sub_1005B981C(&qword_1019FB750);
+  v10 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v10 - 8);
   v12 = &v20 - v11;
   swift_beginAccess();
@@ -9080,7 +9080,7 @@ void sub_100F53318(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
 void *sub_100F53530(uint64_t a1)
 {
-  v3 = sub_1005B981C(&unk_1019FB770);
+  v3 = sub_1005B981C(&unk_1019FB770, &unk_10146FA30);
   __chkstk_darwin(v3 - 8);
   v77 = &v70 - v4;
   v5 = type metadata accessor for CRLBoardLibraryViewModel.Item(0);
@@ -9093,7 +9093,7 @@ void *sub_100F53530(uint64_t a1)
   v10 = *(v9 - 8);
   __chkstk_darwin(v9);
   v12 = &v70 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_1005B981C(&unk_101A23C40);
+  v13 = sub_1005B981C(&unk_101A23C40, &unk_10146F200);
   __chkstk_darwin(v13 - 8);
   v15 = (&v70 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin(v16);
@@ -9122,11 +9122,11 @@ void *sub_100F53530(uint64_t a1)
     v71 = objc_opt_self();
     v26 = [v71 _atomicIncrementAssertCount];
     v85 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v85);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v85, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("contextMenuActionTargets(for:)", 30, 2);
     v27 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v28 = String._bridgeToObjectiveC()();
 
     v29 = [v28 lastPathComponent];
@@ -9140,15 +9140,15 @@ void *sub_100F53530(uint64_t a1)
     }
 
     v33 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v26;
-    v35 = sub_100006370(0, &qword_1019F4D30);
+    v35 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v35;
-    v36 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v36 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v36;
     *(inited + 72) = v27;
     *(inited + 136) = &type metadata for String;
@@ -9168,7 +9168,7 @@ void *sub_100F53530(uint64_t a1)
     v41 = static os_log_type_t.error.getter();
     sub_100005404(v33, &_mh_execute_header, v41, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v42 = static os_log_type_t.error.getter();
     sub_100005404(v33, &_mh_execute_header, v42, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -9180,13 +9180,13 @@ void *sub_100F53530(uint64_t a1)
     v43[4] = 0;
     v43[5] = 0;
     v44 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("contextMenuActionTargets(for:)", 30, 2);
     v45 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
     v46 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v47 = String._bridgeToObjectiveC()();
 
     [v71 handleFailureInFunction:v45 file:v46 lineNumber:2995 isFatal:0 format:v47 args:v44];
@@ -9198,10 +9198,10 @@ void *sub_100F53530(uint64_t a1)
   }
 
   v48 = v80;
-  sub_10003DFF8(v79, v80, &unk_101A23C40);
+  sub_10003DFF8(v79, v80, &unk_101A23C40, &unk_10146F200);
   if (v25(v48, 1, v18) == 1)
   {
-    sub_10000CAAC(v48, &unk_101A23C40);
+    sub_10000CAAC(v48, &unk_101A23C40, &unk_10146F200);
     return _swiftEmptyArrayStorage;
   }
 
@@ -9247,7 +9247,7 @@ void *sub_100F53530(uint64_t a1)
             v65 = _s4NodeVMa(0);
             if ((*(*(v65 - 8) + 48))(v60, 1, v65) == 1)
             {
-              sub_10000CAAC(v60, &unk_1019FB770);
+              sub_10000CAAC(v60, &unk_1019FB770, &unk_10146FA30);
             }
 
             else
@@ -9265,7 +9265,7 @@ void *sub_100F53530(uint64_t a1)
               v67 = v49[3];
               if (v68 >= v67 >> 1)
               {
-                v49 = sub_100B3648C(v67 > 1, v68 + 1, 1, v49);
+                v49 = sub_100B3648C((v67 > 1), v68 + 1, 1, v49);
               }
 
               v49[2] = v68 + 1;
@@ -9295,7 +9295,7 @@ void *sub_100F53530(uint64_t a1)
       }
     }
 
-    sub_1005B981C(&qword_101A23C10);
+    sub_1005B981C(&qword_101A23C10, &unk_10146F210);
     v69 = (*(v78 + 80) + 32) & ~*(v78 + 80);
     v49 = swift_allocObject();
     *(v49 + 1) = xmmword_10146C6B0;
@@ -9336,7 +9336,7 @@ uint64_t sub_100F5409C(void (*a1)(uint64_t), uint64_t a2, uint64_t a3, uint64_t 
       v19 = [v16 localizedStringForKey:v17 value:v18 table:0];
 
       static String._unconditionallyBridgeFromObjectiveC(_:)();
-      sub_100006370(0, &qword_1019F6190);
+      sub_100006370(0, &qword_1019F6190, UIAction_ptr);
       v20 = String._bridgeToObjectiveC()();
 
       v21 = [objc_opt_self() systemImageNamed:v20];
@@ -9349,7 +9349,6 @@ uint64_t sub_100F5409C(void (*a1)(uint64_t), uint64_t a2, uint64_t a3, uint64_t 
       *(v24 + 16) = v22;
       sub_100065D50(v11, v24 + v23, type metadata accessor for CRLBoardLibraryViewModel.Item);
       v25 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-      sub_1005B981C(&unk_1019F4D60);
       v26 = swift_allocObject();
       *(v26 + 16) = xmmword_101465920;
       *(v26 + 32) = v25;
@@ -9361,15 +9360,15 @@ uint64_t sub_100F5409C(void (*a1)(uint64_t), uint64_t a2, uint64_t a3, uint64_t 
   return (a1)(_swiftEmptyArrayStorage);
 }
 
-uint64_t sub_100F544AC(uint64_t a1)
+void sub_100F544AC(uint64_t a1)
 {
-  v15 = _s5BoardVMa(0);
-  __chkstk_darwin(v15);
-  v3 = &v15 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _s5BoardVMa(0);
+  __chkstk_darwin(v14);
+  v3 = &v14 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = type metadata accessor for CRLBoardIdentifier(0);
-  v16 = *(v4 - 8);
+  v15 = *(v4 - 8);
   __chkstk_darwin(v4 - 8);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = 1 << *(a1 + 32);
   v8 = -1;
   if (v7 < 64)
@@ -9380,48 +9379,47 @@ uint64_t sub_100F544AC(uint64_t a1)
   v9 = v8 & *(a1 + 56);
   v10 = (v7 + 63) >> 6;
 
-  v12 = 0;
+  v11 = 0;
   while (v9)
   {
 LABEL_9:
-    sub_1000652DC(*(a1 + 48) + *(v16 + 72) * (__clz(__rbit64(v9)) | (v12 << 6)), v6, type metadata accessor for CRLBoardIdentifier);
+    sub_1000652DC(*(a1 + 48) + *(v15 + 72) * (__clz(__rbit64(v9)) | (v11 << 6)), v6, type metadata accessor for CRLBoardIdentifier);
     sub_1010AB99C(v6, v3);
     v9 &= v9 - 1;
     sub_10000BBC4(v6, type metadata accessor for CRLBoardIdentifier);
-    v14 = v3[*(v15 + 56)];
-    result = sub_10000BBC4(v3, _s5BoardVMa);
-    if ((v14 & 1) == 0)
+    v13 = v3[*(v14 + 56)];
+    sub_10000BBC4(v3, _s5BoardVMa);
+    if ((v13 & 1) == 0)
     {
 
-      return 1;
+      return;
     }
   }
 
   while (1)
   {
-    v13 = v12 + 1;
-    if (__OFADD__(v12, 1))
+    v12 = v11 + 1;
+    if (__OFADD__(v11, 1))
     {
       break;
     }
 
-    if (v13 >= v10)
+    if (v12 >= v10)
     {
 
-      return 0;
+      return;
     }
 
-    v9 = *(a1 + 56 + 8 * v13);
-    ++v12;
+    v9 = *(a1 + 56 + 8 * v12);
+    ++v11;
     if (v9)
     {
-      v12 = v13;
+      v11 = v12;
       goto LABEL_9;
     }
   }
 
   __break(1u);
-  return result;
 }
 
 void sub_100F54710(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -9438,7 +9436,7 @@ void sub_100F54710(uint64_t a1, uint64_t a2, uint64_t a3)
     if (v9[2])
     {
       v10 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-      v11 = sub_1005B981C(&qword_1019F3480);
+      v11 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
       (*(*(v11 - 8) + 56))(v6, 5, 5, v11);
       LOBYTE(v10) = sub_100068604(v8 + v10, v6);
       sub_10000BBC4(v6, type metadata accessor for CRLBoardLibraryViewModel.Filter);
@@ -9487,21 +9485,21 @@ void sub_100F549A8(uint64_t a1)
   __chkstk_darwin(v3);
   v5 = &v93 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_filter;
-  v7 = sub_1005B981C(&qword_1019F3480);
+  v7 = sub_1005B981C(&qword_1019F3480, &unk_10146F1F0);
   (*(*(v7 - 8) + 56))(v5, 5, 5, v7);
-  v99 = sub_1005B981C(&qword_1019F54E0);
+  v99 = sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v97 = xmmword_10146C6B0;
   *(inited + 16) = xmmword_10146C6B0;
   v101[0] = v3;
-  sub_1005B981C(&qword_101A23C18);
+  sub_1005B981C(&qword_101A23C18, &qword_1014B9850);
   String.init<A>(describing:)();
   v9 = String._bridgeToObjectiveC()();
 
-  v10 = sub_100006370(0, &qword_1019F4D30);
+  v10 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 56) = v10;
   v11 = inited;
-  v12 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v12 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(v11 + 32) = v9;
   v100 = (v11 + 32);
   *(v11 + 64) = v12;
@@ -9519,12 +9517,12 @@ void sub_100F549A8(uint64_t a1)
   v93 = objc_opt_self();
   LODWORD(v96) = [v93 _atomicIncrementAssertCount];
   v101[0] = [objc_allocWithZone(NSString) init];
-  sub_100604538(v11, v101);
-  StaticString.description.getter();
+  sub_100604538(v11, v101, "expected equality between two values of type %{public}@", 55, 2u);
+  StaticString.description.getter("purgeDeleted(items:)", 20, 2);
   v14 = v11;
   v15 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
   v16 = String._bridgeToObjectiveC()();
 
   v17 = [v16 lastPathComponent];
@@ -9564,7 +9562,7 @@ LABEL_4:
   v27 = static os_log_type_t.error.getter();
   sub_100005404(v21, &_mh_execute_header, v27, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v22);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v28 = static os_log_type_t.error.getter();
   sub_100005404(v21, &_mh_execute_header, v28, "expected equality between two values of type %{public}@", 55, 2, v14);
@@ -9700,13 +9698,13 @@ LABEL_21:
 
 LABEL_29:
   v44 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("purgeDeleted(items:)", 20, 2);
   v45 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSFolderGridViewController.swift", 100, 2);
   v46 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("expected equality between two values of type %{public}@", 55, 2);
   v47 = String._bridgeToObjectiveC()();
 
   [v93 handleFailureInFunction:v45 file:v46 lineNumber:2785 isFatal:0 format:v47 args:v44];

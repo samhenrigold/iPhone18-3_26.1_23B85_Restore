@@ -14,9 +14,9 @@
 
 - (SUUIBrowseItemCell)initWithFrame:(CGRect)frame
 {
-  v19.receiver = self;
-  v19.super_class = SUUIBrowseItemCell;
-  v3 = [(SUUIBrowseItemCell *)&v19 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v21.receiver = self;
+  v21.super_class = SUUIBrowseItemCell;
+  v3 = [(SUUIBrowseItemCell *)&v21 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_alloc_init(MEMORY[0x277D756B8]);
@@ -51,8 +51,8 @@
     v17 = [MEMORY[0x277D75348] colorWithWhite:0.85 alpha:1.0];
     [(UIView *)v16 setBackgroundColor:v17];
 
-    [(SUUIBrowseItemCell *)v3 addSubview:v3->_borderView];
-    [(SUUIBrowseItemCell *)v3 setSemanticContentAttribute:storeSemanticContentAttribute()];
+    v18 = [(SUUIBrowseItemCell *)v3 addSubview:v3->_borderView];
+    [(SUUIBrowseItemCell *)v3 setSemanticContentAttribute:storeSemanticContentAttribute(v18, v19)];
   }
 
   return v3;
@@ -95,9 +95,9 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  v5 = [titleCopy isEqualToString:text];
+  isEqualToString = objc_msgSend_isEqualToString_(titleCopy);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UILabel *)self->_titleLabel setText:titleCopy];
     [(SUUIBrowseItemCell *)self setNeedsLayout];
@@ -108,9 +108,9 @@
 {
   subtitleCopy = subtitle;
   text = [(UILabel *)self->_subtitleLabel text];
-  v5 = [subtitleCopy isEqualToString:text];
+  isEqualToString = objc_msgSend_isEqualToString_(subtitleCopy);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UILabel *)self->_subtitleLabel setText:subtitleCopy];
     [(SUUIBrowseItemCell *)self setNeedsLayout];

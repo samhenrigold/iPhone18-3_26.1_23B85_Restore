@@ -31,7 +31,7 @@
 
 void __51__TPSFamilyChildValidation_validateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -64,25 +64,23 @@ void __51__TPSFamilyChildValidation_validateWithCompletion___block_invoke(uint64
   v11 = [MEMORY[0x277D71778] targeting];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v15 = [*(a1 + 32) name];
-    v16 = [*(a1 + 32) targetContext];
-    v17 = 138413058;
-    v18 = v15;
-    v19 = 2112;
-    v20 = v16;
-    v21 = 1024;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v6;
-    _os_log_debug_impl(&dword_232D6F000, v11, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Valid: %d. Error: %@", &v17, 0x26u);
+    v14 = [*(a1 + 32) name];
+    v15 = [*(a1 + 32) targetContext];
+    v16 = 138413058;
+    v17 = v14;
+    v18 = 2112;
+    v19 = v15;
+    v20 = 1024;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v6;
+    _os_log_debug_impl(&dword_232D6F000, v11, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Valid: %d. Error: %@", &v16, 0x26u);
   }
 
   (*(*(a1 + 40) + 16))();
   v12 = *(*(a1 + 48) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __51__TPSFamilyChildValidation_validateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -152,14 +150,6 @@ BOOL __58__TPSFamilyChildValidation_getCurrentStateWithCompletion___block_invoke
   v3 = ([v2 isMe] & 1) == 0 && objc_msgSend(v2, "memberType") == 2;
 
   return v3;
-}
-
-void __51__TPSFamilyChildValidation_validateWithCompletion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_5(&dword_232D6F000, v0, v1, "Family members received: %@ in circle: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

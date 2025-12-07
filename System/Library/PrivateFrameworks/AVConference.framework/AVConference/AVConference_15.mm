@@ -1,3 +1,222 @@
+uint64_t CreateCancel(void *a1, uint64_t a2)
+{
+  v31[1] = *MEMORY[0x1E69E9840];
+  v31[0] = 0xAAAAAAAAAAAAAAAALL;
+  v4 = malloc_type_calloc(1uLL, 0x400uLL, 0x10F2040E4BCFADAuLL);
+  if (v4)
+  {
+    v5 = v4;
+    *(v4 + 4) = 0x500000001;
+    if (a2)
+    {
+      *(v4 + 143) = *(a2 + 572);
+      *(v4 + 142) = *(a2 + 568);
+      *(v4 + 252) = *(a2 + 1008);
+      *(v4 + 127) = SIPCompressCallback;
+      v6 = *(a2 + 12);
+      v7 = *(a2 + 28);
+      *(v4 + 44) = *(a2 + 44);
+      *(v4 + 28) = v7;
+      *(v4 + 12) = v6;
+      v8 = *(a2 + 60);
+      v9 = *(a2 + 76);
+      v10 = *(a2 + 92);
+      *(v4 + 108) = *(a2 + 108);
+      *(v4 + 92) = v10;
+      *(v4 + 76) = v9;
+      *(v4 + 60) = v8;
+      v11 = *(a2 + 696);
+      v12 = *(a2 + 712);
+      *(v4 + 91) = *(a2 + 728);
+      *(v4 + 696) = v11;
+      *(v4 + 712) = v12;
+      v13 = *(a2 + 736);
+      v14 = *(a2 + 752);
+      *(v4 + 96) = *(a2 + 768);
+      *(v4 + 46) = v13;
+      *(v4 + 47) = v14;
+      v15 = *(a2 + 776);
+      v16 = *(a2 + 792);
+      *(v4 + 101) = *(a2 + 808);
+      *(v4 + 776) = v15;
+      *(v4 + 792) = v16;
+      v17 = *(a2 + 816);
+      v18 = *(a2 + 832);
+      *(v4 + 106) = *(a2 + 848);
+      *(v4 + 51) = v17;
+      *(v4 + 52) = v18;
+      v19 = *(a2 + 856);
+      v20 = *(a2 + 872);
+      *(v4 + 111) = *(a2 + 888);
+      *(v4 + 856) = v19;
+      *(v4 + 872) = v20;
+      v21 = CopySipHeader(v31, *(a2 + 208), 9u);
+      if ((v21 & 0x80000000) != 0)
+      {
+        v29 = v21;
+        if (VRTraceGetErrorLogLevelForModule() >= 3)
+        {
+          VRTraceErrorLogLevelToCSTR();
+          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+          {
+            CreateCancel_cold_8();
+          }
+        }
+      }
+
+      else
+      {
+        v5[26] = v31[0];
+        CSeqHdr = CreateCSeqHdr(v31, **(a2 + 272), 5);
+        if ((CSeqHdr & 0x80000000) != 0)
+        {
+          v29 = CSeqHdr;
+          if (VRTraceGetErrorLogLevelForModule() >= 3)
+          {
+            VRTraceErrorLogLevelToCSTR();
+            if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+            {
+              CreateCancel_cold_7();
+            }
+          }
+        }
+
+        else
+        {
+          v5[34] = v31[0];
+          v23 = CopySipHeader(v31, *(a2 + 312), 0x16u);
+          if ((v23 & 0x80000000) != 0)
+          {
+            v29 = v23;
+            if (VRTraceGetErrorLogLevelForModule() >= 3)
+            {
+              VRTraceErrorLogLevelToCSTR();
+              if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+              {
+                CreateCancel_cold_6();
+              }
+            }
+          }
+
+          else
+          {
+            v5[39] = v31[0];
+            v24 = CopySipHeader(v31, *(a2 + 480), 0x2Bu);
+            if ((v24 & 0x80000000) != 0)
+            {
+              v29 = v24;
+              if (VRTraceGetErrorLogLevelForModule() >= 3)
+              {
+                VRTraceErrorLogLevelToCSTR();
+                if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+                {
+                  CreateCancel_cold_5();
+                }
+              }
+            }
+
+            else
+            {
+              v5[60] = v31[0];
+              v25 = CopySipHeader(v31, *(a2 + 504), 0x2Eu);
+              if ((v25 & 0x80000000) != 0)
+              {
+                v29 = v25;
+                if (VRTraceGetErrorLogLevelForModule() >= 3)
+                {
+                  VRTraceErrorLogLevelToCSTR();
+                  if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+                  {
+                    CreateCancel_cold_4();
+                  }
+                }
+              }
+
+              else
+              {
+                v5[63] = v31[0];
+                UserAgentHdr = CreateUserAgentHdr(v31, "Viceroy 1.7.0/GK");
+                if ((UserAgentHdr & 0x80000000) != 0)
+                {
+                  v29 = UserAgentHdr;
+                  if (VRTraceGetErrorLogLevelForModule() >= 3)
+                  {
+                    VRTraceErrorLogLevelToCSTR();
+                    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+                    {
+                      CreateCancel_cold_3();
+                    }
+                  }
+                }
+
+                else
+                {
+                  v5[62] = v31[0];
+                  ContentLengthHdr = CreateContentLengthHdr(v31, -1);
+                  if ((ContentLengthHdr & 0x80000000) != 0)
+                  {
+                    v29 = ContentLengthHdr;
+                    if (VRTraceGetErrorLogLevelForModule() >= 3)
+                    {
+                      VRTraceErrorLogLevelToCSTR();
+                      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+                      {
+                        CreateCancel_cold_2();
+                      }
+                    }
+                  }
+
+                  else
+                  {
+                    v5[32] = v31[0];
+                    MaxForwardsHdr = CreateMaxForwardsHdr(v31, 70);
+                    if ((MaxForwardsHdr & 0x80000000) == 0)
+                    {
+                      v29 = 0;
+                      v5[41] = v31[0];
+LABEL_16:
+                      *a1 = v5;
+                      return v29;
+                    }
+
+                    v29 = MaxForwardsHdr;
+                    if (VRTraceGetErrorLogLevelForModule() >= 3)
+                    {
+                      VRTraceErrorLogLevelToCSTR();
+                      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+                      {
+                        CreateCancel_cold_1();
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      FreeSipMsg(v5);
+      return v29;
+    }
+
+    v29 = 0;
+    goto LABEL_16;
+  }
+
+  v29 = 2148401155;
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      CreateCancel_cold_9();
+    }
+  }
+
+  return v29;
+}
+
 uint64_t CreateBye(unint64_t *a1, uint64_t a2, int a3, uint64_t a4, int a5)
 {
   v48 = *MEMORY[0x1E69E9840];
@@ -69,7 +288,7 @@ uint64_t CreateBye(unint64_t *a1, uint64_t a2, int a3, uint64_t a4, int a5)
     *(v13 + 888) = *(&__b[27] + 4);
     *(v13 + 856) = v28;
     *(v13 + 872) = v29;
-    v30 = CreateCallIDHdr(&v41);
+    v30 = CreateCallIDHdr(&v41, &__b[28] + 4);
     if ((v30 & 0x80000000) != 0)
     {
       v39 = v30;
@@ -103,7 +322,7 @@ uint64_t CreateBye(unint64_t *a1, uint64_t a2, int a3, uint64_t a4, int a5)
       else
       {
         *(v13 + 272) = v41;
-        v32 = CreateFromHdr(&v41, &__b[36], &__b[69]);
+        v32 = CreateFromHdr(&v41, &__b[36], &__b[69], &__b[46] + 6);
         if ((v32 & 0x80000000) != 0)
         {
           v39 = v32;
@@ -120,7 +339,7 @@ uint64_t CreateBye(unint64_t *a1, uint64_t a2, int a3, uint64_t a4, int a5)
         else
         {
           *(v13 + 312) = v41;
-          v33 = CreateToHdr(&v41, &__b[41] + 3, &__b[83]);
+          v33 = CreateToHdr(&v41, &__b[41] + 3, &__b[83], &__b[54] + 6);
           if ((v33 & 0x80000000) != 0)
           {
             v39 = v33;
@@ -156,7 +375,7 @@ uint64_t CreateBye(unint64_t *a1, uint64_t a2, int a3, uint64_t a4, int a5)
             else
             {
               *(v13 + 504) = v41;
-              v35 = CreateUserAgentHdr(&v41);
+              v35 = CreateUserAgentHdr(&v41, "Viceroy 1.7.0/GK");
               if ((v35 & 0x80000000) != 0)
               {
                 v39 = v35;
@@ -251,8 +470,9 @@ uint64_t CreateBye(unint64_t *a1, uint64_t a2, int a3, uint64_t a4, int a5)
   return v39;
 }
 
-uint64_t CreateMessageInDialog(unint64_t *a1, uint64_t a2, char *__s, int a4)
+uint64_t CreateMessageInDialog(unint64_t *a1, uint64_t a2, char *__s, uint64_t a4)
 {
+  v4 = a4;
   if (__s)
   {
     v8 = strlen(__s);
@@ -263,7 +483,7 @@ uint64_t CreateMessageInDialog(unint64_t *a1, uint64_t a2, char *__s, int a4)
     v8 = 0;
   }
 
-  return CreateBinaryMessageInDialog(a1, a2, __s, v8, a4);
+  return CreateBinaryMessageInDialog(a1, a2, __s, v8, v4);
 }
 
 uint64_t CreateBinaryMessageInDialog(unint64_t *a1, uint64_t a2, const void *a3, int a4, int a5)
@@ -350,7 +570,7 @@ uint64_t CreateBinaryMessageInDialog(unint64_t *a1, uint64_t a2, const void *a3,
   *(v13 + 888) = *(&__b[27] + 4);
   *(v13 + 856) = v28;
   *(v13 + 872) = v29;
-  v30 = CreateCallIDHdr(&v42);
+  v30 = CreateCallIDHdr(&v42, &__b[28] + 4);
   if ((v30 & 0x80000000) != 0)
   {
     v40 = v30;
@@ -384,7 +604,7 @@ uint64_t CreateBinaryMessageInDialog(unint64_t *a1, uint64_t a2, const void *a3,
   }
 
   *(v13 + 272) = v42;
-  v32 = CreateFromHdr(&v42, &__b[36], &__b[69]);
+  v32 = CreateFromHdr(&v42, &__b[36], &__b[69], &__b[46] + 6);
   if ((v32 & 0x80000000) != 0)
   {
     v40 = v32;
@@ -401,7 +621,7 @@ uint64_t CreateBinaryMessageInDialog(unint64_t *a1, uint64_t a2, const void *a3,
   }
 
   *(v13 + 312) = v42;
-  v33 = CreateToHdr(&v42, &__b[41] + 3, &__b[83]);
+  v33 = CreateToHdr(&v42, &__b[41] + 3, &__b[83], &__b[54] + 6);
   if ((v33 & 0x80000000) != 0)
   {
     v40 = v33;
@@ -437,7 +657,7 @@ uint64_t CreateBinaryMessageInDialog(unint64_t *a1, uint64_t a2, const void *a3,
   }
 
   *(v13 + 504) = v42;
-  v35 = CreateUserAgentHdr(&v42);
+  v35 = CreateUserAgentHdr(&v42, "Viceroy 1.7.0/GK");
   if ((v35 & 0x80000000) != 0)
   {
     v40 = v35;
@@ -454,7 +674,7 @@ uint64_t CreateBinaryMessageInDialog(unint64_t *a1, uint64_t a2, const void *a3,
   }
 
   *(v13 + 496) = v42;
-  v36 = CreateContentTypeHdr(&v42);
+  v36 = CreateContentTypeHdr(&v42, "text/plain");
   if ((v36 & 0x80000000) != 0)
   {
     v40 = v36;
@@ -567,7 +787,7 @@ uint64_t CreateSKEMessageInDialog(unint64_t *a1, uint64_t a2, const void *a3, in
 
   *(*a1 + 528) = v15[0];
   free(*(*a1 + 264));
-  ContentTypeHdr = CreateContentTypeHdr(v15);
+  ContentTypeHdr = CreateContentTypeHdr(v15, "application/ske");
   if ((ContentTypeHdr & 0x80000000) != 0)
   {
     v13 = ContentTypeHdr;
@@ -590,7 +810,7 @@ LABEL_12:
   return v13;
 }
 
-uint64_t CreateGenericStatus(unint64_t *a1, uint64_t a2, int a3, char *a4, char *a5, int a6, int a7, int a8, int a9)
+uint64_t CreateGenericStatus(unint64_t *a1, uint64_t a2, uint64_t a3, char *a4, char *a5, int a6, int a7, int a8, int a9)
 {
   v67 = *MEMORY[0x1E69E9840];
   if (!a2)
@@ -598,6 +818,7 @@ uint64_t CreateGenericStatus(unint64_t *a1, uint64_t a2, int a3, char *a4, char 
     return 2148401186;
   }
 
+  v14 = a3;
   v64 = 0xAAAAAAAAAAAAAAAALL;
   v65 = 0xAAAAAAAAAAAAAAAALL;
   v17 = CreateGenericSIPMsg(&v65, *(a2 + 572), *(a2 + 568), *(a2 + 570), *(a2 + 1008));
@@ -608,7 +829,7 @@ uint64_t CreateGenericStatus(unint64_t *a1, uint64_t a2, int a3, char *a4, char 
 
   v18 = v65;
   *(v65 + 4) = 2;
-  *(v18 + 8) = a3;
+  *(v18 + 8) = v14;
   if (a4 && *a4)
   {
     v19 = (v18 + 12);
@@ -617,7 +838,7 @@ uint64_t CreateGenericStatus(unint64_t *a1, uint64_t a2, int a3, char *a4, char 
 
   else
   {
-    StatusMsg = GetStatusMsg(a3);
+    StatusMsg = GetStatusMsg(v14);
     v19 = (v18 + 12);
   }
 
@@ -739,7 +960,7 @@ uint64_t CreateGenericStatus(unint64_t *a1, uint64_t a2, int a3, char *a4, char 
     *(v18 + 528) = v64;
   }
 
-  v38 = CreateUserAgentHdr(&v64);
+  v38 = CreateUserAgentHdr(&v64, "Viceroy 1.7.0/GK");
   if ((v38 & 0x80000000) != 0)
   {
     v21 = v38;
@@ -777,18 +998,18 @@ uint64_t CreateGenericStatus(unint64_t *a1, uint64_t a2, int a3, char *a4, char 
   switch(v40)
   {
     case 10:
-      if (a3 == 1)
+      if (v14 == 1)
       {
         goto LABEL_62;
       }
 
-      if (a3 != 39)
+      if (v14 != 39)
       {
         v49 = 10;
 LABEL_87:
-        if ((a3 - 8) > 4 || v49 != 10)
+        if ((v14 - 8) > 4 || v49 != 10)
         {
-          if ((a3 & 0xFFFFFFFE) != 6 || v49 != 8)
+          if ((v14 & 0xFFFFFFFE) != 6 || v49 != 8)
           {
             goto LABEL_102;
           }
@@ -812,7 +1033,7 @@ LABEL_89:
         *&v66[16] = v51;
         *&v66[32] = v51;
         *v66 = v51;
-        if (a3 == 10)
+        if (v14 == 10)
         {
           v52 = (a5 + 44);
           a8 = *(a5 + 39);
@@ -836,9 +1057,9 @@ LABEL_95:
           }
 
           *(v18 + 224) = v64;
-          if (a3 == 6 && a5 && *a5)
+          if (v14 == 6 && a5 && *a5)
           {
-            v56 = CreateContentTypeHdr(&v64);
+            v56 = CreateContentTypeHdr(&v64, "application/sdp");
             if ((v56 & 0x80000000) != 0)
             {
               v21 = v56;
@@ -875,7 +1096,7 @@ LABEL_107:
             goto LABEL_109;
           }
 
-          v57 = CreateContentTypeHdr(&v64);
+          v57 = CreateContentTypeHdr(&v64, "application/ske");
           if ((v57 & 0x80000000) == 0)
           {
             *(v18 + 264) = v64;
@@ -930,7 +1151,7 @@ LABEL_94:
 
       goto LABEL_61;
     case 9:
-      if ((a3 & 0xFFFFFFFE) == 6)
+      if ((v14 & 0xFFFFFFFE) == 6)
       {
         v44 = *(a2 + 304);
         if (v44)
@@ -962,12 +1183,12 @@ LABEL_94:
         goto LABEL_73;
       }
 
-      if (a3 == 1)
+      if (v14 == 1)
       {
         goto LABEL_62;
       }
 
-      if (a3 == 29)
+      if (v14 == 29)
       {
         v50 = CreateMinExpiresHdr(&v64, 600);
         if ((v50 & 0x80000000) != 0)
@@ -989,7 +1210,7 @@ LABEL_94:
         goto LABEL_73;
       }
 
-      if (a3 != 39)
+      if (v14 != 39)
       {
         v49 = 9;
         goto LABEL_85;
@@ -1071,7 +1292,7 @@ LABEL_73:
       break;
   }
 
-  if (a3 != 1)
+  if (v14 != 1)
   {
 LABEL_74:
     v49 = *(a2 + 8);
@@ -1081,7 +1302,7 @@ LABEL_74:
     }
 
 LABEL_85:
-    if ((a3 - 6) <= 6 && v49 == 9)
+    if ((v14 - 6) <= 6 && v49 == 9)
     {
       goto LABEL_89;
     }
@@ -1113,7 +1334,7 @@ LABEL_109:
   return v21;
 }
 
-uint64_t CreateStatus(unint64_t *a1, uint64_t a2, int a3, char *a4, char *__s, int a6, int a7)
+uint64_t CreateStatus(unint64_t *a1, uint64_t a2, uint64_t a3, char *a4, char *__s, int a6, int a7)
 {
   if (__s)
   {
@@ -2147,7 +2368,7 @@ uint64_t TACreateHandle(uint64_t *a1, int a2, uint64_t a3, uint64_t a4, uint64_t
       {
         pthread_mutex_destroy((v15 + 24));
         pthread_cond_destroy((v15 + 88));
-        MQCloseHandle();
+        MQCloseHandle(*(v15 + 18));
         free(v15);
         return 2148532229;
       }
@@ -2175,39 +2396,39 @@ uint64_t TACreateHandle(uint64_t *a1, int a2, uint64_t a3, uint64_t a4, uint64_t
   return v18;
 }
 
-uint64_t TACloseHandle()
+uint64_t TACloseHandle(uint64_t a1)
 {
-  v0 = 2148532226;
-  v1 = CheckInHandleDebug();
-  if (v1)
+  v1 = 2148532226;
+  v2 = CheckInHandleDebug();
+  if (v2)
   {
-    v2 = v1;
-    pthread_mutex_lock((v1 + 24));
-    v3 = *(v2 + 8);
-    *(v2 + 8) = v3 - 1;
-    pthread_cond_signal((v2 + 88));
-    pthread_mutex_unlock((v2 + 24));
+    v3 = v2;
+    pthread_mutex_lock((v2 + 24));
+    v4 = *(v3 + 8);
+    *(v3 + 8) = v4 - 1;
+    pthread_cond_signal((v3 + 88));
+    pthread_mutex_unlock((v3 + 24));
     CheckOutHandleDebug();
-    if (v3 > 1)
+    if (v4 > 1)
     {
       return 0;
     }
 
-    v4 = CheckInHandleDebug();
-    if (v4)
+    v5 = CheckInHandleDebug();
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
       CheckOutHandleDebug();
-      pthread_cond_destroy((v5 + 88));
-      pthread_mutex_destroy((v5 + 24));
-      FreeSipMsg(*(v5 + 168));
-      MQCloseHandle();
-      free(v5);
+      pthread_cond_destroy((v6 + 88));
+      pthread_mutex_destroy((v6 + 24));
+      FreeSipMsg(*(v6 + 168));
+      MQCloseHandle(*(v6 + 144));
+      free(v6);
       return 0;
     }
   }
 
-  return v0;
+  return v1;
 }
 
 uint64_t TASend(uint64_t a1, void *a2)
@@ -2289,21 +2510,21 @@ LABEL_18:
   return v8;
 }
 
-uint64_t TACancel()
+uint64_t TACancel(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v0 = CheckInHandleDebug();
-  if (!v0)
+  v8[1] = *MEMORY[0x1E69E9840];
+  v1 = CheckInHandleDebug();
+  if (!v1)
   {
     return 2148532226;
   }
 
-  v1 = v0;
-  v7[0] = 0xAAAAAAAAAAAAAAAALL;
-  Cancel = CreateCancel(v7, 0);
+  v2 = v1;
+  v8[0] = 0xAAAAAAAAAAAAAAAALL;
+  Cancel = CreateCancel(v8, 0);
   if ((Cancel & 0x80000000) != 0)
   {
-    v5 = Cancel;
+    v6 = Cancel;
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
@@ -2316,12 +2537,12 @@ uint64_t TACancel()
 
   else
   {
-    v3 = v7[0];
-    *v7[0] = 1;
-    v4 = MQPut(*(v1 + 144), v3, 0);
-    if ((v4 & 0x80000000) != 0)
+    v4 = v8[0];
+    *v8[0] = 1;
+    v5 = MQPut(*(v2 + 144), v4, 0);
+    if ((v5 & 0x80000000) != 0)
     {
-      v5 = v4;
+      v6 = v5;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
         VRTraceErrorLogLevelToCSTR();
@@ -2331,29 +2552,29 @@ uint64_t TACancel()
         }
       }
 
-      FreeSipMsg(v7[0]);
+      FreeSipMsg(v8[0]);
     }
 
     else
     {
-      pthread_mutex_lock((v1 + 24));
-      if (*(v1 + 8) >= 2)
+      pthread_mutex_lock((v2 + 24));
+      if (*(v2 + 8) >= 2)
       {
         do
         {
-          pthread_cond_wait((v1 + 88), (v1 + 24));
+          pthread_cond_wait((v2 + 88), (v2 + 24));
         }
 
-        while (*(v1 + 8) > 1);
+        while (*(v2 + 8) > 1);
       }
 
-      pthread_mutex_unlock((v1 + 24));
-      v5 = 0;
+      pthread_mutex_unlock((v2 + 24));
+      v6 = 0;
     }
   }
 
   CheckOutHandleDebug();
-  return v5;
+  return v6;
 }
 
 uint64_t TASetRetransmitTimeoutCap(uint64_t a1, uint64_t a2)
@@ -2482,10 +2703,10 @@ uint64_t TAStart(void *a1)
 
 uint64_t TAInviteClientProc(uint64_t a1)
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v54 = -1431655766;
-  v52 = 0xAAAAAAAAAAAAAAAALL;
-  v53 = 0xAAAAAAAAAAAAAAAALL;
+  v72 = *MEMORY[0x1E69E9840];
+  v63 = -1431655766;
+  v61 = 0xAAAAAAAAAAAAAAAALL;
+  v62 = 0xAAAAAAAAAAAAAAAALL;
   pthread_setname_np("com.apple.avconference.transaction.inviteclientproc");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
@@ -2494,11 +2715,11 @@ uint64_t TAInviteClientProc(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v56 = v2;
-      v57 = 2080;
-      v58 = "TAInviteClientProc";
-      v59 = 1024;
-      v60 = 318;
+      v65 = v2;
+      v66 = 2080;
+      v67 = "TAInviteClientProc";
+      v68 = 1024;
+      v69 = 318;
       _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TAInviteClientProc Thread start...", buf, 0x1Cu);
     }
   }
@@ -2522,177 +2743,178 @@ uint64_t TAInviteClientProc(uint64_t a1)
   v6 = partial apply(*(v4 + 152), 0, *(v4 + 168), TAMsgCallback, a1);
   if (v6 < 0)
   {
-    v8 = v6;
+    v9 = v6;
     goto LABEL_94;
   }
 
-  v7 = TPGetType(*(v5 + 152), &v54);
-  if (v7 < 0 || (v7 = TPSend(*(v5 + 152)), v7 < 0))
+  LODWORD(v7) = TPGetType(*(v5 + 152), &v63);
+  if ((v7 & 0x80000000) != 0 || (v7 = TPSend(*(v5 + 152)), (v7 & 0x80000000) != 0))
   {
-    v8 = v7;
+    v9 = v7;
     TPRemoveTransaction(*(v5 + 152), a1);
     goto LABEL_94;
   }
 
-  v8 = -2146435049;
-  v50 = micro();
-  LODWORD(v9) = RTTAdjustedTimeOut(v5, 500, 1);
-  v10.f64[0] = micro();
-  v10.f64[1] = v50;
-  v11 = vcvtq_u64_f64(vmulq_f64(v10, vdupq_n_s64(0x412E848000000000uLL)));
-  v12 = v11.i64[0] / 0x3E8uLL - v11.i64[1] / 0x3E8uLL;
-  if (v12 >> 5 > 0x270)
+  v9 = -2146435049;
+  v59 = micro(v7, v8);
+  v10 = RTTAdjustedTimeOut(v5, 500, 1);
+  LODWORD(v11) = v10;
+  v13.f64[0] = micro(v10, v12);
+  v13.f64[1] = v59;
+  v14 = vcvtq_u64_f64(vmulq_f64(v13, vdupq_n_s64(0x412E848000000000uLL)));
+  v15 = v14.i64[0] / 0x3E8uLL - v14.i64[1] / 0x3E8uLL;
+  if (v15 >> 5 > 0x270)
   {
-    v47 = 0;
+    v56 = 0;
     goto LABEL_113;
   }
 
-  v13 = 0;
-  v14 = 0;
-  v49 = 0;
-  v51 = v11.i64[1] / 0x3E8uLL;
-  v9 = v9;
-  v15 = 20000;
+  v16 = 0;
+  v17 = 0;
+  v58 = 0;
+  v60 = v14.i64[1] / 0x3E8uLL;
+  v11 = v11;
+  v18 = 20000;
   do
   {
     while (1)
     {
-      v16 = v15 - v12;
-      if (v9 >= v16)
+      v19 = v18 - v15;
+      if (v11 >= v19)
       {
-        v17 = v16;
+        v20 = v19;
       }
 
       else
       {
-        v17 = v9;
+        v20 = v11;
       }
 
-      v18 = 2 * v9;
-      if (2 * v9 >= 0x3E8)
+      v21 = 2 * v11;
+      if (2 * v11 >= 0x3E8)
       {
-        v18 = 1000;
+        v21 = 1000;
       }
 
-      if (v54 == 1)
+      if (v63 == 1)
       {
-        v19 = v14;
+        v22 = v17;
       }
 
       else
       {
-        v19 = v16;
+        v22 = v19;
       }
 
-      if (v54 == 1)
+      if (v63 == 1)
       {
-        v18 = v9;
-        v17 = v16;
+        v21 = v11;
+        v20 = v19;
       }
 
-      if (v13)
+      if (v16)
       {
-        v20 = v16;
+        v23 = v19;
       }
 
       else
       {
-        v14 = v19;
-        v9 = v18;
-        v20 = v17;
+        v17 = v22;
+        v11 = v21;
+        v23 = v20;
       }
 
-      v21 = *(*(v5 + 168) + 272);
-      v22 = v21 ? *v21 : -1;
-      v23 = MQGet(*(v5 + 144), &v53, v20, 1, v22);
-      v24 = v23;
-      if ((v23 & 0x80000000) == 0)
+      v24 = *(*(v5 + 168) + 272);
+      v25 = v24 ? *v24 : -1;
+      v26 = MQGet(*(v5 + 144), &v62, v23, 1, v25);
+      v28 = v26;
+      if ((v26 & 0x80000000) == 0)
       {
         break;
       }
 
-      if (v23 != -2146762729)
+      if (v26 != -2146762729)
       {
         goto LABEL_111;
       }
 
-      if (v13 == 3)
+      if (v16 == 3)
       {
-        v8 = 0;
+        v9 = 0;
         goto LABEL_112;
       }
 
-      if (v13 || v54 || v20 == v14)
+      if (v16 || v63 || v23 == v17)
       {
-        v8 = -2146762729;
+        v9 = -2146762729;
         goto LABEL_112;
       }
 
-      Ack = TPSend(*(v5 + 152));
-      if (Ack < 0)
+      v29 = TPSend(*(v5 + 152));
+      if ((v29 & 0x80000000) != 0)
       {
 LABEL_109:
-        v8 = Ack;
+        v9 = v29;
         goto LABEL_112;
       }
 
-      v13 = 0;
-      v12 = (micro() * 1000000.0) / 0x3E8 - v51;
-      if (v12 >= v15)
+      v16 = 0;
+      v15 = (micro(v29, v30) * 1000000.0) / 0x3E8 - v60;
+      if (v15 >= v18)
       {
         goto LABEL_112;
       }
     }
 
-    v26 = v53;
-    if (*v53 == 1 && *(v53 + 1) == 1 && *(v53 + 2) == 5)
+    v31 = v62;
+    if (*v62 == 1 && *(v62 + 1) == 1 && *(v62 + 2) == 5)
     {
-      FreeSipMsg(v53);
+      FreeSipMsg(v62);
 LABEL_111:
-      v8 = v24;
+      v9 = v28;
       goto LABEL_112;
     }
 
-    v27 = *(v53 + 2);
-    if (v13 != 3)
+    v32 = *(v62 + 2);
+    if (v16 != 3)
     {
-      if (v13 == 2)
+      if (v16 == 2)
       {
-        if ((v27 - 1) <= 4)
+        if ((v32 - 1) <= 4)
         {
-          v34 = *(v53 + 60);
-          v13 = 2;
-          if (v34)
+          v39 = *(v62 + 60);
+          v16 = 2;
+          if (v39)
           {
-            v35 = *(*(v5 + 168) + 480);
-            if (v35)
+            v40 = *(*(v5 + 168) + 480);
+            if (v40)
             {
-              v37 = *(v34 + 156);
-              v36 = (v34 + 156);
-              if (v37)
+              v42 = *(v39 + 156);
+              v41 = (v39 + 156);
+              if (v42)
               {
-                if (strcmp(v36, (v35 + 156)))
+                if (strcmp(v41, (v40 + 156)))
                 {
                   if (VRTraceGetErrorLogLevelForModule() >= 7)
                   {
-                    v48 = VRTraceErrorLogLevelToCSTR();
-                    v38 = *MEMORY[0x1E6986650];
+                    v57 = VRTraceErrorLogLevelToCSTR();
+                    v43 = *MEMORY[0x1E6986650];
                     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 136315906;
-                      v56 = v48;
-                      v57 = 2080;
-                      v58 = "TAInviteClientProc";
-                      v59 = 1024;
-                      v60 = 457;
-                      v61 = 2080;
-                      v62 = v36;
-                      _os_log_impl(&dword_1DB56E000, v38, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d Save this ToTag: %s", buf, 0x26u);
+                      v65 = v57;
+                      v66 = 2080;
+                      v67 = "TAInviteClientProc";
+                      v68 = 1024;
+                      v69 = 457;
+                      v70 = 2080;
+                      v71 = v41;
+                      _os_log_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d Save this ToTag: %s", buf, 0x26u);
                     }
                   }
 
-                  strncpy((v35 + 156), v36, 0x40uLL);
-                  v13 = 2;
+                  strncpy((v40 + 156), v41, 0x40uLL);
+                  v16 = 2;
                 }
               }
             }
@@ -2701,216 +2923,218 @@ LABEL_111:
           goto LABEL_83;
         }
 
-        if ((v27 - 8) <= 0x2C)
+        if ((v32 - 8) <= 0x2C)
         {
           goto LABEL_69;
         }
 
-        v39 = (v27 & 0xFFFFFFFE) == 6;
-        if ((v27 & 0xFFFFFFFE) == 6)
+        v46 = (v32 & 0xFFFFFFFE) == 6;
+        if ((v32 & 0xFFFFFFFE) == 6)
         {
-          v13 = 5;
+          v16 = 5;
         }
 
         else
         {
-          v13 = 2;
+          v16 = 2;
         }
       }
 
       else
       {
-        if ((v27 - 1) <= 4)
+        if ((v32 - 1) <= 4)
         {
-          v28 = *(v53 + 60);
-          if (v28)
+          v33 = *(v62 + 60);
+          if (v33)
           {
-            v29 = *(*(v5 + 168) + 480);
-            if (v29)
+            v34 = *(*(v5 + 168) + 480);
+            if (v34)
             {
-              v31 = *(v28 + 156);
-              v30 = (v28 + 156);
-              if (v31)
+              v36 = *(v33 + 156);
+              v35 = (v33 + 156);
+              if (v36)
               {
-                if (strcmp(v30, (v29 + 156)))
+                v26 = strcmp(v35, (v34 + 156));
+                if (v26)
                 {
                   if (VRTraceGetErrorLogLevelForModule() >= 7)
                   {
-                    v32 = VRTraceErrorLogLevelToCSTR();
-                    v33 = *MEMORY[0x1E6986650];
+                    v37 = VRTraceErrorLogLevelToCSTR();
+                    v38 = *MEMORY[0x1E6986650];
                     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 136315906;
-                      v56 = v32;
-                      v57 = 2080;
-                      v58 = "TAInviteClientProc";
-                      v59 = 1024;
-                      v60 = 415;
-                      v61 = 2080;
-                      v62 = v30;
-                      _os_log_impl(&dword_1DB56E000, v33, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d Save this ToTag: %s", buf, 0x26u);
+                      v65 = v37;
+                      v66 = 2080;
+                      v67 = "TAInviteClientProc";
+                      v68 = 1024;
+                      v69 = 415;
+                      v70 = 2080;
+                      v71 = v35;
+                      _os_log_impl(&dword_1DB56E000, v38, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d Save this ToTag: %s", buf, 0x26u);
                     }
                   }
 
-                  strncpy((v29 + 156), v30, 0x40uLL);
+                  v26 = strncpy((v34 + 156), v35, 0x40uLL);
                 }
               }
             }
           }
 
-          v51 = (micro() * 1000000.0) / 0x3E8;
-          v13 = 2;
-          v15 = 8000;
+          v60 = (micro(v26, v27) * 1000000.0) / 0x3E8;
+          v16 = 2;
+          v18 = 8000;
           goto LABEL_83;
         }
 
-        if ((v27 - 8) <= 0x2C)
+        if ((v32 - 8) <= 0x2C)
         {
 LABEL_69:
-          if ((CreateAck(&v52, *(v5 + 168), v53) & 0x80000000) != 0 || (v40 = TPSend(*(v5 + 152)), FreeSipMsg(v52), v40 < 0))
+          if ((CreateAck(&v61, *(v5 + 168), v62) & 0x80000000) != 0 || (v47 = TPSend(*(v5 + 152)), FreeSipMsg(v61), v47 < 0))
           {
-            v49 = 1;
-            v13 = 5;
+            v58 = 1;
+            v16 = 5;
           }
 
           else
           {
-            v51 = (micro() * 1000000.0) / 0x3E8;
-            if (v54)
+            v60 = (micro(v48, v49) * 1000000.0) / 0x3E8;
+            if (v63)
             {
-              v15 = 0;
+              v18 = 0;
             }
 
             else
             {
-              v15 = 32000;
+              v18 = 32000;
             }
 
-            v49 = 1;
-            v13 = 3;
+            v58 = 1;
+            v16 = 3;
           }
 
 LABEL_83:
-          v24 = (*(v5 + 176))(*(v5 + 192), v53);
+          v44 = (*(v5 + 176))(*(v5 + 192), v62);
+          v28 = v44;
           goto LABEL_84;
         }
 
-        v39 = (v27 & 0xFFFFFFFE) == 6;
-        if ((v27 & 0xFFFFFFFE) == 6)
+        v46 = (v32 & 0xFFFFFFFE) == 6;
+        if ((v32 & 0xFFFFFFFE) == 6)
         {
-          v13 = 5;
+          v16 = 5;
         }
 
         else
         {
-          v13 = 0;
+          v16 = 0;
         }
       }
 
-      v41 = v49;
-      if (v39)
+      v50 = v58;
+      if (v46)
       {
-        v41 = 1;
+        v50 = 1;
       }
 
-      v49 = v41;
+      v58 = v50;
       goto LABEL_83;
     }
 
-    if ((v27 - 8) <= 0x2C)
+    if ((v32 - 8) <= 0x2C)
     {
-      Ack = CreateAck(&v52, *(v5 + 168), v53);
-      if (Ack < 0)
+      LODWORD(v29) = CreateAck(&v61, *(v5 + 168), v62);
+      if ((v29 & 0x80000000) != 0)
       {
         goto LABEL_109;
       }
 
-      v24 = TPSend(*(v5 + 152));
-      FreeSipMsg(v52);
-      if (v24 < 0)
+      v28 = TPSend(*(v5 + 152));
+      FreeSipMsg(v61);
+      if (v28 < 0)
       {
         goto LABEL_111;
       }
 
-      v26 = v53;
+      v31 = v62;
     }
 
-    FreeSipMsg(v26);
-    v13 = 3;
+    FreeSipMsg(v31);
+    v16 = 3;
 LABEL_84:
-    if (v13 == 5)
+    if (v16 == 5)
     {
       goto LABEL_111;
     }
 
-    v12 = (micro() * 1000000.0) / 0x3E8 - v51;
+    v15 = (micro(v44, v45) * 1000000.0) / 0x3E8 - v60;
   }
 
-  while (v12 < v15);
-  if (v13 == 3)
+  while (v15 < v18);
+  if (v16 == 3)
   {
-    v8 = v24;
+    v9 = v28;
   }
 
   else
   {
-    v8 = -2146435049;
+    v9 = -2146435049;
   }
 
 LABEL_112:
-  v47 = v49;
+  v56 = v58;
 LABEL_113:
   TPRemoveTransaction(*(v5 + 152), a1);
-  if (!v47)
+  if (!v56)
   {
 LABEL_94:
-    if (v8 == 40)
+    if (v9 == 40)
     {
-      v42 = *(v5 + 168);
-      v43 = 32;
+      v51 = *(v5 + 168);
+      v52 = 32;
     }
 
-    else if (v8 == 23)
+    else if (v9 == 23)
     {
-      v42 = *(v5 + 168);
-      v43 = 21;
+      v51 = *(v5 + 168);
+      v52 = 21;
     }
 
     else
     {
-      v42 = *(v5 + 168);
-      if ((v8 & 0x40000000) != 0)
+      v51 = *(v5 + 168);
+      if ((v9 & 0x40000000) != 0)
       {
-        v43 = 45;
+        v52 = 45;
       }
 
       else
       {
-        v43 = 42;
+        v52 = 42;
       }
     }
 
-    CreateStatus(&v53, v42, v43, 0, 0, 0, 0);
-    (*(v5 + 176))(*(v5 + 192), v53);
+    CreateStatus(&v62, v51, v52, 0, 0, 0, 0);
+    (*(v5 + 176))(*(v5 + 192), v62);
   }
 
   CheckOutHandleDebug();
-  TACloseHandle();
+  TACloseHandle(a1);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v44 = VRTraceErrorLogLevelToCSTR();
-    v45 = *MEMORY[0x1E6986650];
+    v53 = VRTraceErrorLogLevelToCSTR();
+    v54 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v56 = v44;
-      v57 = 2080;
-      v58 = "TAInviteClientProc";
-      v59 = 1024;
-      v60 = 552;
-      v61 = 1024;
-      LODWORD(v62) = v8;
-      _os_log_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TAInviteClientProc Thread end(%X)...", buf, 0x22u);
+      v65 = v53;
+      v66 = 2080;
+      v67 = "TAInviteClientProc";
+      v68 = 1024;
+      v69 = 552;
+      v70 = 1024;
+      LODWORD(v71) = v9;
+      _os_log_impl(&dword_1DB56E000, v54, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TAInviteClientProc Thread end(%X)...", buf, 0x22u);
     }
   }
 
@@ -2919,9 +3143,9 @@ LABEL_94:
 
 uint64_t TANonInviteClientProc(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v34 = -1431655766;
-  v33 = 0xAAAAAAAAAAAAAAAALL;
+  v46 = *MEMORY[0x1E69E9840];
+  v37 = -1431655766;
+  v36 = 0xAAAAAAAAAAAAAAAALL;
   pthread_setname_np("com.apple.avconference.transaction.noninviteclientproc");
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -2930,11 +3154,11 @@ uint64_t TANonInviteClientProc(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v36 = v2;
-      v37 = 2080;
-      v38 = "TANonInviteClientProc";
-      v39 = 1024;
-      v40 = 571;
+      v39 = v2;
+      v40 = 2080;
+      v41 = "TANonInviteClientProc";
+      v42 = 1024;
+      v43 = 571;
       _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TANonInviteClientProc Thread start...", buf, 0x1Cu);
     }
   }
@@ -2946,205 +3170,209 @@ uint64_t TANonInviteClientProc(uint64_t a1)
     v6 = partial apply(*(v4 + 152), 0, *(v4 + 168), TAMsgCallback, a1);
     if (v6 < 0)
     {
-      v14 = v6;
+      v18 = v6;
     }
 
     else
     {
-      v7 = TPGetType(*(v5 + 152), &v34);
+      v7 = TPGetType(*(v5 + 152), &v37);
       if (v7 < 0)
       {
-        v8 = v7;
+        v10 = v7;
       }
 
       else
       {
         v8 = TPSend(*(v5 + 152));
+        v10 = v8;
         if ((v8 & 0x80000000) == 0)
         {
-          v9 = 0;
-          v32 = 0;
-          v10 = (micro() * 1000000.0) / 0x3E8;
-          v11 = 1;
-          v12 = 500;
-          v13 = 32000;
+          v11 = 0;
+          v35 = 0;
+          v14 = (micro(v8, v9) * 1000000.0) / 0x3E8;
+          v15 = 1;
+          v16 = 500;
+          v17 = 32000;
 LABEL_9:
-          v14 = v8;
+          v18 = v10;
 LABEL_10:
-          v8 = v14;
-          while (v11 != 5)
+          v10 = v18;
+          while (v15 != 5)
           {
-            v15 = (micro() * 1000000.0) / 0x3E8 - v10;
-            v16 = v13 >= v15;
-            v17 = v13 - v15;
-            if (v17 == 0 || !v16)
+            v19 = (micro(v12, v13) * 1000000.0) / 0x3E8 - v14;
+            v20 = v17 >= v19;
+            v21 = v17 - v19;
+            if (v21 == 0 || !v20)
             {
-              if (v11 == 3)
+              if (v15 == 3)
               {
-                v14 = v8;
+                v18 = v10;
               }
 
               else
               {
-                v14 = -2146435049;
+                v18 = -2146435049;
               }
 
-              v11 = 5;
+              v15 = 5;
               goto LABEL_10;
             }
 
-            if (v11 == 3 || v34 == 1)
+            if (v15 == 3 || v37 == 1)
             {
-              v18 = v17;
+              v22 = v21;
             }
 
             else
             {
-              if (v12 >= v17)
+              if (v16 >= v21)
               {
-                v18 = v17;
+                v22 = v21;
               }
 
               else
               {
-                v18 = v12;
+                v22 = v16;
               }
 
-              if (v11 == 2)
+              if (v15 == 2)
               {
-                v12 = *(v5 + 184);
+                v16 = *(v5 + 184);
               }
 
-              else if (2 * v12 >= *(v5 + 184))
+              else if (2 * v16 >= *(v5 + 184))
               {
-                v12 = *(v5 + 184);
+                v16 = *(v5 + 184);
               }
 
               else
               {
-                v12 *= 2;
+                v16 *= 2;
               }
 
-              v9 = v17;
+              v11 = v21;
             }
 
-            v19 = *(v5 + 168);
-            v20 = *(v19 + 272);
-            if (v20)
+            v23 = *(v5 + 168);
+            v24 = *(v23 + 272);
+            if (v24)
             {
-              v21 = *v20;
+              v25 = *v24;
             }
 
             else
             {
-              v21 = -1;
+              v25 = -1;
             }
 
-            v22 = MQGet(*(v5 + 144), &v33, v18, *(v19 + 8), v21);
-            v8 = v22;
-            if ((v22 & 0x80000000) == 0)
+            v12 = MQGet(*(v5 + 144), &v36, v22, *(v23 + 8), v25);
+            v10 = v12;
+            if ((v12 & 0x80000000) == 0)
             {
-              if (*v33 == 1 && *(v33 + 1) == 1 && *(v33 + 2) == 5)
+              if (*v36 == 1 && *(v36 + 1) == 1 && *(v36 + 2) == 5)
               {
-                FreeSipMsg(v33);
+                FreeSipMsg(v36);
 LABEL_51:
-                v11 = 5;
+                v15 = 5;
                 goto LABEL_9;
               }
 
-              if (v11 == 3)
+              if (v15 == 3)
               {
-                FreeSipMsg(v33);
+                FreeSipMsg(v36);
                 goto LABEL_9;
               }
 
-              v25 = *(v33 + 2);
-              if (v11 == 2)
+              v28 = *(v36 + 2);
+              if (v15 == 2)
               {
-                v8 = (*(v5 + 176))(*(v5 + 192));
-                if (v8 < 0)
+                v12 = (*(v5 + 176))(*(v5 + 192));
+                v10 = v12;
+                if ((v12 & 0x80000000) != 0)
                 {
                   goto LABEL_9;
                 }
 
-                v26 = v25 - 6;
+                v29 = v28 - 6;
               }
 
               else
               {
-                v8 = (*(v5 + 176))(*(v5 + 192));
-                if (v8 < 0)
+                v12 = (*(v5 + 176))(*(v5 + 192));
+                v10 = v12;
+                if ((v12 & 0x80000000) != 0)
                 {
                   goto LABEL_9;
                 }
 
-                v11 = 2;
-                if ((v25 - 1) < 5)
+                v15 = 2;
+                if ((v28 - 1) < 5)
                 {
                   goto LABEL_9;
                 }
 
-                v26 = v25 - 6;
-                v11 = 1;
+                v29 = v28 - 6;
+                v15 = 1;
               }
 
-              if (v26 <= 0x2E)
+              if (v29 <= 0x2E)
               {
-                v10 = (micro() * 1000000.0) / 0x3E8;
-                if (v34)
+                v14 = (micro(v12, v13) * 1000000.0) / 0x3E8;
+                if (v37)
                 {
-                  v13 = 0;
+                  v17 = 0;
                 }
 
                 else
                 {
-                  v13 = 5000;
+                  v17 = 5000;
                 }
 
-                v32 = 1;
-                v11 = 3;
+                v35 = 1;
+                v15 = 3;
               }
 
               goto LABEL_9;
             }
 
-            if (v22 != -2146762729 || v11 == 3)
+            if (v12 != -2146762729 || v15 == 3)
             {
-              if (v22 == -2146762729)
+              if (v12 == -2146762729)
               {
-                v8 = 0;
+                v10 = 0;
               }
 
               else
               {
-                v8 = v22;
+                v10 = v12;
               }
 
               goto LABEL_51;
             }
 
-            if (v34 || v18 == v9)
+            if (v37 || v22 == v11)
             {
-              v11 = 5;
-              v8 = -2146762729;
+              v15 = 5;
+              v10 = -2146762729;
               goto LABEL_9;
             }
 
-            v24 = *(*(v5 + 168) + 544);
-            if (v24)
+            v27 = *(*(v5 + 168) + 544);
+            if (v27)
             {
-              *v24 = *v24 == 0;
+              *v27 = *v27 == 0;
             }
 
-            v8 = TPSend(*(v5 + 152));
-            if (v8 < 0)
+            v12 = TPSend(*(v5 + 152));
+            v10 = v12;
+            if ((v12 & 0x80000000) != 0)
             {
               goto LABEL_51;
             }
           }
 
           TPRemoveTransaction(*(v5 + 152), a1);
-          if (v32)
+          if (v35)
           {
             goto LABEL_82;
           }
@@ -3154,56 +3382,56 @@ LABEL_51:
       }
 
       TPRemoveTransaction(*(v5 + 152), a1);
-      v14 = v8;
+      v18 = v10;
     }
 
 LABEL_74:
-    if (v14 == 40)
+    if (v18 == 40)
     {
-      v27 = *(v5 + 168);
-      v28 = 32;
+      v30 = *(v5 + 168);
+      v31 = 32;
     }
 
-    else if (v14 == 23)
+    else if (v18 == 23)
     {
-      v27 = *(v5 + 168);
-      v28 = 21;
+      v30 = *(v5 + 168);
+      v31 = 21;
     }
 
     else
     {
-      v27 = *(v5 + 168);
-      if ((v14 & 0x40000000) != 0)
+      v30 = *(v5 + 168);
+      if ((v18 & 0x40000000) != 0)
       {
-        v28 = 45;
+        v31 = 45;
       }
 
       else
       {
-        v28 = 42;
+        v31 = 42;
       }
     }
 
-    CreateStatus(&v33, v27, v28, 0, 0, 0, 0);
-    (*(v5 + 176))(*(v5 + 192), v33);
+    CreateStatus(&v36, v30, v31, 0, 0, 0, 0);
+    (*(v5 + 176))(*(v5 + 192), v36);
 LABEL_82:
     CheckOutHandleDebug();
-    TACloseHandle();
+    TACloseHandle(a1);
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v29 = VRTraceErrorLogLevelToCSTR();
-      v30 = *MEMORY[0x1E6986650];
+      v32 = VRTraceErrorLogLevelToCSTR();
+      v33 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v36 = v29;
-        v37 = 2080;
-        v38 = "TANonInviteClientProc";
-        v39 = 1024;
-        v40 = 740;
-        v41 = 1024;
-        v42 = v14;
-        _os_log_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TANonInviteClientProc Thread end(%X)...", buf, 0x22u);
+        v39 = v32;
+        v40 = 2080;
+        v41 = "TANonInviteClientProc";
+        v42 = 1024;
+        v43 = 740;
+        v44 = 1024;
+        v45 = v18;
+        _os_log_impl(&dword_1DB56E000, v33, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TANonInviteClientProc Thread end(%X)...", buf, 0x22u);
       }
     }
 
@@ -3224,10 +3452,10 @@ LABEL_82:
 
 uint64_t TAInviteServerProc(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v29 = -1431655766;
-  v27 = 0;
-  v28 = 0xAAAAAAAAAAAAAAAALL;
+  v43 = *MEMORY[0x1E69E9840];
+  v34 = -1431655766;
+  v32 = 0;
+  v33 = 0xAAAAAAAAAAAAAAAALL;
   pthread_setname_np("com.apple.avconference.transaction.inviteserverproc");
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -3236,11 +3464,11 @@ uint64_t TAInviteServerProc(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v31 = v2;
-      v32 = 2080;
-      v33 = "TAInviteServerProc";
-      v34 = 1024;
-      v35 = 759;
+      v36 = v2;
+      v37 = 2080;
+      v38 = "TAInviteServerProc";
+      v39 = 1024;
+      v40 = 759;
       _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TAInviteServerProc Thread start...", buf, 0x1Cu);
     }
   }
@@ -3268,8 +3496,8 @@ uint64_t TAInviteServerProc(uint64_t a1)
     goto LABEL_68;
   }
 
-  Status = TPGetType(*(v5 + 152), &v29);
-  if (Status < 0 || (Status = CreateStatus(&v27, *(v5 + 168), 1, 0, 0, 0, 0), Status < 0))
+  Status = TPGetType(*(v5 + 152), &v34);
+  if (Status < 0 || (Status = CreateStatus(&v32, *(v5 + 168), 1, 0, 0, 0, 0), Status < 0))
   {
     v7 = Status;
     goto LABEL_68;
@@ -3280,59 +3508,60 @@ uint64_t TAInviteServerProc(uint64_t a1)
   *v5 = v7;
   *(v5 + 4) = 1;
   pthread_cond_signal((v5 + 88));
-  pthread_mutex_unlock((v5 + 24));
+  v9 = pthread_mutex_unlock((v5 + 24));
   if (v7 < 0)
   {
     goto LABEL_68;
   }
 
-  v9 = 0;
-  v10 = (micro() * 1000000.0) / 0x3E8;
-  v11 = 2;
-  v12 = 500;
-  v13 = 0xFFFFFFFFLL;
-  while (v13 == 0xFFFFFFFF)
+  v11 = 0;
+  v14 = (micro(v9, v10) * 1000000.0) / 0x3E8;
+  v15 = 2;
+  v16 = 500;
+  v17 = 0xFFFFFFFFLL;
+  while (v17 == 0xFFFFFFFF)
   {
-    v14 = 0xFFFFFFFFLL;
+    v18 = 0xFFFFFFFFLL;
 LABEL_20:
-    v16 = *(*(v5 + 168) + 272);
-    if (v16)
+    v20 = *(*(v5 + 168) + 272);
+    if (v20)
     {
-      v17 = *v16;
+      v21 = *v20;
     }
 
     else
     {
-      v17 = -1;
+      v21 = -1;
     }
 
-    v18 = MQGet(*(v5 + 144), &v28, v14, 1, v17);
-    v7 = v18;
-    if (v18 < 0)
+    v22 = MQGet(*(v5 + 144), &v33, v18, 1, v21);
+    v7 = v22;
+    if (v22 < 0)
     {
-      if (v18 != 23 || v11 == 4)
+      if (v22 != 23 || v15 == 4)
       {
-        if (v18 == 23)
+        if (v22 == 23)
         {
           v7 = 0;
         }
 
         else
         {
-          v7 = v18;
+          v7 = v22;
         }
 
         goto LABEL_68;
       }
 
-      if (v11 != 3 || v29 || v14 == v9)
+      if (v15 != 3 || v34 || v18 == v11)
       {
         goto LABEL_68;
       }
 
 LABEL_55:
-      v7 = TPSend(*(v5 + 152));
-      if (v7 < 0)
+      v12 = TPSend(*(v5 + 152));
+      v7 = v12;
+      if ((v12 & 0x80000000) != 0)
       {
         goto LABEL_68;
       }
@@ -3340,65 +3569,65 @@ LABEL_55:
 
     else
     {
-      v19 = v28;
-      if (*v28 == 1)
+      v24 = v33;
+      if (*v33 == 1)
       {
-        v20 = *(v28 + 1);
-        if (v20 == 1)
+        v25 = *(v33 + 1);
+        if (v25 == 1)
         {
-          if (*(v28 + 2) == 5)
+          if (*(v33 + 2) == 5)
           {
-            FreeSipMsg(v28);
+            FreeSipMsg(v33);
             goto LABEL_68;
           }
 
 LABEL_48:
-          FreeSipMsg(v19);
+          FreeSipMsg(v24);
         }
 
         else
         {
-          if (v11 != 2 || v20 != 2)
+          if (v15 != 2 || v25 != 2)
           {
             goto LABEL_48;
           }
 
-          v22 = *(v28 + 2);
+          v27 = *(v33 + 2);
 LABEL_58:
-          FreeSipMsg(v27);
-          v27 = v28;
+          FreeSipMsg(v32);
+          v32 = v33;
           v7 = TPSend(*(v5 + 152));
           pthread_mutex_lock((v5 + 24));
           *v5 = v7;
           *(v5 + 4) = 1;
           pthread_cond_signal((v5 + 88));
-          pthread_mutex_unlock((v5 + 24));
-          if (v7 < 0 || (v22 & 0xFFFFFFFE) == 6)
+          v12 = pthread_mutex_unlock((v5 + 24));
+          if (v7 < 0 || (v27 & 0xFFFFFFFE) == 6)
           {
             goto LABEL_68;
           }
 
-          v11 = 2;
-          if ((v22 - 8) <= 0x2C)
+          v15 = 2;
+          if ((v27 - 8) <= 0x2C)
           {
-            v10 = (micro() * 1000000.0) / 0x3E8;
-            v11 = 3;
-            v13 = 32000;
+            v14 = (micro(v12, v13) * 1000000.0) / 0x3E8;
+            v15 = 3;
+            v17 = 32000;
           }
         }
       }
 
       else
       {
-        if (v11 == 4 && *v28 == 3)
+        if (v15 == 4 && *v33 == 3)
         {
           goto LABEL_48;
         }
 
-        v22 = *(v28 + 2);
-        if (v11 == 2)
+        v27 = *(v33 + 2);
+        if (v15 == 2)
         {
-          if (*(v28 + 1) != 1 || v22 != 1)
+          if (*(v33 + 1) != 1 || v27 != 1)
           {
             goto LABEL_58;
           }
@@ -3406,81 +3635,81 @@ LABEL_58:
           goto LABEL_54;
         }
 
-        if (v11 == 3)
+        if (v15 == 3)
         {
-          if (v22 != 1)
+          if (v27 != 1)
           {
-            if (v22 == 2)
+            if (v27 == 2)
             {
-              v10 = (micro() * 1000000.0) / 0x3E8;
-              if (v29)
+              v14 = (micro(v33, v23) * 1000000.0) / 0x3E8;
+              if (v34)
               {
-                v13 = 0;
+                v17 = 0;
               }
 
               else
               {
-                v13 = 5000;
+                v17 = 5000;
               }
 
-              v11 = 4;
-              v19 = v28;
+              v15 = 4;
+              v24 = v33;
             }
 
             else
             {
-              v11 = 3;
+              v15 = 3;
             }
 
             goto LABEL_48;
           }
 
 LABEL_54:
-          FreeSipMsg(v28);
+          FreeSipMsg(v33);
           goto LABEL_55;
         }
 
-        FreeSipMsg(v28);
-        v11 = 4;
+        FreeSipMsg(v33);
+        v15 = 4;
       }
     }
   }
 
-  v15 = (micro() * 1000000.0) / 0x3E8 - v10;
-  v14 = v13 - v15;
-  if (v13 > v15)
+  v19 = (micro(v12, v13) * 1000000.0) / 0x3E8 - v14;
+  v18 = v17 - v19;
+  if (v17 > v19)
   {
-    if (v11 == 3 && v29 != 1)
+    if (v15 == 3 && v34 != 1)
     {
-      v9 = v13 - v15;
-      if (v12 < v14)
+      v11 = v17 - v19;
+      if (v16 < v18)
       {
-        v14 = v12;
+        v18 = v16;
       }
 
-      if (2 * v12 >= *(v5 + 184))
+      if (2 * v16 >= *(v5 + 184))
       {
-        v12 = *(v5 + 184);
+        v16 = *(v5 + 184);
       }
 
       else
       {
-        v12 *= 2;
+        v16 *= 2;
       }
     }
 
     goto LABEL_20;
   }
 
-  if (v11 != 4)
+  if (v15 != 4)
   {
     v7 = -2146435049;
   }
 
 LABEL_68:
-  if (v27)
+  if (v32)
   {
-    FreeSipMsg(v27);
+    FreeSipMsg(v32);
   }
 
   if ((v6 & 0x80000000) == 0)
@@ -3489,22 +3718,22 @@ LABEL_68:
   }
 
   CheckOutHandleDebug();
-  TACloseHandle();
+  TACloseHandle(a1);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v24 = VRTraceErrorLogLevelToCSTR();
-    v25 = *MEMORY[0x1E6986650];
+    v29 = VRTraceErrorLogLevelToCSTR();
+    v30 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v31 = v24;
-      v32 = 2080;
-      v33 = "TAInviteServerProc";
-      v34 = 1024;
-      v35 = 944;
-      v36 = 1024;
-      v37 = v7;
-      _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TAInviteServerProc Thread end(%X)...", buf, 0x22u);
+      v36 = v29;
+      v37 = 2080;
+      v38 = "TAInviteServerProc";
+      v39 = 1024;
+      v40 = 944;
+      v41 = 1024;
+      v42 = v7;
+      _os_log_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TAInviteServerProc Thread end(%X)...", buf, 0x22u);
     }
   }
 
@@ -3513,9 +3742,9 @@ LABEL_68:
 
 uint64_t TANonInviteServerProc(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v27 = -1431655766;
-  v26 = 0xAAAAAAAAAAAAAAAALL;
+  v40 = *MEMORY[0x1E69E9840];
+  v31 = -1431655766;
+  v30 = 0xAAAAAAAAAAAAAAAALL;
   pthread_setname_np("com.apple.avconference.transaction.noninviteserverproc");
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -3524,11 +3753,11 @@ uint64_t TANonInviteServerProc(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v29 = v2;
-      v30 = 2080;
-      v31 = "TANonInviteServerProc";
-      v32 = 1024;
-      v33 = 962;
+      v33 = v2;
+      v34 = 2080;
+      v35 = "TANonInviteServerProc";
+      v36 = 1024;
+      v37 = 962;
       _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TANonInviteServerProc Thread start...", buf, 0x1Cu);
     }
   }
@@ -3552,35 +3781,36 @@ uint64_t TANonInviteServerProc(uint64_t a1)
   v6 = partial apply(*(v4 + 152), 1, *(v4 + 168), TAMsgCallback, a1);
   if (v6 < 0)
   {
-    v7 = v6;
+    v9 = v6;
     goto LABEL_72;
   }
 
-  v7 = TPGetType(*(v5 + 152), &v27);
-  if (v7 < 0)
+  v7 = TPGetType(*(v5 + 152), &v31);
+  v9 = v7;
+  if ((v7 & 0x80000000) != 0)
   {
     goto LABEL_71;
   }
 
-  v8 = 0;
-  v9 = (micro() * 1000000.0) / 0x3E8;
-  v10 = 0xFFFFFFFFLL;
-  v11 = 1;
+  v10 = 0;
+  v13 = (micro(v7, v8) * 1000000.0) / 0x3E8;
+  v14 = 0xFFFFFFFFLL;
+  v15 = 1;
   while (1)
   {
-    v12 = 0xFFFFFFFFLL;
-    if (v10 != 0xFFFFFFFF)
+    v16 = 0xFFFFFFFFLL;
+    if (v14 != 0xFFFFFFFF)
     {
-      v13 = (micro() * 1000000.0) / 0x3E8 - v9;
-      v12 = v10 - v13;
-      if (v10 <= v13)
+      v17 = (micro(v11, v12) * 1000000.0) / 0x3E8 - v13;
+      v16 = v14 - v17;
+      if (v14 <= v17)
       {
-        if (v11 != 3)
+        if (v15 != 3)
         {
-          v7 = -2146435049;
+          v9 = -2146435049;
         }
 
-        if (v8)
+        if (v10)
         {
           goto LABEL_70;
         }
@@ -3589,25 +3819,25 @@ uint64_t TANonInviteServerProc(uint64_t a1)
       }
     }
 
-    v14 = *(v5 + 168);
-    v15 = *(v14 + 272);
-    v16 = v15 ? *v15 : -1;
-    v17 = MQGet(*(v5 + 144), &v26, v12, *(v14 + 8), v16);
-    v7 = v17;
-    if (v17 < 0)
+    v18 = *(v5 + 168);
+    v19 = *(v18 + 272);
+    v20 = v19 ? *v19 : -1;
+    v21 = MQGet(*(v5 + 144), &v30, v16, *(v18 + 8), v20);
+    v9 = v21;
+    if (v21 < 0)
     {
       break;
     }
 
-    v18 = v26;
-    v19 = *v26;
-    if (*v26 == 1)
+    v22 = v30;
+    v23 = *v30;
+    if (*v30 == 1)
     {
-      if (*(v26 + 1) == 1 && *(v26 + 2) == 5)
+      if (*(v30 + 1) == 1 && *(v30 + 2) == 5)
       {
-        FreeSipMsg(v26);
+        FreeSipMsg(v30);
 LABEL_69:
-        if (!v8)
+        if (!v10)
         {
           goto LABEL_71;
         }
@@ -3615,22 +3845,23 @@ LABEL_69:
         goto LABEL_70;
       }
 
-      if (v11 == 3)
+      if (v15 == 3)
       {
         goto LABEL_21;
       }
 
-      v20 = 0;
+      v24 = 0;
 LABEL_22:
-      v21 = *(v26 + 2);
-      if (v11 == 2)
+      v25 = *(v30 + 2);
+      if (v15 == 2)
       {
-        if (v20 && *(v26 + 1) == 1)
+        if (v24 && *(v30 + 1) == 1)
         {
-          FreeSipMsg(v26);
-          v7 = TPSend(*(v5 + 152));
-          v11 = 2;
-          if (v7 < 0)
+          FreeSipMsg(v30);
+          v11 = TPSend(*(v5 + 152));
+          v9 = v11;
+          v15 = 2;
+          if ((v11 & 0x80000000) != 0)
           {
             goto LABEL_69;
           }
@@ -3638,55 +3869,56 @@ LABEL_22:
 
         else
         {
-          FreeSipMsg(v8);
-          v8 = v26;
-          v7 = TPSend(*(v5 + 152));
+          FreeSipMsg(v10);
+          v10 = v30;
+          v9 = TPSend(*(v5 + 152));
           pthread_mutex_lock((v5 + 24));
-          *v5 = v7;
+          *v5 = v9;
           *(v5 + 4) = 1;
           pthread_cond_signal((v5 + 88));
-          pthread_mutex_unlock((v5 + 24));
-          if (v7 < 0)
+          v11 = pthread_mutex_unlock((v5 + 24));
+          if (v9 < 0)
           {
             goto LABEL_69;
           }
 
-          if ((v21 - 6) > 0x2E)
+          if ((v25 - 6) > 0x2E)
           {
-            v11 = 2;
+            v15 = 2;
           }
 
           else
           {
-            v9 = (micro() * 1000000.0) / 0x3E8;
-            if (v27)
+            v13 = (micro(v11, v12) * 1000000.0) / 0x3E8;
+            if (v31)
             {
-              v10 = 0;
+              v14 = 0;
             }
 
             else
             {
-              v10 = 32000;
+              v14 = 32000;
             }
 
 LABEL_43:
-            v11 = 3;
+            v15 = 3;
           }
         }
       }
 
-      else if (v11 == 3)
+      else if (v15 == 3)
       {
-        if (!v20 || *(v26 + 1) != 1)
+        if (!v24 || *(v30 + 1) != 1)
         {
-          FreeSipMsg(v26);
+          FreeSipMsg(v30);
           goto LABEL_43;
         }
 
-        FreeSipMsg(v26);
-        v7 = TPSend(*(v5 + 152));
-        v11 = 3;
-        if (v7 < 0)
+        FreeSipMsg(v30);
+        v11 = TPSend(*(v5 + 152));
+        v9 = v11;
+        v15 = 3;
+        if ((v11 & 0x80000000) != 0)
         {
           goto LABEL_69;
         }
@@ -3694,88 +3926,88 @@ LABEL_43:
 
       else
       {
-        if (v8)
+        if (v10)
         {
-          FreeSipMsg(v8);
-          v18 = v26;
+          FreeSipMsg(v10);
+          v22 = v30;
         }
 
-        v7 = TPSend(*(v5 + 152));
+        v9 = TPSend(*(v5 + 152));
         pthread_mutex_lock((v5 + 24));
-        *v5 = v7;
+        *v5 = v9;
         *(v5 + 4) = 1;
         pthread_cond_signal((v5 + 88));
-        pthread_mutex_unlock((v5 + 24));
-        if (v7 < 0)
+        v11 = pthread_mutex_unlock((v5 + 24));
+        if (v9 < 0)
         {
-          v8 = v18;
-          if (!v18)
+          v10 = v22;
+          if (!v22)
           {
             goto LABEL_71;
           }
 
 LABEL_70:
-          FreeSipMsg(v8);
+          FreeSipMsg(v10);
           goto LABEL_71;
         }
 
-        if ((v21 - 1) >= 5)
+        if ((v25 - 1) >= 5)
         {
-          if ((v21 - 6) > 0x2E)
+          if ((v25 - 6) > 0x2E)
           {
-            v11 = 1;
+            v15 = 1;
           }
 
           else
           {
-            v9 = (micro() * 1000000.0) / 0x3E8;
-            if (v27)
+            v13 = (micro(v11, v12) * 1000000.0) / 0x3E8;
+            if (v31)
             {
-              v10 = 0;
+              v14 = 0;
             }
 
             else
             {
-              v10 = 32000;
+              v14 = 32000;
             }
 
-            v11 = 3;
+            v15 = 3;
           }
         }
 
         else
         {
-          v11 = 2;
+          v15 = 2;
         }
 
-        v8 = v18;
+        v10 = v22;
       }
     }
 
     else
     {
-      v20 = v19 == 3;
-      if (v11 != 1 || v19 != 3)
+      v24 = v23 == 3;
+      if (v15 != 1 || v23 != 3)
       {
         goto LABEL_22;
       }
 
 LABEL_21:
-      FreeSipMsg(v26);
+      FreeSipMsg(v30);
     }
   }
 
-  if (v17 == 23 && v11 == 3)
+  if (v21 == 23 && v15 == 3)
   {
-    v7 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v7 = v17;
+    v9 = v21;
   }
 
-  if (v8)
+  if (v10)
   {
     goto LABEL_70;
   }
@@ -3784,22 +4016,22 @@ LABEL_71:
   TPRemoveTransaction(*(v5 + 152), a1);
 LABEL_72:
   CheckOutHandleDebug();
-  TACloseHandle();
+  TACloseHandle(a1);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v23 = VRTraceErrorLogLevelToCSTR();
-    v24 = *MEMORY[0x1E6986650];
+    v27 = VRTraceErrorLogLevelToCSTR();
+    v28 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v29 = v23;
-      v30 = 2080;
-      v31 = "TANonInviteServerProc";
-      v32 = 1024;
-      v33 = 1127;
-      v34 = 1024;
-      v35 = v7;
-      _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TANonInviteServerProc Thread end(%X)...", buf, 0x22u);
+      v33 = v27;
+      v34 = 2080;
+      v35 = "TANonInviteServerProc";
+      v36 = 1024;
+      v37 = 1127;
+      v38 = 1024;
+      v39 = v9;
+      _os_log_impl(&dword_1DB56E000, v28, OS_LOG_TYPE_DEFAULT, "SIP [%s] %s:%d TANonInviteServerProc Thread end(%X)...", buf, 0x22u);
     }
   }
 
@@ -3880,10 +4112,11 @@ void _VCVideoReceiverDefault_SetExternalOutputLatency(uint64_t a1, double a2)
 {
   if (a1)
   {
-    if (*(a1 + 112) != 0xFFFFFFFFLL)
+    v2 = *(a1 + 112);
+    if (v2 != 0xFFFFFFFFLL)
     {
 
-      VideoReceiver_SetExternalOutputLatency(a2);
+      VideoReceiver_SetExternalOutputLatency(v2, a2);
     }
   }
 
@@ -3897,7 +4130,7 @@ void _VCVideoReceiverDefault_SetExternalOutputLatency(uint64_t a1, double a2)
   }
 }
 
-void _VCVideoReceiverDefault_RemoteFrameCallback(uint64_t a1, __CVBuffer *a2, CMTime *a3, uint64_t a4)
+void _VCVideoReceiverDefault_RemoteFrameCallback(CMTimeEpoch a1, __CVBuffer *a2, CMTime *a3, uint64_t a4)
 {
   v5 = *MEMORY[0x1E69E9840];
   v4 = *a3;
@@ -4034,7 +4267,7 @@ uint64_t _VCVideoReceiverDefault_EndSensitiveContentAnalysisCallback(void *a1)
   return [objc_msgSend(a1 "sensitiveContentAnalyzer")];
 }
 
-void VCVideoReceiverDefault_HandleRemoteFrame(uint64_t a1, CVPixelBufferRef pixelBuffer, CMTime *a3, uint64_t a4)
+void VCVideoReceiverDefault_HandleRemoteFrame(CMTimeEpoch a1, CVPixelBufferRef pixelBuffer, CMTime *a3, uint64_t a4)
 {
   v117 = *MEMORY[0x1E69E9840];
   v107 = 0;
@@ -4149,7 +4382,7 @@ LABEL_11:
       v86 = +[VCVideoCaptureServer VCVideoCaptureServerSingleton];
       if (v86)
       {
-        [v86 localCameraVideoAspectRatios];
+        objc_msgSend_localCameraVideoAspectRatios(v86);
       }
 
       else
@@ -4585,29 +4818,30 @@ BOOL OUTLINED_FUNCTION_7_14()
   return os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 }
 
-void OUTLINED_FUNCTION_8_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_8_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x26u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x26u);
 }
 
-void sub_1DB796640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DB796640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1DB796EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DB796EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4803,28 +5037,28 @@ LABEL_30:
   return v3;
 }
 
-uint64_t EncoderVTCloseHandle()
+uint64_t EncoderVTCloseHandle(uint64_t a1)
 {
-  v0 = CheckInHandleDebug();
-  if (!v0)
+  v1 = CheckInHandleDebug();
+  if (!v1)
   {
     return 2148007938;
   }
 
-  v1 = v0;
+  v2 = v1;
   CheckOutHandleDebug();
-  v2 = v1[2];
-  if (v2)
+  v3 = v2[2];
+  if (v3)
   {
-    VTCompressionSessionInvalidate(v2);
-    v3 = v1[2];
-    if (v3)
+    VTCompressionSessionInvalidate(v3);
+    v4 = v2[2];
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
-  free(v1);
+  free(v2);
   return 0;
 }
 
@@ -5022,10 +5256,11 @@ uint64_t EncoderVTSetEncodingMode()
   return 0;
 }
 
-void OUTLINED_FUNCTION_8_20(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_8_20(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x22u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x22u);
 }
 
 BOOL OUTLINED_FUNCTION_9_16()
@@ -5094,7 +5329,7 @@ void VCConnectionManager_SetPrimaryConnection(uint64_t a1)
   }
 }
 
-void VCConnectionManager_UseCellPrimaryInterface(uint64_t a1, int a2)
+void VCConnectionManager_UseCellPrimaryInterface(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -5426,21 +5661,21 @@ void VCConnectionManager_SetDuplicationEnabledInternal(uint64_t a1, int a2)
   }
 }
 
-void VCConnectionManager_SetPreWarmState(uint64_t a1, int a2)
+void VCConnectionManager_SetPreWarmState(uint64_t result, int a2)
 {
   v22 = *MEMORY[0x1E69E9840];
-  if (a1)
+  if (result)
   {
-    if (*(a1 + 501) != a2)
+    if (*(result + 501) != a2)
     {
-      *(a1 + 501) = a2;
+      *(result + 501) = a2;
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
         v3 = VRTraceErrorLogLevelToCSTR();
         v4 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v5 = *(a1 + 501);
+          v5 = *(result + 501);
           v6 = "not";
           v7 = "Stop";
           *buf = 136316418;
@@ -5469,11 +5704,11 @@ void VCConnectionManager_SetPreWarmState(uint64_t a1, int a2)
         }
       }
 
-      pthread_rwlock_wrlock((a1 + 104));
-      VCConnectionManager_SetActiveLinkProbingEnabled(a1, *(a1 + 501));
-      VCConnectionManager_AlertStateUpdated(a1, *(a1 + 501), 1);
-      pthread_rwlock_unlock((a1 + 104));
-      v9 = [MEMORY[0x1E696AD98] numberWithBool:{*(a1 + 501), @"WRMLocAlrtUpdate"}];
+      pthread_rwlock_wrlock((result + 104));
+      VCConnectionManager_SetActiveLinkProbingEnabled(result, *(result + 501));
+      VCConnectionManager_AlertStateUpdated(result, *(result + 501), 1);
+      pthread_rwlock_unlock((result + 104));
+      v9 = [MEMORY[0x1E696AD98] numberWithBool:{*(result + 501), @"WRMLocAlrtUpdate"}];
       [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
       reportingGenericEvent();
     }
@@ -5577,13 +5812,13 @@ uint64_t VCConnectionManager_ProcessWRMNotification(uint64_t a1, _DWORD *a2)
   if (!a1)
   {
     VCConnectionManager_ProcessWRMNotification_cold_2();
-    return v10;
+    return v13;
   }
 
   if (!a2)
   {
     VCConnectionManager_ProcessWRMNotification_cold_1();
-    return v10;
+    return v13;
   }
 
   v3 = VCWRMHandler_ProcessLocalWRMNotification(*(a1 + 624), a2, *(a1 + 680));
@@ -5595,24 +5830,24 @@ uint64_t VCConnectionManager_ProcessWRMNotification(uint64_t a1, _DWORD *a2)
   if (v3 != 1)
   {
     v4 = off_1EDBDA650(a1, 1, 1);
-    pthread_rwlock_wrlock((a1 + 104));
-    v5 = micro();
-    v6 = [*(a1 + 624) localWRMLinkTypeSuggestion];
-    v7 = 256;
+    v5 = pthread_rwlock_wrlock((a1 + 104));
+    v7 = micro(v5, v6);
+    v8 = [*(a1 + 624) localWRMLinkTypeSuggestion];
+    v9 = 256;
     if (!v4)
     {
-      v7 = 0;
+      v9 = 0;
     }
 
-    v8 = 4;
-    if (v6 == 1)
+    v10 = 4;
+    if (v8 == 1)
     {
-      v8 = 5;
+      v10 = 5;
     }
 
-    if (_VCConnectionManager_ProcessDuplicationStateUpdateEvent(a1, v8 | v7, 0, 0, ((v5 - *(a1 + 528)) * 1000.0), v4 ^ 1u, 1) >> 32 == 2)
+    if (_VCConnectionManager_ProcessDuplicationStateUpdateEvent(a1, v10 | v9, 0, 0, ((v7 - *(a1 + 528)) * 1000.0), v4 ^ 1u, 1) >> 32 == 2)
     {
-      VCWRMHandler_UpdateWRMNotificationRequestTime(*(a1 + 624), v5);
+      VCWRMHandler_UpdateWRMNotificationRequestTime(*(a1 + 624), v11, v7);
     }
 
     pthread_rwlock_unlock((a1 + 104));
@@ -5626,7 +5861,7 @@ uint64_t VCConnectionManager_SetWRMNotification(uint64_t a1, __int128 *a2)
   v12 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    v2 = off_1EDBDA648;
+    v2 = off_1EDBDA648[0];
 
     return v2(a1, a2);
   }
@@ -5653,7 +5888,7 @@ uint64_t VCConnectionManager_SetWRMNotification(uint64_t a1, __int128 *a2)
   }
 }
 
-uint64_t VCConnectionManager_IsInterfaceOnCellularForActiveConnectionWithQuality(uint64_t a1, int a2, int a3)
+uint64_t VCConnectionManager_IsInterfaceOnCellularForActiveConnectionWithQuality(uint64_t a1, uint64_t a2, int a3)
 {
   v13 = *MEMORY[0x1E69E9840];
   if (a1)
@@ -5756,7 +5991,7 @@ uint64_t VCConnectionManager_GetNumberOfConnectionsInternal(uint64_t (**a1)(void
   }
 }
 
-uint64_t VCConnectionManager_CopyConnectionForQuality(uint64_t a1, int a2)
+const void *VCConnectionManager_CopyConnectionForQuality(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -5773,11 +6008,12 @@ uint64_t VCConnectionManager_CopyConnectionForQuality(uint64_t a1, int a2)
   }
 }
 
-void VCConnectionManager_UpdateTransmittedPacketsAndBytes(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7)
+void VCConnectionManager_UpdateTransmittedPacketsAndBytes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7)
 {
   v24 = *MEMORY[0x1E69E9840];
   if (a1)
   {
+    v10 = a4;
     _VCConnectionManager_UpdateCellularExcessiveBytes(a1, a2, a3, a4, 1);
     if (*a2 == 4)
     {
@@ -5787,7 +6023,7 @@ void VCConnectionManager_UpdateTransmittedPacketsAndBytes(uint64_t a1, uint64_t 
         (*(a1 + 56))(a1, v14, a3, a6, a7, 1);
       }
 
-      if (a4)
+      if (v10)
       {
         v15 = *(a1 + 64);
 
@@ -6125,120 +6361,130 @@ CFStringRef VCConnectionManager_CopySuggestedLinkTypeCombo(uint64_t a1)
   }
 }
 
-void _VCConnectionManagerNWConnectionStatisticsCallback(uint64_t a1, uint64_t a2)
+void _VCConnectionManagerNWConnectionStatisticsCallback(uint64_t a1, __int128 *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if ((*(a1 + 2954) & 1) == 0)
     {
-      if (VRTraceGetErrorLogLevelForModule() >= 8)
+      ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+      if (ErrorLogLevelForModule >= 8)
       {
-        v4 = VRTraceErrorLogLevelToCSTR();
-        v5 = *MEMORY[0x1E6986650];
-        v6 = *MEMORY[0x1E6986650];
+        v6 = VRTraceErrorLogLevelToCSTR();
+        v7 = *MEMORY[0x1E6986650];
+        v8 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+          ErrorLogLevelForModule = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+          if (ErrorLogLevelForModule)
           {
-            v7 = *(a2 + 8);
-            LODWORD(v28[0]) = 136315906;
-            *(v28 + 4) = v4;
-            WORD6(v28[0]) = 2080;
-            *(v28 + 14) = "_VCConnectionManagerNWConnectionStatisticsCallback";
-            WORD3(v28[1]) = 1024;
-            DWORD2(v28[1]) = 1788;
-            WORD6(v28[1]) = 2048;
-            *(&v28[1] + 14) = v7;
-            _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCNWConnectionNotification timestamp=%llu", v28, 0x26u);
+            v9 = *(a2 + 1);
+            LODWORD(v32[0]) = 136315906;
+            *(v32 + 4) = v6;
+            WORD6(v32[0]) = 2080;
+            *(v32 + 14) = "_VCConnectionManagerNWConnectionStatisticsCallback";
+            WORD3(v32[1]) = 1024;
+            DWORD2(v32[1]) = 1788;
+            WORD6(v32[1]) = 2048;
+            *(&v32[1] + 14) = v9;
+            _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCNWConnectionNotification timestamp=%llu", v32, 0x26u);
           }
         }
 
-        else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        else
         {
-          _VCConnectionManagerNWConnectionStatisticsCallback_cold_1(v4, a2, v5);
+          ErrorLogLevelForModule = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+          if (ErrorLogLevelForModule)
+          {
+            _VCConnectionManagerNWConnectionStatisticsCallback_cold_1(v6, a2, v7);
+          }
         }
       }
 
       if (*(a2 + 2) == 2)
       {
-        v29 = 0;
-        memset(v28, 0, sizeof(v28));
-        *(&v28[0] + 1) = micro();
-        v8 = *(a2 + 112);
-        *(&v28[7] + 8) = *(a2 + 96);
-        *(&v28[8] + 8) = v8;
-        v9 = *(a2 + 144);
-        *(&v28[9] + 8) = *(a2 + 128);
-        *(&v28[10] + 8) = v9;
-        v10 = *(a2 + 48);
-        *(&v28[3] + 8) = *(a2 + 32);
-        *(&v28[4] + 8) = v10;
-        v11 = *(a2 + 80);
-        *(&v28[5] + 8) = *(a2 + 64);
-        *(&v28[6] + 8) = v11;
-        v12 = *(a2 + 16);
-        *(&v28[1] + 8) = *a2;
-        LODWORD(v28[0]) = 12;
-        *(&v28[2] + 8) = v12;
-        AVCStatisticsCollector_SetVCStatistics(*(a1 + 2944), v28);
+        v33 = 0;
+        memset(v32, 0, sizeof(v32));
+        *(&v32[0] + 1) = micro(ErrorLogLevelForModule, v5);
+        v10 = a2[7];
+        *(&v32[7] + 8) = a2[6];
+        *(&v32[8] + 8) = v10;
+        v11 = a2[9];
+        *(&v32[9] + 8) = a2[8];
+        *(&v32[10] + 8) = v11;
+        v12 = a2[3];
+        *(&v32[3] + 8) = a2[2];
+        *(&v32[4] + 8) = v12;
+        v13 = a2[5];
+        *(&v32[5] + 8) = a2[4];
+        *(&v32[6] + 8) = v13;
+        v14 = a2[1];
+        *(&v32[1] + 8) = *a2;
+        LODWORD(v32[0]) = 12;
+        *(&v32[2] + 8) = v14;
+        AVCStatisticsCollector_SetVCStatistics(*(a1 + 2944), v32);
         return;
       }
 
-      v29 = 0;
-      memset(v28, 0, sizeof(v28));
-      *(&v28[0] + 1) = micro();
-      LODWORD(v28[0]) = 11;
-      v13 = *(a2 + 80);
-      *(&v28[7] + 8) = *(a2 + 96);
-      v14 = *(a2 + 128);
-      *(&v28[8] + 8) = *(a2 + 112);
-      *(&v28[9] + 8) = v14;
-      *(&v28[10] + 8) = *(a2 + 144);
-      v15 = *(a2 + 16);
-      *(&v28[3] + 8) = *(a2 + 32);
-      v16 = *(a2 + 64);
-      *(&v28[4] + 8) = *(a2 + 48);
-      *(&v28[5] + 8) = v16;
-      *(&v28[6] + 8) = v13;
-      v17 = *(a2 + 16);
-      *(&v28[1] + 8) = *a2;
-      v18 = *a2;
-      *(&v28[2] + 8) = v17;
-      *(a1 + 2992) = v15;
-      *(a1 + 2976) = v18;
-      v19 = *(a2 + 32);
-      v20 = *(a2 + 48);
-      v21 = *(a2 + 64);
-      *(a1 + 3056) = *(a2 + 80);
-      *(a1 + 3040) = v21;
-      *(a1 + 3024) = v20;
-      *(a1 + 3008) = v19;
-      v22 = *(a2 + 96);
-      v23 = *(a2 + 112);
-      v24 = *(a2 + 128);
-      *(a1 + 3120) = *(a2 + 144);
-      *(a1 + 3104) = v24;
-      *(a1 + 3088) = v23;
-      *(a1 + 3072) = v22;
-      AVCStatisticsCollector_SetVCStatistics(*(a1 + 2944), v28);
-      VCNetworkConditionMonitor_SetWiFiChannelQualityScore(*(a1 + 824), SBYTE12(v28[6]));
+      v33 = 0;
+      memset(v32, 0, sizeof(v32));
+      *(&v32[0] + 1) = micro(ErrorLogLevelForModule, v5);
+      LODWORD(v32[0]) = 11;
+      v15 = a2[5];
+      *(&v32[7] + 8) = a2[6];
+      v16 = a2[8];
+      *(&v32[8] + 8) = a2[7];
+      *(&v32[9] + 8) = v16;
+      *(&v32[10] + 8) = a2[9];
+      v17 = a2[1];
+      *(&v32[3] + 8) = a2[2];
+      v18 = a2[4];
+      *(&v32[4] + 8) = a2[3];
+      *(&v32[5] + 8) = v18;
+      *(&v32[6] + 8) = v15;
+      v19 = a2[1];
+      *(&v32[1] + 8) = *a2;
+      v20 = *a2;
+      *(&v32[2] + 8) = v19;
+      *(a1 + 2992) = v17;
+      *(a1 + 2976) = v20;
+      v21 = a2[2];
+      v22 = a2[3];
+      v23 = a2[4];
+      *(a1 + 3056) = a2[5];
+      *(a1 + 3040) = v23;
+      *(a1 + 3024) = v22;
+      *(a1 + 3008) = v21;
+      v24 = a2[6];
+      v25 = a2[7];
+      v26 = a2[8];
+      *(a1 + 3120) = a2[9];
+      *(a1 + 3104) = v26;
+      *(a1 + 3088) = v25;
+      *(a1 + 3072) = v24;
+      AVCStatisticsCollector_SetVCStatistics(*(a1 + 2944), v32);
+      VCNetworkConditionMonitor_SetWiFiChannelQualityScore(*(a1 + 824), SBYTE12(v32[6]));
       if ([a1 useMediaDrivenDuplication])
       {
-        v25 = VCConnectionSelector_CopyPrimaryConnection(*(a1 + 640));
-        v26 = v25;
+        v27 = VCConnectionSelector_CopyPrimaryConnection(*(a1 + 640));
+        v28 = v27;
         if (*(a2 + 73) == 1 && *(a2 + 92) != 1)
         {
           IsLocalOnWiFi = 0;
-          if (!v25)
+          if (!v27)
           {
 LABEL_19:
-            if (IsLocalOnWiFi && ([*(a1 + 632) allowDuplication] & 1) == 0)
+            if (IsLocalOnWiFi)
             {
-              *(a1 + 3184) = 1;
-              if (*(a1 + 672) != 0.0)
+              v30 = [*(a1 + 632) allowDuplication];
+              if ((v30 & 1) == 0)
               {
-                *(a1 + 672) = micro();
+                *(a1 + 3184) = 1;
+                if (*(a1 + 672) != 0.0)
+                {
+                  *(a1 + 672) = micro(v30, v31);
+                }
               }
             }
 
@@ -6249,14 +6495,14 @@ LABEL_19:
 
         else
         {
-          IsLocalOnWiFi = VCConnection_IsLocalOnWiFi(v25);
-          if (!v26)
+          IsLocalOnWiFi = VCConnection_IsLocalOnWiFi(v27);
+          if (!v28)
           {
             goto LABEL_19;
           }
         }
 
-        CFRelease(v26);
+        CFRelease(v28);
         goto LABEL_19;
       }
     }
@@ -6387,7 +6633,7 @@ LABEL_11:
   dispatch_async(v15, v16);
 }
 
-uint64_t _VCConnectionManager_CopyConnectionForQualityInternal(void *a1, int a2)
+const void *_VCConnectionManager_CopyConnectionForQualityInternal(void *a1, uint64_t a2)
 {
   if (a2 == 1)
   {
@@ -6420,35 +6666,35 @@ uint64_t _VCConnectionManager_CopyConnectionForQualityInternal(void *a1, int a2)
   return VCConnectionManager_CopyPrimaryConnection(a1);
 }
 
-void sub_1DB7A1558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1DB7A1558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-_BYTE *VCConnectionManager_CreatePacketRoutingInfoList(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+_BYTE *VCConnectionManager_CreatePacketRoutingInfoList(uint64_t updated, unsigned __int8 *a2, uint64_t a3)
 {
   v60 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  if (!updated)
   {
     VCConnectionManager_CreatePacketRoutingInfoList_cold_5();
     return *block;
   }
 
-  if (*(a1 + 497) == 1)
+  if (*(updated + 497) == 1)
   {
-    if (*(a1 + 3408) == 1)
+    if (*(updated + 3408) == 1)
     {
-      VCConnectionHealthMonitor_UpdateReceiveStats(*(a1 + 520));
+      VCConnectionHealthMonitor_UpdateReceiveStats(*(updated + 520), a2);
     }
 
-    v6 = micro();
-    v7 = off_1EDBDA650(a1, 1, 1);
-    if (v6 - *(a1 + 664) >= 1.0)
+    v6 = micro(updated, a2);
+    v7 = off_1EDBDA650(updated, 1, 1);
+    if (v6 - *(updated + 664) >= 1.0)
     {
       v8 = v7;
-      if (VCWRMHandler_ShouldForceWRMRecommendationUsingUserDefaults(*(a1 + 624)))
+      if (VCWRMHandler_ShouldForceWRMRecommendationUsingUserDefaults(*(updated + 624)))
       {
         v59 = 0;
         v58 = 0u;
@@ -6460,7 +6706,7 @@ _BYTE *VCConnectionManager_CreatePacketRoutingInfoList(uint64_t a1, unsigned __i
         v52 = 0u;
         v51 = 0u;
         *&block[8] = 0u;
-        if (*(a1 + 680))
+        if (*(updated + 680))
         {
           v9 = 1;
         }
@@ -6471,87 +6717,87 @@ _BYTE *VCConnectionManager_CreatePacketRoutingInfoList(uint64_t a1, unsigned __i
         }
 
         *block = v9;
-        *&block[4] = [*(a1 + 624) localWRMLinkTypeSuggestion];
-        off_1EDBDA648(a1, block);
+        *&block[4] = [*(updated + 624) localWRMLinkTypeSuggestion];
+        (off_1EDBDA648[0])(updated, block);
       }
 
       IntValueForKey = VCDefaults_GetIntValueForKey(@"localWRMAlert", 0xFFFFFFFFLL);
       if (IntValueForKey != -1)
       {
         v11 = IntValueForKey;
-        if (IntValueForKey != *(a1 + 760))
+        if (IntValueForKey != *(updated + 760))
         {
-          VCConnectionManager_SetPreWarmState(a1, IntValueForKey != 0);
-          *(a1 + 760) = v11;
+          VCConnectionManager_SetPreWarmState(updated, IntValueForKey != 0);
+          *(updated + 760) = v11;
         }
       }
 
-      _VCConnectionManager_ChecklocalRATTypeOverrideDefaultValue(a1, v8);
-      pthread_rwlock_rdlock((a1 + 104));
-      v12 = *(a1 + 624);
-      v13 = VCDuplicationHandler_DuplicationReason(*(a1 + 632));
-      if (VCWRMHandler_ShouldRequestWRMNotificationWithDuplicationReason(v12, v13, [a1 isDuplicationEnabled], v8, v6))
+      _VCConnectionManager_ChecklocalRATTypeOverrideDefaultValue(updated, v8);
+      pthread_rwlock_rdlock((updated + 104));
+      v12 = *(updated + 624);
+      v13 = VCDuplicationHandler_DuplicationReason(*(updated + 632));
+      if (VCWRMHandler_ShouldRequestWRMNotificationWithDuplicationReason(v12, v13, [updated isDuplicationEnabled], v8, v6))
       {
-        v14 = *(a1 + 480);
+        v14 = *(updated + 480);
         *block = MEMORY[0x1E69E9820];
         *&block[8] = 3221225472;
         *&block[16] = ___VCConnectionManager_RequestWRMNotification_block_invoke;
         *&v51 = &unk_1E85F3778;
-        *(&v51 + 1) = a1;
+        *(&v51 + 1) = updated;
         dispatch_async(v14, block);
       }
 
-      pthread_rwlock_unlock((a1 + 104));
-      *(a1 + 664) = v6;
-      if (*(a1 + 3181) == 1)
+      pthread_rwlock_unlock((updated + 104));
+      *(updated + 664) = v6;
+      if (*(updated + 3181) == 1)
       {
-        v15 = *(a1 + 448);
+        v15 = *(updated + 448);
         *block = MEMORY[0x1E69E9820];
         *&block[8] = 3221225472;
         *&block[16] = ___VCConnectionManager_GetAndLogSignalStrength_block_invoke;
         *&v51 = &unk_1E85F3778;
-        *(&v51 + 1) = a1;
+        *(&v51 + 1) = updated;
         dispatch_async(v15, block);
       }
 
-      if (*(a1 + 824))
+      if (*(updated + 824))
       {
-        v16 = *(a1 + 3480);
-        if (v16 > 0.0 && v6 - v16 > *(a1 + 3472))
+        v16 = *(updated + 3480);
+        if (v16 > 0.0 && v6 - v16 > *(updated + 3472))
         {
-          v17 = *(a1 + 480);
+          v17 = *(updated + 480);
           v49[0] = MEMORY[0x1E69E9820];
           v49[1] = 3221225472;
           v49[2] = __VCConnectionManager_CreatePacketRoutingInfoList_block_invoke;
           v49[3] = &unk_1E85F3778;
-          v49[4] = a1;
+          v49[4] = updated;
           dispatch_async(v17, v49);
         }
       }
     }
   }
 
-  pthread_rwlock_rdlock((a1 + 104));
+  pthread_rwlock_rdlock((updated + 104));
   if (!a2)
   {
     PacketRoutingInfoListForConnection = 0;
     goto LABEL_103;
   }
 
-  v18 = (*(a1 + 40))(a1);
+  v18 = (*(updated + 40))(updated);
   v19 = v18;
-  if ((a2[1] & 1) == 0 && *(a1 + 640) && VCConnection_IsEndToEndLink(v18) && [*(a1 + 640) serverLinks])
+  if ((a2[1] & 1) == 0 && *(updated + 640) && VCConnection_IsEndToEndLink(v18) && [*(updated + 640) serverLinks])
   {
     if (v19)
     {
       CFRelease(v19);
     }
 
-    v20 = [*(a1 + 640) serverLinks];
+    v20 = [*(updated + 640) serverLinks];
     if (!v20)
     {
 LABEL_35:
-      if (objc_opt_class() == a1)
+      if (objc_opt_class() == updated)
       {
         if (VRTraceGetErrorLogLevelForModule() < 5)
         {
@@ -6580,7 +6826,7 @@ LABEL_35:
       {
         if (objc_opt_respondsToSelector())
         {
-          v22 = [a1 performSelector:sel_logPrefix];
+          v22 = [updated performSelector:sel_logPrefix];
         }
 
         else
@@ -6609,7 +6855,7 @@ LABEL_35:
         WORD2(v51) = 2112;
         *(&v51 + 6) = v22;
         HIWORD(v51) = 2048;
-        *&v52 = a1;
+        *&v52 = updated;
         v26 = " [%s] %s:%d %@(%p) Primary connection should not be nil";
         v27 = v30;
         v28 = 48;
@@ -6631,9 +6877,9 @@ LABEL_50:
     goto LABEL_35;
   }
 
-  if ((*(a1 + 3464) & 1) == 0 && !VCConnection_IsRelay(v19))
+  if ((*(updated + 3464) & 1) == 0 && !VCConnection_IsRelay(v19))
   {
-    if (objc_opt_class() == a1)
+    if (objc_opt_class() == updated)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
@@ -6649,7 +6895,7 @@ LABEL_50:
     {
       if (objc_opt_respondsToSelector())
       {
-        v23 = [a1 performSelector:sel_logPrefix];
+        v23 = [updated performSelector:sel_logPrefix];
       }
 
       else
@@ -6672,7 +6918,7 @@ LABEL_50:
           WORD2(v51) = 2112;
           *(&v51 + 6) = v23;
           HIWORD(v51) = 2048;
-          *&v52 = a1;
+          *&v52 = updated;
           _os_log_error_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) p2p link cannot be used as primary", block, 0x30u);
         }
       }
@@ -6681,29 +6927,29 @@ LABEL_50:
     goto LABEL_50;
   }
 
-  PacketRoutingInfoListForConnection = _VCConnectionManager_CreatePacketRoutingInfoListForConnection(v19, a1, a2, a3);
+  PacketRoutingInfoListForConnection = _VCConnectionManager_CreatePacketRoutingInfoListForConnection(v19, updated, a2, a3);
 LABEL_51:
-  if (*(a1 + 497) == 1)
+  if (*(updated + 497) == 1)
   {
     v31 = *a2;
-    if (VCDuplicationHandler_IsDuplicationEnabled(*(a1 + 632)) || [*(a1 + 504) isAvailable] && v31 && *(a1 + 747) == 1)
+    if (VCDuplicationHandler_IsDuplicationEnabled(*(updated + 632)) || [*(updated + 504) isAvailable] && v31 && *(updated + 747) == 1)
     {
-      v32 = [a1 connectionForDuplication];
+      v32 = [updated connectionForDuplication];
       if (!v32)
       {
-        v32 = [a1 secondaryConnection];
+        v32 = [updated secondaryConnection];
       }
 
       if ((a2[1] & 1) == 0)
       {
-        if (*(a1 + 640))
+        if (*(updated + 640))
         {
           if (VCConnection_IsEndToEndLink(v32))
           {
-            [*(a1 + 640) serverLinks];
+            [*(updated + 640) serverLinks];
             if (v33)
             {
-              [*(a1 + 640) serverLinks];
+              [*(updated + 640) serverLinks];
               v32 = v34;
             }
           }
@@ -6712,9 +6958,9 @@ LABEL_51:
 
       if (v32)
       {
-        if ((*(a1 + 3464) & 1) != 0 || VCConnection_IsRelay(v32))
+        if ((*(updated + 3464) & 1) != 0 || VCConnection_IsRelay(v32))
         {
-          v35 = _VCConnectionManager_CreatePacketRoutingInfoListForConnection(v32, a1, a2, a3);
+          v35 = _VCConnectionManager_CreatePacketRoutingInfoListForConnection(v32, updated, a2, a3);
           if (PacketRoutingInfoListForConnection)
           {
             *(PacketRoutingInfoListForConnection + 16) = v35;
@@ -6733,7 +6979,7 @@ LABEL_51:
           }
         }
 
-        else if (objc_opt_class() == a1)
+        else if (objc_opt_class() == updated)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 3)
           {
@@ -6749,7 +6995,7 @@ LABEL_51:
         {
           if (objc_opt_respondsToSelector())
           {
-            v37 = [a1 performSelector:sel_logPrefix];
+            v37 = [updated performSelector:sel_logPrefix];
           }
 
           else
@@ -6772,7 +7018,7 @@ LABEL_51:
               WORD2(v51) = 2112;
               *(&v51 + 6) = v37;
               HIWORD(v51) = 2048;
-              *&v52 = a1;
+              *&v52 = updated;
               _os_log_error_impl(&dword_1DB56E000, v41, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) p2p link cannot be used for duplication", block, 0x30u);
             }
           }
@@ -6781,7 +7027,7 @@ LABEL_51:
     }
   }
 
-  if (a2[2] == 1 && a2[1] == 1 && [*(a1 + 640) serverLinks])
+  if (a2[2] == 1 && a2[1] == 1 && [*(updated + 640) serverLinks])
   {
     if (PacketRoutingInfoListForConnection)
     {
@@ -6804,7 +7050,7 @@ LABEL_51:
         v44 = *(v42 + 16);
         *(v44 + 112) = 0;
         *v44 = 0;
-        v45 = [*(a1 + 640) serverLinks];
+        v45 = [*(updated + 640) serverLinks];
         v46 = *(v42 + 16) + 8;
 LABEL_100:
         VCConnection_SourceDestinationInfo(v45, v46);
@@ -6823,7 +7069,7 @@ LABEL_100:
         *(v47 + 128) = 0;
         *(v47 + 112) = 0;
         *v47 = 0;
-        v45 = [*(a1 + 640) serverLinks];
+        v45 = [*(updated + 640) serverLinks];
         v46 = (PacketRoutingInfoListForConnection + 8);
         goto LABEL_100;
       }
@@ -6848,7 +7094,7 @@ LABEL_102:
   }
 
 LABEL_103:
-  pthread_rwlock_unlock((a1 + 104));
+  pthread_rwlock_unlock((updated + 104));
   return PacketRoutingInfoListForConnection;
 }
 
@@ -7149,11 +7395,11 @@ uint64_t VCConnectionManager_CopyConnection(uint64_t a1, uint64_t a2, uint64_t a
   }
 }
 
-void VCConnectionManager_UpdateConnectionHealthWithIndicator(uint64_t a1, int a2, int a3, int a4)
+void VCConnectionManager_UpdateConnectionHealthWithIndicator(uint64_t result, uint64_t a2, int a3, int a4)
 {
-  if (*(a1 + 3408) == 1)
+  if (*(result + 3408) == 1)
   {
-    VCConnectionHealthMonitor_ReceivePacket(*(a1 + 520), a2, a3, a4);
+    VCConnectionHealthMonitor_ReceivePacket(*(result + 520), a2, a3, a4);
   }
 }
 
@@ -7221,18 +7467,18 @@ uint64_t VCConnectionManager_AreAllLinkProbingTriggersInactive(uint64_t a1)
   }
 }
 
-void VCConnectionManager_UpdatePacketSendStatus(uint64_t a1, int a2)
+void VCConnectionManager_UpdatePacketSendStatus(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      v2 = (a1 + 3432);
+      v2 = (result + 3432);
     }
 
     else
     {
-      v2 = (a1 + 3436);
+      v2 = (result + 3436);
     }
 
     atomic_fetch_add(v2, 1u);
@@ -7244,11 +7490,11 @@ void VCConnectionManager_UpdatePacketSendStatus(uint64_t a1, int a2)
   }
 }
 
-void VCConnectionManager_UpdateOnTheWireBytesSentCount(uint64_t a1, unint64_t a2)
+void VCConnectionManager_UpdateOnTheWireBytesSentCount(uint64_t result, unint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    atomic_fetch_add((a1 + 3440), a2);
+    atomic_fetch_add((result + 3440), a2);
   }
 
   else
@@ -7257,11 +7503,11 @@ void VCConnectionManager_UpdateOnTheWireBytesSentCount(uint64_t a1, unint64_t a2
   }
 }
 
-void VCConnectionManager_UpdateOnTheWireBytesReceivedCount(uint64_t a1, unint64_t a2)
+void VCConnectionManager_UpdateOnTheWireBytesReceivedCount(uint64_t result, unint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    atomic_fetch_add((a1 + 3448), a2);
+    atomic_fetch_add((result + 3448), a2);
   }
 
   else
@@ -7272,7 +7518,7 @@ void VCConnectionManager_UpdateOnTheWireBytesReceivedCount(uint64_t a1, unint64_
 
 void _VCConnectionManager_UseCellPrimaryInterfaceInternal(uint64_t a1, int a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v4 = *(a1 + 746);
@@ -7281,22 +7527,22 @@ void _VCConnectionManager_UseCellPrimaryInterfaceInternal(uint64_t a1, int a2)
     {
       if (ErrorLogLevelForModule >= 6)
       {
-        v6 = VRTraceErrorLogLevelToCSTR();
-        v7 = *MEMORY[0x1E6986650];
+        v7 = VRTraceErrorLogLevelToCSTR();
+        v8 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v8 = *(a1 + 92);
-          v9 = 136316162;
-          v10 = v6;
-          v11 = 2080;
-          v12 = "_VCConnectionManager_UseCellPrimaryInterfaceInternal";
-          v13 = 1024;
-          v14 = 2766;
-          v15 = 1024;
-          v16 = v8;
-          v17 = 1024;
-          v18 = a2;
-          _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d callID = %u, network status bar request, useCellPrimayInterface = %d", &v9, 0x28u);
+          v9 = *(a1 + 92);
+          v10 = 136316162;
+          v11 = v7;
+          v12 = 2080;
+          v13 = "_VCConnectionManager_UseCellPrimaryInterfaceInternal";
+          v14 = 1024;
+          v15 = 2766;
+          v16 = 1024;
+          v17 = v9;
+          v18 = 1024;
+          v19 = a2;
+          _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d callID = %u, network status bar request, useCellPrimayInterface = %d", &v10, 0x28u);
         }
       }
 
@@ -7305,12 +7551,12 @@ void _VCConnectionManager_UseCellPrimaryInterfaceInternal(uint64_t a1, int a2)
         *(a1 + 512) = a2;
         if (a2)
         {
-          VCNetworkAgentCell_AddCellularAssertion();
+          VCNetworkAgentCell_AddCellularAssertion(v6);
         }
 
         else
         {
-          VCNetworkAgentCell_RemoveCellularAssertion();
+          VCNetworkAgentCell_RemoveCellularAssertion(v6);
         }
       }
     }
@@ -7617,7 +7863,7 @@ LABEL_8:
   return VCConnectionManager_ProcessWRMNotification(a1, a2);
 }
 
-uint64_t _VCConnectionManager_IsInterfaceOnCellularForActiveConnectionWithQuality(uint64_t a1, int a2, int a3)
+uint64_t _VCConnectionManager_IsInterfaceOnCellularForActiveConnectionWithQuality(uint64_t a1, uint64_t a2, int a3)
 {
   v4 = VCConnectionManager_CopyConnectionForQuality(a1, a2);
   if (!v4)
@@ -7741,7 +7987,7 @@ LABEL_7:
   v14 = *(a1 + 68);
   v20 = a3 / a2;
   v15 = VCTimescalePSOLA_DivW32W16ResW16(a2, 8000);
-  VCTimescalePSOLA_MemSetW16(a1, 0, 17344);
+  VCTimescalePSOLA_MemSetW16(a1, 0, 0x43C0u);
   *(a1 + 2) = v10;
   *(a1 + 34664) = a3;
   *(a1 + 56) = 5 * v15;
@@ -8278,7 +8524,7 @@ const void *_VCImageQueue_GetImageQueueAtIndex(uint64_t a1, CFIndex a2)
   }
 }
 
-uint64_t VCImageQueue_setCALayerSize(uint64_t a1, uint64_t a2)
+uint64_t VCImageQueue_setCALayerSize(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6)
 {
   [MEMORY[0x1E6979518] begin];
   [MEMORY[0x1E6979518] setDisableActions:1];
@@ -8422,7 +8668,7 @@ void VCImageQueue_EnqueueAttributes(uint64_t a1, const void *a2)
       v15 = xmmword_1DBD49550;
       *buf = xmmword_1DBD49510;
       *&buf[16] = unk_1DBD49520;
-      [v5 currentDetails];
+      objc_msgSend_currentDetails(v5);
       *(&v15 + 1) = *(a1 + 24);
       buf[1] = *(a1 + 456);
       v9[2] = *&buf[32];
@@ -8468,7 +8714,7 @@ void VCImageQueue_EnqueueAttributes(uint64_t a1, const void *a2)
   }
 }
 
-uint64_t _VCImageQueue_ApplyPreviewLayerTransforms(uint64_t result, int a2)
+uint64_t _VCImageQueue_ApplyPreviewLayerTransforms(uint64_t result, uint64_t a2)
 {
   v50 = *MEMORY[0x1E69E9840];
   if (*(result + 184))
@@ -8476,6 +8722,7 @@ uint64_t _VCImageQueue_ApplyPreviewLayerTransforms(uint64_t result, int a2)
     v2 = result;
     if (*(result + 456) == 1)
     {
+      v3 = a2;
       v46 = 0;
       if (VRTraceGetErrorLogLevelForModule() >= 6)
       {
@@ -8753,7 +9000,7 @@ LABEL_20:
         v41 = *&v45.m23;
         *(v2 + 256) = *&v45.m21;
         *(v2 + 272) = v41;
-        return _VCImageQueue_applyLayerTransforms(v2, a2);
+        return _VCImageQueue_applyLayerTransforms(v2, v3);
       }
     }
   }
@@ -9144,35 +9391,35 @@ LABEL_55:
 
 void *_VCImageQueue_DrawOverlayMessage(uint64_t a1, __CVBuffer *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   result = *(a1 + 144);
   if (result)
   {
-    v15 = 0xAAAAAAAAAAAAAAAALL;
-    v12 = xmmword_1DBD49530;
-    v13 = unk_1DBD49540;
-    v14 = xmmword_1DBD49550;
-    v10 = xmmword_1DBD49510;
-    v11 = unk_1DBD49520;
-    [result currentDetails];
-    _VCImageQueue_AverageFrameRate(a1);
-    if (v5 <= 0.0)
+    v16 = 0xAAAAAAAAAAAAAAAALL;
+    v13 = xmmword_1DBD49530;
+    v14 = unk_1DBD49540;
+    v15 = xmmword_1DBD49550;
+    v11 = xmmword_1DBD49510;
+    v12 = unk_1DBD49520;
+    objc_msgSend_currentDetails(result);
+    _VCImageQueue_AverageFrameRate(a1, v5);
+    if (v6 <= 0.0)
     {
-      v5 = *(&v10 + 1);
+      v6 = *(&v11 + 1);
     }
 
-    *(&v10 + 4) = __PAIR64__(*(a1 + 108), LODWORD(v5));
+    *(&v11 + 4) = __PAIR64__(*(a1 + 108), LODWORD(v6));
     Width = CVPixelBufferGetWidth(a2);
     Height = CVPixelBufferGetHeight(a2);
-    *(&v13 + 1) = Width;
-    *&v14 = Height;
-    v8[2] = v12;
-    v8[3] = v13;
-    v8[4] = v14;
-    v9 = v15;
-    v8[0] = v10;
-    v8[1] = v11;
-    [*(a1 + 144) setCurrentDetails:v8];
+    *(&v14 + 1) = Width;
+    *&v15 = Height;
+    v9[2] = v13;
+    v9[3] = v14;
+    v9[4] = v15;
+    v10 = v16;
+    v9[0] = v11;
+    v9[1] = v12;
+    [*(a1 + 144) setCurrentDetails:v9];
     return VCPixelBufferOverlay_updateOverlayWithPixelBuffer(*(a1 + 144), a2);
   }
 
@@ -9535,112 +9782,4 @@ LABEL_52:
   }
 
   return v36;
-}
-
-uint64_t _VCImageQueue_EmitFrameEnqueuedSignposts(uint64_t a1, uint64_t a2, CMTime *a3, __CVBuffer *a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  v7 = (a1 + 128);
-  ++*(a1 + 128);
-  if (*(a1 + 144))
-  {
-    v8 = micro();
-    v18 = v8;
-    Count = CFArrayGetCount(*(a1 + 136));
-    if (Count < 1)
-    {
-      if (Count)
-      {
-LABEL_17:
-        _VCImageQueue_RemoveExpiredFrameCounts(a1, v8);
-        goto LABEL_18;
-      }
-    }
-
-    else
-    {
-      ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 136), Count - 1);
-      v11 = CFArrayGetValueAtIndex(ValueAtIndex, 0);
-      valuePtr.value = 0;
-      CFNumberGetValue(v11, kCFNumberDoubleType, &valuePtr);
-      if (*&valuePtr.value + 1.0 > v8)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    *&valuePtr.timescale = 0;
-    v12 = *MEMORY[0x1E695E480];
-    valuePtr.value = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, &v18);
-    if (valuePtr.value)
-    {
-      *&valuePtr.timescale = CFNumberCreate(v12, kCFNumberSInt32Type, v7);
-      if (*&valuePtr.timescale)
-      {
-        v13 = CFArrayCreate(v12, &valuePtr, 2, MEMORY[0x1E695E9C0]);
-        if (v13)
-        {
-          v14 = v13;
-          CFArrayAppendValue(*(a1 + 136), v13);
-LABEL_10:
-          if (valuePtr.value)
-          {
-            CFRelease(valuePtr.value);
-          }
-
-          if (*&valuePtr.timescale)
-          {
-            CFRelease(*&valuePtr.timescale);
-          }
-
-          if (v14)
-          {
-            CFRelease(v14);
-          }
-
-          v8 = v18;
-          goto LABEL_17;
-        }
-
-        _VCImageQueue_EmitFrameEnqueuedSignposts_cold_1();
-      }
-
-      else
-      {
-        _VCImageQueue_EmitFrameEnqueuedSignposts_cold_2();
-      }
-    }
-
-    else
-    {
-      _VCImageQueue_EmitFrameEnqueuedSignposts_cold_3();
-    }
-
-    v14 = v19;
-    goto LABEL_10;
-  }
-
-LABEL_18:
-  valuePtr = *a3;
-  CMTimeGetSeconds(&valuePtr);
-  IOSurface = CVPixelBufferGetIOSurface(a4);
-  IOSurfaceGetID(IOSurface);
-  if (*(a1 + 113) == 1)
-  {
-    LODWORD(valuePtr.value) = -1431655766;
-    Attachment = CVBufferGetAttachment(a4, @"FrameSequenceNumber", &valuePtr);
-    if (Attachment)
-    {
-      LOWORD(v19) = 0;
-      CFNumberGetValue(Attachment, kCFNumberSInt16Type, &v19);
-      if (CVBufferGetAttachment(a4, @"HIDTimeStamp", 0))
-      {
-        FigCFNumberGetUInt64();
-      }
-
-      kdebug_trace();
-    }
-  }
-
-  return kdebug_trace();
 }

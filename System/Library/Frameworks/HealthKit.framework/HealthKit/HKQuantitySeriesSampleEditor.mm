@@ -76,19 +76,18 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  identifier = self->_identifier;
-  v6 = self->_state - 1;
-  if (v6 > 3)
+  v5 = self->_state - 1;
+  if (v5 > 3)
   {
-    v7 = @"Not Started";
+    v6 = @"Not Started";
   }
 
   else
   {
-    v7 = off_1E7381338[v6];
+    v6 = off_1E7381338[v5];
   }
 
-  return [v3 stringWithFormat:@"<%@:%p %@ %@>", v4, self, self->_identifier, v7];
+  return [v3 stringWithFormat:@"<%@:%p %@ %@>", v4, self, self->_identifier, v6];
 }
 
 - (BOOL)removeQuantityForDateInterval:(id)interval error:(id *)error
@@ -106,7 +105,7 @@
   return error;
 }
 
-uint64_t __68__HKQuantitySeriesSampleEditor_removeQuantityForDateInterval_error___block_invoke_2(uint64_t a1)
+void *__68__HKQuantitySeriesSampleEditor_removeQuantityForDateInterval_error___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) addObject:*(a1 + 40)];
   *(*(a1 + 32) + 40) = 1;
@@ -170,16 +169,15 @@ void __53__HKQuantitySeriesSampleEditor_commitWithCompletion___block_invoke_2(ui
 
 - (void)discard
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "%{public}@: error performing discard: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "%{public}@: error performing discard: %{public}@", &v3, 0x16u);
 }
 
-uint64_t __39__HKQuantitySeriesSampleEditor_discard__block_invoke_2(uint64_t a1)
+void *__39__HKQuantitySeriesSampleEditor_discard__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) removeAllObjects];
   *(*(a1 + 32) + 40) = 3;

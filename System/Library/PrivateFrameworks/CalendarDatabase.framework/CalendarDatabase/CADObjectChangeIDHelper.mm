@@ -7,30 +7,30 @@
 
 + (id)makeObjectChangeEntityTypeMapToArray:(id)array
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v10, "entityType", v17)}];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v10, "entityType", v16)}];
         array = [v4 objectForKey:v11];
 
         if (!array)
@@ -44,43 +44,41 @@
         [array addObject:v14];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)makeObjectChangeEntityTypeMapToSet:(id)set
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   setCopy = set;
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(setCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = setCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v10, "entityType", v17)}];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v10, "entityType", v16)}];
         v12 = [v4 objectForKey:v11];
 
         if (!v12)
@@ -94,13 +92,11 @@
         [v12 addObject:v14];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

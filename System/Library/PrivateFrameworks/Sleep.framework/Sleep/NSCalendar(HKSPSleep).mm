@@ -8,9 +8,9 @@
 - (id)hksp_localizedGroupingStringForWeekdays:()HKSPSleep;
 - (id)hksp_orderedSleepDays;
 - (id)hksp_orderedSleepWeekdaysForWeekdays:()HKSPSleep;
-- (uint64_t)hksp_dateRequiresSingularTimeString:()HKSPSleep;
 - (uint64_t)hksp_dayPeriodForDate:()HKSPSleep locale:options:;
 - (uint64_t)hksp_firstNonWeekendDay;
+- (void)hksp_dateRequiresSingularTimeString:()HKSPSleep;
 @end
 
 @implementation NSCalendar(HKSPSleep)
@@ -205,7 +205,7 @@ LABEL_8:
   }
 }
 
-- (uint64_t)hksp_dateRequiresSingularTimeString:()HKSPSleep
+- (void)hksp_dateRequiresSingularTimeString:()HKSPSleep
 {
   result = [self component:32 fromDate:a3];
   if (result != 1)

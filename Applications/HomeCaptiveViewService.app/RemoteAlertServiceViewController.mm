@@ -15,14 +15,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_1000043F4;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_1000025B0(context, v6);
-  sub_1000043AC(v6);
+  sub_1000043AC(v6, v7);
 }
 
 - (void)viewDidLoad

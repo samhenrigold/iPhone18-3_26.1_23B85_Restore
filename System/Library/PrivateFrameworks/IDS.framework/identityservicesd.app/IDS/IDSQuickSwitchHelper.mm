@@ -81,7 +81,7 @@
   v10 = +[IDSPairingManager sharedInstance];
   pairedDeviceUUIDString = [v10 pairedDeviceUUIDString];
 
-  v12 = [dCopy isEqualToIgnoringCase:pairedDeviceUUIDString];
+  v12 = objc_msgSend_isEqualToIgnoringCase_(dCopy);
   v13 = v12;
   if (force)
   {

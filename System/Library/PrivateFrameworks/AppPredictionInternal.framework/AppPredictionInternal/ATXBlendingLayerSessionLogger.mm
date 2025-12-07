@@ -21,27 +21,28 @@
 
 - (BOOL)logCurrentSessionIfPossible
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   shouldLogSession = [(ATXBlendingLayerSessionLogger *)self shouldLogSession];
-  v5 = __atxlog_handle_blending();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (shouldLogSession)
+  v5 = shouldLogSession;
+  v6 = __atxlog_handle_blending(shouldLogSession);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Logging session because logger said we can.", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Logging session because logger said we can.", &v17, 2u);
     }
 
     sel_getName(a2);
-    v5 = os_transaction_create();
+    v6 = os_transaction_create();
     generateSessionLog = [(ATXBlendingLayerSessionLogger *)self generateSessionLog];
-    v8 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_blending(generateSessionLog);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = generateSessionLog;
-      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "SessionLog: %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = generateSessionLog;
+      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "SessionLog: %@", &v17, 0xCu);
     }
 
     blendingUpdates = [generateSessionLog blendingUpdates];
@@ -52,40 +53,39 @@
     else
     {
       ermEvents = [generateSessionLog ermEvents];
-      v12 = [ermEvents count];
+      v13 = [ermEvents count];
 
-      if (!v12)
+      if (!v13)
       {
-        v15 = __atxlog_handle_blending();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = __atxlog_handle_blending(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Not forwarding session log proto to PET because it was empty", &v16, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Not forwarding session log proto to PET because it was empty", &v17, 2u);
         }
 
-        v10 = 0;
+        v11 = 0;
         goto LABEL_13;
       }
     }
 
     [(ATXBlendingLayerSessionLogger *)self logSessionLogToPET:generateSessionLog];
-    v10 = 1;
+    v11 = 1;
 LABEL_13:
 
     goto LABEL_14;
   }
 
-  if (v6)
+  if (v7)
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Not logging session because session logger said not to.", &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Not logging session because session logger said not to.", &v17, 2u);
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (BOOL)shouldLogSession
@@ -185,73 +185,73 @@ LABEL_3:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     if ([*(a1 + 40) count] > 0x13)
     {
       goto LABEL_23;
     }
 
-    v11 = *(a1 + 40);
-    v12 = [*(a1 + 32) sessionERMEventFromERMEvent:v3];
-    [v11 addObject:v12];
+    v12 = *(a1 + 40);
+    v13 = [*(a1 + 32) sessionERMEventFromERMEvent:v3];
+    [v12 addObject:v13];
 
     v27 = 0u;
     v28 = 0u;
     v25 = 0u;
     v26 = 0u;
     v7 = [*(*(a1 + 32) + 8) allValues];
-    v13 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
-    if (v13)
+    v14 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v26;
+      v15 = v14;
+      v16 = *v26;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v15)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v7);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * i);
-          v18 = *(a1 + 48);
-          v19 = [v17 uuid];
-          LOBYTE(v18) = [v18 containsObject:v19];
+          v18 = *(*(&v25 + 1) + 8 * i);
+          v19 = *(a1 + 48);
+          v20 = [v18 uuid];
+          LOBYTE(v19) = [v19 containsObject:v20];
 
-          if ((v18 & 1) == 0)
+          if ((v19 & 1) == 0)
           {
-            v20 = [*(a1 + 32) sessionBlendingUpdateFromBlendingUICacheUpdate:v17 deviceContext:*(*(a1 + 32) + 16)];
-            [*(a1 + 56) addObject:v20];
-            v21 = *(a1 + 48);
-            v22 = [v17 uuid];
-            [v21 addObject:v22];
+            v21 = [*(a1 + 32) sessionBlendingUpdateFromBlendingUICacheUpdate:v18 deviceContext:*(*(a1 + 32) + 16)];
+            [*(a1 + 56) addObject:v21];
+            v22 = *(a1 + 48);
+            v23 = [v18 uuid];
+            [v22 addObject:v23];
           }
         }
 
-        v14 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v15 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     goto LABEL_3;
   }
 
-  v23 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+  v24 = __atxlog_handle_blending(isKindOfClass);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
   {
-    __51__ATXBlendingLayerSessionLogger_generateSessionLog__block_invoke_2_cold_1(v23);
+    __51__ATXBlendingLayerSessionLogger_generateSessionLog__block_invoke_2_cold_1(v24);
   }
 
 LABEL_23:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)orderedMergeERMBlendingContextUIPublisher
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   if (self->_ermEvents)
   {
     v3 = [objc_alloc(MEMORY[0x277CF17D0]) initWithSequence:self->_ermEvents];
@@ -313,13 +313,11 @@ LABEL_23:
   }
 
   v23 = [v18 filterWithIsIncluded:&__block_literal_global_36_1];
-  v28[0] = v8;
-  v28[1] = v13;
-  v28[2] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
+  v27[0] = v8;
+  v27[1] = v13;
+  v27[2] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
   v25 = [v3 orderedMergeWithOthers:v24 comparator:&__block_literal_global_40_0];
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -384,8 +382,8 @@ uint64_t __74__ATXBlendingLayerSessionLogger_orderedMergeERMBlendingContextUIPub
       {
         if (engagementRecordType == 8)
         {
-          v8 = MEMORY[0x277CEBCF0];
-          v9 = 36;
+          v9 = MEMORY[0x277CEBCF0];
+          v10 = 36;
         }
 
         else
@@ -395,8 +393,8 @@ uint64_t __74__ATXBlendingLayerSessionLogger_orderedMergeERMBlendingContextUIPub
             goto LABEL_32;
           }
 
-          v8 = MEMORY[0x277CEBCF0];
-          v9 = 37;
+          v9 = MEMORY[0x277CEBCF0];
+          v10 = 37;
         }
 
         goto LABEL_24;
@@ -409,25 +407,25 @@ uint64_t __74__ATXBlendingLayerSessionLogger_orderedMergeERMBlendingContextUIPub
           goto LABEL_32;
         }
 
-        v8 = MEMORY[0x277CEBCF0];
-        v9 = 35;
+        v9 = MEMORY[0x277CEBCF0];
+        v10 = 35;
         goto LABEL_24;
       }
 
 LABEL_23:
-      v8 = MEMORY[0x277CEBCF0];
-      v9 = 21;
+      v9 = MEMORY[0x277CEBCF0];
+      v10 = 21;
 LABEL_24:
-      v12 = [v8 stringForConsumerSubtype:v9];
-      [v5 setConsumerSubType:v12];
+      v13 = [v9 stringForConsumerSubtype:v10];
+      [v5 setConsumerSubType:v13];
 
       goto LABEL_25;
     }
 
     if (engagementRecordType == 1)
     {
-      v10 = v5;
-      v11 = 0;
+      v11 = v5;
+      v12 = 0;
       goto LABEL_26;
     }
 
@@ -438,16 +436,16 @@ LABEL_24:
         goto LABEL_32;
       }
 
-      v10 = v5;
-      v11 = 3;
+      v11 = v5;
+      v12 = 3;
       goto LABEL_26;
     }
 
 LABEL_25:
-    v10 = v5;
-    v11 = 1;
+    v11 = v5;
+    v12 = 1;
 LABEL_26:
-    [v10 setEngagementType:v11];
+    [v11 setEngagementType:v12];
     goto LABEL_32;
   }
 
@@ -469,10 +467,10 @@ LABEL_26:
     }
 
 LABEL_29:
-    v13 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = __atxlog_handle_blending(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [(ATXBlendingLayerSessionLogger *)eventCopy sessionERMEventFromERMEvent:v13];
+      [(ATXBlendingLayerSessionLogger *)eventCopy sessionERMEventFromERMEvent:v14];
     }
 
     goto LABEL_32;
@@ -489,28 +487,28 @@ LABEL_29:
   }
 
 LABEL_32:
-  v14 = MEMORY[0x277D42068];
+  v15 = MEMORY[0x277D42068];
   entry2 = [eventCopy entry];
   executable = [entry2 executable];
   object = [executable object];
-  v18 = [v14 genericStringForExecutableObject:object];
-  [v5 setExecutableId:v18];
+  v19 = [v15 genericStringForExecutableObject:object];
+  [v5 setExecutableId:v19];
 
   v30 = 0u;
   v31 = 0u;
   v28 = 0u;
   v29 = 0u;
   allValues = [(NSMutableDictionary *)self->_mostRecentBlendingCacheUpdateByConsumerSubType allValues];
-  v20 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v20)
+  v21 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v21)
   {
-    v21 = v20;
-    v22 = *v29;
+    v22 = v21;
+    v23 = *v29;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v29 != v22)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(allValues);
         }
@@ -520,13 +518,11 @@ LABEL_32:
         [v5 addBlendingUpdateUUID:uUIDString];
       }
 
-      v21 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v22 = [allValues countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v21);
+    while (v22);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -647,31 +643,31 @@ LABEL_32:
 
 - (id)sessionClientModelUpdatesForUICacheUpdate:(id)update
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v30 = objc_opt_new();
+  v29 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v27 = updateCopy;
+  v26 = updateCopy;
   obj = [(ATXBlendingLayerSessionLogger *)self clientModelCacheUpdatesFromBlendingCacheUpdate:updateCopy];
-  v31 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  if (v30)
   {
-    v29 = *v39;
+    v28 = *v38;
     do
     {
       v5 = 0;
       do
       {
-        if (*v39 != v29)
+        if (*v38 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = v5;
-        v6 = *(*(&v38 + 1) + 8 * v5);
+        v32 = v5;
+        v6 = *(*(&v37 + 1) + 8 * v5);
         context = objc_autoreleasePoolPush();
         v7 = objc_opt_new();
         clientModelId = [v6 clientModelId];
@@ -694,26 +690,26 @@ LABEL_32:
 
         [v7 setClientModelVersion:v14];
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         suggestions2 = [v6 suggestions];
-        v16 = [suggestions2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v16 = [suggestions2 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v35;
+          v18 = *v34;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v35 != v18)
+              if (*v34 != v18)
               {
                 objc_enumerationMutation(suggestions2);
               }
 
-              v20 = *(*(&v34 + 1) + 8 * i);
+              v20 = *(*(&v33 + 1) + 8 * i);
               v21 = objc_autoreleasePoolPush();
               suggestions3 = [v7 suggestions];
               v23 = [suggestions3 count];
@@ -727,27 +723,25 @@ LABEL_32:
               objc_autoreleasePoolPop(v21);
             }
 
-            v17 = [suggestions2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v17 = [suggestions2 countByEnumeratingWithState:&v33 objects:v41 count:16];
           }
 
           while (v17);
         }
 
-        [v30 addObject:v7];
+        [v29 addObject:v7];
         objc_autoreleasePoolPop(context);
-        v5 = v33 + 1;
+        v5 = v32 + 1;
       }
 
-      while (v33 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      while (v32 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v29;
 }
 
 - (id)clientModelCacheUpdatesFromBlendingCacheUpdate:(id)update
@@ -850,7 +844,7 @@ void __80__ATXBlendingLayerSessionLogger_clientModelCacheUpdatesFromBlendingCach
   {
     minSuggestionsInCachedSuggestionsWithoutPreviewsOrFallbacks = [uiCache2 minSuggestionsInCachedSuggestionsWithoutPreviewsOrFallbacks];
 LABEL_5:
-    v13 = minSuggestionsInCachedSuggestionsWithoutPreviewsOrFallbacks;
+    v14 = minSuggestionsInCachedSuggestionsWithoutPreviewsOrFallbacks;
 
     goto LABEL_9;
   }
@@ -865,54 +859,52 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v14 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v15 = __atxlog_handle_blending(v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    [(ATXBlendingLayerSessionLogger *)updateCopy sessionUICacheForUICacheUpdate:v14];
+    [(ATXBlendingLayerSessionLogger *)updateCopy sessionUICacheForUICacheUpdate:v15];
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_9:
   v30 = 0u;
   v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v15 = v13;
-  v16 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v16)
+  v16 = v14;
+  v17 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v29;
+    v18 = v17;
+    v19 = *v29;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v29 != v18)
+        if (*v29 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v28 + 1) + 8 * i);
-        v21 = objc_autoreleasePoolPush();
+        v21 = *(*(&v28 + 1) + 8 * i);
+        v22 = objc_autoreleasePoolPush();
         suggestions = [v5 suggestions];
-        v23 = [suggestions count];
+        v24 = [suggestions count];
 
-        if (v23 <= 0x3B)
+        if (v24 <= 0x3B)
         {
-          v24 = [(ATXBlendingLayerSessionLogger *)self sessionSuggestionFromProactiveSuggestion:v20];
-          [v5 addSuggestion:v24];
+          v25 = [(ATXBlendingLayerSessionLogger *)self sessionSuggestionFromProactiveSuggestion:v21];
+          [v5 addSuggestion:v25];
         }
 
-        objc_autoreleasePoolPop(v21);
+        objc_autoreleasePoolPop(v22);
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -957,18 +949,16 @@ LABEL_9:
 
 - (void)sessionERMEventFromERMEvent:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 entry];
-  v5 = 134217984;
-  v6 = [v3 engagementRecordType];
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Encountered an unknown engagement record type that should only be used for querying: %lu", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134217984;
+  v5 = [v3 engagementRecordType];
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Encountered an unknown engagement record type that should only be used for querying: %lu", &v4, 0xCu);
 }
 
 - (void)sessionUICacheForUICacheUpdate:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = [a1 uiCache];
   if (v5)
   {
@@ -983,16 +973,14 @@ LABEL_9:
   }
 
   v8 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:{objc_msgSend(a1, "consumerSubType")}];
-  v10 = 138412546;
-  v11 = v6;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Encountered an unknown ui cache class of %@, consumerSubType = %@", &v10, 0x16u);
+  v9 = 138412546;
+  v10 = v6;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Encountered an unknown ui cache class of %@, consumerSubType = %@", &v9, 0x16u);
   if (v5)
   {
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

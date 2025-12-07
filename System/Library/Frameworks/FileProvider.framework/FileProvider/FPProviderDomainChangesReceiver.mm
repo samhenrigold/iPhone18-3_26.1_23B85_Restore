@@ -158,9 +158,11 @@ void __61__FPProviderDomainChangesReceiver_allowedToReadCacheFromDisk__block_inv
 
 uint64_t __70__FPProviderDomainChangesReceiver__sharedChangesReceiverInitIfNeeded___block_invoke()
 {
-  _sharedChangesReceiverInitIfNeeded__sharedChangesReceiver = [[FPProviderDomainChangesReceiver alloc] _init];
+  v0 = [[FPProviderDomainChangesReceiver alloc] _init];
+  v1 = _sharedChangesReceiverInitIfNeeded__sharedChangesReceiver;
+  _sharedChangesReceiverInitIfNeeded__sharedChangesReceiver = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __40__FPProviderDomainChangesReceiver__init__block_invoke(uint64_t a1)
@@ -353,19 +355,24 @@ void __40__FPProviderDomainChangesReceiver__init__block_invoke_30(uint64_t a1)
 - (void)_t_forceReadCacheFromDisk
 {
   v3 = [FPProviderDomainChangesReceiver readCacheFromDisk:0];
+  v4 = v3;
   if (v3)
   {
     obj = v3;
-    if ([v3 count])
+    v3 = [v3 count];
+    v4 = obj;
+    if (v3)
     {
       selfCopy = self;
       objc_sync_enter(selfCopy);
       objc_storeStrong(&selfCopy->_providerDomainsByID, obj);
       objc_sync_exit(selfCopy);
+
+      v4 = obj;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 - (void)_t_loadCacheOnHandlerAdding:(BOOL)adding
@@ -441,7 +448,7 @@ LABEL_10:
 
   if (v9)
   {
-    __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptCount___block_invoke_cold_1(v6, (a1 + 40));
+    __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptCount___block_invoke_cold_1();
   }
 
   v10 = *(a1 + 32);
@@ -467,7 +474,7 @@ uint64_t __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptC
 
 - (void)callChangesHandlersWithProviderDomains:(id)domains error:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   domainsCopy = domains;
   errorCopy = error;
   selfCopy = self;
@@ -475,36 +482,34 @@ uint64_t __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptC
   v9 = [(NSMutableSet *)selfCopy->_changesHandlers copy];
   objc_sync_exit(selfCopy);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v11)
   {
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v15 + 1) + 8 * v13++) callHandlerWithProvidersByID:domainsCopy error:{errorCopy, v15}];
+        [*(*(&v14 + 1) + 8 * v13++) callHandlerWithProvidersByID:domainsCopy error:{errorCopy, v14}];
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)providerDomainsHaveChanged:(id)changed error:(id)error
@@ -527,57 +532,44 @@ uint64_t __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptC
 
 + (void)readCacheFromDisk:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed unarchiving domains cache: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed unarchiving domains cache: %{public}@", v4, v5, v6, v7);
 }
 
 + (void)readCacheFromDisk:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed reading domains cache: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] Failed reading domains cache: %{public}@", v4, v5, v6, v7);
 }
 
-void __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptCount___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptCount___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2();
-  v7 = 2048;
-  v8 = v3;
-  _os_log_error_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_ERROR, "[ERROR] received an error when listing providers, attempting again: %@ (count: %ld)", v6, 0x16u);
   v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2();
+  v3 = 2048;
+  v4 = v0;
+  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] received an error when listing providers, attempting again: %@ (count: %ld)", v2, 0x16u);
 }
 
 void __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptCount___block_invoke_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] can't get the list of providers: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1AAAE1000, v2, v3, "[ERROR] can't get the list of providers: %@", v4, v5, v6, v7);
 }
 
 void __73__FPProviderDomainChangesReceiver_updateProviderDomainsWithAttemptCount___block_invoke_cold_3(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [a1 count];
   v5 = [a1 allValues];
-  v7 = 134218242;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] received %lu updated providers: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 134218242;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] received %lu updated providers: %@", &v6, 0x16u);
 }
 
 @end

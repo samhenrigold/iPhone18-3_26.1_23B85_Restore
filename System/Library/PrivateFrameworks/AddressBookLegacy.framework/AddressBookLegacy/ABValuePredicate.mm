@@ -168,7 +168,7 @@
 
 - (BOOL)_shouldConsultIndexForKey:(id)key
 {
-  ArrayOfAllFTSPropertyIDs = _ABPersonGetArrayOfAllFTSPropertyIDs();
+  ArrayOfAllFTSPropertyIDs = _ABPersonGetArrayOfAllFTSPropertyIDs(self, a2);
   Count = CFArrayGetCount(ArrayOfAllFTSPropertyIDs);
   property = [(ABValuePredicate *)self property];
   v19.location = 0;
@@ -556,17 +556,17 @@ LABEL_43:
 
   v8 = CFLocaleCopyCurrent();
 LABEL_7:
-  v16.location = 0;
-  v16.length = 0;
-  v9 = CFStringTokenizerCreate(*MEMORY[0x1E695E480], &stru_1F2FE2718, v16, 0, v8);
+  v17.location = 0;
+  v17.length = 0;
+  v9 = CFStringTokenizerCreate(*MEMORY[0x1E695E480], &stru_1F2FE2718, v17, 0, v8);
   v10 = ABTokenListCreate();
   ABTokenListPopulateFromString(v10, v9, 0, string, 0, 1, 0);
   string = [MEMORY[0x1E696AD60] string];
-  Count = ABTokenListGetCount(v10);
+  Count = ABTokenListGetCount(v10, v12);
   if (Count >= 1)
   {
-    v13 = Count;
-    for (i = 0; i != v13; ++i)
+    v14 = Count;
+    for (i = 0; i != v14; ++i)
     {
       [string appendFormat:@"%@ ", -[ABValuePredicate _ftsTermStringForString:](self, "_ftsTermStringForString:", ABTokenListGetTokenAtIndex(v10, i))];
     }

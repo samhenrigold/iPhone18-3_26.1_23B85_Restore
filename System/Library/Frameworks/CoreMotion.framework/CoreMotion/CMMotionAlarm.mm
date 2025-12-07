@@ -12,7 +12,7 @@
 - (CMMotionAlarm)initWithName:(id)name type:(unsigned int)type duration:(unsigned int)duration repeats:(BOOL)repeats alarmId:(unint64_t)id bundleId:(id)bundleId state:(int)state
 {
   repeatsCopy = repeats;
-  v72 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   if (repeats && type != 15 && type != 19)
   {
     v17 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, name);
@@ -21,19 +21,19 @@
 
   if (!name)
   {
-    v42 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, name);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v42, v43, a2, self, @"CMMotionAlarm.mm", 46, @"Invalid parameter not satisfying: %@", @"name");
+    v43 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, name);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v43, v44, a2, self, @"CMMotionAlarm.mm", 46, @"Invalid parameter not satisfying: %@", @"name");
   }
 
   if (type >= 0x1C)
   {
-    v44 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, name);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v44, v45, a2, self, @"CMMotionAlarm.mm", 47, @"Invalid parameter not satisfying: %@", @"type < kMotionAlarmTypeCount");
+    v45 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, name);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v45, v46, a2, self, @"CMMotionAlarm.mm", 47, @"Invalid parameter not satisfying: %@", @"type < kMotionAlarmTypeCount");
   }
 
   if (!bundleId)
   {
-    v46 = a2;
+    v47 = a2;
     if (qword_1EAFE27A0 != -1)
     {
       dispatch_once(&qword_1EAFE27A0, &unk_1F0E2A540);
@@ -45,17 +45,17 @@
       v22 = objc_msgSend_UTF8String(name, v20, v21);
       v23 = sub_19B717080(state);
       *buf = 136447490;
-      v61 = v22;
-      v62 = 1026;
+      v62 = v22;
+      v63 = 1026;
       typeCopy = type;
-      v64 = 1026;
+      v65 = 1026;
       durationCopy = duration;
-      v66 = 1026;
-      v67 = repeatsCopy;
-      v68 = 2050;
+      v67 = 1026;
+      v68 = repeatsCopy;
+      v69 = 2050;
       idCopy = id;
-      v70 = 2082;
-      v71 = objc_msgSend_UTF8String(v23, v24, v25);
+      v71 = 2082;
+      v72 = objc_msgSend_UTF8String(v23, v24, v25);
       _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_FAULT, "Invalid CMMotionAlarm with nil bundle id! name: %{public}s, type: %{public}d, duration %{public}d, repeats: %{public}d, alarmId: %{public}llu, state: %{public}s", buf, 0x32u);
     }
 
@@ -68,53 +68,54 @@
         dispatch_once(&qword_1EAFE27A0, &unk_1F0E2A540);
       }
 
-      v29 = objc_msgSend_UTF8String(name, v27, v28);
-      v30 = sub_19B717080(state);
-      v48 = 136447490;
-      v49 = v29;
-      v50 = 1026;
+      v29 = qword_1EAFE27D8;
+      v30 = objc_msgSend_UTF8String(name, v27, v28);
+      v31 = sub_19B717080(state);
+      v49 = 136447490;
+      v50 = v30;
+      v51 = 1026;
       typeCopy2 = type;
-      v52 = 1026;
+      v53 = 1026;
       durationCopy2 = duration;
-      v54 = 1026;
-      v55 = repeatsCopy;
-      v56 = 2050;
+      v55 = 1026;
+      v56 = repeatsCopy;
+      v57 = 2050;
       idCopy2 = id;
-      v58 = 2082;
-      v59 = objc_msgSend_UTF8String(v30, v31, v32);
-      v33 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarm initWithName:type:duration:repeats:alarmId:bundleId:state:]", "CoreLocation: %s\n", v33);
-      if (v33 != buf)
+      v59 = 2082;
+      v60 = objc_msgSend_UTF8String(v31, v32, v33);
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v29, 17, "Invalid CMMotionAlarm with nil bundle id! name: %{public}s, type: %{public}d, duration %{public}d, repeats: %{public}d, alarmId: %{public}llu, state: %{public}s", &v49, 50);
+      v35 = v34;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMMotionAlarm initWithName:type:duration:repeats:alarmId:bundleId:state:]", "CoreLocation: %s\n", v34);
+      if (v35 != buf)
       {
-        free(v33);
+        free(v35);
       }
     }
 
     sub_19B421798();
     if (sub_19B43242C())
     {
-      v36 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v34, v35);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v36, v37, v46, self, @"CMMotionAlarm.mm", 64, @"Invalid parameter not satisfying: %@", @"false");
+      v38 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v36, v37);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v39, v47, self, @"CMMotionAlarm.mm", 64, @"Invalid parameter not satisfying: %@", @"false");
     }
   }
 
-  v47.receiver = self;
-  v47.super_class = CMMotionAlarm;
-  v38 = [(CMMotionAlarm *)&v47 init];
-  if (v38)
+  v48.receiver = self;
+  v48.super_class = CMMotionAlarm;
+  v40 = [(CMMotionAlarm *)&v48 init];
+  if (v40)
   {
     nameCopy = name;
-    v38->_duration = duration;
-    v38->_type = type;
-    v38->_repeats = repeatsCopy;
-    v38->_name = nameCopy;
-    v38->_alarmId = id;
-    v38->_bundleId = bundleId;
-    v38->_state = state;
+    v40->_duration = duration;
+    v40->_type = type;
+    v40->_repeats = repeatsCopy;
+    v40->_name = nameCopy;
+    v40->_alarmId = id;
+    v40->_bundleId = bundleId;
+    v40->_state = state;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
-  return v38;
+  return v40;
 }
 
 - (void)dealloc

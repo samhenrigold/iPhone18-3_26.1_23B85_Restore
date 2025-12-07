@@ -17,6 +17,12 @@
 - (void)presentShareSheetWithPopoverTracker:(id)tracker customSharedURL:(id)l dismissCompletion:(id)completion;
 - (void)previewControllerDidUpdatePreferredContentSize:(id)size;
 - (void)previewControllerDidUpdateTitle:(id)title;
+- (void)previewControllerWantsFullScreen:(BOOL)screen;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)viewServiceDidTerminateWithError:(id)error;
 @end
 
@@ -46,6 +52,36 @@
   return v3;
 }
 
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v10.receiver = self;
+  v10.super_class = QLRemoteItemViewController;
+  appearanceCopy = appearance;
+  [(QLItemViewController *)&v10 setAppearance:appearanceCopy animated:animatedCopy];
+  [(QLPreviewExtensionHostContext *)self->_hostContext setAppearance:appearanceCopy animated:animatedCopy];
+
+  if (([(NSExtension *)self->_extension ql_isPreviewExtensionThatHaveCustomPresentationView]& 1) == 0)
+  {
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __53__QLRemoteItemViewController_setAppearance_animated___block_invoke;
+    aBlock[3] = &unk_278B57190;
+    aBlock[4] = self;
+    v7 = _Block_copy(aBlock);
+    v8 = v7;
+    if (animatedCopy)
+    {
+      [MEMORY[0x277D75D18] animateWithDuration:v7 animations:0.2];
+    }
+
+    else
+    {
+      (*(v7 + 2))(v7);
+    }
+  }
+}
+
 void __53__QLRemoteItemViewController_setAppearance_animated___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) appearance];
@@ -58,6 +94,46 @@ void __53__QLRemoteItemViewController_setAppearance_animated___block_invoke(uint
 
   v4 = [*(a1 + 32) view];
   [v4 setNeedsLayout];
+}
+
+- (void)previewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  self->_isAppearing = 1;
+  [(QLPreviewExtensionHostContext *)self->_hostContext previewWillAppear:?];
+  v5.receiver = self;
+  v5.super_class = QLRemoteItemViewController;
+  [(QLItemViewController *)&v5 previewWillAppear:appearCopy];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  self->_isVisible = 1;
+  [(QLPreviewExtensionHostContext *)self->_hostContext previewDidAppear:?];
+  v5.receiver = self;
+  v5.super_class = QLRemoteItemViewController;
+  [(QLItemViewController *)&v5 previewDidAppear:appearCopy];
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  self->_isAppearing = 0;
+  self->_isVisible = 0;
+  [(QLPreviewExtensionHostContext *)self->_hostContext previewWillDisappear:?];
+  v5.receiver = self;
+  v5.super_class = QLRemoteItemViewController;
+  [(QLItemViewController *)&v5 previewWillDisappear:disappearCopy];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(QLPreviewExtensionHostContext *)self->_hostContext previewDidDisappear:?];
+  v5.receiver = self;
+  v5.super_class = QLRemoteItemViewController;
+  [(QLItemViewController *)&v5 previewDidDisappear:disappearCopy];
 }
 
 - (BOOL)canShowNavBar
@@ -170,7 +246,7 @@ void __66__QLRemoteItemViewController__loadRemoteViewControllerForContext___bloc
 
 - (void)_performSetUpWithRemoteViewController:(id)controller extension:(id)extension request:(id)request hostContext:(id)context
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   extensionCopy = extension;
   contextCopy = context;
@@ -186,7 +262,7 @@ void __66__QLRemoteItemViewController__loadRemoteViewControllerForContext___bloc
   remoteViewController = self->_remoteViewController;
   if (remoteViewController && self->_hostContext)
   {
-    v47 = controllerCopy;
+    v46 = controllerCopy;
     parentViewController = [(QLRemotePreviewHostViewController *)remoteViewController parentViewController];
 
     if (parentViewController)
@@ -237,9 +313,9 @@ void __66__QLRemoteItemViewController__loadRemoteViewControllerForContext___bloc
 
     view13 = [(QLRemoteItemViewController *)self view];
     v42 = self->_bottomConstraint;
-    v48[0] = self->_topConstraint;
-    v48[1] = v42;
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+    v47[0] = self->_topConstraint;
+    v47[1] = v42;
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
     [view13 addConstraints:v43];
 
     [(QLPreviewExtensionHostContext *)self->_hostContext setHostViewControllerProxy:self->_hostViewControllerProxy];
@@ -248,7 +324,7 @@ void __66__QLRemoteItemViewController__loadRemoteViewControllerForContext___bloc
       [(QLPreviewExtensionHostContext *)self->_hostContext previewWillAppear:0];
     }
 
-    controllerCopy = v47;
+    controllerCopy = v46;
     if (self->_isVisible)
     {
       [(QLPreviewExtensionHostContext *)self->_hostContext previewDidAppear:0];
@@ -265,8 +341,6 @@ void __66__QLRemoteItemViewController__loadRemoteViewControllerForContext___bloc
 
   self->_readyToLoad = 1;
   [(QLRemoteItemViewController *)self _performLoadHandlerIfNeeded];
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performLoadHandlerIfNeeded
@@ -305,7 +379,7 @@ void __66__QLRemoteItemViewController__loadRemoteViewControllerForContext___bloc
 
 void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -314,15 +388,15 @@ void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke(uin
     {
       v5 = [WeakRetained contents];
       v6 = [v3 context];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke_315;
-      v15[3] = &unk_278B58ED8;
-      v16 = v3;
-      v17 = *(a1 + 32);
-      [v4 loadPreviewControllerWithContents:v5 context:v6 completionHandler:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke_315;
+      v14[3] = &unk_278B58ED8;
+      v15 = v3;
+      v16 = *(a1 + 32);
+      [v4 loadPreviewControllerWithContents:v5 context:v6 completionHandler:v14];
 
-      v7 = v16;
+      v7 = v15;
     }
 
     else
@@ -341,7 +415,7 @@ void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke(uin
         v11 = [v3 context];
         v12 = [v11 contentType];
         *buf = 138412290;
-        v19 = v12;
+        v18 = v12;
         _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_FAULT, "Failed to get an extension for QuickLook (contentType %@) #Remote", buf, 0xCu);
       }
 
@@ -350,8 +424,6 @@ void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke(uin
       (*(v13 + 16))(v13, v7);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke_315(uint64_t a1, void *a2, void *a3)
@@ -375,7 +447,7 @@ void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke_315
 
 void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke_2(id *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong(a1[4] + 146, a2);
   if (a1[5])
@@ -392,7 +464,7 @@ void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke_2(i
     {
       v7 = a1[5];
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_ERROR, "Error while trying to get printer proxy: %@ #Remote", buf, 0xCu);
     }
   }
@@ -409,11 +481,9 @@ void __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke_2(i
   v9 = [*(a1[4] + 143) objectForKeyedSubscript:@"title"];
   [a1[4] setTitle:v9];
 
-  v12 = a1[7];
-  v11 = a1[5];
+  v11 = a1[7];
+  v10 = a1[5];
   QLRunInMainThread();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke_316(uint64_t a1)
@@ -447,7 +517,7 @@ uint64_t __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke
 
 - (void)viewServiceDidTerminateWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(QLRemotePreviewHostViewController *)self->_remoteViewController willMoveToParentViewController:0];
   view = [(QLRemotePreviewHostViewController *)self->_remoteViewController view];
@@ -480,9 +550,9 @@ uint64_t __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v17 = 138412290;
-        v18 = errorCopy;
-        _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_INFO, "Quick Look extension view service did terminate normally (error: %@). #Remote", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = errorCopy;
+        _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_INFO, "Quick Look extension view service did terminate normally (error: %@). #Remote", &v16, 0xCu);
       }
 
       goto LABEL_13;
@@ -503,9 +573,9 @@ uint64_t __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke
 
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v17 = 138412290;
-    v18 = errorCopy;
-    _os_log_impl(&dword_23A714000, v14, OS_LOG_TYPE_ERROR, "Quick Look extension view service did terminate with error: %@ #Remote", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = errorCopy;
+    _os_log_impl(&dword_23A714000, v14, OS_LOG_TYPE_ERROR, "Quick Look extension view service did terminate with error: %@ #Remote", &v16, 0xCu);
   }
 
   [(QLItemViewController *)self notifyDelegatesDidFailWithError:errorCopy];
@@ -513,7 +583,6 @@ uint64_t __54__QLRemoteItemViewController__registerLoadingHandler___block_invoke
   [delegate previewItemViewControllerWantsUpdateOverlay:self animated:1];
 
 LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)previewControllerDidUpdateTitle:(id)title
@@ -529,6 +598,13 @@ LABEL_13:
   [(QLRemoteItemViewController *)self setPreferredContentSize:?];
   delegate = [(QLItemViewController *)self delegate];
   [delegate previewItemViewControllerDidUpdatePreferredContentSize:self];
+}
+
+- (void)previewControllerWantsFullScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  delegate = [(QLItemViewController *)self delegate];
+  [delegate previewItemViewController:self wantsFullScreen:screenCopy];
 }
 
 - (BOOL)presenterShouldHandleLoadingView:(id)view readyToDisplay:(id)display

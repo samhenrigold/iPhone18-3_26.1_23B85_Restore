@@ -4,6 +4,10 @@
 - (int)stop:(id *)stop;
 - (void)addCodeSet:(id)set;
 - (void)clearCodeSet;
+- (void)enableClass:(unsigned __int8)class;
+- (void)enableClass:(unsigned __int8)class subclass:(unsigned __int8)subclass;
+- (void)enableClass:(unsigned __int8)class subclass:(unsigned __int8)subclass code:(unsigned int)code;
+- (void)enableDebugID:(unsigned int)d;
 @end
 
 @implementation DTKPTriggerKDebug
@@ -39,9 +43,43 @@
   [codeSet addCodeSet:setCopy];
 }
 
+- (void)enableClass:(unsigned __int8)class
+{
+  classCopy = class;
+  codeSet = [(DTKPTriggerKDebug *)self codeSet];
+  [codeSet addClass:classCopy];
+}
+
+- (void)enableClass:(unsigned __int8)class subclass:(unsigned __int8)subclass
+{
+  subclassCopy = subclass;
+  classCopy = class;
+  codeSet = [(DTKPTriggerKDebug *)self codeSet];
+  [codeSet addClass:classCopy subclassID:subclassCopy];
+}
+
+- (void)enableClass:(unsigned __int8)class subclass:(unsigned __int8)subclass code:(unsigned int)code
+{
+  v5 = *&code;
+  subclassCopy = subclass;
+  classCopy = class;
+  codeSet = [(DTKPTriggerKDebug *)self codeSet];
+  [codeSet addClass:classCopy subclassID:subclassCopy code:v5];
+}
+
+- (void)enableDebugID:(unsigned int)d
+{
+  v3 = *&d;
+  codeSet = [(DTKPTriggerKDebug *)self codeSet];
+  v4 = MEMORY[0x277CBEB98];
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  v6 = [v4 setWithObject:v5];
+  [codeSet addCodes:v6];
+}
+
 - (int)start:(id *)start
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   lock = [(DTKPTrigger *)self lock];
   dispatch_semaphore_wait(lock, 0xFFFFFFFFFFFFFFFFLL);
 
@@ -52,13 +90,13 @@
     filterMode = self->_filterMode;
     codeSet = [(DTKPTriggerKDebug *)self codeSet];
     v10 = [codeSet description];
-    v27[0] = 67109634;
-    v27[1] = triggerID;
-    v28 = 1024;
-    v29 = filterMode;
-    v30 = 2080;
+    v26[0] = 67109634;
+    v26[1] = triggerID;
+    v27 = 1024;
+    v28 = filterMode;
+    v29 = 2080;
     uTF8String = [v10 UTF8String];
-    _os_log_impl(&dword_247F67000, v6, OS_LOG_TYPE_DEBUG, "DTKPTriggerKDebug: Starting KDebug Trigger (%d). Filter Mode: %d. %s.", v27, 0x18u);
+    _os_log_impl(&dword_247F67000, v6, OS_LOG_TYPE_DEBUG, "DTKPTriggerKDebug: Starting KDebug Trigger (%d). Filter Mode: %d. %s.", v26, 0x18u);
   }
 
   codeSet2 = [(DTKPTriggerKDebug *)self codeSet];
@@ -120,7 +158,6 @@ LABEL_17:
   lock2 = [(DTKPTrigger *)self lock];
   dispatch_semaphore_signal(lock2);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

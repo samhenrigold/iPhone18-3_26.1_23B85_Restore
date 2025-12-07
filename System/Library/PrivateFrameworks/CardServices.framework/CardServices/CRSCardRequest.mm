@@ -90,7 +90,7 @@ void __33__CRSCardRequest_startWithReply___block_invoke(uint64_t a1)
 void __33__CRSCardRequest_startWithReply___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -99,36 +99,36 @@ void __33__CRSCardRequest_startWithReply___block_invoke_2(uint64_t a1)
     {
       v4 = *(v1 + 32);
       *buf = 138412290;
-      v35 = v4;
+      v34 = v4;
       _os_log_impl(&dword_243268000, v3, OS_LOG_TYPE_INFO, "Starting card request: %@", buf, 0xCu);
     }
 
     v5 = +[CRSIdentifiedServiceRegistry sharedInstance];
     v6 = [v5 identifiedServices];
 
-    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v31;
+      v10 = *v30;
       do
       {
         v11 = 0;
-        v28 = v9;
+        v27 = v9;
         do
         {
-          if (*v31 != v10)
+          if (*v30 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v30 + 1) + 8 * v11);
+          v12 = *(*(&v29 + 1) + 8 * v11);
           if ([v12 conformsToProtocol:&unk_2855F2AE0])
           {
             v13 = v12;
@@ -147,10 +147,10 @@ void __33__CRSCardRequest_startWithReply___block_invoke_2(uint64_t a1)
               v7 = v16;
 
               v10 = v14;
-              v9 = v28;
+              v9 = v27;
               if ((v20 & 1) == 0)
               {
-                [v27 addObject:v13];
+                [v26 addObject:v13];
               }
             }
           }
@@ -159,41 +159,39 @@ void __33__CRSCardRequest_startWithReply___block_invoke_2(uint64_t a1)
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v9);
     }
 
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __33__CRSCardRequest_startWithReply___block_invoke_52;
-    v29[3] = &unk_278DA4F70;
-    v29[4] = WeakRetained;
-    [v27 sortUsingComparator:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __33__CRSCardRequest_startWithReply___block_invoke_52;
+    v28[3] = &unk_278DA4F70;
+    v28[4] = WeakRetained;
+    [v26 sortUsingComparator:v28];
     v21 = *MEMORY[0x277CF93F0];
     if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
     {
       v22 = *(v1 + 32);
       v23 = v21;
-      v24 = [v27 reverseObjectEnumerator];
+      v24 = [v26 reverseObjectEnumerator];
       v25 = [v24 allObjects];
       *buf = 138412546;
-      v35 = v22;
-      v36 = 2112;
-      v37 = v25;
+      v34 = v22;
+      v35 = 2112;
+      v36 = v25;
       _os_log_impl(&dword_243268000, v23, OS_LOG_TYPE_INFO, "Sorted card services by priority for request %@: %@", buf, 0x16u);
     }
 
-    [WeakRetained _tryRemainingCardServices:v27 reply:*(v1 + 40)];
+    [WeakRetained _tryRemainingCardServices:v26 reply:*(v1 + 40)];
   }
 
   else
   {
     (*(*(v1 + 40) + 16))();
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __33__CRSCardRequest_startWithReply___block_invoke_52(uint64_t a1, void *a2, void *a3)
@@ -249,30 +247,28 @@ uint64_t __33__CRSCardRequest_startWithReply___block_invoke_56(uint64_t a1, uint
 
 void __49__CRSCardRequest__loadAndRegisterBundleServices___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_243268000, v2, OS_LOG_TYPE_INFO, "Loading and registering bundle services if necessary: %@", buf, 0xCu);
   }
 
   v4 = +[(_CRSServiceBundleManager *)_CRSCardServiceBundleManager];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __49__CRSCardRequest__loadAndRegisterBundleServices___block_invoke_63;
-  v6[3] = &unk_278DA4F48;
-  v7 = *(a1 + 40);
-  [v4 getServiceBundlesWithCompletion:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __49__CRSCardRequest__loadAndRegisterBundleServices___block_invoke_63;
+  v5[3] = &unk_278DA4F48;
+  v6 = *(a1 + 40);
+  [v4 getServiceBundlesWithCompletion:v5];
 }
 
 void __49__CRSCardRequest__loadAndRegisterBundleServices___block_invoke_63(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -288,30 +284,30 @@ LABEL_13:
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v9 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v9 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v5);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           v14 = +[CRSIdentifiedServiceRegistry sharedInstance];
           [v14 registerIdentifiedService:v13];
         }
 
-        v10 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -324,8 +320,6 @@ LABEL_13:
       goto LABEL_13;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tryRemainingCardServices:(id)services reply:(id)reply
@@ -435,7 +429,7 @@ void __50__CRSCardRequest__tryRemainingCardServices_reply___block_invoke_65(uint
 
 void __50__CRSCardRequest__tryRemainingCardServices_reply___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   if (*(a1 + 32))
   {
@@ -458,13 +452,13 @@ void __50__CRSCardRequest__tryRemainingCardServices_reply___block_invoke_2(uint6
         v8 = *(a1 + 48);
         v7 = *(a1 + 56);
         v9 = *(a1 + 40);
-        v13 = 138412802;
-        v14 = v7;
-        v15 = 2112;
-        v16 = v9;
-        v17 = 2112;
-        v18 = v8;
-        _os_log_impl(&dword_243268000, v5, OS_LOG_TYPE_INFO, "Retrieved card %@ from service %@ for request %@", &v13, 0x20u);
+        v12 = 138412802;
+        v13 = v7;
+        v14 = 2112;
+        v15 = v9;
+        v16 = 2112;
+        v17 = v8;
+        _os_log_impl(&dword_243268000, v5, OS_LOG_TYPE_INFO, "Retrieved card %@ from service %@ for request %@", &v12, 0x20u);
       }
 
       objc_storeStrong((*(*(a1 + 72) + 8) + 40), *(a1 + 56));
@@ -474,21 +468,20 @@ void __50__CRSCardRequest__tryRemainingCardServices_reply___block_invoke_2(uint6
     {
       v10 = *(a1 + 40);
       v11 = *(a1 + 48);
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_243268000, v5, OS_LOG_TYPE_INFO, "No card retrieved from service %@ for request %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_243268000, v5, OS_LOG_TYPE_INFO, "No card retrieved from service %@ for request %@", &v12, 0x16u);
     }
   }
 
   dispatch_group_leave(*(a1 + 64));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __50__CRSCardRequest__tryRemainingCardServices_reply___block_invoke_67(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objc_copyWeak(&to, (a1 + 72));
   v2 = [*(a1 + 32) mutableCopy];
   [v2 removeLastObject];
@@ -499,16 +492,15 @@ void __50__CRSCardRequest__tryRemainingCardServices_reply___block_invoke_67(uint
     v4 = objc_loadWeakRetained(&to);
     [(CRSCardResponse *)v3 setRequest:v4];
 
-    v5 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
     if ([v2 count])
     {
-      v6 = *MEMORY[0x277CF93F0];
+      v5 = *MEMORY[0x277CF93F0];
       if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v16 = v2;
-        _os_log_impl(&dword_243268000, v6, OS_LOG_TYPE_INFO, "Found card, so not trying remaining services %@", buf, 0xCu);
+        v14 = v2;
+        _os_log_impl(&dword_243268000, v5, OS_LOG_TYPE_INFO, "Found card, so not trying remaining services %@", buf, 0xCu);
       }
     }
 
@@ -517,31 +509,30 @@ void __50__CRSCardRequest__tryRemainingCardServices_reply___block_invoke_67(uint
 
   if (![v2 count])
   {
-    v8 = *(a1 + 56);
-    v9 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA068];
-    v14 = @"No service produced a card";
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-    v10 = [v9 errorWithDomain:*MEMORY[0x277CF93E8] code:401 userInfo:v3];
-    (*(v8 + 16))(v8, 0, v10);
+    v7 = *(a1 + 56);
+    v8 = MEMORY[0x277CCA9B8];
+    v11 = *MEMORY[0x277CCA068];
+    v12 = @"No service produced a card";
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v9 = [v8 errorWithDomain:*MEMORY[0x277CF93E8] code:401 userInfo:v3];
+    (*(v7 + 16))(v7, 0, v9);
 
 LABEL_10:
     goto LABEL_11;
   }
 
-  v7 = *MEMORY[0x277CF93F0];
+  v6 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v16 = v2;
-    _os_log_impl(&dword_243268000, v7, OS_LOG_TYPE_INFO, "Trying remaining services %@", buf, 0xCu);
+    v14 = v2;
+    _os_log_impl(&dword_243268000, v6, OS_LOG_TYPE_INFO, "Trying remaining services %@", buf, 0xCu);
   }
 
   [*(a1 + 48) _tryRemainingCardServices:v2 reply:*(a1 + 56)];
 LABEL_11:
 
   objc_destroyWeak(&to);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)registerService:(id)service
@@ -553,18 +544,17 @@ LABEL_11:
 
 void __50__CRSCardRequest__tryRemainingCardServices_reply___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
   v5 = *a2;
-  v7 = 138412802;
-  v8 = v3;
-  v9 = 2112;
-  v10 = v4;
-  v11 = 2112;
-  v12 = v5;
-  _os_log_error_impl(&dword_243268000, log, OS_LOG_TYPE_ERROR, "Failed to retrieve card from service %@ for request %@ due to error: %@", &v7, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412802;
+  v7 = v3;
+  v8 = 2112;
+  v9 = v4;
+  v10 = 2112;
+  v11 = v5;
+  _os_log_error_impl(&dword_243268000, log, OS_LOG_TYPE_ERROR, "Failed to retrieve card from service %@ for request %@ due to error: %@", &v6, 0x20u);
 }
 
 @end

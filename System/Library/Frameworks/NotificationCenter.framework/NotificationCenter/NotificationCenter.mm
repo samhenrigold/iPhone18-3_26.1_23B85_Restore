@@ -36,18 +36,19 @@ __CFString *NCStringFromWidgetVisibilityState(uint64_t a1)
   }
 }
 
-void sub_22D118730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_22D118730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 224), 8);
-  _Block_object_dispose((v37 - 192), 8);
-  _Block_object_dispose((v37 - 160), 8);
-  _Block_object_dispose((v37 - 128), 8);
-  _Block_object_dispose((v37 - 96), 8);
-  _Block_object_dispose((v37 - 64), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 224), 8);
+  _Block_object_dispose((v36 - 192), 8);
+  _Block_object_dispose((v36 - 160), 8);
+  _Block_object_dispose((v36 - 128), 8);
+  _Block_object_dispose((v36 - 96), 8);
+  _Block_object_dispose((v36 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -76,11 +77,11 @@ uint64_t SanitizedClientFrameFromHostSize(double a1, double a2, double a3, doubl
     v12 = v11;
   }
 
-  v26.origin.x = *MEMORY[0x277CBF3A0];
-  v26.origin.y = *(MEMORY[0x277CBF3A0] + 8);
-  v26.size.width = v10;
-  v26.size.height = v12;
-  Width = CGRectGetWidth(v26);
+  v28.origin.x = *MEMORY[0x277CBF3A0];
+  v28.origin.y = *(MEMORY[0x277CBF3A0] + 8);
+  v28.size.width = v10;
+  v28.size.height = v12;
+  Width = CGRectGetWidth(v28);
   v14 = fmax(a4, 0.0);
   if (Width <= v14)
   {
@@ -92,29 +93,29 @@ uint64_t SanitizedClientFrameFromHostSize(double a1, double a2, double a3, doubl
     v15 = v14;
   }
 
-  v27.origin.x = v15;
-  v27.origin.y = v8;
-  v27.size.width = v10;
-  v27.size.height = v12;
-  Height = CGRectGetHeight(v27);
-  v17 = fmax(a3, 0.0);
-  if (Height <= v17)
+  v29.origin.x = v15;
+  v29.origin.y = v8;
+  v29.size.width = v10;
+  v29.size.height = v12;
+  Height = CGRectGetHeight(v29);
+  v19 = fmax(a3, 0.0);
+  if (Height <= v19)
   {
-    v18 = Height;
+    v20 = Height;
   }
 
   else
   {
-    v18 = v17;
+    v20 = v19;
   }
 
-  v19.n128_u64[0] = NCMainScreenScale();
-  v20.n128_f64[0] = v15;
-  v21.n128_f64[0] = v18;
-  v22.n128_f64[0] = v10;
-  v23.n128_f64[0] = v12;
+  v21.n128_u64[0] = NCMainScreenScale(v16, v17);
+  v22.n128_f64[0] = v15;
+  v23.n128_f64[0] = v20;
+  v24.n128_f64[0] = v10;
+  v25.n128_f64[0] = v12;
 
-  return MEMORY[0x2821DE7D0](v20, v21, v22, v23, v19);
+  return MEMORY[0x2821DE7D0](v22, v23, v24, v25, v21);
 }
 
 void sub_22D119AE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -138,14 +139,37 @@ void sub_22D11A608(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22D11C1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22D11B13C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, __int128 buf)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  if (a2 == 1)
+  {
+    v24 = objc_begin_catch(a1);
+    v25 = NCLogWidgets;
+    if (os_log_type_enabled(NCLogWidgets, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = *(v23 + 32);
+      LODWORD(buf) = 138543618;
+      *(&buf + 4) = v26;
+      WORD6(buf) = 2114;
+      *(&buf + 14) = v24;
+      _os_log_impl(&dword_22D116000, v25, OS_LOG_TYPE_DEFAULT, "Encountered exception attempting to encode layer tree (layer=%{public}@): %{public}@", &buf, 0x16u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x22D11AFB0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_22D11C1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -176,7 +200,7 @@ void NCSwizzleClassMethod(objc_class *a1, const char *a2, const char *a3)
   method_exchangeImplementations(ClassMethod, v7);
 }
 
-double NCMainScreenScale()
+double NCMainScreenScale(uint64_t a1, uint64_t a2)
 {
   if (NCMainScreenScale_onceToken != -1)
   {
@@ -198,7 +222,7 @@ void __NCMainScreenScale_block_invoke()
   }
 }
 
-void NCRegisterWidgetsLogging()
+void NCRegisterWidgetsLogging(uint64_t result, uint64_t a2)
 {
   if (NCRegisterWidgetsLogging_onceToken != -1)
   {

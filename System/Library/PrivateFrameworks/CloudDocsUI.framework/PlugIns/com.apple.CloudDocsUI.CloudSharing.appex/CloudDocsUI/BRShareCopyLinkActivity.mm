@@ -26,25 +26,24 @@
 
 - (BOOL)canPerformWithActivityItems:(id)items
 {
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   itemsCopy = items;
-  v4 = [itemsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [itemsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
-      for (i = 0; i != v4; i = i + 1)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -53,7 +52,7 @@
         }
       }
 
-      v4 = [itemsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [itemsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;

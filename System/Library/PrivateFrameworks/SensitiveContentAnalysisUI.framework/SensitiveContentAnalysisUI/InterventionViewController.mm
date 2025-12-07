@@ -57,12 +57,11 @@
 
 - (NSDictionary)contextDictionary
 {
-  v2 = self + OBJC_IVAR____TtC26SensitiveContentAnalysisUI26InterventionViewController_config;
-  v3 = *&v2[*(type metadata accessor for InterventionConfig(0) + 28)];
+  type metadata accessor for InterventionConfig(0);
 
-  v4 = sub_1BC75BA30();
+  v2 = sub_1BC75BA30();
 
-  return v4;
+  return v2;
 }
 
 @end

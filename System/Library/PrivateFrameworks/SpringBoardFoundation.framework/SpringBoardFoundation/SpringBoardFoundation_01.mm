@@ -1,3 +1,39 @@
+void __LAMKBEventsRegister_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"MKBEvent *__LAMKBEventsRegister(__strong dispatch_queue_t, void (^__strong)(MKBEventType, CFDictionaryRef))"}];
+  [v0 handleFailureInFunction:v1 file:@"SBFMobileKeyBag.m" lineNumber:81 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void __LAMKBEventsUnregister_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void __LAMKBEventsUnregister(MKBEvent *)"];
+  [v0 handleFailureInFunction:v1 file:@"SBFMobileKeyBag.m" lineNumber:82 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void __LAMKBKeyBagPerformRecovery_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"int __LAMKBKeyBagPerformRecovery(CFDataRef, CFDictionaryRef)"}];
+  [v0 handleFailureInFunction:v1 file:@"SBFMobileKeyBag.m" lineNumber:83 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
+void __LAMKBPrewarmSPS_cold_1()
+{
+  v0 = [MEMORY[0x1E696AAA8] currentHandler];
+  v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int __LAMKBPrewarmSPS(CFDictionaryRef)"];
+  [v0 handleFailureInFunction:v1 file:@"SBFMobileKeyBag.m" lineNumber:84 description:{@"%s", dlerror()}];
+
+  __break(1u);
+}
+
 void LocalAuthenticationLibrary_cold_1(void *a1)
 {
   v2 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -95,18 +131,32 @@ void SBFCreateIOSurfaceForImage_cold_1()
   [OUTLINED_FUNCTION_2_1(v0 v1];
 }
 
-void __sbfImageByApplyingColorSpace_cold_1()
+void __sbfImageByApplyingColorSpace_cold_1(uint64_t a1)
 {
   CGColorSpaceGetType();
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_0(&dword_1BEA11000, v0, v1, " [SBFImageColorSpaceUtilities] don't know which device colorspace matches type=%i -> space=%{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3_0(&dword_1BEA11000, v1, v2, " [SBFImageColorSpaceUtilities] don't know which device colorspace matches type=%i -> space=%{public}@", v3, v4, v5, v6);
 }
 
 void __sbfImageByApplyingColorSpace_cold_2(CGColorSpace *a1)
 {
   CGColorSpaceGetModel(a1);
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_0(&dword_1BEA11000, v1, v2, " [SBFImageColorSpaceUtilities] don't know which device colorspace matches ICC model=%i -> space=%{public}@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3_0(&dword_1BEA11000, v1, v2, " [SBFImageColorSpaceUtilities] don't know which device colorspace matches ICC model=%i -> space=%{public}@", v3, v4, v5, v6);
+}
+
+void __sbfImageByApplyingColorSpace_cold_3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_5(&dword_1BEA11000, a2, a3, " [SBFImageColorSpaceUtilities] the original image doesn't have a colorspace -> image=%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __sbfImageByApplyingColorSpace_cold_4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_5(&dword_1BEA11000, a2, a3, " [SBFImageColorSpaceUtilities] the original image isn't CGImage based -> image=%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _SBFCGBitmapImageCreate_cold_1()
@@ -128,6 +178,13 @@ void _SBFCGBitmapImageCreate_cold_3()
   v7 = [MEMORY[0x1E696AAA8] currentHandler];
   v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"UIImage *_SBFCGBitmapImageCreate(CGSize, CGFloat, SBFGraphicsContextType, CGColorSpaceRef, CPMemoryPool *__strong, __strong SBFGraphicsDrawBlock, __strong SBFGraphicsCreateImageBlock)"}];
   [OUTLINED_FUNCTION_2_1(v0 v1];
+}
+
+void __SBFPreheatImageData_block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_5(&dword_1BEA11000, a2, a3, "Cannot preheat data more than 2MB: %li", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __getSBUILegibilityLabelClass_block_invoke_cold_1_0()
@@ -418,7 +475,7 @@ uint64_t GetSerializedVerifyAclConstraintSize(int a1, uint64_t a2, uint64_t a3, 
   return result;
 }
 
-uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsigned int a4, const void *a5, unsigned int a6, char a7, int a8, uint64_t a9, unsigned int a10, uint64_t a11, void *a12)
+uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsigned int a4, const void *a5, unsigned int a6, char a7, int a8, uint64_t a9, unsigned int a10, uint64_t a11, uint64_t *a12)
 {
   if (!a3)
   {
@@ -601,13 +658,13 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
         *a3 = 20;
         while (*(a2 + 16))
         {
-          SerializedRequirementSize = GetSerializedRequirementSize(a1, *(a2 + 20), &v26);
-          if (SerializedRequirementSize)
+          GetSerializedRequirementSize(a1, *(a2 + 20), &v26);
+          if (v9)
           {
             break;
           }
 
-          OUTLINED_FUNCTION_8_0(SerializedRequirementSize, v10, v11, v12, v13, v14, v15, v16, v25, v26);
+          OUTLINED_FUNCTION_8_0(v9, v10, v11, v12, v13, v14, v15, v16, v25, v26);
         }
       }
 
@@ -616,7 +673,7 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
         *a3 = 24;
         while (*(a2 + 20))
         {
-          v17 = GetSerializedRequirementSize(a1, *(a2 + 24), &v26);
+          GetSerializedRequirementSize(a1, *(a2 + 24), &v26);
           if (v17)
           {
             break;
@@ -632,100 +689,6 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
       *a3 = getRequirementDataSizeForVersion(a1, a2) + 16;
     }
   }
-}
-
-void SerializeRequirement(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
-{
-  OUTLINED_FUNCTION_18_0();
-  a21 = v22;
-  a22 = v27;
-  v28 = v23;
-  a12 = 0;
-  if (v24)
-  {
-    v29 = v25;
-    if (v25)
-    {
-      v30 = v26;
-      if (v26)
-      {
-        v31 = v24;
-        GetSerializedRequirementSize(v23, v24, &a12);
-        if (!v32 && a12 <= *v30)
-        {
-          v41 = *v31;
-          v42 = v31[2];
-          RequirementDataSizeForVersion = getRequirementDataSizeForVersion(v28, v31);
-          *v29 = v41;
-          *(v29 + 8) = v42;
-          *(v29 + 12) = RequirementDataSizeForVersion;
-          if (*v31 <= 0x1Cu)
-          {
-            OUTLINED_FUNCTION_6_0();
-            if (!v36)
-            {
-              v37 = getRequirementDataSizeForVersion(v28, v31);
-              memcpy((v29 + 16), v31 + 4, v37);
-              v38 = v37 + 16;
-LABEL_9:
-              *v30 = v38;
-              goto LABEL_10;
-            }
-
-            if ((v35 & 0x30) != 0)
-            {
-              *(v29 + 16) = v31[4];
-              if (!v31[4])
-              {
-                v38 = 20;
-                goto LABEL_9;
-              }
-
-              v39 = 0;
-              v38 = 20;
-              while (!OUTLINED_FUNCTION_4_0())
-              {
-                v38 += a9;
-                if (++v39 >= v31[4])
-                {
-                  goto LABEL_9;
-                }
-              }
-            }
-
-            else
-            {
-              if (v34 != 7)
-              {
-                goto LABEL_10;
-              }
-
-              *(v29 + 16) = *(v31 + 2);
-              if (!v31[5])
-              {
-                v38 = 24;
-                goto LABEL_9;
-              }
-
-              v40 = 0;
-              v38 = 24;
-              while (!OUTLINED_FUNCTION_4_0())
-              {
-                v38 += a9;
-                if (++v40 >= v31[5])
-                {
-                  goto LABEL_9;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-LABEL_10:
-  OUTLINED_FUNCTION_19_0();
 }
 
 uint64_t GetSerializedCredentialSize(_DWORD *a1, void *a2)
@@ -914,7 +877,7 @@ LABEL_15:
   OUTLINED_FUNCTION_11_1();
 }
 
-uint64_t CopyCredential(uint64_t a1, void **a2)
+uint64_t CopyCredential(unsigned int *a1, void **a2)
 {
   __dst = 0;
   v2 = 4294967293;
@@ -931,7 +894,7 @@ uint64_t CopyCredential(uint64_t a1, void **a2)
 
     else if (__dst)
     {
-      memcpy(__dst, a1, *(a1 + 28) + 32);
+      memcpy(__dst, a1, a1[7] + 32);
       v2 = 0;
       *a2 = __dst;
     }
@@ -1377,7 +1340,7 @@ LABEL_12:
   return v4;
 }
 
-void DeallocCredentialList(_DWORD **a1, unsigned int a2)
+void DeallocCredentialList(void *a1, unsigned int a2)
 {
   if (a1)
   {
@@ -2003,7 +1966,7 @@ uint64_t LibSer_SEPControlResponse_Serialize(void *__src, size_t __n, _DWORD *a3
   return result;
 }
 
-uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, void *a3, void *a4)
+uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, unsigned int **a3, void *a4)
 {
   if (!a1)
   {
@@ -2790,7 +2753,7 @@ uint64_t LibCall_ACMContextUnloadToImage_Block(uint64_t a1)
   return v4;
 }
 
-uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, void *a3, void *__src, size_t __n)
+uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, size_t *a3, void *__src, size_t __n)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -2844,7 +2807,7 @@ LABEL_13:
   return v12;
 }
 
-uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, void *a3, void *__dst, size_t __n)
+uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, size_t *a3, void *__dst, size_t __n)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -3917,9 +3880,9 @@ void ACMContextRemoveCredentialsByValueAndScope(int a1, int a2, int a3, int a4, 
       if (v39)
       {
         v40 = OUTLINED_FUNCTION_3_4();
-        if (!SerializeRemoveCredential(v40))
+        if (!SerializeRemoveCredential(v40, v41, v42, v39, v43))
         {
-          OUTLINED_FUNCTION_17_1(v26, 6, v41, v42, size);
+          OUTLINED_FUNCTION_17_1(v26, 6, v44, v45, size);
         }
 
         acm_mem_free_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 478, "ACMContextRemoveCredentialsByValueAndScope");
@@ -3934,11 +3897,11 @@ void ACMContextRemoveCredentialsByValueAndScope(int a1, int a2, int a3, int a4, 
   }
 
   OUTLINED_FUNCTION_26_0();
-  if (v43 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  if (v46 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0_15();
     OUTLINED_FUNCTION_4_3();
-    _os_log_impl(v44, v45, v46, v47, v48, 0x20u);
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
   }
 
   OUTLINED_FUNCTION_28_0();
@@ -4090,9 +4053,9 @@ void ACMContextReplacePassphraseCredentialsWithScope(int a1, int a2, int a3, int
       if (v39)
       {
         v40 = OUTLINED_FUNCTION_3_4();
-        if (!SerializeReplacePassphraseCredential(v40))
+        if (!SerializeReplacePassphraseCredential(v40, v41, v42, v39, v43))
         {
-          OUTLINED_FUNCTION_17_1(v26, 15, v41, v42, size);
+          OUTLINED_FUNCTION_17_1(v26, 15, v44, v45, size);
         }
 
         bzero(v39, size);
@@ -4108,11 +4071,11 @@ void ACMContextReplacePassphraseCredentialsWithScope(int a1, int a2, int a3, int
   }
 
   OUTLINED_FUNCTION_26_0();
-  if (v43 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  if (v46 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0_15();
     OUTLINED_FUNCTION_4_3();
-    _os_log_impl(v44, v45, v46, v47, v48, 0x20u);
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
   }
 
   OUTLINED_FUNCTION_28_0();
@@ -4839,7 +4802,7 @@ unsigned int *LibCall_ACMCredentialGetType(unsigned int *result)
   return result;
 }
 
-void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, _OWORD *__src, size_t a4)
+void LibCall_ACMCredentialSetProperty(int *a1, uint64_t a2, _OWORD *__src, size_t a4)
 {
   if (!a1 || (__src != 0) != (a4 != 0))
   {
@@ -4922,7 +4885,7 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, _OWORD *__src, s
 
         if (v59)
         {
-          memcpy((a1 + 209), v57, a4);
+          memcpy(a1 + 209, v57, a4);
           *(a1 + 205) = a4;
         }
 
@@ -4938,7 +4901,7 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, _OWORD *__src, s
       if (a4 == 4)
       {
         OUTLINED_FUNCTION_29_1();
-        *(a1 + 12) = v74;
+        a1[3] = v74;
       }
 
       return;
@@ -4956,8 +4919,8 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, _OWORD *__src, s
 
       if (v71)
       {
-        memcpy((a1 + 36), v69, a4);
-        *(a1 + 32) = a4;
+        memcpy(a1 + 9, v69, a4);
+        a1[8] = a4;
       }
 
       return;
@@ -4969,7 +4932,7 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, _OWORD *__src, s
           case 1:
           case 3:
           case 9:
-          case 0xA:
+          case 10:
             goto LABEL_155;
           case 2:
           case 4:
@@ -5013,8 +4976,8 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, _OWORD *__src, s
         return;
       }
 
-      *(a1 + 36) = a4;
-      v20 = (a1 + 40);
+      a1[9] = a4;
+      v20 = a1 + 10;
       goto LABEL_69;
     case 0xC9:
       if (a4 != 4 || *a1 != 2)
@@ -5024,7 +4987,7 @@ void LibCall_ACMCredentialSetProperty(uint64_t a1, uint64_t a2, _OWORD *__src, s
 
 LABEL_155:
       OUTLINED_FUNCTION_29_1();
-      *(a1 + 32) = v73;
+      a1[8] = v73;
       return;
     case 0x190:
       if (a4 != 32 || *a1 != 7)
@@ -5037,8 +5000,8 @@ LABEL_155:
       if (a4 == 24 && *a1 == 7)
       {
         v49 = OUTLINED_FUNCTION_16_2(a1, a2, __src);
-        *(a1 + 80) = *(v50 + 16);
-        *(a1 + 64) = v49;
+        *(a1 + 10) = *(v50 + 16);
+        *(a1 + 4) = v49;
       }
 
       return;
@@ -5057,7 +5020,7 @@ LABEL_155:
       if (v14)
       {
 LABEL_50:
-        *(a1 + 36) = OUTLINED_FUNCTION_16_2(v10, v11, v12);
+        *(a1 + 9) = OUTLINED_FUNCTION_16_2(v10, v11, v12);
       }
 
       return;
@@ -5076,7 +5039,7 @@ LABEL_50:
       if (v65)
       {
 LABEL_140:
-        *(a1 + 52) = OUTLINED_FUNCTION_16_2(v61, v62, v63);
+        *(a1 + 13) = OUTLINED_FUNCTION_16_2(v61, v62, v63);
       }
 
       return;
@@ -5094,7 +5057,7 @@ LABEL_140:
 
       if (v45)
       {
-        *(a1 + 68) = OUTLINED_FUNCTION_16_2(v41, v42, v43);
+        *(a1 + 17) = OUTLINED_FUNCTION_16_2(v41, v42, v43);
       }
 
       return;
@@ -5115,7 +5078,7 @@ LABEL_140:
 
 LABEL_143:
       OUTLINED_FUNCTION_29_1();
-      *(a1 + 36) = v66;
+      a1[9] = v66;
       return;
   }
 
@@ -5136,7 +5099,7 @@ LABEL_143:
 
       if (v37)
       {
-        *(a1 + 32) = OUTLINED_FUNCTION_16_2(v33, v34, v35);
+        *(a1 + 2) = OUTLINED_FUNCTION_16_2(v33, v34, v35);
       }
 
       return;
@@ -5146,7 +5109,7 @@ LABEL_143:
     {
       if (a4 == 65 && *a1 == 17)
       {
-        v20 = (a1 + 48);
+        v20 = a1 + 12;
         v30 = __src;
         v31 = 65;
         goto LABEL_108;
@@ -5165,13 +5128,13 @@ LABEL_143:
           switch(v6)
           {
             case 3:
-              *(a1 + 100) = 16;
+              a1[25] = 16;
               break;
             case 9:
-              *(a1 + 36) = 16;
+              a1[9] = 16;
               break;
             case 1:
-              *(a1 + 40) = 16;
+              a1[10] = 16;
               break;
             default:
               return;
@@ -5192,8 +5155,8 @@ LABEL_143:
 
 LABEL_119:
     v54 = __src[1];
-    *(a1 + 32) = *__src;
-    *(a1 + 48) = v54;
+    *(a1 + 2) = *__src;
+    *(a1 + 3) = v54;
     return;
   }
 
@@ -5210,8 +5173,8 @@ LABEL_119:
 
   if (v29)
   {
-    *(a1 + 32) = a4;
-    v20 = (a1 + 36);
+    a1[8] = a4;
+    v20 = a1 + 9;
 LABEL_69:
     v30 = v17;
     v31 = a4;
@@ -5988,7 +5951,18 @@ void LibCall_ACMSetEnvironmentVariable()
     v0 = printf("%s: %s: called.\n", "ACM", "LibCall_ACMSetEnvironmentVariable");
   }
 
-  if (v13 && v6 == 16 * (v8 != 0) && (v4 ? (v14 = v2 - 129 < 0xFFFFFFFFFFFFFF80) : (v14 = v2 != 0), !v14))
+  if (!v13 || v6 != 16 * (v8 != 0))
+  {
+    goto LABEL_20;
+  }
+
+  v14 = v2 != 0;
+  if (v4)
+  {
+    v14 = v2 - 129 < 0xFFFFFFFFFFFFFF80;
+  }
+
+  if (!v14)
   {
     MEMORY[0x1EEE9AC00](v0);
     v15 = (v17 - ((v2 + 59) & 0xFFFFFFFFFFFFFFF0));
@@ -6028,6 +6002,7 @@ void LibCall_ACMSetEnvironmentVariable()
 
   else
   {
+LABEL_20:
     OUTLINED_FUNCTION_7();
   }
 
@@ -6353,7 +6328,7 @@ uint64_t LibCall_ACMContextGetInfo(uint64_t (*a1)(uint64_t, uint64_t, void, int 
   return v10;
 }
 
-uint64_t verifyAclConstraintInternal(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, unsigned __int8 a9, uint64_t a10, int a11, unsigned int a12, BOOL *a13, uint64_t *a14)
+uint64_t verifyAclConstraintInternal(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, int a12, BOOL *a13, uint64_t *a14)
 {
   OUTLINED_FUNCTION_35();
   if (gACMLoggingLevel <= 0xAu)
@@ -6560,20 +6535,20 @@ uint64_t LibCall_ACMSecSetBuiltinBiometry(uint64_t a1, uint64_t a2)
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMSecSetBuiltinBiometry");
   }
 
-  OUTLINED_FUNCTION_18_2();
-  OUTLINED_FUNCTION_37();
+  v3 = OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_37(v3, v4, 30, v5, v6, v7, v8);
   OUTLINED_FUNCTION_11();
-  if (v3)
+  if (v9)
   {
-    v4 = 10;
+    v10 = 10;
   }
 
   else
   {
-    v4 = 70;
+    v10 = 70;
   }
 
-  if (v4 >= gACMLoggingLevel)
+  if (v10 >= gACMLoggingLevel)
   {
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSecSetBuiltinBiometry", a2);
   }

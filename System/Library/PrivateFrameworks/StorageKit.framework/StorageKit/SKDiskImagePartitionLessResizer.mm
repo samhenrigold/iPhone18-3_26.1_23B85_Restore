@@ -6,30 +6,30 @@
 
 - (id)resizeStateMachine:(id *)machine
 {
-  v25[8] = *MEMORY[0x277D85DE8];
+  v24[8] = *MEMORY[0x277D85DE8];
   disk = [(SKDiskResizerBase *)self disk];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
 
 LABEL_4:
-    v24 = transitionEntrySEL(@"kImageResize", kGrowEvent, sel_imageResize_, @"kVolumeResize");
-    v25[0] = v24;
+    v23 = transitionEntrySEL(@"kImageResize", kGrowEvent, sel_imageResize_, @"kVolumeResize");
+    v24[0] = v23;
     v9 = transitionEntrySEL(@"kVolumeResize", kGrowEvent, sel_volumeResize_, kDoneGrow);
-    v25[1] = v9;
+    v24[1] = v9;
     v10 = endTransitionEntry(kDoneGrow, kGrowEvent);
-    v25[2] = v10;
+    v24[2] = v10;
     v11 = transitionEntrySEL(kDoneGrow, kShrinkEvent, sel_volumeResize_, @"kImageResize");
-    v25[3] = v11;
+    v24[3] = v11;
     v12 = transitionEntrySEL(@"kVolumeResize", kShrinkEvent, sel_volumeResize_, @"kImageResize");
-    v25[4] = v12;
+    v24[4] = v12;
     v13 = transitionEntrySEL(@"kImageResize", kShrinkEvent, sel_imageResize_, kDoneShrink);
-    v25[5] = v13;
+    v24[5] = v13;
     v14 = endTransitionEntry(kDoneShrink, kShrinkEvent);
-    v25[6] = v14;
+    v24[6] = v14;
     v15 = transitionEntrySEL(kDoneShrink, kGrowEvent, sel_imageResize_, @"kVolumeResize");
-    v25[7] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:8];
+    v24[7] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:8];
     v17 = [SKStateTransitionTable tableWithTransitionEntries:v16 selectorTarget:self];
 
     eventFromSize = [(SKDiskResizerBase *)self eventFromSize];
@@ -60,7 +60,6 @@ LABEL_4:
 
   v21 = [SKError nilWithPOSIXCode:45 error:machine];
 LABEL_9:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

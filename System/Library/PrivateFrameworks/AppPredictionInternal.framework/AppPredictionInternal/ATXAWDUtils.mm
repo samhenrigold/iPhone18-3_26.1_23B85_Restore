@@ -25,58 +25,55 @@
     [ATXAWDUtils awdScoreWithScore:a2 type:self];
   }
 
-  [ATXAWDUtils scoreMultiplierWithInputType:type];
+  v6 = [ATXAWDUtils scoreMultiplierWithInputType:type];
   if ((*&score & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
   {
-    v9 = v6 * score;
-    if (v9 >= -2147483650.0)
+    v10 = v7 * score;
+    if (v10 >= -2147483650.0)
     {
-      if (v9 <= 2147483650.0)
+      if (v10 <= 2147483650.0)
       {
-        v11 = v9;
+        v12 = v10;
       }
 
       else
       {
-        v12 = __atxlog_handle_default();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+        v13 = __atxlog_handle_default(v6);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
           +[ATXAWDUtils awdScoreWithScore:type:];
         }
 
-        v11 = 0x7FFFFFFF;
+        v12 = 0x7FFFFFFF;
       }
     }
 
     else
     {
-      v10 = __atxlog_handle_default();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = __atxlog_handle_default(v6);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         +[ATXAWDUtils awdScoreWithScore:type:];
       }
 
-      v11 = 0x80000000;
+      v12 = 0x80000000;
     }
 
-    result = v11 - (v11 == -31337.0);
+    return v12 - (v12 == -31337.0);
   }
 
   else
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 134217984;
       typeCopy = type;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Unexpected nonfinite score input encountered during feedback for scoreType: %lu", &v14, 0xCu);
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Unexpected nonfinite score input encountered during feedback for scoreType: %lu", &v14, 0xCu);
     }
 
-    result = -31337.0;
+    return -31337.0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 + (double)scoreMultiplierWithInputType:(unint64_t)type
@@ -927,31 +924,31 @@ LABEL_5:
 
 + (id)subscoresWithDictionary:(id)dictionary
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v24 = objc_opt_new();
+  v23 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v4 = dictionaryCopy;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     v8 = off_278594000;
     do
     {
       v9 = 0;
       do
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * v9);
+        v10 = *(*(&v24 + 1) + 8 * v9);
         v11 = [v10 rangeOfString:@"_ATXScoreInput"];
         v12 = v8[264];
         if (v11 == 0x7FFFFFFFFFFFFFFFLL)
@@ -980,2401 +977,2401 @@ LABEL_5:
             switch(v15)
             {
               case 0:
-                [v24 setInstallAge:v20];
+                [v23 setInstallAge:v20];
                 break;
               case 1:
-                [v24 setLastSpotlightLaunchAge:v20];
+                [v23 setLastSpotlightLaunchAge:v20];
                 break;
               case 2:
-                [v24 setLastLaunchAge:v20];
+                [v23 setLastLaunchAge:v20];
                 break;
               case 3:
-                [v24 setMedianSecondsBetweenLaunches:v20];
+                [v23 setMedianSecondsBetweenLaunches:v20];
                 break;
               case 4:
-                [v24 setAverageSecondsBetweenLaunches:v20];
+                [v23 setAverageSecondsBetweenLaunches:v20];
                 break;
               case 5:
-                [v24 setUnlockTime:v20];
+                [v23 setUnlockTime:v20];
                 break;
               case 6:
-                [v24 setAppInFolder:v20];
+                [v23 setAppInFolder:v20];
                 break;
               case 7:
-                [v24 setFolderPage:v20];
+                [v23 setFolderPage:v20];
                 break;
               case 9:
-                [v24 setSpringBoardPage:v20];
+                [v23 setSpringBoardPage:v20];
                 break;
               case 10:
-                [v24 setOnSpringBoardDock:v20];
+                [v23 setOnSpringBoardDock:v20];
                 break;
               case 11:
-                [v24 setFeedback:v20];
+                [v23 setFeedback:v20];
                 break;
               case 12:
-                [v24 setFeedbackConfirms:v20];
+                [v23 setFeedbackConfirms:v20];
                 break;
               case 13:
-                [v24 setFeedbackRejects:v20];
+                [v23 setFeedbackRejects:v20];
                 break;
               case 26:
-                [v24 setLaunchTimePopularity:v20];
+                [v23 setLaunchTimePopularity:v20];
                 break;
               case 27:
-                [v24 setTimeOfDayPopularity:v20];
+                [v23 setTimeOfDayPopularity:v20];
                 break;
               case 28:
-                [v24 setCoarseTimeOfDayPopularity:v20];
+                [v23 setCoarseTimeOfDayPopularity:v20];
                 break;
               case 29:
-                [v24 setLaunchPopularity:v20];
+                [v23 setLaunchPopularity:v20];
                 break;
               case 30:
-                [v24 setSpotlightLaunchTimePopularity:v20];
+                [v23 setSpotlightLaunchTimePopularity:v20];
                 break;
               case 31:
-                [v24 setSpotlightTimeOfDayPopularity:v20];
+                [v23 setSpotlightTimeOfDayPopularity:v20];
                 break;
               case 32:
-                [v24 setSpotlightLaunchPopularity:v20];
+                [v23 setSpotlightLaunchPopularity:v20];
                 break;
               case 33:
-                [v24 setDayZeroPoints:v20];
+                [v23 setDayZeroPoints:v20];
                 break;
               case 34:
-                [v24 setStaticAppPoints:v20];
+                [v23 setStaticAppPoints:v20];
                 break;
               case 35:
-                [v24 setLaunchDayOfWeekPopularity:v20];
+                [v23 setLaunchDayOfWeekPopularity:v20];
                 break;
               case 36:
-                [v24 setDayOfWeekPopularity:v20];
+                [v23 setDayOfWeekPopularity:v20];
                 break;
               case 37:
-                [v24 setLaunchSequencePopularity:v20];
+                [v23 setLaunchSequencePopularity:v20];
                 break;
               case 38:
-                [v24 setLaunchLocationPopularity:v20];
+                [v23 setLaunchLocationPopularity:v20];
                 break;
               case 39:
-                [v24 setAppLaunchMicroLocationPopularity:v20];
+                [v23 setAppLaunchMicroLocationPopularity:v20];
                 break;
               case 40:
-                [v24 setEntropyLaunchPopularity:v20];
+                [v23 setEntropyLaunchPopularity:v20];
                 break;
               case 41:
-                [v24 setEntropyDayOfWeekPopularity:v20];
+                [v23 setEntropyDayOfWeekPopularity:v20];
                 break;
               case 42:
-                [v24 setEntropyDayOfWeekPopularityByDay:v20];
+                [v23 setEntropyDayOfWeekPopularityByDay:v20];
                 break;
               case 43:
-                [v24 setEntropyDayOfWeekPopularityByApp:v20];
+                [v23 setEntropyDayOfWeekPopularityByApp:v20];
                 break;
               case 44:
-                [v24 setDistanceDayOfWeekToLaunchPopularity:v20];
+                [v23 setDistanceDayOfWeekToLaunchPopularity:v20];
                 break;
               case 45:
-                [v24 setEntropyTrendingPopularity:v20];
+                [v23 setEntropyTrendingPopularity:v20];
                 break;
               case 46:
-                [v24 setDistanceTrendingToLaunchPopularity:v20];
+                [v23 setDistanceTrendingToLaunchPopularity:v20];
                 break;
               case 47:
-                [v24 setEntropySSIDPopularity:v20];
+                [v23 setEntropySSIDPopularity:v20];
                 break;
               case 48:
-                [v24 setEntropySSIDPopularityBySSID:v20];
+                [v23 setEntropySSIDPopularityBySSID:v20];
                 break;
               case 49:
-                [v24 setEntropySSIDPopularityByApp:v20];
+                [v23 setEntropySSIDPopularityByApp:v20];
                 break;
               case 50:
-                [v24 setDistanceSSIDToLaunchPopularity:v20];
+                [v23 setDistanceSSIDToLaunchPopularity:v20];
                 break;
               case 51:
-                [v24 setAppCount:v20];
+                [v23 setAppCount:v20];
                 break;
               case 52:
-                [v24 setDistanceToExplicitLaunchPrediction:v20];
+                [v23 setDistanceToExplicitLaunchPrediction:v20];
                 break;
               case 53:
-                [v24 setSiriKitIntentParzen:v20];
+                [v23 setSiriKitIntentParzen:v20];
                 break;
               case 54:
-                [v24 setNonSiriKitIntentParzen:v20];
+                [v23 setNonSiriKitIntentParzen:v20];
                 break;
               case 55:
-                [v24 setAppDailyDose:v20];
+                [v23 setAppDailyDose:v20];
                 break;
               case 56:
-                [v24 setCurrentDose:v20];
+                [v23 setCurrentDose:v20];
                 break;
               case 57:
-                [v24 setAppDailyDoseRemaining:v20];
+                [v23 setAppDailyDoseRemaining:v20];
                 break;
               case 58:
-                [v24 setAppDailyDoseSmoothedError:v20];
+                [v23 setAppDailyDoseSmoothedError:v20];
                 break;
               case 59:
-                [v24 setTotalNumberOfLaunches:v20];
+                [v23 setTotalNumberOfLaunches:v20];
                 break;
               case 60:
-                [v24 setTotalNumberOfSpotlightLaunches:v20];
+                [v23 setTotalNumberOfSpotlightLaunches:v20];
                 break;
               case 61:
-                [v24 setAirplaneModePopularity:v20];
+                [v23 setAirplaneModePopularity:v20];
                 break;
               case 62:
-                [v24 setTotalNumberOfAirplaneModeLaunches:v20];
+                [v23 setTotalNumberOfAirplaneModeLaunches:v20];
                 break;
               case 63:
-                [v24 setTrendingPopularity:v20];
+                [v23 setTrendingPopularity:v20];
                 break;
               case 64:
-                [v24 setTotalNumberOfTrendingLaunches:v20];
+                [v23 setTotalNumberOfTrendingLaunches:v20];
                 break;
               case 65:
-                [v24 setSSIDPopularity:v20];
+                [v23 setSSIDPopularity:v20];
                 break;
               case 66:
-                [v24 setTotalNumberOfSSIDLaunches:v20];
+                [v23 setTotalNumberOfSSIDLaunches:v20];
                 break;
               case 67:
-                [v24 setOnWifi:v20];
+                [v23 setOnWifi:v20];
                 break;
               case 68:
-                [v24 setCoreMotionPopularity:v20];
+                [v23 setCoreMotionPopularity:v20];
                 break;
               case 69:
-                [v24 setTotalNumberOfCoreMotionLaunches:v20];
+                [v23 setTotalNumberOfCoreMotionLaunches:v20];
                 break;
               case 70:
-                [v24 setMagicalMomentsConfidence:v20];
+                [v23 setMagicalMomentsConfidence:v20];
                 break;
               case 71:
-                [v24 setMagicalMomentsPredictionReason:v20];
+                [v23 setMagicalMomentsPredictionReason:v20];
                 break;
               case 73:
-                [v24 setHeroAppConfidence:v20];
+                [v23 setHeroAppConfidence:v20];
                 break;
               case 74:
-                [v24 setHeroAppPredictionReason:v20];
+                [v23 setHeroAppPredictionReason:v20];
                 break;
               case 75:
-                [v24 setMagicalMomentsHeroAppPredictionIndex:v20];
+                [v23 setMagicalMomentsHeroAppPredictionIndex:v20];
                 break;
               case 76:
-                [v24 setMagicalMomentsHeroAppPredictionTotalPredictions:v20];
+                [v23 setMagicalMomentsHeroAppPredictionTotalPredictions:v20];
                 break;
               case 77:
-                [v24 setMostRecentNotificationAge:v20];
+                [v23 setMostRecentNotificationAge:v20];
                 break;
               case 78:
-                [v24 setAppPreferenceBundleBoost:v20];
+                [v23 setAppPreferenceBundleBoost:v20];
                 break;
               case 79:
-                [v24 setAppIntentPartOfWeekPopularity:v20];
+                [v23 setAppIntentPartOfWeekPopularity:v20];
                 break;
               case 80:
-                [v24 setAppIntentLaunchPartOfWeekPopularity:v20];
+                [v23 setAppIntentLaunchPartOfWeekPopularity:v20];
                 break;
               case 81:
-                [v24 setGenreTimeOfDayPopularity:v20];
+                [v23 setGenreTimeOfDayPopularity:v20];
                 break;
               case 82:
-                [v24 setGenreSequencePopularity:v20];
+                [v23 setGenreSequencePopularity:v20];
                 break;
               case 83:
-                [v24 setGenreDayOfWeekPopularity:v20];
+                [v23 setGenreDayOfWeekPopularity:v20];
                 break;
               case 84:
-                [v24 setGenreSpotlightLaunchPopularity:v20];
+                [v23 setGenreSpotlightLaunchPopularity:v20];
                 break;
               case 85:
-                [v24 setTrendingGenrePopularity:v20];
+                [v23 setTrendingGenrePopularity:v20];
                 break;
               case 86:
-                [v24 setGenreAirplaneModePopularity:v20];
+                [v23 setGenreAirplaneModePopularity:v20];
                 break;
               case 87:
-                [v24 setGenreDailyDoseRemaining:v20];
+                [v23 setGenreDailyDoseRemaining:v20];
                 break;
               case 88:
-                [v24 setGenreLocationPopularity:v20];
+                [v23 setGenreLocationPopularity:v20];
                 break;
               case 89:
-                [v24 setGenreSSIDPopularity:v20];
+                [v23 setGenreSSIDPopularity:v20];
                 break;
               case 90:
-                [v24 setApp2VecClusterTimeOfDayPopularity:v20];
+                [v23 setApp2VecClusterTimeOfDayPopularity:v20];
                 break;
               case 91:
-                [v24 setApp2VecClusterSequencePopularity:v20];
+                [v23 setApp2VecClusterSequencePopularity:v20];
                 break;
               case 92:
-                [v24 setApp2VecClusterDayOfWeekPopularity:v20];
+                [v23 setApp2VecClusterDayOfWeekPopularity:v20];
                 break;
               case 93:
-                [v24 setApp2VecClusterTrendingPopularity:v20];
+                [v23 setApp2VecClusterTrendingPopularity:v20];
                 break;
               case 94:
-                [v24 setApp2VecClusterLocationPopularity:v20];
+                [v23 setApp2VecClusterLocationPopularity:v20];
                 break;
               case 95:
-                [v24 setApp2VecClusterCount:v20];
+                [v23 setApp2VecClusterCount:v20];
                 break;
               case 96:
-                [v24 setSupportsMedia:v20];
+                [v23 setSupportsMedia:v20];
                 break;
               case 97:
-                [v24 setAppTimeAndDayOfWeekPopularity:v20];
+                [v23 setAppTimeAndDayOfWeekPopularity:v20];
                 break;
               case 98:
-                [v24 setAppPopularityGivenTimeAndDayOfWeek:v20];
+                [v23 setAppPopularityGivenTimeAndDayOfWeek:v20];
                 break;
               case 99:
-                [v24 setAppPopularityOfTimeAndDayOfWeekGivenApp:v20];
+                [v23 setAppPopularityOfTimeAndDayOfWeekGivenApp:v20];
                 break;
               case 100:
-                [v24 setAppTotalNumberOfTimeAndDayOfWeekLaunches:v20];
+                [v23 setAppTotalNumberOfTimeAndDayOfWeekLaunches:v20];
                 break;
               case 101:
-                [v24 setAppIntentCount:v20];
+                [v23 setAppIntentCount:v20];
                 break;
               case 102:
-                [v24 setAppIntentSlotCountForAllAppActions:v20];
+                [v23 setAppIntentSlotCountForAllAppActions:v20];
                 break;
               case 103:
-                [v24 setAppIntentTotalNumberOfLaunches:v20];
+                [v23 setAppIntentTotalNumberOfLaunches:v20];
                 break;
               case 104:
-                [v24 setAppIntentTotalNumberOfAirplaneModeLaunches:v20];
+                [v23 setAppIntentTotalNumberOfAirplaneModeLaunches:v20];
                 break;
               case 105:
-                [v24 setAppIntentTotalNumberOfSSIDLaunches:v20];
+                [v23 setAppIntentTotalNumberOfSSIDLaunches:v20];
                 break;
               case 106:
-                [v24 setAppIntentTotalNumberOfCoreMotionLaunches:v20];
+                [v23 setAppIntentTotalNumberOfCoreMotionLaunches:v20];
                 break;
               case 107:
-                [v24 setAppIntentTotalNumberOfTrendingLaunches:v20];
+                [v23 setAppIntentTotalNumberOfTrendingLaunches:v20];
                 break;
               case 108:
-                [v24 setDayOfWeekBucket:v20];
+                [v23 setDayOfWeekBucket:v20];
                 break;
               case 109:
-                [v24 setTimeOfDayBucket:v20];
+                [v23 setTimeOfDayBucket:v20];
                 break;
               case 110:
-                [v24 setIsDateInWeekendOnDevice:v20];
+                [v23 setIsDateInWeekendOnDevice:v20];
                 break;
               case 111:
-                [v24 setAppIntentLaunchPopularity:v20];
+                [v23 setAppIntentLaunchPopularity:v20];
                 break;
               case 112:
-                [v24 setAppIntentTrendingPopularity:v20];
+                [v23 setAppIntentTrendingPopularity:v20];
                 break;
               case 113:
-                [v24 setAppIntentTimeOfDayPopularity:v20];
+                [v23 setAppIntentTimeOfDayPopularity:v20];
                 break;
               case 114:
-                [v24 setAppIntentCoarseTimeOfDayPopularity:v20];
+                [v23 setAppIntentCoarseTimeOfDayPopularity:v20];
                 break;
               case 115:
-                [v24 setAppIntentDayOfWeekPopularity:v20];
+                [v23 setAppIntentDayOfWeekPopularity:v20];
                 break;
               case 116:
-                [v24 setAppIntentUnlockTime:v20];
+                [v23 setAppIntentUnlockTime:v20];
                 break;
               case 117:
-                [v24 setAppIntentSSIDPopularity:v20];
+                [v23 setAppIntentSSIDPopularity:v20];
                 break;
               case 118:
-                [v24 setAppIntentCoreMotionPopularity:v20];
+                [v23 setAppIntentCoreMotionPopularity:v20];
                 break;
               case 119:
-                [v24 setAppIntentAirplaneModePopularity:v20];
+                [v23 setAppIntentAirplaneModePopularity:v20];
                 break;
               case 120:
-                [v24 setAppIntentLaunchLocationPopularity:v20];
+                [v23 setAppIntentLaunchLocationPopularity:v20];
                 break;
               case 121:
-                [v24 setAppIntentLaunchMicroLocationPopularity:v20];
+                [v23 setAppIntentLaunchMicroLocationPopularity:v20];
                 break;
               case 122:
-                [v24 setAppIntentLaunchSequencePopularity:v20];
+                [v23 setAppIntentLaunchSequencePopularity:v20];
                 break;
               case 123:
-                [v24 setAppIntentAppLaunchSequencePopularity:v20];
+                [v23 setAppIntentAppLaunchSequencePopularity:v20];
                 break;
               case 124:
-                [v24 setAppIntentLaunchTimePopularity:v20];
+                [v23 setAppIntentLaunchTimePopularity:v20];
                 break;
               case 125:
-                [v24 setAppIntentLaunchDayOfWeekPopularity:v20];
+                [v23 setAppIntentLaunchDayOfWeekPopularity:v20];
                 break;
               case 126:
-                [v24 setAppIntentLastLaunchAge:v20];
+                [v23 setAppIntentLastLaunchAge:v20];
                 break;
               case 127:
-                [v24 setAppIntentAverageSecondsBetweenAppActions:v20];
+                [v23 setAppIntentAverageSecondsBetweenAppActions:v20];
                 break;
               case 128:
-                [v24 setAppIntentMedianSecondsBetweenAppActions:v20];
+                [v23 setAppIntentMedianSecondsBetweenAppActions:v20];
                 break;
               case 129:
-                [v24 setAppIntentDayZeroPoints:v20];
+                [v23 setAppIntentDayZeroPoints:v20];
                 break;
               case 130:
-                [v24 setAppIntentStaticPoints:v20];
+                [v23 setAppIntentStaticPoints:v20];
                 break;
               case 131:
-                [v24 setAppIntentValueScore:v20];
+                [v23 setAppIntentValueScore:v20];
                 break;
               case 132:
-                [v24 setAppCategory:v20];
+                [v23 setAppCategory:v20];
                 break;
               case 135:
-                [v24 setIntentCategoryFromIntentDefinition:v20];
+                [v23 setIntentCategoryFromIntentDefinition:v20];
                 break;
               case 136:
-                [v24 setAppIntentEntropyLaunchPopularity:v20];
+                [v23 setAppIntentEntropyLaunchPopularity:v20];
                 break;
               case 137:
-                [v24 setAppIntentEntropyDayOfWeekPopularity:v20];
+                [v23 setAppIntentEntropyDayOfWeekPopularity:v20];
                 break;
               case 138:
-                [v24 setAppIntentEntropyDayOfWeekPopularityByDay:v20];
+                [v23 setAppIntentEntropyDayOfWeekPopularityByDay:v20];
                 break;
               case 139:
-                [v24 setAppIntentEntropyDayOfWeekPopularityByAppIntent:v20];
+                [v23 setAppIntentEntropyDayOfWeekPopularityByAppIntent:v20];
                 break;
               case 140:
-                [v24 setAppIntentEntropyTrendingPopularity:v20];
+                [v23 setAppIntentEntropyTrendingPopularity:v20];
                 break;
               case 141:
-                [v24 setAppIntentEntropySSIDPopularity:v20];
+                [v23 setAppIntentEntropySSIDPopularity:v20];
                 break;
               case 142:
-                [v24 setAppIntentEntropySSIDPopularityBySSID:v20];
+                [v23 setAppIntentEntropySSIDPopularityBySSID:v20];
                 break;
               case 143:
-                [v24 setAppIntentEntropySSIDPopularityByAppIntent:v20];
+                [v23 setAppIntentEntropySSIDPopularityByAppIntent:v20];
                 break;
               case 144:
-                [v24 setAppIntentDistanceDayOfWeekToLaunchPopularity:v20];
+                [v23 setAppIntentDistanceDayOfWeekToLaunchPopularity:v20];
                 break;
               case 145:
-                [v24 setAppIntentDistanceTrendingToLaunchPopularity:v20];
+                [v23 setAppIntentDistanceTrendingToLaunchPopularity:v20];
                 break;
               case 146:
-                [v24 setAppIntentDistanceSSIDToLaunchPopularity:v20];
+                [v23 setAppIntentDistanceSSIDToLaunchPopularity:v20];
                 break;
               case 147:
-                [v24 setAppActionConfirmEvents:v20];
+                [v23 setAppActionConfirmEvents:v20];
                 break;
               case 148:
-                [v24 setAppActionRejectEvents:v20];
+                [v23 setAppActionRejectEvents:v20];
                 break;
               case 149:
-                [v24 setTotalAppActionConfirmEvents:v20];
+                [v23 setTotalAppActionConfirmEvents:v20];
                 break;
               case 150:
-                [v24 setTotalAppActionRejectEvents:v20];
+                [v23 setTotalAppActionRejectEvents:v20];
                 break;
               case 151:
-                [v24 setAppForAllIntentsCount:v20];
+                [v23 setAppForAllIntentsCount:v20];
                 break;
               case 152:
-                [v24 setAppForAllIntentsTotalNumberOfLaunches:v20];
+                [v23 setAppForAllIntentsTotalNumberOfLaunches:v20];
                 break;
               case 153:
-                [v24 setAppForAllIntentsTotalNumberOfAirplaneModeLaunches:v20];
+                [v23 setAppForAllIntentsTotalNumberOfAirplaneModeLaunches:v20];
                 break;
               case 154:
-                [v24 setAppForAllIntentsTotalNumberOfSSIDLaunches:v20];
+                [v23 setAppForAllIntentsTotalNumberOfSSIDLaunches:v20];
                 break;
               case 155:
-                [v24 setAppForAllIntentsTotalNumberOfCoreMotionLaunches:v20];
+                [v23 setAppForAllIntentsTotalNumberOfCoreMotionLaunches:v20];
                 break;
               case 156:
-                [v24 setAppForAllIntentsTotalNumberOfTrendingLaunches:v20];
+                [v23 setAppForAllIntentsTotalNumberOfTrendingLaunches:v20];
                 break;
               case 157:
-                [v24 setAppForAllIntentsLaunchPopularity:v20];
+                [v23 setAppForAllIntentsLaunchPopularity:v20];
                 break;
               case 158:
-                [v24 setAppForAllIntentsTimeOfDayPopularity:v20];
+                [v23 setAppForAllIntentsTimeOfDayPopularity:v20];
                 break;
               case 159:
-                [v24 setAppForAllIntentsDayOfWeekPopularity:v20];
+                [v23 setAppForAllIntentsDayOfWeekPopularity:v20];
                 break;
               case 160:
-                [v24 setAppForAllIntentsCoarseTimeOfDayPopularity:v20];
+                [v23 setAppForAllIntentsCoarseTimeOfDayPopularity:v20];
                 break;
               case 161:
-                [v24 setAppForAllIntentsUnlockTime:v20];
+                [v23 setAppForAllIntentsUnlockTime:v20];
                 break;
               case 162:
-                [v24 setAppForAllIntentsAirplaneModePopularity:v20];
+                [v23 setAppForAllIntentsAirplaneModePopularity:v20];
                 break;
               case 163:
-                [v24 setAppForAllIntentsSSIDPopularity:v20];
+                [v23 setAppForAllIntentsSSIDPopularity:v20];
                 break;
               case 164:
-                [v24 setAppForAllIntentsCoreMotionPopularity:v20];
+                [v23 setAppForAllIntentsCoreMotionPopularity:v20];
                 break;
               case 165:
-                [v24 setAppForAllIntentsTrendingPopularity:v20];
+                [v23 setAppForAllIntentsTrendingPopularity:v20];
                 break;
               case 166:
-                [v24 setAppForAllIntentsLaunchLocationPopularity:v20];
+                [v23 setAppForAllIntentsLaunchLocationPopularity:v20];
                 break;
               case 167:
-                [v24 setAppForAllIntentsLaunchTimePopularity:v20];
+                [v23 setAppForAllIntentsLaunchTimePopularity:v20];
                 break;
               case 168:
-                [v24 setAppForAllIntentsLaunchDayOfWeekPopularity:v20];
+                [v23 setAppForAllIntentsLaunchDayOfWeekPopularity:v20];
                 break;
               case 169:
-                [v24 setAppForAllIntentsEntropyLaunchPopularity:v20];
+                [v23 setAppForAllIntentsEntropyLaunchPopularity:v20];
                 break;
               case 170:
-                [v24 setAppForAllIntentsEntropyDayOfWeekPopularity:v20];
+                [v23 setAppForAllIntentsEntropyDayOfWeekPopularity:v20];
                 break;
               case 171:
-                [v24 setAppForAllIntentsEntropyDayOfWeekPopularityByDay:v20];
+                [v23 setAppForAllIntentsEntropyDayOfWeekPopularityByDay:v20];
                 break;
               case 172:
-                [v24 setAppForAllIntentsEntropyDayOfWeekPopularityByApp:v20];
+                [v23 setAppForAllIntentsEntropyDayOfWeekPopularityByApp:v20];
                 break;
               case 173:
-                [v24 setAppForAllIntentsEntropyTrendingPopularity:v20];
+                [v23 setAppForAllIntentsEntropyTrendingPopularity:v20];
                 break;
               case 174:
-                [v24 setAppForAllIntentsEntropySSIDPopularity:v20];
+                [v23 setAppForAllIntentsEntropySSIDPopularity:v20];
                 break;
               case 175:
-                [v24 setAppForAllIntentsEntropySSIDPopularityBySSID:v20];
+                [v23 setAppForAllIntentsEntropySSIDPopularityBySSID:v20];
                 break;
               case 176:
-                [v24 setAppForAllIntentsEntropySSIDPopularityByApp:v20];
+                [v23 setAppForAllIntentsEntropySSIDPopularityByApp:v20];
                 break;
               case 177:
-                [v24 setAppForAllIntentsDistanceSSIDToLaunchPopularity:v20];
+                [v23 setAppForAllIntentsDistanceSSIDToLaunchPopularity:v20];
                 break;
               case 178:
-                [v24 setAppForAllIntentsDistanceDayOfWeekToLaunchPopularity:v20];
+                [v23 setAppForAllIntentsDistanceDayOfWeekToLaunchPopularity:v20];
                 break;
               case 179:
-                [v24 setAppForAllIntentsDistanceTrendingToLaunchPopularity:v20];
+                [v23 setAppForAllIntentsDistanceTrendingToLaunchPopularity:v20];
                 break;
               case 180:
-                [v24 setAppForAllActionsConfirmEvents:v20];
+                [v23 setAppForAllActionsConfirmEvents:v20];
                 break;
               case 181:
-                [v24 setAppForAllActionsRejectEvents:v20];
+                [v23 setAppForAllActionsRejectEvents:v20];
                 break;
               case 182:
-                [v24 setTotalAppForAllActionsConfirmEvents:v20];
+                [v23 setTotalAppForAllActionsConfirmEvents:v20];
                 break;
               case 183:
-                [v24 setTotalAppForAllActionsRejectEvents:v20];
+                [v23 setTotalAppForAllActionsRejectEvents:v20];
                 break;
               case 184:
-                [v24 setSlotCount:v20];
+                [v23 setSlotCount:v20];
                 break;
               case 185:
-                [v24 setSlotTotalNumberOfLaunches:v20];
+                [v23 setSlotTotalNumberOfLaunches:v20];
                 break;
               case 186:
-                [v24 setSlotTotalNumberOfUniqueDaysLaunched:v20];
+                [v23 setSlotTotalNumberOfUniqueDaysLaunched:v20];
                 break;
               case 187:
-                [v24 setSlotLaunchPopularity:v20];
+                [v23 setSlotLaunchPopularity:v20];
                 break;
               case 188:
-                [v24 setSlotTimeOfDayPopularity:v20];
+                [v23 setSlotTimeOfDayPopularity:v20];
                 break;
               case 189:
-                [v24 setSlotTimeOfDayWithThirtyMinuteWindowPopularity:v20];
+                [v23 setSlotTimeOfDayWithThirtyMinuteWindowPopularity:v20];
                 break;
               case 190:
-                [v24 setSlotTimeOfDayWithHourWindowPopularity:v20];
+                [v23 setSlotTimeOfDayWithHourWindowPopularity:v20];
                 break;
               case 191:
-                [v24 setSlotTimeOfDayWithEightHourWindowPopularity:v20];
+                [v23 setSlotTimeOfDayWithEightHourWindowPopularity:v20];
                 break;
               case 192:
-                [v24 setSlotDayOfWeekPopularity:v20];
+                [v23 setSlotDayOfWeekPopularity:v20];
                 break;
               case 193:
-                [v24 setSlotPartOfWeekPopularity:v20];
+                [v23 setSlotPartOfWeekPopularity:v20];
                 break;
               case 194:
-                [v24 setSlotPartOfWeekAndLocationPopularity:v20];
+                [v23 setSlotPartOfWeekAndLocationPopularity:v20];
                 break;
               case 195:
-                [v24 setSlotCoarseTimeOfDayPopularity:v20];
+                [v23 setSlotCoarseTimeOfDayPopularity:v20];
                 break;
               case 196:
-                [v24 setSlotLocationPopularity:v20];
+                [v23 setSlotLocationPopularity:v20];
                 break;
               case 197:
-                [v24 setSlotCoreMotionPopularity:v20];
+                [v23 setSlotCoreMotionPopularity:v20];
                 break;
               case 198:
-                [v24 setSlotPreviousLocationPopularity:v20];
+                [v23 setSlotPreviousLocationPopularity:v20];
                 break;
               case 199:
-                [v24 setSlotTimeAndDayPopularity:v20];
+                [v23 setSlotTimeAndDayPopularity:v20];
                 break;
               case 200:
-                [v24 setSlotTimeAndLocationPopularity:v20];
+                [v23 setSlotTimeAndLocationPopularity:v20];
                 break;
               case 201:
-                [v24 setSlotDayAndLocationPopularity:v20];
+                [v23 setSlotDayAndLocationPopularity:v20];
                 break;
               case 202:
-                [v24 setSlotTimeAndDayAndLocationPopularity:v20];
+                [v23 setSlotTimeAndDayAndLocationPopularity:v20];
                 break;
               case 203:
-                [v24 setSlotPreviousLocationAndCoreMotionPopularity:v20];
+                [v23 setSlotPreviousLocationAndCoreMotionPopularity:v20];
                 break;
               case 204:
-                [v24 setSlotPreviousLocationAndLocationPopularity:v20];
+                [v23 setSlotPreviousLocationAndLocationPopularity:v20];
                 break;
               case 205:
-                [v24 setSlotTimeAndPreviousLocationPopularity:v20];
+                [v23 setSlotTimeAndPreviousLocationPopularity:v20];
                 break;
               case 206:
-                [v24 setSlotDayAndPreviousLocationPopularity:v20];
+                [v23 setSlotDayAndPreviousLocationPopularity:v20];
                 break;
               case 207:
-                [v24 setSlotPartOfWeekAndTimePopularity:v20];
+                [v23 setSlotPartOfWeekAndTimePopularity:v20];
                 break;
               case 208:
-                [v24 setSlotLaunchTimePopularity:v20];
+                [v23 setSlotLaunchTimePopularity:v20];
                 break;
               case 209:
-                [v24 setSlotLaunchCoarseTimePopularity:v20];
+                [v23 setSlotLaunchCoarseTimePopularity:v20];
                 break;
               case 210:
-                [v24 setSlotLaunchDayOfWeekPopularity:v20];
+                [v23 setSlotLaunchDayOfWeekPopularity:v20];
                 break;
               case 211:
-                [v24 setSlotLaunchPartOfWeekPopularity:v20];
+                [v23 setSlotLaunchPartOfWeekPopularity:v20];
                 break;
               case 212:
-                [v24 setSlotLaunchPartOfWeekAndLocationPopularity:v20];
+                [v23 setSlotLaunchPartOfWeekAndLocationPopularity:v20];
                 break;
               case 213:
-                [v24 setSlotLaunchLocationPopularity:v20];
+                [v23 setSlotLaunchLocationPopularity:v20];
                 break;
               case 214:
-                [v24 setSlotLaunchCoreMotionPopularity:v20];
+                [v23 setSlotLaunchCoreMotionPopularity:v20];
                 break;
               case 215:
-                [v24 setSlotLaunchPreviousLocationPopularity:v20];
+                [v23 setSlotLaunchPreviousLocationPopularity:v20];
                 break;
               case 216:
-                [v24 setSlotLaunchTimeAndDayPopularity:v20];
+                [v23 setSlotLaunchTimeAndDayPopularity:v20];
                 break;
               case 217:
-                [v24 setSlotLaunchTimeAndLocationPopularity:v20];
+                [v23 setSlotLaunchTimeAndLocationPopularity:v20];
                 break;
               case 218:
-                [v24 setSlotLaunchDayAndLocationPopularity:v20];
+                [v23 setSlotLaunchDayAndLocationPopularity:v20];
                 break;
               case 219:
-                [v24 setSlotLaunchTimeAndDayAndLocationPopularity:v20];
+                [v23 setSlotLaunchTimeAndDayAndLocationPopularity:v20];
                 break;
               case 220:
-                [v24 setSlotLaunchPreviousLocationAndCoreMotionPopularity:v20];
+                [v23 setSlotLaunchPreviousLocationAndCoreMotionPopularity:v20];
                 break;
               case 221:
-                [v24 setSlotLaunchPreviousLocationAndLocationPopularity:v20];
+                [v23 setSlotLaunchPreviousLocationAndLocationPopularity:v20];
                 break;
               case 222:
-                [v24 setSlotLaunchTimeAndPreviousLocationPopularity:v20];
+                [v23 setSlotLaunchTimeAndPreviousLocationPopularity:v20];
                 break;
               case 223:
-                [v24 setSlotLaunchDayAndPreviousLocationPopularity:v20];
+                [v23 setSlotLaunchDayAndPreviousLocationPopularity:v20];
                 break;
               case 224:
-                [v24 setSlotLaunchPartOfWeekAndTimePopularity:v20];
+                [v23 setSlotLaunchPartOfWeekAndTimePopularity:v20];
                 break;
               case 225:
-                [v24 setSlotLaunchTimeCount:v20];
+                [v23 setSlotLaunchTimeCount:v20];
                 break;
               case 226:
-                [v24 setSlotLaunchDayOfWeekCount:v20];
+                [v23 setSlotLaunchDayOfWeekCount:v20];
                 break;
               case 227:
-                [v24 setSlotLaunchPartOfWeekCount:v20];
+                [v23 setSlotLaunchPartOfWeekCount:v20];
                 break;
               case 228:
-                [v24 setSlotLaunchCoarseTimeCount:v20];
+                [v23 setSlotLaunchCoarseTimeCount:v20];
                 break;
               case 229:
-                [v24 setSlotLaunchTimeWithThirtyMinuteWindowCount:v20];
+                [v23 setSlotLaunchTimeWithThirtyMinuteWindowCount:v20];
                 break;
               case 230:
-                [v24 setSlotLaunchTimeWithHourWindowCount:v20];
+                [v23 setSlotLaunchTimeWithHourWindowCount:v20];
                 break;
               case 231:
-                [v24 setSlotLaunchTimeWithEightHourWindowCount:v20];
+                [v23 setSlotLaunchTimeWithEightHourWindowCount:v20];
                 break;
               case 232:
-                [v24 setSlotLaunchLocationCount:v20];
+                [v23 setSlotLaunchLocationCount:v20];
                 break;
               case 233:
-                [v24 setSlotLaunchCoreMotionCount:v20];
+                [v23 setSlotLaunchCoreMotionCount:v20];
                 break;
               case 234:
-                [v24 setSlotLaunchPreviousLocationCount:v20];
+                [v23 setSlotLaunchPreviousLocationCount:v20];
                 break;
               case 235:
-                [v24 setTotalLaunchesForSlotUsingTimeDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingTimeDecay:v20];
                 break;
               case 236:
-                [v24 setTotalLaunchesForSlotUsingDayOfWeekDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingDayOfWeekDecay:v20];
                 break;
               case 237:
-                [v24 setTotalLaunchesForSlotUsingLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingLocationDecay:v20];
                 break;
               case 238:
-                [v24 setTotalLaunchesForSlotUsingCoreMotionDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingCoreMotionDecay:v20];
                 break;
               case 239:
-                [v24 setTotalLaunchesForSlotUsingPreviousLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingPreviousLocationDecay:v20];
                 break;
               case 240:
-                [v24 setTotalLaunchesForSlotUsingPartOfWeekDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingPartOfWeekDecay:v20];
                 break;
               case 241:
-                [v24 setTotalLaunchesForSlotUsingTimeAndDayDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingTimeAndDayDecay:v20];
                 break;
               case 242:
-                [v24 setTotalLaunchesForSlotUsingTimeAndLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingTimeAndLocationDecay:v20];
                 break;
               case 243:
-                [v24 setTotalLaunchesForSlotUsingDayAndLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingDayAndLocationDecay:v20];
                 break;
               case 244:
-                [v24 setTotalLaunchesForSlotUsingTimeAndDayAndLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingTimeAndDayAndLocationDecay:v20];
                 break;
               case 245:
-                [v24 setTotalLaunchesForSlotUsingPreviousLocationAndLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingPreviousLocationAndLocationDecay:v20];
                 break;
               case 246:
-                [v24 setTotalLaunchesForSlotUsingPreviousLocationAndCoreMotionDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingPreviousLocationAndCoreMotionDecay:v20];
                 break;
               case 247:
-                [v24 setTotalLaunchesForSlotUsingTimeAndPreviousLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingTimeAndPreviousLocationDecay:v20];
                 break;
               case 248:
-                [v24 setTotalLaunchesForSlotUsingDayAndPreviousLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingDayAndPreviousLocationDecay:v20];
                 break;
               case 249:
-                [v24 setTotalLaunchesForSlotUsingPartOfWeekAndLocationDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingPartOfWeekAndLocationDecay:v20];
                 break;
               case 250:
-                [v24 setTotalLaunchesForSlotUsingPartOfWeekAndTimeDecay:v20];
+                [v23 setTotalLaunchesForSlotUsingPartOfWeekAndTimeDecay:v20];
                 break;
               case 251:
-                [v24 setSlotSecondsSinceLastSlot:v20];
+                [v23 setSlotSecondsSinceLastSlot:v20];
                 break;
               case 252:
-                [v24 setSlotOnlyLaunchedWithinShortTimeSpan:v20];
+                [v23 setSlotOnlyLaunchedWithinShortTimeSpan:v20];
                 break;
               case 253:
-                [v24 setSlotTotalNumberOfUndecayedLaunchesForSlot:v20];
+                [v23 setSlotTotalNumberOfUndecayedLaunchesForSlot:v20];
                 break;
               case 254:
-                [v24 setSlotNumberOfUniqueDaysLaunchedForSlot:v20];
+                [v23 setSlotNumberOfUniqueDaysLaunchedForSlot:v20];
                 break;
               case 255:
-                [v24 setSlotTotalNumberOfLaunchesForSlot:v20];
+                [v23 setSlotTotalNumberOfLaunchesForSlot:v20];
                 break;
               case 256:
-                [v24 setSlotLOIBoost:v20];
+                [v23 setSlotLOIBoost:v20];
                 break;
               case 257:
-                [v24 setSlotNumberOfParameters:v20];
+                [v23 setSlotNumberOfParameters:v20];
                 break;
               case 258:
-                [v24 setSlotNumSessionStartsForRootOfApp:v20];
+                [v23 setSlotNumSessionStartsForRootOfApp:v20];
                 break;
               case 259:
-                [v24 setSlotTotalNumSessionsForRootOfApp:v20];
+                [v23 setSlotTotalNumSessionsForRootOfApp:v20];
                 break;
               case 260:
-                [v24 setSlotNumDocFreqForRootOfApp:v20];
+                [v23 setSlotNumDocFreqForRootOfApp:v20];
                 break;
               case 261:
-                [v24 setSlotEntropyForSlotSet:v20];
+                [v23 setSlotEntropyForSlotSet:v20];
                 break;
               case 262:
-                [v24 setSlotTotalNumberOfLaunchesForSlotSet:v20];
+                [v23 setSlotTotalNumberOfLaunchesForSlotSet:v20];
                 break;
               case 263:
-                [v24 setSlotTimeOfDayBudgetMeanForSlot:v20];
+                [v23 setSlotTimeOfDayBudgetMeanForSlot:v20];
                 break;
               case 264:
-                [v24 setSlotTimeOfDayBudgetStdDevForSlot:v20];
+                [v23 setSlotTimeOfDayBudgetStdDevForSlot:v20];
                 break;
               case 265:
-                [v24 setSlotTodaysTimeOfDayBudgetForSlot:v20];
+                [v23 setSlotTodaysTimeOfDayBudgetForSlot:v20];
                 break;
               case 266:
-                [v24 setSlotFeedbackTotalConfirmsForSlot:v20];
+                [v23 setSlotFeedbackTotalConfirmsForSlot:v20];
                 break;
               case 267:
-                [v24 setSlotFeedbackTotalRejectsForSlot:v20];
+                [v23 setSlotFeedbackTotalRejectsForSlot:v20];
                 break;
               case 268:
-                [v24 setSlotFeedbackTotalExplicitRejectsForSlotNoDecay:v20];
+                [v23 setSlotFeedbackTotalExplicitRejectsForSlotNoDecay:v20];
                 break;
               case 269:
-                [v24 setSlotFeedbackTotalConfirmsForAllSlots:v20];
+                [v23 setSlotFeedbackTotalConfirmsForAllSlots:v20];
                 break;
               case 270:
-                [v24 setSlotFeedbackTotalRejectsForAllSlots:v20];
+                [v23 setSlotFeedbackTotalRejectsForAllSlots:v20];
                 break;
               case 271:
-                [v24 setSlotFeedbackTotalExplicitRejectsForAllSlotsNoDecay:v20];
+                [v23 setSlotFeedbackTotalExplicitRejectsForAllSlotsNoDecay:v20];
                 break;
               case 272:
-                [v24 setSlotFeedbackConfirmRatio:v20];
+                [v23 setSlotFeedbackConfirmRatio:v20];
                 break;
               case 273:
-                [v24 setSlotFeedbackConfirmRatioStdDev:v20];
+                [v23 setSlotFeedbackConfirmRatioStdDev:v20];
                 break;
               case 274:
-                [v24 setSlotFeedbackConfirmRatioMean:v20];
+                [v23 setSlotFeedbackConfirmRatioMean:v20];
                 break;
               case 275:
-                [v24 setSlotFeedbackConfirmRatioCount:v20];
+                [v23 setSlotFeedbackConfirmRatioCount:v20];
                 break;
               case 276:
-                [v24 setSlotFeedbackMinutesSinceLastExplicitRejectInHomeScreen:v20];
+                [v23 setSlotFeedbackMinutesSinceLastExplicitRejectInHomeScreen:v20];
                 break;
               case 277:
-                [v24 setSlotFeedbackMinutesSinceLastConfirmInSpotlight:v20];
+                [v23 setSlotFeedbackMinutesSinceLastConfirmInSpotlight:v20];
                 break;
               case 278:
-                [v24 setSlotFeedbackMinutesSinceLastExplicitRejectInSpotlight:v20];
+                [v23 setSlotFeedbackMinutesSinceLastExplicitRejectInSpotlight:v20];
                 break;
               case 279:
-                [v24 setSlotFeedbackTotalConfirmsForSlotInLastHourInSpotlight:v20];
+                [v23 setSlotFeedbackTotalConfirmsForSlotInLastHourInSpotlight:v20];
                 break;
               case 280:
-                [v24 setSlotFeedbackTotalRejectsForSlotInLastHourInSpotlight:v20];
+                [v23 setSlotFeedbackTotalRejectsForSlotInLastHourInSpotlight:v20];
                 break;
               case 281:
-                [v24 setSlotFeedbackTotalConfirmsForSlotInLastTwoHoursInSpotlight:v20];
+                [v23 setSlotFeedbackTotalConfirmsForSlotInLastTwoHoursInSpotlight:v20];
                 break;
               case 282:
-                [v24 setSlotFeedbackTotalRejectsForSlotInLastTwoHoursInSpotlight:v20];
+                [v23 setSlotFeedbackTotalRejectsForSlotInLastTwoHoursInSpotlight:v20];
                 break;
               case 283:
-                [v24 setSlotFeedbackTotalConfirmsForSlotTodayInSpotlight:v20];
+                [v23 setSlotFeedbackTotalConfirmsForSlotTodayInSpotlight:v20];
                 break;
               case 284:
-                [v24 setSlotFeedbackTotalRejectsForSlotTodayInSpotlight:v20];
+                [v23 setSlotFeedbackTotalRejectsForSlotTodayInSpotlight:v20];
                 break;
               case 285:
-                [v24 setSlotFeedbackTotalConfirmsForSlotInSpotlight:v20];
+                [v23 setSlotFeedbackTotalConfirmsForSlotInSpotlight:v20];
                 break;
               case 286:
-                [v24 setSlotFeedbackTotalRejectsForSlotInSpotlight:v20];
+                [v23 setSlotFeedbackTotalRejectsForSlotInSpotlight:v20];
                 break;
               case 287:
-                [v24 setSlotFeedbackConfirmsPartOfWeekCountInSpotlight:v20];
+                [v23 setSlotFeedbackConfirmsPartOfWeekCountInSpotlight:v20];
                 break;
               case 288:
-                [v24 setSlotFeedbackConfirmsDayCountInSpotlight:v20];
+                [v23 setSlotFeedbackConfirmsDayCountInSpotlight:v20];
                 break;
               case 289:
-                [v24 setSlotFeedbackConfirmsTimeOfDayCountInSpotlight:v20];
+                [v23 setSlotFeedbackConfirmsTimeOfDayCountInSpotlight:v20];
                 break;
               case 290:
-                [v24 setSlotFeedbackConfirmsCoarseTimeOfDayCountInSpotlight:v20];
+                [v23 setSlotFeedbackConfirmsCoarseTimeOfDayCountInSpotlight:v20];
                 break;
               case 291:
-                [v24 setSlotFeedbackTotalConfirmsInSpotlightForAllSlots:v20];
+                [v23 setSlotFeedbackTotalConfirmsInSpotlightForAllSlots:v20];
                 break;
               case 292:
-                [v24 setSlotFeedbackTotalRejectsInSpotlightForAllSlots:v20];
+                [v23 setSlotFeedbackTotalRejectsInSpotlightForAllSlots:v20];
                 break;
               case 293:
-                [v24 setSlotFeedbackTotalConfirmsForSlotTodayInLockscreen:v20];
+                [v23 setSlotFeedbackTotalConfirmsForSlotTodayInLockscreen:v20];
                 break;
               case 294:
-                [v24 setSlotFeedbackTotalRejectsForSlotTodayInLockscreen:v20];
+                [v23 setSlotFeedbackTotalRejectsForSlotTodayInLockscreen:v20];
                 break;
               case 295:
-                [v24 setSlotFeedbackMinutesSinceLastConfirmInLockscreen:v20];
+                [v23 setSlotFeedbackMinutesSinceLastConfirmInLockscreen:v20];
                 break;
               case 296:
-                [v24 setSlotFeedbackMinutesSinceLastRejectInLockscreen:v20];
+                [v23 setSlotFeedbackMinutesSinceLastRejectInLockscreen:v20];
                 break;
               case 297:
-                [v24 setSlotFeedbackMinutesSinceLastExplicitRejectInLockscreen:v20];
+                [v23 setSlotFeedbackMinutesSinceLastExplicitRejectInLockscreen:v20];
                 break;
               case 298:
-                [v24 setSlotFeedbackTotalConfirmsForSlotInLockscreen:v20];
+                [v23 setSlotFeedbackTotalConfirmsForSlotInLockscreen:v20];
                 break;
               case 299:
-                [v24 setSlotFeedbackTotalRejectsForSlotInLockscreen:v20];
+                [v23 setSlotFeedbackTotalRejectsForSlotInLockscreen:v20];
                 break;
               case 300:
-                [v24 setSlotFeedbackConfirmsPartOfWeekCountInLockscreen:v20];
+                [v23 setSlotFeedbackConfirmsPartOfWeekCountInLockscreen:v20];
                 break;
               case 301:
-                [v24 setSlotFeedbackConfirmsDayCountInLockscreen:v20];
+                [v23 setSlotFeedbackConfirmsDayCountInLockscreen:v20];
                 break;
               case 302:
-                [v24 setSlotFeedbackConfirmsTimeOfDayCountInLockscreen:v20];
+                [v23 setSlotFeedbackConfirmsTimeOfDayCountInLockscreen:v20];
                 break;
               case 303:
-                [v24 setSlotFeedbackConfirmsCoarseTimeOfDayCountInLockscreen:v20];
+                [v23 setSlotFeedbackConfirmsCoarseTimeOfDayCountInLockscreen:v20];
                 break;
               case 304:
-                [v24 setSlotFeedbackTotalConfirmsTodayInLockscreenForAllSlots:v20];
+                [v23 setSlotFeedbackTotalConfirmsTodayInLockscreenForAllSlots:v20];
                 break;
               case 305:
-                [v24 setSlotFeedbackTotalRejectsTodayInLockscreenForAllSlots:v20];
+                [v23 setSlotFeedbackTotalRejectsTodayInLockscreenForAllSlots:v20];
                 break;
               case 306:
-                [v24 setSlotFeedbackTotalConfirmsInLockscreenForAllSlots:v20];
+                [v23 setSlotFeedbackTotalConfirmsInLockscreenForAllSlots:v20];
                 break;
               case 307:
-                [v24 setSlotFeedbackTotalRejectsInLockscreenForAllSlots:v20];
+                [v23 setSlotFeedbackTotalRejectsInLockscreenForAllSlots:v20];
                 break;
               case 308:
-                [v24 setActionFeedbackTotalConfirmsInSpotlight:v20];
+                [v23 setActionFeedbackTotalConfirmsInSpotlight:v20];
                 break;
               case 309:
-                [v24 setActionFeedbackTotalRejectsInSpotlight:v20];
+                [v23 setActionFeedbackTotalRejectsInSpotlight:v20];
                 break;
               case 310:
-                [v24 setActionFeedbackTotalConfirmsTodayInLockscreen:v20];
+                [v23 setActionFeedbackTotalConfirmsTodayInLockscreen:v20];
                 break;
               case 311:
-                [v24 setActionFeedbackTotalRejectsTodayInLockscreen:v20];
+                [v23 setActionFeedbackTotalRejectsTodayInLockscreen:v20];
                 break;
               case 312:
-                [v24 setActionFeedbackTotalConfirmsInLockscreen:v20];
+                [v23 setActionFeedbackTotalConfirmsInLockscreen:v20];
                 break;
               case 313:
-                [v24 setActionFeedbackTotalRejectsInLockscreen:v20];
+                [v23 setActionFeedbackTotalRejectsInLockscreen:v20];
                 break;
               case 314:
-                [v24 setActionFeedbackMeanNumberOfSpotlightLaunchesPerDay:v20];
+                [v23 setActionFeedbackMeanNumberOfSpotlightLaunchesPerDay:v20];
                 break;
               case 315:
-                [v24 setActionFeedbackMeanNumberOfSpotlightConfirmsPerDay:v20];
+                [v23 setActionFeedbackMeanNumberOfSpotlightConfirmsPerDay:v20];
                 break;
               case 316:
-                [v24 setActionLaunchPopularity:v20];
+                [v23 setActionLaunchPopularity:v20];
                 break;
               case 317:
-                [v24 setActionTimeOfDayPopularity:v20];
+                [v23 setActionTimeOfDayPopularity:v20];
                 break;
               case 318:
-                [v24 setActionTimeOfDayWithThirtyMinuteWindowPopularity:v20];
+                [v23 setActionTimeOfDayWithThirtyMinuteWindowPopularity:v20];
                 break;
               case 319:
-                [v24 setActionTimeOfDayWithHourWindowPopularity:v20];
+                [v23 setActionTimeOfDayWithHourWindowPopularity:v20];
                 break;
               case 320:
-                [v24 setActionTimeOfDayWithEightHourWindowPopularity:v20];
+                [v23 setActionTimeOfDayWithEightHourWindowPopularity:v20];
                 break;
               case 321:
-                [v24 setActionCoarseTimeOfDayPopularity:v20];
+                [v23 setActionCoarseTimeOfDayPopularity:v20];
                 break;
               case 322:
-                [v24 setActionDayOfWeekPopularity:v20];
+                [v23 setActionDayOfWeekPopularity:v20];
                 break;
               case 323:
-                [v24 setActionPartOfWeekPopularity:v20];
+                [v23 setActionPartOfWeekPopularity:v20];
                 break;
               case 324:
-                [v24 setActionPartOfWeekAndLocationPopularity:v20];
+                [v23 setActionPartOfWeekAndLocationPopularity:v20];
                 break;
               case 325:
-                [v24 setActionLocationPopularity:v20];
+                [v23 setActionLocationPopularity:v20];
                 break;
               case 326:
-                [v24 setActionCoreMotionPopularity:v20];
+                [v23 setActionCoreMotionPopularity:v20];
                 break;
               case 327:
-                [v24 setActionPreviousLocationPopularity:v20];
+                [v23 setActionPreviousLocationPopularity:v20];
                 break;
               case 328:
-                [v24 setActionPreviousLocationAndCoreMotionPopularity:v20];
+                [v23 setActionPreviousLocationAndCoreMotionPopularity:v20];
                 break;
               case 329:
-                [v24 setActionPreviousLocationAndLocationPopularity:v20];
+                [v23 setActionPreviousLocationAndLocationPopularity:v20];
                 break;
               case 330:
-                [v24 setActionTimeAndPreviousLocationPopularity:v20];
+                [v23 setActionTimeAndPreviousLocationPopularity:v20];
                 break;
               case 331:
-                [v24 setActionDayAndPreviousLocationPopularity:v20];
+                [v23 setActionDayAndPreviousLocationPopularity:v20];
                 break;
               case 332:
-                [v24 setActionTimeAndDayPopularity:v20];
+                [v23 setActionTimeAndDayPopularity:v20];
                 break;
               case 333:
-                [v24 setActionTimeAndLocationPopularity:v20];
+                [v23 setActionTimeAndLocationPopularity:v20];
                 break;
               case 334:
-                [v24 setActionDayAndLocationPopularity:v20];
+                [v23 setActionDayAndLocationPopularity:v20];
                 break;
               case 335:
-                [v24 setActionTimeAndDayAndLocationPopularity:v20];
+                [v23 setActionTimeAndDayAndLocationPopularity:v20];
                 break;
               case 336:
-                [v24 setActionPartOfWeekAndTimePopularity:v20];
+                [v23 setActionPartOfWeekAndTimePopularity:v20];
                 break;
               case 337:
-                [v24 setTotalLaunchesForAllActionsUsingTimeDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingTimeDecay:v20];
                 break;
               case 338:
-                [v24 setTotalLaunchesForAllActionsUsingDayOfWeekDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingDayOfWeekDecay:v20];
                 break;
               case 339:
-                [v24 setTotalLaunchesForAllActionsUsingLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingLocationDecay:v20];
                 break;
               case 340:
-                [v24 setTotalLaunchesForAllActionsUsingCoreMotionDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingCoreMotionDecay:v20];
                 break;
               case 341:
-                [v24 setTotalLaunchesForAllActionsUsingPreviousLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingPreviousLocationDecay:v20];
                 break;
               case 342:
-                [v24 setTotalLaunchesForAllActionsUsingPartOfWeekDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingPartOfWeekDecay:v20];
                 break;
               case 343:
-                [v24 setTotalLaunchesForAllActionsUsingPreviousLocationAndCoreMotionDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingPreviousLocationAndCoreMotionDecay:v20];
                 break;
               case 344:
-                [v24 setTotalLaunchesForAllActionsUsingPreviousLocationAndLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingPreviousLocationAndLocationDecay:v20];
                 break;
               case 345:
-                [v24 setTotalLaunchesForAllActionsUsingTimeAndPreviousLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingTimeAndPreviousLocationDecay:v20];
                 break;
               case 346:
-                [v24 setTotalLaunchesForAllActionsUsingDayAndPreviousLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingDayAndPreviousLocationDecay:v20];
                 break;
               case 347:
-                [v24 setTotalLaunchesForAllActionsUsingTimeAndDayDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingTimeAndDayDecay:v20];
                 break;
               case 348:
-                [v24 setTotalLaunchesForAllActionsUsingTimeAndLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingTimeAndLocationDecay:v20];
                 break;
               case 349:
-                [v24 setTotalLaunchesForAllActionsUsingDayAndLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingDayAndLocationDecay:v20];
                 break;
               case 350:
-                [v24 setTotalLaunchesForAllActionsUsingTimeAndDayAndLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingTimeAndDayAndLocationDecay:v20];
                 break;
               case 351:
-                [v24 setTotalLaunchesForAllActionsUsingPartOfWeekAndLocationDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingPartOfWeekAndLocationDecay:v20];
                 break;
               case 352:
-                [v24 setTotalLaunchesForAllActionsUsingPartOfWeekAndTimeDecay:v20];
+                [v23 setTotalLaunchesForAllActionsUsingPartOfWeekAndTimeDecay:v20];
                 break;
               case 353:
-                [v24 setRandomSessionValue:v20];
+                [v23 setRandomSessionValue:v20];
                 break;
               case 354:
-                [v24 setRandomScore:v20];
+                [v23 setRandomScore:v20];
                 break;
               case 355:
-                [v24 setActionTotalConfirms:v20];
+                [v23 setActionTotalConfirms:v20];
                 break;
               case 356:
-                [v24 setActionTotalRejects:v20];
+                [v23 setActionTotalRejects:v20];
                 break;
               case 357:
-                [v24 setActionTotalExplicitRejectsNoDecay:v20];
+                [v23 setActionTotalExplicitRejectsNoDecay:v20];
                 break;
               case 360:
-                [v24 setAppGlobalScoreGivenTimeDayLocationAndLastApp:v20];
+                [v23 setAppGlobalScoreGivenTimeDayLocationAndLastApp:v20];
                 break;
               case 361:
-                [v24 setAppGlobalScoreGivenTimeDayAndLocation:v20];
+                [v23 setAppGlobalScoreGivenTimeDayAndLocation:v20];
                 break;
               case 362:
-                [v24 setAppLOITypeLaunches:v20];
+                [v23 setAppLOITypeLaunches:v20];
                 break;
               case 363:
-                [v24 setAppLastAppLaunches:v20];
+                [v23 setAppLastAppLaunches:v20];
                 break;
               case 364:
-                [v24 setAppTimeOfDayLaunches:v20];
+                [v23 setAppTimeOfDayLaunches:v20];
                 break;
               case 365:
-                [v24 setAppDayOfWeekLaunches:v20];
+                [v23 setAppDayOfWeekLaunches:v20];
                 break;
               case 366:
-                [v24 setAppBlendedLOITypePopularity:v20];
+                [v23 setAppBlendedLOITypePopularity:v20];
                 break;
               case 367:
-                [v24 setAppBlendedLastAppPopularity:v20];
+                [v23 setAppBlendedLastAppPopularity:v20];
                 break;
               case 368:
-                [v24 setAppBlendedTimeOfDayPopularity:v20];
+                [v23 setAppBlendedTimeOfDayPopularity:v20];
                 break;
               case 369:
-                [v24 setAppBlendedDayOfWeekPopularity:v20];
+                [v23 setAppBlendedDayOfWeekPopularity:v20];
                 break;
               case 370:
-                [v24 setAppBlendedLOITypeSampledPopularity:v20];
+                [v23 setAppBlendedLOITypeSampledPopularity:v20];
                 break;
               case 371:
-                [v24 setAppBlendedLastAppSampledPopularity:v20];
+                [v23 setAppBlendedLastAppSampledPopularity:v20];
                 break;
               case 372:
-                [v24 setAppBlendedTimeOfDaySampledPopularity:v20];
+                [v23 setAppBlendedTimeOfDaySampledPopularity:v20];
                 break;
               case 373:
-                [v24 setAppBlendedDayOfWeekSampledPopularity:v20];
+                [v23 setAppBlendedDayOfWeekSampledPopularity:v20];
                 break;
               case 374:
-                [v24 setActionIsFutureMedia:v20];
+                [v23 setActionIsFutureMedia:v20];
                 break;
               case 375:
-                [v24 setActionIsBackgroundExecutable:v20];
+                [v23 setActionIsBackgroundExecutable:v20];
                 break;
               case 376:
-                [v24 setActionCoreMotionType:v20];
+                [v23 setActionCoreMotionType:v20];
                 break;
               case 377:
-                [v24 setActionLOIType:v20];
+                [v23 setActionLOIType:v20];
                 break;
               case 378:
-                [v24 setSlotIsSiriKitIntent:v20];
+                [v23 setSlotIsSiriKitIntent:v20];
                 break;
               case 379:
-                [v24 setSlotIsCustomIntent:v20];
+                [v23 setSlotIsCustomIntent:v20];
                 break;
               case 380:
-                [v24 setSlotIsNSUserActivity:v20];
+                [v23 setSlotIsNSUserActivity:v20];
                 break;
               case 381:
-                [v24 setAppActionScore:v20];
+                [v23 setAppActionScore:v20];
                 break;
               case 382:
-                [v24 setAppActionLogProbability:v20];
+                [v23 setAppActionLogProbability:v20];
                 break;
               case 383:
-                [v24 setSlotScore:v20];
+                [v23 setSlotScore:v20];
                 break;
               case 384:
-                [v24 setSlotLogProbability:v20];
+                [v23 setSlotLogProbability:v20];
                 break;
               case 385:
-                [v24 setActionHeuristicConfirmEvents:v20];
+                [v23 setActionHeuristicConfirmEvents:v20];
                 break;
               case 386:
-                [v24 setActionHeuristicRejectEvents:v20];
+                [v23 setActionHeuristicRejectEvents:v20];
                 break;
               case 387:
-                [v24 setTotalActionHeuristicConfirmEvents:v20];
+                [v23 setTotalActionHeuristicConfirmEvents:v20];
                 break;
               case 388:
-                [v24 setTotalActionHeuristicRejectEvents:v20];
+                [v23 setTotalActionHeuristicRejectEvents:v20];
                 break;
               case 389:
-                [v24 setAmbientLightTypePopularity:v20];
+                [v23 setAmbientLightTypePopularity:v20];
                 break;
               case 390:
-                [v24 setAmbientLightTypeLaunchPopularity:v20];
+                [v23 setAmbientLightTypeLaunchPopularity:v20];
                 break;
               case 391:
-                [v24 setAppIntentAmbientLightTypePopularity:v20];
+                [v23 setAppIntentAmbientLightTypePopularity:v20];
                 break;
               case 392:
-                [v24 setAppIntentAmbientLightTypeLaunchPopularity:v20];
+                [v23 setAppIntentAmbientLightTypeLaunchPopularity:v20];
                 break;
               case 393:
-                [v24 setAppLaunchesCoarseTimePowLocationForAppInContext:v20];
+                [v23 setAppLaunchesCoarseTimePowLocationForAppInContext:v20];
                 break;
               case 394:
-                [v24 setAppLaunchesCoarseTimePowLocationInContext:v20];
+                [v23 setAppLaunchesCoarseTimePowLocationInContext:v20];
                 break;
               case 395:
-                [v24 setAppLaunchesCoarseTimePowLocationForApp:v20];
+                [v23 setAppLaunchesCoarseTimePowLocationForApp:v20];
                 break;
               case 396:
-                [v24 setAppLaunchesCoarseTimePowLocationForAllAppsAndContexts:v20];
+                [v23 setAppLaunchesCoarseTimePowLocationForAllAppsAndContexts:v20];
                 break;
               case 397:
-                [v24 setAppConfirmsCoarseTimePowLocationForAppInContext:v20];
+                [v23 setAppConfirmsCoarseTimePowLocationForAppInContext:v20];
                 break;
               case 398:
-                [v24 setAppConfirmsCoarseTimePowLocationInContext:v20];
+                [v23 setAppConfirmsCoarseTimePowLocationInContext:v20];
                 break;
               case 399:
-                [v24 setAppConfirmsCoarseTimePowLocationForApp:v20];
+                [v23 setAppConfirmsCoarseTimePowLocationForApp:v20];
                 break;
               case 400:
-                [v24 setAppConfirmsCoarseTimePowLocationForAllAppsAndContexts:v20];
+                [v23 setAppConfirmsCoarseTimePowLocationForAllAppsAndContexts:v20];
                 break;
               case 401:
-                [v24 setAppRejectsCoarseTimePowLocationForAppInContext:v20];
+                [v23 setAppRejectsCoarseTimePowLocationForAppInContext:v20];
                 break;
               case 402:
-                [v24 setAppRejectsCoarseTimePowLocationInContext:v20];
+                [v23 setAppRejectsCoarseTimePowLocationInContext:v20];
                 break;
               case 403:
-                [v24 setAppRejectsCoarseTimePowLocationForApp:v20];
+                [v23 setAppRejectsCoarseTimePowLocationForApp:v20];
                 break;
               case 404:
-                [v24 setAppRejectsCoarseTimePowLocationForAllAppsAndContexts:v20];
+                [v23 setAppRejectsCoarseTimePowLocationForAllAppsAndContexts:v20];
                 break;
               case 405:
-                [v24 setAppExplicitRejectsCoarseTimePowLocationForAppInContext:v20];
+                [v23 setAppExplicitRejectsCoarseTimePowLocationForAppInContext:v20];
                 break;
               case 406:
-                [v24 setAppExplicitRejectsCoarseTimePowLocationInContext:v20];
+                [v23 setAppExplicitRejectsCoarseTimePowLocationInContext:v20];
                 break;
               case 407:
-                [v24 setAppExplicitRejectsCoarseTimePowLocationForApp:v20];
+                [v23 setAppExplicitRejectsCoarseTimePowLocationForApp:v20];
                 break;
               case 408:
-                [v24 setAppExplicitRejectsCoarseTimePowLocationForAllAppsAndContexts:v20];
+                [v23 setAppExplicitRejectsCoarseTimePowLocationForAllAppsAndContexts:v20];
                 break;
               case 409:
-                [v24 setAppLaunchesSpecificTimeDowLocationForAppInContext:v20];
+                [v23 setAppLaunchesSpecificTimeDowLocationForAppInContext:v20];
                 break;
               case 410:
-                [v24 setAppLaunchesSpecificTimeDowLocationInContext:v20];
+                [v23 setAppLaunchesSpecificTimeDowLocationInContext:v20];
                 break;
               case 411:
-                [v24 setAppLaunchesSpecificTimeDowLocationForApp:v20];
+                [v23 setAppLaunchesSpecificTimeDowLocationForApp:v20];
                 break;
               case 412:
-                [v24 setAppLaunchesSpecificTimeDowLocationForAllAppsAndContexts:v20];
+                [v23 setAppLaunchesSpecificTimeDowLocationForAllAppsAndContexts:v20];
                 break;
               case 413:
-                [v24 setAppConfirmsSpecificTimeDowLocationForAppInContext:v20];
+                [v23 setAppConfirmsSpecificTimeDowLocationForAppInContext:v20];
                 break;
               case 414:
-                [v24 setAppConfirmsSpecificTimeDowLocationInContext:v20];
+                [v23 setAppConfirmsSpecificTimeDowLocationInContext:v20];
                 break;
               case 415:
-                [v24 setAppConfirmsSpecificTimeDowLocationForApp:v20];
+                [v23 setAppConfirmsSpecificTimeDowLocationForApp:v20];
                 break;
               case 416:
-                [v24 setAppConfirmsSpecificTimeDowLocationForAllAppsAndContexts:v20];
+                [v23 setAppConfirmsSpecificTimeDowLocationForAllAppsAndContexts:v20];
                 break;
               case 417:
-                [v24 setAppRejectsSpecificTimeDowLocationForAppInContext:v20];
+                [v23 setAppRejectsSpecificTimeDowLocationForAppInContext:v20];
                 break;
               case 418:
-                [v24 setAppRejectsSpecificTimeDowLocationInContext:v20];
+                [v23 setAppRejectsSpecificTimeDowLocationInContext:v20];
                 break;
               case 419:
-                [v24 setAppRejectsSpecificTimeDowLocationForApp:v20];
+                [v23 setAppRejectsSpecificTimeDowLocationForApp:v20];
                 break;
               case 420:
-                [v24 setAppRejectsSpecificTimeDowLocationForAllAppsAndContexts:v20];
+                [v23 setAppRejectsSpecificTimeDowLocationForAllAppsAndContexts:v20];
                 break;
               case 421:
-                [v24 setActionsCoarseTimePowLocationForActionInContext:v20];
+                [v23 setActionsCoarseTimePowLocationForActionInContext:v20];
                 break;
               case 422:
-                [v24 setActionsCoarseTimePowLocationInContext:v20];
+                [v23 setActionsCoarseTimePowLocationInContext:v20];
                 break;
               case 423:
-                [v24 setActionsCoarseTimePowLocationForAction:v20];
+                [v23 setActionsCoarseTimePowLocationForAction:v20];
                 break;
               case 424:
-                [v24 setActionsCoarseTimePowLocationForAllActionsAndContexts:v20];
+                [v23 setActionsCoarseTimePowLocationForAllActionsAndContexts:v20];
                 break;
               case 425:
-                [v24 setActionConfirmsCoarseTimePowLocationForActionInContext:v20];
+                [v23 setActionConfirmsCoarseTimePowLocationForActionInContext:v20];
                 break;
               case 426:
-                [v24 setActionConfirmsCoarseTimePowLocationInContext:v20];
+                [v23 setActionConfirmsCoarseTimePowLocationInContext:v20];
                 break;
               case 427:
-                [v24 setActionConfirmsCoarseTimePowLocationForAction:v20];
+                [v23 setActionConfirmsCoarseTimePowLocationForAction:v20];
                 break;
               case 428:
-                [v24 setActionConfirmsCoarseTimePowLocationForAllActionsAndContexts:v20];
+                [v23 setActionConfirmsCoarseTimePowLocationForAllActionsAndContexts:v20];
                 break;
               case 429:
-                [v24 setActionRejectsCoarseTimePowLocationForActionInContext:v20];
+                [v23 setActionRejectsCoarseTimePowLocationForActionInContext:v20];
                 break;
               case 430:
-                [v24 setActionRejectsCoarseTimePowLocationInContext:v20];
+                [v23 setActionRejectsCoarseTimePowLocationInContext:v20];
                 break;
               case 431:
-                [v24 setActionRejectsCoarseTimePowLocationForAction:v20];
+                [v23 setActionRejectsCoarseTimePowLocationForAction:v20];
                 break;
               case 432:
-                [v24 setActionRejectsCoarseTimePowLocationForAllActionsAndContexts:v20];
+                [v23 setActionRejectsCoarseTimePowLocationForAllActionsAndContexts:v20];
                 break;
               case 433:
-                [v24 setActionsSpecificTimeDowLocationForActionInContext:v20];
+                [v23 setActionsSpecificTimeDowLocationForActionInContext:v20];
                 break;
               case 434:
-                [v24 setActionsSpecificTimeDowLocationInContext:v20];
+                [v23 setActionsSpecificTimeDowLocationInContext:v20];
                 break;
               case 435:
-                [v24 setActionsSpecificTimeDowLocationForAction:v20];
+                [v23 setActionsSpecificTimeDowLocationForAction:v20];
                 break;
               case 436:
-                [v24 setActionsSpecificTimeDowLocationForAllActionsAndContexts:v20];
+                [v23 setActionsSpecificTimeDowLocationForAllActionsAndContexts:v20];
                 break;
               case 437:
-                [v24 setActionConfirmsSpecificTimeDowLocationForActionInContext:v20];
+                [v23 setActionConfirmsSpecificTimeDowLocationForActionInContext:v20];
                 break;
               case 438:
-                [v24 setActionConfirmsSpecificTimeDowLocationInContext:v20];
+                [v23 setActionConfirmsSpecificTimeDowLocationInContext:v20];
                 break;
               case 439:
-                [v24 setActionConfirmsSpecificTimeDowLocationForAction:v20];
+                [v23 setActionConfirmsSpecificTimeDowLocationForAction:v20];
                 break;
               case 440:
-                [v24 setActionConfirmsSpecificTimeDowLocationForAllActionsAndContexts:v20];
+                [v23 setActionConfirmsSpecificTimeDowLocationForAllActionsAndContexts:v20];
                 break;
               case 441:
-                [v24 setActionRejectsSpecificTimeDowLocationForActionInContext:v20];
+                [v23 setActionRejectsSpecificTimeDowLocationForActionInContext:v20];
                 break;
               case 442:
-                [v24 setActionRejectsSpecificTimeDowLocationInContext:v20];
+                [v23 setActionRejectsSpecificTimeDowLocationInContext:v20];
                 break;
               case 443:
-                [v24 setActionRejectsSpecificTimeDowLocationForAction:v20];
+                [v23 setActionRejectsSpecificTimeDowLocationForAction:v20];
                 break;
               case 444:
-                [v24 setActionRejectsSpecificTimeDowLocationForAllActionsAndContexts:v20];
+                [v23 setActionRejectsSpecificTimeDowLocationForAllActionsAndContexts:v20];
                 break;
               case 445:
-                [v24 setAppLaunchesInTimeBucket0ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket0ForApp:v20];
                 break;
               case 446:
-                [v24 setAppLaunchesInTimeBucket1ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket1ForApp:v20];
                 break;
               case 447:
-                [v24 setAppLaunchesInTimeBucket2ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket2ForApp:v20];
                 break;
               case 448:
-                [v24 setAppLaunchesInTimeBucket3ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket3ForApp:v20];
                 break;
               case 449:
-                [v24 setAppLaunchesInTimeBucket4ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket4ForApp:v20];
                 break;
               case 450:
-                [v24 setAppLaunchesInTimeBucket5ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket5ForApp:v20];
                 break;
               case 451:
-                [v24 setAppLaunchesInTimeBucket6ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket6ForApp:v20];
                 break;
               case 452:
-                [v24 setAppLaunchesInTimeBucket7ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket7ForApp:v20];
                 break;
               case 453:
-                [v24 setAppLaunchesInTimeBucket8ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket8ForApp:v20];
                 break;
               case 454:
-                [v24 setAppLaunchesInTimeBucket9ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket9ForApp:v20];
                 break;
               case 455:
-                [v24 setAppLaunchesInTimeBucket10ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket10ForApp:v20];
                 break;
               case 456:
-                [v24 setAppLaunchesInTimeBucket11ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket11ForApp:v20];
                 break;
               case 457:
-                [v24 setAppLaunchesInTimeBucket12ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket12ForApp:v20];
                 break;
               case 458:
-                [v24 setAppLaunchesInTimeBucket13ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket13ForApp:v20];
                 break;
               case 459:
-                [v24 setAppLaunchesInTimeBucket14ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket14ForApp:v20];
                 break;
               case 460:
-                [v24 setAppLaunchesInTimeBucket15ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket15ForApp:v20];
                 break;
               case 461:
-                [v24 setAppLaunchesInTimeBucket16ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket16ForApp:v20];
                 break;
               case 462:
-                [v24 setAppLaunchesInTimeBucket17ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket17ForApp:v20];
                 break;
               case 463:
-                [v24 setAppLaunchesInTimeBucket18ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket18ForApp:v20];
                 break;
               case 464:
-                [v24 setAppLaunchesInTimeBucket19ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket19ForApp:v20];
                 break;
               case 465:
-                [v24 setAppLaunchesInTimeBucket20ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket20ForApp:v20];
                 break;
               case 466:
-                [v24 setAppLaunchesInTimeBucket21ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket21ForApp:v20];
                 break;
               case 467:
-                [v24 setAppLaunchesInTimeBucket22ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket22ForApp:v20];
                 break;
               case 468:
-                [v24 setAppLaunchesInTimeBucket23ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket23ForApp:v20];
                 break;
               case 469:
-                [v24 setAppLaunchesInTimeBucket24ForApp:v20];
+                [v23 setAppLaunchesInTimeBucket24ForApp:v20];
                 break;
               case 470:
-                [v24 setAppLaunchesOnDayOfWeekSundayForApp:v20];
+                [v23 setAppLaunchesOnDayOfWeekSundayForApp:v20];
                 break;
               case 471:
-                [v24 setAppLaunchesOnDayOfWeekMondayForApp:v20];
+                [v23 setAppLaunchesOnDayOfWeekMondayForApp:v20];
                 break;
               case 472:
-                [v24 setAppLaunchesOnDayOfWeekTuesdayForApp:v20];
+                [v23 setAppLaunchesOnDayOfWeekTuesdayForApp:v20];
                 break;
               case 473:
-                [v24 setAppLaunchesOnDayOfWeekWednesdayForApp:v20];
+                [v23 setAppLaunchesOnDayOfWeekWednesdayForApp:v20];
                 break;
               case 474:
-                [v24 setAppLaunchesOnDayOfWeekThursdayForApp:v20];
+                [v23 setAppLaunchesOnDayOfWeekThursdayForApp:v20];
                 break;
               case 475:
-                [v24 setAppLaunchesOnDayOfWeekFridayForApp:v20];
+                [v23 setAppLaunchesOnDayOfWeekFridayForApp:v20];
                 break;
               case 476:
-                [v24 setAppLaunchesOnDayOfWeekSaturdayForApp:v20];
+                [v23 setAppLaunchesOnDayOfWeekSaturdayForApp:v20];
                 break;
               case 477:
-                [v24 setAppLaunchesAtCoarseGeoHash0ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash0ForApp:v20];
                 break;
               case 478:
-                [v24 setAppLaunchesAtCoarseGeoHash1ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash1ForApp:v20];
                 break;
               case 479:
-                [v24 setAppLaunchesAtCoarseGeoHash2ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash2ForApp:v20];
                 break;
               case 480:
-                [v24 setAppLaunchesAtCoarseGeoHash3ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash3ForApp:v20];
                 break;
               case 481:
-                [v24 setAppLaunchesAtCoarseGeoHash4ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash4ForApp:v20];
                 break;
               case 482:
-                [v24 setAppLaunchesAtCoarseGeoHash5ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash5ForApp:v20];
                 break;
               case 483:
-                [v24 setAppLaunchesAtCoarseGeoHash6ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash6ForApp:v20];
                 break;
               case 484:
-                [v24 setAppLaunchesAtCoarseGeoHash7ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash7ForApp:v20];
                 break;
               case 485:
-                [v24 setAppLaunchesAtCoarseGeoHash8ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash8ForApp:v20];
                 break;
               case 486:
-                [v24 setAppLaunchesAtCoarseGeoHash9ForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHash9ForApp:v20];
                 break;
               case 487:
-                [v24 setAppLaunchesAtSpecificGeoHash0ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash0ForApp:v20];
                 break;
               case 488:
-                [v24 setAppLaunchesAtSpecificGeoHash1ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash1ForApp:v20];
                 break;
               case 489:
-                [v24 setAppLaunchesAtSpecificGeoHash2ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash2ForApp:v20];
                 break;
               case 490:
-                [v24 setAppLaunchesAtSpecificGeoHash3ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash3ForApp:v20];
                 break;
               case 491:
-                [v24 setAppLaunchesAtSpecificGeoHash4ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash4ForApp:v20];
                 break;
               case 492:
-                [v24 setAppLaunchesAtSpecificGeoHash5ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash5ForApp:v20];
                 break;
               case 493:
-                [v24 setAppLaunchesAtSpecificGeoHash6ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash6ForApp:v20];
                 break;
               case 494:
-                [v24 setAppLaunchesAtSpecificGeoHash7ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash7ForApp:v20];
                 break;
               case 495:
-                [v24 setAppLaunchesAtSpecificGeoHash8ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash8ForApp:v20];
                 break;
               case 496:
-                [v24 setAppLaunchesAtSpecificGeoHash9ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash9ForApp:v20];
                 break;
               case 497:
-                [v24 setAppLaunchesAtSpecificGeoHash10ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash10ForApp:v20];
                 break;
               case 498:
-                [v24 setAppLaunchesAtSpecificGeoHash11ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash11ForApp:v20];
                 break;
               case 499:
-                [v24 setAppLaunchesAtSpecificGeoHash12ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash12ForApp:v20];
                 break;
               case 500:
-                [v24 setAppLaunchesAtSpecificGeoHash13ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash13ForApp:v20];
                 break;
               case 501:
-                [v24 setAppLaunchesAtSpecificGeoHash14ForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHash14ForApp:v20];
                 break;
               case 502:
-                [v24 setAppNumberOfSpecificGeohashesForApp:v20];
+                [v23 setAppNumberOfSpecificGeohashesForApp:v20];
                 break;
               case 503:
-                [v24 setAppNumberOfCoarseGeohashesForApp:v20];
+                [v23 setAppNumberOfCoarseGeohashesForApp:v20];
                 break;
               case 504:
-                [v24 setAppEntropyForTimeBuckets:v20];
+                [v23 setAppEntropyForTimeBuckets:v20];
                 break;
               case 505:
-                [v24 setAppEntropyForSpecificGeoHash:v20];
+                [v23 setAppEntropyForSpecificGeoHash:v20];
                 break;
               case 506:
-                [v24 setAppEntropyForCoarseGeoHash:v20];
+                [v23 setAppEntropyForCoarseGeoHash:v20];
                 break;
               case 507:
-                [v24 setAppLaunchesAtSpecificGeoHashForAppInContext:v20];
+                [v23 setAppLaunchesAtSpecificGeoHashForAppInContext:v20];
                 break;
               case 508:
-                [v24 setAppLaunchesAtCoarseGeoHashForAppInContext:v20];
+                [v23 setAppLaunchesAtCoarseGeoHashForAppInContext:v20];
                 break;
               case 509:
-                [v24 setAppLaunchesAtDayOfWeekInContext:v20];
+                [v23 setAppLaunchesAtDayOfWeekInContext:v20];
                 break;
               case 510:
-                [v24 setAppLaunchesAtDayOfWeekForApp:v20];
+                [v23 setAppLaunchesAtDayOfWeekForApp:v20];
                 break;
               case 511:
-                [v24 setAppLaunchesAtTimeAndDayForAppInContext:v20];
+                [v23 setAppLaunchesAtTimeAndDayForAppInContext:v20];
                 break;
               case 512:
-                [v24 setAppLaunchesAtTimeAndDayInContext:v20];
+                [v23 setAppLaunchesAtTimeAndDayInContext:v20];
                 break;
               case 513:
-                [v24 setAppLaunchesAtTimeAndDayForApp:v20];
+                [v23 setAppLaunchesAtTimeAndDayForApp:v20];
                 break;
               case 514:
-                [v24 setAppLaunchesAtCoarseGeoHashInContext:v20];
+                [v23 setAppLaunchesAtCoarseGeoHashInContext:v20];
                 break;
               case 515:
-                [v24 setAppLaunchesAtCoarseGeoHashForApp:v20];
+                [v23 setAppLaunchesAtCoarseGeoHashForApp:v20];
                 break;
               case 516:
-                [v24 setAppLaunchesAtSpecificGeoHashInContext:v20];
+                [v23 setAppLaunchesAtSpecificGeoHashInContext:v20];
                 break;
               case 517:
-                [v24 setAppLaunchesAtSpecificGeoHashForApp:v20];
+                [v23 setAppLaunchesAtSpecificGeoHashForApp:v20];
                 break;
               case 518:
-                [v24 setAppLaunchesForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setAppLaunchesForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 519:
-                [v24 setAppLaunchesForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
+                [v23 setAppLaunchesForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
                 break;
               case 520:
-                [v24 setIsLocationServicesDisabled:v20];
+                [v23 setIsLocationServicesDisabled:v20];
                 break;
               case 521:
-                [v24 setAppLaunchesInTwoHourTimeBucketForAppInContext:v20];
+                [v23 setAppLaunchesInTwoHourTimeBucketForAppInContext:v20];
                 break;
               case 522:
-                [v24 setAppLaunchesInTwoHourTimeBucketInContext:v20];
+                [v23 setAppLaunchesInTwoHourTimeBucketInContext:v20];
                 break;
               case 523:
-                [v24 setAppLaunchesInTwoHourTimeBucketForApp:v20];
+                [v23 setAppLaunchesInTwoHourTimeBucketForApp:v20];
                 break;
               case 524:
-                [v24 setAppConfirmsInTwoHourTimeBucketForAppInContext:v20];
+                [v23 setAppConfirmsInTwoHourTimeBucketForAppInContext:v20];
                 break;
               case 525:
-                [v24 setAppConfirmsInTwoHourTimeBucketInContext:v20];
+                [v23 setAppConfirmsInTwoHourTimeBucketInContext:v20];
                 break;
               case 526:
-                [v24 setAppConfirmsInTwoHourTimeBucketForApp:v20];
+                [v23 setAppConfirmsInTwoHourTimeBucketForApp:v20];
                 break;
               case 527:
-                [v24 setAppRejectsInTwoHourTimeBucketForAppInContext:v20];
+                [v23 setAppRejectsInTwoHourTimeBucketForAppInContext:v20];
                 break;
               case 528:
-                [v24 setAppRejectsInTwoHourTimeBucketInContext:v20];
+                [v23 setAppRejectsInTwoHourTimeBucketInContext:v20];
                 break;
               case 529:
-                [v24 setAppRejectsInTwoHourTimeBucketForApp:v20];
+                [v23 setAppRejectsInTwoHourTimeBucketForApp:v20];
                 break;
               case 530:
-                [v24 setAppConfirmsAtDayOfWeekForAppInContext:v20];
+                [v23 setAppConfirmsAtDayOfWeekForAppInContext:v20];
                 break;
               case 531:
-                [v24 setAppConfirmsAtDayOfWeekInContext:v20];
+                [v23 setAppConfirmsAtDayOfWeekInContext:v20];
                 break;
               case 532:
-                [v24 setAppConfirmsAtDayOfWeekForApp:v20];
+                [v23 setAppConfirmsAtDayOfWeekForApp:v20];
                 break;
               case 533:
-                [v24 setAppRejectsAtDayOfWeekForAppInContext:v20];
+                [v23 setAppRejectsAtDayOfWeekForAppInContext:v20];
                 break;
               case 534:
-                [v24 setAppRejectsAtDayOfWeekInContext:v20];
+                [v23 setAppRejectsAtDayOfWeekInContext:v20];
                 break;
               case 535:
-                [v24 setAppRejectsAtDayOfWeekForApp:v20];
+                [v23 setAppRejectsAtDayOfWeekForApp:v20];
                 break;
               case 536:
-                [v24 setAppConfirmsAtCoarseGeoHashForAppInContext:v20];
+                [v23 setAppConfirmsAtCoarseGeoHashForAppInContext:v20];
                 break;
               case 537:
-                [v24 setAppConfirmsAtCoarseGeoHashInContext:v20];
+                [v23 setAppConfirmsAtCoarseGeoHashInContext:v20];
                 break;
               case 538:
-                [v24 setAppConfirmsAtCoarseGeoHashForApp:v20];
+                [v23 setAppConfirmsAtCoarseGeoHashForApp:v20];
                 break;
               case 539:
-                [v24 setAppRejectsAtCoarseGeoHashForAppInContext:v20];
+                [v23 setAppRejectsAtCoarseGeoHashForAppInContext:v20];
                 break;
               case 540:
-                [v24 setAppRejectsAtCoarseGeoHashInContext:v20];
+                [v23 setAppRejectsAtCoarseGeoHashInContext:v20];
                 break;
               case 541:
-                [v24 setAppRejectsAtCoarseGeoHashForApp:v20];
+                [v23 setAppRejectsAtCoarseGeoHashForApp:v20];
                 break;
               case 542:
-                [v24 setAppConfirmsAtSpecificGeoHashForAppInContext:v20];
+                [v23 setAppConfirmsAtSpecificGeoHashForAppInContext:v20];
                 break;
               case 543:
-                [v24 setAppConfirmsAtSpecificGeoHashInContext:v20];
+                [v23 setAppConfirmsAtSpecificGeoHashInContext:v20];
                 break;
               case 544:
-                [v24 setAppConfirmsAtSpecificGeoHashForApp:v20];
+                [v23 setAppConfirmsAtSpecificGeoHashForApp:v20];
                 break;
               case 545:
-                [v24 setAppRejectsAtSpecificGeoHashForAppInContext:v20];
+                [v23 setAppRejectsAtSpecificGeoHashForAppInContext:v20];
                 break;
               case 546:
-                [v24 setAppRejectsAtSpecificGeoHashInContext:v20];
+                [v23 setAppRejectsAtSpecificGeoHashInContext:v20];
                 break;
               case 547:
-                [v24 setAppRejectsAtSpecificGeoHashForApp:v20];
+                [v23 setAppRejectsAtSpecificGeoHashForApp:v20];
                 break;
               case 548:
-                [v24 setAppConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setAppConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 549:
-                [v24 setAppConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
+                [v23 setAppConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
                 break;
               case 550:
-                [v24 setAppRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setAppRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 551:
-                [v24 setAppRejectsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
+                [v23 setAppRejectsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
                 break;
               case 552:
-                [v24 setCurrentTimeBucketFromZeroToTwentyFour:v20];
+                [v23 setCurrentTimeBucketFromZeroToTwentyFour:v20];
                 break;
               case 553:
-                [v24 setActionsAtDayOfWeekForActionInContext:v20];
+                [v23 setActionsAtDayOfWeekForActionInContext:v20];
                 break;
               case 554:
-                [v24 setActionsAtDayOfWeekInContext:v20];
+                [v23 setActionsAtDayOfWeekInContext:v20];
                 break;
               case 555:
-                [v24 setActionsAtDayOfWeekForAction:v20];
+                [v23 setActionsAtDayOfWeekForAction:v20];
                 break;
               case 556:
-                [v24 setActionsAtCoarseGeoHashForActionInContext:v20];
+                [v23 setActionsAtCoarseGeoHashForActionInContext:v20];
                 break;
               case 557:
-                [v24 setActionsAtCoarseGeoHashInContext:v20];
+                [v23 setActionsAtCoarseGeoHashInContext:v20];
                 break;
               case 558:
-                [v24 setActionsAtCoarseGeoHashForAction:v20];
+                [v23 setActionsAtCoarseGeoHashForAction:v20];
                 break;
               case 559:
-                [v24 setActionsAtSpecificGeoHashForActionInContext:v20];
+                [v23 setActionsAtSpecificGeoHashForActionInContext:v20];
                 break;
               case 560:
-                [v24 setActionsAtSpecificGeoHashInContext:v20];
+                [v23 setActionsAtSpecificGeoHashInContext:v20];
                 break;
               case 561:
-                [v24 setActionsAtSpecificGeoHashForAction:v20];
+                [v23 setActionsAtSpecificGeoHashForAction:v20];
                 break;
               case 562:
-                [v24 setActionsAtTimeOfDayForActionInContext:v20];
+                [v23 setActionsAtTimeOfDayForActionInContext:v20];
                 break;
               case 563:
-                [v24 setActionsAtTimeOfDayInContext:v20];
+                [v23 setActionsAtTimeOfDayInContext:v20];
                 break;
               case 564:
-                [v24 setActionsAtTimeOfDayForAction:v20];
+                [v23 setActionsAtTimeOfDayForAction:v20];
                 break;
               case 565:
-                [v24 setActionConfirmsAtTimeOfDayForActionInContext:v20];
+                [v23 setActionConfirmsAtTimeOfDayForActionInContext:v20];
                 break;
               case 566:
-                [v24 setActionConfirmsAtTimeOfDayInContext:v20];
+                [v23 setActionConfirmsAtTimeOfDayInContext:v20];
                 break;
               case 567:
-                [v24 setActionConfirmsAtTimeOfDayForAction:v20];
+                [v23 setActionConfirmsAtTimeOfDayForAction:v20];
                 break;
               case 568:
-                [v24 setActionRejectsAtTimeOfDayForActionInContext:v20];
+                [v23 setActionRejectsAtTimeOfDayForActionInContext:v20];
                 break;
               case 569:
-                [v24 setActionRejectsAtTimeOfDayInContext:v20];
+                [v23 setActionRejectsAtTimeOfDayInContext:v20];
                 break;
               case 570:
-                [v24 setActionRejectsAtTimeOfDayForAction:v20];
+                [v23 setActionRejectsAtTimeOfDayForAction:v20];
                 break;
               case 571:
-                [v24 setActionConfirmsAtDayOfWeekForActionInContext:v20];
+                [v23 setActionConfirmsAtDayOfWeekForActionInContext:v20];
                 break;
               case 572:
-                [v24 setActionConfirmsAtDayOfWeekInContext:v20];
+                [v23 setActionConfirmsAtDayOfWeekInContext:v20];
                 break;
               case 573:
-                [v24 setActionConfirmsAtDayOfWeekForAction:v20];
+                [v23 setActionConfirmsAtDayOfWeekForAction:v20];
                 break;
               case 574:
-                [v24 setActionRejectsAtDayOfWeekForActionInContext:v20];
+                [v23 setActionRejectsAtDayOfWeekForActionInContext:v20];
                 break;
               case 575:
-                [v24 setActionRejectsAtDayOfWeekInContext:v20];
+                [v23 setActionRejectsAtDayOfWeekInContext:v20];
                 break;
               case 576:
-                [v24 setActionRejectsAtDayOfWeekForAction:v20];
+                [v23 setActionRejectsAtDayOfWeekForAction:v20];
                 break;
               case 577:
-                [v24 setActionConfirmsAtCoarseGeoHashForActionInContext:v20];
+                [v23 setActionConfirmsAtCoarseGeoHashForActionInContext:v20];
                 break;
               case 578:
-                [v24 setActionConfirmsAtCoarseGeoHashInContext:v20];
+                [v23 setActionConfirmsAtCoarseGeoHashInContext:v20];
                 break;
               case 579:
-                [v24 setActionConfirmsAtCoarseGeoHashForAction:v20];
+                [v23 setActionConfirmsAtCoarseGeoHashForAction:v20];
                 break;
               case 580:
-                [v24 setActionRejectsAtCoarseGeoHashForActionInContext:v20];
+                [v23 setActionRejectsAtCoarseGeoHashForActionInContext:v20];
                 break;
               case 581:
-                [v24 setActionRejectsAtCoarseGeoHashInContext:v20];
+                [v23 setActionRejectsAtCoarseGeoHashInContext:v20];
                 break;
               case 582:
-                [v24 setActionRejectsAtCoarseGeoHashForAction:v20];
+                [v23 setActionRejectsAtCoarseGeoHashForAction:v20];
                 break;
               case 583:
-                [v24 setActionConfirmsAtSpecificGeoHashForActionInContext:v20];
+                [v23 setActionConfirmsAtSpecificGeoHashForActionInContext:v20];
                 break;
               case 584:
-                [v24 setActionConfirmsAtSpecificGeoHashInContext:v20];
+                [v23 setActionConfirmsAtSpecificGeoHashInContext:v20];
                 break;
               case 585:
-                [v24 setActionConfirmsAtSpecificGeoHashForAction:v20];
+                [v23 setActionConfirmsAtSpecificGeoHashForAction:v20];
                 break;
               case 586:
-                [v24 setActionRejectsAtSpecificGeoHashForActionInContext:v20];
+                [v23 setActionRejectsAtSpecificGeoHashForActionInContext:v20];
                 break;
               case 587:
-                [v24 setActionRejectsAtSpecificGeoHashInContext:v20];
+                [v23 setActionRejectsAtSpecificGeoHashInContext:v20];
                 break;
               case 588:
-                [v24 setActionRejectsAtSpecificGeoHashForAction:v20];
+                [v23 setActionRejectsAtSpecificGeoHashForAction:v20];
                 break;
               case 589:
-                [v24 setActionsInTimeBucket0ForAction:v20];
+                [v23 setActionsInTimeBucket0ForAction:v20];
                 break;
               case 590:
-                [v24 setActionsInTimeBucket1ForAction:v20];
+                [v23 setActionsInTimeBucket1ForAction:v20];
                 break;
               case 591:
-                [v24 setActionsInTimeBucket2ForAction:v20];
+                [v23 setActionsInTimeBucket2ForAction:v20];
                 break;
               case 592:
-                [v24 setActionsInTimeBucket3ForAction:v20];
+                [v23 setActionsInTimeBucket3ForAction:v20];
                 break;
               case 593:
-                [v24 setActionsInTimeBucket4ForAction:v20];
+                [v23 setActionsInTimeBucket4ForAction:v20];
                 break;
               case 594:
-                [v24 setActionsInTimeBucket5ForAction:v20];
+                [v23 setActionsInTimeBucket5ForAction:v20];
                 break;
               case 595:
-                [v24 setActionsInTimeBucket6ForAction:v20];
+                [v23 setActionsInTimeBucket6ForAction:v20];
                 break;
               case 596:
-                [v24 setActionsInTimeBucket7ForAction:v20];
+                [v23 setActionsInTimeBucket7ForAction:v20];
                 break;
               case 597:
-                [v24 setActionsInTimeBucket8ForAction:v20];
+                [v23 setActionsInTimeBucket8ForAction:v20];
                 break;
               case 598:
-                [v24 setActionsInTimeBucket9ForAction:v20];
+                [v23 setActionsInTimeBucket9ForAction:v20];
                 break;
               case 599:
-                [v24 setActionsInTimeBucket10ForAction:v20];
+                [v23 setActionsInTimeBucket10ForAction:v20];
                 break;
               case 600:
-                [v24 setActionsInTimeBucket11ForAction:v20];
+                [v23 setActionsInTimeBucket11ForAction:v20];
                 break;
               case 601:
-                [v24 setActionsInTimeBucket12ForAction:v20];
+                [v23 setActionsInTimeBucket12ForAction:v20];
                 break;
               case 602:
-                [v24 setActionsInTimeBucket13ForAction:v20];
+                [v23 setActionsInTimeBucket13ForAction:v20];
                 break;
               case 603:
-                [v24 setActionsInTimeBucket14ForAction:v20];
+                [v23 setActionsInTimeBucket14ForAction:v20];
                 break;
               case 604:
-                [v24 setActionsInTimeBucket15ForAction:v20];
+                [v23 setActionsInTimeBucket15ForAction:v20];
                 break;
               case 605:
-                [v24 setActionsInTimeBucket16ForAction:v20];
+                [v23 setActionsInTimeBucket16ForAction:v20];
                 break;
               case 606:
-                [v24 setActionsInTimeBucket17ForAction:v20];
+                [v23 setActionsInTimeBucket17ForAction:v20];
                 break;
               case 607:
-                [v24 setActionsInTimeBucket18ForAction:v20];
+                [v23 setActionsInTimeBucket18ForAction:v20];
                 break;
               case 608:
-                [v24 setActionsInTimeBucket19ForAction:v20];
+                [v23 setActionsInTimeBucket19ForAction:v20];
                 break;
               case 609:
-                [v24 setActionsInTimeBucket20ForAction:v20];
+                [v23 setActionsInTimeBucket20ForAction:v20];
                 break;
               case 610:
-                [v24 setActionsInTimeBucket21ForAction:v20];
+                [v23 setActionsInTimeBucket21ForAction:v20];
                 break;
               case 611:
-                [v24 setActionsInTimeBucket22ForAction:v20];
+                [v23 setActionsInTimeBucket22ForAction:v20];
                 break;
               case 612:
-                [v24 setActionsInTimeBucket23ForAction:v20];
+                [v23 setActionsInTimeBucket23ForAction:v20];
                 break;
               case 613:
-                [v24 setActionsInTimeBucket24ForAction:v20];
+                [v23 setActionsInTimeBucket24ForAction:v20];
                 break;
               case 614:
-                [v24 setActionsOnDayOfWeekSundayForAction:v20];
+                [v23 setActionsOnDayOfWeekSundayForAction:v20];
                 break;
               case 615:
-                [v24 setActionsOnDayOfWeekMondayForAction:v20];
+                [v23 setActionsOnDayOfWeekMondayForAction:v20];
                 break;
               case 616:
-                [v24 setActionsOnDayOfWeekTuesdayForAction:v20];
+                [v23 setActionsOnDayOfWeekTuesdayForAction:v20];
                 break;
               case 617:
-                [v24 setActionsOnDayOfWeekWednesdayForAction:v20];
+                [v23 setActionsOnDayOfWeekWednesdayForAction:v20];
                 break;
               case 618:
-                [v24 setActionsOnDayOfWeekThursdayForAction:v20];
+                [v23 setActionsOnDayOfWeekThursdayForAction:v20];
                 break;
               case 619:
-                [v24 setActionsOnDayOfWeekFridayForAction:v20];
+                [v23 setActionsOnDayOfWeekFridayForAction:v20];
                 break;
               case 620:
-                [v24 setActionsOnDayOfWeekSaturdayForAction:v20];
+                [v23 setActionsOnDayOfWeekSaturdayForAction:v20];
                 break;
               case 621:
-                [v24 setActionsAtCoarseGeoHash0ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash0ForAction:v20];
                 break;
               case 622:
-                [v24 setActionsAtCoarseGeoHash1ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash1ForAction:v20];
                 break;
               case 623:
-                [v24 setActionsAtCoarseGeoHash2ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash2ForAction:v20];
                 break;
               case 624:
-                [v24 setActionsAtCoarseGeoHash3ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash3ForAction:v20];
                 break;
               case 625:
-                [v24 setActionsAtCoarseGeoHash4ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash4ForAction:v20];
                 break;
               case 626:
-                [v24 setActionsAtCoarseGeoHash5ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash5ForAction:v20];
                 break;
               case 627:
-                [v24 setActionsAtCoarseGeoHash6ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash6ForAction:v20];
                 break;
               case 628:
-                [v24 setActionsAtCoarseGeoHash7ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash7ForAction:v20];
                 break;
               case 629:
-                [v24 setActionsAtCoarseGeoHash8ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash8ForAction:v20];
                 break;
               case 630:
-                [v24 setActionsAtCoarseGeoHash9ForAction:v20];
+                [v23 setActionsAtCoarseGeoHash9ForAction:v20];
                 break;
               case 631:
-                [v24 setActionsAtSpecificGeoHash0ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash0ForAction:v20];
                 break;
               case 632:
-                [v24 setActionsAtSpecificGeoHash1ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash1ForAction:v20];
                 break;
               case 633:
-                [v24 setActionsAtSpecificGeoHash2ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash2ForAction:v20];
                 break;
               case 634:
-                [v24 setActionsAtSpecificGeoHash3ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash3ForAction:v20];
                 break;
               case 635:
-                [v24 setActionsAtSpecificGeoHash4ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash4ForAction:v20];
                 break;
               case 636:
-                [v24 setActionsAtSpecificGeoHash5ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash5ForAction:v20];
                 break;
               case 637:
-                [v24 setActionsAtSpecificGeoHash6ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash6ForAction:v20];
                 break;
               case 638:
-                [v24 setActionsAtSpecificGeoHash7ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash7ForAction:v20];
                 break;
               case 639:
-                [v24 setActionsAtSpecificGeoHash8ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash8ForAction:v20];
                 break;
               case 640:
-                [v24 setActionsAtSpecificGeoHash9ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash9ForAction:v20];
                 break;
               case 641:
-                [v24 setActionsAtSpecificGeoHash10ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash10ForAction:v20];
                 break;
               case 642:
-                [v24 setActionsAtSpecificGeoHash11ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash11ForAction:v20];
                 break;
               case 643:
-                [v24 setActionsAtSpecificGeoHash12ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash12ForAction:v20];
                 break;
               case 644:
-                [v24 setActionsAtSpecificGeoHash13ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash13ForAction:v20];
                 break;
               case 645:
-                [v24 setActionsAtSpecificGeoHash14ForAction:v20];
+                [v23 setActionsAtSpecificGeoHash14ForAction:v20];
                 break;
               case 646:
-                [v24 setActionEntropyForTimeOfDay:v20];
+                [v23 setActionEntropyForTimeOfDay:v20];
                 break;
               case 647:
-                [v24 setActionEntropyForDayOfWeek:v20];
+                [v23 setActionEntropyForDayOfWeek:v20];
                 break;
               case 648:
-                [v24 setActionEntropyForCoarseGeoHash:v20];
+                [v23 setActionEntropyForCoarseGeoHash:v20];
                 break;
               case 649:
-                [v24 setActionEntropyForSpecificGeoHash:v20];
+                [v23 setActionEntropyForSpecificGeoHash:v20];
                 break;
               case 650:
-                [v24 setActionNumberOfSpecificGeohashesForAction:v20];
+                [v23 setActionNumberOfSpecificGeohashesForAction:v20];
                 break;
               case 651:
-                [v24 setActionNumberOfCoarseGeohashesForAction:v20];
+                [v23 setActionNumberOfCoarseGeohashesForAction:v20];
                 break;
               case 652:
-                [v24 setAppLaunchesAtZoom7GeoHashForAppInContext:v20];
+                [v23 setAppLaunchesAtZoom7GeoHashForAppInContext:v20];
                 break;
               case 653:
-                [v24 setAppLaunchesAtZoom7GeoHashInContext:v20];
+                [v23 setAppLaunchesAtZoom7GeoHashInContext:v20];
                 break;
               case 654:
-                [v24 setAppLaunchesAtZoom7GeoHashForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHashForApp:v20];
                 break;
               case 655:
-                [v24 setAppLaunchesAtZoom7GeoHash0ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash0ForApp:v20];
                 break;
               case 656:
-                [v24 setAppLaunchesAtZoom7GeoHash1ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash1ForApp:v20];
                 break;
               case 657:
-                [v24 setAppLaunchesAtZoom7GeoHash2ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash2ForApp:v20];
                 break;
               case 658:
-                [v24 setAppLaunchesAtZoom7GeoHash3ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash3ForApp:v20];
                 break;
               case 659:
-                [v24 setAppLaunchesAtZoom7GeoHash4ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash4ForApp:v20];
                 break;
               case 660:
-                [v24 setAppLaunchesAtZoom7GeoHash5ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash5ForApp:v20];
                 break;
               case 661:
-                [v24 setAppLaunchesAtZoom7GeoHash6ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash6ForApp:v20];
                 break;
               case 662:
-                [v24 setAppLaunchesAtZoom7GeoHash7ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash7ForApp:v20];
                 break;
               case 663:
-                [v24 setAppLaunchesAtZoom7GeoHash8ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash8ForApp:v20];
                 break;
               case 664:
-                [v24 setAppLaunchesAtZoom7GeoHash9ForApp:v20];
+                [v23 setAppLaunchesAtZoom7GeoHash9ForApp:v20];
                 break;
               case 665:
-                [v24 setAppEntropyForZoom7GeoHash:v20];
+                [v23 setAppEntropyForZoom7GeoHash:v20];
                 break;
               case 666:
-                [v24 setAppNumberOfZoom7GeohashesForApp:v20];
+                [v23 setAppNumberOfZoom7GeohashesForApp:v20];
                 break;
               case 667:
-                [v24 setAppGeoAssociationScoreAtZoom7:v20];
+                [v23 setAppGeoAssociationScoreAtZoom7:v20];
                 break;
               case 668:
-                [v24 setAppGeoAssociationScoreAtZoom13:v20];
+                [v23 setAppGeoAssociationScoreAtZoom13:v20];
                 break;
               case 669:
-                [v24 setAppGeoAssociationScoreAtZoom16:v20];
+                [v23 setAppGeoAssociationScoreAtZoom16:v20];
                 break;
               case 670:
-                [v24 setAppPartOfWeekAssociationScore:v20];
+                [v23 setAppPartOfWeekAssociationScore:v20];
                 break;
               case 671:
-                [v24 setAppCoarseTimeAssociationScore:v20];
+                [v23 setAppCoarseTimeAssociationScore:v20];
                 break;
               case 672:
-                [v24 setAppLOITypeAssociationScore:v20];
+                [v23 setAppLOITypeAssociationScore:v20];
                 break;
               case 673:
-                [v24 setAppLaunchesAtSSIDForAppInContext:v20];
+                [v23 setAppLaunchesAtSSIDForAppInContext:v20];
                 break;
               case 674:
-                [v24 setAppLaunchesAtSSIDForApp:v20];
+                [v23 setAppLaunchesAtSSIDForApp:v20];
                 break;
               case 675:
-                [v24 setAppLaunchesForCoreMotionForAppInContext:v20];
+                [v23 setAppLaunchesForCoreMotionForAppInContext:v20];
                 break;
               case 676:
-                [v24 setAppLaunchesInAirplaneModeForAppInContext:v20];
+                [v23 setAppLaunchesInAirplaneModeForAppInContext:v20];
                 break;
               case 677:
-                [v24 setHomeScreenAppConfirmsOnDayOfWeekForAppInContext:v20];
+                [v23 setHomeScreenAppConfirmsOnDayOfWeekForAppInContext:v20];
                 break;
               case 678:
-                [v24 setHomeScreenAppConfirmsOnDayOfWeekInContext:v20];
+                [v23 setHomeScreenAppConfirmsOnDayOfWeekInContext:v20];
                 break;
               case 679:
-                [v24 setHomeScreenAppConfirmsOnDayOfWeekForApp:v20];
+                [v23 setHomeScreenAppConfirmsOnDayOfWeekForApp:v20];
                 break;
               case 680:
-                [v24 setHomeScreenAppRejectsOnDayOfWeekForAppInContext:v20];
+                [v23 setHomeScreenAppRejectsOnDayOfWeekForAppInContext:v20];
                 break;
               case 681:
-                [v24 setHomeScreenAppRejectsOnDayOfWeekInContext:v20];
+                [v23 setHomeScreenAppRejectsOnDayOfWeekInContext:v20];
                 break;
               case 682:
-                [v24 setHomeScreenAppRejectsOnDayOfWeekForApp:v20];
+                [v23 setHomeScreenAppRejectsOnDayOfWeekForApp:v20];
                 break;
               case 683:
-                [v24 setHomeScreenAppConfirmsInTwoHourTimeIntervalForAppInContext:v20];
+                [v23 setHomeScreenAppConfirmsInTwoHourTimeIntervalForAppInContext:v20];
                 break;
               case 684:
-                [v24 setHomeScreenAppConfirmsInTwoHourTimeIntervalInContext:v20];
+                [v23 setHomeScreenAppConfirmsInTwoHourTimeIntervalInContext:v20];
                 break;
               case 685:
-                [v24 setHomeScreenAppConfirmsInTwoHourTimeIntervalForApp:v20];
+                [v23 setHomeScreenAppConfirmsInTwoHourTimeIntervalForApp:v20];
                 break;
               case 686:
-                [v24 setHomeScreenAppRejectsInTwoHourTimeIntervalForAppInContext:v20];
+                [v23 setHomeScreenAppRejectsInTwoHourTimeIntervalForAppInContext:v20];
                 break;
               case 687:
-                [v24 setHomeScreenAppRejectsInTwoHourTimeIntervalInContext:v20];
+                [v23 setHomeScreenAppRejectsInTwoHourTimeIntervalInContext:v20];
                 break;
               case 688:
-                [v24 setHomeScreenAppRejectsInTwoHourTimeIntervalForApp:v20];
+                [v23 setHomeScreenAppRejectsInTwoHourTimeIntervalForApp:v20];
                 break;
               case 689:
-                [v24 setHomeScreenAppConfirmsAtCoarseGeohashForAppInContext:v20];
+                [v23 setHomeScreenAppConfirmsAtCoarseGeohashForAppInContext:v20];
                 break;
               case 690:
-                [v24 setHomeScreenAppConfirmsAtCoarseGeohashInContext:v20];
+                [v23 setHomeScreenAppConfirmsAtCoarseGeohashInContext:v20];
                 break;
               case 691:
-                [v24 setHomeScreenAppConfirmsAtCoarseGeohashForApp:v20];
+                [v23 setHomeScreenAppConfirmsAtCoarseGeohashForApp:v20];
                 break;
               case 692:
-                [v24 setHomeScreenAppRejectsAtCoarseGeohashForAppInContext:v20];
+                [v23 setHomeScreenAppRejectsAtCoarseGeohashForAppInContext:v20];
                 break;
               case 693:
-                [v24 setHomeScreenAppRejectsAtCoarseGeohashInContext:v20];
+                [v23 setHomeScreenAppRejectsAtCoarseGeohashInContext:v20];
                 break;
               case 694:
-                [v24 setHomeScreenAppRejectsAtCoarseGeohashForApp:v20];
+                [v23 setHomeScreenAppRejectsAtCoarseGeohashForApp:v20];
                 break;
               case 695:
-                [v24 setHomeScreenAppConfirmsAtSpecificGeohashForAppInContext:v20];
+                [v23 setHomeScreenAppConfirmsAtSpecificGeohashForAppInContext:v20];
                 break;
               case 696:
-                [v24 setHomeScreenAppConfirmsAtSpecificGeohashInContext:v20];
+                [v23 setHomeScreenAppConfirmsAtSpecificGeohashInContext:v20];
                 break;
               case 697:
-                [v24 setHomeScreenAppConfirmsAtSpecificGeohashForApp:v20];
+                [v23 setHomeScreenAppConfirmsAtSpecificGeohashForApp:v20];
                 break;
               case 698:
-                [v24 setHomeScreenAppRejectsAtSpecificGeohashForAppInContext:v20];
+                [v23 setHomeScreenAppRejectsAtSpecificGeohashForAppInContext:v20];
                 break;
               case 699:
-                [v24 setHomeScreenAppRejectsAtSpecificGeohashInContext:v20];
+                [v23 setHomeScreenAppRejectsAtSpecificGeohashInContext:v20];
                 break;
               case 700:
-                [v24 setHomeScreenAppRejectsAtSpecificGeohashForApp:v20];
+                [v23 setHomeScreenAppRejectsAtSpecificGeohashForApp:v20];
                 break;
               case 701:
-                [v24 setHomeScreenAppConfirmsAtCoarseTimePOWLocationForAppInContext:v20];
+                [v23 setHomeScreenAppConfirmsAtCoarseTimePOWLocationForAppInContext:v20];
                 break;
               case 702:
-                [v24 setHomeScreenAppConfirmsAtCoarseTimePOWLocationInContext:v20];
+                [v23 setHomeScreenAppConfirmsAtCoarseTimePOWLocationInContext:v20];
                 break;
               case 703:
-                [v24 setHomeScreenAppConfirmsAtCoarseTimePOWLocationForApp:v20];
+                [v23 setHomeScreenAppConfirmsAtCoarseTimePOWLocationForApp:v20];
                 break;
               case 704:
-                [v24 setHomeScreenAppRejectsAtCoarseTimePOWLocationForAppInContext:v20];
+                [v23 setHomeScreenAppRejectsAtCoarseTimePOWLocationForAppInContext:v20];
                 break;
               case 705:
-                [v24 setHomeScreenAppRejectsAtCoarseTimePOWLocationInContext:v20];
+                [v23 setHomeScreenAppRejectsAtCoarseTimePOWLocationInContext:v20];
                 break;
               case 706:
-                [v24 setHomeScreenAppRejectsAtCoarseTimePOWLocationForApp:v20];
+                [v23 setHomeScreenAppRejectsAtCoarseTimePOWLocationForApp:v20];
                 break;
               case 707:
-                [v24 setHomeScreenAppExplicitRejectsAtCoarseTimePOWLocationForAppInContext:v20];
+                [v23 setHomeScreenAppExplicitRejectsAtCoarseTimePOWLocationForAppInContext:v20];
                 break;
               case 708:
-                [v24 setHomeScreenAppExplicitRejectsAtCoarseTimePOWLocationInContext:v20];
+                [v23 setHomeScreenAppExplicitRejectsAtCoarseTimePOWLocationInContext:v20];
                 break;
               case 709:
-                [v24 setHomeScreenAppExplicitRejectsAtCoarseTimePOWLocationForApp:v20];
+                [v23 setHomeScreenAppExplicitRejectsAtCoarseTimePOWLocationForApp:v20];
                 break;
               case 710:
-                [v24 setHomeScreenAppConfirmsAtSpecificTimeDOWLocationForAppInContext:v20];
+                [v23 setHomeScreenAppConfirmsAtSpecificTimeDOWLocationForAppInContext:v20];
                 break;
               case 711:
-                [v24 setHomeScreenAppConfirmsAtSpecificTimeDOWLocationInContext:v20];
+                [v23 setHomeScreenAppConfirmsAtSpecificTimeDOWLocationInContext:v20];
                 break;
               case 712:
-                [v24 setHomeScreenAppConfirmsAtSpecificTimeDOWLocationForApp:v20];
+                [v23 setHomeScreenAppConfirmsAtSpecificTimeDOWLocationForApp:v20];
                 break;
               case 713:
-                [v24 setHomeScreenAppRejectsAtSpecificTimeDOWLocationForAppInContext:v20];
+                [v23 setHomeScreenAppRejectsAtSpecificTimeDOWLocationForAppInContext:v20];
                 break;
               case 714:
-                [v24 setHomeScreenAppRejectsAtSpecificTimeDOWLocationInContext:v20];
+                [v23 setHomeScreenAppRejectsAtSpecificTimeDOWLocationInContext:v20];
                 break;
               case 715:
-                [v24 setHomeScreenAppRejectsAtSpecificTimeDOWLocationForApp:v20];
+                [v23 setHomeScreenAppRejectsAtSpecificTimeDOWLocationForApp:v20];
                 break;
               case 716:
-                [v24 setHomeScreenTotalLaunchesForApp:v20];
+                [v23 setHomeScreenTotalLaunchesForApp:v20];
                 break;
               case 717:
-                [v24 setHomeScreenTotalLaunchesForAllApps:v20];
+                [v23 setHomeScreenTotalLaunchesForAllApps:v20];
                 break;
               case 718:
-                [v24 setAppDirectoryTotalLaunchesForApp:v20];
+                [v23 setAppDirectoryTotalLaunchesForApp:v20];
                 break;
               case 719:
-                [v24 setAppDirectoryTotalLaunchesForAllApps:v20];
+                [v23 setAppDirectoryTotalLaunchesForAllApps:v20];
                 break;
               case 720:
-                [v24 setAppDirectoryConfirmsOnDayOfWeekForAppInContext:v20];
+                [v23 setAppDirectoryConfirmsOnDayOfWeekForAppInContext:v20];
                 break;
               case 721:
-                [v24 setAppDirectoryConfirmsOnDayOfWeekInContext:v20];
+                [v23 setAppDirectoryConfirmsOnDayOfWeekInContext:v20];
                 break;
               case 722:
-                [v24 setAppDirectoryConfirmsOnDayOfWeekForApp:v20];
+                [v23 setAppDirectoryConfirmsOnDayOfWeekForApp:v20];
                 break;
               case 723:
-                [v24 setAppDirectoryRejectsOnDayOfWeekForAppInContext:v20];
+                [v23 setAppDirectoryRejectsOnDayOfWeekForAppInContext:v20];
                 break;
               case 724:
-                [v24 setAppDirectoryRejectsOnDayOfWeekInContext:v20];
+                [v23 setAppDirectoryRejectsOnDayOfWeekInContext:v20];
                 break;
               case 725:
-                [v24 setAppDirectoryRejectsOnDayOfWeekForApp:v20];
+                [v23 setAppDirectoryRejectsOnDayOfWeekForApp:v20];
                 break;
               case 726:
-                [v24 setAppDirectoryConfirmsInTwoHourTimeIntervalForAppInContext:v20];
+                [v23 setAppDirectoryConfirmsInTwoHourTimeIntervalForAppInContext:v20];
                 break;
               case 727:
-                [v24 setAppDirectoryConfirmsInTwoHourTimeIntervalInContext:v20];
+                [v23 setAppDirectoryConfirmsInTwoHourTimeIntervalInContext:v20];
                 break;
               case 728:
-                [v24 setAppDirectoryConfirmsInTwoHourTimeIntervalForApp:v20];
+                [v23 setAppDirectoryConfirmsInTwoHourTimeIntervalForApp:v20];
                 break;
               case 729:
-                [v24 setAppDirectoryRejectsInTwoHourTimeIntervalForAppInContext:v20];
+                [v23 setAppDirectoryRejectsInTwoHourTimeIntervalForAppInContext:v20];
                 break;
               case 730:
-                [v24 setAppDirectoryRejectsInTwoHourTimeIntervalInContext:v20];
+                [v23 setAppDirectoryRejectsInTwoHourTimeIntervalInContext:v20];
                 break;
               case 731:
-                [v24 setAppDirectoryRejectsInTwoHourTimeIntervalForApp:v20];
+                [v23 setAppDirectoryRejectsInTwoHourTimeIntervalForApp:v20];
                 break;
               case 732:
-                [v24 setAppDirectoryConfirmsAtCoarseGeohashForAppInContext:v20];
+                [v23 setAppDirectoryConfirmsAtCoarseGeohashForAppInContext:v20];
                 break;
               case 733:
-                [v24 setAppDirectoryConfirmsAtCoarseGeohashInContext:v20];
+                [v23 setAppDirectoryConfirmsAtCoarseGeohashInContext:v20];
                 break;
               case 734:
-                [v24 setAppDirectoryConfirmsAtCoarseGeohashForApp:v20];
+                [v23 setAppDirectoryConfirmsAtCoarseGeohashForApp:v20];
                 break;
               case 735:
-                [v24 setAppDirectoryRejectsAtCoarseGeohashForAppInContext:v20];
+                [v23 setAppDirectoryRejectsAtCoarseGeohashForAppInContext:v20];
                 break;
               case 736:
-                [v24 setAppDirectoryRejectsAtCoarseGeohashInContext:v20];
+                [v23 setAppDirectoryRejectsAtCoarseGeohashInContext:v20];
                 break;
               case 737:
-                [v24 setAppDirectoryRejectsAtCoarseGeohashForApp:v20];
+                [v23 setAppDirectoryRejectsAtCoarseGeohashForApp:v20];
                 break;
               case 738:
-                [v24 setAppDirectoryConfirmsAtSpecificGeohashForAppInContext:v20];
+                [v23 setAppDirectoryConfirmsAtSpecificGeohashForAppInContext:v20];
                 break;
               case 739:
-                [v24 setAppDirectoryConfirmsAtSpecificGeohashInContext:v20];
+                [v23 setAppDirectoryConfirmsAtSpecificGeohashInContext:v20];
                 break;
               case 740:
-                [v24 setAppDirectoryConfirmsAtSpecificGeohashForApp:v20];
+                [v23 setAppDirectoryConfirmsAtSpecificGeohashForApp:v20];
                 break;
               case 741:
-                [v24 setAppDirectoryRejectsAtSpecificGeohashForAppInContext:v20];
+                [v23 setAppDirectoryRejectsAtSpecificGeohashForAppInContext:v20];
                 break;
               case 742:
-                [v24 setAppDirectoryRejectsAtSpecificGeohashInContext:v20];
+                [v23 setAppDirectoryRejectsAtSpecificGeohashInContext:v20];
                 break;
               case 743:
-                [v24 setAppDirectoryRejectsAtSpecificGeohashForApp:v20];
+                [v23 setAppDirectoryRejectsAtSpecificGeohashForApp:v20];
                 break;
               case 744:
-                [v24 setAppDirectoryConfirmsAtCoarseTimePOWLocationForAppInContext:v20];
+                [v23 setAppDirectoryConfirmsAtCoarseTimePOWLocationForAppInContext:v20];
                 break;
               case 745:
-                [v24 setAppDirectoryConfirmsAtCoarseTimePOWLocationInContext:v20];
+                [v23 setAppDirectoryConfirmsAtCoarseTimePOWLocationInContext:v20];
                 break;
               case 746:
-                [v24 setAppDirectoryConfirmsAtCoarseTimePOWLocationForApp:v20];
+                [v23 setAppDirectoryConfirmsAtCoarseTimePOWLocationForApp:v20];
                 break;
               case 747:
-                [v24 setAppDirectoryRejectsAtCoarseTimePOWLocationForAppInContext:v20];
+                [v23 setAppDirectoryRejectsAtCoarseTimePOWLocationForAppInContext:v20];
                 break;
               case 748:
-                [v24 setAppDirectoryRejectsAtCoarseTimePOWLocationInContext:v20];
+                [v23 setAppDirectoryRejectsAtCoarseTimePOWLocationInContext:v20];
                 break;
               case 749:
-                [v24 setAppDirectoryRejectsAtCoarseTimePOWLocationForApp:v20];
+                [v23 setAppDirectoryRejectsAtCoarseTimePOWLocationForApp:v20];
                 break;
               case 750:
-                [v24 setAppDirectoryExplicitRejectsAtCoarseTimePOWLocationForAppInContext:v20];
+                [v23 setAppDirectoryExplicitRejectsAtCoarseTimePOWLocationForAppInContext:v20];
                 break;
               case 751:
-                [v24 setAppDirectoryExplicitRejectsAtCoarseTimePOWLocationInContext:v20];
+                [v23 setAppDirectoryExplicitRejectsAtCoarseTimePOWLocationInContext:v20];
                 break;
               case 752:
-                [v24 setAppDirectoryExplicitRejectsAtCoarseTimePOWLocationForApp:v20];
+                [v23 setAppDirectoryExplicitRejectsAtCoarseTimePOWLocationForApp:v20];
                 break;
               case 753:
-                [v24 setAppDirectoryConfirmsAtSpecificTimeDOWLocationForAppInContext:v20];
+                [v23 setAppDirectoryConfirmsAtSpecificTimeDOWLocationForAppInContext:v20];
                 break;
               case 754:
-                [v24 setAppDirectoryConfirmsAtSpecificTimeDOWLocationInContext:v20];
+                [v23 setAppDirectoryConfirmsAtSpecificTimeDOWLocationInContext:v20];
                 break;
               case 755:
-                [v24 setAppDirectoryConfirmsAtSpecificTimeDOWLocationForApp:v20];
+                [v23 setAppDirectoryConfirmsAtSpecificTimeDOWLocationForApp:v20];
                 break;
               case 756:
-                [v24 setAppDirectoryRejectsAtSpecificTimeDOWLocationForAppInContext:v20];
+                [v23 setAppDirectoryRejectsAtSpecificTimeDOWLocationForAppInContext:v20];
                 break;
               case 757:
-                [v24 setAppDirectoryRejectsAtSpecificTimeDOWLocationInContext:v20];
+                [v23 setAppDirectoryRejectsAtSpecificTimeDOWLocationInContext:v20];
                 break;
               case 758:
-                [v24 setAppDirectoryRejectsAtSpecificTimeDOWLocationForApp:v20];
+                [v23 setAppDirectoryRejectsAtSpecificTimeDOWLocationForApp:v20];
                 break;
               case 759:
-                [v24 setHomeScreenAppConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setHomeScreenAppConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 760:
-                [v24 setHomeScreenAppConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
+                [v23 setHomeScreenAppConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
                 break;
               case 761:
-                [v24 setHomeScreenAppRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setHomeScreenAppRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 762:
-                [v24 setHomeScreenAppRejectsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
+                [v23 setHomeScreenAppRejectsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
                 break;
               case 763:
-                [v24 setHomeScreenAppExplicitRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setHomeScreenAppExplicitRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 764:
-                [v24 setAppDirectoryConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setAppDirectoryConfirmsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 765:
-                [v24 setAppDirectoryConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
+                [v23 setAppDirectoryConfirmsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
                 break;
               case 766:
-                [v24 setAppDirectoryRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setAppDirectoryRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 767:
-                [v24 setAppDirectoryRejectsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
+                [v23 setAppDirectoryRejectsForAllAppsAndContextsDecayedAtSpecificContextRate:v20];
                 break;
               case 768:
-                [v24 setAppDirectoryExplicitRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
+                [v23 setAppDirectoryExplicitRejectsForAllAppsAndContextsDecayedAtCoarseContextRate:v20];
                 break;
               case 769:
-                [v24 setIsAppClip:v20];
+                [v23 setIsAppClip:v20];
                 break;
               case 770:
-                [v24 setHomeScreenActionConfirmsOnDayOfWeekForActionInContext:v20];
+                [v23 setHomeScreenActionConfirmsOnDayOfWeekForActionInContext:v20];
                 break;
               case 771:
-                [v24 setHomeScreenActionConfirmsOnDayOfWeekInContext:v20];
+                [v23 setHomeScreenActionConfirmsOnDayOfWeekInContext:v20];
                 break;
               case 772:
-                [v24 setHomeScreenActionConfirmsOnDayOfWeekForAction:v20];
+                [v23 setHomeScreenActionConfirmsOnDayOfWeekForAction:v20];
                 break;
               case 773:
-                [v24 setHomeScreenActionConfirmsAtTimeOfDayForActionInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtTimeOfDayForActionInContext:v20];
                 break;
               case 774:
-                [v24 setHomeScreenActionConfirmsAtTimeOfDayInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtTimeOfDayInContext:v20];
                 break;
               case 775:
-                [v24 setHomeScreenActionConfirmsAtTimeOfDayForAction:v20];
+                [v23 setHomeScreenActionConfirmsAtTimeOfDayForAction:v20];
                 break;
               case 776:
-                [v24 setHomeScreenActionConfirmsAtCoarseGeohashForActionInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtCoarseGeohashForActionInContext:v20];
                 break;
               case 777:
-                [v24 setHomeScreenActionConfirmsAtCoarseGeohashInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtCoarseGeohashInContext:v20];
                 break;
               case 778:
-                [v24 setHomeScreenActionConfirmsAtCoarseGeohashForAction:v20];
+                [v23 setHomeScreenActionConfirmsAtCoarseGeohashForAction:v20];
                 break;
               case 779:
-                [v24 setHomeScreenActionConfirmsAtSpecificGeohashForActionInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtSpecificGeohashForActionInContext:v20];
                 break;
               case 780:
-                [v24 setHomeScreenActionConfirmsAtSpecificGeohashInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtSpecificGeohashInContext:v20];
                 break;
               case 781:
-                [v24 setHomeScreenActionConfirmsAtSpecificGeohashForAction:v20];
+                [v23 setHomeScreenActionConfirmsAtSpecificGeohashForAction:v20];
                 break;
               case 782:
-                [v24 setHomeScreenActionConfirmsAtCoarseTimePOWLocationForActionInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtCoarseTimePOWLocationForActionInContext:v20];
                 break;
               case 783:
-                [v24 setHomeScreenActionConfirmsAtCoarseTimePOWLocationInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtCoarseTimePOWLocationInContext:v20];
                 break;
               case 784:
-                [v24 setHomeScreenActionConfirmsAtCoarseTimePOWLocationForAction:v20];
+                [v23 setHomeScreenActionConfirmsAtCoarseTimePOWLocationForAction:v20];
                 break;
               case 785:
-                [v24 setHomeScreenActionConfirmsAtSpecificTimeDOWLocationForActionInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtSpecificTimeDOWLocationForActionInContext:v20];
                 break;
               case 786:
-                [v24 setHomeScreenActionConfirmsAtSpecificTimeDOWLocationInContext:v20];
+                [v23 setHomeScreenActionConfirmsAtSpecificTimeDOWLocationInContext:v20];
                 break;
               case 787:
-                [v24 setHomeScreenActionConfirmsAtSpecificTimeDOWLocationForAction:v20];
+                [v23 setHomeScreenActionConfirmsAtSpecificTimeDOWLocationForAction:v20];
                 break;
               case 788:
-                [v24 setHomeScreenActionRejectsOnDayOfWeekForActionInContext:v20];
+                [v23 setHomeScreenActionRejectsOnDayOfWeekForActionInContext:v20];
                 break;
               case 789:
-                [v24 setHomeScreenActionRejectsOnDayOfWeekInContext:v20];
+                [v23 setHomeScreenActionRejectsOnDayOfWeekInContext:v20];
                 break;
               case 790:
-                [v24 setHomeScreenActionRejectsOnDayOfWeekForAction:v20];
+                [v23 setHomeScreenActionRejectsOnDayOfWeekForAction:v20];
                 break;
               case 791:
-                [v24 setHomeScreenActionRejectsAtTimeOfDayForActionInContext:v20];
+                [v23 setHomeScreenActionRejectsAtTimeOfDayForActionInContext:v20];
                 break;
               case 792:
-                [v24 setHomeScreenActionRejectsAtTimeOfDayInContext:v20];
+                [v23 setHomeScreenActionRejectsAtTimeOfDayInContext:v20];
                 break;
               case 793:
-                [v24 setHomeScreenActionRejectsAtTimeOfDayForAction:v20];
+                [v23 setHomeScreenActionRejectsAtTimeOfDayForAction:v20];
                 break;
               case 794:
-                [v24 setHomeScreenActionRejectsAtCoarseGeohashForActionInContext:v20];
+                [v23 setHomeScreenActionRejectsAtCoarseGeohashForActionInContext:v20];
                 break;
               case 795:
-                [v24 setHomeScreenActionRejectsAtCoarseGeohashInContext:v20];
+                [v23 setHomeScreenActionRejectsAtCoarseGeohashInContext:v20];
                 break;
               case 796:
-                [v24 setHomeScreenActionRejectsAtCoarseGeohashForAction:v20];
+                [v23 setHomeScreenActionRejectsAtCoarseGeohashForAction:v20];
                 break;
               case 797:
-                [v24 setHomeScreenActionRejectsAtSpecificGeohashForActionInContext:v20];
+                [v23 setHomeScreenActionRejectsAtSpecificGeohashForActionInContext:v20];
                 break;
               case 798:
-                [v24 setHomeScreenActionRejectsAtSpecificGeohashInContext:v20];
+                [v23 setHomeScreenActionRejectsAtSpecificGeohashInContext:v20];
                 break;
               case 799:
-                [v24 setHomeScreenActionRejectsAtSpecificGeohashForAction:v20];
+                [v23 setHomeScreenActionRejectsAtSpecificGeohashForAction:v20];
                 break;
               case 800:
-                [v24 setHomeScreenActionRejectsAtCoarseTimePOWLocationForActionInContext:v20];
+                [v23 setHomeScreenActionRejectsAtCoarseTimePOWLocationForActionInContext:v20];
                 break;
               case 801:
-                [v24 setHomeScreenActionRejectsAtCoarseTimePOWLocationInContext:v20];
+                [v23 setHomeScreenActionRejectsAtCoarseTimePOWLocationInContext:v20];
                 break;
               case 802:
-                [v24 setHomeScreenActionRejectsAtCoarseTimePOWLocationForAction:v20];
+                [v23 setHomeScreenActionRejectsAtCoarseTimePOWLocationForAction:v20];
                 break;
               case 803:
-                [v24 setHomeScreenActionRejectsAtSpecificTimeDOWLocationForActionInContext:v20];
+                [v23 setHomeScreenActionRejectsAtSpecificTimeDOWLocationForActionInContext:v20];
                 break;
               case 804:
-                [v24 setHomeScreenActionRejectsAtSpecificTimeDOWLocationInContext:v20];
+                [v23 setHomeScreenActionRejectsAtSpecificTimeDOWLocationInContext:v20];
                 break;
               case 805:
-                [v24 setHomeScreenActionRejectsAtSpecificTimeDOWLocationForAction:v20];
+                [v23 setHomeScreenActionRejectsAtSpecificTimeDOWLocationForAction:v20];
                 break;
               case 806:
-                [v24 setPoiPopularityForAppInContext:v20];
+                [v23 setPoiPopularityForAppInContext:v20];
                 break;
               case 807:
-                [v24 setAppLaunchPopularityAtPOIForAppInContext:v20];
+                [v23 setAppLaunchPopularityAtPOIForAppInContext:v20];
                 break;
               case 808:
-                [v24 setPoiCategory:v20];
+                [v23 setPoiCategory:v20];
                 break;
               case 809:
-                [v24 setAppLaunchesAtPOIForAppInContext:v20];
+                [v23 setAppLaunchesAtPOIForAppInContext:v20];
                 break;
               case 810:
-                [v24 setAppCategoryScore:v20];
+                [v23 setAppCategoryScore:v20];
                 break;
               case 811:
-                [v24 setPosteriorProbabilityOfAppGivenMode:v20];
+                [v23 setPosteriorProbabilityOfAppGivenMode:v20];
                 break;
               case 812:
-                [v24 setClassConditionalProbabilityOfModeGivenApp:v20];
+                [v23 setClassConditionalProbabilityOfModeGivenApp:v20];
                 break;
               case 813:
-                [v24 setUniqueOccurrencesOfAppInMode:v20];
+                [v23 setUniqueOccurrencesOfAppInMode:v20];
                 break;
               case 814:
-                [v24 setLocalOccurrencesOfAppInMode:v20];
+                [v23 setLocalOccurrencesOfAppInMode:v20];
                 break;
               case 815:
-                [v24 setGlobalOccurrencesOfAppInMode:v20];
+                [v23 setGlobalOccurrencesOfAppInMode:v20];
                 break;
               case 816:
-                [v24 setAppModeEntityScore:v20];
+                [v23 setAppModeEntityScore:v20];
                 break;
               default:
                 break;
@@ -3386,16 +3383,14 @@ LABEL_5:
       }
 
       while (v6 != v9);
-      v21 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v21 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
       v6 = v21;
     }
 
     while (v21);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 + (int)awdConsumerSubTypeWithConsumerSubType:(unsigned __int8)type
@@ -3445,7 +3440,7 @@ LABEL_5:
     {
       if (type != 2)
       {
-        v4 = __atxlog_handle_default();
+        v4 = __atxlog_handle_default(self);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           [ATXAWDUtils awdActionTypeWithActionType:v4];
@@ -3888,7 +3883,7 @@ LABEL_9:
 
 + (void)logAppPredictionDictionaryViaAWD:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = dCopy;
   if (dCopy)
@@ -3908,23 +3903,23 @@ LABEL_9:
         {
           v10 = [ATXAWDUtils appDataAtIndex:v9 forSessionLogDict:v4];
           [v10 setSessionId:uUIDString];
-          AWDPostMetric();
-          v11 = __atxlog_handle_feedback();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v11 = AWDPostMetric();
+          v12 = __atxlog_handle_feedback(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             bundleId = [v10 bundleId];
             engagedApp = [v10 engagedApp];
             *buf = 138412546;
-            v14 = @"NO";
+            v15 = @"NO";
             if (engagedApp)
             {
-              v14 = @"YES";
+              v15 = @"YES";
             }
 
-            v24 = bundleId;
-            v25 = 2112;
-            v26 = v14;
-            _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXAppPredictorSessionLog - logged AWDProactiveAppData with bundleId: %@ engagedApp: %@", buf, 0x16u);
+            v25 = bundleId;
+            v26 = 2112;
+            v27 = v15;
+            _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "ATXAppPredictorSessionLog - logged AWDProactiveAppData with bundleId: %@ engagedApp: %@", buf, 0x16u);
           }
 
           ++v9;
@@ -3933,45 +3928,43 @@ LABEL_9:
         while (v9 < [v8 count]);
       }
 
-      v15 = [ATXAWDUtils populateAwdAppPredictionSessionForSessionLogDict:v4];
-      [v15 setSessionId:uUIDString];
-      AWDPostMetric();
-      v16 = __atxlog_handle_feedback();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v16 = [ATXAWDUtils populateAwdAppPredictionSessionForSessionLogDict:v4];
+      [v16 setSessionId:uUIDString];
+      v17 = AWDPostMetric();
+      v18 = __atxlog_handle_feedback(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        consumerSubType = [v15 consumerSubType];
+        consumerSubType = [v16 consumerSubType];
         if (consumerSubType >= 0x28)
         {
-          v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", consumerSubType];
+          v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", consumerSubType];
         }
 
         else
         {
-          v18 = off_27859A970[consumerSubType];
+          v20 = off_27859A970[consumerSubType];
         }
 
-        v19 = v18;
-        outcome = [v15 outcome];
+        v21 = v20;
+        outcome = [v16 outcome];
         if (outcome >= 9)
         {
-          v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", outcome];
+          v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", outcome];
         }
 
         else
         {
-          v21 = off_27859AAB0[outcome];
+          v23 = off_27859AAB0[outcome];
         }
 
         *buf = 138412546;
-        v24 = v19;
-        v25 = 2112;
-        v26 = v21;
-        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "ATXAppPredictorSessionLog - logged AWDProactiveAppPredictionSession with consumerSubType: %@ engagementType: %@", buf, 0x16u);
+        v25 = v21;
+        v26 = 2112;
+        v27 = v23;
+        _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "ATXAppPredictorSessionLog - logged AWDProactiveAppPredictionSession with consumerSubType: %@ engagementType: %@", buf, 0x16u);
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (int)awdPredictionOutcomeWithATXPredictionOutcome:(unint64_t)outcome
@@ -4021,27 +4014,24 @@ LABEL_9:
 
 + (void)awdScoreWithScore:type:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_19();
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "int32_t overflow for score of %f for scoreType: %lu", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "int32_t overflow for score of %f for scoreType: %lu", v1, 0x16u);
 }
 
 + (void)awdScoreWithScore:type:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_19();
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "int32_t underflow for score of %f for scoreType: %lu", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "int32_t underflow for score of %f for scoreType: %lu", v1, 0x16u);
 }
 
 + (void)awdActionTypeWithActionType:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = 3;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "awdActionTypeWithActionType called with invalid ATXActionType value of %tu", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = 3;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "awdActionTypeWithActionType called with invalid ATXActionType value of %tu", &v1, 0xCu);
 }
 
 @end

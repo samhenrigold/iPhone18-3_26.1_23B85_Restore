@@ -15,7 +15,7 @@
 
 + (Class)layerClass
 {
-  j___s18WorkflowUIServices10WFSDFLayerCMa();
+  j___s18WorkflowUIServices10WFSDFLayerCMa(self, a2);
 
   return swift_getObjCClassFromMetadata();
 }

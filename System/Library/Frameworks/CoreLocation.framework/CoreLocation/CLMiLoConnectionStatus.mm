@@ -21,17 +21,18 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   connectionState = self->_connectionState;
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithConnectionState_);
+  return MEMORY[0x1EEE66B58](v8, sel_initWithConnectionState_, connectionState, v9);
 }
 
 - (CLMiLoConnectionStatus)initWithCoder:(id)coder
 {
-  [coder decodeIntegerForKey:@"kCLMiLoConnectionCodingKeyConnectionState"];
+  v5 = objc_msgSend_decodeIntegerForKey_(coder, a2, @"kCLMiLoConnectionCodingKeyConnectionState", v3);
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithConnectionState_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithConnectionState_, v5, v6);
 }
 
 @end

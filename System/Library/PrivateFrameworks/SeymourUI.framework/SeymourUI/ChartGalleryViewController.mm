@@ -28,7 +28,7 @@
 {
   appearingCopy = appearing;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ChartGalleryViewController();
+  v7.super_class = type metadata accessor for ChartGalleryViewController(0);
   v4 = v7.receiver;
   [(ChartGalleryViewController *)&v7 viewIsAppearing:appearingCopy];
   [*(*(*&v4[OBJC_IVAR____TtC9SeymourUI26ChartGalleryViewController_dataProvider] + OBJC_IVAR____TtC9SeymourUI24ChartGalleryDataProvider_page) + OBJC_IVAR____TtC9SeymourUI11CatalogPage_collectionView) contentOffset];
@@ -42,18 +42,18 @@
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for ChartGalleryViewController();
+  v9 = type metadata accessor for ChartGalleryViewController(0);
   v12.receiver = self;
   v12.super_class = v9;
   selfCopy = self;
   [(ChartGalleryViewController *)&v12 viewDidAppear:appearCopy];
   v11[1] = selfCopy;
   (*(v6 + 16))(v8, *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI26ChartGalleryViewController_dataProvider) + OBJC_IVAR____TtC9SeymourUI24ChartGalleryDataProvider_metricPage, v5);
-  sub_20BC3E7E4(&qword_27C76C628);
+  sub_20BC3E7E4(&qword_27C76C628, &unk_20C173EE0);
   sub_20C138C54();
   (*(v6 + 8))(v8, v5);
-  sub_20BC3E7E4(&qword_27C76C618);
-  sub_20BC3E7E4(&qword_27C76C620);
+  sub_20BC3E7E4(&qword_27C76C618, &unk_20C173F20);
+  sub_20BC3E7E4(&qword_27C76C620, &unk_20C173E98);
   sub_20C139364();
 }
 
@@ -67,18 +67,18 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ChartGalleryViewController();
+  v5.super_class = type metadata accessor for ChartGalleryViewController(0);
   v4 = v5.receiver;
   [(ChartGalleryViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20BC3E7E4(&qword_27C76C618);
-  sub_20BC3E7E4(&qword_27C76C620);
+  sub_20BC3E7E4(&qword_27C76C618, &unk_20C173F20);
+  sub_20BC3E7E4(&qword_27C76C620, &unk_20C173E98);
   sub_20C139374();
 }
 
 - (void)viewDidLayoutSubviews
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for ChartGalleryViewController();
+  v10.super_class = type metadata accessor for ChartGalleryViewController(0);
   v2 = v10.receiver;
   [(ChartGalleryViewController *)&v10 viewDidLayoutSubviews];
   v3 = *(*&v2[OBJC_IVAR____TtC9SeymourUI26ChartGalleryViewController_dataProvider] + OBJC_IVAR____TtC9SeymourUI24ChartGalleryDataProvider_page);

@@ -36,76 +36,76 @@
     if (!commandBuffer && MTLReportFailureTypeEnabled())
     {
       v505 = objc_opt_class();
-      v515 = NSStringFromClass(v505);
-      MTLReportFailure();
+      v551 = NSStringFromClass(v505);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x18A, @"[%@ apply...] commandBuffer may not be nil]", v506, v507, v508, v509);
     }
 
     if (!v15 && MTLReportFailureTypeEnabled())
     {
-      v506 = objc_opt_class();
-      v515 = NSStringFromClass(v506);
-      MTLReportFailure();
+      v510 = objc_opt_class();
+      v551 = NSStringFromClass(v510);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x18C, @"[%@ apply...] input matrix may not be nil", v511, v512, v513, v514);
     }
 
     if (!gradientMatrix && MTLReportFailureTypeEnabled())
     {
-      v507 = objc_opt_class();
-      v515 = NSStringFromClass(v507);
-      MTLReportFailure();
+      v515 = objc_opt_class();
+      v551 = NSStringFromClass(v515);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x18D, @"[%@ apply...] gradient matrix may not be nil", v516, v517, v518, v519);
     }
 
     if (!meanVector && MTLReportFailureTypeEnabled())
     {
-      v508 = objc_opt_class();
-      v515 = NSStringFromClass(v508);
-      MTLReportFailure();
+      v520 = objc_opt_class();
+      v551 = NSStringFromClass(v520);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x18E, @"[%@ apply...] input mean vector may not be nil", v521, v522, v523, v524);
     }
 
     if (!varianceVector && MTLReportFailureTypeEnabled())
     {
-      v509 = objc_opt_class();
-      v515 = NSStringFromClass(v509);
-      MTLReportFailure();
+      v525 = objc_opt_class();
+      v551 = NSStringFromClass(v525);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x18F, @"[%@ apply...] input variance vector may not be nil", v526, v527, v528, v529);
     }
 
     if (!resultGradientForDataMatrix && MTLReportFailureTypeEnabled())
     {
-      v510 = objc_opt_class();
-      v515 = NSStringFromClass(v510);
-      MTLReportFailure();
+      v530 = objc_opt_class();
+      v551 = NSStringFromClass(v530);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x190, @"[%@ apply...] result gradient for data matrix may not be nil", v531, v532, v533, v534);
     }
 
-    objc_msgSend_primarySourceMatrixOrigin(self, a2, commandBuffer, gradientMatrix, inputMatrix, meanVector, varianceVector, gammaVector, v515);
+    objc_msgSend_primarySourceMatrixOrigin(self, a2, commandBuffer, gradientMatrix, inputMatrix, meanVector, varianceVector, gammaVector, v551);
     objc_msgSend_primarySourceMatrixOrigin(self, v19, v20, v21, v22, v23, v24, v25);
-    if (v542 && MTLReportFailureTypeEnabled())
+    if (v578 && MTLReportFailureTypeEnabled())
     {
-      v511 = objc_opt_class();
-      v516 = NSStringFromClass(v511);
-      MTLReportFailure();
+      v535 = objc_opt_class();
+      v552 = NSStringFromClass(v535);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x192, @"[%@ apply...] input matrix origin z component must be 0", v536, v537, v538, v539);
     }
 
-    objc_msgSend_secondarySourceMatrixOrigin(self, v26, v27, v28, v29, v30, v31, v32, v516);
+    objc_msgSend_secondarySourceMatrixOrigin(self, v26, v27, v28, v29, v30, v31, v32, v552);
     objc_msgSend_secondarySourceMatrixOrigin(self, v33, v34, v35, v36, v37, v38, v39);
-    if (v542 && MTLReportFailureTypeEnabled())
+    if (v578 && MTLReportFailureTypeEnabled())
     {
-      v512 = objc_opt_class();
-      v517 = NSStringFromClass(v512);
-      MTLReportFailure();
+      v540 = objc_opt_class();
+      v553 = NSStringFromClass(v540);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x193, @"[%@ apply...] input matrix origin z component must be 0", v541, v542, v543, v544);
     }
 
-    objc_msgSend_resultMatrixOrigin(self, v40, v41, v42, v43, v44, v45, v46, v517);
+    objc_msgSend_resultMatrixOrigin(self, v40, v41, v42, v43, v44, v45, v46, v553);
     objc_msgSend_resultMatrixOrigin(self, v47, v48, v49, v50, v51, v52, v53);
-    if (v542 && MTLReportFailureTypeEnabled())
+    if (v578 && MTLReportFailureTypeEnabled())
     {
-      v513 = objc_opt_class();
-      v518 = NSStringFromClass(v513);
-      MTLReportFailure();
+      v545 = objc_opt_class();
+      v554 = NSStringFromClass(v545);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x194, @"[%@ apply...] result matrix origin z component must be 0", v546, v547, v548, v549);
     }
 
-    objc_msgSend_dataType(resultGradientForDataMatrix, v54, v55, v56, v57, v58, v59, v60, v518);
+    objc_msgSend_dataType(resultGradientForDataMatrix, v54, v55, v56, v57, v58, v59, v60, v554);
     if (objc_msgSend_dataType(resultGradientForDataMatrix, v61, v62, v63, v64, v65, v66, v67) != 268435488 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x198, @"Only outputs of MPSDataTypeFloat32 are supported.", v71, v72, v73, v74);
     }
 
     if (betaVector)
@@ -115,7 +115,7 @@
       {
         if (MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x19D, @"Only beta vector value types of MPSDataTypeFloat32 are supported.", v71, v72, v73, v74);
         }
       }
     }
@@ -127,7 +127,7 @@
       {
         if (MTLReportFailureTypeEnabled())
         {
-          MTLReportFailure();
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x1A2, @"Only gamma vector value types of MPSDataTypeFloat32 are supported.", v71, v72, v73, v74);
         }
       }
     }
@@ -138,14 +138,14 @@
     {
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x1A6, @"Only input matrix value types of MPSDataTypeFloat32 are supported.", inputMatrix, meanVector, varianceVector, gammaVector);
       }
     }
   }
 
-  v533 = gammaVector;
-  v534 = varianceVector;
-  v535 = meanVector;
+  v569 = gammaVector;
+  v570 = varianceVector;
+  v571 = meanVector;
   v96 = objc_msgSend_computeCommandEncoder(commandBuffer, a2, commandBuffer, gradientMatrix, inputMatrix, meanVector, varianceVector, gammaVector);
   v103 = v96;
   v104 = *(&self->super.super.super.isa + *MEMORY[0x277CD7360]);
@@ -154,27 +154,27 @@
     objc_msgSend_setLabel_(v96, v97, v104, v98, v99, v100, v101, v102);
   }
 
-  v536 = v103;
+  v572 = v103;
   v105 = objc_msgSend_columns(v15, v97, v104, v98, v99, v100, v101, v102);
   objc_msgSend_secondarySourceMatrixOrigin(self, v106, v107, v108, v109, v110, v111, v112);
   v120 = objc_msgSend_columns(gradientMatrix, v113, v114, v115, v116, v117, v118, v119);
   objc_msgSend_primarySourceMatrixOrigin(self, v121, v122, v123, v124, v125, v126, v127);
   v135 = objc_msgSend_sourceInputFeatureChannels(self, v128, v129, v130, v131, v132, v133, v134);
   objc_msgSend_primarySourceMatrixOrigin(self, v136, v137, v138, v139, v140, v141, v142);
-  if (v541 >= objc_msgSend_columns(gradientMatrix, v143, v144, v145, v146, v147, v148, v149))
+  if (v577 >= objc_msgSend_columns(gradientMatrix, v143, v144, v145, v146, v147, v148, v149))
   {
     goto LABEL_27;
   }
 
-  v157 = v120 - v541;
-  if (v120 - v541 >= v135)
+  v157 = v120 - v577;
+  if (v120 - v577 >= v135)
   {
     v157 = v135;
   }
 
-  v158 = v105 - v541 >= v157 ? v157 : v105 - v541;
+  v158 = v105 - v577 >= v157 ? v157 : v105 - v577;
   objc_msgSend_secondarySourceMatrixOrigin(self, v150, v151, v152, v153, v154, v155, v156);
-  if (v546.i64[0] >= objc_msgSend_columns(v15, v159, v160, v161, v162, v163, v164, v165))
+  if (v582.i64[0] >= objc_msgSend_columns(v15, v159, v160, v161, v162, v163, v164, v165))
   {
 LABEL_27:
     v158 = 0;
@@ -184,18 +184,18 @@ LABEL_27:
   v167 = v15;
   v168 = objc_msgSend_rows(v15, v150, v151, v152, v153, v154, v155, v156);
   objc_msgSend_secondarySourceMatrixOrigin(self, v169, v170, v171, v172, v173, v174, v175);
-  v176 = v168 - v540;
+  v176 = v168 - v576;
   v184 = objc_msgSend_rows(gradientMatrix, v177, v178, v179, v180, v181, v182, v183);
   objc_msgSend_primarySourceMatrixOrigin(self, v185, v186, v187, v188, v189, v190, v191);
   v199 = objc_msgSend_sourceNumberOfFeatureVectors(self, v192, v193, v194, v195, v196, v197, v198);
-  if (v184 - v540 >= v199)
+  if (v184 - v576 >= v199)
   {
     v207 = v199;
   }
 
   else
   {
-    v207 = v184 - v540;
+    v207 = v184 - v576;
   }
 
   if (v176 >= v207)
@@ -209,119 +209,119 @@ LABEL_27:
   }
 
   objc_msgSend_primarySourceMatrixOrigin(self, v200, v201, v202, v203, v204, v205, v206);
-  if (v540 >= objc_msgSend_rows(gradientMatrix, v209, v210, v211, v212, v213, v214, v215))
+  if (v576 >= objc_msgSend_rows(gradientMatrix, v209, v210, v211, v212, v213, v214, v215))
   {
-    v231 = v534;
-    v232 = v535;
-    v233 = v536;
+    v231 = v570;
+    v232 = v571;
+    v233 = v572;
   }
 
   else
   {
     objc_msgSend_secondarySourceMatrixOrigin(self, v216, v217, v218, v219, v220, v221, v222);
     v230 = objc_msgSend_rows(v167, v223, v224, v225, v226, v227, v228, v229);
-    v231 = v534;
-    v232 = v535;
-    v233 = v536;
-    if (v545 < v230 && v158 && v208)
+    v231 = v570;
+    v232 = v571;
+    v233 = v572;
+    if (v581 < v230 && v158 && v208)
     {
       objc_msgSend_secondarySourceMatrixOrigin(self, v216, v217, v218, v219, v220, v221, v222);
-      v530 = v541 * (objc_msgSend_dataType(inputMatrix, v234, v235, v236, v237, v238, v239, v240) >> 3);
+      v566 = v577 * (objc_msgSend_dataType(inputMatrix, v234, v235, v236, v237, v238, v239, v240) >> 3);
       objc_msgSend_secondarySourceMatrixOrigin(self, v241, v242, v243, v244, v245, v246, v247);
-      v520 = objc_msgSend_rowBytes(inputMatrix, v248, v249, v250, v251, v252, v253, v254);
+      v556 = objc_msgSend_rowBytes(inputMatrix, v248, v249, v250, v251, v252, v253, v254);
       v255 = MEMORY[0x277CD73A8];
-      v527 = *(&inputMatrix->super.isa + *MEMORY[0x277CD73A8]);
+      v563 = *(&inputMatrix->super.isa + *MEMORY[0x277CD73A8]);
       objc_msgSend_primarySourceMatrixOrigin(self, v256, v257, v258, v259, v260, v261, v262);
-      v519 = v541 * (objc_msgSend_dataType(gradientMatrix, v263, v264, v265, v266, v267, v268, v269) >> 3);
+      v555 = v577 * (objc_msgSend_dataType(gradientMatrix, v263, v264, v265, v266, v267, v268, v269) >> 3);
       objc_msgSend_primarySourceMatrixOrigin(self, v270, v271, v272, v273, v274, v275, v276);
       v284 = objc_msgSend_rowBytes(gradientMatrix, v277, v278, v279, v280, v281, v282, v283);
-      v524 = *(&gradientMatrix->super.isa + *v255);
+      v560 = *(&gradientMatrix->super.isa + *v255);
       objc_msgSend_resultMatrixOrigin(self, v285, v286, v287, v288, v289, v290, v291);
-      v523 = v541;
-      v522 = objc_msgSend_dataType(resultGradientForDataMatrix, v292, v293, v294, v295, v296, v297, v298) >> 3;
+      v559 = v577;
+      v558 = objc_msgSend_dataType(resultGradientForDataMatrix, v292, v293, v294, v295, v296, v297, v298) >> 3;
       objc_msgSend_resultMatrixOrigin(self, v299, v300, v301, v302, v303, v304, v305);
-      v528 = objc_msgSend_rowBytes(resultGradientForDataMatrix, v306, v307, v308, v309, v310, v311, v312);
-      v529 = *(&resultGradientForDataMatrix->super.isa + *v255);
+      v564 = objc_msgSend_rowBytes(resultGradientForDataMatrix, v306, v307, v308, v309, v310, v311, v312);
+      v565 = *(&resultGradientForDataMatrix->super.isa + *v255);
       objc_msgSend_neuronType(self, v313, v314, v315, v316, v317, v318, v319);
-      v521 = v530 + v520 * v545;
-      v324 = v519 + v284 * v545;
+      v557 = v566 + v556 * v581;
+      v324 = v555 + v284 * v581;
       ComputeState = MPSLibrary::GetComputeState();
-      HIDWORD(v540) = objc_msgSend_rowBytes(inputMatrix, v326, v327, v328, v329, v330, v331, v332);
-      LODWORD(v541) = objc_msgSend_rowBytes(gradientMatrix, v333, v334, v335, v336, v337, v338, v339);
-      HIDWORD(v541) = objc_msgSend_rowBytes(resultGradientForDataMatrix, v340, v341, v342, v343, v344, v345, v346);
-      WORD1(v540) = v208;
-      LOWORD(v540) = v158;
+      HIDWORD(v576) = objc_msgSend_rowBytes(inputMatrix, v326, v327, v328, v329, v330, v331, v332);
+      LODWORD(v577) = objc_msgSend_rowBytes(gradientMatrix, v333, v334, v335, v336, v337, v338, v339);
+      HIDWORD(v577) = objc_msgSend_rowBytes(resultGradientForDataMatrix, v340, v341, v342, v343, v344, v345, v346);
+      WORD1(v576) = v208;
+      LOWORD(v576) = v158;
       objc_msgSend_neuronA(self, v347, v348, v349, v350, v351, v352, v353);
-      v531 = v354;
+      v567 = v354;
       objc_msgSend_neuronB(self, v355, v356, v357, v358, v359, v360, v361);
-      v525 = v362;
+      v561 = v362;
       objc_msgSend_neuronC(self, v363, v364, v365, v366, v367, v368, v369);
-      v370 = v531;
-      DWORD1(v370) = v525;
+      v370 = v567;
+      DWORD1(v370) = v561;
       DWORD2(v370) = v371;
-      v543 = v370;
-      LODWORD(v542) = objc_msgSend_neuronType(self, v372, v373, v374, v375, v376, v377, v378);
+      v579 = v370;
+      LODWORD(v578) = objc_msgSend_neuronType(self, v372, v373, v374, v375, v376, v377, v378);
       objc_msgSend_epsilon(self, v379, v380, v381, v382, v383, v384, v385);
-      v544 = v386;
-      v532 = ComputeState;
+      v580 = v386;
+      v568 = ComputeState;
       v394 = objc_msgSend_threadExecutionWidth(ComputeState, v387, v388, v389, v390, v391, v392, v393);
       v401 = v394;
-      v233 = v536;
+      v233 = v572;
       if (v394)
       {
-        v526 = (v158 + v394 - 1) / v394;
+        v562 = (v158 + v394 - 1) / v394;
       }
 
       else
       {
-        v526 = 0;
+        v562 = 0;
       }
 
-      objc_msgSend_setComputePipelineState_(v536, v395, v532, v396, v397, v398, v399, v400);
+      objc_msgSend_setComputePipelineState_(v572, v395, v568, v396, v397, v398, v399, v400);
       v409 = objc_msgSend_data(gradientMatrix, v402, v403, v404, v405, v406, v407, v408);
-      objc_msgSend_setBuffer_offset_atIndex_(v536, v410, v409, v324 + v524, 0, v411, v412, v413);
+      objc_msgSend_setBuffer_offset_atIndex_(v572, v410, v409, v324 + v560, 0, v411, v412, v413);
       v421 = objc_msgSend_data(inputMatrix, v414, v415, v416, v417, v418, v419, v420);
-      objc_msgSend_setBuffer_offset_atIndex_(v536, v422, v421, v521 + v527, 1, v423, v424, v425);
-      v433 = objc_msgSend_data(v535, v426, v427, v428, v429, v430, v431, v432);
+      objc_msgSend_setBuffer_offset_atIndex_(v572, v422, v421, v557 + v563, 1, v423, v424, v425);
+      v433 = objc_msgSend_data(v571, v426, v427, v428, v429, v430, v431, v432);
       v434 = MEMORY[0x277CD74A8];
-      objc_msgSend_setBuffer_offset_atIndex_(v536, v435, v433, *(&v535->super.isa + *MEMORY[0x277CD74A8]), 2, v436, v437, v438);
-      v446 = objc_msgSend_data(v534, v439, v440, v441, v442, v443, v444, v445);
-      objc_msgSend_setBuffer_offset_atIndex_(v536, v447, v446, *(&v534->super.isa + *v434), 3, v448, v449, v450);
-      if (v533)
+      objc_msgSend_setBuffer_offset_atIndex_(v572, v435, v433, *(&v571->super.isa + *MEMORY[0x277CD74A8]), 2, v436, v437, v438);
+      v446 = objc_msgSend_data(v570, v439, v440, v441, v442, v443, v444, v445);
+      objc_msgSend_setBuffer_offset_atIndex_(v572, v447, v446, *(&v570->super.isa + *v434), 3, v448, v449, v450);
+      if (v569)
       {
-        v458 = objc_msgSend_data(v533, v451, v452, v453, v454, v455, v456, v457);
-        objc_msgSend_setBuffer_offset_atIndex_(v536, v459, v458, *(&v533->super.super.isa + *v434), 4, v460, v461, v462);
+        v458 = objc_msgSend_data(v569, v451, v452, v453, v454, v455, v456, v457);
+        objc_msgSend_setBuffer_offset_atIndex_(v572, v459, v458, *(&v569->super.super.isa + *v434), 4, v460, v461, v462);
       }
 
       if (betaVector)
       {
         v463 = objc_msgSend_data(betaVector, v451, v452, v453, v454, v455, v456, v457);
-        objc_msgSend_setBuffer_offset_atIndex_(v536, v464, v463, *(&betaVector->super.isa + *v434), 5, v465, v466, v467);
+        objc_msgSend_setBuffer_offset_atIndex_(v572, v464, v463, *(&betaVector->super.isa + *v434), 5, v465, v466, v467);
       }
 
       v468 = objc_msgSend_data(resultGradientForDataMatrix, v451, v452, v453, v454, v455, v456, v457);
-      objc_msgSend_setBuffer_offset_atIndex_(v536, v469, v468, v523 * v522 + v528 * v545 + v529, 6, v470, v471, v472);
+      objc_msgSend_setBuffer_offset_atIndex_(v572, v469, v468, v559 * v558 + v564 * v581 + v565, 6, v470, v471, v472);
       v166 = gradientMatrix;
       if (resultGradientForGammaVector)
       {
         v480 = objc_msgSend_data(resultGradientForGammaVector, v473, v474, v475, v476, v477, v478, v479);
-        objc_msgSend_setBuffer_offset_atIndex_(v536, v481, v480, *(&resultGradientForGammaVector->super.isa + *v434), 7, v482, v483, v484);
+        objc_msgSend_setBuffer_offset_atIndex_(v572, v481, v480, *(&resultGradientForGammaVector->super.isa + *v434), 7, v482, v483, v484);
       }
 
       if (resultGradientForBetaVector)
       {
         v485 = objc_msgSend_data(resultGradientForBetaVector, v473, v474, v475, v476, v477, v478, v479);
-        objc_msgSend_setBuffer_offset_atIndex_(v536, v486, v485, *(&resultGradientForBetaVector->super.isa + *v434), 8, v487, v488, v489);
+        objc_msgSend_setBuffer_offset_atIndex_(v572, v486, v485, *(&resultGradientForBetaVector->super.isa + *v434), 8, v487, v488, v489);
       }
 
-      objc_msgSend_setBytes_length_atIndex_(v536, v473, &v540, 64, 9, v477, v478, v479);
-      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v536, v490, 16 * v401, 0, v491, v492, v493, v494);
-      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v536, v495, 16 * v401, 1, v496, v497, v498, v499);
-      v545 = v526;
-      v546 = vdupq_n_s64(1uLL);
-      v538 = v401;
-      v539 = xmmword_239D7D700;
-      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v536, v500, &v545, &v538, v501, v502, v503, v504);
+      objc_msgSend_setBytes_length_atIndex_(v572, v473, &v576, 64, 9, v477, v478, v479);
+      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v572, v490, 16 * v401, 0, v491, v492, v493, v494);
+      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v572, v495, 16 * v401, 1, v496, v497, v498, v499);
+      v581 = v562;
+      v582 = vdupq_n_s64(1uLL);
+      v574 = v401;
+      v575 = xmmword_239D7D700;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v572, v500, &v581, &v574, v501, v502, v503, v504);
       MPSLibrary::ReleaseComputeState();
     }
   }
@@ -353,9 +353,9 @@ LABEL_27:
     MPSDecrementReadCount(v231);
   }
 
-  if (v533 && *(&v533[3].super.super.isa + *v322))
+  if (v569 && *(&v569[3].super.super.isa + *v322))
   {
-    MPSDecrementReadCount(v533);
+    MPSDecrementReadCount(v569);
   }
 
   if (betaVector)
@@ -381,11 +381,11 @@ LABEL_27:
     parameterA = v9;
     parameterB = v8;
     parameterC = v7;
-    v12 = v11;
+    v16 = v11;
     self = selfCopy;
-    if (v12)
+    if (v16)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x1DF, @"PReLU not supported.", v12, v13, v14, v15);
       neuronType = v10;
       parameterA = v9;
       self = selfCopy;
@@ -417,9 +417,9 @@ LABEL_27:
 
 - (MPSMatrixBatchNormalizationGradient)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v55.receiver = self;
-  v55.super_class = MPSMatrixBatchNormalizationGradient;
-  v5 = [(MPSMatrixBinaryKernel *)&v55 initWithCoder:aDecoder device:device];
+  v59.receiver = self;
+  v59.super_class = MPSMatrixBatchNormalizationGradient;
+  v5 = [(MPSMatrixBinaryKernel *)&v59 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -446,7 +446,7 @@ LABEL_27:
   {
     v54 = objc_opt_class();
     NSStringFromClass(v54);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSMatrixBatchNormalizationGradient.mm", 0x209, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v55, v56, v57, v58);
   }
 
   return 0;

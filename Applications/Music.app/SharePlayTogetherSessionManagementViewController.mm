@@ -43,17 +43,18 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for SharePlayTogetherSessionManagementViewController(0);
-  v4 = v7.receiver;
-  [(SharePlayTogetherSessionManagementViewController *)&v7 viewWillDisappear:disappearCopy];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for SharePlayTogetherSessionManagementViewController(0);
+  v4 = v8.receiver;
+  [(SharePlayTogetherSessionManagementViewController *)&v8 viewWillDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC5Music48SharePlayTogetherSessionManagementViewController_onDismiss];
   if (v5)
   {
+    v6 = *&v4[OBJC_IVAR____TtC5Music48SharePlayTogetherSessionManagementViewController_onDismiss + 8];
 
-    v5(v6);
+    v5(v7);
 
-    sub_100020438(v5);
+    sub_100020438(v5, v6);
   }
 
   else
@@ -72,7 +73,7 @@
 {
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
@@ -87,12 +88,12 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100754274(viewCopy);
+  sub_100754274(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

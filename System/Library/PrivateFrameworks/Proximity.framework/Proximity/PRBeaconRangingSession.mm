@@ -61,7 +61,7 @@
 
 - (void)startRangingInternal
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (self->_activeDescriptor)
   {
     v3 = [PRRemoteDevice alloc];
@@ -69,34 +69,30 @@
     v5 = [(PRRemoteDevice *)v3 initWithCompanionUUID:uUID];
 
     beaconListener = self->_beaconListener;
-    v10[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __46__PRBeaconRangingSession_startRangingInternal__block_invoke;
-    v9[3] = &unk_2788F3AA0;
-    v9[4] = self;
-    [(PRBeaconListener *)beaconListener pushBeaconAllowlist:v7 completionHandler:v9];
+    v9[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __46__PRBeaconRangingSession_startRangingInternal__block_invoke;
+    v8[3] = &unk_2788F3AA0;
+    v8[4] = self;
+    [(PRBeaconListener *)beaconListener pushBeaconAllowlist:v7 completionHandler:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__PRBeaconRangingSession_startRangingInternal__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_230EB5000, v6, OS_LOG_TYPE_INFO, "allowlist beacon success: %d, error: %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_230EB5000, v6, OS_LOG_TYPE_INFO, "allowlist beacon success: %d, error: %@", v7, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRangingInternal
@@ -117,19 +113,17 @@ void __46__PRBeaconRangingSession_startRangingInternal__block_invoke(uint64_t a1
 
 void __45__PRBeaconRangingSession_stopRangingInternal__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_230EB5000, v6, OS_LOG_TYPE_INFO, "unallowlist beacon success: %d, error: %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_230EB5000, v6, OS_LOG_TYPE_INFO, "unallowlist beacon success: %d, error: %@", v7, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailWithError:(id)error
@@ -147,7 +141,7 @@ void __45__PRBeaconRangingSession_stopRangingInternal__block_invoke(uint64_t a1,
 
 - (void)beaconListener:(id)listener didOutputRangeResults:(id)results
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   resultsCopy = results;
   logger = self->_logger;
@@ -156,26 +150,26 @@ void __45__PRBeaconRangingSession_stopRangingInternal__block_invoke(uint64_t a1,
     [PRBeaconRangingSession beaconListener:resultsCopy didOutputRangeResults:logger];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v8 = resultsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
+        v13 = *(*(&v29 + 1) + 8 * i);
         [v13 range_m];
         v15 = v14;
         [v13 range_unc_m];
@@ -212,13 +206,11 @@ void __45__PRBeaconRangingSession_stopRangingInternal__block_invoke(uint64_t a1,
         [WeakRetained beaconRangingSession:self didMeasureBeaconMatchingDescriptor:self->_activeDescriptor atPosition:v26];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v10);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beaconListener:(id)listener didChangeState:(unint64_t)state
@@ -240,20 +232,18 @@ void __45__PRBeaconRangingSession_stopRangingInternal__block_invoke(uint64_t a1,
 
 - (void)didFailWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_230EB5000, a2, OS_LOG_TYPE_ERROR, "daemon session failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_230EB5000, a2, OS_LOG_TYPE_ERROR, "daemon session failed: %@", &v2, 0xCu);
 }
 
 - (void)beaconListener:(uint64_t)a1 didOutputRangeResults:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_230EB5000, a2, OS_LOG_TYPE_DEBUG, "received new results: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_230EB5000, a2, OS_LOG_TYPE_DEBUG, "received new results: %@", &v2, 0xCu);
 }
 
 @end

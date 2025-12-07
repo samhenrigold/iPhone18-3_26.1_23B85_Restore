@@ -11,16 +11,16 @@
   manager = [(__HMFLocationManagerOperation *)self manager];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v6 = HMFGetOSLogHandle();
-  v7 = v6;
+  v7 = HMFGetOSLogHandle(selfCopy, v6);
+  v8 = v7;
   if (manager)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(selfCopy);
+      v9 = HMFGetLogIdentifier(selfCopy);
       v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Marking as having received location", &v12, 0xCu);
+      v13 = v9;
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Marking as having received location", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -30,20 +30,18 @@
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = HMFGetLogIdentifier(selfCopy);
+      v10 = HMFGetLogIdentifier(selfCopy);
       v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_ERROR, "%{public}@Missing internal location manager", &v12, 0xCu);
+      v13 = v10;
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Missing internal location manager", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:11 reason:@"Unexpected internal state."];
-    [(HMFOperation *)selfCopy cancelWithError:v10];
+    v11 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:11 reason:@"Unexpected internal state."];
+    [(HMFOperation *)selfCopy cancelWithError:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory

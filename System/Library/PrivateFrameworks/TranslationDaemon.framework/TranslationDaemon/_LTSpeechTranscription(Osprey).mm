@@ -6,16 +6,16 @@
 
 - (void)initWithRecognitionChoice:()Osprey inSausage:
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
-  v47.receiver = self;
-  v47.super_class = &off_28488F5C0;
-  v8 = objc_msgSendSuper2(&v47, sel_init);
+  v46.receiver = self;
+  v46.super_class = &off_28488F5C0;
+  v8 = objc_msgSendSuper2(&v46, sel_init);
   v9 = v8;
   if (v8)
   {
-    v40 = v8;
+    v39 = v8;
     string = [MEMORY[0x277CCAB68] string];
     alternative_index = [v6 alternative_index];
     if ([alternative_index count])
@@ -23,8 +23,8 @@
       v12 = 0;
       v13 = 0.0;
       v14 = 1000.0;
-      v41 = v7;
-      v42 = v6;
+      v40 = v7;
+      v41 = v6;
       while (1)
       {
         positional_tok_phrase_alt = [v7 positional_tok_phrase_alt];
@@ -46,26 +46,26 @@
         v23 = [tok_phrases objectAtIndexedSubscript:unsignedIntegerValue];
         tokens = [v23 tokens];
 
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
         v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
         v25 = tokens;
-        v26 = [v25 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v42 objects:v47 count:16];
         if (v26)
         {
           v27 = v26;
-          v28 = *v44;
+          v28 = *v43;
           do
           {
             for (i = 0; i != v27; ++i)
             {
-              if (*v44 != v28)
+              if (*v43 != v28)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v30 = *(*(&v43 + 1) + 8 * i);
+              v30 = *(*(&v42 + 1) + 8 * i);
               token_text = [v30 token_text];
               [string appendString:token_text];
 
@@ -87,16 +87,16 @@
               }
             }
 
-            v27 = [v25 countByEnumeratingWithState:&v43 objects:v48 count:16];
+            v27 = [v25 countByEnumeratingWithState:&v42 objects:v47 count:16];
           }
 
           while (v27);
         }
 
         ++v12;
-        v6 = v42;
-        alternative_index = [v42 alternative_index];
-        v7 = v41;
+        v6 = v41;
+        alternative_index = [v41 alternative_index];
+        v7 = v40;
         if (v12 >= [alternative_index count])
         {
           goto LABEL_21;
@@ -111,26 +111,25 @@
 LABEL_21:
     }
 
-    v9 = v40;
-    [v40 setConfidence:{objc_msgSend(v6, "confidence")}];
-    [v40 setMinConfidence:v14];
-    [v40 setMaxConfidence:v13];
-    [v40 setFormattedString:string];
-    [v40 minConfidence];
+    v9 = v39;
+    [v39 setConfidence:{objc_msgSend(v6, "confidence")}];
+    [v39 setMinConfidence:v14];
+    [v39 setMaxConfidence:v13];
+    [v39 setFormattedString:string];
+    [v39 minConfidence];
     v35 = v34;
-    [v40 maxConfidence];
+    [v39 maxConfidence];
     if (v35 > v36)
     {
-      [v40 confidence];
-      [v40 setMinConfidence:?];
-      [v40 confidence];
-      [v40 setMaxConfidence:?];
+      [v39 confidence];
+      [v39 setMinConfidence:?];
+      [v39 confidence];
+      [v39 setMaxConfidence:?];
     }
 
-    v37 = v40;
+    v37 = v39;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

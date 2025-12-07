@@ -20,7 +20,6 @@
 
 + (id)createWithCodable:()HDCodingSupport
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -47,8 +46,6 @@
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

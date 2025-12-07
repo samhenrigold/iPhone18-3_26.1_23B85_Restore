@@ -42,7 +42,7 @@
 
 - (void)generateOutputFromRepresentation:(id)representation withCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   completionCopy = completion;
   v7 = NSClassFromString(@"WFContentCollection");
@@ -50,12 +50,12 @@
   {
     v8 = MEMORY[0x1E696ACD0];
     v9 = [MEMORY[0x1E695DFD8] setWithObject:v7];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __77__WFWorkflowOutputRunResult_generateOutputFromRepresentation_withCompletion___block_invoke;
-    v13[3] = &unk_1E7B00E08;
-    v14 = completionCopy;
-    v10 = [v8 wf_securelyUnarchiveObjectWithData:representationCopy allowedClasses:v9 completionHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __77__WFWorkflowOutputRunResult_generateOutputFromRepresentation_withCompletion___block_invoke;
+    v12[3] = &unk_1E7B00E08;
+    v13 = completionCopy;
+    v10 = [v8 wf_securelyUnarchiveObjectWithData:representationCopy allowedClasses:v9 completionHandler:v12];
   }
 
   else
@@ -64,14 +64,12 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v16 = "[WFWorkflowOutputRunResult generateOutputFromRepresentation:withCompletion:]";
+      v15 = "[WFWorkflowOutputRunResult generateOutputFromRepresentation:withCompletion:]";
       _os_log_impl(&dword_1B1DE3000, v11, OS_LOG_TYPE_FAULT, "%s Unable to get output from WFWorkflowRunRequest, since ContentKit isn't linked.", buf, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -98,26 +96,24 @@
 
 - (id)unableToDecodeError
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A250];
-  v10[0] = *MEMORY[0x1E696A588];
+  v9[0] = *MEMORY[0x1E696A588];
   v4 = WFLocalizedString(@"Unable to finish running");
-  v11[0] = v4;
-  v10[1] = *MEMORY[0x1E696A578];
+  v10[0] = v4;
+  v9[1] = *MEMORY[0x1E696A578];
   v5 = WFLocalizedString(@"The output of the shortcut could not be processed.");
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v2 errorWithDomain:v3 code:0x7FFFFFFFFFFFFFFFLL userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (void)getOutputWithCompletionHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   cachedOutput = [(WFWorkflowOutputRunResult *)self cachedOutput];
 
@@ -134,13 +130,13 @@
     if (archivedOutput)
     {
       archivedOutput2 = [(WFWorkflowOutputRunResult *)self archivedOutput];
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __60__WFWorkflowOutputRunResult_getOutputWithCompletionHandler___block_invoke;
-      v10[3] = &unk_1E7B01240;
-      v10[4] = self;
-      v11 = handlerCopy;
-      [(WFWorkflowOutputRunResult *)self generateOutputFromRepresentation:archivedOutput2 withCompletion:v10];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __60__WFWorkflowOutputRunResult_getOutputWithCompletionHandler___block_invoke;
+      v9[3] = &unk_1E7B01240;
+      v9[4] = self;
+      v10 = handlerCopy;
+      [(WFWorkflowOutputRunResult *)self generateOutputFromRepresentation:archivedOutput2 withCompletion:v9];
     }
 
     else
@@ -148,8 +144,6 @@
       handlerCopy[2](handlerCopy, 0, 0);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __60__WFWorkflowOutputRunResult_getOutputWithCompletionHandler___block_invoke(uint64_t a1, void *a2)

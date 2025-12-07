@@ -3,9 +3,9 @@
 
 @implementation NSString
 
-uint64_t __51__NSString_PhotosUIFoundation__px_firstLetterRange__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__51__NSString_PhotosUIFoundation__px_firstLetterRange__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  result = [*(a1 + 32) rangeOfComposedCharacterSequencesForRange:{a3, 1}];
+  result = [*(a1 + 32) rangeOfComposedCharacterSequencesForRange:{a3, 1, a5, a6}];
   v10 = *(*(a1 + 40) + 8);
   *(v10 + 32) = result;
   *(v10 + 40) = v11;

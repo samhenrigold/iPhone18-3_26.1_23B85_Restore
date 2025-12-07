@@ -17,13 +17,13 @@
 
 + (id)preferredLanguagesForContainerBundleIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69AAE08];
   identifierCopy = identifier;
   v4 = MEMORY[0x1E695DEC8];
   identifierCopy2 = identifier;
   v6 = [v4 arrayWithObjects:&identifierCopy count:1];
-  v7 = [v3 preferredLanguagesForBundleIDs:{v6, identifierCopy, v13}];
+  v7 = [v3 preferredLanguagesForBundleIDs:{v6, identifierCopy, v12}];
   v8 = [v7 objectForKeyedSubscript:identifierCopy2];
 
   if ([v8 count])
@@ -35,8 +35,6 @@
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

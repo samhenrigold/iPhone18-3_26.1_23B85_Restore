@@ -617,7 +617,7 @@ LABEL_59:
 
 + (double)insetSpacingForStyle:(int64_t)style
 {
-  v4 = NTKCScreenStyle();
+  v4 = NTKCScreenStyle(self, a2);
   result = 20.0;
   if (v4 != 1)
   {

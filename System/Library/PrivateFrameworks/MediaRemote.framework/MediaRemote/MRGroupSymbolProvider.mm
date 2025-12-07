@@ -8,7 +8,7 @@
 + (id)symbolNameForType:(id)type fillVariant:(BOOL)variant otherVariantOptions:(unint64_t)options
 {
   variantCopy = variant;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v8 = typeCopy;
   v9 = 1;
@@ -20,9 +20,9 @@
   v10 = v9 | options;
   v11 = MEMORY[0x1E69A8A40];
   identifier = [typeCopy identifier];
-  v21 = 0;
-  v13 = [v11 symbolForTypeIdentifier:identifier withResolutionStrategy:1 variantOptions:v10 error:&v21];
-  v14 = v21;
+  v20 = 0;
+  v13 = [v11 symbolForTypeIdentifier:identifier withResolutionStrategy:1 variantOptions:v10 error:&v20];
+  v14 = v20;
 
   name = [v13 name];
   v16 = name;
@@ -33,20 +33,18 @@
     {
       identifier2 = [v8 identifier];
       *buf = 138544130;
-      v23 = identifier2;
-      v24 = 2048;
-      v25 = v10;
-      v26 = 2114;
-      v27 = v14;
-      v28 = 2114;
-      v29 = v13;
+      v22 = identifier2;
+      v23 = 2048;
+      v24 = v10;
+      v25 = 2114;
+      v26 = v14;
+      v27 = 2114;
+      v28 = v13;
       _os_log_error_impl(&dword_1A2860000, v17, OS_LOG_TYPE_ERROR, "Failed to find symbol with model: %{public}@ variant options: %lu error: %{public}@ symbol:%{public}@", buf, 0x2Au);
     }
 
     v16 = @"speaker.wave.2.fill";
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

@@ -6,28 +6,28 @@
 
 - (id)dictionaryDroppingNSNullValues
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [self mutableCopy];
   allKeys = [v2 allKeys];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [self objectForKeyedSubscript:v8];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -68,13 +68,11 @@
 LABEL_15:
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

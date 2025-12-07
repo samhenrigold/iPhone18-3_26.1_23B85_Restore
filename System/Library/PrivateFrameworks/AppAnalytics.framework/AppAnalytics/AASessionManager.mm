@@ -74,15 +74,14 @@
   v7 = swift_allocObject();
   *(v7 + 16) = sub_1B6A3FBB8;
   *(v7 + 24) = v5;
-  v9 = *(v6 + 48);
-  v8 = *(v6 + 56);
-  v10 = swift_allocObject();
-  v10[2] = v6;
-  v10[3] = sub_1B6AA9B58;
-  v10[4] = v7;
+  v8 = *(v6 + 48);
+  v9 = swift_allocObject();
+  v9[2] = v6;
+  v9[3] = sub_1B6AA9B58;
+  v9[4] = v7;
   selfCopy = self;
 
-  sub_1B69877A4(v9, sub_1B6AA9B5C, v10);
+  sub_1B69877A4(v8, sub_1B6AA9B5C, v9);
 }
 
 - (void)startSessionForKind:(int64_t)kind withName:(id)name
@@ -107,72 +106,69 @@
 {
   v9 = sub_1B6AB8DB0();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (name)
   {
     sub_1B6AB92E0();
     identifierCopy = identifier;
     selfCopy = self;
-    v16 = sub_1B6AB92B0();
+    v15 = sub_1B6AB92B0();
   }
 
   else
   {
     identifierCopy2 = identifier;
     selfCopy2 = self;
-    v16 = 0;
+    v15 = 0;
   }
 
   sub_1B6AB8DA0();
-  v19 = sub_1B6AB8D20();
-  (*(v10 + 8))(v13, v9);
-  [(AASessionManager *)self startSessionForKind:kind withName:v16 identifier:identifier startDate:v19];
+  v18 = sub_1B6AB8D20();
+  (*(v10 + 8))(v12, v9);
+  [(AASessionManager *)self startSessionForKind:kind withName:v15 identifier:identifier startDate:v18];
 }
 
 - (void)startSessionForKind:(int64_t)kind withName:(id)name startDate:(id)date
 {
   v8 = sub_1B6AB8DB0();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (name)
   {
-    v13 = sub_1B6AB92E0();
-    name = v14;
+    v12 = sub_1B6AB92E0();
+    name = v13;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   sub_1B6AB8D80();
   selfCopy = self;
-  BridgedSessionManager.start(for:name:startDate:)(kind, v13, name);
+  BridgedSessionManager.start(for:name:startDate:)(kind, v12, name);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)startSessionForKind:(int64_t)kind withName:(id)name identifier:(id)identifier startDate:(id)date
 {
   v10 = sub_1B6AB8DB0();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (name)
   {
     sub_1B6AB92E0();
-    v16 = v15;
+    v15 = v14;
     sub_1B6AB8D80();
-    if (v16)
+    if (v15)
     {
       identifierCopy = identifier;
       selfCopy = self;
-      v19 = sub_1B6AB92B0();
+      v18 = sub_1B6AB92B0();
       goto LABEL_6;
     }
   }
@@ -184,26 +180,25 @@
 
   identifierCopy2 = identifier;
   selfCopy2 = self;
-  v19 = 0;
+  v18 = 0;
 LABEL_6:
-  v22 = sub_1B6AB8D20();
+  v21 = sub_1B6AB8D20();
   if (qword_1EDBC8A30 != -1)
   {
     swift_once();
   }
 
-  [(AASessionManager *)self startSessionForKind:kind withName:v19 identifier:identifier startDate:v22 timestampJitter:qword_1EDBC8A38];
+  [(AASessionManager *)self startSessionForKind:kind withName:v18 identifier:identifier startDate:v21 timestampJitter:qword_1EDBC8A38];
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)startSessionForKind:(int64_t)kind withName:(id)name identifier:(id)identifier startDate:(id)date timestampJitter:(id)jitter
 {
   v12 = sub_1B6AB8DB0();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
   MEMORY[0x1EEE9AC00](v12);
-  v16 = &v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (!name)
   {
     sub_1B6AB8D80();
@@ -211,27 +206,27 @@ LABEL_6:
   }
 
   sub_1B6AB92E0();
-  v18 = v17;
+  v17 = v16;
   sub_1B6AB8D80();
-  if (!v18)
+  if (!v17)
   {
 LABEL_5:
     identifierCopy = identifier;
     jitterCopy = jitter;
     selfCopy = self;
-    v22 = 0;
+    v21 = 0;
     goto LABEL_6;
   }
 
   identifierCopy2 = identifier;
   jitterCopy2 = jitter;
   selfCopy2 = self;
-  v22 = sub_1B6AB92B0();
+  v21 = sub_1B6AB92B0();
 LABEL_6:
-  v26 = sub_1B6AB8D20();
-  [(AASessionManager *)self startSessionForKind:kind withName:v22 identifier:identifier startDate:v26 timestampJitter:jitter timeDurationGranularity:0];
+  v25 = sub_1B6AB8D20();
+  [(AASessionManager *)self startSessionForKind:kind withName:v21 identifier:identifier startDate:v25 timestampJitter:jitter timeDurationGranularity:0];
 
-  (*(v13 + 8))(v16, v12);
+  (*(v13 + 8))(v15, v12);
 }
 
 - (void)startSessionForKind:(int64_t)kind withName:(id)name identifier:(id)identifier startDate:(id)date timestampJitter:(id)jitter timeDurationGranularity:(int64_t)granularity
@@ -240,28 +235,27 @@ LABEL_6:
   granularityCopy = granularity;
   v11 = sub_1B6AB8DB0();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x1EEE9AC00](v11);
-  v15 = &kindCopy - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &kindCopy - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (name)
   {
-    v16 = sub_1B6AB92E0();
-    name = v17;
+    v15 = sub_1B6AB92E0();
+    name = v16;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v18 = sub_1B6AB92E0();
-  v20 = v19;
+  v17 = sub_1B6AB92E0();
+  v19 = v18;
   sub_1B6AB8D80();
   jitterCopy = jitter;
   selfCopy = self;
-  BridgedSessionManager.start(for:name:identifier:startDate:timestampJitter:timeDurationGranularity:)(kindCopy, v16, name, v18, v20, v15, jitterCopy, granularityCopy);
+  BridgedSessionManager.start(for:name:identifier:startDate:timestampJitter:timeDurationGranularity:)(kindCopy, v15, name, v17, v19, v14, jitterCopy, granularityCopy);
 
-  (*(v12 + 8))(v15, v11);
+  (*(v12 + 8))(v14, v11);
 }
 
 - (void)endSession
@@ -272,7 +266,6 @@ LABEL_6:
 
 - (void)endSync
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___AASessionManager_sessionManager);
   selfCopy = self;
   SessionManager.endSync(timeout:)(4.0);
 }
@@ -292,30 +285,29 @@ LABEL_6:
   v7 = *(v6 - 8);
   v8 = *(v7 + 64);
   v9 = MEMORY[0x1EEE9AC00](v6);
-  v10 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
-  v12 = &v22 - v11;
+  v12 = &v21 - v11;
   v13 = _Block_copy(completion);
   sub_1B6AB8D80();
   v14 = swift_allocObject();
   *(v14 + 16) = v13;
   v15 = *(&self->super.isa + OBJC_IVAR___AASessionManager_sessionManager);
-  v16 = *(v15 + 48);
   selfCopy = self;
   sub_1B6A2ACC8();
-  v17 = *(v15 + 48);
-  v22 = *(v15 + 56);
+  v16 = *(v15 + 48);
+  v21 = *(v15 + 56);
   (*(v7 + 16))(v10, v12, v6);
-  v18 = (*(v7 + 80) + 24) & ~*(v7 + 80);
-  v19 = (v8 + v18 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v20 = swift_allocObject();
-  *(v20 + 16) = v15;
-  (*(v7 + 32))(v20 + v18, v10, v6);
-  v21 = (v20 + v19);
-  *v21 = sub_1B6AA9B54;
-  v21[1] = v14;
+  v17 = (*(v7 + 80) + 24) & ~*(v7 + 80);
+  v18 = (v8 + v17 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v19 = swift_allocObject();
+  *(v19 + 16) = v15;
+  (*(v7 + 32))(v19 + v17, v10, v6);
+  v20 = (v19 + v18);
+  *v20 = sub_1B6AA9B54;
+  v20[1] = v14;
 
-  sub_1B69877A4(v17, sub_1B6AA9B4C, v20);
+  sub_1B69877A4(v16, sub_1B6AA9B4C, v19);
 
   (*(v7 + 8))(v12, v6);
 }
@@ -338,7 +330,7 @@ LABEL_6:
   queueCopy = queue;
   selfCopy = self;
   BridgedSessionManager.flush(callbackQueue:completion:)(queueCopy, v6, v7);
-  sub_1B69A3100(v6);
+  sub_1B69A3100(v6, v7);
 }
 
 @end

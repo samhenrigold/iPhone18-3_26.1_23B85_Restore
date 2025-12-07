@@ -23,11 +23,11 @@
     v11 = DRSubmitLogToCKContainer();
     v22 = 0;
 
-    v12 = PLLogSubmission();
-    v13 = v12;
+    v13 = PLLogSubmission(v12);
+    v14 = v13;
     if (v11)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         issueCategory2 = [submitCopy issueCategory];
         *buf = 138412802;
@@ -36,55 +36,54 @@
         v27 = issueCategory2;
         v28 = 2112;
         v29 = submitCopy;
-        _os_log_impl(&dword_1D8611000, v13, OS_LOG_TYPE_INFO, "Submitted record for '%@:%@'  to DiagnosticPipeline: %@", buf, 0x20u);
+        _os_log_impl(&dword_1D8611000, v14, OS_LOG_TYPE_INFO, "Submitted record for '%@:%@'  to DiagnosticPipeline: %@", buf, 0x20u);
       }
 
       if (![submitCopy isExpedited])
       {
-        v18 = 1;
+        v19 = 1;
 LABEL_19:
 
         goto LABEL_20;
       }
 
-      v15 = _DRCTriggerCloudKitWork();
-      v13 = 0;
-      v16 = PLLogSubmission();
-      v17 = v16;
-      if (v15)
+      v16 = _DRCTriggerCloudKitWork();
+      v14 = 0;
+      v17 = PLLogSubmission(v14);
+      v18 = v17;
+      if (v16)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1D8611000, v17, OS_LOG_TYPE_INFO, "Successfully triggered DiagnosticPipeline upload session", buf, 2u);
+          _os_log_impl(&dword_1D8611000, v18, OS_LOG_TYPE_INFO, "Successfully triggered DiagnosticPipeline upload session", buf, 2u);
         }
 
-        v18 = 1;
+        v19 = 1;
         goto LABEL_18;
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(PPSSubmissionUtilities *)v13 submit:v17];
+        [(PPSSubmissionUtilities *)v14 submit:v18];
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(PPSSubmissionUtilities *)submitCopy submit:v13];
+      [(PPSSubmissionUtilities *)submitCopy submit:v14];
     }
 
-    v18 = 0;
+    v19 = 0;
 LABEL_18:
 
     goto LABEL_19;
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_20:
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v19;
 }
 
 + (id)taskingTables
@@ -120,49 +119,45 @@ void __39__PPSSubmissionUtilities_taskingTables__block_invoke()
   v1 = taskingTables_result;
   taskingTables_result = v0;
 
-  if (+[PLDefaults debugEnabled])
+  v2 = +[PLDefaults debugEnabled];
+  if (v2)
   {
-    v2 = PLLogSubmission();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = PLLogSubmission(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __39__PPSSubmissionUtilities_taskingTables__block_invoke_cold_1(v2);
+      __39__PPSSubmissionUtilities_taskingTables__block_invoke_cold_1(v3);
     }
   }
 }
 
 + (void)submit:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = [a1 issueCategory];
-  v6 = 138412802;
-  v7 = @"com.apple.perfpowerservices";
-  v8 = 2112;
-  v9 = v4;
-  v10 = 2112;
-  v11 = a1;
-  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Failed to submit record for '%@:%@' to DiagnosticPipeline: %@", &v6, 0x20u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412802;
+  v6 = @"com.apple.perfpowerservices";
+  v7 = 2112;
+  v8 = v4;
+  v9 = 2112;
+  v10 = a1;
+  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Failed to submit record for '%@:%@' to DiagnosticPipeline: %@", &v5, 0x20u);
 }
 
 + (void)submit:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Failed to trigger DiagnosticPipeline upload session with error '%@'", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1D8611000, a2, OS_LOG_TYPE_ERROR, "Failed to trigger DiagnosticPipeline upload session with error '%@'", &v4, 0xCu);
 }
 
 void __39__PPSSubmissionUtilities_taskingTables__block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = taskingTables_result;
-  _os_log_debug_impl(&dword_1D8611000, log, OS_LOG_TYPE_DEBUG, "PPSTaskingTables=%@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = taskingTables_result;
+  _os_log_debug_impl(&dword_1D8611000, log, OS_LOG_TYPE_DEBUG, "PPSTaskingTables=%@", &v1, 0xCu);
 }
 
 @end

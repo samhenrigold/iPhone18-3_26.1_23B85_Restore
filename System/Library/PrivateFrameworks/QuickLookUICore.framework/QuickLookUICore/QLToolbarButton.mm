@@ -151,7 +151,7 @@ LABEL_6:
 
 - (void)handleLongPress:(id)press
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if ([press state] == 1)
   {
     v4 = self->_currentItemRepresentation;
@@ -170,19 +170,19 @@ LABEL_6:
     popoverPresentationController2 = [v6 popoverPresentationController];
     [popoverPresentationController2 setSourceRect:{v11, v13, v15, v17}];
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     options = [(QLToolbarButton *)self options];
-    v20 = [options countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v20 = [options countByEnumeratingWithState:&v45 objects:v49 count:16];
     v21 = &off_261679000;
     if (v20)
     {
       v22 = v20;
-      v38 = presentingViewController;
-      v39 = v4;
-      v23 = *v47;
+      v37 = presentingViewController;
+      v38 = v4;
+      v23 = *v46;
       v24 = 1;
       obj = options;
       do
@@ -190,35 +190,35 @@ LABEL_6:
         for (i = 0; i != v22; ++i)
         {
           v26 = v6;
-          if (*v47 != v23)
+          if (*v46 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v46 + 1) + 8 * i);
+          v27 = *(*(&v45 + 1) + 8 * i);
           v28 = MEMORY[0x277D750F8];
           title = [v27 title];
           style = [v27 style];
-          v45[0] = MEMORY[0x277D85DD0];
-          v45[1] = 3221225472;
-          v45[2] = __35__QLToolbarButton_handleLongPress___block_invoke;
-          v45[3] = &unk_279AE0DF0;
-          v45[4] = self;
-          v45[5] = v27;
-          v31 = [v28 actionWithTitle:title style:style handler:v45];
+          v44[0] = MEMORY[0x277D85DD0];
+          v44[1] = 3221225472;
+          v44[2] = __35__QLToolbarButton_handleLongPress___block_invoke;
+          v44[3] = &unk_279AE0DF0;
+          v44[4] = self;
+          v44[5] = v27;
+          v31 = [v28 actionWithTitle:title style:style handler:v44];
 
           v6 = v26;
           [v26 addAction:v31];
           v24 &= [v27 isCancel] ^ 1;
         }
 
-        v22 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v22 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v22);
 
-      presentingViewController = v38;
-      v4 = v39;
+      presentingViewController = v37;
+      v4 = v38;
       v21 = &off_261679000;
       if ((v24 & 1) == 0)
       {
@@ -236,19 +236,17 @@ LABEL_6:
     [v6 addAction:v34];
 
 LABEL_13:
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = *(v21 + 322);
-    v41[2] = __35__QLToolbarButton_handleLongPress___block_invoke_2;
-    v41[3] = &unk_279AE0E18;
-    v42 = presentingViewController;
-    v43 = v6;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = *(v21 + 322);
+    v40[2] = __35__QLToolbarButton_handleLongPress___block_invoke_2;
+    v40[3] = &unk_279AE0E18;
+    v41 = presentingViewController;
+    v42 = v6;
     selfCopy = self;
     v35 = v6;
     v36 = presentingViewController;
-    [v36 prepareForActionSheetPresentationWithCompletionHandler:v41];
+    [v36 prepareForActionSheetPresentationWithCompletionHandler:v40];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __35__QLToolbarButton_handleLongPress___block_invoke(uint64_t a1, void *a2)

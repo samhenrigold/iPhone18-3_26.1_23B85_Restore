@@ -13,14 +13,14 @@
 {
   infoCopy = info;
   callbackCopy = callback;
-  v9 = sub_100002830();
+  v9 = sub_100002830(callbackCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v17 = v10;
-    v18 = 2112;
-    v19 = infoCopy;
+    v18 = v10;
+    v19 = 2112;
+    v20 = infoCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "FRAMEWORK API: %@ with changeDesc %@", buf, 0x16u);
   }
 
@@ -37,26 +37,26 @@
     v12 = NSStringFromSelector(a2);
     v13 = [NSString stringWithFormat:@"Entitlement not found for %@", v12];
 
-    v14 = sub_100002830();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100002830(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_100038DB0(v13, v14);
+      sub_100038DB0(v13, v15);
     }
 
-    v15 = [(XPCServer *)self _errorForCode:103 message:v13];
-    (callbackCopy)[2](callbackCopy, v15);
+    v16 = [(XPCServer *)self _errorForCode:103 message:v13];
+    (callbackCopy)[2](callbackCopy, v16);
   }
 }
 
 - (void)willDeleteiCloudAccountUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002830();
+  v6 = sub_100002830(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138412290;
-    v13 = v7;
+    v14 = v7;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "FRAMEWORK API: %@", buf, 0xCu);
   }
 
@@ -70,14 +70,14 @@
     v8 = NSStringFromSelector(a2);
     v9 = [NSString stringWithFormat:@"Entitlement not found for %@", v8];
 
-    v10 = sub_100002830();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002830(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_100038DB0(v9, v10);
+      sub_100038DB0(v9, v11);
     }
 
-    v11 = [(XPCServer *)self _errorForCode:103 message:v9];
-    (callbackCopy)[2](callbackCopy, v11);
+    v12 = [(XPCServer *)self _errorForCode:103 message:v9];
+    (callbackCopy)[2](callbackCopy, v12);
   }
 }
 

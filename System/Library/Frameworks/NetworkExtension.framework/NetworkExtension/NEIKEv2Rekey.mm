@@ -52,7 +52,7 @@
 
 - (void)startIKETimer:(void *)timer timeoutHandler:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   v7 = timerCopy;
   if (self)
@@ -109,26 +109,26 @@
         v19 = NEGetSystemWakeTime();
         *buf = 138413058;
         selfCopy2 = self;
-        v46 = 2048;
-        v47 = v9;
-        v48 = 2048;
-        v49 = v10;
-        v50 = 2112;
-        v51 = v19;
+        v45 = 2048;
+        v46 = v9;
+        v47 = 2048;
+        v48 = v10;
+        v49 = 2112;
+        v50 = v19;
         _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_INFO, "%@: Setting Rekey IKE timer for %llu seconds, leeway %f seconds, last wake date %@", buf, 0x2Au);
       }
 
       objc_initWeak(buf, self);
       v21 = objc_getProperty(self, v20, 16, 1);
       v22 = MEMORY[0x1E69E96A0];
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __45__NEIKEv2Rekey_startIKETimer_timeoutHandler___block_invoke;
-      v42[3] = &unk_1E7F08A50;
-      objc_copyWeak(&v43, buf);
-      [v21 scheduleWithFireInterval:MEMORY[0x1E69E96A0] leewayInterval:v42 queue:v9 handler:v10];
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __45__NEIKEv2Rekey_startIKETimer_timeoutHandler___block_invoke;
+      v41[3] = &unk_1E7F08A50;
+      objc_copyWeak(&v42, buf);
+      [v21 scheduleWithFireInterval:MEMORY[0x1E69E96A0] leewayInterval:v41 queue:v9 handler:v10];
 
-      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v42);
       objc_destroyWeak(buf);
     }
 
@@ -136,61 +136,59 @@
     {
       if (objc_getProperty(self, v11, 40, 1))
       {
-        Property = objc_getProperty(self, v24, 40, 1);
+        Property = objc_getProperty(self, v23, 40, 1);
         dispatch_source_cancel(Property);
-        objc_setProperty_atomic(self, v26, 0, 40);
+        objc_setProperty_atomic(self, v25, 0, 40);
       }
 
-      v27 = ne_log_obj();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v26 = ne_log_obj();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
         selfCopy2 = self;
-        v46 = 2048;
-        v47 = v9;
-        v48 = 2048;
-        v49 = v10;
-        _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_INFO, "%@: Setting Rekey IKE timer for %llu seconds, leeway %f seconds", buf, 0x20u);
+        v45 = 2048;
+        v46 = v9;
+        v47 = 2048;
+        v48 = v10;
+        _os_log_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_INFO, "%@: Setting Rekey IKE timer for %llu seconds, leeway %f seconds", buf, 0x20u);
       }
 
-      v28 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, MEMORY[0x1E69E96A0]);
-      objc_setProperty_atomic(self, v29, v28, 40);
+      v27 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, MEMORY[0x1E69E96A0]);
+      objc_setProperty_atomic(self, v28, v27, 40);
 
-      if (objc_getProperty(self, v30, 40, 1))
+      if (objc_getProperty(self, v29, 40, 1))
       {
-        v32 = objc_getProperty(self, v31, 40, 1);
-        v33 = dispatch_time(0x8000000000000000, 1000000000 * v9);
-        dispatch_source_set_timer(v32, v33, 0xFFFFFFFFFFFFFFFFLL, (v10 * 1000000000.0));
+        v31 = objc_getProperty(self, v30, 40, 1);
+        v32 = dispatch_time(0x8000000000000000, 1000000000 * v9);
+        dispatch_source_set_timer(v31, v32, 0xFFFFFFFFFFFFFFFFLL, (v10 * 1000000000.0));
 
         objc_initWeak(buf, self);
-        v35 = objc_getProperty(self, v34, 40, 1);
+        v34 = objc_getProperty(self, v33, 40, 1);
         handler[0] = MEMORY[0x1E69E9820];
         handler[1] = 3221225472;
         handler[2] = __45__NEIKEv2Rekey_startIKETimer_timeoutHandler___block_invoke_6;
         handler[3] = &unk_1E7F0AA58;
-        v36 = v35;
-        objc_copyWeak(&v41, buf);
-        dispatch_source_set_event_handler(v36, handler);
+        v35 = v34;
+        objc_copyWeak(&v40, buf);
+        dispatch_source_set_event_handler(v35, handler);
 
-        v38 = objc_getProperty(self, v37, 40, 1);
-        dispatch_activate(v38);
-        objc_destroyWeak(&v41);
+        v37 = objc_getProperty(self, v36, 40, 1);
+        dispatch_activate(v37);
+        objc_destroyWeak(&v40);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v39 = ne_log_obj();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+        v38 = ne_log_obj();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_fault_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_FAULT, "dispatch_source_create failed", buf, 2u);
+          _os_log_fault_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_FAULT, "dispatch_source_create failed", buf, 2u);
         }
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)invokeIKERekeyHandler
@@ -232,7 +230,7 @@ void __45__NEIKEv2Rekey_startIKETimer_timeoutHandler___block_invoke_6(uint64_t a
 
 - (void)startChildTimer:(void *)timer timeoutHandler:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   v7 = timerCopy;
   if (self)
@@ -289,26 +287,26 @@ void __45__NEIKEv2Rekey_startIKETimer_timeoutHandler___block_invoke_6(uint64_t a
         v19 = NEGetSystemWakeTime();
         *buf = 138413058;
         selfCopy2 = self;
-        v46 = 2048;
-        v47 = v9;
-        v48 = 2048;
-        v49 = v10;
-        v50 = 2112;
-        v51 = v19;
+        v45 = 2048;
+        v46 = v9;
+        v47 = 2048;
+        v48 = v10;
+        v49 = 2112;
+        v50 = v19;
         _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_INFO, "%@: Setting Rekey Child timer for %llu seconds, leeway %f seconds, last wake date %@", buf, 0x2Au);
       }
 
       objc_initWeak(buf, self);
       v21 = objc_getProperty(self, v20, 24, 1);
       v22 = MEMORY[0x1E69E96A0];
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __47__NEIKEv2Rekey_startChildTimer_timeoutHandler___block_invoke;
-      v42[3] = &unk_1E7F08A50;
-      objc_copyWeak(&v43, buf);
-      [v21 scheduleWithFireInterval:MEMORY[0x1E69E96A0] leewayInterval:v42 queue:v9 handler:v10];
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __47__NEIKEv2Rekey_startChildTimer_timeoutHandler___block_invoke;
+      v41[3] = &unk_1E7F08A50;
+      objc_copyWeak(&v42, buf);
+      [v21 scheduleWithFireInterval:MEMORY[0x1E69E96A0] leewayInterval:v41 queue:v9 handler:v10];
 
-      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v42);
       objc_destroyWeak(buf);
     }
 
@@ -316,61 +314,59 @@ void __45__NEIKEv2Rekey_startIKETimer_timeoutHandler___block_invoke_6(uint64_t a
     {
       if (objc_getProperty(self, v11, 48, 1))
       {
-        Property = objc_getProperty(self, v24, 48, 1);
+        Property = objc_getProperty(self, v23, 48, 1);
         dispatch_source_cancel(Property);
-        objc_setProperty_atomic(self, v26, 0, 48);
+        objc_setProperty_atomic(self, v25, 0, 48);
       }
 
-      v27 = ne_log_obj();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v26 = ne_log_obj();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
         selfCopy2 = self;
-        v46 = 2048;
-        v47 = v9;
-        v48 = 2048;
-        v49 = v10;
-        _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_INFO, "%@: Setting Rekey Child timer for %llu seconds, leeway %f seconds", buf, 0x20u);
+        v45 = 2048;
+        v46 = v9;
+        v47 = 2048;
+        v48 = v10;
+        _os_log_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_INFO, "%@: Setting Rekey Child timer for %llu seconds, leeway %f seconds", buf, 0x20u);
       }
 
-      v28 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, MEMORY[0x1E69E96A0]);
-      objc_setProperty_atomic(self, v29, v28, 48);
+      v27 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, MEMORY[0x1E69E96A0]);
+      objc_setProperty_atomic(self, v28, v27, 48);
 
-      if (objc_getProperty(self, v30, 48, 1))
+      if (objc_getProperty(self, v29, 48, 1))
       {
-        v32 = objc_getProperty(self, v31, 48, 1);
-        v33 = dispatch_time(0x8000000000000000, 1000000000 * v9);
-        dispatch_source_set_timer(v32, v33, 0xFFFFFFFFFFFFFFFFLL, (v10 * 1000000000.0));
+        v31 = objc_getProperty(self, v30, 48, 1);
+        v32 = dispatch_time(0x8000000000000000, 1000000000 * v9);
+        dispatch_source_set_timer(v31, v32, 0xFFFFFFFFFFFFFFFFLL, (v10 * 1000000000.0));
 
         objc_initWeak(buf, self);
-        v35 = objc_getProperty(self, v34, 48, 1);
+        v34 = objc_getProperty(self, v33, 48, 1);
         handler[0] = MEMORY[0x1E69E9820];
         handler[1] = 3221225472;
         handler[2] = __47__NEIKEv2Rekey_startChildTimer_timeoutHandler___block_invoke_14;
         handler[3] = &unk_1E7F0AA58;
-        v36 = v35;
-        objc_copyWeak(&v41, buf);
-        dispatch_source_set_event_handler(v36, handler);
+        v35 = v34;
+        objc_copyWeak(&v40, buf);
+        dispatch_source_set_event_handler(v35, handler);
 
-        v38 = objc_getProperty(self, v37, 48, 1);
-        dispatch_activate(v38);
-        objc_destroyWeak(&v41);
+        v37 = objc_getProperty(self, v36, 48, 1);
+        dispatch_activate(v37);
+        objc_destroyWeak(&v40);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v39 = ne_log_obj();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+        v38 = ne_log_obj();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_fault_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_FAULT, "dispatch_source_create failed", buf, 2u);
+          _os_log_fault_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_FAULT, "dispatch_source_create failed", buf, 2u);
         }
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)invokeChildRekeyHandler

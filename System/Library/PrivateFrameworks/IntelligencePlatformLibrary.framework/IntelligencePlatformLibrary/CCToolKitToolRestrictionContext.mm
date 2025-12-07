@@ -464,13 +464,13 @@ LABEL_21:
         {
           if (v23 == 6)
           {
-            v60 = [CCToolKitToolRestrictionContextMeasurementExpressibleAs alloc];
-            v61 = CCPBReaderReadDataNoCopy();
-            v89 = 0;
-            v62 = [(CCItemMessage *)v60 initWithData:v61 error:&v89];
-            v10 = v89;
+            v59 = [CCToolKitToolRestrictionContextMeasurementExpressibleAs alloc];
+            v60 = CCPBReaderReadDataNoCopy();
+            v87 = 0;
+            v61 = [(CCItemMessage *)v59 initWithData:v60 error:&v87];
+            v10 = v87;
             measurementExpressibleAs = self->_measurementExpressibleAs;
-            self->_measurementExpressibleAs = v62;
+            self->_measurementExpressibleAs = v61;
 
             if (v10)
             {
@@ -496,9 +496,9 @@ LABEL_21:
           {
             v37 = [CCToolKitToolRestrictionContextInInclusiveRange alloc];
             v38 = CCPBReaderReadDataNoCopy();
-            v88 = 0;
-            v39 = [(CCItemMessage *)v37 initWithData:v38 error:&v88];
-            v10 = v88;
+            v86 = 0;
+            v39 = [(CCItemMessage *)v37 initWithData:v38 error:&v86];
+            v10 = v86;
             inInclusiveRange = self->_inInclusiveRange;
             self->_inInclusiveRange = v39;
 
@@ -539,9 +539,9 @@ LABEL_69:
           {
             v24 = [CCToolKitToolRestrictionContextTextTypedWith alloc];
             v25 = CCPBReaderReadDataNoCopy();
-            v90 = 0;
-            v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v90];
-            v10 = v90;
+            v88 = 0;
+            v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v88];
+            v10 = v88;
             v27 = self->_textTypedWith;
             self->_textTypedWith = v26;
 
@@ -565,32 +565,32 @@ LABEL_69:
           goto LABEL_43;
         }
 
+        v52 = 0;
         v53 = 0;
         v54 = 0;
-        v55 = 0;
         while (1)
         {
-          v56 = *v7;
-          v57 = *&v6[v56];
-          v58 = v57 + 1;
-          if (v57 == -1 || v58 > *&v6[*v8])
+          v55 = *v7;
+          v56 = *&v6[v55];
+          v57 = v56 + 1;
+          if (v56 == -1 || v57 > *&v6[*v8])
           {
             break;
           }
 
-          v59 = *(*&v6[*v11] + v57);
-          *&v6[v56] = v58;
-          v55 |= (v59 & 0x7F) << v53;
-          if ((v59 & 0x80) == 0)
+          v58 = *(*&v6[*v11] + v56);
+          *&v6[v55] = v57;
+          v54 |= (v58 & 0x7F) << v52;
+          if ((v58 & 0x80) == 0)
           {
             goto LABEL_60;
           }
 
-          v53 += 7;
-          v20 = v54++ >= 9;
+          v52 += 7;
+          v20 = v53++ >= 9;
           if (v20)
           {
-            LODWORD(v55) = 0;
+            LODWORD(v54) = 0;
             goto LABEL_62;
           }
         }
@@ -599,15 +599,15 @@ LABEL_69:
 LABEL_60:
         if (*&v6[*v9])
         {
-          LODWORD(v55) = 0;
+          LODWORD(v54) = 0;
         }
 
 LABEL_62:
-        self->_dateExpressibleAs = v55;
-        v75 = self->_inSet;
+        self->_dateExpressibleAs = v54;
+        v74 = self->_inSet;
         self->_inSet = 0;
 
-        v76 = self->_representableAs;
+        v75 = self->_representableAs;
         self->_representableAs = 0;
 
         self->_personReachableAs = 0;
@@ -620,9 +620,9 @@ LABEL_62:
         case 1:
           v45 = [CCToolKitToolRestrictionContextInSet alloc];
           v46 = CCPBReaderReadDataNoCopy();
-          v92 = 0;
-          v47 = [(CCItemMessage *)v45 initWithData:v46 error:&v92];
-          v10 = v92;
+          v90 = 0;
+          v47 = [(CCItemMessage *)v45 initWithData:v46 error:&v90];
+          v10 = v90;
           v48 = self->_inSet;
           self->_inSet = v47;
 
@@ -637,20 +637,20 @@ LABEL_62:
 
           break;
         case 2:
-          v67 = [CCToolKitToolRestrictionContextRepresentableAs alloc];
-          v68 = CCPBReaderReadDataNoCopy();
-          v91 = 0;
-          v69 = [(CCItemMessage *)v67 initWithData:v68 error:&v91];
-          v10 = v91;
-          v70 = self->_representableAs;
-          self->_representableAs = v69;
+          v66 = [CCToolKitToolRestrictionContextRepresentableAs alloc];
+          v67 = CCPBReaderReadDataNoCopy();
+          v89 = 0;
+          v68 = [(CCItemMessage *)v66 initWithData:v67 error:&v89];
+          v10 = v89;
+          v69 = self->_representableAs;
+          self->_representableAs = v68;
 
           if (v10)
           {
             goto LABEL_69;
           }
 
-          v71 = self->_inSet;
+          v70 = self->_inSet;
           self->_inSet = 0;
 
           self->_kindType = 2;
@@ -695,22 +695,22 @@ LABEL_64:
 
 LABEL_66:
           self->_personReachableAs = v32;
-          v77 = self->_inSet;
+          v76 = self->_inSet;
           self->_inSet = 0;
 
-          v78 = self->_representableAs;
+          v77 = self->_representableAs;
           self->_representableAs = 0;
 
           self->_kindType = 3;
           self->_dateExpressibleAs = 0;
 LABEL_67:
-          v79 = self->_textTypedWith;
+          v78 = self->_textTypedWith;
           self->_textTypedWith = 0;
 
-          v80 = self->_measurementExpressibleAs;
+          v79 = self->_measurementExpressibleAs;
           self->_measurementExpressibleAs = 0;
 
-          v81 = self->_inInclusiveRange;
+          v80 = self->_inInclusiveRange;
           self->_inInclusiveRange = 0;
 
 LABEL_68:
@@ -722,7 +722,6 @@ LABEL_43:
           {
             v50 = objc_opt_class();
             v51 = NSStringFromClass(v50);
-            v52 = *&v6[*v9];
             v10 = CCSkipFieldErrorForMessage();
 
             goto LABEL_69;
@@ -733,15 +732,15 @@ LABEL_43:
 
       self->_personReachableAs = 0;
       self->_dateExpressibleAs = 0;
-      v72 = self->_textTypedWith;
+      v71 = self->_textTypedWith;
       self->_textTypedWith = 0;
 
 LABEL_57:
-      v73 = self->_measurementExpressibleAs;
+      v72 = self->_measurementExpressibleAs;
       self->_measurementExpressibleAs = 0;
 
 LABEL_58:
-      v74 = self->_inInclusiveRange;
+      v73 = self->_inInclusiveRange;
       self->_inInclusiveRange = 0;
 
       goto LABEL_69;
@@ -760,23 +759,22 @@ LABEL_72:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v86 = 1;
+    v84 = 1;
     goto LABEL_76;
   }
 
 LABEL_73:
-  v82 = objc_opt_class();
-  v83 = NSStringFromClass(v82);
-  v84 = *&v6[*v9];
-  v85 = CCInvalidBufferErrorForMessage();
+  v81 = objc_opt_class();
+  v82 = NSStringFromClass(v81);
+  v83 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_74:
-  v86 = 0;
+  v84 = 0;
 LABEL_76:
 
-  return v86;
+  return v84;
 }
 
 - (CCToolKitToolRestrictionContext)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

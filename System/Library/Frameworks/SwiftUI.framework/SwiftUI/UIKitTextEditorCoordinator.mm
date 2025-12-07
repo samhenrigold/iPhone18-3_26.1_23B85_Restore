@@ -17,7 +17,7 @@
 
 - (BOOL)textView:(id)view shouldChangeTextInRanges:(id)ranges replacementText:(id)text
 {
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSValue);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSValue, 0x1E696B098);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v10 = v9;
@@ -30,7 +30,7 @@
 
 - (id)textView:(id)view editMenuForTextInRanges:(id)ranges suggestedActions:(id)actions
 {
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIMenuElement);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIMenuElement, 0x1E69DCC78);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;

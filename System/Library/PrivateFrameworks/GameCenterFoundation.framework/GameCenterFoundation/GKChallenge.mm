@@ -126,7 +126,7 @@ LABEL_7:
 
 + (id)challengeForGame:(id)game andPlayer:(id)player withScore:(id)score
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   gameCopy = game;
   playerCopy = player;
   scoreCopy = score;
@@ -135,18 +135,18 @@ LABEL_7:
   {
     if (scoreCopy)
     {
-      v24 = @"score";
-      v25[0] = scoreCopy;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = @"score";
+      v24[0] = scoreCopy;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     }
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
 
-    v23 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"GKScore must have a defined category" userInfo:v22];
-    objc_exception_throw(v23);
+    v22 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"GKScore must have a defined category" userInfo:v21];
+    objc_exception_throw(v22);
   }
 
   v14 = +[GKScoreChallengeInternal internalRepresentation];
@@ -163,14 +163,13 @@ LABEL_7:
   [v14 setScore:internal3];
 
   v19 = [[GKScoreChallenge alloc] initWithInternalRepresentation:v14];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 + (id)challengeForGame:(id)game andPlayer:(id)player withAchievement:(id)achievement
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   gameCopy = game;
   playerCopy = player;
   achievementCopy = achievement;
@@ -179,18 +178,18 @@ LABEL_7:
   {
     if (achievementCopy)
     {
-      v24 = @"achievement";
-      v25[0] = achievementCopy;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = @"achievement";
+      v24[0] = achievementCopy;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     }
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
 
-    v23 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"GKAchievement must have a defined identifier" userInfo:v22];
-    objc_exception_throw(v23);
+    v22 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"GKAchievement must have a defined identifier" userInfo:v21];
+    objc_exception_throw(v22);
   }
 
   v14 = +[GKAchievementChallengeInternal internalRepresentation];
@@ -207,7 +206,6 @@ LABEL_7:
   [v14 setAchievement:internal3];
 
   v19 = [[GKAchievementChallenge alloc] initWithInternalRepresentation:v14];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -287,33 +285,33 @@ void __75__GKChallenge_loadChallengesForGame_receivingPlayer_withCompletionHandl
 
 void __75__GKChallenge_loadChallengesForGame_receivingPlayer_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [*(a1 + 32) setError:a3];
   if (*(a1 + 48) && [v5 count])
   {
     v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * v11);
+          v12 = *(*(&v22 + 1) + 8 * v11);
           v13 = *(a1 + 40);
           if (v13)
           {
@@ -331,30 +329,28 @@ void __75__GKChallenge_loadChallengesForGame_receivingPlayer_withCompletionHandl
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
     }
 
     v16 = [v6 _gkMapWithBlock:&__block_literal_global_40];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __75__GKChallenge_loadChallengesForGame_receivingPlayer_withCompletionHandler___block_invoke_4;
-    v19[3] = &unk_2785DE948;
-    v20 = *(a1 + 32);
-    v21 = v6;
-    v22 = *(a1 + 56);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __75__GKChallenge_loadChallengesForGame_receivingPlayer_withCompletionHandler___block_invoke_4;
+    v18[3] = &unk_2785DE948;
+    v19 = *(a1 + 32);
+    v20 = v6;
+    v21 = *(a1 + 56);
     v17 = v6;
-    [v16 _gkUpdateInternalPlayersScopedIDs:v19];
+    [v16 _gkUpdateInternalPlayersScopedIDs:v18];
   }
 
   else
   {
     (*(*(a1 + 56) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 id __75__GKChallenge_loadChallengesForGame_receivingPlayer_withCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
@@ -458,14 +454,14 @@ void __59__GKChallenge_loadReceivedChallengesWithCompletionHandler___block_invok
 
 - (void)issueToPlayers:(id)players message:(id)message
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   playersCopy = players;
   messageCopy = message;
   v7 = [playersCopy count];
   if (!playersCopy || !v7)
   {
-    v15 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"players must be provided to issue a challenge" userInfo:{0, playersCopy}];
-    objc_exception_throw(v15);
+    v14 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"players must be provided to issue a challenge" userInfo:{0, playersCopy}];
+    objc_exception_throw(v14);
   }
 
   v8 = +[GKLocalPlayer localPlayer];
@@ -473,20 +469,20 @@ void __59__GKChallenge_loadReceivedChallengesWithCompletionHandler___block_invok
 
   if (v9)
   {
-    v16 = MEMORY[0x277CBEAD8];
-    v17 = *MEMORY[0x277CBE660];
-    v23[0] = @"challenge";
-    v23[1] = @"players";
-    v24[0] = self;
-    v24[1] = playersCopy;
-    v23[2] = @"localPlayer";
-    v18 = +[GKLocalPlayer localPlayer];
-    v24[2] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
-    v20 = [v16 exceptionWithName:v17 reason:@"Issuing challenges to yourself is not allowed" userInfo:v19];
-    v21 = v20;
+    v15 = MEMORY[0x277CBEAD8];
+    v16 = *MEMORY[0x277CBE660];
+    v22[0] = @"challenge";
+    v22[1] = @"players";
+    v23[0] = self;
+    v23[1] = playersCopy;
+    v22[2] = @"localPlayer";
+    v17 = +[GKLocalPlayer localPlayer];
+    v23[2] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+    v19 = [v15 exceptionWithName:v16 reason:@"Issuing challenges to yourself is not allowed" userInfo:v18];
+    v20 = v19;
 
-    objc_exception_throw(v20);
+    objc_exception_throw(v19);
   }
 
   if ([playersCopy count])
@@ -498,35 +494,31 @@ void __59__GKChallenge_loadReceivedChallengesWithCompletionHandler___block_invok
     internal = [(GKChallenge *)self internal];
     [challengeService issueChallenge:internal toPlayers:v10 handler:&__block_literal_global_84];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)declineWithCompletionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if ([(GKChallenge *)self state]!= GKChallengeStatePending)
   {
-    v10 = MEMORY[0x277CBEAD8];
-    v11 = *MEMORY[0x277CBE660];
-    v16 = @"invalidChallenge";
-    v17[0] = self;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-    v13 = [v10 exceptionWithName:v11 reason:@"Canceling challenges that are not currently pending is not allowed" userInfo:v12];
-    v14 = v13;
+    v9 = MEMORY[0x277CBEAD8];
+    v10 = *MEMORY[0x277CBE660];
+    v15 = @"invalidChallenge";
+    v16[0] = self;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v12 = [v9 exceptionWithName:v10 reason:@"Canceling challenges that are not currently pending is not allowed" userInfo:v11];
+    v13 = v12;
 
-    objc_exception_throw(v13);
+    objc_exception_throw(v12);
   }
 
   v5 = +[GKDaemonProxy proxyForLocalPlayer];
   challengeService = [v5 challengeService];
   internal = [(GKChallenge *)self internal];
-  v15 = internal;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = internal;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   [challengeService abortChallenges:v8 handler:handlerCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (GKGame)game
@@ -757,37 +749,34 @@ void __59__GKChallenge_loadReceivedChallengesWithCompletionHandler___block_invok
 
 void __66__GKChallenge_loadReceivedPendingChallengesWithCompletionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "cannot load received challenges due to error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "cannot load received challenges due to error: %@", &v2, 0xCu);
 }
 
 - (void)issuingPlayerID
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = 136446722;
-  v3 = "[GKChallenge issuingPlayerID]";
-  v4 = 2114;
-  v5 = @"14.0";
-  v6 = 2114;
-  v7 = @"11.0";
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v2, 0x20u);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = 136446722;
+  v2 = "[GKChallenge issuingPlayerID]";
+  v3 = 2114;
+  v4 = @"14.0";
+  v5 = 2114;
+  v6 = @"11.0";
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v1, 0x20u);
 }
 
 - (void)receivingPlayerID
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = 136446722;
-  v3 = "[GKChallenge receivingPlayerID]";
-  v4 = 2114;
-  v5 = @"14.0";
-  v6 = 2114;
-  v7 = @"11.0";
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v2, 0x20u);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = 136446722;
+  v2 = "[GKChallenge receivingPlayerID]";
+  v3 = 2114;
+  v4 = @"14.0";
+  v5 = 2114;
+  v6 = @"11.0";
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v1, 0x20u);
 }
 
 @end

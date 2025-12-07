@@ -36,10 +36,13 @@
 - (id)copyWithValueSource:(id)source;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)currentStateActionBuildersForHome:(id)home;
+- (id)enableDoorbellChime:(BOOL)chime;
 - (id)iconDescriptorFor:(id)for;
 - (id)namingComponentForHomeKitObject;
 - (id)serviceItemForService:(id)service;
 - (id)serviceLikeBuilderInHome:(id)home;
+- (id)setEnableAnnounce:(BOOL)announce;
+- (id)setEnableAudioAnalysis:(BOOL)analysis;
 - (id)setSiriDisabled:(BOOL)disabled;
 - (unint64_t)numberOfCompoundItems;
 @end
@@ -57,12 +60,12 @@
 
 - (HFAccessoryItem)initWithAccessory:(id)accessory valueSource:(id)source
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   sourceCopy = source;
-  v19.receiver = self;
-  v19.super_class = HFAccessoryItem;
-  v9 = [(HFAccessoryItem *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = HFAccessoryItem;
+  v9 = [(HFAccessoryItem *)&v18 init];
   v10 = v9;
   if (v9)
   {
@@ -77,14 +80,13 @@
       mediaProfile = [anyObject mediaProfile];
       hf_siriLanguageOptionsManager = [mediaProfile hf_siriLanguageOptionsManager];
       *buf = 67109378;
-      v21 = isSiriEndpointAccessory;
-      v22 = 2112;
-      v23 = hf_siriLanguageOptionsManager;
+      v20 = isSiriEndpointAccessory;
+      v21 = 2112;
+      v22 = hf_siriLanguageOptionsManager;
       _os_log_debug_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEBUG, "isSiriEndPoint %{BOOL}d siriLanguageOptionsManager = %@", buf, 0x12u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -130,35 +132,35 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   _buildServiceItems = [(HFAccessoryItem *)self _buildServiceItems];
   [(HFAccessoryItem *)self setServiceItems:_buildServiceItems];
   array = [MEMORY[0x277CBEB18] array];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v8 = _buildServiceItems;
-  v9 = [v8 countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v32;
+    v11 = *v31;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v31 + 1) + 8 * i) updateWithOptions:optionsCopy];
+        v13 = [*(*(&v30 + 1) + 8 * i) updateWithOptions:optionsCopy];
         [array na_safeAddObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v30 objects:v40 count:16];
     }
 
     while (v10);
@@ -173,14 +175,14 @@
   if (v18)
   {
     v19 = [(HFServiceLikeItemUpdateRequest *)v18 updateWithOptions:optionsCopy];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke;
-    v27[3] = &unk_277DF9428;
-    v28 = array;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke;
+    v26[3] = &unk_277DF9428;
+    v27 = array;
     selfCopy = self;
-    v30 = v8;
-    v20 = [v19 flatMap:v27];
+    v29 = v8;
+    v20 = [v19 flatMap:v26];
   }
 
   else
@@ -188,14 +190,14 @@
     v21 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v25 = NSStringFromSelector(a2);
+      v24 = NSStringFromSelector(a2);
       accessory2 = [(HFAccessoryItem *)self accessory];
       *buf = 138412802;
       selfCopy2 = self;
-      v37 = 2112;
-      v38 = v25;
-      v39 = 2112;
-      v40 = accessory2;
+      v36 = 2112;
+      v37 = v24;
+      v38 = 2112;
+      v39 = accessory2;
       _os_log_error_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_ERROR, "%@:%@ Failed to create HFServiceLikeItemUpdateRequest. Accessory: %@ ", buf, 0x20u);
     }
 
@@ -203,8 +205,6 @@
     v19 = [HFItemUpdateOutcome outcomeWithResults:MEMORY[0x277CBEC10]];
     v20 = [v22 futureWithResult:v19];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -234,7 +234,7 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke(void *a1, vo
 
 id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, void *a2)
 {
-  v172 = *MEMORY[0x277D85DE8];
+  v171 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1[4] standardResults];
   v5 = [v4 mutableCopy];
@@ -254,76 +254,76 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
 
   v9 = [MEMORY[0x277CBEB58] set];
   v10 = [v5 objectForKeyedSubscript:@"dependentHomeKitObjects"];
-  v150 = v9;
+  v149 = v9;
   [v9 unionSet:v10];
 
-  v166 = 0u;
-  v167 = 0u;
-  v164 = 0u;
   v165 = 0u;
-  v144 = a1;
+  v166 = 0u;
+  v163 = 0u;
+  v164 = 0u;
+  v143 = a1;
   v11 = a1[6];
-  v12 = [v11 countByEnumeratingWithState:&v164 objects:v171 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v163 objects:v170 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v165;
+    v14 = *v164;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v165 != v14)
+        if (*v164 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v164 + 1) + 8 * i) latestResults];
+        v16 = [*(*(&v163 + 1) + 8 * i) latestResults];
         v17 = [v16 objectForKeyedSubscript:@"dependentHomeKitObjects"];
 
         if (v17)
         {
-          [v150 unionSet:v17];
+          [v149 unionSet:v17];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v164 objects:v171 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v163 objects:v170 count:16];
     }
 
     while (v13);
   }
 
-  if ([v144[5] isSiriEndpointAccessory])
+  if ([v143[5] isSiriEndpointAccessory])
   {
-    v18 = [v144[5] accessories];
+    v18 = [v143[5] accessories];
     v19 = [v18 anyObject];
     v20 = [v19 hf_siriEndpointProfile];
-    [v150 na_safeAddObject:v20];
+    [v149 na_safeAddObject:v20];
   }
 
-  [v5 setObject:v150 forKeyedSubscript:@"dependentHomeKitObjects"];
-  v143 = [v144[5] _unanimousValueForResultsKey:@"hidden" inServiceItems:v144[6]];
-  v21 = [v143 BOOLValue];
-  v22 = [v144[5] accessory];
+  [v5 setObject:v149 forKeyedSubscript:@"dependentHomeKitObjects"];
+  v142 = [v143[5] _unanimousValueForResultsKey:@"hidden" inServiceItems:v143[6]];
+  v21 = [v142 BOOLValue];
+  v22 = [v143[5] accessory];
   v23 = [v22 hf_isMatterOnlyAccessory];
 
-  v24 = ([v144[6] count] == 0) & (v23 ^ 1) | v21;
+  v24 = ([v143[6] count] == 0) & (v23 ^ 1) | v21;
   v25 = [MEMORY[0x277CCABB0] numberWithBool:v24 & 1];
   [v5 setObject:v25 forKeyedSubscript:@"hidden"];
 
-  v26 = [v144[5] accessory];
+  v26 = [v143[5] accessory];
   v27 = [v26 uniqueIdentifier];
   v28 = [HFURLComponents homeKitObjectURLForDestination:4 secondaryDestination:1 UUID:v27];
   [v5 setObject:v28 forKeyedSubscript:@"itemDetailsURL"];
 
   if ((v23 ^ 1))
   {
-    v39 = v144;
+    v39 = v143;
     if (v24)
     {
       goto LABEL_78;
     }
 
-    v40 = v144[5];
+    v40 = v143[5];
     v41 = [v40 accessory];
     v42 = [v41 hf_primaryService];
     v43 = [v40 serviceItemForService:v42];
@@ -332,15 +332,15 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
     v45 = [v44 objectForKeyedSubscript:@"state"];
     v46 = [v45 integerValue];
 
-    v142 = v3;
-    if ([v144[5] isMultiSensorDevice])
+    v141 = v3;
+    if ([v143[5] isMultiSensorDevice])
     {
       v46 = 1;
     }
 
-    else if ([v144[5] isMultiLightDevice])
+    else if ([v143[5] isMultiLightDevice])
     {
-      v47 = [v144[5] serviceItems];
+      v47 = [v143[5] serviceItems];
       v48 = [v47 na_any:&__block_literal_global_74];
 
       if (v48)
@@ -358,19 +358,19 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
     [v5 setObject:v49 forKeyedSubscript:@"state"];
 
     v50 = MEMORY[0x277CCABB0];
-    v51 = [v144[5] accessory];
+    v51 = [v143[5] accessory];
     v52 = [v50 numberWithUnsignedInteger:{objc_msgSend(v51, "suspendedState")}];
     [v5 setObject:v52 forKeyedSubscript:@"suspendedState"];
 
     v53 = [v43 latestResults];
     v54 = [v53 objectForKeyedSubscript:@"icon"];
 
-    v55 = [v144[5] accessory];
+    v55 = [v143[5] accessory];
     v56 = [v55 hf_isMultiServiceAccessory];
 
     if (v56)
     {
-      if ([v144[5] isMultiLightDevice])
+      if ([v143[5] isMultiLightDevice])
       {
         v57 = [v43 latestResults];
         v58 = [v57 objectForKeyedSubscript:@"state"];
@@ -378,13 +378,13 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
 
         if (v59 != v46)
         {
-          v60 = [v144[5] serviceItems];
-          v163[0] = MEMORY[0x277D85DD0];
-          v163[1] = 3221225472;
-          v163[2] = __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_4;
-          v163[3] = &__block_descriptor_40_e23_B16__0__HFServiceItem_8l;
-          v163[4] = v46;
-          v61 = [v60 na_firstObjectPassingTest:v163];
+          v60 = [v143[5] serviceItems];
+          v162[0] = MEMORY[0x277D85DD0];
+          v162[1] = 3221225472;
+          v162[2] = __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_4;
+          v162[3] = &__block_descriptor_40_e23_B16__0__HFServiceItem_8l;
+          v162[4] = v46;
+          v61 = [v60 na_firstObjectPassingTest:v162];
 
           if (v61)
           {
@@ -396,7 +396,7 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
         }
       }
 
-      v64 = [v144[5] accessory];
+      v64 = [v143[5] accessory];
       v65 = [HFServiceIconFactory overrideIconDescriptorForMultiServiceAccessory:v64 iconDescriptor:v54];
 
       v66 = v65;
@@ -407,78 +407,78 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
       v66 = v54;
     }
 
-    v140 = v66;
+    v139 = v66;
     [v5 setObject:? forKeyedSubscript:?];
-    v67 = [v144[5] _buildControlDescription];
+    v67 = [v143[5] _buildControlDescription];
     [v5 setObject:v67 forKeyedSubscript:@"controlDescription"];
 
     v68 = [v43 latestResults];
     v69 = [v68 objectForKeyedSubscript:@"persistentWarningDescription"];
     [v5 setObject:v69 forKeyedSubscript:@"persistentWarningDescription"];
 
-    v141 = v43;
+    v140 = v43;
     v70 = [v43 latestResults];
     v71 = [v70 objectForKeyedSubscript:@"roomIdentifier"];
     v72 = v5;
     [v5 setObject:v71 forKeyedSubscript:@"roomIdentifier"];
 
-    v148 = [MEMORY[0x277CBEAA8] distantFuture];
+    v147 = [MEMORY[0x277CBEAA8] distantFuture];
+    v158 = 0u;
     v159 = 0u;
     v160 = 0u;
     v161 = 0u;
-    v162 = 0u;
-    v73 = v144[6];
-    v74 = [v73 countByEnumeratingWithState:&v159 objects:v170 count:16];
+    v73 = v143[6];
+    v74 = [v73 countByEnumeratingWithState:&v158 objects:v169 count:16];
     if (v74)
     {
       v75 = v74;
-      v76 = *v160;
+      v76 = *v159;
       do
       {
         for (j = 0; j != v75; ++j)
         {
-          if (*v160 != v76)
+          if (*v159 != v76)
           {
             objc_enumerationMutation(v73);
           }
 
-          v78 = [*(*(&v159 + 1) + 8 * j) latestResults];
+          v78 = [*(*(&v158 + 1) + 8 * j) latestResults];
           v79 = [v78 objectForKeyedSubscript:@"dateAdded"];
 
           if (v79)
           {
-            v80 = [v148 earlierDate:v79];
+            v80 = [v147 earlierDate:v79];
 
-            v148 = v80;
+            v147 = v80;
           }
         }
 
-        v75 = [v73 countByEnumeratingWithState:&v159 objects:v170 count:16];
+        v75 = [v73 countByEnumeratingWithState:&v158 objects:v169 count:16];
       }
 
       while (v75);
     }
 
     v81 = [MEMORY[0x277CBEAA8] distantFuture];
-    v82 = [v148 isEqualToDate:v81];
+    v82 = [v147 isEqualToDate:v81];
 
     v5 = v72;
     if ((v82 & 1) == 0)
     {
-      [v72 setObject:v148 forKeyedSubscript:@"dateAdded"];
+      [v72 setObject:v147 forKeyedSubscript:@"dateAdded"];
     }
 
-    v83 = [v144[5] _buildControlItems];
+    v83 = [v143[5] _buildControlItems];
     [v72 setObject:v83 forKeyedSubscript:@"childItems"];
 
-    v84 = [v144[5] _collectAllChildItems];
+    v84 = [v143[5] _collectAllChildItems];
     [v72 setObject:v84 forKeyedSubscript:@"collatedChildItems"];
 
-    v139 = [v144[5] _mostCommonValueInServiceItems:v144[6] valueProvider:&__block_literal_global_22_1];
+    v138 = [v143[5] _mostCommonValueInServiceItems:v143[6] valueProvider:&__block_literal_global_22_1];
     [v72 na_safeSetObject:? forKey:?];
-    if ([v144[5] isSiriEndpointAccessory])
+    if ([v143[5] isSiriEndpointAccessory])
     {
-      if ([v144[5] shouldShowMutedMicIcon])
+      if ([v143[5] shouldShowMutedMicIcon])
       {
         v85 = [v72 objectForKeyedSubscript:@"descriptionBadge"];
 
@@ -489,56 +489,56 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
       }
     }
 
-    v86 = v144[6];
-    v87 = [v144[5] _sortDescriptorsForServiceItems];
+    v86 = v143[6];
+    v87 = [v143[5] _sortDescriptorsForServiceItems];
     v88 = [v86 sortedArrayUsingDescriptors:v87];
 
-    v157 = 0u;
-    v158 = 0u;
-    v155 = 0u;
     v156 = 0u;
+    v157 = 0u;
+    v154 = 0u;
+    v155 = 0u;
     obj = v88;
-    v147 = [obj countByEnumeratingWithState:&v155 objects:v169 count:16];
-    if (v147)
+    v146 = [obj countByEnumeratingWithState:&v154 objects:v168 count:16];
+    if (v146)
     {
-      v146 = *v156;
+      v145 = *v155;
       do
       {
         v89 = 0;
         do
         {
-          if (*v156 != v146)
+          if (*v155 != v145)
           {
             objc_enumerationMutation(obj);
           }
 
-          v149 = v89;
-          v90 = *(*(&v155 + 1) + 8 * v89);
+          v148 = v89;
+          v90 = *(*(&v154 + 1) + 8 * v89);
+          v150 = 0u;
           v151 = 0u;
           v152 = 0u;
           v153 = 0u;
-          v154 = 0u;
           v91 = [v90 latestResults];
-          v92 = [v91 countByEnumeratingWithState:&v151 objects:v168 count:16];
+          v92 = [v91 countByEnumeratingWithState:&v150 objects:v167 count:16];
           if (v92)
           {
             v93 = v92;
-            v94 = *v152;
+            v94 = *v151;
             do
             {
               for (k = 0; k != v93; ++k)
               {
-                if (*v152 != v94)
+                if (*v151 != v94)
                 {
                   objc_enumerationMutation(v91);
                 }
 
-                v96 = *(*(&v151 + 1) + 8 * k);
+                v96 = *(*(&v150 + 1) + 8 * k);
                 v97 = [v5 objectForKeyedSubscript:v96];
 
                 if (!v97)
                 {
-                  if (([v96 isEqualToString:@"priority"] & 1) == 0 && !objc_msgSend(v96, "isEqualToString:", @"descriptionStyle") || (objc_msgSend(v90, "service"), v98 = objc_claimAutoreleasedReturnValue(), v99 = objc_msgSend(v98, "isPrimaryService"), v98, v99))
+                  if (([v96 isEqualToString:@"priority"] & 1) == 0 && !objc_msgSend(v96, "isEqualToString:", @"descriptionStyle") || (objc_msgSend_service(v90), v98 = objc_claimAutoreleasedReturnValue(), v99 = objc_msgSend(v98, "isPrimaryService"), v98, v99))
                   {
                     v100 = [v90 latestResults];
                     v101 = [v100 objectForKeyedSubscript:v96];
@@ -549,20 +549,20 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
                 v5 = v72;
               }
 
-              v93 = [v91 countByEnumeratingWithState:&v151 objects:v168 count:16];
+              v93 = [v91 countByEnumeratingWithState:&v150 objects:v167 count:16];
             }
 
             while (v93);
           }
 
-          v89 = v149 + 1;
+          v89 = v148 + 1;
         }
 
-        while (v149 + 1 != v147);
-        v147 = [obj countByEnumeratingWithState:&v155 objects:v169 count:16];
+        while (v148 + 1 != v146);
+        v146 = [obj countByEnumeratingWithState:&v154 objects:v168 count:16];
       }
 
-      while (v147);
+      while (v146);
     }
 
     objc_opt_class();
@@ -589,19 +589,19 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
       v105 = 1;
     }
 
-    v3 = v142;
-    v106 = v144[5];
+    v3 = v141;
+    v106 = v143[5];
     v107 = [v5 objectForKeyedSubscript:@"title"];
     v108 = [v106 _buildTileDescription:v105 title:v107];
     [v5 setObject:v108 forKeyedSubscript:@"description"];
 
-    v109 = [v144[5] accessory];
+    v109 = [v143[5] accessory];
     LODWORD(v106) = [v109 hf_hasSetFavorite];
 
     if (v106)
     {
       v110 = MEMORY[0x277CCABB0];
-      v111 = [v144[5] accessory];
+      v111 = [v143[5] accessory];
       v112 = [v110 numberWithBool:{objc_msgSend(v111, "hf_isFavorite")}];
       [v5 setObject:v112 forKeyedSubscript:@"isFavorite"];
     }
@@ -611,15 +611,15 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
       [v5 setObject:0 forKeyedSubscript:@"isFavorite"];
     }
 
-    v38 = v140;
-    v37 = v141;
+    v38 = v139;
+    v37 = v140;
 
-    v39 = v144;
+    v39 = v143;
   }
 
   else
   {
-    v29 = [v144[5] latestResults];
+    v29 = [v143[5] latestResults];
     v30 = [v29 objectForKeyedSubscript:@"state"];
     v31 = [v30 integerValue];
 
@@ -627,15 +627,15 @@ id __47__HFAccessoryItem__subclass_updateWithOptions___block_invoke_2(id *a1, vo
     [v5 setObject:v32 forKeyedSubscript:@"state"];
 
     v33 = MEMORY[0x277CCABB0];
-    v34 = [v144[5] accessory];
+    v34 = [v143[5] accessory];
     v35 = [v33 numberWithUnsignedInteger:{objc_msgSend(v34, "suspendedState")}];
     [v5 setObject:v35 forKeyedSubscript:@"suspendedState"];
 
-    v36 = v144[5];
+    v36 = v143[5];
     v37 = [v36 accessory];
     v38 = [v36 iconDescriptorFor:v37];
     [v5 setObject:v38 forKeyedSubscript:@"icon"];
-    v39 = v144;
+    v39 = v143;
   }
 
 LABEL_78:
@@ -690,8 +690,6 @@ LABEL_78:
   v134 = MEMORY[0x277D2C900];
   v135 = [HFItemUpdateOutcome outcomeWithResults:v5];
   v136 = [v134 futureWithResult:v135];
-
-  v137 = *MEMORY[0x277D85DE8];
 
   return v136;
 }
@@ -770,8 +768,8 @@ LABEL_9:
   }
 
 LABEL_7:
-  home = [(HFAccessoryItem *)self home];
-  v9 = [home audioAnalysisClassifierOptions] != 0;
+  v8 = objc_msgSend_home(self);
+  v9 = [v8 audioAnalysisClassifierOptions] != 0;
 
 LABEL_10:
   return v9;
@@ -812,7 +810,7 @@ LABEL_10:
 
 uint64_t __41__HFAccessoryItem_serviceItemForService___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 service];
+  v3 = objc_msgSend_service(a2);
   v4 = [v3 isEqual:*(a1 + 32)];
 
   return v4;
@@ -1010,33 +1008,33 @@ id __37__HFAccessoryItem__buildServiceItems__block_invoke(uint64_t a1, void *a2)
 
 - (id)currentStateActionBuildersForHome:(id)home
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   homeCopy = home;
-  v26 = objc_alloc_init(MEMORY[0x277D2C900]);
+  v25 = objc_alloc_init(MEMORY[0x277D2C900]);
   array = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   accessory = [(HFAccessoryItem *)self accessory];
   hf_visibleServices = [accessory hf_visibleServices];
 
-  v7 = [hf_visibleServices countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [hf_visibleServices countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       v10 = 0;
       do
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(hf_visibleServices);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * v10);
+        v11 = *(*(&v31 + 1) + 8 * v10);
         valueSource = [(HFAccessoryItem *)self valueSource];
         v13 = [HFServiceItem serviceItemForService:v11 valueSource:valueSource];
 
@@ -1053,7 +1051,7 @@ id __37__HFAccessoryItem__buildServiceItems__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v8 != v10);
-      v8 = [hf_visibleServices countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v8 = [hf_visibleServices countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v8);
@@ -1063,72 +1061,70 @@ id __37__HFAccessoryItem__buildServiceItems__block_invoke(uint64_t a1, void *a2)
   mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
   v17 = [v15 combineAllFutures:array ignoringErrors:0 scheduler:mainThreadScheduler];
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke;
-  v30[3] = &unk_277DF9508;
-  v18 = v26;
-  v31 = v18;
-  v19 = [v17 addSuccessBlock:v30];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke_2;
-  v28[3] = &unk_277DF2D08;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke;
+  v29[3] = &unk_277DF9508;
+  v18 = v25;
+  v30 = v18;
+  v19 = [v17 addSuccessBlock:v29];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke_2;
+  v27[3] = &unk_277DF2D08;
   v20 = v18;
-  v29 = v20;
-  v21 = [v17 addFailureBlock:v28];
-  v22 = v29;
+  v28 = v20;
+  v21 = [v17 addFailureBlock:v27];
+  v22 = v28;
   v23 = v20;
 
-  v24 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 void __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB58] set];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 unionSet:{*(*(&v11 + 1) + 8 * v9++), v11}];
+        [v4 unionSet:{*(*(&v10 + 1) + 8 * v9++), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [*(a1 + 32) finishWithResult:v4];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMHome)home
 {
   accessory = [(HFAccessoryItem *)self accessory];
-  home = [accessory home];
+  v3 = objc_msgSend_home(accessory);
 
-  return home;
+  return v3;
 }
 
 - (NSSet)services
@@ -1239,6 +1235,31 @@ void __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke(uint
   return bOOLValue;
 }
 
+- (id)setEnableAnnounce:(BOOL)announce
+{
+  announceCopy = announce;
+  accessory = [(HFAccessoryItem *)self accessory];
+  uniqueIdentifier = [accessory uniqueIdentifier];
+
+  if ([(HFAccessoryItem *)self isSiriEndpointAccessory])
+  {
+    commonSettingsManager = [(HFAccessoryItem *)self commonSettingsManager];
+    accessory2 = [(HFAccessoryItem *)self accessory];
+    v9 = objc_msgSend_home(accessory2);
+    uniqueIdentifier2 = [v9 uniqueIdentifier];
+    v11 = HFAnnounceEnabledKeyPath;
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:announceCopy];
+    futureWithNoResult = [commonSettingsManager updateAccessorySettingWithHomeIdentifier:uniqueIdentifier2 accessoryIdentifier:uniqueIdentifier keyPath:v11 rawSettingValue:v12];
+  }
+
+  else
+  {
+    futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
+  }
+
+  return futureWithNoResult;
+}
+
 - (BOOL)isSiriDisabled
 {
   commonSettingsManager = [(HFAccessoryItem *)self commonSettingsManager];
@@ -1267,8 +1288,8 @@ void __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke(uint
   {
     commonSettingsManager = [(HFAccessoryItem *)self commonSettingsManager];
     accessory2 = [(HFAccessoryItem *)self accessory];
-    home = [accessory2 home];
-    uniqueIdentifier2 = [home uniqueIdentifier];
+    v9 = objc_msgSend_home(accessory2);
+    uniqueIdentifier2 = [v9 uniqueIdentifier];
     v11 = HFAllowHeySiriSettingKeyPath;
     v12 = [MEMORY[0x277CCABB0] numberWithInt:!disabledCopy];
     futureWithNoResult = [commonSettingsManager updateAccessorySettingWithHomeIdentifier:uniqueIdentifier2 accessoryIdentifier:uniqueIdentifier keyPath:v11 rawSettingValue:v12];
@@ -1302,6 +1323,31 @@ void __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke(uint
   return bOOLValue;
 }
 
+- (id)setEnableAudioAnalysis:(BOOL)analysis
+{
+  analysisCopy = analysis;
+  accessory = [(HFAccessoryItem *)self accessory];
+  uniqueIdentifier = [accessory uniqueIdentifier];
+
+  if ([(HFAccessoryItem *)self isSiriEndpointAccessory])
+  {
+    commonSettingsManager = [(HFAccessoryItem *)self commonSettingsManager];
+    accessory2 = [(HFAccessoryItem *)self accessory];
+    v9 = objc_msgSend_home(accessory2);
+    uniqueIdentifier2 = [v9 uniqueIdentifier];
+    v11 = HFAudioAnalysisEnabledKeyPath;
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:analysisCopy];
+    futureWithNoResult = [commonSettingsManager updateAccessorySettingWithHomeIdentifier:uniqueIdentifier2 accessoryIdentifier:uniqueIdentifier keyPath:v11 rawSettingValue:v12];
+  }
+
+  else
+  {
+    futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
+  }
+
+  return futureWithNoResult;
+}
+
 - (BOOL)isDoorbellChimeEnabled
 {
   if (![(HFAccessoryItem *)self isSiriEndpointAccessory])
@@ -1322,34 +1368,59 @@ void __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke(uint
   return bOOLValue;
 }
 
+- (id)enableDoorbellChime:(BOOL)chime
+{
+  chimeCopy = chime;
+  accessory = [(HFAccessoryItem *)self accessory];
+  uniqueIdentifier = [accessory uniqueIdentifier];
+
+  if ([(HFAccessoryItem *)self isSiriEndpointAccessory])
+  {
+    commonSettingsManager = [(HFAccessoryItem *)self commonSettingsManager];
+    accessory2 = [(HFAccessoryItem *)self accessory];
+    v9 = objc_msgSend_home(accessory2);
+    uniqueIdentifier2 = [v9 uniqueIdentifier];
+    v11 = HFDoorbellChimeEnabledKeyPath;
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:chimeCopy];
+    futureWithNoResult = [commonSettingsManager updateAccessorySettingWithHomeIdentifier:uniqueIdentifier2 accessoryIdentifier:uniqueIdentifier keyPath:v11 rawSettingValue:v12];
+  }
+
+  else
+  {
+    futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
+  }
+
+  return futureWithNoResult;
+}
+
 - (id)_buildTileDescription:(BOOL)description title:(id)title
 {
   descriptionCopy = description;
-  v75 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   if (![(HFAccessoryItem *)self _shouldComputeMultiServiceDescription]|| !descriptionCopy)
   {
     accessory = [(HFAccessoryItem *)self accessory];
     hf_primaryService = [accessory hf_primaryService];
-    v31 = [(HFAccessoryItem *)self serviceItemForService:hf_primaryService];
+    v28 = [(HFAccessoryItem *)self serviceItemForService:hf_primaryService];
 
-    latestResults = [v31 latestResults];
-    v33 = [latestResults objectForKeyedSubscript:@"description"];
+    latestResults = [v28 latestResults];
+    v30 = [latestResults objectForKeyedSubscript:@"description"];
 
-    v34 = 0;
+    v31 = 0;
     goto LABEL_49;
   }
 
-  v66 = titleCopy;
-  v69 = objc_opt_new();
+  v62 = titleCopy;
+  v65 = objc_opt_new();
   v7 = objc_opt_new();
-  v68 = objc_opt_new();
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v73 = 0u;
+  v64 = objc_opt_new();
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   serviceItems = [(HFAccessoryItem *)self serviceItems];
-  v9 = [serviceItems countByEnumeratingWithState:&v70 objects:v74 count:16];
+  v9 = [serviceItems countByEnumeratingWithState:&v66 objects:v70 count:16];
   if (!v9)
   {
     v12 = 1;
@@ -1358,41 +1429,39 @@ void __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke(uint
   }
 
   v10 = v9;
-  v11 = *v71;
+  v11 = *v67;
   v12 = 1;
   v13 = &stru_2824B1A78;
-  v14 = off_277DF0000;
-  v67 = serviceItems;
+  v63 = serviceItems;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v71 != v11)
+      if (*v67 != v11)
       {
         objc_enumerationMutation(serviceItems);
       }
 
-      v16 = *(*(&v70 + 1) + 8 * i);
-      v17 = v14[7];
+      v15 = *(*(&v66 + 1) + 8 * i);
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v19 = v7;
+      v17 = v7;
       if ((isKindOfClass & 1) == 0)
       {
         objc_opt_class();
-        v20 = objc_opt_isKindOfClass();
-        v19 = v7;
-        if ((v20 & 1) == 0)
+        v18 = objc_opt_isKindOfClass();
+        v17 = v7;
+        if ((v18 & 1) == 0)
         {
           objc_opt_class();
-          v21 = objc_opt_isKindOfClass();
-          v19 = v7;
-          if ((v21 & 1) == 0)
+          v19 = objc_opt_isKindOfClass();
+          v17 = v7;
+          if ((v19 & 1) == 0)
           {
             objc_opt_class();
-            v22 = objc_opt_isKindOfClass();
-            v19 = v7;
-            if ((v22 & 1) == 0)
+            v20 = objc_opt_isKindOfClass();
+            v17 = v7;
+            if ((v20 & 1) == 0)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
@@ -1400,40 +1469,38 @@ void __53__HFAccessoryItem_currentStateActionBuildersForHome___block_invoke(uint
                 continue;
               }
 
-              latestResults2 = [v16 latestResults];
-              v24 = [latestResults2 objectForKeyedSubscript:@"state"];
-              integerValue = [v24 integerValue];
+              latestResults2 = [v15 latestResults];
+              v22 = [latestResults2 objectForKeyedSubscript:@"state"];
+              integerValue = [v22 integerValue];
 
-              serviceItems = v67;
-              v26 = integerValue == 2;
-              v14 = off_277DF0000;
-              if (v26)
+              serviceItems = v63;
+              if (integerValue == 2)
               {
-                v19 = v69;
+                v17 = v65;
               }
 
               else
               {
-                v19 = v68;
+                v17 = v64;
               }
             }
           }
         }
       }
 
-      [v19 addObject:v16];
+      [v17 addObject:v15];
       if (![(__CFString *)v13 length])
       {
-        service = [v16 service];
-        [service serviceType];
+        v24 = objc_msgSend_service(v15);
+        [v24 serviceType];
         v13 = serviceType = v13;
         goto LABEL_20;
       }
 
       if (v12)
       {
-        service = [v16 service];
-        serviceType = [service serviceType];
+        v24 = objc_msgSend_service(v15);
+        serviceType = [v24 serviceType];
         v12 = [(__CFString *)v13 isEqualToString:serviceType];
 LABEL_20:
 
@@ -1443,167 +1510,165 @@ LABEL_20:
       v12 = 0;
     }
 
-    v10 = [serviceItems countByEnumeratingWithState:&v70 objects:v74 count:16];
+    v10 = [serviceItems countByEnumeratingWithState:&v66 objects:v70 count:16];
   }
 
   while (v10);
 LABEL_27:
 
-  v35 = [v69 count];
-  v36 = [v68 count];
-  if (v36)
+  v32 = [v65 count];
+  v33 = [v64 count];
+  if (v33)
   {
-    v37 = 0;
+    v34 = 0;
   }
 
   else
   {
-    v37 = v35 > 0;
+    v34 = v32 > 0;
   }
 
-  if (v35)
+  if (v32)
   {
-    v38 = 0;
+    v35 = 0;
   }
 
   else
   {
-    v38 = v36 > 0;
+    v35 = v33 > 0;
   }
 
-  v39 = [v7 count];
-  v46 = v36 + v35;
-  if (!(v36 + v35) && v39 >= 1)
+  v36 = [v7 count];
+  v43 = v33 + v32;
+  if (!(v33 + v32) && v36 >= 1)
   {
-    v33 = HFLocalizedStringWithFormat(@"HFAccessoryTileSensorStatus", @"%d", v40, v41, v42, v43, v44, v45, v39);
+    v30 = HFLocalizedStringWithFormat(@"HFAccessoryTileSensorStatus", @"%d", v37, v38, v39, v40, v41, v42, v36);
     goto LABEL_47;
   }
 
-  if (v46 != 1)
+  if (v43 != 1)
   {
-    if (!((v35 != 1) | v12 & 1))
+    if (!((v32 != 1) | v12 & 1))
     {
       goto LABEL_42;
     }
 
-    if (v46 <= 3)
+    if (v43 <= 3)
     {
-      v48 = (v46 == 2) & v12;
+      v45 = (v43 == 2) & v12;
     }
 
     else
     {
-      v48 = 1;
+      v45 = 1;
     }
 
-    if (v35 < 1)
+    if (v32 < 1)
     {
-      if (v36 >= 1)
+      if (v33 >= 1)
       {
-        v63 = HFLocalizedStringWithFormat(@"HFAccessoryTileOffStatus", @"%d", v40, v41, v42, v43, v44, v45, v36);
-        v62 = 0;
+        v59 = HFLocalizedStringWithFormat(@"HFAccessoryTileOffStatus", @"%d", v37, v38, v39, v40, v41, v42, v33);
+        v58 = 0;
         goto LABEL_60;
       }
 
-      v62 = 0;
+      v58 = 0;
     }
 
     else
     {
-      v62 = HFLocalizedStringWithFormat(@"HFAccessoryTileOnStatus", @"%d", v40, v41, v42, v43, v44, v45, v35);
-      if (v36 > 0)
+      v58 = HFLocalizedStringWithFormat(@"HFAccessoryTileOnStatus", @"%d", v37, v38, v39, v40, v41, v42, v32);
+      if (v33 > 0)
       {
-        v63 = HFLocalizedStringWithFormat(@"HFAccessoryTileOffStatus", @"%d", v56, v57, v58, v59, v60, v61, v36);
-        v64 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ • %@", v62, v63];
+        v59 = HFLocalizedStringWithFormat(@"HFAccessoryTileOffStatus", @"%d", v52, v53, v54, v55, v56, v57, v33);
+        v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ • %@", v58, v59];
 LABEL_70:
-        v33 = v64;
+        v30 = v60;
         goto LABEL_71;
       }
     }
 
-    v63 = 0;
+    v59 = 0;
 LABEL_60:
-    if (v37)
+    if (v34)
     {
-      if (v48)
+      if (v45)
       {
-        v64 = v62;
-        v62 = v64;
+        v60 = v58;
+        v58 = v60;
         goto LABEL_70;
       }
 
-      v65 = @"HFAccessoryTileAllOnStatus";
+      v61 = @"HFAccessoryTileAllOnStatus";
     }
 
     else
     {
-      if (!v38)
+      if (!v35)
       {
-        v33 = 0;
+        v30 = 0;
 LABEL_71:
 
-        v34 = 1;
+        v31 = 1;
         goto LABEL_48;
       }
 
-      if (v48)
+      if (v45)
       {
-        v64 = v63;
-        v63 = v64;
+        v60 = v59;
+        v59 = v60;
         goto LABEL_70;
       }
 
-      v65 = @"HFAccessoryTileAllOffStatus";
+      v61 = @"HFAccessoryTileAllOffStatus";
     }
 
-    v64 = _HFLocalizedStringWithDefaultValue(v65, v65, 1);
+    v60 = _HFLocalizedStringWithDefaultValue(v61, v61, 1);
     goto LABEL_70;
   }
 
-  v47 = v68;
-  if (v35 >= 1)
+  v44 = v64;
+  if (v32 >= 1)
   {
 LABEL_42:
-    v47 = v69;
+    v44 = v65;
   }
 
-  firstObject = [v47 firstObject];
+  firstObject = [v44 firstObject];
   objc_opt_class();
-  v50 = HFResultDisplayDescriptionKey;
+  v47 = HFResultDisplayDescriptionKey;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v50 = HFResultDisplayControlDescriptionKey;
+      v47 = HFResultDisplayControlDescriptionKey;
     }
   }
 
   latestResults3 = [firstObject latestResults];
-  v33 = [latestResults3 objectForKeyedSubscript:*v50];
+  v30 = [latestResults3 objectForKeyedSubscript:*v47];
 
 LABEL_47:
-  v34 = 0;
+  v31 = 0;
 LABEL_48:
-  titleCopy = v66;
+  titleCopy = v62;
 
 LABEL_49:
-  v52 = [MEMORY[0x277CCA898] hf_attributedStringWithInflectableAccessoryStatus:v33 accessoryName:titleCopy forcePluralAgreement:v34];
-  string = [v52 string];
-
-  v54 = *MEMORY[0x277D85DE8];
+  v49 = [MEMORY[0x277CCA898] hf_attributedStringWithInflectableAccessoryStatus:v30 accessoryName:titleCopy forcePluralAgreement:v31];
+  string = [v49 string];
 
   return string;
 }
 
 - (id)_buildControlDescription
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:0 ascending:0 comparator:&__block_literal_global_96_0];
   serviceItems = [(HFAccessoryItem *)self serviceItems];
   allObjects = [serviceItems allObjects];
-  v22[0] = v3;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = v3;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v7 = [allObjects sortedArrayUsingDescriptors:v6];
   v8 = [v7 mutableCopy];
 
@@ -1612,12 +1677,12 @@ LABEL_49:
 
   if (hf_primaryService)
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __43__HFAccessoryItem__buildControlDescription__block_invoke_2;
-    v20[3] = &unk_277DF9450;
-    v21 = hf_primaryService;
-    v11 = [v8 na_firstObjectPassingTest:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __43__HFAccessoryItem__buildControlDescription__block_invoke_2;
+    v19[3] = &unk_277DF9450;
+    v20 = hf_primaryService;
+    v11 = [v8 na_firstObjectPassingTest:v19];
     if (v11 && [v8 containsObject:v11])
     {
       [v8 removeObject:v11];
@@ -1626,28 +1691,27 @@ LABEL_49:
   }
 
   string = [MEMORY[0x277CCAB68] string];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __43__HFAccessoryItem__buildControlDescription__block_invoke_3;
-  v18[3] = &unk_277DF9550;
-  v18[4] = self;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __43__HFAccessoryItem__buildControlDescription__block_invoke_3;
+  v17[3] = &unk_277DF9550;
+  v17[4] = self;
   v13 = string;
-  v19 = v13;
-  [v8 na_each:v18];
-  v14 = v19;
+  v18 = v13;
+  [v8 na_each:v17];
+  v14 = v18;
   v15 = v13;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t __43__HFAccessoryItem__buildControlDescription__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
-  v5 = [a2 service];
+  v5 = objc_msgSend_service(a2);
   v6 = [v5 name];
 
-  v7 = [v4 service];
+  v7 = objc_msgSend_service(v4);
 
   v8 = [v7 name];
 
@@ -1657,7 +1721,7 @@ uint64_t __43__HFAccessoryItem__buildControlDescription__block_invoke(uint64_t a
 
 uint64_t __43__HFAccessoryItem__buildControlDescription__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 service];
+  v3 = objc_msgSend_service(a2);
   v4 = [v3 uniqueIdentifier];
   v5 = [*(a1 + 32) uniqueIdentifier];
   v6 = [v4 hmf_isEqualToUUID:v5];
@@ -1734,13 +1798,13 @@ LABEL_15:
 
 - (id)_repeatingDescriptionsToCoalesce
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB58];
   v4 = _HFLocalizedStringWithDefaultValue(@"HFServiceDescriptionUpdating", @"HFServiceDescriptionUpdating", 1);
-  v13[0] = v4;
+  v12[0] = v4;
   v5 = _HFLocalizedStringWithDefaultValue(@"HFServiceDescriptionAccessoryConnectionError", @"HFServiceDescriptionAccessoryConnectionError", 1);
-  v13[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v7 = [v3 setWithArray:v6];
 
   accessory = [(HFAccessoryItem *)self accessory];
@@ -1753,8 +1817,6 @@ LABEL_15:
   }
 
   v10 = [v7 copy];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1848,29 +1910,29 @@ uint64_t __56__HFAccessoryItem__shouldComputeMultiServiceDescription__block_invo
 
 - (id)_unanimousValueForResultsKey:(id)key inServiceItems:(id)items
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   itemsCopy = items;
-  v7 = [itemsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [itemsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        latestResults = [*(*(&v17 + 1) + 8 * i) latestResults];
+        latestResults = [*(*(&v16 + 1) + 8 * i) latestResults];
         v13 = [latestResults objectForKeyedSubscript:keyCopy];
 
         if (v13)
@@ -1892,7 +1954,7 @@ uint64_t __56__HFAccessoryItem__shouldComputeMultiServiceDescription__block_invo
         }
       }
 
-      v8 = [itemsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [itemsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -1906,8 +1968,6 @@ uint64_t __56__HFAccessoryItem__shouldComputeMultiServiceDescription__block_invo
   v9 = v9;
   v14 = v9;
 LABEL_16:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1936,39 +1996,39 @@ id __64__HFAccessoryItem__mostCommonValueForResultsKey_inServiceItems___block_in
 
 - (id)_mostCommonValueInServiceItems:(id)items valueProvider:(id)provider
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   providerCopy = provider;
   if (providerCopy)
   {
     v7 = [MEMORY[0x277CCA940] set];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = itemsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = providerCopy[2](providerCopy, *(*(&v17 + 1) + 8 * i));
+          v13 = providerCopy[2](providerCopy, *(*(&v16 + 1) + 8 * i));
           if (v13)
           {
-            [v7 addObject:{v13, v17}];
+            [v7 addObject:{v13, v16}];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -1982,23 +2042,19 @@ id __64__HFAccessoryItem__mostCommonValueForResultsKey_inServiceItems___block_in
     na_mostCommonObject = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return na_mostCommonObject;
 }
 
 - (id)_sortDescriptorsForServiceItems
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:0 ascending:0 comparator:&__block_literal_global_121_1];
   v3 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:0 ascending:0 comparator:&__block_literal_global_127_2];
   v4 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:0 ascending:0 comparator:&__block_literal_global_129_0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
 
   return v5;
 }

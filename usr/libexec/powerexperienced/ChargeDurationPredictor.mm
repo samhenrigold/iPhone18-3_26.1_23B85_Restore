@@ -76,9 +76,9 @@ LABEL_12:
 
 - (ChargeDurationPredictor)init
 {
-  v18.receiver = self;
-  v18.super_class = ChargeDurationPredictor;
-  v2 = [(ChargeDurationPredictor *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = ChargeDurationPredictor;
+  v2 = [(ChargeDurationPredictor *)&v19 init];
   if (v2)
   {
     v3 = os_log_create("com.apple.powerexperienced", "chargedurationpredictor");
@@ -90,30 +90,30 @@ LABEL_12:
     predictionQueryQueue = v2->_predictionQueryQueue;
     v2->_predictionQueryQueue = v6;
 
-    v8 = sub_100001600();
+    v9 = sub_100001600(v8);
     mainQueue = v2->_mainQueue;
-    v2->_mainQueue = v8;
+    v2->_mainQueue = v9;
 
-    v10 = +[_OSChargingPredictor predictor];
+    v11 = +[_OSChargingPredictor predictor];
     predictor = v2->_predictor;
-    v2->_predictor = v10;
+    v2->_predictor = v11;
 
-    v12 = +[NSMutableDictionary dictionary];
+    v13 = +[NSMutableDictionary dictionary];
     predictorOutput = v2->_predictorOutput;
-    v2->_predictorOutput = v12;
+    v2->_predictorOutput = v13;
 
     v2->_lastPluggedInState = IOPSDrawingUnlimitedPower();
-    v14 = +[DeviceContext sharedInstance];
+    v15 = +[DeviceContext sharedInstance];
     deviceContext = v2->_deviceContext;
-    v2->_deviceContext = v14;
+    v2->_deviceContext = v15;
 
     [(DeviceContext *)v2->_deviceContext addObserver:v2 forKeyPath:@"currentContext" options:3 context:0];
     if (!v2->_predictor)
     {
-      v16 = v2->_log;
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = v2->_log;
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_100018550(v16);
+        sub_100018550(v17);
       }
     }
   }

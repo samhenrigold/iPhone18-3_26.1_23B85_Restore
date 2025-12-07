@@ -7,9 +7,9 @@
 - (BOOL)asd_iTunesStoreMetricsIsEnabled
 {
   v2 = [(AMSBag *)self BOOLForKey:@"itunesstore-metrics-enabled"];
-  v14 = 0;
-  v3 = [v2 valueWithError:&v14];
-  v4 = v14;
+  v13 = 0;
+  v3 = [v2 valueWithError:&v13];
+  v4 = v13;
 
   if (!v3)
   {
@@ -48,10 +48,9 @@
 
     if (v10)
     {
-      v15 = 138412290;
-      v16 = v4;
-      LODWORD(v13) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138412290;
+      v15 = v4;
+      v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "Failed to fetch itunesstore-metrics-enabled bag value with error: %@", &v14, 12);
 
       if (!v11)
       {
@@ -60,7 +59,7 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v13];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }

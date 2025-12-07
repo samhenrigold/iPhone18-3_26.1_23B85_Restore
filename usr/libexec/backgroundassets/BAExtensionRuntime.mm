@@ -42,29 +42,10 @@
     v9.receiver = self;
     v9.super_class = BAExtensionRuntime;
     self = [(BAExtensionRuntime *)&v9 init];
-    if (!self)
+    if (!self || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"startDate"], v5 = objc_claimAutoreleasedReturnValue(), -[BAExtensionRuntime setStartDate:](self, "setStartDate:", v5), v5, -[BAExtensionRuntime startDate](self, "startDate"), selfCopy = objc_claimAutoreleasedReturnValue(), selfCopy, selfCopy) && (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"endDate"), v7 = objc_claimAutoreleasedReturnValue(), -[BAExtensionRuntime setEndDate:](self, "setEndDate:", v7), v7, -[BAExtensionRuntime endDate](self, "endDate"), selfCopy = objc_claimAutoreleasedReturnValue(), selfCopy, selfCopy))
     {
-      goto LABEL_5;
-    }
-
-    v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"startDate"];
-    [(BAExtensionRuntime *)self setStartDate:v5];
-
-    selfCopy = [(BAExtensionRuntime *)self startDate];
-
-    if (selfCopy)
-    {
-      v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"endDate"];
-      [(BAExtensionRuntime *)self setEndDate:v7];
-
-      selfCopy = [(BAExtensionRuntime *)self endDate];
-
-      if (selfCopy)
-      {
-LABEL_5:
-        self = self;
-        selfCopy = self;
-      }
+      self = self;
+      selfCopy = self;
     }
   }
 

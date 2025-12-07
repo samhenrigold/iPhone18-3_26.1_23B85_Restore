@@ -885,101 +885,82 @@ void __42__PXTilingController__updateTilesIfNeeded__block_invoke_2(uint64_t a1, 
   v9 = a5;
   v10 = *(a1 + 32);
   v11 = a2[3];
-  v38 = a2[2];
-  v39 = v11;
-  v40 = a2[4];
-  *&v41 = *(a2 + 10);
+  v30 = a2[2];
+  v31 = v11;
+  v32 = a2[4];
+  *&v33 = *(a2 + 10);
   v12 = a2[1];
-  v36 = *a2;
-  v37 = v12;
-  v13 = [v10 indexOfStateWithTargetIdentifier:&v36];
+  v28 = *a2;
+  v29 = v12;
+  v13 = [v10 indexOfStateWithTargetIdentifier:&v28];
   if (v13 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v14 = *(a1 + 32);
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __42__PXTilingController__updateTilesIfNeeded__block_invoke_3;
-    v48[3] = &__block_descriptor_128_e401_v16__0__PXTileState_B_PXTileIdentifier_Q_10Q___PXTileIdentifier_Q_10Q___PXTileIdentifier_Q_10Q__QB_PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v__PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v_BB_v_v_vQ_8l;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __42__PXTilingController__updateTilesIfNeeded__block_invoke_3;
+    v40[3] = &__block_descriptor_128_e401_v16__0__PXTileState_B_PXTileIdentifier_Q_10Q___PXTileIdentifier_Q_10Q___PXTileIdentifier_Q_10Q__QB_PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v__PXTileGeometry__CGRect__CGPoint_dd__CGSize_dd___CGPoint_dd__CGSize_dd__CGAffineTransform_dddddd_ddB_CGSize_dd__CGRect__CGPoint_dd__CGSize_dd___v_BB_v_v_vQ_8l;
     v15 = a2[3];
-    v51 = a2[2];
-    v52 = v15;
-    v53 = a2[4];
+    v43 = a2[2];
+    v44 = v15;
+    v45 = a2[4];
     v16 = *(a2 + 10);
     v17 = a2[1];
-    v49 = *a2;
-    v50 = v17;
-    v54 = v16;
-    v55 = a4;
-    v13 = [v14 checkOutIndexWithInitialConfiguration:v48];
+    v41 = *a2;
+    v42 = v17;
+    v46 = v16;
+    v47 = a4;
+    v13 = [v14 checkOutIndexWithInitialConfiguration:v40];
   }
 
   v18 = [*(a1 + 32) stateAtIndex:v13];
   v19 = *(a1 + 40);
   if (v19)
   {
-    v20 = *(a1 + 64);
-    v21 = a3[9];
-    v35[8] = a3[8];
-    v35[9] = v21;
-    v22 = a3[11];
-    v35[10] = a3[10];
-    v35[11] = v22;
-    v23 = a3[5];
-    v35[4] = a3[4];
-    v35[5] = v23;
-    v24 = a3[7];
-    v35[6] = a3[6];
-    v35[7] = v24;
-    v25 = a3[1];
-    v35[0] = *a3;
-    v35[1] = v25;
-    v26 = a3[3];
-    v35[2] = a3[2];
-    v35[3] = v26;
-    [v19 convertTileGeometry:v35 toCoordinateSpaceIdentifier:v20];
+    objc_msgSend_convertTileGeometry_toCoordinateSpaceIdentifier_(v19, *a3, *(a3 + 1), *(a3 + 2), *(a3 + 3), *(a3 + 4), *(a3 + 5), *(a3 + 6), *(a3 + 7), *(a3 + 8), *(a3 + 9), *(a3 + 10), *(a3 + 11), *(a3 + 12), *(a3 + 13), *(a3 + 14), *(a3 + 15), *(a3 + 16), *(a3 + 17), *(a3 + 18), *(a3 + 19), *(a3 + 20), *(a3 + 21), *(a3 + 22), *(a3 + 23));
   }
 
   else
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
     v38 = 0u;
     v39 = 0u;
     v36 = 0u;
     v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
   }
 
-  v27 = v45;
-  *(v18 + 608) = v44;
-  *(v18 + 624) = v27;
-  v28 = v47;
-  *(v18 + 640) = v46;
-  *(v18 + 656) = v28;
-  v29 = v41;
-  *(v18 + 544) = v40;
-  *(v18 + 560) = v29;
-  v30 = v43;
-  *(v18 + 576) = v42;
-  *(v18 + 592) = v30;
-  v31 = v37;
-  *(v18 + 480) = v36;
-  *(v18 + 496) = v31;
-  v32 = v39;
-  *(v18 + 512) = v38;
-  *(v18 + 528) = v32;
+  v20 = v37;
+  *(v18 + 608) = v36;
+  *(v18 + 624) = v20;
+  v21 = v39;
+  *(v18 + 640) = v38;
+  *(v18 + 656) = v21;
+  v22 = v33;
+  *(v18 + 544) = v32;
+  *(v18 + 560) = v22;
+  v23 = v35;
+  *(v18 + 576) = v34;
+  *(v18 + 592) = v23;
+  v24 = v29;
+  *(v18 + 480) = v28;
+  *(v18 + 496) = v24;
+  v25 = v31;
+  *(v18 + 512) = v30;
+  *(v18 + 528) = v25;
   *(v18 + 673) = 1;
-  v33 = v9;
-  v34 = *(v18 + 688);
-  if (v34 != v33)
+  v26 = v9;
+  v27 = *(v18 + 688);
+  if (v27 != v26)
   {
 
-    *(v18 + 688) = v33;
+    *(v18 + 688) = v26;
   }
 }
 
@@ -990,8 +971,8 @@ void __42__PXTilingController__updateTilesIfNeeded__block_invoke_4(uint64_t a1, 
     return;
   }
 
-  v82[11] = v3;
-  v82[12] = v4;
+  v80[11] = v3;
+  v80[12] = v4;
   v6 = (a3 + 96);
   if (!*(a3 + 96))
   {
@@ -999,49 +980,47 @@ void __42__PXTilingController__updateTilesIfNeeded__block_invoke_4(uint64_t a1, 
   }
 
   v8 = 0;
-  v82[0] = 0;
+  v80[0] = 0;
   v9 = *off_1E7722250;
   if (*(a3 + 472) == *off_1E7722250)
   {
     v12 = *(a3 + 8);
     v13 = *(a3 + 56);
-    v78 = *(a3 + 40);
-    v79 = v13;
-    v80 = *(a3 + 72);
-    v81 = *(a3 + 88);
+    v76 = *(a3 + 40);
+    v77 = v13;
+    v78 = *(a3 + 72);
+    v79 = *(a3 + 88);
     v14 = *(a3 + 24);
-    v76 = v12;
-    v77 = v14;
+    v74 = v12;
+    v75 = v14;
     if (v12)
     {
       goto LABEL_7;
     }
 
-    v28 = *(a3 + 144);
-    v78 = *(a3 + 128);
-    v79 = v28;
-    v80 = *(a3 + 160);
-    v81 = *(a3 + 176);
-    v29 = *(a3 + 112);
-    v76 = *v6;
-    v77 = v29;
-    if (![*(a1 + 32) reverseTransformTileIdentifier:&v76])
+    v26 = *(a3 + 144);
+    v76 = *(a3 + 128);
+    v77 = v26;
+    v78 = *(a3 + 160);
+    v79 = *(a3 + 176);
+    v27 = *(a3 + 112);
+    v74 = *v6;
+    v75 = v27;
+    if (![*(a1 + 32) reverseTransformTileIdentifier:&v74])
     {
       v8 = 0;
-      v81 = 0;
-      v79 = 0u;
-      v80 = 0u;
+      v79 = 0;
       v77 = 0u;
       v78 = 0u;
+      v75 = 0u;
       v76 = 0u;
+      v74 = 0u;
       goto LABEL_4;
     }
 
-    if (v76)
+    if (v74)
     {
 LABEL_7:
-      v74 = 0u;
-      v75 = 0u;
       v72 = 0u;
       v73 = 0u;
       v70 = 0u;
@@ -1052,21 +1031,21 @@ LABEL_7:
       v67 = 0u;
       v64 = 0u;
       v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v15 = *(a1 + 40);
-      v63 = 0;
-      v53 = v78;
-      v54 = v79;
-      v55 = v80;
-      *&v56 = v81;
+      v61 = 0;
       v51 = v76;
       v52 = v77;
-      v16 = [v15 getGeometry:&v64 group:v82 userData:&v63 forTileWithIdentifier:&v51];
-      v8 = v63;
+      v53 = v78;
+      *&v54 = v79;
+      v49 = v74;
+      v50 = v75;
+      v16 = [v15 getGeometry:&v62 group:v80 userData:&v61 forTileWithIdentifier:&v49];
+      v8 = v61;
       if (v16)
       {
         v17 = [*(a1 + 48) stateAtIndex:a2];
-        v61 = 0u;
-        v62 = 0u;
         v59 = 0u;
         v60 = 0u;
         v57 = 0u;
@@ -1077,33 +1056,34 @@ LABEL_7:
         v54 = 0u;
         v51 = 0u;
         v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
         v18 = *(a1 + 56);
         if (v18)
         {
-          v19 = *(a1 + 72);
-          v47 = v72;
-          v48 = v73;
-          v49 = v74;
-          v50 = v75;
-          v43 = v68;
-          v44 = v69;
           v45 = v70;
           v46 = v71;
-          v39 = v64;
-          v40 = v65;
+          v47 = v72;
+          v48 = v73;
           v41 = v66;
           v42 = v67;
-          [v18 convertTileGeometry:&v39 toCoordinateSpaceIdentifier:v19];
+          v43 = v68;
+          v44 = v69;
+          v37 = v62;
+          v38 = v63;
+          v39 = v64;
+          v40 = v65;
+          objc_msgSend_convertTileGeometry_toCoordinateSpaceIdentifier_(v18);
         }
 
-        [*(a1 + 48) setCurrentGeometry:&v51 forTileStateAtIndex:a2];
+        [*(a1 + 48) setCurrentGeometry:&v49 forTileStateAtIndex:a2];
         *(v17 + 672) = 1;
-        v20 = v8;
-        v21 = *(v17 + 680);
-        if (v21 != v20)
+        v19 = v8;
+        v20 = *(v17 + 680);
+        if (v20 != v19)
         {
 
-          *(v17 + 680) = v20;
+          *(v17 + 680) = v19;
         }
       }
 
@@ -1116,8 +1096,6 @@ LABEL_7:
 LABEL_4:
   if (*(a3 + 664) == v9)
   {
-    v74 = 0u;
-    v75 = 0u;
     v72 = 0u;
     v73 = 0u;
     v70 = 0u;
@@ -1128,44 +1106,43 @@ LABEL_4:
     v67 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v22 = *(a1 + 64);
-    v38 = 0;
-    v23 = v6[3];
-    v53 = v6[2];
-    v54 = v23;
-    v55 = v6[4];
-    *&v56 = *(v6 + 10);
-    v24 = v6[1];
-    v51 = *v6;
-    v52 = v24;
-    v25 = [v22 getGeometry:&v64 group:v82 userData:&v38 forTileWithIdentifier:&v51];
-    v10 = v38;
+    v62 = 0u;
+    v63 = 0u;
+    v21 = *(a1 + 64);
+    v36 = 0;
+    v22 = v6[3];
+    v51 = v6[2];
+    v52 = v22;
+    v53 = v6[4];
+    *&v54 = *(v6 + 10);
+    v23 = v6[1];
+    v49 = *v6;
+    v50 = v23;
+    v24 = [v21 getGeometry:&v62 group:v80 userData:&v36 forTileWithIdentifier:&v49];
+    v10 = v36;
 
-    if (v25)
+    if (v24)
     {
-      v26 = *(a1 + 56);
-      if (v26)
+      v25 = *(a1 + 56);
+      if (v25)
       {
-        v27 = *(a1 + 72);
-        v47 = v72;
-        v48 = v73;
-        v49 = v74;
-        v50 = v75;
-        v43 = v68;
-        v44 = v69;
         v45 = v70;
         v46 = v71;
-        v39 = v64;
-        v40 = v65;
+        v47 = v72;
+        v48 = v73;
         v41 = v66;
         v42 = v67;
-        [v26 convertTileGeometry:&v39 toCoordinateSpaceIdentifier:v27];
+        v43 = v68;
+        v44 = v69;
+        v37 = v62;
+        v38 = v63;
+        v39 = v64;
+        v40 = v65;
+        objc_msgSend_convertTileGeometry_toCoordinateSpaceIdentifier_(v25);
       }
 
       else
       {
-        v61 = 0u;
-        v62 = 0u;
         v59 = 0u;
         v60 = 0u;
         v57 = 0u;
@@ -1176,33 +1153,35 @@ LABEL_4:
         v54 = 0u;
         v51 = 0u;
         v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
       }
 
-      v30 = v60;
-      *(a3 + 608) = v59;
-      *(a3 + 624) = v30;
-      v31 = v62;
-      *(a3 + 640) = v61;
-      *(a3 + 656) = v31;
-      v32 = v56;
-      *(a3 + 544) = v55;
-      *(a3 + 560) = v32;
-      v33 = v58;
-      *(a3 + 576) = v57;
-      *(a3 + 592) = v33;
-      v34 = v52;
-      *(a3 + 480) = v51;
-      *(a3 + 496) = v34;
-      v35 = v54;
-      *(a3 + 512) = v53;
-      *(a3 + 528) = v35;
+      v28 = v58;
+      *(a3 + 608) = v57;
+      *(a3 + 624) = v28;
+      v29 = v60;
+      *(a3 + 640) = v59;
+      *(a3 + 656) = v29;
+      v30 = v54;
+      *(a3 + 544) = v53;
+      *(a3 + 560) = v30;
+      v31 = v56;
+      *(a3 + 576) = v55;
+      *(a3 + 592) = v31;
+      v32 = v50;
+      *(a3 + 480) = v49;
+      *(a3 + 496) = v32;
+      v33 = v52;
+      *(a3 + 512) = v51;
+      *(a3 + 528) = v33;
       *(a3 + 673) = 1;
-      v36 = v10;
-      v37 = *(a3 + 688);
-      if (v37 != v36)
+      v34 = v10;
+      v35 = *(a3 + 688);
+      if (v35 != v34)
       {
 
-        *(a3 + 688) = v36;
+        *(a3 + 688) = v34;
       }
     }
   }
@@ -1339,259 +1318,257 @@ void __42__PXTilingController__updateTilesIfNeeded__block_invoke_6(uint64_t a1, 
 void __42__PXTilingController__updateTilesIfNeeded__block_invoke_8(uint64_t a1, void *a2, uint64_t a3)
 {
   v3 = a3;
-  v171 = *MEMORY[0x1E69E9840];
+  v169 = *MEMORY[0x1E69E9840];
   v5 = *(a3 + 144);
-  *&v159.tx = *(a3 + 128);
-  v160 = v5;
-  v161 = *(a3 + 160);
-  v162 = *(a3 + 176);
+  *&v157.tx = *(a3 + 128);
+  v158 = v5;
+  v159 = *(a3 + 160);
+  v160 = *(a3 + 176);
   v6 = *(a3 + 112);
-  *&v159.a = *(a3 + 96);
-  *&v159.c = v6;
+  *&v157.a = *(a3 + 96);
+  *&v157.c = v6;
   v7 = *(a3 + 696);
   v8 = *(a3 + 432);
-  v155 = *(a3 + 416);
-  v156 = v8;
+  v153 = *(a3 + 416);
+  v154 = v8;
   v9 = *(a3 + 464);
-  v157 = *(a3 + 448);
-  v158 = v9;
+  v155 = *(a3 + 448);
+  v156 = v9;
   v10 = *(a3 + 368);
-  *&v153.a = *(a3 + 352);
-  *&v153.c = v10;
+  *&v151.a = *(a3 + 352);
+  *&v151.c = v10;
   v11 = *(a3 + 400);
-  *&v153.tx = *(a3 + 384);
-  v154 = v11;
+  *&v151.tx = *(a3 + 384);
+  v152 = v11;
   v12 = *(a3 + 304);
   rect1.origin = *(a3 + 288);
   rect1.size = v12;
   v13 = *(a3 + 336);
-  v151 = *(a3 + 320);
-  v152 = v13;
+  v149 = *(a3 + 320);
+  v150 = v13;
   v14 = *(a3 + 680);
   v15 = *(v3 + 624);
-  v146 = *(v3 + 608);
-  v147 = v15;
+  v144 = *(v3 + 608);
+  v145 = v15;
   v16 = *(v3 + 656);
-  v148 = *(v3 + 640);
-  v149 = v16;
+  v146 = *(v3 + 640);
+  v147 = v16;
   v17 = *(v3 + 560);
-  *&v144.a = *(v3 + 544);
-  *&v144.c = v17;
+  *&v142.a = *(v3 + 544);
+  *&v142.c = v17;
   v18 = *(v3 + 592);
-  *&v144.tx = *(v3 + 576);
-  v145 = v18;
+  *&v142.tx = *(v3 + 576);
+  v143 = v18;
   v19 = *(v3 + 496);
   rect2.origin = *(v3 + 480);
   rect2.size = v19;
   v20 = *(v3 + 528);
-  v142 = *(v3 + 512);
-  v143 = v20;
-  v105 = *(v3 + 673);
+  v140 = *(v3 + 512);
+  v141 = v20;
+  v103 = *(v3 + 673);
   v21 = *(v3 + 688);
   v22 = v21;
   if (*(v3 + 280) == 1)
   {
-    if (*(&v158 + 1) == *off_1E7722250)
+    if (*(&v156 + 1) == *off_1E7722250)
     {
       v26 = *(a1 + 40);
-      v140 = 0;
-      t2 = v159;
-      v133 = v160;
-      *&v134.a = v161;
-      v134.c = v162;
-      v167 = v146;
-      v168 = v147;
-      v169 = v148;
-      v170 = v149;
+      v138 = 0;
+      t2 = v157;
+      v131 = v158;
+      *&v132.a = v159;
+      v132.c = v160;
       v165 = v144;
       v166 = v145;
+      v167 = v146;
+      v168 = v147;
+      v163 = v142;
+      v164 = v143;
       *&t1.a = rect2.origin;
       *&t1.c = rect2.size;
-      *&t1.tx = v142;
-      v164 = v143;
-      v27 = [v26 getInitialGeometry:&rect1 initialUserData:&v140 forAppearingTileWithIdentifier:&t2 toGeometry:&t1 toUserData:v22];
-      v28 = v140;
+      *&t1.tx = v140;
+      v162 = v141;
+      v27 = [v26 getInitialGeometry:&rect1 initialUserData:&v138 forAppearingTileWithIdentifier:&t2 toGeometry:&t1 toUserData:v22];
+      v28 = v138;
 
       if (v27)
       {
-        v106 = v28;
+        v104 = v28;
       }
 
       else
       {
-        v155 = v146;
-        v156 = v147;
-        v157 = v148;
-        v158 = v149;
         v153 = v144;
         v154 = v145;
-        rect1 = rect2;
+        v155 = v146;
+        v156 = v147;
         v151 = v142;
         v152 = v143;
-        v106 = v22;
+        rect1 = rect2;
+        v149 = v140;
+        v150 = v141;
+        v104 = v22;
       }
 
-      v39 = *(a1 + 48);
-      if (v39)
+      v38 = *(a1 + 48);
+      if (v38)
       {
-        v40 = *(a1 + 104);
-        v136 = v155;
-        v137 = v156;
-        v138 = v157;
-        v139 = v158;
         v134 = v153;
         v135 = v154;
+        v136 = v155;
+        v137 = v156;
+        v132 = v151;
+        v133 = v152;
         *&t2.a = rect1.origin;
         *&t2.c = rect1.size;
-        *&t2.tx = v151;
-        v133 = v152;
-        [v39 convertTileGeometry:&t2 toCoordinateSpaceIdentifier:v40];
+        *&t2.tx = v149;
+        v131 = v150;
+        objc_msgSend_convertTileGeometry_toCoordinateSpaceIdentifier_(v38);
       }
 
       else
       {
-        v170 = 0u;
-        v169 = 0u;
         v168 = 0u;
         v167 = 0u;
         v166 = 0u;
-        memset(&v165, 0, sizeof(v165));
+        v165 = 0u;
         v164 = 0u;
+        memset(&v163, 0, sizeof(v163));
+        v162 = 0u;
         memset(&t1, 0, sizeof(t1));
       }
 
       v23 = 0;
-      v155 = v167;
-      v156 = v168;
-      v157 = v169;
-      v158 = v170;
       v153 = v165;
       v154 = v166;
+      v155 = v167;
+      v156 = v168;
+      v151 = v163;
+      v152 = v164;
       rect1.origin = *&t1.a;
       rect1.size = *&t1.c;
       v24 = v27 ^ 1;
       v25 = 1;
-      v151 = *&t1.tx;
-      v152 = v164;
+      v149 = *&t1.tx;
+      v150 = v162;
     }
 
     else
     {
-      v106 = v14;
-      if (*(&v149 + 1) == *off_1E7722250)
+      v104 = v14;
+      if (*(&v147 + 1) == *off_1E7722250)
       {
         if (*(v3 + 96))
         {
           v29 = *(a1 + 56);
-          memset(&v165, 0, 24);
-          v164 = 0u;
+          memset(&v163, 0, 24);
+          v162 = 0u;
           memset(&t1, 0, sizeof(t1));
           [v29 setTargetIdentifier:&t1 forTileStateAtIndex:a2];
         }
 
         v30 = *(v3 + 232);
-        *&v159.tx = *(v3 + 216);
-        v160 = v30;
-        v161 = *(v3 + 248);
-        v162 = *(v3 + 264);
+        *&v157.tx = *(v3 + 216);
+        v158 = v30;
+        v159 = *(v3 + 248);
+        v160 = *(v3 + 264);
         v31 = *(v3 + 200);
-        *&v159.a = *(v3 + 184);
-        *&v159.c = v31;
+        *&v157.a = *(v3 + 184);
+        *&v157.c = v31;
         v32 = *(a1 + 40);
-        v131 = 0;
+        v129 = 0;
         v33 = *(v3 + 232);
         *&t2.tx = *(v3 + 216);
-        v133 = v33;
-        *&v134.a = *(v3 + 248);
-        v134.c = *(v3 + 264);
+        v131 = v33;
+        *&v132.a = *(v3 + 248);
+        v132.c = *(v3 + 264);
         v34 = *(v3 + 200);
         *&t2.a = *(v3 + 184);
         *&t2.c = v34;
-        v167 = v155;
-        v168 = v156;
-        v169 = v157;
-        v170 = v158;
         v165 = v153;
         v166 = v154;
+        v167 = v155;
+        v168 = v156;
+        v163 = v151;
+        v164 = v152;
         *&t1.a = rect1.origin;
         *&t1.c = rect1.size;
-        *&t1.tx = v151;
-        v164 = v152;
-        v35 = [v32 getFinalGeometry:&rect2 finalUserData:&v131 forDisappearingTileWithIdentifier:&t2 fromGeometry:&t1 fromUserData:v14];
-        v36 = v131;
+        *&t1.tx = v149;
+        v162 = v150;
+        v35 = [v32 getFinalGeometry:&rect2 finalUserData:&v129 forDisappearingTileWithIdentifier:&t2 fromGeometry:&t1 fromUserData:v14];
+        v36 = v129;
 
         if (v35)
         {
           v37 = *(a1 + 48);
           if (v37)
           {
-            v38 = *(a1 + 104);
-            v136 = v146;
-            v137 = v147;
-            v138 = v148;
-            v139 = v149;
             v134 = v144;
             v135 = v145;
+            v136 = v146;
+            v137 = v147;
+            v132 = v142;
+            v133 = v143;
             *&t2.a = rect2.origin;
             *&t2.c = rect2.size;
-            *&t2.tx = v142;
-            v133 = v143;
-            [v37 convertTileGeometry:&t2 toCoordinateSpaceIdentifier:v38];
+            *&t2.tx = v140;
+            v131 = v141;
+            objc_msgSend_convertTileGeometry_toCoordinateSpaceIdentifier_(v37);
           }
 
           else
           {
-            v170 = 0u;
-            v169 = 0u;
             v168 = 0u;
             v167 = 0u;
             v166 = 0u;
-            memset(&v165, 0, sizeof(v165));
+            v165 = 0u;
             v164 = 0u;
+            memset(&v163, 0, sizeof(v163));
+            v162 = 0u;
             memset(&t1, 0, sizeof(t1));
           }
 
           v23 = 0;
-          v105 = 0;
-          v146 = v167;
-          v147 = v168;
-          v148 = v169;
-          v149 = v170;
+          v103 = 0;
           v144 = v165;
           v145 = v166;
+          v146 = v167;
+          v147 = v168;
+          v142 = v163;
+          v143 = v164;
           rect2.origin = *&t1.a;
           rect2.size = *&t1.c;
           v24 = 1;
           v25 = 3;
           v22 = v36;
-          v142 = *&t1.tx;
-          v143 = v164;
+          v140 = *&t1.tx;
+          v141 = v162;
         }
 
         else
         {
-          v41 = *(off_1E7722248 + 9);
-          v146 = *(off_1E7722248 + 8);
-          v147 = v41;
-          v42 = *(off_1E7722248 + 11);
-          v148 = *(off_1E7722248 + 10);
-          v149 = v42;
-          v43 = *(off_1E7722248 + 5);
-          *&v144.a = *(off_1E7722248 + 4);
-          *&v144.c = v43;
-          v44 = *(off_1E7722248 + 7);
-          *&v144.tx = *(off_1E7722248 + 6);
-          v145 = v44;
-          v45 = *(off_1E7722248 + 1);
+          v39 = *(off_1E7722248 + 9);
+          v144 = *(off_1E7722248 + 8);
+          v145 = v39;
+          v40 = *(off_1E7722248 + 11);
+          v146 = *(off_1E7722248 + 10);
+          v147 = v40;
+          v41 = *(off_1E7722248 + 5);
+          *&v142.a = *(off_1E7722248 + 4);
+          *&v142.c = v41;
+          v42 = *(off_1E7722248 + 7);
+          *&v142.tx = *(off_1E7722248 + 6);
+          v143 = v42;
+          v43 = *(off_1E7722248 + 1);
           rect2.origin = *off_1E7722248;
-          rect2.size = v45;
-          v46 = *(off_1E7722248 + 3);
-          v142 = *(off_1E7722248 + 2);
-          v143 = v46;
+          rect2.size = v43;
+          v44 = *(off_1E7722248 + 3);
+          v140 = *(off_1E7722248 + 2);
+          v141 = v44;
 
           v23 = 0;
           v22 = 0;
-          v105 = 0;
+          v103 = 0;
           v24 = 1;
           v25 = 3;
         }
@@ -1608,7 +1585,7 @@ void __42__PXTilingController__updateTilesIfNeeded__block_invoke_8(uint64_t a1, 
 
   else
   {
-    v106 = v14;
+    v104 = v14;
     if (v14 == v21)
     {
       v25 = 0;
@@ -1629,139 +1606,139 @@ void __42__PXTilingController__updateTilesIfNeeded__block_invoke_8(uint64_t a1, 
     }
   }
 
-  v47 = *(&v149 + 1);
-  v48 = *off_1E7722250;
-  if (*(&v149 + 1) == *off_1E7722250)
+  v45 = *(&v147 + 1);
+  v46 = *off_1E7722250;
+  if (*(&v147 + 1) == *off_1E7722250)
   {
     goto LABEL_42;
   }
 
-  v103 = v25;
+  v101 = v25;
   if (v7)
   {
 LABEL_27:
-    v49 = v151;
-    v50 = v152;
-    v109 = v153;
-    v51 = v154;
-    v52 = v155;
-    v102 = *(&v155 + 1);
-    v100 = *&v156;
-    v97 = *&v157;
-    v98 = *(&v156 + 1);
-    v95 = *&v158;
-    v96 = *(&v157 + 1);
-    v53 = *(&v158 + 1);
-    v54 = v142;
-    v55 = v143;
-    v113 = v144;
-    v56 = v145;
-    v57 = v146;
-    v101 = *(&v146 + 1);
-    v99 = *&v147;
-    v93 = *&v148;
-    v94 = *(&v147 + 1);
-    v91 = *&v149;
-    v92 = *(&v148 + 1);
-    if (!CGRectEqualToRect(rect1, rect2) || *&v49 != *&v54 || *(&v49 + 1) != *(&v54 + 1) || *&v50 != *&v55 || *(&v50 + 1) != *(&v55 + 1) || (t1 = v109, t2 = v113, !CGAffineTransformEqualToTransform(&t1, &t2)) || *(&v51 + 1) != *(&v56 + 1) || v52 != v57 || *&v51 != *&v56 || v102 != v101 || v100 != v99 || (v172.origin.y = v97, v172.origin.x = v98, v172.size.height = v95, v172.size.width = v96, v173.origin.y = v93, v173.origin.x = v94, v173.size.height = v91, v173.size.width = v92, !CGRectEqualToRect(v172, v173)) || v53 != v47 || v106 != v22 && ([v106 isEqual:v22] & 1) == 0)
+    v47 = v149;
+    v48 = v150;
+    v107 = v151;
+    v49 = v152;
+    v50 = v153;
+    v100 = *(&v153 + 1);
+    v98 = *&v154;
+    v95 = *&v155;
+    v96 = *(&v154 + 1);
+    v93 = *&v156;
+    v94 = *(&v155 + 1);
+    v51 = *(&v156 + 1);
+    v52 = v140;
+    v53 = v141;
+    v111 = v142;
+    v54 = v143;
+    v55 = v144;
+    v99 = *(&v144 + 1);
+    v97 = *&v145;
+    v91 = *&v146;
+    v92 = *(&v145 + 1);
+    v89 = *&v147;
+    v90 = *(&v146 + 1);
+    if (!CGRectEqualToRect(rect1, rect2) || *&v47 != *&v52 || *(&v47 + 1) != *(&v52 + 1) || *&v48 != *&v53 || *(&v48 + 1) != *(&v53 + 1) || (t1 = v107, t2 = v111, !CGAffineTransformEqualToTransform(&t1, &t2)) || *(&v49 + 1) != *(&v54 + 1) || v50 != v55 || *&v49 != *&v54 || v100 != v99 || v98 != v97 || (v170.origin.y = v95, v170.origin.x = v96, v170.size.height = v93, v170.size.width = v94, v171.origin.y = v91, v171.origin.x = v92, v171.size.height = v89, v171.size.width = v90, !CGRectEqualToRect(v170, v171)) || v51 != v45 || v104 != v22 && ([v104 isEqual:v22] & 1) == 0)
     {
       if (v23)
       {
-        v84 = PLUIGetLog();
-        if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+        v82 = PLUIGetLog();
+        if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
         {
-          t1 = v159;
-          v164 = v160;
-          *&v165.a = v161;
-          v165.c = v162;
+          t1 = v157;
+          v162 = v158;
+          *&v163.a = v159;
+          v163.c = v160;
           PXTileIdentifierDescription(&t1);
           objc_claimAutoreleasedReturnValue();
-          v85 = *(v3 + 432);
-          v167 = *(v3 + 416);
-          v168 = v85;
-          v86 = *(v3 + 464);
-          v169 = *(v3 + 448);
-          v170 = v86;
-          v87 = *(v3 + 368);
-          *&v165.a = *(v3 + 352);
-          *&v165.c = v87;
-          v88 = *(v3 + 400);
-          *&v165.tx = *(v3 + 384);
-          v166 = v88;
-          v89 = *(v3 + 304);
+          v83 = *(v3 + 432);
+          v165 = *(v3 + 416);
+          v166 = v83;
+          v84 = *(v3 + 464);
+          v167 = *(v3 + 448);
+          v168 = v84;
+          v85 = *(v3 + 368);
+          *&v163.a = *(v3 + 352);
+          *&v163.c = v85;
+          v86 = *(v3 + 400);
+          *&v163.tx = *(v3 + 384);
+          v164 = v86;
+          v87 = *(v3 + 304);
           *&t1.a = *(v3 + 288);
-          *&t1.c = v89;
-          v90 = *(v3 + 336);
+          *&t1.c = v87;
+          v88 = *(v3 + 336);
           *&t1.tx = *(v3 + 320);
-          v164 = v90;
+          v162 = v88;
           PXTileGeometryDescription();
         }
 
-        v103 = 2;
+        v101 = 2;
       }
 
-      v58 = *(a1 + 40);
+      v56 = *(a1 + 40);
+      v107 = v157;
+      v108 = v158;
       v109 = v159;
       v110 = v160;
-      v111 = v161;
-      v112 = v162;
-      v167 = v155;
-      v168 = v156;
-      v169 = v157;
-      v170 = v158;
       v165 = v153;
       v166 = v154;
+      v167 = v155;
+      v168 = v156;
+      v163 = v151;
+      v164 = v152;
       *&t1.a = rect1.origin;
       *&t1.c = rect1.size;
-      *&t1.tx = v151;
-      v164 = v152;
-      v136 = v146;
-      v137 = v147;
-      v138 = v148;
-      v139 = v149;
+      *&t1.tx = v149;
+      v162 = v150;
       v134 = v144;
       v135 = v145;
+      v136 = v146;
+      v137 = v147;
+      v132 = v142;
+      v133 = v143;
       *&t2.a = rect2.origin;
       *&t2.c = rect2.size;
-      *&t2.tx = v142;
-      v133 = v143;
-      v59 = [v58 optionsForAnimatingTileWithIdentifier:&v109 animationType:v103 fromGeometry:&t1 fromUserData:v106 toGeometry:&t2 toUserData:{v22, *&v91, *&v92, *&v93, *&v94, *&v95, *&v96, *&v97, *&v98}];
+      *&t2.tx = v140;
+      v131 = v141;
+      v57 = [v56 optionsForAnimatingTileWithIdentifier:&v107 animationType:v101 fromGeometry:&t1 fromUserData:v104 toGeometry:&t2 toUserData:{v22, *&v89, *&v90, *&v91, *&v92, *&v93, *&v94, *&v95, *&v96}];
       ++*(v3 + 704);
-      v60 = *(a1 + 80);
-      v107[0] = MEMORY[0x1E69E9820];
-      v107[1] = 3221225472;
-      v107[2] = __42__PXTilingController__updateTilesIfNeeded__block_invoke_52;
-      v107[3] = &unk_1E7749808;
-      objc_copyWeak(v108, (a1 + 88));
-      v108[1] = a2;
-      v167 = v146;
-      v168 = v147;
-      v169 = v148;
-      v170 = v149;
+      v58 = *(a1 + 80);
+      v105[0] = MEMORY[0x1E69E9820];
+      v105[1] = 3221225472;
+      v105[2] = __42__PXTilingController__updateTilesIfNeeded__block_invoke_52;
+      v105[3] = &unk_1E7749808;
+      objc_copyWeak(v106, (a1 + 88));
+      v106[1] = a2;
       v165 = v144;
       v166 = v145;
+      v167 = v146;
+      v168 = v147;
+      v163 = v142;
+      v164 = v143;
       *&t1.a = rect2.origin;
       *&t1.c = rect2.size;
-      *&t1.tx = v142;
-      v164 = v143;
-      [v60 animateTile:v7 toGeometry:&t1 userData:v22 withOptions:v59 completionHandler:v107];
-      objc_destroyWeak(v108);
+      *&t1.tx = v140;
+      v162 = v141;
+      [v58 animateTile:v7 toGeometry:&t1 userData:v22 withOptions:v57 completionHandler:v105];
+      objc_destroyWeak(v106);
     }
 
     goto LABEL_42;
   }
 
-  if (*(&v158 + 1) != v48)
+  if (*(&v156 + 1) != v46)
   {
     if (CGRectIntersectsRect(rect1, *(a1 + 112)))
     {
       goto LABEL_54;
     }
 
-    v47 = *(&v149 + 1);
+    v45 = *(&v147 + 1);
   }
 
-  if (v47 == v48 || !CGRectIntersectsRect(rect2, *(a1 + 112)))
+  if (v45 == v46 || !CGRectIntersectsRect(rect2, *(a1 + 112)))
   {
     v7 = 0;
     goto LABEL_42;
@@ -1779,74 +1756,74 @@ LABEL_54:
     *&t2.b = &t2;
     *&t2.c = 0x2020000000;
     t2.d = NAN;
-    v109.a = 0.0;
-    *&v109.b = &v109;
-    *&v109.c = 0x2020000000uLL;
-    v69 = *(a1 + 56);
-    v114[0] = MEMORY[0x1E69E9820];
-    v114[1] = 3221225472;
-    v114[2] = __42__PXTilingController__updateTilesIfNeeded__block_invoke_9;
-    v114[3] = &unk_1E7737DE0;
-    v118 = v159;
-    v121 = v162;
-    v120 = v161;
+    v107.a = 0.0;
+    *&v107.b = &v107;
+    *&v107.c = 0x2020000000uLL;
+    v67 = *(a1 + 56);
+    v112[0] = MEMORY[0x1E69E9820];
+    v112[1] = 3221225472;
+    v112[2] = __42__PXTilingController__updateTilesIfNeeded__block_invoke_9;
+    v112[3] = &unk_1E7737DE0;
+    v116 = v157;
     v119 = v160;
+    v118 = v159;
+    v117 = v158;
+    v121 = v149;
+    v122 = v150;
+    v120 = rect1;
     v123 = v151;
     v124 = v152;
-    v122 = rect1;
-    v125 = v153;
-    v126 = v154;
-    v129 = v157;
-    v130 = v158;
     v127 = v155;
     v128 = v156;
-    v115 = v106;
+    v125 = v153;
+    v126 = v154;
+    v113 = v104;
     p_t2 = &t2;
-    v117 = &v109;
-    [v69 enumerateStatesUsingBlock:v114];
-    if (*(*&v109.b + 24))
+    v115 = &v107;
+    [v67 enumerateStatesUsingBlock:v112];
+    if (*(*&v107.b + 24))
     {
-      v70 = *(a1 + 56);
-      memset(&v165, 0, 24);
-      v164 = 0u;
+      v68 = *(a1 + 56);
+      memset(&v163, 0, 24);
+      v162 = 0u;
       memset(&t1, 0, sizeof(t1));
-      [v70 setTargetIdentifier:&t1 forTileStateAtIndex:a2];
-      v3 = *(*&v109.b + 24);
-      v71 = *(*&t2.b + 24);
+      [v68 setTargetIdentifier:&t1 forTileStateAtIndex:a2];
+      v3 = *(*&v107.b + 24);
+      v69 = *(*&t2.b + 24);
       v7 = *(v3 + 696);
-      v72 = *(a1 + 56);
-      t1 = v159;
-      v164 = v160;
-      *&v165.a = v161;
-      v165.c = v162;
-      a2 = v71;
-      [v72 setTargetIdentifier:&t1 forTileStateAtIndex:?];
-      v73 = *&v159.c;
-      *(v3 + 184) = *&v159.a;
-      v74 = v160;
-      *(v3 + 216) = *&v159.tx;
-      *(v3 + 232) = v74;
-      *(v3 + 248) = v161;
-      *(v3 + 264) = v162;
-      *(v3 + 200) = v73;
-      v75 = v145;
-      *(v3 + 576) = *&v144.tx;
-      *(v3 + 592) = v75;
-      v76 = *&v144.c;
-      *(v3 + 544) = *&v144.a;
-      *(v3 + 560) = v76;
-      v77 = v143;
-      *(v3 + 512) = v142;
-      *(v3 + 528) = v77;
+      v70 = *(a1 + 56);
+      t1 = v157;
+      v162 = v158;
+      *&v163.a = v159;
+      v163.c = v160;
+      a2 = v69;
+      [v70 setTargetIdentifier:&t1 forTileStateAtIndex:?];
+      v71 = *&v157.c;
+      *(v3 + 184) = *&v157.a;
+      v72 = v158;
+      *(v3 + 216) = *&v157.tx;
+      *(v3 + 232) = v72;
+      *(v3 + 248) = v159;
+      *(v3 + 264) = v160;
+      *(v3 + 200) = v71;
+      v73 = v143;
+      *(v3 + 576) = *&v142.tx;
+      *(v3 + 592) = v73;
+      v74 = *&v142.c;
+      *(v3 + 544) = *&v142.a;
+      *(v3 + 560) = v74;
+      v75 = v141;
+      *(v3 + 512) = v140;
+      *(v3 + 528) = v75;
       size = rect2.size;
       *(v3 + 480) = rect2.origin;
       *(v3 + 496) = size;
-      v79 = v147;
-      *(v3 + 608) = v146;
-      *(v3 + 624) = v79;
-      v80 = v149;
-      *(v3 + 640) = v148;
-      *(v3 + 656) = v80;
+      v77 = v145;
+      *(v3 + 608) = v144;
+      *(v3 + 624) = v77;
+      v78 = v147;
+      *(v3 + 640) = v146;
+      *(v3 + 656) = v78;
     }
 
     else
@@ -1854,71 +1831,71 @@ LABEL_54:
       v7 = 0;
     }
 
-    _Block_object_dispose(&v109, 8);
+    _Block_object_dispose(&v107, 8);
     _Block_object_dispose(&t2, 8);
   }
 
-  if (((v7 == 0) & v105) == 1)
+  if (((v7 == 0) & v103) == 1)
   {
-    v81 = *(a1 + 64);
-    v82 = *(a1 + 72);
-    t1 = v159;
-    v164 = v160;
-    *&v165.a = v161;
-    v165.c = v162;
-    v7 = [v81 checkOutTileForIdentifier:&t1 layout:v82];
-    v83 = *(a1 + 80);
-    v167 = v155;
-    v168 = v156;
-    v169 = v157;
-    v170 = v158;
+    v79 = *(a1 + 64);
+    v80 = *(a1 + 72);
+    t1 = v157;
+    v162 = v158;
+    *&v163.a = v159;
+    v163.c = v160;
+    v7 = [v79 checkOutTileForIdentifier:&t1 layout:v80];
+    v81 = *(a1 + 80);
     v165 = v153;
     v166 = v154;
+    v167 = v155;
+    v168 = v156;
+    v163 = v151;
+    v164 = v152;
     *&t1.a = rect1.origin;
     *&t1.c = rect1.size;
-    *&t1.tx = v151;
-    v164 = v152;
-    [v83 prepareTile:v7 withGeometry:&t1 userData:v106];
+    *&t1.tx = v149;
+    v162 = v150;
+    [v81 prepareTile:v7 withGeometry:&t1 userData:v104];
     *(v3 + 696) = v7;
   }
 
   if (v7)
   {
-    v47 = *(&v149 + 1);
+    v45 = *(&v147 + 1);
     goto LABEL_27;
   }
 
 LABEL_42:
-  v61 = v147;
-  *(v3 + 608) = v146;
-  *(v3 + 624) = v61;
-  v62 = v149;
-  *(v3 + 640) = v148;
-  *(v3 + 656) = v62;
-  v63 = *&v144.c;
-  *(v3 + 544) = *&v144.a;
-  *(v3 + 560) = v63;
-  v64 = v145;
-  *(v3 + 576) = *&v144.tx;
-  *(v3 + 592) = v64;
-  v65 = rect2.size;
+  v59 = v145;
+  *(v3 + 608) = v144;
+  *(v3 + 624) = v59;
+  v60 = v147;
+  *(v3 + 640) = v146;
+  *(v3 + 656) = v60;
+  v61 = *&v142.c;
+  *(v3 + 544) = *&v142.a;
+  *(v3 + 560) = v61;
+  v62 = v143;
+  *(v3 + 576) = *&v142.tx;
+  *(v3 + 592) = v62;
+  v63 = rect2.size;
   *(v3 + 480) = rect2.origin;
-  *(v3 + 496) = v65;
-  v66 = v143;
-  *(v3 + 512) = v142;
-  *(v3 + 528) = v66;
-  *(v3 + 673) = v105;
-  if (!*(v3 + 704) && v7 && (*(v3 + 664) == v48 || !CGRectIntersectsRect(*(v3 + 480), *(a1 + 112)) || (*(v3 + 673) & 1) == 0))
+  *(v3 + 496) = v63;
+  v64 = v141;
+  *(v3 + 512) = v140;
+  *(v3 + 528) = v64;
+  *(v3 + 673) = v103;
+  if (!*(v3 + 704) && v7 && (*(v3 + 664) == v46 || !CGRectIntersectsRect(*(v3 + 480), *(a1 + 112)) || (*(v3 + 673) & 1) == 0))
   {
-    v67 = *(v3 + 232);
+    v65 = *(v3 + 232);
     *&t1.tx = *(v3 + 216);
-    v164 = v67;
-    *&v165.a = *(v3 + 248);
-    v165.c = *(v3 + 264);
-    v68 = *(v3 + 200);
+    v162 = v65;
+    *&v163.a = *(v3 + 248);
+    v163.c = *(v3 + 264);
+    v66 = *(v3 + 200);
     *&t1.a = *(v3 + 184);
-    *&t1.c = v68;
-    [*(a1 + 64) checkInTile:v7 withIdentifier:{&t1, *&v91, *&v92, *&v93, *&v94, *&v95, *&v96, *&v97, *&v98}];
+    *&t1.c = v66;
+    [*(a1 + 64) checkInTile:v7 withIdentifier:{&t1, *&v89, *&v90, *&v91, *&v92, *&v93, *&v94, *&v95, *&v96}];
     *(v3 + 696) = 0;
   }
 }
@@ -2063,10 +2040,10 @@ uint64_t __42__PXTilingController__updateTilesIfNeeded__block_invoke_9(uint64_t 
               if ((result & 1) != 0 && v21 == v27)
               {
                 result = *(a3 + 688);
-                if (result == v7[4] || (result = [result isEqual:?], result))
+                if (result == *(v7 + 32) || (result = [result isEqual:?], result))
                 {
-                  *(*(v7[5] + 8) + 24) = a2;
-                  *(*(v7[6] + 8) + 24) = a3;
+                  *(*(*(v7 + 40) + 8) + 24) = a2;
+                  *(*(*(v7 + 48) + 8) + 24) = a3;
                   *a4 = 1;
                 }
               }
@@ -3178,16 +3155,16 @@ __n128 __39__PXTilingController__setTargetLayout___block_invoke(uint64_t a1, uin
   }
 }
 
-uint64_t __36__PXTilingController__setPagedRect___block_invoke(uint64_t result, uint64_t a2)
+id *__36__PXTilingController__setPagedRect___block_invoke(id *result, uint64_t a2)
 {
   if (a2 == 1)
   {
-    return [*(result + 32) _invalidateTiles];
+    return [result[4] _invalidateTiles];
   }
 
   if (a2 == -1)
   {
-    return [*(result + 32) _invalidateRect:?];
+    return [result[4] _invalidateRect:?];
   }
 
   return result;
@@ -3374,7 +3351,7 @@ void __31__PXTilingController_debugInfo__block_invoke_2(uint64_t a1, uint64_t a2
 void __31__PXTilingController_debugInfo__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, double *a4)
 {
   v4 = *(a1 + 32);
-  v5 = [MEMORY[0x1E696B098] valueWithCGRect:{*a4, a4[1], a4[2], a4[3]}];
+  v5 = [MEMORY[0x1E696B098] valueWithCGRect:{a3, *a4, a4[1], a4[2], a4[3]}];
   [v4 addObject:v5];
 }
 
@@ -3405,61 +3382,58 @@ void __31__PXTilingController_debugInfo__block_invoke_3(uint64_t a1, uint64_t a2
   [(PXTilingController *)self _invalidatePreheating];
 }
 
-uint64_t __61__PXTilingController_hitTestTileAtPoint_padding_passingTest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, _OWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __61__PXTilingController_hitTestTileAtPoint_padding_passingTest___block_invoke(void *a1, uint64_t a2, uint64_t a3, double *a4, _OWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *(a1 + 32);
+  v8 = a1[4];
   v9 = *(v8 + 16);
   v10 = *(a2 + 48);
-  v27[2] = *(a2 + 32);
-  v27[3] = v10;
-  v27[4] = *(a2 + 64);
-  v28 = *(a2 + 80);
+  v26[2] = *(a2 + 32);
+  v26[3] = v10;
+  v26[4] = *(a2 + 64);
+  v27 = *(a2 + 80);
   v11 = *(a2 + 16);
-  v27[0] = *a2;
-  v27[1] = v11;
-  v12 = a4[9];
-  v26[8] = a4[8];
-  v26[9] = v12;
-  v13 = a4[11];
-  v26[10] = a4[10];
-  v26[11] = v13;
-  v14 = a4[5];
-  v26[4] = a4[4];
-  v26[5] = v14;
-  v15 = a4[7];
-  v26[6] = a4[6];
-  v26[7] = v15;
-  v16 = a4[1];
-  v26[0] = *a4;
-  v26[1] = v16;
-  v17 = a4[3];
-  v26[2] = a4[2];
-  v26[3] = v17;
+  v26[0] = *a2;
+  v26[1] = v11;
+  v12 = *(a4 + 9);
+  v25[8] = *(a4 + 8);
+  v25[9] = v12;
+  v13 = *(a4 + 11);
+  v25[10] = *(a4 + 10);
+  v25[11] = v13;
+  v14 = *(a4 + 5);
+  v25[4] = *(a4 + 4);
+  v25[5] = v14;
+  v15 = *(a4 + 7);
+  v25[6] = *(a4 + 6);
+  v25[7] = v15;
+  v16 = *(a4 + 1);
+  v25[0] = *a4;
+  v25[1] = v16;
+  v17 = *(a4 + 3);
+  v25[2] = *(a4 + 2);
+  v25[3] = v17;
   v18 = a5[9];
-  v25[8] = a5[8];
-  v25[9] = v18;
+  v24[8] = a5[8];
+  v24[9] = v18;
   v19 = a5[11];
-  v25[10] = a5[10];
-  v25[11] = v19;
+  v24[10] = a5[10];
+  v24[11] = v19;
   v20 = a5[5];
-  v25[4] = a5[4];
-  v25[5] = v20;
+  v24[4] = a5[4];
+  v24[5] = v20;
   v21 = a5[7];
-  v25[6] = a5[6];
-  v25[7] = v21;
+  v24[6] = a5[6];
+  v24[7] = v21;
   v22 = a5[1];
-  v25[0] = *a5;
-  v25[1] = v22;
+  v24[0] = *a5;
+  v24[1] = v22;
   v23 = a5[3];
-  v25[2] = a5[2];
-  v25[3] = v23;
-  result = v9(v8, v27, a3, v26, v25, a6, a7, a8);
-  if (result)
+  v24[2] = a5[2];
+  v24[3] = v23;
+  if (v9(v8, v26, a3, v25, v24, a6, a7, a8))
   {
     PXRectWithCenterAndSize();
   }
-
-  return result;
 }
 
 - (void)enumerateTilesInRect:(CGRect)rect withOptions:(id)options usingBlock:(id)block

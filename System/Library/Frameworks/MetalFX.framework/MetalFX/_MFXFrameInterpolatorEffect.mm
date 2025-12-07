@@ -145,12 +145,12 @@ LABEL_11:
     kdebug_trace();
   }
 
-  v27 = 0u;
   v26 = 0u;
   v25 = 0u;
+  v24 = 0u;
   self->_colorTexture;
   self->_prevColorTexture;
-  v33 = 1;
+  v32 = 1;
   temporalScaler = self->_temporalScaler;
   if (temporalScaler)
   {
@@ -168,8 +168,8 @@ LABEL_11:
       if (denoisedScaler || (p_denoisedScaler = &self->_denoisedScaler4, (denoisedScaler = self->_denoisedScaler4) != 0))
       {
         dilatedMotionVectors2 = [(MTLFXTemporalDenoisedScalerSPI *)denoisedScaler dilatedMotionVectors];
-        v21 = *(&v25 + 1);
-        *(&v25 + 1) = dilatedMotionVectors2;
+        v20 = *(&v24 + 1);
+        *(&v24 + 1) = dilatedMotionVectors2;
 
         inputContentWidth = [(MTLFXTemporalDenoisedScalerSPI *)*p_denoisedScaler inputContentWidth];
         LODWORD(contentHeight) = [(MTLFXTemporalDenoisedScalerSPI *)*p_denoisedScaler inputContentHeight];
@@ -177,19 +177,19 @@ LABEL_11:
 
       else
       {
-        v33 = 0;
-        v22 = self->_motionTexture;
+        v32 = 0;
+        v21 = self->_motionTexture;
         contentWidth = self->_contentWidth;
-        *(&v25 + 1) = v22;
+        *(&v24 + 1) = v21;
         inputContentWidth = contentWidth;
         contentHeight = self->_contentHeight;
       }
 
 LABEL_11:
-      v38 = contentHeight;
+      v37 = contentHeight;
       if (MTLReportFailureTypeEnabled())
       {
-        checkInputOutputTexturesForInterpolation(self->_colorTexture, self->_prevColorTexture, self->_depthTexture, self->_motionTexture, self->_outputTexture, inputContentWidth, v38, self->_colorTextureFormat, inputContentWidth, v38, self->_outputWidth, self->_outputHeight, self->_outputTextureFormat);
+        checkInputOutputTexturesForInterpolation(self->_colorTexture, self->_prevColorTexture, self->_depthTexture, self->_motionTexture, self->_outputTexture, inputContentWidth, v37, self->_colorTextureFormat, inputContentWidth, v37, self->_outputWidth, self->_outputHeight, self->_outputTextureFormat);
         if (self->_nearPlane == 0.0)
         {
           MTLReportFailure();
@@ -211,23 +211,23 @@ LABEL_11:
         }
       }
 
-      objc_storeStrong(&v25, self->_depthTexture);
-      objc_storeStrong(&v26 + 1, self->_debugTexture);
+      objc_storeStrong(&v24, self->_depthTexture);
+      objc_storeStrong(&v25 + 1, self->_debugTexture);
       reset = self->_reset;
-      objc_storeStrong(&v26, self->_outputTexture);
+      objc_storeStrong(&v25, self->_outputTexture);
       motionVectorScaleY = self->_motionVectorScaleY;
       reversedDepth = self->_reversedDepth;
       motionVectorScaleX = self->_motionVectorScaleX;
-      v29 = motionVectorScaleY;
-      v31 = reversedDepth;
-      objc_storeStrong(&v27 + 1, self->_fence);
+      v28 = motionVectorScaleY;
+      v30 = reversedDepth;
+      objc_storeStrong(&v26 + 1, self->_fence);
       nearPlane = self->_nearPlane;
       farPlane = self->_farPlane;
       deltaTime = self->_deltaTime;
-      v35 = nearPlane;
-      v36 = farPlane;
-      objc_storeStrong(&v27, self->_uiTexture);
-      v32 = !self->_uiTextureComposited;
+      v34 = nearPlane;
+      v35 = farPlane;
+      objc_storeStrong(&v26, self->_uiTexture);
+      v31 = !self->_uiTextureComposited;
       if (MTLTraceEnabled())
       {
         [(_MFXFrameInterpolatorEffect *)self outputWidth];
@@ -243,7 +243,6 @@ LABEL_11:
 
       [v4 device];
       objc_claimAutoreleasedReturnValue();
-      impl = self->_impl;
       FrameGenImpl<MFXDevice3>::encodeTo();
     }
 
@@ -251,8 +250,8 @@ LABEL_11:
     dilatedMotionVectors = [(MTL4FXTemporalScalerSPI *)self->_temporalScaler4 dilatedMotionVectors];
   }
 
-  v11 = *(&v25 + 1);
-  *(&v25 + 1) = dilatedMotionVectors;
+  v11 = *(&v24 + 1);
+  *(&v24 + 1) = dilatedMotionVectors;
 
   inputContentWidth = [(MTLFXTemporalScalerSPI *)v8 inputContentWidth];
   LODWORD(contentHeight) = [(MTLFXTemporalScalerSPI *)v8 inputContentHeight];

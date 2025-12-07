@@ -1202,29 +1202,29 @@ LABEL_8:
     v16 = MEMORY[0x1E6979320];
     v17 = *v15;
     titleSlotView5 = [v16 objectForSlot:{-[UIActivityActionHorizontalCell titleSlotID](self, "titleSlotID")}];
-    v19 = _ShareSheetDeviceScreenScale();
+    v20 = _ShareSheetDeviceScreenScale(titleSlotView5, v19);
     titleSlotView = [(UIActivityActionHorizontalCell *)self titleSlotView];
     layer = [titleSlotView layer];
-    [layer setContentsScale:v19];
+    [layer setContentsScale:v20];
 
-    v22 = _ShareSheetDeviceScreenScale();
+    v25 = _ShareSheetDeviceScreenScale(v23, v24);
     titleSlotView2 = [(UIActivityActionHorizontalCell *)self titleSlotView];
     layer2 = [titleSlotView2 layer];
-    [layer2 setRasterizationScale:v22];
+    [layer2 setRasterizationScale:v25];
 
     if (IsAccessibilityCategory)
     {
-      v25 = v17;
+      v28 = v17;
     }
 
     else
     {
-      v25 = *MEMORY[0x1E6979DB8];
+      v28 = *MEMORY[0x1E6979DB8];
     }
 
     titleSlotView3 = [(UIActivityActionHorizontalCell *)self titleSlotView];
     layer3 = [titleSlotView3 layer];
-    [layer3 setContentsGravity:v25];
+    [layer3 setContentsGravity:v28];
 
     titleSlotView4 = [(UIActivityActionHorizontalCell *)self titleSlotView];
     layer4 = [titleSlotView4 layer];
@@ -1240,16 +1240,16 @@ LABEL_8:
 
   if (titleSlotID)
   {
-    v30 = 1.0;
+    v33 = 1.0;
   }
 
   else
   {
-    v30 = 0.0;
+    v33 = 0.0;
   }
 
   titleSlotView6 = [(UIActivityActionHorizontalCell *)self titleSlotView];
-  [titleSlotView6 setAlpha:v30];
+  [titleSlotView6 setAlpha:v33];
 }
 
 - (SHSheetContentLayoutSpec)layoutSpec

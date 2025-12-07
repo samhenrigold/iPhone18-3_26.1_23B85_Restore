@@ -57,7 +57,7 @@
   sub_1E41FE804();
   inCopy = in;
   selfCopy = self;
-  LOBYTE(category) = sub_1E3FEF39C(category, inCopy);
+  LOBYTE(category) = sub_1E3FEF39C(category, inCopy, v17);
 
   (*(v10 + 8))(v14, v8);
   return category & 1;

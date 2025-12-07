@@ -23,12 +23,12 @@
 
 - (SHSheetContext)initWithActivityViewController:(id)controller activityItems:(id)items
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   itemsCopy = items;
-  v16.receiver = self;
-  v16.super_class = SHSheetContext;
-  v8 = [(SHSheetContext *)&v16 init];
+  v20.receiver = self;
+  v20.super_class = SHSheetContext;
+  v8 = [(SHSheetContext *)&v20 init];
   v9 = v8;
   if (v8)
   {
@@ -37,15 +37,16 @@
     activityItems = v9->_activityItems;
     v9->_activityItems = v10;
 
-    v17[0] = @"com.apple.UIKit.activity.RemoteExtension";
-    v17[1] = @"com.apple.UIKit.activity.RemoteOpenInApplication";
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    v21[0] = @"com.apple.UIKit.activity.RemoteExtension";
+    v21[1] = @"com.apple.UIKit.activity.RemoteOpenInApplication";
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
     activityTypesToCreateInShareService = v9->_activityTypesToCreateInShareService;
     v9->_activityTypesToCreateInShareService = v12;
 
-    if (_ShareSheetHostCanRenderInProcess())
+    CanRenderInProcess = _ShareSheetHostCanRenderInProcess(v14, v15);
+    if (CanRenderInProcess)
     {
-      IsAppleApp = _ShareSheetIsAppleApp();
+      IsAppleApp = _ShareSheetIsAppleApp(CanRenderInProcess, v17);
       if (IsAppleApp)
       {
         LOBYTE(IsAppleApp) = _ShareSheetCanAccessContactsInCurrentProcess();

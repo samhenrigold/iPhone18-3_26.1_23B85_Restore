@@ -1,2216 +1,276 @@
-uint64_t NearbyGroupHostIDSService.MessageEvents.init(_:)(uint64_t a1)
-{
-  v19[1] = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO17BufferingStrategyOy_s5NeverOGMd, &_s7Combine10PublishersO17BufferingStrategyOy_s5NeverOGMR);
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = v19 - v5;
-  v7 = type metadata accessor for Publishers.PrefetchStrategy();
-  v19[0] = v7;
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMd, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMR);
-  v12 = *(v20 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v20);
-  v15 = v19 - v14;
-  v21 = a1;
-  (*(v8 + 104))(v11, enum case for Publishers.PrefetchStrategy.byRequest(_:), v7);
-  (*(v3 + 104))(v6, enum case for Publishers.BufferingStrategy.dropOldest<A>(_:), v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AnyPublisher<(NearbyGroupHostIDSService.MessageEvent, NearbyGroupHostIDSService.MessageContext), Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR);
-  Publisher.buffer(size:prefetch:whenFull:)();
-  (*(v3 + 8))(v6, v2);
-  (*(v8 + 8))(v11, v19[0]);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.Buffer<AnyPublisher<(NearbyGroupHostIDSService.MessageEvent, NearbyGroupHostIDSService.MessageContext), Never>> and conformance Publishers.Buffer<A>, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMd, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMR);
-  v16 = v20;
-  v17 = Publisher.eraseToAnyPublisher()();
-
-  (*(v12 + 8))(v15, v16);
-  return v17;
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvents.Iterator.baseIterator.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
-  return result;
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvents.Iterator.next()(uint64_t a1)
-{
-  *(v2 + 16) = a1;
-  *(v2 + 24) = v1;
-  return _swift_task_switch(NearbyGroupHostIDSService.MessageEvents.Iterator.next(), 0, 0);
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvents.Iterator.next()()
-{
-  v1 = v0[3];
-  v2 = *v1;
-  v0[4] = *v1;
-  v3 = swift_task_alloc();
-  v0[5] = v3;
-  *(v3 + 16) = v1;
-  v4 = async function pointer to withTaskCancellationHandler<A>(operation:onCancel:isolation:)[1];
-
-  v5 = swift_task_alloc();
-  v0[6] = v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtSgMR);
-  *v5 = v0;
-  v5[1] = NearbyGroupHostIDSService.MessageEvents.Iterator.next();
-  v7 = v0[2];
-
-  return withTaskCancellationHandler<A>(operation:onCancel:isolation:)(v7, &async function pointer to partial apply for specialized closure #2 in _PublisherElements.Iterator.next(), v3, partial apply for specialized closure #1 in _PublisherElements.Iterator.next(), v2, 0, 0, v6);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 48);
-  v4 = *v1;
-
-  if (v0)
-  {
-  }
-
-  else
-  {
-    v6 = *(v2 + 32);
-    v7 = *(v2 + 40);
-
-    v8 = *(v4 + 8);
-
-    return v8();
-  }
-}
-
-uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance NearbyGroupHostIDSService.MessageEvents.Iterator(uint64_t a1)
-{
-  *(v2 + 16) = a1;
-  *(v2 + 24) = v1;
-  return _swift_task_switch(protocol witness for AsyncIteratorProtocol.next() in conformance NearbyGroupHostIDSService.MessageEvents.Iterator, 0, 0);
-}
-
-uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance NearbyGroupHostIDSService.MessageEvents.Iterator()
-{
-  v1 = v0[3];
-  v2 = *v1;
-  v0[4] = *v1;
-  v3 = swift_task_alloc();
-  v0[5] = v3;
-  *(v3 + 16) = v1;
-  v4 = async function pointer to withTaskCancellationHandler<A>(operation:onCancel:isolation:)[1];
-
-  v5 = swift_task_alloc();
-  v0[6] = v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtSgMR);
-  *v5 = v0;
-  v5[1] = protocol witness for AsyncIteratorProtocol.next() in conformance NearbyGroupHostIDSService.MessageEvents.Iterator;
-  v7 = v0[2];
-
-  return withTaskCancellationHandler<A>(operation:onCancel:isolation:)(v7, &closure #2 in _PublisherElements.Iterator.next()specialized partial apply, v3, closure #1 in _PublisherElements.Iterator.next()specialized partial apply, v2, 0, 0, v6);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 48);
-  v4 = *v1;
-
-  if (v0)
-  {
-  }
-
-  else
-  {
-    v6 = *(v2 + 32);
-    v7 = *(v2 + 40);
-
-    v8 = *(v4 + 8);
-
-    return v8();
-  }
-}
-
-uint64_t _s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC13MessageEventsV8IteratorVScIAAScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTW(uint64_t a1)
-{
-  *(v2 + 16) = a1;
-  *(v2 + 24) = v1;
-  return _swift_task_switch(_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC13MessageEventsV8IteratorVScIAAScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTY0_, 0, 0);
-}
-
-uint64_t _s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC13MessageEventsV8IteratorVScIAAScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTY0_()
-{
-  v1 = v0[3];
-  v2 = *v1;
-  v0[4] = *v1;
-  v3 = swift_task_alloc();
-  v0[5] = v3;
-  *(v3 + 16) = v1;
-  v4 = async function pointer to withTaskCancellationHandler<A>(operation:onCancel:isolation:)[1];
-
-  v5 = swift_task_alloc();
-  v0[6] = v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtSgMR);
-  *v5 = v0;
-  v5[1] = _s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC13MessageEventsV8IteratorVScIAAScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTQ1_;
-  v7 = v0[2];
-
-  return withTaskCancellationHandler<A>(operation:onCancel:isolation:)(v7, &closure #2 in _PublisherElements.Iterator.next()specialized partial apply, v3, closure #1 in _PublisherElements.Iterator.next()specialized partial apply, v2, 0, 0, v6);
-}
-
-uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance NearbyGroupHostIDSService.MessageEvents@<X0>(uint64_t *a1@<X8>)
-{
-  v3 = *v1;
-  v4 = NearbyGroupHostIDSService.MessageEvents.makeAsyncIterator()();
-
-  *a1 = v4;
-  return result;
-}
-
-char *NearbyGroupHostIDSService.__allocating_init(idsService:)(uint64_t *a1)
-{
-  v3 = objc_allocWithZone(v1);
-  v4 = a1[3];
-  v5 = a1[4];
-  v6 = __swift_mutable_project_boxed_opaque_existential_1(a1, v4);
-  v7 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v10 + 16))(v9);
-  v11 = specialized NearbyGroupHostIDSService.init(idsService:)(v9, v3, v4, v5);
-  __swift_destroy_boxed_opaque_existential_0Tm(a1);
-  return v11;
-}
-
-char *NearbyGroupHostIDSService.init(idsService:)(uint64_t *a1)
-{
-  v3 = a1[3];
-  v4 = a1[4];
-  v5 = __swift_mutable_project_boxed_opaque_existential_1(a1, v3);
-  v6 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v5);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v9 + 16))(v8);
-  v10 = specialized NearbyGroupHostIDSService.init(idsService:)(v8, v1, v3, v4);
-  __swift_destroy_boxed_opaque_existential_0Tm(a1);
-  return v10;
-}
-
-id NearbyGroupHostIDSService.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NearbyGroupHostIDSService();
-  return objc_msgSendSuper2(&v2, "dealloc");
-}
-
-void NearbyGroupHostIDSService.MessageEvent.Member.hash(into:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  String.hash(into:)();
-  if (a5)
-  {
-    Hasher._combine(_:)(1u);
-
-    String.hash(into:)();
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-}
-
-Swift::Int NearbyGroupHostIDSService.MessageEvent.Member.hashValue.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  if (a4)
-  {
-    Hasher._combine(_:)(1u);
-    String.hash(into:)();
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance NearbyGroupHostIDSService.MessageEvent.Member()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  if (v4)
-  {
-    Hasher._combine(_:)(1u);
-    String.hash(into:)();
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  return Hasher._finalize()();
-}
-
-void protocol witness for Hashable.hash(into:) in conformance NearbyGroupHostIDSService.MessageEvent.Member()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  String.hash(into:)();
-  if (v4)
-  {
-    Hasher._combine(_:)(1u);
-
-    String.hash(into:)();
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NearbyGroupHostIDSService.MessageEvent.Member()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  if (v4)
-  {
-    Hasher._combine(_:)(1u);
-    String.hash(into:)();
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  return Hasher._finalize()();
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization.members.getter()
-{
-  v1 = *(v0 + *(type metadata accessor for NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization(0) + 20));
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization.members.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization(0) + 20);
-  v4 = *(v1 + v3);
-
-  *(v1 + v3) = a1;
-  return result;
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization.init(id:members:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for UUID();
-  (*(*(v6 - 8) + 32))(a3, a1, v6);
-  result = type metadata accessor for NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization(0);
-  *(a3 + *(result + 20)) = a2;
-  return result;
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization.id.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = type metadata accessor for UUID();
-  v4 = *(*(v3 - 8) + 16);
-
-  return v4(a1, v1, v3);
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization.id.setter(uint64_t a1)
-{
-  v3 = type metadata accessor for UUID();
-  v4 = *(*(v3 - 8) + 40);
-
-  return v4(v1, a1, v3);
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.MembershipMutation.fromHandle.getter()
-{
-  v1 = (v0 + *(type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(0) + 20));
-  v2 = *v1;
-  v3 = v1[1];
-
-  return v2;
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.MembershipMutation.fromHandle.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = (v2 + *(type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(0) + 20));
-  v6 = v5[1];
-
-  *v5 = a1;
-  v5[1] = a2;
-  return result;
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.MembershipMutation.operation.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = v1 + *(type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(0) + 24);
-
-  return outlined init with copy of NearbyGroupHostIDSService.MessageEvent.MembershipMutation.Operation(v3, a1);
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.MembershipMutation.operation.setter(uint64_t a1)
-{
-  v3 = v1 + *(type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(0) + 24);
-
-  return outlined assign with take of NearbyGroupHostIDSService.MessageEvent.MembershipMutation.Operation(a1, v3);
-}
-
-__n128 NearbyGroupHostIDSService.MessageEvent.MembershipMutation.init(id:fromHandle:operation:)@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v10 = type metadata accessor for UUID();
-  (*(*(v10 - 8) + 32))(a5, a1, v10);
-  v11 = type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(0);
-  v12 = (a5 + *(v11 + 20));
-  *v12 = a2;
-  v12[1] = a3;
-  v13 = a5 + *(v11 + 24);
-  result = *a4;
-  v15 = *(a4 + 16);
-  *v13 = *a4;
-  *(v13 + 16) = v15;
-  *(v13 + 32) = *(a4 + 32);
-  return result;
-}
-
-uint64_t NearbyGroupHostIDSService.MessageEvent.Member.init(_:)(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = (a1 + *(type metadata accessor for NearbyGroup_Member(0) + 24));
-  v5 = *v4;
-  v6 = v4[1];
-
-  outlined destroy of NearbyGroup_Group(a1, type metadata accessor for NearbyGroup_Member);
-  return v2;
-}
-
-uint64_t closure #1 in NearbyGroupHostIDSService.distributeGroupInitialization(for:to:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v12[-v8];
-  type metadata accessor for NearbyGroup_Group.Initialization(0);
-  v13 = a2;
-  v14 = a3;
-  lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization);
-  static Message.with(_:)();
-  v10 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  swift_storeEnumTagMultiPayload();
-  (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
-  return outlined assign with take of NearbyGroup_Group.OneOf_Event?(v9, a1);
-}
-
-uint64_t closure #1 in closure #1 in NearbyGroupHostIDSService.distributeGroupInitialization(for:to:)(uint64_t *a1, void *a2, void *a3)
-{
-  v6 = UUID.data.getter();
-  v8 = v7;
-  v9 = outlined consume of Data._Representation(*a1, a1[1]);
-  *a1 = v6;
-  a1[1] = v8;
-  v10 = (*((swift_isaMask & *a2) + 0xC0))(v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_1000C8980;
-  *(inited + 32) = a3;
-  v12 = a3;
-  v13 = specialized Set.union<A>(_:)(inited, v10);
-  swift_setDeallocating();
-  v14 = *(inited + 16);
-  swift_arrayDestroy();
-  v15 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy14NearbySessions0D11GroupMemberCG_020com_apple_SharePlay_D18InvitationsService0df1_G0Vs5NeverOTg508_s44com_i1_jk1_dl11Service0E19f80HostIDSServiceC010distributeH14Initialization3for2toyAA0ehI0C_Shy0E8Sessions0eH6G52CGtKFyAA0eh1_H0VzXEfU_yAN0L0VzXEfU_AA0eh1_P0VAKXEfU_Tf1cn_n(v13);
-
-  v16 = a1[2];
-
-  a1[2] = v15;
-  return result;
-}
-
-void NearbyGroup_Member.init(member:)(void *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v4 = type metadata accessor for NearbyGroup_Member(0);
-  v5 = a2 + *(v4 + 20);
-  UnknownStorage.init()();
-  v6 = (a2 + *(v4 + 24));
-  *v6 = 0;
-  v6[1] = 0;
-  *a2 = NearbyGroupMember.handle.getter();
-  a2[1] = v7;
-  v8 = NearbyGroupMember.tokenID.getter();
-  v10 = v9;
-
-  if (v10)
-  {
-    *v6 = v8;
-    v6[1] = v10;
-  }
-}
-
-uint64_t closure #1 in NearbyGroupHostIDSService.distributeAdd(for:addingMember:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v12[-v8];
-  type metadata accessor for NearbyGroup_Group.MemberAdded(0);
-  v13 = a2;
-  v14 = a3;
-  lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded);
-  static Message.with(_:)();
-  v10 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  swift_storeEnumTagMultiPayload();
-  (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
-  return outlined assign with take of NearbyGroup_Group.OneOf_Event?(v9, a1);
-}
-
-uint64_t closure #1 in NearbyGroupHostIDSService.distributeRemove(for:removingMember:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v12[-v8];
-  type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
-  v13 = a2;
-  v14 = a3;
-  lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-  static Message.with(_:)();
-  v10 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  swift_storeEnumTagMultiPayload();
-  (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
-  return outlined assign with take of NearbyGroup_Group.OneOf_Event?(v9, a1);
-}
-
-uint64_t closure #1 in closure #1 in NearbyGroupHostIDSService.distributeAdd(for:addingMember:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
-{
-  v6 = type metadata accessor for NearbyGroup_Member(0);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v11 = (&v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v9);
-  v13 = &v24 - v12;
-  v14 = UUID.data.getter();
-  v16 = v15;
-  outlined consume of Data._Representation(*a1, *(a1 + 8));
-  *a1 = v14;
-  *(a1 + 8) = v16;
-  v17 = v11 + *(v6 + 20);
-  UnknownStorage.init()();
-  v18 = (v11 + *(v6 + 24));
-  *v18 = 0;
-  v18[1] = 0;
-  *v11 = NearbyGroupMember.handle.getter();
-  v11[1] = v19;
-  v20 = NearbyGroupMember.tokenID.getter();
-  if (v21)
-  {
-    *v18 = v20;
-    v18[1] = v21;
-  }
-
-  outlined init with take of NearbyGroup_Group(v11, v13, type metadata accessor for NearbyGroup_Member);
-  v22 = *(a4(0) + 24);
-  outlined destroy of Any?(a1 + v22, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  outlined init with take of NearbyGroup_Group(v13, a1 + v22, type metadata accessor for NearbyGroup_Member);
-  return (*(v7 + 56))(a1 + v22, 0, 1, v6);
-}
-
-uint64_t closure #1 in NearbyGroupHostIDSService.distributeLeave(for:)(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v10[-v6];
-  type metadata accessor for NearbyGroup_Group.MemberLeft(0);
-  v11 = a2;
-  lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft);
-  static Message.with(_:)();
-  v8 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  swift_storeEnumTagMultiPayload();
-  (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
-  return outlined assign with take of NearbyGroup_Group.OneOf_Event?(v7, a1);
-}
-
-void NearbyGroupHostIDSService.handleIncomingDataBlastDoor(from:data:context:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
-{
-  v6 = v5;
-  v55 = a3;
-  v11 = type metadata accessor for DispatchPredicate();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11);
-  v15 = (&v53 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = *&v6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue];
-  *v15 = v16;
-  (*(v12 + 104))(v15, enum case for DispatchPredicate.onQueue(_:), v11);
-  v17 = v16;
-  v18 = _dispatchPreconditionTest(_:)();
-  (*(v12 + 8))(v15, v11);
-  if ((v18 & 1) == 0)
-  {
-    __break(1u);
-LABEL_17:
-    swift_once();
-    goto LABEL_12;
-  }
-
-  v19 = [a5 publicIntentAction];
-  if (v19)
-  {
-    v20 = v19;
-    v21 = [v19 integerValue];
-
-    if (v21 == 5)
-    {
-      v54 = a1;
-      if (one-time initialization token for host != -1)
-      {
-        swift_once();
-      }
-
-      v22 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v22, static Log.host);
-
-      v23 = a5;
-      v24 = Logger.logObject.getter();
-      v25 = static os_log_type_t.info.getter();
-
-      if (os_log_type_enabled(v24, v25))
-      {
-        v26 = swift_slowAlloc();
-        v27 = swift_slowAlloc();
-        v28 = swift_slowAlloc();
-        v53 = a4;
-        v29 = v28;
-        v57 = a2;
-        v58 = v28;
-        *v26 = 136315394;
-        v56 = v54;
-
-        v30 = String.init<A>(reflecting:)();
-        v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v58);
-
-        *(v26 + 4) = v32;
-        *(v26 + 12) = 2112;
-        *(v26 + 14) = v23;
-        *v27 = v23;
-        v33 = v23;
-        _os_log_impl(&_mh_execute_header, v24, v25, "Handling incoming data from: %s context: %@", v26, 0x16u);
-        outlined destroy of Any?(v27, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-
-        __swift_destroy_boxed_opaque_existential_0Tm(v29);
-        a4 = v53;
-      }
-
-      v35 = *&v6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_service + 24];
-      v34 = *&v6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_service + 32];
-      __swift_project_boxed_opaque_existential_1(&v6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_service], v35);
-      (*(*(v34 + 8) + 8))(v35);
-      if (v36)
-      {
-        v37 = objc_allocWithZone(IDSServiceProperties);
-        v38 = String._bridgeToObjectiveC()();
-
-        v39 = [v37 initWithServiceIdentifier:v38];
-
-        v40 = v54;
-        if (v39)
-        {
-
-          v41 = v6;
-          specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v55, a4, 5, 1, v39, v41, v40, a2);
-        }
-      }
-
-      else
-      {
-        __break(1u);
-      }
-
-      return;
-    }
-  }
-
-  if (one-time initialization token for host != -1)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_12:
-  v42 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v42, static Log.host);
-
-  v43 = a5;
-  v44 = Logger.logObject.getter();
-  v45 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v44, v45))
-  {
-    v46 = swift_slowAlloc();
-    v47 = swift_slowAlloc();
-    v48 = swift_slowAlloc();
-    v57 = a2;
-    v58 = v48;
-    *v46 = 136315394;
-    v56 = a1;
-
-    v49 = String.init<A>(reflecting:)();
-    v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v50, &v58);
-
-    *(v46 + 4) = v51;
-    *(v46 + 12) = 2112;
-    *(v46 + 14) = v43;
-    *v47 = v43;
-    v52 = v43;
-    _os_log_impl(&_mh_execute_header, v44, v45, "Dropping incoming data from: %s context: %@", v46, 0x16u);
-    outlined destroy of Any?(v47, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-
-    __swift_destroy_boxed_opaque_existential_0Tm(v48);
-  }
-}
-
-void NearbyGroupHostIDSService.handleIncomingData(from:data:context:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, void *a5)
-{
-  v55 = a3;
-  v56 = a4;
-  v57 = a1;
-  v8 = type metadata accessor for BinaryDecodingOptions();
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  v10 = type metadata accessor for NearbyGroup_Group(0);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = __chkstk_darwin(v10);
-  v14 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v54 = &v49 - v15;
-  v16 = type metadata accessor for DispatchPredicate();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v16);
-  v20 = (&v49 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v21 = *(v5 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue);
-  *v20 = v21;
-  (*(v17 + 104))(v20, enum case for DispatchPredicate.onQueue(_:), v16);
-  v22 = v21;
-  LOBYTE(v21) = _dispatchPreconditionTest(_:)();
-  (*(v17 + 8))(v20, v16);
-  if ((v21 & 1) == 0)
-  {
-    __break(1u);
-LABEL_14:
-    swift_once();
-    goto LABEL_10;
-  }
-
-  v23 = [a5 publicIntentAction];
-  if (v23)
-  {
-    v24 = v23;
-    v25 = [v23 integerValue];
-
-    if (v25 == 5)
-    {
-      v53 = v5;
-      if (one-time initialization token for host != -1)
-      {
-        swift_once();
-      }
-
-      v26 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v26, static Log.host);
-
-      v27 = a5;
-      v28 = Logger.logObject.getter();
-      v29 = static os_log_type_t.info.getter();
-
-      if (os_log_type_enabled(v28, v29))
-      {
-        v30 = swift_slowAlloc();
-        v51 = v29;
-        v31 = v30;
-        v50 = swift_slowAlloc();
-        v52 = swift_slowAlloc();
-        v61[0] = v52;
-        *v31 = 136315394;
-        *&v58 = v57;
-        *(&v58 + 1) = a2;
-
-        v32 = String.init<A>(reflecting:)();
-        v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, v61);
-
-        *(v31 + 4) = v34;
-        *(v31 + 12) = 2112;
-        *(v31 + 14) = v27;
-        v35 = v50;
-        *v50 = v27;
-        v36 = v27;
-        _os_log_impl(&_mh_execute_header, v28, v51, "Handling incoming data from: %s context: %@", v31, 0x16u);
-        outlined destroy of Any?(v35, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-
-        __swift_destroy_boxed_opaque_existential_0Tm(v52);
-      }
-
-      v61[0] = v55;
-      v61[1] = v56;
-      v60 = 0;
-      v58 = 0u;
-      v59 = 0u;
-      outlined copy of Data._Representation(v55, v56);
-      BinaryDecodingOptions.init()();
-      lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group);
-      Message.init<A>(serializedBytes:extensions:partial:options:)();
-      v48 = v54;
-      outlined init with take of NearbyGroup_Group(v14, v54, type metadata accessor for NearbyGroup_Group);
-      NearbyGroupHostIDSService.handleGroupMessage(from:message:)(v57, a2, v48);
-      outlined destroy of NearbyGroup_Group(v48, type metadata accessor for NearbyGroup_Group);
-      return;
-    }
-  }
-
-  if (one-time initialization token for host != -1)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_10:
-  v37 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v37, static Log.host);
-
-  v38 = a5;
-  v39 = Logger.logObject.getter();
-  v40 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v39, v40))
-  {
-    v41 = swift_slowAlloc();
-    v42 = swift_slowAlloc();
-    v43 = swift_slowAlloc();
-    v61[0] = v43;
-    *v41 = 136315394;
-    *&v58 = v57;
-    *(&v58 + 1) = a2;
-
-    v44 = String.init<A>(reflecting:)();
-    v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v45, v61);
-
-    *(v41 + 4) = v46;
-    *(v41 + 12) = 2112;
-    *(v41 + 14) = v38;
-    *v42 = v38;
-    v47 = v38;
-    _os_log_impl(&_mh_execute_header, v39, v40, "Dropping incoming data from: %s context: %@", v41, 0x16u);
-    outlined destroy of Any?(v42, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-
-    __swift_destroy_boxed_opaque_existential_0Tm(v43);
-  }
-}
-
-void closure #1 in NearbyGroupHostIDSService.handleIncomingDataBlastDoor(from:data:context:)(uint64_t a1, void *a2, char *a3, uint64_t a4, uint64_t a5)
-{
-  v40 = a2;
-  v41 = a5;
-  v38 = a4;
-  v39 = a3;
-  v6 = type metadata accessor for DispatchWorkItemFlags();
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6);
-  v42 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v12 = &v38 - v11;
-  v13 = type metadata accessor for NearbyGroup_Group(0);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = __chkstk_darwin(v13);
-  v17 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v19 = &v38 - v18;
-  outlined init with copy of (String, Any)(a1, v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
-  if ((*(v14 + 48))(v12, 1, v13) == 1)
-  {
-    outlined destroy of Any?(v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
-    if (one-time initialization token for host != -1)
-    {
-      swift_once();
-    }
-
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, static Log.host);
-    v21 = v40;
-    swift_errorRetain();
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.fault.getter();
-
-    if (os_log_type_enabled(v22, v23))
-    {
-      v24 = swift_slowAlloc();
-      v25 = swift_slowAlloc();
-      aBlock[0] = v25;
-      *v24 = 136315138;
-      if (v21)
-      {
-        v44 = v21;
-        swift_errorRetain();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-        v26 = String.init<A>(reflecting:)();
-        v28 = v27;
-      }
-
-      else
-      {
-        v28 = 0xE300000000000000;
-        v26 = 7104878;
-      }
-
-      v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v28, aBlock);
-
-      *(v24 + 4) = v37;
-      _os_log_impl(&_mh_execute_header, v22, v23, "Failed to decode protobuf: %s", v24, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v25);
-    }
-  }
-
-  else
-  {
-    outlined init with take of NearbyGroup_Group(v12, v19, type metadata accessor for NearbyGroup_Group);
-    v29 = v39;
-    v40 = *&v39[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue];
-    outlined init with copy of NearbyGroup_Group(v19, v17, type metadata accessor for NearbyGroup_Group);
-    v30 = (*(v14 + 80) + 40) & ~*(v14 + 80);
-    v31 = swift_allocObject();
-    v32 = v38;
-    v31[2] = v29;
-    v31[3] = v32;
-    v31[4] = v41;
-    outlined init with take of NearbyGroup_Group(v17, v31 + v30, type metadata accessor for NearbyGroup_Group);
-    aBlock[4] = partial apply for closure #1 in closure #1 in NearbyGroupHostIDSService.handleIncomingDataBlastDoor(from:data:context:);
-    aBlock[5] = v31;
-    aBlock[0] = _NSConcreteStackBlock;
-    aBlock[1] = 1107296256;
-    aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
-    aBlock[3] = &block_descriptor_6;
-    _Block_copy(aBlock);
-    v44 = _swiftEmptyArrayStorage;
-    lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-    v33 = v29;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-    dispatch thunk of SetAlgebra.init<A>(_:)();
-    v34 = type metadata accessor for DispatchWorkItem();
-    v35 = *(v34 + 48);
-    v36 = *(v34 + 52);
-    swift_allocObject();
-    DispatchWorkItem.init(flags:block:)();
-
-    OS_dispatch_queue.async(execute:)();
-
-    outlined destroy of NearbyGroup_Group(v19, type metadata accessor for NearbyGroup_Group);
-  }
-}
-
-void NearbyGroupHostIDSService.handleGroupMessage(from:message:)(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v87 = a3;
-  v80 = a1;
-  v81 = a2;
-  v4 = type metadata accessor for NearbyGroup_Group.MemberLeft(0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v76 = (&v73 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v75 = (&v73 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v10 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
-  v74 = (&v73 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = type metadata accessor for NearbyGroup_Group.Initialization(0);
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v73 = (&v73 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v16 = *(*(v77 - 8) + 64);
-  __chkstk_darwin(v77);
-  v86 = &v73 - v17;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
-  v19 = *(*(v18 - 8) + 64);
-  v20 = __chkstk_darwin(v18 - 8);
-  v22 = &v73 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v20);
-  v24 = &v73 - v23;
-  v83 = type metadata accessor for NearbyGroup_Group(0);
-  v25 = *(v83 - 8);
-  v26 = *(v25 + 64);
-  v27 = __chkstk_darwin(v83);
-  v79 = &v73 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = __chkstk_darwin(v27);
-  v85 = &v73 - v30;
-  v31 = __chkstk_darwin(v29);
-  v78 = &v73 - v32;
-  v33 = __chkstk_darwin(v31);
-  v35 = &v73 - v34;
-  __chkstk_darwin(v33);
-  v37 = &v73 - v36;
-  v38 = type metadata accessor for DispatchPredicate();
-  v39 = *(v38 - 8);
-  v40 = *(v39 + 64);
-  __chkstk_darwin(v38);
-  v42 = (&v73 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v82 = v3;
-  v43 = *(v3 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue);
-  *v42 = v43;
-  (*(v39 + 104))(v42, enum case for DispatchPredicate.onQueue(_:), v38);
-  v44 = v43;
-  LOBYTE(v43) = _dispatchPreconditionTest(_:)();
-  (*(v39 + 8))(v42, v38);
-  if (v43)
-  {
-    if (one-time initialization token for host == -1)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  swift_once();
-LABEL_3:
-  v45 = type metadata accessor for Logger();
-  v46 = __swift_project_value_buffer(v45, static Log.host);
-  v47 = v87;
-  outlined init with copy of NearbyGroup_Group(v87, v37, type metadata accessor for NearbyGroup_Group);
-  v84 = v46;
-  v48 = Logger.logObject.getter();
-  v49 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v48, v49))
-  {
-    v50 = swift_slowAlloc();
-    v51 = swift_slowAlloc();
-    v88 = v51;
-    *v50 = 136315138;
-    outlined init with copy of NearbyGroup_Group(v37, v24, type metadata accessor for NearbyGroup_Group);
-    v52 = v83;
-    (*(v25 + 56))(v24, 0, 1, v83);
-    outlined init with copy of (String, Any)(v24, v22, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
-    if ((*(v25 + 48))(v22, 1, v52) == 1)
-    {
-      v53 = 0xE300000000000000;
-      v54 = 7104878;
-    }
-
-    else
-    {
-      outlined init with take of NearbyGroup_Group(v22, v35, type metadata accessor for NearbyGroup_Group);
-      outlined init with copy of NearbyGroup_Group(v35, v78, type metadata accessor for NearbyGroup_Group);
-      v54 = String.init<A>(reflecting:)();
-      v53 = v56;
-      outlined destroy of NearbyGroup_Group(v35, type metadata accessor for NearbyGroup_Group);
-    }
-
-    v55 = v85;
-    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
-    outlined destroy of NearbyGroup_Group(v37, type metadata accessor for NearbyGroup_Group);
-    v57 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v54, v53, &v88);
-
-    *(v50 + 4) = v57;
-    _os_log_impl(&_mh_execute_header, v48, v49, "Message: %s", v50, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v51);
-
-    v47 = v87;
-  }
-
-  else
-  {
-
-    outlined destroy of NearbyGroup_Group(v37, type metadata accessor for NearbyGroup_Group);
-    v55 = v85;
-  }
-
-  v58 = v86;
-  outlined init with copy of (String, Any)(v47, v86, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v59 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v59 - 8) + 48))(v58, 1, v59) == 1)
-  {
-    outlined init with copy of NearbyGroup_Group(v47, v55, type metadata accessor for NearbyGroup_Group);
-    v60 = Logger.logObject.getter();
-    v61 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v60, v61))
-    {
-      v62 = swift_slowAlloc();
-      v63 = swift_slowAlloc();
-      v88 = v63;
-      *v62 = 136315138;
-      lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group);
-      v64 = Message.debugDescription.getter();
-      v66 = v65;
-      outlined destroy of NearbyGroup_Group(v55, type metadata accessor for NearbyGroup_Group);
-      v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v64, v66, &v88);
-
-      *(v62 + 4) = v67;
-      _os_log_impl(&_mh_execute_header, v60, v61, "Unknown message: %s", v62, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v63);
-
-      return;
-    }
-
-    v70 = type metadata accessor for NearbyGroup_Group;
-    v71 = v55;
-  }
-
-  else
-  {
-    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    if (EnumCaseMultiPayload > 1)
-    {
-      if (EnumCaseMultiPayload == 2)
-      {
-        v69 = v75;
-        outlined init with take of NearbyGroup_Group(v58, v75, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-        NearbyGroupHostIDSService.handleMemberRemoved(from:removedMember:)(v80, v81, v69);
-        v72 = type metadata accessor for NearbyGroup_Group.MemberRemoved;
-      }
-
-      else
-      {
-        v69 = v76;
-        outlined init with take of NearbyGroup_Group(v58, v76, type metadata accessor for NearbyGroup_Group.MemberLeft);
-        NearbyGroupHostIDSService.handleMemberLeft(from:leftMember:)(v80, v81, v69);
-        v72 = type metadata accessor for NearbyGroup_Group.MemberLeft;
-      }
-    }
-
-    else if (EnumCaseMultiPayload)
-    {
-      v69 = v74;
-      outlined init with take of NearbyGroup_Group(v58, v74, type metadata accessor for NearbyGroup_Group.MemberAdded);
-      NearbyGroupHostIDSService.handleMemberAdded(from:addedMember:)(v80, v81, v69);
-      v72 = type metadata accessor for NearbyGroup_Group.MemberAdded;
-    }
-
-    else
-    {
-      v69 = v73;
-      outlined init with take of NearbyGroup_Group(v58, v73, type metadata accessor for NearbyGroup_Group.Initialization);
-      NearbyGroupHostIDSService.handleInitialize(from:initialization:)(v80, v81, v69);
-      v72 = type metadata accessor for NearbyGroup_Group.Initialization;
-    }
-
-    v70 = v72;
-    v71 = v69;
-  }
-
-  outlined destroy of NearbyGroup_Group(v71, v70);
-}
-
-uint64_t NearbyGroupHostIDSService.handleInitialize(from:initialization:)(uint64_t a1, unint64_t a2, uint64_t *a3)
-{
-  v100 = a1;
-  v101 = a2;
-  v98 = type metadata accessor for NearbyGroup_Group.Initialization(0);
-  v5 = *(*(v98 - 8) + 64);
-  __chkstk_darwin(v98);
-  v104 = (&v91 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v94 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMR);
-  v7 = *(*(v94 - 8) + 64);
-  __chkstk_darwin(v94);
-  v96 = &v91 - v8;
-  v93 = type metadata accessor for NearbyGroupHostIDSService.MessageEvent(0);
-  v9 = *(*(v93 - 8) + 64);
-  __chkstk_darwin(v93);
-  v95 = &v91 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v99 = type metadata accessor for NearbyGroup_Member(0);
-  v103 = *(v99 - 8);
-  v11 = *(v103 + 64);
-  __chkstk_darwin(v99);
-  v105 = (&v91 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v16 = &v91 - v15;
-  v17 = type metadata accessor for UUID();
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 64);
-  __chkstk_darwin(v17);
-  v102 = &v91 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for DispatchPredicate();
-  v22 = *(v21 - 8);
-  v23 = *(v22 + 64);
-  __chkstk_darwin(v21);
-  v25 = (&v91 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v97 = v3;
-  v26 = *(v3 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue);
-  *v25 = v26;
-  (*(v22 + 104))(v25, enum case for DispatchPredicate.onQueue(_:), v21);
-  v27 = v26;
-  LOBYTE(v26) = _dispatchPreconditionTest(_:)();
-  (*(v22 + 8))(v25, v21);
-  if ((v26 & 1) == 0)
-  {
-    __break(1u);
-    goto LABEL_54;
-  }
-
-  outlined copy of Data._Representation(*a3, a3[1]);
-  UUID.init(data:)();
-  if ((*(v18 + 48))(v16, 1, v17) == 1)
-  {
-    outlined destroy of Any?(v16, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    if (one-time initialization token for host == -1)
-    {
-LABEL_4:
-      v28 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v28, static Log.host);
-      v29 = v104;
-      outlined init with copy of NearbyGroup_Group(a3, v104, type metadata accessor for NearbyGroup_Group.Initialization);
-      v30 = Logger.logObject.getter();
-      v31 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v30, v31))
-      {
-        v32 = swift_slowAlloc();
-        v33 = swift_slowAlloc();
-        v106 = v33;
-        *v32 = 136315138;
-        lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization);
-        v34 = Message.debugDescription.getter();
-        v36 = v35;
-        outlined destroy of NearbyGroup_Group(v29, type metadata accessor for NearbyGroup_Group.Initialization);
-        v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v36, &v106);
-
-        *(v32 + 4) = v37;
-        _os_log_impl(&_mh_execute_header, v30, v31, "Failed to derive UUID from Initialization message: %s", v32, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v33);
-      }
-
-      else
-      {
-
-        outlined destroy of NearbyGroup_Group(v29, type metadata accessor for NearbyGroup_Group.Initialization);
-      }
-
-      lazy protocol witness table accessor for type NearbyGroupHostIDSService.Errors and conformance NearbyGroupHostIDSService.Errors();
-      swift_allocError();
-      *v52 = 0;
-      return swift_willThrow();
-    }
-
-LABEL_54:
-    swift_once();
-    goto LABEL_4;
-  }
-
-  v92 = v18;
-  v38 = *(v18 + 32);
-  v98 = v17;
-  v38(v102, v16, v17);
-  v39 = a3[2];
-  v40 = *(v39 + 16);
-  if (v40)
-  {
-    v104 = (v105 + *(v99 + 24));
-    v41 = v39 + ((*(v103 + 80) + 32) & ~*(v103 + 80));
-    v103 = *(v103 + 72);
-    v42 = _swiftEmptyArrayStorage;
-    do
-    {
-      v43 = v105;
-      outlined init with copy of NearbyGroup_Group(v41, v105, type metadata accessor for NearbyGroup_Member);
-      v45 = *v43;
-      v44 = v43[1];
-      v46 = *v104;
-      v47 = v104[1];
-
-      outlined destroy of NearbyGroup_Group(v43, type metadata accessor for NearbyGroup_Member);
-      if (v47)
-      {
-        v48 = v46;
-      }
-
-      else
-      {
-        v48 = 0;
-      }
-
-      if (!v47)
-      {
-        v47 = 0xE000000000000000;
-      }
-
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v42 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v42 + 2) + 1, 1, v42);
-      }
-
-      v50 = *(v42 + 2);
-      v49 = *(v42 + 3);
-      if (v50 >= v49 >> 1)
-      {
-        v42 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v49 > 1), v50 + 1, 1, v42);
-      }
-
-      *(v42 + 2) = v50 + 1;
-      v51 = &v42[32 * v50];
-      *(v51 + 4) = v45;
-      *(v51 + 5) = v44;
-      *(v51 + 6) = v48;
-      *(v51 + 7) = v47;
-      v41 += v103;
-      --v40;
-    }
-
-    while (v40);
-  }
-
-  else
-  {
-    v42 = _swiftEmptyArrayStorage;
-  }
-
-  v55 = v100;
-  v54 = v101;
-  v56 = String._bridgeToObjectiveC()();
-  v57 = IDSCopyAddressDestinationForDestination();
-
-  v58 = IDSCopyRawAddressForDestination();
-  if (!v58)
-  {
-    goto LABEL_42;
-  }
-
-  v59 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v61 = v60;
-
-  if (String.count.getter() < 1)
-  {
-
-LABEL_42:
-
-    if (one-time initialization token for host != -1)
-    {
-      swift_once();
-    }
-
-    v68 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v68, static Log.host);
-
-    v69 = Logger.logObject.getter();
-    v70 = static os_log_type_t.fault.getter();
-
-    if (os_log_type_enabled(v69, v70))
-    {
-      v71 = swift_slowAlloc();
-      v72 = swift_slowAlloc();
-      v106 = v72;
-      *v71 = 136315138;
-      *(v71 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v54, &v106);
-      _os_log_impl(&_mh_execute_header, v69, v70, "Failed to convert ID into Raw IDS Destination: %s", v71, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v72);
-    }
-
-    return (*(v92 + 8))(v102, v98);
-  }
-
-  v62 = *(v42 + 2);
-  if (v62)
-  {
-    v63 = (v42 + 56);
-    do
-    {
-      v65 = *(v63 - 1);
-      v64 = *v63;
-      v66 = *(v63 - 3) == v59 && *(v63 - 2) == v61;
-      if (v66 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-      {
-        if (!v64)
-        {
-          goto LABEL_52;
-        }
-      }
-
-      else if (!v64)
-      {
-        goto LABEL_37;
-      }
-
-      v67 = v65 == v55 && v64 == v54;
-      if (v67 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-      {
-LABEL_52:
-
-        v81 = v92;
-        v82 = v95;
-        v83 = v102;
-        v84 = v98;
-        (*(v92 + 16))(v95, v102, v98);
-        v85 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC44com_apple_SharePlay_NearbyInvitationsService0F19GroupHostIDSServiceC12MessageEventO6MemberV_SayAJGTt0g5Tf4g_n(v42);
-
-        *(v82 + *(type metadata accessor for NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization(0) + 20)) = v85;
-        swift_storeEnumTagMultiPayload();
-        v86 = voucher_copy();
-        v87 = v96;
-        v88 = *(v97 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService__incomingMessages);
-        v89 = *(v94 + 48);
-        outlined init with copy of NearbyGroup_Group(v82, v96, type metadata accessor for NearbyGroupHostIDSService.MessageEvent);
-        *(v87 + v89) = v86;
-
-        v90 = v86;
-        PassthroughSubject.send(_:)();
-
-        outlined destroy of Any?(v87, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMR);
-        outlined destroy of NearbyGroup_Group(v82, type metadata accessor for NearbyGroupHostIDSService.MessageEvent);
-        return (*(v81 + 8))(v83, v84);
-      }
-
-LABEL_37:
-      v63 += 4;
-      --v62;
-    }
-
-    while (v62);
-  }
-
-  if (one-time initialization token for host != -1)
-  {
-    swift_once();
-  }
-
-  v73 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v73, static Log.host);
-
-  v74 = Logger.logObject.getter();
-  v75 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v74, v75))
-  {
-    v76 = swift_slowAlloc();
-    v77 = swift_slowAlloc();
-    v106 = v77;
-    *v76 = 136315138;
-    *(v76 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v54, &v106);
-    _os_log_impl(&_mh_execute_header, v74, v75, "Failed message verification. fromID %s not present in membership list.", v76, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v77);
-  }
-
-  v78 = v98;
-  v79 = v92;
-  lazy protocol witness table accessor for type NearbyGroupHostIDSService.Errors and conformance NearbyGroupHostIDSService.Errors();
-  swift_allocError();
-  *v80 = 0;
-  swift_willThrow();
-  return (*(v79 + 8))(v102, v78);
-}
-
-uint64_t NearbyGroupHostIDSService.handleMemberAdded(from:addedMember:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v77 = a2;
-  v75 = a1;
-  v80 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
-  v6 = *(*(v80 - 8) + 64);
-  __chkstk_darwin(v80);
-  v73 = &v69 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMR);
-  v8 = *(*(v74 - 8) + 64);
-  __chkstk_darwin(v74);
-  v78 = &v69 - v9;
-  v72 = type metadata accessor for NearbyGroupHostIDSService.MessageEvent(0);
-  v10 = *(*(v72 - 8) + 64);
-  __chkstk_darwin(v72);
-  v76 = &v69 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  v70 = &v69 - v14;
-  v71 = type metadata accessor for NearbyGroup_Member(0);
-  v69 = *(v71 - 8);
-  v15 = *(v69 + 64);
-  __chkstk_darwin(v71);
-  v17 = (&v69 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v19 = *(*(v18 - 8) + 64);
-  __chkstk_darwin(v18 - 8);
-  v21 = &v69 - v20;
-  v22 = type metadata accessor for UUID();
-  v23 = *(v22 - 8);
-  v24 = *(v23 + 64);
-  __chkstk_darwin(v22);
-  v81 = &v69 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = type metadata accessor for DispatchPredicate();
-  v27 = *(v26 - 8);
-  v28 = *(v27 + 64);
-  __chkstk_darwin(v26);
-  v30 = (&v69 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v79 = v4;
-  v31 = *(v4 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue);
-  *v30 = v31;
-  (*(v27 + 104))(v30, enum case for DispatchPredicate.onQueue(_:), v26);
-  v32 = v31;
-  v33 = _dispatchPreconditionTest(_:)();
-  (*(v27 + 8))(v30, v26);
-  if ((v33 & 1) == 0)
-  {
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  outlined copy of Data._Representation(*a3, *(a3 + 8));
-  UUID.init(data:)();
-  v33 = a3;
-  if ((*(v23 + 48))(v21, 1, v22) == 1)
-  {
-    outlined destroy of Any?(v21, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    if (one-time initialization token for host == -1)
-    {
-LABEL_4:
-      v34 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v34, static Log.host);
-      v35 = v73;
-      outlined init with copy of NearbyGroup_Group(v33, v73, type metadata accessor for NearbyGroup_Group.MemberAdded);
-      v36 = Logger.logObject.getter();
-      v37 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v36, v37))
-      {
-        v38 = swift_slowAlloc();
-        v39 = swift_slowAlloc();
-        v82 = v39;
-        *v38 = 136315138;
-        lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded);
-        v40 = Message.debugDescription.getter();
-        v42 = v41;
-        outlined destroy of NearbyGroup_Group(v35, type metadata accessor for NearbyGroup_Group.MemberAdded);
-        v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v82);
-
-        *(v38 + 4) = v43;
-        _os_log_impl(&_mh_execute_header, v36, v37, "Failed to derive UUID from member added message: %s", v38, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v39);
-      }
-
-      else
-      {
-
-        outlined destroy of NearbyGroup_Group(v35, type metadata accessor for NearbyGroup_Group.MemberAdded);
-      }
-
-      lazy protocol witness table accessor for type NearbyGroupHostIDSService.Errors and conformance NearbyGroupHostIDSService.Errors();
-      swift_allocError();
-      *v51 = 0;
-      return swift_willThrow();
-    }
-
-LABEL_14:
-    swift_once();
-    goto LABEL_4;
-  }
-
-  v44 = v22;
-  v45 = v23;
-  (*(v23 + 32))(v81, v21, v44);
-  v46 = v70;
-  outlined init with copy of (String, Any)(a3 + *(v80 + 24), v70, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v47 = *(v69 + 48);
-  v48 = v71;
-  if (v47(v46, 1, v71) == 1)
-  {
-    *v17 = 0;
-    v17[1] = 0xE000000000000000;
-    v49 = v17 + *(v48 + 20);
-    UnknownStorage.init()();
-    v50 = (v17 + *(v48 + 24));
-    *v50 = 0;
-    v50[1] = 0;
-    if (v47(v46, 1, v48) != 1)
-    {
-      outlined destroy of Any?(v46, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of NearbyGroup_Group(v46, v17, type metadata accessor for NearbyGroup_Member);
-  }
-
-  v54 = *v17;
-  v53 = v17[1];
-  v55 = (v17 + *(v48 + 24));
-  v57 = *v55;
-  v56 = v55[1];
-
-  outlined destroy of NearbyGroup_Group(v17, type metadata accessor for NearbyGroup_Member);
-  v58 = v76;
-  v59 = v81;
-  (*(v23 + 16))(v76, v81, v44);
-  v60 = type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(0);
-  v61 = (v58 + *(v60 + 20));
-  v62 = v77;
-  *v61 = v75;
-  v61[1] = v62;
-  v63 = v58 + *(v60 + 24);
-  *v63 = v54;
-  *(v63 + 8) = v53;
-  *(v63 + 16) = v57;
-  *(v63 + 24) = v56;
-  *(v63 + 32) = 0;
-  swift_storeEnumTagMultiPayload();
-
-  v64 = voucher_copy();
-  v65 = v78;
-  v66 = *(v79 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService__incomingMessages);
-  v67 = *(v74 + 48);
-  outlined init with copy of NearbyGroup_Group(v58, v78, type metadata accessor for NearbyGroupHostIDSService.MessageEvent);
-  *(v65 + v67) = v64;
-
-  v68 = v64;
-  PassthroughSubject.send(_:)();
-
-  outlined destroy of Any?(v65, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMR);
-  outlined destroy of NearbyGroup_Group(v58, type metadata accessor for NearbyGroupHostIDSService.MessageEvent);
-  return (*(v45 + 8))(v59, v44);
-}
-
-uint64_t NearbyGroupHostIDSService.handleMemberRemoved(from:removedMember:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v77 = a2;
-  v75 = a1;
-  v80 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
-  v6 = *(*(v80 - 8) + 64);
-  __chkstk_darwin(v80);
-  v73 = &v69 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMR);
-  v8 = *(*(v74 - 8) + 64);
-  __chkstk_darwin(v74);
-  v78 = &v69 - v9;
-  v72 = type metadata accessor for NearbyGroupHostIDSService.MessageEvent(0);
-  v10 = *(*(v72 - 8) + 64);
-  __chkstk_darwin(v72);
-  v76 = &v69 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  v70 = &v69 - v14;
-  v71 = type metadata accessor for NearbyGroup_Member(0);
-  v69 = *(v71 - 8);
-  v15 = *(v69 + 64);
-  __chkstk_darwin(v71);
-  v17 = (&v69 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v19 = *(*(v18 - 8) + 64);
-  __chkstk_darwin(v18 - 8);
-  v21 = &v69 - v20;
-  v22 = type metadata accessor for UUID();
-  v23 = *(v22 - 8);
-  v24 = *(v23 + 64);
-  __chkstk_darwin(v22);
-  v81 = &v69 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = type metadata accessor for DispatchPredicate();
-  v27 = *(v26 - 8);
-  v28 = *(v27 + 64);
-  __chkstk_darwin(v26);
-  v30 = (&v69 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v79 = v4;
-  v31 = *(v4 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue);
-  *v30 = v31;
-  (*(v27 + 104))(v30, enum case for DispatchPredicate.onQueue(_:), v26);
-  v32 = v31;
-  v33 = _dispatchPreconditionTest(_:)();
-  (*(v27 + 8))(v30, v26);
-  if ((v33 & 1) == 0)
-  {
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  outlined copy of Data._Representation(*a3, *(a3 + 8));
-  UUID.init(data:)();
-  v33 = a3;
-  if ((*(v23 + 48))(v21, 1, v22) == 1)
-  {
-    outlined destroy of Any?(v21, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    if (one-time initialization token for host == -1)
-    {
-LABEL_4:
-      v34 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v34, static Log.host);
-      v35 = v73;
-      outlined init with copy of NearbyGroup_Group(v33, v73, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-      v36 = Logger.logObject.getter();
-      v37 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v36, v37))
-      {
-        v38 = swift_slowAlloc();
-        v39 = swift_slowAlloc();
-        v82 = v39;
-        *v38 = 136315138;
-        lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-        v40 = Message.debugDescription.getter();
-        v42 = v41;
-        outlined destroy of NearbyGroup_Group(v35, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-        v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v82);
-
-        *(v38 + 4) = v43;
-        _os_log_impl(&_mh_execute_header, v36, v37, "Failed to derive UUID from member added message: %s", v38, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v39);
-      }
-
-      else
-      {
-
-        outlined destroy of NearbyGroup_Group(v35, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-      }
-
-      lazy protocol witness table accessor for type NearbyGroupHostIDSService.Errors and conformance NearbyGroupHostIDSService.Errors();
-      swift_allocError();
-      *v51 = 0;
-      return swift_willThrow();
-    }
-
-LABEL_14:
-    swift_once();
-    goto LABEL_4;
-  }
-
-  v44 = v22;
-  v45 = v23;
-  (*(v23 + 32))(v81, v21, v44);
-  v46 = v70;
-  outlined init with copy of (String, Any)(a3 + *(v80 + 24), v70, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v47 = *(v69 + 48);
-  v48 = v71;
-  if (v47(v46, 1, v71) == 1)
-  {
-    *v17 = 0;
-    v17[1] = 0xE000000000000000;
-    v49 = v17 + *(v48 + 20);
-    UnknownStorage.init()();
-    v50 = (v17 + *(v48 + 24));
-    *v50 = 0;
-    v50[1] = 0;
-    if (v47(v46, 1, v48) != 1)
-    {
-      outlined destroy of Any?(v46, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-    }
-  }
-
-  else
-  {
-    outlined init with take of NearbyGroup_Group(v46, v17, type metadata accessor for NearbyGroup_Member);
-  }
-
-  v54 = *v17;
-  v53 = v17[1];
-  v55 = (v17 + *(v48 + 24));
-  v57 = *v55;
-  v56 = v55[1];
-
-  outlined destroy of NearbyGroup_Group(v17, type metadata accessor for NearbyGroup_Member);
-  v58 = v76;
-  v59 = v81;
-  (*(v23 + 16))(v76, v81, v44);
-  v60 = type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(0);
-  v61 = (v58 + *(v60 + 20));
-  v62 = v77;
-  *v61 = v75;
-  v61[1] = v62;
-  v63 = v58 + *(v60 + 24);
-  *v63 = v54;
-  *(v63 + 8) = v53;
-  *(v63 + 16) = v57;
-  *(v63 + 24) = v56;
-  *(v63 + 32) = 1;
-  swift_storeEnumTagMultiPayload();
-
-  v64 = voucher_copy();
-  v65 = v78;
-  v66 = *(v79 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService__incomingMessages);
-  v67 = *(v74 + 48);
-  outlined init with copy of NearbyGroup_Group(v58, v78, type metadata accessor for NearbyGroupHostIDSService.MessageEvent);
-  *(v65 + v67) = v64;
-
-  v68 = v64;
-  PassthroughSubject.send(_:)();
-
-  outlined destroy of Any?(v65, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMR);
-  outlined destroy of NearbyGroup_Group(v58, type metadata accessor for NearbyGroupHostIDSService.MessageEvent);
-  return (*(v45 + 8))(v59, v44);
-}
-
-uint64_t NearbyGroupHostIDSService.handleMemberLeft(from:leftMember:)(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v82 = a1;
-  v83 = a2;
-  v80 = type metadata accessor for NearbyGroup_Group.MemberLeft(0);
-  v5 = *(*(v80 - 8) + 64);
-  __chkstk_darwin(v80);
-  v81 = &v73 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMR);
-  v7 = *(*(v76 - 8) + 64);
-  __chkstk_darwin(v76);
-  v78 = &v73 - v8;
-  v75 = type metadata accessor for NearbyGroupHostIDSService.MessageEvent(0);
-  v9 = *(*(v75 - 8) + 64);
-  __chkstk_darwin(v75);
-  v77 = &v73 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = &v73 - v13;
-  v15 = type metadata accessor for UUID();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  __chkstk_darwin(v15);
-  v19 = &v73 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = type metadata accessor for DispatchPredicate();
-  v21 = *(v20 - 8);
-  v22 = *(v21 + 64);
-  __chkstk_darwin(v20);
-  v24 = (&v73 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v79 = v3;
-  v25 = *(v3 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue);
-  *v24 = v25;
-  (*(v21 + 104))(v24, enum case for DispatchPredicate.onQueue(_:), v20);
-  v26 = v25;
-  LOBYTE(v25) = _dispatchPreconditionTest(_:)();
-  (*(v21 + 8))(v24, v20);
-  if ((v25 & 1) == 0)
-  {
-    __break(1u);
-    goto LABEL_21;
-  }
-
-  outlined copy of Data._Representation(*a3, *(a3 + 8));
-  UUID.init(data:)();
-  if ((*(v16 + 48))(v14, 1, v15) == 1)
-  {
-    outlined destroy of Any?(v14, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    if (one-time initialization token for host == -1)
-    {
-LABEL_4:
-      v27 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v27, static Log.host);
-      v28 = v81;
-      outlined init with copy of NearbyGroup_Group(a3, v81, type metadata accessor for NearbyGroup_Group.MemberLeft);
-      v29 = Logger.logObject.getter();
-      v30 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v29, v30))
-      {
-        v31 = swift_slowAlloc();
-        v32 = swift_slowAlloc();
-        v84 = v32;
-        *v31 = 136315138;
-        lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft);
-        v33 = Message.debugDescription.getter();
-        v35 = v34;
-        outlined destroy of NearbyGroup_Group(v28, type metadata accessor for NearbyGroup_Group.MemberLeft);
-        v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v35, &v84);
-
-        *(v31 + 4) = v36;
-        _os_log_impl(&_mh_execute_header, v29, v30, "Failed to derive UUID from member left message: %s", v31, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v32);
-      }
-
-      else
-      {
-
-        outlined destroy of NearbyGroup_Group(v28, type metadata accessor for NearbyGroup_Group.MemberLeft);
-      }
-
-      lazy protocol witness table accessor for type NearbyGroupHostIDSService.Errors and conformance NearbyGroupHostIDSService.Errors();
-      swift_allocError();
-      *v52 = 0;
-      return swift_willThrow();
-    }
-
-LABEL_21:
-    swift_once();
-    goto LABEL_4;
-  }
-
-  v37 = v15;
-  v38 = v19;
-  (*(v16 + 32))(v19, v14, v37);
-  v39 = v82;
-  v40 = v83;
-  v41 = String._bridgeToObjectiveC()();
-  v42 = IDSCopyAddressDestinationForDestination();
-
-  v43 = IDSCopyRawAddressForDestination();
-  if (v43)
-  {
-    v44 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v46 = v45;
-
-    if (String.count.getter() >= 1)
-    {
-      v47 = v38;
-      v48 = v44;
-      if (*(a3 + 16) == 1)
-      {
-
-        v49 = v39;
-        v50 = v39;
-        v51 = v40;
-      }
-
-      else
-      {
-        v49 = 0;
-        v50 = v39;
-        v51 = 0;
-      }
-
-      v62 = *(v16 + 16);
-      v63 = v77;
-      v74 = v47;
-      v62(v77, v47, v37);
-      v64 = type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(0);
-      v65 = (v63 + *(v64 + 20));
-      *v65 = v50;
-      v65[1] = v40;
-      v66 = v63 + *(v64 + 24);
-      *v66 = v48;
-      *(v66 + 8) = v46;
-      *(v66 + 16) = v49;
-      *(v66 + 24) = v51;
-      *(v66 + 32) = 1;
-      swift_storeEnumTagMultiPayload();
-
-      v67 = voucher_copy();
-      v68 = v78;
-      v69 = *(v79 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService__incomingMessages);
-      v70 = v37;
-      v71 = *(v76 + 48);
-      outlined init with copy of NearbyGroup_Group(v63, v78, type metadata accessor for NearbyGroupHostIDSService.MessageEvent);
-      *(v68 + v71) = v67;
-
-      v72 = v67;
-      PassthroughSubject.send(_:)();
-
-      outlined destroy of Any?(v68, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19GroupHostIDSServiceC12MessageEventO_AC0K7ContextVtMR);
-      outlined destroy of NearbyGroup_Group(v63, type metadata accessor for NearbyGroupHostIDSService.MessageEvent);
-      return (*(v16 + 8))(v74, v70);
-    }
-  }
-
-  if (one-time initialization token for host != -1)
-  {
-    swift_once();
-  }
-
-  v54 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v54, static Log.host);
-
-  v55 = Logger.logObject.getter();
-  v56 = static os_log_type_t.fault.getter();
-
-  if (os_log_type_enabled(v55, v56))
-  {
-    v57 = v39;
-    v58 = swift_slowAlloc();
-    v59 = swift_slowAlloc();
-    v60 = v40;
-    v61 = v59;
-    v84 = v59;
-    *v58 = 136315138;
-    *(v58 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v57, v60, &v84);
-    _os_log_impl(&_mh_execute_header, v55, v56, "Failed to convert ID into Raw IDS Destination: %s", v58, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v61);
-  }
-
-  return (*(v16 + 8))(v38, v37);
-}
-
 void IDSService.account(for:)(void *a1, uint64_t a2)
 {
   v5 = [v2 accounts];
-  if (v5)
+  if (!v5)
   {
-    v6 = v5;
-    v7 = type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for IDSAccount, IDSAccount_ptr);
-    lazy protocol witness table accessor for type IDSAccount and conformance NSObject();
-    v8 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+LABEL_50:
+    __break(1u);
+    return;
+  }
 
-    v54 = v8;
-    if ((v8 & 0xC000000000000001) != 0)
+  v6 = v5;
+  v7 = type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for IDSAccount, IDSAccount_ptr);
+  lazy protocol witness table accessor for type IDSAccount and conformance NSObject();
+  v8 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+
+  v54 = v8;
+  if ((v8 & 0xC000000000000001) != 0)
+  {
+    swift_unknownObjectRetain();
+    __CocoaSet.makeIterator()();
+    Set.Iterator.init(_cocoa:)();
+    v9 = v71;
+    v10 = v72;
+    v11 = v73;
+    v12 = v74;
+    v13 = v75;
+  }
+
+  else
+  {
+    v14 = -1 << *(v8 + 32);
+    v10 = v8 + 56;
+    v15 = ~v14;
+    v16 = -v14;
+    if (v16 < 64)
     {
-      swift_unknownObjectRetain();
-      __CocoaSet.makeIterator()();
-      Set.Iterator.init(_cocoa:)();
-      v9 = v71;
-      v10 = v72;
-      v11 = v73;
-      v12 = v74;
-      v13 = v75;
+      v17 = ~(-1 << v16);
     }
 
     else
     {
-      v14 = -1 << *(v8 + 32);
-      v10 = v8 + 56;
-      v15 = ~v14;
-      v16 = -v14;
-      if (v16 < 64)
+      v17 = -1;
+    }
+
+    v18 = v17 & *(v8 + 56);
+
+    v11 = v15;
+    v13 = v18;
+    v12 = 0;
+  }
+
+  v65 = 0;
+  v53 = v11;
+  v19 = (v11 + 64) >> 6;
+  v60 = a2;
+  v61 = v9;
+  v56 = v19;
+  v57 = v7;
+  v58 = v10;
+  v59 = a1;
+  v62 = v12;
+  if (v9 < 0)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_9:
+  v20 = v12;
+  v21 = v13;
+  v22 = v12;
+  if (!v13)
+  {
+    while (1)
+    {
+      v22 = v20 + 1;
+      if (__OFADD__(v20, 1))
       {
-        v17 = ~(-1 << v16);
+        break;
+      }
+
+      if (v22 >= v19)
+      {
+        goto LABEL_44;
+      }
+
+      v21 = *(v10 + 8 * v22);
+      ++v20;
+      if (v21)
+      {
+        goto LABEL_13;
+      }
+    }
+
+LABEL_47:
+    __break(1u);
+    goto LABEL_48;
+  }
+
+LABEL_13:
+  v63 = (v21 - 1) & v21;
+  v64 = v22;
+  v23 = *(*(v9 + 48) + ((v22 << 9) | (8 * __clz(__rbit64(v21)))));
+  if (v23)
+  {
+    while (1)
+    {
+      v66 = v23;
+      v25 = [v23 pseudonyms];
+      if (!v25)
+      {
+        break;
+      }
+
+      v26 = v25;
+      type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for IDSPseudonym, IDSPseudonym_ptr);
+      v27 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+      if (v27 >> 62)
+      {
+        v28 = _CocoaArrayWrapper.endIndex.getter();
       }
 
       else
       {
-        v17 = -1;
+        v28 = *((v27 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
-      v18 = v17 & *(v8 + 56);
-
-      v11 = v15;
-      v13 = v18;
-      v12 = 0;
-    }
-
-    v65 = 0;
-    v53 = v11;
-    v19 = (v11 + 64) >> 6;
-    v60 = a2;
-    v61 = v9;
-    v56 = v19;
-    v57 = v7;
-    v58 = v10;
-    v59 = a1;
-    v62 = v12;
-    if (v9 < 0)
-    {
-      goto LABEL_15;
-    }
-
-LABEL_9:
-    v20 = v12;
-    v21 = v13;
-    v22 = v12;
-    if (v13)
-    {
-LABEL_13:
-      v63 = (v21 - 1) & v21;
-      v64 = v22;
-      v23 = *(*(v9 + 48) + ((v22 << 9) | (8 * __clz(__rbit64(v21)))));
-      if (!v23)
+      v55 = v13;
+      if (v28)
       {
-LABEL_40:
-        outlined consume of Set<IDSAccount>.Iterator._Variant();
-
-        return;
-      }
-
-      while (1)
-      {
-        v66 = v23;
-        v25 = [v23 pseudonyms];
-        if (!v25)
+        v29 = 0;
+        v67 = v27 & 0xC000000000000001;
+        v30 = _swiftEmptyArrayStorage;
+        while (1)
         {
-          break;
-        }
-
-        v26 = v25;
-        type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for IDSPseudonym, IDSPseudonym_ptr);
-        v27 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-        if (v27 >> 62)
-        {
-          v28 = _CocoaArrayWrapper.endIndex.getter();
-        }
-
-        else
-        {
-          v28 = *((v27 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        }
-
-        v55 = v13;
-        if (v28)
-        {
-          v29 = 0;
-          v67 = v27 & 0xC000000000000001;
-          v30 = _swiftEmptyArrayStorage;
-          while (1)
+          if (v67)
           {
-            if (v67)
-            {
-              v31 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-            }
-
-            else
-            {
-              if (v29 >= *((v27 & 0xFFFFFFFFFFFFFF8) + 0x10))
-              {
-                goto LABEL_42;
-              }
-
-              v31 = *(v27 + 8 * v29 + 32);
-            }
-
-            v32 = v31;
-            v33 = v29 + 1;
-            if (__OFADD__(v29, 1))
-            {
-              break;
-            }
-
-            v34 = [v31 URI];
-            v35 = [v34 prefixedURI];
-
-            v36 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-            v38 = v37;
-
-            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-            {
-              v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v30 + 2) + 1, 1, v30);
-            }
-
-            v40 = *(v30 + 2);
-            v39 = *(v30 + 3);
-            if (v40 >= v39 >> 1)
-            {
-              v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v39 > 1), v40 + 1, 1, v30);
-            }
-
-            *(v30 + 2) = v40 + 1;
-            v41 = &v30[16 * v40];
-            *(v41 + 4) = v36;
-            *(v41 + 5) = v38;
-            ++v29;
-            if (v33 == v28)
-            {
-              goto LABEL_34;
-            }
+            v31 = specialized _ArrayBuffer._getElementSlowPath(_:)();
           }
 
-          __break(1u);
-LABEL_42:
-          __break(1u);
-          goto LABEL_43;
+          else
+          {
+            if (v29 >= *((v27 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            {
+              goto LABEL_46;
+            }
+
+            v31 = *(v27 + 8 * v29 + 32);
+          }
+
+          v32 = v31;
+          v33 = v29 + 1;
+          if (__OFADD__(v29, 1))
+          {
+            break;
+          }
+
+          v34 = [v31 URI];
+          v35 = [v34 prefixedURI];
+
+          v36 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v38 = v37;
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v30 + 2) + 1, 1, v30);
+          }
+
+          v40 = *(v30 + 2);
+          v39 = *(v30 + 3);
+          if (v40 >= v39 >> 1)
+          {
+            v30 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v39 > 1), v40 + 1, 1, v30);
+          }
+
+          *(v30 + 2) = v40 + 1;
+          v41 = &v30[16 * v40];
+          *(v41 + 4) = v36;
+          *(v41 + 5) = v38;
+          ++v29;
+          if (v33 == v28)
+          {
+            goto LABEL_34;
+          }
         }
 
-        v30 = _swiftEmptyArrayStorage;
+        __break(1u);
+LABEL_46:
+        __break(1u);
+        goto LABEL_47;
+      }
+
+      v30 = _swiftEmptyArrayStorage;
 LABEL_34:
 
-        v44 = v59;
-        v43 = v60;
-        v69 = v59;
-        v70 = v60;
-        __chkstk_darwin(v42);
-        v52 = &v69;
-        v45 = v65;
-        v46 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v51, v30);
+      v44 = v59;
+      v43 = v60;
+      v69 = v59;
+      v70 = v60;
+      __chkstk_darwin(v42);
+      v52 = &v69;
+      v45 = v65;
+      v46 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v51, v30);
 
-        if ((v46 & 1) == 0)
-        {
-          v47 = [v66 aliasStrings];
-          if (!v47)
-          {
-            goto LABEL_45;
-          }
+      if (v46)
+      {
+        goto LABEL_41;
+      }
 
-          v48 = v47;
-          v49 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      v47 = [v66 aliasStrings];
+      if (!v47)
+      {
+        goto LABEL_49;
+      }
 
-          v69 = v44;
-          v70 = v43;
-          __chkstk_darwin(v50);
-          v52 = &v69;
-          LOBYTE(v48) = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v51, v49);
-          v65 = v45;
+      v48 = v47;
+      v49 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-          if ((v48 & 1) == 0)
-          {
+      v69 = v44;
+      v70 = v43;
+      __chkstk_darwin(v50);
+      v52 = &v69;
+      LOBYTE(v48) = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v51, v49);
+      v65 = v45;
 
-            v13 = v63;
-            v12 = v64;
-            v10 = v58;
-            v9 = v61;
-            v19 = v56;
-            v62 = v64;
-            if ((v61 & 0x8000000000000000) == 0)
-            {
-              goto LABEL_9;
-            }
+      if (v48)
+      {
+LABEL_41:
+        v9 = v61;
+        goto LABEL_44;
+      }
+
+      v13 = v63;
+      v12 = v64;
+      v10 = v58;
+      v9 = v61;
+      v19 = v56;
+      v62 = v64;
+      if ((v61 & 0x8000000000000000) == 0)
+      {
+        goto LABEL_9;
+      }
 
 LABEL_15:
-            v24 = __CocoaSet.Iterator.next()();
-            if (v24)
-            {
-              v68 = v24;
-              swift_dynamicCast();
-              v23 = v69;
-              v63 = v13;
-              v64 = v62;
-              if (v69)
-              {
-                continue;
-              }
-            }
-          }
-        }
-
-        goto LABEL_40;
-      }
-    }
-
-    else
-    {
-      while (1)
+      v24 = __CocoaSet.Iterator.next()();
+      if (!v24)
       {
-        v22 = v20 + 1;
-        if (__OFADD__(v20, 1))
-        {
-          break;
-        }
-
-        if (v22 >= v19)
-        {
-          goto LABEL_40;
-        }
-
-        v21 = *(v10 + 8 * v22);
-        ++v20;
-        if (v21)
-        {
-          goto LABEL_13;
-        }
+        v9 = v61;
+        goto LABEL_44;
       }
 
-LABEL_43:
-      __break(1u);
+      v68 = v24;
+      swift_dynamicCast();
+      v23 = v69;
+      v63 = v13;
+      v64 = v62;
+      if (!v69)
+      {
+        goto LABEL_42;
+      }
     }
 
+LABEL_48:
     __break(1u);
-LABEL_45:
+LABEL_49:
     __break(1u);
+    goto LABEL_50;
   }
 
-  __break(1u);
+LABEL_42:
+  v9 = v61;
+LABEL_44:
+  outlined consume of Set<IDSAccount>.Iterator._Variant(v9);
 }
 
 Swift::Int _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC14NearbySessions0E11GroupMemberC_Tt1g5(uint64_t a1, uint64_t a2)
@@ -2294,7 +354,7 @@ uint64_t _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC7Combine14AnyCancel
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy7Combine14AnyCancellableCGMd, &_ss11_SetStorageCy7Combine14AnyCancellableCGMR);
     v2 = static _SetStorage.convert(_:capacity:)();
-    v16 = v2;
+    v15 = v2;
     __CocoaSet.makeIterator()();
     if (__CocoaSet.Iterator.next()())
     {
@@ -2302,54 +362,53 @@ uint64_t _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfC7Combine14AnyCancel
       do
       {
         swift_dynamicCast();
-        v10 = *(v2 + 16);
-        if (*(v2 + 24) <= v10)
+        v9 = *(v2 + 16);
+        if (*(v2 + 24) <= v9)
         {
-          specialized _NativeSet.resize(capacity:)(v10 + 1);
+          specialized _NativeSet.resize(capacity:)(v9 + 1);
         }
 
-        v2 = v16;
-        v3 = *(v16 + 40);
-        lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, &type metadata accessor for AnyCancellable);
+        v2 = v15;
+        lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, &type metadata accessor for AnyCancellable, &protocol conformance descriptor for AnyCancellable);
         result = dispatch thunk of Hashable._rawHashValue(seed:)();
-        v5 = v16 + 56;
-        v6 = -1 << *(v16 + 32);
-        v7 = result & ~v6;
-        v8 = v7 >> 6;
-        if (((-1 << v7) & ~*(v16 + 56 + 8 * (v7 >> 6))) != 0)
+        v4 = v15 + 56;
+        v5 = -1 << *(v15 + 32);
+        v6 = result & ~v5;
+        v7 = v6 >> 6;
+        if (((-1 << v6) & ~*(v15 + 56 + 8 * (v6 >> 6))) != 0)
         {
-          v9 = __clz(__rbit64((-1 << v7) & ~*(v16 + 56 + 8 * (v7 >> 6)))) | v7 & 0x7FFFFFFFFFFFFFC0;
+          v8 = __clz(__rbit64((-1 << v6) & ~*(v15 + 56 + 8 * (v6 >> 6)))) | v6 & 0x7FFFFFFFFFFFFFC0;
         }
 
         else
         {
-          v11 = 0;
-          v12 = (63 - v6) >> 6;
+          v10 = 0;
+          v11 = (63 - v5) >> 6;
           do
           {
-            if (++v8 == v12 && (v11 & 1) != 0)
+            if (++v7 == v11 && (v10 & 1) != 0)
             {
               __break(1u);
               return result;
             }
 
-            v13 = v8 == v12;
-            if (v8 == v12)
+            v12 = v7 == v11;
+            if (v7 == v11)
             {
-              v8 = 0;
+              v7 = 0;
             }
 
-            v11 |= v13;
-            v14 = *(v5 + 8 * v8);
+            v10 |= v12;
+            v13 = *(v4 + 8 * v7);
           }
 
-          while (v14 == -1);
-          v9 = __clz(__rbit64(~v14)) + (v8 << 6);
+          while (v13 == -1);
+          v8 = __clz(__rbit64(~v13)) + (v7 << 6);
         }
 
-        *(v5 + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v9;
-        *(*(v16 + 48) + 8 * v9) = v15;
-        ++*(v16 + 16);
+        *(v4 + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v8;
+        *(*(v15 + 48) + 8 * v8) = v14;
+        ++*(v15 + 16);
       }
 
       while (__CocoaSet.Iterator.next()());
@@ -2625,80 +684,73 @@ void specialized closure #1 in _NativeSet.subtracting<A>(_:)(unint64_t *a1, uint
   v7 = *(a3 + 16);
   *(a1 + ((a4 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a4) - 1;
   v8 = v7 - 1;
-  v32 = a3 + 56;
+  v29 = a3 + 56;
   while (2)
   {
-    v29 = v8;
+    v26 = v8;
     do
     {
       while (1)
       {
-        v9 = *v5;
         if (*v5 >> 62)
         {
-          if (v9 < 0)
-          {
-            v26 = *v5;
-          }
-
-          v10 = _CocoaArrayWrapper.endIndex.getter();
+          v9 = _CocoaArrayWrapper.endIndex.getter();
         }
 
         else
         {
-          v10 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v9 = *((*v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
         }
 
-        v11 = v5[1];
-        if (v11 == v10)
+        v10 = v5[1];
+        if (v10 == v9)
         {
 
-          specialized _NativeSet.extractSubset(using:count:)(a1, a2, v29, a3);
+          specialized _NativeSet.extractSubset(using:count:)(a1, a2, v26, a3);
           return;
         }
 
-        v12 = *v5;
+        v11 = *v5;
         if ((*v5 & 0xC000000000000001) != 0)
         {
-          v27 = v5[1];
-          v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v12 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if ((v11 & 0x8000000000000000) != 0)
+          if ((v10 & 0x8000000000000000) != 0)
           {
             __break(1u);
+LABEL_26:
+            __break(1u);
+LABEL_27:
+            __break(1u);
 LABEL_28:
-            __break(1u);
-LABEL_29:
-            __break(1u);
-LABEL_30:
             __break(1u);
             return;
           }
 
-          if (v11 >= *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v10 >= *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
-            goto LABEL_29;
+            goto LABEL_27;
           }
 
-          v13 = *(v12 + 8 * v11 + 32);
+          v12 = *(v11 + 8 * v10 + 32);
         }
 
-        v14 = v13;
-        if (__OFADD__(v11, 1))
+        v13 = v12;
+        if (__OFADD__(v10, 1))
         {
-          goto LABEL_28;
+          goto LABEL_26;
         }
 
-        v5[1] = v11 + 1;
-        v15 = NSObject._rawHashValue(seed:)(*(a3 + 40));
-        v16 = -1 << *(a3 + 32);
-        v17 = v15 & ~v16;
-        v18 = v17 >> 6;
-        v19 = 1 << v17;
-        if (((1 << v17) & *(v32 + 8 * (v17 >> 6))) != 0)
+        v5[1] = v10 + 1;
+        v14 = NSObject._rawHashValue(seed:)(*(a3 + 40));
+        v15 = -1 << *(a3 + 32);
+        v16 = v14 & ~v15;
+        v17 = v16 >> 6;
+        v18 = 1 << v16;
+        if (((1 << v16) & *(v29 + 8 * (v16 >> 6))) != 0)
         {
           break;
         }
@@ -2709,43 +761,43 @@ LABEL_3:
       }
 
       type metadata accessor for NearbyGroupMember();
-      v20 = *(*(a3 + 48) + 8 * v17);
-      v21 = static NSObject.== infix(_:_:)();
+      v19 = *(*(a3 + 48) + 8 * v16);
+      v20 = static NSObject.== infix(_:_:)();
 
-      if ((v21 & 1) == 0)
+      if ((v20 & 1) == 0)
       {
-        v22 = ~v16;
+        v21 = ~v15;
         do
         {
-          v17 = (v17 + 1) & v22;
-          v18 = v17 >> 6;
-          v19 = 1 << v17;
-          if (((1 << v17) & *(v32 + 8 * (v17 >> 6))) == 0)
+          v16 = (v16 + 1) & v21;
+          v17 = v16 >> 6;
+          v18 = 1 << v16;
+          if (((1 << v16) & *(v29 + 8 * (v16 >> 6))) == 0)
           {
             goto LABEL_3;
           }
 
-          v23 = *(*(a3 + 48) + 8 * v17);
-          v24 = static NSObject.== infix(_:_:)();
+          v22 = *(*(a3 + 48) + 8 * v16);
+          v23 = static NSObject.== infix(_:_:)();
         }
 
-        while ((v24 & 1) == 0);
+        while ((v23 & 1) == 0);
       }
 
       v5 = a5;
 
-      v25 = a1[v18];
-      a1[v18] = v25 & ~v19;
+      v24 = a1[v17];
+      a1[v17] = v24 & ~v18;
     }
 
-    while ((v25 & v19) == 0);
-    v8 = v29 - 1;
-    if (__OFSUB__(v29, 1))
+    while ((v24 & v18) == 0);
+    v8 = v26 - 1;
+    if (__OFSUB__(v26, 1))
     {
-      goto LABEL_30;
+      goto LABEL_28;
     }
 
-    if (v29 != 1)
+    if (v26 != 1)
     {
       continue;
     }
@@ -2754,7 +806,7 @@ LABEL_3:
   }
 }
 
-uint64_t specialized _NativeSet.extractSubset(using:count:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+Swift::Int specialized _NativeSet.extractSubset(using:count:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4;
   if (!a3)
@@ -2871,137 +923,129 @@ LABEL_32:
 
 char *specialized NearbyGroupHostIDSService.init(idsService:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
-  v73 = a2;
+  v64 = a2;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO17BufferingStrategyOy_s5NeverOGMd, &_s7Combine10PublishersO17BufferingStrategyOy_s5NeverOGMR);
-  v69 = *(v7 - 8);
-  v70 = v7;
-  v8 = *(v69 + 64);
+  v60 = *(v7 - 8);
+  v61 = v7;
   __chkstk_darwin(v7);
-  v68 = v57 - v9;
-  v67 = type metadata accessor for Publishers.PrefetchStrategy();
-  v65 = *(v67 - 8);
-  v10 = *(v65 + 64);
-  __chkstk_darwin(v67);
-  v64 = v57 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMd, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMR);
-  v13 = *(v12 - 8);
-  v71 = v12;
-  v72 = v13;
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v66 = v57 - v15;
-  v60 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v59 = *(v60 - 8);
-  v16 = *(v59 + 64);
-  __chkstk_darwin(v60);
-  v58 = v57 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v19 = *(*(v18 - 8) + 64);
-  __chkstk_darwin(v18);
-  v57[1] = v57 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for DispatchQoS();
-  v22 = *(*(v21 - 8) + 64);
-  __chkstk_darwin(v21 - 8);
-  v77[3] = a3;
-  v77[4] = a4;
-  v61 = a4;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v77);
-  v24 = *(*(a3 - 8) + 32);
-  v62 = a3;
-  v63 = boxed_opaque_existential_1;
-  v24();
-  v25 = OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService__incomingMessages;
-  v57[0] = OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService__incomingMessages;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine18PassthroughSubjectCy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR);
-  v27 = *(v26 + 48);
-  v28 = *(v26 + 52);
+  v59 = v48 - v8;
+  v58 = type metadata accessor for Publishers.PrefetchStrategy();
+  v56 = *(v58 - 8);
+  __chkstk_darwin(v58);
+  v55 = v48 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMd, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMR);
+  v11 = *(v10 - 8);
+  v62 = v10;
+  v63 = v11;
+  __chkstk_darwin(v10);
+  v57 = v48 - v12;
+  v51 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v50 = *(v51 - 8);
+  __chkstk_darwin(v51);
+  v49 = v48 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v14);
+  v48[1] = v48 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = type metadata accessor for DispatchQoS();
+  __chkstk_darwin(v16 - 8);
+  v68[3] = a3;
+  v68[4] = a4;
+  v52 = a4;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v68);
+  v18 = *(*(a3 - 8) + 32);
+  v53 = a3;
+  v54 = boxed_opaque_existential_1;
+  v18();
+  v19 = OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService__incomingMessages;
+  v48[0] = OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService__incomingMessages;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine18PassthroughSubjectCy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR);
   swift_allocObject();
-  *&a2[v25] = PassthroughSubject.init()();
-  v75 = 0;
-  v76 = 0xE000000000000000;
+  *&a2[v19] = PassthroughSubject.init()();
+  v66 = 0;
+  v67 = 0xE000000000000000;
   _StringGuts.grow(_:)(28);
 
-  v75 = 0xD00000000000001ALL;
-  v76 = 0x80000001000CEEC0;
-  v29 = (*(*(a4 + 8) + 8))(a3);
-  if (v30)
+  v66 = 0xD00000000000001ALL;
+  v67 = 0x80000001000CEEC0;
+  v20 = (*(*(a4 + 8) + 8))(a3);
+  if (v21)
   {
-    v31 = v29;
+    v22 = v20;
   }
 
   else
   {
-    v31 = 0x4E574F4E4B4E55;
+    v22 = 0x4E574F4E4B4E55;
   }
 
-  if (v30)
+  if (v21)
   {
-    v32 = v30;
+    v23 = v21;
   }
 
   else
   {
-    v32 = 0xE700000000000000;
+    v23 = 0xE700000000000000;
   }
 
   type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
-  v33._countAndFlagsBits = v31;
-  v33._object = v32;
-  String.append(_:)(v33);
+  v24._countAndFlagsBits = v22;
+  v24._object = v23;
+  String.append(_:)(v24);
 
   static DispatchQoS.unspecified.getter();
-  v75 = _swiftEmptyArrayStorage;
-  lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, &type metadata accessor for OS_dispatch_queue.Attributes);
+  v66 = _swiftEmptyArrayStorage;
+  lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v59 + 104))(v58, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v60);
-  v34 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v35 = v73;
-  *&v73[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue] = v34;
-  outlined init with copy of PseudonymProtocol(v77, &v35[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_service]);
-  v75 = *&v35[v57[0]];
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type PassthroughSubject<(NearbyGroupHostIDSService.MessageEvent, NearbyGroupHostIDSService.MessageContext), Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine18PassthroughSubjectCy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR);
-  v60 = Publisher.eraseToAnyPublisher()();
-  v75 = v60;
-  v36 = v64;
-  v37 = v65;
-  v38 = v67;
-  (*(v65 + 104))(v64, enum case for Publishers.PrefetchStrategy.byRequest(_:), v67);
-  v40 = v68;
-  v39 = v69;
-  v41 = v70;
-  (*(v69 + 104))(v68, enum case for Publishers.BufferingStrategy.dropOldest<A>(_:), v70);
+  (*(v50 + 104))(v49, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v51);
+  v25 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v26 = v64;
+  *&v64[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue] = v25;
+  outlined init with copy of PseudonymProtocol(v68, &v26[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_service]);
+  v66 = *&v26[v48[0]];
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type PassthroughSubject<(NearbyGroupHostIDSService.MessageEvent, NearbyGroupHostIDSService.MessageContext), Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine18PassthroughSubjectCy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR, &protocol conformance descriptor for PassthroughSubject<A, B>);
+  v51 = Publisher.eraseToAnyPublisher()();
+  v66 = v51;
+  v27 = v55;
+  v28 = v56;
+  v29 = v58;
+  (*(v56 + 104))(v55, enum case for Publishers.PrefetchStrategy.byRequest(_:), v58);
+  v31 = v59;
+  v30 = v60;
+  v32 = v61;
+  (*(v60 + 104))(v59, enum case for Publishers.BufferingStrategy.dropOldest<A>(_:), v61);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AnyPublisher<(NearbyGroupHostIDSService.MessageEvent, NearbyGroupHostIDSService.MessageContext), Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR);
-  v42 = v66;
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AnyPublisher<(NearbyGroupHostIDSService.MessageEvent, NearbyGroupHostIDSService.MessageContext), Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMd, &_s7Combine12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0H19GroupHostIDSServiceC12MessageEventO_AF0N7ContextVts5NeverOGMR, &protocol conformance descriptor for AnyPublisher<A, B>);
+  v33 = v57;
   Publisher.buffer(size:prefetch:whenFull:)();
-  (*(v39 + 8))(v40, v41);
-  (*(v37 + 8))(v36, v38);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.Buffer<AnyPublisher<(NearbyGroupHostIDSService.MessageEvent, NearbyGroupHostIDSService.MessageContext), Never>> and conformance Publishers.Buffer<A>, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMd, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMR);
-  v43 = v71;
-  v44 = Publisher.eraseToAnyPublisher()();
+  (*(v30 + 8))(v31, v32);
+  (*(v28 + 8))(v27, v29);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.Buffer<AnyPublisher<(NearbyGroupHostIDSService.MessageEvent, NearbyGroupHostIDSService.MessageContext), Never>> and conformance Publishers.Buffer<A>, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMd, &_s7Combine10PublishersO6BufferVy_AA12AnyPublisherVy44com_apple_SharePlay_NearbyInvitationsService0J19GroupHostIDSServiceC12MessageEventO_AJ0P7ContextVts5NeverOGGMR, &protocol conformance descriptor for Publishers.Buffer<A>);
+  v34 = v62;
+  v35 = Publisher.eraseToAnyPublisher()();
 
-  (*(v72 + 8))(v42, v43);
-  v45 = v73;
-  *&v73[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_incomingMessages] = v44;
-  v46 = type metadata accessor for NearbyGroupHostIDSService();
-  v74.receiver = v45;
-  v74.super_class = v46;
-  v47 = objc_msgSendSuper2(&v74, "init");
-  v48 = objc_allocWithZone(IDSServiceDelegateProperties);
-  v49 = v47;
-  v50 = [v48 init];
-  [v50 setWantsCrossAccountMessaging:1];
-  v51 = *&v49[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue];
-  v52 = v61;
-  v53 = *(v61 + 32);
-  v54 = v50;
-  v55 = v51;
-  v53(v49, v50, v51, v62, v52);
+  (*(v63 + 8))(v33, v34);
+  v36 = v64;
+  *&v64[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_incomingMessages] = v35;
+  v37 = type metadata accessor for NearbyGroupHostIDSService();
+  v65.receiver = v36;
+  v65.super_class = v37;
+  v38 = objc_msgSendSuper2(&v65, "init");
+  v39 = objc_allocWithZone(IDSServiceDelegateProperties);
+  v40 = v38;
+  v41 = [v39 init];
+  [v41 setWantsCrossAccountMessaging:1];
+  v42 = *&v40[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService25NearbyGroupHostIDSService_queue];
+  v43 = v52;
+  v44 = *(v52 + 32);
+  v45 = v41;
+  v46 = v42;
+  v44(v40, v41, v42, v53, v43);
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v77);
-  return v49;
+  __swift_destroy_boxed_opaque_existential_0Tm(v68);
+  return v40;
 }
 
 uint64_t specialized static NearbyGroupHostIDSService.MessageEvent.Member.__derived_struct_equals(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -3050,7 +1094,7 @@ unint64_t lazy protocol witness table accessor for type NearbyGroupHostIDSServic
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NearbyGroup_Group and conformance NearbyGroup_Group(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3063,7 +1107,7 @@ uint64_t lazy protocol witness table accessor for type NearbyGroup_Group and con
   return result;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -3071,7 +1115,7 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t outlined destroy of NearbyGroup_Group(uint64_t a1, uint64_t (*a2)(void))
@@ -3277,7 +1321,7 @@ uint64_t outlined init with take of NearbyGroup_Group(uint64_t a1, uint64_t a2, 
   return a2;
 }
 
-uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(void *a1)
+uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1)
 {
   return partial apply for specialized closure #1 in Sequence<>.contains(_:)(a1) & 1;
 }
@@ -3361,13 +1405,13 @@ uint64_t storeEnumTagSinglePayload for NearbyGroupHostIDSService.MessageContext(
   return result;
 }
 
-uint64_t type metadata completion function for NearbyGroupHostIDSService.MessageEvent()
+uint64_t type metadata completion function for NearbyGroupHostIDSService.MessageEvent(uint64_t a1)
 {
   result = type metadata accessor for NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       return 0;
@@ -3377,36 +1421,36 @@ uint64_t type metadata completion function for NearbyGroupHostIDSService.Message
   return result;
 }
 
-void type metadata completion function for NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization()
+void type metadata completion function for NearbyGroupHostIDSService.MessageEvent.RemoteGroupInitialization(uint64_t a1)
 {
   type metadata accessor for UUID();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Set<NearbyGroupHostIDSService.MessageEvent.Member>();
-    if (v1 <= 0x3F)
+    type metadata accessor for Set<NearbyGroupHostIDSService.MessageEvent.Member>(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata accessor for Set<NearbyGroupHostIDSService.MessageEvent.Member>()
+void type metadata accessor for Set<NearbyGroupHostIDSService.MessageEvent.Member>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Set<NearbyGroupHostIDSService.MessageEvent.Member>)
   {
     lazy protocol witness table accessor for type NearbyGroupHostIDSService.MessageEvent.Member and conformance NearbyGroupHostIDSService.MessageEvent.Member();
-    v0 = type metadata accessor for Set();
-    if (!v1)
+    v1 = type metadata accessor for Set();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Set<NearbyGroupHostIDSService.MessageEvent.Member>);
+      atomic_store(v1, &lazy cache variable for type metadata for Set<NearbyGroupHostIDSService.MessageEvent.Member>);
     }
   }
 }
 
-uint64_t type metadata completion function for NearbyGroupHostIDSService.MessageEvent.MembershipMutation()
+uint64_t type metadata completion function for NearbyGroupHostIDSService.MessageEvent.MembershipMutation(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -3482,16 +1526,6 @@ uint64_t storeEnumTagSinglePayload for NearbyGroupHostIDSService.MessageEvent.Me
   return result;
 }
 
-void partial apply for closure #1 in closure #1 in NearbyGroupHostIDSService.handleIncomingDataBlastDoor(from:data:context:)()
-{
-  v1 = *(type metadata accessor for NearbyGroup_Group(0) - 8);
-  v2 = v0[3];
-  v3 = v0[4];
-  v4 = v0 + ((*(v1 + 80) + 40) & ~*(v1 + 80));
-  v5 = v0[2];
-  NearbyGroupHostIDSService.handleGroupMessage(from:message:)(v2, v3, v4);
-}
-
 uint64_t closure #2 in _PublisherElements.Iterator.next()specialized partial apply(uint64_t a1)
 {
   v4 = *(v1 + 16);
@@ -3505,12 +1539,11 @@ uint64_t closure #2 in _PublisherElements.Iterator.next()specialized partial app
 
 uint64_t partial apply for closure #1 in closure #1 in NearbyGroupHostIDSService.distributeLeave(for:)(uint64_t a1)
 {
-  v3 = *(v1 + 16) + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService15NearbyGroupHost_id;
-  v4 = UUID.data.getter();
-  v6 = v5;
+  v2 = UUID.data.getter();
+  v4 = v3;
   result = outlined consume of Data._Representation(*a1, *(a1 + 8));
-  *a1 = v4;
-  *(a1 + 8) = v6;
+  *a1 = v2;
+  *(a1 + 8) = v4;
   *(a1 + 16) = 1;
   return result;
 }
@@ -3836,102 +1869,99 @@ uint64_t NearbyInvitationServiceHostConnection.assertAdvertisementPublic(_:rotat
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for host != -1)
   {
     swift_once();
   }
 
-  v13 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v13, static Log.host);
-  (*(v9 + 16))(v12, a1, v8);
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v14, v15))
+  v12 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v12, static Log.host);
+  (*(v9 + 16))(v11, a1, v8);
+  v13 = Logger.logObject.getter();
+  v14 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v13, v14))
   {
-    v16 = swift_slowAlloc();
-    v27 = a1;
-    v17 = v16;
-    v18 = swift_slowAlloc();
-    v29 = a4;
-    v19 = v18;
-    v31 = v18;
-    *v17 = 136315394;
+    v15 = swift_slowAlloc();
+    v26 = a1;
+    v16 = v15;
+    v17 = swift_slowAlloc();
+    v28 = a4;
+    v18 = v17;
+    v30 = v17;
+    *v16 = 136315394;
     lazy protocol witness table accessor for type UUID and conformance UUID();
-    v20 = dispatch thunk of CustomStringConvertible.description.getter();
-    v28 = a2;
-    v21 = a3;
-    v23 = v22;
-    (*(v9 + 8))(v12, v8);
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v23, &v31);
-    a3 = v21;
-    a2 = v28;
+    v19 = dispatch thunk of CustomStringConvertible.description.getter();
+    v27 = a2;
+    v20 = a3;
+    v22 = v21;
+    (*(v9 + 8))(v11, v8);
+    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v22, &v30);
+    a3 = v20;
+    a2 = v27;
 
-    *(v17 + 4) = v24;
-    *(v17 + 12) = 2048;
-    *(v17 + 14) = a2;
-    _os_log_impl(&_mh_execute_header, v14, v15, "NearbyInvitationServiceHostConnection assertAdvertisementPublic invitationID: %s for %lu rotations", v17, 0x16u);
-    __swift_destroy_boxed_opaque_existential_0Tm(v19);
-    a4 = v29;
+    *(v16 + 4) = v23;
+    *(v16 + 12) = 2048;
+    *(v16 + 14) = a2;
+    _os_log_impl(&_mh_execute_header, v13, v14, "NearbyInvitationServiceHostConnection assertAdvertisementPublic invitationID: %s for %lu rotations", v16, 0x16u);
+    __swift_destroy_boxed_opaque_existential_0Tm(v18);
+    a4 = v28;
 
-    a1 = v27;
+    a1 = v26;
   }
 
   else
   {
 
-    (*(v9 + 8))(v12, v8);
+    (*(v9 + 8))(v11, v8);
   }
 
-  return (*(**(v30 + direct field offset for NearbyInvitationServiceHostConnection.dataSource) + 560))(a1, a2, a3, a4);
+  return (*(**(v29 + direct field offset for NearbyInvitationServiceHostConnection.dataSource) + 560))(a1, a2, a3, a4);
 }
 
 uint64_t @objc NearbyInvitationServiceHostConnection.assertAdvertisementPublic(_:rotations:response:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5)
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(a5);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(a5);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
-  v15 = a1;
-  NearbyInvitationServiceHostConnection.assertAdvertisementPublic(_:rotations:response:)(v12, a4, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSUUID?, @unowned NSError?) -> (), v14);
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
+  v14 = a1;
+  NearbyInvitationServiceHostConnection.assertAdvertisementPublic(_:rotations:response:)(v11, a4, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSUUID?, @unowned NSError?) -> (), v13);
 
-  return (*(v9 + 8))(v12, v8);
+  return (*(v9 + 8))(v11, v8);
 }
 
 void thunk for @escaping @callee_unowned @convention(block) (@unowned NSUUID?, @unowned NSError?) -> ()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v14 - v8;
-  outlined init with copy of UUID?(a1, &v14 - v8);
-  v10 = type metadata accessor for UUID();
-  v11 = *(v10 - 8);
+  v8 = &v13 - v7;
+  outlined init with copy of UUID?(a1, &v13 - v7);
+  v9 = type metadata accessor for UUID();
+  v10 = *(v9 - 8);
   isa = 0;
-  if ((*(v11 + 48))(v9, 1, v10) != 1)
+  if ((*(v10 + 48))(v8, 1, v9) != 1)
   {
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    (*(v11 + 8))(v9, v10);
+    (*(v10 + 8))(v8, v9);
   }
 
   if (a2)
   {
-    v13 = _convertErrorToNSError(_:)();
+    v12 = _convertErrorToNSError(_:)();
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  (*(a3 + 16))(a3, isa, v13);
+  (*(a3 + 16))(a3, isa, v12);
 }
 
 uint64_t NearbyInvitationServiceHostConnection.markInvitationUsed(_:response:)(void *a1, uint64_t a2, uint64_t a3)
@@ -3969,64 +1999,63 @@ uint64_t NearbyInvitationServiceHostConnection.releaseAdvertisementPublicAsserti
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = v5[8];
-  v7 = __chkstk_darwin(v4);
-  v9 = &v29[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v7);
-  v11 = &v29[-v10];
+  v6 = __chkstk_darwin(v4);
+  v8 = &v28[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v6);
+  v10 = &v28[-v9];
   if (one-time initialization token for host != -1)
   {
     swift_once();
   }
 
-  v12 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v12, static Log.host);
-  v13 = v5[2];
-  v13(v11, a1, v4);
-  v13(v9, a2, v4);
-  v14 = Logger.logObject.getter();
-  v15 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v14, v15))
+  v11 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v11, static Log.host);
+  v12 = *(v5 + 16);
+  v12(v10, a1, v4);
+  v12(v8, a2, v4);
+  v13 = Logger.logObject.getter();
+  v14 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v13, v14))
   {
-    v16 = swift_slowAlloc();
-    v33 = a2;
-    v17 = v16;
-    v31 = swift_slowAlloc();
-    v35 = v31;
-    *v17 = 136315394;
+    v15 = swift_slowAlloc();
+    v32 = a2;
+    v16 = v15;
+    v30 = swift_slowAlloc();
+    v34 = v30;
+    *v16 = 136315394;
     lazy protocol witness table accessor for type UUID and conformance UUID();
-    v30 = v15;
-    v18 = dispatch thunk of CustomStringConvertible.description.getter();
-    v20 = v19;
-    v32 = a1;
-    v21 = v5[1];
-    v21(v11, v4);
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, &v35);
+    v29 = v14;
+    v17 = dispatch thunk of CustomStringConvertible.description.getter();
+    v19 = v18;
+    v31 = a1;
+    v20 = *(v5 + 8);
+    v20(v10, v4);
+    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v19, &v34);
 
-    *(v17 + 4) = v22;
-    *(v17 + 12) = 2080;
-    v23 = dispatch thunk of CustomStringConvertible.description.getter();
-    v25 = v24;
-    v21(v9, v4);
-    a1 = v32;
-    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v25, &v35);
+    *(v16 + 4) = v21;
+    *(v16 + 12) = 2080;
+    v22 = dispatch thunk of CustomStringConvertible.description.getter();
+    v24 = v23;
+    v20(v8, v4);
+    a1 = v31;
+    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, &v34);
 
-    *(v17 + 14) = v26;
-    _os_log_impl(&_mh_execute_header, v14, v30, "NearbyInvitationServiceHostConnection releaseAdvertisementPublicAssertion invitationID: %s assertionIdentifier %s", v17, 0x16u);
+    *(v16 + 14) = v25;
+    _os_log_impl(&_mh_execute_header, v13, v29, "NearbyInvitationServiceHostConnection releaseAdvertisementPublicAssertion invitationID: %s assertionIdentifier %s", v16, 0x16u);
     swift_arrayDestroy();
 
-    a2 = v33;
+    a2 = v32;
   }
 
   else
   {
 
-    v27 = v5[1];
-    v27(v9, v4);
-    v27(v11, v4);
+    v26 = *(v5 + 8);
+    v26(v8, v4);
+    v26(v10, v4);
   }
 
-  return (*(**(v34 + direct field offset for NearbyInvitationServiceHostConnection.dataSource) + 568))(a1, a2, closure #1 in NearbyInvitationServiceHostConnection.releaseAdvertisementPublicAssertion(_:assertionIdentifier:), 0);
+  return (*(**(v33 + direct field offset for NearbyInvitationServiceHostConnection.dataSource) + 568))(a1, a2, closure #1 in NearbyInvitationServiceHostConnection.releaseAdvertisementPublicAssertion(_:assertionIdentifier:), 0);
 }
 
 void closure #1 in NearbyInvitationServiceHostConnection.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(uint64_t a1)
@@ -4074,23 +2103,22 @@ void closure #1 in NearbyInvitationServiceHostConnection.releaseAdvertisementPub
   }
 }
 
-uint64_t @objc NearbyInvitationServiceHostConnection.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(void *a1)
+uint64_t @objc NearbyInvitationServiceHostConnection.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = type metadata accessor for UUID();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v9 = &v13 - v8;
+  v5 = type metadata accessor for UUID();
+  v6 = *(v5 - 8);
+  v7 = __chkstk_darwin(v5);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v11 = &v15 - v10;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = a1;
-  NearbyInvitationServiceHostConnection.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(v9, v7);
+  v12 = a1;
+  NearbyInvitationServiceHostConnection.releaseAdvertisementPublicAssertion(_:assertionIdentifier:)(v11, v9);
 
-  v11 = *(v3 + 8);
-  v11(v7, v2);
-  return (v11)(v9, v2);
+  v13 = *(v6 + 8);
+  v13(v9, v5);
+  return (v13)(v11, v5);
 }
 
 uint64_t NearbyInvitationServiceHostConnection.releaseInvitation(_:response:)(void *a1, uint64_t a2, uint64_t a3)
@@ -4160,17 +2188,16 @@ uint64_t @objc NearbyInvitationServiceHostConnection.stopAdvertisingNearbyInvita
 {
   v11 = type metadata accessor for UUID();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   __chkstk_darwin(v11);
-  v15 = &v20 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = _Block_copy(a4);
+  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = _Block_copy(a4);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = swift_allocObject();
-  *(v17 + 16) = v16;
-  v18 = a1;
-  a7(v15, a6, v17);
+  v16 = swift_allocObject();
+  *(v16 + 16) = v15;
+  v17 = a1;
+  a7(v14, a6, v16);
 
-  return (*(v12 + 8))(v15, v11);
+  return (*(v12 + 8))(v14, v11);
 }
 
 uint64_t NearbyInvitationServiceHostConnection.scanNearbyEndpoints(params:scannerID:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -4199,18 +2226,17 @@ uint64_t @objc NearbyInvitationServiceHostConnection.scanNearbyEndpoints(params:
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(a5);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(a5);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
-  v15 = a3;
-  v16 = a1;
-  NearbyInvitationServiceHostConnection.scanNearbyEndpoints(params:scannerID:response:)(v15, v12, thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()partial apply, v14);
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
+  v14 = a3;
+  v15 = a1;
+  NearbyInvitationServiceHostConnection.scanNearbyEndpoints(params:scannerID:response:)(v14, v11, thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()partial apply, v13);
 
-  return (*(v9 + 8))(v12, v8);
+  return (*(v9 + 8))(v11, v8);
 }
 
 uint64_t NearbyInvitationServiceHostConnection.stopScanningNearbyInvitations(provider:response:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4403,7 +2429,7 @@ unint64_t lazy protocol witness table accessor for type UUID and conformance UUI
   return result;
 }
 
-uint64_t type metadata accessor for NearbyInvitationServiceHostConnection()
+uint64_t type metadata accessor for NearbyInvitationServiceHostConnection(uint64_t a1)
 {
   result = type metadata singleton initialization cache for NearbyInvitationServiceHostConnection;
   if (!type metadata singleton initialization cache for NearbyInvitationServiceHostConnection)
@@ -4419,13 +2445,6 @@ uint64_t outlined init with copy of UUID?(uint64_t a1, uint64_t a2)
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
-}
-
-uint64_t _PublisherElements.makeAsyncIterator()(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  v2 = *(a1 + 24);
-  return specialized _PublisherElements.Iterator.init(_:)();
 }
 
 uint64_t _PublisherElements.Iterator.next()(uint64_t a1, uint64_t a2)
@@ -4461,8 +2480,6 @@ uint64_t _PublisherElements.Iterator.next()()
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 56);
-  v4 = *v1;
 
   if (v0)
   {
@@ -4470,12 +2487,10 @@ uint64_t _PublisherElements.Iterator.next()()
 
   else
   {
-    v6 = *(v2 + 40);
-    v7 = *(v2 + 48);
 
-    v8 = *(v4 + 8);
+    v4 = *(v2 + 8);
 
-    return v8();
+    return v4();
   }
 }
 
@@ -4483,20 +2498,16 @@ uint64_t _PublisherElements.Iterator.Inner.state.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 80);
-  v5 = *(v3 + 88);
-  v6 = type metadata accessor for _PublisherElements.Iterator.Inner.State();
-  return (*(*(v6 - 8) + 16))(a1, v1 + 4, v6);
+  v5 = type metadata accessor for _PublisherElements.Iterator.Inner.State(0, *(v3 + 80), *(v3 + 88), v4);
+  return (*(*(v5 - 8) + 16))(a1, v1 + 4, v5);
 }
 
 uint64_t _PublisherElements.Iterator.Inner.state.setter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 80);
-  v5 = *(v3 + 88);
-  v6 = type metadata accessor for _PublisherElements.Iterator.Inner.State();
-  (*(*(v6 - 8) + 40))(v1 + 4, a1, v6);
+  v5 = type metadata accessor for _PublisherElements.Iterator.Inner.State(0, *(v3 + 80), *(v3 + 88), v4);
+  (*(*(v5 - 8) + 40))(v1 + 4, a1, v5);
   return swift_endAccess();
 }
 
@@ -4516,33 +2527,25 @@ uint64_t _PublisherElements.Iterator.Inner.__allocating_init()()
 
 uint64_t *_PublisherElements.Iterator.Inner.init()()
 {
-  v1 = *v0;
-  v0[2] = swift_slowAlloc();
-  v2 = *(v1 + 88);
-  v3 = *(v1 + 80);
+  *(v0 + 16) = swift_slowAlloc();
   swift_getAssociatedTypeWitness();
   type metadata accessor for Optional();
   type metadata accessor for UnsafeContinuation();
-  v0[3] = Array.init()();
-  *(v0 + 2) = 0u;
-  *(v0 + 3) = 0u;
-  v0[8] = 0;
-  v0[9] = static Subscribers.Demand.none.getter();
-  *v0[2] = 0;
+  *(v0 + 24) = Array.init()();
+  *(v0 + 32) = 0u;
+  *(v0 + 48) = 0u;
+  *(v0 + 64) = 0;
+  *(v0 + 72) = static Subscribers.Demand.none.getter();
+  **(v0 + 16) = 0;
   return v0;
 }
 
 uint64_t *_PublisherElements.Iterator.Inner.deinit()
 {
   v1 = *v0;
-  v2 = v0[2];
 
-  v3 = v0[3];
-
-  v4 = *(v1 + 80);
-  v5 = *(v1 + 88);
-  v6 = type metadata accessor for _PublisherElements.Iterator.Inner.State();
-  (*(*(v6 - 8) + 8))(v0 + 4, v6);
+  v3 = type metadata accessor for _PublisherElements.Iterator.Inner.State(0, *(v1 + 80), *(v1 + 88), v2);
+  (*(*(v3 - 8) + 8))(v0 + 4, v3);
   return v0;
 }
 
@@ -4562,13 +2565,12 @@ uint64_t _PublisherElements.Iterator.Inner.receive(_:)(uint64_t a1)
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v8 = type metadata accessor for Optional();
   v26 = *(v8 - 8);
-  v9 = *(v26 + 64);
   __chkstk_darwin(v8);
-  v11 = &v24 - v10;
-  v12 = *(v2 + 16);
-  os_unfair_lock_lock(v12);
+  v10 = &v24 - v9;
+  v11 = *(v2 + 16);
+  os_unfair_lock_lock(v11);
   swift_beginAccess();
-  v13 = type metadata accessor for _PublisherElements.Iterator.Inner.State();
+  v13 = type metadata accessor for _PublisherElements.Iterator.Inner.State(0, v6, v5, v12);
   v14 = *(v13 - 1);
   (*(v14 + 16))(v29, v2 + 32, v13);
   if (v30 >= 2)
@@ -4581,7 +2583,7 @@ LABEL_11:
     swift_getWitnessTable();
     if (Collection.isEmpty.getter())
     {
-      os_unfair_lock_unlock(v12);
+      os_unfair_lock_unlock(v11);
     }
 
     else
@@ -4591,13 +2593,13 @@ LABEL_11:
       RangeReplaceableCollection.removeFirst()();
       swift_endAccess();
       v19 = v27;
-      os_unfair_lock_unlock(v12);
+      os_unfair_lock_unlock(v11);
       v20 = v14;
       v21 = *(AssociatedTypeWitness - 8);
-      (*(v21 + 16))(v11, a1, AssociatedTypeWitness);
-      (*(v21 + 56))(v11, 0, 1, AssociatedTypeWitness);
+      (*(v21 + 16))(v10, a1, AssociatedTypeWitness);
+      (*(v21 + 56))(v10, 0, 1, AssociatedTypeWitness);
       v14 = v20;
-      (*(v26 + 32))(*(*(v19 + 64) + 40), v11, v8);
+      (*(v26 + 32))(*(*(v19 + 64) + 40), v10, v8);
       swift_continuation_resume();
     }
   }
@@ -4614,10 +2616,10 @@ LABEL_11:
 
     Array.removeAll(keepingCapacity:)(0);
     swift_endAccess();
-    os_unfair_lock_unlock(v12);
+    os_unfair_lock_unlock(v11);
     if (Array.endIndex.getter())
     {
-      v12 = (AssociatedTypeWitness - 8);
+      v11 = (AssociatedTypeWitness - 8);
       v13 = (v26 + 32);
       v14 = 4;
       do
@@ -4650,8 +2652,8 @@ LABEL_10:
           }
         }
 
-        (*(*(AssociatedTypeWitness - 8) + 56))(v11, 1, 1, AssociatedTypeWitness);
-        (*v13)(*(*(v17 + 64) + 40), v11, v8);
+        (*(*(AssociatedTypeWitness - 8) + 56))(v10, 1, 1, AssociatedTypeWitness);
+        (*v13)(*(*(v17 + 64) + 40), v10, v8);
         swift_continuation_resume();
         ++v14;
       }
@@ -4675,30 +2677,29 @@ Swift::Void __swiftcall _PublisherElements.Iterator.Inner.cancel()()
   v3 = *(*v0 + 80);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v5 = type metadata accessor for Optional();
-  v56 = *(v5 - 8);
-  v6 = *(v56 + 64);
+  v54 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v8 = &v51 - v7;
-  v55 = *(v1 + 16);
-  os_unfair_lock_lock(v55);
+  v7 = &v49 - v6;
+  v53 = *(v1 + 16);
+  os_unfair_lock_lock(v53);
   swift_beginAccess();
-  v9 = *(v1 + 24);
+  v8 = *(v1 + 24);
   swift_beginAccess();
-  v59 = v5;
+  v57 = v5;
   type metadata accessor for UnsafeContinuation();
   type metadata accessor for Array();
 
   Array.removeAll(keepingCapacity:)(0);
   swift_endAccess();
   swift_beginAccess();
-  v10 = type metadata accessor for _PublisherElements.Iterator.Inner.State();
-  v57 = *(v10 - 8);
-  v58 = v10;
-  v11 = *(v57 + 16);
-  v11(&v70, v1 + 32, v10);
-  if (v71 >= 2)
+  v10 = type metadata accessor for _PublisherElements.Iterator.Inner.State(0, v3, v2, v9);
+  v55 = *(v10 - 8);
+  v56 = v10;
+  v11 = *(v55 + 16);
+  v11(&v68, v1 + 32, v10);
+  if (v69 >= 2)
   {
-    outlined init with take of PseudonymProtocol(&v70, v68);
+    outlined init with take of PseudonymProtocol(&v68, v66);
     if (one-time initialization token for default != -1)
     {
       swift_once();
@@ -4706,29 +2707,29 @@ Swift::Void __swiftcall _PublisherElements.Iterator.Inner.cancel()()
 
     v25 = type metadata accessor for Logger();
     __swift_project_value_buffer(v25, static Log.default);
-    outlined init with copy of PseudonymProtocol(v68, v66);
+    outlined init with copy of PseudonymProtocol(v66, v64);
     v26 = Logger.logObject.getter();
     v27 = static os_log_type_t.default.getter();
     v28 = os_log_type_enabled(v26, v27);
-    v29 = v56;
+    v29 = v54;
     if (v28)
     {
-      LODWORD(v54) = v27;
+      LODWORD(v52) = v27;
       v30 = swift_slowAlloc();
-      v53 = swift_slowAlloc();
-      v65 = v53;
+      v51 = swift_slowAlloc();
+      v63 = v51;
       v31 = v30;
       *v30 = 136315138;
-      outlined init with copy of PseudonymProtocol(v66, v64);
-      outlined init with copy of Subscription?(v64, &v62);
-      if (v63)
+      outlined init with copy of PseudonymProtocol(v64, v62);
+      outlined init with copy of Subscription?(v62, &v60);
+      if (v61)
       {
-        outlined init with take of PseudonymProtocol(&v62, v61);
-        outlined init with copy of PseudonymProtocol(v61, &v60);
+        outlined init with take of PseudonymProtocol(&v60, v59);
+        outlined init with copy of PseudonymProtocol(v59, &v58);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12Subscription_pMd, &_s7Combine12Subscription_pMR);
         v32 = String.init<A>(reflecting:)();
         v34 = v33;
-        __swift_destroy_boxed_opaque_existential_0Tm(v61);
+        __swift_destroy_boxed_opaque_existential_0Tm(v59);
       }
 
       else
@@ -4737,47 +2738,45 @@ Swift::Void __swiftcall _PublisherElements.Iterator.Inner.cancel()()
         v32 = 7104878;
       }
 
-      outlined destroy of Subscription?(v64);
-      __swift_destroy_boxed_opaque_existential_0Tm(v66);
-      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v34, &v65);
+      outlined destroy of Subscription?(v62);
+      __swift_destroy_boxed_opaque_existential_0Tm(v64);
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v34, &v63);
 
       *(v31 + 1) = v42;
-      _os_log_impl(&_mh_execute_header, v26, v54, "Handling cancellation by terminating upstream subscription: %s", v31, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v53);
+      _os_log_impl(&_mh_execute_header, v26, v52, "Handling cancellation by terminating upstream subscription: %s", v31, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v51);
 
-      v29 = v56;
+      v29 = v54;
     }
 
     else
     {
 
-      __swift_destroy_boxed_opaque_existential_0Tm(v66);
+      __swift_destroy_boxed_opaque_existential_0Tm(v64);
     }
 
-    memset(v66, 0, sizeof(v66));
-    v67 = xmmword_1000CA6B0;
+    memset(v64, 0, sizeof(v64));
+    v65 = xmmword_1000CA6B0;
     swift_beginAccess();
-    (*(v57 + 40))(v1 + 32, v66, v58);
+    (*(v55 + 40))(v1 + 32, v64, v56);
     swift_endAccess();
-    os_unfair_lock_unlock(v55);
-    v43 = *(&v69 + 1);
-    __swift_project_boxed_opaque_existential_1(v68, v69);
-    v44 = *(v43 + 8);
+    os_unfair_lock_unlock(v53);
+    __swift_project_boxed_opaque_existential_1(v66, v67);
     dispatch thunk of Cancellable.cancel()();
     if (Array.endIndex.getter())
     {
-      v45 = (v29 + 32);
-      v46 = 4;
+      v43 = (v29 + 32);
+      v44 = 4;
       do
       {
-        v47 = v46 - 4;
+        v45 = v44 - 4;
         IsNativeType = Array._hoistableIsNativeTypeChecked()();
         Array._checkSubscript(_:wasNativeTypeChecked:)();
         if (IsNativeType)
         {
-          v49 = *(v9 + 8 * v46);
-          v40 = __OFADD__(v47, 1);
-          v50 = v46 - 3;
+          v47 = *(v8 + 8 * v44);
+          v40 = __OFADD__(v45, 1);
+          v48 = v44 - 3;
           if (v40)
           {
             goto LABEL_33;
@@ -4786,10 +2785,10 @@ Swift::Void __swiftcall _PublisherElements.Iterator.Inner.cancel()()
 
         else
         {
-          v49 = _ArrayBuffer._getElementSlowPath(_:)();
+          v47 = _ArrayBuffer._getElementSlowPath(_:)();
           swift_unknownObjectRelease();
-          v40 = __OFADD__(v47, 1);
-          v50 = v46 - 3;
+          v40 = __OFADD__(v45, 1);
+          v48 = v44 - 3;
           if (v40)
           {
 LABEL_33:
@@ -4798,16 +2797,16 @@ LABEL_33:
           }
         }
 
-        (*(*(AssociatedTypeWitness - 8) + 56))(v8, 1, 1, AssociatedTypeWitness);
-        (*v45)(*(*(v49 + 64) + 40), v8, v59);
+        (*(*(AssociatedTypeWitness - 8) + 56))(v7, 1, 1, AssociatedTypeWitness);
+        (*v43)(*(*(v47 + 64) + 40), v7, v57);
         swift_continuation_resume();
-        ++v46;
+        ++v44;
       }
 
-      while (v50 != Array.endIndex.getter());
+      while (v48 != Array.endIndex.getter());
     }
 
-    __swift_destroy_boxed_opaque_existential_0Tm(v68);
+    __swift_destroy_boxed_opaque_existential_0Tm(v66);
   }
 
   else
@@ -4826,42 +2825,42 @@ LABEL_33:
     if (os_log_type_enabled(v13, v14))
     {
       v15 = swift_slowAlloc();
-      v53 = v13;
+      v51 = v13;
       v16 = v15;
-      v54 = swift_slowAlloc();
-      v66[0] = v54;
+      v52 = swift_slowAlloc();
+      v64[0] = v52;
       *v16 = 136315138;
-      v52 = v14;
-      v17 = v58;
-      v11(v68, v1 + 32, v58);
-      v18 = >> prefix<A>(_:)(v68, v17);
+      v50 = v14;
+      v17 = v56;
+      v11(v66, v1 + 32, v56);
+      v18 = >> prefix<A>(_:)(v66, v17);
       v20 = v19;
       v21 = type metadata accessor for Optional();
-      (*(*(v21 - 8) + 8))(v68, v21);
-      v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v66);
+      (*(*(v21 - 8) + 8))(v66, v21);
+      v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v64);
 
       v23 = v16;
       *(v16 + 4) = v22;
-      v24 = v53;
-      _os_log_impl(&_mh_execute_header, v53, v52, "Terminating sequence from state: %s", v23, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v54);
+      v24 = v51;
+      _os_log_impl(&_mh_execute_header, v51, v50, "Terminating sequence from state: %s", v23, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v52);
     }
 
     else
     {
 
-      v17 = v58;
+      v17 = v56;
     }
 
-    memset(v68, 0, sizeof(v68));
-    v69 = xmmword_1000CA6B0;
+    memset(v66, 0, sizeof(v66));
+    v67 = xmmword_1000CA6B0;
     swift_beginAccess();
-    (*(v57 + 40))(v1 + 32, v68, v17);
+    (*(v55 + 40))(v1 + 32, v66, v17);
     swift_endAccess();
-    os_unfair_lock_unlock(v55);
+    os_unfair_lock_unlock(v53);
     if (Array.endIndex.getter())
     {
-      v35 = (v56 + 32);
+      v35 = (v54 + 32);
       v36 = 4;
       do
       {
@@ -4870,7 +2869,7 @@ LABEL_33:
         Array._checkSubscript(_:wasNativeTypeChecked:)();
         if (v38)
         {
-          v39 = *(v9 + 8 * v36);
+          v39 = *(v8 + 8 * v36);
           v40 = __OFADD__(v37, 1);
           v41 = v36 - 3;
           if (v40)
@@ -4893,8 +2892,8 @@ LABEL_20:
           }
         }
 
-        (*(*(AssociatedTypeWitness - 8) + 56))(v8, 1, 1, AssociatedTypeWitness);
-        (*v35)(*(*(v39 + 64) + 40), v8, v59);
+        (*(*(AssociatedTypeWitness - 8) + 56))(v7, 1, 1, AssociatedTypeWitness);
+        (*v35)(*(*(v39 + 64) + 40), v7, v57);
         swift_continuation_resume();
         ++v36;
       }
@@ -4902,7 +2901,7 @@ LABEL_20:
       while (v41 != Array.endIndex.getter());
     }
 
-    (*(v57 + 8))(&v70, v58);
+    (*(v55 + 8))(&v68, v56);
   }
 }
 
@@ -4916,28 +2915,24 @@ uint64_t _PublisherElements.Iterator.Inner.next()(uint64_t a1)
 
 uint64_t _PublisherElements.Iterator.Inner.next()()
 {
-  v1 = v0[4];
-  v2 = swift_task_alloc();
-  v0[5] = v2;
-  v4 = *(v1 + 80);
-  v3 = *(v1 + 88);
+  v1 = swift_task_alloc();
+  v0[5] = v1;
   swift_getAssociatedTypeWitness();
-  v5 = type metadata accessor for Optional();
-  *v2 = v0;
-  v2[1] = _PublisherElements.Iterator.Inner.next();
-  v6 = v0[2];
-  v7 = v0[3];
+  v2 = type metadata accessor for Optional();
+  *v1 = v0;
+  v1[1] = _PublisherElements.Iterator.Inner.next();
+  v3 = v0[2];
+  v4 = v0[3];
 
-  return (withUnsafeContinuation<A>(isolation:_:))(v6, 0, 0, partial apply for closure #1 in _PublisherElements.Iterator.Inner.next(), v7, v5);
+  return (withUnsafeContinuation<A>(isolation:_:))(v3, 0, 0, partial apply for closure #1 in _PublisherElements.Iterator.Inner.next(), v4, v2);
 }
 
 {
-  v1 = *(*v0 + 40);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 void closure #1 in _PublisherElements.Iterator.Inner.next()(uint64_t a1, void *a2)
@@ -4947,13 +2942,12 @@ void closure #1 in _PublisherElements.Iterator.Inner.next()(uint64_t a1, void *a
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v7 = type metadata accessor for Optional();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = v16 - v10;
-  v12 = a2[2];
-  os_unfair_lock_lock(v12);
+  v10 = v16 - v9;
+  v11 = a2[2];
+  os_unfair_lock_lock(v11);
   swift_beginAccess();
-  v13 = type metadata accessor for _PublisherElements.Iterator.Inner.State();
+  v13 = type metadata accessor for _PublisherElements.Iterator.Inner.State(0, v5, v4, v12);
   (*(*(v13 - 8) + 16))(&v18, a2 + 4, v13);
   if (!v19)
   {
@@ -4986,15 +2980,15 @@ LABEL_8:
 
     a2[9] = v15;
     swift_endAccess();
-    os_unfair_lock_unlock(v12);
+    os_unfair_lock_unlock(v11);
     return;
   }
 
   if (v19 == 1)
   {
-    os_unfair_lock_unlock(v12);
-    (*(*(AssociatedTypeWitness - 8) + 56))(v11, 1, 1, AssociatedTypeWitness);
-    (*(v8 + 32))(*(*(a1 + 64) + 40), v11, v7);
+    os_unfair_lock_unlock(v11);
+    (*(*(AssociatedTypeWitness - 8) + 56))(v10, 1, 1, AssociatedTypeWitness);
+    (*(v8 + 32))(*(*(a1 + 64) + 40), v10, v7);
     swift_continuation_resume();
   }
 
@@ -5007,7 +3001,7 @@ LABEL_8:
     type metadata accessor for Array();
     Array.append(_:)();
     swift_endAccess();
-    os_unfair_lock_unlock(v12);
+    os_unfair_lock_unlock(v11);
     __swift_project_boxed_opaque_existential_1(v17, v17[3]);
     dispatch thunk of Subscription.request(_:)();
     __swift_destroy_boxed_opaque_existential_0Tm(v17);
@@ -5037,30 +3031,28 @@ uint64_t withUnsafeContinuation<A>(isolation:_:)(uint64_t a1, uint64_t a2, uint6
 
 uint64_t withUnsafeContinuation<A>(isolation:_:)()
 {
-  v2 = v0[11];
-  v1 = v0[12];
-  v3 = v0[10];
+  v1 = v0[11];
+  v2 = v0[10];
   v0[2] = v0;
-  v0[7] = v3;
+  v0[7] = v2;
   v0[3] = withUnsafeContinuation<A>(isolation:_:);
-  v4 = swift_continuation_init();
-  v2(v4);
+  v3 = swift_continuation_init();
+  v1(v3);
 
   return _swift_continuation_await(v0 + 2);
 }
 
 {
-  v3 = *v0;
   v1 = *(*v0 + 8);
 
   return v1();
 }
 
-uint64_t _PublisherElements.Iterator.init(_:)(uint64_t a1, uint64_t a2)
+uint64_t _PublisherElements.Iterator.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = specialized _PublisherElements.Iterator.init(_:)();
+  v6 = specialized _PublisherElements.Iterator.init(_:)(a1, a2, a3, a4);
   (*(*(a2 - 8) + 8))(a1, a2);
-  return v4;
+  return v6;
 }
 
 uint64_t closure #2 in _PublisherElements.Iterator.next()(uint64_t a1, uint64_t a2)
@@ -5084,13 +3076,11 @@ uint64_t closure #2 in _PublisherElements.Iterator.next()()
 }
 
 {
-  v1 = *(*v0 + 40);
-  v2 = *(*v0 + 32);
-  v5 = *v0;
+  v3 = *v0;
 
-  v3 = *(v5 + 8);
+  v1 = *(v3 + 8);
 
-  return v3();
+  return v1();
 }
 
 uint64_t withTaskCancellationHandler<A>(handler:operation:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -5100,7 +3090,7 @@ uint64_t withTaskCancellationHandler<A>(handler:operation:)(uint64_t a1, uint64_
   *v13 = v6;
   v13[1] = partial apply for closure #1 in NearbyInvitationAdvertiser.stopAdvertising();
 
-  return (withTaskCancellationHandler<A>(operation:onCancel:isolation:))(a1, a4, a5, a2, a3, 0, 0, a6);
+  return withTaskCancellationHandler<A>(operation:onCancel:isolation:)(a1, a4, a5, a2, a3, 0, 0, a6);
 }
 
 uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance _PublisherElements<A>.Iterator(uint64_t a1, uint64_t a2)
@@ -5115,65 +3105,60 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance _Publi
 
 uint64_t _s44com_apple_SharePlay_NearbyInvitationsService18_PublisherElementsV8IteratorVyx_GScIAAScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTW(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v12 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTu[1];
-  v13 = swift_task_alloc();
-  *(v6 + 16) = v13;
-  *v13 = v6;
-  v13[1] = _s44com_apple_SharePlay_NearbyInvitationsService18_PublisherElementsV8IteratorVyx_GScIAAScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTQ0_;
+  v12 = swift_task_alloc();
+  *(v6 + 16) = v12;
+  *v12 = v6;
+  v12[1] = _s44com_apple_SharePlay_NearbyInvitationsService18_PublisherElementsV8IteratorVyx_GScIAAScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTQ0_;
 
   return __sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF(a1, a2, a3, a5, a6);
 }
 
 uint64_t _s44com_apple_SharePlay_NearbyInvitationsService18_PublisherElementsV8IteratorVyx_GScIAAScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTQ0_()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
-uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance _PublisherElements<A>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance _PublisherElements<A>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>)
 {
-  v5 = _PublisherElements.makeAsyncIterator()(a1);
-  result = (*(*(a1 - 8) + 8))(v2, a1);
-  *a2 = v5;
+  v8 = _PublisherElements.makeAsyncIterator()(a1, a3, a4, a5);
+  result = (*(*(a1 - 8) + 8))(v5, a1);
+  *a2 = v8;
   return result;
 }
 
 uint64_t withTaskCancellationHandler<A>(operation:onCancel:isolation:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v17 = async function pointer to withTaskCancellationHandler<A>(operation:onCancel:isolation:)[1];
-  v18 = swift_task_alloc();
-  *(v8 + 16) = v18;
-  *v18 = v8;
-  v18[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+  v17 = swift_task_alloc();
+  *(v8 + 16) = v17;
+  *v17 = v8;
+  v17[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
 
   return withTaskCancellationHandler<A>(operation:onCancel:isolation:)(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
-uint64_t specialized _PublisherElements.Iterator.init(_:)()
+uint64_t specialized _PublisherElements.Iterator.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for _PublisherElements.Iterator.Inner();
-  v0 = swift_allocObject();
+  type metadata accessor for _PublisherElements.Iterator.Inner(0, a2, a3, a4);
+  v4 = swift_allocObject();
   _PublisherElements.Iterator.Inner.init()();
   swift_getWitnessTable();
   Publisher.subscribe<A>(_:)();
-  return v0;
+  return v4;
 }
 
 uint64_t partial apply for closure #2 in _PublisherElements.Iterator.next()(uint64_t a1)
 {
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = swift_task_alloc();
-  *(v2 + 16) = v7;
-  *v7 = v2;
-  v7[1] = partial apply for closure #1 in NearbyInvitationAdvertiser.stopAdvertising();
+  v4 = *(v1 + 32);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for closure #1 in NearbyInvitationAdvertiser.stopAdvertising();
 
-  return closure #2 in _PublisherElements.Iterator.next()(a1, v6);
+  return closure #2 in _PublisherElements.Iterator.next()(a1, v4);
 }
 
 uint64_t specialized _PublisherElements.Iterator.Inner.receive(completion:)()
@@ -5183,15 +3168,14 @@ uint64_t specialized _PublisherElements.Iterator.Inner.receive(completion:)()
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v4 = type metadata accessor for Optional();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v20[-v7];
-  v9 = v0[2];
-  os_unfair_lock_lock(v9);
+  v7 = &v20[-v6];
+  v8 = v0[2];
+  os_unfair_lock_lock(v8);
   memset(v21, 0, sizeof(v21));
   v22 = xmmword_1000CA6B0;
   swift_beginAccess();
-  v10 = type metadata accessor for _PublisherElements.Iterator.Inner.State();
+  v10 = type metadata accessor for _PublisherElements.Iterator.Inner.State(0, v2, v1, v9);
   (*(*(v10 - 8) + 40))(v0 + 4, v21, v10);
   swift_endAccess();
   swift_beginAccess();
@@ -5202,7 +3186,7 @@ uint64_t specialized _PublisherElements.Iterator.Inner.receive(completion:)()
 
   Array.removeAll(keepingCapacity:)(0);
   swift_endAccess();
-  os_unfair_lock_unlock(v9);
+  os_unfair_lock_unlock(v8);
   if (Array.endIndex.getter())
   {
     v12 = (v5 + 32);
@@ -5236,8 +3220,8 @@ LABEL_9:
         }
       }
 
-      (*(*(AssociatedTypeWitness - 8) + 56))(v8, 1, 1, AssociatedTypeWitness);
-      (*v12)(*(*(v16 + 64) + 40), v8, v4);
+      (*(*(AssociatedTypeWitness - 8) + 56))(v7, 1, 1, AssociatedTypeWitness);
+      (*v12)(*(*(v16 + 64) + 40), v7, v4);
       swift_continuation_resume();
       ++v13;
     }
@@ -5262,9 +3246,8 @@ uint64_t outlined destroy of Subscription?(uint64_t a1)
 
 uint64_t type metadata completion function for _PublisherElements(uint64_t a1)
 {
-  v1 = *(a1 + 16);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -5273,14 +3256,14 @@ uint64_t type metadata completion function for _PublisherElements(uint64_t a1)
   return result;
 }
 
-uint64_t type metadata instantiation function for _PublisherElements.Iterator()
+uint64_t type metadata instantiation function for _PublisherElements.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for _PublisherElements.Iterator.Inner.State()
+uint64_t type metadata instantiation function for _PublisherElements.Iterator.Inner.State(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -5382,7 +3365,6 @@ uint64_t NearbyGroup_Member.tokenID.getter()
   if (v1[1])
   {
     v2 = *v1;
-    v3 = v1[1];
   }
 
   else
@@ -5407,29 +3389,27 @@ uint64_t NearbyGroup_Group.MemberAdded.member.setter(uint64_t a1, uint64_t (*a2)
 uint64_t NearbyGroup_Group.MemberAdded.member.getter@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = a1(0);
-  outlined init with copy of (String, Any)(v2 + *(v9 + 24), v8, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v10 = type metadata accessor for NearbyGroup_Member(0);
-  v11 = *(*(v10 - 8) + 48);
-  if (v11(v8, 1, v10) != 1)
+  v7 = &v13 - v6;
+  v8 = a1(0);
+  outlined init with copy of (String, Any)(v2 + *(v8 + 24), v7, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  v9 = type metadata accessor for NearbyGroup_Member(0);
+  v10 = *(*(v9 - 8) + 48);
+  if (v10(v7, 1, v9) != 1)
   {
-    return outlined init with take of NearbyGroup_Member(v8, a2, type metadata accessor for NearbyGroup_Member);
+    return outlined init with take of NearbyGroup_Member(v7, a2, type metadata accessor for NearbyGroup_Member);
   }
 
   *a2 = 0;
   a2[1] = 0xE000000000000000;
-  v12 = a2 + *(v10 + 20);
   UnknownStorage.init()();
-  v13 = (a2 + *(v10 + 24));
-  *v13 = 0;
-  v13[1] = 0;
-  result = (v11)(v8, 1, v10);
+  v11 = (a2 + *(v9 + 24));
+  *v11 = 0;
+  v11[1] = 0;
+  result = (v10)(v7, 1, v9);
   if (result != 1)
   {
-    return outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+    return outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
   }
 
   return result;
@@ -5440,18 +3420,16 @@ uint64_t NearbyGroup_Member.init()@<X0>(void *a1@<X8>)
   *a1 = 0;
   a1[1] = 0xE000000000000000;
   v2 = type metadata accessor for NearbyGroup_Member(0);
-  v3 = a1 + *(v2 + 20);
   result = UnknownStorage.init()();
-  v5 = (a1 + *(v2 + 24));
-  *v5 = 0;
-  v5[1] = 0;
+  v4 = (a1 + *(v2 + 24));
+  *v4 = 0;
+  v4[1] = 0;
   return result;
 }
 
 uint64_t NearbyGroup_Member.tokenID.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + *(type metadata accessor for NearbyGroup_Member(0) + 24));
-  v6 = v5[1];
 
   *v5 = a1;
   v5[1] = a2;
@@ -5483,7 +3461,6 @@ uint64_t key path setter for NearbyGroup_Member.tokenID : NearbyGroup_Member(uin
   v3 = *a1;
   v2 = a1[1];
   v4 = (a2 + *(type metadata accessor for NearbyGroup_Member(0) + 24));
-  v5 = v4[1];
 
   *v4 = v3;
   v4[1] = v2;
@@ -5531,7 +3508,6 @@ void (*NearbyGroup_Member.tokenID.modify(uint64_t *a1))(uint64_t **a1, char a2)
 Swift::Void __swiftcall NearbyGroup_Member.clearTokenID()()
 {
   v1 = (v0 + *(type metadata accessor for NearbyGroup_Member(0) + 24));
-  v2 = v1[1];
 
   *v1 = 0;
   v1[1] = 0;
@@ -5541,29 +3517,28 @@ uint64_t NearbyGroup_Group.initialize.getter@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v11 - v6;
-  outlined init with copy of (String, Any)(v2, &v11 - v6, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v8 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
+  v6 = &v9 - v5;
+  outlined init with copy of (String, Any)(v2, &v9 - v5, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v7 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined destroy of Any?(v6, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
   }
 
   else
   {
     if (!swift_getEnumCaseMultiPayload())
     {
-      return outlined init with take of NearbyGroup_Member(v7, a1, type metadata accessor for NearbyGroup_Group.Initialization);
+      return outlined init with take of NearbyGroup_Member(v6, a1, type metadata accessor for NearbyGroup_Group.Initialization);
     }
 
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v6, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   }
 
   *a1 = xmmword_1000CAAE0;
-  *(a1 + 16) = &_swiftEmptyArrayStorage;
-  v9 = a1 + *(type metadata accessor for NearbyGroup_Group.Initialization(0) + 24);
+  *(a1 + 16) = _swiftEmptyArrayStorage;
+  type metadata accessor for NearbyGroup_Group.Initialization(0);
   return UnknownStorage.init()();
 }
 
@@ -5571,7 +3546,7 @@ uint64_t NearbyGroup_Group.Initialization.init()@<X0>(uint64_t a1@<X8>)
 {
   *a1 = xmmword_1000CAAE0;
   *(a1 + 16) = _swiftEmptyArrayStorage;
-  v1 = a1 + *(type metadata accessor for NearbyGroup_Group.Initialization(0) + 24);
+  type metadata accessor for NearbyGroup_Group.Initialization(0);
   return UnknownStorage.init()();
 }
 
@@ -5582,7 +3557,7 @@ uint64_t outlined init with take of NearbyGroup_Member(uint64_t a1, uint64_t a2,
   return a2;
 }
 
-void (*NearbyGroup_Group.initialize.modify(void *a1))(uint64_t **a1, char a2)
+void (*NearbyGroup_Group.initialize.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -5610,28 +3585,27 @@ void (*NearbyGroup_Group.initialize.modify(void *a1))(uint64_t **a1, char a2)
 
   v7 = v6;
   v4[1] = v6;
-  v8 = type metadata accessor for NearbyGroup_Group.Initialization(0);
-  v9 = *(*(v8 - 8) + 64);
+  v8 = *(*(type metadata accessor for NearbyGroup_Group.Initialization(0) - 8) + 64);
   if (&_swift_coroFrameAlloc)
   {
     v4[2] = swift_coroFrameAlloc();
-    v10 = swift_coroFrameAlloc();
+    v9 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v4[2] = malloc(*(*(v8 - 8) + 64));
-    v10 = malloc(v9);
+    v4[2] = malloc(v8);
+    v9 = malloc(v8);
   }
 
-  v11 = v10;
-  v4[3] = v10;
+  v10 = v9;
+  v4[3] = v9;
   outlined init with copy of (String, Any)(v1, v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v12 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  v4[4] = v12;
-  v13 = *(v12 - 8);
-  v4[5] = v13;
-  if ((*(v13 + 48))(v7, 1, v12) == 1)
+  v11 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  v4[4] = v11;
+  v12 = *(v11 - 8);
+  v4[5] = v12;
+  if ((*(v12 + 48))(v7, 1, v11) == 1)
   {
     outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
   }
@@ -5640,16 +3614,15 @@ void (*NearbyGroup_Group.initialize.modify(void *a1))(uint64_t **a1, char a2)
   {
     if (!swift_getEnumCaseMultiPayload())
     {
-      outlined init with take of NearbyGroup_Member(v7, v11, type metadata accessor for NearbyGroup_Group.Initialization);
+      outlined init with take of NearbyGroup_Member(v7, v10, type metadata accessor for NearbyGroup_Group.Initialization);
       return NearbyGroup_Group.initialize.modify;
     }
 
     outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   }
 
-  *v11 = xmmword_1000CAAE0;
-  *(v11 + 16) = _swiftEmptyArrayStorage;
-  v14 = v11 + *(v8 + 24);
+  *v10 = xmmword_1000CAAE0;
+  *(v10 + 16) = _swiftEmptyArrayStorage;
   UnknownStorage.init()();
   return NearbyGroup_Group.initialize.modify;
 }
@@ -5665,36 +3638,34 @@ uint64_t NearbyGroup_Group.memberAdded.getter@<X0>(char *a1@<X8>)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v14 - v6;
-  outlined init with copy of (String, Any)(v2, &v14 - v6, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v8 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
+  v6 = &v12 - v5;
+  outlined init with copy of (String, Any)(v2, &v12 - v5, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v7 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined destroy of Any?(v6, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      return outlined init with take of NearbyGroup_Member(v7, a1, type metadata accessor for NearbyGroup_Group.MemberAdded);
+      return outlined init with take of NearbyGroup_Member(v6, a1, type metadata accessor for NearbyGroup_Group.MemberAdded);
     }
 
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v6, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   }
 
   *a1 = xmmword_1000CAAE0;
-  v10 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
-  v11 = &a1[*(v10 + 20)];
+  v9 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
   UnknownStorage.init()();
-  v12 = *(v10 + 24);
-  v13 = type metadata accessor for NearbyGroup_Member(0);
-  return (*(*(v13 - 8) + 56))(&a1[v12], 1, 1, v13);
+  v10 = *(v9 + 24);
+  v11 = type metadata accessor for NearbyGroup_Member(0);
+  return (*(*(v11 - 8) + 56))(&a1[v10], 1, 1, v11);
 }
 
-void (*NearbyGroup_Group.memberAdded.modify(void *a1))(uint64_t **a1, char a2)
+void (*NearbyGroup_Group.memberAdded.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   v2 = v1;
   if (&_swift_coroFrameAlloc)
@@ -5749,11 +3720,10 @@ void (*NearbyGroup_Group.memberAdded.modify(void *a1))(uint64_t **a1, char a2)
     outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
 LABEL_15:
     *v12 = xmmword_1000CAAE0;
-    v15 = &v12[*(v9 + 20)];
     UnknownStorage.init()();
-    v16 = *(v9 + 24);
-    v17 = type metadata accessor for NearbyGroup_Member(0);
-    (*(*(v17 - 8) + 56))(&v12[v16], 1, 1, v17);
+    v15 = *(v9 + 24);
+    v16 = type metadata accessor for NearbyGroup_Member(0);
+    (*(*(v16 - 8) + 56))(&v12[v15], 1, 1, v16);
     return NearbyGroup_Group.memberAdded.modify;
   }
 
@@ -5778,49 +3748,46 @@ uint64_t NearbyGroup_Group.memberRemoved.getter@<X0>(char *a1@<X8>)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v14 - v6;
-  outlined init with copy of (String, Any)(v2, &v14 - v6, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v8 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
+  v6 = &v12 - v5;
+  outlined init with copy of (String, Any)(v2, &v12 - v5, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v7 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined destroy of Any?(v6, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      return outlined init with take of NearbyGroup_Member(v7, a1, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+      return outlined init with take of NearbyGroup_Member(v6, a1, type metadata accessor for NearbyGroup_Group.MemberRemoved);
     }
 
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v6, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   }
 
   *a1 = xmmword_1000CAAE0;
-  v10 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
-  v11 = &a1[*(v10 + 20)];
+  v9 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
   UnknownStorage.init()();
-  v12 = *(v10 + 24);
-  v13 = type metadata accessor for NearbyGroup_Member(0);
-  return (*(*(v13 - 8) + 56))(&a1[v12], 1, 1, v13);
+  v10 = *(v9 + 24);
+  v11 = type metadata accessor for NearbyGroup_Member(0);
+  return (*(*(v11 - 8) + 56))(&a1[v10], 1, 1, v11);
 }
 
 uint64_t NearbyGroup_Group.MemberAdded.init()@<X0>(uint64_t (*a1)(void)@<X0>, char *a2@<X8>)
 {
   *a2 = xmmword_1000CAAE0;
   v3 = a1(0);
-  v4 = &a2[*(v3 + 20)];
   UnknownStorage.init()();
-  v5 = *(v3 + 24);
-  v6 = type metadata accessor for NearbyGroup_Member(0);
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(v3 + 24);
+  v5 = type metadata accessor for NearbyGroup_Member(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(&a2[v5], 1, 1, v6);
+  return v6(&a2[v4], 1, 1, v5);
 }
 
-void (*NearbyGroup_Group.memberRemoved.modify(void *a1))(uint64_t **a1, char a2)
+void (*NearbyGroup_Group.memberRemoved.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   v2 = v1;
   if (&_swift_coroFrameAlloc)
@@ -5875,11 +3842,10 @@ void (*NearbyGroup_Group.memberRemoved.modify(void *a1))(uint64_t **a1, char a2)
     outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
 LABEL_15:
     *v12 = xmmword_1000CAAE0;
-    v15 = &v12[*(v9 + 20)];
     UnknownStorage.init()();
-    v16 = *(v9 + 24);
-    v17 = type metadata accessor for NearbyGroup_Member(0);
-    (*(*(v17 - 8) + 56))(&v12[v16], 1, 1, v17);
+    v15 = *(v9 + 24);
+    v16 = type metadata accessor for NearbyGroup_Member(0);
+    (*(*(v16 - 8) + 56))(&v12[v15], 1, 1, v16);
     return NearbyGroup_Group.memberRemoved.modify;
   }
 
@@ -5897,37 +3863,35 @@ uint64_t NearbyGroup_Group.memberLeft.getter@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v11 - v6;
-  outlined init with copy of (String, Any)(v2, &v11 - v6, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v8 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
+  v6 = &v9 - v5;
+  outlined init with copy of (String, Any)(v2, &v9 - v5, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v7 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v7 - 8) + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined destroy of Any?(v6, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
   }
 
   else
   {
     if (swift_getEnumCaseMultiPayload() == 3)
     {
-      return outlined init with take of NearbyGroup_Member(v7, a1, type metadata accessor for NearbyGroup_Group.MemberLeft);
+      return outlined init with take of NearbyGroup_Member(v6, a1, type metadata accessor for NearbyGroup_Group.MemberLeft);
     }
 
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v6, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   }
 
   *a1 = xmmword_1000CAAE0;
   *(a1 + 16) = 0;
-  v10 = a1 + *(type metadata accessor for NearbyGroup_Group.MemberLeft(0) + 24);
+  type metadata accessor for NearbyGroup_Group.MemberLeft(0);
   return UnknownStorage.init()();
 }
 
-uint64_t key path setter for NearbyGroup_Group.initialize : NearbyGroup_Group(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(void))
+uint64_t key path setter for NearbyGroup_Group.initialize : NearbyGroup_Group(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(void), uint64_t a8)
 {
-  v11 = a5(0);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
+  v12 = (a5)(0, a2, a3, a4);
+  __chkstk_darwin(v12 - 8);
   v14 = &v17 - v13;
   outlined init with copy of NearbyGroup_Group.Initialization(a1, &v17 - v13, a6);
   outlined destroy of Any?(a2, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
@@ -5937,26 +3901,26 @@ uint64_t key path setter for NearbyGroup_Group.initialize : NearbyGroup_Group(ui
   return (*(*(v15 - 8) + 56))(a2, 0, 1, v15);
 }
 
-uint64_t NearbyGroup_Group.initialize.setter(uint64_t a1, uint64_t (*a2)(void))
+uint64_t NearbyGroup_Group.initialize.setter(uint64_t a1, uint64_t (*a2)(void), uint64_t a3)
 {
-  outlined destroy of Any?(v2, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  outlined init with take of NearbyGroup_Member(a1, v2, a2);
-  v5 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  outlined destroy of Any?(v3, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  outlined init with take of NearbyGroup_Member(a1, v3, a2);
+  v6 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
   swift_storeEnumTagMultiPayload();
-  v6 = *(*(v5 - 8) + 56);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v6(v2, 0, 1, v5);
+  return v7(v3, 0, 1, v6);
 }
 
 uint64_t NearbyGroup_Group.MemberLeft.init()@<X0>(uint64_t a1@<X8>)
 {
   *a1 = xmmword_1000CAAE0;
   *(a1 + 16) = 0;
-  v1 = a1 + *(type metadata accessor for NearbyGroup_Group.MemberLeft(0) + 24);
+  type metadata accessor for NearbyGroup_Group.MemberLeft(0);
   return UnknownStorage.init()();
 }
 
-void (*NearbyGroup_Group.memberLeft.modify(void *a1))(uint64_t **a1, char a2)
+void (*NearbyGroup_Group.memberLeft.modify(void *a1))(uint64_t **a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -5984,34 +3948,32 @@ void (*NearbyGroup_Group.memberLeft.modify(void *a1))(uint64_t **a1, char a2)
 
   v7 = v6;
   v4[1] = v6;
-  v8 = type metadata accessor for NearbyGroup_Group.MemberLeft(0);
-  v9 = *(*(v8 - 8) + 64);
+  v8 = *(*(type metadata accessor for NearbyGroup_Group.MemberLeft(0) - 8) + 64);
   if (&_swift_coroFrameAlloc)
   {
     v4[2] = swift_coroFrameAlloc();
-    v10 = swift_coroFrameAlloc();
+    v9 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v4[2] = malloc(*(*(v8 - 8) + 64));
-    v10 = malloc(v9);
+    v4[2] = malloc(v8);
+    v9 = malloc(v8);
   }
 
-  v11 = v10;
-  v4[3] = v10;
+  v10 = v9;
+  v4[3] = v9;
   outlined init with copy of (String, Any)(v1, v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v12 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  v4[4] = v12;
-  v13 = *(v12 - 8);
-  v4[5] = v13;
-  if ((*(v13 + 48))(v7, 1, v12) == 1)
+  v11 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  v4[4] = v11;
+  v12 = *(v11 - 8);
+  v4[5] = v12;
+  if ((*(v12 + 48))(v7, 1, v11) == 1)
   {
     outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
 LABEL_15:
-    *v11 = xmmword_1000CAAE0;
-    *(v11 + 16) = 0;
-    v14 = v11 + *(v8 + 24);
+    *v10 = xmmword_1000CAAE0;
+    *(v10 + 16) = 0;
     UnknownStorage.init()();
     return NearbyGroup_Group.memberLeft.modify;
   }
@@ -6022,7 +3984,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  outlined init with take of NearbyGroup_Member(v7, v11, type metadata accessor for NearbyGroup_Group.MemberLeft);
+  outlined init with take of NearbyGroup_Member(v7, v10, type metadata accessor for NearbyGroup_Group.MemberLeft);
   return NearbyGroup_Group.memberLeft.modify;
 }
 
@@ -6078,29 +4040,29 @@ uint64_t NearbyGroup_Member.unknownFields.setter(uint64_t a1, uint64_t (*a2)(voi
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t static NearbyGroup_Group.Initialization.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t static NearbyGroup_Group.Initialization.== infix(_:_:)(_BOOL8 *a1, uint64_t *a2)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ44com_apple_SharePlay_NearbyInvitationsService0F12Group_MemberV_Tt1g5(*(a1 + 16), *(a2 + 16)) & 1) == 0)
+  if (!specialized static Data.== infix(_:_:)(*a1, a1[1], *a2, a2[1]) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ44com_apple_SharePlay_NearbyInvitationsService0F12Group_MemberV_Tt1g5(a1[2], a2[2]) & 1) == 0)
   {
     return 0;
   }
 
-  v4 = *(type metadata accessor for NearbyGroup_Group.Initialization(0) + 24);
+  type metadata accessor for NearbyGroup_Group.Initialization(0);
   type metadata accessor for UnknownStorage();
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
 uint64_t static NearbyGroup_Group.MemberLeft.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
+  if (!specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) || *(a1 + 16) != *(a2 + 16))
   {
     return 0;
   }
 
-  v5 = *(type metadata accessor for NearbyGroup_Group.MemberLeft(0) + 24);
+  type metadata accessor for NearbyGroup_Group.MemberLeft(0);
   type metadata accessor for UnknownStorage();
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -6160,11 +4122,10 @@ uint64_t (*NearbyGroup_Group.MemberAdded.member.modify(void *a1))()
   {
     *v13 = 0;
     v13[1] = 0xE000000000000000;
-    v16 = v13 + *(v8 + 20);
     UnknownStorage.init()();
-    v17 = (v13 + *(v8 + 24));
-    *v17 = 0;
-    v17[1] = 0;
+    v16 = (v13 + *(v8 + 24));
+    *v16 = 0;
+    v16[1] = 0;
     if (v15(v7, 1, v8) != 1)
     {
       outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
@@ -6182,29 +4143,27 @@ uint64_t (*NearbyGroup_Group.MemberAdded.member.modify(void *a1))()
 uint64_t key path getter for NearbyGroup_Group.MemberAdded.member : NearbyGroup_Group.MemberAdded@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X3>, void *a3@<X8>)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v16 - v8;
-  v10 = a2(0);
-  outlined init with copy of (String, Any)(a1 + *(v10 + 24), v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v11 = type metadata accessor for NearbyGroup_Member(0);
-  v12 = *(*(v11 - 8) + 48);
-  if (v12(v9, 1, v11) != 1)
+  v8 = &v14 - v7;
+  v9 = a2(0);
+  outlined init with copy of (String, Any)(a1 + *(v9 + 24), v8, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  v10 = type metadata accessor for NearbyGroup_Member(0);
+  v11 = *(*(v10 - 8) + 48);
+  if (v11(v8, 1, v10) != 1)
   {
-    return outlined init with take of NearbyGroup_Member(v9, a3, type metadata accessor for NearbyGroup_Member);
+    return outlined init with take of NearbyGroup_Member(v8, a3, type metadata accessor for NearbyGroup_Member);
   }
 
   *a3 = 0;
   a3[1] = 0xE000000000000000;
-  v13 = a3 + *(v11 + 20);
   UnknownStorage.init()();
-  v14 = (a3 + *(v11 + 24));
-  *v14 = 0;
-  v14[1] = 0;
-  result = (v12)(v9, 1, v11);
+  v12 = (a3 + *(v10 + 24));
+  *v12 = 0;
+  v12[1] = 0;
+  result = (v11)(v8, 1, v10);
   if (result != 1)
   {
-    return outlined destroy of Any?(v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+    return outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
   }
 
   return result;
@@ -6214,14 +4173,13 @@ uint64_t key path setter for NearbyGroup_Group.MemberAdded.member : NearbyGroup_
 {
   v8 = type metadata accessor for NearbyGroup_Member(0);
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NearbyGroup_Group.Initialization(a1, v12, type metadata accessor for NearbyGroup_Member);
-  v13 = *(a5(0) + 24);
-  outlined destroy of Any?(a2 + v13, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  outlined init with take of NearbyGroup_Member(v12, a2 + v13, type metadata accessor for NearbyGroup_Member);
-  return (*(v9 + 56))(a2 + v13, 0, 1, v8);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NearbyGroup_Group.Initialization(a1, v11, type metadata accessor for NearbyGroup_Member);
+  v12 = *(a5(0) + 24);
+  outlined destroy of Any?(a2 + v12, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  outlined init with take of NearbyGroup_Member(v11, a2 + v12, type metadata accessor for NearbyGroup_Member);
+  return (*(v9 + 56))(a2 + v12, 0, 1, v8);
 }
 
 uint64_t (*NearbyGroup_Group.MemberRemoved.member.modify(void *a1))()
@@ -6280,11 +4238,10 @@ uint64_t (*NearbyGroup_Group.MemberRemoved.member.modify(void *a1))()
   {
     *v13 = 0;
     v13[1] = 0xE000000000000000;
-    v16 = v13 + *(v8 + 20);
     UnknownStorage.init()();
-    v17 = (v13 + *(v8 + 24));
-    *v17 = 0;
-    v17[1] = 0;
+    v16 = (v13 + *(v8 + 24));
+    *v16 = 0;
+    v16[1] = 0;
     if (v15(v7, 1, v8) != 1)
     {
       outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
@@ -6335,15 +4292,14 @@ void NearbyGroup_Group.MemberAdded.member.modify(uint64_t **a1, char a2)
 BOOL NearbyGroup_Group.MemberAdded.hasMember.getter(uint64_t (*a1)(void))
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11 - v5;
-  v7 = a1(0);
-  outlined init with copy of (String, Any)(v1 + *(v7 + 24), v6, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v8 = type metadata accessor for NearbyGroup_Member(0);
-  v9 = (*(*(v8 - 8) + 48))(v6, 1, v8) != 1;
-  outlined destroy of Any?(v6, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  return v9;
+  v5 = &v10 - v4;
+  v6 = a1(0);
+  outlined init with copy of (String, Any)(v1 + *(v6 + 24), v5, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  v7 = type metadata accessor for NearbyGroup_Member(0);
+  v8 = (*(*(v7 - 8) + 48))(v5, 1, v7) != 1;
+  outlined destroy of Any?(v5, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  return v8;
 }
 
 uint64_t NearbyGroup_Group.MemberAdded.clearMember()(uint64_t (*a1)(void))
@@ -6378,16 +4334,16 @@ uint64_t NearbyGroup_Group.init()@<X0>(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
   (*(*(v2 - 8) + 56))(a1, 1, 1, v2);
-  v3 = a1 + *(type metadata accessor for NearbyGroup_Group(0) + 20);
+  type metadata accessor for NearbyGroup_Group(0);
   return UnknownStorage.init()();
 }
 
-uint64_t NearbyGroup_Member.decodeMessage<A>(decoder:)()
+uint64_t NearbyGroup_Member.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -6399,7 +4355,7 @@ uint64_t NearbyGroup_Member.decodeMessage<A>(decoder:)()
 
     else if (result == 2)
     {
-      v3 = *(type metadata accessor for NearbyGroup_Member(0) + 24);
+      type metadata accessor for NearbyGroup_Member(0);
       dispatch thunk of Decoder.decodeSingularStringField(value:)();
     }
   }
@@ -6407,22 +4363,21 @@ uint64_t NearbyGroup_Member.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t NearbyGroup_Member.traverse<A>(visitor:)()
+uint64_t NearbyGroup_Member.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  v8 = v3[1];
+  v9 = HIBYTE(v8) & 0xF;
+  if ((v8 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v9 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v1))
+  if (!v9 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
   {
-    result = closure #1 in NearbyGroup_Member.traverse<A>(visitor:)(v0);
-    if (!v1)
+    result = closure #1 in NearbyGroup_Member.traverse<A>(visitor:)(v3, a1, a2, a3);
+    if (!v4)
     {
-      v6 = v0 + *(type metadata accessor for NearbyGroup_Member(0) + 20);
+      type metadata accessor for NearbyGroup_Member(0);
       return UnknownStorage.traverse<A>(visitor:)();
     }
   }
@@ -6430,13 +4385,11 @@ uint64_t NearbyGroup_Member.traverse<A>(visitor:)()
   return result;
 }
 
-uint64_t closure #1 in NearbyGroup_Member.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #1 in NearbyGroup_Member.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for NearbyGroup_Member(0);
-  v3 = (a1 + *(result + 24));
-  if (v3[1])
+  if (*(a1 + *(result + 24) + 8))
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
@@ -6447,31 +4400,30 @@ uint64_t protocol witness for Message.init() in conformance NearbyGroup_Member@<
 {
   *a2 = 0;
   a2[1] = 0xE000000000000000;
-  v4 = a2 + *(a1 + 20);
   result = UnknownStorage.init()();
-  v6 = (a2 + *(a1 + 24));
-  *v6 = 0;
-  v6[1] = 0;
+  v5 = (a2 + *(a1 + 24));
+  *v5 = 0;
+  v5[1] = 0;
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NearbyGroup_Member(uint64_t a1, uint64_t a2)
 {
-  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member);
+  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member, &protocol conformance descriptor for NearbyGroup_Member);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Member()
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Member(uint64_t a1)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member, &protocol conformance descriptor for NearbyGroup_Member);
 
   return Message.debugDescription.getter();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Member()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Member(uint64_t a1, uint64_t a2)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member, &protocol conformance descriptor for NearbyGroup_Member);
 
   return Message.hash(into:)();
 }
@@ -6516,421 +4468,404 @@ uint64_t NearbyGroup_Group.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, 
 
 uint64_t closure #1 in NearbyGroup_Group.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for NearbyGroup_Group.Initialization(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v44 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v43 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = __chkstk_darwin(v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = __chkstk_darwin(v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of (String, Any)(a1, v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = __chkstk_darwin(v5);
+  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v39 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  __chkstk_darwin(v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  v14 = *(v13 - 8);
+  v15 = __chkstk_darwin(v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
+  v21 = __chkstk_darwin(v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  outlined init with copy of (String, Any)(a1, v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    outlined destroy of Any?(v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Any?(v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    outlined init with take of NearbyGroup_Member(v14, v22, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-    outlined init with take of NearbyGroup_Member(v22, v20, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-    v34 = v15;
+    outlined init with take of NearbyGroup_Member(v12, v19, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined init with take of NearbyGroup_Member(v19, v17, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload())
     {
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v20, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-      v33 = v48;
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v17, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+      v29 = v44;
     }
 
     else
     {
-      outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
-      v35 = v43;
-      outlined init with take of NearbyGroup_Member(v20, v43, type metadata accessor for NearbyGroup_Group.Initialization);
-      outlined init with take of NearbyGroup_Member(v35, v28, type metadata accessor for NearbyGroup_Group.Initialization);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
+      v31 = v39;
+      outlined init with take of NearbyGroup_Member(v17, v39, type metadata accessor for NearbyGroup_Group.Initialization);
+      outlined init with take of NearbyGroup_Member(v31, v24, type metadata accessor for NearbyGroup_Group.Initialization);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
   }
 
-  v36 = v46;
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization);
-  v37 = v47;
+  v32 = v42;
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization, &protocol conformance descriptor for NearbyGroup_Group.Initialization);
+  v33 = v43;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v33)
   {
-    return outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
+    return outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
   }
 
-  outlined init with copy of (String, Any)(v28, v36, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of (String, Any)(v24, v32, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
-    return outlined destroy of Any?(v36, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
+    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
+    return outlined destroy of Any?(v32, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
   }
 
   else
   {
-    v39 = v44;
-    outlined init with take of NearbyGroup_Member(v36, v44, type metadata accessor for NearbyGroup_Group.Initialization);
-    if (v32 != 1)
+    v35 = v40;
+    outlined init with take of NearbyGroup_Member(v32, v40, type metadata accessor for NearbyGroup_Group.Initialization);
+    if (v28 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
-    v40 = v42;
-    outlined destroy of Any?(v42, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-    outlined init with take of NearbyGroup_Member(v39, v40, type metadata accessor for NearbyGroup_Group.Initialization);
+    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V14InitializationVSgMR);
+    v36 = v38;
+    outlined destroy of Any?(v38, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined init with take of NearbyGroup_Member(v35, v36, type metadata accessor for NearbyGroup_Group.Initialization);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t closure #2 in NearbyGroup_Group.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = __chkstk_darwin(v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = __chkstk_darwin(v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of (String, Any)(a1, v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = __chkstk_darwin(v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  __chkstk_darwin(v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  v14 = *(v13 - 8);
+  v15 = __chkstk_darwin(v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
+  v21 = __chkstk_darwin(v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  outlined init with copy of (String, Any)(a1, v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    outlined destroy of Any?(v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Any?(v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    outlined init with take of NearbyGroup_Member(v14, v22, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-    outlined init with take of NearbyGroup_Member(v22, v20, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-    v34 = v15;
+    outlined init with take of NearbyGroup_Member(v12, v19, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined init with take of NearbyGroup_Member(v19, v17, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
-      v35 = v44;
-      outlined init with take of NearbyGroup_Member(v20, v44, type metadata accessor for NearbyGroup_Group.MemberAdded);
-      outlined init with take of NearbyGroup_Member(v35, v28, type metadata accessor for NearbyGroup_Group.MemberAdded);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
+      v31 = v40;
+      outlined init with take of NearbyGroup_Member(v17, v40, type metadata accessor for NearbyGroup_Group.MemberAdded);
+      outlined init with take of NearbyGroup_Member(v31, v24, type metadata accessor for NearbyGroup_Group.MemberAdded);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v20, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-      v33 = v48;
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v17, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded);
-  v37 = v47;
+  v32 = v42;
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded, &protocol conformance descriptor for NearbyGroup_Group.MemberAdded);
+  v33 = v43;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v33)
   {
-    return outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
+    return outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
   }
 
-  outlined init with copy of (String, Any)(v28, v36, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of (String, Any)(v24, v32, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
-    return outlined destroy of Any?(v36, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
+    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
+    return outlined destroy of Any?(v32, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of NearbyGroup_Member(v36, v43, type metadata accessor for NearbyGroup_Group.MemberAdded);
-    if (v32 != 1)
+    v35 = v39;
+    outlined init with take of NearbyGroup_Member(v32, v39, type metadata accessor for NearbyGroup_Group.MemberAdded);
+    if (v28 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
-    v40 = v42;
-    outlined destroy of Any?(v42, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-    outlined init with take of NearbyGroup_Member(v39, v40, type metadata accessor for NearbyGroup_Group.MemberAdded);
+    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11MemberAddedVSgMR);
+    v36 = v38;
+    outlined destroy of Any?(v38, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined init with take of NearbyGroup_Member(v35, v36, type metadata accessor for NearbyGroup_Group.MemberAdded);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t closure #3 in NearbyGroup_Group.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = __chkstk_darwin(v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = __chkstk_darwin(v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of (String, Any)(a1, v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = __chkstk_darwin(v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  __chkstk_darwin(v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  v14 = *(v13 - 8);
+  v15 = __chkstk_darwin(v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
+  v21 = __chkstk_darwin(v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  outlined init with copy of (String, Any)(a1, v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    outlined destroy of Any?(v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Any?(v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    outlined init with take of NearbyGroup_Member(v14, v22, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-    outlined init with take of NearbyGroup_Member(v22, v20, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-    v34 = v15;
+    outlined init with take of NearbyGroup_Member(v12, v19, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined init with take of NearbyGroup_Member(v19, v17, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
-      v35 = v44;
-      outlined init with take of NearbyGroup_Member(v20, v44, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-      outlined init with take of NearbyGroup_Member(v35, v28, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
+      v31 = v40;
+      outlined init with take of NearbyGroup_Member(v17, v40, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+      outlined init with take of NearbyGroup_Member(v31, v24, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v20, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-      v33 = v48;
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v17, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-  v37 = v47;
+  v32 = v42;
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved, &protocol conformance descriptor for NearbyGroup_Group.MemberRemoved);
+  v33 = v43;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v33)
   {
-    return outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
+    return outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
   }
 
-  outlined init with copy of (String, Any)(v28, v36, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of (String, Any)(v24, v32, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
-    return outlined destroy of Any?(v36, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
+    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
+    return outlined destroy of Any?(v32, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of NearbyGroup_Member(v36, v43, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-    if (v32 != 1)
+    v35 = v39;
+    outlined init with take of NearbyGroup_Member(v32, v39, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+    if (v28 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
-    v40 = v42;
-    outlined destroy of Any?(v42, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-    outlined init with take of NearbyGroup_Member(v39, v40, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V13MemberRemovedVSgMR);
+    v36 = v38;
+    outlined destroy of Any?(v38, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined init with take of NearbyGroup_Member(v35, v36, type metadata accessor for NearbyGroup_Group.MemberRemoved);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t closure #4 in NearbyGroup_Group.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for NearbyGroup_Group.MemberLeft(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = __chkstk_darwin(v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = __chkstk_darwin(v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of (String, Any)(a1, v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = __chkstk_darwin(v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  __chkstk_darwin(v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  v14 = *(v13 - 8);
+  v15 = __chkstk_darwin(v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
+  v21 = __chkstk_darwin(v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  outlined init with copy of (String, Any)(a1, v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    outlined destroy of Any?(v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of Any?(v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    outlined init with take of NearbyGroup_Member(v14, v22, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-    outlined init with take of NearbyGroup_Member(v22, v20, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-    v34 = v15;
+    outlined init with take of NearbyGroup_Member(v12, v19, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined init with take of NearbyGroup_Member(v19, v17, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 3)
     {
-      outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
-      v35 = v44;
-      outlined init with take of NearbyGroup_Member(v20, v44, type metadata accessor for NearbyGroup_Group.MemberLeft);
-      outlined init with take of NearbyGroup_Member(v35, v28, type metadata accessor for NearbyGroup_Group.MemberLeft);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
+      v31 = v40;
+      outlined init with take of NearbyGroup_Member(v17, v40, type metadata accessor for NearbyGroup_Group.MemberLeft);
+      outlined init with take of NearbyGroup_Member(v31, v24, type metadata accessor for NearbyGroup_Group.MemberLeft);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v20, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-      v33 = v48;
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v17, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft);
-  v37 = v47;
+  v32 = v42;
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft, &protocol conformance descriptor for NearbyGroup_Group.MemberLeft);
+  v33 = v43;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v33)
   {
-    return outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
+    return outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
   }
 
-  outlined init with copy of (String, Any)(v28, v36, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of (String, Any)(v24, v32, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
-    return outlined destroy of Any?(v36, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
+    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
+    return outlined destroy of Any?(v32, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of NearbyGroup_Member(v36, v43, type metadata accessor for NearbyGroup_Group.MemberLeft);
-    if (v32 != 1)
+    v35 = v39;
+    outlined init with take of NearbyGroup_Member(v32, v39, type metadata accessor for NearbyGroup_Group.MemberLeft);
+    if (v28 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of Any?(v28, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
-    v40 = v42;
-    outlined destroy of Any?(v42, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-    outlined init with take of NearbyGroup_Member(v39, v40, type metadata accessor for NearbyGroup_Group.MemberLeft);
+    outlined destroy of Any?(v24, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V10MemberLeftVSgMR);
+    v36 = v38;
+    outlined destroy of Any?(v38, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined init with take of NearbyGroup_Member(v35, v36, type metadata accessor for NearbyGroup_Group.MemberLeft);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t NearbyGroup_Group.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v9 = *(*(v8 - 8) + 64);
   __chkstk_darwin(v8 - 8);
-  v11 = &v16 - v10;
-  outlined init with copy of (String, Any)(v3, &v16 - v10, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v12 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v12 - 8) + 48))(v11, 1, v12) == 1)
+  v10 = &v14 - v9;
+  outlined init with copy of (String, Any)(v3, &v14 - v9, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v11 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v11 - 8) + 48))(v10, 1, v11) == 1)
   {
     goto LABEL_10;
   }
@@ -6959,11 +4894,11 @@ uint64_t NearbyGroup_Group.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint6
     closure #1 in NearbyGroup_Group.traverse<A>(visitor:)(v3, a1, a2, a3);
   }
 
-  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v11, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   if (!v4)
   {
 LABEL_10:
-    v15 = v3 + *(type metadata accessor for NearbyGroup_Group(0) + 20);
+    type metadata accessor for NearbyGroup_Group(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -6972,157 +4907,148 @@ LABEL_10:
 
 uint64_t closure #1 in NearbyGroup_Group.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for NearbyGroup_Group.Initialization(0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of (String, Any)(a1, v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v13 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for NearbyGroup_Group.Initialization(0);
+  __chkstk_darwin(v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of (String, Any)(a1, v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v11 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
     __break(1u);
   }
 
   else if (!swift_getEnumCaseMultiPayload())
   {
-    outlined init with take of NearbyGroup_Member(v8, v12, type metadata accessor for NearbyGroup_Group.Initialization);
-    _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization);
+    outlined init with take of NearbyGroup_Member(v7, v10, type metadata accessor for NearbyGroup_Group.Initialization);
+    _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization, &protocol conformance descriptor for NearbyGroup_Group.Initialization);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of NearbyGroup_Group.OneOf_Event(v12, type metadata accessor for NearbyGroup_Group.Initialization);
+    return outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Group.Initialization);
   }
 
-  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v8, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   __break(1u);
   return result;
 }
 
 uint64_t closure #2 in NearbyGroup_Group.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of (String, Any)(a1, v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v13 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
+  __chkstk_darwin(v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of (String, Any)(a1, v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v11 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 1)
   {
-    outlined init with take of NearbyGroup_Member(v8, v12, type metadata accessor for NearbyGroup_Group.MemberAdded);
-    _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded);
+    outlined init with take of NearbyGroup_Member(v7, v10, type metadata accessor for NearbyGroup_Group.MemberAdded);
+    _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded, &protocol conformance descriptor for NearbyGroup_Group.MemberAdded);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of NearbyGroup_Group.OneOf_Event(v12, type metadata accessor for NearbyGroup_Group.MemberAdded);
+    return outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Group.MemberAdded);
   }
 
-  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v8, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   __break(1u);
   return result;
 }
 
 uint64_t closure #3 in NearbyGroup_Group.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of (String, Any)(a1, v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v13 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
+  __chkstk_darwin(v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of (String, Any)(a1, v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v11 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 2)
   {
-    outlined init with take of NearbyGroup_Member(v8, v12, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-    _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+    outlined init with take of NearbyGroup_Member(v7, v10, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+    _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved, &protocol conformance descriptor for NearbyGroup_Group.MemberRemoved);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of NearbyGroup_Group.OneOf_Event(v12, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+    return outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Group.MemberRemoved);
   }
 
-  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v8, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   __break(1u);
   return result;
 }
 
 uint64_t closure #4 in NearbyGroup_Group.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for NearbyGroup_Group.MemberLeft(0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of (String, Any)(a1, v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v13 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for NearbyGroup_Group.MemberLeft(0);
+  __chkstk_darwin(v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of (String, Any)(a1, v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v11 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 3)
   {
-    outlined init with take of NearbyGroup_Member(v8, v12, type metadata accessor for NearbyGroup_Group.MemberLeft);
-    _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft);
+    outlined init with take of NearbyGroup_Member(v7, v10, type metadata accessor for NearbyGroup_Group.MemberLeft);
+    _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft, &protocol conformance descriptor for NearbyGroup_Group.MemberLeft);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of NearbyGroup_Group.OneOf_Event(v12, type metadata accessor for NearbyGroup_Group.MemberLeft);
+    return outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Group.MemberLeft);
   }
 
-  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v8, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  result = outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
   __break(1u);
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance NearbyGroup_Group@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance NearbyGroup_Group@<X0>(uint64_t a1@<X8>)
 {
-  v4 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  (*(*(v4 - 8) + 56))(a2, 1, 1, v4);
-  v5 = a2 + *(a1 + 20);
+  v2 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  (*(*(v2 - 8) + 56))(a1, 1, 1, v2);
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NearbyGroup_Group(uint64_t a1, uint64_t a2)
 {
-  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group);
+  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group, &protocol conformance descriptor for NearbyGroup_Group);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group()
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group(uint64_t a1)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group, &protocol conformance descriptor for NearbyGroup_Group);
 
   return Message.debugDescription.getter();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group(uint64_t a1, uint64_t a2)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group, &protocol conformance descriptor for NearbyGroup_Group);
 
   return Message.hash(into:)();
 }
@@ -7162,12 +5088,12 @@ void *NearbyGroup_Group.Initialization.protoMessageName.unsafeMutableAddressor()
   return static NearbyGroup_Group.Initialization.protoMessageName;
 }
 
-uint64_t NearbyGroup_Group.Initialization.decodeMessage<A>(decoder:)()
+uint64_t NearbyGroup_Group.Initialization.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
@@ -7177,7 +5103,7 @@ uint64_t NearbyGroup_Group.Initialization.decodeMessage<A>(decoder:)()
       else if (result == 2)
       {
         type metadata accessor for NearbyGroup_Member(0);
-        _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member);
+        _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member, &protocol conformance descriptor for NearbyGroup_Member);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
       }
 
@@ -7188,34 +5114,34 @@ uint64_t NearbyGroup_Group.Initialization.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t NearbyGroup_Group.Initialization.traverse<A>(visitor:)()
+uint64_t NearbyGroup_Group.Initialization.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v3 >> 62;
-  if ((v3 >> 62) > 1)
+  v5 = *v3;
+  v6 = v3[1];
+  v7 = v6 >> 62;
+  if ((v6 >> 62) > 1)
   {
-    if (v4 != 2)
+    if (v7 != 2)
     {
       goto LABEL_10;
     }
 
-    v5 = *(v2 + 16);
-    v6 = *(v2 + 24);
+    v8 = *(v5 + 16);
+    v9 = *(v5 + 24);
   }
 
   else
   {
-    if (!v4)
+    if (!v7)
     {
-      if ((v3 & 0xFF000000000000) == 0)
+      if ((v6 & 0xFF000000000000) == 0)
       {
         goto LABEL_10;
       }
 
 LABEL_9:
       result = dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-      if (v1)
+      if (v4)
       {
         return result;
       }
@@ -7223,64 +5149,62 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v5 = v2;
-    v6 = v2 >> 32;
+    v8 = v5;
+    v9 = v5 >> 32;
   }
 
-  if (v5 != v6)
+  if (v8 != v9)
   {
     goto LABEL_9;
   }
 
 LABEL_10:
-  if (!*(v0[2] + 16) || (type metadata accessor for NearbyGroup_Member(0), _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v1))
+  if (!*(v3[2] + 16) || (type metadata accessor for NearbyGroup_Member(0), _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member, &protocol conformance descriptor for NearbyGroup_Member), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v4))
   {
-    v8 = v0 + *(type metadata accessor for NearbyGroup_Group.Initialization(0) + 24);
+    type metadata accessor for NearbyGroup_Group.Initialization(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance NearbyGroup_Group.Initialization@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance NearbyGroup_Group.Initialization@<X0>(uint64_t a2@<X8>)
 {
   *a2 = xmmword_1000CAAE0;
   *(a2 + 16) = _swiftEmptyArrayStorage;
-  v2 = a2 + *(a1 + 24);
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NearbyGroup_Group.Initialization(uint64_t a1, uint64_t a2)
 {
-  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization);
+  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization, &protocol conformance descriptor for NearbyGroup_Group.Initialization);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group.Initialization()
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group.Initialization(uint64_t a1)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization, &protocol conformance descriptor for NearbyGroup_Group.Initialization);
 
   return Message.debugDescription.getter();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group.Initialization()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group.Initialization(uint64_t a1, uint64_t a2)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.Initialization and conformance NearbyGroup_Group.Initialization, type metadata accessor for NearbyGroup_Group.Initialization, &protocol conformance descriptor for NearbyGroup_Group.Initialization);
 
   return Message.hash(into:)();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NearbyGroup_Group.Initialization(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NearbyGroup_Group.Initialization(_BOOL8 *a1, uint64_t *a2, uint64_t a3)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ44com_apple_SharePlay_NearbyInvitationsService0F12Group_MemberV_Tt1g5(*(a1 + 16), *(a2 + 16)) & 1) == 0)
+  if (!specialized static Data.== infix(_:_:)(*a1, a1[1], *a2, a2[1]) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ44com_apple_SharePlay_NearbyInvitationsService0F12Group_MemberV_Tt1g5(a1[2], a2[2]) & 1) == 0)
   {
     return 0;
   }
 
-  v6 = *(a3 + 24);
   type metadata accessor for UnknownStorage();
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7296,21 +5220,21 @@ void *NearbyGroup_Group.MemberAdded.protoMessageName.unsafeMutableAddressor()
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NearbyGroup_Group.MemberAdded(uint64_t a1, uint64_t a2)
 {
-  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded);
+  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded, &protocol conformance descriptor for NearbyGroup_Group.MemberAdded);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group.MemberAdded()
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group.MemberAdded(uint64_t a1)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded, &protocol conformance descriptor for NearbyGroup_Group.MemberAdded);
 
   return Message.debugDescription.getter();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group.MemberAdded()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group.MemberAdded(uint64_t a1, uint64_t a2)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberAdded and conformance NearbyGroup_Group.MemberAdded, type metadata accessor for NearbyGroup_Group.MemberAdded, &protocol conformance descriptor for NearbyGroup_Group.MemberAdded);
 
   return Message.hash(into:)();
 }
@@ -7352,13 +5276,13 @@ uint64_t NearbyGroup_Group.MemberAdded.decodeMessage<A>(decoder:)(uint64_t a1, u
 
 uint64_t closure #2 in NearbyGroup_Group.MemberAdded.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v5 = *(a5(0) + 24);
+  a5(0);
   type metadata accessor for NearbyGroup_Member(0);
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member, &protocol conformance descriptor for NearbyGroup_Member);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
-uint64_t NearbyGroup_Group.MemberAdded.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
+uint64_t NearbyGroup_Group.MemberAdded.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), void (*a5)(void))
 {
   v12 = *v5;
   v13 = v5[1];
@@ -7404,7 +5328,7 @@ LABEL_10:
   result = closure #1 in NearbyGroup_Group.MemberAdded.traverse<A>(visitor:)(v5, a1, a2, a3, a4);
   if (!v6)
   {
-    v18 = v5 + *(a5(0) + 20);
+    a5(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -7413,60 +5337,57 @@ LABEL_10:
 
 uint64_t closure #1 in NearbyGroup_Group.MemberAdded.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v18[3] = a4;
-  v18[0] = a2;
-  v18[1] = a3;
+  v16[3] = a4;
+  v16[0] = a2;
+  v16[1] = a3;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = v18 - v9;
-  v11 = type metadata accessor for NearbyGroup_Member(0);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11);
-  v15 = v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = a5(0);
-  outlined init with copy of (String, Any)(a1 + *(v16 + 24), v10, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  if ((*(v12 + 48))(v10, 1, v11) == 1)
+  v9 = v16 - v8;
+  v10 = type metadata accessor for NearbyGroup_Member(0);
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = a5(0);
+  outlined init with copy of (String, Any)(a1 + *(v14 + 24), v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    return outlined destroy of Any?(v10, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+    return outlined destroy of Any?(v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
   }
 
-  outlined init with take of NearbyGroup_Member(v10, v15, type metadata accessor for NearbyGroup_Member);
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member);
+  outlined init with take of NearbyGroup_Member(v9, v13, type metadata accessor for NearbyGroup_Member);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Member and conformance NearbyGroup_Member, type metadata accessor for NearbyGroup_Member, &protocol conformance descriptor for NearbyGroup_Member);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of NearbyGroup_Group.OneOf_Event(v15, type metadata accessor for NearbyGroup_Member);
+  return outlined destroy of NearbyGroup_Group.OneOf_Event(v13, type metadata accessor for NearbyGroup_Member);
 }
 
 uint64_t protocol witness for Message.init() in conformance NearbyGroup_Group.MemberAdded@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   *a2 = xmmword_1000CAAE0;
-  v4 = &a2[*(a1 + 20)];
   UnknownStorage.init()();
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for NearbyGroup_Member(0);
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(a1 + 24);
+  v5 = type metadata accessor for NearbyGroup_Member(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(&a2[v5], 1, 1, v6);
+  return v6(&a2[v4], 1, 1, v5);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NearbyGroup_Group.MemberRemoved(uint64_t a1, uint64_t a2)
 {
-  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved, &protocol conformance descriptor for NearbyGroup_Group.MemberRemoved);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group.MemberRemoved()
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group.MemberRemoved(uint64_t a1)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved, &protocol conformance descriptor for NearbyGroup_Group.MemberRemoved);
 
   return Message.debugDescription.getter();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group.MemberRemoved()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group.MemberRemoved(uint64_t a1, uint64_t a2)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberRemoved and conformance NearbyGroup_Group.MemberRemoved, type metadata accessor for NearbyGroup_Group.MemberRemoved, &protocol conformance descriptor for NearbyGroup_Group.MemberRemoved);
 
   return Message.hash(into:)();
 }
@@ -7488,12 +5409,12 @@ void *NearbyGroup_Group.MemberLeft.protoMessageName.unsafeMutableAddressor()
   return static NearbyGroup_Group.MemberLeft.protoMessageName;
 }
 
-uint64_t NearbyGroup_Group.MemberLeft.decodeMessage<A>(decoder:)()
+uint64_t NearbyGroup_Group.MemberLeft.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -7512,34 +5433,34 @@ uint64_t NearbyGroup_Group.MemberLeft.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t NearbyGroup_Group.MemberLeft.traverse<A>(visitor:)()
+uint64_t NearbyGroup_Group.MemberLeft.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
-  v4 = v3 >> 62;
-  if ((v3 >> 62) > 1)
+  v5 = *v3;
+  v6 = *(v3 + 8);
+  v7 = v6 >> 62;
+  if ((v6 >> 62) > 1)
   {
-    if (v4 != 2)
+    if (v7 != 2)
     {
       goto LABEL_10;
     }
 
-    v5 = *(v2 + 16);
-    v6 = *(v2 + 24);
+    v8 = *(v5 + 16);
+    v9 = *(v5 + 24);
   }
 
   else
   {
-    if (!v4)
+    if (!v7)
     {
-      if ((v3 & 0xFF000000000000) == 0)
+      if ((v6 & 0xFF000000000000) == 0)
       {
         goto LABEL_10;
       }
 
 LABEL_9:
       result = dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-      if (v1)
+      if (v4)
       {
         return result;
       }
@@ -7547,158 +5468,154 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v5 = v2;
-    v6 = v2 >> 32;
+    v8 = v5;
+    v9 = v5 >> 32;
   }
 
-  if (v5 != v6)
+  if (v8 != v9)
   {
     goto LABEL_9;
   }
 
 LABEL_10:
-  if (*(v0 + 16) != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v1))
+  if (*(v3 + 16) != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v4))
   {
-    v8 = v0 + *(type metadata accessor for NearbyGroup_Group.MemberLeft(0) + 24);
+    type metadata accessor for NearbyGroup_Group.MemberLeft(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-Swift::Int NearbyGroup_Member.hashValue.getter(void (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+Swift::Int NearbyGroup_Member.hashValue.getter(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   Hasher.init(_seed:)();
   a1(0);
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(a2, a3);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(a2, a3, a4);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Message.init() in conformance NearbyGroup_Group.MemberLeft@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance NearbyGroup_Group.MemberLeft@<X0>(uint64_t a2@<X8>)
 {
   *a2 = xmmword_1000CAAE0;
   *(a2 + 16) = 0;
-  v2 = a2 + *(a1 + 24);
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NearbyGroup_Group.MemberLeft(uint64_t a1, uint64_t a2)
 {
-  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft);
+  v4 = _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft, &protocol conformance descriptor for NearbyGroup_Group.MemberLeft);
 
   return _MessageImplementationBase.isEqualTo(message:)(a1, a2, v4);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group.MemberLeft()
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NearbyGroup_Group.MemberLeft(uint64_t a1)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft, &protocol conformance descriptor for NearbyGroup_Group.MemberLeft);
 
   return Message.debugDescription.getter();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group.MemberLeft()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NearbyGroup_Group.MemberLeft(uint64_t a1, uint64_t a2)
 {
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type NearbyGroup_Group.MemberLeft and conformance NearbyGroup_Group.MemberLeft, type metadata accessor for NearbyGroup_Group.MemberLeft, &protocol conformance descriptor for NearbyGroup_Group.MemberLeft);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NearbyGroup_Group.MemberLeft(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
+  if (!specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) || *(a1 + 16) != *(a2 + 16))
   {
     return 0;
   }
 
-  v7 = *(a3 + 24);
   type metadata accessor for UnknownStorage();
-  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
+  _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ44com_apple_SharePlay_NearbyInvitationsService0F12Group_MemberV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for NearbyGroup_Member(0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = __chkstk_darwin(v4);
-  v8 = (&v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v6);
-  v11 = (&v27 - v10);
-  v12 = *(a1 + 16);
-  if (v12 != *(a2 + 16))
+  v5 = __chkstk_darwin(v4);
+  v7 = (&v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v5);
+  v10 = (&v25 - v9);
+  v11 = *(a1 + 16);
+  if (v11 != *(a2 + 16))
   {
 LABEL_24:
-    v25 = 0;
-    return v25 & 1;
+    v23 = 0;
+    return v23 & 1;
   }
 
-  if (v12 && a1 != a2)
+  if (v11 && a1 != a2)
   {
-    v13 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-    v14 = a1 + v13;
-    v15 = a2 + v13;
-    v16 = *(v9 + 72);
+    v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+    v13 = a1 + v12;
+    v14 = a2 + v12;
+    v15 = *(v8 + 72);
     while (1)
     {
-      outlined init with copy of NearbyGroup_Group.Initialization(v14, v11, type metadata accessor for NearbyGroup_Member);
-      outlined init with copy of NearbyGroup_Group.Initialization(v15, v8, type metadata accessor for NearbyGroup_Member);
-      v17 = *v11 == *v8 && v11[1] == v8[1];
-      if (!v17 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      outlined init with copy of NearbyGroup_Group.Initialization(v13, v10, type metadata accessor for NearbyGroup_Member);
+      outlined init with copy of NearbyGroup_Group.Initialization(v14, v7, type metadata accessor for NearbyGroup_Member);
+      v16 = *v10 == *v7 && v10[1] == v7[1];
+      if (!v16 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         break;
       }
 
-      v18 = *(v4 + 24);
-      v19 = (v11 + v18);
-      v20 = *(v11 + v18 + 8);
-      v21 = (v8 + v18);
-      v22 = v21[1];
-      if (v20)
+      v17 = *(v4 + 24);
+      v18 = (v10 + v17);
+      v19 = *(v10 + v17 + 8);
+      v20 = (v7 + v17);
+      v21 = v20[1];
+      if (v19)
       {
-        if (!v22)
+        if (!v21)
         {
           break;
         }
 
-        v23 = *v19 == *v21 && v20 == v22;
-        if (!v23 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+        v22 = *v18 == *v20 && v19 == v21;
+        if (!v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
         {
           break;
         }
       }
 
-      else if (v22)
+      else if (v21)
       {
         break;
       }
 
-      v24 = *(v4 + 20);
       type metadata accessor for UnknownStorage();
-      _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
-      v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v8, type metadata accessor for NearbyGroup_Member);
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v11, type metadata accessor for NearbyGroup_Member);
-      if (v25)
+      _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Member);
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Member);
+      if (v23)
       {
-        v15 += v16;
-        v14 += v16;
-        if (--v12)
+        v14 += v15;
+        v13 += v15;
+        if (--v11)
         {
           continue;
         }
       }
 
-      return v25 & 1;
+      return v23 & 1;
     }
 
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v8, type metadata accessor for NearbyGroup_Member);
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v11, type metadata accessor for NearbyGroup_Member);
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Member);
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Member);
     goto LABEL_24;
   }
 
-  v25 = 1;
-  return v25 & 1;
+  v23 = 1;
+  return v23 & 1;
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(uint64_t a1, uint64_t a2)
@@ -7737,318 +5654,294 @@ uint64_t specialized static NearbyGroup_Group.== infix(_:_:)(uint64_t a1, uint64
 {
   v4 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v12 = &v24 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSg_AFtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSg_AFtMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = __chkstk_darwin(v13 - 8);
-  v17 = &v24 - v16;
-  v18 = *(v15 + 56);
-  outlined init with copy of (String, Any)(a1, &v24 - v16, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  outlined init with copy of (String, Any)(a2, &v17[v18], &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v17, 1, v4) == 1)
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  __chkstk_darwin(v8 - 8);
+  v10 = &v20 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSg_AFtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSg_AFtMR);
+  v12 = __chkstk_darwin(v11 - 8);
+  v14 = &v20 - v13;
+  v15 = *(v12 + 56);
+  outlined init with copy of (String, Any)(a1, &v20 - v13, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  outlined init with copy of (String, Any)(a2, &v14[v15], &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v14, 1, v4) == 1)
   {
-    if (v19(&v17[v18], 1, v4) == 1)
+    if (v16(&v14[v15], 1, v4) == 1)
     {
-      outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+      outlined destroy of Any?(v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
 LABEL_9:
-      v22 = *(type metadata accessor for NearbyGroup_Group(0) + 20);
+      type metadata accessor for NearbyGroup_Group(0);
       type metadata accessor for UnknownStorage();
-      _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
+      _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+      v17 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v17 & 1;
     }
 
     goto LABEL_6;
   }
 
-  outlined init with copy of (String, Any)(v17, v12, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  if (v19(&v17[v18], 1, v4) == 1)
+  outlined init with copy of (String, Any)(v14, v10, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  if (v16(&v14[v15], 1, v4) == 1)
   {
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v12, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Group.OneOf_Event);
 LABEL_6:
-    outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSg_AFtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSg_AFtMR);
+    outlined destroy of Any?(v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSg_AFtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSg_AFtMR);
     goto LABEL_7;
   }
 
-  outlined init with take of NearbyGroup_Member(&v17[v18], v8, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-  v21 = specialized static NearbyGroup_Group.OneOf_Event.__derived_enum_equals(_:_:)(v12, v8);
-  outlined destroy of NearbyGroup_Group.OneOf_Event(v8, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-  outlined destroy of NearbyGroup_Group.OneOf_Event(v12, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-  outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
-  if (v21)
+  outlined init with take of NearbyGroup_Member(&v14[v15], v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  v18 = specialized static NearbyGroup_Group.OneOf_Event.__derived_enum_equals(_:_:)(v10, v7);
+  outlined destroy of NearbyGroup_Group.OneOf_Event(v7, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  outlined destroy of NearbyGroup_Group.OneOf_Event(v10, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  outlined destroy of Any?(v14, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventOSgMR);
+  if (v18)
   {
     goto LABEL_9;
   }
 
 LABEL_7:
-  v20 = 0;
-  return v20 & 1;
+  v17 = 0;
+  return v17 & 1;
 }
 
 uint64_t specialized static NearbyGroup_Group.OneOf_Event.__derived_enum_equals(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v54 = a2;
-  v50 = type metadata accessor for NearbyGroup_Group.MemberLeft(0);
-  v3 = *(*(v50 - 8) + 64);
-  __chkstk_darwin(v50);
-  v53 = &v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v52 = &v49 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  v11 = &v49 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v49 = type metadata accessor for NearbyGroup_Group.Initialization(0);
-  v12 = *(*(v49 - 8) + 64);
-  __chkstk_darwin(v49);
-  v51 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = __chkstk_darwin(v14);
-  v18 = &v49 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __chkstk_darwin(v16);
-  v21 = &v49 - v20;
-  v22 = __chkstk_darwin(v19);
-  v24 = &v49 - v23;
-  __chkstk_darwin(v22);
-  v26 = &v49 - v25;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventO_AEtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventO_AEtMR);
-  v28 = *(*(v27 - 8) + 64);
-  v29 = __chkstk_darwin(v27 - 8);
-  v31 = &v49 - v30;
-  v32 = *(v29 + 56);
-  outlined init with copy of NearbyGroup_Group.Initialization(a1, &v49 - v30, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-  outlined init with copy of NearbyGroup_Group.Initialization(v54, &v31[v32], type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  v46 = a2;
+  v42 = type metadata accessor for NearbyGroup_Group.MemberLeft(0);
+  __chkstk_darwin(v42);
+  v45 = &v41 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for NearbyGroup_Group.MemberRemoved(0);
+  __chkstk_darwin(v4 - 8);
+  v44 = &v41 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for NearbyGroup_Group.MemberAdded(0);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v41 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = type metadata accessor for NearbyGroup_Group.Initialization(0);
+  __chkstk_darwin(v41);
+  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for NearbyGroup_Group.OneOf_Event(0);
+  v11 = __chkstk_darwin(v10);
+  v13 = &v41 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __chkstk_darwin(v11);
+  v16 = &v41 - v15;
+  v17 = __chkstk_darwin(v14);
+  v19 = &v41 - v18;
+  __chkstk_darwin(v17);
+  v21 = &v41 - v20;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventO_AEtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventO_AEtMR);
+  v23 = __chkstk_darwin(v22 - 8);
+  v25 = &v41 - v24;
+  v26 = *(v23 + 56);
+  outlined init with copy of NearbyGroup_Group.Initialization(a1, &v41 - v24, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  outlined init with copy of NearbyGroup_Group.Initialization(v46, &v25[v26], type metadata accessor for NearbyGroup_Group.OneOf_Event);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 1)
   {
     if (EnumCaseMultiPayload != 2)
     {
-      outlined init with copy of NearbyGroup_Group.Initialization(v31, v18, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+      outlined init with copy of NearbyGroup_Group.Initialization(v25, v13, type metadata accessor for NearbyGroup_Group.OneOf_Event);
       if (swift_getEnumCaseMultiPayload() != 3)
       {
-        v34 = type metadata accessor for NearbyGroup_Group.MemberLeft;
-        v35 = v18;
+        v28 = type metadata accessor for NearbyGroup_Group.MemberLeft;
+        v29 = v13;
         goto LABEL_19;
       }
 
-      v40 = v53;
-      outlined init with take of NearbyGroup_Member(&v31[v32], v53, type metadata accessor for NearbyGroup_Group.MemberLeft);
-      if ((specialized static Data.== infix(_:_:)(*v18, *(v18 + 1), *v40, *(v40 + 8)) & 1) != 0 && v18[16] == *(v40 + 16))
+      v34 = v45;
+      outlined init with take of NearbyGroup_Member(&v25[v26], v45, type metadata accessor for NearbyGroup_Group.MemberLeft);
+      if (specialized static Data.== infix(_:_:)(*v13, *(v13 + 1), *v34, *(v34 + 8)) && v13[16] == *(v34 + 16))
       {
-        v41 = *(v50 + 24);
         type metadata accessor for UnknownStorage();
-        _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
+        _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
         if (dispatch thunk of static Equatable.== infix(_:_:)())
         {
-          v42 = type metadata accessor for NearbyGroup_Group.MemberLeft;
-          outlined destroy of NearbyGroup_Group.OneOf_Event(v40, type metadata accessor for NearbyGroup_Group.MemberLeft);
-          v43 = v18;
+          v35 = type metadata accessor for NearbyGroup_Group.MemberLeft;
+          outlined destroy of NearbyGroup_Group.OneOf_Event(v34, type metadata accessor for NearbyGroup_Group.MemberLeft);
+          v36 = v13;
 LABEL_25:
-          outlined destroy of NearbyGroup_Group.OneOf_Event(v43, v42);
-          outlined destroy of NearbyGroup_Group.OneOf_Event(v31, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-          v37 = 1;
-          return v37 & 1;
+          outlined destroy of NearbyGroup_Group.OneOf_Event(v36, v35);
+          outlined destroy of NearbyGroup_Group.OneOf_Event(v25, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+          v31 = 1;
+          return v31 & 1;
         }
       }
 
-      v44 = type metadata accessor for NearbyGroup_Group.MemberLeft;
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v40, type metadata accessor for NearbyGroup_Group.MemberLeft);
-      v45 = v18;
+      v37 = type metadata accessor for NearbyGroup_Group.MemberLeft;
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v34, type metadata accessor for NearbyGroup_Group.MemberLeft);
+      v38 = v13;
 LABEL_27:
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v45, v44);
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v31, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v38, v37);
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v25, type metadata accessor for NearbyGroup_Group.OneOf_Event);
       goto LABEL_28;
     }
 
-    outlined init with copy of NearbyGroup_Group.Initialization(v31, v21, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined init with copy of NearbyGroup_Group.Initialization(v25, v16, type metadata accessor for NearbyGroup_Group.OneOf_Event);
     if (swift_getEnumCaseMultiPayload() != 2)
     {
-      v34 = type metadata accessor for NearbyGroup_Group.MemberRemoved;
-      v35 = v21;
+      v28 = type metadata accessor for NearbyGroup_Group.MemberRemoved;
+      v29 = v16;
       goto LABEL_19;
     }
 
-    v36 = v52;
-    outlined init with take of NearbyGroup_Member(&v31[v32], v52, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-    v37 = specialized static NearbyGroup_Group.MemberRemoved.== infix(_:_:)(v21, v36, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-    v38 = type metadata accessor for NearbyGroup_Group.MemberRemoved;
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v36, type metadata accessor for NearbyGroup_Group.MemberRemoved);
-    v39 = v21;
+    v30 = v44;
+    outlined init with take of NearbyGroup_Member(&v25[v26], v44, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+    v31 = specialized static NearbyGroup_Group.MemberRemoved.== infix(_:_:)(v16, v30, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+    v32 = type metadata accessor for NearbyGroup_Group.MemberRemoved;
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v30, type metadata accessor for NearbyGroup_Group.MemberRemoved);
+    v33 = v16;
   }
 
   else
   {
     if (!EnumCaseMultiPayload)
     {
-      outlined init with copy of NearbyGroup_Group.Initialization(v31, v26, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+      outlined init with copy of NearbyGroup_Group.Initialization(v25, v21, type metadata accessor for NearbyGroup_Group.OneOf_Event);
       if (swift_getEnumCaseMultiPayload())
       {
-        v34 = type metadata accessor for NearbyGroup_Group.Initialization;
-        v35 = v26;
+        v28 = type metadata accessor for NearbyGroup_Group.Initialization;
+        v29 = v21;
 LABEL_19:
-        outlined destroy of NearbyGroup_Group.OneOf_Event(v35, v34);
-        outlined destroy of Any?(v31, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventO_AEtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventO_AEtMR);
+        outlined destroy of NearbyGroup_Group.OneOf_Event(v29, v28);
+        outlined destroy of Any?(v25, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventO_AEtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0V11OneOf_EventO_AEtMR);
 LABEL_28:
-        v37 = 0;
-        return v37 & 1;
+        v31 = 0;
+        return v31 & 1;
       }
 
-      v46 = v51;
-      outlined init with take of NearbyGroup_Member(&v31[v32], v51, type metadata accessor for NearbyGroup_Group.Initialization);
-      if (specialized static Data.== infix(_:_:)(*v26, *(v26 + 1), *v46, *(v46 + 8)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ44com_apple_SharePlay_NearbyInvitationsService0F12Group_MemberV_Tt1g5(*(v26 + 2), *(v46 + 16)))
+      v39 = v43;
+      outlined init with take of NearbyGroup_Member(&v25[v26], v43, type metadata accessor for NearbyGroup_Group.Initialization);
+      if (specialized static Data.== infix(_:_:)(*v21, *(v21 + 1), *v39, *(v39 + 8)) && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ44com_apple_SharePlay_NearbyInvitationsService0F12Group_MemberV_Tt1g5(*(v21 + 2), *(v39 + 16)) & 1) != 0)
       {
-        v47 = *(v49 + 24);
         type metadata accessor for UnknownStorage();
-        _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
+        _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
         if (dispatch thunk of static Equatable.== infix(_:_:)())
         {
-          v42 = type metadata accessor for NearbyGroup_Group.Initialization;
-          outlined destroy of NearbyGroup_Group.OneOf_Event(v46, type metadata accessor for NearbyGroup_Group.Initialization);
-          v43 = v26;
+          v35 = type metadata accessor for NearbyGroup_Group.Initialization;
+          outlined destroy of NearbyGroup_Group.OneOf_Event(v39, type metadata accessor for NearbyGroup_Group.Initialization);
+          v36 = v21;
           goto LABEL_25;
         }
       }
 
-      v44 = type metadata accessor for NearbyGroup_Group.Initialization;
-      outlined destroy of NearbyGroup_Group.OneOf_Event(v46, type metadata accessor for NearbyGroup_Group.Initialization);
-      v45 = v26;
+      v37 = type metadata accessor for NearbyGroup_Group.Initialization;
+      outlined destroy of NearbyGroup_Group.OneOf_Event(v39, type metadata accessor for NearbyGroup_Group.Initialization);
+      v38 = v21;
       goto LABEL_27;
     }
 
-    outlined init with copy of NearbyGroup_Group.Initialization(v31, v24, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+    outlined init with copy of NearbyGroup_Group.Initialization(v25, v19, type metadata accessor for NearbyGroup_Group.OneOf_Event);
     if (swift_getEnumCaseMultiPayload() != 1)
     {
-      v34 = type metadata accessor for NearbyGroup_Group.MemberAdded;
-      v35 = v24;
+      v28 = type metadata accessor for NearbyGroup_Group.MemberAdded;
+      v29 = v19;
       goto LABEL_19;
     }
 
-    outlined init with take of NearbyGroup_Member(&v31[v32], v11, type metadata accessor for NearbyGroup_Group.MemberAdded);
-    v37 = specialized static NearbyGroup_Group.MemberRemoved.== infix(_:_:)(v24, v11, type metadata accessor for NearbyGroup_Group.MemberAdded);
-    v38 = type metadata accessor for NearbyGroup_Group.MemberAdded;
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v11, type metadata accessor for NearbyGroup_Group.MemberAdded);
-    v39 = v24;
+    outlined init with take of NearbyGroup_Member(&v25[v26], v8, type metadata accessor for NearbyGroup_Group.MemberAdded);
+    v31 = specialized static NearbyGroup_Group.MemberRemoved.== infix(_:_:)(v19, v8, type metadata accessor for NearbyGroup_Group.MemberAdded);
+    v32 = type metadata accessor for NearbyGroup_Group.MemberAdded;
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v8, type metadata accessor for NearbyGroup_Group.MemberAdded);
+    v33 = v19;
   }
 
-  outlined destroy of NearbyGroup_Group.OneOf_Event(v39, v38);
-  outlined destroy of NearbyGroup_Group.OneOf_Event(v31, type metadata accessor for NearbyGroup_Group.OneOf_Event);
-  return v37 & 1;
+  outlined destroy of NearbyGroup_Group.OneOf_Event(v33, v32);
+  outlined destroy of NearbyGroup_Group.OneOf_Event(v25, type metadata accessor for NearbyGroup_Group.OneOf_Event);
+  return v31 & 1;
 }
 
 uint64_t specialized static NearbyGroup_Group.MemberRemoved.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = type metadata accessor for NearbyGroup_Member(0);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = (&v27 - v13);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSg_ADtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSg_ADtMR);
-  v16 = *(*(v15 - 8) + 64);
-  __chkstk_darwin(v15);
-  v18 = &v27 - v17;
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0)
+  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  __chkstk_darwin(v10 - 8);
+  v12 = (&v23 - v11);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSg_ADtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSg_ADtMR);
+  __chkstk_darwin(v13);
+  v15 = &v23 - v14;
+  if (!specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)))
   {
     goto LABEL_8;
   }
 
-  v27 = v10;
-  v28 = a3(0);
-  v19 = *(v28 + 24);
-  v20 = *(v15 + 48);
-  outlined init with copy of (String, Any)(a1 + v19, v18, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  outlined init with copy of (String, Any)(a2 + v19, &v18[v20], &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  v21 = *(v7 + 48);
-  if (v21(v18, 1, v6) == 1)
+  v23 = v9;
+  v24 = a3(0);
+  v16 = *(v24 + 24);
+  v17 = *(v13 + 48);
+  outlined init with copy of (String, Any)(a1 + v16, v15, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  outlined init with copy of (String, Any)(a2 + v16, &v15[v17], &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  v18 = *(v7 + 48);
+  if (v18(v15, 1, v6) == 1)
   {
-    if (v21(&v18[v20], 1, v6) == 1)
+    if (v18(&v15[v17], 1, v6) == 1)
     {
-      outlined destroy of Any?(v18, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+      outlined destroy of Any?(v15, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
 LABEL_11:
-      v26 = *(v28 + 20);
       type metadata accessor for UnknownStorage();
-      _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
-      v22 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v22 & 1;
+      _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
+      v19 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v19 & 1;
     }
 
     goto LABEL_7;
   }
 
-  outlined init with copy of (String, Any)(v18, v14, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  if (v21(&v18[v20], 1, v6) == 1)
+  outlined init with copy of (String, Any)(v15, v12, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  if (v18(&v15[v17], 1, v6) == 1)
   {
-    outlined destroy of NearbyGroup_Group.OneOf_Event(v14, type metadata accessor for NearbyGroup_Member);
+    outlined destroy of NearbyGroup_Group.OneOf_Event(v12, type metadata accessor for NearbyGroup_Member);
 LABEL_7:
-    outlined destroy of Any?(v18, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSg_ADtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSg_ADtMR);
+    outlined destroy of Any?(v15, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSg_ADtMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSg_ADtMR);
     goto LABEL_8;
   }
 
-  v24 = v27;
-  outlined init with take of NearbyGroup_Member(&v18[v20], v27, type metadata accessor for NearbyGroup_Member);
-  v25 = specialized static NearbyGroup_Member.== infix(_:_:)(v14, v24);
-  outlined destroy of NearbyGroup_Group.OneOf_Event(v24, type metadata accessor for NearbyGroup_Member);
-  outlined destroy of NearbyGroup_Group.OneOf_Event(v14, type metadata accessor for NearbyGroup_Member);
-  outlined destroy of Any?(v18, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
-  if (v25)
+  v21 = v23;
+  outlined init with take of NearbyGroup_Member(&v15[v17], v23, type metadata accessor for NearbyGroup_Member);
+  v22 = specialized static NearbyGroup_Member.== infix(_:_:)(v12, v21);
+  outlined destroy of NearbyGroup_Group.OneOf_Event(v21, type metadata accessor for NearbyGroup_Member);
+  outlined destroy of NearbyGroup_Group.OneOf_Event(v12, type metadata accessor for NearbyGroup_Member);
+  outlined destroy of Any?(v15, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E12Group_MemberVSgMR);
+  if (v22)
   {
     goto LABEL_11;
   }
 
 LABEL_8:
-  v22 = 0;
-  return v22 & 1;
+  v19 = 0;
+  return v19 & 1;
 }
 
-uint64_t specialized static NearbyGroup_Member.== infix(_:_:)(void *a1, void *a2)
+uint64_t specialized static NearbyGroup_Member.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v5 = type metadata accessor for NearbyGroup_Member(0);
-    v6 = *(v5 + 24);
-    v7 = (a1 + v6);
-    v8 = *(a1 + v6 + 8);
-    v9 = (a2 + v6);
-    v10 = v9[1];
-    if (v8)
+    v5 = *(type metadata accessor for NearbyGroup_Member(0) + 24);
+    v6 = (a1 + v5);
+    v7 = *(a1 + v5 + 8);
+    v8 = (a2 + v5);
+    v9 = v8[1];
+    if (v7)
     {
-      if (v10)
+      if (v9)
       {
-        if (*v7 == *v9 && v8 == v10)
-        {
-          goto LABEL_13;
-        }
-
-        v12 = v5;
-        v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        v5 = v12;
-        if (v13)
+        v10 = *v6 == *v8 && v7 == v9;
+        if (v10 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
           goto LABEL_13;
         }
       }
     }
 
-    else if (!v10)
+    else if (!v9)
     {
 LABEL_13:
-      v14 = *(v5 + 20);
       type metadata accessor for UnknownStorage();
-      _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage);
+      _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, &type metadata accessor for UnknownStorage, &protocol conformance descriptor for UnknownStorage);
       return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
     }
   }
@@ -8056,7 +5949,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s21InternalSwiftProtobuf14UnknownStorageVACSQAAWlTm_0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8149,65 +6042,57 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14A
   v2[4] = a1;
   v2[5] = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA10PublishersO10CompactMapVy_AA19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0R6DeviceVyAL0O13RangingFilterC_GGs5NeverOGSay0O8Sessions0O13AdvertisementCGG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA10PublishersO10CompactMapVy_AA19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0R6DeviceVyAL0O13RangingFilterC_GGs5NeverOGSay0O8Sessions0O13AdvertisementCGG_GMR);
-  v4 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AsyncPublisher<Publishers.CompactMap<CurrentValueSubject<[FilteredBluetoothScanner<NearbyRangingFilter>.FilteredDevice], Never>, [NearbyAdvertisement]>>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA10PublishersO10CompactMapVy_AA19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0R6DeviceVyAL0O13RangingFilterC_GGs5NeverOGSay0O8Sessions0O13AdvertisementCGG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA10PublishersO10CompactMapVy_AA19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0R6DeviceVyAL0O13RangingFilterC_GGs5NeverOGSay0O8Sessions0O13AdvertisementCGG_GMR);
-  v5 = async function pointer to dispatch thunk of AsyncIteratorProtocol.next()[1];
-  v6 = swift_task_alloc();
-  v2[6] = v6;
-  *v6 = v2;
-  v6[1] = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI10PublishersO10CompactMapVy_AI19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0V6DeviceVyAT0S13RangingFilterC_GGs5NeverOGSay0S8Sessions0S13AdvertisementCGG_G_Tg5TQ0_;
+  v4 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AsyncPublisher<Publishers.CompactMap<CurrentValueSubject<[FilteredBluetoothScanner<NearbyRangingFilter>.FilteredDevice], Never>, [NearbyAdvertisement]>>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA10PublishersO10CompactMapVy_AA19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0R6DeviceVyAL0O13RangingFilterC_GGs5NeverOGSay0O8Sessions0O13AdvertisementCGG_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA10PublishersO10CompactMapVy_AA19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0R6DeviceVyAL0O13RangingFilterC_GGs5NeverOGSay0O8Sessions0O13AdvertisementCGG_GMR, &protocol conformance descriptor for AsyncPublisher<A>.Iterator);
+  v5 = swift_task_alloc();
+  v2[6] = v5;
+  *v5 = v2;
+  v5[1] = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI10PublishersO10CompactMapVy_AI19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0V6DeviceVyAT0S13RangingFilterC_GGs5NeverOGSay0S8Sessions0S13AdvertisementCGG_G_Tg5TQ0_;
 
   return dispatch thunk of AsyncIteratorProtocol.next()(v2 + 2, v3, v4);
 }
 
 uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI10PublishersO10CompactMapVy_AI19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0V6DeviceVyAT0S13RangingFilterC_GGs5NeverOGSay0S8Sessions0S13AdvertisementCGG_G_Tg5TQ0_()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 48);
-  v4 = *(*v1 + 32);
-  v15 = *v1;
+  v2 = *(*v1 + 32);
   *(*v1 + 56) = v0;
 
   if (v0)
   {
-    if (v4)
+    if (v2)
     {
-      v5 = *(v2 + 32);
-      v6 = *(v2 + 40);
       swift_getObjectType();
-      v7 = dispatch thunk of Actor.unownedExecutor.getter();
-      v9 = v8;
+      v3 = dispatch thunk of Actor.unownedExecutor.getter();
+      v5 = v4;
     }
 
     else
     {
-      v7 = 0;
-      v9 = 0;
+      v3 = 0;
+      v5 = 0;
     }
 
-    v10 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI10PublishersO10CompactMapVy_AI19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0V6DeviceVyAT0S13RangingFilterC_GGs5NeverOGSay0S8Sessions0S13AdvertisementCGG_G_Tg5TY2_;
+    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI10PublishersO10CompactMapVy_AI19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0V6DeviceVyAT0S13RangingFilterC_GGs5NeverOGSay0S8Sessions0S13AdvertisementCGG_G_Tg5TY2_;
   }
 
   else
   {
-    if (v4)
+    if (v2)
     {
-      v11 = *(v2 + 32);
-      v12 = *(v2 + 40);
       swift_getObjectType();
-      v7 = dispatch thunk of Actor.unownedExecutor.getter();
-      v9 = v13;
+      v3 = dispatch thunk of Actor.unownedExecutor.getter();
+      v5 = v7;
     }
 
     else
     {
-      v7 = 0;
-      v9 = 0;
+      v3 = 0;
+      v5 = 0;
     }
 
-    v10 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI10PublishersO10CompactMapVy_AI19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0V6DeviceVyAT0S13RangingFilterC_GGs5NeverOGSay0S8Sessions0S13AdvertisementCGG_G_Tg5TY1_;
+    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI10PublishersO10CompactMapVy_AI19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0V6DeviceVyAT0S13RangingFilterC_GGs5NeverOGSay0S8Sessions0S13AdvertisementCGG_G_Tg5TY1_;
   }
 
-  return _swift_task_switch(v10, v7, v9);
+  return _swift_task_switch(v6, v3, v5);
 }
 
 uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI10PublishersO10CompactMapVy_AI19CurrentValueSubjectCySay44com_apple_SharePlay_NearbyInvitationsService24FilteredBluetoothScannerC0V6DeviceVyAT0S13RangingFilterC_GGs5NeverOGSay0S8Sessions0S13AdvertisementCGG_G_Tg5TY2_()
@@ -8226,65 +6111,57 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14A
   v2[4] = a1;
   v2[5] = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VyShy14NearbySessions0F11GroupMemberCG_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VyShy14NearbySessions0F11GroupMemberCG_G_GMR);
-  v4 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AsyncPublisher<Published<Set<NearbyGroupMember>>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VyShy14NearbySessions0F11GroupMemberCG_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VyShy14NearbySessions0F11GroupMemberCG_G_GMR);
-  v5 = async function pointer to dispatch thunk of AsyncIteratorProtocol.next()[1];
-  v6 = swift_task_alloc();
-  v2[6] = v6;
-  *v6 = v2;
-  v6[1] = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5TQ0_;
+  v4 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AsyncPublisher<Published<Set<NearbyGroupMember>>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VyShy14NearbySessions0F11GroupMemberCG_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VyShy14NearbySessions0F11GroupMemberCG_G_GMR, &protocol conformance descriptor for AsyncPublisher<A>.Iterator);
+  v5 = swift_task_alloc();
+  v2[6] = v5;
+  *v5 = v2;
+  v5[1] = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5TQ0_;
 
   return dispatch thunk of AsyncIteratorProtocol.next()(v2 + 2, v3, v4);
 }
 
 uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5TQ0_()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 48);
-  v4 = *(*v1 + 32);
-  v15 = *v1;
+  v2 = *(*v1 + 32);
   *(*v1 + 56) = v0;
 
   if (v0)
   {
-    if (v4)
+    if (v2)
     {
-      v5 = *(v2 + 32);
-      v6 = *(v2 + 40);
       swift_getObjectType();
-      v7 = dispatch thunk of Actor.unownedExecutor.getter();
-      v9 = v8;
+      v3 = dispatch thunk of Actor.unownedExecutor.getter();
+      v5 = v4;
     }
 
     else
     {
-      v7 = 0;
-      v9 = 0;
+      v3 = 0;
+      v5 = 0;
     }
 
-    v10 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5TY2_;
+    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5TY2_;
   }
 
   else
   {
-    if (v4)
+    if (v2)
     {
-      v11 = *(v2 + 32);
-      v12 = *(v2 + 40);
       swift_getObjectType();
-      v7 = dispatch thunk of Actor.unownedExecutor.getter();
-      v9 = v13;
+      v3 = dispatch thunk of Actor.unownedExecutor.getter();
+      v5 = v7;
     }
 
     else
     {
-      v7 = 0;
-      v9 = 0;
+      v3 = 0;
+      v5 = 0;
     }
 
-    v10 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5TY1_;
+    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5TY1_;
   }
 
-  return _swift_task_switch(v10, v7, v9);
+  return _swift_task_switch(v6, v3, v5);
 }
 
 uint64_t NearbyGroupFirewall.__allocating_init(group:service:)(uint64_t a1, uint64_t a2)
@@ -8328,7 +6205,6 @@ void NearbyGroupFirewall.group.modify(id **a1, char a2)
 {
   v3 = *a1;
   v4 = (*a1)[3];
-  v5 = (*a1)[4];
   swift_unknownObjectWeakAssign();
   if (a2)
   {
@@ -8358,9 +6234,7 @@ uint64_t closure #1 in NearbyGroupFirewall.init(group:service:)(uint64_t a1, uin
   v5[14] = a5;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VyShy14NearbySessions0F11GroupMemberCG_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VyShy14NearbySessions0F11GroupMemberCG_G_GMR);
   v5[15] = v6;
-  v7 = *(v6 - 8);
-  v5[16] = v7;
-  v8 = *(v7 + 64) + 15;
+  v5[16] = *(v6 - 8);
   v5[17] = swift_task_alloc();
 
   return _swift_task_switch(closure #1 in NearbyGroupFirewall.init(group:service:), 0, 0);
@@ -8368,72 +6242,67 @@ uint64_t closure #1 in NearbyGroupFirewall.init(group:service:)(uint64_t a1, uin
 
 uint64_t closure #1 in NearbyGroupFirewall.init(group:service:)()
 {
-  v1 = v0[17];
-  v2 = v0[13];
-  v3 = v0[14];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VyShy14NearbySessions0E11GroupMemberCG_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VyShy14NearbySessions0E11GroupMemberCG_GGMR);
   AsyncPublisher.makeAsyncIterator()();
   swift_beginAccess();
-  v4 = swift_task_alloc();
-  v0[18] = v4;
-  *v4 = v0;
-  v4[1] = closure #1 in NearbyGroupFirewall.init(group:service:);
-  v5 = v0[17];
+  v1 = swift_task_alloc();
+  *(v0 + 144) = v1;
+  *v1 = v0;
+  v1[1] = closure #1 in NearbyGroupFirewall.init(group:service:);
 
   return _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5(0, 0);
 }
 
 {
-  v21 = v0;
+  v19 = v0;
   v1 = v0[19];
   if (v1)
   {
-    v2 = v0[14];
     Strong = swift_weakLoadStrong();
     v0[20] = Strong;
     if (Strong)
     {
-      v4 = Strong;
+      v3 = Strong;
       if (one-time initialization token for firewall != -1)
       {
         swift_once();
       }
 
-      v5 = type metadata accessor for Logger();
-      v0[21] = __swift_project_value_buffer(v5, static Log.firewall);
+      v4 = type metadata accessor for Logger();
+      v0[21] = __swift_project_value_buffer(v4, static Log.firewall);
 
-      v6 = Logger.logObject.getter();
-      v7 = static os_log_type_t.default.getter();
+      v5 = Logger.logObject.getter();
+      v6 = static os_log_type_t.default.getter();
 
-      if (os_log_type_enabled(v6, v7))
+      if (os_log_type_enabled(v5, v6))
       {
+        v7 = swift_slowAlloc();
         v8 = swift_slowAlloc();
-        v9 = swift_slowAlloc();
-        v20 = v9;
-        *v8 = 136315138;
+        v18 = v8;
+        *v7 = 136315138;
         v0[12] = v1;
 
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy14NearbySessions0A11GroupMemberCGMd, &_sShy14NearbySessions0A11GroupMemberCGMR);
-        v10 = String.init<A>(reflecting:)();
-        v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v20);
+        v9 = String.init<A>(reflecting:)();
+        v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, &v18);
 
-        *(v8 + 4) = v12;
-        _os_log_impl(&_mh_execute_header, v6, v7, "Donating %s", v8, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v9);
+        *(v7 + 4) = v11;
+        _os_log_impl(&_mh_execute_header, v5, v6, "Donating %s", v7, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0Tm(v8);
       }
 
-      (*(*v4 + 120))();
-      v13 = v0[5];
-      v14 = v0[6];
-      __swift_project_boxed_opaque_existential_1(v0 + 2, v13);
-      v15 = specialized _copyCollectionToContiguousArray<A>(_:)(v1);
-      v0[22] = v15;
-      v16 = swift_task_alloc();
-      v0[23] = v16;
-      *v16 = v0;
-      v16[1] = closure #1 in NearbyGroupFirewall.init(group:service:);
+      (*(*v3 + 120))();
+      v12 = v0[5];
+      v13 = v0[6];
+      __swift_project_boxed_opaque_existential_1(v0 + 2, v12);
+      v14 = specialized _copyCollectionToContiguousArray<A>(_:)(v1);
+      v0[22] = v14;
+      v15 = swift_task_alloc();
+      v0[23] = v15;
+      *v15 = v0;
+      v15[1] = closure #1 in NearbyGroupFirewall.init(group:service:);
 
-      return FirewallProvider.donateEntries(_:)(v15, v13, v14);
+      return FirewallProvider.donateEntries(_:)(v14, v12, v13);
     }
 
     (*(v0[16] + 8))(v0[17], v0[15]);
@@ -8444,125 +6313,103 @@ uint64_t closure #1 in NearbyGroupFirewall.init(group:service:)()
     (*(v0[16] + 8))(v0[17], v0[15]);
   }
 
-  v18 = v0[17];
+  v17 = v0[1];
 
-  v19 = v0[1];
-
-  return v19();
+  return v17();
 }
 
 {
-  v2 = *v1;
-  v3 = *(*v1 + 184);
-  v4 = *v1;
-  v2[24] = v0;
+  *(*v1 + 192) = v0;
 
-  v5 = v2[22];
   if (v0)
   {
-    v6 = v2[19];
 
-    v7 = closure #1 in NearbyGroupFirewall.init(group:service:);
+    v2 = closure #1 in NearbyGroupFirewall.init(group:service:);
   }
 
   else
   {
-
-    v7 = closure #1 in NearbyGroupFirewall.init(group:service:);
+    v2 = closure #1 in NearbyGroupFirewall.init(group:service:);
   }
 
-  return _swift_task_switch(v7, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 {
-  v18 = v0;
-  v1 = v0[21];
-  v2 = v0[19];
+  v12 = v0;
   __swift_destroy_boxed_opaque_existential_0Tm(v0 + 2);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v1, v2))
   {
-    v6 = v0[19];
-    v5 = v0[20];
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v17 = v8;
-    *v7 = 136315138;
-    v0[11] = v6;
+    v3 = v0[19];
+    v4 = swift_slowAlloc();
+    v5 = swift_slowAlloc();
+    v11 = v5;
+    *v4 = 136315138;
+    v0[11] = v3;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy14NearbySessions0A11GroupMemberCGMd, &_sShy14NearbySessions0A11GroupMemberCGMR);
-    v9 = String.init<A>(reflecting:)();
-    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, &v17);
+    v6 = String.init<A>(reflecting:)();
+    v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, &v11);
 
-    *(v7 + 4) = v11;
-    _os_log_impl(&_mh_execute_header, v3, v4, "Donated %s", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v8);
+    *(v4 + 4) = v8;
+    _os_log_impl(&_mh_execute_header, v1, v2, "Donated %s", v4, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v5);
   }
 
   else
   {
-    v13 = v0[19];
-    v12 = v0[20];
   }
 
-  v14 = swift_task_alloc();
-  v0[18] = v14;
-  *v14 = v0;
-  v14[1] = closure #1 in NearbyGroupFirewall.init(group:service:);
-  v15 = v0[17];
+  v9 = swift_task_alloc();
+  v0[18] = v9;
+  *v9 = v0;
+  v9[1] = closure #1 in NearbyGroupFirewall.init(group:service:);
 
   return _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5(0, 0);
 }
 
 {
-  v18 = v0;
-  v1 = v0[24];
-  v2 = v0[21];
+  v12 = v0;
   __swift_destroy_boxed_opaque_existential_0Tm(v0 + 2);
   swift_errorRetain();
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v1, v2))
   {
-    v5 = v0[24];
-    v6 = v0[20];
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v17 = v8;
-    *v7 = 136315138;
-    v0[10] = v5;
+    v3 = v0[24];
+    v4 = swift_slowAlloc();
+    v5 = swift_slowAlloc();
+    v11 = v5;
+    *v4 = 136315138;
+    v0[10] = v3;
     swift_errorRetain();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-    v9 = String.init<A>(reflecting:)();
-    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, &v17);
+    v6 = String.init<A>(reflecting:)();
+    v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, &v11);
 
-    *(v7 + 4) = v11;
-    _os_log_impl(&_mh_execute_header, v3, v4, "Failed to donate, error: %s", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v8);
+    *(v4 + 4) = v8;
+    _os_log_impl(&_mh_execute_header, v1, v2, "Failed to donate, error: %s", v4, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v5);
   }
 
   else
   {
-    v12 = v0[24];
-    v13 = v0[20];
   }
 
-  v14 = swift_task_alloc();
-  v0[18] = v14;
-  *v14 = v0;
-  v14[1] = closure #1 in NearbyGroupFirewall.init(group:service:);
-  v15 = v0[17];
+  v9 = swift_task_alloc();
+  v0[18] = v9;
+  *v9 = v0;
+  v9[1] = closure #1 in NearbyGroupFirewall.init(group:service:);
 
   return _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKF7Combine14AsyncPublisherV8IteratorVyAI9PublishedV0G0VyShy14NearbySessions0J11GroupMemberCG_G_G_Tg5(0, 0);
 }
 
 uint64_t closure #1 in NearbyGroupFirewall.init(group:service:)(uint64_t a1)
 {
-  v3 = *(*v2 + 144);
-  v5 = *v2;
   *(*v2 + 152) = a1;
 
   if (!v1)
@@ -8585,16 +6432,16 @@ uint64_t FirewallProvider.donateEntries(_:)(uint64_t a1, uint64_t a2, uint64_t a
 
 uint64_t FirewallProvider.donateEntries(_:)()
 {
-  v43 = v0;
+  v38 = v0;
   v1 = *(v0 + 32);
   v2 = _swiftEmptyArrayStorage;
-  v41 = _swiftEmptyArrayStorage;
+  v36 = _swiftEmptyArrayStorage;
   v3 = v1 & 0xFFFFFFFFFFFFFF8;
   if (v1 >> 62)
   {
 LABEL_30:
     v4 = _CocoaArrayWrapper.endIndex.getter();
-    v5 = v38[4];
+    v5 = v33[4];
   }
 
   else
@@ -8603,24 +6450,23 @@ LABEL_30:
     v5 = v1;
   }
 
-  v38[8] = v2;
+  v33[8] = v2;
   if (v4)
   {
     v6 = 0;
-    v36 = v1 & 0xC000000000000001;
+    v32 = v1 & 0xC000000000000001;
     v7 = v5 + 32;
-    v35 = v4;
-    v39 = v5 + 32;
+    v31 = v4;
+    v34 = v5 + 32;
     do
     {
-      v34 = v2;
+      v30 = v2;
       v8 = v6;
-      v2 = v36;
+      v2 = v32;
       while (1)
       {
         if (v2)
         {
-          v26 = v38[4];
           v9 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
@@ -8669,23 +6515,23 @@ LABEL_29:
             v19 = swift_slowAlloc();
             v20 = v3;
             v21 = swift_slowAlloc();
-            v42 = v21;
+            v37 = v21;
             *v19 = 136315138;
-            v38[2] = NearbyGroupMember.handle.getter();
-            v38[3] = v22;
+            v33[2] = NearbyGroupMember.handle.getter();
+            v33[3] = v22;
             v23 = String.init<A>(reflecting:)();
             v1 = v24;
-            v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, &v42);
+            v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, &v37);
 
             *(v19 + 4) = v25;
-            v2 = v36;
+            v2 = v32;
             _os_log_impl(&_mh_execute_header, v17, v18, "Failed to convert handle %s to IDSURI", v19, 0xCu);
             __swift_destroy_boxed_opaque_existential_0Tm(v21);
             v3 = v20;
-            v4 = v35;
+            v4 = v31;
           }
 
-          v7 = v39;
+          v7 = v34;
           goto LABEL_7;
         }
 
@@ -8700,75 +6546,66 @@ LABEL_7:
         ++v8;
         if (v6 == v4)
         {
-          v2 = v34;
+          v2 = v30;
           goto LABEL_25;
         }
       }
 
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((v41 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v41 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v36 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v36 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v27 = *((v41 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
-      v1 = &v41;
+      v1 = &v36;
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v2 = v41;
-      v38[8] = v41;
+      v2 = v36;
+      v33[8] = v36;
     }
 
     while (v6 != v4);
   }
 
 LABEL_25:
-  v37 = (v38[6] + 8);
-  v40 = (*v37 + **v37);
-  v28 = (*v37)[1];
-  v29 = swift_task_alloc();
-  v38[9] = v29;
-  *v29 = v38;
-  v29[1] = FirewallProvider.donateEntries(_:);
-  v30 = v38[6];
-  v31 = v38[7];
-  v32 = v38[5];
+  v35 = (*(v33[6] + 8) + **(v33[6] + 8));
+  v26 = swift_task_alloc();
+  v33[9] = v26;
+  *v26 = v33;
+  v26[1] = FirewallProvider.donateEntries(_:);
+  v27 = v33[6];
+  v28 = v33[5];
 
-  return (v40)(v2, v32, v30);
+  return v35(v2, v28, v27);
 }
 
 {
-  v2 = *(*v1 + 72);
-  v5 = *v1;
   *(*v1 + 80) = v0;
 
   if (v0)
   {
-    v3 = FirewallProvider.donateEntries(_:);
+    v2 = FirewallProvider.donateEntries(_:);
   }
 
   else
   {
-    v3 = FirewallProvider.donateEntries(_:);
+    v2 = FirewallProvider.donateEntries(_:);
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 {
-  v1 = *(v0 + 64);
 
-  v2 = *(v0 + 8);
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 {
-  v1 = v0[8];
 
-  v2 = v0[1];
-  v3 = v0[10];
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t NearbyGroupFirewall.deinit()
@@ -8842,7 +6679,7 @@ uint64_t outlined destroy of TaskPriority?(uint64_t a1)
   return a1;
 }
 
-void *specialized _copyCollectionToContiguousArray<A>(_:)(unint64_t a1)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
 {
   v1 = a1;
   if ((a1 & 0xC000000000000001) == 0)
@@ -8861,7 +6698,7 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(unint64_t a1)
     v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC14NearbySessions0H13AdvertisementC_Tt1g5Tm(v2, 0);
 
     v1 = specialized Sequence._copySequenceContents(initializing:)(&v5, v3 + 4, v2, v1);
-    outlined consume of Set<IDSAccount>.Iterator._Variant();
+    outlined consume of Set<IDSAccount>.Iterator._Variant(v5);
     if (v1 == v2)
     {
       break;
@@ -8879,7 +6716,7 @@ LABEL_5:
   return v3;
 }
 
-id specialized Sequence._copySequenceContents(initializing:)(id result, void *a2, uint64_t a3, uint64_t a4)
+void *specialized Sequence._copySequenceContents(initializing:)(void *result, void *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4;
   v7 = result;
@@ -9048,7 +6885,7 @@ LABEL_32:
 void _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy14NearbySessions0D11GroupMemberCG_SSs5NeverOTg5024_s44com_apple_SharePlay_d138InvitationsService18IDSServiceProtocolPAAE4send_4from2to8priority7options10identifiery10Foundation4DataV_So10IDSAccountCShy0E8Sessions0E11fG78CGSo18IDSMessagePriorityVSDys11AnyHashableVypGSAySo8NSStringCSgGSgtKFSSAQXEfU_Tf1cn_n(uint64_t a1)
 {
   v1 = a1;
-  v35 = a1 & 0xC000000000000001;
+  v34 = a1 & 0xC000000000000001;
   if ((a1 & 0xC000000000000001) != 0)
   {
     v2 = __CocoaSet.count.getter();
@@ -9061,160 +6898,159 @@ void _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShy14Near
 
   if (v2)
   {
-    v42 = _swiftEmptyArrayStorage;
+    v41 = _swiftEmptyArrayStorage;
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2 & ~(v2 >> 63), 0);
-    v37 = _swiftEmptyArrayStorage;
-    if (v35)
+    v36 = _swiftEmptyArrayStorage;
+    if (v34)
     {
       v3 = __CocoaSet.startIndex.getter();
     }
 
     else
     {
-      v5 = -1 << *(v1 + 32);
       v3 = _HashTable.startBucket.getter();
       v4 = *(v1 + 36);
     }
 
-    v39 = v3;
-    v40 = v4;
-    v41 = v35 != 0;
+    v38 = v3;
+    v39 = v4;
+    v40 = v34 != 0;
     if ((v2 & 0x8000000000000000) == 0)
     {
-      v6 = 0;
-      v33 = v1 + 56;
-      v32 = v1 + 64;
-      v34 = v2;
-      while (v6 < v2)
+      v5 = 0;
+      v32 = v1 + 56;
+      v31 = v1 + 64;
+      v33 = v2;
+      while (v5 < v2)
       {
-        if (__OFADD__(v6++, 1))
+        if (__OFADD__(v5++, 1))
         {
           goto LABEL_37;
         }
 
-        v9 = v39;
-        v10 = v41;
-        v36 = v40;
-        v11 = v1;
-        specialized Set.subscript.getter(v39, v40, v41, v1);
-        v13 = v12;
-        v14 = NearbyGroupMember.tokenID.getter();
-        if (!v15)
+        v8 = v38;
+        v9 = v40;
+        v35 = v39;
+        v10 = v1;
+        specialized Set.subscript.getter(v38, v39, v40, v1);
+        v12 = v11;
+        v13 = NearbyGroupMember.tokenID.getter();
+        if (!v14)
         {
-          v14 = NearbyGroupMember.handle.getter();
+          v13 = NearbyGroupMember.handle.getter();
         }
 
+        v15 = v13;
         v16 = v14;
-        v17 = v15;
 
-        v18 = v37;
-        v42 = v37;
-        v20 = v37[2];
-        v19 = v37[3];
-        if (v20 >= v19 >> 1)
+        v17 = v36;
+        v41 = v36;
+        v19 = v36[2];
+        v18 = v36[3];
+        if (v19 >= v18 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1);
-          v18 = v42;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v19 + 1, 1);
+          v17 = v41;
         }
 
-        v18[2] = v20 + 1;
-        v21 = &v18[2 * v20];
-        v21[4] = v16;
-        v21[5] = v17;
-        v37 = v18;
-        if (v35)
+        v17[2] = v19 + 1;
+        v20 = &v17[2 * v19];
+        v20[4] = v15;
+        v20[5] = v16;
+        v36 = v17;
+        if (v34)
         {
-          if (!v10)
+          if (!v9)
           {
             goto LABEL_42;
           }
 
-          v1 = v11;
+          v1 = v10;
           if (__CocoaSet.Index.handleBitPattern.getter())
           {
             swift_isUniquelyReferenced_nonNull_native();
           }
 
-          v2 = v34;
+          v2 = v33;
           __swift_instantiateConcreteTypeFromMangledNameV2(&_sSh5IndexVy14NearbySessions0B11GroupMemberC_GMd, &_sSh5IndexVy14NearbySessions0B11GroupMemberC_GMR);
-          v7 = Set.Index._asCocoa.modify();
+          v6 = Set.Index._asCocoa.modify();
           __CocoaSet.formIndex(after:isUnique:)();
-          v7(v38, 0);
-          if (v6 == v34)
+          v6(v37, 0);
+          if (v5 == v33)
           {
 LABEL_34:
-            outlined consume of Set<NearbyGroupHostIDSService.MessageEvent.Member>.Index._Variant(v39, v40, v41);
+            outlined consume of Set<NearbyGroupHostIDSService.MessageEvent.Member>.Index._Variant(v38, v39, v40);
             return;
           }
         }
 
         else
         {
-          if (v10)
+          if (v9)
           {
             goto LABEL_43;
           }
 
-          if ((v9 & 0x8000000000000000) != 0)
+          if ((v8 & 0x8000000000000000) != 0)
           {
             goto LABEL_38;
           }
 
-          v1 = v11;
-          v22 = 1 << *(v11 + 32);
-          if (v9 >= v22)
+          v1 = v10;
+          v21 = 1 << *(v10 + 32);
+          if (v8 >= v21)
           {
             goto LABEL_38;
           }
 
-          v23 = v9 >> 6;
-          v24 = *(v33 + 8 * (v9 >> 6));
-          if (((v24 >> v9) & 1) == 0)
+          v22 = v8 >> 6;
+          v23 = *(v32 + 8 * (v8 >> 6));
+          if (((v23 >> v8) & 1) == 0)
           {
             goto LABEL_39;
           }
 
-          if (*(v11 + 36) != v36)
+          if (*(v10 + 36) != v35)
           {
             goto LABEL_40;
           }
 
-          v25 = v24 & (-2 << (v9 & 0x3F));
-          if (v25)
+          v24 = v23 & (-2 << (v8 & 0x3F));
+          if (v24)
           {
-            v22 = __clz(__rbit64(v25)) | v9 & 0x7FFFFFFFFFFFFFC0;
-            v2 = v34;
+            v21 = __clz(__rbit64(v24)) | v8 & 0x7FFFFFFFFFFFFFC0;
+            v2 = v33;
           }
 
           else
           {
-            v26 = v23 << 6;
-            v27 = v23 + 1;
-            v28 = (v32 + 8 * v23);
-            v2 = v34;
-            while (v27 < (v22 + 63) >> 6)
+            v25 = v22 << 6;
+            v26 = v22 + 1;
+            v27 = (v31 + 8 * v22);
+            v2 = v33;
+            while (v26 < (v21 + 63) >> 6)
             {
-              v30 = *v28++;
-              v29 = v30;
-              v26 += 64;
-              ++v27;
-              if (v30)
+              v29 = *v27++;
+              v28 = v29;
+              v25 += 64;
+              ++v26;
+              if (v29)
               {
-                outlined consume of Set<NearbyGroupHostIDSService.MessageEvent.Member>.Index._Variant(v9, v36, 0);
-                v22 = __clz(__rbit64(v29)) + v26;
+                outlined consume of Set<NearbyGroupHostIDSService.MessageEvent.Member>.Index._Variant(v8, v35, 0);
+                v21 = __clz(__rbit64(v28)) + v25;
                 goto LABEL_33;
               }
             }
 
-            outlined consume of Set<NearbyGroupHostIDSService.MessageEvent.Member>.Index._Variant(v9, v36, 0);
+            outlined consume of Set<NearbyGroupHostIDSService.MessageEvent.Member>.Index._Variant(v8, v35, 0);
           }
 
 LABEL_33:
-          v31 = *(v11 + 36);
-          v39 = v22;
-          v40 = v31;
-          v41 = 0;
-          if (v6 == v2)
+          v30 = *(v10 + 36);
+          v38 = v21;
+          v39 = v30;
+          v40 = 0;
+          if (v5 == v2)
           {
             goto LABEL_34;
           }
@@ -9243,38 +7079,35 @@ LABEL_43:
 uint64_t specialized closure #1 in NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void (*a6)(_BYTE *, uint64_t))
 {
   v10 = type metadata accessor for BinaryDecodingOptions();
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v12 = type metadata accessor for NearbyProtoConnectionRequest(0);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v30[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  __chkstk_darwin(v17 - 8);
-  v20 = &v30[-v19];
+  v11 = type metadata accessor for NearbyProtoConnectionRequest(0);
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
+  __chkstk_darwin(v15 - 8);
+  v17 = &v27[-v16];
   if (!a1)
   {
     goto LABEL_17;
   }
 
-  v31 = 1835365481;
-  v32 = 0xE400000000000000;
+  v28 = 1835365481;
+  v29 = 0xE400000000000000;
   AnyHashable.init<A>(_:)();
   if (!*(a1 + 16))
   {
     goto LABEL_16;
   }
 
-  v21 = specialized __RawDictionaryStorage.find<A>(_:)(v33);
-  if ((v22 & 1) == 0)
+  v18 = specialized __RawDictionaryStorage.find<A>(_:)(v30);
+  if ((v19 & 1) == 0)
   {
     goto LABEL_16;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v21, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v18, v32);
+  outlined destroy of AnyHashable(v30);
   if (!swift_dynamicCast())
   {
     goto LABEL_17;
@@ -9286,7 +7119,7 @@ uint64_t specialized closure #1 in NearbyInvitationsBlastDoorConnectionHelper.de
     {
       if (a4 == 3)
       {
-        if (v31 != 3)
+        if (v28 != 3)
         {
           goto LABEL_17;
         }
@@ -9294,13 +7127,13 @@ uint64_t specialized closure #1 in NearbyInvitationsBlastDoorConnectionHelper.de
 
       else if (a4 == 4)
       {
-        if (v31 != 4)
+        if (v28 != 4)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 5)
+      else if (v28 != 5)
       {
         goto LABEL_17;
       }
@@ -9310,105 +7143,102 @@ uint64_t specialized closure #1 in NearbyInvitationsBlastDoorConnectionHelper.de
     {
       if (a4 == 1)
       {
-        if (v31 != 1)
+        if (v28 != 1)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 2)
+      else if (v28 != 2)
       {
         goto LABEL_17;
       }
     }
 
-    else if (v31)
+    else if (v28)
     {
       goto LABEL_17;
     }
   }
 
-  else if (v31 != a4)
+  else if (v28 != a4)
   {
     goto LABEL_17;
   }
 
-  v31 = 0x64616F6C796170;
-  v32 = 0xE700000000000000;
+  v28 = 0x64616F6C796170;
+  v29 = 0xE700000000000000;
   AnyHashable.init<A>(_:)();
-  if (!*(a1 + 16) || (v23 = specialized __RawDictionaryStorage.find<A>(_:)(v33), (v24 & 1) == 0))
+  if (!*(a1 + 16) || (v20 = specialized __RawDictionaryStorage.find<A>(_:)(v30), (v21 & 1) == 0))
   {
 LABEL_16:
-    outlined destroy of AnyHashable(v33);
+    outlined destroy of AnyHashable(v30);
     goto LABEL_17;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v23, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v20, v32);
+  outlined destroy of AnyHashable(v30);
   if (swift_dynamicCast())
   {
-    v25 = v31;
-    v26 = v32;
-    v35[0] = v31;
-    v35[1] = v32;
-    v34 = 0;
-    memset(v33, 0, sizeof(v33));
-    outlined copy of Data._Representation(v31, v32);
+    v22 = v28;
+    v23 = v29;
+    v32[0] = v28;
+    v32[1] = v29;
+    v31 = 0;
+    memset(v30, 0, sizeof(v30));
+    outlined copy of Data._Representation(v28, v29);
     BinaryDecodingOptions.init()();
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionRequest and conformance NearbyProtoConnectionRequest, type metadata accessor for NearbyProtoConnectionRequest);
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionRequest and conformance NearbyProtoConnectionRequest, type metadata accessor for NearbyProtoConnectionRequest, &protocol conformance descriptor for NearbyProtoConnectionRequest);
     Message.init<A>(serializedBytes:extensions:partial:options:)();
-    outlined init with copy of NearbyProtoJoinRequest.Content(v16, v20, type metadata accessor for NearbyProtoConnectionRequest);
-    (*(v13 + 56))(v20, 0, 1, v12);
-    a6(v20, 0);
-    outlined consume of Data._Representation(v25, v26);
-    outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
-    return outlined destroy of NearbyProtoConnectionResponse.Content(v16, type metadata accessor for NearbyProtoConnectionRequest);
+    outlined init with copy of NearbyProtoJoinRequest.Content(v14, v17, type metadata accessor for NearbyProtoConnectionRequest);
+    (*(v12 + 56))(v17, 0, 1, v11);
+    a6(v17, 0);
+    outlined consume of Data._Representation(v22, v23);
+    outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
+    return outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyProtoConnectionRequest);
   }
 
 LABEL_17:
-  (*(v13 + 56))(v20, 1, 1, v12);
+  (*(v12 + 56))(v17, 1, 1, v11);
   lazy protocol witness table accessor for type NearbyInvitationsBlastDoorErrors and conformance NearbyInvitationsBlastDoorErrors();
-  v27 = swift_allocError();
-  *v28 = 3;
-  a6(v20, v27);
+  v24 = swift_allocError();
+  *v25 = 3;
+  a6(v17, v24);
 
-  return outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
+  return outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
 }
 
 {
   v10 = type metadata accessor for BinaryDecodingOptions();
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v12 = type metadata accessor for NearbyProtoConnectionResponse.Content(0);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v30[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  __chkstk_darwin(v17 - 8);
-  v20 = &v30[-v19];
+  v11 = type metadata accessor for NearbyProtoConnectionResponse.Content(0);
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
+  __chkstk_darwin(v15 - 8);
+  v17 = &v27[-v16];
   if (!a1)
   {
     goto LABEL_17;
   }
 
-  v31 = 1835365481;
-  v32 = 0xE400000000000000;
+  v28 = 1835365481;
+  v29 = 0xE400000000000000;
   AnyHashable.init<A>(_:)();
   if (!*(a1 + 16))
   {
     goto LABEL_16;
   }
 
-  v21 = specialized __RawDictionaryStorage.find<A>(_:)(v33);
-  if ((v22 & 1) == 0)
+  v18 = specialized __RawDictionaryStorage.find<A>(_:)(v30);
+  if ((v19 & 1) == 0)
   {
     goto LABEL_16;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v21, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v18, v32);
+  outlined destroy of AnyHashable(v30);
   if (!swift_dynamicCast())
   {
     goto LABEL_17;
@@ -9420,7 +7250,7 @@ LABEL_17:
     {
       if (a4 == 3)
       {
-        if (v31 != 3)
+        if (v28 != 3)
         {
           goto LABEL_17;
         }
@@ -9428,13 +7258,13 @@ LABEL_17:
 
       else if (a4 == 4)
       {
-        if (v31 != 4)
+        if (v28 != 4)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 5)
+      else if (v28 != 5)
       {
         goto LABEL_17;
       }
@@ -9444,105 +7274,102 @@ LABEL_17:
     {
       if (a4 == 1)
       {
-        if (v31 != 1)
+        if (v28 != 1)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 2)
+      else if (v28 != 2)
       {
         goto LABEL_17;
       }
     }
 
-    else if (v31)
+    else if (v28)
     {
       goto LABEL_17;
     }
   }
 
-  else if (v31 != a4)
+  else if (v28 != a4)
   {
     goto LABEL_17;
   }
 
-  v31 = 0x64616F6C796170;
-  v32 = 0xE700000000000000;
+  v28 = 0x64616F6C796170;
+  v29 = 0xE700000000000000;
   AnyHashable.init<A>(_:)();
-  if (!*(a1 + 16) || (v23 = specialized __RawDictionaryStorage.find<A>(_:)(v33), (v24 & 1) == 0))
+  if (!*(a1 + 16) || (v20 = specialized __RawDictionaryStorage.find<A>(_:)(v30), (v21 & 1) == 0))
   {
 LABEL_16:
-    outlined destroy of AnyHashable(v33);
+    outlined destroy of AnyHashable(v30);
     goto LABEL_17;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v23, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v20, v32);
+  outlined destroy of AnyHashable(v30);
   if (swift_dynamicCast())
   {
-    v25 = v31;
-    v26 = v32;
-    v35[0] = v31;
-    v35[1] = v32;
-    v34 = 0;
-    memset(v33, 0, sizeof(v33));
-    outlined copy of Data._Representation(v31, v32);
+    v22 = v28;
+    v23 = v29;
+    v32[0] = v28;
+    v32[1] = v29;
+    v31 = 0;
+    memset(v30, 0, sizeof(v30));
+    outlined copy of Data._Representation(v28, v29);
     BinaryDecodingOptions.init()();
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content, type metadata accessor for NearbyProtoConnectionResponse.Content, &protocol conformance descriptor for NearbyProtoConnectionResponse.Content);
     Message.init<A>(serializedBytes:extensions:partial:options:)();
-    outlined init with copy of NearbyProtoJoinRequest.Content(v16, v20, type metadata accessor for NearbyProtoConnectionResponse.Content);
-    (*(v13 + 56))(v20, 0, 1, v12);
-    a6(v20, 0);
-    outlined consume of Data._Representation(v25, v26);
-    outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
-    return outlined destroy of NearbyProtoConnectionResponse.Content(v16, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    outlined init with copy of NearbyProtoJoinRequest.Content(v14, v17, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    (*(v12 + 56))(v17, 0, 1, v11);
+    a6(v17, 0);
+    outlined consume of Data._Representation(v22, v23);
+    outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
+    return outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyProtoConnectionResponse.Content);
   }
 
 LABEL_17:
-  (*(v13 + 56))(v20, 1, 1, v12);
+  (*(v12 + 56))(v17, 1, 1, v11);
   lazy protocol witness table accessor for type NearbyInvitationsBlastDoorErrors and conformance NearbyInvitationsBlastDoorErrors();
-  v27 = swift_allocError();
-  *v28 = 3;
-  a6(v20, v27);
+  v24 = swift_allocError();
+  *v25 = 3;
+  a6(v17, v24);
 
-  return outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
+  return outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
 }
 
 {
   v10 = type metadata accessor for BinaryDecodingOptions();
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v12 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v30[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  __chkstk_darwin(v17 - 8);
-  v20 = &v30[-v19];
+  v11 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+  __chkstk_darwin(v15 - 8);
+  v17 = &v27[-v16];
   if (!a1)
   {
     goto LABEL_17;
   }
 
-  v31 = 1835365481;
-  v32 = 0xE400000000000000;
+  v28 = 1835365481;
+  v29 = 0xE400000000000000;
   AnyHashable.init<A>(_:)();
   if (!*(a1 + 16))
   {
     goto LABEL_16;
   }
 
-  v21 = specialized __RawDictionaryStorage.find<A>(_:)(v33);
-  if ((v22 & 1) == 0)
+  v18 = specialized __RawDictionaryStorage.find<A>(_:)(v30);
+  if ((v19 & 1) == 0)
   {
     goto LABEL_16;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v21, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v18, v32);
+  outlined destroy of AnyHashable(v30);
   if (!swift_dynamicCast())
   {
     goto LABEL_17;
@@ -9554,7 +7381,7 @@ LABEL_17:
     {
       if (a4 == 3)
       {
-        if (v31 != 3)
+        if (v28 != 3)
         {
           goto LABEL_17;
         }
@@ -9562,13 +7389,13 @@ LABEL_17:
 
       else if (a4 == 4)
       {
-        if (v31 != 4)
+        if (v28 != 4)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 5)
+      else if (v28 != 5)
       {
         goto LABEL_17;
       }
@@ -9578,105 +7405,102 @@ LABEL_17:
     {
       if (a4 == 1)
       {
-        if (v31 != 1)
+        if (v28 != 1)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 2)
+      else if (v28 != 2)
       {
         goto LABEL_17;
       }
     }
 
-    else if (v31)
+    else if (v28)
     {
       goto LABEL_17;
     }
   }
 
-  else if (v31 != a4)
+  else if (v28 != a4)
   {
     goto LABEL_17;
   }
 
-  v31 = 0x64616F6C796170;
-  v32 = 0xE700000000000000;
+  v28 = 0x64616F6C796170;
+  v29 = 0xE700000000000000;
   AnyHashable.init<A>(_:)();
-  if (!*(a1 + 16) || (v23 = specialized __RawDictionaryStorage.find<A>(_:)(v33), (v24 & 1) == 0))
+  if (!*(a1 + 16) || (v20 = specialized __RawDictionaryStorage.find<A>(_:)(v30), (v21 & 1) == 0))
   {
 LABEL_16:
-    outlined destroy of AnyHashable(v33);
+    outlined destroy of AnyHashable(v30);
     goto LABEL_17;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v23, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v20, v32);
+  outlined destroy of AnyHashable(v30);
   if (swift_dynamicCast())
   {
-    v25 = v31;
-    v26 = v32;
-    v35[0] = v31;
-    v35[1] = v32;
-    v34 = 0;
-    memset(v33, 0, sizeof(v33));
-    outlined copy of Data._Representation(v31, v32);
+    v22 = v28;
+    v23 = v29;
+    v32[0] = v28;
+    v32[1] = v29;
+    v31 = 0;
+    memset(v30, 0, sizeof(v30));
+    outlined copy of Data._Representation(v28, v29);
     BinaryDecodingOptions.init()();
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest.Content and conformance NearbyProtoJoinRequest.Content, type metadata accessor for NearbyProtoJoinRequest.Content);
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest.Content and conformance NearbyProtoJoinRequest.Content, type metadata accessor for NearbyProtoJoinRequest.Content, &protocol conformance descriptor for NearbyProtoJoinRequest.Content);
     Message.init<A>(serializedBytes:extensions:partial:options:)();
-    outlined init with copy of NearbyProtoJoinRequest.Content(v16, v20, type metadata accessor for NearbyProtoJoinRequest.Content);
-    (*(v13 + 56))(v20, 0, 1, v12);
-    a6(v20, 0);
-    outlined consume of Data._Representation(v25, v26);
-    outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-    return outlined destroy of NearbyProtoConnectionResponse.Content(v16, type metadata accessor for NearbyProtoJoinRequest.Content);
+    outlined init with copy of NearbyProtoJoinRequest.Content(v14, v17, type metadata accessor for NearbyProtoJoinRequest.Content);
+    (*(v12 + 56))(v17, 0, 1, v11);
+    a6(v17, 0);
+    outlined consume of Data._Representation(v22, v23);
+    outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+    return outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyProtoJoinRequest.Content);
   }
 
 LABEL_17:
-  (*(v13 + 56))(v20, 1, 1, v12);
+  (*(v12 + 56))(v17, 1, 1, v11);
   lazy protocol witness table accessor for type NearbyInvitationsBlastDoorErrors and conformance NearbyInvitationsBlastDoorErrors();
-  v27 = swift_allocError();
-  *v28 = 3;
-  a6(v20, v27);
+  v24 = swift_allocError();
+  *v25 = 3;
+  a6(v17, v24);
 
-  return outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+  return outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
 }
 
 {
   v10 = type metadata accessor for BinaryDecodingOptions();
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v12 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v30[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  __chkstk_darwin(v17 - 8);
-  v20 = &v30[-v19];
+  v11 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
+  __chkstk_darwin(v15 - 8);
+  v17 = &v27[-v16];
   if (!a1)
   {
     goto LABEL_17;
   }
 
-  v31 = 1835365481;
-  v32 = 0xE400000000000000;
+  v28 = 1835365481;
+  v29 = 0xE400000000000000;
   AnyHashable.init<A>(_:)();
   if (!*(a1 + 16))
   {
     goto LABEL_16;
   }
 
-  v21 = specialized __RawDictionaryStorage.find<A>(_:)(v33);
-  if ((v22 & 1) == 0)
+  v18 = specialized __RawDictionaryStorage.find<A>(_:)(v30);
+  if ((v19 & 1) == 0)
   {
     goto LABEL_16;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v21, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v18, v32);
+  outlined destroy of AnyHashable(v30);
   if (!swift_dynamicCast())
   {
     goto LABEL_17;
@@ -9688,7 +7512,7 @@ LABEL_17:
     {
       if (a4 == 3)
       {
-        if (v31 != 3)
+        if (v28 != 3)
         {
           goto LABEL_17;
         }
@@ -9696,13 +7520,13 @@ LABEL_17:
 
       else if (a4 == 4)
       {
-        if (v31 != 4)
+        if (v28 != 4)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 5)
+      else if (v28 != 5)
       {
         goto LABEL_17;
       }
@@ -9712,105 +7536,102 @@ LABEL_17:
     {
       if (a4 == 1)
       {
-        if (v31 != 1)
+        if (v28 != 1)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 2)
+      else if (v28 != 2)
       {
         goto LABEL_17;
       }
     }
 
-    else if (v31)
+    else if (v28)
     {
       goto LABEL_17;
     }
   }
 
-  else if (v31 != a4)
+  else if (v28 != a4)
   {
     goto LABEL_17;
   }
 
-  v31 = 0x64616F6C796170;
-  v32 = 0xE700000000000000;
+  v28 = 0x64616F6C796170;
+  v29 = 0xE700000000000000;
   AnyHashable.init<A>(_:)();
-  if (!*(a1 + 16) || (v23 = specialized __RawDictionaryStorage.find<A>(_:)(v33), (v24 & 1) == 0))
+  if (!*(a1 + 16) || (v20 = specialized __RawDictionaryStorage.find<A>(_:)(v30), (v21 & 1) == 0))
   {
 LABEL_16:
-    outlined destroy of AnyHashable(v33);
+    outlined destroy of AnyHashable(v30);
     goto LABEL_17;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v23, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v20, v32);
+  outlined destroy of AnyHashable(v30);
   if (swift_dynamicCast())
   {
-    v25 = v31;
-    v26 = v32;
-    v35[0] = v31;
-    v35[1] = v32;
-    v34 = 0;
-    memset(v33, 0, sizeof(v33));
-    outlined copy of Data._Representation(v31, v32);
+    v22 = v28;
+    v23 = v29;
+    v32[0] = v28;
+    v32[1] = v29;
+    v31 = 0;
+    memset(v30, 0, sizeof(v30));
+    outlined copy of Data._Representation(v28, v29);
     BinaryDecodingOptions.init()();
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content and conformance NearbyProtoJoinResponse.Content, type metadata accessor for NearbyProtoJoinResponse.Content);
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content and conformance NearbyProtoJoinResponse.Content, type metadata accessor for NearbyProtoJoinResponse.Content, &protocol conformance descriptor for NearbyProtoJoinResponse.Content);
     Message.init<A>(serializedBytes:extensions:partial:options:)();
-    outlined init with copy of NearbyProtoJoinRequest.Content(v16, v20, type metadata accessor for NearbyProtoJoinResponse.Content);
-    (*(v13 + 56))(v20, 0, 1, v12);
-    a6(v20, 0);
-    outlined consume of Data._Representation(v25, v26);
-    outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
-    return outlined destroy of NearbyProtoConnectionResponse.Content(v16, type metadata accessor for NearbyProtoJoinResponse.Content);
+    outlined init with copy of NearbyProtoJoinRequest.Content(v14, v17, type metadata accessor for NearbyProtoJoinResponse.Content);
+    (*(v12 + 56))(v17, 0, 1, v11);
+    a6(v17, 0);
+    outlined consume of Data._Representation(v22, v23);
+    outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
+    return outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyProtoJoinResponse.Content);
   }
 
 LABEL_17:
-  (*(v13 + 56))(v20, 1, 1, v12);
+  (*(v12 + 56))(v17, 1, 1, v11);
   lazy protocol witness table accessor for type NearbyInvitationsBlastDoorErrors and conformance NearbyInvitationsBlastDoorErrors();
-  v27 = swift_allocError();
-  *v28 = 3;
-  a6(v20, v27);
+  v24 = swift_allocError();
+  *v25 = 3;
+  a6(v17, v24);
 
-  return outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
+  return outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
 }
 
 {
   v10 = type metadata accessor for BinaryDecodingOptions();
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v12 = type metadata accessor for NearbyGroup_Group(0);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v30[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  __chkstk_darwin(v17 - 8);
-  v20 = &v30[-v19];
+  v11 = type metadata accessor for NearbyGroup_Group(0);
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
+  __chkstk_darwin(v15 - 8);
+  v17 = &v27[-v16];
   if (!a1)
   {
     goto LABEL_17;
   }
 
-  v31 = 1835365481;
-  v32 = 0xE400000000000000;
+  v28 = 1835365481;
+  v29 = 0xE400000000000000;
   AnyHashable.init<A>(_:)();
   if (!*(a1 + 16))
   {
     goto LABEL_16;
   }
 
-  v21 = specialized __RawDictionaryStorage.find<A>(_:)(v33);
-  if ((v22 & 1) == 0)
+  v18 = specialized __RawDictionaryStorage.find<A>(_:)(v30);
+  if ((v19 & 1) == 0)
   {
     goto LABEL_16;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v21, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v18, v32);
+  outlined destroy of AnyHashable(v30);
   if (!swift_dynamicCast())
   {
     goto LABEL_17;
@@ -9822,7 +7643,7 @@ LABEL_17:
     {
       if (a4 == 3)
       {
-        if (v31 != 3)
+        if (v28 != 3)
         {
           goto LABEL_17;
         }
@@ -9830,13 +7651,13 @@ LABEL_17:
 
       else if (a4 == 4)
       {
-        if (v31 != 4)
+        if (v28 != 4)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 5)
+      else if (v28 != 5)
       {
         goto LABEL_17;
       }
@@ -9846,87 +7667,86 @@ LABEL_17:
     {
       if (a4 == 1)
       {
-        if (v31 != 1)
+        if (v28 != 1)
         {
           goto LABEL_17;
         }
       }
 
-      else if (v31 != 2)
+      else if (v28 != 2)
       {
         goto LABEL_17;
       }
     }
 
-    else if (v31)
+    else if (v28)
     {
       goto LABEL_17;
     }
   }
 
-  else if (v31 != a4)
+  else if (v28 != a4)
   {
     goto LABEL_17;
   }
 
-  v31 = 0x64616F6C796170;
-  v32 = 0xE700000000000000;
+  v28 = 0x64616F6C796170;
+  v29 = 0xE700000000000000;
   AnyHashable.init<A>(_:)();
-  if (!*(a1 + 16) || (v23 = specialized __RawDictionaryStorage.find<A>(_:)(v33), (v24 & 1) == 0))
+  if (!*(a1 + 16) || (v20 = specialized __RawDictionaryStorage.find<A>(_:)(v30), (v21 & 1) == 0))
   {
 LABEL_16:
-    outlined destroy of AnyHashable(v33);
+    outlined destroy of AnyHashable(v30);
     goto LABEL_17;
   }
 
-  outlined init with copy of Any(*(a1 + 56) + 32 * v23, v35);
-  outlined destroy of AnyHashable(v33);
+  outlined init with copy of Any(*(a1 + 56) + 32 * v20, v32);
+  outlined destroy of AnyHashable(v30);
   if (swift_dynamicCast())
   {
-    v25 = v31;
-    v26 = v32;
-    v35[0] = v31;
-    v35[1] = v32;
-    v34 = 0;
-    memset(v33, 0, sizeof(v33));
-    outlined copy of Data._Representation(v31, v32);
+    v22 = v28;
+    v23 = v29;
+    v32[0] = v28;
+    v32[1] = v29;
+    v31 = 0;
+    memset(v30, 0, sizeof(v30));
+    outlined copy of Data._Representation(v28, v29);
     BinaryDecodingOptions.init()();
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group);
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyGroup_Group and conformance NearbyGroup_Group, type metadata accessor for NearbyGroup_Group, &protocol conformance descriptor for NearbyGroup_Group);
     Message.init<A>(serializedBytes:extensions:partial:options:)();
-    outlined init with copy of NearbyProtoJoinRequest.Content(v16, v20, type metadata accessor for NearbyGroup_Group);
-    (*(v13 + 56))(v20, 0, 1, v12);
-    a6(v20, 0);
-    outlined consume of Data._Representation(v25, v26);
-    outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
-    return outlined destroy of NearbyProtoConnectionResponse.Content(v16, type metadata accessor for NearbyGroup_Group);
+    outlined init with copy of NearbyProtoJoinRequest.Content(v14, v17, type metadata accessor for NearbyGroup_Group);
+    (*(v12 + 56))(v17, 0, 1, v11);
+    a6(v17, 0);
+    outlined consume of Data._Representation(v22, v23);
+    outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
+    return outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyGroup_Group);
   }
 
 LABEL_17:
-  (*(v13 + 56))(v20, 1, 1, v12);
+  (*(v12 + 56))(v17, 1, 1, v11);
   lazy protocol witness table accessor for type NearbyInvitationsBlastDoorErrors and conformance NearbyInvitationsBlastDoorErrors();
-  v27 = swift_allocError();
-  *v28 = 3;
-  a6(v20, v27);
+  v24 = swift_allocError();
+  *v25 = 3;
+  a6(v17, v24);
 
-  return outlined destroy of Any?(v20, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
+  return outlined destroy of Any?(v17, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0e6Group_H0VSgMR);
 }
 
-id NearbyIDSServiceController.__allocating_init(queue:service:delegate:joinRequestsController:)(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, void *a5)
+id NearbyIDSServiceController.__allocating_init(queue:service:delegate:joinRequestsController:)(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v6 = v5;
   v12 = objc_allocWithZone(v6);
   v13 = a2[3];
   v14 = a2[4];
   v15 = __swift_mutable_project_boxed_opaque_existential_1(a2, v13);
-  v16 = *(*(v13 - 8) + 64);
   __chkstk_darwin(v15);
-  v18 = &v22 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v19 + 16))(v18);
-  v20 = specialized NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:)(a1, v18, a3, a4, a5, v12, v13, v14);
+  v17 = &v21 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v18 + 16))(v17);
+  v19 = specialized NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:)(a1, v17, a3, a4, a5, v12, v13, v14);
 
   swift_unknownObjectRelease();
   __swift_destroy_boxed_opaque_existential_0Tm(a2);
-  return v20;
+  return v19;
 }
 
 uint64_t IDSServiceProtocol.send(_:from:to:priority:options:identifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -9939,7 +7759,7 @@ uint64_t IDSServiceProtocol.send(_:from:to:priority:options:identifier:)(uint64_
   (*(a9 + 48))(a1, a2, a3, v16, a5, a6, a7, a8, a9);
 }
 
-uint64_t specialized _setUpCast<A, B>(_:)(uint64_t a1)
+Swift::Int specialized _setUpCast<A, B>(_:)(uint64_t a1)
 {
   if (*(a1 + 16))
   {
@@ -9971,32 +7791,29 @@ uint64_t specialized _setUpCast<A, B>(_:)(uint64_t a1)
   while (v5)
   {
 LABEL_15:
-    v13 = (*(a1 + 48) + ((v9 << 10) | (16 * __clz(__rbit64(v5)))));
-    v21 = *v13;
-    v22 = v13[1];
 
     swift_dynamicCast();
     result = AnyHashable._rawHashValue(seed:)(v2[5]);
-    v14 = -1 << *(v2 + 32);
-    v15 = result & ~v14;
-    v16 = v15 >> 6;
-    if (((-1 << v15) & ~*&v7[8 * (v15 >> 6)]) == 0)
+    v13 = -1 << *(v2 + 32);
+    v14 = result & ~v13;
+    v15 = v14 >> 6;
+    if (((-1 << v14) & ~*&v7[8 * (v14 >> 6)]) == 0)
     {
-      v17 = 0;
-      v18 = (63 - v14) >> 6;
-      while (++v16 != v18 || (v17 & 1) == 0)
+      v16 = 0;
+      v17 = (63 - v13) >> 6;
+      while (++v15 != v17 || (v16 & 1) == 0)
       {
-        v19 = v16 == v18;
-        if (v16 == v18)
+        v18 = v15 == v17;
+        if (v15 == v17)
         {
-          v16 = 0;
+          v15 = 0;
         }
 
-        v17 |= v19;
-        v20 = *&v7[8 * v16];
-        if (v20 != -1)
+        v16 |= v18;
+        v19 = *&v7[8 * v15];
+        if (v19 != -1)
         {
-          v10 = __clz(__rbit64(~v20)) + (v16 << 6);
+          v10 = __clz(__rbit64(~v19)) + (v15 << 6);
           goto LABEL_9;
         }
       }
@@ -10004,14 +7821,14 @@ LABEL_15:
       goto LABEL_26;
     }
 
-    v10 = __clz(__rbit64((-1 << v15) & ~*&v7[8 * (v15 >> 6)])) | v15 & 0x7FFFFFFFFFFFFFC0;
+    v10 = __clz(__rbit64((-1 << v14) & ~*&v7[8 * (v14 >> 6)])) | v14 & 0x7FFFFFFFFFFFFFC0;
 LABEL_9:
     *&v7[(v10 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v10;
     v5 &= v5 - 1;
     v11 = v2[6] + 40 * v10;
-    *(v11 + 32) = v25;
-    *v11 = v23;
-    *(v11 + 16) = v24;
+    *(v11 + 32) = v22;
+    *v11 = v20;
+    *(v11 + 16) = v21;
     ++v2[2];
   }
 
@@ -10128,15 +7945,6 @@ LABEL_6:
   return swift_willThrow();
 }
 
-uint64_t NearbyIDSServiceController.delegate.getter()
-{
-  v1 = v0 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_delegate;
-  swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  v3 = *(v1 + 8);
-  return result;
-}
-
 uint64_t NearbyIDSServiceController.delegate.setter(uint64_t a1, uint64_t a2)
 {
   v4 = v2 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_delegate;
@@ -10187,18 +7995,10 @@ uint64_t NearbyIDSServiceController.firewall.setter(uint64_t a1)
   return swift_endAccess();
 }
 
-uint64_t NearbyIDSServiceController.requesterCredentialsByOwnerPseudonym.getter()
-{
-  v1 = OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_requesterCredentialsByOwnerPseudonym;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-}
-
 uint64_t NearbyIDSServiceController.requesterCredentialsByOwnerPseudonym.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_requesterCredentialsByOwnerPseudonym;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
 
@@ -10244,20 +8044,19 @@ id closure #1 in NearbyIDSServiceController.contactStore.getter()
   return v5;
 }
 
-id NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:)(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, void *a5)
+id NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:)(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v11 = a2[3];
   v12 = a2[4];
   v13 = __swift_mutable_project_boxed_opaque_existential_1(a2, v11);
-  v14 = *(*(v11 - 8) + 64);
   __chkstk_darwin(v13);
-  v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v17 + 16))(v16);
-  v18 = specialized NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:)(a1, v16, a3, a4, a5, v5, v11, v12);
+  v15 = &v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v16 + 16))(v15);
+  v17 = specialized NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:)(a1, v15, a3, a4, a5, v5, v11, v12);
 
   swift_unknownObjectRelease();
   __swift_destroy_boxed_opaque_existential_0Tm(a2);
-  return v18;
+  return v17;
 }
 
 uint64_t closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -10273,33 +8072,29 @@ uint64_t closure #1 in NearbyIDSServiceController.init(queue:service:delegate:jo
   v2 = v1[3];
   v3 = v1[4];
   __swift_project_boxed_opaque_existential_1(v1, v2);
-  v4 = *(v3 + 24);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v0 + 80) = v6;
-  *v6 = v0;
-  v6[1] = closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:);
+  v6 = (*(v3 + 24) + **(v3 + 24));
+  v4 = swift_task_alloc();
+  *(v0 + 80) = v4;
+  *v4 = v0;
+  v4[1] = closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:);
 
-  return v8(v0 + 16, v2, v3);
+  return v6(v0 + 16, v2, v3);
 }
 
 {
-  v2 = *(*v1 + 80);
-  v5 = *v1;
   *(*v1 + 88) = v0;
 
   if (v0)
   {
-    v3 = closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:);
+    v2 = closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:);
   }
 
   else
   {
-    v3 = closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:);
+    v2 = closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:);
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 {
@@ -10326,71 +8121,67 @@ uint64_t closure #1 in NearbyIDSServiceController.init(queue:service:delegate:jo
 }
 
 {
-  v15 = v0;
+  v14 = v0;
   if (one-time initialization token for host != -1)
   {
     swift_once();
   }
 
-  v1 = v0[11];
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Log.host);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Log.host);
   swift_errorRetain();
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.error.getter();
 
-  v5 = os_log_type_enabled(v3, v4);
-  v6 = v0[11];
-  if (v5)
+  v4 = os_log_type_enabled(v2, v3);
+  v5 = v0[11];
+  if (v4)
   {
+    v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v14 = v8;
-    *v7 = 136315138;
-    v0[7] = v6;
+    v13 = v7;
+    *v6 = 136315138;
+    v0[7] = v5;
     swift_errorRetain();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-    v9 = String.init<A>(reflecting:)();
-    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, &v14);
+    v8 = String.init<A>(reflecting:)();
+    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v13);
 
-    *(v7 + 4) = v11;
-    _os_log_impl(&_mh_execute_header, v3, v4, "Failed to fetch firewall, error: %s", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v8);
+    *(v6 + 4) = v10;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Failed to fetch firewall, error: %s", v6, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v7);
   }
 
   else
   {
   }
 
-  v12 = v0[1];
+  v11 = v0[1];
 
-  return v12();
+  return v11();
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> NearbyIDSServiceController.denyConnectionRequest(id:destinationHandle:)(Swift::String id, Swift::String destinationHandle)
 {
-  v43 = destinationHandle;
+  v40 = destinationHandle;
   v3 = type metadata accessor for NearbyProtoConnectionResponse.Content(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3);
-  v6 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v8 = *(*(v7 - 1) + 64);
-  __chkstk_darwin(v7);
-  v10 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for DispatchPredicate();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11);
-  v15 = (&v42 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v42 = v2;
-  v16 = *(v2 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v15 = v16;
-  (*(v12 + 104))(v15, enum case for DispatchPredicate.onQueue(_:), v11);
-  v17 = v16;
-  LOBYTE(v16) = _dispatchPreconditionTest(_:)();
-  (*(v12 + 8))(v15, v11);
-  if ((v16 & 1) == 0)
+  v5 = &v39 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for NearbyProtoSessionMessage(0);
+  __chkstk_darwin(v6);
+  v8 = &v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for DispatchPredicate();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = (&v39 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v39 = v2;
+  v13 = *(v2 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v12 = v13;
+  (*(v10 + 104))(v12, enum case for DispatchPredicate.onQueue(_:), v9);
+  v14 = v13;
+  LOBYTE(v13) = _dispatchPreconditionTest(_:)();
+  (*(v10 + 8))(v12, v9);
+  if ((v13 & 1) == 0)
   {
     __break(1u);
 LABEL_12:
@@ -10399,136 +8190,132 @@ LABEL_12:
   }
 
   UnknownStorage.init()();
-  v18 = &v10[v7[5]];
-  *v18 = 0;
-  v18[4] = 1;
-  v19 = &v10[v7[6]];
-  *v19 = 0;
-  *(v19 + 4) = 256;
-  v20 = &v10[v7[7]];
-  *v20 = xmmword_1000C8990;
-  *v19 = 4;
-  *(v19 + 4) = 1;
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content, type metadata accessor for NearbyProtoConnectionResponse.Content);
-  v21 = v44;
+  v15 = &v8[v6[5]];
+  *v15 = 0;
+  v15[4] = 1;
+  v16 = &v8[v6[6]];
+  *v16 = 0;
+  *(v16 + 4) = 256;
+  v17 = &v8[v6[7]];
+  *v17 = xmmword_1000C8990;
+  *v16 = 4;
+  *(v16 + 4) = 1;
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content, type metadata accessor for NearbyProtoConnectionResponse.Content, &protocol conformance descriptor for NearbyProtoConnectionResponse.Content);
+  v18 = v41;
   static Message.with(_:)();
-  v22 = Message.serializedData(partial:)();
-  v3 = v21;
-  if (v21)
+  v19 = Message.serializedData(partial:)();
+  v3 = v18;
+  if (v18)
   {
-    outlined destroy of NearbyProtoConnectionResponse.Content(v6, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v5, type metadata accessor for NearbyProtoConnectionResponse.Content);
     goto LABEL_10;
   }
 
-  v24 = v22;
-  v25 = v23;
-  v44 = v6;
-  outlined consume of Data?(*v20, *(v20 + 1));
-  *v20 = v24;
-  *(v20 + 1) = v25;
+  v21 = v19;
+  v22 = v20;
+  v41 = v5;
+  outlined consume of Data?(*v17, *(v17 + 1));
+  *v17 = v21;
+  *(v17 + 1) = v22;
   if (one-time initialization token for host != -1)
   {
     goto LABEL_12;
   }
 
 LABEL_5:
-  v26 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v26, static Log.host);
-  object = v43._object;
+  v23 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v23, static Log.host);
+  object = v40._object;
 
-  v28 = Logger.logObject.getter();
-  v29 = static os_log_type_t.info.getter();
+  v25 = Logger.logObject.getter();
+  v26 = static os_log_type_t.info.getter();
 
-  if (os_log_type_enabled(v28, v29))
+  if (os_log_type_enabled(v25, v26))
   {
-    v30 = swift_slowAlloc();
-    v31 = swift_slowAlloc();
-    v47 = v31;
-    *v30 = 136315138;
-    countAndFlagsBits = v43._countAndFlagsBits;
-    v46 = object;
+    v27 = swift_slowAlloc();
+    v28 = swift_slowAlloc();
+    v44 = v28;
+    *v27 = 136315138;
+    countAndFlagsBits = v40._countAndFlagsBits;
+    v43 = object;
 
-    v32 = String.init<A>(reflecting:)();
-    v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, &v47);
+    v29 = String.init<A>(reflecting:)();
+    v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v30, &v44);
 
-    *(v30 + 4) = v34;
-    _os_log_impl(&_mh_execute_header, v28, v29, "Sending deny connection message to %s", v30, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v31);
+    *(v27 + 4) = v31;
+    _os_log_impl(&_mh_execute_header, v25, v26, "Sending deny connection message to %s", v27, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v28);
   }
 
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
-  v35 = Message.serializedData(partial:)();
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
+  v32 = Message.serializedData(partial:)();
   if (!v3)
   {
-    v37 = v35;
-    v38 = v36;
+    v34 = v32;
+    v35 = v33;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1000C8970;
-    v40 = v43._object;
-    *(inited + 32) = v43._countAndFlagsBits;
-    *(inited + 40) = v40;
+    v37 = v40._object;
+    *(inited + 32) = v40._countAndFlagsBits;
+    *(inited + 40) = v37;
 
-    v41 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(inited);
+    v38 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of String(inited + 32);
-    (*((swift_isaMask & *v42) + 0x120))(v37, v38, v41, 0, 0, 0);
+    (*((swift_isaMask & *v39) + 0x120))(v34, v35, v38, 0, 0, 0);
 
-    outlined consume of Data._Representation(v37, v38);
+    outlined consume of Data._Representation(v34, v35);
   }
 
-  outlined destroy of NearbyProtoConnectionResponse.Content(v44, type metadata accessor for NearbyProtoConnectionResponse.Content);
+  outlined destroy of NearbyProtoConnectionResponse.Content(v41, type metadata accessor for NearbyProtoConnectionResponse.Content);
 LABEL_10:
-  outlined destroy of NearbyProtoConnectionResponse.Content(v10, type metadata accessor for NearbyProtoSessionMessage);
+  outlined destroy of NearbyProtoConnectionResponse.Content(v8, type metadata accessor for NearbyProtoSessionMessage);
 }
 
 uint64_t closure #1 in NearbyIDSServiceController.denyConnectionRequest(id:destinationHandle:)(uint64_t a1)
 {
   v2 = type metadata accessor for NearbyProtoConnectionResponse.Content.DeniedContent(0);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content.DeniedContent and conformance NearbyProtoConnectionResponse.Content.DeniedContent, type metadata accessor for NearbyProtoConnectionResponse.Content.DeniedContent);
+  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content.DeniedContent and conformance NearbyProtoConnectionResponse.Content.DeniedContent, type metadata accessor for NearbyProtoConnectionResponse.Content.DeniedContent, &protocol conformance descriptor for NearbyProtoConnectionResponse.Content.DeniedContent);
   static Message.with(_:)();
-  v6 = *(type metadata accessor for NearbyProtoConnectionResponse.Content(0) + 24);
-  outlined destroy of Any?(a1 + v6, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
-  outlined init with take of NearbyProtoSessionMessage(v5, a1 + v6, type metadata accessor for NearbyProtoConnectionResponse.Content.DeniedContent);
-  v7 = type metadata accessor for NearbyProtoConnectionResponse.Content.OneOf_Operation(0);
+  v5 = *(type metadata accessor for NearbyProtoConnectionResponse.Content(0) + 24);
+  outlined destroy of Any?(a1 + v5, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
+  outlined init with take of NearbyProtoSessionMessage(v4, a1 + v5, type metadata accessor for NearbyProtoConnectionResponse.Content.DeniedContent);
+  v6 = type metadata accessor for NearbyProtoConnectionResponse.Content.OneOf_Operation(0);
   swift_storeEnumTagMultiPayload();
-  return (*(*(v7 - 8) + 56))(a1 + v6, 0, 1, v7);
+  return (*(*(v6 - 8) + 56))(a1 + v5, 0, 1, v6);
 }
 
-uint64_t NearbyIDSServiceController.approveConnectionRequest(id:localInvitation:destinationHandle:)(void *a1, uint64_t *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t NearbyIDSServiceController.approveConnectionRequest(id:localInvitation:destinationHandle:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  v59 = a2;
-  v54 = a5;
-  v55 = a6;
-  v57 = a1;
-  v58 = a4;
-  v56 = a3;
+  v56 = a2;
+  v51 = a5;
+  v52 = a6;
+  v54 = a1;
+  v55 = a4;
+  v53 = a3;
   v7 = type metadata accessor for NearbyProtoConnectionResponse.Content(0);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7);
-  v10 = &v53 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v12 = *(*(v11 - 1) + 64);
-  __chkstk_darwin(v11);
-  v14 = &v53 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for DispatchPredicate();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  __chkstk_darwin(v15);
-  v19 = (&v53 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v53 = v6;
-  v20 = *(v6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v19 = v20;
-  (*(v16 + 104))(v19, enum case for DispatchPredicate.onQueue(_:), v15);
-  v21 = v20;
-  LOBYTE(v20) = _dispatchPreconditionTest(_:)();
-  v23 = *(v16 + 8);
-  v22 = (v16 + 8);
-  v23(v19, v15);
-  if ((v20 & 1) == 0)
+  v9 = &v50 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for NearbyProtoSessionMessage(0);
+  __chkstk_darwin(v10);
+  v12 = &v50 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for DispatchPredicate();
+  v14 = *(v13 - 8);
+  __chkstk_darwin(v13);
+  v16 = (&v50 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v50 = v6;
+  v17 = *(v6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v16 = v17;
+  (*(v14 + 104))(v16, enum case for DispatchPredicate.onQueue(_:), v13);
+  v18 = v17;
+  LOBYTE(v17) = _dispatchPreconditionTest(_:)();
+  v20 = *(v14 + 8);
+  v19 = (v14 + 8);
+  v20(v16, v13);
+  if ((v17 & 1) == 0)
   {
     __break(1u);
 LABEL_13:
@@ -10536,184 +8323,177 @@ LABEL_13:
     goto LABEL_5;
   }
 
-  v24 = UnknownStorage.init()();
-  v25 = &v14[v11[5]];
-  *v25 = 0;
-  v25[4] = 1;
-  v26 = &v14[v11[6]];
-  *v26 = 0;
-  *(v26 + 4) = 256;
-  v22 = v14;
-  v27 = &v14[v11[7]];
-  *v27 = xmmword_1000C8990;
-  *v26 = 4;
-  *(v26 + 4) = 1;
-  __chkstk_darwin(v24);
-  v28 = v57;
-  v29 = v58;
-  *(&v53 - 4) = v56;
-  *(&v53 - 3) = v29;
-  *(&v53 - 2) = v28;
-  *(&v53 - 1) = v59;
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content, type metadata accessor for NearbyProtoConnectionResponse.Content);
-  v30 = v60;
+  v21 = UnknownStorage.init()();
+  v22 = &v12[v10[5]];
+  *v22 = 0;
+  v22[4] = 1;
+  v23 = &v12[v10[6]];
+  *v23 = 0;
+  *(v23 + 4) = 256;
+  v19 = v12;
+  v24 = &v12[v10[7]];
+  *v24 = xmmword_1000C8990;
+  *v23 = 4;
+  *(v23 + 4) = 1;
+  __chkstk_darwin(v21);
+  v25 = v54;
+  v26 = v55;
+  *(&v50 - 4) = v53;
+  *(&v50 - 3) = v26;
+  *(&v50 - 2) = v25;
+  *(&v50 - 1) = v56;
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content, type metadata accessor for NearbyProtoConnectionResponse.Content, &protocol conformance descriptor for NearbyProtoConnectionResponse.Content);
+  v27 = v57;
   static Message.with(_:)();
-  v31 = Message.serializedData(partial:)();
-  v19 = v30;
-  if (v30)
+  v28 = Message.serializedData(partial:)();
+  v16 = v27;
+  if (v27)
   {
-    outlined destroy of NearbyProtoConnectionResponse.Content(v10, type metadata accessor for NearbyProtoConnectionResponse.Content);
-    v33 = v14;
-    return outlined destroy of NearbyProtoConnectionResponse.Content(v33, type metadata accessor for NearbyProtoSessionMessage);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v9, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    v30 = v12;
+    return outlined destroy of NearbyProtoConnectionResponse.Content(v30, type metadata accessor for NearbyProtoSessionMessage);
   }
 
-  v34 = v31;
-  v35 = v32;
-  v60 = v10;
-  outlined consume of Data?(*v27, *(v27 + 1));
-  *v27 = v34;
-  *(v27 + 1) = v35;
+  v31 = v28;
+  v32 = v29;
+  v57 = v9;
+  outlined consume of Data?(*v24, *(v24 + 1));
+  *v24 = v31;
+  *(v24 + 1) = v32;
   if (one-time initialization token for host != -1)
   {
     goto LABEL_13;
   }
 
 LABEL_5:
-  v36 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v36, static Log.host);
-  v37 = v55;
+  v33 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v33, static Log.host);
+  v34 = v52;
 
-  v38 = Logger.logObject.getter();
-  v39 = static os_log_type_t.info.getter();
+  v35 = Logger.logObject.getter();
+  v36 = static os_log_type_t.info.getter();
 
-  v33 = v22;
-  if (os_log_type_enabled(v38, v39))
+  v30 = v19;
+  if (os_log_type_enabled(v35, v36))
   {
-    v40 = swift_slowAlloc();
-    v59 = swift_slowAlloc();
-    v63 = v59;
-    *v40 = 136315138;
-    v61 = v54;
-    v62 = v37;
+    v37 = swift_slowAlloc();
+    v56 = swift_slowAlloc();
+    v60 = v56;
+    *v37 = 136315138;
+    v58 = v51;
+    v59 = v34;
 
-    v41 = String.init<A>(reflecting:)();
-    v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v42, &v63);
+    v38 = String.init<A>(reflecting:)();
+    v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v39, &v60);
 
-    *(v40 + 4) = v43;
-    v44 = v60;
-    _os_log_impl(&_mh_execute_header, v38, v39, "Sending approve connection message to %s", v40, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v59);
+    *(v37 + 4) = v40;
+    v41 = v57;
+    _os_log_impl(&_mh_execute_header, v35, v36, "Sending approve connection message to %s", v37, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v56);
   }
 
   else
   {
 
-    v44 = v60;
+    v41 = v57;
   }
 
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
-  v45 = Message.serializedData(partial:)();
-  if (!v19)
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
+  v42 = Message.serializedData(partial:)();
+  if (!v16)
   {
-    v47 = v45;
-    v48 = v46;
+    v44 = v42;
+    v45 = v43;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1000C8970;
-    v50 = v55;
-    *(inited + 32) = v54;
-    *(inited + 40) = v50;
+    v47 = v52;
+    *(inited + 32) = v51;
+    *(inited + 40) = v47;
 
-    v51 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(inited);
+    v48 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of String(inited + 32);
-    (*((swift_isaMask & *v53) + 0x120))(v47, v48, v51, 0, 0, 1);
+    (*((swift_isaMask & *v50) + 0x120))(v44, v45, v48, 0, 0, 1);
 
-    outlined consume of Data._Representation(v47, v48);
+    outlined consume of Data._Representation(v44, v45);
   }
 
-  outlined destroy of NearbyProtoConnectionResponse.Content(v44, type metadata accessor for NearbyProtoConnectionResponse.Content);
-  return outlined destroy of NearbyProtoConnectionResponse.Content(v33, type metadata accessor for NearbyProtoSessionMessage);
+  outlined destroy of NearbyProtoConnectionResponse.Content(v41, type metadata accessor for NearbyProtoConnectionResponse.Content);
+  return outlined destroy of NearbyProtoConnectionResponse.Content(v30, type metadata accessor for NearbyProtoSessionMessage);
 }
 
 uint64_t closure #1 in NearbyIDSServiceController.approveConnectionRequest(id:localInvitation:destinationHandle:)(char *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v27 = a4;
-  v28 = a5;
-  v26 = a3;
+  v23 = a4;
+  v24 = a5;
+  v22 = a3;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v25 - v9;
-  v11 = type metadata accessor for NearbyProtoConnectionResponse.Content.ApprovalContent(0);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11);
-  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(type metadata accessor for NearbyProtoConnectionResponse.Content(0) + 24);
-  outlined init with copy of (String, Any)(&a1[v15], v10, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
-  v16 = type metadata accessor for NearbyProtoConnectionResponse.Content.OneOf_Operation(0);
-  v17 = *(v16 - 8);
-  if ((*(v17 + 48))(v10, 1, v16) == 1)
+  v9 = &v21 - v8;
+  v10 = type metadata accessor for NearbyProtoConnectionResponse.Content.ApprovalContent(0);
+  __chkstk_darwin(v10);
+  v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = *(type metadata accessor for NearbyProtoConnectionResponse.Content(0) + 24);
+  outlined init with copy of (String, Any)(&a1[v13], v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
+  v14 = type metadata accessor for NearbyProtoConnectionResponse.Content.OneOf_Operation(0);
+  v15 = *(v14 - 8);
+  if ((*(v15 + 48))(v9, 1, v14) == 1)
   {
-    outlined destroy of Any?(v10, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
+    outlined destroy of Any?(v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
 LABEL_6:
-    *v14 = xmmword_1000CAAE0;
-    v18 = &v14[*(v11 + 20)];
+    *v12 = xmmword_1000CAAE0;
     UnknownStorage.init()();
     goto LABEL_7;
   }
 
   if (swift_getEnumCaseMultiPayload() != 1)
   {
-    outlined destroy of NearbyProtoConnectionResponse.Content(v10, type metadata accessor for NearbyProtoConnectionResponse.Content.OneOf_Operation);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v9, type metadata accessor for NearbyProtoConnectionResponse.Content.OneOf_Operation);
     goto LABEL_6;
   }
 
-  outlined init with take of NearbyProtoSessionMessage(v10, v14, type metadata accessor for NearbyProtoConnectionResponse.Content.ApprovalContent);
+  outlined init with take of NearbyProtoSessionMessage(v9, v12, type metadata accessor for NearbyProtoConnectionResponse.Content.ApprovalContent);
 LABEL_7:
-  v19 = *v14;
-  v20 = *(v14 + 1);
-  v21 = v26;
-  outlined copy of Data._Representation(a2, v26);
-  outlined consume of Data._Representation(v19, v20);
-  *v14 = a2;
-  *(v14 + 1) = v21;
-  outlined destroy of Any?(&a1[v15], &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
-  outlined init with take of NearbyProtoSessionMessage(v14, &a1[v15], type metadata accessor for NearbyProtoConnectionResponse.Content.ApprovalContent);
+  v16 = *v12;
+  v17 = *(v12 + 1);
+  v18 = v22;
+  outlined copy of Data._Representation(a2, v22);
+  outlined consume of Data._Representation(v16, v17);
+  *v12 = a2;
+  *(v12 + 1) = v18;
+  outlined destroy of Any?(&a1[v13], &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentV15OneOf_OperationOSgMR);
+  outlined init with take of NearbyProtoSessionMessage(v12, &a1[v13], type metadata accessor for NearbyProtoConnectionResponse.Content.ApprovalContent);
   swift_storeEnumTagMultiPayload();
-  (*(v17 + 56))(&a1[v15], 0, 1, v16);
-  v22 = *(a1 + 1);
-  v23 = v28;
+  (*(v15 + 56))(&a1[v13], 0, 1, v14);
+  v19 = v24;
 
-  *a1 = v27;
-  *(a1 + 1) = v23;
+  *a1 = v23;
+  *(a1 + 1) = v19;
   return result;
 }
 
 void NearbyIDSServiceController.sendAcceptedJoinRequestResponse(pendingMember:response:)(void *a1, void *a2)
 {
   v3 = v2;
-  v99 = a2;
+  v96 = a2;
   v5 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5);
-  v96 = &v87 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8);
-  v11 = &v87 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for DispatchPredicate();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = (&v87 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = *(v3 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v16 = v17;
-  (*(v13 + 104))(v16, enum case for DispatchPredicate.onQueue(_:), v12);
-  v18 = v17;
-  LOBYTE(v17) = _dispatchPreconditionTest(_:)();
-  (*(v13 + 8))(v16, v12);
-  if ((v17 & 1) == 0)
+  v93 = &v84 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
+  __chkstk_darwin(v7);
+  v9 = &v84 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for DispatchPredicate();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = (&v84 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = *(v3 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v13 = v14;
+  (*(v11 + 104))(v13, enum case for DispatchPredicate.onQueue(_:), v10);
+  v15 = v14;
+  LOBYTE(v14) = _dispatchPreconditionTest(_:)();
+  (*(v11 + 8))(v13, v10);
+  if ((v14 & 1) == 0)
   {
     __break(1u);
 LABEL_18:
@@ -10721,62 +8501,62 @@ LABEL_18:
     goto LABEL_6;
   }
 
-  v19 = dispatch thunk of IncomingInvitationJoinRequest.hostInfo.getter();
-  if (v19)
+  v16 = dispatch thunk of IncomingInvitationJoinRequest.hostInfo.getter();
+  if (v16)
   {
-    v94 = v5;
-    v20 = v19;
-    v95 = NearbyInvitationJoinRequestMetadata.pseudonym.getter();
-    v97 = v21;
-    __chkstk_darwin(v95);
-    v22 = v99;
-    *(&v87 - 2) = a1;
-    *(&v87 - 1) = v22;
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content and conformance NearbyProtoJoinResponse.Content, type metadata accessor for NearbyProtoJoinResponse.Content);
-    v23 = v98;
+    v91 = v5;
+    v17 = v16;
+    v92 = NearbyInvitationJoinRequestMetadata.pseudonym.getter();
+    v94 = v18;
+    __chkstk_darwin(v92);
+    v19 = v96;
+    *(&v84 - 2) = a1;
+    *(&v84 - 1) = v19;
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content and conformance NearbyProtoJoinResponse.Content, type metadata accessor for NearbyProtoJoinResponse.Content, &protocol conformance descriptor for NearbyProtoJoinResponse.Content);
+    v20 = v95;
     static Message.with(_:)();
-    v24 = *(v3 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController);
-    v25 = Message.serializedData(partial:)();
-    if (v23)
+    v21 = *(v3 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController);
+    v22 = Message.serializedData(partial:)();
+    if (v20)
     {
-      outlined destroy of NearbyProtoConnectionResponse.Content(v11, type metadata accessor for NearbyProtoJoinResponse.Content);
+      outlined destroy of NearbyProtoConnectionResponse.Content(v9, type metadata accessor for NearbyProtoJoinResponse.Content);
     }
 
     else
     {
-      v38 = v25;
-      v39 = v26;
-      v91 = v3;
-      v93 = v11;
-      v98 = v20;
-      v92 = a1;
-      v40 = IncomingInvitationJoinRequest.remotePublicKey.getter();
-      v42 = v41;
-      v43 = v97;
-      v44 = (*((swift_isaMask & *v24) + 0xB8))(v38, v39, v40, v41, v95, v97);
-      v45 = v43;
-      v47 = v46;
-      v48 = v44;
-      outlined consume of Data._Representation(v40, v42);
-      v49 = outlined consume of Data._Representation(v38, v39);
-      __chkstk_darwin(v49);
-      *(&v87 - 2) = v48;
-      *(&v87 - 1) = v47;
-      v50 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
-      v51 = v96;
+      v35 = v22;
+      v36 = v23;
+      v88 = v3;
+      v90 = v9;
+      v95 = v17;
+      v89 = a1;
+      v37 = IncomingInvitationJoinRequest.remotePublicKey.getter();
+      v39 = v38;
+      v40 = v94;
+      v41 = (*((swift_isaMask & *v21) + 0xB8))(v35, v36, v37, v38, v92, v94);
+      v42 = v40;
+      v44 = v43;
+      v45 = v41;
+      outlined consume of Data._Representation(v37, v39);
+      v46 = outlined consume of Data._Representation(v35, v36);
+      __chkstk_darwin(v46);
+      *(&v84 - 2) = v45;
+      *(&v84 - 1) = v44;
+      v47 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
+      v48 = v93;
       static Message.with(_:)();
-      v88 = v50;
-      v89 = v48;
-      v90 = v47;
+      v85 = v47;
+      v86 = v45;
+      v87 = v44;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_SStGMd, &_ss23_ContiguousArrayStorageCySS_SStGMR);
       inited = swift_initStackObject();
-      v87 = xmmword_1000C8970;
+      v84 = xmmword_1000C8970;
       *(inited + 16) = xmmword_1000C8970;
       *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v53 = v95;
-      *(inited + 40) = v54;
-      *(inited + 48) = v53;
-      *(inited + 56) = v45;
+      v50 = v92;
+      *(inited + 40) = v51;
+      *(inited + 48) = v50;
+      *(inited + 56) = v42;
 
       _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(inited);
       swift_setDeallocating();
@@ -10787,81 +8567,81 @@ LABEL_18:
         swift_once();
       }
 
-      v55 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v55, static Log.host);
-      v56 = v99;
-      v57 = v92;
-      v58 = Logger.logObject.getter();
-      v59 = static os_log_type_t.default.getter();
+      v52 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v52, static Log.host);
+      v53 = v96;
+      v54 = v89;
+      v55 = Logger.logObject.getter();
+      v56 = static os_log_type_t.default.getter();
 
-      if (os_log_type_enabled(v58, v59))
+      if (os_log_type_enabled(v55, v56))
       {
-        v60 = swift_slowAlloc();
-        v61 = swift_slowAlloc();
-        *v60 = 138412546;
-        *(v60 + 4) = v56;
-        *(v60 + 12) = 2112;
-        *(v60 + 14) = v57;
-        *v61 = v56;
-        v61[1] = v57;
-        v62 = v56;
-        v63 = v57;
-        _os_log_impl(&_mh_execute_header, v58, v59, "We are about to send a join response with this response %@ and this %@", v60, 0x16u);
+        v57 = swift_slowAlloc();
+        v58 = swift_slowAlloc();
+        *v57 = 138412546;
+        *(v57 + 4) = v53;
+        *(v57 + 12) = 2112;
+        *(v57 + 14) = v54;
+        *v58 = v53;
+        v58[1] = v54;
+        v59 = v53;
+        v60 = v54;
+        _os_log_impl(&_mh_execute_header, v55, v56, "We are about to send a join response with this response %@ and this %@", v57, 0x16u);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         swift_arrayDestroy();
       }
 
-      v64 = IncomingInvitationJoinRequest.destinationToken.getter();
-      if (v65)
+      v61 = IncomingInvitationJoinRequest.destinationToken.getter();
+      if (v62)
       {
-        v66 = v64;
-        v67 = v65;
-        v68 = Message.serializedData(partial:)();
-        v70 = v69;
+        v63 = v61;
+        v64 = v62;
+        v65 = Message.serializedData(partial:)();
+        v67 = v66;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-        v71 = swift_initStackObject();
-        *(v71 + 16) = v87;
-        *(v71 + 32) = v66;
-        v72 = v71 + 32;
-        *(v71 + 40) = v67;
-        v73 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(v71);
+        v68 = swift_initStackObject();
+        *(v68 + 16) = v84;
+        *(v68 + 32) = v63;
+        v69 = v68 + 32;
+        *(v68 + 40) = v64;
+        v70 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(v68);
         swift_setDeallocating();
-        v74 = v70;
-        v75 = v97;
-        outlined destroy of String(v72);
-        (*((swift_isaMask & *v91) + 0x120))(v68, v74, v73, v95, v75, 1);
+        v71 = v67;
+        v72 = v94;
+        outlined destroy of String(v69);
+        (*((swift_isaMask & *v88) + 0x120))(v65, v71, v70, v92, v72, 1);
 
-        outlined consume of Data._Representation(v89, v90);
+        outlined consume of Data._Representation(v86, v87);
 
-        outlined consume of Data._Representation(v68, v74);
+        outlined consume of Data._Representation(v65, v71);
       }
 
       else
       {
-        v76 = IncomingInvitationJoinRequest.remotePseudonym.getter();
+        v73 = IncomingInvitationJoinRequest.remotePseudonym.getter();
+        v75 = v74;
+        v76 = Message.serializedData(partial:)();
         v78 = v77;
-        v79 = Message.serializedData(partial:)();
-        v81 = v80;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-        v82 = swift_initStackObject();
-        *(v82 + 16) = v87;
-        *(v82 + 32) = v76;
-        v83 = v82 + 32;
-        *(v82 + 40) = v78;
-        v84 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(v82);
+        v79 = swift_initStackObject();
+        *(v79 + 16) = v84;
+        *(v79 + 32) = v73;
+        v80 = v79 + 32;
+        *(v79 + 40) = v75;
+        v81 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(v79);
         swift_setDeallocating();
-        v85 = v81;
-        v86 = v97;
-        outlined destroy of String(v83);
-        (*((swift_isaMask & *v91) + 0x120))(v79, v85, v84, v95, v86, 1);
+        v82 = v78;
+        v83 = v94;
+        outlined destroy of String(v80);
+        (*((swift_isaMask & *v88) + 0x120))(v76, v82, v81, v92, v83, 1);
 
-        outlined consume of Data._Representation(v89, v90);
+        outlined consume of Data._Representation(v86, v87);
 
-        outlined consume of Data._Representation(v79, v85);
+        outlined consume of Data._Representation(v76, v82);
       }
 
-      outlined destroy of NearbyProtoConnectionResponse.Content(v51, type metadata accessor for NearbyProtoSessionMessage);
-      outlined destroy of NearbyProtoConnectionResponse.Content(v93, type metadata accessor for NearbyProtoJoinResponse.Content);
+      outlined destroy of NearbyProtoConnectionResponse.Content(v48, type metadata accessor for NearbyProtoSessionMessage);
+      outlined destroy of NearbyProtoConnectionResponse.Content(v90, type metadata accessor for NearbyProtoJoinResponse.Content);
     }
 
     return;
@@ -10873,63 +8653,60 @@ LABEL_18:
   }
 
 LABEL_6:
-  v27 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v27, static Log.host);
-  v28 = a1;
-  v29 = Logger.logObject.getter();
-  v30 = static os_log_type_t.error.getter();
+  v24 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v24, static Log.host);
+  v25 = a1;
+  v26 = Logger.logObject.getter();
+  v27 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v29, v30))
+  if (os_log_type_enabled(v26, v27))
   {
-    v31 = swift_slowAlloc();
-    v32 = swift_slowAlloc();
-    v101 = v32;
-    *v31 = 136315138;
-    v100 = v28;
+    v28 = swift_slowAlloc();
+    v29 = swift_slowAlloc();
+    v98 = v29;
+    *v28 = 136315138;
+    v97 = v25;
     type metadata accessor for IncomingInvitationJoinRequest();
-    v33 = v28;
-    v34 = String.init<A>(reflecting:)();
-    v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, &v101);
+    v30 = v25;
+    v31 = String.init<A>(reflecting:)();
+    v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, &v98);
 
-    *(v31 + 4) = v36;
-    _os_log_impl(&_mh_execute_header, v29, v30, "Failed to find hostInfo on pendingMember: %s", v31, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v32);
+    *(v28 + 4) = v33;
+    _os_log_impl(&_mh_execute_header, v26, v27, "Failed to find hostInfo on pendingMember: %s", v28, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v29);
   }
 
   lazy protocol witness table accessor for type NearbyIDSServiceController.Errors and conformance NearbyIDSServiceController.Errors();
   swift_allocError();
-  *v37 = 0;
+  *v34 = 0;
   swift_willThrow();
 }
 
 uint64_t closure #1 in NearbyIDSServiceController.sendAcceptedJoinRequestResponse(pendingMember:response:)(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v5 = type metadata accessor for NearbyProtoJoinResponse.Content.ApprovalContent(0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5);
-  v8 = &v21[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v21[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v18[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = type metadata accessor for UUID();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v18[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
   IncomingInvitationJoinRequest.invitationID.getter();
-  v14 = UUID.uuidString.getter();
-  v16 = v15;
-  (*(v10 + 8))(v13, v9);
-  v17 = a1[1];
+  v12 = UUID.uuidString.getter();
+  v14 = v13;
+  (*(v9 + 8))(v11, v8);
 
-  *a1 = v14;
-  a1[1] = v16;
-  v22 = a3;
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content.ApprovalContent and conformance NearbyProtoJoinResponse.Content.ApprovalContent, type metadata accessor for NearbyProtoJoinResponse.Content.ApprovalContent);
+  *a1 = v12;
+  a1[1] = v14;
+  v19 = a3;
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content.ApprovalContent and conformance NearbyProtoJoinResponse.Content.ApprovalContent, type metadata accessor for NearbyProtoJoinResponse.Content.ApprovalContent, &protocol conformance descriptor for NearbyProtoJoinResponse.Content.ApprovalContent);
   static Message.with(_:)();
-  v18 = *(type metadata accessor for NearbyProtoJoinResponse.Content(0) + 20);
-  outlined destroy of Any?(a1 + v18, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentV15OneOf_OperationOSgMR);
-  outlined init with take of NearbyProtoSessionMessage(v8, a1 + v18, type metadata accessor for NearbyProtoJoinResponse.Content.ApprovalContent);
-  v19 = type metadata accessor for NearbyProtoJoinResponse.Content.OneOf_Operation(0);
+  v15 = *(type metadata accessor for NearbyProtoJoinResponse.Content(0) + 20);
+  outlined destroy of Any?(a1 + v15, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentV15OneOf_OperationOSgMR);
+  outlined init with take of NearbyProtoSessionMessage(v7, a1 + v15, type metadata accessor for NearbyProtoJoinResponse.Content.ApprovalContent);
+  v16 = type metadata accessor for NearbyProtoJoinResponse.Content.OneOf_Operation(0);
   swift_storeEnumTagMultiPayload();
-  return (*(*(v19 - 8) + 56))(a1 + v18, 0, 1, v19);
+  return (*(*(v16 - 8) + 56))(a1 + v15, 0, 1, v16);
 }
 
 uint64_t closure #1 in closure #1 in NearbyIDSServiceController.sendAcceptedJoinRequestResponse(pendingMember:response:)(uint64_t *a1)
@@ -10939,30 +8716,28 @@ uint64_t closure #1 in closure #1 in NearbyIDSServiceController.sendAcceptedJoin
   {
     v4 = v2;
     v5 = v3;
-    v6 = a1[1];
 
     *a1 = v4;
     a1[1] = v5;
   }
 
-  v7 = InvitationJoinResponse.userInfo.getter();
-  if (v8 >> 60 != 15)
+  v6 = InvitationJoinResponse.userInfo.getter();
+  if (v7 >> 60 != 15)
   {
+    v8 = v6;
     v9 = v7;
-    v10 = v8;
-    v11 = a1 + *(type metadata accessor for NearbyProtoJoinResponse.Content.ApprovalContent(0) + 28);
-    outlined consume of Data?(*v11, *(v11 + 1));
-    *v11 = v9;
-    *(v11 + 1) = v10;
+    v10 = a1 + *(type metadata accessor for NearbyProtoJoinResponse.Content.ApprovalContent(0) + 28);
+    outlined consume of Data?(*v10, *(v10 + 1));
+    *v10 = v8;
+    *(v10 + 1) = v9;
   }
 
   result = InvitationJoinResponse.memberHandles.getter();
   if (result)
   {
-    v13 = result;
-    v14 = a1[2];
+    v12 = result;
 
-    a1[2] = v13;
+    a1[2] = v12;
   }
 
   return result;
@@ -10970,27 +8745,24 @@ uint64_t closure #1 in closure #1 in NearbyIDSServiceController.sendAcceptedJoin
 
 void NearbyIDSServiceController.sendRejectedRequestResponse(pendingMember:)(void *a1)
 {
-  v92 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v3 = *(*(v92 - 8) + 64);
-  __chkstk_darwin(v92);
-  v5 = &v84 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6);
-  v9 = &v84 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for DispatchPredicate();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = (&v84 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v94 = v1;
-  v15 = *(v1 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v14 = v15;
-  (*(v11 + 104))(v14, enum case for DispatchPredicate.onQueue(_:), v10);
-  v16 = v15;
-  LOBYTE(v15) = _dispatchPreconditionTest(_:)();
-  (*(v11 + 8))(v14, v10);
-  if ((v15 & 1) == 0)
+  v89 = type metadata accessor for NearbyProtoSessionMessage(0);
+  __chkstk_darwin(v89);
+  v4 = &v81 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
+  __chkstk_darwin(v5);
+  v7 = &v81 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for DispatchPredicate();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = (&v81 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v91 = v1;
+  v12 = *(v1 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v11 = v12;
+  (*(v9 + 104))(v11, enum case for DispatchPredicate.onQueue(_:), v8);
+  v13 = v12;
+  LOBYTE(v12) = _dispatchPreconditionTest(_:)();
+  (*(v9 + 8))(v11, v8);
+  if ((v12 & 1) == 0)
   {
     __break(1u);
 LABEL_21:
@@ -10998,155 +8770,155 @@ LABEL_21:
     goto LABEL_6;
   }
 
-  v17 = dispatch thunk of IncomingInvitationJoinRequest.hostInfo.getter();
-  if (v17)
+  v14 = dispatch thunk of IncomingInvitationJoinRequest.hostInfo.getter();
+  if (v14)
   {
-    v18 = v17;
-    v90 = v5;
-    v91 = NearbyInvitationJoinRequestMetadata.pseudonym.getter();
-    v20 = v19;
-    __chkstk_darwin(v91);
-    *(&v84 - 2) = a1;
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content and conformance NearbyProtoJoinResponse.Content, type metadata accessor for NearbyProtoJoinResponse.Content);
-    v21 = v93;
+    v15 = v14;
+    v87 = v4;
+    v88 = NearbyInvitationJoinRequestMetadata.pseudonym.getter();
+    v17 = v16;
+    __chkstk_darwin(v88);
+    *(&v81 - 2) = a1;
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content and conformance NearbyProtoJoinResponse.Content, type metadata accessor for NearbyProtoJoinResponse.Content, &protocol conformance descriptor for NearbyProtoJoinResponse.Content);
+    v18 = v90;
     static Message.with(_:)();
-    v22 = *(v94 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController);
-    v23 = Message.serializedData(partial:)();
-    if (v21)
+    v19 = *(v91 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController);
+    v20 = Message.serializedData(partial:)();
+    if (v18)
     {
-      outlined destroy of NearbyProtoConnectionResponse.Content(v9, type metadata accessor for NearbyProtoJoinResponse.Content);
+      outlined destroy of NearbyProtoConnectionResponse.Content(v7, type metadata accessor for NearbyProtoJoinResponse.Content);
 
       return;
     }
 
-    v36 = v23;
-    v37 = v24;
-    v89 = v9;
-    v93 = v18;
-    v38 = IncomingInvitationJoinRequest.remotePublicKey.getter();
+    v33 = v20;
+    v34 = v21;
+    v86 = v7;
+    v90 = v15;
+    v35 = IncomingInvitationJoinRequest.remotePublicKey.getter();
+    v37 = v36;
+    v38 = (*((swift_isaMask & *v19) + 0xB8))(v33, v34, v35, v36, v88, v17);
     v40 = v39;
-    v41 = (*((swift_isaMask & *v22) + 0xB8))(v36, v37, v38, v39, v91, v20);
-    v43 = v42;
-    v88 = v20;
-    v44 = v41;
-    outlined consume of Data._Representation(v38, v40);
-    v45 = outlined consume of Data._Representation(v36, v37);
-    __chkstk_darwin(v45);
-    *(&v84 - 2) = v44;
-    *(&v84 - 1) = v43;
-    v46 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
-    v47 = v43;
-    v48 = v90;
+    v85 = v17;
+    v41 = v38;
+    outlined consume of Data._Representation(v35, v37);
+    v42 = outlined consume of Data._Representation(v33, v34);
+    __chkstk_darwin(v42);
+    *(&v81 - 2) = v41;
+    *(&v81 - 1) = v40;
+    v43 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
+    v44 = v40;
+    v45 = v87;
     static Message.with(_:)();
-    v85 = v46;
-    v86 = 0;
-    v87 = v44;
+    v82 = v43;
+    v83 = 0;
+    v84 = v41;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_SStGMd, &_ss23_ContiguousArrayStorageCySS_SStGMR);
     inited = swift_initStackObject();
-    v84 = xmmword_1000C8970;
+    v81 = xmmword_1000C8970;
     *(inited + 16) = xmmword_1000C8970;
     *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v50 = v91;
-    *(inited + 40) = v51;
-    *(inited + 48) = v50;
-    *(inited + 56) = v88;
+    v47 = v88;
+    *(inited + 40) = v48;
+    *(inited + 48) = v47;
+    *(inited + 56) = v85;
 
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of Any?(inited + 32, &_sSS_SStMd, &_sSS_SStMR);
 
-    v52 = v93;
+    v49 = v90;
     if (one-time initialization token for host != -1)
     {
       swift_once();
     }
 
-    v53 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v53, static Log.host);
-    v54 = a1;
-    v55 = Logger.logObject.getter();
-    v56 = static os_log_type_t.default.getter();
+    v50 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v50, static Log.host);
+    v51 = a1;
+    v52 = Logger.logObject.getter();
+    v53 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v55, v56))
+    if (os_log_type_enabled(v52, v53))
     {
-      v57 = swift_slowAlloc();
-      v58 = swift_slowAlloc();
-      *v57 = 138412290;
-      *(v57 + 4) = v54;
-      *v58 = v54;
-      v59 = v54;
-      _os_log_impl(&_mh_execute_header, v55, v56, "We are about to send a reject response for %@", v57, 0xCu);
-      outlined destroy of Any?(v58, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v52 = v93;
+      v54 = swift_slowAlloc();
+      v55 = swift_slowAlloc();
+      *v54 = 138412290;
+      *(v54 + 4) = v51;
+      *v55 = v51;
+      v56 = v51;
+      _os_log_impl(&_mh_execute_header, v52, v53, "We are about to send a reject response for %@", v54, 0xCu);
+      outlined destroy of Any?(v55, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v49 = v90;
     }
 
-    v60 = IncomingInvitationJoinRequest.destinationToken.getter();
-    if (v61)
+    v57 = IncomingInvitationJoinRequest.destinationToken.getter();
+    if (v58)
     {
-      v62 = v60;
-      v63 = v61;
-      v64 = v48;
-      v65 = v86;
-      v66 = Message.serializedData(partial:)();
-      if (!v65)
+      v59 = v57;
+      v60 = v58;
+      v61 = v45;
+      v62 = v83;
+      v63 = Message.serializedData(partial:)();
+      if (!v62)
       {
-        v68 = v66;
-        v69 = v67;
+        v65 = v63;
+        v66 = v64;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-        v70 = swift_initStackObject();
-        *(v70 + 16) = v84;
-        *(v70 + 32) = v62;
-        v71 = v70 + 32;
-        *(v70 + 40) = v63;
-        v72 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(v70);
+        v67 = swift_initStackObject();
+        *(v67 + 16) = v81;
+        *(v67 + 32) = v59;
+        v68 = v67 + 32;
+        *(v67 + 40) = v60;
+        v69 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(v67);
         swift_setDeallocating();
-        outlined destroy of String(v71);
-        (*((swift_isaMask & *v94) + 0x120))(v68, v69, v72, v91, v88, 0);
+        outlined destroy of String(v68);
+        (*((swift_isaMask & *v91) + 0x120))(v65, v66, v69, v88, v85, 0);
 
-        outlined consume of Data._Representation(v87, v47);
+        outlined consume of Data._Representation(v84, v44);
 
-        outlined consume of Data._Representation(v68, v69);
+        outlined consume of Data._Representation(v65, v66);
 
 LABEL_19:
-        outlined destroy of NearbyProtoConnectionResponse.Content(v90, type metadata accessor for NearbyProtoSessionMessage);
-        outlined destroy of NearbyProtoConnectionResponse.Content(v89, type metadata accessor for NearbyProtoJoinResponse.Content);
+        outlined destroy of NearbyProtoConnectionResponse.Content(v87, type metadata accessor for NearbyProtoSessionMessage);
+        outlined destroy of NearbyProtoConnectionResponse.Content(v86, type metadata accessor for NearbyProtoJoinResponse.Content);
         return;
       }
     }
 
     else
     {
-      v73 = IncomingInvitationJoinRequest.remotePseudonym.getter();
-      v75 = v74;
-      v64 = v48;
-      v76 = v86;
-      v77 = Message.serializedData(partial:)();
-      if (!v76)
+      v70 = IncomingInvitationJoinRequest.remotePseudonym.getter();
+      v72 = v71;
+      v61 = v45;
+      v73 = v83;
+      v74 = Message.serializedData(partial:)();
+      if (!v73)
       {
-        v79 = v77;
-        v80 = v78;
+        v76 = v74;
+        v77 = v75;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-        v81 = swift_initStackObject();
-        *(v81 + 16) = v84;
-        *(v81 + 32) = v73;
-        v82 = v81 + 32;
-        *(v81 + 40) = v75;
-        v83 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(v81);
+        v78 = swift_initStackObject();
+        *(v78 + 16) = v81;
+        *(v78 + 32) = v70;
+        v79 = v78 + 32;
+        *(v78 + 40) = v72;
+        v80 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(v78);
         swift_setDeallocating();
-        outlined destroy of String(v82);
-        (*((swift_isaMask & *v94) + 0x120))(v79, v80, v83, v91, v88, 0);
+        outlined destroy of String(v79);
+        (*((swift_isaMask & *v91) + 0x120))(v76, v77, v80, v88, v85, 0);
 
-        outlined consume of Data._Representation(v87, v47);
+        outlined consume of Data._Representation(v84, v44);
 
-        outlined consume of Data._Representation(v79, v80);
+        outlined consume of Data._Representation(v76, v77);
         goto LABEL_19;
       }
     }
 
-    outlined consume of Data._Representation(v87, v47);
+    outlined consume of Data._Representation(v84, v44);
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v64, type metadata accessor for NearbyProtoSessionMessage);
-    outlined destroy of NearbyProtoConnectionResponse.Content(v89, type metadata accessor for NearbyProtoJoinResponse.Content);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v61, type metadata accessor for NearbyProtoSessionMessage);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v86, type metadata accessor for NearbyProtoJoinResponse.Content);
     return;
   }
 
@@ -11156,68 +8928,64 @@ LABEL_19:
   }
 
 LABEL_6:
-  v25 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v25, static Log.host);
-  v26 = a1;
-  v27 = Logger.logObject.getter();
-  v28 = static os_log_type_t.error.getter();
+  v22 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v22, static Log.host);
+  v23 = a1;
+  v24 = Logger.logObject.getter();
+  v25 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v24, v25))
   {
-    v29 = swift_slowAlloc();
-    v30 = swift_slowAlloc();
-    v96 = v30;
-    *v29 = 136315138;
-    v95 = v26;
+    v26 = swift_slowAlloc();
+    v27 = swift_slowAlloc();
+    v93 = v27;
+    *v26 = 136315138;
+    v92[0] = v23;
     type metadata accessor for IncomingInvitationJoinRequest();
-    v31 = v26;
-    v32 = String.init<A>(reflecting:)();
-    v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, &v96);
+    v28 = v23;
+    v29 = String.init<A>(reflecting:)();
+    v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v30, &v93);
 
-    *(v29 + 4) = v34;
-    _os_log_impl(&_mh_execute_header, v27, v28, "Failed to find hostInfo on pendingMember: %s", v29, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v30);
+    *(v26 + 4) = v31;
+    _os_log_impl(&_mh_execute_header, v24, v25, "Failed to find hostInfo on pendingMember: %s", v26, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v27);
   }
 
   lazy protocol witness table accessor for type NearbyIDSServiceController.Errors and conformance NearbyIDSServiceController.Errors();
   swift_allocError();
-  *v35 = 0;
+  *v32 = 0;
   swift_willThrow();
 }
 
 uint64_t closure #1 in NearbyIDSServiceController.sendRejectedRequestResponse(pendingMember:)(uint64_t *a1)
 {
   v2 = type metadata accessor for NearbyProtoJoinResponse.Content.DeniedContent(0);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for UUID();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = &v15 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for UUID();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   IncomingInvitationJoinRequest.invitationID.getter();
-  v11 = UUID.uuidString.getter();
-  v13 = v12;
-  (*(v7 + 8))(v10, v6);
-  v14 = a1[1];
+  v9 = UUID.uuidString.getter();
+  v11 = v10;
+  (*(v6 + 8))(v8, v5);
 
-  *a1 = v11;
-  a1[1] = v13;
+  *a1 = v9;
+  a1[1] = v11;
   UnknownStorage.init()();
-  v15 = *(type metadata accessor for NearbyProtoJoinResponse.Content(0) + 20);
-  outlined destroy of Any?(a1 + v15, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentV15OneOf_OperationOSgMR);
-  outlined init with take of NearbyProtoSessionMessage(v5, a1 + v15, type metadata accessor for NearbyProtoJoinResponse.Content.DeniedContent);
-  v16 = type metadata accessor for NearbyProtoJoinResponse.Content.OneOf_Operation(0);
+  v12 = *(type metadata accessor for NearbyProtoJoinResponse.Content(0) + 20);
+  outlined destroy of Any?(a1 + v12, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentV15OneOf_OperationOSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentV15OneOf_OperationOSgMR);
+  outlined init with take of NearbyProtoSessionMessage(v4, a1 + v12, type metadata accessor for NearbyProtoJoinResponse.Content.DeniedContent);
+  v13 = type metadata accessor for NearbyProtoJoinResponse.Content.OneOf_Operation(0);
   swift_storeEnumTagMultiPayload();
-  return (*(*(v16 - 8) + 56))(a1 + v15, 0, 1, v16);
+  return (*(*(v13 - 8) + 56))(a1 + v12, 0, 1, v13);
 }
 
-uint64_t closure #2 in NearbyIDSServiceController.sendAcceptedJoinRequestResponse(pendingMember:response:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t closure #2 in NearbyIDSServiceController.sendAcceptedJoinRequestResponse(pendingMember:response:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = type metadata accessor for NearbyProtoJoinResponse(0);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7);
+  v8 = type metadata accessor for NearbyProtoJoinResponse(0);
+  __chkstk_darwin(v8);
   v10 = &v19[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v11 = type metadata accessor for NearbyProtoSessionMessage(0);
   v12 = a1 + *(v11 + 24);
@@ -11225,10 +8993,10 @@ uint64_t closure #2 in NearbyIDSServiceController.sendAcceptedJoinRequestRespons
   *(v12 + 8) = 1;
   v20 = a2;
   v21 = a3;
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse and conformance NearbyProtoJoinResponse, type metadata accessor for NearbyProtoJoinResponse);
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse and conformance NearbyProtoJoinResponse, type metadata accessor for NearbyProtoJoinResponse, &protocol conformance descriptor for NearbyProtoJoinResponse);
   static Message.with(_:)();
   v13 = Message.serializedData(partial:)();
-  if (v3)
+  if (v4)
   {
     return outlined destroy of NearbyProtoConnectionResponse.Content(v10, type metadata accessor for NearbyProtoJoinResponse);
   }
@@ -11255,64 +9023,61 @@ uint64_t closure #1 in closure #2 in NearbyIDSServiceController.sendAcceptedJoin
   return result;
 }
 
-uint64_t NearbyIDSServiceController.sendRequestConnectionWithNearbyHost(fromHandle:nearbyAdvertisement:)(NSObject *a1, uint64_t a2, unint64_t a3)
+uint64_t NearbyIDSServiceController.sendRequestConnectionWithNearbyHost(fromHandle:nearbyAdvertisement:)(NSObject *a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v77 = a1;
+  v74 = a1;
   v7 = type metadata accessor for NearbyProtoConnectionRequest(0);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7);
-  v79 = &v70 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v11 = *(*(v10 - 1) + 64);
-  __chkstk_darwin(v10);
-  v78 = &v70 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for DispatchPredicate();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
-  v17 = (&v70 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v18 = *(v4 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v17 = v18;
-  (*(v14 + 104))(v17, enum case for DispatchPredicate.onQueue(_:), v13);
-  v19 = v18;
-  LOBYTE(v18) = _dispatchPreconditionTest(_:)();
-  (*(v14 + 8))(v17, v13);
-  if ((v18 & 1) == 0)
+  v76 = &v67 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for NearbyProtoSessionMessage(0);
+  __chkstk_darwin(v9);
+  v75 = &v67 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for DispatchPredicate();
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = (&v67 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = *(v4 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v14 = v15;
+  (*(v12 + 104))(v14, enum case for DispatchPredicate.onQueue(_:), v11);
+  v16 = v15;
+  LOBYTE(v15) = _dispatchPreconditionTest(_:)();
+  (*(v12 + 8))(v14, v11);
+  if ((v15 & 1) == 0)
   {
     __break(1u);
     goto LABEL_27;
   }
 
-  v76 = a2;
-  v20 = NearbyAdvertisement.contactID.getter();
-  if (!v21)
+  v73 = a2;
+  v17 = NearbyAdvertisement.contactID.getter();
+  if (!v18)
   {
     lazy protocol witness table accessor for type NearbyIDSServiceController.Errors and conformance NearbyIDSServiceController.Errors();
     swift_allocError();
-    v31 = 1;
+    v28 = 1;
 LABEL_10:
-    *v30 = v31;
+    *v27 = v28;
     return swift_willThrow();
   }
 
-  v22 = v20;
-  v23 = v21;
+  v19 = v17;
+  v20 = v18;
   NearbyAdvertisement.handle.getter();
-  if (!v24)
+  if (!v21)
   {
 
     lazy protocol witness table accessor for type NearbyIDSServiceController.Errors and conformance NearbyIDSServiceController.Errors();
     swift_allocError();
-    v31 = 2;
+    v28 = 2;
     goto LABEL_10;
   }
 
-  v25 = String._bridgeToObjectiveC()();
+  v22 = String._bridgeToObjectiveC()();
 
-  v26 = [v25 IDSFormattedDestinationID];
+  v23 = [v22 IDSFormattedDestinationID];
 
-  if (!v26)
+  if (!v23)
   {
 
     lazy protocol witness table accessor for type IDSServiceError and conformance IDSServiceError();
@@ -11320,35 +9085,35 @@ LABEL_10:
     return swift_willThrow();
   }
 
-  v72 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v74 = v27;
+  v69 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v71 = v24;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v28 = swift_allocObject();
-  *(v28 + 16) = xmmword_1000C8980;
-  *(v28 + 32) = [objc_opt_self() descriptorForRequiredKeysForStyle:0];
+  v25 = swift_allocObject();
+  *(v25 + 16) = xmmword_1000C8980;
+  *(v25 + 32) = [objc_opt_self() descriptorForRequiredKeysForStyle:0];
   type metadata accessor for NearbyAdvertisement();
-  if (v22 == static NearbyAdvertisement.meContactID.getter() && v23 == v29)
+  if (v19 == static NearbyAdvertisement.meContactID.getter() && v20 == v26)
   {
 
     goto LABEL_14;
   }
 
-  v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  v30 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-  if (v33)
+  if (v30)
   {
 LABEL_14:
 
-    v34 = NearbyIDSServiceController.contactStore.getter();
+    v31 = NearbyIDSServiceController.contactStore.getter();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    v80 = 0;
-    v36 = [v34 _ios_meContactWithKeysToFetch:isa error:&v80];
+    v77 = 0;
+    v33 = [v31 _ios_meContactWithKeysToFetch:isa error:&v77];
 
-    v37 = v80;
-    if (v36)
+    v34 = v77;
+    if (v33)
     {
       goto LABEL_15;
     }
@@ -11356,20 +9121,20 @@ LABEL_14:
     goto LABEL_18;
   }
 
-  v50 = NearbyIDSServiceController.contactStore.getter();
-  v51 = String._bridgeToObjectiveC()();
+  v47 = NearbyIDSServiceController.contactStore.getter();
+  v48 = String._bridgeToObjectiveC()();
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
-  v52 = Array._bridgeToObjectiveC()().super.isa;
+  v49 = Array._bridgeToObjectiveC()().super.isa;
 
-  v80 = 0;
-  v36 = [v50 unifiedContactWithIdentifier:v51 keysToFetch:v52 error:&v80];
+  v77 = 0;
+  v33 = [v47 unifiedContactWithIdentifier:v48 keysToFetch:v49 error:&v77];
 
-  v37 = v80;
-  if (!v36)
+  v34 = v77;
+  if (!v33)
   {
 LABEL_18:
-    v53 = v37;
+    v50 = v34;
 
     _convertNSErrorToError(_:)();
 
@@ -11377,93 +9142,93 @@ LABEL_18:
   }
 
 LABEL_15:
-  v71 = v4;
-  v38 = v37;
-  v4 = v36;
-  v39 = v78;
-  v40 = UnknownStorage.init()();
-  v73 = &v70;
-  v41 = &v39[v10[5]];
-  *v41 = 0;
-  v41[4] = 1;
-  v42 = &v39[v10[6]];
-  *v42 = 0;
-  *(v42 + 4) = 256;
-  v43 = &v39[v10[7]];
-  *v43 = xmmword_1000C8990;
-  *v42 = 3;
-  *(v42 + 4) = 1;
-  __chkstk_darwin(v40);
-  v44 = v76;
-  v45 = v77;
-  *(&v70 - 4) = v4;
-  *(&v70 - 3) = v45;
-  *(&v70 - 2) = v44;
-  *(&v70 - 1) = a3;
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionRequest and conformance NearbyProtoConnectionRequest, type metadata accessor for NearbyProtoConnectionRequest);
-  v46 = v79;
-  v47 = v75;
+  v68 = v4;
+  v35 = v34;
+  v4 = v33;
+  v36 = v75;
+  v37 = UnknownStorage.init()();
+  v70 = &v67;
+  v38 = &v36[v9[5]];
+  *v38 = 0;
+  v38[4] = 1;
+  v39 = &v36[v9[6]];
+  *v39 = 0;
+  *(v39 + 4) = 256;
+  v40 = &v36[v9[7]];
+  *v40 = xmmword_1000C8990;
+  *v39 = 3;
+  *(v39 + 4) = 1;
+  __chkstk_darwin(v37);
+  v41 = v73;
+  v42 = v74;
+  *(&v67 - 4) = v4;
+  *(&v67 - 3) = v42;
+  *(&v67 - 2) = v41;
+  *(&v67 - 1) = a3;
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionRequest and conformance NearbyProtoConnectionRequest, type metadata accessor for NearbyProtoConnectionRequest, &protocol conformance descriptor for NearbyProtoConnectionRequest);
+  v43 = v76;
+  v44 = v72;
   static Message.with(_:)();
 
-  v48 = Message.serializedData(partial:)();
-  if (!v47)
+  v45 = Message.serializedData(partial:)();
+  if (!v44)
   {
-    v54 = v48;
-    v55 = v49;
-    outlined consume of Data?(*v43, *(v43 + 1));
-    *v43 = v54;
-    *(v43 + 1) = v55;
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
-    v10 = Message.serializedData(partial:)();
-    a3 = v57;
+    v51 = v45;
+    v52 = v46;
+    outlined consume of Data?(*v40, *(v40 + 1));
+    *v40 = v51;
+    *(v40 + 1) = v52;
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
+    v9 = Message.serializedData(partial:)();
+    a3 = v54;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1000C8970;
-    *(inited + 32) = v72;
-    v59 = inited + 32;
-    *(inited + 40) = v74;
-    v60 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SaySSGTt0g5Tf4g_n(inited);
+    *(inited + 32) = v69;
+    v56 = inited + 32;
+    *(inited + 40) = v71;
+    v57 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SaySSGTt0g5Tf4g_n(inited);
     swift_setDeallocating();
-    outlined destroy of String(v59);
-    v61 = (*((swift_isaMask & *v71) + 0x120))(v10, a3, v60, v77, v76, 1);
-    v17 = v62;
-    v76 = v61;
+    outlined destroy of String(v56);
+    v58 = (*((swift_isaMask & *v68) + 0x120))(v9, a3, v57, v74, v73, 1);
+    v14 = v59;
+    v73 = v58;
 
     if (one-time initialization token for host == -1)
     {
 LABEL_22:
-      v63 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v63, static Log.host);
+      v60 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v60, static Log.host);
 
-      v64 = Logger.logObject.getter();
-      v65 = static os_log_type_t.info.getter();
+      v61 = Logger.logObject.getter();
+      v62 = static os_log_type_t.info.getter();
 
-      v77 = v64;
-      if (os_log_type_enabled(v64, v65))
+      v74 = v61;
+      if (os_log_type_enabled(v61, v62))
       {
-        v66 = swift_slowAlloc();
-        v67 = swift_slowAlloc();
-        v80 = v67;
-        *v66 = 136315138;
-        v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v76, v17, &v80);
+        v63 = swift_slowAlloc();
+        v64 = swift_slowAlloc();
+        v77 = v64;
+        *v63 = 136315138;
+        v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v73, v14, &v77);
 
-        *(v66 + 4) = v68;
-        v69 = v77;
-        _os_log_impl(&_mh_execute_header, v77, v65, "Sent IDS message with identifier: %s", v66, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v67);
+        *(v63 + 4) = v65;
+        v66 = v74;
+        _os_log_impl(&_mh_execute_header, v74, v62, "Sent IDS message with identifier: %s", v63, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0Tm(v64);
 
-        outlined consume of Data._Representation(v10, a3);
+        outlined consume of Data._Representation(v9, a3);
       }
 
       else
       {
 
-        outlined consume of Data._Representation(v10, a3);
+        outlined consume of Data._Representation(v9, a3);
       }
 
-      outlined destroy of NearbyProtoConnectionResponse.Content(v79, type metadata accessor for NearbyProtoConnectionRequest);
-      v56 = v78;
-      return outlined destroy of NearbyProtoConnectionResponse.Content(v56, type metadata accessor for NearbyProtoSessionMessage);
+      outlined destroy of NearbyProtoConnectionResponse.Content(v76, type metadata accessor for NearbyProtoConnectionRequest);
+      v53 = v75;
+      return outlined destroy of NearbyProtoConnectionResponse.Content(v53, type metadata accessor for NearbyProtoSessionMessage);
     }
 
 LABEL_27:
@@ -11471,10 +9236,10 @@ LABEL_27:
     goto LABEL_22;
   }
 
-  outlined destroy of NearbyProtoConnectionResponse.Content(v46, type metadata accessor for NearbyProtoConnectionRequest);
+  outlined destroy of NearbyProtoConnectionResponse.Content(v43, type metadata accessor for NearbyProtoConnectionRequest);
 
-  v56 = v39;
-  return outlined destroy of NearbyProtoConnectionResponse.Content(v56, type metadata accessor for NearbyProtoSessionMessage);
+  v53 = v36;
+  return outlined destroy of NearbyProtoConnectionResponse.Content(v53, type metadata accessor for NearbyProtoSessionMessage);
 }
 
 uint64_t closure #1 in NearbyIDSServiceController.sendRequestConnectionWithNearbyHost(fromHandle:nearbyAdvertisement:)(uint64_t *a1, id a2, uint64_t a3, uint64_t a4)
@@ -11485,29 +9250,26 @@ uint64_t closure #1 in NearbyIDSServiceController.sendRequestConnectionWithNearb
 
   v11 = type metadata accessor for NearbyProtoConnectionRequest(0);
   v12 = (a1 + *(v11 + 28));
-  v13 = v12[1];
 
   *v12 = v8;
   v12[1] = v10;
-  v14 = a1[3];
 
   a1[2] = a3;
   a1[3] = a4;
-  v15 = NearbyAdvertisement.identifier.getter();
-  v17 = v16;
-  v18 = a1[1];
+  v13 = NearbyAdvertisement.identifier.getter();
+  v15 = v14;
 
-  *a1 = v15;
-  a1[1] = v17;
+  *a1 = v13;
+  a1[1] = v15;
   result = NearbyAdvertisement.userInfo.getter();
-  if (v20 >> 60 != 15)
+  if (v17 >> 60 != 15)
   {
-    v21 = result;
-    v22 = v20;
-    v23 = a1 + *(v11 + 32);
-    result = outlined consume of Data?(*v23, *(v23 + 1));
-    *v23 = v21;
-    *(v23 + 1) = v22;
+    v18 = result;
+    v19 = v17;
+    v20 = a1 + *(v11 + 32);
+    result = outlined consume of Data?(*v20, *(v20 + 1));
+    *v20 = v18;
+    *(v20 + 1) = v19;
   }
 
   return result;
@@ -11515,40 +9277,36 @@ uint64_t closure #1 in NearbyIDSServiceController.sendRequestConnectionWithNearb
 
 uint64_t NearbyIDSServiceController.sendJoinRequest(for:from:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v146 = a3;
-  v140 = a2;
-  v137 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v7 = *(*(v137 - 8) + 64);
-  v8 = __chkstk_darwin(v137);
-  v135 = &v133 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v138 = &v133 - v10;
-  v148 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
-  v11 = *(*(v148 - 8) + 64);
-  v12 = __chkstk_darwin(v148);
-  v145 = &v133 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v151 = &v133 - v14;
-  v15 = type metadata accessor for UUID();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  __chkstk_darwin(v15);
-  v149 = &v133 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = type metadata accessor for DispatchPredicate();
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 64);
-  __chkstk_darwin(v19);
-  v23 = (&v133 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v147 = v4;
-  v24 = *(v4 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v23 = v24;
-  (*(v20 + 104))(v23, enum case for DispatchPredicate.onQueue(_:), v19);
-  v25 = v24;
-  LOBYTE(v24) = _dispatchPreconditionTest(_:)();
-  (*(v20 + 8))(v23, v19);
-  if (v24)
+  v138 = a3;
+  v132 = a2;
+  v129 = type metadata accessor for NearbyProtoSessionMessage(0);
+  v7 = __chkstk_darwin(v129);
+  v127 = &v125 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v130 = &v125 - v9;
+  v140 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
+  v10 = __chkstk_darwin(v140);
+  v137 = &v125 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v143 = &v125 - v12;
+  v13 = type metadata accessor for UUID();
+  v14 = *(v13 - 8);
+  __chkstk_darwin(v13);
+  v141 = &v125 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = type metadata accessor for DispatchPredicate();
+  v17 = *(v16 - 8);
+  __chkstk_darwin(v16);
+  v19 = (&v125 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v139 = v4;
+  v20 = *(v4 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v19 = v20;
+  (*(v17 + 104))(v19, enum case for DispatchPredicate.onQueue(_:), v16);
+  v21 = v20;
+  LOBYTE(v20) = _dispatchPreconditionTest(_:)();
+  (*(v17 + 8))(v19, v16);
+  if (v20)
   {
-    v134 = a4;
+    v126 = a4;
     if (one-time initialization token for host == -1)
     {
       goto LABEL_3;
@@ -11562,239 +9320,236 @@ uint64_t NearbyIDSServiceController.sendJoinRequest(for:from:)@<X0>(void *a1@<X0
 
   swift_once();
 LABEL_3:
-  v26 = type metadata accessor for Logger();
-  v27 = __swift_project_value_buffer(v26, static Log.host);
-  v28 = v146;
+  v22 = type metadata accessor for Logger();
+  v23 = __swift_project_value_buffer(v22, static Log.host);
+  v24 = v138;
 
-  v29 = a1;
-  v150 = v27;
-  v30 = Logger.logObject.getter();
-  v31 = static os_log_type_t.default.getter();
+  v25 = a1;
+  v142 = v23;
+  v26 = Logger.logObject.getter();
+  v27 = static os_log_type_t.default.getter();
 
-  v32 = os_log_type_enabled(v30, v31);
-  v142 = v16;
-  v143 = v15;
-  if (v32)
+  v28 = os_log_type_enabled(v26, v27);
+  v134 = v14;
+  v135 = v13;
+  if (v28)
   {
-    v33 = swift_slowAlloc();
-    v154 = swift_slowAlloc();
-    *v33 = 136315394;
-    v152 = v140;
-    v153 = v28;
+    v29 = swift_slowAlloc();
+    v146 = swift_slowAlloc();
+    *v29 = 136315394;
+    v144 = v132;
+    v145 = v24;
 
-    v34 = String.init<A>(reflecting:)();
-    v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, &v154);
+    v30 = String.init<A>(reflecting:)();
+    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v146);
 
-    *(v33 + 4) = v36;
-    *(v33 + 12) = 2080;
-    v152 = v29;
+    *(v29 + 4) = v32;
+    *(v29 + 12) = 2080;
+    v144 = v25;
     type metadata accessor for InvitationApprovalRequest();
-    v37 = v29;
-    v38 = String.init<A>(reflecting:)();
-    v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v39, &v154);
+    v33 = v25;
+    v34 = String.init<A>(reflecting:)();
+    v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, &v146);
 
-    *(v33 + 14) = v40;
-    _os_log_impl(&_mh_execute_header, v30, v31, "Attempting to create and send joinRequest from: %s for request: %s", v33, 0x16u);
+    *(v29 + 14) = v36;
+    _os_log_impl(&_mh_execute_header, v26, v27, "Attempting to create and send joinRequest from: %s for request: %s", v29, 0x16u);
     swift_arrayDestroy();
   }
 
-  v41 = v151;
-  v42 = InvitationApprovalRequest.remoteInvitationData.getter();
-  v43 = NearbyInvitationData.hostConnectionInfo.getter();
+  v37 = v143;
+  v38 = InvitationApprovalRequest.remoteInvitationData.getter();
+  v39 = NearbyInvitationData.hostConnectionInfo.getter();
 
-  v136 = NearbyInvitationJoinRequestMetadata.pseudonym.getter();
-  v141 = v44;
+  v128 = NearbyInvitationJoinRequestMetadata.pseudonym.getter();
+  v133 = v40;
 
-  v45 = v149;
-  v46 = UUID.init()();
-  __chkstk_darwin(v46);
-  *(&v133 - 2) = v29;
-  *(&v133 - 1) = v45;
-  v47 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest.Content and conformance NearbyProtoJoinRequest.Content, type metadata accessor for NearbyProtoJoinRequest.Content);
-  v48 = v144;
+  v41 = v141;
+  v42 = UUID.init()();
+  __chkstk_darwin(v42);
+  *(&v125 - 2) = v25;
+  *(&v125 - 1) = v41;
+  v43 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest.Content and conformance NearbyProtoJoinRequest.Content, type metadata accessor for NearbyProtoJoinRequest.Content, &protocol conformance descriptor for NearbyProtoJoinRequest.Content);
+  v44 = v136;
   static Message.with(_:)();
-  v144 = v48;
-  v49 = v145;
-  outlined init with copy of NearbyProtoJoinRequest.Content(v41, v145, type metadata accessor for NearbyProtoJoinRequest.Content);
-  v50 = Logger.logObject.getter();
-  v51 = static os_log_type_t.info.getter();
-  v52 = os_log_type_enabled(v50, v51);
-  v139 = v47;
-  if (v52)
+  v136 = v44;
+  v45 = v137;
+  outlined init with copy of NearbyProtoJoinRequest.Content(v37, v137, type metadata accessor for NearbyProtoJoinRequest.Content);
+  v46 = Logger.logObject.getter();
+  v47 = static os_log_type_t.info.getter();
+  v48 = os_log_type_enabled(v46, v47);
+  v131 = v43;
+  if (v48)
   {
-    v53 = swift_slowAlloc();
-    v54 = swift_slowAlloc();
-    v152 = v54;
-    *v53 = 136315138;
-    v55 = Message.debugDescription.getter();
-    v56 = v49;
-    v58 = v57;
-    outlined destroy of NearbyProtoConnectionResponse.Content(v56, type metadata accessor for NearbyProtoJoinRequest.Content);
-    v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v58, &v152);
+    v49 = swift_slowAlloc();
+    v50 = swift_slowAlloc();
+    v144 = v50;
+    *v49 = 136315138;
+    v51 = Message.debugDescription.getter();
+    v52 = v45;
+    v54 = v53;
+    outlined destroy of NearbyProtoConnectionResponse.Content(v52, type metadata accessor for NearbyProtoJoinRequest.Content);
+    v55 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v54, &v144);
 
-    *(v53 + 4) = v59;
-    _os_log_impl(&_mh_execute_header, v50, v51, "Request content: %s", v53, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v54);
+    *(v49 + 4) = v55;
+    _os_log_impl(&_mh_execute_header, v46, v47, "Request content: %s", v49, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v50);
   }
 
   else
   {
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v49, type metadata accessor for NearbyProtoJoinRequest.Content);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v45, type metadata accessor for NearbyProtoJoinRequest.Content);
   }
 
-  v60 = v29;
-  v61 = Logger.logObject.getter();
-  v62 = static os_log_type_t.default.getter();
+  v56 = v25;
+  v57 = Logger.logObject.getter();
+  v58 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v61, v62))
+  if (os_log_type_enabled(v57, v58))
   {
-    v63 = swift_slowAlloc();
-    v64 = swift_slowAlloc();
-    v154 = v64;
-    *v63 = 136315138;
-    v65 = InvitationApprovalRequest.remoteInvitationData.getter();
-    v66 = NearbyInvitationData.hostConnectionInfo.getter();
+    v59 = swift_slowAlloc();
+    v60 = swift_slowAlloc();
+    v146 = v60;
+    *v59 = 136315138;
+    v61 = InvitationApprovalRequest.remoteInvitationData.getter();
+    v62 = NearbyInvitationData.hostConnectionInfo.getter();
 
-    v67 = NearbyInvitationJoinRequestMetadata.publicKey.getter();
-    v69 = v68;
+    v63 = NearbyInvitationJoinRequestMetadata.publicKey.getter();
+    v65 = v64;
 
-    v152 = v67;
-    v153 = v69;
-    v70 = String.init<A>(reflecting:)();
-    v72 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v70, v71, &v154);
+    v144 = v63;
+    v145 = v65;
+    v66 = String.init<A>(reflecting:)();
+    v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v66, v67, &v146);
 
-    *(v63 + 4) = v72;
-    _os_log_impl(&_mh_execute_header, v61, v62, "Creating RequesterCredentials with publicKey: %s", v63, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v64);
+    *(v59 + 4) = v68;
+    _os_log_impl(&_mh_execute_header, v57, v58, "Creating RequesterCredentials with publicKey: %s", v59, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v60);
   }
 
-  v73 = v151;
-  v74 = v147;
-  v75 = InvitationApprovalRequest.remoteInvitationData.getter();
-  v76 = NearbyInvitationData.hostConnectionInfo.getter();
+  v69 = v143;
+  v70 = v139;
+  v71 = InvitationApprovalRequest.remoteInvitationData.getter();
+  v72 = NearbyInvitationData.hostConnectionInfo.getter();
 
   NearbyInvitationJoinRequestMetadata.publicKey.getter();
-  v77 = type metadata accessor for RequesterCredentials();
-  v78 = *(v77 + 48);
-  v79 = *(v77 + 52);
+  type metadata accessor for RequesterCredentials();
   swift_allocObject();
-  v80 = v144;
-  v81 = RequesterCredentials.init(ownerPublicKey:)();
-  if (v80)
+  v73 = v136;
+  v74 = RequesterCredentials.init(ownerPublicKey:)();
+  if (v73)
   {
-    outlined destroy of NearbyProtoConnectionResponse.Content(v73, type metadata accessor for NearbyProtoJoinRequest.Content);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v69, type metadata accessor for NearbyProtoJoinRequest.Content);
 
-    return (*(v142 + 8))(v149, v143);
+    return (*(v134 + 8))(v141, v135);
   }
 
   else
   {
+    v75 = v74;
+    v76 = Message.serializedData(partial:)();
+    v78 = v77;
+    v79 = (*(*v75 + 144))();
     v82 = v81;
-    v83 = Message.serializedData(partial:)();
-    v85 = v84;
-    v86 = (*(*v82 + 144))();
+    v136 = v79;
+    v137 = v83;
+    v140 = v84;
+    outlined consume of Data._Representation(v76, v78);
+    v85 = InvitationApprovalRequest.remoteInvitationData.getter();
+    v86 = NearbyInvitationData.hostConnectionInfo.getter();
+
+    v87 = NearbyInvitationJoinRequestMetadata.pseudonym.getter();
     v89 = v88;
-    v144 = v86;
-    v145 = v90;
-    v148 = v91;
-    outlined consume of Data._Representation(v83, v85);
-    v92 = InvitationApprovalRequest.remoteInvitationData.getter();
-    v93 = NearbyInvitationData.hostConnectionInfo.getter();
 
-    v94 = NearbyInvitationJoinRequestMetadata.pseudonym.getter();
-    v96 = v95;
+    v90 = *((swift_isaMask & *v70) + 0xC8);
 
-    v97 = *((swift_isaMask & *v74) + 0xC8);
-
-    v98 = v97(&v152);
-    v100 = v99;
-    v101 = *v99;
+    v91 = v90(&v144);
+    v93 = v92;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v154 = *v100;
-    *v100 = 0x8000000000000000;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v82, v94, v96, isUniquelyReferenced_nonNull_native);
-    v103 = v148;
+    v146 = *v93;
+    *v93 = 0x8000000000000000;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v75, v87, v89, isUniquelyReferenced_nonNull_native);
+    v95 = v140;
 
-    *v100 = v154;
-    v104 = v98(&v152, 0);
-    v139 = &v133;
-    __chkstk_darwin(v104);
-    v105 = v144;
-    *(&v133 - 4) = v145;
-    *(&v133 - 3) = v103;
-    *(&v133 - 2) = v105;
-    *(&v133 - 1) = v89;
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
+    *v93 = v146;
+    v96 = v91(&v144, 0);
+    v131 = &v125;
+    __chkstk_darwin(v96);
+    v97 = v136;
+    *(&v125 - 4) = v137;
+    *(&v125 - 3) = v95;
+    *(&v125 - 2) = v97;
+    *(&v125 - 1) = v82;
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
     static Message.with(_:)();
-    v106 = Message.serializedData(partial:)();
-    v108 = v107;
-    v139 = v89;
+    v98 = Message.serializedData(partial:)();
+    v100 = v99;
+    v131 = v82;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1000C8970;
-    *(inited + 32) = v136;
-    v110 = inited + 32;
-    *(inited + 40) = v141;
-    v111 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(inited);
+    *(inited + 32) = v128;
+    v102 = inited + 32;
+    *(inited + 40) = v133;
+    v103 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(inited);
     swift_setDeallocating();
-    outlined destroy of String(v110);
-    v112 = (*((swift_isaMask & *v147) + 0x120))(v106, v108, v111, v140, v146, 1);
-    v114 = v113;
-    v115 = v112;
+    outlined destroy of String(v102);
+    v104 = (*((swift_isaMask & *v139) + 0x120))(v98, v100, v103, v132, v138, 1);
+    v106 = v105;
+    v107 = v104;
 
-    outlined consume of Data._Representation(v106, v108);
-    v116 = v138;
-    v117 = v135;
-    outlined init with copy of NearbyProtoJoinRequest.Content(v138, v135, type metadata accessor for NearbyProtoSessionMessage);
+    outlined consume of Data._Representation(v98, v100);
+    v108 = v130;
+    v109 = v127;
+    outlined init with copy of NearbyProtoJoinRequest.Content(v130, v127, type metadata accessor for NearbyProtoSessionMessage);
 
-    v118 = Logger.logObject.getter();
-    v119 = static os_log_type_t.default.getter();
+    v110 = Logger.logObject.getter();
+    v111 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v118, v119))
+    if (os_log_type_enabled(v110, v111))
     {
-      v120 = v117;
-      v121 = swift_slowAlloc();
-      v150 = swift_slowAlloc();
-      v152 = v150;
-      *v121 = 136315394;
-      v122 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v115, v114, &v152);
-      v123 = v118;
-      v124 = v122;
+      v112 = v109;
+      v113 = swift_slowAlloc();
+      v142 = swift_slowAlloc();
+      v144 = v142;
+      *v113 = 136315394;
+      v114 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v107, v106, &v144);
+      v115 = v110;
+      v116 = v114;
 
-      *(v121 + 4) = v124;
-      *(v121 + 12) = 2080;
-      v125 = Message.debugDescription.getter();
-      v127 = v126;
-      outlined destroy of NearbyProtoConnectionResponse.Content(v120, type metadata accessor for NearbyProtoSessionMessage);
-      v128 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v125, v127, &v152);
+      *(v113 + 4) = v116;
+      *(v113 + 12) = 2080;
+      v117 = Message.debugDescription.getter();
+      v119 = v118;
+      outlined destroy of NearbyProtoConnectionResponse.Content(v112, type metadata accessor for NearbyProtoSessionMessage);
+      v120 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v117, v119, &v144);
 
-      *(v121 + 14) = v128;
-      _os_log_impl(&_mh_execute_header, v123, v119, "Sent JoinRequest (%s), message: %s", v121, 0x16u);
+      *(v113 + 14) = v120;
+      _os_log_impl(&_mh_execute_header, v115, v111, "Sent JoinRequest (%s), message: %s", v113, 0x16u);
       swift_arrayDestroy();
 
-      outlined consume of Data._Representation(v145, v148);
-      outlined consume of Data._Representation(v144, v139);
+      outlined consume of Data._Representation(v137, v140);
+      outlined consume of Data._Representation(v136, v131);
 
-      v129 = v138;
+      v121 = v130;
     }
 
     else
     {
-      outlined consume of Data._Representation(v145, v148);
-      outlined consume of Data._Representation(v144, v139);
+      outlined consume of Data._Representation(v137, v140);
+      outlined consume of Data._Representation(v136, v131);
 
-      outlined destroy of NearbyProtoConnectionResponse.Content(v117, type metadata accessor for NearbyProtoSessionMessage);
-      v129 = v116;
+      outlined destroy of NearbyProtoConnectionResponse.Content(v109, type metadata accessor for NearbyProtoSessionMessage);
+      v121 = v108;
     }
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v129, type metadata accessor for NearbyProtoSessionMessage);
-    outlined destroy of NearbyProtoConnectionResponse.Content(v151, type metadata accessor for NearbyProtoJoinRequest.Content);
-    v131 = v142;
-    v130 = v143;
-    v132 = v149;
-    (*(v142 + 16))(v134, v149, v143);
-    return (*(v131 + 8))(v132, v130);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v121, type metadata accessor for NearbyProtoSessionMessage);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v143, type metadata accessor for NearbyProtoJoinRequest.Content);
+    v123 = v134;
+    v122 = v135;
+    v124 = v141;
+    (*(v134 + 16))(v126, v141, v135);
+    return (*(v123 + 8))(v124, v122);
   }
 }
 
@@ -11804,68 +9559,65 @@ void closure #1 in NearbyIDSServiceController.sendJoinRequest(for:from:)(uint64_
   v4 = v3;
   v5 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
   v6 = (a1 + v5[6]);
-  v7 = v6[1];
 
   *v6 = v2;
   v6[1] = v4;
-  v8 = UUID.uuidString.getter();
-  v10 = v9;
-  v11 = a1[1];
+  v7 = UUID.uuidString.getter();
+  v9 = v8;
 
-  *a1 = v8;
-  a1[1] = v10;
+  *a1 = v7;
+  a1[1] = v9;
   *(a1 + v5[8]) = 1;
-  v12 = InvitationApprovalRequest.userInfo.getter();
-  if (v13 >> 60 != 15)
+  v10 = InvitationApprovalRequest.userInfo.getter();
+  if (v11 >> 60 != 15)
   {
-    v15 = v12;
-    v17 = v13;
+    v13 = v10;
+    v15 = v11;
     goto LABEL_5;
   }
 
-  v14 = InvitationApprovalRequest.remoteInvitationData.getter();
-  v15 = NearbyInvitationData.userInfo.getter();
-  v17 = v16;
+  v12 = InvitationApprovalRequest.remoteInvitationData.getter();
+  v13 = NearbyInvitationData.userInfo.getter();
+  v15 = v14;
 
-  if (v17 >> 60 != 15)
+  if (v15 >> 60 != 15)
   {
 LABEL_5:
-    v18 = a1 + v5[7];
-    outlined consume of Data?(*v18, *(v18 + 1));
-    *v18 = v15;
-    *(v18 + 1) = v17;
+    v16 = a1 + v5[7];
+    outlined consume of Data?(*v16, *(v16 + 1));
+    *v16 = v13;
+    *(v16 + 1) = v15;
   }
 }
 
 uint64_t closure #2 in NearbyIDSServiceController.sendJoinRequest(for:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = type metadata accessor for NearbyProtoJoinRequest(0);
-  v12 = *(*(v11 - 8) + 64);
   __chkstk_darwin(v11);
-  v14 = &v23[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v15 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v16 = a1 + *(v15 + 24);
-  *v16 = 1;
-  *(v16 + 8) = 1;
-  v24 = a2;
-  v25 = a3;
-  v26 = a4;
-  v27 = a5;
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest and conformance NearbyProtoJoinRequest, type metadata accessor for NearbyProtoJoinRequest);
+  v13 = &v22[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = type metadata accessor for NearbyProtoSessionMessage(0);
+  v15 = a1 + *(v14 + 24);
+  *v15 = 1;
+  *(v15 + 8) = 1;
+  v23 = a2;
+  v24 = a3;
+  v25 = a4;
+  v26 = a5;
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest and conformance NearbyProtoJoinRequest, type metadata accessor for NearbyProtoJoinRequest, &protocol conformance descriptor for NearbyProtoJoinRequest);
   static Message.with(_:)();
-  v17 = Message.serializedData(partial:)();
+  v16 = Message.serializedData(partial:)();
   if (v5)
   {
-    return outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyProtoJoinRequest);
+    return outlined destroy of NearbyProtoConnectionResponse.Content(v13, type metadata accessor for NearbyProtoJoinRequest);
   }
 
+  v19 = v16;
   v20 = v17;
-  v21 = v18;
-  outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyProtoJoinRequest);
-  v22 = a1 + *(v15 + 28);
-  result = outlined consume of Data?(*v22, *(v22 + 8));
-  *v22 = v20;
-  *(v22 + 8) = v21;
+  outlined destroy of NearbyProtoConnectionResponse.Content(v13, type metadata accessor for NearbyProtoJoinRequest);
+  v21 = a1 + *(v14 + 28);
+  result = outlined consume of Data?(*v21, *(v21 + 8));
+  *v21 = v19;
+  *(v21 + 8) = v20;
   return result;
 }
 
@@ -11892,99 +9644,98 @@ uint64_t closure #1 in closure #2 in NearbyIDSServiceController.sendJoinRequest(
 void NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
   v7 = v6;
-  v43 = a6;
-  v44 = a2;
+  v42 = a6;
+  v43 = a2;
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v12 = *(*(v11 - 8) + 64);
   __chkstk_darwin(v11 - 8);
-  v14 = &v41 - v13;
+  v13 = &v40 - v12;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1000C8970;
   *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(inited + 40) = v16;
-  v17 = type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for NSNumber, NSNumber_ptr);
-  v18.super.super.isa = NSNumber.init(BOOLeanLiteral:)(1).super.super.isa;
-  *(inited + 72) = v17;
-  *(inited + 48) = v18;
-  v19 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
+  *(inited + 40) = v15;
+  v16 = type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for NSNumber, NSNumber_ptr);
+  v17.super.super.isa = NSNumber.init(BOOLeanLiteral:)(1).super.super.isa;
+  *(inited + 72) = v16;
+  *(inited + 48) = v17;
+  v18 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
   outlined destroy of Any?(inited + 32, &_sSS_yptMd, &_sSS_yptMR);
-  v42 = v14;
+  v41 = v13;
   if (a5)
   {
-    v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v22 = v21;
-    v23 = String._bridgeToObjectiveC()();
-    v24 = IDSCopyBestGuessIDForID();
+    v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v21 = v20;
+    v22 = String._bridgeToObjectiveC()();
+    v23 = IDSCopyBestGuessIDForID();
 
-    if (!v24)
+    if (!v23)
     {
       __break(1u);
       return;
     }
 
-    v49 = type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for NSString, NSString_ptr);
-    *&v48 = v24;
-    outlined init with take of Any(&v48, v47);
+    v48 = type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for NSString, NSString_ptr);
+    *&v47 = v23;
+    outlined init with take of Any(&v47, v46);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v46 = v19;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v47, v20, v22, isUniquelyReferenced_nonNull_native);
+    v45 = v18;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v46, v19, v21, isUniquelyReferenced_nonNull_native);
 
-    v19 = v46;
+    v18 = v45;
   }
 
-  v26 = *&v7[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 24];
-  v27 = *&v7[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 32];
-  __swift_project_boxed_opaque_existential_1(&v7[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service], v26);
-  v28 = specialized _setUpCast<A, B>(_:)(a3);
-  v29 = a3;
-  v30 = v7;
-  v31 = specialized _dictionaryUpCast<A, B, C, D>(_:)(v19);
+  v25 = *&v7[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 24];
+  v26 = *&v7[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 32];
+  __swift_project_boxed_opaque_existential_1(&v7[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service], v25);
+  v27 = specialized _setUpCast<A, B>(_:)(a3);
+  v28 = a3;
+  v29 = v7;
+  v30 = specialized _dictionaryUpCast<A, B, C, D>(_:)(v18);
 
-  *&v48 = 0;
-  v32 = v45;
-  (*(v27 + 40))(a1, v44, v28, 300, v31, &v48, v26, v27);
+  *&v47 = 0;
+  v31 = v44;
+  (*(v26 + 40))(a1, v43, v27, 300, v30, &v47, v25, v26);
 
-  v33 = v48;
-  if (v32)
+  v32 = v47;
+  if (v31)
   {
-    v34 = v48;
+    v33 = v47;
 LABEL_6:
     swift_willThrow();
 
     return;
   }
 
-  if (v43)
+  if (v42)
   {
-    v35 = type metadata accessor for TaskPriority();
-    v36 = v42;
-    (*(*(v35 - 8) + 56))(v42, 1, 1, v35);
-    v37 = swift_allocObject();
-    v37[2] = 0;
-    v37[3] = 0;
-    v37[4] = v30;
-    v37[5] = v29;
-    v38 = v33;
-    v39 = v30;
+    v34 = type metadata accessor for TaskPriority();
+    v35 = v41;
+    (*(*(v34 - 8) + 56))(v41, 1, 1, v34);
+    v36 = swift_allocObject();
+    v36[2] = 0;
+    v36[3] = 0;
+    v36[4] = v29;
+    v36[5] = v28;
+    v37 = v32;
+    v38 = v29;
 
-    _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v36, &async function pointer to partial apply for closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:), v37);
+    _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v35, &async function pointer to partial apply for closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:), v36);
 
-    if (!v33)
+    if (!v32)
     {
 LABEL_9:
       lazy protocol witness table accessor for type IDSServiceError and conformance IDSServiceError();
       swift_allocError();
-      v34 = 0;
+      v33 = 0;
       goto LABEL_6;
     }
   }
 
   else
   {
-    v40 = v48;
-    if (!v33)
+    v39 = v47;
+    if (!v32)
     {
       goto LABEL_9;
     }
@@ -12002,15 +9753,15 @@ uint64_t closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:
 
 uint64_t closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:)()
 {
-  v49 = v0;
+  v42 = v0;
   (*((swift_isaMask & **(v0 + 128)) + 0xA0))();
   if (*(v0 + 80))
   {
     v1 = *(v0 + 136);
     outlined init with take of PseudonymProtocol((v0 + 56), v0 + 16);
-    v44 = *(v0 + 48);
-    v45 = *(v0 + 40);
-    __swift_project_boxed_opaque_existential_1((v0 + 16), v45);
+    v37 = *(v0 + 48);
+    v38 = *(v0 + 40);
+    __swift_project_boxed_opaque_existential_1((v0 + 16), v38);
     v2 = v1 + 56;
     v3 = -1;
     v4 = -1 << *(v1 + 32);
@@ -12023,7 +9774,7 @@ uint64_t closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:
     v6 = (63 - v4) >> 6;
 
     v7 = 0;
-    v46 = v1;
+    v39 = v1;
 LABEL_5:
     *(v0 + 144) = _swiftEmptyArrayStorage;
     while (v5)
@@ -12047,12 +9798,7 @@ LABEL_12:
           specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
           if (*((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            v24 = v1;
-            v25 = v0;
-            v26 = *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10);
             specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-            v0 = v25;
-            v1 = v24;
           }
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
@@ -12076,21 +9822,21 @@ LABEL_12:
         if (os_log_type_enabled(v18, v19))
         {
           v20 = swift_slowAlloc();
-          v43 = swift_slowAlloc();
-          v48 = v43;
+          v36 = swift_slowAlloc();
+          v41 = v36;
           *v20 = 136315138;
           *(v0 + 96) = v11;
           *(v0 + 104) = v12;
 
           v21 = String.init<A>(reflecting:)();
-          v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v48);
+          v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v41);
 
           *(v20 + 4) = v23;
           _os_log_impl(&_mh_execute_header, v18, v19, "Failed to convert URI: %s to IDSURI", v20, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0Tm(v43);
+          __swift_destroy_boxed_opaque_existential_0Tm(v36);
         }
 
-        v1 = v46;
+        v1 = v39;
       }
     }
 
@@ -12117,17 +9863,13 @@ LABEL_12:
       }
     }
 
-    v27 = *(v0 + 136);
+    v40 = (*(v37 + 8) + **(v37 + 8));
+    v24 = swift_task_alloc();
+    *(v0 + 152) = v24;
+    *v24 = v0;
+    v24[1] = closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:);
 
-    v28 = *(v44 + 8);
-    v47 = (v28 + *v28);
-    v29 = v28[1];
-    v30 = swift_task_alloc();
-    *(v0 + 152) = v30;
-    *v30 = v0;
-    v30[1] = closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:);
-
-    return (v47)(_swiftEmptyArrayStorage, v45, v44);
+    return v40(_swiftEmptyArrayStorage, v38, v37);
   }
 
   else
@@ -12139,111 +9881,103 @@ LABEL_32:
       swift_once();
     }
 
-    v32 = *(v0 + 136);
-    v33 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v33, static Log.firewall);
+    v26 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v26, static Log.firewall);
 
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.error.getter();
+    v27 = Logger.logObject.getter();
+    v28 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v34, v35))
+    if (os_log_type_enabled(v27, v28))
     {
-      v36 = *(v0 + 136);
-      v37 = swift_slowAlloc();
-      v38 = swift_slowAlloc();
-      v48 = v38;
-      *v37 = 136315138;
-      *(v0 + 112) = v36;
+      v29 = *(v0 + 136);
+      v30 = swift_slowAlloc();
+      v31 = swift_slowAlloc();
+      v41 = v31;
+      *v30 = 136315138;
+      *(v0 + 112) = v29;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sShySSGMd, &_sShySSGMR);
-      v39 = String.init<A>(reflecting:)();
-      v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v40, &v48);
+      v32 = String.init<A>(reflecting:)();
+      v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, &v41);
 
-      *(v37 + 4) = v41;
-      _os_log_impl(&_mh_execute_header, v34, v35, "Message sent without firewall being ready to destinations: %s", v37, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v38);
+      *(v30 + 4) = v34;
+      _os_log_impl(&_mh_execute_header, v27, v28, "Message sent without firewall being ready to destinations: %s", v30, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v31);
     }
 
-    v42 = *(v0 + 8);
+    v35 = *(v0 + 8);
 
-    return v42();
+    return v35();
   }
 }
 
 {
-  v2 = *v1;
-  v3 = *(*v1 + 152);
-  v7 = *v1;
   *(*v1 + 160) = v0;
 
   if (v0)
   {
-    v4 = closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:);
+    v2 = closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:);
   }
 
   else
   {
-    v5 = *(v2 + 144);
 
-    v4 = closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:);
+    v2 = closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:);
   }
 
-  return _swift_task_switch(v4, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 {
-  v14 = v0;
+  v13 = v0;
   if (one-time initialization token for firewall != -1)
   {
     swift_once();
   }
 
-  v1 = v0[17];
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Log.firewall);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Log.firewall);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v2, v3))
   {
-    v5 = v0[17];
+    v4 = v0[17];
+    v5 = swift_slowAlloc();
     v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v13 = v7;
-    *v6 = 136315138;
-    v0[15] = v5;
+    v12 = v6;
+    *v5 = 136315138;
+    v0[15] = v4;
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sShySSGMd, &_sShySSGMR);
-    v8 = String.init<A>(reflecting:)();
-    v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v13);
+    v7 = String.init<A>(reflecting:)();
+    v9 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v8, &v12);
 
-    *(v6 + 4) = v10;
-    _os_log_impl(&_mh_execute_header, v3, v4, "Donated entries: %s", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v7);
+    *(v5 + 4) = v9;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Donated entries: %s", v5, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v6);
   }
 
   __swift_destroy_boxed_opaque_existential_0Tm(v0 + 2);
-  v11 = v0[1];
+  v10 = v0[1];
 
-  return v11();
+  return v10();
 }
 
 {
-  v1 = v0[18];
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 2);
-  v2 = v0[1];
-  v3 = v0[20];
+  __swift_destroy_boxed_opaque_existential_0Tm((v0 + 16));
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
-id NearbyIDSServiceController.__deallocating_deinit()
+id NearbyIDSServiceController.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NearbyIDSServiceController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for NearbyIDSServiceController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
@@ -12258,62 +9992,61 @@ uint64_t NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:inc
 uint64_t closure #1 in closure #1 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, void *a2)
 {
   v4 = type metadata accessor for NearbyProtoConnectionRequest(0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = __chkstk_darwin(v4 - 8);
-  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = (&v27 - v9);
+  v5 = __chkstk_darwin(v4 - 8);
+  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = (&v26 - v8);
   if (one-time initialization token for host != -1)
   {
     swift_once();
   }
 
-  v11 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v11, static Log.host);
-  outlined init with copy of NearbyProtoJoinRequest.Content(a1, v10, type metadata accessor for NearbyProtoConnectionRequest);
-  outlined init with copy of NearbyProtoJoinRequest.Content(a1, v8, type metadata accessor for NearbyProtoConnectionRequest);
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v12, v13))
+  v10 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v10, static Log.host);
+  outlined init with copy of NearbyProtoJoinRequest.Content(a1, v9, type metadata accessor for NearbyProtoConnectionRequest);
+  outlined init with copy of NearbyProtoJoinRequest.Content(a1, v7, type metadata accessor for NearbyProtoConnectionRequest);
+  v11 = Logger.logObject.getter();
+  v12 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v11, v12))
   {
+    v13 = swift_slowAlloc();
     v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v27 = a1;
-    v28 = v15;
-    *v14 = 136315394;
-    v16 = *v10;
-    v17 = v10[1];
+    v26 = a1;
+    v27 = v14;
+    *v13 = 136315394;
+    v15 = *v9;
+    v16 = v9[1];
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v10, type metadata accessor for NearbyProtoConnectionRequest);
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, &v28);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v9, type metadata accessor for NearbyProtoConnectionRequest);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v27);
 
-    *(v14 + 4) = v18;
-    *(v14 + 12) = 2080;
-    v19 = *(v8 + 2);
-    v20 = *(v8 + 3);
+    *(v13 + 4) = v17;
+    *(v13 + 12) = 2080;
+    v18 = *(v7 + 2);
+    v19 = *(v7 + 3);
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v8, type metadata accessor for NearbyProtoConnectionRequest);
-    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v28);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v7, type metadata accessor for NearbyProtoConnectionRequest);
+    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v27);
 
-    *(v14 + 14) = v21;
-    _os_log_impl(&_mh_execute_header, v12, v13, "Got connection request: %s from: %s", v14, 0x16u);
+    *(v13 + 14) = v20;
+    _os_log_impl(&_mh_execute_header, v11, v12, "Got connection request: %s from: %s", v13, 0x16u);
     swift_arrayDestroy();
-    a1 = v27;
+    a1 = v26;
   }
 
   else
   {
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v8, type metadata accessor for NearbyProtoConnectionRequest);
-    v22 = outlined destroy of NearbyProtoConnectionResponse.Content(v10, type metadata accessor for NearbyProtoConnectionRequest);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v7, type metadata accessor for NearbyProtoConnectionRequest);
+    v21 = outlined destroy of NearbyProtoConnectionResponse.Content(v9, type metadata accessor for NearbyProtoConnectionRequest);
   }
 
-  result = (*((swift_isaMask & *a2) + 0x88))(v22);
+  result = (*((swift_isaMask & *a2) + 0x88))(v21);
   if (result)
   {
-    v25 = v24;
+    v24 = v23;
     ObjectType = swift_getObjectType();
-    (*(v25 + 8))(a2, &protocol witness table for NearbyIDSServiceController, a1, ObjectType, v25);
+    (*(v24 + 8))(a2, &protocol witness table for NearbyIDSServiceController, a1, ObjectType, v24);
     return swift_unknownObjectRelease();
   }
 
@@ -12358,104 +10091,99 @@ uint64_t closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMe
   return result;
 }
 
-void closure #4 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, uint64_t a2, uint64_t a3)
+void closure #4 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, uint64_t a2, void *a3)
 {
-  v35[0] = a3;
-  v36 = a2;
+  v29[0] = a3;
+  v30 = a2;
   v4 = type metadata accessor for DispatchWorkItemFlags();
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4);
-  v35[1] = v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v10 = v35 - v9;
-  v11 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = __chkstk_darwin(v11);
-  v15 = v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v17 = v35 - v16;
-  outlined init with copy of (String, Any)(a1, v10, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
-  if ((*(v12 + 48))(v10, 1, v11) == 1)
+  v29[1] = v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
+  __chkstk_darwin(v6 - 8);
+  v8 = v29 - v7;
+  v9 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
+  v10 = *(v9 - 8);
+  v11 = *(v10 + 64);
+  v12 = __chkstk_darwin(v9);
+  v13 = v29 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v15 = v29 - v14;
+  outlined init with copy of (String, Any)(a1, v8, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
+  if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
-    outlined destroy of Any?(v10, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
+    outlined destroy of Any?(v8, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
     if (one-time initialization token for host != -1)
     {
       swift_once();
     }
 
-    v18 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v18, static Log.host);
-    v19 = v36;
+    v16 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v16, static Log.host);
+    v17 = v30;
     swift_errorRetain();
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.error.getter();
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v20, v21))
+    if (os_log_type_enabled(v18, v19))
     {
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
       v22 = swift_slowAlloc();
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      aBlock[0] = v24;
-      *v22 = 136315394;
-      *(v22 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004FLL, 0x80000001000D0250, aBlock);
-      *(v22 + 12) = 2112;
-      if (v19)
+      aBlock[0] = v22;
+      *v20 = 136315394;
+      *(v20 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004FLL, 0x80000001000D0250, aBlock);
+      *(v20 + 12) = 2112;
+      if (v17)
       {
         swift_errorRetain();
-        v25 = _swift_stdlib_bridgeErrorToNSError();
-        v26 = v25;
+        v23 = _swift_stdlib_bridgeErrorToNSError();
+        v24 = v23;
       }
 
       else
       {
-        v25 = 0;
-        v26 = 0;
+        v23 = 0;
+        v24 = 0;
       }
 
-      *(v22 + 14) = v25;
-      *v23 = v26;
-      _os_log_impl(&_mh_execute_header, v20, v21, "%s Failed to parse join response: %@", v22, 0x16u);
-      outlined destroy of Any?(v23, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      *(v20 + 14) = v23;
+      *v21 = v24;
+      _os_log_impl(&_mh_execute_header, v18, v19, "%s Failed to parse join response: %@", v20, 0x16u);
+      outlined destroy of Any?(v21, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
 
-      __swift_destroy_boxed_opaque_existential_0Tm(v24);
+      __swift_destroy_boxed_opaque_existential_0Tm(v22);
     }
   }
 
   else
   {
-    outlined init with take of NearbyProtoSessionMessage(v10, v17, type metadata accessor for NearbyProtoJoinResponse.Content);
-    v27 = v35[0];
-    v28 = *(v35[0] + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-    outlined init with copy of NearbyProtoJoinRequest.Content(v17, v15, type metadata accessor for NearbyProtoJoinResponse.Content);
-    v29 = (*(v12 + 80) + 24) & ~*(v12 + 80);
-    v30 = swift_allocObject();
-    *(v30 + 16) = v27;
-    outlined init with take of NearbyProtoSessionMessage(v15, v30 + v29, type metadata accessor for NearbyProtoJoinResponse.Content);
+    outlined init with take of NearbyProtoSessionMessage(v8, v15, type metadata accessor for NearbyProtoJoinResponse.Content);
+    v25 = v29[0];
+    outlined init with copy of NearbyProtoJoinRequest.Content(v15, v13, type metadata accessor for NearbyProtoJoinResponse.Content);
+    v26 = (*(v10 + 80) + 24) & ~*(v10 + 80);
+    v27 = swift_allocObject();
+    *(v27 + 16) = v25;
+    outlined init with take of NearbyProtoSessionMessage(v13, v27 + v26, type metadata accessor for NearbyProtoJoinResponse.Content);
     aBlock[4] = partial apply for closure #1 in closure #4 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:);
-    aBlock[5] = v30;
+    aBlock[5] = v27;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
     aBlock[3] = &block_descriptor_59_0;
     _Block_copy(aBlock);
-    v37 = _swiftEmptyArrayStorage;
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-    v31 = v27;
+    v31 = _swiftEmptyArrayStorage;
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    v28 = v25;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v32 = type metadata accessor for DispatchWorkItem();
-    v33 = *(v32 + 48);
-    v34 = *(v32 + 52);
+    type metadata accessor for DispatchWorkItem();
     swift_allocObject();
     DispatchWorkItem.init(flags:block:)();
 
     OS_dispatch_queue.async(execute:)();
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v17, type metadata accessor for NearbyProtoJoinResponse.Content);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v15, type metadata accessor for NearbyProtoJoinResponse.Content);
   }
 }
 
@@ -12474,7 +10202,7 @@ uint64_t closure #1 in closure #4 in NearbyIDSServiceController.handleIncomingMe
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -12493,14 +10221,13 @@ char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
   return result;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -12563,7 +10290,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -12641,7 +10368,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -12808,7 +10535,6 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -12850,7 +10576,7 @@ LABEL_30:
 
   if (!v9)
   {
-    v13 = &_swiftEmptyArrayStorage;
+    v13 = _swiftEmptyArrayStorage;
     goto LABEL_19;
   }
 
@@ -12868,7 +10594,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -12900,7 +10626,7 @@ LABEL_19:
   return v13;
 }
 
-void specialized Set.subscript.getter(unint64_t a1, int a2, char a3, uint64_t a4)
+void specialized Set.subscript.getter(unint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   if ((a4 & 0xC000000000000001) != 0)
   {
@@ -12979,272 +10705,257 @@ LABEL_16:
   v13 = v12;
 }
 
-uint64_t specialized closure #1 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, char *a2)
+uint64_t specialized closure #1 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, void *a2)
 {
-  v27 = a2;
+  v21 = a2;
   v3 = type metadata accessor for DispatchWorkItemFlags();
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3);
-  v28 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v26 - v8;
-  v10 = type metadata accessor for NearbyProtoConnectionRequest(0);
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = __chkstk_darwin(v10);
-  v14 = &v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v16 = &v26 - v15;
-  outlined init with copy of (String, Any)(a1, v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
-  if ((*(v11 + 48))(v9, 1, v10) == 1)
+  v22 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v20 - v6;
+  v8 = type metadata accessor for NearbyProtoConnectionRequest(0);
+  v9 = *(v8 - 8);
+  v10 = *(v9 + 64);
+  v11 = __chkstk_darwin(v8);
+  v12 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v14 = &v20 - v13;
+  outlined init with copy of (String, Any)(a1, v7, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of Any?(v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
+    return outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
   }
 
-  outlined init with take of NearbyProtoSessionMessage(v9, v16, type metadata accessor for NearbyProtoConnectionRequest);
-  v18 = v27;
-  v19 = *&v27[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue];
-  outlined init with copy of NearbyProtoJoinRequest.Content(v16, v14, type metadata accessor for NearbyProtoConnectionRequest);
-  v20 = (*(v11 + 80) + 16) & ~*(v11 + 80);
-  v21 = swift_allocObject();
-  outlined init with take of NearbyProtoSessionMessage(v14, v21 + v20, type metadata accessor for NearbyProtoConnectionRequest);
-  *(v21 + ((v12 + v20 + 7) & 0xFFFFFFFFFFFFFFF8)) = v18;
+  outlined init with take of NearbyProtoSessionMessage(v7, v14, type metadata accessor for NearbyProtoConnectionRequest);
+  v16 = v21;
+  outlined init with copy of NearbyProtoJoinRequest.Content(v14, v12, type metadata accessor for NearbyProtoConnectionRequest);
+  v17 = (*(v9 + 80) + 16) & ~*(v9 + 80);
+  v18 = swift_allocObject();
+  outlined init with take of NearbyProtoSessionMessage(v12, v18 + v17, type metadata accessor for NearbyProtoConnectionRequest);
+  *(v18 + ((v10 + v17 + 7) & 0xFFFFFFFFFFFFFFF8)) = v16;
   aBlock[4] = partial apply for closure #1 in closure #1 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:);
-  aBlock[5] = v21;
+  aBlock[5] = v18;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor_47_0;
   _Block_copy(aBlock);
-  v29 = _swiftEmptyArrayStorage;
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-  v22 = v18;
+  v23 = _swiftEmptyArrayStorage;
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  v19 = v16;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v23 = type metadata accessor for DispatchWorkItem();
-  v24 = *(v23 + 48);
-  v25 = *(v23 + 52);
+  type metadata accessor for DispatchWorkItem();
   swift_allocObject();
   DispatchWorkItem.init(flags:block:)();
 
   OS_dispatch_queue.async(execute:)();
 
-  return outlined destroy of NearbyProtoConnectionResponse.Content(v16, type metadata accessor for NearbyProtoConnectionRequest);
+  return outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyProtoConnectionRequest);
 }
 
-void specialized closure #2 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, char *a2)
+void specialized closure #2 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, void *a2)
 {
-  v31 = a2;
+  v25 = a2;
   v3 = type metadata accessor for DispatchWorkItemFlags();
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3);
-  v32 = &v30 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v30 - v8;
-  v10 = type metadata accessor for NearbyProtoConnectionResponse.Content(0);
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = __chkstk_darwin(v10);
-  v14 = &v30 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v16 = &v30 - v15;
-  outlined init with copy of (String, Any)(a1, v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
-  if ((*(v11 + 48))(v9, 1, v10) == 1)
+  v26 = &v24 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v24 - v6;
+  v8 = type metadata accessor for NearbyProtoConnectionResponse.Content(0);
+  v9 = *(v8 - 8);
+  v10 = *(v9 + 64);
+  v11 = __chkstk_darwin(v8);
+  v12 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v14 = &v24 - v13;
+  outlined init with copy of (String, Any)(a1, v7, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    outlined destroy of Any?(v9, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
+    outlined destroy of Any?(v7, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
     if (one-time initialization token for host != -1)
     {
       swift_once();
     }
 
-    v17 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v17, static Log.host);
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v18, v19))
+    v15 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v15, static Log.host);
+    v16 = Logger.logObject.getter();
+    v17 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v16, v17))
     {
-      v20 = swift_slowAlloc();
-      v21 = swift_slowAlloc();
-      aBlock[0] = v21;
-      *v20 = 136315138;
-      *(v20 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004FLL, 0x80000001000D0250, aBlock);
-      _os_log_impl(&_mh_execute_header, v18, v19, "%s Failed to parse NearbyProtoConnectionResponse", v20, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v21);
+      v18 = swift_slowAlloc();
+      v19 = swift_slowAlloc();
+      aBlock[0] = v19;
+      *v18 = 136315138;
+      *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004FLL, 0x80000001000D0250, aBlock);
+      _os_log_impl(&_mh_execute_header, v16, v17, "%s Failed to parse NearbyProtoConnectionResponse", v18, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v19);
     }
   }
 
   else
   {
-    outlined init with take of NearbyProtoSessionMessage(v9, v16, type metadata accessor for NearbyProtoConnectionResponse.Content);
-    v22 = v31;
-    v23 = *&v31[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue];
-    outlined init with copy of NearbyProtoJoinRequest.Content(v16, v14, type metadata accessor for NearbyProtoConnectionResponse.Content);
-    v24 = (*(v11 + 80) + 24) & ~*(v11 + 80);
-    v25 = swift_allocObject();
-    *(v25 + 16) = v22;
-    outlined init with take of NearbyProtoSessionMessage(v14, v25 + v24, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    outlined init with take of NearbyProtoSessionMessage(v7, v14, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    v20 = v25;
+    outlined init with copy of NearbyProtoJoinRequest.Content(v14, v12, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    v21 = (*(v9 + 80) + 24) & ~*(v9 + 80);
+    v22 = swift_allocObject();
+    *(v22 + 16) = v20;
+    outlined init with take of NearbyProtoSessionMessage(v12, v22 + v21, type metadata accessor for NearbyProtoConnectionResponse.Content);
     aBlock[4] = partial apply for closure #1 in closure #2 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:);
-    aBlock[5] = v25;
+    aBlock[5] = v22;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
     aBlock[3] = &block_descriptor_53;
     _Block_copy(aBlock);
-    v33 = _swiftEmptyArrayStorage;
-    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-    v26 = v22;
+    v27 = _swiftEmptyArrayStorage;
+    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+    v23 = v20;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v27 = type metadata accessor for DispatchWorkItem();
-    v28 = *(v27 + 48);
-    v29 = *(v27 + 52);
+    type metadata accessor for DispatchWorkItem();
     swift_allocObject();
     DispatchWorkItem.init(flags:block:)();
 
     OS_dispatch_queue.async(execute:)();
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v16, type metadata accessor for NearbyProtoConnectionResponse.Content);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v14, type metadata accessor for NearbyProtoConnectionResponse.Content);
   }
 }
 
 uint64_t specialized closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
-  v48 = a7;
-  v49 = a8;
-  v45 = a4;
-  v46 = a6;
-  v43 = a3;
-  v44 = a5;
-  v47 = a2;
+  v43 = a7;
+  v44 = a8;
+  v40 = a4;
+  v41 = a6;
+  v38 = a3;
+  v39 = a5;
+  v42 = a2;
   v9 = type metadata accessor for DispatchWorkItemFlags();
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9);
-  v50 = &v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  v15 = &v42 - v14;
-  v16 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  v19 = __chkstk_darwin(v16);
-  v20 = &v42 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v19);
-  v22 = &v42 - v21;
-  outlined init with copy of (String, Any)(a1, v15, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-  if ((*(v17 + 48))(v15, 1, v16) == 1)
+  v45 = &v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+  __chkstk_darwin(v11 - 8);
+  v13 = &v37 - v12;
+  v14 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
+  v15 = *(v14 - 8);
+  v16 = *(v15 + 64);
+  v17 = __chkstk_darwin(v14);
+  v18 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v20 = &v37 - v19;
+  outlined init with copy of (String, Any)(a1, v13, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+  if ((*(v15 + 48))(v13, 1, v14) == 1)
   {
-    return outlined destroy of Any?(v15, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+    return outlined destroy of Any?(v13, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
   }
 
-  outlined init with take of NearbyProtoSessionMessage(v15, v22, type metadata accessor for NearbyProtoJoinRequest.Content);
-  v24 = v47;
-  v42 = *&v47[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue];
-  outlined init with copy of NearbyProtoJoinRequest.Content(v22, v20, type metadata accessor for NearbyProtoJoinRequest.Content);
-  v25 = (*(v17 + 80) + 24) & ~*(v17 + 80);
-  v26 = (v18 + v25 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v27 = (v26 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v28 = (v27 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v29 = swift_allocObject();
-  *(v29 + 16) = v24;
-  outlined init with take of NearbyProtoSessionMessage(v20, v29 + v25, type metadata accessor for NearbyProtoJoinRequest.Content);
-  v30 = (v29 + v26);
-  v31 = v44;
-  v32 = v45;
-  *v30 = v43;
-  v30[1] = v32;
-  v33 = (v29 + v27);
-  v34 = v46;
-  *v33 = v31;
+  outlined init with take of NearbyProtoSessionMessage(v13, v20, type metadata accessor for NearbyProtoJoinRequest.Content);
+  v22 = v42;
+  v37 = *&v42[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue];
+  outlined init with copy of NearbyProtoJoinRequest.Content(v20, v18, type metadata accessor for NearbyProtoJoinRequest.Content);
+  v23 = (*(v15 + 80) + 24) & ~*(v15 + 80);
+  v24 = (v16 + v23 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v25 = (v24 + 23) & 0xFFFFFFFFFFFFFFF8;
+  v26 = (v25 + 23) & 0xFFFFFFFFFFFFFFF8;
+  v27 = swift_allocObject();
+  *(v27 + 16) = v22;
+  outlined init with take of NearbyProtoSessionMessage(v18, v27 + v23, type metadata accessor for NearbyProtoJoinRequest.Content);
+  v28 = (v27 + v24);
+  v29 = v39;
+  v30 = v40;
+  *v28 = v38;
+  v28[1] = v30;
+  v31 = (v27 + v25);
+  v32 = v41;
+  *v31 = v29;
+  v31[1] = v32;
+  v33 = (v27 + v26);
+  v35 = v43;
+  v34 = v44;
+  *v33 = v43;
   v33[1] = v34;
-  v35 = (v29 + v28);
-  v37 = v48;
-  v36 = v49;
-  *v35 = v48;
-  v35[1] = v36;
   aBlock[4] = closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
-  aBlock[5] = v29;
+  aBlock[5] = v27;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor_66;
   _Block_copy(aBlock);
-  v51 = _swiftEmptyArrayStorage;
+  v46 = _swiftEmptyArrayStorage;
 
-  v38 = v24;
-  outlined copy of Data._Representation(v37, v36);
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
+  v36 = v22;
+  outlined copy of Data._Representation(v35, v34);
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v39 = type metadata accessor for DispatchWorkItem();
-  v40 = *(v39 + 48);
-  v41 = *(v39 + 52);
+  type metadata accessor for DispatchWorkItem();
   swift_allocObject();
   DispatchWorkItem.init(flags:block:)();
 
   OS_dispatch_queue.async(execute:)();
 
-  return outlined destroy of NearbyProtoConnectionResponse.Content(v22, type metadata accessor for NearbyProtoJoinRequest.Content);
+  return outlined destroy of NearbyProtoConnectionResponse.Content(v20, type metadata accessor for NearbyProtoJoinRequest.Content);
 }
 
 id specialized NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, char *a6, uint64_t a7, uint64_t a8)
 {
   v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v15 = *(*(v14 - 8) + 64);
   __chkstk_darwin(v14 - 8);
-  v17 = &v32 - v16;
-  v35[3] = a7;
-  v35[4] = a8;
-  __swift_allocate_boxed_opaque_existential_1(v35);
+  v16 = &v31 - v15;
+  v34[3] = a7;
+  v34[4] = a8;
+  __swift_allocate_boxed_opaque_existential_1(v34);
   (*(*(a7 - 8) + 32))();
-  v18 = &a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_delegate];
+  v17 = &a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_delegate];
   *&a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_delegate + 8] = 0;
   swift_unknownObjectWeakInit();
-  v19 = &a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_firewall];
-  *v19 = 0u;
-  *(v19 + 1) = 0u;
-  *(v19 + 4) = 0;
+  v18 = &a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_firewall];
+  *v18 = 0u;
+  *(v18 + 1) = 0u;
+  *(v18 + 4) = 0;
   *&a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_requesterCredentialsByOwnerPseudonym] = &_swiftEmptyDictionarySingleton;
   *&a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController____lazy_storage___contactStore] = 0;
   swift_beginAccess();
-  *(v18 + 1) = a4;
+  *(v17 + 1) = a4;
   swift_unknownObjectWeakAssign();
-  outlined init with copy of PseudonymProtocol(v35, &a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service]);
+  outlined init with copy of PseudonymProtocol(v34, &a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service]);
   *&a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue] = a1;
   *&a6[OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController] = a5;
-  v20 = type metadata accessor for NearbyIDSServiceController();
-  v34.receiver = a6;
-  v34.super_class = v20;
-  v21 = a1;
-  v22 = a5;
-  v23 = objc_msgSendSuper2(&v34, "init");
-  v24 = type metadata accessor for TaskPriority();
-  (*(*(v24 - 8) + 56))(v17, 1, 1, v24);
-  outlined init with copy of PseudonymProtocol(v35, v33);
-  v25 = swift_allocObject();
-  v25[2] = 0;
-  v25[3] = 0;
-  v25[4] = v23;
-  outlined init with take of PseudonymProtocol(v33, (v25 + 5));
-  v26 = v23;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v17, &async function pointer to partial apply for closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:), v25);
+  v19 = type metadata accessor for NearbyIDSServiceController();
+  v33.receiver = a6;
+  v33.super_class = v19;
+  v20 = a1;
+  v21 = a5;
+  v22 = objc_msgSendSuper2(&v33, "init");
+  v23 = type metadata accessor for TaskPriority();
+  (*(*(v23 - 8) + 56))(v16, 1, 1, v23);
+  outlined init with copy of PseudonymProtocol(v34, v32);
+  v24 = swift_allocObject();
+  v24[2] = 0;
+  v24[3] = 0;
+  v24[4] = v22;
+  outlined init with take of PseudonymProtocol(v32, (v24 + 5));
+  v25 = v22;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v16, &async function pointer to partial apply for closure #1 in NearbyIDSServiceController.init(queue:service:delegate:joinRequestsController:), v24);
 
-  v27 = [objc_allocWithZone(IDSServiceDelegateProperties) init];
-  [v27 setWantsCrossAccountMessaging:1];
-  v28 = *(a8 + 32);
-  v29 = v21;
-  v30 = v27;
-  v28(v26, v27, v21, a7, a8);
+  v26 = [objc_allocWithZone(IDSServiceDelegateProperties) init];
+  [v26 setWantsCrossAccountMessaging:1];
+  v27 = *(a8 + 32);
+  v28 = v20;
+  v29 = v26;
+  v27(v25, v26, v20, a7, a8);
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v35);
-  return v26;
+  __swift_destroy_boxed_opaque_existential_0Tm(v34);
+  return v25;
 }
 
 uint64_t outlined assign with take of FirewallProvider?(uint64_t a1, uint64_t a2)
@@ -13269,22 +10980,21 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(uint64_t a1)
       v7 = (v6 + 16 * v4);
       v9 = *v7;
       v8 = v7[1];
-      v10 = *(v3 + 40);
       Hasher.init(_seed:)();
 
       String.hash(into:)();
       result = Hasher._finalize()();
-      v12 = ~(-1 << *(v3 + 32));
-      for (i = result & v12; ; i = (i + 1) & v12)
+      v11 = ~(-1 << *(v3 + 32));
+      for (i = result & v11; ; i = (i + 1) & v11)
       {
-        v14 = *(v5 + 8 * (i >> 6));
-        if (((1 << i) & v14) == 0)
+        v13 = *(v5 + 8 * (i >> 6));
+        if (((1 << i) & v13) == 0)
         {
           break;
         }
 
-        v15 = (*(v3 + 48) + 16 * i);
-        if (*v15 != v9 || v15[1] != v8)
+        v14 = (*(v3 + 48) + 16 * i);
+        if (*v14 != v9 || v14[1] != v8)
         {
           result = _stringCompareWithSmolCheck(_:_:expecting:)();
           if ((result & 1) == 0)
@@ -13296,16 +11006,16 @@ Swift::Int _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSS_Tt0g5Tf4g_n(uint64_t a1)
         goto LABEL_4;
       }
 
-      *(v5 + 8 * (i >> 6)) = (1 << i) | v14;
-      v17 = (*(v3 + 48) + 16 * i);
-      *v17 = v9;
-      v17[1] = v8;
-      v18 = *(v3 + 16);
-      v19 = __OFADD__(v18, 1);
-      v20 = v18 + 1;
-      if (!v19)
+      *(v5 + 8 * (i >> 6)) = (1 << i) | v13;
+      v16 = (*(v3 + 48) + 16 * i);
+      *v16 = v9;
+      v16[1] = v8;
+      v17 = *(v3 + 16);
+      v18 = __OFADD__(v17, 1);
+      v19 = v17 + 1;
+      if (!v18)
       {
-        *(v3 + 16) = v20;
+        *(v3 + 16) = v19;
 LABEL_4:
         if (++v4 == v1)
         {
@@ -13375,13 +11085,6 @@ unint64_t lazy protocol witness table accessor for type IDSServiceError and conf
   return result;
 }
 
-void partial apply for closure #1 in NearbyIDSServiceController.sendJoinRequest(for:from:)(uint64_t *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  closure #1 in NearbyIDSServiceController.sendJoinRequest(for:from:)(a1);
-}
-
 uint64_t partial apply for closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:)(uint64_t a1)
 {
   v4 = v1[2];
@@ -13396,85 +11099,75 @@ uint64_t partial apply for closure #1 in NearbyIDSServiceController.send(data:to
   return closure #1 in NearbyIDSServiceController.send(data:toDestinations:from:shouldDonateToFirweall:)(a1, v4, v5, v7, v6);
 }
 
-void _s44com_apple_SharePlay_NearbyInvitationsService0E20IDSServiceControllerC30handleIncomingMessageBlastDoor_7account12incomingData15fromIDWithToken7contextyAA0H8Protocol_p_So10IDSAccountCSg10Foundation0Q0VSgSSSgSo17IDSMessageContextCSgtFTf4ennnnn_nSo0H0C_Ttg5Tf4dnnnn_n(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(uint64_t a1), uint64_t (*a6)(uint64_t a1))
+void _s44com_apple_SharePlay_NearbyInvitationsService0E20IDSServiceControllerC30handleIncomingMessageBlastDoor_7account12incomingData15fromIDWithToken7contextyAA0H8Protocol_p_So10IDSAccountCSg10Foundation0Q0VSgSSSgSo17IDSMessageContextCSgtFTf4ennnnn_nSo0H0C_Ttg5Tf4dnnnn_n(uint64_t (*a1)(uint64_t a1), unint64_t a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(uint64_t a1), uint64_t (*a6)(uint64_t a1))
 {
-  v306 = a5;
-  v304 = a3;
-  v291 = type metadata accessor for NearbyProtoJoinResponse(0);
-  v10 = *(*(v291 - 8) + 64);
-  __chkstk_darwin(v291);
-  v292 = &v271 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for DispatchWorkItemFlags();
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12);
-  v15 = &v271 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v282 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
-  v285 = *(v282 - 8);
-  v16 = *(v285 + 64);
-  v17 = __chkstk_darwin(v282);
-  v278 = &v271 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __chkstk_darwin(v17);
-  v276 = &v271 - v20;
-  v277 = v21;
-  __chkstk_darwin(v19);
-  v280 = &v271 - v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = __chkstk_darwin(v23 - 8);
-  v281 = &v271 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = __chkstk_darwin(v25);
-  v286 = &v271 - v28;
-  v29 = __chkstk_darwin(v27);
-  v283 = &v271 - v30;
-  __chkstk_darwin(v29);
-  v284 = &v271 - v31;
-  v32 = type metadata accessor for String.Encoding();
-  v33 = *(*(v32 - 8) + 64);
-  __chkstk_darwin(v32 - 8);
-  v287 = &v271 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v293 = type metadata accessor for NearbyProtoJoinRequest(0);
-  v35 = *(*(v293 - 8) + 64);
-  v36 = __chkstk_darwin(v293);
-  v288 = &v271 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v290 = a5;
+  v288 = a3;
+  v275 = type metadata accessor for NearbyProtoJoinResponse(0);
+  __chkstk_darwin(v275);
+  v276 = &v255 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for DispatchWorkItemFlags();
+  __chkstk_darwin(v11);
+  v13 = &v255 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v266 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
+  v269 = *(v266 - 8);
+  v14 = __chkstk_darwin(v266);
+  v262 = &v255 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __chkstk_darwin(v14);
+  v260 = &v255 - v17;
+  v261 = v18;
+  __chkstk_darwin(v16);
+  v264 = &v255 - v19;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+  v21 = __chkstk_darwin(v20 - 8);
+  v265 = &v255 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = __chkstk_darwin(v21);
+  v270 = &v255 - v24;
+  v25 = __chkstk_darwin(v23);
+  v267 = &v255 - v26;
+  __chkstk_darwin(v25);
+  v268 = &v255 - v27;
+  v28 = type metadata accessor for String.Encoding();
+  __chkstk_darwin(v28 - 8);
+  v271 = &v255 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v277 = type metadata accessor for NearbyProtoJoinRequest(0);
+  v30 = __chkstk_darwin(v277);
+  v272 = &v255 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v30);
+  v278 = &v255 - v32;
+  v33 = type metadata accessor for BinaryDecodingOptions();
+  v34 = __chkstk_darwin(v33 - 8);
+  v274 = &v255 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = __chkstk_darwin(v34);
+  v273 = &v255 - v37;
   __chkstk_darwin(v36);
-  v294 = &v271 - v38;
-  v39 = type metadata accessor for BinaryDecodingOptions();
-  v40 = *(*(v39 - 8) + 64);
-  v41 = __chkstk_darwin(v39 - 8);
-  v290 = &v271 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v284 = &v255 - v38;
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMR);
+  __chkstk_darwin(v39 - 8);
+  v289 = &v255 - v40;
+  v286 = type metadata accessor for NearbyProtoSessionMessage(0);
+  v285 = *(v286 - 8);
+  v41 = __chkstk_darwin(v286);
+  v279 = &v255 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
   v43 = __chkstk_darwin(v41);
-  v289 = &v271 - v44;
+  v281 = &v255 - v44;
   __chkstk_darwin(v43);
-  v300 = &v271 - v45;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMR);
-  v47 = *(*(v46 - 8) + 64);
-  __chkstk_darwin(v46 - 8);
-  v305 = &v271 - v48;
-  v302 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v301 = *(v302 - 8);
-  v49 = *(v301 + 64);
-  v50 = __chkstk_darwin(v302);
-  v295 = &v271 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = __chkstk_darwin(v50);
-  v297 = &v271 - v53;
-  __chkstk_darwin(v52);
-  v55 = &v271 - v54;
-  v56 = type metadata accessor for DispatchPredicate();
-  v57 = *(v56 - 8);
-  v58 = *(v57 + 64);
-  __chkstk_darwin(v56);
-  v60 = (&v271 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v298 = a6;
-  v61 = *(a6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v60 = v61;
-  (*(v57 + 104))(v60, enum case for DispatchPredicate.onQueue(_:), v56);
-  v279 = v61;
-  LOBYTE(v61) = _dispatchPreconditionTest(_:)();
-  (*(v57 + 8))(v60, v56);
-  if (v61)
+  v46 = &v255 - v45;
+  v47 = type metadata accessor for DispatchPredicate();
+  v48 = *(v47 - 8);
+  __chkstk_darwin(v47);
+  v50 = (&v255 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v282 = a6;
+  v51 = *(a6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v50 = v51;
+  (*(v48 + 104))(v50, enum case for DispatchPredicate.onQueue(_:), v47);
+  v263 = v51;
+  LOBYTE(v51) = _dispatchPreconditionTest(_:)();
+  (*(v48 + 8))(v50, v47);
+  if (v51)
   {
-    v274 = v12;
-    v275 = v15;
+    v258 = v11;
+    v259 = v13;
     if (one-time initialization token for host == -1)
     {
       goto LABEL_3;
@@ -13488,57 +11181,57 @@ void _s44com_apple_SharePlay_NearbyInvitationsService0E20IDSServiceControllerC30
 
   swift_once();
 LABEL_3:
-  v62 = type metadata accessor for Logger();
-  v63 = __swift_project_value_buffer(v62, static Log.host);
-  v64 = v306;
+  v52 = type metadata accessor for Logger();
+  v53 = __swift_project_value_buffer(v52, static Log.host);
+  v54 = v290;
 
-  v65 = Logger.logObject.getter();
-  v66 = static os_log_type_t.default.getter();
-  v303 = v64;
+  v55 = Logger.logObject.getter();
+  v56 = static os_log_type_t.default.getter();
+  v287 = v54;
 
-  if (os_log_type_enabled(v65, v66))
+  if (os_log_type_enabled(v55, v56))
   {
-    v299 = v63;
-    v296 = v55;
-    v67 = a1;
-    v68 = a2;
-    v69 = swift_slowAlloc();
-    v70 = swift_slowAlloc();
-    v71 = swift_slowAlloc();
-    v311 = v71;
-    *v69 = 136315394;
+    v283 = v53;
+    v280 = v46;
+    v57 = a1;
+    v58 = a2;
+    v59 = swift_slowAlloc();
+    v60 = swift_slowAlloc();
+    v61 = swift_slowAlloc();
+    v295 = v61;
+    *v59 = 136315394;
     if (a4)
     {
-      *&aBlock = v304;
+      *&aBlock = v288;
       *(&aBlock + 1) = a4;
 
-      v72 = String.init<A>(reflecting:)();
-      v74 = v73;
+      v62 = String.init<A>(reflecting:)();
+      v64 = v63;
     }
 
     else
     {
-      v72 = 7104878;
-      v74 = 0xE300000000000000;
+      v62 = 7104878;
+      v64 = 0xE300000000000000;
     }
 
-    v75 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v74, &v311);
+    v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v62, v64, &v295);
 
-    *(v69 + 4) = v75;
-    *(v69 + 12) = 2112;
-    v76 = v303;
-    *(v69 + 14) = v303;
-    *v70 = v306;
-    v77 = v76;
-    _os_log_impl(&_mh_execute_header, v65, v66, "Handling incoming data from: %s context: %@", v69, 0x16u);
-    outlined destroy of Any?(v70, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    *(v59 + 4) = v65;
+    *(v59 + 12) = 2112;
+    v66 = v287;
+    *(v59 + 14) = v287;
+    *v60 = v290;
+    v67 = v66;
+    _os_log_impl(&_mh_execute_header, v55, v56, "Handling incoming data from: %s context: %@", v59, 0x16u);
+    outlined destroy of Any?(v60, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
 
-    __swift_destroy_boxed_opaque_existential_0Tm(v71);
+    __swift_destroy_boxed_opaque_existential_0Tm(v61);
 
-    a2 = v68;
-    a1 = v67;
-    v55 = v296;
-    v63 = v299;
+    a2 = v58;
+    a1 = v57;
+    v46 = v280;
+    v53 = v283;
   }
 
   else
@@ -13547,24 +11240,24 @@ LABEL_3:
 
   if (a4)
   {
-    v78 = String._bridgeToObjectiveC()();
+    v68 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v78 = 0;
+    v68 = 0;
   }
 
-  v79 = IDSCopyAddressDestinationForDestination();
+  v69 = IDSCopyAddressDestinationForDestination();
 
-  v80 = IDSCopyRawAddressForDestination();
-  if (!v80)
+  v70 = IDSCopyRawAddressForDestination();
+  if (!v70)
   {
     return;
   }
 
-  v81 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v83 = v82;
+  v71 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v73 = v72;
 
   if (String.count.getter() < 1 || a2 >> 60 == 15)
   {
@@ -13572,18 +11265,18 @@ LABEL_3:
     return;
   }
 
-  v84 = a2 >> 62;
+  v74 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v84 != 2)
+    if (v74 != 2)
     {
       goto LABEL_33;
     }
 
-    v86 = *(a1 + 16);
-    v85 = *(a1 + 24);
-    v87 = v85 - v86;
-    if (!__OFSUB__(v85, v86))
+    v76 = *(a1 + 2);
+    v75 = *(a1 + 3);
+    v77 = v75 - v76;
+    if (!__OFSUB__(v75, v76))
     {
       goto LABEL_26;
     }
@@ -13596,10 +11289,10 @@ LABEL_24:
       goto LABEL_121;
     }
 
-    v87 = HIDWORD(a1) - a1;
+    v77 = HIDWORD(a1) - a1;
 LABEL_26:
     outlined copy of Data._Representation(a1, a2);
-    if (v87 < 1)
+    if (v77 < 1)
     {
       goto LABEL_33;
     }
@@ -13607,7 +11300,7 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  if (v84)
+  if (v74)
   {
     goto LABEL_24;
   }
@@ -13618,132 +11311,132 @@ LABEL_26:
   }
 
 LABEL_27:
-  if (!v306)
+  if (!v290)
   {
     __break(1u);
     goto LABEL_134;
   }
 
-  v88 = [v303 toID];
-  v89 = IDSCopyAddressDestinationForDestination();
+  v78 = [v287 toID];
+  v79 = IDSCopyAddressDestinationForDestination();
 
-  v90 = IDSCopyRawAddressForDestination();
-  if (v90)
+  v80 = IDSCopyRawAddressForDestination();
+  if (v80)
   {
-    v273 = v81;
-    v91 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v81 = v92;
+    v257 = v71;
+    v81 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v71 = v82;
 
-    v93 = HIBYTE(v81) & 0xF;
-    if ((v81 & 0x2000000000000000) == 0)
+    v83 = HIBYTE(v71) & 0xF;
+    if ((v71 & 0x2000000000000000) == 0)
     {
-      v93 = v91 & 0xFFFFFFFFFFFFLL;
+      v83 = v81 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v93)
+    if (v83)
     {
-      v272 = v91;
-      v311 = a1;
-      v312 = a2;
-      v309 = 0;
+      v256 = v81;
+      v295 = a1;
+      v296 = a2;
+      v293 = 0;
       aBlock = 0u;
-      v308 = 0u;
+      v292 = 0u;
       outlined copy of Data._Representation(a1, a2);
       BinaryDecodingOptions.init()();
-      v94 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
-      v95 = v302;
+      v84 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
+      v85 = v286;
       Message.init<A>(serializedBytes:extensions:partial:options:)();
-      v300 = v94;
-      v299 = v63;
-      v271 = a4;
-      v105 = v305;
-      (*(v301 + 56))(v305, 0, 1, v95);
-      outlined init with take of NearbyProtoSessionMessage(v105, v55, type metadata accessor for NearbyProtoSessionMessage);
-      v107 = *(v298 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 24);
-      v106 = *(v298 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 32);
-      __swift_project_boxed_opaque_existential_1((v298 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service), v107);
-      (*(*(v106 + 8) + 8))(v107);
-      if (v108)
+      v284 = v84;
+      v283 = v53;
+      v255 = a4;
+      v95 = v289;
+      (v285[7])(v289, 0, 1, v85);
+      outlined init with take of NearbyProtoSessionMessage(v95, v46, type metadata accessor for NearbyProtoSessionMessage);
+      v97 = *(v282 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 24);
+      v96 = *(v282 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 32);
+      __swift_project_boxed_opaque_existential_1((v282 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service), v97);
+      (*(*(v96 + 8) + 8))(v97);
+      if (v98)
       {
-        v109 = objc_allocWithZone(IDSServiceProperties);
-        v110 = String._bridgeToObjectiveC()();
+        v99 = objc_allocWithZone(IDSServiceProperties);
+        v100 = String._bridgeToObjectiveC()();
 
-        v111 = [v109 initWithServiceIdentifier:v110];
+        v101 = [v99 initWithServiceIdentifier:v100];
 
-        if (v111)
+        if (v101)
         {
-          v112 = v302;
-          v113 = &v55[*(v302 + 24)];
-          v114 = v297;
-          if (v113[9] & 1) == 0 && (v113[8])
+          v102 = v286;
+          v103 = &v46[*(v286 + 24)];
+          v104 = v281;
+          if (v103[9] & 1) == 0 && (v103[8])
           {
-            v115 = *v113;
-            if (v115 <= 2)
+            v105 = *v103;
+            if (v105 <= 2)
             {
-              if (v115)
+              if (v105)
               {
-                if (v115 != 1)
+                if (v105 != 1)
                 {
-                  v296 = v55;
+                  v280 = v46;
 
-                  v161 = Logger.logObject.getter();
-                  v162 = static os_log_type_t.info.getter();
-                  if (os_log_type_enabled(v161, v162))
+                  v151 = Logger.logObject.getter();
+                  v152 = static os_log_type_t.info.getter();
+                  if (os_log_type_enabled(v151, v152))
                   {
-                    v163 = swift_slowAlloc();
-                    *v163 = 0;
-                    _os_log_impl(&_mh_execute_header, v161, v162, "Handling join response", v163, 2u);
+                    v153 = swift_slowAlloc();
+                    *v153 = 0;
+                    _os_log_impl(&_mh_execute_header, v151, v152, "Handling join response", v153, 2u);
                   }
 
-                  v164 = &v296[*(v112 + 28)];
-                  v165 = *v164;
-                  v166 = v164[1];
-                  if (v166 >> 60 == 15)
+                  v154 = &v280[*(v102 + 28)];
+                  v155 = *v154;
+                  v156 = v154[1];
+                  if (v156 >> 60 == 15)
                   {
-                    v167 = 0;
+                    v157 = 0;
                   }
 
                   else
                   {
-                    v167 = *v164;
+                    v157 = *v154;
                   }
 
-                  v168 = 0xC000000000000000;
-                  if (v166 >> 60 != 15)
+                  v158 = 0xC000000000000000;
+                  if (v156 >> 60 != 15)
                   {
-                    v168 = v166;
+                    v158 = v156;
                   }
 
-                  v311 = v167;
-                  v312 = v168;
-                  v309 = 0;
+                  v295 = v157;
+                  v296 = v158;
+                  v293 = 0;
                   aBlock = 0u;
-                  v308 = 0u;
-                  outlined copy of Data?(v165, v166);
+                  v292 = 0u;
+                  outlined copy of Data?(v155, v156);
                   BinaryDecodingOptions.init()();
-                  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse and conformance NearbyProtoJoinResponse, type metadata accessor for NearbyProtoJoinResponse);
-                  v169 = v292;
-                  v170 = v291;
-                  v171 = Message.init<A>(serializedBytes:extensions:partial:options:)();
-                  v188 = (*((swift_isaMask & *v298) + 0xB8))(v171);
-                  v189 = v188;
-                  if (!*(v188 + 16) || (v190 = specialized __RawDictionaryStorage.find<A>(_:)(v273, v83), (v191 & 1) == 0))
+                  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse and conformance NearbyProtoJoinResponse, type metadata accessor for NearbyProtoJoinResponse, &protocol conformance descriptor for NearbyProtoJoinResponse);
+                  v159 = v276;
+                  v160 = v275;
+                  v161 = Message.init<A>(serializedBytes:extensions:partial:options:)();
+                  v178 = (*((swift_isaMask & *v282) + 0xB8))(v161);
+                  v179 = v178;
+                  if (!*(v178 + 16) || (v180 = specialized __RawDictionaryStorage.find<A>(_:)(v257, v73), (v181 & 1) == 0))
                   {
 
-                    v199 = Logger.logObject.getter();
-                    v200 = static os_log_type_t.error.getter();
+                    v189 = Logger.logObject.getter();
+                    v190 = static os_log_type_t.error.getter();
 
-                    if (os_log_type_enabled(v199, v200))
+                    if (os_log_type_enabled(v189, v190))
                     {
-                      v201 = swift_slowAlloc();
+                      v191 = swift_slowAlloc();
                       *&aBlock = swift_slowAlloc();
-                      *v201 = 136315394;
-                      *(v201 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004FLL, 0x80000001000D0250, &aBlock);
-                      *(v201 + 12) = 2080;
-                      v202 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v273, v83, &aBlock);
+                      *v191 = 136315394;
+                      *(v191 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004FLL, 0x80000001000D0250, &aBlock);
+                      *(v191 + 12) = 2080;
+                      v192 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v257, v73, &aBlock);
 
-                      *(v201 + 14) = v202;
-                      _os_log_impl(&_mh_execute_header, v199, v200, "%s No credentials to parse join response for: %s", v201, 0x16u);
+                      *(v191 + 14) = v192;
+                      _os_log_impl(&_mh_execute_header, v189, v190, "%s No credentials to parse join response for: %s", v191, 0x16u);
                       swift_arrayDestroy();
                     }
 
@@ -13752,209 +11445,209 @@ LABEL_27:
                     }
 
                     outlined consume of Data?(a1, a2);
-                    v236 = type metadata accessor for NearbyProtoJoinResponse;
-                    v203 = v169;
+                    v226 = type metadata accessor for NearbyProtoJoinResponse;
+                    v193 = v159;
                     goto LABEL_132;
                   }
 
-                  v192 = v190;
-                  v305 = v111;
+                  v182 = v180;
+                  v289 = v101;
 
-                  v193 = *(*(v189 + 56) + 8 * v192);
+                  v183 = *(*(v179 + 56) + 8 * v182);
 
-                  v194 = &v169[*(v170 + 20)];
-                  v195 = v194[1];
-                  if (v195 >> 60 == 15)
+                  v184 = &v159[*(v160 + 20)];
+                  v185 = v184[1];
+                  if (v185 >> 60 == 15)
                   {
-                    v196 = 0;
+                    v186 = 0;
                   }
 
                   else
                   {
-                    v196 = *v194;
+                    v186 = *v184;
                   }
 
-                  if (v195 >> 60 == 15)
+                  if (v185 >> 60 == 15)
                   {
-                    v197 = 0xC000000000000000;
+                    v187 = 0xC000000000000000;
                   }
 
                   else
                   {
-                    v197 = v194[1];
+                    v187 = v184[1];
                   }
 
-                  v198 = *(*v193 + 152);
-                  outlined copy of Data?(*v194, v195);
-                  v231 = v198(v196, v197);
-                  v233 = v232;
-                  outlined consume of Data._Representation(v196, v197);
-                  v234 = v298;
-                  v235 = v305;
-                  specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v231, v233, 2, 1, v305, v234);
+                  v188 = *(*v183 + 152);
+                  outlined copy of Data?(*v184, v185);
+                  v221 = v188(v186, v187);
+                  v223 = v222;
+                  outlined consume of Data._Representation(v186, v187);
+                  v224 = v282;
+                  v225 = v289;
+                  specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v221, v223, 2, 1, v289, v224);
 
-                  outlined consume of Data._Representation(v231, v233);
+                  outlined consume of Data._Representation(v221, v223);
 
                   outlined consume of Data?(a1, a2);
-                  v236 = type metadata accessor for NearbyProtoJoinResponse;
-                  v237 = &aBlock + 8;
+                  v226 = type metadata accessor for NearbyProtoJoinResponse;
+                  v227 = &aBlock + 8;
 LABEL_131:
-                  v203 = *(v237 - 32);
+                  v193 = *(v227 - 32);
 LABEL_132:
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v203, v236);
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v296, type metadata accessor for NearbyProtoSessionMessage);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v193, v226);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v280, type metadata accessor for NearbyProtoSessionMessage);
                   return;
                 }
 
-                v116 = v302;
+                v106 = v286;
 
-                v117 = Logger.logObject.getter();
-                v118 = static os_log_type_t.info.getter();
-                if (os_log_type_enabled(v117, v118))
+                v107 = Logger.logObject.getter();
+                v108 = static os_log_type_t.info.getter();
+                if (os_log_type_enabled(v107, v108))
                 {
-                  v119 = swift_slowAlloc();
-                  *v119 = 0;
-                  _os_log_impl(&_mh_execute_header, v117, v118, "Handling join request", v119, 2u);
-                  v116 = v302;
+                  v109 = swift_slowAlloc();
+                  *v109 = 0;
+                  _os_log_impl(&_mh_execute_header, v107, v108, "Handling join request", v109, 2u);
+                  v106 = v286;
                 }
 
-                v120 = &v55[*(v116 + 28)];
-                v121 = *v120;
-                v122 = v120[1];
-                if (v122 >> 60 == 15)
+                v110 = &v46[*(v106 + 28)];
+                v111 = *v110;
+                v112 = v110[1];
+                if (v112 >> 60 == 15)
                 {
-                  v123 = 0;
+                  v113 = 0;
                 }
 
                 else
                 {
-                  v123 = *v120;
+                  v113 = *v110;
                 }
 
-                v124 = 0xC000000000000000;
-                if (v122 >> 60 != 15)
+                v114 = 0xC000000000000000;
+                if (v112 >> 60 != 15)
                 {
-                  v124 = v122;
+                  v114 = v112;
                 }
 
-                v311 = v123;
-                v312 = v124;
-                v309 = 0;
+                v295 = v113;
+                v296 = v114;
+                v293 = 0;
                 aBlock = 0u;
-                v308 = 0u;
-                outlined copy of Data?(v121, v122);
+                v292 = 0u;
+                outlined copy of Data?(v111, v112);
                 BinaryDecodingOptions.init()();
-                lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest and conformance NearbyProtoJoinRequest, type metadata accessor for NearbyProtoJoinRequest);
-                v125 = v294;
+                lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest and conformance NearbyProtoJoinRequest, type metadata accessor for NearbyProtoJoinRequest, &protocol conformance descriptor for NearbyProtoJoinRequest);
+                v115 = v278;
                 Message.init<A>(serializedBytes:extensions:partial:options:)();
-                v305 = v111;
-                v301 = a1;
-                v302 = a2;
-                v172 = v288;
-                outlined init with copy of NearbyProtoJoinRequest.Content(v125, v288, type metadata accessor for NearbyProtoJoinRequest);
-                v173 = Logger.logObject.getter();
-                v174 = static os_log_type_t.default.getter();
-                v175 = os_log_type_enabled(v173, v174);
-                v296 = v55;
-                if (v175)
+                v289 = v101;
+                v285 = a1;
+                v286 = a2;
+                v162 = v272;
+                outlined init with copy of NearbyProtoJoinRequest.Content(v115, v272, type metadata accessor for NearbyProtoJoinRequest);
+                v163 = Logger.logObject.getter();
+                v164 = static os_log_type_t.default.getter();
+                v165 = os_log_type_enabled(v163, v164);
+                v280 = v46;
+                if (v165)
                 {
-                  v176 = swift_slowAlloc();
-                  v177 = swift_slowAlloc();
-                  v311 = v177;
-                  *v176 = 136315138;
-                  v178 = (v172 + *(v293 + 20));
-                  v179 = v178[1];
-                  if (v179 >> 60 == 15)
+                  v166 = swift_slowAlloc();
+                  v167 = swift_slowAlloc();
+                  v295 = v167;
+                  *v166 = 136315138;
+                  v168 = (v162 + *(v277 + 20));
+                  v169 = v168[1];
+                  if (v169 >> 60 == 15)
                   {
-                    v180 = 0;
+                    v170 = 0;
                   }
 
                   else
                   {
-                    v180 = *v178;
+                    v170 = *v168;
                   }
 
-                  if (v179 >> 60 == 15)
+                  if (v169 >> 60 == 15)
                   {
-                    v181 = 0xC000000000000000;
+                    v171 = 0xC000000000000000;
                   }
 
                   else
                   {
-                    v181 = v178[1];
+                    v171 = v168[1];
                   }
 
-                  outlined copy of Data?(*v178, v179);
+                  outlined copy of Data?(*v168, v169);
                   static String.Encoding.utf8.getter();
-                  v182 = String.init(data:encoding:)();
-                  v184 = v183;
-                  outlined consume of Data._Representation(v180, v181);
-                  if (v184)
+                  v172 = String.init(data:encoding:)();
+                  v174 = v173;
+                  outlined consume of Data._Representation(v170, v171);
+                  if (v174)
                   {
-                    *&aBlock = v182;
-                    *(&aBlock + 1) = v184;
-                    v185 = String.init<A>(reflecting:)();
-                    v187 = v186;
+                    *&aBlock = v172;
+                    *(&aBlock + 1) = v174;
+                    v175 = String.init<A>(reflecting:)();
+                    v177 = v176;
                   }
 
                   else
                   {
-                    v185 = 7104878;
-                    v187 = 0xE300000000000000;
+                    v175 = 7104878;
+                    v177 = 0xE300000000000000;
                   }
 
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v288, type metadata accessor for NearbyProtoJoinRequest);
-                  v204 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v185, v187, &v311);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v272, type metadata accessor for NearbyProtoJoinRequest);
+                  v194 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v175, v177, &v295);
 
-                  *(v176 + 4) = v204;
-                  _os_log_impl(&_mh_execute_header, v173, v174, "Attempting to decrypt data with publicKey: %s", v176, 0xCu);
-                  __swift_destroy_boxed_opaque_existential_0Tm(v177);
+                  *(v166 + 4) = v194;
+                  _os_log_impl(&_mh_execute_header, v163, v164, "Attempting to decrypt data with publicKey: %s", v166, 0xCu);
+                  __swift_destroy_boxed_opaque_existential_0Tm(v167);
 
-                  v125 = v294;
+                  v115 = v278;
                 }
 
                 else
                 {
 
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v172, type metadata accessor for NearbyProtoJoinRequest);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v162, type metadata accessor for NearbyProtoJoinRequest);
                 }
 
-                v205 = v298;
-                v206 = v272;
-                v207 = (*((swift_isaMask & **(v298 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController)) + 0xC0))(v125, v272, v81);
-                v83 = v208;
-                a4 = v209;
-                v300 = v207;
-                v303 = v210;
-                v211 = swift_allocObject();
-                v212 = v304;
-                v211[2] = v205;
-                v211[3] = v212;
-                v211[4] = v271;
-                v211[5] = v206;
-                v211[6] = v81;
-                v211[7] = v83;
-                v211[8] = a4;
-                v213 = objc_opt_self();
+                v195 = v282;
+                v196 = v256;
+                v197 = (*((swift_isaMask & **(v282 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController)) + 0xC0))(v115, v256, v71);
+                v73 = v198;
+                a4 = v199;
+                v284 = v197;
+                v287 = v200;
+                v201 = swift_allocObject();
+                v202 = v288;
+                v201[2] = v195;
+                v201[3] = v202;
+                v201[4] = v255;
+                v201[5] = v196;
+                v201[6] = v71;
+                v201[7] = v73;
+                v201[8] = a4;
+                v203 = objc_opt_self();
 
-                v214 = v205;
+                v204 = v195;
 
-                outlined copy of Data._Representation(v83, a4);
+                outlined copy of Data._Representation(v73, a4);
 
-                v306 = v214;
+                v290 = v204;
 
-                outlined copy of Data._Representation(v83, a4);
-                v299 = [v213 getBlastDoorSharedConnection];
-                if (v299)
+                outlined copy of Data._Representation(v73, a4);
+                v283 = [v203 getBlastDoorSharedConnection];
+                if (v283)
                 {
                   type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for NSNumber, NSNumber_ptr);
-                  v215 = v305;
+                  v205 = v289;
                   isa = NSNumber.init(integerLiteral:)(0).super.super.isa;
-                  v217 = [objc_allocWithZone(IDSBlastDoorMessageContext) initWithService:v215 command:isa];
+                  v207 = [objc_allocWithZone(IDSBlastDoorMessageContext) initWithService:v205 command:isa];
 
-                  if (v217)
+                  if (v207)
                   {
-                    [v217 setPayloadType:1];
+                    [v207 setPayloadType:1];
                     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
                     inited = swift_initStackObject();
                     *(inited + 16) = xmmword_1000CA970;
@@ -13965,342 +11658,338 @@ LABEL_132:
                     *(inited + 80) = 0x64616F6C796170;
                     *(inited + 120) = &type metadata for Data;
                     *(inited + 88) = 0xE700000000000000;
-                    v219 = v300;
-                    v220 = v303;
-                    *(inited + 96) = v300;
-                    *(inited + 104) = v220;
-                    outlined copy of Data._Representation(v219, v220);
-                    v221 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
+                    v209 = v284;
+                    v210 = v287;
+                    *(inited + 96) = v284;
+                    *(inited + 104) = v210;
+                    outlined copy of Data._Representation(v209, v210);
+                    v211 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
                     swift_setDeallocating();
                     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
                     swift_arrayDestroy();
-                    specialized _dictionaryUpCast<A, B, C, D>(_:)(v221);
+                    specialized _dictionaryUpCast<A, B, C, D>(_:)(v211);
 
-                    v222 = Dictionary._bridgeToObjectiveC()().super.isa;
+                    v212 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-                    v223 = swift_allocObject();
-                    *(v223 + 16) = 1;
-                    *(v223 + 24) = 1;
-                    *(v223 + 32) = closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
-                    *(v223 + 40) = v211;
-                    v309 = closure #1 in NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)specialized partial apply;
-                    v310 = v223;
+                    v213 = swift_allocObject();
+                    *(v213 + 16) = 1;
+                    *(v213 + 24) = 1;
+                    *(v213 + 32) = closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
+                    *(v213 + 40) = v201;
+                    v293 = closure #1 in NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)specialized partial apply;
+                    v294 = v213;
                     *&aBlock = _NSConcreteStackBlock;
                     *(&aBlock + 1) = 1107296256;
-                    *&v308 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed [AnyHashable : Any]?, @unowned IDSClientMessageType, @guaranteed Error?) -> ();
-                    *(&v308 + 1) = &block_descriptor_91;
-                    v224 = _Block_copy(&aBlock);
+                    *&v292 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed [AnyHashable : Any]?, @unowned IDSClientMessageType, @guaranteed Error?) -> ();
+                    *(&v292 + 1) = &block_descriptor_91;
+                    v214 = _Block_copy(&aBlock);
 
-                    v225 = v299;
-                    [v299 diffuseClientMessage:v222 context:v217 withCompletionBlock:v224];
-                    _Block_release(v224);
+                    v215 = v283;
+                    [v283 diffuseClientMessage:v212 context:v207 withCompletionBlock:v214];
+                    _Block_release(v214);
 
-                    outlined consume of Data._Representation(v300, v220);
+                    outlined consume of Data._Representation(v284, v210);
 
 LABEL_130:
-                    outlined consume of Data._Representation(v83, a4);
-                    outlined consume of Data._Representation(v83, a4);
-                    outlined consume of Data?(v301, v302);
-                    v236 = type metadata accessor for NearbyProtoJoinRequest;
-                    v237 = &v308 + 8;
+                    outlined consume of Data._Representation(v73, a4);
+                    outlined consume of Data._Representation(v73, a4);
+                    outlined consume of Data?(v285, v286);
+                    v226 = type metadata accessor for NearbyProtoJoinRequest;
+                    v227 = &v292 + 8;
                     goto LABEL_131;
                   }
 
-                  v238 = v285;
-                  v239 = v286;
-                  v240 = v282;
-                  (*(v285 + 56))(v286, 1, 1, v282);
-                  v241 = v239;
-                  v242 = v281;
-                  outlined init with copy of (String, Any)(v241, v281, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-                  if ((*(v238 + 48))(v242, 1, v240) == 1)
+                  v228 = v269;
+                  v229 = v270;
+                  v230 = v266;
+                  (*(v269 + 56))(v270, 1, 1, v266);
+                  v231 = v229;
+                  v232 = v265;
+                  outlined init with copy of (String, Any)(v231, v265, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                  if ((*(v228 + 48))(v232, 1, v230) == 1)
                   {
-                    outlined destroy of Any?(v281, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                    outlined destroy of Any?(v265, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
                   }
 
                   else
                   {
-                    v298 = type metadata accessor for NearbyProtoJoinRequest.Content;
-                    v257 = v276;
-                    outlined init with take of NearbyProtoSessionMessage(v281, v276, type metadata accessor for NearbyProtoJoinRequest.Content);
-                    v258 = v278;
-                    outlined init with copy of NearbyProtoJoinRequest.Content(v257, v278, type metadata accessor for NearbyProtoJoinRequest.Content);
-                    v259 = (*(v285 + 80) + 24) & ~*(v285 + 80);
-                    v260 = (v277 + v259 + 7) & 0xFFFFFFFFFFFFFFF8;
-                    v261 = (v260 + 23) & 0xFFFFFFFFFFFFFFF8;
-                    v262 = swift_allocObject();
-                    *(v262 + 16) = v306;
-                    outlined init with take of NearbyProtoSessionMessage(v258, v262 + v259, v298);
-                    v263 = (v262 + v260);
-                    v264 = v271;
-                    *v263 = v304;
-                    v263[1] = v264;
-                    v265 = (v262 + v261);
-                    *v265 = v272;
-                    v265[1] = v81;
-                    v266 = (v262 + ((v261 + 23) & 0xFFFFFFFFFFFFFFF8));
-                    *v266 = v83;
-                    v266[1] = a4;
-                    v309 = closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
-                    v310 = v262;
+                    v282 = type metadata accessor for NearbyProtoJoinRequest.Content;
+                    v244 = v260;
+                    outlined init with take of NearbyProtoSessionMessage(v265, v260, type metadata accessor for NearbyProtoJoinRequest.Content);
+                    v245 = v262;
+                    outlined init with copy of NearbyProtoJoinRequest.Content(v244, v262, type metadata accessor for NearbyProtoJoinRequest.Content);
+                    v246 = (*(v269 + 80) + 24) & ~*(v269 + 80);
+                    v247 = (v261 + v246 + 7) & 0xFFFFFFFFFFFFFFF8;
+                    v248 = (v247 + 23) & 0xFFFFFFFFFFFFFFF8;
+                    v249 = swift_allocObject();
+                    *(v249 + 16) = v290;
+                    outlined init with take of NearbyProtoSessionMessage(v245, v249 + v246, v282);
+                    v250 = (v249 + v247);
+                    v251 = v255;
+                    *v250 = v288;
+                    v250[1] = v251;
+                    v252 = (v249 + v248);
+                    *v252 = v256;
+                    v252[1] = v71;
+                    v253 = (v249 + ((v248 + 23) & 0xFFFFFFFFFFFFFFF8));
+                    *v253 = v73;
+                    v253[1] = a4;
+                    v293 = closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
+                    v294 = v249;
                     *&aBlock = _NSConcreteStackBlock;
                     *(&aBlock + 1) = 1107296256;
-                    *&v308 = thunk for @escaping @callee_guaranteed () -> ();
-                    *(&v308 + 1) = &block_descriptor_84_0;
+                    *&v292 = thunk for @escaping @callee_guaranteed () -> ();
+                    *(&v292 + 1) = &block_descriptor_84_0;
                     _Block_copy(&aBlock);
-                    v311 = _swiftEmptyArrayStorage;
+                    v295 = _swiftEmptyArrayStorage;
 
-                    v267 = v306;
+                    v254 = v290;
 
-                    outlined copy of Data._Representation(v83, a4);
-                    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
+                    outlined copy of Data._Representation(v73, a4);
+                    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
                     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
                     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
                     dispatch thunk of SetAlgebra.init<A>(_:)();
-                    v268 = type metadata accessor for DispatchWorkItem();
-                    v269 = *(v268 + 48);
-                    v270 = *(v268 + 52);
+                    type metadata accessor for DispatchWorkItem();
                     swift_allocObject();
                     DispatchWorkItem.init(flags:block:)();
 
                     OS_dispatch_queue.async(execute:)();
 
-                    outlined destroy of NearbyProtoConnectionResponse.Content(v276, type metadata accessor for NearbyProtoJoinRequest.Content);
+                    outlined destroy of NearbyProtoConnectionResponse.Content(v260, type metadata accessor for NearbyProtoJoinRequest.Content);
                   }
 
 LABEL_129:
-                  outlined destroy of Any?(v286, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                  outlined destroy of Any?(v270, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
 
-                  outlined consume of Data._Representation(v300, v303);
+                  outlined consume of Data._Representation(v284, v287);
 
                   goto LABEL_130;
                 }
 
 LABEL_121:
-                v226 = v285;
-                v227 = v284;
-                v228 = v282;
-                (*(v285 + 56))(v284, 1, 1, v282);
-                v229 = v227;
-                v230 = v283;
-                outlined init with copy of (String, Any)(v229, v283, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-                if ((*(v226 + 48))(v230, 1, v228) == 1)
+                v216 = v269;
+                v217 = v268;
+                v218 = v266;
+                (*(v269 + 56))(v268, 1, 1, v266);
+                v219 = v217;
+                v220 = v267;
+                outlined init with copy of (String, Any)(v219, v267, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                if ((*(v216 + 48))(v220, 1, v218) == 1)
                 {
-                  outlined destroy of Any?(v283, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                  outlined destroy of Any?(v267, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
                 }
 
                 else
                 {
-                  v299 = type metadata accessor for NearbyProtoJoinRequest.Content;
-                  v243 = v280;
-                  outlined init with take of NearbyProtoSessionMessage(v283, v280, type metadata accessor for NearbyProtoJoinRequest.Content);
-                  v244 = v278;
-                  outlined init with copy of NearbyProtoJoinRequest.Content(v243, v278, type metadata accessor for NearbyProtoJoinRequest.Content);
-                  v245 = (*(v285 + 80) + 24) & ~*(v285 + 80);
-                  v246 = (v277 + v245 + 7) & 0xFFFFFFFFFFFFFFF8;
-                  v247 = (v246 + 23) & 0xFFFFFFFFFFFFFFF8;
-                  v248 = swift_allocObject();
-                  *(v248 + 16) = v306;
-                  outlined init with take of NearbyProtoSessionMessage(v244, v248 + v245, v299);
-                  v249 = (v248 + v246);
-                  v250 = v271;
-                  *v249 = v304;
-                  v249[1] = v250;
-                  v251 = (v248 + v247);
-                  *v251 = v272;
-                  v251[1] = v81;
-                  v252 = (v248 + ((v247 + 23) & 0xFFFFFFFFFFFFFFF8));
-                  *v252 = v83;
-                  v252[1] = a4;
-                  v309 = closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
-                  v310 = v248;
+                  v283 = type metadata accessor for NearbyProtoJoinRequest.Content;
+                  v233 = v264;
+                  outlined init with take of NearbyProtoSessionMessage(v267, v264, type metadata accessor for NearbyProtoJoinRequest.Content);
+                  v234 = v262;
+                  outlined init with copy of NearbyProtoJoinRequest.Content(v233, v262, type metadata accessor for NearbyProtoJoinRequest.Content);
+                  v235 = (*(v269 + 80) + 24) & ~*(v269 + 80);
+                  v236 = (v261 + v235 + 7) & 0xFFFFFFFFFFFFFFF8;
+                  v237 = (v236 + 23) & 0xFFFFFFFFFFFFFFF8;
+                  v238 = swift_allocObject();
+                  *(v238 + 16) = v290;
+                  outlined init with take of NearbyProtoSessionMessage(v234, v238 + v235, v283);
+                  v239 = (v238 + v236);
+                  v240 = v255;
+                  *v239 = v288;
+                  v239[1] = v240;
+                  v241 = (v238 + v237);
+                  *v241 = v256;
+                  v241[1] = v71;
+                  v242 = (v238 + ((v237 + 23) & 0xFFFFFFFFFFFFFFF8));
+                  *v242 = v73;
+                  v242[1] = a4;
+                  v293 = closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
+                  v294 = v238;
                   *&aBlock = _NSConcreteStackBlock;
                   *(&aBlock + 1) = 1107296256;
-                  *&v308 = thunk for @escaping @callee_guaranteed () -> ();
-                  *(&v308 + 1) = &block_descriptor_77;
+                  *&v292 = thunk for @escaping @callee_guaranteed () -> ();
+                  *(&v292 + 1) = &block_descriptor_77;
                   _Block_copy(&aBlock);
-                  v311 = _swiftEmptyArrayStorage;
+                  v295 = _swiftEmptyArrayStorage;
 
-                  v253 = v306;
+                  v243 = v290;
 
-                  outlined copy of Data._Representation(v83, a4);
-                  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
+                  outlined copy of Data._Representation(v73, a4);
+                  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
                   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
                   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
                   dispatch thunk of SetAlgebra.init<A>(_:)();
-                  v254 = type metadata accessor for DispatchWorkItem();
-                  v255 = *(v254 + 48);
-                  v256 = *(v254 + 52);
+                  type metadata accessor for DispatchWorkItem();
                   swift_allocObject();
                   DispatchWorkItem.init(flags:block:)();
 
                   OS_dispatch_queue.async(execute:)();
 
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v280, type metadata accessor for NearbyProtoJoinRequest.Content);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v264, type metadata accessor for NearbyProtoJoinRequest.Content);
                 }
 
-                v286 = v284;
+                v270 = v268;
                 goto LABEL_129;
               }
 
               goto LABEL_66;
             }
 
-            if (v115 == 3)
+            if (v105 == 3)
             {
-              v305 = v111;
-              v126 = v55;
+              v289 = v101;
+              v116 = v46;
 
-              v153 = Logger.logObject.getter();
-              v154 = static os_log_type_t.info.getter();
-              if (os_log_type_enabled(v153, v154))
+              v143 = Logger.logObject.getter();
+              v144 = static os_log_type_t.info.getter();
+              if (os_log_type_enabled(v143, v144))
               {
-                v155 = swift_slowAlloc();
-                *v155 = 0;
-                _os_log_impl(&_mh_execute_header, v153, v154, "Handling connection request message", v155, 2u);
+                v145 = swift_slowAlloc();
+                *v145 = 0;
+                _os_log_impl(&_mh_execute_header, v143, v144, "Handling connection request message", v145, 2u);
               }
 
-              v156 = (v126 + *(v112 + 28));
-              v157 = *v156;
-              v158 = v156[1];
-              if (v158 >> 60 == 15)
+              v146 = (v116 + *(v102 + 28));
+              v147 = *v146;
+              v148 = v146[1];
+              if (v148 >> 60 == 15)
               {
-                v133 = 0;
-              }
-
-              else
-              {
-                v133 = *v156;
-              }
-
-              if (v158 >> 60 == 15)
-              {
-                v134 = 0xC000000000000000;
+                v123 = 0;
               }
 
               else
               {
-                v134 = v156[1];
+                v123 = *v146;
               }
 
-              v159 = v298;
-              outlined copy of Data?(v157, v158);
-              v160 = v305;
-              specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v133, v134, 3, 1, v305, v159);
+              if (v148 >> 60 == 15)
+              {
+                v124 = 0xC000000000000000;
+              }
+
+              else
+              {
+                v124 = v146[1];
+              }
+
+              v149 = v282;
+              outlined copy of Data?(v147, v148);
+              v150 = v289;
+              specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v123, v124, 3, 1, v289, v149);
 
               goto LABEL_83;
             }
 
-            if (v115 == 4)
+            if (v105 == 4)
             {
-              v305 = v111;
-              v126 = v55;
+              v289 = v101;
+              v116 = v46;
 
-              v127 = Logger.logObject.getter();
-              v128 = static os_log_type_t.info.getter();
-              if (os_log_type_enabled(v127, v128))
+              v117 = Logger.logObject.getter();
+              v118 = static os_log_type_t.info.getter();
+              if (os_log_type_enabled(v117, v118))
               {
-                v129 = swift_slowAlloc();
-                *v129 = 0;
-                _os_log_impl(&_mh_execute_header, v127, v128, "Handling connection response", v129, 2u);
+                v119 = swift_slowAlloc();
+                *v119 = 0;
+                _os_log_impl(&_mh_execute_header, v117, v118, "Handling connection response", v119, 2u);
               }
 
-              v130 = (v126 + *(v112 + 28));
-              v131 = *v130;
-              v132 = v130[1];
-              if (v132 >> 60 == 15)
+              v120 = (v116 + *(v102 + 28));
+              v121 = *v120;
+              v122 = v120[1];
+              if (v122 >> 60 == 15)
               {
-                v133 = 0;
-              }
-
-              else
-              {
-                v133 = *v130;
-              }
-
-              if (v132 >> 60 == 15)
-              {
-                v134 = 0xC000000000000000;
+                v123 = 0;
               }
 
               else
               {
-                v134 = v130[1];
+                v123 = *v120;
               }
 
-              v135 = v298;
-              outlined copy of Data?(v131, v132);
-              v136 = v305;
-              specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v133, v134, 4, 1, v305, v135);
+              if (v122 >> 60 == 15)
+              {
+                v124 = 0xC000000000000000;
+              }
+
+              else
+              {
+                v124 = v120[1];
+              }
+
+              v125 = v282;
+              outlined copy of Data?(v121, v122);
+              v126 = v289;
+              specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v123, v124, 4, 1, v289, v125);
 
 LABEL_83:
-              outlined consume of Data._Representation(v133, v134);
+              outlined consume of Data._Representation(v123, v124);
               outlined consume of Data?(a1, a2);
-              outlined destroy of NearbyProtoConnectionResponse.Content(v126, type metadata accessor for NearbyProtoSessionMessage);
+              outlined destroy of NearbyProtoConnectionResponse.Content(v116, type metadata accessor for NearbyProtoSessionMessage);
               return;
             }
           }
 
 LABEL_66:
 
-          v137 = v55;
-          outlined init with copy of NearbyProtoJoinRequest.Content(v55, v114, type metadata accessor for NearbyProtoSessionMessage);
-          v138 = v295;
-          outlined init with copy of NearbyProtoJoinRequest.Content(v55, v295, type metadata accessor for NearbyProtoSessionMessage);
-          v139 = Logger.logObject.getter();
-          v140 = static os_log_type_t.info.getter();
-          if (os_log_type_enabled(v139, v140))
+          v127 = v46;
+          outlined init with copy of NearbyProtoJoinRequest.Content(v46, v104, type metadata accessor for NearbyProtoSessionMessage);
+          v128 = v279;
+          outlined init with copy of NearbyProtoJoinRequest.Content(v46, v279, type metadata accessor for NearbyProtoSessionMessage);
+          v129 = Logger.logObject.getter();
+          v130 = static os_log_type_t.info.getter();
+          if (os_log_type_enabled(v129, v130))
           {
-            v141 = swift_slowAlloc();
-            v296 = v137;
-            v142 = v112;
-            v143 = v141;
-            v144 = swift_slowAlloc();
-            v305 = v111;
-            v145 = v144;
-            *&aBlock = v144;
-            *v143 = 134218242;
-            v146 = v114 + *(v142 + 24);
-            v147 = v114;
-            if (*(v146 + 9))
+            v131 = swift_slowAlloc();
+            v280 = v127;
+            v132 = v102;
+            v133 = v131;
+            v134 = swift_slowAlloc();
+            v289 = v101;
+            v135 = v134;
+            *&aBlock = v134;
+            *v133 = 134218242;
+            v136 = v104 + *(v132 + 24);
+            v137 = v104;
+            if (*(v136 + 9))
             {
-              v148 = 0;
+              v138 = 0;
             }
 
             else
             {
-              v148 = *v146;
+              v138 = *v136;
             }
 
-            outlined destroy of NearbyProtoConnectionResponse.Content(v147, type metadata accessor for NearbyProtoSessionMessage);
-            *(v143 + 4) = v148;
-            *(v143 + 12) = 2080;
-            v149 = Message.debugDescription.getter();
-            v151 = v150;
-            outlined destroy of NearbyProtoConnectionResponse.Content(v138, type metadata accessor for NearbyProtoSessionMessage);
-            v152 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v149, v151, &aBlock);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v137, type metadata accessor for NearbyProtoSessionMessage);
+            *(v133 + 4) = v138;
+            *(v133 + 12) = 2080;
+            v139 = Message.debugDescription.getter();
+            v141 = v140;
+            outlined destroy of NearbyProtoConnectionResponse.Content(v128, type metadata accessor for NearbyProtoSessionMessage);
+            v142 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v139, v141, &aBlock);
 
-            *(v143 + 14) = v152;
-            _os_log_impl(&_mh_execute_header, v139, v140, "Not able to handle message type: %ld, message: %s", v143, 0x16u);
-            __swift_destroy_boxed_opaque_existential_0Tm(v145);
+            *(v133 + 14) = v142;
+            _os_log_impl(&_mh_execute_header, v129, v130, "Not able to handle message type: %ld, message: %s", v133, 0x16u);
+            __swift_destroy_boxed_opaque_existential_0Tm(v135);
 
             outlined consume of Data?(a1, a2);
-            outlined destroy of NearbyProtoConnectionResponse.Content(v296, type metadata accessor for NearbyProtoSessionMessage);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v280, type metadata accessor for NearbyProtoSessionMessage);
           }
 
           else
           {
-            outlined destroy of NearbyProtoConnectionResponse.Content(v114, type metadata accessor for NearbyProtoSessionMessage);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v104, type metadata accessor for NearbyProtoSessionMessage);
 
             outlined consume of Data?(a1, a2);
-            outlined destroy of NearbyProtoConnectionResponse.Content(v138, type metadata accessor for NearbyProtoSessionMessage);
-            outlined destroy of NearbyProtoConnectionResponse.Content(v137, type metadata accessor for NearbyProtoSessionMessage);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v128, type metadata accessor for NearbyProtoSessionMessage);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v127, type metadata accessor for NearbyProtoSessionMessage);
           }
 
           return;
         }
 
-        outlined destroy of NearbyProtoConnectionResponse.Content(v55, type metadata accessor for NearbyProtoSessionMessage);
+        outlined destroy of NearbyProtoConnectionResponse.Content(v46, type metadata accessor for NearbyProtoSessionMessage);
 
 LABEL_33:
 
@@ -14314,25 +12003,25 @@ LABEL_134:
     }
   }
 
-  v96 = v303;
-  v97 = Logger.logObject.getter();
-  v98 = static os_log_type_t.error.getter();
+  v86 = v287;
+  v87 = Logger.logObject.getter();
+  v88 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v97, v98))
+  if (os_log_type_enabled(v87, v88))
   {
-    v99 = swift_slowAlloc();
-    v100 = swift_slowAlloc();
-    *&aBlock = v100;
-    *v99 = 136315138;
-    v311 = v96;
+    v89 = swift_slowAlloc();
+    v90 = swift_slowAlloc();
+    *&aBlock = v90;
+    *v89 = 136315138;
+    v295 = v86;
     type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for IDSMessageContext, IDSMessageContext_ptr);
-    v101 = v96;
-    v102 = String.init<A>(reflecting:)();
-    v104 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v102, v103, &aBlock);
+    v91 = v86;
+    v92 = String.init<A>(reflecting:)();
+    v94 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v92, v93, &aBlock);
 
-    *(v99 + 4) = v104;
-    _os_log_impl(&_mh_execute_header, v97, v98, "Failed to find toID for message: %s", v99, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v100);
+    *(v89 + 4) = v94;
+    _os_log_impl(&_mh_execute_header, v87, v88, "Failed to find toID for message: %s", v89, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v90);
   }
 
   outlined consume of Data?(a1, a2);
@@ -14340,98 +12029,84 @@ LABEL_134:
 
 void _s44com_apple_SharePlay_NearbyInvitationsService0E20IDSServiceControllerC21handleIncomingMessage_7account12incomingData15fromIDWithToken7contextyAA0H8Protocol_p_So10IDSAccountCSg10Foundation0O0VSgSSSgSo17IDSMessageContextCSgtFTf4ennnnn_nSo0H0C_Ttg5Tf4dnnnn_n(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, void *a5, void *a6)
 {
-  v288 = a4;
-  v286 = a3;
+  v274 = a4;
+  v272 = a3;
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E17ProtoJoinResponseV7ContentVSgMR);
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v255 = &v248 - v12;
-  v254 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
-  v253 = *(v254 - 8);
-  v13 = *(v253 + 64);
-  __chkstk_darwin(v254);
-  v251 = &v248 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v273 = type metadata accessor for NearbyProtoJoinResponse(0);
-  v15 = *(*(v273 - 8) + 64);
-  __chkstk_darwin(v273);
-  v17 = &v248 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
-  v19 = *(*(v18 - 8) + 64);
-  v20 = __chkstk_darwin(v18 - 8);
-  v260 = &v248 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v20);
-  v257 = &v248 - v22;
-  v23 = type metadata accessor for String.Encoding();
-  v24 = *(*(v23 - 8) + 64);
-  __chkstk_darwin(v23 - 8);
-  v256 = &v248 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v274 = type metadata accessor for NearbyProtoJoinRequest(0);
-  v26 = *(*(v274 - 8) + 64);
-  v27 = __chkstk_darwin(v274);
-  v287 = &v248 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v27);
-  v275 = &v248 - v29;
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
-  v31 = *(*(v30 - 8) + 64);
-  __chkstk_darwin(v30 - 8);
-  v272 = &v248 - v32;
-  v270 = type metadata accessor for NearbyProtoConnectionResponse.Content(0);
-  v263 = *(v270 - 8);
-  v33 = *(v263 + 64);
-  __chkstk_darwin(v270);
-  v258 = &v248 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
-  v36 = *(*(v35 - 8) + 64);
-  __chkstk_darwin(v35 - 8);
-  v269 = &v248 - v37;
-  v268 = type metadata accessor for NearbyProtoConnectionRequest(0);
-  v262 = *(v268 - 8);
-  v38 = *(v262 + 64);
-  v39 = __chkstk_darwin(v268);
-  v259 = &v248 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v241 = &v234 - v11;
+  v240 = type metadata accessor for NearbyProtoJoinResponse.Content(0);
+  v239 = *(v240 - 8);
+  __chkstk_darwin(v240);
+  v237 = &v234 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v259 = type metadata accessor for NearbyProtoJoinResponse(0);
+  __chkstk_darwin(v259);
+  v14 = &v234 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
+  v16 = __chkstk_darwin(v15 - 8);
+  v246 = &v234 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v16);
+  v243 = &v234 - v18;
+  v19 = type metadata accessor for String.Encoding();
+  __chkstk_darwin(v19 - 8);
+  v242 = &v234 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v260 = type metadata accessor for NearbyProtoJoinRequest(0);
+  v21 = __chkstk_darwin(v260);
+  v273 = &v234 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v21);
+  v261 = &v234 - v23;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E23ProtoConnectionResponseV7ContentVSgMR);
+  __chkstk_darwin(v24 - 8);
+  v258 = &v234 - v25;
+  v256 = type metadata accessor for NearbyProtoConnectionResponse.Content(0);
+  v249 = *(v256 - 8);
+  __chkstk_darwin(v256);
+  v244 = &v234 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E22ProtoConnectionRequestVSgMR);
+  __chkstk_darwin(v27 - 8);
+  v255 = &v234 - v28;
+  v254 = type metadata accessor for NearbyProtoConnectionRequest(0);
+  v248 = *(v254 - 8);
+  v29 = __chkstk_darwin(v254);
+  v245 = &v234 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = __chkstk_darwin(v29);
+  v257 = (&v234 - v32);
+  __chkstk_darwin(v31);
+  v247 = &v234 - v33;
+  v34 = type metadata accessor for BinaryDecodingOptions();
+  v35 = __chkstk_darwin(v34 - 8);
+  v238 = &v234 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = __chkstk_darwin(v35);
+  v253 = &v234 - v38;
+  v39 = __chkstk_darwin(v37);
+  v251 = &v234 - v40;
   v41 = __chkstk_darwin(v39);
-  v271 = (&v248 - v42);
-  __chkstk_darwin(v41);
-  v261 = &v248 - v43;
-  v44 = type metadata accessor for BinaryDecodingOptions();
-  v45 = *(*(v44 - 8) + 64);
-  v46 = __chkstk_darwin(v44 - 8);
-  v252 = &v248 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v48 = __chkstk_darwin(v46);
-  v267 = &v248 - v49;
+  v252 = &v234 - v42;
+  v43 = __chkstk_darwin(v41);
+  v250 = &v234 - v44;
+  __chkstk_darwin(v43);
+  v264 = &v234 - v45;
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMR);
+  __chkstk_darwin(v46 - 8);
+  v266 = &v234 - v47;
+  v267 = type metadata accessor for NearbyProtoSessionMessage(0);
+  v265 = *(v267 - 1);
+  v48 = __chkstk_darwin(v267);
+  v263 = &v234 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
   v50 = __chkstk_darwin(v48);
-  v265 = &v248 - v51;
-  v52 = __chkstk_darwin(v50);
-  v266 = &v248 - v53;
-  v54 = __chkstk_darwin(v52);
-  v264 = &v248 - v55;
+  v262 = &v234 - v51;
+  __chkstk_darwin(v50);
+  v53 = &v234 - v52;
+  v54 = type metadata accessor for DispatchPredicate();
+  v55 = *(v54 - 8);
   __chkstk_darwin(v54);
-  v278 = &v248 - v56;
-  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMR);
-  v58 = *(*(v57 - 8) + 64);
-  __chkstk_darwin(v57 - 8);
-  v280 = &v248 - v59;
-  v281 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v279 = *(v281 - 8);
-  v60 = v279[8];
-  v61 = __chkstk_darwin(v281);
-  v277 = &v248 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v63 = __chkstk_darwin(v61);
-  v276 = &v248 - v64;
-  __chkstk_darwin(v63);
-  v66 = &v248 - v65;
-  v67 = type metadata accessor for DispatchPredicate();
-  v68 = *(v67 - 8);
-  v69 = *(v68 + 64);
-  __chkstk_darwin(v67);
-  v71 = (&v248 - ((v70 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v72 = *(a6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v71 = v72;
-  (*(v68 + 104))(v71, enum case for DispatchPredicate.onQueue(_:), v67);
-  v73 = v72;
-  LOBYTE(v72) = _dispatchPreconditionTest(_:)();
-  (*(v68 + 8))(v71, v67);
-  if (v72)
+  v57 = (&v234 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v58 = *(a6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v57 = v58;
+  (*(v55 + 104))(v57, enum case for DispatchPredicate.onQueue(_:), v54);
+  v59 = v58;
+  LOBYTE(v58) = _dispatchPreconditionTest(_:)();
+  (*(v55 + 8))(v57, v54);
+  if (v58)
   {
     if (one-time initialization token for host == -1)
     {
@@ -14446,67 +12121,67 @@ void _s44com_apple_SharePlay_NearbyInvitationsService0E20IDSServiceControllerC21
 
   swift_once();
 LABEL_3:
-  v74 = type metadata accessor for Logger();
-  v75 = __swift_project_value_buffer(v74, static Log.host);
-  v285 = a5;
-  v76 = a5;
-  v77 = v288;
+  v60 = type metadata accessor for Logger();
+  v61 = __swift_project_value_buffer(v60, static Log.host);
+  v271 = a5;
+  v62 = a5;
+  v63 = v274;
 
-  v78 = Logger.logObject.getter();
-  v79 = static os_log_type_t.default.getter();
-  v284 = v76;
+  v64 = Logger.logObject.getter();
+  v65 = static os_log_type_t.default.getter();
+  v270 = v62;
 
-  if (os_log_type_enabled(v78, v79))
+  if (os_log_type_enabled(v64, v65))
   {
-    v282 = v75;
-    v250 = v17;
-    v283 = v66;
-    v80 = a1;
-    v81 = a2;
-    v82 = swift_slowAlloc();
-    v83 = swift_slowAlloc();
-    v84 = swift_slowAlloc();
-    v292 = v84;
-    *v82 = 136315394;
-    v85 = a6;
-    if (v77)
+    v268 = v61;
+    v236 = v14;
+    v269 = v53;
+    v66 = a1;
+    v67 = a2;
+    v68 = swift_slowAlloc();
+    v69 = swift_slowAlloc();
+    v70 = swift_slowAlloc();
+    v278 = v70;
+    *v68 = 136315394;
+    v71 = a6;
+    if (v63)
     {
-      *&v289 = v286;
-      *(&v289 + 1) = v77;
+      *&v275 = v272;
+      *(&v275 + 1) = v63;
 
-      v86 = String.init<A>(reflecting:)();
-      v88 = v87;
+      v72 = String.init<A>(reflecting:)();
+      v74 = v73;
     }
 
     else
     {
-      v86 = 7104878;
-      v88 = 0xE300000000000000;
+      v72 = 7104878;
+      v74 = 0xE300000000000000;
     }
 
-    v90 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v86, v88, &v292);
+    v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v74, &v278);
 
-    *(v82 + 4) = v90;
-    *(v82 + 12) = 2112;
-    v92 = v284;
-    v91 = v285;
-    *(v82 + 14) = v284;
-    *v83 = v91;
-    v93 = v92;
-    _os_log_impl(&_mh_execute_header, v78, v79, "Handling incoming data from: %s context: %@", v82, 0x16u);
-    outlined destroy of Any?(v83, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    *(v68 + 4) = v76;
+    *(v68 + 12) = 2112;
+    v78 = v270;
+    v77 = v271;
+    *(v68 + 14) = v270;
+    *v69 = v77;
+    v79 = v78;
+    _os_log_impl(&_mh_execute_header, v64, v65, "Handling incoming data from: %s context: %@", v68, 0x16u);
+    outlined destroy of Any?(v69, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
 
-    __swift_destroy_boxed_opaque_existential_0Tm(v84);
+    __swift_destroy_boxed_opaque_existential_0Tm(v70);
 
-    a2 = v81;
-    a1 = v80;
-    v75 = v282;
-    v66 = v283;
-    a6 = v85;
-    v17 = v250;
-    v77 = v288;
-    v89 = v287;
-    if (v288)
+    a2 = v67;
+    a1 = v66;
+    v61 = v268;
+    v53 = v269;
+    a6 = v71;
+    v14 = v236;
+    v63 = v274;
+    v75 = v273;
+    if (v274)
     {
       goto LABEL_10;
     }
@@ -14515,24 +12190,24 @@ LABEL_3:
   else
   {
 
-    v89 = v287;
-    if (v77)
+    v75 = v273;
+    if (v63)
     {
 LABEL_10:
-      v77 = String._bridgeToObjectiveC()();
+      v63 = String._bridgeToObjectiveC()();
     }
   }
 
-  v94 = IDSCopyAddressDestinationForDestination();
+  v80 = IDSCopyAddressDestinationForDestination();
 
-  v95 = IDSCopyRawAddressForDestination();
-  if (!v95)
+  v81 = IDSCopyRawAddressForDestination();
+  if (!v81)
   {
     return;
   }
 
-  v96 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v98 = v97;
+  v82 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v84 = v83;
 
   if (String.count.getter() < 1 || a2 >> 60 == 15)
   {
@@ -14540,24 +12215,24 @@ LABEL_10:
     return;
   }
 
-  v250 = v96;
-  v99 = a2 >> 62;
+  v236 = v82;
+  v85 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    v100 = v285;
-    if (v99 != 2)
+    v86 = v271;
+    if (v85 != 2)
     {
       goto LABEL_33;
     }
 
-    v102 = *(a1 + 16);
-    v101 = *(a1 + 24);
-    v103 = v101 - v102;
-    if (!__OFSUB__(v101, v102))
+    v88 = *(a1 + 16);
+    v87 = *(a1 + 24);
+    v89 = v87 - v88;
+    if (!__OFSUB__(v87, v88))
     {
 LABEL_26:
       outlined copy of Data._Representation(a1, a2);
-      if (v103 >= 1)
+      if (v89 >= 1)
       {
         goto LABEL_27;
       }
@@ -14574,31 +12249,31 @@ LABEL_24:
     {
       __break(1u);
 LABEL_107:
-      v243 = v255;
-      (*(v253 + 56))(v255, 0, 1, v254);
-      v244 = outlined init with take of NearbyProtoSessionMessage(v243, v251, type metadata accessor for NearbyProtoJoinResponse.Content);
-      if ((*((*a2 & *v281) + 0x88))(v244))
+      v229 = v241;
+      (*(v239 + 56))(v241, 0, 1, v240);
+      v230 = outlined init with take of NearbyProtoSessionMessage(v229, v237, type metadata accessor for NearbyProtoJoinResponse.Content);
+      if ((*((*a2 & *v267) + 0x88))(v230))
       {
-        v246 = v245;
+        v232 = v231;
         ObjectType = swift_getObjectType();
-        (*(v246 + 32))(v281, &protocol witness table for NearbyIDSServiceController, v251, ObjectType, v246);
+        (*(v232 + 32))(v267, &protocol witness table for NearbyIDSServiceController, v237, ObjectType, v232);
         swift_unknownObjectRelease();
       }
 
-      outlined consume of Data._Representation(v89, v98);
-      outlined consume of Data?(v280, v278);
-      outlined destroy of NearbyProtoConnectionResponse.Content(v251, type metadata accessor for NearbyProtoJoinResponse.Content);
-      v241 = type metadata accessor for NearbyProtoJoinResponse;
-      v242 = v17;
+      outlined consume of Data._Representation(v75, v84);
+      outlined consume of Data?(v266, v264);
+      outlined destroy of NearbyProtoConnectionResponse.Content(v237, type metadata accessor for NearbyProtoJoinResponse.Content);
+      v227 = type metadata accessor for NearbyProtoJoinResponse;
+      v228 = v14;
       goto LABEL_105;
     }
 
-    v103 = HIDWORD(a1) - a1;
+    v89 = HIDWORD(a1) - a1;
     goto LABEL_26;
   }
 
-  v100 = v285;
-  if (v99)
+  v86 = v271;
+  if (v85)
   {
     goto LABEL_24;
   }
@@ -14609,60 +12284,60 @@ LABEL_107:
   }
 
 LABEL_27:
-  if (!v100)
+  if (!v86)
   {
     __break(1u);
     goto LABEL_111;
   }
 
-  v104 = [v284 toID];
-  v105 = IDSCopyAddressDestinationForDestination();
+  v90 = [v270 toID];
+  v91 = IDSCopyAddressDestinationForDestination();
 
-  v106 = IDSCopyRawAddressForDestination();
-  if (!v106)
+  v92 = IDSCopyRawAddressForDestination();
+  if (!v92)
   {
     goto LABEL_35;
   }
 
-  v283 = v66;
-  v107 = a2;
-  v108 = a1;
-  v109 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v111 = v110;
+  v269 = v53;
+  v93 = a2;
+  v94 = a1;
+  v95 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v97 = v96;
 
-  v112 = HIBYTE(v111) & 0xF;
-  v248 = v109;
-  if ((v111 & 0x2000000000000000) == 0)
+  v98 = HIBYTE(v97) & 0xF;
+  v234 = v95;
+  if ((v97 & 0x2000000000000000) == 0)
   {
-    v112 = v109 & 0xFFFFFFFFFFFFLL;
+    v98 = v95 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v112)
+  if (!v98)
   {
 
-    a1 = v108;
-    a2 = v107;
+    a1 = v94;
+    a2 = v93;
 LABEL_35:
 
-    v117 = v284;
-    v118 = Logger.logObject.getter();
-    v119 = static os_log_type_t.error.getter();
+    v103 = v270;
+    v104 = Logger.logObject.getter();
+    v105 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v118, v119))
+    if (os_log_type_enabled(v104, v105))
     {
-      v120 = swift_slowAlloc();
-      v121 = swift_slowAlloc();
-      *&v289 = v121;
-      *v120 = 136315138;
-      v292 = v117;
+      v106 = swift_slowAlloc();
+      v107 = swift_slowAlloc();
+      *&v275 = v107;
+      *v106 = 136315138;
+      v278 = v103;
       type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for IDSMessageContext, IDSMessageContext_ptr);
-      v122 = v117;
-      v123 = String.init<A>(reflecting:)();
-      v125 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v123, v124, &v289);
+      v108 = v103;
+      v109 = String.init<A>(reflecting:)();
+      v111 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v109, v110, &v275);
 
-      *(v120 + 4) = v125;
-      _os_log_impl(&_mh_execute_header, v118, v119, "Failed to find toID for message: %s", v120, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v121);
+      *(v106 + 4) = v111;
+      _os_log_impl(&_mh_execute_header, v104, v105, "Failed to find toID for message: %s", v106, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v107);
     }
 
     outlined consume of Data?(a1, a2);
@@ -14670,279 +12345,279 @@ LABEL_35:
     return;
   }
 
-  v113 = v111;
-  v249 = v98;
-  v282 = v75;
-  v291 = 0;
-  v289 = 0u;
-  v290 = 0u;
-  v114 = v108;
-  outlined copy of Data._Representation(v108, v107);
+  v99 = v97;
+  v235 = v84;
+  v268 = v61;
+  v277 = 0;
+  v275 = 0u;
+  v276 = 0u;
+  v100 = v94;
+  outlined copy of Data._Representation(v94, v93);
   BinaryDecodingOptions.init()();
-  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
-  v115 = v280;
-  v116 = v281;
+  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
+  v101 = v266;
+  v102 = v267;
   Message.init(serializedData:extensions:partial:options:)();
-  v278 = v107;
-  (v279[7])(v115, 0, 1, v116);
-  v126 = v283;
-  outlined init with take of NearbyProtoSessionMessage(v115, v283, type metadata accessor for NearbyProtoSessionMessage);
-  v127 = v126 + *(v116 + 24);
-  if (*(v127 + 9) & 1) == 0 && (*(v127 + 8))
+  v264 = v93;
+  (v265[7])(v101, 0, 1, v102);
+  v112 = v269;
+  outlined init with take of NearbyProtoSessionMessage(v101, v269, type metadata accessor for NearbyProtoSessionMessage);
+  v113 = v112 + *(v102 + 6);
+  if (*(v113 + 9) & 1) == 0 && (*(v113 + 8))
   {
-    v128 = *v127;
-    if (v128 > 2)
+    v114 = *v113;
+    if (v114 > 2)
     {
-      if (v128 == 3)
+      if (v114 == 3)
       {
 
-        v158 = Logger.logObject.getter();
-        v159 = static os_log_type_t.info.getter();
-        if (os_log_type_enabled(v158, v159))
+        v144 = Logger.logObject.getter();
+        v145 = static os_log_type_t.info.getter();
+        if (os_log_type_enabled(v144, v145))
         {
-          v160 = swift_slowAlloc();
-          *v160 = 0;
-          _os_log_impl(&_mh_execute_header, v158, v159, "Handling connection request message", v160, 2u);
+          v146 = swift_slowAlloc();
+          *v146 = 0;
+          _os_log_impl(&_mh_execute_header, v144, v145, "Handling connection request message", v146, 2u);
         }
 
-        v161 = (v126 + *(v281 + 28));
-        v162 = *v161;
-        v163 = v161[1];
-        v291 = 0;
-        v289 = 0u;
-        v290 = 0u;
-        outlined copy of Data?(v162, v163);
+        v147 = (v112 + *(v267 + 7));
+        v148 = *v147;
+        v149 = v147[1];
+        v277 = 0;
+        v275 = 0u;
+        v276 = 0u;
+        outlined copy of Data?(v148, v149);
         BinaryDecodingOptions.init()();
-        lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionRequest and conformance NearbyProtoConnectionRequest, type metadata accessor for NearbyProtoConnectionRequest);
-        v164 = v269;
-        v165 = v268;
+        lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionRequest and conformance NearbyProtoConnectionRequest, type metadata accessor for NearbyProtoConnectionRequest, &protocol conformance descriptor for NearbyProtoConnectionRequest);
+        v150 = v255;
+        v151 = v254;
         Message.init(serializedData:extensions:partial:options:)();
-        v166 = v271;
-        v281 = a6;
-        (*(v262 + 56))(v164, 0, 1, v165);
-        v175 = v261;
-        outlined init with take of NearbyProtoSessionMessage(v164, v261, type metadata accessor for NearbyProtoConnectionRequest);
-        outlined init with copy of NearbyProtoJoinRequest.Content(v175, v166, type metadata accessor for NearbyProtoConnectionRequest);
-        v176 = v259;
-        outlined init with copy of NearbyProtoJoinRequest.Content(v175, v259, type metadata accessor for NearbyProtoConnectionRequest);
-        v177 = Logger.logObject.getter();
-        v178 = static os_log_type_t.info.getter();
-        if (os_log_type_enabled(v177, v178))
+        v152 = v257;
+        v267 = a6;
+        (*(v248 + 56))(v150, 0, 1, v151);
+        v161 = v247;
+        outlined init with take of NearbyProtoSessionMessage(v150, v247, type metadata accessor for NearbyProtoConnectionRequest);
+        outlined init with copy of NearbyProtoJoinRequest.Content(v161, v152, type metadata accessor for NearbyProtoConnectionRequest);
+        v162 = v245;
+        outlined init with copy of NearbyProtoJoinRequest.Content(v161, v245, type metadata accessor for NearbyProtoConnectionRequest);
+        v163 = Logger.logObject.getter();
+        v164 = static os_log_type_t.info.getter();
+        if (os_log_type_enabled(v163, v164))
         {
-          v179 = swift_slowAlloc();
-          *&v289 = swift_slowAlloc();
-          *v179 = 136315394;
-          v180 = *v166;
-          v181 = v166[1];
+          v165 = swift_slowAlloc();
+          *&v275 = swift_slowAlloc();
+          *v165 = 136315394;
+          v166 = *v152;
+          v167 = v152[1];
 
-          outlined destroy of NearbyProtoConnectionResponse.Content(v166, type metadata accessor for NearbyProtoConnectionRequest);
-          v182 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v180, v181, &v289);
+          outlined destroy of NearbyProtoConnectionResponse.Content(v152, type metadata accessor for NearbyProtoConnectionRequest);
+          v168 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v166, v167, &v275);
 
-          *(v179 + 4) = v182;
-          *(v179 + 12) = 2080;
-          v183 = *(v176 + 16);
-          v184 = *(v176 + 24);
+          *(v165 + 4) = v168;
+          *(v165 + 12) = 2080;
+          v169 = *(v162 + 16);
+          v170 = *(v162 + 24);
 
-          v175 = v261;
-          outlined destroy of NearbyProtoConnectionResponse.Content(v176, type metadata accessor for NearbyProtoConnectionRequest);
-          v185 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v183, v184, &v289);
-          v126 = v283;
+          v161 = v247;
+          outlined destroy of NearbyProtoConnectionResponse.Content(v162, type metadata accessor for NearbyProtoConnectionRequest);
+          v171 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v169, v170, &v275);
+          v112 = v269;
 
-          *(v179 + 14) = v185;
-          _os_log_impl(&_mh_execute_header, v177, v178, "Got connection request: %s from: %s", v179, 0x16u);
+          *(v165 + 14) = v171;
+          _os_log_impl(&_mh_execute_header, v163, v164, "Got connection request: %s from: %s", v165, 0x16u);
           swift_arrayDestroy();
         }
 
         else
         {
 
-          outlined destroy of NearbyProtoConnectionResponse.Content(v176, type metadata accessor for NearbyProtoConnectionRequest);
-          v186 = outlined destroy of NearbyProtoConnectionResponse.Content(v166, type metadata accessor for NearbyProtoConnectionRequest);
+          outlined destroy of NearbyProtoConnectionResponse.Content(v162, type metadata accessor for NearbyProtoConnectionRequest);
+          v172 = outlined destroy of NearbyProtoConnectionResponse.Content(v152, type metadata accessor for NearbyProtoConnectionRequest);
         }
 
-        v225 = v281;
-        if ((*((swift_isaMask & *v281) + 0x88))(v186))
+        v211 = v267;
+        if ((*((swift_isaMask & *v267) + 0x88))(v172))
         {
-          v227 = v226;
-          v228 = swift_getObjectType();
-          (*(v227 + 8))(v225, &protocol witness table for NearbyIDSServiceController, v175, v228, v227);
+          v213 = v212;
+          v214 = swift_getObjectType();
+          (*(v213 + 8))(v211, &protocol witness table for NearbyIDSServiceController, v161, v214, v213);
           swift_unknownObjectRelease();
         }
 
-        outlined consume of Data?(v108, v278);
-        v206 = type metadata accessor for NearbyProtoConnectionRequest;
-        v207 = v175;
+        outlined consume of Data?(v94, v264);
+        v192 = type metadata accessor for NearbyProtoConnectionRequest;
+        v193 = v161;
         goto LABEL_97;
       }
 
-      if (v128 == 4)
+      if (v114 == 4)
       {
 
-        v136 = Logger.logObject.getter();
-        v137 = static os_log_type_t.info.getter();
-        if (os_log_type_enabled(v136, v137))
+        v122 = Logger.logObject.getter();
+        v123 = static os_log_type_t.info.getter();
+        if (os_log_type_enabled(v122, v123))
         {
-          v138 = swift_slowAlloc();
-          *v138 = 0;
-          _os_log_impl(&_mh_execute_header, v136, v137, "Handling connection response", v138, 2u);
+          v124 = swift_slowAlloc();
+          *v124 = 0;
+          _os_log_impl(&_mh_execute_header, v122, v123, "Handling connection response", v124, 2u);
         }
 
-        v139 = (v126 + *(v281 + 28));
-        v140 = *v139;
-        v141 = v139[1];
-        v291 = 0;
-        v289 = 0u;
-        v290 = 0u;
-        outlined copy of Data?(v140, v141);
+        v125 = (v112 + *(v267 + 7));
+        v126 = *v125;
+        v127 = v125[1];
+        v277 = 0;
+        v275 = 0u;
+        v276 = 0u;
+        outlined copy of Data?(v126, v127);
         BinaryDecodingOptions.init()();
-        lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content, type metadata accessor for NearbyProtoConnectionResponse.Content);
-        v142 = v272;
-        v143 = v270;
+        lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content, type metadata accessor for NearbyProtoConnectionResponse.Content, &protocol conformance descriptor for NearbyProtoConnectionResponse.Content);
+        v128 = v258;
+        v129 = v256;
         Message.init(serializedData:extensions:partial:options:)();
-        (*(v263 + 56))(v142, 0, 1, v143);
-        v200 = v258;
-        v201 = outlined init with take of NearbyProtoSessionMessage(v142, v258, type metadata accessor for NearbyProtoConnectionResponse.Content);
-        if ((*((swift_isaMask & *a6) + 0x88))(v201))
+        (*(v249 + 56))(v128, 0, 1, v129);
+        v186 = v244;
+        v187 = outlined init with take of NearbyProtoSessionMessage(v128, v244, type metadata accessor for NearbyProtoConnectionResponse.Content);
+        if ((*((swift_isaMask & *a6) + 0x88))(v187))
         {
-          v204 = v203;
-          v205 = swift_getObjectType();
-          (*(v204 + 16))(a6, &protocol witness table for NearbyIDSServiceController, v200, v205, v204);
+          v190 = v189;
+          v191 = swift_getObjectType();
+          (*(v190 + 16))(a6, &protocol witness table for NearbyIDSServiceController, v186, v191, v190);
           swift_unknownObjectRelease();
         }
 
-        outlined consume of Data?(v108, v278);
-        v206 = type metadata accessor for NearbyProtoConnectionResponse.Content;
-        v207 = v200;
+        outlined consume of Data?(v94, v264);
+        v192 = type metadata accessor for NearbyProtoConnectionResponse.Content;
+        v193 = v186;
         goto LABEL_97;
       }
     }
 
-    else if (v128)
+    else if (v114)
     {
-      if (v128 == 1)
+      if (v114 == 1)
       {
-        v129 = Logger.logObject.getter();
-        v130 = static os_log_type_t.info.getter();
-        if (os_log_type_enabled(v129, v130))
+        v115 = Logger.logObject.getter();
+        v116 = static os_log_type_t.info.getter();
+        if (os_log_type_enabled(v115, v116))
         {
-          v131 = swift_slowAlloc();
-          *v131 = 0;
-          _os_log_impl(&_mh_execute_header, v129, v130, "Handling join request", v131, 2u);
-          v89 = v287;
+          v117 = swift_slowAlloc();
+          *v117 = 0;
+          _os_log_impl(&_mh_execute_header, v115, v116, "Handling join request", v117, 2u);
+          v75 = v273;
         }
 
-        v132 = (v126 + *(v281 + 28));
-        v133 = *v132;
-        v134 = v132[1];
-        v291 = 0;
-        v289 = 0u;
-        v290 = 0u;
-        outlined copy of Data?(v133, v134);
+        v118 = (v112 + *(v267 + 7));
+        v119 = *v118;
+        v120 = v118[1];
+        v277 = 0;
+        v275 = 0u;
+        v276 = 0u;
+        outlined copy of Data?(v119, v120);
         BinaryDecodingOptions.init()();
-        lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest and conformance NearbyProtoJoinRequest, type metadata accessor for NearbyProtoJoinRequest);
-        v135 = v275;
+        lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest and conformance NearbyProtoJoinRequest, type metadata accessor for NearbyProtoJoinRequest, &protocol conformance descriptor for NearbyProtoJoinRequest);
+        v121 = v261;
         Message.init(serializedData:extensions:partial:options:)();
-        outlined init with copy of NearbyProtoJoinRequest.Content(v135, v89, type metadata accessor for NearbyProtoJoinRequest);
-        v187 = Logger.logObject.getter();
-        v188 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v187, v188))
+        outlined init with copy of NearbyProtoJoinRequest.Content(v121, v75, type metadata accessor for NearbyProtoJoinRequest);
+        v173 = Logger.logObject.getter();
+        v174 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v173, v174))
         {
-          v280 = v114;
-          v281 = a6;
-          v189 = swift_slowAlloc();
-          v279 = swift_slowAlloc();
-          v292 = v279;
-          *v189 = 136315138;
-          v190 = (v89 + *(v274 + 20));
-          v191 = v190[1];
-          if (v191 >> 60 == 15)
+          v266 = v100;
+          v267 = a6;
+          v175 = swift_slowAlloc();
+          v265 = swift_slowAlloc();
+          v278 = v265;
+          *v175 = 136315138;
+          v176 = (v75 + *(v260 + 20));
+          v177 = v176[1];
+          if (v177 >> 60 == 15)
           {
-            v192 = 0;
+            v178 = 0;
           }
 
           else
           {
-            v192 = *v190;
+            v178 = *v176;
           }
 
-          if (v191 >> 60 == 15)
+          if (v177 >> 60 == 15)
           {
-            v193 = 0xC000000000000000;
+            v179 = 0xC000000000000000;
           }
 
           else
           {
-            v193 = v190[1];
+            v179 = v176[1];
           }
 
-          outlined copy of Data?(*v190, v191);
+          outlined copy of Data?(*v176, v177);
           static String.Encoding.utf8.getter();
-          v194 = String.init(data:encoding:)();
-          v196 = v195;
-          outlined consume of Data._Representation(v192, v193);
-          if (v196)
+          v180 = String.init(data:encoding:)();
+          v182 = v181;
+          outlined consume of Data._Representation(v178, v179);
+          if (v182)
           {
-            *&v289 = v194;
-            *(&v289 + 1) = v196;
-            v197 = String.init<A>(reflecting:)();
-            v199 = v198;
+            *&v275 = v180;
+            *(&v275 + 1) = v182;
+            v183 = String.init<A>(reflecting:)();
+            v185 = v184;
           }
 
           else
           {
-            v197 = 7104878;
-            v199 = 0xE300000000000000;
+            v183 = 7104878;
+            v185 = 0xE300000000000000;
           }
 
-          outlined destroy of NearbyProtoConnectionResponse.Content(v287, type metadata accessor for NearbyProtoJoinRequest);
-          v229 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v197, v199, &v292);
+          outlined destroy of NearbyProtoConnectionResponse.Content(v273, type metadata accessor for NearbyProtoJoinRequest);
+          v215 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v183, v185, &v278);
 
-          *(v189 + 4) = v229;
-          _os_log_impl(&_mh_execute_header, v187, v188, "Attempting to decrypt data with publicKey: %s", v189, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0Tm(v279);
+          *(v175 + 4) = v215;
+          _os_log_impl(&_mh_execute_header, v173, v174, "Attempting to decrypt data with publicKey: %s", v175, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0Tm(v265);
 
-          v114 = v280;
-          a6 = v281;
-          v135 = v275;
+          v100 = v266;
+          a6 = v267;
+          v121 = v261;
         }
 
         else
         {
 
-          outlined destroy of NearbyProtoConnectionResponse.Content(v89, type metadata accessor for NearbyProtoJoinRequest);
+          outlined destroy of NearbyProtoConnectionResponse.Content(v75, type metadata accessor for NearbyProtoJoinRequest);
         }
 
-        v230 = v260;
-        v231 = (*((swift_isaMask & **(a6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController)) + 0xC8))(v260, v135, v248, v111);
-        v232 = v278;
-        v233 = v231;
-        v235 = v234;
-        v236 = outlined init with take of NearbyProtoSessionMessage(v230, v257, type metadata accessor for NearbyProtoJoinRequest.Content);
-        v237 = a6;
-        if (!(*((swift_isaMask & *a6) + 0x88))(v236))
+        v216 = v246;
+        v217 = (*((swift_isaMask & **(a6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController)) + 0xC8))(v246, v121, v234, v97);
+        v218 = v264;
+        v219 = v217;
+        v221 = v220;
+        v222 = outlined init with take of NearbyProtoSessionMessage(v216, v243, type metadata accessor for NearbyProtoJoinRequest.Content);
+        v223 = a6;
+        if (!(*((swift_isaMask & *a6) + 0x88))(v222))
         {
-          outlined consume of Data._Representation(v233, v235);
+          outlined consume of Data._Representation(v219, v221);
 
           goto LABEL_104;
         }
 
-        if (v288)
+        if (v274)
         {
-          v239 = v238;
-          v240 = swift_getObjectType();
+          v225 = v224;
+          v226 = swift_getObjectType();
 
-          (*(v239 + 24))(v237, &protocol witness table for NearbyIDSServiceController, v257, v286, v288, v248, v113, v233, v235, v240, v239);
-          outlined consume of Data._Representation(v233, v235);
+          (*(v225 + 24))(v223, &protocol witness table for NearbyIDSServiceController, v243, v272, v274, v234, v99, v219, v221, v226, v225);
+          outlined consume of Data._Representation(v219, v221);
 
           swift_unknownObjectRelease();
 LABEL_104:
-          outlined consume of Data?(v114, v232);
-          outlined destroy of NearbyProtoConnectionResponse.Content(v257, type metadata accessor for NearbyProtoJoinRequest.Content);
-          v241 = type metadata accessor for NearbyProtoJoinRequest;
-          v242 = v275;
+          outlined consume of Data?(v100, v218);
+          outlined destroy of NearbyProtoConnectionResponse.Content(v243, type metadata accessor for NearbyProtoJoinRequest.Content);
+          v227 = type metadata accessor for NearbyProtoJoinRequest;
+          v228 = v261;
 LABEL_105:
-          outlined destroy of NearbyProtoConnectionResponse.Content(v242, v241);
-          outlined destroy of NearbyProtoConnectionResponse.Content(v283, type metadata accessor for NearbyProtoSessionMessage);
+          outlined destroy of NearbyProtoConnectionResponse.Content(v228, v227);
+          outlined destroy of NearbyProtoConnectionResponse.Content(v269, type metadata accessor for NearbyProtoSessionMessage);
           return;
         }
 
@@ -14951,94 +12626,94 @@ LABEL_111:
         return;
       }
 
-      v167 = Logger.logObject.getter();
-      v168 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v167, v168))
+      v153 = Logger.logObject.getter();
+      v154 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v153, v154))
       {
-        v169 = swift_slowAlloc();
-        *v169 = 0;
-        _os_log_impl(&_mh_execute_header, v167, v168, "Handling join response", v169, 2u);
+        v155 = swift_slowAlloc();
+        *v155 = 0;
+        _os_log_impl(&_mh_execute_header, v153, v154, "Handling join response", v155, 2u);
       }
 
-      v170 = (v126 + *(v281 + 28));
-      v171 = *v170;
-      v172 = v170[1];
-      v291 = 0;
-      v289 = 0u;
-      v290 = 0u;
-      outlined copy of Data?(v171, v172);
+      v156 = (v112 + *(v267 + 7));
+      v157 = *v156;
+      v158 = v156[1];
+      v277 = 0;
+      v275 = 0u;
+      v276 = 0u;
+      outlined copy of Data?(v157, v158);
       BinaryDecodingOptions.init()();
-      lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse and conformance NearbyProtoJoinResponse, type metadata accessor for NearbyProtoJoinResponse);
-      v173 = v273;
-      v174 = Message.init(serializedData:extensions:partial:options:)();
-      v280 = v108;
+      lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse and conformance NearbyProtoJoinResponse, type metadata accessor for NearbyProtoJoinResponse, &protocol conformance descriptor for NearbyProtoJoinResponse);
+      v159 = v259;
+      v160 = Message.init(serializedData:extensions:partial:options:)();
+      v266 = v94;
       a2 = &swift_isaMask;
-      v208 = (*((swift_isaMask & *a6) + 0xB8))(v174);
-      v209 = v208;
-      if (*(v208 + 16))
+      v194 = (*((swift_isaMask & *a6) + 0xB8))(v160);
+      v195 = v194;
+      if (*(v194 + 16))
       {
-        v210 = specialized __RawDictionaryStorage.find<A>(_:)(v250, v249);
-        if (v211)
+        v196 = specialized __RawDictionaryStorage.find<A>(_:)(v236, v235);
+        if (v197)
         {
-          v212 = v210;
-          v281 = a6;
+          v198 = v196;
+          v267 = a6;
 
-          v213 = *(*(v209 + 56) + 8 * v212);
+          v199 = *(*(v195 + 56) + 8 * v198);
 
-          v214 = &v17[*(v173 + 20)];
-          v215 = v214[1];
-          if (v215 >> 60 == 15)
+          v200 = &v14[*(v159 + 20)];
+          v201 = v200[1];
+          if (v201 >> 60 == 15)
           {
-            v216 = 0;
+            v202 = 0;
           }
 
           else
           {
-            v216 = *v214;
+            v202 = *v200;
           }
 
-          if (v215 >> 60 == 15)
+          if (v201 >> 60 == 15)
           {
-            v217 = 0xC000000000000000;
+            v203 = 0xC000000000000000;
           }
 
           else
           {
-            v217 = v214[1];
+            v203 = v200[1];
           }
 
-          v218 = *(*v213 + 152);
-          outlined copy of Data?(*v214, v215);
-          v89 = v218(v216, v217);
-          v98 = v219;
-          outlined consume of Data._Representation(v216, v217);
-          v291 = 0;
-          v289 = 0u;
-          v290 = 0u;
-          outlined copy of Data._Representation(v89, v98);
+          v204 = *(*v199 + 152);
+          outlined copy of Data?(*v200, v201);
+          v75 = v204(v202, v203);
+          v84 = v205;
+          outlined consume of Data._Representation(v202, v203);
+          v277 = 0;
+          v275 = 0u;
+          v276 = 0u;
+          outlined copy of Data._Representation(v75, v84);
           BinaryDecodingOptions.init()();
-          lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content and conformance NearbyProtoJoinResponse.Content, type metadata accessor for NearbyProtoJoinResponse.Content);
+          lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse.Content and conformance NearbyProtoJoinResponse.Content, type metadata accessor for NearbyProtoJoinResponse.Content, &protocol conformance descriptor for NearbyProtoJoinResponse.Content);
           Message.init(serializedData:extensions:partial:options:)();
           goto LABEL_107;
         }
       }
 
-      v220 = v249;
+      v206 = v235;
 
-      v221 = Logger.logObject.getter();
-      v222 = static os_log_type_t.error.getter();
+      v207 = Logger.logObject.getter();
+      v208 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v221, v222))
+      if (os_log_type_enabled(v207, v208))
       {
-        v223 = swift_slowAlloc();
-        *&v289 = swift_slowAlloc();
-        *v223 = 136315394;
-        *(v223 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000046, 0x80000001000D0200, &v289);
-        *(v223 + 12) = 2080;
-        v224 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v250, v220, &v289);
+        v209 = swift_slowAlloc();
+        *&v275 = swift_slowAlloc();
+        *v209 = 136315394;
+        *(v209 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000046, 0x80000001000D0200, &v275);
+        *(v209 + 12) = 2080;
+        v210 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v236, v206, &v275);
 
-        *(v223 + 14) = v224;
-        _os_log_impl(&_mh_execute_header, v221, v222, "%s No credentials to parse join response for: %s", v223, 0x16u);
+        *(v209 + 14) = v210;
+        _os_log_impl(&_mh_execute_header, v207, v208, "%s No credentials to parse join response for: %s", v209, 0x16u);
         swift_arrayDestroy();
       }
 
@@ -15046,68 +12721,68 @@ LABEL_111:
       {
       }
 
-      outlined consume of Data?(v280, v278);
-      v206 = type metadata accessor for NearbyProtoJoinResponse;
-      v207 = v17;
+      outlined consume of Data?(v266, v264);
+      v192 = type metadata accessor for NearbyProtoJoinResponse;
+      v193 = v14;
 LABEL_97:
-      outlined destroy of NearbyProtoConnectionResponse.Content(v207, v206);
-      outlined destroy of NearbyProtoConnectionResponse.Content(v126, type metadata accessor for NearbyProtoSessionMessage);
+      outlined destroy of NearbyProtoConnectionResponse.Content(v193, v192);
+      outlined destroy of NearbyProtoConnectionResponse.Content(v112, type metadata accessor for NearbyProtoSessionMessage);
       return;
     }
   }
 
-  v144 = v276;
-  outlined init with copy of NearbyProtoJoinRequest.Content(v126, v276, type metadata accessor for NearbyProtoSessionMessage);
-  v145 = v277;
-  outlined init with copy of NearbyProtoJoinRequest.Content(v126, v277, type metadata accessor for NearbyProtoSessionMessage);
-  v146 = Logger.logObject.getter();
-  v147 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v146, v147))
+  v130 = v262;
+  outlined init with copy of NearbyProtoJoinRequest.Content(v112, v262, type metadata accessor for NearbyProtoSessionMessage);
+  v131 = v263;
+  outlined init with copy of NearbyProtoJoinRequest.Content(v112, v263, type metadata accessor for NearbyProtoSessionMessage);
+  v132 = Logger.logObject.getter();
+  v133 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v132, v133))
   {
-    v148 = swift_slowAlloc();
-    v149 = swift_slowAlloc();
-    v150 = v144;
-    v151 = v149;
-    *&v289 = v149;
-    *v148 = 134218242;
-    v152 = v150 + *(v281 + 24);
-    if (*(v152 + 9))
+    v134 = swift_slowAlloc();
+    v135 = swift_slowAlloc();
+    v136 = v130;
+    v137 = v135;
+    *&v275 = v135;
+    *v134 = 134218242;
+    v138 = v136 + *(v267 + 6);
+    if (*(v138 + 9))
     {
-      v153 = 0;
+      v139 = 0;
     }
 
     else
     {
-      v153 = *v152;
+      v139 = *v138;
     }
 
-    outlined destroy of NearbyProtoConnectionResponse.Content(v150, type metadata accessor for NearbyProtoSessionMessage);
-    *(v148 + 4) = v153;
-    *(v148 + 12) = 2080;
-    v154 = Message.debugDescription.getter();
-    v156 = v155;
-    outlined destroy of NearbyProtoConnectionResponse.Content(v145, type metadata accessor for NearbyProtoSessionMessage);
-    v157 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v154, v156, &v289);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v136, type metadata accessor for NearbyProtoSessionMessage);
+    *(v134 + 4) = v139;
+    *(v134 + 12) = 2080;
+    v140 = Message.debugDescription.getter();
+    v142 = v141;
+    outlined destroy of NearbyProtoConnectionResponse.Content(v131, type metadata accessor for NearbyProtoSessionMessage);
+    v143 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v140, v142, &v275);
 
-    *(v148 + 14) = v157;
-    _os_log_impl(&_mh_execute_header, v146, v147, "Not able to handle message type: %ld, message: %s", v148, 0x16u);
-    __swift_destroy_boxed_opaque_existential_0Tm(v151);
+    *(v134 + 14) = v143;
+    _os_log_impl(&_mh_execute_header, v132, v133, "Not able to handle message type: %ld, message: %s", v134, 0x16u);
+    __swift_destroy_boxed_opaque_existential_0Tm(v137);
 
-    outlined consume of Data?(v108, v278);
-    outlined destroy of NearbyProtoConnectionResponse.Content(v283, type metadata accessor for NearbyProtoSessionMessage);
+    outlined consume of Data?(v94, v264);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v269, type metadata accessor for NearbyProtoSessionMessage);
   }
 
   else
   {
-    outlined destroy of NearbyProtoConnectionResponse.Content(v144, type metadata accessor for NearbyProtoSessionMessage);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v130, type metadata accessor for NearbyProtoSessionMessage);
 
-    outlined consume of Data?(v108, v278);
-    outlined destroy of NearbyProtoConnectionResponse.Content(v145, type metadata accessor for NearbyProtoSessionMessage);
-    outlined destroy of NearbyProtoConnectionResponse.Content(v126, type metadata accessor for NearbyProtoSessionMessage);
+    outlined consume of Data?(v94, v264);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v131, type metadata accessor for NearbyProtoSessionMessage);
+    outlined destroy of NearbyProtoConnectionResponse.Content(v112, type metadata accessor for NearbyProtoSessionMessage);
   }
 }
 
-void specialized NearbyIDSServiceController.service(_:account:incomingData:fromID:context:)(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, void *a5, void *a6)
+void specialized NearbyIDSServiceController.service(_:account:incomingData:fromID:context:)(void *a1, uint64_t (*a2)(uint64_t a1), unint64_t a3, uint64_t a4, void *a5, void *a6)
 {
   v13 = [objc_allocWithZone(CPFeatureFlags) init];
   v14 = [v13 nearbyInvitationsBlastDoorEnabled];
@@ -15137,85 +12812,75 @@ LABEL_10:
 LABEL_6:
 }
 
-void specialized NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(uint64_t a1), uint64_t (*a6)(uint64_t a1))
+void specialized NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)(uint64_t (*a1)(uint64_t a1), unint64_t a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(uint64_t a1), uint64_t (*a6)(uint64_t a1))
 {
-  v306 = a5;
-  v304 = a3;
-  v291 = type metadata accessor for NearbyProtoJoinResponse(0);
-  v10 = *(*(v291 - 8) + 64);
-  __chkstk_darwin(v291);
-  v292 = &v271 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for DispatchWorkItemFlags();
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12);
-  v15 = &v271 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v282 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
-  v285 = *(v282 - 8);
-  v16 = *(v285 + 64);
-  v17 = __chkstk_darwin(v282);
-  v278 = &v271 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __chkstk_darwin(v17);
-  v276 = &v271 - v20;
-  v277 = v21;
-  __chkstk_darwin(v19);
-  v280 = &v271 - v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = __chkstk_darwin(v23 - 8);
-  v281 = &v271 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = __chkstk_darwin(v25);
-  v286 = &v271 - v28;
-  v29 = __chkstk_darwin(v27);
-  v283 = &v271 - v30;
-  __chkstk_darwin(v29);
-  v284 = &v271 - v31;
-  v32 = type metadata accessor for String.Encoding();
-  v33 = *(*(v32 - 8) + 64);
-  __chkstk_darwin(v32 - 8);
-  v287 = &v271 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v293 = type metadata accessor for NearbyProtoJoinRequest(0);
-  v35 = *(*(v293 - 8) + 64);
-  v36 = __chkstk_darwin(v293);
-  v288 = &v271 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v290 = a5;
+  v288 = a3;
+  v275 = type metadata accessor for NearbyProtoJoinResponse(0);
+  __chkstk_darwin(v275);
+  v276 = &v255 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for DispatchWorkItemFlags();
+  __chkstk_darwin(v11);
+  v13 = &v255 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v266 = type metadata accessor for NearbyProtoJoinRequest.Content(0);
+  v269 = *(v266 - 8);
+  v14 = __chkstk_darwin(v266);
+  v262 = &v255 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __chkstk_darwin(v14);
+  v260 = &v255 - v17;
+  v261 = v18;
+  __chkstk_darwin(v16);
+  v264 = &v255 - v19;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+  v21 = __chkstk_darwin(v20 - 8);
+  v265 = &v255 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = __chkstk_darwin(v21);
+  v270 = &v255 - v24;
+  v25 = __chkstk_darwin(v23);
+  v267 = &v255 - v26;
+  __chkstk_darwin(v25);
+  v268 = &v255 - v27;
+  v28 = type metadata accessor for String.Encoding();
+  __chkstk_darwin(v28 - 8);
+  v271 = &v255 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v277 = type metadata accessor for NearbyProtoJoinRequest(0);
+  v30 = __chkstk_darwin(v277);
+  v272 = &v255 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v30);
+  v278 = &v255 - v32;
+  v33 = type metadata accessor for BinaryDecodingOptions();
+  v34 = __chkstk_darwin(v33 - 8);
+  v274 = &v255 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = __chkstk_darwin(v34);
+  v273 = &v255 - v37;
   __chkstk_darwin(v36);
-  v294 = &v271 - v38;
-  v39 = type metadata accessor for BinaryDecodingOptions();
-  v40 = *(*(v39 - 8) + 64);
-  v41 = __chkstk_darwin(v39 - 8);
-  v290 = &v271 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v284 = &v255 - v38;
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMR);
+  __chkstk_darwin(v39 - 8);
+  v289 = &v255 - v40;
+  v286 = type metadata accessor for NearbyProtoSessionMessage(0);
+  v285 = *(v286 - 8);
+  v41 = __chkstk_darwin(v286);
+  v279 = &v255 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
   v43 = __chkstk_darwin(v41);
-  v289 = &v271 - v44;
+  v281 = &v255 - v44;
   __chkstk_darwin(v43);
-  v300 = &v271 - v45;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E19ProtoSessionMessageVSgMR);
-  v47 = *(*(v46 - 8) + 64);
-  __chkstk_darwin(v46 - 8);
-  v305 = &v271 - v48;
-  v302 = type metadata accessor for NearbyProtoSessionMessage(0);
-  v301 = *(v302 - 8);
-  v49 = *(v301 + 64);
-  v50 = __chkstk_darwin(v302);
-  v295 = &v271 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = __chkstk_darwin(v50);
-  v297 = &v271 - v53;
-  __chkstk_darwin(v52);
-  v55 = &v271 - v54;
-  v56 = type metadata accessor for DispatchPredicate();
-  v57 = *(v56 - 8);
-  v58 = *(v57 + 64);
-  __chkstk_darwin(v56);
-  v60 = (&v271 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v298 = a6;
-  v61 = *(a6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
-  *v60 = v61;
-  (*(v57 + 104))(v60, enum case for DispatchPredicate.onQueue(_:), v56);
-  v279 = v61;
-  LOBYTE(v61) = _dispatchPreconditionTest(_:)();
-  (*(v57 + 8))(v60, v56);
-  if (v61)
+  v46 = &v255 - v45;
+  v47 = type metadata accessor for DispatchPredicate();
+  v48 = *(v47 - 8);
+  __chkstk_darwin(v47);
+  v50 = (&v255 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v282 = a6;
+  v51 = *(a6 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_queue);
+  *v50 = v51;
+  (*(v48 + 104))(v50, enum case for DispatchPredicate.onQueue(_:), v47);
+  v263 = v51;
+  LOBYTE(v51) = _dispatchPreconditionTest(_:)();
+  (*(v48 + 8))(v50, v47);
+  if (v51)
   {
-    v274 = v12;
-    v275 = v15;
+    v258 = v11;
+    v259 = v13;
     if (one-time initialization token for host == -1)
     {
       goto LABEL_3;
@@ -15229,57 +12894,57 @@ void specialized NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:acc
 
   swift_once();
 LABEL_3:
-  v62 = type metadata accessor for Logger();
-  v63 = __swift_project_value_buffer(v62, static Log.host);
-  v64 = v306;
+  v52 = type metadata accessor for Logger();
+  v53 = __swift_project_value_buffer(v52, static Log.host);
+  v54 = v290;
 
-  v65 = Logger.logObject.getter();
-  v66 = static os_log_type_t.default.getter();
-  v303 = v64;
+  v55 = Logger.logObject.getter();
+  v56 = static os_log_type_t.default.getter();
+  v287 = v54;
 
-  if (os_log_type_enabled(v65, v66))
+  if (os_log_type_enabled(v55, v56))
   {
-    v299 = v63;
-    v296 = v55;
-    v67 = a1;
-    v68 = a2;
-    v69 = swift_slowAlloc();
-    v70 = swift_slowAlloc();
-    v71 = swift_slowAlloc();
-    v311 = v71;
-    *v69 = 136315394;
+    v283 = v53;
+    v280 = v46;
+    v57 = a1;
+    v58 = a2;
+    v59 = swift_slowAlloc();
+    v60 = swift_slowAlloc();
+    v61 = swift_slowAlloc();
+    v295 = v61;
+    *v59 = 136315394;
     if (a4)
     {
-      *&aBlock = v304;
+      *&aBlock = v288;
       *(&aBlock + 1) = a4;
 
-      v72 = String.init<A>(reflecting:)();
-      v74 = v73;
+      v62 = String.init<A>(reflecting:)();
+      v64 = v63;
     }
 
     else
     {
-      v72 = 7104878;
-      v74 = 0xE300000000000000;
+      v62 = 7104878;
+      v64 = 0xE300000000000000;
     }
 
-    v75 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v74, &v311);
+    v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v62, v64, &v295);
 
-    *(v69 + 4) = v75;
-    *(v69 + 12) = 2112;
-    v76 = v303;
-    *(v69 + 14) = v303;
-    *v70 = v306;
-    v77 = v76;
-    _os_log_impl(&_mh_execute_header, v65, v66, "Handling incoming data from: %s context: %@", v69, 0x16u);
-    outlined destroy of Any?(v70, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    *(v59 + 4) = v65;
+    *(v59 + 12) = 2112;
+    v66 = v287;
+    *(v59 + 14) = v287;
+    *v60 = v290;
+    v67 = v66;
+    _os_log_impl(&_mh_execute_header, v55, v56, "Handling incoming data from: %s context: %@", v59, 0x16u);
+    outlined destroy of Any?(v60, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
 
-    __swift_destroy_boxed_opaque_existential_0Tm(v71);
+    __swift_destroy_boxed_opaque_existential_0Tm(v61);
 
-    a2 = v68;
-    a1 = v67;
-    v55 = v296;
-    v63 = v299;
+    a2 = v58;
+    a1 = v57;
+    v46 = v280;
+    v53 = v283;
   }
 
   else
@@ -15288,24 +12953,24 @@ LABEL_3:
 
   if (a4)
   {
-    v78 = String._bridgeToObjectiveC()();
+    v68 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v78 = 0;
+    v68 = 0;
   }
 
-  v79 = IDSCopyAddressDestinationForDestination();
+  v69 = IDSCopyAddressDestinationForDestination();
 
-  v80 = IDSCopyRawAddressForDestination();
-  if (!v80)
+  v70 = IDSCopyRawAddressForDestination();
+  if (!v70)
   {
     return;
   }
 
-  v81 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v83 = v82;
+  v71 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v73 = v72;
 
   if (String.count.getter() < 1 || a2 >> 60 == 15)
   {
@@ -15313,18 +12978,18 @@ LABEL_3:
     return;
   }
 
-  v84 = a2 >> 62;
+  v74 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v84 != 2)
+    if (v74 != 2)
     {
       goto LABEL_33;
     }
 
-    v86 = *(a1 + 16);
-    v85 = *(a1 + 24);
-    v87 = v85 - v86;
-    if (!__OFSUB__(v85, v86))
+    v76 = *(a1 + 2);
+    v75 = *(a1 + 3);
+    v77 = v75 - v76;
+    if (!__OFSUB__(v75, v76))
     {
       goto LABEL_26;
     }
@@ -15337,10 +13002,10 @@ LABEL_24:
       goto LABEL_121;
     }
 
-    v87 = HIDWORD(a1) - a1;
+    v77 = HIDWORD(a1) - a1;
 LABEL_26:
     outlined copy of Data._Representation(a1, a2);
-    if (v87 < 1)
+    if (v77 < 1)
     {
       goto LABEL_33;
     }
@@ -15348,7 +13013,7 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  if (v84)
+  if (v74)
   {
     goto LABEL_24;
   }
@@ -15359,132 +13024,132 @@ LABEL_26:
   }
 
 LABEL_27:
-  if (!v306)
+  if (!v290)
   {
     __break(1u);
     goto LABEL_134;
   }
 
-  v88 = [v303 toID];
-  v89 = IDSCopyAddressDestinationForDestination();
+  v78 = [v287 toID];
+  v79 = IDSCopyAddressDestinationForDestination();
 
-  v90 = IDSCopyRawAddressForDestination();
-  if (v90)
+  v80 = IDSCopyRawAddressForDestination();
+  if (v80)
   {
-    v273 = v81;
-    v91 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v81 = v92;
+    v257 = v71;
+    v81 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v71 = v82;
 
-    v93 = HIBYTE(v81) & 0xF;
-    if ((v81 & 0x2000000000000000) == 0)
+    v83 = HIBYTE(v71) & 0xF;
+    if ((v71 & 0x2000000000000000) == 0)
     {
-      v93 = v91 & 0xFFFFFFFFFFFFLL;
+      v83 = v81 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v93)
+    if (v83)
     {
-      v272 = v91;
-      v311 = a1;
-      v312 = a2;
-      v309 = 0;
+      v256 = v81;
+      v295 = a1;
+      v296 = a2;
+      v293 = 0;
       aBlock = 0u;
-      v308 = 0u;
+      v292 = 0u;
       outlined copy of Data._Representation(a1, a2);
       BinaryDecodingOptions.init()();
-      v94 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage);
-      v95 = v302;
+      v84 = lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoSessionMessage and conformance NearbyProtoSessionMessage, type metadata accessor for NearbyProtoSessionMessage, &protocol conformance descriptor for NearbyProtoSessionMessage);
+      v85 = v286;
       Message.init<A>(serializedBytes:extensions:partial:options:)();
-      v300 = v94;
-      v299 = v63;
-      v271 = a4;
-      v105 = v305;
-      (*(v301 + 56))(v305, 0, 1, v95);
-      outlined init with take of NearbyProtoSessionMessage(v105, v55, type metadata accessor for NearbyProtoSessionMessage);
-      v107 = *(v298 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 24);
-      v106 = *(v298 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 32);
-      __swift_project_boxed_opaque_existential_1((v298 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service), v107);
-      (*(*(v106 + 8) + 8))(v107);
-      if (v108)
+      v284 = v84;
+      v283 = v53;
+      v255 = a4;
+      v95 = v289;
+      (v285[7])(v289, 0, 1, v85);
+      outlined init with take of NearbyProtoSessionMessage(v95, v46, type metadata accessor for NearbyProtoSessionMessage);
+      v97 = *(v282 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 24);
+      v96 = *(v282 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service + 32);
+      __swift_project_boxed_opaque_existential_1((v282 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_service), v97);
+      (*(*(v96 + 8) + 8))(v97);
+      if (v98)
       {
-        v109 = objc_allocWithZone(IDSServiceProperties);
-        v110 = String._bridgeToObjectiveC()();
+        v99 = objc_allocWithZone(IDSServiceProperties);
+        v100 = String._bridgeToObjectiveC()();
 
-        v111 = [v109 initWithServiceIdentifier:v110];
+        v101 = [v99 initWithServiceIdentifier:v100];
 
-        if (v111)
+        if (v101)
         {
-          v112 = v302;
-          v113 = &v55[*(v302 + 24)];
-          v114 = v297;
-          if (v113[9] & 1) == 0 && (v113[8])
+          v102 = v286;
+          v103 = &v46[*(v286 + 24)];
+          v104 = v281;
+          if (v103[9] & 1) == 0 && (v103[8])
           {
-            v115 = *v113;
-            if (v115 <= 2)
+            v105 = *v103;
+            if (v105 <= 2)
             {
-              if (v115)
+              if (v105)
               {
-                if (v115 != 1)
+                if (v105 != 1)
                 {
-                  v296 = v55;
+                  v280 = v46;
 
-                  v161 = Logger.logObject.getter();
-                  v162 = static os_log_type_t.info.getter();
-                  if (os_log_type_enabled(v161, v162))
+                  v151 = Logger.logObject.getter();
+                  v152 = static os_log_type_t.info.getter();
+                  if (os_log_type_enabled(v151, v152))
                   {
-                    v163 = swift_slowAlloc();
-                    *v163 = 0;
-                    _os_log_impl(&_mh_execute_header, v161, v162, "Handling join response", v163, 2u);
+                    v153 = swift_slowAlloc();
+                    *v153 = 0;
+                    _os_log_impl(&_mh_execute_header, v151, v152, "Handling join response", v153, 2u);
                   }
 
-                  v164 = &v296[*(v112 + 28)];
-                  v165 = *v164;
-                  v166 = v164[1];
-                  if (v166 >> 60 == 15)
+                  v154 = &v280[*(v102 + 28)];
+                  v155 = *v154;
+                  v156 = v154[1];
+                  if (v156 >> 60 == 15)
                   {
-                    v167 = 0;
+                    v157 = 0;
                   }
 
                   else
                   {
-                    v167 = *v164;
+                    v157 = *v154;
                   }
 
-                  v168 = 0xC000000000000000;
-                  if (v166 >> 60 != 15)
+                  v158 = 0xC000000000000000;
+                  if (v156 >> 60 != 15)
                   {
-                    v168 = v166;
+                    v158 = v156;
                   }
 
-                  v311 = v167;
-                  v312 = v168;
-                  v309 = 0;
+                  v295 = v157;
+                  v296 = v158;
+                  v293 = 0;
                   aBlock = 0u;
-                  v308 = 0u;
-                  outlined copy of Data?(v165, v166);
+                  v292 = 0u;
+                  outlined copy of Data?(v155, v156);
                   BinaryDecodingOptions.init()();
-                  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse and conformance NearbyProtoJoinResponse, type metadata accessor for NearbyProtoJoinResponse);
-                  v169 = v292;
-                  v170 = v291;
-                  v171 = Message.init<A>(serializedBytes:extensions:partial:options:)();
-                  v188 = (*((swift_isaMask & *v298) + 0xB8))(v171);
-                  v189 = v188;
-                  if (!*(v188 + 16) || (v190 = specialized __RawDictionaryStorage.find<A>(_:)(v273, v83), (v191 & 1) == 0))
+                  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinResponse and conformance NearbyProtoJoinResponse, type metadata accessor for NearbyProtoJoinResponse, &protocol conformance descriptor for NearbyProtoJoinResponse);
+                  v159 = v276;
+                  v160 = v275;
+                  v161 = Message.init<A>(serializedBytes:extensions:partial:options:)();
+                  v178 = (*((swift_isaMask & *v282) + 0xB8))(v161);
+                  v179 = v178;
+                  if (!*(v178 + 16) || (v180 = specialized __RawDictionaryStorage.find<A>(_:)(v257, v73), (v181 & 1) == 0))
                   {
 
-                    v199 = Logger.logObject.getter();
-                    v200 = static os_log_type_t.error.getter();
+                    v189 = Logger.logObject.getter();
+                    v190 = static os_log_type_t.error.getter();
 
-                    if (os_log_type_enabled(v199, v200))
+                    if (os_log_type_enabled(v189, v190))
                     {
-                      v201 = swift_slowAlloc();
+                      v191 = swift_slowAlloc();
                       *&aBlock = swift_slowAlloc();
-                      *v201 = 136315394;
-                      *(v201 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004FLL, 0x80000001000D0250, &aBlock);
-                      *(v201 + 12) = 2080;
-                      v202 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v273, v83, &aBlock);
+                      *v191 = 136315394;
+                      *(v191 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000004FLL, 0x80000001000D0250, &aBlock);
+                      *(v191 + 12) = 2080;
+                      v192 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v257, v73, &aBlock);
 
-                      *(v201 + 14) = v202;
-                      _os_log_impl(&_mh_execute_header, v199, v200, "%s No credentials to parse join response for: %s", v201, 0x16u);
+                      *(v191 + 14) = v192;
+                      _os_log_impl(&_mh_execute_header, v189, v190, "%s No credentials to parse join response for: %s", v191, 0x16u);
                       swift_arrayDestroy();
                     }
 
@@ -15493,209 +13158,209 @@ LABEL_27:
                     }
 
                     outlined consume of Data?(a1, a2);
-                    v236 = type metadata accessor for NearbyProtoJoinResponse;
-                    v203 = v169;
+                    v226 = type metadata accessor for NearbyProtoJoinResponse;
+                    v193 = v159;
                     goto LABEL_132;
                   }
 
-                  v192 = v190;
-                  v305 = v111;
+                  v182 = v180;
+                  v289 = v101;
 
-                  v193 = *(*(v189 + 56) + 8 * v192);
+                  v183 = *(*(v179 + 56) + 8 * v182);
 
-                  v194 = &v169[*(v170 + 20)];
-                  v195 = v194[1];
-                  if (v195 >> 60 == 15)
+                  v184 = &v159[*(v160 + 20)];
+                  v185 = v184[1];
+                  if (v185 >> 60 == 15)
                   {
-                    v196 = 0;
+                    v186 = 0;
                   }
 
                   else
                   {
-                    v196 = *v194;
+                    v186 = *v184;
                   }
 
-                  if (v195 >> 60 == 15)
+                  if (v185 >> 60 == 15)
                   {
-                    v197 = 0xC000000000000000;
+                    v187 = 0xC000000000000000;
                   }
 
                   else
                   {
-                    v197 = v194[1];
+                    v187 = v184[1];
                   }
 
-                  v198 = *(*v193 + 152);
-                  outlined copy of Data?(*v194, v195);
-                  v231 = v198(v196, v197);
-                  v233 = v232;
-                  outlined consume of Data._Representation(v196, v197);
-                  v234 = v298;
-                  v235 = v305;
-                  specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v231, v233, 2, 1, v305, v234);
+                  v188 = *(*v183 + 152);
+                  outlined copy of Data?(*v184, v185);
+                  v221 = v188(v186, v187);
+                  v223 = v222;
+                  outlined consume of Data._Representation(v186, v187);
+                  v224 = v282;
+                  v225 = v289;
+                  specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v221, v223, 2, 1, v289, v224);
 
-                  outlined consume of Data._Representation(v231, v233);
+                  outlined consume of Data._Representation(v221, v223);
 
                   outlined consume of Data?(a1, a2);
-                  v236 = type metadata accessor for NearbyProtoJoinResponse;
-                  v237 = &aBlock + 8;
+                  v226 = type metadata accessor for NearbyProtoJoinResponse;
+                  v227 = &aBlock + 8;
 LABEL_131:
-                  v203 = *(v237 - 32);
+                  v193 = *(v227 - 32);
 LABEL_132:
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v203, v236);
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v296, type metadata accessor for NearbyProtoSessionMessage);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v193, v226);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v280, type metadata accessor for NearbyProtoSessionMessage);
                   return;
                 }
 
-                v116 = v302;
+                v106 = v286;
 
-                v117 = Logger.logObject.getter();
-                v118 = static os_log_type_t.info.getter();
-                if (os_log_type_enabled(v117, v118))
+                v107 = Logger.logObject.getter();
+                v108 = static os_log_type_t.info.getter();
+                if (os_log_type_enabled(v107, v108))
                 {
-                  v119 = swift_slowAlloc();
-                  *v119 = 0;
-                  _os_log_impl(&_mh_execute_header, v117, v118, "Handling join request", v119, 2u);
-                  v116 = v302;
+                  v109 = swift_slowAlloc();
+                  *v109 = 0;
+                  _os_log_impl(&_mh_execute_header, v107, v108, "Handling join request", v109, 2u);
+                  v106 = v286;
                 }
 
-                v120 = &v55[*(v116 + 28)];
-                v121 = *v120;
-                v122 = v120[1];
-                if (v122 >> 60 == 15)
+                v110 = &v46[*(v106 + 28)];
+                v111 = *v110;
+                v112 = v110[1];
+                if (v112 >> 60 == 15)
                 {
-                  v123 = 0;
+                  v113 = 0;
                 }
 
                 else
                 {
-                  v123 = *v120;
+                  v113 = *v110;
                 }
 
-                v124 = 0xC000000000000000;
-                if (v122 >> 60 != 15)
+                v114 = 0xC000000000000000;
+                if (v112 >> 60 != 15)
                 {
-                  v124 = v122;
+                  v114 = v112;
                 }
 
-                v311 = v123;
-                v312 = v124;
-                v309 = 0;
+                v295 = v113;
+                v296 = v114;
+                v293 = 0;
                 aBlock = 0u;
-                v308 = 0u;
-                outlined copy of Data?(v121, v122);
+                v292 = 0u;
+                outlined copy of Data?(v111, v112);
                 BinaryDecodingOptions.init()();
-                lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest and conformance NearbyProtoJoinRequest, type metadata accessor for NearbyProtoJoinRequest);
-                v125 = v294;
+                lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type NearbyProtoJoinRequest and conformance NearbyProtoJoinRequest, type metadata accessor for NearbyProtoJoinRequest, &protocol conformance descriptor for NearbyProtoJoinRequest);
+                v115 = v278;
                 Message.init<A>(serializedBytes:extensions:partial:options:)();
-                v305 = v111;
-                v301 = a1;
-                v302 = a2;
-                v172 = v288;
-                outlined init with copy of NearbyProtoJoinRequest.Content(v125, v288, type metadata accessor for NearbyProtoJoinRequest);
-                v173 = Logger.logObject.getter();
-                v174 = static os_log_type_t.default.getter();
-                v175 = os_log_type_enabled(v173, v174);
-                v296 = v55;
-                if (v175)
+                v289 = v101;
+                v285 = a1;
+                v286 = a2;
+                v162 = v272;
+                outlined init with copy of NearbyProtoJoinRequest.Content(v115, v272, type metadata accessor for NearbyProtoJoinRequest);
+                v163 = Logger.logObject.getter();
+                v164 = static os_log_type_t.default.getter();
+                v165 = os_log_type_enabled(v163, v164);
+                v280 = v46;
+                if (v165)
                 {
-                  v176 = swift_slowAlloc();
-                  v177 = swift_slowAlloc();
-                  v311 = v177;
-                  *v176 = 136315138;
-                  v178 = (v172 + *(v293 + 20));
-                  v179 = v178[1];
-                  if (v179 >> 60 == 15)
+                  v166 = swift_slowAlloc();
+                  v167 = swift_slowAlloc();
+                  v295 = v167;
+                  *v166 = 136315138;
+                  v168 = (v162 + *(v277 + 20));
+                  v169 = v168[1];
+                  if (v169 >> 60 == 15)
                   {
-                    v180 = 0;
+                    v170 = 0;
                   }
 
                   else
                   {
-                    v180 = *v178;
+                    v170 = *v168;
                   }
 
-                  if (v179 >> 60 == 15)
+                  if (v169 >> 60 == 15)
                   {
-                    v181 = 0xC000000000000000;
+                    v171 = 0xC000000000000000;
                   }
 
                   else
                   {
-                    v181 = v178[1];
+                    v171 = v168[1];
                   }
 
-                  outlined copy of Data?(*v178, v179);
+                  outlined copy of Data?(*v168, v169);
                   static String.Encoding.utf8.getter();
-                  v182 = String.init(data:encoding:)();
-                  v184 = v183;
-                  outlined consume of Data._Representation(v180, v181);
-                  if (v184)
+                  v172 = String.init(data:encoding:)();
+                  v174 = v173;
+                  outlined consume of Data._Representation(v170, v171);
+                  if (v174)
                   {
-                    *&aBlock = v182;
-                    *(&aBlock + 1) = v184;
-                    v185 = String.init<A>(reflecting:)();
-                    v187 = v186;
+                    *&aBlock = v172;
+                    *(&aBlock + 1) = v174;
+                    v175 = String.init<A>(reflecting:)();
+                    v177 = v176;
                   }
 
                   else
                   {
-                    v185 = 7104878;
-                    v187 = 0xE300000000000000;
+                    v175 = 7104878;
+                    v177 = 0xE300000000000000;
                   }
 
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v288, type metadata accessor for NearbyProtoJoinRequest);
-                  v204 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v185, v187, &v311);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v272, type metadata accessor for NearbyProtoJoinRequest);
+                  v194 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v175, v177, &v295);
 
-                  *(v176 + 4) = v204;
-                  _os_log_impl(&_mh_execute_header, v173, v174, "Attempting to decrypt data with publicKey: %s", v176, 0xCu);
-                  __swift_destroy_boxed_opaque_existential_0Tm(v177);
+                  *(v166 + 4) = v194;
+                  _os_log_impl(&_mh_execute_header, v163, v164, "Attempting to decrypt data with publicKey: %s", v166, 0xCu);
+                  __swift_destroy_boxed_opaque_existential_0Tm(v167);
 
-                  v125 = v294;
+                  v115 = v278;
                 }
 
                 else
                 {
 
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v172, type metadata accessor for NearbyProtoJoinRequest);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v162, type metadata accessor for NearbyProtoJoinRequest);
                 }
 
-                v205 = v298;
-                v206 = v272;
-                v207 = (*((swift_isaMask & **(v298 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController)) + 0xC0))(v125, v272, v81);
-                v83 = v208;
-                a4 = v209;
-                v300 = v207;
-                v303 = v210;
-                v211 = swift_allocObject();
-                v212 = v304;
-                v211[2] = v205;
-                v211[3] = v212;
-                v211[4] = v271;
-                v211[5] = v206;
-                v211[6] = v81;
-                v211[7] = v83;
-                v211[8] = a4;
-                v213 = objc_opt_self();
+                v195 = v282;
+                v196 = v256;
+                v197 = (*((swift_isaMask & **(v282 + OBJC_IVAR____TtC44com_apple_SharePlay_NearbyInvitationsService26NearbyIDSServiceController_joinRequestsController)) + 0xC0))(v115, v256, v71);
+                v73 = v198;
+                a4 = v199;
+                v284 = v197;
+                v287 = v200;
+                v201 = swift_allocObject();
+                v202 = v288;
+                v201[2] = v195;
+                v201[3] = v202;
+                v201[4] = v255;
+                v201[5] = v196;
+                v201[6] = v71;
+                v201[7] = v73;
+                v201[8] = a4;
+                v203 = objc_opt_self();
 
-                v214 = v205;
+                v204 = v195;
 
-                outlined copy of Data._Representation(v83, a4);
+                outlined copy of Data._Representation(v73, a4);
 
-                v306 = v214;
+                v290 = v204;
 
-                outlined copy of Data._Representation(v83, a4);
-                v299 = [v213 getBlastDoorSharedConnection];
-                if (v299)
+                outlined copy of Data._Representation(v73, a4);
+                v283 = [v203 getBlastDoorSharedConnection];
+                if (v283)
                 {
                   type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for NSNumber, NSNumber_ptr);
-                  v215 = v305;
+                  v205 = v289;
                   isa = NSNumber.init(integerLiteral:)(0).super.super.isa;
-                  v217 = [objc_allocWithZone(IDSBlastDoorMessageContext) initWithService:v215 command:isa];
+                  v207 = [objc_allocWithZone(IDSBlastDoorMessageContext) initWithService:v205 command:isa];
 
-                  if (v217)
+                  if (v207)
                   {
-                    [v217 setPayloadType:1];
+                    [v207 setPayloadType:1];
                     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
                     inited = swift_initStackObject();
                     *(inited + 16) = xmmword_1000CA970;
@@ -15706,342 +13371,338 @@ LABEL_132:
                     *(inited + 80) = 0x64616F6C796170;
                     *(inited + 120) = &type metadata for Data;
                     *(inited + 88) = 0xE700000000000000;
-                    v219 = v300;
-                    v220 = v303;
-                    *(inited + 96) = v300;
-                    *(inited + 104) = v220;
-                    outlined copy of Data._Representation(v219, v220);
-                    v221 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
+                    v209 = v284;
+                    v210 = v287;
+                    *(inited + 96) = v284;
+                    *(inited + 104) = v210;
+                    outlined copy of Data._Representation(v209, v210);
+                    v211 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
                     swift_setDeallocating();
                     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
                     swift_arrayDestroy();
-                    specialized _dictionaryUpCast<A, B, C, D>(_:)(v221);
+                    specialized _dictionaryUpCast<A, B, C, D>(_:)(v211);
 
-                    v222 = Dictionary._bridgeToObjectiveC()().super.isa;
+                    v212 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-                    v223 = swift_allocObject();
-                    *(v223 + 16) = 1;
-                    *(v223 + 24) = 1;
-                    *(v223 + 32) = partial apply for closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:);
-                    *(v223 + 40) = v211;
-                    v309 = _s44com_apple_SharePlay_NearbyInvitationsService0eF25BlastDoorConnectionHelperV6defuse_4item10completiony10Foundation4DataV_AA0e5ProtoE18SessionMessageTypeOyxSg_s5Error_pSgtct21InternalSwiftProtobuf0S0RzlFySDys11AnyHashableVypGSg_So09IDSClientsT0VANtYbcfU_AA0eQ11JoinRequestV7ContentV_Tg5TA_0;
-                    v310 = v223;
+                    v213 = swift_allocObject();
+                    *(v213 + 16) = 1;
+                    *(v213 + 24) = 1;
+                    *(v213 + 32) = partial apply for closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:);
+                    *(v213 + 40) = v201;
+                    v293 = _s44com_apple_SharePlay_NearbyInvitationsService0eF25BlastDoorConnectionHelperV6defuse_4item10completiony10Foundation4DataV_AA0e5ProtoE18SessionMessageTypeOyxSg_s5Error_pSgtct21InternalSwiftProtobuf0S0RzlFySDys11AnyHashableVypGSg_So09IDSClientsT0VANtYbcfU_AA0eQ11JoinRequestV7ContentV_Tg5TA_0;
+                    v294 = v213;
                     *&aBlock = _NSConcreteStackBlock;
                     *(&aBlock + 1) = 1107296256;
-                    *&v308 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed [AnyHashable : Any]?, @unowned IDSClientMessageType, @guaranteed Error?) -> ();
-                    *(&v308 + 1) = &block_descriptor_41;
-                    v224 = _Block_copy(&aBlock);
+                    *&v292 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed [AnyHashable : Any]?, @unowned IDSClientMessageType, @guaranteed Error?) -> ();
+                    *(&v292 + 1) = &block_descriptor_41;
+                    v214 = _Block_copy(&aBlock);
 
-                    v225 = v299;
-                    [v299 diffuseClientMessage:v222 context:v217 withCompletionBlock:v224];
-                    _Block_release(v224);
+                    v215 = v283;
+                    [v283 diffuseClientMessage:v212 context:v207 withCompletionBlock:v214];
+                    _Block_release(v214);
 
-                    outlined consume of Data._Representation(v300, v220);
+                    outlined consume of Data._Representation(v284, v210);
 
 LABEL_130:
-                    outlined consume of Data._Representation(v83, a4);
-                    outlined consume of Data._Representation(v83, a4);
-                    outlined consume of Data?(v301, v302);
-                    v236 = type metadata accessor for NearbyProtoJoinRequest;
-                    v237 = &v308 + 8;
+                    outlined consume of Data._Representation(v73, a4);
+                    outlined consume of Data._Representation(v73, a4);
+                    outlined consume of Data?(v285, v286);
+                    v226 = type metadata accessor for NearbyProtoJoinRequest;
+                    v227 = &v292 + 8;
                     goto LABEL_131;
                   }
 
-                  v238 = v285;
-                  v239 = v286;
-                  v240 = v282;
-                  (*(v285 + 56))(v286, 1, 1, v282);
-                  v241 = v239;
-                  v242 = v281;
-                  outlined init with copy of (String, Any)(v241, v281, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-                  if ((*(v238 + 48))(v242, 1, v240) == 1)
+                  v228 = v269;
+                  v229 = v270;
+                  v230 = v266;
+                  (*(v269 + 56))(v270, 1, 1, v266);
+                  v231 = v229;
+                  v232 = v265;
+                  outlined init with copy of (String, Any)(v231, v265, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                  if ((*(v228 + 48))(v232, 1, v230) == 1)
                   {
-                    outlined destroy of Any?(v281, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                    outlined destroy of Any?(v265, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
                   }
 
                   else
                   {
-                    v298 = type metadata accessor for NearbyProtoJoinRequest.Content;
-                    v257 = v276;
-                    outlined init with take of NearbyProtoSessionMessage(v281, v276, type metadata accessor for NearbyProtoJoinRequest.Content);
-                    v258 = v278;
-                    outlined init with copy of NearbyProtoJoinRequest.Content(v257, v278, type metadata accessor for NearbyProtoJoinRequest.Content);
-                    v259 = (*(v285 + 80) + 24) & ~*(v285 + 80);
-                    v260 = (v277 + v259 + 7) & 0xFFFFFFFFFFFFFFF8;
-                    v261 = (v260 + 23) & 0xFFFFFFFFFFFFFFF8;
-                    v262 = swift_allocObject();
-                    *(v262 + 16) = v306;
-                    outlined init with take of NearbyProtoSessionMessage(v258, v262 + v259, v298);
-                    v263 = (v262 + v260);
-                    v264 = v271;
-                    *v263 = v304;
-                    v263[1] = v264;
-                    v265 = (v262 + v261);
-                    *v265 = v272;
-                    v265[1] = v81;
-                    v266 = (v262 + ((v261 + 23) & 0xFFFFFFFFFFFFFFF8));
-                    *v266 = v83;
-                    v266[1] = a4;
-                    v309 = closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
-                    v310 = v262;
+                    v282 = type metadata accessor for NearbyProtoJoinRequest.Content;
+                    v244 = v260;
+                    outlined init with take of NearbyProtoSessionMessage(v265, v260, type metadata accessor for NearbyProtoJoinRequest.Content);
+                    v245 = v262;
+                    outlined init with copy of NearbyProtoJoinRequest.Content(v244, v262, type metadata accessor for NearbyProtoJoinRequest.Content);
+                    v246 = (*(v269 + 80) + 24) & ~*(v269 + 80);
+                    v247 = (v261 + v246 + 7) & 0xFFFFFFFFFFFFFFF8;
+                    v248 = (v247 + 23) & 0xFFFFFFFFFFFFFFF8;
+                    v249 = swift_allocObject();
+                    *(v249 + 16) = v290;
+                    outlined init with take of NearbyProtoSessionMessage(v245, v249 + v246, v282);
+                    v250 = (v249 + v247);
+                    v251 = v255;
+                    *v250 = v288;
+                    v250[1] = v251;
+                    v252 = (v249 + v248);
+                    *v252 = v256;
+                    v252[1] = v71;
+                    v253 = (v249 + ((v248 + 23) & 0xFFFFFFFFFFFFFFF8));
+                    *v253 = v73;
+                    v253[1] = a4;
+                    v293 = closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)partial apply;
+                    v294 = v249;
                     *&aBlock = _NSConcreteStackBlock;
                     *(&aBlock + 1) = 1107296256;
-                    *&v308 = thunk for @escaping @callee_guaranteed () -> ();
-                    *(&v308 + 1) = &block_descriptor_35;
+                    *&v292 = thunk for @escaping @callee_guaranteed () -> ();
+                    *(&v292 + 1) = &block_descriptor_35;
                     _Block_copy(&aBlock);
-                    v311 = _swiftEmptyArrayStorage;
+                    v295 = _swiftEmptyArrayStorage;
 
-                    v267 = v306;
+                    v254 = v290;
 
-                    outlined copy of Data._Representation(v83, a4);
-                    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
+                    outlined copy of Data._Representation(v73, a4);
+                    lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
                     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
                     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
                     dispatch thunk of SetAlgebra.init<A>(_:)();
-                    v268 = type metadata accessor for DispatchWorkItem();
-                    v269 = *(v268 + 48);
-                    v270 = *(v268 + 52);
+                    type metadata accessor for DispatchWorkItem();
                     swift_allocObject();
                     DispatchWorkItem.init(flags:block:)();
 
                     OS_dispatch_queue.async(execute:)();
 
-                    outlined destroy of NearbyProtoConnectionResponse.Content(v276, type metadata accessor for NearbyProtoJoinRequest.Content);
+                    outlined destroy of NearbyProtoConnectionResponse.Content(v260, type metadata accessor for NearbyProtoJoinRequest.Content);
                   }
 
 LABEL_129:
-                  outlined destroy of Any?(v286, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                  outlined destroy of Any?(v270, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
 
-                  outlined consume of Data._Representation(v300, v303);
+                  outlined consume of Data._Representation(v284, v287);
 
                   goto LABEL_130;
                 }
 
 LABEL_121:
-                v226 = v285;
-                v227 = v284;
-                v228 = v282;
-                (*(v285 + 56))(v284, 1, 1, v282);
-                v229 = v227;
-                v230 = v283;
-                outlined init with copy of (String, Any)(v229, v283, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
-                if ((*(v226 + 48))(v230, 1, v228) == 1)
+                v216 = v269;
+                v217 = v268;
+                v218 = v266;
+                (*(v269 + 56))(v268, 1, 1, v266);
+                v219 = v217;
+                v220 = v267;
+                outlined init with copy of (String, Any)(v219, v267, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                if ((*(v216 + 48))(v220, 1, v218) == 1)
                 {
-                  outlined destroy of Any?(v283, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
+                  outlined destroy of Any?(v267, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMd, &_s44com_apple_SharePlay_NearbyInvitationsService0E16ProtoJoinRequestV7ContentVSgMR);
                 }
 
                 else
                 {
-                  v299 = type metadata accessor for NearbyProtoJoinRequest.Content;
-                  v243 = v280;
-                  outlined init with take of NearbyProtoSessionMessage(v283, v280, type metadata accessor for NearbyProtoJoinRequest.Content);
-                  v244 = v278;
-                  outlined init with copy of NearbyProtoJoinRequest.Content(v243, v278, type metadata accessor for NearbyProtoJoinRequest.Content);
-                  v245 = (*(v285 + 80) + 24) & ~*(v285 + 80);
-                  v246 = (v277 + v245 + 7) & 0xFFFFFFFFFFFFFFF8;
-                  v247 = (v246 + 23) & 0xFFFFFFFFFFFFFFF8;
-                  v248 = swift_allocObject();
-                  *(v248 + 16) = v306;
-                  outlined init with take of NearbyProtoSessionMessage(v244, v248 + v245, v299);
-                  v249 = (v248 + v246);
-                  v250 = v271;
-                  *v249 = v304;
-                  v249[1] = v250;
-                  v251 = (v248 + v247);
-                  *v251 = v272;
-                  v251[1] = v81;
-                  v252 = (v248 + ((v247 + 23) & 0xFFFFFFFFFFFFFFF8));
-                  *v252 = v83;
-                  v252[1] = a4;
-                  v309 = partial apply for closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:);
-                  v310 = v248;
+                  v283 = type metadata accessor for NearbyProtoJoinRequest.Content;
+                  v233 = v264;
+                  outlined init with take of NearbyProtoSessionMessage(v267, v264, type metadata accessor for NearbyProtoJoinRequest.Content);
+                  v234 = v262;
+                  outlined init with copy of NearbyProtoJoinRequest.Content(v233, v262, type metadata accessor for NearbyProtoJoinRequest.Content);
+                  v235 = (*(v269 + 80) + 24) & ~*(v269 + 80);
+                  v236 = (v261 + v235 + 7) & 0xFFFFFFFFFFFFFFF8;
+                  v237 = (v236 + 23) & 0xFFFFFFFFFFFFFFF8;
+                  v238 = swift_allocObject();
+                  *(v238 + 16) = v290;
+                  outlined init with take of NearbyProtoSessionMessage(v234, v238 + v235, v283);
+                  v239 = (v238 + v236);
+                  v240 = v255;
+                  *v239 = v288;
+                  v239[1] = v240;
+                  v241 = (v238 + v237);
+                  *v241 = v256;
+                  v241[1] = v71;
+                  v242 = (v238 + ((v237 + 23) & 0xFFFFFFFFFFFFFFF8));
+                  *v242 = v73;
+                  v242[1] = a4;
+                  v293 = partial apply for closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:);
+                  v294 = v238;
                   *&aBlock = _NSConcreteStackBlock;
                   *(&aBlock + 1) = 1107296256;
-                  *&v308 = thunk for @escaping @callee_guaranteed () -> ();
-                  *(&v308 + 1) = &block_descriptor_28;
+                  *&v292 = thunk for @escaping @callee_guaranteed () -> ();
+                  *(&v292 + 1) = &block_descriptor_28;
                   _Block_copy(&aBlock);
-                  v311 = _swiftEmptyArrayStorage;
+                  v295 = _swiftEmptyArrayStorage;
 
-                  v253 = v306;
+                  v243 = v290;
 
-                  outlined copy of Data._Representation(v83, a4);
-                  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
+                  outlined copy of Data._Representation(v73, a4);
+                  lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
                   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
                   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
                   dispatch thunk of SetAlgebra.init<A>(_:)();
-                  v254 = type metadata accessor for DispatchWorkItem();
-                  v255 = *(v254 + 48);
-                  v256 = *(v254 + 52);
+                  type metadata accessor for DispatchWorkItem();
                   swift_allocObject();
                   DispatchWorkItem.init(flags:block:)();
 
                   OS_dispatch_queue.async(execute:)();
 
-                  outlined destroy of NearbyProtoConnectionResponse.Content(v280, type metadata accessor for NearbyProtoJoinRequest.Content);
+                  outlined destroy of NearbyProtoConnectionResponse.Content(v264, type metadata accessor for NearbyProtoJoinRequest.Content);
                 }
 
-                v286 = v284;
+                v270 = v268;
                 goto LABEL_129;
               }
 
               goto LABEL_66;
             }
 
-            if (v115 == 3)
+            if (v105 == 3)
             {
-              v305 = v111;
-              v126 = v55;
+              v289 = v101;
+              v116 = v46;
 
-              v153 = Logger.logObject.getter();
-              v154 = static os_log_type_t.info.getter();
-              if (os_log_type_enabled(v153, v154))
+              v143 = Logger.logObject.getter();
+              v144 = static os_log_type_t.info.getter();
+              if (os_log_type_enabled(v143, v144))
               {
-                v155 = swift_slowAlloc();
-                *v155 = 0;
-                _os_log_impl(&_mh_execute_header, v153, v154, "Handling connection request message", v155, 2u);
+                v145 = swift_slowAlloc();
+                *v145 = 0;
+                _os_log_impl(&_mh_execute_header, v143, v144, "Handling connection request message", v145, 2u);
               }
 
-              v156 = (v126 + *(v112 + 28));
-              v157 = *v156;
-              v158 = v156[1];
-              if (v158 >> 60 == 15)
+              v146 = (v116 + *(v102 + 28));
+              v147 = *v146;
+              v148 = v146[1];
+              if (v148 >> 60 == 15)
               {
-                v133 = 0;
-              }
-
-              else
-              {
-                v133 = *v156;
-              }
-
-              if (v158 >> 60 == 15)
-              {
-                v134 = 0xC000000000000000;
+                v123 = 0;
               }
 
               else
               {
-                v134 = v156[1];
+                v123 = *v146;
               }
 
-              v159 = v298;
-              outlined copy of Data?(v157, v158);
-              v160 = v305;
-              specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v133, v134, 3, 1, v305, v159);
+              if (v148 >> 60 == 15)
+              {
+                v124 = 0xC000000000000000;
+              }
+
+              else
+              {
+                v124 = v146[1];
+              }
+
+              v149 = v282;
+              outlined copy of Data?(v147, v148);
+              v150 = v289;
+              specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v123, v124, 3, 1, v289, v149);
 
               goto LABEL_83;
             }
 
-            if (v115 == 4)
+            if (v105 == 4)
             {
-              v305 = v111;
-              v126 = v55;
+              v289 = v101;
+              v116 = v46;
 
-              v127 = Logger.logObject.getter();
-              v128 = static os_log_type_t.info.getter();
-              if (os_log_type_enabled(v127, v128))
+              v117 = Logger.logObject.getter();
+              v118 = static os_log_type_t.info.getter();
+              if (os_log_type_enabled(v117, v118))
               {
-                v129 = swift_slowAlloc();
-                *v129 = 0;
-                _os_log_impl(&_mh_execute_header, v127, v128, "Handling connection response", v129, 2u);
+                v119 = swift_slowAlloc();
+                *v119 = 0;
+                _os_log_impl(&_mh_execute_header, v117, v118, "Handling connection response", v119, 2u);
               }
 
-              v130 = (v126 + *(v112 + 28));
-              v131 = *v130;
-              v132 = v130[1];
-              if (v132 >> 60 == 15)
+              v120 = (v116 + *(v102 + 28));
+              v121 = *v120;
+              v122 = v120[1];
+              if (v122 >> 60 == 15)
               {
-                v133 = 0;
-              }
-
-              else
-              {
-                v133 = *v130;
-              }
-
-              if (v132 >> 60 == 15)
-              {
-                v134 = 0xC000000000000000;
+                v123 = 0;
               }
 
               else
               {
-                v134 = v130[1];
+                v123 = *v120;
               }
 
-              v135 = v298;
-              outlined copy of Data?(v131, v132);
-              v136 = v305;
-              specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v133, v134, 4, 1, v305, v135);
+              if (v122 >> 60 == 15)
+              {
+                v124 = 0xC000000000000000;
+              }
+
+              else
+              {
+                v124 = v120[1];
+              }
+
+              v125 = v282;
+              outlined copy of Data?(v121, v122);
+              v126 = v289;
+              specialized NearbyInvitationsBlastDoorConnectionHelper.defuse<A>(_:item:completion:)(v123, v124, 4, 1, v289, v125);
 
 LABEL_83:
-              outlined consume of Data._Representation(v133, v134);
+              outlined consume of Data._Representation(v123, v124);
               outlined consume of Data?(a1, a2);
-              outlined destroy of NearbyProtoConnectionResponse.Content(v126, type metadata accessor for NearbyProtoSessionMessage);
+              outlined destroy of NearbyProtoConnectionResponse.Content(v116, type metadata accessor for NearbyProtoSessionMessage);
               return;
             }
           }
 
 LABEL_66:
 
-          v137 = v55;
-          outlined init with copy of NearbyProtoJoinRequest.Content(v55, v114, type metadata accessor for NearbyProtoSessionMessage);
-          v138 = v295;
-          outlined init with copy of NearbyProtoJoinRequest.Content(v55, v295, type metadata accessor for NearbyProtoSessionMessage);
-          v139 = Logger.logObject.getter();
-          v140 = static os_log_type_t.info.getter();
-          if (os_log_type_enabled(v139, v140))
+          v127 = v46;
+          outlined init with copy of NearbyProtoJoinRequest.Content(v46, v104, type metadata accessor for NearbyProtoSessionMessage);
+          v128 = v279;
+          outlined init with copy of NearbyProtoJoinRequest.Content(v46, v279, type metadata accessor for NearbyProtoSessionMessage);
+          v129 = Logger.logObject.getter();
+          v130 = static os_log_type_t.info.getter();
+          if (os_log_type_enabled(v129, v130))
           {
-            v141 = swift_slowAlloc();
-            v296 = v137;
-            v142 = v112;
-            v143 = v141;
-            v144 = swift_slowAlloc();
-            v305 = v111;
-            v145 = v144;
-            *&aBlock = v144;
-            *v143 = 134218242;
-            v146 = v114 + *(v142 + 24);
-            v147 = v114;
-            if (*(v146 + 9))
+            v131 = swift_slowAlloc();
+            v280 = v127;
+            v132 = v102;
+            v133 = v131;
+            v134 = swift_slowAlloc();
+            v289 = v101;
+            v135 = v134;
+            *&aBlock = v134;
+            *v133 = 134218242;
+            v136 = v104 + *(v132 + 24);
+            v137 = v104;
+            if (*(v136 + 9))
             {
-              v148 = 0;
+              v138 = 0;
             }
 
             else
             {
-              v148 = *v146;
+              v138 = *v136;
             }
 
-            outlined destroy of NearbyProtoConnectionResponse.Content(v147, type metadata accessor for NearbyProtoSessionMessage);
-            *(v143 + 4) = v148;
-            *(v143 + 12) = 2080;
-            v149 = Message.debugDescription.getter();
-            v151 = v150;
-            outlined destroy of NearbyProtoConnectionResponse.Content(v138, type metadata accessor for NearbyProtoSessionMessage);
-            v152 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v149, v151, &aBlock);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v137, type metadata accessor for NearbyProtoSessionMessage);
+            *(v133 + 4) = v138;
+            *(v133 + 12) = 2080;
+            v139 = Message.debugDescription.getter();
+            v141 = v140;
+            outlined destroy of NearbyProtoConnectionResponse.Content(v128, type metadata accessor for NearbyProtoSessionMessage);
+            v142 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v139, v141, &aBlock);
 
-            *(v143 + 14) = v152;
-            _os_log_impl(&_mh_execute_header, v139, v140, "Not able to handle message type: %ld, message: %s", v143, 0x16u);
-            __swift_destroy_boxed_opaque_existential_0Tm(v145);
+            *(v133 + 14) = v142;
+            _os_log_impl(&_mh_execute_header, v129, v130, "Not able to handle message type: %ld, message: %s", v133, 0x16u);
+            __swift_destroy_boxed_opaque_existential_0Tm(v135);
 
             outlined consume of Data?(a1, a2);
-            outlined destroy of NearbyProtoConnectionResponse.Content(v296, type metadata accessor for NearbyProtoSessionMessage);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v280, type metadata accessor for NearbyProtoSessionMessage);
           }
 
           else
           {
-            outlined destroy of NearbyProtoConnectionResponse.Content(v114, type metadata accessor for NearbyProtoSessionMessage);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v104, type metadata accessor for NearbyProtoSessionMessage);
 
             outlined consume of Data?(a1, a2);
-            outlined destroy of NearbyProtoConnectionResponse.Content(v138, type metadata accessor for NearbyProtoSessionMessage);
-            outlined destroy of NearbyProtoConnectionResponse.Content(v137, type metadata accessor for NearbyProtoSessionMessage);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v128, type metadata accessor for NearbyProtoSessionMessage);
+            outlined destroy of NearbyProtoConnectionResponse.Content(v127, type metadata accessor for NearbyProtoSessionMessage);
           }
 
           return;
         }
 
-        outlined destroy of NearbyProtoConnectionResponse.Content(v55, type metadata accessor for NearbyProtoSessionMessage);
+        outlined destroy of NearbyProtoConnectionResponse.Content(v46, type metadata accessor for NearbyProtoSessionMessage);
 
 LABEL_33:
 
@@ -16055,25 +13716,25 @@ LABEL_134:
     }
   }
 
-  v96 = v303;
-  v97 = Logger.logObject.getter();
-  v98 = static os_log_type_t.error.getter();
+  v86 = v287;
+  v87 = Logger.logObject.getter();
+  v88 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v97, v98))
+  if (os_log_type_enabled(v87, v88))
   {
-    v99 = swift_slowAlloc();
-    v100 = swift_slowAlloc();
-    *&aBlock = v100;
-    *v99 = 136315138;
-    v311 = v96;
+    v89 = swift_slowAlloc();
+    v90 = swift_slowAlloc();
+    *&aBlock = v90;
+    *v89 = 136315138;
+    v295 = v86;
     type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for IDSMessageContext, IDSMessageContext_ptr);
-    v101 = v96;
-    v102 = String.init<A>(reflecting:)();
-    v104 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v102, v103, &aBlock);
+    v91 = v86;
+    v92 = String.init<A>(reflecting:)();
+    v94 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v92, v93, &aBlock);
 
-    *(v99 + 4) = v104;
-    _os_log_impl(&_mh_execute_header, v97, v98, "Failed to find toID for message: %s", v99, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v100);
+    *(v89 + 4) = v94;
+    _os_log_impl(&_mh_execute_header, v87, v88, "Failed to find toID for message: %s", v89, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v90);
   }
 
   outlined consume of Data?(a1, a2);
@@ -16106,9 +13767,6 @@ uint64_t partial apply for closure #1 in closure #2 in NearbyIDSServiceControlle
 
 uint64_t objectdestroy_21Tm()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
 
   outlined consume of Data._Representation(*(v0 + 56), *(v0 + 64));
 
@@ -16122,30 +13780,22 @@ uint64_t objectdestroy_24Tm()
   v3 = (v2 + 24) & ~v2;
   v4 = *(*v1 + 64);
 
-  v5 = *(v0 + v3 + 8);
+  v5 = v1[7];
+  v6 = type metadata accessor for UnknownStorage();
+  (*(*(v6 - 8) + 8))(v0 + v3 + v5, v6);
 
-  v6 = v1[7];
-  v7 = type metadata accessor for UnknownStorage();
-  (*(*(v7 - 8) + 8))(v0 + v3 + v6, v7);
-  v8 = *(v0 + v3 + v1[8] + 8);
-
-  v9 = (v0 + v3 + v1[9]);
-  v10 = v9[1];
-  if (v10 >> 60 != 15)
+  v7 = (v0 + v3 + v1[9]);
+  v8 = v7[1];
+  if (v8 >> 60 != 15)
   {
-    outlined consume of Data._Representation(*v9, v10);
+    outlined consume of Data._Representation(*v7, v8);
   }
 
-  v11 = (v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v12 = (v11 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v13 = (v12 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v14 = *(v0 + v11 + 8);
+  v9 = (((((v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8;
 
-  v15 = *(v0 + v12 + 8);
+  outlined consume of Data._Representation(*(v0 + v9), *(v0 + v9 + 8));
 
-  outlined consume of Data._Representation(*(v0 + v13), *(v0 + v13 + 8));
-
-  return _swift_deallocObject(v0, v13 + 16, v2 | 7);
+  return _swift_deallocObject(v0, v9 + 16, v2 | 7);
 }
 
 uint64_t partial apply for closure #1 in closure #3 in NearbyIDSServiceController.handleIncomingMessageBlastDoor(_:account:incomingData:fromIDWithToken:context:)()
@@ -16174,7 +13824,7 @@ uint64_t outlined init with take of NearbyProtoSessionMessage(uint64_t a1, uint6
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NearbyProtoConnectionResponse.Content and conformance NearbyProtoConnectionResponse.Content(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

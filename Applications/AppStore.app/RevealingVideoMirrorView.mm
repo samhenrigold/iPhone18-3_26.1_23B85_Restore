@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for RevealingVideoMirrorView();
+  v3.super_class = type metadata accessor for RevealingVideoMirrorView(0);
   v2 = v3.receiver;
   [(RevealingVideoMirrorView *)&v3 layoutSubviews];
   sub_100667AC8();

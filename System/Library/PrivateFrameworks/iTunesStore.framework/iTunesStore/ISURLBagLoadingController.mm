@@ -38,7 +38,7 @@ uint64_t __55__ISURLBagLoadingController_sharedBagLoadingController__block_invok
 
 - (ISURLBagLoadingController)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISURLBagLoadingController.m", 46, a2);
   v19.receiver = self;
   v19.super_class = ISURLBagLoadingController;
   v3 = [(ISURLBagLoadingController *)&v19 init];
@@ -134,7 +134,7 @@ uint64_t __55__ISURLBagLoadingController_sharedBagLoadingController__block_invok
   }
 }
 
-uint64_t __44__ISURLBagLoadingController_addBagObserver___block_invoke(uint64_t a1)
+void *__44__ISURLBagLoadingController_addBagObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) containsObject:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -175,7 +175,7 @@ uint64_t __44__ISURLBagLoadingController_addBagObserver___block_invoke(uint64_t 
   }
 }
 
-uint64_t __47__ISURLBagLoadingController_removeBagObserver___block_invoke(uint64_t a1)
+void *__47__ISURLBagLoadingController_removeBagObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) containsObject:*(a1 + 40)];
   if (result)
@@ -436,70 +436,66 @@ void __83__ISURLBagLoadingController__reloadURLBagAllowingUpdateUsingExistingBag
 
 void __60__ISURLBagLoadingController__updateBagWithDictionary_error___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v17;
     do
     {
       v6 = 0;
       do
       {
-        if (*v20 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(a1 + 40);
-        v8 = *(a1 + 48);
-        (*(*(*(&v19 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v16 + 1) + 8 * v6++) + 16))();
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v4);
   }
 
-  v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v9 = *(a1 + 56);
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
-  if (v10)
+  v12 = 0u;
+  v13 = 0u;
+  v7 = *(a1 + 56);
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v16;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      v13 = 0;
+      v11 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        [*(*(&v15 + 1) + 8 * v13++) bagDidChange:{*(a1 + 40), v15}];
+        [*(*(&v12 + 1) + 8 * v11++) bagDidChange:{*(a1 + 40), v12}];
       }
 
-      while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

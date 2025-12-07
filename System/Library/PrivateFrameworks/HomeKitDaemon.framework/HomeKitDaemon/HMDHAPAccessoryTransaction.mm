@@ -31,301 +31,299 @@
 
 void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
 {
-  v102[89] = *MEMORY[0x277D85DE8];
+  v101[89] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v99.receiver = *(a1 + 32);
-  v99.super_class = &OBJC_METACLASS___HMDHAPAccessoryTransaction;
-  v2 = objc_msgSendSuper2(&v99, sel_properties);
+  v98.receiver = *(a1 + 32);
+  v98.super_class = &OBJC_METACLASS___HMDHAPAccessoryTransaction;
+  v2 = objc_msgSendSuper2(&v98, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_162956;
   properties__properties_162956 = v3;
 
-  v80 = properties__properties_162956;
-  v101[0] = @"uniqueIdentifier";
-  v98 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[0] = v98;
-  v101[1] = @"bridgeUUID";
+  v79 = properties__properties_162956;
+  v100[0] = @"uniqueIdentifier";
   v97 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[1] = v97;
-  v101[2] = @"paired";
-  v96 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
-  v102[2] = v96;
-  v101[3] = @"accessoryFlags";
-  v95 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[3] = v95;
-  v101[4] = @"certificationStatus";
+  v101[0] = v97;
+  v100[1] = @"bridgeUUID";
+  v96 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v101[1] = v96;
+  v100[2] = @"paired";
+  v95 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
+  v101[2] = v95;
+  v100[3] = @"accessoryFlags";
   v94 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[4] = v94;
-  v101[5] = @"pairingUsername";
+  v101[3] = v94;
+  v100[4] = @"certificationStatus";
   v93 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[5] = v93;
-  v101[6] = @"publicKey";
+  v101[4] = v93;
+  v100[5] = @"pairingUsername";
   v92 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[6] = v92;
-  v101[7] = @"transportInformation";
+  v101[5] = v92;
+  v100[6] = @"publicKey";
   v91 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[7] = v91;
-  v101[8] = @"communicationProtocol";
+  v101[6] = v91;
+  v100[7] = @"transportInformation";
   v90 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[8] = v90;
-  v101[9] = @"accessorySetupHash";
+  v101[7] = v90;
+  v100[8] = @"communicationProtocol";
   v89 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[9] = v89;
-  v101[10] = @"broadcastKey";
+  v101[8] = v89;
+  v100[9] = @"accessorySetupHash";
   v88 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[10] = v88;
-  v101[11] = @"keyUpdatedStateNumber";
+  v101[9] = v88;
+  v100[10] = @"broadcastKey";
   v87 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[11] = v87;
-  v101[12] = @"keyUpdatedTime";
+  v101[10] = v87;
+  v100[11] = @"keyUpdatedStateNumber";
   v86 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[12] = v86;
-  v101[13] = @"targetUUIDs";
+  v101[11] = v86;
+  v100[12] = @"keyUpdatedTime";
   v85 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[13] = v85;
-  v101[14] = @"hardwareSupport";
+  v101[12] = v85;
+  v100[13] = @"targetUUIDs";
   v84 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[14] = v84;
-  v101[15] = @"connectivityInfo";
+  v101[13] = v84;
+  v100[14] = @"hardwareSupport";
   v83 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[15] = v83;
-  v101[16] = @"wiFiTransportCapabilities";
+  v101[14] = v83;
+  v100[15] = @"connectivityInfo";
   v82 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[16] = v82;
-  v101[17] = @"sleepInterval";
+  v101[15] = v82;
+  v100[16] = @"wiFiTransportCapabilities";
   v81 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[17] = v81;
-  v101[18] = @"hasOnboardedForNaturalLighting";
-  v79 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[18] = v79;
-  v101[19] = @"initialServiceTypeUUIDs";
+  v101[16] = v81;
+  v100[17] = @"sleepInterval";
+  v80 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v101[17] = v80;
+  v100[18] = @"hasOnboardedForNaturalLighting";
+  v78 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v101[18] = v78;
+  v100[19] = @"initialServiceTypeUUIDs";
   v5 = objc_opt_class();
-  v100 = objc_opt_class();
-  v78 = [MEMORY[0x277CBEA60] arrayWithObjects:&v100 count:1];
-  v77 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v5 additionalDecodeClasses:v78];
-  v102[19] = v77;
-  v101[20] = @"needsOnboarding";
-  v76 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[20] = v76;
-  v101[21] = @"suspendedState";
+  v99 = objc_opt_class();
+  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:&v99 count:1];
+  v76 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v5 additionalDecodeClasses:v77];
+  v101[19] = v76;
+  v100[20] = @"needsOnboarding";
   v75 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[21] = v75;
-  v101[22] = @"preferredMediaUserUUID";
+  v101[20] = v75;
+  v100[21] = @"suspendedState";
   v74 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[22] = v74;
-  v101[23] = @"preferredUserSelectionType";
+  v101[21] = v74;
+  v100[22] = @"preferredMediaUserUUID";
   v73 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[23] = v73;
-  v101[24] = @"soundAlertEnabled";
+  v101[22] = v73;
+  v100[23] = @"preferredUserSelectionType";
   v72 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[24] = v72;
-  v101[25] = @"lightWhenUsingSiriEnabled";
+  v101[23] = v72;
+  v100[24] = @"soundAlertEnabled";
   v71 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[25] = v71;
-  v101[26] = @"siriEnabled";
+  v101[24] = v71;
+  v100[25] = @"lightWhenUsingSiriEnabled";
   v70 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[26] = v70;
-  v101[27] = @"siriLanguageCode";
+  v101[25] = v70;
+  v100[26] = @"siriEnabled";
   v69 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[27] = v69;
-  v101[28] = @"siriLanguageVoiceCode";
+  v101[26] = v69;
+  v100[27] = @"siriLanguageCode";
   v68 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[28] = v68;
-  v101[29] = @"siriLanguageVoiceGenderCode";
+  v101[27] = v68;
+  v100[28] = @"siriLanguageVoiceCode";
   v67 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[29] = v67;
-  v101[30] = @"siriLanguageVoiceName";
+  v101[28] = v67;
+  v100[29] = @"siriLanguageVoiceGenderCode";
   v66 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[30] = v66;
-  v101[31] = @"hasDismissedHomePodHasNonMemberMediaAccountWarning";
+  v101[29] = v66;
+  v100[30] = @"siriLanguageVoiceName";
   v65 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[31] = v65;
-  v101[32] = @"doorbellChimeEnabled";
+  v101[30] = v65;
+  v100[31] = @"hasDismissedHomePodHasNonMemberMediaAccountWarning";
   v64 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[32] = v64;
-  v101[33] = @"announceEnabled";
+  v101[31] = v64;
+  v100[32] = @"doorbellChimeEnabled";
   v63 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[33] = v63;
-  v101[34] = @"visionDoubleTapSettingsTimeoutInterval";
+  v101[32] = v63;
+  v100[33] = @"announceEnabled";
   v62 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[34] = v62;
-  v101[35] = @"visionVoiceOverEnabled";
+  v101[33] = v62;
+  v100[34] = @"visionDoubleTapSettingsTimeoutInterval";
   v61 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[35] = v61;
-  v101[36] = @"visionVoiceOverAudioDuckingEnabled";
+  v101[34] = v61;
+  v100[35] = @"visionVoiceOverEnabled";
   v60 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[36] = v60;
-  v101[37] = @"visionSpeakingRate";
+  v101[35] = v60;
+  v100[36] = @"visionVoiceOverAudioDuckingEnabled";
   v59 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[37] = v59;
-  v101[38] = @"interactionHoldDurationEnabled";
+  v101[36] = v59;
+  v100[37] = @"visionSpeakingRate";
   v58 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[38] = v58;
-  v101[39] = @"interactionHoldDurationSeconds";
+  v101[37] = v58;
+  v100[38] = @"interactionHoldDurationEnabled";
   v57 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[39] = v57;
-  v101[40] = @"interactionTouchAccommodationsEnabled";
+  v101[38] = v57;
+  v100[39] = @"interactionHoldDurationSeconds";
   v56 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[40] = v56;
-  v101[41] = @"interactionIgnoreRepeatEnabled";
+  v101[39] = v56;
+  v100[40] = @"interactionTouchAccommodationsEnabled";
   v55 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[41] = v55;
-  v101[42] = @"interactionIgnoreRepeatSeconds";
+  v101[40] = v55;
+  v100[41] = @"interactionIgnoreRepeatEnabled";
   v54 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[42] = v54;
-  v101[43] = @"shareSiriAnalytics";
+  v101[41] = v54;
+  v100[42] = @"interactionIgnoreRepeatSeconds";
   v53 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[43] = v53;
-  v101[44] = @"shareSpeakerAnalytics";
+  v101[42] = v53;
+  v100[43] = @"shareSiriAnalytics";
   v52 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[44] = v52;
-  v101[45] = @"airPlayEnabled";
+  v101[43] = v52;
+  v100[44] = @"shareSpeakerAnalytics";
   v51 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[45] = v51;
-  v101[46] = @"siriEndpointEnabled";
+  v101[44] = v51;
+  v100[45] = @"airPlayEnabled";
   v50 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[46] = v50;
-  v101[47] = @"cameraAccessModeAtHome";
+  v101[45] = v50;
+  v100[46] = @"siriEndpointEnabled";
   v49 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[47] = v49;
-  v101[48] = @"cameraAccessModeNotAtHome";
+  v101[46] = v49;
+  v100[47] = @"cameraAccessModeAtHome";
   v48 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[48] = v48;
-  v101[49] = @"cameraRecordingEventTriggers";
+  v101[47] = v48;
+  v100[48] = @"cameraAccessModeNotAtHome";
   v47 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[49] = v47;
-  v101[50] = @"cameraActivityZones";
+  v101[48] = v47;
+  v100[49] = @"cameraRecordingEventTriggers";
   v46 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[50] = v46;
-  v101[51] = @"cameraActivityZonesIncludedForSignificantEventDetection";
+  v101[49] = v46;
+  v100[50] = @"cameraActivityZones";
   v45 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[51] = v45;
-  v101[52] = @"supportsMatterAccessCode";
+  v101[50] = v45;
+  v100[51] = @"cameraActivityZonesIncludedForSignificantEventDetection";
   v44 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[52] = v44;
-  v101[53] = @"supportsMatterWalletKey";
+  v101[51] = v44;
+  v100[52] = @"supportsMatterAccessCode";
   v43 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[53] = v43;
-  v101[54] = @"supportsMatterWeekDaySchedule";
+  v101[52] = v43;
+  v100[53] = @"supportsMatterWalletKey";
   v42 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[54] = v42;
-  v101[55] = @"supportsMatterYearDaySchedule";
+  v101[53] = v42;
+  v100[54] = @"supportsMatterWeekDaySchedule";
   v41 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[55] = v41;
-  v101[56] = @"matterWeekDayScheduleCapacity";
+  v101[54] = v41;
+  v100[55] = @"supportsMatterYearDaySchedule";
   v40 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[56] = v40;
-  v101[57] = @"matterYearDayScheduleCapacity";
+  v101[55] = v40;
+  v100[56] = @"matterWeekDayScheduleCapacity";
   v39 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[57] = v39;
-  v101[58] = @"cameraCurrentAccessMode";
+  v101[56] = v39;
+  v100[57] = @"matterYearDayScheduleCapacity";
   v38 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[58] = v38;
-  v101[59] = @"cameraCurrentAccessModeChangeReason";
+  v101[57] = v38;
+  v100[58] = @"cameraCurrentAccessMode";
   v37 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[59] = v37;
-  v101[60] = @"cameraCurrentAccessModeChangeDate";
+  v101[58] = v37;
+  v100[59] = @"cameraCurrentAccessModeChangeReason";
   v36 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[60] = v36;
-  v101[61] = @"enhancedAuthMethod";
+  v101[59] = v36;
+  v100[60] = @"cameraCurrentAccessModeChangeDate";
   v35 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[61] = v35;
-  v101[62] = @"enhancedAuthConfigNumber";
+  v101[60] = v35;
+  v100[61] = @"enhancedAuthMethod";
   v34 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[62] = v34;
-  v101[63] = @"supportsNaturalLighting";
+  v101[61] = v34;
+  v100[62] = @"enhancedAuthConfigNumber";
   v33 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[63] = v33;
-  v101[64] = @"naturalLightingEnabled";
+  v101[62] = v33;
+  v100[63] = @"supportsNaturalLighting";
   v32 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[64] = v32;
-  v101[65] = @"chipNodeID";
+  v101[63] = v32;
+  v100[64] = @"naturalLightingEnabled";
   v31 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[65] = v31;
-  v101[66] = @"chipVendorID";
+  v101[64] = v31;
+  v100[65] = @"chipNodeID";
   v30 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[66] = v30;
-  v101[67] = @"chipProductID";
+  v101[65] = v30;
+  v100[66] = @"chipVendorID";
   v29 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[67] = v29;
-  v101[68] = @"chipAttributeDatabase";
+  v101[66] = v29;
+  v100[67] = @"chipProductID";
   v28 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[68] = v28;
-  v101[69] = @"chipPairingsData";
+  v101[67] = v28;
+  v100[68] = @"chipAttributeDatabase";
   v27 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[69] = v27;
-  v101[70] = @"chipWEDSupport";
+  v101[68] = v27;
+  v100[69] = @"chipPairingsData";
   v26 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[70] = v26;
-  v101[71] = @"chipExtendedMACAddress";
+  v101[69] = v26;
+  v100[70] = @"chipWEDSupport";
   v25 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[71] = v25;
-  v101[72] = @"matterSoftwareVersionNumber";
+  v101[70] = v25;
+  v100[71] = @"chipExtendedMACAddress";
   v24 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[72] = v24;
-  v101[73] = @"supportedLinkLayerTypes";
+  v101[71] = v24;
+  v100[72] = @"matterSoftwareVersionNumber";
   v23 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[73] = v23;
-  v101[74] = @"supportsMatCredACP";
+  v101[72] = v23;
+  v100[73] = @"supportedLinkLayerTypes";
   v22 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[74] = v22;
-  v101[75] = @"supportsMatCredACB";
+  v101[73] = v22;
+  v100[74] = @"supportsMatCredACP";
   v21 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[75] = v21;
-  v101[76] = @"expeditedTransactionSupportedVersions";
+  v101[74] = v21;
+  v100[75] = @"supportsMatCredACB";
   v20 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[76] = v20;
-  v101[77] = @"bleUWBSupportedVersions";
+  v101[75] = v20;
+  v100[76] = @"expeditedTransactionSupportedVersions";
   v19 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[77] = v19;
-  v101[78] = @"bleAdvertisingVersion";
+  v101[76] = v19;
+  v100[77] = @"bleUWBSupportedVersions";
   v18 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[78] = v18;
-  v101[79] = @"matCredRGSI";
+  v101[77] = v18;
+  v100[78] = @"bleAdvertisingVersion";
   v17 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[79] = v17;
-  v101[80] = @"preexistingMatCredRGI";
+  v101[78] = v17;
+  v100[79] = @"matCredRGSI";
+  v16 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v101[79] = v16;
+  v100[80] = @"preexistingMatCredRGI";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[80] = v6;
-  v101[81] = @"preexistingMatCredRPK";
+  v101[80] = v6;
+  v100[81] = @"preexistingMatCredRPK";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[81] = v7;
-  v101[82] = @"preexistingMatCredGRK";
+  v101[81] = v7;
+  v100[82] = @"preexistingMatCredGRK";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[82] = v8;
-  v101[83] = @"mfiCertifiedACWG";
+  v101[82] = v8;
+  v100[83] = @"mfiCertifiedACWG";
   v9 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[83] = v9;
-  v101[84] = @"supportsNativeMatter";
+  v101[83] = v9;
+  v100[84] = @"supportsNativeMatter";
   v10 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[84] = v10;
-  v101[85] = @"hasOnboardedForAdaptiveTemperatureAutomations";
+  v101[84] = v10;
+  v100[85] = @"hasOnboardedForAdaptiveTemperatureAutomations";
   v11 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[85] = v11;
-  v101[86] = @"hasOnboardedForCleanEnergyAutomation";
+  v101[85] = v11;
+  v100[86] = @"hasOnboardedForCleanEnergyAutomation";
   v12 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[86] = v12;
-  v101[87] = @"supportsAdaptiveTemperatureAutomations";
+  v101[86] = v12;
+  v100[87] = @"supportsAdaptiveTemperatureAutomations";
   v13 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[87] = v13;
-  v101[88] = @"supportsCleanEnergyAutomation";
+  v101[87] = v13;
+  v100[88] = @"supportsCleanEnergyAutomation";
   v14 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v102[88] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:v101 count:89];
-  [v80 addEntriesFromDictionary:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v101[88] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:v100 count:89];
+  [v79 addEntriesFromDictionary:v15];
 }
 
 - (void)setChipPairings:(id)pairings
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pairingsCopy = pairings;
   if (pairingsCopy)
   {
-    v12 = 0;
-    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:pairingsCopy requiringSecureCoding:1 error:&v12];
-    v6 = v12;
+    v11 = 0;
+    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:pairingsCopy requiringSecureCoding:1 error:&v11];
+    v6 = v11;
     if (v5)
     {
       [(HMDHAPAccessoryTransaction *)self setChipPairingsData:v5];
@@ -340,11 +338,11 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v14 = v10;
-        v15 = 2112;
-        v16 = pairingsCopy;
-        v17 = 2112;
-        v18 = v6;
+        v13 = v10;
+        v14 = 2112;
+        v15 = pairingsCopy;
+        v16 = 2112;
+        v17 = v6;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize pairings %@: %@", buf, 0x20u);
       }
 
@@ -356,25 +354,23 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
   {
     [(HMDHAPAccessoryTransaction *)self setChipPairingsData:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)chipPairings
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   chipPairingsData = [(HMDHAPAccessoryTransaction *)self chipPairingsData];
   if (chipPairingsData)
   {
     v4 = MEMORY[0x277CCAAC8];
     v5 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v7 = [v5 setWithArray:v6];
-    v17 = 0;
-    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:chipPairingsData error:&v17];
-    v9 = v17;
+    v16 = 0;
+    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:chipPairingsData error:&v16];
+    v9 = v16;
 
     if (v8)
     {
@@ -390,9 +386,9 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v19 = v14;
-        v20 = 2112;
-        v21 = v9;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v9;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize pairings from data: %@", buf, 0x16u);
       }
 
@@ -405,18 +401,16 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
     v8 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)dependentUUIDs
 {
   selfCopy = self;
-  v40 = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = HMDHAPAccessoryTransaction;
-  dependentUUIDs = [(HMDAccessoryTransaction *)&v34 dependentUUIDs];
+  v39 = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = HMDHAPAccessoryTransaction;
+  dependentUUIDs = [(HMDAccessoryTransaction *)&v33 dependentUUIDs];
   v4 = [dependentUUIDs mutableCopy];
 
   bridgeUUID = [(HMDHAPAccessoryTransaction *)selfCopy bridgeUUID];
@@ -434,36 +428,36 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
 
   if (v10)
   {
-    v27 = v4;
+    v26 = v4;
     v11 = MEMORY[0x277CBEB18];
     targetUUIDs2 = [(HMDHAPAccessoryTransaction *)selfCopy targetUUIDs];
-    v29 = [v11 arrayWithCapacity:{objc_msgSend(targetUUIDs2, "count")}];
+    v28 = [v11 arrayWithCapacity:{objc_msgSend(targetUUIDs2, "count")}];
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     obj = [(HMDHAPAccessoryTransaction *)selfCopy targetUUIDs];
-    v13 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v13 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
     v14 = 0x277CCA000uLL;
     if (v13)
     {
       v15 = v13;
-      v16 = *v31;
+      v16 = *v30;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * i);
+          v18 = *(*(&v29 + 1) + 8 * i);
           v19 = [objc_alloc(*(v14 + 3448)) initWithUUIDString:v18];
           if (v19)
           {
-            [v29 addObject:v19];
+            [v28 addObject:v19];
           }
 
           else
@@ -476,9 +470,9 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
               HMFGetLogIdentifier();
               v24 = v23 = selfCopy;
               *buf = 138543618;
-              v36 = v24;
-              v37 = 2112;
-              v38 = v18;
+              v35 = v24;
+              v36 = 2112;
+              v37 = v18;
               _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@UUID string not well-formed: %@", buf, 0x16u);
 
               selfCopy = v23;
@@ -489,24 +483,22 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
           }
         }
 
-        v15 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v15 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
       }
 
       while (v15);
     }
 
-    v4 = v27;
-    [v27 addObjectsFromArray:v29];
+    v4 = v26;
+    [v26 addObjectsFromArray:v28];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context
 {
-  v36[2] = *MEMORY[0x277D85DE8];
+  v35[2] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   fieldCopy = field;
   contextCopy = context;
@@ -519,13 +511,13 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
       {
         v12 = MEMORY[0x277CCAAC8];
         v13 = MEMORY[0x277CBEB98];
-        v36[0] = objc_opt_class();
-        v36[1] = objc_opt_class();
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+        v35[0] = objc_opt_class();
+        v35[1] = objc_opt_class();
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
         v15 = [v13 setWithArray:v14];
-        v31 = 0;
-        v16 = [v12 unarchivedObjectOfClasses:v15 fromData:cameraActivityZones error:&v31];
-        v17 = v31;
+        v30 = 0;
+        v16 = [v12 unarchivedObjectOfClasses:v15 fromData:cameraActivityZones error:&v30];
+        v17 = v30;
 
         if (v16)
         {
@@ -541,9 +533,9 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
           {
             v25 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v33 = v25;
-            v34 = 2112;
-            v35 = v17;
+            v32 = v25;
+            v33 = 2112;
+            v34 = v17;
             _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode activity zones: %@", buf, 0x16u);
           }
 
@@ -663,19 +655,17 @@ LABEL_38:
     goto LABEL_38;
   }
 
-  v30.receiver = self;
-  v30.super_class = HMDHAPAccessoryTransaction;
-  v26 = [(HMDAccessoryTransaction *)&v30 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
+  v29.receiver = self;
+  v29.super_class = HMDHAPAccessoryTransaction;
+  v26 = [(HMDAccessoryTransaction *)&v29 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
 LABEL_39:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 - (id)cd_generateValueForModelObjectFromManagedObject:(id)object modelObjectField:(id)field modelFieldInfo:(id)info
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   fieldCopy = field;
   infoCopy = info;
@@ -684,9 +674,9 @@ LABEL_39:
     cameraActivityZones = [objectCopy cameraActivityZones];
     if (cameraActivityZones)
     {
-      v45 = 0;
-      null2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:cameraActivityZones requiringSecureCoding:1 error:&v45];
-      v13 = v45;
+      v44 = 0;
+      null2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:cameraActivityZones requiringSecureCoding:1 error:&v44];
+      v13 = v44;
       if (null2)
       {
 LABEL_4:
@@ -704,9 +694,9 @@ LABEL_41:
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v32;
-        v49 = 2112;
-        v50 = v13;
+        v47 = v32;
+        v48 = 2112;
+        v49 = v13;
         v33 = "%{public}@Failed to encode activity zones: %@";
 LABEL_22:
         _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, v33, buf, 0x16u);
@@ -725,41 +715,41 @@ LABEL_22:
     initialServiceTypes = [objectCopy initialServiceTypes];
     if (initialServiceTypes)
     {
-      v38 = objectCopy;
+      v37 = objectCopy;
       v16 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(initialServiceTypes, "count")}];
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
       v17 = initialServiceTypes;
-      v18 = [v17 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v40 objects:v45 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v42;
+        v20 = *v41;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v42 != v20)
+            if (*v41 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
             v22 = MEMORY[0x277D0F888];
-            uUIDString = [*(*(&v41 + 1) + 8 * i) UUIDString];
+            uUIDString = [*(*(&v40 + 1) + 8 * i) UUIDString];
             v24 = [v22 hmf_cachedInstanceForString:uUIDString];
             [v16 addObject:v24];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v41 objects:v46 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v40 objects:v45 count:16];
         }
 
         while (v19);
       }
 
-      null2 = [v16 copy];
-      objectCopy = v38;
+      null2 = objc_msgSend_copy(v16);
+      objectCopy = v37;
       goto LABEL_34;
     }
 
@@ -817,9 +807,9 @@ LABEL_33:
     cameraActivityZones = [objectCopy matterPairings];
     if (cameraActivityZones)
     {
-      v40 = 0;
-      null2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:cameraActivityZones requiringSecureCoding:1 error:&v40];
-      v13 = v40;
+      v39 = 0;
+      null2 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:cameraActivityZones requiringSecureCoding:1 error:&v39];
+      v13 = v39;
       if (null2)
       {
         goto LABEL_4;
@@ -832,9 +822,9 @@ LABEL_33:
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v32;
-        v49 = 2112;
-        v50 = v13;
+        v47 = v32;
+        v48 = 2112;
+        v49 = v13;
         v33 = "%{public}@Failed to encode matter pairings: %@";
         goto LABEL_22;
       }
@@ -862,19 +852,17 @@ LABEL_40:
     goto LABEL_30;
   }
 
-  v39.receiver = self;
-  v39.super_class = HMDHAPAccessoryTransaction;
-  null2 = [(HMDAccessoryTransaction *)&v39 cd_generateValueForModelObjectFromManagedObject:objectCopy modelObjectField:fieldCopy modelFieldInfo:infoCopy];
+  v38.receiver = self;
+  v38.super_class = HMDHAPAccessoryTransaction;
+  null2 = [(HMDAccessoryTransaction *)&v38 cd_generateValueForModelObjectFromManagedObject:objectCopy modelObjectField:fieldCopy modelFieldInfo:infoCopy];
 LABEL_42:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return null2;
 }
 
 + (id)cd_getMKFHAPAccessoryFromAccessoryUUID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy)
   {
@@ -882,9 +870,9 @@ LABEL_42:
   }
 
   v5 = dCopy;
-  v17 = 0;
-  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dCopy ofManagedObjectType:objc_opt_class() error:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dCopy ofManagedObjectType:objc_opt_class() error:&v16];
+  v7 = v16;
   v8 = v7;
   if (v6)
   {
@@ -910,11 +898,11 @@ LABEL_42:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v8;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFHAPAccessory for HAP accessory with UUID %@: %@", buf, 0x20u);
     }
 
@@ -922,14 +910,12 @@ LABEL_42:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)cd_getMKFHAPAccessoryFromAccessory:(id)accessory
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:accessoryCopy];
   if (v5)
@@ -945,25 +931,23 @@ LABEL_42:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = accessoryCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Invalid accessory UUID string '%@'", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = accessoryCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Invalid accessory UUID string '%@'", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)cd_getMKFServiceFromAccessoryUUID:(id)d serviceInstanceId:(id)id
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   idCopy = id;
   if (!dCopy)
@@ -983,25 +967,25 @@ LABEL_20:
   v10 = v9;
   if (v9)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     services = [v9 services];
-    v12 = [services countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [services countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
-      v13 = *v21;
+      v13 = *v20;
       while (2)
       {
         for (i = 0; i != v12; i = i + 1)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(services);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           instanceID = [v15 instanceID];
           v17 = HAPEqualInstanceIDs();
 
@@ -1012,7 +996,7 @@ LABEL_20:
           }
         }
 
-        v12 = [services countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [services countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v12)
         {
           continue;
@@ -1029,8 +1013,6 @@ LABEL_14:
   {
     v12 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

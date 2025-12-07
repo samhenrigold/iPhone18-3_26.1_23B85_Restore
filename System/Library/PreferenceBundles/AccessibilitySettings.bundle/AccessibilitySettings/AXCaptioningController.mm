@@ -259,10 +259,10 @@ id __63__AXCaptioningController_setShowAudioTranscriptions_specifier___block_inv
   return [v2 setGizmoPref:v3 forKey:@"ShowAudioTranscriptionsEnabled" domain:v4];
 }
 
-void __63__AXCaptioningController_setShowAudioTranscriptions_specifier___block_invoke_2(uint64_t a1)
+void __63__AXCaptioningController_setShowAudioTranscriptions_specifier___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 48);
-  v2 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v3 = *(a1 + 40);
   AXPerformBlockOnMainThreadAfterDelay();
 }
 

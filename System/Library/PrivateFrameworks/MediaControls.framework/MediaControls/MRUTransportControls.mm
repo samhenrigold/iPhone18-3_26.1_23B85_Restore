@@ -164,7 +164,7 @@ void __48__MRUTransportControls_leadingItemFromResponse___block_invoke_2(void *a
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -368,7 +368,7 @@ void __45__MRUTransportControls_leftItemFromResponse___block_invoke_3(void *a1, 
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -404,7 +404,7 @@ void __45__MRUTransportControls_leftItemFromResponse___block_invoke_2_45(void *a
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -440,7 +440,7 @@ void __45__MRUTransportControls_leftItemFromResponse___block_invoke_2_47(void *a
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -475,7 +475,7 @@ void __45__MRUTransportControls_leftItemFromResponse___block_invoke_2_47(void *a
   {
     if (playingItem)
     {
-      [playingItem duration];
+      objc_msgSend_duration(playingItem);
       if (v29)
       {
         v12 = +[MRUAssetsProvider stopSymbol];
@@ -554,7 +554,7 @@ void __47__MRUTransportControls_centerItemFromResponse___block_invoke_2(void *a1
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -739,7 +739,7 @@ void __46__MRUTransportControls_rightItemFromResponse___block_invoke_3(void *a1,
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -775,7 +775,7 @@ void __46__MRUTransportControls_rightItemFromResponse___block_invoke_2_61(void *
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -811,7 +811,7 @@ void __46__MRUTransportControls_rightItemFromResponse___block_invoke_2_63(void *
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];

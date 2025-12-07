@@ -52,35 +52,35 @@
 
 - (void)_tryNodesWithContext:(id)context solutionTest:(id)test
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   testCopy = test;
   scanner = [contextCopy scanner];
   scanLocation = [scanner scanLocation];
   cache = [contextCopy cache];
-  v27 = [cache nodesForPosition:scanLocation nonTerminal:self withLengthAllowance:{objc_msgSend(contextCopy, "lengthAllowance")}];
+  v26 = [cache nodesForPosition:scanLocation nonTerminal:self withLengthAllowance:{objc_msgSend(contextCopy, "lengthAllowance")}];
 
-  if (v27)
+  if (v26)
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
-    array = v27;
-    v9 = [array countByEnumeratingWithState:&v49 objects:v54 count:16];
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    array = v26;
+    v9 = [array countByEnumeratingWithState:&v48 objects:v53 count:16];
     if (v9)
     {
-      v10 = *v50;
+      v10 = *v49;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v50 != v10)
+        if (*v49 != v10)
         {
           objc_enumerationMutation(array);
         }
 
-        v12 = *(*(&v49 + 1) + 8 * v11);
+        v12 = *(*(&v48 + 1) + 8 * v11);
         scanner2 = [contextCopy scanner];
         rangeOfString = [v12 rangeOfString];
         [scanner2 setScanLocation:rangeOfString + v15];
@@ -92,7 +92,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [array countByEnumeratingWithState:&v49 objects:v54 count:16];
+          v9 = [array countByEnumeratingWithState:&v48 objects:v53 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -107,31 +107,31 @@ LABEL_4:
   else
   {
     array = [MEMORY[0x1E695DF70] array];
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
-    v48 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
     [scanner setCharactersToBeSkipped:self->_charactersToBeSkipped];
-    v44 = 0u;
-    v42 = 0u;
     v43 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v40 = 0u;
     v16 = self->_replacementRules;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v41 objects:v53 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v40 objects:v52 count:16];
     if (v17)
     {
-      v18 = *v42;
-      v28 = v33;
+      v18 = *v41;
+      v27 = v32;
 LABEL_13:
       v19 = 0;
       while (1)
       {
-        if (*v42 != v18)
+        if (*v41 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v41 + 1) + 8 * v19);
+        v20 = *(*(&v40 + 1) + 8 * v19);
         lengthAllowance = [contextCopy lengthAllowance];
         if (lengthAllowance >= [v20 lengthIncrease])
         {
@@ -139,23 +139,23 @@ LABEL_13:
           [contextCopy incrementRecursiveDepth];
           array2 = [MEMORY[0x1E695DF70] array];
           rightHandSide = [v20 rightHandSide];
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v33[0] = __55___HKCFGNonTerminal__tryNodesWithContext_solutionTest___block_invoke;
-          v33[1] = &unk_1E737B698;
-          v40 = scanLocation;
-          v34 = scanner;
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v32[0] = __55___HKCFGNonTerminal__tryNodesWithContext_solutionTest___block_invoke;
+          v32[1] = &unk_1E737B698;
+          v39 = scanLocation;
+          v33 = scanner;
           v24 = array2;
-          v35 = v24;
-          v36 = v20;
-          v37 = array;
-          v39 = &v45;
-          v38 = testCopy;
-          [(_HKCFGNonTerminal *)self _tryNodesForExpressions:rightHandSide nodes:v24 context:contextCopy solutionTest:v32];
+          v34 = v24;
+          v35 = v20;
+          v36 = array;
+          v38 = &v44;
+          v37 = testCopy;
+          [(_HKCFGNonTerminal *)self _tryNodesForExpressions:rightHandSide nodes:v24 context:contextCopy solutionTest:v31];
 
           [contextCopy increaseLengthAllowance:{objc_msgSend(v20, "lengthIncrease")}];
           [contextCopy decrementRecursiveDepth];
-          LOBYTE(rightHandSide) = *(v46 + 24);
+          LOBYTE(rightHandSide) = *(v45 + 24);
 
           if (rightHandSide)
           {
@@ -165,7 +165,7 @@ LABEL_13:
 
         if (v17 == ++v19)
         {
-          v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v41 objects:v53 count:16];
+          v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v40 objects:v52 count:16];
           if (v17)
           {
             goto LABEL_13;
@@ -179,11 +179,10 @@ LABEL_13:
     cache2 = [contextCopy cache];
     [cache2 cacheNodes:array forPosition:scanLocation nonTerminal:self lengthAllowance:{objc_msgSend(contextCopy, "lengthAllowance")}];
 
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v44, 8);
   }
 
   [scanner setScanLocation:scanLocation];
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_tryNodesForExpressions:(id)expressions nodes:(id)nodes context:(id)context solutionTest:(id)test
@@ -258,7 +257,7 @@ LABEL_13:
 
 - (void)_checkForCycles:(id)cycles
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   cyclesCopy = cycles;
   if ([cyclesCopy containsObject:self])
   {
@@ -266,27 +265,27 @@ LABEL_13:
   }
 
   [cyclesCopy addObject:self];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = self->_replacementRules;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        rightHandSide = [*(*(&v15 + 1) + 8 * v9) rightHandSide];
+        rightHandSide = [*(*(&v14 + 1) + 8 * v9) rightHandSide];
         if ([rightHandSide count] == 1)
         {
           v11 = [rightHandSide objectAtIndexedSubscript:0];
@@ -304,13 +303,11 @@ LABEL_13:
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -79,14 +79,14 @@ LABEL_6:
 
 - (id)analyticsDataDict
 {
-  v14[3] = *MEMORY[0x277D85DE8];
-  v13[0] = @"AllEventsKey";
-  v13[1] = @"KnownEventsKey";
-  v14[0] = @"nDTMFActions_Total";
-  v14[1] = @"nDTMFActions_Known";
-  v13[2] = @"UnknownEventsKey";
-  v14[2] = @"nDTMFActions_Unknown";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[3] = *MEMORY[0x277D85DE8];
+  v12[0] = @"AllEventsKey";
+  v12[1] = @"KnownEventsKey";
+  v13[0] = @"nDTMFActions_Total";
+  v13[1] = @"nDTMFActions_Known";
+  v12[2] = @"UnknownEventsKey";
+  v13[2] = @"nDTMFActions_Unknown";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
   v4 = [(SOSAnalyticsEventAccumulator *)self->_actionsAccumulator analyticsDataDictForAccumulatedKeys:&unk_2875D2CB0 outputKeyPrefix:@"nDTMFAction_" summaryKeysDict:v3];
   v5 = [v4 mutableCopy];
   v6 = [v4 objectForKeyedSubscript:@"nDTMFActions_Known"];
@@ -96,8 +96,6 @@ LABEL_6:
 
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
   [v5 setObject:v10 forKeyedSubscript:@"nDTMFActions_Acted"];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

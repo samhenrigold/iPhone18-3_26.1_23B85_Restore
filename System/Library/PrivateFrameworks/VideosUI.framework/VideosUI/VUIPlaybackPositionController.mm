@@ -199,8 +199,9 @@ void __47__VUIPlaybackPositionController_sharedInstance__block_invoke()
   objc_destroyWeak(&location);
 }
 
-void __88__VUIPlaybackPositionController__onQueue_updateEntityWithPlaybackPositionInfo_forTrack___block_invoke(uint64_t a1, char a2)
+void __88__VUIPlaybackPositionController__onQueue_updateEntityWithPlaybackPositionInfo_forTrack___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (WeakRetained)
@@ -208,7 +209,7 @@ void __88__VUIPlaybackPositionController__onQueue_updateEntityWithPlaybackPositi
     v6 = WeakRetained[1];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __88__VUIPlaybackPositionController__onQueue_updateEntityWithPlaybackPositionInfo_forTrack___block_invoke_cold_1(a2, v6);
+      __88__VUIPlaybackPositionController__onQueue_updateEntityWithPlaybackPositionInfo_forTrack___block_invoke_cold_1(v2, v6);
     }
   }
 

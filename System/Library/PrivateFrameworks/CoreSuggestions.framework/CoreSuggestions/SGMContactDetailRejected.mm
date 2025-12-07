@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar type:(SGMContactDetailType_)type extracted:(SGMDetailExtractionType_)extracted extractionModelVersion:(unint64_t)version
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   if (type.var0 >= 5)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -38,38 +38,35 @@
 
   v17 = v14;
   tracker = self->_tracker;
-  v22[0] = v11;
-  v22[1] = v17;
+  v21[0] = v11;
+  v21[1] = v17;
   v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:version];
-  v22[2] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
+  v21[2] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v20 value:scalar];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMContactDetailRejected)init
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = SGMContactDetailRejected;
-  v2 = [(SGMContactDetailRejected *)&v12 init];
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = SGMContactDetailRejected;
+  v2 = [(SGMContactDetailRejected *)&v11 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Type"];
     v4 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Extracted"];
     v5 = [MEMORY[0x1E69C5B40] propertyWithName:@"ExtractionModelVersion" range:0 clampValues:{1000, 1}];
     v6 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v13[0] = v3;
-    v13[1] = v4;
-    v13[2] = v5;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
+    v12[0] = v3;
+    v12[1] = v4;
+    v12[2] = v5;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
     v8 = [v6 initWithFeatureId:@"Found" event:@"ContactDetailRejected" registerProperties:v7 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

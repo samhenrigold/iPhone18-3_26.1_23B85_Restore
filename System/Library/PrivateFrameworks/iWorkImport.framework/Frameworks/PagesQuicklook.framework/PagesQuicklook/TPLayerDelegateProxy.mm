@@ -42,21 +42,21 @@
 {
   layerCopy = layer;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  objc_msgSend_proxy_displayLayer_(WeakRetained, v5, v6, v7, v8, v9, layerCopy);
+  objc_msgSend_proxy_displayLayer_(WeakRetained, v5, v9, v10, v11, v12, layerCopy, v6, v7, v8);
 }
 
 - (void)drawLayer:(id)layer inContext:(CGContext *)context
 {
   layerCopy = layer;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  objc_msgSend_proxy_drawLayer_inContext_(WeakRetained, v7, v8, v9, v10, v11, layerCopy, context);
+  objc_msgSend_proxy_drawLayer_inContext_(WeakRetained, v7, v10, v11, v12, v13, layerCopy, context, v8, v9);
 }
 
 - (void)layoutSublayersOfLayer:(id)layer
 {
   layerCopy = layer;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  objc_msgSend_proxy_layoutSublayersOfLayer_(WeakRetained, v5, v6, v7, v8, v9, layerCopy);
+  objc_msgSend_proxy_layoutSublayersOfLayer_(WeakRetained, v5, v9, v10, v11, v12, layerCopy, v6, v7, v8);
 }
 
 - (id)actionForLayer:(id)layer forKey:(id)key
@@ -64,9 +64,9 @@
   keyCopy = key;
   layerCopy = layer;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v14 = objc_msgSend_proxy_actionForLayer_forKey_(WeakRetained, v9, v10, v11, v12, v13, layerCopy, keyCopy);
+  v16 = objc_msgSend_proxy_actionForLayer_forKey_(WeakRetained, v9, v12, v13, v14, v15, layerCopy, keyCopy, v10, v11);
 
-  return v14;
+  return v16;
 }
 
 @end

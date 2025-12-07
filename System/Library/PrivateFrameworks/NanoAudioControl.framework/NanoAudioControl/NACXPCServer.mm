@@ -84,7 +84,7 @@
   return v3;
 }
 
-uint64_t __22__NACXPCServer_server__block_invoke()
+uint64_t __22__NACXPCServer_server__block_invoke(uint64_t a1, uint64_t a2)
 {
   server_server = objc_opt_new();
 
@@ -256,13 +256,13 @@ void __51__NACXPCServer_listener_shouldAcceptNewConnection___block_invoke_2(uint
 
 - (void)beginObservingVolumeForTarget:(id)target
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   v5 = NMLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = targetCopy;
+    v14 = targetCopy;
     _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "[NACXPC] Received request to begin observing volume for %@", buf, 0xCu);
   }
 
@@ -273,18 +273,16 @@ void __51__NACXPCServer_listener_shouldAcceptNewConnection___block_invoke_2(uint
   block[2] = __46__NACXPCServer_beginObservingVolumeForTarget___block_invoke;
   block[3] = &unk_27992B650;
   block[4] = self;
-  v12 = targetCopy;
-  v13 = currentConnection;
+  v11 = targetCopy;
+  v12 = currentConnection;
   v8 = currentConnection;
   v9 = targetCopy;
   dispatch_async(internalQueue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginObservingVolumeForTarget:(id)target connection:(id)connection
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   connectionCopy = connection;
   v8 = [(NACXPCServer *)self _volumeRecordForTarget:targetCopy];
@@ -297,16 +295,14 @@ void __51__NACXPCServer_listener_shouldAcceptNewConnection___block_invoke_2(uint
       v10 = NMLogForCategory(4);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = targetCopy;
-        _os_log_impl(&dword_25AEBF000, v10, OS_LOG_TYPE_DEFAULT, "[NACXPC] Sending IDS beginObservingVolume request for %@ because first observer is added", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = targetCopy;
+        _os_log_impl(&dword_25AEBF000, v10, OS_LOG_TYPE_DEFAULT, "[NACXPC] Sending IDS beginObservingVolume request for %@ because first observer is added", &v11, 0xCu);
       }
 
       [(NACIDSClient *)self->_idsClient beginObservingVolumeForTarget:targetCopy];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_aggregatedCountOfObserversForTarget:(id)target inRecords:(id)records
@@ -353,13 +349,13 @@ void __63__NACXPCServer__aggregatedCountOfObserversForTarget_inRecords___block_i
 
 - (void)endObservingVolumeForTarget:(id)target
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   v5 = NMLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = targetCopy;
+    v14 = targetCopy;
     _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "[NACXPC] Received request to end observing volume for %@", buf, 0xCu);
   }
 
@@ -370,18 +366,16 @@ void __63__NACXPCServer__aggregatedCountOfObserversForTarget_inRecords___block_i
   block[2] = __44__NACXPCServer_endObservingVolumeForTarget___block_invoke;
   block[3] = &unk_27992B650;
   block[4] = self;
-  v12 = targetCopy;
-  v13 = currentConnection;
+  v11 = targetCopy;
+  v12 = currentConnection;
   v8 = currentConnection;
   v9 = targetCopy;
   dispatch_async(internalQueue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endObservingVolumeForTarget:(id)target connection:(id)connection
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   connectionCopy = connection;
   v8 = [(NACXPCServer *)self _volumeRecordForTarget:targetCopy];
@@ -394,16 +388,14 @@ void __63__NACXPCServer__aggregatedCountOfObserversForTarget_inRecords___block_i
       v10 = NMLogForCategory(4);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = targetCopy;
-        _os_log_impl(&dword_25AEBF000, v10, OS_LOG_TYPE_DEFAULT, "[NACXPC] Sending IDS endObservingVolume request for %@ because last observer is removed", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = targetCopy;
+        _os_log_impl(&dword_25AEBF000, v10, OS_LOG_TYPE_DEFAULT, "[NACXPC] Sending IDS endObservingVolume request for %@ because last observer is removed", &v11, 0xCu);
       }
 
       [(NACIDSClient *)self->_idsClient endObservingVolumeForTarget:targetCopy];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)volumeValueForTarget:(id)target result:(id)result
@@ -584,13 +576,13 @@ void __46__NACXPCServer_volumeWarningForTarget_result___block_invoke(uint64_t a1
 
 - (void)beginObservingListeningModesForTarget:(id)target
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   v5 = NMLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = targetCopy;
+    v14 = targetCopy;
     _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "[NACXPC] Received request to begin observing listening modes for %@", buf, 0xCu);
   }
 
@@ -601,24 +593,22 @@ void __46__NACXPCServer_volumeWarningForTarget_result___block_invoke(uint64_t a1
   block[2] = __54__NACXPCServer_beginObservingListeningModesForTarget___block_invoke;
   block[3] = &unk_27992B650;
   block[4] = self;
-  v12 = targetCopy;
-  v13 = currentConnection;
+  v11 = targetCopy;
+  v12 = currentConnection;
   v8 = currentConnection;
   v9 = targetCopy;
   dispatch_async(internalQueue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endObservingListeningModesForTarget:(id)target
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   v5 = NMLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = targetCopy;
+    v14 = targetCopy;
     _os_log_impl(&dword_25AEBF000, v5, OS_LOG_TYPE_DEFAULT, "[NACXPC] Received request to end observing listening modes for %@", buf, 0xCu);
   }
 
@@ -629,18 +619,16 @@ void __46__NACXPCServer_volumeWarningForTarget_result___block_invoke(uint64_t a1
   block[2] = __52__NACXPCServer_endObservingListeningModesForTarget___block_invoke;
   block[3] = &unk_27992B650;
   block[4] = self;
-  v12 = targetCopy;
-  v13 = currentConnection;
+  v11 = targetCopy;
+  v12 = currentConnection;
   v8 = currentConnection;
   v9 = targetCopy;
   dispatch_async(internalQueue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginObservingListeningModesForTarget:(id)target connection:(id)connection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   connectionCopy = connection;
   v8 = [(NACXPCServer *)self _listeningModesRecordForTarget:targetCopy];
@@ -665,21 +653,19 @@ void __46__NACXPCServer_volumeWarningForTarget_result___block_invoke(uint64_t a1
       v14 = NMLogForCategory(4);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = targetCopy;
-        _os_log_impl(&dword_25AEBF000, v14, OS_LOG_TYPE_DEFAULT, "[NACXPC] Sending IDS beginObservingListeningModes request for %@ because first observer is added", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = targetCopy;
+        _os_log_impl(&dword_25AEBF000, v14, OS_LOG_TYPE_DEFAULT, "[NACXPC] Sending IDS beginObservingListeningModes request for %@ because first observer is added", &v15, 0xCu);
       }
 
       [(NACIDSClient *)self->_idsClient beginObservingListeningModesForTarget:targetCopy];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endObservingListeningModesForTarget:(id)target connection:(id)connection
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   connectionCopy = connection;
   v8 = [(NACXPCServer *)self _listeningModesRecordForTarget:targetCopy];
@@ -692,16 +678,14 @@ void __46__NACXPCServer_volumeWarningForTarget_result___block_invoke(uint64_t a1
       v10 = NMLogForCategory(4);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = targetCopy;
-        _os_log_impl(&dword_25AEBF000, v10, OS_LOG_TYPE_DEFAULT, "[NACXPC] Sending IDS endObservingListeningModes request for %@ because last observer is removed", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = targetCopy;
+        _os_log_impl(&dword_25AEBF000, v10, OS_LOG_TYPE_DEFAULT, "[NACXPC] Sending IDS endObservingListeningModes request for %@ because last observer is removed", &v11, 0xCu);
       }
 
       [(NACIDSClient *)self->_idsClient endObservingListeningModesForTarget:targetCopy];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)availableListeningModesForTarget:(id)target result:(id)result
@@ -1403,18 +1387,16 @@ void __63__NACXPCServer_client_currentListeningMode_didChangeForTarget___block_i
 
 void __71__NACXPCServer_client_didFailToSetCurrentListeningModeForTarget_error___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA9A0] defaultCenter];
-  v7[0] = @"errorDomain";
+  v6[0] = @"errorDomain";
   v3 = [*(a1 + 32) domain];
-  v7[1] = @"errorCode";
-  v8[0] = v3;
+  v6[1] = @"errorCode";
+  v7[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
-  v8[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
   [v2 postNotificationName:@"NACFailedToSetCurrentListeningModeNotification" object:0 userInfo:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client audioRoutes:(id)routes didChangeForCategory:(id)category
@@ -1525,32 +1507,30 @@ void __60__NACXPCServer__scheduleDeferredAudioRoutesUpdate_category___block_invo
 
 - (void)client:(id)client volumeObservationCancelledForTarget:(id)target
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   v6 = NMLogForCategory(4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = targetCopy;
+    v12 = targetCopy;
     _os_log_impl(&dword_25AEBF000, v6, OS_LOG_TYPE_DEFAULT, "[NACXPC] Got IDS volume observation cancelled message for %@", buf, 0xCu);
   }
 
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __59__NACXPCServer_client_volumeObservationCancelledForTarget___block_invoke;
-  v10[3] = &unk_27992B510;
-  v10[4] = self;
-  v11 = targetCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __59__NACXPCServer_client_volumeObservationCancelledForTarget___block_invoke;
+  v9[3] = &unk_27992B510;
+  v9[4] = self;
+  v10 = targetCopy;
   v8 = targetCopy;
-  dispatch_sync(internalQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_sync(internalQueue, v9);
 }
 
 uint64_t __59__NACXPCServer_client_volumeObservationCancelledForTarget___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) _aggregatedCountOfObserversForTarget:*(a1 + 40) inRecords:*(*(a1 + 32) + 32)];
   if (result >= 1)
   {
@@ -1559,17 +1539,16 @@ uint64_t __59__NACXPCServer_client_volumeObservationCancelledForTarget___block_i
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7 = 134218242;
-      v8 = v3;
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_25AEBF000, v4, OS_LOG_TYPE_DEFAULT, "[NACXPC] Still have %ld observers. Resending IDS beginObservingVolume request for %@", &v7, 0x16u);
+      v6 = 134218242;
+      v7 = v3;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_25AEBF000, v4, OS_LOG_TYPE_DEFAULT, "[NACXPC] Still have %ld observers. Resending IDS beginObservingVolume request for %@", &v6, 0x16u);
     }
 
-    result = [*(*(a1 + 32) + 64) beginObservingVolumeForTarget:*(a1 + 40)];
+    return [*(*(a1 + 32) + 64) beginObservingVolumeForTarget:*(a1 + 40)];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1655,11 +1634,10 @@ void __36__NACXPCServer__cachedVolumeRecords__block_invoke(uint64_t a1, void *a2
 
 - (void)_persistVolumeRecords
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_25AEBF000, a2, OS_LOG_TYPE_ERROR, "[NACXPC] Failed to archive volumeRecords due to %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25AEBF000, a2, OS_LOG_TYPE_ERROR, "[NACXPC] Failed to archive volumeRecords due to %@", &v2, 0xCu);
 }
 
 - (float)_cachedHapticIntensity
@@ -1730,67 +1708,65 @@ void __36__NACXPCServer__cachedVolumeRecords__block_invoke(uint64_t a1, void *a2
 
 - (void)_cleanupConnection:(id)connection
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [(NSMutableDictionary *)self->_volumeRecords allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         [(NACXPCServer *)self _endObservingVolumeForTarget:v10 connection:connectionCopy];
         [(NACXPCServer *)self _endObservingListeningModesForTarget:v10 connection:connectionCopy];
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
   }
 
   v11 = [(NACXPCServer *)self _routeObservationCategoriesForConnection:connectionCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(NACXPCServer *)self _endObservingAudioRoutesForCategory:*(*(&v17 + 1) + 8 * j) connection:connectionCopy];
+        [(NACXPCServer *)self _endObservingAudioRoutesForCategory:*(*(&v16 + 1) + 8 * j) connection:connectionCopy];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_volumeRecordForTarget:(id)target
@@ -1877,11 +1853,10 @@ void __57__NACXPCServer__routeObservationCategoriesForConnection___block_invoke(
 
 - (void)_cachedVolumeRecords
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_25AEBF000, a2, OS_LOG_TYPE_ERROR, "[NACXPC] Failed to unarchive cached volume records due to %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25AEBF000, a2, OS_LOG_TYPE_ERROR, "[NACXPC] Failed to unarchive cached volume records due to %@", &v2, 0xCu);
 }
 
 @end

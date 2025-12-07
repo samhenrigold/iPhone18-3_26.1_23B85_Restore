@@ -164,19 +164,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_iAdID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    optedOutStatus = self->_optedOutStatus;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -195,9 +194,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  transmitTimestamp = self->_transmitTimestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -211,22 +209,20 @@ LABEL_6:
   }
 
 LABEL_15:
-  statusChangeTimestamp = self->_statusChangeTimestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_7:
-    timezone = self->_timezone;
     PBDataWriterWriteFloatField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
   if (self->_dPID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -374,7 +370,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 48);
   if ((*&self->_has & 8) == 0)
   {
     if ((*(equalCopy + 48) & 8) == 0)
@@ -383,7 +378,7 @@ LABEL_6:
     }
 
 LABEL_29:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_30;
   }
 
@@ -392,7 +387,6 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v7 = *(equalCopy + 44);
   if (self->_optedOutStatus)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -449,17 +443,17 @@ LABEL_6:
   dPID = self->_dPID;
   if (dPID | *(equalCopy + 3))
   {
-    v9 = [(NSData *)dPID isEqual:?];
+    v7 = [(NSData *)dPID isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_30:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

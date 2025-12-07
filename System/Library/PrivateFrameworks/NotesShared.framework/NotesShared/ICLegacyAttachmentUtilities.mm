@@ -336,14 +336,14 @@ LABEL_22:
 {
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Importing media for legacy attachment %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Importing media for legacy attachment %@", v4, v5, v6, v7);
 }
 
 + (void)importFileAtURL:(void *)a1 toAttachment:attachmentPreviewGenerator:.cold.3(void *a1)
 {
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "No file URL for legacy attachment %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "No file URL for legacy attachment %@", v4, v5, v6, v7);
 }
 
 + (void)typeUTIFromFileURL:mimeType:.cold.1()

@@ -42,25 +42,25 @@
 {
   v4 = objc_alloc(objc_opt_class());
   scheduleBuilder = [(HFScheduleRuleItemProvider *)self scheduleBuilder];
-  home = [(HFScheduleRuleItemProvider *)self home];
-  v7 = [v4 initWithScheduleBuilder:scheduleBuilder home:home];
+  v6 = objc_msgSend_home(self);
+  v7 = [v4 initWithScheduleBuilder:scheduleBuilder home:v6];
 
   return v7;
 }
 
 - (id)reloadItems
 {
-  home = [(HFScheduleRuleItemProvider *)self home];
-  if (home)
+  v3 = objc_msgSend_home(self, a2);
+  if (v3)
   {
-    home2 = [(HFScheduleRuleItemProvider *)self home];
-    [(HFScheduleRuleItemProvider *)self _scheduleRulesFromHome:home2];
+    scheduleBuilder = objc_msgSend_home(self);
+    [(HFScheduleRuleItemProvider *)self _scheduleRulesFromHome:scheduleBuilder];
   }
 
   else
   {
-    home2 = [(HFScheduleRuleItemProvider *)self scheduleBuilder];
-    [home2 rules];
+    scheduleBuilder = [(HFScheduleRuleItemProvider *)self scheduleBuilder];
+    [scheduleBuilder rules];
   }
   v5 = ;
 

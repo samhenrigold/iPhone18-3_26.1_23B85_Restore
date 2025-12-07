@@ -37,41 +37,39 @@
 
 + (void)initialize
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)notifyWhengPTPManagerIsAvailable:(id)available
 {
   availableCopy = available;
   v4 = _kextNotifier;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __56___TSF_TSDgPTPManager_notifyWhengPTPManagerIsAvailable___block_invoke;
-  v6[3] = &unk_279DBD760;
-  v7 = availableCopy;
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __56___TSF_TSDgPTPManager_notifyWhengPTPManagerIsAvailable___block_invoke;
+  v9 = &unk_279DBD760;
+  v10 = availableCopy;
   v5 = availableCopy;
-  [v4 notifyWhenServiceIsAvailable:v6];
+  [v4 notifyWhenServiceIsAvailable:?];
 }
 
 + (void)notifyWhengPTPManagerIsUnavailable:(id)unavailable
 {
   unavailableCopy = unavailable;
   v4 = _kextNotifier;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __58___TSF_TSDgPTPManager_notifyWhengPTPManagerIsUnavailable___block_invoke;
-  v6[3] = &unk_279DBD760;
-  v7 = unavailableCopy;
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __58___TSF_TSDgPTPManager_notifyWhengPTPManagerIsUnavailable___block_invoke;
+  v9 = &unk_279DBD760;
+  v10 = unavailableCopy;
   v5 = unavailableCopy;
-  [v4 notifyWhenServiceIsUnavailable:v6];
+  [v4 notifyWhenServiceIsUnavailable:?];
 }
 
 + (id)sharedgPTPManager
@@ -95,13 +93,13 @@
 + (id)sharedgPTPManagerSyncWithTimeout:(unint64_t)timeout
 {
   v5 = dispatch_semaphore_create(0);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __56___TSF_TSDgPTPManager_sharedgPTPManagerSyncWithTimeout___block_invoke;
-  v11[3] = &unk_279DBD538;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __56___TSF_TSDgPTPManager_sharedgPTPManagerSyncWithTimeout___block_invoke;
+  v14 = &unk_279DBD538;
   v6 = v5;
-  v12 = v6;
-  [self notifyWhengPTPManagerIsAvailable:v11];
+  v15 = v6;
+  [self notifyWhengPTPManagerIsAvailable:?];
   v7 = dispatch_time(0, 1000000 * timeout);
   if (dispatch_semaphore_wait(v6, v7))
   {
@@ -157,8 +155,8 @@
   }
 
   v3 = MEMORY[0x277D1AE20];
-  v4 = [MEMORY[0x277D1AE20] serviceMatching:@"IOTimeSyncgPTPManager"];
-  v5 = [v3 matchingService:v4];
+  v4 = [MEMORY[0x277D1AE20] serviceMatching:?];
+  v5 = [v3 matchingService:?];
   service = v2->_service;
   v2->_service = v5;
 
@@ -168,7 +166,7 @@
     return 0;
   }
 
-  v7 = [[_TSF_IODConnection alloc] initWithService:v2->_service andType:42];
+  v7 = [_TSF_IODConnection initWithService:"initWithService:andType:" andType:?];
   connection = v2->_connection;
   v2->_connection = v7;
 
@@ -178,7 +176,7 @@
     return 0;
   }
 
-  v9 = [(IOKService *)v2->_service iodPropertyForKey:@"SystemDomainIdentifier"];
+  v9 = [(IOKService *)v2->_service iodPropertyForKey:?];
   v10 = v9;
   if (v9)
   {
@@ -222,110 +220,80 @@
 
 - (BOOL)addPTPInstance:(unint64_t *)instance error:(id *)error
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  if (instance)
+  if (!instance)
   {
-    v8 = 1;
-    v5 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:0 scalarInputs:0 scalarInputCount:0 scalarOutputs:v9 scalarOutputCount:&v8 error:error];
-    if (!v5)
-    {
-      [_TSF_TSDgPTPManager addPTPInstance:error:];
-    }
-
-    *instance = v9[0];
+    return 0;
   }
 
-  else
+  v5 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
+  if (!v5)
   {
-    v5 = 0;
+    [_TSF_TSDgPTPManager addPTPInstance:error:];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  *instance = v7;
   return v5;
 }
 
 - (BOOL)addTimeOfDayPTPInstance:(unint64_t *)instance error:(id *)error
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  if (instance)
+  if (!instance)
   {
-    v8 = 1;
-    v5 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:6 scalarInputs:0 scalarInputCount:0 scalarOutputs:v9 scalarOutputCount:&v8 error:error];
-    if (!v5)
-    {
-      [_TSF_TSDgPTPManager addTimeOfDayPTPInstance:error:];
-    }
-
-    *instance = v9[0];
+    return 0;
   }
 
-  else
+  v5 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
+  if (!v5)
   {
-    v5 = 0;
+    [_TSF_TSDgPTPManager addTimeOfDayPTPInstance:error:];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  *instance = v7;
   return v5;
 }
 
 - (BOOL)removePTPInstanceWithIdentifier:(unint64_t)identifier error:(id *)error
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v8[0] = identifier;
-  v4 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:1 scalarInputs:v8 scalarInputCount:1 scalarOutputs:0 scalarOutputCount:&v7 error:error];
+  v4 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v4)
   {
     [_TSF_TSDgPTPManager removePTPInstanceWithIdentifier:error:];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)addAVBPTPInstanceIndex:(unsigned __int16)index identifier:(unint64_t *)identifier error:(id *)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  if (identifier)
+  if (!identifier)
   {
-    v11[0] = index;
-    v9 = 1;
-    v6 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:2 scalarInputs:v11 scalarInputCount:1 scalarOutputs:&v10 scalarOutputCount:&v9 error:error];
-    if (!v6)
-    {
-      [_TSF_TSDgPTPManager addAVBPTPInstanceIndex:identifier:error:];
-    }
-
-    *identifier = v10;
+    return 0;
   }
 
-  else
+  v6 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
+  if (!v6)
   {
-    v6 = 0;
+    [_TSF_TSDgPTPManager addAVBPTPInstanceIndex:identifier:error:];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  *identifier = v8;
   return v6;
 }
 
 - (BOOL)removeAVBPTPInstanceWithIndex:(unsigned __int16)index error:(id *)error
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v8[0] = index;
-  v4 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:3 scalarInputs:v8 scalarInputCount:1 scalarOutputs:0 scalarOutputCount:&v7 error:error];
+  v4 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v4)
   {
     [_TSF_TSDgPTPManager removeAVBPTPInstanceWithIndex:error:];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (unint64_t)avbPTPInstance0ClockIdentifier
 {
-  v2 = [(IOKService *)self->_service iodPropertyForKey:@"AVB0ClockID"];
+  v2 = [(IOKService *)self->_service iodPropertyForKey:?];
   v3 = v2;
   if (v2)
   {
@@ -342,7 +310,7 @@
 
 - (unint64_t)avbPTPInstance1ClockIdentifier
 {
-  v2 = [(IOKService *)self->_service iodPropertyForKey:@"AVB1ClockID"];
+  v2 = [(IOKService *)self->_service iodPropertyForKey:?];
   v3 = v2;
   if (v2)
   {
@@ -359,7 +327,7 @@
 
 - (unint64_t)avbPTPInstance2ClockIdentifier
 {
-  v2 = [(IOKService *)self->_service iodPropertyForKey:@"AVB2ClockID"];
+  v2 = [(IOKService *)self->_service iodPropertyForKey:?];
   v3 = v2;
   if (v2)
   {
@@ -376,7 +344,7 @@
 
 - (unint64_t)avbPTPInstance3ClockIdentifier
 {
-  v2 = [(IOKService *)self->_service iodPropertyForKey:@"AVB3ClockID"];
+  v2 = [(IOKService *)self->_service iodPropertyForKey:?];
   v3 = v2;
   if (v2)
   {
@@ -393,7 +361,7 @@
 
 - (unint64_t)airPlayPTPInstanceClockIdentifier
 {
-  v2 = [(IOKService *)self->_service iodPropertyForKey:@"AirPlayClockID"];
+  v2 = [(IOKService *)self->_service iodPropertyForKey:?];
   v3 = v2;
   if (v2)
   {
@@ -410,32 +378,24 @@
 
 - (BOOL)addAirPlayPTPInstance:(unint64_t *)instance error:(id *)error
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  if (instance)
+  if (!instance)
   {
-    v8 = 1;
-    v5 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:4 scalarInputs:0 scalarInputCount:0 scalarOutputs:v9 scalarOutputCount:&v8 error:error];
-    if (!v5)
-    {
-      [_TSF_TSDgPTPManager addAirPlayPTPInstance:error:];
-    }
-
-    *instance = v9[0];
+    return 0;
   }
 
-  else
+  v5 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
+  if (!v5)
   {
-    v5 = 0;
+    [_TSF_TSDgPTPManager addAirPlayPTPInstance:error:];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  *instance = v7;
   return v5;
 }
 
 - (BOOL)removeAirPlayPTPInstanceWithError:(id *)error
 {
-  v5 = 0;
-  v3 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:5 scalarInputs:0 scalarInputCount:0 scalarOutputs:0 scalarOutputCount:&v5 error:error];
+  v3 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v3)
   {
     [_TSF_TSDgPTPManager removeAirPlayPTPInstanceWithError:];
@@ -446,7 +406,7 @@
 
 - (unint64_t)copresencePTPInstanceClockIdentifier
 {
-  v2 = [(IOKService *)self->_service iodPropertyForKey:@"CopresenceClockID"];
+  v2 = [(IOKService *)self->_service iodPropertyForKey:?];
   v3 = v2;
   if (v2)
   {
@@ -463,34 +423,24 @@
 
 - (BOOL)addCopresencePTPInstance:(unint64_t *)instance ntpAndUpTimeOffsetNsec:(int64_t)nsec isLocalClockSourceFromNTP:(BOOL)p error:(id *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (instance)
+  if (!instance)
   {
-    v12 = 1;
-    v11[0] = nsec;
-    v11[1] = p;
-    v7 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:7 scalarInputs:v11 scalarInputCount:2 scalarOutputs:&v10 scalarOutputCount:&v12 error:error];
-    if (!v7)
-    {
-      [_TSF_TSDgPTPManager addCopresencePTPInstance:ntpAndUpTimeOffsetNsec:isLocalClockSourceFromNTP:error:];
-    }
-
-    *instance = v10;
+    return 0;
   }
 
-  else
+  v7 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
+  if (!v7)
   {
-    v7 = 0;
+    [_TSF_TSDgPTPManager addCopresencePTPInstance:ntpAndUpTimeOffsetNsec:isLocalClockSourceFromNTP:error:];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  *instance = v9;
   return v7;
 }
 
 - (BOOL)removeCopresencePTPInstanceWithError:(id *)error
 {
-  v5 = 0;
-  v3 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:8 scalarInputs:0 scalarInputCount:0 scalarOutputs:0 scalarOutputCount:&v5 error:error];
+  v3 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v3)
   {
     [_TSF_TSDgPTPManager removeCopresencePTPInstanceWithError:];
@@ -501,8 +451,7 @@
 
 - (BOOL)addCopresencePTPInstanceRefWithError:(id *)error
 {
-  v5 = 0;
-  v3 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:10 scalarInputs:0 scalarInputCount:0 scalarOutputs:0 scalarOutputCount:&v5 error:error];
+  v3 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v3)
   {
     [_TSF_TSDgPTPManager addCopresencePTPInstanceRefWithError:];
@@ -513,8 +462,7 @@
 
 - (BOOL)logInterfaceStatisticsWithError:(id *)error
 {
-  v5 = 0;
-  v3 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:9 scalarInputs:0 scalarInputCount:0 scalarOutputs:0 scalarOutputCount:&v5 error:error];
+  v3 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v3)
   {
     [_TSF_TSDgPTPManager logInterfaceStatisticsWithError:];
@@ -526,7 +474,7 @@
 - (void)dealloc
 {
   v3 = +[_TSF_TSDClockManager sharedClockManager];
-  [v3 removegPTPServicesWithError:0];
+  [v3 removegPTPServicesWithError:?];
 
   v4.receiver = self;
   v4.super_class = _TSF_TSDgPTPManager;
@@ -536,87 +484,83 @@
 + (id)diagnosticInfo
 {
   v2 = MEMORY[0x277D1AE20];
-  v3 = [MEMORY[0x277D1AE20] serviceMatching:@"IOTimeSyncgPTPManager"];
-  v4 = [v2 matchingService:v3];
+  v3 = [MEMORY[0x277D1AE20] serviceMatching:?];
+  v4 = [v2 matchingService:?];
 
   if (!v4)
   {
-    +[(_TSF_TSDgPTPManager *)&v23];
+    +[(_TSF_TSDgPTPManager *)&v19];
 LABEL_25:
-    dictionary = v23;
+    dictionary = v19;
     goto LABEL_20;
   }
 
-  if (([v4 conformsToIOClassName:@"IOTimeSyncgPTPManager"] & 1) == 0)
+  if (([v4 conformsToIOClassName:?] & 1) == 0)
   {
-    +[(_TSF_TSDgPTPManager *)&v23];
+    +[(_TSF_TSDgPTPManager *)&v19];
     goto LABEL_25;
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   ioClassName = [v4 ioClassName];
-  [dictionary setObject:ioClassName forKeyedSubscript:@"ClassName"];
+  [dictionary setObject:? forKeyedSubscript:?];
 
-  v7 = [v4 iodPropertyForKey:@"SystemDomainIdentifier"];
+  v7 = [v4 iodPropertyForKey:?];
   if (v7)
   {
-    [dictionary setObject:v7 forKeyedSubscript:@"SystemDomainIdentifier"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
-  v8 = [v4 iodPropertyForKey:@"AVB0ClockID"];
+  v8 = [v4 iodPropertyForKey:?];
 
   if (v8)
   {
-    [dictionary setObject:v8 forKeyedSubscript:@"AVB0ClockID"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
-  v9 = [v4 iodPropertyForKey:@"AVB1ClockID"];
+  v9 = [v4 iodPropertyForKey:?];
 
   if (v9)
   {
-    [dictionary setObject:v9 forKeyedSubscript:@"AVB1ClockID"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
-  v10 = [v4 iodPropertyForKey:@"AVB2ClockID"];
+  v10 = [v4 iodPropertyForKey:?];
 
   if (v10)
   {
-    [dictionary setObject:v10 forKeyedSubscript:@"AVB2ClockID"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
-  v11 = [v4 iodPropertyForKey:@"AVB3ClockID"];
+  v11 = [v4 iodPropertyForKey:?];
 
   if (v11)
   {
-    [dictionary setObject:v11 forKeyedSubscript:@"AVB3ClockID"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
-  v12 = [v4 iodPropertyForKey:@"AirPlayClockID"];
+  v12 = [v4 iodPropertyForKey:?];
 
   if (v12)
   {
-    [dictionary setObject:v12 forKeyedSubscript:@"AirPlayClockID"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
-  v13 = [v4 iodPropertyForKey:@"CopresenceClockID"];
+  v13 = [v4 iodPropertyForKey:?];
 
   if (v13)
   {
-    [dictionary setObject:v13 forKeyedSubscript:@"CopresenceClockID"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v15 = [v4 childIteratorInServicePlaneWithError:0];
+  v15 = [v4 childIteratorInServicePlaneWithError:?];
   v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __37___TSF_TSDgPTPManager_diagnosticInfo__block_invoke;
-  v21 = &unk_279DBD7A8;
   v16 = array;
-  v22 = v16;
-  [v15 enumerateWithBlock:&v18];
+  [v15 enumerateWithBlock:{v18, 3221225472, __37___TSF_TSDgPTPManager_diagnosticInfo__block_invoke, &unk_279DBD7A8}];
   if ([v16 count])
   {
-    [dictionary setObject:v16 forKeyedSubscript:@"PTPInstances"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
 LABEL_20:
@@ -626,21 +570,17 @@ LABEL_20:
 
 - (BOOL)dockReplayTimestamps:(id *)timestamps
 {
-  if (timestamps)
+  if (!timestamps)
   {
-    v3 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:11 scalarInputs:timestamps scalarInputCount:152 scalarOutputs:timestamps->var1 scalarOutputCount:40 * timestamps->var0.var1 error:0, *MEMORY[0x277D85DE8]];
-    if (!v3)
-    {
-      [_TSF_TSDgPTPManager dockReplayTimestamps:];
-    }
+    return 0;
   }
 
-  else
+  v3 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:timestamps scalarInputCount:152 scalarOutputs:timestamps->var1 scalarOutputCount:40 * timestamps->var0.var1 error:?];
+  if (!v3)
   {
-    v3 = 0;
+    [_TSF_TSDgPTPManager dockReplayTimestamps:];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -649,17 +589,17 @@ LABEL_20:
   connection = self->_connection;
   timestampsCopy = timestamps;
   timestampsCopy2 = timestamps;
-  uTF8String = [timestampsCopy2 UTF8String];
-  v8 = [timestampsCopy2 length];
+  [timestampsCopy2 UTF8String];
+  [timestampsCopy2 length];
 
-  v11 = 0;
-  v9 = [(_TSF_IODConnection *)connection callMethodWithSelector:12 scalarInputs:0 scalarInputCount:0 structInput:uTF8String structInputSize:v8 scalarOutputs:0 scalarOutputCount:0 error:&v11];
-  if (!v9)
+  v9 = 0;
+  v7 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:structInput:structInputSize:scalarOutputs:scalarOutputCount:error:" scalarInputs:0 scalarInputCount:&v9 structInput:? structInputSize:? scalarOutputs:? scalarOutputCount:? error:?];
+  if ((v7 & 1) == 0)
   {
     [_TSF_TSDgPTPManager startReplayTimestamps:];
   }
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)stopReplayTimestamps:(id)timestamps
@@ -667,226 +607,195 @@ LABEL_20:
   connection = self->_connection;
   timestampsCopy = timestamps;
   timestampsCopy2 = timestamps;
-  uTF8String = [timestampsCopy2 UTF8String];
-  v8 = [timestampsCopy2 length];
+  [timestampsCopy2 UTF8String];
+  [timestampsCopy2 length];
 
-  v11 = 0;
-  v9 = [(_TSF_IODConnection *)connection callMethodWithSelector:13 scalarInputs:0 scalarInputCount:0 structInput:uTF8String structInputSize:v8 scalarOutputs:0 scalarOutputCount:0 error:&v11];
-  if (!v9)
+  v9 = 0;
+  v7 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:structInput:structInputSize:scalarOutputs:scalarOutputCount:error:" scalarInputs:0 scalarInputCount:&v9 structInput:? structInputSize:? scalarOutputs:? scalarOutputCount:? error:?];
+  if ((v7 & 1) == 0)
   {
     [_TSF_TSDgPTPManager stopReplayTimestamps:];
   }
 
-  return v9;
+  return v7;
 }
 
 - (void)init
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPTPInstance:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addTimeOfDayPTPInstance:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePTPInstanceWithIdentifier:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAVBPTPInstanceIndex:identifier:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAVBPTPInstanceWithIndex:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAirPlayPTPInstance:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAirPlayPTPInstanceWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCopresencePTPInstance:ntpAndUpTimeOffsetNsec:isLocalClockSourceFromNTP:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCopresencePTPInstanceWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCopresencePTPInstanceRefWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logInterfaceStatisticsWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)diagnosticInfo
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
 
   *self = 0;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dockReplayTimestamps:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startReplayTimestamps:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopReplayTimestamps:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

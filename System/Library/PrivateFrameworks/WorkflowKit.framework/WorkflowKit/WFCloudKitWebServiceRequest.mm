@@ -123,7 +123,7 @@ void __60__WFCloudKitWebServiceRequest_parseRecord_intoItem_allKeys___block_invo
   {
     v6 = [v23 objectForKeyedSubscript:@"value"];
     v7 = [v23 objectForKeyedSubscript:@"type"];
-    if ([v7 isEqualToString:@"ASSETID"] && (objc_msgSend(v5, "isIgnoredByDefault") & 1) == 0)
+    if (objc_msgSend_isEqualToString_(v7) && ([v5 isIgnoredByDefault] & 1) == 0)
     {
       v14 = [v6 objectForKeyedSubscript:@"downloadURL"];
       v15 = objc_opt_class();
@@ -237,7 +237,7 @@ LABEL_15:
 
 - (id)urlForType:(unint64_t)type parameters:(id)parameters
 {
-  v31[5] = *MEMORY[0x1E69E9840];
+  v30[5] = *MEMORY[0x1E69E9840];
   v7 = [(WFCloudKitWebServiceRequest *)self pathComponentsForType:type parameters:parameters];
   v8 = [(WFCloudKitWebServiceRequest *)self webServiceForRequestType:type];
   if (v8 == 1)
@@ -254,23 +254,23 @@ LABEL_15:
 
   if (!v8)
   {
-    v31[0] = @"database";
-    v31[1] = @"1";
+    v30[0] = @"database";
+    v30[1] = @"1";
     container = [(WFCloudKitWebServiceRequest *)self container];
     containerIdentifier = [container containerIdentifier];
-    v31[2] = containerIdentifier;
+    v30[2] = containerIdentifier;
     cloudKitEnvironment = [(WFCloudKitWebServiceRequest *)self cloudKitEnvironment];
-    v31[3] = cloudKitEnvironment;
+    v30[3] = cloudKitEnvironment;
     databaseName = [(WFCloudKitWebServiceRequest *)self databaseName];
-    v31[4] = databaseName;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:5];
+    v30[4] = databaseName;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:5];
     v14 = [v13 arrayByAddingObjectsFromArray:v7];
 
     v15 = MEMORY[0x1E696AF60];
     cloudKitAPIToken = [(WFCloudKitWebServiceRequest *)self cloudKitAPIToken];
     v17 = [v15 queryItemWithName:@"ckAPIToken" value:cloudKitAPIToken];
-    v30 = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+    v29 = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
 
     v19 = @"https://api.apple-cloudkit.com";
 LABEL_5:
@@ -297,8 +297,6 @@ LABEL_7:
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"WFCloudKitWebServiceRequest.m" lineNumber:395 description:{@"Could not create URL for web service request of type: %lu", type}];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
@@ -306,9 +304,9 @@ LABEL_7:
 {
   container = [(WFCloudKitWebServiceRequest *)self container];
   containerIdentifier = [container containerIdentifier];
-  v4 = [containerIdentifier isEqualToString:*MEMORY[0x1E6997148]];
+  isEqualToString = objc_msgSend_isEqualToString_(containerIdentifier);
 
-  if (v4)
+  if (isEqualToString)
   {
     return @"7488b9154a1a645448ca0b434fe1e0a63f312198ae1edf687920e274850d536c";
   }
@@ -346,7 +344,7 @@ LABEL_7:
 
 - (id)pathComponentsForType:(unint64_t)type parameters:(id)parameters
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   if (type == 1)
   {
     v6 = [parameters objectForKeyedSubscript:@"WFCloudKitURLParameterIdentifier"];
@@ -359,17 +357,15 @@ LABEL_7:
       [currentHandler handleFailureInMethod:a2 object:self file:@"WFCloudKitWebServiceRequest.m" lineNumber:319 description:{@"Missing %@ for proxied record lookup", @"WFCloudKitURLParameterIdentifier"}];
     }
 
-    v13[0] = @"records";
-    v13[1] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+    v12[0] = @"records";
+    v12[1] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   }
 
   else
   {
     v9 = &unk_1F4A9B680;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -447,7 +443,7 @@ LABEL_12:
 
   v14 = [v8 domain];
   v15 = *MEMORY[0x1E696A978];
-  if ([v14 isEqualToString:*MEMORY[0x1E696A978]])
+  if (objc_msgSend_isEqualToString_(v14))
   {
     v16 = [v8 code];
 
@@ -530,7 +526,7 @@ LABEL_12:
 
   v14 = [v8 domain];
   v15 = *MEMORY[0x1E696A978];
-  if ([v14 isEqualToString:*MEMORY[0x1E696A978]])
+  if (objc_msgSend_isEqualToString_(v14))
   {
     v16 = [v8 code];
 
@@ -558,63 +554,60 @@ LABEL_13:
 
 - (id)queryWithItemType:(Class)type filter:(id)filter
 {
-  v13[6] = *MEMORY[0x1E69E9840];
+  v12[6] = *MEMORY[0x1E69E9840];
   filterCopy = filter;
   recordType = [(objc_class *)type recordType];
   v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.*", recordType];
   v8 = [filterCopy stringRepresentationWithRecordType:recordType];
 
-  v13[0] = @"SELECT";
-  v13[1] = v7;
-  v13[2] = @"FROM";
-  v13[3] = recordType;
-  v13[4] = @"WHERE";
-  v13[5] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:6];
+  v12[0] = @"SELECT";
+  v12[1] = v7;
+  v12[2] = @"FROM";
+  v12[3] = recordType;
+  v12[4] = @"WHERE";
+  v12[5] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:6];
   v10 = [v9 componentsJoinedByString:@" "];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)fetchProxiedRecordWithIdentifier:(id)identifier possibleItemTypes:(id)types completionHandler:(id)handler
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   typesCopy = types;
   handlerCopy = handler;
   identifierCopy = identifier;
   v12 = objc_opt_new();
-  v32 = @"WFCloudKitURLParameterIdentifier";
-  v33[0] = identifierCopy;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+  v31 = @"WFCloudKitURLParameterIdentifier";
+  v32[0] = identifierCopy;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
   v14 = [(WFCloudKitWebServiceRequest *)self urlForType:1 parameters:v13];
 
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __100__WFCloudKitWebServiceRequest_fetchProxiedRecordWithIdentifier_possibleItemTypes_completionHandler___block_invoke;
-  v26 = &unk_1E837AE68;
-  v30 = handlerCopy;
-  v31 = a2;
-  v27 = typesCopy;
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __100__WFCloudKitWebServiceRequest_fetchProxiedRecordWithIdentifier_possibleItemTypes_completionHandler___block_invoke;
+  v25 = &unk_1E837AE68;
+  v29 = handlerCopy;
+  v30 = a2;
+  v26 = typesCopy;
   selfCopy = self;
   v15 = v12;
-  v29 = v15;
+  v28 = v15;
   v16 = typesCopy;
   v17 = handlerCopy;
-  v18 = [(WFCloudKitWebServiceRequest *)self getJSONFromURL:v14 headers:0 completionHandler:&v23];
-  [v15 setDataTask:{v18, v23, v24, v25, v26}];
+  v18 = [(WFCloudKitWebServiceRequest *)self getJSONFromURL:v14 headers:0 completionHandler:&v22];
+  [v15 setDataTask:{v18, v22, v23, v24, v25}];
 
-  v19 = v29;
+  v19 = v28;
   v20 = v15;
 
-  v21 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 void __100__WFCloudKitWebServiceRequest_fetchProxiedRecordWithIdentifier_possibleItemTypes_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -624,31 +617,31 @@ void __100__WFCloudKitWebServiceRequest_fetchProxiedRecordWithIdentifier_possibl
 
   else
   {
-    v26 = v5;
+    v25 = v5;
     v7 = [v5 objectForKeyedSubscript:@"recordType"];
     v8 = objc_opt_class();
     v9 = WFEnforceClass_47426(v7, v8);
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v10 = *(a1 + 32);
-    v11 = [v10 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v34;
+      v13 = *v33;
 LABEL_5:
       v14 = 0;
       while (1)
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * v14);
+        v15 = *(*(&v32 + 1) + 8 * v14);
         if (([v15 conformsToProtocol:&unk_1F4AB1E68] & 1) == 0)
         {
           v18 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -656,16 +649,16 @@ LABEL_5:
         }
 
         v16 = [v15 recordType];
-        v17 = [v16 isEqualToString:v9];
+        isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-        if (v17)
+        if (isEqualToString)
         {
           break;
         }
 
         if (v12 == ++v14)
         {
-          v12 = [v10 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v12)
           {
             goto LABEL_5;
@@ -689,12 +682,12 @@ LABEL_5:
       block[3] = &unk_1E837CAF0;
       v21 = *(a1 + 48);
       v22 = *(a1 + 40);
-      v28 = v21;
-      v29 = v22;
-      v6 = v26;
-      v30 = v26;
-      v31 = v19;
-      v32 = *(a1 + 56);
+      v27 = v21;
+      v28 = v22;
+      v6 = v25;
+      v29 = v25;
+      v30 = v19;
+      v31 = *(a1 + 56);
       v23 = v19;
       dispatch_async(v20, block);
     }
@@ -705,13 +698,13 @@ LABEL_13:
 
 LABEL_16:
       v24 = getWFCloudKitWSLogObject();
-      v6 = v26;
+      v6 = v25;
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v38 = "[WFCloudKitWebServiceRequest fetchProxiedRecordWithIdentifier:possibleItemTypes:completionHandler:]_block_invoke";
-        v39 = 2112;
-        v40 = v26;
+        v37 = "[WFCloudKitWebServiceRequest fetchProxiedRecordWithIdentifier:possibleItemTypes:completionHandler:]_block_invoke";
+        v38 = 2112;
+        v39 = v25;
         _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_ERROR, "%s Unable to find matching record type. Received response: %@", buf, 0x16u);
       }
 
@@ -719,8 +712,6 @@ LABEL_16:
       (*(*(a1 + 56) + 16))();
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __100__WFCloudKitWebServiceRequest_fetchProxiedRecordWithIdentifier_possibleItemTypes_completionHandler___block_invoke_285(uint64_t a1)
@@ -750,7 +741,7 @@ void __100__WFCloudKitWebServiceRequest_fetchProxiedRecordWithIdentifier_possibl
 
 - (id)fetchRecordsWithItemType:(Class)type filter:(id)filter cacheKey:(id)key completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   keyCopy = key;
   filterCopy = filter;
@@ -768,42 +759,41 @@ void __100__WFCloudKitWebServiceRequest_fetchProxiedRecordWithIdentifier_possibl
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v38 = "[WFCloudKitWebServiceRequest fetchRecordsWithItemType:filter:cacheKey:completionHandler:]";
-    v39 = 2112;
-    v40 = v16;
+    v37 = "[WFCloudKitWebServiceRequest fetchRecordsWithItemType:filter:cacheKey:completionHandler:]";
+    v38 = 2112;
+    v39 = v16;
     _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_INFO, "%s Querying CloudKit: %@", buf, 0x16u);
   }
 
-  v35[0] = @"resultsLimit";
-  v35[1] = @"zoneID";
-  v36[0] = &unk_1F4A9A8E8;
-  v36[1] = &unk_1F4A99EB0;
-  v35[2] = @"queryString";
-  v36[2] = v16;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
-  v27 = MEMORY[0x1E69E9820];
-  v28 = 3221225472;
-  v29 = __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_completionHandler___block_invoke;
-  v30 = &unk_1E837AE40;
-  v33 = handlerCopy;
+  v34[0] = @"resultsLimit";
+  v34[1] = @"zoneID";
+  v35[0] = &unk_1F4A9A8E8;
+  v35[1] = &unk_1F4A99EB0;
+  v34[2] = @"queryString";
+  v35[2] = v16;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_completionHandler___block_invoke;
+  v29 = &unk_1E837AE40;
+  v32 = handlerCopy;
   typeCopy = type;
   selfCopy = self;
   v19 = v14;
-  v32 = v19;
+  v31 = v19;
   v20 = handlerCopy;
-  v21 = [(WFCloudKitWebServiceRequest *)self postJSON:v18 toURL:v15 cacheKey:keyCopy completionHandler:&v27];
+  v21 = [(WFCloudKitWebServiceRequest *)self postJSON:v18 toURL:v15 cacheKey:keyCopy completionHandler:&v26];
 
-  [v19 setDataTask:{v21, v27, v28, v29, v30, selfCopy}];
-  v22 = v32;
+  [v19 setDataTask:{v21, v26, v27, v28, v29, selfCopy}];
+  v22 = v31;
   v23 = v19;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 void __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -812,9 +802,9 @@ void __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v23 = "[WFCloudKitWebServiceRequest fetchRecordsWithItemType:filter:cacheKey:completionHandler:]_block_invoke";
-      v24 = 2114;
-      v25 = v6;
+      v22 = "[WFCloudKitWebServiceRequest fetchRecordsWithItemType:filter:cacheKey:completionHandler:]_block_invoke";
+      v23 = 2114;
+      v24 = v6;
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Unable to fetch records. Error: %{public}@", buf, 0x16u);
     }
 
@@ -831,9 +821,9 @@ void __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v23 = "[WFCloudKitWebServiceRequest fetchRecordsWithItemType:filter:cacheKey:completionHandler:]_block_invoke";
-        v24 = 2048;
-        v25 = [v8 count];
+        v22 = "[WFCloudKitWebServiceRequest fetchRecordsWithItemType:filter:cacheKey:completionHandler:]_block_invoke";
+        v23 = 2048;
+        v24 = [v8 count];
         _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_INFO, "%s Received %lu records from query.", buf, 0x16u);
       }
 
@@ -842,18 +832,18 @@ void __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_
       block[1] = 3221225472;
       block[2] = __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_completionHandler___block_invoke_272;
       block[3] = &unk_1E837AE18;
-      v19 = v8;
+      v18 = v8;
       v12 = *(a1 + 56);
       *&v13 = *(a1 + 40);
       *(&v13 + 1) = *(a1 + 32);
-      v17 = v13;
+      v16 = v13;
       *&v14 = *(a1 + 48);
       *(&v14 + 1) = v12;
-      v20 = v17;
-      v21 = v14;
+      v19 = v16;
+      v20 = v14;
       dispatch_async(v11, block);
 
-      v15 = v19;
+      v15 = v18;
     }
 
     else
@@ -861,9 +851,9 @@ void __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v23 = "[WFCloudKitWebServiceRequest fetchRecordsWithItemType:filter:cacheKey:completionHandler:]_block_invoke";
-        v24 = 2112;
-        v25 = v5;
+        v22 = "[WFCloudKitWebServiceRequest fetchRecordsWithItemType:filter:cacheKey:completionHandler:]_block_invoke";
+        v23 = 2112;
+        v24 = v5;
         _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Unable to fetch records. Received response: %@", buf, 0x16u);
       }
 
@@ -871,8 +861,6 @@ void __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_
       (*(*(a1 + 48) + 16))();
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __90__WFCloudKitWebServiceRequest_fetchRecordsWithItemType_filter_cacheKey_completionHandler___block_invoke_272(uint64_t a1)

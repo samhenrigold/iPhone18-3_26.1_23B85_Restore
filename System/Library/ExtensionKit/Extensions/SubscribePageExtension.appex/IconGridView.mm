@@ -8,7 +8,7 @@
 
 - (_TtC22SubscribePageExtension12IconGridView)initWithCoder:(id)coder
 {
-  v4 = sub_10000C518(&qword_10092DE18);
+  v4 = sub_10000C518(&qword_10092DE18, qword_1007B2570);
   __chkstk_darwin(v4);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension12IconGridView_artworkViews) = _swiftEmptyArrayStorage;
   sub_1007433C4();

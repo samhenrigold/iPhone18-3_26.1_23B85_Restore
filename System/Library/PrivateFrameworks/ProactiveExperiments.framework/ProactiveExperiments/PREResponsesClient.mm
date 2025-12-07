@@ -3,9 +3,30 @@
 - (PREResponsesClient)init;
 - (void)preResponseItemsForMessage:(id)message maximumResponses:(unint64_t)responses conversationTurns:(id)turns context:(id)context time:(id)time language:(id)language recipientHandles:(id)handles modelFilePath:(id)self0 modelConfigPath:(id)self1 espressoBinFilePath:(id)self2 vocabFilePath:(id)self3 registerDisplayed:(BOOL)self4 includeCustomResponses:(BOOL)self5 includeResponsesToRobots:(BOOL)self6 completion:(id)self7;
 - (void)predictForMessage:(id)message conversationTurns:(id)turns language:(id)language plistPath:(id)path espressoBinPath:(id)binPath vocabPath:(id)vocabPath heads:(id)heads completion:(id)self0;
+- (void)registerResponse:(id)response position:(id)position isCanned:(BOOL)canned isUsingQuickResponses:(BOOL)responses locale:(id)locale modelConfigPath:(id)path vocabPath:(id)vocabPath;
 @end
 
 @implementation PREResponsesClient
+
+- (void)registerResponse:(id)response position:(id)position isCanned:(BOOL)canned isUsingQuickResponses:(BOOL)responses locale:(id)locale modelConfigPath:(id)path vocabPath:(id)vocabPath
+{
+  responsesCopy = responses;
+  cannedCopy = canned;
+  vocabPathCopy = vocabPath;
+  pathCopy = path;
+  localeCopy = locale;
+  positionCopy = position;
+  responseCopy = response;
+  v21 = pre_responses_handle();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_260CE3000, v21, OS_LOG_TYPE_DEFAULT, "PREResponsesClient initiating call to suggestd - registerResponse", buf, 2u);
+  }
+
+  _remoteObjectProxy = [(PREResponsesClient *)self _remoteObjectProxy];
+  [_remoteObjectProxy registerResponse:responseCopy position:positionCopy isCanned:cannedCopy isUsingQuickResponses:responsesCopy locale:localeCopy modelConfigPath:pathCopy vocabPath:vocabPathCopy];
+}
 
 - (void)predictForMessage:(id)message conversationTurns:(id)turns language:(id)language plistPath:(id)path espressoBinPath:(id)binPath vocabPath:(id)vocabPath heads:(id)heads completion:(id)self0
 {
@@ -88,30 +109,26 @@
 
 void __26__PREResponsesClient_init__block_invoke_39()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = pre_xpc_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.proactive.experiments.responses";
-    _os_log_impl(&dword_260CE3000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ invalidated.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.proactive.experiments.responses";
+    _os_log_impl(&dword_260CE3000, v0, OS_LOG_TYPE_DEFAULT, "Connection to %@ invalidated.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __26__PREResponsesClient_init__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = pre_xpc_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.proactive.experiments.responses";
-    _os_log_error_impl(&dword_260CE3000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.proactive.experiments.responses";
+    _os_log_error_impl(&dword_260CE3000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -133,13 +150,12 @@ void __26__PREResponsesClient_init__block_invoke()
 
 void __36__PREResponsesClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_1932;
-  sharedInstance__pasExprOnceResult_1932 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_1932;
+  sharedInstance__pasExprOnceResult_1932 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

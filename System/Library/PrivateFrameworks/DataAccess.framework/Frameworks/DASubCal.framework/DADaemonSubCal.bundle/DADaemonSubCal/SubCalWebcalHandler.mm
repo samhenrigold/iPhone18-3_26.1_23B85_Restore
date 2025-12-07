@@ -392,20 +392,19 @@ LABEL_21:
 
 - (void)_showSubscribeAccount
 {
-  account = self->_account;
-  v4 = SubCalCopySaveAccountNotification();
-  v5 = dataaccess_get_global_queue();
-  v6 = +[DARunLoopRegistry sharedRunLoop];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_9DF0;
-  v7[3] = &unk_1C608;
-  v7[4] = self;
-  [DAUserNotificationUtilities showUserNotification:v4 groupIdentifier:0 callbackQueue:v5 sourceRunLoop:v6 completionBlock:v7];
+  v3 = SubCalCopySaveAccountNotification();
+  v4 = dataaccess_get_global_queue();
+  v5 = +[DARunLoopRegistry sharedRunLoop];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_9DF0;
+  v6[3] = &unk_1C608;
+  v6[4] = self;
+  [DAUserNotificationUtilities showUserNotification:v3 groupIdentifier:0 callbackQueue:v4 sourceRunLoop:v5 completionBlock:v6];
 
-  if (v4)
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 }
 
@@ -424,20 +423,19 @@ LABEL_21:
 
 - (void)_showInvalidAccount
 {
-  account = self->_account;
-  v4 = SubCalCopyInvalidAccountNotification();
-  v5 = dataaccess_get_global_queue();
-  v6 = +[DARunLoopRegistry sharedRunLoop];
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_9F68;
-  v7[3] = &unk_1C608;
-  v7[4] = self;
-  [DAUserNotificationUtilities showUserNotification:v4 groupIdentifier:0 callbackQueue:v5 sourceRunLoop:v6 completionBlock:v7];
+  v3 = SubCalCopyInvalidAccountNotification();
+  v4 = dataaccess_get_global_queue();
+  v5 = +[DARunLoopRegistry sharedRunLoop];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_9F68;
+  v6[3] = &unk_1C608;
+  v6[4] = self;
+  [DAUserNotificationUtilities showUserNotification:v3 groupIdentifier:0 callbackQueue:v4 sourceRunLoop:v5 completionBlock:v6];
 
-  if (v4)
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 }
 

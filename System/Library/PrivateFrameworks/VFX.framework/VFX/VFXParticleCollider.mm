@@ -71,32 +71,32 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p>", v7, v5, self);
+  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p>", v5, self);
 }
 
 + (id)particleColliderWithEntityHandle:(id)handle
 {
   v4 = [self alloc];
-  v7 = objc_msgSend_initWithEntityHandle_(v4, v5, handle, v6);
+  v6 = objc_msgSend_initWithEntityHandle_(v4, v5, handle);
 
-  return v7;
+  return v6;
 }
 
 + (id)particleColliderWithEntityObject:(id)object
 {
   v4 = [self alloc];
-  v7 = objc_msgSend_handleWithEntityObject_(VFXCoreEntityHandle, v5, object, v6);
-  v10 = objc_msgSend_initWithEntityHandle_(v4, v8, v7, v9);
+  v6 = objc_msgSend_handleWithEntityObject_(VFXCoreEntityHandle, v5, object);
+  v8 = objc_msgSend_initWithEntityHandle_(v4, v7, v6);
 
-  return v10;
+  return v8;
 }
 
 + (id)presentationParticleColliderWithEntityHandle:(id)handle
 {
   v4 = [self alloc];
-  v7 = objc_msgSend_initWithEntityHandle_(v4, v5, handle, v6);
+  v6 = objc_msgSend_initWithEntityHandle_(v4, v5, handle);
 
-  return v7;
+  return v6;
 }
 
 - (void)enumerateReferencesForOperation:(int64_t)operation usingBlock:(id)block
@@ -112,7 +112,7 @@
 {
   if (self->_world != reference)
   {
-    objc_msgSend_setWorld_(self, a2, reference, v3);
+    objc_msgSend_setWorld_(self, a2, reference);
   }
 }
 
@@ -153,7 +153,7 @@
     return self->_world;
   }
 
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
@@ -165,18 +165,18 @@
 
 - (__CFXWorld)worldRef
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF1C3FAC(v4);
+  return sub_1AF1C3FAC(v3, v4);
 }
 
 - (void)copyTo:(id)to withContext:(id)context
 {
-  objc_msgSend_begin(VFXTransaction, a2, to, context);
-  objc_msgSend_setImmediateMode_(VFXTransaction, v7, 1, v8);
+  objc_msgSend_begin(VFXTransaction, a2, to);
+  objc_msgSend_setImmediateMode_(VFXTransaction, v7, 1);
   *(to + 2) = sub_1AF2BED30(self->_coreHandle, context);
 
-  objc_msgSend_commitImmediate(VFXTransaction, v9, v10, v11);
+  objc_msgSend_commitImmediate(VFXTransaction, v8, v9);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -188,32 +188,32 @@
 
 - (VFXParticleCollider)initWithCoder:(id)coder
 {
-  v25.receiver = self;
-  v25.super_class = VFXParticleCollider;
-  v7 = [(VFXParticleCollider *)&v25 init];
-  if (v7)
+  v20.receiver = self;
+  v20.super_class = VFXParticleCollider;
+  v6 = [(VFXParticleCollider *)&v20 init];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    if (objc_msgSend_containsValueForKey_(coder, v11, @"rootIdentifier", v12))
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    if (objc_msgSend_containsValueForKey_(coder, v9, @"rootIdentifier"))
     {
-      v13 = objc_opt_class();
-      v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"rootIdentifier");
-      v16 = [VFXCoreEntityHandle alloc];
-      v19 = objc_msgSend_initWithTag_(v16, v17, v15, v18);
+      v10 = objc_opt_class();
+      v12 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v11, v10, @"rootIdentifier");
+      v13 = [VFXCoreEntityHandle alloc];
+      v15 = objc_msgSend_initWithTag_(v13, v14, v12);
     }
 
     else
     {
-      v22 = objc_opt_class();
-      v19 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v23, v22, @"coreHandle");
+      v17 = objc_opt_class();
+      v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v18, v17, @"coreHandle");
     }
 
-    v7->_coreHandle = v19;
-    objc_msgSend_setImmediateMode_(VFXTransaction, v20, v8, v21);
+    v6->_coreHandle = v15;
+    objc_msgSend_setImmediateMode_(VFXTransaction, v16, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

@@ -44,10 +44,10 @@ apple::aiml::flatbuffers2::DetachedBuffer *__26__FLTSSUFile_flatbuffData__block_
 
 - (Offset<SSUFile>)addObjectToBuffer:(void *)buffer
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   format_version = [(FLTSSUFile *)self format_version];
   metadata = [(FLTSSUFile *)self metadata];
-  v27 = [metadata addObjectToBuffer:buffer];
+  v25 = [metadata addObjectToBuffer:buffer];
 
   locale = [(FLTSSUFile *)self locale];
   v7 = locale;
@@ -72,16 +72,11 @@ apple::aiml::flatbuffers2::DetachedBuffer *__26__FLTSSUFile_flatbuffData__block_
     std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  memset(v28, 0, sizeof(v28));
   obj = [(FLTSSUFile *)self categories];
-  if ([obj countByEnumeratingWithState:&v30 objects:v34 count:16])
+  if ([obj countByEnumeratingWithState:v28 objects:v29 count:16])
   {
-    *v31;
-    *v31;
-    [**(&v30 + 1) addObjectToBuffer:buffer];
+    [**(&v28[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(1uLL);
   }
 
@@ -116,9 +111,9 @@ apple::aiml::flatbuffers2::DetachedBuffer *__26__FLTSSUFile_flatbuffData__block_
     *(bufferCopy + 34) = v20;
   }
 
-  if (v27)
+  if (v25)
   {
-    v21 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(bufferCopy, v27);
+    v21 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(bufferCopy, v25);
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(bufferCopy, 6, v21, 0);
   }
 
@@ -129,9 +124,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__26__FLTSSUFile_flatbuffData__block_
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(bufferCopy, 10, v22, 0);
   }
 
-  v23.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(bufferCopy, v13 - v14 + v15);
-  v24 = *MEMORY[0x1E69E9840];
-  return v23;
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(bufferCopy, v13 - v14 + v15);
 }
 
 - (void)categories_enumerateObjectsUsingBlock:(id)block

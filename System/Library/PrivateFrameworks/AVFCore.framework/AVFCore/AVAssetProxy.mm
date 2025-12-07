@@ -118,7 +118,7 @@ LABEL_13:
   return self->_assetProxy->tracks;
 }
 
-uint64_t __22__AVAssetProxy_tracks__block_invoke(uint64_t a1)
+void *__22__AVAssetProxy_tracks__block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E695DF70] array];
   v3 = [objc_msgSend(*(a1 + 32) "_assetInspector")];

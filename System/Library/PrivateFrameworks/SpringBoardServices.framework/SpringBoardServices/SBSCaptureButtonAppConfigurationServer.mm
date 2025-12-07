@@ -80,7 +80,7 @@ void __53__SBSCaptureButtonAppConfigurationServer_startServer__block_invoke(uint
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
@@ -91,18 +91,18 @@ void __53__SBSCaptureButtonAppConfigurationServer_startServer__block_invoke(uint
   {
 
 LABEL_4:
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __84__SBSCaptureButtonAppConfigurationServer_listener_didReceiveConnection_withContext___block_invoke;
-    v17[3] = &unk_1E735F0A8;
-    v17[4] = self;
-    objc_copyWeak(&v18, &location);
-    [connectionCopy configureConnection:v17];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __84__SBSCaptureButtonAppConfigurationServer_listener_didReceiveConnection_withContext___block_invoke;
+    v18[3] = &unk_1E735F0A8;
+    v18[4] = self;
+    objc_copyWeak(&v19, &location);
+    [connectionCopy configureConnection:v18];
     os_unfair_lock_lock(&self->_lock);
     [(NSMutableArray *)self->_lock_connections addObject:connectionCopy];
     os_unfair_lock_unlock(&self->_lock);
     [connectionCopy activate];
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     goto LABEL_8;
   }
 
@@ -115,12 +115,12 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v16 = SBLogCameraCaptureAppConfiguration();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = SBLogCameraCaptureAppConfiguration(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = connectionCopy;
-    _os_log_impl(&dword_19169D000, v16, OS_LOG_TYPE_DEFAULT, "SBSCaptureButtonAppConfigurationServer invalidating connection because client process is missing required entitlement %@.", buf, 0xCu);
+    v22 = connectionCopy;
+    _os_log_impl(&dword_19169D000, v17, OS_LOG_TYPE_DEFAULT, "SBSCaptureButtonAppConfigurationServer invalidating connection because client process is missing required entitlement %@.", buf, 0xCu);
   }
 
   [connectionCopy invalidate];
@@ -159,7 +159,7 @@ void __84__SBSCaptureButtonAppConfigurationServer_listener_didReceiveConnection_
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogCameraCaptureAppConfiguration();
+  v3 = SBLogCameraCaptureAppConfiguration(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -173,7 +173,7 @@ void __84__SBSCaptureButtonAppConfigurationServer_listener_didReceiveConnection_
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogCameraCaptureAppConfiguration();
+  v5 = SBLogCameraCaptureAppConfiguration(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -194,7 +194,7 @@ void __84__SBSCaptureButtonAppConfigurationServer_listener_didReceiveConnection_
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogCameraCaptureAppConfiguration();
+  v5 = SBLogCameraCaptureAppConfiguration(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -372,23 +372,23 @@ void __84__SBSCaptureButtonAppConfigurationServer_listener_didReceiveConnection_
 
 - (void)setCurrentAssociatedAppUsingBundleIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   currentContext = [MEMORY[0x1E698F490] currentContext];
   remoteProcess = [currentContext remoteProcess];
   bundleIdentifier = [remoteProcess bundleIdentifier];
 
-  v7 = SBLogCameraCaptureAppConfiguration();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogCameraCaptureAppConfiguration(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v10 = identifierCopy;
-    v11 = 2114;
-    v12 = bundleIdentifier;
-    _os_log_impl(&dword_19169D000, v7, OS_LOG_TYPE_DEFAULT, "SBSCaptureButtonAppConfigurationServer received request to set current active app bundle identifier to %{public}@ from %{public}@", buf, 0x16u);
+    v11 = identifierCopy;
+    v12 = 2114;
+    v13 = bundleIdentifier;
+    _os_log_impl(&dword_19169D000, v8, OS_LOG_TYPE_DEFAULT, "SBSCaptureButtonAppConfigurationServer received request to set current active app bundle identifier to %{public}@ from %{public}@", buf, 0x16u);
   }
 
-  v8 = identifierCopy;
+  v9 = identifierCopy;
   BSDispatchMain();
 }
 

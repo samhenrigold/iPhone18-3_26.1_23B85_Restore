@@ -93,7 +93,7 @@
       stagedFromOSVersion = [frameworkCopy stagedFromOSVersion];
       stagedFromBuildVersion = [frameworkCopy stagedFromBuildVersion];
       availableForUseError = [frameworkCopy availableForUseError];
-      patchingAttemptError = [frameworkCopy patchingAttemptError];
+      v15 = objc_msgSend_patchingAttemptError(frameworkCopy);
       newerVersionError = [frameworkCopy newerVersionError];
       v60 = stagedFromBuildVersion;
       v42 = stagedFromBuildVersion;
@@ -110,7 +110,7 @@
       LOBYTE(v32) = downloadedAsPatch;
       v20 = downloadProgress;
       v21 = newerVersionAttributes;
-      v22 = [v8 initWithAssetSelector:assetSelector withNotifications:notifications withAvailableForUseAttributes:availableForUseAttributes withNewerVersionAttributes:downloadProgress withNeverBeenLocked:downloadedNetworkBytes withDownloadUserInitiated:downloadedFilesystemBytes withDownloadProgress:v32 withDownloadedNetworkBytes:v34 withDownloadedFilesystemBytes:v37 withDownloadedAsPatch:v38 withPatchedFromBaseSelector:v40 withPatchedFromBaseFilesystemBytes:v42 withPatchingAttempted:currentLockUsage withStagedPriorToAvailable:availableForUseError withStagedFromOSVersion:patchingAttemptError withStagedFromBuildVersion:newerVersionError withCurrentLockUsage:? withAvailableForUseError:? withPatchingAttemptError:? withNewerVersionError:?];
+      v22 = [v8 initWithAssetSelector:assetSelector withNotifications:notifications withAvailableForUseAttributes:availableForUseAttributes withNewerVersionAttributes:downloadProgress withNeverBeenLocked:downloadedNetworkBytes withDownloadUserInitiated:downloadedFilesystemBytes withDownloadProgress:v32 withDownloadedNetworkBytes:v34 withDownloadedFilesystemBytes:v37 withDownloadedAsPatch:v38 withPatchedFromBaseSelector:v40 withPatchedFromBaseFilesystemBytes:v42 withPatchingAttempted:currentLockUsage withStagedPriorToAvailable:availableForUseError withStagedFromOSVersion:v15 withStagedFromBuildVersion:newerVersionError withCurrentLockUsage:? withAvailableForUseError:? withPatchingAttemptError:? withNewerVersionError:?];
     }
 
     else
@@ -140,7 +140,7 @@
       stagedFromOSVersion2 = [frameworkCopy stagedFromOSVersion];
       stagedFromBuildVersion2 = [frameworkCopy stagedFromBuildVersion];
       availableForUseError = [frameworkCopy availableForUseError];
-      patchingAttemptError = [frameworkCopy patchingAttemptError];
+      v15 = objc_msgSend_patchingAttemptError(frameworkCopy);
       newerVersionError = [frameworkCopy newerVersionError];
       v60 = stagedFromBuildVersion2;
       v41 = stagedFromBuildVersion2;
@@ -157,7 +157,7 @@
       v18 = assetSelector2;
       v21 = newerVersionAttributes2;
       v20 = downloadProgress2;
-      v22 = [v49 initWithAssetSelector:assetSelector2 withNotifications:notifications2 withAvailableForUseAttributes:availableForUseAttributes2 withNewerVersionAttributes:downloadedNetworkBytes2 withDownloadUserInitiated:downloadedFilesystemBytes2 withDownloadProgress:v31 withDownloadedNetworkBytes:v33 withDownloadedFilesystemBytes:v35 withDownloadedAsPatch:v36 withPatchedFromBaseSelector:v39 withPatchedFromBaseFilesystemBytes:v41 withPatchingAttempted:currentLockUsage withStagedPriorToAvailable:availableForUseError withStagedFromOSVersion:patchingAttemptError withStagedFromBuildVersion:newerVersionError withCurrentLockUsage:? withAvailableForUseError:? withPatchingAttemptError:? withNewerVersionError:?];
+      v22 = [v49 initWithAssetSelector:assetSelector2 withNotifications:notifications2 withAvailableForUseAttributes:availableForUseAttributes2 withNewerVersionAttributes:downloadedNetworkBytes2 withDownloadUserInitiated:downloadedFilesystemBytes2 withDownloadProgress:v31 withDownloadedNetworkBytes:v33 withDownloadedFilesystemBytes:v35 withDownloadedAsPatch:v36 withPatchedFromBaseSelector:v39 withPatchedFromBaseFilesystemBytes:v41 withPatchingAttempted:currentLockUsage withStagedPriorToAvailable:availableForUseError withStagedFromOSVersion:v15 withStagedFromBuildVersion:newerVersionError withCurrentLockUsage:? withAvailableForUseError:? withPatchingAttemptError:? withNewerVersionError:?];
     }
 
     v5 = v22;
@@ -210,7 +210,7 @@ LABEL_18:
       stagedFromOSVersion = [assetSelector2 stagedFromOSVersion];
       stagedFromBuildVersion = [assetSelector2 stagedFromBuildVersion];
       availableForUseError = [assetSelector2 availableForUseError];
-      patchingAttemptError = [assetSelector2 patchingAttemptError];
+      newerVersionError2 = objc_msgSend_patchingAttemptError(assetSelector2);
       newerVersionError = [assetSelector2 newerVersionError];
       v58 = stagedFromBuildVersion;
       v36 = stagedFromBuildVersion;
@@ -226,7 +226,7 @@ LABEL_18:
       LOBYTE(v29) = downloadedAsPatch;
       v19 = availableForUseAttributes;
       v20 = newerVersionAttributes;
-      v21 = [MANAutoAssetStatus initWithAssetSelector:v49 withNotifications:"initWithAssetSelector:withNotifications:withAvailableForUseAttributes:withNewerVersionAttributes:withNeverBeenLocked:withDownloadUserInitiated:withDownloadProgress:withDownloadedNetworkBytes:withDownloadedFilesystemBytes:withDownloadedAsPatch:withPatchedFromBaseSelector:withPatchedFromBaseFilesystemBytes:withPatchingAttempted:withStagedPriorToAvailable:withStagedFromOSVersion:withStagedFromBuildVersion:withCurrentLockUsage:withAvailableForUseError:withPatchingAttemptError:withNewerVersionError:" withAvailableForUseAttributes:assetSelector withNewerVersionAttributes:notifications withNeverBeenLocked:availableForUseAttributes withDownloadUserInitiated:downloadProgress withDownloadProgress:downloadedNetworkBytes withDownloadedNetworkBytes:downloadedFilesystemBytes withDownloadedFilesystemBytes:v29 withDownloadedAsPatch:v30 withPatchedFromBaseSelector:v31 withPatchedFromBaseFilesystemBytes:v32 withPatchingAttempted:v34 withStagedPriorToAvailable:v36 withStagedFromOSVersion:currentLockUsage withStagedFromBuildVersion:availableForUseError withCurrentLockUsage:patchingAttemptError withAvailableForUseError:newerVersionError withPatchingAttemptError:? withNewerVersionError:?];
+      v21 = [MANAutoAssetStatus initWithAssetSelector:v49 withNotifications:"initWithAssetSelector:withNotifications:withAvailableForUseAttributes:withNewerVersionAttributes:withNeverBeenLocked:withDownloadUserInitiated:withDownloadProgress:withDownloadedNetworkBytes:withDownloadedFilesystemBytes:withDownloadedAsPatch:withPatchedFromBaseSelector:withPatchedFromBaseFilesystemBytes:withPatchingAttempted:withStagedPriorToAvailable:withStagedFromOSVersion:withStagedFromBuildVersion:withCurrentLockUsage:withAvailableForUseError:withPatchingAttemptError:withNewerVersionError:" withAvailableForUseAttributes:assetSelector withNewerVersionAttributes:notifications withNeverBeenLocked:availableForUseAttributes withDownloadUserInitiated:downloadProgress withDownloadProgress:downloadedNetworkBytes withDownloadedNetworkBytes:downloadedFilesystemBytes withDownloadedFilesystemBytes:v29 withDownloadedAsPatch:v30 withPatchedFromBaseSelector:v31 withPatchedFromBaseFilesystemBytes:v32 withPatchingAttempted:v34 withStagedPriorToAvailable:v36 withStagedFromOSVersion:currentLockUsage withStagedFromBuildVersion:availableForUseError withCurrentLockUsage:newerVersionError2 withAvailableForUseError:newerVersionError withPatchingAttemptError:? withNewerVersionError:?];
 
       goto LABEL_11;
     }
@@ -256,8 +256,8 @@ LABEL_18:
       stagedFromBuildVersion2 = [v9 stagedFromBuildVersion];
       currentLockUsage2 = [v9 currentLockUsage];
       availableForUseError2 = [v9 availableForUseError];
-      availableForUseError = [v9 patchingAttemptError];
-      patchingAttemptError = [v9 newerVersionError];
+      availableForUseError = objc_msgSend_patchingAttemptError(v9);
+      newerVersionError2 = [v9 newerVersionError];
 
       v58 = availableForUseError2;
       v37 = availableForUseError2;
@@ -273,7 +273,7 @@ LABEL_18:
       v19 = downloadProgress2;
       v20 = patchedFromBaseSelector2;
       LOBYTE(v29) = downloadedAsPatch2;
-      v21 = [(MANAutoAssetStatus *)v48 initWithAssetSelector:assetSelector2 withNotifications:currentLockUsage withAvailableForUseAttributes:availableForUseAttributes2 withNewerVersionAttributes:newerVersionAttributes2 withNeverBeenLocked:neverBeenLocked withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:downloadProgress2 withDownloadedNetworkBytes:downloadedNetworkBytes2 withDownloadedFilesystemBytes:downloadedFilesystemBytes2 withDownloadedAsPatch:v29 withPatchedFromBaseSelector:patchedFromBaseSelector2 withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes2 withPatchingAttempted:v32 withStagedPriorToAvailable:v33 withStagedFromOSVersion:v35 withStagedFromBuildVersion:currentLockUsage2 withCurrentLockUsage:v37 withAvailableForUseError:availableForUseError withPatchingAttemptError:patchingAttemptError withNewerVersionError:?];
+      v21 = [(MANAutoAssetStatus *)v48 initWithAssetSelector:assetSelector2 withNotifications:currentLockUsage withAvailableForUseAttributes:availableForUseAttributes2 withNewerVersionAttributes:newerVersionAttributes2 withNeverBeenLocked:neverBeenLocked withDownloadUserInitiated:downloadUserInitiated withDownloadProgress:downloadProgress2 withDownloadedNetworkBytes:downloadedNetworkBytes2 withDownloadedFilesystemBytes:downloadedFilesystemBytes2 withDownloadedAsPatch:v29 withPatchedFromBaseSelector:patchedFromBaseSelector2 withPatchedFromBaseFilesystemBytes:patchedFromBaseFilesystemBytes2 withPatchingAttempted:v32 withStagedPriorToAvailable:v33 withStagedFromOSVersion:v35 withStagedFromBuildVersion:currentLockUsage2 withCurrentLockUsage:v37 withAvailableForUseError:availableForUseError withPatchingAttemptError:newerVersionError2 withNewerVersionError:?];
 LABEL_11:
 
       goto LABEL_12;

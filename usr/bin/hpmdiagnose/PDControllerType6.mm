@@ -1,11 +1,28 @@
 @interface PDControllerType6
++ (id)createWithDeviceAddress:(unsigned __int8)address userClient:(id)client;
 - (id)printRegisterTitle:(id)title andData:(char *)data;
 - (int)decodeRegister:(id)register withArray:(id)array fromBuffer:(void *)buffer;
+- (int)forceUSBDeviceMode:(unsigned int)mode withDevice:(unint64_t)device;
 - (int)printAll;
+- (int)printRegister:(unsigned int)register dataBuffer:(void *)buffer andLength:(unint64_t)length;
 - (int)printTitle;
 @end
 
 @implementation PDControllerType6
+
++ (id)createWithDeviceAddress:(unsigned __int8)address userClient:(id)client
+{
+  addressCopy = address;
+  v9.receiver = self;
+  v9.super_class = &OBJC_METACLASS___PDControllerType6;
+  clientCopy = client;
+  v6 = objc_msgSendSuper2(&v9, "alloc");
+  v7 = [v6 initWithAddress:addressCopy userClient:{clientCopy, v9.receiver, v9.super_class}];
+
+  [v7 setupRegisterDecodes];
+
+  return v7;
+}
 
 - (int)printTitle
 {
@@ -76,6 +93,62 @@
   }
 
   return v6;
+}
+
+- (int)printRegister:(unsigned int)register dataBuffer:(void *)buffer andLength:(unint64_t)length
+{
+  v6 = *&register;
+  v8 = [(PDControllerType6 *)self registerDecodes:*&register];
+  v9 = &IOCreatePlugInInterfaceForService_ptr;
+  v10 = [NSString stringWithFormat:@"0x%x", v6];
+  v11 = [v8 valueForKey:v10];
+
+  if (v11)
+  {
+    v12 = [NSMutableArray alloc];
+    fields = [v11 fields];
+    v14 = [v12 initWithCapacity:{objc_msgSend(fields, "count")}];
+
+    [(PDControllerType6 *)self decodeRegister:v11 withArray:v14 fromBuffer:buffer];
+    v15 = [(PDControllerType6 *)self printRegisterTitle:v11 andData:buffer];
+    registerName = [v11 registerName];
+    v33 = v15;
+    [(PDController *)self printRegister:v6 withTitle:registerName andDescription:v15];
+
+    fields2 = [v11 fields];
+    v18 = [fields2 count];
+
+    if (v18)
+    {
+      v19 = 0;
+      do
+      {
+        fields3 = [v11 fields];
+        v21 = [fields3 objectAtIndexedSubscript:v19];
+
+        v22 = [v14 objectAtIndexedSubscript:v19];
+        unsignedLongLongValue = [v22 unsignedLongLongValue];
+
+        v24 = v9[78];
+        [v21 fieldName];
+        v26 = v25 = v9;
+        uTF8String = [v26 UTF8String];
+        v28 = [v21 decodeFieldWithValue:unsignedLongLongValue];
+        v29 = [v24 stringWithFormat:@"%-32s %@", uTF8String, v28];
+
+        v9 = v25;
+        [(PDController *)self printRegisterDescription:v29];
+
+        ++v19;
+        fields4 = [v11 fields];
+        v31 = [fields4 count];
+      }
+
+      while (v31 > v19);
+    }
+  }
+
+  return 0;
 }
 
 - (int)decodeRegister:(id)register withArray:(id)array fromBuffer:(void *)buffer
@@ -335,6 +408,15 @@
   }
 
   return 0;
+}
+
+- (int)forceUSBDeviceMode:(unsigned int)mode withDevice:(unint64_t)device
+{
+  v5 = *&mode;
+  userClient = [(PDController *)self userClient];
+  LODWORD(device) = [userClient forceUSBDeviceMode:v5 withDevice:device];
+
+  return device;
 }
 
 @end

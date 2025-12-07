@@ -27,7 +27,7 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   keyClassName = self->_keyClassName;
   if (keyClassName)
   {
@@ -36,17 +36,16 @@
     {
       valueClassName = self->_valueClassName;
       *buf = 138543618;
-      v9 = keyClassName;
-      v10 = 2114;
-      v11 = valueClassName;
+      v8 = keyClassName;
+      v9 = 2114;
+      v10 = valueClassName;
       _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "will deallocate map table with type <%{public}@, %{public}@>", buf, 0x16u);
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = FCMapTable;
-  [(FCMapTable *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = FCMapTable;
+  [(FCMapTable *)&v6 dealloc];
 }
 
 - (FCMapTable)initWithMapTable:(id)table

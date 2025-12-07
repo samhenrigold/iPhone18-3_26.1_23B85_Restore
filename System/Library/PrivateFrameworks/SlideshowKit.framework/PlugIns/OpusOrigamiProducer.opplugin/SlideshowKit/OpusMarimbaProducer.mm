@@ -216,7 +216,7 @@ LABEL_8:
             v33 = @"url";
             v34 = [objc_msgSend(v14 "uniqueURL")];
             [v9 addObject:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v34, &v33, 1)}];
-            [objc_msgSend(v14 "metadata")];
+            objc_msgSend_duration([v14 metadata]);
           }
 
           v11 = [v8 countByEnumeratingWithState:&v26 objects:v35 count:16];
@@ -907,7 +907,7 @@ LABEL_8:
 
   v4 = +[NSMutableDictionary dictionary];
   metadata = [item metadata];
-  [metadata duration];
+  objc_msgSend_duration(metadata);
   if (v6 < 3.0 && v6 > 0.0)
   {
     v6 = 3.0;
@@ -1036,7 +1036,7 @@ LABEL_8:
   v10[1] = @"transitionDirection";
   v11[1] = [NSNumber numberWithUnsignedInteger:v9];
   v10[2] = @"transitionDuration";
-  [transition duration];
+  objc_msgSend_duration(transition);
   v11[2] = [NSNumber numberWithDouble:?];
   v10[3] = @"transitionWantsOpaquePages";
   v11[3] = [NSNumber numberWithBool:v6];

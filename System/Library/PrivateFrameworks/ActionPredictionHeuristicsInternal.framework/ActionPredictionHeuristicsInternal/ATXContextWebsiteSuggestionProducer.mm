@@ -26,56 +26,53 @@
 
 - (id)websiteSuggestions
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2050000000;
+  v23 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2050000000;
   v3 = getATXWebSuggestionsGeneratorClass_softClass;
-  v20 = getATXWebSuggestionsGeneratorClass_softClass;
+  v18 = getATXWebSuggestionsGeneratorClass_softClass;
   if (!getATXWebSuggestionsGeneratorClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v22 = __getATXWebSuggestionsGeneratorClass_block_invoke;
-    v23 = &unk_278C3CC98;
-    v24 = &v17;
+    v20 = __getATXWebSuggestionsGeneratorClass_block_invoke;
+    v21 = &unk_278C3CC98;
+    v22 = &v15;
     __getATXWebSuggestionsGeneratorClass_block_invoke(&buf);
-    v3 = v18[3];
+    v3 = v16[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v15, 8);
   v5 = objc_alloc_init(v3);
-  reasonCode = self->_reasonCode;
-  v7 = stringForATXSuggestionPredictionReasonCode();
-  v8 = [v5 websitePredictionsForContextType:v7 limit:2];
-  v9 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v6 = stringForATXSuggestionPredictionReasonCode();
+  v7 = [v5 websitePredictionsForContextType:v6 limit:2];
+  v8 = __atxlog_handle_context_heuristic(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
-    _os_log_impl(&dword_23E3EA000, v9, OS_LOG_TYPE_DEFAULT, "ATXContextWebsiteSuggestionProducer: websites %@", &buf, 0xCu);
+    *(&buf + 4) = v7;
+    _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXContextWebsiteSuggestionProducer: websites %@", &buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __57__ATXContextWebsiteSuggestionProducer_websiteSuggestions__block_invoke;
-  v15[3] = &unk_278C3D3D0;
-  v15[4] = self;
-  v16 = v5;
-  v10 = v5;
-  v11 = [v8 _pas_mappedArrayWithTransform:v15];
-  v12 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __57__ATXContextWebsiteSuggestionProducer_websiteSuggestions__block_invoke;
+  v13[3] = &unk_278C3D3D0;
+  v13[4] = self;
+  v14 = v5;
+  v9 = v5;
+  v10 = [v7 _pas_mappedArrayWithTransform:v13];
+  v11 = __atxlog_handle_context_heuristic(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v11;
-    _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXContextWebsiteSuggestionProducer: websiteSuggestions: %@", &buf, 0xCu);
+    *(&buf + 4) = v10;
+    _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "ATXContextWebsiteSuggestionProducer: websiteSuggestions: %@", &buf, 0xCu);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v10;
 }
 
 id __57__ATXContextWebsiteSuggestionProducer_websiteSuggestions__block_invoke(uint64_t a1, void *a2)
@@ -115,29 +112,29 @@ id __57__ATXContextWebsiteSuggestionProducer_websiteSuggestions__block_invoke(ui
 
 - (id)titleAndSubtitleForUrl:(id)url titlesAndSubtitles:(id)subtitles
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   urlCopy = url;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   subtitlesCopy = subtitles;
-  v6 = [subtitlesCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [subtitlesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(subtitlesCopy);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         v12 = [v11 URLByAppendingPathComponent:&stru_2850AD368];
         v13 = [urlCopy URLByAppendingPathComponent:&stru_2850AD368];
         v14 = [v12 isEqual:v13];
@@ -158,7 +155,7 @@ id __57__ATXContextWebsiteSuggestionProducer_websiteSuggestions__block_invoke(ui
         }
       }
 
-      v7 = [subtitlesCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [subtitlesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -170,8 +167,6 @@ id __57__ATXContextWebsiteSuggestionProducer_websiteSuggestions__block_invoke(ui
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

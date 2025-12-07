@@ -9,8 +9,8 @@
 - (BOOL)valueSource:(id)source shouldOverrideValueForCharacteristic:(id)characteristic
 {
   characteristicCopy = characteristic;
-  service = [characteristicCopy service];
-  accessory = [service accessory];
+  v5 = objc_msgSend_service(characteristicCopy);
+  accessory = [v5 accessory];
   if ([accessory hf_isSuspended])
   {
     overrideDefaultValueForCharacteristicType = [objc_opt_class() overrideDefaultValueForCharacteristicType];
@@ -29,10 +29,10 @@
 
 - (id)valueSource:(id)source overrideValueForCharacteristic:(id)characteristic
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
-  service = [characteristicCopy service];
-  accessory = [service accessory];
+  v5 = objc_msgSend_service(characteristicCopy);
+  accessory = [v5 accessory];
   hf_isSuspended = [accessory hf_isSuspended];
 
   if (hf_isSuspended)
@@ -45,15 +45,15 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       characteristicType2 = [characteristicCopy characteristicType];
-      service2 = [characteristicCopy service];
-      accessory2 = [service2 accessory];
-      v17 = 138412802;
-      v18 = characteristicType2;
-      v19 = 2112;
-      v20 = value;
-      v21 = 2112;
-      v22 = accessory2;
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Overriding characteristic %@ value with %@ for suspended accessory %@", &v17, 0x20u);
+      v13 = objc_msgSend_service(characteristicCopy);
+      accessory2 = [v13 accessory];
+      v16 = 138412802;
+      v17 = characteristicType2;
+      v18 = 2112;
+      v19 = value;
+      v20 = 2112;
+      v21 = accessory2;
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Overriding characteristic %@ value with %@ for suspended accessory %@", &v16, 0x20u);
     }
   }
 
@@ -61,8 +61,6 @@
   {
     value = [characteristicCopy value];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return value;
 }
@@ -81,19 +79,17 @@
 
 void __82__HFSuspendedStateOverrideValueProvider_overrideDefaultValueForCharacteristicType__block_invoke_2()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCF750];
-  v4[0] = *MEMORY[0x277CCF748];
-  v4[1] = v0;
-  v5[0] = &unk_2825248A0;
-  v5[1] = &unk_2825248A0;
-  v4[2] = *MEMORY[0x277CCF9F0];
-  v5[2] = &unk_2825248A0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
+  v3[0] = *MEMORY[0x277CCF748];
+  v3[1] = v0;
+  v4[0] = &unk_2825248A0;
+  v4[1] = &unk_2825248A0;
+  v3[2] = *MEMORY[0x277CCF9F0];
+  v4[2] = &unk_2825248A0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
   v2 = qword_280E03870;
   qword_280E03870 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

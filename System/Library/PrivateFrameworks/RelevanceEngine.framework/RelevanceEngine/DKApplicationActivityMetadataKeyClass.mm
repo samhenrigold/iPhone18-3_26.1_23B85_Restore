@@ -15,7 +15,7 @@ _RECrossedFeature *__get_DKApplicationActivityMetadataKeyClass_block_invoke(uint
 
   else
   {
-    v3 = __get_DKApplicationActivityMetadataKeyClass_block_invoke_cold_1();
+    __get_DKApplicationActivityMetadataKeyClass_block_invoke_cold_1();
     return [(_RECrossedFeature *)v3 initWithFeatures:v4, v5];
   }
 
@@ -34,7 +34,7 @@ Class __get_DKApplicationActivityMetadataKeyClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __get_DKApplicationActivityMetadataKeyClass_block_invoke_cold_1();
+    __get_DKApplicationActivityMetadataKeyClass_block_invoke_cold_1();
     return __get_DKIntentMetadataKeyClass_block_invoke_1(v3);
   }
 

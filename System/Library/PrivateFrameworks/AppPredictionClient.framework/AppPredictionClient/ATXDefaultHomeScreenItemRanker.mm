@@ -77,12 +77,13 @@
   helperCopy = helper;
   widget1Copy = widget1;
   widget2Copy = widget2;
+  v14 = widget2Copy;
   if (!(comparatorCopy | helperCopy))
   {
-    v26 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = __atxlog_handle_home_screen(widget2Copy);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [ATXDefaultHomeScreenItemRanker _rankerDictionaryComparator:v26 timelineRelevanceAdoptionHelper:? widget1:? widget2:?];
+      [ATXDefaultHomeScreenItemRanker _rankerDictionaryComparator:v27 timelineRelevanceAdoptionHelper:? widget1:? widget2:?];
     }
 
     goto LABEL_9;
@@ -92,75 +93,75 @@
   {
     avocadoDescriptor = [widget1Copy avocadoDescriptor];
     extensionBundleIdentifier = [avocadoDescriptor extensionBundleIdentifier];
-    v28 = widget1Copy;
+    v29 = widget1Copy;
     avocadoDescriptor2 = [widget1Copy avocadoDescriptor];
     kind = [avocadoDescriptor2 kind];
-    v18 = [helperCopy globalDiverseSchemaRawNumber:extensionBundleIdentifier kind:kind];
+    v19 = [helperCopy globalDiverseSchemaRawNumber:extensionBundleIdentifier kind:kind];
 
-    avocadoDescriptor3 = [widget2Copy avocadoDescriptor];
+    avocadoDescriptor3 = [v14 avocadoDescriptor];
     extensionBundleIdentifier2 = [avocadoDescriptor3 extensionBundleIdentifier];
-    avocadoDescriptor4 = [widget2Copy avocadoDescriptor];
+    avocadoDescriptor4 = [v14 avocadoDescriptor];
     [avocadoDescriptor4 kind];
-    v23 = v22 = self;
-    v24 = [helperCopy globalDiverseSchemaRawNumber:extensionBundleIdentifier2 kind:v23];
+    v24 = v23 = self;
+    v25 = [helperCopy globalDiverseSchemaRawNumber:extensionBundleIdentifier2 kind:v24];
 
-    self = v22;
-    if (v18)
+    self = v23;
+    if (v19)
     {
       goto LABEL_4;
     }
 
 LABEL_19:
-    widget1Copy = v28;
+    widget1Copy = v29;
     goto LABEL_10;
   }
 
   if (!comparatorCopy)
   {
 LABEL_9:
-    v24 = 0;
-    v18 = 0;
+    v25 = 0;
+    v19 = 0;
     goto LABEL_10;
   }
 
-  v28 = widget1Copy;
-  v18 = [(ATXDefaultHomeScreenItemRanker *)self _scoreForWidget:widget1Copy withGlobalPopularityDictionary:comparatorCopy];
-  v24 = [(ATXDefaultHomeScreenItemRanker *)self _scoreForWidget:widget2Copy withGlobalPopularityDictionary:comparatorCopy];
-  if (!v18)
+  v29 = widget1Copy;
+  v19 = [(ATXDefaultHomeScreenItemRanker *)self _scoreForWidget:widget1Copy withGlobalPopularityDictionary:comparatorCopy];
+  v25 = [(ATXDefaultHomeScreenItemRanker *)self _scoreForWidget:v14 withGlobalPopularityDictionary:comparatorCopy];
+  if (!v19)
   {
     goto LABEL_19;
   }
 
 LABEL_4:
-  widget1Copy = v28;
-  if (v24)
+  widget1Copy = v29;
+  if (v25)
   {
-    v25 = [v24 compare:v18];
+    v26 = [v25 compare:v19];
 LABEL_15:
 
     goto LABEL_16;
   }
 
 LABEL_10:
-  if (v18 | v24)
+  if (v19 | v25)
   {
-    if (v18)
+    if (v19)
     {
-      v25 = -1;
+      v26 = -1;
     }
 
     else
     {
-      v25 = 1;
+      v26 = 1;
     }
 
     goto LABEL_15;
   }
 
-  v25 = [(ATXDefaultHomeScreenItemRanker *)self _uniqueDaysLaunchedComparatorForWidget1:widget1Copy widget2:widget2Copy];
+  v26 = [(ATXDefaultHomeScreenItemRanker *)self _uniqueDaysLaunchedComparatorForWidget1:widget1Copy widget2:v14];
 LABEL_16:
 
-  return v25;
+  return v26;
 }
 
 - (id)_scoreForWidget:(id)widget withGlobalPopularityDictionary:(id)dictionary
@@ -512,7 +513,7 @@ LABEL_12:
 
 - (void)_filterOutWidgetsFromProtectedApps:(id)apps
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   appsCopy = apps;
   v3 = objc_opt_new();
   v4 = objc_alloc(MEMORY[0x1E695DFD8]);
@@ -531,69 +532,69 @@ LABEL_12:
   v8 = v7;
 
   v9 = [v4 initWithArray:v8];
-  v31 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v33 = 0u;
   v10 = [appsCopy copy];
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (v11)
   {
     v13 = v11;
-    v14 = *v30;
+    v14 = *v33;
     *&v12 = 136315394;
-    v27 = v12;
+    v30 = v12;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v14)
+        if (*v33 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * i);
+        v16 = *(*(&v32 + 1) + 8 * i);
         appBundleId = [v16 appBundleId];
 
         if (appBundleId)
         {
           appBundleId2 = [v16 appBundleId];
-          v19 = [v9 containsObject:appBundleId2];
+          v20 = objc_msgSend_containsObject_(v9);
 
-          if (v19)
+          if (v20)
           {
-            v20 = __atxlog_handle_home_screen();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v22 = __atxlog_handle_home_screen(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
               appBundleId3 = [v16 appBundleId];
               *buf = 136315650;
-              v34 = "[ATXDefaultHomeScreenItemRanker _filterOutWidgetsFromProtectedApps:]";
-              v35 = 2112;
-              v36 = v16;
-              v37 = 2112;
-              v38 = appBundleId3;
-              _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Show on Homescreen is disabled for the parent bundleId %@", buf, 0x20u);
+              v37 = "[ATXDefaultHomeScreenItemRanker _filterOutWidgetsFromProtectedApps:]";
+              v38 = 2112;
+              v39 = v16;
+              v40 = 2112;
+              v41 = appBundleId3;
+              _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: Show on Homescreen is disabled for the parent bundleId %@", buf, 0x20u);
             }
 
             [appsCopy removeObject:v16];
           }
 
           appBundleId4 = [v16 appBundleId];
-          v23 = [v3 bundleIdIsLockedOrHiddenByUserPreference:appBundleId4];
+          v25 = [v3 bundleIdIsLockedOrHiddenByUserPreference:appBundleId4];
 
-          if (v23)
+          if (v25)
           {
-            v24 = __atxlog_handle_home_screen();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v27 = __atxlog_handle_home_screen(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               appBundleId5 = [v16 appBundleId];
               *buf = 136315650;
-              v34 = "[ATXDefaultHomeScreenItemRanker _filterOutWidgetsFromProtectedApps:]";
-              v35 = 2112;
-              v36 = v16;
-              v37 = 2112;
-              v38 = appBundleId5;
-              _os_log_impl(&dword_1BF549000, v24, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: the parent bundleId %@ is locked or hidden by user preference", buf, 0x20u);
+              v37 = "[ATXDefaultHomeScreenItemRanker _filterOutWidgetsFromProtectedApps:]";
+              v38 = 2112;
+              v39 = v16;
+              v40 = 2112;
+              v41 = appBundleId5;
+              _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "%s: filtering out widget descriptor: %@. Reason: the parent bundleId %@ is locked or hidden by user preference", buf, 0x20u);
             }
 
             [appsCopy removeObject:v16];
@@ -602,19 +603,19 @@ LABEL_12:
 
         else
         {
-          v26 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v29 = __atxlog_handle_home_screen(v18);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v27;
-            v34 = "[ATXDefaultHomeScreenItemRanker _filterOutWidgetsFromProtectedApps:]";
-            v35 = 2112;
-            v36 = v16;
-            _os_log_impl(&dword_1BF549000, v26, OS_LOG_TYPE_DEFAULT, "%s: No parent bundleId for Widget descriptor: %@", buf, 0x16u);
+            *buf = v30;
+            v37 = "[ATXDefaultHomeScreenItemRanker _filterOutWidgetsFromProtectedApps:]";
+            v38 = 2112;
+            v39 = v16;
+            _os_log_impl(&dword_1BF549000, v29, OS_LOG_TYPE_DEFAULT, "%s: No parent bundleId for Widget descriptor: %@", buf, 0x16u);
           }
         }
       }
 
-      v13 = [v10 countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v32 objects:v42 count:16];
     }
 
     while (v13);
@@ -623,51 +624,51 @@ LABEL_12:
 
 - (void)_filterOutWidgetsThatAreNotRegularlyUsed:(id)used regularlyUsedThreshold:(double)threshold
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   usedCopy = used;
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v7 = [usedCopy copy];
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v19;
+    v11 = *v20;
     *&v9 = 136315650;
-    v17 = v9;
+    v18 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        [(ATXDefaultHomeScreenItemRanker *)self _uniqueDaysLaunchedScoreForWidget:v13, v17];
-        if (v14 < threshold)
+        v13 = *(*(&v19 + 1) + 8 * i);
+        v14 = [(ATXDefaultHomeScreenItemRanker *)self _uniqueDaysLaunchedScoreForWidget:v13, v18];
+        if (v15 < threshold)
         {
-          v15 = v14;
-          v16 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v16 = v15;
+          v17 = __atxlog_handle_home_screen(v14);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v17;
-            v23 = "[ATXDefaultHomeScreenItemRanker _filterOutWidgetsThatAreNotRegularlyUsed:regularlyUsedThreshold:]";
-            v24 = 2048;
-            v25 = v15;
-            v26 = 2112;
-            v27 = v13;
-            _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, "%s: filtering out 3P widget because it is not regularly used (days launched: %f): %@", buf, 0x20u);
+            *buf = v18;
+            v24 = "[ATXDefaultHomeScreenItemRanker _filterOutWidgetsThatAreNotRegularlyUsed:regularlyUsedThreshold:]";
+            v25 = 2048;
+            v26 = v16;
+            v27 = 2112;
+            v28 = v13;
+            _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "%s: filtering out 3P widget because it is not regularly used (days launched: %f): %@", buf, 0x20u);
           }
 
           [usedCopy removeObject:v13];
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v10);
@@ -749,7 +750,7 @@ void __74__ATXDefaultHomeScreenItemRanker__filterOutWidgetsNotFromTopLaunchedApp
         if (appBundleId)
         {
           appBundleId2 = [v10 appBundleId];
-          v13 = [v4 containsObject:appBundleId2];
+          v13 = objc_msgSend_containsObject_(v4);
 
           if (v13)
           {

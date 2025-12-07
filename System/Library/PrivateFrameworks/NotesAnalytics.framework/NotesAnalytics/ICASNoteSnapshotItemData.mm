@@ -66,8 +66,8 @@
 
 - (id)toDict
 {
-  v73[22] = *MEMORY[0x277D85DE8];
-  v72[0] = @"noteID";
+  v72[22] = *MEMORY[0x277D85DE8];
+  v71[0] = @"noteID";
   noteID = [(ICASNoteSnapshotItemData *)self noteID];
   if (noteID)
   {
@@ -79,9 +79,9 @@
     noteID2 = objc_opt_new();
   }
 
-  v70 = noteID2;
-  v73[0] = noteID2;
-  v72[1] = @"noteType";
+  v69 = noteID2;
+  v72[0] = noteID2;
+  v71[1] = @"noteType";
   noteType = [(ICASNoteSnapshotItemData *)self noteType];
   if (noteType)
   {
@@ -93,9 +93,9 @@
     noteType2 = objc_opt_new();
   }
 
-  v68 = noteType2;
-  v73[1] = noteType2;
-  v72[2] = @"collaborationStatus";
+  v67 = noteType2;
+  v72[1] = noteType2;
+  v71[2] = @"collaborationStatus";
   collaborationStatus = [(ICASNoteSnapshotItemData *)self collaborationStatus];
   if (collaborationStatus)
   {
@@ -107,9 +107,9 @@
     collaborationStatus2 = objc_opt_new();
   }
 
-  v66 = collaborationStatus2;
-  v73[2] = collaborationStatus2;
-  v72[3] = @"collaborationType";
+  v65 = collaborationStatus2;
+  v72[2] = collaborationStatus2;
+  v71[3] = @"collaborationType";
   collaborationType = [(ICASNoteSnapshotItemData *)self collaborationType];
   if (collaborationType)
   {
@@ -121,9 +121,9 @@
     collaborationType2 = objc_opt_new();
   }
 
-  v64 = collaborationType2;
-  v73[3] = collaborationType2;
-  v72[4] = @"countOfInvitees";
+  v63 = collaborationType2;
+  v72[3] = collaborationType2;
+  v71[4] = @"countOfInvitees";
   countOfInvitees = [(ICASNoteSnapshotItemData *)self countOfInvitees];
   if (countOfInvitees)
   {
@@ -135,9 +135,9 @@
     countOfInvitees2 = objc_opt_new();
   }
 
-  v62 = countOfInvitees2;
-  v73[4] = countOfInvitees2;
-  v72[5] = @"countOfAcceptances";
+  v61 = countOfInvitees2;
+  v72[4] = countOfInvitees2;
+  v71[5] = @"countOfAcceptances";
   countOfAcceptances = [(ICASNoteSnapshotItemData *)self countOfAcceptances];
   if (countOfAcceptances)
   {
@@ -149,9 +149,9 @@
     countOfAcceptances2 = objc_opt_new();
   }
 
-  v60 = countOfAcceptances2;
-  v73[5] = countOfAcceptances2;
-  v72[6] = @"countOfDocScan";
+  v59 = countOfAcceptances2;
+  v72[5] = countOfAcceptances2;
+  v71[6] = @"countOfDocScan";
   countOfDocScan = [(ICASNoteSnapshotItemData *)self countOfDocScan];
   if (countOfDocScan)
   {
@@ -163,9 +163,9 @@
     countOfDocScan2 = objc_opt_new();
   }
 
-  v58 = countOfDocScan2;
-  v73[6] = countOfDocScan2;
-  v72[7] = @"countOfInlineDrawingV1";
+  v57 = countOfDocScan2;
+  v72[6] = countOfDocScan2;
+  v71[7] = @"countOfInlineDrawingV1";
   countOfInlineDrawingV1 = [(ICASNoteSnapshotItemData *)self countOfInlineDrawingV1];
   if (countOfInlineDrawingV1)
   {
@@ -177,9 +177,9 @@
     countOfInlineDrawingV12 = objc_opt_new();
   }
 
-  v56 = countOfInlineDrawingV12;
-  v73[7] = countOfInlineDrawingV12;
-  v72[8] = @"countOfInlineDrawingV2";
+  v55 = countOfInlineDrawingV12;
+  v72[7] = countOfInlineDrawingV12;
+  v71[8] = @"countOfInlineDrawingV2";
   countOfInlineDrawingV2 = [(ICASNoteSnapshotItemData *)self countOfInlineDrawingV2];
   if (countOfInlineDrawingV2)
   {
@@ -191,9 +191,9 @@
     countOfInlineDrawingV22 = objc_opt_new();
   }
 
-  v54 = countOfInlineDrawingV22;
-  v73[8] = countOfInlineDrawingV22;
-  v72[9] = @"countOfFullscreenDrawing";
+  v53 = countOfInlineDrawingV22;
+  v72[8] = countOfInlineDrawingV22;
+  v71[9] = @"countOfFullscreenDrawing";
   countOfFullscreenDrawing = [(ICASNoteSnapshotItemData *)self countOfFullscreenDrawing];
   if (countOfFullscreenDrawing)
   {
@@ -205,9 +205,9 @@
     countOfFullscreenDrawing2 = objc_opt_new();
   }
 
-  v52 = countOfFullscreenDrawing2;
-  v73[9] = countOfFullscreenDrawing2;
-  v72[10] = @"countOfTables";
+  v51 = countOfFullscreenDrawing2;
+  v72[9] = countOfFullscreenDrawing2;
+  v71[10] = @"countOfTables";
   countOfTables = [(ICASNoteSnapshotItemData *)self countOfTables];
   if (countOfTables)
   {
@@ -219,9 +219,9 @@
     countOfTables2 = objc_opt_new();
   }
 
-  v50 = countOfTables2;
-  v73[10] = countOfTables2;
-  v72[11] = @"countOfAttachmentOther";
+  v49 = countOfTables2;
+  v72[10] = countOfTables2;
+  v71[11] = @"countOfAttachmentOther";
   countOfAttachmentOther = [(ICASNoteSnapshotItemData *)self countOfAttachmentOther];
   if (countOfAttachmentOther)
   {
@@ -233,9 +233,9 @@
     countOfAttachmentOther2 = objc_opt_new();
   }
 
-  v48 = countOfAttachmentOther2;
-  v73[11] = countOfAttachmentOther2;
-  v72[12] = @"hasChecklist";
+  v47 = countOfAttachmentOther2;
+  v72[11] = countOfAttachmentOther2;
+  v71[12] = @"hasChecklist";
   hasChecklist = [(ICASNoteSnapshotItemData *)self hasChecklist];
   if (hasChecklist)
   {
@@ -247,9 +247,9 @@
     hasChecklist2 = objc_opt_new();
   }
 
-  v46 = hasChecklist2;
-  v73[12] = hasChecklist2;
-  v72[13] = @"isPinned";
+  v45 = hasChecklist2;
+  v72[12] = hasChecklist2;
+  v71[13] = @"isPinned";
   isPinned = [(ICASNoteSnapshotItemData *)self isPinned];
   if (isPinned)
   {
@@ -261,9 +261,9 @@
     isPinned2 = objc_opt_new();
   }
 
-  v44 = isPinned2;
-  v73[13] = isPinned2;
-  v72[14] = @"isLocked";
+  v43 = isPinned2;
+  v72[13] = isPinned2;
+  v71[14] = @"isLocked";
   isLocked = [(ICASNoteSnapshotItemData *)self isLocked];
   if (isLocked)
   {
@@ -275,9 +275,9 @@
     isLocked2 = objc_opt_new();
   }
 
-  v42 = isLocked2;
-  v73[14] = isLocked2;
-  v72[15] = @"charLength";
+  v41 = isLocked2;
+  v72[14] = isLocked2;
+  v71[15] = @"charLength";
   charLength = [(ICASNoteSnapshotItemData *)self charLength];
   if (charLength)
   {
@@ -289,9 +289,9 @@
     charLength2 = objc_opt_new();
   }
 
-  v40 = charLength2;
-  v73[15] = charLength2;
-  v72[16] = @"creationDate";
+  v39 = charLength2;
+  v72[15] = charLength2;
+  v71[16] = @"creationDate";
   creationDate = [(ICASNoteSnapshotItemData *)self creationDate];
   if (creationDate)
   {
@@ -303,9 +303,9 @@
     creationDate2 = objc_opt_new();
   }
 
-  v38 = creationDate2;
-  v73[16] = creationDate2;
-  v72[17] = @"countOfInlineDrawingV1PencilStrokes";
+  v37 = creationDate2;
+  v72[16] = creationDate2;
+  v71[17] = @"countOfInlineDrawingV1PencilStrokes";
   countOfInlineDrawingV1PencilStrokes = [(ICASNoteSnapshotItemData *)self countOfInlineDrawingV1PencilStrokes];
   if (countOfInlineDrawingV1PencilStrokes)
   {
@@ -318,8 +318,8 @@
   }
 
   v22 = countOfInlineDrawingV1PencilStrokes2;
-  v73[17] = countOfInlineDrawingV1PencilStrokes2;
-  v72[18] = @"countOfInlineDrawingV1FingerStrokes";
+  v72[17] = countOfInlineDrawingV1PencilStrokes2;
+  v71[18] = @"countOfInlineDrawingV1FingerStrokes";
   countOfInlineDrawingV1FingerStrokes = [(ICASNoteSnapshotItemData *)self countOfInlineDrawingV1FingerStrokes];
   if (countOfInlineDrawingV1FingerStrokes)
   {
@@ -332,8 +332,8 @@
   }
 
   v25 = countOfInlineDrawingV1FingerStrokes2;
-  v73[18] = countOfInlineDrawingV1FingerStrokes2;
-  v72[19] = @"countOfInlineDrawingV2PencilStrokes";
+  v72[18] = countOfInlineDrawingV1FingerStrokes2;
+  v71[19] = @"countOfInlineDrawingV2PencilStrokes";
   countOfInlineDrawingV2PencilStrokes = [(ICASNoteSnapshotItemData *)self countOfInlineDrawingV2PencilStrokes];
   if (countOfInlineDrawingV2PencilStrokes)
   {
@@ -346,8 +346,8 @@
   }
 
   v28 = countOfInlineDrawingV2PencilStrokes2;
-  v73[19] = countOfInlineDrawingV2PencilStrokes2;
-  v72[20] = @"countOfInlineDrawingV2FingerStrokes";
+  v72[19] = countOfInlineDrawingV2PencilStrokes2;
+  v71[20] = @"countOfInlineDrawingV2FingerStrokes";
   countOfInlineDrawingV2FingerStrokes = [(ICASNoteSnapshotItemData *)self countOfInlineDrawingV2FingerStrokes];
   if (countOfInlineDrawingV2FingerStrokes)
   {
@@ -360,8 +360,8 @@
   }
 
   v31 = countOfInlineDrawingV2FingerStrokes2;
-  v73[20] = countOfInlineDrawingV2FingerStrokes2;
-  v72[21] = @"countOfFullscreenDrawingStrokes";
+  v72[20] = countOfInlineDrawingV2FingerStrokes2;
+  v71[21] = @"countOfFullscreenDrawingStrokes";
   countOfFullscreenDrawingStrokes = [(ICASNoteSnapshotItemData *)self countOfFullscreenDrawingStrokes];
   if (countOfFullscreenDrawingStrokes)
   {
@@ -374,12 +374,10 @@
   }
 
   v34 = countOfFullscreenDrawingStrokes2;
-  v73[21] = countOfFullscreenDrawingStrokes2;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:22];
+  v72[21] = countOfFullscreenDrawingStrokes2;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:22];
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v37;
+  return v36;
 }
 
 @end

@@ -27,41 +27,41 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, configuration);
-  v18 = 0;
-  objc_storeStrong(&v18, completion);
+  v20 = 0;
+  objc_storeStrong(&v20, completion);
   v4 = selfCopy;
   selfCopy = 0;
-  v17 = [(AKAppleIDServerUIContextController *)v4 init];
-  selfCopy = v17;
-  objc_storeStrong(&selfCopy, v17);
-  if (v17)
+  v19 = [(AKAppleIDServerUIContextController *)v4 init];
+  selfCopy = v19;
+  objc_storeStrong(&selfCopy, v19);
+  if (v19)
   {
     resourceLoadDelegate = [location[0] resourceLoadDelegate];
     serverUIDelegate = selfCopy->_serverUIDelegate;
     selfCopy->_serverUIDelegate = resourceLoadDelegate;
-    MEMORY[0x277D82BD8](serverUIDelegate);
-    v7 = MEMORY[0x223DB6C90](v18);
+    v7 = MEMORY[0x277D82BD8](serverUIDelegate);
+    v8 = MEMORY[0x223DB6C90](v20, v7);
     serverUICompletion = selfCopy->_serverUICompletion;
-    selfCopy->_serverUICompletion = v7;
-    MEMORY[0x277D82BD8](serverUICompletion);
+    selfCopy->_serverUICompletion = v8;
+    *&v10 = MEMORY[0x277D82BD8](serverUICompletion).n128_u64[0];
     request = [location[0] request];
-    v9 = [request URL];
+    v11 = [request URL];
     initiatingURL = selfCopy->_initiatingURL;
-    selfCopy->_initiatingURL = v9;
+    selfCopy->_initiatingURL = v11;
     MEMORY[0x277D82BD8](initiatingURL);
     MEMORY[0x277D82BD8](request);
     objc_storeStrong(&selfCopy->_configuration, location[0]);
-    v11 = objc_opt_new();
+    v13 = objc_opt_new();
     serverDataHarvester = selfCopy->_serverDataHarvester;
-    selfCopy->_serverDataHarvester = v11;
+    selfCopy->_serverDataHarvester = v13;
     MEMORY[0x277D82BD8](serverDataHarvester);
   }
 
-  v14 = MEMORY[0x277D82BE0](selfCopy);
-  objc_storeStrong(&v18, 0);
+  v16 = MEMORY[0x277D82BE0](selfCopy);
+  objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  return v14;
+  return v16;
 }
 
 - (BOOL)handleAuthKitActionAttribute:(id)attribute
@@ -112,7 +112,6 @@ LABEL_12:
   v11 = 0;
 LABEL_13:
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
@@ -162,7 +161,6 @@ LABEL_13:
   [(AKAppleIDServerResourceLoadDelegate *)selfCopy->_serverUIDelegate signRequest:location[0] withCompletionHandler:v11];
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_headerValueFromType:(unint64_t)type
@@ -198,7 +196,7 @@ LABEL_6:
 
 - (void)processResponse:(id)response
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
@@ -206,8 +204,8 @@ LABEL_6:
   oslog = _AKLogSystem();
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_1_8_64(v7, location[0]);
-    _os_log_impl(&dword_222379000, oslog, OS_LOG_TYPE_DEFAULT, "Processing a server UI response: %@", v7, 0xCu);
+    __os_log_helper_16_2_1_8_64(v8, location[0]);
+    _os_log_impl(&dword_222379000, oslog, OS_LOG_TYPE_DEFAULT, "Processing a server UI response: %@", v8, 0xCu);
   }
 
   objc_storeStrong(&oslog, 0);
@@ -220,12 +218,11 @@ LABEL_6:
   {
     serverDataHarvester = [(AKAppleIDServerUIContextController *)selfCopy serverDataHarvester];
     [(AKAppleIDServerUIDataHarvester *)serverDataHarvester harvestDataFromServerHTTPResponse:location[0]];
-    MEMORY[0x277D82BD8](serverDataHarvester);
-    [(AKAppleIDServerResourceLoadDelegate *)selfCopy->_serverUIDelegate processResponse:location[0]];
+    *&v3 = MEMORY[0x277D82BD8](serverDataHarvester).n128_u64[0];
+    [(AKAppleIDServerResourceLoadDelegate *)selfCopy->_serverUIDelegate processResponse:location[0], v3];
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)completeWithError:(id)error
@@ -345,7 +342,6 @@ LABEL_6:
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

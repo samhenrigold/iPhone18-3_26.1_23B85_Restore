@@ -7,7 +7,7 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v14[5] = *MEMORY[0x277D85DE8];
+  v13[5] = *MEMORY[0x277D85DE8];
   if ([(HMDLegacyPrimaryElectionConfirmationLogEvent *)self availableResidentCount])
   {
     residentsRespondedCount = [(HMDLegacyPrimaryElectionConfirmationLogEvent *)self residentsRespondedCount];
@@ -19,24 +19,22 @@
     v4 = 0.0;
   }
 
-  v13[0] = @"availableResidents";
+  v12[0] = @"availableResidents";
   v5 = +[HMDLogEventHistograms configurationDataHistogram];
   v6 = [v5 intervalIndexForValue:{-[HMDLegacyPrimaryElectionConfirmationLogEvent availableResidentCount](self, "availableResidentCount")}];
-  v14[0] = v6;
-  v13[1] = @"respondedResidentsPercentage";
+  v13[0] = v6;
+  v12[1] = @"respondedResidentsPercentage";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  v14[1] = v7;
-  v13[2] = @"criteria";
+  v13[1] = v7;
+  v12[2] = @"criteria";
   criteria = [(HMDLegacyPrimaryElectionConfirmationLogEvent *)self criteria];
-  v14[2] = criteria;
-  v13[3] = @"changedPrimary";
+  v13[2] = criteria;
+  v12[3] = @"changedPrimary";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDLegacyPrimaryElectionConfirmationLogEvent changedPrimary](self, "changedPrimary")}];
-  v13[4] = @"eventCount";
-  v14[3] = v9;
-  v14[4] = &unk_286629248;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[4] = @"eventCount";
+  v13[3] = v9;
+  v13[4] = &unk_286629248;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:5];
 
   return v10;
 }

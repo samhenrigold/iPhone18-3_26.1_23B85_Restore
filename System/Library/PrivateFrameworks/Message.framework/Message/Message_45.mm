@@ -1,1269 +1,1095 @@
-id sub_1B0A7D9FC()
+void *sub_1B0ADA33C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v71 = 0;
-  v70 = 0;
-  v54 = 0;
-  v61 = sub_1B0E43108();
-  v55 = *(v61 - 8);
-  v56 = v61 - 8;
-  v35 = (v55[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v61);
-  v0 = &v12 - v35;
-  v64 = &v12 - v35;
-  v71 = v1;
-  v66 = [objc_opt_self() createMessage];
-  v70 = v66;
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v36 = *v60;
-  v37 = *(v60 + 1);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v38 = sub_1B0E44AC8();
-
-  [v66 setMessageId_];
-  MEMORY[0x1E69E5920](v38);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v39 = *(v60 + 2);
-  v40 = *(v60 + 3);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v41 = sub_1B0E44AC8();
-
-  [v66 setPublisherBulletinId_];
-  MEMORY[0x1E69E5920](v41);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v42 = *(v60 + 4);
-  v43 = *(v60 + 5);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v44 = sub_1B0E44AC8();
-
-  [v66 setNotificationMessageId_];
-  MEMORY[0x1E69E5920](v44);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v45 = *(v60 + 6);
-  v46 = *(v60 + 7);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v47 = sub_1B0E44AC8();
-
-  [v66 setAccountId_];
-  MEMORY[0x1E69E5920](v47);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v48 = *(v60 + 8);
-  v49 = *(v60 + 9);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v50 = sub_1B0E44AC8();
-
-  [v66 setConversationId_];
-  MEMORY[0x1E69E5920](v50);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v51 = *(v60 + 10);
-  v52 = *(v60 + 11);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v53 = sub_1B0E44AC8();
-
-  [v66 setMailboxId_];
-  MEMORY[0x1E69E5920](v53);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v67 = type metadata accessor for WatchOSRender.Message();
-  v2 = v67[10];
-  v59 = v55[2];
-  v58 = v55 + 2;
-  v59(v0, &v60[v2], v61);
-  v3 = sub_1B0E43068();
-  v4 = v64;
-  v57 = v3;
-  v63 = v55[1];
-  v62 = v55 + 1;
-  v63(v64, v61);
-  [v66 setDateSent_];
-  MEMORY[0x1E69E5920](v57);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v59(v4, &v60[v67[11]], v61);
-  v5 = sub_1B0E43068();
-  v6 = v60;
-  v65 = v5;
-  v63(v64, v61);
-  [v66 setDateReceived_];
-  MEMORY[0x1E69E5920](v65);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v7 = (v6 + v67[12]);
-  v68 = *v7;
-  v69 = v7[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  if (v69)
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests.Search(0);
+  v22 = *(SearchResult - 8);
+  MEMORY[0x1EEE9AC00](SearchResult);
+  v13 = (&v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v26 = 1;
+  if (sub_1B0AEB5AC(0x100000000uLL, a1, a2, a4) & 1) != 0 || (sub_1B0AD4EE4(a1, a2, a3) & 1) != 0 || (v25 = 1, (sub_1B0AEB5AC(0x100000001uLL, a1, a2, a4)))
   {
-    v33 = v68;
-    v34 = v69;
-    v30 = v69;
-    v31 = sub_1B0E44AC8();
+    v14 = *(v22 + 56);
 
-    v32 = v31;
+    return v14(a5, 1, 1, SearchResult);
   }
 
   else
   {
-    v32 = 0;
-  }
-
-  v13 = v32;
-  [v66 setFrom_];
-  MEMORY[0x1E69E5920](v13);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v14 = *&v60[v67[13]];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v18 = MEMORY[0x1E69E6158];
-  v15 = sub_1B0E451A8();
-
-  [v66 setTo_];
-  MEMORY[0x1E69E5920](v15);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v16 = *&v60[v67[14]];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v17 = sub_1B0E451A8();
-
-  [v66 setCc_];
-  MEMORY[0x1E69E5920](v17);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v19 = *&v60[v67[15]];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v20 = sub_1B0E451A8();
-
-  [v66 setBcc_];
-  MEMORY[0x1E69E5920](v20);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v8 = &v60[v67[16]];
-  v21 = *v8;
-  v22 = v8[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v23 = sub_1B0E44AC8();
-
-  [v66 setSubject_];
-  MEMORY[0x1E69E5920](v23);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v9 = &v60[v67[17]];
-  v24 = *v9;
-  v25 = v9[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v26 = sub_1B0E44AC8();
-
-  [v66 setMessageIdHeader_];
-  MEMORY[0x1E69E5920](v26);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v10 = &v60[v67[18]];
-  v27 = *v10;
-  v28 = v10[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v29 = sub_1B0E44AC8();
-
-  [v66 setPreview_];
-  MEMORY[0x1E69E5920](v29);
-  swift_unknownObjectRelease();
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  [v66 setStatus_];
-  swift_unknownObjectRelease();
-  return v66;
-}
-
-uint64_t sub_1B0A7E3F0(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
-{
-  v23 = a4;
-  v24 = a3;
-  v28 = a2;
-  v27 = a1;
-  v45 = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  v35 = 0;
-  v32 = 0;
-  v31 = 0;
-  v38 = a1;
-  v39 = a2;
-  v37 = a3;
-  v36 = a4;
-  v44 = 0;
-  v34 = 0;
-  v26 = *(v4 + 16);
-  v25 = v26;
-  swift_unknownObjectRetain();
-  swift_getObjectType();
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v29 = sub_1B0E44AC8();
-
-  v40 = 0;
-  v41 = 0;
-  v42 = 0;
-  v43 = 0;
-  v22 = 0;
-  v20 = 0;
-  v33 = 0;
-  v21 = [v26 parseHTMLBody:v29 encoding:4 maxLength:v24 maxImageWidth:&v34 partiallyParsed:v23 imageAttachmentsLoaded:? urlsFound:?];
-  v18 = v21;
-  v19 = v33;
-  v5 = v33;
-  v6 = v44;
-  v44 = v19;
-
-  swift_unknownObjectRelease();
-  if (v21)
-  {
-    v17 = v18;
-    v16 = v18;
-    v32 = v18;
-    swift_unknownObjectRelease();
-    v15 = v34 != 1;
-    v31 = v34 != 1;
-    v11 = v16;
-    v12 = v15;
-    sub_1B06D4E94(&v44);
-    v13 = v11;
-    v14 = v12;
-  }
-
-  else
-  {
-    swift_unknownObjectRelease();
-    sub_1B06D4E94(&v44);
-    v13 = 0;
-    v14 = 0;
-  }
-
-  v9 = v14;
-  v10 = v13;
-  v7 = __OFSUB__(*MEMORY[0x1E69E9840], v45);
-  return v13;
-}
-
-uint64_t sub_1B0A7E7B8()
-{
-  v2 = *(v0 + 64);
-  v3 = *(v0 + 72);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v2;
-}
-
-uint64_t sub_1B0A7E7F0(uint64_t a1, uint64_t a2)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v3 = *(v2 + 72);
-  *(v2 + 64) = a1;
-  *(v2 + 72) = a2;
-}
-
-uint64_t sub_1B0A7E83C@<X0>(uint64_t a1@<X8>)
-{
-  v4 = *(type metadata accessor for WatchOSRender.Message() + 40);
-  v2 = sub_1B0E43108();
-  return (*(*(v2 - 8) + 16))(a1, v1 + v4);
-}
-
-uint64_t sub_1B0A7E8B4(uint64_t a1)
-{
-  v12 = a1;
-  v7 = 0;
-  v11 = sub_1B0E43108();
-  v9 = *(v11 - 8);
-  v10 = v11 - 8;
-  v6 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x1EEE9AC00](v11);
-  v8 = &v5 - v6;
-  (*(v9 + 16))(v2);
-  v3 = type metadata accessor for WatchOSRender.Message();
-  (*(v9 + 40))(v1 + *(v3 + 40), v8, v11);
-  return (*(v9 + 8))(v12, v11);
-}
-
-uint64_t sub_1B0A7E9D4@<X0>(uint64_t a1@<X8>)
-{
-  v4 = *(type metadata accessor for WatchOSRender.Message() + 44);
-  v2 = sub_1B0E43108();
-  return (*(*(v2 - 8) + 16))(a1, v1 + v4);
-}
-
-uint64_t sub_1B0A7EA4C(uint64_t a1)
-{
-  v12 = a1;
-  v7 = 0;
-  v11 = sub_1B0E43108();
-  v9 = *(v11 - 8);
-  v10 = v11 - 8;
-  v6 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x1EEE9AC00](v11);
-  v8 = &v5 - v6;
-  (*(v9 + 16))(v2);
-  v3 = type metadata accessor for WatchOSRender.Message();
-  (*(v9 + 40))(v1 + *(v3 + 44), v8, v11);
-  return (*(v9 + 8))(v12, v11);
-}
-
-uint64_t sub_1B0A7EB6C()
-{
-  v1 = (v0 + *(type metadata accessor for WatchOSRender.Message() + 48));
-  v3 = *v1;
-  v4 = v1[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v3;
-}
-
-uint64_t sub_1B0A7EBB4(uint64_t a1, uint64_t a2)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v3 = (v2 + *(type metadata accessor for WatchOSRender.Message() + 48));
-  v4 = v3[1];
-  *v3 = a1;
-  v3[1] = a2;
-}
-
-uint64_t sub_1B0A7EC10()
-{
-  v2 = *(v0 + *(type metadata accessor for WatchOSRender.Message() + 52));
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v2;
-}
-
-uint64_t sub_1B0A7EC48(uint64_t a1)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v2 = (v1 + *(type metadata accessor for WatchOSRender.Message() + 52));
-  v3 = *v2;
-  *v2 = a1;
-}
-
-uint64_t sub_1B0A7EC94()
-{
-  v2 = *(v0 + *(type metadata accessor for WatchOSRender.Message() + 56));
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v2;
-}
-
-uint64_t sub_1B0A7ECCC(uint64_t a1)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v2 = (v1 + *(type metadata accessor for WatchOSRender.Message() + 56));
-  v3 = *v2;
-  *v2 = a1;
-}
-
-uint64_t sub_1B0A7ED18()
-{
-  v2 = *(v0 + *(type metadata accessor for WatchOSRender.Message() + 60));
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v2;
-}
-
-uint64_t sub_1B0A7ED50(uint64_t a1)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v2 = (v1 + *(type metadata accessor for WatchOSRender.Message() + 60));
-  v3 = *v2;
-  *v2 = a1;
-}
-
-uint64_t sub_1B0A7ED9C()
-{
-  v1 = (v0 + *(type metadata accessor for WatchOSRender.Message() + 64));
-  v3 = *v1;
-  v4 = v1[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v3;
-}
-
-uint64_t sub_1B0A7EDE4(uint64_t a1, uint64_t a2)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v3 = (v2 + *(type metadata accessor for WatchOSRender.Message() + 64));
-  v4 = v3[1];
-  *v3 = a1;
-  v3[1] = a2;
-}
-
-uint64_t sub_1B0A7EE40()
-{
-  v1 = (v0 + *(type metadata accessor for WatchOSRender.Message() + 68));
-  v3 = *v1;
-  v4 = v1[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v3;
-}
-
-uint64_t sub_1B0A7EE88(uint64_t a1, uint64_t a2)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v3 = (v2 + *(type metadata accessor for WatchOSRender.Message() + 68));
-  v4 = v3[1];
-  *v3 = a1;
-  v3[1] = a2;
-}
-
-uint64_t sub_1B0A7EEE4()
-{
-  v1 = (v0 + *(type metadata accessor for WatchOSRender.Message() + 72));
-  v3 = *v1;
-  v4 = v1[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v3;
-}
-
-uint64_t sub_1B0A7EF2C(uint64_t a1, uint64_t a2)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v3 = (v2 + *(type metadata accessor for WatchOSRender.Message() + 72));
-  v4 = v3[1];
-  *v3 = a1;
-  v3[1] = a2;
-}
-
-uint64_t sub_1B0A7EFAC(uint64_t a1)
-{
-  v2 = type metadata accessor for WatchOSRender.Message();
-  result = a1;
-  *(v1 + *(v2 + 76)) = a1;
-  return result;
-}
-
-BOOL sub_1B0A7EFE4(char *a1, char *a2)
-{
-  v81 = a1;
-  v89 = a2;
-  v101 = 0;
-  v100 = 0;
-  v82 = sub_1B0E43108();
-  v83 = *(v82 - 8);
-  v84 = v82 - 8;
-  v85 = (v83[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v81);
-  v86 = &v15[-v85];
-  v87 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v3);
-  v88 = &v15[-v87];
-  v101 = v4;
-  v100 = v5;
-  v90 = *v4;
-  v93 = v4[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v91 = *v89;
-  v92 = *(v89 + 1);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v94 = MEMORY[0x1B2726DE0](v90, v93, v91, v92);
-
-  if ((v94 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v76 = *(v81 + 2);
-  v79 = *(v81 + 3);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v77 = *(v89 + 2);
-  v78 = *(v89 + 3);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v80 = MEMORY[0x1B2726DE0](v76, v79, v77, v78);
-
-  if ((v80 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v71 = *(v81 + 4);
-  v74 = *(v81 + 5);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v72 = *(v89 + 4);
-  v73 = *(v89 + 5);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v75 = MEMORY[0x1B2726DE0](v71, v74, v72, v73);
-
-  if ((v75 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v66 = *(v81 + 6);
-  v69 = *(v81 + 7);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v67 = *(v89 + 6);
-  v68 = *(v89 + 7);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v70 = MEMORY[0x1B2726DE0](v66, v69, v67, v68);
-
-  if ((v70 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v61 = *(v81 + 8);
-  v64 = *(v81 + 9);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v62 = *(v89 + 8);
-  v63 = *(v89 + 9);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v65 = MEMORY[0x1B2726DE0](v61, v64, v62, v63);
-
-  if ((v65 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v56 = *(v81 + 10);
-  v59 = *(v81 + 11);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v57 = *(v89 + 10);
-  v58 = *(v89 + 11);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v60 = MEMORY[0x1B2726DE0](v56, v59, v57, v58);
-
-  if ((v60 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v50 = type metadata accessor for WatchOSRender.Message();
-  v6 = &v81[v50[10]];
-  v52 = v83[2];
-  v51 = v83 + 2;
-  v52(v88, v6, v82);
-  v52(v86, &v89[v50[10]], v82);
-  v55 = sub_1B0E430C8();
-  v54 = v83[1];
-  v53 = v83 + 1;
-  v54(v86, v82);
-  v54(v88, v82);
-  if ((v55 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v52(v88, &v81[v50[11]], v82);
-  v52(v86, &v89[v50[11]], v82);
-  v49 = sub_1B0E430C8();
-  v54(v86, v82);
-  v54(v88, v82);
-  if ((v49 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v7 = &v81[v50[12]];
-  v46 = *v7;
-  v47 = v7[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v48 = *&v89[v50[12]];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v98[0] = v46;
-  v98[1] = v47;
-  v99 = v48;
-  if (v47)
-  {
-    sub_1B070B280(v98, &v97);
-    if (*(&v99 + 1))
+    result = sub_1B0ADA5B0(&v24);
+    v16 = v24;
+    v17 = *(v24 + 16);
+    if (v17)
     {
-      v43 = &v96;
-      v96 = v97;
-      v42 = &v95;
-      v95 = v99;
-      v44 = MEMORY[0x1B2726DE0](v97, *(&v97 + 1), v99, *(&v99 + 1));
-      sub_1B03B1198(v42);
-      sub_1B03B1198(v43);
-      sub_1B03B1198(v98);
-      v45 = v44;
-      goto LABEL_15;
-    }
-
-    sub_1B03B1198(&v97);
-    goto LABEL_17;
-  }
-
-  if (*(&v99 + 1))
-  {
-LABEL_17:
-    sub_1B06FF6F0(v98);
-    v45 = 0;
-    goto LABEL_15;
-  }
-
-  sub_1B03B1198(v98);
-  v45 = 1;
-LABEL_15:
-  v41 = v45;
-
-  if (v41)
-  {
-    v39 = *&v81[v50[13]];
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v38 = *&v89[v50[13]];
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v40 = sub_1B0E45368();
-
-    if (v40)
-    {
-      v36 = *&v81[v50[14]];
-      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-      v35 = *&v89[v50[14]];
-      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-      v37 = sub_1B0E45368();
-
-      if (v37)
+      v18 = 0;
+      while (v18 < *(v16 + 16))
       {
-        v33 = *&v81[v50[15]];
-        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-        v32 = *&v89[v50[15]];
-        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-        v34 = sub_1B0E45368();
-
-        if (v34)
+        sub_1B0ADE3A0(v16 + ((*(v22 + 80) + 32) & ~*(v22 + 80)) + *(v22 + 72) * v18, v13, type metadata accessor for FetchSearchResultMessages.Requests.Search);
+        v19 = *v13;
+        v23 = 0;
+        if ((sub_1B0A9ECD4(v19, a2, a4, v20) & 1) == 0)
         {
-          v8 = &v81[v50[16]];
-          v27 = *v8;
-          v30 = v8[1];
-          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-          v9 = &v89[v50[16]];
-          v28 = *v9;
-          v29 = v9[1];
-          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-          v31 = MEMORY[0x1B2726DE0](v27, v30, v28, v29);
 
-          if (v31)
-          {
-            v10 = &v81[v50[17]];
-            v22 = *v10;
-            v25 = v10[1];
-            _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-            v11 = &v89[v50[17]];
-            v23 = *v11;
-            v24 = v11[1];
-            _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-            v26 = MEMORY[0x1B2726DE0](v22, v25, v23, v24);
-
-            if (v26)
-            {
-              v12 = &v81[v50[18]];
-              v17 = *v12;
-              v20 = v12[1];
-              _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-              v13 = &v89[v50[18]];
-              v18 = *v13;
-              v19 = v13[1];
-              _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-              v21 = MEMORY[0x1B2726DE0](v17, v20, v18, v19);
-
-              return (v21 & 1) != 0 && *&v81[v50[19]] == *&v89[v50[19]];
-            }
-
-            else
-            {
-              return 0;
-            }
-          }
-
-          else
-          {
-            return 0;
-          }
+          sub_1B0ADE4D8(v13, a5, type metadata accessor for FetchSearchResultMessages.Requests.Search);
+          v21 = 0;
+          return (*(v22 + 56))(a5, v21, 1, SearchResult);
         }
 
-        else
+        ++v18;
+        result = sub_1B0ADE408(v13, type metadata accessor for FetchSearchResultMessages.Requests.Search);
+        if (v17 == v18)
         {
-          return 0;
+          goto LABEL_12;
         }
       }
 
-      else
-      {
-        return 0;
-      }
+      __break(1u);
     }
 
     else
     {
-      return 0;
+LABEL_12:
+
+      v21 = 1;
+      return (*(v22 + 56))(a5, v21, 1, SearchResult);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1B0ADA5B0@<X0>(uint64_t *a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41C0, &unk_1B0EC4330);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v25[-v4];
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v25[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v25[-v10];
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests(0);
+  MEMORY[0x1EEE9AC00](SearchResult - 8);
+  v14 = &v25[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  SearchResultMessages = type metadata accessor for FetchSearchResultMessages(0);
+  sub_1B0ADE3A0(v1 + *(SearchResultMessages + 48), v14, type metadata accessor for FetchSearchResultMessages.Requests);
+  sub_1B03B5C80(v1 + *(SearchResultMessages + 52), v5, &qword_1EB6E41C0, &unk_1B0EC4330);
+  v16 = type metadata accessor for NewServerMessages(0);
+  if ((*(*(v16 - 8) + 48))(v5, 1, v16) == 1)
+  {
+    sub_1B0398EFC(v5, &qword_1EB6E41C0, &unk_1B0EC4330);
+    v17 = 1;
+  }
+
+  else
+  {
+    sub_1B03B5C80(&v5[*(v16 + 20)], v11, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    sub_1B0ADE408(v5, type metadata accessor for NewServerMessages);
+    v17 = 0;
+  }
+
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  (*(*(v18 - 8) + 56))(v11, v17, 1, v18);
+  sub_1B0AD8284(v8);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v20 = (*(*(v19 - 8) + 48))(v8, 1, v19);
+  v21 = sub_1B0398EFC(v8, &unk_1EB6E3670, &unk_1B0E9B260);
+  v22 = *v14;
+  if (v20 == 1)
+  {
+    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  }
+
+  else
+  {
+    MEMORY[0x1EEE9AC00](v21);
+    *&v25[-16] = v14;
+    *&v25[-8] = v11;
+    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+    sub_1B0B15500(sub_1B0ADF228, &v25[-32], v22);
+    v22 = v23;
+  }
+
+  *a1 = v22;
+  sub_1B0398EFC(v11, &unk_1EB6E3670, &unk_1B0E9B260);
+  return sub_1B0ADE408(v14, type metadata accessor for FetchSearchResultMessages.Requests);
+}
+
+void sub_1B0ADA958(uint64_t a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v14 - v7;
+  if ((a1 & 0x1FFFFFFFFLL) == 0x100000000)
+  {
+    v9 = v1 + *(type metadata accessor for FetchSearchResultMessages(0) + 48);
+    v10 = *(type metadata accessor for FetchSearchResultMessages.Requests(0) + 28);
+    v15 = v9;
+    sub_1B03B5C80(v9 + v10, v8, &qword_1EB6E3920, &qword_1B0E9B070);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v12 = *(v11 - 8);
+    v13 = (*(v12 + 48))(v8, 1, v11);
+    sub_1B0398EFC(v8, &qword_1EB6E3920, &qword_1B0E9B070);
+    if (v13 == 1)
+    {
+      sub_1B03D06F8();
+      sub_1B0E46EE8();
+      (*(v12 + 56))(v5, 0, 1, v11);
+      sub_1B0ADE468(v5, v15 + v10);
+    }
+  }
+}
+
+uint64_t sub_1B0ADAB2C(uint64_t a1, uint64_t a2)
+{
+  v23 = a2;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v23 - v7;
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests.Search(0);
+  v10 = *(SearchResult - 8);
+  MEMORY[0x1EEE9AC00](SearchResult - 8);
+  v12 = (&v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  sub_1B0ADA5B0(&v26);
+  v25 = MEMORY[0x1E69E7CD0];
+  v13 = *(v26 + 16);
+  if (v13)
+  {
+    v14 = v26 + ((*(v10 + 80) + 32) & ~*(v10 + 80));
+    v15 = *(v10 + 72);
+    do
+    {
+      sub_1B0ADE3A0(v14, v12, type metadata accessor for FetchSearchResultMessages.Requests.Search);
+      sub_1B0B01B88(&v24, *v12);
+      sub_1B0ADE408(v12, type metadata accessor for FetchSearchResultMessages.Requests.Search);
+      v14 += v15;
+      --v13;
+    }
+
+    while (v13);
+
+    v16 = v25;
+  }
+
+  else
+  {
+
+    v16 = MEMORY[0x1E69E7CD0];
+  }
+
+  v17 = v2[2];
+  v18 = v2[3];
+  sub_1B0B25834(v16, v17, v18);
+
+  sub_1B0ADADD8(v8);
+  sub_1B0ADB1D0(v5);
+  sub_1B0B259F0(v17, v18, v8, v5);
+  sub_1B0398EFC(v5, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v8, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v2[5]);
+  v19 = v23;
+  *(&v23 - 2) = v2;
+  *(&v23 - 1) = v19;
+  return sub_1B0B86564(v20, v21, sub_1B0ADF214, (&v23 - 4));
+}
+
+uint64_t sub_1B0ADADD8@<X0>(uint64_t a1@<X8>)
+{
+  v25 = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v24 = &v24 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41C0, &unk_1B0EC4330);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v24 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v24 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v24 - v15;
+  SearchResultMessages = type metadata accessor for FetchSearchResultMessages(0);
+  v18 = v1 + *(SearchResultMessages + 48);
+  v19 = *(type metadata accessor for FetchSearchResultMessages.Requests(0) + 20);
+  MessagesVMa = _s19UserInitiatedSearchV13FetchMessagesVMa(0);
+  sub_1B03B5C80(v18 + v19 + *(MessagesVMa + 20), v16, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B03B5C80(v1 + *(SearchResultMessages + 52), v6, &qword_1EB6E41C0, &unk_1B0EC4330);
+  v21 = type metadata accessor for NewServerMessages(0);
+  if ((*(*(v21 - 8) + 48))(v6, 1, v21) == 1)
+  {
+    sub_1B0398EFC(v6, &qword_1EB6E41C0, &unk_1B0EC4330);
+    (*(v11 + 56))(v9, 1, 1, v10);
+    sub_1B03D06F8();
+    sub_1B0E46EE8();
+    if ((*(v11 + 48))(v9, 1, v10) != 1)
+    {
+      sub_1B0398EFC(v9, &qword_1EB6E3920, &qword_1B0E9B070);
     }
   }
 
   else
   {
-    return 0;
+    v22 = v24;
+    sub_1B03B5C80(&v6[*(v21 + 20)], v24, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    sub_1B0ADE408(v6, type metadata accessor for NewServerMessages);
+    sub_1B03C60A4(v22, v9, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    (*(v11 + 56))(v9, 0, 1, v10);
+    sub_1B03C60A4(v9, v13, &unk_1EB6E1AF0, &unk_1B0E9AF40);
   }
+
+  MessageIdentifierSet.union(_:)(v13, v25);
+  sub_1B0398EFC(v16, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  return sub_1B0398EFC(v13, &unk_1EB6E1AF0, &unk_1B0E9AF40);
 }
 
-char *sub_1B0A7FD1C@<X0>(uint64_t a1@<X0>, void *a2@<X1>, char *a3@<X8>)
+uint64_t sub_1B0ADB1D0@<X0>(uint64_t a1@<X8>)
 {
-  v35 = a3;
-  v48 = a1;
-  v56 = a2;
-  v64 = 0;
-  v63 = 0;
-  v62 = 0;
-  v61 = 0;
-  v43 = 0;
-  v36 = sub_1B0E43108();
-  v37 = *(v36 - 8);
-  v38 = v36 - 8;
-  v39 = (*(v37 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](0);
-  v40 = &v25 - v39;
-  v47 = type metadata accessor for Message(v3);
-  v53 = *(v47 - 8);
-  v46 = v47 - 8;
-  v41 = (*(v53 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v47);
-  v55 = &v25 - v41;
-  v42 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3D58, &qword_1B0EE0DD0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v43);
-  v59 = (&v25 - v42);
-  v60 = type metadata accessor for WatchOSHeaderInfo();
-  v57 = *(v60 - 8);
-  v58 = v60 - 8;
-  v44 = (*(v57 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v43);
-  v45 = &v25 - v44;
-  v64 = &v25 - v44;
-  v49 = type metadata accessor for WatchOSRender.Message.InfoFromHeader();
-  v50 = *(v49 - 8);
-  v51 = v49 - 8;
-  v52 = (*(v50 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x1EEE9AC00](v55);
-  v5 = v53;
-  v6 = (&v25 - v52);
-  v54 = &v25 - v52;
-  v63 = &v25 - v52;
-  v62 = v7;
-  v61 = v56;
-  *v6 = 0;
-  v6[1] = 0;
-  (*(v5 + 16))(v4);
-
-  WatchOSHeaderInfo.init(message:cache:)(v55, v56, v59);
-  if ((*(v57 + 48))(v59, 1, v60) == 1)
+  v22 = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v21 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v21 - v13;
+  v15 = v1 + *(type metadata accessor for FetchSearchResultMessages(0) + 48);
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests(0);
+  v17 = *(SearchResult + 20);
+  MessagesVMa = _s19UserInitiatedSearchV13FetchMessagesVMa(0);
+  sub_1B03B5C80(v15 + v17 + *(MessagesVMa + 24), v7, &qword_1EB6E3920, &qword_1B0E9B070);
+  v19 = *(v9 + 48);
+  if (v19(v7, 1, v8) == 1)
   {
-    sub_1B0A81ADC(v59);
-
-    (*(v53 + 8))(v48, v47);
-    sub_1B03B1198(v54);
-    return (*(v50 + 56))(v35, 1, 1, v49);
+    sub_1B03D06F8();
+    sub_1B0E46EE8();
+    if (v19(v7, 1, v8) != 1)
+    {
+      sub_1B0398EFC(v7, &qword_1EB6E3920, &qword_1B0E9B070);
+    }
   }
 
   else
   {
-    sub_1B0A81BE0(v59, v45);
-    v26 = *v45;
-    v27 = *(v45 + 1);
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v9 = v27;
-    v10 = v54;
-    v11 = *(v54 + 1);
-    *v54 = v26;
-    *(v10 + 1) = v9;
+    sub_1B03C60A4(v7, v14, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  }
 
-    v28 = *(v45 + 2);
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v12 = v45;
-    *(v54 + 2) = v28;
-    v29 = *(v12 + 3);
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v13 = v45;
-    *(v54 + 3) = v29;
-    v30 = *(v13 + 4);
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v14 = v45;
-    *(v54 + 4) = v30;
-    v31 = *(v14 + 5);
-    v32 = *(v14 + 6);
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v15 = v32;
-    v16 = v45;
-    v17 = v54;
-    *(v54 + 5) = v31;
-    *(v17 + 6) = v15;
-    v33 = *(v16 + 7);
-    v34 = *(v16 + 8);
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v18 = v40;
-    v19 = v34;
-    v20 = v60;
-    v21 = v37;
-    v22 = v36;
-    v23 = v45;
-    v24 = v54;
-    *(v54 + 7) = v33;
-    *(v24 + 8) = v19;
-    (*(v21 + 16))(v18, &v23[*(v20 + 40)], v22);
-    (*(v37 + 32))(&v54[*(v49 + 40)], v40, v36);
-    sub_1B0A81CA4(v45);
-    sub_1B0A81D64(v54, v35);
-    (*(v50 + 56))(v35, 0, 1, v49);
+  sub_1B03B5C80(v15 + *(SearchResult + 28), v4, &qword_1EB6E3920, &qword_1B0E9B070);
+  if (v19(v4, 1, v8) == 1)
+  {
+    sub_1B03D06F8();
+    sub_1B0E46EE8();
+    if (v19(v4, 1, v8) != 1)
+    {
+      sub_1B0398EFC(v4, &qword_1EB6E3920, &qword_1B0E9B070);
+    }
+  }
 
-    (*(v53 + 8))(v48, v47);
-    return sub_1B0A81A1C(v54);
+  else
+  {
+    sub_1B03C60A4(v4, v11, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  }
+
+  MessageIdentifierSet.union(_:)(v11, v22);
+  sub_1B0398EFC(v11, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  return sub_1B0398EFC(v14, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+}
+
+uint64_t sub_1B0ADB500(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41C0, &unk_1B0EC4330);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v19 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v19 - v12;
+  SearchResultMessages = type metadata accessor for FetchSearchResultMessages(0);
+  sub_1B03B5C80(a3 + *(SearchResultMessages + 52), v10, &qword_1EB6E41C0, &unk_1B0EC4330);
+  v15 = type metadata accessor for NewServerMessages(0);
+  if ((*(*(v15 - 8) + 48))(v10, 1, v15) == 1)
+  {
+    sub_1B0398EFC(v10, &qword_1EB6E41C0, &unk_1B0EC4330);
+    v16 = 1;
+  }
+
+  else
+  {
+    sub_1B03B5C80(&v10[*(v15 + 20)], v13, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    sub_1B0ADE408(v10, type metadata accessor for NewServerMessages);
+    v16 = 0;
+  }
+
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  (*(*(v17 - 8) + 56))(v13, v16, 1, v17);
+  sub_1B0AD6808(a1, a2 & 0x101010101FFFF01, v13, (a3 + *(SearchResultMessages + 28)), a4);
+  return sub_1B0398EFC(v13, &unk_1EB6E3670, &unk_1B0E9B260);
+}
+
+double sub_1B0ADB748()
+{
+  if (qword_1EB6DD598 != -1)
+  {
+    swift_once();
+  }
+
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  return result;
+}
+
+uint64_t sub_1B0ADB7AC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+{
+  result = sub_1B0AD91CC(a1, a2, a3, a4);
+  *a5 = result;
+  a5[1] = v7;
+  return result;
+}
+
+uint64_t sub_1B0ADB848@<X0>(int *a1@<X0>, _DWORD *a2@<X8>)
+{
+  v4 = _s19UserInitiatedSearchV5StateOMa(0);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MessagesVMa = _s19UserInitiatedSearchV13FetchMessagesVMa(0);
+  MEMORY[0x1EEE9AC00](MessagesVMa - 8);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _s19UserInitiatedSearchVMa(0);
+  sub_1B0ADE3A0(a1 + *(v10 + 20), v6, _s19UserInitiatedSearchV5StateOMa);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    sub_1B0ADE4D8(v6, v9, _s19UserInitiatedSearchV13FetchMessagesVMa);
+    v11 = *a1;
+    SearchResult = type metadata accessor for FetchSearchResultMessages.Requests.Search(0);
+    sub_1B0ADE4D8(v9, a2 + *(SearchResult + 20), _s19UserInitiatedSearchV13FetchMessagesVMa);
+    *a2 = v11;
+    return (*(*(SearchResult - 8) + 56))(a2, 0, 1, SearchResult);
+  }
+
+  else
+  {
+    sub_1B0ADE408(v6, _s19UserInitiatedSearchV5StateOMa);
+    v14 = type metadata accessor for FetchSearchResultMessages.Requests.Search(0);
+    return (*(*(v14 - 8) + 56))(a2, 1, 1, v14);
   }
 }
 
-uint64_t sub_1B0A802C8@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1B0ADBA78@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = *(type metadata accessor for WatchOSRender.Message.InfoFromLibrary() + 40);
-  v2 = sub_1B0E43108();
-  return (*(*(v2 - 8) + 16))(a1, v1 + v4);
-}
-
-uint64_t sub_1B0A80340(uint64_t a1)
-{
-  v12 = a1;
-  v7 = 0;
-  v11 = sub_1B0E43108();
-  v9 = *(v11 - 8);
-  v10 = v11 - 8;
-  v6 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x1EEE9AC00](v11);
-  v8 = &v5 - v6;
-  (*(v9 + 16))(v2);
-  v3 = type metadata accessor for WatchOSRender.Message.InfoFromLibrary();
-  (*(v9 + 40))(v1 + *(v3 + 40), v8, v11);
-  return (*(v9 + 8))(v12, v11);
-}
-
-uint64_t sub_1B0A80484(uint64_t a1)
-{
-  v2 = type metadata accessor for WatchOSRender.Message.InfoFromLibrary();
-  result = a1;
-  *(v1 + *(v2 + 44)) = a1;
-  return result;
-}
-
-uint64_t sub_1B0A804E0(uint64_t a1)
-{
-  v2 = type metadata accessor for WatchOSRender.Message.InfoFromLibrary();
-  result = a1;
-  *(v1 + *(v2 + 48)) = a1;
-  return result;
-}
-
-BOOL sub_1B0A80518(void *a1, char *a2)
-{
-  v41 = a1;
-  v49 = a2;
-  v56 = 0;
-  v55 = 0;
-  v42 = sub_1B0E43108();
-  v43 = *(v42 - 8);
-  v44 = v42 - 8;
-  v45 = (v43[8] + 15) & 0xFFFFFFFFFFFFFFF0;
+  v154 = a2;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v152 = &v143 - v4;
+  v157 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3120, qword_1B0E9B270);
+  v199 = *(v157 - 8);
+  MEMORY[0x1EEE9AC00](v157);
+  v156 = &v143 - v5;
+  v150 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v149 = *(v150 - 8);
+  MEMORY[0x1EEE9AC00](v150);
+  v146 = &v143 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v151 = &v143 - v8;
+  MEMORY[0x1EEE9AC00](v9);
+  v163 = &v143 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v179 = v11;
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v144 = &v143 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v148 = &v143 - v15;
+  MEMORY[0x1EEE9AC00](v16);
+  v159 = &v143 - v17;
+  MEMORY[0x1EEE9AC00](v18);
+  v147 = &v143 - v19;
+  MessagesVMa = _s19UserInitiatedSearchV13FetchMessagesVMa(0);
+  v184 = *(MessagesVMa - 8);
+  MEMORY[0x1EEE9AC00](MessagesVMa);
+  v200 = &v143 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v189 = _s19UserInitiatedSearchVMa(0);
+  v22 = *(v189 - 8);
+  MEMORY[0x1EEE9AC00](v189);
+  v167 = &v143 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41D8, &unk_1B0EC4300);
+  MEMORY[0x1EEE9AC00](v24 - 8);
+  v195 = &v143 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v26);
+  v191 = &v143 - v27;
+  v198 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41E0, &unk_1B0EC4580);
+  v196 = *(v198 - 8);
+  MEMORY[0x1EEE9AC00](v198);
+  v161 = &v143 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v29);
+  v190 = &v143 - v30;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41E8, &qword_1B0EC4310);
+  MEMORY[0x1EEE9AC00](v31 - 8);
+  v194 = &v143 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v33);
+  v188 = &v143 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v187 = &v143 - v36;
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41D0, &unk_1B0EC42F0);
+  MEMORY[0x1EEE9AC00](v37 - 8);
+  v193 = &v143 - v38;
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v39 - 8);
+  v145 = &v143 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v41);
-  v46 = &v8[-v45];
-  v47 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v3);
-  v48 = &v8[-v47];
-  v56 = v4;
-  v55 = v5;
-  v50 = *v4;
-  v53 = v4[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v51 = *v49;
-  v52 = *(v49 + 1);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v54 = MEMORY[0x1B2726DE0](v50, v53, v51, v52);
-
-  if (v54)
+  v158 = &v143 - v42;
+  MEMORY[0x1EEE9AC00](v43);
+  v45 = &v143 - v44;
+  MEMORY[0x1EEE9AC00](v46);
+  v175 = &v143 - v47;
+  MEMORY[0x1EEE9AC00](v48);
+  v174 = &v143 - v49;
+  MEMORY[0x1EEE9AC00](v50);
+  v153 = &v143 - v51;
+  MEMORY[0x1EEE9AC00](v52);
+  v172 = &v143 - v53;
+  MEMORY[0x1EEE9AC00](v54);
+  v56 = &v143 - v55;
+  MEMORY[0x1EEE9AC00](v57);
+  v59 = &v143 - v58;
+  v61 = MEMORY[0x1EEE9AC00](v60);
+  v63 = &v143 - v62;
+  v64 = *(v12 + 56);
+  v64(&v143 - v62, 1, 1, v11, v61);
+  v183 = v59;
+  v65 = v59;
+  v66 = v45;
+  (v64)(v65, 1, 1, v11);
+  v171 = v64;
+  result = (v64)(v56, 1, 1, v11);
+  v68 = 0;
+  v69 = *a1;
+  v166 = a1[1];
+  v70 = a1[3];
+  v169 = a1[2];
+  v165 = v70;
+  v71 = a1[5];
+  v168 = a1[4];
+  v160 = v71;
+  v162 = a1[6];
+  v201 = v69;
+  v186 = (v22 + 56);
+  v164 = v22;
+  v185 = (v22 + 48);
+  v72 = v196;
+  v196 += 6;
+  v197 = (v72 + 7);
+  v73 = *(v69 + 16);
+  v180 = (v184 + 56);
+  v178 = (v184 + 48);
+  v177 = v12 + 56;
+  v182 = (v12 + 48);
+  v155 = (v199 + 16);
+  v192 = v56;
+  v181 = v63;
+  v170 = v69;
+  v184 = v73;
+  v176 = v66;
+  v173 = MessagesVMa;
+  while (1)
   {
-    v36 = v41[2];
-    v39 = v41[3];
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v37 = *(v49 + 2);
-    v38 = *(v49 + 3);
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v40 = MEMORY[0x1B2726DE0](v36, v39, v37, v38);
-
-    if (v40)
+    v76 = v191;
+    if (v68 == v73)
     {
-      v31 = v41[4];
-      v34 = v41[5];
-      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-      v32 = *(v49 + 4);
-      v33 = *(v49 + 5);
-      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-      v35 = MEMORY[0x1B2726DE0](v31, v34, v32, v33);
+      v77 = 1;
+      v199 = v73;
+      v78 = v190;
+      goto LABEL_10;
+    }
 
-      if (v35)
-      {
-        v26 = v41[6];
-        v29 = v41[7];
-        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-        v27 = *(v49 + 6);
-        v28 = *(v49 + 7);
-        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-        v30 = MEMORY[0x1B2726DE0](v26, v29, v27, v28);
+    if ((v68 & 0x8000000000000000) != 0)
+    {
+      break;
+    }
 
-        if (v30)
-        {
-          v21 = v41[8];
-          v24 = v41[9];
-          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-          v22 = *(v49 + 8);
-          v23 = *(v49 + 9);
-          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-          v25 = MEMORY[0x1B2726DE0](v21, v24, v22, v23);
+    v78 = v190;
+    if (v68 >= *(v69 + 16))
+    {
+      goto LABEL_49;
+    }
 
-          if (v25)
-          {
-            v16 = v41[10];
-            v19 = v41[11];
-            _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-            v17 = *(v49 + 10);
-            v18 = *(v49 + 11);
-            _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-            v20 = MEMORY[0x1B2726DE0](v16, v19, v17, v18);
+    sub_1B0ADE3A0(v69 + ((*(v164 + 80) + 32) & ~*(v164 + 80)) + *(v164 + 72) * v68, v191, _s19UserInitiatedSearchVMa);
+    v77 = 0;
+    v199 = v68 + 1;
+LABEL_10:
+    v79 = MessagesVMa;
+    v80 = 1;
+    v81 = v189;
+    (*v186)(v76, v77, 1, v189);
+    v82 = v76;
+    v83 = v195;
+    sub_1B03C60A4(v82, v195, &qword_1EB6E41D8, &unk_1B0EC4300);
+    v84 = (*v185)(v83, 1, v81);
+    v85 = v188;
+    if (v84 != 1)
+    {
+      v86 = v167;
+      sub_1B0ADE4D8(v195, v167, _s19UserInitiatedSearchVMa);
+      v166(v86);
+      sub_1B0ADE408(v86, _s19UserInitiatedSearchVMa);
+      v80 = 0;
+    }
 
-            if (v20)
-            {
-              v10 = type metadata accessor for WatchOSRender.Message.InfoFromLibrary();
-              v6 = v41 + v10[10];
-              v12 = v43[2];
-              v11 = v43 + 2;
-              v12(v48, v6, v42);
-              v12(v46, &v49[v10[10]], v42);
-              v15 = sub_1B0E430C8();
-              v14 = v43[1];
-              v13 = v43 + 1;
-              v14(v46, v42);
-              v14(v48, v42);
-              if (v15)
-              {
-                return *(v41 + v10[11]) == *&v49[v10[11]] && *(v41 + v10[12]) == *&v49[v10[12]];
-              }
-
-              else
-              {
-                return 0;
-              }
-            }
-
-            else
-            {
-              return 0;
-            }
-          }
-
-          else
-          {
-            return 0;
-          }
-        }
-
-        else
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        return 0;
-      }
+    v87 = *v197;
+    v88 = v80;
+    v89 = v198;
+    (*v197)(v85, v88, 1, v198);
+    v90 = *v196;
+    if ((*v196)(v85, 1, v89) == 1)
+    {
+      sub_1B0398EFC(v85, &qword_1EB6E41E8, &qword_1B0EC4310);
+      v91 = 1;
     }
 
     else
     {
-      return 0;
+      sub_1B03C60A4(v85, v78, &qword_1EB6E41E0, &unk_1B0EC4580);
+      v92 = v165(v78);
+      if ((v92 & 1) == 0)
+      {
+        result = sub_1B0398EFC(v78, &qword_1EB6E41E0, &unk_1B0EC4580);
+        MessagesVMa = v79;
+        goto LABEL_4;
+      }
+
+      sub_1B03C60A4(v78, v187, &qword_1EB6E41E0, &unk_1B0EC4580);
+      v91 = 0;
+    }
+
+    v93 = 1;
+    v94 = v187;
+    v95 = v198;
+    v87(v187, v91, 1, v198);
+    v96 = v194;
+    sub_1B03C60A4(v94, v194, &qword_1EB6E41E8, &qword_1B0EC4310);
+    if (v90(v96, 1, v95) != 1)
+    {
+      v97 = v161;
+      sub_1B03C60A4(v194, v161, &qword_1EB6E41E0, &unk_1B0EC4580);
+      v160(v97);
+      sub_1B0398EFC(v97, &qword_1EB6E41E0, &unk_1B0EC4580);
+      v93 = 0;
+    }
+
+    v98 = *v180;
+    v99 = v193;
+    v100 = v79;
+    (*v180)(v193, v93, 1, v79);
+    v101 = (*v178)(v99, 1, v79);
+    v102 = v182;
+    if (v101 == 1)
+    {
+      sub_1B0398EFC(&v201, &qword_1EB6E41F0, &qword_1B0EC4318);
+
+      v122 = v153;
+      sub_1B03B5C80(v63, v153, &qword_1EB6E3920, &qword_1B0E9B070);
+      v123 = *v102;
+      if ((*v102)(v122, 1, v179) == 1)
+      {
+        sub_1B0398EFC(v122, &qword_1EB6E3920, &qword_1B0E9B070);
+        v124 = 1;
+        v125 = v154;
+        v126 = v183;
+      }
+
+      else
+      {
+        v127 = v147;
+        sub_1B03C60A4(v122, v147, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        v128 = v148;
+        sub_1B03B5C80(v127, v148, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        v129 = MessageIdentifierSet.count.getter();
+        sub_1B0398EFC(v127, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        if (v129 <= 0)
+        {
+          sub_1B0398EFC(v128, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v133 = 1;
+          v132 = v152;
+        }
+
+        else
+        {
+          v130 = v146;
+          sub_1B03C60A4(v128, v146, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v131 = v130;
+          v132 = v152;
+          sub_1B03C60A4(v131, v152, &unk_1EB6E26C0, &unk_1B0E9DE10);
+          v133 = 0;
+        }
+
+        v134 = v151;
+        v126 = v183;
+        v135 = v149;
+        v136 = v150;
+        (*(v149 + 56))(v132, v133, 1, v150);
+        if ((*(v135 + 48))(v132, 1, v136) == 1)
+        {
+          v137 = &unk_1EB6E3670;
+          v138 = &unk_1B0E9B260;
+          v139 = v132;
+        }
+
+        else
+        {
+          sub_1B03C60A4(v132, v134, &unk_1EB6E26C0, &unk_1B0E9DE10);
+          v140 = v145;
+          sub_1B03B5C80(v126, v145, &qword_1EB6E3920, &qword_1B0E9B070);
+          if (v123(v140, 1, v179) != 1)
+          {
+            v141 = v140;
+            v142 = v144;
+            sub_1B03C60A4(v141, v144, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            v125 = v154;
+            sub_1B03C60A4(v134, v154, &unk_1EB6E26C0, &unk_1B0E9DE10);
+            sub_1B03C60A4(v142, v125 + *(v100 + 20), &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            sub_1B03B5C80(v192, v125 + *(v100 + 24), &qword_1EB6E3920, &qword_1B0E9B070);
+            v124 = 0;
+            goto LABEL_47;
+          }
+
+          sub_1B0398EFC(v134, &unk_1EB6E26C0, &unk_1B0E9DE10);
+          v137 = &qword_1EB6E3920;
+          v138 = &qword_1B0E9B070;
+          v139 = v140;
+        }
+
+        sub_1B0398EFC(v139, v137, v138);
+        v124 = 1;
+        v125 = v154;
+      }
+
+LABEL_47:
+      sub_1B0398EFC(v192, &qword_1EB6E3920, &qword_1B0E9B070);
+      sub_1B0398EFC(v126, &qword_1EB6E3920, &qword_1B0E9B070);
+      sub_1B0398EFC(v63, &qword_1EB6E3920, &qword_1B0E9B070);
+      return v98(v125, v124, 1, v100);
+    }
+
+    v103 = v200;
+    sub_1B0ADE4D8(v99, v200, _s19UserInitiatedSearchV13FetchMessagesVMa);
+    v104 = v172;
+    sub_1B03B5C80(v63, v172, &qword_1EB6E3920, &qword_1B0E9B070);
+    v105 = *v102;
+    v106 = v179;
+    v107 = (*v102)(v104, 1, v179);
+    sub_1B0398EFC(v104, &qword_1EB6E3920, &qword_1B0E9B070);
+    if (v107 == 1)
+    {
+      sub_1B0398EFC(v63, &qword_1EB6E3920, &qword_1B0E9B070);
+      v108 = v163;
+      sub_1B03B5C80(v103, v163, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      sub_1B03C60A4(v108, v63, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      (v171)(v63, 0, 1, v106);
+    }
+
+    else if (!v105(v63, 1, v106))
+    {
+      v109 = v163;
+      sub_1B03B5C80(v200, v163, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      (*v155)(v156, v109, v157);
+      sub_1B0E46ED8();
+      sub_1B0398EFC(v109, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    }
+
+    v110 = v183;
+    v111 = v174;
+    sub_1B03B5C80(v183, v174, &qword_1EB6E3920, &qword_1B0E9B070);
+    v112 = v105(v111, 1, v106);
+    sub_1B0398EFC(v111, &qword_1EB6E3920, &qword_1B0E9B070);
+    MessagesVMa = v173;
+    if (v112 == 1)
+    {
+      sub_1B0398EFC(v110, &qword_1EB6E3920, &qword_1B0E9B070);
+      sub_1B03B5C80(v200 + *(MessagesVMa + 20), v110, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      (v171)(v110, 0, 1, v106);
+      v113 = v176;
+      v114 = v192;
+    }
+
+    else
+    {
+      v115 = v105(v110, 1, v106);
+      v113 = v176;
+      v114 = v192;
+      if (!v115)
+      {
+        (*v155)(v156, v200 + *(MessagesVMa + 20), v157);
+        v114 = v192;
+        sub_1B0E46ED8();
+      }
+    }
+
+    v116 = v175;
+    sub_1B03B5C80(v114, v175, &qword_1EB6E3920, &qword_1B0E9B070);
+    v117 = v105(v116, 1, v106);
+    sub_1B0398EFC(v116, &qword_1EB6E3920, &qword_1B0E9B070);
+    v118 = *(MessagesVMa + 24);
+    v63 = v181;
+    if (v117 == 1)
+    {
+      v74 = v200;
+      v75 = v158;
+      sub_1B03B5C80(v200 + v118, v158, &qword_1EB6E3920, &qword_1B0E9B070);
+      sub_1B0ADE408(v74, _s19UserInitiatedSearchV13FetchMessagesVMa);
+      result = sub_1B0ADE468(v75, v114);
+    }
+
+    else
+    {
+      v119 = v200;
+      sub_1B03B5C80(v200 + v118, v113, &qword_1EB6E3920, &qword_1B0E9B070);
+      if (v105(v113, 1, v106) == 1)
+      {
+        sub_1B0ADE408(v119, _s19UserInitiatedSearchV13FetchMessagesVMa);
+        result = sub_1B0398EFC(v113, &qword_1EB6E3920, &qword_1B0E9B070);
+      }
+
+      else
+      {
+        sub_1B03C60A4(v113, v159, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        if (v105(v192, 1, v106))
+        {
+          sub_1B0398EFC(v159, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v120 = v119;
+        }
+
+        else
+        {
+          v121 = v159;
+          (*v155)(v156, v159, v157);
+          sub_1B0E46ED8();
+          sub_1B0398EFC(v121, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v120 = v200;
+        }
+
+        result = sub_1B0ADE408(v120, _s19UserInitiatedSearchV13FetchMessagesVMa);
+      }
+    }
+
+    v69 = v170;
+LABEL_4:
+    v68 = v199;
+    v73 = v184;
+  }
+
+  __break(1u);
+LABEL_49:
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_1B0ADCFB0(uint64_t a1, uint64_t a2, void (*a3)(char *, uint64_t, uint64_t, uint64_t))
+{
+  v21 = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v20 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v20 - v10;
+  MessagesVMa = _s19UserInitiatedSearchV13FetchMessagesVMa(0);
+  MEMORY[0x1EEE9AC00](MessagesVMa - 8);
+  v14 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests.Search(0);
+  sub_1B0ADE3A0(a1 + *(SearchResult + 20), v14, _s19UserInitiatedSearchV13FetchMessagesVMa);
+  v16 = type metadata accessor for FetchSearchResultMessages.Requests(0);
+  sub_1B03B5C80(a2 + *(v16 + 28), v7, &qword_1EB6E3920, &qword_1B0E9B070);
+  v17 = *(v9 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1B03D06F8();
+    sub_1B0E46EE8();
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1B0398EFC(v7, &qword_1EB6E3920, &qword_1B0E9B070);
     }
   }
 
   else
   {
-    return 0;
+    sub_1B03C60A4(v7, v11, &unk_1EB6E1AF0, &unk_1B0E9AF40);
   }
+
+  v18 = sub_1B0ADD260(v11, v21, *(a2 + *(v16 + 24)), *(a2 + *(v16 + 24) + 8));
+  sub_1B0ADE408(v14, _s19UserInitiatedSearchV13FetchMessagesVMa);
+  sub_1B0398EFC(v11, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  return v18 & 1;
 }
 
-int *sub_1B0A80AF4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, char *a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+uint64_t sub_1B0ADD260(uint64_t a1, void (*a2)(char *, uint64_t, uint64_t, uint64_t), uint64_t a3, int a4)
 {
-  *a9 = a1;
-  *(a9 + 1) = a2;
-  *(a9 + 2) = a3;
-  *(a9 + 3) = a4;
-  *(a9 + 4) = a5;
-  *(a9 + 5) = a6;
-  *(a9 + 6) = a7;
-  *(a9 + 7) = a8;
-  *(a9 + 8) = a10;
-  *(a9 + 9) = a11;
-  *(a9 + 10) = a12;
-  *(a9 + 11) = a13;
-  v20 = type metadata accessor for WatchOSRender.Message.InfoFromLibrary();
-  v18 = v20[10];
-  v16 = sub_1B0E43108();
-  (*(*(v16 - 8) + 32))(&a9[v18], a14);
-  result = v20;
-  *&a9[v20[11]] = a15;
-  *&a9[v20[12]] = a16;
+  v5 = v4;
+  v66 = a4;
+  v54 = a3;
+  v57 = a2;
+  v64 = a1;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v54 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v67 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v60 = &v54 - v12;
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v54 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v17 = *(v16 - 8);
+  MEMORY[0x1EEE9AC00](v16);
+  v19 = &v54 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v56 = *(v20 - 8);
+  MEMORY[0x1EEE9AC00](v20);
+  v65 = &v54 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v59 = &v54 - v23;
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = &v54 - v25;
+  MEMORY[0x1EEE9AC00](v27);
+  v29 = &v54 - v28;
+  MEMORY[0x1EEE9AC00](v30);
+  v32 = &v54 - v31;
+  MEMORY[0x1EEE9AC00](v33);
+  v58 = &v54 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v62 = &v54 - v36;
+  MEMORY[0x1EEE9AC00](v37);
+  v63 = &v54 - v38;
+  sub_1B03B5C80(v5, v19, &unk_1EB6E26C0, &unk_1B0E9DE10);
+  MessagesVMa = _s19UserInitiatedSearchV13FetchMessagesVMa(0);
+  v39 = *(MessagesVMa + 20);
+  v61 = v5;
+  MessageIdentifierSet.subtracting(_:)(v5 + v39, v29);
+  sub_1B0398EFC(v19, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B03B5C80(v57, v8, &unk_1EB6E3670, &unk_1B0E9B260);
+  if ((*(v17 + 48))(v8, 1, v16) == 1)
+  {
+    sub_1B0398EFC(v8, &unk_1EB6E3670, &unk_1B0E9B260);
+    v40 = v56;
+    v57 = *(v56 + 56);
+    v57(v15, 1, 1, v20);
+    sub_1B03D06F8();
+    sub_1B0E46EE8();
+    if ((*(v40 + 48))(v15, 1, v20) != 1)
+    {
+      sub_1B0398EFC(v15, &qword_1EB6E3920, &qword_1B0E9B070);
+    }
+  }
+
+  else
+  {
+    sub_1B03B5C80(v8, v15, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    sub_1B0398EFC(v8, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    v40 = v56;
+    v57 = *(v56 + 56);
+    v57(v15, 0, 1, v20);
+    sub_1B03C60A4(v15, v26, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  }
+
+  MessageIdentifierSet.subtracting(_:)(v26, v32);
+  sub_1B0398EFC(v29, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v26, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v41 = v60;
+  sub_1B03B5C80(v61 + *(MessagesVMa + 24), v60, &qword_1EB6E3920, &qword_1B0E9B070);
+  v42 = *(v40 + 48);
+  if (v42(v41, 1, v20) == 1)
+  {
+    sub_1B03D06F8();
+    v43 = v59;
+    sub_1B0E46EE8();
+    v44 = v42(v41, 1, v20);
+    v45 = v62;
+    if (v44 != 1)
+    {
+      sub_1B0398EFC(v41, &qword_1EB6E3920, &qword_1B0E9B070);
+    }
+  }
+
+  else
+  {
+    v43 = v59;
+    sub_1B03C60A4(v41, v59, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v45 = v62;
+  }
+
+  v46 = v58;
+  MessageIdentifierSet.subtracting(_:)(v43, v58);
+  sub_1B0398EFC(v32, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v43, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MessageIdentifierSet.subtracting(_:)(v64, v45);
+  sub_1B0398EFC(v46, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  if (v66)
+  {
+    v47 = v67;
+    v57(v67, 1, 1, v20);
+    sub_1B03D06F8();
+    v48 = v65;
+    sub_1B0E46EE8();
+    if (v42(v47, 1, v20) != 1)
+    {
+      sub_1B0398EFC(v47, &qword_1EB6E3920, &qword_1B0E9B070);
+    }
+  }
+
+  else
+  {
+    v69 = v54;
+    v49 = sub_1B041C1E8();
+    v68 = Range<>.init<A>(_:)(&v69, &type metadata for UID, v49);
+    sub_1B03D06F8();
+    v50 = v67;
+    sub_1B0E46F08();
+    v57(v50, 0, 1, v20);
+    v48 = v65;
+    sub_1B03C60A4(v50, v65, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  }
+
+  v51 = v63;
+  MessageIdentifierSet.subtracting(_:)(v48, v63);
+  sub_1B0398EFC(v45, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v48, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3120, qword_1B0E9B270);
+  v52 = sub_1B0E46E98();
+  sub_1B0398EFC(v51, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  return v52 & 1;
+}
+
+uint64_t sub_1B0ADDABC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41E0, &unk_1B0EC4580);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v9 - v5;
+  sub_1B03B5C80(a1, &v9 - v5, &qword_1EB6E41E0, &unk_1B0EC4580);
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests.Search(0);
+  result = (*(*(SearchResult - 8) + 48))(v6, 1, SearchResult);
+  if (result != 1)
+  {
+    return sub_1B0ADE4D8(v6, a2, type metadata accessor for FetchSearchResultMessages.Requests.Search);
+  }
+
+  __break(1u);
   return result;
 }
 
-id sub_1B0A80C0C()
+uint64_t sub_1B0ADDBC4(uint64_t a1, void (*a2)(char *), double a3, uint64_t a4, uint64_t a5)
 {
-  v3 = objc_opt_self();
-  (MEMORY[0x1E69E5928])();
-  v2 = [v1 messageFlags];
-  (MEMORY[0x1E69E5920])();
-  return [v3 nnmkMailItemStatusFromMFMessageFlags:v2 conversationFlags:{objc_msgSend(v1, sel_conversationFlags)}];
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests.Search(0);
+  v9 = MEMORY[0x1EEE9AC00](SearchResult - 8);
+  v11 = &v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(a5 + 40))(a1, v9);
+  a2(v11);
+  return sub_1B0ADE408(v11, type metadata accessor for FetchSearchResultMessages.Requests.Search);
 }
 
-uint64_t type metadata accessor for WatchOSRender.Message.InfoFromHeader()
+BOOL sub_1B0ADDC98(_DWORD *a1, _DWORD *a2)
 {
-  v1 = qword_1EB6E3D88;
-  if (!qword_1EB6E3D88)
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v26 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v26 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41F8, &unk_1B0EC4440);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v26 - v13;
+  if (*a1 != *a2)
   {
-    return swift_getSingletonMetadata();
+    return 0;
   }
 
-  return v1;
-}
-
-uint64_t type metadata accessor for WatchOSRender.Message()
-{
-  v1 = qword_1EB6E3D68;
-  if (!qword_1EB6E3D68)
+  v15 = v12;
+  v16 = *(type metadata accessor for FetchSearchResultMessages.Requests.Search(0) + 20);
+  v17 = a1 + v16;
+  v18 = a2 + v16;
+  sub_1B03D06F8();
+  if ((sub_1B0E46E08() & 1) == 0)
   {
-    return swift_getSingletonMetadata();
+    return 0;
   }
 
-  return v1;
-}
-
-void *sub_1B0A80D90(void *a1)
-{
-  v11 = type metadata accessor for WatchOSRender.Message.InfoFromHeader();
-  if (!(*(*(v11 - 8) + 48))(a1, 1))
+  MessagesVMa = _s19UserInitiatedSearchV13FetchMessagesVMa(0);
+  if ((sub_1B0E46E08() & 1) == 0)
   {
-    v1 = a1[1];
-
-    v2 = a1[2];
-
-    v3 = a1[3];
-
-    v4 = a1[4];
-
-    v5 = a1[6];
-
-    v6 = a1[8];
-
-    v9 = a1 + *(v11 + 40);
-    v7 = sub_1B0E43108();
-    (*(*(v7 - 8) + 8))(v9);
+    return 0;
   }
 
-  return a1;
-}
-
-uint64_t sub_1B0A80E94()
-{
-  v2 = *(v0 + 56);
-  v3 = *(v0 + 64);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  return v2;
-}
-
-uint64_t sub_1B0A80ECC(uint64_t a1, uint64_t a2)
-{
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v3 = *(v2 + 64);
-  *(v2 + 56) = a1;
-  *(v2 + 64) = a2;
-}
-
-uint64_t sub_1B0A80F18@<X0>(uint64_t a1@<X8>)
-{
-  v4 = *(type metadata accessor for WatchOSRender.Message.InfoFromHeader() + 40);
-  v2 = sub_1B0E43108();
-  return (*(*(v2 - 8) + 16))(a1, v1 + v4);
-}
-
-uint64_t sub_1B0A80F90(uint64_t a1)
-{
-  v12 = a1;
-  v7 = 0;
-  v11 = sub_1B0E43108();
-  v9 = *(v11 - 8);
-  v10 = v11 - 8;
-  v6 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x1EEE9AC00](v11);
-  v8 = &v5 - v6;
-  (*(v9 + 16))(v2);
-  v3 = type metadata accessor for WatchOSRender.Message.InfoFromHeader();
-  (*(v9 + 40))(v1 + *(v3 + 40), v8, v11);
-  return (*(v9 + 8))(v12, v11);
-}
-
-BOOL sub_1B0A810B0(void *a1, __int128 *a2)
-{
-  v41 = a1;
-  v49 = a2;
-  v59 = 0;
-  v58 = 0;
-  v42 = sub_1B0E43108();
-  v43 = *(v42 - 8);
-  v44 = v42 - 8;
-  v45 = (v43[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v41);
-  v46 = &v8[-v45];
-  v47 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v3);
-  v48 = &v8[-v47];
-  v59 = v4;
-  v58 = v5;
-  v50 = *v4;
-  v51 = v4[1];
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v52 = *v49;
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  v56[0] = v50;
-  v56[1] = v51;
-  v57 = v52;
-  if (v51)
+  v20 = *(MessagesVMa + 24);
+  v21 = &v17[v20];
+  v22 = *(v15 + 48);
+  sub_1B03B5C80(v21, v14, &qword_1EB6E3920, &qword_1B0E9B070);
+  sub_1B03B5C80(&v18[v20], &v14[v22], &qword_1EB6E3920, &qword_1B0E9B070);
+  v23 = *(v5 + 48);
+  if (v23(v14, 1, v4) == 1)
   {
-    sub_1B070B280(v56, &v55);
-    if (*(&v57 + 1))
+    if (v23(&v14[v22], 1, v4) == 1)
     {
-      v37 = &v54;
-      v54 = v55;
-      v38 = v56;
-      v36 = &v53;
-      v53 = v57;
-      v39 = MEMORY[0x1B2726DE0](v55, *(&v55 + 1), v57, *(&v57 + 1));
-      sub_1B03B1198(v36);
-      sub_1B03B1198(v37);
-      sub_1B03B1198(v38);
-      v40 = v39;
-      goto LABEL_7;
+      sub_1B0398EFC(v14, &qword_1EB6E3920, &qword_1B0E9B070);
+      return 1;
     }
 
-    sub_1B03B1198(&v55);
     goto LABEL_9;
   }
 
-  if (*(&v57 + 1))
+  sub_1B03B5C80(v14, v10, &qword_1EB6E3920, &qword_1B0E9B070);
+  if (v23(&v14[v22], 1, v4) == 1)
   {
+    sub_1B0398EFC(v10, &unk_1EB6E1AF0, &unk_1B0E9AF40);
 LABEL_9:
-    sub_1B06FF6F0(v56);
-    v40 = 0;
-    goto LABEL_7;
+    sub_1B0398EFC(v14, &qword_1EB6E41F8, &unk_1B0EC4440);
+    return 0;
   }
 
-  sub_1B03B1198(v56);
-  v40 = 1;
-LABEL_7:
-  v35 = v40;
+  sub_1B03C60A4(&v14[v22], v7, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v25 = sub_1B0E46E08();
+  sub_1B0398EFC(v7, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v10, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v14, &qword_1EB6E3920, &qword_1B0E9B070);
+  return (v25 & 1) != 0;
+}
 
-  if (v35)
+BOOL sub_1B0ADE00C(uint64_t *a1, uint64_t *a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v26 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v26 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41F8, &unk_1B0EC4440);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v26 - v12;
+  if ((sub_1B0B64774(*a1, *a2) & 1) == 0)
   {
-    v33 = v41[2];
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v32 = *(v49 + 2);
-    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-    v34 = sub_1B0E45368();
+    return 0;
+  }
 
-    if (v34)
-    {
-      v30 = v41[3];
-      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-      v29 = *(v49 + 3);
-      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-      v31 = sub_1B0E45368();
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests(0);
+  if (!sub_1B0BC8548(a1 + SearchResult[5], a2 + SearchResult[5]))
+  {
+    return 0;
+  }
 
-      if (v31)
-      {
-        v27 = v41[4];
-        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-        v26 = *(v49 + 4);
-        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-        v28 = sub_1B0E45368();
-
-        if (v28)
-        {
-          v21 = v41[5];
-          v24 = v41[6];
-          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-          v22 = *(v49 + 5);
-          v23 = *(v49 + 6);
-          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-          v25 = MEMORY[0x1B2726DE0](v21, v24, v22, v23);
-
-          if (v25)
-          {
-            v16 = v41[7];
-            v19 = v41[8];
-            _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-            v17 = *(v49 + 7);
-            v18 = *(v49 + 8);
-            _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-            v20 = MEMORY[0x1B2726DE0](v16, v19, v17, v18);
-
-            if (v20)
-            {
-              v10 = type metadata accessor for WatchOSRender.Message.InfoFromHeader();
-              v6 = v41 + *(v10 + 40);
-              v12 = v43[2];
-              v11 = v43 + 2;
-              v12(v48, v6, v42);
-              v12(v46, v49 + *(v10 + 40), v42);
-              v15 = sub_1B0E430C8();
-              v14 = v43[1];
-              v13 = v43 + 1;
-              v14(v46, v42);
-              v14(v48, v42);
-              return (v15 & 1) != 0;
-            }
-
-            else
-            {
-              return 0;
-            }
-          }
-
-          else
-          {
-            return 0;
-          }
-        }
-
-        else
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        return 0;
-      }
-    }
-
-    else
+  v15 = SearchResult[6];
+  v16 = (a1 + v15);
+  v17 = *(a1 + v15 + 8);
+  v18 = (a2 + v15);
+  v19 = *(a2 + v15 + 8);
+  if (v17)
+  {
+    if (!v19)
     {
       return 0;
     }
@@ -1271,8595 +1097,8758 @@ LABEL_7:
 
   else
   {
-    return 0;
-  }
-}
-
-uint64_t sub_1B0A81754()
-{
-  v2 = *(v0 + 16);
-  swift_unknownObjectRetain();
-  return v2;
-}
-
-uint64_t sub_1B0A81780()
-{
-  v4 = *v0;
-  v5 = [objc_opt_self() createContentAttributedStringHTMLParser];
-  if (v5)
-  {
-    swift_unknownObjectRetain();
-    *(v3 + 16) = v5;
-    swift_unknownObjectRelease();
-    return v3;
-  }
-
-  else
-  {
-    swift_deallocPartialClassInstance();
-    return 0;
-  }
-}
-
-uint64_t sub_1B0A81864()
-{
-  v1 = *(v0 + 16);
-  swift_unknownObjectRelease();
-  return v3;
-}
-
-uint64_t sub_1B0A81958(uint64_t a1, uint64_t a2)
-{
-  *a2 = *a1;
-  *(a2 + 16) = *(a1 + 16);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 32) = *(a1 + 32);
-  *(a2 + 40) = *(a1 + 40);
-  *(a2 + 56) = *(a1 + 56);
-  v4 = *(type metadata accessor for WatchOSRender.Message.InfoFromHeader() + 40);
-  v2 = sub_1B0E43108();
-  (*(*(v2 - 8) + 32))(a2 + v4, a1 + v4);
-  return a2;
-}
-
-char *sub_1B0A81A1C(char *a1)
-{
-  v1 = *(a1 + 1);
-
-  v2 = *(a1 + 2);
-
-  v3 = *(a1 + 3);
-
-  v4 = *(a1 + 4);
-
-  v5 = *(a1 + 6);
-
-  v6 = *(a1 + 8);
-
-  v9 = *(type metadata accessor for WatchOSRender.Message.InfoFromHeader() + 40);
-  v7 = sub_1B0E43108();
-  (*(*(v7 - 8) + 8))(&a1[v9]);
-  return a1;
-}
-
-void *sub_1B0A81ADC(void *a1)
-{
-  v11 = type metadata accessor for WatchOSHeaderInfo();
-  if (!(*(*(v11 - 8) + 48))(a1, 1))
-  {
-    v1 = a1[1];
-
-    v2 = a1[2];
-
-    v3 = a1[3];
-
-    v4 = a1[4];
-
-    v5 = a1[6];
-
-    v6 = a1[8];
-
-    v9 = a1 + *(v11 + 40);
-    v7 = sub_1B0E43108();
-    (*(*(v7 - 8) + 8))(v9);
-  }
-
-  return a1;
-}
-
-uint64_t sub_1B0A81BE0(uint64_t a1, uint64_t a2)
-{
-  *a2 = *a1;
-  *(a2 + 16) = *(a1 + 16);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 32) = *(a1 + 32);
-  *(a2 + 40) = *(a1 + 40);
-  *(a2 + 56) = *(a1 + 56);
-  v4 = *(type metadata accessor for WatchOSHeaderInfo() + 40);
-  v2 = sub_1B0E43108();
-  (*(*(v2 - 8) + 32))(a2 + v4, a1 + v4);
-  return a2;
-}
-
-char *sub_1B0A81CA4(char *a1)
-{
-  v1 = *(a1 + 1);
-
-  v2 = *(a1 + 2);
-
-  v3 = *(a1 + 3);
-
-  v4 = *(a1 + 4);
-
-  v5 = *(a1 + 6);
-
-  v6 = *(a1 + 8);
-
-  v9 = *(type metadata accessor for WatchOSHeaderInfo() + 40);
-  v7 = sub_1B0E43108();
-  (*(*(v7 - 8) + 8))(&a1[v9]);
-  return a1;
-}
-
-char *sub_1B0A81D64(char *a1, char *a2)
-{
-  *a2 = *a1;
-  v4 = *(a1 + 1);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  *(a2 + 1) = v4;
-  v5 = *(a1 + 2);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  *(a2 + 2) = v5;
-  v6 = *(a1 + 3);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  *(a2 + 3) = v6;
-  v7 = *(a1 + 4);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  *(a2 + 4) = v7;
-  *(a2 + 5) = *(a1 + 5);
-  v8 = *(a1 + 6);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  *(a2 + 6) = v8;
-  *(a2 + 7) = *(a1 + 7);
-  v9 = *(a1 + 8);
-  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
-  *(a2 + 8) = v9;
-  v10 = *(type metadata accessor for WatchOSRender.Message.InfoFromHeader() + 40);
-  v2 = sub_1B0E43108();
-  (*(*(v2 - 8) + 16))(&a2[v10], &a1[v10]);
-  return a2;
-}
-
-unint64_t sub_1B0A81EB4()
-{
-  v2 = qword_1EB6E3D60;
-  if (!qword_1EB6E3D60)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1EB6E3D60);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t sub_1B0A81F94()
-{
-  v4 = sub_1B0E43108();
-  if (v0 <= 0x3F)
-  {
-    v4 = sub_1B07CEB70();
-    if (v1 <= 0x3F)
+    if (*v18 != *v16)
     {
-      v4 = sub_1B041BC68();
-      if (v2 <= 0x3F)
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-        return 0;
-      }
+      LOBYTE(v19) = 1;
+    }
+
+    if (v19)
+    {
+      return 0;
     }
   }
 
-  return v4;
+  v20 = SearchResult[7];
+  v21 = a1 + v20;
+  v22 = *(v11 + 48);
+  sub_1B03B5C80(v21, v13, &qword_1EB6E3920, &qword_1B0E9B070);
+  sub_1B03B5C80(a2 + v20, &v13[v22], &qword_1EB6E3920, &qword_1B0E9B070);
+  v23 = *(v5 + 48);
+  if (v23(v13, 1, v4) != 1)
+  {
+    sub_1B03B5C80(v13, v10, &qword_1EB6E3920, &qword_1B0E9B070);
+    if (v23(&v13[v22], 1, v4) != 1)
+    {
+      sub_1B03C60A4(&v13[v22], v7, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      sub_1B03D06F8();
+      v25 = sub_1B0E46E08();
+      sub_1B0398EFC(v7, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      sub_1B0398EFC(v10, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      sub_1B0398EFC(v13, &qword_1EB6E3920, &qword_1B0E9B070);
+      return (v25 & 1) != 0;
+    }
+
+    sub_1B0398EFC(v10, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+LABEL_14:
+    sub_1B0398EFC(v13, &qword_1EB6E41F8, &unk_1B0EC4440);
+    return 0;
+  }
+
+  if (v23(&v13[v22], 1, v4) != 1)
+  {
+    goto LABEL_14;
+  }
+
+  sub_1B0398EFC(v13, &qword_1EB6E3920, &qword_1B0E9B070);
+  return 1;
 }
 
-uint64_t sub_1B0A82190()
+uint64_t sub_1B0ADE3A0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v2 = sub_1B0E43108();
-  if (v0 <= 0x3F)
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_1B0ADE408(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+uint64_t sub_1B0ADE468(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  (*(*(v4 - 8) + 40))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t sub_1B0ADE4D8(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_1B0ADE560(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v12 = type metadata accessor for UntaggedResponse(0);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v23[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  result = sub_1B0AD4EE4(a2, a3, a4);
+  if (result)
+  {
+    sub_1B0ADE3A0(a1, v14, type metadata accessor for UntaggedResponse);
+    if (swift_getEnumCaseMultiPayload() == 20)
+    {
+      memcpy(v23, v14, sizeof(v23));
+      SearchResultMessages = type metadata accessor for FetchSearchResultMessages(0);
+      v17 = *(v6 + *(SearchResultMessages + 28) + 8);
+      v18 = *(v17 + 16);
+      if (v18)
+      {
+        v19 = *(v17 + 8 * v18 + 24);
+      }
+
+      else
+      {
+        v19 = 1;
+      }
+
+      v20 = *(SearchResultMessages + 52);
+      v21 = type metadata accessor for NewServerMessages(0);
+      if (!(*(*(v21 - 8) + 48))(v6 + v20, 1, v21))
+      {
+        sub_1B0B5F730(v23, v19, a6);
+      }
+
+      return sub_1B0AA4C0C(v23);
+    }
+
+    else
+    {
+      return sub_1B0ADE408(v14, type metadata accessor for UntaggedResponse);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1B0ADE70C(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v37 = a1;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3628, &unk_1B0EA2080);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = (&v33 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v34 = *(v11 - 8);
+  v35 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v36 = &v33 - v12;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v15 = &v33 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v17 = *(v16 - 8);
+  MEMORY[0x1EEE9AC00](v16);
+  v19 = &v33 - v18;
+  v38 = 1;
+  result = sub_1B0AEB5AC(0x100000000uLL, a2, a3, a4);
+  if (result)
+  {
+    v21 = v4;
+    v22 = v4 + *(type metadata accessor for FetchSearchResultMessages(0) + 48);
+    sub_1B0AD989C(v15);
+    if ((*(v17 + 48))(v15, 1, v16) == 1)
+    {
+      v23 = &unk_1EB6E3670;
+      v24 = &unk_1B0E9B260;
+      v25 = v15;
+    }
+
+    else
+    {
+      sub_1B03C60A4(v15, v19, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      if (((v37 >> 59) & 0x1E | (v37 >> 2) & 1) == 0xA)
+      {
+        v26 = swift_projectBox();
+        sub_1B03B5C80(v26, v10, &qword_1EB6E3628, &unk_1B0EA2080);
+        v27 = *(v8 + 48);
+        v28 = *(v8 + 64);
+        if (*(v21 + 24) == v10[1])
+        {
+          v29 = sub_1B04520BC(*(v21 + 16), *v10);
+
+          if (v29)
+          {
+            v30 = v36;
+            sub_1B03C60A4(v10 + v27, v36, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            sub_1B03D06F8();
+            v31 = sub_1B0E46E08();
+            sub_1B0398EFC(v19, &unk_1EB6E26C0, &unk_1B0E9DE10);
+            sub_1B0398EFC(v10 + v28, &unk_1EB6E26C0, &unk_1B0E9DE10);
+            if (v31)
+            {
+              v32 = *(type metadata accessor for FetchSearchResultMessages.Requests(0) + 28);
+              sub_1B0398EFC(v22 + v32, &qword_1EB6E3920, &qword_1B0E9B070);
+              sub_1B03C60A4(v30, v22 + v32, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+              return (*(v34 + 56))(v22 + v32, 0, 1, v35);
+            }
+
+            v23 = &unk_1EB6E1AF0;
+            v24 = &unk_1B0E9AF40;
+            v25 = v30;
+            return sub_1B0398EFC(v25, v23, v24);
+          }
+        }
+
+        else
+        {
+        }
+
+        sub_1B0398EFC(v19, &unk_1EB6E26C0, &unk_1B0E9DE10);
+        sub_1B0398EFC(v10 + v28, &unk_1EB6E26C0, &unk_1B0E9DE10);
+        v23 = &unk_1EB6E1AF0;
+        v24 = &unk_1B0E9AF40;
+        v25 = v10 + v27;
+      }
+
+      else
+      {
+        v23 = &unk_1EB6E26C0;
+        v24 = &unk_1B0E9DE10;
+        v25 = v19;
+      }
+    }
+
+    return sub_1B0398EFC(v25, v23, v24);
+  }
+
+  return result;
+}
+
+BOOL sub_1B0ADEB60(uint64_t a1)
+{
+  v2 = _s19UserInitiatedSearchV5StateOMa(0);
+  MEMORY[0x1EEE9AC00](v2);
+  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = _s19UserInitiatedSearchVMa(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a1 + 16);
+  if (!v9)
+  {
+    return 0;
+  }
+
+  v10 = a1 + ((*(v6 + 80) + 32) & ~*(v6 + 80));
+  v11 = *(v6 + 72);
+  v12 = v9 - 1;
+  do
+  {
+    v13 = v12;
+    sub_1B0ADE3A0(v10, v8, _s19UserInitiatedSearchVMa);
+    sub_1B0ADE4D8(&v8[*(v5 + 20)], v4, _s19UserInitiatedSearchV5StateOMa);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    sub_1B0ADE408(v4, _s19UserInitiatedSearchV5StateOMa);
+    result = EnumCaseMultiPayload == 1;
+    if (EnumCaseMultiPayload == 1)
+    {
+      break;
+    }
+
+    v12 = v13 - 1;
+    v10 += v11;
+  }
+
+  while (v13);
+  return result;
+}
+
+uint64_t sub_1B0ADED3C(uint64_t a1)
+{
+  result = _s19UserInitiatedSearchV13FetchMessagesVMa(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
   }
 
-  return v2;
+  return result;
 }
 
-uint64_t sub_1B0A822E0()
+void sub_1B0ADEDE0(uint64_t a1)
 {
-  v4 = sub_1B07CEB70();
-  if (v0 <= 0x3F)
+  sub_1B0ADF084(319, &qword_1EB6DB470, type metadata accessor for FetchSearchResultMessages.Requests.Search, MEMORY[0x1E69E62F8]);
+  if (v1 <= 0x3F)
   {
-    v4 = sub_1B041BC68();
-    if (v1 <= 0x3F)
+    _s19UserInitiatedSearchV13FetchMessagesVMa(319);
+    if (v2 <= 0x3F)
     {
-      v4 = sub_1B0E43108();
-      if (v2 <= 0x3F)
+      sub_1B0ADEEC4();
+      if (v3 <= 0x3F)
       {
-        swift_cvw_initStructMetadataWithLayoutString();
-        return 0;
+        sub_1B0AB44A4(319);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
       }
     }
   }
-
-  return v4;
 }
 
-unint64_t sub_1B0A8246C()
+void sub_1B0ADEEC4()
 {
-  v2 = qword_1EB6E3D98;
-  if (!qword_1EB6E3D98)
+  if (!qword_1EB6DCC80)
   {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1EB6E3D98);
-    return WitnessTable;
+    v0 = sub_1B0E45D88();
+    if (!v1)
+    {
+      atomic_store(v0, &qword_1EB6DCC80);
+    }
+  }
+}
+
+void sub_1B0ADEF5C(uint64_t a1)
+{
+  sub_1B0AA95BC(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for MessageBatches(319);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for FetchSearchResultMessages.Requests(319);
+      if (v3 <= 0x3F)
+      {
+        sub_1B0ADF084(319, &qword_1EB6DDAC8, type metadata accessor for NewServerMessages, MEMORY[0x1E69E6720]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void sub_1B0ADF084(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
+{
+  if (!*a2)
+  {
+    v7 = a3(255);
+    v8 = a4(a1, v7);
+    if (!v9)
+    {
+      atomic_store(v8, a2);
+    }
+  }
+}
+
+unint64_t sub_1B0ADF0EC()
+{
+  result = qword_1EB6DD590;
+  if (!qword_1EB6DD590)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1EB6DD590);
   }
 
-  return v2;
-}
-
-id sub_1B0A82564()
-{
-  sub_1B07B8964();
-  type metadata accessor for ResourceBundleClass();
-  result = sub_1B0A825AC();
-  qword_1EB6E3DA0 = result;
   return result;
 }
 
-id sub_1B0A825AC()
+unint64_t sub_1B0ADF140()
 {
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v0 = [swift_getObjCClassFromMetadata() bundleForClass_];
-
-  return v0;
-}
-
-uint64_t *sub_1B0A82604()
-{
-  if (qword_1EB6E0B88 != -1)
+  result = qword_1EB6DD568;
+  if (!qword_1EB6DD568)
   {
-    swift_once();
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1EB6DD568);
   }
 
-  return &qword_1EB6E3DA0;
-}
-
-uint64_t sub_1B0A82664()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB738210);
-  __swift_project_value_buffer(v2, qword_1EB738210);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A826FC()
-{
-  if (qword_1EB6E0B90 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB738210);
-}
-
-uint64_t sub_1B0A82768@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A826FC();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A827CC()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB738228);
-  __swift_project_value_buffer(v2, qword_1EB738228);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A82864()
-{
-  if (qword_1EB6E0B98 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB738228);
-}
-
-uint64_t sub_1B0A828D0@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A82864();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A82934()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB738240);
-  __swift_project_value_buffer(v2, qword_1EB738240);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A829CC()
-{
-  if (qword_1EB6E0BA0 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB738240);
-}
-
-uint64_t sub_1B0A82A38@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A829CC();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A82A9C()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB738258);
-  __swift_project_value_buffer(v2, qword_1EB738258);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A82B34()
-{
-  if (qword_1EB6E0BA8 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB738258);
-}
-
-uint64_t sub_1B0A82BA0@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A82B34();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A82C04()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB738270);
-  __swift_project_value_buffer(v2, qword_1EB738270);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A82C9C()
-{
-  if (qword_1EB6E0BB0 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB738270);
-}
-
-uint64_t sub_1B0A82D08@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A82C9C();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A82D6C()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB738288);
-  __swift_project_value_buffer(v2, qword_1EB738288);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A82E04()
-{
-  if (qword_1EB6E0BB8 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB738288);
-}
-
-uint64_t sub_1B0A82E70@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A82E04();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A82ED4()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB7382A0);
-  __swift_project_value_buffer(v2, qword_1EB7382A0);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A82F6C()
-{
-  if (qword_1EB6E0BC0 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB7382A0);
-}
-
-uint64_t sub_1B0A82FD8@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A82F6C();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A8303C()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB7382B8);
-  __swift_project_value_buffer(v2, qword_1EB7382B8);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A830D4()
-{
-  if (qword_1EB6E0BC8 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB7382B8);
-}
-
-uint64_t sub_1B0A83140@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A830D4();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A831A4()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB7382D0);
-  __swift_project_value_buffer(v2, qword_1EB7382D0);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A8323C()
-{
-  if (qword_1EB6E0BD0 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB7382D0);
-}
-
-uint64_t sub_1B0A832A8@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A8323C();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A8330C()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB7382E8);
-  __swift_project_value_buffer(v2, qword_1EB7382E8);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A833A4()
-{
-  if (qword_1EB6E0BD8 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB7382E8);
-}
-
-uint64_t sub_1B0A83410@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A833A4();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-uint64_t sub_1B0A83474()
-{
-  v2 = sub_1B0E435E8();
-  __swift_allocate_value_buffer(v2, qword_1EB738300);
-  __swift_project_value_buffer(v2, qword_1EB738300);
-  sub_1B0E44838();
-  v0 = sub_1B0A82604();
-  MEMORY[0x1E69E5928](*v0);
-  return sub_1B0E435D8();
-}
-
-uint64_t sub_1B0A8350C()
-{
-  if (qword_1EB6E0BE0 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1B0E435E8();
-  return __swift_project_value_buffer(v0, qword_1EB738300);
-}
-
-uint64_t sub_1B0A83578@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_1B0A8350C();
-  v1 = sub_1B0E435E8();
-  return (*(*(v1 - 8) + 16))(a1, v3);
-}
-
-void *SetDetailsEncProb(uint64_t a1, int a2, int a3, std::string::value_type *__s)
-{
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 32) + 304 * v5;
-  *v6 = a2;
-  *(v6 + 4) = a3;
-  std::string::__assign_external((v6 + 8), __s);
-  result = memcpy((*(a1 + 32) + 304 * v5 + 32), (a1 + 532), 0x10CuLL);
-  ++*(a1 + 40);
   return result;
 }
 
-void *SetDetailsEncProbCopyOffset(uint64_t a1, int a2, std::string::value_type *__s)
+unint64_t sub_1B0ADF194(uint64_t a1)
 {
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 32) + 304 * v4;
-  *v5 = *(v5 - 304);
-  *(v5 + 4) = a2;
-  std::string::__assign_external((v5 + 8), __s);
-  result = memcpy((*(a1 + 32) + 304 * v4 + 32), (a1 + 532), 0x10CuLL);
-  ++*(a1 + 40);
+  result = sub_1B0ADF1BC();
+  *(a1 + 8) = result;
   return result;
 }
 
-void *SetDetailsEncLabel(uint64_t a1, const std::string::value_type *a2)
+unint64_t sub_1B0ADF1BC()
 {
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 32) + 304 * v3;
-  *v4 = *(v4 - 304);
-  *(v4 + 4) = -1;
-  std::string::__assign_external((v4 + 8), a2);
-  result = memcpy((*(a1 + 32) + 304 * v3 + 32), (a1 + 532), 0x10CuLL);
-  ++*(a1 + 40);
-  return result;
-}
-
-void *SetDetailsLabel(uint64_t a1, const std::string::value_type *a2)
-{
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 32);
-  v5 = 304 * v3 - 304;
-  v6 = *(v4 + v5);
-  v7 = v4 + 304 * v3;
-  *v7 = v6;
-  *(v7 + 4) = -1;
-  std::string::__assign_external((v7 + 8), a2);
-  result = memcpy((*(a1 + 32) + 304 * v3 + 32), (*(a1 + 32) + v5 + 32), 0x10CuLL);
-  ++*(a1 + 40);
-  return result;
-}
-
-uint64_t UTF88Sub(int a1, unsigned int a2)
-{
-  v2 = (a2 >> 4) & 3;
-  v3 = v2 | 4;
-  if (a1 != 226)
+  result = qword_1EB6DD560;
+  if (!qword_1EB6DD560)
   {
-    v3 = (a2 >> 4) & 3;
+    type metadata accessor for FetchSearchResultMessages(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1EB6DD560);
   }
 
-  v4 = v2 | 8;
-  if (((1 << (a1 + 62)) & 0x219) == 0)
-  {
-    v4 = (a2 >> 4) & 3;
-  }
+  return result;
+}
 
-  if (a1 - 194 <= 9)
+uint64_t getEnumTagSinglePayload for FetchSearchResultMessages.ActionID(uint64_t a1, int a2)
+{
+  if (a2 && *(a1 + 5))
   {
-    v5 = v4;
+    return (*a1 + 1);
   }
 
   else
   {
-    v5 = (a2 >> 4) & 3;
-  }
-
-  if ((a1 & 0xF0) != 0xC0)
-  {
-    v5 = v3;
-  }
-
-  v6 = v2 | 0xC;
-  if (a1 == -61)
-  {
-    return v6;
-  }
-
-  else
-  {
-    return v5;
+    return 0;
   }
 }
 
-uint64_t CompactEncDet::BackmapEncodingToRankedEncoding(int a1)
+uint64_t storeEnumTagSinglePayload for FetchSearchResultMessages.ActionID(uint64_t result, int a2, int a3)
 {
-  result = 0;
-  while (kMapToEncoding[result] != a1)
+  if (a2)
   {
-    if (++result == 67)
-    {
-      return 0xFFFFFFFFLL;
-    }
-  }
-
-  return result;
-}
-
-std::string *DecodeActive@<X0>(__int16 a1@<W0>, std::string *a2@<X8>)
-{
-  memset(a2, 170, sizeof(std::string));
-  result = std::string::basic_string[abi:ne200100]<0>(a2, "");
-  if ((a1 & 0x80) != 0)
-  {
-    result = std::string::append(a2, "Binary ", 7uLL);
-  }
-
-  if ((a1 & 0x40) != 0)
-  {
-    result = std::string::append(a2, "UTF1632 ", 8uLL);
-  }
-
-  if ((a1 & 0x20) != 0)
-  {
-    result = std::string::append(a2, "UTF8UTF8 ", 9uLL);
-  }
-
-  if ((a1 & 0x10) != 0)
-  {
-    result = std::string::append(a2, "UTF8 ", 5uLL);
-  }
-
-  if ((a1 & 8) != 0)
-  {
-    result = std::string::append(a2, "Iso2022 ", 8uLL);
-  }
-
-  if ((a1 & 4) != 0)
-  {
-    result = std::string::append(a2, "Hz ", 3uLL);
-  }
-
-  if ((a1 & 2) != 0)
-  {
-    result = std::string::append(a2, "UTF7A ", 6uLL);
-  }
-
-  if (a1)
-  {
-    result = std::string::append(a2, "SevenBit ", 9uLL);
-  }
-
-  if ((a1 & 0x200) != 0)
-  {
-    result = std::string::append(a2, "Indic ", 6uLL);
-  }
-
-  if ((a1 & 0x400) != 0)
-  {
-    result = std::string::append(a2, "HighAlpha ", 0xAuLL);
-  }
-
-  if ((a1 & 0x800) != 0)
-  {
-    result = std::string::append(a2, "HighAccent ", 0xBuLL);
-  }
-
-  if ((a1 & 0x1000) != 0)
-  {
-    return std::string::append(a2, "EUCJP ", 6uLL);
-  }
-
-  return result;
-}
-
-void sub_1B0A839B8(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
-{
-  v4 = strlen(__s);
-  if (v4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v5 = v4;
-  if (v4 >= 0x17)
-  {
-    operator new();
-  }
-
-  a1[23] = v4;
-  if (v4)
-  {
-    memmove(a1, __s, v4);
-  }
-
-  a1[v5] = 0;
-  return a1;
-}
-
-void PsSourceInit(int a1)
-{
-  pssourcenext = 0;
-  pssourcewidth = a1;
-  if (pssource_mark_buffer)
-  {
-    MEMORY[0x1B272A6C0](pssource_mark_buffer, 0x1000C8077774924);
-  }
-
-  operator new[]();
-}
-
-uint64_t PsSourceFinish(void)
-{
-  v0 = (2 * pssourcewidth);
-  v1 = pssource_mark_buffer;
-  v2 = v0 & (v0 >> 31);
-  v3 = v0 - 1;
-  while (1)
-  {
-    v4 = __OFSUB__(v0, 1);
-    LODWORD(v0) = v0 - 1;
-    if (v0 < 0 != v4)
-    {
-      break;
-    }
-
-    v5 = *(pssource_mark_buffer + v3--);
-    if (v5 != 32)
-    {
-      v2 = v0 + 1;
-      break;
-    }
-  }
-
-  *(pssource_mark_buffer + v2) = 0;
-  fprintf(*MEMORY[0x1E69E9848], "(      %s) do-src\n", v1);
-  v6 = pssource_mark_buffer;
-  v7 = 2 * pssourcewidth;
-  memset(pssource_mark_buffer, 32, v7);
-  *(v6 + v7) = 0;
-  result = MEMORY[0x1B272A6C0](v6, 0x1000C8077774924);
-  pssource_mark_buffer = 0;
-  return result;
-}
-
-size_t PsSource(size_t result, const unsigned __int8 *a2, const unsigned __int8 *a3)
-{
-  v4 = (result - a2) / pssourcewidth * pssourcewidth;
-  if (v4 >= pssourcenext)
-  {
-    v5 = a3;
-    pssourcenext = v4 + pssourcewidth;
-    v6 = (2 * pssourcewidth);
-    v7 = pssource_mark_buffer;
-    v8 = v6 & (v6 >> 31);
-    v9 = v6 - 1;
-    while (1)
-    {
-      v10 = __OFSUB__(v6, 1);
-      LODWORD(v6) = v6 - 1;
-      if (v6 < 0 != v10)
-      {
-        break;
-      }
-
-      v11 = *(pssource_mark_buffer + v9--);
-      if (v11 != 32)
-      {
-        v8 = v6 + 1;
-        break;
-      }
-    }
-
-    *(pssource_mark_buffer + v8) = 0;
-    v12 = MEMORY[0x1E69E9848];
-    fprintf(*MEMORY[0x1E69E9848], "(      %s) do-src\n", v7);
-    v13 = pssource_mark_buffer;
-    v14 = pssourcewidth;
-    memset(pssource_mark_buffer, 32, 2 * pssourcewidth);
-    *(v13 + 2 * v14) = 0;
-    v15 = &a2[v4];
-    if (v14 >= v5 - v15)
-    {
-      v16 = (v5 - v15);
-    }
-
-    else
-    {
-      v16 = v14;
-    }
-
-    fprintf(*v12, "(%05x ", v4);
-    if (v16 >= 1)
-    {
-      do
-      {
-        v18 = *v15++;
-        v17 = v18;
-        if (v18 == 10)
-        {
-          v19 = 32;
-        }
-
-        else
-        {
-          v19 = v17;
-        }
-
-        if (v19 == 13)
-        {
-          v19 = 32;
-        }
-
-        if (v19 == 9)
-        {
-          LOBYTE(v19) = 32;
-        }
-
-        switch(v17)
-        {
-          case '\\':
-            v20 = *v12;
-            v21 = "\\\\ ";
-            break;
-          case ')':
-            v20 = *v12;
-            v21 = "\\) ";
-            break;
-          case '(':
-            v20 = *v12;
-            v21 = "\\( ";
-            break;
-          default:
-            v22 = *v12;
-            if ((v19 - 32) > 0x5E)
-            {
-              fprintf(v22, "%02x");
-            }
-
-            else
-            {
-              fprintf(v22, "%c ");
-            }
-
-            goto LABEL_27;
-        }
-
-        fputs(v21, v20);
-LABEL_27:
-        --v16;
-      }
-
-      while (v16);
-    }
-
-    result = fwrite(") do-src\n", 9uLL, 1uLL, *v12);
-    v23 = next_do_src_line;
-    *(&do_src_offset + (next_do_src_line & 0xF)) = v4;
-    next_do_src_line = v23 + 1;
-  }
-
-  return result;
-}
-
-uint64_t PsMark(uint64_t result, int a2, const unsigned __int8 *a3, int a4)
-{
-  v4 = (result - a3) % pssourcewidth;
-  if (a4)
-  {
-    v5 = 120;
-  }
-
-  else
-  {
-    v5 = 45;
-  }
-
-  v6 = pssource_mark_buffer;
-  v7 = 2 * v4;
-  *(pssource_mark_buffer + v7) = 61;
-  *(v6 + v7 + 1) = 61;
-  if (a2 >= 2)
-  {
-    v8 = (v6 + 2 * v4 + 3);
-    v9 = a2 - 1;
-    do
-    {
-      *(v8 - 1) = v5;
-      *v8 = v5;
-      v8 += 2;
-      --v9;
-    }
-
-    while (v9);
-  }
-
-  return result;
-}
-
-uint64_t PsHighlight(uint64_t result, const unsigned __int8 *a2, int a3, int a4)
-{
-  v4 = result - a2 + 1;
-  v5 = v4 / pssourcewidth * pssourcewidth;
-  v6 = v4 % pssourcewidth;
-  v7 = next_do_src_line - 1;
-  v8 = 1;
-  while (*(&do_src_offset + (v7 & 0xF)) != v5)
-  {
-    ++v8;
-    --v7;
-    if (v8 == 17)
+    *(result + 4) = 0;
+    *result = a2 - 1;
+    if (!a3)
     {
       return result;
     }
-  }
-
-  return fprintf(*MEMORY[0x1E69E9848], "%d %d %d do-highlight%d\n", v8, v6 - 1, a3, a4);
-}
-
-void InitDetectEncodingState(uint64_t a1)
-{
-  v1 = 0;
-  v2 = 0;
-  *(a1 + 180) = 0u;
-  *(a1 + 164) = 0u;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 31) = 0u;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 68) = 0u;
-  *(a1 + 84) = 0u;
-  *(a1 + 100) = 0u;
-  *(a1 + 116) = 0u;
-  *(a1 + 132) = 0u;
-  *(a1 + 145) = 0u;
-  *(a1 + 196) = xmmword_1B0EA45D0;
-  *(a1 + 240) = xmmword_1B0EA45E0;
-  *(a1 + 256) = 1200;
-  *(a1 + 236) = -1;
-  *(a1 + 228) = -1;
-  *(a1 + 220) = -1;
-  *(a1 + 212) = 23;
-  do
-  {
-    if ((kSpecialMask[kMapToEncoding[v1]] & 0x200) == 0)
-    {
-      *(a1 + 264 + 4 * v2++) = v1;
-    }
-
-    ++v1;
-  }
-
-  while (v1 != 67);
-  *(a1 + 260) = v2;
-  bzero((a1 + 532), 0x334uLL);
-}
-
-uint64_t ApplyCompressedProb(unsigned __int8 *a1, int a2, int a3, uint64_t a4)
-{
-  if (a2 < 1)
-  {
-    return 0;
-  }
-
-  result = 0;
-  v6 = (a4 + 1068);
-  v7 = a4 + 532;
-  v8 = -1;
-  v9 = (a4 + 532);
-  v10 = &a1[a2];
-  do
-  {
-    v12 = *a1++;
-    v11 = v12;
-    if (!v12)
-    {
-      break;
-    }
-
-    v13 = v11 & 0xF;
-    if ((v11 & 0xF) != 0)
-    {
-      v14 = v11 >> 4;
-      v15 = &v9[v14];
-      v16 = &v6[v14];
-      v17 = (v15 - v7) >> 2;
-      v18 = v13;
-      v19 = a1;
-      v20 = v15;
-      v21 = v16;
-      do
-      {
-        v23 = *v19++;
-        v22 = v23;
-        v24 = v8 <= v23;
-        if (v8 >= v23)
-        {
-          result = result;
-        }
-
-        else
-        {
-          result = v17;
-        }
-
-        if (v24)
-        {
-          v8 = v22;
-        }
-
-        if (a3 >= 1)
-        {
-          v25 = 3 * a3 * v22 / 0x64u;
-          if (*v20 > v25)
-          {
-            v25 = *v20;
-          }
-
-          *v20 = v25;
-          *v21 = 1;
-        }
-
-        LODWORD(v17) = v17 + 1;
-        ++v21;
-        ++v20;
-        --v18;
-      }
-
-      while (v18);
-      a1 += v13;
-      v9 = &v15[v13];
-      v6 = &v16[v13];
-    }
-
-    else
-    {
-      v9 += v11;
-      v6 += v11;
-    }
-  }
-
-  while (a1 < v10);
-  return result;
-}
-
-uint64_t TopCompressedProb(const char *a1, int a2)
-{
-  if (a2 < 1)
-  {
-    return 0;
-  }
-
-  v3 = 0;
-  v4 = 0;
-  result = 0;
-  v6 = &a1[a2];
-  do
-  {
-    v8 = *a1++;
-    v7 = v8;
-    if (!v8)
-    {
-      break;
-    }
-
-    v9 = v7 & 0xF;
-    if ((v7 & 0xF) != 0)
-    {
-      v10 = (v7 >> 4) + v3;
-      v11 = v7 & 0xF;
-      v12 = a1;
-      v13 = v10;
-      do
-      {
-        v15 = *v12++;
-        v14 = v15;
-        v16 = v4 <= v15;
-        if (v4 >= v15)
-        {
-          result = result;
-        }
-
-        else
-        {
-          result = v13;
-        }
-
-        if (v16)
-        {
-          v4 = v14;
-        }
-
-        ++v13;
-        --v11;
-      }
-
-      while (v11);
-      a1 += v9;
-      v3 = v10 + v9;
-    }
-
-    else
-    {
-      v3 += v7;
-    }
-  }
-
-  while (a1 < v6);
-  return result;
-}
-
-uint64_t HintBinaryLookup8(uint64_t a1, signed int a2, unint64_t *a3)
-{
-  if (a2 >= 1)
-  {
-    v3 = 0;
-    v4 = bswap64(*a3);
-    do
-    {
-      v5 = (v3 + a2) >> 1;
-      v6 = bswap64(*(a1 + 20 * v5));
-      v7 = v6 >= v4;
-      v8 = v6 > v4;
-      v9 = !v7;
-      v10 = v8 - v9;
-      if (v10 < 0)
-      {
-        v3 = v5 + 1;
-      }
-
-      else
-      {
-        a2 = (v3 + a2) >> 1;
-        if (!v10)
-        {
-          return v5;
-        }
-      }
-    }
-
-    while (v3 < a2);
-  }
-
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t HintBinaryLookup4(uint64_t a1, signed int a2, unsigned int *a3)
-{
-  if (a2 >= 1)
-  {
-    v3 = 0;
-    v4 = bswap32(*a3);
-    do
-    {
-      v5 = (v3 + a2) >> 1;
-      v6 = bswap32(*(a1 + 20 * v5));
-      v7 = v6 >= v4;
-      v8 = v6 > v4;
-      v9 = !v7;
-      v10 = v8 - v9;
-      if (v10 < 0)
-      {
-        v3 = v5 + 1;
-      }
-
-      else
-      {
-        a2 = (v3 + a2) >> 1;
-        if (!v10)
-        {
-          return v5;
-        }
-      }
-    }
-
-    while (v3 < a2);
-  }
-
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t ApplyTldHint(char *__s, int a2, uint64_t a3)
-{
-  if (*__s == 126)
-  {
-    return 0;
-  }
-
-  memset(v17, 170, sizeof(v17));
-  std::string::basic_string[abi:ne200100]<0>(__p, __s);
-  MakeChar4(__p, v17);
-  if (v16 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v17[2]) >= 0)
-  {
-    v7 = v17;
-  }
-
-  else
-  {
-    v7 = v17[0];
-  }
-
-  v8 = HintBinaryLookup4(kTLDHintProbs, 247, v7);
-  if (v8 < 0)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v9 = ApplyCompressedProb(&kTLDHintProbs[20 * v8 + 4], 16, a2, a3);
-    if (v9)
-    {
-      v10 = v9;
-    }
-
-    else
-    {
-      v10 = 4;
-    }
-
-    *(a3 + 48) = v10;
-    v11 = *(a3 + 32);
-    if (v11)
-    {
-      v12 = *(a3 + 40);
-      v13 = v11 + 304 * v12;
-      *v13 = 0;
-      *(v13 + 4) = v10;
-      std::string::__assign_external((v13 + 8), __s);
-      memcpy((*(a3 + 32) + 304 * v12 + 32), (a3 + 532), 0x10CuLL);
-      ++*(a3 + 40);
-    }
 
     v3 = 1;
   }
 
-  if (SHIBYTE(v17[2]) < 0)
-  {
-    operator delete(v17[0]);
-  }
-
-  return v3;
-}
-
-void sub_1B0A84338(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t ApplyCharsetHint(char *__s, int a2, uint64_t a3)
-{
-  if (*__s == 126)
-  {
-    return 0;
-  }
-
-  memset(&__str, 170, sizeof(__str));
-  std::string::basic_string[abi:ne200100]<0>(&__p, __s);
-  MakeChar44(&__p, &__str);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    p_str = &__str;
-  }
-
   else
   {
-    p_str = __str.__r_.__value_.__r.__words[0];
-  }
+    if (!a3)
+    {
+      return result;
+    }
 
-  v8 = HintBinaryLookup8(kCharsetHintProbs, 438, p_str);
-  if (v8 < 0)
-  {
     v3 = 0;
-    goto LABEL_61;
   }
 
-  v9 = ApplyCompressedProb(&kCharsetHintProbs[20 * v8 + 8], 12, a2, a3);
-  if (v9)
-  {
-    v10 = v9;
-  }
-
-  else
-  {
-    v10 = 4;
-  }
-
-  *(a3 + 48) = v10;
-  if (*(a3 + 204) == 23 && *(a3 + 208) == 23)
-  {
-    v11 = 604;
-    switch(v9)
-    {
-      case 9u:
-        v12 = 12;
-        goto LABEL_34;
-      case 0xAu:
-        *(a3 + 52) = 0;
-        v11 = 572;
-        goto LABEL_43;
-      case 0xBu:
-        v15 = 34;
-        goto LABEL_32;
-      case 0xCu:
-        v12 = 9;
-LABEL_34:
-        *(a3 + 52) = v12;
-        *(a3 + 568) += 120;
-        v11 = 580;
-        goto LABEL_43;
-      case 0xDu:
-        *(a3 + 52) = 0;
-        v11 = 584;
-        goto LABEL_43;
-      case 0xEu:
-        v16 = 28;
-        goto LABEL_41;
-      case 0xFu:
-        *(a3 + 52) = 0;
-        v11 = 592;
-        goto LABEL_43;
-      case 0x10u:
-        v17 = 29;
-        goto LABEL_39;
-      case 0x11u:
-        v13 = 25;
-        goto LABEL_36;
-      case 0x12u:
-        goto LABEL_43;
-      case 0x14u:
-        v14 = 23;
-        goto LABEL_22;
-      case 0x16u:
-        *(a3 + 52) = 0;
-        v11 = 620;
-        goto LABEL_43;
-      case 0x17u:
-        v14 = 20;
-LABEL_22:
-        *(a3 + 52) = v14;
-        *(a3 + 612) += 120;
-        v11 = 624;
-        goto LABEL_43;
-      case 0x19u:
-        v13 = 17;
-LABEL_36:
-        *(a3 + 52) = v13;
-        *(a3 + 632) += 120;
-        v11 = 600;
-        goto LABEL_43;
-      case 0x1Au:
-        v11 = 636;
-        goto LABEL_43;
-      case 0x1Bu:
-        *(a3 + 52) = 0;
-        v11 = 640;
-        goto LABEL_43;
-      case 0x1Cu:
-        v16 = 14;
-LABEL_41:
-        *(a3 + 52) = v16;
-        *(a3 + 588) += 120;
-        v11 = 644;
-        goto LABEL_43;
-      case 0x1Du:
-        v17 = 16;
-LABEL_39:
-        *(a3 + 52) = v17;
-        *(a3 + 648) += 120;
-        v11 = 596;
-        goto LABEL_43;
-      case 0x1Eu:
-        *(a3 + 52) = 0;
-        v11 = 652;
-        goto LABEL_43;
-      case 0x22u:
-        v15 = 11;
-LABEL_32:
-        *(a3 + 52) = v15;
-        *(a3 + 668) += 120;
-        v11 = 576;
-        goto LABEL_43;
-      case 0x26u:
-        *(a3 + 52) = 0;
-        v11 = 684;
-        goto LABEL_43;
-      case 0x2Bu:
-        *(a3 + 52) = 0;
-        v11 = 704;
-LABEL_43:
-        *(a3 + v11) += 120;
-        break;
-      default:
-        break;
-    }
-  }
-
-  v18 = *(a3 + 32);
-  if (v18)
-  {
-    v19 = *(a3 + 40);
-    v20 = v18 + 304 * v19;
-    *v20 = 0;
-    *(v20 + 4) = v10;
-    std::string::__assign_external((v20 + 8), __s);
-    memcpy((*(a3 + 32) + 304 * v19 + 32), (a3 + 532), 0x10CuLL);
-    ++*(a3 + 40);
-  }
-
-  if (v10 > 4 || ((1 << v10) & 0x16) == 0)
-  {
-    *(a3 + 768) -= 2400;
-  }
-
-  std::string::basic_string(&__p, &__str, 0, 4uLL, &v26);
-  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-  {
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) != 4 || LODWORD(__p.__r_.__value_.__l.__data_) != 1919251317)
-    {
-      goto LABEL_60;
-    }
-
-LABEL_58:
-    *(a3 + 764) += 7200;
-    goto LABEL_60;
-  }
-
-  if (__p.__r_.__value_.__l.__size_ != 4)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-    goto LABEL_60;
-  }
-
-  v22 = *__p.__r_.__value_.__l.__data_;
-  operator delete(__p.__r_.__value_.__l.__data_);
-  if (v22 == 1919251317)
-  {
-    goto LABEL_58;
-  }
-
-LABEL_60:
-  v3 = 1;
-LABEL_61:
-  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__str.__r_.__value_.__l.__data_);
-  }
-
-  return v3;
-}
-
-void sub_1B0A846E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t ApplyEncodingHint(int a1, int a2, uint64_t a3)
-{
-  v5 = 0;
-  v6 = a1 ^ (a1 >> 31);
-  while (kMapToEncoding[v5] != v6)
-  {
-    if (++v5 == 67)
-    {
-      v5 = -1;
-      break;
-    }
-  }
-
-  if (a1 >= 0)
-  {
-    v7 = 6 * a2;
-  }
-
-  else
-  {
-    v7 = -6 * a2;
-  }
-
-  *(a3 + 532 + 4 * v5) += v7;
-  if (*(a3 + 32))
-  {
-    v8 = MyEncodingName(v6);
-    v9 = *(a3 + 40);
-    v10 = *(a3 + 32) + 304 * v9;
-    *v10 = 0xFFFFFFFF00000000;
-    std::string::__assign_external((v10 + 8), v8);
-    memcpy((*(a3 + 32) + 304 * v9 + 32), (a3 + 532), 0x10CuLL);
-    ++*(a3 + 40);
-  }
-
-  return 1;
-}
-
-uint64_t ApplyUILanguageHint(unsigned int a1, int a2, uint64_t a3)
-{
-  if (a1 == 26)
-  {
-    return 0;
-  }
-
-  memset(v21, 170, sizeof(v21));
-  v6 = LanguageName(a1);
-  std::string::basic_string[abi:ne200100]<0>(__p, v6);
-  MakeChar8(__p, v21);
-  if (v20 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v7 = HIBYTE(v21[2]);
-  if (SHIBYTE(v21[2]) >= 0)
-  {
-    v8 = v21;
-  }
-
-  else
-  {
-    v8 = v21[0];
-  }
-
-  v9 = HintBinaryLookup8(kLangHintProbs, 151, v8);
-  if (v9 < 0)
-  {
-    v3 = 0;
-    if ((v7 & 0x80) == 0)
-    {
-      return v3;
-    }
-
-    goto LABEL_19;
-  }
-
-  v10 = ApplyCompressedProb(&kLangHintProbs[20 * v9 + 8], 12, a2, a3);
-  if (v10)
-  {
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = 4;
-  }
-
-  *(a3 + 48) = v11;
-  v12 = *(a3 + 32);
-  v13 = SHIBYTE(v21[2]);
-  if (!v12)
-  {
-    v3 = 1;
-    if ((SHIBYTE(v21[2]) & 0x80) == 0)
-    {
-      return v3;
-    }
-
-    goto LABEL_19;
-  }
-
-  v14 = v21[0];
-  v15 = *(a3 + 40);
-  v16 = v12 + 304 * v15;
-  *v16 = 0;
-  *(v16 + 4) = v11;
-  if (v13 >= 0)
-  {
-    v17 = v21;
-  }
-
-  else
-  {
-    v17 = v14;
-  }
-
-  std::string::__assign_external((v16 + 8), v17);
-  memcpy((*(a3 + 32) + 304 * v15 + 32), (a3 + 532), 0x10CuLL);
-  ++*(a3 + 40);
-  v3 = 1;
-  if ((HIBYTE(v21[2]) & 0x80) != 0)
-  {
-LABEL_19:
-    operator delete(v21[0]);
-  }
-
-  return v3;
-}
-
-void sub_1B0A84940(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t ApplyDefaultHint(unsigned int a1, uint64_t a2)
-{
-  v3 = 0;
-  v4 = (a2 + 532);
-  do
-  {
-    v5 = 3 * kDefaultProb[v3];
-    if (kSpecialMask[kMapToEncoding[v3]])
-    {
-      v5 = 0;
-    }
-
-    *(v4 + v3++) = v5;
-  }
-
-  while (v3 != 67);
-  if (a1 < 2)
-  {
-    *(a2 + 768) = *(a2 + 540) - 60;
-  }
-
-  if (FLAGS_demo_nodefault == 1)
-  {
-    *(v4 + 252) = 0u;
-    v4[14] = 0u;
-    v4[15] = 0u;
-    v4[12] = 0u;
-    v4[13] = 0u;
-    v4[10] = 0u;
-    v4[11] = 0u;
-    v4[8] = 0u;
-    v4[9] = 0u;
-    v4[6] = 0u;
-    v4[7] = 0u;
-    v4[4] = 0u;
-    v4[5] = 0u;
-    v4[2] = 0u;
-    v4[3] = 0u;
-    *v4 = 0u;
-    v4[1] = 0u;
-  }
-
-  v6 = *(a2 + 32);
-  if (v6)
-  {
-    v7 = *(a2 + 40);
-    v8 = v6 + 304 * v7;
-    *v8 = 0xFFFFFFFF00000000;
-    v9 = (v8 + 8);
-    if (*(v8 + 31) < 0)
-    {
-      *(v8 + 16) = 7;
-      v9 = *v9;
-    }
-
-    else
-    {
-      *(v8 + 31) = 7;
-    }
-
-    strcpy(v9, "Default");
-    memcpy((*(a2 + 32) + 304 * v7 + 32), v4, 0x10CuLL);
-    ++*(a2 + 40);
-  }
-
-  return 1;
-}
-
-const char *MyMemrchr(const char *a1, unsigned __int8 a2, uint64_t a3)
-{
-  v3 = &a1[a3 - 1];
-  while (v3 >= a1)
-  {
-    v4 = *v3--;
-    if (v4 == a2)
-    {
-      return v3 + 1;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t ExtractTLD(char *a1, char *__dst, int a3, const char **a4, int *a5)
-{
-  v10 = a3;
-  result = strncpy(__dst, "~", a3);
-  v12 = v10 - 1;
-  __dst[v10 - 1] = 0;
-  *a4 = 0;
-  *a5 = 0;
-  if (a1)
-  {
-    result = strlen(a1);
-    v13 = result;
-    if (result)
-    {
-      if (result < 11)
-      {
-        result = strncpy(__dst, a1, v10);
-        __dst[v12] = 0;
-      }
-
-      else
-      {
-        result = strchr(a1, 47);
-        if (result)
-        {
-          v14 = result;
-          if (result != a1 && *(result - 1) == 58 && *(result + 1) == 47)
-          {
-            v15 = result - a1;
-            if (result == a1)
-            {
-LABEL_11:
-              v16 = (result + 2);
-              v17 = strchr((result + 2), 47);
-              v18 = &a1[v13 & 0x7FFFFFFF];
-              if (v17)
-              {
-                v18 = v17;
-              }
-
-              v19 = v18 - v16;
-              result = memchr((v14 + 2), 58, v18 - v16);
-              if (result)
-              {
-                v19 = result - v16;
-              }
-
-              v20 = v19 + 2;
-              v21 = (v19 + v14 + 3);
-              v22 = -1;
-              while (v20 >= 3)
-              {
-                --v20;
-                v23 = *(v21 - 2);
-                --v21;
-                ++v22;
-                if (v23 == 46)
-                {
-                  if (v22 >= a3)
-                  {
-                    v24 = v12;
-                  }
-
-                  else
-                  {
-                    v24 = v22;
-                  }
-
-                  result = memcpy(__dst, v21, v24);
-                  __dst[v24] = 0;
-                  break;
-                }
-              }
-
-              *a4 = v16;
-              *a5 = v19;
-            }
-
-            else
-            {
-              while (a1[v15 - 1] != 46)
-              {
-                if (!--v15)
-                {
-                  goto LABEL_11;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
+  *(result + 5) = v3;
   return result;
 }
 
-void *ApplyHints(char *a1, char *a2, char *a3, int a4, unsigned int a5, unsigned int a6, uint64_t a7)
+uint64_t sub_1B0ADF2A4(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  memset(__dst, 170, sizeof(__dst));
-  ExtractTLD(a1, __dst, 16, &v37, &v36);
-  *(a7 + 48) = 4;
+  if (*(a1 + 4))
+  {
+    return (*a1 + 1);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_1B0ADF2C0(uint64_t result, int a2)
+{
   if (a2)
   {
-    LODWORD(v15) = 4;
-    if (*a2 == 126)
-    {
-      LODWORD(a2) = 0;
-    }
-
-    else
-    {
-      *(a7 + 52) = 4;
-      LODWORD(a2) = ApplyCharsetHint(a2, 100, a7);
-      v15 = *(a7 + 48);
-      *(a7 + 204) = kMapToEncoding[v15];
-      if (v15 == 4 || v15 == 1)
-      {
-        *(a7 + 64) = 1;
-      }
-    }
+    *result = a2 - 1;
+    *(result + 4) = 1;
   }
 
   else
   {
-    LODWORD(v15) = 4;
+    *(result + 4) = 0;
   }
 
-  if (a3)
-  {
-    if (*a3 != 126)
-    {
-      *(a7 + 52) = v15;
-      LODWORD(a2) = ApplyCharsetHint(a3, 100, a7) + a2;
-      v16 = *(a7 + 48);
-      LODWORD(v15) = *(a7 + 48);
-      *(a7 + 208) = kMapToEncoding[v16];
-      if (v16 == 4 || v15 == 1)
-      {
-        *(a7 + 64) = 1;
-      }
-    }
-  }
-
-  if (a4 != 23)
-  {
-    *(a7 + 52) = v15;
-    ApplyEncodingHint(a4, 50, a7);
-    LODWORD(a2) = a2 + 1;
-  }
-
-  if (a5 != 26)
-  {
-    *(a7 + 52) = *(a7 + 48);
-    LODWORD(a2) = ApplyUILanguageHint(a5, 50, a7) + a2;
-  }
-
-  if (a1)
-  {
-    *(a7 + 200) = CompactEncDet::TopEncodingOfTLDHint(__dst, v14);
-    if (a2 == 1)
-    {
-      if (*__dst != 7171939)
-      {
-        *(a7 + 52) = *(a7 + 48);
-        ApplyTldHint(__dst, 50, a7);
-        v19 = *(a7 + 48);
-        if (v19 == 4 || v19 == 1)
-        {
-          *(a7 + 64) = 1;
-        }
-      }
-
-      goto LABEL_31;
-    }
-
-    if (a2)
-    {
-      goto LABEL_31;
-    }
-
-    *(a7 + 52) = *(a7 + 48);
-    v17 = ApplyTldHint(__dst, 100, a7);
-    LODWORD(a2) = v17;
-    v18 = *(a7 + 48);
-    if (v18 == 4 || v18 == 1)
-    {
-      *(a7 + 64) = 1;
-    }
-
-    if (!(*__dst ^ 0x7568 | __dst[2]))
-    {
-      *(a7 + 64) = 1;
-      if (v17)
-      {
-        goto LABEL_31;
-      }
-
-      goto LABEL_25;
-    }
-  }
-
-  if (!a2)
-  {
-LABEL_25:
-    *(a7 + 64) = 1;
-    *(a7 + 52) = *(a7 + 48);
-    ApplyDefaultHint(a6, a7);
-  }
-
-LABEL_31:
-  *(a7 + 628) = *(a7 + 556) - 60;
-  v20 = *(a7 + 544) - 60;
-  *(a7 + 608) = v20;
-  *(a7 + 660) = v20;
-  v21 = *(a7 + 564);
-  *(a7 + 564) = v21 - 60;
-  *(a7 + 672) = v21 - 120;
-  v22 = *(a7 + 32);
-  if (v22)
-  {
-    v23 = *(a7 + 40);
-    v24 = v22 + 304 * v23;
-    *v24 = 0xFFFFFFFF00000000;
-    v25 = (v24 + 8);
-    if (*(v24 + 31) < 0)
-    {
-      *(v24 + 16) = 8;
-      v25 = *v25;
-    }
-
-    else
-    {
-      *(v24 + 31) = 8;
-    }
-
-    strcpy(v25, "Endhints");
-    memcpy((*(a7 + 32) + 304 * v23 + 32), (a7 + 532), 0x10CuLL);
-    v26 = *(a7 + 40) + 1;
-    *(a7 + 40) = v26;
-    if (FLAGS_enc_detect_detail2 == 1)
-    {
-      v27 = watch1_rankedenc;
-      if ((watch1_rankedenc & 0x80000000) == 0)
-      {
-        v28 = *(a7 + 32) + 304 * v26;
-        *v28 = 0;
-        *(v28 + 4) = v27;
-        v29 = (v28 + 8);
-        if (*(v28 + 31) < 0)
-        {
-          *(v28 + 16) = 0;
-          v29 = *v29;
-        }
-
-        else
-        {
-          *(v28 + 31) = 0;
-        }
-
-        *v29 = 0;
-        memcpy((*(a7 + 32) + 304 * v26 + 32), (a7 + 532), 0x10CuLL);
-        LODWORD(v26) = *(a7 + 40) + 1;
-        *(a7 + 40) = v26;
-      }
-
-      v30 = watch2_rankedenc;
-      if ((watch2_rankedenc & 0x80000000) == 0)
-      {
-        v31 = v26;
-        v32 = *(a7 + 32) + 304 * v26;
-        *v32 = 0;
-        *(v32 + 4) = v30;
-        v33 = (v32 + 8);
-        if (*(v32 + 31) < 0)
-        {
-          *(v32 + 16) = 0;
-          v33 = *v33;
-        }
-
-        else
-        {
-          *(v32 + 31) = 0;
-        }
-
-        *v33 = 0;
-        memcpy((*(a7 + 32) + 304 * v31 + 32), (a7 + 532), 0x10CuLL);
-        ++*(a7 + 40);
-      }
-    }
-  }
-
-  if (*(a7 + 48) == *(a7 + 52))
-  {
-    *(a7 + 52) = 0;
-  }
-
-  if (FLAGS_force127 == 1)
-  {
-    *(a7 + 65) = FLAGS_force127;
-    if (FLAGS_enc_detect_source == 1)
-    {
-      PsHighlight(0, *a7, 0, 2);
-    }
-  }
-
-  if (FLAGS_counts == 1)
-  {
-    if (*(a7 + 64) == 1)
-    {
-      ++looking_used;
-    }
-
-    if (*(a7 + 65) == 1)
-    {
-      ++doing_used;
-    }
-  }
-
-  result = memcpy((a7 + 800), (a7 + 532), 0x10CuLL);
-  v35 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t CompactEncDet::TopEncodingOfTLDHint(CompactEncDet *this, const char *a2)
+unint64_t sub_1B0ADF2F4(uint64_t a1, uint64_t a2)
 {
-  memset(v10, 170, sizeof(v10));
-  std::string::basic_string[abi:ne200100]<0>(__p, this);
-  MakeChar4(__p, v10);
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v2 = SHIBYTE(v10[2]);
-  v3 = v10[0];
-  if (v10[2] >= 0)
-  {
-    v4 = v10;
-  }
-
-  else
-  {
-    v4 = v10[0];
-  }
-
-  v5 = HintBinaryLookup4(kTLDHintProbs, 247, v4);
-  if (v5 < 0)
-  {
-    v6 = 23;
-    if ((v2 & 0x80000000) == 0)
-    {
-      return v6;
-    }
-
-    goto LABEL_8;
-  }
-
-  v6 = kMapToEncoding[TopCompressedProb(&kTLDHintProbs[20 * v5 + 4], 16)];
-  if (v2 < 0)
-  {
-LABEL_8:
-    operator delete(v3);
-  }
-
-  return v6;
-}
-
-void sub_1B0A851FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-unsigned __int8 *InitialBytesBoost(unsigned __int8 *result, int a2, uint64_t a3)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  if (a2 < 4)
-  {
-    goto LABEL_30;
-  }
-
-  v4 = *result;
-  v5 = result[1];
-  v6 = v5 | (v4 << 8);
-  v7 = result[3] | (result[2] << 8);
-  v8 = (result[2] << 8) | (v6 << 16);
-  if (v8 != -272908544)
-  {
-    v12 = _byteswap_ushort(*(result + 1)) | (v6 << 16);
-    if (v12 == -131072)
-    {
-      *(a3 + 212) = 60;
-      v9 = 57;
-      v10 = 1200;
-LABEL_9:
-      v11 = 760;
-      goto LABEL_16;
-    }
-
-    if (v12 == 65279)
-    {
-      *(a3 + 212) = 59;
-      v9 = 56;
-      v10 = 1200;
-LABEL_7:
-      v11 = 756;
-      goto LABEL_16;
-    }
-
-    if (v6 == 65534)
-    {
-      *(a3 + 212) = 58;
-      v9 = 39;
-      v10 = 1800;
-LABEL_15:
-      v11 = 688;
-      goto LABEL_16;
-    }
-
-    if (v6 == 65279)
-    {
-      *(a3 + 212) = 57;
-      v9 = 37;
-      v10 = 1800;
-LABEL_13:
-      v11 = 680;
-      goto LABEL_16;
-    }
-
-    if (!v8 && kIsPrintableAscii[result[3]])
-    {
-      *(a3 + 756) += 600;
-      v9 = 56;
-      v10 = -600;
-      goto LABEL_9;
-    }
-
-    if ((v12 & 0xFFFFFF) == 0 && kIsPrintableAscii[v4])
-    {
-      *(a3 + 760) += 600;
-      v9 = 57;
-      v10 = -600;
-      goto LABEL_7;
-    }
-
-    if (!*result && kIsPrintableAscii[v5])
-    {
-      v9 = 37;
-      v10 = 600;
-      goto LABEL_13;
-    }
-
-    if (!result[1] && kIsPrintableAscii[v4])
-    {
-      v9 = 39;
-      v10 = 600;
-      goto LABEL_15;
-    }
-
-    if (v12 == -1 || !v12)
-    {
-      v10 = -600;
-      *(a3 + 756) = vadd_s32(*(a3 + 756), vdup_n_s32(0xFFFFFDA8));
-      *(a3 + 680) -= 600;
-      v9 = -1;
-      goto LABEL_15;
-    }
-
-    if (v6 == 0xFFFF || !v6)
-    {
-      *(a3 + 680) -= 600;
-      v9 = -1;
-      v10 = -600;
-      goto LABEL_15;
-    }
-
-    v9 = -1;
-    if (v8 == -2556160)
-    {
-      goto LABEL_53;
-    }
-
-    v10 = 7200;
-    v11 = 764;
-    switch(v12)
-    {
-      case -1991225785:
-        goto LABEL_16;
-      case 1195984440:
-        goto LABEL_16;
-      case 1347093252:
-        goto LABEL_16;
-    }
-
-    v11 = 764;
-    if (v8 == 529205248)
-    {
-      goto LABEL_16;
-    }
-
-    if (v6 == 30938)
-    {
-      goto LABEL_16;
-    }
-
-    if (v12 == 626017350)
-    {
-      goto LABEL_16;
-    }
-
-    v11 = 764;
-    if ((_byteswap_ushort(*(result + 1)) & 0xFF1F | (v6 << 16)) == 0x63535700 || (_byteswap_ushort(*(result + 1)) & 0xFF1F | (v6 << 16)) == 0x66535700)
-    {
-      goto LABEL_16;
-    }
-
-    v11 = 764;
-    if (v12 <= 1213681695)
-    {
-      if (v12 > 943870034)
-      {
-        if (v12 == 943870035)
-        {
-          goto LABEL_16;
-        }
-
-        v21 = 1128485700;
-      }
-
-      else
-      {
-        if (v12 == 23487344)
-        {
-          goto LABEL_16;
-        }
-
-        v21 = 704662861;
-      }
-
-      goto LABEL_75;
-    }
-
-    if (v12 <= 1346655070)
-    {
-      if (v12 != 1213681696)
-      {
-        v21 = 1296891946;
-        goto LABEL_75;
-      }
-
-      if (a2 < 0x13)
-      {
-        goto LABEL_99;
-      }
-
-      v23 = *result == 0x75636F442E505748 && *(result + 1) == 0x6C69462E746E656DLL;
-      if (!v23 || *(result + 11) != 0x562E656C69462E74)
-      {
-        v25 = *result == 0x75636F4420505748 && *(result + 1) == 0x6C694620746E656DLL;
-        if (!v25 || *(result + 11) != 0x5620656C69462074)
-        {
-          goto LABEL_99;
-        }
-      }
-    }
-
-    else
-    {
-      if (v12 != 1346655071)
-      {
-        if (v12 == 1397312848)
-        {
-          goto LABEL_16;
-        }
-
-        v21 = 2135247942;
-LABEL_75:
-        if (v12 != v21)
-        {
-          goto LABEL_17;
-        }
-
-        goto LABEL_16;
-      }
-
-      if (a2 < 0xE || (*result == 0x535245565F534450 ? (v22 = *(result + 6) == 0x44495F4E4F495352) : (v22 = 0), !v22))
-      {
-LABEL_99:
-        v10 = 2400;
-        goto LABEL_54;
-      }
-    }
-
-LABEL_53:
-    v10 = 7200;
-LABEL_54:
-    v11 = 764;
-    goto LABEL_16;
-  }
-
-  *(a3 + 212) = 22;
-  *(a3 + 540) += 1200;
-  v9 = 2;
-  v10 = 1200;
-  v11 = 768;
-LABEL_16:
-  *(a3 + v11) += v10;
-LABEL_17:
-  v13 = *(a3 + 680);
-  v14 = v13 > 0 || *(a3 + 688) >= 1;
-  v15 = *(a3 + 756);
-  if (v15 <= 0 && *(a3 + 760) < 1)
-  {
-    v16 = 0;
-    if (v14)
-    {
-      goto LABEL_24;
-    }
-
-    goto LABEL_23;
-  }
-
-  v16 = 1;
-  if (!v14)
-  {
-LABEL_23:
-    *(a3 + 680) = v13 - 4800;
-    *(a3 + 688) -= 9600;
-  }
-
-LABEL_24:
-  if ((v16 & 1) == 0)
-  {
-    *(a3 + 756) = v15 - 4800;
-    *(a3 + 760) -= 4800;
-  }
-
-  if ((FLAGS_ced_allow_utf8utf8 & 1) == 0)
-  {
-    *(a3 + 768) -= 4800;
-  }
-
-  *(a3 + 796) -= 4800;
-  if (*(a3 + 32))
-  {
-    memset(__str, 170, sizeof(__str));
-    snprintf(__str, 0x10uLL, "%04x%04x", v6, v7);
-    v18 = *(a3 + 40);
-    v17 = (a3 + 40);
-    v19 = *(v17 - 1) + 304 * v18;
-    *v19 = 0;
-    *(v19 + 4) = v9;
-    std::string::__assign_external((v19 + 8), __str);
-    result = memcpy((*(v17 - 1) + 304 * v18 + 32), v17 + 123, 0x10CuLL);
-    ++*v17;
-  }
-
-LABEL_30:
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t IntCompare(_DWORD *a1, _DWORD *a2)
-{
-  if (*a1 <= *a2)
-  {
-    v2 = 0;
-  }
-
-  else
-  {
-    v2 = -1;
-  }
-
-  if (*a1 < *a2)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return v2;
-  }
-}
-
-uint64_t Base64ScanLen(const unsigned __int8 *a1, const unsigned __int8 *a2)
-{
-  if (a2 - a1 >= 4 && *a1 == 43 && a1[1] == 43 && a1[2] == 43)
-  {
-    return 81;
-  }
-
-  v3 = a1;
-  do
-  {
-    if (v3 >= a2)
-    {
-      break;
-    }
-
-    v4 = *v3++;
-  }
-
-  while ((kBase64Value[v4] & 0x80000000) == 0);
-  return (~a1 + v3);
-}
-
-BOOL GoodUnicodeFromBase64(const unsigned __int8 *a1, const unsigned __int8 *a2)
-{
-  v2 = a2 - a1;
-  if (a2 <= a1)
-  {
-    v6 = 0;
-    v5 = 0;
-    v4 = 0;
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = 0;
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
-    v7 = a1;
-    do
-    {
-      v9 = *v7++;
-      v8 = v9;
-      v10 = v9 - 97;
-      v11 = v9 - 65;
-      if (v9 == 48)
-      {
-        v12 = v6 + 1;
-      }
-
-      else
-      {
-        v12 = v6;
-      }
-
-      v13 = v8 == 43;
-      if (v8 == 43)
-      {
-        v14 = v6;
-      }
-
-      else
-      {
-        v14 = v12;
-      }
-
-      if (v13)
-      {
-        v15 = v3 + 1;
-      }
-
-      else
-      {
-        v15 = v3;
-      }
-
-      v16 = v11 > 0x19;
-      if (v11 > 0x19)
-      {
-        v17 = v5;
-      }
-
-      else
-      {
-        v14 = v6;
-        v17 = v5 + 1;
-      }
-
-      if (!v16)
-      {
-        v15 = v3;
-      }
-
-      if (v10 <= 0x19)
-      {
-        ++v4;
-      }
-
-      else
-      {
-        v6 = v14;
-        v5 = v17;
-        v3 = v15;
-      }
-    }
-
-    while (v7 != a2);
-  }
-
-  v18 = v2 >> 4;
-  if (v3 > (v2 >> 4) + 1 || v4 <= v18 || v5 <= v18 || v6 <= v2 >> 5)
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  v4 = *(a1 + 24);
+  v5 = *(a2 + 8);
+  v6 = *(a2 + 16);
+  v7 = *(a2 + 24);
+  if (!sub_1B0B63BF8(*a1, *a2))
   {
     return 0;
   }
 
-  v23 = v2 & 7;
-  v24 = a1[v2 - 1];
-  if (v23 != 6)
+  sub_1B0B72F70(v2, v5);
+  if (v8 & 1) == 0 || ((v3 ^ v6))
   {
-    return v23 != 3 || (kBase64Value[v24] & 3) == 0;
+    return 0;
   }
 
-  return (kBase64Value[v24] & 0xF) == 0;
+  return sub_1B0B732C0(v4, v7);
 }
 
-uint64_t UTF7BoostWhack(uint64_t result, int a2, int a3)
+uint64_t sub_1B0ADF390(uint64_t a1, uint64_t a2)
 {
-  v3 = *(result + 4 * a2 + 1544);
-  if (v3 >= *(result + 88))
+  v2 = *(a1 + 144);
+  v24[8] = *(a1 + 128);
+  v24[9] = v2;
+  v3 = *(a1 + 176);
+  v24[10] = *(a1 + 160);
+  v4 = *(a1 + 80);
+  v24[4] = *(a1 + 64);
+  v24[5] = v4;
+  v5 = *(a1 + 112);
+  v24[6] = *(a1 + 96);
+  v24[7] = v5;
+  v6 = *(a1 + 16);
+  v24[0] = *a1;
+  v24[1] = v6;
+  v7 = *(a1 + 48);
+  v24[2] = *(a1 + 32);
+  v24[3] = v7;
+  v8 = *(a1 + 192);
+  v9 = *(a1 + 224);
+  v20[2] = *(a1 + 208);
+  v20[3] = v9;
+  v20[0] = v3;
+  v20[1] = v8;
+  v10 = *(a2 + 144);
+  v25[8] = *(a2 + 128);
+  v25[9] = v10;
+  v11 = *(a2 + 176);
+  v25[10] = *(a2 + 160);
+  v12 = *(a2 + 80);
+  v25[4] = *(a2 + 64);
+  v25[5] = v12;
+  v13 = *(a2 + 112);
+  v25[6] = *(a2 + 96);
+  v25[7] = v13;
+  v14 = *(a2 + 16);
+  v25[0] = *a2;
+  v25[1] = v14;
+  v15 = *(a2 + 48);
+  v25[2] = *(a2 + 32);
+  v25[3] = v15;
+  v16 = *(a2 + 192);
+  v17 = *(a2 + 224);
+  v22[2] = *(a2 + 208);
+  v22[3] = v17;
+  v21 = *(a1 + 240);
+  v23 = *(a2 + 240);
+  v22[0] = v11;
+  v22[1] = v16;
+  if (sub_1B03B5F54(v24, v25))
   {
-    v4 = result;
-    ++*(result + 84);
-    if (a3 != 45)
-    {
-      if ((a3 - 48) >= 0xA && ((a3 & 0xDF) - 65) >= 0x1Au && ((a3 - 43) & 0xFB) != 0)
-      {
-LABEL_6:
-        v5 = *(v4 + 708);
-LABEL_7:
-        *(v4 + 708) = v5 - 600;
-        return result;
-      }
-
-      v6 = (*result + v3 + 1);
-      result = Base64ScanLen(v6, *(result + 8));
-      if (result != 3 && result != 6)
-      {
-        v8 = result;
-        if ((result & 7) == 7 || ((1 << (result & 7)) & 0x49) == 0)
-        {
-          goto LABEL_6;
-        }
-
-        result = GoodUnicodeFromBase64(v6, &v6[result]);
-        v5 = *(v4 + 708);
-        if (!result)
-        {
-          goto LABEL_7;
-        }
-
-        *(v4 + 708) = v5 + 600;
-        *(v4 + 88) = v3 + v8 + 1;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t HzBoostWhack(uint64_t result, int a2)
-{
-  v2 = 600;
-  if (a2 > 124)
-  {
-    if (a2 == 125)
-    {
-      goto LABEL_9;
-    }
-
-    if (a2 != 126)
-    {
-LABEL_8:
-      v2 = -600;
-      goto LABEL_9;
-    }
-  }
-
-  else if (a2 != 10)
-  {
-    if (a2 != 123)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_9:
-    *(result + 692) += v2;
-  }
-
-  return result;
-}
-
-_DWORD *BinaryBoostWhack(_DWORD *result, unsigned int a2, unsigned int a3)
-{
-  v3 = 1 << ((a2 >> 6) & 2 | (a3 >> 7));
-  v4 = 1 << ((a2 >> 3) & 0x1C | (a3 >> 6));
-  v5 = result[19];
-  if ((v5 & v3) == 0)
-  {
-    result[19] = v5 | v3;
-    v6 = result[17] + 1;
-    result[17] = v6;
-    if (v6 == 4)
-    {
-      result[191] += 1200;
-    }
-  }
-
-  v7 = result[20];
-  if ((v7 & v4) == 0)
-  {
-    result[20] = v7 | v4;
-    v8 = result[18];
-    result[18] = v8 + 1;
-    if (v8 >= 10)
-    {
-      result[191] += 2400;
-    }
-  }
-
-  return result;
-}
-
-uint64_t UTF1632BoostWhack(uint64_t result, char a2, int a3)
-{
-  if (a3)
-  {
-    v3 = -600;
-    *(result + 756) = vadd_s32(*(result + 756), vdup_n_s32(0xFFFFFDA8));
-    v4 = 688;
-    v5 = 680;
+    v18 = static RemoteMailbox.__derived_struct_equals(_:_:)(v20, v22);
   }
 
   else
   {
-    *(result + 680) -= 600;
-    *(result + 688) -= 600;
-    if ((a2 & 3u) - 1 >= 2)
-    {
-      if ((a2 & 3) != 0)
-      {
-        return result;
-      }
-
-      v3 = 60;
-      v4 = 756;
-      v5 = 760;
-    }
-
-    else
-    {
-      v3 = 60;
-      v4 = 760;
-      v5 = 756;
-    }
+    v18 = 0;
   }
 
-  *(result + v5) -= 600;
-  *(result + v4) += v3;
+  return v18 & 1;
+}
+
+__n128 sub_1B0ADF46C@<Q0>(__n128 *a1@<X8>)
+{
+  v2 = v1[1].n128_u8[0];
+  v3 = v1[1].n128_u64[1];
+  result = *v1;
+  *a1 = *v1;
+  a1[1].n128_u8[0] = v2;
+  *(&a1[1] + 8) = v3;
   return result;
 }
 
-uint64_t CheckUTF8Seq(_DWORD *a1, char a2)
+uint64_t sub_1B0ADF490()
 {
-  v2 = a1[335];
-  v3 = a1[337];
-  if (v2 >= v3)
+  sub_1B0AE15D8(*v0, *(v0 + 8), *(v0 + 16), *(v0 + 24));
+  v2 = v1;
+
+  return v2;
+}
+
+uint64_t sub_1B0ADF500(unsigned int (**a1)(char *, uint64_t, uint64_t), uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v22 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v23 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v22 - v12;
+  v14 = type metadata accessor for MessageBatches.OtherUIDsBatchSequence.Iterator(0);
+  v15 = v14 - 8;
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v22 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = *(v4 + *(type metadata accessor for MessageBatches.OtherUIDsBatchSequence(0) + 20));
+  result = sub_1B03C60A4(v4, v17, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  *&v17[*(v15 + 28)] = v18;
+  if (!a2)
   {
-    v4 = 0;
-    goto LABEL_12;
+LABEL_10:
+    a3 = 0;
+    goto LABEL_13;
   }
 
-  v4 = 0;
-  v5 = a1 + 24;
-  v6 = a1 + 2 * v2 + 1449;
-  v7 = &a1[v2 + 434];
-  do
+  if (!a3)
   {
-    v8 = *(v6 - 1);
-    v9 = *v6;
-    if (v2 <= 0)
-    {
-      v10 = a1[23];
-    }
+LABEL_13:
+    sub_1B0AE27F4(v17, a1, type metadata accessor for MessageBatches.OtherUIDsBatchSequence.Iterator);
+    return a3;
+  }
 
-    else
+  if ((a3 & 0x8000000000000000) == 0)
+  {
+    v22 = a1;
+    a1 = (v23 + 48);
+    v20 = 1;
+    while (1)
     {
-      v10 = a1[23];
-      if (*v7 == *(v7 - 1) + 2)
+      sub_1B0B3FBB4(v10);
+      if ((*a1)(v10, 1, v11) == 1)
       {
-        v11 = v10;
-        goto LABEL_8;
+        break;
+      }
+
+      sub_1B03C60A4(v10, v13, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      sub_1B03C60A4(v13, a2, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      if (a3 == v20)
+      {
+        goto LABEL_12;
+      }
+
+      a2 += *(v23 + 72);
+      if (__OFADD__(v20++, 1))
+      {
+        __break(1u);
+        goto LABEL_10;
       }
     }
 
-    v11 = 0;
-    v12 = kMiniUTF8Count[16 * v10 + 2];
-    ++v5[v12];
-    a1[23] = 0;
-LABEL_8:
-    v13 = vuzp1_s16(vceq_s32(vdup_n_s32(v8), 0xDF000000C9), 0xDF000000C9);
-    v14 = v9;
-    v15 = vand_s8(vzip1_s16(v13, vdup_lane_s16(v13, 1)), vand_s8(vceq_s16((*&vdup_n_s16(v9) & 0xFF00FF00FF00FFLL), 0xAB0093009200AELL), 0x8000400020001));
-    v15.i32[0] = vaddv_s16(v15) & 0xF;
-    v16 = vcnt_s8(v15);
-    v16.i16[0] = vaddlv_u8(v16);
-    v17 = v8 >> 4;
-    v18 = kMiniUTF8Count[16 * v11 + v17];
-    ++v5[v18];
-    v4 += v16.i32[0];
-    v19 = kMiniUTF8State[16 * a1[23] + v17];
-    a1[23] = v19;
-    v20 = kMiniUTF8Count[16 * v19 + (v14 >> 4)];
-    v6 += 2;
-    ++v5[v20];
-    a1[23] = kMiniUTF8State[16 * a1[23] + (v14 >> 4)];
-    ++v2;
-    ++v7;
-  }
-
-  while (v3 != v2);
-  if (v4 > 0)
-  {
-    a1[134] += 120 * v4;
-    a1[137] += 120 * v4;
-  }
-
+    sub_1B0398EFC(v10, &unk_1EB6E3670, &unk_1B0E9B260);
+    a3 = v20 - 1;
 LABEL_12:
-  v21 = a1[27];
-  v22 = a1[28];
-  v24 = a1[25];
-  v23 = a1[26];
-  v25 = (120 * (4 * v22 + 2 * v23 + 3 * (v21 - v4))) >> a2;
-  v26 = v25 + a1[135];
-  v27 = a1[192];
-  v28 = v21 + v23;
-  v29 = a1[29];
-  a1[28] = 0;
-  a1[29] = v28 + v22 + v29;
-  v30 = (120 * v24) >> a2;
-  a1[135] = v26 - v30;
-  a1[192] = v25 + v27 - v30;
-  *(a1 + 13) = 0;
-  a1[25] = 0;
-  return (v25 - v30);
-}
-
-uint64_t CheckUTF8UTF8Seq(uint64_t a1, char a2)
-{
-  v2 = *(a1 + 1340);
-  v3 = *(a1 + 1348);
-  if (2 * v2 < 2 * v3)
-  {
-    v4 = a1 + 1448 + 2 * v3;
-    v5 = a1 + 1448 + 2 * v2;
-    v6 = a1 + 128;
-    do
-    {
-      v7 = *(a1 + 120);
-      if (v2 < 1 || *(a1 + 1736 + 4 * v2) != *(a1 + 1736 + 4 * (v2 - 1)) + 2)
-      {
-        *(a1 + 124) = 0;
-        v8 = kMiniUTF8UTF8Count[16 * v7 + 2];
-        ++*(v6 + 4 * v8);
-        v7 = kMiniUTF8UTF8State[16 * v7 + 2];
-      }
-
-      v9 = *(a1 + 124);
-      if (v5 + v9 + 1 < v4)
-      {
-        v10 = *(v5 + v9);
-        v11 = (*(v9 + v5 + 1) >> 4) & 3;
-        v12 = v11 | 4;
-        if (v10 != 226)
-        {
-          v12 = (*(v9 + v5 + 1) >> 4) & 3;
-        }
-
-        v13 = (v10 - 194) > 9 || ((1 << (v10 + 62)) & 0x219) == 0;
-        v14 = v11 | 8;
-        if (v13)
-        {
-          v14 = (*(v9 + v5 + 1) >> 4) & 3;
-        }
-
-        if ((v10 & 0xF0) == 0xC0)
-        {
-          v15 = v14;
-        }
-
-        else
-        {
-          v15 = v12;
-        }
-
-        v16 = v11 | 0xC;
-        if (v10 == 195)
-        {
-          v17 = v16;
-        }
-
-        else
-        {
-          v17 = v15;
-        }
-
-        *(a1 + 124) = v9 ^ kMiniUTF8UTF8Odd[16 * v7 + v17];
-        v18 = kMiniUTF8UTF8Count[16 * v7 + v17];
-        ++*(v6 + 4 * v18);
-        *(a1 + 120) = kMiniUTF8UTF8State[16 * v7 + v17];
-        LODWORD(v2) = v2 + 1;
-      }
-
-      v5 += 2;
-    }
-
-    while (v5 < v4);
+    a1 = v22;
+    goto LABEL_13;
   }
 
-  v19 = *(a1 + 148);
-  v20 = *(a1 + 140) + *(a1 + 136) + *(a1 + 144);
-  *(a1 + 768) += (240 * v20) >> a2;
-  *(a1 + 148) = v20 + v19;
-  *(a1 + 132) = 0;
-  *(a1 + 140) = 0;
-  return ((240 * v20) >> a2);
+  __break(1u);
+  return result;
 }
 
-_DWORD *CheckIso2022ActiveSeq(_DWORD *result)
+uint64_t sub_1B0ADF790(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7)
 {
-  v1 = 2 * result[335];
-  v2 = result[337];
-  if (v1 < 2 * v2)
+  if (!a2)
   {
-    v3 = result + 2 * v2 + 1448;
-    for (i = result + v1 + 1448; i < v3; i += 2)
+LABEL_38:
+    v10 = 0;
+    a3 = 0;
+    goto LABEL_41;
+  }
+
+  if (!a3)
+  {
+    v10 = 0;
+    goto LABEL_41;
+  }
+
+  if (a3 < 0)
+  {
+    __break(1u);
+    return result;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v55 = a4 + 32;
+  v56 = a7;
+  v11 = 1;
+  v54 = result;
+  v50 = a3;
+  while (2)
+  {
+    v12 = v11;
+    v13 = *(a4 + 16);
+    if (v10 == v13)
     {
-      v5 = *i;
-      switch(v5)
+      a3 = v9;
+      goto LABEL_41;
+    }
+
+    v52 = a2;
+    v53 = v9;
+    v51 = v12;
+    if (v10 < v13)
+    {
+      v14 = (v55 + 176 * v10);
+      while (1)
       {
-        case 0xEu:
-          result[154] -= 600;
-          if (!result[38])
+        v15 = v14[9];
+        v88 = v14[8];
+        v89 = v15;
+        v90 = v14[10];
+        v16 = v14[5];
+        v84 = v14[4];
+        v85 = v16;
+        v17 = v14[7];
+        v86 = v14[6];
+        v87 = v17;
+        v18 = v14[1];
+        v80 = *v14;
+        v81 = v18;
+        v19 = v14[3];
+        v82 = v14[2];
+        v83 = v19;
+        if (*(a5 + 16))
+        {
+          v20 = v80;
+          v21 = v81;
+          v22 = DWORD2(v81);
+          v23 = DWORD1(v85);
+          v24 = BYTE8(v85);
+          v7 = a4;
+          v25 = sub_1B03AB888(v81, DWORD2(v81));
+          a4 = v7;
+          if (v26)
           {
-            goto LABEL_22;
+            break;
           }
+        }
 
-          break;
-        case 0xFu:
-          result[154] -= 600;
-          v8 = result[38];
-          if (v8)
-          {
-            if (v8 == 3)
-            {
-              v9 = 60;
-            }
-
-            else
-            {
-              if (v8 != 2)
-              {
-                goto LABEL_31;
-              }
-
-              v9 = -60;
-            }
-
-            result[178] += v9;
-            result[175] += v9;
-            goto LABEL_31;
-          }
-
-LABEL_22:
-          result[178] -= 2400;
-          v7 = result[175] - 2400;
-LABEL_23:
-          result[175] = v7;
-          result[38] = 1;
-          continue;
-        case 0x1Bu:
-          v6 = i[1];
-          if (v6 == 40)
-          {
-            v13 = result[38];
-            if (v13 == 3)
-            {
-              v14 = 60;
 LABEL_30:
-              result[154] += v14;
-            }
-
-            else if (v13 == 2)
-            {
-              v14 = -60;
-              goto LABEL_30;
-            }
-
-LABEL_31:
-            result[38] = 2;
-            continue;
-          }
-
-          if (v6 != 36)
-          {
-            result[154] -= 600;
-            result[178] -= 600;
-            v7 = result[175] - 600;
-            goto LABEL_23;
-          }
-
-          break;
-        default:
-          if (v5 <= 31)
-          {
-            v10 = v5 > 0xD;
-            v11 = (1 << v5) & 0x3600;
-            if (v10 || v11 == 0)
-            {
-              result[154] -= 600;
-              result[178] -= 600;
-              result[175] -= 600;
-            }
-          }
-
-          continue;
-      }
-
-      result[38] = 3;
-    }
-  }
-
-  if (!result[38])
-  {
-    result[178] &= result[178] >> 31;
-    result[175] &= result[175] >> 31;
-    result[154] &= result[154] >> 31;
-  }
-
-  return result;
-}
-
-_DWORD *CheckHzActiveSeq(_DWORD *result)
-{
-  v1 = 2 * result[334];
-  v2 = result[336];
-  if (v1 < 2 * v2)
-  {
-    v3 = result + 2 * v2 + 1352;
-    for (i = result + v1 + 1352; i < v3; i += 2)
-    {
-      if (*i == 126)
-      {
-        v5 = i[1];
-        if (v5 == 123)
+        ++v10;
+        v37 = *(a4 + 16);
+        if (v10 == v37)
         {
-          result[39] = 3;
-          if (*i != 126)
-          {
-            continue;
-          }
-
-          v5 = i[1];
+          a3 = v53;
+          result = v54;
+          a7 = v56;
+          goto LABEL_41;
         }
 
-        if (v5 == 125)
+        v14 += 11;
+        if (v10 >= v37)
         {
-          v6 = result[39];
-          if (v6 == 3)
-          {
-            v7 = 60;
-LABEL_12:
-            result[173] += v7;
-          }
-
-          else if (v6 == 2)
-          {
-            v7 = -60;
-            goto LABEL_12;
-          }
-
-          result[39] = 2;
+          goto LABEL_43;
         }
       }
-    }
-  }
 
-  if (!result[39])
-  {
-    result[173] &= result[173] >> 31;
-  }
-
-  return result;
-}
-
-uint64_t CheckEucJpSeq(uint64_t result)
-{
-  v1 = 2 * *(result + 1340);
-  v2 = *(result + 1348);
-  if (v1 < 2 * v2)
-  {
-    v3 = result + 1448 + 2 * v2;
-    v4 = (result + 1448 + v1);
-    v5 = *(result + 160);
-    do
-    {
-      if (v5)
+      v27 = *(a5 + 56) + 72 * v25;
+      v75 = *v27;
+      v29 = *(v27 + 32);
+      v28 = *(v27 + 48);
+      v30 = *(v27 + 16);
+      v79 = *(v27 + 64);
+      v77 = v29;
+      v78 = v28;
+      v76 = v30;
+      sub_1B03A35B8(&v80, &v59);
+      sub_1B03BB0B4(&v75, &v59);
+      v31 = *RemoteMailbox.Attributes.noSelect.unsafeMutableAddressor();
+      v32 = *RemoteMailbox.Attributes.nonExistent.unsafeMutableAddressor();
+      if (v31)
       {
-        *(result + 560) += 120;
-      }
-
-      v6 = *v4;
-      v7 = v4[1];
-      if (v6 < 0)
-      {
-        if (v6 != -113)
+        if ((v32 & ~v31) == 0)
         {
-          goto LABEL_10;
-        }
-
-        v5 ^= 1u;
-        v8 = v5 & 1;
-      }
-
-      else
-      {
-        v8 = 0;
-        v5 = 0;
-      }
-
-      *(result + 160) = v8;
-LABEL_10:
-      if ((v7 & 0x80000000) == 0)
-      {
-        v9 = 0;
-        v5 = 0;
-LABEL_14:
-        *(result + 160) = v9;
-        goto LABEL_15;
-      }
-
-      if (v7 == -113)
-      {
-        v5 ^= 1u;
-        v9 = v5 & 1;
-        goto LABEL_14;
-      }
-
 LABEL_15:
-      v4 += 2;
-    }
+          if ((HIWORD(v75) & v31) != 0)
+          {
+            sub_1B039E440(&v75);
+            sub_1B03A3614(&v80);
+LABEL_29:
+            a4 = v7;
+            goto LABEL_30;
+          }
 
-    while (v4 < v3);
-  }
+LABEL_17:
+          v67 = v88;
+          v68 = v89;
+          v69 = v90;
+          v63 = v84;
+          v64 = v85;
+          v65 = v86;
+          v66 = v87;
+          v59 = v80;
+          v60 = v81;
+          v61 = v82;
+          v62 = v83;
+          v72 = v77;
+          v73 = v78;
+          v74 = v79;
+          v70 = v75;
+          v71 = v76;
+          if ((a6 & 1) == 0)
+          {
+            goto LABEL_34;
+          }
 
-  return result;
-}
+          sub_1B03A35B8(&v80, v58);
+          sub_1B03BB0B4(&v75, v58);
+          v33 = MailboxName.isInbox.getter(v21, v22);
+          sub_1B039E440(&v75);
+          if ((v33 & 1) != 0 || v76 > 7u || ((1 << v76) & 0xDB) == 0 || (v24 & 1) == 0 && ((BYTE12(v86) & 1) != 0 || DWORD2(v86) < v23))
+          {
+            sub_1B03A3614(&v80);
+LABEL_34:
+            ++v10;
+            v38 = v59;
+            v39 = v60;
+            v40 = v62;
+            *(v52 + 32) = v61;
+            *(v52 + 48) = v40;
+            *v52 = v38;
+            *(v52 + 16) = v39;
+            v41 = v63;
+            v42 = v64;
+            v43 = v66;
+            *(v52 + 96) = v65;
+            *(v52 + 112) = v43;
+            *(v52 + 64) = v41;
+            *(v52 + 80) = v42;
+            v44 = v67;
+            v45 = v68;
+            v46 = v70;
+            *(v52 + 160) = v69;
+            *(v52 + 176) = v46;
+            *(v52 + 128) = v44;
+            *(v52 + 144) = v45;
+            v47 = v71;
+            v48 = v72;
+            v49 = v73;
+            *(v52 + 240) = v74;
+            *(v52 + 208) = v48;
+            *(v52 + 224) = v49;
+            *(v52 + 192) = v47;
+            a3 = v50;
+            if (v51 == v50)
+            {
+              goto LABEL_44;
+            }
 
-int32x2_t CheckBinaryDensity(int a1, uint64_t a2, int a3)
-{
-  if (a3)
-  {
-    v3 = *(a2 + 1736);
-    v4 = -2400;
-    if (v3 > 6143)
-    {
-      goto LABEL_10;
-    }
+            a2 = v52 + 248;
+            v9 = v51;
+            v11 = v51 + 1;
+            a7 = v56;
+            result = v54;
+            a4 = v7;
+            if (__OFADD__(v51, 1))
+            {
+              __break(1u);
+              goto LABEL_38;
+            }
 
-    v5 = a1 - *a2;
-    if (v5 >= 0x2000)
-    {
-      goto LABEL_10;
-    }
+            continue;
+          }
 
-    v6 = *(a2 + 1348);
-    v7 = v5 - v3;
-    if (v7 > 32 * v6)
-    {
-      *(a2 + 764) -= 2400;
-      result = vadd_s32(*(a2 + 756), vdup_n_s32(0xFFFFF6A0));
-      *(a2 + 756) = result;
-      *(a2 + 680) -= 2400;
-      *(a2 + 688) -= 2400;
-    }
+          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+          sub_1B03A3614(&v80);
+          if (*(v56 + 16))
+          {
+            v34 = sub_1B03B8A9C(v20, *(&v20 + 1));
+            v36 = v35;
 
-    if (v6 >= 8 && 8 * v6 >= v7 && *(a2 + 68) >= 2)
-    {
-      v4 = 60;
-LABEL_10:
-      *(a2 + 764) += v4;
-      result = vadd_s32(*(a2 + 756), vdup_n_s32(v4));
-      *(a2 + 756) = result;
-      *(a2 + 680) += v4;
-      *(a2 + 688) += v4;
-    }
-  }
+            if ((v36 & 1) != 0 && (~*(*(v56 + 56) + 2 * v34) & 0x3FFF) != 0)
+            {
+              goto LABEL_34;
+            }
 
-  return result;
-}
+            sub_1B03BB144(&v59);
+          }
 
-void ActiveSpecialBoostWhack(int a1, uint64_t a2)
-{
-  v2 = a2;
-  v52 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 1344) - *(a2 + 1336);
-  v4 = *(a2 + 1348);
-  v5 = *(a2 + 1340);
-  if ((*(a2 + 196) & 6) == 0 || v3 < 1)
-  {
-    goto LABEL_24;
-  }
+          else
+          {
+            sub_1B03BB144(&v59);
+          }
 
-  v47 = *(a2 + 1340);
-  v49 = *(a2 + 1348);
-  v7 = 0;
-  v8 = a2 + 1352;
-  v9 = a2 + 1544;
-  do
-  {
-    v10 = *(v2 + 1336);
-    v11 = v10;
-    v12 = v7 + v10;
-    v13 = 2 * (v7 + v10);
-    v14 = *(v8 + v13);
-    v15 = *(v8 + v13 + 1);
-    if (v14 != 126)
-    {
-      if (v14 == 43)
-      {
-        UTF7BoostWhack(v2, v12, *(v8 + v13 + 1));
-        if (*(v2 + 32))
-        {
-          memset(__str, 170, sizeof(__str));
-          snprintf(__str, 0x10uLL, "%02x%02x+", 43, v15);
-          v16 = kMostLikelyEncoding[v15 + 11008];
-          v17 = *(v2 + 40);
-          v18 = *(v2 + 32) + 304 * v17;
-          *v18 = *(v9 + 4 * (v7 + v11));
-          *(v18 + 4) = v16;
-          std::string::__assign_external((v18 + 8), __str);
-          memcpy((*(v2 + 32) + 304 * v17 + 32), (v2 + 532), 0x10CuLL);
-          ++*(v2 + 40);
+          goto LABEL_29;
         }
       }
 
-      goto LABEL_20;
-    }
-
-    v19 = 600;
-    if (*(v8 + v13 + 1) <= 0x7Cu)
-    {
-      if (v15 == 10)
-      {
-        goto LABEL_18;
-      }
-
-      if (v15 == 123)
+      else if (!v32)
       {
         goto LABEL_17;
       }
 
-      goto LABEL_16;
-    }
-
-    if (v15 != 125)
-    {
-      if (v15 == 126)
-      {
-        goto LABEL_18;
-      }
-
-LABEL_16:
-      v19 = -600;
-    }
-
-LABEL_17:
-    *(v2 + 692) += v19;
-LABEL_18:
-    if (*(v2 + 32))
-    {
-      memset(__str, 170, sizeof(__str));
-      snprintf(__str, 0x10uLL, "%02x%02x~", 126, v15);
-      v20 = kMostLikelyEncoding[v15 + 32256];
-      v21 = *(v2 + 40);
-      v22 = *(v2 + 32) + 304 * v21;
-      *v22 = *(v9 + 4 * (v7 + v11));
-      *(v22 + 4) = v20;
-      std::string::__assign_external((v22 + 8), __str);
-      memcpy((*(v2 + 32) + 304 * v21 + 32), (v2 + 532), 0x10CuLL);
-      ++*(v2 + 40);
-    }
-
-LABEL_20:
-    ++v7;
-  }
-
-  while (v3 != v7);
-  v4 = v49;
-  v5 = v47;
-  if (*(v2 + 84) > 7 && !*(v2 + 88))
-  {
-    *(v2 + 708) -= 4800;
-  }
-
-LABEL_24:
-  v23 = v4 - v5;
-  if ((*(v2 + 196) & 0x10F8) == 0 || v23 < 1)
-  {
-    goto LABEL_58;
-  }
-
-  v25 = 0;
-  v26 = 0;
-  v27 = v2 + 1448;
-  v48 = v4 - v5;
-  v50 = v2 + 1736;
-  v28 = v2 + 2120;
-  v46 = v2 + 2120;
-  while (2)
-  {
-    v29 = v25 + *(v2 + 1340);
-    v30 = 2 * v29;
-    v31 = *(v27 + v30);
-    v32 = *(v50 + 4 * v29);
-    v33 = *(v27 + v30 + 1);
-    if (v26 <= *(v28 + 4 * v29))
-    {
-      v26 = *(v28 + 4 * v29);
-    }
-
-    if (v31 == 255)
-    {
-      if (v33 == 255)
-      {
-        UTF1632BoostWhack(v2, v32, 255);
-      }
-
-      if (*(v2 + 32))
-      {
-        memset(__str, 170, sizeof(__str));
-        snprintf(__str, 0x10uLL, "%02x%02xF", 255, v33);
-        v35 = kMostLikelyEncoding[v33 + 65280];
-        v36 = *(v2 + 40);
-        v37 = v2;
-        v38 = *(v2 + 32) + 304 * v36;
-        *v38 = *(v50 + 4 * v29);
-        *(v38 + 4) = v35;
-        std::string::__assign_external((v38 + 8), __str);
-        memcpy((*(v2 + 32) + 304 * v36 + 32), (v2 + 532), 0x10CuLL);
-        ++*(v2 + 40);
-        goto LABEL_46;
-      }
-    }
-
-    else if (!*(v27 + 2 * v29))
-    {
-      if (*(v27 + v30 + 1))
-      {
-        if (kIsPrintableAscii[v33])
-        {
-          v34 = (*(v50 + 4 * v29) & 1) == 0;
-        }
-
-        else
-        {
-          v34 = 1;
-        }
-
-        if (!v34)
-        {
-          *(v50 + 4 * v29) = v32 & 0xFFFFFFFE;
-        }
-      }
-
-      else
-      {
-        UTF1632BoostWhack(v2, v32, 0);
-      }
-
-      if (*(v2 + 32))
-      {
-        memset(__str, 170, sizeof(__str));
-        snprintf(__str, 0x10uLL, "%02x%02xZ", 0, v33);
-        v39 = kMostLikelyEncoding[v33];
-        v37 = v2;
-        v41 = *(v2 + 40);
-        v40 = (v2 + 40);
-        v42 = *(v40 - 1) + 304 * v41;
-        *v42 = *(v50 + 4 * v29);
-        *(v42 + 4) = v39;
-        std::string::__assign_external((v42 + 8), __str);
-        memcpy((*(v40 - 1) + 304 * v41 + 32), (v37 + 532), 0x10CuLL);
-        ++*v40;
-LABEL_46:
-        v2 = v37;
-        v28 = v46;
-        v23 = v48;
-      }
-    }
-
-    if ((*(v2 + 196) & 0x80) != 0)
-    {
-      BinaryBoostWhack(v2, v31, v33);
-    }
-
-    if (v23 != ++v25)
-    {
-      continue;
+      LOWORD(v31) = v32 | v31;
+      goto LABEL_15;
     }
 
     break;
   }
 
-  v43 = *(v2 + 196);
-  if ((v43 & 0x10) == 0)
-  {
-    if ((v43 & 0x20) == 0)
-    {
-      goto LABEL_52;
-    }
-
-LABEL_62:
-    CheckUTF8UTF8Seq(v2, v26);
-    v43 = *(v2 + 196);
-    if ((v43 & 8) != 0)
-    {
-      goto LABEL_63;
-    }
-
-LABEL_53:
-    if ((v43 & 4) == 0)
-    {
-      goto LABEL_54;
-    }
-
-LABEL_64:
-    CheckHzActiveSeq(v2);
-    v43 = *(v2 + 196);
-    if ((v43 & 0x1000) == 0)
-    {
-      goto LABEL_56;
-    }
-
-LABEL_55:
-    CheckEucJpSeq(v2);
-    v43 = *(v2 + 196);
-    goto LABEL_56;
-  }
-
-  CheckUTF8Seq(v2, v26);
-  v43 = *(v2 + 196);
-  if ((v43 & 0x20) != 0)
-  {
-    goto LABEL_62;
-  }
-
-LABEL_52:
-  if ((v43 & 8) == 0)
-  {
-    goto LABEL_53;
-  }
-
-LABEL_63:
-  CheckIso2022ActiveSeq(v2);
-  v43 = *(v2 + 196);
-  if ((v43 & 4) != 0)
-  {
-    goto LABEL_64;
-  }
-
-LABEL_54:
-  if ((v43 & 0x1000) != 0)
-  {
-    goto LABEL_55;
-  }
-
-LABEL_56:
-  if ((v43 & 0xC0) != 0)
-  {
-    CheckBinaryDensity(a1, v2, v23);
-  }
-
-LABEL_58:
-  if (*(v2 + 32))
-  {
-    SetDetailsEncLabel(v2, "seq");
-  }
-
-  v44 = *MEMORY[0x1E69E9840];
+LABEL_43:
+  __break(1u);
+LABEL_44:
+  a7 = v56;
+  result = v54;
+  a4 = v7;
+LABEL_41:
+  *result = a4;
+  *(result + 8) = a5;
+  *(result + 16) = a6 & 1;
+  *(result + 24) = a7;
+  *(result + 32) = v10;
+  return a3;
 }
 
-uint64_t PrintTopEnc(uint64_t a1, int a2)
+double sub_1B0ADFB4C@<D0>(uint64_t a1@<X8>)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  *&v4 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *(v20 + 12) = v4;
-  __base[14] = v4;
-  v20[0] = v4;
-  __base[12] = v4;
-  __base[13] = v4;
-  __base[10] = v4;
-  __base[11] = v4;
-  __base[8] = v4;
-  __base[9] = v4;
-  __base[6] = v4;
-  __base[7] = v4;
-  __base[4] = v4;
-  __base[5] = v4;
-  __base[2] = v4;
-  __base[3] = v4;
-  __base[0] = v4;
-  __base[1] = v4;
-  v5 = *(a1 + 260);
-  if (v5 >= 1)
+  v2 = v1[4];
+  v3 = *v1;
+  v4 = *(*v1 + 16);
+  if (v2 == v4)
   {
-    v6 = (a1 + 264);
-    v7 = __base;
-    v8 = *(a1 + 260);
-    do
-    {
-      v9 = *v6++;
-      *v7++ = *(a1 + 532 + 4 * v9);
-      --v8;
-    }
-
-    while (v8);
+LABEL_2:
+    sub_1B0AE0378(&v92);
+    goto LABEL_3;
   }
 
-  qsort(__base, v5, 4uLL, IntCompare);
-  v10 = *(a1 + 260);
-  if (a2 < v10)
+  if (v2 < v4)
   {
-    v10 = a2;
-  }
-
-  v11 = *(__base + v10 - 1);
-  printf("rankedencodingList top %d: ", v10);
-  v12 = *(a1 + 260);
-  if (v12 >= 1)
-  {
-    v13 = 0;
-    v14 = a1 + 532;
+    v13 = *(v43 + 8);
     do
     {
-      v15 = *(a1 + 264 + 4 * v13);
-      if (v11 <= *(v14 + 4 * v15))
+      v14 = (v3 + 32 + 176 * v2);
+      v15 = *v14;
+      v16 = v14[2];
+      v82 = v14[1];
+      v83 = v16;
+      v17 = v14[3];
+      v18 = v14[4];
+      v19 = v14[6];
+      v86 = v14[5];
+      v87 = v19;
+      v84 = v17;
+      v85 = v18;
+      v20 = v14[7];
+      v21 = v14[8];
+      v22 = v14[10];
+      v90 = v14[9];
+      v91 = v22;
+      v88 = v20;
+      v89 = v21;
+      v81 = v15;
+      if (!*(v13 + 16))
       {
-        v16 = MyEncodingName(kMapToEncoding[v15]);
-        printf("%s=%d ", v16, *(v14 + 4 * v15));
-        v12 = *(a1 + 260);
+        goto LABEL_27;
       }
 
-      ++v13;
-    }
-
-    while (v13 < v12);
-  }
-
-  result = puts("\n");
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t RepeatedBigram(int *a1, unsigned int a2, int a3)
-{
-  v3 = (a3 | (a2 << 8)) & 0x1FF0;
-  if (a2 >= 0x20)
-  {
-    v3 = a3 | (a2 << 8);
-  }
-
-  if (v3 == a1[55] || v3 == a1[56] || v3 == a1[57] || v3 == a1[58])
-  {
-    return 1;
-  }
-
-  v4 = 0;
-  a1[a1[54] + 55] = v3;
-  a1[54] = (a1[54] + 1) & 3;
-  return v4;
-}
-
-BOOL RepeatedBinary(uint64_t a1, unsigned int a2, unsigned int a3)
-{
-  v3 = 1 << ((a2 >> 3) & 0x1C | (a3 >> 6));
-  v4 = *(a1 + 80);
-  if ((v4 & v3) == 0)
-  {
-    *(a1 + 80) = v4 | v3;
-    ++*(a1 + 72);
-  }
-
-  return (v4 & v3) != 0;
-}
-
-uint64_t ReRank(uint64_t result)
-{
-  *(result + 248) = -1;
-  v1 = *(result + 260);
-  if (v1 >= 1)
-  {
-    v2 = (result + 264);
-    v3 = result + 532;
-    v4 = 0xFFFFFFFFLL;
-    v5 = 0xFFFFFFFFLL;
-    do
-    {
-      v7 = *v2++;
-      v6 = v7;
-      v8 = *(v3 + 4 * v7);
-      if (v5 >= v8)
+      v23 = v81;
+      v24 = v82;
+      v25 = DWORD2(v82);
+      v26 = DWORD1(v86);
+      v27 = BYTE8(v86);
+      v28 = sub_1B03AB888(v82, DWORD2(v82));
+      if ((v29 & 1) == 0)
       {
-        if (v4 < v8 && kMapEncToBaseEncoding[kMapToEncoding[*(result + 240)]] != kMapEncToBaseEncoding[kMapToEncoding[v6]])
+        goto LABEL_27;
+      }
+
+      v30 = *(v13 + 56) + 72 * v28;
+      v76 = *v30;
+      v32 = *(v30 + 32);
+      v31 = *(v30 + 48);
+      v33 = *(v30 + 64);
+      v77 = *(v30 + 16);
+      v78 = v32;
+      v80 = v33;
+      v79 = v31;
+      sub_1B03A35B8(&v81, &v92);
+      sub_1B03BB0B4(&v76, &v92);
+      v34 = *RemoteMailbox.Attributes.noSelect.unsafeMutableAddressor();
+      v35 = *RemoteMailbox.Attributes.nonExistent.unsafeMutableAddressor();
+      if (v34)
+      {
+        if ((v35 & ~v34) == 0)
         {
-          *(result + 252) = v8;
-          *(result + 244) = v6;
-          goto LABEL_10;
+          goto LABEL_13;
         }
       }
 
-      else
+      else if (!v35)
       {
-        v9 = *(result + 240);
-        if (kMapEncToBaseEncoding[kMapToEncoding[v9]] != kMapEncToBaseEncoding[kMapToEncoding[v6]])
-        {
-          *(result + 252) = v5;
-          *(result + 244) = v9;
-          v8 = *(v3 + 4 * v6);
-          v4 = v5;
-        }
-
-        v5 = v8;
-        *(result + 248) = v8;
-        *(result + 240) = v6;
+        goto LABEL_15;
       }
 
-      v8 = v4;
-LABEL_10:
-      v4 = v8;
-      --v1;
-    }
-
-    while (v1);
-  }
-
-  return result;
-}
-
-_DWORD *SimplePrune(_DWORD *result, int a2)
-{
-  v2 = result[62];
-  result[49] = 0;
-  v3 = result[65];
-  if (v3 < 1)
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v6 = v2 - a2;
-    v7 = result + 66;
-    do
-    {
-      v8 = v7[v4];
-      if (result[v8 + 133] >= v6)
+      LOWORD(v34) = v35 | v34;
+LABEL_13:
+      if ((HIWORD(v76) & v34) == 0)
       {
-        result[49] |= kSpecialMask[kMapToEncoding[v8]];
-        v7[v5++] = v8;
-        v3 = result[65];
-      }
-
-      ++v4;
-    }
-
-    while (v4 < v3);
-  }
-
-  result[65] = v5;
-  return result;
-}
-
-uint64_t CalcReliable(uint64_t result)
-{
-  *(result + 45) = 0;
-  v1 = *(result + 1348);
-  if (!v1 || *(result + 248) - *(result + 252) >= FLAGS_ced_reliable_difference || v1 == 1 && *(result + 240) == kMostLikelyEncoding[__rev16(*(result + 1448))])
-  {
-    *(result + 45) = 1;
-    return result;
-  }
-
-  v2 = *(result + 260);
-  if (v2 == 3)
-  {
-    v3 = kMapEncToBaseEncoding[kMapToEncoding[*(result + 264)]];
-    if (v3 != kMapEncToBaseEncoding[kMapToEncoding[*(result + 268)]] || v3 != kMapEncToBaseEncoding[kMapToEncoding[*(result + 272)]])
-    {
-      return result;
-    }
-
-    goto LABEL_14;
-  }
-
-  if (v2 != 2)
-  {
-    if (v2 != 1)
-    {
-      return result;
-    }
-
 LABEL_15:
-    *(result + 44) = 257;
-    return result;
+        v68 = v89;
+        v69 = v90;
+        v70 = v91;
+        v64 = v85;
+        v65 = v86;
+        v66 = v87;
+        v67 = v88;
+        v60 = v81;
+        v61 = v82;
+        v62 = v83;
+        v63 = v84;
+        v73 = v78;
+        v74 = v79;
+        v75 = v80;
+        v71 = v76;
+        v72 = v77;
+        if ((*(v43 + 16) & 1) == 0)
+        {
+          goto LABEL_31;
+        }
+
+        sub_1B03A35B8(&v81, &v92);
+        sub_1B03BB0B4(&v76, &v92);
+        v36 = MailboxName.isInbox.getter(v24, v25);
+        sub_1B039E440(&v76);
+        if ((v36 & 1) != 0 || v77 > 7u || ((1 << v77) & 0xDB) == 0 || (v27 & 1) == 0 && ((BYTE12(v87) & 1) != 0 || DWORD2(v87) < v26))
+        {
+          goto LABEL_30;
+        }
+
+        v37 = *(v43 + 24);
+        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+        sub_1B03A3614(&v81);
+        if (*(v37 + 16))
+        {
+          v38 = sub_1B03B8A9C(v23, *(&v23 + 1));
+          v40 = v39;
+
+          if ((v40 & 1) != 0 && (~*(*(v37 + 56) + 2 * v38) & 0x3FFF) != 0)
+          {
+            goto LABEL_31;
+          }
+
+          sub_1B03BB144(&v60);
+        }
+
+        else
+        {
+          sub_1B03BB144(&v60);
+        }
+
+        goto LABEL_27;
+      }
+
+      sub_1B039E440(&v76);
+      sub_1B03A3614(&v81);
+LABEL_27:
+      *(v43 + 32) = ++v2;
+      v41 = *(v3 + 16);
+      if (v2 == v41)
+      {
+        goto LABEL_2;
+      }
+    }
+
+    while (v2 < v41);
   }
 
-  if (kMapEncToBaseEncoding[kMapToEncoding[*(result + 264)]] == kMapEncToBaseEncoding[kMapToEncoding[*(result + 268)]])
+  __break(1u);
+LABEL_30:
+  sub_1B03A3614(&v81);
+LABEL_31:
+  v56 = v72;
+  v57 = v73;
+  v58 = v74;
+  v59 = v75;
+  v52 = v68;
+  v53 = v69;
+  v54 = v70;
+  v55 = v71;
+  v48 = v64;
+  v49 = v65;
+  v50 = v66;
+  v51 = v67;
+  v44 = v60;
+  v45 = v61;
+  v46 = v62;
+  v47 = v63;
+  __88__MFMessageContentRequest__contentRepresentationForLoadingEvent_existingRepresentation___block_invoke_136_cold_1();
+  *(v43 + 32) = v2 + 1;
+  v104 = v56;
+  v105 = v57;
+  v106 = v58;
+  v107 = v59;
+  v100 = v52;
+  v101 = v53;
+  v102 = v54;
+  v103 = v55;
+  v96 = v48;
+  v97 = v49;
+  v98 = v50;
+  v99 = v51;
+  v92 = v44;
+  v93 = v45;
+  v94 = v46;
+  v95 = v47;
+LABEL_3:
+  v5 = v105;
+  *(a1 + 192) = v104;
+  *(a1 + 208) = v5;
+  *(a1 + 224) = v106;
+  *(a1 + 240) = v107;
+  v6 = v101;
+  *(a1 + 128) = v100;
+  *(a1 + 144) = v6;
+  v7 = v103;
+  *(a1 + 160) = v102;
+  *(a1 + 176) = v7;
+  v8 = v97;
+  *(a1 + 64) = v96;
+  *(a1 + 80) = v8;
+  v9 = v99;
+  *(a1 + 96) = v98;
+  *(a1 + 112) = v9;
+  v10 = v93;
+  *a1 = v92;
+  *(a1 + 16) = v10;
+  result = *&v94;
+  v12 = v95;
+  *(a1 + 32) = v94;
+  *(a1 + 48) = v12;
+  return result;
+}
+
+double sub_1B0ADFF18@<D0>(uint64_t a1@<X8>)
+{
+  sub_1B0ADFB4C(v10);
+  v2 = v22;
+  *(a1 + 192) = v21;
+  *(a1 + 208) = v2;
+  *(a1 + 224) = v23;
+  *(a1 + 240) = v24;
+  v3 = v18;
+  *(a1 + 128) = v17;
+  *(a1 + 144) = v3;
+  v4 = v20;
+  *(a1 + 160) = v19;
+  *(a1 + 176) = v4;
+  v5 = v14;
+  *(a1 + 64) = v13;
+  *(a1 + 80) = v5;
+  v6 = v16;
+  *(a1 + 96) = v15;
+  *(a1 + 112) = v6;
+  v7 = v10[1];
+  *a1 = v10[0];
+  *(a1 + 16) = v7;
+  result = *&v11;
+  v9 = v12;
+  *(a1 + 32) = v11;
+  *(a1 + 48) = v9;
+  return result;
+}
+
+unint64_t sub_1B0ADFF94()
+{
+  result = qword_1EB6E4218;
+  if (!qword_1EB6E4218)
   {
-LABEL_14:
-    if (*(result + 56) >= 3)
-    {
-      goto LABEL_15;
-    }
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1EB6E4218);
   }
 
   return result;
 }
 
-uint64_t FindTop2(uint64_t result, _DWORD *a2, _DWORD *a3, _DWORD *a4, _DWORD *a5)
+unint64_t sub_1B0ADFFE8(uint64_t a1)
 {
-  *a4 = -1;
-  *a5 = -1;
-  *a2 = 0;
-  *a3 = 0;
-  if (*(result + 260) >= 1)
+  v2 = sub_1B0E46C18();
+
+  return sub_1B0AE03A4(a1, v2);
+}
+
+unint64_t sub_1B0AE0058(uint64_t a1)
+{
+  sub_1B0E46C28();
+  sub_1B0B50244(v4);
+  v2 = sub_1B0E46CB8();
+
+  return sub_1B0AE0C74(a1, v2);
+}
+
+unint64_t sub_1B0AE00C4(uint64_t a1)
+{
+  v2 = type metadata accessor for MoveAndCopyMessages.CommandID(0);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = &v8[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_1B0E46C28();
+  v5 = *(*a1 + 96);
+  swift_beginAccess();
+  sub_1B03BCD68(a1 + v5, v4, type metadata accessor for MoveAndCopyMessages.CommandID);
+  sub_1B0B50244(v9);
+  sub_1B03BE264(v4, type metadata accessor for MoveAndCopyMessages.CommandID);
+  v6 = sub_1B0E46CB8();
+  return sub_1B0AE0DD4(a1, v6);
+}
+
+unint64_t sub_1B0AE01D0(uint64_t a1, uint64_t a2)
+{
+  sub_1B0E46C28();
+  sub_1B0B0ADF0(v6, a1);
+  sub_1B0B0ADF0(v6, a2);
+  v4 = sub_1B0E46CB8();
+
+  return sub_1B0AE0FB4(a1, a2, v4);
+}
+
+unint64_t sub_1B0AE0250(unsigned __int8 *a1)
+{
+  sub_1B0E46C28();
+  MEMORY[0x1B2728D70](*a1);
+  sub_1B0E46C88();
+  MEMORY[0x1B2728D70](*(a1 + 4) | (*(a1 + 4) << 32));
+  sub_1B0E42F48();
+  v2 = sub_1B0E46CB8();
+
+  return sub_1B0AE10B4(a1, v2);
+}
+
+uint64_t sub_1B0AE02E4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void *, uint64_t, uint64_t), uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
+{
+  sub_1B0E46C28();
+  a3(v10, a1, a2);
+  v7 = sub_1B0E46CB8();
+
+  return a4(a1, a2, v7);
+}
+
+double sub_1B0AE0378(uint64_t a1)
+{
+  *(a1 + 240) = 0;
+  result = 0.0;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  return result;
+}
+
+unint64_t sub_1B0AE03A4(uint64_t a1, uint64_t a2)
+{
+  v4 = -1 << *(v2 + 32);
+  result = a2 & ~v4;
+  if ((*(v2 + 64 + ((result >> 3) & 0xFFFFFFFFFFFFFF8)) >> result))
   {
-    v5 = 0;
-    v6 = result + 532;
-    while (1)
+    v6 = ~v4;
+    do
     {
-      v7 = *(result + 264 + 4 * v5);
-      v8 = *(v6 + 4 * v7);
-      if (*a4 < v8)
+      if (*(*(v2 + 48) + 8 * result) == a1)
       {
         break;
       }
 
-      if (*a5 < v8)
-      {
-        *a5 = v8;
-        v9 = a3;
-        goto LABEL_7;
-      }
-
-LABEL_8:
-      if (++v5 >= *(result + 260))
-      {
-        return result;
-      }
+      result = (result + 1) & v6;
     }
 
-    *a5 = *a4;
-    *a3 = *a2;
-    *a4 = *(v6 + 4 * v7);
-    v9 = a2;
-LABEL_7:
-    *v9 = v7;
-    goto LABEL_8;
+    while (((*(v2 + 64 + ((result >> 3) & 0xFFFFFFFFFFFFFF8)) >> result) & 1) != 0);
   }
 
   return result;
 }
 
-uint64_t PrintRankedEncodingList(uint64_t a1, const char *a2)
+uint64_t sub_1B0AE0410(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  printf("Current ranked encoding list %s\n", a2);
-  if (*(a1 + 260) >= 1)
+  __s1[2] = *MEMORY[0x1E69E9840];
+  v4 = v3 + 64;
+  v5 = -1 << *(v3 + 32);
+  v6 = a3 & ~v5;
+  if (((*(v3 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) == 0)
   {
-    v3 = 0;
-    do
-    {
-      v4 = *(a1 + 264 + 4 * v3);
-      if (v4 < 0x44)
-      {
-        MyEncodingName(kMapToEncoding[v4]);
-        v5 = *(a1 + 532 + 4 * v4);
-        printf(" [%d] rankedencoding = %d %-12.12s enc_prob = %d\n");
-      }
-
-      else
-      {
-        printf(" [%d] BOGUS rankedencoding = %d\n");
-      }
-
-      ++v3;
-    }
-
-    while (v3 < *(a1 + 260));
+    return v6;
   }
 
-  return puts("End current ranked encoding list\n");
-}
-
-char *Latin127Str(unint64_t a1)
-{
-  tri_string = aAbcdefghijklmn[(a1 >> 10) & 0x1F];
-  byte_1EB7077D9 = aAbcdefghijklmn[(a1 >> 5) & 0x1F];
-  byte_1EB7077DA = aAbcdefghijklmn[a1 & 0x1F];
-  byte_1EB7077DB = 0;
-  return &tri_string;
-}
-
-BOOL BoostLatin127Trigrams(int a1, uint64_t a2)
-{
-  v2 = *a2;
-  v3 = *(a2 + 8) - *a2 - 2;
-  if (a1 + 32 >= v3)
+  v7 = v3;
+  v10 = ~v5;
+  v11 = a2 >> 62;
+  if (a1)
   {
-    v4 = *(a2 + 8) - *a2 - 2;
+    v12 = 0;
   }
 
   else
   {
-    v4 = a1 + 32;
+    v12 = a2 == 0xC000000000000000;
   }
 
-  if (v3 > a1)
+  v13 = !v12;
+  v74 = v13;
+  v14 = __OFSUB__(HIDWORD(a1), a1);
+  v71 = v14;
+  __n = BYTE6(a2);
+  v69 = a1;
+  v70 = HIDWORD(a1) - a1;
+  v65 = (a1 >> 32) - a1;
+  v66 = a1 >> 32;
+  v72 = v10;
+  v73 = v3 + 64;
+  while (1)
   {
-    v6 = 0;
-    v7 = &v2[v4];
-    v8 = &v2[a1];
-    v24 = (a2 + 652);
-    v25 = (a2 + 596);
-    v22 = (a2 + 568);
-    v23 = (a2 + 704);
-    v20 = (a2 + 536);
-    v21 = (a2 + 580);
-    v9 = (a2 + 548);
-    v10 = (a2 + 592);
-    v11 = v8;
-    while (1)
+    v15 = (*(v7 + 48) + 16 * v6);
+    v17 = *v15;
+    v16 = v15[1];
+    v18 = v16 >> 62;
+    if (v16 >> 62 == 3)
     {
-      v12 = *++v11;
-      v13 = kMapToFiveBits[v8[2]];
-      v14 = (kLatin127Trigrams[kMapToFiveBits[v12] | (32 * kMapToFiveBits[*v8])] >> (2 * v13)) & 3;
-      if (((kLatin127Trigrams[kMapToFiveBits[v12] | (32 * kMapToFiveBits[*v8])] >> (2 * v13)) & 3) != 0)
+      if (v17)
       {
-        break;
+        v19 = 0;
       }
 
-LABEL_16:
-      v8 = v11;
-      if (v11 >= v7)
+      else
       {
-        return v6 > 0;
+        v19 = v16 == 0xC000000000000000;
+      }
+
+      v21 = !v19 || v11 < 3;
+      if (((v21 | v74) & 1) == 0)
+      {
+        return v6;
+      }
+
+LABEL_36:
+      v22 = 0;
+      if (v11 <= 1)
+      {
+        goto LABEL_33;
+      }
+
+      goto LABEL_37;
+    }
+
+    if (v18 > 1)
+    {
+      if (v18 != 2)
+      {
+        goto LABEL_36;
+      }
+
+      v24 = *(v17 + 16);
+      v23 = *(v17 + 24);
+      v25 = __OFSUB__(v23, v24);
+      v22 = v23 - v24;
+      if (v25)
+      {
+        goto LABEL_142;
+      }
+
+      if (v11 <= 1)
+      {
+        goto LABEL_33;
       }
     }
 
-    if (FLAGS_enc_detect_source == 1)
+    else if (v18)
     {
-      PsHighlight(v8, *a2, v14, 1);
-    }
+      LODWORD(v22) = HIDWORD(v17) - v17;
+      if (__OFSUB__(HIDWORD(v17), v17))
+      {
+        goto LABEL_141;
+      }
 
-    if (v14 == 1)
-    {
-      v15 = -1;
-      v18 = v20;
-      v16 = v9;
-      v17 = v10;
+      v22 = v22;
+      if (v11 <= 1)
+      {
+LABEL_33:
+        v26 = __n;
+        if (v11)
+        {
+          v26 = v70;
+          if (v71)
+          {
+            __break(1u);
+LABEL_140:
+            __break(1u);
+LABEL_141:
+            __break(1u);
+LABEL_142:
+            __break(1u);
+LABEL_143:
+            __break(1u);
+LABEL_144:
+            __break(1u);
+LABEL_145:
+            __break(1u);
+LABEL_146:
+            __break(1u);
+LABEL_147:
+            __break(1u);
+LABEL_148:
+            __break(1u);
+LABEL_149:
+            __break(1u);
+LABEL_150:
+            __break(1u);
+LABEL_151:
+            __break(1u);
+LABEL_152:
+            __break(1u);
+LABEL_153:
+            __break(1u);
+LABEL_154:
+            __break(1u);
+LABEL_155:
+            __break(1u);
+LABEL_156:
+            __break(1u);
+LABEL_157:
+            __break(1u);
+LABEL_158:
+            __break(1u);
+LABEL_159:
+            __break(1u);
+LABEL_160:
+            __break(1u);
+LABEL_161:
+            __break(1u);
+          }
+        }
+
+        goto LABEL_39;
+      }
     }
 
     else
     {
-      if (v14 == 2)
+      v22 = BYTE6(v16);
+      if (v11 <= 1)
       {
-        v15 = 1;
-        v17 = v21;
-        v16 = v22;
-LABEL_15:
-        *v16 += 60;
-        *v17 += 60;
-        v6 += v15;
-        goto LABEL_16;
+        goto LABEL_33;
       }
-
-      *(a2 + 648) += 60;
-      v15 = 1;
-      v16 = v24;
-      v18 = v25;
-      v17 = v23;
     }
 
-    *v18 += 60;
-    goto LABEL_15;
+LABEL_37:
+    if (v11 != 2)
+    {
+      if (!v22)
+      {
+        return v6;
+      }
+
+      goto LABEL_13;
+    }
+
+    v28 = *(a1 + 16);
+    v27 = *(a1 + 24);
+    v25 = __OFSUB__(v27, v28);
+    v26 = v27 - v28;
+    if (v25)
+    {
+      goto LABEL_140;
+    }
+
+LABEL_39:
+    if (v22 != v26)
+    {
+      goto LABEL_13;
+    }
+
+    if (v22 < 1)
+    {
+      return v6;
+    }
+
+    if (v18 > 1)
+    {
+      break;
+    }
+
+    if (v18)
+    {
+      if (v17 > v17 >> 32)
+      {
+        goto LABEL_143;
+      }
+
+      sub_1B03B2000(v17, v16);
+      v35 = sub_1B0E42A98();
+      if (v35)
+      {
+        v40 = sub_1B0E42AC8();
+        if (__OFSUB__(v17, v40))
+        {
+          goto LABEL_145;
+        }
+
+        v35 += v17 - v40;
+      }
+
+      sub_1B0E42AB8();
+      if (v11 == 2)
+      {
+        v59 = *(a1 + 16);
+        v64 = *(a1 + 24);
+        v37 = sub_1B0E42A98();
+        if (v37)
+        {
+          v60 = sub_1B0E42AC8();
+          if (__OFSUB__(v59, v60))
+          {
+            goto LABEL_160;
+          }
+
+          v37 += v59 - v60;
+        }
+
+        v25 = __OFSUB__(v64, v59);
+        v61 = v64 - v59;
+        if (v25)
+        {
+          goto LABEL_155;
+        }
+
+        result = sub_1B0E42AB8();
+        if (result >= v61)
+        {
+          v39 = v61;
+        }
+
+        else
+        {
+          v39 = result;
+        }
+
+        if (!v35)
+        {
+          goto LABEL_175;
+        }
+
+        if (!v37)
+        {
+          goto LABEL_174;
+        }
+
+        goto LABEL_130;
+      }
+
+      if (v11 == 1)
+      {
+        if (v66 < v69)
+        {
+          goto LABEL_154;
+        }
+
+        v37 = sub_1B0E42A98();
+        if (v37)
+        {
+          v41 = sub_1B0E42AC8();
+          if (__OFSUB__(v69, v41))
+          {
+            goto LABEL_161;
+          }
+
+          v37 += v69 - v41;
+        }
+
+        result = sub_1B0E42AB8();
+        v39 = v65;
+        if (result < v65)
+        {
+          v39 = result;
+        }
+
+        if (!v35)
+        {
+          goto LABEL_177;
+        }
+
+        if (!v37)
+        {
+          goto LABEL_176;
+        }
+
+        goto LABEL_130;
+      }
+
+      LOWORD(__s1[0]) = a1;
+      BYTE2(__s1[0]) = BYTE2(a1);
+      BYTE3(__s1[0]) = BYTE3(a1);
+      BYTE4(__s1[0]) = v67;
+      BYTE5(__s1[0]) = BYTE5(a1);
+      BYTE6(__s1[0]) = BYTE6(a1);
+      HIBYTE(__s1[0]) = HIBYTE(a1);
+      LOWORD(__s1[1]) = a2;
+      BYTE2(__s1[1]) = BYTE2(a2);
+      BYTE3(__s1[1]) = BYTE3(a2);
+      BYTE4(__s1[1]) = BYTE4(a2);
+      BYTE5(__s1[1]) = BYTE5(a2);
+      if (!v35)
+      {
+        goto LABEL_166;
+      }
+
+      goto LABEL_133;
+    }
+
+    __s1[0] = v17;
+    LOWORD(__s1[1]) = v16;
+    BYTE2(__s1[1]) = BYTE2(v16);
+    BYTE3(__s1[1]) = BYTE3(v16);
+    BYTE4(__s1[1]) = BYTE4(v16);
+    BYTE5(__s1[1]) = BYTE5(v16);
+    if (!v11)
+    {
+      goto LABEL_91;
+    }
+
+    if (v11 != 1)
+    {
+      v48 = *(a1 + 16);
+      v47 = *(a1 + 24);
+      sub_1B03B2000(v17, v16);
+      v32 = sub_1B0E42A98();
+      if (v32)
+      {
+        v49 = sub_1B0E42AC8();
+        if (__OFSUB__(v48, v49))
+        {
+          goto LABEL_157;
+        }
+
+        v32 += v48 - v49;
+      }
+
+      v25 = __OFSUB__(v47, v48);
+      v45 = v47 - v48;
+      if (v25)
+      {
+        goto LABEL_149;
+      }
+
+      v46 = sub_1B0E42AB8();
+      v7 = v68;
+      if (!v32)
+      {
+        goto LABEL_164;
+      }
+
+      goto LABEL_98;
+    }
+
+    if (v66 < v69)
+    {
+      goto LABEL_146;
+    }
+
+    sub_1B03B2000(v17, v16);
+    v29 = sub_1B0E42A98();
+    if (!v29)
+    {
+      goto LABEL_167;
+    }
+
+    v30 = v29;
+    v31 = sub_1B0E42AC8();
+    if (__OFSUB__(v69, v31))
+    {
+      goto LABEL_152;
+    }
+
+    v32 = v69 - v31 + v30;
+    result = sub_1B0E42AB8();
+    if (!v32)
+    {
+      goto LABEL_168;
+    }
+
+LABEL_105:
+    if (result >= v65)
+    {
+      v50 = v65;
+    }
+
+    else
+    {
+      v50 = result;
+    }
+
+LABEL_108:
+    v54 = __s1;
+    v55 = v32;
+LABEL_134:
+    v62 = memcmp(v54, v55, v50);
+    sub_1B0391D50(v17, v16);
+LABEL_135:
+    v10 = v72;
+    v4 = v73;
+    if (!v62)
+    {
+      return v6;
+    }
+
+LABEL_13:
+    v6 = (v6 + 1) & v10;
+    if (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) == 0)
+    {
+      return v6;
+    }
+  }
+
+  if (v18 == 2)
+  {
+    v34 = *(v17 + 16);
+    sub_1B03B2000(v17, v16);
+    v35 = sub_1B0E42A98();
+    if (v35)
+    {
+      v36 = sub_1B0E42AC8();
+      if (__OFSUB__(v34, v36))
+      {
+        goto LABEL_144;
+      }
+
+      v35 += v34 - v36;
+    }
+
+    result = sub_1B0E42AB8();
+    if (v11 == 2)
+    {
+      v56 = *(a1 + 16);
+      v63 = *(a1 + 24);
+      v37 = sub_1B0E42A98();
+      if (v37)
+      {
+        v57 = sub_1B0E42AC8();
+        if (__OFSUB__(v56, v57))
+        {
+          goto LABEL_158;
+        }
+
+        v37 += v56 - v57;
+      }
+
+      v25 = __OFSUB__(v63, v56);
+      v58 = v63 - v56;
+      if (v25)
+      {
+        goto LABEL_153;
+      }
+
+      result = sub_1B0E42AB8();
+      if (result >= v58)
+      {
+        v39 = v58;
+      }
+
+      else
+      {
+        v39 = result;
+      }
+
+      if (!v35)
+      {
+        goto LABEL_173;
+      }
+
+      if (!v37)
+      {
+        goto LABEL_172;
+      }
+
+      goto LABEL_130;
+    }
+
+    if (v11 == 1)
+    {
+      if (v66 < v69)
+      {
+        goto LABEL_148;
+      }
+
+      v37 = sub_1B0E42A98();
+      if (v37)
+      {
+        v38 = sub_1B0E42AC8();
+        if (__OFSUB__(v69, v38))
+        {
+          goto LABEL_159;
+        }
+
+        v37 += v69 - v38;
+      }
+
+      result = sub_1B0E42AB8();
+      v39 = v65;
+      if (result < v65)
+      {
+        v39 = result;
+      }
+
+      if (!v35)
+      {
+        goto LABEL_171;
+      }
+
+      if (!v37)
+      {
+        goto LABEL_170;
+      }
+
+LABEL_130:
+      if (v35 == v37)
+      {
+        sub_1B0391D50(v17, v16);
+        return v6;
+      }
+
+      v62 = memcmp(v35, v37, v39);
+      sub_1B0391D50(v17, v16);
+      v7 = v68;
+      goto LABEL_135;
+    }
+
+    LOWORD(__s1[0]) = a1;
+    BYTE2(__s1[0]) = BYTE2(a1);
+    BYTE3(__s1[0]) = BYTE3(a1);
+    BYTE4(__s1[0]) = v67;
+    BYTE5(__s1[0]) = BYTE5(a1);
+    BYTE6(__s1[0]) = BYTE6(a1);
+    HIBYTE(__s1[0]) = HIBYTE(a1);
+    LOWORD(__s1[1]) = a2;
+    BYTE2(__s1[1]) = BYTE2(a2);
+    BYTE3(__s1[1]) = BYTE3(a2);
+    BYTE4(__s1[1]) = BYTE4(a2);
+    BYTE5(__s1[1]) = BYTE5(a2);
+    if (!v35)
+    {
+      goto LABEL_169;
+    }
+
+LABEL_133:
+    v55 = __s1;
+    v54 = v35;
+    v50 = __n;
+    goto LABEL_134;
+  }
+
+  memset(__s1, 0, 14);
+  if (!v11)
+  {
+LABEL_91:
+    __s2 = a1;
+    v77 = BYTE2(a1);
+    v78 = BYTE3(a1);
+    v79 = v67;
+    v80 = BYTE5(a1);
+    v81 = BYTE6(a1);
+    v82 = HIBYTE(a1);
+    v83 = a2;
+    v84 = BYTE2(a2);
+    v85 = BYTE3(a2);
+    v86 = BYTE4(a2);
+    v87 = BYTE5(a2);
+    if (!memcmp(__s1, &__s2, __n))
+    {
+      return v6;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (v11 == 2)
+  {
+    v43 = *(a1 + 16);
+    v42 = *(a1 + 24);
+    sub_1B03B2000(v17, v16);
+    v32 = sub_1B0E42A98();
+    if (v32)
+    {
+      v44 = sub_1B0E42AC8();
+      if (__OFSUB__(v43, v44))
+      {
+        goto LABEL_156;
+      }
+
+      v32 += v43 - v44;
+    }
+
+    v25 = __OFSUB__(v42, v43);
+    v45 = v42 - v43;
+    if (v25)
+    {
+      goto LABEL_150;
+    }
+
+    v46 = sub_1B0E42AB8();
+    v7 = v68;
+    if (!v32)
+    {
+      goto LABEL_165;
+    }
+
+LABEL_98:
+    if (v46 >= v45)
+    {
+      v50 = v45;
+    }
+
+    else
+    {
+      v50 = v46;
+    }
+
+    goto LABEL_108;
+  }
+
+  if (v66 < v69)
+  {
+    goto LABEL_147;
+  }
+
+  sub_1B03B2000(v17, v16);
+  v51 = sub_1B0E42A98();
+  if (v51)
+  {
+    v52 = v51;
+    v53 = sub_1B0E42AC8();
+    if (__OFSUB__(v69, v53))
+    {
+      goto LABEL_151;
+    }
+
+    v32 = v69 - v53 + v52;
+    result = sub_1B0E42AB8();
+    if (!v32)
+    {
+      goto LABEL_163;
+    }
+
+    goto LABEL_105;
+  }
+
+  sub_1B0E42AB8();
+LABEL_163:
+  __break(1u);
+LABEL_164:
+  __break(1u);
+LABEL_165:
+  __break(1u);
+LABEL_166:
+  __break(1u);
+LABEL_167:
+  result = sub_1B0E42AB8();
+LABEL_168:
+  __break(1u);
+LABEL_169:
+  __break(1u);
+LABEL_170:
+  __break(1u);
+LABEL_171:
+  __break(1u);
+LABEL_172:
+  __break(1u);
+LABEL_173:
+  __break(1u);
+LABEL_174:
+  __break(1u);
+LABEL_175:
+  __break(1u);
+LABEL_176:
+  __break(1u);
+LABEL_177:
+  __break(1u);
+  return result;
+}
+
+unint64_t sub_1B0AE0C74(uint64_t a1, uint64_t a2)
+{
+  v5 = type metadata accessor for MoveAndCopyMessages.CommandID(0) - 8;
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = -1 << *(v2 + 32);
+  v10 = a2 & ~v9;
+  if ((*(v2 + 64 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
+  {
+    v11 = ~v9;
+    v12 = *(v6 + 72);
+    do
+    {
+      sub_1B03BCD68(*(v2 + 48) + v12 * v10, v8, type metadata accessor for MoveAndCopyMessages.CommandID);
+      v13 = sub_1B0B57E4C(v8, a1);
+      sub_1B03BE264(v8, type metadata accessor for MoveAndCopyMessages.CommandID);
+      if (v13)
+      {
+        break;
+      }
+
+      v10 = (v10 + 1) & v11;
+    }
+
+    while (((*(v2 + 64 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) != 0);
+  }
+
+  return v10;
+}
+
+unint64_t sub_1B0AE0DD4(uint64_t a1, uint64_t a2)
+{
+  v5 = type metadata accessor for MoveAndCopyMessages.CommandID(0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v21 - v9;
+  v11 = v2 + 64;
+  v22 = v2;
+  v12 = -1 << *(v2 + 32);
+  v13 = a2 & ~v12;
+  v14 = *(*a1 + 96);
+  v15 = a1;
+  swift_beginAccess();
+  if ((*(v11 + ((v13 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v13))
+  {
+    v16 = ~v12;
+    do
+    {
+      v17 = *(*(v22 + 48) + 8 * v13);
+      v18 = *(*v17 + 96);
+      swift_beginAccess();
+      sub_1B03BCD68(v17 + v18, v10, type metadata accessor for MoveAndCopyMessages.CommandID);
+      sub_1B03BCD68(v15 + v14, v7, type metadata accessor for MoveAndCopyMessages.CommandID);
+      v19 = sub_1B0B57E4C(v10, v7);
+      sub_1B03BE264(v7, type metadata accessor for MoveAndCopyMessages.CommandID);
+      sub_1B03BE264(v10, type metadata accessor for MoveAndCopyMessages.CommandID);
+      if (v19)
+      {
+        break;
+      }
+
+      v13 = (v13 + 1) & v16;
+    }
+
+    while (((*(v11 + ((v13 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v13) & 1) != 0);
+  }
+
+  return v13;
+}
+
+unint64_t sub_1B0AE0FB4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = -1 << *(v3 + 32);
+  v5 = a3 & ~v4;
+  if ((*(v3 + 64 + ((v5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v5))
+  {
+    v8 = ~v4;
+    do
+    {
+      v9 = (*(v3 + 48) + 16 * v5);
+      v10 = *v9;
+      v11 = v9[1];
+      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+      if (sub_1B0AFE1EC(v10, a1))
+      {
+        v12 = sub_1B0AFE1EC(v11, a2);
+
+        if (v12)
+        {
+          return v5;
+        }
+      }
+
+      else
+      {
+      }
+
+      v5 = (v5 + 1) & v8;
+    }
+
+    while (((*(v3 + 64 + ((v5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v5) & 1) != 0);
+  }
+
+  return v5;
+}
+
+unint64_t sub_1B0AE10B4(uint64_t a1, uint64_t a2)
+{
+  v3 = -1 << *(v2 + 32);
+  v4 = a2 & ~v3;
+  if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
+  {
+    v6 = ~v3;
+    do
+    {
+      v7 = *(v2 + 48) + 40 * v4;
+      v8 = *(v7 + 32);
+      v9 = *(v7 + 16);
+      v13[0] = *v7;
+      v13[1] = v9;
+      v14 = v8;
+      sub_1B0929244(v13, v12);
+      v10 = static MoveOrCopy.__derived_struct_equals(_:_:)(v13, a1);
+      sub_1B0929338(v13);
+      if (v10)
+      {
+        break;
+      }
+
+      v4 = (v4 + 1) & v6;
+    }
+
+    while (((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4) & 1) != 0);
+  }
+
+  return v4;
+}
+
+void *sub_1B0AE1190(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = &v48 - v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v48 - v7;
+  v9 = type metadata accessor for MessageBatches.OtherUIDsBatchSequence(0);
+  v10 = v9 - 8;
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = &v48 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for MessageBatches.OtherUIDsBatchSequence.Iterator(0);
+  v14 = v13 - 8;
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v48 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = *(v6 + 80);
+  sub_1B03BCD68(a1, v12, type metadata accessor for MessageBatches.OtherUIDsBatchSequence);
+  v18 = *&v12[*(v10 + 28)];
+  sub_1B03C60A4(v12, v16, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  *&v16[*(v14 + 28)] = v18;
+  sub_1B0B3FBB4(v4);
+  v54 = v5;
+  v55 = v6;
+  v19 = *(v6 + 48);
+  v52 = v6 + 48;
+  v53 = v19;
+  v20 = v19(v4, 1, v5);
+  v21 = MEMORY[0x1E69E7CC0];
+  if (v20 != 1)
+  {
+    v22 = 0;
+    v50 = v17;
+    v51 = (v17 + 32) & ~v17;
+    v28 = MEMORY[0x1E69E7CC0] + v51;
+    v29 = &unk_1EB6E26C0;
+    v30 = &unk_1B0E9DE10;
+    v31 = MEMORY[0x1E69E7CC0];
+    v48 = v4;
+    v49 = v8;
+    while (1)
+    {
+      v33 = v29;
+      v34 = v30;
+      result = sub_1B03C60A4(v4, v8, v29, v30);
+      if (v22)
+      {
+        v21 = v31;
+        v26 = __OFSUB__(v22--, 1);
+        if (v26)
+        {
+          goto LABEL_32;
+        }
+      }
+
+      else
+      {
+        v35 = v31[3];
+        if (((v35 >> 1) + 0x4000000000000000) < 0)
+        {
+          goto LABEL_33;
+        }
+
+        v36 = v35 & 0xFFFFFFFFFFFFFFFELL;
+        if (v36 <= 1)
+        {
+          v37 = 1;
+        }
+
+        else
+        {
+          v37 = v36;
+        }
+
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4240, &unk_1B0EC5120);
+        v38 = *(v55 + 72);
+        v39 = v51;
+        v21 = swift_allocObject();
+        result = _swift_stdlib_malloc_size_0(v21);
+        if (!v38)
+        {
+          goto LABEL_34;
+        }
+
+        v40 = result - v39;
+        if ((result - v39) == 0x8000000000000000 && v38 == -1)
+        {
+          goto LABEL_35;
+        }
+
+        v42 = v40 / v38;
+        v21[2] = v37;
+        v21[3] = 2 * (v40 / v38);
+        v43 = v21 + v39;
+        v44 = v31[3] >> 1;
+        v45 = v44 * v38;
+        if (v31[2])
+        {
+          if (v21 < v31 || v43 >= v31 + v51 + v45)
+          {
+            swift_arrayInitWithTakeFrontToBack();
+          }
+
+          else if (v21 != v31)
+          {
+            swift_arrayInitWithTakeBackToFront();
+          }
+
+          v31[2] = 0;
+        }
+
+        v28 = &v43[v45];
+        v47 = (v42 & 0x7FFFFFFFFFFFFFFFLL) - v44;
+
+        v4 = v48;
+        v8 = v49;
+        v26 = __OFSUB__(v47, 1);
+        v22 = v47 - 1;
+        if (v26)
+        {
+LABEL_32:
+          __break(1u);
+LABEL_33:
+          __break(1u);
+LABEL_34:
+          __break(1u);
+LABEL_35:
+          __break(1u);
+LABEL_36:
+          __break(1u);
+          return result;
+        }
+      }
+
+      sub_1B03C60A4(v8, v28, v33, v34);
+      v28 += *(v55 + 72);
+      sub_1B0B3FBB4(v4);
+      v32 = v53(v4, 1, v54);
+      v30 = v34;
+      v29 = v33;
+      v31 = v21;
+      if (v32 == 1)
+      {
+        goto LABEL_3;
+      }
+    }
+  }
+
+  v22 = 0;
+LABEL_3:
+  sub_1B03BE264(v16, type metadata accessor for MessageBatches.OtherUIDsBatchSequence.Iterator);
+  result = sub_1B0398EFC(v4, &unk_1EB6E3670, &unk_1B0E9B260);
+  v24 = v21[3];
+  if (v24 >= 2)
+  {
+    v25 = v24 >> 1;
+    v26 = __OFSUB__(v25, v22);
+    v27 = v25 - v22;
+    if (v26)
+    {
+      goto LABEL_36;
+    }
+
+    v21[2] = v27;
+  }
+
+  return v21;
+}
+
+void sub_1B0AE15D8(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
+{
+  v6 = a1;
+  v7 = *(a1 + 16);
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  v64 = a4;
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  v66 = v7;
+  v62 = MEMORY[0x1E69E7CC0];
+  if (!v7)
+  {
+    v61 = 0;
+LABEL_54:
+
+    v57 = *(v62 + 3);
+    if (v57 < 2)
+    {
+      return;
+    }
+
+    v58 = v57 >> 1;
+    v29 = __OFSUB__(v58, v61);
+    v59 = v58 - v61;
+    if (!v29)
+    {
+      *(v62 + 2) = v59;
+      return;
+    }
+
+LABEL_61:
+    __break(1u);
+LABEL_62:
+    __break(1u);
+LABEL_63:
+    __break(1u);
+    goto LABEL_64;
+  }
+
+  v8 = 0;
+  v65 = v6 + 32;
+  v60 = MEMORY[0x1E69E7CC0] + 32;
+  v61 = 0;
+  while (1)
+  {
+    if (v8 >= v66)
+    {
+LABEL_58:
+      __break(1u);
+LABEL_59:
+      __break(1u);
+LABEL_60:
+      __break(1u);
+      goto LABEL_61;
+    }
+
+    while (1)
+    {
+      v9 = (v65 + 176 * v8);
+      v10 = v9[9];
+      v97 = v9[8];
+      v98 = v10;
+      v99 = v9[10];
+      v11 = v9[5];
+      v93 = v9[4];
+      v94 = v11;
+      v12 = v9[7];
+      v95 = v9[6];
+      v96 = v12;
+      v13 = v9[1];
+      v89 = *v9;
+      v90 = v13;
+      v14 = v9[3];
+      v91 = v9[2];
+      v92 = v14;
+      if (*(a2 + 16))
+      {
+        v15 = v89;
+        v16 = v90;
+        v17 = DWORD2(v90);
+        v18 = DWORD1(v94);
+        v19 = BYTE8(v94);
+        v20 = v6;
+        v21 = sub_1B03AB888(v90, DWORD2(v90));
+        if (v22)
+        {
+          break;
+        }
+      }
+
+LABEL_13:
+      v29 = __OFADD__(v8++, 1);
+      if (v29)
+      {
+        goto LABEL_59;
+      }
+
+LABEL_14:
+      if (v8 == v66)
+      {
+        goto LABEL_54;
+      }
+
+      if (v8 >= v66)
+      {
+        goto LABEL_58;
+      }
+    }
+
+    v23 = *(a2 + 56) + 72 * v21;
+    v84 = *v23;
+    v25 = *(v23 + 32);
+    v24 = *(v23 + 48);
+    v26 = *(v23 + 16);
+    v88 = *(v23 + 64);
+    v86 = v25;
+    v87 = v24;
+    v85 = v26;
+    sub_1B03A35B8(&v89, &v68);
+    sub_1B03BB0B4(&v84, &v68);
+    v27 = *RemoteMailbox.Attributes.noSelect.unsafeMutableAddressor();
+    v28 = *RemoteMailbox.Attributes.nonExistent.unsafeMutableAddressor();
+    if (!v27)
+    {
+      if (!v28)
+      {
+        goto LABEL_17;
+      }
+
+LABEL_10:
+      LOWORD(v27) = v28 | v27;
+      goto LABEL_11;
+    }
+
+    if ((v28 & ~v27) != 0)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_11:
+    if ((HIWORD(v84) & v27) != 0)
+    {
+      sub_1B039E440(&v84);
+      sub_1B03A3614(&v89);
+      v6 = v20;
+      goto LABEL_13;
+    }
+
+LABEL_17:
+    v76 = v97;
+    v77 = v98;
+    v78 = v99;
+    v72 = v93;
+    v73 = v94;
+    v74 = v95;
+    v75 = v96;
+    v68 = v89;
+    v69 = v90;
+    v70 = v91;
+    v71 = v92;
+    v81 = v86;
+    v82 = v87;
+    v83 = v88;
+    v79 = v84;
+    v80 = v85;
+    if ((a3 & 1) == 0)
+    {
+      v29 = __OFADD__(v8++, 1);
+      if (v29)
+      {
+        goto LABEL_65;
+      }
+
+      goto LABEL_39;
+    }
+
+    sub_1B03A35B8(&v89, v67);
+    sub_1B03BB0B4(&v84, v67);
+    v30 = MailboxName.isInbox.getter(v16, v17);
+    sub_1B039E440(&v84);
+    if ((v30 & 1) != 0 || v85 > 7u || ((1 << v85) & 0xDB) == 0 || (v19 & 1) == 0 && ((BYTE12(v95) & 1) != 0 || DWORD2(v95) < v18))
+    {
+      sub_1B03A3614(&v89);
+      v29 = __OFADD__(v8++, 1);
+      if (v29)
+      {
+        goto LABEL_63;
+      }
+
+      goto LABEL_39;
+    }
+
+    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+    sub_1B03A3614(&v89);
+    if (!*(v64 + 16))
+    {
+      sub_1B03BB144(&v68);
+
+LABEL_29:
+      v6 = v20;
+      v29 = __OFADD__(v8++, 1);
+      if (v29)
+      {
+        goto LABEL_60;
+      }
+
+      goto LABEL_14;
+    }
+
+    v31 = sub_1B03B8A9C(v15, *(&v15 + 1));
+    v33 = v32;
+
+    if ((v33 & 1) == 0 || (~*(*(v64 + 56) + 2 * v31) & 0x3FFF) == 0)
+    {
+      sub_1B03BB144(&v68);
+      goto LABEL_29;
+    }
+
+    v29 = __OFADD__(v8++, 1);
+    if (v29)
+    {
+      goto LABEL_66;
+    }
+
+LABEL_39:
+    v6 = v20;
+    v34 = v61;
+    if (!v61)
+    {
+      break;
+    }
+
+LABEL_50:
+    v29 = __OFSUB__(v34, 1);
+    v44 = v34 - 1;
+    if (v29)
+    {
+      goto LABEL_62;
+    }
+
+    v61 = v44;
+    v45 = v68;
+    v46 = v69;
+    v47 = v71;
+    *(v60 + 32) = v70;
+    *(v60 + 48) = v47;
+    *v60 = v45;
+    *(v60 + 16) = v46;
+    v48 = v72;
+    v49 = v73;
+    v50 = v75;
+    *(v60 + 96) = v74;
+    *(v60 + 112) = v50;
+    *(v60 + 64) = v48;
+    *(v60 + 80) = v49;
+    v51 = v76;
+    v52 = v77;
+    v53 = v79;
+    *(v60 + 160) = v78;
+    *(v60 + 176) = v53;
+    *(v60 + 128) = v51;
+    *(v60 + 144) = v52;
+    v54 = v80;
+    v55 = v81;
+    v56 = v82;
+    *(v60 + 240) = v83;
+    *(v60 + 208) = v55;
+    *(v60 + 224) = v56;
+    *(v60 + 192) = v54;
+    v60 += 248;
+    if (v8 == v66)
+    {
+      goto LABEL_54;
+    }
+  }
+
+  v35 = *(v62 + 3);
+  if (((v35 >> 1) + 0x4000000000000000) >= 0)
+  {
+    v36 = v35 & 0xFFFFFFFFFFFFFFFELL;
+    if (v36 <= 1)
+    {
+      v37 = 1;
+    }
+
+    else
+    {
+      v37 = v36;
+    }
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4220, &qword_1B0EC4568);
+    v38 = swift_allocObject();
+    v39 = (_swift_stdlib_malloc_size_0(v38) - 32) / 248;
+    *(v38 + 2) = v37;
+    *(v38 + 3) = 2 * v39;
+    v40 = v38 + 32;
+    v41 = *(v62 + 3) >> 1;
+    v42 = 248 * v41;
+    if (*(v62 + 2))
+    {
+      v43 = v62 + 32;
+      if (v38 != v62 || v40 >= &v43[v42])
+      {
+        memmove(v38 + 32, v43, 248 * v41);
+      }
+
+      *(v62 + 2) = 0;
+    }
+
+    v60 = &v40[v42];
+
+    v34 = (v39 & 0x7FFFFFFFFFFFFFFFLL) - v41;
+    v62 = v38;
+    v6 = v20;
+    goto LABEL_50;
+  }
+
+LABEL_64:
+  __break(1u);
+LABEL_65:
+  __break(1u);
+LABEL_66:
+  __break(1u);
+}
+
+void *sub_1B0AE1AC8(uint64_t *a1)
+{
+  v100 = _s19UserInitiatedSearchVMa(0);
+  v2 = *(v100 - 8);
+  MEMORY[0x1EEE9AC00](v100);
+  v93 = &v74 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41D8, &unk_1B0EC4300);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v104 = &v74 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v103 = &v74 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41E8, &qword_1B0EC4310);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v85 = &v74 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v74 - v11;
+  MEMORY[0x1EEE9AC00](v13);
+  v81 = &v74 - v14;
+  v102 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41E0, &unk_1B0EC4580);
+  v15 = *(v102 - 8);
+  MEMORY[0x1EEE9AC00](v102);
+  v78 = &v74 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v74 - v18;
+  MEMORY[0x1EEE9AC00](v20);
+  v84 = &v74 - v21;
+  SearchResult = type metadata accessor for FetchSearchResultMessages.Requests.Search(0);
+  v22 = *(SearchResult - 8);
+  MEMORY[0x1EEE9AC00](SearchResult);
+  v86 = &v74 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v75 = *(v22 + 80);
+  v89 = MEMORY[0x1E69E7CC0];
+  v74 = (v75 + 32) & ~v75;
+  v87 = (MEMORY[0x1E69E7CC0] + v74);
+  v24 = *a1;
+  v92 = a1[1];
+  v25 = a1[2];
+  v95 = a1[3];
+  v26 = a1[4];
+  v77 = a1[5];
+  v76 = a1[6];
+  v106 = v24;
+  v90 = v24;
+  v27 = *(v24 + 16);
+  sub_1B0AE2784(&v106, v105);
+  v91 = v2;
+  v98 = (v2 + 48);
+  v99 = (v2 + 56);
+  v101 = (v15 + 56);
+  v28 = (v15 + 48);
+  v80 = (v22 + 56);
+  v83 = v22;
+  v79 = (v22 + 48);
+  v29 = v27;
+  v94 = v25;
+
+  v96 = v26;
+
+  v88 = 0;
+  v31 = 0;
+  v97 = v27;
+  while (2)
+  {
+    v32 = v31 >= v29;
+    if (v31 == v29)
+    {
+LABEL_3:
+      v33 = 1;
+      v31 = v29;
+      goto LABEL_7;
+    }
+
+    while (1)
+    {
+      if (v32)
+      {
+        __break(1u);
+LABEL_45:
+        __break(1u);
+        goto LABEL_46;
+      }
+
+      result = sub_1B03BCD68(v90 + ((*(v91 + 80) + 32) & ~*(v91 + 80)) + *(v91 + 72) * v31, v103, _s19UserInitiatedSearchVMa);
+      v34 = __OFADD__(v31++, 1);
+      if (v34)
+      {
+        goto LABEL_45;
+      }
+
+      v33 = 0;
+LABEL_7:
+      v35 = v100;
+      v36 = 1;
+      v37 = v103;
+      (*v99)(v103, v33, 1, v100);
+      v38 = v37;
+      v39 = v104;
+      sub_1B03C60A4(v38, v104, &qword_1EB6E41D8, &unk_1B0EC4300);
+      if ((*v98)(v39, 1, v35) != 1)
+      {
+        v40 = v93;
+        sub_1B0AE27F4(v104, v93, _s19UserInitiatedSearchVMa);
+        v92(v40);
+        sub_1B03BE264(v40, _s19UserInitiatedSearchVMa);
+        v36 = 0;
+      }
+
+      v41 = *v101;
+      v42 = v36;
+      v43 = v102;
+      (*v101)(v12, v42, 1, v102);
+      v44 = *v28;
+      if ((*v28)(v12, 1, v43) == 1)
+      {
+        sub_1B0398EFC(v12, &qword_1EB6E41E8, &qword_1B0EC4310);
+        v45 = 1;
+        v46 = v81;
+        goto LABEL_15;
+      }
+
+      sub_1B03C60A4(v12, v19, &qword_1EB6E41E0, &unk_1B0EC4580);
+      if (v95(v19))
+      {
+        break;
+      }
+
+      result = sub_1B0398EFC(v19, &qword_1EB6E41E0, &unk_1B0EC4580);
+      v29 = v97;
+      v32 = v31 >= v97;
+      if (v31 == v97)
+      {
+        goto LABEL_3;
+      }
+    }
+
+    v46 = v81;
+    sub_1B03C60A4(v19, v81, &qword_1EB6E41E0, &unk_1B0EC4580);
+    v45 = 0;
+    v29 = v97;
+LABEL_15:
+    v47 = v102;
+    v41(v46, v45, 1, v102);
+    v48 = v85;
+    sub_1B03C60A4(v46, v85, &qword_1EB6E41E8, &qword_1B0EC4310);
+    v49 = v44(v48, 1, v47);
+    v50 = 1;
+    v51 = v89;
+    if (v49 != 1)
+    {
+      v52 = v78;
+      sub_1B03C60A4(v85, v78, &qword_1EB6E41E0, &unk_1B0EC4580);
+      v77(v52);
+      sub_1B0398EFC(v52, &qword_1EB6E41E0, &unk_1B0EC4580);
+      v50 = 0;
+    }
+
+    v53 = v84;
+    v54 = SearchResult;
+    (*v80)(v84, v50, 1, SearchResult);
+    if ((*v79)(v53, 1, v54) != 1)
+    {
+      result = sub_1B0AE27F4(v53, v86, type metadata accessor for FetchSearchResultMessages.Requests.Search);
+      if (v88)
+      {
+        v55 = v51;
+        v56 = v88 - 1;
+        if (!__OFSUB__(v88, 1))
+        {
+LABEL_39:
+          v88 = v56;
+          v70 = v87;
+          result = sub_1B0AE27F4(v86, v87, type metadata accessor for FetchSearchResultMessages.Requests.Search);
+          v87 = (v70 + *(v83 + 72));
+          v89 = v55;
+          continue;
+        }
+      }
+
+      else
+      {
+        v57 = v51[3];
+        if (((v57 >> 1) + 0x4000000000000000) < 0)
+        {
+LABEL_47:
+          __break(1u);
+LABEL_48:
+          __break(1u);
+LABEL_49:
+          __break(1u);
+          goto LABEL_50;
+        }
+
+        v58 = v57 & 0xFFFFFFFFFFFFFFFELL;
+        if (v58 <= 1)
+        {
+          v59 = 1;
+        }
+
+        else
+        {
+          v59 = v58;
+        }
+
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4238, &unk_1B0EC4590);
+        v60 = *(v83 + 72);
+        v61 = v74;
+        v55 = swift_allocObject();
+        result = _swift_stdlib_malloc_size_0(v55);
+        if (!v60)
+        {
+          goto LABEL_48;
+        }
+
+        v62 = result - v61;
+        if ((result - v61) == 0x8000000000000000 && v60 == -1)
+        {
+          goto LABEL_49;
+        }
+
+        v64 = v61;
+        v65 = v62 / v60;
+        v55[2] = v59;
+        v55[3] = 2 * (v62 / v60);
+        v66 = v55 + v61;
+        v67 = v89[3] >> 1;
+        v68 = v67 * v60;
+        v29 = v97;
+        if (v89[2])
+        {
+          if (v55 < v89 || v66 >= v89 + v64 + v68)
+          {
+            swift_arrayInitWithTakeFrontToBack();
+          }
+
+          else if (v55 != v89)
+          {
+            swift_arrayInitWithTakeBackToFront();
+          }
+
+          v89[2] = 0;
+        }
+
+        v87 = &v66[v68];
+        v69 = (v65 & 0x7FFFFFFFFFFFFFFFLL) - v67;
+
+        v34 = __OFSUB__(v69, 1);
+        v56 = v69 - 1;
+        if (!v34)
+        {
+          goto LABEL_39;
+        }
+      }
+
+LABEL_46:
+      __break(1u);
+      goto LABEL_47;
+    }
+
+    break;
+  }
+
+  sub_1B0398EFC(&v106, &qword_1EB6E41F0, &qword_1B0EC4318);
+
+  result = sub_1B0398EFC(v53, &qword_1EB6E41E0, &unk_1B0EC4580);
+  v71 = v51[3];
+  if (v71 < 2)
+  {
+    return v51;
+  }
+
+  v72 = v71 >> 1;
+  v34 = __OFSUB__(v72, v88);
+  v73 = v72 - v88;
+  if (!v34)
+  {
+    v51[2] = v73;
+    return v51;
+  }
+
+LABEL_50:
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_1B0AE2440@<X0>(uint64_t result@<X0>, uint64_t a2@<X2>, unint64_t a3@<X3>, BOOL *a4@<X8>)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v5 = a3 >> 62;
+  if ((a3 >> 62) > 1)
+  {
+    if (v5 != 2)
+    {
+      if (result)
+      {
+        v6 = 1;
+        goto LABEL_30;
+      }
+
+LABEL_36:
+      __break(1u);
+LABEL_37:
+      __break(1u);
+LABEL_38:
+      __break(1u);
+      goto LABEL_39;
+    }
+
+    v7 = result;
+    v8 = *(a2 + 16);
+    v9 = *(a2 + 24);
+    v10 = sub_1B0E42A98();
+    if (v10)
+    {
+      v11 = sub_1B0E42AC8();
+      if (__OFSUB__(v8, v11))
+      {
+LABEL_33:
+        __break(1u);
+        goto LABEL_34;
+      }
+
+      v10 += v8 - v11;
+    }
+
+    v12 = __OFSUB__(v9, v8);
+    v13 = v9 - v8;
+    if (!v12)
+    {
+      result = sub_1B0E42AB8();
+      if (result >= v13)
+      {
+        v14 = v13;
+      }
+
+      else
+      {
+        v14 = result;
+      }
+
+      if (!v7)
+      {
+        goto LABEL_37;
+      }
+
+      if (!v10)
+      {
+LABEL_39:
+        __break(1u);
+        goto LABEL_40;
+      }
+
+      result = v7;
+      if (v10 == v7)
+      {
+LABEL_27:
+        v6 = 1;
+        goto LABEL_30;
+      }
+
+LABEL_16:
+      result = memcmp(result, v10, v14);
+      v6 = result == 0;
+      goto LABEL_30;
+    }
+
+LABEL_32:
+    __break(1u);
+    goto LABEL_33;
+  }
+
+  if (!v5)
+  {
+    __s2 = a2;
+    v20 = a3;
+    v21 = BYTE2(a3);
+    v22 = BYTE3(a3);
+    v23 = BYTE4(a3);
+    v24 = BYTE5(a3);
+    if (result)
+    {
+      result = memcmp(result, &__s2, BYTE6(a3));
+      v6 = result == 0;
+LABEL_30:
+      *a4 = v6;
+      return result;
+    }
+
+    __break(1u);
+    goto LABEL_36;
+  }
+
+  v15 = a2;
+  v16 = (a2 >> 32) - a2;
+  if (a2 >> 32 < a2)
+  {
+    __break(1u);
+    goto LABEL_32;
+  }
+
+  v17 = result;
+  v10 = sub_1B0E42A98();
+  if (!v10)
+  {
+    goto LABEL_21;
+  }
+
+  v18 = sub_1B0E42AC8();
+  if (__OFSUB__(v15, v18))
+  {
+LABEL_34:
+    __break(1u);
+  }
+
+  v10 += v15 - v18;
+LABEL_21:
+  result = sub_1B0E42AB8();
+  if (result >= v16)
+  {
+    v14 = v16;
+  }
+
+  else
+  {
+    v14 = result;
+  }
+
+  if (!v17)
+  {
+    goto LABEL_38;
+  }
+
+  if (v10)
+  {
+    result = v17;
+    if (v10 == v17)
+    {
+      goto LABEL_27;
+    }
+
+    goto LABEL_16;
+  }
+
+LABEL_40:
+  __break(1u);
+  return result;
+}
+
+void *sub_1B0AE2670(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  if (v2)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4230, &qword_1B0EC4578);
+    v5 = swift_allocObject();
+    v6 = _swift_stdlib_malloc_size_0(v5);
+    result = v5;
+    v8 = ((v6 - 32) * 0x2AAAAAAAAAAAAAABLL) >> 64;
+    v9 = (v8 >> 2) + (v8 >> 63);
+    v5[2] = v2;
+    v5[3] = 2 * v9;
+    v10 = v9 & 0x7FFFFFFFFFFFFFFFLL;
+    v11 = (a1 + 32);
+    v12 = *(a1 + 16);
+    v13 = (a2 + 41);
+    v14 = 4;
+    while (v12)
+    {
+      v15 = &v5[v14];
+      --v10;
+      v16 = *v13;
+      v17 = *(v13 - 1);
+      v18 = *(v13 - 9);
+      v19 = *v11++;
+      *v15 = v19;
+      v15[1] = v18;
+      *(v15 + 16) = v17;
+      *(v15 + 17) = v16;
+      v14 += 3;
+      --v12;
+      v13 += 16;
+      if (!--v2)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  v10 = 0;
+  result = MEMORY[0x1E69E7CC0];
+LABEL_7:
+  v20 = result[3];
+  if (v20 >= 2)
+  {
+    v21 = v20 >> 1;
+    v22 = __OFSUB__(v21, v10);
+    v23 = v21 - v10;
+    if (v22)
+    {
+LABEL_12:
+      __break(1u);
+      return result;
+    }
+
+    result[2] = v23;
+  }
+
+  return result;
+}
+
+uint64_t sub_1B0AE2784(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E41F0, &qword_1B0EC4318);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t sub_1B0AE27F4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_1B0AE285C(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 40))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t sub_1B0AE28A4(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0u;
+    *(result + 24) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 40) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 40) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy242_8(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[1];
+  v4 = a2[3];
+  *(a1 + 32) = a2[2];
+  *(a1 + 48) = v4;
+  *a1 = v2;
+  *(a1 + 16) = v3;
+  v5 = a2[4];
+  v6 = a2[5];
+  v7 = a2[7];
+  *(a1 + 96) = a2[6];
+  *(a1 + 112) = v7;
+  *(a1 + 64) = v5;
+  *(a1 + 80) = v6;
+  v8 = a2[8];
+  v9 = a2[9];
+  v10 = a2[11];
+  *(a1 + 160) = a2[10];
+  *(a1 + 176) = v10;
+  *(a1 + 128) = v8;
+  *(a1 + 144) = v9;
+  result = a2[12];
+  v12 = a2[13];
+  v13 = a2[14];
+  *(a1 + 240) = *(a2 + 120);
+  *(a1 + 208) = v12;
+  *(a1 + 224) = v13;
+  *(a1 + 192) = result;
+  return result;
+}
+
+uint64_t sub_1B0AE2958(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 242))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t sub_1B0AE29A0(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 232) = 0;
+    *(result + 216) = 0u;
+    *(result + 200) = 0u;
+    *(result + 184) = 0u;
+    *(result + 168) = 0u;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 240) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 242) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 242) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1B0AE2A30@<X0>(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4260, &qword_1B0EC47E0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = (&v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = &v19 - v11;
+  v13 = *(a2 + 16);
+  if (v13)
+  {
+    v14 = a2 + ((*(v10 + 80) + 32) & ~*(v10 + 80));
+    v15 = *(v10 + 72);
+    while (1)
+    {
+      sub_1B03B5C80(v14, v8, &qword_1EB6E4260, &qword_1B0EC47E0);
+      if (*v8 == a1)
+      {
+        break;
+      }
+
+      sub_1B0398EFC(v8, &qword_1EB6E4260, &qword_1B0EC47E0);
+      v14 += v15;
+      if (!--v13)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    sub_1B03C60A4(v8, v12, &qword_1EB6E4260, &qword_1B0EC47E0);
+    sub_1B0AEAE5C(&v12[*(v6 + 52)], a3, type metadata accessor for FindMissingMessages.CommandID);
+    sub_1B0398EFC(v12, &qword_1EB6E4260, &qword_1B0EC47E0);
+    v16 = 0;
+  }
+
+  else
+  {
+LABEL_5:
+    v16 = 1;
+  }
+
+  Missing = type metadata accessor for FindMissingMessages.CommandID(0);
+  return (*(*(Missing - 8) + 56))(a3, v16, 1, Missing);
+}
+
+BOOL sub_1B0AE2C2C(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  v2 = *a1;
+  v3 = *a2;
+  if (v2 == 2)
+  {
+    return v3 == 2;
+  }
+
+  if (v3 == 2)
+  {
+    return 0;
+  }
+
+  return ((v3 ^ v2) & 1) == 0;
+}
+
+BOOL sub_1B0AE2C70(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 8) == 1)
+  {
+    return (*(a2 + 8) & 1) != 0;
+  }
+
+  if (*(a2 + 8))
+  {
+    return 0;
+  }
+
+  return *a1 == *a2;
+}
+
+uint64_t sub_1B0AE2CAC()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3FE8, &unk_1B0EC2790);
+  v0 = swift_allocObject();
+  *(v0 + 16) = xmmword_1B0EC4700;
+  *(v0 + 32) = &type metadata for DetectChangesToMessages;
+  sub_1B0451F2C();
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  sub_1B0E461E8();
+  *(v0 + 80) = &type metadata for DetectChangesToMessagesInRecent;
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  sub_1B0E461E8();
+  *(v0 + 128) = &type metadata for DetectRemovedMessages;
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  sub_1B0E461E8();
+  *(v0 + 176) = &type metadata for DetectRemovedMessagesInRecent;
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  sub_1B0E461E8();
+  *(v0 + 224) = type metadata accessor for FetchSearchResultMessages(0);
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  sub_1B0E461E8();
+  *(v0 + 272) = &type metadata for PurgeMessagesOutsideWindowOfInterest;
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  sub_1B0E461E8();
+  return v0;
+}
+
+uint64_t sub_1B0AE2E4C()
+{
+  result = sub_1B03D0770(&unk_1F2710E58);
+  qword_1EB737D78 = result;
+  return result;
+}
+
+void sub_1B0AE2E74(uint64_t a1)
+{
+  v2 = v1;
+  MissingMessages = type metadata accessor for FindMissingMessages(0);
+  MEMORY[0x1EEE9AC00](MissingMessages);
+  v70 = &v62 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v62 - v7;
+  MEMORY[0x1EEE9AC00](v9);
+  v69 = &v62 - v10;
+  v11 = type metadata accessor for MailboxTaskLogger(0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v62 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v62 - v15;
+  v17 = v2 + *(MissingMessages + 44);
+  v18 = *(v17 + 13);
+  v67 = v19;
+  if (v18)
+  {
+    v20 = 0xE900000000000065;
+    v21 = 0x74616470752D6F6ELL;
+  }
+
+  else
+  {
+    v22 = *(v17 + 8) | (*(v17 + 12) << 32);
+    if ((v22 & 0x100000000) != 0)
+    {
+      v20 = 0xE300000000000000;
+      v21 = 7104878;
+    }
+
+    else
+    {
+      v73 = 0;
+      v74 = 0xE000000000000000;
+      LODWORD(v76) = v22;
+      sub_1B0E46508();
+      v21 = v73;
+      v20 = v74;
+    }
+  }
+
+  v68 = v21;
+  sub_1B0AEAE5C(a1, v16, type metadata accessor for MailboxTaskLogger);
+  sub_1B0AEAE5C(a1, v13, type metadata accessor for MailboxTaskLogger);
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B0394868();
+  v23 = v69;
+  sub_1B0AEAE5C(v2, v69, type metadata accessor for FindMissingMessages);
+  sub_1B0AEAE5C(v2, v8, type metadata accessor for FindMissingMessages);
+  v24 = v70;
+  sub_1B0AEAE5C(v2, v70, type metadata accessor for FindMissingMessages);
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  v25 = sub_1B0E43988();
+  v26 = sub_1B0E45908();
+
+  if (os_log_type_enabled(v25, v26))
+  {
+    v64 = v26;
+    v65 = v8;
+    v27 = swift_slowAlloc();
+    v63 = swift_slowAlloc();
+    v76 = v63;
+    *v27 = 68160259;
+    *(v27 + 4) = 2;
+    *(v27 + 8) = 256;
+    v28 = v67;
+    v29 = &v13[*(v67 + 20)];
+    *(v27 + 10) = *v29;
+    v66 = MissingMessages;
+    *(v27 + 11) = 2082;
+    v30 = &v16[*(v28 + 20)];
+    *(v27 + 13) = sub_1B0399D64(*(v30 + 1), *(v30 + 2), &v76);
+    *(v27 + 21) = 1040;
+    *(v27 + 23) = 2;
+    *(v27 + 27) = 512;
+    LOWORD(v29) = *(v29 + 12);
+    sub_1B0AEAEC4(v13, type metadata accessor for MailboxTaskLogger);
+    *(v27 + 29) = v29;
+    *(v27 + 31) = 2160;
+    *(v27 + 33) = 0x786F626C69616DLL;
+    *(v27 + 41) = 2085;
+    v31 = *(v30 + 4);
+    LODWORD(v30) = *(v30 + 10);
+    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+    sub_1B0AEAEC4(v16, type metadata accessor for MailboxTaskLogger);
+    v73 = v31;
+    LODWORD(v74) = v30;
+    v32 = sub_1B0E44BA8();
+    v34 = sub_1B0399D64(v32, v33, &v76);
+
+    *(v27 + 43) = v34;
+    *(v27 + 51) = 2082;
+    v35 = sub_1B0399D64(v68, v20, &v76);
+
+    *(v27 + 53) = v35;
+    v68 = v27;
+    *(v27 + 61) = 2082;
+    v36 = v66;
+    v37 = *(v23 + *(v66 + 44));
+    v38 = *(v37 + 16);
+    v39 = MEMORY[0x1E69E7CC0];
+    if (v38)
+    {
+      v75 = MEMORY[0x1E69E7CC0];
+      sub_1B041D32C(0, v38, 0);
+      v40 = (v37 + 40);
+      v39 = v75;
+      v41 = v25;
+      do
+      {
+        v43 = *(v40 - 2);
+        v42 = *(v40 - 1);
+        if (*v40)
+        {
+          v73 = 14931;
+          v44 = 0xE200000000000000;
+        }
+
+        else
+        {
+          v73 = 978332499;
+          v44 = 0xE400000000000000;
+        }
+
+        v74 = v44;
+        v71 = v43;
+        v72 = v42;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E2640, &qword_1B0E9B010);
+        v45 = sub_1B0E44B88();
+        MEMORY[0x1B2726E80](v45);
+
+        v46 = v73;
+        v47 = v74;
+        v75 = v39;
+        v49 = *(v39 + 16);
+        v48 = *(v39 + 24);
+        if (v49 >= v48 >> 1)
+        {
+          sub_1B041D32C((v48 > 1), v49 + 1, 1);
+          v39 = v75;
+        }
+
+        *(v39 + 16) = v49 + 1;
+        v50 = v39 + 16 * v49;
+        *(v50 + 32) = v46;
+        *(v50 + 40) = v47;
+        v40 += 12;
+        --v38;
+      }
+
+      while (v38);
+      v25 = v41;
+      v23 = v69;
+      v51 = v70;
+      v36 = v66;
+    }
+
+    else
+    {
+      v51 = v70;
+    }
+
+    v73 = v39;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E2A70, &qword_1B0E9B5F0);
+    sub_1B03B11C4();
+    v52 = sub_1B0E448E8();
+    v54 = v53;
+
+    sub_1B0AEAEC4(v23, type metadata accessor for FindMissingMessages);
+    v55 = sub_1B0399D64(v52, v54, &v76);
+
+    v56 = v68;
+    *(v68 + 63) = v55;
+    *(v56 + 71) = 2048;
+    v57 = &v65[*(v36 + 52)];
+    if (v57[8])
+    {
+      v58 = 0;
+    }
+
+    else
+    {
+      v58 = *v57;
+    }
+
+    sub_1B0AEAEC4(v65, type metadata accessor for FindMissingMessages);
+    *(v56 + 73) = v58;
+    *(v56 + 81) = 1024;
+    v59 = v51 + *(v36 + 72);
+    if (*(v59 + 24))
+    {
+      v60 = *(v59 + 12);
+    }
+
+    else
+    {
+      v60 = 0;
+    }
+
+    sub_1B0AEAEC4(v51, type metadata accessor for FindMissingMessages);
+    *(v56 + 83) = v60;
+    _os_log_impl(&dword_1B0389000, v25, v64, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Created task with fetched-window-update %{public}s, ranges %{public}s, UID limit: %ld, grow: %u", v56, 0x57u);
+    v61 = v63;
+    swift_arrayDestroy();
+    MEMORY[0x1B272C230](v61, -1, -1);
+    MEMORY[0x1B272C230](v56, -1, -1);
+  }
+
+  else
+  {
+    sub_1B0AEAEC4(v24, type metadata accessor for FindMissingMessages);
+    sub_1B0AEAEC4(v8, type metadata accessor for FindMissingMessages);
+    sub_1B0AEAEC4(v13, type metadata accessor for MailboxTaskLogger);
+
+    sub_1B0AEAEC4(v16, type metadata accessor for MailboxTaskLogger);
+    sub_1B0AEAEC4(v23, type metadata accessor for FindMissingMessages);
+  }
+}
+
+uint64_t sub_1B0AE3544@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void (**a4)(char *, uint64_t, uint64_t)@<X3>, void *a5@<X8>)
+{
+  v6 = v5;
+  v88 = a4;
+  v79 = a1;
+  v80 = a2;
+  v86 = a5;
+  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3120, qword_1B0E9B270);
+  v78 = *(v91 - 8);
+  MEMORY[0x1EEE9AC00](v91);
+  v90 = &v76 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v81 = &v76 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v82 = *(v11 - 8);
+  v83 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v89 = &v76 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v85 = &v76 - v14;
+  Missing = type metadata accessor for FindMissingMessages.CommandID(0);
+  v77 = *(Missing - 8);
+  MEMORY[0x1EEE9AC00](Missing);
+  v16 = &v76 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v76 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v22 = &v76 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v84 = &v76 - v24;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4268, &qword_1B0EC47E8);
+  MEMORY[0x1EEE9AC00](v25 - 8);
+  v27 = (&v76 - v26);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4270, &qword_1B0EC47F0);
+  v29 = *(v28 - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v76 = &v76 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v31);
+  v33 = &v76 - v32;
+  MEMORY[0x1EEE9AC00](v34);
+  v36 = &v76 - v35;
+  MissingMessages = type metadata accessor for FindMissingMessages(0);
+  v37 = (v6 + MissingMessages[18]);
+  v38 = v37[3];
+  if (v38)
+  {
+    sub_1B0AEF704(v79, a3, *v37, v37[1] & 0xFFFFFFFF00000101, v37[2] | ((HIDWORD(v37[2]) & 1) << 32), v38, v27);
+    if ((*(v29 + 48))(v27, 1, v28) != 1)
+    {
+      sub_1B03C60A4(v27, v36, &qword_1EB6E4270, &qword_1B0EC47F0);
+      v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4278, &qword_1B0EC47F8);
+      v40 = *(v39 + 48);
+      sub_1B03B5C80(v36, v33, &qword_1EB6E4270, &qword_1B0EC47F0);
+      v41 = v33[8];
+      v42 = *(v28 + 48);
+      v43 = v86;
+      *v86 = *v33;
+      *(v43 + 8) = v41;
+      swift_storeEnumTagMultiPayload();
+      v44 = v36;
+      v45 = v76;
+      sub_1B03C60A4(v44, v76, &qword_1EB6E4270, &qword_1B0EC47F0);
+      sub_1B0AEF094(v45 + *(v28 + 48), v43 + v40, type metadata accessor for ClientCommand);
+      (*(*(v39 - 8) + 56))(v43, 0, 1, v39);
+      return sub_1B0AEAEC4(&v33[v42], type metadata accessor for ClientCommand);
+    }
+  }
+
+  else
+  {
+    (*(v29 + 56))(v27, 1, 1, v28);
+  }
+
+  v80 = v6;
+  sub_1B0398EFC(v27, &qword_1EB6E4268, &qword_1B0EC47E8);
+  v47 = sub_1B0AED594(a3);
+  sub_1B03D06F8();
+  sub_1B0E46EE8();
+  v48 = *(v47 + 16);
+  if (v48)
+  {
+    v49 = *(v77 + 80);
+    v79 = v47;
+    v50 = v47 + ((v49 + 32) & ~v49);
+    v51 = *(v77 + 72);
+    v88 = (v78 + 16);
+    do
+    {
+      sub_1B0AEAE5C(v50, v19, type metadata accessor for FindMissingMessages.CommandID);
+      sub_1B0AEAE5C(v19, v16, type metadata accessor for FindMissingMessages.CommandID);
+      if (swift_getEnumCaseMultiPayload() == 1)
+      {
+        sub_1B0AEAEC4(v19, type metadata accessor for FindMissingMessages.CommandID);
+        v53 = v16;
+      }
+
+      else
+      {
+        v52 = v89;
+        sub_1B03C60A4(v16, v89, &unk_1EB6E26C0, &unk_1B0E9DE10);
+        (*v88)(v90, v52, v91);
+        sub_1B0E46ED8();
+        sub_1B0398EFC(v52, &unk_1EB6E26C0, &unk_1B0E9DE10);
+        v53 = v19;
+      }
+
+      sub_1B0AEAEC4(v53, type metadata accessor for FindMissingMessages.CommandID);
+      v50 += v51;
+      --v48;
+    }
+
+    while (v48);
+  }
+
+  v54 = v86;
+  v55 = v84;
+  sub_1B03C60A4(v22, v84, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v57 = v80;
+  v56 = v81;
+  v58 = v80 + MissingMessages[11];
+  v59 = *v58;
+  v60 = *(v58 + 8) | (*(v58 + 12) << 32);
+  v61 = *(v58 + 13);
+  v62 = *(v58 + 16);
+  LOBYTE(v58) = *(v58 + 20);
+  v63 = MissingMessages[9];
+  v94 = v61;
+  v93 = v58;
+  sub_1B0AF51AC(v55, v80 + v63, v59, v60 | (v61 << 40), v62 | (v58 << 32), v81);
+  v65 = v82;
+  v64 = v83;
+  v66 = (*(v82 + 48))(v56, 1, v83);
+  v67 = v85;
+  if (v66 == 1)
+  {
+    sub_1B0398EFC(v55, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    sub_1B0398EFC(v56, &unk_1EB6E3670, &unk_1B0E9B260);
+    v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4278, &qword_1B0EC47F8);
+    return (*(*(v68 - 8) + 56))(v54, 1, 1, v68);
+  }
+
+  else
+  {
+    sub_1B03C60A4(v56, v85, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3EB0, &unk_1B0EC2010);
+    v69 = swift_allocBox();
+    v71 = v70;
+    sub_1B03B5C80(v67, v70, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    (*(v65 + 56))(v71, 0, 1, v64);
+    v72 = v69 | 0xA000000000000000;
+    v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4278, &qword_1B0EC47F8);
+    v74 = (v54 + *(v73 + 48));
+    sub_1B03B5C80(v67, v54, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    swift_storeEnumTagMultiPayload();
+    if (*(v57 + MissingMessages[12] + 1) == 1)
+    {
+      sub_1B0398EFC(v67, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      sub_1B0398EFC(v55, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      *v74 = v72;
+    }
+
+    else
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3EB8, &qword_1B0EC2020);
+      type metadata accessor for SearchReturnOption(0);
+      v75 = swift_allocObject();
+      *(v75 + 16) = xmmword_1B0EC1E70;
+      swift_storeEnumTagMultiPayload();
+      sub_1B0398EFC(v67, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      sub_1B0398EFC(v55, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      *v74 = v72;
+      v74[1] = v75;
+    }
+
+    type metadata accessor for ClientCommand(0);
+    swift_storeEnumTagMultiPayload();
+    return (*(*(v73 - 8) + 56))(v54, 0, 1, v73);
+  }
+}
+
+uint64_t sub_1B0AE3FD4(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v105 = a7;
+  v108 = a5;
+  v109 = a3;
+  v102 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E1BF8, &qword_1B0E9AFF0);
+  MEMORY[0x1EEE9AC00](v102);
+  v12 = v86 - v11;
+  v13 = type metadata accessor for TaskHistory.Running(0);
+  v97 = *(v13 - 8);
+  v98 = v13;
+  MEMORY[0x1EEE9AC00](v13);
+  v96 = v86 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v107 = v86 - v16;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4258, &qword_1B0EC49F0);
+  MEMORY[0x1EEE9AC00](v17 - 8);
+  v101 = v86 - v18;
+  Missing = type metadata accessor for FindMissingMessages.CommandID(0);
+  v99 = *(Missing - 8);
+  v100 = Missing;
+  MEMORY[0x1EEE9AC00](Missing);
+  v95 = v86 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v94 = v86 - v22;
+  v23 = type metadata accessor for UntaggedResponse(0);
+  MEMORY[0x1EEE9AC00](v23);
+  v25 = v86 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3920, &qword_1B0E9B070);
+  MEMORY[0x1EEE9AC00](v26 - 8);
+  v28 = v86 - v27;
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v30 = *(v29 - 8);
+  MEMORY[0x1EEE9AC00](v29);
+  v103 = v86 - v31;
+  MissingMessages = type metadata accessor for FindMissingMessages(0);
+  v32 = *(MissingMessages + 72);
+  v104 = v7;
+  if (*(v7 + v32 + 24))
+  {
+    sub_1B0AF0444(a1, a2, v109, a4, v108);
+  }
+
+  result = sub_1B0AECE68(2, a2, v109, a4, sub_1B0AEC7F4);
+  if ((result & 1) == 0)
+  {
+    return result;
+  }
+
+  v109 = a2;
+  v105 = a4;
+  v34 = v104;
+  v35 = (v104 + *(MissingMessages + 48));
+  v36 = *v35;
+  if (v35[1])
+  {
+    v37 = 256;
+  }
+
+  else
+  {
+    v37 = 0;
+  }
+
+  sub_1B0B7EA7C(v37 | v36, v28);
+  if ((*(v30 + 48))(v28, 1, v29) == 1)
+  {
+    v38 = &qword_1EB6E3920;
+    v39 = &qword_1B0E9B070;
+    v40 = v28;
+    return sub_1B0398EFC(v40, v38, v39);
+  }
+
+  v41 = v103;
+  sub_1B03C60A4(v28, v103, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0AEAE5C(a1, v25, type metadata accessor for UntaggedResponse);
+  if (swift_getEnumCaseMultiPayload() != 12)
+  {
+    sub_1B0AEAEC4(v25, type metadata accessor for UntaggedResponse);
+    v54 = MissingMessages;
+    goto LABEL_14;
+  }
+
+  v42 = *v25;
+  v43 = *(v25 + 2);
+  v44 = *(v25 + 3);
+  v45 = v25[32];
+  v46 = *(v25 + 5);
+  v47 = *(v25 + 1);
+  v91 = v46;
+  v90 = v42;
+  if (!v47 || (_s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0(), v49 = Tag.init(_:)(v42, v47, v48), (v50 & 1) != 0))
+  {
+    v51 = v100;
+    v52 = v101;
+    v53 = v99;
+LABEL_45:
+    sub_1B0AEF11C(v90, v47);
+
+    (*(v53 + 56))(v52, 1, 1, v51);
+    goto LABEL_46;
+  }
+
+  v67 = v49;
+  v89 = v47;
+  v86[3] = v45;
+  v87 = v44;
+  v88 = v43;
+  v68 = *(v109 + 16);
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  v69 = v107;
+  if (!v68)
+  {
+LABEL_44:
+
+    v41 = v103;
+    v51 = v100;
+    v52 = v101;
+    v53 = v99;
+    v47 = v89;
+    goto LABEL_45;
+  }
+
+  v93 = v67;
+  v92 = HIDWORD(v67);
+  v70 = v109 + ((*(v97 + 80) + 32) & ~*(v97 + 80));
+  v71 = *(v97 + 72);
+  while (1)
+  {
+    sub_1B0AEAE5C(v70, v69, type metadata accessor for TaskHistory.Running);
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      break;
+    }
+
+    sub_1B0AEAEC4(v69, type metadata accessor for TaskHistory.Running);
+LABEL_30:
+    v70 += v71;
+    if (!--v68)
+    {
+      goto LABEL_44;
+    }
+  }
+
+  v72 = *v69;
+  v73 = *(v107 + 1);
+  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3EE0, &qword_1B0EC2AF0);
+  sub_1B0AEAEC4(&v107[*(v74 + 64)], type metadata accessor for ClientCommand);
+  v75 = v72 == v93 && v73 == v92;
+  v69 = v107;
+  if (!v75)
+  {
+    goto LABEL_30;
+  }
+
+  v76 = v96;
+  sub_1B0AEAE5C(v70, v96, type metadata accessor for TaskHistory.Running);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+LABEL_51:
+    result = sub_1B0AEAEC4(v76, type metadata accessor for TaskHistory.Running);
+    __break(1u);
+    return result;
+  }
+
+  v77 = *v76;
+  v79 = *(v76 + 1);
+  v78 = *(v76 + 2);
+  sub_1B0AEAEC4(&v76[*(v74 + 64)], type metadata accessor for ClientCommand);
+
+  v75 = v77 == v93;
+  v76 = v100;
+  v52 = v101;
+  v80 = v89;
+  if (!v75)
+  {
+    __break(1u);
+    goto LABEL_50;
+  }
+
+  v34 = v104;
+  if (v79 != v92)
+  {
+LABEL_50:
+    __break(1u);
+    goto LABEL_51;
+  }
+
+  sub_1B0AE2A30(v78, v105, v101);
+  sub_1B0AEF11C(v90, v80);
+
+  v81 = (*(v99 + 48))(v52, 1, v76);
+  v41 = v103;
+  v54 = MissingMessages;
+  if (v81 == 1)
+  {
+LABEL_46:
+    sub_1B0398EFC(v41, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v38 = &qword_1EB6E4258;
+    v39 = &qword_1B0EC49F0;
+    v40 = v52;
+    return sub_1B0398EFC(v40, v38, v39);
+  }
+
+  v82 = v52;
+  v83 = v94;
+  sub_1B0AEF094(v82, v94, type metadata accessor for FindMissingMessages.CommandID);
+  v84 = v83;
+  v85 = v95;
+  sub_1B0AEF094(v84, v95, type metadata accessor for FindMissingMessages.CommandID);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    sub_1B0398EFC(v41, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    return sub_1B0AEAEC4(v85, type metadata accessor for FindMissingMessages.CommandID);
+  }
+
+  sub_1B0AEAEC4(v85, type metadata accessor for FindMissingMessages.CommandID);
+LABEL_14:
+  sub_1B03B5C80(v41, v12, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v55 = MessageIdentifierSet.startIndex.getter(v29);
+  v57 = v56;
+LABEL_16:
+  while (v55 != MessageIdentifierSet.endIndex.getter(v29) || v57 != v58)
+  {
+    MessageIdentifierSet.subscript.getter(v57, v29, &v112);
+    v59 = v112;
+    MessageIdentifierSet.index(_:offsetBy:)(v55, v57, 1);
+    v55 = v60;
+    v57 = v61;
+    v62 = *(v34 + *(v54 + 44));
+    v63 = *(v62 + 16);
+    if (v63)
+    {
+      v64 = (v62 + 36);
+      while (v59 < *(v64 - 1) || *v64 < v59)
+      {
+        v64 += 3;
+        if (!--v63)
+        {
+          goto LABEL_16;
+        }
+      }
+
+      v110 = v59;
+      MessageIdentifierSet.insert(_:)(v111, &v110, v29);
+    }
+  }
+
+  v66 = &v12[*(v102 + 36)];
+  *v66 = v55;
+  v66[1] = v57;
+  sub_1B0398EFC(v12, &qword_1EB6E1BF8, &qword_1B0E9AFF0);
+  v38 = &unk_1EB6E1AF0;
+  v39 = &unk_1B0E9AF40;
+  v40 = v103;
+  return sub_1B0398EFC(v40, v38, v39);
+}
+
+uint64_t sub_1B0AE4978(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, int a5, __n128 a6, uint64_t a7, uint64_t a8)
+{
+  v21 = a1;
+  Missing = type metadata accessor for FindMissingMessages.CommandID(0);
+  MEMORY[0x1EEE9AC00](Missing);
+  v17 = &v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = sub_1B0A92068(a8, a2, a3, a4, a5);
+  if (!v9)
+  {
+    sub_1B0AEAE5C(v21, v17, type metadata accessor for FindMissingMessages.CommandID);
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      result = type metadata accessor for FindMissingMessages(0);
+      v19 = v8 + *(result + 72);
+      if (*(v19 + 24))
+      {
+        if (v17[8])
+        {
+          *(v19 + 16) = 0;
+          *(v19 + 20) = 1;
+        }
+
+        else if (*(v19 + 20))
+        {
+          *(v19 + 16) = 1;
+          *(v19 + 20) = 0;
+        }
+      }
+    }
+
+    else
+    {
+      return sub_1B0AEAEC4(v17, type metadata accessor for FindMissingMessages.CommandID);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1B0AE4AE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = &v34 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v34 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v34 - v16;
+  MissingMessages = type metadata accessor for FindMissingMessages(0);
+  v19 = (v6 + *(MissingMessages + 72));
+  v20 = v19[3];
+  if (v20 && (v21 = sub_1B0AF1388(*(v6 + 64), *(v6 + 72), a1, a2, a3, a4, a6, *v19, v19[1] & 0xFFFFFFFF00000101, v19[2] | ((HIDWORD(v19[2]) & 1) << 32), v20), (~v22 & 0xF000000000000007) != 0))
+  {
+    v27 = v22;
+    v28 = v21;
+    if ((sub_1B0AEBA2C(0, 1, a1, a2, a4, sub_1B0A9EEE8) & 1) == 0)
+    {
+      return v28;
+    }
+
+    sub_1B0AEF160(v28, v27);
+  }
+
+  else if ((sub_1B0AED9C4(1, a1, a2, a4, sub_1B0AED7CC) & 1) == 0 && (sub_1B0A9EF00(0, 1, a2, a4, v23) & 1) == 0)
+  {
+    v24 = v6 + *(MissingMessages + 44);
+    v25 = *v24;
+    v26 = *(v24 + 13);
+    LOBYTE(v24) = *(v24 + 20);
+    v36 = v26;
+    v35 = v24;
+    sub_1B0AF58C8(v25, v14);
+    if ((*(v34 + 48))(v14, 1, v15) != 1)
+    {
+      sub_1B03C60A4(v14, v17, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3620, &qword_1B0EC26A0);
+      swift_allocBox();
+      v31 = *(v30 + 48);
+      v32 = *(v6 + 72);
+      *v33 = *(v6 + 64);
+      v33[1] = v32;
+      sub_1B03C60A4(v17, v33 + v31, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+      return 0;
+    }
+
+    sub_1B0398EFC(v14, &unk_1EB6E3670, &unk_1B0E9B260);
   }
 
   return 0;
 }
 
-uint64_t BoostPrune(uint64_t result, uint64_t a2, int a3)
+void sub_1B0AE4E28(unint64_t a1, char a2)
 {
-  v3 = a3;
-  v112 = result;
-  v128 = *MEMORY[0x1E69E9840];
-  v5 = *(a2 + 1348);
-  v119 = v5 - *(a2 + 1340);
-  if (a3 == 2)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v10 - v6;
+  if ((a2 & 1) == 0)
   {
-    if ((*(a2 + 46) & 1) == 0 && v5 <= 11)
+    v8 = v2 + *(type metadata accessor for FindMissingMessages(0) + 72);
+    v9 = *(v8 + 24);
+    if (v9)
     {
-      v6 = 0;
-      if (v5 <= 2)
+      if ((a1 & 0x8000000000000000) == 0 && v9[2] > a1)
       {
-        v5 = 2;
-      }
-
-      v7 = v5 + 1;
-      do
-      {
-        *(a2 + v6 + 532) = *(a2 + v6 + 532) - *(a2 + v6 + 800) + *(a2 + v6 + 800) * v7 / 12;
-        v6 += 4;
-      }
-
-      while (v6 != 268);
-      *(a2 + 46) = 1;
-      if (*(a2 + 32))
-      {
-        *&v8 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        *__str = v8;
-        v127 = v8;
-        snprintf(__str, 0x20uLL, "Hints %d/%d", v7, 12);
-        SetDetailsEncLabel(a2, __str);
-        v3 = 2;
-      }
-    }
-
-    v111 = (a2 + 56);
-    ++*(a2 + 56);
-  }
-
-  else
-  {
-    v63 = *(a2 + 1344);
-    v64 = *(a2 + 1336);
-    v65 = *(a2 + 56);
-    *(a2 + 56) = v65 + 1;
-    v111 = (a2 + 56);
-    if (*(a2 + 260) < 2)
-    {
-      goto LABEL_217;
-    }
-
-    if ((v65 & 0x80000000) == 0 && v63 - v64 == -v119)
-    {
-      goto LABEL_218;
-    }
-  }
-
-  if (v119 < 1)
-  {
-    v118 = 0;
-    goto LABEL_107;
-  }
-
-  LOBYTE(v9) = 0;
-  v118 = 0;
-  LODWORD(v10) = 0;
-  v11 = 0;
-  v117 = a2 + 1448;
-  v12 = a2 + 1736;
-  v13 = a2 + 532;
-  v14 = a2 + 264;
-  v114 = 32;
-  v115 = 32;
-  do
-  {
-    v122 = v9;
-    v123 = v11;
-    v15 = v10;
-    v16 = *(a2 + 1340) + v11;
-    v17 = *(v117 + 2 * v16);
-    v18 = *(v117 + 2 * v16 + 1);
-    v10 = v17 & 0xF0 | (v18 >> 4);
-    v120 = *(v12 + 4 * v16);
-    if (v16 >= 1 && *(v12 + 4 * v16) == *(v12 + 4 * (v16 - 1)) + 2)
-    {
-      v19 = (~v10 & 0xCC) == 0 || (~v15 & 0xCC) == 0;
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    v124 = *(a2 + 1340) + v11;
-    v125 = *(v117 + 2 * v16);
-    v20 = *(a2 + 2120 + 4 * v16);
-    v21 = RepeatedBigram(a2, v17, v18);
-    if (v21)
-    {
-      v22 = 0;
-      v23 = 0;
-      v24 = v125;
-      goto LABEL_72;
-    }
-
-    v25 = 0xFu >> v20;
-    if ((FLAGS_demo_nodefault & 1) == 0)
-    {
-      *(v13 + 4 * *(a2 + 48)) += v25;
-      *(v13 + 4 * *(a2 + 52)) += v25;
-    }
-
-    v24 = v125;
-    v116 = v21;
-    if (*(a2 + 260) < 1)
-    {
-      v22 = 0;
-      v23 = 0;
-    }
-
-    else
-    {
-      v26 = 0;
-      v23 = 0;
-      v22 = 0;
-      v27 = 0;
-      v28 = 1 << ((v125 >> 3) & 0x1C | (v18 >> 6));
-      v29 = FLAGS_enc_detect_detail2;
-      v30 = watch1_rankedenc;
-      v31 = watch2_rankedenc;
-      v33 = v125 == v115 && v18 == v114;
-      do
-      {
-        v34 = *(v14 + 4 * v26);
-        v35 = kMapToEncoding[v34];
-        if (v34 == 58)
+        sub_1B03D06F8();
+        sub_1B0E46EE8();
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v36 = *(a2 + 80);
-          if ((v36 & v28) != 0)
-          {
-            v37 = 2;
-          }
+          v9 = sub_1B0B8C950(v9);
+        }
 
-          else
-          {
-            v37 = 0;
-            *(a2 + 80) = v36 | v28;
-            ++*(a2 + 72);
-          }
+        if (v9[2] <= a1)
+        {
+          __break(1u);
         }
 
         else
         {
-          v37 = 0;
+          _s20GrowWindowOfInterestV6ResultVMa(0);
+          sub_1B0AF2B0C(v7);
+          sub_1B0398EFC(v7, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          *(v8 + 24) = v9;
+        }
+      }
+    }
+  }
+}
+
+uint64_t sub_1B0AE4FA8(const void *a1, uint64_t a2)
+{
+  v3 = v2;
+  v107 = a1;
+  v108 = a2;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E2780, &unk_1B0E9C5E0);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v92 = &v85[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v6);
+  v104 = &v85[-v7];
+  MEMORY[0x1EEE9AC00](v8);
+  v103 = &v85[-v9];
+  v10 = type metadata accessor for MailboxTaskLogger(0);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v101 = &v85[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = _s15MissingMessagesO10NewMissingVMa(0);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v102 = &v85[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v105);
+  v15 = &v85[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v98 = v15;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v85[-v17];
+  v99 = &v85[-v17];
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v85[-v20];
+  v100 = &v85[-v20];
+  MEMORY[0x1EEE9AC00](v22);
+  v24 = &v85[-v23];
+  v25 = type metadata accessor for MessageBatches(0);
+  MEMORY[0x1EEE9AC00](v25 - 8);
+  v27 = &v85[-((v26 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  Missing = type metadata accessor for FindMissingMessages.Completed(0);
+  MEMORY[0x1EEE9AC00](Missing);
+  v106 = &v85[-((v28 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v29);
+  v91 = &v85[-v30];
+  MissingMessages = type metadata accessor for FindMissingMessages(0);
+  v86 = *(v3 + MissingMessages[14]);
+  v87 = MissingMessages[9];
+  v88 = v27;
+  sub_1B0AEAE5C(v3 + v87, v27, type metadata accessor for MessageBatches);
+  v32 = MissingMessages[16];
+  v90 = v24;
+  sub_1B03B5C80(v3 + v32, v24, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B03B5C80(v3 + v32, v21, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B03B5C80(v3 + MissingMessages[17], v18, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B03B5C80(v3 + MissingMessages[15], v15, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v33 = v3 + MissingMessages[13];
+  v97 = *v33;
+  v96 = *(v33 + 8);
+  v34 = MissingMessages[11];
+  v35 = v3 + MissingMessages[10];
+  v95 = *v35;
+  LODWORD(v21) = *(v35 + 8);
+  v36 = *(v3 + v34);
+  v37 = *(v3 + v34 + 8) | (*(v3 + v34 + 12) << 32);
+  LOBYTE(v24) = *(v3 + v34 + 13);
+  v38 = *(v3 + v34 + 16);
+  v39 = *(v3 + v34 + 20);
+  v40 = MissingMessages[18];
+  v93 = v3;
+  v41 = (v3 + v40);
+  v94 = *v41;
+  v43 = *(v41 + 2);
+  v42 = *(v41 + 3);
+  v44 = v101;
+  sub_1B0AEAE5C(v108, v101, type metadata accessor for MailboxTaskLogger);
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  LOBYTE(v110[0]) = v24;
+  v109 = v39;
+  v45 = v38 | (v39 << 32);
+  v46 = v102;
+  sub_1B0AE579C(v100, v99, v98, v97, v96, v95, v21, v36, v102, v37 | (v24 << 40), v45, v94, *(&v94 + 1), v43, v42, v44);
+  memcpy(v110, v107, sizeof(v110));
+  v47 = LOBYTE(v110[3]);
+  v48 = BYTE1(v110[3]);
+  v49 = v110[4];
+  v50 = LOBYTE(v110[5]);
+  v52 = v110[6];
+  v51 = v110[7];
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  v53 = sub_1B0397D14();
+  v54 = v53;
+  if (v49 == 3 || v49 == 2)
+  {
+
+    v55 = 0;
+    v56 = v103;
+    goto LABEL_27;
+  }
+
+  v57 = sub_1B0BAE1A4(v53);
+  v56 = v103;
+  if (v48)
+  {
+    goto LABEL_13;
+  }
+
+  if (v49 != 1)
+  {
+    if (!v49 && v47)
+    {
+      if (v47 != 1)
+      {
+        v58 = 0;
+        goto LABEL_16;
+      }
+
+      goto LABEL_40;
+    }
+
+LABEL_13:
+    if (v57)
+    {
+      v58 = 0;
+    }
+
+    else
+    {
+      v58 = 2;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (!v47)
+  {
+    goto LABEL_13;
+  }
+
+  if (v47 == 1)
+  {
+    v58 = 2;
+    goto LABEL_16;
+  }
+
+LABEL_40:
+  v58 = 1;
+LABEL_16:
+  sub_1B0397E04(&unk_1F2710548, v51);
+  sub_1B0BAE1A4(v54);
+  v59 = sub_1B039109C(v51);
+
+  if (v59 & 1) == 0 && (v48)
+  {
+    sub_1B0BAE1A4(v54);
+  }
+
+  if (!v50)
+  {
+    v58 = 2;
+  }
+
+  if (v58)
+  {
+    v60 = 0;
+  }
+
+  else
+  {
+    v60 = v52 < 3989;
+  }
+
+  v55 = v60;
+LABEL_27:
+  MessageIdentifierSet.ranges.getter(v56);
+  v61 = sub_1B0B4A3E8();
+  v63 = v62;
+  sub_1B0398EFC(v56, &unk_1EB6E2780, &unk_1B0E9C5E0);
+  v64 = HIDWORD(v61);
+  if (v63)
+  {
+    LODWORD(v64) = 0;
+  }
+
+  v65 = v106;
+  *v106 = v64;
+  *(v65 + 4) = v63 & 1;
+  v66 = v104;
+  MessageIdentifierSet.ranges.getter(v104);
+  v67 = sub_1B0B4A3E8();
+  v69 = v68;
+  result = sub_1B0398EFC(v66, &unk_1EB6E2780, &unk_1B0E9C5E0);
+  v71 = 0;
+  if ((v69 & 1) == 0)
+  {
+    if (HIDWORD(v67) == 0xFFFFFFFF)
+    {
+      __break(1u);
+      return result;
+    }
+
+    v71 = HIDWORD(v67) + 1;
+    v65 = v106;
+  }
+
+  *(v65 + 8) = v71;
+  *(v65 + 12) = v69 & 1;
+  v72 = Missing;
+  sub_1B0AEAE5C(v46, v65 + *(Missing + 24), _s15MissingMessagesO10NewMissingVMa);
+  if (v86)
+  {
+    v73 = 1;
+  }
+
+  else
+  {
+    v73 = 2;
+  }
+
+  if (!v55)
+  {
+    v73 = 0;
+  }
+
+  *(v65 + v72[7]) = v73;
+  v74 = v65 + v72[8];
+  v75 = v88;
+  v76 = sub_1B0B3EF14();
+  *v74 = v76;
+  *(v74 + 4) = BYTE4(v76) & 1;
+  v77 = v92;
+  v78 = v90;
+  MessageIdentifierSet.ranges.getter(v92);
+  v79 = sub_1B0B4A3E8();
+  v81 = v80;
+  sub_1B0398EFC(v77, &unk_1EB6E2780, &unk_1B0E9C5E0);
+  sub_1B0AEAEC4(v46, _s15MissingMessagesO10NewMissingVMa);
+  sub_1B0398EFC(v78, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0AEAEC4(v75, type metadata accessor for MessageBatches);
+  v82 = HIDWORD(v79);
+  if (v81)
+  {
+    LODWORD(v82) = 0;
+  }
+
+  v83 = v65 + v72[9];
+  *v83 = v82;
+  *(v83 + 4) = v81 & 1;
+  v84 = v91;
+  sub_1B0AEF094(v65, v91, type metadata accessor for FindMissingMessages.Completed);
+  sub_1B0AEECD8(v107, *(v93 + 88), *(v93 + 96), *(v93 + v87), v84, v108);
+  return sub_1B0AEAEC4(v84, type metadata accessor for FindMissingMessages.Completed);
+}
+
+uint64_t sub_1B0AE579C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X5>, int a7@<W6>, uint64_t a8@<X7>, uint64_t a9@<X8>, unint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, unint64_t a14, uint64_t a15, uint64_t a16)
+{
+  v137 = a6;
+  v138 = a8;
+  v136 = a7;
+  LODWORD(v125) = a5;
+  v128 = a4;
+  v145 = a3;
+  v146 = a1;
+  v135 = a9;
+  v143 = a13;
+  v144 = a15;
+  v141 = a16;
+  v142 = a12;
+  v133 = a11;
+  v134 = a14;
+  v132 = a10;
+  v122 = type metadata accessor for MailboxTaskLogger(0);
+  MEMORY[0x1EEE9AC00](v122);
+  v131 = &v117 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v124 = &v117 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v123 = &v117 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v120 = &v117 - v23;
+  MEMORY[0x1EEE9AC00](v24);
+  v121 = &v117 - v25;
+  v127 = sub_1B0E439A8();
+  v126 = *(v127 - 8);
+  MEMORY[0x1EEE9AC00](v127);
+  v27 = &v117 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v28);
+  v30 = &v117 - v29;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E2780, &unk_1B0E9C5E0);
+  MEMORY[0x1EEE9AC00](v31 - 8);
+  v33 = &v117 - v32;
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v34);
+  v129 = &v117 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v36);
+  v38 = &v117 - v37;
+  MEMORY[0x1EEE9AC00](v39);
+  v41 = &v117 - v40;
+  MEMORY[0x1EEE9AC00](v42);
+  v44 = &v117 - v43;
+  MEMORY[0x1EEE9AC00](v45);
+  v47 = &v117 - v46;
+  MEMORY[0x1EEE9AC00](v48);
+  v50 = &v117 - v49;
+  v139 = a2;
+  MessageIdentifierSet.union(_:)(a2, v47);
+  MessageIdentifierSet.union(_:)(v145, v50);
+  v51 = v144;
+  v140 = v47;
+  sub_1B0398EFC(v47, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v130 = v50;
+  if (v51)
+  {
+    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+    v52 = v134;
+    sub_1B0AF1F70(v142, v143 & 0xFFFFFFFF00000101, v52 | ((HIDWORD(v52) & 1) << 32), v51);
+
+    sub_1B03C60A4(v38, v41, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    MessageIdentifierSet.union(_:)(v41, v44);
+    sub_1B0398EFC(v41, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    LODWORD(v128) = 0;
+    v127 = 0;
+    v53 = 1;
+    v54 = v52;
+  }
+
+  else
+  {
+    v118 = v30;
+    v55 = v126;
+    v56 = v127;
+    v119 = v44;
+    v57 = v146;
+    v58 = v128;
+    if ((v125 & 1) != 0 || MessageIdentifierSet.count.getter() <= v58)
+    {
+      v84 = v57;
+      v44 = v119;
+      sub_1B03B5C80(v84, v119, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      v127 = 0;
+      LODWORD(v128) = 1;
+      v53 = 1;
+      v54 = v134;
+    }
+
+    else
+    {
+      v59 = v140;
+      MessageIdentifierSet.suffix(_:)(v58, v34, v140);
+      MessageIdentifierSet.intersection(_:)(v57, v119);
+      sub_1B0398EFC(v59, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      v60 = sub_1B0B4AAF0();
+      if (v60 & 0x100000000) != 0 || (v61 = v60, MessageIdentifierSet.ranges.getter(v33), v62 = sub_1B0B4A3E8(), v64 = v63, sub_1B0398EFC(v33, &unk_1EB6E2780, &unk_1B0E9C5E0), (v64))
+      {
+        v65 = v55;
+        v66 = *(v55 + 16);
+        v67 = v27;
+        v68 = v141;
+        v69 = v56;
+        v66(v27, v141, v56);
+        v70 = v123;
+        sub_1B0AEAE5C(v68, v123, type metadata accessor for MailboxTaskLogger);
+        v71 = v124;
+        sub_1B0AEAE5C(v68, v124, type metadata accessor for MailboxTaskLogger);
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        v72 = sub_1B0E43988();
+        v73 = sub_1B0E45908();
+        if (os_log_type_enabled(v72, v73))
+        {
+          v74 = swift_slowAlloc();
+          v121 = swift_slowAlloc();
+          v151 = v121;
+          *v74 = 68159491;
+          *(v74 + 4) = 2;
+          *(v74 + 8) = 256;
+          v75 = v122;
+          v76 = v71 + *(v122 + 20);
+          *(v74 + 10) = *v76;
+          *(v74 + 11) = 2082;
+          v77 = *(v75 + 20);
+          v125 = v67;
+          v78 = v70 + v77;
+          *(v74 + 13) = sub_1B0399D64(*(v70 + v77 + 8), *(v70 + v77 + 16), &v151);
+          *(v74 + 21) = 1040;
+          *(v74 + 23) = 2;
+          *(v74 + 27) = 512;
+          LOWORD(v76) = *(v76 + 24);
+          sub_1B0AEAEC4(v71, type metadata accessor for MailboxTaskLogger);
+          *(v74 + 29) = v76;
+          *(v74 + 31) = 2160;
+          *(v74 + 33) = 0x786F626C69616DLL;
+          *(v74 + 41) = 2085;
+          v79 = *(v78 + 32);
+          LODWORD(v78) = *(v78 + 40);
+          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+          sub_1B0AEAEC4(v70, type metadata accessor for MailboxTaskLogger);
+          v149 = v79;
+          v150 = v78;
+          v80 = sub_1B0E44BA8();
+          v82 = sub_1B0399D64(v80, v81, &v151);
+
+          *(v74 + 43) = v82;
+          *(v74 + 51) = 2048;
+          *(v74 + 53) = v128;
+          _os_log_impl(&dword_1B0389000, v72, v73, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Limiting server UIDs to %ld UIDs.", v74, 0x3Du);
+          v83 = v121;
+          swift_arrayDestroy();
+          MEMORY[0x1B272C230](v83, -1, -1);
+          MEMORY[0x1B272C230](v74, -1, -1);
+
+          (*(v126 + 8))(v125, v127);
         }
 
-        v38 = &unigram_table + 808 * v34;
-        v39 = v38[v10 + 552];
-        if (v38[v10 + 552])
+        else
         {
-          if (v39)
+          sub_1B0AEAEC4(v71, type metadata accessor for MailboxTaskLogger);
+
+          sub_1B0AEAEC4(v70, type metadata accessor for MailboxTaskLogger);
+          (*(v65 + 8))(v67, v69);
+        }
+      }
+
+      else
+      {
+        v125 = v62;
+        v91 = v55;
+        v92 = *(v55 + 16);
+        v93 = v118;
+        v94 = v141;
+        v95 = v56;
+        v92(v118, v141, v56);
+        v96 = v121;
+        sub_1B0AEAE5C(v94, v121, type metadata accessor for MailboxTaskLogger);
+        v97 = v120;
+        sub_1B0AEAE5C(v94, v120, type metadata accessor for MailboxTaskLogger);
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        v98 = sub_1B0E43988();
+        v99 = sub_1B0E45908();
+        if (os_log_type_enabled(v98, v99))
+        {
+          v123 = HIDWORD(v125);
+          v100 = swift_slowAlloc();
+          v125 = swift_slowAlloc();
+          v151 = v125;
+          *v100 = 68159747;
+          LODWORD(v124) = v99;
+          *(v100 + 4) = 2;
+          *(v100 + 8) = 256;
+          v101 = v122;
+          v102 = v97 + *(v122 + 20);
+          *(v100 + 10) = *v102;
+          *(v100 + 11) = 2082;
+          v103 = v96 + *(v101 + 20);
+          *(v100 + 13) = sub_1B0399D64(*(v103 + 8), *(v103 + 16), &v151);
+          *(v100 + 21) = 1040;
+          *(v100 + 23) = 2;
+          *(v100 + 27) = 512;
+          LOWORD(v102) = *(v102 + 24);
+          sub_1B0AEAEC4(v97, type metadata accessor for MailboxTaskLogger);
+          *(v100 + 29) = v102;
+          *(v100 + 31) = 2160;
+          *(v100 + 33) = 0x786F626C69616DLL;
+          *(v100 + 41) = 2085;
+          v104 = *(v103 + 32);
+          LODWORD(v103) = *(v103 + 40);
+          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+          sub_1B0AEAEC4(v96, type metadata accessor for MailboxTaskLogger);
+          v149 = v104;
+          v150 = v103;
+          v105 = sub_1B0E44BA8();
+          v107 = sub_1B0399D64(v105, v106, &v151);
+
+          *(v100 + 43) = v107;
+          *(v100 + 51) = 2048;
+          *(v100 + 53) = v128;
+          *(v100 + 61) = 2082;
+          v147 = v123;
+          v148 = v61;
+          sub_1B041C1E8();
+          static MessageIdentifier.... infix(_:_:)(&v148, &v147, &type metadata for UID, &v149);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E2640, &qword_1B0E9B010);
+          v108 = MessageIdentifierRange.debugDescription.getter();
+          v110 = sub_1B0399D64(v108, v109, &v151);
+
+          *(v100 + 63) = v110;
+          _os_log_impl(&dword_1B0389000, v98, v124, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Limiting server UIDs to %ld UIDs in range %{public}s.", v100, 0x47u);
+          v111 = v125;
+          swift_arrayDestroy();
+          MEMORY[0x1B272C230](v111, -1, -1);
+          MEMORY[0x1B272C230](v100, -1, -1);
+
+          (*(v126 + 8))(v118, v127);
+        }
+
+        else
+        {
+          sub_1B0AEAEC4(v97, type metadata accessor for MailboxTaskLogger);
+
+          sub_1B0AEAEC4(v96, type metadata accessor for MailboxTaskLogger);
+          (*(v91 + 8))(v93, v95);
+        }
+      }
+
+      v54 = v134;
+      v44 = v119;
+      v112 = MessageIdentifierSet.startIndex.getter(v34);
+      v114 = v113;
+      if (v112 == MessageIdentifierSet.endIndex.getter(v34) && v114 == v115)
+      {
+        LODWORD(v128) = 0;
+        v127 = 0;
+        v53 = 1;
+      }
+
+      else
+      {
+        MessageIdentifierSet.subscript.getter(v114, v34, &v149);
+        LODWORD(v128) = 0;
+        v53 = 0;
+        v127 = v149;
+      }
+    }
+  }
+
+  v85 = v140;
+  sub_1B03B5C80(v44, v140, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v86 = v139;
+  v87 = v129;
+  sub_1B03B5C80(v139, v129, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v88 = v141;
+  v89 = v131;
+  sub_1B0AEAE5C(v141, v131, type metadata accessor for MailboxTaskLogger);
+  LOBYTE(v149) = BYTE5(v132) & 1;
+  LOBYTE(v151) = BYTE4(v133) & 1;
+  v116 = v133 | ((BYTE4(v133) & 1) << 32);
+  sub_1B0AE8914(v85, v127 | (v53 << 32), v128, v87, v137, v136 & 1, v138, v132 & 0xFFFFFFFFFFLL | (((v132 >> 40) & 1) << 40), v135, v116, SBYTE4(v116), v142, v143, v54, SBYTE4(v54), v144, v89);
+  sub_1B0AEAEC4(v88, type metadata accessor for MailboxTaskLogger);
+  sub_1B0398EFC(v145, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v86, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v146, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v44, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  return sub_1B0398EFC(v130, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+}
+
+uint64_t sub_1B0AE6544(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
+{
+  v129 = a5;
+  v137 = _s15MissingMessagesOMa(0);
+  MEMORY[0x1EEE9AC00](v137);
+  v136 = &v121[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v121[-v10];
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v121[-v13];
+  Missing = type metadata accessor for FindMissingMessages.Completed(0);
+  v139 = Missing;
+  MEMORY[0x1EEE9AC00](Missing);
+  v17 = &v121[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v134 = type metadata accessor for MailboxTaskLogger(0);
+  MEMORY[0x1EEE9AC00](v134);
+  v127 = &v121[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v19);
+  v128 = &v121[-v20];
+  MEMORY[0x1EEE9AC00](v21);
+  v130 = &v121[-v22];
+  MEMORY[0x1EEE9AC00](v23);
+  v131 = &v121[-v24];
+  MEMORY[0x1EEE9AC00](v25);
+  v132 = &v121[-v26];
+  MEMORY[0x1EEE9AC00](v27);
+  v133 = &v121[-v28];
+  MEMORY[0x1EEE9AC00](v29);
+  v31 = &v121[-v30];
+  MEMORY[0x1EEE9AC00](v32);
+  v34 = &v121[-v33];
+  v35 = *(Missing + 24);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3120, qword_1B0E9B270);
+  v135 = v35;
+  v36 = sub_1B0E46E98();
+  v138 = a3;
+  if ((v36 & 1) == 0)
+  {
+    sub_1B0AEAE5C(a4, v34, type metadata accessor for MailboxTaskLogger);
+    sub_1B0AEAE5C(a4, v31, type metadata accessor for MailboxTaskLogger);
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0AEAE5C(a3, v17, type metadata accessor for FindMissingMessages.Completed);
+    v37 = sub_1B0E43988();
+    v38 = sub_1B0E45908();
+    if (os_log_type_enabled(v37, v38))
+    {
+      v39 = swift_slowAlloc();
+      v125 = swift_slowAlloc();
+      v142[0] = v125;
+      *v39 = 68159491;
+      *(v39 + 4) = 2;
+      *(v39 + 8) = 256;
+      v40 = v134;
+      v41 = *(v134 + 20);
+      v124 = v38;
+      v42 = &v31[v41];
+      *(v39 + 10) = v31[v41];
+      *(v39 + 11) = 2082;
+      v43 = *(v40 + 20);
+      v123 = v37;
+      v44 = &v34[v43];
+      *(v39 + 13) = sub_1B0399D64(*&v34[v43 + 8], *&v34[v43 + 16], v142);
+      *(v39 + 21) = 1040;
+      *(v39 + 23) = 2;
+      *(v39 + 27) = 512;
+      v126 = a4;
+      v45 = a1;
+      v46 = v14;
+      v47 = *(v42 + 12);
+      sub_1B0AEAEC4(v31, type metadata accessor for MailboxTaskLogger);
+      *(v39 + 29) = v47;
+      *(v39 + 31) = 2160;
+      *(v39 + 33) = 0x786F626C69616DLL;
+      *(v39 + 41) = 2085;
+      v48 = *(v44 + 4);
+      v49 = *(v44 + 10);
+      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+      sub_1B0AEAEC4(v34, type metadata accessor for MailboxTaskLogger);
+      v140 = v48;
+      v141 = v49;
+      v14 = v46;
+      a1 = v45;
+      a4 = v126;
+      v50 = sub_1B0E44BA8();
+      v52 = sub_1B0399D64(v50, v51, v142);
+
+      *(v39 + 43) = v52;
+      *(v39 + 51) = 2048;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+      v53 = MessageIdentifierSet.count.getter();
+      sub_1B0AEAEC4(v17, type metadata accessor for FindMissingMessages.Completed);
+      *(v39 + 53) = v53;
+      v54 = v123;
+      _os_log_impl(&dword_1B0389000, v123, v124, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Adding %ld new UID(s).", v39, 0x3Du);
+      v55 = v125;
+      swift_arrayDestroy();
+      MEMORY[0x1B272C230](v55, -1, -1);
+      v56 = v39;
+      a3 = v138;
+      MEMORY[0x1B272C230](v56, -1, -1);
+    }
+
+    else
+    {
+      sub_1B0AEAEC4(v17, type metadata accessor for FindMissingMessages.Completed);
+      sub_1B0AEAEC4(v31, type metadata accessor for MailboxTaskLogger);
+
+      sub_1B0AEAEC4(v34, type metadata accessor for MailboxTaskLogger);
+    }
+  }
+
+  v57 = type metadata accessor for MailboxSyncState(0);
+  v58 = *(v57 + 68);
+  sub_1B0AEAE5C(a1 + v58, v14, _s15MissingMessagesOMa);
+  sub_1B0B494D4(&v135[a3]);
+  sub_1B0AEAE5C(a1 + v58, v11, _s15MissingMessagesOMa);
+  v59 = sub_1B03D3850(v11, v14);
+  sub_1B0AEAEC4(v11, _s15MissingMessagesOMa);
+  v60 = a4;
+  sub_1B0AE7418(a4, a1 + v58);
+  if ((*(a3 + 12) & 1) == 0)
+  {
+    v61 = *(a3 + 8);
+    if (*(a1 + 12))
+    {
+      goto LABEL_10;
+    }
+
+    v62 = *(a1 + 8);
+    v63 = v62 >= v61;
+    if (v62 > v61)
+    {
+      v61 = *(a1 + 8);
+    }
+
+    if (!v63)
+    {
+LABEL_10:
+      v124 = v59;
+      v125 = v58;
+      *(a1 + 8) = v61;
+      *(a1 + 12) = 0;
+      v64 = v133;
+      sub_1B0AEAE5C(v60, v133, type metadata accessor for MailboxTaskLogger);
+      v65 = v132;
+      sub_1B0AEAE5C(v60, v132, type metadata accessor for MailboxTaskLogger);
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      v66 = sub_1B0E43988();
+      v67 = sub_1B0E45908();
+      if (os_log_type_enabled(v66, v67))
+      {
+        v68 = swift_slowAlloc();
+        v69 = swift_slowAlloc();
+        v135 = v14;
+        v123 = v69;
+        v142[0] = v69;
+        *v68 = 68159491;
+        v126 = v57;
+        *(v68 + 4) = 2;
+        *(v68 + 8) = 256;
+        v70 = v134;
+        v71 = v64;
+        v72 = &v65[*(v134 + 20)];
+        *(v68 + 10) = *v72;
+        *(v68 + 11) = 2082;
+        v73 = *(v70 + 20);
+        v122 = v67;
+        v74 = v71 + v73;
+        *(v68 + 13) = sub_1B0399D64(*(v71 + v73 + 8), *(v71 + v73 + 16), v142);
+        *(v68 + 21) = 1040;
+        *(v68 + 23) = 2;
+        *(v68 + 27) = 512;
+        LOWORD(v72) = *(v72 + 12);
+        sub_1B0AEAEC4(v65, type metadata accessor for MailboxTaskLogger);
+        *(v68 + 29) = v72;
+        *(v68 + 31) = 2160;
+        *(v68 + 33) = 0x786F626C69616DLL;
+        *(v68 + 41) = 2085;
+        v75 = *(v74 + 32);
+        LODWORD(v74) = *(v74 + 40);
+        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+        sub_1B0AEAEC4(v71, type metadata accessor for MailboxTaskLogger);
+        v140 = v75;
+        v141 = v74;
+        v76 = sub_1B0E44BA8();
+        v78 = sub_1B0399D64(v76, v77, v142);
+        v57 = v126;
+
+        *(v68 + 43) = v78;
+        *(v68 + 51) = 1024;
+        *(v68 + 53) = v61;
+        _os_log_impl(&dword_1B0389000, v66, v122, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Updating sync state next UID to %u.", v68, 0x39u);
+        v79 = v123;
+        swift_arrayDestroy();
+        v14 = v135;
+        MEMORY[0x1B272C230](v79, -1, -1);
+        MEMORY[0x1B272C230](v68, -1, -1);
+      }
+
+      else
+      {
+        sub_1B0AEAEC4(v65, type metadata accessor for MailboxTaskLogger);
+
+        sub_1B0AEAEC4(v64, type metadata accessor for MailboxTaskLogger);
+      }
+
+      a3 = v138;
+      v58 = v125;
+      LOBYTE(v59) = v124;
+    }
+  }
+
+  v80 = v139;
+  if (*(a3 + *(v139 + 28)))
+  {
+    v81 = v60;
+    if (*(a3 + *(v139 + 28)) == 1)
+    {
+      v82 = v60;
+      v83 = v131;
+      sub_1B0AEAE5C(v82, v131, type metadata accessor for MailboxTaskLogger);
+      v84 = v130;
+      sub_1B0AEAE5C(v81, v130, type metadata accessor for MailboxTaskLogger);
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      v85 = sub_1B0E43988();
+      v86 = sub_1B0E45908();
+      if (os_log_type_enabled(v85, v86))
+      {
+        v87 = swift_slowAlloc();
+        v133 = swift_slowAlloc();
+        v142[0] = v133;
+        *v87 = 68159235;
+        v135 = v14;
+        *(v87 + 4) = 2;
+        *(v87 + 8) = 256;
+        v88 = v134;
+        v89 = *(v134 + 20);
+        v126 = v57;
+        v90 = &v84[v89];
+        *(v87 + 10) = v84[v89];
+        *(v87 + 11) = 2082;
+        v91 = &v83[*(v88 + 20)];
+        *(v87 + 13) = sub_1B0399D64(*(v91 + 1), *(v91 + 2), v142);
+        *(v87 + 21) = 1040;
+        *(v87 + 23) = 2;
+        *(v87 + 27) = 512;
+        LOWORD(v90) = *(v90 + 12);
+        sub_1B0AEAEC4(v84, type metadata accessor for MailboxTaskLogger);
+        *(v87 + 29) = v90;
+        *(v87 + 31) = 2160;
+        *(v87 + 33) = 0x786F626C69616DLL;
+        *(v87 + 41) = 2085;
+        v92 = *(v91 + 4);
+        LODWORD(v91) = *(v91 + 10);
+        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+        sub_1B0AEAEC4(v83, type metadata accessor for MailboxTaskLogger);
+        v140 = v92;
+        v141 = v91;
+        v93 = sub_1B0E44BA8();
+        v95 = sub_1B0399D64(v93, v94, v142);
+        v14 = v135;
+        v80 = v139;
+
+        *(v87 + 43) = v95;
+        v57 = v126;
+        _os_log_impl(&dword_1B0389000, v85, v86, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Requesting re-run after initial run.", v87, 0x33u);
+        v96 = v133;
+        swift_arrayDestroy();
+        MEMORY[0x1B272C230](v96, -1, -1);
+        MEMORY[0x1B272C230](v87, -1, -1);
+      }
+
+      else
+      {
+        sub_1B0AEAEC4(v84, type metadata accessor for MailboxTaskLogger);
+
+        sub_1B0AEAEC4(v83, type metadata accessor for MailboxTaskLogger);
+      }
+
+      a3 = v138;
+      sub_1B03BDE74(0xCu);
+      sub_1B03BDD7C(&v140, 12);
+    }
+
+    else if ((v59 & 1) == 0)
+    {
+      v97 = (a3 + *(v139 + 32));
+      v98 = *v97;
+      LOBYTE(v140) = *(v97 + 4);
+      if (sub_1B0B4B0F4(v129, v98 | (v140 << 32)))
+      {
+        v99 = v128;
+        sub_1B0AEAE5C(v60, v128, type metadata accessor for MailboxTaskLogger);
+        v100 = v60;
+        v101 = v127;
+        sub_1B0AEAE5C(v100, v127, type metadata accessor for MailboxTaskLogger);
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        v102 = sub_1B0E43988();
+        v103 = sub_1B0E45908();
+        if (os_log_type_enabled(v102, v103))
+        {
+          v104 = swift_slowAlloc();
+          v133 = swift_slowAlloc();
+          v142[0] = v133;
+          *v104 = 68159235;
+          v135 = v14;
+          *(v104 + 4) = 2;
+          *(v104 + 8) = 256;
+          v105 = v134;
+          v106 = *(v134 + 20);
+          v126 = v57;
+          v107 = &v101[v106];
+          *(v104 + 10) = v101[v106];
+          *(v104 + 11) = 2082;
+          v108 = &v99[*(v105 + 20)];
+          *(v104 + 13) = sub_1B0399D64(*(v108 + 1), *(v108 + 2), v142);
+          *(v104 + 21) = 1040;
+          *(v104 + 23) = 2;
+          *(v104 + 27) = 512;
+          LOWORD(v107) = *(v107 + 12);
+          sub_1B0AEAEC4(v101, type metadata accessor for MailboxTaskLogger);
+          *(v104 + 29) = v107;
+          *(v104 + 31) = 2160;
+          *(v104 + 33) = 0x786F626C69616DLL;
+          *(v104 + 41) = 2085;
+          v109 = *(v108 + 4);
+          LODWORD(v108) = *(v108 + 10);
+          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+          sub_1B0AEAEC4(v99, type metadata accessor for MailboxTaskLogger);
+          v140 = v109;
+          v141 = v108;
+          v110 = sub_1B0E44BA8();
+          v112 = sub_1B0399D64(v110, v111, v142);
+          v14 = v135;
+          v80 = v139;
+
+          *(v104 + 43) = v112;
+          v57 = v126;
+          _os_log_impl(&dword_1B0389000, v102, v103, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Requesting re-run.", v104, 0x33u);
+          v113 = v133;
+          swift_arrayDestroy();
+          MEMORY[0x1B272C230](v113, -1, -1);
+          MEMORY[0x1B272C230](v104, -1, -1);
+        }
+
+        else
+        {
+          sub_1B0AEAEC4(v101, type metadata accessor for MailboxTaskLogger);
+
+          sub_1B0AEAEC4(v99, type metadata accessor for MailboxTaskLogger);
+        }
+
+        sub_1B03BDE74(0xCu);
+        sub_1B03BDD7C(&v140, 12);
+        a3 = v138;
+      }
+    }
+  }
+
+  v114 = v136;
+  sub_1B0AEAE5C(a1 + v58, v136, _s15MissingMessagesOMa);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  sub_1B0AEAEC4(v114, _s15MissingMessagesOMa);
+  if (EnumCaseMultiPayload == 1)
+  {
+    sub_1B03BDE74(1u);
+    sub_1B03BDD7C(&v140, 1);
+  }
+
+  v116 = (a3 + *(v80 + 36));
+  if ((v116[1] & 1) == 0)
+  {
+    v117 = *v116;
+    v118 = *(v57 + 60);
+    v119 = type metadata accessor for MessageBatches(0);
+    if (!(*(*(v119 - 8) + 48))(a1 + v118, 1, v119))
+    {
+      LOBYTE(v140) = 0;
+      sub_1B0B3EDEC(v117);
+    }
+  }
+
+  return sub_1B0AEAEC4(v14, _s15MissingMessagesOMa);
+}
+
+uint64_t sub_1B0AE7418(char *a1, uint64_t a2)
+{
+  v179 = a1;
+  v168 = _s15MissingMessagesO8CompleteVMa(0);
+  MEMORY[0x1EEE9AC00](v168);
+  v166 = &v160 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v172 = &v160 - v5;
+  MEMORY[0x1EEE9AC00](v6);
+  v177 = &v160 - v7;
+  v8 = _s15MissingMessagesO11QueriedUIDsVMa(0);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v174 = &v160 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v175 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v175);
+  v176 = &v160 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v167 = &v160 - v12;
+  v173 = type metadata accessor for MailboxTaskLogger(0);
+  MEMORY[0x1EEE9AC00](v173);
+  v14 = &v160 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v165 = &v160 - v16;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v160 - v18;
+  MEMORY[0x1EEE9AC00](v20);
+  v162 = &v160 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v24 = &v160 - v23;
+  MEMORY[0x1EEE9AC00](v25);
+  v164 = &v160 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v29 = &v160 - v28;
+  MEMORY[0x1EEE9AC00](v30);
+  v161 = &v160 - v31;
+  v178 = _s15MissingMessagesO10IncompleteVMa(0);
+  MEMORY[0x1EEE9AC00](v178);
+  v171 = &v160 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v33);
+  v169 = &v160 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v163 = &v160 - v36;
+  MEMORY[0x1EEE9AC00](v37);
+  v170 = &v160 - v38;
+  MEMORY[0x1EEE9AC00](v39);
+  v41 = &v160 - v40;
+  MEMORY[0x1EEE9AC00](v42);
+  v44 = &v160 - v43;
+  MEMORY[0x1EEE9AC00](v45);
+  v47 = &v160 - v46;
+  v48 = _s15MissingMessagesOMa(0);
+  MEMORY[0x1EEE9AC00](v48);
+  v50 = &v160 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1B0AEAE5C(a2, v50, _s15MissingMessagesOMa);
+  result = swift_getEnumCaseMultiPayload();
+  if (result)
+  {
+    if (result == 1)
+    {
+      sub_1B0AEF094(v50, v47, _s15MissingMessagesO10IncompleteVMa);
+      v52 = &v47[*(v178 + 20)];
+      if (v52[4])
+      {
+        v53 = v179;
+        v54 = v164;
+        sub_1B0AEAE5C(v179, v164, type metadata accessor for MailboxTaskLogger);
+        sub_1B0AEAE5C(v53, v24, type metadata accessor for MailboxTaskLogger);
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        sub_1B0394868();
+        v55 = v163;
+        sub_1B0AEAE5C(v47, v163, _s15MissingMessagesO10IncompleteVMa);
+        v56 = v169;
+        sub_1B0AEAE5C(v47, v169, _s15MissingMessagesO10IncompleteVMa);
+        v57 = v171;
+        sub_1B0AEAE5C(v47, v171, _s15MissingMessagesO10IncompleteVMa);
+        v58 = sub_1B0E43988();
+        v59 = sub_1B0E45908();
+        if (os_log_type_enabled(v58, v59))
+        {
+          v60 = swift_slowAlloc();
+          v179 = v47;
+          v61 = v60;
+          v177 = swift_slowAlloc();
+          v182[0] = v177;
+          *v61 = 68160003;
+          *(v61 + 4) = 2;
+          *(v61 + 8) = 256;
+          v62 = v173;
+          v63 = &v24[*(v173 + 20)];
+          *(v61 + 10) = *v63;
+          *(v61 + 11) = 2082;
+          v64 = v55;
+          v65 = v54 + *(v62 + 20);
+          *(v61 + 13) = sub_1B0399D64(*(v65 + 8), *(v65 + 16), v182);
+          *(v61 + 21) = 1040;
+          *(v61 + 23) = 2;
+          *(v61 + 27) = 512;
+          LOWORD(v63) = *(v63 + 12);
+          sub_1B0AEAEC4(v24, type metadata accessor for MailboxTaskLogger);
+          *(v61 + 29) = v63;
+          *(v61 + 31) = 2160;
+          *(v61 + 33) = 0x786F626C69616DLL;
+          *(v61 + 41) = 2085;
+          v66 = *(v65 + 32);
+          LODWORD(v63) = *(v65 + 40);
+          _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+          sub_1B0AEAEC4(v54, type metadata accessor for MailboxTaskLogger);
+          v180 = v66;
+          v181 = v63;
+          v67 = sub_1B0E44BA8();
+          v69 = sub_1B0399D64(v67, v68, v182);
+
+          *(v61 + 43) = v69;
+          *(v61 + 51) = 2048;
+          v70 = v167;
+          sub_1B03B5C80(v64, v167, &unk_1EB6E26C0, &unk_1B0E9DE10);
+          v71 = MessageIdentifierSet.count.getter();
+          sub_1B0398EFC(v70, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v72 = _s15MissingMessagesO10IncompleteVMa;
+          sub_1B0AEAEC4(v64, _s15MissingMessagesO10IncompleteVMa);
+          *(v61 + 53) = v71;
+          *(v61 + 61) = 2048;
+          _s15MissingMessagesO8ProgressVMa(0);
+          v73 = v169;
+          v74 = MessageIdentifierSet.count.getter();
+          sub_1B0AEAEC4(v73, _s15MissingMessagesO10IncompleteVMa);
+          *(v61 + 63) = v74;
+          *(v61 + 71) = 2082;
+          v75 = v171;
+          v76 = v174;
+          sub_1B0AEAE5C(v171 + *(v178 + 24), v174, _s15MissingMessagesO11QueriedUIDsVMa);
+          v77 = v176;
+          sub_1B03C60A4(v76, v176, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v78 = MessageIdentifierSet.debugDescription.getter();
+          v80 = v79;
+          sub_1B0398EFC(v77, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          sub_1B0AEAEC4(v75, _s15MissingMessagesO10IncompleteVMa);
+          v81 = sub_1B0399D64(v78, v80, v182);
+
+          *(v61 + 73) = v81;
+          _os_log_impl(&dword_1B0389000, v58, v59, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Total missing message count: %ld; %ld done; fetched-window upper bound: nil, queriedUIDs: %{public}s", v61, 0x51u);
+          v82 = v177;
+          swift_arrayDestroy();
+          MEMORY[0x1B272C230](v82, -1, -1);
+          MEMORY[0x1B272C230](v61, -1, -1);
+
+          v83 = v179;
+LABEL_19:
+          v107 = v72;
+          return sub_1B0AEAEC4(v83, v107);
+        }
+
+        sub_1B0AEAEC4(v56, _s15MissingMessagesO10IncompleteVMa);
+        sub_1B0AEAEC4(v55, _s15MissingMessagesO10IncompleteVMa);
+        sub_1B0AEAEC4(v24, type metadata accessor for MailboxTaskLogger);
+
+        sub_1B0AEAEC4(v57, _s15MissingMessagesO10IncompleteVMa);
+        v158 = v54;
+        goto LABEL_15;
+      }
+
+      LODWORD(v177) = *v52;
+      v108 = v179;
+      v109 = v161;
+      sub_1B0AEAE5C(v179, v161, type metadata accessor for MailboxTaskLogger);
+      sub_1B0AEAE5C(v108, v29, type metadata accessor for MailboxTaskLogger);
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0AEAE5C(v47, v44, _s15MissingMessagesO10IncompleteVMa);
+      sub_1B0AEAE5C(v47, v41, _s15MissingMessagesO10IncompleteVMa);
+      v110 = v170;
+      sub_1B0AEAE5C(v47, v170, _s15MissingMessagesO10IncompleteVMa);
+      v111 = sub_1B0E43988();
+      v112 = sub_1B0E45908();
+      if (!os_log_type_enabled(v111, v112))
+      {
+        sub_1B0AEAEC4(v41, _s15MissingMessagesO10IncompleteVMa);
+        sub_1B0AEAEC4(v44, _s15MissingMessagesO10IncompleteVMa);
+        sub_1B0AEAEC4(v29, type metadata accessor for MailboxTaskLogger);
+
+        sub_1B0AEAEC4(v110, _s15MissingMessagesO10IncompleteVMa);
+        v158 = v109;
+LABEL_15:
+        sub_1B0AEAEC4(v158, type metadata accessor for MailboxTaskLogger);
+        v83 = v47;
+        v107 = _s15MissingMessagesO10IncompleteVMa;
+        return sub_1B0AEAEC4(v83, v107);
+      }
+
+      v113 = v41;
+      v114 = swift_slowAlloc();
+      v172 = swift_slowAlloc();
+      v182[0] = v172;
+      *v114 = 68160259;
+      LODWORD(v171) = v112;
+      *(v114 + 4) = 2;
+      *(v114 + 8) = 256;
+      v115 = v173;
+      v116 = &v29[*(v173 + 20)];
+      *(v114 + 10) = *v116;
+      *(v114 + 11) = 2082;
+      v117 = v109;
+      v118 = v109 + *(v115 + 20);
+      *(v114 + 13) = sub_1B0399D64(*(v118 + 8), *(v118 + 16), v182);
+      *(v114 + 21) = 1040;
+      *(v114 + 23) = 2;
+      *(v114 + 27) = 512;
+      LOWORD(v116) = *(v116 + 12);
+      sub_1B0AEAEC4(v29, type metadata accessor for MailboxTaskLogger);
+      *(v114 + 29) = v116;
+      *(v114 + 31) = 2160;
+      *(v114 + 33) = 0x786F626C69616DLL;
+      *(v114 + 41) = 2085;
+      v119 = *(v118 + 32);
+      LODWORD(v118) = *(v118 + 40);
+      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+      sub_1B0AEAEC4(v117, type metadata accessor for MailboxTaskLogger);
+      v180 = v119;
+      v181 = v118;
+      v120 = sub_1B0E44BA8();
+      v122 = sub_1B0399D64(v120, v121, v182);
+
+      *(v114 + 43) = v122;
+      *(v114 + 51) = 2048;
+      v123 = v167;
+      sub_1B03B5C80(v44, v167, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      v179 = v47;
+      v124 = MessageIdentifierSet.count.getter();
+      sub_1B0398EFC(v123, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      sub_1B0AEAEC4(v44, _s15MissingMessagesO10IncompleteVMa);
+      *(v114 + 53) = v124;
+      *(v114 + 61) = 2048;
+      _s15MissingMessagesO8ProgressVMa(0);
+      v125 = MessageIdentifierSet.count.getter();
+      sub_1B0AEAEC4(v113, _s15MissingMessagesO10IncompleteVMa);
+      *(v114 + 63) = v125;
+      *(v114 + 71) = 1024;
+      *(v114 + 73) = v177;
+      *(v114 + 77) = 2082;
+      v126 = v170;
+      v127 = v174;
+      sub_1B0AEAE5C(v170 + *(v178 + 24), v174, _s15MissingMessagesO11QueriedUIDsVMa);
+      v128 = v176;
+      sub_1B03C60A4(v127, v176, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      v129 = MessageIdentifierSet.debugDescription.getter();
+      v131 = v130;
+      sub_1B0398EFC(v128, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      sub_1B0AEAEC4(v126, _s15MissingMessagesO10IncompleteVMa);
+      v132 = sub_1B0399D64(v129, v131, v182);
+
+      *(v114 + 79) = v132;
+      _os_log_impl(&dword_1B0389000, v111, v171, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Total missing message count: %ld; %ld done; fetched-window upper bound: %u, queriedUIDs: %{public}s", v114, 0x57u);
+      v133 = v172;
+      swift_arrayDestroy();
+      MEMORY[0x1B272C230](v133, -1, -1);
+      MEMORY[0x1B272C230](v114, -1, -1);
+
+      v83 = v179;
+      v107 = _s15MissingMessagesO10IncompleteVMa;
+      return sub_1B0AEAEC4(v83, v107);
+    }
+
+    v84 = v177;
+    sub_1B0AEF094(v50, v177, _s15MissingMessagesO8CompleteVMa);
+    if (*(v84 + 4))
+    {
+      v85 = v179;
+      v86 = v165;
+      sub_1B0AEAE5C(v179, v165, type metadata accessor for MailboxTaskLogger);
+      sub_1B0AEAE5C(v85, v14, type metadata accessor for MailboxTaskLogger);
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      v87 = v166;
+      sub_1B0AEAE5C(v84, v166, _s15MissingMessagesO8CompleteVMa);
+      v88 = sub_1B0E43988();
+      v89 = sub_1B0E45908();
+      if (os_log_type_enabled(v88, v89))
+      {
+        v90 = swift_slowAlloc();
+        v179 = swift_slowAlloc();
+        v182[0] = v179;
+        *v90 = 68159491;
+        *(v90 + 4) = 2;
+        *(v90 + 8) = 256;
+        v91 = v173;
+        v92 = &v14[*(v173 + 20)];
+        *(v90 + 10) = *v92;
+        *(v90 + 11) = 2082;
+        v93 = v86 + *(v91 + 20);
+        *(v90 + 13) = sub_1B0399D64(*(v93 + 8), *(v93 + 16), v182);
+        *(v90 + 21) = 1040;
+        *(v90 + 23) = 2;
+        *(v90 + 27) = 512;
+        LOWORD(v92) = *(v92 + 12);
+        sub_1B0AEAEC4(v14, type metadata accessor for MailboxTaskLogger);
+        *(v90 + 29) = v92;
+        *(v90 + 31) = 2160;
+        *(v90 + 33) = 0x786F626C69616DLL;
+        *(v90 + 41) = 2085;
+        v94 = *(v93 + 32);
+        v95 = *(v93 + 40);
+        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+        sub_1B0AEAEC4(v86, type metadata accessor for MailboxTaskLogger);
+        v180 = v94;
+        v181 = v95;
+        v96 = sub_1B0E44BA8();
+        v98 = sub_1B0399D64(v96, v97, v182);
+
+        *(v90 + 43) = v98;
+        *(v90 + 51) = 2082;
+        v99 = v174;
+        sub_1B0AEAE5C(v87 + *(v168 + 20), v174, _s15MissingMessagesO11QueriedUIDsVMa);
+        v100 = v99;
+        v101 = v176;
+        sub_1B03C60A4(v100, v176, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        v102 = MessageIdentifierSet.debugDescription.getter();
+        v104 = v103;
+        sub_1B0398EFC(v101, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        sub_1B0AEAEC4(v87, _s15MissingMessagesO8CompleteVMa);
+        v105 = sub_1B0399D64(v102, v104, v182);
+
+        *(v90 + 53) = v105;
+        _os_log_impl(&dword_1B0389000, v88, v89, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] No missing message; fetched-window upper bound: nil, queriedUIDs: %{public}s", v90, 0x3Du);
+        v106 = v179;
+        swift_arrayDestroy();
+        MEMORY[0x1B272C230](v106, -1, -1);
+        MEMORY[0x1B272C230](v90, -1, -1);
+
+        v83 = v84;
+        v107 = _s15MissingMessagesO8CompleteVMa;
+        return sub_1B0AEAEC4(v83, v107);
+      }
+
+      sub_1B0AEAEC4(v14, type metadata accessor for MailboxTaskLogger);
+
+      v72 = _s15MissingMessagesO8CompleteVMa;
+      sub_1B0AEAEC4(v87, _s15MissingMessagesO8CompleteVMa);
+      v159 = v86;
+    }
+
+    else
+    {
+      v134 = *v84;
+      v135 = v179;
+      v136 = v162;
+      sub_1B0AEAE5C(v179, v162, type metadata accessor for MailboxTaskLogger);
+      sub_1B0AEAE5C(v135, v19, type metadata accessor for MailboxTaskLogger);
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      v137 = v172;
+      sub_1B0AEAE5C(v84, v172, _s15MissingMessagesO8CompleteVMa);
+      v138 = sub_1B0E43988();
+      v139 = sub_1B0E45908();
+      if (os_log_type_enabled(v138, v139))
+      {
+        v140 = swift_slowAlloc();
+        v141 = swift_slowAlloc();
+        v182[0] = v141;
+        *v140 = 68159747;
+        *(v140 + 4) = 2;
+        *(v140 + 8) = 256;
+        v142 = v173;
+        v143 = &v19[*(v173 + 20)];
+        *(v140 + 10) = *v143;
+        *(v140 + 11) = 2082;
+        v144 = v136 + *(v142 + 20);
+        *(v140 + 13) = sub_1B0399D64(*(v144 + 8), *(v144 + 16), v182);
+        *(v140 + 21) = 1040;
+        *(v140 + 23) = 2;
+        *(v140 + 27) = 512;
+        LOWORD(v143) = *(v143 + 12);
+        sub_1B0AEAEC4(v19, type metadata accessor for MailboxTaskLogger);
+        *(v140 + 29) = v143;
+        *(v140 + 31) = 2160;
+        *(v140 + 33) = 0x786F626C69616DLL;
+        *(v140 + 41) = 2085;
+        v145 = v136;
+        v146 = *(v144 + 32);
+        LODWORD(v144) = *(v144 + 40);
+        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+        sub_1B0AEAEC4(v145, type metadata accessor for MailboxTaskLogger);
+        v180 = v146;
+        v181 = v144;
+        v147 = sub_1B0E44BA8();
+        v149 = sub_1B0399D64(v147, v148, v182);
+
+        *(v140 + 43) = v149;
+        *(v140 + 51) = 1024;
+        *(v140 + 53) = v134;
+        *(v140 + 57) = 2082;
+        v150 = v172;
+        v151 = v174;
+        sub_1B0AEAE5C(v172 + *(v168 + 20), v174, _s15MissingMessagesO11QueriedUIDsVMa);
+        v152 = v151;
+        v153 = v176;
+        sub_1B03C60A4(v152, v176, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        v154 = MessageIdentifierSet.debugDescription.getter();
+        v156 = v155;
+        sub_1B0398EFC(v153, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        sub_1B0AEAEC4(v150, _s15MissingMessagesO8CompleteVMa);
+        v157 = sub_1B0399D64(v154, v156, v182);
+
+        *(v140 + 59) = v157;
+        _os_log_impl(&dword_1B0389000, v138, v139, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] No missing message; fetched window upper bound: %u, queriedUIDs: %{public}s", v140, 0x43u);
+        swift_arrayDestroy();
+        MEMORY[0x1B272C230](v141, -1, -1);
+        MEMORY[0x1B272C230](v140, -1, -1);
+
+        v83 = v177;
+        v107 = _s15MissingMessagesO8CompleteVMa;
+        return sub_1B0AEAEC4(v83, v107);
+      }
+
+      sub_1B0AEAEC4(v19, type metadata accessor for MailboxTaskLogger);
+
+      v72 = _s15MissingMessagesO8CompleteVMa;
+      sub_1B0AEAEC4(v137, _s15MissingMessagesO8CompleteVMa);
+      v159 = v136;
+    }
+
+    sub_1B0AEAEC4(v159, type metadata accessor for MailboxTaskLogger);
+    v83 = v84;
+    goto LABEL_19;
+  }
+
+  return result;
+}
+
+double sub_1B0AE8820()
+{
+  if (qword_1EB6DDA00 != -1)
+  {
+    swift_once();
+  }
+
+  _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+  return result;
+}
+
+uint64_t sub_1B0AE8894@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
+{
+  result = sub_1B0AE4AE0(a1, a2, a3, a4, a5, a6);
+  *a7 = result;
+  a7[1] = v9;
+  a7[2] = v10;
+  return result;
+}
+
+uint64_t sub_1B0AE8914@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, int a6@<W5>, uint64_t a7@<X6>, unint64_t a8@<X7>, uint64_t a9@<X8>, unsigned int a10, char a11, uint64_t a12, uint64_t a13, unsigned int a14, char a15, uint64_t a16, uint64_t a17)
+{
+  v273 = a8;
+  v270 = a7;
+  v282 = a6;
+  v268 = a5;
+  v256 = a3;
+  v269 = a2;
+  v271 = a9;
+  v285 = a17;
+  v259 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4250, &unk_1B0EC47D0);
+  MEMORY[0x1EEE9AC00](v259);
+  v260 = &v242 - v19;
+  v20 = _s15MissingMessagesO11QueriedUIDsVMa(0);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v265 = &v242 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v266 = &v242 - v23;
+  MEMORY[0x1EEE9AC00](v24);
+  v280 = &v242 - v25;
+  v263 = type metadata accessor for MailboxTaskLogger(0);
+  MEMORY[0x1EEE9AC00](v263);
+  v262 = &v242 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v276 = &v242 - v28;
+  MEMORY[0x1EEE9AC00](v29);
+  v246 = &v242 - v30;
+  MEMORY[0x1EEE9AC00](v31);
+  v248 = &v242 - v32;
+  MEMORY[0x1EEE9AC00](v33);
+  v245 = &v242 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v247 = &v242 - v36;
+  MEMORY[0x1EEE9AC00](v37);
+  v257 = (&v242 - v38);
+  MEMORY[0x1EEE9AC00](v39);
+  v274 = &v242 - v40;
+  v284 = sub_1B0E439A8();
+  v286 = *(v284 - 8);
+  MEMORY[0x1EEE9AC00](v284);
+  v264 = &v242 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v42);
+  v255 = &v242 - v43;
+  MEMORY[0x1EEE9AC00](v44);
+  v251 = &v242 - v45;
+  MEMORY[0x1EEE9AC00](v46);
+  v275 = &v242 - v47;
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E2780, &unk_1B0E9C5E0);
+  MEMORY[0x1EEE9AC00](v48 - 8);
+  v267 = &v242 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v50);
+  v272 = &v242 - v51;
+  MEMORY[0x1EEE9AC00](v52);
+  v249 = &v242 - v53;
+  MEMORY[0x1EEE9AC00](v54);
+  v56 = &v242 - v55;
+  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v57);
+  v261 = &v242 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v59);
+  v258 = &v242 - v60;
+  MEMORY[0x1EEE9AC00](v61);
+  v277 = &v242 - v62;
+  MEMORY[0x1EEE9AC00](v63);
+  v253 = &v242 - v64;
+  MEMORY[0x1EEE9AC00](v65);
+  v244 = &v242 - v66;
+  MEMORY[0x1EEE9AC00](v67);
+  v243 = &v242 - v68;
+  MEMORY[0x1EEE9AC00](v69);
+  v250 = &v242 - v70;
+  MEMORY[0x1EEE9AC00](v71);
+  v254 = &v242 - v72;
+  MEMORY[0x1EEE9AC00](v73);
+  v252 = &v242 - v74;
+  MEMORY[0x1EEE9AC00](v75);
+  v242 = &v242 - v76;
+  MEMORY[0x1EEE9AC00](v77);
+  v79 = &v242 - v78;
+  MEMORY[0x1EEE9AC00](v80);
+  v82 = &v242 - v81;
+  MEMORY[0x1EEE9AC00](v83);
+  v85 = &v242 - v84;
+  MessageIdentifierSet.subtracting(_:)(a4, &v242 - v84);
+  MessageIdentifierSet.ranges.getter(v56);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E2790, &qword_1B0E9CC60);
+  v86 = sub_1B0E46E18();
+  v87 = sub_1B0E46E28();
+  sub_1B0398EFC(v56, &unk_1EB6E2780, &unk_1B0E9C5E0);
+  v88 = v86 == v87;
+  v89 = v285;
+  v281 = a1;
+  v278 = a4;
+  v279 = v85;
+  v283 = v57;
+  if (!v88)
+  {
+    v110 = v284;
+    MessageIdentifierSet.ranges.getter(v56);
+    v111 = sub_1B0E46E18();
+    v112 = sub_1B0E46E28();
+    v113 = sub_1B0E46E18();
+    result = sub_1B0E46E28();
+    if (v111 < v113 || result < v111)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v115 = sub_1B0E46E18();
+      v116 = sub_1B0E46E28();
+      result = sub_1B0398EFC(v56, &unk_1EB6E2780, &unk_1B0E9C5E0);
+      if (v112 >= v115 && v116 >= v112)
+      {
+        if (!__OFSUB__(v112, v111))
+        {
+          v117 = *(v286 + 16);
+          if (v112 - v111 > 19)
           {
-            v40 = *(*&v38[8 * ((v18 >> 5) & 3)] + (v18 & 0x1F | (32 * (v125 & 0x1F))));
+            v148 = v285;
+            v149 = v110;
+            v117(v255, v285, v110);
+            v150 = v248;
+            sub_1B0AEAE5C(v148, v248, type metadata accessor for MailboxTaskLogger);
+            v151 = v246;
+            sub_1B0AEAE5C(v148, v246, type metadata accessor for MailboxTaskLogger);
+            sub_1B0394868();
+            sub_1B0394868();
+            sub_1B0394868();
+            sub_1B0394868();
+            sub_1B0394868();
+            sub_1B0394868();
+            v152 = v243;
+            sub_1B03B5C80(v85, v243, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            v105 = v278;
+            v153 = v244;
+            sub_1B03B5C80(v278, v244, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            sub_1B03B5C80(v281, v253, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            v154 = sub_1B0E43988();
+            v155 = sub_1B0E45908();
+            v156 = os_log_type_enabled(v154, v155);
+            v157 = v268;
+            if (v156)
+            {
+              v158 = swift_slowAlloc();
+              v275 = swift_slowAlloc();
+              v289 = v275;
+              *v158 = 68160003;
+              LODWORD(v274) = v155;
+              *(v158 + 4) = 2;
+              *(v158 + 8) = 256;
+              v159 = v263;
+              v160 = v151 + *(v263 + 20);
+              *(v158 + 10) = *v160;
+              *(v158 + 11) = 2082;
+              v161 = *(v159 + 20);
+              v257 = v154;
+              v162 = v151;
+              v163 = v150 + v161;
+              *(v158 + 13) = sub_1B0399D64(*(v150 + v161 + 8), *(v150 + v161 + 16), &v289);
+              *(v158 + 21) = 1040;
+              *(v158 + 23) = 2;
+              *(v158 + 27) = 512;
+              LOWORD(v160) = *(v160 + 24);
+              sub_1B0AEAEC4(v162, type metadata accessor for MailboxTaskLogger);
+              *(v158 + 29) = v160;
+              *(v158 + 31) = 2160;
+              *(v158 + 33) = 0x786F626C69616DLL;
+              *(v158 + 41) = 2085;
+              v164 = *(v163 + 32);
+              LODWORD(v163) = *(v163 + 40);
+              _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+              sub_1B0AEAEC4(v150, type metadata accessor for MailboxTaskLogger);
+              v287 = v164;
+              v288 = v163;
+              v165 = sub_1B0E44BA8();
+              v167 = sub_1B0399D64(v165, v166, &v289);
+
+              *(v158 + 43) = v167;
+              *(v158 + 51) = 2048;
+              v168 = MessageIdentifierSet.count.getter();
+              sub_1B0398EFC(v152, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+              *(v158 + 53) = v168;
+              *(v158 + 61) = 2048;
+              v169 = MessageIdentifierSet.count.getter();
+              sub_1B0398EFC(v153, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+              *(v158 + 63) = v169;
+              *(v158 + 71) = 2048;
+              v170 = v253;
+              v171 = MessageIdentifierSet.count.getter();
+              v105 = v278;
+              sub_1B0398EFC(v170, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+              *(v158 + 73) = v171;
+              v172 = v257;
+              _os_log_impl(&dword_1B0389000, v257, v274, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Found %ld new UIDs missing locally. (%ld locally, %ld on server)", v158, 0x51u);
+              v173 = v275;
+              swift_arrayDestroy();
+              MEMORY[0x1B272C230](v173, -1, -1);
+              MEMORY[0x1B272C230](v158, -1, -1);
+
+              v257 = *(v286 + 8);
+              (v257)(v255, v149);
+            }
+
+            else
+            {
+              sub_1B0398EFC(v253, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+              sub_1B0398EFC(v153, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+              sub_1B0398EFC(v152, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+              sub_1B0AEAEC4(v151, type metadata accessor for MailboxTaskLogger);
+
+              v257 = *(v286 + 8);
+              (v257)(v255, v149);
+              sub_1B0AEAEC4(v150, type metadata accessor for MailboxTaskLogger);
+            }
+
+            v174 = v273;
+            goto LABEL_22;
+          }
+
+          v118 = v251;
+          v119 = v285;
+          v120 = v110;
+          v117(v251, v285, v110);
+          v121 = v247;
+          sub_1B0AEAE5C(v119, v247, type metadata accessor for MailboxTaskLogger);
+          v122 = v245;
+          sub_1B0AEAE5C(v119, v245, type metadata accessor for MailboxTaskLogger);
+          sub_1B0394868();
+          sub_1B0394868();
+          sub_1B0394868();
+          sub_1B0394868();
+          sub_1B0394868();
+          sub_1B0394868();
+          v123 = v242;
+          sub_1B03B5C80(v85, v242, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          sub_1B03B5C80(v85, v252, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v105 = v278;
+          sub_1B03B5C80(v278, v254, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v124 = v250;
+          sub_1B03B5C80(v281, v250, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v125 = sub_1B0E43988();
+          v126 = sub_1B0E45908();
+          v275 = v125;
+          if (os_log_type_enabled(v125, v126))
+          {
+            v127 = swift_slowAlloc();
+            v274 = swift_slowAlloc();
+            v289 = v274;
+            *v127 = 68160259;
+            *(v127 + 4) = 2;
+            *(v127 + 8) = 256;
+            v128 = v263;
+            v129 = *(v263 + 20);
+            LODWORD(v257) = v126;
+            v130 = v122 + v129;
+            *(v127 + 10) = *(v122 + v129);
+            *(v127 + 11) = 2082;
+            v131 = v121 + *(v128 + 20);
+            *(v127 + 13) = sub_1B0399D64(*(v131 + 8), *(v131 + 16), &v289);
+            *(v127 + 21) = 1040;
+            *(v127 + 23) = 2;
+            *(v127 + 27) = 512;
+            LOWORD(v130) = *(v130 + 24);
+            sub_1B0AEAEC4(v122, type metadata accessor for MailboxTaskLogger);
+            *(v127 + 29) = v130;
+            *(v127 + 31) = 2160;
+            *(v127 + 33) = 0x786F626C69616DLL;
+            *(v127 + 41) = 2085;
+            v132 = *(v131 + 32);
+            LODWORD(v131) = *(v131 + 40);
+            _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+            sub_1B0AEAEC4(v121, type metadata accessor for MailboxTaskLogger);
+            v287 = v132;
+            v288 = v131;
+            v133 = sub_1B0E44BA8();
+            v135 = sub_1B0399D64(v133, v134, &v289);
+
+            *(v127 + 43) = v135;
+            *(v127 + 51) = 2048;
+            v136 = MessageIdentifierSet.count.getter();
+            sub_1B0398EFC(v123, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            *(v127 + 53) = v136;
+            *(v127 + 61) = 2082;
+            v137 = v252;
+            v138 = MessageIdentifierSet.debugDescription.getter();
+            v140 = v139;
+            sub_1B0398EFC(v137, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            v141 = sub_1B0399D64(v138, v140, &v289);
+            v120 = v284;
+
+            *(v127 + 63) = v141;
+            *(v127 + 71) = 2048;
+            v142 = v254;
+            v143 = MessageIdentifierSet.count.getter();
+            sub_1B0398EFC(v142, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            *(v127 + 73) = v143;
+            *(v127 + 81) = 2048;
+            v144 = v250;
+            v145 = MessageIdentifierSet.count.getter();
+            sub_1B0398EFC(v144, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            *(v127 + 83) = v145;
+            v146 = v275;
+            _os_log_impl(&dword_1B0389000, v275, v257, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Found %ld UIDs %{public}s to be missing locally. (%ld locally, %ld on server)", v127, 0x5Bu);
+            v147 = v274;
+            swift_arrayDestroy();
+            v105 = v278;
+            MEMORY[0x1B272C230](v147, -1, -1);
+            MEMORY[0x1B272C230](v127, -1, -1);
+
+            v107 = *(v286 + 8);
+            v108 = v251;
           }
 
           else
           {
-            v40 = *(v38 + 9);
+            sub_1B0398EFC(v124, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            sub_1B0398EFC(v254, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            sub_1B0398EFC(v123, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            sub_1B0AEAEC4(v122, type metadata accessor for MailboxTaskLogger);
+
+            sub_1B0398EFC(v252, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+            sub_1B0AEAEC4(v121, type metadata accessor for MailboxTaskLogger);
+            v107 = *(v286 + 8);
+            v108 = v118;
           }
 
-          v41 = (v38[(v18 & 0x80 ^ v125) + 40] + v39 + v38[v18 + 296] + v40) >> v37 >> v20;
-          *(v13 + 4 * v34) += v41;
-          if (v29)
-          {
-            if (v30 == v34)
-            {
-              v23 = v41;
-            }
-
-            if (v31 == v34)
-            {
-              v22 = v41;
-            }
-          }
+          v109 = v120;
+          goto LABEL_18;
         }
 
-        else if (!v33)
-        {
-          *(v13 + 4 * v34) -= 0x258u >> v20;
-          v27 = 1;
-        }
-
-        if (v19 && (kSpecialMask[v35] & 0x400) != 0)
-        {
-          *(v13 + 4 * v34) += v25;
-        }
-
-        ++v26;
-      }
-
-      while (v26 < *(a2 + 260));
-      v42 = (v27 & 1) == 0;
-      if (v27)
-      {
-        v43 = v18;
-      }
-
-      else
-      {
-        v43 = v114;
-      }
-
-      v44 = v115;
-      v21 = v116;
-      v24 = v125;
-      if (!v42)
-      {
-        v44 = v125;
-      }
-
-      v114 = v43;
-      v115 = v44;
-    }
-
-    v45 = v120;
-    if (v124 < 16)
-    {
-      v46 = kMostLikelyEncoding[v18 | (v24 << 8)];
-      *(v13 + 4 * v46) += v25;
-    }
-
-    ++v118;
-    if (*(a2 + 65) == 1)
-    {
-      v47 = &v120[*a2 - 1];
-    }
-
-    else
-    {
-      if (*(a2 + 64) != 1)
-      {
-        goto LABEL_72;
-      }
-
-      v52 = &v120[*a2];
-      v47 = (v52 - 1);
-      if ((v123 & 7) != 0 && (v52 + 2) <= *(a2 + 8) && ((kLatin127Trigrams[kMapToFiveBits[*v52] | (32 * kMapToFiveBits[*(v52 - 1)])] >> (2 * kMapToFiveBits[v52[1]])) & 2) == 0)
-      {
-        goto LABEL_72;
+LABEL_50:
+        __break(1u);
+        return result;
       }
     }
 
-    v48 = v120 & 0xFFFFFFE0;
-    if (*(a2 + 60) <= (v120 & 0xFFFFFFE0))
-    {
-      v121 = v47;
-      v49 = BoostLatin127Trigrams(v45 & 0xFFFFFFE0, a2);
-      v50 = *(a2 + 65);
-      if (FLAGS_counts == 1 && (*(a2 + 65) & 1) == 0 && v49)
-      {
-        ++doing_used;
-      }
-
-      if (!(v50 & 1 | ((FLAGS_enc_detect_source & 1) == 0) | !v49))
-      {
-        v51 = v49;
-        PsHighlight(v121, *a2, 0, 2);
-        v49 = v51;
-        v50 = *(a2 + 65);
-      }
-
-      *(a2 + 65) = v50 | v49;
-      *(a2 + 60) = v48 + 32;
-      v24 = v125;
-      v21 = v116;
-    }
-
-LABEL_72:
-    ++*(a2 + 164 + ((v24 >> 3) & 0x1C));
-    if (*(a2 + 32))
-    {
-      memset(__str, 170, sizeof(__str));
-      if (v20)
-      {
-        v53 = 45;
-      }
-
-      else
-      {
-        v53 = 32;
-      }
-
-      v54 = 93;
-      if (!v21)
-      {
-        v54 = 32;
-      }
-
-      v110 = v54;
-      v55 = 91;
-      if (!v21)
-      {
-        v55 = 32;
-      }
-
-      v56 = v24;
-      snprintf(__str, 0x10uLL, "%c%02x%02x%c%c", v55, v24, v18, v110, v53);
-      v57 = kMostLikelyEncoding[v18 | (v56 << 8)];
-      v58 = *(a2 + 40);
-      v59 = *(a2 + 32) + 304 * v58;
-      *v59 = *(a2 + 1736 + 4 * v124);
-      *(v59 + 4) = v57;
-      std::string::__assign_external((v59 + 8), __str);
-      memcpy((*(a2 + 32) + 304 * v58 + 32), (a2 + 532), 0x10CuLL);
-      ++*(a2 + 40);
-      LOBYTE(v24) = v125;
-    }
-
-    if (FLAGS_enc_detect_detail2 == 1 && v23 | v22)
-    {
-      *&v60 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v60 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__str = v60;
-      v127 = v60;
-      if (v22 >= 0)
-      {
-        v61 = 43;
-      }
-
-      else
-      {
-        v61 = 45;
-      }
-
-      v109 = v61;
-      if (v23 >= 0)
-      {
-        v62 = 43;
-      }
-
-      else
-      {
-        v62 = 45;
-      }
-
-      snprintf(__str, 0x20uLL, "%c%d %c%d", v62, v23, v109, v22);
-      SetDetailsEncLabel(a2, __str);
-      LOBYTE(v24) = v125;
-    }
-
-    v9 = (v24 | v122);
-    v11 = v123 + 1;
-    v12 = a2 + 1736;
+    __break(1u);
+    goto LABEL_50;
   }
 
-  while (v123 + 1 != v119);
-  if (v118 >= 1 && (v9 & 0x80000000) == 0)
+  (*(v286 + 16))(v275, v285, v284);
+  sub_1B0AEAE5C(v89, v274, type metadata accessor for MailboxTaskLogger);
+  v90 = v257;
+  sub_1B0AEAE5C(v89, v257, type metadata accessor for MailboxTaskLogger);
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B0394868();
+  sub_1B03B5C80(a4, v82, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B03B5C80(a1, v79, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  v91 = sub_1B0E43988();
+  v92 = sub_1B0E45908();
+  if (os_log_type_enabled(v91, v92))
   {
-    v66 = *(a2 + 260);
-    if (v66 >= 1)
-    {
-      for (i = 0; i < v66; ++i)
-      {
-        v68 = *(v14 + 4 * i);
-        if ((kSpecialMask[kMapToEncoding[v68]] & 0x100) != 0)
-        {
-          *(v13 + 4 * v68) -= 60 * v118;
-          v66 = *(a2 + 260);
-        }
-      }
-    }
+    v93 = swift_slowAlloc();
+    v255 = swift_slowAlloc();
+    v289 = v255;
+    *v93 = 68159747;
+    *(v93 + 4) = 2;
+    *(v93 + 8) = 256;
+    v94 = v263;
+    v95 = v90 + *(v263 + 20);
+    *(v93 + 10) = *v95;
+    *(v93 + 11) = 2082;
+    v96 = v274;
+    v97 = &v274[*(v94 + 20)];
+    *(v93 + 13) = sub_1B0399D64(*(v97 + 1), *(v97 + 2), &v289);
+    *(v93 + 21) = 1040;
+    *(v93 + 23) = 2;
+    *(v93 + 27) = 512;
+    LOWORD(v95) = *(v95 + 12);
+    sub_1B0AEAEC4(v90, type metadata accessor for MailboxTaskLogger);
+    *(v93 + 29) = v95;
+    *(v93 + 31) = 2160;
+    *(v93 + 33) = 0x786F626C69616DLL;
+    *(v93 + 41) = 2085;
+    v98 = *(v97 + 4);
+    v99 = *(v97 + 10);
+    _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+    sub_1B0AEAEC4(v96, type metadata accessor for MailboxTaskLogger);
+    v287 = v98;
+    v288 = v99;
+    v100 = sub_1B0E44BA8();
+    v102 = sub_1B0399D64(v100, v101, &v289);
 
-    v118 = 1;
+    *(v93 + 43) = v102;
+    *(v93 + 51) = 2048;
+    v103 = MessageIdentifierSet.count.getter();
+    sub_1B0398EFC(v82, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    *(v93 + 53) = v103;
+    *(v93 + 61) = 2048;
+    v104 = MessageIdentifierSet.count.getter();
+    v105 = v278;
+    sub_1B0398EFC(v79, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    *(v93 + 63) = v104;
+    _os_log_impl(&dword_1B0389000, v91, v92, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Found no UIDs to be missing locally. (%ld locally, %ld on server)", v93, 0x47u);
+    v106 = v255;
+    swift_arrayDestroy();
+    MEMORY[0x1B272C230](v106, -1, -1);
+    MEMORY[0x1B272C230](v93, -1, -1);
+
+    v107 = *(v286 + 8);
+    v108 = v275;
+    v109 = v284;
+LABEL_18:
+    v257 = v107;
+    (v107)(v108, v109);
+    goto LABEL_19;
   }
 
-  v3 = a3;
-LABEL_107:
-  if (*(a2 + 196))
+  v105 = a4;
+  sub_1B0398EFC(v79, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0398EFC(v82, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+  sub_1B0AEAEC4(v90, type metadata accessor for MailboxTaskLogger);
+
+  v257 = *(v286 + 8);
+  (v257)(v275, v284);
+  sub_1B0AEAEC4(v274, type metadata accessor for MailboxTaskLogger);
+LABEL_19:
+  v174 = v273;
+  v157 = v268;
+LABEL_22:
+  v175 = v272;
+  v268 = a16;
+  if ((v174 & 0x10000000000) != 0)
   {
-    ActiveSpecialBoostWhack(v112, a2);
-    v3 = a3;
-  }
-
-  *(a2 + 16) = v112;
-  *(a2 + 1336) = *(a2 + 1344);
-  v69 = *(a2 + 1348);
-  *(a2 + 1340) = v69;
-  if (v3 == 2)
-  {
-    if (*(a2 + 92))
-    {
-      *(a2 + 540) -= 120;
-    }
-
-    if (*(a2 + 120))
-    {
-      *(a2 + 768) -= 120;
-    }
-
-    if (!*(a2 + 116))
-    {
-      *(a2 + 540) -= 4800;
-      *(a2 + 768) -= 4800;
-    }
-
-    if (!*(a2 + 148))
-    {
-      *(a2 + 768) -= 4800;
-    }
-
-    v70 = *(a2 + 68);
-    if (v70 <= 3)
-    {
-      if (v70 == 3)
-      {
-        v71 = -1200;
-      }
-
-      else
-      {
-        v71 = -2400;
-      }
-
-      *(a2 + 764) += v71;
-    }
-
-    if (v69 < 1 || (*(a2 + 196) & 8) == 0 || *(a2 + 1448) != 27 || *(a2 + 1449) != 36)
-    {
-      goto LABEL_142;
-    }
-
-    v72 = *a2 + *(a2 + 1736);
-    if (v72 >= *(a2 + 8) - 3)
-    {
-      v73 = -600;
-      v75 = 700;
-      v76 = 712;
-      v77 = 616;
-    }
-
-    else
-    {
-      v73 = 600;
-      v74 = *(v72 + 2);
-      v75 = 700;
-      v76 = 712;
-      v77 = 616;
-      if (v74 != 66 && v74 != 64)
-      {
-        if (v74 != 41)
-        {
-          goto LABEL_142;
-        }
-
-        v78 = *(v72 + 3);
-        if (v78 == 71)
-        {
-          goto LABEL_134;
-        }
-
-        if (v78 != 67)
-        {
-          if (v78 == 65)
-          {
-LABEL_134:
-            v73 = 600;
-            v75 = 616;
-            v76 = 700;
-            v77 = 712;
-            goto LABEL_141;
-          }
-
-LABEL_142:
-          if (*(a2 + 32))
-          {
-            SetDetailsEncLabel(a2, "pre-final");
-          }
-
-          result = ReRank(a2);
-          v79 = 0;
-LABEL_145:
-          v3 = a3;
-          goto LABEL_146;
-        }
-
-        v73 = 600;
-        v75 = 616;
-        v76 = 712;
-        v77 = 700;
-      }
-    }
-
-LABEL_141:
-    *(a2 + v77) += v73;
-    *(a2 + v76) -= 600;
-    *(a2 + v75) -= 600;
-    goto LABEL_142;
-  }
-
-  result = ReRank(a2);
-  if (v3 == 1)
-  {
-    if (*(a2 + 32))
-    {
-      result = SetDetailsEncLabel(a2, "slow-end");
-      v79 = 1;
-      goto LABEL_145;
-    }
-
-    v79 = 1;
+    LODWORD(v274) = 0;
+    v275 = 1;
   }
 
   else
   {
-    v79 = 0;
-  }
-
-LABEL_146:
-  v80 = *(a2 + 256);
-  v81 = *(a2 + 240) == 58;
-  if (v80 >= 301)
-  {
-    if (v118)
+    v275 = HIDWORD(v174) & 1;
+    if (v256)
     {
-      v82 = -300;
-    }
-
-    else
-    {
-      v82 = -150;
-    }
-
-    *(a2 + 256) = v80 + v82;
-  }
-
-  v83 = v80 << v81;
-  v84 = *(a2 + 248);
-  *(a2 + 196) = 0;
-  v85 = *(a2 + 260);
-  if (v85 >= 1)
-  {
-    v86 = 0;
-    v87 = 0;
-    v88 = v84 - v83;
-    v89 = a2 + 264;
-    while (1)
-    {
-      v90 = *(v89 + 4 * v86);
-      result = *(a2 + 532 + 4 * v90);
-      if (v79)
+      v176 = v249;
+      MessageIdentifierSet.ranges.getter(v249);
+      v177 = sub_1B0B4A3E8();
+      v179 = v178;
+      sub_1B0398EFC(v176, &unk_1EB6E2780, &unk_1B0E9C5E0);
+      if (v179)
       {
-        v91 = kMapToEncoding[v90];
-        if ((kSpecialMask[v91] & 1) != 0 && result <= 0)
+        if ((v174 & 0x100000000) != 0)
         {
-          break;
+          LODWORD(v180) = 0;
         }
-      }
 
-      if (result >= v88)
-      {
-        LODWORD(v91) = kMapToEncoding[v90];
-LABEL_164:
-        *(a2 + 196) |= kSpecialMask[v91];
-        *(v89 + 4 * v87++) = v90;
-        v85 = *(a2 + 260);
-      }
-
-LABEL_165:
-      if (++v86 >= v85)
-      {
-        goto LABEL_168;
-      }
-    }
-
-    if (v90 != *(a2 + 240) || result < v88)
-    {
-      goto LABEL_165;
-    }
-
-    goto LABEL_164;
-  }
-
-  v87 = 0;
-LABEL_168:
-  if (*(a2 + 32))
-  {
-    *&v93 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v93 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *__str = v93;
-    v127 = v93;
-    snprintf(__str, 0x20uLL, "%d prune", v83 / 30);
-    result = SetDetailsEncLabel(a2, __str);
-    v3 = a3;
-  }
-
-  *(a2 + 260) = v87;
-  v94 = *(a2 + 1348);
-  if (v3 != 2)
-  {
-    goto LABEL_198;
-  }
-
-  if (!v94)
-  {
-    v95 = *(a2 + 240);
-    if (v95 > 0x3A || ((1 << v95) & 0x400350000200000) == 0)
-    {
-      *(a2 + 240) = 0;
-      *(a2 + 532) += 1200;
-    }
-  }
-
-  v96 = *(a2 + 240);
-  if (*(a2 + 180) < 1)
-  {
-    switch(v96)
-    {
-      case 4:
-        v97 = 1;
-        v98 = 536;
-        break;
-      case 28:
-        v97 = 14;
-        v98 = 588;
-        break;
-      case 22:
-        v97 = 13;
-        v98 = 584;
-        break;
-      default:
-        goto LABEL_191;
-    }
-
-LABEL_190:
-    *(a2 + 240) = v97;
-    *(a2 + v98) += 1200;
-    goto LABEL_191;
-  }
-
-  if (v96 > 13)
-  {
-    if (v96 == 14)
-    {
-      v97 = 28;
-      v98 = 644;
-    }
-
-    else
-    {
-      if (v96 != 34)
-      {
-        goto LABEL_191;
-      }
-
-      v97 = 11;
-      v98 = 576;
-    }
-
-    goto LABEL_190;
-  }
-
-  if (v96 == 1)
-  {
-    v97 = 4;
-    v98 = 548;
-    goto LABEL_190;
-  }
-
-  if (v96 == 13)
-  {
-    v97 = 22;
-    v98 = 620;
-    goto LABEL_190;
-  }
-
-LABEL_191:
-  if (*(a2 + 32))
-  {
-    *&v99 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v99 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *__str = v99;
-    v127 = v99;
-    snprintf(__str, 0x20uLL, "final %d", v112 - *a2);
-    SetDetailsEncLabel(a2, __str);
-    v100 = *(a2 + 248) - *(a2 + 252);
-    if (v100 > 59)
-    {
-      MyEncodingName(kMapToEncoding[*(a2 + 240)]);
-      if (v100 > 0x5DB)
-      {
-        snprintf(__str, 0x20uLL, "%s");
+        else
+        {
+          LODWORD(v180) = v174;
+        }
       }
 
       else
       {
-        snprintf(__str, 0x20uLL, "+%d %s");
+        v275 = 0;
+        v180 = HIDWORD(v177);
+        if (v174 <= HIDWORD(v177))
+        {
+          v181 = HIDWORD(v177);
+        }
+
+        else
+        {
+          v181 = v174;
+        }
+
+        if ((v174 & 0x100000000) == 0)
+        {
+          LODWORD(v180) = v181;
+        }
       }
+
+      LODWORD(v274) = v180;
     }
 
     else
     {
-      MyEncodingName(kMapToEncoding[*(a2 + 240)]);
-      snprintf(__str, 0x20uLL, "+%d.%d %s ");
+      LODWORD(v274) = v174;
     }
-
-    v101 = *(a2 + 40);
-    v102 = *(a2 + 240);
-    v103 = *(a2 + 32) + 304 * v101;
-    *v103 = *(v103 - 304);
-    *(v103 + 4) = v102;
-    std::string::__assign_external((v103 + 8), __str);
-    result = memcpy((*(a2 + 32) + 304 * v101 + 32), (a2 + 532), 0x10CuLL);
-    ++*(a2 + 40);
-    v94 = *(a2 + 1348);
   }
 
-LABEL_198:
-  v105 = *(a2 + 248) - *(a2 + 252) >= FLAGS_ced_reliable_difference || v94 == 0;
-  *(a2 + 45) = v105;
-  if (v94 == 1 && *(a2 + 240) == kMostLikelyEncoding[__rev16(*(a2 + 1448))])
+  MessageIdentifierSet.ranges.getter(v175);
+  v182 = sub_1B0B4A3E8();
+  v184 = v183;
+  sub_1B0398EFC(v175, &unk_1EB6E2780, &unk_1B0E9C5E0);
+  v185 = HIDWORD(v182);
+  if (v184)
   {
-    *(a2 + 45) = 1;
+    LODWORD(v185) = 0;
   }
 
-  v106 = *(a2 + 260);
-  if (v106 == 1)
+  LODWORD(v272) = v185;
+  v186 = HIDWORD(v157);
+  if (v282)
   {
-    goto LABEL_216;
+    LODWORD(v186) = 0;
   }
 
-  if (v106 != 3)
+  LODWORD(v273) = v186;
+  v187 = v267;
+  v188 = v279;
+  MessageIdentifierSet.ranges.getter(v267);
+  v189 = sub_1B0B4A3E8();
+  v190 = v105;
+  v192 = v191;
+  sub_1B0398EFC(v187, &unk_1EB6E2780, &unk_1B0E9C5E0);
+  v193 = HIDWORD(v189);
+  LOBYTE(v287) = v192 & 1;
+  if (v192)
   {
-    if (v106 != 2 || kMapEncToBaseEncoding[kMapToEncoding[*(a2 + 264)]] != kMapEncToBaseEncoding[kMapToEncoding[*(a2 + 268)]] || *v111 <= 2)
+    v193 = 0;
+  }
+
+  LOBYTE(v287) = BYTE5(v174) & 1;
+  LOBYTE(v289) = a11 & 1;
+  v194 = v280;
+  sub_1B0AF5C8C(v193 | ((v192 & 1) << 32), v269 | ((HIDWORD(v269) & 1) << 32), v270, a10 | ((a11 & 1) << 32), v280);
+
+  v195 = v268;
+  if (v268)
+  {
+    LODWORD(v270) = v184;
+    v196 = v259;
+    v197 = *(v259 + 48);
+    LOBYTE(v287) = a15 & 1;
+    v198 = v260;
+    sub_1B0AF1F70(a12, a13 & 0xFFFFFFFF00000101, a14 | ((a15 & 1) << 32), v268);
+    LOBYTE(v287) = a15 & 1;
+    sub_1B0AF3D34(v195, v198 + v197);
+
+    v199 = *(v196 + 48);
+    v200 = v277;
+    sub_1B03C60A4(v198, v277, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v201 = v266;
+    sub_1B0AEF094(v198 + v199, v266, _s15MissingMessagesO11QueriedUIDsVMa);
+    v202 = v285;
+    v203 = v264;
+    (*(v286 + 16))(v264, v285, v284);
+    sub_1B0AEAE5C(v202, v276, type metadata accessor for MailboxTaskLogger);
+    v204 = v262;
+    v205 = v201;
+    sub_1B0AEAE5C(v202, v262, type metadata accessor for MailboxTaskLogger);
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0394868();
+    sub_1B0394868();
+    v206 = v258;
+    sub_1B03B5C80(v200, v258, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v207 = v261;
+    sub_1B03B5C80(v200, v261, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v208 = v265;
+    sub_1B0AEAE5C(v205, v265, _s15MissingMessagesO11QueriedUIDsVMa);
+    v209 = sub_1B0E43988();
+    v210 = sub_1B0E45908();
+    if (os_log_type_enabled(v209, v210))
     {
-      goto LABEL_218;
+      v211 = swift_slowAlloc();
+      v269 = swift_slowAlloc();
+      v289 = v269;
+      *v211 = 68160003;
+      *(v211 + 4) = 2;
+      *(v211 + 8) = 256;
+      v212 = v263;
+      v213 = v204;
+      v214 = v204 + *(v263 + 20);
+      *(v211 + 10) = *v214;
+      *(v211 + 11) = 2082;
+      v215 = v276;
+      v216 = v276 + *(v212 + 20);
+      *(v211 + 13) = sub_1B0399D64(*(v216 + 8), *(v216 + 16), &v289);
+      *(v211 + 21) = 1040;
+      *(v211 + 23) = 2;
+      *(v211 + 27) = 512;
+      LOWORD(v214) = *(v214 + 24);
+      sub_1B0AEAEC4(v213, type metadata accessor for MailboxTaskLogger);
+      *(v211 + 29) = v214;
+      *(v211 + 31) = 2160;
+      *(v211 + 33) = 0x786F626C69616DLL;
+      *(v211 + 41) = 2085;
+      v217 = *(v216 + 32);
+      LODWORD(v216) = *(v216 + 40);
+      _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+      sub_1B0AEAEC4(v215, type metadata accessor for MailboxTaskLogger);
+      v287 = v217;
+      v288 = v216;
+      v218 = sub_1B0E44BA8();
+      v220 = sub_1B0399D64(v218, v219, &v289);
+
+      *(v211 + 43) = v220;
+      *(v211 + 51) = 2048;
+      v221 = MessageIdentifierSet.count.getter();
+      sub_1B0398EFC(v206, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      *(v211 + 53) = v221;
+      *(v211 + 61) = 2082;
+      v222 = MessageIdentifierSet.debugDescription.getter();
+      v224 = v223;
+      sub_1B0398EFC(v207, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      v225 = sub_1B0399D64(v222, v224, &v289);
+      v226 = v266;
+
+      *(v211 + 63) = v225;
+      *(v211 + 71) = 2082;
+      v227 = v265;
+      v228 = MessageIdentifierSet.debugDescription.getter();
+      v230 = v229;
+      sub_1B0AEAEC4(v227, _s15MissingMessagesO11QueriedUIDsVMa);
+      v231 = sub_1B0399D64(v228, v230, &v289);
+
+      *(v211 + 73) = v231;
+      _os_log_impl(&dword_1B0389000, v209, v210, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Received %ld UIDs for temporarily growing window-of-interest: %{public}s (did query %{public}s).", v211, 0x51u);
+      v232 = v269;
+      swift_arrayDestroy();
+      MEMORY[0x1B272C230](v232, -1, -1);
+      MEMORY[0x1B272C230](v211, -1, -1);
+
+      (*(v286 + 8))(v264, v284);
     }
 
-LABEL_216:
-    *(a2 + 45) = 1;
-LABEL_217:
-    *(a2 + 44) = 1;
-    goto LABEL_218;
+    else
+    {
+      v226 = v205;
+      sub_1B0398EFC(v206, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      sub_1B0AEAEC4(v204, type metadata accessor for MailboxTaskLogger);
+
+      sub_1B0AEAEC4(v208, _s15MissingMessagesO11QueriedUIDsVMa);
+      sub_1B0398EFC(v207, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+      (v257)(v203, v284);
+      sub_1B0AEAEC4(v276, type metadata accessor for MailboxTaskLogger);
+    }
+
+    v236 = v271;
+    v237 = v277;
+    v238 = v279;
+    MessageIdentifierSet.union(_:)(v277, v271);
+    v239 = _s15MissingMessagesO10NewMissingVMa(0);
+    v240 = v280;
+    MessageIdentifierSet.union(_:)(v226, v236 + *(v239 + 24));
+    sub_1B0AEAEC4(v285, type metadata accessor for MailboxTaskLogger);
+    sub_1B0398EFC(v278, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    sub_1B0398EFC(v281, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    sub_1B0AEAEC4(v226, _s15MissingMessagesO11QueriedUIDsVMa);
+    sub_1B0398EFC(v237, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    sub_1B0AEAEC4(v240, _s15MissingMessagesO11QueriedUIDsVMa);
+    result = sub_1B0398EFC(v238, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v241 = v236 + *(v239 + 20);
+    *v241 = v272;
+    *(v241 + 4) = v270 & 1;
+    *(v241 + 8) = v273;
+    *(v241 + 12) = v282 & 1;
+    *(v241 + 16) = v274;
+    *(v241 + 20) = v275;
   }
 
-  v107 = kMapEncToBaseEncoding[kMapToEncoding[*(a2 + 264)]];
-  if (v107 == kMapEncToBaseEncoding[kMapToEncoding[*(a2 + 268)]] && v107 == kMapEncToBaseEncoding[kMapToEncoding[*(a2 + 272)]] && *v111 >= 3)
+  else
   {
-    goto LABEL_216;
+    sub_1B0AEAEC4(v285, type metadata accessor for MailboxTaskLogger);
+    sub_1B0398EFC(v190, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    sub_1B0398EFC(v281, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v233 = v271;
+    sub_1B03C60A4(v188, v271, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v234 = _s15MissingMessagesO10NewMissingVMa(0);
+    v235 = v233 + *(v234 + 20);
+    *v235 = v272;
+    *(v235 + 4) = v184 & 1;
+    *(v235 + 8) = v273;
+    *(v235 + 12) = v282 & 1;
+    *(v235 + 16) = v274;
+    *(v235 + 20) = v275;
+    return sub_1B0AEF094(v194, v233 + *(v234 + 24), _s15MissingMessagesO11QueriedUIDsVMa);
   }
 
-LABEL_218:
-  v108 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t IncrementAndBoostPrune(unsigned __int8 *a1, int a2, uint64_t a3, int a4, int a5)
+uint64_t sub_1B0AEA630(uint64_t a1, uint64_t a2)
 {
-  *(a3 + 24) = a1;
-  if (a2 < 2)
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v22 - v5;
+  Missing = type metadata accessor for FindMissingMessages.CommandID(0);
+  MEMORY[0x1EEE9AC00](Missing);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v22 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4248, &unk_1B0EC47C0);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v15 = &v22 - v14;
+  v17 = &v22 + *(v16 + 56) - v14;
+  sub_1B0AEAE5C(a1, &v22 - v14, type metadata accessor for FindMissingMessages.CommandID);
+  sub_1B0AEAE5C(a2, v17, type metadata accessor for FindMissingMessages.CommandID);
+  if (swift_getEnumCaseMultiPayload() != 1)
   {
-    v5 = 32;
+    sub_1B0AEAE5C(v15, v12, type metadata accessor for FindMissingMessages.CommandID);
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      sub_1B03C60A4(v17, v6, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      sub_1B03D06F8();
+      v20 = sub_1B0E46E08();
+      sub_1B0398EFC(v6, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      sub_1B0398EFC(v12, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      sub_1B0AEAEC4(v15, type metadata accessor for FindMissingMessages.CommandID);
+      return v20 & 1;
+    }
+
+    sub_1B0398EFC(v12, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    goto LABEL_10;
   }
 
-  else
+  sub_1B0AEAE5C(v15, v9, type metadata accessor for FindMissingMessages.CommandID);
+  v18 = *v9;
+  if (swift_getEnumCaseMultiPayload() != 1)
   {
-    v5 = a1[1];
-  }
-
-  v6 = *a1;
-  v7 = a5 - 1;
-  v8 = *(a3 + 1344 + 4 * v7);
-  if (v8 < 17)
-  {
+LABEL_10:
+    sub_1B0398EFC(v15, &qword_1EB6E4248, &unk_1B0EC47C0);
     goto LABEL_11;
   }
 
-  v9 = 0;
-  if (!*a1 || v6 == 43 || v6 == 126)
+  v19 = v17[8];
+  if ((v9[8] & 1) == 0)
   {
-    return v9;
-  }
-
-  if (v8 < 0x30)
-  {
-LABEL_11:
-    v10 = a1 - *a3;
-    v11 = 2 * v8;
-    v12 = a3 + 96 * v7 + 1352;
-    *(v12 + v11) = v6;
-    *(v12 + v11 + 1) = v5;
-    v13 = a3 + 192 * v7 + 4 * v8;
-    *(v13 + 1544) = v10;
-    *(v13 + 1928) = a4;
-    ++*(a3 + 1344 + 4 * v7);
-    LOBYTE(v8) = v8 + 1;
-  }
-
-  else if (a5 == 2)
-  {
-    *(a3 + 44) = 1;
-  }
-
-  if ((*(a3 + 44) & 1) == 0 && (v8 & 7) != 0)
-  {
-    return 0;
-  }
-
-  BoostPrune((a1 + 2), a3, 0);
-  return 1;
-}
-
-uint64_t DumpSummary(uint64_t a1, int a2, int a3)
-{
-  LODWORD(v3) = a3;
-  v6 = a1 + 4 * a2;
-  printf("  %sSummary[%2d]: ", kWhatSetName[a2], *(v6 + 1344));
-  v7 = *(v6 + 1344);
-  if (v3 >= v7)
-  {
-    v3 = v7;
-  }
-
-  else
-  {
-    v3 = v3;
-  }
-
-  if (v3 >= 1)
-  {
-    v8 = 0;
-    v9 = (a1 + 96 * a2 + 1353);
-    do
+    if (v18 != *v17)
     {
-      printf("%02x%02x ", *(v9 - 1), *v9);
-      if ((~v8 & 7) == 0)
-      {
-        printf("  ");
-      }
-
-      v9 += 2;
-      ++v8;
+      LOBYTE(v19) = 1;
     }
 
-    while (v3 != v8);
-  }
-
-  return putchar(10);
-}
-
-size_t BeginDetail(uint64_t a1)
-{
-  v2 = MEMORY[0x1E69E9848];
-  fprintf(*MEMORY[0x1E69E9848], "%d [", 67);
-  for (i = 0; i != 67; ++i)
-  {
-    v4 = *v2;
-    v5 = MyEncodingName(kMapToEncoding[i]);
-    fprintf(v4, "(%s)", v5);
-    HIDWORD(v6) = -858993459 * (i - 9);
-    LODWORD(v6) = HIDWORD(v6);
-    if ((v6 >> 1) <= 0x19999998)
+    if (v19)
     {
-      fwrite("\n    ", 5uLL, 1uLL, *v2);
-    }
-  }
-
-  result = fwrite("] size-detail\n", 0xEuLL, 1uLL, *v2);
-  *(a1 + 40) = 0;
-  return result;
-}
-
-uint64_t DetailOffsetChar(int a1)
-{
-  if (a1 >= 0x20)
-  {
-    v1 = 32;
-  }
-
-  else
-  {
-    v1 = 43;
-  }
-
-  if (a1 >= 0x10)
-  {
-    v2 = v1;
-  }
-
-  else
-  {
-    v2 = 95;
-  }
-
-  if (a1 >= 3)
-  {
-    v3 = v2;
-  }
-
-  else
-  {
-    v3 = 61;
-  }
-
-  if (a1)
-  {
-    return v3;
-  }
-
-  else
-  {
-    return 32;
-  }
-}
-
-size_t DumpDetail(uint64_t a1)
-{
-  v2 = MEMORY[0x1E69E9848];
-  result = fprintf(*MEMORY[0x1E69E9848], "%d count-detail\n", *(a1 + 40));
-  v4 = *(a1 + 40);
-  if (v4 > 1)
-  {
-    v5 = *(a1 + 32);
-    v6 = v5 + 304 * v4 - 576;
-    do
-    {
-      v7 = v4--;
-      *(v5 + 304 * v7 - 304) -= *(v5 + 304 * v7 - 608);
-      v8 = 67;
-      v9 = v6;
-      do
-      {
-        v9[76] -= *v9;
-        ++v9;
-        --v8;
-      }
-
-      while (v8);
-      v6 -= 304;
+      goto LABEL_7;
     }
 
-    while (v7 > 2);
-    LODWORD(v4) = *(a1 + 40);
+LABEL_16:
+    sub_1B0AEAEC4(v15, type metadata accessor for FindMissingMessages.CommandID);
+    v20 = 1;
+    return v20 & 1;
   }
 
-  if (v4 >= 1)
-  {
-    v10 = 0;
-    v11 = 32;
-    while (1)
-    {
-      v12 = *(a1 + 32);
-      v13 = v12 + 304 * v10;
-      v14 = (v13 + 8);
-      v15 = *(v13 + 31);
-      if (v15 < 0)
-      {
-        break;
-      }
-
-      LODWORD(v13) = *(v13 + 31);
-      if ((v15 & 0x80000000) != 0)
-      {
-        goto LABEL_11;
-      }
-
-LABEL_12:
-      if (*(v14 + v13 - 1) == 33)
-      {
-        fwrite("1 0.9 0.9 do-flag\n", 0x12uLL, 1uLL, *v2);
-        v12 = *(a1 + 32);
-      }
-
-      v16 = *(v12 + 304 * v10);
-      if (v16 >= 0x20)
-      {
-        v17 = 32;
-      }
-
-      else
-      {
-        v17 = 43;
-      }
-
-      if (v16 < 0x10)
-      {
-        v17 = 95;
-      }
-
-      if (v16 < 3)
-      {
-        v17 = 61;
-      }
-
-      if (v16)
-      {
-        v18 = v17;
-      }
-
-      else
-      {
-        v18 = 32;
-      }
-
-      v19 = v12 + 304 * v10;
-      v20 = (v19 + 8);
-      if (*(v19 + 31) < 0)
-      {
-        v20 = *v20;
-      }
-
-      fprintf(*v2, "(%c%s) %d [", v18, v20, *(v12 + 304 * v10 + 4));
-      for (i = 0; i != 67; ++i)
-      {
-        fprintf(*v2, "%d ", *(*(a1 + 32) + v11 + 4 * i));
-        HIDWORD(v22) = -858993459 * (i - 9);
-        LODWORD(v22) = HIDWORD(v22);
-        if ((v22 >> 1) <= 0x19999998)
-        {
-          fwrite("  ", 2uLL, 1uLL, *v2);
-        }
-      }
-
-      result = fwrite("] do-detail-e\n", 0xEuLL, 1uLL, *v2);
-      ++v10;
-      v11 += 304;
-      if (v10 >= *(a1 + 40))
-      {
-        goto LABEL_34;
-      }
-    }
-
-    v13 = *(v13 + 16);
-    if ((v15 & 0x80000000) == 0)
-    {
-      goto LABEL_12;
-    }
-
-LABEL_11:
-    v14 = *v14;
-    goto LABEL_12;
-  }
-
-LABEL_34:
-  *(a1 + 40) = 0;
-  return result;
-}
-
-uint64_t DumpReliable(uint64_t a1)
-{
-  printf("Not reliable: ");
-  v2 = *(a1 + 1348);
-  if (v2 < 1)
-  {
-    v4 = 0;
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = 0;
-    v4 = 0;
-    v5 = (a1 + 1449);
-    v6 = *(a1 + 1348);
-    do
-    {
-      v7 = *(v5 - 1);
-      v8 = *v5;
-      v5 += 2;
-      v3 += v8;
-      v4 += v7;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  if (v2 <= 1)
-  {
-    v2 = 1;
-  }
-
-  v9 = v3 / v2;
-  v10 = v4 / v2;
-  printf("center %02X,%02X\n", v3 / v2, v4 / v2);
-  if (*(a1 + 260) < 1)
-  {
-    v20 = 0;
-    v13 = 999.0;
-  }
-
-  else
-  {
-    v11 = 0;
-    v12 = 0;
-    v13 = 999.0;
-    do
-    {
-      v14 = *(a1 + 264 + 4 * v11);
-      v15 = &unigram_table + 808 * v14;
-      v16 = MyEncodingName(kMapToEncoding[v14]);
-      v17 = v15[32];
-      v18 = v15[33];
-      printf("  %8s = %4d at %02x,%02x +/- %02X,%02X ", v16, *(a1 + 532 + 4 * v14), v17, v18, v15[34], v15[35]);
-      v19 = sqrt((v10 - v18) * (v10 - v18) + (v9 - v17) * (v9 - v17));
-      printf("(%3.1f)\n", v19);
-      if (v13 > v19)
-      {
-        v12 = v14;
-        v13 = v19;
-      }
-
-      ++v11;
-    }
-
-    while (v11 < *(a1 + 260));
-    v20 = v12;
-  }
-
-  v21 = MyEncodingName(kMapToEncoding[v20]);
-  return printf("Closest=%s (%3.1f)\n", v21, v13);
-}
-
-BOOL QuickPrintableAsciiScan(int8x8_t *a1, int a2)
-{
-  v2 = a1 + a2;
-  do
-  {
-    v3 = a1;
-    if (a1 >= (v2 - 7))
-    {
-      break;
-    }
-
-    ++a1;
-    v4 = vorr_s8(vadd_s8(*v3, 0x101010101010101), vadd_s8(*v3, 0xE0E0E0E0E0E0E0E0));
-  }
-
-  while (((v4.i32[0] | v4.i32[1] | ((*&v4 | HIDWORD(*&v4)) >> 16) | ((v4.i32[0] | v4.i32[1] | ((*&v4 | HIDWORD(*&v4)) >> 16)) >> 8)) & 0x80) == 0);
-  do
-  {
-    v5 = v3;
-    if (v3 >= v2)
-    {
-      break;
-    }
-
-    v3 = (v3 + 1);
-  }
-
-  while (kIsPrintableAscii[v5->u8[0]]);
-  return v5 >= v2;
-}
-
-BOOL TextInsideTag(const unsigned __int8 *a1, const unsigned __int8 *a2, const unsigned __int8 *a3)
-{
-  v3 = a2 - 192;
-  if (a2 - 192 < a1)
-  {
-    v3 = a1;
-  }
-
-  v4 = a2 - 1;
-  while (1)
-  {
-    if (v3 > v4)
-    {
-      return 0;
-    }
-
-    v5 = *(a2 - 1);
-    if ((v5 & 0xFFFFFFFD) == 0x3C)
-    {
-      break;
-    }
-
-    v6 = v5 != 47 || a2 >= a3;
-    if (!v6 && *a2 == 42)
-    {
-      return 1;
-    }
-
-    v4 = a2 - 2;
-    --a2;
-  }
-
-  if (v5 == 60)
-  {
-    return 1;
-  }
-
-  if (v5 != 62 || a2 - 7 < a1)
-  {
-    return 0;
-  }
-
-  v7 = *(a2 - 7);
-  if (v7 == 115)
-  {
-    return (*(a2 - 6) & 0xDF) == 0x43 && (*(a2 - 5) & 0xDF) == 0x52 && (*(a2 - 4) & 0xDF) == 0x49 && (*(a2 - 3) & 0xDF) == 0x50 && (*(a2 - 2) & 0xDF) == 0x54;
-  }
-
-  return v7 == 60 && (*(a2 - 6) & 0xDF) == 0x54 && (*(a2 - 5) & 0xDF) == 0x49 && (*(a2 - 4) & 0xDF) == 0x54 && (*(a2 - 3) & 0xDF) == 0x4C && (*(a2 - 2) & 0xDF) == 0x45;
-}
-
-const unsigned __int8 *SkipToTagEnd(const unsigned __int8 *a1, const unsigned __int8 *a2)
-{
-  result = a1 + 1;
-  while (result <= a2)
-  {
-    v4 = *result++;
-    if ((v4 & 0xFFFFFFFD) == 0x3C)
-    {
-      return result;
-    }
-  }
-
-  return a1 + 2;
-}
-
-uint64_t LookupWatchEnc(uint64_t a1)
-{
-  v1 = *(a1 + 23);
-  if (v1 < 0)
-  {
-    if (*(a1 + 8) != 8)
-    {
-      a1 = *a1;
-      goto LABEL_9;
-    }
-
-    a1 = *a1;
-  }
-
-  else if (v1 != 8)
-  {
-    goto LABEL_9;
-  }
-
-  if (*a1 == 0x3846545538465455)
-  {
-    return 59;
-  }
-
-LABEL_9:
-  v3 = -1431655766;
-  if (!EncodingFromName(a1, &v3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  result = 0;
-  while (kMapToEncoding[result] != v3)
-  {
-    if (++result == 67)
-    {
-      return 0xFFFFFFFFLL;
-    }
-  }
-
-  return result;
-}
-
-uint64_t CompatibleEnc(unsigned int a1, unsigned int a2)
-{
-  result = 0;
-  if (a1 > 0x4A)
-  {
-    return result;
-  }
-
-  if (a2 > 0x4A)
-  {
-    return result;
-  }
-
-  result = 1;
-  if (a1 == a2)
-  {
-    return result;
-  }
-
-  if (a2 == 23)
-  {
-    return result;
-  }
-
-  if (a1 == 23)
-  {
-    return result;
-  }
-
-  if (a2 == 24)
-  {
-    return result;
-  }
-
-  if (a1 == 24)
-  {
-    return result;
-  }
-
-  v4 = kMapEncToBaseEncoding[a1];
-  v5 = kMapEncToBaseEncoding[a2];
-  if (v4 == v5)
-  {
-    return result;
-  }
-
-  if (a1 == 63)
-  {
-    if (a2 == 22 || !v5)
-    {
-      return result;
-    }
-
-    if (a2 != 63)
-    {
-      return 0;
-    }
-
-    goto LABEL_17;
-  }
-
-  if (a2 != 63)
-  {
-    return 0;
-  }
-
-  if (a1 != 22)
-  {
-LABEL_17:
-    if (v4)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t SupersetEnc(uint64_t result, unsigned int a2)
-{
-  if (kMapEncToSuperLevel[result] >= kMapEncToSuperLevel[a2])
-  {
-    return result;
-  }
-
-  else
-  {
-    return a2;
-  }
-}
-
-uint64_t Rescore(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
-{
-  v34 = *MEMORY[0x1E69E9840];
-  if (FLAGS_counts == 1)
-  {
-    ++rescore_used;
-  }
-
-  v6 = *(a4 + 1348);
-  if (v6 < 1)
-  {
-    goto LABEL_35;
-  }
-
-  v7 = 0;
-  v8 = 0;
-  v9 = a3 - a2;
-  v10 = a4 + 264;
-  v11 = a4 + 532;
-  do
-  {
-    v12 = *(a4 + 1736 + 4 * v7);
-    if (v12 < 1)
-    {
-      v13 = 0;
-    }
-
-    else
-    {
-      v13 = *(a2 - 1 + v12) & 0xC0;
-    }
-
-    v14 = v12 + 1;
-    if (v14 >= v9)
-    {
-      v15 = 0;
-    }
-
-    else
-    {
-      v15 = (*(a2 + v14) >> 4) & 0xC;
-    }
-
-    v16 = v12 + 2;
-    if (v16 >= v9)
-    {
-      v17 = 0;
-    }
-
-    else
-    {
-      v17 = *(a2 + v16) >> 6;
-    }
-
-    v18 = (v13 | v15 | v17) & 0xAAAAAAAA | (*(a2 + v12) >> 1) & 0x20;
-    if (v18 == 32)
-    {
-      v19 = *(a4 + 260);
-      if (v19 < 1)
-      {
-        goto LABEL_26;
-      }
-
-      for (i = 0; i < v19; ++i)
-      {
-        v21 = *(v10 + 4 * i);
-        if ((kSpecialMask[kMapToEncoding[v21]] & 0x800) != 0)
-        {
-          *(v11 + 4 * v21) += 60;
-          v19 = *(a4 + 260);
-          v8 = 1;
-        }
-      }
-    }
-
-    if (v18 == 170)
-    {
-      v22 = *(a4 + 260);
-      if (v22 >= 1)
-      {
-        for (j = 0; j < v22; ++j)
-        {
-          v24 = *(v10 + 4 * j);
-          if ((kSpecialMask[kMapToEncoding[v24]] & 0x800) != 0)
-          {
-            *(v11 + 4 * v24) -= 60;
-            v22 = *(a4 + 260);
-            v8 = 1;
-          }
-        }
-      }
-    }
-
-LABEL_26:
-    ++v7;
-  }
-
-  while (v7 != v6);
-  if (v8)
-  {
-    ReRank(a4);
-    a1 = kMapToEncoding[*(a4 + 240)];
-    if (*(a4 + 32))
-    {
-      *&v25 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__str = v25;
-      v33 = v25;
-      v26 = MyEncodingName(a1);
-      snprintf(__str, 0x20uLL, "=Rescore %s", v26);
-      v27 = 0;
-      while (kMapToEncoding[v27] != a1)
-      {
-        if (++v27 == 67)
-        {
-          LODWORD(v27) = -1;
-          break;
-        }
-      }
-
-      v28 = *(a4 + 40);
-      v29 = *(a4 + 32) + 304 * v28;
-      *v29 = 0;
-      *(v29 + 4) = v27;
-      std::string::__assign_external((v29 + 8), __str);
-      memcpy((*(a4 + 32) + 304 * v28 + 32), (a4 + 532), 0x10CuLL);
-      ++*(a4 + 40);
-    }
-
-    SimplePrune(a4, 300);
-    CalcReliable(a4);
-  }
-
-LABEL_35:
-  v30 = *MEMORY[0x1E69E9840];
-  return a1;
-}
-
-uint64_t AddToSet(uint64_t result, int *a2, int *a3)
-{
-  v3 = 0;
-  while (kMapToEncoding[v3] != result)
-  {
-    if (++v3 == 67)
-    {
-      LODWORD(v3) = -1;
-      break;
-    }
-  }
-
-  v4 = *a2;
-  if (*a2 < 1)
-  {
-LABEL_9:
-    *a2 = v4 + 1;
-    a3[v4] = v3;
-  }
-
-  else
-  {
-    v5 = *a2;
-    v6 = a3;
-    while (1)
-    {
-      v7 = *v6++;
-      if (v7 == v3)
-      {
-        break;
-      }
-
-      if (!--v5)
-      {
-        goto LABEL_9;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t RobustScan(const char *a1, unsigned int a2, int a3, int *a4, _DWORD *a5)
-{
-  v5 = a5;
-  if (FLAGS_counts == 1)
-  {
-    ++robust_used;
-  }
-
-  if (a3 >= 1)
-  {
-    bzero(a5, 4 * a3);
-  }
-
-  v10 = vmin_s32(vdup_n_s32(a2), 0x1000000040000);
-  v11 = &a1[v10.i32[0]];
-  v12 = (v11 - 1);
-  v13 = MEMORY[0x1E69E9848];
-  if (FLAGS_enc_detect_source == 1)
-  {
-    PsSourceInit(32);
-  }
-
-  if (v12 > a1)
-  {
-    v14 = 0;
-    v15 = (v11 - 3);
-    v16 = &a1[v10.i32[1] - 1];
-    v17 = &a1[v10.i32[0] - 1];
-    while (1)
-    {
-      while (a1 < v15 && (((a1[1] | *a1) | (a1[2] | a1[3])) & 0x80) == 0)
-      {
-        a1 += 4;
-      }
-
-      if (a1 >= v12)
-      {
-        v20 = v14;
-      }
-
-      else
-      {
-        v18 = v17 - a1;
-        a1 += 2;
-        while (1)
-        {
-          v19 = *(a1 - 2);
-          if (v19 < 0)
-          {
-            break;
-          }
-
-          ++a1;
-          if (!--v18)
-          {
-            v20 = v14;
-            a1 = v17;
-            goto LABEL_18;
-          }
-        }
-
-        if (a3 >= 1)
-        {
-          v21 = *(a1 - 1);
-          v22 = v19 & 0xF0 | (v21 >> 4);
-          v23 = v21 & 0x80 ^ v19;
-          v24 = (32 * (v19 & 0x1Fu)) & 0xFFFFFFFFFFFFFFE0 | v21 & 0x1F;
-          v25 = a3;
-          v26 = a4;
-          v27 = v5;
-          do
-          {
-            v28 = *v26++;
-            v29 = &unigram_table + 808 * v28;
-            v30 = v29[v22 + 552];
-            if (v30)
-            {
-              v31 = *(*&v29[8 * ((v21 >> 5) & 3)] + v24);
-            }
-
-            else
-            {
-              v31 = *(v29 + 9);
-            }
-
-            *v27++ += v29[v21 + 296] + v29[v23 + 40] + v30 + v31;
-            --v25;
-          }
-
-          while (v25);
-        }
-
-        v20 = (v14 + 1);
-        if (v14 >= 1000 && a1 > v16)
-        {
-          goto LABEL_30;
-        }
-      }
-
-LABEL_18:
-      v14 = v20;
-      if (a1 >= v12)
-      {
-        goto LABEL_30;
-      }
-    }
-  }
-
-  v20 = 0;
-LABEL_30:
-  if (FLAGS_enc_detect_source == 1)
-  {
-    fprintf(*v13, "(  bigram_count = %d) do-src\n", v20);
-    if (v20 <= 1)
-    {
-      v20 = 1;
-    }
-
-    else
-    {
-      v20 = v20;
-    }
-
-    if (a3 >= 1)
-    {
-      v32 = a3;
-      do
-      {
-        v33 = *v13;
-        v34 = *a4++;
-        v35 = MyEncodingName(kMapToEncoding[v34]);
-        LODWORD(v34) = *v5++;
-        fprintf(v33, "(  enc[%-12.12s] = %7d (avg %d)) do-src\n", v35, v34, v34 / v20);
-        --v32;
-      }
-
-      while (v32);
-    }
-
-    PsSourceFinish();
-  }
-
-  return v20;
-}
-
-uint64_t Rescan(uint64_t a1, const char *a2, unint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, int a10, char a11, uint64_t a12)
-{
-  v12 = a2;
-  v106 = *MEMORY[0x1E69E9840];
-  if (FLAGS_counts == 1)
-  {
-    ++rescan_used;
-  }
-
-  if (a4 - a3 >= 801)
-  {
-    v14 = a9;
-    v15 = a4 - a2;
-    v16 = *(a12 + 204);
-    if (v16 == 23)
-    {
-      v16 = *(a12 + 208);
-      if (v16 == 23)
-      {
-        v16 = *(a12 + 212);
-      }
-    }
-
-    v17 = kMapToEncoding[*(a12 + 244)];
-    v18 = (a3 - a2 + ((a4 - a3) >> 1)) & 0xFFFFFFFE;
-    v19 = &a2[v18];
-    if ((v19 - 192) >= a3)
-    {
-      v20 = (v19 - 192);
-    }
-
-    else
-    {
-      v20 = a3;
-    }
-
-    v21 = v18 | 1;
-    v22 = v19 - 1;
-    v80 = *(a12 + 45);
-    while (v20 <= v22)
-    {
-      v23 = *v22--;
-      --v21;
-      if ((v23 & 0x80000000) == 0)
-      {
-        v18 = v21 & 0xFFFFFFFE;
-        break;
-      }
-    }
-
-    v24 = a12;
-    v82 = a4 - a2;
-    if (*(a12 + 32))
-    {
-      v79 = a8;
-      v77 = a6;
-      v78 = a7;
-      v76 = a5;
-      SetDetailsEncLabel(a12, ">> Rescan");
-      DumpDetail(a12);
-      *&v25 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__str = v25;
-      *&__str[16] = v25;
-      snprintf(__str, 0x20uLL, ">> Rescan[%d..%d]", v18, v15);
-      v15 = v82;
-      fprintf(*MEMORY[0x1E69E9848], "() end-detail (%s) start-detail\n\n", __str);
-      v14 = a9;
-      a5 = v76;
-      a6 = v77;
-      a7 = v78;
-      a8 = v79;
-      v12 = a2;
-    }
-
-    v84 = -86;
-    v83 = -1431655766;
-    BYTE4(v75) = a11;
-    LODWORD(v75) = a10;
-    v26 = InternalDetectEncoding(5, &v12[v18], v15 - v18, a5, a6, a7, a8, v14, v75, v85, &v84, &v83);
-    v27 = v84;
-    *(a12 + 45) = v84;
-    v28 = a1;
-    if (v26 != 24)
-    {
-      v29 = CompatibleEnc(v16, v26);
-      v28 = a1;
-      if (v29)
-      {
-        if (kMapEncToSuperLevel[v16] >= kMapEncToSuperLevel[v26])
-        {
-          v28 = v16;
-        }
-
-        else
-        {
-          v28 = v26;
-        }
-      }
-
-      if (v27 && v80 && (CompatibleEnc(a1, v26) & 1) != 0)
-      {
-        if (kMapEncToSuperLevel[a1] >= kMapEncToSuperLevel[v26])
-        {
-          a1 = a1;
-        }
-
-        else
-        {
-          a1 = v26;
-        }
-
-        goto LABEL_107;
-      }
-
-      if (v27)
-      {
-        v30 = CompatibleEnc(a1, v26) & v29;
-        v24 = a12;
-        if (v30)
-        {
-LABEL_106:
-          a1 = v28;
-          goto LABEL_107;
-        }
-      }
-
-      else
-      {
-        v24 = a12;
-      }
-    }
-
-    v31 = 0;
-    v105 = 0xAAAAAAAAAAAAAAAALL;
-    *&v32 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v104 = v32;
-    v103 = v32;
-    v102 = v32;
-    v101 = v32;
-    v100 = v32;
-    v99 = v32;
-    v98 = v32;
-    v97 = v32;
-    v96 = v32;
-    v95 = v32;
-    v94 = v32;
-    v93 = v32;
-    v92 = v32;
-    v91 = v32;
-    *&__str[20] = v32;
-    *&__str[4] = v32;
-    *(v89 + 12) = v32;
-    v88[14] = v32;
-    v89[0] = v32;
-    v88[12] = v32;
-    v88[13] = v32;
-    v88[10] = v32;
-    v88[11] = v32;
-    v88[8] = v32;
-    v88[9] = v32;
-    v88[6] = v32;
-    v88[7] = v32;
-    v88[4] = v32;
-    v88[5] = v32;
-    v88[2] = v32;
-    v88[3] = v32;
-    v88[0] = v32;
-    v88[1] = v32;
-    while (kMapToEncoding[v31] != a1)
-    {
-      if (++v31 == 67)
-      {
-        LODWORD(v31) = -1;
-        break;
-      }
-    }
-
-    v33 = 0;
-    *__str = v31;
-    while (kMapToEncoding[v33] != v17)
-    {
-      if (++v33 == 67)
-      {
-        LODWORD(v33) = -1;
-        break;
-      }
-    }
-
-    if (v31 == v33)
-    {
-      v34 = 1;
-    }
-
-    else
-    {
-      *&__str[4] = v33;
-      v34 = 2;
-    }
-
-    v35 = 0;
-    while (kMapToEncoding[v35] != v26)
-    {
-      if (++v35 == 67)
-      {
-        LODWORD(v35) = -1;
-        break;
-      }
-    }
-
-    v36 = 0;
-    while (*&__str[v36] != v35)
-    {
-      v36 += 4;
-      if (4 * v34 == v36)
-      {
-        *&__str[4 * v34++] = v35;
-        break;
-      }
-    }
-
-    v37 = 0;
-    while (kMapToEncoding[v37] != v83)
-    {
-      if (++v37 == 67)
-      {
-        LODWORD(v37) = -1;
-        break;
-      }
-    }
-
-    v38 = 0;
-    while (*&__str[v38] != v37)
-    {
-      v38 += 4;
-      if (4 * v34 == v38)
-      {
-        *&__str[4 * v34++] = v37;
-        break;
-      }
-    }
-
-    v39 = *(v24 + 204);
-    if (v39 != 23)
-    {
-      v40 = 0;
-      while (kMapToEncoding[v40] != v39)
-      {
-        if (++v40 == 67)
-        {
-          LODWORD(v40) = -1;
-          break;
-        }
-      }
-
-      v41 = v34;
-      v42 = __str;
-      v43 = v34;
-      while (1)
-      {
-        v44 = *v42;
-        v42 += 4;
-        if (v44 == v40)
-        {
-          break;
-        }
-
-        if (!--v43)
-        {
-          ++v34;
-          *&__str[4 * v41] = v40;
-          break;
-        }
-      }
-    }
-
-    v45 = *(v24 + 208);
-    if (v45 != 23)
-    {
-      v46 = 0;
-      while (kMapToEncoding[v46] != v45)
-      {
-        if (++v46 == 67)
-        {
-          LODWORD(v46) = -1;
-          break;
-        }
-      }
-
-      v47 = v34;
-      v48 = __str;
-      v49 = v34;
-      while (1)
-      {
-        v50 = *v48;
-        v48 += 4;
-        if (v50 == v46)
-        {
-          break;
-        }
-
-        if (!--v49)
-        {
-          ++v34;
-          *&__str[4 * v47] = v46;
-          break;
-        }
-      }
-    }
-
-    v51 = *(v24 + 212);
-    if (v51 != 23)
-    {
-      v52 = 0;
-      while (kMapToEncoding[v52] != v51)
-      {
-        if (++v52 == 67)
-        {
-          LODWORD(v52) = -1;
-          break;
-        }
-      }
-
-      v53 = v34;
-      v54 = __str;
-      v55 = v34;
-      while (1)
-      {
-        v56 = *v54;
-        v54 += 4;
-        if (v56 == v52)
-        {
-          break;
-        }
-
-        if (!--v55)
-        {
-          ++v34;
-          *&__str[4 * v53] = v52;
-          break;
-        }
-      }
-    }
-
-    v57 = *(v24 + 200);
-    if (v57 != 23)
-    {
-      v58 = 0;
-      while (kMapToEncoding[v58] != v57)
-      {
-        if (++v58 == 67)
-        {
-          LODWORD(v58) = -1;
-          break;
-        }
-      }
-
-      v59 = v34;
-      v60 = __str;
-      v61 = v34;
-      while (1)
-      {
-        v62 = *v60;
-        v60 += 4;
-        if (v62 == v58)
-        {
-          break;
-        }
-
-        if (!--v61)
-        {
-          ++v34;
-          *&__str[4 * v59] = v58;
-          break;
-        }
-      }
-    }
-
-    if (*(v24 + 32))
-    {
-      SetDetailsEncLabel(v24, ">> RobustScan");
-      DumpDetail(v24);
-      *&v63 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v63 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__s = v63;
-      v87 = v63;
-      snprintf(__s, 0x20uLL, ">> RobustScan[0..%d]", v82);
-      fprintf(*MEMORY[0x1E69E9848], "() end-detail (%s) start-detail\n\n", __s);
-    }
-
-    v64 = RobustScan(a2, v82, v34, __str, v88);
-    v65 = 0;
-    v66 = -1;
-    do
-    {
-      if (v66 < *(v88 + v65))
-      {
-        v28 = kMapToEncoding[*&__str[v65]];
-        v66 = *(v88 + v65);
-      }
-
-      v65 += 4;
-    }
-
-    while (4 * v34 != v65);
-    if (*(v24 + 32))
-    {
-      *&v67 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v67 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__s = v67;
-      v87 = v67;
-      v68 = MyEncodingName(v28);
-      snprintf(__s, 0x20uLL, "=Robust[%d] %s", v64, v68);
-      v69 = 0;
-      while (kMapToEncoding[v69] != v28)
-      {
-        if (++v69 == 67)
-        {
-          LODWORD(v69) = -1;
-          break;
-        }
-      }
-
-      v71 = *(v24 + 40);
-      v70 = (v24 + 40);
-      v72 = *(v70 - 1) + 304 * v71;
-      *v72 = 0;
-      *(v72 + 4) = v69;
-      std::string::__assign_external((v72 + 8), __s);
-      memcpy((*(v70 - 1) + 304 * v71 + 32), (a12 + 532), 0x10CuLL);
-      ++*v70;
-    }
-
-    goto LABEL_106;
-  }
-
-LABEL_107:
-  v73 = *MEMORY[0x1E69E9840];
-  return a1;
-}
-
-uint64_t InternalDetectEncoding(char a1, int8x8_t *a2, int a3, char *a4, char *a5, char *a6, int a7, unsigned int a8, unsigned int a9, char a10, _DWORD *a11, _BYTE *a12, _DWORD *a13)
-{
-  v105 = *MEMORY[0x1E69E9840];
-  *a11 = 0;
-  *a12 = 0;
-  *a13 = 24;
-  if (!a3)
+  if (v18 != *v17)
   {
     v19 = 0;
-    *a12 = 1;
-    goto LABEL_181;
   }
 
-  if (a3 <= 500 && a10 && QuickPrintableAsciiScan(a2, a3))
+  if (v19 == 1)
   {
-    *a12 = 1;
-    v19 = 24;
-    goto LABEL_181;
+    goto LABEL_16;
   }
 
-  memset(__b, 170, sizeof(__b));
-  InitDetectEncodingState(__b);
-  v102 = 0;
-  v89 = a1;
-  if (FLAGS_enc_detect_detail)
-  {
-    operator new[]();
-  }
+LABEL_7:
+  sub_1B0AEAEC4(v15, type metadata accessor for FindMissingMessages.CommandID);
+LABEL_11:
+  v20 = 0;
+  return v20 & 1;
+}
 
-  v90 = a4;
-  v91 = a8;
-  v92 = a5;
-  v93 = a6;
-  if (a3 >= FLAGS_enc_detect_slow_max_kb << 10)
+BOOL sub_1B0AEA960(uint64_t a1, uint64_t a2, double a3)
+{
+  v5 = *(a2 + 4);
+  if (*(a1 + 4))
   {
-    v20 = FLAGS_enc_detect_slow_max_kb << 10;
+    if (!*(a2 + 4))
+    {
+      return 0;
+    }
   }
 
   else
   {
-    v20 = a3;
+    if (*a2 != *a1)
+    {
+      v5 = 1;
+    }
+
+    if (v5)
+    {
+      return 0;
+    }
   }
 
-  if (a3 >= FLAGS_enc_detect_fast_max_kb << 10)
+  v6 = *(a2 + 12);
+  if (*(a1 + 12))
   {
-    v21 = FLAGS_enc_detect_fast_max_kb << 10;
+    if (!*(a2 + 12))
+    {
+      return 0;
+    }
   }
 
   else
   {
-    v21 = a3;
+    if (*(a2 + 8) != *(a1 + 8))
+    {
+      v6 = 1;
+    }
+
+    if (v6)
+    {
+      return 0;
+    }
   }
 
-  v22 = a2 + v21;
-  v97 = (v22 - 1);
-  if (FLAGS_enc_detect_fast_max_kb << 10 >= v20)
+  Missing = type metadata accessor for FindMissingMessages.Completed(0);
+  if ((sub_1B0B4DB74(a1 + Missing[6], a2 + Missing[6]) & 1) == 0 || *(a1 + Missing[7]) != *(a2 + Missing[7]))
   {
-    v23 = a2 + v20 - 1;
+    return 0;
+  }
+
+  v8 = Missing[8];
+  v9 = (a1 + v8);
+  v10 = *(a1 + v8 + 4);
+  v11 = (a2 + v8);
+  v12 = *(a2 + v8 + 4);
+  if (v10)
+  {
+    if (!v12)
+    {
+      return 0;
+    }
   }
 
   else
   {
-    v23 = (v22 - 1);
-  }
-
-  __b[0] = a2;
-  __b[1] = a2 + v21;
-  __b[2] = a2;
-  __b[3] = a2 - 2;
-  if (a10)
-  {
-    v24 = &kTestPrintableAscii;
-  }
-
-  else
-  {
-    v24 = &kTestPrintableAsciiTildePlus;
-  }
-
-  if (__b[4])
-  {
-    BeginDetail(__b);
-    v25 = std::string::basic_string[abi:ne200100]<0>(__str, "");
-    v26 = a7;
-    v27 = LookupWatchEnc(v25);
-    watch1_rankedenc = v27;
-    if ((__str[23] & 0x80000000) != 0)
+    if (*v11 != *v9)
     {
-      operator delete(*__str);
-      v27 = watch1_rankedenc;
+      LOBYTE(v12) = 1;
     }
 
-    v28 = MEMORY[0x1E69E9848];
-    if ((v27 & 0x80000000) == 0)
+    if (v12)
     {
-      fprintf(*MEMORY[0x1E69E9848], "/track-me %d def\n", v27);
+      return 0;
     }
-
-    v29 = std::string::basic_string[abi:ne200100]<0>(__str, "");
-    v30 = LookupWatchEnc(v29);
-    watch2_rankedenc = v30;
-    if ((__str[23] & 0x80000000) != 0)
-    {
-      operator delete(*__str);
-      v30 = watch2_rankedenc;
-    }
-
-    if ((v30 & 0x80000000) == 0)
-    {
-      fprintf(*v28, "/track-me2 %d def\n", v30);
-    }
-
-    fprintf(*v28, "%% kDerateHintsBelow = %d\n", 12);
-    a7 = v26;
   }
 
-  v31 = a2 + a3;
-  if (FLAGS_enc_detect_source == 1)
+  v13 = Missing[9];
+  v14 = (a1 + v13);
+  v15 = *(a1 + v13 + 4);
+  v16 = (a2 + v13);
+  v17 = *(a2 + v13 + 4);
+  if ((v15 & 1) == 0)
   {
-    PsSourceInit(32);
+    if (*v16 != *v14)
+    {
+      v17 = 1;
+    }
+
+    return (v17 & 1) == 0;
   }
 
-  ApplyHints(v90, v92, a6, a7, a8, a9, __b);
-  InitialBytesBoost(a2, a3, __b);
-  v98 = v20;
-  v99 = 0;
-  v87 = a7;
-  v88 = 0;
-  v95 = (v22 - 3);
-  v32 = a2;
-  v96 = (v31 - 1);
-  v100 = a2 + a3;
-  while (1)
+  return (v17 & 1) != 0;
+}
+
+uint64_t sub_1B0AEAA80(int a1, uint64_t a2)
+{
+  v2 = (a2 + 32);
+  v3 = *(a2 + 16) + 1;
+  while (--v3)
   {
-    while (v32 < v23)
+    v4 = v2 + 4;
+    v5 = *v2;
+    v2 += 4;
+    if (v5 == a1)
     {
-      while (2)
+      return *(v4 - 1);
+    }
+  }
+
+  return 0;
+}
+
+void sub_1B0AEAB08(uint64_t a1)
+{
+  sub_1B043CC04(319, &qword_1EB6DAD90, sub_1B0451ED8, &type metadata for SyncStep, MEMORY[0x1E69E64E8]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for MessageBatches(319);
+    if (v2 <= 0x3F)
+    {
+      sub_1B0AD434C(319, &qword_1EB6DCC80, &type metadata for FetchedWindow);
+      if (v3 <= 0x3F)
       {
-        v33 = v32 - 1;
-        v34 = a3 + a2 + 1 - v32;
+        sub_1B0AD434C(319, &qword_1EB6DACD0, MEMORY[0x1E69E6530]);
+        if (v4 <= 0x3F)
+        {
+          sub_1B043CC04(319, &qword_1EB6DE3E0, sub_1B041C1E8, &type metadata for UID, type metadata accessor for MessageIdentifierSet);
+          if (v5 <= 0x3F)
+          {
+            sub_1B0AD434C(319, &qword_1EB6DDA08, &_s20GrowWindowOfInterestVN);
+            if (v6 <= 0x3F)
+            {
+              swift_cvw_initStructMetadataWithLayoutString();
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+unint64_t sub_1B0AEACE0()
+{
+  result = qword_1EB6DD9F8;
+  if (!qword_1EB6DD9F8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1EB6DD9F8);
+  }
+
+  return result;
+}
+
+uint64_t sub_1B0AEAD9C(uint64_t a1)
+{
+  result = sub_1B0AEADF4(&qword_1EB6DD9C8, type metadata accessor for FindMissingMessages, &unk_1B0EC4724);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1B0AEADF4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t sub_1B0AEAE5C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_1B0AEAEC4(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+uint64_t sub_1B0AEAF3C(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  v3 = MEMORY[0x1E69E7CC0];
+  if (v2)
+  {
+    v4 = result;
+    v5 = 0;
+    v6 = a2 + 56;
+    v7 = MEMORY[0x1E69E7CC0];
+    while (1)
+    {
+      v8 = (v6 + 32 * v5);
+      v9 = v5;
+      while (1)
+      {
+        if (v9 >= v2)
+        {
+          __break(1u);
+LABEL_26:
+          __break(1u);
+          return result;
+        }
+
+        v5 = v9 + 1;
+        if (__OFADD__(v9, 1))
+        {
+          goto LABEL_26;
+        }
+
+        v10 = *v8;
+        if (v10 != 1)
+        {
+          break;
+        }
+
+        if (v4)
+        {
+          goto LABEL_10;
+        }
+
+LABEL_5:
+        ++v9;
+        v8 += 32;
+        if (v5 == v2)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      if (v4)
+      {
+        goto LABEL_5;
+      }
+
+LABEL_10:
+      v11 = *(v8 - 6);
+      v13 = *(v8 - 2);
+      v12 = *(v8 - 1);
+      result = swift_isUniquelyReferenced_nonNull_native();
+      v22 = v12;
+      if ((result & 1) == 0)
+      {
+        result = sub_1B0B09FA4(0, *(v7 + 16) + 1, 1);
+      }
+
+      v15 = *(v7 + 16);
+      v14 = *(v7 + 24);
+      if (v15 >= v14 >> 1)
+      {
+        result = sub_1B0B09FA4((v14 > 1), v15 + 1, 1);
+      }
+
+      *(v7 + 16) = v15 + 1;
+      v16 = v7 + 32 * v15;
+      *(v16 + 32) = v11;
+      *(v16 + 40) = v13;
+      *(v16 + 48) = v22;
+      *(v16 + 56) = v10;
+      if (v5 == v2)
+      {
+        goto LABEL_17;
+      }
+    }
+  }
+
+  v7 = MEMORY[0x1E69E7CC0];
+LABEL_17:
+  v17 = *(v7 + 16);
+  if (v17)
+  {
+    sub_1B0B09D44(0, v17, 0);
+    v18 = *(v3 + 16);
+    v19 = 32;
+    do
+    {
+      v20 = *(v7 + v19);
+      v21 = *(v3 + 24);
+      if (v18 >= v21 >> 1)
+      {
+        sub_1B0B09D44((v21 > 1), v18 + 1, 1);
+      }
+
+      *(v3 + 16) = v18 + 1;
+      *(v3 + 4 * v18 + 32) = v20;
+      v19 += 32;
+      ++v18;
+      --v17;
+    }
+
+    while (v17);
+  }
+
+  else
+  {
+
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v3;
+}
+
+uint64_t sub_1B0AEB130(int a1, uint64_t a2)
+{
+  v33 = a1;
+  v3 = type metadata accessor for DownloadTask.CommandID(0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v32 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4280, &qword_1B0EC4800);
+  MEMORY[0x1EEE9AC00](v6);
+  v38 = (&v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v8);
+  v37 = &v32 - v9;
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v32 - v12;
+  v14 = *(a2 + 16);
+  v15 = MEMORY[0x1E69E7CC0];
+  v32 = v11;
+  if (v14)
+  {
+    v16 = *(v11 + 72);
+    v34 = (*(v11 + 80) + 32) & ~*(v11 + 80);
+    v35 = v6;
+    v17 = a2 + v34;
+    v18 = v33;
+    v36 = v3;
+    do
+    {
+      sub_1B03B5C80(v17, v13, &qword_1EB6E4280, &qword_1B0EC4800);
+      sub_1B0AEAE5C(&v13[*(v6 + 52)], v5, type metadata accessor for DownloadTask.CommandID);
+      EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+      if (EnumCaseMultiPayload > 1)
+      {
+        if (EnumCaseMultiPayload == 2)
+        {
+          if (v18 == 2)
+          {
+            goto LABEL_14;
+          }
+        }
+
+        else
+        {
+          sub_1B0AEAEC4(v5, type metadata accessor for DownloadTask.CommandID);
+          if (v18 == 3)
+          {
+LABEL_14:
+            sub_1B03C60A4(v13, v37, &qword_1EB6E4280, &qword_1B0EC4800);
+            isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+            v39 = v15;
+            if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+            {
+              sub_1B0B0A064(0, *(v15 + 16) + 1, 1);
+              v18 = v33;
+              v15 = v39;
+            }
+
+            v22 = *(v15 + 16);
+            v21 = *(v15 + 24);
+            if (v22 >= v21 >> 1)
+            {
+              sub_1B0B0A064((v21 > 1), v22 + 1, 1);
+              v18 = v33;
+              v15 = v39;
+            }
+
+            *(v15 + 16) = v22 + 1;
+            sub_1B03C60A4(v37, v15 + v34 + v22 * v16, &qword_1EB6E4280, &qword_1B0EC4800);
+            v6 = v35;
+            goto LABEL_5;
+          }
+        }
+      }
+
+      else if (EnumCaseMultiPayload)
+      {
+        sub_1B0AEAEC4(v5, type metadata accessor for DownloadTask.CommandID);
+        if (v18 == 1)
+        {
+          goto LABEL_14;
+        }
+      }
+
+      else
+      {
+        sub_1B0AEAEC4(v5, type metadata accessor for DownloadTask.CommandID);
+        if (!v18)
+        {
+          goto LABEL_14;
+        }
+      }
+
+      sub_1B0398EFC(v13, &qword_1EB6E4280, &qword_1B0EC4800);
+LABEL_5:
+      v17 += v16;
+      --v14;
+    }
+
+    while (v14);
+  }
+
+  v23 = *(v15 + 16);
+  if (v23)
+  {
+    v39 = MEMORY[0x1E69E7CC0];
+    sub_1B0B09D44(0, v23, 0);
+    v24 = v39;
+    v25 = v15 + ((*(v32 + 80) + 32) & ~*(v32 + 80));
+    v26 = *(v32 + 72);
+    do
+    {
+      v27 = v38;
+      sub_1B03B5C80(v25, v38, &qword_1EB6E4280, &qword_1B0EC4800);
+      v28 = *v27;
+      sub_1B0398EFC(v27, &qword_1EB6E4280, &qword_1B0EC4800);
+      v39 = v24;
+      v30 = *(v24 + 16);
+      v29 = *(v24 + 24);
+      if (v30 >= v29 >> 1)
+      {
+        sub_1B0B09D44((v29 > 1), v30 + 1, 1);
+        v24 = v39;
+      }
+
+      *(v24 + 16) = v30 + 1;
+      *(v24 + 4 * v30 + 32) = v28;
+      v25 += v26;
+      --v23;
+    }
+
+    while (v23);
+  }
+
+  else
+  {
+
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v24;
+}
+
+uint64_t sub_1B0AEB5AC(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v50 = a3;
+  v41 = a2;
+  v49 = type metadata accessor for TaskHistory.Running(0);
+  v6 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v49);
+  v8 = &v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v48 = &v39 - v10;
+  v11 = type metadata accessor for TaskHistory.Previous(0);
+  v44 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v39 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v42 = &v39 - v15;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v39 - v17;
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v39 - v20;
+  result = sub_1B0A9EA9C(a1 | ((HIDWORD(a1) & 1) << 32), a4);
+  v45 = *(result + 16);
+  if (v45)
+  {
+    v46 = v8;
+    v47 = result;
+    v40 = v6;
+    v23 = 0;
+    v43 = result + 32;
+    do
+    {
+      if (v23 >= *(result + 16))
+      {
+        __break(1u);
+        return result;
+      }
+
+      v51 = v23;
+      v24 = *(v50 + 16);
+      if (!v24)
+      {
+        goto LABEL_3;
+      }
+
+      v52 = *(v43 + 4 * v51);
+      v25 = v50 + ((*(v44 + 80) + 32) & ~*(v44 + 80));
+      v26 = *(v44 + 72);
+      v27 = v25;
+      v28 = v24;
+      while (1)
+      {
+        sub_1B0AEAE5C(v27, v21, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v21, v18, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v18, type metadata accessor for TaskHistory.Previous);
+LABEL_8:
+        v27 += v26;
+        if (!--v28)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      v29 = *(v18 + 2);
+      sub_1B03E1BE8(*v18);
+      if (v29 != v52)
+      {
+        goto LABEL_8;
+      }
+
+      v30 = v42;
+      while (1)
+      {
+        sub_1B0AEAE5C(v25, v30, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v30, v13, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v13, type metadata accessor for TaskHistory.Previous);
+LABEL_13:
+        v25 += v26;
+        if (!--v24)
+        {
+LABEL_22:
+          v38 = 1;
+          goto LABEL_24;
+        }
+      }
+
+      v31 = *(v13 + 2);
+      sub_1B03E1BE8(*v13);
+      if (v31 != v52)
+      {
+        goto LABEL_13;
+      }
+
+      v32 = *(v41 + 16);
+      if (v32)
+      {
+        v33 = v41 + ((*(v40 + 80) + 32) & ~*(v40 + 80));
+        v34 = *(v40 + 72);
         do
         {
-          v35 = v32;
-          v32 = v33 + 1;
-          if (v33 + 1 >= v23)
+          v35 = v48;
+          sub_1B0AEAE5C(v33, v48, type metadata accessor for TaskHistory.Running);
+          v36 = v46;
+          sub_1B0AEF094(v35, v46, type metadata accessor for TaskHistory.Running);
+          if (swift_getEnumCaseMultiPayload() == 1)
           {
-            goto LABEL_50;
+            v37 = *(v36 + 4);
+            sub_1B03E1BE8(*(v36 + 8));
+            if (v37 == v52)
+            {
+              goto LABEL_22;
+            }
           }
 
-          v36 = *++v33;
-          v37 = v24[v36];
-          v32 = v35 + 1;
+          else
+          {
+            sub_1B0AEAEC4(v36, type metadata accessor for TaskHistory.Running);
+          }
+
+          v33 += v34;
+          --v32;
+        }
+
+        while (v32);
+      }
+
+LABEL_3:
+      v23 = v51 + 1;
+      result = v47;
+    }
+
+    while (v51 + 1 != v45);
+  }
+
+  v38 = 0;
+LABEL_24:
+
+  return v38;
+}
+
+uint64_t sub_1B0AEBA2C(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, void, uint64_t, double))
+{
+  v55 = a4;
+  v46 = a3;
+  v54 = type metadata accessor for TaskHistory.Running(0);
+  v10 = *(v54 - 8);
+  MEMORY[0x1EEE9AC00](v54);
+  v12 = &v44 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v53 = &v44 - v14;
+  v15 = type metadata accessor for TaskHistory.Previous(0);
+  v49 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v44 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v47 = &v44 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = &v44 - v21;
+  v24 = MEMORY[0x1EEE9AC00](v23);
+  v26 = &v44 - v25;
+  result = a6(a1, a2 & 1, a5, v24);
+  v50 = *(result + 16);
+  if (v50)
+  {
+    v51 = v12;
+    v52 = result;
+    v45 = v10;
+    v28 = 0;
+    v48 = result + 32;
+    do
+    {
+      if (v28 >= *(result + 16))
+      {
+        __break(1u);
+        return result;
+      }
+
+      v56 = v28;
+      v29 = *(v55 + 16);
+      if (!v29)
+      {
+        goto LABEL_3;
+      }
+
+      v57 = *(v48 + 4 * v56);
+      v30 = v55 + ((*(v49 + 80) + 32) & ~*(v49 + 80));
+      v31 = *(v49 + 72);
+      v32 = v30;
+      v33 = v29;
+      while (1)
+      {
+        sub_1B0AEAE5C(v32, v26, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v26, v22, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v22, type metadata accessor for TaskHistory.Previous);
+LABEL_8:
+        v32 += v31;
+        if (!--v33)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      v34 = *(v22 + 2);
+      sub_1B03E1BE8(*v22);
+      if (v34 != v57)
+      {
+        goto LABEL_8;
+      }
+
+      v35 = v47;
+      while (1)
+      {
+        sub_1B0AEAE5C(v30, v35, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v35, v17, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v17, type metadata accessor for TaskHistory.Previous);
+LABEL_13:
+        v30 += v31;
+        if (!--v29)
+        {
+LABEL_22:
+          v43 = 1;
+          goto LABEL_24;
+        }
+      }
+
+      v36 = *(v17 + 2);
+      sub_1B03E1BE8(*v17);
+      if (v36 != v57)
+      {
+        goto LABEL_13;
+      }
+
+      v37 = *(v46 + 16);
+      if (v37)
+      {
+        v38 = v46 + ((*(v45 + 80) + 32) & ~*(v45 + 80));
+        v39 = *(v45 + 72);
+        do
+        {
+          v40 = v53;
+          sub_1B0AEAE5C(v38, v53, type metadata accessor for TaskHistory.Running);
+          v41 = v51;
+          sub_1B0AEF094(v40, v51, type metadata accessor for TaskHistory.Running);
+          if (swift_getEnumCaseMultiPayload() == 1)
+          {
+            v42 = *(v41 + 4);
+            sub_1B03E1BE8(*(v41 + 8));
+            if (v42 == v57)
+            {
+              goto LABEL_22;
+            }
+          }
+
+          else
+          {
+            sub_1B0AEAEC4(v41, type metadata accessor for TaskHistory.Running);
+          }
+
+          v38 += v39;
+          --v37;
+        }
+
+        while (v37);
+      }
+
+LABEL_3:
+      v28 = v56 + 1;
+      result = v52;
+    }
+
+    while (v56 + 1 != v50);
+  }
+
+  v43 = 0;
+LABEL_24:
+
+  return v43;
+}
+
+uint64_t sub_1B0AEBECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, double))
+{
+  v50 = a2;
+  v41 = a1;
+  v49 = type metadata accessor for TaskHistory.Running(0);
+  v6 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v49);
+  v48 = &v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v47 = &v39 - v9;
+  v10 = type metadata accessor for TaskHistory.Previous(0);
+  v44 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v39 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v42 = &v39 - v14;
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v39 - v16;
+  v19 = MEMORY[0x1EEE9AC00](v18);
+  v21 = &v39 - v20;
+  result = a4(a3, v19);
+  v45 = *(result + 16);
+  if (v45)
+  {
+    v40 = v6;
+    v23 = 0;
+    v43 = result + 32;
+    v46 = result;
+    do
+    {
+      if (v23 >= *(result + 16))
+      {
+        __break(1u);
+        return result;
+      }
+
+      v51 = v23;
+      v24 = *(v50 + 16);
+      if (!v24)
+      {
+        goto LABEL_3;
+      }
+
+      v52 = *(v43 + 4 * v51);
+      v25 = v50 + ((*(v44 + 80) + 32) & ~*(v44 + 80));
+      v26 = *(v44 + 72);
+      v27 = v25;
+      v28 = v24;
+      while (1)
+      {
+        sub_1B0AEAE5C(v27, v21, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v21, v17, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v17, type metadata accessor for TaskHistory.Previous);
+LABEL_8:
+        v27 += v26;
+        if (!--v28)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      v29 = *(v17 + 2);
+      sub_1B03E1BE8(*v17);
+      if (v29 != v52)
+      {
+        goto LABEL_8;
+      }
+
+      v30 = v42;
+      while (1)
+      {
+        sub_1B0AEAE5C(v25, v30, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v30, v12, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v12, type metadata accessor for TaskHistory.Previous);
+LABEL_13:
+        v25 += v26;
+        if (!--v24)
+        {
+LABEL_22:
+          v38 = 1;
+          goto LABEL_24;
+        }
+      }
+
+      v31 = *(v12 + 2);
+      sub_1B03E1BE8(*v12);
+      if (v31 != v52)
+      {
+        goto LABEL_13;
+      }
+
+      v32 = *(v41 + 16);
+      if (v32)
+      {
+        v33 = v41 + ((*(v40 + 80) + 32) & ~*(v40 + 80));
+        v34 = *(v40 + 72);
+        do
+        {
+          v35 = v47;
+          sub_1B0AEAE5C(v33, v47, type metadata accessor for TaskHistory.Running);
+          v36 = v48;
+          sub_1B0AEF094(v35, v48, type metadata accessor for TaskHistory.Running);
+          if (swift_getEnumCaseMultiPayload() == 1)
+          {
+            v37 = *(v36 + 4);
+            sub_1B03E1BE8(*(v36 + 8));
+            if (v37 == v52)
+            {
+              goto LABEL_22;
+            }
+          }
+
+          else
+          {
+            sub_1B0AEAEC4(v36, type metadata accessor for TaskHistory.Running);
+          }
+
+          v33 += v34;
+          --v32;
+        }
+
+        while (v32);
+      }
+
+LABEL_3:
+      v23 = v51 + 1;
+      result = v46;
+    }
+
+    while (v51 + 1 != v45);
+  }
+
+  v38 = 0;
+LABEL_24:
+
+  return v38;
+}
+
+uint64_t sub_1B0AEC344(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v52 = a4;
+  v43 = a3;
+  v51 = type metadata accessor for TaskHistory.Running(0);
+  v8 = *(v51 - 8);
+  MEMORY[0x1EEE9AC00](v51);
+  v50 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v49 = &v41 - v11;
+  v12 = type metadata accessor for TaskHistory.Previous(0);
+  v46 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v41 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v44 = &v41 - v16;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v41 - v18;
+  v21 = MEMORY[0x1EEE9AC00](v20);
+  v23 = &v41 - v22;
+  result = sub_1B0A9F194(a1, a2, a5, v21);
+  v47 = *(result + 16);
+  if (v47)
+  {
+    v42 = v8;
+    v25 = 0;
+    v45 = result + 32;
+    v48 = result;
+    do
+    {
+      if (v25 >= *(result + 16))
+      {
+        __break(1u);
+        return result;
+      }
+
+      v53 = v25;
+      v26 = *(v52 + 16);
+      if (!v26)
+      {
+        goto LABEL_3;
+      }
+
+      v54 = *(v45 + 4 * v53);
+      v27 = v52 + ((*(v46 + 80) + 32) & ~*(v46 + 80));
+      v28 = *(v46 + 72);
+      v29 = v27;
+      v30 = v26;
+      while (1)
+      {
+        sub_1B0AEAE5C(v29, v23, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v23, v19, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v19, type metadata accessor for TaskHistory.Previous);
+LABEL_8:
+        v29 += v28;
+        if (!--v30)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      v31 = *(v19 + 2);
+      sub_1B03E1BE8(*v19);
+      if (v31 != v54)
+      {
+        goto LABEL_8;
+      }
+
+      v32 = v44;
+      while (1)
+      {
+        sub_1B0AEAE5C(v27, v32, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v32, v14, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v14, type metadata accessor for TaskHistory.Previous);
+LABEL_13:
+        v27 += v28;
+        if (!--v26)
+        {
+LABEL_22:
+          v40 = 1;
+          goto LABEL_24;
+        }
+      }
+
+      v33 = *(v14 + 2);
+      sub_1B03E1BE8(*v14);
+      if (v33 != v54)
+      {
+        goto LABEL_13;
+      }
+
+      v34 = *(v43 + 16);
+      if (v34)
+      {
+        v35 = v43 + ((*(v42 + 80) + 32) & ~*(v42 + 80));
+        v36 = *(v42 + 72);
+        do
+        {
+          v37 = v49;
+          sub_1B0AEAE5C(v35, v49, type metadata accessor for TaskHistory.Running);
+          v38 = v50;
+          sub_1B0AEF094(v37, v50, type metadata accessor for TaskHistory.Running);
+          if (swift_getEnumCaseMultiPayload() == 1)
+          {
+            v39 = *(v38 + 4);
+            sub_1B03E1BE8(*(v38 + 8));
+            if (v39 == v54)
+            {
+              goto LABEL_22;
+            }
+          }
+
+          else
+          {
+            sub_1B0AEAEC4(v38, type metadata accessor for TaskHistory.Running);
+          }
+
+          v35 += v36;
           --v34;
         }
 
-        while (!v24[v36]);
-        if (FLAGS_enc_detect_source == 1)
-        {
-          PsSource(v33, a2, v100);
-        }
-
-        if (v89 & 4 | a9 || !TextInsideTag(a2, v33, v23))
-        {
-          v38 = 0;
-LABEL_45:
-          if (FLAGS_enc_detect_source == 1)
-          {
-            PsMark(v33, 2, a2, v38);
-          }
-
-          v39 = IncrementAndBoostPrune(v33, v34, __b, v38, v37);
-          v32 = &v33[v37];
-          if (v39)
-          {
-            if ((__b[5] & 0x100000000) != 0)
-            {
-              v32 = &v35[v37];
-            }
-
-            else
-            {
-              if ((__b[24] & 0x100000000) != 0)
-              {
-                goto LABEL_50;
-              }
-
-              v32 = &v33[v37];
-            }
-          }
-
-          else
-          {
-LABEL_50:
-            if (v32 < v23)
-            {
-              continue;
-            }
-          }
-
-          v31 = a2 + a3;
-          goto LABEL_52;
-        }
-
-        break;
+        while (v34);
       }
 
-      if (v99 < 12)
-      {
-        ++v99;
-        v38 = 4;
-        goto LABEL_45;
-      }
-
-      v32 = v33 + 1;
-      v31 = a2 + a3;
-      while (v32 <= v23)
-      {
-        v46 = *v32++;
-        if ((v46 & 0xFFFFFFFD) == 0x3C)
-        {
-          goto LABEL_75;
-        }
-      }
-
-      v32 = v33 + 2;
-LABEL_75:
-      v88 = 1;
+LABEL_3:
+      v25 = v53 + 1;
+      result = v48;
     }
 
-LABEL_52:
-    if (v32 == v96)
+    while (v53 + 1 != v47);
+  }
+
+  v40 = 0;
+LABEL_24:
+
+  return v40;
+}
+
+uint64_t sub_1B0AEC7F4(int a1, uint64_t a2)
+{
+  v44 = a1;
+  Missing = type metadata accessor for FindMissingMessages.CommandID(0);
+  MEMORY[0x1EEE9AC00](Missing);
+  v5 = &v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4260, &qword_1B0EC47E0);
+  MEMORY[0x1EEE9AC00](v6);
+  v43 = (&v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v38 - v9;
+  MEMORY[0x1EEE9AC00](v11);
+  v15 = &v38 - v14;
+  v16 = *(a2 + 16);
+  v17 = MEMORY[0x1E69E7CC0];
+  v39 = v13;
+  if (v16)
+  {
+    v18 = *(v13 + 72);
+    v40 = (*(v13 + 80) + 32) & ~*(v13 + 80);
+    v41 = v12;
+    v19 = a2 + v40;
+    v42 = Missing;
+    v20 = v12;
+    do
     {
-      v42 = *v32;
-      v41 = v97;
-      if (v24[v42])
+      sub_1B03B5C80(v19, v15, &qword_1EB6E4260, &qword_1B0EC47E0);
+      sub_1B0AEAE5C(&v15[*(v20 + 52)], v5, type metadata accessor for FindMissingMessages.CommandID);
+      if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v40 = 1;
-        IncrementAndBoostPrune(v32, 1, __b, 0, v24[v42]);
+        if (v44 != 2 && ((v5[8] ^ v44) & 1) == 0)
+        {
+LABEL_11:
+          sub_1B03C60A4(v15, v10, &qword_1EB6E4260, &qword_1B0EC47E0);
+          isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+          v45 = v17;
+          if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+          {
+            sub_1B0B0A1E4(0, *(v17 + 16) + 1, 1);
+            v17 = v45;
+          }
+
+          v28 = *(v17 + 16);
+          v27 = *(v17 + 24);
+          if (v28 >= v27 >> 1)
+          {
+            sub_1B0B0A1E4((v27 > 1), v28 + 1, 1);
+            v17 = v45;
+          }
+
+          *(v17 + 16) = v28 + 1;
+          sub_1B03C60A4(v10, v17 + v40 + v28 * v18, &qword_1EB6E4260, &qword_1B0EC47E0);
+          v20 = v41;
+          Missing = v42;
+          goto LABEL_4;
+        }
       }
 
       else
       {
-        v40 = 0;
+        v21 = Missing;
+        v22 = v18;
+        v23 = v10;
+        v24 = v44;
+        sub_1B0AEAEC4(v5, type metadata accessor for FindMissingMessages.CommandID);
+        v25 = v24 == 2;
+        v10 = v23;
+        v18 = v22;
+        Missing = v21;
+        if (v25)
+        {
+          goto LABEL_11;
+        }
       }
+
+      sub_1B0398EFC(v15, &qword_1EB6E4260, &qword_1B0EC47E0);
+LABEL_4:
+      v19 += v18;
+      --v16;
     }
 
-    else
-    {
-      v40 = 0;
-      v41 = v97;
-    }
-
-    if (FLAGS_enc_detect_source == 1)
-    {
-      PsSource(v32, a2, v31);
-      v43 = pssource_mark_buffer;
-      v44 = 2 * ((v32 - a2) % pssourcewidth);
-      v45 = pssource_mark_buffer + v44;
-      *v45 = 61;
-      *(v43 + v44 + 1) = 61;
-      *(v45 + 2) = 11565;
-    }
-
-    BoostPrune(v32, __b, 1);
-    if ((__b[5] & 0x100000000) != 0)
-    {
-      v47 = v32;
-      goto LABEL_101;
-    }
-
-    if ((__b[24] & 0x100000000) == 0 || v32 >= v41)
-    {
-      break;
-    }
-
-    v98 += FLAGS_enc_detect_slow_max_kb << 10;
-    if (v98 <= v21)
-    {
-      v23 = &a2[-1] + v98 + 7;
-    }
-
-    else
-    {
-      v23 = v41;
-    }
-
-    if ((__b[24] & 0x600000000) == 0)
-    {
-      v24 = &kTestPrintableAscii;
-    }
+    while (v16);
   }
 
-  if (v32 >= v41)
+  v29 = *(v17 + 16);
+  if (v29)
   {
-    v47 = v32;
-    goto LABEL_97;
-  }
-
-  while (1)
-  {
-    if (v32 >= v95)
+    v45 = MEMORY[0x1E69E7CC0];
+    sub_1B0B09D44(0, v29, 0);
+    v30 = v45;
+    v31 = v17 + ((*(v39 + 80) + 32) & ~*(v39 + 80));
+    v32 = *(v39 + 72);
+    do
     {
-      v48 = v97;
-    }
-
-    else
-    {
-      v48 = v97;
-      do
+      v33 = v43;
+      sub_1B03B5C80(v31, v43, &qword_1EB6E4260, &qword_1B0EC47E0);
+      v34 = *v33;
+      sub_1B0398EFC(v33, &qword_1EB6E4260, &qword_1B0EC47E0);
+      v45 = v30;
+      v36 = *(v30 + 16);
+      v35 = *(v30 + 24);
+      if (v36 >= v35 >> 1)
       {
-        if ((((v32[1] | *v32) | (v32[2] | v32[3])) & 0x80) != 0)
+        sub_1B0B09D44((v35 > 1), v36 + 1, 1);
+        v30 = v45;
+      }
+
+      *(v30 + 16) = v36 + 1;
+      *(v30 + 4 * v36 + 32) = v34;
+      v31 += v32;
+      --v29;
+    }
+
+    while (v29);
+  }
+
+  else
+  {
+
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v30;
+}
+
+uint64_t sub_1B0AECC20(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  v3 = MEMORY[0x1E69E7CC0];
+  if (v2)
+  {
+    v4 = result;
+    v5 = 0;
+    v6 = a2 + 48;
+    v7 = MEMORY[0x1E69E7CC0];
+    while (1)
+    {
+      v8 = (v6 + 24 * v5);
+      v9 = v5;
+      while (1)
+      {
+        if (v9 >= v2)
+        {
+          __break(1u);
+LABEL_30:
+          __break(1u);
+          return result;
+        }
+
+        v5 = v9 + 1;
+        if (__OFADD__(v9, 1))
+        {
+          goto LABEL_30;
+        }
+
+        v10 = *(v8 - 4);
+        result = *(v8 - 1);
+        v11 = *v8;
+        v12 = *v8 >> 60;
+        if (v12 != 11)
         {
           break;
         }
 
-        v32 += 4;
-      }
-
-      while (v32 < v95);
-    }
-
-    if (v32 < v48)
-    {
-      break;
-    }
-
-    v47 = v32;
-LABEL_94:
-    v32 = v47;
-    if (v47 >= v97)
-    {
-      goto LABEL_97;
-    }
-  }
-
-  v49 = 0;
-  while ((v32[v49] & 0x80000000) == 0)
-  {
-    ++v49;
-    if (!&v32[1 - (a2 + v21) + v49])
-    {
-      v47 = &v32[v49];
-      goto LABEL_94;
-    }
-  }
-
-  if (FLAGS_enc_detect_source)
-  {
-    PsSource(&v32[v49], a2, v100);
-    v50 = pssource_mark_buffer;
-    v51 = 2 * ((v32 - a2 + v49) % pssourcewidth);
-    v52 = pssource_mark_buffer + v51;
-    *v52 = 61;
-    *(v50 + v51 + 1) = 61;
-    *(v52 + 2) = 11565;
-  }
-
-  v47 = &v32[v49 + 2];
-  if (!IncrementAndBoostPrune(&v32[v49], v100 - (v32 + v49), __b, 0, 2) || BYTE4(__b[5]) != 1)
-  {
-    goto LABEL_94;
-  }
-
-  v47 = &v32[v49 + 2];
-LABEL_97:
-  if (v47 == v96)
-  {
-    v53 = v40;
-  }
-
-  else
-  {
-    v53 = 1;
-  }
-
-  v31 = a2 + a3;
-  if (v53)
-  {
-LABEL_101:
-    v54 = v87;
-    goto LABEL_102;
-  }
-
-  v71 = *v47;
-  v54 = v87;
-  if (v24[v71])
-  {
-    IncrementAndBoostPrune(v47, 1, __b, 0, v24[v71]);
-    v55 = a10;
-  }
-
-  else
-  {
-LABEL_102:
-    v55 = a10;
-  }
-
-  if (FLAGS_enc_detect_source == 1)
-  {
-    PsSource(v47, a2, v31);
-    v56 = pssource_mark_buffer;
-    v57 = 2 * ((v47 - a2) % pssourcewidth);
-    v58 = pssource_mark_buffer + v57;
-    *v58 = 61;
-    *(v56 + v57 + 1) = 61;
-    *(v58 + 2) = 11565;
-  }
-
-  BoostPrune(v47, __b, 2);
-  if (FLAGS_enc_detect_summary == 1)
-  {
-    DumpSummary(__b, 0, 32);
-    DumpSummary(__b, 1, 32);
-  }
-
-  if (FLAGS_enc_detect_source == 1)
-  {
-    PsSourceFinish();
-  }
-
-  v59 = __b[30];
-  if (LODWORD(__b[30]) != 0 || (v88 & 1) == 0)
-  {
-    v19 = kMapToEncoding[SLODWORD(__b[30])];
-    v63 = __b[26];
-    if (LODWORD(__b[26]) != 23 && HIDWORD(__b[25]) == 23)
-    {
-      v65 = __b[26];
-    }
-
-    else
-    {
-      v65 = HIDWORD(__b[25]);
-    }
-
-    v66 = HIDWORD(__b[26]);
-    if (HIDWORD(__b[26]) != 23 && v65 == 23)
-    {
-      v68 = HIDWORD(__b[26]);
-    }
-
-    else
-    {
-      v68 = v65;
-    }
-
-    if (v68 == 23)
-    {
-      if (LODWORD(__b[30]) == 1)
-      {
-        v69 = a2 + a3;
-        if ((__b[8] & 0x100) == 0)
+        if (v4 == 2)
         {
-          goto LABEL_161;
+          goto LABEL_14;
         }
 
-        goto LABEL_159;
-      }
-
-      v69 = a2 + a3;
-      if (!kMapEncToBaseEncoding[v19] || v19 <= 0x3F && ((1 << v19) & 0x8000000001800000) != 0)
-      {
-        v70 = 1;
-        goto LABEL_152;
-      }
-
-      v68 = __b[25];
-      if (LODWORD(__b[25]) == 23)
-      {
-        v70 = 0;
-        goto LABEL_152;
-      }
-    }
-
-    else
-    {
-      v70 = CompatibleEnc(v68, HIDWORD(__b[25]));
-      if (!v70 || (v70 = CompatibleEnc(v68, v63)) == 0)
-      {
-        v69 = a2 + a3;
-LABEL_152:
-        if ((__b[8] & 0x100) == 0 || v59 != 1 && kMapEncToBaseEncoding[v19] && (v19 > 0x3F || ((1 << v19) & 0x8000000001800000) == 0) && (v59 > 0x29 || ((1 << v59) & 0x20020011200) == 0))
+LABEL_5:
+        result = sub_1B05072A8(result, v11);
+LABEL_6:
+        ++v9;
+        v8 += 3;
+        if (v5 == v2)
         {
-          if (!v70)
-          {
-            if (BYTE5(__b[5]) != 1)
-            {
-              v79 = 0;
-              goto LABEL_169;
-            }
-
-            v81 = (v19 - 10) < 0x36 && ((0x20000000007803uLL >> (v19 - 10)) & 1) != 0 || v59 == 5 || (kMapEncToBaseEncoding[v19] - 13) < 2;
-            v79 = 0;
-            if (!v81)
-            {
-              goto LABEL_169;
-            }
-
-            if (SHIDWORD(__b[168]) < 6)
-            {
-              goto LABEL_169;
-            }
-
-            v79 = v89 & 1;
-            v78 = 1;
-            if ((v89 & 1) == 0)
-            {
-              goto LABEL_169;
-            }
-
-LABEL_162:
-            if (v78)
-            {
-              v80 = 1;
-              goto LABEL_170;
-            }
-
-LABEL_169:
-            v19 = Rescore(v19, a2, v69, __b);
-            v78 = BYTE5(__b[5]);
-            v80 = v79;
-LABEL_170:
-            *a13 = kMapToEncoding[SHIDWORD(__b[30])];
-            if (v89 & 1) != 0 || (v79 & v78 & 1) != 0 || (kSpecialMask[v19])
-            {
-              if ((v80 & 1) == 0)
-              {
-                BYTE5(__b[5]) = 0;
-              }
-            }
-
-            else
-            {
-              v19 = Rescan(v19, a2, v47, v69, v90, v92, v93, v54, v91, a9, v55, __b);
-            }
-
-            if (__b[4])
-            {
-              DumpDetail(__b);
-            }
-
-            *a11 = v47 - a2 + 1;
-            *a12 = BYTE5(__b[5]);
-            goto LABEL_179;
-          }
-
-LABEL_161:
-          v79 = 1;
-          v78 = BYTE5(__b[5]);
-          goto LABEL_162;
+          goto LABEL_21;
         }
-
-LABEL_159:
-        v78 = 1;
-        BYTE5(__b[5]) = 1;
-        v79 = 1;
-        goto LABEL_162;
       }
 
-      v70 = CompatibleEnc(v68, v66);
-      v69 = a2 + a3;
-      if (!v70)
+      if (v12 == 15)
       {
-        goto LABEL_152;
-      }
-    }
-
-    v70 = CompatibleEnc(v68, v19);
-    goto LABEL_152;
-  }
-
-  if (__b[4])
-  {
-    v60 = __b[5];
-    v61 = __b[4] + 304 * SLODWORD(__b[5]);
-    *v61 = *(v61 - 304);
-    *(v61 + 4) = -1;
-    v62 = (v61 + 8);
-    if (*(v61 + 31) < 0)
-    {
-      *(v61 + 16) = 15;
-      v62 = *v62;
-    }
-
-    else
-    {
-      *(v61 + 31) = 15;
-    }
-
-    strcpy(v62, ">> Recurse/tags");
-    memcpy((__b[4] + 304 * v60 + 32), &__b[66] + 4, 0x10CuLL);
-    ++LODWORD(__b[5]);
-    DumpDetail(__b);
-    *&__str[28] = -1431655766;
-    *&__str[20] = 0xAAAAAAAAAAAAAAAALL;
-    strcpy(__str, ">> Recurse for tags");
-    fprintf(*MEMORY[0x1E69E9848], "() end-detail (%s) start-detail\n\n", __str);
-  }
-
-  BYTE4(v86) = v55;
-  LODWORD(v86) = a9;
-  v72 = InternalDetectEncoding(4, a2, a3, v90, v92, v93, v54, v91, v86, a11, a12, a13);
-  v19 = v72;
-  if (__b[4])
-  {
-    *&v73 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v73 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *__str = v73;
-    *&__str[16] = v73;
-    v74 = MyEncodingName(v72);
-    snprintf(__str, 0x20uLL, "=2 %s", v74);
-    v75 = 0;
-    while (kMapToEncoding[v75] != v19)
-    {
-      if (++v75 == 67)
-      {
-        LODWORD(v75) = -1;
         break;
       }
+
+      if (v4 != 1)
+      {
+        goto LABEL_6;
+      }
+
+LABEL_14:
+      v13 = *(v8 - 1);
+      v14 = *v8;
+      sub_1B0AEF1B0(result, v11);
+      result = swift_isUniquelyReferenced_nonNull_native();
+      v26 = v6;
+      if ((result & 1) == 0)
+      {
+        result = sub_1B0B0A424(0, *(v7 + 16) + 1, 1);
+      }
+
+      v16 = *(v7 + 16);
+      v15 = *(v7 + 24);
+      v17 = v14;
+      v18 = v13;
+      if (v16 >= v15 >> 1)
+      {
+        result = sub_1B0B0A424((v15 > 1), v16 + 1, 1);
+        v18 = v13;
+        v17 = v14;
+      }
+
+      *(v7 + 16) = v16 + 1;
+      v19 = v7 + 24 * v16;
+      *(v19 + 32) = v10;
+      *(v19 + 40) = v18;
+      *(v19 + 48) = v17;
+      v3 = MEMORY[0x1E69E7CC0];
+      v6 = v26;
+      if (v5 == v2)
+      {
+        goto LABEL_21;
+      }
     }
 
-    v76 = __b[5];
-    v77 = __b[4] + 304 * SLODWORD(__b[5]);
-    *v77 = 0;
-    *(v77 + 4) = v75;
-    std::string::__assign_external((v77 + 8), __str);
-    memcpy((__b[4] + 304 * v76 + 32), &__b[66] + 4, 0x10CuLL);
-    ++LODWORD(__b[5]);
-    DumpDetail(__b);
-  }
-
-LABEL_179:
-  v82 = v102;
-  v102 = 0;
-  if (v82)
-  {
-    std::default_delete<DetailEntry []>::operator()[abi:ne200100]<DetailEntry>(&v102, v82);
-  }
-
-LABEL_181:
-  v83 = *MEMORY[0x1E69E9840];
-  return v19;
-}
-
-void sub_1B0A8A3B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33)
-{
-  v34 = a33;
-  a33 = 0;
-  if (v34)
-  {
-    std::default_delete<DetailEntry []>::operator()[abi:ne200100]<DetailEntry>(&a33, v34);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL NoHintsCloseEnoughCompatible(unsigned int a1)
-{
-  if (a1 <= 0x4A && a1 - 10 < 0x36 && ((0x20000000007803uLL >> (a1 - 10)) & 1) != 0)
-  {
-    return 1;
-  }
-
-  return a1 == 16 || (kMapEncToBaseEncoding[a1] - 13) < 2;
-}
-
-uint64_t CompactEncDet::DetectEncoding(int8x8_t *a1, int a2, char *a3, char *a4, char *a5, int a6, unsigned int a7, unsigned int a8, char a9, int *a10, _BYTE *a11)
-{
-  v74 = *MEMORY[0x1E69E9840];
-  if (FLAGS_ced_echo_input == 1)
-  {
-    memset(__dst, 170, 24);
-    if (a2 < 0)
+    if (!v4)
     {
-      std::string::__throw_length_error[abi:ne200100]();
+      goto LABEL_14;
     }
 
-    v56 = a8;
-    if (a2 >= 0x17)
-    {
-      operator new();
-    }
-
-    __dst[23] = a2;
-    if (a2)
-    {
-      memcpy(__dst, a1, a2);
-    }
-
-    __dst[a2] = 0;
-    v18 = __dst;
-    if (__dst[23] < 0)
-    {
-      v18 = *__dst;
-    }
-
-    fprintf(*MEMORY[0x1E69E9848], "CompactEncDet::DetectEncoding()\n%s\n\n", v18);
-    if ((__dst[23] & 0x80000000) != 0)
-    {
-      operator delete(*__dst);
-    }
-
-    a8 = v56;
+    goto LABEL_5;
   }
 
-  if (FLAGS_counts == 1)
+  v7 = MEMORY[0x1E69E7CC0];
+LABEL_21:
+  v20 = *(v7 + 16);
+  if (v20)
   {
-    rescore_used = 0;
-    rescan_used = 0;
-    robust_used = 0;
-    looking_used = 0;
-    doing_used = 0;
-    encdet_used = 1;
-  }
-
-  if (FLAGS_dirtsimple == 1)
-  {
-    v19 = 0;
-    *&v20 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *(v73 + 12) = v20;
-    v72 = v20;
-    v73[0] = v20;
-    v70 = v20;
-    v71 = v20;
-    v68 = v20;
-    v69 = v20;
-    v66 = v20;
-    v67 = v20;
-    v64 = v20;
-    v65 = v20;
-    v62 = v20;
-    v63 = v20;
-    v60 = v20;
-    v61 = v20;
-    *__dst = v20;
-    *&__dst[16] = v20;
-    *&v58[12] = v20;
-    v57[14] = v20;
-    *v58 = v20;
-    v57[12] = v20;
-    v57[13] = v20;
-    v57[10] = v20;
-    v57[11] = v20;
-    v57[8] = v20;
-    v57[9] = v20;
-    v57[6] = v20;
-    v57[7] = v20;
-    v57[4] = v20;
-    v57[5] = v20;
-    v57[2] = v20;
-    v57[3] = v20;
-    v57[0] = v20;
-    v57[1] = v20;
-    v21 = xmmword_1B0EA4600;
-    v22 = xmmword_1B0EA4610;
-    v23 = &__dst[8];
-    v24 = vdupq_n_s64(4uLL);
-    v25 = vdupq_n_s64(0x43uLL);
+    sub_1B0B09D44(0, v20, 0);
+    v21 = v3;
+    v22 = *(v3 + 16);
+    v23 = 32;
     do
     {
-      if (vuzp1_s16(vmovn_s64(vcgtq_u64(v25, v22)), *v21.i8).u8[0])
+      v24 = *(v7 + v23);
+      v25 = *(v21 + 24);
+      if (v22 >= v25 >> 1)
       {
-        *(v23 - 2) = v19;
+        sub_1B0B09D44((v25 > 1), v22 + 1, 1);
       }
 
-      if (vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x43uLL), *&v22)), *&v21).i8[2])
-      {
-        *(v23 - 1) = v19 + 1;
-      }
-
-      if (vuzp1_s16(*&v21, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x43uLL), *&v21))).i32[1])
-      {
-        *v23 = v19 + 2;
-        v23[1] = v19 + 3;
-      }
-
-      v19 += 4;
-      v21 = vaddq_s64(v21, v24);
-      v22 = vaddq_s64(v22, v24);
-      v23 += 4;
+      *(v21 + 16) = v22 + 1;
+      *(v21 + 4 * v22 + 32) = v24;
+      v23 += 24;
+      ++v22;
+      --v20;
     }
 
-    while (v19 != 68);
-    RobustScan(a1, a2, 67, __dst, v57);
-    v26 = 0;
-    v27 = -1;
-    v28 = 23;
-    do
-    {
-      if (v27 < *(v57 + v26))
-      {
-        v28 = kMapToEncoding[*&__dst[v26]];
-        v27 = *(v57 + v26);
-      }
-
-      v26 += 4;
-    }
-
-    while (v26 != 268);
-    if (a2 >= 0x40000)
-    {
-      v29 = 0x40000;
-    }
-
-    else
-    {
-      v29 = a2;
-    }
-
-    *a10 = v29;
-    *a11 = 1;
-    if (FLAGS_counts)
-    {
-      printf("CEDcounts ");
-      while (encdet_used--)
-      {
-        printf("encdet ");
-      }
-
-      while (rescore_used--)
-      {
-        printf("rescore ");
-      }
-
-      while (rescan_used--)
-      {
-        printf("rescan ");
-      }
-
-      while (robust_used--)
-      {
-        printf("robust ");
-      }
-
-      while (looking_used--)
-      {
-        printf("looking ");
-      }
-
-      while (doing_used--)
-      {
-        printf("doing ");
-      }
-
-LABEL_58:
-      putchar(10);
-    }
+    while (v20);
   }
 
   else
   {
-    v28 = InternalDetectEncoding(0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, __dst);
-    if (FLAGS_counts == 1)
-    {
-      printf("CEDcounts ");
-      while (encdet_used--)
-      {
-        printf("encdet ");
-      }
 
-      while (rescore_used--)
-      {
-        printf("rescore ");
-      }
-
-      while (rescan_used--)
-      {
-        printf("rescan ");
-      }
-
-      while (robust_used--)
-      {
-        printf("robust ");
-      }
-
-      while (looking_used--)
-      {
-        printf("looking ");
-      }
-
-      while (doing_used--)
-      {
-        printf("doing ");
-      }
-
-      goto LABEL_58;
-    }
+    return MEMORY[0x1E69E7CC0];
   }
 
-  v54 = *MEMORY[0x1E69E9840];
-  return v28;
+  return v21;
 }
 
-uint64_t CompactEncDet::TopEncodingOfLangHint(CompactEncDet *this, const char *a2)
+uint64_t sub_1B0AECE68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, double))
 {
-  memset(v10, 170, sizeof(v10));
-  std::string::basic_string[abi:ne200100]<0>(__p, this);
-  MakeChar8(__p, v10);
-  if (v9 < 0)
+  v57 = a3;
+  v49 = a2;
+  v56 = type metadata accessor for TaskHistory.Running(0);
+  v8 = *(v56 - 8);
+  MEMORY[0x1EEE9AC00](v56);
+  v10 = &v46 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v55 = &v46 - v12;
+  v13 = type metadata accessor for TaskHistory.Previous(0);
+  v51 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v46 - v17;
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v46 - v20;
+  v23 = MEMORY[0x1EEE9AC00](v22);
+  v25 = &v46 - v24;
+  result = a5(a1, a4, v23);
+  v52 = *(result + 16);
+  if (v52)
   {
-    operator delete(__p[0]);
-  }
-
-  v2 = SHIBYTE(v10[2]);
-  v3 = v10[0];
-  if (v10[2] >= 0)
-  {
-    v4 = v10;
-  }
-
-  else
-  {
-    v4 = v10[0];
-  }
-
-  v5 = HintBinaryLookup8(kLangHintProbs, 151, v4);
-  if (v5 < 0)
-  {
-    v6 = 23;
-    if ((v2 & 0x80000000) == 0)
+    v53 = v10;
+    v54 = result;
+    v46 = v8;
+    v47 = v18;
+    v27 = 0;
+    v50 = result + 32;
+    v48 = v15;
+    do
     {
-      return v6;
-    }
+      if (v27 >= *(result + 16))
+      {
+        __break(1u);
+        return result;
+      }
 
-    goto LABEL_8;
-  }
+      v58 = v27;
+      v28 = *(v57 + 16);
+      if (!v28)
+      {
+        goto LABEL_3;
+      }
 
-  v6 = kMapToEncoding[TopCompressedProb(&kLangHintProbs[20 * v5 + 8], 12)];
-  if (v2 < 0)
-  {
+      v59 = *(v50 + 4 * v58);
+      v29 = v57 + ((*(v51 + 80) + 32) & ~*(v51 + 80));
+      v30 = *(v51 + 72);
+      v31 = v29;
+      v32 = v28;
+      while (1)
+      {
+        sub_1B0AEAE5C(v31, v25, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v25, v21, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() != 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v21, type metadata accessor for TaskHistory.Previous);
 LABEL_8:
-    operator delete(v3);
-  }
-
-  return v6;
-}
-
-void sub_1B0A8AB58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t CompactEncDet::TopEncodingOfCharsetHint(CompactEncDet *this, const char *a2)
-{
-  memset(v10, 170, sizeof(v10));
-  std::string::basic_string[abi:ne200100]<0>(__p, this);
-  MakeChar44(__p, v10);
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v2 = SHIBYTE(v10[2]);
-  v3 = v10[0];
-  if (v10[2] >= 0)
-  {
-    v4 = v10;
-  }
-
-  else
-  {
-    v4 = v10[0];
-  }
-
-  v5 = HintBinaryLookup8(kCharsetHintProbs, 438, v4);
-  if (v5 < 0)
-  {
-    v6 = 23;
-    if ((v2 & 0x80000000) == 0)
-    {
-      return v6;
-    }
-
-    goto LABEL_8;
-  }
-
-  v6 = kMapToEncoding[TopCompressedProb(&kCharsetHintProbs[20 * v5 + 8], 12)];
-  if (v2 < 0)
-  {
-LABEL_8:
-    operator delete(v3);
-  }
-
-  return v6;
-}
-
-void sub_1B0A8AC3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-std::string *__cdecl std::string::__assign_external(std::string *this, const std::string::value_type *__s, std::string::size_type __n)
-{
-  size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
-  if ((size & 0x8000000000000000) != 0)
-  {
-    v9 = this->__r_.__value_.__r.__words[2];
-    v8 = (v9 & 0x7FFFFFFFFFFFFFFFLL) - 1;
-    if (v8 < __n)
-    {
-      size = this->__r_.__value_.__l.__size_;
-      goto LABEL_6;
-    }
-
-    size = HIBYTE(v9);
-    v7 = this->__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    v7 = this;
-    if (__n > 0x16)
-    {
-      v8 = 22;
-LABEL_6:
-      std::string::__grow_by_and_replace(this, v8, __n - v8, size, 0, size, __n, __s);
-      return this;
-    }
-  }
-
-  if (__n)
-  {
-    memmove(v7, __s, __n);
-    LOBYTE(size) = *(&this->__r_.__value_.__s + 23);
-  }
-
-  if ((size & 0x80) != 0)
-  {
-    this->__r_.__value_.__l.__size_ = __n;
-  }
-
-  else
-  {
-    *(&this->__r_.__value_.__s + 23) = __n & 0x7F;
-  }
-
-  v7->__r_.__value_.__s.__data_[__n] = 0;
-  return this;
-}
-
-std::string *__cdecl std::string::__assign_external(std::string *this, const std::string::value_type *__s)
-{
-  v4 = strlen(__s);
-
-  return std::string::__assign_external(this, __s, v4);
-}
-
-void std::__throw_length_error[abi:ne200100](const char *a1)
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::length_error::length_error[abi:ne200100](exception, a1);
-  __cxa_throw(exception, off_1E7AA1F40, MEMORY[0x1E69E5278]);
-}
-
-std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error *a1, const char *a2)
-{
-  result = std::logic_error::logic_error(a1, a2);
-  result->__vftable = (MEMORY[0x1E69E55B0] + 16);
-  return result;
-}
-
-void std::default_delete<DetailEntry []>::operator()[abi:ne200100]<DetailEntry>(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v2 = *(a2 - 8);
-    if (v2)
-    {
-      v3 = a2 + 304 * v2 - 296;
-      v4 = -304 * v2;
-      do
-      {
-        if (*(v3 + 23) < 0)
+        v31 += v30;
+        if (!--v32)
         {
-          operator delete(*v3);
+          goto LABEL_3;
+        }
+      }
+
+      v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3ED8, &qword_1B0EC2B30);
+      v34 = *&v21[*(v33 + 48)];
+      sub_1B0AEAEC4(v21, type metadata accessor for ClientCommand);
+      if (v34 != v59)
+      {
+        goto LABEL_8;
+      }
+
+      v36 = v47;
+      v35 = v48;
+      while (1)
+      {
+        sub_1B0AEAE5C(v29, v36, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v36, v35, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() != 1)
+        {
+          break;
         }
 
-        v3 -= 304;
-        v4 += 304;
-      }
-
-      while (v4);
-    }
-
-    JUMPOUT(0x1B272A6C0);
-  }
-}
-
-const char *MyEncodingName(unsigned int a1)
-{
-  if ((a1 & 0x80000000) == 0)
-  {
-    if (!a1)
-    {
-      return "Latin1";
-    }
-
-    if (a1 <= 0x4A)
-    {
-      return EncodingName(a1);
-    }
-
-    if (a1 <= 0x4E)
-    {
-      v2 = a1 - 75;
-      v3 = kFakeEncodingName2;
-      return v3[v2];
-    }
-
-    v2 = a1 - 100;
-    if (a1 - 100 <= 0x13)
-    {
-      v3 = kFakeEncodingName;
-      return v3[v2];
-    }
-  }
-
-  return "~";
-}
-
-_BYTE *MakeChar44@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  memset(a2, 170, 24);
-  result = std::string::basic_string[abi:ne200100]<0>(a2, "________");
-  v4 = *(a1 + 23);
-  v5 = a1[1];
-  if ((v4 & 0x80000000) == 0)
-  {
-    v5 = *(a1 + 23);
-  }
-
-  if (v5)
-  {
-    v6 = 0;
-    v7 = 0;
-    v8 = 0;
-    v9 = v4 >> 63;
-    v10 = 1;
-    do
-    {
-      if (v9)
-      {
-        v11 = *a1;
-      }
-
-      else
-      {
-        v11 = a1;
-      }
-
-      v12 = *(v11 + v6);
-      if (kIsAlpha[v12])
-      {
-        if (v8 <= 3)
+        sub_1B0AEAEC4(v35, type metadata accessor for TaskHistory.Previous);
+LABEL_13:
+        v29 += v30;
+        if (!--v28)
         {
-          v13 = kCharsetToLowerTbl[v12];
-          if (result[23] >= 0)
+LABEL_22:
+          v45 = 1;
+          goto LABEL_24;
+        }
+      }
+
+      v37 = *(v35 + *(v33 + 48));
+      sub_1B0AEAEC4(v35, type metadata accessor for ClientCommand);
+      if (v37 != v59)
+      {
+        goto LABEL_13;
+      }
+
+      v38 = *(v49 + 16);
+      if (v38)
+      {
+        v39 = v49 + ((*(v46 + 80) + 32) & ~*(v46 + 80));
+        v40 = *(v46 + 72);
+        do
+        {
+          v41 = v55;
+          sub_1B0AEAE5C(v39, v55, type metadata accessor for TaskHistory.Running);
+          v42 = v53;
+          sub_1B0AEF094(v41, v53, type metadata accessor for TaskHistory.Running);
+          if (swift_getEnumCaseMultiPayload() == 1)
           {
-            v14 = result;
+            sub_1B0AEAEC4(v42, type metadata accessor for TaskHistory.Running);
           }
 
           else
           {
-            v14 = *result;
+            v43 = *(v42 + 8);
+            v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3EE0, &qword_1B0EC2AF0);
+            sub_1B0AEAEC4(v42 + *(v44 + 64), type metadata accessor for ClientCommand);
+            if (v43 == v59)
+            {
+              goto LABEL_22;
+            }
           }
 
-          v14[v8++] = v13;
+          v39 += v40;
+          --v38;
         }
+
+        while (v38);
       }
 
-      else if (kIsDigit[v12])
-      {
-        if (v7 > 3)
-        {
-          if (result[23] >= 0)
-          {
-            v16 = result;
-          }
-
-          else
-          {
-            v16 = *result;
-          }
-
-          v16[4] = v16[5];
-          if (result[23] >= 0)
-          {
-            v17 = result;
-          }
-
-          else
-          {
-            v17 = *result;
-          }
-
-          v17[5] = v17[6];
-          if (result[23] >= 0)
-          {
-            v18 = result;
-          }
-
-          else
-          {
-            v18 = *result;
-          }
-
-          v18[6] = v18[7];
-          v15 = 7;
-        }
-
-        else
-        {
-          v15 = v7 + 4;
-        }
-
-        v19 = kCharsetToLowerTbl[v12];
-        if (result[23] >= 0)
-        {
-          v20 = result;
-        }
-
-        else
-        {
-          v20 = *result;
-        }
-
-        v20[v15] = v19;
-        ++v7;
-      }
-
-      v6 = v10;
-      v21 = *(a1 + 23);
-      v9 = v21 >> 63;
-      if ((v21 & 0x80000000) != 0)
-      {
-        v21 = a1[1];
-      }
+LABEL_3:
+      v27 = v58 + 1;
+      result = v54;
     }
 
-    while (v21 > v10++);
+    while (v58 + 1 != v52);
   }
 
-  return result;
+  v45 = 0;
+LABEL_24:
+
+  return v45;
 }
 
-_BYTE *MakeChar4@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_1B0AED35C(uint64_t a1)
 {
-  memset(a2, 170, 24);
-  result = std::string::basic_string[abi:ne200100]<0>(a2, "____");
-  v4 = *(a1 + 23);
-  v5 = *(a1 + 23);
-  v6 = v4 < 0;
-  v7 = a1[1];
-  if (v4 >= 0)
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4280, &qword_1B0EC4800);
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v17 - v4;
+  v6 = type metadata accessor for DownloadTask.CommandID(0);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(a1 + 16);
+  v11 = MEMORY[0x1E69E7CC0];
+  if (v10)
   {
-    v8 = *(a1 + 23);
-  }
-
-  else
-  {
-    v8 = a1[1];
-  }
-
-  if (v8)
-  {
-    v9 = 0;
-    v10 = 0;
-    v11 = 1;
+    v18 = MEMORY[0x1E69E7CC0];
+    sub_1B0B0A084(0, v10, 0);
+    v11 = v18;
+    v12 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v13 = *(v3 + 72);
     do
     {
-      if (v6)
+      sub_1B03B5C80(v12, v5, &qword_1EB6E4280, &qword_1B0EC4800);
+      sub_1B0AEF094(&v5[*(v2 + 52)], v9, type metadata accessor for DownloadTask.CommandID);
+      v18 = v11;
+      v15 = *(v11 + 16);
+      v14 = *(v11 + 24);
+      if (v15 >= v14 >> 1)
       {
-        v12 = *a1;
+        sub_1B0B0A084((v14 > 1), v15 + 1, 1);
+        v11 = v18;
       }
 
-      else
-      {
-        v12 = a1;
-      }
-
-      v13 = *(v12 + v9);
-      if (kIsDigit[v13] | kIsAlpha[v13])
-      {
-        v14 = v10 <= 3;
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      if (v14)
-      {
-        if (result[23] >= 0)
-        {
-          v15 = result;
-        }
-
-        else
-        {
-          v15 = *result;
-        }
-
-        v15[v10++] = kCharsetToLowerTbl[v13];
-        v5 = *(a1 + 23);
-        v7 = a1[1];
-      }
-
-      v9 = v11;
-      v6 = (v5 & 0x80u) != 0;
-      if ((v5 & 0x80u) == 0)
-      {
-        v16 = v5;
-      }
-
-      else
-      {
-        v16 = v7;
-      }
-
-      v14 = v16 > v11++;
+      *(v11 + 16) = v15 + 1;
+      sub_1B0AEF094(v9, v11 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v15, type metadata accessor for DownloadTask.CommandID);
+      v12 += v13;
+      --v10;
     }
 
-    while (v14);
-  }
-
-  return result;
-}
-
-_BYTE *MakeChar8@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  memset(a2, 170, 24);
-  result = std::string::basic_string[abi:ne200100]<0>(a2, "________");
-  v4 = *(a1 + 23);
-  v5 = *(a1 + 23);
-  v6 = v4 < 0;
-  v7 = a1[1];
-  if (v4 >= 0)
-  {
-    v8 = *(a1 + 23);
-  }
-
-  else
-  {
-    v8 = a1[1];
-  }
-
-  if (v8)
-  {
-    v9 = 0;
-    v10 = 0;
-    v11 = 1;
-    do
-    {
-      if (v6)
-      {
-        v12 = *a1;
-      }
-
-      else
-      {
-        v12 = a1;
-      }
-
-      v13 = *(v12 + v9);
-      if (kIsDigit[v13] | kIsAlpha[v13])
-      {
-        v14 = v10 <= 7;
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-
-      if (v14)
-      {
-        if (result[23] >= 0)
-        {
-          v15 = result;
-        }
-
-        else
-        {
-          v15 = *result;
-        }
-
-        v15[v10++] = kCharsetToLowerTbl[v13];
-        v5 = *(a1 + 23);
-        v7 = a1[1];
-      }
-
-      v9 = v11;
-      v6 = (v5 & 0x80u) != 0;
-      if ((v5 & 0x80u) == 0)
-      {
-        v16 = v5;
-      }
-
-      else
-      {
-        v16 = v7;
-      }
-
-      v14 = v16 > v11++;
-    }
-
-    while (v14);
-  }
-
-  return result;
-}
-
-uint64_t CompactEncDet_detectEncoding(int8x8_t *a1, int a2, char *a3, int a4, int a5, unsigned int a6, _BYTE *a7)
-{
-  if (a4)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = 2;
-  }
-
-  v9 = 0;
-  return CompactEncDet::DetectEncoding(a1, a2, 0, a3, 0, a5, a6, v7, 0, &v9, a7);
-}
-
-uint64_t CompactEncDet_EncodingFromName(uint64_t a1, _BYTE *a2)
-{
-  v4 = -1431655766;
-  result = EncodingFromName(a1, &v4);
-  *a2 = v4;
-  return result;
-}
-
-uint64_t CompactEncDet_LanguageFromCode(uint64_t a1, _BYTE *a2)
-{
-  v4 = -1431655766;
-  result = LanguageFromCode(a1, &v4);
-  *a2 = v4;
-  return result;
-}
-
-unint64_t IsEncEncCompatible(unsigned int a1, unsigned int a2)
-{
-  LOBYTE(v2) = 0;
-  if (a1 <= 0x4A && a2 <= 0x4A)
-  {
-    LOBYTE(v2) = 1;
-    if (a2 != a1 && a2 != 23)
-    {
-      if (a1 == 23)
-      {
-        LOBYTE(v2) = 0;
-      }
-
-      else if (a1 == 24)
-      {
-        v2 = 0x20EEFFFFFDEFFFuLL >> a2;
-        if (a2 >= 0x36)
-        {
-          LOBYTE(v2) = 0;
-        }
-      }
-
-      else if ((a1 || a2 != 27) && (a1 != 7 || a2 != 38) && (a1 != 38 || a2 != 7) && (a1 != 8 || a2 != 31) && (a1 != 33 || a2 != 34) && (a1 != 11 || a2 != 21) && (a1 != 13 || a2 != 20))
-      {
-        LOBYTE(v2) = a1 == 14 && a2 - 45 < 2 || a1 == 15 && a2 == 18 || a1 == 15 && a2 == 19 || (a2 != 15 ? (v3 = a2 == 19) : (v3 = 1), !v3 ? (v4 = 0) : (v4 = 1), a1 == 18 && (v4 & 1) != 0) || (a2 == 15 || a2 == 18) && a1 == 19;
-      }
-    }
-  }
-
-  return v2 & 1;
-}
-
-uint64_t IsIso2022Encoding(int a1)
-{
-  v1 = ((a1 - 12) < 0x3F) & (0x6000000000000001uLL >> (a1 - 12));
-  if (a1 == 44)
-  {
-    v1 = 1;
-  }
-
-  if (a1 == 48)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return v1;
-  }
-}
-
-const char *EncodingName(unsigned int a1)
-{
-  if (a1 <= 0x4A)
-  {
-    return kEncodingInfoTable[3 * a1];
-  }
-
-  else
-  {
-    return "invalid_encoding";
-  }
-}
-
-const char *MimeEncodingName(unsigned int a1)
-{
-  if (a1 <= 0x4A)
-  {
-    return kEncodingInfoTable[3 * a1 + 1];
-  }
-
-  else
-  {
-    return "";
-  }
-}
-
-uint64_t EncodingFromName(uint64_t result, _DWORD *a2)
-{
-  *a2 = 23;
-  if (result)
-  {
-    v3 = result;
-    v4 = 0;
-    for (i = kEncodingInfoTable; strcasecmp(v3, *i); i += 3)
-    {
-      if (++v4 == 75)
-      {
-        return 0;
-      }
-    }
-
-    *a2 = v4;
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t EncodingNameAliasToEncoding(char *a1)
-{
-  v3 = a1;
-  if (!a1)
-  {
-    return 23;
-  }
-
-  if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0)
-  {
-    EncodingNameAliasToEncoding();
-  }
-
-  if (GetEncodingMap(void)::onceToken != -1)
-  {
-    EncodingNameAliasToEncoding();
-  }
-
-  v1 = std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::find<char const*>(&xmmword_1EB6E7F28, &v3);
-  if (v1)
-  {
-    return *(v1 + 6);
-  }
-
-  else
-  {
-    return 23;
-  }
-}
-
-uint64_t PreferredWebOutputEncoding(unsigned int a1)
-{
-  if (a1 > 0x4A)
-  {
-    return 22;
-  }
-
-  else
-  {
-    return LODWORD(kEncodingInfoTable[3 * a1 + 2]);
-  }
-}
-
-uint64_t *___ZL14GetEncodingMapv_block_invoke()
-{
-  v0 = 0;
-  v1 = kEncodingInfoTable;
-  do
-  {
-    v2 = *v1;
-    v1 += 3;
-    v6 = v2;
-    v7 = &v6;
-    *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = v0++;
-  }
-
-  while (v0 != 75);
-  v3 = 0;
-  v4 = &off_1E7AB53F0;
-  do
-  {
-    v6 = *v4;
-    if (!std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::find<char const*>(&xmmword_1EB6E7F28, &v6))
-    {
-      v7 = &v6;
-      *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = v3;
-    }
-
-    ++v3;
-    v4 += 3;
-  }
-
-  while (v3 != 75);
-  v6 = "5601";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "646";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 24;
-  v6 = "852";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 39;
-  v6 = "866";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 42;
-  v6 = "8859-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "ansi-1251";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 26;
-  v6 = "ansi_x3.4-1968";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 24;
-  v6 = "arabic";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 5;
-  v6 = "ascii";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "ascii-7-bit";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 24;
-  v6 = "asmo-708";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 5;
-  v6 = "bhaskar";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 55;
-  v6 = "big5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 13;
-  v6 = "big5-cp950";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 20;
-  v6 = "big5-hkscs";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 47;
-  v6 = "chinese";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "cns";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 19;
-  v6 = "cns11643";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 19;
-  v6 = "cp1250";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 29;
-  v6 = "cp1251";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 26;
-  v6 = "cp1252";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 27;
-  v6 = "cp1253";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 41;
-  v6 = "cp1254";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 31;
-  v6 = "cp1255";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 36;
-  v6 = "cp1256";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 35;
-  v6 = "cp1257";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 32;
-  v6 = "cp819";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "cp852";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 39;
-  v6 = "cp866";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 42;
-  v6 = "cp-866";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 42;
-  v6 = "cp874";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 34;
-  v6 = "cp932";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 21;
-  v6 = "cp950";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 20;
-  v6 = "csbig5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 13;
-  v6 = "cseucjpkdfmtjapanese";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 10;
-  v6 = "cseuckr";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "csgb2312";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "csibm852";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 39;
-  v6 = "csibm866";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 42;
-  v6 = "csiso2022jp";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 12;
-  v6 = "csiso2022kr";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 44;
-  v6 = "csiso58gb231280";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "csiso88598i";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 37;
-  v6 = "csisolatin1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "csisolatin2";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 1;
-  v6 = "csisolatin3";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 2;
-  v6 = "csisolatin4";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 3;
-  v6 = "csisolatin5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 8;
-  v6 = "csisolatin6";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 9;
-  v6 = "csisolatinarabic";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 5;
-  v6 = "csisolatincyrillic";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 4;
-  v6 = "csisolatingreek";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "csisolatinhebrew";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 7;
-  v6 = "csksc56011987";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "csmacintosh";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 53;
-  v6 = "csn-369103";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 40;
-  v6 = "csshiftjis";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 11;
-  v6 = "csunicode";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "csunicode11";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "csunicode11utf7";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 54;
-  v6 = "csunicodeascii";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "csunicodelatin1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "cyrillic";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 4;
-  v6 = "ecma-114";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 5;
-  v6 = "ecma-118";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "elot_928";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "euc";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 18;
-  v6 = "euc-cn";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 15;
-  v6 = "euc-dec";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 18;
-  v6 = "euc-jp";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 10;
-  v6 = "euc-kr";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "eucgb2312_cn";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "gb";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "gb18030";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 46;
-  v6 = "gb2132";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "gb2312";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "gb_2312-80";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "gbk";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 45;
-  v6 = "greek";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "greek8";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "hebrew";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 7;
-  v6 = "htchanakya";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 56;
-  v6 = "hz-gb-2312";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 62;
-  v6 = "ibm819";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "ibm852";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 39;
-  v6 = "ibm874";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 34;
-  v6 = "iso-10646";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "iso-10646-j-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "iso-10646-ucs-2";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 17;
-  v6 = "iso-10646-ucs-4";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 59;
-  v6 = "iso-10646-ucs-basic";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "iso-10646-unicode-latin1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "iso-2022-cn";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 48;
-  v6 = "iso-2022-jp";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 12;
-  v6 = "iso-2022-kr";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 44;
-  v6 = "iso-8559-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "iso-874";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 34;
-  v6 = "iso-8858-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "iso-8859-0";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 30;
-  v6 = "iso-8859-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "iso-8859-10";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 9;
-  v6 = "iso-8859-11";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 33;
-  v6 = "iso-8859-13";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 43;
-  v6 = "iso-8859-15";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 30;
-  v6 = "iso-8859-2";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 1;
-  v6 = "iso-8859-3";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 2;
-  v6 = "iso-8859-4";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 3;
-  v6 = "iso-8859-5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 4;
-  v6 = "iso-8859-6";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 5;
-  v6 = "iso-8859-7";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "iso-8859-8";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 7;
-  v6 = "iso-8859-8-i";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 37;
-  v6 = "iso-8859-9";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 8;
-  v6 = "iso-9959-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "iso-ir-100";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "iso-ir-101";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 1;
-  v6 = "iso-ir-109";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 2;
-  v6 = "iso-ir-110";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 3;
-  v6 = "iso-ir-126";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "iso-ir-127";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 5;
-  v6 = "iso-ir-138";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 7;
-  v6 = "iso-ir-144";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 4;
-  v6 = "iso-ir-148";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 8;
-  v6 = "iso-ir-149";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "iso-ir-157";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 9;
-  v6 = "iso-ir-58";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "iso-latin-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "iso_2022-cn";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 48;
-  v6 = "iso_2022-kr";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 44;
-  v6 = "iso_8859-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "iso_8859-10:1992";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 9;
-  v6 = "iso_8859-11";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 33;
-  v6 = "iso_8859-13";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 43;
-  v6 = "iso_8859-15";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 30;
-  v6 = "iso_8859-1:1987";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "iso_8859-2";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 1;
-  v6 = "iso_8859-2:1987";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 1;
-  v6 = "iso_8859-3";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 2;
-  v6 = "iso_8859-3:1988";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 2;
-  v6 = "iso_8859-4";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 3;
-  v6 = "iso_8859-4:1988";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 3;
-  v6 = "iso_8859-5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 4;
-  v6 = "iso_8859-5:1988";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 4;
-  v6 = "iso_8859-6";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 5;
-  v6 = "iso_8859-6:1987";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 5;
-  v6 = "iso_8859-7";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "iso_8859-7:1987";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "iso_8859-8";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 7;
-  v6 = "iso_8859-8:1988:";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 7;
-  v6 = "iso_8859-9";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 8;
-  v6 = "iso_8859-9:1989";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 8;
-  v6 = "jagran";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 52;
-  v6 = "jis";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 12;
-  v6 = "koi8-cs";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 40;
-  v6 = "koi8-r";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 25;
-  v6 = "koi8-ru";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 28;
-  v6 = "koi8-u";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 28;
-  v6 = "koi8r";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 25;
-  v6 = "koi8u";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 28;
-  v6 = "korean";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "ks-c-5601";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "ks-c-5601-1987";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "ks_c_5601-1989";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "ksc";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 16;
-  v6 = "l1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "l2";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 1;
-  v6 = "l3";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 2;
-  v6 = "l4";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 3;
-  v6 = "l5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 8;
-  v6 = "l6";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 9;
-  v6 = "latin-1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "latin1";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "latin2";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 1;
-  v6 = "latin3";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 2;
-  v6 = "latin4";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 3;
-  v6 = "latin5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 8;
-  v6 = "latin6";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 9;
-  v6 = "mac";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 53;
-  v6 = "macintosh";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 53;
-  v6 = "macintosh-roman";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 53;
-  v6 = "ms932";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 21;
-  v6 = "ms_kanji";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 21;
-  v6 = "shift-jis";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 11;
-  v6 = "shift_jis";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 11;
-  v6 = "sjis";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 11;
-  v6 = "sjs";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 11;
-  v6 = "sun_eu_greek";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 6;
-  v6 = "tab";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 51;
-  v6 = "tam";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 50;
-  v6 = "tis-620";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 33;
-  v6 = "tscii";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 49;
-  v6 = "un";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 23;
-  v6 = "unicode";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 17;
-  v6 = "unicode-1-1-utf-7";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 54;
-  v6 = "unicode-1-1-utf-8";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 22;
-  v6 = "unicode-2-0-utf-7";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 54;
-  v6 = "unknown";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 23;
-  v6 = "us";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "us-ascii";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 0;
-  v6 = "utf-16be";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "utf-16le";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 58;
-  v6 = "utf-32be";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 59;
-  v6 = "utf-32le";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 60;
-  v6 = "utf-7";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 54;
-  v6 = "utf-8";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 22;
-  v6 = "utf7";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 54;
-  v6 = "utf8";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 22;
-  v6 = "visual";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 38;
-  v6 = "win-1250";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 29;
-  v6 = "win-1251";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 26;
-  v6 = "window-874";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 34;
-  v6 = "windows-1250";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 29;
-  v6 = "windows-1251";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 26;
-  v6 = "windows-1252";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 27;
-  v6 = "windows-1253";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 41;
-  v6 = "windows-1254";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 31;
-  v6 = "windows-1255";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 36;
-  v6 = "windows-1256";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 35;
-  v6 = "windows-1257";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 32;
-  v6 = "windows-31j";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 21;
-  v6 = "windows-874";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 34;
-  v6 = "windows-936";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 45;
-  v6 = "x-big5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 13;
-  v6 = "x-binaryenc";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 61;
-  v6 = "x-cp1250";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 29;
-  v6 = "x-cp1251";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 26;
-  v6 = "x-cp1252";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 27;
-  v6 = "x-cp1253";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 41;
-  v6 = "x-cp1254";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 31;
-  v6 = "x-cp1255";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 36;
-  v6 = "x-cp1256";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 35;
-  v6 = "x-cp1257";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 32;
-  v6 = "x-euc-jp";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 10;
-  v6 = "x-euc-tw";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 19;
-  v6 = "x-gbk";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 45;
-  v6 = "x-iso-10646-ucs-2-be";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 57;
-  v6 = "x-iso-10646-ucs-2-le";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 58;
-  v6 = "x-iso-10646-ucs-4-be";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 59;
-  v6 = "x-iso-10646-ucs-4-le";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 60;
-  v6 = "x-jis";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 12;
-  v6 = "x-mac-roman";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 53;
-  v6 = "x-shift_jis";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 11;
-  v6 = "x-sjis";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 11;
-  v6 = "x-unicode-2-0-utf-7";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 54;
-  v6 = "x-utf8utf8";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 63;
-  v6 = "x-x-big5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 13;
-  v6 = "zh_cn.euc";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 14;
-  v6 = "zh_tw-big5";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 13;
-  v6 = "zh_tw-euc";
-  v7 = &v6;
-  *(std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&xmmword_1EB6E7F28, &v6) + 6) = 19;
-  v7 = "";
-  return std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__erase_unique<char const*>(&xmmword_1EB6E7F28, &v7);
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::~__hash_table(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    do
-    {
-      v3 = *v2;
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-
-  v4 = *a1;
-  *a1 = 0;
-  if (v4)
-  {
-    operator delete(v4);
-  }
-
-  return a1;
-}
-
-uint64_t **std::__hash_table<std::__hash_value_type<char const*,Encoding>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseHash,CStringAlnumCaseEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,Encoding>,CStringAlnumCaseEqual,CStringAlnumCaseHash,true>,std::allocator<std::__hash_value_type<char const*,Encoding>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(void *a1, char **a2)
-{
-  v4 = CStringAlnumCaseHash::operator()(a1, *a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!CStringAlnumCaseEqual::operator()(a1, v11[2], *a2))
-  {
-    goto LABEL_17;
+    while (v10);
   }
 
   return v11;
 }
 
-uint64_t CStringAlnumCaseHash::operator()(uint64_t a1, _BYTE *a2)
+uint64_t sub_1B0AED594(uint64_t a1)
 {
-  v2 = *a2;
-  if (*a2)
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E4260, &qword_1B0EC47E0);
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v17 - v4;
+  Missing = type metadata accessor for FindMissingMessages.CommandID(0);
+  v7 = *(Missing - 8);
+  MEMORY[0x1EEE9AC00](Missing - 8);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(a1 + 16);
+  v11 = MEMORY[0x1E69E7CC0];
+  if (v10)
   {
-    v3 = 0;
-    v4 = a2 + 1;
-    v5 = MEMORY[0x1E69E9830];
-    while ((v2 & 0x80) == 0)
+    v18 = MEMORY[0x1E69E7CC0];
+    sub_1B0B0A1C4(0, v10, 0);
+    v11 = v18;
+    v12 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v13 = *(v3 + 72);
+    do
     {
-      if ((*(v5 + 4 * v2 + 60) & 0x500) != 0)
+      sub_1B03B5C80(v12, v5, &qword_1EB6E4260, &qword_1B0EC47E0);
+      sub_1B0AEF094(&v5[*(v2 + 52)], v9, type metadata accessor for FindMissingMessages.CommandID);
+      v18 = v11;
+      v15 = *(v11 + 16);
+      v14 = *(v11 + 24);
+      if (v15 >= v14 >> 1)
+      {
+        sub_1B0B0A1C4((v14 > 1), v15 + 1, 1);
+        v11 = v18;
+      }
+
+      *(v11 + 16) = v15 + 1;
+      sub_1B0AEF094(v9, v11 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v15, type metadata accessor for FindMissingMessages.CommandID);
+      v12 += v13;
+      --v10;
+    }
+
+    while (v10);
+  }
+
+  return v11;
+}
+
+uint64_t sub_1B0AED7CC(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  v3 = MEMORY[0x1E69E7CC0];
+  if (v2)
+  {
+    v4 = result;
+    v5 = 0;
+    v6 = a2 + 48;
+    v7 = MEMORY[0x1E69E7CC0];
+    while (1)
+    {
+      v8 = (v6 + 24 * v5);
+      v9 = v5;
+      while (1)
+      {
+        if (v9 >= v2)
+        {
+          __break(1u);
+LABEL_26:
+          __break(1u);
+          return result;
+        }
+
+        v5 = v9 + 1;
+        if (__OFADD__(v9, 1))
+        {
+          goto LABEL_26;
+        }
+
+        v10 = *v8;
+        if (*v8)
+        {
+          break;
+        }
+
+        if (v4)
+        {
+          goto LABEL_10;
+        }
+
+LABEL_5:
+        ++v9;
+        v8 += 24;
+        if (v5 == v2)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      if (v4)
       {
         goto LABEL_5;
       }
 
-LABEL_6:
-      v6 = *v4++;
-      v2 = v6;
-      if (!v6)
+LABEL_10:
+      v11 = *(v8 - 4);
+      v12 = *(v8 - 1);
+      result = swift_isUniquelyReferenced_nonNull_native();
+      if ((result & 1) == 0)
       {
-        return v3;
+        result = sub_1B0B0A204(0, *(v7 + 16) + 1, 1);
+      }
+
+      v14 = *(v7 + 16);
+      v13 = *(v7 + 24);
+      if (v14 >= v13 >> 1)
+      {
+        result = sub_1B0B0A204((v13 > 1), v14 + 1, 1);
+      }
+
+      *(v7 + 16) = v14 + 1;
+      v15 = v7 + 24 * v14;
+      *(v15 + 32) = v11;
+      *(v15 + 40) = v12;
+      *(v15 + 48) = v10;
+      if (v5 == v2)
+      {
+        goto LABEL_17;
       }
     }
-
-    if (!__maskrune(v2, 0x500uLL))
-    {
-      goto LABEL_6;
-    }
-
-LABEL_5:
-    v3 = 5 * v3 + __tolower(*(v4 - 1));
-    goto LABEL_6;
   }
 
-  return 0;
-}
-
-BOOL CStringAlnumCaseEqual::operator()(uint64_t a1, char *a2, char *a3)
-{
-  v5 = MEMORY[0x1E69E9830];
-  do
+  v7 = MEMORY[0x1E69E7CC0];
+LABEL_17:
+  v16 = *(v7 + 16);
+  if (v16)
   {
-    while (1)
-    {
-      v6 = *a2++;
-      if ((v6 & 0x80000000) != 0)
-      {
-        if (__maskrune(v6, 0x500uLL))
-        {
-          goto LABEL_7;
-        }
-
-        goto LABEL_6;
-      }
-
-      if ((*(v5 + 4 * v6 + 60) & 0x500) != 0)
-      {
-        break;
-      }
-
-LABEL_6:
-      if (!*(a2 - 1))
-      {
-        goto LABEL_7;
-      }
-    }
-
+    sub_1B0B09DC4(0, v16, 0);
+    v17 = *(v3 + 16);
+    v18 = 32;
     do
     {
-LABEL_7:
-      v7 = *a3++;
-      if ((v7 & 0x80000000) != 0)
+      v19 = *(v7 + v18);
+      v20 = *(v3 + 24);
+      if (v17 >= v20 >> 1)
       {
-        if (__maskrune(v7, 0x500uLL))
+        sub_1B0B09DC4((v20 > 1), v17 + 1, 1);
+      }
+
+      *(v3 + 16) = v17 + 1;
+      *(v3 + 4 * v17 + 32) = v19;
+      v18 += 24;
+      ++v17;
+      --v16;
+    }
+
+    while (v16);
+  }
+
+  else
+  {
+
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v3;
+}
+
+uint64_t sub_1B0AED9C4(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, uint64_t, double))
+{
+  v52 = a3;
+  v43 = a2;
+  v51 = type metadata accessor for TaskHistory.Running(0);
+  v8 = *(v51 - 8);
+  MEMORY[0x1EEE9AC00](v51);
+  v50 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v49 = &v41 - v11;
+  v12 = type metadata accessor for TaskHistory.Previous(0);
+  v46 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v41 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v44 = &v41 - v16;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v41 - v18;
+  v21 = MEMORY[0x1EEE9AC00](v20);
+  v23 = &v41 - v22;
+  result = a5(a1 & 1, a4, v21);
+  v47 = *(result + 16);
+  if (v47)
+  {
+    v42 = v8;
+    v25 = 0;
+    v45 = result + 32;
+    v48 = result;
+    do
+    {
+      if (v25 >= *(result + 16))
+      {
+        __break(1u);
+        return result;
+      }
+
+      v53 = v25;
+      v26 = *(v52 + 16);
+      if (!v26)
+      {
+        goto LABEL_3;
+      }
+
+      v54 = *(v45 + 4 * v53);
+      v27 = v52 + ((*(v46 + 80) + 32) & ~*(v46 + 80));
+      v28 = *(v46 + 72);
+      v29 = v27;
+      v30 = v26;
+      while (1)
+      {
+        sub_1B0AEAE5C(v29, v23, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v23, v19, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
         {
           break;
         }
+
+        sub_1B0AEAEC4(v19, type metadata accessor for TaskHistory.Previous);
+LABEL_8:
+        v29 += v28;
+        if (!--v30)
+        {
+          goto LABEL_3;
+        }
       }
 
-      else if ((*(v5 + 4 * v7 + 60) & 0x500) != 0)
+      v31 = *(v19 + 2);
+      sub_1B03E1BE8(*v19);
+      if (v31 != v54)
       {
-        break;
+        goto LABEL_8;
+      }
+
+      v32 = v44;
+      while (1)
+      {
+        sub_1B0AEAE5C(v27, v32, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v32, v14, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v14, type metadata accessor for TaskHistory.Previous);
+LABEL_13:
+        v27 += v28;
+        if (!--v26)
+        {
+LABEL_22:
+          v40 = 1;
+          goto LABEL_24;
+        }
+      }
+
+      v33 = *(v14 + 2);
+      sub_1B03E1BE8(*v14);
+      if (v33 != v54)
+      {
+        goto LABEL_13;
+      }
+
+      v34 = *(v43 + 16);
+      if (v34)
+      {
+        v35 = v43 + ((*(v42 + 80) + 32) & ~*(v42 + 80));
+        v36 = *(v42 + 72);
+        do
+        {
+          v37 = v49;
+          sub_1B0AEAE5C(v35, v49, type metadata accessor for TaskHistory.Running);
+          v38 = v50;
+          sub_1B0AEF094(v37, v50, type metadata accessor for TaskHistory.Running);
+          if (swift_getEnumCaseMultiPayload() == 1)
+          {
+            v39 = *(v38 + 4);
+            sub_1B03E1BE8(*(v38 + 8));
+            if (v39 == v54)
+            {
+              goto LABEL_22;
+            }
+          }
+
+          else
+          {
+            sub_1B0AEAEC4(v38, type metadata accessor for TaskHistory.Running);
+          }
+
+          v35 += v36;
+          --v34;
+        }
+
+        while (v34);
+      }
+
+LABEL_3:
+      v25 = v53 + 1;
+      result = v48;
+    }
+
+    while (v53 + 1 != v47);
+  }
+
+  v40 = 0;
+LABEL_24:
+
+  return v40;
+}
+
+uint64_t sub_1B0AEDE44(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  v3 = MEMORY[0x1E69E7CC0];
+  if (v2)
+  {
+    v4 = result;
+    v5 = 0;
+    v6 = a2 + 48;
+    v7 = MEMORY[0x1E69E7CC0];
+    while (1)
+    {
+      v8 = (v6 + 24 * v5);
+      v9 = v5;
+      while (1)
+      {
+        if (v9 >= v2)
+        {
+          __break(1u);
+LABEL_30:
+          __break(1u);
+          return result;
+        }
+
+        v5 = v9 + 1;
+        if (__OFADD__(v9, 1))
+        {
+          goto LABEL_30;
+        }
+
+        v10 = *(v8 - 4);
+        result = *(v8 - 1);
+        v11 = *v8;
+        v12 = (*v8 >> 60) & 3;
+        if (!v12)
+        {
+          if (!v4)
+          {
+            goto LABEL_14;
+          }
+
+          goto LABEL_5;
+        }
+
+        if (v12 != 1)
+        {
+          break;
+        }
+
+        if (v4 == 2)
+        {
+          goto LABEL_14;
+        }
+
+LABEL_5:
+        ++v9;
+        v8 += 3;
+        if (v5 == v2)
+        {
+          goto LABEL_21;
+        }
+      }
+
+      if (v4 != 1)
+      {
+        result = sub_1B0AEF194(result, v11);
+        goto LABEL_5;
+      }
+
+LABEL_14:
+      v13 = *(v8 - 1);
+      v14 = *v8;
+      sub_1B0AEF178(result, v11);
+      result = swift_isUniquelyReferenced_nonNull_native();
+      v26 = v6;
+      if ((result & 1) == 0)
+      {
+        result = sub_1B0B0A404(0, *(v7 + 16) + 1, 1);
+      }
+
+      v16 = *(v7 + 16);
+      v15 = *(v7 + 24);
+      v17 = v14;
+      v18 = v13;
+      if (v16 >= v15 >> 1)
+      {
+        result = sub_1B0B0A404((v15 > 1), v16 + 1, 1);
+        v18 = v13;
+        v17 = v14;
+      }
+
+      *(v7 + 16) = v16 + 1;
+      v19 = v7 + 24 * v16;
+      *(v19 + 32) = v10;
+      *(v19 + 40) = v18;
+      *(v19 + 48) = v17;
+      v3 = MEMORY[0x1E69E7CC0];
+      v6 = v26;
+      if (v5 == v2)
+      {
+        goto LABEL_21;
+      }
+    }
+  }
+
+  v7 = MEMORY[0x1E69E7CC0];
+LABEL_21:
+  v20 = *(v7 + 16);
+  if (v20)
+  {
+    sub_1B0B09DC4(0, v20, 0);
+    v21 = v3;
+    v22 = *(v3 + 16);
+    v23 = 32;
+    do
+    {
+      v24 = *(v7 + v23);
+      v25 = *(v21 + 24);
+      if (v22 >= v25 >> 1)
+      {
+        sub_1B0B09DC4((v25 > 1), v22 + 1, 1);
+      }
+
+      *(v21 + 16) = v22 + 1;
+      *(v21 + 4 * v22 + 32) = v24;
+      v23 += 24;
+      ++v22;
+      --v20;
+    }
+
+    while (v20);
+  }
+
+  else
+  {
+
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v21;
+}
+
+uint64_t sub_1B0AEE08C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, double))
+{
+  v52 = a3;
+  v43 = a2;
+  v51 = type metadata accessor for TaskHistory.Running(0);
+  v8 = *(v51 - 8);
+  MEMORY[0x1EEE9AC00](v51);
+  v50 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v49 = &v41 - v11;
+  v12 = type metadata accessor for TaskHistory.Previous(0);
+  v46 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v41 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v44 = &v41 - v16;
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v41 - v18;
+  v21 = MEMORY[0x1EEE9AC00](v20);
+  v23 = &v41 - v22;
+  result = a5(a1, a4, v21);
+  v47 = *(result + 16);
+  if (v47)
+  {
+    v42 = v8;
+    v25 = 0;
+    v45 = result + 32;
+    v48 = result;
+    do
+    {
+      if (v25 >= *(result + 16))
+      {
+        __break(1u);
+        return result;
+      }
+
+      v53 = v25;
+      v26 = *(v52 + 16);
+      if (!v26)
+      {
+        goto LABEL_3;
+      }
+
+      v54 = *(v45 + 4 * v53);
+      v27 = v52 + ((*(v46 + 80) + 32) & ~*(v46 + 80));
+      v28 = *(v46 + 72);
+      v29 = v27;
+      v30 = v26;
+      while (1)
+      {
+        sub_1B0AEAE5C(v29, v23, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v23, v19, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v19, type metadata accessor for TaskHistory.Previous);
+LABEL_8:
+        v29 += v28;
+        if (!--v30)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      v31 = *(v19 + 2);
+      sub_1B03E1BE8(*v19);
+      if (v31 != v54)
+      {
+        goto LABEL_8;
+      }
+
+      v32 = v44;
+      while (1)
+      {
+        sub_1B0AEAE5C(v27, v32, type metadata accessor for TaskHistory.Previous);
+        sub_1B0AEF094(v32, v14, type metadata accessor for TaskHistory.Previous);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          break;
+        }
+
+        sub_1B0AEAEC4(v14, type metadata accessor for TaskHistory.Previous);
+LABEL_13:
+        v27 += v28;
+        if (!--v26)
+        {
+LABEL_22:
+          v40 = 1;
+          goto LABEL_24;
+        }
+      }
+
+      v33 = *(v14 + 2);
+      sub_1B03E1BE8(*v14);
+      if (v33 != v54)
+      {
+        goto LABEL_13;
+      }
+
+      v34 = *(v43 + 16);
+      if (v34)
+      {
+        v35 = v43 + ((*(v42 + 80) + 32) & ~*(v42 + 80));
+        v36 = *(v42 + 72);
+        do
+        {
+          v37 = v49;
+          sub_1B0AEAE5C(v35, v49, type metadata accessor for TaskHistory.Running);
+          v38 = v50;
+          sub_1B0AEF094(v37, v50, type metadata accessor for TaskHistory.Running);
+          if (swift_getEnumCaseMultiPayload() == 1)
+          {
+            v39 = *(v38 + 4);
+            sub_1B03E1BE8(*(v38 + 8));
+            if (v39 == v54)
+            {
+              goto LABEL_22;
+            }
+          }
+
+          else
+          {
+            sub_1B0AEAEC4(v38, type metadata accessor for TaskHistory.Running);
+          }
+
+          v35 += v36;
+          --v34;
+        }
+
+        while (v34);
+      }
+
+LABEL_3:
+      v25 = v53 + 1;
+      result = v48;
+    }
+
+    while (v53 + 1 != v47);
+  }
+
+  v40 = 0;
+LABEL_24:
+
+  return v40;
+}
+
+uint64_t sub_1B0AEE50C(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v68 = a3;
+  v69 = a4;
+  v67 = a2;
+  v70 = a1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3120, qword_1B0E9B270);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v54 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E3670, &unk_1B0E9B260);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v54 - v10;
+  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6E3628, &unk_1B0EA2080);
+  MEMORY[0x1EEE9AC00](v63);
+  v60 = (&v54 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = (&v54 - v14);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E26C0, &unk_1B0E9DE10);
+  v64 = *(v16 - 8);
+  v65 = v16;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v54 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v54 - v20;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E1AF0, &unk_1B0E9AF40);
+  MEMORY[0x1EEE9AC00](v22 - 8);
+  v59 = &v54 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v26 = &v54 - v25;
+  v27 = *(v4 + 72);
+  v61 = *(v4 + 64);
+  v62 = v27;
+  MissingMessages = type metadata accessor for FindMissingMessages(0);
+  v28 = v4 + *(MissingMessages + 72);
+  if (*(v28 + 24) && ((v70 >> 59) & 0x1E | (v70 >> 2) & 1) == 0xA)
+  {
+    v55 = v18;
+    v56 = v8;
+    v57 = v6;
+    v58 = v5;
+    v29 = swift_projectBox();
+    sub_1B03B5C80(v29, v15, &qword_1EB6E3628, &unk_1B0EA2080);
+    v30 = *(v63 + 48);
+    v31 = *(v63 + 64);
+    if (v62 == v15[1])
+    {
+      v32 = sub_1B04520BC(v61, *v15);
+
+      if (v32)
+      {
+        sub_1B03C60A4(v15 + v30, v26, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        v33 = sub_1B03C60A4(v15 + v31, v21, &unk_1EB6E26C0, &unk_1B0E9DE10);
+        v34 = *(v28 + 24);
+        MEMORY[0x1EEE9AC00](v33);
+        *(&v54 - 2) = v21;
+        v35 = sub_1B0BA7094(sub_1B0AEF0FC, (&v54 - 4), v34);
+        v5 = v58;
+        if ((v36 & 1) == 0)
+        {
+          v37 = v35;
+          if (sub_1B0AEBA2C(v35, 0, v67, v68, v69, sub_1B0A9EEE8))
+          {
+            v38 = v34;
+            result = swift_isUniquelyReferenced_nonNull_native();
+            v8 = v56;
+            v6 = v57;
+            if (result)
+            {
+              if ((v37 & 0x8000000000000000) == 0)
+              {
+                goto LABEL_9;
+              }
+            }
+
+            else
+            {
+              result = sub_1B0B8C950(v38);
+              v38 = result;
+              if ((v37 & 0x8000000000000000) == 0)
+              {
+LABEL_9:
+                v54 = v4;
+                if (v37 < v38[2])
+                {
+                  _s20GrowWindowOfInterestV6ResultVMa(0);
+                  sub_1B0AF2B0C(v26);
+                  sub_1B0398EFC(v26, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+                  *(v28 + 24) = v38;
+                  sub_1B0398EFC(v21, &unk_1EB6E26C0, &unk_1B0E9DE10);
+                  v4 = v54;
+LABEL_14:
+                  v18 = v55;
+                  goto LABEL_15;
+                }
+
+LABEL_32:
+                __break(1u);
+                return result;
+              }
+            }
+
+            __break(1u);
+            goto LABEL_32;
+          }
+        }
+
+        sub_1B0398EFC(v26, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+        sub_1B0398EFC(v21, &unk_1EB6E26C0, &unk_1B0E9DE10);
+LABEL_13:
+        v8 = v56;
+        v6 = v57;
+        goto LABEL_14;
       }
     }
 
-    while (*(a3 - 1));
-    v8 = __tolower(*(a2 - 1));
-    v9 = __tolower(*(a3 - 1));
+    else
+    {
+    }
+
+    sub_1B0398EFC(v15 + v31, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    sub_1B0398EFC(v15 + v30, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+    v5 = v58;
+    goto LABEL_13;
   }
 
-  while (v8 == v9 && *(a2 - 1));
-  return v8 == v9;
+LABEL_15:
+  result = sub_1B0AEBA2C(0, 1, v67, v68, v69, sub_1B0A9EEE8);
+  if ((result & 1) == 0)
+  {
+    return result;
+  }
+
+  v40 = v4 + *(MissingMessages + 44);
+  v41 = *v40;
+  v42 = *(v40 + 13);
+  LOBYTE(v40) = *(v40 + 20);
+  v72 = v42;
+  v71 = v40;
+  sub_1B0AF58C8(v41, v11);
+  if ((*(v64 + 48))(v11, 1, v65) == 1)
+  {
+    v43 = &unk_1EB6E3670;
+    v44 = &unk_1B0E9B260;
+    v45 = v11;
+  }
+
+  else
+  {
+    sub_1B03C60A4(v11, v18, &unk_1EB6E26C0, &unk_1B0E9DE10);
+    if (((v70 >> 59) & 0x1E | (v70 >> 2) & 1) == 0xA)
+    {
+      v46 = v18;
+      v47 = swift_projectBox();
+      v48 = v60;
+      sub_1B03B5C80(v47, v60, &qword_1EB6E3628, &unk_1B0EA2080);
+      v49 = *(v63 + 48);
+      v50 = *(v63 + 64);
+      if (v62 == v48[1])
+      {
+        v51 = sub_1B04520BC(v61, *v48);
+
+        if (v51)
+        {
+          v52 = v59;
+          sub_1B03C60A4(v48 + v49, v59, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          sub_1B03D06F8();
+          v53 = sub_1B0E46E08();
+          sub_1B0398EFC(v48 + v50, &unk_1EB6E26C0, &unk_1B0E9DE10);
+          if (v53)
+          {
+            (*(v6 + 16))(v8, v52, v5);
+            sub_1B0E46ED8();
+          }
+
+          sub_1B0398EFC(v52, &unk_1EB6E1AF0, &unk_1B0E9AF40);
+          v43 = &unk_1EB6E26C0;
+          v44 = &unk_1B0E9DE10;
+          v45 = v46;
+          return sub_1B0398EFC(v45, v43, v44);
+        }
+      }
+
+      else
+      {
+      }
+
+      sub_1B0398EFC(v46, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      sub_1B0398EFC(v48 + v50, &unk_1EB6E26C0, &unk_1B0E9DE10);
+      v43 = &unk_1EB6E1AF0;
+      v44 = &unk_1B0E9AF40;
+      v45 = v48 + v49;
+    }
+
+    else
+    {
+      v43 = &unk_1EB6E26C0;
+      v44 = &unk_1B0E9DE10;
+      v45 = v18;
+    }
+  }
+
+  return sub_1B0398EFC(v45, v43, v44);
+}
+
+uint64_t sub_1B0AEECD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t a6)
+{
+  v11 = type metadata accessor for MailboxTaskLogger(0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v31 - v16;
+  if ((a5[1] & 1) == 0)
+  {
+    v18 = *a5;
+    v37 = a4;
+    v15 = sub_1B0B6C188(a2, a3, v18);
+    a4 = v37;
+    if ((v15 & 0x100000000) == 0)
+    {
+      v36 = v15;
+      sub_1B0AEAE5C(a6, v17, type metadata accessor for MailboxTaskLogger);
+      sub_1B0AEAE5C(a6, v13, type metadata accessor for MailboxTaskLogger);
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      sub_1B0394868();
+      v19 = sub_1B0E43988();
+      v20 = sub_1B0E458D8();
+      if (os_log_type_enabled(v19, v20))
+      {
+        v21 = swift_slowAlloc();
+        v34 = v20;
+        v22 = v21;
+        v35 = swift_slowAlloc();
+        v40 = v35;
+        *v22 = 68159491;
+        *(v22 + 4) = 2;
+        *(v22 + 8) = 256;
+        v32 = &v13[*(v11 + 20)];
+        v33 = v19;
+        *(v22 + 10) = *v32;
+        *(v22 + 11) = 2082;
+        v23 = &v17[*(v11 + 20)];
+        *(v22 + 13) = sub_1B0399D64(*(v23 + 1), *(v23 + 2), &v40);
+        *(v22 + 21) = 1040;
+        *(v22 + 23) = 2;
+        *(v22 + 27) = 512;
+        LODWORD(v32) = *(v32 + 12);
+        sub_1B0AEAEC4(v13, type metadata accessor for MailboxTaskLogger);
+        *(v22 + 29) = v32;
+        *(v22 + 31) = 2160;
+        *(v22 + 33) = 0x786F626C69616DLL;
+        *(v22 + 41) = 2085;
+        v24 = *(v23 + 4);
+        LODWORD(v23) = *(v23 + 10);
+        _s13IMAP2Behavior27ConnectionIDsGroupedByStateV11connectionsSayAC0C0VGvg_0();
+        sub_1B0AEAEC4(v17, type metadata accessor for MailboxTaskLogger);
+        v38 = v24;
+        v39 = v23;
+        v25 = sub_1B0E44BA8();
+        v27 = sub_1B0399D64(v25, v26, &v40);
+
+        *(v22 + 43) = v27;
+        *(v22 + 51) = 1024;
+        *(v22 + 53) = v36;
+        v28 = v33;
+        _os_log_impl(&dword_1B0389000, v33, v34, "[%.*hhx-%{public}s] [{%.*hx}-%{sensitive,mask.mailbox}s] Updating server next UID to %u.", v22, 0x39u);
+        v29 = v35;
+        swift_arrayDestroy();
+        MEMORY[0x1B272C230](v29, -1, -1);
+        MEMORY[0x1B272C230](v22, -1, -1);
+      }
+
+      else
+      {
+        sub_1B0AEAEC4(v13, type metadata accessor for MailboxTaskLogger);
+
+        v15 = sub_1B0AEAEC4(v17, type metadata accessor for MailboxTaskLogger);
+      }
+
+      a4 = v37;
+    }
+  }
+
+  MEMORY[0x1EEE9AC00](v15);
+  *(&v31 - 4) = a5;
+  *(&v31 - 3) = a6;
+  *(&v31 - 2) = a4;
+  return sub_1B0B86564(a2, a3, sub_1B0AEF07C, (&v31 - 6));
 }

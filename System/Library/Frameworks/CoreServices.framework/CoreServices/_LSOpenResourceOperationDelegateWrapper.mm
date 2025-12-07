@@ -60,7 +60,7 @@
   if (self->_delegate && (objc_opt_respondsToSelector() & 1) != 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_operation);
-    v9 = _LSDefaultLog();
+    v9 = _LSDefaultLog(WeakRetained);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [_LSOpenResourceOperationDelegateWrapper openResourceOperation:didFailWithError:];
@@ -72,11 +72,9 @@
 
 - (void)openResourceOperation:didFailWithError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

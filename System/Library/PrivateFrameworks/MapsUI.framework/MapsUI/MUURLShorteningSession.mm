@@ -28,7 +28,7 @@
   v15 = __swift_project_value_buffer(v7, qword_1EC17B068);
   v16 = *(v8 + 16);
   v16(self + OBJC_IVAR___MUURLShorteningSession_logger, v15, v7);
-  v17 = (&self->super.isa + OBJC_IVAR___MUURLShorteningSession_originalURLProvider);
+  v17 = (self + OBJC_IVAR___MUURLShorteningSession_originalURLProvider);
   *v17 = sub_1C568FC38;
   v17[1] = v13;
   v26[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC16EAD8, &qword_1C586AC20);
@@ -75,17 +75,16 @@
 - (void)preload
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC170930, &qword_1C58695F0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8, v5);
-  v7 = &v11 - v6;
-  v8 = sub_1C584F8A0();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = self;
+  MEMORY[0x1EEE9AC00](v3 - 8, v4);
+  v6 = &v10 - v5;
+  v7 = sub_1C584F8A0();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  v8[4] = self;
   selfCopy = self;
-  sub_1C5659C04(0, 0, v7, &unk_1C586ADB0, v9);
+  sub_1C5659C04(0, 0, v6, &unk_1C586ADB0, v8);
 }
 
 - (MUURLShorteningSession)init

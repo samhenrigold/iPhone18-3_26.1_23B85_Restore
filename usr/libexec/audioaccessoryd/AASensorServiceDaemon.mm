@@ -62,13 +62,17 @@
 {
   if (!self->_activateCalled)
   {
+    selfCopy = self;
     self->_activateCalled = 1;
-    if (dword_1002F6BE8 <= 30 && (dword_1002F6BE8 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6BE8 <= 30)
     {
-      sub_1001F1098();
+      if (dword_1002F6BE8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001F1098(self, a2, v2);
+      }
     }
 
-    [(AASensorServiceDaemon *)self _aaControllerEnsureStarted];
+    [(AASensorServiceDaemon *)selfCopy _aaControllerEnsureStarted];
   }
 }
 
@@ -85,13 +89,17 @@
 
 - (void)_invalidate
 {
-  if (dword_1002F6BE8 <= 30 && (dword_1002F6BE8 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6BE8 <= 30)
   {
-    sub_1001F10B4();
+    if (dword_1002F6BE8 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001F10B4(self, a2, v2);
+    }
   }
 
-  [(AASensorServiceDaemon *)self _aaControllerEnsureStopped];
-  self->_activateCalled = 0;
+  [(AASensorServiceDaemon *)selfCopy _aaControllerEnsureStopped];
+  selfCopy->_activateCalled = 0;
 }
 
 - (void)_aaControllerEnsureStarted
@@ -114,7 +122,7 @@
     [(AAController *)v6 setPersonalTranslationMessageHandler:v10];
     if (dword_1002F6BE8 <= 30 && (dword_1002F6BE8 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F10D0();
+      sub_1001F10D0(v6);
     }
 
     v7[0] = _NSConcreteStackBlock;

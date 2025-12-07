@@ -3,6 +3,7 @@
 - (NPKPaymentWebServiceStandaloneTargetDeviceDelegate)delegate;
 - (void)endRequiringUpgradedPasscodeIfNecessary;
 - (void)enforceUpgradedPasscodePolicyWithCompletion:(id)completion;
+- (void)startRequiringUpgradedPasscodeWithPasscodeMeetsPolicy:(BOOL)policy;
 @end
 
 @implementation NPKPaymentWebServiceStandaloneTargetDevice
@@ -49,23 +50,51 @@
 
   else
   {
-    v7 = pk_Payment_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = pk_Payment_log(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v9)
     {
-      v9 = pk_Payment_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_Payment_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: Target device: No delegate to enforce upgraded passcode policy!", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: Target device: No delegate to enforce upgraded passcode policy!", v13, 2u);
       }
     }
 
     if (completionCopy)
     {
-      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.NPKErrorDomain" code:-1000 userInfo:0];
-      completionCopy[2](completionCopy, 0, v10);
+      v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.NPKErrorDomain" code:-1000 userInfo:0];
+      completionCopy[2](completionCopy, 0, v12);
+    }
+  }
+}
+
+- (void)startRequiringUpgradedPasscodeWithPasscodeMeetsPolicy:(BOOL)policy
+{
+  policyCopy = policy;
+  delegate = [(NPKPaymentWebServiceStandaloneTargetDevice *)self delegate];
+
+  if (delegate)
+  {
+    delegate2 = [(NPKPaymentWebServiceStandaloneTargetDevice *)self delegate];
+    [delegate2 standaloneTargetDevice:self requestsStartRequiringUpgradedPasscodeWithPasscodeMeetsPolicy:policyCopy];
+  }
+
+  else
+  {
+    v7 = pk_Payment_log(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+
+    if (v8)
+    {
+      v10 = pk_Payment_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Warning: Target device: No delegate to start requiring upgraded passcode!", buf, 2u);
+      }
     }
   }
 }
@@ -82,16 +111,16 @@
 
   else
   {
-    v4 = pk_Payment_log();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: Target device: No delegate to end requiring upgraded passcode!", buf, 2u);
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Target device: No delegate to end requiring upgraded passcode!", buf, 2u);
       }
     }
   }

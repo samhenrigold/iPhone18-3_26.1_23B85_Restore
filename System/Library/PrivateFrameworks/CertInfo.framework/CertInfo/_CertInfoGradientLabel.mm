@@ -10,10 +10,10 @@
 - (_CertInfoGradientLabel)initWithTrusted:(BOOL)trusted
 {
   trustedCopy = trusted;
-  v26 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = _CertInfoGradientLabel;
-  v4 = [(_CertInfoGradientLabel *)&v24 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v25 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = _CertInfoGradientLabel;
+  v4 = [(_CertInfoGradientLabel *)&v23 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   if (v4)
   {
     v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -58,17 +58,17 @@
     {
       Pattern = CGColorSpaceCreatePattern(0);
       [v16 scale];
-      memset(&v23, 0, sizeof(v23));
+      memset(&v22, 0, sizeof(v22));
       v18 = *(MEMORY[0x277CBF2C0] + 16);
-      *&v25.a = *MEMORY[0x277CBF2C0];
-      *&v25.c = v18;
-      *&v25.tx = *(MEMORY[0x277CBF2C0] + 32);
-      CGAffineTransformScale(&v23, &v25, 1.0 / v19, -1.0 / v19);
-      v25 = v23;
+      *&v24.a = *MEMORY[0x277CBF2C0];
+      *&v24.c = v18;
+      *&v24.tx = *(MEMORY[0x277CBF2C0] + 32);
+      CGAffineTransformScale(&v22, &v24, 1.0 / v19, -1.0 / v19);
+      v24 = v22;
       v20 = CGPatternCreateWithImage2();
-      *&v25.a = xmmword_2433CA370;
-      *&v25.c = unk_2433CA380;
-      v4->_patternColor = CGColorCreateWithPattern(Pattern, v20, &v25.a);
+      *&v24.a = xmmword_2433CA370;
+      *&v24.c = unk_2433CA380;
+      v4->_patternColor = CGColorCreateWithPattern(Pattern, v20, &v24.a);
       if (Pattern)
       {
         CFRelease(Pattern);
@@ -81,7 +81,6 @@
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -119,7 +118,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   CurrentContext = UIGraphicsGetCurrentContext();
   [(_CertInfoGradientLabel *)self bounds];
   v7 = v6;
@@ -140,18 +139,17 @@
     v15 = v5;
   }
 
-  v17[0] = xmmword_2433CA390;
-  v17[1] = unk_2433CA3A0;
-  CGContextSetFillColor(CurrentContext, v17);
+  v16[0] = xmmword_2433CA390;
+  v16[1] = unk_2433CA3A0;
+  CGContextSetFillColor(CurrentContext, v16);
   [(NSString *)self->_text _legacy_drawAtPoint:self->_font withFont:v15, v7];
   CGContextSetFillColorWithColor(CurrentContext, self->_patternColor);
   CGContextSaveGState(CurrentContext);
-  v19.width = v15;
-  v19.height = v7;
-  CGContextSetPatternPhase(CurrentContext, v19);
+  v18.width = v15;
+  v18.height = v7;
+  CGContextSetPatternPhase(CurrentContext, v18);
   [(NSString *)self->_text _legacy_drawAtPoint:self->_font withFont:v15, v7];
   CGContextRestoreGState(CurrentContext);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -30,34 +30,34 @@
 
 - (id)eventFromDict:(id)dict
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v4 = objc_opt_new();
   v5 = [dictCopy objectForKeyedSubscript:@"userID"];
-  v25 = v4;
+  v24 = v4;
   [v4 setUserID:v5];
 
-  v28 = objc_opt_new();
+  v27 = objc_opt_new();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v24 = dictCopy;
+  v23 = dictCopy;
   obj = [dictCopy objectForKeyedSubscript:@"pairs"];
-  v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v28)
   {
-    v27 = *v31;
+    v26 = *v30;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v31 != v27)
+        if (*v30 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
         v8 = objc_opt_new();
         v9 = objc_opt_new();
         v10 = objc_opt_new();
@@ -89,19 +89,18 @@
         v21 = [v7 objectForKeyedSubscript:@"reason"];
         [v8 setReason:v21];
 
-        [v28 addObject:v8];
+        [v27 addObject:v8];
       }
 
-      v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
-  [v25 setPairs:v28];
-  v22 = *MEMORY[0x1E69E9840];
+  [v24 setPairs:v27];
 
-  return v25;
+  return v24;
 }
 
 - (void)execute
@@ -163,22 +162,20 @@
 
 - (void)eventFromFile:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_191750000, log, OS_LOG_TYPE_ERROR, "Error reading person linking data from file %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_191750000, log, OS_LOG_TYPE_ERROR, "Error reading person linking data from file %@: %@", &v3, 0x16u);
 }
 
 - (void)eventFromFile:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Error unarchiving person linking data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Error unarchiving person linking data: %@", &v2, 0xCu);
 }
 
 @end

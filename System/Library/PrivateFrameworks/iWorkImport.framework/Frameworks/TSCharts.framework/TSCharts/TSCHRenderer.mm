@@ -249,26 +249,26 @@ LABEL_3:
   v11 = fabs(width) != INFINITY;
   v12 = fabs(height);
   v15 = v8 == INFINITY || !v10 || !v11 || v12 == INFINITY;
-  if (v15 || (v35.origin.x = x, v35.origin.y = y, v35.size.width = width, v35.size.height = height, CGRectIsInfinite(v35)))
+  if (v15 || (v34.origin.x = x, v34.origin.y = y, v34.size.width = width, v34.size.height = height, CGRectIsInfinite(v34)))
   {
     v16 = objc_msgSend_chartRep(self, a2, v8, v12, v9);
     v21 = objc_msgSend_geometry(v16, v17, v18, v19, v20);
-    objc_msgSend_size(v21, v22, v23, v24, v25);
+    objc_msgSend_size(v21, v22, v23, v24);
     TSURectWithSize();
-    x = v26;
-    y = v27;
-    width = v28;
-    height = v29;
+    x = v25;
+    y = v26;
+    width = v27;
+    height = v28;
   }
 
-  v30 = x;
-  v31 = y;
-  v32 = width;
-  v33 = height;
-  result.size.height = v33;
-  result.size.width = v32;
-  result.origin.y = v31;
-  result.origin.x = v30;
+  v29 = x;
+  v30 = y;
+  v31 = width;
+  v32 = height;
+  result.size.height = v32;
+  result.size.width = v31;
+  result.origin.y = v30;
+  result.origin.x = v29;
   return result;
 }
 

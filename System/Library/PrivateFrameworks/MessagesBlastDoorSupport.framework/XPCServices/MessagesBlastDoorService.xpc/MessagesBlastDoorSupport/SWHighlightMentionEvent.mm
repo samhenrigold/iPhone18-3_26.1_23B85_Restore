@@ -14,26 +14,27 @@
   {
     v11 = [(SWHighlightMentionEvent *)self initWithHighlightURL:lCopy mentionedPersonHandle:handleCopy mentionedPersonIdentity:identityCopy];
 LABEL_5:
-    v12 = v11;
+    v13 = v11;
     goto LABEL_9;
   }
 
-  if (objc_opt_respondsToSelector())
+  v12 = objc_opt_respondsToSelector();
+  if (v12)
   {
     v11 = [(SWHighlightMentionEvent *)self initWithHighlightURL:lCopy mentionedPersonHandle:handleCopy];
     goto LABEL_5;
   }
 
-  v13 = sub_10000CF34();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = sub_10000CF34(v12);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    sub_1000C108C(v13);
+    sub_1000C108C(v14);
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_9:
 
-  return v12;
+  return v13;
 }
 
 - (id)__bdSWMentionedPersonIdentity

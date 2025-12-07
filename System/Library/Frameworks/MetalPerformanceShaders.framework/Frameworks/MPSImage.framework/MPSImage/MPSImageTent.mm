@@ -6,78 +6,232 @@
 
 - (void)initFilterInfo
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   self->super.filterInfoH = 2;
   self->super.filterInfoV = 3;
   self->super.hPass = 0;
   self->super.vPass = 0;
   kernelWidth = self->super._kernelWidth;
   v5 = MEMORY[0x277CD7350];
-  if (kernelWidth <= 9)
+  if (kernelWidth > 9)
   {
-    if (!kernelWidth)
+    kernelHeight = self->super._kernelHeight;
+    if (kernelHeight > 9)
     {
-      goto LABEL_33;
+      return;
     }
 
-    v8 = (kernelWidth + 1) >> 1;
-    v9 = (v8 * v8);
-    *v2.i32 = v8;
-    v10 = vdupq_n_s64(kernelWidth - 1);
-    v11 = kernelWidth + 1;
-    v12 = vdup_lane_s32(v2, 0);
-    v13 = vmovn_s64(vcgeq_u64(v10, xmmword_2399888A0));
-    v14 = vabs_f32(vadd_f32(v12, 0xC0000000BF800000));
-    if (v13.i8[0])
+LABEL_34:
+    if (!kernelHeight)
     {
-      v45 = (*v2.i32 - v14.f32[0]) / v9;
-      v15 = v11 & 0x1E;
-      if ((v13.i8[4] & 1) == 0)
+      goto LABEL_63;
+    }
+
+    v25 = (kernelHeight + 1) >> 1;
+    v26 = (v25 * v25);
+    *v2.i32 = v25;
+    v27 = vdupq_n_s64(kernelHeight - 1);
+    v28 = kernelHeight + 1;
+    v29 = vdup_lane_s32(v2, 0);
+    v30 = vmovn_s64(vcgeq_u64(v27, xmmword_2399888A0));
+    v31 = vabs_f32(vadd_f32(v29, 0xC0000000BF800000));
+    if (v30.i8[0])
+    {
+      v43 = (*v2.i32 - v31.f32[0]) / v26;
+      v32 = v28 & 0x1E;
+      if ((v30.i8[4] & 1) == 0)
+      {
+LABEL_37:
+        if (v32 == 2)
+        {
+          goto LABEL_63;
+        }
+
+        goto LABEL_41;
+      }
+    }
+
+    else
+    {
+      v32 = v28 & 0x1E;
+      if ((v30.i8[4] & 1) == 0)
+      {
+        goto LABEL_37;
+      }
+    }
+
+    v44 = (*v2.i32 - v31.f32[1]) / v26;
+    if (v32 == 2)
+    {
+      goto LABEL_63;
+    }
+
+LABEL_41:
+    v33 = vmovn_s64(vcgtq_u64(v27, xmmword_2399888B0));
+    v34 = vabs_f32(vadd_f32(v29, 0xC0800000C0400000));
+    if (v33.i8[0])
+    {
+      v45 = (*v2.i32 - v34.f32[0]) / v26;
+      if ((v33.i8[4] & 1) == 0)
+      {
+LABEL_43:
+        if (v32 == 4)
+        {
+          goto LABEL_63;
+        }
+
+        goto LABEL_47;
+      }
+    }
+
+    else if ((v33.i8[4] & 1) == 0)
+    {
+      goto LABEL_43;
+    }
+
+    v46 = (*v2.i32 - v34.f32[1]) / v26;
+    if (v32 == 4)
+    {
+      goto LABEL_63;
+    }
+
+LABEL_47:
+    v35 = vmovn_s64(vcgtq_u64(v27, xmmword_2399888C0));
+    v36 = vabs_f32(vadd_f32(v29, 0xC0C00000C0A00000));
+    if (v35.i8[0])
+    {
+      v47 = (*v2.i32 - v36.f32[0]) / v26;
+      if ((v35.i8[4] & 1) == 0)
+      {
+LABEL_49:
+        if (v32 == 6)
+        {
+          goto LABEL_63;
+        }
+
+LABEL_53:
+        v37 = vmovn_s64(vcgtq_u64(v27, xmmword_2399888D0));
+        v38 = vabs_f32(vadd_f32(v29, 0xC1000000C0E00000));
+        if (v37.i8[0])
+        {
+          v49 = (*v2.i32 - v38.f32[0]) / v26;
+          if ((v37.i8[4] & 1) == 0)
+          {
+LABEL_55:
+            if (v32 == 8)
+            {
+              goto LABEL_63;
+            }
+
+LABEL_59:
+            v39 = vmovn_s64(vcgtq_u64(v27, xmmword_2399888E0));
+            v40 = vabs_f32(vadd_f32(v29, 0xC1200000C1100000));
+            if (v39.i8[0])
+            {
+              v51 = (*v2.i32 - v40.f32[0]) / v26;
+            }
+
+            if (v39.i8[4])
+            {
+              *&v52 = (*v2.i32 - v40.f32[1]) / v26;
+            }
+
+            goto LABEL_63;
+          }
+        }
+
+        else if ((v37.i8[4] & 1) == 0)
+        {
+          goto LABEL_55;
+        }
+
+        v50 = (*v2.i32 - v38.f32[1]) / v26;
+        if (v32 != 8)
+        {
+          goto LABEL_59;
+        }
+
+LABEL_63:
+        v41 = [MPSImageConvolution alloc];
+        self->super.vPass = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_weights_(v41, v42, (*(&self->super.super.super.super.isa + *v5))[2], 1, self->super._kernelHeight, &v43);
+        return;
+      }
+    }
+
+    else if ((v35.i8[4] & 1) == 0)
+    {
+      goto LABEL_49;
+    }
+
+    v48 = (*v2.i32 - v36.f32[1]) / v26;
+    if (v32 == 6)
+    {
+      goto LABEL_63;
+    }
+
+    goto LABEL_53;
+  }
+
+  if (kernelWidth)
+  {
+    v7 = (kernelWidth + 1) >> 1;
+    v8 = (v7 * v7);
+    *v2.i32 = v7;
+    v9 = vdupq_n_s64(kernelWidth - 1);
+    v10 = kernelWidth + 1;
+    v11 = vdup_lane_s32(v2, 0);
+    v12 = vmovn_s64(vcgeq_u64(v9, xmmword_2399888A0));
+    v13 = vabs_f32(vadd_f32(v11, 0xC0000000BF800000));
+    if (v12.i8[0])
+    {
+      v43 = (*v2.i32 - v13.f32[0]) / v8;
+      v14 = v10 & 0x1E;
+      if ((v12.i8[4] & 1) == 0)
       {
 LABEL_7:
-        if (v15 == 2)
+        if (v14 == 2)
         {
           goto LABEL_33;
         }
 
 LABEL_11:
-        v16 = vmovn_s64(vcgtq_u64(v10, xmmword_2399888B0));
-        v17 = vabs_f32(vadd_f32(v12, 0xC0800000C0400000));
-        if (v16.i8[0])
+        v15 = vmovn_s64(vcgtq_u64(v9, xmmword_2399888B0));
+        v16 = vabs_f32(vadd_f32(v11, 0xC0800000C0400000));
+        if (v15.i8[0])
         {
-          v47 = (*v2.i32 - v17.f32[0]) / v9;
-          if ((v16.i8[4] & 1) == 0)
+          v45 = (*v2.i32 - v16.f32[0]) / v8;
+          if ((v15.i8[4] & 1) == 0)
           {
 LABEL_13:
-            if (v15 == 4)
+            if (v14 == 4)
             {
               goto LABEL_33;
             }
 
 LABEL_17:
-            v18 = vmovn_s64(vcgtq_u64(v10, xmmword_2399888C0));
-            v19 = vabs_f32(vadd_f32(v12, 0xC0C00000C0A00000));
-            if (v18.i8[0])
+            v17 = vmovn_s64(vcgtq_u64(v9, xmmword_2399888C0));
+            v18 = vabs_f32(vadd_f32(v11, 0xC0C00000C0A00000));
+            if (v17.i8[0])
             {
-              v49 = (*v2.i32 - v19.f32[0]) / v9;
-              if ((v18.i8[4] & 1) == 0)
+              v47 = (*v2.i32 - v18.f32[0]) / v8;
+              if ((v17.i8[4] & 1) == 0)
               {
 LABEL_19:
-                if (v15 == 6)
+                if (v14 == 6)
                 {
                   goto LABEL_33;
                 }
 
 LABEL_23:
-                v20 = vmovn_s64(vcgtq_u64(v10, xmmword_2399888D0));
-                v21 = vabs_f32(vadd_f32(v12, 0xC1000000C0E00000));
-                if (v20.i8[0])
+                v19 = vmovn_s64(vcgtq_u64(v9, xmmword_2399888D0));
+                v20 = vabs_f32(vadd_f32(v11, 0xC1000000C0E00000));
+                if (v19.i8[0])
                 {
-                  v51 = (*v2.i32 - v21.f32[0]) / v9;
-                  if ((v20.i8[4] & 1) == 0)
+                  v49 = (*v2.i32 - v20.f32[0]) / v8;
+                  if ((v19.i8[4] & 1) == 0)
                   {
 LABEL_25:
-                    if (v15 == 8)
+                    if (v14 == 8)
                     {
                       goto LABEL_33;
                     }
@@ -86,50 +240,41 @@ LABEL_25:
                   }
                 }
 
-                else if ((v20.i8[4] & 1) == 0)
+                else if ((v19.i8[4] & 1) == 0)
                 {
                   goto LABEL_25;
                 }
 
-                v52 = (*v2.i32 - v21.f32[1]) / v9;
-                if (v15 == 8)
+                v50 = (*v2.i32 - v20.f32[1]) / v8;
+                if (v14 == 8)
                 {
                   goto LABEL_33;
                 }
 
 LABEL_29:
-                v22 = vmovn_s64(vcgtq_u64(v10, xmmword_2399888E0));
-                v23 = vabs_f32(vadd_f32(v12, 0xC1200000C1100000));
-                if (v22.i8[0])
+                v21 = vmovn_s64(vcgtq_u64(v9, xmmword_2399888E0));
+                v22 = vabs_f32(vadd_f32(v11, 0xC1200000C1100000));
+                if (v21.i8[0])
                 {
-                  v53 = (*v2.i32 - v23.f32[0]) / v9;
+                  v51 = (*v2.i32 - v22.f32[0]) / v8;
                 }
 
-                if (v22.i8[4])
+                if (v21.i8[4])
                 {
-                  *&v54 = (*v2.i32 - v23.f32[1]) / v9;
+                  *&v52 = (*v2.i32 - v22.f32[1]) / v8;
                 }
 
-LABEL_33:
-                v24 = [MPSImageConvolution alloc];
-                self->super.hPass = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_weights_(v24, v25, (*(&self->super.super.super.super.isa + *v5))[2], self->super._kernelWidth, 1, &v45);
-                kernelHeight = self->super._kernelHeight;
-                if (kernelHeight > 9)
-                {
-                  goto LABEL_3;
-                }
-
-                goto LABEL_34;
+                goto LABEL_33;
               }
             }
 
-            else if ((v18.i8[4] & 1) == 0)
+            else if ((v17.i8[4] & 1) == 0)
             {
               goto LABEL_19;
             }
 
-            v50 = (*v2.i32 - v19.f32[1]) / v9;
-            if (v15 == 6)
+            v48 = (*v2.i32 - v18.f32[1]) / v8;
+            if (v14 == 6)
             {
               goto LABEL_33;
             }
@@ -138,13 +283,13 @@ LABEL_33:
           }
         }
 
-        else if ((v16.i8[4] & 1) == 0)
+        else if ((v15.i8[4] & 1) == 0)
         {
           goto LABEL_13;
         }
 
-        v48 = (*v2.i32 - v17.f32[1]) / v9;
-        if (v15 == 4)
+        v46 = (*v2.i32 - v16.f32[1]) / v8;
+        if (v14 == 4)
         {
           goto LABEL_33;
         }
@@ -155,15 +300,15 @@ LABEL_33:
 
     else
     {
-      v15 = v11 & 0x1E;
-      if ((v13.i8[4] & 1) == 0)
+      v14 = v10 & 0x1E;
+      if ((v12.i8[4] & 1) == 0)
       {
         goto LABEL_7;
       }
     }
 
-    v46 = (*v2.i32 - v14.f32[1]) / v9;
-    if (v15 == 2)
+    v44 = (*v2.i32 - v13.f32[1]) / v8;
+    if (v14 == 2)
     {
       goto LABEL_33;
     }
@@ -171,166 +316,14 @@ LABEL_33:
     goto LABEL_11;
   }
 
+LABEL_33:
+  v23 = [MPSImageConvolution alloc];
+  self->super.hPass = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_weights_(v23, v24, (*(&self->super.super.super.super.isa + *v5))[2], self->super._kernelWidth, 1, &v43);
   kernelHeight = self->super._kernelHeight;
-  if (kernelHeight > 9)
+  if (kernelHeight <= 9)
   {
-LABEL_3:
-    v7 = *MEMORY[0x277D85DE8];
-    return;
+    goto LABEL_34;
   }
-
-LABEL_34:
-  if (!kernelHeight)
-  {
-    goto LABEL_63;
-  }
-
-  v26 = (kernelHeight + 1) >> 1;
-  v27 = (v26 * v26);
-  *v2.i32 = v26;
-  v28 = vdupq_n_s64(kernelHeight - 1);
-  v29 = kernelHeight + 1;
-  v30 = vdup_lane_s32(v2, 0);
-  v31 = vmovn_s64(vcgeq_u64(v28, xmmword_2399888A0));
-  v32 = vabs_f32(vadd_f32(v30, 0xC0000000BF800000));
-  if (v31.i8[0])
-  {
-    v45 = (*v2.i32 - v32.f32[0]) / v27;
-    v33 = v29 & 0x1E;
-    if ((v31.i8[4] & 1) == 0)
-    {
-LABEL_37:
-      if (v33 == 2)
-      {
-        goto LABEL_63;
-      }
-
-      goto LABEL_41;
-    }
-  }
-
-  else
-  {
-    v33 = v29 & 0x1E;
-    if ((v31.i8[4] & 1) == 0)
-    {
-      goto LABEL_37;
-    }
-  }
-
-  v46 = (*v2.i32 - v32.f32[1]) / v27;
-  if (v33 == 2)
-  {
-    goto LABEL_63;
-  }
-
-LABEL_41:
-  v34 = vmovn_s64(vcgtq_u64(v28, xmmword_2399888B0));
-  v35 = vabs_f32(vadd_f32(v30, 0xC0800000C0400000));
-  if (v34.i8[0])
-  {
-    v47 = (*v2.i32 - v35.f32[0]) / v27;
-    if ((v34.i8[4] & 1) == 0)
-    {
-LABEL_43:
-      if (v33 == 4)
-      {
-        goto LABEL_63;
-      }
-
-      goto LABEL_47;
-    }
-  }
-
-  else if ((v34.i8[4] & 1) == 0)
-  {
-    goto LABEL_43;
-  }
-
-  v48 = (*v2.i32 - v35.f32[1]) / v27;
-  if (v33 == 4)
-  {
-    goto LABEL_63;
-  }
-
-LABEL_47:
-  v36 = vmovn_s64(vcgtq_u64(v28, xmmword_2399888C0));
-  v37 = vabs_f32(vadd_f32(v30, 0xC0C00000C0A00000));
-  if ((v36.i8[0] & 1) == 0)
-  {
-    if ((v36.i8[4] & 1) == 0)
-    {
-      goto LABEL_49;
-    }
-
-LABEL_52:
-    v50 = (*v2.i32 - v37.f32[1]) / v27;
-    if (v33 == 6)
-    {
-      goto LABEL_63;
-    }
-
-    goto LABEL_53;
-  }
-
-  v49 = (*v2.i32 - v37.f32[0]) / v27;
-  if (v36.i8[4])
-  {
-    goto LABEL_52;
-  }
-
-LABEL_49:
-  if (v33 == 6)
-  {
-    goto LABEL_63;
-  }
-
-LABEL_53:
-  v38 = vmovn_s64(vcgtq_u64(v28, xmmword_2399888D0));
-  v39 = vabs_f32(vadd_f32(v30, 0xC1000000C0E00000));
-  if (v38.i8[0])
-  {
-    v51 = (*v2.i32 - v39.f32[0]) / v27;
-    if ((v38.i8[4] & 1) == 0)
-    {
-LABEL_55:
-      if (v33 == 8)
-      {
-        goto LABEL_63;
-      }
-
-LABEL_59:
-      v40 = vmovn_s64(vcgtq_u64(v28, xmmword_2399888E0));
-      v41 = vabs_f32(vadd_f32(v30, 0xC1200000C1100000));
-      if (v40.i8[0])
-      {
-        v53 = (*v2.i32 - v41.f32[0]) / v27;
-      }
-
-      if (v40.i8[4])
-      {
-        *&v54 = (*v2.i32 - v41.f32[1]) / v27;
-      }
-
-      goto LABEL_63;
-    }
-  }
-
-  else if ((v38.i8[4] & 1) == 0)
-  {
-    goto LABEL_55;
-  }
-
-  v52 = (*v2.i32 - v39.f32[1]) / v27;
-  if (v33 != 8)
-  {
-    goto LABEL_59;
-  }
-
-LABEL_63:
-  v42 = [MPSImageConvolution alloc];
-  self->super.vPass = objc_msgSend_initWithDevice_kernelWidth_kernelHeight_weights_(v42, v43, (*(&self->super.super.super.super.isa + *v5))[2], 1, self->super._kernelHeight, &v45);
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -333,7 +333,7 @@ LABEL_28:
   return v4;
 }
 
-uint64_t __52__AXSettingsProfileManager__getAXFileURLForPersona___block_invoke(uint64_t a1)
+void *__52__AXSettingsProfileManager__getAXFileURLForPersona___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) containerURL];

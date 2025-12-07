@@ -90,7 +90,7 @@
 
 - (void)updateWithRUIClientInfo:(id)info
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = [infoCopy objectForKeyedSubscript:@"showFMIPLink"];
   self->_showFMIPLink = [v5 BOOLValue];
@@ -132,12 +132,12 @@
   self->_injectNativeHeader = [v20 BOOLValue];
 
   v21 = [infoCopy objectForKeyedSubscript:@"showFMIPRow"];
-  v22 = _AALogSystem();
+  v22 = _AALogSystem(v21);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 138412290;
-    v31 = v21;
-    _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "TrustedDevice server response: showFMIP %@", &v30, 0xCu);
+    v29 = 138412290;
+    v30 = v21;
+    _os_log_impl(&dword_1B6F6A000, v22, OS_LOG_TYPE_DEFAULT, "TrustedDevice server response: showFMIP %@", &v29, 0xCu);
   }
 
   if (v21)
@@ -146,12 +146,12 @@
   }
 
   v23 = [infoCopy objectForKeyedSubscript:@"showBackupRow"];
-  v24 = _AALogSystem();
+  v24 = _AALogSystem(v23);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 138412290;
-    v31 = v23;
-    _os_log_impl(&dword_1B6F6A000, v24, OS_LOG_TYPE_DEFAULT, "TrustedDevice server response: showBackup %@", &v30, 0xCu);
+    v29 = 138412290;
+    v30 = v23;
+    _os_log_impl(&dword_1B6F6A000, v24, OS_LOG_TYPE_DEFAULT, "TrustedDevice server response: showBackup %@", &v29, 0xCu);
   }
 
   if (v23)
@@ -160,12 +160,12 @@
   }
 
   v25 = [infoCopy objectForKeyedSubscript:@"showAppleCareRow"];
-  v26 = _AALogSystem();
+  v26 = _AALogSystem(v25);
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 138412290;
-    v31 = v25;
-    _os_log_impl(&dword_1B6F6A000, v26, OS_LOG_TYPE_DEFAULT, "TrustedDevice server response: showAppleCareRow %@", &v30, 0xCu);
+    v29 = 138412290;
+    v30 = v25;
+    _os_log_impl(&dword_1B6F6A000, v26, OS_LOG_TYPE_DEFAULT, "TrustedDevice server response: showAppleCareRow %@", &v29, 0xCu);
   }
 
   if (v25)
@@ -175,8 +175,6 @@
     serialNumber = self->_serialNumber;
     self->_serialNumber = v27;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 @end

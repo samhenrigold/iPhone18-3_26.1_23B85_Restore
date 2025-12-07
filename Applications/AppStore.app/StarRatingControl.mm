@@ -174,7 +174,7 @@
 
   if (v3)
   {
-    sub_100005744(0, &qword_10098D770);
+    sub_100005744(0, &qword_10098D770, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -191,7 +191,7 @@
   isa = actions;
   if (actions)
   {
-    sub_100005744(0, &qword_10098D770);
+    sub_100005744(0, &qword_10098D770, UIAccessibilityCustomAction_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     selfCopy = self;
     isa = Array._bridgeToObjectiveC()().super.isa;

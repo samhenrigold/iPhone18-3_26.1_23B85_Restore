@@ -47,7 +47,7 @@
   if (v5)
   {
     v6 = [resultCopy valueForAttribute:*MEMORY[0x277CC31F0] withType:objc_opt_class()];
-    [(SPUISMenuItemResultBuilder *)v5 setTitle:v6];
+    objc_msgSend_setTitle_(v5);
 
     v7 = [resultCopy valueForAttribute:*MEMORY[0x277CC2E80] withType:objc_opt_class()];
     [(SPUISMenuItemResultBuilder *)v5 setPath:v7];
@@ -69,12 +69,12 @@
     if (v14)
     {
       pathComponents3 = [(SPUISMenuItemResultBuilder *)v5 pathComponents];
-      v16 = [pathComponents3 count];
+      v16 = objc_msgSend_count(pathComponents3);
 
       pathComponents4 = [(SPUISMenuItemResultBuilder *)v5 pathComponents];
       lastObject = [pathComponents4 lastObject];
-      title = [(SPUISMenuItemResultBuilder *)v5 title];
-      v20 = [lastObject isEqualToString:title];
+      v19 = objc_msgSend_title(v5);
+      v20 = [lastObject isEqualToString:v19];
 
       if (v20)
       {
@@ -106,14 +106,14 @@
 
 - (id)buildDescriptions
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   pathComponents = [(SPUISMenuItemResultBuilder *)self pathComponents];
   v4 = [pathComponents mutableCopy];
 
   relatedAppBundleIdentifier = [(SPUISResultBuilder *)self relatedAppBundleIdentifier];
   v6 = SSAppNameForBundleId();
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     if ([v6 length])
     {
@@ -127,8 +127,8 @@ LABEL_5:
     {
 LABEL_6:
       v9 = [MEMORY[0x277D4C598] textWithString:v8];
-      v15 = v9;
-      path = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+      v14 = v9;
+      path = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
 
       goto LABEL_11;
     }
@@ -149,10 +149,10 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  v16[0] = v6;
+  v15[0] = v6;
   path3 = [(SPUISMenuItemResultBuilder *)self path];
-  v16[1] = path3;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = path3;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v8 = [v12 componentsJoinedByString:@" > "];
 
   if (v8)
@@ -164,16 +164,14 @@ LABEL_10:
   path = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return path;
 }
 
 - (id)buildCommand
 {
   v3 = objc_opt_new();
-  title = [(SPUISMenuItemResultBuilder *)self title];
-  [v3 setMenuItemIdentifier:title];
+  v4 = objc_msgSend_title(self);
+  [v3 setMenuItemIdentifier:v4];
 
   relatedAppBundleIdentifier = [(SPUISResultBuilder *)self relatedAppBundleIdentifier];
   [v3 setApplicationBundleIdentifier:relatedAppBundleIdentifier];
@@ -181,8 +179,8 @@ LABEL_11:
   v6 = [(SPUISMenuItemResultBuilder *)self pid];
   [v3 setPid:v6];
 
-  title2 = [(SPUISMenuItemResultBuilder *)self title];
-  [v3 setTitle:title2];
+  v7 = objc_msgSend_title(self);
+  objc_msgSend_setTitle_(v3);
 
   pathComponents = [(SPUISMenuItemResultBuilder *)self pathComponents];
   v9 = pathComponents;

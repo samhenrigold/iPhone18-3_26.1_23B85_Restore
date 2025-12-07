@@ -119,7 +119,7 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
 
     [(BWNode *)self didSelectFormat:format forInput:input];
@@ -172,7 +172,7 @@
 
 - (void)didSelectFormat:(id)format forOutput:(id)output forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
 
     [(BWNode *)self didSelectFormat:format forOutput:output];

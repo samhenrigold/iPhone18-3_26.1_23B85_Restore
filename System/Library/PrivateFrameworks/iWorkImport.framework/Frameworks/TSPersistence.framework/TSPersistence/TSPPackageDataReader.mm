@@ -129,14 +129,14 @@
   __p[1] = 0;
   v12 = 0;
   objc_msgSend_saveToProtobufString_(v6, v8, __p);
-  v15 = __p;
-  v9 = sub_276A9C458(&self->_dataInfos, __p);
+  v16 = __p;
+  v9 = sub_276A9C458(&self->_dataInfos, __p, &unk_276C16A91, &v16, &v15);
   if (SHIBYTE(v12) < 0)
   {
     operator delete(__p[0]);
   }
 
-  return (v9 + 56);
+  return v9 + 7;
 }
 
 - (id)relativePathForDataWithDigest:(id)digest

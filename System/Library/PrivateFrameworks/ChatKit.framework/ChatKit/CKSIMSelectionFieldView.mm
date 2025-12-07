@@ -86,7 +86,7 @@ void __43__CKSIMSelectionFieldView__commonViewSetup__block_invoke()
   _commonViewSetup_attributes = v3;
 
   v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"FROM" value:&stru_1F04268F8 table:@"ChatKit"];
   v8 = [v5 initWithString:v7 attributes:_commonViewSetup_attributes];
   v9 = _commonViewSetup_fromText;

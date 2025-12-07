@@ -88,7 +88,7 @@
 
 - (SSAuthenticateRequest)init
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = +[SSLogConfig sharedAccountsAuthenticationConfig];
   if (!v3)
   {
@@ -98,42 +98,46 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  v18 = 138543362;
-  v19 = objc_opt_class();
-  v7 = v19;
-  LODWORD(v16) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v17 = 138543362;
+  v18 = objc_opt_class();
+  v7 = v18;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: You shouldn't call [SSAuthenticateRequest init] directly. Use initWithAccount: or initWithAuthenticationContext: instead.", &v17, 12);
 
   if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v18, v16}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+LABEL_12:
   }
 
-  v17.receiver = self;
-  v17.super_class = SSAuthenticateRequest;
-  return [(SSRequest *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = SSAuthenticateRequest;
+  return [(SSRequest *)&v16 init];
 }
 
 - (SSAuthenticateRequest)initWithAccount:(id)account
@@ -231,22 +235,22 @@ void __28__SSAuthenticateRequest_run__block_invoke(uint64_t a1, void *a2)
     v11 = [WeakRetained logUUID];
     v12 = [WeakRetained authenticationContext];
     v13 = [v12 accountName];
-    SSHashIfNeeded(v13);
+    v14 = SSHashIfNeeded(v13);
     v24 = 138544130;
     v25 = v10;
     v26 = 2114;
     v27 = v11;
-    v29 = v28 = 2114;
+    v28 = 2114;
+    v29 = v14;
     v30 = 2112;
     v31 = v3;
-    LODWORD(v22) = 42;
-    v14 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v8, 16, "%{public}@: [%{public}@] An error occurred while authenticating %{public}@. error = %@", &v24, 42);
 
-    if (v14)
+    if (v15)
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v24, v22}];
-      free(v14);
-      SSFileLog(v5, @"%@", v16, v17, v18, v19, v20, v21, v15);
+      v16 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+      free(v15);
+      SSFileLog(v5, @"%@", v17, v18, v19, v20, v21, v22, v16);
     }
   }
 
@@ -257,7 +261,7 @@ void __28__SSAuthenticateRequest_run__block_invoke(uint64_t a1, void *a2)
 
 - (void)startWithAuthenticateResponseBlock:(id)block
 {
-  v141 = *MEMORY[0x1E69E9840];
+  v139 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v3 = +[SSLogConfig sharedAccountsAuthenticationConfig];
   if (!v3)
@@ -293,19 +297,17 @@ void __28__SSAuthenticateRequest_run__block_invoke(uint64_t a1, void *a2)
     v13 = SSHashIfNeeded(accountName);
     *location = 138544130;
     *&location[4] = v7;
-    v135 = 2114;
-    v136 = logUUID;
-    v137 = 2112;
-    v138 = authenticationContext;
-    v139 = 2114;
-    v140 = v13;
-    LODWORD(v118) = 42;
-    v116 = location;
-    v14 = _os_log_send_and_compose_impl();
+    v133 = 2114;
+    v134 = logUUID;
+    v135 = 2112;
+    v136 = authenticationContext;
+    v137 = 2114;
+    v138 = v13;
+    v14 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: [%{public}@] Starting authentication request. context = %@ | context.accountName = %{public}@", location, 42);
 
     if (v14)
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, location, v118}];
+      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog(v3, @"%@", v16, v17, v18, v19, v20, v21, v15);
     }
@@ -319,7 +321,7 @@ void __28__SSAuthenticateRequest_run__block_invoke(uint64_t a1, void *a2)
   bundleIdentifier = [mainBundle bundleIdentifier];
   v24 = [bundleIdentifier isEqualToString:@"com.apple.appstored"];
 
-  if (!-[SSAuthenticationContext forceDaemonAuthentication](self->_authenticationContext, "forceDaemonAuthentication") && !(v24 & 1 | (([objc_opt_class() _isAuthkitEntitled] & 1) == 0)) || +[SSAccountStore unitTestModeEnabled](SSAccountStore, "unitTestModeEnabled", v116))
+  if (!-[SSAuthenticationContext forceDaemonAuthentication](self->_authenticationContext, "forceDaemonAuthentication") && !(v24 & 1 | (([objc_opt_class() _isAuthkitEntitled] & 1) == 0)) || +[SSAccountStore unitTestModeEnabled](SSAccountStore, "unitTestModeEnabled"))
   {
     v25 = objc_opt_class();
     authenticationContext3 = [(SSAuthenticateRequest *)self authenticationContext];
@@ -360,20 +362,19 @@ void __28__SSAuthenticateRequest_run__block_invoke(uint64_t a1, void *a2)
       logUUID2 = [(SSAuthenticateRequest *)self logUUID];
       *location = 138543618;
       *&location[4] = v32;
-      v135 = 2114;
-      v136 = logUUID2;
-      LODWORD(v118) = 22;
-      v116 = location;
-      v35 = _os_log_send_and_compose_impl();
+      v133 = 2114;
+      v134 = logUUID2;
+      LODWORD(v116) = 22;
+      v35 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "%{public}@: [%{public}@] Authenticating the demo account.", location, v116);
 
       if (!v35)
       {
 LABEL_27:
 
 LABEL_28:
-        if ([(SSAuthenticateRequest *)self _shouldRunAuthenticationForAccount:v27, v116])
+        if ([(SSAuthenticateRequest *)self _shouldRunAuthenticationForAccount:v27])
         {
-          goto LABEL_83;
+          goto LABEL_87;
         }
 
         v42 = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -382,19 +383,24 @@ LABEL_28:
           v42 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [v42 shouldLog];
+        LODWORD(v43) = [v42 shouldLog];
         if ([v42 shouldLogToDisk])
         {
-          shouldLog3 |= 2u;
+          LODWORD(v43) = v43 | 2;
         }
 
         oSLogObject3 = [v42 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog3 &= 2u;
+          v43 = v43;
         }
 
-        if (shouldLog3)
+        else
+        {
+          v43 &= 2u;
+        }
+
+        if (v43)
         {
           v45 = objc_opt_class();
           v46 = v45;
@@ -402,27 +408,26 @@ LABEL_28:
           hashedDescription = [v27 hashedDescription];
           *location = 138543874;
           *&location[4] = v45;
+          v133 = 2114;
+          v134 = logUUID3;
           v135 = 2114;
-          v136 = logUUID3;
-          v137 = 2114;
-          v138 = hashedDescription;
-          LODWORD(v118) = 32;
-          v117 = location;
-          v49 = _os_log_send_and_compose_impl();
+          v136 = hashedDescription;
+          LODWORD(v116) = 32;
+          v49 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 0, "%{public}@: [%{public}@] Skiping authentication. %{public}@ doesn't need to be authenticated.", location, v116);
 
           if (!v49)
           {
-LABEL_39:
+LABEL_40:
 
             v56 = +[SSAccountStore defaultStore];
             if (!v27)
             {
-              goto LABEL_65;
+              goto LABEL_68;
             }
 
             if ([v27 isActive])
             {
-              goto LABEL_65;
+              goto LABEL_68;
             }
 
             activeAccount = [v56 activeAccount];
@@ -430,7 +435,7 @@ LABEL_39:
 
             if (!v58)
             {
-              goto LABEL_65;
+              goto LABEL_68;
             }
 
             v59 = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -439,19 +444,24 @@ LABEL_39:
               v59 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog4 = [v59 shouldLog];
+            LODWORD(v60) = [v59 shouldLog];
             if ([v59 shouldLogToDisk])
             {
-              shouldLog4 |= 2u;
+              LODWORD(v60) = v60 | 2;
             }
 
             oSLogObject4 = [v59 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
             {
-              shouldLog4 &= 2u;
+              v60 = v60;
             }
 
-            if (shouldLog4)
+            else
+            {
+              v60 &= 2u;
+            }
+
+            if (v60)
             {
               v62 = objc_opt_class();
               v63 = v62;
@@ -459,34 +469,33 @@ LABEL_39:
               hashedDescription2 = [v27 hashedDescription];
               *location = 138543874;
               *&location[4] = v62;
+              v133 = 2114;
+              v134 = logUUID4;
               v135 = 2114;
-              v136 = logUUID4;
-              v137 = 2114;
-              v138 = hashedDescription2;
-              LODWORD(v118) = 32;
-              v117 = location;
-              v66 = _os_log_send_and_compose_impl();
+              v136 = hashedDescription2;
+              LODWORD(v116) = 32;
+              v66 = _os_log_send_and_compose_impl(v60, 0, 0, 0, &dword_1D48BA000, oSLogObject4, 0, "%{public}@: [%{public}@] The device doesn't have an active account. %{public}@ will become the active account.", location, v116);
 
               if (!v66)
               {
-                goto LABEL_52;
+                goto LABEL_54;
               }
 
-              oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v66 encoding:{4, location, v118}];
+              oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v66 encoding:4];
               free(v66);
               SSFileLog(v59, @"%@", v67, v68, v69, v70, v71, v72, oSLogObject4);
             }
 
-LABEL_52:
+LABEL_54:
             [v27 setActive:1];
-            v133 = 0;
-            v73 = [v56 saveAccount:v27 verifyCredentials:0 error:&v133];
-            v74 = v133;
+            v131 = 0;
+            v73 = [v56 saveAccount:v27 verifyCredentials:0 error:&v131];
+            v74 = v131;
             if (v73)
             {
-LABEL_64:
+LABEL_67:
 
-LABEL_65:
+LABEL_68:
               v88 = objc_alloc_init(SSAuthenticateResponse);
               v89 = v88;
               if (v27)
@@ -503,7 +512,7 @@ LABEL_65:
                 v90 = 0;
               }
 
-              [(SSAuthenticateResponse *)v89 setAuthenticateResponseType:v90, v117];
+              [(SSAuthenticateResponse *)v89 setAuthenticateResponseType:v90];
 
               if (v89)
               {
@@ -514,18 +523,18 @@ LABEL_65:
                   block[1] = 3221225472;
                   block[2] = __60__SSAuthenticateRequest_startWithAuthenticateResponseBlock___block_invoke;
                   block[3] = &unk_1E84AC338;
-                  v132 = blockCopy;
-                  v131 = v89;
+                  v130 = blockCopy;
+                  v129 = v89;
                   dispatch_async(v104, block);
                 }
 
                 [(SSRequest *)self _shutdownRequest];
-LABEL_86:
+LABEL_90:
 
-                goto LABEL_87;
+                goto LABEL_91;
               }
 
-LABEL_83:
+LABEL_87:
               authenticationContext4 = [(SSAuthenticateRequest *)self authenticationContext];
               accountStoreOptions = [authenticationContext4 accountStoreOptions];
               v89 = [accountStoreOptions mutableCopy];
@@ -547,37 +556,37 @@ LABEL_83:
               v113 = [v112 updateAccountWithAuthKit:v27 store:0 options:v89];
 
               objc_initWeak(location, self);
-              v127[0] = MEMORY[0x1E69E9820];
-              v127[1] = 3221225472;
-              v127[2] = __60__SSAuthenticateRequest_startWithAuthenticateResponseBlock___block_invoke_2;
-              v127[3] = &unk_1E84AE450;
-              objc_copyWeak(&v128, location);
-              v129 = 1;
-              v127[4] = self;
-              v114 = [v113 thenWithBlock:v127];
-              v124[0] = MEMORY[0x1E69E9820];
-              v124[1] = 3221225472;
-              v124[2] = __60__SSAuthenticateRequest_startWithAuthenticateResponseBlock___block_invoke_4;
-              v124[3] = &unk_1E84AE478;
+              v125[0] = MEMORY[0x1E69E9820];
+              v125[1] = 3221225472;
+              v125[2] = __60__SSAuthenticateRequest_startWithAuthenticateResponseBlock___block_invoke_2;
+              v125[3] = &unk_1E84AE450;
               objc_copyWeak(&v126, location);
+              v127 = 1;
+              v125[4] = self;
+              v114 = [v113 thenWithBlock:v125];
+              v122[0] = MEMORY[0x1E69E9820];
+              v122[1] = 3221225472;
+              v122[2] = __60__SSAuthenticateRequest_startWithAuthenticateResponseBlock___block_invoke_4;
+              v122[3] = &unk_1E84AE478;
+              objc_copyWeak(&v124, location);
               v115 = blockCopy;
-              v125 = v115;
-              [v114 addErrorBlock:v124];
-              v121[0] = MEMORY[0x1E69E9820];
-              v121[1] = 3221225472;
-              v121[2] = __60__SSAuthenticateRequest_startWithAuthenticateResponseBlock___block_invoke_7;
-              v121[3] = &unk_1E84AE4A0;
-              objc_copyWeak(&v123, location);
-              v122 = v115;
-              [v114 addSuccessBlock:v121];
+              v123 = v115;
+              [v114 addErrorBlock:v122];
+              v119[0] = MEMORY[0x1E69E9820];
+              v119[1] = 3221225472;
+              v119[2] = __60__SSAuthenticateRequest_startWithAuthenticateResponseBlock___block_invoke_7;
+              v119[3] = &unk_1E84AE4A0;
+              objc_copyWeak(&v121, location);
+              v120 = v115;
+              [v114 addSuccessBlock:v119];
 
-              objc_destroyWeak(&v123);
+              objc_destroyWeak(&v121);
+              objc_destroyWeak(&v124);
+
               objc_destroyWeak(&v126);
-
-              objc_destroyWeak(&v128);
               objc_destroyWeak(location);
 
-              goto LABEL_86;
+              goto LABEL_90;
             }
 
             v75 = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -586,57 +595,61 @@ LABEL_83:
               v75 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog5 = [v75 shouldLog];
+            LODWORD(v76) = [v75 shouldLog];
             if ([v75 shouldLogToDisk])
             {
-              shouldLog5 |= 2u;
+              LODWORD(v76) = v76 | 2;
             }
 
             oSLogObject5 = [v75 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_ERROR))
             {
-              shouldLog5 &= 2u;
+              v76 = v76;
             }
 
-            if (shouldLog5)
+            else
+            {
+              v76 &= 2u;
+            }
+
+            if (v76)
             {
               logUUID6 = [(SSAuthenticateRequest *)self logUUID];
               v79 = objc_opt_class();
               *location = 138543874;
               *&location[4] = logUUID6;
-              v135 = 2114;
-              v136 = v79;
-              v137 = 2112;
-              v138 = v74;
+              v133 = 2114;
+              v134 = v79;
+              v135 = 2112;
+              v136 = v74;
               v80 = v79;
-              LODWORD(v118) = 32;
-              v117 = location;
-              v81 = _os_log_send_and_compose_impl();
+              LODWORD(v116) = 32;
+              v81 = _os_log_send_and_compose_impl(v76, 0, 0, 0, &dword_1D48BA000, oSLogObject5, 16, "%{public}@: [%{public}@] Failed to make the account the active account. error = %@", location, v116);
 
               if (!v81)
               {
-LABEL_63:
+LABEL_66:
 
-                goto LABEL_64;
+                goto LABEL_67;
               }
 
-              oSLogObject5 = [MEMORY[0x1E696AEC0] stringWithCString:v81 encoding:{4, location, v118}];
+              oSLogObject5 = [MEMORY[0x1E696AEC0] stringWithCString:v81 encoding:4];
               free(v81);
               SSFileLog(v75, @"%@", v82, v83, v84, v85, v86, v87, oSLogObject5);
             }
 
-            goto LABEL_63;
+            goto LABEL_66;
           }
 
-          oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v49 encoding:{4, location, v118}];
+          oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v49 encoding:4];
           free(v49);
           SSFileLog(v42, @"%@", v50, v51, v52, v53, v54, v55, oSLogObject3);
         }
 
-        goto LABEL_39;
+        goto LABEL_40;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:{4, location, v118}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:4];
       free(v35);
       SSFileLog(v28, @"%@", v36, v37, v38, v39, v40, v41, oSLogObject2);
     }
@@ -650,40 +663,45 @@ LABEL_63:
     v91 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog6 = [v91 shouldLog];
+  LODWORD(v92) = [v91 shouldLog];
   if ([v91 shouldLogToDisk])
   {
-    shouldLog6 |= 2u;
+    LODWORD(v92) = v92 | 2;
   }
 
   oSLogObject6 = [v91 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog6 &= 2u;
+    v92 = v92;
   }
 
-  if (!shouldLog6)
+  else
   {
-    goto LABEL_76;
+    v92 &= 2u;
+  }
+
+  if (!v92)
+  {
+    goto LABEL_80;
   }
 
   v94 = objc_opt_class();
   *location = 138543362;
   *&location[4] = v94;
   v95 = v94;
-  LODWORD(v118) = 12;
-  v96 = _os_log_send_and_compose_impl();
+  LODWORD(v116) = 12;
+  v96 = _os_log_send_and_compose_impl(v92, 0, 0, 0, &dword_1D48BA000, oSLogObject6, 0, "%{public}@: Not entitled to talk to AuthKit. Sending request to itunesstored.", location, v116);
 
   if (v96)
   {
-    oSLogObject6 = [MEMORY[0x1E696AEC0] stringWithCString:v96 encoding:{4, location, v118}];
+    oSLogObject6 = [MEMORY[0x1E696AEC0] stringWithCString:v96 encoding:4];
     free(v96);
     SSFileLog(v91, @"%@", v97, v98, v99, v100, v101, v102, oSLogObject6);
-LABEL_76:
+LABEL_80:
   }
 
   [(SSAuthenticateRequest *)self _performRemoteAuthenticationWithCompletion:blockCopy];
-LABEL_87:
+LABEL_91:
 }
 
 SSPromise *__60__SSAuthenticateRequest_startWithAuthenticateResponseBlock___block_invoke_2(uint64_t a1, void *a2)
@@ -958,7 +976,7 @@ uint64_t __50__SSAuthenticateRequest_startWithCompletionBlock___block_invoke(uin
 
 + (id)_accountToAuthenticateWithAuthenticationContext:(id)context
 {
-  v181 = *MEMORY[0x1E69E9840];
+  v175 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   altDSID = [contextCopy altDSID];
   requiredUniqueIdentifier = [contextCopy requiredUniqueIdentifier];
@@ -966,7 +984,7 @@ uint64_t __50__SSAuthenticateRequest_startWithCompletionBlock___block_invoke(uin
   accountScope = [contextCopy accountScope];
   logUUID = [contextCopy logUUID];
   v6 = off_1E84AB000;
-  v166 = requiredUniqueIdentifier;
+  v160 = requiredUniqueIdentifier;
   if (altDSID || requiredUniqueIdentifier)
   {
     accountName2 = accountName;
@@ -1015,19 +1033,17 @@ uint64_t __50__SSAuthenticateRequest_startWithCompletionBlock___block_invoke(uin
         {
           v15 = objc_opt_class();
           v16 = AMSHashIfNeeded();
-          v169 = 138543874;
-          v170 = v15;
-          v171 = 2114;
-          v172 = logUUID;
-          v173 = 2114;
-          v174 = v16;
-          LODWORD(v163) = 32;
-          v157 = &v169;
-          v17 = _os_log_send_and_compose_impl();
+          v163 = 138543874;
+          v164 = v15;
+          v165 = 2114;
+          v166 = logUUID;
+          v167 = 2114;
+          v168 = v16;
+          v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: [%{public}@] Using the device's demo account. username = %{public}@", &v163, 32);
 
           if (v17)
           {
-            v18 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v169, v163}];
+            v18 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
             free(v17);
             SSFileLog(v10, @"%@", v19, v20, v21, v22, v23, v24, v18);
           }
@@ -1070,35 +1086,34 @@ uint64_t __50__SSAuthenticateRequest_startWithCompletionBlock___block_invoke(uin
     v29 = v27 & 2;
   }
 
-  v167 = accountName2;
+  v161 = accountName2;
   if (v29)
   {
     v30 = objc_opt_class();
     v31 = v30;
     v32 = SSHashIfNeeded(altDSID);
-    v33 = [v166 description];
+    v33 = [v160 description];
     v34 = SSHashIfNeeded(v33);
     SSHashIfNeeded(accountName2);
     v36 = v35 = altDSID;
-    v169 = 138544642;
-    v170 = v30;
+    v163 = 138544642;
+    v164 = v30;
+    v165 = 2114;
+    v166 = logUUID;
+    v167 = 2114;
+    v168 = v32;
+    v169 = 2114;
+    v170 = v34;
     v171 = 2114;
-    v172 = logUUID;
-    v173 = 2114;
-    v174 = v32;
-    v175 = 2114;
-    v176 = v34;
-    v177 = 2114;
-    v178 = v36;
-    v179 = 2048;
+    v172 = v36;
+    v173 = 2048;
     v37 = accountScope;
-    v180 = accountScope;
-    LODWORD(v163) = 62;
-    v158 = &v169;
-    v38 = _os_log_send_and_compose_impl();
+    v174 = accountScope;
+    LODWORD(v157) = 62;
+    v38 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "%{public}@: [%{public}@] Attempting to find an existing account using: altDSID = %{public}@ | DSID = %{public}@ | username = %{public}@ | scope = %ld", &v163, v157);
 
     altDSID = v35;
-    accountName2 = v167;
+    accountName2 = v161;
 
     v6 = off_1E84AB000;
     if (!v38)
@@ -1106,7 +1121,7 @@ uint64_t __50__SSAuthenticateRequest_startWithCompletionBlock___block_invoke(uin
       goto LABEL_32;
     }
 
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:{4, &v169, v163}];
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:4];
     free(v38);
     SSFileLog(v25, @"%@", v39, v40, v41, v42, v43, v44, oSLogObject2);
   }
@@ -1123,9 +1138,9 @@ LABEL_32:
     v45 = MEMORY[0x1E698C4C0];
   }
 
-  v46 = [MEMORY[0x1E6959A48] ams_sharedAccountStoreForMediaType:{*v45, v158}];
-  v47 = v166;
-  v48 = [v46 ams_iTunesAccountWithAltDSID:altDSID DSID:v166 username:accountName2];
+  v46 = [MEMORY[0x1E6959A48] ams_sharedAccountStoreForMediaType:*v45];
+  v47 = v160;
+  v48 = [v46 ams_iTunesAccountWithAltDSID:altDSID DSID:v160 username:accountName2];
   if (v48)
   {
     v49 = [[SSAccount alloc] initWithBackingAccount:v48];
@@ -1161,18 +1176,17 @@ LABEL_32:
         v56 = v55;
         [(SSAccount *)v50 hashedDescription];
         v58 = v57 = altDSID;
-        v169 = 138543874;
-        v170 = v55;
-        v171 = 2114;
-        v172 = logUUID;
-        v173 = 2114;
-        v174 = v58;
-        LODWORD(v163) = 32;
-        v159 = &v169;
-        v59 = _os_log_send_and_compose_impl();
+        v163 = 138543874;
+        v164 = v55;
+        v165 = 2114;
+        v166 = logUUID;
+        v167 = 2114;
+        v168 = v58;
+        LODWORD(v157) = 32;
+        v59 = _os_log_send_and_compose_impl(v54, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 0, "%{public}@: [%{public}@] Found an existing account. account = %{public}@", &v163, v157);
 
         altDSID = v57;
-        v47 = v166;
+        v47 = v160;
 
         v60 = contextCopy;
         if (!v59)
@@ -1183,7 +1197,7 @@ LABEL_59:
           goto LABEL_63;
         }
 
-        oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v59 encoding:{4, &v169, v163}];
+        oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v59 encoding:4];
         free(v59);
         SSFileLog(sharedAccountsAuthenticationConfig, @"%@", v61, v62, v63, v64, v65, v66, oSLogObject3);
       }
@@ -1228,13 +1242,13 @@ LABEL_121:
     if (v146)
     {
       v147 = objc_opt_class();
-      v169 = 138543618;
-      v170 = v147;
-      v171 = 2114;
-      v172 = logUUID;
+      v163 = 138543618;
+      v164 = v147;
+      v165 = 2114;
+      v166 = logUUID;
       v148 = v147;
-      LODWORD(v163) = 22;
-      v149 = _os_log_send_and_compose_impl();
+      LODWORD(v157) = 22;
+      v149 = _os_log_send_and_compose_impl(v146, 0, 0, 0, &dword_1D48BA000, oSLogObject4, 0, "%{public}@: [%{public}@] There's no existing account matching the information we were given. The user will be prompted to enter their username and password.", &v163, v157);
 
       if (!v149)
       {
@@ -1243,7 +1257,7 @@ LABEL_132:
         goto LABEL_133;
       }
 
-      oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v149 encoding:{4, &v169, v163}];
+      oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v149 encoding:4];
       free(v149);
       SSFileLog(sharedAccountsAuthenticationConfig2, @"%@", v150, v151, v152, v153, v154, v155, oSLogObject4);
     }
@@ -1278,20 +1292,19 @@ LABEL_132:
   {
     v72 = objc_opt_class();
     v73 = v72;
-    SSHashIfNeeded(v167);
+    SSHashIfNeeded(v161);
     v75 = v74 = altDSID;
-    v169 = 138543874;
-    v170 = v72;
-    v171 = 2114;
-    v172 = logUUID;
-    v173 = 2114;
-    v174 = v75;
-    LODWORD(v163) = 32;
-    v159 = &v169;
-    v76 = _os_log_send_and_compose_impl();
+    v163 = 138543874;
+    v164 = v72;
+    v165 = 2114;
+    v166 = logUUID;
+    v167 = 2114;
+    v168 = v75;
+    LODWORD(v157) = 32;
+    v76 = _os_log_send_and_compose_impl(v71, 0, 0, 0, &dword_1D48BA000, oSLogObject5, 0, "%{public}@: [%{public}@] There's no existing account matching the information we were given, but since we were given a username (%{public}@), we'll create one.", &v163, v157);
 
     altDSID = v74;
-    v47 = v166;
+    v47 = v160;
     v60 = contextCopy;
 
     v77 = accountScope;
@@ -1300,7 +1313,7 @@ LABEL_132:
       goto LABEL_62;
     }
 
-    oSLogObject5 = [MEMORY[0x1E696AEC0] stringWithCString:v76 encoding:{4, &v169, v163}];
+    oSLogObject5 = [MEMORY[0x1E696AEC0] stringWithCString:v76 encoding:4];
     free(v76);
     SSFileLog(sharedAccountsAuthenticationConfig3, @"%@", v78, v79, v80, v81, v82, v83, oSLogObject5);
   }
@@ -1312,7 +1325,7 @@ LABEL_132:
 
 LABEL_62:
   v50 = objc_alloc_init(SSAccount);
-  [(SSAccount *)v50 setAccountName:v167];
+  [(SSAccount *)v50 setAccountName:v161];
   [(SSAccount *)v50 setAccountScope:v77];
   v6 = off_1E84AB000;
   if (!v50)
@@ -1357,14 +1370,13 @@ LABEL_63:
     if (v89)
     {
       v90 = objc_opt_class();
-      v169 = 138543618;
-      v170 = v90;
-      v171 = 2114;
-      v172 = logUUID;
+      v163 = 138543618;
+      v164 = v90;
+      v165 = 2114;
+      v166 = logUUID;
       v91 = v90;
-      LODWORD(v163) = 22;
-      v160 = &v169;
-      v92 = _os_log_send_and_compose_impl();
+      LODWORD(v157) = 22;
+      v92 = _os_log_send_and_compose_impl(v89, 0, 0, 0, &dword_1D48BA000, oSLogObject6, 1, "%{public}@: [%{public}@] An altDSID was provided and the account didn't already have one.", &v163, v157);
 
       if (!v92)
       {
@@ -1376,7 +1388,7 @@ LABEL_76:
         goto LABEL_77;
       }
 
-      oSLogObject6 = [MEMORY[0x1E696AEC0] stringWithCString:v92 encoding:{4, &v169, v163}];
+      oSLogObject6 = [MEMORY[0x1E696AEC0] stringWithCString:v92 encoding:4];
       free(v92);
       SSFileLog(sharedAccountsAuthenticationConfig4, @"%@", v93, v94, v95, v96, v97, v98, oSLogObject6);
     }
@@ -1423,14 +1435,13 @@ LABEL_78:
     if (v104)
     {
       v105 = objc_opt_class();
-      v169 = 138543618;
-      v170 = v105;
-      v171 = 2114;
-      v172 = logUUID;
+      v163 = 138543618;
+      v164 = v105;
+      v165 = 2114;
+      v166 = logUUID;
       v106 = v105;
-      LODWORD(v163) = 22;
-      v161 = &v169;
-      v107 = _os_log_send_and_compose_impl();
+      LODWORD(v157) = 22;
+      v107 = _os_log_send_and_compose_impl(v104, 0, 0, 0, &dword_1D48BA000, oSLogObject7, 1, "%{public}@: [%{public}@] A DSID was provided and the account didn't already have one.", &v163, v157);
 
       if (!v107)
       {
@@ -1442,7 +1453,7 @@ LABEL_91:
         goto LABEL_92;
       }
 
-      oSLogObject7 = [MEMORY[0x1E696AEC0] stringWithCString:v107 encoding:{4, &v169, v163}];
+      oSLogObject7 = [MEMORY[0x1E696AEC0] stringWithCString:v107 encoding:4];
       free(v107);
       SSFileLog(sharedAccountsAuthenticationConfig5, @"%@", v108, v109, v110, v111, v112, v113, oSLogObject7);
     }
@@ -1453,9 +1464,9 @@ LABEL_91:
 LABEL_92:
 
 LABEL_93:
-  if ([v167 length])
+  if ([v161 length])
   {
-    [(SSAccount *)v50 setAccountName:v167];
+    [(SSAccount *)v50 setAccountName:v161];
   }
 
   password = [v60 password];
@@ -1488,14 +1499,13 @@ LABEL_93:
     if (v118)
     {
       v119 = objc_opt_class();
-      v169 = 138543618;
-      v170 = v119;
-      v171 = 2114;
-      v172 = logUUID;
+      v163 = 138543618;
+      v164 = v119;
+      v165 = 2114;
+      v166 = logUUID;
       v120 = v119;
-      LODWORD(v163) = 22;
-      v162 = &v169;
-      v121 = _os_log_send_and_compose_impl();
+      LODWORD(v157) = 22;
+      v121 = _os_log_send_and_compose_impl(v118, 0, 0, 0, &dword_1D48BA000, oSLogObject8, 1, "%{public}@: [%{public}@] A password was provided.", &v163, v157);
 
       if (!v121)
       {
@@ -1508,7 +1518,7 @@ LABEL_107:
         goto LABEL_108;
       }
 
-      oSLogObject8 = [MEMORY[0x1E696AEC0] stringWithCString:v121 encoding:{4, &v169, v163}];
+      oSLogObject8 = [MEMORY[0x1E696AEC0] stringWithCString:v121 encoding:4];
       free(v121);
       SSFileLog(sharedAccountsAuthenticationConfig6, @"%@", v122, v123, v124, v125, v126, v127, oSLogObject8);
     }
@@ -1553,17 +1563,17 @@ LABEL_108:
   }
 
   v134 = objc_opt_class();
-  v169 = 138543618;
-  v170 = v134;
-  v171 = 2114;
-  v172 = logUUID;
+  v163 = 138543618;
+  v164 = v134;
+  v165 = 2114;
+  v166 = logUUID;
   v135 = v134;
-  LODWORD(v163) = 22;
-  v136 = _os_log_send_and_compose_impl();
+  LODWORD(v157) = 22;
+  v136 = _os_log_send_and_compose_impl(v133, 0, 0, 0, &dword_1D48BA000, oSLogObject9, 1, "%{public}@: [%{public}@] A PET was provided.", &v163, v157);
 
   if (v136)
   {
-    oSLogObject9 = [MEMORY[0x1E696AEC0] stringWithCString:v136 encoding:{4, &v169, v163}];
+    oSLogObject9 = [MEMORY[0x1E696AEC0] stringWithCString:v136 encoding:4];
     free(v136);
     SSFileLog(sharedAccountsAuthenticationConfig7, @"%@", v137, v138, v139, v140, v141, v142, oSLogObject9);
 LABEL_119:
@@ -1580,7 +1590,7 @@ LABEL_134:
 
 - (void)_handleDialogFromError:(id)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   userInfo = [error userInfo];
   v5 = *MEMORY[0x1E698C4F8];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E698C4F8]];
@@ -1601,16 +1611,16 @@ LABEL_134:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v63 = 0;
-    v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v63];
-    v11 = v63;
+    v62 = 0;
+    v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v62];
+    v11 = v62;
 
     if (!v11)
     {
-LABEL_18:
+LABEL_19:
 
       v7 = v10;
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
     v12 = +[SSLogConfig sharedAccountsConfig];
@@ -1622,16 +1632,21 @@ LABEL_18:
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
     oSLogObject = [v12 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
@@ -1642,34 +1657,32 @@ LABEL_18:
       v16 = objc_opt_class();
       v17 = v16;
       logUUID = [(SSAuthenticateRequest *)self logUUID];
-      v64 = 138543874;
-      v65 = v16;
-      v66 = 2114;
-      v67 = logUUID;
-      v68 = 2114;
-      v69 = v11;
-      LODWORD(v59) = 32;
-      v58 = &v64;
-      v19 = _os_log_send_and_compose_impl();
+      v63 = 138543874;
+      v64 = v16;
+      v65 = 2114;
+      v66 = logUUID;
+      v67 = 2114;
+      v68 = v11;
+      v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: [%{public}@] Failed to decode dialog from error. %{public}@", &v63, 32);
 
       if (!v19)
       {
-LABEL_17:
+LABEL_18:
 
         v10 = 0;
         self = selfCopy;
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v64, v59}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog(v12, @"%@", v20, v21, v22, v23, v24, v25, oSLogObject);
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
-LABEL_19:
+LABEL_20:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -1706,26 +1719,26 @@ LABEL_19:
       v48 = objc_opt_class();
       v49 = v48;
       logUUID2 = [(SSAuthenticateRequest *)self logUUID];
-      v64 = 138543874;
-      v65 = v48;
-      v66 = 2114;
-      v67 = logUUID2;
-      v68 = 2112;
-      v69 = v7;
-      LODWORD(v59) = 32;
-      v51 = _os_log_send_and_compose_impl();
+      v63 = 138543874;
+      v64 = v48;
+      v65 = 2114;
+      v66 = logUUID2;
+      v67 = 2112;
+      v68 = v7;
+      LODWORD(v58) = 32;
+      v51 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: [%{public}@] Unknown dialog from error: %@", &v63, v58);
 
       if (!v51)
       {
-        goto LABEL_46;
+        goto LABEL_47;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:{4, &v64, v59}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:4];
       free(v51);
       SSFileLog(v41, @"%@", v52, v53, v54, v55, v56, v57, oSLogObject2);
     }
 
-    goto LABEL_46;
+    goto LABEL_47;
   }
 
   if (v7)
@@ -1763,48 +1776,48 @@ LABEL_19:
       v31 = objc_opt_class();
       v32 = v31;
       logUUID3 = [(SSAuthenticateRequest *)self logUUID];
-      v64 = 138543874;
-      v65 = v31;
-      v66 = 2114;
-      v67 = logUUID3;
-      v68 = 2112;
-      v69 = v7;
-      LODWORD(v59) = 32;
-      v34 = _os_log_send_and_compose_impl();
+      v63 = 138543874;
+      v64 = v31;
+      v65 = 2114;
+      v66 = logUUID3;
+      v67 = 2112;
+      v68 = v7;
+      LODWORD(v58) = 32;
+      v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 0, "%{public}@: [%{public}@] Presenting dialog from error: %@", &v63, v58);
 
       if (!v34)
       {
-LABEL_33:
+LABEL_34:
 
         v41 = [objc_alloc(MEMORY[0x1E698CB50]) initWithRequest:v7];
         present = [v41 present];
-        v61[0] = MEMORY[0x1E69E9820];
-        v61[1] = 3221225472;
-        v61[2] = __48__SSAuthenticateRequest__handleDialogFromError___block_invoke;
-        v61[3] = &unk_1E84AE518;
-        v61[4] = self;
-        v62 = v7;
+        v60[0] = MEMORY[0x1E69E9820];
+        v60[1] = 3221225472;
+        v60[2] = __48__SSAuthenticateRequest__handleDialogFromError___block_invoke;
+        v60[3] = &unk_1E84AE518;
+        v60[4] = self;
+        v61 = v7;
         v43 = v7;
-        [present addFinishBlock:v61];
+        [present addFinishBlock:v60];
 
-LABEL_46:
-        goto LABEL_47;
+LABEL_47:
+        goto LABEL_48;
       }
 
-      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:{4, &v64, v59}];
+      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:4];
       free(v34);
       SSFileLog(v26, @"%@", v35, v36, v37, v38, v39, v40, oSLogObject3);
     }
 
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
-LABEL_47:
+LABEL_48:
 }
 
 void __48__SSAuthenticateRequest__handleDialogFromError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1818,16 +1831,21 @@ void __48__SSAuthenticateRequest__handleDialogFromError___block_invoke(uint64_t 
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -1839,33 +1857,32 @@ void __48__SSAuthenticateRequest__handleDialogFromError___block_invoke(uint64_t 
       v13 = v11;
       v14 = [v12 logUUID];
       v15 = *(a1 + 40);
-      v26 = 138544130;
-      v27 = v11;
-      v28 = 2114;
-      v29 = v14;
-      v30 = 2112;
-      v31 = v15;
-      v32 = 2114;
-      v33 = v6;
-      LODWORD(v25) = 42;
-      v16 = _os_log_send_and_compose_impl();
+      v25 = 138544130;
+      v26 = v11;
+      v27 = 2114;
+      v28 = v14;
+      v29 = 2112;
+      v30 = v15;
+      v31 = 2114;
+      v32 = v6;
+      v16 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v10, 16, "%{public}@: [%{public}@] Failed to present dialog: %@ error: %{public}@", &v25, 42);
 
       if (!v16)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v26, v25}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog(v7, @"%@", v17, v18, v19, v20, v21, v22, v10);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   v23 = [objc_alloc(MEMORY[0x1E698C938]) initWithRequest:*(a1 + 40) result:v5 error:v6 bag:0];
   v24 = [v23 perform];
 }
@@ -1874,53 +1891,51 @@ LABEL_14:
 {
   v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(completionCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v21 = 136446210;
       v22 = "[SSAuthenticateRequest _performRemoteAuthenticationWithCompletion:]";
-      LODWORD(v18) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v21, v18}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
@@ -1933,13 +1948,13 @@ LABEL_16:
   v19[3] = &unk_1E84AE540;
   v19[4] = self;
   v20 = completionCopy;
-  v17 = completionCopy;
+  v18 = completionCopy;
   [(SSRequest *)self _startWithMessageID:133 messageBlock:v19];
 }
 
 void __68__SSAuthenticateRequest__performRemoteAuthenticationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3 == MEMORY[0x1E69E9E18])
   {
@@ -1953,42 +1968,45 @@ void __68__SSAuthenticateRequest__performRemoteAuthenticationWithCompletion___bl
     v24 = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v25 = v24 | 2;
+      LODWORD(v25) = v24 | 2;
     }
 
     else
     {
-      v25 = v24;
+      LODWORD(v25) = v24;
     }
 
     v26 = [v12 OSLogObject];
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v25 = v25;
+    }
+
+    else
     {
       v25 &= 2u;
     }
 
     if (v25)
     {
-      v65 = 138543362;
-      v66 = objc_opt_class();
-      v27 = v66;
-      LODWORD(v56) = 12;
-      v55 = &v65;
-      v28 = _os_log_send_and_compose_impl();
+      v63 = 138543362;
+      v64 = objc_opt_class();
+      v27 = v64;
+      v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_1D48BA000, v26, 16, "%{public}@: XPC connection interrupted while attempting authentication request", &v63, 12);
 
       if (!v28)
       {
-LABEL_25:
+LABEL_27:
         v7 = 0;
-        goto LABEL_39;
+        goto LABEL_41;
       }
 
-      v26 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:{4, &v65, v56}];
+      v26 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
       free(v28);
       SSFileLog(v12, @"%@", v29, v30, v31, v32, v33, v34, v26);
     }
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   v4 = +[SSAccountStore defaultStore];
@@ -2014,37 +2032,40 @@ LABEL_25:
     v13 = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = v13 | 2;
+      LODWORD(v14) = v13 | 2;
     }
 
     else
     {
-      v14 = v13;
+      LODWORD(v14) = v13;
     }
 
     v15 = [v12 OSLogObject];
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
 
     if (v14)
     {
-      v65 = 138543618;
-      v66 = objc_opt_class();
-      v67 = 2112;
-      v68 = v10;
-      v16 = v66;
-      LODWORD(v56) = 22;
-      v55 = &v65;
-      v17 = _os_log_send_and_compose_impl();
+      v63 = 138543618;
+      v64 = objc_opt_class();
+      v65 = 2112;
+      v66 = v10;
+      v16 = v64;
+      v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, v15, 16, "%{public}@: An error occurred during authentication. error = %@", &v63, 22);
 
       if (!v17)
       {
-        goto LABEL_39;
+        goto LABEL_41;
       }
 
-      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v65, v56}];
+      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
       free(v17);
       SSFileLog(v12, @"%@", v18, v19, v20, v21, v22, v23, v15);
     }
@@ -2082,38 +2103,36 @@ LABEL_25:
     if (v38)
     {
       v39 = objc_opt_class();
-      v59 = a1;
+      v57 = a1;
       v40 = *(a1 + 32);
-      v60 = v39;
+      v58 = v39;
       v41 = [v40 logUUID];
-      v58 = [(SSAuthenticateResponse *)v7 authenticatedAccount];
-      v57 = [v58 accountName];
-      v42 = SSHashIfNeeded(v57);
+      v56 = [(SSAuthenticateResponse *)v7 authenticatedAccount];
+      v55 = [v56 accountName];
+      v42 = SSHashIfNeeded(v55);
       v43 = [(SSAuthenticateResponse *)v7 authenticateResponseType];
       v44 = [(SSAuthenticateResponse *)v7 error];
-      v65 = 138544386;
-      v66 = v39;
+      v63 = 138544386;
+      v64 = v39;
+      v65 = 2114;
+      v66 = v41;
       v67 = 2114;
-      v68 = v41;
-      v69 = 2114;
-      v70 = v42;
-      v71 = 2048;
-      v72 = v43;
-      v73 = 2112;
-      v74 = v44;
-      LODWORD(v56) = 52;
-      v55 = &v65;
-      v45 = _os_log_send_and_compose_impl();
+      v68 = v42;
+      v69 = 2048;
+      v70 = v43;
+      v71 = 2112;
+      v72 = v44;
+      v45 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &dword_1D48BA000, v37, 0, "%{public}@: [%{public}@] Authentication request finished. response.authenticatedAccount.accountName = %{public}@ | response.authenticateResponseType = %ld | response.error = %@", &v63, 52);
 
       if (v45)
       {
-        v46 = [MEMORY[0x1E696AEC0] stringWithCString:v45 encoding:{4, &v65, v56}];
+        v46 = [MEMORY[0x1E696AEC0] stringWithCString:v45 encoding:4];
         free(v45);
         SSFileLog(v12, @"%@", v47, v48, v49, v50, v51, v52, v46);
       }
 
       v10 = 0;
-      a1 = v59;
+      a1 = v57;
     }
 
     else
@@ -2123,7 +2142,7 @@ LABEL_25:
     }
   }
 
-LABEL_39:
+LABEL_41:
 
   v53 = *(a1 + 40);
   if (v53)
@@ -2133,9 +2152,9 @@ LABEL_39:
     block[1] = 3221225472;
     block[2] = __68__SSAuthenticateRequest__performRemoteAuthenticationWithCompletion___block_invoke_72;
     block[3] = &unk_1E84ABEC8;
-    v64 = v53;
-    v62 = v7;
-    v63 = v10;
+    v62 = v53;
+    v60 = v7;
+    v61 = v10;
     dispatch_async(v54, block);
   }
 
@@ -2144,7 +2163,7 @@ LABEL_39:
 
 - (int64_t)_responseTypeForError:(id)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   code = [errorCopy code];
   v6 = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -2159,44 +2178,49 @@ LABEL_39:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v34 = shouldLog | 2;
+      LODWORD(v36) = shouldLog | 2;
     }
 
     else
     {
-      v34 = shouldLog;
+      LODWORD(v36) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v34 &= 2u;
+      v36 = v36;
     }
 
-    if (v34)
+    else
     {
-      v36 = objc_opt_class();
-      v37 = v36;
-      [(SSAuthenticateRequest *)self logUUID];
-      v58 = 138543618;
-      v59 = v36;
-      v61 = v60 = 2114;
-      LODWORD(v57) = 22;
-      v38 = _os_log_send_and_compose_impl();
+      v36 &= 2u;
+    }
 
-      if (!v38)
+    if (v36)
+    {
+      v38 = objc_opt_class();
+      v39 = v38;
+      logUUID = [(SSAuthenticateRequest *)self logUUID];
+      v61 = 138543618;
+      v62 = v38;
+      v63 = 2114;
+      v64 = logUUID;
+      v41 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: [%{public}@] This is a new account that needs to be reviewed.", &v61, 22);
+
+      if (!v41)
       {
-LABEL_39:
-        v20 = 3;
-        goto LABEL_51;
+LABEL_42:
+        v21 = 3;
+        goto LABEL_55;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:{4, &v58, v57}];
-      free(v38);
-      SSFileLog(v7, @"%@", v39, v40, v41, v42, v43, v44, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v41 encoding:4];
+      free(v41);
+      SSFileLog(v7, @"%@", v42, v43, v44, v45, v46, v47, oSLogObject);
     }
 
-    goto LABEL_39;
+    goto LABEL_42;
   }
 
   if (code == -5000)
@@ -2209,44 +2233,49 @@ LABEL_39:
     shouldLog2 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v22 = shouldLog2 | 2;
+      LODWORD(v23) = shouldLog2 | 2;
     }
 
     else
     {
-      v22 = shouldLog2;
+      LODWORD(v23) = shouldLog2;
     }
 
     oSLogObject2 = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v22 &= 2u;
+      v23 = v23;
     }
 
-    if (v22)
+    else
     {
-      v24 = objc_opt_class();
-      v25 = v24;
-      [(SSAuthenticateRequest *)self logUUID];
-      v58 = 138543618;
-      v59 = v24;
-      v61 = v60 = 2114;
-      LODWORD(v57) = 22;
-      v26 = _os_log_send_and_compose_impl();
+      v23 &= 2u;
+    }
 
-      if (!v26)
+    if (v23)
+    {
+      v25 = objc_opt_class();
+      v26 = v25;
+      logUUID2 = [(SSAuthenticateRequest *)self logUUID];
+      v61 = 138543618;
+      v62 = v25;
+      v63 = 2114;
+      v64 = logUUID2;
+      v28 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: [%{public}@] The server rejected the credentials we passed it.", &v61, 22);
+
+      if (!v28)
       {
-LABEL_27:
-        v20 = 1;
-        goto LABEL_51;
+LABEL_29:
+        v21 = 1;
+        goto LABEL_55;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v58, v57}];
-      free(v26);
-      SSFileLog(v7, @"%@", v27, v28, v29, v30, v31, v32, oSLogObject2);
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
+      free(v28);
+      SSFileLog(v7, @"%@", v29, v30, v31, v32, v33, v34, oSLogObject2);
     }
 
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   if (code != -7003)
@@ -2259,45 +2288,50 @@ LABEL_27:
     shouldLog3 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v46 = shouldLog3 | 2;
+      LODWORD(v49) = shouldLog3 | 2;
     }
 
     else
     {
-      v46 = shouldLog3;
+      LODWORD(v49) = shouldLog3;
     }
 
     oSLogObject3 = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
     {
-      v46 &= 2u;
+      v49 = v49;
     }
 
-    if (v46)
+    else
     {
-      v48 = objc_opt_class();
-      v49 = v48;
-      [(SSAuthenticateRequest *)self logUUID];
-      v58 = 138543874;
-      v59 = v48;
-      v61 = v60 = 2114;
-      v62 = 2112;
-      v63 = errorCopy;
-      LODWORD(v57) = 32;
-      v20 = _os_log_send_and_compose_impl();
+      v49 &= 2u;
+    }
 
-      if (!v20)
+    if (v49)
+    {
+      v51 = objc_opt_class();
+      v52 = v51;
+      logUUID3 = [(SSAuthenticateRequest *)self logUUID];
+      v61 = 138543874;
+      v62 = v51;
+      v63 = 2114;
+      v64 = logUUID3;
+      v65 = 2112;
+      v66 = errorCopy;
+      v21 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 16, "%{public}@: [%{public}@] Authentication request failed. error = %@", &v61, 32);
+
+      if (!v21)
       {
-        goto LABEL_51;
+        goto LABEL_55;
       }
 
-      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v58, v57}];
-      free(v20);
-      SSFileLog(v7, @"%@", v50, v51, v52, v53, v54, v55, oSLogObject3);
+      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
+      free(v21);
+      SSFileLog(v7, @"%@", v54, v55, v56, v57, v58, v59, oSLogObject3);
     }
 
-    v20 = 0;
-    goto LABEL_51;
+    v21 = 0;
+    goto LABEL_55;
   }
 
   if (!v6)
@@ -2308,46 +2342,51 @@ LABEL_27:
   shouldLog4 = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog4 | 2;
+    LODWORD(v9) = shouldLog4 | 2;
   }
 
   else
   {
-    v9 = shouldLog4;
+    LODWORD(v9) = shouldLog4;
   }
 
   oSLogObject4 = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v11 = objc_opt_class();
   v12 = v11;
-  [(SSAuthenticateRequest *)self logUUID];
-  v58 = 138543618;
-  v59 = v11;
-  v61 = v60 = 2114;
-  LODWORD(v57) = 22;
-  v13 = _os_log_send_and_compose_impl();
+  logUUID4 = [(SSAuthenticateRequest *)self logUUID];
+  v61 = 138543618;
+  v62 = v11;
+  v63 = 2114;
+  v64 = logUUID4;
+  v14 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, oSLogObject4, 0, "%{public}@: [%{public}@] The user cancelled the authentication.", &v61, 22);
 
-  if (v13)
+  if (v14)
   {
-    oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v58, v57}];
-    free(v13);
-    SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject4);
-LABEL_14:
+    oSLogObject4 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+    free(v14);
+    SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject4);
+LABEL_15:
   }
 
-  v20 = 2;
-LABEL_51:
+  v21 = 2;
+LABEL_55:
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)_shouldRunAuthenticationForAccount:(id)account

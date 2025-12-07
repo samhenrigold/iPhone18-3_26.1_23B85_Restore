@@ -27,84 +27,82 @@
 - (void)syncWithItemID:(id)d notifyURL:(id)l syncCompletion:(id)completion
 {
   v9 = sub_100022CF0(&qword_100063280, &qword_10004D7B0);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v20 - v11;
-  v13 = _Block_copy(completion);
+  v11 = &v19 - v10;
+  v12 = _Block_copy(completion);
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
+    v13 = type metadata accessor for URL();
+    (*(*(v13 - 8) + 56))(v11, 0, 1, v13);
+  }
+
+  else
+  {
     v14 = type metadata accessor for URL();
-    (*(*(v14 - 8) + 56))(v12, 0, 1, v14);
+    (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  }
+
+  if (v12)
+  {
+    v15 = swift_allocObject();
+    *(v15 + 16) = v12;
+    v12 = sub_10002C014;
   }
 
   else
   {
-    v15 = type metadata accessor for URL();
-    (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+    v15 = 0;
   }
 
-  if (v13)
-  {
-    v16 = swift_allocObject();
-    *(v16 + 16) = v13;
-    v13 = sub_10002C014;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v17 = *((swift_isaMask & *self) + 0xC0);
+  v16 = *((swift_isaMask & *self) + 0xC0);
   dCopy = d;
   selfCopy = self;
-  v17(dCopy, &_swiftEmptyArrayStorage, v12, v13, v16);
+  v16(dCopy, &_swiftEmptyArrayStorage, v11, v12, v15);
 
-  sub_1000224E4(v13);
-  sub_100023504(v12, &qword_100063280, &qword_10004D7B0);
+  sub_1000224E4(v12, v15);
+  sub_100023504(v11, &qword_100063280, &qword_10004D7B0);
 }
 
 - (void)syncWithItemID:(id)d observeItemIDs:(id)ds notifyURL:(id)l syncCompletion:(id)completion
 {
   v10 = sub_100022CF0(&qword_100063280, &qword_10004D7B0);
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v13 = &v21 - v12;
-  v14 = _Block_copy(completion);
+  v12 = &v20 - v11;
+  v13 = _Block_copy(completion);
   sub_100022BE0(0, &qword_1000634E0, FPItemID_ptr);
-  v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
+    v15 = type metadata accessor for URL();
+    (*(*(v15 - 8) + 56))(v12, 0, 1, v15);
+  }
+
+  else
+  {
     v16 = type metadata accessor for URL();
-    (*(*(v16 - 8) + 56))(v13, 0, 1, v16);
+    (*(*(v16 - 8) + 56))(v12, 1, 1, v16);
+  }
+
+  if (v13)
+  {
+    v17 = swift_allocObject();
+    *(v17 + 16) = v13;
+    v13 = sub_10002BF94;
   }
 
   else
   {
-    v17 = type metadata accessor for URL();
-    (*(*(v17 - 8) + 56))(v13, 1, 1, v17);
-  }
-
-  if (v14)
-  {
-    v18 = swift_allocObject();
-    *(v18 + 16) = v14;
-    v14 = sub_10002BF94;
-  }
-
-  else
-  {
-    v18 = 0;
+    v17 = 0;
   }
 
   dCopy = d;
   selfCopy = self;
-  INFPItemCollectionManager.sync(itemID:observeItemIDs:notifyURL:syncCompletion:)(dCopy, v15, v13, v14, v18);
-  sub_1000224E4(v14);
+  INFPItemCollectionManager.sync(itemID:observeItemIDs:notifyURL:syncCompletion:)(dCopy, v14, v12, v13, v17);
+  sub_1000224E4(v13, v17);
 
-  sub_100023504(v13, &qword_100063280, &qword_10004D7B0);
+  sub_100023504(v12, &qword_100063280, &qword_10004D7B0);
 }
 
 - (void)stopObservingWithItemID:(id)d

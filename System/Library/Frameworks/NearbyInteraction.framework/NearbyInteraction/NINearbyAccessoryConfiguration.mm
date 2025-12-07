@@ -16,7 +16,7 @@
 
 - (NINearbyAccessoryConfiguration)initWithData:(NSData *)data error:(NSError *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = data;
   if (!v7)
   {
@@ -24,9 +24,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"NIConfiguration.mm" lineNumber:714 description:{@"Invalid parameter not satisfying: %@", @"data"}];
   }
 
-  v40.receiver = self;
-  v40.super_class = NINearbyAccessoryConfiguration;
-  initInternal = [(NIConfiguration *)&v40 initInternal];
+  v39.receiver = self;
+  v39.super_class = NINearbyAccessoryConfiguration;
+  initInternal = [(NIConfiguration *)&v39 initInternal];
   if (!initInternal)
   {
     goto LABEL_22;
@@ -36,11 +36,11 @@
   bytes = [(NSData *)v7 bytes];
   v11 = [(NSData *)v7 length];
   __p = 0;
+  v37 = 0;
   v38 = 0;
-  v39 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, bytes, bytes + v11, v11);
-  v12 = v38 - __p;
-  if ((v38 - __p) < 0x14)
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, bytes, &bytes[v11], v11);
+  v12 = v37 - __p;
+  if ((v37 - __p) < 0x14)
   {
     goto LABEL_5;
   }
@@ -56,7 +56,7 @@
   {
     if (__PAIR64__(v18, v17) == __PAIR64__(*v19, *(v19 - 1)))
     {
-      v24 = 1;
+      v23 = 1;
       goto LABEL_25;
     }
 
@@ -65,35 +65,35 @@
   }
 
   while (v20);
-  v24 = 0;
+  v23 = 0;
 LABEL_25:
-  v25 = *(__p + 9) && v17 == 2;
-  v26 = v25;
-  v27 = v17 <= 2 ? v26 : 1;
-  v28 = v14 > 1 || v15;
-  if (((v28 | v16) & 1) == 0 || ((v24 | v27) & 1) == 0)
+  v24 = *(__p + 9) && v17 == 2;
+  v25 = v24;
+  v26 = v17 <= 2 ? v25 : 1;
+  v27 = v14 > 1 || v15;
+  if (((v27 | v16) & 1) == 0 || ((v23 | v26) & 1) == 0)
   {
     goto LABEL_5;
   }
 
-  if (v24)
+  if (v23)
   {
     if (v17 == 2)
     {
       if (!*(__p + 9))
       {
-        v29 = 32;
-        v30 = 48;
+        v28 = 32;
+        v29 = 48;
         goto LABEL_51;
       }
     }
 
     else if (v17 == 1 && v18 < 3)
     {
-      v29 = 2 * v18 + 19;
-      v30 = 2 * v18 + 35;
+      v28 = 2 * v18 + 19;
+      v29 = 2 * v18 + 35;
 LABEL_51:
-      if (v12 != v30 || *(__p + 15) != v29)
+      if (v12 != v29 || *(__p + 15) != v28)
       {
         goto LABEL_5;
       }
@@ -104,7 +104,7 @@ LABEL_51:
     __assert_rtn("UWBConfigDataTotalLengthBytes", "NIFiRaDefinitions.h", 418, "false");
   }
 
-  if (v27)
+  if (v26)
   {
     if (v12 < 0x30 || *(__p + 15) < 0x20u)
     {
@@ -121,22 +121,22 @@ LABEL_51:
 
 LABEL_53:
   __dst = 0;
-  v45 = 0;
-  v48 = 0;
-  memset(v49, 0, sizeof(v49));
-  v43 = 0;
   v44 = 0;
+  v47 = 0;
+  memset(v48, 0, sizeof(v48));
+  v42 = 0;
+  v43 = 0;
   memcpy(&__dst, __p, v12);
-  if (v42 <= 0x14u && ((1 << v42) & 0x100401) != 0 && v46 <= 1u && BYTE2(v48) <= 1u && HIBYTE(v48) <= 8u && ((1 << SHIBYTE(v48)) & 0x10D) != 0)
+  if (v41 <= 0x14u && ((1 << v41) & 0x100401) != 0 && v45 <= 1u && BYTE2(v47) <= 1u && HIBYTE(v47) <= 8u && ((1 << SHIBYTE(v47)) & 0x10D) != 0)
   {
-    v31 = v47;
-    v32 = [(NSData *)v7 copy];
-    v33 = initInternal[4];
-    initInternal[4] = v32;
+    v30 = v46;
+    v31 = [(NSData *)v7 copy];
+    v32 = initInternal[4];
+    initInternal[4] = v31;
 
-    v34 = [[NIDiscoveryToken alloc] initWithDeviceAddress:v31];
-    v35 = initInternal[6];
-    initInternal[6] = v34;
+    v33 = [[NIDiscoveryToken alloc] initWithDeviceAddress:v30];
+    v34 = initInternal[6];
+    initInternal[6] = v33;
 
     *(initInternal + 40) = 0;
     initInternal[9] = 0;
@@ -159,7 +159,7 @@ LABEL_5:
 LABEL_19:
   if (__p)
   {
-    v38 = __p;
+    v37 = __p;
     operator delete(__p);
   }
 
@@ -173,7 +173,6 @@ LABEL_22:
   v21 = initInternal;
 LABEL_24:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -315,35 +314,35 @@ LABEL_3:
 
 - (NINearbyAccessoryConfiguration)initWithCoder:(id)coder
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   obj = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"accessoryDiscoveryToken"];
-  v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rawData"];
+  v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rawData"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bluetoothDeviceIdentifier"];
   v6 = MEMORY[0x1E695DFD8];
-  v24[0] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   v8 = [v6 setWithArray:v7];
 
   v9 = MEMORY[0x1E695DFD8];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v23[2] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v22[2] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
   v11 = [v9 setWithArray:v10];
 
   v12 = [coderCopy decodeDictionaryWithKeysOfClasses:v8 objectsOfClasses:v11 forKey:@"debugParameters"];
   v13 = [coderCopy decodeBoolForKey:@"cameraAssistanceEnabled"];
   v14 = [coderCopy decodeIntegerForKey:@"backgroundMode"];
-  v22.receiver = self;
-  v22.super_class = NINearbyAccessoryConfiguration;
-  v15 = [(NIConfiguration *)&v22 initWithCoder:coderCopy];
+  v21.receiver = self;
+  v21.super_class = NINearbyAccessoryConfiguration;
+  v15 = [(NIConfiguration *)&v21 initWithCoder:coderCopy];
   v16 = v15;
   if (v15)
   {
     objc_storeStrong(&v15->_accessoryDiscoveryToken, obj);
     objc_storeStrong(&v16->_debugParameters, v12);
-    objc_storeStrong(&v16->_rawData, v20);
+    objc_storeStrong(&v16->_rawData, v19);
     objc_storeStrong(&v16->_bluetoothDeviceIdentifier, v5);
     v16->_cameraAssistanceEnabled = v13;
     if (v14 >= 3)
@@ -359,7 +358,6 @@ LABEL_3:
     v16->_backgroundMode = v17;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

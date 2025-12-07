@@ -7,7 +7,7 @@
 
 - (BOOL)reconfigureOpForRename:(id)rename error:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   renameCopy = rename;
   operation = [(FISubOperation *)self operation];
   if (operation)
@@ -17,8 +17,8 @@
 LABEL_8:
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      v18[0] = renameCopy;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+      v17[0] = renameCopy;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
       [operation setSourceNodes:v14];
 
       [operation setDestinationNode:0];
@@ -31,12 +31,12 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v8 = -43;
+    v8 = 4294967253;
   }
 
   else
   {
-    v8 = -8072;
+    v8 = 4294959224;
   }
 
   v9 = ErrorWithOSStatus(v8, 0);
@@ -60,7 +60,6 @@ LABEL_8:
 
 LABEL_9:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

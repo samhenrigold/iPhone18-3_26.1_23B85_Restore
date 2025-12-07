@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    zoomAmount = self->_zoomAmount;
     PBDataWriterWriteFloatField();
   }
 }

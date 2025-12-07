@@ -1,143 +1,3 @@
-uint64_t sub_2450444A8(uint64_t result, uint64_t a2)
-{
-  v2 = *result;
-  v3 = *a2;
-  if (*a2 - 4 * *(a2 + 12) == *result - 4 * *(result + 12))
-  {
-    v14 = *(a2 + 8);
-    v15 = v3[v14];
-    v16 = v3[1];
-    v30[0] = *v3;
-    v30[1] = v15;
-    v17 = v3[(v14 + 1)];
-    v30[2] = v3[(2 * v14)];
-    v30[3] = v16;
-    v18 = v3[(2 * v14) | 1];
-    v30[4] = v17;
-    v30[5] = v18;
-    v19 = v3[(v14 + 2)];
-    v30[6] = v3[2];
-    v30[7] = v19;
-    v30[8] = v3[(2 * v14 + 2)];
-    v20 = *(result + 8);
-    if (v20)
-    {
-      v21 = &v2[3 * v20];
-      v22 = (v20 - 3) << 32;
-      v23 = v30;
-      do
-      {
-        v24 = *v23++;
-        *v2 = v24;
-        v25 = HIDWORD(v22);
-        v26 = v22 < 2;
-        if (v22 < 2)
-        {
-          v25 = 0;
-        }
-
-        v27 = &v2[v25];
-        v28 = (v22 + 1);
-        v29 = v22 & 0xFFFFFFFF00000000;
-        if (!v26)
-        {
-          v28 = 0;
-        }
-
-        v22 = v28 | v29;
-        v2 = v27 + 1;
-      }
-
-      while (v2 != v21);
-    }
-  }
-
-  else
-  {
-    v4 = *(result + 8);
-    if (v4)
-    {
-      v5 = 0;
-      v6 = &v2[3 * v4];
-      v7 = (v4 - 3) << 32;
-      v8 = *(a2 + 8);
-      do
-      {
-        *v2 = v3[(HIDWORD(v5) + v8 * v5)];
-        if (v5 >= 2)
-        {
-          v5 = (v5 & 0xFFFFFFFF00000000) + 0x100000000;
-        }
-
-        else
-        {
-          v5 = (v5 + 1) | v5 & 0xFFFFFFFF00000000;
-        }
-
-        v9 = HIDWORD(v7);
-        v10 = v7 < 2;
-        if (v7 < 2)
-        {
-          v9 = 0;
-        }
-
-        v11 = &v2[v9];
-        v12 = (v7 + 1);
-        v13 = v7 & 0xFFFFFFFF00000000;
-        if (!v10)
-        {
-          v12 = 0;
-        }
-
-        v7 = v12 | v13;
-        v2 = v11 + 1;
-      }
-
-      while (v2 != v6);
-    }
-  }
-
-  return result;
-}
-
-float *sub_2450445F0(float *result, uint64_t **a2)
-{
-  v2 = result;
-  v3 = a2[1];
-  v4 = *v3;
-  if ((*v3 - 4 * *(v3 + 3)) == result)
-  {
-    v19 = 0;
-    v18 = 0;
-    result = sub_2450445F0(&v18);
-    *v2 = v18;
-    *(v2 + 2) = v19;
-  }
-
-  else
-  {
-    v5 = **a2;
-    v6 = *v5;
-    v7 = **v5;
-    v8 = *(*v5 + 4);
-    v9 = *(*v5 + 8);
-    v10 = (*(v5 + 8) - 3);
-    v11 = &v6[v10];
-    v12 = v11[3];
-    v13 = v11[4];
-    v11 += 3;
-    v14 = v11[2];
-    v15 = &v11[v10];
-    v16 = v15[4];
-    v17 = v15[5];
-    *result = ((0.0 - (v7 * *v4)) - (v12 * v4[1])) - (v15[3] * v4[2]);
-    result[1] = ((0.0 - (v8 * *v4)) - (v13 * v4[1])) - (v16 * v4[2]);
-    result[2] = ((0.0 - (v9 * *v4)) - (v14 * v4[1])) - (v17 * v4[2]);
-  }
-
-  return result;
-}
-
 uint64_t cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::adjoint@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>, int8x16_t a3@<Q3>)
 {
   *(a2 + 112) = 0u;
@@ -585,32 +445,32 @@ uint64_t cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::T(uint64_
 
 void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::lplus(float64x2_t *a1, _OWORD *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2[1];
-  *v33 = *a2;
-  *&v33[16] = v3;
-  v34 = a2[2];
-  v22[0] = v33;
-  v22[1] = 6;
-  v23[5] = unk_24508AA70;
-  v23[6] = xmmword_24508AA80;
-  v23[7] = unk_24508AA90;
-  v23[0] = xmmword_24508AA20;
-  v23[1] = *algn_24508AA30;
-  v23[2] = xmmword_24508AA40;
-  memset(&v23[3], 0, 32);
-  v4 = vmulq_f64(*&v33[8], *&v33[8]);
-  v5 = *v33 * *v33 + v4.f64[0] + v4.f64[1];
+  *v32 = *a2;
+  *&v32[16] = v3;
+  v33 = a2[2];
+  v21[0] = v32;
+  v21[1] = 6;
+  v22[5] = unk_24508AA70;
+  v22[6] = xmmword_24508AA80;
+  v22[7] = unk_24508AA90;
+  v22[0] = xmmword_24508AA20;
+  v22[1] = *algn_24508AA30;
+  v22[2] = xmmword_24508AA40;
+  memset(&v22[3], 0, 32);
+  v4 = vmulq_f64(*&v32[8], *&v32[8]);
+  v5 = *v32 * *v32 + v4.f64[0] + v4.f64[1];
   if (v5 >= 0.0000002635)
   {
     v13 = sqrt(v5);
-    v21 = *v33 * *v33 + v4.f64[0] + v4.f64[1];
+    v20 = *v32 * *v32 + v4.f64[0] + v4.f64[1];
     v14 = __sincos_stret(v13);
     v12.f64[0] = v14.__cosval;
     v12.f64[1] = v14.__sinval / v13;
     __asm { FMOV            V0.2D, #1.0 }
 
-    v6 = vmulq_n_f64(vsubq_f64(_Q0, v12), 1.0 / v21);
+    v6 = vmulq_n_f64(vsubq_f64(_Q0, v12), 1.0 / v20);
   }
 
   else
@@ -621,11 +481,12 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::lplus(float64
     v12 = vmlsq_lane_f64(_Q1, v6, v5, 0);
   }
 
-  v25 = v12;
-  v26 = v6;
-  sub_2450450A8(v22, v25.f64, v23);
-  v24[0] = v23;
-  v24[1] = a1;
+  v24 = v12;
+  v25 = v6;
+  sub_2450450A8(v21, v24.f64, v22);
+  v23[0] = v22;
+  v23[1] = a1;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
@@ -633,21 +494,19 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::lplus(float64
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  sub_245045258(v25.f64, v24);
-  v16 = v30;
-  a1[4] = v29;
+  sub_245045258(&v24, v23);
+  v16 = v29;
+  a1[4] = v28;
   a1[5] = v16;
-  v17 = v32;
-  a1[6] = v31;
+  v17 = v31;
+  a1[6] = v30;
   a1[7] = v17;
-  v18 = v26;
-  *a1 = v25;
+  v18 = v25;
+  *a1 = v24;
   a1[1] = v18;
-  v19 = v28;
-  a1[2] = v27;
+  v19 = v27;
+  a1[2] = v26;
   a1[3] = v19;
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_2450450A8(uint64_t result, double *a2, float64x2_t *a3)
@@ -714,10 +573,10 @@ uint64_t sub_2450450A8(uint64_t result, double *a2, float64x2_t *a3)
   return result;
 }
 
-float64_t sub_245045258(double *a1, uint64_t a2)
+float64_t sub_245045258(float64x2_t *a1, float64x2_t **a2)
 {
   v3 = *a2;
-  if (*a2 == a1 || (v4 = *(a2 + 8), v4 == a1))
+  if (*a2 == a1 || (v4 = a2[1], v4 == a1))
   {
     v41 = 0u;
     v42 = 0u;
@@ -727,31 +586,31 @@ float64_t sub_245045258(double *a1, uint64_t a2)
     v38 = 0u;
     v35 = 0u;
     v36 = 0u;
-    sub_245045258(&v35);
+    sub_245045258(v35.f64, a2);
     v30 = v40;
-    *(a1 + 4) = v39;
-    *(a1 + 5) = v30;
+    a1[4] = v39;
+    a1[5] = v30;
     v31 = v42;
-    *(a1 + 6) = v41;
-    *(a1 + 7) = v31;
+    a1[6] = v41;
+    a1[7] = v31;
     v32 = v36;
     *a1 = v35;
-    *(a1 + 1) = v32;
-    *&v28.f64[0] = v37;
+    a1[1] = v32;
+    v28.f64[0] = v37.f64[0];
     v33 = v38;
-    *(a1 + 2) = v37;
-    *(a1 + 3) = v33;
+    a1[2] = v37;
+    a1[3] = v33;
   }
 
   else
   {
-    v5 = *(a2 + 8);
+    v5 = a2[1];
     v6 = vld1q_dup_f64(v5++);
     v7 = v4[2];
     v8 = v4[3];
     v9 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_f64(0, v6, v3[1]), v3[3], *v5), v3[5], v7), v3[7], v8);
     *a1 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_f64(0, v6, *v3), v3[2], *v5), v3[4], v7), v3[6], v8);
-    *(a1 + 1) = v9;
+    a1[1] = v9;
     v9.f64[0] = v4[4];
     v10 = v4[5];
     v11 = vmlaq_n_f64(vmlaq_n_f64(0, *v3, v9.f64[0]), v3[2], v10);
@@ -759,8 +618,8 @@ float64_t sub_245045258(double *a1, uint64_t a2)
     v13 = v4[6];
     v14 = v4[7];
     v15 = vmlaq_n_f64(vmlaq_n_f64(v12, v3[5], v13), v3[7], v14);
-    *(a1 + 2) = vmlaq_n_f64(vmlaq_n_f64(v11, v3[4], v13), v3[6], v14);
-    *(a1 + 3) = v15;
+    a1[2] = vmlaq_n_f64(vmlaq_n_f64(v11, v3[4], v13), v3[6], v14);
+    a1[3] = v15;
     v9.f64[0] = v4[8];
     v16 = v4[9];
     v17 = vmlaq_n_f64(vmlaq_n_f64(0, *v3, v9.f64[0]), v3[2], v16);
@@ -768,8 +627,8 @@ float64_t sub_245045258(double *a1, uint64_t a2)
     v19 = v4[10];
     v20 = v4[11];
     v21 = vmlaq_n_f64(vmlaq_n_f64(v18, v3[5], v19), v3[7], v20);
-    *(a1 + 4) = vmlaq_n_f64(vmlaq_n_f64(v17, v3[4], v19), v3[6], v20);
-    *(a1 + 5) = v21;
+    a1[4] = vmlaq_n_f64(vmlaq_n_f64(v17, v3[4], v19), v3[6], v20);
+    a1[5] = v21;
     v22 = v4[12];
     v23 = v4[13];
     v24 = vmlaq_n_f64(vmlaq_n_f64(0, *v3, v22), v3[2], v23);
@@ -778,8 +637,8 @@ float64_t sub_245045258(double *a1, uint64_t a2)
     v27 = v4[15];
     v28 = v3[7];
     v29 = vmlaq_n_f64(vmlaq_n_f64(v25, v3[5], v26), v28, v27);
-    *(a1 + 6) = vmlaq_n_f64(vmlaq_n_f64(v24, v3[4], v26), v3[6], v27);
-    *(a1 + 7) = v29;
+    a1[6] = vmlaq_n_f64(vmlaq_n_f64(v24, v3[4], v26), v3[6], v27);
+    a1[7] = v29;
   }
 
   return v28.f64[0];
@@ -841,32 +700,32 @@ uint64_t cva::SE3AlgebraStorage<double,cva::MatrixRef<double const,6u,1u,false>>
 
 void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::rplus(float64x2_t *a1, _OWORD *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2[1];
-  *v33 = *a2;
-  *&v33[16] = v3;
-  v34 = a2[2];
-  v22[0] = v33;
-  v22[1] = 6;
-  v23[5] = unk_24508AA70;
-  v23[6] = xmmword_24508AA80;
-  v23[7] = unk_24508AA90;
-  v23[0] = xmmword_24508AA20;
-  v23[1] = *algn_24508AA30;
-  v23[2] = xmmword_24508AA40;
-  memset(&v23[3], 0, 32);
-  v4 = vmulq_f64(*&v33[8], *&v33[8]);
-  v5 = *v33 * *v33 + v4.f64[0] + v4.f64[1];
+  *v32 = *a2;
+  *&v32[16] = v3;
+  v33 = a2[2];
+  v21[0] = v32;
+  v21[1] = 6;
+  v22[5] = unk_24508AA70;
+  v22[6] = xmmword_24508AA80;
+  v22[7] = unk_24508AA90;
+  v22[0] = xmmword_24508AA20;
+  v22[1] = *algn_24508AA30;
+  v22[2] = xmmword_24508AA40;
+  memset(&v22[3], 0, 32);
+  v4 = vmulq_f64(*&v32[8], *&v32[8]);
+  v5 = *v32 * *v32 + v4.f64[0] + v4.f64[1];
   if (v5 >= 0.0000002635)
   {
     v13 = sqrt(v5);
-    v21 = *v33 * *v33 + v4.f64[0] + v4.f64[1];
+    v20 = *v32 * *v32 + v4.f64[0] + v4.f64[1];
     v14 = __sincos_stret(v13);
     v12.f64[0] = v14.__cosval;
     v12.f64[1] = v14.__sinval / v13;
     __asm { FMOV            V0.2D, #1.0 }
 
-    v6 = vmulq_n_f64(vsubq_f64(_Q0, v12), 1.0 / v21);
+    v6 = vmulq_n_f64(vsubq_f64(_Q0, v12), 1.0 / v20);
   }
 
   else
@@ -877,11 +736,12 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::rplus(float64
     v12 = vmlsq_lane_f64(_Q1, v6, v5, 0);
   }
 
-  v25 = v12;
-  v26 = v6;
-  sub_2450450A8(v22, v25.f64, v23);
-  v24[0] = a1;
-  v24[1] = v23;
+  v24 = v12;
+  v25 = v6;
+  sub_2450450A8(v21, v24.f64, v22);
+  v23[0] = a1;
+  v23[1] = v22;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
@@ -889,39 +749,36 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::rplus(float64
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  sub_245045258(v25.f64, v24);
-  v16 = v30;
-  a1[4] = v29;
+  sub_245045258(&v24, v23);
+  v16 = v29;
+  a1[4] = v28;
   a1[5] = v16;
-  v17 = v32;
-  a1[6] = v31;
+  v17 = v31;
+  a1[6] = v30;
   a1[7] = v17;
-  v18 = v26;
-  *a1 = v25;
+  v18 = v25;
+  *a1 = v24;
   a1[1] = v18;
-  v19 = v28;
-  a1[2] = v27;
+  v19 = v27;
+  a1[2] = v26;
   a1[3] = v19;
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 double cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::transform@<D0>(float64x2_t *a1@<X0>, double *a2@<X1>, uint64_t a3@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = a1;
-  v7[1] = 4;
-  v8[0] = v7;
-  v8[1] = a2;
-  v10 = 0.0;
-  v9 = 0uLL;
-  sub_245039A0C(v9.f64, v8);
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = a1;
+  v6[1] = 4;
+  v7[0] = v6;
+  v7[1] = a2;
+  v9 = 0.0;
+  v8 = 0uLL;
+  sub_245039A0C(v8.f64, v7);
   *a3 = 0;
   *(a3 + 8) = 0;
-  result = v10 + a1[7].f64[0];
-  *a3 = vaddq_f64(v9, a1[6]);
+  result = v9 + a1[7].f64[0];
+  *a3 = vaddq_f64(v8, a1[6]);
   *(a3 + 16) = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -942,39 +799,38 @@ double cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::inverseTran
   v9[1] = v6;
   v13 = 0uLL;
   v14 = 0.0;
-  sub_245039B54(&v13, v12);
+  v4 = sub_245039B54(&v13, v12);
   v15 = 0uLL;
   v16 = 0.0;
-  sub_245045828(&v15, v9);
+  sub_245045828(&v15, v9, v4);
   *a3 = vsubq_f64(v13, v15);
   result = v14 - v16;
   a3[1].f64[0] = v14 - v16;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-double sub_245045828(uint64_t a1, uint64_t **a2)
+double sub_245045828(uint64_t a1, uint64_t **a2, double a3)
 {
-  v3 = a2[1];
-  v4 = *v3;
-  if (*v3 - 8 * *(v3 + 3) == a1)
+  v4 = a2[1];
+  v5 = *v4;
+  if (*v4 - 8 * *(v4 + 3) == a1)
   {
-    v9 = 0uLL;
-    v10 = 0;
-    sub_245045828(&v9);
-    result = *&v9;
-    *a1 = v9;
-    *(a1 + 16) = v10;
+    v10 = 0uLL;
+    v11 = 0;
+    sub_245045828(&v10, a2, a3);
+    result = *&v10;
+    *a1 = v10;
+    *(a1 + 16) = v11;
   }
 
   else
   {
-    v5 = **a2;
-    v6 = *(v5 + 8);
-    v7 = *v5;
-    *a1 = v7[1] * v4[1] + *v7 * *v4 + 0.0 + v7[2] * v4[2];
-    *(a1 + 8) = v7[v6 + 1] * v4[1] + v7[v6] * *v4 + 0.0 + v7[(v6 + 2)] * v4[2];
-    result = v7[(2 * v6) + 1] * v4[1] + v7[(2 * v6)] * *v4 + 0.0 + v7[(2 * v6 + 2)] * v4[2];
+    v6 = **a2;
+    v7 = *(v6 + 8);
+    v8 = *v6;
+    *a1 = v8[1] * v5[1] + *v8 * *v5 + 0.0 + v8[2] * v5[2];
+    *(a1 + 8) = v8[v7 + 1] * v5[1] + v8[v7] * *v5 + 0.0 + v8[(v7 + 2)] * v5[2];
+    result = v8[(2 * v7) + 1] * v5[1] + v8[(2 * v7)] * *v5 + 0.0 + v8[(2 * v7 + 2)] * v5[2];
     *(a1 + 16) = result;
   }
 
@@ -1281,6 +1137,74 @@ uint64_t sub_245045BE4(uint64_t result, uint64_t a2)
   return result;
 }
 
+double cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::log@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
+  *a2 = 0u;
+  sub_24503963C(a1, 4, a2);
+  v4 = *a2;
+  v5 = *(a2 + 8);
+  v6 = vmulq_f64(v5, v5);
+  v7 = v4 * v4 + v6.f64[0] + v6.f64[1];
+  if (v7 >= 0.0000002635)
+  {
+    v11 = sqrt(v7);
+    v27 = *(a2 + 8);
+    v28 = *a2;
+    v12 = __sincos_stret(v11);
+    v5 = v27;
+    v4 = v28;
+    v10 = v12.__sinval / v11;
+    v8 = 1.0 / v7 * (1.0 - v12.__cosval);
+    v9 = 1.0 / v7 * (1.0 - v12.__sinval / v11);
+  }
+
+  else
+  {
+    v8 = 0.5 - v7 * (v7 / -720.0 + 0.0416666667);
+    v9 = 0.166666667 - v7 * (v7 / -5040.0 + 0.00833333333);
+    v10 = 1.0 - v7 * v9;
+  }
+
+  if (v7 >= 2.775e-15)
+  {
+    if (v7 <= 9.0)
+    {
+      v13 = -(v9 - v8 * 0.5) / v10;
+    }
+
+    else
+    {
+      v13 = (v8 + v10 * -0.5) / (v7 * v8);
+    }
+  }
+
+  else
+  {
+    v13 = v7 * 0.00138888889 + 0.0833333333 + v7 * 0.0000330687831;
+  }
+
+  v14 = *(a1 + 104);
+  *&v15.f64[0] = vdupq_laneq_s64(v14, 1).u64[0];
+  v15.f64[1] = *(a1 + 96);
+  v16 = vdupq_lane_s64(*&v4, 0);
+  v16.f64[0] = v5.f64[1];
+  v29 = vsubq_f64(vmulq_f64(v5, v15), vmulq_f64(v16, v14));
+  v30 = v4 * v14.f64[0] - v15.f64[1] * v5.f64[0];
+  v17 = v14.f64[1] + v30 * -0.5;
+  v18 = *(a2 + 8);
+  __asm { FMOV            V6.2D, #-0.5 }
+
+  *&v24.f64[0] = vdupq_laneq_s64(v18, 1).u64[0];
+  v24.f64[1] = v4;
+  v25 = vaddq_f64(vaddq_f64(*(a1 + 96), vmulq_f64(v29, _Q6)), vmulq_n_f64(vmlaq_f64(vmulq_f64(*(&v29 + 8), vnegq_f64(v24)), vzip1q_s64(vdupq_laneq_s64(*(&v29 + 8), 1), v29), v18), v13));
+  result = v13 * (-v18.f64[0] * v29.f64[0] + v4 * v29.f64[1]) + v17;
+  *(a2 + 24) = v25;
+  *(a2 + 40) = result;
+  return result;
+}
+
 double cva::SE3AlgebraStorage<double,cva::Matrix<double,6u,1u,false>>::SE3AlgebraStorage(_OWORD *a1)
 {
   result = 0.0;
@@ -1325,11 +1249,11 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::logJacobian(d
   memset(v84, 0, sizeof(v84));
   v83 = 0u;
   memset(v82, 0, sizeof(v82));
-  sub_245039D5C(a1, 4, v82[0].f64, &v82[1].f64[1]);
-  v6 = v82[0].f64[1];
-  v5 = v82[0].f64[0];
+  v5.n128_f64[0] = sub_245039D5C(a1, 4, v82, &v82[1].f64[1]);
+  v7 = v82[0].f64[1];
+  v6 = v82[0].f64[0];
   *a2 = v82[0].f64[0];
-  *(a2 + 8) = v6;
+  *(a2 + 8) = v7;
   _D11 = v82[1].f64[0];
   *(a2 + 16) = v82[1].f64[0];
   v80 = a1 + 12;
@@ -1340,137 +1264,137 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::logJacobian(d
   {
     v85 = 0uLL;
     v86 = 0.0;
-    sub_24504644C(&v85, &v71);
+    sub_24504644C(&v85, &v71, v5);
     _Q19 = v85;
-    v12 = v86;
+    v13 = v86;
   }
 
   else
   {
-    v8 = a1[12];
-    v9 = a1[13];
-    v10 = a1[14];
-    _Q19 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(0, *(&v82[1] + 8), v8), v83, v9), *&v84[1], v10);
-    v12 = v82[2].f64[1] * v8 + 0.0 + v84[0] * v9 + v84[3] * v10;
+    v9 = a1[12];
+    v10 = a1[13];
+    v11 = a1[14];
+    _Q19 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(0, *(&v82[1] + 8), v9), v83, v10), *&v84[1], v11);
+    v13 = v82[2].f64[1] * v9 + 0.0 + v84[0] * v10 + v84[3] * v11;
   }
 
   *(a2 + 24) = _Q19;
-  *(a2 + 40) = v12;
-  v13 = v5 * v5;
-  v14 = v5 * v5 + v6 * v6 + _D11 * _D11;
-  if (v14 >= 0.0000002635)
+  *(a2 + 40) = v13;
+  v14 = v6 * v6;
+  v15 = v6 * v6 + v7 * v7 + _D11 * _D11;
+  if (v15 >= 0.0000002635)
   {
-    v68 = v5;
-    v20 = sqrt(v14);
+    v68 = v6;
+    v21 = sqrt(v15);
     v69 = _Q19;
-    v21 = __sincos_stret(v20);
+    v22 = __sincos_stret(v21);
     _Q19 = v69;
-    v22 = v21.__sinval / v20;
-    v5 = v68;
-    _D0 = 1.0 / v14 * (1.0 - v21.__cosval);
-    v16 = 1.0 / v14 * (1.0 - v22);
-    v17 = v16 - _D0;
-    v18 = 1.0 / v14 * (v22 + _D0 * -2.0);
-    v19 = 1.0 / v14 * (_D0 + v16 * -3.0);
+    v23 = v22.__sinval / v21;
+    v6 = v68;
+    _D0 = 1.0 / v15 * (1.0 - v22.__cosval);
+    v17 = 1.0 / v15 * (1.0 - v23);
+    v18 = v17 - _D0;
+    v19 = 1.0 / v15 * (v23 + _D0 * -2.0);
+    v20 = 1.0 / v15 * (_D0 + v17 * -3.0);
   }
 
   else
   {
-    _D0 = 0.5 - v14 * (v14 / -720.0 + 0.0416666667);
-    v16 = 0.166666667 - v14 * (v14 / -5040.0 + 0.00833333333);
-    v17 = v14 * (v14 * -0.00119047619 + 0.0333333333) + -0.333333333;
-    v18 = v14 * (v14 * -0.000148809524 + 0.00555555556) + -0.0833333333;
-    v19 = v14 * (v14 * -0.0000165343915 + 0.000793650794) + -0.0166666667;
+    _D0 = 0.5 - v15 * (v15 / -720.0 + 0.0416666667);
+    v17 = 0.166666667 - v15 * (v15 / -5040.0 + 0.00833333333);
+    v18 = v15 * (v15 * -0.00119047619 + 0.0333333333) + -0.333333333;
+    v19 = v15 * (v15 * -0.000148809524 + 0.00555555556) + -0.0833333333;
+    v20 = v15 * (v15 * -0.0000165343915 + 0.000793650794) + -0.0166666667;
   }
 
-  v23 = 0;
-  v24 = a2 + 48;
-  v25 = vmuld_lane_f64(v6, _Q19, 1);
-  v26 = v5 * _Q19.f64[0] + v25 + _D11 * v12;
-  v27 = (v17 + v19 * v13) * v26 + (v16 + v16) * (v5 * _Q19.f64[0]);
-  v28 = (v17 + v19 * (v6 * v6)) * v26 + (v16 + v16) * v25;
-  v79 = (v17 + v19 * (_D11 * _D11)) * v26 + (v16 + v16) * (_D11 * v12);
-  v29 = v19 * v26;
-  v30 = v6 * (v5 * (v19 * v26)) + v16 * (vmuld_lane_f64(v5, _Q19, 1) + _Q19.f64[0] * v6);
-  v31 = _D11 * (v5 * v29) + v16 * (v5 * v12 + _Q19.f64[0] * _D11);
+  v24 = 0;
+  v25 = a2 + 48;
+  v26 = vmuld_lane_f64(v7, _Q19, 1);
+  v27 = v6 * _Q19.f64[0] + v26 + _D11 * v13;
+  v28 = (v18 + v20 * v14) * v27 + (v17 + v17) * (v6 * _Q19.f64[0]);
+  v29 = (v18 + v20 * (v7 * v7)) * v27 + (v17 + v17) * v26;
+  v79 = (v18 + v20 * (_D11 * _D11)) * v27 + (v17 + v17) * (_D11 * v13);
+  v30 = v20 * v27;
+  v31 = v7 * (v6 * (v20 * v27)) + v17 * (vmuld_lane_f64(v6, _Q19, 1) + _Q19.f64[0] * v7);
+  v32 = _D11 * (v6 * v30) + v17 * (v6 * v13 + _Q19.f64[0] * _D11);
   __asm { FMLA            D17, D11, V19.D[1] }
 
-  v37 = _D11 * (v6 * v29) + v16 * _D17;
-  v38 = v18 * v26;
-  v39 = _D11 * v38 + _D0 * v12;
+  v38 = _D11 * (v7 * v30) + v17 * _D17;
+  v39 = v19 * v27;
+  v40 = _D11 * v39 + _D0 * v13;
   __asm { FMLA            D16, D0, V19.D[1] }
 
-  v41 = v5 * v38 + _D0 * _Q19.f64[0];
-  v71 = v27;
-  v72 = v39 + v30;
-  v73 = v31 - _D16;
-  v74 = v30 - v39;
-  v77 = _D16 + v31;
-  v78 = v37 - v41;
-  v75 = v28;
-  v76 = v41 + v37;
-  v42 = 0x300000000;
-  v43 = 3;
+  v42 = v6 * v39 + _D0 * _Q19.f64[0];
+  v71 = v28;
+  v72 = v40 + v31;
+  v73 = v32 - _D16;
+  v74 = v31 - v40;
+  v77 = _D16 + v32;
+  v78 = v38 - v42;
+  v75 = v29;
+  v76 = v42 + v38;
+  v43 = 0x300000000;
+  v44 = 3;
   do
   {
-    *(v24 + v23) = v82[0].f64[v43];
-    v44 = v42 < 2;
-    v45 = (v42 >> 29) & 0x7FFFFFFF8;
-    if (v42 < 2)
+    *(v25 + v24) = v82[0].f64[v44];
+    v45 = v43 < 2;
+    v46 = (v43 >> 29) & 0x7FFFFFFF8;
+    if (v43 < 2)
     {
-      v45 = 0;
+      v46 = 0;
     }
 
-    v46 = v23 + v45;
-    v47 = (v42 + 1);
-    v48 = v42 & 0xFFFFFFFF00000000;
-    if (!v44)
+    v47 = v24 + v46;
+    v48 = (v43 + 1);
+    v49 = v43 & 0xFFFFFFFF00000000;
+    if (!v45)
     {
-      v47 = 0;
+      v48 = 0;
     }
 
-    v42 = v47 | v48;
-    v23 = v46 + 8;
-    ++v43;
+    v43 = v48 | v49;
+    v24 = v47 + 8;
+    ++v44;
   }
 
-  while (v23 != 144);
+  while (v24 != 144);
   v85 = *(a2 + 48);
-  v49 = *(a2 + 64);
+  v50 = *(a2 + 64);
   v87 = *(a2 + 96);
-  v50 = *(a2 + 112);
-  v86 = v49;
-  v88 = v50;
+  v51 = *(a2 + 112);
+  v86 = v50;
+  v88 = v51;
   v89 = *(a2 + 144);
-  v51 = 0x300000000;
-  v52 = &v85;
-  v53 = 168;
+  v52 = 0x300000000;
+  v53 = &v85;
+  v54 = 168;
   v90 = *(a2 + 160);
   do
   {
-    v54 = v52->f64[0];
-    v52 = (v52 + 8);
-    *(v24 + v53) = v54;
-    v55 = v51 < 2;
-    v56 = (v51 >> 29) & 0x7FFFFFFF8;
-    if (v51 < 2)
+    v55 = v53->f64[0];
+    v53 = (v53 + 8);
+    *(v25 + v54) = v55;
+    v56 = v52 < 2;
+    v57 = (v52 >> 29) & 0x7FFFFFFF8;
+    if (v52 < 2)
     {
-      v56 = 0;
+      v57 = 0;
     }
 
-    v57 = v53 + v56;
-    v58 = (v51 + 1);
-    v59 = v51 & 0xFFFFFFFF00000000;
-    if (!v55)
+    v58 = v54 + v57;
+    v59 = (v52 + 1);
+    v60 = v52 & 0xFFFFFFFF00000000;
+    if (!v56)
     {
-      v58 = 0;
+      v59 = 0;
     }
 
-    v51 = v58 | v59;
-    v53 = v57 + 8;
+    v52 = v59 | v60;
+    v54 = v58 + 8;
   }
 
-  while (v53 != 312);
+  while (v54 != 312);
   v91[0] = &v82[1].f64[1];
   v80 = v91;
   v81 = &v71;
@@ -1479,49 +1403,47 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::logJacobian(d
   v70[0] = a2 + 72;
   v70[1] = 0x300000006;
   sub_24504652C(v70, &v85);
-  v60 = 0x300000000;
-  for (i = 144; i != 288; i = v64 + 8)
+  v61 = 0x300000000;
+  for (i = 144; i != 288; i = v65 + 8)
   {
-    *(v24 + i) = 0;
-    v62 = v60 < 2;
-    v63 = (v60 >> 29) & 0x7FFFFFFF8;
-    if (v60 < 2)
+    *(v25 + i) = 0;
+    v63 = v61 < 2;
+    v64 = (v61 >> 29) & 0x7FFFFFFF8;
+    if (v61 < 2)
     {
-      v63 = 0;
+      v64 = 0;
     }
 
-    v64 = i + v63;
-    v65 = (v60 + 1);
-    v66 = v60 & 0xFFFFFFFF00000000;
-    if (!v62)
+    v65 = i + v64;
+    v66 = (v61 + 1);
+    v67 = v61 & 0xFFFFFFFF00000000;
+    if (!v63)
     {
-      v65 = 0;
+      v66 = 0;
     }
 
-    v60 = v65 | v66;
+    v61 = v66 | v67;
   }
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
-double sub_24504644C(uint64_t a1, uint64_t a2)
+double sub_24504644C(uint64_t a1, double **a2, __n128 a3)
 {
-  v3 = *a2;
-  if (*a2 == a1 || (v4 = *(a2 + 8), v5 = *v4, *v4 - 8 * *(v4 + 12) == a1))
+  v4 = *a2;
+  if (*a2 == a1 || (v5 = a2[1], v6 = *v5, *v5 - 8 * *(v5 + 3) == a1))
   {
-    v7 = 0uLL;
-    v8 = 0;
-    sub_24504644C(&v7);
-    result = *&v7;
-    *a1 = v7;
-    *(a1 + 16) = v8;
+    v8 = 0uLL;
+    v9 = 0;
+    sub_24504644C(&v8, a2, a3);
+    result = *&v8;
+    *a1 = v8;
+    *(a1 + 16) = v9;
   }
 
   else
   {
-    *a1 = *v3 * *v5 + 0.0 + v3[3] * v5[1] + v3[6] * v5[2];
-    *(a1 + 8) = v3[1] * *v5 + 0.0 + v3[4] * v5[1] + v3[7] * v5[2];
-    result = v3[2] * *v5 + 0.0 + v3[5] * v5[1] + v3[8] * v5[2];
+    *a1 = *v4 * *v6 + 0.0 + v4[3] * v6[1] + v4[6] * v6[2];
+    *(a1 + 8) = v4[1] * *v6 + 0.0 + v4[4] * v6[1] + v4[7] * v6[2];
+    result = v4[2] * *v6 + 0.0 + v4[5] * v6[1] + v4[8] * v6[2];
     *(a1 + 16) = result;
   }
 
@@ -1617,7 +1539,7 @@ __n128 sub_245046710(uint64_t a1, uint64_t *a2)
     v15 = 0u;
     v12 = 0u;
     v13 = 0u;
-    sub_245046710(&v12);
+    sub_245046710(&v12, a2);
     v11 = v15;
     *(a1 + 32) = v14;
     *(a1 + 48) = v11;
@@ -1666,7 +1588,7 @@ __n128 sub_245046884(uint64_t a1, uint64_t a2)
     v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    sub_245046884(&v16);
+    sub_245046884(&v16, a2);
     v15 = v19;
     *(a1 + 32) = v18;
     *(a1 + 48) = v15;
@@ -1705,7 +1627,7 @@ __n128 sub_245046884(uint64_t a1, uint64_t a2)
 
 void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::inverse(double *a1@<X0>, uint64_t a2@<X8>)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   *(a2 + 64) = xmmword_24508AA60;
   *(a2 + 80) = unk_24508AA70;
   *(a2 + 96) = xmmword_24508AA80;
@@ -1714,25 +1636,25 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::inverse(doubl
   *(a2 + 16) = *algn_24508AA30;
   *(a2 + 32) = xmmword_24508AA40;
   *(a2 + 48) = unk_24508AA50;
-  *&v14.f64[0] = a1;
-  *&v14.f64[1] = 4;
-  v12 = a2;
-  v13 = 4;
-  sub_245046B1C(&v12, &v14);
-  v11[0] = a2;
-  v11[1] = 4;
-  v16[0] = v11;
-  v10[0] = a1 + 12;
-  v10[1] = 0xC00000004;
-  v12 = v16;
-  v13 = v10;
+  *&v13.f64[0] = a1;
+  *&v13.f64[1] = 4;
+  v11 = a2;
+  v12 = 4;
+  sub_245046B1C(&v11, &v13);
+  v10[0] = a2;
+  v10[1] = 4;
+  v15[0] = v10;
+  v9[0] = a1 + 12;
+  v9[1] = 0xC00000004;
+  v11 = v15;
+  v12 = v9;
   if (a1 == a2)
   {
-    v14 = 0uLL;
-    v15 = 0.0;
-    sub_245046C64(&v14, &v12);
-    v7 = v14;
-    v8 = v15;
+    v13 = 0uLL;
+    v14 = 0.0;
+    sub_245046C64(&v13, &v11);
+    v7 = v13;
+    v8 = v14;
   }
 
   else
@@ -1746,7 +1668,6 @@ void cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::inverse(doubl
 
   *(a2 + 96) = v7;
   *(a2 + 112) = v8;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_245046B1C(uint64_t result, uint64_t a2)
@@ -1859,7 +1780,7 @@ double sub_245046C64(uint64_t a1, uint64_t **a2)
   {
     v19 = 0uLL;
     v20 = 0;
-    sub_245046C64(&v19);
+    sub_245046C64(&v19, a2);
     result = *&v19;
     *a1 = v19;
     *(a1 + 16) = v20;
@@ -2294,23 +2215,23 @@ uint64_t *cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::a
 
 float *cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::transform@<X0>(void *a1@<X0>, float *a2@<X1>, uint64_t a3@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a1[1];
-  v13[0] = *a1;
-  v13[1] = v4;
-  v14[0] = v13;
-  v14[1] = a2;
-  v5 = v13[0] - 4 * HIDWORD(v4);
+  v12[0] = *a1;
+  v12[1] = v4;
+  v13[0] = v12;
+  v13[1] = a2;
+  v5 = v12[0] - 4 * HIDWORD(v4);
   v6 = (v5 + 4 * (3 * v4 + HIDWORD(v4)));
-  v15 = 0;
-  v16 = 0.0;
-  result = sub_245038EEC(&v15, v14);
+  v14 = 0;
+  v15 = 0.0;
+  result = sub_245038EEC(&v14, v13);
   *a3 = 0;
-  v8 = *&v15 + *v6;
+  v8 = *&v14 + *v6;
   if (v5 == a3)
   {
-    v11 = *(&v15 + 1) + v6[1];
-    v10 = v16 + v6[2];
+    v11 = *(&v14 + 1) + v6[1];
+    v10 = v15 + v6[2];
     *a3 = v8;
     *(a3 + 4) = v11;
   }
@@ -2318,13 +2239,12 @@ float *cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::tran
   else
   {
     *a3 = v8;
-    v9 = v16;
-    *(a3 + 4) = *(&v15 + 1) + v6[1];
+    v9 = v15;
+    *(a3 + 4) = *(&v14 + 1) + v6[1];
     v10 = v9 + v6[2];
   }
 
   *(a3 + 8) = v10;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2492,14 +2412,14 @@ uint64_t cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::in
   v9 = 4 * (v7 - 3);
   v8.i32[2] = *(*a1 + 2);
   v10 = *a1 + v9;
-  v11.i64[0] = *(v10 + 16);
+  v11.i64[0] = *(v10 + 2);
   v10 += 12;
   v8.i32[3] = *v10;
-  v12 = v10 + v9;
+  v12 = &v10[v9];
   a4.i64[0] = *(a2 + 4);
-  v13 = (*(v12 + 12) * *a4.i32) - (*a2 * COERCE_FLOAT(*(v12 + 16)));
+  v13 = (*(v12 + 3) * *a4.i32) - (*a2 * COERCE_FLOAT(*(v12 + 2)));
   v14.i64[0] = v11.i64[0];
-  v14.i64[1] = *(v12 + 16);
+  v14.i64[1] = *(v12 + 2);
   v15 = a4;
   v15.i32[2] = *a2;
   v16 = v15;
@@ -2510,8 +2430,8 @@ uint64_t cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::in
   v19 = vuzp1q_s32(vextq_s8(v17, v17, 8uLL), vuzp2q_s32(v17, v18));
   v20 = vrev64q_s32(v18);
   v20.i32[0] = v17.i32[3];
-  v11.i32[2] = *(v12 + 12);
-  v11.i32[3] = HIDWORD(*(v12 + 16));
+  v11.i32[2] = *(v12 + 3);
+  v11.i32[3] = HIDWORD(*(v12 + 2));
   v21 = vuzp2q_s32(a4, vzip1q_s32(a4, a4));
   v22 = v21;
   v22.i32[1] = *a2;
@@ -2557,6 +2477,70 @@ uint64_t cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::in
   return sub_245043558(v36, v37);
 }
 
+void cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::log(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  v5 = *a1;
+  v4 = *(a1 + 8);
+  sub_245038B04(*a1, v4, a2);
+  v7 = *a2;
+  v2.i32[0] = *(a2 + 8);
+  v8 = vaddv_f32(vmul_f32(v7, v7)) + (*v2.i32 * *v2.i32);
+  if (v8 >= 0.0061)
+  {
+    v12 = sqrtf(v8);
+    v13 = __sincosf_stret(v12);
+    v11 = v13.__sinval / v12;
+    v9 = (1.0 / v8) * (1.0 - v13.__cosval);
+    v10 = (1.0 / v8) * (1.0 - (v13.__sinval / v12));
+  }
+
+  else
+  {
+    v9 = 0.5 - (v8 * ((v8 / -720.0) + 0.041667));
+    v10 = 0.16667 - (v8 * ((v8 / -5040.0) + 0.0083333));
+    v11 = 1.0 - (v8 * v10);
+  }
+
+  if (v8 >= 0.00000149)
+  {
+    if (v8 <= 9.0)
+    {
+      v14 = -(v10 - (v9 * 0.5)) / v11;
+    }
+
+    else
+    {
+      v14 = (v9 + (v11 * -0.5)) / (v8 * v9);
+    }
+  }
+
+  else
+  {
+    v14 = ((v8 * 0.0013889) + 0.083333) + (v8 * 0.000033069);
+  }
+
+  v15 = &v5[(3 * v4 + HIDWORD(v4)) - HIDWORD(v4)];
+  v6.i32[0] = *v15;
+  v16 = *(v15 + 4);
+  v17.i32[0] = vdup_lane_s32(v16, 1).u32[0];
+  v17.i32[1] = *v15;
+  v23 = COERCE_FLOAT(vmul_f32(v7, v16).i32[1]) - (*v2.i32 * v16.f32[0]);
+  v24 = vsub_f32(vmul_f32(vzip1_s32(v2, v7), vzip1_s32(v6, v16)), vmul_f32(v7, v17));
+  v18 = *(a2 + 4);
+  v19.i32[0] = vdup_lane_s32(v18, 1).u32[0];
+  v19.i32[1] = *a2;
+  v20 = vneg_f32(v19);
+  v19.i32[0] = vdup_lane_s32(v24, 1).u32[0];
+  v19.f32[1] = v23;
+  v21 = vadd_f32(vadd_f32(*v15, vmul_f32(*&v23, 0xBF000000BF000000)), vmul_n_f32(vmla_f32(vmul_f32(v24, v20), v19, v18), v14));
+  v22 = (v14 * ((*a2 * v24.f32[0]) - (v18.f32[0] * v23))) + (v16.f32[1] + vmuls_lane_f32(-0.5, v24, 1));
+  *(a2 + 12) = v21;
+  *(a2 + 20) = v22;
+}
+
 void cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::logJacobian(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v86[2] = *MEMORY[0x277D85DE8];
@@ -2574,153 +2558,153 @@ void cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::logJac
   v4 = *(a1 + 8);
   v83 = 0u;
   memset(v82, 0, sizeof(v82));
-  sub_245039258(v3, v4, v82, (v82 | 0xC));
-  v5 = *&v82[0];
+  v5.n128_f32[0] = sub_245039258(v3, v4, v82, (v82 | 0xC));
+  v6 = *&v82[0];
   *a2 = *&v82[0];
-  v6 = *(v82 + 2);
+  v7 = *(v82 + 2);
   *(a2 + 8) = DWORD2(v82[0]);
-  v7 = &v3[-HIDWORD(v4)];
-  v8 = 3 * v4 + HIDWORD(v4);
-  v9 = &v7[v8];
-  v76 = v9;
-  v77 = v4 | (v8 << 32);
+  v8 = &v3[-HIDWORD(v4)];
+  v9 = 3 * v4 + HIDWORD(v4);
+  v10 = &v8[v9];
+  v76 = v10;
+  v77 = v4 | (v9 << 32);
   *&v84[0] = v82 | 0xC;
   *(&v84[0] + 1) = &v76;
-  v71 = v6;
-  v72 = v5;
-  if ((v82 | 0xC) == a2 || v7 == a2)
+  v71 = v7;
+  v72 = v6;
+  if ((v82 | 0xC) == a2 || v8 == a2)
   {
     LODWORD(v75) = 0;
     v74 = 0;
-    sub_245043E0C(&v74, v84);
-    v6 = v71;
-    v5 = v72;
-    v12 = v74;
-    v13 = *&v75;
+    sub_245043E0C(&v74, v84, v5);
+    v7 = v71;
+    v6 = v72;
+    v13 = v74;
+    v14 = *&v75;
   }
 
   else
   {
-    v10 = v9[1];
-    v11 = v9[2];
-    v12 = vmla_n_f32(vmla_n_f32(vmla_n_f32(0, *(v82 + 12), *v9), *(&v82[1] + 8), v10), *(&v83 + 4), v11);
-    v13 = (((*(&v82[1] + 1) * *v9) + 0.0) + (*&v83 * v10)) + (*(&v83 + 3) * v11);
+    v11 = v10[1];
+    v12 = v10[2];
+    v13 = vmla_n_f32(vmla_n_f32(vmla_n_f32(0, *(v82 + 12), *v10), *(&v82[1] + 8), v11), *(&v83 + 4), v12);
+    v14 = (((*(&v82[1] + 1) * *v10) + 0.0) + (*&v83 * v11)) + (*(&v83 + 3) * v12);
   }
 
-  *(a2 + 12) = v12;
-  *(a2 + 20) = v13;
-  v14 = vmul_f32(v5, v5);
-  v15 = v14.f32[1];
-  v16 = v6 * v6;
-  v17 = vaddv_f32(v14) + (v6 * v6);
-  if (v17 >= 0.0061)
+  *(a2 + 12) = v13;
+  *(a2 + 20) = v14;
+  v15 = vmul_f32(v6, v6);
+  v16 = v15.f32[1];
+  v17 = v7 * v7;
+  v18 = vaddv_f32(v15) + (v7 * v7);
+  if (v18 >= 0.0061)
   {
-    v23 = sqrtf(v17);
-    v69 = v13;
-    v70 = v12;
-    v68 = v14.i32[0];
-    v24 = __sincosf_stret(v23);
-    v14.i32[0] = v68;
-    v13 = v69;
-    v12 = v70;
-    v6 = v71;
-    v5 = v72;
-    v18 = (1.0 / v17) * (1.0 - v24.__cosval);
-    v19 = (1.0 / v17) * (1.0 - (v24.__sinval / v23));
-    v20 = v19 - v18;
-    v21 = (1.0 / v17) * ((v24.__sinval / v23) + (v18 * -2.0));
-    v22 = (1.0 / v17) * (v18 + (v19 * -3.0));
+    v24 = sqrtf(v18);
+    v69 = v14;
+    v70 = v13;
+    v68 = v15.i32[0];
+    v25 = __sincosf_stret(v24);
+    v15.i32[0] = v68;
+    v14 = v69;
+    v13 = v70;
+    v7 = v71;
+    v6 = v72;
+    v19 = (1.0 / v18) * (1.0 - v25.__cosval);
+    v20 = (1.0 / v18) * (1.0 - (v25.__sinval / v24));
+    v21 = v20 - v19;
+    v22 = (1.0 / v18) * ((v25.__sinval / v24) + (v19 * -2.0));
+    v23 = (1.0 / v18) * (v19 + (v20 * -3.0));
   }
 
   else
   {
-    v18 = 0.5 - (v17 * ((v17 / -720.0) + 0.041667));
-    v19 = 0.16667 - (v17 * ((v17 / -5040.0) + 0.0083333));
-    v20 = (v17 * ((v17 * -0.0011905) + 0.033333)) + -0.33333;
-    v21 = (v17 * ((v17 * -0.00014881) + 0.0055556)) + -0.083333;
-    v22 = (v17 * ((v17 * -0.000016534) + 0.00079365)) + -0.016667;
+    v19 = 0.5 - (v18 * ((v18 / -720.0) + 0.041667));
+    v20 = 0.16667 - (v18 * ((v18 / -5040.0) + 0.0083333));
+    v21 = (v18 * ((v18 * -0.0011905) + 0.033333)) + -0.33333;
+    v22 = (v18 * ((v18 * -0.00014881) + 0.0055556)) + -0.083333;
+    v23 = (v18 * ((v18 * -0.000016534) + 0.00079365)) + -0.016667;
   }
 
-  v25 = 0;
-  v26 = a2 + 24;
-  v27 = vmul_f32(v5, v12).f32[0];
-  v28 = vmuls_lane_f32(v5.f32[1], v12, 1);
-  v29 = (v27 + v28) + (v6 * v13);
-  v30 = ((v20 + (v22 * v14.f32[0])) * v29) + ((v19 + v19) * v27);
-  v31 = ((v20 + (v22 * v15)) * v29) + ((v19 + v19) * v28);
-  v32 = ((v20 + (v22 * v16)) * v29) + ((v19 + v19) * (v6 * v13));
-  v33 = v22 * v29;
-  v34 = v21 * v29;
-  v35 = (v6 * v34) + (v18 * v13);
-  v36 = vmul_n_f32(v5, v33);
-  v37 = vmuls_lane_f32(v36.f32[0], v5, 1) + (v19 * (vmuls_lane_f32(v5.f32[0], v12, 1) + (v12.f32[0] * v5.f32[1])));
-  v38 = vrev64_s32(vmla_n_f32(vmul_n_f32(v36, v6), vmla_n_f32(vmul_n_f32(v5, v13), v12, v6), v19));
-  v39 = vmla_n_f32(vmul_n_f32(v5, v34), v12, v18);
-  *(&v77 + 1) = v37 - v35;
-  v78 = v31;
-  *&v76 = v30;
-  *(&v76 + 1) = v35 + v37;
-  v40 = vsub_f32(v38, v39);
-  LODWORD(v77) = v40.i32[1];
-  v80 = v40.i32[0];
-  v81 = v32;
-  v79 = vadd_f32(v39, v38);
-  v41 = 0x300000000;
-  v42 = 12;
+  v26 = 0;
+  v27 = a2 + 24;
+  v28 = vmul_f32(v6, v13).f32[0];
+  v29 = vmuls_lane_f32(v6.f32[1], v13, 1);
+  v30 = (v28 + v29) + (v7 * v14);
+  v31 = ((v21 + (v23 * v15.f32[0])) * v30) + ((v20 + v20) * v28);
+  v32 = ((v21 + (v23 * v16)) * v30) + ((v20 + v20) * v29);
+  v33 = ((v21 + (v23 * v17)) * v30) + ((v20 + v20) * (v7 * v14));
+  v34 = v23 * v30;
+  v35 = v22 * v30;
+  v36 = (v7 * v35) + (v19 * v14);
+  v37 = vmul_n_f32(v6, v34);
+  v38 = vmuls_lane_f32(v37.f32[0], v6, 1) + (v20 * (vmuls_lane_f32(v6.f32[0], v13, 1) + (v13.f32[0] * v6.f32[1])));
+  v39 = vrev64_s32(vmla_n_f32(vmul_n_f32(v37, v7), vmla_n_f32(vmul_n_f32(v6, v14), v13, v7), v20));
+  v40 = vmla_n_f32(vmul_n_f32(v6, v35), v13, v19);
+  *(&v77 + 1) = v38 - v36;
+  v78 = v32;
+  *&v76 = v31;
+  *(&v76 + 1) = v36 + v38;
+  v41 = vsub_f32(v39, v40);
+  LODWORD(v77) = v41.i32[1];
+  v80 = v41.i32[0];
+  v81 = v33;
+  v79 = vadd_f32(v40, v39);
+  v42 = 0x300000000;
+  v43 = 12;
   do
   {
-    *(v26 + v25) = *(v82 + v42);
-    v43 = v41 < 2;
-    v44 = (v41 >> 30) & 0x3FFFFFFFCLL;
-    if (v41 < 2)
+    *(v27 + v26) = *(v82 + v43);
+    v44 = v42 < 2;
+    v45 = (v42 >> 30) & 0x3FFFFFFFCLL;
+    if (v42 < 2)
     {
-      v44 = 0;
+      v45 = 0;
     }
 
-    v45 = v25 + v44;
-    v46 = (v41 + 1);
-    v47 = v41 & 0xFFFFFFFF00000000;
-    if (!v43)
+    v46 = v26 + v45;
+    v47 = (v42 + 1);
+    v48 = v42 & 0xFFFFFFFF00000000;
+    if (!v44)
     {
-      v46 = 0;
+      v47 = 0;
     }
 
-    v41 = v46 | v47;
-    v25 = v45 + 4;
-    v42 += 4;
+    v42 = v47 | v48;
+    v26 = v46 + 4;
+    v43 += 4;
   }
 
-  while (v25 != 72);
-  v48 = *(a2 + 24);
-  HIDWORD(v48) = *(a2 + 48);
-  v49 = *(a2 + 52);
-  v50 = *(a2 + 72);
-  *(&v49 + 1) = *(a2 + 72);
-  v84[0] = v48;
-  v84[1] = v49;
-  v51 = v84;
-  v85 = DWORD2(v50);
-  v52 = 0x300000000;
-  for (i = 84; i != 156; i = v57 + 4)
+  while (v26 != 72);
+  v49 = *(a2 + 24);
+  HIDWORD(v49) = *(a2 + 48);
+  v50 = *(a2 + 52);
+  v51 = *(a2 + 72);
+  *(&v50 + 1) = *(a2 + 72);
+  v84[0] = v49;
+  v84[1] = v50;
+  v52 = v84;
+  v85 = DWORD2(v51);
+  v53 = 0x300000000;
+  for (i = 84; i != 156; i = v58 + 4)
   {
-    v54 = *v51++;
-    *(v26 + i) = v54;
-    v55 = v52 < 2;
-    v56 = (v52 >> 30) & 0x3FFFFFFFCLL;
-    if (v52 < 2)
+    v55 = *v52++;
+    *(v27 + i) = v55;
+    v56 = v53 < 2;
+    v57 = (v53 >> 30) & 0x3FFFFFFFCLL;
+    if (v53 < 2)
     {
-      v56 = 0;
+      v57 = 0;
     }
 
-    v57 = i + v56;
-    v58 = (v52 + 1);
-    v59 = v52 & 0xFFFFFFFF00000000;
-    if (!v55)
+    v58 = i + v57;
+    v59 = (v53 + 1);
+    v60 = v53 & 0xFFFFFFFF00000000;
+    if (!v56)
     {
-      v58 = 0;
+      v59 = 0;
     }
 
-    v52 = v58 | v59;
+    v53 = v59 | v60;
   }
 
   v86[0] = v82 | 0xC;
@@ -2731,63 +2715,61 @@ void cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::logJac
   v73[0] = a2 + 36;
   v73[1] = 0x300000006;
   sub_245043EEC(v73, v84);
-  v60 = 0x300000000;
-  for (j = 72; j != 144; j = v64 + 4)
+  v61 = 0x300000000;
+  for (j = 72; j != 144; j = v65 + 4)
   {
-    *(v26 + j) = 0;
-    v62 = v60 < 2;
-    v63 = (v60 >> 30) & 0x3FFFFFFFCLL;
-    if (v60 < 2)
+    *(v27 + j) = 0;
+    v63 = v61 < 2;
+    v64 = (v61 >> 30) & 0x3FFFFFFFCLL;
+    if (v61 < 2)
     {
-      v63 = 0;
+      v64 = 0;
     }
 
-    v64 = j + v63;
-    v65 = (v60 + 1);
-    v66 = v60 & 0xFFFFFFFF00000000;
-    if (!v62)
+    v65 = j + v64;
+    v66 = (v61 + 1);
+    v67 = v61 & 0xFFFFFFFF00000000;
+    if (!v63)
     {
-      v65 = 0;
+      v66 = 0;
     }
 
-    v60 = v65 | v66;
+    v61 = v66 | v67;
   }
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::inverse@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   *a2 = xmmword_24508A9E0;
   *(a2 + 16) = unk_24508A9F0;
   *(a2 + 32) = xmmword_24508AA00;
   *(a2 + 48) = unk_24508AA10;
   v4 = *(a1 + 8);
-  v21 = *a1;
-  v22 = v4;
-  v25[0] = a2;
-  v25[1] = 4;
-  result = sub_2450444A8(v25, &v21);
-  v20[0] = a2;
-  v20[1] = 4;
-  v25[0] = v20;
+  v20 = *a1;
+  v21 = v4;
+  v24[0] = a2;
+  v24[1] = 4;
+  result = sub_2450444A8(v24, &v20);
+  v19[0] = a2;
+  v19[1] = 4;
+  v24[0] = v19;
   v7 = *(a1 + 8);
   v6 = *(a1 + 12);
   v8 = *a1 - 4 * v6;
   v9 = (3 * v7 + v6);
   v10 = (v8 + 4 * v9);
-  v19[0] = v10;
-  v19[1] = v7 | (v9 << 32);
-  v21 = v25;
-  v22 = v19;
+  v18[0] = v10;
+  v18[1] = v7 | (v9 << 32);
+  v20 = v24;
+  v21 = v18;
   if (v8 == a2)
   {
-    v24 = 0.0;
-    v23 = 0;
-    result = sub_2450445F0(&v23, &v21);
-    *(a2 + 48) = v23;
-    v17 = v24;
+    v23 = 0.0;
+    v22 = 0;
+    result = sub_2450445F0(&v22, &v20);
+    *(a2 + 48) = v22;
+    v17 = v23;
   }
 
   else
@@ -2804,7 +2786,6 @@ uint64_t cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::in
   }
 
   *(a2 + 56) = v17;
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3036,36 +3017,35 @@ unint64_t cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::a
   return result;
 }
 
-uint64_t cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::serialize(uint64_t result)
+uint64_t *cva::SE3GroupStorage<float,cva::MatrixRef<float const,4u,4u,false>>::serialize(uint64_t *result, uint64_t a2)
 {
-  v1 = *(result + 8);
-  if (4 * v1)
+  v2 = *(result + 2);
+  if (4 * v2)
   {
-    v2 = *result;
-    v3 = *result + 4 * (4 * v1);
-    v4 = (v1 - 4) << 32;
+    v3 = *result;
+    v4 = *result + 4 * (4 * v2);
+    v5 = (v2 - 4) << 32;
     do
     {
-      v8 = *v2;
       result = std::ostream::write();
-      v5 = HIDWORD(v4);
-      if (v4 < 3)
+      v6 = HIDWORD(v5);
+      if (v5 < 3)
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      v6 = &v2[v5];
-      v7 = (v4 + 1);
-      if (v4 >= 3)
+      v7 = v3 + 4 * v6;
+      v8 = (v5 + 1);
+      if (v5 >= 3)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v4 = v7 | v4 & 0xFFFFFFFF00000000;
-      v2 = v6 + 1;
+      v5 = v8 | v5 & 0xFFFFFFFF00000000;
+      v3 = v7 + 4;
     }
 
-    while (v6 + 1 != v3);
+    while (v7 + 4 != v4);
   }
 
   return result;
@@ -3166,25 +3146,25 @@ uint64_t **cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>
 
 double *cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::transform@<X0>(void *a1@<X0>, double *a2@<X1>, uint64_t a3@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a1[1];
-  v13[0] = *a1;
-  v13[1] = v4;
-  v14[0] = v13;
-  v14[1] = a2;
-  v5 = v13[0] - 8 * HIDWORD(v4);
+  v12[0] = *a1;
+  v12[1] = v4;
+  v13[0] = v12;
+  v13[1] = a2;
+  v5 = v12[0] - 8 * HIDWORD(v4);
   v6 = (v5 + 8 * (3 * v4 + HIDWORD(v4)));
-  v16 = 0.0;
-  v17 = 0.0;
   v15 = 0.0;
-  result = sub_245039A0C(&v15, v14);
+  v16 = 0.0;
+  v14 = 0.0;
+  result = sub_245039A0C(&v14, v13);
   *a3 = 0;
   *(a3 + 8) = 0;
-  v8 = v15 + *v6;
+  v8 = v14 + *v6;
   if (v5 == a3)
   {
-    v11 = v16 + v6[1];
-    v10 = v17 + v6[2];
+    v11 = v15 + v6[1];
+    v10 = v16 + v6[2];
     *a3 = v8;
     *(a3 + 8) = v11;
   }
@@ -3192,13 +3172,12 @@ double *cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::t
   else
   {
     *a3 = v8;
-    v9 = v17;
-    *(a3 + 8) = v16 + v6[1];
+    v9 = v16;
+    *(a3 + 8) = v15 + v6[1];
     v10 = v9 + v6[2];
   }
 
   *(a3 + 16) = v10;
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3221,14 +3200,13 @@ double cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::in
   v12[1] = &v7;
   v16 = 0uLL;
   v17 = 0.0;
-  sub_245039B54(&v16, v15);
+  v5 = sub_245039B54(&v16, v15);
   v18 = 0uLL;
   v19 = 0.0;
-  sub_245045828(&v18, v12);
+  sub_245045828(&v18, v12, v5);
   *a3 = vsubq_f64(v16, v18);
   result = v17 - v19;
   a3[1].f64[0] = v17 - v19;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3437,6 +3415,77 @@ uint64_t cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::
   return sub_245045BE4(v38, &v39);
 }
 
+double cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::log@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
+  *a2 = 0u;
+  v4 = *a1;
+  v3 = *(a1 + 8);
+  sub_24503963C(*a1, v3, a2);
+  v5 = *a2;
+  v6 = *(a2 + 8);
+  v7 = vmulq_f64(v6, v6);
+  v8 = v5 * v5 + v7.f64[0] + v7.f64[1];
+  if (v8 >= 0.0000002635)
+  {
+    v12 = sqrt(v8);
+    v29 = *(a2 + 8);
+    v30 = *a2;
+    v13 = __sincos_stret(v12);
+    v6 = v29;
+    v5 = v30;
+    v11 = v13.__sinval / v12;
+    v9 = 1.0 / v8 * (1.0 - v13.__cosval);
+    v10 = 1.0 / v8 * (1.0 - v13.__sinval / v12);
+  }
+
+  else
+  {
+    v9 = 0.5 - v8 * (v8 / -720.0 + 0.0416666667);
+    v10 = 0.166666667 - v8 * (v8 / -5040.0 + 0.00833333333);
+    v11 = 1.0 - v8 * v10;
+  }
+
+  if (v8 >= 2.775e-15)
+  {
+    if (v8 <= 9.0)
+    {
+      v14 = -(v10 - v9 * 0.5) / v11;
+    }
+
+    else
+    {
+      v14 = (v9 + v11 * -0.5) / (v8 * v9);
+    }
+  }
+
+  else
+  {
+    v14 = v8 * 0.00138888889 + 0.0833333333 + v8 * 0.0000330687831;
+  }
+
+  v15 = &v4[(3 * v3 + HIDWORD(v3)) - HIDWORD(v3)];
+  v16 = *(v15 + 8);
+  *&v17.f64[0] = vdupq_laneq_s64(v16, 1).u64[0];
+  v17.f64[1] = *v15;
+  v18 = vdupq_lane_s64(*&v5, 0);
+  v18.f64[0] = v6.f64[1];
+  v31 = vsubq_f64(vmulq_f64(v6, v17), vmulq_f64(v18, v16));
+  v32 = v5 * v16.f64[0] - *v15 * v6.f64[0];
+  v19 = v16.f64[1] + v32 * -0.5;
+  v20 = *(a2 + 8);
+  __asm { FMOV            V6.2D, #-0.5 }
+
+  *&v26.f64[0] = vdupq_laneq_s64(v20, 1).u64[0];
+  v26.f64[1] = v5;
+  v27 = vaddq_f64(vaddq_f64(*v15, vmulq_f64(v31, _Q6)), vmulq_n_f64(vmlaq_f64(vmulq_f64(*(&v31 + 8), vnegq_f64(v26)), vzip1q_s64(vdupq_laneq_s64(*(&v31 + 8), 1), v31), v20), v14));
+  result = v14 * (-v20.f64[0] * v31.f64[0] + v5 * v31.f64[1]) + v19;
+  *(a2 + 24) = v27;
+  *(a2 + 40) = result;
+  return result;
+}
+
 void cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::logJacobian(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v94[2] = *MEMORY[0x277D85DE8];
@@ -3466,154 +3515,154 @@ void cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::logJ
   memset(v87, 0, sizeof(v87));
   v86 = 0u;
   memset(v85, 0, sizeof(v85));
-  sub_245039D5C(v4, v5, v85[0].f64, &v85[1].f64[1]);
-  v7 = v85[0].f64[1];
-  v6 = v85[0].f64[0];
+  v6.n128_f64[0] = sub_245039D5C(v4, v5, v85, &v85[1].f64[1]);
+  v8 = v85[0].f64[1];
+  v7 = v85[0].f64[0];
   *a2 = v85[0].f64[0];
-  *(a2 + 8) = v7;
+  *(a2 + 8) = v8;
   _D11 = v85[1].f64[0];
   *(a2 + 16) = v85[1].f64[0];
-  v9 = &v4[-HIDWORD(v5)];
-  v10 = 3 * v5 + HIDWORD(v5);
-  v11 = &v9[v10];
-  v83 = v11;
-  v84 = (v5 | (v10 << 32));
+  v10 = &v4[-HIDWORD(v5)];
+  v11 = 3 * v5 + HIDWORD(v5);
+  v12 = &v10[v11];
+  v83 = v12;
+  v84 = (v5 | (v11 << 32));
   v74 = COERCE_DOUBLE(&v85[1].f64[1]);
   v75 = COERCE_DOUBLE(&v83);
-  if (&v85[1].f64[1] == a2 || v9 == a2)
+  if (&v85[1].f64[1] == a2 || v10 == a2)
   {
     v88 = 0uLL;
     v89 = 0.0;
-    sub_24504644C(&v88, &v74);
+    sub_24504644C(&v88, &v74, v6);
     _Q19 = v88;
-    v15 = v89;
+    v16 = v89;
   }
 
   else
   {
-    v12 = v11[1];
-    v13 = v11[2];
-    _Q19 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(0, *(&v85[1] + 8), *v11), v86, v12), *&v87[1], v13);
-    v15 = v85[2].f64[1] * *v11 + 0.0 + v87[0] * v12 + v87[3] * v13;
+    v13 = v12[1];
+    v14 = v12[2];
+    _Q19 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(0, *(&v85[1] + 8), *v12), v86, v13), *&v87[1], v14);
+    v16 = v85[2].f64[1] * *v12 + 0.0 + v87[0] * v13 + v87[3] * v14;
   }
 
   *(a2 + 24) = _Q19;
-  *(a2 + 40) = v15;
-  v16 = v6 * v6;
-  v17 = v6 * v6 + v7 * v7 + _D11 * _D11;
-  if (v17 >= 0.0000002635)
+  *(a2 + 40) = v16;
+  v17 = v7 * v7;
+  v18 = v7 * v7 + v8 * v8 + _D11 * _D11;
+  if (v18 >= 0.0000002635)
   {
-    v71 = v6;
-    v23 = sqrt(v17);
+    v71 = v7;
+    v24 = sqrt(v18);
     v72 = _Q19;
-    v24 = __sincos_stret(v23);
+    v25 = __sincos_stret(v24);
     _Q19 = v72;
-    v25 = v24.__sinval / v23;
-    v6 = v71;
-    _D0 = 1.0 / v17 * (1.0 - v24.__cosval);
-    v19 = 1.0 / v17 * (1.0 - v25);
-    v20 = v19 - _D0;
-    v21 = 1.0 / v17 * (v25 + _D0 * -2.0);
-    v22 = 1.0 / v17 * (_D0 + v19 * -3.0);
+    v26 = v25.__sinval / v24;
+    v7 = v71;
+    _D0 = 1.0 / v18 * (1.0 - v25.__cosval);
+    v20 = 1.0 / v18 * (1.0 - v26);
+    v21 = v20 - _D0;
+    v22 = 1.0 / v18 * (v26 + _D0 * -2.0);
+    v23 = 1.0 / v18 * (_D0 + v20 * -3.0);
   }
 
   else
   {
-    _D0 = 0.5 - v17 * (v17 / -720.0 + 0.0416666667);
-    v19 = 0.166666667 - v17 * (v17 / -5040.0 + 0.00833333333);
-    v20 = v17 * (v17 * -0.00119047619 + 0.0333333333) + -0.333333333;
-    v21 = v17 * (v17 * -0.000148809524 + 0.00555555556) + -0.0833333333;
-    v22 = v17 * (v17 * -0.0000165343915 + 0.000793650794) + -0.0166666667;
+    _D0 = 0.5 - v18 * (v18 / -720.0 + 0.0416666667);
+    v20 = 0.166666667 - v18 * (v18 / -5040.0 + 0.00833333333);
+    v21 = v18 * (v18 * -0.00119047619 + 0.0333333333) + -0.333333333;
+    v22 = v18 * (v18 * -0.000148809524 + 0.00555555556) + -0.0833333333;
+    v23 = v18 * (v18 * -0.0000165343915 + 0.000793650794) + -0.0166666667;
   }
 
-  v26 = 0;
-  v27 = a2 + 48;
-  v28 = vmuld_lane_f64(v7, _Q19, 1);
-  v29 = v6 * _Q19.f64[0] + v28 + _D11 * v15;
-  v30 = (v20 + v22 * v16) * v29 + (v19 + v19) * (v6 * _Q19.f64[0]);
-  v31 = (v20 + v22 * (v7 * v7)) * v29 + (v19 + v19) * v28;
-  v82 = (v20 + v22 * (_D11 * _D11)) * v29 + (v19 + v19) * (_D11 * v15);
-  v32 = v22 * v29;
-  v33 = v7 * (v6 * (v22 * v29)) + v19 * (vmuld_lane_f64(v6, _Q19, 1) + _Q19.f64[0] * v7);
-  v34 = _D11 * (v6 * v32) + v19 * (v6 * v15 + _Q19.f64[0] * _D11);
+  v27 = 0;
+  v28 = a2 + 48;
+  v29 = vmuld_lane_f64(v8, _Q19, 1);
+  v30 = v7 * _Q19.f64[0] + v29 + _D11 * v16;
+  v31 = (v21 + v23 * v17) * v30 + (v20 + v20) * (v7 * _Q19.f64[0]);
+  v32 = (v21 + v23 * (v8 * v8)) * v30 + (v20 + v20) * v29;
+  v82 = (v21 + v23 * (_D11 * _D11)) * v30 + (v20 + v20) * (_D11 * v16);
+  v33 = v23 * v30;
+  v34 = v8 * (v7 * (v23 * v30)) + v20 * (vmuld_lane_f64(v7, _Q19, 1) + _Q19.f64[0] * v8);
+  v35 = _D11 * (v7 * v33) + v20 * (v7 * v16 + _Q19.f64[0] * _D11);
   __asm { FMLA            D17, D11, V19.D[1] }
 
-  v40 = _D11 * (v7 * v32) + v19 * _D17;
-  v41 = v21 * v29;
-  v42 = _D11 * v41 + _D0 * v15;
+  v41 = _D11 * (v8 * v33) + v20 * _D17;
+  v42 = v22 * v30;
+  v43 = _D11 * v42 + _D0 * v16;
   __asm { FMLA            D16, D0, V19.D[1] }
 
-  v44 = v6 * v41 + _D0 * _Q19.f64[0];
-  v74 = v30;
-  v75 = v42 + v33;
-  v76 = v34 - _D16;
-  v77 = v33 - v42;
-  v80 = _D16 + v34;
-  v81 = v40 - v44;
-  v78 = v31;
-  v79 = v44 + v40;
-  v45 = 0x300000000;
-  v46 = 3;
+  v45 = v7 * v42 + _D0 * _Q19.f64[0];
+  v74 = v31;
+  v75 = v43 + v34;
+  v76 = v35 - _D16;
+  v77 = v34 - v43;
+  v80 = _D16 + v35;
+  v81 = v41 - v45;
+  v78 = v32;
+  v79 = v45 + v41;
+  v46 = 0x300000000;
+  v47 = 3;
   do
   {
-    *(v27 + v26) = v85[0].f64[v46];
-    v47 = v45 < 2;
-    v48 = (v45 >> 29) & 0x7FFFFFFF8;
-    if (v45 < 2)
+    *(v28 + v27) = v85[0].f64[v47];
+    v48 = v46 < 2;
+    v49 = (v46 >> 29) & 0x7FFFFFFF8;
+    if (v46 < 2)
     {
-      v48 = 0;
+      v49 = 0;
     }
 
-    v49 = v26 + v48;
-    v50 = (v45 + 1);
-    v51 = v45 & 0xFFFFFFFF00000000;
-    if (!v47)
+    v50 = v27 + v49;
+    v51 = (v46 + 1);
+    v52 = v46 & 0xFFFFFFFF00000000;
+    if (!v48)
     {
-      v50 = 0;
+      v51 = 0;
     }
 
-    v45 = v50 | v51;
-    v26 = v49 + 8;
-    ++v46;
+    v46 = v51 | v52;
+    v27 = v50 + 8;
+    ++v47;
   }
 
-  while (v26 != 144);
+  while (v27 != 144);
   v88 = *(a2 + 48);
-  v52 = *(a2 + 64);
+  v53 = *(a2 + 64);
   v90 = *(a2 + 96);
-  v53 = *(a2 + 112);
-  v89 = v52;
-  v91 = v53;
+  v54 = *(a2 + 112);
+  v89 = v53;
+  v91 = v54;
   v92 = *(a2 + 144);
-  v54 = 0x300000000;
-  v55 = &v88;
-  v56 = 168;
+  v55 = 0x300000000;
+  v56 = &v88;
+  v57 = 168;
   v93 = *(a2 + 160);
   do
   {
-    v57 = v55->f64[0];
-    v55 = (v55 + 8);
-    *(v27 + v56) = v57;
-    v58 = v54 < 2;
-    v59 = (v54 >> 29) & 0x7FFFFFFF8;
-    if (v54 < 2)
+    v58 = v56->f64[0];
+    v56 = (v56 + 8);
+    *(v28 + v57) = v58;
+    v59 = v55 < 2;
+    v60 = (v55 >> 29) & 0x7FFFFFFF8;
+    if (v55 < 2)
     {
-      v59 = 0;
+      v60 = 0;
     }
 
-    v60 = v56 + v59;
-    v61 = (v54 + 1);
-    v62 = v54 & 0xFFFFFFFF00000000;
-    if (!v58)
+    v61 = v57 + v60;
+    v62 = (v55 + 1);
+    v63 = v55 & 0xFFFFFFFF00000000;
+    if (!v59)
     {
-      v61 = 0;
+      v62 = 0;
     }
 
-    v54 = v61 | v62;
-    v56 = v60 + 8;
+    v55 = v62 | v63;
+    v57 = v61 + 8;
   }
 
-  while (v56 != 312);
+  while (v57 != 312);
   v94[0] = &v85[1].f64[1];
   v83 = v94;
   v84 = &v74;
@@ -3622,34 +3671,32 @@ void cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::logJ
   v73[0] = a2 + 72;
   v73[1] = 0x300000006;
   sub_24504652C(v73, &v88);
-  v63 = 0x300000000;
-  for (i = 144; i != 288; i = v67 + 8)
+  v64 = 0x300000000;
+  for (i = 144; i != 288; i = v68 + 8)
   {
-    *(v27 + i) = 0;
-    v65 = v63 < 2;
-    v66 = (v63 >> 29) & 0x7FFFFFFF8;
-    if (v63 < 2)
+    *(v28 + i) = 0;
+    v66 = v64 < 2;
+    v67 = (v64 >> 29) & 0x7FFFFFFF8;
+    if (v64 < 2)
     {
-      v66 = 0;
+      v67 = 0;
     }
 
-    v67 = i + v66;
-    v68 = (v63 + 1);
-    v69 = v63 & 0xFFFFFFFF00000000;
-    if (!v65)
+    v68 = i + v67;
+    v69 = (v64 + 1);
+    v70 = v64 & 0xFFFFFFFF00000000;
+    if (!v66)
     {
-      v68 = 0;
+      v69 = 0;
     }
 
-    v63 = v68 | v69;
+    v64 = v69 | v70;
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 void cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::inverse(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   *(a2 + 64) = xmmword_24508AA60;
   *(a2 + 80) = unk_24508AA70;
   *(a2 + 96) = xmmword_24508AA80;
@@ -3659,30 +3706,30 @@ void cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::inve
   *(a2 + 32) = xmmword_24508AA40;
   *(a2 + 48) = unk_24508AA50;
   v4 = *(a1 + 8);
-  *&v22 = *a1;
-  *(&v22 + 1) = v4;
-  v20 = a2;
-  v21 = 4;
-  sub_245046B1C(&v20, &v22);
-  v19[0] = a2;
-  v19[1] = 4;
-  v24[0] = v19;
+  *&v21 = *a1;
+  *(&v21 + 1) = v4;
+  v19 = a2;
+  v20 = 4;
+  sub_245046B1C(&v19, &v21);
+  v18[0] = a2;
+  v18[1] = 4;
+  v23[0] = v18;
   v6 = *(a1 + 8);
   v5 = *(a1 + 12);
   v7 = *a1 - 8 * v5;
   v8 = (3 * v6 + v5);
   v9 = (v7 + 8 * v8);
-  v18[0] = v9;
-  v18[1] = v6 | (v8 << 32);
-  v20 = v24;
-  v21 = v18;
+  v17[0] = v9;
+  v17[1] = v6 | (v8 << 32);
+  v19 = v23;
+  v20 = v17;
   if (v7 == a2)
   {
-    v22 = 0uLL;
-    v23 = 0.0;
-    sub_245046C64(&v22, &v20);
-    *(a2 + 96) = v22;
-    v16 = v23;
+    v21 = 0uLL;
+    v22 = 0.0;
+    sub_245046C64(&v21, &v19);
+    *(a2 + 96) = v21;
+    v16 = v22;
   }
 
   else
@@ -3699,7 +3746,6 @@ void cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::inve
   }
 
   *(a2 + 112) = v16;
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::adjoint@<X0>(unint64_t result@<X0>, float64x2_t *a2@<X8>, int64x2_t a3@<Q3>)
@@ -3722,7 +3768,7 @@ unint64_t cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>:
   a2[3] = 0u;
   v3 = *result;
   v4 = *(result + 8);
-  v5 = *result - 8 * HIDWORD(v4);
+  v5 = (*result - 8 * HIDWORD(v4));
   *a2 = 0u;
   a2[1] = 0u;
   if (v5 == a2)
@@ -3847,7 +3893,7 @@ unint64_t cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>:
   }
 
   while (v32 != 312);
-  v39 = v5 + 8 * (3 * v4 + HIDWORD(v4));
+  v39 = &v5->f64[(3 * v4 + HIDWORD(v4))];
   v40.f64[0] = *v39;
   v41 = 8 * (v4 - 3);
   v42 = *(v3 + v41 + 24);
@@ -3922,36 +3968,35 @@ unint64_t cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>:
   return result;
 }
 
-uint64_t cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::serialize(uint64_t result)
+uint64_t *cva::SE3GroupStorage<double,cva::MatrixRef<double const,4u,4u,false>>::serialize(uint64_t *result, uint64_t a2)
 {
-  v1 = *(result + 8);
-  if (4 * v1)
+  v2 = *(result + 2);
+  if (4 * v2)
   {
-    v2 = *result;
-    v3 = *result + 8 * (4 * v1);
-    v4 = (v1 - 4) << 32;
+    v3 = *result;
+    v4 = *result + 8 * (4 * v2);
+    v5 = (v2 - 4) << 32;
     do
     {
-      v8 = *v2;
       result = std::ostream::write();
-      v5 = HIDWORD(v4);
-      if (v4 < 3)
+      v6 = HIDWORD(v5);
+      if (v5 < 3)
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      v6 = &v2[v5];
-      v7 = (v4 + 1);
-      if (v4 >= 3)
+      v7 = v3 + 8 * v6;
+      v8 = (v5 + 1);
+      if (v5 >= 3)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v4 = v7 | v4 & 0xFFFFFFFF00000000;
-      v2 = v6 + 1;
+      v5 = v8 | v5 & 0xFFFFFFFF00000000;
+      v3 = v7 + 8;
     }
 
-    while (v6 + 1 != v3);
+    while (v7 + 8 != v4);
   }
 
   return result;
@@ -4404,7 +4449,7 @@ float *sub_24504A0D8(float *result, uint64_t **a2)
   {
     v22 = 0;
     v21 = 0;
-    result = sub_24504A0D8(&v21);
+    result = sub_24504A0D8(&v21, a2);
     *v2 = v21;
     *(v2 + 2) = v22;
   }
@@ -5066,7 +5111,7 @@ double *sub_24504AEC0(double *result, uint64_t **a2)
   {
     v21 = 0uLL;
     v22 = 0;
-    result = sub_24504AEC0(&v21);
+    result = sub_24504AEC0(&v21, a2);
     *v2 = v21;
     *(v2 + 2) = v22;
   }
@@ -6145,7 +6190,7 @@ double sub_24504C564(uint64_t a1, float **a2)
   if (*a2 == a1 || (v4 = a2[1], v4 == a1))
   {
     v6 = 0uLL;
-    sub_24504C564(&v6);
+    sub_24504C564(&v6, a2);
     result = *&v6;
     *a1 = v6;
   }
@@ -6233,7 +6278,7 @@ float *sub_24504C6F8(float *result, float **a2)
   if (*a2 == result || (v4 = a2[1], v4 == result))
   {
     v5 = 0;
-    result = sub_24504C6F8(&v5);
+    result = sub_24504C6F8(&v5, a2);
     *v2 = v5;
   }
 
@@ -6262,7 +6307,7 @@ float *sub_24504C7BC(float *result, uint64_t a2)
   if (v3 == result)
   {
     v5 = 0;
-    result = sub_24504C7BC(&v5);
+    result = sub_24504C7BC(&v5, a2);
     *v2 = v5;
   }
 
@@ -6358,6 +6403,14 @@ LABEL_7:
   *(a2 + 4) = 1065353216;
 }
 
+float32x2x2_t *cva::SO2GroupStorage<float,cva::Matrix<float,2u,2u,false>>::inverse@<X0>(float32x2x2_t *result@<X0>, float *a2@<X8>)
+{
+  v2 = *result;
+  v3 = vextq_s8(v2, v2, 8uLL).u64[0];
+  vst2_f32(a2, v2);
+  return result;
+}
+
 void cva::SO2GroupStorage<float,cva::Matrix<float,2u,2u,false>>::enforce(float *a1)
 {
   v2 = atan2f(a1[1], *a1);
@@ -6427,7 +6480,7 @@ double *cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::SO2GroupSt
   return a1;
 }
 
-double cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::lplus(uint64_t a1, double *a2)
+double cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::lplus(double *a1, double *a2)
 {
   v3 = __sincos_stret(*a2);
   v6[0] = *&v3.__cosval;
@@ -6442,7 +6495,7 @@ double cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::lplus(uint6
   result = *&v8;
   v5 = v9;
   *a1 = v8;
-  *(a1 + 16) = v5;
+  *(a1 + 1) = v5;
   return result;
 }
 
@@ -6453,7 +6506,7 @@ double sub_24504CC0C(uint64_t a1, double **a2)
   {
     v7 = 0u;
     v8 = 0u;
-    sub_24504CC0C(&v7);
+    sub_24504CC0C(&v7, a2);
     result = *&v7;
     v6 = v8;
     *a1 = v7;
@@ -6531,12 +6584,12 @@ double cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::rplus(uint6
   return result;
 }
 
-double cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::transform@<D0>(double *a1@<X0>, double *a2@<X1>, uint64_t a3@<X8>)
+double cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::transform@<D0>(double *a1@<X0>, double *a2@<X1>, double *a3@<X8>)
 {
   v4[0] = a1;
   v4[1] = a2;
-  *a3 = 0;
-  *(a3 + 8) = 0;
+  *a3 = 0.0;
+  a3[1] = 0.0;
   return sub_24504CDA8(a3, v4);
 }
 
@@ -6546,7 +6599,7 @@ double sub_24504CDA8(double *a1, double **a2)
   if (*a2 == a1 || (v4 = a2[1], v4 == a1))
   {
     v6 = 0uLL;
-    sub_24504CDA8(&v6);
+    sub_24504CDA8(&v6, a2);
     result = *&v6;
     *a1 = v6;
   }
@@ -6561,13 +6614,13 @@ double sub_24504CDA8(double *a1, double **a2)
   return result;
 }
 
-double cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::inverseTransform@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double cva::SO2GroupStorage<double,cva::Matrix<double,2u,2u,false>>::inverseTransform@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, double *a3@<X8>)
 {
   v4 = a1;
   v5[0] = &v4;
   v5[1] = a2;
-  *a3 = 0;
-  *(a3 + 8) = 0;
+  *a3 = 0.0;
+  a3[1] = 0.0;
   return sub_24504CE6C(a3, v5);
 }
 
@@ -6577,7 +6630,7 @@ double sub_24504CE6C(double *a1, uint64_t a2)
   if (v3 == a1)
   {
     v6 = 0uLL;
-    sub_24504CE6C(&v6);
+    sub_24504CE6C(&v6, a2);
     result = *&v6;
     *a1 = v6;
   }
@@ -6848,36 +6901,35 @@ float cva::SO2GroupStorage<float,cva::MatrixRef<float const,2u,2u,false>>::inver
   return result;
 }
 
-uint64_t cva::SO2GroupStorage<float,cva::MatrixRef<float const,2u,2u,false>>::serialize(uint64_t result)
+uint64_t *cva::SO2GroupStorage<float,cva::MatrixRef<float const,2u,2u,false>>::serialize(uint64_t *result, uint64_t a2)
 {
-  v1 = *(result + 8);
-  if (2 * v1)
+  v2 = *(result + 2);
+  if (2 * v2)
   {
-    v2 = *result;
-    v3 = *result + 4 * (2 * v1);
-    v4 = (v1 - 2) << 32;
+    v3 = *result;
+    v4 = *result + 4 * (2 * v2);
+    v5 = (v2 - 2) << 32;
     do
     {
-      v8 = *v2;
       result = std::ostream::write();
-      v5 = HIDWORD(v4);
-      if (v4 < 1)
+      v6 = HIDWORD(v5);
+      if (v5 < 1)
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      v6 = &v2[v5];
-      v7 = (v4 + 1);
-      if (v4 >= 1)
+      v7 = v3 + 4 * v6;
+      v8 = (v5 + 1);
+      if (v5 >= 1)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v4 = v7 | v4 & 0xFFFFFFFF00000000;
-      v2 = v6 + 1;
+      v5 = v8 | v5 & 0xFFFFFFFF00000000;
+      v3 = v7 + 4;
     }
 
-    while (v6 + 1 != v3);
+    while (v7 + 4 != v4);
   }
 
   return result;
@@ -7015,36 +7067,35 @@ double cva::SO2GroupStorage<double,cva::MatrixRef<double const,2u,2u,false>>::in
   return result;
 }
 
-uint64_t cva::SO2GroupStorage<double,cva::MatrixRef<double const,2u,2u,false>>::serialize(uint64_t result)
+uint64_t *cva::SO2GroupStorage<double,cva::MatrixRef<double const,2u,2u,false>>::serialize(uint64_t *result, uint64_t a2)
 {
-  v1 = *(result + 8);
-  if (2 * v1)
+  v2 = *(result + 2);
+  if (2 * v2)
   {
-    v2 = *result;
-    v3 = *result + 8 * (2 * v1);
-    v4 = (v1 - 2) << 32;
+    v3 = *result;
+    v4 = *result + 8 * (2 * v2);
+    v5 = (v2 - 2) << 32;
     do
     {
-      v8 = *v2;
       result = std::ostream::write();
-      v5 = HIDWORD(v4);
-      if (v4 < 1)
+      v6 = HIDWORD(v5);
+      if (v5 < 1)
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      v6 = &v2[v5];
-      v7 = (v4 + 1);
-      if (v4 >= 1)
+      v7 = v3 + 8 * v6;
+      v8 = (v5 + 1);
+      if (v5 >= 1)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v4 = v7 | v4 & 0xFFFFFFFF00000000;
-      v2 = v6 + 1;
+      v5 = v8 | v5 & 0xFFFFFFFF00000000;
+      v3 = v7 + 8;
     }
 
-    while (v6 + 1 != v3);
+    while (v7 + 8 != v4);
   }
 
   return result;
@@ -7273,7 +7324,7 @@ void sub_24504F630()
   xmmword_27EDF63C0 = 0u;
   *&qword_27EDF63D0 = 0u;
   xmmword_27EDF63A0 = 0u;
-  unk_27EDF63B0 = 0u;
+  xmmword_27EDF63B0 = 0u;
   xmmword_27EDF6380 = 0u;
   *&qword_27EDF6390 = 0u;
   qword_27EDF63E0 = 0x400000000000000;
@@ -7444,79 +7495,79 @@ double sub_24504F9D8(uint64_t a1)
   return result;
 }
 
-void cva::backTrace(cva *this@<X0>, int a2@<W1>, int a3@<W2>, unsigned int a4@<W3>, int a5@<W4>, _BYTE *a6@<X8>)
+void cva::backTrace(cva *this@<X0>, int a2@<W1>, int a3@<W2>, unsigned int a4@<W3>, unsigned int a5@<W4>, uint64_t *a6@<X8>)
 {
   v8 = this;
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     operator new();
   }
 
-  v58 = backtrace(0, 0);
-  v9 = backtrace_symbols(0, v58);
-  v77 = 0;
-  v64 = &unk_2857FD4B0;
-  v65 = v9;
-  v67 = &v64;
-  sub_245050624(&v64, v76);
-  v60 = v8;
-  v57 = a4;
-  if (v67 == &v64)
+  v57 = backtrace(0, 0);
+  v9 = backtrace_symbols(0, v57);
+  v76 = 0;
+  v63 = &unk_2857FD4B0;
+  v64 = v9;
+  v66 = &v63;
+  sub_245050624(&v63, v75);
+  v59 = v8;
+  v56 = a4;
+  if (v66 == &v63)
   {
-    (*(*v67 + 4))(v67);
+    (*(*v66 + 4))(v66);
   }
 
-  else if (v67)
+  else if (v66)
   {
-    (*(*v67 + 5))();
+    (*(*v66 + 5))();
   }
 
-  v75[6] = 0;
-  v55 = MEMORY[0x277D82890] + 24;
-  v53 = MEMORY[0x277D82890] + 104;
-  v75[0] = MEMORY[0x277D82890] + 104;
+  v74[6] = 0;
+  v54 = MEMORY[0x277D82890] + 24;
+  v52 = MEMORY[0x277D82890] + 104;
+  v74[0] = MEMORY[0x277D82890] + 104;
   v10 = MEMORY[0x277D82890] + 64;
-  v66 = MEMORY[0x277D82890] + 64;
+  v65 = MEMORY[0x277D82890] + 64;
   v11 = MEMORY[0x277D82818];
   v12 = *(MEMORY[0x277D82818] + 24);
-  v64 = *(MEMORY[0x277D82818] + 16);
-  *(&v64 + *(v64 - 3)) = v12;
-  v65 = 0;
-  v13 = (&v64 + *(v64 - 3));
-  std::ios_base::init(v13, &v67);
+  v63 = *(MEMORY[0x277D82818] + 16);
+  *(&v63 + *(v63 - 3)) = v12;
+  v64 = 0;
+  v13 = (&v63 + *(v63 - 3));
+  std::ios_base::init(v13, &v66);
   v13[1].__vftable = 0;
   v13[1].__fmtflags_ = -1;
   v14 = v11[5];
-  v66 = v11[4];
-  *(&v66 + *(v66 - 24)) = v14;
-  v64 = v11[1];
-  *(&v64 + *(v64 - 3)) = v11[6];
-  v75[0] = v53;
-  v64 = v55;
-  v56 = MEMORY[0x277D82868] + 16;
-  v66 = v10;
-  v67 = (MEMORY[0x277D82868] + 16);
-  MEMORY[0x245D61420](&v68);
-  v71 = 0u;
-  v69 = 0u;
+  v65 = v11[4];
+  *(&v65 + *(v65 - 24)) = v14;
+  v63 = v11[1];
+  *(&v63 + *(v63 - 3)) = v11[6];
+  v74[0] = v52;
+  v63 = v54;
+  v55 = MEMORY[0x277D82868] + 16;
+  v65 = v10;
+  v66 = (MEMORY[0x277D82868] + 16);
+  MEMORY[0x245D61420](&v67);
   v70 = 0u;
-  v54 = MEMORY[0x277D82878] + 16;
-  v67 = (MEMORY[0x277D82878] + 16);
+  v68 = 0u;
+  v69 = 0u;
+  v53 = MEMORY[0x277D82878] + 16;
+  v66 = (MEMORY[0x277D82878] + 16);
   __p = 0u;
-  v73 = 0u;
-  v74 = 24;
-  sub_245050864(&v67);
-  v15 = v60;
-  if (v58 > a4)
+  v72 = 0u;
+  v73 = 24;
+  sub_245050864(&v66);
+  v15 = v59;
+  if (v57 > a4)
   {
     v16 = a4;
     v17 = MEMORY[0x277D85DE0];
     do
     {
-      snprintf(__str, 0x20uLL, "%-3u 0x%016lx ", v16 - v57, *(8 * v16));
+      snprintf(__str, 0x20uLL, "%-3u 0x%016lx ", v16 - v56, *(8 * v16));
       v20 = strlen(__str);
-      sub_2450509AC(&v66, __str, v20);
+      sub_2450509AC(&v65, __str, v20);
       v21 = v9[v16];
       v22 = *v21;
       if (v22 < 1)
@@ -7593,9 +7644,9 @@ LABEL_22:
         }
 
 LABEL_51:
-        if (dladdr(*(8 * v16), &v61))
+        if (dladdr(*(8 * v16), &v60))
         {
-          v32 = v61.dli_sname == 0;
+          v32 = v60.dli_sname == 0;
         }
 
         else
@@ -7608,27 +7659,27 @@ LABEL_51:
           goto LABEL_9;
         }
 
-        v63 = 0;
+        v62 = 0;
         *__str = &unk_2857FD468;
-        v79 = 0;
-        v80 = __str;
-        sub_245050624(__str, v62);
-        if (v80 == __str)
+        v78 = 0;
+        v79 = __str;
+        sub_245050624(__str, v61);
+        if (v79 == __str)
         {
-          (*(*v80 + 32))(v80);
+          (*(*v79 + 32))(v79);
         }
 
-        else if (v80)
+        else if (v79)
         {
-          (*(*v80 + 40))();
+          (*(*v79 + 40))();
         }
 
         *__str = -1;
-        dli_sname = v61.dli_sname;
-        if (a2 && *v61.dli_sname == 95)
+        dli_sname = v60.dli_sname;
+        if (a2 && *v60.dli_sname == 95)
         {
-          v34 = __cxa_demangle(v61.dli_sname, 0, 0, __str);
-          dli_sname = v61.dli_sname;
+          v34 = __cxa_demangle(v60.dli_sname, 0, 0, __str);
+          dli_sname = v60.dli_sname;
           v35 = *__str == 0;
         }
 
@@ -7659,13 +7710,13 @@ LABEL_51:
         }
 
         v38 = strlen(v37);
-        v39 = sub_2450509AC(&v66, v37, v38);
+        v39 = sub_2450509AC(&v65, v37, v38);
         v40 = sub_2450509AC(v39, " + ", 3);
-        MEMORY[0x245D61340](v40, *(8 * v16) - v61.dli_saddr);
-        if (a3 && v61.dli_fname)
+        MEMORY[0x245D61340](v40, *(8 * v16) - v60.dli_saddr);
+        if (a3 && v60.dli_fname)
         {
-          v41 = strrchr(v61.dli_fname, 47);
-          sub_2450509AC(&v66, " (", 2);
+          v41 = strrchr(v60.dli_fname, 47);
+          sub_2450509AC(&v65, " (", 2);
           if (v41)
           {
             dli_fname = v41 + 1;
@@ -7673,27 +7724,27 @@ LABEL_51:
 
           else
           {
-            dli_fname = v61.dli_fname;
+            dli_fname = v60.dli_fname;
           }
 
           v43 = strlen(dli_fname);
-          v44 = sub_2450509AC(&v66, dli_fname, v43);
+          v44 = sub_2450509AC(&v65, dli_fname, v43);
           sub_2450509AC(v44, ")", 1);
         }
 
-        sub_2450509AC(&v66, "\n", 1);
-        v15 = v60;
-        if (v63)
+        sub_2450509AC(&v65, "\n", 1);
+        v15 = v59;
+        if (v62)
         {
-          (*(*v63 + 48))(v63);
-          if (v63 == v62)
+          (*(*v62 + 48))(v62);
+          if (v62 == v61)
           {
-            (*(*v63 + 32))(v63);
+            (*(*v62 + 32))(v62);
           }
 
-          else if (v63)
+          else if (v62)
           {
-            (*(*v63 + 40))();
+            (*(*v62 + 40))();
           }
 
           goto LABEL_10;
@@ -7812,44 +7863,44 @@ LABEL_50:
 
 LABEL_9:
       v18 = strlen(v21);
-      v19 = sub_2450509AC(&v66, v21, v18);
+      v19 = sub_2450509AC(&v65, v21, v18);
       sub_2450509AC(v19, "\n", 1);
 LABEL_10:
       ++v16;
     }
 
-    while (v16 != v58);
+    while (v16 != v57);
   }
 
-  if (!v58)
+  if (!v57)
   {
-    sub_2450509AC(&v66, "...                    <redacted>\n", 34);
+    sub_2450509AC(&v65, "...                    <redacted>\n", 34);
   }
 
-  if ((v74 & 0x10) != 0)
+  if ((v73 & 0x10) != 0)
   {
-    v47 = *(&v73 + 1);
-    if (*(&v73 + 1) < v71)
+    v47 = *(&v72 + 1);
+    if (*(&v72 + 1) < v70)
     {
-      *(&v73 + 1) = v71;
-      v47 = v71;
+      *(&v72 + 1) = v70;
+      v47 = v70;
     }
 
-    v48 = &v70 + 1;
+    v48 = &v69 + 1;
   }
 
   else
   {
-    if ((v74 & 8) == 0)
+    if ((v73 & 8) == 0)
     {
       v45 = 0;
-      a6[23] = 0;
-      v46 = v56;
+      *(a6 + 23) = 0;
+      v46 = v55;
       goto LABEL_98;
     }
 
-    v48 = &v69;
-    v47 = v70;
+    v48 = &v68;
+    v47 = v69;
   }
 
   v49 = *v48;
@@ -7864,51 +7915,49 @@ LABEL_10:
     operator new();
   }
 
-  a6[23] = v45;
-  v46 = v56;
+  *(a6 + 23) = v45;
+  v46 = v55;
   if (v45)
   {
     memmove(a6, v49, v45);
   }
 
 LABEL_98:
-  a6[v45] = 0;
-  v64 = *MEMORY[0x277D82818];
+  *(a6 + v45) = 0;
+  v63 = *MEMORY[0x277D82818];
   v50 = *(MEMORY[0x277D82818] + 72);
-  *(&v64 + *(v64 - 3)) = *(MEMORY[0x277D82818] + 64);
-  v66 = v50;
-  v67 = v54;
-  if (SBYTE7(v73) < 0)
+  *(&v63 + *(v63 - 3)) = *(MEMORY[0x277D82818] + 64);
+  v65 = v50;
+  v66 = v53;
+  if (SBYTE7(v72) < 0)
   {
     operator delete(__p);
   }
 
-  v67 = v46;
-  std::locale::~locale(&v68);
+  v66 = v46;
+  std::locale::~locale(&v67);
   std::iostream::~basic_iostream();
-  MEMORY[0x245D61460](v75);
-  if (!v77)
+  MEMORY[0x245D61460](v74);
+  if (!v76)
   {
     goto LABEL_106;
   }
 
-  (*(*v77 + 48))(v77);
-  if (v77 == v76)
+  (*(*v76 + 48))(v76);
+  if (v76 == v75)
   {
-    (*(*v77 + 32))(v77);
+    (*(*v76 + 32))(v76);
   }
 
-  else if (v77)
+  else if (v76)
   {
-    (*(*v77 + 40))();
+    (*(*v76 + 40))();
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_245050624(uint64_t result, uint64_t a2)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v2 = *(result + 24);
@@ -7919,15 +7968,15 @@ uint64_t sub_245050624(uint64_t result, uint64_t a2)
       {
         v5 = a2;
         v6 = result;
-        (*(*v2 + 24))(*(result + 24), v8);
+        (*(*v2 + 24))(*(result + 24), v7);
         (*(**(v6 + 24) + 32))(*(v6 + 24));
         *(v6 + 24) = 0;
         (*(**(v5 + 24) + 24))(*(v5 + 24), v6);
         (*(**(v5 + 24) + 32))(*(v5 + 24));
         *(v5 + 24) = 0;
         *(v6 + 24) = v6;
-        (*(v8[0] + 24))(v8, v5);
-        result = (*(v8[0] + 32))(v8);
+        (*(v7[0] + 24))(v7, v5);
+        result = (*(v7[0] + 32))(v7);
         goto LABEL_10;
       }
 
@@ -7942,7 +7991,7 @@ uint64_t sub_245050624(uint64_t result, uint64_t a2)
       {
         *(result + 24) = v3;
         *(a2 + 24) = v2;
-        goto LABEL_11;
+        return result;
       }
 
       v5 = result;
@@ -7956,8 +8005,6 @@ LABEL_10:
     *(v5 + 24) = v5;
   }
 
-LABEL_11:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8209,7 +8256,7 @@ __int128 *cva::ProfilerAriadne::instance(cva::ProfilerAriadne *this)
 
 uint64_t sub_245050E3C()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   xmmword_27EDF6410 = 0u;
   unk_27EDF6420 = 0u;
   xmmword_27EDF6430 = 0u;
@@ -8217,11 +8264,9 @@ uint64_t sub_245050E3C()
   xmmword_27EDF6450 = 0u;
   dword_27EDF6460 = 1065353216;
   word_27EDF6468 = 0;
-  pthread_mutexattr_init(&v2);
-  pthread_mutexattr_settype(&v2, 2);
-  result = pthread_mutex_init(&stru_27EDF6470, &v2);
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  pthread_mutexattr_init(&v1);
+  pthread_mutexattr_settype(&v1, 2);
+  return pthread_mutex_init(&stru_27EDF6470, &v1);
 }
 
 uint64_t sub_245050ED0(uint64_t a1)
@@ -8810,29 +8855,29 @@ LABEL_66:
   return pthread_mutex_unlock((this + 96));
 }
 
-uint64_t cva::mtl::createMetal(cva::mtl *this, const char *const *a2, uint64_t a3, const char *a4)
+void *cva::mtl::createMetal(cva::mtl *this, const char *const *a2, uint64_t a3, const char *a4)
 {
   v5 = a2;
-  v39 = *MEMORY[0x277D85DE8];
-  v34 = MTLCreateSystemDefaultDevice();
-  if (v34)
+  v38 = *MEMORY[0x277D85DE8];
+  v33 = MTLCreateSystemDefaultDevice();
+  if (v33)
   {
     v7 = v5;
-    v33 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v5];
+    v32 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v5];
     if (v5)
     {
       do
       {
         v8 = *this;
-        v9 = v34;
+        v9 = v33;
         v10 = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:1];
         if (a3)
         {
           v11 = [MEMORY[0x277CCACA8] stringWithCString:a3 encoding:1];
           v12 = [v10 stringByAppendingString:@".metallib"];
           v13 = [v11 stringByAppendingPathComponent:v12];
-          v37 = 0;
-          v14 = [v9 newLibraryWithFile:v13 error:&v37];
+          v36 = 0;
+          v14 = [v9 newLibraryWithFile:v13 error:&v36];
 
           if (v14)
           {
@@ -8847,8 +8892,8 @@ uint64_t cva::mtl::createMetal(cva::mtl *this, const char *const *a2, uint64_t a
           v16 = [v15 stringByDeletingLastPathComponent];
           v17 = [v10 stringByAppendingString:@".metallib"];
           v18 = [v16 stringByAppendingPathComponent:v17];
-          v35 = 0;
-          v14 = [v9 newLibraryWithFile:v18 error:&v35];
+          v34 = 0;
+          v14 = [v9 newLibraryWithFile:v18 error:&v34];
 
           if (v14)
           {
@@ -8859,8 +8904,8 @@ uint64_t cva::mtl::createMetal(cva::mtl *this, const char *const *a2, uint64_t a
           if (v19)
           {
             v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"/System/Library/PrivateFrameworks/CoreAppleCVA.framework/%@.metallib", v10];
-            v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Frameworks/AppleCVA.framework/%@", v10];
-            v32 = [v19 pathForResource:v31 ofType:@"metallib"];
+            v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Frameworks/AppleCVA.framework/%@", v10];
+            v31 = [v19 pathForResource:v30 ofType:@"metallib"];
             v21 = v20;
             if (v21)
             {
@@ -8884,7 +8929,7 @@ uint64_t cva::mtl::createMetal(cva::mtl *this, const char *const *a2, uint64_t a
               v25 = 0;
             }
 
-            v26 = v32;
+            v26 = v31;
             if (v26)
             {
               *buf = 0;
@@ -8919,7 +8964,7 @@ LABEL_20:
         }
 
         v28 = [MEMORY[0x277CCACA8] stringWithCString:*this encoding:1];
-        [v33 setObject:v14 forKey:v28];
+        [v32 setObject:v14 forKey:v28];
 
         this = (this + 8);
         --v7;
@@ -8928,7 +8973,7 @@ LABEL_20:
       while (v7);
     }
 
-    if ([v34 newCommandQueue])
+    if ([v33 newCommandQueue])
     {
       operator new();
     }
@@ -8943,7 +8988,6 @@ LABEL_27:
     NSLog(&cfstr_FailedCreating.isa);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -8959,7 +9003,7 @@ id *cva::mtl::destroyMetal(id *result)
   return result;
 }
 
-uint64_t cva::mtl::createMetalBuffer(id *a1, unsigned int a2)
+void *cva::mtl::createMetalBuffer(id *a1, unsigned int a2)
 {
   v3 = *a1;
   if ([v3 newBufferWithLength:a2 options:0])
@@ -8992,7 +9036,7 @@ uint64_t cva::mtl::destroyMetalTexture(uint64_t result)
   return result;
 }
 
-uint64_t cva::mtl::createMetalCommandBuffer(uint64_t a1)
+void *cva::mtl::createMetalCommandBuffer(uint64_t a1)
 {
   v1 = *(a1 + 8);
   [v1 commandBuffer];
@@ -9070,7 +9114,7 @@ id CVACreateMetalComputePipelineState(void *a1, void *a2, uint64_t a3)
   return v10;
 }
 
-uint64_t CVACreateTextureFromMetalTexture(void *a1)
+void *CVACreateTextureFromMetalTexture(void *a1)
 {
   if (a1)
   {
@@ -9080,7 +9124,7 @@ uint64_t CVACreateTextureFromMetalTexture(void *a1)
   return 0;
 }
 
-uint64_t CVACreateTextureFromBuffer(id *a1, unsigned int a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6)
+void *CVACreateTextureFromBuffer(id *a1, unsigned int a2, unsigned int a3, unsigned int a4, uint64_t a5, unsigned int a6)
 {
   v12 = objc_opt_new();
   [v12 setWidth:a2];
@@ -9128,7 +9172,7 @@ id *cva::mtl::destroyMPSTemporaryImage(id *result)
   return result;
 }
 
-uint64_t CVACreateMPSCNNKernel(MPSCNNKernel *a1)
+void *CVACreateMPSCNNKernel(MPSCNNKernel *a1)
 {
   if (a1)
   {
@@ -9138,7 +9182,7 @@ uint64_t CVACreateMPSCNNKernel(MPSCNNKernel *a1)
   return 0;
 }
 
-uint64_t CVACreateMPSImage(MPSImage *a1)
+void *CVACreateMPSImage(MPSImage *a1)
 {
   if (a1)
   {
@@ -9148,7 +9192,7 @@ uint64_t CVACreateMPSImage(MPSImage *a1)
   return 0;
 }
 
-uint64_t CVACreateMPSTemporaryImage(MPSTemporaryImage *a1)
+void *CVACreateMPSTemporaryImage(MPSTemporaryImage *a1)
 {
   if (a1)
   {

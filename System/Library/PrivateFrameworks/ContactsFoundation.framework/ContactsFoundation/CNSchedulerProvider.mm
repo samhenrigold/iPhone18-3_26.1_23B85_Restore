@@ -32,9 +32,11 @@
 
 uint64_t __38__CNSchedulerProvider_defaultProvider__block_invoke(uint64_t a1)
 {
-  defaultProvider_cn_once_object_1 = [*(a1 + 32) makeDefaultProvider];
+  v1 = [*(a1 + 32) makeDefaultProvider];
+  v2 = defaultProvider_cn_once_object_1;
+  defaultProvider_cn_once_object_1 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)makeDefaultProvider

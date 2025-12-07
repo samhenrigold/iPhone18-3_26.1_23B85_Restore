@@ -80,21 +80,11 @@
 - (BOOL)isArrivedAtEVCharger
 {
   arrivalInfo = [(MNNavigationService *)self arrivalInfo];
-  if (([arrivalInfo isInArrivalState] & 1) == 0 && !objc_msgSend(arrivalInfo, "isInParkingState"))
+  if ((([arrivalInfo isInArrivalState] & 1) != 0 || objc_msgSend(arrivalInfo, "isInParkingState")) && (-[MNNavigationService route](self, "route"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "legs"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v7 = objc_msgSend(arrivalInfo, "legIndex"), v5, v4, v6 > v7))
   {
-    goto LABEL_6;
-  }
-
-  route = [(MNNavigationService *)self route];
-  legs = [route legs];
-  v6 = [legs count];
-  legIndex = [arrivalInfo legIndex];
-
-  if (v6 > legIndex)
-  {
-    route2 = [(MNNavigationService *)self route];
-    legs2 = [route2 legs];
-    v10 = [legs2 objectAtIndex:{objc_msgSend(arrivalInfo, "legIndex")}];
+    route = [(MNNavigationService *)self route];
+    legs = [route legs];
+    v10 = [legs objectAtIndex:{objc_msgSend(arrivalInfo, "legIndex")}];
 
     chargingStationInfo = [v10 chargingStationInfo];
 
@@ -113,7 +103,6 @@
 
   else
   {
-LABEL_6:
     LOBYTE(v12) = 0;
   }
 

@@ -14,7 +14,7 @@
   v5 = [(ICQAppsSyncingToDrive *)&v12 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"apps"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -54,17 +54,17 @@ void __44__ICQAppsSyncingToDrive_initFromDictionary___block_invoke(uint64_t a1, 
 
 - (ICQAppsSyncingToDrive)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = ICQAppsSyncingToDrive;
-  v5 = [(ICQAppsSyncingToDrive *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = ICQAppsSyncingToDrive;
+  v5 = [(ICQAppsSyncingToDrive *)&v12 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"apps"];
@@ -72,7 +72,6 @@ void __44__ICQAppsSyncingToDrive_initFromDictionary___block_invoke(uint64_t a1, 
     v5->_apps = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

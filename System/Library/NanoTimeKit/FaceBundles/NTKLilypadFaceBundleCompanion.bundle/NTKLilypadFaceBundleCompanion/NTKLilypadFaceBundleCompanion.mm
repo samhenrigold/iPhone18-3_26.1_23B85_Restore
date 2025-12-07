@@ -1,17 +1,16 @@
 void sub_1380(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  v12 = [a2 mutableCopy];
+  v11 = [a2 mutableCopy];
   v6 = [NTKLilypadFaceBundle localizedStringForKey:@"NOTIFICATION_TITLE" comment:@"Pride Threads Face"];
   v7 = [NTKLilypadFaceBundle localizedStringForKey:@"NOTIFICATION_CONTENT" comment:@"This new face is now available for your Apple Watch."];
-  [v12 setTitle:v6];
-  [v12 setBody:v7];
-  [v12 setCategoryIdentifier:NTKFaceSupportFaceCategoryIdentifier];
+  [v11 setTitle:v6];
+  [v11 setBody:v7];
+  [v11 setCategoryIdentifier:NTKFaceSupportFaceCategoryIdentifier];
   v8 = *(a1 + 40);
-  v9 = [v12 copy];
-  v10 = *(a1 + 32);
-  v11 = [objc_opt_class() identifier];
-  (*(v8 + 16))(v8, v9, v11, v5);
+  v9 = [v11 copy];
+  v10 = [objc_opt_class() identifier];
+  (*(v8 + 16))(v8, v9, v10, v5);
 }
 
 void sub_23AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -73,22 +72,17 @@ float64_t CGPoint_simd(float64x2_t a1, float64_t a2)
   return a1.f64[0];
 }
 
-uint64_t sub_4DE8(uint64_t a1, unint64_t a2)
+void sub_4DE8(uint64_t a1, unint64_t a2)
 {
   v3 = 0;
-  v4 = *(a1 + 40) + vcvts_n_f32_u64(a2, 7uLL) * *(a1 + 56);
-  v5 = a2 << 7;
+  v4 = a2 << 7;
   do
   {
-    v6 = *(a1 + 32) + vcvts_n_f32_u32(v3, 7uLL) * *(a1 + 48);
-    v7 = *(a1 + 72);
-    v8 = *(a1 + 76);
-    result = pnoise2();
-    *(*(a1 + 64) + v5 + v3++) = ((v10 + 1.0) * 0.5 * 255.0);
+    pnoise2();
+    *(*(a1 + 64) + v4 + v3++) = ((v5 + 1.0) * 0.5 * 255.0);
   }
 
   while (v3 != 128);
-  return result;
 }
 
 void *sub_4EA0(uint64_t a1, void *a2)
@@ -263,28 +257,35 @@ uint64_t sub_6334(uint64_t a1, void *a2)
   return 0x6400000010;
 }
 
-void sub_639C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_639C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_63D0(void *a1)
 {
   v1 = [a1 description];
-  sub_639C(&dword_0, v2, v3, "Failed to create lilypad time pipeline with error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_639C(&dword_0, v2, v3, "Failed to create lilypad time pipeline with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_6458(void *a1)
 {
   v1 = [a1 description];
-  sub_639C(&dword_0, v2, v3, "Failed to create lilypad compute pipeline with error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_639C(&dword_0, v2, v3, "Failed to create lilypad compute pipeline with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_64E0(void *a1)
 {
   v1 = [a1 description];
-  sub_639C(&dword_0, v2, v3, "Failed to create lilypad render pipeline with error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_639C(&dword_0, v2, v3, "Failed to create lilypad render pipeline with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 __float2 __sincosf_stret(float a1)

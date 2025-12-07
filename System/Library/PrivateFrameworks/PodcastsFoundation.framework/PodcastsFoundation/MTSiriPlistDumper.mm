@@ -11,7 +11,7 @@
 
 - (void)dumpPlist
 {
-  v36[3] = *MEMORY[0x1E69E9840];
+  v35[3] = *MEMORY[0x1E69E9840];
   siriDonator = self->_siriDonator;
   if (siriDonator)
   {
@@ -23,39 +23,39 @@
   v6 = +[MTDB sharedInstance];
   mainOrPrivateContext = [v6 mainOrPrivateContext];
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __30__MTSiriPlistDumper_dumpPlist__block_invoke;
-  v25[3] = &unk_1E856AFB8;
-  v26 = mainOrPrivateContext;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __30__MTSiriPlistDumper_dumpPlist__block_invoke;
+  v24[3] = &unk_1E856AFB8;
+  v25 = mainOrPrivateContext;
   v8 = v4;
-  v27 = v8;
+  v26 = v8;
   v9 = v5;
-  v28 = v9;
-  v22 = v26;
-  [v26 performBlockAndWait:v25];
-  v35[0] = @"title";
-  v35[1] = @"children";
-  v36[0] = @"Library";
-  v36[1] = v8;
-  v35[2] = @"uuid";
-  v36[2] = @"Podcasts";
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
-  v33[0] = @"title";
-  v33[1] = @"children";
-  v34[0] = @"Stations";
-  v34[1] = v9;
-  v33[2] = @"uuid";
-  v34[2] = @"Stations";
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:3];
-  v31[1] = @"children";
-  v32[0] = @"Root";
-  v30[0] = v24;
-  v30[1] = v23;
-  v31[0] = @"title";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
-  v32[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v27 = v9;
+  v21 = v25;
+  [v25 performBlockAndWait:v24];
+  v34[0] = @"title";
+  v34[1] = @"children";
+  v35[0] = @"Library";
+  v35[1] = v8;
+  v34[2] = @"uuid";
+  v35[2] = @"Podcasts";
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
+  v32[0] = @"title";
+  v32[1] = @"children";
+  v33[0] = @"Stations";
+  v33[1] = v9;
+  v32[2] = @"uuid";
+  v33[2] = @"Stations";
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:3];
+  v30[1] = @"children";
+  v31[0] = @"Root";
+  v29[0] = v23;
+  v29[1] = v22;
+  v30[0] = @"title";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+  v31[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
 
   v12 = +[MTConstants documentsDirectory];
   v13 = [v12 URLByAppendingPathComponent:@"PodcastsDB.plist"];
@@ -87,50 +87,48 @@
 
   [(MTSiriPlistDumper *)self writeDiffs:v8 stationItems:v9 existingPodcastItems:v18 existingStationItems:v19];
   [v15 removeItemAtPath:path error:0];
-  v29 = v11;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+  v28 = v11;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
   [v20 writeToFile:path atomically:1];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
 {
-  v55[5] = *MEMORY[0x1E69E9840];
+  v54[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E695D5E0]) initWithEntityName:@"MTPodcast"];
   v3 = +[MTPodcast predicateForNotHiddenNotImplicitlyFollowedPodcasts];
   [v2 setPredicate:v3];
 
-  v55[0] = @"title";
-  v55[1] = @"storeCollectionId";
-  v55[2] = @"uuid";
-  v55[3] = @"feedURL";
-  v55[4] = @"updatedFeedURL";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:5];
+  v54[0] = @"title";
+  v54[1] = @"storeCollectionId";
+  v54[2] = @"uuid";
+  v54[3] = @"feedURL";
+  v54[4] = @"updatedFeedURL";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:5];
   [v2 setPropertiesToFetch:v4];
 
-  v38 = v2;
+  v37 = v2;
   [a1[4] executeFetchRequest:v2 error:0];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  obj = v47 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+  obj = v46 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v45;
+    v7 = *v44;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v45 != v7)
+        if (*v44 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v44 + 1) + 8 * i);
-        v52[0] = @"title";
+        v9 = *(*(&v43 + 1) + 8 * i);
+        v51[0] = @"title";
         v10 = [v9 title];
         v11 = v10;
         if (v10)
@@ -143,11 +141,11 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
           v12 = &stru_1F548B930;
         }
 
-        v53[0] = v12;
-        v52[1] = @"storeId";
+        v52[0] = v12;
+        v51[1] = @"storeId";
         v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lld", objc_msgSend(v9, "storeCollectionId")];
-        v53[1] = v13;
-        v52[2] = @"feedUrl";
+        v52[1] = v13;
+        v51[2] = @"feedUrl";
         v14 = [v9 feedURL];
         v15 = v14;
         if (v14)
@@ -160,8 +158,8 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
           v16 = &stru_1F548B930;
         }
 
-        v53[2] = v16;
-        v52[3] = @"uuid";
+        v52[2] = v16;
+        v51[3] = @"uuid";
         v17 = [v9 uuid];
         v18 = v17;
         if (v17)
@@ -174,13 +172,13 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
           v19 = &stru_1F548B930;
         }
 
-        v53[3] = v19;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:4];
+        v52[3] = v19;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:4];
 
         [a1[5] addObject:v20];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v6 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
     }
 
     while (v6);
@@ -190,32 +188,32 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
   v22 = +[MTPlaylist topLevelPlaylistsPredicate];
   [v21 setPredicate:v22];
 
-  v51[0] = @"title";
-  v51[1] = @"uuid";
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
+  v50[0] = @"title";
+  v50[1] = @"uuid";
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
   [v21 setPropertiesToFetch:v23];
 
   v24 = [a1[4] executeFetchRequest:v21 error:0];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v25 = [v24 countByEnumeratingWithState:&v40 objects:v50 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v41;
+    v27 = *v40;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v41 != v27)
+        if (*v40 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v40 + 1) + 8 * j);
-        v48[0] = @"title";
+        v29 = *(*(&v39 + 1) + 8 * j);
+        v47[0] = @"title";
         v30 = [v29 title];
         v31 = v30;
         if (v30)
@@ -228,8 +226,8 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
           v32 = &stru_1F548B930;
         }
 
-        v48[1] = @"uuid";
-        v49[0] = v32;
+        v47[1] = @"uuid";
+        v48[0] = v32;
         v33 = [v29 uuid];
         v34 = v33;
         if (v33)
@@ -242,19 +240,17 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
           v35 = &stru_1F548B930;
         }
 
-        v49[1] = v35;
-        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
+        v48[1] = v35;
+        v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
 
         [a1[6] addObject:v36];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v40 objects:v50 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v26);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (MTSiriPlistDumper)initWithBackgroundTaskManager:(id)manager
@@ -275,7 +271,6 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
 
 - (void)writeDiffs:(id)diffs stationItems:(id)items existingPodcastItems:(id)podcastItems existingStationItems:(id)stationItems
 {
-  v29 = *MEMORY[0x1E69E9840];
   diffsCopy = diffs;
   itemsCopy = items;
   podcastItemsCopy = podcastItems;
@@ -303,9 +298,9 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
 
   if ([v15 count] && objc_msgSend(v15, "count") < 0x65)
   {
-    v20 = [(MTSiriPlistDumper *)self subtractDictionary:v27 fromDictionary:diffsCopy uniqueKey:@"uuid"];
+    v20 = [(MTSiriPlistDumper *)self subtractDictionary:v26 fromDictionary:diffsCopy uniqueKey:@"uuid"];
     v21 = [(MTSiriPlistDumper *)self subtractDictionary:stationItemsCopy fromDictionary:itemsCopy uniqueKey:@"uuid"];
-    v22 = [(MTSiriPlistDumper *)self subtractDictionary:diffsCopy fromDictionary:v27 uniqueKey:@"uuid"];
+    v22 = [(MTSiriPlistDumper *)self subtractDictionary:diffsCopy fromDictionary:v26 uniqueKey:@"uuid"];
     v23 = [(MTSiriPlistDumper *)self subtractDictionary:itemsCopy fromDictionary:stationItemsCopy uniqueKey:@"uuid"];
     if (![v20 count] && !objc_msgSend(v21, "count") && !objc_msgSend(v22, "count") && !objc_msgSend(v23, "count"))
     {
@@ -327,38 +322,34 @@ void __30__MTSiriPlistDumper_dumpPlist__block_invoke(id *a1)
   [v16 removeItemAtPath:path error:0];
   [v15 writeToFile:path atomically:1];
 LABEL_16:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createDiffWithAddedPodcasts:(id)podcasts addedStations:(id)stations removedPodcasts:(id)removedPodcasts removedStations:(id)removedStations
 {
-  v25[3] = *MEMORY[0x1E69E9840];
-  v24[0] = @"uuid";
+  v24[3] = *MEMORY[0x1E69E9840];
+  v23[0] = @"uuid";
   v9 = MEMORY[0x1E696AEC0];
   removedStationsCopy = removedStations;
   removedPodcastsCopy = removedPodcasts;
   stationsCopy = stations;
   podcastsCopy = podcasts;
   uUID = [v9 UUID];
-  v25[0] = uUID;
-  v24[1] = @"podcasts";
-  v22[0] = @"inserted";
-  v22[1] = @"deleted";
-  v23[0] = podcastsCopy;
-  v23[1] = removedPodcastsCopy;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[1] = v15;
-  v24[2] = @"stations";
-  v20[0] = @"inserted";
-  v20[1] = @"deleted";
-  v21[0] = stationsCopy;
-  v21[1] = removedStationsCopy;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v25[2] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v24[0] = uUID;
+  v23[1] = @"podcasts";
+  v21[0] = @"inserted";
+  v21[1] = @"deleted";
+  v22[0] = podcastsCopy;
+  v22[1] = removedPodcastsCopy;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[1] = v15;
+  v23[2] = @"stations";
+  v19[0] = @"inserted";
+  v19[1] = @"deleted";
+  v20[0] = stationsCopy;
+  v20[1] = removedStationsCopy;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v24[2] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
 
   return v17;
 }

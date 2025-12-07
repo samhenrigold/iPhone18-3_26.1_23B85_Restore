@@ -274,13 +274,14 @@
 
 - (id)pr_suggestedTintColor
 {
-  v9 = 0;
-  v3 = [self pr_loadHomeScreenConfigurationWithError:&v9];
-  v4 = v9;
+  v10 = 0;
+  v3 = [self pr_loadHomeScreenConfigurationWithError:&v10];
+  v4 = v10;
+  v5 = v4;
   if (v4)
   {
-    v5 = PRLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PRLogCommon(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(PRSPosterConfiguration(PBFAdditions) *)a2 pr_suggestedTintColor];
     }
@@ -294,13 +295,14 @@
 
 - (uint64_t)pr_isHomeScreenDimmed
 {
-  v9 = 0;
-  v3 = [self pr_loadHomeScreenConfigurationWithError:&v9];
-  v4 = v9;
+  v10 = 0;
+  v3 = [self pr_loadHomeScreenConfigurationWithError:&v10];
+  v4 = v10;
+  v5 = v4;
   if (v4)
   {
-    v5 = PRLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = PRLogCommon(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(PRSPosterConfiguration(PBFAdditions) *)a2 pr_suggestedTintColor];
     }
@@ -316,7 +318,7 @@
 {
   v1 = NSStringFromSelector(self);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v2, v3, "%{public}@ error fetching home screen configuration: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v2, v3, "%{public}@ error fetching home screen configuration: %{public}@", v4, v5, v6, v7);
 }
 
 @end

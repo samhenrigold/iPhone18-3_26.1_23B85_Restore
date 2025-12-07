@@ -7,9 +7,27 @@
 - (id)encodeAsProto;
 - (id)proto;
 - (int)_protoType;
+- (unint64_t)_socialHighlightTypeForProtoType:(int)type;
 @end
 
 @implementation BMRankableSocialHighlight
+
+- (unint64_t)_socialHighlightTypeForProtoType:(int)type
+{
+  v3 = *&type;
+  if (type < 3)
+  {
+    return type;
+  }
+
+  v5 = __biome_log_for_category();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    [BMRankableSocialHighlight _socialHighlightTypeForProtoType:v3];
+  }
+
+  return 0;
+}
 
 - (int)_protoType
 {
@@ -115,7 +133,7 @@
 
 - (BMRankableSocialHighlight)initWithProto:(id)proto
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -125,19 +143,7 @@
     {
       v6 = objc_alloc(MEMORY[0x1E695DF00]);
       [v5 syndicationSecondsSinceReferenceDate];
-      v55 = [v6 initWithTimeIntervalSinceReferenceDate:?];
-    }
-
-    else
-    {
-      v55 = 0;
-    }
-
-    if ([v5 hasContentCreationSecondsSinceReferenceDate])
-    {
-      v8 = objc_alloc(MEMORY[0x1E695DF00]);
-      [v5 contentCreationSecondsSinceReferenceDate];
-      v54 = [v8 initWithTimeIntervalSinceReferenceDate:?];
+      v54 = [v6 initWithTimeIntervalSinceReferenceDate:?];
     }
 
     else
@@ -145,13 +151,11 @@
       v54 = 0;
     }
 
-    v46 = protoCopy;
-    selfCopy = self;
-    if ([v5 hasRankingSecondsSinceReferenceDate])
+    if ([v5 hasContentCreationSecondsSinceReferenceDate])
     {
-      v9 = objc_alloc(MEMORY[0x1E695DF00]);
-      [v5 rankingSecondsSinceReferenceDate];
-      v53 = [v9 initWithTimeIntervalSinceReferenceDate:?];
+      v8 = objc_alloc(MEMORY[0x1E695DF00]);
+      [v5 contentCreationSecondsSinceReferenceDate];
+      v53 = [v8 initWithTimeIntervalSinceReferenceDate:?];
     }
 
     else
@@ -159,27 +163,41 @@
       v53 = 0;
     }
 
+    v45 = protoCopy;
+    selfCopy = self;
+    if ([v5 hasRankingSecondsSinceReferenceDate])
+    {
+      v9 = objc_alloc(MEMORY[0x1E695DF00]);
+      [v5 rankingSecondsSinceReferenceDate];
+      v52 = [v9 initWithTimeIntervalSinceReferenceDate:?];
+    }
+
+    else
+    {
+      v52 = 0;
+    }
+
     v10 = objc_opt_new();
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     calculatedFeatures = [v5 calculatedFeatures];
-    v12 = [calculatedFeatures countByEnumeratingWithState:&v59 objects:v63 count:16];
+    v12 = [calculatedFeatures countByEnumeratingWithState:&v58 objects:v62 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v60;
+      v14 = *v59;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v60 != v14)
+          if (*v59 != v14)
           {
             objc_enumerationMutation(calculatedFeatures);
           }
 
-          v16 = *(*(&v59 + 1) + 8 * i);
+          v16 = *(*(&v58 + 1) + 8 * i);
           v17 = objc_autoreleasePoolPush();
           if ([v16 hasName] && objc_msgSend(v16, "hasValue"))
           {
@@ -193,7 +211,7 @@
           objc_autoreleasePoolPop(v17);
         }
 
-        v13 = [calculatedFeatures countByEnumeratingWithState:&v59 objects:v63 count:16];
+        v13 = [calculatedFeatures countByEnumeratingWithState:&v58 objects:v62 count:16];
       }
 
       while (v13);
@@ -213,56 +231,56 @@
 
     if ([v5 hasHighlightType])
     {
-      v44 = -[BMRankableSocialHighlight _socialHighlightTypeForProtoType:](selfCopy, "_socialHighlightTypeForProtoType:", [v5 highlightType]);
+      v43 = -[BMRankableSocialHighlight _socialHighlightTypeForProtoType:](selfCopy, "_socialHighlightTypeForProtoType:", [v5 highlightType]);
     }
 
     else
     {
-      v44 = 0;
+      v43 = 0;
     }
 
     sourceBundleId = [v5 sourceBundleId];
     applicationIdentifiers = [v5 applicationIdentifiers];
-    v52 = v24;
+    v51 = v24;
     hasResourceUrl = [v5 hasResourceUrl];
     if (hasResourceUrl)
     {
       v26 = objc_alloc(MEMORY[0x1E695DFF8]);
       resourceUrl = [v5 resourceUrl];
-      v47 = [v26 initWithString:?];
+      v46 = [v26 initWithString:?];
     }
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     v27 = [BMSocialHighlightContact alloc];
     sender = [v5 sender];
-    v42 = [(BMSocialHighlightContact *)v27 initWithProto:sender];
+    v41 = [(BMSocialHighlightContact *)v27 initWithProto:sender];
     domainIdentifier = [v5 domainIdentifier];
     batchIdentifier = [v5 batchIdentifier];
     clientIdentifier = [v5 clientIdentifier];
     displayName = [v5 displayName];
-    v39 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "isPrimary")}];
+    v38 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "isPrimary")}];
     attributionIdentifier = [v5 attributionIdentifier];
     v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v5, "rank")}];
     v29 = MEMORY[0x1E696AD98];
     [v5 score];
-    v37 = [v29 numberWithDouble:?];
+    v36 = [v29 numberWithDouble:?];
     v30 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "isConversationAutoDonating")}];
     originatingDeviceId = [v5 originatingDeviceId];
     resolvedUrl = [v5 resolvedUrl];
     clientVariant = [v5 clientVariant];
-    v58 = [(BMRankableSocialHighlight *)selfCopy initWithHighlightIdentifier:highlightIdentifier highlightType:v44 syndicationDate:v55 sourceBundleId:sourceBundleId applicationIdentifiers:applicationIdentifiers resourceUrl:v47 sender:v42 domainIdentifier:domainIdentifier batchIdentifier:batchIdentifier calculatedFeatures:v10 clientIdentifier:clientIdentifier contentCreationDate:v54 groupPhotoPathDigest:v52 displayName:displayName isPrimary:v39 attributionIdentifier:attributionIdentifier rank:v28 score:v37 isConversationAutoDonating:v30 originatingDeviceId:originatingDeviceId rankingDate:v53 resolvedUrl:resolvedUrl clientVariant:clientVariant];
+    v57 = [(BMRankableSocialHighlight *)selfCopy initWithHighlightIdentifier:highlightIdentifier highlightType:v43 syndicationDate:v54 sourceBundleId:sourceBundleId applicationIdentifiers:applicationIdentifiers resourceUrl:v46 sender:v41 domainIdentifier:domainIdentifier batchIdentifier:batchIdentifier calculatedFeatures:v10 clientIdentifier:clientIdentifier contentCreationDate:v53 groupPhotoPathDigest:v51 displayName:displayName isPrimary:v38 attributionIdentifier:attributionIdentifier rank:v28 score:v36 isConversationAutoDonating:v30 originatingDeviceId:originatingDeviceId rankingDate:v52 resolvedUrl:resolvedUrl clientVariant:clientVariant];
 
     if (hasResourceUrl)
     {
     }
 
-    self = v58;
-    v7 = v58;
-    protoCopy = v46;
+    self = v57;
+    v7 = v57;
+    protoCopy = v45;
   }
 
   else
@@ -270,7 +288,6 @@
     v7 = 0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -295,29 +312,29 @@
 
 - (id)proto
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v4 = self->_calculatedFeatures;
-  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
-        v10 = [(NSDictionary *)self->_calculatedFeatures objectForKeyedSubscript:v9, v28];
+        v9 = *(*(&v27 + 1) + 8 * i);
+        v10 = [(NSDictionary *)self->_calculatedFeatures objectForKeyedSubscript:v9, v27];
         [v10 doubleValue];
         v12 = v11;
 
@@ -327,7 +344,7 @@
         [v3 addObject:v13];
       }
 
-      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
@@ -343,7 +360,7 @@
     [v14 setSyndicationSecondsSinceReferenceDate:?];
   }
 
-  [v14 setSourceBundleId:{self->_sourceBundleId, v28}];
+  [v14 setSourceBundleId:{self->_sourceBundleId, v27}];
   if (self->_applicationIdentifiers)
   {
     applicationIdentifiers = self->_applicationIdentifiers;
@@ -411,8 +428,6 @@
 
   [v14 setResolvedUrl:self->_resolvedUrl];
   [v14 setClientVariant:self->_clientVariant];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

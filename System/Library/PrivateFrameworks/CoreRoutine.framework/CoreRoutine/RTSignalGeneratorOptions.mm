@@ -13,7 +13,7 @@
 
 + (id)visitsDescriptionDataAtPath:(id)path
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v4 = [defaultManager fileExistsAtPath:pathCopy];
@@ -27,39 +27,39 @@
       v6 = [oslog objectForKey:@"Locations"];
       v7 = [v6 mutableCopy];
 
-      v64 = [oslog objectForKey:@"WeeklyVisits"];
-      v61 = [v64 count];
+      v63 = [oslog objectForKey:@"WeeklyVisits"];
+      v60 = [v63 count];
       currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
       v9 = [currentCalendar components:764 fromDate:date];
 
-      v90[0] = MEMORY[0x1E69E9820];
-      v90[1] = 3221225472;
-      v90[2] = __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke;
-      v90[3] = &unk_1E80B4A68;
+      v89[0] = MEMORY[0x1E69E9820];
+      v89[1] = 3221225472;
+      v89[2] = __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke;
+      v89[3] = &unk_1E80B4A68;
       v10 = v9;
-      v91 = v10;
-      v94 = v61;
+      v90 = v10;
+      v93 = v60;
       v11 = date;
-      v92 = v11;
+      v91 = v11;
       v12 = v7;
-      v93 = v12;
-      [v64 enumerateObjectsUsingBlock:v90];
+      v92 = v12;
+      [v63 enumerateObjectsUsingBlock:v89];
       v13 = objc_opt_new();
-      v60 = [oslog objectForKey:@"DailyVisits"];
-      v85[0] = MEMORY[0x1E69E9820];
-      v85[1] = 3221225472;
-      v85[2] = __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_89;
-      v85[3] = &unk_1E80B4AB8;
-      v55 = v10;
-      v86 = v55;
-      v57 = v11;
-      v87 = v57;
-      v63 = v13;
-      v88 = v63;
+      v59 = [oslog objectForKey:@"DailyVisits"];
+      v84[0] = MEMORY[0x1E69E9820];
+      v84[1] = 3221225472;
+      v84[2] = __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_89;
+      v84[3] = &unk_1E80B4AB8;
+      v54 = v10;
+      v85 = v54;
+      v56 = v11;
+      v86 = v56;
+      v62 = v13;
+      v87 = v62;
       v14 = v12;
-      v89 = v14;
-      [v60 enumerateObjectsUsingBlock:v85];
-      if ([objc_opt_class() visitsOverlapping:v63])
+      v88 = v14;
+      [v59 enumerateObjectsUsingBlock:v84];
+      if ([objc_opt_class() visitsOverlapping:v62])
       {
         v15 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -71,25 +71,25 @@
 
       else
       {
-        v83 = 0u;
-        v84 = 0u;
-        v81 = 0u;
         v82 = 0u;
-        v15 = v63;
-        v18 = [v15 countByEnumeratingWithState:&v81 objects:v101 count:16, v55, v57];
+        v83 = 0u;
+        v80 = 0u;
+        v81 = 0u;
+        v15 = v62;
+        v18 = [v15 countByEnumeratingWithState:&v80 objects:v100 count:16, v54, v56];
         if (v18)
         {
-          v19 = *v82;
+          v19 = *v81;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v82 != v19)
+              if (*v81 != v19)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v21 = *(*(&v81 + 1) + 8 * i);
+              v21 = *(*(&v80 + 1) + 8 * i);
               v22 = [v14 objectForKeyedSubscript:v21];
               v23 = [v22 objectForKey:@"visits"];
               v24 = v23 == 0;
@@ -107,27 +107,27 @@
               [v28 addObjectsFromArray:v29];
             }
 
-            v18 = [v15 countByEnumeratingWithState:&v81 objects:v101 count:16];
+            v18 = [v15 countByEnumeratingWithState:&v80 objects:v100 count:16];
           }
 
           while (v18);
         }
       }
 
-      v59 = [oslog objectForKey:@"CustomizedVisits"];
+      v58 = [oslog objectForKey:@"CustomizedVisits"];
       v30 = objc_opt_new();
-      v77[0] = MEMORY[0x1E69E9820];
-      v77[1] = 3221225472;
-      v77[2] = __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_91;
-      v77[3] = &unk_1E80B4A40;
-      v62 = v30;
-      v78 = v62;
-      v58 = v57;
-      v79 = v58;
+      v76[0] = MEMORY[0x1E69E9820];
+      v76[1] = 3221225472;
+      v76[2] = __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_91;
+      v76[3] = &unk_1E80B4A40;
+      v61 = v30;
+      v77 = v61;
+      v57 = v56;
+      v78 = v57;
       v31 = v14;
-      v80 = v31;
-      [v59 enumerateObjectsUsingBlock:v77];
-      if ([objc_opt_class() visitsOverlapping:v62])
+      v79 = v31;
+      [v58 enumerateObjectsUsingBlock:v76];
+      if ([objc_opt_class() visitsOverlapping:v61])
       {
         v32 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -139,26 +139,26 @@
 
       else
       {
-        v75 = 0u;
-        v76 = 0u;
-        v73 = 0u;
         v74 = 0u;
-        v32 = v62;
-        v33 = [v32 countByEnumeratingWithState:&v73 objects:v100 count:16];
+        v75 = 0u;
+        v72 = 0u;
+        v73 = 0u;
+        v32 = v61;
+        v33 = [v32 countByEnumeratingWithState:&v72 objects:v99 count:16];
         if (v33)
         {
-          v34 = *v74;
+          v34 = *v73;
           do
           {
             for (j = 0; j != v33; ++j)
             {
-              if (*v74 != v34)
+              if (*v73 != v34)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v36 = *(*(&v73 + 1) + 8 * j);
-              v37 = [v31 objectForKeyedSubscript:{v36, v55, v58}];
+              v36 = *(*(&v72 + 1) + 8 * j);
+              v37 = [v31 objectForKeyedSubscript:{v36, v54, v57}];
               v38 = [v37 objectForKey:@"visits"];
               v39 = v38 == 0;
 
@@ -175,7 +175,7 @@
               [v43 addObjectsFromArray:v44];
             }
 
-            v33 = [v32 countByEnumeratingWithState:&v73 objects:v100 count:16];
+            v33 = [v32 countByEnumeratingWithState:&v72 objects:v99 count:16];
           }
 
           while (v33);
@@ -192,27 +192,27 @@
         [v16 setObject:v46 forKey:@"LocationFrequency"];
       }
 
-      v47 = [oslog objectForKey:@"WeeklyActivities", v55];
+      v47 = [oslog objectForKey:@"WeeklyActivities", v54];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v96 = 0x3032000000;
-      v97 = __Block_byref_object_copy__0;
-      v98 = __Block_byref_object_dispose__0;
-      v99 = 0;
+      v95 = 0x3032000000;
+      v96 = __Block_byref_object_copy__0;
+      v97 = __Block_byref_object_dispose__0;
+      v98 = 0;
       v48 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_95;
-      v67[3] = &unk_1E80B4B08;
-      v49 = v56;
-      v68 = v49;
-      v72 = v61;
-      v17 = v58;
-      v69 = v17;
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_95;
+      v66[3] = &unk_1E80B4B08;
+      v49 = v55;
+      v67 = v49;
+      v71 = v60;
+      v17 = v57;
+      v68 = v17;
       p_buf = &buf;
       v50 = v48;
-      v70 = v50;
-      [v47 enumerateObjectsUsingBlock:v67];
+      v69 = v50;
+      [v47 enumerateObjectsUsingBlock:v66];
       if (*(*(&buf + 1) + 40))
       {
         v51 = [RTMotionActivity alloc];
@@ -252,8 +252,6 @@
     v16 = 0;
   }
 
-  v53 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
@@ -281,7 +279,7 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke(u
 
 void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2(uint64_t a1, void *a2)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"Location"];
   v5 = [v3 objectForKeyedSubscript:@"Entry"];
@@ -304,7 +302,7 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
 
   [v11 setDay:{objc_msgSend(v11, "day") - 1}];
   v12 = [MEMORY[0x1E695DEE8] currentCalendar];
-  v65 = v6;
+  v64 = v6;
   v13 = [v12 components:240 fromDate:v6];
 
   [v13 setDay:{objc_msgSend(v13, "day") - 1}];
@@ -319,102 +317,100 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
     v18 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v57 = [MEMORY[0x1E695DF00] dateFormatter];
-      v58 = [v57 stringFromDate:*(a1 + 40)];
+      v56 = [MEMORY[0x1E695DF00] dateFormatter];
+      v57 = [v56 stringFromDate:*(a1 + 40)];
       *buf = 138412290;
-      v67 = v58;
+      v66 = v57;
       _os_log_error_impl(&dword_1BF1C4000, v18, OS_LOG_TYPE_ERROR, "adjusted dates are newer than current date, %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v20 = [*(a1 + 48) objectForKeyedSubscript:v4];
-    v21 = [v20 objectForKey:@"visits"];
+    v19 = [*(a1 + 48) objectForKeyedSubscript:v4];
+    v20 = [v19 objectForKey:@"visits"];
 
-    if (!v21)
+    if (!v20)
     {
-      v22 = [*(a1 + 48) objectForKeyedSubscript:v4];
-      v23 = objc_opt_new();
-      [v22 setObject:v23 forKey:@"visits"];
+      v21 = [*(a1 + 48) objectForKeyedSubscript:v4];
+      v22 = objc_opt_new();
+      [v21 setObject:v22 forKey:@"visits"];
     }
 
     if ([v15 compare:v17] == 1)
     {
-      v24 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v62 = [MEMORY[0x1E695DF00] dateFormatterForLogging];
-        v61 = [v62 stringFromDate:v15];
-        v59 = [MEMORY[0x1E695DF00] dateFormatterForLogging];
-        [v59 stringFromDate:v17];
+        v61 = [MEMORY[0x1E695DF00] dateFormatterForLogging];
+        v60 = [v61 stringFromDate:v15];
+        v58 = [MEMORY[0x1E695DF00] dateFormatterForLogging];
+        [v58 stringFromDate:v17];
         *buf = 138412546;
-        v67 = v61;
-        v69 = v68 = 2112;
-        v60 = v69;
-        _os_log_error_impl(&dword_1BF1C4000, v24, OS_LOG_TYPE_ERROR, "ERROR: adjusted entry, %@, postdates adjusted exit, %@", buf, 0x16u);
+        v66 = v60;
+        v68 = v67 = 2112;
+        v59 = v68;
+        _os_log_error_impl(&dword_1BF1C4000, v23, OS_LOG_TYPE_ERROR, "ERROR: adjusted entry, %@, postdates adjusted exit, %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v25 = [*(a1 + 48) objectForKeyedSubscript:v4];
-      v26 = [v25 objectForKeyedSubscript:@"Latitude"];
-      [v26 doubleValue];
-      v28 = v27;
+      v24 = [*(a1 + 48) objectForKeyedSubscript:v4];
+      v25 = [v24 objectForKeyedSubscript:@"Latitude"];
+      [v25 doubleValue];
+      v27 = v26;
 
-      v29 = [*(a1 + 48) objectForKeyedSubscript:v4];
-      v30 = [v29 objectForKeyedSubscript:@"Longitude"];
-      [v30 doubleValue];
-      v32 = v31;
+      v28 = [*(a1 + 48) objectForKeyedSubscript:v4];
+      v29 = [v28 objectForKeyedSubscript:@"Longitude"];
+      [v29 doubleValue];
+      v31 = v30;
 
-      v33 = [*(a1 + 48) objectForKeyedSubscript:v4];
-      v34 = [v33 objectForKeyedSubscript:@"HorizontalUncertainty"];
-      [v34 doubleValue];
-      v36 = v35;
+      v32 = [*(a1 + 48) objectForKeyedSubscript:v4];
+      v33 = [v32 objectForKeyedSubscript:@"HorizontalUncertainty"];
+      [v33 doubleValue];
+      v35 = v34;
 
-      v37 = [*(a1 + 48) objectForKeyedSubscript:v4];
-      v38 = [v37 objectForKeyedSubscript:@"Altitude"];
-      [v38 doubleValue];
-      v40 = v39;
+      v36 = [*(a1 + 48) objectForKeyedSubscript:v4];
+      v37 = [v36 objectForKeyedSubscript:@"Altitude"];
+      [v37 doubleValue];
+      v39 = v38;
 
-      v41 = [*(a1 + 48) objectForKeyedSubscript:v4];
-      v42 = [v41 objectForKeyedSubscript:@"VerticalUncertainty"];
-      [v42 doubleValue];
-      v44 = v43;
+      v40 = [*(a1 + 48) objectForKeyedSubscript:v4];
+      v41 = [v40 objectForKeyedSubscript:@"VerticalUncertainty"];
+      [v41 doubleValue];
+      v43 = v42;
 
-      v45 = [*(a1 + 48) objectForKeyedSubscript:v4];
-      v46 = [v45 objectForKey:@"sourceAccuracy"];
+      v44 = [*(a1 + 48) objectForKeyedSubscript:v4];
+      v45 = [v44 objectForKey:@"sourceAccuracy"];
 
-      v64 = v5;
-      if (v46)
+      v63 = v5;
+      if (v45)
       {
-        v47 = [*(a1 + 48) objectForKeyedSubscript:v4];
-        v48 = [v47 objectForKey:@"sourceAccuracy"];
-        v49 = [v48 unsignedIntValue];
+        v46 = [*(a1 + 48) objectForKeyedSubscript:v4];
+        v47 = [v46 objectForKey:@"sourceAccuracy"];
+        v48 = [v47 unsignedIntValue];
       }
 
       else
       {
-        v49 = 1;
+        v48 = 1;
       }
 
-      v50 = v4;
-      v63 = v4;
-      v51 = [[RTLocation alloc] initWithLatitude:0 longitude:0 horizontalUncertainty:v49 altitude:v28 verticalUncertainty:v32 date:v36 referenceFrame:v40 speed:v44 sourceAccuracy:-1.0];
-      v52 = [*(a1 + 48) objectForKeyedSubscript:v50];
-      v53 = [v52 objectForKey:@"visits"];
-      v54 = [RTLocationOfInterestVisit alloc];
-      v55 = [MEMORY[0x1E696AFB0] UUID];
-      v56 = [(RTLocationOfInterestVisit *)v54 initWithIdentifier:v55 entry:v15 exit:v17 location:v51 locationOfInterestConfidence:0 locationOfInterestSource:v9];
-      [v53 addObject:v56];
+      v49 = v4;
+      v62 = v4;
+      v50 = [[RTLocation alloc] initWithLatitude:0 longitude:0 horizontalUncertainty:v48 altitude:v27 verticalUncertainty:v31 date:v35 referenceFrame:v39 speed:v43 sourceAccuracy:-1.0];
+      v51 = [*(a1 + 48) objectForKeyedSubscript:v49];
+      v52 = [v51 objectForKey:@"visits"];
+      v53 = [RTLocationOfInterestVisit alloc];
+      v54 = [MEMORY[0x1E696AFB0] UUID];
+      v55 = [(RTLocationOfInterestVisit *)v53 initWithIdentifier:v54 entry:v15 exit:v17 location:v50 locationOfInterestConfidence:0 locationOfInterestSource:v9];
+      [v52 addObject:v55];
 
-      v4 = v63;
-      v5 = v64;
+      v4 = v62;
+      v5 = v63;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_89(id *a1, void *a2, uint64_t a3)
@@ -442,7 +438,7 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_8
 
 void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2_90(uint64_t a1, void *a2)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"Location"];
   v5 = [*(a1 + 32) objectForKey:v4];
@@ -465,10 +461,10 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
     v12 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v60 = [MEMORY[0x1E695DF00] dateFormatter];
-      v61 = [v60 stringFromDate:v8];
+      v59 = [MEMORY[0x1E695DF00] dateFormatter];
+      v60 = [v59 stringFromDate:v8];
       *buf = 138412290;
-      v65 = v61;
+      v64 = v60;
       _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "entry date is not Jan 1 2001 and will result in unexpected behavior, %@", buf, 0xCu);
     }
   }
@@ -493,7 +489,7 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
       v21 = v20 = v8;
       v22 = [v21 stringFromDate:*(a1 + 48)];
       *buf = 138412290;
-      v65 = v22;
+      v64 = v22;
       _os_log_error_impl(&dword_1BF1C4000, &v19->super, OS_LOG_TYPE_ERROR, "adjusted dates are newer than current date, %@", buf, 0xCu);
 
       v8 = v20;
@@ -502,7 +498,7 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
 
   else
   {
-    v63 = v8;
+    v62 = v8;
     v23 = [*(a1 + 56) objectForKeyedSubscript:v4];
     v24 = [v23 objectForKey:@"visits"];
 
@@ -518,14 +514,14 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
       v19 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
       if (os_log_type_enabled(&v19->super, OS_LOG_TYPE_ERROR))
       {
-        v62 = [MEMORY[0x1E695DF00] dateFormatter];
-        v27 = [v62 stringFromDate:v16];
+        v61 = [MEMORY[0x1E695DF00] dateFormatter];
+        v27 = [v61 stringFromDate:v16];
         v28 = [MEMORY[0x1E695DF00] dateFormatter];
         v29 = [v28 stringFromDate:v18];
         *buf = 138412546;
-        v65 = v27;
-        v66 = 2112;
-        v67 = v29;
+        v64 = v27;
+        v65 = 2112;
+        v66 = v29;
         _os_log_error_impl(&dword_1BF1C4000, &v19->super, OS_LOG_TYPE_ERROR, "ERROR: adjusted entry, %@, postdates adjusted exit, %@", buf, 0x16u);
       }
     }
@@ -580,15 +576,13 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
       [v55 addObject:v58];
     }
 
-    v8 = v63;
+    v8 = v62;
   }
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_91(uint64_t a1, void *a2)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"Location"];
   v5 = [*(a1 + 32) objectForKey:v4];
@@ -613,19 +607,19 @@ LABEL_6:
       goto LABEL_7;
     }
 
+    v41 = [MEMORY[0x1E695DF00] dateFormatter];
+    v37 = [v41 stringFromDate:*(a1 + 40)];
     v42 = [MEMORY[0x1E695DF00] dateFormatter];
-    v38 = [v42 stringFromDate:*(a1 + 40)];
+    v39 = [v42 stringFromDate:v8];
     v43 = [MEMORY[0x1E695DF00] dateFormatter];
-    v40 = [v43 stringFromDate:v8];
-    v44 = [MEMORY[0x1E695DF00] dateFormatter];
-    v45 = [v44 stringFromDate:v9];
-    v50 = 138412802;
-    v51 = v38;
-    v52 = 2112;
-    v53 = v40;
-    v54 = 2112;
-    v55 = v45;
-    _os_log_error_impl(&dword_1BF1C4000, &v10->super, OS_LOG_TYPE_ERROR, "visit entry/exit dates are newer than current date, %@, visit entry, %@, exit, %@", &v50, 0x20u);
+    v44 = [v43 stringFromDate:v9];
+    v49 = 138412802;
+    v50 = v37;
+    v51 = 2112;
+    v52 = v39;
+    v53 = 2112;
+    v54 = v44;
+    _os_log_error_impl(&dword_1BF1C4000, &v10->super, OS_LOG_TYPE_ERROR, "visit entry/exit dates are newer than current date, %@, visit entry, %@, exit, %@", &v49, 0x20u);
 
 LABEL_17:
     goto LABEL_6;
@@ -633,72 +627,71 @@ LABEL_17:
 
   if ([v8 compare:v9] != 1)
   {
-    v13 = [*(a1 + 48) objectForKeyedSubscript:v4];
-    v14 = [v13 objectForKeyedSubscript:@"Latitude"];
-    [v14 doubleValue];
-    v16 = v15;
+    v12 = [*(a1 + 48) objectForKeyedSubscript:v4];
+    v13 = [v12 objectForKeyedSubscript:@"Latitude"];
+    [v13 doubleValue];
+    v15 = v14;
 
-    v17 = [*(a1 + 48) objectForKeyedSubscript:v4];
-    v18 = [v17 objectForKeyedSubscript:@"Longitude"];
-    [v18 doubleValue];
-    v20 = v19;
+    v16 = [*(a1 + 48) objectForKeyedSubscript:v4];
+    v17 = [v16 objectForKeyedSubscript:@"Longitude"];
+    [v17 doubleValue];
+    v19 = v18;
 
-    v21 = [*(a1 + 48) objectForKeyedSubscript:v4];
-    v22 = [v21 objectForKeyedSubscript:@"HorizontalUncertainty"];
-    [v22 doubleValue];
-    v24 = v23;
+    v20 = [*(a1 + 48) objectForKeyedSubscript:v4];
+    v21 = [v20 objectForKeyedSubscript:@"HorizontalUncertainty"];
+    [v21 doubleValue];
+    v23 = v22;
 
-    v25 = [*(a1 + 48) objectForKeyedSubscript:v4];
-    v26 = [v25 objectForKeyedSubscript:@"Altitude"];
-    [v26 doubleValue];
-    v28 = v27;
+    v24 = [*(a1 + 48) objectForKeyedSubscript:v4];
+    v25 = [v24 objectForKeyedSubscript:@"Altitude"];
+    [v25 doubleValue];
+    v27 = v26;
 
-    v29 = [*(a1 + 48) objectForKeyedSubscript:v4];
-    v30 = [v29 objectForKeyedSubscript:@"VerticalUncertainty"];
-    [v30 doubleValue];
-    v32 = v31;
+    v28 = [*(a1 + 48) objectForKeyedSubscript:v4];
+    v29 = [v28 objectForKeyedSubscript:@"VerticalUncertainty"];
+    [v29 doubleValue];
+    v31 = v30;
 
-    v33 = [*(a1 + 48) objectForKeyedSubscript:v4];
-    v34 = [v33 objectForKey:@"sourceAccuracy"];
+    v32 = [*(a1 + 48) objectForKeyedSubscript:v4];
+    v33 = [v32 objectForKey:@"sourceAccuracy"];
 
-    if (v34)
+    if (v33)
     {
-      v35 = [*(a1 + 48) objectForKeyedSubscript:v4];
-      v36 = [v35 objectForKey:@"sourceAccuracy"];
-      v37 = [v36 unsignedIntValue];
+      v34 = [*(a1 + 48) objectForKeyedSubscript:v4];
+      v35 = [v34 objectForKey:@"sourceAccuracy"];
+      v36 = [v35 unsignedIntValue];
     }
 
     else
     {
-      v37 = 1;
+      v36 = 1;
     }
 
-    v10 = [[RTLocation alloc] initWithLatitude:0 longitude:0 horizontalUncertainty:v37 altitude:v16 verticalUncertainty:v20 date:v24 referenceFrame:v28 speed:v32 sourceAccuracy:-1.0];
-    v38 = [*(a1 + 32) objectForKeyedSubscript:v4];
-    v39 = [RTLocationOfInterestVisit alloc];
-    v40 = [MEMORY[0x1E696AFB0] UUID];
-    v41 = [(RTLocationOfInterestVisit *)v39 initWithIdentifier:v40 entry:v8 exit:v9 location:v10 locationOfInterestConfidence:0 locationOfInterestSource:1.0];
-    [v38 addObject:v41];
+    v10 = [[RTLocation alloc] initWithLatitude:0 longitude:0 horizontalUncertainty:v36 altitude:v15 verticalUncertainty:v19 date:v23 referenceFrame:v27 speed:v31 sourceAccuracy:-1.0];
+    v37 = [*(a1 + 32) objectForKeyedSubscript:v4];
+    v38 = [RTLocationOfInterestVisit alloc];
+    v39 = [MEMORY[0x1E696AFB0] UUID];
+    v40 = [(RTLocationOfInterestVisit *)v38 initWithIdentifier:v39 entry:v8 exit:v9 location:v10 locationOfInterestConfidence:0 locationOfInterestSource:1.0];
+    [v37 addObject:v40];
 
     goto LABEL_17;
   }
 
-  v12 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v11 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v46 = [MEMORY[0x1E695DF00] dateFormatter];
-    v47 = [v46 stringFromDate:v8];
-    v48 = [MEMORY[0x1E695DF00] dateFormatter];
-    v49 = [v48 stringFromDate:v9];
-    v50 = 138412546;
-    v51 = v47;
-    v52 = 2112;
-    v53 = v49;
-    _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "ERROR: entry, %@, postdates exit, %@", &v50, 0x16u);
+    v45 = [MEMORY[0x1E695DF00] dateFormatter];
+    v46 = [v45 stringFromDate:v8];
+    v47 = [MEMORY[0x1E695DF00] dateFormatter];
+    v48 = [v47 stringFromDate:v9];
+    v49 = 138412546;
+    v50 = v46;
+    v51 = 2112;
+    v52 = v48;
+    _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "ERROR: entry, %@, postdates exit, %@", &v49, 0x16u);
   }
 
 LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_95(uint64_t a1, void *a2, uint64_t a3)
@@ -728,13 +721,13 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_9
 
 void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2_96(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"Mode of Transportation"];
-  v31 = [RTMotionActivity motionActivityTypeFromString:v4];
+  v30 = [RTMotionActivity motionActivityTypeFromString:v4];
 
   v5 = [v3 objectForKeyedSubscript:@"Confidence"];
-  v30 = [RTMotionActivity motionActivityConfidenceFromString:v5];
+  v29 = [RTMotionActivity motionActivityConfidenceFromString:v5];
 
   v6 = [v3 objectForKeyedSubscript:@"Start"];
   v7 = [v3 objectForKeyedSubscript:@"End"];
@@ -758,10 +751,10 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
     v16 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
     if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_ERROR))
     {
-      v22 = [MEMORY[0x1E695DF00] dateFormatter];
-      v23 = [v22 stringFromDate:*(a1 + 40)];
+      v21 = [MEMORY[0x1E695DF00] dateFormatter];
+      v22 = [v21 stringFromDate:*(a1 + 40)];
       *buf = 138412290;
-      v34 = v23;
+      v33 = v22;
       _os_log_error_impl(&dword_1BF1C4000, &v16->super, OS_LOG_TYPE_ERROR, "adjusted dates are newer than current date, %@", buf, 0xCu);
     }
 
@@ -771,102 +764,101 @@ void __56__RTSignalGeneratorOptions_visitsDescriptionDataAtPath___block_invoke_2
   if ([v13 compare:v15] != 1)
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), v15);
-    v27 = *(a1 + 64);
-    v28 = MEMORY[0x1E696AEC0];
-    v29 = [RTMotionActivity motionActivityTypeToString:v31];
-    v19 = [RTMotionActivity motionActivityConfidenceToString:v30];
-    v20 = [v28 stringWithFormat:@"index %d (day), activity type %@, confidence %@, adjustedStart %@, adjustedEnd %@\n", v27, v29, v19, v13, v15];
-    v21 = [v20 UTF8String];
-    fputs(v21, *MEMORY[0x1E69E9848]);
+    v26 = *(a1 + 64);
+    v27 = MEMORY[0x1E696AEC0];
+    v28 = [RTMotionActivity motionActivityTypeToString:v30];
+    v18 = [RTMotionActivity motionActivityConfidenceToString:v29];
+    v19 = [v27 stringWithFormat:@"index %d (day), activity type %@, confidence %@, adjustedStart %@, adjustedEnd %@\n", v26, v28, v18, v13, v15];
+    v20 = [v19 UTF8String];
+    fputs(v20, *MEMORY[0x1E69E9848]);
 
-    v16 = [[RTMotionActivity alloc] initWithType:v31 confidence:v30 startDate:v13];
+    v16 = [[RTMotionActivity alloc] initWithType:v30 confidence:v29 startDate:v13];
     [*(a1 + 48) addObject:v16];
 LABEL_5:
 
     goto LABEL_6;
   }
 
-  v18 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v17 = _rt_log_facility_get_os_log(RTLogFacilityFramework);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v32 = [MEMORY[0x1E695DF00] dateFormatter];
-    v24 = [v32 stringFromDate:v13];
-    v25 = [MEMORY[0x1E695DF00] dateFormatter];
-    v26 = [v25 stringFromDate:v15];
+    v31 = [MEMORY[0x1E695DF00] dateFormatter];
+    v23 = [v31 stringFromDate:v13];
+    v24 = [MEMORY[0x1E695DF00] dateFormatter];
+    v25 = [v24 stringFromDate:v15];
     *buf = 138412546;
-    v34 = v24;
-    v35 = 2112;
-    v36 = v26;
-    _os_log_error_impl(&dword_1BF1C4000, v18, OS_LOG_TYPE_ERROR, "ERROR: adjusted start, %@, postdates adjusted end, %@", buf, 0x16u);
+    v33 = v23;
+    v34 = 2112;
+    v35 = v25;
+    _os_log_error_impl(&dword_1BF1C4000, v17, OS_LOG_TYPE_ERROR, "ERROR: adjusted start, %@, postdates adjusted end, %@", buf, 0x16u);
   }
 
 LABEL_6:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)visitsOverlapping:(id)overlapping
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   overlappingCopy = overlapping;
   v4 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = overlappingCopy;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [v5 objectForKey:*(*(&v23 + 1) + 8 * v9)];
+        v10 = [v5 objectForKey:*(*(&v22 + 1) + 8 * v9)];
         [v4 addObjectsFromArray:v10];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
   }
 
   v11 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"entryDate" ascending:1];
-  v28 = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+  v27 = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
   [v4 sortUsingDescriptors:v12];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = v4;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     while (1)
     {
-      if (*v20 != v16)
+      if (*v19 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
       if (!--v15)
       {
-        v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (!v15)
         {
           break;
@@ -875,53 +867,50 @@ LABEL_6:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (id)getVisitsFromVisitsDescriptionData:(id)data
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
   v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v4 = objc_opt_new();
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___block_invoke;
-  v11[3] = &unk_1E80B4B58;
-  v13 = &v19;
-  v14 = &v15;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___block_invoke;
+  v10[3] = &unk_1E80B4B58;
+  v12 = &v18;
+  v13 = &v14;
   v5 = v4;
-  v12 = v5;
-  [dataCopy enumerateKeysAndObjectsUsingBlock:v11];
+  v11 = v5;
+  [dataCopy enumerateKeysAndObjectsUsingBlock:v10];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v6 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v7 = v20[3];
-      v8 = v16[3];
+      v7 = v19[3];
+      v8 = v15[3];
       *buf = 134218240;
-      v24 = v7;
-      v25 = 2048;
-      v26 = v8;
+      v23 = v7;
+      v24 = 2048;
+      v25 = v8;
       _os_log_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_INFO, "lois injected, %lu, visits injected, %lu", buf, 0x16u);
     }
   }
 
   [v5 sortUsingComparator:&__block_literal_global_3];
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v19, 8);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v18, 8);
 
   return v5;
 }
@@ -948,7 +937,7 @@ void __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___block_i
 
 void __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___block_invoke_2(void *a1, void *a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (!a3)
   {
@@ -960,9 +949,9 @@ void __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___block_i
         v7 = a1[4];
         v8 = a1[5];
         *buf = 138740227;
-        v23 = v7;
-        v24 = 2117;
-        v25 = v8;
+        v22 = v7;
+        v23 = 2117;
+        v24 = v8;
         _os_log_impl(&dword_1BF1C4000, v6, OS_LOG_TYPE_INFO, "%{sensitive}@, %{sensitive}@", buf, 0x16u);
       }
     }
@@ -990,16 +979,14 @@ void __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___block_i
       v19 = [v5 entryDate];
       [v18 timeIntervalSinceDate:v19];
       *buf = 134218499;
-      v23 = v17;
-      v24 = 2117;
-      v25 = v5;
-      v26 = 2048;
-      v27 = v20 / 60.0;
+      v22 = v17;
+      v23 = 2117;
+      v24 = v5;
+      v25 = 2048;
+      v26 = v20 / 60.0;
       _os_log_impl(&dword_1BF1C4000, v16, OS_LOG_TYPE_INFO, "visit %lu, %{sensitive}@, %f minutes", buf, 0x20u);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___block_invoke_110(uint64_t a1, void *a2, void *a3)
@@ -1039,7 +1026,7 @@ uint64_t __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___blo
 
 - (RTSignalGeneratorOptions)initWithStartLocation:(id)location endLocation:(id)endLocation expectedVisits:(id)visits
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   endLocationCopy = endLocation;
   visitsCopy = visits;
@@ -1049,16 +1036,16 @@ uint64_t __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___blo
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v47 = "[RTSignalGeneratorOptions initWithStartLocation:endLocation:expectedVisits:]";
-      v48 = 1024;
-      v49 = 525;
+      v46 = "[RTSignalGeneratorOptions initWithStartLocation:endLocation:expectedVisits:]";
+      v47 = 1024;
+      v48 = 525;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: expectedVisits (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v45.receiver = self;
-  v45.super_class = RTSignalGeneratorOptions;
-  v12 = [(RTSignalGeneratorOptions *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = RTSignalGeneratorOptions;
+  v12 = [(RTSignalGeneratorOptions *)&v44 init];
   if (v12)
   {
     if (locationCopy)
@@ -1070,7 +1057,7 @@ uint64_t __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___blo
 
     else
     {
-      v39 = [RTLocation alloc];
+      v38 = [RTLocation alloc];
       startLocation = [visitsCopy firstObject];
       location = [startLocation location];
       [location latitude];
@@ -1082,7 +1069,7 @@ uint64_t __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___blo
       firstObject2 = [visitsCopy firstObject];
       entry = [firstObject2 entry];
       v22 = [entry dateByAddingTimeInterval:-1800.0];
-      v23 = [(RTLocation *)v39 initWithLatitude:v22 longitude:v16 horizontalUncertainty:v19 date:10.0];
+      v23 = [(RTLocation *)v38 initWithLatitude:v22 longitude:v16 horizontalUncertainty:v19 date:10.0];
       v24 = v12->_startLocation;
       v12->_startLocation = v23;
     }
@@ -1096,7 +1083,7 @@ uint64_t __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___blo
 
     else
     {
-      v40 = [RTLocation alloc];
+      v39 = [RTLocation alloc];
       endLocation = [visitsCopy lastObject];
       location3 = [endLocation location];
       [location3 latitude];
@@ -1108,7 +1095,7 @@ uint64_t __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___blo
       lastObject2 = [visitsCopy lastObject];
       exit = [lastObject2 exit];
       v34 = [exit dateByAddingTimeInterval:1800.0];
-      v35 = [(RTLocation *)v40 initWithLatitude:v34 longitude:v28 horizontalUncertainty:v31 date:10.0];
+      v35 = [(RTLocation *)v39 initWithLatitude:v34 longitude:v28 horizontalUncertainty:v31 date:10.0];
       v36 = v12->_endLocation;
       v12->_endLocation = v35;
     }
@@ -1116,7 +1103,6 @@ uint64_t __63__RTSignalGeneratorOptions_getVisitsFromVisitsDescriptionData___blo
     objc_storeStrong(&v12->_expectedVisits, visits);
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

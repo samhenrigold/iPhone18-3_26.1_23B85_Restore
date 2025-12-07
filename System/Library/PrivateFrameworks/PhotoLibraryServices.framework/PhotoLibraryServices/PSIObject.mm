@@ -30,7 +30,7 @@
 
 - (void)reverse
 {
-  v3 = [(NSArray *)self->_tokens count];
+  v3 = objc_msgSend_count(self->_tokens, a2);
   if (v3 >= 2)
   {
     v4 = v3 - 1;

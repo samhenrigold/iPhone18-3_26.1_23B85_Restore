@@ -1,6 +1,7 @@
 @interface WFReversibleLinkAction
 + (Class)settingsClientClass;
 - (void)finishRunningWithError:(id)error;
+- (void)getValueForParameterData:(id)data ofProcessedParameters:(id)parameters fallingBackToDefaultValue:(BOOL)value completionHandler:(id)handler;
 - (void)runAsynchronouslyWithInput:(id)input;
 @end
 
@@ -45,6 +46,70 @@ void __49__WFReversibleLinkAction_finishRunningWithError___block_invoke(uint64_t
   else
   {
     objc_msgSendSuper2(&v10, sel_finishRunningWithError_, a3, v9.receiver, v9.super_class, *(a1 + 32), WFReversibleLinkAction);
+  }
+}
+
+- (void)getValueForParameterData:(id)data ofProcessedParameters:(id)parameters fallingBackToDefaultValue:(BOOL)value completionHandler:(id)handler
+{
+  valueCopy = value;
+  v30 = *MEMORY[0x1E69E9840];
+  dataCopy = data;
+  parametersCopy = parameters;
+  handlerCopy = handler;
+  name = [dataCopy name];
+  reversibleSettingParameterKey = [(WFReversibleLinkAction *)self reversibleSettingParameterKey];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
+
+  if (isEqualToString)
+  {
+    runningDelegate = [(WFAction *)self runningDelegate];
+    v17 = [runningDelegate actionReversalStateForAction:self];
+
+    if (v17)
+    {
+      v18 = [[WFSettingsClientBookmark alloc] initWithActionReversalState:v17];
+      if (v18)
+      {
+        settingsClientClass = [objc_opt_class() settingsClientClass];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __117__WFReversibleLinkAction_getValueForParameterData_ofProcessedParameters_fallingBackToDefaultValue_completionHandler___block_invoke;
+        v22[3] = &unk_1E837B8A8;
+        v22[4] = self;
+        v24 = handlerCopy;
+        v23 = dataCopy;
+        [settingsClientClass getReversalStateWithBookmark:v18 completionHandler:v22];
+      }
+
+      else
+      {
+        v20 = getWFActionsLogObject();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 136315394;
+          v27 = "[WFReversibleLinkAction getValueForParameterData:ofProcessedParameters:fallingBackToDefaultValue:completionHandler:]";
+          v28 = 2112;
+          v29 = v17;
+          _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Couldn't turn action reversal state %@ into a settings client bookmark", buf, 0x16u);
+        }
+
+        (*(handlerCopy + 2))(handlerCopy, 0, 0);
+      }
+    }
+
+    else
+    {
+      v21.receiver = self;
+      v21.super_class = WFReversibleLinkAction;
+      [(WFAppIntentExecutionAction *)&v21 getValueForParameterData:dataCopy ofProcessedParameters:parametersCopy fallingBackToDefaultValue:valueCopy completionHandler:handlerCopy];
+    }
+  }
+
+  else
+  {
+    v25.receiver = self;
+    v25.super_class = WFReversibleLinkAction;
+    [(WFAppIntentExecutionAction *)&v25 getValueForParameterData:dataCopy ofProcessedParameters:parametersCopy fallingBackToDefaultValue:valueCopy completionHandler:handlerCopy];
   }
 }
 

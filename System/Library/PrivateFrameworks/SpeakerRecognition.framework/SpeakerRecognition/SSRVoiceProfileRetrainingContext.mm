@@ -18,11 +18,11 @@
 
 - (SSRVoiceProfileRetrainingContext)initWithVoiceRetrainingContext:(id)context skipClassTypeValidate:(BOOL)validate error:(id *)error
 {
-  v150[1] = *MEMORY[0x277D85DE8];
+  v149[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v131.receiver = self;
-  v131.super_class = SSRVoiceProfileRetrainingContext;
-  v7 = [(SSRVoiceProfileRetrainingContext *)&v131 init];
+  v130.receiver = self;
+  v130.super_class = SSRVoiceProfileRetrainingContext;
+  v7 = [(SSRVoiceProfileRetrainingContext *)&v130 init];
   if (!v7)
   {
     goto LABEL_96;
@@ -49,9 +49,9 @@ LABEL_9:
       if (error)
       {
         v18 = MEMORY[0x277CCA9B8];
-        v149 = @"reason";
-        v150[0] = v16;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v150 forKeys:&v149 count:1];
+        v148 = @"reason";
+        v149[0] = v16;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v149 forKeys:&v148 count:1];
         *error = [v18 errorWithDomain:@"com.apple.speakerrecognition" code:713 userInfo:v19];
       }
 
@@ -140,9 +140,9 @@ LABEL_14:
     if (error)
     {
       v45 = MEMORY[0x277CCA9B8];
-      v147 = @"reason";
-      v148 = v16;
-      v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v148 forKeys:&v147 count:1];
+      v146 = @"reason";
+      v147 = v16;
+      v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v147 forKeys:&v146 count:1];
       *error = [v45 errorWithDomain:@"com.apple.speakerrecognition" code:107 userInfo:v46];
     }
 
@@ -239,9 +239,9 @@ LABEL_14:
       if (error)
       {
         v105 = MEMORY[0x277CCA9B8];
-        v145 = @"reason";
-        v146 = v16;
-        v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v146 forKeys:&v145 count:1];
+        v144 = @"reason";
+        v145 = v16;
+        v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v145 forKeys:&v144 count:1];
         *error = [v105 errorWithDomain:@"com.apple.speakerrecognition" code:713 userInfo:v106];
       }
 
@@ -262,12 +262,12 @@ LABEL_14:
   v58 = *(v7 + 3);
   *(v7 + 3) = v57;
 
-  v124 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v123 = objc_alloc_init(MEMORY[0x277CBEB38]);
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v59 = 0;
   v60 = 1;
   *&v61 = 136315906;
-  v121 = v61;
+  v120 = v61;
   while (1)
   {
     v62 = v59;
@@ -286,9 +286,9 @@ LABEL_53:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v143 = __Block_byref_object_copy__5510;
-    *&v144 = __Block_byref_object_dispose__5511;
-    *(&v144 + 1) = 0;
+    v142 = __Block_byref_object_copy__5510;
+    *&v143 = __Block_byref_object_dispose__5511;
+    *(&v143 + 1) = 0;
     if (*(v7 + 10) && ([MEMORY[0x277D018F8] needRetrainingForExclaveOnly] & 1) == 0)
     {
       v64 = +[SSRUtils satConfigFileNameForCSSpIdType:forModelType:forAssetType:](SSRUtils, "satConfigFileNameForCSSpIdType:forModelType:forAssetType:", *(v7 + 5), v60, [*(v7 + 10) assetProvider]);
@@ -317,15 +317,15 @@ LABEL_53:
       *(*&buf[8] + 40) = v75;
 
       v77 = *(v7 + 3);
-      v126[0] = MEMORY[0x277D85DD0];
-      v126[1] = 3221225472;
-      v126[2] = __95__SSRVoiceProfileRetrainingContext_initWithVoiceRetrainingContext_skipClassTypeValidate_error___block_invoke;
-      v126[3] = &unk_278578A20;
-      v129 = v60;
-      v130 = v72;
-      v127 = v7;
-      v128 = buf;
-      [v77 enumerateObjectsUsingBlock:v126];
+      v125[0] = MEMORY[0x277D85DD0];
+      v125[1] = 3221225472;
+      v125[2] = __95__SSRVoiceProfileRetrainingContext_initWithVoiceRetrainingContext_skipClassTypeValidate_error___block_invoke;
+      v125[3] = &unk_278578A20;
+      v128 = v60;
+      v129 = v72;
+      v126 = v7;
+      v127 = buf;
+      [v77 enumerateObjectsUsingBlock:v125];
     }
 
     else
@@ -368,15 +368,15 @@ LABEL_53:
           v88 = [SSRUtils stringForCSSpIdType:*(v7 + 5)];
           v89 = [SSRUtils stringForSpeakerRecognizerType:v60];
           locale3 = [*(v7 + 4) locale];
-          *v134 = v121;
-          v135 = "[SSRVoiceProfileRetrainingContext initWithVoiceRetrainingContext:skipClassTypeValidate:error:]";
-          v136 = 2114;
-          v137 = v88;
-          v138 = 2114;
-          v139 = v89;
-          v140 = 2114;
-          v141 = locale3;
-          _os_log_impl(&dword_225E12000, v87, OS_LOG_TYPE_DEFAULT, "%s Skipping model {%{public}@, %{public}@} for %{public}@", v134, 0x2Au);
+          *v133 = v120;
+          v134 = "[SSRVoiceProfileRetrainingContext initWithVoiceRetrainingContext:skipClassTypeValidate:error:]";
+          v135 = 2114;
+          v136 = v88;
+          v137 = 2114;
+          v138 = v89;
+          v139 = 2114;
+          v140 = locale3;
+          _os_log_impl(&dword_225E12000, v87, OS_LOG_TYPE_DEFAULT, "%s Skipping model {%{public}@, %{public}@} for %{public}@", v133, 0x2Au);
         }
 
         goto LABEL_74;
@@ -397,7 +397,7 @@ LABEL_53:
     }
 
     v91 = [SSRUtils stringForSpeakerRecognizerType:v60];
-    [v124 setValue:v87 forKey:v91];
+    [v123 setValue:v87 forKey:v91];
 
     v92 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
@@ -405,15 +405,15 @@ LABEL_53:
       v93 = [SSRUtils stringForCSSpIdType:*(v7 + 5)];
       v94 = [SSRUtils stringForSpeakerRecognizerType:v60];
       locale4 = [*(v7 + 4) locale];
-      *v134 = v121;
-      v135 = "[SSRVoiceProfileRetrainingContext initWithVoiceRetrainingContext:skipClassTypeValidate:error:]";
-      v136 = 2114;
-      v137 = v93;
-      v138 = 2114;
-      v139 = v94;
-      v140 = 2114;
-      v141 = locale4;
-      _os_log_impl(&dword_225E12000, v92, OS_LOG_TYPE_DEFAULT, "%s Added model context {%{public}@, %{public}@} for %{public}@", v134, 0x2Au);
+      *v133 = v120;
+      v134 = "[SSRVoiceProfileRetrainingContext initWithVoiceRetrainingContext:skipClassTypeValidate:error:]";
+      v135 = 2114;
+      v136 = v93;
+      v137 = 2114;
+      v138 = v94;
+      v139 = 2114;
+      v140 = locale4;
+      _os_log_impl(&dword_225E12000, v92, OS_LOG_TYPE_DEFAULT, "%s Added model context {%{public}@, %{public}@} for %{public}@", v133, 0x2Au);
     }
 
 LABEL_74:
@@ -440,21 +440,21 @@ LABEL_76:
     v98 = [SSRUtils stringForCSSpIdType:v63];
     v99 = [SSRUtils stringForSpeakerRecognizerType:v60];
     locale5 = [*(v7 + 4) locale];
-    *buf = v121;
+    *buf = v120;
     *&buf[4] = "[SSRVoiceProfileRetrainingContext initWithVoiceRetrainingContext:skipClassTypeValidate:error:]";
     *&buf[12] = 2114;
     *&buf[14] = v98;
     *&buf[22] = 2114;
-    v143 = v99;
-    LOWORD(v144) = 2114;
-    *(&v144 + 2) = locale5;
+    v142 = v99;
+    LOWORD(v143) = 2114;
+    *(&v143 + 2) = locale5;
     _os_log_impl(&dword_225E12000, v97, OS_LOG_TYPE_DEFAULT, "%s Skipping SAT Model {%{public}@, %{public}@} for %{public}@", buf, 0x2Au);
   }
 
 LABEL_78:
-  if ([v124 count])
+  if ([v123 count])
   {
-    v101 = v124;
+    v101 = v123;
   }
 
   else
@@ -479,9 +479,9 @@ LABEL_78:
     if (error)
     {
       v109 = MEMORY[0x277CCA9B8];
-      v132 = @"reason";
-      v133 = v107;
-      v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
+      v131 = @"reason";
+      v132 = v107;
+      v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
       *error = [v109 errorWithDomain:@"com.apple.speakerrecognition" code:713 userInfo:v110];
     }
 
@@ -518,7 +518,6 @@ LABEL_96:
   v20 = v7;
 LABEL_97:
 
-  v119 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

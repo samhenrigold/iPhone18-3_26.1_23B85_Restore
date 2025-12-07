@@ -32,9 +32,9 @@
 
 - (IMCommSafetySettingsManager)init
 {
-  v22.receiver = self;
-  v22.super_class = IMCommSafetySettingsManager;
-  v2 = [(IMCommSafetySettingsManager *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = IMCommSafetySettingsManager;
+  v2 = [(IMCommSafetySettingsManager *)&v23 init];
   if (!v2)
   {
     goto LABEL_14;
@@ -75,26 +75,26 @@ LABEL_14:
   }
 
   objc_initWeak(&location, v2);
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
   v9 = qword_1ED8C9878;
-  v31 = qword_1ED8C9878;
+  v32 = qword_1ED8C9878;
   if (!qword_1ED8C9878)
   {
     *buf = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = sub_1A8700DA0;
-    v26 = &unk_1E78261C8;
-    v27 = &v28;
+    v25 = 3221225472;
+    v26 = sub_1A8700DA0;
+    v27 = &unk_1E78261C8;
+    v28 = &v29;
     v10 = sub_1A86008C0();
     v11 = dlsym(v10, "STSettingsDidChangeNotification");
-    *(v27[1] + 24) = v11;
-    qword_1ED8C9878 = *(v27[1] + 24);
-    v9 = v29[3];
+    *(v28[1] + 24) = v11;
+    qword_1ED8C9878 = *(v28[1] + 24);
+    v9 = v30[3];
   }
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v29, 8);
   if (v9)
   {
     v12 = *v9;
@@ -103,10 +103,10 @@ LABEL_14:
     handler[1] = 3221225472;
     handler[2] = sub_1A86FFDB4;
     handler[3] = &unk_1E782B338;
-    objc_copyWeak(&v20, &location);
+    objc_copyWeak(&v21, &location);
     if (notify_register_dispatch(v12, &v2->_notificationToken, v13, handler))
     {
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(&location);
       v14 = 0;
 LABEL_15:
@@ -119,16 +119,16 @@ LABEL_15:
     block[1] = 3221225472;
     block[2] = sub_1A8600ABC;
     block[3] = &unk_1E7826078;
-    objc_copyWeak(&v18, &location);
+    objc_copyWeak(&v19, &location);
     dispatch_async(v15, block);
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
     goto LABEL_13;
   }
 
-  dlerror();
-  result = abort_report_np();
+  v17 = dlerror();
+  result = abort_report_np("%s", v17);
   __break(1u);
   return result;
 }

@@ -51,7 +51,7 @@
   {
     if (os_log_type_enabled(off_100127CF0, OS_LOG_TYPE_ERROR))
     {
-      sub_100028CBC(upgradeCopy, error);
+      sub_100028CBC();
     }
 
     v20 = 0;
@@ -80,7 +80,7 @@
   {
     if (os_log_type_enabled(off_100127CF0, OS_LOG_TYPE_ERROR))
     {
-      sub_100028CBC(upgradeCopy, error);
+      sub_100028CBC();
     }
 
     v20 = 0;
@@ -344,7 +344,7 @@ LABEL_49:
             v57 = v84;
             if (os_log_type_enabled(off_100127CF0, OS_LOG_TYPE_ERROR))
             {
-              sub_100028EDC(v38, v73);
+              sub_100028EDC(v38, v73, v62);
             }
 
             v34 = 0;
@@ -532,7 +532,7 @@ LABEL_48:
     v65 = off_100127CF0;
     if (os_log_type_enabled(off_100127CF0, OS_LOG_TYPE_ERROR))
     {
-      sub_100028EDC(v38, v65);
+      sub_100028EDC(v38, v65, v55);
     }
 
     goto LABEL_44;
@@ -1698,50 +1698,49 @@ LABEL_16:
 - (BOOL)resetKVCloudStateWithProfile:(id)profile error:(id *)error
 {
   profileCopy = profile;
-  v59 = 0;
+  v58 = 0;
   v7 = +[NSMutableDictionary dictionary];
   v8 = kMACoreRXUserGroup;
   [v7 setObject:kMACoreRXUserGroup forKeyedSubscript:kMAGroupKey];
-  v9 = kMARXDataSharingStore;
-  v10 = [(MAKVStoreManager *)self getStore:kMARXDataSharingStore groupPath:v8 profile:profileCopy attributes:v7 isCreateOp:0 isBaseStore:0 isNew:&v59 storeChain:0 error:error];
-  v11 = v10;
+  v9 = [(MAKVStoreManager *)self getStore:kMARXDataSharingStore groupPath:v8 profile:profileCopy attributes:v7 isCreateOp:0 isBaseStore:0 isNew:&v58 storeChain:0 error:error];
+  v10 = v9;
   if (*error)
   {
     if (os_log_type_enabled(off_100127CF8, OS_LOG_TYPE_ERROR))
     {
-      sub_10002EB60(v9, error);
+      sub_10002EB60();
     }
 
-    v12 = 0;
+    v11 = 0;
   }
 
-  else if (v10)
+  else if (v9)
   {
-    v46 = kMAKVCol_stagingFrom;
-    v76 = kMAKVCol_stagingFrom;
-    v77 = &off_10011DC88;
-    v13 = [NSDictionary dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-    v74 = kMAKVStoreDesiredKeys;
-    v50 = kMAKVCol_RXUUID;
-    v51 = kMAKVCol_ckSyncState;
-    v73[0] = kMAKVCol_ckSyncState;
-    v73[1] = kMAKVCol_RXUUID;
-    v45 = kMAKVCol_recordName;
-    v73[2] = kMAKVCol_recordName;
-    v14 = [NSArray arrayWithObjects:v73 count:3];
-    v75 = v14;
-    v15 = [NSDictionary dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-    v58 = 0;
-    [v11 queryFor:v13 attributes:v15 records:&v58 error:error];
-    v16 = v58;
+    v45 = kMAKVCol_stagingFrom;
+    v75 = kMAKVCol_stagingFrom;
+    v76 = &off_10011DC88;
+    v12 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    v73 = kMAKVStoreDesiredKeys;
+    v49 = kMAKVCol_RXUUID;
+    v50 = kMAKVCol_ckSyncState;
+    v72[0] = kMAKVCol_ckSyncState;
+    v72[1] = kMAKVCol_RXUUID;
+    v44 = kMAKVCol_recordName;
+    v72[2] = kMAKVCol_recordName;
+    v13 = [NSArray arrayWithObjects:v72 count:3];
+    v74 = v13;
+    v14 = [NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+    v57 = 0;
+    [v10 queryFor:v12 attributes:v14 records:&v57 error:error];
+    v15 = v57;
 
-    v12 = *error == 0;
+    v11 = *error == 0;
     if (*error)
     {
-      v17 = v16;
+      v16 = v15;
       if (os_log_type_enabled(off_100127CF8, OS_LOG_TYPE_ERROR))
       {
-        sub_10002EBD8(v9, error);
+        sub_10002EBD8();
       }
     }
 
@@ -1749,120 +1748,120 @@ LABEL_16:
     {
       selfCopy = self;
       errorCopy = error;
-      v48 = v11;
-      v40 = v7;
-      v41 = profileCopy;
-      v18 = [MAKVStore queryOutputToArrayOfDictionaries:v16 error:error];
-      v17 = v16;
+      v47 = v10;
+      v39 = v7;
+      v40 = profileCopy;
+      v17 = [MAKVStore queryOutputToArrayOfDictionaries:v15 error:error];
+      v16 = v15;
       if (os_log_type_enabled(off_100127CF8, OS_LOG_TYPE_DEBUG))
       {
         sub_10002EC50();
       }
 
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
       v55 = 0u;
-      obj = v18;
-      v19 = v46;
-      v21 = v50;
-      v20 = v51;
-      v49 = [obj countByEnumeratingWithState:&v54 objects:v72 count:16];
-      if (v49)
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
+      obj = v17;
+      v18 = v45;
+      v20 = v49;
+      v19 = v50;
+      v48 = [obj countByEnumeratingWithState:&v53 objects:v71 count:16];
+      if (v48)
       {
-        v44 = *v55;
+        v43 = *v54;
         do
         {
-          v22 = 0;
+          v21 = 0;
           do
           {
-            v23 = v17;
-            if (*v55 != v44)
+            v22 = v16;
+            if (*v54 != v43)
             {
               objc_enumerationMutation(obj);
             }
 
-            v24 = *(*(&v54 + 1) + 8 * v22);
-            v25 = [v24 objectForKeyedSubscript:v20];
-            intValue = [v25 intValue];
-            v27 = [v24 objectForKeyedSubscript:v21];
-            v28 = [v24 objectForKeyedSubscript:v45];
-            v29 = off_100127CF8;
+            v23 = *(*(&v53 + 1) + 8 * v21);
+            v24 = [v23 objectForKeyedSubscript:v19];
+            intValue = [v24 intValue];
+            v26 = [v23 objectForKeyedSubscript:v20];
+            v27 = [v23 objectForKeyedSubscript:v44];
+            v28 = off_100127CF8;
             if (os_log_type_enabled(off_100127CF8, OS_LOG_TYPE_INFO))
             {
               *buf = 138412802;
-              v61 = v27;
-              v62 = 2112;
-              v63 = v25;
-              v64 = 2048;
-              v65 = intValue & 0xFFFFFFFFFFFFE1DFLL;
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "updating record %@ from %@ to %ld", buf, 0x20u);
+              v60 = v26;
+              v61 = 2112;
+              v62 = v24;
+              v63 = 2048;
+              v64 = intValue & 0xFFFFFFFFFFFFE1DFLL;
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "updating record %@ from %@ to %ld", buf, 0x20u);
             }
 
-            v70[0] = v50;
-            v70[1] = v19;
-            v71[0] = v27;
-            v71[1] = &off_10011DC88;
-            v30 = [NSDictionary dictionaryWithObjects:v71 forKeys:v70 count:2];
-            v68 = v51;
+            v69[0] = v49;
+            v69[1] = v18;
+            v70[0] = v26;
+            v70[1] = &off_10011DC88;
+            v29 = [NSDictionary dictionaryWithObjects:v70 forKeys:v69 count:2];
+            v67 = v50;
             0xFFFFFFFFFFFFE1DFLL = [NSNumber numberWithInteger:intValue & 0xFFFFFFFFFFFFE1DFLL];
-            v69 = 0xFFFFFFFFFFFFE1DFLL;
-            v32 = [NSDictionary dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-            v33 = [v48 updateFor:v30 value:v32 attributes:&off_10011E4B8 error:errorCopy];
+            v68 = 0xFFFFFFFFFFFFE1DFLL;
+            v31 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+            v32 = [v47 updateFor:v29 value:v31 attributes:&off_10011E4B8 error:errorCopy];
 
-            if (v33)
+            if (v32)
             {
-              v17 = v23;
-              if (v28)
+              v16 = v22;
+              if (v27)
               {
                 maServer = selfCopy->_maServer;
-                v52[0] = _NSConcreteStackBlock;
-                v52[1] = 3221225472;
-                v52[2] = sub_10002D248;
-                v52[3] = &unk_100116118;
-                v53 = v28;
-                [(MAServer *)maServer localKVSCleanupWithRecordName:v53 completionHandler:v52];
+                v51[0] = _NSConcreteStackBlock;
+                v51[1] = 3221225472;
+                v51[2] = sub_10002D248;
+                v51[3] = &unk_100116118;
+                v52 = v27;
+                [(MAServer *)maServer localKVSCleanupWithRecordName:v52 completionHandler:v51];
               }
             }
 
             else
             {
-              v35 = off_100127CF8;
-              v17 = v23;
+              v34 = off_100127CF8;
+              v16 = v22;
               if (os_log_type_enabled(off_100127CF8, OS_LOG_TYPE_ERROR))
               {
-                v36 = v35;
-                name = [v48 name];
-                v38 = *errorCopy;
+                v35 = v34;
+                name = [v47 name];
+                v37 = *errorCopy;
                 *buf = 138413058;
-                v61 = v27;
-                v62 = 2048;
-                v63 = intValue;
-                v64 = 2112;
-                v65 = name;
-                v66 = 2112;
-                v67 = v38;
-                _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "failed to update record %@ for setting sync state %ld, store: %@, error: %@", buf, 0x2Au);
+                v60 = v26;
+                v61 = 2048;
+                v62 = intValue;
+                v63 = 2112;
+                v64 = name;
+                v65 = 2112;
+                v66 = v37;
+                _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "failed to update record %@ for setting sync state %ld, store: %@, error: %@", buf, 0x2Au);
               }
             }
 
-            v22 = v22 + 1;
-            v21 = v50;
-            v19 = v46;
-            v20 = v51;
+            v21 = v21 + 1;
+            v20 = v49;
+            v18 = v45;
+            v19 = v50;
           }
 
-          while (v49 != v22);
-          v49 = [obj countByEnumeratingWithState:&v54 objects:v72 count:16];
+          while (v48 != v21);
+          v48 = [obj countByEnumeratingWithState:&v53 objects:v71 count:16];
         }
 
-        while (v49);
+        while (v48);
       }
 
-      v7 = v40;
-      profileCopy = v41;
-      v11 = v48;
-      v12 = 1;
+      v7 = v39;
+      profileCopy = v40;
+      v10 = v47;
+      v11 = 1;
     }
   }
 
@@ -1874,10 +1873,10 @@ LABEL_16:
     }
 
     createManagedAssetError();
-    *error = v12 = 0;
+    *error = v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)dedupeCoreRX:(id)x store:(id)store attributes:(id)attributes error:(id *)error
@@ -1912,7 +1911,7 @@ LABEL_16:
     *error = createManagedAssetError();
     if (os_log_type_enabled(off_100127CF8, OS_LOG_TYPE_ERROR))
     {
-      sub_10002EE94(error);
+      sub_10002EE94();
     }
 
     v44 = 0;
@@ -1931,7 +1930,7 @@ LABEL_16:
   {
     if (os_log_type_enabled(off_100127CF8, OS_LOG_TYPE_ERROR))
     {
-      sub_10002EDAC(error);
+      sub_10002EDAC();
     }
 
     v44 = 0;

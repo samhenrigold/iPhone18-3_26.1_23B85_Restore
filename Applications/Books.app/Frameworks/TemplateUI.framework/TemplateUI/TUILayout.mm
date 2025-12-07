@@ -184,7 +184,7 @@ LABEL_16:
   result = self->_model;
   if (result)
   {
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result, a3);
   }
 
   v4 = *&CGAffineTransformIdentity.c;
@@ -199,7 +199,7 @@ LABEL_16:
   result = self->_model;
   if (result)
   {
-    return [(CGAffineTransform *)result renderTransform];
+    return objc_msgSend_renderTransform(result, a3);
   }
 
   v4 = *&CGAffineTransformIdentity.c;
@@ -317,7 +317,7 @@ LABEL_16:
   model = self->_model;
   if (model)
   {
-    result = [(TUIModelLayoutable *)model height];
+    result = objc_msgSend_height(model, a3);
   }
 
   else
@@ -356,7 +356,7 @@ LABEL_16:
   {
     [v13 width];
     v15 = v14;
-    [v13 height];
+    objc_msgSend_height(v13);
     v17 = v16;
     if (parentCopy)
     {
@@ -464,8 +464,8 @@ LABEL_23:
   v10 = 0u;
   v7 = 0u;
   v8 = 0u;
-  children = [(TUILayout *)self children];
-  v4 = [children countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v3 = objc_msgSend_children(self, 0);
+  v4 = [v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
     v5 = *v8;
@@ -476,7 +476,7 @@ LABEL_23:
       {
         if (*v8 != v5)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         [*(*(&v7 + 1) + 8 * v6) validateGuides];
@@ -484,7 +484,7 @@ LABEL_23:
       }
 
       while (v4 != v6);
-      v4 = [children countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
@@ -493,7 +493,7 @@ LABEL_23:
 
 - (void)updateGuides
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a2);
   guides = [v3 guides];
 
   guideProvider = [(TUILayout *)self guideProvider];
@@ -704,7 +704,7 @@ LABEL_6:
 
     else
     {
-      DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(p_storage, 1u, 0x10uLL, 1);
+      DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(p_storage, 1, 16, 1);
       if (DataForKey)
       {
         goto LABEL_6;
@@ -746,7 +746,7 @@ LABEL_6:
 
     else
     {
-      DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(p_storage, 0xCu, 0x10uLL, 1);
+      DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(p_storage, 12, 16, 1);
       if (DataForKey)
       {
         goto LABEL_6;
@@ -828,7 +828,7 @@ LABEL_6:
   if (!TUICGFloatIsEqualFloatOrBothNaN(v6, width))
   {
     widthCopy = width;
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 6u, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 6, 4, 1);
     if (DataForKey)
     {
       *DataForKey = widthCopy;
@@ -868,7 +868,7 @@ LABEL_6:
   if (!TUICGFloatIsEqualFloatOrBothNaN(v6, height))
   {
     heightCopy = height;
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 5u, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 5, 4, 1);
     if (DataForKey)
     {
       *DataForKey = heightCopy;
@@ -908,7 +908,7 @@ LABEL_6:
   if (!TUICGFloatIsEqualFloatOrBothNaN(v6, width))
   {
     widthCopy = width;
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 0, 4, 1);
     if (DataForKey)
     {
       *DataForKey = widthCopy;
@@ -950,7 +950,7 @@ LABEL_6:
   if (!TUICGFloatIsEqualFloatOrBothNaN(v6, width))
   {
     widthCopy = width;
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 2u, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 2, 4, 1);
     if (DataForKey)
     {
       *DataForKey = widthCopy;
@@ -990,7 +990,7 @@ LABEL_6:
   if (!TUICGFloatIsEqualFloatOrBothNaN(v6, height))
   {
     heightCopy = height;
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 7u, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->_storage, 7, 4, 1);
     if (DataForKey)
     {
       *DataForKey = heightCopy;
@@ -1016,27 +1016,27 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)validatedIntrinsicWidthConsideringSpecified
 {
-  specifiedWidth = [(TUILayout *)self specifiedWidth];
+  v4 = objc_msgSend_specifiedWidth(self, a3);
   v6 = v5;
   validatedIntrinsicWidth = [(TUILayout *)self validatedIntrinsicWidth];
 
-  return TUILengthCombineSpecifiedAndIntrinsic(specifiedWidth, v6, validatedIntrinsicWidth, v7);
+  return TUILengthCombineSpecifiedAndIntrinsic(v4, v6, validatedIntrinsicWidth, v7);
 }
 
 - ($E297CC25127479E857BE23A4F8632EA4)validatedIntrinsicHeightConsideringSpecified
 {
-  specifiedHeight = [(TUILayout *)self specifiedHeight];
+  v4 = objc_msgSend_specifiedHeight(self, a3);
   v6 = v5;
   validatedIntrinsicHeight = [(TUILayout *)self validatedIntrinsicHeight];
 
-  return TUILengthCombineSpecifiedAndIntrinsic(specifiedHeight, v6, validatedIntrinsicHeight, v7);
+  return TUILengthCombineSpecifiedAndIntrinsic(v4, v6, validatedIntrinsicHeight, v7);
 }
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedWidth
 {
-  [(TUILayout *)self aspectConstrainedSpecifiedWidth];
+  objc_msgSend_aspectConstrainedSpecifiedWidth(self, a3);
   v5 = v4 & 0x7000000000000;
-  aspectConstrainedSpecifiedWidth = [(TUILayout *)self aspectConstrainedSpecifiedWidth];
+  v6 = objc_msgSend_aspectConstrainedSpecifiedWidth(self);
   if (v5 < 0x2000000000001)
   {
     [(TUILayout *)self computedContentWidthConsideringTransform];
@@ -1046,11 +1046,11 @@ LABEL_6:
 
   else
   {
-    LODWORD(v7) = HIDWORD(aspectConstrainedSpecifiedWidth);
-    [(TUILayout *)self aspectConstrainedSpecifiedWidth];
+    LODWORD(v7) = HIDWORD(v6);
+    objc_msgSend_aspectConstrainedSpecifiedWidth(self, v7);
     LODWORD(v9) = v8;
-    aspectConstrainedSpecifiedWidth2 = [(TUILayout *)self aspectConstrainedSpecifiedWidth];
-    [(TUILayout *)self computedTransformedSize];
+    v10 = objc_msgSend_aspectConstrainedSpecifiedWidth(self, v9);
+    objc_msgSend_computedTransformedSize(self);
     if (v11 <= -3.40282347e38)
     {
       v12 = 4286578687;
@@ -1067,7 +1067,7 @@ LABEL_6:
       }
     }
 
-    return (v12 | aspectConstrainedSpecifiedWidth2 & 0xFFFFFFFF00000000);
+    return (v12 | v10 & 0xFFFFFFFF00000000);
   }
 
   return result;
@@ -1075,9 +1075,9 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedHeight
 {
-  [(TUILayout *)self aspectConstrainedSpecifiedHeight];
+  objc_msgSend_aspectConstrainedSpecifiedHeight(self, a3);
   v5 = v4 & 0x7000000000000;
-  aspectConstrainedSpecifiedHeight = [(TUILayout *)self aspectConstrainedSpecifiedHeight];
+  v6 = objc_msgSend_aspectConstrainedSpecifiedHeight(self);
   if (v5 < 0x2000000000001)
   {
     [(TUILayout *)self computedContentHeightConsideringTransform];
@@ -1087,11 +1087,11 @@ LABEL_6:
 
   else
   {
-    LODWORD(v7) = HIDWORD(aspectConstrainedSpecifiedHeight);
-    [(TUILayout *)self aspectConstrainedSpecifiedHeight];
+    LODWORD(v7) = HIDWORD(v6);
+    objc_msgSend_aspectConstrainedSpecifiedHeight(self, v7);
     LODWORD(v9) = v8;
-    aspectConstrainedSpecifiedHeight2 = [(TUILayout *)self aspectConstrainedSpecifiedHeight];
-    [(TUILayout *)self computedTransformedSize];
+    v10 = objc_msgSend_aspectConstrainedSpecifiedHeight(self, v9);
+    objc_msgSend_computedTransformedSize(self);
     if (v11 <= -3.40282347e38)
     {
       v12 = 4286578687;
@@ -1107,7 +1107,7 @@ LABEL_6:
       }
     }
 
-    return (v12 | aspectConstrainedSpecifiedHeight2 & 0xFFFFFFFF00000000);
+    return (v12 | v10 & 0xFFFFFFFF00000000);
   }
 
   return result;
@@ -1115,13 +1115,13 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentWidthConsideringTransform
 {
-  [(TUILayout *)self computedTransform];
+  objc_msgSend_computedTransform(self, a3);
   if (CGAffineTransformIsIdentity(&v8))
   {
     return [(TUILayout *)self computedContentWidth];
   }
 
-  [(TUILayout *)self computedTransformedSize];
+  objc_msgSend_computedTransformedSize(self);
   if (v5 <= -3.40282347e38)
   {
     v7 = 4286578687;
@@ -1143,13 +1143,13 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentHeightConsideringTransform
 {
-  [(TUILayout *)self computedTransform];
+  objc_msgSend_computedTransform(self, a3);
   if (CGAffineTransformIsIdentity(&v8))
   {
     return [(TUILayout *)self computedContentHeight];
   }
 
-  [(TUILayout *)self computedTransformedSize];
+  objc_msgSend_computedTransformedSize(self);
   if (v5 <= -3.40282347e38)
   {
     v7 = 4286578687;
@@ -1171,7 +1171,7 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentWidth
 {
-  [(TUILayout *)self computedTransformedSize];
+  objc_msgSend_computedTransformedSize(self, a3);
   if (v3 <= -3.40282347e38)
   {
     v6 = 4286578687;
@@ -1193,7 +1193,7 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentHeight
 {
-  [(TUILayout *)self computedTransformedSize];
+  objc_msgSend_computedTransformedSize(self, a3);
   if (v3 <= -3.40282347e38)
   {
     v6 = 4286578687;
@@ -1220,7 +1220,7 @@ LABEL_6:
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(TUILayout *)self _computedFrameTransform];
+  objc_msgSend__computedFrameTransform(self);
   v12.origin.x = v4;
   v12.origin.y = v6;
   v12.size.width = v8;
@@ -1281,7 +1281,7 @@ LABEL_6:
               memset(&v30[1], 0, sizeof(CGAffineTransform));
               if (v17)
               {
-                [v17 _computedFrameTransform];
+                objc_msgSend__computedFrameTransform(v17);
               }
 
               v30[0] = v30[1];
@@ -1365,8 +1365,8 @@ LABEL_6:
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  children = [(TUILayout *)self children];
-  v3 = [children countByEnumeratingWithState:&v6 objects:v10 count:16];
+  v2 = objc_msgSend_children(self, a2, 0);
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
     v4 = *v7;
@@ -1377,7 +1377,7 @@ LABEL_6:
       {
         if (*v7 != v4)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v2);
         }
 
         [*(*(&v6 + 1) + 8 * v5) onComputedScaleDidChange];
@@ -1385,7 +1385,7 @@ LABEL_6:
       }
 
       while (v3 != v5);
-      v3 = [children countByEnumeratingWithState:&v6 objects:v10 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
@@ -1398,8 +1398,8 @@ LABEL_6:
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  children = [(TUILayout *)self children];
-  v3 = [children countByEnumeratingWithState:&v6 objects:v10 count:16];
+  v2 = objc_msgSend_children(self, a2, 0);
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
     v4 = *v7;
@@ -1410,7 +1410,7 @@ LABEL_6:
       {
         if (*v7 != v4)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v2);
         }
 
         [*(*(&v6 + 1) + 8 * v5) onViewSafeAreaInsetsDidChange];
@@ -1418,7 +1418,7 @@ LABEL_6:
       }
 
       while (v3 != v5);
-      v3 = [children countByEnumeratingWithState:&v6 objects:v10 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
@@ -1427,7 +1427,7 @@ LABEL_6:
 
 - (CGAffineTransform)_computedFrameTransform
 {
-  [(TUILayout *)self specifiedTransform];
+  objc_msgSend_specifiedTransform(self, a3);
   CGAffineTransformMakeTranslation(&v6, self->_computedOrigin.x, self->_computedOrigin.y);
   return CGAffineTransformConcat(retstr, &t1, &v6);
 }
@@ -1448,7 +1448,7 @@ LABEL_6:
     *&retstr->c = 0u;
     *&retstr->tx = 0u;
     *&retstr->a = 0u;
-    [(TUILayout *)self _computedFrameTransform];
+    objc_msgSend__computedFrameTransform(self);
     layoutAncestor = [(TUILayout *)self layoutAncestor];
     v8 = layoutAncestor;
     if (!layoutAncestor || layoutAncestor == v6)
@@ -1464,7 +1464,7 @@ LABEL_6:
         *&t1.a = *&retstr->a;
         *&t1.c = v9;
         *&t1.tx = *&retstr->tx;
-        [v8 _computedFrameTransform];
+        objc_msgSend__computedFrameTransform(v8);
         CGAffineTransformConcat(&v16, &t1, &v14);
         v10 = *&v16.c;
         *&retstr->a = *&v16.a;
@@ -1490,7 +1490,7 @@ LABEL_6:
 - (CGSize)computedTransformedSize
 {
   memset(&v12, 0, sizeof(v12));
-  [(TUILayout *)self computedTransform];
+  objc_msgSend_computedTransform(self, a2);
   computedNaturalSize = self->_computedNaturalSize;
   v3 = *&CGAffineTransformIdentity.c;
   *&t1.a = *&CGAffineTransformIdentity.a;
@@ -1504,7 +1504,7 @@ LABEL_6:
 
   else
   {
-    [(TUILayout *)self computedTransform];
+    objc_msgSend_computedTransform(self);
     TUITransformedCornersOfRect(&t1, &t2.a, v8.f64, v7.f64, v9.f64, 0.0, 0.0, computedNaturalSize.width, computedNaturalSize.height);
     v4 = vsubq_f64(vmaxnmq_f64(vmaxnmq_f64(*&t2.a, v9), vmaxnmq_f64(v8, v7)), vminnmq_f64(vminnmq_f64(*&t2.a, v9), vminnmq_f64(v8, v7)));
   }
@@ -1526,8 +1526,8 @@ LABEL_6:
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  children = [(TUILayout *)self children];
-  v12 = [children countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v11 = objc_msgSend_children(self);
+  v12 = [v11 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v12)
   {
     v13 = *v41;
@@ -1537,7 +1537,7 @@ LABEL_6:
       {
         if (*v41 != v13)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v11);
         }
 
         v15 = *(*(&v40 + 1) + 8 * i);
@@ -1548,7 +1548,7 @@ LABEL_6:
           v35 = v16;
           v19 = v18;
           v21 = v20;
-          [v15 computedTransformedSize];
+          objc_msgSend_computedTransformedSize(v15);
           v23 = v22;
           v25 = v24;
           memset(&v39, 0, sizeof(v39));
@@ -1556,7 +1556,7 @@ LABEL_6:
           t1 = v39;
           if (v15)
           {
-            [v15 renderTransform];
+            objc_msgSend_renderTransform(v15);
           }
 
           else
@@ -1569,7 +1569,7 @@ LABEL_6:
           t1 = v38;
           if (v15)
           {
-            [v15 computedTransform];
+            objc_msgSend_computedTransform(v15);
           }
 
           else
@@ -1604,7 +1604,7 @@ LABEL_6:
         }
       }
 
-      v12 = [children countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v12);
@@ -1661,7 +1661,7 @@ LABEL_6:
 
 - (double)_computeWidth:(BOOL)width
 {
-  [(TUILayout *)self specifiedWidth];
+  objc_msgSend_specifiedWidth(self, a2);
   v5 = v4;
   v6 = TUI::Util::PartialStruct::Storage::dataForKey(&self->_storage, 0);
   if (v6)
@@ -1715,7 +1715,7 @@ LABEL_6:
 
 - (double)_computeHeight:(BOOL)height
 {
-  specifiedHeight = [(TUILayout *)self specifiedHeight];
+  v4 = objc_msgSend_specifiedHeight(self, a2);
   v6 = v5;
   TUI::Util::PartialStruct::Storage::dataForKey(&self->_storage, 7u);
   v7 = TUI::Util::PartialStruct::Storage::dataForKey(&self->_storage, 5u);
@@ -1727,14 +1727,14 @@ LABEL_6:
 
   else
   {
-    v9 = *&specifiedHeight;
+    v9 = *&v4;
     v8 = 1;
   }
 
   [(TUILayout *)self constrainComputedHeight:v9];
   if (v8)
   {
-    return fmin(fmax(result, *(&specifiedHeight + 1)), v6);
+    return fmin(fmax(result, *(&v4 + 1)), v6);
   }
 
   return result;
@@ -1751,16 +1751,16 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)aspectConstrainedSpecifiedWidth
 {
-  specifiedWidth = [(TUILayout *)self specifiedWidth];
-  v5 = specifiedWidth;
-  v6 = HIDWORD(specifiedWidth);
+  v4 = objc_msgSend_specifiedWidth(self, a3);
+  v5 = v4;
+  v6 = HIDWORD(v4);
   if ((*(&self->_flags + 1) & 0x30) != 0)
   {
     [(TUILayout *)self computeIntrinsicAspectRatio];
     if (v7 > 0.0)
     {
       v9 = v7;
-      specifiedHeight = [(TUILayout *)self specifiedHeight];
+      v10 = objc_msgSend_specifiedHeight(self);
       flags = self->_flags;
       if ((*&flags & 0x2000) != 0)
       {
@@ -1775,7 +1775,7 @@ LABEL_6:
         return (v5 | (v6 << 32));
       }
 
-      v12 = fmin(*&v6, fmaxf(*&specifiedHeight, *(&specifiedHeight + 1)) / v9);
+      v12 = fmin(*&v6, fmaxf(*&v10, *(&v10 + 1)) / v9);
       *&v6 = v12;
     }
   }
@@ -1785,16 +1785,16 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)aspectConstrainedSpecifiedHeight
 {
-  specifiedHeight = [(TUILayout *)self specifiedHeight];
-  v5 = specifiedHeight;
-  v6 = HIDWORD(specifiedHeight);
+  v4 = objc_msgSend_specifiedHeight(self, a3);
+  v5 = v4;
+  v6 = HIDWORD(v4);
   if ((*(&self->_flags + 1) & 0xC0) != 0)
   {
     [(TUILayout *)self computeIntrinsicAspectRatio];
     if (v7 > 0.0)
     {
       v9 = v7;
-      specifiedWidth = [(TUILayout *)self specifiedWidth];
+      v10 = objc_msgSend_specifiedWidth(self);
       flags = self->_flags;
       if ((*&flags & 0x8000) != 0)
       {
@@ -1809,7 +1809,7 @@ LABEL_6:
         return (v5 | (v6 << 32));
       }
 
-      v12 = fmax(*&v6, v9 * fmaxf(*&specifiedWidth, *(&specifiedWidth + 1)));
+      v12 = fmax(*&v6, v9 * fmaxf(*&v10, *(&v10 + 1)));
       *&v6 = v12;
     }
   }
@@ -1819,16 +1819,16 @@ LABEL_6:
 
 - (void)_computeAspectConstrainedSpecifiedWidthHeight
 {
-  specifiedWidth = [(TUILayout *)self specifiedWidth];
+  v3 = objc_msgSend_specifiedWidth(self, a2);
   v5 = v4;
-  specifiedHeight = [(TUILayout *)self specifiedHeight];
+  v6 = objc_msgSend_specifiedHeight(self);
   *&v7 = v5;
-  LODWORD(v9) = HIDWORD(specifiedWidth);
+  LODWORD(v9) = HIDWORD(v3);
   *&v12 = v11;
-  *&v10 = fmaxf(*&specifiedWidth, *(&specifiedWidth + 1));
-  *&v14 = fmaxf(*&specifiedHeight, *(&specifiedHeight + 1));
-  *&v13 = fminf(*&specifiedHeight, v11);
-  *&v8 = fminf(*&specifiedWidth, v5);
+  *&v10 = fmaxf(*&v3, *(&v3 + 1));
+  *&v14 = fmaxf(*&v6, *(&v6 + 1));
+  *&v13 = fminf(*&v6, v11);
+  *&v8 = fminf(*&v3, v5);
   [(TUILayout *)self computeIntrinsicAspectRatio:v10];
   if (v15 > 0.0)
   {
@@ -1855,12 +1855,12 @@ LABEL_6:
 {
   contextCopy = context;
   modelsCopy = models;
-  children = [(TUILayout *)self children];
+  v12 = objc_msgSend_children(self);
   v13 = *&transform->c;
   v14[0] = *&transform->a;
   v14[1] = v13;
   v14[2] = *&transform->tx;
-  [(TUILayout *)self appendChilden:children renderModelCompatibleWithKind:kind context:contextCopy transform:v14 toModels:modelsCopy];
+  [(TUILayout *)self appendChilden:v12 renderModelCompatibleWithKind:kind context:contextCopy transform:v14 toModels:modelsCopy];
 }
 
 - (void)appendChilden:(id)childen renderModelCompatibleWithKind:(unint64_t)kind context:(id)context transform:(CGAffineTransform *)transform toModels:(id)models
@@ -1895,7 +1895,7 @@ LABEL_6:
         [v25 computedOrigin];
         v27 = v26;
         v29 = v28;
-        [v25 computedTransformedSize];
+        objc_msgSend_computedTransformedSize(v25);
         memset(&v35, 0, sizeof(v35));
         CGAffineTransformMakeTranslation(&t1, v27 + v30 * 0.5 + v22 * 0.5, v29 + v31 * 0.5 + v23 * 0.5);
         v32 = *&transform->c;
@@ -1936,7 +1936,7 @@ LABEL_6:
   collectorCopy = collector;
   layoutCopy = layout;
   ancestorLayoutCopy = ancestorLayout;
-  v86 = [(TUILayout *)self box];
+  v86 = objc_msgSend_box(self);
   selfCopy = self;
   v11 = [(TUILayout *)self scrollAncestorForChildrenWithAncestor:layoutCopy];
   v12 = y;
@@ -1968,7 +1968,7 @@ LABEL_6:
   v108 = 0u;
   v105 = 0u;
   v106 = 0u;
-  obj = [(TUILayout *)self children];
+  obj = objc_msgSend_children(self);
   v21 = [obj countByEnumeratingWithState:&v105 objects:v111 count:16];
   if (v21)
   {
@@ -1984,7 +1984,7 @@ LABEL_6:
         }
 
         v23 = *(*(&v105 + 1) + 8 * i);
-        v24 = [v23 box];
+        v24 = objc_msgSend_box(v23);
         isAXElement = [v24 isAXElement];
         if (collectorCopy)
         {
@@ -2022,7 +2022,7 @@ LABEL_6:
         rect = v30;
         if (v27)
         {
-          v31 = [v23 box];
+          v31 = objc_msgSend_box(v23);
           axCustomActions = [v31 axCustomActions];
           v33 = [axCustomActions count] == 0;
 
@@ -2052,7 +2052,7 @@ LABEL_6:
             v104 = 0u;
             v101 = 0u;
             v102 = 0u;
-            v35 = [v23 box];
+            v35 = objc_msgSend_box(v23);
             axCustomActions2 = [v35 axCustomActions];
 
             v37 = [axCustomActions2 countByEnumeratingWithState:&v101 objects:v110 count:16];
@@ -2123,7 +2123,7 @@ LABEL_36:
   {
   }
 
-  v49 = [(TUILayout *)layoutCopy box];
+  v49 = objc_msgSend_box(layoutCopy);
   identifier2 = [v49 identifier];
   [(TUIAXModel *)v88 setScrollAncestorIdentifier:identifier2];
 
@@ -2139,13 +2139,13 @@ LABEL_36:
 
   [(TUIAXModel *)v88 setShouldScrollHorizontally:scrollAxis == &dword_0 + 1];
   [(TUIAXModel *)v88 setShouldScrollVertically:scrollAxis == &dword_0 + 2];
-  v52 = [(TUILayout *)ancestorLayoutCopy box];
+  v52 = objc_msgSend_box(ancestorLayoutCopy);
   identifier3 = [v52 identifier];
   [(TUIAXModel *)v88 setLiveTransformAncestorIdentifier:identifier3];
 
   -[TUIAXModel setLiveTransformKind:](v88, "setLiveTransformKind:", [v86 liveTransformKind]);
   memset(&v100, 0, sizeof(v100));
-  [(TUILayout *)selfCopy computedTransformInAncestorLayout:layoutCopy];
+  objc_msgSend_computedTransformInAncestorLayout_(selfCopy);
   v98 = v100;
   CGAffineTransformTranslate(&v99, &v98, x, y);
   v100 = v99;
@@ -2300,7 +2300,7 @@ LABEL_36:
   v41 = self->_cachedTransformModel;
   if (v41)
   {
-    [(TUIRenderModelTransform *)v41 transform];
+    objc_msgSend_transform(v41);
   }
 
   else
@@ -2347,7 +2347,7 @@ LABEL_22:
   v45 = [(TUILayout *)self computedRefInstanceWithContext:contextCopy];
   [(TUIRenderModelTransform *)v43 setRefInstance:v45];
 
-  v46 = [(TUILayout *)self box];
+  v46 = objc_msgSend_box(self);
   [v46 renderOutsets];
   [(TUIRenderModelTransform *)v43 setOutsets:?];
 
@@ -2366,9 +2366,9 @@ LABEL_24:
 {
   currentPointer = [context currentPointer];
   refId = [currentPointer refId];
-  v6 = [(TUILayout *)self box];
+  v6 = objc_msgSend_box(self);
   refId2 = [v6 refId];
-  v8 = [refId isEqualToString:refId2];
+  v8 = objc_msgSend_isEqualToString_(refId);
 
   return v8;
 }
@@ -2391,7 +2391,7 @@ LABEL_24:
 {
   contextCopy = context;
   modelsCopy = models;
-  [(TUILayout *)self computedTransform];
+  objc_msgSend_computedTransform(self);
   v12 = *&transform->c;
   *&t2.a = *&transform->a;
   *&t2.c = v12;
@@ -2401,7 +2401,7 @@ LABEL_24:
   *&transform->a = *&v31.a;
   *&transform->c = v13;
   *&transform->tx = *&v31.tx;
-  [(TUILayout *)self renderTransform];
+  objc_msgSend_renderTransform(self);
   v14 = *&transform->c;
   *&t2.a = *&transform->a;
   *&t2.c = v14;
@@ -2467,15 +2467,15 @@ LABEL_6:
   v6 = v5;
   CGAffineTransformMakeTranslation(&t2, -v5.f64[0], -v5.f64[1]);
   CGAffineTransformConcat(&v21, &t1, &t2);
-  [(TUILayout *)self computedTransformedSize];
+  objc_msgSend_computedTransformedSize(self);
   v8 = v7;
   v10 = v9;
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   liveTransformKind = [v11 liveTransformKind];
 
   if ((liveTransformKind - 2) < 5)
   {
-    v13 = [(TUILayout *)self box];
+    v13 = objc_msgSend_box(self);
     v14 = -[TUILayout pinPositionFromLiveTransformKind:](self, "pinPositionFromLiveTransformKind:", [v13 liveTransformKind]);
 
     v15 = [TUIPinningLiveTransform alloc];
@@ -2802,9 +2802,9 @@ LABEL_14:
   v16 = 0u;
   v17 = 0u;
   layout = [(TUILayout *)self layout];
-  children = [layout children];
+  v10 = objc_msgSend_children(layout);
 
-  v11 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v11)
   {
     v12 = *v15;
@@ -2815,7 +2815,7 @@ LABEL_14:
       {
         if (*v15 != v12)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v10);
         }
 
         [*(*(&v14 + 1) + 8 * v13) appendVisibleBoundsObservers:observersCopy axis:axis offset:offset];
@@ -2823,7 +2823,7 @@ LABEL_14:
       }
 
       while (v11 != v13);
-      v11 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
@@ -2946,7 +2946,7 @@ LABEL_14:
 LABEL_24:
   if (CGFloatIsValid() && CGFloatIsValid())
   {
-    [(TUILayout *)self computedTransformInAncestorLayout:rootCopy];
+    objc_msgSend_computedTransformInAncestorLayout_(self);
     v18 = v17 * 0.0 + 0.0 * width + 0.0;
     if (axis != &dword_0 + 1)
     {
@@ -2976,8 +2976,8 @@ LABEL_29:
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  children = [(TUILayout *)self children];
-  v9 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = objc_msgSend_children(self, 0);
+  v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v9)
   {
     v10 = *v13;
@@ -2988,7 +2988,7 @@ LABEL_29:
       {
         if (*v13 != v10)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v8);
         }
 
         [*(*(&v12 + 1) + 8 * v11) appendAnchorsToSet:setCopy inRoot:rootCopy];
@@ -2996,7 +2996,7 @@ LABEL_29:
       }
 
       while (v9 != v11);
-      v9 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -3069,7 +3069,7 @@ LABEL_29:
 
 - (int64_t)computeZIndexWithDefault:(int64_t)default
 {
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self, a2);
   zIndex = [v5 zIndex];
 
   if (zIndex != 0x7FFFFFFFFFFFFFFFLL)
@@ -3077,7 +3077,7 @@ LABEL_29:
     return zIndex;
   }
 
-  v7 = [(TUILayout *)self box];
+  v7 = objc_msgSend_box(self);
   role = [v7 role];
 
   if (role == &dword_0 + 1)
@@ -3145,7 +3145,7 @@ LABEL_7:
 - (id)computedRefIdWithContext:(id)context
 {
   contextCopy = context;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   refId = [v5 refId];
   v7 = refId;
   if (refId)
@@ -3165,7 +3165,7 @@ LABEL_7:
 - (id)computedRefInstanceWithContext:(id)context
 {
   contextCopy = context;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   refInstance = [v5 refInstance];
   v7 = refInstance;
   if (refInstance)
@@ -3191,8 +3191,8 @@ LABEL_7:
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  children = [(TUILayout *)self children];
-  v12 = [children countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v11 = objc_msgSend_children(self, 0);
+  v12 = [v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v12)
   {
     v13 = *v16;
@@ -3203,7 +3203,7 @@ LABEL_7:
       {
         if (*v16 != v13)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v11);
         }
 
         [*(*(&v15 + 1) + 8 * v14) appendEmbeddedIdentifierMaps:mapsCopy updateControllers:controllersCopy UUIDs:dsCopy];
@@ -3211,7 +3211,7 @@ LABEL_7:
       }
 
       while (v12 != v14);
-      v12 = [children countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);

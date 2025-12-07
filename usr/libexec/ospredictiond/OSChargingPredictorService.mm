@@ -233,7 +233,7 @@ LABEL_15:
       v20 = +[NSDate date];
       if (v15)
       {
-        [(OSChargingPredictorSignalsOnly *)v15 chargingDecision:v19 withPluginDate:v17 withPluginBatteryLevel:v20 forDate:self->_log withLog:v19];
+        objc_msgSend_chargingDecision_withPluginDate_withPluginBatteryLevel_forDate_withLog_(v15, v19);
       }
 
       v21 = self->_log;

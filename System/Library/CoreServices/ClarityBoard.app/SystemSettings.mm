@@ -6,7 +6,7 @@
 
 - (void)airplaneModeChanged
 {
-  v3 = sub_10002B6CC(&qword_10032D050);
+  v3 = sub_10002B6CC(&qword_10032D050, &qword_100298FF0);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();

@@ -1,4 +1,4 @@
-uint64_t WTF::HashTable<unsigned int,unsigned int,WTF::IdentityExtractor,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>@<X0>(uint64_t *a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
+_OWORD *WTF::HashTable<unsigned int,unsigned int,WTF::IdentityExtractor,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>@<X0>(uint64_t *a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = *a2;
   if (*a2 == -2 || v4 == -1)
@@ -18,16 +18,16 @@ uint64_t WTF::HashTable<unsigned int,unsigned int,WTF::IdentityExtractor,WTF::De
     v8[2] = v9;
     *v8 = xmmword_225881CF0;
     v8[1] = v9;
-    result = (v8 + 1);
+    result = v8 + 1;
     *a1 = result;
     v4 = *v7;
   }
 
-  v10 = *(result - 8);
+  v10 = *(result - 2);
   v11 = 9 * ((v4 + ~(v4 << 15)) ^ ((v4 + ~(v4 << 15)) >> 10));
   v12 = (v11 ^ (v11 >> 6)) + ~((v11 ^ (v11 >> 6)) << 11);
   v13 = (v12 ^ HIWORD(v12)) & v10;
-  v14 = (result + 4 * v13);
+  v14 = result + v13;
   v15 = *v14;
   if (*v14 != -1)
   {
@@ -37,7 +37,7 @@ uint64_t WTF::HashTable<unsigned int,unsigned int,WTF::IdentityExtractor,WTF::De
     {
       if (v15 == v4)
       {
-        v24 = result + 4 * *(result - 4);
+        v24 = result + 4 * *(result - 1);
         *a3 = v14;
         *(a3 + 8) = v24;
         *(a3 + 16) = 0;
@@ -50,7 +50,7 @@ uint64_t WTF::HashTable<unsigned int,unsigned int,WTF::IdentityExtractor,WTF::De
       }
 
       v13 = (v13 + v17) & v10;
-      v14 = (result + 4 * v13);
+      v14 = result + v13;
       v15 = *v14;
       ++v17;
     }
@@ -59,18 +59,18 @@ uint64_t WTF::HashTable<unsigned int,unsigned int,WTF::IdentityExtractor,WTF::De
     if (v16)
     {
       *v16 = -1;
-      --*(result - 16);
+      --*(result - 4);
       v4 = *a2;
       v14 = v16;
     }
   }
 
   *v14 = v4;
-  v18 = *(result - 16);
-  v19 = *(result - 12) + 1;
-  *(result - 12) = v19;
+  v18 = *(result - 4);
+  v19 = *(result - 3) + 1;
+  *(result - 3) = v19;
   v20 = (v18 + v19);
-  v21 = *(result - 4);
+  v21 = *(result - 1);
   if (v21 <= 0x400)
   {
     if (3 * v21 > 4 * v20)
@@ -94,7 +94,7 @@ LABEL_17:
     result = *a1;
     if (*a1)
     {
-      v21 = *(result - 4);
+      v21 = *(result - 1);
     }
 
     else
@@ -131,7 +131,7 @@ _DWORD *WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigne
   if (!*a2)
   {
     v9 = a4;
-    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8u, 0);
+    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8uLL, 0);
     a4 = v9;
     v8 = *a2;
     v4 = *a3;
@@ -141,7 +141,7 @@ _DWORD *WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigne
   v11 = 9 * ((v4 + ~(v4 << 15)) ^ ((v4 + ~(v4 << 15)) >> 10));
   v12 = (v11 ^ (v11 >> 6)) + ~((v11 ^ (v11 >> 6)) << 11);
   v13 = (v12 ^ HIWORD(v12)) & v10;
-  v14 = (v8 + 20 * v13);
+  v14 = v8 + 20 * v13;
   v15 = *v14;
   if (*v14 != -1)
   {
@@ -153,12 +153,12 @@ _DWORD *WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigne
       {
         v24 = v8 + 20 * *(v8 - 4);
         *v7 = v14;
-        *(v7 + 1) = v24;
+        *(v7 + 8) = v24;
         *(v7 + 16) = 0;
         v25 = *a4;
-        v14[3] = *(a4 + 2);
-        *(v14 + 1) = v25;
-        v14[4] = *(a4 + 3);
+        *(v14 + 12) = *(a4 + 2);
+        *(v14 + 4) = v25;
+        *(v14 + 16) = *(a4 + 3);
         return result;
       }
 
@@ -168,7 +168,7 @@ _DWORD *WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigne
       }
 
       v13 = (v13 + v17) & v10;
-      v14 = (v8 + 20 * v13);
+      v14 = v8 + 20 * v13;
       v15 = *v14;
       ++v17;
     }
@@ -177,8 +177,8 @@ _DWORD *WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigne
     if (v16)
     {
       *v16 = -1;
-      *(v16 + 3) = 0;
-      *(v16 + 1) = 0;
+      *(v16 + 12) = 0;
+      *(v16 + 4) = 0;
       --*(*a2 - 16);
       v4 = *a3;
       v14 = v16;
@@ -187,8 +187,8 @@ _DWORD *WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigne
 
   *v14 = v4;
   v18 = a4[1];
-  *(v14 + 1) = *a4;
-  *(v14 + 3) = v18;
+  *(v14 + 4) = *a4;
+  *(v14 + 12) = v18;
   v19 = *a2;
   if (*a2)
   {
@@ -225,7 +225,7 @@ LABEL_15:
   {
     if (!v23)
     {
-      result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8u, v14);
+      result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, 8uLL, v14);
       v14 = result;
       v19 = *a2;
       if (!*a2)
@@ -241,7 +241,7 @@ LABEL_23:
     }
 
 LABEL_22:
-    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, v23 << (6 * v21 >= (2 * v23)), v14);
+    result = WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a2, (v23 << (6 * v21 >= (2 * v23))), v14);
     v14 = result;
     v19 = *a2;
     if (!*a2)
@@ -254,21 +254,22 @@ LABEL_22:
 
 LABEL_24:
   *v7 = v14;
-  *(v7 + 1) = v19 + 20 * v23;
+  *(v7 + 8) = v19 + 20 * v23;
   *(v7 + 16) = 1;
   return result;
 }
 
-_DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, _DWORD *a3)
+_DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,std::pair<std::array<unsigned int,3ul>,unsigned int>,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<std::pair<std::array<unsigned int,3ul>,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, _DWORD *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
     v7 = *(v6 - 4);
     v8 = *(v6 - 12);
     v9 = WTF::fastMalloc((20 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_7;
     }
@@ -279,14 +280,14 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std
     v7 = 0;
     v8 = 0;
     v9 = WTF::fastMalloc((20 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_7;
     }
   }
 
-  v12 = a2;
+  v12 = v4;
   v13 = v9 + 5;
   do
   {
@@ -300,8 +301,8 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,std::pair<std
   while (v12);
 LABEL_7:
   *a1 = v11;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -365,16 +366,17 @@ LABEL_7:
   return v15;
 }
 
-_OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,MTLBindingAccess>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,MTLBindingAccess>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,MTLBindingAccess,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<MTLBindingAccess>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, void *a3)
+_OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,MTLBindingAccess>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,MTLBindingAccess>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,MTLBindingAccess,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<MTLBindingAccess>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
     v7 = *(v6 - 4);
     v8 = *(v6 - 12);
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_12;
     }
@@ -385,18 +387,18 @@ _OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,M
     v7 = 0;
     v8 = 0;
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_12;
     }
   }
 
-  if (a2 < 4)
+  if (v4 < 4)
   {
     v12 = 0;
 LABEL_10:
-    v15 = a2 - v12;
+    v15 = v4 - v12;
     v16 = &v9[4 * v12 + 4];
     do
     {
@@ -408,7 +410,7 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  v12 = a2 & 0xFFFFFFFC;
+  v12 = v4 & 0xFFFFFFFC;
   v13 = v9 + 12;
   v14 = v12;
   do
@@ -422,15 +424,15 @@ LABEL_10:
   }
 
   while (v14);
-  if (v12 != a2)
+  if (v12 != v4)
   {
     goto LABEL_10;
   }
 
 LABEL_12:
   *a1 = v11;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -494,8 +496,9 @@ LABEL_12:
   return v18;
 }
 
-_DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebGPU::BindGroupLayout::Entry>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebGPU::BindGroupLayout::Entry>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebGPU::BindGroupLayout::Entry,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<WebGPU::BindGroupLayout::Entry>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebGPU::BindGroupLayout::Entry>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,WebGPU::BindGroupLayout::Entry>>,WTF::DefaultHash<unsigned int>,WTF::HashMap<unsigned int,WebGPU::BindGroupLayout::Entry,WTF::DefaultHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<WebGPU::BindGroupLayout::Entry>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -503,7 +506,7 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebGPU::BindG
     v6 = *(v4 - 12);
     result = WTF::fastMalloc((136 * a2 + 16));
     v9 = result + 4;
-    if (!a2)
+    if (!v2)
     {
       goto LABEL_7;
     }
@@ -515,13 +518,13 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebGPU::BindG
     v6 = 0;
     result = WTF::fastMalloc((136 * a2 + 16));
     v9 = result + 4;
-    if (!a2)
+    if (!v2)
     {
       goto LABEL_7;
     }
   }
 
-  v10 = a2;
+  v10 = v2;
   v11 = result + 6;
   do
   {
@@ -541,8 +544,8 @@ _DWORD *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,WebGPU::BindG
   while (v10);
 LABEL_7:
   *a1 = v9;
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -617,7 +620,7 @@ uint64_t *WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtr
   if (!*result)
   {
     v7 = a2;
-    result = WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(result, 8u, 0);
+    result = WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(result, 8uLL, 0);
     a2 = v7;
     v6 = *v4;
     v3 = *v7;
@@ -690,7 +693,7 @@ LABEL_13:
 LABEL_18:
     if (v20)
     {
-      v21 = v20 << (6 * v18 >= (2 * v20));
+      v21 = (v20 << (6 * v18 >= (2 * v20)));
     }
 
     else
@@ -726,8 +729,9 @@ LABEL_25:
   return result;
 }
 
-char *WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t *a3)
+char *WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -736,7 +740,7 @@ char *WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtracto
     v9 = 8 * a2;
     v11 = WTF::fastMalloc((v9 + 16));
     v12 = (v11 + 4);
-    if (!a2)
+    if (!v4)
     {
       goto LABEL_4;
     }
@@ -749,7 +753,7 @@ char *WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtracto
   v9 = 8 * a2;
   v11 = WTF::fastMalloc((v9 + 16));
   v12 = (v11 + 4);
-  if (a2)
+  if (v4)
   {
 LABEL_3:
     memset(v12, 255, v9);
@@ -757,9 +761,9 @@ LABEL_3:
 
 LABEL_4:
   *a1 = v12;
-  v13 = a2 - 1;
-  v11[2] = a2 - 1;
-  v11[3] = a2;
+  v13 = v4 - 1;
+  v11[2] = v4 - 1;
+  v11[3] = v4;
   *v11 = 0;
   v11[1] = v8;
   if (!v7)
@@ -1225,7 +1229,7 @@ _OWORD *WTF::HashMap<unsigned long long,WebGPU::Buffer *,WTF::DefaultHash<unsign
   if (!*a2)
   {
     v9 = a4;
-    result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WebGPU::Buffer *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WebGPU::Buffer *>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WebGPU::Buffer *,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WebGPU::Buffer *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a2, 8u, 0);
+    result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WebGPU::Buffer *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WebGPU::Buffer *>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WebGPU::Buffer *,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WebGPU::Buffer *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(a2, 8uLL, 0);
     a4 = v9;
     v8 = *a2;
     v4 = *a3;
@@ -1255,7 +1259,7 @@ LABEL_13:
       {
         v25 = v8 + 16 * *(v8 - 4);
         *v7 = v15;
-        *(v7 + 1) = v25;
+        *(v7 + 8) = v25;
         *(v7 + 16) = 0;
         return result;
       }
@@ -1301,7 +1305,7 @@ LABEL_13:
 LABEL_18:
     if (v23)
     {
-      v24 = v23 << (6 * v21 >= (2 * v23));
+      v24 = (v23 << (6 * v21 >= (2 * v23)));
     }
 
     else
@@ -1332,7 +1336,7 @@ LABEL_18:
 
 LABEL_25:
   *v7 = v17;
-  *(v7 + 1) = v8 + 16 * v23;
+  *(v7 + 8) = v8 + 16 * v23;
   *(v7 + 16) = 1;
   return result;
 }
@@ -1940,7 +1944,7 @@ uint64_t WebGPU::Buffer::mapAsync(unsigned int,unsigned long,unsigned long,WTF::
   *(a1 + 24) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *a1;
@@ -2330,11 +2334,15 @@ LABEL_13:
   *(a9 + 16) = v26;
 }
 
-uint64_t WebGPU::Buffer::takeSlowIndexValidationPath(WebGPU::Buffer *this, WebGPU::CommandBuffer *a2, unsigned int a3, int a4, int a5, int a6, MTLIndexType a7, unsigned int a8, unsigned int a9, unsigned int a10, unsigned int a11)
+uint64_t WebGPU::Buffer::takeSlowIndexValidationPath(WebGPU::Buffer *this, WebGPU::CommandBuffer *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, MTLIndexType a7, uint64_t a8, unsigned int a9, unsigned int a10, unsigned int a11)
 {
+  v11 = a8;
+  v12 = a6;
+  v13 = a5;
+  v14 = a4;
   v17 = a9;
   v18 = a10;
-  WTFLogAlways();
+  WTFLogAlways("WARNING: Severe performance penalty due to encoding drawIndexed calls out of order with submission");
   v20 = *(this + 35);
   while (1)
   {
@@ -2352,8 +2360,8 @@ uint64_t WebGPU::Buffer::takeSlowIndexValidationPath(WebGPU::Buffer *this, WebGP
     }
   }
 
-  v23 = a6;
-  v24 = a8;
+  v23 = v12;
+  v24 = v11;
   v25 = a2;
   v26 = 0;
   v27 = *v20;
@@ -2368,8 +2376,8 @@ uint64_t WebGPU::Buffer::takeSlowIndexValidationPath(WebGPU::Buffer *this, WebGP
   atomic_compare_exchange_strong_explicit(v27, &v28, 0, memory_order_release, memory_order_relaxed);
   v29 = v28 == 1;
   a2 = v25;
-  a8 = v24;
-  a6 = v23;
+  v11 = v24;
+  v12 = v23;
   v18 = a10;
   v17 = a9;
   if (!v29)
@@ -2406,12 +2414,12 @@ LABEL_15:
   v35 = *(this + 1);
   if (a7)
   {
-    result = WebGPU::verifyIndexBufferData<unsigned int>(v35, a3, a4, a5, a6, v17, a8, v18, a11);
+    result = WebGPU::verifyIndexBufferData<unsigned int>(v35, a3, v14, v13, v12, v17, v11, v18, a11);
   }
 
   else
   {
-    result = WebGPU::verifyIndexBufferData<unsigned short>(v35, a3, a4, a5, a6, v17, a8, v18, a11);
+    result = WebGPU::verifyIndexBufferData<unsigned short>(v35, a3, v14, v13, v12, v17, v11, v18, a11);
   }
 
   if ((result & 1) == 0)
@@ -2423,18 +2431,18 @@ LABEL_15:
     v40 = *(this + 1);
     [v40 length];
     v41 = WebGPU::Queue::ensureBlitCommandEncoder(v30);
-    [*(v30 + 3) fillBuffer:v40 range:0 value:{objc_msgSend(v40, "length"), 0}];
+    [*(v30 + 24) fillBuffer:v40 range:0 value:{objc_msgSend(v40, "length"), 0}];
 
-    v42 = *(v30 + 3);
+    v42 = *(v30 + 24);
     if (v42)
     {
-      WebGPU::Queue::endEncoding(v30, v42, *(v30 + 2));
-      WebGPU::Queue::commitMTLCommandBuffer(v30, *(v30 + 2));
-      v43 = *(v30 + 3);
-      *(v30 + 3) = 0;
+      WebGPU::Queue::endEncoding(v30, v42, *(v30 + 16));
+      WebGPU::Queue::commitMTLCommandBuffer(v30, *(v30 + 16));
+      v43 = *(v30 + 24);
+      *(v30 + 24) = 0;
 
-      v44 = *(v30 + 2);
-      *(v30 + 2) = 0;
+      v44 = *(v30 + 16);
+      *(v30 + 16) = 0;
     }
 
     atomic_fetch_add(v30, 1u);
@@ -2552,34 +2560,34 @@ LABEL_40:
   return result;
 }
 
-void sub_22567ABFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_22567ABFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, atomic_uint *);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, atomic_uint *);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_22567AC18(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_22567AC18(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
-  v7 = v13;
-  v13 = 0;
-  if (v7)
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v10 = v16;
+  v16 = 0;
+  if (v10)
   {
-    (*(*v7 + 8))(v7);
+    (*(*v10 + 8))(v10, a2, a3, a4, a5);
   }
 
   WebGPU::Buffer::takeSlowIndexValidationPath(WebGPU::CommandBuffer &,unsigned int,unsigned int,unsigned int,unsigned int,MTLIndexType,unsigned int,unsigned int,unsigned int,unsigned int)::$_0::~$_0(va, a2);
@@ -2587,31 +2595,31 @@ void sub_22567AC18(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void sub_22567AC6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22567AC6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_22567AC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22567AC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
 
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_22567ACA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22567ACA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_22567ACB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22567ACB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -2798,13 +2806,13 @@ LABEL_7:
   return result;
 }
 
-WTF *WebGPU::Buffer::skippedDrawIndexedValidation(uint64_t a1, uint64_t a2, uint64_t a3)
+WTF *WebGPU::Buffer::skippedDrawIndexedValidation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(a2 + 200);
-  WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>((a1 + 312), &v9, &v8);
-  v6 = [*(a1 + 8) gpuAddress];
+  v10 = *(a2 + 200);
+  WTF::HashTable<unsigned long long,unsigned long long,WTF::IdentityExtractor,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>((a1 + 312), &v10, &v9);
+  v7 = [*(a1 + 8) gpuAddress];
 
-  return WebGPU::CommandEncoder::skippedDrawIndexedValidation(a2, v6, a3);
+  return WebGPU::CommandEncoder::skippedDrawIndexedValidation(a2, v7, a3);
 }
 
 uint64_t WTF::ThreadSafeWeakPtr<WebGPU::Buffer,WTF::NoTaggingTraits<WebGPU::Buffer>>::~ThreadSafeWeakPtr(uint64_t result, void *a2)
@@ -2818,7 +2826,7 @@ uint64_t WTF::ThreadSafeWeakPtr<WebGPU::Buffer,WTF::NoTaggingTraits<WebGPU::Buff
     if (v3)
     {
       v6 = result;
-      MEMORY[0x22AA683C0](v2);
+      MEMORY[0x22AA683C0](v2, a2);
       result = v6;
       v7 = *(v2 + 16) - 1;
       *(v2 + 16) = v7;
@@ -2987,13 +2995,13 @@ LABEL_5:
   return result;
 }
 
-void sub_22567B3C0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_22567B3C0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   v15 = a14;
   a14 = 0;
   if (v15)
   {
-    (*(*v15 + 8))(v15);
+    (*(*v15 + 8))(v15, a2, a3, a4, a5, a6, a7, a8);
     WTF::ThreadSafeWeakPtr<WebGPU::Buffer,WTF::NoTaggingTraits<WebGPU::Buffer>>::~ThreadSafeWeakPtr(&a10, v16);
     _Unwind_Resume(a1);
   }
@@ -3184,7 +3192,7 @@ void sub_22567B880(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
   a12 = 0;
   if (v13)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v13 + 8))(v13, a2, a3, a4, a5, a6, a7, a8);
     WebGPU::Buffer::indirectBufferInvalidated(WebGPU::CommandEncoder &)::$_0::~$_0(&a9, v14);
     _Unwind_Resume(a1);
   }
@@ -3261,7 +3269,7 @@ LABEL_11:
   }
 
   v8 = result;
-  MEMORY[0x22AA683C0](v3);
+  MEMORY[0x22AA683C0](v3, a2);
   result = v8;
   v9 = *(v3 + 16) - 1;
   *(v3 + 16) = v9;
@@ -3471,7 +3479,7 @@ void wgpuBufferDestroy(WebGPU::Buffer *this, void *a2)
   atomic_compare_exchange_strong_explicit(*this, &v5, 1u, memory_order_acquire, memory_order_acquire);
   if (v5)
   {
-    MEMORY[0x22AA683C0](v6);
+    MEMORY[0x22AA683C0](v6, a2);
     ++*(v6 + 8);
     atomic_compare_exchange_strong_explicit(v6, &v7, 0, memory_order_release, memory_order_relaxed);
     if (v7 == 1)
@@ -3679,18 +3687,18 @@ LABEL_43:
   WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebGPU::Buffer,(WTF::DestructionThread)0>(v40, v31);
 }
 
-void sub_22567C09C(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_22567C09C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
 
-void sub_22567C0B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22567C0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::CommandEncoder>::deref(v2 + 8);
-  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v4);
+  va_start(va, a3);
+  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::CommandEncoder>::deref(v3 + 8);
+  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v5);
   _Unwind_Resume(a1);
 }
 
@@ -3719,7 +3727,7 @@ uint64_t wgpuBufferGetMapState(uint64_t a1, void *a2)
   if (v4)
   {
     v15 = a1;
-    MEMORY[0x22AA683C0](v5);
+    MEMORY[0x22AA683C0](v5, a2);
     a1 = v15;
     ++*(v5 + 8);
     atomic_compare_exchange_strong_explicit(v5, &v6, 0, memory_order_release, memory_order_relaxed);
@@ -4247,17 +4255,17 @@ LABEL_69:
   return v12;
 }
 
-void sub_22567C754(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22567C754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
-  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v4);
+  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v5);
   _Unwind_Resume(a1);
 }
 
-void sub_22567C76C(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_22567C76C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
@@ -4334,11 +4342,11 @@ LABEL_6:
   return v8;
 }
 
-void sub_22567C8A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22567C8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
-  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v4);
+  WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, v5);
   _Unwind_Resume(a1);
 }
 
@@ -4367,7 +4375,7 @@ atomic_ullong wgpuBufferGetInitialSize(atomic_ullong *a1, void *a2)
   if (v4)
   {
     v14 = a1;
-    MEMORY[0x22AA683C0](v5);
+    MEMORY[0x22AA683C0](v5, a2);
     a1 = v14;
     ++*(v5 + 8);
     atomic_compare_exchange_strong_explicit(v5, &v6, 0, memory_order_release, memory_order_relaxed);
@@ -4484,15 +4492,16 @@ LABEL_6:
   return v8;
 }
 
-void sub_22567CACC(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_22567CACC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
 
-unsigned int *wgpuBufferMapAsync(uint64_t a1, int a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
+unsigned int *wgpuBufferMapAsync(uint64_t a1, unint64_t a2, unint64_t a3, char *a4, uint64_t a5, uint64_t a6)
 {
+  v10 = a2;
   while (1)
   {
     v12 = *a1;
@@ -4505,7 +4514,7 @@ unsigned int *wgpuBufferMapAsync(uint64_t a1, int a2, unint64_t a3, unint64_t a4
     atomic_compare_exchange_strong_explicit(a1, &v13, v12 + 2, memory_order_relaxed, memory_order_relaxed);
     if (v13 == v12)
     {
-      goto LABEL_6;
+      goto LABEL_7;
     }
   }
 
@@ -4520,22 +4529,22 @@ unsigned int *wgpuBufferMapAsync(uint64_t a1, int a2, unint64_t a3, unint64_t a4
     atomic_compare_exchange_strong_explicit(v15, &v16, 0, memory_order_release, memory_order_relaxed);
     if (v16 == 1)
     {
-      goto LABEL_6;
+      goto LABEL_7;
     }
 
-LABEL_68:
+LABEL_69:
     WTF::Lock::unlockSlow(v15);
-    goto LABEL_6;
+    goto LABEL_7;
   }
 
   ++*(v15 + 8);
   atomic_compare_exchange_strong_explicit(v15, &v16, 0, memory_order_release, memory_order_relaxed);
   if (v16 != 1)
   {
-    goto LABEL_68;
+    goto LABEL_69;
   }
 
-LABEL_6:
+LABEL_7:
   v17 = WTF::fastMalloc(0x18);
   *v17 = &unk_2838D2BC8;
   v17[1] = a5;
@@ -4545,7 +4554,7 @@ LABEL_6:
     v18 = [*(a1 + 8) length];
     if (v18 >= a3)
     {
-      a4 = v18 - a3;
+      a4 = (v18 - a3);
     }
 
     else
@@ -4567,7 +4576,7 @@ LABEL_6:
     atomic_compare_exchange_strong_explicit(v19, &v21, v20 + 2, memory_order_relaxed, memory_order_relaxed);
     if (v21 == v20)
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
   }
 
@@ -4584,11 +4593,11 @@ LABEL_6:
   atomic_compare_exchange_strong_explicit(v23, &v24, 0, memory_order_release, memory_order_relaxed);
   if (v24 == 1)
   {
-LABEL_17:
+LABEL_18:
     v51 = v19;
     if (*(a1 + 44) == 4)
     {
-      goto LABEL_19;
+      goto LABEL_20;
     }
   }
 
@@ -4598,67 +4607,67 @@ LABEL_17:
     v51 = v19;
     if (*(a1 + 44) == 4)
     {
-      goto LABEL_19;
+      goto LABEL_20;
     }
   }
 
   if (!*(a1 + 8))
   {
     v25 = @"GPUBuffer.mapAsync: Buffer is not valid";
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-LABEL_19:
+LABEL_20:
   if ((a3 & 7) != 0)
   {
     v25 = @"GPUBuffer.mapAsync: Offset is not divisible by 8";
-LABEL_27:
+LABEL_28:
     WebGPU::Device::generateAValidationError(v19, &v25->isa);
     (*(*v17 + 16))(v17, 1);
     result = (*(*v17 + 8))(v17);
     v51 = 0;
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
   if ((a4 & 3) != 0)
   {
     v25 = @"GPUBuffer.mapAsync: range size is not divisible by 4";
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-  if (__CFADD__(a3, a4) || a3 + a4 > [*(a1 + 8) length])
+  if (__CFADD__(a3, a4) || &a4[a3] > [*(a1 + 8) length])
   {
     v25 = @"GPUBuffer.mapAsync: offset and rangeSize overflowed";
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   if (*(a1 + 44) != 3)
   {
     v25 = @"GPUBuffer.mapAsync: state != Unmapped";
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-  if ((a2 & 3u) - 3 < 0xFFFFFFFE)
+  if ((v10 & 3u) - 3 < 0xFFFFFFFE)
   {
     v25 = @"GPUBuffer.mapAsync: readWriteModeFlags != Read && readWriteModeFlags != Write";
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-  if ((a2 & 1) != 0 && (*(a1 + 40) & 1) == 0)
+  if ((v10 & 1) != 0 && (*(a1 + 40) & 1) == 0)
   {
     v25 = @"GPUBuffer.mapAsync: (mode & Read) && !(usage & Read)";
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-  if ((a2 & 2) != 0 && (*(a1 + 40) & 2) == 0)
+  if ((v10 & 2) != 0 && (*(a1 + 40) & 2) == 0)
   {
     v25 = @"GPUBuffer.mapAsync: (mode & Write) && !(usage & Write)";
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   *(a1 + 44) = 2;
   WebGPU::Buffer::incrementBufferMapCount(a1, v26);
-  *(a1 + 216) = a2;
+  *(a1 + 216) = v10;
   v38 = v19[2];
   atomic_fetch_add(v38, 1u);
   v50 = v38;
@@ -4674,7 +4683,7 @@ LABEL_27:
     atomic_compare_exchange_strong_explicit(a1, &v40, v39 + 2, memory_order_relaxed, memory_order_relaxed);
     if (v40 == v39)
     {
-      goto LABEL_61;
+      goto LABEL_62;
     }
   }
 
@@ -4694,7 +4703,7 @@ LABEL_27:
     WTF::Lock::unlockSlow(v42);
   }
 
-LABEL_61:
+LABEL_62:
   v48.n128_u64[0] = a3;
   v48.n128_u64[1] = a4;
   v44 = WTF::fastMalloc(0x28);
@@ -4722,7 +4731,7 @@ LABEL_61:
     v51 = 0;
     if (!v19)
     {
-      goto LABEL_33;
+      goto LABEL_34;
     }
   }
 
@@ -4732,18 +4741,18 @@ LABEL_61:
     v51 = 0;
     if (!v19)
     {
-      goto LABEL_33;
+      goto LABEL_34;
     }
   }
 
   do
   {
-LABEL_28:
+LABEL_29:
     v29 = *v19;
     if ((*v19 & 1) == 0)
     {
       result = WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebGPU::Device,(WTF::DestructionThread)0>(*v19, v28);
-      goto LABEL_33;
+      goto LABEL_34;
     }
 
     v30 = *v19;
@@ -4757,7 +4766,7 @@ LABEL_28:
     result = bmalloc::api::tzoneFree(v31, v32);
   }
 
-LABEL_33:
+LABEL_34:
   while (1)
   {
     v33 = *a1;
@@ -4875,9 +4884,9 @@ LABEL_6:
   return WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebGPU::Buffer,(WTF::DestructionThread)0>(v14, v9);
 }
 
-void sub_22567D224(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_22567D224(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va, a3);
+  va_start(va, a4);
   WTF::Ref<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>::~Ref(va, a2);
   _Unwind_Resume(a1);
 }
@@ -5033,7 +5042,7 @@ uint64_t wgpuBufferGetUsage(uint64_t a1, void *a2)
   if (v4)
   {
     v14 = a1;
-    MEMORY[0x22AA683C0](v5);
+    MEMORY[0x22AA683C0](v5, a2);
     a1 = v14;
     ++*(v5 + 8);
     atomic_compare_exchange_strong_explicit(v5, &v6, 0, memory_order_release, memory_order_relaxed);
@@ -5133,16 +5142,17 @@ LABEL_8:
   return result;
 }
 
-_OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WebGPU::Buffer *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WebGPU::Buffer *>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WebGPU::Buffer *,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WebGPU::Buffer *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, void *a3)
+_OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,WebGPU::Buffer *>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,WebGPU::Buffer *>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,WebGPU::Buffer *,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<WebGPU::Buffer *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
     v7 = *(v6 - 4);
     v8 = *(v6 - 12);
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_12;
     }
@@ -5153,18 +5163,18 @@ _OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,W
     v7 = 0;
     v8 = 0;
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_12;
     }
   }
 
-  if (a2 < 4)
+  if (v4 < 4)
   {
     v12 = 0;
 LABEL_10:
-    v15 = a2 - v12;
+    v15 = v4 - v12;
     v16 = &v9[4 * v12 + 6];
     do
     {
@@ -5178,7 +5188,7 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  v12 = a2 & 0xFFFFFFFC;
+  v12 = v4 & 0xFFFFFFFC;
   v13 = v9 + 12;
   v14 = v12;
   do
@@ -5192,15 +5202,15 @@ LABEL_10:
   }
 
   while (v14);
-  if (v12 != a2)
+  if (v12 != v4)
   {
     goto LABEL_10;
   }
 
 LABEL_12:
   *a1 = v11;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -5264,7 +5274,7 @@ LABEL_12:
   return v18;
 }
 
-WTF **WTF::Vector<WTF::Range<unsigned long>,8ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(WTF **result, const void **a2)
+WTF **WTF::Vector<WTF::Range<unsigned long>,8ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(WTF **result, WTF **a2)
 {
   if (a2 == result)
   {
@@ -5334,7 +5344,7 @@ WTF **WTF::Vector<WTF::Range<unsigned long>,8ul,WTF::CrashOnOverflow,16ul,WTF::F
     v19 = *(result + 3);
     if (v17 < 9)
     {
-      v21 = (result + 2);
+      v21 = result + 2;
       *result = (result + 2);
       *(result + 2) = 8;
     }
@@ -5363,7 +5373,7 @@ WTF **WTF::Vector<WTF::Range<unsigned long>,8ul,WTF::CrashOnOverflow,16ul,WTF::F
         v24 = *v23;
         v23 = (v23 + 16);
         *v21 = v24;
-        v21 = (v21 + 16);
+        v21 += 2;
         v22 -= 16;
       }
 
@@ -5411,14 +5421,13 @@ LABEL_5:
   if (v4 != v7)
   {
     v8 = 16 * v4;
-    v9 = v5 + v8;
+    v9 = (v5 + v8);
     v10 = (*a2 + v8);
     v11 = 16 * v7 - v8;
     do
     {
       v12 = *v10++;
-      *v9 = v12;
-      v9 += 16;
+      *v9++ = v12;
       v11 -= 16;
     }
 
@@ -5575,39 +5584,39 @@ LABEL_40:
   return *a1 + v19;
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*,false>(uint64_t a1, __n128 *a2, uint64_t a3, char a4, __n128 result)
+__n128 std::__introsort<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*,false>(__n128 *a1, __n128 *a2, uint64_t a3, char a4, __n128 result)
 {
 LABEL_1:
   v9 = a2 - 1;
   v10 = a2 - 2;
   v11 = a2 - 3;
-  for (i = a1; ; *(i - 8) = v38)
+  for (i = a1; ; i[-1].n128_u64[1] = v38)
   {
 LABEL_2:
     a1 = i;
-    v13 = (a2 - i) >> 4;
+    v13 = a2 - i;
     if (v13 > 2)
     {
       switch(v13)
       {
         case 3:
-          v19 = i + 16;
-          v57 = *(i + 16);
+          n128_u64 = i[1].n128_u64;
+          v57 = i[1].n128_u64[0];
           v60 = a2[-1].n128_u64[0];
           v59 = a2 - 1;
           v58 = v60;
-          if (v57 < *i)
+          if (v57 < i->n128_u64[0])
           {
             if (v58 >= v57)
             {
               v126 = *i;
-              *i = *v19;
+              *i = *n128_u64;
               result = v126;
-              *v19 = v126;
-              if (v59->n128_u64[0] < *(i + 16))
+              *n128_u64 = v126;
+              if (v59->n128_u64[0] < i[1].n128_u64[0])
               {
-                result = *v19;
-                *v19 = *v59;
+                result = *n128_u64;
+                *n128_u64 = *v59;
                 *v59 = result;
               }
 
@@ -5627,37 +5636,37 @@ LABEL_120:
             return result;
           }
 
-          result = *v19;
-          *v19 = *v59;
+          result = *n128_u64;
+          *n128_u64 = *v59;
           *v59 = result;
 LABEL_201:
-          if (*(a1 + 16) < *a1)
+          if (a1[1].n128_u64[0] < a1->n128_u64[0])
           {
             v132 = *a1;
-            *a1 = *v19;
+            *a1 = *n128_u64;
             result = v132;
-            *v19 = v132;
+            *n128_u64 = v132;
           }
 
           return result;
         case 4:
-          v19 = i + 16;
-          v62 = *(i + 16);
-          v38 = i + 32;
-          v39 = *(i + 32);
-          if (v62 >= *i)
+          n128_u64 = i[1].n128_u64;
+          v62 = i[1].n128_u64[0];
+          v38 = i + 2;
+          v39 = i[2].n128_u64[0];
+          if (v62 >= i->n128_u64[0])
           {
             if (v39 < v62)
             {
-              result = *v19;
-              *v19 = *v38;
+              result = *n128_u64;
+              *n128_u64 = *v38;
               *v38 = result;
-              if (*(i + 16) < *i)
+              if (i[1].n128_u64[0] < i->n128_u64[0])
               {
                 v130 = *i;
-                *i = *v19;
+                *i = *n128_u64;
                 result = v130;
-                *v19 = v130;
+                *n128_u64 = v130;
               }
             }
           }
@@ -5674,19 +5683,19 @@ LABEL_201:
 
 LABEL_195:
             v131 = *a1;
-            *a1 = *v19;
+            *a1 = *n128_u64;
             result = v131;
-            *v19 = v131;
-            if (v39 < *(a1 + 16))
+            *n128_u64 = v131;
+            if (v39 < a1[1].n128_u64[0])
             {
-              result = *v19;
-              *v19 = *v38;
+              result = *n128_u64;
+              *n128_u64 = *v38;
 LABEL_197:
               *v38 = result;
             }
           }
 
-          if (v9->n128_u64[0] >= *v38)
+          if (v9->n128_u64[0] >= v38->n128_u64[0])
           {
             return result;
           }
@@ -5694,18 +5703,18 @@ LABEL_197:
           result = *v38;
           *v38 = *v9;
           *v9 = result;
-          if (*v38 >= *v19)
+          if (v38->n128_u64[0] >= *n128_u64)
           {
             return result;
           }
 
-          result = *v19;
-          *v19 = *v38;
+          result = *n128_u64;
+          *n128_u64 = *v38;
           *v38 = result;
           goto LABEL_201;
         case 5:
 
-          result.n128_u64[0] = std::__sort5[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*,0>(i, (i + 16), (i + 32), (i + 48), a2[-1].n128_u64, result).n128_u64[0];
+          result.n128_u64[0] = std::__sort5[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*,0>(i, i + 1, i[2].n128_u64, i[3].n128_u64, a2[-1].n128_u64, result).n128_u64[0];
           return result;
       }
     }
@@ -5721,7 +5730,7 @@ LABEL_197:
       {
         v61 = a2[-1].n128_u64[0];
         v59 = a2 - 1;
-        if (v61 >= *i)
+        if (v61 >= i->n128_u64[0])
         {
           return result;
         }
@@ -5732,7 +5741,7 @@ LABEL_197:
 
     if (v13 <= 23)
     {
-      v63 = (i + 16);
+      v63 = &i[1];
       v65 = i == a2 || v63 == a2;
       if (a4)
       {
@@ -5746,10 +5755,10 @@ LABEL_197:
         while (1)
         {
           v69 = v63;
-          v70 = v67[2];
-          if (v70 < *v67)
+          v70 = v67[1].n128_u64[0];
+          if (v70 < v67->n128_u64[0])
           {
-            v71 = v67[3];
+            v71 = v67[1].n128_u64[1];
             v72 = v66;
             do
             {
@@ -5761,18 +5770,18 @@ LABEL_197:
                 goto LABEL_134;
               }
 
-              v73 = *(i + v72 - 16);
+              v73 = *(i[-1].n128_u64 + v72);
               v72 -= 16;
             }
 
             while (v70 < v73);
             v68 = (i + v72 + 16);
 LABEL_134:
-            *v68 = v70;
-            v68[1] = v71;
+            v68->n128_u64[0] = v70;
+            v68->n128_u64[1] = v71;
           }
 
-          v63 = v69 + 1;
+          v63 = &v69[1];
           v66 += 16;
           v67 = v69;
           if (&v69[1] == a2)
@@ -5787,38 +5796,37 @@ LABEL_134:
         return result;
       }
 
-      v19 = 16;
+      n128_u64 = 16;
       v38 = i;
       while (1)
       {
-        v39 = v63->n128_u64[0];
-        if (v39 < *v38)
+        v39 = *v63;
+        if (v39 < v38->n128_u64[0])
         {
           v104 = 0;
-          v105 = *(v38 + 24);
+          v105 = v38[1].n128_u64[1];
           do
           {
-            result = *(v38 + v104);
-            *(v38 + v104 + 16) = result;
-            if (!(v19 + v104))
+            result = v38[v104];
+            v38[v104 + 1] = result;
+            if (!(n128_u64 + v104 * 16))
             {
               goto LABEL_194;
             }
 
-            v106 = *(v38 + v104 - 16);
-            v104 -= 16;
+            v106 = v38[--v104].n128_u64[0];
           }
 
           while (v39 < v106);
-          v103 = v38 + v104;
-          *(v103 + 16) = v39;
-          *(v103 + 24) = v105;
+          v103 = &v38[v104];
+          v103[1].n128_u64[0] = v39;
+          v103[1].n128_u64[1] = v105;
         }
 
-        v38 += 16;
-        v19 += 16;
-        v63 = (i + v19);
-        if ((i + v19) == a2)
+        ++v38;
+        n128_u64 += 16;
+        v63 = (i + n128_u64);
+        if ((i + n128_u64) == a2)
         {
           return result;
         }
@@ -5830,13 +5838,13 @@ LABEL_134:
       break;
     }
 
-    v14 = i + 16 * (v13 >> 1);
+    v14 = &i[v13 >> 1];
     v15 = v14;
     v16 = v9->n128_u64[0];
     if (v13 < 0x81)
     {
-      v18 = *i;
-      if (*i >= *v14)
+      v18 = i->n128_u64[0];
+      if (i->n128_u64[0] >= v14->n128_u64[0])
       {
         if (v16 < v18)
         {
@@ -5844,14 +5852,14 @@ LABEL_134:
           *i = *v9;
           result = v111;
           *v9 = v111;
-          if (*i < *v14)
+          if (i->n128_u64[0] < v14->n128_u64[0])
           {
             v112 = *v14;
             *v14 = *i;
             result = v112;
             *i = v112;
             --a3;
-            v19 = *i;
+            n128_u64 = i->n128_u64[0];
             if (a4)
             {
               goto LABEL_62;
@@ -5875,7 +5883,7 @@ LABEL_134:
         *v14 = *i;
         result = v115;
         *i = v115;
-        if (v9->n128_u64[0] < *i)
+        if (v9->n128_u64[0] < i->n128_u64[0])
         {
           v108 = *i;
           *i = *v9;
@@ -5886,7 +5894,7 @@ LABEL_36:
       }
 
       --a3;
-      v19 = *i;
+      n128_u64 = i->n128_u64[0];
       if (a4)
       {
         goto LABEL_62;
@@ -5895,15 +5903,15 @@ LABEL_36:
       goto LABEL_61;
     }
 
-    v17 = *v14;
-    if (*v14 >= *i)
+    v17 = v14->n128_u64[0];
+    if (v14->n128_u64[0] >= i->n128_u64[0])
     {
       if (v16 < v17)
       {
         v109 = *v14;
         *v14 = *v9;
         *v9 = v109;
-        if (*v14 < *i)
+        if (v14->n128_u64[0] < i->n128_u64[0])
         {
           v110 = *i;
           *i = *v14;
@@ -5919,7 +5927,7 @@ LABEL_36:
         v113 = *i;
         *i = *v14;
         *v14 = v113;
-        if (v9->n128_u64[0] >= *v14)
+        if (v9->n128_u64[0] >= v14->n128_u64[0])
         {
           goto LABEL_28;
         }
@@ -5938,11 +5946,11 @@ LABEL_36:
     }
 
 LABEL_28:
-    v20 = (i + 16);
-    v21 = (v14 - 16);
-    v22 = *(v14 - 16);
+    v20 = i + 1;
+    v21 = v14 - 1;
+    v22 = v14[-1].n128_u64[0];
     v23 = v10->n128_u64[0];
-    if (v22 >= *(i + 16))
+    if (v22 >= i[1].n128_u64[0])
     {
       if (v23 < v22)
       {
@@ -5985,12 +5993,12 @@ LABEL_28:
     }
 
 LABEL_42:
-    v27 = (i + 32);
-    v30 = *(v14 + 16);
-    v28 = (v14 + 16);
+    v27 = i + 2;
+    v30 = v14[1].n128_u64[0];
+    v28 = v14 + 1;
     v29 = v30;
     v31 = v11->n128_u64[0];
-    if (v30 >= *(i + 32))
+    if (v30 >= i[2].n128_u64[0])
     {
       if (v31 < v29)
       {
@@ -6033,16 +6041,16 @@ LABEL_42:
     }
 
 LABEL_51:
-    v35 = *v15;
+    v35 = v15->n128_u64[0];
     v36 = v28->n128_u64[0];
-    if (*v15 >= v21->n128_u64[0])
+    if (v15->n128_u64[0] >= v21->n128_u64[0])
     {
       if (v36 < v35)
       {
         v120 = *v15;
         *v15 = *v28;
         *v28 = v120;
-        if (*v15 < v21->n128_u64[0])
+        if (v15->n128_u64[0] < v21->n128_u64[0])
         {
           v121 = *v21;
           *v21 = *v15;
@@ -6058,7 +6066,7 @@ LABEL_51:
         v122 = *v21;
         *v21 = *v15;
         *v15 = v122;
-        if (v28->n128_u64[0] >= *v15)
+        if (v28->n128_u64[0] >= v15->n128_u64[0])
         {
           goto LABEL_60;
         }
@@ -6082,39 +6090,39 @@ LABEL_60:
     result = v123;
     *v15 = v123;
     --a3;
-    v19 = *i;
+    n128_u64 = i->n128_u64[0];
     if (a4)
     {
       goto LABEL_62;
     }
 
 LABEL_61:
-    if (*(i - 16) < v19)
+    if (i[-1].n128_u64[0] < n128_u64)
     {
 LABEL_62:
       v37 = 0;
-      v38 = *(i + 8);
+      v38 = i->n128_u64[1];
       do
       {
-        v39 = (i + v37 + 16);
+        v39 = &i[v37 + 1];
         if (v39 == a2)
         {
           goto LABEL_194;
         }
 
-        v37 += 16;
+        ++v37;
       }
 
-      while (v39->n128_u64[0] < v19);
-      v39 = (i + v37);
+      while (v39->n128_u64[0] < n128_u64);
+      v39 = &i[v37];
       v40 = a2;
-      if (v37 != 16)
+      if (v37 != 1)
       {
         while (v40 != i)
         {
           v41 = v40[-1].n128_u64[0];
           --v40;
-          if (v41 < v19)
+          if (v41 < n128_u64)
           {
             goto LABEL_72;
           }
@@ -6135,9 +6143,9 @@ LABEL_62:
         --v40;
       }
 
-      while (v42 >= v19);
+      while (v42 >= n128_u64);
 LABEL_72:
-      i += v37;
+      i = (i + v37 * 16);
       if (v39 < v40)
       {
         v43 = v40;
@@ -6146,19 +6154,19 @@ LABEL_74:
         *i = *v43;
         result = v124;
         *v43 = v124;
-        v44 = (i + 16);
+        v44 = i + 1;
         while (v44 != a2)
         {
           v45 = v44->n128_u64[0];
           ++v44;
-          if (v45 >= v19)
+          if (v45 >= n128_u64)
           {
-            i = v44[-1].n128_u64;
+            i = v44 - 1;
             while (v43 != a1)
             {
               v46 = v43[-1].n128_u64[0];
               --v43;
-              if (v46 < v19)
+              if (v46 < n128_u64)
               {
                 if (i < v43)
                 {
@@ -6179,21 +6187,21 @@ LABEL_194:
       }
 
 LABEL_81:
-      v47 = (i - 16);
-      if (i - 16 != a1)
+      v47 = i - 1;
+      if (&i[-1] != a1)
       {
         result = *v47;
         *a1 = *v47;
       }
 
-      *(i - 16) = v19;
-      *(i - 8) = v38;
+      i[-1].n128_u64[0] = n128_u64;
+      i[-1].n128_u64[1] = v38;
       if (v39 < v40)
       {
         goto LABEL_86;
       }
 
-      v48 = std::__insertion_sort_incomplete[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*>(a1, (i - 16), result);
+      v48 = std::__insertion_sort_incomplete[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*>(a1, i - 1, result);
       if (!std::__insertion_sort_incomplete[abi:sn200100]<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*>(i, a2, v49))
       {
         if (v48)
@@ -6202,12 +6210,12 @@ LABEL_81:
         }
 
 LABEL_86:
-        std::__introsort<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*,false>(a1, i - 16, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,WTF::RangeSet<WTF::Range<unsigned long>>::compact(void)::{lambda(WTF::Range<unsigned long> const&,WTF::Range<unsigned long> const&)#1} &,WTF::Range<unsigned long>*,false>(a1, i - 1, a3, a4 & 1, result);
         a4 = 0;
         goto LABEL_2;
       }
 
-      a2 = (i - 16);
+      a2 = i - 1;
       if (v48)
       {
         return result;
@@ -6216,10 +6224,10 @@ LABEL_86:
       goto LABEL_1;
     }
 
-    v38 = *(i + 8);
-    if (v19 >= v9->n128_u64[0])
+    v38 = i->n128_u64[1];
+    if (n128_u64 >= v9->n128_u64[0])
     {
-      v51 = i + 16;
+      v51 = i[1].n128_u64;
       do
       {
         i = v51;
@@ -6231,12 +6239,12 @@ LABEL_86:
         v51 += 16;
       }
 
-      while (v19 >= *i);
+      while (n128_u64 >= i->n128_u64[0]);
     }
 
     else
     {
-      v39 = (i + 16);
+      v39 = i + 1;
       do
       {
         if (v39 == a2)
@@ -6248,8 +6256,8 @@ LABEL_86:
         ++v39;
       }
 
-      while (v19 >= v50);
-      i = v39[-1].n128_u64;
+      while (n128_u64 >= v50);
+      i = v39 - 1;
     }
 
     v39 = a2;
@@ -6260,7 +6268,7 @@ LABEL_86:
       {
         v52 = v39[-1].n128_u64[0];
         --v39;
-        if (v19 >= v52)
+        if (n128_u64 >= v52)
         {
           goto LABEL_106;
         }
@@ -6276,19 +6284,19 @@ LABEL_106:
       *i = *v39;
       result = v125;
       *v39 = v125;
-      v53 = (i + 16);
+      v53 = i + 1;
       while (v53 != a2)
       {
         v54 = v53->n128_u64[0];
         ++v53;
-        if (v19 < v54)
+        if (n128_u64 < v54)
         {
-          i = v53[-1].n128_u64;
+          i = v53 - 1;
           while (v39 != a1)
           {
             v55 = v39[-1].n128_u64[0];
             --v39;
-            if (v19 >= v55)
+            if (n128_u64 >= v55)
             {
               goto LABEL_106;
             }
@@ -6301,15 +6309,15 @@ LABEL_106:
       goto LABEL_194;
     }
 
-    v56 = (i - 16);
-    if (i - 16 != a1)
+    v56 = i - 1;
+    if (&i[-1] != a1)
     {
       result = *v56;
       *a1 = *v56;
     }
 
     a4 = 0;
-    *(i - 16) = v19;
+    i[-1].n128_u64[0] = n128_u64;
   }
 
   if (i == a2)
@@ -6324,15 +6332,15 @@ LABEL_106:
     if (v74 >= v75)
     {
       v77 = (2 * (v75 & 0xFFFFFFFFFFFFFFFLL)) | 1;
-      v78 = (i + 16 * v77);
+      v78 = &i[v77];
       if (2 * (v75 & 0xFFFFFFFFFFFFFFFLL) + 2 >= v13)
       {
-        v81 = (i + 16 * v75);
-        v82 = *v81;
-        if (*v78 >= *v81)
+        v81 = &i[v75];
+        v82 = v81->n128_u64[0];
+        if (v78->n128_u64[0] >= v81->n128_u64[0])
         {
 LABEL_154:
-          v83 = v81[1];
+          v83 = v81->n128_u64[1];
           while (1)
           {
             v86 = v81;
@@ -6344,25 +6352,25 @@ LABEL_154:
             }
 
             v87 = (2 * (v77 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
-            v78 = (i + 16 * v87);
+            v78 = &i[v87];
             v77 = 2 * v77 + 2;
             if (v77 < v13)
             {
-              v84 = *v78;
-              v85 = v78[2];
-              if (*v78 <= v85)
+              v84 = v78->n128_u64[0];
+              v85 = v78[1].n128_u64[0];
+              if (v78->n128_u64[0] <= v85)
               {
-                v84 = v78[2];
+                v84 = v78[1].n128_u64[0];
               }
 
-              if (*v78 >= v85)
+              if (v78->n128_u64[0] >= v85)
               {
                 v77 = v87;
               }
 
               else
               {
-                v78 += 2;
+                ++v78;
               }
 
               if (v84 < v82)
@@ -6374,36 +6382,36 @@ LABEL_154:
             else
             {
               v77 = v87;
-              if (*v78 < v82)
+              if (v78->n128_u64[0] < v82)
               {
                 break;
               }
             }
           }
 
-          *v81 = v82;
-          v81[1] = v83;
+          v81->n128_u64[0] = v82;
+          v81->n128_u64[1] = v83;
         }
       }
 
       else
       {
-        v79 = v78[2];
-        v80 = *v78 >= v79;
-        if (*v78 > v79)
+        v79 = v78[1].n128_u64[0];
+        v80 = v78->n128_u64[0] >= v79;
+        if (v78->n128_u64[0] > v79)
         {
-          v79 = *v78;
+          v79 = v78->n128_u64[0];
         }
 
         if (!v80)
         {
-          v78 += 2;
+          ++v78;
           v77 = 2 * (v75 & 0xFFFFFFFFFFFFFFFLL) + 2;
         }
 
-        v81 = (i + 16 * v75);
-        v82 = *v81;
-        if (v79 >= *v81)
+        v81 = &i[v75];
+        v82 = v81->n128_u64[0];
+        if (v79 >= v81->n128_u64[0])
         {
           goto LABEL_154;
         }
@@ -6424,12 +6432,12 @@ LABEL_154:
     v88 = 0;
     v129 = *i;
     v89 = (v13 - 2) >> 1;
-    n128_u64 = i;
+    v90 = i;
     do
     {
       while (1)
       {
-        v94 = &n128_u64[v88];
+        v94 = &v90[v88];
         v93 = v94 + 1;
         v95 = (2 * v88) | 1;
         v88 = 2 * v88 + 2;
@@ -6439,8 +6447,8 @@ LABEL_154:
         }
 
         v88 = v95;
-        *n128_u64 = *v93;
-        n128_u64 = v94[1].n128_u64;
+        *v90 = *v93;
+        v90 = v94 + 1;
         if (v95 > v89)
         {
           goto LABEL_174;
@@ -6459,8 +6467,8 @@ LABEL_154:
         v93 = v91;
       }
 
-      *n128_u64 = *v93;
-      n128_u64 = v93;
+      *v90 = *v93;
+      v90 = v93;
     }
 
     while (v88 <= v89);
@@ -6476,13 +6484,13 @@ LABEL_174:
       *v93 = *a2;
       result = v129;
       *a2 = v129;
-      v96 = (&v93[1] - i) >> 4;
+      v96 = (v93 - i + 16) >> 4;
       v76 = v96 < 2;
       v97 = v96 - 2;
       if (!v76)
       {
         v98 = v97 >> 1;
-        v99 = (i + 16 * v98);
+        v99 = &i[v98];
         v100 = v93->n128_u64[0];
         if (v99->n128_u64[0] < v93->n128_u64[0])
         {
@@ -6499,7 +6507,7 @@ LABEL_174:
             }
 
             v98 = (v98 - 1) >> 1;
-            v99 = (i + 16 * v98);
+            v99 = &i[v98];
           }
 
           while (v99->n128_u64[0] < v100);
@@ -6828,7 +6836,7 @@ LABEL_41:
     }
   }
 
-  v36 = v32->n128_i64[1];
+  v36 = v32->n128_u64[1];
   v37 = v33;
   do
   {
@@ -6868,7 +6876,7 @@ void *WTF::Detail::CallableWrapper<WebGPU::Buffer::mapAsync(unsigned int,unsigne
   a1[4] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[1];
@@ -6906,7 +6914,7 @@ uint64_t WTF::Detail::CallableWrapper<WebGPU::Buffer::mapAsync(unsigned int,unsi
   *(this + 4) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 1);
@@ -7035,15 +7043,15 @@ void sub_22567F0F8(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::lookup<WTF::IdentityHashTranslator<WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>>,(WTF::ShouldValidateKey)1,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>(uint64_t *a1, uint64_t a2)
+uint64_t WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::lookup<WTF::IdentityHashTranslator<WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>>,(WTF::ShouldValidateKey)1,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>(uint64_t *a1, int *a2)
 {
   v2 = *a2;
-  v3 = *(a2 + 8);
-  v4 = *(a2 + 16);
-  v5 = *(a2 + 24);
-  v6 = *(a2 + 32);
-  v7 = *(a2 + 40);
-  v8 = *(a2 + 48);
+  v3 = a2[2];
+  v4 = a2[4];
+  v5 = a2[6];
+  v6 = a2[8];
+  v7 = a2[10];
+  v8 = a2[12];
   if (*a2)
   {
     v9 = 0;
@@ -7055,7 +7063,7 @@ uint64_t WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<
   }
 
   v14 = v9 && v4 == 0 && v5 == 0 && v6 == 0 && v7 == 0 && v8 == 0;
-  if (v14 && !*(a2 + 56) && !*(a2 + 64) || v2 == -1)
+  if (v14 && !a2[14] && !*(a2 + 8) || v2 == -1)
   {
     __break(0xC471u);
     JUMPOUT(0x22567F2E0);
@@ -7096,7 +7104,7 @@ uint64_t WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<
               v22 = v3;
               if (*(result + 48) == v8)
               {
-                v25 = *(result + 56) == *(a2 + 56) && *(result + 64) == *(a2 + 64);
+                v25 = *(result + 56) == a2[14] && *(result + 64) == *(a2 + 8);
                 v23 = v4;
                 v22 = v3;
                 if (v25)
@@ -7156,7 +7164,7 @@ unint64_t WTF::PairHash<unsigned int,std::pair<unsigned int,std::pair<unsigned i
   return (0xD7862706ELL * (277951225 * ((v2 + ~(v2 << 11)) ^ ((v2 + ~(v2 << 11)) >> 16)) + 95187966 * ((0xD7862706ELL * (277951225 * ((v4 + ~(v4 << 11)) ^ ((v4 + ~(v4 << 11)) >> 16)) + 95187966 * ((0xD7862706ELL * (277951225 * ((v6 + ~(v6 << 11)) ^ ((v6 + ~(v6 << 11)) >> 16)) + 95187966 * ((0xD7862706ELL * (277951225 * ((v8 + ~(v8 << 11)) ^ ((v8 + ~(v8 << 11)) >> 16)) + 95187966 * ((0xD7862706ELL * (277951225 * ((v10 + ~(v10 << 11)) ^ ((v10 + ~(v10 << 11)) >> 16)) + 95187966 * ((0xD7862706ELL * (277951225 * ((v12 + ~(v12 << 11)) ^ ((v12 + ~(v12 << 11)) >> 16)) + 95187966 * ((0xD7862706ELL * (277951225 * ((v14 + ~(v14 << 11)) ^ ((v14 + ~(v14 << 11)) >> 16)) + 95187966 * ((0xD7862706ELL * (277951225 * v17 + 95187966 * (((v20 + ~(v20 << 27)) >> 31) ^ (v20 + ~(v20 << 27))))) >> 4))) >> 4))) >> 4))) >> 4))) >> 4))) >> 4))) >> 4))) >> 4;
 }
 
-uint64_t WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::inlineSet<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,int>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
+uint64_t WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::inlineSet<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,int>@<X0>(uint64_t *a1@<X0>, int *a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
 {
   if (*a2)
   {
@@ -7165,18 +7173,18 @@ uint64_t WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<un
 
   else
   {
-    v8 = *(a2 + 8) == 0;
+    v8 = a2[2] == 0;
   }
 
-  v13 = v8 && *(a2 + 16) == 0 && *(a2 + 24) == 0 && *(a2 + 32) == 0 && *(a2 + 40) == 0 && *(a2 + 48) == 0;
-  if (v13 && !*(a2 + 56) && !*(a2 + 64) || *a2 == -1)
+  v13 = v8 && a2[4] == 0 && a2[6] == 0 && a2[8] == 0 && a2[10] == 0 && a2[12] == 0;
+  if (v13 && !a2[14] && !*(a2 + 8) || *a2 == -1)
   {
     __break(0xC471u);
     JUMPOUT(0x22567F7FCLL);
   }
 
   v14 = *a1;
-  if (*a1 || (WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::rehash(a1, 8u, 0), (v14 = *a1) != 0))
+  if (*a1 || (WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::rehash(a1, 8uLL, 0), (v14 = *a1) != 0))
   {
     v15 = *(v14 - 8);
   }
@@ -7190,7 +7198,7 @@ uint64_t WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<un
   v17 = 0;
   v18 = *a2;
   v19 = 1;
-  v20 = *(a2 + 64);
+  v20 = *(a2 + 8);
   while (1)
   {
     result = v16 & v15;
@@ -7212,7 +7220,7 @@ uint64_t WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<un
       break;
     }
 
-    if (v23 == v18 && v24 == *(a2 + 8) && v25 == *(a2 + 16) && v26 == *(a2 + 24) && v27 == *(a2 + 32) && v28 == *(a2 + 40) && v29 == *(a2 + 48) && *(v22 + 56) == *(a2 + 56) && *(v22 + 64) == v20)
+    if (v23 == v18 && v24 == a2[2] && v25 == a2[4] && v26 == a2[6] && v27 == a2[8] && v28 == a2[10] && v29 == a2[12] && *(v22 + 56) == a2[14] && *(v22 + 64) == v20)
     {
       v44 = v14 + 80 * *(v14 - 4);
       *a4 = v22;
@@ -7241,18 +7249,18 @@ uint64_t WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<un
     v14 = *a1;
     --*(*a1 - 16);
     v18 = *a2;
-    v20 = *(a2 + 64);
+    v20 = *(a2 + 8);
     v22 = v17;
   }
 
   *v22 = v18;
-  *(v22 + 8) = *(a2 + 8);
-  *(v22 + 16) = *(a2 + 16);
-  *(v22 + 24) = *(a2 + 24);
-  *(v22 + 32) = *(a2 + 32);
-  *(v22 + 40) = *(a2 + 40);
-  *(v22 + 48) = *(a2 + 48);
-  *(v22 + 56) = *(a2 + 56);
+  *(v22 + 8) = a2[2];
+  *(v22 + 16) = a2[4];
+  *(v22 + 24) = a2[6];
+  *(v22 + 32) = a2[8];
+  *(v22 + 40) = a2[10];
+  *(v22 + 48) = a2[12];
+  *(v22 + 56) = a2[14];
   *(v22 + 64) = v20;
   *(v22 + 72) = *a3 != 0;
   v45 = *(v14 - 16);
@@ -7274,7 +7282,7 @@ uint64_t WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<un
   {
     if (!v48)
     {
-      result = WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::rehash(a1, 8u, v22);
+      result = WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::rehash(a1, 8uLL, v22);
       v22 = result;
       v14 = *a1;
       if (!*a1)
@@ -7290,7 +7298,7 @@ LABEL_90:
     }
 
 LABEL_89:
-    result = WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::rehash(a1, v48 << (6 * v46 >= (2 * v48)), v22);
+    result = WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::rehash(a1, (v48 << (6 * v46 >= (2 * v48))), v22);
     v22 = result;
     v14 = *a1;
     if (!*a1)
@@ -7308,8 +7316,9 @@ LABEL_91:
   return result;
 }
 
-uint64_t WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL>>,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashMap<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>,BOOL,WTF::DefaultHash<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,std::pair<unsigned int,unsigned long long>>>>>>>>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -7325,8 +7334,8 @@ uint64_t WTF::HashTable<std::pair<unsigned int,std::pair<unsigned int,std::pair<
 
   v9 = WTF::fastZeroedMalloc((80 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -7509,11 +7518,11 @@ LABEL_7:
   return WTF::fastFree(a1, a2);
 }
 
-void WTF::Detail::CallableWrapper<WebGPU::Buffer::takeSlowIndexValidationPath(WebGPU::CommandBuffer &,unsigned int,unsigned int,unsigned int,unsigned int,MTLIndexType,unsigned int,unsigned int,unsigned int,unsigned int)::$_0,void,objc_object  {objcproto16MTLCommandBuffer}* {__strong}>::call(uint64_t a1, void *a2)
+void WTF::Detail::CallableWrapper<WebGPU::Buffer::takeSlowIndexValidationPath(WebGPU::CommandBuffer &,unsigned int,unsigned int,unsigned int,unsigned int,MTLIndexType,unsigned int,unsigned int,unsigned int,unsigned int)::$_0,void,objc_object  {objcproto16MTLCommandBuffer}* {__strong}>::call(void *a1, void *a2)
 {
   v3 = a2;
   [v3 waitUntilCompleted];
-  WebGPU::Queue::writeBuffer(*(a1 + 8), *(a1 + 32), 0, *(a1 + 16), *(a1 + 24));
+  WebGPU::Queue::writeBuffer(a1[1], a1[4], 0, a1[2], a1[3]);
 }
 
 void *WTF::Detail::CallableWrapper<WebGPU::Buffer::takeSlowIndirectValidationPath(WebGPU::CommandBuffer &,unsigned long long,unsigned int,unsigned int)::$_0,void,objc_object  {objcproto16MTLCommandBuffer}* {__strong}>::~CallableWrapper(void *result, void *a2)
@@ -7615,11 +7624,11 @@ LABEL_7:
   return WTF::fastFree(a1, a2);
 }
 
-void WTF::Detail::CallableWrapper<WebGPU::Buffer::takeSlowIndirectValidationPath(WebGPU::CommandBuffer &,unsigned long long,unsigned int,unsigned int)::$_0,void,objc_object  {objcproto16MTLCommandBuffer}* {__strong}>::call(uint64_t a1, void *a2)
+void WTF::Detail::CallableWrapper<WebGPU::Buffer::takeSlowIndirectValidationPath(WebGPU::CommandBuffer &,unsigned long long,unsigned int,unsigned int)::$_0,void,objc_object  {objcproto16MTLCommandBuffer}* {__strong}>::call(void *a1, void *a2)
 {
   v3 = a2;
   [v3 waitUntilCompleted];
-  WebGPU::Queue::writeBuffer(*(a1 + 8), *(a1 + 32), 0, *(a1 + 16), *(a1 + 24));
+  WebGPU::Queue::writeBuffer(a1[1], a1[4], 0, a1[2], a1[3]);
 }
 
 void *WTF::Detail::CallableWrapper<WebGPU::Buffer::skippedDrawIndirectValidation(WebGPU::CommandEncoder &,unsigned long long,unsigned int,unsigned int)::$_0,BOOL,WebGPU::CommandBuffer &,WebGPU::CommandEncoder &>::~CallableWrapper(void *result, void *a2)
@@ -7634,7 +7643,7 @@ void *WTF::Detail::CallableWrapper<WebGPU::Buffer::skippedDrawIndirectValidation
     if (v3)
     {
       v6 = result;
-      MEMORY[0x22AA683C0](v2);
+      MEMORY[0x22AA683C0](v2, a2);
       result = v6;
       v7 = *(v2 + 16) - 1;
       *(v2 + 16) = v7;
@@ -7709,7 +7718,7 @@ uint64_t WTF::Detail::CallableWrapper<WebGPU::Buffer::skippedDrawIndirectValidat
   if (v3)
   {
     v7 = a1;
-    MEMORY[0x22AA683C0](v2);
+    MEMORY[0x22AA683C0](v2, a2);
     a1 = v7;
     v8 = *(v2 + 16) - 1;
     *(v2 + 16) = v8;
@@ -7936,7 +7945,7 @@ LABEL_23:
 
   v21 = a1[3];
   v81 = a1[4];
-  WTFLogAlways();
+  WTFLogAlways("WARNING: Severe performance penalty due to encoding drawIndirect calls out of order with submission");
   v23 = *(v16 + 280);
   while (1)
   {
@@ -8228,20 +8237,20 @@ LABEL_61:
   return 1;
 }
 
-void sub_225680774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_225680774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v6 = va_arg(va1, atomic_uint *);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, atomic_uint *);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va1);
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Buffer,(WTF::DestructionThread)0>::deref(v3, v5);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebGPU::Buffer,(WTF::DestructionThread)0>::deref(v5, v7);
   _Unwind_Resume(a1);
 }
 
@@ -8363,7 +8372,7 @@ uint64_t *WTF::HashMap<unsigned long long,BOOL,WTF::DefaultHash<unsigned long lo
   {
     v8 = a2;
     v9 = a3;
-    result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,BOOL>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,BOOL,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(result, 8u, 0);
+    result = WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,BOOL>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,BOOL,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(result, 8uLL, 0);
     a2 = v8;
     a3 = v9;
     v7 = *v5;
@@ -8440,7 +8449,7 @@ LABEL_13:
 LABEL_18:
     if (v22)
     {
-      v23 = v22 << (6 * v20 >= (2 * v22));
+      v23 = (v22 << (6 * v20 >= (2 * v22)));
     }
 
     else
@@ -8476,16 +8485,17 @@ LABEL_25:
   return result;
 }
 
-_OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,BOOL>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,BOOL,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, void *a3)
+_OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,BOOL>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long long,BOOL>>,WTF::DefaultHash<unsigned long long>,WTF::HashMap<unsigned long long,BOOL,WTF::DefaultHash<unsigned long long>,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::HashTraits<BOOL>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned long long>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
     v7 = *(v6 - 4);
     v8 = *(v6 - 12);
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_12;
     }
@@ -8496,18 +8506,18 @@ _OWORD *WTF::HashTable<unsigned long long,WTF::KeyValuePair<unsigned long long,B
     v7 = 0;
     v8 = 0;
     v9 = WTF::fastMalloc((16 * a2 + 16));
-    v11 = v9 + 4;
-    if (!a2)
+    v11 = (v9 + 4);
+    if (!v4)
     {
       goto LABEL_12;
     }
   }
 
-  if (a2 == 1)
+  if (v4 == 1)
   {
     v12 = 0;
 LABEL_10:
-    v15 = a2 - v12;
+    v15 = v4 - v12;
     v16 = &v9[4 * v12 + 6];
     do
     {
@@ -8521,7 +8531,7 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  v12 = a2 & 0xFFFFFFFE;
+  v12 = v4 & 0xFFFFFFFE;
   v13 = v9 + 10;
   v14 = v12;
   do
@@ -8535,15 +8545,15 @@ LABEL_10:
   }
 
   while (v14);
-  if (v12 != a2)
+  if (v12 != v4)
   {
     goto LABEL_10;
   }
 
 LABEL_12:
   *a1 = v11;
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -8676,7 +8686,7 @@ LABEL_11:
   }
 
   v8 = result;
-  MEMORY[0x22AA683C0](v3);
+  MEMORY[0x22AA683C0](v3, a2);
   result = v8;
   v9 = *(v3 + 16) - 1;
   *(v3 + 16) = v9;
@@ -8732,7 +8742,7 @@ uint64_t WTF::Detail::CallableWrapper<WebGPU::Buffer::indirectBufferInvalidated(
   if (v4)
   {
     v9 = a1;
-    MEMORY[0x22AA683C0](v3);
+    MEMORY[0x22AA683C0](v3, a2);
     a1 = v9;
     v10 = *(v3 + 16) - 1;
     *(v3 + 16) = v10;
@@ -8810,7 +8820,7 @@ uint64_t WTF::Detail::CallableWrapper<WebGPU::Buffer::indirectBufferInvalidated(
   if (v3)
   {
     v30 = a1;
-    MEMORY[0x22AA683C0](v2);
+    MEMORY[0x22AA683C0](v2, a2);
     a1 = v30;
     if (*(v2 + 24))
     {
@@ -9119,7 +9129,7 @@ uint64_t WTF::Vector<WTF::Function<void ()(objc_object  {objcproto16MTLCommandBu
       *v4 = 0;
       if (v6)
       {
-        (*(*v6 + 8))(v6);
+        (*(*v6 + 8))(v6, a2);
       }
 
       v4 = (v4 + 8);
@@ -9153,7 +9163,7 @@ uint64_t WTF::Vector<WTF::Function<BOOL ()(WebGPU::CommandBuffer &,WebGPU::Comma
       *v4 = 0;
       if (v6)
       {
-        (*(*v6 + 8))(v6);
+        (*(*v6 + 8))(v6, a2);
       }
 
       v4 = (v4 + 8);
@@ -9174,13 +9184,13 @@ uint64_t WTF::Vector<WTF::Function<BOOL ()(WebGPU::CommandBuffer &,WebGPU::Comma
   return a1;
 }
 
-void WebGPU::CommandBuffer::retainTimestampsForOneUpdateLoop(WebGPU::CommandBuffer *this)
+void WebGPU::CommandBuffer::retainTimestampsForOneUpdateLoop(uint64_t this)
 {
-  v1 = *(this + 13);
+  v1 = *(this + 104);
   if (v1)
   {
     ++*(v1 + 16);
-    v2 = *(*(this + 4) + 16);
+    v2 = *(*(this + 32) + 16);
     atomic_fetch_add(v2, 1u);
     WebGPU::Queue::retainTimestampsForOneUpdate(v2, *(v1 + 120));
     if (v2 && atomic_fetch_add(v2, 0xFFFFFFFF) == 1)
@@ -9212,20 +9222,20 @@ LABEL_5:
   }
 }
 
-void sub_225681708(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_225681708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
-  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::CommandEncoder>::deref(v2 + 8);
+  WTF::RefCountedAndCanMakeWeakPtr<WebGPU::CommandEncoder>::deref(v3 + 8);
   _Unwind_Resume(a1);
 }
 
-void WebGPU::CommandBuffer::~CommandBuffer(void **this)
+void WebGPU::CommandBuffer::~CommandBuffer(WebGPU::CommandBuffer *this)
 {
   WebGPU::CommandBuffer::retainTimestampsForOneUpdateLoop(this);
-  v2 = *(this[4] + 2);
+  v2 = *(*(this + 4) + 16);
   atomic_fetch_add(v2, 1u);
-  WebGPU::Queue::removeMTLCommandBuffer(v2, this[1]);
+  WebGPU::Queue::removeMTLCommandBuffer(v2, *(this + 1));
   if (v2 && atomic_fetch_add(v2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v2);
@@ -9233,19 +9243,19 @@ void WebGPU::CommandBuffer::~CommandBuffer(void **this)
     bmalloc::api::tzoneFree(v23, v24);
   }
 
-  v3 = this[1];
-  this[1] = 0;
+  v3 = *(this + 1);
+  *(this + 1) = 0;
 
-  v4 = this[2];
-  this[2] = 0;
+  v4 = *(this + 2);
+  *(this + 2) = 0;
 
-  v6 = this[13];
-  this[13] = 0;
+  v6 = *(this + 13);
+  *(this + 13) = 0;
   if (!v6)
   {
 LABEL_7:
     v7 = *(this + 21);
-    v8 = this[9];
+    v8 = *(this + 9);
     if (!v7)
     {
       goto LABEL_8;
@@ -9263,7 +9273,7 @@ LABEL_7:
   WebGPU::CommandEncoder::~CommandEncoder(v6);
   bmalloc::api::tzoneFree(v19, v20);
   v7 = *(this + 21);
-  v8 = this[9];
+  v8 = *(this + 9);
   if (!v7)
   {
 LABEL_8:
@@ -9291,18 +9301,18 @@ LABEL_24:
   }
 
   while (v21);
-  v8 = this[9];
+  v8 = *(this + 9);
   if (v8)
   {
 LABEL_9:
-    this[9] = 0;
+    *(this + 9) = 0;
     *(this + 20) = 0;
     WTF::fastFree(v8, v5);
   }
 
 LABEL_10:
   v9 = *(this + 17);
-  v10 = this[7];
+  v10 = *(this + 7);
   if (v9)
   {
     v11 = 8 * v9;
@@ -9320,18 +9330,18 @@ LABEL_10:
     }
 
     while (v11);
-    v10 = this[7];
+    v10 = *(this + 7);
   }
 
   if (v10)
   {
-    this[7] = 0;
+    *(this + 7) = 0;
     *(this + 16) = 0;
     WTF::fastFree(v10, v5);
   }
 
-  v14 = this[4];
-  this[4] = 0;
+  v14 = *(this + 4);
+  *(this + 4) = 0;
   if (v14)
   {
     do
@@ -9358,21 +9368,21 @@ LABEL_10:
 LABEL_31:
 }
 
-void sub_225681934(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_225681934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebGPU::Queue,WTF::RawPtrTraits<WebGPU::Queue>,WTF::DefaultRefDerefTraits<WebGPU::Queue>>::~Ref(va);
-  v5 = *(v2 + 104);
-  *(v2 + 104) = 0;
-  if (v5)
+  v6 = *(v3 + 104);
+  *(v3 + 104) = 0;
+  if (v6)
   {
-    WTF::RefCountedAndCanMakeWeakPtr<WebGPU::CommandEncoder>::deref(v5 + 8);
+    WTF::RefCountedAndCanMakeWeakPtr<WebGPU::CommandEncoder>::deref(v6 + 8);
   }
 
-  WTF::Vector<WTF::Function<void ()(objc_object  {objcproto16MTLCommandBuffer}*)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v2 + 72, v4);
-  WTF::Vector<WTF::Function<BOOL ()(WebGPU::CommandBuffer &,WebGPU::CommandEncoder &)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v2 + 56, v6);
+  WTF::Vector<WTF::Function<void ()(objc_object  {objcproto16MTLCommandBuffer}*)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v3 + 72, v5);
+  WTF::Vector<WTF::Function<BOOL ()(WebGPU::CommandBuffer &,WebGPU::CommandEncoder &)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v3 + 56, v7);
 
-  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref((v2 + 32), v7);
+  WTF::Ref<WebGPU::Device,WTF::RawPtrTraits<WebGPU::Device>,WTF::DefaultRefDerefTraits<WebGPU::Device>>::~Ref((v3 + 32), v8);
   _Unwind_Resume(a1);
 }
 
@@ -9641,14 +9651,14 @@ LABEL_24:
 LABEL_30:
 }
 
-void sub_225681E04(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, atomic_ullong *a9)
+void sub_225681E04(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   WebGPU::CommandBuffer::makeInvalidDueToCommit(NSString *)::$_0::~$_0(&a9, a2);
 
   _Unwind_Resume(a1);
 }
 
-void sub_225681E3C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, atomic_ullong *a9)
+void sub_225681E3C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   WebGPU::CommandBuffer::makeInvalidDueToCommit(NSString *)::$_0::~$_0((v10 + 32), a2);
   WebGPU::CommandBuffer::makeInvalidDueToCommit(NSString *)::$_0::~$_0(&a9, v12);

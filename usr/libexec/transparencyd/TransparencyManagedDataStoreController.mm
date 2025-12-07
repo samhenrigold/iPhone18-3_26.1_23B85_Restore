@@ -12,6 +12,7 @@
 - (int64_t)waitSetupComplete:(int64_t)complete;
 - (void)createPeerOverrides;
 - (void)loadPersistentStores;
+- (void)reportCoreDataEventForEntity:(id)entity hardFailure:(BOOL)failure write:(BOOL)write code:(int64_t)code underlyingError:(id)error;
 - (void)setStaticKeyStore:(id)store;
 - (void)setUpdateDelegate:(id)delegate;
 - (void)setupComplete;
@@ -445,6 +446,27 @@ LABEL_6:
   v5 = [loadComplete wait:complete];
 
   return v5;
+}
+
+- (void)reportCoreDataEventForEntity:(id)entity hardFailure:(BOOL)failure write:(BOOL)write code:(int64_t)code underlyingError:(id)error
+{
+  writeCopy = write;
+  failureCopy = failure;
+  errorCopy = error;
+  entityCopy = entity;
+  logger = [(TransparencyManagedDataStoreController *)self logger];
+  v15 = kTransparencyErrorDatabase;
+  v16 = [SecXPCHelper cleanseErrorForXPC:errorCopy];
+
+  v17 = [TransparencyError errorWithDomain:v15 code:code underlyingError:v16 description:@"CoreData report event"];
+  v20[0] = @"entityType";
+  v20[1] = @"write";
+  v21[0] = entityCopy;
+  v18 = [NSNumber numberWithBool:writeCopy];
+  v21[1] = v18;
+  v19 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
+
+  [logger logResultForEvent:@"ktCoreDataEvent" hardFailure:failureCopy result:v17 withAttributes:v19];
 }
 
 - (BOOL)saveContext:(id)context error:(id *)error

@@ -701,15 +701,16 @@ uint64_t __40__WBSFormMetadata_visualOrderComparator__block_invoke(uint64_t a1, 
 
 - (NSData)serializedData
 {
-  v6 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v6];
-  v3 = v6;
+  v8 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
+  v3 = v8;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(WBSFormMetadata *)v4 serializedData];
+      [(WBSFormMetadata *)v6 serializedData];
     }
   }
 
@@ -722,7 +723,7 @@ uint64_t __40__WBSFormMetadata_visualOrderComparator__block_invoke(uint64_t a1, 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v16 = 0;
+    v18 = 0;
     goto LABEL_10;
   }
 
@@ -735,15 +736,16 @@ uint64_t __40__WBSFormMetadata_visualOrderComparator__block_invoke(uint64_t a1, 
   v10 = objc_opt_class();
   v11 = objc_opt_class();
   v12 = [v4 setWithObjects:{v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
-  v18 = 0;
-  v13 = [MEMORY[0x1E696ACD0] _strictlyUnarchivedObjectOfClasses:v12 fromData:dataCopy error:&v18];
-  v14 = v18;
+  v20 = 0;
+  v13 = [MEMORY[0x1E696ACD0] _strictlyUnarchivedObjectOfClasses:v12 fromData:dataCopy error:&v20];
+  v14 = v20;
+  v16 = v14;
   if (v14)
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(WBSFormMetadata *)v15 formMetadataFromSerializedData:v14];
+      [(WBSFormMetadata *)v17 formMetadataFromSerializedData:v16];
     }
 
     goto LABEL_8;
@@ -753,16 +755,16 @@ uint64_t __40__WBSFormMetadata_visualOrderComparator__block_invoke(uint64_t a1, 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_8:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_9;
   }
 
-  v16 = v13;
+  v18 = v13;
 LABEL_9:
 
 LABEL_10:
 
-  return v16;
+  return v18;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1253,14 +1255,18 @@ uint64_t __47__WBSFormMetadata__valueOfControlWithUniqueID___block_invoke(uint64
 {
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to archive WBSFormMetadata: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = safari_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to archive WBSFormMetadata: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 + (void)formMetadataFromSerializedData:(void *)a1 .cold.1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to read from WBSFormMetadata data with exception: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to read from WBSFormMetadata data with exception: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -50,33 +50,33 @@
 
 - (BOOL)updateScanRules
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   scanRequests = [(WPDObjectDiscoveryManager *)self scanRequests];
   v4 = [scanRequests count];
 
   if (v4)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
     scanRequests2 = [(WPDObjectDiscoveryManager *)self scanRequests];
-    v7 = [scanRequests2 countByEnumeratingWithState:&v58 objects:v71 count:16];
+    v7 = [scanRequests2 countByEnumeratingWithState:&v57 objects:v70 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v59;
+      v9 = *v58;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v59 != v9)
+          if (*v58 != v9)
           {
             objc_enumerationMutation(scanRequests2);
           }
 
-          v11 = *(*(&v58 + 1) + 8 * i);
+          v11 = *(*(&v57 + 1) + 8 * i);
           if (-[WPDManager testMode](self, "testMode") && (-[WPDManager server](self, "server"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 isClientTestMode:v11], v12, (v13 & 1) == 0))
           {
             if (WPLogInitOnce != -1)
@@ -88,7 +88,7 @@
             if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v63 = v11;
+              v62 = v11;
               _os_log_debug_impl(&dword_272965000, v17, OS_LOG_TYPE_DEBUG, "ObjectDiscovery ADV Buffer Not adding for non-test client UUID: %@ when in test mode", buf, 0xCu);
             }
           }
@@ -113,13 +113,13 @@
               v16 = WiProxLog;
               if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
               {
-                [(WPDObjectDiscoveryManager *)v69 updateScanRules:v16];
+                [(WPDObjectDiscoveryManager *)v68 updateScanRules:v16];
               }
             }
           }
         }
 
-        v8 = [scanRequests2 countByEnumeratingWithState:&v58 objects:v71 count:16];
+        v8 = [scanRequests2 countByEnumeratingWithState:&v57 objects:v70 count:16];
       }
 
       while (v8);
@@ -144,44 +144,44 @@
       goto LABEL_101;
     }
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     obj = array;
-    v19 = [obj countByEnumeratingWithState:&v54 objects:v68 count:16];
+    v19 = [obj countByEnumeratingWithState:&v53 objects:v67 count:16];
     if (v19)
     {
       v21 = v19;
-      v52 = 0;
-      v22 = *v55;
+      v51 = 0;
+      v22 = *v54;
       *&v20 = 138412290;
-      v49 = v20;
-      v50 = 0xFFFF;
+      v48 = v20;
+      v49 = 0xFFFF;
       while (2)
       {
         v23 = 0;
         do
         {
-          if (*v55 != v22)
+          if (*v54 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v54 + 1) + 8 * v23);
+          v24 = *(*(&v53 + 1) + 8 * v23);
           scanRequests4 = [(WPDObjectDiscoveryManager *)self scanRequests];
           v26 = [scanRequests4 objectForKeyedSubscript:v24];
 
           if (v26)
           {
-            [v26 scanningRates];
-            v27 = v53;
+            objc_msgSend_scanningRates(v26);
+            v27 = v52;
           }
 
           else
           {
             v27 = 0;
-            v53 = 0;
+            v52 = 0;
           }
 
           if (WPLogInitOnce != -1)
@@ -193,9 +193,9 @@
           if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v63 = v24;
-            v64 = 2112;
-            *v65 = v26;
+            v62 = v24;
+            v63 = 2112;
+            *v64 = v26;
             _os_log_debug_impl(&dword_272965000, v28, OS_LOG_TYPE_DEBUG, "ObjectDiscovery ADV Buffer client %@ request %@", buf, 0x16u);
           }
 
@@ -211,17 +211,17 @@
               v30 = WiProxLog;
               if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
               {
-                *buf = v49;
-                v63 = v24;
+                *buf = v48;
+                v62 = v24;
                 _os_log_debug_impl(&dword_272965000, v30, OS_LOG_TYPE_DEBUG, "ObjectDiscovery ADV Buffer activating for client %@", buf, 0xCu);
               }
 
-              v52 |= [v26 advBuffer];
+              v51 |= [v26 advBuffer];
               if (v27)
               {
-                v31 = v50;
-                v32 = v50;
-                if (v27 < v50)
+                v31 = v49;
+                v32 = v49;
+                if (v27 < v49)
                 {
                   v32 = v27;
                 }
@@ -231,7 +231,7 @@
                   v31 = v32;
                 }
 
-                v50 = v31;
+                v49 = v31;
               }
             }
 
@@ -245,8 +245,8 @@
               v33 = WiProxLog;
               if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
               {
-                *buf = v49;
-                v63 = v24;
+                *buf = v48;
+                v62 = v24;
                 _os_log_error_impl(&dword_272965000, v33, OS_LOG_TYPE_ERROR, "ObjectDiscovery ADV Buffer no-buffer no-op for client %@", buf, 0xCu);
               }
             }
@@ -278,8 +278,8 @@
             v29 = WiProxLog;
             if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v49;
-              v63 = v24;
+              *buf = v48;
+              v62 = v24;
               _os_log_debug_impl(&dword_272965000, v29, OS_LOG_TYPE_DEBUG, "ObjectDiscovery ADV Buffer no-op for client %@", buf, 0xCu);
             }
           }
@@ -288,7 +288,7 @@
         }
 
         while (v21 != v23);
-        v21 = [obj countByEnumeratingWithState:&v54 objects:v68 count:16];
+        v21 = [obj countByEnumeratingWithState:&v53 objects:v67 count:16];
         if (v21)
         {
           continue;
@@ -297,10 +297,10 @@
         break;
       }
 
-      v34 = v52;
+      v34 = v51;
       v18 = array;
-      v35 = v50;
-      if (v52 == 4)
+      v35 = v49;
+      if (v51 == 4)
       {
         if (WPLogInitOnce != -1)
         {
@@ -360,20 +360,20 @@ LABEL_94:
           v46 = "deactivate";
         }
 
-        v63 = v46;
-        v64 = 1025;
-        *v65 = 18;
-        *&v65[4] = 2114;
-        *&v65[6] = v40;
-        v66 = 2113;
-        v67 = obj;
+        v62 = v46;
+        v63 = 1025;
+        *v64 = 18;
+        *&v64[4] = 2114;
+        *&v64[6] = v40;
+        v65 = 2113;
+        v66 = obj;
         _os_log_impl(&dword_272965000, v45, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer about to %{public}s for type %{private}d with options %{public}@ for clients %{private}@", buf, 0x26u);
       }
 
       v37 = [(WPDObjectDiscoveryManager *)self changedScanOptions:v40 Clients:obj];
 
 LABEL_101:
-      goto LABEL_102;
+      return v37;
     }
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -419,19 +419,16 @@ LABEL_101:
     _os_log_impl(&dword_272965000, v36, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer Nothing left to scan for - Stopping Scan", buf, 2u);
   }
 
-  v37 = [(WPDObjectDiscoveryManager *)self changedScanOptions:0 Clients:0];
-LABEL_102:
-  v47 = *MEMORY[0x277D85DE8];
-  return v37;
+  return [(WPDObjectDiscoveryManager *)self changedScanOptions:0 Clients:0];
 }
 
 - (WPDObjectDiscoveryManager)initWithServer:(id)server
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   serverCopy = server;
-  v33.receiver = self;
-  v33.super_class = WPDObjectDiscoveryManager;
-  v5 = [(WPDManager *)&v33 initWithServer:serverCopy Name:@"ObjectDiscovery"];
+  v32.receiver = self;
+  v32.super_class = WPDObjectDiscoveryManager;
+  v5 = [(WPDManager *)&v32 initWithServer:serverCopy Name:@"ObjectDiscovery"];
   if (v5)
   {
     serverQueue = [serverCopy serverQueue];
@@ -469,9 +466,9 @@ LABEL_102:
     matchActionRules = v5->_matchActionRules;
     v5->_matchActionRules = 0;
 
-    v35 = *MEMORY[0x277CBDF08];
-    v36[0] = MEMORY[0x277CBEC38];
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CBDF08];
+    v35[0] = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v18 = objc_alloc(MEMORY[0x277CBE068]);
     WeakRetained = objc_loadWeakRetained(&v5->_serverQueue);
     v20 = [v18 initWithDelegate:v5 queue:WeakRetained options:v17];
@@ -485,9 +482,9 @@ LABEL_102:
     v5->_centralManager = v24;
 
     v26 = MEMORY[0x277CBEB98];
-    v34[0] = v5->_peripheralManager;
-    v34[1] = v5->_centralManager;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+    v33[0] = v5->_peripheralManager;
+    v33[1] = v5->_centralManager;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
     v28 = [v26 setWithArray:v27];
     [(WPDManager *)v5 setCbManagers:v28];
 
@@ -498,18 +495,17 @@ LABEL_102:
     [wpdState2 registerManager:v5->_peripheralManager];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)generateStateDumpStrings
 {
   selfCopy = self;
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
-  v71.receiver = self;
-  v71.super_class = WPDObjectDiscoveryManager;
-  generateStateDumpStrings = [(WPDManager *)&v71 generateStateDumpStrings];
+  v70.receiver = self;
+  v70.super_class = WPDObjectDiscoveryManager;
+  generateStateDumpStrings = [(WPDManager *)&v70 generateStateDumpStrings];
   v5 = [v3 arrayWithArray:generateStateDumpStrings];
 
   v6 = MEMORY[0x277CCACA8];
@@ -575,31 +571,31 @@ LABEL_102:
     [v5 addObject:v18];
   }
 
-  v57 = v5;
+  v56 = v5;
   array = [MEMORY[0x277CBEB18] array];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   scanRequests = [(WPDObjectDiscoveryManager *)selfCopy scanRequests];
   allKeys = [(__CFString *)scanRequests allKeys];
 
-  v21 = [allKeys countByEnumeratingWithState:&v67 objects:v74 count:16];
+  v21 = [allKeys countByEnumeratingWithState:&v66 objects:v73 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v68;
+    v23 = *v67;
     scanRequests = @"    %@: %@\n";
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v68 != v23)
+        if (*v67 != v23)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v25 = *(*(&v67 + 1) + 8 * i);
+        v25 = *(*(&v66 + 1) + 8 * i);
         v26 = MEMORY[0x277CCACA8];
         scanRequests2 = [(WPDObjectDiscoveryManager *)selfCopy scanRequests];
         [scanRequests2 objectForKeyedSubscript:v25];
@@ -610,16 +606,16 @@ LABEL_102:
         selfCopy = v28;
       }
 
-      v22 = [allKeys countByEnumeratingWithState:&v67 objects:v74 count:16];
+      v22 = [allKeys countByEnumeratingWithState:&v66 objects:v73 count:16];
     }
 
     while (v22);
   }
 
   v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"scan requests: %d\n", objc_msgSend(array, "count")];
-  [v57 addObject:v31];
+  [v56 addObject:v31];
 
-  [v57 addObjectsFromArray:array];
+  [v56 addObjectsFromArray:array];
   v32 = MEMORY[0x277CCACA8];
   nearbyTokensRequest = [(WPDObjectDiscoveryManager *)selfCopy nearbyTokensRequest];
   v34 = nearbyTokensRequest;
@@ -630,7 +626,7 @@ LABEL_102:
   }
 
   v35 = [v32 stringWithFormat:@"near owner tokens (%d):\n", nearbyTokensRequest];
-  [v57 addObject:v35];
+  [v56 addObject:v35];
 
   if (v34)
   {
@@ -640,31 +636,31 @@ LABEL_102:
 
   if (nearbyTokensRequest2)
   {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     nearbyTokensRequest3 = [(WPDObjectDiscoveryManager *)selfCopy nearbyTokensRequest];
-    v38 = [nearbyTokensRequest3 countByEnumeratingWithState:&v63 objects:v73 count:16];
+    v38 = [nearbyTokensRequest3 countByEnumeratingWithState:&v62 objects:v72 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v64;
+      v40 = *v63;
       scanRequests = @"    %@\n";
       do
       {
         for (j = 0; j != v39; ++j)
         {
-          if (*v64 != v40)
+          if (*v63 != v40)
           {
             objc_enumerationMutation(nearbyTokensRequest3);
           }
 
-          v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"    %@\n", *(*(&v63 + 1) + 8 * j)];
-          [v57 addObject:v42];
+          v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"    %@\n", *(*(&v62 + 1) + 8 * j)];
+          [v56 addObject:v42];
         }
 
-        v39 = [nearbyTokensRequest3 countByEnumeratingWithState:&v63 objects:v73 count:16];
+        v39 = [nearbyTokensRequest3 countByEnumeratingWithState:&v62 objects:v72 count:16];
       }
 
       while (v39);
@@ -681,7 +677,7 @@ LABEL_102:
   }
 
   v46 = [v43 stringWithFormat:@"match action rules (%d):\n", matchActionRules];
-  [v57 addObject:v46];
+  [v56 addObject:v46];
 
   if (v45)
   {
@@ -691,39 +687,37 @@ LABEL_102:
 
   if (matchActionRules2)
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     matchActionRules3 = [(WPDObjectDiscoveryManager *)selfCopy matchActionRules];
-    v49 = [matchActionRules3 countByEnumeratingWithState:&v59 objects:v72 count:16];
+    v49 = [matchActionRules3 countByEnumeratingWithState:&v58 objects:v71 count:16];
     if (v49)
     {
       v50 = v49;
-      v51 = *v60;
+      v51 = *v59;
       do
       {
         for (k = 0; k != v50; ++k)
         {
-          if (*v60 != v51)
+          if (*v59 != v51)
           {
             objc_enumerationMutation(matchActionRules3);
           }
 
-          v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"    %@\n", *(*(&v59 + 1) + 8 * k)];
-          [v57 addObject:v53];
+          v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"    %@\n", *(*(&v58 + 1) + 8 * k)];
+          [v56 addObject:v53];
         }
 
-        v50 = [matchActionRules3 countByEnumeratingWithState:&v59 objects:v72 count:16];
+        v50 = [matchActionRules3 countByEnumeratingWithState:&v58 objects:v71 count:16];
       }
 
       while (v50);
     }
   }
 
-  v54 = [MEMORY[0x277CBEA60] arrayWithArray:v57];
-
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = [MEMORY[0x277CBEA60] arrayWithArray:v56];
 
   return v54;
 }
@@ -843,7 +837,7 @@ LABEL_19:
 
 - (BOOL)advertOptionsChanged:(id)changed
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   if (WPLogInitOnce != -1)
   {
@@ -891,9 +885,9 @@ LABEL_9:
   {
     v11 = v10;
     advertOptions3 = [(WPDObjectDiscoveryManager *)self advertOptions];
-    v17 = 138477827;
-    v18 = advertOptions3;
-    _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery updated advertising options: %{private}@", &v17, 0xCu);
+    v16 = 138477827;
+    v17 = advertOptions3;
+    _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery updated advertising options: %{private}@", &v16, 0xCu);
   }
 
   v9 = 1;
@@ -912,18 +906,17 @@ LABEL_14:
       v14 = "YES";
     }
 
-    v17 = 136315138;
-    v18 = v14;
-    _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery advertising data has changed: %s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = v14;
+    _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery advertising data has changed: %s", &v16, 0xCu);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)updateAdvertisingOptionsWithError:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDObjectDiscoveryManager updateAdvertisingOptionsWithError:];
@@ -969,7 +962,7 @@ LABEL_14:
       v10 = [(WPDObjectDiscoveryManager *)self advertOptionsChanged:0];
 LABEL_24:
 
-      goto LABEL_25;
+      return v10;
     }
 
 LABEL_19:
@@ -985,13 +978,13 @@ LABEL_19:
       clientType = [advertRequest2 clientType];
       advertisingData = [advertRequest2 advertisingData];
       *buf = 134284291;
-      v26 = clientType;
-      v27 = 2113;
-      v28 = advertisingData;
-      v29 = 2049;
+      v25 = clientType;
+      v26 = 2113;
+      v27 = advertisingData;
+      v28 = 2049;
       advertisingRate = [advertRequest2 advertisingRate];
-      v31 = 2113;
-      v32 = v8;
+      v30 = 2113;
+      v31 = v8;
       _os_log_impl(&dword_272965000, v15, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery adding data of type: %{private}ld, advData: %{private}@ advInterval: %{private}ld address: %{private}@", buf, 0x2Au);
     }
 
@@ -1027,10 +1020,7 @@ LABEL_19:
     _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Nothing left to advertise - Stopping Advertising", buf, 2u);
   }
 
-  v10 = [(WPDObjectDiscoveryManager *)self advertOptionsChanged:0];
-LABEL_25:
-  v23 = *MEMORY[0x277D85DE8];
-  return v10;
+  return [(WPDObjectDiscoveryManager *)self advertOptionsChanged:0];
 }
 
 - (void)resetAdvertiser
@@ -1071,7 +1061,7 @@ LABEL_25:
 
 - (void)startAdvertiser
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDObjectDiscoveryManager startAdvertiser];
@@ -1082,21 +1072,19 @@ LABEL_25:
   {
     v4 = v3;
     advertOptions = [(WPDObjectDiscoveryManager *)self advertOptions];
-    v9 = 138477827;
-    v10 = advertOptions;
-    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery will start advertising with options %{private}@", &v9, 0xCu);
+    v8 = 138477827;
+    v9 = advertOptions;
+    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery will start advertising with options %{private}@", &v8, 0xCu);
   }
 
   peripheralManager = [(WPDObjectDiscoveryManager *)self peripheralManager];
   advertOptions2 = [(WPDObjectDiscoveryManager *)self advertOptions];
   [peripheralManager startAdvertising:advertOptions2];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateAdvertiser
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   advertRequest = [(WPDObjectDiscoveryManager *)self advertRequest];
 
   if (!advertRequest)
@@ -1122,9 +1110,9 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v11 = 0;
-  v4 = [(WPDObjectDiscoveryManager *)self updateAdvertisingOptionsWithError:&v11];
-  advertRequest = v11;
+  v10 = 0;
+  v4 = [(WPDObjectDiscoveryManager *)self updateAdvertisingOptionsWithError:&v10];
+  advertRequest = v10;
   if (v4)
   {
     [(WPDObjectDiscoveryManager *)self stopAdvertiser];
@@ -1153,13 +1141,12 @@ LABEL_14:
   }
 
   v7 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = advertRequest;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = advertRequest;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v6 = [v7 errorWithDomain:@"WPErrorDomain" code:26 userInfo:v8];
 
 LABEL_19:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1335,7 +1322,7 @@ LABEL_23:
 
 - (void)peripheralManager:(id)manager didStopAdvertisingWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   if (errorCopy)
@@ -1350,11 +1337,11 @@ LABEL_23:
     {
       v9 = v8;
       localizedDescription = [errorCopy localizedDescription];
-      v19 = 138412546;
-      v20 = localizedDescription;
-      v21 = 2048;
+      v18 = 138412546;
+      v19 = localizedDescription;
+      v20 = 2048;
       code = [errorCopy code];
-      _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Failed to stop advertising with error: %@ (%ld)", &v19, 0x16u);
+      _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Failed to stop advertising with error: %@ (%ld)", &v18, 0x16u);
     }
   }
 
@@ -1369,8 +1356,8 @@ LABEL_23:
     v11 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Did stop advertising", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Did stop advertising", &v18, 2u);
     }
   }
 
@@ -1400,8 +1387,6 @@ LABEL_23:
       [WPDObjectDiscoveryManager peripheralManager:didStopAdvertisingWithError:];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateReports:(id)reports fromReport:(id)report
@@ -1417,7 +1402,7 @@ LABEL_23:
 
 - (void)updateReports:(id)reports Peripheral:(id)peripheral AdvertisementData:(id)data RSSI:(id)i
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   reportsCopy = reports;
   peripheralCopy = peripheral;
   dataCopy = data;
@@ -1431,8 +1416,8 @@ LABEL_23:
   }
 
   v16 = v15;
-  v33 = peripheralCopy;
-  v34 = reportsCopy;
+  v32 = peripheralCopy;
+  v33 = reportsCopy;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (v16 < 4)
   {
@@ -1442,7 +1427,7 @@ LABEL_23:
   v18 = &bytes[v16];
   v19 = bytes + 2;
   *&v17 = 134218242;
-  v32 = v17;
+  v31 = v17;
   while (1)
   {
     v20 = *v19;
@@ -1465,10 +1450,10 @@ LABEL_23:
       v25 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
       {
-        *buf = v32;
-        v43 = v20;
-        v44 = 2112;
-        v45 = v13;
+        *buf = v31;
+        v42 = v20;
+        v43 = 2112;
+        v44 = v13;
         _os_log_error_impl(&dword_272965000, v25, OS_LOG_TYPE_ERROR, "ObjectDiscovery ADV Buffer unsupported payload type %ld, data %@", buf, 0x16u);
       }
 
@@ -1481,7 +1466,7 @@ LABEL_23:
     }
 
 LABEL_19:
-    v27 = [MEMORY[0x277CBEB28] dataWithBytes:bytes length:{2, v32}];
+    v27 = [MEMORY[0x277CBEB28] dataWithBytes:bytes length:{2, v31}];
     [v27 appendBytes:v19 length:v22 + 2];
     v28 = [MEMORY[0x277CBEA90] dataWithData:v27];
     v29 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v20];
@@ -1508,10 +1493,10 @@ LABEL_15:
     v26 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
     {
-      *buf = v32;
-      v43 = v20;
-      v44 = 2112;
-      v45 = v13;
+      *buf = v31;
+      v42 = v20;
+      v43 = 2112;
+      v44 = v13;
       _os_log_debug_impl(&dword_272965000, v26, OS_LOG_TYPE_DEBUG, "ObjectDiscovery ADV Buffer unexpected payload type %ld, data %@", buf, 0x16u);
     }
 
@@ -1527,42 +1512,41 @@ LABEL_15:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
   {
     *buf = 134218499;
-    v43 = v20;
-    v44 = 2048;
-    v45 = v22;
-    v46 = 2113;
-    v47 = v13;
+    v42 = v20;
+    v43 = 2048;
+    v44 = v22;
+    v45 = 2113;
+    v46 = v13;
     _os_log_error_impl(&dword_272965000, v30, OS_LOG_TYPE_ERROR, "ObjectDiscovery ADV Buffer bad payload type %ld length %zu, data %{private}@", buf, 0x20u);
   }
 
 LABEL_26:
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __77__WPDObjectDiscoveryManager_updateReports_Peripheral_AdvertisementData_RSSI___block_invoke_263;
-  v36[3] = &unk_279E593F8;
-  v37 = dataCopy;
-  v38 = iCopy;
-  peripheralCopy = v33;
-  v39 = v33;
-  v40 = v13;
-  reportsCopy = v34;
-  v41 = v34;
-  [dictionary enumerateKeysAndObjectsUsingBlock:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __77__WPDObjectDiscoveryManager_updateReports_Peripheral_AdvertisementData_RSSI___block_invoke_263;
+  v35[3] = &unk_279E593F8;
+  v36 = dataCopy;
+  v37 = iCopy;
+  peripheralCopy = v32;
+  v38 = v32;
+  v39 = v13;
+  reportsCopy = v33;
+  v40 = v33;
+  [dictionary enumerateKeysAndObjectsUsingBlock:v35];
 
 LABEL_27:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __77__WPDObjectDiscoveryManager_updateReports_Peripheral_AdvertisementData_RSSI___block_invoke_263(uint64_t a1, void *a2, void *a3)
 {
-  v18[7] = *MEMORY[0x277D85DE8];
+  v17[7] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277CBDCE0]];
   v8 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277CBDD40]];
-  v18[0] = v6;
-  v17[0] = @"kDeviceAdvertisingData";
-  v17[1] = @"kDeviceAddress";
+  v17[0] = v6;
+  v16[0] = @"kDeviceAdvertisingData";
+  v16[1] = @"kDeviceAddress";
   v9 = v7;
   if (!v7)
   {
@@ -1571,26 +1555,26 @@ void __77__WPDObjectDiscoveryManager_updateReports_Peripheral_AdvertisementData_
 
   v11 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v18[1] = v9;
-  v18[2] = v11;
-  v17[2] = @"kDeviceRSSI";
-  v17[3] = @"kDevicePeripheralUUID";
+  v17[1] = v9;
+  v17[2] = v11;
+  v16[2] = @"kDeviceRSSI";
+  v16[3] = @"kDevicePeripheralUUID";
   v12 = [v10 identifier];
   v13 = *(a1 + 56);
-  v18[3] = v12;
-  v18[4] = v13;
-  v17[4] = @"kDeviceManufacturerData";
-  v17[5] = @"kDeviceType";
-  v18[5] = v5;
-  v17[6] = @"kDeviceTime";
+  v17[3] = v12;
+  v17[4] = v13;
+  v16[4] = @"kDeviceManufacturerData";
+  v16[5] = @"kDeviceType";
+  v17[5] = v5;
+  v16[6] = @"kDeviceTime";
   v14 = v8;
   if (!v8)
   {
     v14 = [MEMORY[0x277CCABB0] numberWithDouble:CFAbsoluteTimeGetCurrent()];
   }
 
-  v18[6] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
+  v17[6] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
   if (!v8)
   {
   }
@@ -1600,13 +1584,11 @@ void __77__WPDObjectDiscoveryManager_updateReports_Peripheral_AdvertisementData_
   }
 
   [*(a1 + 64) addObject:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateClientsWithReports:(id)reports
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   reportsCopy = reports;
   if (WPLogInitOnce != -1)
   {
@@ -1620,9 +1602,9 @@ void __77__WPDObjectDiscoveryManager_updateReports_Peripheral_AdvertisementData_
     v7 = [reportsCopy count];
     currentScanners = [(WPDObjectDiscoveryManager *)self currentScanners];
     *buf = 134349314;
-    v19 = v7;
-    v20 = 2114;
-    v21 = currentScanners;
+    v18 = v7;
+    v19 = 2114;
+    v20 = currentScanners;
     _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer receiving %{public}lu reports for %{public}@ clients", buf, 0x16u);
   }
 
@@ -1632,7 +1614,7 @@ void __77__WPDObjectDiscoveryManager_updateReports_Peripheral_AdvertisementData_
   block[1] = 3221225472;
   block[2] = __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_267;
   block[3] = &unk_279E58EE8;
-  objc_copyWeak(&v17, buf);
+  objc_copyWeak(&v16, buf);
   dispatch_async(serverQueue, block);
 
   if (![reportsCopy count])
@@ -1667,19 +1649,17 @@ void __77__WPDObjectDiscoveryManager_updateReports_Peripheral_AdvertisementData_
   else
   {
     currentScanners3 = [(WPDObjectDiscoveryManager *)self currentScanners];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279;
-    v14[3] = &unk_279E59420;
-    v14[4] = self;
-    v15 = reportsCopy;
-    [currentScanners3 enumerateObjectsUsingBlock:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279;
+    v13[3] = &unk_279E59420;
+    v13[4] = self;
+    v14 = reportsCopy;
+    [currentScanners3 enumerateObjectsUsingBlock:v13];
   }
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_267(uint64_t a1)
@@ -1731,7 +1711,7 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_267
 
 void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) server];
   v5 = [v4 getClientForUUID:v3];
@@ -1748,11 +1728,11 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
     {
       v7 = *(a1 + 40);
       v8 = v6;
-      v10 = 138543618;
-      v11 = v3;
-      v12 = 2050;
-      v13 = [v7 count];
-      _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer telling client %{public}@ about %{public}lu reports", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v3;
+      v11 = 2050;
+      v12 = [v7 count];
+      _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer telling client %{public}@ about %{public}lu reports", &v9, 0x16u);
     }
 
     [v5 discoveredDevices:*(a1 + 40)];
@@ -1770,8 +1750,6 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
       __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279_cold_3();
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)centralManager:(id)manager didDiscoverPeripheral:(id)peripheral advertisementData:(id)data RSSI:(id)i
@@ -1802,7 +1780,7 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
 
 - (void)centralManager:(id)manager didDiscoverMultiplePeripherals:(id)peripherals
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   peripheralsCopy = peripherals;
   if (WPLogInitOnce != -1)
@@ -1815,35 +1793,35 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
   {
     v9 = v8;
     *buf = 134349056;
-    v24 = [peripheralsCopy count];
+    v23 = [peripheralsCopy count];
     _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer didDiscoverMultiplePeripherals %{public}lu peripherals", buf, 0xCu);
   }
 
   v10 = objc_autoreleasePoolPush();
   v11 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v12 = peripheralsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(WPDObjectDiscoveryManager *)self updateReports:v11 fromReport:*(*(&v18 + 1) + 8 * i), v18];
+        [(WPDObjectDiscoveryManager *)self updateReports:v11 fromReport:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
@@ -1851,13 +1829,11 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
 
   [(WPDObjectDiscoveryManager *)self updateClientsWithReports:v11];
   objc_autoreleasePoolPop(v10);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)centralManager:(id)manager didFailToScanWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   if (WPLogInitOnce != -1)
@@ -1869,7 +1845,7 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = errorCopy;
+    v17 = errorCopy;
     _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer didFailToScanWithError %{public}@", buf, 0xCu);
   }
 
@@ -1889,10 +1865,10 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
         block[1] = 3221225472;
         block[2] = __67__WPDObjectDiscoveryManager_centralManager_didFailToScanWithError___block_invoke_296;
         block[3] = &unk_279E58EE8;
-        objc_copyWeak(&v16, buf);
+        objc_copyWeak(&v15, buf);
         dispatch_async(serverQueue, block);
 
-        objc_destroyWeak(&v16);
+        objc_destroyWeak(&v15);
         objc_destroyWeak(buf);
         goto LABEL_14;
       }
@@ -1912,13 +1888,11 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = errorCopy;
+    v17 = errorCopy;
     _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer UNEXPECTED didFailToScanWithError %{public}@", buf, 0xCu);
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __67__WPDObjectDiscoveryManager_centralManager_didFailToScanWithError___block_invoke_296(uint64_t a1)
@@ -1974,7 +1948,7 @@ void __67__WPDObjectDiscoveryManager_centralManager_didFailToScanWithError___blo
 
 - (id)rulesFromTokens:(id)tokens
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   v4 = tokensCopy;
   if (tokensCopy && [tokensCopy count])
@@ -1987,13 +1961,13 @@ void __67__WPDObjectDiscoveryManager_centralManager_didFailToScanWithError___blo
       v8 = *MEMORY[0x277CBDD70];
       do
       {
-        v15[0] = v7;
+        v14[0] = v7;
         v9 = [v4 objectAtIndexedSubscript:v6];
-        v15[1] = v8;
-        v16[0] = v9;
+        v14[1] = v8;
+        v15[0] = v9;
         v10 = [v4 objectAtIndexedSubscript:v6 + 1];
-        v16[1] = v10;
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+        v15[1] = v10;
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
         [v5 addObject:v11];
 
         v6 += 2;
@@ -2010,14 +1984,12 @@ void __67__WPDObjectDiscoveryManager_centralManager_didFailToScanWithError___blo
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)updateNearbyTokens:(id)tokens
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   if (WPLogInitOnce != -1)
   {
@@ -2027,8 +1999,8 @@ void __67__WPDObjectDiscoveryManager_centralManager_didFailToScanWithError___blo
   v6 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Updating nearby tokens", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Updating nearby tokens", &v17, 2u);
   }
 
   if (tokensCopy || ([(WPDObjectDiscoveryManager *)self nearbyTokensRequest], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -2090,9 +2062,9 @@ LABEL_15:
     {
       v12 = v11;
       matchActionRules = [(WPDObjectDiscoveryManager *)self matchActionRules];
-      v18 = 138412290;
-      v19 = matchActionRules;
-      _os_log_impl(&dword_272965000, v12, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Nearby tokens setMatchActionRules with rules: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = matchActionRules;
+      _os_log_impl(&dword_272965000, v12, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Nearby tokens setMatchActionRules with rules: %@", &v17, 0xCu);
     }
 
     if (WPLogInitOnce != -1)
@@ -2124,8 +2096,6 @@ LABEL_15:
   }
 
 LABEL_33:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)changedScanOptions:(id)options Clients:(id)clients
@@ -2216,7 +2186,7 @@ LABEL_14:
 
 void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -2263,24 +2233,22 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       v17 = v16;
-      v20[0] = 67174913;
-      v20[1] = 18;
-      v21 = 1025;
-      v22 = [WeakRetained advBuffersToRead];
-      _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer force-read for type %{private}d buffers %{private}d", v20, 0xEu);
+      v19[0] = 67174913;
+      v19[1] = 18;
+      v20 = 1025;
+      v21 = [WeakRetained advBuffersToRead];
+      _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer force-read for type %{private}d buffers %{private}d", v19, 0xEu);
     }
 
     [WeakRetained addScanStopTimer];
     v18 = [WeakRetained centralManager];
     [v18 scanForPeripheralsWithServices:0 options:*(a1 + 32)];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateADVBuffer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDObjectDiscoveryManager activateADVBuffer];
@@ -2291,11 +2259,11 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
   {
     v4 = v3;
     scanOptions = [(WPDObjectDiscoveryManager *)self scanOptions];
-    v9[0] = 67174915;
-    v9[1] = 18;
-    v10 = 2113;
-    v11 = scanOptions;
-    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer activate for type %{private}d with options %{private}@", v9, 0x12u);
+    v8[0] = 67174915;
+    v8[1] = 18;
+    v9 = 2113;
+    v10 = scanOptions;
+    _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer activate for type %{private}d with options %{private}@", v8, 0x12u);
   }
 
   centralManager = [(WPDObjectDiscoveryManager *)self centralManager];
@@ -2303,12 +2271,11 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
   [centralManager scanForPeripheralsWithServices:0 options:scanOptions2];
 
   [(WPDObjectDiscoveryManager *)self setScanning:1];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateADVBuffer
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDObjectDiscoveryManager deactivateADVBuffer];
@@ -2317,21 +2284,20 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
   v3 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67174657;
-    v6[1] = 18;
-    _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer deactivate for type %{private}d", v6, 8u);
+    v5[0] = 67174657;
+    v5[1] = 18;
+    _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery ADV Buffer deactivate for type %{private}d", v5, 8u);
   }
 
   centralManager = [(WPDObjectDiscoveryManager *)self centralManager];
   [centralManager stopScan];
 
   [(WPDObjectDiscoveryManager *)self setScanning:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addScanRequest:(id)request forClient:(id)client
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   clientCopy = client;
   if (WPLogInitOnce != -1)
@@ -2373,11 +2339,11 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
       v11 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138543618;
-        v22 = requestCopy;
-        v23 = 2114;
-        v24 = clientCopy;
-        _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Adding scan request %{public}@ for client %{public}@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = requestCopy;
+        v22 = 2114;
+        v23 = clientCopy;
+        _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Adding scan request %{public}@ for client %{public}@", &v20, 0x16u);
       }
 
       scanRequests2 = [(WPDObjectDiscoveryManager *)self scanRequests];
@@ -2390,9 +2356,9 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
     else
     {
       v16 = MEMORY[0x277CCA9B8];
-      v25 = *MEMORY[0x277CCA450];
-      v26 = @"CoreBluetooth is currently powered off";
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x277CCA450];
+      v25 = @"CoreBluetooth is currently powered off";
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v13 = [v16 errorWithDomain:@"WPErrorDomain" code:1 userInfo:v17];
 
       if (WPLogInitOnce != -1)
@@ -2411,9 +2377,9 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
   else
   {
     v14 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"ObjectDiscoveryManager is not scanning for this client type";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"ObjectDiscoveryManager is not scanning for this client type";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v13 = [v14 errorWithDomain:@"WPErrorDomain" code:10 userInfo:v15];
 
     if (WPLogInitOnce != -1)
@@ -2427,29 +2393,25 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)getScanRequestsForClient:(id)client
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   clientCopy = client;
   scanRequests = [(WPDObjectDiscoveryManager *)self scanRequests];
   v6 = [scanRequests objectForKeyedSubscript:clientCopy];
 
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }
 
 - (void)removeScanRequestsForClient:(id)client
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (WPLogInitOnce != -1)
   {
@@ -2474,9 +2436,9 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
     v7 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = clientCopy;
-      _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Removing all scan requests for client %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = clientCopy;
+      _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "ObjectDiscovery Removing all scan requests for client %{public}@", &v10, 0xCu);
     }
 
     scanRequests2 = [(WPDObjectDiscoveryManager *)self scanRequests];
@@ -2495,13 +2457,11 @@ void __48__WPDObjectDiscoveryManager_forceReadADVBuffer___block_invoke(uint64_t 
     v9 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
     {
-      v11 = 138543362;
-      v12 = clientCopy;
-      _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_INFO, "ObjectDiscovery has no scan requests for client %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = clientCopy;
+      _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_INFO, "ObjectDiscovery has no scan requests for client %{public}@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelScanStopTimer
@@ -2561,72 +2521,51 @@ void __45__WPDObjectDiscoveryManager_addScanStopTimer__block_invoke_425(uint64_t
 
 - (void)advertOptionsChanged:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 advertOptions];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_7_0();
-  OUTLINED_FUNCTION_8_0(&dword_272965000, v5, v6, "ObjectDiscovery advertising options old: %@ new: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateAdvertisingOptionsWithError:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8_0(&dword_272965000, v5, v6, "ObjectDiscovery advertising options old: %@ new: %@", v7, v8, v9, v10);
 }
 
 - (void)updateAdvertiser
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAdvertisingRequest:forClient:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_3_2(&dword_272965000, v0, v1, "ObjectDiscovery Adding advertising request %@ for client: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAdvertisingRequest:forClient:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_3_2(&dword_272965000, v0, v1, "ObjectDiscovery Removing advertising request %@ for client: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAdvertisingRequestsForClient:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheralManagerDidStartAdvertising:(void *)a1 error:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = [OUTLINED_FUNCTION_9() localizedDescription];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2048;
-  v10 = [a2 code];
-  _os_log_error_impl(&dword_272965000, v2, OS_LOG_TYPE_ERROR, "ObjectDiscovery Failed to start advertising with error: %@ (%ld)", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2048;
+  v9 = [a2 code];
+  _os_log_error_impl(&dword_272965000, v2, OS_LOG_TYPE_ERROR, "ObjectDiscovery Failed to start advertising with error: %@ (%ld)", &v6, 0x16u);
 }
 
 - (void)peripheralManagerDidStartAdvertising:error:.cold.4()
@@ -2666,13 +2605,10 @@ void __45__WPDObjectDiscoveryManager_addScanStopTimer__block_invoke_425(uint64_t
 
 void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_267_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() advBuffersToRead];
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 8u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_267_cold_4()
@@ -2684,19 +2620,9 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_267
 
 void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateNearbyTokens:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNearbyTokens:.cold.5()
@@ -2708,103 +2634,71 @@ void __54__WPDObjectDiscoveryManager_updateClientsWithReports___block_invoke_279
 
 - (void)updateNearbyTokens:(void *)a1 .cold.7(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_9() nearbyTokensRequest];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNearbyTokens:(void *)a1 .cold.10(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_9() matchActionRules];
   [v3 count];
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)changedScanOptions:Clients:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changedScanOptions:Clients:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateScanRules
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 134218240;
-  *(&v4 + 4) = a2;
-  WORD6(v4) = 2048;
-  HIWORD(v4) = self;
-  OUTLINED_FUNCTION_3_2(&dword_272965000, a2, a3, "ObjectDiscovery ADV Buffer advBuffer:%ld scanInterval:%ld", v4, *(&v4 + 1));
-  v3 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 134218240;
+  *(&v3 + 4) = a2;
+  WORD6(v3) = 2048;
+  HIWORD(v3) = self;
+  OUTLINED_FUNCTION_3_2(&dword_272965000, a2, a3, "ObjectDiscovery ADV Buffer advBuffer:%ld scanInterval:%ld", v3, *(&v3 + 1));
 }
 
 - (void)addScanRequest:forClient:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addScanRequest:forClient:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addScanRequest:(void *)a1 forClient:.cold.6(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  v4[0] = 67240448;
-  v4[1] = 18;
-  v5 = 1026;
-  v6 = [OUTLINED_FUNCTION_9() state];
-  _os_log_error_impl(&dword_272965000, v1, OS_LOG_TYPE_ERROR, "ObjectDiscovery Failed to start a scan for type %{public}d - central is not powered on %{public}d", v4, 0xEu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67240448;
+  v3[1] = 18;
+  v4 = 1026;
+  v5 = [OUTLINED_FUNCTION_9() state];
+  _os_log_error_impl(&dword_272965000, v1, OS_LOG_TYPE_ERROR, "ObjectDiscovery Failed to start a scan for type %{public}d - central is not powered on %{public}d", v3, 0xEu);
 }
 
 - (void)addScanRequest:(void *)a3 forClient:.cold.8(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = a2;
-  [a3 clientType];
-  OUTLINED_FUNCTION_8_0(&dword_272965000, v5, v6, "ObjectDiscovery - %{public}@ is already scanning for type %{public}ld. Replacing scan request", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  *v12 = 138543618;
+  *&v12[4] = a1;
+  *&v12[12] = 2050;
+  *&v12[14] = [a3 clientType];
+  OUTLINED_FUNCTION_8_0(&dword_272965000, v6, v7, "ObjectDiscovery - %{public}@ is already scanning for type %{public}ld. Replacing scan request", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 - (void)removeScanRequestsForClient:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -35,24 +35,22 @@
 
 - (void)releasePowerAssertionIfNeeded
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self && *(self + 16))
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(self + 16);
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "Invalidating power assertion %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "Invalidating power assertion %@", &v5, 0xCu);
     }
 
     [*(self + 16) invalidate];
     v4 = *(self + 16);
     *(self + 16) = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

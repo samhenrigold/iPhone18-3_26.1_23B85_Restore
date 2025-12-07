@@ -22,7 +22,7 @@ uint64_t __62___DPPrioValueRandomizer_randomize_withLocalEpsilon_metadata___bloc
   return result;
 }
 
-uint64_t __68___DPPrioValueRandomizer_randomizeVector_withLocalEpsilon_metadata___block_invoke(uint64_t a1, unsigned int *a2, uint64_t a3)
+BOOL __68___DPPrioValueRandomizer_randomizeVector_withLocalEpsilon_metadata___block_invoke(uint64_t a1, unsigned int *a2, char *a3)
 {
   v3 = a3;
   if ([*(a1 + 32) length] != a3)

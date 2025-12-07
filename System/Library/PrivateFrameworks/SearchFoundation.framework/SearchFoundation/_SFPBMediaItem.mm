@@ -20,7 +20,7 @@
 
 - (_SFPBMediaItem)initWithFacade:(id)facade
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBMediaItem *)self init];
   if (v5)
@@ -102,32 +102,32 @@
       v31 = 0;
     }
 
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     subtitleCustomLineBreaking2 = [facadeCopy subtitleCustomLineBreaking];
-    v33 = [subtitleCustomLineBreaking2 countByEnumeratingWithState:&v58 objects:v63 count:16];
+    v33 = [subtitleCustomLineBreaking2 countByEnumeratingWithState:&v57 objects:v62 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v59;
+      v35 = *v58;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v59 != v35)
+          if (*v58 != v35)
           {
             objc_enumerationMutation(subtitleCustomLineBreaking2);
           }
 
-          if (*(*(&v58 + 1) + 8 * i))
+          if (*(*(&v57 + 1) + 8 * i))
           {
             [v31 addObject:?];
           }
         }
 
-        v34 = [subtitleCustomLineBreaking2 countByEnumeratingWithState:&v58 objects:v63 count:16];
+        v34 = [subtitleCustomLineBreaking2 countByEnumeratingWithState:&v57 objects:v62 count:16];
       }
 
       while (v34);
@@ -145,33 +145,33 @@
       v38 = 0;
     }
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     buyOptions2 = [facadeCopy buyOptions];
-    v40 = [buyOptions2 countByEnumeratingWithState:&v54 objects:v62 count:16];
+    v40 = [buyOptions2 countByEnumeratingWithState:&v53 objects:v61 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v55;
+      v42 = *v54;
       do
       {
         for (j = 0; j != v41; ++j)
         {
-          if (*v55 != v42)
+          if (*v54 != v42)
           {
             objc_enumerationMutation(buyOptions2);
           }
 
-          v44 = [[_SFPBMediaOffer alloc] initWithFacade:*(*(&v54 + 1) + 8 * j)];
+          v44 = [[_SFPBMediaOffer alloc] initWithFacade:*(*(&v53 + 1) + 8 * j)];
           if (v44)
           {
             [v38 addObject:v44];
           }
         }
 
-        v41 = [buyOptions2 countByEnumeratingWithState:&v54 objects:v62 count:16];
+        v41 = [buyOptions2 countByEnumeratingWithState:&v53 objects:v61 count:16];
       }
 
       while (v41);
@@ -199,17 +199,16 @@
     v51 = v5;
   }
 
-  v52 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBMediaItem)initWithDictionary:(id)dictionary
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v60.receiver = self;
-  v60.super_class = _SFPBMediaItem;
-  v5 = [(_SFPBMediaItem *)&v60 init];
+  v59.receiver = self;
+  v59.super_class = _SFPBMediaItem;
+  v5 = [(_SFPBMediaItem *)&v59 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"title"];
@@ -254,16 +253,16 @@
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"reviewText"];
     objc_opt_class();
-    v51 = v16;
+    v50 = v16;
     if (objc_opt_isKindOfClass())
     {
       v17 = [v16 copy];
       [(_SFPBMediaItem *)v5 setReviewText:v17];
     }
 
-    v45 = v14;
-    v46 = v12;
-    v47 = v10;
+    v44 = v14;
+    v45 = v12;
+    v46 = v10;
     v18 = [dictionaryCopy objectForKeyedSubscript:@"punchout"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -272,34 +271,34 @@
       [(_SFPBMediaItem *)v5 setPunchout:v19];
     }
 
-    v44 = v18;
+    v43 = v18;
     v20 = [dictionaryCopy objectForKeyedSubscript:@"subtitleCustomLineBreaking"];
     objc_opt_class();
-    v48 = v8;
-    v49 = v6;
-    v43 = v20;
+    v47 = v8;
+    v48 = v6;
+    v42 = v20;
     if (objc_opt_isKindOfClass())
     {
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       v21 = v20;
-      v22 = [v21 countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v55 objects:v61 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v57;
+        v24 = *v56;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v57 != v24)
+            if (*v56 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v56 + 1) + 8 * i);
+            v26 = *(*(&v55 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -308,42 +307,42 @@
             }
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v56 objects:v62 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v55 objects:v61 count:16];
         }
 
         while (v23);
       }
 
-      v8 = v48;
-      v6 = v49;
-      v20 = v43;
+      v8 = v47;
+      v6 = v48;
+      v20 = v42;
     }
 
     v28 = [dictionaryCopy objectForKeyedSubscript:@"buyOptions"];
     objc_opt_class();
-    v50 = v28;
+    v49 = v28;
     if (objc_opt_isKindOfClass())
     {
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       v29 = v28;
-      v30 = [v29 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v51 objects:v60 count:16];
       if (v30)
       {
         v31 = v30;
-        v32 = *v53;
+        v32 = *v52;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v53 != v32)
+            if (*v52 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            v34 = *(*(&v52 + 1) + 8 * j);
+            v34 = *(*(&v51 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -352,15 +351,15 @@
             }
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v52 objects:v61 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v51 objects:v60 count:16];
         }
 
         while (v31);
       }
 
-      v8 = v48;
-      v6 = v49;
-      v20 = v43;
+      v8 = v47;
+      v6 = v48;
+      v20 = v42;
     }
 
     v36 = [dictionaryCopy objectForKeyedSubscript:@"contentAdvisory"];
@@ -382,7 +381,6 @@
     v40 = v5;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -422,31 +420,31 @@
 
 - (id)dictionaryRepresentation
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_buyOptions count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v5 = self->_buyOptions;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v41;
+      v8 = *v40;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v41 != v8)
+          if (*v40 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -459,7 +457,7 @@
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v7);
@@ -591,8 +589,6 @@
     v37 = [title copy];
     [dictionary setObject:v37 forKeyedSubscript:@"title"];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -908,7 +904,7 @@ LABEL_58:
 
 - (void)writeTo:(id)to
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   toCopy = to;
   title = [(_SFPBMediaItem *)self title];
   if (title)
@@ -953,67 +949,65 @@ LABEL_58:
   }
 
   subtitleCustomLineBreakings = [(_SFPBMediaItem *)self subtitleCustomLineBreakings];
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v13 = [subtitleCustomLineBreakings countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v13 = [subtitleCustomLineBreakings countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v32;
+    v15 = *v29;
     do
     {
       v16 = 0;
       do
       {
-        if (*v32 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(subtitleCustomLineBreakings);
         }
 
-        v17 = *(*(&v31 + 1) + 8 * v16);
         PBDataWriterWriteStringField();
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [subtitleCustomLineBreakings countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v14 = [subtitleCustomLineBreakings countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v14);
   }
 
   buyOptions = [(_SFPBMediaItem *)self buyOptions];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v19 = [buyOptions countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v19)
+  v18 = [buyOptions countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (v18)
   {
-    v20 = v19;
-    v21 = *v28;
+    v19 = v18;
+    v20 = *v25;
     do
     {
-      v22 = 0;
+      v21 = 0;
       do
       {
-        if (*v28 != v21)
+        if (*v25 != v20)
         {
           objc_enumerationMutation(buyOptions);
         }
 
-        v23 = *(*(&v27 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        ++v22;
+        ++v21;
       }
 
-      while (v20 != v22);
-      v20 = [buyOptions countByEnumeratingWithState:&v27 objects:v35 count:16];
+      while (v19 != v21);
+      v19 = [buyOptions countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
   contentAdvisory = [(_SFPBMediaItem *)self contentAdvisory];
@@ -1027,15 +1021,11 @@ LABEL_58:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setContentAdvisory:(id)advisory
 {
-  v4 = [advisory copy];
-  contentAdvisory = self->_contentAdvisory;
-  self->_contentAdvisory = v4;
+  self->_contentAdvisory = [advisory copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1060,9 +1050,7 @@ LABEL_58:
 
 - (void)setBuyOptions:(id)options
 {
-  v4 = [options copy];
-  buyOptions = self->_buyOptions;
-  self->_buyOptions = v4;
+  self->_buyOptions = [options copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1087,27 +1075,21 @@ LABEL_58:
 
 - (void)setSubtitleCustomLineBreaking:(id)breaking
 {
-  v4 = [breaking copy];
-  subtitleCustomLineBreakings = self->_subtitleCustomLineBreakings;
-  self->_subtitleCustomLineBreakings = v4;
+  self->_subtitleCustomLineBreakings = [breaking copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setReviewText:(id)text
 {
-  v4 = [text copy];
-  reviewText = self->_reviewText;
-  self->_reviewText = v4;
+  self->_reviewText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

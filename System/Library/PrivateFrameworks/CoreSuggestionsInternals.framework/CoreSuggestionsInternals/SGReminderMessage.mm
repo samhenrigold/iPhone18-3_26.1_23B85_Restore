@@ -46,36 +46,36 @@
 
 - (BOOL)hasTrigger
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   modelOutput = [(SGExtractionDocument *)self modelOutput];
   v3 = [modelOutput objectForKeyedSubscript:@"trigger"];
 
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (![*(*(&v11 + 1) + 8 * i) isEqualToString:@"NONE"])
+        if (![*(*(&v10 + 1) + 8 * i) isEqualToString:@"NONE"])
         {
           v8 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -88,7 +88,6 @@
   v8 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -106,7 +105,7 @@ LABEL_11:
   v5 = [modelOutput2 objectForKeyedSubscript:@"trigger"];
 
   v6 = objc_opt_new();
-  if (![v5 count])
+  if (!objc_msgSend_count(v5))
   {
     v8 = 0;
     v9 = 0;
@@ -156,7 +155,7 @@ LABEL_11:
     ++v7;
   }
 
-  while ([v5 count] > v7);
+  while (objc_msgSend_count(v5) > v7);
   if (v8 != 4)
   {
 LABEL_23:
@@ -202,29 +201,29 @@ LABEL_29:
 
 - (id)detectedDueDateComponents
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dueDateDataDetectorMatches = [(SGReminderMessage *)self dueDateDataDetectorMatches];
   v3 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   first = [dueDateDataDetectorMatches first];
-  v5 = [first countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [first countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(first);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = objc_opt_class();
         second = [dueDateDataDetectorMatches second];
         v12 = [v10 dateComponentsFromDataDetectorMatch:v9 inferDates:objc_msgSend(second approximateTime:"BOOLValue") ^ 1 partialDate:1 useEndForDurations:{1, 0}];
@@ -235,13 +234,11 @@ LABEL_29:
         }
       }
 
-      v6 = [first countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [first countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -305,83 +302,75 @@ LABEL_29:
 
 - (BOOL)isProposal
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if ([(SGMessage *)self->_message isSent])
+  v21 = *MEMORY[0x277D85DE8];
+  if (![(SGMessage *)self->_message isSent])
   {
-    goto LABEL_17;
-  }
+    modelOutput = [(SGExtractionDocument *)self modelOutput];
 
-  modelOutput = [(SGExtractionDocument *)self modelOutput];
-
-  if (!modelOutput)
-  {
-    goto LABEL_17;
-  }
-
-  modelOutput2 = [(SGExtractionDocument *)self modelOutput];
-  v5 = [modelOutput2 objectForKeyedSubscript:@"polarity"];
-  v6 = [v5 count];
-
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  modelOutput3 = [(SGExtractionDocument *)self modelOutput];
-  v8 = [modelOutput3 objectForKeyedSubscript:@"polarity"];
-
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (!v9)
-  {
-LABEL_16:
-
-LABEL_17:
-    result = 0;
-    goto LABEL_18;
-  }
-
-  v10 = v9;
-  v11 = *v18;
-  v12 = 0.0;
-  do
-  {
-    for (i = 0; i != v10; ++i)
+    if (modelOutput)
     {
-      if (*v18 != v11)
+      modelOutput2 = [(SGExtractionDocument *)self modelOutput];
+      v5 = [modelOutput2 objectForKeyedSubscript:@"polarity"];
+      v6 = objc_msgSend_count(v5);
+
+      v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      modelOutput3 = [(SGExtractionDocument *)self modelOutput];
+      v8 = [modelOutput3 objectForKeyedSubscript:@"polarity"];
+
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v9)
       {
-        objc_enumerationMutation(v8);
+        v10 = v9;
+        v11 = *v17;
+        v12 = 0.0;
+        do
+        {
+          for (i = 0; i != v10; ++i)
+          {
+            if (*v17 != v11)
+            {
+              objc_enumerationMutation(v8);
+            }
+
+            v14 = *(*(&v16 + 1) + 8 * i);
+            if ([@"POLARITY__REMINDER_STATEMENT" isEqualToString:v14])
+            {
+              v12 = v12 + 1.0;
+            }
+
+            else if ([@"POLARITY__REJECTION" isEqualToString:v14])
+            {
+              goto LABEL_16;
+            }
+          }
+
+          v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        }
+
+        while (v10);
+
+        if (v12 > 0.0 && v12 / v6 > 0.1)
+        {
+          return 1;
+        }
       }
 
-      v14 = *(*(&v17 + 1) + 8 * i);
-      if ([@"POLARITY__REMINDER_STATEMENT" isEqualToString:v14])
+      else
       {
-        v12 = v12 + 1.0;
-      }
-
-      else if ([@"POLARITY__REJECTION" isEqualToString:v14])
-      {
-        goto LABEL_16;
+LABEL_16:
       }
     }
-
-    v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   }
 
-  while (v10);
-
-  if (v12 <= 0.0 || v12 / v6 <= 0.1)
-  {
-    goto LABEL_17;
-  }
-
-  result = 1;
-LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)isRejection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   isSent = [(SGMessage *)self->_message isSent];
   if (isSent)
   {
@@ -391,31 +380,31 @@ LABEL_18:
     {
       modelOutput2 = [(SGExtractionDocument *)self modelOutput];
       v6 = [modelOutput2 objectForKeyedSubscript:@"polarity"];
-      v7 = [v6 count];
+      v7 = objc_msgSend_count(v6);
 
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       modelOutput3 = [(SGExtractionDocument *)self modelOutput];
       v9 = [modelOutput3 objectForKeyedSubscript:@"polarity"];
 
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v21;
+        v12 = *v20;
         v13 = 0.0;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v21 != v12)
+            if (*v20 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v15 = *(*(&v20 + 1) + 8 * i);
+            v15 = *(*(&v19 + 1) + 8 * i);
             if (([@"POLARITY__REJECTION" isEqualToString:v15] & 1) != 0 || objc_msgSend(@"POLARITY__DONE", "isEqualToString:", v15))
             {
               v13 = v13 + 1.0;
@@ -428,7 +417,7 @@ LABEL_18:
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v11)
           {
             continue;
@@ -475,46 +464,51 @@ LABEL_18:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return isSent;
 }
 
 - (BOOL)isConfirmation
 {
-  v30 = *MEMORY[0x277D85DE8];
-  if (![(SGMessage *)self->_message isSent]|| ([(SGExtractionDocument *)self modelOutput], v3 = objc_claimAutoreleasedReturnValue(), v3, !v3))
+  v29 = *MEMORY[0x277D85DE8];
+  if (![(SGMessage *)self->_message isSent])
   {
-    v15 = 0;
-    goto LABEL_26;
+    return 0;
   }
 
   modelOutput = [(SGExtractionDocument *)self modelOutput];
-  v5 = [modelOutput objectForKeyedSubscript:@"polarity"];
-  v24 = [v5 count];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  if (!modelOutput)
+  {
+    return 0;
+  }
+
   modelOutput2 = [(SGExtractionDocument *)self modelOutput];
-  v7 = [modelOutput2 objectForKeyedSubscript:@"polarity"];
+  v5 = [modelOutput2 objectForKeyedSubscript:@"polarity"];
+  v23 = objc_msgSend_count(v5);
 
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  modelOutput3 = [(SGExtractionDocument *)self modelOutput];
+  v7 = [modelOutput3 objectForKeyedSubscript:@"polarity"];
+
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     v11 = 0.0;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         if ([@"POLARITY__COMMITMENT" isEqualToString:v13])
         {
           v11 = v11 + 1.0;
@@ -526,15 +520,14 @@ LABEL_18:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
 
-    if (v11 > 0.0 && v24 != 0)
+    if (v11 > 0.0 && v23 != 0)
     {
-      v15 = 1;
-      goto LABEL_26;
+      return 1;
     }
   }
 
@@ -546,32 +539,23 @@ LABEL_20:
   v16 = +[SGReminderExtractionModel sharedInstance];
   reminderOverrides = [v16 reminderOverrides];
 
-  if (!reminderOverrides)
+  v15 = 0;
+  if (reminderOverrides)
   {
-    goto LABEL_24;
+    textContent = [(SGMessage *)self->_message textContent];
+    CFCharacterSetGetPredefined(kCFCharacterSetPunctuation);
+    v19 = _PASRemoveCharacterSet();
+    localizedLowercaseString = [v19 localizedLowercaseString];
+
+    v21 = [reminderOverrides objectForKeyedSubscript:@"confirmation"];
+    LOBYTE(v19) = [v21 containsObject:localizedLowercaseString];
+
+    if (v19)
+    {
+      v15 = 1;
+    }
   }
 
-  textContent = [(SGMessage *)self->_message textContent];
-  CFCharacterSetGetPredefined(kCFCharacterSetPunctuation);
-  v19 = _PASRemoveCharacterSet();
-  localizedLowercaseString = [v19 localizedLowercaseString];
-
-  v21 = [reminderOverrides objectForKeyedSubscript:@"confirmation"];
-  LOBYTE(v19) = [v21 containsObject:localizedLowercaseString];
-
-  if (v19)
-  {
-    v15 = 1;
-  }
-
-  else
-  {
-LABEL_24:
-    v15 = 0;
-  }
-
-LABEL_26:
-  v22 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -614,60 +598,60 @@ LABEL_26:
 
 + (id)searchTokensForReminderTitle:(id)title
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   v5 = +[SGPOSTagger sharedInstance];
-  v26 = titleCopy;
+  v25 = titleCopy;
   v6 = [v5 tokenizeTextContent:titleCopy languageHint:0];
 
-  v31 = objc_opt_new();
+  v30 = objc_opt_new();
   posTaggerNouns = [self posTaggerNouns];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = v6;
-  v8 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v8 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v37;
-    v27 = *v37;
+    v10 = *v36;
+    v26 = *v36;
     do
     {
       v11 = 0;
-      v28 = v9;
+      v27 = v9;
       do
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * v11);
+        v12 = *(*(&v35 + 1) + 8 * v11);
         if ([v12 annotationType] == 2)
         {
-          v30 = v11;
-          v34 = 0u;
-          v35 = 0u;
-          v32 = 0u;
+          v29 = v11;
           v33 = 0u;
+          v34 = 0u;
+          v31 = 0u;
+          v32 = 0u;
           tags = [v12 tags];
-          v14 = [tags countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v14 = [tags countByEnumeratingWithState:&v31 objects:v39 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v33;
+            v16 = *v32;
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v33 != v16)
+                if (*v32 != v16)
                 {
                   objc_enumerationMutation(tags);
                 }
 
-                v18 = *(*(&v32 + 1) + 8 * i);
+                v18 = *(*(&v31 + 1) + 8 * i);
                 v19 = objc_alloc(MEMORY[0x277CCACA8]);
                 annotationTypeUniqueIdentifier = [v12 annotationTypeUniqueIdentifier];
                 v21 = [v19 initWithFormat:@"%@_%@", annotationTypeUniqueIdentifier, v18];
@@ -676,34 +660,32 @@ LABEL_26:
                 if (v18)
                 {
                   text = [v12 text];
-                  [v31 addObject:text];
+                  [v30 addObject:text];
                 }
               }
 
-              v15 = [tags countByEnumeratingWithState:&v32 objects:v40 count:16];
+              v15 = [tags countByEnumeratingWithState:&v31 objects:v39 count:16];
             }
 
             while (v15);
           }
 
-          v10 = v27;
-          v9 = v28;
-          v11 = v30;
+          v10 = v26;
+          v9 = v27;
+          v11 = v29;
         }
 
         ++v11;
       }
 
       while (v11 != v9);
-      v9 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v9 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v9);
   }
 
-  allObjects = [v31 allObjects];
-
-  v24 = *MEMORY[0x277D85DE8];
+  allObjects = [v30 allObjects];
 
   return allObjects;
 }
@@ -746,12 +728,12 @@ LABEL_26:
   }
 
   v9 = v8;
-  if ([arrayCopy count])
+  if (objc_msgSend_count(arrayCopy))
   {
     context = objc_autoreleasePoolPush();
     v10 = objc_opt_new();
     objc_msgSend(v10, "appendString:", @"(?:");
-    if ([arrayCopy count])
+    if (objc_msgSend_count(arrayCopy))
     {
       v11 = 0;
       do
@@ -775,7 +757,7 @@ LABEL_26:
         ++v11;
       }
 
-      while ([arrayCopy count] > v11);
+      while (objc_msgSend_count(arrayCopy) > v11);
     }
 
     [v10 appendString:@""]);
@@ -876,29 +858,29 @@ LABEL_26:
 
 id __68__SGReminderMessage_enrichedTaggedCharacterRangesContainsProfanity___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = [v2 tags];
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 hasPrefix:@"L_"])
         {
           v10 = objc_autoreleasePoolPush();
@@ -909,7 +891,7 @@ id __68__SGReminderMessage_enrichedTaggedCharacterRangesContainsProfanity___bloc
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -920,40 +902,38 @@ id __68__SGReminderMessage_enrichedTaggedCharacterRangesContainsProfanity___bloc
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (BOOL)validModelOutput:(id)output error:(id *)error
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   obj = output;
-  v43 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
+  v42 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
   v4 = 0;
   hasTrigger = 0;
-  if (v43)
+  if (v42)
   {
-    v50 = 0;
+    v49 = 0;
     v6 = 0;
     LOBYTE(v7) = 0;
-    v42 = *v60;
+    v41 = *v59;
     v8 = 1;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v60 != v42)
+        if (*v59 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v59 + 1) + 8 * v9);
+        v10 = *(*(&v58 + 1) + 8 * v9);
         modelOutput = [v10 modelOutput];
 
         if (!modelOutput)
@@ -962,8 +942,8 @@ id __68__SGReminderMessage_enrichedTaggedCharacterRangesContainsProfanity___bloc
           goto LABEL_47;
         }
 
-        v47 = v9;
-        v48 = v10;
+        v46 = v9;
+        v47 = v10;
         if (v7)
         {
           v7 = 1;
@@ -971,36 +951,36 @@ id __68__SGReminderMessage_enrichedTaggedCharacterRangesContainsProfanity___bloc
 
         else
         {
-          v57 = 0u;
-          v58 = 0u;
-          v55 = 0u;
           v56 = 0u;
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
           modelOutput2 = [v10 modelOutput];
           v13 = [modelOutput2 objectForKeyedSubscript:@"polarity"];
 
-          v14 = [v13 countByEnumeratingWithState:&v55 objects:v66 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v54 objects:v65 count:16];
           if (v14)
           {
             v15 = v14;
             v16 = hasTrigger;
-            v17 = *v56;
+            v17 = *v55;
             while (2)
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v56 != v17)
+                if (*v55 != v17)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                if (![*(*(&v55 + 1) + 8 * i) isEqualToString:@"NONE"])
+                if (![*(*(&v54 + 1) + 8 * i) isEqualToString:@"NONE"])
                 {
                   v7 = 1;
                   goto LABEL_19;
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v55 objects:v66 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v54 objects:v65 count:16];
               if (v15)
               {
                 continue;
@@ -1019,35 +999,35 @@ LABEL_19:
             v7 = 0;
           }
 
-          v10 = v48;
+          v10 = v47;
         }
 
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
         v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
         modelOutput3 = [v10 modelOutput];
         v20 = [modelOutput3 objectForKeyedSubscript:@"title"];
 
-        v21 = [v20 countByEnumeratingWithState:&v51 objects:v65 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v50 objects:v64 count:16];
         if (v21)
         {
           v22 = v21;
-          v44 = v7;
-          v45 = hasTrigger;
-          v46 = v8;
+          v43 = v7;
+          v44 = hasTrigger;
+          v45 = v8;
           LODWORD(hasTrigger) = 0;
-          v23 = *v52;
+          v23 = *v51;
           do
           {
             for (j = 0; j != v22; ++j)
             {
-              if (*v52 != v23)
+              if (*v51 != v23)
               {
                 objc_enumerationMutation(v20);
               }
 
-              v25 = *(*(&v51 + 1) + 8 * j);
+              v25 = *(*(&v50 + 1) + 8 * j);
               if ([v25 isEqualToString:@"NONE"])
               {
                 v4 = 1;
@@ -1056,7 +1036,7 @@ LABEL_19:
               else if ([v25 isEqualToString:@"EXTRACTION__REMINDER_TITLE_ACTION_VERB"])
               {
                 LODWORD(hasTrigger) = hasTrigger + 1;
-                v50 = 1;
+                v49 = 1;
               }
 
               else
@@ -1065,15 +1045,15 @@ LABEL_19:
               }
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v51 objects:v65 count:16];
+            v22 = [v20 countByEnumeratingWithState:&v50 objects:v64 count:16];
           }
 
           while (v22);
 
           v26 = hasTrigger < 2;
-          LOBYTE(hasTrigger) = v45;
-          v8 = v26 & v46;
-          v7 = v44;
+          LOBYTE(hasTrigger) = v44;
+          v8 = v26 & v45;
+          v7 = v43;
         }
 
         else
@@ -1087,15 +1067,15 @@ LABEL_19:
 
         else
         {
-          hasTrigger = [v48 hasTrigger];
+          hasTrigger = [v47 hasTrigger];
         }
 
-        v9 = v47 + 1;
+        v9 = v46 + 1;
       }
 
-      while (v47 + 1 != v43);
-      v43 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
-      if (v43)
+      while (v46 + 1 != v42);
+      v42 = [obj countByEnumeratingWithState:&v58 objects:v66 count:16];
+      if (v42)
       {
         continue;
       }
@@ -1106,45 +1086,44 @@ LABEL_19:
 
   else
   {
-    v50 = 0;
+    v49 = 0;
     LOBYTE(v6) = 0;
     v7 = 0;
     LOBYTE(v8) = 1;
   }
 
-  v28 = v7 & v4 & hasTrigger & v8 & v50 & v6;
-  if (error && ((v7 & v4 & hasTrigger & v8 & v50) & v6 & 1) == 0)
+  v28 = v7 & v4 & hasTrigger & v8 & v49 & v6;
+  if (error && ((v7 & v4 & hasTrigger & v8 & v49) & v6 & 1) == 0)
   {
-    v49 = MEMORY[0x277CCA9B8];
+    v48 = MEMORY[0x277CCA9B8];
     v29 = *MEMORY[0x277D02208];
-    v63[0] = @"hasPolarity:";
+    v62[0] = @"hasPolarity:";
     v27 = [MEMORY[0x277CCABB0] numberWithBool:v7];
-    v64[0] = v27;
-    v63[1] = @"hasTitle";
+    v63[0] = v27;
+    v62[1] = @"hasTitle";
     v30 = [MEMORY[0x277CCABB0] numberWithBool:v4 & 1];
     v31 = hasTrigger;
     v32 = v30;
-    v64[1] = v30;
-    v63[2] = @"hasTrigger";
+    v63[1] = v30;
+    v62[2] = @"hasTrigger";
     v33 = [MEMORY[0x277CCABB0] numberWithBool:v31];
-    v64[2] = v33;
-    v63[3] = @"hasCorrectNumberOfActionVerbs";
+    v63[2] = v33;
+    v62[3] = @"hasCorrectNumberOfActionVerbs";
     v34 = [MEMORY[0x277CCABB0] numberWithBool:v8 & 1];
-    v64[3] = v34;
-    v63[4] = @"hasActionVerb";
-    v35 = [MEMORY[0x277CCABB0] numberWithBool:v50 & 1];
-    v64[4] = v35;
-    v63[5] = @"hasObjectCore";
+    v63[3] = v34;
+    v62[4] = @"hasActionVerb";
+    v35 = [MEMORY[0x277CCABB0] numberWithBool:v49 & 1];
+    v63[4] = v35;
+    v62[5] = @"hasObjectCore";
     v36 = [MEMORY[0x277CCABB0] numberWithBool:v6 & 1];
-    v64[5] = v36;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:6];
-    *error = [v49 errorWithDomain:v29 code:9 userInfo:v37];
+    v63[5] = v36;
+    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:6];
+    *error = [v48 errorWithDomain:v29 code:9 userInfo:v37];
 
 LABEL_47:
     v28 = 0;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -1161,7 +1140,7 @@ LABEL_47:
 {
   length = range.length;
   location = range.location;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   rangesCopy = ranges;
   posTaggerNouns = [self posTaggerNouns];
   v9 = location + length;
@@ -1175,32 +1154,32 @@ LABEL_47:
     do
     {
       v10 = [rangesCopy objectAtIndexedSubscript:location];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
       tags = [v10 tags];
-      v12 = [tags countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [tags countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v12)
       {
-        v13 = *v18;
+        v13 = *v17;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v18 != v13)
+            if (*v17 != v13)
             {
               objc_enumerationMutation(tags);
             }
 
-            if ([posTaggerNouns containsObject:*(*(&v17 + 1) + 8 * i)])
+            if ([posTaggerNouns containsObject:*(*(&v16 + 1) + 8 * i)])
             {
               LOBYTE(v12) = 1;
               goto LABEL_12;
             }
           }
 
-          v12 = [tags countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v12 = [tags countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v12)
           {
             continue;
@@ -1218,7 +1197,6 @@ LABEL_12:
     while (location < v9 && (v12 & 1) == 0);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1226,46 +1204,46 @@ LABEL_12:
 {
   length = range.length;
   location = range.location;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   rangesCopy = ranges;
   v6 = objc_autoreleasePoolPush();
   v7 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"I_VB", @"I_VBP", @"I_VBN", @"I_VBG", @"I_Verb", 0}];
   objc_autoreleasePoolPop(v6);
-  v24 = location + length;
+  v23 = location + length;
   if (location < location + length)
   {
-    v23 = 0;
+    v22 = 0;
     while (1)
     {
       v8 = [rangesCopy objectAtIndexedSubscript:location];
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       tags = [v8 tags];
-      v10 = [tags countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v10 = [tags countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (!v10)
       {
         break;
       }
 
       v11 = v10;
-      v26 = location;
-      v27 = v8;
+      v25 = location;
+      v26 = v8;
       v12 = 0;
       v13 = 0;
       v14 = 0;
-      v15 = *v30;
+      v15 = *v29;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v15)
+          if (*v29 != v15)
           {
             objc_enumerationMutation(tags);
           }
 
-          v17 = *(*(&v29 + 1) + 8 * i);
+          v17 = *(*(&v28 + 1) + 8 * i);
           if ([v17 isEqualToString:@"R_action"])
           {
             v12 = 1;
@@ -1282,32 +1260,32 @@ LABEL_12:
           }
         }
 
-        v11 = [tags countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [tags countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v11);
 
       if (v12 & v13)
       {
-        ++HIDWORD(v23);
-        v8 = v27;
+        ++HIDWORD(v22);
+        v8 = v26;
       }
 
       else
       {
-        v8 = v27;
+        v8 = v26;
         if ((v14 & 1) == 0)
         {
           goto LABEL_27;
         }
 
-        LODWORD(v23) = v23 + 1;
+        LODWORD(v22) = v22 + 1;
       }
 
-      location = v26 + 1;
-      if (v26 + 1 == v24)
+      location = v25 + 1;
+      if (v25 + 1 == v23)
       {
-        v19 = HIDWORD(v23) == 1 && v23 < 2;
+        v19 = HIDWORD(v22) == 1 && v22 < 2;
         goto LABEL_31;
       }
     }
@@ -1324,7 +1302,6 @@ LABEL_27:
   v19 = 0;
 LABEL_31:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1412,7 +1389,7 @@ LABEL_14:
 
 + (id)detectedTitleInModelOutput:(id)output enrichedTaggedCharacterRanges:(id)ranges textContent:(id)content language:(id)language
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   rangesCopy = ranges;
   contentCopy = content;
@@ -1426,8 +1403,8 @@ LABEL_14:
       goto LABEL_48;
     }
 
-    v59 = [self labelTokenIndexesForOutputName:@"title" label:@"EXTRACTION__REMINDER_TITLE_ACTION_VERB" modelOutput:outputCopy];
-    if (![v59 count])
+    v58 = [self labelTokenIndexesForOutputName:@"title" label:@"EXTRACTION__REMINDER_TITLE_ACTION_VERB" modelOutput:outputCopy];
+    if (!objc_msgSend_count(v58))
     {
       v14 = 0;
 LABEL_47:
@@ -1435,8 +1412,8 @@ LABEL_47:
       goto LABEL_48;
     }
 
-    v58 = [self labelTokenIndexesForOutputName:@"title" label:@"EXTRACTION__REMINDER_TITLE_ACTION_OBJECT_CORE" modelOutput:outputCopy];
-    if (![v58 count])
+    v57 = [self labelTokenIndexesForOutputName:@"title" label:@"EXTRACTION__REMINDER_TITLE_ACTION_OBJECT_CORE" modelOutput:outputCopy];
+    if (!objc_msgSend_count(v57))
     {
       v14 = 0;
 LABEL_46:
@@ -1444,74 +1421,74 @@ LABEL_46:
       goto LABEL_47;
     }
 
-    v15 = [self firstRangeInIndexSet:v59];
+    v15 = [self firstRangeInIndexSet:v58];
     v17 = v16;
     if ([self validActionVerbIndexRange:v15 enrichedTaggedCharacterRanges:{v16, rangesCopy}])
     {
-      v18 = [self firstRangeInIndexSet:v58];
-      v56 = v19;
+      v18 = [self firstRangeInIndexSet:v57];
+      v55 = v19;
       if ([self validObjectCoreIndexRange:v18 enrichedTaggedCharacterRanges:{v19, rangesCopy}])
       {
         context = objc_autoreleasePoolPush();
-        v55 = v18;
+        v54 = v18;
         if (v15 >= v18)
         {
           v33 = objc_opt_new();
+          v71 = 0u;
           v72 = 0u;
           v73 = 0u;
           v74 = 0u;
-          v75 = 0u;
           v34 = objc_autoreleasePoolPush();
           v35 = [rangesCopy subarrayWithRange:{v15, v17}];
           objc_autoreleasePoolPop(v34);
-          v36 = [v35 countByEnumeratingWithState:&v72 objects:v77 count:16];
+          v36 = [v35 countByEnumeratingWithState:&v71 objects:v76 count:16];
           if (v36)
           {
-            v37 = *v73;
+            v37 = *v72;
             do
             {
               for (i = 0; i != v36; ++i)
               {
-                if (*v73 != v37)
+                if (*v72 != v37)
                 {
                   objc_enumerationMutation(v35);
                 }
 
-                text = [*(*(&v72 + 1) + 8 * i) text];
+                text = [*(*(&v71 + 1) + 8 * i) text];
                 [v33 addObject:text];
               }
 
-              v36 = [v35 countByEnumeratingWithState:&v72 objects:v77 count:16];
+              v36 = [v35 countByEnumeratingWithState:&v71 objects:v76 count:16];
             }
 
             while (v36);
           }
 
-          v70 = 0u;
-          v71 = 0u;
-          v68 = 0u;
           v69 = 0u;
+          v70 = 0u;
+          v67 = 0u;
+          v68 = 0u;
           v40 = objc_autoreleasePoolPush();
-          v41 = [rangesCopy subarrayWithRange:{v55, v56}];
+          v41 = [rangesCopy subarrayWithRange:{v54, v55}];
           objc_autoreleasePoolPop(v40);
-          v42 = [v41 countByEnumeratingWithState:&v68 objects:v76 count:16];
+          v42 = [v41 countByEnumeratingWithState:&v67 objects:v75 count:16];
           if (v42)
           {
-            v43 = *v69;
+            v43 = *v68;
             do
             {
               for (j = 0; j != v42; ++j)
               {
-                if (*v69 != v43)
+                if (*v68 != v43)
                 {
                   objc_enumerationMutation(v41);
                 }
 
-                text2 = [*(*(&v68 + 1) + 8 * j) text];
+                text2 = [*(*(&v67 + 1) + 8 * j) text];
                 [v33 addObject:text2];
               }
 
-              v42 = [v41 countByEnumeratingWithState:&v68 objects:v76 count:16];
+              v42 = [v41 countByEnumeratingWithState:&v67 objects:v75 count:16];
             }
 
             while (v42);
@@ -1527,23 +1504,23 @@ LABEL_46:
           v20 = [rangesCopy objectAtIndexedSubscript:v15];
           range = [v20 range];
 
-          v22 = [rangesCopy objectAtIndexedSubscript:v56 + v55 - 1];
+          v22 = [rangesCopy objectAtIndexedSubscript:v55 + v54 - 1];
           range2 = [v22 range];
           [v22 range];
-          v57 = v24;
+          v56 = v24;
           v25 = [self titlePrependForActionVerbIndexRange:v15 enrichedTaggedCharacterRanges:v17 language:rangesCopy content:{languageCopy, contentCopy}];
           v26 = range;
           v27 = range2 - range;
           if (v25)
           {
             v28 = objc_alloc(MEMORY[0x277CCACA8]);
-            v29 = [contentCopy substringWithRange:{v26, v27 + v57}];
+            v29 = [contentCopy substringWithRange:{v26, v27 + v56}];
             v30 = [v28 initWithFormat:@"%@%@", v25, v29];
           }
 
           else
           {
-            v30 = [contentCopy substringWithRange:{v26, v27 + v57}];
+            v30 = [contentCopy substringWithRange:{v26, v27 + v56}];
           }
 
           objc_autoreleasePoolPop(context);
@@ -1558,27 +1535,27 @@ LABEL_46:
         v46 = objc_autoreleasePoolPush();
         v47 = [v30 mutableCopy];
         v48 = [v30 length];
-        v66[0] = MEMORY[0x277D85DD0];
-        v66[1] = 3221225472;
-        v66[2] = __99__SGReminderMessage_detectedTitleInModelOutput_enrichedTaggedCharacterRanges_textContent_language___block_invoke;
-        v66[3] = &unk_27894F8D0;
+        v65[0] = MEMORY[0x277D85DD0];
+        v65[1] = 3221225472;
+        v65[2] = __99__SGReminderMessage_detectedTitleInModelOutput_enrichedTaggedCharacterRanges_textContent_language___block_invoke;
+        v65[3] = &unk_27894F8D0;
         v49 = v47;
-        v67 = v49;
-        [v49 enumerateSubstringsInRange:0 options:v48 usingBlock:{1027, v66}];
+        v66 = v49;
+        [v49 enumerateSubstringsInRange:0 options:v48 usingBlock:{1027, v65}];
         v31 = v49;
 
         *buf = 0;
-        v63 = buf;
-        v64 = 0x2020000000;
-        v65 = 0;
+        v62 = buf;
+        v63 = 0x2020000000;
+        v64 = 0;
         v50 = [v31 length];
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __99__SGReminderMessage_detectedTitleInModelOutput_enrichedTaggedCharacterRanges_textContent_language___block_invoke_2;
-        v61[3] = &unk_27894F8F8;
-        v61[4] = buf;
-        [v31 enumerateSubstringsInRange:0 options:v50 usingBlock:2, v61];
-        if (*(v63 + 6) < 81)
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __99__SGReminderMessage_detectedTitleInModelOutput_enrichedTaggedCharacterRanges_textContent_language___block_invoke_2;
+        v60[3] = &unk_27894F8F8;
+        v60[4] = buf;
+        [v31 enumerateSubstringsInRange:0 options:v50 usingBlock:2, v60];
+        if (*(v62 + 6) < 81)
         {
           _Block_object_dispose(buf, 8);
 
@@ -1594,8 +1571,8 @@ LABEL_45:
         v51 = sgRemindersLogHandle();
         if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
-          *v60 = 0;
-          _os_log_error_impl(&dword_231E60000, v51, OS_LOG_TYPE_ERROR, "SGReminderMessage: Title has too many characters", v60, 2u);
+          *v59 = 0;
+          _os_log_error_impl(&dword_231E60000, v51, OS_LOG_TYPE_ERROR, "SGReminderMessage: Title has too many characters", v59, 2u);
         }
 
         _Block_object_dispose(buf, 8);
@@ -1632,8 +1609,6 @@ LABEL_44:
   }
 
 LABEL_48:
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

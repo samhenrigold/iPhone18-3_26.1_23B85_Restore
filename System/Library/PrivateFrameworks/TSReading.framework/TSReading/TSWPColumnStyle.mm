@@ -136,9 +136,9 @@ TSSPropertySet *__43__TSWPColumnStyle_propertiesAllowingNSNull__block_invoke()
 + (id)defaultStyleWithContext:(id)context
 {
   v4 = objc_alloc(objc_opt_class());
-  v5 = [v4 initWithContext:context name:objc_msgSend(TSWPBundle() overridePropertyMap:"localizedStringForKey:value:table:" isVariation:{@"None", &stru_287D36338, @"TSText", 0, 0}];
+  v6 = [v4 initWithContext:context name:objc_msgSend(TSWPBundle(v4 overridePropertyMap:v5) isVariation:{"localizedStringForKey:value:table:", @"None", &stru_287D36338, @"TSText", 0, 0}];
 
-  return v5;
+  return v6;
 }
 
 - (CGSize)adjustedInsets

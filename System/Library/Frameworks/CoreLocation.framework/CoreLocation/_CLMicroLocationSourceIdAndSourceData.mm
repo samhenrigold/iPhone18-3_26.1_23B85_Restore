@@ -11,16 +11,16 @@
 
 - (_CLMicroLocationSourceIdAndSourceData)initWithSourceIdsIdentifier:(id)identifier sourceData:(id)data
 {
-  v8.receiver = self;
-  v8.super_class = _CLMicroLocationSourceIdAndSourceData;
-  v6 = [(_CLMicroLocationSourceIdAndSourceData *)&v8 init];
-  if (v6)
+  v14.receiver = self;
+  v14.super_class = _CLMicroLocationSourceIdAndSourceData;
+  v9 = [(_CLMicroLocationSourceIdAndSourceData *)&v14 init];
+  if (v9)
   {
-    v6->_sourceIdsIdentifier = [identifier copy];
-    v6->_sourceData = [data copy];
+    v9->_sourceIdsIdentifier = objc_msgSend_copy(identifier, v6, v7, v8);
+    v9->_sourceData = objc_msgSend_copy(data, v10, v11, v12);
   }
 
-  return v6;
+  return v9;
 }
 
 - (void)dealloc
@@ -32,24 +32,30 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = [objc_opt_class() allocWithZone:zone];
-  v6 = [(NSString *)[(_CLMicroLocationSourceIdAndSourceData *)self sourceIdsIdentifier] copyWithZone:zone];
-  v7 = [(NSArray *)[(_CLMicroLocationSourceIdAndSourceData *)self sourceData] copyWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_sourceIdsIdentifier(self, v9, v10, v11);
+  v15 = objc_msgSend_copyWithZone_(v12, v13, zone, v14);
+  v19 = objc_msgSend_sourceData(self, v16, v17, v18);
+  v23 = objc_msgSend_copyWithZone_(v19, v20, zone, v21);
 
-  return [v5 initWithSourceIdsIdentifier:v6 sourceData:v7];
+  return objc_msgSend_initWithSourceIdsIdentifier_sourceData_(v8, v22, v15, v23);
 }
 
 - (_CLMicroLocationSourceIdAndSourceData)initWithCoder:(id)coder
 {
-  v8.receiver = self;
-  v8.super_class = _CLMicroLocationSourceIdAndSourceData;
-  v4 = [(_CLMicroLocationSourceIdAndSourceData *)&v8 init];
+  v15.receiver = self;
+  v15.super_class = _CLMicroLocationSourceIdAndSourceData;
+  v4 = [(_CLMicroLocationSourceIdAndSourceData *)&v15 init];
   if (v4)
   {
-    v4->_sourceIdsIdentifier = [coder decodeObjectOfClass:objc_opt_class() forKey:@"sourceId"];
-    v5 = MEMORY[0x1E695DFD8];
-    v6 = objc_opt_class();
-    v4->_sourceData = [coder decodeObjectOfClasses:objc_msgSend(v5 forKey:{"setWithObjects:", v6, objc_opt_class(), 0), @"sourceData"}];
+    v5 = objc_opt_class();
+    v4->_sourceIdsIdentifier = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"sourceId");
+    v7 = MEMORY[0x1E695DFD8];
+    v8 = objc_opt_class();
+    v9 = objc_opt_class();
+    v12 = objc_msgSend_setWithObjects_(v7, v10, v8, v11, v9, 0);
+    v4->_sourceData = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v13, v12, @"sourceData");
   }
 
   return v4;
@@ -57,50 +63,52 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeObject:self->_sourceIdsIdentifier forKey:@"sourceId"];
+  objc_msgSend_encodeObject_forKey_(coder, a2, self->_sourceIdsIdentifier, @"sourceId");
   sourceData = self->_sourceData;
 
-  [coder encodeObject:sourceData forKey:@"sourceData"];
+  objc_msgSend_encodeObject_forKey_(coder, v5, sourceData, @"sourceData");
 }
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"sourceIdentifier: %@\n", self->_sourceIdsIdentifier];
-  v4 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  sourceData = [(_CLMicroLocationSourceIdAndSourceData *)self sourceData];
-  v6 = [(NSArray *)sourceData countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
+  v31 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"sourceIdentifier: %@\n", v2, self->_sourceIdsIdentifier);
+  v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v9 = objc_msgSend_sourceData(self, v6, v7, v8);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v26, v30, 16);
+  if (v11)
   {
-    v7 = v6;
-    v8 = *v13;
+    v15 = v11;
+    v16 = *v27;
     do
     {
-      v9 = 0;
+      v17 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v27 != v16)
         {
-          objc_enumerationMutation(sourceData);
+          objc_enumerationMutation(v9);
         }
 
-        [v4 appendString:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"\t%@\n", objc_msgSend(*(*(&v12 + 1) + 8 * v9++), "description"))}];
+        v18 = MEMORY[0x1E696AEC0];
+        v19 = objc_msgSend_description(*(*(&v26 + 1) + 8 * v17), v12, v13, v14);
+        v22 = objc_msgSend_stringWithFormat_(v18, v20, @"\t%@\n", v21, v19);
+        objc_msgSend_appendString_(v5, v23, v22, v24);
+        ++v17;
       }
 
-      while (v7 != v9);
-      v7 = [(NSArray *)sourceData countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v15 != v17);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v26, v30, 16);
     }
 
-    while (v7);
+    while (v15);
   }
 
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", v3, v4];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12, @"%@%@", v14, v4, v5);
 }
 
 @end

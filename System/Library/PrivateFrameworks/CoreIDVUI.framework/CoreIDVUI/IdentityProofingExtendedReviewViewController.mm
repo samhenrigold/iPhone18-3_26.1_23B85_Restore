@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   v6 = type metadata accessor for IdentityProofingExtendedReviewViewController();
@@ -40,8 +40,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_2457BA734(disappear);
+  sub_2457BA734(disappearCopy);
 }
 
 @end

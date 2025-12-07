@@ -36,7 +36,7 @@
   swift_unknownObjectRelease();
   sub_121CB4();
 
-  sub_1223F0(&v6);
+  sub_1223F0(v6);
 }
 
 - (void)updateForMiniBarState:(BOOL)state

@@ -65,7 +65,7 @@
   xpc_dictionary_set_double(copyXPCEncoding, "maxBurstFrameRate", v5);
   if (self)
   {
-    [(FigCaptureVisionDataSinkConfiguration *)self maxBurstDuration];
+    objc_msgSend_maxBurstDuration(self);
   }
 
   FigXPCMessageSetCMTime();
@@ -117,7 +117,7 @@
   v7 = v6;
   if (self)
   {
-    [(FigCaptureVisionDataSinkConfiguration *)self maxBurstDuration];
+    objc_msgSend_maxBurstDuration(self);
   }
 
   else

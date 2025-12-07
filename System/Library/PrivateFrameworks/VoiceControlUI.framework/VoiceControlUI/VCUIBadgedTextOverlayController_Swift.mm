@@ -64,7 +64,7 @@
   v4 = sub_272434930();
   v6 = v5;
   selfCopy = self;
-  sub_272430B8C(v4, v6);
+  sub_272430B8C(v4, v6, v7, v8);
 }
 
 - (void)setType:(int64_t)type
@@ -93,7 +93,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  sub_27243102C(x, y, width, height);
+  sub_27243102C(selfCopy, x, y, width, height);
 }
 
 - (void)setStartIndex:(int64_t)index
@@ -104,8 +104,9 @@
 
 - (void)setPopoverShowing:(BOOL)showing
 {
+  showingCopy = showing;
   selfCopy = self;
-  sub_27243151C(showing);
+  sub_27243151C(showingCopy);
 }
 
 - (int64_t)zOrder
@@ -175,12 +176,12 @@
   sub_2724341D0();
   v3 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC14VoiceControlUI37VCUIBadgedTextOverlayController_Swift__type);
 
-  sub_27242FFD8(v3);
+  sub_27242FFD8(v3, v4);
 
   type metadata accessor for VCUIBadgedTextSegmentModel();
-  v4 = sub_272434A40();
+  v5 = sub_272434A40();
 
-  return v4;
+  return v5;
 }
 
 - (_TtC14VoiceControlUI37VCUIBadgedTextOverlayController_Swift)initWithNibName:(id)name bundle:(id)bundle

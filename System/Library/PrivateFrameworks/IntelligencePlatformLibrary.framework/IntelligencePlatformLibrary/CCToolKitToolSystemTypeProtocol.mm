@@ -1092,9 +1092,9 @@ LABEL_184:
       case 0xAu:
         v65 = [CCToolKitToolSystemTypeProtocolIntentUpdatableEntity alloc];
         v66 = CCPBReaderReadDataNoCopy();
-        v170 = 0;
-        v67 = [(CCItemMessage *)v65 initWithData:v66 error:&v170];
-        v10 = v170;
+        v168 = 0;
+        v67 = [(CCItemMessage *)v65 initWithData:v66 error:&v168];
+        v10 = v168;
         v68 = self->_intentUpdatableEntity;
         self->_intentUpdatableEntity = v67;
 
@@ -1306,9 +1306,9 @@ LABEL_187:
       case 0xEu:
         v118 = [CCToolKitToolSystemTypeProtocolAssistantSchema alloc];
         v119 = CCPBReaderReadDataNoCopy();
-        v169 = 0;
-        v120 = [(CCItemMessage *)v118 initWithData:v119 error:&v169];
-        v10 = v169;
+        v167 = 0;
+        v120 = [(CCItemMessage *)v118 initWithData:v119 error:&v167];
+        v10 = v167;
         v121 = self->_assistantSchema;
         self->_assistantSchema = v120;
 
@@ -1411,9 +1411,9 @@ LABEL_188:
       case 0x10u:
         v77 = [CCToolKitToolSystemTypeProtocolPersistentFileIdentifiable alloc];
         v78 = CCPBReaderReadDataNoCopy();
-        v168 = 0;
-        v79 = [(CCItemMessage *)v77 initWithData:v78 error:&v168];
-        v10 = v168;
+        v166 = 0;
+        v79 = [(CCItemMessage *)v77 initWithData:v78 error:&v166];
+        v10 = v166;
         v80 = self->_persistentFileIdentifiable;
         self->_persistentFileIdentifiable = v79;
 
@@ -1531,7 +1531,6 @@ LABEL_189:
         {
           v159 = objc_opt_class();
           v160 = NSStringFromClass(v159);
-          v161 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
         }
 
@@ -1613,24 +1612,23 @@ LABEL_216:
     if (!*&v6[*v9])
     {
       v10 = 0;
-      v166 = 1;
+      v164 = 1;
       goto LABEL_220;
     }
 
 LABEL_217:
-    v162 = objc_opt_class();
-    v163 = NSStringFromClass(v162);
-    v164 = *&v6[*v9];
-    v165 = CCInvalidBufferErrorForMessage();
+    v161 = objc_opt_class();
+    v162 = NSStringFromClass(v161);
+    v163 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v10 = 0;
   }
 
-  v166 = 0;
+  v164 = 0;
 LABEL_220:
 
-  return v166;
+  return v164;
 }
 
 - (CCToolKitToolSystemTypeProtocol)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

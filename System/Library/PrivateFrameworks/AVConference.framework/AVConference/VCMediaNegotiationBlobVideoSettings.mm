@@ -4162,147 +4162,143 @@ LABEL_9:
 
 - (void)printVideoWithLogFile:(void *)file
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
-  v11 = MEMORY[0x1E6986650];
+  v5 = MEMORY[0x1E6986650];
   if (ErrorLogLevelForModule > 6)
   {
-    v12 = VRTraceErrorLogLevelToCSTR();
-    v13 = *v11;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v6 = VRTraceErrorLogLevelToCSTR();
+    v7 = *v5;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       rtpSSRC = self->_rtpSSRC;
       allowRTCPFB = self->_allowRTCPFB;
       *buf = 136316162;
-      v80 = v12;
-      v81 = 2080;
-      v82 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printVideoWithLogFile:]";
-      v83 = 1024;
-      v84 = 788;
-      v85 = 1024;
-      *v86 = rtpSSRC;
-      *&v86[4] = 1024;
-      *&v86[6] = allowRTCPFB;
-      _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - Video Settings: SSRC=%x allowRTCPFB=%u", buf, 0x28u);
+      v54 = v6;
+      v55 = 2080;
+      v56 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printVideoWithLogFile:]";
+      v57 = 1024;
+      v58 = 788;
+      v59 = 1024;
+      *v60 = rtpSSRC;
+      *&v60[4] = 1024;
+      *&v60[6] = allowRTCPFB;
+      _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - Video Settings: SSRC=%x allowRTCPFB=%u", buf, 0x28u);
     }
   }
 
-  VRLogfilePrintWithTimestamp(file, "Media Blob - Video Settings: SSRC=%x allowRTCPFB=%u\n", v5, v6, v7, v8, v9, v10, self->_rtpSSRC);
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
-  v89 = 0u;
+  VRLogfilePrintWithTimestamp(file, "Media Blob - Video Settings: SSRC=%x allowRTCPFB=%u\n", self->_rtpSSRC, self->_allowRTCPFB);
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = self->_videoPayloadCollections;
-  v68 = [(NSMutableArray *)obj countByEnumeratingWithState:&v88 objects:v87 count:16];
-  if (v68)
+  v42 = [(NSMutableArray *)obj countByEnumeratingWithState:&v62 objects:v61 count:16];
+  if (v42)
   {
-    v67 = *v89;
+    v41 = *v63;
     do
     {
-      v16 = 0;
+      v10 = 0;
       do
       {
-        if (*v89 != v67)
+        if (*v63 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v69 = v16;
-        v17 = *(*(&v88 + 1) + 8 * v16);
+        v43 = v10;
+        v11 = *(*(&v62 + 1) + 8 * v10);
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v18 = VRTraceErrorLogLevelToCSTR();
-          v19 = *MEMORY[0x1E6986650];
+          v12 = VRTraceErrorLogLevelToCSTR();
+          v13 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            payload = [v17 payload];
-            v21 = [objc_msgSend(v17 "featureString")];
+            payload = [v11 payload];
+            v15 = [objc_msgSend(v11 "featureString")];
             *buf = 136316162;
-            v80 = v18;
-            v81 = 2080;
-            v82 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printVideoWithLogFile:]";
-            v83 = 1024;
-            v84 = 792;
-            v85 = 1024;
-            *v86 = payload;
-            *&v86[4] = 2080;
-            *&v86[6] = v21;
-            _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     Payload=%u Format string=%s", buf, 0x2Cu);
+            v54 = v12;
+            v55 = 2080;
+            v56 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printVideoWithLogFile:]";
+            v57 = 1024;
+            v58 = 792;
+            v59 = 1024;
+            *v60 = payload;
+            *&v60[4] = 2080;
+            *&v60[6] = v15;
+            _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     Payload=%u Format string=%s", buf, 0x2Cu);
           }
         }
 
-        payload2 = [v17 payload];
-        [objc_msgSend(v17 "featureString")];
-        VRLogfilePrintWithTimestamp(file, "Media Blob -     Payload=%u Format string=%s\n", v23, v24, v25, v26, v27, v28, payload2);
-        v29 = [(VCMediaNegotiationBlobVideoSettings *)self parameterSetStringFromPayloadSettings:v17];
+        VRLogfilePrintWithTimestamp(file, "Media Blob -     Payload=%u Format string=%s\n", [v11 payload], objc_msgSend(objc_msgSend(v11, "featureString"), "UTF8String"));
+        v16 = [(VCMediaNegotiationBlobVideoSettings *)self parameterSetStringFromPayloadSettings:v11];
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v30 = VRTraceErrorLogLevelToCSTR();
-          v31 = *MEMORY[0x1E6986650];
+          v17 = VRTraceErrorLogLevelToCSTR();
+          v18 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            payload3 = [v17 payload];
-            uTF8String = [v29 UTF8String];
+            payload2 = [v11 payload];
+            uTF8String = [v16 UTF8String];
             *buf = 136316162;
-            v80 = v30;
-            v81 = 2080;
-            v82 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printVideoWithLogFile:]";
-            v83 = 1024;
-            v84 = 796;
-            v85 = 1024;
-            *v86 = payload3;
-            *&v86[4] = 2080;
-            *&v86[6] = uTF8String;
-            _os_log_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     Payload=%u Parameter set: %s", buf, 0x2Cu);
+            v54 = v17;
+            v55 = 2080;
+            v56 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printVideoWithLogFile:]";
+            v57 = 1024;
+            v58 = 796;
+            v59 = 1024;
+            *v60 = payload2;
+            *&v60[4] = 2080;
+            *&v60[6] = uTF8String;
+            _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     Payload=%u Parameter set: %s", buf, 0x2Cu);
           }
         }
 
-        payload4 = [v17 payload];
-        [v29 UTF8String];
-        VRLogfilePrintWithTimestamp(file, "Media Blob -     Payload=%u Parameter set: %s\n", v35, v36, v37, v38, v39, v40, payload4);
-        v77 = 0u;
-        v78 = 0u;
-        v75 = 0u;
-        v76 = 0u;
-        videoRuleCollections = [v17 videoRuleCollections];
-        v73 = [videoRuleCollections countByEnumeratingWithState:&v75 objects:v74 count:16];
-        if (v73)
+        VRLogfilePrintWithTimestamp(file, "Media Blob -     Payload=%u Parameter set: %s\n", [v11 payload], objc_msgSend(v16, "UTF8String"));
+        v51 = 0u;
+        v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
+        videoRuleCollections = [v11 videoRuleCollections];
+        v47 = [videoRuleCollections countByEnumeratingWithState:&v49 objects:v48 count:16];
+        if (v47)
         {
-          v71 = *v76;
+          v45 = *v50;
           do
           {
-            for (i = 0; i != v73; ++i)
+            for (i = 0; i != v47; ++i)
             {
-              if (*v76 != v71)
+              if (*v50 != v45)
               {
                 objc_enumerationMutation(videoRuleCollections);
               }
 
-              v42 = *(*(&v75 + 1) + 8 * i);
-              v43 = MEMORY[0x1E696AD60];
-              v44 = v17;
-              payload5 = [v17 payload];
-              if ([v42 operation] == 1)
+              v22 = *(*(&v49 + 1) + 8 * i);
+              v23 = MEMORY[0x1E696AD60];
+              v24 = v11;
+              payload3 = [v11 payload];
+              if ([v22 operation] == 1)
               {
-                v46 = "encode";
+                v26 = "encode";
               }
 
               else
               {
-                v46 = "decode";
+                v26 = "decode";
               }
 
-              transport = [v42 transport];
-              v48 = "Cellular";
+              transport = [v22 transport];
+              v28 = "Cellular";
               if (transport == 1)
               {
-                v48 = "WiFi";
+                v28 = "WiFi";
               }
 
-              v49 = [v43 stringWithFormat:@"Payload=%u %s %s", payload5, v46, v48];
-              if ([v42 hasPreferredFormat])
+              v29 = [v23 stringWithFormat:@"Payload=%u %s %s", payload3, v26, v28];
+              if ([v22 hasPreferredFormat])
               {
-                preferredFormat = [v42 preferredFormat];
+                preferredFormat = [v22 preferredFormat];
               }
 
               else
@@ -4310,311 +4306,311 @@ LABEL_9:
                 preferredFormat = 0;
               }
 
-              v51 = 1;
+              v31 = 1;
               do
               {
-                if (([v42 formats] & v51) == 0)
+                if (([v22 formats] & v31) == 0)
                 {
                   goto LABEL_110;
                 }
 
-                if (v51 >= 0x10000)
+                if (v31 >= 0x10000)
                 {
-                  if (v51 > 0xFFFFFF)
+                  if (v31 > 0xFFFFFF)
                   {
-                    if (v51 > 0xFFFFFFF)
+                    if (v31 > 0xFFFFFFF)
                     {
-                      if (v51 > 0x3FFFFFFF)
+                      if (v31 > 0x3FFFFFFF)
                       {
-                        if (v51 == 0x40000000)
+                        if (v31 == 0x40000000)
                         {
-                          v52 = @"video_1920x1080_60";
+                          v32 = @"video_1920x1080_60";
                         }
 
                         else
                         {
-                          if (v51 != 0x7FFFFFFF)
+                          if (v31 != 0x7FFFFFFF)
                           {
 LABEL_108:
-                            v52 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v52, v51];
+                            v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v32, v31];
                             goto LABEL_109;
                           }
 
-                          v52 = @"video_SUPPORTED";
+                          v32 = @"video_SUPPORTED";
                         }
                       }
 
-                      else if (v51 == 0x10000000)
+                      else if (v31 == 0x10000000)
                       {
-                        v52 = @"video_1440x1080_30";
+                        v32 = @"video_1440x1080_30";
                       }
 
                       else
                       {
-                        if (v51 != 0x20000000)
+                        if (v31 != 0x20000000)
                         {
                           goto LABEL_108;
                         }
 
-                        v52 = @"video_896_672_30";
+                        v32 = @"video_896_672_30";
                       }
                     }
 
-                    else if (v51 > 0x3FFFFFF)
+                    else if (v31 > 0x3FFFFFF)
                     {
-                      if (v51 == 0x4000000)
+                      if (v31 == 0x4000000)
                       {
-                        v52 = @"video_1024x576_30";
+                        v32 = @"video_1024x576_30";
                       }
 
                       else
                       {
-                        if (v51 != 0x8000000)
+                        if (v31 != 0x8000000)
                         {
                           goto LABEL_108;
                         }
 
-                        v52 = @"video_1920x1080_30";
+                        v32 = @"video_1920x1080_30";
                       }
                     }
 
-                    else if (v51 == 0x1000000)
+                    else if (v31 == 0x1000000)
                     {
-                      v52 = @"video_640x640_30";
+                      v32 = @"video_640x640_30";
                     }
 
                     else
                     {
-                      if (v51 != 0x2000000)
+                      if (v31 != 0x2000000)
                       {
                         goto LABEL_108;
                       }
 
-                      v52 = @"video_720x720_30";
+                      v32 = @"video_720x720_30";
                     }
                   }
 
-                  else if (v51 >= 0x100000)
+                  else if (v31 >= 0x100000)
                   {
-                    if (v51 >= 0x400000)
+                    if (v31 >= 0x400000)
                     {
-                      if (v51 == 0x400000)
+                      if (v31 == 0x400000)
                       {
-                        v52 = @"video_320x320_30";
+                        v32 = @"video_320x320_30";
                       }
 
                       else
                       {
-                        if (v51 != 0x800000)
+                        if (v31 != 0x800000)
                         {
                           goto LABEL_108;
                         }
 
-                        v52 = @"video_480x480_30";
+                        v32 = @"video_480x480_30";
                       }
                     }
 
-                    else if (v51 == 0x100000)
+                    else if (v31 == 0x100000)
                     {
-                      v52 = @"video_192x192_15";
+                      v32 = @"video_192x192_15";
                     }
 
                     else
                     {
-                      if (v51 != 0x200000)
+                      if (v31 != 0x200000)
                       {
                         goto LABEL_108;
                       }
 
-                      v52 = @"video_240x240_15";
+                      v32 = @"video_240x240_15";
                     }
                   }
 
-                  else if (v51 >= 0x40000)
+                  else if (v31 >= 0x40000)
                   {
-                    if (v51 == 0x40000)
+                    if (v31 == 0x40000)
                     {
-                      v52 = @"video_1280x720_60_dec";
+                      v32 = @"video_1280x720_60_dec";
                     }
 
                     else
                     {
-                      if (v51 != 0x80000)
+                      if (v31 != 0x80000)
                       {
                         goto LABEL_108;
                       }
 
-                      v52 = @"video_192x112_15";
+                      v32 = @"video_192x112_15";
                     }
                   }
 
-                  else if (v51 == 0x10000)
+                  else if (v31 == 0x10000)
                   {
-                    v52 = @"video_1280x720_15_dec";
+                    v32 = @"video_1280x720_15_dec";
                   }
 
                   else
                   {
-                    if (v51 != 0x20000)
+                    if (v31 != 0x20000)
                     {
                       goto LABEL_108;
                     }
 
-                    v52 = @"video_1280x720_30_dec";
+                    v32 = @"video_1280x720_30_dec";
                   }
                 }
 
-                else if (v51 > 255)
+                else if (v31 > 255)
                 {
-                  if (v51 > 4095)
+                  if (v31 > 4095)
                   {
-                    if (v51 >= 0x4000)
+                    if (v31 >= 0x4000)
                     {
-                      if (v51 == 0x4000)
+                      if (v31 == 0x4000)
                       {
-                        v52 = @"video_480x272_15";
+                        v32 = @"video_480x272_15";
                       }
 
                       else
                       {
-                        if (v51 != 0x8000)
+                        if (v31 != 0x8000)
                         {
                           goto LABEL_108;
                         }
 
-                        v52 = @"video_480x272_30";
+                        v32 = @"video_480x272_30";
                       }
                     }
 
-                    else if (v51 == 4096)
+                    else if (v31 == 4096)
                     {
-                      v52 = @"video_1024x768_60";
+                      v32 = @"video_1024x768_60";
                     }
 
                     else
                     {
-                      if (v51 != 0x2000)
+                      if (v31 != 0x2000)
                       {
                         goto LABEL_108;
                       }
 
-                      v52 = @"video_1280x720_60";
+                      v32 = @"video_1280x720_60";
                     }
                   }
 
-                  else if (v51 > 1023)
+                  else if (v31 > 1023)
                   {
-                    if (v51 == 1024)
+                    if (v31 == 1024)
                     {
-                      v52 = @"video_1280x720_15";
+                      v32 = @"video_1280x720_15";
                     }
 
                     else
                     {
-                      if (v51 != 2048)
+                      if (v31 != 2048)
                       {
                         goto LABEL_108;
                       }
 
-                      v52 = @"video_1280x720_30";
+                      v32 = @"video_1280x720_30";
                     }
                   }
 
-                  else if (v51 == 256)
+                  else if (v31 == 256)
                   {
-                    v52 = @"video_1024x768_15";
+                    v32 = @"video_1024x768_15";
                   }
 
                   else
                   {
-                    if (v51 != 512)
+                    if (v31 != 512)
                     {
                       goto LABEL_108;
                     }
 
-                    v52 = @"video_1024x768_30";
+                    v32 = @"video_1024x768_30";
                   }
                 }
 
-                else if (v51 > 15)
+                else if (v31 > 15)
                 {
-                  if (v51 > 63)
+                  if (v31 > 63)
                   {
-                    if (v51 == 64)
+                    if (v31 == 64)
                     {
-                      v52 = @"video_848x480_15";
+                      v32 = @"video_848x480_15";
                     }
 
                     else
                     {
-                      if (v51 != 128)
+                      if (v31 != 128)
                       {
                         goto LABEL_108;
                       }
 
-                      v52 = @"video_848x480_30";
+                      v32 = @"video_848x480_30";
                     }
                   }
 
-                  else if (v51 == 16)
+                  else if (v31 == 16)
                   {
-                    v52 = @"video_640x480_15";
+                    v32 = @"video_640x480_15";
                   }
 
                   else
                   {
-                    if (v51 != 32)
+                    if (v31 != 32)
                     {
                       goto LABEL_108;
                     }
 
-                    v52 = @"video_640x480_30";
+                    v32 = @"video_640x480_30";
                   }
                 }
 
-                else if (v51 > 3)
+                else if (v31 > 3)
                 {
-                  if (v51 == 4)
+                  if (v31 == 4)
                   {
-                    v52 = @"video_480x368_15";
+                    v32 = @"video_480x368_15";
                   }
 
                   else
                   {
-                    if (v51 != 8)
+                    if (v31 != 8)
                     {
                       goto LABEL_108;
                     }
 
-                    v52 = @"video_480x368_30";
+                    v32 = @"video_480x368_30";
                   }
                 }
 
                 else
                 {
-                  v52 = @"video_320x240_15";
-                  if (v51 != 1)
+                  v32 = @"video_320x240_15";
+                  if (v31 != 1)
                   {
-                    if (v51 != 2)
+                    if (v31 != 2)
                     {
                       goto LABEL_108;
                     }
 
-                    v52 = @"video_320x240_30";
+                    v32 = @"video_320x240_30";
                   }
                 }
 
 LABEL_109:
-                [(VCMediaNegotiationBlobVideoSettings *)self prepareFormatString:v49 format:v52 formatIndex:v51 preferredFormat:preferredFormat];
+                [(VCMediaNegotiationBlobVideoSettings *)self prepareFormatString:v29 format:v32 formatIndex:v31 preferredFormat:preferredFormat];
 LABEL_110:
-                v53 = (v51 & 0x3FFFFFFF) == 0;
-                v51 = (2 * v51);
+                v33 = (v31 & 0x3FFFFFFF) == 0;
+                v31 = (2 * v31);
               }
 
-              while (!v53);
-              if ([v42 hasPreferredFormatExt1])
+              while (!v33);
+              if ([v22 hasPreferredFormatExt1])
               {
-                preferredFormatExt1 = [v42 preferredFormatExt1];
+                preferredFormatExt1 = [v22 preferredFormatExt1];
               }
 
               else
@@ -4622,90 +4618,90 @@ LABEL_110:
                 preferredFormatExt1 = 0;
               }
 
-              v55 = 1;
+              v35 = 1;
               while (2)
               {
-                if (([v42 formatsExt1] & v55) != 0)
+                if (([v22 formatsExt1] & v35) != 0)
                 {
-                  if (v55 <= 15)
+                  if (v35 <= 15)
                   {
-                    if (v55 > 3)
+                    if (v35 > 3)
                     {
-                      if (v55 == 4)
+                      if (v35 == 4)
                       {
-                        v56 = @"video_1664x1248_60";
+                        v36 = @"video_1664x1248_60";
                       }
 
                       else
                       {
-                        if (v55 != 8)
+                        if (v35 != 8)
                         {
                           goto LABEL_137;
                         }
 
-                        v56 = @"video_1024x576_15";
+                        v36 = @"video_1024x576_15";
                       }
                     }
 
                     else
                     {
-                      v56 = @"video_896x672_60";
-                      if (v55 != 1)
+                      v36 = @"video_896x672_60";
+                      if (v35 != 1)
                       {
-                        if (v55 != 2)
+                        if (v35 != 2)
                         {
                           goto LABEL_137;
                         }
 
-                        v56 = @"video_1664x1248_30";
+                        v36 = @"video_1664x1248_30";
                       }
                     }
                   }
 
-                  else if (v55 <= 63)
+                  else if (v35 <= 63)
                   {
-                    if (v55 == 16)
+                    if (v35 == 16)
                     {
-                      v56 = @"video_896x672_15";
+                      v36 = @"video_896x672_15";
                     }
 
                     else
                     {
-                      if (v55 != 32)
+                      if (v35 != 32)
                       {
                         goto LABEL_137;
                       }
 
-                      v56 = @"video_1920x1440_60";
+                      v36 = @"video_1920x1440_60";
                     }
                   }
 
                   else
                   {
-                    switch(v55)
+                    switch(v35)
                     {
                       case 0x40:
-                        v56 = @"video_2x4320x4320_90";
+                        v36 = @"video_2x4320x4320_90";
                         break;
                       case 0x80:
-                        v56 = @"video_2x3240x3240_30";
+                        v36 = @"video_2x3240x3240_30";
                         break;
                       case 0xFF:
-                        v56 = @"video_SUPPORTED";
+                        v36 = @"video_SUPPORTED";
                         break;
                       default:
 LABEL_137:
-                        v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v55];
+                        v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v35];
                         break;
                     }
                   }
 
-                  [(VCMediaNegotiationBlobVideoSettings *)self prepareFormatString:v49 format:v56 formatIndex:v55 preferredFormat:preferredFormatExt1];
+                  [(VCMediaNegotiationBlobVideoSettings *)self prepareFormatString:v29 format:v36 formatIndex:v35 preferredFormat:preferredFormatExt1];
                 }
 
-                v53 = (v55 & 0x7F) == 0;
-                v55 = (2 * v55);
-                if (!v53)
+                v33 = (v35 & 0x7F) == 0;
+                v35 = (2 * v35);
+                if (!v33)
                 {
                   continue;
                 }
@@ -4713,185 +4709,182 @@ LABEL_137:
                 break;
               }
 
-              v57 = [objc_msgSend(v49 stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @", ")), "UTF8String"}];
+              v37 = [objc_msgSend(v29 stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @", ")), "UTF8String"}];
               if (VRTraceGetErrorLogLevelForModule() > 6)
               {
-                v64 = VRTraceErrorLogLevelToCSTR();
-                v65 = *MEMORY[0x1E6986650];
+                v38 = VRTraceErrorLogLevelToCSTR();
+                v39 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315906;
-                  v80 = v64;
-                  v81 = 2080;
-                  v82 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printVideoWithLogFile:]";
-                  v83 = 1024;
-                  v84 = 823;
-                  v85 = 2080;
-                  *v86 = v57;
-                  _os_log_impl(&dword_1DB56E000, v65, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
+                  v54 = v38;
+                  v55 = 2080;
+                  v56 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printVideoWithLogFile:]";
+                  v57 = 1024;
+                  v58 = 823;
+                  v59 = 2080;
+                  *v60 = v37;
+                  _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
                 }
               }
 
-              VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v58, v59, v60, v61, v62, v63, v57);
-              v17 = v44;
+              VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v37);
+              v11 = v24;
             }
 
-            v73 = [videoRuleCollections countByEnumeratingWithState:&v75 objects:v74 count:16];
+            v47 = [videoRuleCollections countByEnumeratingWithState:&v49 objects:v48 count:16];
           }
 
-          while (v73);
+          while (v47);
         }
 
-        v16 = v69 + 1;
+        v10 = v43 + 1;
       }
 
-      while (v69 + 1 != v68);
-      v68 = [(NSMutableArray *)obj countByEnumeratingWithState:&v88 objects:v87 count:16];
+      while (v43 + 1 != v42);
+      v42 = [(NSMutableArray *)obj countByEnumeratingWithState:&v62 objects:v61 count:16];
     }
 
-    while (v68);
+    while (v42);
   }
 }
 
 - (void)printScreenWithLogFile:(void *)file
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
-  v10 = MEMORY[0x1E6986650];
+  v4 = MEMORY[0x1E6986650];
   if (ErrorLogLevelForModule > 6)
   {
-    v11 = VRTraceErrorLogLevelToCSTR();
-    v12 = *v10;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v5 = VRTraceErrorLogLevelToCSTR();
+    v6 = *v4;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       rtpSSRC = self->_rtpSSRC;
       allowRTCPFB = self->_allowRTCPFB;
       *buf = 136316162;
-      v77 = v11;
-      v78 = 2080;
-      v79 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printScreenWithLogFile:]";
-      v80 = 1024;
-      v81 = 830;
-      v82 = 1024;
-      *v83 = rtpSSRC;
-      *&v83[4] = 1024;
-      *&v83[6] = allowRTCPFB;
-      _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - Screen Settings: SSRC=%x allowRTCPFB=%u", buf, 0x28u);
+      v51 = v5;
+      v52 = 2080;
+      v53 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printScreenWithLogFile:]";
+      v54 = 1024;
+      v55 = 830;
+      v56 = 1024;
+      *v57 = rtpSSRC;
+      *&v57[4] = 1024;
+      *&v57[6] = allowRTCPFB;
+      _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - Screen Settings: SSRC=%x allowRTCPFB=%u", buf, 0x28u);
     }
   }
 
-  VRLogfilePrintWithTimestamp(file, "Media Blob - Screen Settings: SSRC=%x allowRTCPFB=%u\n", v4, v5, v6, v7, v8, v9, self->_rtpSSRC);
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
-  v86 = 0u;
+  VRLogfilePrintWithTimestamp(file, "Media Blob - Screen Settings: SSRC=%x allowRTCPFB=%u\n", self->_rtpSSRC, self->_allowRTCPFB);
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = self->_videoPayloadCollections;
-  v64 = [(NSMutableArray *)obj countByEnumeratingWithState:&v85 objects:v84 count:16];
-  if (v64)
+  v38 = [(NSMutableArray *)obj countByEnumeratingWithState:&v59 objects:v58 count:16];
+  if (v38)
   {
-    v62 = *v86;
+    v36 = *v60;
     do
     {
-      v15 = 0;
+      v9 = 0;
       do
       {
-        if (*v86 != v62)
+        if (*v60 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v85 + 1) + 8 * v15);
+        v10 = *(*(&v59 + 1) + 8 * v9);
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v17 = VRTraceErrorLogLevelToCSTR();
-          v18 = *MEMORY[0x1E6986650];
+          v11 = VRTraceErrorLogLevelToCSTR();
+          v12 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            v19 = [objc_msgSend(v16 "featureString")];
+            v13 = [objc_msgSend(v10 "featureString")];
             *buf = 136315906;
-            v77 = v17;
-            v78 = 2080;
-            v79 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printScreenWithLogFile:]";
-            v80 = 1024;
-            v81 = 834;
-            v82 = 2080;
-            *v83 = v19;
-            _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     Format string=%s", buf, 0x26u);
+            v51 = v11;
+            v52 = 2080;
+            v53 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printScreenWithLogFile:]";
+            v54 = 1024;
+            v55 = 834;
+            v56 = 2080;
+            *v57 = v13;
+            _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     Format string=%s", buf, 0x26u);
           }
         }
 
-        v65 = v15;
-        v20 = [objc_msgSend(v16 "featureString")];
-        VRLogfilePrintWithTimestamp(file, "Media Blob -     Format string=%s\n", v21, v22, v23, v24, v25, v26, v20);
-        v27 = [(VCMediaNegotiationBlobVideoSettings *)self parameterSetStringFromPayloadSettings:v16];
+        v39 = v9;
+        VRLogfilePrintWithTimestamp(file, "Media Blob -     Format string=%s\n", [objc_msgSend(v10 "featureString")]);
+        v14 = [(VCMediaNegotiationBlobVideoSettings *)self parameterSetStringFromPayloadSettings:v10];
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v28 = VRTraceErrorLogLevelToCSTR();
-          v29 = *MEMORY[0x1E6986650];
+          v15 = VRTraceErrorLogLevelToCSTR();
+          v16 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            payload = [v16 payload];
-            uTF8String = [v27 UTF8String];
+            payload = [v10 payload];
+            uTF8String = [v14 UTF8String];
             *buf = 136316162;
-            v77 = v28;
-            v78 = 2080;
-            v79 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printScreenWithLogFile:]";
-            v80 = 1024;
-            v81 = 838;
-            v82 = 1024;
-            *v83 = payload;
-            *&v83[4] = 2080;
-            *&v83[6] = uTF8String;
-            _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     Payload=%u parameter set: %s", buf, 0x2Cu);
+            v51 = v15;
+            v52 = 2080;
+            v53 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printScreenWithLogFile:]";
+            v54 = 1024;
+            v55 = 838;
+            v56 = 1024;
+            *v57 = payload;
+            *&v57[4] = 2080;
+            *&v57[6] = uTF8String;
+            _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     Payload=%u parameter set: %s", buf, 0x2Cu);
           }
         }
 
-        payload2 = [v16 payload];
-        [v27 UTF8String];
-        VRLogfilePrintWithTimestamp(file, "Media Blob -     Payload=%u parameter set: %s\n", v33, v34, v35, v36, v37, v38, payload2);
-        v74 = 0u;
-        v75 = 0u;
-        v72 = 0u;
-        v73 = 0u;
-        videoRuleCollections = [v16 videoRuleCollections];
-        v70 = [videoRuleCollections countByEnumeratingWithState:&v72 objects:v71 count:16];
-        if (v70)
+        VRLogfilePrintWithTimestamp(file, "Media Blob -     Payload=%u parameter set: %s\n", [v10 payload], objc_msgSend(v14, "UTF8String"));
+        v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        videoRuleCollections = [v10 videoRuleCollections];
+        v44 = [videoRuleCollections countByEnumeratingWithState:&v46 objects:v45 count:16];
+        if (v44)
         {
-          v67 = *v73;
-          v68 = v16;
+          v41 = *v47;
+          v42 = v10;
           do
           {
-            for (i = 0; i != v70; ++i)
+            for (i = 0; i != v44; ++i)
             {
-              if (*v73 != v67)
+              if (*v47 != v41)
               {
                 objc_enumerationMutation(videoRuleCollections);
               }
 
-              v40 = *(*(&v72 + 1) + 8 * i);
-              v41 = MEMORY[0x1E696AD60];
-              payload3 = [v16 payload];
-              if ([v40 operation] == 1)
+              v20 = *(*(&v46 + 1) + 8 * i);
+              v21 = MEMORY[0x1E696AD60];
+              payload2 = [v10 payload];
+              if ([v20 operation] == 1)
               {
-                v43 = "encode";
+                v23 = "encode";
               }
 
               else
               {
-                v43 = "decode";
+                v23 = "decode";
               }
 
-              transport = [v40 transport];
-              v45 = "Cellular";
+              transport = [v20 transport];
+              v25 = "Cellular";
               if (transport == 1)
               {
-                v45 = "WiFi";
+                v25 = "WiFi";
               }
 
-              v46 = [v41 stringWithFormat:@"Payload=%u %s %s", payload3, v43, v45];
-              if ([v40 hasPreferredFormat])
+              v26 = [v21 stringWithFormat:@"Payload=%u %s %s", payload2, v23, v25];
+              if ([v20 hasPreferredFormat])
               {
-                preferredFormat = [v40 preferredFormat];
+                preferredFormat = [v20 preferredFormat];
               }
 
               else
@@ -4899,222 +4892,222 @@ LABEL_137:
                 preferredFormat = 0;
               }
 
-              v48 = 1;
+              v28 = 1;
               do
               {
-                if (([v40 formats] & v48) == 0)
+                if (([v20 formats] & v28) == 0)
                 {
                   goto LABEL_93;
                 }
 
-                if (v48 <= 4095)
+                if (v28 <= 4095)
                 {
-                  if (v48 > 63)
+                  if (v28 > 63)
                   {
-                    if (v48 > 511)
+                    if (v28 > 511)
                     {
-                      switch(v48)
+                      switch(v28)
                       {
                         case 0x200:
-                          v49 = @"screen_1920x1080_60";
+                          v29 = @"screen_1920x1080_60";
                           goto LABEL_89;
                         case 0x400:
-                          v49 = @"screen_2208x1242_30";
+                          v29 = @"screen_2208x1242_30";
                           goto LABEL_89;
                         case 0x800:
-                          v49 = @"screen_2208x1242_60";
+                          v29 = @"screen_2208x1242_60";
                           goto LABEL_89;
                       }
                     }
 
                     else
                     {
-                      switch(v48)
+                      switch(v28)
                       {
                         case 0x40:
-                          v49 = @"screen_1664x1248_30";
+                          v29 = @"screen_1664x1248_30";
                           goto LABEL_89;
                         case 0x80:
-                          v49 = @"screen_1664x1248_60";
+                          v29 = @"screen_1664x1248_60";
                           goto LABEL_89;
                         case 0x100:
-                          v49 = @"screen_1920x1080_30";
+                          v29 = @"screen_1920x1080_30";
                           goto LABEL_89;
                       }
                     }
                   }
 
-                  else if (v48 > 7)
+                  else if (v28 > 7)
                   {
-                    switch(v48)
+                    switch(v28)
                     {
                       case 8:
-                        v49 = @"screen_1136x640_60";
+                        v29 = @"screen_1136x640_60";
                         goto LABEL_89;
                       case 0x10:
-                        v49 = @"screen_1334x750_30";
+                        v29 = @"screen_1334x750_30";
                         goto LABEL_89;
                       case 0x20:
-                        v49 = @"screen_1334x750_60";
+                        v29 = @"screen_1334x750_60";
                         goto LABEL_89;
                     }
                   }
 
                   else
                   {
-                    switch(v48)
+                    switch(v28)
                     {
                       case 1:
-                        v49 = @"screen_1024x768_30";
+                        v29 = @"screen_1024x768_30";
                         goto LABEL_89;
                       case 2:
-                        v49 = @"screen_1024x768_60";
+                        v29 = @"screen_1024x768_60";
                         goto LABEL_89;
                       case 4:
-                        v49 = @"screen_1136x640_30";
+                        v29 = @"screen_1136x640_30";
                         goto LABEL_89;
                     }
                   }
                 }
 
-                else if (v48 < 0x40000)
+                else if (v28 < 0x40000)
                 {
-                  if (v48 >= 0x8000)
+                  if (v28 >= 0x8000)
                   {
-                    switch(v48)
+                    switch(v28)
                     {
                       case 0x8000:
-                        v49 = @"screen_1280x720_60";
+                        v29 = @"screen_1280x720_60";
                         goto LABEL_89;
                       case 0x10000:
-                        v49 = @"screen_1920x896_30";
+                        v29 = @"screen_1920x896_30";
                         goto LABEL_89;
                       case 0x20000:
-                        v49 = @"screen_1920x896_60";
+                        v29 = @"screen_1920x896_60";
                         goto LABEL_89;
                     }
                   }
 
                   else
                   {
-                    switch(v48)
+                    switch(v28)
                     {
                       case 0x1000:
-                        v49 = @"screen_2048x1536_30";
+                        v29 = @"screen_2048x1536_30";
                         goto LABEL_89;
                       case 0x2000:
-                        v49 = @"screen_2048x1536_60";
+                        v29 = @"screen_2048x1536_60";
                         goto LABEL_89;
                       case 0x4000:
-                        v49 = @"screen_1280x720_30";
+                        v29 = @"screen_1280x720_30";
                         goto LABEL_89;
                     }
                   }
                 }
 
-                else if (v48 < 0x200000)
+                else if (v28 < 0x200000)
                 {
-                  switch(v48)
+                  switch(v28)
                   {
                     case 0x40000:
-                      v49 = @"screen_2732x2048_60";
+                      v29 = @"screen_2732x2048_60";
                       goto LABEL_89;
                     case 0x80000:
-                      v49 = @"screen_2388x1668_60";
+                      v29 = @"screen_2388x1668_60";
                       goto LABEL_89;
                     case 0x100000:
-                      v49 = @"screen_2224x1668_60";
+                      v29 = @"screen_2224x1668_60";
                       goto LABEL_89;
                   }
                 }
 
-                else if (v48 >= 0x800000)
+                else if (v28 >= 0x800000)
                 {
-                  if (v48 == 0x800000)
+                  if (v28 == 0x800000)
                   {
-                    v49 = @"screen_3584x1792_90";
+                    v29 = @"screen_3584x1792_90";
                     goto LABEL_89;
                   }
 
-                  if (v48 == 0xFFFFFF)
+                  if (v28 == 0xFFFFFF)
                   {
-                    v49 = @"screen_SUPPORTED";
+                    v29 = @"screen_SUPPORTED";
                     goto LABEL_89;
                   }
                 }
 
                 else
                 {
-                  if (v48 == 0x200000)
+                  if (v28 == 0x200000)
                   {
-                    v49 = @"screen_3072x1728_60";
+                    v29 = @"screen_3072x1728_60";
                     goto LABEL_89;
                   }
 
-                  if (v48 == 0x400000)
+                  if (v28 == 0x400000)
                   {
-                    v49 = @"screen_3840x2160_60";
+                    v29 = @"screen_3840x2160_60";
                     goto LABEL_89;
                   }
                 }
 
-                v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v48];
+                v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v28];
 LABEL_89:
-                v50 = [(__CFString *)v49 componentsSeparatedByString:@"_"];
-                if ([v50 count] == 3)
+                v30 = [(__CFString *)v29 componentsSeparatedByString:@"_"];
+                if ([v30 count] == 3)
                 {
-                  [v46 appendFormat:@" %@@%@fps", objc_msgSend(v50, "objectAtIndex:", 1), objc_msgSend(v50, "objectAtIndex:", 2)];
-                  if (preferredFormat == v48)
+                  [v26 appendFormat:@" %@@%@fps", objc_msgSend(v30, "objectAtIndex:", 1), objc_msgSend(v30, "objectAtIndex:", 2)];
+                  if (preferredFormat == v28)
                   {
-                    [v46 appendString:@" (preferred)"];
+                    [v26 appendString:@" (preferred)"];
                   }
 
-                  [v46 appendString:{@", "}];
+                  [v26 appendString:{@", "}];
                 }
 
 LABEL_93:
-                v51 = (v48 & 0x7FFFFF) == 0;
-                v48 = (2 * v48);
+                v31 = (v28 & 0x7FFFFF) == 0;
+                v28 = (2 * v28);
               }
 
-              while (!v51);
-              v52 = [objc_msgSend(v46 stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @", ")), "UTF8String"}];
+              while (!v31);
+              v32 = [objc_msgSend(v26 stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @", ")), "UTF8String"}];
               if (VRTraceGetErrorLogLevelForModule() > 6)
               {
-                v59 = VRTraceErrorLogLevelToCSTR();
-                v60 = *MEMORY[0x1E6986650];
+                v33 = VRTraceErrorLogLevelToCSTR();
+                v34 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315906;
-                  v77 = v59;
-                  v78 = 2080;
-                  v79 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printScreenWithLogFile:]";
-                  v80 = 1024;
-                  v81 = 863;
-                  v82 = 2080;
-                  *v83 = v52;
-                  _os_log_impl(&dword_1DB56E000, v60, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
+                  v51 = v33;
+                  v52 = 2080;
+                  v53 = "[VCMediaNegotiationBlobVideoSettings(VideoRules) printScreenWithLogFile:]";
+                  v54 = 1024;
+                  v55 = 863;
+                  v56 = 2080;
+                  *v57 = v32;
+                  _os_log_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
                 }
               }
 
-              VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v53, v54, v55, v56, v57, v58, v52);
-              v16 = v68;
+              VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v32);
+              v10 = v42;
             }
 
-            v70 = [videoRuleCollections countByEnumeratingWithState:&v72 objects:v71 count:16];
+            v44 = [videoRuleCollections countByEnumeratingWithState:&v46 objects:v45 count:16];
           }
 
-          while (v70);
+          while (v44);
         }
 
-        v15 = v65 + 1;
+        v9 = v39 + 1;
       }
 
-      while (v65 + 1 != v64);
-      v64 = [(NSMutableArray *)obj countByEnumeratingWithState:&v85 objects:v84 count:16];
+      while (v39 + 1 != v38);
+      v38 = [(NSMutableArray *)obj countByEnumeratingWithState:&v59 objects:v58 count:16];
     }
 
-    while (v64);
+    while (v38);
   }
 }
 

@@ -176,7 +176,7 @@ LABEL_11:
   v14.super_class = _TVMLCollectionViewController;
   [(_TVMLCollectionViewController *)&v14 viewDidLoad];
   collectionWrappingView = [(_TVMLCollectionViewController *)self collectionWrappingView];
-  [(_TVMLCollectionViewController *)self showcaseConfig];
+  objc_msgSend_showcaseConfig(self);
   [collectionWrappingView setShowcaseConfig:v13];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -841,7 +841,7 @@ LABEL_110:
   v46 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   pathCopy = path;
-  [(_TVMLCollectionViewController *)self cellMetrics];
+  objc_msgSend_cellMetrics(self);
   v9 = v34;
   v8 = v35;
   if (v34 == 0.0)
@@ -860,7 +860,7 @@ LABEL_110:
       v16 = v15;
       if (v15)
       {
-        [v15 tv_cellMetricsValue];
+        objc_msgSend_tv_cellMetricsValue(v15);
         v9 = *&v25;
       }
 
@@ -930,7 +930,7 @@ LABEL_110:
     [cellCopy setValue:v12 forTVViewStyle:@"tv-focus-margin"];
 
     v13 = MEMORY[0x277CCAE60];
-    [(_TVMLCollectionViewController *)self cellMetrics];
+    objc_msgSend_cellMetrics(self);
     v14 = [v13 valueWithUIEdgeInsets:{v20, v21, v22, v23}];
     [cellCopy setValue:v14 forTVViewStyle:@"padding"];
 
@@ -1083,7 +1083,7 @@ LABEL_5:
 - (void)tv_updateViewLayout
 {
   collectionElement = [(_TVMLCollectionViewController *)self collectionElement];
-  [_TVLockupFactory cellMetricsForCollectionElement:collectionElement];
+  objc_msgSend_cellMetricsForCollectionElement_(_TVLockupFactory);
 
   v4 = self->_cellMetrics.cellSize.width == 0.0 && self->_cellMetrics.cellSize.height == 0.0;
   if (!v4 || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(0, *&self->_cellMetrics.cellPadding.top), vceqq_f64(0, *&self->_cellMetrics.cellPadding.bottom)))) & 1) == 0)
@@ -1253,7 +1253,7 @@ LABEL_23:
     [style tv_focusMargin];
     [v29 setFocusMargin:?];
 
-    [(_TVMLCollectionViewController *)self cellMetrics];
+    objc_msgSend_cellMetrics(self);
     [v29 setPadding:{v40, v41, v42, v43}];
     style2 = [(IKCollectionElement *)self->_collectionElement style];
     [v29 setContentAlignment:{objc_msgSend(style2, "tv_contentAlignment")}];

@@ -72,23 +72,20 @@
 
 - (void)setDelegate:(id)delegate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (delegate)
   {
     v4 = [[__NSCFStreamWeakDelegateWrapper alloc] initWithDelegate:delegate];
-    v7.version = 0;
-    v7.info = v4;
-    v7.retain = CFRetain;
-    v7.release = CFRelease;
-    v7.copyDescription = 0;
-    CFReadStreamSetClient(self, 0x1BuLL, _inputStreamCallbackFunc, &v7);
-
-    v5 = *MEMORY[0x1E69E9840];
+    v5.version = 0;
+    v5.info = v4;
+    v5.retain = CFRetain;
+    v5.release = CFRelease;
+    v5.copyDescription = 0;
+    CFReadStreamSetClient(self, 0x1BuLL, _inputStreamCallbackFunc, &v5);
   }
 
   else
   {
-    v6 = *MEMORY[0x1E69E9840];
 
     CFReadStreamSetClient(self, 0, 0, 0);
   }

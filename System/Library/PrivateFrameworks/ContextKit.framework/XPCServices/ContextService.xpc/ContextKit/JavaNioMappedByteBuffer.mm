@@ -10,7 +10,7 @@
 
 - (BOOL)isLoaded
 {
-  [JavaNioMappedByteBuffer checkIsMapped]_0(self);
+  [JavaNioMappedByteBuffer checkIsMapped]_0(self, a2);
   block = self->block_;
   if (!block)
   {
@@ -69,8 +69,8 @@
 {
   if (!*(result + 48))
   {
-    v1 = new_JavaLangUnsupportedOperationException_init();
-    objc_exception_throw(v1);
+    v2 = new_JavaLangUnsupportedOperationException_init();
+    objc_exception_throw(v2);
   }
 
   return result;
@@ -78,7 +78,7 @@
 
 - (id)load__
 {
-  [JavaNioMappedByteBuffer checkIsMapped]_0(self);
+  [JavaNioMappedByteBuffer checkIsMapped]_0(self, a2);
   if ((atomic_load_explicit(LibcoreIoLibcore__initialized, memory_order_acquire) & 1) == 0)
   {
     objc_opt_class();
@@ -101,7 +101,7 @@
 
 - (id)force
 {
-  [JavaNioMappedByteBuffer checkIsMapped]_0(self);
+  [JavaNioMappedByteBuffer checkIsMapped]_0(self, a2);
   mapMode = self->mapMode_;
   if ((atomic_load_explicit(JavaNioChannelsFileChannel_MapMode__initialized, memory_order_acquire) & 1) == 0)
   {

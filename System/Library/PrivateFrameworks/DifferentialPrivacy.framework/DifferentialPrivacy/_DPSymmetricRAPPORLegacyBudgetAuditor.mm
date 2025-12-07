@@ -66,13 +66,12 @@ LABEL_11:
 
 - (void)initWithMetadata:(int)a1 plistParameters:(NSObject *)a2 error:(double)a3 .cold.2(int a1, NSObject *a2, double a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a1;
-  v5 = 2048;
-  v6 = a3;
-  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "Symmetric RAPPOR legacy budget auditor uses min batch size = %d, local epsilon = %f", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a1;
+  v4 = 2048;
+  v5 = a3;
+  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "Symmetric RAPPOR legacy budget auditor uses min batch size = %d, local epsilon = %f", v3, 0x12u);
 }
 
 @end

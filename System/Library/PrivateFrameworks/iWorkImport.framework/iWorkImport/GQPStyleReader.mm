@@ -228,7 +228,7 @@
 
 - (void)handleDoubleValue:(double)value
 {
-  v4 = sub_F5D0(self->mCurrentProperty, value);
+  v4 = sub_F5D0(LOWORD(self->mCurrentProperty), value);
   CFArrayAppendValue(self->mEntries, v4);
   self->mCurrentProperty = 0;
 }

@@ -141,11 +141,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v18 = @"RecurringBackupWarningPeriod";
-      v19 = 2048;
-      v20 = *&v7;
+      v19 = @"RecurringBackupWarningPeriod";
+      v20 = 2048;
+      v21 = *&v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Period: %@ -> %f (prefs)", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "Period: %@ -> %f (prefs)", @"RecurringBackupWarningPeriod", *&v7);
     }
   }
 
@@ -161,33 +161,33 @@
       {
         [v8 doubleValue];
         *buf = 138412546;
-        v18 = @"RecurringBackupWarningPeriod";
-        v19 = 2048;
-        v20 = v11;
+        v19 = @"RecurringBackupWarningPeriod";
+        v20 = 2048;
+        v21 = v11;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Period: %@ -> %f (remote)", buf, 0x16u);
         [v8 doubleValue];
-        _MBLog();
+        _MBLog(@"I ", "Period: %@ -> %f (remote)", @"RecurringBackupWarningPeriod", v12);
       }
 
       [v8 doubleValue];
-      v7 = v12;
+      v7 = v13;
     }
 
     else
     {
-      v13 = MBIsInternalInstall();
-      v14 = MBGetDefaultLog();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
-      if (v13)
+      v14 = MBIsInternalInstall();
+      v15 = MBGetDefaultLog();
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+      if (v14)
       {
-        if (v15)
+        if (v16)
         {
           *buf = 138412546;
-          v18 = @"RecurringBackupWarningPeriod";
-          v19 = 2048;
-          v20 = 0x410FA40000000000;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Period: %@ -> %f (internal)", buf, 0x16u);
-          _MBLog();
+          v19 = @"RecurringBackupWarningPeriod";
+          v20 = 2048;
+          v21 = 0x410FA40000000000;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Period: %@ -> %f (internal)", buf, 0x16u);
+          _MBLog(@"I ", "Period: %@ -> %f (internal)", @"RecurringBackupWarningPeriod", 0x410FA40000000000);
         }
 
         v8 = 0;
@@ -196,14 +196,14 @@
 
       else
       {
-        if (v15)
+        if (v16)
         {
           *buf = 138412546;
-          v18 = @"RecurringBackupWarningPeriod";
-          v19 = 2048;
-          v20 = 0x4122750000000000;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Period: %@ -> %f (external)", buf, 0x16u);
-          _MBLog();
+          v19 = @"RecurringBackupWarningPeriod";
+          v20 = 2048;
+          v21 = 0x4122750000000000;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Period: %@ -> %f (external)", buf, 0x16u);
+          _MBLog(@"I ", "Period: %@ -> %f (external)", @"RecurringBackupWarningPeriod", 0x4122750000000000);
         }
 
         v8 = 0;
@@ -266,7 +266,7 @@
               _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "There's already a pending follow-up item for %{public}@ - skipping", buf, 0xCu);
 
               uniqueIdentifier3 = [v14 uniqueIdentifier];
-              _MBLog();
+              _MBLog(@"I ", "There's already a pending follow-up item for %{public}@ - skipping", uniqueIdentifier3);
             }
 
             v26 = 1;
@@ -313,16 +313,16 @@
 
           if (v25)
           {
-            v29 = MBGetDefaultLog();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+            v30 = MBGetDefaultLog();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
               uniqueIdentifier5 = [v23 uniqueIdentifier];
               *buf = 138543362;
               v47 = uniqueIdentifier5;
-              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "There's a legacy pending follow-up item for %{public}@ - skipping", buf, 0xCu);
+              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "There's a legacy pending follow-up item for %{public}@ - skipping", buf, 0xCu);
 
               uniqueIdentifier6 = [v23 uniqueIdentifier];
-              _MBLog();
+              _MBLog(@"I ", "There's a legacy pending follow-up item for %{public}@ - skipping", uniqueIdentifier6);
             }
 
             v26 = 1;
@@ -353,7 +353,7 @@ LABEL_29:
       *buf = 138412290;
       v47 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to fetch all pending follow-up items: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch all pending follow-up items: %@", v8);
     }
 
     v26 = 0;
@@ -392,8 +392,9 @@ LABEL_30:
     }
 
     *buf = 138543362;
-    v18 = uniqueIdentifier;
+    v21 = uniqueIdentifier;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Posting follow-up item %{public}@", buf, 0xCu);
+    v12 = @"Db";
   }
 
   else
@@ -404,49 +405,54 @@ LABEL_30:
     }
 
     *buf = 138543362;
-    v18 = uniqueIdentifier;
+    v21 = uniqueIdentifier;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Posting follow-up item %{public}@", buf, 0xCu);
+    v12 = @"I ";
   }
 
-  _MBLog();
+  _MBLog(v12, "Posting follow-up item %{public}@", uniqueIdentifier);
 LABEL_9:
 
-  v16 = 0;
-  v12 = [v7 postFollowUpItem:v5 error:&v16];
-  v13 = v16;
-  v14 = MBGetDefaultLog();
-  v15 = v14;
-  if (v12)
+  v19 = 0;
+  v13 = [v7 postFollowUpItem:v5 error:&v19];
+  v14 = v19;
+  v15 = MBGetDefaultLog();
+  v16 = v15;
+  if (v13)
   {
     if (v9)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
+        v21 = uniqueIdentifier;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Posted follow-up item %{public}@", buf, 0xCu);
         v18 = uniqueIdentifier;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Posted follow-up item %{public}@", buf, 0xCu);
+        v17 = @"Db";
 LABEL_17:
-        _MBLog();
+        _MBLog(v17, "Posted follow-up item %{public}@", v18);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
+      v21 = uniqueIdentifier;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Posted follow-up item %{public}@", buf, 0xCu);
       v18 = uniqueIdentifier;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Posted follow-up item %{public}@", buf, 0xCu);
+      v17 = @"Df";
       goto LABEL_17;
     }
   }
 
-  else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v18 = uniqueIdentifier;
-    v19 = 2112;
-    v20 = v13;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to post follow-up item %{public}@: %@", buf, 0x16u);
-    goto LABEL_17;
+    v21 = uniqueIdentifier;
+    v22 = 2112;
+    v23 = v14;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to post follow-up item %{public}@: %@", buf, 0x16u);
+    _MBLog(@"E ", "Failed to post follow-up item %{public}@: %@", uniqueIdentifier, v14);
   }
 }
 
@@ -468,7 +474,7 @@ LABEL_17:
     if ([(MBFollowUpManager *)self _foundPendingFollowUpItemWithIdentifiers:v7])
     {
       uniqueIdentifier = 0;
-      goto LABEL_16;
+      goto LABEL_15;
     }
 
     persona = [accountCopy persona];
@@ -548,7 +554,7 @@ LABEL_17:
       uniqueIdentifier = [v29 uniqueIdentifier];
 
       v12 = v38;
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     v12 = MBGetDefaultLog();
@@ -557,7 +563,7 @@ LABEL_17:
       *buf = 138543362;
       v49 = v6;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Suppressing alert for %{public}@ (restore)", buf, 0xCu);
-      goto LABEL_11;
+      _MBLog(@"Df", "Suppressing alert for %{public}@ (restore)", v6);
     }
   }
 
@@ -569,15 +575,14 @@ LABEL_17:
       *buf = 138412290;
       v49 = v6;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Nil ACAccount. Not posting a followup for %@", buf, 0xCu);
-LABEL_11:
-      _MBLog();
+      _MBLog(@"E ", "Nil ACAccount. Not posting a followup for %@", v6);
     }
   }
 
   uniqueIdentifier = 0;
-LABEL_15:
+LABEL_14:
 
-LABEL_16:
+LABEL_15:
 
   return uniqueIdentifier;
 }
@@ -729,7 +734,7 @@ LABEL_16:
         *buf = 138543362;
         v56 = v9;
         _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Suppressing alert for %{public}@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Suppressing alert for %{public}@", v9);
       }
 
       uniqueIdentifier = 0;
@@ -758,7 +763,7 @@ LABEL_16:
     if ([(MBFollowUpManager *)self _foundPendingFollowUpItemWithIdentifiers:v11])
     {
       uniqueIdentifier = 0;
-      goto LABEL_31;
+      goto LABEL_30;
     }
 
     persona = [accountCopy persona];
@@ -816,7 +821,7 @@ LABEL_16:
           }
 
           v52 = v30;
-          goto LABEL_24;
+          goto LABEL_23;
         }
       }
 
@@ -834,12 +839,12 @@ LABEL_16:
         }
 
         v52 = v31;
-        goto LABEL_24;
+        goto LABEL_23;
       }
 
       username = [v14 username];
       v52 = username;
-LABEL_24:
+LABEL_23:
       v66 = MBLocalizedStringWithGreenTeaSuffix();
 
       v32 = MBLocalizedStringFromTable();
@@ -912,7 +917,7 @@ LABEL_24:
       uniqueIdentifier = [v45 uniqueIdentifier];
 
       v11 = v60;
-      goto LABEL_30;
+      goto LABEL_29;
     }
 
     v16 = MBGetDefaultLog();
@@ -921,7 +926,7 @@ LABEL_24:
       *buf = 138543362;
       v74 = v10;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Suppressing alert for %{public}@", buf, 0xCu);
-      goto LABEL_12;
+      _MBLog(@"Df", "Suppressing alert for %{public}@", v10);
     }
   }
 
@@ -933,15 +938,14 @@ LABEL_24:
       *buf = 138412290;
       v74 = v10;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Nil ACAccount. Not posting a followup for %@", buf, 0xCu);
-LABEL_12:
-      _MBLog();
+      _MBLog(@"E ", "Nil ACAccount. Not posting a followup for %@", v10);
     }
   }
 
   uniqueIdentifier = 0;
-LABEL_30:
+LABEL_29:
 
-LABEL_31:
+LABEL_30:
 
   return uniqueIdentifier;
 }
@@ -1117,7 +1121,7 @@ LABEL_15:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Not posting restore finished follow up for secondary account", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "Not posting restore finished follow up for secondary account");
     }
 
     uniqueIdentifier = 0;
@@ -1183,9 +1187,9 @@ LABEL_15:
   dispatch_assert_queue_V2(backgroundRestoreProgressQueue);
 
   followUpController = [(MBFollowUpManager *)selfCopy followUpController];
-  v42 = 0;
-  v5 = [followUpController pendingFollowUpItems:&v42];
-  v6 = v42;
+  v41 = 0;
+  v5 = [followUpController pendingFollowUpItems:&v41];
+  v6 = v41;
 
   if (!v5)
   {
@@ -1193,21 +1197,20 @@ LABEL_15:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v46 = v6;
+      v45 = v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to refresh pending follow ups:%@", buf, 0xCu);
-      v30 = v6;
-      _MBLog();
+      _MBLog(@"E ", "Failed to refresh pending follow ups:%@", v6);
     }
   }
 
-  v32 = v6;
-  v33 = objc_opt_new();
+  v31 = v6;
+  v32 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (!v9)
   {
 
@@ -1215,20 +1218,20 @@ LABEL_15:
   }
 
   v10 = v9;
-  v31 = selfCopy;
+  v30 = selfCopy;
   v11 = 0;
-  v12 = *v39;
+  v12 = *v38;
   do
   {
     v13 = v8;
     for (i = 0; i != v10; i = i + 1)
     {
-      if (*v39 != v12)
+      if (*v38 != v12)
       {
         objc_enumerationMutation(v13);
       }
 
-      v15 = *(*(&v38 + 1) + 8 * i);
+      v15 = *(*(&v37 + 1) + 8 * i);
       uniqueIdentifier = [v15 uniqueIdentifier];
       if ([uniqueIdentifier hasPrefix:@"RestoreInProgress"])
       {
@@ -1251,57 +1254,57 @@ LABEL_15:
 
       if (integerValue == 2)
       {
-        [v33 addObject:v15];
+        [v32 addObject:v15];
       }
 
       ++v11;
     }
 
     v8 = v13;
-    v10 = [v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v10 = [v13 countByEnumeratingWithState:&v37 objects:v43 count:16];
   }
 
   while (v10);
 
-  selfCopy = v31;
-  if (v11 == 1 && [v33 count])
+  selfCopy = v30;
+  if (v11 == 1 && [v32 count])
   {
-    v22 = [v33 objectAtIndexedSubscript:0];
+    v22 = [v32 objectAtIndexedSubscript:0];
     [v22 setGroupIdentifier:FLGroupIdentifierNoGroup];
     [v22 setDisplayStyle:16];
-    [(MBFollowUpManager *)v31 _postFollowUpItem:v22];
+    [(MBFollowUpManager *)v30 _postFollowUpItem:v22];
     goto LABEL_30;
   }
 
 LABEL_22:
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v22 = v33;
-  v23 = [v22 countByEnumeratingWithState:&v34 objects:v43 count:16];
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v22 = v32;
+  v23 = [v22 countByEnumeratingWithState:&v33 objects:v42 count:16];
   if (v23)
   {
     v24 = v23;
     v25 = v8;
-    v26 = *v35;
+    v26 = *v34;
     v27 = FLGroupIdentifierAccount;
     do
     {
       for (j = 0; j != v24; j = j + 1)
       {
-        if (*v35 != v26)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(v22);
         }
 
-        v29 = *(*(&v34 + 1) + 8 * j);
-        [v29 setGroupIdentifier:{v27, v30}];
+        v29 = *(*(&v33 + 1) + 8 * j);
+        [v29 setGroupIdentifier:v27];
         [v29 setDisplayStyle:16];
         [(MBFollowUpManager *)selfCopy _postFollowUpItem:v29];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v34 objects:v43 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v33 objects:v42 count:16];
     }
 
     while (v24);
@@ -1318,7 +1321,7 @@ LABEL_30:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Clearing all pending follow-ups", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Clearing all pending follow-ups");
   }
 
   followUpController = [(MBFollowUpManager *)self followUpController];
@@ -1340,7 +1343,7 @@ LABEL_30:
       *buf = 138543362;
       v11 = v6;
       _os_log_impl(&_mh_execute_header, legacyController, OS_LOG_TYPE_ERROR, "Failed to clear all pending follow-ups: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to clear all pending follow-ups: %{public}@", v6);
     }
   }
 
@@ -1389,7 +1392,7 @@ LABEL_30:
     *buf = 138543362;
     v31 = v8;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Clearing pending follow-ups: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Clearing pending follow-ups: %{public}@", v8);
   }
 
   followUpController = [(MBFollowUpManager *)self followUpController];
@@ -1419,7 +1422,7 @@ LABEL_30:
       *buf = 138543362;
       v31 = v19;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to clear pending follow-ups: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to clear pending follow-ups: %{public}@", v19);
     }
   }
 
@@ -1440,9 +1443,9 @@ LABEL_30:
   accountsCopy = accounts;
   excludingCopy = excluding;
   followUpController = [(MBFollowUpManager *)self followUpController];
-  v47 = 0;
-  v9 = [followUpController pendingFollowUpItems:&v47];
-  v10 = v47;
+  v45 = 0;
+  v9 = [followUpController pendingFollowUpItems:&v45];
+  v10 = v45;
 
   if (v10)
   {
@@ -1450,9 +1453,9 @@ LABEL_30:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v50 = v10;
+      v48 = v10;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to fetch pending follow-ups: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch pending follow-ups: %@", v10);
     }
 
 LABEL_31:
@@ -1464,59 +1467,59 @@ LABEL_31:
   {
     selfCopy = self;
     v11 = objc_opt_new();
+    v41 = 0u;
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v36 = accountsCopy;
+    v34 = accountsCopy;
     v12 = accountsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v43 objects:v54 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v41 objects:v52 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v44;
+      v15 = *v42;
       do
       {
         for (i = 0; i != v14; i = i + 1)
         {
-          if (*v44 != v15)
+          if (*v42 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          accountIdentifier = [*(*(&v43 + 1) + 8 * i) accountIdentifier];
+          accountIdentifier = [*(*(&v41 + 1) + 8 * i) accountIdentifier];
           [v11 addObject:accountIdentifier];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v43 objects:v54 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v41 objects:v52 count:16];
       }
 
       while (v14);
     }
 
-    v35 = excludingCopy;
+    v33 = excludingCopy;
     v18 = [NSSet setWithArray:excludingCopy];
+    v37 = 0u;
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v34 = v9;
+    v32 = v9;
     obj = v9;
-    v19 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
+    v19 = [obj countByEnumeratingWithState:&v37 objects:v51 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v40;
+      v21 = *v38;
       do
       {
         for (j = 0; j != v20; j = j + 1)
         {
-          if (*v40 != v21)
+          if (*v38 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v39 + 1) + 8 * j);
+          v23 = *(*(&v37 + 1) + 8 * j);
           uniqueIdentifier = [v23 uniqueIdentifier];
           if ([v18 containsObject:uniqueIdentifier])
           {
@@ -1524,10 +1527,9 @@ LABEL_31:
             if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v50 = uniqueIdentifier;
+              v48 = uniqueIdentifier;
               _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Not clearing follow up with identifier %@", buf, 0xCu);
-              v32 = uniqueIdentifier;
-              _MBLog();
+              _MBLog(@"I ", "Not clearing follow up with identifier %@", uniqueIdentifier);
             }
           }
 
@@ -1551,33 +1553,31 @@ LABEL_31:
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v50 = v23;
-                v51 = 2112;
-                v52 = v25;
+                v48 = v23;
+                v49 = 2112;
+                v50 = v25;
                 _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Found follow-up item %@ with account identifier %@ to remove", buf, 0x16u);
-                v32 = v23;
-                v33 = v25;
-                _MBLog();
+                _MBLog(@"Df", "Found follow-up item %@ with account identifier %@ to remove", v23, v25);
               }
 
               uniqueIdentifier3 = [v23 uniqueIdentifier];
-              v48 = uniqueIdentifier3;
-              v30 = [NSArray arrayWithObjects:&v48 count:1];
+              v46 = uniqueIdentifier3;
+              v30 = [NSArray arrayWithObjects:&v46 count:1];
               [(MBFollowUpManager *)selfCopy clearPendingFollowUpsWithAccountIdentifier:v25 identifiers:v30];
             }
           }
         }
 
-        v20 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
+        v20 = [obj countByEnumeratingWithState:&v37 objects:v51 count:16];
       }
 
       while (v20);
     }
 
-    excludingCopy = v35;
-    accountsCopy = v36;
+    excludingCopy = v33;
+    accountsCopy = v34;
     v10 = 0;
-    v9 = v34;
+    v9 = v32;
     goto LABEL_31;
   }
 
@@ -1706,7 +1706,7 @@ LABEL_11:
     *buf = 138543362;
     v6 = errorCopy;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "MBPrebuddyFollowUpController finish XPC with error: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "MBPrebuddyFollowUpController finish XPC with error: %{public}@", errorCopy);
   }
 }
 

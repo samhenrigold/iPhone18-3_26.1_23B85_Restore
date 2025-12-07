@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)_accessibilityCanRequestSetupControllerSafely;
 - (BOOL)_accessibilityFinishSetupIfAppropriate;
+- (BOOL)_iosAccessibilityPerformAction:(int)action withValue:(id)value fencePort:(unsigned int)port;
 - (void)_accessibilityLoadAccessibilityInformation;
 @end
 
@@ -74,10 +75,9 @@
   return v7 & 1;
 }
 
-void __73__UIBuddyApplicationAccessibility__accessibilityFinishSetupIfAppropriate__block_invoke(uint64_t a1)
+void __73__UIBuddyApplicationAccessibility__accessibilityFinishSetupIfAppropriate__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = *(a1 + 32);
   v3 = __UIAccessibilityCastAsClass();
   v4 = [v3 view];
   [v4 setUserInteractionEnabled:0];
@@ -90,27 +90,27 @@ void __73__UIBuddyApplicationAccessibility__accessibilityFinishSetupIfAppropriat
 
 - (BOOL)_accessibilityCanRequestSetupControllerSafely
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   connectedScenes = [*MEMORY[0x29EDC8008] connectedScenes];
-  v3 = [connectedScenes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [connectedScenes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(connectedScenes);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -126,7 +126,7 @@ void __73__UIBuddyApplicationAccessibility__accessibilityFinishSetupIfAppropriat
         }
       }
 
-      v4 = [connectedScenes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [connectedScenes countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -139,8 +139,25 @@ void __73__UIBuddyApplicationAccessibility__accessibilityFinishSetupIfAppropriat
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
+}
+
+- (BOOL)_iosAccessibilityPerformAction:(int)action withValue:(id)value fencePort:(unsigned int)port
+{
+  if (action == 4019)
+  {
+
+    return [(UIBuddyApplicationAccessibility *)self _accessibilityFinishSetupIfAppropriate];
+  }
+
+  else
+  {
+    v9 = v5;
+    v10 = v6;
+    v8.receiver = self;
+    v8.super_class = UIBuddyApplicationAccessibility;
+    return [(UIBuddyApplicationAccessibility *)&v8 _iosAccessibilityPerformAction:*&action withValue:value fencePort:*&port];
+  }
 }
 
 @end

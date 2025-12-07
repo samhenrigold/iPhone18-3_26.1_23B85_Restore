@@ -38,7 +38,7 @@
   return [PAEGlow properties]::sPropertiesDict;
 }
 
-uint64_t __21__PAEGlow_properties__block_invoke()
+void *__21__PAEGlow_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -178,54 +178,54 @@ uint64_t __21__PAEGlow_properties__block_invoke()
   v13 = v8;
   if (self)
   {
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:outputImage, radius, scale.var0, scale.var1];
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:outputImage];
+    objc_msgSend_getInversePixelTransformForImage_(self, a2, outputImage, radius, scale.var0, scale.var1);
+    objc_msgSend_getPixelTransformForImage_(self);
   }
 
   else
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
+    v44 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
   }
 
-  v16 = HGObject::operator new(0x1C0uLL);
-  HGNode::HGNode(v16);
-  *v16 = &unk_2871D9F38;
-  *(v16 + 51) = 0;
-  *(v16 + 52) = 0;
-  *(v16 + 106) = 0;
-  *(v16 + 54) = 0;
-  *(v16 + 55) = 0;
-  off_2871D9FB0(v16, 0, *node.var0);
-  v17 = *v9;
-  v18 = v9[1];
+  v15 = HGObject::operator new(0x1C0uLL);
+  HGNode::HGNode(v15);
+  *v15 = &unk_2871D9F38;
+  *(v15 + 51) = 0;
+  *(v15 + 52) = 0;
+  *(v15 + 106) = 0;
+  *(v15 + 54) = 0;
+  *(v15 + 55) = 0;
+  off_2871D9FB0(v15, 0, *node.var0);
+  v16 = *v9;
+  v17 = v9[1];
   width = [image width];
-  v20 = v38.f64[0];
+  v19 = v37.f64[0];
   height = [image height];
   radiusCopy = radius;
+  v22 = v16;
   v23 = v17;
-  v24 = v18;
-  v29 = vcvt_hight_f32_f64(vcvt_f32_f64(v38), v39);
-  v28 = vcvt_hight_f32_f64(vcvt_f32_f64(v40), v41);
-  v27 = vcvt_hight_f32_f64(vcvt_f32_f64(v30), v31);
-  v26 = vcvt_hight_f32_f64(vcvt_f32_f64(v32), v33);
-  v25 = HEquirectGaussianBlur::init(v16, vcvtpd_s64_f64(fabs(v20) * width), vcvtpd_s64_f64(fabs(v40.f64[1]) * height), &v29, &v28, &v27, &v26, radiusCopy, v23, v24);
-  *v13 = v16;
-  return v25;
+  v28 = vcvt_hight_f32_f64(vcvt_f32_f64(v37), v38);
+  v27 = vcvt_hight_f32_f64(vcvt_f32_f64(v39), v40);
+  v26 = vcvt_hight_f32_f64(vcvt_f32_f64(v29), v30);
+  v25 = vcvt_hight_f32_f64(vcvt_f32_f64(v31), v32);
+  v24 = HEquirectGaussianBlur::init(v15, vcvtpd_s64_f64(fabs(v19) * width), vcvtpd_s64_f64(fabs(v39.f64[1]) * height), &v28, &v27, &v26, &v25, radiusCopy, v22, v23);
+  *v13 = v15;
+  return v24;
 }
 
 - (HGRef<HGNode>)getPlanarBlurNode:(HGRef<HGNode>)node withInputImage:(id)image outputImage:(id)outputImage blurRadius:(double)radius blurScale:(PCVector2<double>)scale
@@ -403,7 +403,7 @@ LABEL_16:
     v18 = 0x3FE8000000000000;
     v16 = 0x3FF8000000000000;
     v15 = 0;
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
+    objc_msgSend_getScaleForImage_(self);
     [v8 getFloatValue:&v19 fromParm:1 atFxTime:info->var0.var1];
     [v8 getFloatValue:&v18 fromParm:3 atFxTime:info->var0.var1];
     [v8 getFloatValue:&v17 fromParm:4 atFxTime:info->var0.var1];
@@ -412,7 +412,7 @@ LABEL_16:
     [v8 getBoolValue:&v15 fromParm:6 atFxTime:info->var0.var1];
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     [objc_msgSend(v12 colorMatrixFromDesiredRGBToYCbCrAtTime:{info->var0.var1), "matrix"}];

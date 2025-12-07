@@ -11,16 +11,15 @@
 
 + (id)_defaultParameters
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E69D44D0];
-  v6[0] = *MEMORY[0x1E695EE68];
-  v6[1] = v2;
-  v7[0] = MEMORY[0x1E695E118];
-  v7[1] = MEMORY[0x1E695E110];
-  v6[2] = *MEMORY[0x1E69D44E8];
-  v7[2] = MEMORY[0x1E695E118];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = *MEMORY[0x1E695EE68];
+  v5[1] = v2;
+  v6[0] = MEMORY[0x1E695E118];
+  v6[1] = MEMORY[0x1E695E110];
+  v5[2] = *MEMORY[0x1E69D44E8];
+  v6[2] = MEMORY[0x1E695E118];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   return v3;
 }
@@ -178,15 +177,15 @@ uint64_t __72__AAUserNotification__waitForResponseAndReleaseNotification_complet
   {
     if (notification)
     {
-      CFRetain(notification);
-      v7 = _AANotificationQueue();
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __63__AAUserNotification_waitForResponseToNotification_completion___block_invoke;
-      v8[3] = &unk_1E7C9D820;
+      v7 = CFRetain(notification);
+      v8 = _AANotificationQueue(v7);
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __63__AAUserNotification_waitForResponseToNotification_completion___block_invoke;
+      v9[3] = &unk_1E7C9D820;
       notificationCopy = notification;
-      v9 = v6;
-      dispatch_async(v7, v8);
+      v10 = v6;
+      dispatch_async(v8, v9);
     }
 
     else
@@ -202,36 +201,34 @@ void __63__AAUserNotification_waitForResponseToNotification_completion___block_i
   v2 = [MEMORY[0x1E696B098] valueWithPointer:*(a1 + 40)];
   v3 = [*(a1 + 32) copy];
   v4 = _Block_copy(v3);
-  v5 = _AANotificationHandlerMap();
+  v5 = _AANotificationHandlerMap(v4);
   [v5 setObject:v4 forKeyedSubscript:v2];
 
-  v6 = _AALogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _AALogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
     v13 = v2;
-    _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Waiting for notification for key: %@", &v12, 0xCu);
+    _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Waiting for notification for key: %@", &v12, 0xCu);
   }
 
   RunLoopSource = CFUserNotificationCreateRunLoopSource(0, *(a1 + 40), _AACFNotificationCallback, 0);
   if (RunLoopSource)
   {
-    v8 = RunLoopSource;
+    v9 = RunLoopSource;
     Main = CFRunLoopGetMain();
-    CFRunLoopAddSource(Main, v8, *MEMORY[0x1E695E8D0]);
-    CFRelease(v8);
+    CFRunLoopAddSource(Main, v9, *MEMORY[0x1E695E8D0]);
+    CFRelease(v9);
   }
 
   else
   {
-    v10 = _AANotificationHandlerMap();
-    [v10 removeObjectForKey:v2];
+    v11 = _AANotificationHandlerMap(0);
+    [v11 removeObjectForKey:v2];
 
     CFRelease(*(a1 + 40));
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -245,12 +245,14 @@ LABEL_17:
   lastWithYouDate = self->_lastWithYouDate;
   p_lastWithYouDate = &self->_lastWithYouDate;
   v6 = lastWithYouDate;
-  if (!lastWithYouDate || [(NSDate *)v6 compare:dateCopy]== NSOrderedAscending)
+  v11 = dateCopy;
+  if (!lastWithYouDate || (v9 = [(NSDate *)v6 compare:dateCopy], v10 = v11, v9 == -1))
   {
     objc_storeStrong(p_lastWithYouDate, date);
+    v10 = v11;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v9, v10);
 }
 
 - (void)updateAdvertisingStartDateForHELE:(id)e
@@ -259,12 +261,14 @@ LABEL_17:
   advertisingStartDateForHELE = self->_advertisingStartDateForHELE;
   p_advertisingStartDateForHELE = &self->_advertisingStartDateForHELE;
   v6 = advertisingStartDateForHELE;
-  if (!advertisingStartDateForHELE || [(NSDate *)v6 compare:eCopy]== NSOrderedAscending)
+  v11 = eCopy;
+  if (!advertisingStartDateForHELE || (v9 = [(NSDate *)v6 compare:eCopy], v10 = v11, v9 == -1))
   {
     objc_storeStrong(p_advertisingStartDateForHELE, e);
+    v10 = v11;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v9, v10);
 }
 
 - (void)updateLastCompanionDisconnectionDate:(id)date
@@ -273,12 +277,14 @@ LABEL_17:
   lastCompanionDisconnectionDate = self->_lastCompanionDisconnectionDate;
   p_lastCompanionDisconnectionDate = &self->_lastCompanionDisconnectionDate;
   v6 = lastCompanionDisconnectionDate;
-  if (!lastCompanionDisconnectionDate || [(NSDate *)v6 compare:dateCopy]== NSOrderedAscending)
+  v11 = dateCopy;
+  if (!lastCompanionDisconnectionDate || (v9 = [(NSDate *)v6 compare:dateCopy], v10 = v11, v9 == -1))
   {
     objc_storeStrong(p_lastCompanionDisconnectionDate, date);
+    v10 = v11;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v9, v10);
 }
 
 - (void)updateFirstAdvertisementAfterScenarioTransition:(id)transition
@@ -327,7 +333,7 @@ LABEL_17:
 
 - (void)publishAnalyticsForFirstAdv:(id)adv scenario:(unint64_t)scenario
 {
-  v22[5] = *MEMORY[0x277D85DE8];
+  v21[5] = *MEMORY[0x277D85DE8];
   firstAdvertisementAfterScenarioTransition = self->_firstAdvertisementAfterScenarioTransition;
   currentScenarioTime = self->_currentScenarioTime;
   advCopy = adv;
@@ -336,27 +342,25 @@ LABEL_17:
   [advCopy timeIntervalSinceDate:self->_firstAdvertisementAfterScenarioTransition];
   v12 = v11;
 
-  v21[0] = @"currentScenario";
+  v20[0] = @"currentScenario";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SASingleDeviceRecord currentScenarioClass](self, "currentScenarioClass")}];
-  v22[0] = v13;
-  v21[1] = @"firstDetectedToNextScenarioTimeInterval";
+  v21[0] = v13;
+  v20[1] = @"firstDetectedToNextScenarioTimeInterval";
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
-  v22[1] = v14;
-  v21[2] = @"nextScenario";
+  v21[1] = v14;
+  v20[2] = @"nextScenario";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:scenario];
-  v22[2] = v15;
-  v21[3] = @"previousMonitoringState";
+  v21[2] = v15;
+  v20[3] = @"previousMonitoringState";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SASingleDeviceRecord monitoringSessionStateAtTimeOfFirstAdv](self, "monitoringSessionStateAtTimeOfFirstAdv")}];
-  v22[3] = v16;
-  v21[4] = @"scenarioChangeToFirstDetectedTimeInterval";
+  v21[3] = v16;
+  v20[4] = @"scenarioChangeToFirstDetectedTimeInterval";
   v17 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
-  v22[4] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
+  v21[4] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:5];
 
   analytics = [(SASingleDeviceRecord *)self analytics];
   [analytics submitEvent:@"com.apple.clx.alert.firstAdv" content:v18];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (SASingleDeviceRecord)initWithCoder:(id)coder

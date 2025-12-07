@@ -1,59 +1,60 @@
 gss_cred_id_t sub_9E4(gss_name_t_desc_struct *a1, const gss_OID_desc *a2, uint64_t a3)
 {
-  v5 = sub_1170();
+  v5 = sub_1170(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1210();
   }
 
-  if (!gss_oid_equal(a2, &__gss_krb5_mechanism_oid_desc))
+  v6 = gss_oid_equal(a2, &__gss_krb5_mechanism_oid_desc);
+  if (!v6)
   {
     return 0;
   }
 
-  v6 = sub_1170();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_1170(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1250();
   }
 
   context = objc_autoreleasePoolPush();
   DisplayString = GSSNameCreateDisplayString(a1);
-  v8 = sub_1170();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = sub_1170(DisplayString);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_12C0();
   }
 
-  v50 = DisplayString;
-  v9 = [(__CFString *)v50 componentsSeparatedByString:@"@"];
-  v10 = [v9 count];
-  if (v10 != &dword_0 + 3)
+  v55 = DisplayString;
+  v10 = [(__CFString *)v55 componentsSeparatedByString:@"@"];
+  v11 = [v10 count];
+  if (v11 != &dword_0 + 3)
   {
-    if (v10 == &dword_0 + 2)
+    if (v11 == &dword_0 + 2)
     {
-      v13 = [v9 objectAtIndexedSubscript:0];
-      v11 = [v13 componentsSeparatedByString:@"/"];
+      v14 = [v10 objectAtIndexedSubscript:0];
+      v12 = [v14 componentsSeparatedByString:@"/"];
 
-      v14 = [v11 count];
-      v15 = v11;
-      if (v14 == &dword_0 + 2 || (v16 = [v9 count], v15 = v9, v16 == &dword_0 + 2))
+      v15 = [v12 count];
+      v16 = v12;
+      if (v15 == &dword_0 + 2 || (v17 = [v10 count], v16 = v10, v17 == &dword_0 + 2))
       {
-        v57 = [v15 objectAtIndexedSubscript:1];
+        v62 = [v16 objectAtIndexedSubscript:1];
         goto LABEL_21;
       }
 
 LABEL_20:
-      v57 = 0;
+      v62 = 0;
       goto LABEL_21;
     }
 
-    if (v10 == &dword_0 + 1)
+    if (v11 == &dword_0 + 1)
     {
-      v11 = [(__CFString *)v50 componentsSeparatedByString:@"/"];
-      if ([v11 count] == &dword_0 + 2)
+      v12 = [(__CFString *)v55 componentsSeparatedByString:@"/"];
+      if ([v12 count] == &dword_0 + 2)
       {
-        v57 = [v11 objectAtIndexedSubscript:1];
+        v62 = [v12 objectAtIndexedSubscript:1];
 LABEL_21:
 
         goto LABEL_22;
@@ -65,192 +66,198 @@ LABEL_21:
     goto LABEL_19;
   }
 
-  if ([v9 count] != &dword_0 + 2)
+  if ([v10 count] != &dword_0 + 2)
   {
 LABEL_19:
-    v57 = 0;
+    v62 = 0;
     goto LABEL_22;
   }
 
-  v57 = [v9 objectAtIndexedSubscript:1];
+  v62 = [v10 objectAtIndexedSubscript:1];
 LABEL_22:
 
-  if (!v57)
+  if (!v62)
   {
-    v12 = 0;
+    v13 = 0;
     goto LABEL_74;
   }
 
-  v17 = sub_1170();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v19 = sub_1170(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     sub_1330();
   }
 
-  v18 = +[SOKerberosHeimdalPluginSettings retrieveAllCurrentSettings];
-  v19 = sub_1170();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v20 = +[SOKerberosHeimdalPluginSettings retrieveAllCurrentSettings];
+  v21 = sub_1170(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    sub_13A0(buf, [v18 count], v19);
+    sub_13A0(buf, [v20 count], v21);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  obj = v18;
-  v20 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
-  if (!v20)
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  obj = v20;
+  v22 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+  if (!v22)
   {
 
     goto LABEL_69;
   }
 
-  v21 = 0;
-  v22 = 0;
-  v53 = *v63;
-  v54 = v20;
+  v23 = 0;
+  v24 = 0;
+  v58 = *v68;
+  v59 = v22;
   do
   {
-    for (i = 0; i != v54; i = v26 + 1)
+    v25 = 0;
+    do
     {
-      if (*v63 != v53)
+      if (*v68 != v58)
       {
         objc_enumerationMutation(obj);
       }
 
-      v55 = i;
-      v56 = *(*(&v62 + 1) + 8 * i);
-      v24 = sub_1170();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v60 = v25;
+      v61 = *(*(&v67 + 1) + 8 * v25);
+      v26 = sub_1170(v22);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v25 = +[SOKerberosHeimdalPluginSettings stringWithCredentialUseMode:](SOKerberosHeimdalPluginSettings, "stringWithCredentialUseMode:", [v56 credentialUseMode]);
-        sub_13E8(v25, v67, &v68, v24);
+        v27 = +[SOKerberosHeimdalPluginSettings stringWithCredentialUseMode:](SOKerberosHeimdalPluginSettings, "stringWithCredentialUseMode:", [v61 credentialUseMode]);
+        sub_13E8(v27, v72, &v73, v26);
       }
 
-      v26 = v55;
-      if ([v56 credentialUseMode] - 1 > &dword_0 + 1)
+      v22 = [v61 credentialUseMode];
+      v28 = v60;
+      if ((v22 - 1) > 1)
       {
-        continue;
+        goto LABEL_57;
       }
 
-      v27 = [v56 credentialUseMode];
-      if (a3 && v27 == &dword_0 + 1)
+      v29 = [v61 credentialUseMode];
+      if (a3 && v29 == &dword_0 + 1)
       {
-        v28 = 0;
+        v30 = 0;
         goto LABEL_56;
       }
 
-      v29 = [v56 hosts];
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
-      v59 = 0u;
-      v30 = v29;
-      v31 = [v30 countByEnumeratingWithState:&v58 objects:v66 count:16];
-      if (!v31)
+      v31 = [v61 hosts];
+      v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v32 = v31;
+      v33 = [v32 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      if (!v33)
       {
-        v28 = v22;
+        v30 = v24;
         goto LABEL_55;
       }
 
-      v32 = *v59;
-      v28 = v22;
+      v34 = *v64;
+      v30 = v24;
       do
       {
-        for (j = 0; j != v31; j = j + 1)
+        for (i = 0; i != v33; i = i + 1)
         {
-          if (*v59 != v32)
+          if (*v64 != v34)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v32);
           }
 
-          v34 = *(*(&v58 + 1) + 8 * j);
-          if (![v34 hasPrefix:@"."])
+          v36 = *(*(&v63 + 1) + 8 * i);
+          if (![v36 hasPrefix:@"."])
           {
-            v39 = [v57 lowercaseString];
-            v40 = [v34 lowercaseString];
-            v41 = [v39 isEqualToString:v40];
+            v41 = [v62 lowercaseString];
+            v42 = [v36 lowercaseString];
+            v43 = [v41 isEqualToString:v42];
 
-            if (!v41)
+            if (!v43)
             {
               continue;
             }
 
-            [v56 currentCredential];
-            v28 = v35 = v28;
+            [v61 currentCredential];
+            v30 = v37 = v30;
             goto LABEL_50;
           }
 
-          v35 = [v57 lowercaseString];
-          v36 = [v34 lowercaseString];
-          if (![v35 hasSuffix:v36])
+          v37 = [v62 lowercaseString];
+          v38 = [v36 lowercaseString];
+          if (![v37 hasSuffix:v38])
           {
 
 LABEL_50:
             continue;
           }
 
-          v37 = [v34 length] > v21;
+          v39 = [v36 length] > v23;
 
-          if (v37)
+          if (v39)
           {
-            v38 = [v56 currentCredential];
+            v40 = [v61 currentCredential];
 
-            v21 = [v34 length];
-            v28 = v38;
+            v23 = [v36 length];
+            v30 = v40;
           }
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v58 objects:v66 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v63 objects:v71 count:16];
       }
 
-      while (v31);
+      while (v33);
 LABEL_55:
 
-      v22 = v30;
+      v24 = v32;
 LABEL_56:
 
-      v22 = v28;
-      v26 = v55;
+      v24 = v30;
+      v28 = v60;
+LABEL_57:
+      v25 = v28 + 1;
     }
 
-    v54 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+    while (v25 != v59);
+    v22 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+    v59 = v22;
   }
 
-  while (v54);
+  while (v22);
 
-  if (!v22)
+  if (!v24)
   {
 LABEL_69:
-    v43 = sub_1170();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+    v46 = sub_1170(v44);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
     {
       sub_157C();
     }
 
-    v22 = 0;
+    v24 = 0;
     goto LABEL_72;
   }
 
-  v42 = sub_1170();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+  v45 = sub_1170(v44);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
   {
     sub_1444();
   }
 
-  v43 = [v22 UUIDString];
-  if (([v43 isEqualToString:&stru_4190]& 1) != 0 || (v44 = CFUUIDCreateFromString(0, v43), (v45 = v44) == 0))
+  v46 = [v24 UUIDString];
+  if (([v46 isEqualToString:&stru_4190]& 1) != 0 || (v47 = CFUUIDCreateFromString(0, v46), (v48 = v47) == 0))
   {
 LABEL_72:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_73;
   }
 
-  v12 = GSSCreateCredentialFromUUID(v44);
-  CFRelease(v45);
-  v46 = sub_1170();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+  v13 = GSSCreateCredentialFromUUID(v47);
+  CFRelease(v48);
+  v50 = sub_1170(v49);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
   {
     sub_150C();
   }
@@ -258,28 +265,29 @@ LABEL_72:
 LABEL_73:
 LABEL_74:
 
-  v47 = sub_1170();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+  v52 = sub_1170(v51);
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
   {
     sub_15BC();
   }
 
   objc_autoreleasePoolPop(context);
-  return v12;
+  return v13;
 }
 
-void sub_1090(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint8_t buf)
+void sub_1090(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   if (a2)
   {
     if (a2 == 2)
     {
-      v35 = objc_begin_catch(exception_object);
-      v36 = sub_1170();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v34 = objc_begin_catch(exception_object);
+      v35 = sub_1170(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v37 = [v35 description];
-        sub_14B4(v37, &buf, v36);
+        v36 = [v34 description];
+        sub_14B4(v36, va, v35);
       }
 
       objc_end_catch();
@@ -296,16 +304,16 @@ void sub_1090(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-id sub_1170()
+id sub_1170(uint64_t a1)
 {
   if (qword_80B0 != -1)
   {
     sub_15FC();
   }
 
-  v1 = qword_80B8;
+  v2 = qword_80B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_11B4(id a1)

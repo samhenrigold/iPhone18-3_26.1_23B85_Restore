@@ -1,13 +1,11 @@
-id sub_1688(uint64_t a1)
+void *sub_1688(uint64_t a1)
 {
   result = [*(a1 + 32) handler];
   if (result)
   {
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 40);
-    v5 = *(result + 2);
+    v2 = result[2];
 
-    return v5();
+    return v2();
   }
 
   return result;
@@ -48,43 +46,46 @@ id sub_1858(uint64_t a1)
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_ERROR))
+    v10 = [v7 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v10 = *(a1 + 48);
-      v19 = 138412290;
-      v20 = objc_opt_class();
-      LODWORD(v17) = 12;
-      v16 = &v19;
-      v11 = _os_log_send_and_compose_impl();
+      v18 = 138412290;
+      v19 = objc_opt_class();
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_0, v10, 16, "%@: Determining HS group ID", &v18, 12);
       if (v11)
       {
         v12 = v11;
-        v13 = [NSString stringWithCString:v11 encoding:4, &v19, v17];
+        v13 = [NSString stringWithCString:v11 encoding:4];
         free(v12);
         v16 = v13;
         SSFileLog();
       }
     }
 
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1AC4;
-    v18[3] = &unk_4208;
-    v18[4] = *(a1 + 40);
-    return [v2 determineGroupIDWithCompletionHandler:{v18, v16}];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1AC4;
+    v17[3] = &unk_4208;
+    v17[4] = *(a1 + 40);
+    return [v2 determineGroupIDWithCompletionHandler:{v17, v16}];
   }
 
   else
@@ -95,9 +96,9 @@ id sub_1858(uint64_t a1)
   }
 }
 
-void sub_1FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -114,33 +115,36 @@ intptr_t sub_2000(uint64_t a1, void *a2)
       v6 = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v7 = v6 | 2;
+        LODWORD(v7) = v6 | 2;
       }
 
       else
       {
-        v7 = v6;
+        LODWORD(v7) = v6;
       }
 
-      if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_ERROR))
+      v8 = [v5 OSLogObject];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        v7 = v7;
+      }
+
+      else
       {
         v7 &= 2u;
       }
 
       if (v7)
       {
-        v8 = *(a1 + 32);
-        v15 = 138412546;
-        v16 = objc_opt_class();
-        v17 = 2112;
-        v18 = v4;
-        LODWORD(v14) = 22;
-        v13 = &v15;
-        v9 = _os_log_send_and_compose_impl();
+        v14 = 138412546;
+        v15 = objc_opt_class();
+        v16 = 2112;
+        v17 = v4;
+        v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_0, v8, 16, "%@: library-daap dictionary: %@", &v14, 22);
         if (v9)
         {
           v10 = v9;
-          v11 = [NSString stringWithCString:v9 encoding:4, &v15, v14];
+          v11 = [NSString stringWithCString:v9 encoding:4];
           free(v10);
           v13 = v11;
           SSFileLog();

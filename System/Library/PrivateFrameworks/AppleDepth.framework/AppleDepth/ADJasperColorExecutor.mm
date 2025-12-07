@@ -6,15 +6,15 @@
 - (int)copyConfidenceAllowPixelFormatChange:(__CVBuffer *)change outputConfidence:(__CVBuffer *)confidence;
 - (int)rotateConfidenceAllowPixelFormatChange:(__CVBuffer *)PixelBufferNoCopy rotation:(int64_t)rotation outputConfidence:(__CVBuffer *)confidence;
 - (int64_t)allocateIntermediateBuffers;
+- (int64_t)executeWithColor:(float32x4_t)color colorCameraCalibration:(float32x4_t)calibration colorWorldToPlatformTransform:(float32x4_t)transform pointClouds:(uint64_t)clouds lidarCameraCalibration:(__CVBuffer *)cameraCalibration pointCloudWorldToPlatformTransforms:(void *)transforms outDepthMap:(void *)map outConfMap:(void *)self0 outNonTemporalyConsistentDepthMap:(uint64_t)self1 outNonTemporalyConsistentConfMap:(CVPixelBufferRef *)self2 outConfidenceLevels:(__CVBuffer *)self3;
 - (int64_t)numberOfExecutionSteps;
 - (int64_t)prepareForEngineType:(unint64_t)type roi:(CGRect)roi exifOrientation:(unsigned int)orientation rotationPreference:(unint64_t)preference;
 - (int64_t)prepareForEngineType:(unint64_t)type roi:(CGRect)roi exifOrientation:(unsigned int)orientation useTemporalConsistency:(BOOL)consistency;
 - (int64_t)prepareForEngineType:(unint64_t)type roi:(CGRect)roi exifOrientation:(unsigned int)orientation useTemporalConsistency:(BOOL)consistency rotationPreference:(unint64_t)preference;
-- (uint64_t)executeWithColor:(double)color colorCameraCalibration:(double)calibration colorWorldToPlatformTransform:(double)transform pointCloud:(uint64_t)cloud outDepthMap:(uint64_t)map outConfMap:(void *)confMap outNonTemporalyConsistentDepthMap:(void *)depthMap outNonTemporalyConsistentConfMap:(uint64_t)self0 outConfidenceLevels:(uint64_t)self1;
-- (uint64_t)executeWithColor:(double)color pointCloud:(double)cloud outDepthMap:(double)map outConfMap:(uint64_t)confMap worldToCameraTransform:(uint64_t)transform cameraCalibration:(void *)calibration;
-- (uint64_t)executeWithColor:(float32x4_t)color colorCameraCalibration:(float32x4_t)calibration colorWorldToPlatformTransform:(float32x4_t)transform pointClouds:(uint64_t)clouds lidarCameraCalibration:(__CVBuffer *)cameraCalibration pointCloudWorldToPlatformTransforms:(void *)transforms outDepthMap:(void *)map outConfMap:(void *)self0 outNonTemporalyConsistentDepthMap:(uint64_t)self1 outNonTemporalyConsistentConfMap:(CVPixelBufferRef *)self2 outConfidenceLevels:(__CVBuffer *)self3;
 - (void)dealloc;
 - (void)deallocateEspressoBuffers;
+- (void)executeWithColor:(double)color colorCameraCalibration:(double)calibration colorWorldToPlatformTransform:(double)transform pointCloud:(uint64_t)cloud outDepthMap:(uint64_t)map outConfMap:(void *)confMap outNonTemporalyConsistentDepthMap:(void *)depthMap outNonTemporalyConsistentConfMap:(uint64_t)self0 outConfidenceLevels:(uint64_t)self1;
+- (void)executeWithColor:(double)color pointCloud:(double)cloud outDepthMap:(double)map outConfMap:(uint64_t)confMap worldToCameraTransform:(uint64_t)transform cameraCalibration:(void *)calibration;
 @end
 
 @implementation ADJasperColorExecutor
@@ -259,19 +259,19 @@
   return v10;
 }
 
-- (uint64_t)executeWithColor:(float32x4_t)color colorCameraCalibration:(float32x4_t)calibration colorWorldToPlatformTransform:(float32x4_t)transform pointClouds:(uint64_t)clouds lidarCameraCalibration:(__CVBuffer *)cameraCalibration pointCloudWorldToPlatformTransforms:(void *)transforms outDepthMap:(void *)map outConfMap:(void *)self0 outNonTemporalyConsistentDepthMap:(uint64_t)self1 outNonTemporalyConsistentConfMap:(CVPixelBufferRef *)self2 outConfidenceLevels:(__CVBuffer *)self3
+- (int64_t)executeWithColor:(float32x4_t)color colorCameraCalibration:(float32x4_t)calibration colorWorldToPlatformTransform:(float32x4_t)transform pointClouds:(uint64_t)clouds lidarCameraCalibration:(__CVBuffer *)cameraCalibration pointCloudWorldToPlatformTransforms:(void *)transforms outDepthMap:(void *)map outConfMap:(void *)self0 outNonTemporalyConsistentDepthMap:(uint64_t)self1 outNonTemporalyConsistentConfMap:(CVPixelBufferRef *)self2 outConfidenceLevels:(__CVBuffer *)self3
 {
-  v174[1] = *MEMORY[0x277D85DE8];
+  v180[1] = *MEMORY[0x277D85DE8];
   transformsCopy = transforms;
   mapCopy = map;
   confMapCopy = confMap;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v171 = 335684428;
-  v172 = 0u;
-  v173 = 0u;
+  v177 = 335684428;
+  v178 = 0u;
+  v179 = 0u;
   obj = selfCopy;
-  v157 = mapCopy;
+  v163 = mapCopy;
   kdebug_trace();
   if (!selfCopy[7])
   {
@@ -433,15 +433,15 @@ LABEL_38:
   v54 = v53;
 
   [logger logPixelBuffer:pixelBuffer name:"inputColor" timestamp:v54];
-  v146 = v27;
-  v147 = v39;
+  v152 = v27;
+  v153 = v39;
   consistentConfMapCopy = consistentConfMap;
-  v148 = v28;
+  v154 = v28;
   for (i = 0; [mapCopy count] > i; ++i)
   {
     v56 = [mapCopy objectAtIndexedSubscript:i];
-    *(&v168.__r_.__value_.__s + 23) = 15;
-    strcpy(&v168, "inputPointCloud");
+    *(&v174.__r_.__value_.__s + 23) = 15;
+    strcpy(&v174, "inputPointCloud");
     std::to_string(&__p, i);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -463,14 +463,14 @@ LABEL_38:
       size = __p.__r_.__value_.__l.__size_;
     }
 
-    v59 = std::string::append(&v168, p_p, size);
+    v59 = std::string::append(&v174, p_p, size);
     v60 = *&v59->__r_.__value_.__l.__data_;
-    v170 = v59->__r_.__value_.__r.__words[2];
+    v176 = v59->__r_.__value_.__r.__words[2];
     *pixelBufferOut = v60;
     v59->__r_.__value_.__l.__size_ = 0;
     v59->__r_.__value_.__r.__words[2] = 0;
     v59->__r_.__value_.__r.__words[0] = 0;
-    if (v170 >= 0)
+    if (v176 >= 0)
     {
       v61 = pixelBufferOut;
     }
@@ -481,14 +481,14 @@ LABEL_38:
     }
 
     [logger logPointCloud:v56 name:v61 timestamp:v54];
-    if (SHIBYTE(v170) < 0)
+    if (SHIBYTE(v176) < 0)
     {
       operator delete(pixelBufferOut[0]);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
 LABEL_68:
         operator delete(__p.__r_.__value_.__l.__data_);
-        if ((SHIBYTE(v168.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v174.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_54;
         }
@@ -502,13 +502,13 @@ LABEL_68:
       goto LABEL_68;
     }
 
-    if ((SHIBYTE(v168.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v174.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_54;
     }
 
 LABEL_69:
-    operator delete(v168.__r_.__value_.__l.__data_);
+    operator delete(v174.__r_.__value_.__l.__data_);
 LABEL_54:
 
     if (!depthMap)
@@ -517,12 +517,12 @@ LABEL_54:
     }
 
     v62 = (depthMap + (i << 6));
-    v161 = v62[1];
-    v163 = *v62;
-    v158 = v62[3];
-    v159 = v62[2];
-    *(&v168.__r_.__value_.__s + 23) = 19;
-    strcpy(&v168, "inputPointCloudPose");
+    v167 = v62[1];
+    v169 = *v62;
+    v164 = v62[3];
+    v165 = v62[2];
+    *(&v174.__r_.__value_.__s + 23) = 19;
+    strcpy(&v174, "inputPointCloudPose");
     std::to_string(&__p, i);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -544,14 +544,14 @@ LABEL_54:
       v64 = __p.__r_.__value_.__l.__size_;
     }
 
-    v65 = std::string::append(&v168, v63, v64);
+    v65 = std::string::append(&v174, v63, v64);
     v66 = *&v65->__r_.__value_.__l.__data_;
-    v170 = v65->__r_.__value_.__r.__words[2];
+    v176 = v65->__r_.__value_.__r.__words[2];
     *pixelBufferOut = v66;
     v65->__r_.__value_.__l.__size_ = 0;
     v65->__r_.__value_.__r.__words[2] = 0;
     v65->__r_.__value_.__r.__words[0] = 0;
-    if (v170 >= 0)
+    if (v176 >= 0)
     {
       v67 = pixelBufferOut;
     }
@@ -561,14 +561,14 @@ LABEL_54:
       v67 = pixelBufferOut[0];
     }
 
-    [logger logMatrix4x4:v67 name:*&v163 timestamp:{*&v161, *&v159, *&v158, v54}];
-    if (SHIBYTE(v170) < 0)
+    [logger logMatrix4x4:v67 name:*&v169 timestamp:{*&v167, *&v165, *&v164, v54}];
+    if (SHIBYTE(v176) < 0)
     {
       operator delete(pixelBufferOut[0]);
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_71:
-        if ((SHIBYTE(v168.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v174.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_40;
         }
@@ -583,15 +583,15 @@ LABEL_71:
     }
 
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v168.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v174.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_40;
     }
 
 LABEL_72:
-    operator delete(v168.__r_.__value_.__l.__data_);
+    operator delete(v174.__r_.__value_.__l.__data_);
 LABEL_40:
-    mapCopy = v157;
+    mapCopy = v163;
   }
 
   if (!mapCopy)
@@ -608,8 +608,8 @@ LABEL_40:
       [logger logCalibration:transformsCopy name:"inputColorCalibration" timestamp:v54];
       [logger logMatrix4x4:"inputColorPose" name:*a2.i64 timestamp:{*color.i64, *calibration.i64, *transform.i64, v54}];
       v68 = MEMORY[0x277CED0F8];
-      v174[0] = confMapCopy;
-      v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v174 count:1];
+      v180[0] = confMapCopy;
+      v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:1];
       v70 = [v68 aggregatePointClouds:mapCopy calibrations:v69 worldToPlatformTransforms:depthMap projectingToCamera:transformsCopy worldToPlatformAtProjectionTime:{*a2.i64, *color.i64, *calibration.i64, *transform.i64}];
 
       goto LABEL_81;
@@ -646,7 +646,7 @@ LABEL_81:
       v72 = v70;
     }
 
-    v160 = *(obj + 9);
+    v166 = *(obj + 9);
     executorParameters2 = [obj executorParameters];
     temporalConsistencyMethod = [executorParameters2 temporalConsistencyMethod];
 
@@ -717,8 +717,8 @@ LABEL_81:
         v84 = *(v82 + 32);
         if (v85 == CVPixelBufferGetWidth(pixelBuffer) && v84 == CVPixelBufferGetHeight(pixelBuffer) && CVPixelBufferGetPixelFormatType(pixelBuffer) == v83 && PixelBufferUtilsSession::verifyOutput(*(obj + 19), v78))
         {
-          v89 = PixelBufferUtilsSession::run(*(obj + 19), pixelBuffer, v78);
-          if ((v89 & 1) == 0)
+          v95 = PixelBufferUtilsSession::run(*(obj + 19), pixelBuffer, v78);
+          if ((v95 & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
@@ -747,8 +747,8 @@ LABEL_111:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               LOWORD(pixelBufferOut[0]) = 0;
-              v90 = MEMORY[0x277D86220];
-              v91 = "failed projecting jasper points";
+              v96 = MEMORY[0x277D86220];
+              v97 = "failed projecting jasper points";
               goto LABEL_116;
             }
 
@@ -773,21 +773,21 @@ LABEL_120:
               }
 
               LOWORD(pixelBufferOut[0]) = 0;
-              v90 = MEMORY[0x277D86220];
-              v91 = "failed executing espresso plan";
+              v96 = MEMORY[0x277D86220];
+              v97 = "failed executing espresso plan";
               goto LABEL_116;
             }
 
             [logger logPixelBuffer:*(obj + 21) name:"modelOutputDepth" timestamp:v54];
             [logger logPixelBuffer:*(obj + 23) name:"modelOutputUncertainty" timestamp:v54];
-            if (!temporalConsistencyMethod || !a14 || (v94 = a15, v93 = a14, v160))
+            if (!temporalConsistencyMethod || !a14 || (v100 = a15, v99 = a14, v166))
             {
-              v93 = v147;
-              v94 = v148;
-              if (temporalConsistencyMethod | v160)
+              v99 = v153;
+              v100 = v154;
+              if (temporalConsistencyMethod | v166)
               {
-                v93 = *(obj + 22);
-                v94 = *(obj + 24);
+                v99 = *(obj + 22);
+                v100 = *(obj + 24);
               }
             }
 
@@ -797,7 +797,7 @@ LABEL_120:
             {
               kdebug_trace();
               [timeProfiler startWithUTFString:"postprocess depth"];
-              execute = [*(obj + 44) postProcessWithDepth:*(obj + 21) confidence:*(obj + 23) depthOutput:v93 confidenceOutput:v94];
+              execute = [*(obj + 44) postProcessWithDepth:*(obj + 21) confidence:*(obj + 23) depthOutput:v99 confidenceOutput:v100];
               if (execute)
               {
                 if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -806,28 +806,28 @@ LABEL_120:
                 }
 
                 LOWORD(pixelBufferOut[0]) = 0;
-                v90 = MEMORY[0x277D86220];
-                v91 = "failed postprocessing depth";
+                v96 = MEMORY[0x277D86220];
+                v97 = "failed postprocessing depth";
 LABEL_116:
-                _os_log_error_impl(&dword_2402F6000, v90, OS_LOG_TYPE_ERROR, v91, pixelBufferOut, 2u);
+                _os_log_error_impl(&dword_2402F6000, v96, OS_LOG_TYPE_ERROR, v97, pixelBufferOut, 2u);
                 goto LABEL_120;
               }
 
-              [logger logPixelBuffer:v93 name:"intermediateDepthOutProcessed" priority:1 timestamp:v54];
-              [logger logPixelBuffer:v94 name:"intermediateConfidenceOutProcessed" priority:1 timestamp:v54];
-              v144 = v93;
-              v95 = stepsToExecute - 4;
+              [logger logPixelBuffer:v99 name:"intermediateDepthOutProcessed" priority:1 timestamp:v54];
+              [logger logPixelBuffer:v100 name:"intermediateConfidenceOutProcessed" priority:1 timestamp:v54];
+              v150 = v99;
+              v101 = stepsToExecute - 4;
               if (!temporalConsistencyMethod)
               {
-                v98 = 0;
-                v99 = "postprocess depth";
+                v104 = 0;
+                v105 = "postprocess depth";
                 goto LABEL_145;
               }
 
               executorParameters6 = [obj executorParameters];
-              v97 = [executorParameters6 temporalConsistencyMethod] == 2;
+              v103 = [executorParameters6 temporalConsistencyMethod] == 2;
 
-              if (v97)
+              if (v103)
               {
                 execute = [*(obj + 18) executeWithFrame:v78 intoOpticalFlowBuffer:*(obj + 27)];
                 if (execute)
@@ -838,41 +838,41 @@ LABEL_116:
                     _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed running lktExecutor", pixelBufferOut, 2u);
                   }
 
-                  v98 = 0;
+                  v104 = 0;
                   goto LABEL_230;
                 }
 
-                v98 = 0;
+                v104 = 0;
                 [logger logPixelBuffer:*(obj + 27) name:"intermediateOpticalFlow" timestamp:v54];
 LABEL_157:
-                v105 = "postprocess depth";
+                v111 = "postprocess depth";
 LABEL_158:
-                [timeProfiler stopWithUTFString:v105];
+                [timeProfiler stopWithUTFString:v111];
                 kdebug_trace();
-                if (!v95)
+                if (!v101)
                 {
                   goto LABEL_221;
                 }
 
                 kdebug_trace();
                 [timeProfiler startWithUTFString:"postprocess warp n fuse"];
-                v106 = v147;
-                v107 = v148;
-                if (v160)
+                v112 = v153;
+                v113 = v154;
+                if (v166)
                 {
-                  v106 = *(obj + 29);
-                  v107 = *(obj + 31);
+                  v112 = *(obj + 29);
+                  v113 = *(obj + 31);
                 }
 
                 if (obj[256] == 1)
                 {
-                  if (PixelBufferUtils::copyPixelBuffer(v106, v144, 1))
+                  if (PixelBufferUtils::copyPixelBuffer(v112, v150, 1))
                   {
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
                       LOWORD(pixelBufferOut[0]) = 0;
-                      v101 = MEMORY[0x277D86220];
-                      v102 = "failed copy initial prev depth";
+                      v107 = MEMORY[0x277D86220];
+                      v108 = "failed copy initial prev depth";
                       goto LABEL_228;
                     }
 
@@ -883,7 +883,7 @@ LABEL_230:
                     goto LABEL_120;
                   }
 
-                  if ([obj copyConfidenceAllowPixelFormatChange:v94 outputConfidence:v107])
+                  if ([obj copyConfidenceAllowPixelFormatChange:v100 outputConfidence:v113])
                   {
                     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
@@ -891,8 +891,8 @@ LABEL_230:
                     }
 
                     LOWORD(pixelBufferOut[0]) = 0;
-                    v101 = MEMORY[0x277D86220];
-                    v102 = "failed copy initial prev conf";
+                    v107 = MEMORY[0x277D86220];
+                    v108 = "failed copy initial prev conf";
                     goto LABEL_228;
                   }
 
@@ -900,7 +900,7 @@ LABEL_230:
 LABEL_220:
                   [timeProfiler stopWithUTFString:"postprocess warp n fuse"];
                   kdebug_trace();
-                  if (v95 == 1)
+                  if (v101 == 1)
                   {
 LABEL_221:
                     execute = -22977;
@@ -909,7 +909,7 @@ LABEL_221:
 
                   kdebug_trace();
                   [timeProfiler startWithUTFString:"postprocess previous depth"];
-                  if (PixelBufferUtils::copyPixelBuffer(*(obj + 28), v106, 0))
+                  if (PixelBufferUtils::copyPixelBuffer(*(obj + 28), v112, 0))
                   {
                     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
@@ -917,12 +917,12 @@ LABEL_221:
                     }
 
                     LOWORD(pixelBufferOut[0]) = 0;
-                    v101 = MEMORY[0x277D86220];
-                    v102 = "failed storing previous depth";
+                    v107 = MEMORY[0x277D86220];
+                    v108 = "failed storing previous depth";
                     goto LABEL_228;
                   }
 
-                  if ([obj copyConfidenceAllowPixelFormatChange:v107 outputConfidence:*(obj + 30)])
+                  if ([obj copyConfidenceAllowPixelFormatChange:v113 outputConfidence:*(obj + 30)])
                   {
                     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
@@ -930,8 +930,8 @@ LABEL_221:
                     }
 
                     LOWORD(pixelBufferOut[0]) = 0;
-                    v101 = MEMORY[0x277D86220];
-                    v102 = "failed storing previous confidence";
+                    v107 = MEMORY[0x277D86220];
+                    v108 = "failed storing previous confidence";
                     goto LABEL_228;
                   }
 
@@ -939,38 +939,38 @@ LABEL_221:
                   *(obj + 18) = color;
                   *(obj + 19) = calibration;
                   *(obj + 20) = transform;
-                  objc_storeStrong(obj + 42, v98);
-                  v95 -= 2;
-                  v99 = "postprocess previous depth";
+                  objc_storeStrong(obj + 42, v104);
+                  v101 -= 2;
+                  v105 = "postprocess previous depth";
 LABEL_145:
-                  [timeProfiler stopWithUTFString:v99];
+                  [timeProfiler stopWithUTFString:v105];
                   kdebug_trace();
-                  if (v95)
+                  if (v101)
                   {
                     kdebug_trace();
                     [timeProfiler startWithUTFString:"output rotation"];
-                    if (v160)
+                    if (v166)
                     {
-                      v100 = v144;
+                      v106 = v150;
                       if (temporalConsistencyMethod)
                       {
-                        v100 = *(obj + 29);
+                        v106 = *(obj + 29);
                       }
 
-                      if (PixelBufferUtils::rotatePixelBuffer(v100, v147, v146, 0))
+                      if (PixelBufferUtils::rotatePixelBuffer(v106, v153, v152, 0))
                       {
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                         {
                           LOWORD(pixelBufferOut[0]) = 0;
-                          v101 = MEMORY[0x277D86220];
-                          v102 = "failed rotating depth. please verify output buffer dimensions";
+                          v107 = MEMORY[0x277D86220];
+                          v108 = "failed rotating depth. please verify output buffer dimensions";
                           goto LABEL_228;
                         }
 
                         goto LABEL_229;
                       }
 
-                      if (a14 && temporalConsistencyMethod && PixelBufferUtils::rotatePixelBuffer(v144, a14, v146, 0))
+                      if (a14 && temporalConsistencyMethod && PixelBufferUtils::rotatePixelBuffer(v150, a14, v152, 0))
                       {
                         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                         {
@@ -978,34 +978,34 @@ LABEL_145:
                         }
 
                         LOWORD(pixelBufferOut[0]) = 0;
-                        v101 = MEMORY[0x277D86220];
-                        v102 = "failed rotating non-temporal depth. please verify output buffer dimensions";
+                        v107 = MEMORY[0x277D86220];
+                        v108 = "failed rotating non-temporal depth. please verify output buffer dimensions";
 LABEL_228:
-                        _os_log_error_impl(&dword_2402F6000, v101, OS_LOG_TYPE_ERROR, v102, pixelBufferOut, 2u);
+                        _os_log_error_impl(&dword_2402F6000, v107, OS_LOG_TYPE_ERROR, v108, pixelBufferOut, 2u);
                         goto LABEL_229;
                       }
 
-                      [obj convertIntrinsicsFrom:pixelBuffer cropBy:v147 to:{*(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4)}];
+                      [obj convertIntrinsicsFrom:pixelBuffer cropBy:v153 to:{*(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4)}];
                       [logger logPixelBuffer:*consistentConfMapCopy name:"intermediateDepthOutProcessedRotated" priority:1 timestamp:v54];
-                      if (v148)
+                      if (v154)
                       {
-                        v132 = v94;
+                        v138 = v100;
                         if (temporalConsistencyMethod)
                         {
-                          v132 = *(obj + 31);
+                          v138 = *(obj + 31);
                         }
 
-                        [obj rotateConfidenceAllowPixelFormatChange:v132 rotation:v146 outputConfidence:v148];
+                        [obj rotateConfidenceAllowPixelFormatChange:v138 rotation:v152 outputConfidence:v154];
                         [logger logPixelBuffer:*levels name:"intermediateConfidenceOutProcessedRotated" priority:1 timestamp:v54];
                       }
 
                       if (a15 && temporalConsistencyMethod)
                       {
-                        [obj rotateConfidenceAllowPixelFormatChange:v94 rotation:v146 outputConfidence:a15];
+                        [obj rotateConfidenceAllowPixelFormatChange:v100 rotation:v152 outputConfidence:a15];
                       }
                     }
 
-                    if (a16 && v148)
+                    if (a16 && v154)
                     {
                       executorParameters7 = [obj executorParameters];
                       pipelineParameters = [executorParameters7 pipelineParameters];
@@ -1016,12 +1016,12 @@ LABEL_228:
 
                       if ([confidenceLevelRanges confidenceUnits] != confidenceUnits)
                       {
-                        v138 = [confidenceLevelRanges rangesForUnits:confidenceUnits];
+                        v144 = [confidenceLevelRanges rangesForUnits:confidenceUnits];
 
-                        confidenceLevelRanges = v138;
+                        confidenceLevelRanges = v144;
                       }
 
-                      execute = [ADUtils postProcessConfidence:v148 confidenceOutput:a16 rawConfidenceUnits:confidenceUnits outConfidenceUnits:1 confidenceLevelRanges:confidenceLevelRanges];
+                      execute = [ADUtils postProcessConfidence:v154 confidenceOutput:a16 rawConfidenceUnits:confidenceUnits outConfidenceUnits:1 confidenceLevelRanges:confidenceLevelRanges];
                       if (execute)
                       {
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1036,15 +1036,15 @@ LABEL_228:
                       [logger logPixelBuffer:a16 name:"intermediateConfidenceLevelsOut" timestamp:v54];
                     }
 
-                    [logger logPixelBuffer:v147 name:"outputDepth" timestamp:v54];
-                    if (v148)
+                    [logger logPixelBuffer:v153 name:"outputDepth" timestamp:v54];
+                    if (v154)
                     {
-                      [logger logPixelBuffer:v148 name:"outputUncertainty" timestamp:v54];
+                      [logger logPixelBuffer:v154 name:"outputUncertainty" timestamp:v54];
                     }
 
                     [timeProfiler stopWithUTFString:"output rotation"];
                     kdebug_trace();
-                    if (v95 != 1)
+                    if (v101 != 1)
                     {
                       [obj frameExecutionEnd];
                       execute = 0;
@@ -1056,43 +1056,43 @@ LABEL_228:
                 }
 
                 executorParameters8 = [obj executorParameters];
-                v109 = [executorParameters8 temporalConsistencyMethod] == 1;
+                v115 = [executorParameters8 temporalConsistencyMethod] == 1;
 
-                if (v109)
+                if (v115)
                 {
-                  v110 = *(obj + 9) - 1;
-                  v111 = 0.0;
-                  if (v110 <= 2)
+                  v116 = *(obj + 9) - 1;
+                  v117 = 0.0;
+                  if (v116 <= 2)
                   {
-                    v111 = flt_240407138[v110];
+                    v117 = flt_240407138[v116];
                   }
 
-                  v112 = __sincosf_stret(v111);
-                  cosval_low = LODWORD(v112.__cosval);
-                  cosval_low.f32[1] = -v112.__sinval;
-                  v143 = cosval_low;
-                  sinval_low = LODWORD(v112.__sinval);
-                  sinval_low.i32[1] = LODWORD(v112.__cosval);
-                  v165 = sinval_low;
-                  v175 = __invert_f4(*(obj + 272));
-                  v141 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, v175.columns[1].f32[0]), color, *v175.columns[1].f32, 1), calibration, v175.columns[1], 2), transform, v175.columns[1], 3);
-                  v142 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, v175.columns[0].f32[0]), color, *v175.columns[0].f32, 1), calibration, v175.columns[0], 2), transform, v175.columns[0], 3);
-                  v140 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, v175.columns[2].f32[0]), color, *v175.columns[2].f32, 1), calibration, v175.columns[2], 2), transform, v175.columns[2], 3);
-                  v139 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, v175.columns[3].f32[0]), color, *v175.columns[3].f32, 1), calibration, v175.columns[3], 2), transform, v175.columns[3], 3);
-                  v175.columns[2] = xmmword_240406E10;
-                  v175.columns[3] = xmmword_240406E20;
-                  v175.columns[0] = v143;
-                  v175.columns[1] = v165;
-                  v176 = __invert_f4(v175);
-                  v115 = vmlaq_f32(vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v142, v112.__cosval), v141, *v143.f32, 1), 0, v140), 0, v139);
-                  v116 = vmlaq_f32(vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v142, v112.__sinval), v141, *v165.f32, 1), 0, v140), 0, v139);
-                  v117 = vmlaq_f32(vmulq_f32(v142, 0), 0, v141);
-                  v118 = vmlaq_f32(vaddq_f32(v140, v117), 0, v139);
-                  v119 = vaddq_f32(v139, vmlaq_f32(v117, 0, v140));
-                  v120 = [*(obj + 44) warpPreviousDepth:*(obj + 28) intoCurrentDepth:*(obj + 25) previousConfidence:*(obj + 30) intoCurrentConfidence:*(obj + 26) usingPoseDelta:*(obj + 42) previousCalibration:v98 currentCalibration:{*vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v176.columns[0], v115.f32[0]), v176.columns[1], *v115.f32, 1), v176.columns[2], v115, 2), v176.columns[3], v115, 3).i64, *vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v176.columns[0], v116.f32[0]), v176.columns[1], *v116.f32, 1), v176.columns[2], v116, 2), v176.columns[3], v116, 3).i64, *vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v176.columns[0], v118.f32[0]), v176.columns[1], *v118.f32, 1), v176.columns[2], v118, 2), v176.columns[3], v118, 3).i64, *vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v176.columns[0], v119.f32[0]), v176.columns[1], *v119.f32, 1), v176.columns[2], v119, 2), v176.columns[3], v119, 3).i64}];
+                  v118 = __sincosf_stret(v117);
+                  cosval_low = LODWORD(v118.__cosval);
+                  cosval_low.f32[1] = -v118.__sinval;
+                  v149 = cosval_low;
+                  sinval_low = LODWORD(v118.__sinval);
+                  sinval_low.i32[1] = LODWORD(v118.__cosval);
+                  v171 = sinval_low;
+                  v181 = __invert_f4(*(obj + 272));
+                  v147 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, v181.columns[1].f32[0]), color, *v181.columns[1].f32, 1), calibration, v181.columns[1], 2), transform, v181.columns[1], 3);
+                  v148 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, v181.columns[0].f32[0]), color, *v181.columns[0].f32, 1), calibration, v181.columns[0], 2), transform, v181.columns[0], 3);
+                  v146 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, v181.columns[2].f32[0]), color, *v181.columns[2].f32, 1), calibration, v181.columns[2], 2), transform, v181.columns[2], 3);
+                  v145 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, v181.columns[3].f32[0]), color, *v181.columns[3].f32, 1), calibration, v181.columns[3], 2), transform, v181.columns[3], 3);
+                  v181.columns[2] = xmmword_240406E10;
+                  v181.columns[3] = xmmword_240406E20;
+                  v181.columns[0] = v149;
+                  v181.columns[1] = v171;
+                  v182 = __invert_f4(v181);
+                  v121 = vmlaq_f32(vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v148, v118.__cosval), v147, *v149.f32, 1), 0, v146), 0, v145);
+                  v122 = vmlaq_f32(vmlaq_f32(vmlaq_lane_f32(vmulq_n_f32(v148, v118.__sinval), v147, *v171.f32, 1), 0, v146), 0, v145);
+                  v123 = vmlaq_f32(vmulq_f32(v148, 0), 0, v147);
+                  v124 = vmlaq_f32(vaddq_f32(v146, v123), 0, v145);
+                  v125 = vaddq_f32(v145, vmlaq_f32(v123, 0, v146));
+                  v126 = [*(obj + 44) warpPreviousDepth:*(obj + 28) intoCurrentDepth:*(obj + 25) previousConfidence:*(obj + 30) intoCurrentConfidence:*(obj + 26) usingPoseDelta:*(obj + 42) previousCalibration:v104 currentCalibration:{*vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v182.columns[0], v121.f32[0]), v182.columns[1], *v121.f32, 1), v182.columns[2], v121, 2), v182.columns[3], v121, 3).i64, *vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v182.columns[0], v122.f32[0]), v182.columns[1], *v122.f32, 1), v182.columns[2], v122, 2), v182.columns[3], v122, 3).i64, *vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v182.columns[0], v124.f32[0]), v182.columns[1], *v124.f32, 1), v182.columns[2], v124, 2), v182.columns[3], v124, 3).i64, *vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v182.columns[0], v125.f32[0]), v182.columns[1], *v125.f32, 1), v182.columns[2], v125, 2), v182.columns[3], v125, 3).i64}];
 LABEL_183:
-                  execute = v120;
-                  if (v120)
+                  execute = v126;
+                  if (v126)
                   {
                     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                     {
@@ -1100,15 +1100,15 @@ LABEL_183:
                     }
 
                     LOWORD(pixelBufferOut[0]) = 0;
-                    v128 = MEMORY[0x277D86220];
-                    v129 = "failed warping depth";
+                    v134 = MEMORY[0x277D86220];
+                    v135 = "failed warping depth";
                   }
 
                   else
                   {
                     [logger logPixelBuffer:*(obj + 25) name:"intermediatePrevWarpedDepth" priority:1 timestamp:v54];
                     [logger logPixelBuffer:*(obj + 26) name:"intermediatePrevWarpedConf" priority:1 timestamp:v54];
-                    execute = [*(obj + 44) fuseCurrentDepth:v144 previousDepth:*(obj + 25) intoOutputDepth:v106 currentConfidence:v94 previousConfidence:*(obj + 26) intoOutputConfidence:v107];
+                    execute = [*(obj + 44) fuseCurrentDepth:v150 previousDepth:*(obj + 25) intoOutputDepth:v112 currentConfidence:v100 previousConfidence:*(obj + 26) intoOutputConfidence:v113];
                     if (!execute)
                     {
                       goto LABEL_220;
@@ -1120,28 +1120,28 @@ LABEL_183:
                     }
 
                     LOWORD(pixelBufferOut[0]) = 0;
-                    v128 = MEMORY[0x277D86220];
-                    v129 = "failed fusing depth";
+                    v134 = MEMORY[0x277D86220];
+                    v135 = "failed fusing depth";
                   }
 
-                  _os_log_error_impl(&dword_2402F6000, v128, OS_LOG_TYPE_ERROR, v129, pixelBufferOut, 2u);
+                  _os_log_error_impl(&dword_2402F6000, v134, OS_LOG_TYPE_ERROR, v135, pixelBufferOut, 2u);
                   goto LABEL_230;
                 }
 
                 executorParameters9 = [obj executorParameters];
-                v127 = [executorParameters9 temporalConsistencyMethod] == 2;
+                v133 = [executorParameters9 temporalConsistencyMethod] == 2;
 
-                if (v127)
+                if (v133)
                 {
-                  v120 = [*(obj + 44) warpPreviousDepth:*(obj + 28) intoCurrentDepth:*(obj + 25) previousConfidence:*(obj + 30) intoCurrentConfidence:*(obj + 26) usingOpticalFlow:*(obj + 27)];
+                  v126 = [*(obj + 44) warpPreviousDepth:*(obj + 28) intoCurrentDepth:*(obj + 25) previousConfidence:*(obj + 30) intoCurrentConfidence:*(obj + 26) usingOpticalFlow:*(obj + 27)];
                   goto LABEL_183;
                 }
 
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   LOWORD(pixelBufferOut[0]) = 0;
-                  v130 = MEMORY[0x277D86220];
-                  v131 = "unknown temporal consistency method";
+                  v136 = MEMORY[0x277D86220];
+                  v137 = "unknown temporal consistency method";
                   goto LABEL_233;
                 }
               }
@@ -1149,20 +1149,20 @@ LABEL_183:
               else
               {
                 executorParameters10 = [obj executorParameters];
-                v104 = [executorParameters10 temporalConsistencyMethod] == 1;
+                v110 = [executorParameters10 temporalConsistencyMethod] == 1;
 
-                if (!v104)
+                if (!v110)
                 {
-                  v98 = 0;
+                  v104 = 0;
                   goto LABEL_157;
                 }
 
                 [timeProfiler stopWithUTFString:"postprocess depth"];
                 kdebug_trace();
-                v95 = stepsToExecute - 5;
+                v101 = stepsToExecute - 5;
                 if (stepsToExecute < 5)
                 {
-                  v98 = 0;
+                  v104 = 0;
                   goto LABEL_221;
                 }
 
@@ -1173,33 +1173,33 @@ LABEL_183:
                   obj[256] = 1;
                 }
 
-                v121 = CVPixelBufferGetWidth(*(obj + 25));
-                v122 = CVPixelBufferGetHeight(*(obj + 25));
-                v98 = [transformsCopy mutableCopy];
+                v127 = CVPixelBufferGetWidth(*(obj + 25));
+                v128 = CVPixelBufferGetHeight(*(obj + 25));
+                v104 = [transformsCopy mutableCopy];
                 executorParameters11 = [obj executorParameters];
                 ignoreDistortionInDepthReprojection = [executorParameters11 ignoreDistortionInDepthReprojection];
 
                 if (ignoreDistortionInDepthReprojection)
                 {
-                  v125 = objc_opt_new();
-                  [v98 setDistortionModel:v125];
+                  v131 = objc_opt_new();
+                  [v104 setDistortionModel:v131];
                 }
 
-                [v98 crop:{*(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4)}];
-                if ([v98 adjustForImageRotation:*(obj + 9)])
+                [v104 crop:{*(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4)}];
+                if ([v104 adjustForImageRotation:*(obj + 9)])
                 {
-                  if ([v98 scale:{v121, v122}])
+                  if ([v104 scale:{v127, v128}])
                   {
-                    [logger logCalibration:v98 name:"intermediateScaledCalibration" priority:1 timestamp:v54];
-                    v105 = "preprocess calibration";
+                    [logger logCalibration:v104 name:"intermediateScaledCalibration" priority:1 timestamp:v54];
+                    v111 = "preprocess calibration";
                     goto LABEL_158;
                   }
 
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                   {
                     LOWORD(pixelBufferOut[0]) = 0;
-                    v130 = MEMORY[0x277D86220];
-                    v131 = "failed scaling calibration";
+                    v136 = MEMORY[0x277D86220];
+                    v137 = "failed scaling calibration";
                     goto LABEL_233;
                   }
                 }
@@ -1207,10 +1207,10 @@ LABEL_183:
                 else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   LOWORD(pixelBufferOut[0]) = 0;
-                  v130 = MEMORY[0x277D86220];
-                  v131 = "failed rotating calibration";
+                  v136 = MEMORY[0x277D86220];
+                  v137 = "failed rotating calibration";
 LABEL_233:
-                  _os_log_error_impl(&dword_2402F6000, v130, OS_LOG_TYPE_ERROR, v131, pixelBufferOut, 2u);
+                  _os_log_error_impl(&dword_2402F6000, v136, OS_LOG_TYPE_ERROR, v137, pixelBufferOut, 2u);
                   execute = -22951;
                   goto LABEL_230;
                 }
@@ -1235,13 +1235,13 @@ LABEL_112:
       }
     }
 
-    CVPixelBufferGetWidth(pixelBuffer);
-    CVPixelBufferGetHeight(pixelBuffer);
-    CVPixelBufferGetPixelFormatType(pixelBuffer);
-    CVPixelBufferGetWidth(v78);
-    CVPixelBufferGetHeight(v78);
-    CVPixelBufferGetPixelFormatType(v78);
-    PixelBufferUtilsSession::createCropScaleConvertRotateSession();
+    v89 = CVPixelBufferGetWidth(pixelBuffer);
+    v90 = CVPixelBufferGetHeight(pixelBuffer);
+    PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
+    v92 = CVPixelBufferGetWidth(v78);
+    v93 = CVPixelBufferGetHeight(v78);
+    v94 = CVPixelBufferGetPixelFormatType(v78);
+    PixelBufferUtilsSession::createCropScaleConvertRotateSession(PixelFormatType, v94, *(obj + 18), v89, v90, v92, v93, *(obj + 1), *(obj + 2), *(obj + 3), *(obj + 4), *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
   }
 
   if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -1264,7 +1264,7 @@ LABEL_122:
   return execute;
 }
 
-- (uint64_t)executeWithColor:(double)color colorCameraCalibration:(double)calibration colorWorldToPlatformTransform:(double)transform pointCloud:(uint64_t)cloud outDepthMap:(uint64_t)map outConfMap:(void *)confMap outNonTemporalyConsistentDepthMap:(void *)depthMap outNonTemporalyConsistentConfMap:(uint64_t)self0 outConfidenceLevels:(uint64_t)self1
+- (void)executeWithColor:(double)color colorCameraCalibration:(double)calibration colorWorldToPlatformTransform:(double)transform pointCloud:(uint64_t)cloud outDepthMap:(uint64_t)map outConfMap:(void *)confMap outNonTemporalyConsistentDepthMap:(void *)depthMap outNonTemporalyConsistentConfMap:(uint64_t)self0 outConfidenceLevels:(uint64_t)self1
 {
   v34[1] = *MEMORY[0x277D85DE8];
   confMapCopy = confMap;
@@ -1307,7 +1307,7 @@ LABEL_122:
   return v26;
 }
 
-- (uint64_t)executeWithColor:(double)color pointCloud:(double)cloud outDepthMap:(double)map outConfMap:(uint64_t)confMap worldToCameraTransform:(uint64_t)transform cameraCalibration:(void *)calibration
+- (void)executeWithColor:(double)color pointCloud:(double)cloud outDepthMap:(double)map outConfMap:(uint64_t)confMap worldToCameraTransform:(uint64_t)transform cameraCalibration:(void *)calibration
 {
   v25[1] = *MEMORY[0x277D85DE8];
   calibrationCopy = calibration;

@@ -2,8 +2,8 @@
 - (double)SXAXConvertNaturalRectToScreenSpace:()SXAccessibility;
 - (id)_accessibilityParentForFindingScrollParent;
 - (id)_accessibilityWindow;
-- (uint64_t)SXAXConvertScreenRectToNaturalSpace:()SXAccessibility;
 - (uint64_t)accessibilityFrame;
+- (void)SXAXConvertScreenRectToNaturalSpace:()SXAccessibility;
 @end
 
 @implementation TSDRep(SXAccessibility)
@@ -38,7 +38,7 @@
   return v10;
 }
 
-- (uint64_t)SXAXConvertScreenRectToNaturalSpace:()SXAccessibility
+- (void)SXAXConvertScreenRectToNaturalSpace:()SXAccessibility
 {
   result = [self hasBeenRemoved];
   if ((result & 1) == 0)

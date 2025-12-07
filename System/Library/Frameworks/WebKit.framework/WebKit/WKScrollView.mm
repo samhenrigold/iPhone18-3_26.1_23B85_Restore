@@ -553,7 +553,7 @@ LABEL_7:
   v8 = *(self->_internalDelegate + 82);
   if (v8)
   {
-    [v8 makeTextSelectionViewsNonInteractiveForScope];
+    objc_msgSend_makeTextSelectionViewsNonInteractiveForScope(v8, a2);
   }
 
   else

@@ -162,9 +162,9 @@
       {
         requestIdentifier3 = [(MRPlaybackSessionRequest *)v5 requestIdentifier];
         requestIdentifier4 = [(MRPlaybackSessionRequest *)self requestIdentifier];
-        v11 = [requestIdentifier3 isEqualToString:requestIdentifier4];
+        isEqualToString = objc_msgSend_isEqualToString_(requestIdentifier3);
 
-        if (!v11)
+        if (!isEqualToString)
         {
           goto LABEL_15;
         }
@@ -181,7 +181,7 @@
       {
         identifier3 = [(MRPlaybackSessionRequest *)v5 identifier];
         identifier4 = [(MRPlaybackSessionRequest *)self identifier];
-        v18 = [identifier3 isEqualToString:identifier4];
+        v18 = objc_msgSend_isEqualToString_(identifier3);
 
         if (!v18)
         {
@@ -200,7 +200,7 @@
       {
         type3 = [(MRPlaybackSessionRequest *)v5 type];
         type4 = [(MRPlaybackSessionRequest *)self type];
-        v24 = [type3 isEqualToString:type4];
+        v24 = objc_msgSend_isEqualToString_(type3);
 
         if (!v24)
         {

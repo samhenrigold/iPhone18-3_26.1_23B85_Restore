@@ -6,9 +6,9 @@
 
 - (uint64_t)copyDeep_MC
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = [self count];
-  v3 = (v9 - ((8 * v2 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v3 = (v8 - ((8 * v2 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (v2)
   {
     v4 = 0;
@@ -26,7 +26,6 @@
     v6 = *v3++;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return i;
 }
 

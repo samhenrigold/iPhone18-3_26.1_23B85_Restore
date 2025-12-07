@@ -17,9 +17,9 @@
 {
   syncCopy = sync;
   storeCopy = store;
-  v20.receiver = self;
-  v20.super_class = NEKSyncWindow;
-  v8 = [(NEKSyncWindow *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = NEKSyncWindow;
+  v8 = [(NEKSyncWindow *)&v21 init];
   v9 = v8;
   if (v8)
   {
@@ -41,26 +41,26 @@
     v9->_dontSyncDays = v13;
     if (syncCopy)
     {
-      [(NEKSyncWindow *)v9 _setWindowToNow];
+      _setWindowToNow = [(NEKSyncWindow *)v9 _setWindowToNow];
     }
 
     else
     {
-      [(NEKSyncWindow *)v9 _loadLastSyncWindow];
+      _setWindowToNow = [(NEKSyncWindow *)v9 _loadLastSyncWindow];
     }
 
-    v16 = sub_10002FC84();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_10002FC84(_setWindowToNow);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       startDate = v9->_startDate;
       endDate = v9->_endDate;
       *buf = 138543874;
-      v22 = startDate;
-      v23 = 2114;
-      v24 = endDate;
-      v25 = 1024;
-      v26 = syncCopy;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Window: start: %{public}@ end: %{public}@, isFullSync: %d", buf, 0x1Cu);
+      v23 = startDate;
+      v24 = 2114;
+      v25 = endDate;
+      v26 = 1024;
+      v27 = syncCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Window: start: %{public}@ end: %{public}@, isFullSync: %d", buf, 0x1Cu);
     }
   }
 
@@ -103,9 +103,9 @@
 
   [(NEKSyncWindow *)self _getWindowStart];
   self->_spanStart = v5;
-  [(NEKSyncWindow *)self _getWindowEnd];
-  self->_spanEnd = v6;
-  if (self->_spanStart != 0.0 && v6 != 0.0)
+  _getWindowEnd = [(NEKSyncWindow *)self _getWindowEnd];
+  self->_spanEnd = v7;
+  if (self->_spanStart != 0.0 && v7 != 0.0)
   {
 LABEL_5:
 
@@ -113,10 +113,10 @@ LABEL_5:
     return;
   }
 
-  v7 = sub_10002FC84();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = sub_10002FC84(_getWindowEnd);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    sub_100071CE4(v7);
+    sub_100071CE4(v8);
   }
 
   [(NEKSyncWindow *)self _setWindowToNow];
@@ -166,26 +166,26 @@ LABEL_5:
     startDate2 = [(NEKSyncWindow *)self startDate];
     endDate2 = [(NEKSyncWindow *)self endDate];
     timeZone = [(NEKSyncWindow *)self timeZone];
-    if ([startDate isBefore:endDate2] && (objc_msgSend(endDate, "isAfter:", startDate2) & 1) != 0 || objc_msgSend(startDate, "isBefore:", startDate2) && (objc_msgSend(endDate, "isAfter:", endDate2) & 1) != 0 || (objc_msgSend(storeCopy, "occurrencesExistInRangeForEvent:startDate:endDate:mustStartInInterval:timezone:", v8, startDate2, endDate2, 0, timeZone) & 1) != 0)
+    if ([startDate isBefore:endDate2] && (objc_msgSend(endDate, "isAfter:", startDate2) & 1) != 0 || objc_msgSend(startDate, "isBefore:", startDate2) && (objc_msgSend(endDate, "isAfter:", endDate2) & 1) != 0 || (v14 = objc_msgSend(storeCopy, "occurrencesExistInRangeForEvent:startDate:endDate:mustStartInInterval:timezone:", v8, startDate2, endDate2, 0, timeZone), (v14 & 1) != 0))
     {
-      v14 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v21 = sub_10002FC84();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_10002FC84(v14);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         uniqueId = [v8 uniqueId];
         eks_debugDesc = [v8 eks_debugDesc];
         *buf = 138543618;
-        v26 = uniqueId;
-        v27 = 2114;
-        v28 = eks_debugDesc;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Rejected event: %{public}@ %{public}@", buf, 0x16u);
+        v29 = uniqueId;
+        v30 = 2114;
+        v31 = eks_debugDesc;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Rejected event: %{public}@ %{public}@", buf, 0x16u);
       }
 
-      v14 = 0;
+      v15 = 0;
     }
 
 LABEL_21:
@@ -193,45 +193,46 @@ LABEL_21:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     v8 = windowCopy;
     startDate = [v8 completionDate];
     taskCutoffDate = [(NEKSyncWindow *)self taskCutoffDate];
-    v16 = [startDate isBefore:taskCutoffDate];
+    v18 = [startDate isBefore:taskCutoffDate];
 
-    if (v16)
+    if (v18)
     {
-      v17 = sub_10002FC84();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_10002FC84(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         uniqueId2 = [v8 uniqueId];
         eks_debugDesc2 = [v8 eks_debugDesc];
         *buf = 138543618;
-        v26 = uniqueId2;
-        v27 = 2114;
-        v28 = eks_debugDesc2;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Rejected reminder: %{public}@ %{public}@", buf, 0x16u);
+        v29 = uniqueId2;
+        v30 = 2114;
+        v31 = eks_debugDesc2;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Rejected reminder: %{public}@ %{public}@", buf, 0x16u);
       }
     }
 
-    v14 = v16 ^ 1;
+    v15 = v18 ^ 1;
     goto LABEL_21;
   }
 
-  v8 = sub_10002FC84();
+  v8 = sub_10002FC84(isKindOfClass);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uniqueId3 = [windowCopy uniqueId];
     *buf = 138543362;
-    v26 = uniqueId3;
+    v29 = uniqueId3;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Accepting unknown entity: %{public}@", buf, 0xCu);
   }
 
-  v14 = 1;
+  v15 = 1;
 LABEL_22:
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)eventInFuture:(id)future inStore:(id)store
@@ -251,23 +252,24 @@ LABEL_22:
 
     if (v14 <= v10)
     {
-      v23 = +[NSDate distantFuture];
+      v24 = +[NSDate distantFuture];
       os_unfair_lock_lock(&self->_lock);
       timeZone = [(NEKSyncWindow *)self timeZone];
       os_unfair_lock_unlock(&self->_lock);
-      v15 = [storeCopy occurrencesExistInRangeForEvent:v11 startDate:v8 endDate:v23 mustStartInInterval:0 timezone:timeZone];
-      if ((v15 & 1) == 0)
+      v26 = [storeCopy occurrencesExistInRangeForEvent:v11 startDate:v8 endDate:v24 mustStartInInterval:0 timezone:timeZone];
+      v15 = v26;
+      if ((v26 & 1) == 0)
       {
-        v25 = sub_10002FC84();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v27 = sub_10002FC84(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           uniqueId = [v11 uniqueId];
           title = [v11 title];
-          v31 = 138543618;
-          v32 = uniqueId;
-          v33 = 2112;
-          v34 = title;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "event not in future: %{public}@ %@", &v31, 0x16u);
+          v33 = 138543618;
+          v34 = uniqueId;
+          v35 = 2112;
+          v36 = title;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "event not in future: %{public}@ %@", &v33, 0x16u);
         }
       }
     }
@@ -297,13 +299,13 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v29 = sub_10002FC84();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v31 = sub_10002FC84(v23);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     uniqueId2 = [v16 uniqueId];
-    v31 = 138543362;
-    v32 = uniqueId2;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "reminder not in future: %{public}@", &v31, 0xCu);
+    v33 = 138543362;
+    v34 = uniqueId2;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "reminder not in future: %{public}@", &v33, 0xCu);
   }
 
   v15 = 0;
@@ -321,16 +323,16 @@ LABEL_15:
 
   if (v7)
   {
-    v8 = sub_10002FC84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_10002FC84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       daCalendarItemUniqueIdentifier = [windowCopy daCalendarItemUniqueIdentifier];
       eks_debugDesc = [windowCopy eks_debugDesc];
-      v12 = 138543618;
-      v13 = daCalendarItemUniqueIdentifier;
-      v14 = 2114;
-      v15 = eks_debugDesc;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Rejected reminder: %{public}@ %{public}@", &v12, 0x16u);
+      v13 = 138543618;
+      v14 = daCalendarItemUniqueIdentifier;
+      v15 = 2114;
+      v16 = eks_debugDesc;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Rejected reminder: %{public}@ %{public}@", &v13, 0x16u);
     }
   }
 
@@ -344,24 +346,24 @@ LABEL_15:
   v6 = completionDate;
   if (completionDate && ([completionDate timeIntervalSinceReferenceDate], v8 = v7, os_unfair_lock_lock(&self->_lock), -[NEKSyncWindow taskCutoff](self, "taskCutoff"), v10 = v9, os_unfair_lock_unlock(&self->_lock), v8 < v10))
   {
-    v12 = sub_10002FC84();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_10002FC84(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       daCalendarItemUniqueIdentifier = [futureCopy daCalendarItemUniqueIdentifier];
-      v15 = 138543362;
-      v16 = daCalendarItemUniqueIdentifier;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "reminder not in future: %{public}@", &v15, 0xCu);
+      v16 = 138543362;
+      v17 = daCalendarItemUniqueIdentifier;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "reminder not in future: %{public}@", &v16, 0xCu);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = 1;
+    v12 = 1;
   }
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)shouldSyncBasedOnTime:(double)time

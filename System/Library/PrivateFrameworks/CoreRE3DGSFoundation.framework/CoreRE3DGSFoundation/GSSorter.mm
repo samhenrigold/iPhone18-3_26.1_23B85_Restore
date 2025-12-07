@@ -30,7 +30,7 @@
   ptr = self->_impl.__ptr_;
   if (descriptorCopy)
   {
-    [descriptorCopy impl];
+    objc_msgSend_impl(descriptorCopy, 0.0);
     v18 = v32;
   }
 
@@ -39,7 +39,7 @@
   v32 = 0u;
   if (renderDescriptorCopy)
   {
-    [renderDescriptorCopy impl];
+    objc_msgSend_impl(renderDescriptorCopy);
     v20 = v30;
   }
 

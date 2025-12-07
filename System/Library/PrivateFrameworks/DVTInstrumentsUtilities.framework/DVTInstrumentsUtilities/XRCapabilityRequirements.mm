@@ -25,13 +25,13 @@
 
 + (id)requirementsFromPlist:(id)plist error:(id *)error
 {
-  v49[3] = *MEMORY[0x277D85DE8];
+  v48[3] = *MEMORY[0x277D85DE8];
   plistCopy = plist;
-  v45 = 100;
-  v7 = objc_msgSend_propertyListWithData_options_format_error_(MEMORY[0x277CCAC58], v6, plistCopy, 0, &v45, error);
+  v44 = 100;
+  v7 = objc_msgSend_propertyListWithData_options_format_error_(MEMORY[0x277CCAC58], v6, plistCopy, 0, &v44, error);
   v8 = v7;
-  v9 = v45;
-  if (!v7 || v45 != 100)
+  v9 = v44;
+  if (!v7 || v44 != 100)
   {
     if (!v7)
     {
@@ -53,13 +53,13 @@ LABEL_13:
 
     v21 = v20;
     v22 = *MEMORY[0x277CCA470];
-    v46[0] = *MEMORY[0x277CCA450];
-    v46[1] = v22;
-    v47[0] = @"Bad Requirements Plist";
-    v47[1] = v21;
-    v46[2] = v46[0];
-    v47[2] = @"The bundle may be corrupt or empty.  Check that the requirements file is not corrupt.";
-    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v23, v47, v46, 3);
+    v45[0] = *MEMORY[0x277CCA450];
+    v45[1] = v22;
+    v46[0] = @"Bad Requirements Plist";
+    v46[1] = v21;
+    v45[2] = v45[0];
+    v46[2] = @"The bundle may be corrupt or empty.  Check that the requirements file is not corrupt.";
+    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v23, v46, v45, 3);
     if (error)
     {
       *error = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v24, @"Supported Capability Problem", 1, v25);
@@ -71,33 +71,33 @@ LABEL_13:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v9 = v45;
+    v9 = v44;
     goto LABEL_13;
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x2020000000;
   v40 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = sub_24809D178;
-  v34[3] = &unk_278EFC198;
-  v34[4] = &v41;
-  v34[5] = v39;
-  v34[6] = &v35;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v8, v10, v34, v11, v12);
-  if (*(v42 + 24) == 1)
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x2020000000;
+  v39 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = sub_24809D178;
+  v33[3] = &unk_278EFC198;
+  v33[4] = &v40;
+  v33[5] = v38;
+  v33[6] = &v34;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v8, v10, v33, v11, v12);
+  if (*(v41 + 24) == 1)
   {
-    if (*(v36 + 24))
+    if (*(v35 + 24))
     {
       v13 = @"Requirements file plist must contain string keys and number values";
     }
@@ -109,13 +109,13 @@ LABEL_13:
 
     v14 = v13;
     v15 = *MEMORY[0x277CCA470];
-    v48[0] = *MEMORY[0x277CCA450];
-    v48[1] = v15;
-    v49[0] = @"Bad Requirements Plist";
-    v49[1] = v14;
-    v48[2] = v48[0];
-    v49[2] = @"The bundle may be corrupt or empty.  Check that the requirements file is not corrupt.";
-    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v49, v48, 3);
+    v47[0] = *MEMORY[0x277CCA450];
+    v47[1] = v15;
+    v48[0] = @"Bad Requirements Plist";
+    v48[1] = v14;
+    v47[2] = v47[0];
+    v48[2] = @"The bundle may be corrupt or empty.  Check that the requirements file is not corrupt.";
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v48, v47, 3);
     if (error)
     {
       objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v17, @"Supported Capability Problem", 1, v18);
@@ -132,22 +132,20 @@ LABEL_13:
   {
     v26 = objc_opt_new();
     v14 = v8;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = sub_24809D394;
-    v32[3] = &unk_278EFC1C0;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = sub_24809D394;
+    v31[3] = &unk_278EFC1C0;
     v19 = v26;
-    v33 = v19;
-    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v14, v27, v32, v28, v29);
-    v18 = v33;
+    v32 = v19;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v14, v27, v31, v28, v29);
+    v18 = v32;
   }
 
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(v39, 8);
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(&v40, 8);
 LABEL_23:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -196,53 +194,53 @@ LABEL_23:
 
 - (BOOL)checkRequirementsAgainstRegistery:(id)registery error:(id *)error
 {
-  v84[5] = *MEMORY[0x277D85DE8];
+  v83[5] = *MEMORY[0x277D85DE8];
   registeryCopy = registery;
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2020000000;
-  v82 = 1;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x2020000000;
   v78 = 0;
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x2020000000;
+  v79 = &v78;
+  v80 = 0x2020000000;
+  v81 = 1;
   v74 = 0;
+  v75 = &v74;
+  v76 = 0x2020000000;
+  v77 = 0;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x2020000000;
+  v73 = 0;
   v7 = objc_opt_new();
   v8 = objc_opt_new();
   v9 = objc_opt_new();
   v10 = objc_opt_new();
   capabilities = self->_capabilities;
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = sub_24809DC4C;
-  v61[3] = &unk_278EFC210;
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = sub_24809DC4C;
+  v60[3] = &unk_278EFC210;
   v12 = registeryCopy;
-  v62 = v12;
-  v68 = &v79;
-  v69 = &v75;
+  v61 = v12;
+  v67 = &v78;
+  v68 = &v74;
   v13 = v7;
-  v63 = v13;
+  v62 = v13;
   v14 = v9;
-  v64 = v14;
+  v63 = v14;
   v15 = v10;
-  v70 = &v71;
-  v65 = v15;
+  v69 = &v70;
+  v64 = v15;
   selfCopy = self;
   v16 = v8;
-  v67 = v16;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(capabilities, v17, v61, v18, v19);
-  if (v80[3])
+  v66 = v16;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(capabilities, v17, v60, v18, v19);
+  if (v79[3])
   {
     v24 = 1;
     goto LABEL_15;
   }
 
-  if (v76[6] < 1)
+  if (v75[6] < 1)
   {
-    if (v72[6] < 1)
+    if (v71[6] < 1)
     {
       abort();
     }
@@ -257,15 +255,15 @@ LABEL_23:
 
     v38 = objc_opt_new();
     v43 = objc_msgSend_count(v16, v39, v40, v41, v42);
-    v54 = MEMORY[0x277D85DD0];
-    v55 = 3221225472;
-    v56 = sub_24809DE98;
-    v57 = &unk_278EFC238;
+    v53 = MEMORY[0x277D85DD0];
+    v54 = 3221225472;
+    v55 = sub_24809DE98;
+    v56 = &unk_278EFC238;
     v32 = v38;
-    v58[0] = v32;
-    v58[1] = v43;
-    objc_msgSend_enumerateObjectsUsingBlock_(v16, v44, &v54, v45, v46);
-    v36 = v58;
+    v57[0] = v32;
+    v57[1] = v43;
+    objc_msgSend_enumerateObjectsUsingBlock_(v16, v44, &v53, v45, v46);
+    v36 = v57;
     v37 = @"Forward compatibility checks have failed.";
   }
 
@@ -281,15 +279,15 @@ LABEL_23:
 
     v26 = objc_opt_new();
     v31 = objc_msgSend_count(v13, v27, v28, v29, v30);
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = sub_24809DE1C;
-    v59[3] = &unk_278EFC238;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = sub_24809DE1C;
+    v58[3] = &unk_278EFC238;
     v32 = v26;
-    v60[0] = v32;
-    v60[1] = v31;
-    objc_msgSend_enumerateObjectsUsingBlock_(v13, v33, v59, v34, v35);
-    v36 = v60;
+    v59[0] = v32;
+    v59[1] = v31;
+    objc_msgSend_enumerateObjectsUsingBlock_(v13, v33, v58, v34, v35);
+    v36 = v59;
     v37 = @"Backward compatibility checks have failed.";
   }
 
@@ -298,30 +296,29 @@ LABEL_23:
   v48 = v47;
 LABEL_12:
   v49 = *MEMORY[0x277CCA450];
-  v83[0] = *MEMORY[0x277CCA470];
-  v83[1] = v49;
-  v84[0] = v37;
-  v84[1] = @"Missing features";
-  v83[2] = *MEMORY[0x277CCA498];
-  v83[3] = @"XRCapabilityRangesKey";
-  v84[2] = v47;
-  v84[3] = v14;
-  v83[4] = @"XRRequiredVersionsKey";
-  v84[4] = v15;
-  v51 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v84, v83, 5, v54, v55, v56, v57);
+  v82[0] = *MEMORY[0x277CCA470];
+  v82[1] = v49;
+  v83[0] = v37;
+  v83[1] = @"Missing features";
+  v82[2] = *MEMORY[0x277CCA498];
+  v82[3] = @"XRCapabilityRangesKey";
+  v83[2] = v47;
+  v83[3] = v14;
+  v82[4] = @"XRRequiredVersionsKey";
+  v83[4] = v15;
+  v51 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v83, v82, 5, v53, v54, v55, v56);
   if (error)
   {
     *error = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v50, @"Supported Capability Problem", 0, v51);
   }
 
-  v24 = *(v80 + 24);
+  v24 = *(v79 + 24);
 LABEL_15:
 
-  _Block_object_dispose(&v71, 8);
-  _Block_object_dispose(&v75, 8);
-  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v70, 8);
+  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v78, 8);
 
-  v52 = *MEMORY[0x277D85DE8];
   return v24 & 1;
 }
 

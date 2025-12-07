@@ -69,52 +69,50 @@
 
 - (id)alertController
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D75110];
   title = [(CBSUIAlert *)self title];
   message = [(CBSUIAlert *)self message];
   v6 = [v3 alertControllerWithTitle:title message:message preferredStyle:{-[CBSUIAlert preferredStyle](self, "preferredStyle")}];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = [(CBSUIAlert *)self actions];
-  v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         v12 = MEMORY[0x277D750F8];
         title2 = [v11 title];
         style = [v11 style];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __29__CBSUIAlert_alertController__block_invoke;
-        v19[3] = &unk_278DB2E78;
-        v19[4] = v11;
-        v15 = [v12 actionWithTitle:title2 style:style handler:v19];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __29__CBSUIAlert_alertController__block_invoke;
+        v18[3] = &unk_278DB2E78;
+        v18[4] = v11;
+        v15 = [v12 actionWithTitle:title2 style:style handler:v18];
 
         [v6 addAction:v15];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -154,21 +152,20 @@ void __29__CBSUIAlert_alertController__block_invoke(uint64_t a1)
 
 void __25__CBSUIAlert__sendCreate__block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = CheckerBoardLogHandleForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [WeakRetained identifier];
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 1024;
-    v11 = a2;
-    _os_log_impl(&dword_2433DB000, v5, OS_LOG_TYPE_DEFAULT, "Alert creation request for [%@] succeeded: %d", &v8, 0x12u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 1024;
+    v10 = a2;
+    _os_log_impl(&dword_2433DB000, v5, OS_LOG_TYPE_DEFAULT, "Alert creation request for [%@] succeeded: %d", &v7, 0x12u);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_receiveResponse
@@ -194,20 +191,20 @@ void __25__CBSUIAlert__sendCreate__block_invoke(uint64_t a1, int a2)
 
 void __30__CBSUIAlert__receiveResponse__block_invoke(uint64_t a1, unint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = CheckerBoardLogHandleForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [WeakRetained identifier];
     v7 = [WeakRetained actions];
-    v16 = 138412802;
-    v17 = v6;
-    v18 = 2048;
-    v19 = a2;
-    v20 = 2048;
-    v21 = [v7 count];
-    _os_log_impl(&dword_2433DB000, v5, OS_LOG_TYPE_DEFAULT, "Alert [%@] received response: %lu/%lu", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = v6;
+    v17 = 2048;
+    v18 = a2;
+    v19 = 2048;
+    v20 = [v7 count];
+    _os_log_impl(&dword_2433DB000, v5, OS_LOG_TYPE_DEFAULT, "Alert [%@] received response: %lu/%lu", &v15, 0x20u);
   }
 
   v8 = [WeakRetained actions];
@@ -221,9 +218,9 @@ void __30__CBSUIAlert__receiveResponse__block_invoke(uint64_t a1, unint64_t a2)
     v12 = CheckerBoardLogHandleForCategory(5);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v11;
-      _os_log_impl(&dword_2433DB000, v12, OS_LOG_TYPE_DEFAULT, "Invoking action: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v11;
+      _os_log_impl(&dword_2433DB000, v12, OS_LOG_TYPE_DEFAULT, "Invoking action: %@", &v15, 0xCu);
     }
 
     v13 = [v11 handler];
@@ -236,8 +233,6 @@ void __30__CBSUIAlert__receiveResponse__block_invoke(uint64_t a1, unint64_t a2)
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (CBSUIAlert)initWithCoder:(id)coder

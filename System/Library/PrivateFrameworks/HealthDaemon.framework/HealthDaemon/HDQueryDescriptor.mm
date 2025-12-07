@@ -64,15 +64,15 @@
   v23 = [(HDQueryDescriptor *)&v41 init];
   if (v23)
   {
-    v24 = [typesCopy copy];
+    v24 = objc_msgSend_copy(typesCopy);
     sampleTypes = v23->_sampleTypes;
     v23->_sampleTypes = v24;
 
-    v26 = [optionsCopy copy];
+    v26 = objc_msgSend_copy(optionsCopy);
     encodingOptions = v23->_encodingOptions;
     v23->_encodingOptions = v26;
 
-    v28 = [entitiesCopy copy];
+    v28 = objc_msgSend_copy(entitiesCopy);
     restrictedSourceEntities = v23->_restrictedSourceEntities;
     v23->_restrictedSourceEntities = v28;
 
@@ -80,15 +80,15 @@
     authorizationFilter = v23->_authorizationFilter;
     v23->_authorizationFilter = v30;
 
-    v32 = [v20 copy];
+    v32 = objc_msgSend_copy(v20);
     filter = v23->_filter;
     v23->_filter = v32;
 
-    v34 = [predicateCopy copy];
+    v34 = objc_msgSend_copy(predicateCopy);
     samplePredicate = v23->_samplePredicate;
     v23->_samplePredicate = v34;
 
-    v36 = [objectsPredicateCopy copy];
+    v36 = objc_msgSend_copy(objectsPredicateCopy);
     deletedObjectsPredicate = v23->_deletedObjectsPredicate;
     v23->_deletedObjectsPredicate = v36;
   }

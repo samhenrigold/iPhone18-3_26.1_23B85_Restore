@@ -74,25 +74,25 @@
     v7 = equalCopy;
     traitCollection = [(UIAlertControllerVisualStyle *)self traitCollection];
     traitCollection2 = [v7 traitCollection];
-    if ([traitCollection isEqual:traitCollection2])
+    if (objc_msgSend_isEqual_(traitCollection))
     {
       descriptor = [(UIAlertControllerVisualStyle *)self descriptor];
       descriptor2 = [v7 descriptor];
-      v6 = [descriptor isEqual:descriptor2];
+      isEqual = objc_msgSend_isEqual_(descriptor);
     }
 
     else
     {
-      v6 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    isEqual = 0;
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -114,7 +114,7 @@
 - (void)setTraitCollection:(id)collection
 {
   collectionCopy = collection;
-  if (![(UITraitCollection *)self->_traitCollection isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_traitCollection) & 1) == 0)
   {
     objc_storeStrong(&self->_traitCollection, collection);
     [(UIAlertControllerVisualStyle *)self _reloadInterfaceActionVisualStyle];
@@ -124,7 +124,7 @@
 - (void)setDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  if (![(UIAlertControllerDescriptor *)self->_descriptor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_descriptor) & 1) == 0)
   {
     objc_storeStrong(&self->_descriptor, descriptor);
     [(UIAlertControllerVisualStyle *)self _reloadInterfaceActionVisualStyle];

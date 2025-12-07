@@ -8,10 +8,10 @@
 
 - (void)applyLayoutAttributes:(id)attributes
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7629C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7629C0, qword_20C1510D0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
-  v8 = type metadata accessor for TVOpenInMusicView();
+  v8 = type metadata accessor for TVOpenInMusicView(0);
   v15.receiver = self;
   v15.super_class = v8;
   attributesCopy = attributes;
@@ -31,7 +31,7 @@
 - (void)prepareForReuse
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for TVOpenInMusicView();
+  v4.super_class = type metadata accessor for TVOpenInMusicView(0);
   v2 = v4.receiver;
   [(TVOpenInMusicView *)&v4 prepareForReuse];
   v3 = &v2[OBJC_IVAR____TtC9SeymourUI17TVOpenInMusicView_shelf];

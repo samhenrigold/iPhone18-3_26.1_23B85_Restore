@@ -83,13 +83,13 @@
   v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v5 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = HMFGetOSLogHandle(selfCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = HMFGetLogIdentifier(selfCopy);
+    v7 = HMFGetLogIdentifier(selfCopy);
     *buf = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Deallocating", buf, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Deallocating", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -97,21 +97,20 @@
   v8.receiver = selfCopy;
   v8.super_class = HMFKeyValueBlockObserver;
   [(HMFKeyValueBlockObserver *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v5 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = HMFGetOSLogHandle(selfCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = HMFGetLogIdentifier(selfCopy);
-    v13 = 138543362;
-    v14 = v6;
-    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Invalidating", &v13, 0xCu);
+    v7 = HMFGetLogIdentifier(selfCopy);
+    v14 = 138543362;
+    v15 = v7;
+    _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Invalidating", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -120,21 +119,19 @@
   os_unfair_lock_unlock(&selfCopy->_lock);
   if (__invalidate)
   {
-    v8 = objc_autoreleasePoolPush();
-    v9 = selfCopy;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = objc_autoreleasePoolPush();
+    v10 = selfCopy;
+    v12 = HMFGetOSLogHandle(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = HMFGetLogIdentifier(v9);
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Invalidated", &v13, 0xCu);
+      v13 = HMFGetLogIdentifier(v10);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Invalidated", &v14, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v8);
+    objc_autoreleasePoolPop(v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)__invalidate
@@ -186,22 +183,21 @@
     handler = self->_handler;
     self->_handler = v6;
 
-    observing = self->_observing;
     if (handlerCopy)
     {
       if (!self->_observing)
       {
-        v9 = 1;
+        v8 = 1;
 LABEL_8:
-        v10 = handlerCopy != 0;
-        self->_observing = v9;
+        v9 = handlerCopy != 0;
+        self->_observing = v8;
         goto LABEL_10;
       }
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
       if (self->_observing)
       {
         goto LABEL_8;
@@ -210,17 +206,17 @@ LABEL_8:
   }
 
   v5 = 0;
-  v10 = 0;
+  v9 = 0;
 LABEL_10:
   os_unfair_lock_unlock(&self->_lock);
   observedObject = [(HMFKeyValueBlockObserver *)self observedObject];
   if (observedObject)
   {
-    if (v10)
+    if (v9)
     {
-      v12 = objc_autoreleasePoolPush();
+      v11 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v14 = HMFGetOSLogHandle();
+      v14 = HMFGetOSLogHandle(selfCopy, v13);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier(selfCopy);
@@ -229,7 +225,7 @@ LABEL_10:
         _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_INFO, "%{public}@Registering", &v24, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v12);
+      objc_autoreleasePoolPop(v11);
       keyPath = [(HMFKeyValueBlockObserver *)selfCopy keyPath];
       options = [(HMFKeyValueBlockObserver *)selfCopy options];
       [observedObject addObserver:selfCopy forKeyPath:keyPath options:options context:HMFKeyValueBlockObserverContext];
@@ -242,13 +238,13 @@ LABEL_19:
     {
       v18 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v20 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v21 = HMFGetOSLogHandle(selfCopy2, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v21 = HMFGetLogIdentifier(selfCopy2);
+        v22 = HMFGetLogIdentifier(selfCopy2);
         v24 = 138543362;
-        v25 = v21;
-        _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_INFO, "%{public}@Unregistering", &v24, 0xCu);
+        v25 = v22;
+        _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_INFO, "%{public}@Unregistering", &v24, 0xCu);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -259,8 +255,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -273,22 +267,22 @@ LABEL_20:
   {
     v13 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = HMFGetOSLogHandle(selfCopy, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v16 = HMFGetLogIdentifier(selfCopy);
+      v17 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543618;
-      v22 = v16;
+      v22 = v17;
       v23 = 2112;
       v24 = changeCopy;
-      _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Received change: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Received change: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     if ([pathCopy isEqualToString:selfCopy->_keyPath])
     {
       handler = [(HMFKeyValueBlockObserver *)selfCopy handler];
-      v18 = handler;
+      v19 = handler;
       if (handler)
       {
         (*(handler + 16))(handler, objectCopy, changeCopy);
@@ -302,8 +296,6 @@ LABEL_20:
     v20.super_class = HMFKeyValueBlockObserver;
     [(HMFKeyValueBlockObserver *)&v20 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory

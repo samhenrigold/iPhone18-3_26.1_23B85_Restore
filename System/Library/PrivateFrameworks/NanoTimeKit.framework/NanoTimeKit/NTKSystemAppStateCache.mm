@@ -371,53 +371,53 @@ void __43__NTKSystemAppStateCache_removedSystemApps__block_invoke(uint64_t a1)
 
 - (void)_queue_initializeRestrictedSystemApps
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   restrictedSystemApps = self->_restrictedSystemApps;
   self->_restrictedSystemApps = v3;
 
-  v5 = NTKBundleIDToComplicationTypesMappingForGloryDevices();
-  allKeys = [v5 allKeys];
+  v6 = NTKBundleIDToComplicationTypesMappingForGloryDevices(v5);
+  allKeys = [v6 allKeys];
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __63__NTKSystemAppStateCache__queue_initializeRestrictedSystemApps__block_invoke;
-  v9[3] = &unk_27877DED0;
-  v9[4] = self;
-  [allKeys enumerateObjectsUsingBlock:v9];
-  v7 = _NTKLoggingObjectForDomain(0, "NTKLoggingDomainDefault");
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __63__NTKSystemAppStateCache__queue_initializeRestrictedSystemApps__block_invoke;
+  v10[3] = &unk_27877DED0;
+  v10[4] = self;
+  [allKeys enumerateObjectsUsingBlock:v10];
+  v8 = _NTKLoggingObjectForDomain(0, "NTKLoggingDomainDefault");
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = self->_restrictedSystemApps;
+    v9 = self->_restrictedSystemApps;
     *buf = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_22D9C5000, v7, OS_LOG_TYPE_DEFAULT, "restricted system app set initialized: %@", buf, 0xCu);
+    v12 = v9;
+    _os_log_impl(&dword_22D9C5000, v8, OS_LOG_TYPE_DEFAULT, "restricted system app set initialized: %@", buf, 0xCu);
   }
 }
 
 - (void)_queue_initializeRemovedSystemApps
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   removedSystemApps = self->_removedSystemApps;
   self->_removedSystemApps = v3;
 
-  v5 = NTKBundleIDToComplicationTypesMappingForGloryDevices();
-  allKeys = [v5 allKeys];
+  v6 = NTKBundleIDToComplicationTypesMappingForGloryDevices(v5);
+  allKeys = [v6 allKeys];
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __60__NTKSystemAppStateCache__queue_initializeRemovedSystemApps__block_invoke;
-  v9[3] = &unk_27877DED0;
-  v9[4] = self;
-  [allKeys enumerateObjectsUsingBlock:v9];
-  v7 = _NTKLoggingObjectForDomain(0, "NTKLoggingDomainDefault");
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __60__NTKSystemAppStateCache__queue_initializeRemovedSystemApps__block_invoke;
+  v10[3] = &unk_27877DED0;
+  v10[4] = self;
+  [allKeys enumerateObjectsUsingBlock:v10];
+  v8 = _NTKLoggingObjectForDomain(0, "NTKLoggingDomainDefault");
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = self->_removedSystemApps;
+    v9 = self->_removedSystemApps;
     *buf = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_22D9C5000, v7, OS_LOG_TYPE_DEFAULT, "removed system app set initialized: %@", buf, 0xCu);
+    v12 = v9;
+    _os_log_impl(&dword_22D9C5000, v8, OS_LOG_TYPE_DEFAULT, "removed system app set initialized: %@", buf, 0xCu);
   }
 }
 

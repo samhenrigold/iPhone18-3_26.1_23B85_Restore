@@ -57,10 +57,10 @@
 
 + (id)parseFromData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v3 = [(TRIPBMessage *)TRIConfigurationPersistedTask parseFromData:data error:&v9];
-  v4 = v9;
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v3 = [(TRIPBMessage *)TRIConfigurationPersistedTask parseFromData:data error:&v8];
+  v4 = v8;
   if (v3)
   {
     v5 = objc_opt_new();
@@ -72,14 +72,12 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v4;
+      v10 = v4;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIConfigurationPersistedTask: %{public}@", buf, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

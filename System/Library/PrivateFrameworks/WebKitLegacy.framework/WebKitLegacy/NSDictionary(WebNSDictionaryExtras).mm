@@ -1,9 +1,9 @@
 @interface NSDictionary(WebNSDictionaryExtras)
 - (uint64_t)_webkit_arrayForKey:()WebNSDictionaryExtras;
 - (uint64_t)_webkit_numberForKey:()WebNSDictionaryExtras;
-- (uint64_t)_webkit_objectForMIMEType:()WebNSDictionaryExtras;
 - (uint64_t)_webkit_stringForKey:()WebNSDictionaryExtras;
 - (void)_webkit_BOOLForKey:()WebNSDictionaryExtras;
+- (void)_webkit_objectForMIMEType:()WebNSDictionaryExtras;
 @end
 
 @implementation NSDictionary(WebNSDictionaryExtras)
@@ -53,7 +53,7 @@
   }
 }
 
-- (uint64_t)_webkit_objectForMIMEType:()WebNSDictionaryExtras
+- (void)_webkit_objectForMIMEType:()WebNSDictionaryExtras
 {
   result = [self objectForKey:?];
   if (!result)

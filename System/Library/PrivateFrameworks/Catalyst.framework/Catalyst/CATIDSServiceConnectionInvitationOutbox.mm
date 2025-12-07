@@ -79,7 +79,7 @@
 
 - (void)receiveAcceptForInvitation:(id)invitation connectionIdentifier:(id)identifier senderAddress:(id)address messagingVersion:(unint64_t)version
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   identifierCopy = identifier;
   addressCopy = address;
@@ -99,25 +99,23 @@
 
   else
   {
-    v19 = _CATLogGeneral_7();
+    v19 = _CATLogGeneral_7(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138543874;
-      v22 = invitationCopy;
-      v23 = 2114;
-      v24 = addressCopy;
-      v25 = 2114;
-      v26 = identifierCopy;
+      v21 = invitationCopy;
+      v22 = 2114;
+      v23 = addressCopy;
+      v24 = 2114;
+      v25 = identifierCopy;
       _os_log_impl(&dword_24329F000, v19, OS_LOG_TYPE_INFO, "Found unexpected accept for invitation %{public}@ from %{public}@ with connection %{public}@", buf, 0x20u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receiveRejectForInvitation:(id)invitation connectionIdentifier:(id)identifier senderAddress:(id)address error:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   identifierCopy = identifier;
   addressCopy = address;
@@ -134,18 +132,16 @@
 
   else
   {
-    v18 = _CATLogGeneral_7();
+    v18 = _CATLogGeneral_7(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v20 = 138543618;
-      v21 = invitationCopy;
-      v22 = 2114;
-      v23 = addressCopy;
-      _os_log_impl(&dword_24329F000, v18, OS_LOG_TYPE_INFO, "Found unexpected rejection for invitation %{public}@ from %{public}@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = invitationCopy;
+      v21 = 2114;
+      v22 = addressCopy;
+      _os_log_impl(&dword_24329F000, v18, OS_LOG_TYPE_INFO, "Found unexpected rejection for invitation %{public}@ from %{public}@", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelInvitationWithIdentifier:(id)identifier

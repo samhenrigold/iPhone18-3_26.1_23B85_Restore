@@ -379,7 +379,7 @@
 - (id)buttonControl:(id)control imageForState:(int)state highlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v7 = THBundle();
+  v7 = THBundle(self, a2);
   v8 = @"ib_media_btn_small_pause-N";
   if (highlightedCopy)
   {
@@ -418,7 +418,7 @@
     else
     {
       [(THWAVTransportController *)self play];
-      [(THWAVTransportController *)self duration];
+      objc_msgSend_duration(self);
       [(THWAVTransportController *)self durationChanged:?];
     }
 
@@ -523,9 +523,9 @@
 
 - (BOOL)movieIsAtEnd
 {
-  [(THWAVTransportController *)self duration];
+  objc_msgSend_duration(self, a2);
   v4 = v3;
-  [(THWAVTransportController *)self currentTime];
+  objc_msgSend_currentTime(self);
   return v4 - v5 < 0.2;
 }
 
@@ -546,7 +546,7 @@
 
   audioRep = [(THWAVTransportController *)self audioRep];
 
-  [(THWAudioRep *)audioRep currentTime];
+  objc_msgSend_currentTime(audioRep);
   return result;
 }
 

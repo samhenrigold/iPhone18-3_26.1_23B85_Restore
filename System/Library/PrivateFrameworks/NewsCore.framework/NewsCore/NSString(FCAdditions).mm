@@ -87,38 +87,38 @@
 
 - (id)fc_lowercaseTokensWithMinimumLength:()FCAdditions
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_new();
   v6 = [self length];
   lowercaseString = [self lowercaseString];
   if (v6 > a3)
   {
-    v24 = v5;
+    v23 = v5;
     whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-    v20 = lowercaseString;
+    v19 = lowercaseString;
     [lowercaseString componentsSeparatedByCharactersInSet:whitespaceCharacterSet];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    obj = v28 = 0u;
-    v23 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-    if (!v23)
+    obj = v27 = 0u;
+    v22 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (!v22)
     {
       goto LABEL_19;
     }
 
-    v22 = *v26;
+    v21 = *v25;
     v8 = MEMORY[0x1E69E9830];
     while (1)
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v26 != v22)
+        if (*v25 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         v11 = [v10 length];
         string = [MEMORY[0x1E696AD60] string];
         if (v11)
@@ -136,7 +136,7 @@ LABEL_13:
                 if (v13 >= a3 - 1)
                 {
                   v16 = [string copy];
-                  [v24 addObject:v16];
+                  [v23 addObject:v16];
                 }
 
                 ++v13;
@@ -151,12 +151,12 @@ LABEL_13:
         }
       }
 
-      v23 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-      if (!v23)
+      v22 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      if (!v22)
       {
 LABEL_19:
 
-        v5 = v24;
+        v5 = v23;
         goto LABEL_21;
       }
     }
@@ -165,7 +165,6 @@ LABEL_19:
   [v5 addObject:lowercaseString];
 
 LABEL_21:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -254,39 +253,37 @@ LABEL_21:
 
 - (id)fc_stringByReplacingOccurrencesOfStrings:()FCAdditions withString:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [self mutableCopy];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v8 replaceOccurrencesOfString:*(*(&v16 + 1) + 8 * i) withString:v7 options:0 range:{0, objc_msgSend(v8, "length", v16)}];
+        [v8 replaceOccurrencesOfString:*(*(&v15 + 1) + 8 * i) withString:v7 options:0 range:{0, objc_msgSend(v8, "length", v15)}];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -304,19 +301,19 @@ LABEL_21:
 
 - (id)fc_stringByAppendingStringIfNeeded:()FCAdditions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (!v4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "string"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "string"];
     *buf = 136315906;
-    v14 = "[NSString(FCAdditions) fc_stringByAppendingStringIfNeeded:]";
-    v15 = 2080;
-    v16 = "NSString+FCAdditions.m";
-    v17 = 1024;
-    v18 = 199;
-    v19 = 2114;
-    v20 = v12;
+    v13 = "[NSString(FCAdditions) fc_stringByAppendingStringIfNeeded:]";
+    v14 = 2080;
+    v15 = "NSString+FCAdditions.m";
+    v16 = 1024;
+    v17 = 199;
+    v18 = 2114;
+    v19 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -332,8 +329,6 @@ LABEL_21:
   }
 
   v9 = v8;
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

@@ -45,11 +45,13 @@
   return v2;
 }
 
-uint64_t __36__VSAccountStore_sharedAccountStore__block_invoke()
+uint64_t __36__VSAccountStore_sharedAccountStore__block_invoke(uint64_t a1)
 {
-  sharedAccountStore___vs_lazy_init_variable = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedAccountStore___vs_lazy_init_variable;
+  sharedAccountStore___vs_lazy_init_variable = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (VSAccountStore)init
@@ -113,23 +115,23 @@ void __22__VSAccountStore_init__block_invoke(uint64_t a1, void *a2)
 
     if (v5 != WeakRetained)
     {
-      v6 = VSDefaultLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = VSDefaultLogObject(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Received local account store notification from another instance.", buf, 2u);
+        _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Received local account store notification from another instance.", buf, 2u);
       }
 
       [WeakRetained setNeedsUpdateCachedFirstAccount:1];
       if (([WeakRetained isFirstAccountLoaded] & 1) == 0)
       {
-        v7 = [WeakRetained keychainQueue];
-        v8[0] = MEMORY[0x277D85DD0];
-        v8[1] = 3221225472;
-        v8[2] = __22__VSAccountStore_init__block_invoke_45;
-        v8[3] = &unk_278B733D8;
-        v9 = WeakRetained;
-        [v7 addOperationWithBlock:v8];
+        v8 = [WeakRetained keychainQueue];
+        v9[0] = MEMORY[0x277D85DD0];
+        v9[1] = 3221225472;
+        v9[2] = __22__VSAccountStore_init__block_invoke_45;
+        v9[3] = &unk_278B733D8;
+        v10 = WeakRetained;
+        [v8 addOperationWithBlock:v9];
       }
     }
   }
@@ -137,20 +139,21 @@ void __22__VSAccountStore_init__block_invoke(uint64_t a1, void *a2)
 
 void __22__VSAccountStore_init__block_invoke_45(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_23AB8E000, v2, OS_LOG_TYPE_DEFAULT, "Will update cached first account.", buf, 2u);
   }
 
-  if ([*(a1 + 32) _updateCachedFirstAccount])
+  v3 = [*(a1 + 32) _updateCachedFirstAccount];
+  if (v3)
   {
-    v3 = VSDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = VSDefaultLogObject(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Cached first account actually changed.", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Cached first account actually changed.", v5, 2u);
     }
   }
 }
@@ -171,13 +174,14 @@ void __22__VSAccountStore_init__block_invoke_47(uint64_t a1)
 
 void __22__VSAccountStore_init__block_invoke_2(uint64_t a1)
 {
-  if ([*(a1 + 32) _updateCachedFirstAccount])
+  v1 = [*(a1 + 32) _updateCachedFirstAccount];
+  if (v1)
   {
-    v1 = VSDefaultLogObject();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v2 = VSDefaultLogObject(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v2 = 0;
-      _os_log_impl(&dword_23AB8E000, v1, OS_LOG_TYPE_DEFAULT, "After initialization, update revealed existing account.", v2, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_23AB8E000, v2, OS_LOG_TYPE_DEFAULT, "After initialization, update revealed existing account.", v3, 2u);
     }
   }
 }
@@ -209,7 +213,7 @@ void __22__VSAccountStore_init__block_invoke_2(uint64_t a1)
 
 - (void)_sendLocalNotification
 {
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -217,8 +221,7 @@ void __22__VSAccountStore_init__block_invoke_2(uint64_t a1)
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter postNotificationName:@"VSAccountStoreDidChangeNotification" object:self];
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject([defaultCenter postNotificationName:@"VSAccountStoreDidChangeNotification" object:self]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -228,7 +231,7 @@ void __22__VSAccountStore_init__block_invoke_2(uint64_t a1)
 
 - (void)_sendRemoteNotification
 {
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -238,11 +241,11 @@ void __22__VSAccountStore_init__block_invoke_2(uint64_t a1)
   remoteNotifier = [(VSAccountStore *)self remoteNotifier];
   [remoteNotifier postNotification];
 
-  v5 = VSDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VSDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Did send remote account store change notificaiton.", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Did send remote account store change notificaiton.", v7, 2u);
   }
 }
 
@@ -296,35 +299,35 @@ void __22__VSAccountStore_init__block_invoke_2(uint64_t a1)
     v19 = VSNumberForFourCharCode(0x6174684Eu);
     LODWORD(v15) = [typeCode isEqual:v19];
 
-    if (v15 || (VSNumberForFourCharCode(0x746F6B4Eu), v40 = objc_claimAutoreleasedReturnValue(), v41 = [typeCode isEqual:v40], v40, v41))
+    if (v15 || (VSNumberForFourCharCode(0x746F6B4Eu), v42 = objc_claimAutoreleasedReturnValue(), v43 = [typeCode isEqual:v42], v42, v43))
     {
-      v42 = objc_opt_class();
+      v45 = objc_opt_class();
     }
 
     else
     {
-      v44 = VSErrorLogObject();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v47 = VSErrorLogObject(v44);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         [VSAccountStore _accountForKeychainItem:];
       }
 
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Unexpected token type code when deserializing account from keychain."];
-      v42 = 0;
+      v45 = 0;
     }
 
     data = [itemCopy data];
     if (data)
     {
-      v46 = [[v42 alloc] initWithSerializedData:data];
-      v47 = [VSOptional optionalWithObject:v46];
-      [v7 setAuthenticationToken:v47];
+      v49 = [[v45 alloc] initWithSerializedData:data];
+      v50 = [VSOptional optionalWithObject:v49];
+      [v7 setAuthenticationToken:v50];
     }
 
     else
     {
-      v46 = VSErrorLogObject();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v49 = VSErrorLogObject(0);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
       {
         [VSAccountStore _accountForKeychainItem:];
       }
@@ -347,91 +350,92 @@ LABEL_39:
     }
 
     data3 = [itemCopy data];
-    v58 = 0;
-    v23 = [MEMORY[0x277CCAC58] propertyListWithData:data3 options:0 format:0 error:&v58];
-    v24 = v58;
-    if (v23)
+    v62 = 0;
+    v24 = [MEMORY[0x277CCAC58] propertyListWithData:data3 options:0 format:0 error:&v62];
+    v25 = v62;
+    v26 = v25;
+    if (v24)
     {
-      v57 = data3;
+      v61 = data3;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v25 = MEMORY[0x277CBEAD8];
-        v26 = *MEMORY[0x277CBE660];
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
-        [v25 raise:v26 format:{@"Unexpectedly, result was %@, instead of NSDictionary.", v28}];
+        v27 = MEMORY[0x277CBEAD8];
+        v28 = *MEMORY[0x277CBE660];
+        v29 = objc_opt_class();
+        v30 = NSStringFromClass(v29);
+        [v27 raise:v28 format:{@"Unexpectedly, result was %@, instead of NSDictionary.", v30}];
       }
 
-      v29 = v23;
+      v31 = v24;
       [v7 setKeychainItem:itemCopy];
-      v30 = [v29 objectForKey:@"u"];
-      [v7 setUsername:v30];
+      v32 = [v31 objectForKey:@"u"];
+      [v7 setUsername:v32];
 
-      v31 = [v29 objectForKey:@"paid"];
-      [v7 setPreferredAppID:v31];
+      v33 = [v31 objectForKey:@"paid"];
+      [v7 setPreferredAppID:v33];
 
-      v32 = [v29 objectForKey:@"dn"];
-      v33 = [VSOptional optionalWithObject:v32];
-      [v7 setOptionalIdentityProviderDisplayName:v33];
-
-      v34 = [v29 objectForKey:@"pid"];
+      v34 = [v31 objectForKey:@"dn"];
       v35 = [VSOptional optionalWithObject:v34];
-      [v7 setIdentityProviderID:v35];
+      [v7 setOptionalIdentityProviderDisplayName:v35];
 
-      v36 = [v29 objectForKey:@"lhash"];
-      [v7 setLegacyItemHash:v36];
+      v36 = [v31 objectForKey:@"pid"];
+      v37 = [VSOptional optionalWithObject:v36];
+      [v7 setIdentityProviderID:v37];
+
+      v38 = [v31 objectForKey:@"lhash"];
+      [v7 setLegacyItemHash:v38];
 
       [v7 setSynchronizable:{objc_msgSend(itemCopy, "isSynchronizable")}];
-      v37 = [v29 objectForKey:@"channels"];
-      [v7 setChannelsData:v37];
+      v39 = [v31 objectForKey:@"channels"];
+      [v7 setChannelsData:v39];
 
-      v38 = [v29 objectForKey:@"proto"];
+      v40 = [v31 objectForKey:@"proto"];
 
-      if (!v38)
+      if (!v40)
       {
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [accountData objectForKey:VSAccountKeychainKeyScheme] parameter must not be nil."];
       }
 
-      v39 = [v29 objectForKey:@"proto"];
-      v56 = v24;
-      if ([v39 isEqual:@"api"] || objc_msgSend(v39, "isEqual:", @"saml"))
+      v41 = [v31 objectForKey:@"proto"];
+      v60 = v26;
+      if ([v41 isEqual:@"api"] || (v52 = objc_msgSend(v41, "isEqual:", @"saml"), v52))
       {
-        v49 = objc_opt_class();
+        v53 = objc_opt_class();
       }
 
       else
       {
-        v50 = VSErrorLogObject();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+        v54 = VSErrorLogObject(v52);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
           [VSAccountStore _accountForKeychainItem:];
         }
 
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Unexpected scheme when decoding account from 2.0 keychain item."];
-        v49 = 0;
+        v53 = 0;
       }
 
-      v51 = [v29 objectForKey:@"data"];
+      v55 = [v31 objectForKey:@"data"];
 
-      if (!v51)
+      if (!v55)
       {
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [accountData objectForKey:VSAccountKeychainKeyTokenData] parameter must not be nil."];
       }
 
-      v52 = [v29 objectForKey:@"data"];
-      v53 = [[v49 alloc] initWithSerializedData:v52];
-      v54 = [VSOptional optionalWithObject:v53];
-      [v7 setAuthenticationToken:v54];
+      v56 = [v31 objectForKey:@"data"];
+      v57 = [[v53 alloc] initWithSerializedData:v56];
+      v58 = [VSOptional optionalWithObject:v57];
+      [v7 setAuthenticationToken:v58];
 
-      v24 = v56;
-      data3 = v57;
+      v26 = v60;
+      data3 = v61;
     }
 
     else
     {
-      v48 = VSErrorLogObject();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      v51 = VSErrorLogObject(v25);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         [VSAccountStore _accountForKeychainItem:];
       }
@@ -442,10 +446,10 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v43 = VSErrorLogObject();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+  v46 = VSErrorLogObject(v22);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
   {
-    [(VSAccountStore *)itemCopy _accountForKeychainItem:v43];
+    [(VSAccountStore *)itemCopy _accountForKeychainItem:v46];
   }
 
   [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Unexpected creator code when deserialziing account from keychain item."];
@@ -457,7 +461,7 @@ LABEL_40:
 - (void)_fetchAccountsSimulatingExpiredToken:(BOOL)token forProviderIDs:(id)ds completion:(id)completion
 {
   tokenCopy = token;
-  v151 = *MEMORY[0x277D85DE8];
+  v157 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   completionCopy = completion;
   currentQueue = [MEMORY[0x277CCABD8] currentQueue];
@@ -469,372 +473,378 @@ LABEL_40:
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Unexpected operation queue for account fetch."];
   }
 
+  v142 = 0;
+  v143 = &v142;
+  v144 = 0x3032000000;
+  v145 = __Block_byref_object_copy_;
+  v146 = __Block_byref_object_dispose_;
+  v147 = MEMORY[0x277CBEBF8];
   v136 = 0;
   v137 = &v136;
   v138 = 0x3032000000;
   v139 = __Block_byref_object_copy_;
   v140 = __Block_byref_object_dispose_;
-  v141 = MEMORY[0x277CBEBF8];
-  v130 = 0;
-  v131 = &v130;
-  v132 = 0x3032000000;
-  v133 = __Block_byref_object_copy_;
-  v134 = __Block_byref_object_dispose_;
-  v135 = 0;
+  v141 = 0;
   v9 = [(VSAccountStore *)self _keychainItemsWithLimit:0];
-  v129[0] = MEMORY[0x277D85DD0];
-  v129[1] = 3221225472;
-  v129[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke;
-  v129[3] = &unk_278B73428;
-  v129[4] = &v136;
-  v128[0] = MEMORY[0x277D85DD0];
-  v128[1] = 3221225472;
-  v128[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_2;
-  v128[3] = &unk_278B73450;
-  v128[4] = &v130;
-  [v9 unwrapObject:v129 error:v128];
+  v135[0] = MEMORY[0x277D85DD0];
+  v135[1] = 3221225472;
+  v135[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke;
+  v135[3] = &unk_278B73428;
+  v135[4] = &v142;
+  v134[0] = MEMORY[0x277D85DD0];
+  v134[1] = 3221225472;
+  v134[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_2;
+  v134[3] = &unk_278B73450;
+  v134[4] = &v136;
+  [v9 unwrapObject:v135 error:v134];
 
-  if (v131[5])
+  if (v137[5])
   {
-    v125[0] = MEMORY[0x277D85DD0];
-    v125[1] = 3221225472;
-    v125[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_3;
-    v125[3] = &unk_278B73478;
-    v126 = completionCopy;
-    v127 = &v130;
-    VSPerformCompletionHandler(v125);
-    v10 = v126;
+    v131[0] = MEMORY[0x277D85DD0];
+    v131[1] = 3221225472;
+    v131[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_3;
+    v131[3] = &unk_278B73478;
+    v132 = completionCopy;
+    v133 = &v136;
+    VSPerformCompletionHandler(v131);
+    v11 = v132;
   }
 
   else
   {
-    v11 = VSDefaultLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = VSDefaultLogObject(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v137[5];
+      v13 = v143[5];
       *buf = 138412290;
-      v146 = v12;
-      _os_log_impl(&dword_23AB8E000, v11, OS_LOG_TYPE_DEFAULT, "Fetched keychain items: %@", buf, 0xCu);
+      v152 = v13;
+      _os_log_impl(&dword_23AB8E000, v12, OS_LOG_TYPE_DEFAULT, "Fetched keychain items: %@", buf, 0xCu);
     }
 
-    v85 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v84 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v78 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
-    v122 = 0u;
-    v14 = v137[5];
-    v15 = [v14 countByEnumeratingWithState:&v121 objects:v150 count:16];
-    if (v15)
+    v91 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v90 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v84 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v129 = 0u;
+    v130 = 0u;
+    v127 = 0u;
+    v128 = 0u;
+    v15 = v143[5];
+    v16 = [v15 countByEnumeratingWithState:&v127 objects:v156 count:16];
+    if (v16)
     {
-      v16 = *v122;
+      v17 = *v128;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v122 != v16)
+          if (*v128 != v17)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v18 = *(*(&v121 + 1) + 8 * i);
-          data = [v18 data];
-          v20 = data == 0;
+          v19 = *(*(&v127 + 1) + 8 * i);
+          data = [v19 data];
+          v21 = data == 0;
 
-          if (v20)
+          if (v21)
           {
-            v21 = VSErrorLogObject();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+            v23 = VSErrorLogObject(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v146 = v18;
-              _os_log_fault_impl(&dword_23AB8E000, v21, OS_LOG_TYPE_FAULT, "Invalid keychain item found: %@", buf, 0xCu);
+              v152 = v19;
+              _os_log_fault_impl(&dword_23AB8E000, v23, OS_LOG_TYPE_FAULT, "Invalid keychain item found: %@", buf, 0xCu);
             }
 
-            [v13 addObject:v18];
+            [v14 addObject:v19];
           }
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v121 objects:v150 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v127 objects:v156 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
-    v119 = 0u;
-    v120 = 0u;
-    v117 = 0u;
-    v118 = 0u;
-    v22 = v137[5];
-    v23 = [v22 countByEnumeratingWithState:&v117 objects:v149 count:16];
-    if (v23)
+    v125 = 0u;
+    v126 = 0u;
+    v123 = 0u;
+    v124 = 0u;
+    v24 = v143[5];
+    v25 = [v24 countByEnumeratingWithState:&v123 objects:v155 count:16];
+    if (v25)
     {
-      v24 = *v118;
+      v26 = *v124;
       do
       {
-        for (j = 0; j != v23; ++j)
+        for (j = 0; j != v25; ++j)
         {
-          if (*v118 != v24)
+          if (*v124 != v26)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v24);
           }
 
-          v26 = *(*(&v117 + 1) + 8 * j);
-          if (([v13 containsObject:v26] & 1) == 0)
+          v28 = *(*(&v123 + 1) + 8 * j);
+          if (([v14 containsObject:v28] & 1) == 0)
           {
-            v27 = [(VSAccountStore *)self _uniqueIdentifierForKeychainItem:v26];
-            creatorCode = [v26 creatorCode];
-            v29 = VSNumberForFourCharCode(VSKeychainItemCreatorCode);
-            v30 = [creatorCode isEqual:v29];
+            v29 = [(VSAccountStore *)self _uniqueIdentifierForKeychainItem:v28];
+            creatorCode = [v28 creatorCode];
+            v31 = VSNumberForFourCharCode(VSKeychainItemCreatorCode);
+            v32 = [creatorCode isEqual:v31];
 
-            v31 = v85;
-            if ((v30 & 1) != 0 || ([v26 creatorCode], v32 = objc_claimAutoreleasedReturnValue(), VSNumberForFourCharCode(VSKeychainItemV2CreatorCode), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v32, "isEqual:", v33), v33, v32, v31 = v84, v34))
+            v33 = v91;
+            if ((v32 & 1) != 0 || ([v28 creatorCode], v34 = objc_claimAutoreleasedReturnValue(), VSNumberForFourCharCode(VSKeychainItemV2CreatorCode), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v34, "isEqual:", v35), v35, v34, v33 = v90, v36))
             {
-              [v31 setObject:v26 forKey:v27];
+              [v33 setObject:v28 forKey:v29];
             }
 
             else
             {
-              v35 = VSErrorLogObject();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v37 = VSErrorLogObject(v90);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v146 = v26;
-                _os_log_error_impl(&dword_23AB8E000, v35, OS_LOG_TYPE_ERROR, "Fetched keychain item with unexpected type code: %@", buf, 0xCu);
+                v152 = v28;
+                _os_log_error_impl(&dword_23AB8E000, v37, OS_LOG_TYPE_ERROR, "Fetched keychain item with unexpected type code: %@", buf, 0xCu);
               }
             }
           }
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v117 objects:v149 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v123 objects:v155 count:16];
       }
 
-      while (v23);
+      while (v25);
     }
 
-    v36 = VSDefaultLogObject();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v39 = VSDefaultLogObject(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = [v84 count];
-      v38 = [v85 count];
+      v40 = [v90 count];
+      v41 = [v91 count];
       *buf = 134218240;
-      v146 = v37;
-      v147 = 2048;
-      v148 = v38;
-      _os_log_impl(&dword_23AB8E000, v36, OS_LOG_TYPE_DEFAULT, "Fetched %lu modern items and %lu legacy items", buf, 0x16u);
+      v152 = v40;
+      v153 = 2048;
+      v154 = v41;
+      _os_log_impl(&dword_23AB8E000, v39, OS_LOG_TYPE_DEFAULT, "Fetched %lu modern items and %lu legacy items", buf, 0x16u);
     }
 
-    v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    if ([v85 count] >= 2)
+    v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v44 = [v91 count];
+    if (v44 >= 2)
     {
-      v41 = VSDefaultLogObject();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v45 = VSDefaultLogObject(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23AB8E000, v41, OS_LOG_TYPE_DEFAULT, "deduplicating legacy items.", buf, 2u);
+        _os_log_impl(&dword_23AB8E000, v45, OS_LOG_TYPE_DEFAULT, "deduplicating legacy items.", buf, 2u);
       }
 
-      allValues = [v85 allValues];
-      v43 = [allValues mutableCopy];
+      allValues = [v91 allValues];
+      v47 = [allValues mutableCopy];
 
-      [v43 sortUsingComparator:&__block_literal_global_3];
-      v115[0] = MEMORY[0x277D85DD0];
-      v115[1] = 3221225472;
-      v115[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_98;
-      v115[3] = &unk_278B734C0;
-      v116 = v13;
-      [v43 enumerateObjectsUsingBlock:v115];
+      [v47 sortUsingComparator:&__block_literal_global_3];
+      v121[0] = MEMORY[0x277D85DD0];
+      v121[1] = 3221225472;
+      v121[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_98;
+      v121[3] = &unk_278B734C0;
+      v122 = v14;
+      [v47 enumerateObjectsUsingBlock:v121];
     }
 
-    v109[0] = MEMORY[0x277D85DD0];
-    v109[1] = 3221225472;
-    v109[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_100;
-    v109[3] = &unk_278B734E8;
-    v109[4] = self;
-    v44 = v78;
-    v110 = v44;
-    v77 = v85;
-    v111 = v77;
-    v86 = v13;
-    v112 = v86;
-    v45 = v40;
-    v113 = v45;
-    v46 = v39;
-    v114 = v46;
-    [v84 enumerateKeysAndObjectsUsingBlock:v109];
-    v105[0] = MEMORY[0x277D85DD0];
-    v105[1] = 3221225472;
-    v105[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_111;
-    v105[3] = &unk_278B73510;
-    v105[4] = self;
-    v76 = v44;
-    v106 = v76;
-    v83 = v45;
-    v107 = v83;
-    v79 = v46;
-    v108 = v79;
-    [v77 enumerateKeysAndObjectsUsingBlock:v105];
-    [v83 sortUsingComparator:&__block_literal_global_115];
-    if ([v86 count] || objc_msgSend(v79, "count", v76))
+    v115[0] = MEMORY[0x277D85DD0];
+    v115[1] = 3221225472;
+    v115[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_100;
+    v115[3] = &unk_278B734E8;
+    v115[4] = self;
+    v48 = v84;
+    v116 = v48;
+    v83 = v91;
+    v117 = v83;
+    v92 = v14;
+    v118 = v92;
+    v49 = v43;
+    v119 = v49;
+    v50 = v42;
+    v120 = v50;
+    [v90 enumerateKeysAndObjectsUsingBlock:v115];
+    v111[0] = MEMORY[0x277D85DD0];
+    v111[1] = 3221225472;
+    v111[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_111;
+    v111[3] = &unk_278B73510;
+    v111[4] = self;
+    v82 = v48;
+    v112 = v82;
+    v89 = v49;
+    v113 = v89;
+    v85 = v50;
+    v114 = v85;
+    [v83 enumerateKeysAndObjectsUsingBlock:v111];
+    [v89 sortUsingComparator:&__block_literal_global_115];
+    v51 = [v92 count];
+    if (v51 || (v51 = [v85 count]) != 0)
     {
-      v47 = VSDefaultLogObject();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v52 = VSDefaultLogObject(v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
-        v48 = [v86 count];
-        v49 = [v79 count];
+        v53 = [v92 count];
+        v54 = [v85 count];
         *buf = 134218240;
-        v146 = v48;
-        v147 = 2048;
-        v148 = v49;
-        _os_log_impl(&dword_23AB8E000, v47, OS_LOG_TYPE_DEFAULT, "finished processing keychain items (delete=%lu modernize=%lu)", buf, 0x16u);
+        v152 = v53;
+        v153 = 2048;
+        v154 = v54;
+        _os_log_impl(&dword_23AB8E000, v52, OS_LOG_TYPE_DEFAULT, "finished processing keychain items (delete=%lu modernize=%lu)", buf, 0x16u);
       }
 
       keychainEditingContext = [(VSAccountStore *)self keychainEditingContext];
+      v109 = 0u;
+      v110 = 0u;
+      v107 = 0u;
+      v108 = 0u;
+      v56 = v92;
+      v57 = [v56 countByEnumeratingWithState:&v107 objects:v150 count:16];
+      if (v57)
+      {
+        v58 = *v108;
+        do
+        {
+          for (k = 0; k != v57; ++k)
+          {
+            if (*v108 != v58)
+            {
+              objc_enumerationMutation(v56);
+            }
+
+            [keychainEditingContext deleteItem:{*(*(&v107 + 1) + 8 * k), v82}];
+          }
+
+          v57 = [v56 countByEnumeratingWithState:&v107 objects:v150 count:16];
+        }
+
+        while (v57);
+      }
+
+      v105 = 0u;
+      v106 = 0u;
       v103 = 0u;
       v104 = 0u;
-      v101 = 0u;
-      v102 = 0u;
-      v51 = v86;
-      v52 = [v51 countByEnumeratingWithState:&v101 objects:v144 count:16];
-      if (v52)
+      v60 = v85;
+      v61 = [v60 countByEnumeratingWithState:&v103 objects:v149 count:16];
+      if (v61)
       {
-        v53 = *v102;
+        v62 = *v104;
         do
         {
-          for (k = 0; k != v52; ++k)
+          for (m = 0; m != v61; ++m)
           {
-            if (*v102 != v53)
+            if (*v104 != v62)
             {
-              objc_enumerationMutation(v51);
+              objc_enumerationMutation(v60);
             }
 
-            [keychainEditingContext deleteItem:{*(*(&v101 + 1) + 8 * k), v76}];
+            [(VSAccountStore *)self _insertModernKeychainItemForAccount:*(*(&v103 + 1) + 8 * m) context:keychainEditingContext, v82];
           }
 
-          v52 = [v51 countByEnumeratingWithState:&v101 objects:v144 count:16];
+          v61 = [v60 countByEnumeratingWithState:&v103 objects:v149 count:16];
         }
 
-        while (v52);
+        while (v61);
       }
 
-      v99 = 0u;
-      v100 = 0u;
-      v97 = 0u;
-      v98 = 0u;
-      v55 = v79;
-      v56 = [v55 countByEnumeratingWithState:&v97 objects:v143 count:16];
-      if (v56)
-      {
-        v57 = *v98;
-        do
-        {
-          for (m = 0; m != v56; ++m)
-          {
-            if (*v98 != v57)
-            {
-              objc_enumerationMutation(v55);
-            }
-
-            [(VSAccountStore *)self _insertModernKeychainItemForAccount:*(*(&v97 + 1) + 8 * m) context:keychainEditingContext, v76];
-          }
-
-          v56 = [v55 countByEnumeratingWithState:&v97 objects:v143 count:16];
-        }
-
-        while (v56);
-      }
-
-      v59 = (v131 + 5);
-      obj = v131[5];
+      v64 = (v137 + 5);
+      obj = v137[5];
       [keychainEditingContext save:&obj];
-      objc_storeStrong(v59, obj);
+      objc_storeStrong(v64, obj);
     }
 
-    if (tokenCopy && [dsCopy count])
+    if (tokenCopy)
     {
-      if (!dsCopy)
+      v51 = [dsCopy count];
+      if (v51)
       {
-        [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The providerIDsOrNil parameter must not be nil."];
-      }
-
-      v60 = dsCopy;
-      v92 = 0u;
-      v93 = 0u;
-      v94 = 0u;
-      v95 = 0u;
-      v61 = v83;
-      v62 = [v61 countByEnumeratingWithState:&v92 objects:v142 count:16];
-      if (v62)
-      {
-        v63 = *v93;
-        do
+        if (!dsCopy)
         {
-          for (n = 0; n != v62; ++n)
+          [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The providerIDsOrNil parameter must not be nil."];
+        }
+
+        v65 = dsCopy;
+        v98 = 0u;
+        v99 = 0u;
+        v100 = 0u;
+        v101 = 0u;
+        v66 = v89;
+        v67 = [v66 countByEnumeratingWithState:&v98 objects:v148 count:16];
+        if (v67)
+        {
+          v68 = *v99;
+          do
           {
-            if (*v93 != v63)
+            for (n = 0; n != v67; ++n)
             {
-              objc_enumerationMutation(v61);
-            }
-
-            v65 = *(*(&v92 + 1) + 8 * n);
-            identityProviderID = [v65 identityProviderID];
-            forceUnwrapObject = [identityProviderID forceUnwrapObject];
-            v68 = [v60 containsObject:forceUnwrapObject];
-
-            if (v68)
-            {
-              v69 = VSDefaultLogObject();
-              if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+              if (*v99 != v68)
               {
-                *buf = 138412290;
-                v146 = v65;
-                _os_log_impl(&dword_23AB8E000, v69, OS_LOG_TYPE_DEFAULT, "simulate expired token enabled, mutating token expiration for account: %@", buf, 0xCu);
+                objc_enumerationMutation(v66);
               }
 
-              authenticationToken = [v65 authenticationToken];
-              forceUnwrapObject2 = [authenticationToken forceUnwrapObject];
+              v70 = *(*(&v98 + 1) + 8 * n);
+              identityProviderID = [v70 identityProviderID];
+              forceUnwrapObject = [identityProviderID forceUnwrapObject];
+              v73 = [v65 containsObject:forceUnwrapObject];
 
-              distantPast = [MEMORY[0x277CBEAA8] distantPast];
-              [forceUnwrapObject2 setExpirationDate:distantPast];
+              if (v73)
+              {
+                v75 = VSDefaultLogObject(v74);
+                if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 138412290;
+                  v152 = v70;
+                  _os_log_impl(&dword_23AB8E000, v75, OS_LOG_TYPE_DEFAULT, "simulate expired token enabled, mutating token expiration for account: %@", buf, 0xCu);
+                }
+
+                authenticationToken = [v70 authenticationToken];
+                forceUnwrapObject2 = [authenticationToken forceUnwrapObject];
+
+                distantPast = [MEMORY[0x277CBEAA8] distantPast];
+                [forceUnwrapObject2 setExpirationDate:distantPast];
+              }
             }
+
+            v67 = [v66 countByEnumeratingWithState:&v98 objects:v148 count:16];
           }
 
-          v62 = [v61 countByEnumeratingWithState:&v92 objects:v142 count:16];
+          while (v67);
         }
-
-        while (v62);
       }
     }
 
-    v73 = VSDefaultLogObject();
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+    v79 = VSDefaultLogObject(v51);
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
     {
-      v74 = v131[5];
+      v80 = v137[5];
       *buf = 138412546;
-      v146 = v83;
-      v147 = 2112;
-      v148 = v74;
-      _os_log_impl(&dword_23AB8E000, v73, OS_LOG_TYPE_DEFAULT, "fetched accounts: %@ with error: %@", buf, 0x16u);
+      v152 = v89;
+      v153 = 2112;
+      v154 = v80;
+      _os_log_impl(&dword_23AB8E000, v79, OS_LOG_TYPE_DEFAULT, "fetched accounts: %@ with error: %@", buf, 0x16u);
     }
 
-    v88[0] = MEMORY[0x277D85DD0];
-    v88[1] = 3221225472;
-    v88[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_120;
-    v88[3] = &unk_278B73558;
-    v90 = completionCopy;
-    v75 = v83;
-    v89 = v75;
-    v91 = &v130;
-    VSPerformCompletionHandler(v88);
+    v94[0] = MEMORY[0x277D85DD0];
+    v94[1] = 3221225472;
+    v94[2] = __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_120;
+    v94[3] = &unk_278B73558;
+    v96 = completionCopy;
+    v81 = v89;
+    v95 = v81;
+    v97 = &v136;
+    VSPerformCompletionHandler(v94);
 
-    v10 = v77;
+    v11 = v83;
   }
 
-  _Block_object_dispose(&v130, 8);
   _Block_object_dispose(&v136, 8);
+  _Block_object_dispose(&v142, 8);
 }
 
 uint64_t __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_93(uint64_t a1, void *a2, void *a3)
@@ -843,20 +853,21 @@ uint64_t __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderID
   v5 = a3;
   v6 = [v4 modificationDate];
   v7 = [v5 modificationDate];
+  v8 = v7;
   if (v7)
   {
     if (v6)
     {
 LABEL_3:
-      v8 = [v7 compare:v6];
+      v9 = [v8 compare:v6];
       goto LABEL_10;
     }
   }
 
   else
   {
-    v9 = VSErrorLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = VSErrorLogObject(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_93_cold_1();
     }
@@ -867,39 +878,40 @@ LABEL_3:
     }
   }
 
-  v10 = VSErrorLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+  v11 = VSErrorLogObject(v7);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
     __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_93_cold_1();
   }
 
-  v8 = 1;
+  v9 = 1;
 LABEL_10:
 
-  return v8;
+  return v9;
 }
 
 void __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_98(uint64_t a1, void *a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v6 = v5;
   if (a3)
   {
-    v6 = VSDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VSDefaultLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will mark duplicate legacy keychain item for deletion: %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Will mark duplicate legacy keychain item for deletion: %@", &v8, 0xCu);
     }
 
-    [*(a1 + 32) addObject:v5];
+    [*(a1 + 32) addObject:v6];
   }
 }
 
 void __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_100(id *a1, uint64_t a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [a1[4] _accountForKeychainItem:v4];
   v6 = [v5 legacyItemHash];
@@ -910,13 +922,12 @@ void __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_co
   }
 
   v7 = [v5 legacyItemHash];
-  [a1[5] addObject:v7];
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject([a1[5] addObject:v7]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412290;
-    v27 = v7;
-    _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "modern keychain item has legacy equivalent with hash %@", &v26, 0xCu);
+    v29 = 138412290;
+    v30 = v7;
+    _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "modern keychain item has legacy equivalent with hash %@", &v29, 0xCu);
   }
 
   v9 = [a1[6] objectForKeyedSubscript:v7];
@@ -924,13 +935,14 @@ void __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_co
   if (v9)
   {
     v11 = v9;
-    if ([a1[7] containsObject:v11])
+    v12 = [a1[7] containsObject:v11];
+    if (v12)
     {
-      v12 = VSDefaultLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = VSDefaultLogObject(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v26) = 0;
-        _os_log_impl(&dword_23AB8E000, v12, OS_LOG_TYPE_DEFAULT, "Modern item has legacy item marked for deletion, deleting modern item.", &v26, 2u);
+        LOWORD(v29) = 0;
+        _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Modern item has legacy item marked for deletion, deleting modern item.", &v29, 2u);
       }
 
       [a1[7] addObject:v4];
@@ -940,56 +952,57 @@ void __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_co
     {
       [v5 setLegacyKeychainItem:v11];
       [a1[8] addObject:v5];
-      v14 = [a1[4] _accountForKeychainItem:v11];
-      v15 = [v14 contentsHash];
-      if (v15 != [v5 contentsHash])
+      v15 = [a1[4] _accountForKeychainItem:v11];
+      v16 = [v15 contentsHash];
+      v17 = [v5 contentsHash];
+      if (v16 != v17)
       {
-        v16 = VSDefaultLogObject();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = VSDefaultLogObject(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v26) = 0;
-          _os_log_impl(&dword_23AB8E000, v16, OS_LOG_TYPE_DEFAULT, "Legacy keychain item and modern keychain item contents do not match.", &v26, 2u);
+          LOWORD(v29) = 0;
+          _os_log_impl(&dword_23AB8E000, v18, OS_LOG_TYPE_DEFAULT, "Legacy keychain item and modern keychain item contents do not match.", &v29, 2u);
         }
 
-        v17 = [v4 modificationDate];
-        v18 = [v11 modificationDate];
+        v19 = [v4 modificationDate];
+        v20 = [v11 modificationDate];
 
-        if (!v18)
+        if (!v20)
         {
           [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [legacyItem modificationDate] parameter must not be nil."];
         }
 
-        v19 = [v11 modificationDate];
-        v20 = [v17 vs_isBefore:v19];
+        v21 = [v11 modificationDate];
+        v22 = [v19 vs_isBefore:v21];
 
-        v21 = VSDefaultLogObject();
-        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-        if (v20)
+        v24 = VSDefaultLogObject(v23);
+        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+        if (v22)
         {
-          if (v22)
+          if (v25)
           {
-            LOWORD(v26) = 0;
-            _os_log_impl(&dword_23AB8E000, v21, OS_LOG_TYPE_DEFAULT, "Legacy keychain item has the most recent values, preferring them over the modern item values.", &v26, 2u);
+            LOWORD(v29) = 0;
+            _os_log_impl(&dword_23AB8E000, v24, OS_LOG_TYPE_DEFAULT, "Legacy keychain item has the most recent values, preferring them over the modern item values.", &v29, 2u);
           }
 
-          v23 = [v14 authenticationToken];
-          [v5 setAuthenticationToken:v23];
+          v26 = [v15 authenticationToken];
+          [v5 setAuthenticationToken:v26];
 
-          v24 = [v14 preferredAppID];
-          [v5 setPreferredAppID:v24];
+          v27 = [v15 preferredAppID];
+          [v5 setPreferredAppID:v27];
 
-          v25 = [v14 username];
-          [v5 setUsername:v25];
+          v28 = [v15 username];
+          [v5 setUsername:v28];
 
           [a1[9] addObject:v5];
         }
 
         else
         {
-          if (v22)
+          if (v25)
           {
-            LOWORD(v26) = 0;
-            _os_log_impl(&dword_23AB8E000, v21, OS_LOG_TYPE_DEFAULT, "Modern keychain item has the most recent values, keeping them.", &v26, 2u);
+            LOWORD(v29) = 0;
+            _os_log_impl(&dword_23AB8E000, v24, OS_LOG_TYPE_DEFAULT, "Modern keychain item has the most recent values, keeping them.", &v29, 2u);
           }
         }
       }
@@ -998,11 +1011,11 @@ void __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_co
 
   else
   {
-    v13 = VSDefaultLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = VSDefaultLogObject(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Modern item without legacy item found, assuming sign out from legacy device.", &v26, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, "Modern item without legacy item found, assuming sign out from legacy device.", &v29, 2u);
     }
 
     [a1[7] addObject:v4];
@@ -1011,32 +1024,33 @@ void __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_co
 
 void __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderIDs_completion___block_invoke_111(id *a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [a1[4] _uniqueIdentifierForKeychainItem:v4];
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [v4 creationDate];
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "legacy keychain item has hash %@ (cdat=%@)", &v10, 0x16u);
+    v11 = 138412546;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "legacy keychain item has hash %@ (cdat=%@)", &v11, 0x16u);
   }
 
-  if (([a1[5] containsObject:v5] & 1) == 0)
+  v8 = [a1[5] containsObject:v5];
+  if ((v8 & 1) == 0)
   {
-    v8 = VSDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VSDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Legacy keychain item found without matching modern item.", &v10, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Legacy keychain item found without matching modern item.", &v11, 2u);
     }
 
-    v9 = [a1[4] _accountForKeychainItem:v4];
-    [a1[6] addObject:v9];
-    [a1[7] addObject:v9];
+    v10 = [a1[4] _accountForKeychainItem:v4];
+    [a1[6] addObject:v10];
+    [a1[7] addObject:v10];
   }
 }
 
@@ -1063,7 +1077,7 @@ uint64_t __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderID
   else
   {
     v10 = [VSKeychainGenericPassword alloc];
-    v11 = VSKeychainItemKindGenericPassword();
+    v11 = VSKeychainItemKindGenericPassword(v10);
     v9 = [(VSKeychainItem *)v10 initWithItemKind:v11 insertIntoEditingContext:contextCopy];
 
     if (!v9)
@@ -1142,13 +1156,14 @@ uint64_t __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderID
   serializedData2 = [forceUnwrapObject5 serializedData];
   [v20 setObject:serializedData2 forKeyedSubscript:@"data"];
 
-  v42 = 0;
-  v39 = [MEMORY[0x277CCAC58] dataWithPropertyList:v20 format:200 options:0 error:&v42];
-  v40 = v42;
+  v43 = 0;
+  v39 = [MEMORY[0x277CCAC58] dataWithPropertyList:v20 format:200 options:0 error:&v43];
+  v40 = v43;
+  v41 = v40;
   if (!v39)
   {
-    v41 = VSErrorLogObject();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v42 = VSErrorLogObject(v40);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       [VSAccountStore _insertModernKeychainItemForAccount:context:];
     }
@@ -1172,7 +1187,7 @@ uint64_t __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderID
   else
   {
     v8 = [VSKeychainGenericPassword alloc];
-    v9 = VSKeychainItemKindGenericPassword();
+    v9 = VSKeychainItemKindGenericPassword(v8);
     v7 = [(VSKeychainItem *)v8 initWithItemKind:v9 insertIntoEditingContext:contextCopy];
 
     if (!v7)
@@ -1235,30 +1250,30 @@ uint64_t __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderID
 
 - (id)_keychainItemsWithLimit:(unint64_t)limit
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(VSKeychainFetchRequest);
-  v5 = VSKeychainItemKindGenericPassword();
+  v5 = VSKeychainItemKindGenericPassword(v4);
   v6 = [VSOptional optionalWithObject:v5];
   [(VSKeychainFetchRequest *)v4 setItemKind:v6];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = VSNumberForFourCharCode(VSKeychainItemCreatorCode);
-  v30 = VSNumberForFourCharCode(VSKeychainItemV2CreatorCode);
-  v31 = v8;
-  v35[0] = v8;
-  v35[1] = v30;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
-  v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"creatorCode", v29];
+  v31 = VSNumberForFourCharCode(VSKeychainItemV2CreatorCode);
+  v32 = v8;
+  v36[0] = v8;
+  v36[1] = v31;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+  v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"creatorCode", v30];
   [v7 addObject:v9];
 
   v10 = VSNumberForFourCharCode(0x6174684Eu);
   v11 = VSNumberForFourCharCode(0x746F6B4Eu);
   v12 = VSNumberForFourCharCode(0x746F6B32u);
-  v28 = v10;
-  v34[0] = v10;
-  v34[1] = v11;
-  v34[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
+  v29 = v10;
+  v35[0] = v10;
+  v35[1] = v11;
+  v35[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
   v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"typeCode", v13];
   [v7 addObject:v14];
 
@@ -1272,25 +1287,25 @@ uint64_t __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderID
   [(VSKeychainFetchRequest *)v4 setIncludesDataValues:1];
   v17 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"modificationDate" ascending:0];
   v18 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"label" ascending:1];
-  v33[0] = v17;
-  v33[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v34[0] = v17;
+  v34[1] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
   [(VSKeychainFetchRequest *)v4 setSortDescriptors:v19];
 
   keychainEditingContext = [(VSAccountStore *)self keychainEditingContext];
-  v32 = 0;
-  v21 = [keychainEditingContext executeFetchRequest:v4 error:&v32];
-  v22 = v32;
+  v33 = 0;
+  v21 = [keychainEditingContext executeFetchRequest:v4 error:&v33];
+  v22 = v33;
 
   if (v21)
   {
-    v23 = [VSFailable failableWithObject:v21];
+    v24 = [VSFailable failableWithObject:v21];
   }
 
   else
   {
-    v24 = VSErrorLogObject();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = VSErrorLogObject(v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [VSAccountStore _keychainItemsWithLimit:];
     }
@@ -1300,16 +1315,16 @@ uint64_t __81__VSAccountStore__fetchAccountsSimulatingExpiredToken_forProviderID
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The error parameter must not be nil."];
     }
 
-    v23 = [VSFailable failableWithError:v22];
+    v24 = [VSFailable failableWithError:v22];
   }
 
-  v25 = v23;
-  if (!v23)
+  v26 = v24;
+  if (!v24)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The result parameter must not be nil."];
   }
 
-  return v25;
+  return v26;
 }
 
 - (NSUndoManager)undoManager
@@ -1474,19 +1489,19 @@ void __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke
   [v4 unwrapObject:v5 error:&__block_literal_global_177];
 }
 
-uint64_t __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_2(uint64_t a1, void *a2)
+void *__58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 simulateExpiredToken];
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-void __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_3()
+void __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_3(uint64_t a1)
 {
-  v0 = VSErrorLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = VSErrorLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_3_cold_1(v0);
+    __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_3_cold_1(v1);
   }
 }
 
@@ -1549,7 +1564,7 @@ void __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke
 void __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_4_cold_1();
@@ -1577,23 +1592,24 @@ void __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v6)
   {
-    v8 = [v5 firstObject];
-    v9 = [*(a1 + 32) cachedFirstAccount];
-    v10 = v8;
-    v11 = v10;
-    if (v9 == v10)
+    v9 = [v5 firstObject];
+    v10 = [*(a1 + 32) cachedFirstAccount];
+    v11 = v9;
+    v12 = v11;
+    if (v10 == v11)
     {
     }
 
     else
     {
-      if (v10 && v9)
+      if (v11 && v10)
       {
-        v12 = [v9 isEqual:v10];
+        v13 = [v10 isEqual:v11];
 
-        if (v12)
+        if (v13)
         {
           goto LABEL_13;
         }
@@ -1604,7 +1620,7 @@ void __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
-      [*(a1 + 32) setCachedFirstAccount:v11];
+      [*(a1 + 32) setCachedFirstAccount:v12];
     }
 
 LABEL_13:
@@ -1613,8 +1629,8 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v7 = VSErrorLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = VSErrorLogObject(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_2_186_cold_1();
   }
@@ -1623,12 +1639,12 @@ LABEL_13:
 LABEL_14:
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_187;
-    v13[3] = &unk_278B733D8;
-    v14 = *(a1 + 32);
-    VSPerformBlockOnMainThread(v13);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_187;
+    v14[3] = &unk_278B733D8;
+    v15 = *(a1 + 32);
+    VSPerformBlockOnMainThread(v14);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -1749,7 +1765,7 @@ uint64_t __26__VSAccountStore_accounts__block_invoke(uint64_t a1, void *a2)
 void __26__VSAccountStore_accounts__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __26__VSAccountStore_accounts__block_invoke_3_cold_1();
@@ -1900,7 +1916,7 @@ void __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_4(ui
 void __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_6(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__VSAccountStore__updateCachedFirstAccountWithCompletion___block_invoke_4_cold_1();
@@ -1909,7 +1925,7 @@ void __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_6(ui
   [*(a1 + 32) signal];
 }
 
-uint64_t __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_195(uint64_t a1, void *a2)
+void *__53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_195(uint64_t a1, void *a2)
 {
   result = [a2 simulateExpiredToken];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1919,7 +1935,7 @@ uint64_t __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_
 void __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_2_196(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = VSErrorLogObject();
+  v3 = VSErrorLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_2_196_cold_1();
@@ -1988,57 +2004,58 @@ void __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_3_20
 
 - (BOOL)_insertAccount:(id)account inContext:(id)context error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   contextCopy = context;
-  v10 = VSDefaultLogObject();
+  v10 = VSDefaultLogObject(contextCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = accountCopy;
+    v36 = accountCopy;
     _os_log_impl(&dword_23AB8E000, v10, OS_LOG_TYPE_DEFAULT, "VSAccountStore _insertAccount: %@", buf, 0xCu);
   }
 
   [(VSAccountStore *)self _insertLegacyKeychainItemForAccount:accountCopy context:contextCopy];
-  v31 = 0;
-  v11 = [contextCopy save:&v31];
-  v12 = v31;
+  v34 = 0;
+  v11 = [contextCopy save:&v34];
+  v12 = v34;
+  v13 = v12;
   if (v11)
   {
-    v13 = VSDefaultLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = VSDefaultLogObject(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       legacyKeychainItem = [accountCopy legacyKeychainItem];
-      v15 = [(VSAccountStore *)self _uniqueIdentifierForKeychainItem:legacyKeychainItem];
+      v16 = [(VSAccountStore *)self _uniqueIdentifierForKeychainItem:legacyKeychainItem];
       legacyKeychainItem2 = [accountCopy legacyKeychainItem];
       creationDate = [legacyKeychainItem2 creationDate];
       *buf = 138412546;
-      v33 = v15;
-      v34 = 2112;
-      v35 = creationDate;
-      _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Successfully committed legacy item with hash %@ (cdat=%@)", buf, 0x16u);
+      v36 = v16;
+      v37 = 2112;
+      v38 = creationDate;
+      _os_log_impl(&dword_23AB8E000, v14, OS_LOG_TYPE_DEFAULT, "Successfully committed legacy item with hash %@ (cdat=%@)", buf, 0x16u);
     }
 
     [(VSAccountStore *)self _insertModernKeychainItemForAccount:accountCopy context:contextCopy];
-    v30 = v12;
-    v18 = [contextCopy save:&v30];
-    v19 = v30;
+    v33 = v13;
+    v19 = [contextCopy save:&v33];
+    v20 = v33;
 
-    if (v18)
+    if (v19)
     {
-      v20 = 1;
+      v22 = 1;
     }
 
     else
     {
-      v23 = VSErrorLogObject();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = VSErrorLogObject(v21);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [VSAccountStore _insertAccount:inContext:error:];
       }
 
-      v24 = v19;
-      *error = v19;
+      v26 = v20;
+      *error = v20;
 
       legacyKeychainItem3 = [accountCopy legacyKeychainItem];
 
@@ -2050,42 +2067,43 @@ void __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_3_20
       legacyKeychainItem4 = [accountCopy legacyKeychainItem];
       [contextCopy deleteItem:legacyKeychainItem4];
 
-      v29 = 0;
-      LOBYTE(legacyKeychainItem4) = [contextCopy save:&v29];
-      v19 = v29;
+      v32 = 0;
+      LOBYTE(legacyKeychainItem4) = [contextCopy save:&v32];
+      v29 = v32;
+      v20 = v29;
       if ((legacyKeychainItem4 & 1) == 0)
       {
-        v27 = VSErrorLogObject();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v30 = VSErrorLogObject(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           [VSAccountStore _insertAccount:inContext:error:];
         }
       }
 
-      v20 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v21 = VSErrorLogObject();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = VSErrorLogObject(v12);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [VSAccountStore _insertAccount:inContext:error:];
     }
 
-    v22 = v12;
-    v20 = 0;
-    *error = v12;
-    v19 = v12;
+    v24 = v13;
+    v22 = 0;
+    *error = v13;
+    v20 = v13;
   }
 
-  return v20;
+  return v22;
 }
 
 - (void)saveAccounts:(id)accounts withCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   handlerCopy = handler;
   if (!accountsCopy)
@@ -2093,70 +2111,71 @@ void __53__VSAccountStore_fetchAccountsWithCompletionHandler___block_invoke_3_20
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The accounts parameter must not be nil."];
   }
 
-  if (![accountsCopy count])
+  v8 = [accountsCopy count];
+  if (!v8)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Must supply at least one account to save."];
+    v8 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Must supply at least one account to save."];
   }
 
-  v8 = VSDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = VSDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[VSAccountStore saveAccounts:withCompletionHandler:]";
-    _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
+    v17 = "[VSAccountStore saveAccounts:withCompletionHandler:]";
+    _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
   keychainQueue = [(VSAccountStore *)self keychainQueue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke;
-  v12[3] = &unk_278B73848;
-  v12[4] = self;
-  v13 = accountsCopy;
-  v14 = handlerCopy;
-  v10 = handlerCopy;
-  v11 = accountsCopy;
-  [keychainQueue addOperationWithBlock:v12];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke;
+  v13[3] = &unk_278B73848;
+  v13[4] = self;
+  v14 = accountsCopy;
+  v15 = handlerCopy;
+  v11 = handlerCopy;
+  v12 = accountsCopy;
+  [keychainQueue addOperationWithBlock:v13];
 }
 
 void __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) keychainEditingContext];
-  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v24;
     do
     {
       v8 = 0;
       v9 = v6;
       do
       {
-        if (*v23 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v8);
+        v10 = *(*(&v23 + 1) + 8 * v8);
         v11 = *(a1 + 32);
-        v21 = v9;
-        v12 = [v11 _insertAccount:v10 inContext:v2 error:&v21];
-        v6 = v21;
+        v22 = v9;
+        v12 = [v11 _insertAccount:v10 inContext:v2 error:&v22];
+        v6 = v22;
 
         ++v8;
         v9 = v6;
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v5);
@@ -2168,82 +2187,81 @@ void __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke(uint
     v12 = 1;
   }
 
-  [*(a1 + 32) _updateCachedFirstAccount];
-  v13 = VSDefaultLogObject();
+  v13 = VSDefaultLogObject([*(a1 + 32) _updateCachedFirstAccount]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v27 = v12;
-    *&v27[4] = 2112;
-    *&v27[6] = v6;
+    *v28 = v12;
+    *&v28[4] = 2112;
+    *&v28[6] = v6;
     _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Finished saving accounts with status %i with error %@", buf, 0x12u);
   }
 
-  v14 = *(a1 + 48);
-  if (v14)
+  v15 = *(a1 + 48);
+  if (v15)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_211;
-    v17[3] = &unk_278B73870;
-    v19 = v14;
-    v20 = v12;
-    v18 = v6;
-    VSPerformCompletionHandler(v17);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_211;
+    v18[3] = &unk_278B73870;
+    v20 = v15;
+    v21 = v12;
+    v19 = v6;
+    VSPerformCompletionHandler(v18);
 
-    v15 = v19;
+    v16 = v20;
   }
 
   else
   {
-    v15 = VSDefaultLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = VSDefaultLogObject(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      *v27 = "[VSAccountStore saveAccounts:withCompletionHandler:]_block_invoke";
-      _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "No completion handler passed to %s", buf, 0xCu);
+      *v28 = "[VSAccountStore saveAccounts:withCompletionHandler:]_block_invoke";
+      _os_log_impl(&dword_23AB8E000, v16, OS_LOG_TYPE_DEFAULT, "No completion handler passed to %s", buf, 0xCu);
     }
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_214;
-  v16[3] = &unk_278B733D8;
-  v16[4] = *(a1 + 32);
-  VSPerformBlockOnMainThread(v16);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_214;
+  v17[3] = &unk_278B733D8;
+  v17[4] = *(a1 + 32);
+  VSPerformBlockOnMainThread(v17);
 }
 
 void __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_211(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = VSDefaultLogObject();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[VSAccountStore saveAccounts:withCompletionHandler:]_block_invoke";
+    v10 = "[VSAccountStore saveAccounts:withCompletionHandler:]_block_invoke";
     _os_log_impl(&dword_23AB8E000, v2, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", buf, 0xCu);
   }
 
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_212;
-  v4[3] = &unk_278B73870;
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v5 = *(a1 + 32);
-  __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_212(v4);
-  v3 = VSDefaultLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_212;
+  v5[3] = &unk_278B73870;
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  v6 = *(a1 + 32);
+  v3 = __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_212(v5);
+  v4 = VSDefaultLogObject(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[VSAccountStore saveAccounts:withCompletionHandler:]_block_invoke_2";
-    _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
+    v10 = "[VSAccountStore saveAccounts:withCompletionHandler:]_block_invoke_2";
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
   }
 }
 
 - (void)removeAccounts:(id)accounts withCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   handlerCopy = handler;
   if (!accountsCopy)
@@ -2251,58 +2269,59 @@ void __53__VSAccountStore_saveAccounts_withCompletionHandler___block_invoke_211(
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The accounts parameter must not be nil."];
   }
 
-  if (![accountsCopy count])
+  v8 = [accountsCopy count];
+  if (!v8)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Must supply at least one account to remove."];
+    v8 = [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"Must supply at least one account to remove."];
   }
 
-  v8 = VSDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = VSDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[VSAccountStore removeAccounts:withCompletionHandler:]";
-    _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
+    v17 = "[VSAccountStore removeAccounts:withCompletionHandler:]";
+    _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
   keychainQueue = [(VSAccountStore *)self keychainQueue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke;
-  v12[3] = &unk_278B73848;
-  v12[4] = self;
-  v13 = accountsCopy;
-  v14 = handlerCopy;
-  v10 = handlerCopy;
-  v11 = accountsCopy;
-  [keychainQueue addOperationWithBlock:v12];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke;
+  v13[3] = &unk_278B73848;
+  v13[4] = self;
+  v14 = accountsCopy;
+  v15 = handlerCopy;
+  v11 = handlerCopy;
+  v12 = accountsCopy;
+  [keychainQueue addOperationWithBlock:v13];
 }
 
 void __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) keychainEditingContext];
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v19 = a1;
+  v30 = 0u;
+  v20 = a1;
   v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v28;
     v7 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         v10 = [v9 legacyKeychainItem];
 
         if (!v10)
@@ -2324,82 +2343,81 @@ void __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke(ui
         [v2 deleteItem:v13];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v5);
   }
 
-  v25 = 0;
-  v14 = [v2 save:&v25];
-  v15 = v25;
-  [*(v19 + 32) _updateCachedFirstAccount];
-  v16 = VSDefaultLogObject();
+  v26 = 0;
+  v14 = [v2 save:&v26];
+  v15 = v26;
+  v16 = VSDefaultLogObject([*(v20 + 32) _updateCachedFirstAccount]);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_23AB8E000, v16, OS_LOG_TYPE_DEFAULT, "Finished removing accounts.  Will invoke completion handler and post notification.", buf, 2u);
   }
 
-  v17 = *(v19 + 48);
-  if (v17)
+  v18 = *(v20 + 48);
+  if (v18)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_221;
-    v21[3] = &unk_278B73870;
-    v23 = v17;
-    v24 = v14;
-    v22 = v15;
-    VSPerformCompletionHandler(v21);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_221;
+    v22[3] = &unk_278B73870;
+    v24 = v18;
+    v25 = v14;
+    v23 = v15;
+    VSPerformCompletionHandler(v22);
 
-    v18 = v23;
+    v19 = v24;
   }
 
   else
   {
-    v18 = VSDefaultLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = VSDefaultLogObject(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[VSAccountStore removeAccounts:withCompletionHandler:]_block_invoke";
-      _os_log_impl(&dword_23AB8E000, v18, OS_LOG_TYPE_DEFAULT, "No completion handler passed to %s", buf, 0xCu);
+      v32 = "[VSAccountStore removeAccounts:withCompletionHandler:]_block_invoke";
+      _os_log_impl(&dword_23AB8E000, v19, OS_LOG_TYPE_DEFAULT, "No completion handler passed to %s", buf, 0xCu);
     }
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_224;
-  v20[3] = &unk_278B733D8;
-  v20[4] = *(v19 + 32);
-  VSPerformBlockOnMainThread(v20);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_224;
+  v21[3] = &unk_278B733D8;
+  v21[4] = *(v20 + 32);
+  VSPerformBlockOnMainThread(v21);
 }
 
 void __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_221(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = VSDefaultLogObject();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[VSAccountStore removeAccounts:withCompletionHandler:]_block_invoke";
+    v10 = "[VSAccountStore removeAccounts:withCompletionHandler:]_block_invoke";
     _os_log_impl(&dword_23AB8E000, v2, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", buf, 0xCu);
   }
 
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_222;
-  v4[3] = &unk_278B73870;
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v5 = *(a1 + 32);
-  __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_222(v4);
-  v3 = VSDefaultLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_222;
+  v5[3] = &unk_278B73870;
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  v6 = *(a1 + 32);
+  v3 = __55__VSAccountStore_removeAccounts_withCompletionHandler___block_invoke_222(v5);
+  v4 = VSDefaultLogObject(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[VSAccountStore removeAccounts:withCompletionHandler:]_block_invoke_2";
-    _os_log_impl(&dword_23AB8E000, v3, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
+    v10 = "[VSAccountStore removeAccounts:withCompletionHandler:]_block_invoke_2";
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
   }
 }
 

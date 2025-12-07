@@ -11,62 +11,61 @@
 - (void)handleReportBugButton:(id)button
 {
   buttonCopy = button;
-  v25[0] = @"Classification";
-  v25[1] = @"ComponentID";
-  v26[0] = @"Serious Bug";
-  v26[1] = @"768684";
-  v25[2] = @"ComponentName";
-  v25[3] = @"ComponentVersion";
-  v26[2] = @"Proximity Setup";
-  v26[3] = @"all";
-  v25[4] = @"ExtensionIdentifiers";
-  v25[5] = @"Keywords";
-  v26[4] = @"com.apple.DiagnosticExtensions.Bluetooth";
-  v26[5] = @"794979";
-  v26[6] = @"I Didn't Try";
-  v25[6] = @"Reproducibility";
-  v25[7] = @"Title";
+  v24[0] = @"Classification";
+  v24[1] = @"ComponentID";
+  v25[0] = @"Serious Bug";
+  v25[1] = @"768684";
+  v24[2] = @"ComponentName";
+  v24[3] = @"ComponentVersion";
+  v25[2] = @"Proximity Setup";
+  v25[3] = @"all";
+  v24[4] = @"ExtensionIdentifiers";
+  v24[5] = @"Keywords";
+  v25[4] = @"com.apple.DiagnosticExtensions.Bluetooth";
+  v25[5] = @"794979";
+  v25[6] = @"I Didn't Try";
+  v24[6] = @"Reproducibility";
+  v24[7] = @"Title";
   if (*(&self->_status + 1))
   {
-    v19 = *(&self->_status + 1);
+    NSPrintF("TTF: Failed: %{error}", *(&self->_status + 1));
   }
 
   else
   {
-    v19 = *(&self->_doneButton + 1);
+    NSPrintF("TTF: Failed: %#m", *(&self->_doneButton + 1));
   }
-
-  v5 = NSPrintF();
-  v26[7] = v5;
-  v6 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:8, v19];
+  v5 = ;
+  v25[7] = v5;
+  v6 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:8];
 
   v7 = +[NSMutableArray array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [v8 objectForKeyedSubscript:v13];
         v15 = [NSURLQueryItem queryItemWithName:v13 value:v14];
         [v7 addObject:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -80,7 +79,7 @@
 
   if (dword_1001BED68 <= 50 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairDoneViewController handleReportBugButton:]", 50, "Report Bug\n");
   }
 }
 
@@ -89,7 +88,7 @@
   buttonCopy = button;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairDoneViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -100,7 +99,7 @@
   buttonCopy = button;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairDoneViewController handleActionButton:]", 30, "Action button\n");
   }
 
   if ((*(&self->_doneButton + 1) | 4) == 0x497CC)
@@ -130,7 +129,7 @@
   disappearCopy = disappear;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairDoneViewController viewDidDisappear:]", 30, "Done ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -143,7 +142,7 @@
   appearCopy = appear;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairDoneViewController viewWillAppear:]", 30, "Done ViewWillAppear\n");
   }
 
   v22.receiver = self;

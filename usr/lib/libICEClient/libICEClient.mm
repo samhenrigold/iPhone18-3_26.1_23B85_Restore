@@ -40,13 +40,13 @@ void ice::registerClientSniffer(uint64_t a1, void *a2)
         }
       }
 
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v6 + 4, a1) & 0x80) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v6 + 32), a1) & 0x80) == 0)
       {
         break;
       }
 
-      v5 = v6 + 1;
-      v4 = v6[1];
+      v5 = (v6 + 8);
+      v4 = *(v6 + 8);
       if (!v4)
       {
         goto LABEL_15;
@@ -61,9 +61,9 @@ LABEL_15:
   }
 }
 
-void sub_297986954(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_297986954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -158,7 +158,7 @@ void ice::notifySnifferIndicationCanWake(_anonymous_namespace_ *a1, uint64_t a2)
   }
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -175,7 +175,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::sha
   return a1;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -185,7 +185,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -198,12 +198,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -286,12 +286,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -305,22 +305,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -354,13 +354,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -428,7 +428,7 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ice::ClientSnifferDelegateBase>>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -550,31 +550,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -583,158 +582,158 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (v19 && (v19[3] & 1) == 0)
+      v18 = *(v7 + 8);
+      if (v18 && (*(v18 + 24) & 1) == 0)
       {
 LABEL_58:
-        v18 = v7;
+        v17 = v7;
       }
 
       else
       {
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_71;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_58;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_67;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (v24 && (v24[3] & 1) == 0)
+  if (v23 && (*(v23 + 24) & 1) == 0)
   {
 LABEL_67:
-    v25 = v7;
+    v24 = v7;
     goto LABEL_68;
   }
 
-  *(v25 + 24) = 1;
-  *(v7 + 24) = 0;
-  v33 = *v25;
-  v7[1] = *v25;
-  if (v33)
-  {
-    *(v33 + 16) = v7;
-  }
-
-  v34 = v7[2];
-  v25[2] = v34;
-  v34[*v34 != v7] = v25;
-  *v25 = v7;
-  v7[2] = v25;
-  v24 = v7;
-LABEL_68:
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
   *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  *(v7 + 24) = 0;
+  v32 = *v24;
+  *(v7 + 8) = *v24;
+  if (v32)
   {
-    *(v35 + 16) = v29;
+    *(v32 + 16) = v7;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v33 = *(v7 + 16);
+  *(v24 + 16) = v33;
+  v33[*v33 != v7] = v24;
+  *v24 = v7;
+  *(v7 + 16) = v24;
+  v23 = v7;
+LABEL_68:
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
+  {
+    *(v34 + 16) = v28;
+  }
+
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_71:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -745,7 +744,7 @@ void sub_297987724(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-ice::ResponseContext *ice::ResponseContext::ResponseContext(ice::ResponseContext *this, const unsigned __int8 *a2, unsigned int a3)
+ice::ResponseContext *ice::ResponseContext::ResponseContext(ice::ResponseContext *this, char *a2, unsigned int a3)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -782,8 +781,7 @@ uint64_t ice::AutoSender::operator=(uint64_t a1, __int128 *a2)
   if (a1 != a2)
   {
     v4 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v5 = *(a1 + 8);
     *a1 = v4;
     if (v5)
@@ -863,8 +861,6 @@ BOOL ice::detail::SendState::send(ice::detail::SendState *this)
     v6 = *(this + 1);
     if (v6)
     {
-      v7 = *(this + 4);
-      v8 = *this;
       if (std::__shared_weak_count::lock(v6))
       {
         operator new();
@@ -893,8 +889,7 @@ void ice::AutoSender::thenInternal(uint64_t a1, __int128 *a2)
 {
   v4 = *(a1 + 16);
   v5 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v6 = *(v4 + 88);
   *(v4 + 80) = v5;
   if (v6)
@@ -943,8 +938,7 @@ uint64_t ice::AutoSender::then(uint64_t a1, __int128 *a2)
 
 __n128 ice::detail::SendState::SendState(__n128 *a1, unint64_t *a2, __n128 *a3)
 {
-  a1->n128_u64[0] = 0;
-  a1->n128_u64[1] = 0;
+  *a1 = 0uLL;
   v3 = a2[1];
   a1[1].n128_u64[0] = *a2;
   a1[1].n128_u64[1] = v3;
@@ -955,17 +949,14 @@ __n128 ice::detail::SendState::SendState(__n128 *a1, unint64_t *a2, __n128 *a3)
 
   result = *a3;
   a1[2] = *a3;
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
-  a1[4].n128_u64[1] = 0;
-  a1[5].n128_u64[0] = 0;
+  *a3 = 0uLL;
+  *(&a1[4] + 8) = 0uLL;
   a1[5].n128_u64[1] = 0;
   return result;
 }
 
 {
-  a1->n128_u64[0] = 0;
-  a1->n128_u64[1] = 0;
+  *a1 = 0uLL;
   v3 = a2[1];
   a1[1].n128_u64[0] = *a2;
   a1[1].n128_u64[1] = v3;
@@ -976,15 +967,13 @@ __n128 ice::detail::SendState::SendState(__n128 *a1, unint64_t *a2, __n128 *a3)
 
   result = *a3;
   a1[2] = *a3;
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
-  a1[4].n128_u64[1] = 0;
-  a1[5].n128_u64[0] = 0;
+  *a3 = 0uLL;
+  *(&a1[4] + 8) = 0uLL;
   a1[5].n128_u64[1] = 0;
   return result;
 }
 
-void ice::detail::SendState::operator()(uint64_t a1, uint64_t a2, unsigned int a3)
+void ice::detail::SendState::operator()(uint64_t a1, char *a2, unsigned int a3)
 {
   if (*(a1 + 72))
   {
@@ -992,7 +981,7 @@ void ice::detail::SendState::operator()(uint64_t a1, uint64_t a2, unsigned int a
     v10 = 0xAAAAAAAAAAAAAAAALL;
     __p = 0;
     v8 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, a2, a2 + a3, a3);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&__p, a2, &a2[a3], a3);
     v4 = *(a1 + 72);
     LOBYTE(v10) = *(a1 + 80) == 0;
     if (!v4)
@@ -1028,7 +1017,7 @@ void sub_297987D18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1050,7 +1039,7 @@ void sub_297987D8C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1075,7 +1064,7 @@ void std::__throw_bad_weak_ptr[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x29EDC9428], MEMORY[0x29EDC9380]);
 }
 
-void ___ZN3ice6detail12wrapCallbackIZNS0_9SendState4sendEvE3__0vEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, uint64_t a2, unsigned int a3)
+void ___ZN3ice6detail12wrapCallbackIZNS0_9SendState4sendEvE3__0vEEN8dispatch5blockIU13block_pointerFiPhjEEENSt3__117integral_constantIiLi2EEEOT__block_invoke(uint64_t a1, char *a2, unsigned int a3)
 {
   v3 = *(a1 + 32);
   if (v3)
@@ -1151,16 +1140,16 @@ void std::__throw_bad_function_call[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x29EDC9450], MEMORY[0x29EDC93B0]);
 }
 
-const char *ice::getMsgName(ice *this)
+const char *ice::getMsgName(ice *this, unsigned int a2, unsigned int a3)
 {
-  v1 = Ari::MsgDefById((this >> 26));
+  v3 = Ari::MsgDefById((this >> 26));
   result = "Unknown";
-  if (v1)
+  if (v3)
   {
-    v3 = *(v1 + 48);
-    if (v3)
+    v5 = *(v3 + 48);
+    if (v5)
     {
-      return v3;
+      return v5;
     }
   }
 
@@ -1168,14 +1157,14 @@ const char *ice::getMsgName(ice *this)
 }
 
 {
-  v1 = Ari::MsgDefById(this);
+  v3 = Ari::MsgDefById(this);
   result = "Unknown";
-  if (v1)
+  if (v3)
   {
-    v3 = *(v1 + 48);
-    if (v3)
+    v5 = *(v3 + 48);
+    if (v5)
     {
-      return v3;
+      return v5;
     }
   }
 
@@ -1184,7 +1173,7 @@ const char *ice::getMsgName(ice *this)
 
 uint64_t ice::isARIResponseValid(ice *this, const ice::Client *a2, const AriMsg *a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   result = AriMsg::isValid(a2);
   if (result)
   {
@@ -1194,20 +1183,19 @@ uint64_t ice::isARIResponseValid(ice *this, const ice::Client *a2, const AriMsg 
       result = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
       if (result)
       {
-        v9 = 136315138;
-        v10 = Ari::MsgNameById(a3);
-        _os_log_impl(&dword_297986000, v7, OS_LOG_TYPE_DEFAULT, "#N Response %s is invalid", &v9, 0xCu);
-        result = 0;
+        v8 = 136315138;
+        v9 = Ari::MsgNameById(a3);
+        _os_log_impl(&dword_297986000, v7, OS_LOG_TYPE_DEFAULT, "#N Response %s is invalid", &v8, 0xCu);
+        return 0;
       }
     }
 
     else
     {
-      result = 1;
+      return 1;
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1219,89 +1207,89 @@ BOOL ice::isARIResponseValid(ice *this, const AriSdk::MsgBase *a2)
   return v4 != 67600384 && v4 == v2;
 }
 
-void ice::Client::create(NSObject **a1, uint64_t a2)
+void ice::Client::create(NSObject **a1, const std::string::value_type *a2)
 {
   if (!*a1)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v16, "ice");
-    v4 = std::string::append(&v16, ".", 1uLL);
-    v5 = *&v4->__r_.__value_.__l.__data_;
-    v17.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
-    *&v17.__r_.__value_.__l.__data_ = v5;
-    v4->__r_.__value_.__l.__size_ = 0;
-    v4->__r_.__value_.__r.__words[2] = 0;
-    v4->__r_.__value_.__r.__words[0] = 0;
-    v6 = *(a2 + 23);
-    if (v6 >= 0)
+    std::string::basic_string[abi:ne200100]<0>(&v18, "ice");
+    v6 = std::string::append(&v18, ".", 1uLL);
+    v7 = *&v6->__r_.__value_.__l.__data_;
+    v19.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
+    *&v19.__r_.__value_.__l.__data_ = v7;
+    v6->__r_.__value_.__l.__size_ = 0;
+    v6->__r_.__value_.__r.__words[2] = 0;
+    v6->__r_.__value_.__r.__words[0] = 0;
+    v8 = a2[23];
+    if (v8 >= 0)
     {
-      v7 = a2;
+      v9 = a2;
     }
 
     else
     {
-      v7 = *a2;
+      v9 = *a2;
     }
 
-    if (v6 >= 0)
+    if (v8 >= 0)
     {
-      v8 = *(a2 + 23);
+      v10 = *(a2 + 23);
     }
 
     else
     {
-      v8 = *(a2 + 8);
+      v10 = *(a2 + 1);
     }
 
-    v9 = std::string::append(&v17, v7, v8);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v18.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-    *&v18.__r_.__value_.__l.__data_ = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::string::append(&v18, ".queue", 6uLL);
+    v11 = std::string::append(&v19, v9, v10);
     v12 = *&v11->__r_.__value_.__l.__data_;
-    v20 = v11->__r_.__value_.__r.__words[2];
-    *__p = v12;
+    v20.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+    *&v20.__r_.__value_.__l.__data_ = v12;
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
     v11->__r_.__value_.__r.__words[0] = 0;
-    if (v20 >= 0)
+    v13 = std::string::append(&v20, ".queue", 6uLL);
+    v14 = *&v13->__r_.__value_.__l.__data_;
+    v22 = v13->__r_.__value_.__r.__words[2];
+    *__p = v14;
+    v13->__r_.__value_.__l.__size_ = 0;
+    v13->__r_.__value_.__r.__words[2] = 0;
+    v13->__r_.__value_.__r.__words[0] = 0;
+    if (v22 >= 0)
     {
-      v13 = __p;
+      v15 = __p;
     }
 
     else
     {
-      v13 = __p[0];
+      v15 = __p[0];
     }
 
-    v14 = dispatch_queue_create(v13, 0);
-    v15 = *a1;
-    *a1 = v14;
-    if (v15)
+    v16 = dispatch_queue_create(v15, 0);
+    v17 = *a1;
+    *a1 = v16;
+    if (v17)
     {
-      dispatch_release(v15);
+      dispatch_release(v17);
     }
 
-    if (SHIBYTE(v20) < 0)
+    if (SHIBYTE(v22) < 0)
     {
       operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v20.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v18.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v17.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v16.__r_.__value_.__l.__data_);
     }
   }
 
@@ -1328,7 +1316,7 @@ void sub_297988458(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1342,13 +1330,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1356,50 +1344,55 @@ void ice::Client::create(NSObject **a1, const char *a2)
 {
   if (!*a1)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v14, "ice");
-    v4 = std::string::append(&v14, ".", 1uLL);
-    v5 = *&v4->__r_.__value_.__l.__data_;
-    v15.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
-    *&v15.__r_.__value_.__l.__data_ = v5;
-    v4->__r_.__value_.__l.__size_ = 0;
-    v4->__r_.__value_.__r.__words[2] = 0;
-    v4->__r_.__value_.__r.__words[0] = 0;
-    v6 = strlen(a2);
-    v7 = std::string::append(&v15, a2, v6);
-    v8 = *&v7->__r_.__value_.__l.__data_;
-    v16.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
-    *&v16.__r_.__value_.__l.__data_ = v8;
-    v7->__r_.__value_.__l.__size_ = 0;
-    v7->__r_.__value_.__r.__words[2] = 0;
-    v7->__r_.__value_.__r.__words[0] = 0;
-    v9 = std::string::append(&v16, ".queue", 6uLL);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v18 = v9->__r_.__value_.__r.__words[2];
-    v17 = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    if (v18 >= 0)
+    std::string::basic_string[abi:ne200100]<0>(&v15, "ice");
+    v5 = std::string::append(&v15, ".", 1uLL);
+    v6 = *&v5->__r_.__value_.__l.__data_;
+    v16.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v16.__r_.__value_.__l.__data_ = v6;
+    v5->__r_.__value_.__l.__size_ = 0;
+    v5->__r_.__value_.__r.__words[2] = 0;
+    v5->__r_.__value_.__r.__words[0] = 0;
+    v7 = strlen(a2);
+    v8 = std::string::append(&v16, a2, v7);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v17.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v17.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::string::append(&v17, ".queue", 6uLL);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v19 = v10->__r_.__value_.__r.__words[2];
+    v18 = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    if (v19 >= 0)
     {
-      v11 = &v17;
+      v12 = &v18;
     }
 
     else
     {
-      v11 = v17;
+      v12 = v18;
     }
 
-    v12 = dispatch_queue_create(v11, 0);
-    v13 = *a1;
-    *a1 = v12;
-    if (v13)
+    v13 = dispatch_queue_create(v12, 0);
+    v14 = *a1;
+    *a1 = v13;
+    if (v14)
     {
-      dispatch_release(v13);
+      dispatch_release(v14);
     }
 
-    if (SHIBYTE(v18) < 0)
+    if (SHIBYTE(v19) < 0)
     {
-      operator delete(v17);
+      operator delete(v18);
+    }
+
+    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v17.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
@@ -1410,11 +1403,6 @@ void ice::Client::create(NSObject **a1, const char *a2)
     if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v15.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v14.__r_.__value_.__l.__data_);
     }
   }
 
@@ -1512,271 +1500,267 @@ void sub_297988B6C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ice::Client::start(ice::Client *this)
+void ice::Client::start(ice::Client *this, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v42 = *MEMORY[0x29EDCA608];
-  v2 = this + 72;
-  v3 = *(this + 18);
-  if (v3 != -1)
+  v44 = *MEMORY[0x29EDCA608];
+  v6 = this + 72;
+  v7 = *(this + 18);
+  if (v7 != -1)
   {
-    v4 = *(this + 5);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v8 = *(this + 5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *&buf[4] = (v3 >> 8) & 0x7F;
-      _os_log_impl(&dword_297986000, v4, OS_LOG_TYPE_DEFAULT, "#I Already registered with ARI runtime as client %d", buf, 8u);
-      v3 = *v2;
+      *&buf[4] = (v7 >> 8) & 0x7F;
+      _os_log_impl(&dword_297986000, v8, OS_LOG_TYPE_DEFAULT, "#I Already registered with ARI runtime as client %d", buf, 8u);
+      v7 = *v6;
     }
 
-    AriHost::ContinueTransactions(((v3 >> 8) & 0x7F));
-    goto LABEL_63;
+    AriHost::ContinueTransactions(((v7 >> 8) & 0x7F));
+    return;
   }
 
-  v5 = (this + 48);
-  v6 = *(this + 71);
-  v7 = (this + 48);
-  if (v6 < 0)
+  v9 = (this + 48);
+  v10 = *(this + 71);
+  v11 = (this + 48);
+  if (v10 < 0)
   {
-    v7 = *v5;
+    v11 = *v9;
   }
 
-  v8 = AriHost::RegisterClient(v7, v2, *(this + 3), 0xFFFFFFFFLL);
-  v9 = *(this + 5);
-  if (v8)
+  v12 = AriHost::RegisterClient(v11, v6, *(this + 3), 0xFFFFFFFFLL);
+  v13 = *(this + 5);
+  if (v12)
   {
-    v10 = v8;
+    v14 = v12;
     if (os_log_type_enabled(*(this + 5), OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = asString();
       *&buf[12] = 1024;
-      *&buf[14] = v10;
-      _os_log_error_impl(&dword_297986000, v9, OS_LOG_TYPE_ERROR, "Could not register ARI client: %s (%d)", buf, 0x12u);
+      *&buf[14] = v14;
+      _os_log_error_impl(&dword_297986000, v13, OS_LOG_TYPE_ERROR, "Could not register ARI client: %s (%d)", buf, 0x12u);
     }
 
-    goto LABEL_63;
+    return;
   }
 
   if (os_log_type_enabled(*(this + 5), OS_LOG_TYPE_DEFAULT))
   {
-    v11 = (*v2 >> 8) & 0x7F;
+    v15 = (*v6 >> 8) & 0x7F;
     *buf = 67109120;
-    *&buf[4] = v11;
-    _os_log_impl(&dword_297986000, v9, OS_LOG_TYPE_DEFAULT, "#I Registered with ARI runtime as client %d", buf, 8u);
+    *&buf[4] = v15;
+    _os_log_impl(&dword_297986000, v13, OS_LOG_TYPE_DEFAULT, "#I Registered with ARI runtime as client %d", buf, 8u);
   }
 
   if (*(this + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v40, *(this + 6), *(this + 7));
+    std::string::__init_copy_ctor_external(&v42, *(this + 6), *(this + 7));
   }
 
   else
   {
-    *&v40.__r_.__value_.__l.__data_ = *v5;
-    v40.__r_.__value_.__r.__words[2] = *(this + 8);
+    *&v42.__r_.__value_.__l.__data_ = *v9;
+    v42.__r_.__value_.__r.__words[2] = *(this + 8);
   }
 
-  ice::notifySnifferClientRegistered(&v40);
-  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+  ice::notifySnifferClientRegistered(&v42);
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v40.__r_.__value_.__l.__data_);
+    operator delete(v42.__r_.__value_.__l.__data_);
   }
 
-  v12 = *(this + 14);
-  if (v12 != (this + 104))
+  v16 = *(this + 14);
+  if (v16 != (this + 104))
   {
     while (1)
     {
       memset(buf, 170, 16);
-      v13 = *(v12 + 16);
-      v14 = *(v12 + 24);
-      *buf = v13;
-      if (!v14)
+      v17 = *(v16 + 16);
+      v18 = *(v16 + 24);
+      *buf = *(v16 + 16);
+      if (!v18)
       {
         break;
       }
 
-      v15 = _Block_copy(v14);
-      v16 = v15;
-      *&buf[8] = v15;
-      if (!v15)
+      v19 = _Block_copy(v18);
+      v20 = v19;
+      *&buf[8] = v19;
+      if (!v19)
       {
-        v18 = 0;
+        v22 = 0;
 LABEL_24:
-        v19 = 0;
+        v23 = 0;
 LABEL_25:
-        v20 = 1;
+        v24 = 1;
         goto LABEL_26;
       }
 
-      v17 = _Block_copy(v15);
-      v18 = v17;
-      if (!v17)
+      v21 = _Block_copy(v19);
+      v22 = v21;
+      if (!v21)
       {
         goto LABEL_24;
       }
 
-      v19 = _Block_copy(v17);
-      v20 = 0;
+      v23 = _Block_copy(v21);
+      v24 = 0;
 LABEL_26:
-      v39 = v19;
-      ice::Client::regEventHandlerInternal(this, v13, &v39);
-      if (v19)
+      v41 = v23;
+      ice::Client::regEventHandlerInternal(this, v17, &v41);
+      if (v23)
       {
-        _Block_release(v19);
+        _Block_release(v23);
       }
 
-      if ((v20 & 1) == 0)
+      if ((v24 & 1) == 0)
       {
-        _Block_release(v18);
+        _Block_release(v22);
       }
 
-      if (v16)
+      if (v20)
       {
-        _Block_release(v16);
+        _Block_release(v20);
       }
 
-      v12 = *(v12 + 8);
-      if (v12 == (this + 104))
+      v16 = *(v16 + 8);
+      if (v16 == (this + 104))
       {
         goto LABEL_33;
       }
     }
 
-    v16 = 0;
-    v18 = 0;
-    v19 = 0;
+    v20 = 0;
+    v22 = 0;
+    v23 = 0;
     *&buf[8] = 0;
     goto LABEL_25;
   }
 
 LABEL_33:
   std::__list_imp<std::pair<ice::Client::Event,dispatch::block<int({block_pointer})(dispatch_group_s *)>>>::clear(this + 13);
-  v21 = *(this + 17);
-  if (v21 != (this + 128))
+  v25 = *(this + 17);
+  if (v25 != (this + 128))
   {
     while (1)
     {
       memset(buf, 170, 16);
-      v22 = *(v21 + 16);
-      v23 = *(v21 + 24);
-      *buf = *(v21 + 16);
-      if (!v23)
+      v26 = *(v25 + 16);
+      v27 = *(v25 + 24);
+      *buf = *(v25 + 16);
+      if (!v27)
       {
         break;
       }
 
-      v24 = _Block_copy(v23);
-      v25 = v24;
-      *&buf[8] = v24;
-      if (!v24)
+      v28 = _Block_copy(v27);
+      v29 = v28;
+      *&buf[8] = v28;
+      if (!v28)
       {
-        v27 = 0;
+        v31 = 0;
 LABEL_40:
-        v28 = 0;
+        v32 = 0;
 LABEL_41:
-        v29 = 1;
+        v33 = 1;
         goto LABEL_42;
       }
 
-      v26 = _Block_copy(v24);
-      v27 = v26;
-      if (!v26)
+      v30 = _Block_copy(v28);
+      v31 = v30;
+      if (!v30)
       {
         goto LABEL_40;
       }
 
-      v28 = _Block_copy(v26);
-      v29 = 0;
+      v32 = _Block_copy(v30);
+      v33 = 0;
 LABEL_42:
-      v38 = v28;
-      ice::Client::regIndicationInternal(this, v22, &v38);
-      if (v28)
+      v40 = v32;
+      ice::Client::regIndicationInternal(this, v26, &v40);
+      if (v32)
       {
-        _Block_release(v28);
+        _Block_release(v32);
       }
 
-      if ((v29 & 1) == 0)
+      if ((v33 & 1) == 0)
       {
-        _Block_release(v27);
+        _Block_release(v31);
       }
 
-      if (v25)
+      if (v29)
       {
-        _Block_release(v25);
+        _Block_release(v29);
       }
 
-      v21 = *(v21 + 8);
-      if (v21 == (this + 128))
+      v25 = *(v25 + 8);
+      if (v25 == (this + 128))
       {
         goto LABEL_49;
       }
     }
 
-    v25 = 0;
-    v27 = 0;
-    v28 = 0;
+    v29 = 0;
+    v31 = 0;
+    v32 = 0;
     *&buf[8] = 0;
     goto LABEL_41;
   }
 
 LABEL_49:
   std::__list_imp<std::pair<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>::clear(this + 16);
-  v30 = *(this + 5);
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v34 = *(this + 5);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = (*(this + 20) - *(this + 19)) >> 2;
+    v35 = (*(this + 20) - *(this + 19)) >> 2;
     *buf = 134217984;
-    *&buf[4] = v31;
-    _os_log_impl(&dword_297986000, v30, OS_LOG_TYPE_DEFAULT, "#I Registering for %zu waking indications", buf, 0xCu);
+    *&buf[4] = v35;
+    _os_log_impl(&dword_297986000, v34, OS_LOG_TYPE_DEFAULT, "#I Registering for %zu waking indications", buf, 0xCu);
   }
 
-  v32 = *(this + 19);
-  v33 = *(this + 20);
-  if (v32 != v33)
+  v36 = *(this + 19);
+  v37 = *(this + 20);
+  if (v36 != v37)
   {
     do
     {
-      ice::Client::setIndShouldWake(this, *v32++, 1);
+      ice::Client::setIndShouldWake(this, *v36++, 1);
     }
 
-    while (v32 != v33);
-    v32 = *(this + 19);
+    while (v36 != v37);
+    v36 = *(this + 19);
   }
 
-  *(this + 20) = v32;
+  *(this + 20) = v36;
   std::shared_ptr<ice::Client>::shared_ptr[abi:ne200100]<ice::Client,0>(buf, this + 1);
-  v34 = *&buf[8];
+  v38 = *&buf[8];
   if (*&buf[8])
   {
     atomic_fetch_add_explicit((*&buf[8] + 16), 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
   }
 
-  v35 = *(this + 18);
-  if (v34)
+  if (v38)
   {
-    atomic_fetch_add_explicit(&v34->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v38->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
   if (AriHost::SetRTEventHandler())
   {
-    v36 = *(this + 5);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v39 = *(this + 5);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_297986000, v36, OS_LOG_TYPE_DEFAULT, "#N Could not register for AriHost::ARI_RT_ERROR runtime event handler", buf, 2u);
+      _os_log_impl(&dword_297986000, v39, OS_LOG_TYPE_DEFAULT, "#N Could not register for AriHost::ARI_RT_ERROR runtime event handler", buf, 2u);
     }
   }
 
-  if (v34)
+  if (v38)
   {
-    std::__shared_weak_count::__release_weak(v34);
-    std::__shared_weak_count::__release_weak(v34);
+    std::__shared_weak_count::__release_weak(v38);
+    std::__shared_weak_count::__release_weak(v38);
   }
-
-LABEL_63:
-  v37 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2979890A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, char a26)
@@ -1794,27 +1778,28 @@ void sub_2979890A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ice::Client::regEventHandlerInternal(uint64_t a1, unsigned int a2, void **a3)
+void ice::Client::regEventHandlerInternal(uint64_t a1, uint64_t a2, void **a3)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v4 = a2;
+  v22 = *MEMORY[0x29EDCA608];
   if (*(a1 + 72) == -1)
   {
-    v17 = *(a1 + 40);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = *(a1 + 40);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      if (a2 > 3)
+      if (v4 > 3)
       {
-        v18 = "???";
+        v17 = "???";
       }
 
       else
       {
-        v18 = (&off_29EE81EC0)[a2];
+        v17 = (&off_29EE81EC0)[v4];
       }
 
       buf = 136315138;
-      *buf_4 = v18;
-      _os_log_impl(&dword_297986000, v17, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started, deferring %s event registration until it has", &buf, 0xCu);
+      *buf_4 = v17;
+      _os_log_impl(&dword_297986000, v16, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started, deferring %s event registration until it has", &buf, 0xCu);
     }
 
     operator new();
@@ -1825,7 +1810,7 @@ void ice::Client::regEventHandlerInternal(uint64_t a1, unsigned int a2, void **a
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = (&off_29EE81EC0)[a2];
+      v7 = (&off_29EE81EC0)[v4];
       buf = 136315138;
       *buf_4 = v7;
       _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, "#I Registering for event %s", &buf, 0xCu);
@@ -1839,44 +1824,43 @@ void ice::Client::regEventHandlerInternal(uint64_t a1, unsigned int a2, void **a
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
-    v9 = *(a1 + 72);
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v10 = *a3;
+    v9 = *a3;
     if (*a3)
     {
-      v10 = _Block_copy(v10);
+      v9 = _Block_copy(v9);
     }
 
-    aBlock = v10;
-    v11 = AriHost::SetRTEventHandler();
-    v12 = *(a1 + 40);
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    if (v11)
+    aBlock = v9;
+    v10 = AriHost::SetRTEventHandler();
+    v11 = *(a1 + 40);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v13)
+      if (v12)
       {
         buf = 67109120;
-        *buf_4 = a2;
-        v14 = "#N Could not register for %u runtime event handler";
-        v15 = v12;
-        v16 = 8;
+        *buf_4 = v4;
+        v13 = "#N Could not register for %u runtime event handler";
+        v14 = v11;
+        v15 = 8;
 LABEL_21:
-        _os_log_impl(&dword_297986000, v15, OS_LOG_TYPE_DEFAULT, v14, &buf, v16);
+        _os_log_impl(&dword_297986000, v14, OS_LOG_TYPE_DEFAULT, v13, &buf, v15);
       }
     }
 
-    else if (v13)
+    else if (v12)
     {
-      v19 = (&off_29EE81EC0)[a2];
+      v18 = (&off_29EE81EC0)[v4];
       buf = 136315138;
-      *buf_4 = v19;
-      v14 = "#I Registered for %s successfully";
-      v15 = v12;
-      v16 = 12;
+      *buf_4 = v18;
+      v13 = "#I Registered for %s successfully";
+      v14 = v11;
+      v15 = 12;
       goto LABEL_21;
     }
 
@@ -1891,7 +1875,7 @@ LABEL_21:
       std::__shared_weak_count::__release_weak(v8);
     }
 
-    goto LABEL_29;
+    return;
   }
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -1900,9 +1884,6 @@ LABEL_21:
     *buf_4 = "???";
     _os_log_error_impl(&dword_297986000, v6, OS_LOG_TYPE_ERROR, "Unhandled event: %s", &buf, 0xCu);
   }
-
-LABEL_29:
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2979894CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, void *aBlock)
@@ -1917,19 +1898,19 @@ void sub_2979894CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ice::Client::regIndicationInternal(uint64_t a1, Ari *a2, void **a3)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v6 = a2 >> 26;
   v7 = (a2 >> 15) & 0x3FF;
   if (*(Ari::MsgDefById((a2 >> 26)) + 8) == 2)
   {
     if (*(a1 + 72) == -1)
     {
-      v18 = *(a1 + 40);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = *(a1 + 40);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
         *&buf[4] = Ari::MsgNameById(a2);
-        _os_log_impl(&dword_297986000, v18, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started, deferring [%s] indication registration until it has", buf, 0xCu);
+        _os_log_impl(&dword_297986000, v17, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started, deferring [%s] indication registration until it has", buf, 0xCu);
       }
 
       operator new();
@@ -1944,19 +1925,19 @@ void ice::Client::regIndicationInternal(uint64_t a1, Ari *a2, void **a3)
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
-    v25 = MEMORY[0x29EDCA5F8];
-    v26 = 1174405120;
-    v27 = ___ZN3ice6Client21regIndicationInternalEjN8dispatch5blockIU13block_pointerFiPhjEEE_block_invoke;
-    v28 = &__block_descriptor_tmp_6;
-    v29 = a1;
-    v30 = v9;
-    v31 = v8;
+    v23 = MEMORY[0x29EDCA5F8];
+    v24 = 1174405120;
+    v25 = ___ZN3ice6Client21regIndicationInternalEjN8dispatch5blockIU13block_pointerFiPhjEEE_block_invoke;
+    v26 = &__block_descriptor_tmp_6;
+    v27 = a1;
+    v28 = v9;
+    v29 = v8;
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v33 = a2;
+    v31 = a2;
     v10 = *a3;
     if (*a3)
     {
@@ -1964,41 +1945,40 @@ void ice::Client::regIndicationInternal(uint64_t a1, Ari *a2, void **a3)
     }
 
     aBlock = v10;
-    v11 = *(a1 + 72);
-    v12 = AriHost::RegIndication();
-    v13 = *(a1 + 40);
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-    if (v12)
+    v11 = AriHost::RegIndication();
+    v12 = *(a1 + 40);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    if (v11)
     {
-      if (v14)
+      if (v13)
       {
-        v15 = Ari::MsgNameById(a2);
+        v14 = Ari::MsgNameById(a2);
         *buf = 136315650;
-        *&buf[4] = v15;
+        *&buf[4] = v14;
         *&buf[12] = 1024;
         *&buf[14] = v6;
-        v35 = 1024;
-        v36 = v7;
-        _os_log_impl(&dword_297986000, v13, OS_LOG_TYPE_DEFAULT, "#N Could not register indication: %s (%u, 0x%x)", buf, 0x18u);
+        v33 = 1024;
+        v34 = v7;
+        _os_log_impl(&dword_297986000, v12, OS_LOG_TYPE_DEFAULT, "#N Could not register indication: %s (%u, 0x%x)", buf, 0x18u);
       }
     }
 
     else
     {
-      if (v14)
+      if (v13)
       {
-        v19 = Ari::MsgNameById(a2);
+        v18 = Ari::MsgNameById(a2);
         *buf = 136315650;
-        *&buf[4] = v19;
+        *&buf[4] = v18;
         *&buf[12] = 1024;
         *&buf[14] = v6;
-        v35 = 1024;
-        v36 = v7;
-        _os_log_impl(&dword_297986000, v13, OS_LOG_TYPE_DEFAULT, "#I Successfully registered for indication: %s (%u, 0x%x)", buf, 0x18u);
+        v33 = 1024;
+        v34 = v7;
+        _os_log_impl(&dword_297986000, v12, OS_LOG_TYPE_DEFAULT, "#I Successfully registered for indication: %s (%u, 0x%x)", buf, 0x18u);
       }
 
-      v20 = *(a1 + 88);
-      if (!v20)
+      v19 = *(a1 + 88);
+      if (!v19)
       {
 LABEL_25:
         operator new();
@@ -2008,27 +1988,27 @@ LABEL_25:
       {
         while (1)
         {
-          v21 = v20;
-          v22 = *(v20 + 28);
-          if (v22 <= a2)
+          v20 = v19;
+          v21 = *(v19 + 28);
+          if (v21 <= a2)
           {
             break;
           }
 
-          v20 = *v21;
-          if (!*v21)
+          v19 = *v20;
+          if (!*v20)
           {
             goto LABEL_25;
           }
         }
 
-        if (v22 >= a2)
+        if (v21 >= a2)
         {
           break;
         }
 
-        v20 = v21[1];
-        if (!v20)
+        v19 = v20[1];
+        if (!v19)
         {
           goto LABEL_25;
         }
@@ -2056,9 +2036,9 @@ LABEL_25:
       _Block_release(aBlock);
     }
 
-    if (v31)
+    if (v29)
     {
-      std::__shared_weak_count::__release_weak(v31);
+      std::__shared_weak_count::__release_weak(v29);
     }
 
     if (v8)
@@ -2069,17 +2049,15 @@ LABEL_25:
 
   else
   {
-    v16 = Ari::MsgNameById(a2);
-    v17 = *(a1 + 40);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v15 = Ari::MsgNameById(a2);
+    v16 = *(a1 + 40);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      *&buf[4] = v16;
-      _os_log_error_impl(&dword_297986000, v17, OS_LOG_TYPE_ERROR, "%s is not an indication, not registering it", buf, 0xCu);
+      *&buf[4] = v15;
+      _os_log_error_impl(&dword_297986000, v16, OS_LOG_TYPE_ERROR, "%s is not an indication, not registering it", buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29798990C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, void *aBlock)
@@ -2102,130 +2080,131 @@ void sub_29798990C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL ice::Client::setIndShouldWake(ice::Client *this, Ari *a2, int a3)
+BOOL ice::Client::setIndShouldWake(ice::Client *this, Ari *a2, uint64_t a3)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v3 = a3;
+  v35 = *MEMORY[0x29EDCA608];
   v6 = *(Ari::MsgDefById((a2 >> 26)) + 8);
   if (v6 == 2)
   {
     if (*(this + 18) != -1)
     {
-      std::shared_ptr<ice::Client>::shared_ptr[abi:ne200100]<ice::Client,0>(&v28, this + 1);
-      v29 = a2;
-      v30 = this;
-      v31 = 0;
+      std::shared_ptr<ice::Client>::shared_ptr[abi:ne200100]<ice::Client,0>(&v27, this + 1);
+      v28 = a2;
+      v29 = this;
+      v30 = 0;
       operator new();
     }
 
-    v11 = Ari::MsgNameById(a2);
-    v12 = *(this + 19);
-    v13 = *(this + 20);
-    if (v12 != v13)
+    v10 = Ari::MsgNameById(a2);
+    v11 = *(this + 19);
+    v12 = *(this + 20);
+    if (v11 != v12)
     {
-      while (*v12 != a2)
+      while (*v11 != a2)
       {
-        v12 += 4;
-        if (v12 == v13)
+        v11 += 4;
+        if (v11 == v12)
         {
-          v12 = *(this + 20);
+          v11 = *(this + 20);
           break;
         }
       }
     }
 
-    if (a3)
+    if (v3)
     {
-      if (v12 == v13)
+      if (v11 == v12)
       {
-        v14 = *(this + 5);
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v13 = *(this + 5);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v33 = v11;
-          v34 = 1024;
-          v35 = a2;
-          _os_log_impl(&dword_297986000, v14, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started, deferring indication %s (0x%x) from waking until it has", buf, 0x12u);
-          v13 = *(this + 20);
+          v32 = v10;
+          v33 = 1024;
+          v34 = a2;
+          _os_log_impl(&dword_297986000, v13, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started, deferring indication %s (0x%x) from waking until it has", buf, 0x12u);
+          v12 = *(this + 20);
         }
 
-        v15 = *(this + 21);
-        if (v13 >= v15)
+        v14 = *(this + 21);
+        if (v12 >= v14)
         {
-          v18 = *(this + 19);
-          v19 = v13 - v18;
-          v20 = (v13 - v18) >> 2;
-          v21 = v20 + 1;
-          if ((v20 + 1) >> 62)
+          v17 = *(this + 19);
+          v18 = v12 - v17;
+          v19 = (v12 - v17) >> 2;
+          v20 = v19 + 1;
+          if ((v19 + 1) >> 62)
           {
             std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
           }
 
-          v22 = v15 - v18;
-          if (v22 >> 1 > v21)
+          v21 = v14 - v17;
+          if (v21 >> 1 > v20)
           {
-            v21 = v22 >> 1;
+            v20 = v21 >> 1;
           }
 
-          if (v22 >= 0x7FFFFFFFFFFFFFFCLL)
+          if (v21 >= 0x7FFFFFFFFFFFFFFCLL)
           {
-            v23 = 0x3FFFFFFFFFFFFFFFLL;
+            v22 = 0x3FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v23 = v21;
+            v22 = v20;
           }
 
-          if (v23)
+          if (v22)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(v23);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(v22);
           }
 
-          v24 = (v13 - v18) >> 2;
-          v25 = (4 * v20);
-          v26 = (4 * v20 - 4 * v24);
-          *v25 = a2;
-          v16 = v25 + 1;
-          memcpy(v26, v18, v19);
-          v27 = *(this + 19);
-          *(this + 19) = v26;
-          *(this + 20) = v16;
+          v23 = (v12 - v17) >> 2;
+          v24 = (4 * v19);
+          v25 = (4 * v19 - 4 * v23);
+          *v24 = a2;
+          v15 = v24 + 1;
+          memcpy(v25, v17, v18);
+          v26 = *(this + 19);
+          *(this + 19) = v25;
+          *(this + 20) = v15;
           *(this + 21) = 0;
-          if (v27)
+          if (v26)
           {
-            operator delete(v27);
+            operator delete(v26);
           }
         }
 
         else
         {
-          *v13 = a2;
-          v16 = v13 + 4;
+          *v12 = a2;
+          v15 = v12 + 4;
         }
 
-        *(this + 20) = v16;
+        *(this + 20) = v15;
       }
     }
 
-    else if (v12 != v13)
+    else if (v11 != v12)
     {
-      v17 = *(this + 5);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = *(this + 5);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v33 = v11;
-        v34 = 1024;
-        v35 = a2;
-        _os_log_impl(&dword_297986000, v17, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started, removing previous wake request for %s (0x%x)", buf, 0x12u);
-        v13 = *(this + 20);
+        v32 = v10;
+        v33 = 1024;
+        v34 = a2;
+        _os_log_impl(&dword_297986000, v16, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started, removing previous wake request for %s (0x%x)", buf, 0x12u);
+        v12 = *(this + 20);
       }
 
-      if (v13 != v12 + 4)
+      if (v12 != v11 + 4)
       {
-        memmove(v12, v12 + 4, v13 - (v12 + 4));
+        memmove(v11, v11 + 4, v12 - (v11 + 4));
       }
 
-      *(this + 20) = v13 - 4;
+      *(this + 20) = v12 - 4;
     }
   }
 
@@ -2236,23 +2215,21 @@ BOOL ice::Client::setIndShouldWake(ice::Client *this, Ari *a2, int a3)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v33 = v7;
+      v32 = v7;
       _os_log_error_impl(&dword_297986000, v8, OS_LOG_TYPE_ERROR, "%s is not an indication, not registering it to wake AP", buf, 0xCu);
     }
   }
 
-  result = v6 == 2;
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return v6 == 2;
 }
 
-void sub_297989CD4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, ...)
+void sub_297989CD4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
-  if (a3)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   _Unwind_Resume(a1);
@@ -2318,62 +2295,61 @@ void __destroy_helper_block_e8_40c36_ZTSNSt3__18weak_ptrIN3ice6ClientEEE(uint64_
   }
 }
 
-void ice::Client::~Client(ice::Client *this)
+void ice::Client::~Client(ice::Client *this, uint64_t a2, int a3)
 {
   v15 = *MEMORY[0x29EDCA608];
   *this = &unk_2A1E5B2B8;
-  v2 = *(this + 18);
-  if (v2 != -1)
+  v4 = *(this + 18);
+  if (v4 != -1)
   {
-    v3 = *(this + 10);
-    v4 = this + 88;
-    if (v3 != this + 88)
+    v5 = *(this + 10);
+    v6 = this + 88;
+    if (v5 != this + 88)
     {
       do
       {
-        v5 = *(this + 18);
-        AriHost::DeregIndication(*(v3 + 7));
-        v6 = *(v3 + 1);
-        if (v6)
+        AriHost::DeregIndication(*(v5 + 7));
+        v7 = *(v5 + 1);
+        if (v7)
         {
           do
           {
-            v7 = v6;
-            v6 = *v6;
+            v8 = v7;
+            v7 = *v7;
           }
 
-          while (v6);
+          while (v7);
         }
 
         else
         {
           do
           {
-            v7 = *(v3 + 2);
-            v8 = *v7 == v3;
-            v3 = v7;
+            v8 = *(v5 + 2);
+            v9 = *v8 == v5;
+            v5 = v8;
           }
 
-          while (!v8);
+          while (!v9);
         }
 
-        v3 = v7;
+        v5 = v8;
       }
 
-      while (v7 != v4);
-      v2 = *(this + 18);
+      while (v8 != v6);
+      v4 = *(this + 18);
     }
 
-    v9 = *(this + 5);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = *(this + 5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v14 = (v2 >> 8) & 0x7F;
-      _os_log_impl(&dword_297986000, v9, OS_LOG_TYPE_DEFAULT, "#I Deregistering client %d", buf, 8u);
-      v2 = *(this + 18);
+      v14 = (v4 >> 8) & 0x7F;
+      _os_log_impl(&dword_297986000, v10, OS_LOG_TYPE_DEFAULT, "#I Deregistering client %d", buf, 8u);
+      v4 = *(this + 18);
     }
 
-    AriHost::DeregisterClient(v2);
+    AriHost::DeregisterClient(v4);
     if (*(this + 71) < 0)
     {
       std::string::__init_copy_ctor_external(&__p, *(this + 6), *(this + 7));
@@ -2391,11 +2367,11 @@ void ice::Client::~Client(ice::Client *this)
     }
   }
 
-  v10 = *(this + 19);
-  if (v10)
+  v11 = *(this + 19);
+  if (v11)
   {
-    *(this + 20) = v10;
-    operator delete(v10);
+    *(this + 20) = v11;
+    operator delete(v11);
   }
 
   std::__list_imp<std::pair<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>::clear(this + 16);
@@ -2408,11 +2384,10 @@ void ice::Client::~Client(ice::Client *this)
 
   MEMORY[0x29C276FE0](this + 40);
   ctu::SharedSynchronizable<ice::Client>::~SharedSynchronizable(this + 1);
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 {
-  ice::Client::~Client(this);
+  ice::Client::~Client(this, a2, a3);
 
   JUMPOUT(0x29C2772E0);
 }
@@ -2429,63 +2404,65 @@ void sub_297989FC0(_Unwind_Exception *a1, int a2)
 
 uint64_t ___ZN3ice6Client21regIndicationInternalEjN8dispatch5blockIU13block_pointerFiPhjEEE_block_invoke(uint64_t a1, ctu *a2, unsigned int a3)
 {
-  *&v22[5] = *MEMORY[0x29EDCA608];
+  *&v21[5] = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 48);
-  if (v4 && (v7 = *(a1 + 32), (v8 = std::__shared_weak_count::lock(v4)) != 0))
+  if (!v4)
   {
-    v9 = v8;
-    if (*(a1 + 40))
+    return 0;
+  }
+
+  v7 = *(a1 + 32);
+  v8 = std::__shared_weak_count::lock(v4);
+  if (!v8)
+  {
+    return 0;
+  }
+
+  v9 = v8;
+  if (*(a1 + 40))
+  {
+    v10 = *(v7 + 40);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
+      v13 = *(v7 + 72);
+      ctu::to_rle(__p, a2, a3);
+      if (v18 >= 0)
+      {
+        v14 = __p;
+      }
+
+      else
+      {
+        v14 = __p[0];
+      }
+
+      *buf = 67109634;
+      *v20 = (v13 >> 8) & 0x7F;
+      *&v20[4] = 1024;
+      *&v20[6] = a3;
+      v21[0] = 2080;
+      *&v21[1] = v14;
+      _os_log_debug_impl(&dword_297986000, v10, OS_LOG_TYPE_DEBUG, "#D recv: ClientID:%d Length:%u [%s]", buf, 0x18u);
+      if (v18 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
       v10 = *(v7 + 40);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-      {
-        v14 = *(v7 + 72);
-        ctu::to_rle(a2, a3);
-        if (v19 >= 0)
-        {
-          p_p = &__p;
-        }
-
-        else
-        {
-          p_p = __p;
-        }
-
-        *buf = 67109634;
-        *v21 = (v14 >> 8) & 0x7F;
-        *&v21[4] = 1024;
-        *&v21[6] = a3;
-        v22[0] = 2080;
-        *&v22[1] = p_p;
-        _os_log_debug_impl(&dword_297986000, v10, OS_LOG_TYPE_DEBUG, "#D recv: ClientID:%d Length:%u [%s]", buf, 0x18u);
-        if (v19 < 0)
-        {
-          operator delete(__p);
-        }
-
-        v10 = *(v7 + 40);
-      }
-
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-      {
-        v16 = *(v7 + 72);
-        v17 = Ari::MsgNameById(*(a1 + 64));
-        *buf = 134218242;
-        *v21 = v16;
-        *&v21[8] = 2080;
-        *v22 = v17;
-        _os_log_debug_impl(&dword_297986000, v10, OS_LOG_TYPE_DEBUG, "#D %lu: received %s", buf, 0x16u);
-      }
-
-      v11 = (*(*(a1 + 56) + 16))();
     }
 
-    else
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 0;
+      v15 = *(v7 + 72);
+      v16 = Ari::MsgNameById(*(a1 + 64));
+      *buf = 134218242;
+      *v20 = v15;
+      *&v20[8] = 2080;
+      *v21 = v16;
+      _os_log_debug_impl(&dword_297986000, v10, OS_LOG_TYPE_DEBUG, "#D %lu: received %s", buf, 0x16u);
     }
 
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    v11 = (*(*(a1 + 56) + 16))();
   }
 
   else
@@ -2493,7 +2470,7 @@ uint64_t ___ZN3ice6Client21regIndicationInternalEjN8dispatch5blockIU13block_poin
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x29EDCA608];
+  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   return v11;
 }
 
@@ -2535,7 +2512,7 @@ void __destroy_helper_block_e8_40c36_ZTSNSt3__18weak_ptrIN3ice6ClientEEE56c45_ZT
 
 BOOL ice::Client::deregIndication(ice::Client *this, Ari *a2)
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
   v4 = Ari::MsgNameById(a2);
   if (*(Ari::MsgDefById((a2 >> 26)) + 8) != 2)
   {
@@ -2543,11 +2520,11 @@ BOOL ice::Client::deregIndication(ice::Client *this, Ari *a2)
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_69;
+      return result;
     }
 
-    *v42 = 136315138;
-    *&v42[4] = v4;
+    *v41 = 136315138;
+    *&v41[4] = v4;
     v9 = "%s is not an indication, unable to deregister";
     goto LABEL_14;
   }
@@ -2571,14 +2548,14 @@ BOOL ice::Client::deregIndication(ice::Client *this, Ari *a2)
       v26 = *(this + 5);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        *v42 = 136315138;
-        *&v42[4] = v4;
-        _os_log_impl(&dword_297986000, v26, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started. Removing queued registration for [%s] indication", v42, 0xCu);
+        *v41 = 136315138;
+        *&v41[4] = v4;
+        _os_log_impl(&dword_297986000, v26, OS_LOG_TYPE_DEFAULT, "#I Client has not yet started. Removing queued registration for [%s] indication", v41, 0xCu);
         v11 = *(this + 17);
       }
 
-      *v42 = v42;
-      *&v42[8] = v42;
+      *v41 = v41;
+      *&v41[8] = v41;
       if (v11 != v10)
       {
         v27 = 0;
@@ -2615,7 +2592,7 @@ BOOL ice::Client::deregIndication(ice::Client *this, Ari *a2)
             if (v11 != v30)
             {
               v34 = *v30;
-              if (v42 != v10)
+              if (v41 != v10)
               {
                 v35 = 1;
                 if (v34 != v11)
@@ -2632,18 +2609,18 @@ BOOL ice::Client::deregIndication(ice::Client *this, Ari *a2)
 
                 *(this + 18) -= v35;
                 v27 += v35;
-                *&v42[16] = v27;
+                *&v41[16] = v27;
               }
 
               v37 = v34[1];
               v38 = *v11;
               *(v38 + 8) = v37;
               *v37 = v38;
-              v39 = *v42;
-              *(*v42 + 8) = v11;
+              v39 = *v41;
+              *(*v41 + 8) = v11;
               *v11 = v39;
-              *v42 = v34;
-              v34[1] = v42;
+              *v41 = v34;
+              v34[1] = v41;
             }
 
             if ((v33 & 1) == 0)
@@ -2658,8 +2635,8 @@ BOOL ice::Client::deregIndication(ice::Client *this, Ari *a2)
         while (v30 != v10);
       }
 
-      std::__list_imp<std::pair<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>::clear(v42);
-      goto LABEL_68;
+      std::__list_imp<std::pair<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>::clear(v41);
+      return 1;
     }
 
 LABEL_12:
@@ -2667,15 +2644,15 @@ LABEL_12:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_69;
+      return result;
     }
 
-    *v42 = 136315138;
-    *&v42[4] = v4;
+    *v41 = 136315138;
+    *&v41[4] = v4;
     v9 = "Client has not yet started. Cannot deregister [%s] indication as there has been no attempt to register it.";
 LABEL_14:
-    _os_log_error_impl(&dword_297986000, v8, OS_LOG_TYPE_ERROR, v9, v42, 0xCu);
-    goto LABEL_15;
+    _os_log_error_impl(&dword_297986000, v8, OS_LOG_TYPE_ERROR, v9, v41, 0xCu);
+    return 0;
   }
 
   v5 = AriHost::DeregIndication(a2);
@@ -2685,13 +2662,13 @@ LABEL_14:
   {
     if (result)
     {
-      *v42 = 136315650;
-      *&v42[4] = v4;
-      *&v42[12] = 1024;
-      *&v42[14] = a2 >> 26;
-      *&v42[18] = 1024;
-      *&v42[20] = (a2 >> 15) & 0x3FF;
-      _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, "#I Successfully deregistered indication: %s (%u, 0x%x)", v42, 0x18u);
+      *v41 = 136315650;
+      *&v41[4] = v4;
+      *&v41[12] = 1024;
+      *&v41[14] = a2 >> 26;
+      *&v41[18] = 1024;
+      *&v41[20] = (a2 >> 15) & 0x3FF;
+      _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, "#I Successfully deregistered indication: %s (%u, 0x%x)", v41, 0x18u);
     }
 
     v14 = this + 88;
@@ -2748,12 +2725,12 @@ LABEL_14:
 
           else
           {
-            v41 = v20;
+            v40 = v20;
             do
             {
-              v25 = *(v41 + 2);
-              v31 = *v25 == v41;
-              v41 = v25;
+              v25 = *(v40 + 2);
+              v31 = *v25 == v40;
+              v40 = v25;
             }
 
             while (!v31);
@@ -2771,26 +2748,21 @@ LABEL_14:
       }
     }
 
-LABEL_68:
-    result = 1;
-    goto LABEL_69;
+    return 1;
   }
 
   if (result)
   {
-    *v42 = 136315650;
-    *&v42[4] = v4;
-    *&v42[12] = 1024;
-    *&v42[14] = a2 >> 26;
-    *&v42[18] = 1024;
-    *&v42[20] = (a2 >> 15) & 0x3FF;
-    _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, "#N Could not deregister indication: %s (%u, 0x%x)", v42, 0x18u);
-LABEL_15:
-    result = 0;
+    *v41 = 136315650;
+    *&v41[4] = v4;
+    *&v41[12] = 1024;
+    *&v41[14] = a2 >> 26;
+    *&v41[18] = 1024;
+    *&v41[20] = (a2 >> 15) & 0x3FF;
+    _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, "#N Could not deregister indication: %s (%u, 0x%x)", v41, 0x18u);
+    return 0;
   }
 
-LABEL_69:
-  v40 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2809,41 +2781,43 @@ const char *ice::asString(unsigned int a1)
 
 uint64_t ___ZN3ice6Client23regEventHandlerInternalENS0_5EventEN8dispatch5blockIU13block_pointerFiP16dispatch_group_sEEE_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 48);
-  if (v2 && (v3 = *(a1 + 32), (v4 = std::__shared_weak_count::lock(v2)) != 0))
+  if (!v2)
   {
-    v5 = v4;
-    if (*(a1 + 40))
+    return 0xFFFFFFFFLL;
+  }
+
+  v3 = *(a1 + 32);
+  v4 = std::__shared_weak_count::lock(v2);
+  if (!v4)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v5 = v4;
+  if (*(a1 + 40))
+  {
+    v6 = *(v3 + 40);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(v3 + 40);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = *(a1 + 64);
+      if (v7 > 3)
       {
-        v7 = *(a1 + 64);
-        if (v7 > 3)
-        {
-          v8 = "???";
-        }
-
-        else
-        {
-          v8 = (&off_29EE81EC0)[v7];
-        }
-
-        v12 = 136315138;
-        v13 = v8;
-        _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, "#I Got %s callback", &v12, 0xCu);
+        v8 = "???";
       }
 
-      v9 = (*(*(a1 + 56) + 16))();
+      else
+      {
+        v8 = (&off_29EE81EC0)[v7];
+      }
+
+      v11 = 136315138;
+      v12 = v8;
+      _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, "#I Got %s callback", &v11, 0xCu);
     }
 
-    else
-    {
-      v9 = 0xFFFFFFFFLL;
-    }
-
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    v9 = (*(*(a1 + 56) + 16))();
   }
 
   else
@@ -2851,7 +2825,7 @@ uint64_t ___ZN3ice6Client23regEventHandlerInternalENS0_5EventEN8dispatch5blockIU
     v9 = 0xFFFFFFFFLL;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
+  std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   return v9;
 }
 
@@ -2891,33 +2865,32 @@ void __destroy_helper_block_e8_40c36_ZTSNSt3__18weak_ptrIN3ice6ClientEEE56c61_ZT
   }
 }
 
-void ice::Client::getRegisteredIndications(uint64_t a1, uint64_t a2)
+void ice::Client::getRegisteredIndications(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v7 = v6;
-      (*(*v3 + 24))(v3, v6);
+      v6 = v5;
+      (*(*v3 + 24))(v3, v5);
     }
 
     else
     {
-      v7 = (*(*v3 + 16))(v3);
+      v6 = (*(*v3 + 16))(v3);
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v4 = *(a1 + 16);
+  v4 = a1[2];
   if (v4)
   {
-    v5 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v4))
     {
       operator new();
@@ -3094,9 +3067,9 @@ void std::__shared_ptr_emplace<ice::Client::create(dispatch::queue,std::string c
   JUMPOUT(0x29C2772E0);
 }
 
-void ice::Client::create(dispatch::queue,std::string const&,std::shared_ptr<ctu::LogServer>)::make_shared_enabler::~make_shared_enabler(ice::Client *a1)
+void ice::Client::create(dispatch::queue,std::string const&,std::shared_ptr<ctu::LogServer>)::make_shared_enabler::~make_shared_enabler(ice::Client *a1, uint64_t a2, int a3)
 {
-  ice::Client::~Client(a1);
+  ice::Client::~Client(a1, a2, a3);
 
   JUMPOUT(0x29C2772E0);
 }
@@ -3109,9 +3082,9 @@ void std::__shared_ptr_emplace<ice::Client::create(dispatch::queue,char const*):
   JUMPOUT(0x29C2772E0);
 }
 
-void ice::Client::create(dispatch::queue,char const*)::make_shared_enabler::~make_shared_enabler(ice::Client *a1)
+void ice::Client::create(dispatch::queue,char const*)::make_shared_enabler::~make_shared_enabler(ice::Client *a1, uint64_t a2, int a3)
 {
-  ice::Client::~Client(a1);
+  ice::Client::~Client(a1, a2, a3);
 
   JUMPOUT(0x29C2772E0);
 }
@@ -3201,7 +3174,7 @@ void std::__throw_future_error[abi:ne200100](unsigned int a1)
   __cxa_throw(exception, MEMORY[0x29EDC9430], MEMORY[0x29EDC9390]);
 }
 
-uint64_t *std::__tree<unsigned int>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<unsigned int>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3282,54 +3255,51 @@ void std::__function::__func<ice::Client::setIndShouldWake(unsigned int,BOOL)::$
 
 void std::__function::__func<ice::Client::setIndShouldWake(unsigned int,BOOL)::$_0,std::allocator<ice::Client::setIndShouldWake(unsigned int,BOOL)::$_0>,void ()(int)>::operator()(uint64_t a1, int *a2)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v3 = *a2;
   v4 = Ari::MsgNameById(*(a1 + 24));
   v5 = *(a1 + 8);
   if (v3)
   {
     v6 = *(v5 + 40);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v12.__r_.__value_.__l.__data_) = 136315138;
-      *(v12.__r_.__value_.__r.__words + 4) = v4;
-      v7 = "#N Setting indication %s to wake AP failed";
-      v8 = &v12;
-LABEL_11:
-      _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 0xCu);
+      return;
     }
+
+    LODWORD(v11.__r_.__value_.__l.__data_) = 136315138;
+    *(v11.__r_.__value_.__r.__words + 4) = v4;
+    v7 = "#N Setting indication %s to wake AP failed";
+    v8 = &v11;
+    goto LABEL_11;
+  }
+
+  if (*(v5 + 71) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v11, *(v5 + 48), *(v5 + 56));
   }
 
   else
   {
-    if (*(v5 + 71) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v12, *(v5 + 48), *(v5 + 56));
-    }
-
-    else
-    {
-      v12 = *(v5 + 48);
-    }
-
-    ice::notifySnifferIndicationCanWake(&v12, *(a1 + 24));
-    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v12.__r_.__value_.__l.__data_);
-    }
-
-    v6 = *(*(a1 + 8) + 40);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = 136315138;
-      v11 = v4;
-      v7 = "#I Successfully registered indication %s to wake AP";
-      v8 = &v10;
-      goto LABEL_11;
-    }
+    v11 = *(v5 + 48);
   }
 
-  v9 = *MEMORY[0x29EDCA608];
+  ice::notifySnifferIndicationCanWake(&v11, *(a1 + 24));
+  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v11.__r_.__value_.__l.__data_);
+  }
+
+  v6 = *(*(a1 + 8) + 40);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 136315138;
+    v10 = v4;
+    v7 = "#I Successfully registered indication %s to wake AP";
+    v8 = &v9;
+LABEL_11:
+    _os_log_impl(&dword_297986000, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 0xCu);
+  }
 }
 
 uint64_t std::__function::__func<ice::Client::setIndShouldWake(unsigned int,BOOL)::$_0,std::allocator<ice::Client::setIndShouldWake(unsigned int,BOOL)::$_0>,void ()(int)>::target(uint64_t a1, uint64_t a2)
@@ -3511,54 +3481,53 @@ __n128 ice::SendProxy::SendProxy(__n128 *a1, __n128 *a2)
   return result;
 }
 
-void ice::SendProxy::~SendProxy(ice::SendProxy *this)
+void ice::SendProxy::~SendProxy(std::__shared_weak_count **this)
 {
   ice::SendProxy::send(this);
-  v2 = *(this + 3);
+  v2 = this[3];
   if (v2)
   {
     _Block_release(v2);
   }
 
-  v3 = *(this + 1);
+  v3 = this[1];
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 }
 
-uint64_t *ice::SendProxy::send(uint64_t *this)
+void ice::SendProxy::send(AriMsg **this)
 {
-  v66 = *MEMORY[0x29EDCA608];
+  v62 = *MEMORY[0x29EDCA608];
   v1 = *this;
   if (*this)
   {
-    v2 = this;
     if (*(this + 8) == -1)
     {
       v14 = *(v1 + 40);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v55 = (v1 + 48);
+        v51 = (v1 + 48);
         if (*(v1 + 71) < 0)
         {
-          v55 = *v55;
+          v51 = *v51;
         }
 
         *buf = 136315138;
-        *&buf[4] = v55;
+        *&buf[4] = v51;
         _os_log_error_impl(&dword_297986000, v14, OS_LOG_TYPE_ERROR, "Client %s has not yet registered with ARI host runtime", buf, 0xCu);
       }
 
-      Gmid = AriMsg::getGmid(*(v2 + 16));
-      v17 = *v2;
-      v16 = *(v2 + 8);
+      Gmid = AriMsg::getGmid(this[2]);
+      v17 = *this;
+      v16 = this[1];
       if (v16)
       {
-        atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
       }
 
-      v18 = *(v2 + 24);
+      v18 = this[3];
       if (v18)
       {
         v19 = _Block_copy(v18);
@@ -3596,28 +3565,28 @@ uint64_t *ice::SendProxy::send(uint64_t *this)
             }
           }
 
-          v36 = v35;
+          v35 = v34;
           v13 = 0;
-          if (v35 != -77 && v35)
+          if (v34 != -77 && v34)
           {
-            v37 = *(v1 + 40);
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+            v36 = *(v1 + 40);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              v38 = *(v8 + 48);
+              v37 = *(v8 + 48);
               *buf = 136316162;
-              *&buf[4] = v38;
+              *&buf[4] = v37;
               *&buf[12] = 1024;
               *&buf[14] = v5;
-              v62 = 1024;
-              *v63 = v6;
-              *&v63[4] = 2080;
-              *&v63[6] = asString();
-              v64 = 1024;
-              v65 = v36;
-              _os_log_impl(&dword_297986000, v37, OS_LOG_TYPE_DEFAULT, "#N Could not pack SIM instance parameter in request %s (%u, 0x%x) result %s (%d)", buf, 0x28u);
+              v58 = 1024;
+              *v59 = v6;
+              *&v59[4] = 2080;
+              *&v59[6] = asString();
+              v60 = 1024;
+              v61 = v35;
+              _os_log_impl(&dword_297986000, v36, OS_LOG_TYPE_DEFAULT, "#N Could not pack SIM instance parameter in request %s (%u, 0x%x) result %s (%d)", buf, 0x28u);
             }
 
-            v13 = v36;
+            v13 = v35;
           }
         }
 
@@ -3654,99 +3623,96 @@ LABEL_10:
         std::__shared_weak_count::__release_shared[abi:ne200100](v3);
       }
 
-      v21 = *(v2 + 16);
+      v21 = this[2];
       if (!v13)
       {
         v25 = *(v21 + 17);
         if (!v25)
         {
-          v60 = 0xAAAAAAAAAAAAAAAALL;
-          v40 = *v2;
-          v39 = *(v2 + 8);
-          if (v39)
+          v56 = 0xAAAAAAAAAAAAAAAALL;
+          v39 = *this;
+          v38 = this[1];
+          if (v38)
           {
-            atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v41 = *(v2 + 24);
-          if (v41)
+          v40 = this[3];
+          if (v40)
           {
-            v42 = _Block_copy(v41);
+            v41 = _Block_copy(v40);
           }
 
           else
           {
-            v42 = 0;
+            v41 = 0;
           }
 
-          *buf = v42;
+          *buf = v41;
+          if (v41)
+          {
+            _Block_release(v41);
+          }
+
+          if (v38)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+          }
+
+          v42 = AriHost::Send();
           if (v42)
           {
-            _Block_release(v42);
-          }
-
-          if (v39)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v39);
-          }
-
-          v43 = *(v2 + 16);
-          v44 = *(v2 + 32);
-          v45 = *(v2 + 36);
-          v46 = AriHost::Send();
-          if (v46)
-          {
-            v47 = AriMsg::getGmid(*(v2 + 16));
-            v48 = *v2;
-            v49 = *(*v2 + 40);
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+            v43 = AriMsg::getGmid(this[2]);
+            v44 = *this;
+            v45 = *(*this + 5);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
-              v56 = Ari::MsgNameById(v47);
-              v57 = *(v2 + 32);
-              v58 = asString();
+              v52 = Ari::MsgNameById(v43);
+              v53 = *(this + 8);
+              v54 = asString();
               *buf = 136316162;
-              *&buf[4] = v56;
+              *&buf[4] = v52;
               *&buf[12] = 1024;
-              *&buf[14] = v47;
-              v62 = 1024;
-              *v63 = v57;
-              *&v63[4] = 2080;
-              *&v63[6] = v58;
-              v64 = 1024;
-              v65 = v46;
-              _os_log_error_impl(&dword_297986000, v49, OS_LOG_TYPE_ERROR, "Cannot send request %s (0x%x) for client %d: %s (%d)", buf, 0x28u);
-              v48 = *v2;
+              *&buf[14] = v43;
+              v58 = 1024;
+              *v59 = v53;
+              *&v59[4] = 2080;
+              *&v59[6] = v54;
+              v60 = 1024;
+              v61 = v42;
+              _os_log_error_impl(&dword_297986000, v45, OS_LOG_TYPE_ERROR, "Cannot send request %s (0x%x) for client %d: %s (%d)", buf, 0x28u);
+              v44 = *this;
             }
 
-            v50 = *(v2 + 8);
-            if (v50)
+            v46 = this[1];
+            if (v46)
             {
-              atomic_fetch_add_explicit((v50 + 8), 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(v46 + 1, 1uLL, memory_order_relaxed);
             }
 
-            v51 = *(v2 + 24);
-            if (v51)
+            v47 = this[3];
+            if (v47)
             {
-              v52 = _Block_copy(v51);
+              v48 = _Block_copy(v47);
             }
           }
 
-          v53 = *(v2 + 16);
-          LODWORD(v59) = 0;
+          v49 = this[2];
+          LODWORD(v55) = 0;
           memset(buf, 170, 16);
-          EncodedBuf = AriMsg::getEncodedBuf(v53, &v59);
+          EncodedBuf = AriMsg::getEncodedBuf(v49, &v55);
           std::shared_ptr<unsigned char>::shared_ptr[abi:ne200100]<unsigned char,void (*)(unsigned char *),0>(buf, EncodedBuf);
         }
 
         v26 = AriMsg::getGmid(v21);
-        v28 = *v2;
-        v27 = *(v2 + 8);
+        v28 = *this;
+        v27 = this[1];
         if (v27)
         {
-          atomic_fetch_add_explicit((v27 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v27 + 1, 1uLL, memory_order_relaxed);
         }
 
-        v29 = *(v2 + 24);
+        v29 = this[3];
         if (v29)
         {
           v30 = _Block_copy(v29);
@@ -3759,14 +3725,14 @@ LABEL_36:
       }
 
       Gmid = AriMsg::getGmid(v21);
-      v17 = *v2;
-      v22 = *(v2 + 8);
+      v17 = *this;
+      v22 = this[1];
       if (v22)
       {
-        atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(v22 + 1, 1uLL, memory_order_relaxed);
       }
 
-      v23 = *(v2 + 24);
+      v23 = this[3];
       if (v23)
       {
         v24 = _Block_copy(v23);
@@ -3779,9 +3745,6 @@ LABEL_36:
     v33 = v17;
     goto LABEL_36;
   }
-
-  v34 = *MEMORY[0x29EDCA608];
-  return this;
 }
 
 void sub_29798C228(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
@@ -3848,14 +3811,13 @@ uint64_t ice::SendProxy::ackRequired(uint64_t result, char a2)
   return result;
 }
 
-void anonymous namespace::callbackWithFailure(int a1, int a2, uint64_t a3, void *aBlock)
+void anonymous namespace::callbackWithFailure(unsigned int a1, uint64_t a2, uint64_t a3, void *aBlock)
 {
   if (aBlock)
   {
     _Block_copy(aBlock);
   }
 
-  v5 = *(a3 + 24);
   operator new();
 }
 
@@ -3941,11 +3903,11 @@ void ice::SendMsgBaseProxy::~SendMsgBaseProxy(std::__shared_weak_count **this)
 
 void ice::SendMsgBaseProxy::send(ice::SendMsgBaseProxy *this)
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   v1 = *this;
   if (!*this)
   {
-    goto LABEL_35;
+    return;
   }
 
   if (*(this + 8) == -1)
@@ -3953,14 +3915,14 @@ void ice::SendMsgBaseProxy::send(ice::SendMsgBaseProxy *this)
     v6 = *(v1 + 5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v32 = (v1 + 48);
+      v28 = (v1 + 48);
       if (*(v1 + 71) < 0)
       {
-        v32 = *v32;
+        v28 = *v28;
       }
 
       *buf = 136315138;
-      *&buf[4] = v32;
+      *&buf[4] = v28;
       _os_log_error_impl(&dword_297986000, v6, OS_LOG_TYPE_ERROR, "Client %s has not yet registered with ARI host runtime", buf, 0xCu);
     }
 
@@ -3980,7 +3942,7 @@ void ice::SendMsgBaseProxy::send(ice::SendMsgBaseProxy *this)
     }
   }
 
-  v39 = 0xAAAAAAAAAAAAAAAALL;
+  v37 = 0xAAAAAAAAAAAAAAAALL;
   v3 = *(this + 1);
   if (v3)
   {
@@ -4009,57 +3971,55 @@ void ice::SendMsgBaseProxy::send(ice::SendMsgBaseProxy *this)
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
-  v13 = *(this + 2);
-  v14 = *(this + 8);
-  v15 = v39;
-  v16 = AriSdk::MsgBase::send();
-  if (v16)
+  v13 = v37;
+  v14 = AriSdk::MsgBase::send();
+  if (v14)
   {
-    v17 = AriSdk::MsgBase::getGMID(*(this + 2));
-    v18 = ((v17 >> 17) & 0xFFFF8000 | (v17 << 26));
-    v19 = *this;
-    v20 = *(*this + 40);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v15 = AriSdk::MsgBase::getGMID(*(this + 2));
+    v16 = (v15 >> 17) & 0xFFFF8000 | (v15 << 26);
+    v17 = *this;
+    v18 = *(*this + 40);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v29 = Ari::MsgNameById(v18);
-      v30 = *(this + 8);
-      v31 = asString();
+      v25 = Ari::MsgNameById(v16);
+      v26 = *(this + 8);
+      v27 = asString();
       *buf = 136316162;
-      *&buf[4] = v29;
+      *&buf[4] = v25;
       *&buf[12] = 1024;
-      *&buf[14] = v18;
+      *&buf[14] = v16;
+      v39 = 1024;
+      *v40 = v26;
+      *&v40[4] = 2080;
+      *&v40[6] = v27;
       v41 = 1024;
-      *v42 = v30;
-      *&v42[4] = 2080;
-      *&v42[6] = v31;
-      v43 = 1024;
-      v44 = v16;
-      _os_log_error_impl(&dword_297986000, v20, OS_LOG_TYPE_ERROR, "Cannot send request %s (0x%x) for client %d: %s (%d)", buf, 0x28u);
-      v19 = *this;
+      v42 = v14;
+      _os_log_error_impl(&dword_297986000, v18, OS_LOG_TYPE_ERROR, "Cannot send request %s (0x%x) for client %d: %s (%d)", buf, 0x28u);
+      v17 = *this;
     }
 
-    v21 = *(this + 1);
-    if (v21)
+    v19 = *(this + 1);
+    if (v19)
     {
-      atomic_fetch_add_explicit((v21 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v22 = *(this + 3);
-    if (v22)
+    v20 = *(this + 3);
+    if (v20)
     {
-      v23 = _Block_copy(v22);
+      v21 = _Block_copy(v20);
     }
   }
 
-  memset(__p, 170, sizeof(__p));
-  v24 = *(this + 2);
   *buf = 0;
   *&buf[8] = 0;
   AriSdk::MsgBase::getRawBytes();
-  memset(__p, 0, sizeof(__p));
+  v35 = 0;
+  v36 = 0;
+  __p = 0;
   if (*buf)
   {
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(__p, **buf, *(*buf + 8), *(*buf + 8) - **buf);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, **buf, *(*buf + 8), *(*buf + 8) - **buf);
   }
 
   if (*&buf[8])
@@ -4067,58 +4027,55 @@ void ice::SendMsgBaseProxy::send(ice::SendMsgBaseProxy *this)
     std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[8]);
   }
 
-  v25 = *(*this + 40);
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG);
-  v27 = __p[0];
-  if (v26)
+  v22 = *(*this + 40);
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+  v24 = __p;
+  if (v23)
   {
-    v33 = *(this + 8);
-    v34 = __p[1] - __p[0];
-    ctu::to_rle(__p[0], (__p[1] - __p[0]));
-    if (v37 >= 0)
+    v29 = *(this + 8);
+    v30 = v35 - __p;
+    ctu::to_rle(v32, __p, (v35 - __p));
+    if (v33 >= 0)
     {
-      v35 = &v36;
+      v31 = v32;
     }
 
     else
     {
-      v35 = v36;
+      v31 = v32[0];
     }
 
     *buf = 67109634;
-    *&buf[4] = (v33 >> 8) & 0x7F;
+    *&buf[4] = (v29 >> 8) & 0x7F;
     *&buf[8] = 2048;
-    *&buf[10] = v34;
-    v41 = 2080;
-    *v42 = v35;
-    _os_log_debug_impl(&dword_297986000, v25, OS_LOG_TYPE_DEBUG, "#D send: ClientID:%d Length:%zu [%s]", buf, 0x1Cu);
-    if (v37 < 0)
+    *&buf[10] = v30;
+    v39 = 2080;
+    *v40 = v31;
+    _os_log_debug_impl(&dword_297986000, v22, OS_LOG_TYPE_DEBUG, "#D send: ClientID:%d Length:%zu [%s]", buf, 0x1Cu);
+    if (v33 < 0)
     {
-      operator delete(v36);
+      operator delete(v32[0]);
     }
 
-    v27 = __p[0];
-    if (!__p[0])
+    v24 = __p;
+    if (!__p)
     {
       goto LABEL_32;
     }
   }
 
-  else if (!__p[0])
+  else if (!__p)
   {
     goto LABEL_32;
   }
 
-  __p[1] = v27;
-  operator delete(v27);
+  v35 = v24;
+  operator delete(v24);
 LABEL_32:
-  if (v15)
+  if (v13)
   {
-    _Block_release(v15);
+    _Block_release(v13);
   }
-
-LABEL_35:
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29798C944(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
@@ -4207,14 +4164,15 @@ void dispatch::async<anonymous namespace::callbackWithFailure(unsigned int,unsig
   std::shared_ptr<unsigned char>::shared_ptr[abi:ne200100]<unsigned char,void (*)(unsigned char *),0>(v4, EncodedBuf);
 }
 
-void sub_29798CB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, char a13)
+void sub_29798CB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a11)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a11);
   }
 
-  AriMsg::~AriMsg(&a13);
+  AriMsg::~AriMsg(va);
   _Unwind_Resume(a1);
 }
 
@@ -4290,7 +4248,7 @@ void anonymous namespace::wrapSendCallback(void **a1, uint64_t a2, std::__shared
 
 uint64_t ___ZN12_GLOBAL__N_116wrapSendCallbackENSt3__110shared_ptrIN3ice6ClientEEEN8dispatch5blockIU13block_pointerFiPhjEEEi_block_invoke(uint64_t a1, ctu *a2, uint64_t a3)
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 40);
   if (v4)
   {
@@ -4303,23 +4261,23 @@ uint64_t ___ZN12_GLOBAL__N_116wrapSendCallbackENSt3__110shared_ptrIN3ice6ClientE
       {
 LABEL_27:
         std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-        goto LABEL_28;
+        return 0;
       }
 
       v10 = *(v9 + 40);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         v23 = *(a1 + 56);
-        ctu::to_rle(a2, a3);
-        v24 = v35[3] >= 0 ? buf : *buf;
-        *v38 = 67109634;
-        *&v38[4] = (v23 >> 8) & 0x7F;
-        *&v38[8] = 1024;
-        *&v38[10] = a3;
-        *&v38[14] = 2080;
-        *&v39 = v24;
-        _os_log_debug_impl(&dword_297986000, v10, OS_LOG_TYPE_DEBUG, "#D recv: ClientID:%d Length:%u [%s]", v38, 0x18u);
-        if ((v35[3] & 0x80000000) != 0)
+        ctu::to_rle(buf, a2, a3);
+        v24 = v34[3] >= 0 ? buf : *buf;
+        *v37 = 67109634;
+        *&v37[4] = (v23 >> 8) & 0x7F;
+        *&v37[8] = 1024;
+        *&v37[10] = a3;
+        *&v37[14] = 2080;
+        *&v38 = v24;
+        _os_log_debug_impl(&dword_297986000, v10, OS_LOG_TYPE_DEBUG, "#D recv: ClientID:%d Length:%u [%s]", v37, 0x18u);
+        if ((v34[3] & 0x80000000) != 0)
         {
           operator delete(*buf);
         }
@@ -4337,16 +4295,16 @@ LABEL_27:
         v12 = 0;
       }
 
-      v42 = 0xAAAAAAAAAAAAAAAALL;
+      v41 = 0xAAAAAAAAAAAAAAAALL;
       *&v13 = 0xAAAAAAAAAAAAAAAALL;
       *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v40 = v13;
-      v41 = v13;
-      *v38 = v13;
       v39 = v13;
-      MEMORY[0x29C277050](v38, a2, a3);
-      v14 = HIDWORD(v42);
-      if (HIDWORD(v42))
+      v40 = v13;
+      *v37 = v13;
+      v38 = v13;
+      MEMORY[0x29C277050](v37, a2, a3);
+      v14 = HIDWORD(v41);
+      if (HIDWORD(v41))
       {
         BufGmid = AriMsg::GetBufGmid(a2, a3);
         v16 = *(v9 + 40);
@@ -4357,10 +4315,10 @@ LABEL_27:
           *&buf[4] = BufGmid >> 26;
           *&buf[8] = 1024;
           *&buf[10] = (BufGmid >> 15) & 0x3FF;
-          *v34 = 1024;
-          *&v34[2] = v14;
-          *v35 = 2080;
-          *&v35[2] = v17;
+          *v33 = 1024;
+          *&v33[2] = v14;
+          *v34 = 2080;
+          *&v34[2] = v17;
           _os_log_impl(&dword_297986000, v16, OS_LOG_TYPE_DEFAULT, "#N Could not construct response (%u, 0x%x) error=%d (%s)", buf, 0x1Eu);
         }
 
@@ -4371,10 +4329,10 @@ LABEL_27:
         }
       }
 
-      if (!AriMsg::isValid(v38))
+      if (!AriMsg::isValid(v37))
       {
-        v32 = 0xAAAAAAAAAAAAAAAALL;
-        if (AriMsg::unparam(v38, 1, &v32))
+        v31 = 0xAAAAAAAAAAAAAAAALL;
+        if (AriMsg::unparam(v37, 1, &v31))
         {
           v19 = *(v9 + 40);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
@@ -4390,23 +4348,23 @@ LABEL_25:
 
         else
         {
-          v25 = v32;
+          v25 = v31;
           v26 = *(v9 + 40);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             v27 = Ari::MsgNameById(v25);
-            v28 = HIDWORD(v32);
+            v28 = HIDWORD(v31);
             v29 = asString();
             *buf = 136316162;
             *&buf[4] = v27;
             *&buf[12] = 1024;
-            *v34 = v25 >> 26;
+            *v33 = v25 >> 26;
+            *&v33[4] = 1024;
+            *v34 = (v25 >> 15) & 0x3FF;
             *&v34[4] = 1024;
-            *v35 = (v25 >> 15) & 0x3FF;
-            *&v35[4] = 1024;
-            *&v35[6] = v28;
-            v36 = 2080;
-            v37 = v29;
+            *&v34[6] = v28;
+            v35 = 2080;
+            v36 = v29;
             v20 = "#N Got NACK for %s (%u, 0x%x) error=%d error description: %s";
             v21 = v26;
             v22 = 40;
@@ -4416,29 +4374,27 @@ LABEL_25:
       }
 
       (*(v12 + 2))(v12, a2, a3);
-      AriMsg::~AriMsg(v38);
+      AriMsg::~AriMsg(v37);
       _Block_release(v12);
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
       goto LABEL_27;
     }
   }
 
-LABEL_28:
-  v30 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-void sub_29798D1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29798D1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   AriMsg::~AriMsg(va);
-  if (v10)
+  if (v17)
   {
-    _Block_release(v10);
+    _Block_release(v17);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   _Unwind_Resume(a1);
 }
 
@@ -4478,7 +4434,7 @@ void __destroy_helper_block_e8_32c36_ZTSNSt3__18weak_ptrIN3ice6ClientEEE48c45_ZT
   }
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {

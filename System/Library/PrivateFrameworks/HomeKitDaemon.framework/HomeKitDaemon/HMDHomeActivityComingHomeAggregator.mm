@@ -26,10 +26,9 @@
 
 void __50__HMDHomeActivityComingHomeAggregator_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_285925;
-  logCategory__hmf_once_v10_285925 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_285925;
+  logCategory__hmf_once_v10_285925 = v0;
 }
 
 - (BOOL)isStateEquivalentForExistingReport:(id)report newReport:(id)newReport
@@ -150,7 +149,7 @@ void __50__HMDHomeActivityComingHomeAggregator_logCategory__block_invoke()
 
 id __59__HMDHomeActivityComingHomeAggregator_nextRefreshTimestamp__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -201,11 +200,11 @@ id __59__HMDHomeActivityComingHomeAggregator_nextRefreshTimestamp__block_invoke(
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         HMFGetLogIdentifier();
-        v27 = v35 = v24;
+        v27 = v34 = v24;
         *buf = 138543618;
-        v37 = v27;
-        v38 = 2112;
-        v39 = v23;
+        v36 = v27;
+        v37 = 2112;
+        v38 = v23;
         v28 = "%{public}@ETA expires at %@";
         goto LABEL_12;
       }
@@ -223,16 +222,16 @@ id __59__HMDHomeActivityComingHomeAggregator_nextRefreshTimestamp__block_invoke(
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         HMFGetLogIdentifier();
-        v27 = v35 = v24;
+        v27 = v34 = v24;
         *buf = 138543618;
-        v37 = v27;
-        v38 = 2112;
-        v39 = v23;
+        v36 = v27;
+        v37 = 2112;
+        v38 = v23;
         v28 = "%{public}@ETA is outside required range, suppressing expires at %@";
 LABEL_12:
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEBUG, v28, buf, 0x16u);
 
-        v24 = v35;
+        v24 = v34;
       }
     }
 
@@ -248,14 +247,12 @@ LABEL_14:
     v12 = [v16 earlierDate:v32];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (HMDHomeActivityComingHomeAggregatorState)computedState
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -272,36 +269,36 @@ LABEL_14:
 
   objc_autoreleasePoolPop(v3);
   userActivityMap2 = [(HMDHomeActivityStateAggregator *)selfCopy userActivityMap];
-  v9 = [userActivityMap2 copy];
+  v9 = objc_msgSend_copy(userActivityMap2);
 
   if ([v9 count])
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 0;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
+    v17 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v20 = __Block_byref_object_copy__285954;
-    v21 = __Block_byref_object_dispose__285955;
+    v19 = __Block_byref_object_copy__285954;
+    v20 = __Block_byref_object_dispose__285955;
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __52__HMDHomeActivityComingHomeAggregator_computedState__block_invoke;
-    v14[3] = &unk_27868A7F0;
-    v14[4] = selfCopy;
-    v14[5] = &v15;
-    v14[6] = buf;
-    [v9 na_each:v14];
-    if ([(HMDHomeActivityComingHomeAggregator *)selfCopy shouldSuppressIsComingHome:*(v16 + 24) withStateEnd:*(*&buf[8] + 40)])
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __52__HMDHomeActivityComingHomeAggregator_computedState__block_invoke;
+    v13[3] = &unk_27868A7F0;
+    v13[4] = selfCopy;
+    v13[5] = &v14;
+    v13[6] = buf;
+    [v9 na_each:v13];
+    if ([(HMDHomeActivityComingHomeAggregator *)selfCopy shouldSuppressIsComingHome:*(v15 + 24) withStateEnd:*(*&buf[8] + 40)])
     {
-      *(v16 + 24) = 0;
+      *(v15 + 24) = 0;
       v10 = *(*&buf[8] + 40);
       *(*&buf[8] + 40) = 0;
     }
 
-    if (*(v16 + 24) == 1)
+    if (*(v15 + 24) == 1)
     {
       [HMDHomeActivityComingHomeAggregatorState comingHomeWithEstimatedEndDate:*(*&buf[8] + 40)];
     }
@@ -313,7 +310,7 @@ LABEL_14:
     v11 = ;
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v14, 8);
   }
 
   else
@@ -321,14 +318,12 @@ LABEL_14:
     v11 = +[HMDHomeActivityComingHomeAggregatorState notComingHome];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __52__HMDHomeActivityComingHomeAggregator_computedState__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v6 state] == 2)
@@ -341,11 +336,11 @@ void __52__HMDHomeActivityComingHomeAggregator_computedState__block_invoke(uint6
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         v10 = HMFGetLogIdentifier();
-        v17 = 138543618;
-        v18 = v10;
-        v19 = 2112;
-        v20 = v6;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring expired report %@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v10;
+        v18 = 2112;
+        v19 = v6;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring expired report %@", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -362,14 +357,12 @@ void __52__HMDHomeActivityComingHomeAggregator_computedState__block_invoke(uint6
       *(v14 + 40) = v13;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldSuppressIsComingHome:(BOOL)home withStateEnd:(id)end
 {
   LODWORD(v4) = home;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   endCopy = end;
   if (v4)
   {
@@ -383,11 +376,11 @@ void __52__HMDHomeActivityComingHomeAggregator_computedState__block_invoke(uint6
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = HMFGetLogIdentifier();
-        v14 = 138543618;
-        v15 = v11;
-        v16 = 2048;
-        v17 = v8;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Suppressing Coming Home because ETA is outside of required range by %lf sec", &v14, 0x16u);
+        v13 = 138543618;
+        v14 = v11;
+        v15 = 2048;
+        v16 = v8;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Suppressing Coming Home because ETA is outside of required range by %lf sec", &v13, 0x16u);
       }
 
       objc_autoreleasePoolPop(v4);
@@ -400,7 +393,6 @@ void __52__HMDHomeActivityComingHomeAggregator_computedState__block_invoke(uint6
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

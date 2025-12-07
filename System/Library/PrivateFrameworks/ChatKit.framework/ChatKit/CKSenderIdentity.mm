@@ -46,15 +46,16 @@
       v9 = *v42;
       do
       {
-        for (i = 0; i != v8; ++i)
+        v10 = 0;
+        do
         {
           if (*v42 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v41 + 1) + 8 * i);
-          v12 = CKFrameworkBundle();
+          v11 = *(*(&v41 + 1) + 8 * v10);
+          v12 = CKFrameworkBundle(v7);
           label = [v11 label];
           v14 = [v12 localizedStringForKey:label value:&stru_1F04268F8 table:@"ChatKit"];
 
@@ -81,12 +82,16 @@
           }
 
           [v19 addObject:v17];
+
+          ++v10;
         }
 
-        v8 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+        while (v8 != v10);
+        v7 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v8 = v7;
       }
 
-      while (v8);
+      while (v7);
     }
 
     v23 = objc_alloc_init(MEMORY[0x1E695DF70]);

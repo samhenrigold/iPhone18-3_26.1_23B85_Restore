@@ -9,7 +9,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   cleanupTimer = [(HMDCameraSignificantEventNotificationDebouncer *)self cleanupTimer];
 
@@ -18,12 +18,12 @@
     os_unfair_lock_lock_with_options();
     v10 = MEMORY[0x277CBEB38];
     lastDateNotifiedByPersonIdentifier = [(HMDCameraSignificantEventNotificationDebouncer *)self lastDateNotifiedByPersonIdentifier];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_invoke;
-    v16[3] = &unk_278680E00;
-    v16[4] = self;
-    v12 = [lastDateNotifiedByPersonIdentifier na_filter:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_invoke;
+    v15[3] = &unk_278680E00;
+    v15[4] = self;
+    v12 = [lastDateNotifiedByPersonIdentifier na_filter:v15];
     v13 = [v10 dictionaryWithDictionary:v12];
     lastDateNotifiedByPersonIdentifier = self->_lastDateNotifiedByPersonIdentifier;
     self->_lastDateNotifiedByPersonIdentifier = v13;
@@ -40,16 +40,14 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v9;
-      v19 = 2112;
-      v20 = fireCopy;
+      v17 = v9;
+      v18 = 2112;
+      v19 = fireCopy;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unrecognized timer: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -62,7 +60,7 @@ BOOL __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_i
 
 - (void)trackCameraSignificantEvent:(id)event shouldNotify:(BOOL *)notify
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([eventCopy reason] == 2)
   {
@@ -79,9 +77,9 @@ BOOL __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_i
       {
         v31 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v31;
-        v49 = 2112;
-        v50 = eventCopy;
+        v47 = v31;
+        v48 = 2112;
+        v49 = eventCopy;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Significant Event: %@ did not have a recognized person, should notify", buf, 0x16u);
       }
 
@@ -94,15 +92,15 @@ BOOL __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_i
       goto LABEL_25;
     }
 
-    v45 = 8;
+    v44 = 8;
     os_unfair_lock_lock_with_options();
     lastDateNotifiedByPersonIdentifier = [(HMDCameraSignificantEventNotificationDebouncer *)self lastDateNotifiedByPersonIdentifier];
-    v46 = [lastDateNotifiedByPersonIdentifier objectForKeyedSubscript:uUID];
+    v45 = [lastDateNotifiedByPersonIdentifier objectForKeyedSubscript:uUID];
 
-    if (v46)
+    if (v45)
     {
       v11 = [MEMORY[0x277CBEAA8] now];
-      [v11 timeIntervalSinceDate:v46];
+      [v11 timeIntervalSinceDate:v45];
       v13 = v12;
 
       [(HMDCameraSignificantEventNotificationDebouncer *)self distinctPersonDebounceTimeInterval];
@@ -117,17 +115,17 @@ BOOL __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_i
         v21 = v20;
         v22 = HMFBooleanToString();
         *buf = 138544642;
-        v48 = v19;
-        v49 = 2112;
-        v50 = v46;
-        v51 = 2112;
-        v52 = uUID;
-        v53 = 2048;
-        v54 = v13;
-        v55 = 2048;
-        v56 = v21;
-        v57 = 2112;
-        v58 = v22;
+        v47 = v19;
+        v48 = 2112;
+        v49 = v45;
+        v50 = 2112;
+        v51 = uUID;
+        v52 = 2048;
+        v53 = v13;
+        v54 = 2048;
+        v55 = v21;
+        v56 = 2112;
+        v57 = v22;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Last notification date: %@ for personIdentifier: %@, time interval: %.2f seconds, debounce interval: %.2f seconds, shouldNotify: %@", buf, 0x3Eu);
       }
 
@@ -153,9 +151,9 @@ BOOL __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_i
       {
         v35 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v35;
-        v49 = 2112;
-        v50 = uUID;
+        v47 = v35;
+        v48 = 2112;
+        v49 = uUID;
         _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Debouncer has no record of previous notification for personIdentifier: %@", buf, 0x16u);
       }
 
@@ -175,11 +173,11 @@ BOOL __63__HMDCameraSignificantEventNotificationDebouncer_timerDidFire___block_i
       lastDateNotifiedByPersonIdentifier3 = [(HMDCameraSignificantEventNotificationDebouncer *)selfCopy4 lastDateNotifiedByPersonIdentifier];
       v43 = [lastDateNotifiedByPersonIdentifier3 objectForKeyedSubscript:uUID];
       *buf = 138543874;
-      v48 = v41;
-      v49 = 2112;
-      v50 = v43;
-      v51 = 2112;
-      v52 = uUID;
+      v47 = v41;
+      v48 = 2112;
+      v49 = v43;
+      v50 = 2112;
+      v51 = uUID;
       _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_INFO, "%{public}@shouldNotify, tracking last notification date: %@ for personIdentifier: %@", buf, 0x20u);
     }
 
@@ -194,7 +192,7 @@ LABEL_23:
     *notify = v23;
 LABEL_24:
 
-    os_unfair_lock_unlock((self + v45));
+    os_unfair_lock_unlock((self + v44));
 LABEL_25:
 
     goto LABEL_26;
@@ -207,9 +205,9 @@ LABEL_25:
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v48 = v27;
-    v49 = 2112;
-    v50 = eventCopy;
+    v47 = v27;
+    v48 = 2112;
+    v49 = eventCopy;
     _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Significant Event: %@ is not for a person, should notify", buf, 0x16u);
   }
 
@@ -220,8 +218,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraSignificantEventNotificationDebouncer)initWithLogIdentifier:(id)identifier
@@ -270,10 +266,9 @@ LABEL_26:
 
 void __61__HMDCameraSignificantEventNotificationDebouncer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_217012;
-  logCategory__hmf_once_v9_217012 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_217012;
+  logCategory__hmf_once_v9_217012 = v0;
 }
 
 @end

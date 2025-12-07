@@ -20,14 +20,13 @@
   height = fits.height;
   width = fits.width;
   selfCopy = self;
-  sub_1D7C75C44(selfCopy, width, height);
-  v7 = v6;
-  v9 = v8;
+  v6 = sub_1D7C75C44(selfCopy, width, height);
+  v8 = v7;
 
-  v10 = v7;
-  v11 = v9;
-  result.height = v11;
-  result.width = v10;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 

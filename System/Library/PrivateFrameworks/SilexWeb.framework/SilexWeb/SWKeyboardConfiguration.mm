@@ -2,11 +2,45 @@
 - (BOOL)isEqual:(id)equal;
 - (CGRect)inputAccessoryViewFrame;
 - (CGRect)keyboardFrame;
+- (SWKeyboardConfiguration)initWithKeyboardFrame:(CGRect)frame inputAccessoryViewFrame:(CGRect)viewFrame isKeyboardSplit:(BOOL)split isKeyboardFloating:(BOOL)floating isHardwareKeyboard:(BOOL)keyboard isKeyboardVisible:(BOOL)visible isPencilInputExpected:(BOOL)expected;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 @end
 
 @implementation SWKeyboardConfiguration
+
+- (SWKeyboardConfiguration)initWithKeyboardFrame:(CGRect)frame inputAccessoryViewFrame:(CGRect)viewFrame isKeyboardSplit:(BOOL)split isKeyboardFloating:(BOOL)floating isHardwareKeyboard:(BOOL)keyboard isKeyboardVisible:(BOOL)visible isPencilInputExpected:(BOOL)expected
+{
+  expectedCopy = expected;
+  visibleCopy = visible;
+  keyboardCopy = keyboard;
+  floatingCopy = floating;
+  splitCopy = split;
+  height = viewFrame.size.height;
+  width = viewFrame.size.width;
+  y = viewFrame.origin.y;
+  x = viewFrame.origin.x;
+  v18 = frame.size.height;
+  v19 = frame.size.width;
+  v20 = frame.origin.y;
+  v21 = frame.origin.x;
+  v25.receiver = self;
+  v25.super_class = SWKeyboardConfiguration;
+  v22 = [(SWKeyboardConfiguration *)&v25 init];
+  v23 = v22;
+  if (v22)
+  {
+    [(SWKeyboardConfiguration *)v22 setKeyboardFrame:v21, v20, v19, v18];
+    [(SWKeyboardConfiguration *)v23 setInputAccessoryViewFrame:x, y, width, height];
+    [(SWKeyboardConfiguration *)v23 setIsKeyboardSplit:splitCopy];
+    [(SWKeyboardConfiguration *)v23 setIsKeyboardFloating:floatingCopy];
+    [(SWKeyboardConfiguration *)v23 setIsHardwareKeyboard:keyboardCopy];
+    [(SWKeyboardConfiguration *)v23 setIsKeyboardVisible:visibleCopy];
+    [(SWKeyboardConfiguration *)v23 setIsPencilInputExpected:expectedCopy];
+  }
+
+  return v23;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {
@@ -35,51 +69,7 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (!v5)
-    {
-      goto LABEL_9;
-    }
-
-    [(SWKeyboardConfiguration *)self keyboardFrame];
-    v7 = v6;
-    v9 = v8;
-    v11 = v10;
-    v13 = v12;
-    [v5 keyboardFrame];
-    v39.origin.x = v14;
-    v39.origin.y = v15;
-    v39.size.width = v16;
-    v39.size.height = v17;
-    v37.origin.x = v7;
-    v37.origin.y = v9;
-    v37.size.width = v11;
-    v37.size.height = v13;
-    if (!CGRectEqualToRect(v37, v39))
-    {
-      goto LABEL_9;
-    }
-
-    [(SWKeyboardConfiguration *)self inputAccessoryViewFrame];
-    v19 = v18;
-    v21 = v20;
-    v23 = v22;
-    v25 = v24;
-    [v5 inputAccessoryViewFrame];
-    v40.origin.x = v26;
-    v40.origin.y = v27;
-    v40.size.width = v28;
-    v40.size.height = v29;
-    v38.origin.x = v19;
-    v38.origin.y = v21;
-    v38.size.width = v23;
-    v38.size.height = v25;
-    if (!CGRectEqualToRect(v38, v40))
-    {
-      goto LABEL_9;
-    }
-
-    isKeyboardSplit = [(SWKeyboardConfiguration *)self isKeyboardSplit];
-    if (isKeyboardSplit == [v5 isKeyboardSplit] && (v31 = -[SWKeyboardConfiguration isKeyboardFloating](self, "isKeyboardFloating"), v31 == objc_msgSend(v5, "isKeyboardFloating")) && (v32 = -[SWKeyboardConfiguration isHardwareKeyboard](self, "isHardwareKeyboard"), v32 == objc_msgSend(v5, "isHardwareKeyboard")) && (v33 = -[SWKeyboardConfiguration isKeyboardVisible](self, "isKeyboardVisible"), v33 == objc_msgSend(v5, "isKeyboardVisible")))
+    if (v5 && (-[SWKeyboardConfiguration keyboardFrame](self, "keyboardFrame"), v7 = v6, v9 = v8, v11 = v10, v13 = v12, [v5 keyboardFrame], v39.origin.x = v14, v39.origin.y = v15, v39.size.width = v16, v39.size.height = v17, v37.origin.x = v7, v37.origin.y = v9, v37.size.width = v11, v37.size.height = v13, CGRectEqualToRect(v37, v39)) && (-[SWKeyboardConfiguration inputAccessoryViewFrame](self, "inputAccessoryViewFrame"), v19 = v18, v21 = v20, v23 = v22, v25 = v24, objc_msgSend(v5, "inputAccessoryViewFrame"), v40.origin.x = v26, v40.origin.y = v27, v40.size.width = v28, v40.size.height = v29, v38.origin.x = v19, v38.origin.y = v21, v38.size.width = v23, v38.size.height = v25, CGRectEqualToRect(v38, v40)) && (v30 = -[SWKeyboardConfiguration isKeyboardSplit](self, "isKeyboardSplit"), v30 == objc_msgSend(v5, "isKeyboardSplit")) && (v31 = -[SWKeyboardConfiguration isKeyboardFloating](self, "isKeyboardFloating"), v31 == objc_msgSend(v5, "isKeyboardFloating")) && (v32 = -[SWKeyboardConfiguration isHardwareKeyboard](self, "isHardwareKeyboard"), v32 == objc_msgSend(v5, "isHardwareKeyboard")) && (v33 = -[SWKeyboardConfiguration isKeyboardVisible](self, "isKeyboardVisible"), v33 == objc_msgSend(v5, "isKeyboardVisible")))
     {
       isPencilInputExpected = [(SWKeyboardConfiguration *)self isPencilInputExpected];
       v34 = isPencilInputExpected ^ [v5 isPencilInputExpected] ^ 1;
@@ -87,7 +77,6 @@
 
     else
     {
-LABEL_9:
       LOBYTE(v34) = 0;
     }
   }

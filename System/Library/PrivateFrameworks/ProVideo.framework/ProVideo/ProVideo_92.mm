@@ -1206,24 +1206,24 @@ uint64_t OZTextureSource::OZTextureSource(uint64_t a1, const PCSharedCount *a2, 
 
 void OZTextureSource::makeTexture(OZTextureSource *this, LiRenderParameters **a2)
 {
-  (*(*this + 16))(&v6);
-  v5[0] = 0;
-  v5[1] = vmovn_s64(vcvtq_s64_f64(*(this + 168)));
+  (*(*this + 16))(&v7);
+  v6[0] = 0;
+  v6[1] = vmovn_s64(vcvtq_s64_f64(*(this + 168)));
   HeliumRenderer = LiAgent::getHeliumRenderer(a2);
-  PGHelium::renderNodeToMetalTexture(HeliumRenderer, &v6, v5, *(this + 46), *(this + 24), (this + 200));
+  PGHelium::renderNodeToMetalTexture(HeliumRenderer, &v7, v6, *(this + 46), *(this + 24), (this + 200));
 }
 
-void sub_2601B4C44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_2601B4C44(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    (*(*a12 + 24))(a12);
+    (*(*a12 + 24))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void OZTextureSource::getHelium(OZTextureSource *this@<X0>, LiAgent *a2@<X1>, HGXForm **a3@<X8>)
+void OZTextureSource::getHelium(OZTextureSource *this@<X0>, LiAgent *a2@<X1>, uint64_t *a3@<X8>)
 {
   v5 = *(a2 + 6);
   v41 = *v5;
@@ -1289,7 +1289,7 @@ void OZTextureSource::getHelium(OZTextureSource *this@<X0>, LiAgent *a2@<X1>, HG
   v25 = v34;
   v26 = v35;
   v20 = vuzp1q_s32(vcvtq_s64_f64(*(this + 152)), vcvtq_s64_f64(*(this + 168)));
-  HGNodeForImageSourceTransformPair(v40, &v21, &v20, a3);
+  HGNodeForImageSourceTransformPair(a3, v40, &v21, &v20);
   PCSharedCount::~PCSharedCount(&v22);
   PCSharedCount::~PCSharedCount(&v31.u64[1]);
   LiAgent::~LiAgent(v40);
@@ -1598,7 +1598,7 @@ void non-virtual thunk toOZChanFootageRef::~OZChanFootageRef(OZChanFootageRef *t
   JUMPOUT(0x2666E9F00);
 }
 
-void OZChanFootageRef::~OZChanFootageRef(OZChanFootageRef *this)
+void OZChanFootageRef::~OZChanFootageRef(OZChannel *this)
 {
   OZChanSceneNodeRef::~OZChanSceneNodeRef(this);
 
@@ -1687,7 +1687,7 @@ void OZ3DEnginePhysicsBehavior::~OZ3DEnginePhysicsBehavior(OZ3DEnginePhysicsBeha
   *(this + 6) = &unk_2872A1108;
   *(this + 42) = &unk_2872A1160;
   *(this + 67) = &unk_2872A1188;
-  OZChannelEnum::~OZChannelEnum((this + 736));
+  OZChannelEnum::~OZChannelEnum(this + 92);
   *(this + 67) = &unk_2872018B0;
   PCMutex::~PCMutex((this + 664));
   PCSharedMutex::~PCSharedMutex((this + 544));
@@ -1734,7 +1734,7 @@ void non-virtual thunk toOZ3DEnginePhysicsBehavior::~OZ3DEnginePhysicsBehavior(O
 
 uint64_t OZ3DEnginePhysicsBehavior::operator=(uint64_t a1, const void *a2)
 {
-  OZChannelBehavior::operator=();
+  OZChannelBehavior::operator=(a1, a2);
   if (!v4)
   {
     __cxa_bad_cast();
@@ -1743,26 +1743,22 @@ uint64_t OZ3DEnginePhysicsBehavior::operator=(uint64_t a1, const void *a2)
   return OZChannelBase::operator=(a1 + 736, v4 + 736);
 }
 
-OZChannelBehavior *OZ3DEnginePhysicsBehavior::didAddToNode(OZChannelBehavior *this, OZSceneNode *lpsrc)
+void OZ3DEnginePhysicsBehavior::didAddToNode(OZ3DEnginePhysicsBehavior *this, OZSceneNode *lpsrc)
 {
   if (lpsrc)
   {
-    v3 = this;
-    if (this)
     {
-      OZChannelBehavior::didAddToNode(v3, lpsrc);
+      OZChannelBehavior::didAddToNode(this, lpsrc);
       operator new();
     }
   }
-
-  return this;
 }
 
-uint64_t OZ3DEnginePhysicsBehavior::getLockDependencies(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t OZ3DEnginePhysicsBehavior::getLockDependencies(uint64_t result, uint64_t a2, uint64_t a3, uint64_t **a4)
 {
   v6 = result;
   v7 = (result + 536);
-  for (i = *(a4 + 8); i; i = *i)
+  for (i = a4[1]; i; i = *i)
   {
     v9 = i[4];
     if (v7 >= v9)
@@ -1777,7 +1773,7 @@ uint64_t OZ3DEnginePhysicsBehavior::getLockDependencies(uint64_t result, uint64_
   }
 
   v11 = (result + 536);
-  std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(a4, &v11);
+  std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(a4, &v11, &v11);
   v10 = (*(*v6 + 336))(v6);
   OZLocking::addLockDependenciesForDependents(v7, v10, a3, a4);
   v11 = v7;
@@ -1807,9 +1803,9 @@ uint64_t non-virtual thunk toOZ3DEnginePhysicsBehavior::getLockingGroups(OZ3DEng
   return result;
 }
 
-void OZ3DEnginePhysicsBehaviorNode::~OZ3DEnginePhysicsBehaviorNode(OZ3DEnginePhysicsBehaviorNode *this)
+void OZ3DEnginePhysicsBehaviorNode::~OZ3DEnginePhysicsBehaviorNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -1935,12 +1931,12 @@ uint64_t OZLockingElement::getLockingGroups(OZLockingElement *this)
   return result;
 }
 
-void sub_2601B7368(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, PCString a11)
+void sub_2601B7368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCString a10, PCString a11)
 {
   v15 = *(v11 + 19104);
   if (v15)
   {
-    (*(*v15 + 24))(v15);
+    (*(*v15 + 24))(v15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::__tree<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>>>::destroy(v11 + 19080, *(v11 + 19088));
@@ -2282,15 +2278,15 @@ void OZMoShape::reparentChannels(OZMoShape *this, OZChannelFolder *a2, int a3)
   }
 }
 
-void *OZMoShape::completeLoading(OZMoShape *this, double a2)
+OZScene *OZMoShape::completeLoading(OZMoShape *this, double a2)
 {
   if (*(this + 2360))
   {
     if (a2 < 3.0)
     {
-      (*(*(*(this + 2389) + 200) + 1128))(&v35);
-      var0 = v35.var0;
-      OZMoShape::initPPaintTime(this, &var0, &v35);
+      (*(*(*(this + 2389) + 200) + 1128))(&v36);
+      var0 = v36.var0;
+      OZMoShape::initPPaintTime(this, &var0, &v36);
       v3 = (*(*(*(this + 2389) + 200) + 272))();
       OZScene::registerNode(v3, *(this + 2360));
       v4 = (*(*(*(this + 2389) + 200) + 272))();
@@ -2301,16 +2297,16 @@ void *OZMoShape::completeLoading(OZMoShape *this, double a2)
     result = (*(*(*(this + 2389) + 200) + 272))();
     if (result)
     {
-      v21 = (*(*(*(this + 2389) + 200) + 272))();
-      result = OZScene::getNode(v21, *(*(this + 2360) + 80));
+      v22 = (*(*(*(this + 2389) + 200) + 272))();
+      result = OZScene::getNode(v22, *(*(this + 2360) + 80));
       if (!result)
       {
-        v22 = (*(*(*(this + 2389) + 200) + 272))();
-        OZScene::registerNode(v22, *(this + 2360));
         v23 = (*(*(*(this + 2389) + 200) + 272))();
-        v24 = *(this + 2360);
+        OZScene::registerNode(v23, *(this + 2360));
+        v24 = (*(*(*(this + 2389) + 200) + 272))();
+        v25 = *(this + 2360);
 
-        return OZScene::addAllDependencies(v23, v24);
+        return OZScene::addAllDependencies(v24, v25);
       }
     }
   }
@@ -2333,45 +2329,45 @@ void *OZMoShape::completeLoading(OZMoShape *this, double a2)
       goto LABEL_8;
     }
 
-    v7 = OZRenderState::OZRenderState(&v35);
-    v8 = PCColorSpaceCache::cgRec709Linear(v7);
+    OZRenderState::OZRenderState(&v36);
+    v9 = PCColorSpaceCache::cgRec709Linear(v7, v8);
     __asm { FMOV            V0.2D, #1.0 }
 
-    v31 = 0;
     v32 = 0;
-    v30 = 0;
-    PCColorSpaceHandle::PCColorSpaceHandle(&v33, v8);
-    var0 = v35.var0;
-    var10 = v35.var10;
-    var16 = v35.var16;
-    v28 = *&v35.var1;
-    v34 = 1065353216;
-    v29 = 1;
+    v33 = 0;
+    v31 = 0;
+    PCColorSpaceHandle::PCColorSpaceHandle(&v34, v9);
+    var0 = v36.var0;
+    var10 = v36.var10;
+    var16 = v36.var16;
+    v29 = *&v36.var1;
+    v35 = 1065353216;
+    v30 = 1;
     shouldDrawParticles = OZShape::shouldDrawParticles(this, &var0);
-    result = PCCFRef<CGColorSpace *>::~PCCFRef(&v33);
+    result = PCCFRef<CGColorSpace *>::~PCCFRef(&v34);
     if (shouldDrawParticles)
     {
 LABEL_8:
-      v16 = theApp;
-      *&v35.var0.var0 = xmmword_26084FA50;
+      v17 = theApp;
+      *&v36.var0.var0 = xmmword_26084FA50;
       PCURL::PCURL(&var0, @"Emitter Name");
-      OZChannelBase::getNextUniqueID(v17);
-      *(this + 2360) = OZApplication::createSceneNode(v16, &v35);
+      OZChannelBase::getNextUniqueID(v18);
+      *(this + 2360) = OZApplication::createSceneNode(v17, &v36);
       PCString::~PCString(&var0);
-      v18 = (*(**(this + 2360) + 640))();
-      OZChannelFolder::push_front((this + 18728), v18);
-      (*(**(this + 2360) + 256))();
       v19 = (*(**(this + 2360) + 640))();
-      OZChannelBase::setFlag(v19, 8, 0);
-      v20 = *(this + 2360);
-      if (v20)
+      OZChannelFolder::push_front((this + 18728), v19);
+      (*(**(this + 2360) + 256))();
+      v20 = (*(**(this + 2360) + 640))();
+      OZChannelBase::setFlag(v20, 8, 0);
+      v21 = *(this + 2360);
+      if (v21)
       {
       }
 
-      *(this + 2361) = v20;
-      (*(*(*(this + 2389) + 200) + 1128))(&v35);
-      var0 = v35.var0;
-      OZMoShape::initPPaintTime(this, &var0, &v35);
+      *(this + 2361) = v21;
+      (*(*(*(this + 2389) + 200) + 1128))(&v36);
+      var0 = v36.var0;
+      OZMoShape::initPPaintTime(this, &var0, &v36);
       OZScene::registerNode(v6, *(this + 2360));
       v5 = *(this + 2360);
       v4 = v6;
@@ -2382,23 +2378,23 @@ LABEL_8:
   return result;
 }
 
-void OZMoShape::validateChannels(OZMoShape *this, const CMTime *a2, OZShapeRenderParams *a3, BOOL a4, int a5)
+void OZMoShape::validateChannels(OZMoShape *this, const CMTime *a2, OZShapeRenderParams *a3, uint64_t a4, uint64_t a5)
 {
   OZChannel::getValueAsDouble((*(this + 2389) + 6880), a2, 0.0);
-  if (*(a3 + 20) != v9 && a5 != 0)
+  if (*(a3 + 20) != v10 && a5 != 0)
   {
-    *(a3 + 20) = v9;
+    *(a3 + 20) = v10;
   }
 
-  v11 = (*(**(this + 2389) + 384))(*(this + 2389));
-  if (*(a3 + 240) != v11 && a5 != 0)
+  v12 = (*(**(this + 2389) + 384))(*(this + 2389));
+  if (*(a3 + 240) != v12 && a5 != 0)
   {
-    *(a3 + 240) = v11;
+    *(a3 + 240) = v12;
     *(a3 + 596) = 257;
     *(a3 + 1194) = 1;
   }
 
-  OZShape::validateChannels(this, a2, a3);
+  OZShape::validateChannels(this, a2, a3, a4, a5);
 }
 
 void OZMoShape::getHelium(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, HGBitmapLoader **a6@<X8>)
@@ -2407,66 +2403,66 @@ void OZMoShape::getHelium(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, 
   v12 = v11 == 1;
   HostApplicationDelegate = OZApplication::getHostApplicationDelegate(theApp);
   v14 = OZHostApplicationDelegateHandler::wantsToCacheTopLevelGroupRender(HostApplicationDelegate);
-  v59 = *(a2 + 56);
-  PCWorkingColorVector::PCWorkingColorVector(&v65);
+  v66 = *(a2 + 56);
+  PCWorkingColorVector::PCWorkingColorVector(&v72);
   v15 = Li3DEngineScene::sceneManager(*(a1 + 19112));
-  OZLockingGroup::WriteSentry::WriteSentry(&v62, v15);
-  OZMoShape::calcHashkey(a1);
-  v65 = v63;
-  OZLockingGroup::WriteSentry::~WriteSentry(&v62);
+  OZLockingGroup::WriteSentry::WriteSentry(&v69, v15);
+  OZMoShape::calcHashkey(a1, a2, v16, v17, v18);
+  v72 = v70;
+  OZLockingGroup::WriteSentry::~WriteSentry(&v69);
   PCSharedMutex::lock_shared((a1 + 18944));
-  if ((v14 & 1) != 0 || (*(a2 + 24) & 1) != 0 || !*&vorr_s8(*&v65.var0, *&vextq_s8(v65, v65, 8uLL)))
+  if ((v14 & 1) != 0 || (*(a2 + 24) & 1) != 0 || !*&vorr_s8(*v72.i8, *&vextq_s8(v72, v72, 8uLL)))
   {
-    v17 = 0;
-    v16 = 1;
+    v20 = 0;
+    v19 = 1;
   }
 
   else
   {
-    v16 = vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v65, *(a1 + 19048)))));
-    v17 = v16 ^ 1;
-    if ((v16 & 1) == 0 && v11 == 1)
+    v19 = vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v72, *(a1 + 19048)))));
+    v20 = v19 ^ 1;
+    if ((v19 & 1) == 0 && v11 == 1)
     {
       if ((*(a2 + 25) & 1) == 0)
       {
-        MetalContext = HGGPURenderer::GetMetalContext(v59);
-        v19 = OZMetalUtils::registryID(*(*(MetalContext + 16) + 16));
-        v20 = *(a1 + 19088);
-        if (v20)
+        MetalContext = HGGPURenderer::GetMetalContext(v66);
+        v22 = OZMetalUtils::registryID(*(*(MetalContext + 16) + 16));
+        v23 = *(a1 + 19088);
+        if (v23)
         {
-          v21 = a1 + 19088;
+          v24 = a1 + 19088;
           do
           {
-            v22 = *(v20 + 32);
-            v23 = v22 >= v19;
-            v24 = v22 < v19;
-            if (v23)
+            v25 = *(v23 + 32);
+            v26 = v25 >= v22;
+            v27 = v25 < v22;
+            if (v26)
             {
-              v21 = v20;
+              v24 = v23;
             }
 
-            v20 = *(v20 + 8 * v24);
+            v23 = *(v23 + 8 * v27);
           }
 
-          while (v20);
-          if (v21 != a1 + 19088 && v19 >= *(v21 + 32))
+          while (v23);
+          if (v24 != a1 + 19088 && v22 >= *(v24 + 32))
           {
-            v25 = *(v21 + 40);
-            if (v25)
+            v28 = *(v24 + 40);
+            if (v28)
             {
-              v58 = HGObject::operator new(0x1F0uLL);
-              HGBitmapLoader::HGBitmapLoader(v58, v25);
-              v26 = 0;
+              v65 = HGObject::operator new(0x1F0uLL);
+              HGBitmapLoader::HGBitmapLoader(v65, v28);
+              v29 = 0;
               v12 = 0;
-              *a6 = v58;
-              v17 = 1;
+              *a6 = v65;
+              v20 = 1;
               goto LABEL_25;
             }
           }
         }
       }
 
-      v17 = 1;
+      v20 = 1;
     }
   }
 
@@ -2485,44 +2481,44 @@ void OZMoShape::getHelium(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, 
 
   if (v11 != 1)
   {
-    v16 = 1;
-    v26 = 1;
+    v19 = 1;
+    v29 = 1;
     v12 = 1;
     goto LABEL_25;
   }
 
 LABEL_24:
-  v16 |= v11 == 1;
-  v26 = 1;
+  v19 |= v11 == 1;
+  v29 = 1;
 LABEL_25:
   PCSharedMutex::unlock_shared((a1 + 18944));
-  if (!v26)
+  if (!v29)
   {
     return;
   }
 
-  v64 = 0;
-  if (v16)
+  v71 = 0;
+  if (v19)
   {
-    OZShapeRenderParams::OZShapeRenderParams(&v63);
-    v27 = Li3DEngineScene::sceneManager(*(a1 + 19112));
-    OZLockingGroup::WriteSentry::WriteSentry(&v62, v27);
-    v28 = (*(*a1 + 72))(a1, a2, a3, a4, a5, &v63);
-    OZLockingGroup::WriteSentry::~WriteSentry(&v62);
-    if (v28)
+    OZShapeRenderParams::OZShapeRenderParams(&v70);
+    v30 = Li3DEngineScene::sceneManager(*(a1 + 19112));
+    OZLockingGroup::WriteSentry::WriteSentry(&v69, v30);
+    v31 = (*(*a1 + 72))(a1, a2, a3, a4, a5, &v70);
+    OZLockingGroup::WriteSentry::~WriteSentry(&v69);
+    if (v31)
     {
-      (*(*a1 + 80))(&v62, a1, a2, a3, a4, &v63);
-      v29 = *&v62.var0;
-      if (v64 != *&v62.var0)
+      (*(*a1 + 80))(&v69, a1, a2, a3, a4, &v70);
+      v32 = *&v69.var0;
+      if (v71 != *&v69.var0)
       {
-        if (v64)
+        if (v71)
         {
-          (*(*v64 + 24))(v64);
-          v29 = *&v62.var0;
+          (*(*v71 + 24))(v71);
+          v32 = *&v69.var0;
         }
 
-        v64 = v29;
-        if (!v29)
+        v71 = v32;
+        if (!v32)
         {
           goto LABEL_41;
         }
@@ -2530,13 +2526,13 @@ LABEL_25:
         goto LABEL_36;
       }
 
-      if (v64)
+      if (v71)
       {
-        (*(**&v62.var0 + 24))();
-        if (v64)
+        (*(**&v69.var0 + 24))();
+        if (v71)
         {
 LABEL_36:
-          OZShapeRenderParams::~OZShapeRenderParams(&v63);
+          OZShapeRenderParams::~OZShapeRenderParams(&v70);
           goto LABEL_37;
         }
       }
@@ -2544,31 +2540,31 @@ LABEL_36:
 
 LABEL_41:
     *a6 = 0;
-    OZShapeRenderParams::~OZShapeRenderParams(&v63);
+    OZShapeRenderParams::~OZShapeRenderParams(&v70);
     goto LABEL_73;
   }
 
 LABEL_37:
   PCSharedMutex::lock((a1 + 18944));
-  if ((v17 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     if ((*(a2 + 24) & 1) == 0)
     {
-      *(a1 + 19048) = v65;
-      v33 = *(a1 + 19072);
+      *(a1 + 19048) = v72;
+      v40 = *(a1 + 19072);
       *(a1 + 19064) = 0u;
-      if (v33)
+      if (v40)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v40);
       }
 
       std::__tree<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>>>::destroy(a1 + 19080, *(a1 + 19088));
       *(a1 + 19080) = a1 + 19088;
       *(a1 + 19088) = 0u;
-      v34 = *(a1 + 19104);
-      if (v34)
+      v41 = *(a1 + 19104);
+      if (v41)
       {
-        (*(*v34 + 24))(v34);
+        (*(*v41 + 24))(v41);
         *(a1 + 19104) = 0;
       }
     }
@@ -2581,79 +2577,79 @@ LABEL_37:
 LABEL_64:
     if (*(a2 + 25) == 1)
     {
-      v44 = *(a1 + 19104);
-      v45 = HGObject::operator new(0x1F0uLL);
-      HGBitmapLoader::HGBitmapLoader(v45, v44);
-      *a6 = v45;
+      v51 = *(a1 + 19104);
+      v52 = HGObject::operator new(0x1F0uLL);
+      HGBitmapLoader::HGBitmapLoader(v52, v51);
+      *a6 = v52;
     }
 
     else
     {
-      v46 = PGHelium::convertBitsPerChannel(*(*(a1 + 19064) + 40), *(*(a1 + 19064) + 36), 0);
-      v63 = xmmword_26084A5D0;
-      PGTexture::getTexCoords(*(a1 + 19064), &v63);
-      v47 = HGRectMake4i(*&v63.var0, *&v63.var1, *&v63.var2 + *&v63.var0, *&v63.var3 + *&v63.var1);
-      v49 = v48;
+      v53 = PGHelium::convertBitsPerChannel(*(*(a1 + 19064) + 40), *(*(a1 + 19064) + 36), 0, v33, v34);
+      v70 = xmmword_26084A5D0;
+      PGTexture::getTexCoords(*(a1 + 19064), &v70);
+      v54 = HGRectMake4i(*&v70.var0, *&v70.var1, *&v70.var2 + *&v70.var0, *&v70.var3 + *&v70.var1);
+      v56 = v55;
       Name = ProGL::TextureHandle::getName((*(a1 + 19064) + 64));
-      v51 = *(a2 + 56);
-      v52 = HGObject::operator new(0xC8uLL);
-      HGGLTexture::HGGLTexture(v52, v47, v49, v46, v51, Name, 1);
-      v53 = HGObject::operator new(0x20uLL);
-      v54 = v53;
-      v55 = *(a1 + 19064);
-      v56 = *(a1 + 19072);
-      if (v56)
+      v58 = *(a2 + 56);
+      v59 = HGObject::operator new(0xC8uLL);
+      HGGLTexture::HGGLTexture(v59, v54, v56, v53, v58, Name, 1);
+      v60 = HGObject::operator new(0x20uLL);
+      v61 = v60;
+      v62 = *(a1 + 19064);
+      v63 = *(a1 + 19072);
+      if (v63)
       {
-        atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      HGObject::HGObject(v53);
-      *v54 = &unk_287296578;
-      *(v54 + 2) = v55;
-      *(v54 + 3) = v56;
-      if (v56)
+      HGObject::HGObject(v60);
+      *v61 = &unk_287296578;
+      *(v61 + 2) = v62;
+      *(v61 + 3) = v63;
+      if (v63)
       {
-        atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:ne200100](v56);
+        atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v63);
       }
 
-      HGBitmap::SetStorage(v52, v54);
-      v57 = HGObject::operator new(0x1F0uLL);
-      HGBitmapLoader::HGBitmapLoader(v57, v52);
-      *a6 = v57;
-      (*(*v54 + 24))(v54);
-      if (v52)
+      HGBitmap::SetStorage(v59, v61);
+      v64 = HGObject::operator new(0x1F0uLL);
+      HGBitmapLoader::HGBitmapLoader(v64, v59);
+      *a6 = v64;
+      (*(*v61 + 24))(v61);
+      if (v59)
       {
-        (*(*v52 + 24))(v52);
+        (*(*v59 + 24))(v59);
       }
     }
 
     goto LABEL_72;
   }
 
-  v30 = *(a2 + 72);
-  WorkingColorSpace = OZRenderParams::getWorkingColorSpace(v30);
-  *&v63.var0 = 0;
-  *&v63.var2 = 0;
-  *&v63.var0 = HGRenderer::GetDOD(*(a2 + 56), v64);
-  *&v63.var2 = v32;
-  HGRect::Init(&v62, -1, -1, 1, 1);
-  HGRect::Grow(&v63, v62);
-  *&v62.var0 = 0;
-  if (HGRectIsNull(*&v63.var0, *&v63.var2))
+  v35 = *(a2 + 72);
+  WorkingColorSpace = OZRenderParams::getWorkingColorSpace(v35);
+  *&v70.var0 = 0;
+  *&v70.var2 = 0;
+  *&v70.var0 = HGRenderer::GetDOD(*(a2 + 56), v71);
+  *&v70.var2 = v37;
+  HGRect::Init(&v69, -1, -1, 1, 1);
+  HGRect::Grow(&v70, v69);
+  *&v69.var0 = 0;
+  if (HGRectIsNull(*&v70.var0, *&v70.var2))
   {
-    *&v62.var2 = -1;
+    *&v69.var2 = -1;
 LABEL_49:
     *a6 = 0;
     goto LABEL_72;
   }
 
-  *&v35.var0 = vmax_s32(*&v63.var0, vdup_n_s32(0xC0000001));
-  v36 = vsub_s32(vmin_s32(*&v63.var2, vdup_n_s32(0x3FFFFFFEu)), *&v35.var0);
-  *&v35.var2 = v36;
-  v62 = v35;
-  *&v35.var0 = vcgt_u32(vdup_n_s32(0xFFFE7960), vadd_s32(v36, vdup_n_s32(0xFFFE795F)));
-  if ((v35.var0 | v35.var1))
+  *&v42.var0 = vmax_s32(*&v70.var0, vdup_n_s32(0xC0000001));
+  v43 = vsub_s32(vmin_s32(*&v70.var2, vdup_n_s32(0x3FFFFFFEu)), *&v42.var0);
+  *&v42.var2 = v43;
+  v69 = v42;
+  *&v42.var0 = vcgt_u32(vdup_n_s32(0xFFFE7960), vadd_s32(v43, vdup_n_s32(0xFFFE795F)));
+  if ((v42.var0 | v42.var1))
   {
     goto LABEL_49;
   }
@@ -2662,61 +2658,61 @@ LABEL_49:
   {
     if (*(a2 + 25) == 1)
     {
-      v38 = vcgt_u32(0x80000000800, v36);
-      if (v38.i32[0] & v38.i32[1])
+      v45 = vcgt_u32(0x80000000800, v43);
+      if (v45.i32[0] & v45.i32[1])
       {
-        PGHelium::renderNodeToBitmap(*(a2 + 56), &v64, &v62, *(v30 + 340));
+        PGHelium::renderNodeToBitmap(*(a2 + 56), &v71, &v69.var0, *(v35 + 340));
       }
 
-      *a6 = v64;
-      v64 = 0;
+      *a6 = v71;
+      v71 = 0;
       goto LABEL_72;
     }
 
-    v39 = PGGetPerThreadContext();
-    VirtualScreen = PGContext::getVirtualScreen(v39);
-    BitsPerChannel = PCPixelFormat::getBitsPerChannel(*(v30 + 340));
+    v46 = PGGetPerThreadContext();
+    VirtualScreen = PGContext::getVirtualScreen(v46);
+    BitsPerChannel = PCPixelFormat::getBitsPerChannel(*(v35 + 340));
     MaxTextureSize = PGInfo::getMaxTextureSize(VirtualScreen, BitsPerChannel);
-    if (v62.var2 >= 1 && MaxTextureSize > v62.var2 && v62.var3 >= 1 && MaxTextureSize > v62.var3)
+    if (v69.var2 >= 1 && MaxTextureSize > v69.var2 && v69.var3 >= 1 && MaxTextureSize > v69.var3)
     {
-      PGHelium::renderNodeToTexture(*(a2 + 56), &v64, &v62, *(v30 + 340), WorkingColorSpace, (v30 + 1316));
+      PGHelium::renderNodeToTexture(*(a2 + 56), &v71, &v69.var0, *(v35 + 340), WorkingColorSpace, (v35 + 1316));
     }
 
-    v43 = *(a1 + 19064);
-    if (!v43)
+    v50 = *(a1 + 19064);
+    if (!v50)
     {
       goto LABEL_47;
     }
 
-    v61 = vcvtq_f32_s32(v62);
-    PGTexture::setTexCoords(v43, &v61);
-    *(a1 + 19048) = v65;
+    v68 = vcvtq_f32_s32(v69);
+    PGTexture::setTexCoords(v50, &v68);
+    *(a1 + 19048) = v72;
     goto LABEL_64;
   }
 
-  v37 = PGHelium::convertBitsPerChannel(*(v30 + 336), *(v30 + 332), 0);
-  if (HGGPURenderer::ShouldAllocateTexture(v59, v63.var2 - v63.var0, v63.var3 - v63.var1, v37, 1, 0))
+  v44 = PGHelium::convertBitsPerChannel(*(v35 + 336), *(v35 + 332), 0, v38, v39);
+  if (HGGPURenderer::ShouldAllocateTexture(v66, v70.var2 - v70.var0, v70.var3 - v70.var1, v44, 1, 0))
   {
-    PGHelium::renderNodeToMetalTexture(*(a2 + 56), &v64, &v62, *(v30 + 340), WorkingColorSpace, (v30 + 1316));
+    PGHelium::renderNodeToMetalTexture(*(a2 + 56), &v71, &v69, *(v35 + 340), WorkingColorSpace, (v35 + 1316));
   }
 
 LABEL_47:
-  *a6 = v64;
-  v64 = 0;
+  *a6 = v71;
+  v71 = 0;
 LABEL_72:
   PCSharedMutex::unlock((a1 + 18944));
 LABEL_73:
-  if (v64)
+  if (v71)
   {
-    (*(*v64 + 24))(v64);
+    (*(*v71 + 24))(v71);
   }
 }
 
-void sub_2601B9A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_2601B9A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
 {
   if (v21)
   {
-    (*(*v21 + 24))(v21);
+    (*(*v21 + 24))(v21, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v20)
@@ -2734,110 +2730,110 @@ void sub_2601B9A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OZMoShape::calcHashkey(uint64_t a1)
+void OZMoShape::calcHashkey(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v4 = v1;
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
   v6 = v5;
-  v33[520] = *MEMORY[0x277D85DE8];
-  PCWorkingColorVector::PCWorkingColorVector(v5);
-  v7 = *(v3 + 48);
-  v30[2] = *(v3 + 32);
-  v30[3] = v7;
-  v30[4] = *(v3 + 64);
-  v8 = *(v3 + 16);
-  v30[0] = *v3;
-  v30[1] = v8;
-  v9 = *(v3 + 80);
-  v31 = v9;
-  if (v9)
+  v8 = v7;
+  v10 = v9;
+  v37[520] = *MEMORY[0x277D85DE8];
+  PCWorkingColorVector::PCWorkingColorVector(v9);
+  v11 = *(v6 + 48);
+  v34[2] = *(v6 + 32);
+  v34[3] = v11;
+  v34[4] = *(v6 + 64);
+  v12 = *(v6 + 16);
+  v34[0] = *v6;
+  v34[1] = v12;
+  v13 = *(v6 + 80);
+  v35 = v13;
+  if (v13)
   {
-    PCCFRefTraits<CGColorSpace *>::retain(v9);
+    PCCFRefTraits<CGColorSpace *>::retain(v13);
   }
 
-  v32 = *(v3 + 88);
-  CurrentRenderParams = OZShape::getCurrentRenderParams(v4, v30);
-  PCCFRef<CGColorSpace *>::~PCCFRef(&v31);
-  v12 = *(v3 + 64);
-  v11 = *(v3 + 72);
-  PCHashWriteStream::PCHashWriteStream(v33);
-  if (*(CurrentRenderParams + 12) != 1 || ((*(**(v4 + 18888) + 80))(*(v4 + 18888), v3) & 1) == 0)
+  v36 = *(v6 + 88);
+  CurrentRenderParams = OZShape::getCurrentRenderParams(v8, v34);
+  PCCFRef<CGColorSpace *>::~PCCFRef(&v35);
+  v16 = *(v6 + 64);
+  v15 = *(v6 + 72);
+  PCHashWriteStream::PCHashWriteStream(v37);
+  if (*(CurrentRenderParams + 12) != 1 || ((*(**(v8 + 18888) + 80))(*(v8 + 18888), v6) & 1) == 0)
   {
-    RenderQuality = OZRenderParams::getRenderQuality(v11);
-    PCHashWriteStream::writeValue(v33, RenderQuality);
-    PCHashWriteStream::writeValue(v33, *(v3 + 32));
-    PCHashWriteStream::writeValue(v33, *(v3 + 40));
-    v14 = (*(*v4 + 416))(v4);
-    PCHashWriteStream::writeValue(v33, v14);
-    PCHashWriteStream::writeValue(v33, v11[81]);
-    PCHashWriteStream::writeValue(v33, v11[82]);
-    PCHashWriteStream::writeValue(v33, v11[83]);
-    PCHashWriteStream::writeValue(v33, v11[80]);
-    PCHashWriteStream::writeValue(v33, v11[84]);
-    PCHashWriteStream::writeValue(v33, v11[85]);
-    PCHashWriteStream::writeValue(v33, v11[88]);
-    PCHashWriteStream::writeValue(v33, v11[89]);
-    DoShapeAntialiasing = OZRenderParams::getDoShapeAntialiasing(v11);
-    PCHashWriteStream::writeValue(v33, DoShapeAntialiasing);
-    PCHashWriteStream::writeValue(v33, v11[123]);
-    shouldDrawSecondPassGradientInHelium = OZShape::shouldDrawSecondPassGradientInHelium(v4, v3, CurrentRenderParams);
-    PCHashWriteStream::writeValue(v33, shouldDrawSecondPassGradientInHelium);
-    shouldDrawSecondPassOutline = OZShape::shouldDrawSecondPassOutline(v4, CurrentRenderParams);
-    PCHashWriteStream::writeValue(v33, shouldDrawSecondPassOutline);
-    shouldDrawAntialiasingOnFill = OZShape::shouldDrawAntialiasingOnFill(v4, CurrentRenderParams);
-    PCHashWriteStream::writeValue(v33, shouldDrawAntialiasingOnFill);
-    shouldDrawSoftEdges = OZShape::shouldDrawSoftEdges(v4, CurrentRenderParams);
-    PCHashWriteStream::writeValue(v33, shouldDrawSoftEdges);
-    PCHashWriteStream::writeValue(v33, *(CurrentRenderParams + 240));
-    PCColorSpaceHandle::getMD5((v3 + 80), v29);
-    PCHashWriteStream::writeValue(v33, v29);
-    PCHashWriteStream::writeValue(v33, *(CurrentRenderParams + 112));
-    v20 = 0;
-    v21 = *(v12 + 20);
+    RenderQuality = OZRenderParams::getRenderQuality(v15);
+    PCHashWriteStream::writeValue(v37, RenderQuality);
+    PCHashWriteStream::writeValue(v37, *(v6 + 32));
+    PCHashWriteStream::writeValue(v37, *(v6 + 40));
+    v18 = (*(*v8 + 416))(v8);
+    PCHashWriteStream::writeValue(v37, v18);
+    PCHashWriteStream::writeValue(v37, v15[81]);
+    PCHashWriteStream::writeValue(v37, v15[82]);
+    PCHashWriteStream::writeValue(v37, v15[83]);
+    PCHashWriteStream::writeValue(v37, v15[80]);
+    PCHashWriteStream::writeValue(v37, v15[84]);
+    PCHashWriteStream::writeValue(v37, v15[85]);
+    PCHashWriteStream::writeValue(v37, v15[88]);
+    PCHashWriteStream::writeValue(v37, v15[89]);
+    DoShapeAntialiasing = OZRenderParams::getDoShapeAntialiasing(v15);
+    PCHashWriteStream::writeValue(v37, DoShapeAntialiasing);
+    PCHashWriteStream::writeValue(v37, v15[123]);
+    shouldDrawSecondPassGradientInHelium = OZShape::shouldDrawSecondPassGradientInHelium(v8, v6, CurrentRenderParams);
+    PCHashWriteStream::writeValue(v37, shouldDrawSecondPassGradientInHelium);
+    shouldDrawSecondPassOutline = OZShape::shouldDrawSecondPassOutline(v8, CurrentRenderParams);
+    PCHashWriteStream::writeValue(v37, shouldDrawSecondPassOutline);
+    shouldDrawAntialiasingOnFill = OZShape::shouldDrawAntialiasingOnFill(v8, CurrentRenderParams);
+    PCHashWriteStream::writeValue(v37, shouldDrawAntialiasingOnFill);
+    shouldDrawSoftEdges = OZShape::shouldDrawSoftEdges(v8, CurrentRenderParams);
+    PCHashWriteStream::writeValue(v37, shouldDrawSoftEdges);
+    PCHashWriteStream::writeValue(v37, *(CurrentRenderParams + 240));
+    PCColorSpaceHandle::getMD5((v6 + 80), v33);
+    PCHashWriteStream::writeValue(v37, v33);
+    PCHashWriteStream::writeValue(v37, *(CurrentRenderParams + 112));
+    v24 = 0;
+    v25 = *(v16 + 20);
     do
     {
       for (i = 0; i != 32; i += 8)
       {
-        (*(*v33 + 88))(v33, *(v21 + i));
+        (*(*v37 + 88))(v37, *(v25 + i));
       }
 
-      ++v20;
-      v21 += 32;
+      ++v24;
+      v25 += 32;
     }
 
-    while (v20 != 4);
-    v23 = OZRotoshape::calcHashForStateSelfOnly(*(v4 + 19112), v33, v11);
+    while (v24 != 4);
+    v27 = OZRotoshape::calcHashForStateSelfOnly(*(v8 + 19112), v37, v15);
     if (*(CurrentRenderParams + 12) == 1)
     {
-      if ((*(**(v4 + 18888) + 64))(*(v4 + 18888), v23))
+      if ((*(**(v8 + 18888) + 64))(*(v8 + 18888), v27))
       {
-        LiAgent::getImageToWorldTransform(v12, v28);
-        LiAgent::getWorldToFilmTransform(v12, v27);
-        PCMatrix44Tmpl<double>::operator*(v28, v27, v29);
-        v24 = 0;
-        v25 = v29;
+        LiAgent::getImageToWorldTransform(v16, v32);
+        LiAgent::getWorldToFilmTransform(v16, v31);
+        PCMatrix44Tmpl<double>::operator*(v32, v31, v33);
+        v28 = 0;
+        v29 = v33;
         do
         {
           for (j = 0; j != 32; j += 8)
           {
-            (*(*v33 + 88))(v33, *&v25[j]);
+            (*(*v37 + 88))(v37, *&v29[j]);
           }
 
-          ++v24;
-          v25 += 32;
+          ++v28;
+          v29 += 32;
         }
 
-        while (v24 != 4);
+        while (v28 != 4);
       }
 
-      (*(**(v4 + 18888) + 88))(*(v4 + 18888), v33, v11);
+      (*(**(v8 + 18888) + 88))(*(v8 + 18888), v37, v15);
     }
 
-    *v6 = *PCHashWriteStream::getHash(v33)->i8;
+    *v10 = *PCHashWriteStream::getHash(v37)->i8;
   }
 
-  PCHashWriteStream::~PCHashWriteStream(v33);
+  PCHashWriteStream::~PCHashWriteStream(v37);
 }
 
 PCMutex *OZMoShape::getEdgeTextureHeliumNode@<X0>(const void *a1@<X1>, unsigned int a2@<W2>, HGBitmapLoader **a3@<X8>)
@@ -2867,18 +2863,15 @@ uint64_t OZMoShape::getScale(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return (*(*(v7 + 200) + 1312))(v7 + 200, a2, a3, 0, &v9, 0);
 }
 
-unint64_t OZMoShape::calcHashForState(OZMoShape *this, PCSerializerWriteStream *a2, const CMTime *a3)
+void OZMoShape::calcHashForState(OZMoShape *this, PCSerializerWriteStream *a2, const CMTime *a3)
 {
   OZShape::calcHashForState(this, a2, a3);
   ValueAsInt = OZChannel::getValueAsInt((this + 6928), MEMORY[0x277CC08F0], 0.0);
-  result = OZChannelBase::isEnabled((this + 6800), 0, 1);
-  if (result && (ValueAsInt - 1) <= 1)
+  if (OZChannelBase::isEnabled((this + 6800), 0, 1) && (ValueAsInt - 1) <= 1)
   {
 
-    return OZChannelFolder::calcHashForState((this + 18728), a2, a3);
+    OZChannelFolder::calcHashForState((this + 18728), a2, a3);
   }
-
-  return result;
 }
 
 void OZMoShape::getShapeBounds(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2902,7 +2895,7 @@ void OZMoShape::getShapeBounds(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   }
 }
 
-uint64_t OZMoShape::setDirty(OZMoShape *this, char a2, int a3)
+uint64_t OZMoShape::setDirty(OZMoShape *this, char a2, BOOL a3)
 {
   OZShape::setDirty(this, a2, a3);
   result = *(this + 2361);
@@ -3039,7 +3032,7 @@ uint64_t OZMoShape::getUIBounds(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void OZMoShape::createSnapSet(uint64_t a1, double *a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7)
+void OZMoShape::createSnapSet(uint64_t a1, double *a2, uint64_t **a3, uint64_t a4, int a5, int a6, int a7)
 {
   v14 = (a1 + 8);
   v78 = a1 + 8;
@@ -3236,9 +3229,9 @@ void OZMoShape::createSnapSet(uint64_t a1, double *a2, uint64_t a3, uint64_t a4,
                         if ((*&v70 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (*&v71 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (v72 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
                         {
                           OZSnap::OZSnap(v67, 258, v70, v60, v62);
-                          std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v67);
+                          std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v67, v67);
                           OZSnap::OZSnap(v67, 514, v71, v57, v58);
-                          std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v67);
+                          std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v67, v67);
                         }
 
                         v63 = v74;
@@ -3265,21 +3258,21 @@ void OZMoShape::createSnapSet(uint64_t a1, double *a2, uint64_t a3, uint64_t a4,
               if (a5)
               {
                 OZSnap::OZSnap(&v73, 258, (v57 + v58) * 0.5, v60, v62);
-                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73);
+                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73, &v73);
                 OZSnap::OZSnap(&v73, 514, (v60 + v62) * 0.5, v57, v58);
-                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73);
+                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73, &v73);
               }
 
               if (a6)
               {
                 OZSnap::OZSnap(&v73, 257, v57, v60, v62);
-                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73);
+                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73, &v73);
                 OZSnap::OZSnap(&v73, 260, v58, v60, v62);
-                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73);
+                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73, &v73);
                 OZSnap::OZSnap(&v73, 513, v60, v57, v58);
-                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73);
+                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73, &v73);
                 OZSnap::OZSnap(&v73, 516, v62, v57, v58);
-                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73);
+                std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, &v73, &v73);
               }
             }
           }
@@ -3624,7 +3617,7 @@ uint64_t OZCrop::getBoundary(uint64_t a1, uint64_t a2, float64x2_t *a3)
   return v6;
 }
 
-void OZCrop::getHelium(OZCrop *this@<X0>, __n128 *a2@<X1>, void *a3@<X8>)
+void OZCrop::getHelium(OZCrop *this@<X0>, __n128 *a2@<X1>, uint64_t *a3@<X8>)
 {
   if (*(this + 7) <= 0.0 || *(this + 8) <= 0.0)
   {
@@ -3661,7 +3654,7 @@ void OZCrop::getHelium(OZCrop *this@<X0>, __n128 *a2@<X1>, void *a3@<X8>)
     v21 = *(&v28 + 1);
     if (LiAgent::haveROI(a2))
     {
-      LiAgent::getROI(a2, v22);
+      LiAgent::getROI(v22, a2);
       if ((v21 & 0x80000000) == 0 && (v21 & 0x8000000000000000) == 0)
       {
         *&v28 = vmax_s32(v18, v22[0].n128_u64[0]);
@@ -3674,13 +3667,13 @@ void OZCrop::getHelium(OZCrop *this@<X0>, __n128 *a2@<X1>, void *a3@<X8>)
 
   if (LiAgent::haveROI(a2))
   {
-    LiAgent::getROI(a2, &v28);
+    LiAgent::getROI(&v28, a2);
 LABEL_11:
     LiAgent::setInputROI(a2, &v28);
   }
 
   a2[2].n128_u32[0] = 1;
-  LiAgent::getHelium(a2, *(this + 2), a3);
+  LiAgent::getHelium(a3, a2, *(this + 2));
   LiAgent::getBoundary(a2, v24);
   PCRect<double>::operator&=(v24, (this + 40));
   Crop = LiAgent::getCrop(a2);
@@ -3701,12 +3694,13 @@ LABEL_11:
   LiImagePolygon::~LiImagePolygon(v23);
 }
 
-void sub_2601BC11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_2601BC11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  LiImagePolygon::~LiImagePolygon(&a27);
-  if (*v27)
+  va_start(va, a26);
+  LiImagePolygon::~LiImagePolygon(va);
+  if (*v26)
   {
-    (*(**v27 + 24))(*v27);
+    (*(**v26 + 24))(*v26);
   }
 
   _Unwind_Resume(a1);
@@ -3907,15 +3901,15 @@ uint64_t OZLiElementTimeRender::setImageSpace(uint64_t a1)
   return v2();
 }
 
-uint64_t *OZLiElementTimeRender::getHelium@<X0>(OZLiElementTimeRender *this@<X0>, LiAgent *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t *OZLiElementTimeRender::getHelium@<X0>(OZLiElementTimeRender *this@<X0>, uint64_t *a2@<X8>)
 {
-  v3 = *(this + 41);
-  if (!v3)
+  v2 = *(this + 41);
+  if (!v2)
   {
     throw_PCNullPointerException(1);
   }
 
-  return LiImageSource::getHeliumPublic(a3, v3, a2);
+  return LiImageSource::getHeliumPublic(a2, v2);
 }
 
 void virtual thunk toOZLiElementTimeRender::~OZLiElementTimeRender(OZLiElementTimeRender *this)
@@ -3946,15 +3940,13 @@ uint64_t anonymous namespace::OZChannelColorCorrection_Factory::getInstance(_ano
   }
 }
 
-uint64_t OZChannelColorCorrection::commonInitOZColorCorrectionUIChannel(OZChannelColorCorrection *this)
+void OZChannelColorCorrection::commonInitOZColorCorrectionUIChannel(OZChannelColorCorrection *this)
 {
-  *(this + 1) = result;
   {
     operator new();
   }
 
-  *(this + 17) = v3;
-  return result;
+  *(this + 17) = v2;
 }
 
 void sub_2601BCAE0(_Unwind_Exception *a1)
@@ -4093,9 +4085,9 @@ void OZLiFxGenerator::getHelium(OZFxGenerator **this@<X0>, LiAgent *a2@<X1>, voi
   OZRenderParams::~OZRenderParams(v10);
 }
 
-void sub_2601BD5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2601BD5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   OZRenderParams::~OZRenderParams(va);
   _Unwind_Resume(a1);
 }
@@ -4120,7 +4112,7 @@ double OZLiFxGenerator::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t a3,
   if (v6 != 6)
   {
     v8 = v6;
-    Resolution = OZRenderParams::getResolution((a1 + 24), &v14);
+    Resolution = OZRenderParams::getResolution(&v14, (a1 + 24));
     v9 = v14;
     v10 = *(a3 + 120);
     Resolution.n128_u64[0] = 0;
@@ -4152,25 +4144,25 @@ double OZLiFxGenerator::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t a3,
   return Resolution.n128_f64[0];
 }
 
-void OZLiFxGenerator::~OZLiFxGenerator(OZLiFxGenerator *this)
+void OZLiFxGenerator::~OZLiFxGenerator(OZChannelBase *this)
 {
-  *this = &unk_2872A3718;
-  *(this + 181) = &unk_2872A37E0;
-  OZRenderParams::~OZRenderParams((this + 24));
+  this->var0 = &unk_2872A3718;
+  this[12].var13 = &unk_2872A37E0;
+  OZRenderParams::~OZRenderParams(&this->var3);
   OZChannelBase::setRangeName(this, &off_2872A3800);
-  *(this + 181) = &unk_2872DEA38;
-  *(this + 1464) = 0;
-  PCWeakCount::~PCWeakCount(this + 182);
+  this[12].var13 = &unk_2872DEA38;
+  LOBYTE(this[13].var1) = 0;
+  PCWeakCount::~PCWeakCount(&this[13]);
 }
 
 {
-  *this = &unk_2872A3718;
-  *(this + 181) = &unk_2872A37E0;
-  OZRenderParams::~OZRenderParams((this + 24));
+  this->var0 = &unk_2872A3718;
+  this[12].var13 = &unk_2872A37E0;
+  OZRenderParams::~OZRenderParams(&this->var3);
   OZChannelBase::setRangeName(this, &off_2872A3800);
-  *(this + 181) = &unk_2872DEA38;
-  *(this + 1464) = 0;
-  PCWeakCount::~PCWeakCount(this + 182);
+  this[12].var13 = &unk_2872DEA38;
+  LOBYTE(this[13].var1) = 0;
+  PCWeakCount::~PCWeakCount(&this[13]);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -4338,17 +4330,17 @@ void non-virtual thunk toOZEnvironmentMeshSceneElement::~OZEnvironmentMeshSceneE
 
 void OZEnvironmentMeshSceneElement::buildRenderGraph(OZEnvironmentMeshSceneElement *this, const OZRenderState *a2, LiGraphBuilder *a3, const OZRenderGraphState *a4)
 {
-  OZRenderState::OZRenderState(&v13, a2);
-  v11 = *&a2->var0.var0;
+  OZRenderState::OZRenderState(&v14, a2);
+  v12 = *&a2->var0.var0;
   var3 = a2->var0.var3;
-  (*(*this + 2336))(this);
-  OZ3DEngineSceneElement::getUnitScaleMatrix(this, &v13, v9);
+  v8 = (*(*this + 2336))(this);
+  OZ3DEngineSceneElement::getUnitScaleMatrix(this, &v14, v10);
   for (i = 0; i != 4; ++i)
   {
-    v10[i] = vcvt_hight_f32_f64(vcvt_f32_f64(v9[2 * i]), v9[2 * i + 1]);
+    v11[i] = vcvt_hight_f32_f64(vcvt_f32_f64(v10[2 * i]), v10[2 * i + 1]);
   }
 
-  OZ3DEngineCore::buildRenderGraph(this + 18872, a2, a3, a4, v10, &v11, this);
+  OZ3DEngineCore::buildRenderGraph(this + 18872, a2, a3, a4, v11, &v12, this, v8);
 }
 
 void OZEnvironmentMeshSceneElement::getLocalVolume(uint64_t a1, _OWORD *a2)
@@ -4358,7 +4350,7 @@ void OZEnvironmentMeshSceneElement::getLocalVolume(uint64_t a1, _OWORD *a2)
     v3 = (*(*a1 + 2336))(a1);
     std::recursive_mutex::lock(v3);
     Representation = PCBitmap::getRepresentation(v3);
-    getSceneBoundingBox(Representation, v6);
+    getSceneBoundingBox(v6, Representation);
     v5 = v6[1];
     *a2 = v6[0];
     a2[1] = v5;
@@ -4387,7 +4379,7 @@ uint64_t OZEnvironmentMeshSceneElement::get3DScene(OZEnvironmentMeshSceneElement
   return this + 25016;
 }
 
-uint64_t OZEnvironmentMeshSceneElement::didCreateRootNodeClone(id *this)
+void *OZEnvironmentMeshSceneElement::didCreateRootNodeClone(id *this)
 {
   v13 = *MEMORY[0x277D85DE8];
   [this[2360] setCategoryBitMask:{+[OZSceneComposer sceneMeshCategoryBitMask](OZSceneComposer, "sceneMeshCategoryBitMask")}];
@@ -4414,7 +4406,7 @@ uint64_t OZEnvironmentMeshSceneElement::didCreateRootNodeClone(id *this)
         v7 = *(*(&v8 + 1) + 8 * v6);
         [v7 setCategoryBitMask:{+[OZSceneComposer sceneMeshCategoryBitMask](OZSceneComposer, "sceneMeshCategoryBitMask")}];
         [v7 setName:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"child of %u", *(this + 20))}];
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -4610,7 +4602,8 @@ void OZEnvironmentMeshSceneElement::buildContour(const void **a1@<X0>, float64x2
     v53 = 1065353216;
     *&v51[20] = 1065353216;
     *v51 = 1065353216;
-    *&v51[4] = 0uLL;
+    *&v51[4] = 0;
+    *&v51[12] = 0;
     *&v51[24] = 0;
     v52 = 0;
     v55 = 0;
@@ -4635,7 +4628,7 @@ void OZEnvironmentMeshSceneElement::buildContour(const void **a1@<X0>, float64x2
     v37 = vzip1q_s32(v31, v35);
     v38 = vzip1q_s32(v32, v36);
     v34.i64[1] = __PAIR64__(v56, v55);
-    [SceneComposer intersectionTestFrom:Representation lookingAt:v48 scene:{*vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_n_f32(vzip1q_s32(v37, v38), v46), v45, vzip2q_s32(v37, v38)), v44, vzip1q_s32(v33, v34)), v47, vzip2q_s32(v33, v34)).i64}];
+    [(OZSceneComposer *)SceneComposer intersectionTestFrom:Representation lookingAt:v48 scene:*vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_n_f32(vzip1q_s32(v37, v38), v46), v45, vzip2q_s32(v37, v38)), v44, vzip1q_s32(v33, v34)), v47, vzip2q_s32(v33, v34)).i64];
     if (v41 != 0.0)
     {
       v42 = a2[1].f64[0] + (v40 - a2[1].f64[0]) * 0.899999976;
@@ -4736,7 +4729,7 @@ void PCMatrix44Tmpl<float>::rotate(uint64_t a1, float *a2, int a3, float a4)
   PCMatrix44Tmpl<float>::rightMult(a1, v18);
 }
 
-uint64_t std::vector<PCVector3<double>>::insert(uint64_t *a1, unint64_t a2, unint64_t a3)
+unint64_t std::vector<PCVector3<double>>::insert(uint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a2;
   v5 = a1[1];
@@ -4839,9 +4832,9 @@ uint64_t std::vector<PCVector3<double>>::insert(uint64_t *a1, unint64_t a2, unin
       v19 = 0;
     }
 
-    v20 = a3 + v19;
+    v20 = (a3 + v19);
     v21 = *v20;
-    *(a2 + 16) = *(v20 + 16);
+    *(a2 + 16) = *(v20 + 2);
     *a2 = v21;
   }
 
@@ -4858,7 +4851,7 @@ void sub_2601BF348(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double std::__split_buffer<PCVector3<double>>::emplace_back<PCVector3<double> const&>(uint64_t *a1, uint64_t a2)
+double std::__split_buffer<PCVector3<double>>::emplace_back<PCVector3<double> const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = a1[2];
   v3 = v2;
@@ -4882,16 +4875,16 @@ double std::__split_buffer<PCVector3<double>>::emplace_back<PCVector3<double> co
     }
 
     v6 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3) + 1;
-    v3 = (v4 - 24 * (v6 / 2));
+    v3 = v4 - 24 * (v6 / 2);
     if (v4 != v2)
     {
       do
       {
         v7 = *v4;
-        *(v3 + 2) = *(v4 + 2);
+        *(v3 + 16) = *(v4 + 16);
         *v3 = v7;
-        v3 = (v3 + 24);
-        v4 = (v4 + 24);
+        v3 += 24;
+        v4 += 24;
       }
 
       while (v4 != v2);
@@ -4903,7 +4896,7 @@ double std::__split_buffer<PCVector3<double>>::emplace_back<PCVector3<double> co
 
   *v3 = *a2;
   result = *(a2 + 16);
-  *(v3 + 2) = result;
+  *(v3 + 16) = result;
   a1[2] = v3 + 24;
   return result;
 }
@@ -5234,9 +5227,9 @@ void non-virtual thunk toOZSingleChannelBehavior::~OZSingleChannelBehavior(OZSin
   JUMPOUT(0x2666E9F00);
 }
 
-void **OZSingleChannelBehavior::operator=(uint64_t a1, const void *a2)
+void OZSingleChannelBehavior::operator=(uint64_t a1, const void *a2)
 {
-  OZChannelBehavior::operator=();
+  OZChannelBehavior::operator=(a1, a2);
   v4 = (*(*a1 + 320))(a1);
   if (v4)
   {
@@ -5249,7 +5242,7 @@ void **OZSingleChannelBehavior::operator=(uint64_t a1, const void *a2)
   }
 
   v6 = v5;
-  OZChannelInfo::operator=(a1 + 544, (v5 + 544));
+  OZChannelInfo::operator=(a1 + 544, v5 + 544);
   *(a1 + 624) = *(v6 + 39);
   *(a1 + 848) = *(v6 + 212);
   if ((*(*v6 + 320))(v6))
@@ -5282,11 +5275,11 @@ void **OZSingleChannelBehavior::operator=(uint64_t a1, const void *a2)
   *(a1 + 800) = *(v6 + 50);
   *(a1 + 816) = *(v6 + 51);
   PCString::set((a1 + 840), v6 + 105);
-  result = *(a1 + 832);
-  if (result)
+  v11 = *(a1 + 832);
+  if (v11)
   {
-    OZChannelRef::~OZChannelRef(result);
-    result = MEMORY[0x2666E9F00]();
+    OZChannelRef::~OZChannelRef(v11);
+    MEMORY[0x2666E9F00]();
   }
 
   *(a1 + 832) = 0;
@@ -5321,10 +5314,8 @@ LABEL_20:
 
     v16 = *(*a1 + 104);
 
-    return v16(a1, v4, v15);
+    v16(a1, v4, v15);
   }
-
-  return result;
 }
 
 uint64_t OZSingleChannelBehavior::didAddToNode(OZSingleChannelBehavior *this, OZSceneNode *a2)
@@ -5357,7 +5348,7 @@ void **OZSingleChannelBehavior::commonDidAddToNode(void **this)
   v3 = this;
   if (!this || *(v2 + 80) == this)
   {
-    v5 = v2 + 16;
+    v5 = (v2 + 16);
     goto LABEL_15;
   }
 
@@ -5403,7 +5394,7 @@ LABEL_15:
   v6 = *(v1 + 50);
   if (vorr_s8(*v6.i8, *&vextq_s8(v6, v6, 8uLL)))
   {
-    if (v5 && (this = (*(*v5 + 256))(v5), v6 = *(v1 + 50), (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(*(this[1] + 8), v6)))) & 1) == 0))
+    if (v5 && (this = (*(*v5 + 32))(v5), v6 = *(v1 + 50), (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(*(this[1] + 8), v6)))) & 1) == 0))
     {
       v12 = 0;
     }
@@ -5423,7 +5414,7 @@ LABEL_15:
         v10 = *(v7 + 16);
         if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(*(*(v10 + 40) + 8), *(v1 + 50))))) & 1) == 0)
         {
-          v5 = v10 + 48;
+          v5 = (v10 + 48);
           if (v9)
           {
             InternalName = OZObjectManipulator::getInternalName((v10 + 48));
@@ -5441,7 +5432,7 @@ LABEL_15:
           else
           {
             v9 = *(v7 + 16);
-            v8 = v10 + 48;
+            v8 = (v10 + 48);
           }
         }
 
@@ -5476,7 +5467,7 @@ LABEL_38:
             }
           }
 
-          v5 = v14 + 16;
+          v5 = (v14 + 16);
         }
       }
 
@@ -5502,7 +5493,7 @@ LABEL_39:
     else
     {
       v12 = 0;
-      v5 = v2 + 16;
+      v5 = (v2 + 16);
     }
   }
 
@@ -5515,11 +5506,11 @@ LABEL_39:
     }
   }
 
-  this = (*(*v5 + 224))(v5, v1[104], *(v1 + 107));
+  this = (*(*v5 + 28))(v5, v1[104], *(v1 + 107));
   v17 = this;
   if (v3)
   {
-    v18 = (*(*v5 + 256))(v5);
+    v18 = (*(*v5 + 32))(v5);
     this = (*(*v18 + 56))(v18);
     if (!v17)
     {
@@ -5690,10 +5681,10 @@ void OZSingleChannelBehavior::willRemove(PCString *this)
       *&this[100].var0 = *(*((*(*ObjectManipulatorForChannel + 256))(ObjectManipulatorForChannel) + 8) + 8);
       InternalName = OZObjectManipulator::getInternalName(ObjectManipulatorForChannel);
       PCString::set(this + 105, InternalName);
-      p_isa = &this[104].var0->isa;
-      if (p_isa)
+      v7 = this[104].var0;
+      if (v7)
       {
-        OZChannelRef::~OZChannelRef(p_isa);
+        OZChannelRef::~OZChannelRef(&v7->isa);
         MEMORY[0x2666E9F00]();
       }
 
@@ -5976,10 +5967,10 @@ void OZSingleChannelBehavior::willDeleteChannel(PCString *this, OZChannelBase *a
       }
 
       PCString::set(this + 105, var5);
-      p_isa = &this[104].var0->isa;
-      if (p_isa)
+      var0 = this[104].var0;
+      if (var0)
       {
-        OZChannelRef::~OZChannelRef(p_isa);
+        OZChannelRef::~OZChannelRef(&var0->isa);
         MEMORY[0x2666E9F00]();
       }
 
@@ -5989,10 +5980,10 @@ void OZSingleChannelBehavior::willDeleteChannel(PCString *this, OZChannelBase *a
 
     *&this[100].var0 = 0u;
     PCString::clear(this + 105);
-    v8 = &this[104].var0->isa;
+    v8 = this[104].var0;
     if (v8)
     {
-      OZChannelRef::~OZChannelRef(v8);
+      OZChannelRef::~OZChannelRef(&v8->isa);
       MEMORY[0x2666E9F00]();
     }
 
@@ -6044,9 +6035,9 @@ void OZSingleChannelBehavior::didUndoDeleteChannel(OZSingleChannelBehavior *this
   }
 }
 
-void sub_2601C1D84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2601C1D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZChannelRef::~OZChannelRef(va);
   _Unwind_Resume(a1);
 }
@@ -6109,7 +6100,7 @@ void OZSingleChannelBehavior::updateChanRef(void *a1, uint64_t a2)
               {
                 LODWORD(v31.var0) = IntValue;
                 v33[0].var0 = &v31;
-                v20 = *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a2, &v31) + 8);
+                v20 = *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(a2, &v31, &std::piecewise_construct, v33) + 8);
                 v21 = *((*(*a1 + 320))(a1) + 944);
                 v22 = *v21;
                 v23 = v21[1];
@@ -6190,9 +6181,9 @@ LABEL_29:
   }
 }
 
-void sub_2601C20EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCString a11, PCString a12, PCString a13)
+void sub_2601C20EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, PCString a11, PCString a12, PCString a13)
 {
-  MEMORY[0x2666E9F00](v13, 0x1012C40EC159624);
+  MEMORY[0x2666E9F00](v13, 0x1012C40EC159624, a3, a4, a5, a6, a7, a8);
   PCString::~PCString(&a13);
   PCString::~PCString(&a12);
   _Unwind_Resume(a1);
@@ -6228,29 +6219,29 @@ uint64_t OZSingleChannelBehavior::getAffectedObject(OZSingleChannelBehavior *thi
   }
 }
 
-void OZSingleChannelBehavior::setChannelRef(OZSingleChannelBehavior *this, OZChannelBase *a2)
+void OZSingleChannelBehavior::setChannelRef(OZSingleChannelBehavior *this, OZChannelBase *a2, int a3)
 {
-  v4 = *(this + 104);
-  if (v4)
+  v5 = *(this + 104);
+  if (v5)
   {
-    OZChannelRef::~OZChannelRef(v4);
+    OZChannelRef::~OZChannelRef(v5);
     MEMORY[0x2666E9F00]();
     *(this + 104) = 0;
   }
 
   ObjectManipulatorForChannel = OZSingleChannelBehavior::getObjectManipulatorForChannel(this, a2);
-  v6 = (*(*ObjectManipulatorForChannel + 216))(ObjectManipulatorForChannel);
-  OZChannelRef::OZChannelRef(v9, a2, v6);
-  v7 = (*(*ObjectManipulatorForChannel + 256))(ObjectManipulatorForChannel);
-  v8 = (*(*v7 + 56))(v7);
-  OZChannel::setValue((this + 640), MEMORY[0x277CC08F0], v8, 0);
+  v7 = (*(*ObjectManipulatorForChannel + 216))(ObjectManipulatorForChannel);
+  OZChannelRef::OZChannelRef(v10, a2, v7);
+  v8 = (*(*ObjectManipulatorForChannel + 256))(ObjectManipulatorForChannel);
+  v9 = (*(*v8 + 56))(v8);
+  OZChannel::setValue((this + 640), MEMORY[0x277CC08F0], v9, 0);
   operator new();
 }
 
-void sub_2601C23E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2601C23E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x2666E9F00](v2, 0x1012C40EC159624);
+  va_start(va, a3);
+  MEMORY[0x2666E9F00](v3, 0x1012C40EC159624);
   OZChannelRef::~OZChannelRef(va);
   _Unwind_Resume(a1);
 }
@@ -6469,7 +6460,7 @@ uint64_t non-virtual thunk toOZSingleChannelBehavior::parseBegin(OZSingleChannel
   return 1;
 }
 
-uint64_t OZSingleChannelBehavior::parseElement(PCSerializer **this, PCSerializerReadStream *a2, PCStreamElement *a3)
+uint64_t OZSingleChannelBehavior::parseElement(OZTimeMarkerSet **this, PCSerializerReadStream *a2, PCStreamElement *a3)
 {
   OZBehavior::parseElement(this, a2, a3);
   if (*(a3 + 2) == 71)
@@ -6504,9 +6495,9 @@ uint64_t OZSingleChannelBehavior::parseElement(PCSerializer **this, PCSerializer
   return 1;
 }
 
-void sub_2601C2E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10)
+void sub_2601C2E4C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCString a10)
 {
-  MEMORY[0x2666E9F00](v10, 0x1012C40EC159624);
+  MEMORY[0x2666E9F00](v10, 0x1012C40EC159624, a3, a4, a5, a6, a7, a8);
   PCString::~PCString(&a10);
   _Unwind_Resume(a1);
 }
@@ -6769,7 +6760,7 @@ OZObjectSimulator *OZMotionToForcesBehavior::dirty(OZObjectSimulator **this)
   return result;
 }
 
-double OZMotionToForcesBehavior::calcStaticHash(uint64_t a1, void *lpsrc, uint64_t a3)
+double OZMotionToForcesBehavior::calcStaticHash(uint64_t a1, void *lpsrc, uint64_t **a3)
 {
   if (!v6)
   {
@@ -6839,7 +6830,7 @@ uint64_t OZMotionToForcesBehavior::accumForces(OZMotionToForcesBehavior *this, O
   v126 = 0uLL;
   v127 = 0;
   TransformNode = OZSimulationBehavior::getTransformNode(this);
-  OZChannelObjectRootBase::getTimeOffset((TransformNode + 56), &v143);
+  OZChannelObjectRootBase::getTimeOffset(&v143, (TransformNode + 56));
   *&time1.var0.var0 = *(a2 + 11);
   time1.var0.var3 = *(a2 + 24);
   *&time2.value = v143;
@@ -6847,7 +6838,7 @@ uint64_t OZMotionToForcesBehavior::accumForces(OZMotionToForcesBehavior *this, O
   v6 = PC_CMTimeSaferSubtract(&time1, &time2, &v126);
   memset(&v125, 0, sizeof(v125));
   v7 = (*(*a3 + 272))(a3, v6);
-  OZSceneSettings::getFrameDuration((v7 + 336), &v125);
+  OZSceneSettings::getFrameDuration(&v125, (v7 + 336));
   memset(&v124, 0, sizeof(v124));
   operator*(&v125, &v124, 0.5001);
   *&time1.var0.var0 = *(a2 + 11);
@@ -7072,7 +7063,7 @@ uint64_t OZMotionToForcesBehavior::accumForces(OZMotionToForcesBehavior *this, O
             v64 = v63;
             memset(&var0, 0, sizeof(var0));
             v65 = OZSimulationBehavior::getTransformNode(this);
-            OZChannelObjectRootBase::getTimeOffset((v65 + 56), &v129);
+            OZChannelObjectRootBase::getTimeOffset(&v129, (v65 + 56));
             time1.var0 = v119;
             v130 = v129;
             PC_CMTimeSaferAdd(&time1, &v130, &var0);
@@ -7292,7 +7283,7 @@ void OZMotionToForcesBehavior::accumInitialValuesHelper(OZMotionToForcesBehavior
   v115 = 0uLL;
   v116 = 0;
   TransformNode = OZSimulationBehavior::getTransformNode(this);
-  OZChannelObjectRootBase::getTimeOffset((TransformNode + 56), &v127);
+  OZChannelObjectRootBase::getTimeOffset(&v127, (TransformNode + 56));
   *&v120.var0.var0 = *(a2 + 11);
   v120.var0.var3 = *(a2 + 24);
   *&v103.value = v127;
@@ -7300,7 +7291,7 @@ void OZMotionToForcesBehavior::accumInitialValuesHelper(OZMotionToForcesBehavior
   v9 = PC_CMTimeSaferSubtract(&v120, &v103, &v115);
   memset(&v114, 0, sizeof(v114));
   v10 = (*(*a3 + 272))(a3, v9);
-  OZSceneSettings::getFrameDuration((v10 + 336), &v114);
+  OZSceneSettings::getFrameDuration(&v114, (v10 + 336));
   LOWORD(v103.value) = 1;
   *&v103.timescale = 0;
   v106 = 0;
@@ -7414,7 +7405,7 @@ void OZMotionToForcesBehavior::accumInitialValuesHelper(OZMotionToForcesBehavior
       OZRenderState::OZRenderState(&v120);
       memset(&v99, 0, sizeof(v99));
       v45 = OZSimulationBehavior::getTransformNode(this);
-      OZChannelObjectRootBase::getTimeOffset((v45 + 56), &v117);
+      OZChannelObjectRootBase::getTimeOffset(&v117, (v45 + 56));
       v119 = v102;
       v118 = v117;
       PC_CMTimeSaferAdd(&v119, &v118, &v99);
@@ -7542,9 +7533,9 @@ LABEL_22:
   OZCurveNodeParam::~OZCurveNodeParam(&v103);
 }
 
-void sub_2601C53CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2601C53CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
@@ -7829,7 +7820,7 @@ void *OZSimulationState::GetNodePosition(CMTime *a1, uint64_t a2, OZSimulationSt
   v17 = 0uLL;
   v18 = 0;
   v8 = (*(*a2 + 272))(a2);
-  OZSceneSettings::getFrameDuration((v8 + 336), &v17);
+  OZSceneSettings::getFrameDuration(&v17, (v8 + 336));
   memset(&v16, 0, sizeof(v16));
   v20 = *a1;
   *&v19.value = v17;
@@ -7984,7 +7975,7 @@ double OZSimulationState::getTransformedCorners(uint64_t a1, uint64_t a2, uint64
   return result;
 }
 
-double PCMatrix44Tmpl<double>::setTransformation(uint64_t a1, double *a2, int a3, double a4, double a5, double a6, double a7, double a8, double a9, float64_t a10, long double a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, double a17, double a18, double a19, uint64_t a20)
+double PCMatrix44Tmpl<double>::setTransformation(uint64_t a1, double *a2, int a3, double a4, double a5, double a6, double a7, double a8, double a9, float64_t a10, double a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, double a17, double a18, double a19, uint64_t a20)
 {
   v31 = a19;
   v30 = a20;
@@ -8117,8 +8108,7 @@ LABEL_18:
 
 __n128 OZSimulationState::initializeState(__n128 *this, const CMTime *a2)
 {
-  this->n128_u64[0] = 0;
-  this->n128_u64[1] = 0;
+  *this = 0uLL;
   this[1].n128_u64[0] = 0;
   this[1].n128_u64[1] = 0x3FF0000000000000;
   this[2] = 0u;
@@ -8212,11 +8202,10 @@ void OZRetimingBehavior::~OZRetimingBehavior(OZRetimingBehavior *this)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t OZRetimingBehavior::addRetimingNode(OZRetimingBehavior *this, OZSceneNode *a2)
+double OZRetimingBehavior::addRetimingNode(OZRetimingBehavior *this, OZSceneNode *a2)
 {
   v2 = (*(*a2 + 640))(a2);
-  result = OZRetimingUtil::GetRetimeFrameChannel(v2, v3);
-  if (result)
+  if (OZRetimingUtil::GetRetimeFrameChannel(v2, v3))
   {
     operator new();
   }
@@ -8224,25 +8213,23 @@ uint64_t OZRetimingBehavior::addRetimingNode(OZRetimingBehavior *this, OZSceneNo
   return result;
 }
 
-OZImageElement *OZRetimingBehavior::didAddSceneNodeToScene(OZRetimingBehavior *this, OZScene *a2)
+void OZRetimingBehavior::didAddSceneNodeToScene(OZRetimingBehavior *this, OZScene *a2)
 {
-  result = OZChannelBehavior::didAddSceneNodeToScene(this, a2);
+  OZChannelBehavior::didAddSceneNodeToScene(this, a2);
   if ((*(this + 544) & 1) == 0)
   {
-    v4 = (*(*this + 320))(this);
-    result = OZRetimingBehavior::addRetimingNode(this, v4);
-    if (v4)
+    v3 = (*(*this + 320))(this);
+    OZRetimingBehavior::addRetimingNode(this, v3);
+    if (v3)
     {
-      if (result)
+      if (v4)
       {
-        result = OZImageElement::updateRetimingState(result, v5);
+        OZImageElement::updateRetimingState(v4, v5);
       }
     }
 
     *(this + 544) = 1;
   }
-
-  return result;
 }
 
 void OZRetimingBehavior::willRemove(OZRetimingBehavior *this)
@@ -8444,12 +8431,12 @@ void OZLiFilter::getSourceAtTime(OZLiFilter *this@<X0>, CMTime *a2@<X1>, const O
   PCSharedCount::~PCSharedCount(&v20);
 }
 
-void sub_2601C7878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2601C7878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  PCSharedCount::~PCSharedCount(v5 + 1);
+  va_start(va, a9);
+  PCSharedCount::~PCSharedCount(v9 + 1);
   OZRenderParams::~OZRenderParams(va);
-  PCSharedCount::~PCSharedCount((v6 - 72));
+  PCSharedCount::~PCSharedCount((v10 - 72));
   _Unwind_Resume(a1);
 }
 
@@ -8586,9 +8573,9 @@ void virtual thunk toOZLiFilter::~OZLiFilter(OZLiFilter *this)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t GLRenderer::getFrameNode@<X0>(GLRenderer *this@<X0>, OZScene *a2@<X1>, HGRenderJob *a3@<X2>, PCString *a4@<X3>, uint64_t *a5@<X4>, uint64_t *a6@<X8>)
+void GLRenderer::getFrameNode(uint64_t *__return_ptr a1@<X8>, GLRenderer *this@<X0>, OZScene *a3@<X1>, HGRenderJob *a4@<X2>, PCString *a5@<X3>, uint64_t *a6@<X4>)
 {
-  RenderNodeList = HGRenderJob::GetRenderNodeList(a3);
+  RenderNodeList = HGRenderJob::GetRenderNodeList(a4);
   if (*(*RenderNodeList + 8))
   {
     FxDeviceGetVirtualScreenForComputeDevice(RenderNodeList);
@@ -8596,46 +8583,46 @@ uint64_t GLRenderer::getFrameNode@<X0>(GLRenderer *this@<X0>, OZScene *a2@<X1>, 
 
   v13 = PGGetPerThreadContext();
   PGContext::setVirtualScreen(v13);
-  v14 = *(a3 + 496);
-  OZChannelBase::setRangeName(_F, a4);
-  OZChannelBase::setRangeName(&v19, a4);
-  *a6 = 0;
+  v14 = *(a4 + 496);
+  OZChannelBase::setRangeName(_F, a5);
+  OZChannelBase::setRangeName(&v19, a5);
+  *a1 = 0;
   if (v14)
   {
-    GLRenderer::getFrameNodeWithMotionBlur(this, a2, a3, a4, a5, &v18);
+    GLRenderer::getFrameNodeWithMotionBlur(&v18, this, a3, a4, a5, a6);
   }
 
   else
   {
-    GLRenderer::getFrameNodeIncludingFields(this, a2, a3, a4, a5, &v18);
+    GLRenderer::getFrameNodeIncludingFields(&v18, this, a3, a4, a5, a6);
   }
 
   if (v18)
   {
-    *a6 = v18;
+    *a1 = v18;
   }
 
-  if (OZRenderParams::isDynamicRangeTrackingRender(a3) && OZRenderParams::wantsHLGToPQPostProcessingStep(a3))
+  if (OZRenderParams::isDynamicRangeTrackingRender(a4) && OZRenderParams::wantsHLGToPQPostProcessingStep(a4))
   {
-    WorkingColorSpace = OZRenderParams::getWorkingColorSpace(a3);
-    OZRenderParams::getWorkingColorSpace(a3);
-    FxConvertHLGToPQ(a6, WorkingColorSpace, 1);
+    WorkingColorSpace = OZRenderParams::getWorkingColorSpace(a4);
+    v16 = OZRenderParams::getWorkingColorSpace(a4);
+    FxConvertHLGToPQ(a1, WorkingColorSpace, 1, v16, 1, 1000.0);
   }
 
   OZImageElementFinalizer::~OZImageElementFinalizer(&v19);
-  return OZChannelBase::setRangeName(_F, v16);
+  OZChannelBase::setRangeName(_F, v17);
 }
 
 void sub_2601C8154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, OZChannelBase *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9, a2, a3, a4, a5);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*v13)
   {
-    (*(**v13 + 24))(*v13, a2, a3, a4, a5);
+    (*(**v13 + 24))(*v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   OZImageElementFinalizer::~OZImageElementFinalizer(&a12);
@@ -8643,221 +8630,221 @@ void sub_2601C8154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-CGColorSpace **GLRenderer::getFrameNodeWithMotionBlur@<X0>(GLRenderer *this@<X0>, OZScene *a2@<X1>, OZRenderParams *a3@<X2>, HGRenderer *a4@<X3>, uint64_t *a5@<X4>, void *a6@<X8>)
+void GLRenderer::getFrameNodeWithMotionBlur(uint64_t *__return_ptr a1@<X8>, GLRenderer *this@<X0>, OZScene *a3@<X1>, OZRenderParams *a4@<X2>, HGRenderer *a5@<X3>, uint64_t *a6@<X4>)
 {
-  v12 = *(a3 + 125);
+  v12 = *(a4 + 125);
   if (v12 == 1)
   {
 
-    return GLRenderer::getFrameNodeIncludingFields(this, a2, a3, a4, a5, a6);
+    GLRenderer::getFrameNodeIncludingFields(a1, this, a3, a4, a5, a6);
   }
 
   else
   {
-    *a6 = 0;
-    OutputColorDescription = OZRenderParams::getOutputColorDescription(a3);
-    v15 = *OutputColorDescription;
-    v46._pcColorDesc._colorSpaceRef._obj = v15;
-    if (v15)
+    *a1 = 0;
+    OutputColorDescription = OZRenderParams::getOutputColorDescription(a4);
+    v14 = *OutputColorDescription;
+    v45._pcColorDesc._colorSpaceRef._obj = v14;
+    if (v14)
     {
-      PCCFRefTraits<CGColorSpace *>::retain(v15);
+      PCCFRefTraits<CGColorSpace *>::retain(v14);
     }
 
-    v16 = *(OutputColorDescription + 1);
-    v46._pcColorDesc._toneMapMethod._gain = *(OutputColorDescription + 4);
-    *&v46._pcColorDesc._dynamicRange = v16;
-    v46._isPremultiplied = OutputColorDescription[24];
-    WorkingColorDescription = OZRenderParams::getWorkingColorDescription(a3);
-    v18 = *WorkingColorDescription;
-    v45._pcColorDesc._colorSpaceRef._obj = v18;
-    if (v18)
+    v15 = *(OutputColorDescription + 1);
+    v45._pcColorDesc._toneMapMethod._gain = *(OutputColorDescription + 4);
+    *&v45._pcColorDesc._dynamicRange = v15;
+    v45._isPremultiplied = OutputColorDescription[24];
+    WorkingColorDescription = OZRenderParams::getWorkingColorDescription(a4);
+    v17 = *WorkingColorDescription;
+    v44._pcColorDesc._colorSpaceRef._obj = v17;
+    if (v17)
     {
-      PCCFRefTraits<CGColorSpace *>::retain(v18);
+      PCCFRefTraits<CGColorSpace *>::retain(v17);
     }
 
-    v19 = *(WorkingColorDescription + 8);
-    v45._pcColorDesc._toneMapMethod._gain = *(WorkingColorDescription + 16);
-    *&v45._pcColorDesc._dynamicRange = v19;
-    v45._isPremultiplied = *(WorkingColorDescription + 24);
-    OZRenderParams::setOutputColorDescription(a3, &v45);
-    if (*(a3 + 123))
+    v18 = *(WorkingColorDescription + 8);
+    v44._pcColorDesc._toneMapMethod._gain = *(WorkingColorDescription + 16);
+    *&v44._pcColorDesc._dynamicRange = v18;
+    v44._isPremultiplied = *(WorkingColorDescription + 24);
+    OZRenderParams::setOutputColorDescription(a4, &v44);
+    if (*(a4 + 123))
     {
-      v20 = *(a3 + 63) * 0.5;
+      v19 = *(a4 + 63) * 0.5;
     }
 
     else
     {
-      v20 = *(a3 + 63);
+      v19 = *(a4 + 63);
     }
 
-    v43 = *a3;
-    v44 = *(a3 + 2);
-    *&v37._pcColorDesc._colorSpaceRef._obj = *a3;
-    *&v37._pcColorDesc._toneMapMethod._gain = *(a3 + 2);
-    v21 = FigTimeToFrameWithRate(&v37, *(a2 + 46));
+    v42 = *a4;
+    v43 = *(a4 + 2);
+    *&v36._pcColorDesc._colorSpaceRef._obj = *a4;
+    *&v36._pcColorDesc._toneMapMethod._gain = *(a4 + 2);
+    v20 = FigTimeToFrameWithRate(&v36, *(a3 + 46));
+    v39 = 0;
     v40 = 0;
     v41 = 0;
-    v42 = 0;
-    std::vector<FxBalancedBlendRecord>::reserve(&v40, v12);
+    std::vector<FxBalancedBlendRecord>::reserve(&v39, v12);
     if (v12)
     {
-      v22 = 0;
-      v23 = v20;
-      v24 = (1.0 / v12) * v23;
-      v25 = v21;
-      v26 = v12 - 1;
+      v21 = 0;
+      v22 = v19;
+      v23 = (1.0 / v12) * v22;
+      v24 = v20;
+      v25 = v12 - 1;
       do
       {
-        OZScene::getTimeForFrame(a2, ((v24 * v22) + v25), &v37);
-        *a3 = *&v37._pcColorDesc._colorSpaceRef._obj;
-        *(a3 + 2) = *&v37._pcColorDesc._toneMapMethod._gain;
-        *(a3 + 49) = 0;
-        *(a3 + 50) = 0;
-        GLRenderer::getFrameNodeIncludingFields(this, a2, a3, a4, a5, &v39);
-        FxBalancedBlendRecord::FxBalancedBlendRecord(&v37, &v39, 1.0);
-        if (v39)
+        OZScene::getTimeForFrame(a3, ((v23 * v21) + v24), &v36);
+        *a4 = *&v36._pcColorDesc._colorSpaceRef._obj;
+        *(a4 + 2) = *&v36._pcColorDesc._toneMapMethod._gain;
+        *(a4 + 49) = 0;
+        *(a4 + 50) = 0;
+        GLRenderer::getFrameNodeIncludingFields(&v38, this, a3, a4, a5, a6);
+        FxBalancedBlendRecord::FxBalancedBlendRecord(&v36, &v38, 1.0);
+        if (v38)
         {
-          (*(*v39 + 24))(v39);
+          (*(*v38 + 24))(v38);
         }
 
-        std::vector<FxBalancedBlendRecord>::push_back[abi:ne200100](&v40, &v37);
-        v27 = *a5;
-        if (v37._pcColorDesc._colorSpaceRef._obj)
+        std::vector<FxBalancedBlendRecord>::push_back[abi:ne200100](&v39, &v36);
+        v26 = *a6;
+        if (v36._pcColorDesc._colorSpaceRef._obj)
         {
-          (*(*v37._pcColorDesc._colorSpaceRef._obj + 24))(v37._pcColorDesc._colorSpaceRef._obj);
+          (*(*v36._pcColorDesc._colorSpaceRef._obj + 24))(v36._pcColorDesc._colorSpaceRef._obj);
         }
 
-        if (v27)
+        if (v26)
         {
           break;
         }
       }
 
-      while (v26 != v22++);
+      while (v25 != v21++);
     }
 
-    if (*a5)
+    if (*a6)
     {
-      OZRenderParams::setOutputColorDescription(a3, &v46);
+      OZRenderParams::setOutputColorDescription(a4, &v45);
     }
 
     else
     {
-      v30 = v40;
-      v29 = v41;
-      if (v40 == v41)
+      v29 = v39;
+      v28 = v40;
+      if (v39 == v40)
       {
-        v35 = 0;
+        v34 = 0;
       }
 
       else
       {
         while (1)
         {
-          FxBalancedBlendRecord::node(v30, &v37);
-          v32 = LiHeUtil::isLiHeLightSurfaceFinalPass(v37._pcColorDesc._colorSpaceRef._obj, v31);
-          if (v37._pcColorDesc._colorSpaceRef._obj)
+          FxBalancedBlendRecord::node(v29, &v36);
+          v31 = LiHeUtil::isLiHeLightSurfaceFinalPass(v36._pcColorDesc._colorSpaceRef._obj, v30);
+          if (v36._pcColorDesc._colorSpaceRef._obj)
           {
-            (*(*v37._pcColorDesc._colorSpaceRef._obj + 24))(v37._pcColorDesc._colorSpaceRef._obj);
+            (*(*v36._pcColorDesc._colorSpaceRef._obj + 24))(v36._pcColorDesc._colorSpaceRef._obj);
           }
 
-          if (v32)
+          if (v31)
           {
-            v35 = 1;
-            v29 = v41;
+            v34 = 1;
+            v28 = v40;
             goto LABEL_35;
           }
 
-          FxBalancedBlendRecord::node(v30, &v37);
-          hasHGAnisotropicXForm = LiHeUtil::hasHGAnisotropicXForm(v37._pcColorDesc._colorSpaceRef._obj, v33);
-          if (v37._pcColorDesc._colorSpaceRef._obj)
+          FxBalancedBlendRecord::node(v29, &v36);
+          hasHGAnisotropicXForm = LiHeUtil::hasHGAnisotropicXForm(v36._pcColorDesc._colorSpaceRef._obj, v32);
+          if (v36._pcColorDesc._colorSpaceRef._obj)
           {
-            (*(*v37._pcColorDesc._colorSpaceRef._obj + 24))(v37._pcColorDesc._colorSpaceRef._obj);
+            (*(*v36._pcColorDesc._colorSpaceRef._obj + 24))(v36._pcColorDesc._colorSpaceRef._obj);
           }
 
-          v29 = v41;
+          v28 = v40;
           if (hasHGAnisotropicXForm)
           {
             break;
           }
 
-          v30 = (v30 + 16);
-          if (v30 == v41)
+          v29 = (v29 + 16);
+          if (v29 == v40)
           {
-            v35 = 0;
+            v34 = 0;
             goto LABEL_35;
           }
         }
 
-        v35 = 1;
+        v34 = 1;
 LABEL_35:
-        v30 = v40;
+        v29 = v39;
       }
 
-      makeBalancedBlendTree<std::__wrap_iter<FxBalancedBlendRecord *>>(v30, v29, &v38, v35);
-      v37._pcColorDesc._colorSpaceRef._obj = v46._pcColorDesc._colorSpaceRef._obj;
-      if (v46._pcColorDesc._colorSpaceRef._obj)
+      makeBalancedBlendTree<std::__wrap_iter<FxBalancedBlendRecord *>>(v29, v28, v34, &v37);
+      v36._pcColorDesc._colorSpaceRef._obj = v45._pcColorDesc._colorSpaceRef._obj;
+      if (v45._pcColorDesc._colorSpaceRef._obj)
       {
-        PCCFRefTraits<CGColorSpace *>::retain(v46._pcColorDesc._colorSpaceRef._obj);
+        PCCFRefTraits<CGColorSpace *>::retain(v45._pcColorDesc._colorSpaceRef._obj);
       }
 
-      *&v37._pcColorDesc._dynamicRange = *&v46._pcColorDesc._dynamicRange;
-      v37._pcColorDesc._toneMapMethod._gain = v46._pcColorDesc._toneMapMethod._gain;
-      v37._isPremultiplied = v46._isPremultiplied;
-      FxApplyColorConform(&v38, &v45, &v37, &v36);
-      if (v36)
+      *&v36._pcColorDesc._dynamicRange = *&v45._pcColorDesc._dynamicRange;
+      v36._pcColorDesc._toneMapMethod._gain = v45._pcColorDesc._toneMapMethod._gain;
+      v36._isPremultiplied = v45._isPremultiplied;
+      FxApplyColorConform(&v37, &v44, &v36, &v35);
+      if (v35)
       {
-        *a6 = v36;
+        *a1 = v35;
       }
 
-      OZRenderParams::setOutputColorDescription(a3, &v37);
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v37._pcColorDesc._colorSpaceRef._obj);
-      if (v38)
+      OZRenderParams::setOutputColorDescription(a4, &v36);
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v36._pcColorDesc._colorSpaceRef._obj);
+      if (v37)
       {
-        (*(*v38 + 24))(v38);
+        (*(*v37 + 24))(v37);
       }
     }
 
-    *a3 = v43;
-    *(a3 + 2) = v44;
-    *(a3 + 49) = 0;
-    *(a3 + 50) = 0;
-    v37._pcColorDesc._colorSpaceRef._obj = &v40;
-    std::vector<FxBalancedBlendRecord>::__destroy_vector::operator()[abi:ne200100](&v37);
+    *a4 = v42;
+    *(a4 + 2) = v43;
+    *(a4 + 49) = 0;
+    *(a4 + 50) = 0;
+    v36._pcColorDesc._colorSpaceRef._obj = &v39;
+    std::vector<FxBalancedBlendRecord>::__destroy_vector::operator()[abi:ne200100](&v36);
+    PCCFRef<CGColorSpace *>::~PCCFRef(&v44._pcColorDesc._colorSpaceRef._obj);
     PCCFRef<CGColorSpace *>::~PCCFRef(&v45._pcColorDesc._colorSpaceRef._obj);
-    return PCCFRef<CGColorSpace *>::~PCCFRef(&v46._pcColorDesc._colorSpaceRef._obj);
   }
 }
 
-void sub_2601C863C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2601C863C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void **);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v7 = va_arg(va1, void **);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v13 = va_arg(va2, void);
   v15 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
   v17 = va_arg(va2, void);
   v18 = va_arg(va2, void);
   v19 = va_arg(va2, void);
   v20 = va_arg(va2, void);
-  if (v11)
+  v21 = va_arg(va2, void);
+  v22 = va_arg(va2, void);
+  if (v13)
   {
-    (*(*v11 + 24))(v11);
+    (*(*v13 + 24))(v13, a2, a3);
   }
 
-  va_copy(v5, va1);
+  va_copy(v7, va1);
   std::vector<FxBalancedBlendRecord>::__destroy_vector::operator()[abi:ne200100](va);
   PCCFRef<CGColorSpace *>::~PCCFRef(va2);
-  PCCFRef<CGColorSpace *>::~PCCFRef((v3 - 128));
+  PCCFRef<CGColorSpace *>::~PCCFRef((v5 - 128));
   _Unwind_Resume(a1);
 }
 
@@ -8865,40 +8852,39 @@ void sub_2601C87B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   if (a17)
   {
-    (*(*a17 + 24))(a17);
+    (*(*a17 + 24))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   JUMPOUT(0x2601C875CLL);
 }
 
-GLRenderer *GLRenderer::getFrameNodeIncludingFields@<X0>(GLRenderer *this@<X0>, OZScene *a2@<X1>, OZRenderParams *a3@<X2>, HGRenderer *a4@<X3>, uint64_t *a5@<X4>, void *a6@<X8>)
+void GLRenderer::getFrameNodeIncludingFields(uint64_t *__return_ptr a1@<X8>, GLRenderer *this@<X0>, OZScene *a3@<X1>, OZRenderParams *a4@<X2>, HGRenderer *a5@<X3>, uint64_t *a6@<X4>)
 {
-  v10 = this;
-  *a5 = 0;
-  v11 = *(a3 + 123);
+  *a6 = 0;
+  v11 = *(a4 + 123);
   if ((v11 - 1) < 2)
   {
     v45 = 0uLL;
     v46 = 0;
-    OZSceneSettings::getFrameDuration((a2 + 336), &v45);
+    OZSceneSettings::getFrameDuration(&v45, (a3 + 336));
     v45.n128_i64[0] /= 2;
-    v36.epoch = *(a3 + 2);
-    v59[0].epoch = *(a3 + 2);
-    *&v36.value = *a3;
+    v36.epoch = *(a4 + 2);
+    v59[0].epoch = *(a4 + 2);
+    *&v36.value = *a4;
     memset(v35, 0, 24);
-    *&v59[0].value = *a3;
+    *&v59[0].value = *a4;
     *&v57.value = v45;
     v57.epoch = v46;
     PC_CMTimeSaferAdd(v59, &v57, v35);
-    OZRenderParams::OZRenderParams(v59, a3);
+    OZRenderParams::OZRenderParams(v59, a4);
     v59[0] = v36;
     v60 = 0uLL;
-    GLRenderer::getFrameNodeForSingleTime(v10, a2, v59, a4, 0.5, -0.25, a5);
+    GLRenderer::getFrameNodeForSingleTime(this, a3, v59, a5, a6);
   }
 
   if ((v11 - 3) < 2)
   {
-    OZRenderParams::getPixelTransform(a3, &v57);
+    OZRenderParams::getPixelTransform(&v57.value, a4);
     v45 = 0x3FF0000000000000uLL;
     v46 = 0;
     v47 = 0;
@@ -8940,8 +8926,8 @@ GLRenderer *GLRenderer::getFrameNodeIncludingFields@<X0>(GLRenderer *this@<X0>, 
     v42 = 0uLL;
     v43 = 0uLL;
     PCMatrix44Tmpl<double>::planarInverseZ(&v36, v45.n128_f64, 0.0);
-    OZRenderParams::OZRenderParams(v59, a3);
-    OZRenderParams::getPixelTransform(a3, v34);
+    OZRenderParams::OZRenderParams(v59, a4);
+    OZRenderParams::getPixelTransform(v34, a4);
     PCMatrix44Tmpl<double>::operator*(&v45, v34, v35);
     for (i = 0; i != 128; i += 32)
     {
@@ -8952,9 +8938,9 @@ GLRenderer *GLRenderer::getFrameNodeIncludingFields@<X0>(GLRenderer *this@<X0>, 
     }
 
     v65[128] = 1;
-    if (OZRenderParams::hasROI(a3))
+    if (OZRenderParams::hasROI(a4))
     {
-      OZRenderParams::getROI(a3, v34);
+      OZRenderParams::getROI(a4, v34);
       v20.i64[0] = SLODWORD(v34[0].f64[0]);
       v20.i64[1] = SHIDWORD(v34[0].f64[0]);
       v21 = vcvtq_f64_s64(v20);
@@ -8984,16 +8970,15 @@ GLRenderer *GLRenderer::getFrameNodeIncludingFields@<X0>(GLRenderer *this@<X0>, 
     v62 = 0;
     v60 = 0u;
     v61 = 0u;
-    GLRenderer::getFrameNodeForSingleTime(v10, a2, v59, a4, 1.0, 0.0, a5);
+    GLRenderer::getFrameNodeForSingleTime(this, a3, v59, a5, a6);
   }
 
   if (!v11)
   {
-    GLRenderer::getFrameNodeForSingleTime(this, a2, a3, a4, 1.0, 0.0, a5);
+    GLRenderer::getFrameNodeForSingleTime(this, a3, a4, a5, a6);
   }
 
-  *a6 = 0;
-  return this;
+  *a1 = 0;
 }
 
 void sub_2601C8EA4(_Unwind_Exception *a1)
@@ -9007,17 +8992,17 @@ void sub_2601C8EA4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void GLRenderer::getFrameNodeForSingleTime(GLRenderer *this, OZScene *a2, OZRenderParams *a3, HGRenderer *a4, double a5, double a6, uint64_t *a7)
+void GLRenderer::getFrameNodeForSingleTime(GLRenderer *this, OZScene *a3, OZRenderParams *a4, void x3_0, uint64_t *a7)
 {
-  *v14 = *a3;
-  v15 = *(a3 + 2);
-  OZSceneSettings::getFrameDuration((a2 + 336), &v16);
+  *v14 = *a4;
+  v15 = *(a4 + 2);
+  OZSceneSettings::getFrameDuration(&v16, (a3 + 336));
   operator/(v14, &v16, &time);
   CMTimeGetSeconds(&time);
   *a7 = 0;
-  OZRenderParams::OZRenderParams(&time, a3);
+  OZRenderParams::OZRenderParams(&time, a4);
   v23 = this;
-  RenderNodeList = HGRenderJob::GetRenderNodeList(a3);
+  RenderNodeList = HGRenderJob::GetRenderNodeList(a4);
   if (*(*RenderNodeList + 8))
   {
     FxDeviceGetVirtualScreenForComputeDevice(RenderNodeList);
@@ -9032,25 +9017,25 @@ void GLRenderer::getFrameNodeForSingleTime(GLRenderer *this, OZScene *a2, OZRend
   v24 = 0u;
   v25 = 0u;
   v13 = v22;
-  OZScene::setupFxPlugRenderContext(a2, a3);
+  OZScene::setupFxPlugRenderContext(a3, a4);
   if (v13)
   {
     operator new();
   }
 
-  OZScene::buildSceneRenderGraph(a2, &time);
+  OZScene::buildSceneRenderGraph(a3, &time);
 }
 
 void sub_2601C9760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, CGColorSpace *a61)
 {
   if (v61)
   {
-    (*(*v61 + 24))(v61);
+    (*(*v61 + 24))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a14)
   {
-    (*(*a14 + 24))(a14);
+    (*(*a14 + 24))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   PCCFRef<CGColorSpace *>::~PCCFRef(&a61);
@@ -9060,166 +9045,167 @@ void sub_2601C9760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void GLRenderer::getSceneHeNodeFromLiWorld(void *a1@<X3>, uint64_t a2@<X6>, void *a3@<X7>, void *a4@<X8>)
+void GLRenderer::getSceneHeNodeFromLiWorld(void *a3@<X3>, uint64_t a6@<X6>, void *a7@<X7>, PC_Sp_counted_base **a8@<X8>)
 {
-  memset(v22, 0, 32);
-  PCColorDescription::PCColorDescription(v22);
-  v7 = 1;
-  LOBYTE(v22[1]._colorSpaceRef._obj) = 1;
-  v8 = *a2;
-  obj = v22[0]._colorSpaceRef._obj;
-  if (*a2)
+  memset(v26, 0, 32);
+  PCColorDescription::PCColorDescription(v26);
+  v11 = 1;
+  LOBYTE(v26[1]._colorSpaceRef._obj) = 1;
+  v12 = *a6;
+  obj = v26[0]._colorSpaceRef._obj;
+  if (*a6)
   {
-    v10 = v8 == v22[0]._colorSpaceRef._obj;
+    v14 = v12 == v26[0]._colorSpaceRef._obj;
   }
 
   else
   {
-    v10 = 1;
+    v14 = 1;
   }
 
-  if (!v10)
+  if (!v14)
   {
-    PCCFRefTraits<CGColorSpace *>::release(v8);
-    obj = v22[0]._colorSpaceRef._obj;
-    v7 = v22[1]._colorSpaceRef._obj;
+    PCCFRefTraits<CGColorSpace *>::release(v12);
+    obj = v26[0]._colorSpaceRef._obj;
+    v11 = v26[1]._colorSpaceRef._obj;
   }
 
-  *a2 = obj;
-  v22[0]._colorSpaceRef._obj = 0;
-  *(a2 + 8) = v22[0]._dynamicRange;
-  *(a2 + 12) = v22[0]._toneMapMethod;
-  *(a2 + 24) = v7;
-  PCCFRef<CGColorSpace *>::~PCCFRef(&v22[0]._colorSpaceRef._obj);
-  *a3 = 0;
-  v11 = a1[160];
-  v31 = v11;
-  if (v11)
+  *a6 = obj;
+  v26[0]._colorSpaceRef._obj = 0;
+  *(a6 + 8) = v26[0]._dynamicRange;
+  *(a6 + 12) = v26[0]._toneMapMethod;
+  *(a6 + 24) = v11;
+  PCCFRef<CGColorSpace *>::~PCCFRef(&v26[0]._colorSpaceRef._obj);
+  *a7 = 0;
+  v15 = a3[160];
+  v35 = v15;
+  if (v15)
   {
-    v12 = (v11 + *(*v11 - 24));
+    v16 = (v15 + *(*v15 - 24));
   }
 
   else
   {
-    v12 = 0;
+    v16 = 0;
   }
 
-  PCSharedCount::PCSharedCount(v32, v12);
-  if (!v31)
+  PCSharedCount::PCSharedCount(v36, v16);
+  if (!v35)
   {
     throw_PCNullPointerException(1);
   }
 
-  if ((*(*v31 + 704))(v31))
+  if ((*(*v35 + 704))(v35))
   {
-    OZRenderParams::getPixelTransform(a1, v25);
-    if (!v31)
+    OZRenderParams::getPixelTransform(v29, a3);
+    if (!v35)
     {
       throw_PCNullPointerException(1);
     }
 
-    v13 = (*(*v31 + 688))(v31);
-    if (v13 != 1.0)
+    v17 = (*(*v35 + 688))(v35);
+    if (v17 != 1.0)
     {
-      v25[0] = v13 * v25[0];
-      v26.f64[0] = v13 * v26.f64[0];
-      v28 = v13 * v28;
-      v29.f64[0] = v13 * v29.f64[0];
+      v29[0] = v17 * v29[0];
+      v30.f64[0] = v17 * v30.f64[0];
+      v32 = v17 * v32;
+      v33.f64[0] = v17 * v33.f64[0];
     }
 
-    OZRenderParams::getROI(a1, &v24);
-    v23 = xmmword_260343AA0;
-    OZRenderParams::getROI(a1, v22);
-    v23 = *&v22[0]._colorSpaceRef._obj;
-    if (LiRenderingTechnology::getUseHalfHeightFields((a1 + 1316)))
+    OZRenderParams::getROI(a3, &v28);
+    v27 = xmmword_260343AA0;
+    OZRenderParams::getROI(a3, v26);
+    v27 = *&v26[0]._colorSpaceRef._obj;
+    if (LiRenderingTechnology::getUseHalfHeightFields((a3 + 1316)))
     {
-      v14 = SDWORD1(v23) * v19 + v20;
-      v15 = vcvtmd_s64_f64(v23 + 0.0000001);
-      v16 = vcvtpd_s64_f64(v23 + SDWORD2(v23)) - v15;
-      *&v23 = __PAIR64__(vcvtmd_s64_f64(v14 + 0.0000001), v15);
-      DWORD2(v23) = v16;
-      HIDWORD(v23) = vcvtpd_s64_f64(v14 + SHIDWORD(v23) * v19) - DWORD1(v23);
+      v18 = SDWORD1(v27) * v23 + v24;
+      v19 = vcvtmd_s64_f64(v27 + 0.0000001);
+      v20 = vcvtpd_s64_f64(v27 + SDWORD2(v27)) - v19;
+      *&v27 = __PAIR64__(vcvtmd_s64_f64(v18 + 0.0000001), v19);
+      DWORD2(v27) = v20;
+      HIDWORD(v27) = vcvtpd_s64_f64(v18 + SHIDWORD(v27) * v23) - DWORD1(v27);
     }
 
-    if (LiRenderingTechnology::getUseHalfHeightFields((a1 + 1316)))
+    if (LiRenderingTechnology::getUseHalfHeightFields((a3 + 1316)))
     {
-      if (v19 != 1.0)
+      if (v23 != 1.0)
       {
-        v26 = vmulq_n_f64(v26, v19);
-        v27 = vmulq_n_f64(v27, v19);
+        v30 = vmulq_n_f64(v30, v23);
+        v31 = vmulq_n_f64(v31, v23);
       }
 
-      if (v20 != 0.0)
+      if (v24 != 0.0)
       {
-        v26 = vaddq_f64(v26, vmulq_n_f64(v29, v20));
-        v27 = vaddq_f64(v27, vmulq_n_f64(v30, v20));
+        v30 = vaddq_f64(v30, vmulq_n_f64(v33, v24));
+        v31 = vaddq_f64(v31, vmulq_n_f64(v34, v24));
       }
     }
 
     operator new();
   }
 
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "GLRenderer::renderSingleFrame: error: invalid camera", 52);
-  std::ios_base::getloc((v17 + *(*v17 - 24)));
-  v18 = std::locale::use_facet(v22, MEMORY[0x277D82680]);
-  (v18->__vftable[2].~facet_0)(v18, 10);
-  std::locale::~locale(v22);
+  v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "GLRenderer::renderSingleFrame: error: invalid camera", 52);
+  std::ios_base::getloc((v21 + *(*v21 - 24)));
+  v22 = std::locale::use_facet(v26, MEMORY[0x277D82680]);
+  (v22->__vftable[2].~facet_0)(v22, 10);
+  std::locale::~locale(v26);
   std::ostream::put();
   std::ostream::flush();
-  *a3 = 2;
-  *a4 = 0;
-  PCSharedCount::~PCSharedCount(v32);
+  *a7 = 2;
+  *a8 = 0;
+  PCSharedCount::~PCSharedCount(v36);
 }
 
-void sub_2601CA2CC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_2601CA2CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, ...)
 {
-  va_start(va, a8);
+  va_start(va, a14);
+  v17 = a2;
   if (STACK[0x208])
   {
-    (*(*STACK[0x208] + 24))(STACK[0x208]);
+    (*(*STACK[0x208] + 24))(STACK[0x208], a2, a3, a4, a5, a6, a7, a8);
   }
 
   LiAgent::~LiAgent(va);
-  PCSharedCount::~PCSharedCount(v9 + 1);
+  PCSharedCount::~PCSharedCount(v15 + 1);
   LiRenderParameters::~LiRenderParameters(&STACK[0x228]);
-  if (a2 == 3)
+  if (v17 == 3)
   {
     __cxa_begin_catch(a1);
-    *v8 = 1;
+    *v14 = 1;
     __cxa_end_catch();
   }
 
-  else if (a2 == 2)
+  else if (v17 == 2)
   {
-    v13 = __cxa_begin_catch(a1);
-    (*(*v13 + 40))(v13);
-    *v8 = 2;
+    v19 = __cxa_begin_catch(a1);
+    (*(*v19 + 40))(v19);
+    *v14 = 2;
     __cxa_end_catch();
   }
 
   else
   {
-    if (a2 != 1)
+    if (v17 != 1)
     {
-      if (*a8)
+      if (*a14)
       {
-        (*(**a8 + 24))(*a8);
+        (*(**a14 + 24))(*a14);
       }
 
       PCSharedCount::~PCSharedCount(&STACK[0x308]);
-      PCSharedCount::~PCSharedCount((v10 - 120));
+      PCSharedCount::~PCSharedCount((v16 - 120));
       _Unwind_Resume(a1);
     }
 
     __cxa_begin_catch(a1);
-    *v8 = 2;
+    *v14 = 2;
     __cxa_end_catch();
   }
 
   JUMPOUT(0x2601CA274);
 }
 
-void *std::vector<FxBalancedBlendRecord>::reserve(void *result, unint64_t a2)
+void **std::vector<FxBalancedBlendRecord>::reserve(void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -9234,23 +9220,23 @@ void *std::vector<FxBalancedBlendRecord>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_2601CA5EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2601CA5EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<FxBalancedBlendRecord>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void makeBalancedBlendTree<std::__wrap_iter<FxBalancedBlendRecord *>>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>, int a4@<W2>)
+void makeBalancedBlendTree<std::__wrap_iter<FxBalancedBlendRecord *>>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, void *a4@<X8>)
 {
-  if (a4 == 1)
+  if (a3 == 1)
   {
-    makeBalancedBlendTree_RetimeAddBlend2<std::__wrap_iter<FxBalancedBlendRecord *>>(a1, a2, a3);
+    makeBalancedBlendTree_RetimeAddBlend2<std::__wrap_iter<FxBalancedBlendRecord *>>(a1, a2, a4);
   }
 
   else
   {
-    makeBalancedBlendTree_RetimeAddBlend6<std::__wrap_iter<FxBalancedBlendRecord *>>(a1, a2, a3);
+    makeBalancedBlendTree_RetimeAddBlend6<std::__wrap_iter<FxBalancedBlendRecord *>>(a1, a2, a4);
   }
 }
 
@@ -9418,11 +9404,11 @@ void makeBalancedBlendTree_RetimeAddBlend2<std::__wrap_iter<FxBalancedBlendRecor
   v4[0] = 0;
   v4[1] = 0;
   v3 = v4;
-  v4[2] = &v3;
-  v4[3] = v4;
+  v5[0] = &v3;
+  v5[1] = v4;
   if (a1 != a2)
   {
-    std::insert_iterator<std::multiset<FxBalancedBlendRecord,OZLessBalancedBlendRecord,std::allocator<FxBalancedBlendRecord>>>::operator=[abi:ne200100]();
+    std::insert_iterator<std::multiset<FxBalancedBlendRecord,OZLessBalancedBlendRecord,std::allocator<FxBalancedBlendRecord>>>::operator=[abi:ne200100](v5, a1);
   }
 
   FxBalancedBlendRecord::node((v3 + 4), a3);
@@ -9573,10 +9559,10 @@ void OZCloneGenerator::~OZCloneGenerator(OZCloneGenerator *this)
   OZChannelEnum::~OZChannelEnum(this + 2523);
   OZChannel::~OZChannel((this + 20032));
   OZChannel::~OZChannel((this + 19880));
-  OZChannelEnum::~OZChannelEnum((this + 19624));
+  OZChannelEnum::~OZChannelEnum(this + 2453);
   OZChannelBool::~OZChannelBool((this + 19472));
   OZChannel::~OZChannel((this + 19320));
-  OZChannelEnum::~OZChannelEnum((this + 19064));
+  OZChannelEnum::~OZChannelEnum(this + 2383);
   OZChanElementOrFootageRef::~OZChanElementOrFootageRef((this + 18904));
   OZChannelFolder::~OZChannelFolder((this + 18776));
 
@@ -9864,7 +9850,7 @@ uint64_t OZCloneGenerator::eval(OZCloneGenerator *this, OZRenderParams *a2)
   }
 
   v6 = v5;
-  TimeRemappedParams = OZCloneGenerator::getTimeRemappedParams(this, a2, v10);
+  TimeRemappedParams = OZCloneGenerator::getTimeRemappedParams(v10, this, a2);
   v8 = (*(*v6 + 96))(v6, v10, TimeRemappedParams);
   OZRenderParams::~OZRenderParams(v10);
   return v8;

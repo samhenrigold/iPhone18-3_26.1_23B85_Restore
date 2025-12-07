@@ -914,7 +914,7 @@ LABEL_10:
     [vehicleCopy setVehicleName:v8];
   }
 
-  v167 = v8;
+  v164 = v8;
   objc_opt_class();
   v9 = [attributesCopy objectForKey:@"bluetoothAddress"];
   if (v9 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -932,7 +932,7 @@ LABEL_10:
     [vehicleCopy setBluetoothAddress:v10];
   }
 
-  v166 = v10;
+  v163 = v10;
   objc_opt_class();
   v11 = [attributesCopy objectForKey:@"carplayWiFiUUID"];
   if (v11 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -950,7 +950,7 @@ LABEL_10:
     [vehicleCopy setCarplayWiFiUUID:v12];
   }
 
-  v165 = v12;
+  v162 = v12;
   v13 = objc_opt_class();
   v14 = [attributesCopy objectForKey:@"carPlayProtocols"];
   v15 = sub_1000097A0(v13, v14);
@@ -978,7 +978,7 @@ LABEL_10:
     [vehicleCopy setSupportsEnhancedIntegration:{objc_msgSend(v18, "BOOLValue")}];
   }
 
-  v163 = v18;
+  v160 = v18;
   objc_opt_class();
   v19 = [attributesCopy objectForKey:@"supportsMixableAudio"];
   if (v19 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -996,7 +996,7 @@ LABEL_10:
     [vehicleCopy setSupportsMixableAudio:{objc_msgSend(v20, "BOOLValue")}];
   }
 
-  v162 = v20;
+  v159 = v20;
   objc_opt_class();
   v21 = [attributesCopy objectForKey:@"isSiriBargeInDisabled"];
   if (v21 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1014,7 +1014,7 @@ LABEL_10:
     [vehicleCopy setSiriBargeInDisabled:{objc_msgSend(v22, "BOOLValue")}];
   }
 
-  v161 = v22;
+  v158 = v22;
   objc_opt_class();
   v23 = [attributesCopy objectForKey:@"supportsUSBCarPlay"];
   if (v23 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1032,7 +1032,7 @@ LABEL_10:
     [vehicleCopy setSupportsUSBCarPlay:{objc_msgSend(v24, "BOOLValue")}];
   }
 
-  v160 = v24;
+  v157 = v24;
   objc_opt_class();
   v25 = [attributesCopy objectForKey:@"supportsWirelessCarPlay"];
   if (v25 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1050,7 +1050,7 @@ LABEL_10:
     [vehicleCopy setSupportsWirelessCarPlay:{objc_msgSend(v26, "BOOLValue")}];
   }
 
-  v159 = v26;
+  v156 = v26;
   objc_opt_class();
   v27 = [attributesCopy objectForKey:@"supportsStartSessionRequest"];
   if (v27 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1069,7 +1069,7 @@ LABEL_10:
     [vehicleCopy setSupportsStartSessionRequest:v28];
   }
 
-  v158 = v28;
+  v155 = v28;
   objc_opt_class();
   v29 = [attributesCopy objectForKey:@"albumArtUserPreference"];
   if (v29 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1087,7 +1087,7 @@ LABEL_10:
     [vehicleCopy setAlbumArtUserPreference:{objc_msgSend(v30, "integerValue")}];
   }
 
-  v157 = v30;
+  v154 = v30;
   objc_opt_class();
   v31 = [attributesCopy objectForKey:@"wallpaperIdentifierUserPreference"];
   if (v31 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1105,7 +1105,7 @@ LABEL_10:
     [vehicleCopy setWallpaperIdentifier:v32];
   }
 
-  v156 = v32;
+  v153 = v32;
   objc_opt_class();
   v33 = [attributesCopy objectForKey:@"previousWallpaperIdentifierUserPreference"];
   if (v33 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1123,7 +1123,7 @@ LABEL_10:
     [vehicleCopy setPreviousWallpaperIdentifier:v34];
   }
 
-  v155 = v34;
+  v152 = v34;
   objc_opt_class();
   v35 = [attributesCopy objectForKey:@"displayScalingModeUserPreference"];
   if (v35 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1141,7 +1141,7 @@ LABEL_10:
     [vehicleCopy setDisplayScaleMode:{objc_msgSend(v36, "integerValue")}];
   }
 
-  v154 = v36;
+  v151 = v36;
   objc_opt_class();
   v37 = [attributesCopy objectForKey:@"appearanceModeUserPreference"];
   if (v37 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1159,7 +1159,7 @@ LABEL_10:
     [vehicleCopy setAppearanceModePreference:{objc_msgSend(v38, "integerValue")}];
   }
 
-  v153 = v38;
+  v150 = v38;
   objc_opt_class();
   v39 = [attributesCopy objectForKey:@"mapsAppearanceUserPreference"];
   if (v39 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1177,7 +1177,7 @@ LABEL_10:
     [vehicleCopy setMapsAppearancePreference:{objc_msgSend(v40, "integerValue")}];
   }
 
-  v152 = v40;
+  v149 = v40;
   objc_opt_class();
   v41 = [attributesCopy objectForKey:@"colorFilterUserPreference"];
   if (v41 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1190,14 +1190,14 @@ LABEL_10:
     v42 = 0;
   }
 
-  v164 = v15;
+  v161 = v15;
 
   if (v42)
   {
     [vehicleCopy setColorFilterPreference:{objc_msgSend(v42, "integerValue")}];
   }
 
-  v151 = v42;
+  v148 = v42;
   v43 = objc_opt_class();
   v44 = objc_opt_class();
   v45 = [attributesCopy objectForKey:@"colorFilterIntensityUserPreference"];
@@ -1208,7 +1208,7 @@ LABEL_10:
     [vehicleCopy setColorFilterIntensityPreference:v46];
   }
 
-  v150 = v46;
+  v147 = v46;
   objc_opt_class();
   v47 = [attributesCopy objectForKey:@"boldTextUserPreference"];
   if (v47 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1233,8 +1233,8 @@ LABEL_10:
     [vehicleCopy setSoundRecognitionPreference:{objc_msgSend(v49, "integerValue")}];
   }
 
-  v148 = v50;
-  v149 = v48;
+  v145 = v50;
+  v146 = v48;
   v51 = [attributesCopy objectForKey:@"voiceControlUserPreference"];
   v52 = v51;
   if (v51)
@@ -1242,7 +1242,7 @@ LABEL_10:
     [vehicleCopy setVoiceControlPreference:{objc_msgSend(v51, "integerValue")}];
   }
 
-  v147 = v52;
+  v144 = v52;
   objc_opt_class();
   v53 = [attributesCopy objectForKey:@"textSizeUserPreference"];
   if (v53 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1260,7 +1260,7 @@ LABEL_10:
     [vehicleCopy setTextSizePreference:{objc_msgSend(v54, "integerValue")}];
   }
 
-  v146 = v54;
+  v143 = v54;
   objc_opt_class();
   v55 = [attributesCopy objectForKey:@"supportsBluetoothLE"];
   if (v55 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1278,7 +1278,7 @@ LABEL_10:
     [vehicleCopy setSupportsBluetoothLE:{objc_msgSend(v56, "BOOLValue")}];
   }
 
-  v145 = v56;
+  v142 = v56;
   objc_opt_class();
   v57 = [attributesCopy objectForKey:@"supportsThemeAssets"];
   if (v57 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1297,7 +1297,7 @@ LABEL_10:
     [vehicleCopy setSupportsThemeAssets:v58];
   }
 
-  v144 = v58;
+  v141 = v58;
   objc_opt_class();
   v59 = [attributesCopy objectForKey:@"disabledFeaturesPreference"];
   if (v59 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1315,7 +1315,7 @@ LABEL_10:
     [vehicleCopy setDisabledFeaturesPreference:v60];
   }
 
-  v143 = v60;
+  v140 = v60;
   objc_opt_class();
   v61 = [attributesCopy objectForKey:@"clusterAssetIdentifier"];
   if (v61 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1333,7 +1333,7 @@ LABEL_10:
     [vehicleCopy setClusterAssetIdentifier:v62];
   }
 
-  v142 = v62;
+  v139 = v62;
   objc_opt_class();
   v63 = [attributesCopy objectForKey:@"clusterAssetiOSContentVersion"];
   if (v63 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1351,7 +1351,7 @@ LABEL_10:
     [vehicleCopy setClusterAssetiOSContentVersion:v64];
   }
 
-  v141 = v64;
+  v138 = v64;
   objc_opt_class();
   v65 = [attributesCopy objectForKey:@"clusterAssetVersion"];
   if (v65 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1369,7 +1369,7 @@ LABEL_10:
     [vehicleCopy setClusterAssetVersion:v66];
   }
 
-  v140 = v66;
+  v137 = v66;
   objc_opt_class();
   v67 = [attributesCopy objectForKey:@"SDKVersion"];
   if (v67 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1387,7 +1387,7 @@ LABEL_10:
     [vehicleCopy setSDKVersion:v68];
   }
 
-  v139 = v68;
+  v136 = v68;
   objc_opt_class();
   v69 = [attributesCopy objectForKey:@"clusterAssetPath"];
   if (v69 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1423,7 +1423,7 @@ LABEL_10:
     [vehicleCopy setStagedClusterAssetiOSContentVersion:v73];
   }
 
-  v137 = v73;
+  v134 = v73;
   objc_opt_class();
   v74 = [attributesCopy objectForKey:@"stagedClusterAssetVersion"];
   if (v74 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1441,7 +1441,7 @@ LABEL_10:
     [vehicleCopy setStagedClusterAssetVersion:v75];
   }
 
-  v136 = v75;
+  v133 = v75;
   objc_opt_class();
   v76 = [attributesCopy objectForKey:@"stagedClusterAssetPath"];
   if (v76 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1454,7 +1454,7 @@ LABEL_10:
     v77 = 0;
   }
 
-  v138 = v70;
+  v135 = v70;
 
   v78 = v77;
   if (v77)
@@ -1463,38 +1463,38 @@ LABEL_10:
     [vehicleCopy setStagedClusterAssetURL:v79];
   }
 
-  v135 = v78;
+  v132 = v78;
   v80 = objc_opt_class();
   v81 = objc_opt_class();
   v82 = [attributesCopy objectForKey:@"displayThemeData"];
   v83 = sub_1000098A8(v80, v81, v82);
 
-  v169 = vehicleCopy;
-  v170 = attributesCopy;
-  v168 = v83;
+  v166 = vehicleCopy;
+  v167 = attributesCopy;
+  v165 = v83;
   if (v83)
   {
     v84 = objc_alloc_init(NSMutableDictionary);
+    v175 = 0u;
+    v176 = 0u;
+    v177 = 0u;
     v178 = 0u;
-    v179 = 0u;
-    v180 = 0u;
-    v181 = 0u;
     v85 = v83;
-    v86 = [v85 countByEnumeratingWithState:&v178 objects:v185 count:16];
+    v86 = [v85 countByEnumeratingWithState:&v175 objects:v182 count:16];
     if (v86)
     {
       v87 = v86;
-      v88 = *v179;
+      v88 = *v176;
       do
       {
         for (i = 0; i != v87; i = i + 1)
         {
-          if (*v179 != v88)
+          if (*v176 != v88)
           {
             objc_enumerationMutation(v85);
           }
 
-          v90 = *(*(&v178 + 1) + 8 * i);
+          v90 = *(*(&v175 + 1) + 8 * i);
           v91 = [v85 objectForKey:v90];
           v92 = [[CRDisplayThemeData alloc] initWithDictionary:v91];
           if (v92)
@@ -1508,23 +1508,23 @@ LABEL_10:
             if (os_log_type_enabled(v93, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v184 = v90;
+              v181 = v90;
               _os_log_fault_impl(&_mh_execute_header, v93, OS_LOG_TYPE_FAULT, "Failed to deserialize theme data for display: %@", buf, 0xCu);
             }
           }
         }
 
-        v87 = [v85 countByEnumeratingWithState:&v178 objects:v185 count:16];
+        v87 = [v85 countByEnumeratingWithState:&v175 objects:v182 count:16];
       }
 
       while (v87);
     }
 
-    vehicleCopy = v169;
-    [v169 setDisplayThemeData:v84];
+    vehicleCopy = v166;
+    [v166 setDisplayThemeData:v84];
 
-    attributesCopy = v170;
-    v83 = v168;
+    attributesCopy = v167;
+    v83 = v165;
   }
 
   objc_opt_class();
@@ -1544,7 +1544,7 @@ LABEL_10:
     [vehicleCopy setHasGaugeClusterScreen:v95];
   }
 
-  v134 = v95;
+  v131 = v95;
   objc_opt_class();
   v96 = [attributesCopy objectForKey:@"finishedWelcome"];
   if (v96 && (objc_opt_isKindOfClass() & 1) != 0)
@@ -1562,36 +1562,36 @@ LABEL_10:
     [vehicleCopy setFinishedWelcome:v97];
   }
 
-  v133 = v97;
+  v130 = v97;
   v98 = objc_opt_class();
   v99 = objc_opt_class();
   v100 = [attributesCopy objectForKey:@"OEMPunchThroughsAsApp"];
   v101 = sub_1000098A8(v98, v99, v100);
 
-  v171 = v101;
+  v168 = v101;
   if (v101)
   {
     v102 = objc_alloc_init(NSMutableDictionary);
+    v171 = 0u;
+    v172 = 0u;
+    v173 = 0u;
     v174 = 0u;
-    v175 = 0u;
-    v176 = 0u;
-    v177 = 0u;
     v103 = v101;
-    v104 = [v103 countByEnumeratingWithState:&v174 objects:v182 count:16];
+    v104 = [v103 countByEnumeratingWithState:&v171 objects:v179 count:16];
     if (v104)
     {
       v105 = v104;
-      v106 = *v175;
+      v106 = *v172;
       do
       {
         for (j = 0; j != v105; j = j + 1)
         {
-          if (*v175 != v106)
+          if (*v172 != v106)
           {
             objc_enumerationMutation(v103);
           }
 
-          v108 = *(*(&v174 + 1) + 8 * j);
+          v108 = *(*(&v171 + 1) + 8 * j);
           v109 = [v103 mutableArrayValueForKey:v108];
           v110 = [[CROEMPunchThroughsAppData alloc] initWithPunchThroughIDs:v109];
           if (v110)
@@ -1605,23 +1605,23 @@ LABEL_10:
             if (os_log_type_enabled(v111, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v184 = v108;
+              v181 = v108;
               _os_log_fault_impl(&_mh_execute_header, v111, OS_LOG_TYPE_FAULT, "Failed to deserialize OEM PunchThroughs for bundleIdentifier: %@", buf, 0xCu);
             }
           }
         }
 
-        v105 = [v103 countByEnumeratingWithState:&v174 objects:v182 count:16];
+        v105 = [v103 countByEnumeratingWithState:&v171 objects:v179 count:16];
       }
 
       while (v105);
     }
 
-    vehicleCopy = v169;
-    [v169 setOemPunchThroughsAsApp:v102];
+    vehicleCopy = v166;
+    [v166 setOemPunchThroughsAsApp:v102];
 
-    attributesCopy = v170;
-    v83 = v168;
+    attributesCopy = v167;
+    v83 = v165;
   }
 
   if (CRIsInternalInstall())
@@ -1665,84 +1665,98 @@ LABEL_10:
   v116 = [attributesCopy objectForKey:@"internalNotes"];
   if (v116)
   {
-    v117 = MAAsset_ptr;
     if (objc_opt_isKindOfClass())
     {
-      v118 = v116;
+      v117 = v116;
     }
 
     else
     {
-      v118 = 0;
+      v117 = 0;
     }
   }
 
   else
   {
-    v118 = 0;
-    v117 = MAAsset_ptr;
+    v117 = 0;
   }
 
-  if (v118)
+  if (v117)
   {
-    [vehicleCopy setInternalNotes:v118];
+    [vehicleCopy setInternalNotes:v117];
   }
 
-  v119 = v117[51];
   objc_opt_class();
-  v120 = [attributesCopy objectForKey:@"homeScreenStyleData"];
-  if (v120 && (objc_opt_isKindOfClass() & 1) != 0)
+  v118 = [attributesCopy objectForKey:@"homeScreenStyleData"];
+  if (v118 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v121 = v120;
+    v119 = v118;
   }
 
   else
   {
-    v121 = 0;
+    v119 = 0;
   }
 
-  if (v121)
+  if (v119)
   {
-    v122 = [[CRHomeScreenStyleData alloc] initWithDictionary:v121];
-    if (!v122)
+    v120 = [[CRHomeScreenStyleData alloc] initWithDictionary:v119];
+    if (!v120)
     {
-      v123 = CarGeneralLogging();
-      if (os_log_type_enabled(v123, OS_LOG_TYPE_FAULT))
+      v121 = CarGeneralLogging();
+      if (os_log_type_enabled(v121, OS_LOG_TYPE_FAULT))
       {
-        sub_100081710(v123);
+        sub_100081710(v121);
       }
     }
 
-    [vehicleCopy setHomeScreenStyle:v122 forDisplayWithID:0];
+    [vehicleCopy setHomeScreenStyle:v120 forDisplayWithID:0];
   }
 
   objc_opt_class();
-  v124 = [attributesCopy objectForKey:@"viewAreas"];
-  if (v124 && (objc_opt_isKindOfClass() & 1) != 0)
+  v122 = [attributesCopy objectForKey:@"viewAreas"];
+  if (v122 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v125 = v124;
+    v123 = v122;
   }
 
   else
   {
-    v125 = 0;
+    v123 = 0;
   }
 
-  if (v125)
+  if (v123)
   {
-    v172[0] = _NSConcreteStackBlock;
-    v172[1] = 3221225472;
-    v172[2] = sub_10000999C;
-    v172[3] = &unk_1000DD4D0;
-    v126 = objc_alloc_init(NSMutableArray);
-    v173 = v126;
-    [v125 enumerateObjectsUsingBlock:v172];
-    [vehicleCopy setViewAreas:v126];
+    v169[0] = _NSConcreteStackBlock;
+    v169[1] = 3221225472;
+    v169[2] = sub_10000999C;
+    v169[3] = &unk_1000DD4D0;
+    v124 = objc_alloc_init(NSMutableArray);
+    v170 = v124;
+    [v123 enumerateObjectsUsingBlock:v169];
+    [vehicleCopy setViewAreas:v124];
   }
 
-  v127 = v117[51];
   objc_opt_class();
-  v128 = [attributesCopy objectForKey:@"subtitleSettings"];
+  v125 = [attributesCopy objectForKey:@"subtitleSettings"];
+  if (v125 && (objc_opt_isKindOfClass() & 1) != 0)
+  {
+    v126 = v125;
+  }
+
+  else
+  {
+    v126 = 0;
+  }
+
+  if (v126)
+  {
+    v127 = [[CRSubtitleSettings alloc] initWithDictionaryRepresentation:v126];
+    [vehicleCopy setSubtitleSettings:v127];
+  }
+
+  objc_opt_class();
+  v128 = [attributesCopy objectForKey:@"videoDiagnostics"];
   if (v128 && (objc_opt_isKindOfClass() & 1) != 0)
   {
     v129 = v128;
@@ -1755,25 +1769,7 @@ LABEL_10:
 
   if (v129)
   {
-    v130 = [[CRSubtitleSettings alloc] initWithDictionaryRepresentation:v129];
-    [vehicleCopy setSubtitleSettings:v130];
-  }
-
-  objc_opt_class();
-  v131 = [attributesCopy objectForKey:@"videoDiagnostics"];
-  if (v131 && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v132 = v131;
-  }
-
-  else
-  {
-    v132 = 0;
-  }
-
-  if (v132)
-  {
-    [vehicleCopy setVideoDiagnosticsEnabled:v132];
+    [vehicleCopy setVideoDiagnosticsEnabled:v129];
   }
 }
 

@@ -8,33 +8,33 @@
 
 - (id)generateWebExport
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   buttonActions = [self buttonActions];
-  v5 = [buttonActions countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v5 = [buttonActions countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v36;
+    v7 = *v35;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v36 != v7)
+        if (*v35 != v7)
         {
           objc_enumerationMutation(buttonActions);
         }
 
-        v9 = [self _resultFromDialogAction:*(*(&v35 + 1) + 8 * i)];
+        v9 = [self _resultFromDialogAction:*(*(&v34 + 1) + 8 * i)];
         [v3 addObject:v9];
       }
 
-      v6 = [buttonActions countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v6 = [buttonActions countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v6);
@@ -42,30 +42,30 @@
 
   [v2 setObject:v3 forKeyedSubscript:@"actions"];
   v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   textFields = [self textFields];
-  v12 = [textFields countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v12 = [textFields countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v32;
+    v14 = *v31;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v32 != v14)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(textFields);
         }
 
-        v16 = [self _resultFromDialogTextField:*(*(&v31 + 1) + 8 * j)];
+        v16 = [self _resultFromDialogTextField:*(*(&v30 + 1) + 8 * j)];
         [v10 addObject:v16];
       }
 
-      v13 = [textFields countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v13 = [textFields countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v13);
@@ -102,14 +102,12 @@
   userInfo = [self userInfo];
   [v2 setObject:userInfo forKeyedSubscript:@"userInfo"];
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (id)_resultFromDialogAction:()AMSUIWeb
 {
-  v39[4] = *MEMORY[0x1E69E9840];
+  v38[4] = *MEMORY[0x1E69E9840];
   v3 = a3;
   if (v3)
   {
@@ -128,10 +126,10 @@
     request = [v3 request];
     if (request)
     {
-      v38[0] = @"url";
+      v37[0] = @"url";
       request2 = [v3 request];
-      v36 = [request2 URL];
-      absoluteString2 = [v36 absoluteString];
+      v35 = [request2 URL];
+      absoluteString2 = [v35 absoluteString];
       v12 = absoluteString2;
       v13 = &stru_1F3921360;
       if (absoluteString2)
@@ -139,8 +137,8 @@
         v13 = absoluteString2;
       }
 
-      v39[0] = v13;
-      v38[1] = @"headers";
+      v38[0] = v13;
+      v37[1] = @"headers";
       request3 = [v3 request];
       allHTTPHeaderFields = [request3 allHTTPHeaderFields];
       v15 = allHTTPHeaderFields;
@@ -150,8 +148,8 @@
         v16 = allHTTPHeaderFields;
       }
 
-      v39[1] = v16;
-      v38[2] = @"body";
+      v38[1] = v16;
+      v37[2] = @"body";
       request4 = [v3 request];
       hTTPBody = [request4 HTTPBody];
       if (hTTPBody)
@@ -167,8 +165,8 @@
         v19 = 0;
       }
 
-      v39[2] = v19;
-      v38[3] = @"method";
+      v38[2] = v19;
+      v37[3] = @"method";
       request6 = [v3 request];
       hTTPMethod = [request6 HTTPMethod];
       v22 = hTTPMethod;
@@ -178,8 +176,8 @@
         v23 = hTTPMethod;
       }
 
-      v39[3] = v23;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:4];
+      v38[3] = v23;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:4];
       [v4 setObject:v24 forKeyedSubscript:@"request"];
 
       if (hTTPBody)
@@ -210,8 +208,6 @@
   {
     v4 = 0;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

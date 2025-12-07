@@ -28,7 +28,7 @@
 
 - (id)buildDescriptions
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   preferenceDescription = [(SPUISSystemPreferenceResultBuilder *)self preferenceDescription];
   v4 = [preferenceDescription length];
 
@@ -37,16 +37,14 @@
     v5 = MEMORY[0x277D4C598];
     preferenceDescription2 = [(SPUISSystemPreferenceResultBuilder *)self preferenceDescription];
     v7 = [v5 textWithString:preferenceDescription2];
-    v11[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

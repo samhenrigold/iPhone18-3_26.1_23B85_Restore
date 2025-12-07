@@ -112,7 +112,7 @@
       while (v15);
     }
 
-    if (![(NSMutableDictionary *)self->_dynamicRuntimeTracker count])
+    if (!objc_msgSend_count(self->_dynamicRuntimeTracker))
     {
       dynamicRuntimeTracker = self->_dynamicRuntimeTracker;
       self->_dynamicRuntimeTracker = 0;
@@ -194,7 +194,7 @@
       while (v30);
     }
 
-    if (![(NSMutableDictionary *)self->_immediateRuntimeTracker count])
+    if (!objc_msgSend_count(self->_immediateRuntimeTracker))
     {
       immediateRuntimeTracker = self->_immediateRuntimeTracker;
       self->_immediateRuntimeTracker = 0;
@@ -276,7 +276,7 @@
       while (v47);
     }
 
-    if (![(NSMutableDictionary *)self->_immediateRuntimeShortTracker count])
+    if (!objc_msgSend_count(self->_immediateRuntimeShortTracker))
     {
       immediateRuntimeShortTracker = self->_immediateRuntimeShortTracker;
       self->_immediateRuntimeShortTracker = 0;

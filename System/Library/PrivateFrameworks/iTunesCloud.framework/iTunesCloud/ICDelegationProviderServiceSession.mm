@@ -318,10 +318,10 @@ void __69__ICDelegationProviderServiceSession__handleStartDelegationResponse___b
   dispatch_barrier_async(accessQueue, block);
 }
 
-uint64_t __43__ICDelegationProviderServiceSession_start__block_invoke(uint64_t result)
+void *__43__ICDelegationProviderServiceSession_start__block_invoke(void *result)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v1 = result[4];
   if (!*(v1 + 56))
   {
     v2 = result;
@@ -329,13 +329,13 @@ uint64_t __43__ICDelegationProviderServiceSession_start__block_invoke(uint64_t r
     v3 = os_log_create("com.apple.amp.iTunesCloud", "Delegation");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(v2 + 32);
+      v4 = v2[4];
       *buf = 138543362;
       v9 = v4;
       _os_log_impl(&dword_1B4491000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Resolving streams...", buf, 0xCu);
     }
 
-    v5 = *(v2 + 32);
+    v5 = v2[4];
     v6 = *(v5 + 72);
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;

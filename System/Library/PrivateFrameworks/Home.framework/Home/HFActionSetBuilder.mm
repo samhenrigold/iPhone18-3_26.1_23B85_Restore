@@ -74,13 +74,13 @@
 
 - (id)performValidation
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __59__HFActionSetBuilder_AutomationBuilders__performValidation__block_invoke;
-  v7[3] = &unk_277DF61C8;
-  v7[4] = self;
-  v3 = __59__HFActionSetBuilder_AutomationBuilders__performValidation__block_invoke(v7);
+  v11 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __59__HFActionSetBuilder_AutomationBuilders__performValidation__block_invoke;
+  v6[3] = &unk_277DF61C8;
+  v6[4] = self;
+  v3 = __59__HFActionSetBuilder_AutomationBuilders__performValidation__block_invoke(v6);
   if (v3)
   {
     v4 = HFLogForCategory(0x2BuLL);
@@ -88,13 +88,11 @@
     {
       *buf = 138412546;
       selfCopy = self;
-      v10 = 2112;
-      v11 = v3;
+      v9 = 2112;
+      v10 = v3;
       _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error validating action set builder: %@. Error: %@", buf, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -145,8 +143,8 @@ LABEL_9:
 
 - (id)getOrCreateActionSetBuilder
 {
-  home = [(HFItemBuilder *)self home];
-  areAutomationBuildersSupported = [home areAutomationBuildersSupported];
+  v3 = objc_msgSend_home(self, a2);
+  areAutomationBuildersSupported = [v3 areAutomationBuildersSupported];
 
   if (!areAutomationBuildersSupported)
   {
@@ -157,32 +155,32 @@ LABEL_9:
   actionSet = [(HFAbstractBaseActionSetBuilder *)self actionSet];
   if (actionSet)
   {
-    home3 = actionSet;
+    v6 = actionSet;
   }
 
   else
   {
-    home2 = [(HFItemBuilder *)self home];
-    actionSets = [home2 actionSets];
+    v8 = objc_msgSend_home(self);
+    actionSets = [v8 actionSets];
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
     v14[2] = __69__HFActionSetBuilder_AutomationBuilders__getOrCreateActionSetBuilder__block_invoke;
     v14[3] = &unk_277DF4280;
     v14[4] = self;
-    home3 = [actionSets na_firstObjectPassingTest:v14];
+    v6 = [actionSets na_firstObjectPassingTest:v14];
 
-    if (!home3)
+    if (!v6)
     {
       v13 = [HFActionSetBuilderPair alloc];
-      home3 = [(HFItemBuilder *)self home];
-      newActionSetBuilder = [home3 newActionSetBuilder];
+      v6 = objc_msgSend_home(self);
+      newActionSetBuilder = [v6 newActionSetBuilder];
       v11 = [(HFActionSetBuilderPair *)v13 initWithBuilder:newActionSetBuilder];
       goto LABEL_7;
     }
   }
 
-  newActionSetBuilder = [home3 copyAsBuilder];
-  v11 = [[HFActionSetBuilderPair alloc] initWithActionSet:home3 builder:newActionSetBuilder];
+  newActionSetBuilder = [v6 copyAsBuilder];
+  v11 = [[HFActionSetBuilderPair alloc] initWithActionSet:v6 builder:newActionSetBuilder];
 LABEL_7:
   v7 = v11;
 
@@ -214,7 +212,7 @@ BOOL __69__HFActionSetBuilder_AutomationBuilders__getOrCreateActionSetBuilder__b
 
 - (id)updateActionSetBuilder:(id)builder
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   builderCopy = builder;
   if (builderCopy)
   {
@@ -224,33 +222,33 @@ BOOL __69__HFActionSetBuilder_AutomationBuilders__getOrCreateActionSetBuilder__b
     [(HFAbstractBaseActionSetBuilder *)self updateActionsInBuilder:builderCopy];
     if ([(HFActionSetBuilder *)self shouldClearApplicationData])
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       applicationData = [builderCopy applicationData];
       allKeys = [applicationData allKeys];
 
-      v9 = [allKeys countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v25;
+        v11 = *v24;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v25 != v11)
+            if (*v24 != v11)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v13 = *(*(&v24 + 1) + 8 * i);
+            v13 = *(*(&v23 + 1) + 8 * i);
             applicationData2 = [builderCopy applicationData];
             [applicationData2 setObject:0 forKey:v13];
           }
 
-          v10 = [allKeys countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v10 = [allKeys countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
         while (v10);
@@ -264,8 +262,8 @@ BOOL __69__HFActionSetBuilder_AutomationBuilders__getOrCreateActionSetBuilder__b
       [(HFActionSetBuilder *)self _updateValueForContextType:3 onActionSetBuilder:builderCopy];
       v19 = MEMORY[0x277D2C900];
       v20 = [(HFActionSetBuilder *)self _updateIconOnBuilder:builderCopy];
-      v28 = v20;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+      v27 = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
       futureWithNoResult = [v19 combineAllFutures:v21];
     }
   }
@@ -279,8 +277,6 @@ BOOL __69__HFActionSetBuilder_AutomationBuilders__getOrCreateActionSetBuilder__b
     v18 = [MEMORY[0x277CCA9B8] hf_errorWithCode:30];
     futureWithNoResult = [v17 futureWithError:v18];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -468,8 +464,8 @@ void __75__HFActionSetBuilder_AccessoryLikeObjectContainer__hf_accessoryLikeObje
 - (id)deleteActionSet
 {
   actionSet = [(HFAbstractBaseActionSetBuilder *)self actionSet];
-  home = [(HFItemBuilder *)self home];
-  v5 = [(HFActionSetBuilder *)self _deleteActionSet:actionSet fromHome:home];
+  v4 = objc_msgSend_home(self);
+  v5 = [(HFActionSetBuilder *)self _deleteActionSet:actionSet fromHome:v4];
 
   return v5;
 }
@@ -492,14 +488,14 @@ void __75__HFActionSetBuilder_AccessoryLikeObjectContainer__hf_accessoryLikeObje
 
 - (id)_lazy_performValidation
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   v4 = [(HFItemBuilder *)self lazy_verifyPropertyIsSet:@"name"];
-  v17[0] = v4;
+  v16[0] = v4;
   name = [(HFActionSetBuilder *)self name];
   v6 = [(HFItemBuilder *)self lazy_verifyNameIsNotEmpty:name];
-  v17[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   v8 = [v3 arrayWithArray:v7];
 
   actionSet = [(HFAbstractBaseActionSetBuilder *)self actionSet];
@@ -513,34 +509,30 @@ void __75__HFActionSetBuilder_AccessoryLikeObjectContainer__hf_accessoryLikeObje
   }
 
   v12 = [MEMORY[0x277D2C900] chainFutures:v8];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __45__HFActionSetBuilder__lazy_performValidation__block_invoke_2;
-  v16[3] = &unk_277DF2D08;
-  v16[4] = self;
-  v13 = [v12 addFailureBlock:v16];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __45__HFActionSetBuilder__lazy_performValidation__block_invoke_2;
+  v15[3] = &unk_277DF2D08;
+  v15[4] = self;
+  v13 = [v12 addFailureBlock:v15];
 
   return v12;
 }
 
 void __45__HFActionSetBuilder__lazy_performValidation__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error validating action set builder: %@. Error: %@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error validating action set builder: %@. Error: %@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createActionSetBuilder
@@ -591,35 +583,33 @@ id __44__HFActionSetBuilder_createActionSetBuilder__block_invoke(uint64_t a1, vo
 
 id __44__HFActionSetBuilder_createActionSetBuilder__block_invoke_3(uint64_t a1, void *a2)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) name];
   [v3 setName:v4];
 
   v5 = MEMORY[0x277D2C900];
   v6 = [*(a1 + 32) _lazilyUpdateIncludedContext];
-  v16[0] = v6;
+  v15[0] = v6;
   v7 = [*(a1 + 32) _lazilyUpdateIcon];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v9 = [v5 combineAllFutures:v8];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __44__HFActionSetBuilder_createActionSetBuilder__block_invoke_4;
-  v14[3] = &unk_277DF2CE0;
-  v15 = v3;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __44__HFActionSetBuilder_createActionSetBuilder__block_invoke_4;
+  v13[3] = &unk_277DF2CE0;
+  v14 = v3;
   v10 = v3;
-  v11 = [v9 flatMap:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [v9 flatMap:v13];
 
   return v11;
 }
 
 - (id)commitItem
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if ([(HFActionSetBuilder *)self isActionSetDeleted])
   {
     v3 = HFLogForCategory(0x2BuLL);
@@ -627,7 +617,7 @@ id __44__HFActionSetBuilder_createActionSetBuilder__block_invoke_3(uint64_t a1, 
     {
       name = [(HFActionSetBuilder *)self name];
       *buf = 138412290;
-      v37 = name;
+      v36 = name;
       _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Skipping commit of action set with name: %@. Reason: Action set was previously deleted.", buf, 0xCu);
     }
 
@@ -672,7 +662,7 @@ id __44__HFActionSetBuilder_createActionSetBuilder__block_invoke_3(uint64_t a1, 
     if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 138412290;
-      v37 = v17;
+      v36 = v17;
       _os_signpost_emit_with_name_impl(&dword_20D9BF000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v7, "HFActionSetBuilderCommit", "%@", buf, 0xCu);
     }
 
@@ -685,8 +675,8 @@ id __44__HFActionSetBuilder_createActionSetBuilder__block_invoke_3(uint64_t a1, 
 
     v22 = *v21;
 
-    home = [(HFItemBuilder *)self home];
-    areAutomationBuildersSupported = [home areAutomationBuildersSupported];
+    v23 = objc_msgSend_home(self);
+    areAutomationBuildersSupported = [v23 areAutomationBuildersSupported];
 
     if (areAutomationBuildersSupported)
     {
@@ -698,32 +688,30 @@ id __44__HFActionSetBuilder_createActionSetBuilder__block_invoke_3(uint64_t a1, 
       [(HFActionSetBuilder *)self _legacyCommitItemWithOperationType:v22];
     }
     v25 = ;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __32__HFActionSetBuilder_commitItem__block_invoke;
-    v33[3] = &unk_277DFFFE8;
-    v34 = v17;
-    v35 = v7;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __32__HFActionSetBuilder_commitItem__block_invoke;
+    v32[3] = &unk_277DFFFE8;
+    v33 = v17;
+    v34 = v7;
     v26 = v17;
-    v27 = [v25 addCompletionBlock:v33];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __32__HFActionSetBuilder_commitItem__block_invoke_38;
-    v31[3] = &unk_277DF2D30;
-    v31[4] = self;
-    v32 = v22;
+    v27 = [v25 addCompletionBlock:v32];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __32__HFActionSetBuilder_commitItem__block_invoke_38;
+    v30[3] = &unk_277DF2D30;
+    v30[4] = self;
+    v31 = v22;
     v28 = v22;
-    futureWithNoResult = [v25 recover:v31];
+    futureWithNoResult = [v25 recover:v30];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
 
 void __32__HFActionSetBuilder_commitItem__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = HFLogForCategory(0x35uLL);
   v6 = v5;
@@ -742,16 +730,14 @@ void __32__HFActionSetBuilder_commitItem__block_invoke(uint64_t a1, uint64_t a2,
     }
 
     *buf = 138412546;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
     _os_signpost_emit_with_name_impl(&dword_20D9BF000, v6, OS_SIGNPOST_INTERVAL_END, v7, "HFActionSetBuilderCommit", "%@%@", buf, 0x16u);
     if (v4)
     {
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __32__HFActionSetBuilder_commitItem__block_invoke_38(uint64_t a1, uint64_t a2)
@@ -782,7 +768,7 @@ void __57__HFActionSetBuilder_notifyObserversForCreatedActionSet___block_invoke(
   v4 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     [v4 home:v3 didAddActionSet:*(a1 + 40)];
   }
 }
@@ -806,7 +792,7 @@ void __57__HFActionSetBuilder_notifyObserversForRenamedActionSet___block_invoke(
   v4 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     [v4 home:v3 didUpdateNameForActionSet:*(a1 + 40)];
   }
 }
@@ -856,13 +842,13 @@ void __57__HFActionSetBuilder_notifyObserversForRenamedActionSet___block_invoke(
   return v4;
 }
 
-id __40__HFActionSetBuilder__builderCommitItem__block_invoke(uint64_t a1)
+id __40__HFActionSetBuilder__builderCommitItem__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  v2 = [*(a1 + 40) home];
-  v3 = [v1 commitActionSetInHome:v2];
+  v3 = *(a1 + 32);
+  v4 = objc_msgSend_home(*(a1 + 40), a2);
+  v5 = [v3 commitActionSetInHome:v4];
 
-  return v3;
+  return v5;
 }
 
 void __40__HFActionSetBuilder__builderCommitItem__block_invoke_2(uint64_t a1, void *a2)
@@ -886,7 +872,7 @@ void __40__HFActionSetBuilder__builderCommitItem__block_invoke_2(uint64_t a1, vo
 
 - (id)_legacyCommitItemWithOperationType:(id)type
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   objc_initWeak(&location, self);
   actionSet = [(HFAbstractBaseActionSetBuilder *)self actionSet];
@@ -894,14 +880,14 @@ void __40__HFActionSetBuilder__builderCommitItem__block_invoke_2(uint64_t a1, vo
 
   if (v6)
   {
-    home = [(HFItemBuilder *)self home];
-    actionSets = [home actionSets];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke;
-    v42[3] = &unk_277DF4280;
-    v42[4] = self;
-    v9 = [actionSets na_firstObjectPassingTest:v42];
+    v7 = objc_msgSend_home(self);
+    actionSets = [v7 actionSets];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke;
+    v41[3] = &unk_277DF4280;
+    v41[4] = self;
+    v9 = [actionSets na_firstObjectPassingTest:v41];
     [(HFAbstractBaseActionSetBuilder *)self setActionSet:v9];
   }
 
@@ -911,89 +897,88 @@ void __40__HFActionSetBuilder__builderCommitItem__block_invoke_2(uint64_t a1, vo
   _lazy_performValidation = [(HFActionSetBuilder *)self _lazy_performValidation];
   if (v11)
   {
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_2;
-    v41[3] = &unk_277DF2CE0;
-    v41[4] = self;
-    v13 = [_lazy_performValidation flatMap:v41];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_2;
+    v40[3] = &unk_277DF2CE0;
+    v40[4] = self;
+    v13 = [_lazy_performValidation flatMap:v40];
 
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_4;
-    v39[3] = &unk_277E00010;
-    v14 = &v40;
-    objc_copyWeak(&v40, &location);
-    v17 = [v13 addSuccessBlock:v39];
     v38[0] = MEMORY[0x277D85DD0];
     v38[1] = 3221225472;
-    v38[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_47;
-    v38[3] = &unk_277DF2D08;
-    v38[4] = self;
-    v18 = [v13 addFailureBlock:v38];
+    v38[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_4;
+    v38[3] = &unk_277E00010;
+    v14 = &v39;
+    objc_copyWeak(&v39, &location);
+    v17 = [v13 addSuccessBlock:v38];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_47;
+    v37[3] = &unk_277DF2D08;
+    v37[4] = self;
+    v18 = [v13 addFailureBlock:v37];
   }
 
   else
   {
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_48;
-    v37[3] = &unk_277DF2CE0;
-    v37[4] = self;
-    v13 = [_lazy_performValidation flatMap:v37];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_48;
+    v36[3] = &unk_277DF2CE0;
+    v36[4] = self;
+    v13 = [_lazy_performValidation flatMap:v36];
 
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_3_51;
-    v35[3] = &unk_277E00038;
-    v14 = &v36;
-    objc_copyWeak(&v36, &location);
-    v35[4] = self;
-    v15 = [v13 addSuccessBlock:v35];
     v34[0] = MEMORY[0x277D85DD0];
     v34[1] = 3221225472;
-    v34[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_53;
-    v34[3] = &unk_277DF2D08;
+    v34[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_3_51;
+    v34[3] = &unk_277E00038;
+    v14 = &v35;
+    objc_copyWeak(&v35, &location);
     v34[4] = self;
-    v16 = [v13 addFailureBlock:v34];
+    v15 = [v13 addSuccessBlock:v34];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_53;
+    v33[3] = &unk_277DF2D08;
+    v33[4] = self;
+    v16 = [v13 addFailureBlock:v33];
   }
 
   objc_destroyWeak(v14);
   if ([(HFActionSetBuilder *)self shouldClearApplicationData])
   {
     _lazilyClearApplicationData = [(HFActionSetBuilder *)self _lazilyClearApplicationData];
-    v46[0] = _lazilyClearApplicationData;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
+    v45[0] = _lazilyClearApplicationData;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
   }
 
   else
   {
     _lazilyClearApplicationData = [(HFActionSetBuilder *)self _lazilyUpdateIncludedContext];
-    v45[0] = _lazilyClearApplicationData;
+    v44[0] = _lazilyClearApplicationData;
     _lazilyUpdateIcon = [(HFActionSetBuilder *)self _lazilyUpdateIcon];
-    v45[1] = _lazilyUpdateIcon;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v44[1] = _lazilyUpdateIcon;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
   }
 
   v22 = MEMORY[0x277D2C900];
-  v44[0] = v13;
+  v43[0] = v13;
   lazilyUpdateActions = [(HFAbstractBaseActionSetBuilder *)self lazilyUpdateActions];
-  v44[1] = lazilyUpdateActions;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+  v43[1] = lazilyUpdateActions;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
   v25 = [v24 arrayByAddingObjectsFromArray:v20];
   v26 = [v22 chainFutures:v25];
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_58;
-  v31[3] = &unk_277DF2D30;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_58;
+  v30[3] = &unk_277DF2D30;
   v27 = typeCopy;
-  v32 = v27;
+  v31 = v27;
   selfCopy = self;
-  v28 = [v26 recover:v31];
+  v28 = [v26 recover:v30];
 
   objc_destroyWeak(&location);
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -1035,47 +1020,43 @@ void __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v6 = [v3 home];
+  v6 = objc_msgSend_home(v3);
   v5 = [*(a1 + 32) name];
   [v6 addActionSetWithName:v5 completionHandler:v4];
 }
 
 void __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_4(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [WeakRetained name];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Created action set with name:%@.", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Created action set with name:%@.", &v7, 0xCu);
   }
 
   [WeakRetained setActionSet:v3];
   [WeakRetained notifyObserversForCreatedActionSet:v3];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_47(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) name];
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create action set with name:%@. Error: %@", &v7, 0x16u);
+    v5 = [*(a1 + 32) name];
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create action set with name:%@. Error: %@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_48(uint64_t a1)
@@ -1101,7 +1082,7 @@ void __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_
 
 void __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_3_51(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [*(a1 + 32) actionSet];
   [WeakRetained notifyObserversForRenamedActionSet:v3];
@@ -1110,17 +1091,15 @@ void __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) name];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Updated action set name:%@.", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Updated action set name:%@.", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_53(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[HFErrorHandler sharedHandler];
   [v4 logError:v3 operationDescription:@"HFActionSetBuilder.updateName"];
@@ -1128,15 +1107,13 @@ void __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_
   v5 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = [*(a1 + 32) name];
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "2 Failed to update action set name name:%@. Error: %@", &v8, 0x16u);
+    v6 = [*(a1 + 32) name];
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "2 Failed to update action set name name:%@. Error: %@", &v7, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 id __57__HFActionSetBuilder__legacyCommitItemWithOperationType___block_invoke_58(uint64_t a1, void *a2)
@@ -1305,7 +1282,7 @@ void __49__HFActionSetBuilder__updateValueForContextType___block_invoke(uint64_t
 
 void __49__HFActionSetBuilder__updateValueForContextType___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = HFLogForCategory(0x2BuLL);
@@ -1319,13 +1296,13 @@ void __49__HFActionSetBuilder__updateValueForContextType___block_invoke_2(uint64
       v11 = [*(a1 + 32) actionSet];
       v12 = [v11 hf_prettyDescription];
       *buf = 67109890;
-      v19 = v9;
-      v20 = 2048;
-      v21 = v10;
-      v22 = 2112;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v5;
+      v18 = v9;
+      v19 = 2048;
+      v20 = v10;
+      v21 = 2112;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v5;
       _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Failed to set state:%{BOOL}d for context type:%lu for actionSet:%@. Error: %@", buf, 0x26u);
 LABEL_6:
     }
@@ -1338,25 +1315,24 @@ LABEL_6:
     v11 = [*(a1 + 32) actionSet];
     v12 = [v11 hf_prettyDescription];
     *buf = 67109634;
-    v19 = v13;
-    v20 = 2048;
-    v21 = v14;
-    v22 = 2112;
-    v23 = v12;
+    v18 = v13;
+    v19 = 2048;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v12;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Set state:%{BOOL}d for context type:%lu for actionSet:%@", buf, 0x1Cu);
     goto LABEL_6;
   }
 
   v15 = +[HFHomeKitDispatcher sharedDispatcher];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __49__HFActionSetBuilder__updateValueForContextType___block_invoke_68;
-  v17[3] = &unk_277DF2CB8;
-  v17[4] = *(a1 + 32);
-  [v15 dispatchHomeObserverMessage:v17 sender:0];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __49__HFActionSetBuilder__updateValueForContextType___block_invoke_68;
+  v16[3] = &unk_277DF2CB8;
+  v16[4] = *(a1 + 32);
+  [v15 dispatchHomeObserverMessage:v16 sender:0];
 
   [*(a1 + 40) finishWithResult:v6 error:v5];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HFActionSetBuilder__updateValueForContextType___block_invoke_68(uint64_t a1, void *a2)
@@ -1364,7 +1340,7 @@ void __49__HFActionSetBuilder__updateValueForContextType___block_invoke_68(uint6
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [*(a1 + 32) actionSet];
     [v5 home:v3 didUpdateApplicationDataForActionSet:v4];
   }
@@ -1433,7 +1409,7 @@ void __39__HFActionSetBuilder__lazilyUpdateIcon__block_invoke(uint64_t a1, void 
 
 void __39__HFActionSetBuilder__lazilyUpdateIcon__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = HFLogForCategory(0x2BuLL);
@@ -1447,11 +1423,11 @@ void __39__HFActionSetBuilder__lazilyUpdateIcon__block_invoke_2(uint64_t a1, voi
       v11 = [*(a1 + 32) actionSet];
       v12 = [v11 hf_prettyDescription];
       *buf = 138412802;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v5;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v5;
       _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Failed to set icon:%@ for actionSet:%@. Error: %@", buf, 0x20u);
 LABEL_6:
     }
@@ -1464,23 +1440,22 @@ LABEL_6:
     v11 = [*(a1 + 32) actionSet];
     v12 = [v11 hf_prettyDescription];
     *buf = 138412546;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v12;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v12;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Set icon:%@ for actionSet:%@", buf, 0x16u);
     goto LABEL_6;
   }
 
   v13 = +[HFHomeKitDispatcher sharedDispatcher];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __39__HFActionSetBuilder__lazilyUpdateIcon__block_invoke_74;
-  v15[3] = &unk_277DF2CB8;
-  v15[4] = *(a1 + 32);
-  [v13 dispatchHomeObserverMessage:v15 sender:0];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __39__HFActionSetBuilder__lazilyUpdateIcon__block_invoke_74;
+  v14[3] = &unk_277DF2CB8;
+  v14[4] = *(a1 + 32);
+  [v13 dispatchHomeObserverMessage:v14 sender:0];
 
   [*(a1 + 40) finishWithResult:v6 error:v5];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HFActionSetBuilder__lazilyUpdateIcon__block_invoke_74(uint64_t a1, void *a2)
@@ -1488,7 +1463,7 @@ void __39__HFActionSetBuilder__lazilyUpdateIcon__block_invoke_74(uint64_t a1, vo
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [*(a1 + 32) actionSet];
     [v5 home:v3 didUpdateApplicationDataForActionSet:v4];
   }
@@ -1559,18 +1534,18 @@ void __39__HFActionSetBuilder__lazilyUpdateIcon__block_invoke_74(uint64_t a1, vo
 
 void __48__HFActionSetBuilder__deleteActionSet_fromHome___block_invoke_2(id *a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = +[HFHomeKitDispatcher sharedDispatcher];
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __48__HFActionSetBuilder__deleteActionSet_fromHome___block_invoke_3;
-  v14 = &unk_277DF3810;
-  v15 = a1[4];
-  v16 = a1[5];
-  [v5 dispatchHomeObserverMessage:&v11 sender:0];
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __48__HFActionSetBuilder__deleteActionSet_fromHome___block_invoke_3;
+  v13 = &unk_277DF3810;
+  v14 = a1[4];
+  v15 = a1[5];
+  [v5 dispatchHomeObserverMessage:&v10 sender:0];
 
-  [a1[6] setActionSet:{0, v11, v12, v13, v14}];
+  [a1[6] setActionSet:{0, v10, v11, v12, v13}];
   [a1[6] setIsActionSetDeleted:1];
   v6 = HFLogForCategory(0x2BuLL);
   v7 = v6;
@@ -1579,13 +1554,13 @@ void __48__HFActionSetBuilder__deleteActionSet_fromHome___block_invoke_2(id *a1,
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = [a1[5] hf_prettyDescription];
-      v9 = [a1[6] home];
+      v9 = objc_msgSend_home(a1[6]);
       *buf = 138412802;
-      v18 = v4;
-      v19 = 2112;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v9;
+      v17 = v4;
+      v18 = 2112;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
       _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Failed to delete actionSet (error = %@) :%@ home:%@", buf, 0x20u);
 LABEL_6:
     }
@@ -1594,16 +1569,14 @@ LABEL_6:
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [a1[5] hf_prettyDescription];
-    v9 = [a1[6] home];
+    v9 = objc_msgSend_home(a1[6]);
     *buf = 138412546;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v9;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Deleted actionSet:%@ home:%@", buf, 0x16u);
     goto LABEL_6;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HFActionSetBuilder__deleteActionSet_fromHome___block_invoke_3(uint64_t a1, void *a2)
@@ -1617,7 +1590,7 @@ void __48__HFActionSetBuilder__deleteActionSet_fromHome___block_invoke_3(uint64_
 
 void __48__HFActionSetBuilder__deleteActionSet_fromHome___block_invoke_79(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   [v3 removeAllActions];
@@ -1626,16 +1599,15 @@ void __48__HFActionSetBuilder__deleteActionSet_fromHome___block_invoke_79(uint64
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 40) hf_prettyDescription];
-    v7 = [*(a1 + 32) home];
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Removed all actions from actionSet:%@ home:%@", &v9, 0x16u);
+    v7 = objc_msgSend_home(*(a1 + 32));
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Removed all actions from actionSet:%@ home:%@", &v8, 0x16u);
   }
 
   [v4 finishWithNoResult];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

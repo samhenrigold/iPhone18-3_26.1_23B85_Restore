@@ -21,8 +21,8 @@
   MEMORY[0x1E69E5928](progress);
   MEMORY[0x1E69E5928](for);
   MEMORY[0x1E69E5928](self);
-  sub_1BE94225C();
-  sub_1BE93B71C(progress);
+  v6 = sub_1BE94225C();
+  sub_1BE93B71C(progress, v6, v5);
 
   MEMORY[0x1E69E5920](for);
   MEMORY[0x1E69E5920](self);
@@ -33,21 +33,21 @@
 {
   MEMORY[0x1E69E5928](for);
   MEMORY[0x1E69E5928](self);
-  sub_1BE94225C();
-  v7 = sub_1BE93BAB8();
+  v4 = sub_1BE94225C();
+  v9 = sub_1BE93BAB8(v4, v5);
 
   MEMORY[0x1E69E5920](for);
   MEMORY[0x1E69E5920](self);
 
-  return v7;
+  return v9;
 }
 
 - (void)cancelProgressFor:(id)for
 {
   MEMORY[0x1E69E5928](for);
   MEMORY[0x1E69E5928](self);
-  sub_1BE94225C();
-  sub_1BE93BC90();
+  v4 = sub_1BE94225C();
+  sub_1BE93BC90(v4, v5);
 
   MEMORY[0x1E69E5920](for);
   MEMORY[0x1E69E5920](self);

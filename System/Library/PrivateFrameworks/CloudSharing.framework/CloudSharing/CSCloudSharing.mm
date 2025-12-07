@@ -1,7 +1,9 @@
 @interface CSCloudSharing
 + (void)addParticipantsToShare:(id)share containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers completionHandler:(id)handler;
 + (void)addParticipantsToShare:(id)share containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler;
++ (void)addParticipantsToShare:(id)share containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers permissionType:(int64_t)type allowOthersToInvite:(BOOL)invite completionHandler:(id)handler;
 + (void)addParticipantsToShareWithURLWrapper:(id)wrapper share:(id)share emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler;
++ (void)addParticipantsToShareWithURLWrapper:(id)wrapper share:(id)share emailAddresses:(id)addresses phoneNumbers:(id)numbers permissionType:(int64_t)type allowOthersToInvite:(BOOL)invite completionHandler:(id)handler;
 + (void)ckMetadataFromShareURL:(id)l containerSetupInfo:(id)info completionHandler:(id)handler;
 + (void)completeShare:(id)share containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers accessType:(int64_t)type permissionType:(int64_t)permissionType allowOthersToInvite:(BOOL)invite completionHandler:(id)self0;
 + (void)completeShare:(id)share containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler;
@@ -10,7 +12,9 @@
 + (void)removeFromShare:(id)share containerSetupInfo:(id)info completionHandler:(id)handler;
 + (void)removeFromShareFileURL:(id)l completionHandler:(id)handler;
 + (void)removeFromShareURL:(id)l containerSetupInfo:(id)info completionHandler:(id)handler;
++ (void)shareFileOrFolderURL:(id)l emailAddresses:(id)addresses phoneNumbers:(id)numbers accessType:(int64_t)type permissionType:(int64_t)permissionType allowOthersToInvite:(BOOL)invite completionHandler:(id)handler;
 + (void)shareFileOrFolderURL:(id)l emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler;
++ (void)shareFolderRemovingSubshares:(id)subshares emailAddresses:(id)addresses phoneNumbers:(id)numbers accessType:(int64_t)type permissionType:(int64_t)permissionType allowOthersToInvite:(BOOL)invite completionHandler:(id)handler;
 + (void)shareFolderRemovingSubshares:(id)subshares emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler;
 + (void)shareOrUpdateShareURL:(id)l containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers accessType:(int64_t)type permissionType:(int64_t)permissionType allowOthersToInvite:(BOOL)invite completionHandler:(id)self0;
 + (void)sharingStatusForFileOrFolderURL:(id)l completionHandler:(id)handler;
@@ -27,6 +31,17 @@
   lCopy = l;
   v7 = objc_alloc_init(_TtC12CloudSharing15InitiateSharing);
   [(InitiateSharing *)v7 callForSharingStatus:lCopy reply:handlerCopy];
+}
+
++ (void)shareFileOrFolderURL:(id)l emailAddresses:(id)addresses phoneNumbers:(id)numbers accessType:(int64_t)type permissionType:(int64_t)permissionType allowOthersToInvite:(BOOL)invite completionHandler:(id)handler
+{
+  inviteCopy = invite;
+  handlerCopy = handler;
+  numbersCopy = numbers;
+  addressesCopy = addresses;
+  lCopy = l;
+  v19 = objc_alloc_init(_TtC12CloudSharing15InitiateSharing);
+  [(InitiateSharing *)v19 callForFileSharing:lCopy emailAddresses:addressesCopy phoneNumbers:numbersCopy accessType:type permissionType:permissionType allowOthersToInvite:inviteCopy reply:handlerCopy];
 }
 
 + (void)shareFileOrFolderURL:(id)l emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler
@@ -151,6 +166,18 @@
   [(InitiateSharing *)v16 callForAddParticipantsToShare:shareCopy containerSetupInfo:infoCopy emailAddresses:addressesCopy phoneNumbers:numbersCopy reply:handlerCopy];
 }
 
++ (void)addParticipantsToShareWithURLWrapper:(id)wrapper share:(id)share emailAddresses:(id)addresses phoneNumbers:(id)numbers permissionType:(int64_t)type allowOthersToInvite:(BOOL)invite completionHandler:(id)handler
+{
+  inviteCopy = invite;
+  handlerCopy = handler;
+  numbersCopy = numbers;
+  addressesCopy = addresses;
+  shareCopy = share;
+  wrapperCopy = wrapper;
+  v20 = objc_alloc_init(_TtC12CloudSharing15InitiateSharing);
+  [(InitiateSharing *)v20 callForAddParticipantsToShareWithURLWrapper:wrapperCopy share:shareCopy emailAddresses:addressesCopy phoneNumbers:numbersCopy permissionType:type allowOthersToInvite:inviteCopy reply:handlerCopy];
+}
+
 + (void)addParticipantsToShareWithURLWrapper:(id)wrapper share:(id)share emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -161,6 +188,18 @@
   wrapperCopy = wrapper;
   v19 = objc_alloc_init(_TtC12CloudSharing15InitiateSharing);
   [(InitiateSharing *)v19 callForAddParticipantsToShareWithURLWrapper:wrapperCopy share:shareCopy emailAddresses:addressesCopy phoneNumbers:numbersCopy optionsGroups:groupsCopy reply:handlerCopy];
+}
+
++ (void)addParticipantsToShare:(id)share containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers permissionType:(int64_t)type allowOthersToInvite:(BOOL)invite completionHandler:(id)handler
+{
+  inviteCopy = invite;
+  handlerCopy = handler;
+  numbersCopy = numbers;
+  addressesCopy = addresses;
+  infoCopy = info;
+  shareCopy = share;
+  v20 = objc_alloc_init(_TtC12CloudSharing15InitiateSharing);
+  [(InitiateSharing *)v20 callForAddParticipantsToShare:shareCopy containerSetupInfo:infoCopy emailAddresses:addressesCopy phoneNumbers:numbersCopy permissionType:type allowOthersToInvite:inviteCopy reply:handlerCopy];
 }
 
 + (void)addParticipantsToShare:(id)share containerSetupInfo:(id)info emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler
@@ -190,6 +229,17 @@
   emailCopy = email;
   v10 = objc_alloc_init(_TtC12CloudSharing15InitiateSharing);
   [(InitiateSharing *)v10 callForUserNameAndEmail:emailCopy containerSetupInfo:infoCopy reply:handlerCopy];
+}
+
++ (void)shareFolderRemovingSubshares:(id)subshares emailAddresses:(id)addresses phoneNumbers:(id)numbers accessType:(int64_t)type permissionType:(int64_t)permissionType allowOthersToInvite:(BOOL)invite completionHandler:(id)handler
+{
+  inviteCopy = invite;
+  handlerCopy = handler;
+  numbersCopy = numbers;
+  addressesCopy = addresses;
+  subsharesCopy = subshares;
+  v19 = objc_alloc_init(_TtC12CloudSharing15InitiateSharing);
+  [(InitiateSharing *)v19 callForForciblyShareFolder:subsharesCopy emailAddresses:addressesCopy phoneNumbers:numbersCopy accessType:type permissionType:permissionType allowOthersToInvite:inviteCopy reply:handlerCopy];
 }
 
 + (void)shareFolderRemovingSubshares:(id)subshares emailAddresses:(id)addresses phoneNumbers:(id)numbers optionsGroups:(id)groups completionHandler:(id)handler

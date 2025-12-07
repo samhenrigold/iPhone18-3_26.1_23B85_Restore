@@ -278,7 +278,6 @@ LABEL_54:
             NSStringFromClass(v49);
             errorCopy = error;
             v52 = v51 = dataCopy;
-            v53 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v51;
@@ -359,22 +358,21 @@ LABEL_70:
 LABEL_76:
   if (!*&v7[*v10])
   {
-    v57 = 1;
+    v55 = 1;
     goto LABEL_80;
   }
 
 LABEL_77:
-  v54 = objc_opt_class();
-  v11 = NSStringFromClass(v54);
-  v55 = *&v7[*v10];
-  v56 = CCInvalidBufferErrorForMessage();
+  v53 = objc_opt_class();
+  v11 = NSStringFromClass(v53);
+  v54 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_78:
-  v57 = 0;
+  v55 = 0;
 LABEL_80:
 
-  return v57;
+  return v55;
 }
 
 - (CCMontaraSharedPreferencesContent)initWithIsEnabled:(id)enabled setupPrompt:(id)prompt useConfirmationPrompts:(id)prompts error:(id *)error

@@ -1499,7 +1499,7 @@ void PCSharedCount::PCSharedCount(PCSharedCount *this, PCShared_base *a2)
 {
   if (a2)
   {
-    PCWeakCount::alloc(a2 + 1, a2);
+    PCWeakCount::alloc((a2 + 8), a2);
     v4 = *(a2 + 1);
     this->var0 = v4;
     if (v4)
@@ -1571,14 +1571,12 @@ void PC_Sp_counted_base_impl::~PC_Sp_counted_base_impl(PC_Sp_counted_base_impl *
   JUMPOUT(0x2666E9F00);
 }
 
-void *PCWeakCount::alloc(void *this, PCShared_base *a2)
+void PCWeakCount::alloc(PCWeakCount *this, PCShared_base *a2)
 {
   if (!*this)
   {
     operator new();
   }
-
-  return this;
 }
 
 uint64_t PCSingleton::getSingletons(PCSingleton *this)
@@ -1823,7 +1821,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<PCSingleton::Info>>(u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<PCSingleton::Info>::__assign_with_size[abi:ne200100]<PCSingleton::Info*,PCSingleton::Info*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<PCSingleton::Info>::__assign_with_size[abi:ne200100]<PCSingleton::Info*,PCSingleton::Info*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1898,7 +1896,7 @@ void *std::vector<PCSingleton::Info>::__assign_with_size[abi:ne200100]<PCSinglet
   return result;
 }
 
-void std::vector<PCSingleton::Info>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PCSingleton::Info>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1912,7 +1910,7 @@ __n128 std::__introsort<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleto
 {
 LABEL_1:
   v10 = a2 - 1;
-  v39 = a2 - 2;
+  v38 = a2 - 2;
   v11 = a2 - 3;
   v12 = a1;
 LABEL_2:
@@ -1933,10 +1931,10 @@ LABEL_2:
       {
         if (a2[-1].n128_u32[2] > v12->n128_u32[2])
         {
-          v62 = *v12;
+          v61 = *v12;
           *v12 = a2[-1];
-          result = v62;
-          a2[-1] = v62;
+          result = v61;
+          a2[-1] = v61;
         }
 
         return result;
@@ -1952,40 +1950,40 @@ LABEL_2:
 
     if (v15 == 4)
     {
-      v37 = v12[1].n128_u32[2];
-      v38 = v12[2].n128_u32[2];
-      if (v37 <= v12->n128_u32[2])
+      v36 = v12[1].n128_u32[2];
+      v37 = v12[2].n128_u32[2];
+      if (v36 <= v12->n128_u32[2])
       {
-        if (v38 > v37)
+        if (v37 > v36)
         {
           result = v12[1];
           v12[1] = v12[2];
           v12[2] = result;
           if (v12[1].n128_u32[2] > v12->n128_u32[2])
           {
-            v64 = *v12;
+            v63 = *v12;
             *v12 = v12[1];
-            result = v64;
-            v12[1] = v64;
+            result = v63;
+            v12[1] = v63;
           }
         }
       }
 
       else
       {
-        if (v38 > v37)
+        if (v37 > v36)
         {
-          v63 = *v12;
+          v62 = *v12;
           *v12 = v12[2];
-          result = v63;
+          result = v62;
           goto LABEL_103;
         }
 
-        v66 = *v12;
+        v65 = *v12;
         *v12 = v12[1];
-        result = v66;
-        v12[1] = v66;
-        if (v38 > v12[1].n128_u32[2])
+        result = v65;
+        v12[1] = v65;
+        if (v37 > v12[1].n128_u32[2])
         {
           result = v12[1];
           v12[1] = v12[2];
@@ -2013,10 +2011,10 @@ LABEL_103:
 LABEL_107:
       if (v12[1].n128_u32[2] > v12->n128_u32[2])
       {
-        v67 = *v12;
+        v66 = *v12;
         *v12 = v12[1];
-        result = v67;
-        v12[1] = v67;
+        result = v66;
+        v12[1] = v66;
       }
 
       return result;
@@ -2067,14 +2065,14 @@ LABEL_10:
       {
         if (v17 > v18)
         {
-          v42 = *v16;
+          v41 = *v16;
           *v16 = *v10;
-          *v10 = v42;
+          *v10 = v41;
           if (v16->n128_u32[2] > v12->n128_u32[2])
           {
-            v43 = *v12;
+            v42 = *v12;
             *v12 = *v16;
-            *v16 = v43;
+            *v16 = v42;
           }
         }
       }
@@ -2083,20 +2081,20 @@ LABEL_10:
       {
         if (v17 > v18)
         {
-          v40 = *v12;
+          v39 = *v12;
           *v12 = *v10;
           goto LABEL_28;
         }
 
-        v46 = *v12;
+        v45 = *v12;
         *v12 = *v16;
-        *v16 = v46;
+        *v16 = v45;
         if (a2[-1].n128_u32[2] > v16->n128_u32[2])
         {
-          v40 = *v16;
+          v39 = *v16;
           *v16 = *v10;
 LABEL_28:
-          *v10 = v40;
+          *v10 = v39;
         }
       }
 
@@ -2107,14 +2105,14 @@ LABEL_28:
       {
         if (v22 > v21)
         {
-          v47 = *v20;
-          *v20 = *v39;
-          *v39 = v47;
+          v46 = *v20;
+          *v20 = *v38;
+          *v38 = v46;
           if (v16[-1].n128_u32[2] > v12[1].n128_u32[2])
           {
-            v48 = v12[1];
+            v47 = v12[1];
             v12[1] = *v20;
-            *v20 = v48;
+            *v20 = v47;
           }
         }
       }
@@ -2125,19 +2123,19 @@ LABEL_28:
         {
           v23 = v12[1];
           v24 = a2 - 2;
-          v12[1] = *v39;
+          v12[1] = *v38;
           goto LABEL_42;
         }
 
-        v50 = v12[1];
+        v49 = v12[1];
         v12[1] = *v20;
-        *v20 = v50;
+        *v20 = v49;
         if (a2[-2].n128_u32[2] > v16[-1].n128_u32[2])
         {
-          v51 = *v20;
+          v50 = *v20;
           v24 = a2 - 2;
-          *v20 = *v39;
-          v23 = v51;
+          *v20 = *v38;
+          v23 = v50;
 LABEL_42:
           *v24 = v23;
         }
@@ -2149,14 +2147,14 @@ LABEL_42:
       {
         if (v26 > v25)
         {
-          v52 = v16[1];
+          v51 = v16[1];
           v16[1] = *v11;
-          *v11 = v52;
+          *v11 = v51;
           if (v16[1].n128_u32[2] > v12[2].n128_u32[2])
           {
-            v53 = v12[2];
+            v52 = v12[2];
             v12[2] = v16[1];
-            v16[1] = v53;
+            v16[1] = v52;
           }
         }
       }
@@ -2170,14 +2168,14 @@ LABEL_42:
           goto LABEL_51;
         }
 
-        v54 = v12[2];
+        v53 = v12[2];
         v12[2] = v16[1];
-        v16[1] = v54;
+        v16[1] = v53;
         if (a2[-3].n128_u32[2] > v16[1].n128_u32[2])
         {
-          v55 = v16[1];
+          v54 = v16[1];
           v16[1] = *v11;
-          v27 = v55;
+          v27 = v54;
 LABEL_51:
           *v11 = v27;
         }
@@ -2189,14 +2187,14 @@ LABEL_51:
       {
         if (v29 > v28)
         {
-          v57 = *v16;
+          v56 = *v16;
           *v16 = v16[1];
-          v16[1] = v57;
+          v16[1] = v56;
           if (v16->n128_u32[2] > v16[-1].n128_u32[2])
           {
-            v58 = *v20;
+            v57 = *v20;
             *v20 = *v16;
-            *v16 = v58;
+            *v16 = v57;
           }
         }
       }
@@ -2205,26 +2203,26 @@ LABEL_51:
       {
         if (v29 > v28)
         {
-          v56 = *v20;
+          v55 = *v20;
           *v20 = v16[1];
           goto LABEL_60;
         }
 
-        v59 = *v20;
+        v58 = *v20;
         *v20 = *v16;
-        *v16 = v59;
+        *v16 = v58;
         if (v16[1].n128_u32[2] > v16->n128_u32[2])
         {
-          v56 = *v16;
+          v55 = *v16;
           *v16 = v16[1];
 LABEL_60:
-          v16[1] = v56;
+          v16[1] = v55;
         }
       }
 
-      v60 = *v12;
+      v59 = *v12;
       *v12 = *v16;
-      *v16 = v60;
+      *v16 = v59;
       if (a5)
       {
         goto LABEL_63;
@@ -2238,20 +2236,20 @@ LABEL_60:
     {
       if (v17 > v19)
       {
-        v41 = *v16;
+        v40 = *v16;
         *v16 = *v10;
         goto LABEL_37;
       }
 
-      v49 = *v16;
+      v48 = *v16;
       *v16 = *v12;
-      *v12 = v49;
+      *v12 = v48;
       if (a2[-1].n128_u32[2] > v12->n128_u32[2])
       {
-        v41 = *v12;
+        v40 = *v12;
         *v12 = *v10;
 LABEL_37:
-        *v10 = v41;
+        *v10 = v40;
       }
 
 LABEL_38:
@@ -2268,17 +2266,17 @@ LABEL_38:
       goto LABEL_38;
     }
 
-    v44 = *v12;
+    v43 = *v12;
     *v12 = *v10;
-    *v10 = v44;
+    *v10 = v43;
     if (v12->n128_u32[2] <= v16->n128_u32[2])
     {
       goto LABEL_38;
     }
 
-    v45 = *v16;
+    v44 = *v16;
     *v16 = *v12;
-    *v12 = v45;
+    *v12 = v44;
     if (a5)
     {
       goto LABEL_63;
@@ -2293,18 +2291,18 @@ LABEL_62:
 
 LABEL_63:
     v30 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Info *,PCSingleton::Compare &>(v12, a2);
-    if ((v32 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
       goto LABEL_66;
     }
 
-    v33 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *>(v12, v30, v31);
+    v32 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *>(v12, v30, result);
     v12 = v30 + 1;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *>(v30 + 1, a2, v34))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *>(v30 + 1, a2, v33))
     {
       a4 = -v14;
       a2 = v30;
-      if (v33)
+      if (v32)
       {
         return result;
       }
@@ -2313,10 +2311,10 @@ LABEL_63:
     }
 
     v13 = v14 + 1;
-    if (!v33)
+    if (!v32)
     {
 LABEL_66:
-      std::__introsort<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *,false>(a1, v30, a3, -v14, a5 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *,false>(a1, v30, a3, -v14, a5 & 1, result);
       v12 = v30 + 1;
 LABEL_68:
       a5 = 0;
@@ -2325,11 +2323,11 @@ LABEL_68:
     }
   }
 
-  v35 = v12[1].n128_u32[2];
-  v36 = a2[-1].n128_u32[2];
-  if (v35 <= v12->n128_u32[2])
+  v34 = v12[1].n128_u32[2];
+  v35 = a2[-1].n128_u32[2];
+  if (v34 <= v12->n128_u32[2])
   {
-    if (v36 <= v35)
+    if (v35 <= v34)
     {
       return result;
     }
@@ -2340,12 +2338,12 @@ LABEL_68:
     goto LABEL_107;
   }
 
-  if (v36 <= v35)
+  if (v35 <= v34)
   {
-    v65 = *v12;
+    v64 = *v12;
     *v12 = v12[1];
-    result = v65;
-    v12[1] = v65;
+    result = v64;
+    v12[1] = v64;
     if (a2[-1].n128_u32[2] <= v12[1].n128_u32[2])
     {
       return result;
@@ -2357,9 +2355,9 @@ LABEL_68:
 
   else
   {
-    v61 = *v12;
+    v60 = *v12;
     *v12 = *v10;
-    result = v61;
+    result = v60;
   }
 
   *v10 = result;
@@ -2494,8 +2492,8 @@ _DWORD *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::
           v11 = result;
 LABEL_10:
           *v11 = v7;
-          *(v11 + 8) = v6;
-          *(v11 + 12) = v8;
+          *(v11 + 2) = v6;
+          *(v11 + 3) = v8;
         }
 
         v2 = v5 + 2;
@@ -2528,16 +2526,16 @@ _DWORD *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,PCS
         {
           *v7 = *(v7 - 1);
           v8 = *(v7 - 6);
-          v7 -= 2;
+          v7 -= 4;
         }
 
         while (v4 > v8);
         *v7 = v5;
-        *(v7 + 2) = v4;
-        *(v7 + 3) = v6;
+        v7[2] = v4;
+        v7[3] = v6;
       }
 
-      v2 = v3 + 2;
+      v2 = v3 + 4;
       result = v3;
     }
   }
@@ -2626,7 +2624,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v4;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Info *,PCSingleton::Compare &>(uint64_t *a1, uint64_t *a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Info *,PCSingleton::Compare &>(uint64_t *a1, uint64_t *a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -2679,8 +2677,8 @@ LABEL_9:
       *v11 = v12;
       do
       {
-        v13 = *(v10 + 24);
-        v10 += 16;
+        v13 = *(v10 + 6);
+        v10 += 2;
       }
 
       while (v13 > v4);
@@ -2696,14 +2694,14 @@ LABEL_9:
     while (v10 < v11);
   }
 
-  if ((v10 - 16) != a1)
+  if (v10 - 2 != a1)
   {
-    *a1 = *(v10 - 16);
+    *a1 = *(v10 - 1);
   }
 
-  *(v10 - 16) = v3;
-  *(v10 - 8) = v4;
-  return v10 - 16;
+  *(v10 - 2) = v3;
+  *(v10 - 1) = v4;
+  return v10 - 2;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *>(__n128 *a1, __n128 *a2, __n128 a3)
@@ -2926,16 +2924,16 @@ LABEL_33:
         v31 -= 16;
         if (v28 <= v32)
         {
-          v33 = &a1[3] + v31;
+          v33 = (a1 + v31 + 48);
           goto LABEL_41;
         }
       }
 
       v33 = a1;
 LABEL_41:
-      *v33 = v29;
-      *(v33 + 8) = v28;
-      *(v33 + 12) = v30;
+      v33->n128_u64[0] = v29;
+      v33->n128_u32[2] = v28;
+      v33->n128_u32[3] = v30;
       if (++v27 == 8)
       {
         return &v25[1] == a2;
@@ -2951,17 +2949,17 @@ LABEL_41:
   }
 }
 
-_OWORD *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *,PCSingleton::Info *>(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *,PCSingleton::Info *>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
-    v8 = (a2 - a1) >> 4;
+    v8 = a2 - a1;
     if (v8 >= 2)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *>(a1, a4, v8, v11);
@@ -2978,7 +2976,7 @@ _OWORD *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleto
       v12 = v6;
       do
       {
-        if (*(v12 + 2) > *(a1 + 8))
+        if (*(v12 + 2) > *(a1 + 2))
         {
           v13 = *v12;
           *v12 = *a1;
@@ -3040,7 +3038,7 @@ _OWORD *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleto
         {
           *v17 = *v6;
           *v6 = v24;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *>(a1, (v17 + 1), a4, (v17 - a1 + 16) >> 4);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Compare &,PCSingleton::Info *>(a1, (v17 + 1), a4, v17 + 1 - a1);
         }
       }
 
@@ -3063,13 +3061,13 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Comp
     {
       v6 = v4 >> 3;
       v7 = (v4 >> 3) + 1;
-      v8 = (result + 16 * v7);
+      v8 = result + 16 * v7;
       v9 = v6 + 2;
       if (v9 < a3)
       {
-        v10 = *(v8 + 2);
-        v11 = *(v8 + 6);
-        v8 += 2 * (v10 > v11);
+        v10 = *(v8 + 8);
+        v11 = *(v8 + 24);
+        v8 += 16 * (v10 > v11);
         if (v10 > v11)
         {
           v7 = v9;
@@ -3077,7 +3075,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Comp
       }
 
       v12 = *(a4 + 2);
-      if (*(v8 + 2) <= v12)
+      if (*(v8 + 8) <= v12)
       {
         v13 = *a4;
         v14 = *(a4 + 3);
@@ -3092,13 +3090,13 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Comp
           }
 
           v16 = (2 * v7) | 1;
-          v8 = (result + 16 * v16);
+          v8 = result + 16 * v16;
           v17 = 2 * v7 + 2;
           if (v17 < a3)
           {
-            v18 = *(v8 + 2);
-            v19 = *(v8 + 6);
-            v8 += 2 * (v18 > v19);
+            v18 = *(v8 + 8);
+            v19 = *(v8 + 24);
+            v8 += 16 * (v18 > v19);
             if (v18 > v19)
             {
               v16 = v17;
@@ -3108,7 +3106,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,PCSingleton::Comp
           v7 = v16;
         }
 
-        while (*(v8 + 2) <= v12);
+        while (*(v8 + 8) <= v12);
         *a4 = v13;
         *(a4 + 2) = v12;
         *(a4 + 3) = v14;
@@ -3366,9 +3364,9 @@ LABEL_25:
   MEMORY[0x2666E9E10](&v21);
 }
 
-void sub_25FBB8730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FBB8730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3494,7 +3492,7 @@ double anonymous namespace::DescriptionVisitor::visit(_anonymous_namespace_::Des
   return result;
 }
 
-_BYTE *getDefaultChromaticitiesName@<X0>(float *a1@<X0>, uint64_t a2@<X8>)
+void *getDefaultChromaticitiesName@<X0>(float *a1@<X0>, void *a2@<X8>)
 {
   result = PCClassifyPrimaries(a1);
   if (result > 5)
@@ -3563,8 +3561,8 @@ LABEL_37:
   if (!result)
   {
     *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    a2[1] = 0;
+    a2[2] = 0;
     return result;
   }
 
@@ -3579,64 +3577,64 @@ LABEL_38:
   return std::string::basic_string[abi:ne200100]<0>(a2, v5);
 }
 
-uint64_t getDefaultDescription(float *a1, float a2)
+uint64_t getDefaultDescription(float *a1, float a3)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
   getDefaultChromaticitiesName(a1, __p);
-  if ((v9 & 0x80u) == 0)
+  if ((v10 & 0x80u) == 0)
   {
-    v4 = __p;
+    v5 = __p;
   }
 
   else
   {
-    v4 = __p[0];
+    v5 = __p[0];
   }
 
-  if ((v9 & 0x80u) == 0)
+  if ((v10 & 0x80u) == 0)
   {
-    v5 = v9;
+    v6 = v10;
   }
 
   else
   {
-    v5 = __p[1];
+    v6 = __p[1];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, v4, v5);
-  if (v9 < 0)
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v5, v6);
+  if (v10 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (a2 != 0.0 && (a2 != 1.0 || vabds_f32(*a1, 0.713) >= 0.001 || vabds_f32(a1[1], 0.293) >= 0.001 || vabds_f32(a1[2], 0.165) >= 0.001 || vabds_f32(a1[3], 0.83) >= 0.001 || vabds_f32(a1[4], 0.128) >= 0.001 || vabds_f32(a1[5], 0.044) >= 0.001 || vabds_f32(a1[6], 0.32168) >= 0.001 || vabds_f32(a1[7], 0.33767) >= 0.001) && (fabsf(a2 + -2.6) >= 0.001 || vabds_f32(*a1, 0.68) >= 0.001 || vabds_f32(a1[1], 0.32) >= 0.001 || vabds_f32(a1[2], 0.265) >= 0.001 || vabds_f32(a1[3], 0.69) >= 0.001 || vabds_f32(a1[4], 0.15) >= 0.001 || vabds_f32(a1[5], 0.06) >= 0.001 || vabds_f32(a1[6], 0.314) >= 0.001 || vabds_f32(a1[7], 0.351) >= 0.001) && (fabsf(a2 + -1.961) >= 0.001 || vabds_f32(*a1, 0.68) >= 0.001 || vabds_f32(a1[1], 0.32) >= 0.001 || vabds_f32(a1[2], 0.265) >= 0.001 || vabds_f32(a1[3], 0.69) >= 0.001 || vabds_f32(a1[4], 0.15) >= 0.001 || vabds_f32(a1[5], 0.06) >= 0.001 || vabds_f32(a1[6], 0.3127) >= 0.001 || vabds_f32(a1[7], 0.329) >= 0.001))
+  if (a3 != 0.0 && (a3 != 1.0 || vabds_f32(*a1, 0.713) >= 0.001 || vabds_f32(a1[1], 0.293) >= 0.001 || vabds_f32(a1[2], 0.165) >= 0.001 || vabds_f32(a1[3], 0.83) >= 0.001 || vabds_f32(a1[4], 0.128) >= 0.001 || vabds_f32(a1[5], 0.044) >= 0.001 || vabds_f32(a1[6], 0.32168) >= 0.001 || vabds_f32(a1[7], 0.33767) >= 0.001) && (fabsf(a3 + -2.6) >= 0.001 || vabds_f32(*a1, 0.68) >= 0.001 || vabds_f32(a1[1], 0.32) >= 0.001 || vabds_f32(a1[2], 0.265) >= 0.001 || vabds_f32(a1[3], 0.69) >= 0.001 || vabds_f32(a1[4], 0.15) >= 0.001 || vabds_f32(a1[5], 0.06) >= 0.001 || vabds_f32(a1[6], 0.314) >= 0.001 || vabds_f32(a1[7], 0.351) >= 0.001) && (fabsf(a3 + -1.961) >= 0.001 || vabds_f32(*a1, 0.68) >= 0.001 || vabds_f32(a1[1], 0.32) >= 0.001 || vabds_f32(a1[2], 0.265) >= 0.001 || vabds_f32(a1[3], 0.69) >= 0.001 || vabds_f32(a1[4], 0.15) >= 0.001 || vabds_f32(a1[5], 0.06) >= 0.001 || vabds_f32(a1[6], 0.3127) >= 0.001 || vabds_f32(a1[7], 0.329) >= 0.001))
   {
-    if (a2 == 1.0)
+    if (a3 == 1.0)
     {
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " Linear", 7);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " Linear", 7);
     }
 
     else
     {
-      v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " Gamma ", 7);
-      *(v6 + *(*v6 - 24) + 16) = 5;
+      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, " Gamma ", 7);
+      *(v7 + *(*v7 - 24) + 16) = 5;
       std::ostream::operator<<();
     }
   }
 
   std::stringbuf::str();
-  v10 = *MEMORY[0x277D82828];
-  *(&v10 + *(v10 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v11 = MEMORY[0x277D82878] + 16;
-  if (v13 < 0)
+  v11 = *MEMORY[0x277D82828];
+  *(&v11 + *(v11 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v12 = MEMORY[0x277D82878] + 16;
+  if (v14 < 0)
   {
-    operator delete(v12[7].__locale_);
+    operator delete(v13[7].__locale_);
   }
 
-  v11 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v12);
+  v12 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v13);
   std::ostream::~ostream();
-  return MEMORY[0x2666E9E10](&v14);
+  return MEMORY[0x2666E9E10](&v15);
 }
 
 void PCAsciiStream::PCAsciiStream(PCAsciiStream *this)
@@ -4058,7 +4056,7 @@ void PCAsciiStream::encodeNewSize(PCAsciiStream *this)
   v5[11] = 101;
 }
 
-PCString *PCAsciiStream::getString@<X0>(PCAsciiStream *this@<X0>, PCString *a2@<X8>)
+void PCAsciiStream::getString(PCAsciiStream *this@<X0>, PCString *a2@<X8>)
 {
   v2 = this + 8;
   if (*(this + 31) < 0)
@@ -4066,7 +4064,7 @@ PCString *PCAsciiStream::getString@<X0>(PCAsciiStream *this@<X0>, PCString *a2@<
     v2 = *v2;
   }
 
-  return PCString::PCString(a2, v2);
+  PCString::PCString(a2, v2);
 }
 
 void PCSharedMutex::PCSharedMutex(PCSharedMutex *this)
@@ -4096,19 +4094,17 @@ void sub_25FBB9C10(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<PCSharedMutex::ReaderInfo>::reserve(void *result, unint64_t a2)
+void std::vector<PCSharedMutex::ReaderInfo>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PCSingleton::Info>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PCSingleton::Info>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void PCSharedMutex::lock(std::mutex *this)
@@ -5799,7 +5795,7 @@ void *PCSerializerReadStream::popHandler(void *this)
     v3 = *(*(this[8] + 8 * ((v1 + this[11] - 1) / 0x66uLL)) + 40 * ((v1 + this[11] - 1) % 0x66uLL) + 24);
     (*(*v3 + 48))(v3, v2);
 
-    return std::deque<PCSerializerReadStream::HandlerInfo>::pop_back((v2 + 56));
+    return std::deque<PCSerializerReadStream::HandlerInfo>::pop_back(v2 + 7);
   }
 
   return this;
@@ -6137,7 +6133,7 @@ LABEL_18:
   return std::__split_buffer<unsigned long *>::~__split_buffer(a1);
 }
 
-uint64_t std::vector<PCScope *>::__init_with_size[abi:ne200100]<PCScope **,PCScope **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<PCScope *>::__init_with_size[abi:ne200100]<PCScope **,PCScope **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6159,7 +6155,7 @@ void sub_25FBBC258(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::deque<PCSerializerReadStream::HandlerInfo>::push_back(void *a1, uint64_t a2)
+__n128 std::deque<PCSerializerReadStream::HandlerInfo>::push_back(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   v5 = a1[1];
@@ -6188,19 +6184,19 @@ __n128 std::deque<PCSerializerReadStream::HandlerInfo>::push_back(void *a1, uint
   return result;
 }
 
-void *std::deque<PCSerializerReadStream::HandlerInfo>::__add_back_capacity(void *a1)
+void std::deque<PCSerializerReadStream::HandlerInfo>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x66;
   v3 = v1 - 102;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6208,25 +6204,25 @@ void *std::deque<PCSerializerReadStream::HandlerInfo>::__add_back_capacity(void 
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(a1, &v9);
 }
 
 void sub_25FBBC4D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6296,9 +6292,8 @@ uint64_t std::deque<PCSerializerReadStream::HandlerInfo>::__maybe_remove_back_sp
   return v7 ^ 1u;
 }
 
-void *std::deque<PCStreamElement *>::push_back(void *result, void *a2)
+void std::deque<PCStreamElement *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -6315,30 +6310,29 @@ void *std::deque<PCStreamElement *>::push_back(void *result, void *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<PCStreamElement *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<PCStreamElement *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<PCStreamElement *>::__add_back_capacity(void *a1)
+void std::deque<PCStreamElement *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6346,25 +6340,25 @@ void *std::deque<PCStreamElement *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **&>(a1, &v9);
 }
 
 void sub_25FBBC834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6378,27 +6372,26 @@ void sub_25FBBC834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **&>(void *result, void *a2)
+void std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6407,28 +6400,26 @@ void *std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **&>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<PCStreamElement **>::emplace_front<PCStreamElement **>(const void **result, void *a2)
+void std::__split_buffer<PCStreamElement **>::emplace_front<PCStreamElement **>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6441,52 +6432,50 @@ const void **std::__split_buffer<PCStreamElement **>::emplace_front<PCStreamElem
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **>(void *result, void *a2)
+void std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6495,28 +6484,26 @@ void *std::__split_buffer<PCStreamElement **>::emplace_back<PCStreamElement **>(
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<PCStreamElement **>::emplace_front<PCStreamElement **&>(const void **result, void *a2)
+void std::__split_buffer<PCStreamElement **>::emplace_front<PCStreamElement **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6529,29 +6516,28 @@ const void **std::__split_buffer<PCStreamElement **>::emplace_front<PCStreamElem
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void PCSerializerReadStream::ignoreElement()
@@ -6630,7 +6616,7 @@ void PCSerializerWriteStream::pushScope(void *a1, uint64_t a2)
   a1[2] = v6;
 }
 
-uint64_t PCStreamElement::atoUUID(PCStreamElement *this, const char **a2)
+_OWORD *PCStreamElement::atoUUID(PCStreamElement *this, const char **a2)
 {
   v2 = 0;
   v14 = *MEMORY[0x277D85DE8];
@@ -7121,7 +7107,7 @@ uint64_t PCXMLStreamElement::getAsBool(PCXMLStreamElement *this, BOOL *a2)
   return 1;
 }
 
-uint64_t PCXMLStreamElement::getAsUUID(PCXMLStreamElement *this, const char **a2)
+_OWORD *PCXMLStreamElement::getAsUUID(PCXMLStreamElement *this, const char **a2)
 {
   v4 = *(this + 7);
   v2 = (this + 56);
@@ -7153,7 +7139,7 @@ uint64_t PCXMLStreamElement::getAsFigTime(PCXMLStreamElement *this, CMTime *a2, 
   }
 }
 
-uint64_t *PCXMLStreamElement::addAttribute(uint64_t *this, unsigned int a2, const char *a3)
+uint64_t *PCXMLStreamElement::addAttribute(uint64_t *this, int a2, const char *a3)
 {
   v7 = a2;
   v4 = *(this + 46);
@@ -7166,7 +7152,7 @@ uint64_t *PCXMLStreamElement::addAttribute(uint64_t *this, unsigned int a2, cons
     }
 
     v8 = &v7;
-    this = std::__tree<std::__value_type<unsigned int,char const*>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,char const*>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,char const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v6, &v7);
+    this = std::__tree<std::__value_type<unsigned int,char const*>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,char const*>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,char const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v6, &v7, &std::piecewise_construct, &v8);
     this[5] = a3;
   }
 
@@ -7438,7 +7424,7 @@ const char *PCXMLStreamElement::getAttributeAsBool(PCXMLStreamElement *this, uns
   return result;
 }
 
-uint64_t PCXMLStreamElement::getAttributeAsUUID(PCXMLStreamElement *this, unsigned int a2)
+_OWORD *PCXMLStreamElement::getAttributeAsUUID(PCXMLStreamElement *this, unsigned int a2)
 {
   result = PCXMLStreamElement::getAttributeAsCString(this, a2);
   if (result)
@@ -7496,41 +7482,41 @@ char *PCXMLStreamElement::appendContentWithNewline(PCXMLStreamElement *this, cha
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,char const*>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,char const*>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,char const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,char const*>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,char const*>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,char const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8013,7 +7999,7 @@ __n128 PC_CMTimeCeilingToSampleDuration@<Q0>(CMTime *a1@<X0>, CMTime *a2@<X1>, u
   return result;
 }
 
-CMTime *PC_CMTimeRangeMakeWithStartEnd@<X0>(CMTime *a1@<X0>, CMTime *a2@<X1>, CMTime *a3@<X8>)
+CMTime *PC_CMTimeRangeMakeWithStartEnd@<X0>(CMTime *a1@<X0>, CMTime *a2@<X1>, uint64_t *a3@<X8>)
 {
   if ((~a1->flags & 9) == 0 && (a2->flags & 0x1D) == 1)
   {
@@ -8029,7 +8015,7 @@ CMTime *PC_CMTimeRangeMakeWithStartEnd@<X0>(CMTime *a1@<X0>, CMTime *a2@<X1>, CM
   PC_CMTimeSaferSubtract(&lhs, &v7, &v9);
   lhs = *a1;
   v7 = v9;
-  return CMTimeRangeSaferMake(&lhs, &v7, a3);
+  return CMTimeRangeSaferMake(a3, &lhs, &v7);
 }
 
 __n128 PC_CMTimeHalve@<Q0>(CMTime *a1@<X0>, uint64_t a2@<X8>)
@@ -8419,7 +8405,7 @@ __CFString *PC_CMTimeToString(CMTime *a1)
   }
 }
 
-void PCXMLReadStream::PCXMLReadStream(PCXMLReadStream *this, const PCURL *a2)
+void PCXMLReadStream::PCXMLReadStream(PCXMLReadStream *this, CFURLRef *a2)
 {
   PCSerializerReadStream::PCSerializerReadStream(this);
   *v4 = &unk_287209190;
@@ -8546,7 +8532,7 @@ void PCXMLReadStream::~PCXMLReadStream(PCXMLReadStream *this)
 
   xmlFreeTextReader(*(this + 24));
   free(*(this + 22));
-  PCURL::~PCURL((this + 152));
+  PCURL::~PCURL(this + 19);
 
   PCSerializerReadStream::~PCSerializerReadStream(this);
 }
@@ -9641,70 +9627,69 @@ uint64_t PCXMLWriteStream::getURL(PCXMLWriteStream *this)
   }
 }
 
-void PCXMLWriteStream::startElement(PCXMLWriteStream *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PCXMLWriteStream::startElement(PCXMLWriteStream *this, unsigned __int32 a2)
 {
-  v8 = a2;
-  v10 = this + 92;
-  v11 = *(this + 2);
-  if (*(this + 1) == v11)
+  v4 = this + 92;
+  v5 = *(this + 2);
+  if (*(this + 1) == v5)
   {
-    v12 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v12 = *(v11 - 8);
+    v6 = *(v5 - 8);
   }
 
-  v13 = *(this + 9);
-  v14 = this + 92;
-  if (v13)
+  v7 = *(this + 9);
+  v8 = this + 92;
+  if (v7)
   {
-    v15 = *(*(this + 5) + (((v13 + *(this + 8) - 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v13 + *(this + 64) - 1);
-    v14 = this + 92;
-    if ((*(v15 + 13) & 1) == 0)
+    v9 = *(*(this + 5) + (((v7 + *(this + 8) - 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v7 + *(this + 64) - 1);
+    v8 = this + 92;
+    if ((*(v9 + 13) & 1) == 0)
     {
       *(this + 46) = 2622;
-      v14 = this + 94;
-      *(v15 + 12) = 256;
-      *(v15 + 14) = 1;
+      v8 = this + 94;
+      *(v9 + 12) = 256;
+      *(v9 + 14) = 1;
     }
   }
 
-  if (!v12)
+  if (!v6)
   {
-    PCPrint("scope not defined!\n", a2, a3, a4, a5, a6, a7, a8, v28);
+    PCPrint("scope not defined!\n");
     exception = __cxa_allocate_exception(0x40uLL);
     *exception = 0u;
     *(exception + 1) = 0u;
     *(exception + 2) = 0u;
     *(exception + 3) = 0u;
     PCException_ScopeUndefined::PCException_ScopeUndefined(exception);
-    v26 = PCException_ScopeUndefined::~PCException_ScopeUndefined;
+    v13 = PCException_ScopeUndefined::~PCException_ScopeUndefined;
 LABEL_13:
-    __cxa_throw(exception, v25, v26);
+    __cxa_throw(exception, v12, v13);
   }
 
-  if (!*v12)
+  if (!*v6)
   {
 LABEL_12:
-    PCStream::operator<<(*(this + 10), v10);
-    PCPrint("Token not defined in scope %s!\n", v17, v18, v19, v20, v21, v22, v23, **(*(this + 2) - 8));
+    PCStream::operator<<(*(this + 10), v4);
+    PCPrint("Token not defined in scope %s!\n", **(*(this + 2) - 8));
     exception = __cxa_allocate_exception(0x40uLL);
     *exception = 0u;
     *(exception + 1) = 0u;
     *(exception + 2) = 0u;
     *(exception + 3) = 0u;
     PCException_NoElementDefined::PCException_NoElementDefined(exception);
-    v26 = PCException_NoElementDefined::~PCException_NoElementDefined;
+    v13 = PCException_NoElementDefined::~PCException_NoElementDefined;
     goto LABEL_13;
   }
 
-  while (*(v12 + 8) != a2 || *(v12 + 12))
+  while (*(v6 + 8) != a2 || *(v6 + 12))
   {
-    v16 = *(v12 + 16);
-    v12 += 16;
-    if (!v16)
+    v10 = *(v6 + 16);
+    v6 += 16;
+    if (!v10)
     {
       goto LABEL_12;
     }
@@ -9712,33 +9697,33 @@ LABEL_12:
 
   if (*(this + 22))
   {
-    v27 = 0;
+    v14 = 0;
     do
     {
-      *v14++ = 9;
-      ++v27;
+      *v8++ = 9;
+      ++v14;
     }
 
-    while (v27 < *(this + 22));
+    while (v14 < *(this + 22));
   }
 
-  *v14 = 60;
-  strcat(this + 92, *v12);
-  PCStream::operator<<(*(this + 10), v10);
-  v29.n128_u64[0] = *v12;
-  v29.n128_u32[2] = v8;
-  v29.n128_u16[6] = 1;
-  v29.n128_u8[14] = 0;
-  std::deque<PCXMLWriteStream::PCXMLElementInfo>::push_back(this + 4, &v29);
+  *v8 = 60;
+  strcat(this + 92, *v6);
+  PCStream::operator<<(*(this + 10), v4);
+  v15.n128_u64[0] = *v6;
+  v15.n128_u32[2] = a2;
+  v15.n128_u16[6] = 1;
+  v15.n128_u8[14] = 0;
+  std::deque<PCXMLWriteStream::PCXMLElementInfo>::push_back(this + 4, &v15);
   ++*(this + 22);
 }
 
-uint64_t PCXMLWriteStream::endElement(PCXMLWriteStream *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PCXMLWriteStream::endElement(PCXMLWriteStream *this)
 {
-  v8 = *(this + 9);
-  if (!v8)
+  v1 = *(this + 9);
+  if (!v1)
   {
-    PCPrint("endElement() called without startElement()!\n", a2, a3, a4, a5, a6, a7, a8, v18);
+    PCPrint("endElement() called without startElement()!\n");
     exception = __cxa_allocate_exception(0x40uLL);
     *exception = 0u;
     *(exception + 1) = 0u;
@@ -9747,49 +9732,49 @@ uint64_t PCXMLWriteStream::endElement(PCXMLWriteStream *this, uint64_t a2, uint6
     PCException_NoElementDefined::PCException_NoElementDefined(exception);
   }
 
-  v10 = *(this + 22) - 1;
-  *(this + 22) = v10;
-  v11 = *(*(this + 5) + (((v8 + *(this + 8) - 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v8 + *(this + 64) - 1);
-  if (*(v11 + 12))
+  v3 = *(this + 22) - 1;
+  *(this + 22) = v3;
+  v4 = *(*(this + 5) + (((v1 + *(this + 8) - 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v1 + *(this + 64) - 1);
+  if (*(v4 + 12))
   {
-    v12 = "/>\n";
+    v5 = "/>\n";
   }
 
   else
   {
-    v12 = this + 92;
-    v13 = *(v11 + 14) != 1 || v10 == 0;
-    v14 = this + 92;
-    if (!v13)
+    v5 = this + 92;
+    v6 = *(v4 + 14) != 1 || v3 == 0;
+    v7 = this + 92;
+    if (!v6)
     {
-      v15 = 0;
-      v14 = this + 92;
+      v8 = 0;
+      v7 = this + 92;
       do
       {
-        *v14++ = 9;
-        ++v15;
+        *v7++ = 9;
+        ++v8;
       }
 
-      while (v15 < *(this + 22));
+      while (v8 < *(this + 22));
     }
 
-    *v14 = 12092;
-    strcpy(v14 + 2, *v11);
-    strcpy(&v12[strlen(this + 92)], ">\n");
+    *v7 = 12092;
+    strcpy(v7 + 2, *v4);
+    strcpy(&v5[strlen(this + 92)], ">\n");
   }
 
-  PCStream::operator<<(*(this + 10), v12);
+  PCStream::operator<<(*(this + 10), v5);
   --*(this + 9);
 
   return std::deque<PVLoadedEffectItem>::__maybe_remove_back_spare[abi:ne200100](this + 4, 1);
 }
 
-char *PCXMLWriteStream::terminateStartTag(PCXMLWriteStream *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *PCXMLWriteStream::terminateStartTag(PCXMLWriteStream *this)
 {
-  v8 = *(this + 9);
-  if (!v8)
+  v1 = *(this + 9);
+  if (!v1)
   {
-    PCPrint("endElement() called without startElement()!\n", a2, a3, a4, a5, a6, a7, a8, v13);
+    PCPrint("endElement() called without startElement()!\n");
     exception = __cxa_allocate_exception(0x40uLL);
     *exception = 0u;
     *(exception + 1) = 0u;
@@ -9798,14 +9783,31 @@ char *PCXMLWriteStream::terminateStartTag(PCXMLWriteStream *this, uint64_t a2, u
     PCException_NoElementDefined::PCException_NoElementDefined(exception);
   }
 
-  v9 = *(*(this + 5) + (((v8 + *(this + 8) - 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v8 + *(this + 64) - 1);
-  if (*(v9 + 13))
+  v2 = *(*(this + 5) + (((v1 + *(this + 8) - 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v1 + *(this + 64) - 1);
+  if (*(v2 + 13))
   {
     return this + 92;
   }
 
-  v10 = this + 93;
+  v3 = this + 93;
   *(this + 46) = 62;
-  *(v9 + 12) = 256;
-  return v10;
+  *(v2 + 12) = 256;
+  return v3;
+}
+
+uint64_t PCXMLWriteStream::writeValue(PCXMLWriteStream *this, int a2)
+{
+  started = PCXMLWriteStream::terminateStartTag(this);
+  snprintf(started, (this + 92) - started + 1024, "%d", a2);
+  v5 = *(this + 10);
+
+  return PCStream::operator<<(v5, this + 92);
+}
+
+{
+  started = PCXMLWriteStream::terminateStartTag(this);
+  snprintf(started, (this + 92) - started + 1024, "%u", a2);
+  v5 = *(this + 10);
+
+  return PCStream::operator<<(v5, this + 92);
 }

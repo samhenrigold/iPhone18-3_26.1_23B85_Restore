@@ -1,3 +1,3092 @@
+const void *sub_100030DC0(const char *a1)
+{
+  v1 = sub_10007980C(a1);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  v2 = v1;
+  if (qword_1000EB310 != -1)
+  {
+    sub_100089D14();
+  }
+
+  v3 = qword_1000EB308;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = 0;
+    v4 = sub_1000011A8(1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = v4;
+    }
+
+    else
+    {
+      v5 = v4 & 0xFFFFFFFE;
+    }
+
+    if (v5)
+    {
+      LOWORD(v23[0]) = 0;
+      v6 = _os_log_send_and_compose_impl(v5, &v22, 0, 0, &_mh_execute_header, v3, 0, "RETRIEVING BLOB", v23, 2);
+      v7 = v6;
+      if (v6)
+      {
+        sub_100002A8C(v6);
+      }
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    free(v7);
+  }
+
+  v8 = sub_100079440(v2, @"BLOB");
+  v9 = sub_1000023E8(v2, @"BLOBLEN");
+  if (v8)
+  {
+    v10 = v9;
+    CFRetain(v8);
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v11 = qword_1000EB308;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 0;
+      v12 = sub_1000011A8(1);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = v12;
+      }
+
+      else
+      {
+        v13 = v12 & 0xFFFFFFFE;
+      }
+
+      if (v13)
+      {
+        v23[0] = 67109120;
+        v23[1] = v10;
+        v14 = _os_log_send_and_compose_impl(v13, &v22, 0, 0, &_mh_execute_header, v11, 0, "OPAQUE BLOB LEN = %d", v23);
+        v15 = v14;
+        if (v14)
+        {
+          sub_100002A8C(v14);
+        }
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      free(v15);
+    }
+  }
+
+  else
+  {
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v11 = qword_1000EB308;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 0;
+      v16 = sub_1000011A8(1);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = v16;
+      }
+
+      else
+      {
+        v17 = v16 & 0xFFFFFFFE;
+      }
+
+      if (v17)
+      {
+        LOWORD(v23[0]) = 0;
+        LODWORD(v21) = 2;
+        v18 = _os_log_send_and_compose_impl(v17, &v22, 0, 0, &_mh_execute_header, v11, 0, "failed to RETRIEVE BLOB out of read nextsession_opaque.kb", v23, v21);
+        v19 = v18;
+        if (v18)
+        {
+          sub_100002A8C(v18);
+        }
+      }
+
+      else
+      {
+        v19 = 0;
+      }
+
+      free(v19);
+    }
+
+    v8 = 0;
+  }
+
+  CFRelease(v2);
+  return v8;
+}
+
+uint64_t sub_1000310B4(int a1)
+{
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v8 = -1;
+  v3[0] = _NSConcreteStackBlock;
+  v3[1] = 3221225472;
+  v3[2] = sub_100031170;
+  v3[3] = &unk_1000DD550;
+  v4 = a1;
+  v3[4] = &v5;
+  dispatch_sync(qword_1000EB610, v3);
+  v1 = *(v6 + 6);
+  _Block_object_dispose(&v5, 8);
+  return v1;
+}
+
+void sub_100031170(uint64_t a1)
+{
+  if (dword_1000EA3D4 == -1)
+  {
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089D14();
+    }
+
+    v8 = qword_1000EB308;
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_54;
+    }
+
+    v29 = 0;
+    v9 = sub_1000011A8(1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v9;
+    }
+
+    else
+    {
+      v10 = v9 & 0xFFFFFFFE;
+    }
+
+    if (v10)
+    {
+      LOWORD(v32) = 0;
+      v11 = _os_log_send_and_compose_impl(v10, &v29, 0, 0, &_mh_execute_header, v8, 0, "In UserQuota size mode, returning error to limit users", &v32, 2);
+      goto LABEL_50;
+    }
+
+LABEL_52:
+    v27 = 0;
+LABEL_53:
+    free(v27);
+    goto LABEL_54;
+  }
+
+  if (qword_1000EB310 != -1)
+  {
+    sub_100089D14();
+  }
+
+  v2 = qword_1000EB308;
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = 0;
+    v3 = sub_1000011A8(1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = v3;
+    }
+
+    else
+    {
+      v4 = v3 & 0xFFFFFFFE;
+    }
+
+    if (v4)
+    {
+      v5 = *(a1 + 40);
+      LODWORD(v29) = 67109376;
+      HIDWORD(v29) = v5;
+      v30 = 1024;
+      v31 = dword_1000EA3D4;
+      v6 = _os_log_send_and_compose_impl(v4, &v32, 0, 0, &_mh_execute_header, v2, 0, "Request config is %d, at the moment it is %d", &v29, 14);
+      v7 = v6;
+      if (v6)
+      {
+        sub_100002A8C(v6);
+      }
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    free(v7);
+  }
+
+  v12 = *(a1 + 40);
+  if (v12 != -1)
+  {
+    if (v12 >= 1 && v12 <= dword_1000EA3D4)
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v13 = qword_1000EB308;
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        v29 = 0;
+        v14 = sub_1000011A8(1);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        {
+          v15 = v14;
+        }
+
+        else
+        {
+          v15 = v14 & 0xFFFFFFFE;
+        }
+
+        if (v15)
+        {
+          v16 = *(a1 + 40);
+          LODWORD(v32) = 67109120;
+          HIDWORD(v32) = v16;
+          v17 = _os_log_send_and_compose_impl(v15, &v29, 0, 0, &_mh_execute_header, v13, 0, "NumUser config set to is %d", &v32);
+          v18 = v17;
+          if (v17)
+          {
+            sub_100002A8C(v17);
+          }
+        }
+
+        else
+        {
+          v18 = 0;
+        }
+
+        free(v18);
+      }
+
+      dword_1000EA3D4 = *(a1 + 40);
+      *(*(*(a1 + 32) + 8) + 24) = dword_1000EA3D4;
+      sub_100018C80();
+      return;
+    }
+
+    *(*(*(a1 + 32) + 8) + 24) = -1;
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v8 = qword_1000EB308;
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+LABEL_54:
+
+      return;
+    }
+
+    v29 = 0;
+    v25 = sub_1000011A8(1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = v25;
+    }
+
+    else
+    {
+      v26 = v25 & 0xFFFFFFFE;
+    }
+
+    if (v26)
+    {
+      LOWORD(v32) = 0;
+      LODWORD(v28) = 2;
+      v11 = _os_log_send_and_compose_impl(v26, &v29, 0, 0, &_mh_execute_header, v8, 0, "FAILED TO SET NumUser config", &v32, v28);
+LABEL_50:
+      v27 = v11;
+      if (v11)
+      {
+        sub_100002A8C(v11);
+      }
+
+      goto LABEL_53;
+    }
+
+    goto LABEL_52;
+  }
+
+  *(*(*(a1 + 32) + 8) + 24) = dword_1000EA3D4;
+  if (qword_1000EB310 != -1)
+  {
+    sub_100089CEC();
+  }
+
+  v19 = qword_1000EB308;
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    v29 = 0;
+    v20 = sub_1000011A8(1);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = v20;
+    }
+
+    else
+    {
+      v21 = v20 & 0xFFFFFFFE;
+    }
+
+    if (v21)
+    {
+      v22 = *(*(*(a1 + 32) + 8) + 24);
+      LODWORD(v32) = 67109120;
+      HIDWORD(v32) = v22;
+      v23 = _os_log_send_and_compose_impl(v21, &v29, 0, 0, &_mh_execute_header, v19, 0, "NumUser Query  returning %d", &v32);
+      v24 = v23;
+      if (v23)
+      {
+        sub_100002A8C(v23);
+      }
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    free(v24);
+  }
+}
+
+uint64_t sub_1000315F8(uint64_t a1)
+{
+  v2 = sub_10008A2F4(qword_1000EB2E0, a1);
+  if (v2)
+  {
+    v3 = v2;
+    bzero(&v132, 0x400uLL);
+    sub_1000795D4(v3, kUMUserSessionHomeDirKey, &v132, 1024);
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v4 = qword_1000EB308;
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v131[0] = 0;
+      v5 = sub_1000011A8(1);
+      v6 = v4;
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = v5;
+      }
+
+      else
+      {
+        v7 = v5 & 0xFFFFFFFE;
+      }
+
+      if (v7)
+      {
+        *v130 = 67109378;
+        *&v130[4] = a1;
+        *&v130[8] = 2080;
+        *&v130[10] = &v132;
+        LODWORD(v127) = 18;
+        v8 = _os_log_send_and_compose_impl(v7, v131, 0, 0, &_mh_execute_header, v6, 0, "Adding Sandbox-kext path upload for bubble with uid %d, path:%s", v130, v127);
+
+        if (v8)
+        {
+          sub_100002A8C(v8);
+        }
+      }
+
+      else
+      {
+
+        v8 = 0;
+      }
+
+      free(v8);
+    }
+
+    if (sub_100032B3C(a1, &v132, 0))
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v14 = qword_1000EB308;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *v130 = 0;
+        v15 = sub_1000011A8(1);
+        v14 = v14;
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = v15;
+        }
+
+        else
+        {
+          v16 = v15 & 0xFFFFFFFE;
+        }
+
+        if (v16)
+        {
+          LODWORD(v131[0]) = 67109120;
+          HIDWORD(v131[0]) = a1;
+          v17 = _os_log_send_and_compose_impl(v16, v130, 0, 0, &_mh_execute_header, v14, 0, "Set homepath to Sandbox for uid:%d", v131);
+          goto LABEL_39;
+        }
+
+        goto LABEL_41;
+      }
+    }
+
+    else
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v14 = qword_1000EB308;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *v130 = 0;
+        v18 = sub_1000011A8(1);
+        v14 = v14;
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          v19 = v18;
+        }
+
+        else
+        {
+          v19 = v18 & 0xFFFFFFFE;
+        }
+
+        if (v19)
+        {
+          LODWORD(v131[0]) = 67109120;
+          HIDWORD(v131[0]) = a1;
+          v17 = _os_log_send_and_compose_impl(v19, v130, 0, 0, &_mh_execute_header, v14, 0, "Failed to add homepath to Sandbox for uid:%d", v131);
+LABEL_39:
+          v20 = v17;
+
+          if (v20)
+          {
+            sub_100002A8C(v20);
+          }
+
+          goto LABEL_42;
+        }
+
+LABEL_41:
+
+        v20 = 0;
+LABEL_42:
+        free(v20);
+      }
+    }
+
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v21 = qword_1000EB308;
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      *v130 = 0;
+      v22 = sub_1000011A8(1);
+      v23 = v21;
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = v22;
+      }
+
+      else
+      {
+        v24 = v22 & 0xFFFFFFFE;
+      }
+
+      if (v24)
+      {
+        LODWORD(v131[0]) = 67109120;
+        HIDWORD(v131[0]) = a1;
+        v25 = _os_log_send_and_compose_impl(v24, v130, 0, 0, &_mh_execute_header, v23, 0, "Sandbox home directory is set for uid:%d", v131);
+
+        if (v25)
+        {
+          sub_100002A8C(v25);
+        }
+      }
+
+      else
+      {
+
+        v25 = 0;
+      }
+
+      free(v25);
+    }
+
+    v26 = CFDictionaryContainsKey(v3, kUMUserSessionVolumeDeviceNodeKey);
+    v27 = &off_1000EB000;
+    if (!v26)
+    {
+      v9 = 0;
+      v33 = 0;
+      goto LABEL_66;
+    }
+
+    if (![qword_1000EB2D8 mountVolumeWithSession:v3 mountPath:0 error:0 forPersona:0])
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v42 = qword_1000EB308;
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      {
+        *v130 = 0;
+        v43 = sub_1000011A8(1);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        {
+          v44 = v43;
+        }
+
+        else
+        {
+          v44 = v43 & 0xFFFFFFFE;
+        }
+
+        if (v44)
+        {
+          LOWORD(v131[0]) = 0;
+          LODWORD(v127) = 2;
+          v45 = _os_log_send_and_compose_impl(v44, v130, 0, 0, &_mh_execute_header, v42, 0, "APFSUser Volume failed to mount for sync bubble, bailing on starting the bubble", v131, v127);
+          v46 = v45;
+          if (v45)
+          {
+            sub_100002A8C(v45);
+          }
+        }
+
+        else
+        {
+          v46 = 0;
+        }
+
+        free(v46);
+      }
+
+      v9 = 0;
+      v36 = 0xFFFFFFFFLL;
+      goto LABEL_237;
+    }
+
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v28 = qword_1000EB308;
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      *v130 = 0;
+      v29 = sub_1000011A8(1);
+      v30 = v28;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        v31 = v29;
+      }
+
+      else
+      {
+        v31 = v29 & 0xFFFFFFFE;
+      }
+
+      if (v31)
+      {
+        LOWORD(v131[0]) = 0;
+        LODWORD(v127) = 2;
+        v32 = _os_log_send_and_compose_impl(v31, v130, 0, 0, &_mh_execute_header, v30, 0, "APFSUser Volume mounted at home directory for Sync bubble", v131, v127);
+
+        if (v32)
+        {
+          sub_100002A8C(v32);
+        }
+      }
+
+      else
+      {
+
+        v32 = 0;
+      }
+
+      free(v32);
+    }
+
+    if (sub_100002454(v3, kUMUserSessionHasSyncBagKey) != 1)
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v57 = qword_1000EB308;
+      if (!os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_214;
+      }
+
+      *v130 = 0;
+      v58 = sub_1000011A8(1);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      {
+        v59 = v58;
+      }
+
+      else
+      {
+        v59 = v58 & 0xFFFFFFFE;
+      }
+
+      if (v59)
+      {
+        LODWORD(v131[0]) = 67109120;
+        HIDWORD(v131[0]) = a1;
+        v60 = _os_log_send_and_compose_impl(v59, v130, 0, 0, &_mh_execute_header, v57, 0, "SyncBag does not exist for the User:%d, bailing on starting the bubble", v131);
+        goto LABEL_210;
+      }
+
+LABEL_212:
+      v90 = 0;
+LABEL_213:
+      free(v90);
+LABEL_214:
+
+      v9 = 0;
+      v36 = 0xFFFFFFFFLL;
+LABEL_215:
+      if ([v27[91] unmountVolumeWithSession:v3 mountPath:0 error:0])
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v91 = qword_1000EB308;
+        if (!os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_236;
+        }
+
+        v132 = 0;
+        v92 = sub_1000011A8(1);
+        v93 = v91;
+        if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+        {
+          v94 = v92;
+        }
+
+        else
+        {
+          v94 = v92 & 0xFFFFFFFE;
+        }
+
+        if (v94)
+        {
+          *v130 = 0;
+          LODWORD(v127) = 2;
+          v95 = _os_log_send_and_compose_impl(v94, &v132, 0, 0, &_mh_execute_header, v93, 0, "APFSUser Volume unmounted after bubble load failure", v130, v127);
+          goto LABEL_232;
+        }
+      }
+
+      else
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v91 = qword_1000EB308;
+        if (!os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_236;
+        }
+
+        v132 = 0;
+        v96 = sub_1000011A8(1);
+        v93 = v91;
+        if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+        {
+          v97 = v96;
+        }
+
+        else
+        {
+          v97 = v96 & 0xFFFFFFFE;
+        }
+
+        if (v97)
+        {
+          *v130 = 0;
+          LODWORD(v127) = 2;
+          v95 = _os_log_send_and_compose_impl(v97, &v132, 0, 0, &_mh_execute_header, v93, 0, "APFSUser Volume failed to unmount after bubble load failure", v130, v127);
+LABEL_232:
+          v98 = v95;
+
+          if (v98)
+          {
+            sub_100002A8C(v98);
+          }
+
+          goto LABEL_235;
+        }
+      }
+
+      v98 = 0;
+LABEL_235:
+      free(v98);
+LABEL_236:
+
+      goto LABEL_237;
+    }
+
+    if (sub_100002454(v3, kUMUserSessionHasSyncBagKey))
+    {
+      if (![qword_1000EB2D8 splitUserVolumeEnabled])
+      {
+LABEL_201:
+        SyncBagForUser = MKBUserSessionLoadSyncBagForUser();
+        if (SyncBagForUser)
+        {
+LABEL_202:
+          if (qword_1000EB310 != -1)
+          {
+            sub_100089CEC();
+          }
+
+          v57 = qword_1000EB308;
+          if (!os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_214;
+          }
+
+          v131[0] = 0;
+          v88 = sub_1000011A8(1);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+          {
+            v89 = v88;
+          }
+
+          else
+          {
+            v89 = v88 & 0xFFFFFFFE;
+          }
+
+          if (v89)
+          {
+            *v130 = 67109376;
+            *&v130[4] = a1;
+            *&v130[8] = 1024;
+            *&v130[10] = SyncBagForUser;
+            v60 = _os_log_send_and_compose_impl(v89, v131, 0, 0, &_mh_execute_header, v57, 0, " Failed to load the SyncBag for User:%d with Error:%d, bailing on starting the bubble", v130);
+LABEL_210:
+            v90 = v60;
+            if (v60)
+            {
+              sub_100002A8C(v60);
+            }
+
+            goto LABEL_213;
+          }
+
+          goto LABEL_212;
+        }
+
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v105 = qword_1000EB308;
+        if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+        {
+          *v130 = 0;
+          v106 = sub_1000011A8(1);
+          v107 = v105;
+          if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+          {
+            v108 = v106;
+          }
+
+          else
+          {
+            v108 = v106 & 0xFFFFFFFE;
+          }
+
+          if (v108)
+          {
+            LODWORD(v131[0]) = 67109120;
+            HIDWORD(v131[0]) = a1;
+            v109 = _os_log_send_and_compose_impl(v108, v130, 0, 0, &_mh_execute_header, v107, 0, "Loaded the SyncBag for User:%d", v131);
+
+            if (v109)
+            {
+              sub_100002A8C(v109);
+            }
+          }
+
+          else
+          {
+
+            v109 = 0;
+          }
+
+          free(v109);
+        }
+
+        v33 = sub_100079590(v3, kUMUserSessionVolumeDeviceNodeKey);
+        if (v33)
+        {
+          if (qword_1000EB310 != -1)
+          {
+            sub_100089CEC();
+          }
+
+          v110 = qword_1000EB308;
+          if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+          {
+            v131[0] = 0;
+            v111 = sub_1000011A8(1);
+            v112 = v110;
+            if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
+            {
+              v113 = v111;
+            }
+
+            else
+            {
+              v113 = v111 & 0xFFFFFFFE;
+            }
+
+            if (v113)
+            {
+              *v130 = 138412546;
+              *&v130[4] = v33;
+              *&v130[12] = 1024;
+              *&v130[14] = a1;
+              LODWORD(v127) = 18;
+              v114 = _os_log_send_and_compose_impl(v113, v131, 0, 0, &_mh_execute_header, v112, 0, "Calling VolumeMap with disk:%@ for uid:%d", v130, v127);
+
+              if (v114)
+              {
+                sub_100002A8C(v114);
+              }
+            }
+
+            else
+            {
+
+              v114 = 0;
+            }
+
+            free(v114);
+          }
+
+          v115 = sub_100089A80(qword_1000EB608);
+          v129 = 0;
+          v116 = [v115 mapVolume:v33 toSession:a1 withPersona:0 error:&v129];
+          v9 = v129;
+
+          if (!v116)
+          {
+            if (qword_1000EB310 != -1)
+            {
+              sub_100089CEC();
+            }
+
+            v122 = qword_1000EB308;
+            if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+            {
+              v131[0] = 0;
+              LODWORD(v123) = sub_1000011A8(1);
+              v124 = v122;
+              if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+              {
+                v123 = v123;
+              }
+
+              else
+              {
+                v123 = v123 & 0xFFFFFFFE;
+              }
+
+              if (v123)
+              {
+                v125 = [v9 code];
+                *v130 = 134217984;
+                *&v130[4] = v125;
+                v126 = _os_log_send_and_compose_impl(v123, v131, 0, 0, &_mh_execute_header, v124, 0, "VolumeMap failed with error:%ld, bailing on starting the bubble", v130);
+
+                if (v126)
+                {
+                  sub_100002A8C(v126);
+                }
+              }
+
+              else
+              {
+
+                v126 = 0;
+              }
+
+              free(v126);
+            }
+
+            v36 = 0xFFFFFFFFLL;
+            goto LABEL_173;
+          }
+
+          if (qword_1000EB310 != -1)
+          {
+            sub_100089CEC();
+          }
+
+          v117 = qword_1000EB308;
+          if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
+          {
+            *v130 = 0;
+            v118 = sub_1000011A8(1);
+            v119 = v117;
+            if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+            {
+              v120 = v118;
+            }
+
+            else
+            {
+              v120 = v118 & 0xFFFFFFFE;
+            }
+
+            if (v120)
+            {
+              LOWORD(v131[0]) = 0;
+              LODWORD(v127) = 2;
+              v121 = _os_log_send_and_compose_impl(v120, v130, 0, 0, &_mh_execute_header, v119, 0, "VolumeMap of bubble succeeded", v131, v127);
+
+              if (v121)
+              {
+                sub_100002A8C(v121);
+              }
+            }
+
+            else
+            {
+
+              v121 = 0;
+            }
+
+            free(v121);
+          }
+
+          v34 = 1;
+LABEL_67:
+          persona = launch_create_persona();
+          if (!persona)
+          {
+            dword_1000EA3DC = a1;
+            if (qword_1000EB310 != -1)
+            {
+              sub_100089CEC();
+            }
+
+            v47 = qword_1000EB308;
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+            {
+              v132 = 0;
+              v48 = sub_1000011A8(1);
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+              {
+                v49 = v48;
+              }
+
+              else
+              {
+                v49 = v48 & 0xFFFFFFFE;
+              }
+
+              if (v49)
+              {
+                *v130 = 67109120;
+                *&v130[4] = a1;
+                v50 = _os_log_send_and_compose_impl(v49, &v132, 0, 0, &_mh_execute_header, v47, 0, "Created persona domain for uid:%d ", v130);
+                v51 = v50;
+                if (v50)
+                {
+                  sub_100002A8C(v50);
+                }
+              }
+
+              else
+              {
+                v51 = 0;
+              }
+
+              free(v51);
+            }
+
+            v36 = 0;
+            goto LABEL_249;
+          }
+
+          v36 = persona;
+          if (qword_1000EB310 != -1)
+          {
+            sub_100089CEC();
+          }
+
+          v37 = qword_1000EB308;
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          {
+            HIDWORD(v127) = v26;
+            *v130 = 0;
+            v38 = sub_1000011A8(1);
+            v39 = v37;
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+            {
+              v40 = v38;
+            }
+
+            else
+            {
+              v40 = v38 & 0xFFFFFFFE;
+            }
+
+            if (v40)
+            {
+              LODWORD(v132) = 67109376;
+              HIDWORD(v132) = a1;
+              v133 = 1024;
+              LODWORD(v134) = v36;
+              v41 = _os_log_send_and_compose_impl(v40, v130, 0, 0, &_mh_execute_header, v39, 0, "Failed to create persona domain for uid:%d with error:%d, bailing on starting the bubble", &v132, 14);
+
+              if (v41)
+              {
+                sub_100002A8C(v41);
+              }
+            }
+
+            else
+            {
+
+              v41 = 0;
+            }
+
+            free(v41);
+            v26 = HIDWORD(v127);
+          }
+
+          v65 = v34 ^ 1;
+          if (!v33)
+          {
+            v65 = 1;
+          }
+
+          if (v65)
+          {
+LABEL_172:
+            v27 = &off_1000EB000;
+            if (!v26)
+            {
+LABEL_237:
+              if (qword_1000EB310 != -1)
+              {
+                sub_100089CEC();
+              }
+
+              v99 = qword_1000EB308;
+              if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
+              {
+                v132 = 0;
+                v100 = sub_1000011A8(1);
+                v101 = v99;
+                if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
+                {
+                  v102 = v100;
+                }
+
+                else
+                {
+                  v102 = v100 & 0xFFFFFFFE;
+                }
+
+                if (v102)
+                {
+                  *v130 = 67109120;
+                  *&v130[4] = a1;
+                  v103 = _os_log_send_and_compose_impl(v102, &v132, 0, 0, &_mh_execute_header, v101, 0, "Removing Sandbox kext path upload for bubble with uid %ds", v130);
+
+                  if (v103)
+                  {
+                    sub_100002A8C(v103);
+                  }
+                }
+
+                else
+                {
+
+                  v103 = 0;
+                }
+
+                free(v103);
+              }
+
+              sub_100033128(a1);
+LABEL_249:
+              CFRelease(v3);
+              goto LABEL_250;
+            }
+
+LABEL_173:
+            if (sub_100032DF8(v3, a1))
+            {
+              if (qword_1000EB310 != -1)
+              {
+                sub_100089CEC();
+              }
+
+              v79 = qword_1000EB308;
+              if (!os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+              {
+                goto LABEL_194;
+              }
+
+              v132 = 0;
+              v80 = sub_1000011A8(1);
+              v81 = v79;
+              if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+              {
+                v82 = v80;
+              }
+
+              else
+              {
+                v82 = v80 & 0xFFFFFFFE;
+              }
+
+              if (v82)
+              {
+                *v130 = 67109120;
+                *&v130[4] = a1;
+                v83 = _os_log_send_and_compose_impl(v82, &v132, 0, 0, &_mh_execute_header, v81, 0, "Failed to unload SyncBag for user:%d", v130);
+                goto LABEL_190;
+              }
+            }
+
+            else
+            {
+              if (qword_1000EB310 != -1)
+              {
+                sub_100089CEC();
+              }
+
+              v79 = qword_1000EB308;
+              if (!os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+              {
+                goto LABEL_194;
+              }
+
+              v132 = 0;
+              v84 = sub_1000011A8(1);
+              v81 = v79;
+              if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+              {
+                v85 = v84;
+              }
+
+              else
+              {
+                v85 = v84 & 0xFFFFFFFE;
+              }
+
+              if (v85)
+              {
+                *v130 = 67109120;
+                *&v130[4] = a1;
+                v83 = _os_log_send_and_compose_impl(v85, &v132, 0, 0, &_mh_execute_header, v81, 0, "Successfully unloaded the SyncBag for user:%d", v130);
+LABEL_190:
+                v86 = v83;
+
+                if (v86)
+                {
+                  sub_100002A8C(v86);
+                }
+
+                goto LABEL_193;
+              }
+            }
+
+            v86 = 0;
+LABEL_193:
+            free(v86);
+LABEL_194:
+
+            goto LABEL_215;
+          }
+
+          v66 = sub_100089A80(qword_1000EB608);
+          v128 = 0;
+          v67 = [v66 unmapVolume:v33 error:&v128];
+          v9 = v128;
+
+          if (v67)
+          {
+            if (qword_1000EB310 != -1)
+            {
+              sub_100089CEC();
+            }
+
+            v68 = qword_1000EB308;
+            if (!os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_171;
+            }
+
+            v132 = 0;
+            v69 = sub_1000011A8(1);
+            v70 = v68;
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+            {
+              v71 = v69;
+            }
+
+            else
+            {
+              v71 = v69 & 0xFFFFFFFE;
+            }
+
+            if (v71)
+            {
+              *v130 = 67109120;
+              *&v130[4] = a1;
+              v72 = _os_log_send_and_compose_impl(v71, &v132, 0, 0, &_mh_execute_header, v70, 0, "VolumeUnMap for uid%d succeeded", v130);
+              goto LABEL_154;
+            }
+          }
+
+          else
+          {
+            if (qword_1000EB310 != -1)
+            {
+              sub_100089CEC();
+            }
+
+            v68 = qword_1000EB308;
+            if (!os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_171;
+            }
+
+            *v130 = 0;
+            LODWORD(v73) = sub_1000011A8(1);
+            v70 = v68;
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+            {
+              v73 = v73;
+            }
+
+            else
+            {
+              v73 = v73 & 0xFFFFFFFE;
+            }
+
+            if (v73)
+            {
+              v74 = [v9 code];
+              LODWORD(v132) = 67109376;
+              HIDWORD(v132) = a1;
+              v133 = 2048;
+              v134 = v74;
+              LODWORD(v127) = 18;
+              v72 = _os_log_send_and_compose_impl(v73, v130, 0, 0, &_mh_execute_header, v70, 0, "VolumeUnMap for uid:%d failed with error:%ld", &v132, v127);
+LABEL_154:
+              v75 = v72;
+
+              if (v75)
+              {
+                sub_100002A8C(v75);
+              }
+
+              goto LABEL_170;
+            }
+          }
+
+          v75 = 0;
+LABEL_170:
+          free(v75);
+LABEL_171:
+
+          goto LABEL_172;
+        }
+
+        v9 = 0;
+LABEL_66:
+        v34 = 0;
+        goto LABEL_67;
+      }
+
+      if (sub_100043BDC(v3))
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v52 = qword_1000EB308;
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        {
+          *v130 = 0;
+          v53 = sub_1000011A8(1);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+          {
+            v54 = v53;
+          }
+
+          else
+          {
+            v54 = v53 & 0xFFFFFFFE;
+          }
+
+          if (v54)
+          {
+            LOWORD(v131[0]) = 0;
+            LODWORD(v127) = 2;
+            v55 = _os_log_send_and_compose_impl(v54, v130, 0, 0, &_mh_execute_header, v52, 0, "Loaded AKS Identity", v131, v127);
+            v56 = v55;
+            if (v55)
+            {
+              sub_100002A8C(v55);
+            }
+          }
+
+          else
+          {
+            v56 = 0;
+          }
+
+          free(v56);
+        }
+
+        goto LABEL_201;
+      }
+
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v61 = qword_1000EB308;
+      if (!os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_197:
+
+        SyncBagForUser = -1;
+        goto LABEL_202;
+      }
+
+      *v130 = 0;
+      v76 = sub_1000011A8(1);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      {
+        v77 = v76;
+      }
+
+      else
+      {
+        v77 = v76 & 0xFFFFFFFE;
+      }
+
+      if (v77)
+      {
+        LOWORD(v131[0]) = 0;
+        LODWORD(v127) = 2;
+        v64 = _os_log_send_and_compose_impl(v77, v130, 0, 0, &_mh_execute_header, v61, 0, "failed to Load AKS Identity, bailing", v131, v127);
+LABEL_167:
+        v78 = v64;
+        if (v64)
+        {
+          sub_100002A8C(v64);
+        }
+
+        goto LABEL_196;
+      }
+    }
+
+    else
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v61 = qword_1000EB308;
+      if (!os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_197;
+      }
+
+      *v130 = 0;
+      v62 = sub_1000011A8(1);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      {
+        v63 = v62;
+      }
+
+      else
+      {
+        v63 = v62 & 0xFFFFFFFE;
+      }
+
+      if (v63)
+      {
+        LOWORD(v131[0]) = 0;
+        LODWORD(v127) = 2;
+        v64 = _os_log_send_and_compose_impl(v63, v130, 0, 0, &_mh_execute_header, v61, 0, "Session has no SyncBag (kUMUserSessionHasSyncBagKey=false), nothing to load", v131, v127);
+        goto LABEL_167;
+      }
+    }
+
+    v78 = 0;
+LABEL_196:
+    free(v78);
+    goto LABEL_197;
+  }
+
+  if (qword_1000EB310 != -1)
+  {
+    sub_100089D14();
+  }
+
+  v9 = qword_1000EB308;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v132 = 0;
+    v10 = sub_1000011A8(1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = v10 & 0xFFFFFFFE;
+    }
+
+    if (v11)
+    {
+      *v130 = 67109120;
+      *&v130[4] = a1;
+      v12 = _os_log_send_and_compose_impl(v11, &v132, 0, 0, &_mh_execute_header, v9, 0, "No UserSession present for uid %d,bailing on starting the bubble", v130);
+      v13 = v12;
+      if (v12)
+      {
+        sub_100002A8C(v12);
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    free(v13);
+  }
+
+  v36 = 0xFFFFFFFFLL;
+LABEL_250:
+
+  return v36;
+}
+
+uint64_t sub_100032B3C(uint64_t a1, const char *a2, uint64_t a3)
+{
+  v3 = a3;
+  snprintf(__str, 0x400uLL, "%s/tmp", a2);
+  if (qword_1000EB310 != -1)
+  {
+    sub_100089D14();
+  }
+
+  v6 = qword_1000EB308;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v21[0] = 0;
+    v7 = sub_1000011A8(1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v7;
+    }
+
+    else
+    {
+      v8 = v7 & 0xFFFFFFFE;
+    }
+
+    if (v8)
+    {
+      *v22 = 136315394;
+      *&v22[4] = a2;
+      v23 = 2080;
+      v24 = __str;
+      v9 = _os_log_send_and_compose_impl(v8, v21, 0, 0, &_mh_execute_header, v6, 0, "HomeDir:%s, TMPDir:%s", v22, 22);
+      v10 = v9;
+      if (v9)
+      {
+        sub_100002A8C(v9);
+      }
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    free(v10);
+  }
+
+  v11 = sub_10004B274(a1, v3, a2, __str, 0);
+  if (v11)
+  {
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v12 = qword_1000EB308;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *v22 = 0;
+      v13 = sub_1000011A8(1);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = v13;
+      }
+
+      else
+      {
+        v14 = v13 & 0xFFFFFFFE;
+      }
+
+      if (v14)
+      {
+        LOWORD(v21[0]) = 0;
+        LODWORD(v20) = 2;
+        v15 = _os_log_send_and_compose_impl(v14, v22, 0, 0, &_mh_execute_header, v12, 0, "Sandbox_set_homedir success", v21, v20, v21[0]);
+        goto LABEL_29;
+      }
+
+      goto LABEL_31;
+    }
+  }
+
+  else
+  {
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v12 = qword_1000EB308;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *v22 = 0;
+      v16 = sub_1000011A8(1);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = v16;
+      }
+
+      else
+      {
+        v17 = v16 & 0xFFFFFFFE;
+      }
+
+      if (v17)
+      {
+        LOWORD(v21[0]) = 0;
+        LODWORD(v20) = 2;
+        v15 = _os_log_send_and_compose_impl(v17, v22, 0, 0, &_mh_execute_header, v12, 0, "Sandbox_set_homedir failed", v21, v20, v21[0]);
+LABEL_29:
+        v18 = v15;
+        if (v15)
+        {
+          sub_100002A8C(v15);
+        }
+
+        goto LABEL_32;
+      }
+
+LABEL_31:
+      v18 = 0;
+LABEL_32:
+      free(v18);
+    }
+  }
+
+  return v11;
+}
+
+uint64_t sub_100032DF8(const __CFDictionary *a1, uint64_t a2)
+{
+  if (!sub_100002454(a1, kUMUserSessionHasSyncBagKey))
+  {
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089D14();
+    }
+
+    v9 = qword_1000EB308;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = 0;
+      v10 = sub_1000011A8(1);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = v10;
+      }
+
+      else
+      {
+        v11 = v10 & 0xFFFFFFFE;
+      }
+
+      if (v11)
+      {
+        LOWORD(v21) = 0;
+        v12 = _os_log_send_and_compose_impl(v11, &v20, 0, 0, &_mh_execute_header, v9, 0, "Session has no SyncBag (kUMUserSessionHasSyncBagKey=false), nothing to unload", &v21, 2);
+        v13 = v12;
+        if (v12)
+        {
+          sub_100002A8C(v12);
+        }
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      free(v13);
+    }
+
+    return 0;
+  }
+
+  if ([qword_1000EB2D8 splitUserVolumeEnabled])
+  {
+    if (sub_1000446D4(a1))
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089D14();
+      }
+
+      v4 = qword_1000EB308;
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = 0;
+        v5 = sub_1000011A8(1);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        {
+          v6 = v5;
+        }
+
+        else
+        {
+          v6 = v5 & 0xFFFFFFFE;
+        }
+
+        if (v6)
+        {
+          v21 = 67109120;
+          v22 = a2;
+          v7 = _os_log_send_and_compose_impl(v6, &v20, 0, 0, &_mh_execute_header, v4, 0, "Unloaded the AKS Identity for user:%d", &v21);
+          v8 = v7;
+          if (v7)
+          {
+            sub_100002A8C(v7);
+          }
+        }
+
+        else
+        {
+          v8 = 0;
+        }
+
+        free(v8);
+      }
+
+      return 0;
+    }
+
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089D14();
+    }
+
+    v14 = qword_1000EB308;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = 0;
+      v15 = sub_1000011A8(1);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = v15;
+      }
+
+      else
+      {
+        v16 = v15 & 0xFFFFFFFE;
+      }
+
+      if (v16)
+      {
+        v21 = 67109120;
+        v22 = a2;
+        v17 = _os_log_send_and_compose_impl(v16, &v20, 0, 0, &_mh_execute_header, v14, 0, "Failed to Unload the AKS Identity for user:%d", &v21);
+        v18 = v17;
+        if (v17)
+        {
+          sub_100002A8C(v17);
+        }
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      free(v18);
+    }
+
+    return 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+
+    return _MKBUserSessionUnLoadSyncBagForUser(a1, a2);
+  }
+}
+
+uint64_t sub_100033128(uint64_t a1)
+{
+  v1 = sub_10004B274(a1, 0, 0, 0, 1);
+  if (v1)
+  {
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089D14();
+    }
+
+    v2 = qword_1000EB308;
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 0;
+      v3 = sub_1000011A8(1);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      {
+        v4 = v3;
+      }
+
+      else
+      {
+        v4 = v3 & 0xFFFFFFFE;
+      }
+
+      if (v4)
+      {
+        LOWORD(v10) = 0;
+        v5 = _os_log_send_and_compose_impl(v4, &v11, 0, 0, &_mh_execute_header, v2, 0, "Sandbox_remove_homedir success", &v10, 2, v10);
+        goto LABEL_18;
+      }
+
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089D14();
+    }
+
+    v2 = qword_1000EB308;
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 0;
+      v6 = sub_1000011A8(1);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = v6;
+      }
+
+      else
+      {
+        v7 = v6 & 0xFFFFFFFE;
+      }
+
+      if (v7)
+      {
+        LOWORD(v10) = 0;
+        v5 = _os_log_send_and_compose_impl(v7, &v11, 0, 0, &_mh_execute_header, v2, 0, "Sandbox_remove_homedir failed", &v10, 2, v10);
+LABEL_18:
+        v8 = v5;
+        if (v5)
+        {
+          sub_100002A8C(v5);
+        }
+
+        goto LABEL_21;
+      }
+
+LABEL_20:
+      v8 = 0;
+LABEL_21:
+      free(v8);
+    }
+  }
+
+  return v1;
+}
+
+uint64_t sub_1000332B0(int a1)
+{
+  v2 = MGGetBoolAnswer();
+  if (v2)
+  {
+    if (a1)
+    {
+      byte_1000EA3D8 = 1;
+      qword_1000EB2F8 = kUMUserSessionAPFSNativeVolume;
+      valuePtr[0] = 502;
+      v3 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
+      v4 = sub_10007990C();
+      CFDictionarySetValue(v4, kUMUserSessionIDKey, v3);
+      sub_10001FC24(v4, 0);
+      if (v3)
+      {
+        CFRelease(v3);
+      }
+
+      if (mkpath_np("/var/Users", 0x1FFu))
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v5 = qword_1000EB308;
+        if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_102;
+        }
+
+        v50[0] = 0;
+        LODWORD(v6) = sub_1000011A8(1);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          v6 = v6;
+        }
+
+        else
+        {
+          v6 = v6 & 0xFFFFFFFE;
+        }
+
+        if (v6)
+        {
+          v7 = v5;
+          v8 = __error();
+          v9 = strerror(*v8);
+          *__str = 136315138;
+          *&__str[4] = v9;
+          v10 = _os_log_send_and_compose_impl(v6, v50, 0, 0, &_mh_execute_header, v7, 0, "failed to create:/var/Users (%s)\n", __str);
+
+          if (!v10)
+          {
+            goto LABEL_101;
+          }
+
+          goto LABEL_99;
+        }
+
+LABEL_100:
+        v10 = 0;
+        goto LABEL_101;
+      }
+
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v5 = qword_1000EB308;
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_102;
+      }
+
+      *__str = 0;
+      v18 = sub_1000011A8(1);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = v18;
+      }
+
+      else
+      {
+        v19 = v18 & 0xFFFFFFFE;
+      }
+
+      if (!v19)
+      {
+        goto LABEL_100;
+      }
+
+      LOWORD(v50[0]) = 0;
+      v20 = _os_log_send_and_compose_impl(v19, __str, 0, 0, &_mh_execute_header, v5, 0, "Created path /var/Users", v50, 2);
+    }
+
+    else
+    {
+      byte_1000EA3D8 = 0;
+      qword_1000EB2F8 = 0;
+      if (qword_1000EB5A0)
+      {
+        CFArrayRemoveAllValues(qword_1000EB5A0);
+      }
+
+      if (qword_1000EB5C0)
+      {
+        CFArrayRemoveAllValues(qword_1000EB5C0);
+      }
+
+      if (qword_1000EB5C8)
+      {
+        CFArrayRemoveAllValues(qword_1000EB5C8);
+      }
+
+      v11 = sub_1000013A0(qword_1000EB608);
+      v12 = [v11 removeFileAtPath:@"/private/var//keybags/usersession.kb" error:0];
+
+      if (v12)
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089D14();
+        }
+
+        v13 = qword_1000EB308;
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        {
+          *__str = 0;
+          v14 = sub_1000011A8(1);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          {
+            v15 = v14;
+          }
+
+          else
+          {
+            v15 = v14 & 0xFFFFFFFE;
+          }
+
+          if (v15)
+          {
+            LOWORD(v50[0]) = 0;
+            v16 = _os_log_send_and_compose_impl(v15, __str, 0, 0, &_mh_execute_header, v13, 0, "removed USER_SESSION_BAG_PATH", v50, 2);
+            v17 = v16;
+            if (v16)
+            {
+              sub_100002A8C(v16);
+            }
+          }
+
+          else
+          {
+            v17 = 0;
+          }
+
+          free(v17);
+        }
+      }
+
+      else
+      {
+        perror("unlink of USER_SESSION_BAG_PATH failed with error");
+      }
+
+      v21 = sub_1000013A0(qword_1000EB608);
+      v22 = [v21 removeFileAtPath:@"/private/var//keybags/usersyncbag.kb" error:0];
+
+      if (v22)
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v23 = qword_1000EB308;
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        {
+          *__str = 0;
+          v24 = sub_1000011A8(1);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          {
+            v25 = v24;
+          }
+
+          else
+          {
+            v25 = v24 & 0xFFFFFFFE;
+          }
+
+          if (v25)
+          {
+            LOWORD(v50[0]) = 0;
+            LODWORD(v48) = 2;
+            v26 = _os_log_send_and_compose_impl(v25, __str, 0, 0, &_mh_execute_header, v23, 0, "removed USER_SYNC_BAG_PATH", v50, v48);
+            v27 = v26;
+            if (v26)
+            {
+              sub_100002A8C(v26);
+            }
+          }
+
+          else
+          {
+            v27 = 0;
+          }
+
+          free(v27);
+        }
+      }
+
+      else
+      {
+        perror("unlink of USER_SYNC_BAG_PATH failed with error");
+      }
+
+      v28 = sub_1000013A0(qword_1000EB608);
+      v29 = [v28 removeFileAtPath:@"/private/var/keybags/LockoutState.plist" error:0];
+
+      if (v29)
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v30 = qword_1000EB308;
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        {
+          *__str = 0;
+          v31 = sub_1000011A8(1);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          {
+            v32 = v31;
+          }
+
+          else
+          {
+            v32 = v31 & 0xFFFFFFFE;
+          }
+
+          if (v32)
+          {
+            LOWORD(v50[0]) = 0;
+            LODWORD(v48) = 2;
+            v33 = _os_log_send_and_compose_impl(v32, __str, 0, 0, &_mh_execute_header, v30, 0, "removed /private/var/keybags/LockoutState.plist", v50, v48);
+            v34 = v33;
+            if (v33)
+            {
+              sub_100002A8C(v33);
+            }
+          }
+
+          else
+          {
+            v34 = 0;
+          }
+
+          free(v34);
+        }
+      }
+
+      else
+      {
+        perror("unlink of /private/var/keybags/LockoutState.plist failed with error");
+      }
+
+      snprintf(__str, 0x400uLL, "%s%s/%s.kb", "/private/var/", "keybags", "userbag");
+      v35 = sub_1000013A0(qword_1000EB608);
+      v36 = [NSString stringWithUTF8String:__str];
+      v37 = [v35 removeFileAtPath:v36 error:0];
+
+      if (v37)
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v38 = qword_1000EB308;
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        {
+          v50[0] = 0;
+          v39 = sub_1000011A8(1);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          {
+            v40 = v39;
+          }
+
+          else
+          {
+            v40 = v39 & 0xFFFFFFFE;
+          }
+
+          if (v40)
+          {
+            LOWORD(valuePtr[0]) = 0;
+            LODWORD(v49) = 2;
+            v41 = _os_log_send_and_compose_impl(v40, v50, 0, 0, &_mh_execute_header, v38, 0, "removed userBagPath", valuePtr, v49);
+            v42 = v41;
+            if (v41)
+            {
+              sub_100002A8C(v41);
+            }
+          }
+
+          else
+          {
+            v42 = 0;
+          }
+
+          free(v42);
+        }
+      }
+
+      else
+      {
+        perror("unlink of userBagPath failed with error");
+      }
+
+      if (sub_10002D62C("/var/Users"))
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v5 = qword_1000EB308;
+        if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_102;
+        }
+
+        v50[0] = 0;
+        v43 = sub_1000011A8(1);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          v44 = v43;
+        }
+
+        else
+        {
+          v44 = v43 & 0xFFFFFFFE;
+        }
+
+        if (!v44)
+        {
+          goto LABEL_100;
+        }
+
+        LOWORD(valuePtr[0]) = 0;
+        LODWORD(v49) = 2;
+        v20 = _os_log_send_and_compose_impl(v44, v50, 0, 0, &_mh_execute_header, v5, 0, "removed /var/Users path", valuePtr, v49);
+      }
+
+      else
+      {
+        if (qword_1000EB310 != -1)
+        {
+          sub_100089CEC();
+        }
+
+        v5 = qword_1000EB308;
+        if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_102;
+        }
+
+        v50[0] = 0;
+        v45 = sub_1000011A8(1);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          v46 = v45;
+        }
+
+        else
+        {
+          v46 = v45 & 0xFFFFFFFE;
+        }
+
+        if (!v46)
+        {
+          goto LABEL_100;
+        }
+
+        LOWORD(valuePtr[0]) = 0;
+        LODWORD(v49) = 2;
+        v20 = _os_log_send_and_compose_impl(v46, v50, 0, 0, &_mh_execute_header, v5, 0, "Failed to remove /var/Users hierarchy, please remove it", valuePtr, v49);
+      }
+    }
+
+    v10 = v20;
+    if (!v20)
+    {
+LABEL_101:
+      free(v10);
+LABEL_102:
+
+      return v2;
+    }
+
+LABEL_99:
+    sub_100002A8C(v10);
+    goto LABEL_101;
+  }
+
+  return v2;
+}
+
+void sub_100033AB0(const __CFString *a1)
+{
+  if (qword_1000EB310 != -1)
+  {
+    sub_100089D14();
+  }
+
+  v2 = qword_1000EB308;
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 0;
+    v3 = sub_1000011A8(1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = v3;
+    }
+
+    else
+    {
+      v4 = v3 & 0xFFFFFFFE;
+    }
+
+    if (v4)
+    {
+      v10 = 138412290;
+      v11 = a1;
+      v5 = _os_log_send_and_compose_impl(v4, &v9, 0, 0, &_mh_execute_header, v2, 0, "RegisterSyncService: machservice %@", &v10, 12);
+      v6 = v5;
+      if (v5)
+      {
+        sub_100002A8C(v5);
+      }
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    free(v6);
+  }
+
+  v7 = sub_100018360();
+  if (v7)
+  {
+    v8 = v7;
+    sub_100033BF4(v7, a1);
+    CFRelease(v8);
+  }
+}
+
+void sub_100033BF4(const __CFDictionary *a1, const __CFString *a2)
+{
+  v4 = sub_1000023E8(a1, kUMUserSessionIDKey);
+  if (CFDictionaryContainsKey(a1, kUMUserSessionSyncMachServicesKey) && (v5 = CFDictionaryGetValue(a1, kUMUserSessionSyncMachServicesKey), v6 = CFGetTypeID(v5), v6 == CFArrayGetTypeID()))
+  {
+    Value = CFDictionaryGetValue(a1, kUMUserSessionSyncMachServicesKey);
+    MutableCopy = CFArrayCreateMutableCopy(kCFAllocatorDefault, 0, Value);
+    v9 = 1;
+  }
+
+  else
+  {
+    MutableCopy = sub_1000799A8();
+    v9 = 0;
+  }
+
+  if (qword_1000EB310 != -1)
+  {
+    sub_100089D14();
+  }
+
+  v10 = qword_1000EB308;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v40[0] = 0;
+    v11 = sub_1000011A8(1);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = v11 & 0xFFFFFFFE;
+    }
+
+    if (v12)
+    {
+      *v41 = 138412290;
+      *&v41[4] = a2;
+      v13 = _os_log_send_and_compose_impl(v12, v40, 0, 0, &_mh_execute_header, v10, 0, "RegisterSyncService: machservice %@", v41, 12);
+      v14 = v13;
+      if (v13)
+      {
+        sub_100002A8C(v13);
+      }
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    free(v14);
+  }
+
+  if (CFArrayGetCount(MutableCopy) < 1)
+  {
+LABEL_22:
+    CFArrayAppendValue(MutableCopy, a2);
+    if (v9)
+    {
+      CFDictionaryReplaceValue(a1, kUMUserSessionSyncMachServicesKey, MutableCopy);
+    }
+
+    else
+    {
+      CFDictionarySetValue(a1, kUMUserSessionSyncMachServicesKey, MutableCopy);
+    }
+
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v19 = qword_1000EB308;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v40[0] = 0;
+      v20 = sub_1000011A8(1);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = v20;
+      }
+
+      else
+      {
+        v21 = v20 & 0xFFFFFFFE;
+      }
+
+      if (v21)
+      {
+        *v41 = 138412290;
+        *&v41[4] = MutableCopy;
+        LODWORD(v39) = 12;
+        v22 = _os_log_send_and_compose_impl(v21, v40, 0, 0, &_mh_execute_header, v19, 0, "RegisterSyncService: machservices list array: %@", v41, v39);
+        v23 = v22;
+        if (v22)
+        {
+          sub_100002A8C(v22);
+        }
+      }
+
+      else
+      {
+        v23 = 0;
+      }
+
+      free(v23);
+    }
+
+    if (CFArrayGetCount(MutableCopy) >= 1)
+    {
+      CFDictionarySetValue(a1, kUMUserSessionDirtyKey, kCFBooleanTrue);
+      v24 = sub_1000023E8(a1, kUMUserSessionIDKey);
+      sub_10001BD58(v24);
+    }
+
+    sub_100018C80();
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v25 = qword_1000EB308;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      v40[0] = 0;
+      v26 = sub_1000011A8(1);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        v27 = v26;
+      }
+
+      else
+      {
+        v27 = v26 & 0xFFFFFFFE;
+      }
+
+      if (v27)
+      {
+        *v41 = 67109378;
+        *&v41[4] = v4;
+        *&v41[8] = 2112;
+        *&v41[10] = MutableCopy;
+        LODWORD(v39) = 18;
+        v28 = _os_log_send_and_compose_impl(v27, v40, 0, 0, &_mh_execute_header, v25, 0, "Calling _SecSyncBubbleTransfer(Register) for uid %d with array %@", v41, v39);
+        v29 = v28;
+        if (v28)
+        {
+          sub_100002A8C(v28);
+        }
+      }
+
+      else
+      {
+        v29 = 0;
+      }
+
+      free(v29);
+    }
+
+    if (_SecSyncBubbleTransfer())
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v30 = qword_1000EB308;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        *v41 = 0;
+        v31 = sub_1000011A8(1);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        {
+          v32 = v31;
+        }
+
+        else
+        {
+          v32 = v31 & 0xFFFFFFFE;
+        }
+
+        if (v32)
+        {
+          LOWORD(v40[0]) = 0;
+          LODWORD(v39) = 2;
+          v33 = _os_log_send_and_compose_impl(v32, v41, 0, 0, &_mh_execute_header, v30, 0, "_SecSyncBubbleTransfer success", v40, v39, v40[0]);
+          goto LABEL_66;
+        }
+
+        goto LABEL_76;
+      }
+    }
+
+    else
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v30 = qword_1000EB308;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        *v41 = 0;
+        v34 = sub_1000011A8(1);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        {
+          v35 = v34;
+        }
+
+        else
+        {
+          v35 = v34 & 0xFFFFFFFE;
+        }
+
+        if (v35)
+        {
+          LOWORD(v40[0]) = 0;
+          LODWORD(v39) = 2;
+          v33 = _os_log_send_and_compose_impl(v35, v41, 0, 0, &_mh_execute_header, v30, 0, "_SecSyncBubbleTransfer failed", v40, v39, v40[0]);
+          goto LABEL_66;
+        }
+
+LABEL_76:
+        v36 = 0;
+LABEL_77:
+        free(v36);
+      }
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+    while (1)
+    {
+      ValueAtIndex = CFArrayGetValueAtIndex(MutableCopy, v15);
+      if (ValueAtIndex)
+      {
+        v17 = ValueAtIndex;
+        v18 = CFGetTypeID(ValueAtIndex);
+        if (v18 == CFStringGetTypeID() && CFStringCompare(v17, a2, 0) == kCFCompareEqualTo)
+        {
+          break;
+        }
+      }
+
+      if (CFArrayGetCount(MutableCopy) <= ++v15)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089CEC();
+    }
+
+    v30 = qword_1000EB308;
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      v40[0] = 0;
+      v37 = sub_1000011A8(1);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        v38 = v37;
+      }
+
+      else
+      {
+        v38 = v37 & 0xFFFFFFFE;
+      }
+
+      if (v38)
+      {
+        *v41 = 138412290;
+        *&v41[4] = a2;
+        LODWORD(v39) = 12;
+        v33 = _os_log_send_and_compose_impl(v38, v40, 0, 0, &_mh_execute_header, v30, 0, "RegisterSyncService: machservice already present: %@", v41, v39, v40[0]);
+LABEL_66:
+        v36 = v33;
+        if (v33)
+        {
+          sub_100002A8C(v33);
+        }
+
+        goto LABEL_77;
+      }
+
+      goto LABEL_76;
+    }
+  }
+
+  if (MutableCopy)
+  {
+    CFRelease(MutableCopy);
+  }
+}
+
+void sub_100034214()
+{
+  v0 = sub_100018360();
+  if (v0)
+  {
+    v1 = v0;
+    if (!CFDictionaryContainsKey(v0, kUMUserSessionSyncMachServicesKey))
+    {
+      goto LABEL_37;
+    }
+
+    sub_1000023E8(v1, kUMUserSessionIDKey);
+    if (!CFDictionaryGetValue(v1, kUMUserSessionSyncMachServicesKey))
+    {
+      goto LABEL_37;
+    }
+
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089D14();
+    }
+
+    v2 = qword_1000EB308;
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 0;
+      v3 = sub_1000011A8(1);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      {
+        v4 = v3;
+      }
+
+      else
+      {
+        v4 = v3 & 0xFFFFFFFE;
+      }
+
+      if (v4)
+      {
+        LOWORD(v15) = 0;
+        v5 = _os_log_send_and_compose_impl(v4, &v16, 0, 0, &_mh_execute_header, v2, 0, "Notifying Bubble machservice list for keychain update", &v15, 2);
+        v6 = v5;
+        if (v5)
+        {
+          sub_100002A8C(v5);
+        }
+      }
+
+      else
+      {
+        v6 = 0;
+      }
+
+      free(v6);
+    }
+
+    if (_SecSyncBubbleTransfer())
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v7 = qword_1000EB308;
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_36;
+      }
+
+      v16 = 0;
+      v8 = sub_1000011A8(1);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = v8 & 0xFFFFFFFE;
+      }
+
+      if (v9)
+      {
+        LOWORD(v15) = 0;
+        LODWORD(v14) = 2;
+        v10 = _os_log_send_and_compose_impl(v9, &v16, 0, 0, &_mh_execute_header, v7, 0, "_SecSyncBubbleTransfer success", &v15, v14, v15);
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v7 = qword_1000EB308;
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_36;
+      }
+
+      v16 = 0;
+      v11 = sub_1000011A8(1);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = v11 & 0xFFFFFFFE;
+      }
+
+      if (v12)
+      {
+        LOWORD(v15) = 0;
+        LODWORD(v14) = 2;
+        v10 = _os_log_send_and_compose_impl(v12, &v16, 0, 0, &_mh_execute_header, v7, 0, "_SecSyncBubbleTransfer failed", &v15, v14, v15);
+LABEL_32:
+        v13 = v10;
+        if (v10)
+        {
+          sub_100002A8C(v10);
+        }
+
+        goto LABEL_35;
+      }
+    }
+
+    v13 = 0;
+LABEL_35:
+    free(v13);
+LABEL_36:
+
+LABEL_37:
+    CFRelease(v1);
+  }
+}
+
+void sub_1000344A8(const __CFString *a1)
+{
+  v2 = sub_100018360();
+  if (v2)
+  {
+    v3 = v2;
+    sub_1000344FC(v2, a1);
+
+    CFRelease(v3);
+  }
+}
+
+void sub_1000344FC(const __CFDictionary *a1, const __CFString *a2)
+{
+  v4 = sub_1000023E8(a1, kUMUserSessionIDKey);
+  if (CFDictionaryContainsKey(a1, kUMUserSessionSyncMachServicesKey))
+  {
+    Value = CFDictionaryGetValue(a1, kUMUserSessionSyncMachServicesKey);
+    v6 = CFGetTypeID(Value);
+    if (v6 == CFArrayGetTypeID() && CFArrayGetCount(Value))
+    {
+      if (CFArrayGetCount(Value) < 1)
+      {
+LABEL_10:
+        if (CFArrayGetCount(Value))
+        {
+          return;
+        }
+
+        v11 = 0;
+      }
+
+      else
+      {
+        v7 = 0;
+        while (1)
+        {
+          ValueAtIndex = CFArrayGetValueAtIndex(Value, v7);
+          if (ValueAtIndex)
+          {
+            v9 = ValueAtIndex;
+            v10 = CFGetTypeID(ValueAtIndex);
+            if (v10 == CFStringGetTypeID() && CFStringCompare(v9, a2, 0) == kCFCompareEqualTo)
+            {
+              break;
+            }
+          }
+
+          if (CFArrayGetCount(Value) <= ++v7)
+          {
+            goto LABEL_10;
+          }
+        }
+
+        CFArrayRemoveValueAtIndex(Value, v7);
+        CFRetain(Value);
+        if (CFArrayGetCount(Value))
+        {
+LABEL_41:
+          sub_100018C80();
+          if (qword_1000EB310 != -1)
+          {
+            sub_100089CEC();
+          }
+
+          v22 = qword_1000EB308;
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          {
+            v35[0] = 0;
+            v23 = sub_1000011A8(1);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            {
+              v24 = v23;
+            }
+
+            else
+            {
+              v24 = v23 & 0xFFFFFFFE;
+            }
+
+            if (v24)
+            {
+              LODWORD(v36) = 67109378;
+              HIDWORD(v36) = v4;
+              v37 = 2112;
+              v38 = Value;
+              LODWORD(v34) = 18;
+              v25 = _os_log_send_and_compose_impl(v24, v35, 0, 0, &_mh_execute_header, v22, 0, "Calling _SecSyncBubbleTransfer(Unregister) for uid %d with array %@", &v36, v34);
+              v26 = v25;
+              if (v25)
+              {
+                sub_100002A8C(v25);
+              }
+            }
+
+            else
+            {
+              v26 = 0;
+            }
+
+            free(v26);
+          }
+
+          if (_SecSyncBubbleTransfer())
+          {
+            if (qword_1000EB310 != -1)
+            {
+              sub_100089CEC();
+            }
+
+            v27 = qword_1000EB308;
+            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_73;
+            }
+
+            v36 = 0;
+            v28 = sub_1000011A8(1);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            {
+              v29 = v28;
+            }
+
+            else
+            {
+              v29 = v28 & 0xFFFFFFFE;
+            }
+
+            if (v29)
+            {
+              LOWORD(v35[0]) = 0;
+              LODWORD(v34) = 2;
+              v30 = _os_log_send_and_compose_impl(v29, &v36, 0, 0, &_mh_execute_header, v27, 0, "_SecSyncBubbleTransfer success", v35, v34, v35[0]);
+              goto LABEL_69;
+            }
+          }
+
+          else
+          {
+            if (qword_1000EB310 != -1)
+            {
+              sub_100089CEC();
+            }
+
+            v27 = qword_1000EB308;
+            if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_73;
+            }
+
+            v36 = 0;
+            v31 = sub_1000011A8(1);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            {
+              v32 = v31;
+            }
+
+            else
+            {
+              v32 = v31 & 0xFFFFFFFE;
+            }
+
+            if (v32)
+            {
+              LOWORD(v35[0]) = 0;
+              LODWORD(v34) = 2;
+              v30 = _os_log_send_and_compose_impl(v32, &v36, 0, 0, &_mh_execute_header, v27, 0, "_SecSyncBubbleTransfer failed", v35, v34, v35[0]);
+LABEL_69:
+              v33 = v30;
+              if (v30)
+              {
+                sub_100002A8C(v30);
+              }
+
+              goto LABEL_72;
+            }
+          }
+
+          v33 = 0;
+LABEL_72:
+          free(v33);
+LABEL_73:
+
+          if (Value)
+          {
+            CFRelease(Value);
+          }
+
+          return;
+        }
+
+        v11 = 1;
+      }
+
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089D14();
+      }
+
+      v12 = qword_1000EB308;
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        v36 = 0;
+        v13 = sub_1000011A8(1);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          v14 = v13;
+        }
+
+        else
+        {
+          v14 = v13 & 0xFFFFFFFE;
+        }
+
+        if (v14)
+        {
+          LOWORD(v35[0]) = 0;
+          v15 = _os_log_send_and_compose_impl(v14, &v36, 0, 0, &_mh_execute_header, v12, 0, "NO More MachServices, remove key", v35, 2);
+          v16 = v15;
+          if (v15)
+          {
+            sub_100002A8C(v15);
+          }
+        }
+
+        else
+        {
+          v16 = 0;
+        }
+
+        free(v16);
+      }
+
+      if ((v11 & 1) == 0)
+      {
+        CFRetain(Value);
+      }
+
+      sub_10001C0D0(a1, v4);
+      goto LABEL_41;
+    }
+  }
+
+  else
+  {
+    if (qword_1000EB310 != -1)
+    {
+      sub_100089D14();
+    }
+
+    v17 = qword_1000EB308;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v36 = 0;
+      v18 = sub_1000011A8(1);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = v18;
+      }
+
+      else
+      {
+        v19 = v18 & 0xFFFFFFFE;
+      }
+
+      if (v19)
+      {
+        LOWORD(v35[0]) = 0;
+        v20 = _os_log_send_and_compose_impl(v19, &v36, 0, 0, &_mh_execute_header, v17, 0, "NO MachServices Key in Current session", v35, 2);
+        v21 = v20;
+        if (v20)
+        {
+          sub_100002A8C(v20);
+        }
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      free(v21);
+    }
+  }
+}
+
 void sub_100034A2C(uint64_t a1, const __CFString *a2)
 {
   v3 = sub_10008A2F4(qword_1000EB2E0, a1);
@@ -67,6 +3156,7 @@ void sub_100034B84(id a1)
   v1 = qword_1000EB318;
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
+    v8 = 0;
     v2 = sub_1000011A8(0);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
@@ -80,7 +3170,9 @@ void sub_100034B84(id a1)
 
     if (v3)
     {
-      v4 = _os_log_send_and_compose_impl();
+      v9 = 134217984;
+      v10 = qword_1000EB5F8;
+      v4 = _os_log_send_and_compose_impl(v3, &v8, 0, 0, &_mh_execute_header, v1, 0, "Sync bubble timer (%p) fired", &v9);
       v5 = v4;
       if (v4)
       {
@@ -100,48 +3192,48 @@ void sub_100034B84(id a1)
   v6 = qword_1000EB5F8;
   qword_1000EB5F8 = 0;
 
-  sub_100034CC8();
+  sub_100034CC8(v7);
 }
 
-void sub_100034CC8()
+void sub_100034CC8(uint64_t a1)
 {
   if (qword_1000EB310 != -1)
   {
     sub_100089D14();
   }
 
-  v0 = qword_1000EB308;
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = qword_1000EB308;
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v49 = 0;
-    v1 = sub_1000011A8(1);
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    v52 = 0;
+    v2 = sub_1000011A8(1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      v2 = v1;
+      v3 = v2;
     }
 
     else
     {
-      v2 = v1 & 0xFFFFFFFE;
+      v3 = v2 & 0xFFFFFFFE;
     }
 
-    if (v2)
+    if (v3)
     {
       LOWORD(valuePtr) = 0;
-      v3 = _os_log_send_and_compose_impl();
-      v4 = v3;
-      if (v3)
+      v4 = _os_log_send_and_compose_impl(v3, &v52, 0, 0, &_mh_execute_header, v1, 0, "XXXXXXXXXXXXXX Kickstarting the bubble session  XXXXXXXXXXXXXX", &valuePtr, 2);
+      v5 = v4;
+      if (v4)
       {
-        sub_100002A8C(v3);
+        sub_100002A8C(v4);
       }
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
 
-    free(v4);
+    free(v5);
   }
 
   valuePtr = -1;
@@ -152,34 +3244,37 @@ void sub_100034CC8()
       sub_100089CEC();
     }
 
-    v5 = qword_1000EB308;
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = qword_1000EB308;
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_71;
+      goto LABEL_73;
     }
 
-    v49 = 0;
-    v6 = sub_1000011A8(1);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v52 = 0;
+    v7 = sub_1000011A8(1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = v6;
+      v8 = v7;
     }
 
     else
     {
-      v7 = v6 & 0xFFFFFFFE;
+      v8 = v7 & 0xFFFFFFFE;
     }
 
-    if (v7)
+    if (v8)
     {
-      goto LABEL_20;
+      LOWORD(v50[0]) = 0;
+      LODWORD(v49) = 2;
+      v9 = _os_log_send_and_compose_impl(v8, &v52, 0, 0, &_mh_execute_header, v6, 0, " XXXXXXXXXXXXXX BOOTARGS SET TO STOP AUTO BUBBLE LOAD XXXXXXXXXXXXXX", v50, v49, v50[0]);
+      goto LABEL_21;
     }
 
-LABEL_69:
-    v9 = 0;
-LABEL_70:
-    free(v9);
 LABEL_71:
+    v10 = 0;
+LABEL_72:
+    free(v10);
+LABEL_73:
 
     return;
   }
@@ -191,38 +3286,40 @@ LABEL_71:
       sub_100089CEC();
     }
 
-    v5 = qword_1000EB308;
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = qword_1000EB308;
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_71;
+      goto LABEL_73;
     }
 
-    v49 = 0;
-    v14 = sub_1000011A8(1);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v52 = 0;
+    v15 = sub_1000011A8(1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = v14;
+      v16 = v15;
     }
 
     else
     {
-      v15 = v14 & 0xFFFFFFFE;
+      v16 = v15 & 0xFFFFFFFE;
     }
 
-    if (!v15)
+    if (!v16)
     {
-      goto LABEL_69;
+      goto LABEL_71;
     }
 
-LABEL_20:
-    v8 = _os_log_send_and_compose_impl();
-    v9 = v8;
-    if (v8)
+    LOWORD(v50[0]) = 0;
+    LODWORD(v49) = 2;
+    v9 = _os_log_send_and_compose_impl(v16, &v52, 0, 0, &_mh_execute_header, v6, 0, "Returning, no Users list for bubble empty", v50, v49, v50[0]);
+LABEL_21:
+    v10 = v9;
+    if (v9)
     {
-      sub_100002A8C(v8);
+      sub_100002A8C(v9);
     }
 
-    goto LABEL_70;
+    goto LABEL_72;
   }
 
   if (!CFArrayGetCount(qword_1000EB5C0))
@@ -232,162 +3329,174 @@ LABEL_20:
       sub_100089CEC();
     }
 
-    v5 = qword_1000EB308;
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = qword_1000EB308;
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_71;
+      goto LABEL_73;
     }
 
-    v49 = 0;
-    v16 = sub_1000011A8(1);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v52 = 0;
+    v17 = sub_1000011A8(1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v16;
+      v18 = v17;
     }
 
     else
     {
-      v17 = v16 & 0xFFFFFFFE;
+      v18 = v17 & 0xFFFFFFFE;
     }
 
-    if (!v17)
+    if (!v18)
     {
-      goto LABEL_69;
+      goto LABEL_71;
     }
 
-    goto LABEL_20;
+    LOWORD(v50[0]) = 0;
+    LODWORD(v49) = 2;
+    v9 = _os_log_send_and_compose_impl(v18, &v52, 0, 0, &_mh_execute_header, v6, 0, "Returning, no Users listed for sync bubble", v50, v49, v50[0]);
+    goto LABEL_21;
   }
 
-  v10 = +[RDServer sharedServer];
-  v11 = [v10 anyBubblePopClients];
+  v11 = +[RDServer sharedServer];
+  v12 = [v11 anyBubblePopClients];
 
-  if (v11)
+  if (v12)
   {
     if (qword_1000EB310 != -1)
     {
       sub_100089CEC();
     }
 
-    v5 = qword_1000EB308;
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = qword_1000EB308;
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_71;
+      goto LABEL_73;
     }
 
-    v49 = 0;
-    v12 = sub_1000011A8(1);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v52 = 0;
+    v13 = sub_1000011A8(1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v12;
+      v14 = v13;
     }
 
     else
     {
-      v13 = v12 & 0xFFFFFFFE;
+      v14 = v13 & 0xFFFFFFFE;
     }
 
-    if (!v13)
+    if (!v14)
     {
-      goto LABEL_69;
+      goto LABEL_71;
     }
 
-    goto LABEL_20;
+    LOWORD(v50[0]) = 0;
+    LODWORD(v49) = 2;
+    v9 = _os_log_send_and_compose_impl(v14, &v52, 0, 0, &_mh_execute_header, v6, 0, "Returning, sync bubble blocked by bubblepop holders", v50, v49, v50[0]);
+    goto LABEL_21;
   }
 
-  v18 = +[RDServer sharedServer];
-  v19 = [v18 inLogoutProcess];
+  v19 = +[RDServer sharedServer];
+  v20 = [v19 inLogoutProcess];
 
-  if (v19)
+  if (v20)
   {
     if (qword_1000EB310 != -1)
     {
       sub_100089CEC();
     }
 
-    v5 = qword_1000EB308;
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = qword_1000EB308;
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_71;
+      goto LABEL_73;
     }
 
-    v49 = 0;
-    v20 = sub_1000011A8(1);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v52 = 0;
+    v21 = sub_1000011A8(1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = v20;
+      v22 = v21;
     }
 
     else
     {
-      v21 = v20 & 0xFFFFFFFE;
+      v22 = v21 & 0xFFFFFFFE;
     }
 
-    if (!v21)
+    if (!v22)
     {
-      goto LABEL_69;
+      goto LABEL_71;
     }
 
-    goto LABEL_20;
-  }
-
-  v22 = sub_100088F2C(qword_1000EB608);
-  if (!sub_100089A48(v22))
-  {
-    v24 = dword_1000EB5B8;
-
-    if (v24 != 1)
-    {
-      goto LABEL_74;
-    }
-
-    goto LABEL_62;
+    LOWORD(v50[0]) = 0;
+    LODWORD(v49) = 2;
+    v9 = _os_log_send_and_compose_impl(v22, &v52, 0, 0, &_mh_execute_header, v6, 0, "Returning, sync bubble blocked by logout process", v50, v49, v50[0]);
+    goto LABEL_21;
   }
 
   v23 = sub_100088F2C(qword_1000EB608);
-  if (sub_100089AC4(v23) == 502)
+  if (!sub_100089A48(v23))
   {
+    v25 = dword_1000EB5B8;
 
-    goto LABEL_74;
+    if (v25 != 1)
+    {
+      goto LABEL_76;
+    }
+
+    goto LABEL_63;
   }
 
-  v27 = dword_1000EB5B8;
-
-  if (v27 == 1)
+  v24 = sub_100088F2C(qword_1000EB608);
+  if (sub_100089AC4(v24) == 502)
   {
-LABEL_62:
+
+    goto LABEL_76;
+  }
+
+  v28 = dword_1000EB5B8;
+
+  if (v28 == 1)
+  {
+LABEL_63:
     if (qword_1000EB310 != -1)
     {
       sub_100089CEC();
     }
 
-    v5 = qword_1000EB308;
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = qword_1000EB308;
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_71;
+      goto LABEL_73;
     }
 
-    v49 = 0;
-    v25 = sub_1000011A8(1);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v52 = 0;
+    v26 = sub_1000011A8(1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = v25;
+      v27 = v26;
     }
 
     else
     {
-      v26 = v25 & 0xFFFFFFFE;
+      v27 = v26 & 0xFFFFFFFE;
     }
 
-    if (!v26)
+    if (!v27)
     {
-      goto LABEL_69;
+      goto LABEL_71;
     }
 
-    goto LABEL_20;
+    LOWORD(v50[0]) = 0;
+    LODWORD(v49) = 2;
+    v9 = _os_log_send_and_compose_impl(v27, &v52, 0, 0, &_mh_execute_header, v6, 0, "Returning, sync bubble blocked by isLoginSession in User Context", v50, v49, v50[0]);
+    goto LABEL_21;
   }
 
-LABEL_74:
-  v28 = sub_10008A58C(qword_1000EB2E0);
+LABEL_76:
+  v29 = sub_10008A58C(qword_1000EB2E0);
   if (CFArrayGetCount(qword_1000EB5C0) >= 1)
   {
     for (i = 0; CFArrayGetCount(qword_1000EB5C0) > i; ++i)
@@ -395,50 +3504,52 @@ LABEL_74:
       ValueAtIndex = CFArrayGetValueAtIndex(qword_1000EB5C0, i);
       if (ValueAtIndex)
       {
-        v31 = ValueAtIndex;
-        v32 = CFGetTypeID(ValueAtIndex);
-        if (v32 == CFNumberGetTypeID())
+        v32 = ValueAtIndex;
+        v33 = CFGetTypeID(ValueAtIndex);
+        if (v33 == CFNumberGetTypeID())
         {
-          if (CFNumberGetValue(v31, kCFNumberIntType, &valuePtr))
+          if (CFNumberGetValue(v32, kCFNumberIntType, &valuePtr))
           {
-            if (valuePtr == v28)
+            if (valuePtr == v29)
             {
               if (qword_1000EB310 != -1)
               {
                 sub_100089CEC();
               }
 
-              v33 = qword_1000EB308;
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              v34 = qword_1000EB308;
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
-                v49 = 0;
-                v34 = sub_1000011A8(1);
-                if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+                v52 = 0;
+                v35 = sub_1000011A8(1);
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
                 {
-                  v35 = v34;
+                  v36 = v35;
                 }
 
                 else
                 {
-                  v35 = v34 & 0xFFFFFFFE;
+                  v36 = v35 & 0xFFFFFFFE;
                 }
 
-                if (v35)
+                if (v36)
                 {
-                  v36 = _os_log_send_and_compose_impl();
-                  v37 = v36;
-                  if (v36)
+                  LOWORD(v50[0]) = 0;
+                  LODWORD(v49) = 2;
+                  v37 = _os_log_send_and_compose_impl(v36, &v52, 0, 0, &_mh_execute_header, v34, 0, "Current FGID is the bubble UID, postpone load..", v50, v49);
+                  v38 = v37;
+                  if (v37)
                   {
-                    sub_100002A8C(v36);
+                    sub_100002A8C(v37);
                   }
                 }
 
                 else
                 {
-                  v37 = 0;
+                  v38 = 0;
                 }
 
-                free(v37);
+                free(v38);
               }
             }
 
@@ -449,37 +3560,39 @@ LABEL_74:
                 sub_100089CEC();
               }
 
-              v38 = qword_1000EB308;
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+              v39 = qword_1000EB308;
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
               {
-                v49 = 0;
-                v39 = sub_1000011A8(1);
-                if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+                v52 = 0;
+                v40 = sub_1000011A8(1);
+                if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
                 {
-                  v40 = v39;
+                  v41 = v40;
                 }
 
                 else
                 {
-                  v40 = v39 & 0xFFFFFFFE;
+                  v41 = v40 & 0xFFFFFFFE;
                 }
 
-                if (v40)
+                if (v41)
                 {
-                  v41 = _os_log_send_and_compose_impl();
-                  v42 = v41;
-                  if (v41)
+                  LOWORD(v50[0]) = 0;
+                  LODWORD(v49) = 2;
+                  v42 = _os_log_send_and_compose_impl(v41, &v52, 0, 0, &_mh_execute_header, v39, 0, "Current FGID is not the bubble UID, load", v50, v49);
+                  v43 = v42;
+                  if (v42)
                   {
-                    sub_100002A8C(v41);
+                    sub_100002A8C(v42);
                   }
                 }
 
                 else
                 {
-                  v42 = 0;
+                  v43 = 0;
                 }
 
-                free(v42);
+                free(v43);
               }
 
               if (!sub_1000315F8(valuePtr))
@@ -492,37 +3605,39 @@ LABEL_74:
                 sub_100089CEC();
               }
 
-              v43 = qword_1000EB308;
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+              v44 = qword_1000EB308;
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
               {
-                v49 = 0;
-                v44 = sub_1000011A8(1);
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                v52 = 0;
+                v45 = sub_1000011A8(1);
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
                 {
-                  v45 = v44;
+                  v46 = v45;
                 }
 
                 else
                 {
-                  v45 = v44 & 0xFFFFFFFE;
+                  v46 = v45 & 0xFFFFFFFE;
                 }
 
-                if (v45)
+                if (v46)
                 {
-                  v46 = _os_log_send_and_compose_impl();
-                  v47 = v46;
-                  if (v46)
+                  LOWORD(v50[0]) = 0;
+                  LODWORD(v49) = 2;
+                  v47 = _os_log_send_and_compose_impl(v46, &v52, 0, 0, &_mh_execute_header, v44, 0, "Load Syncbubble failed, Append this bubble session to the end, Try Later", v50, v49);
+                  v48 = v47;
+                  if (v47)
                   {
-                    sub_100002A8C(v46);
+                    sub_100002A8C(v47);
                   }
                 }
 
                 else
                 {
-                  v47 = 0;
+                  v48 = 0;
                 }
 
-                free(v47);
+                free(v48);
               }
 
               sub_10001BEFC(valuePtr);
@@ -724,21 +3839,23 @@ void sub_100035AC4(uint64_t a1)
         v9 = qword_1000EB308;
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = sub_1000011A8(1);
+          v16 = 0;
+          v13 = sub_1000011A8(1);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = v12;
+            v14 = v13;
           }
 
           else
           {
-            v13 = v12 & 0xFFFFFFFE;
+            v14 = v13 & 0xFFFFFFFE;
           }
 
-          if (v13)
+          if (v14)
           {
-            v17 = 67109120;
-            v18 = v2;
+            v18[0] = 67109120;
+            v18[1] = v2;
+            v12 = _os_log_send_and_compose_impl(v14, &v16, 0, 0, &_mh_execute_header, v9, 0, "Found problem with conversion with index %d", v18);
             goto LABEL_27;
           }
 
@@ -772,6 +3889,7 @@ LABEL_32:
     v9 = qword_1000EB308;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
+      v16 = 0;
       v10 = sub_1000011A8(1);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
@@ -788,13 +3906,13 @@ LABEL_32:
         goto LABEL_29;
       }
 
-      LOWORD(v17) = 0;
+      LOWORD(v18[0]) = 0;
+      v12 = _os_log_send_and_compose_impl(v11, &v16, 0, 0, &_mh_execute_header, v9, 0, "got NULL dictionary");
 LABEL_27:
-      v14 = _os_log_send_and_compose_impl();
-      v15 = v14;
-      if (v14)
+      v15 = v12;
+      if (v12)
       {
-        sub_100002A8C(v14);
+        sub_100002A8C(v12);
       }
 
 LABEL_30:
@@ -842,21 +3960,23 @@ CFTypeRef sub_100035D70(int a1)
           v9 = qword_1000EB308;
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v12 = sub_1000011A8(1);
+            v17 = 0;
+            v13 = sub_1000011A8(1);
             if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
             {
-              v13 = v12;
+              v14 = v13;
             }
 
             else
             {
-              v13 = v12 & 0xFFFFFFFE;
+              v14 = v13 & 0xFFFFFFFE;
             }
 
-            if (v13)
+            if (v14)
             {
-              v18 = 67109120;
-              v19 = v2;
+              v19[0] = 67109120;
+              v19[1] = v2;
+              v12 = _os_log_send_and_compose_impl(v14, &v17, 0, 0, &_mh_execute_header, v9, 0, "Found problem with conversion with index %d", v19);
               goto LABEL_27;
             }
 
@@ -888,6 +4008,7 @@ LABEL_32:
       v9 = qword_1000EB308;
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
+        v17 = 0;
         v10 = sub_1000011A8(1);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
@@ -904,13 +4025,13 @@ LABEL_32:
           goto LABEL_29;
         }
 
-        LOWORD(v18) = 0;
+        LOWORD(v19[0]) = 0;
+        v12 = _os_log_send_and_compose_impl(v11, &v17, 0, 0, &_mh_execute_header, v9, 0, "got NULL dictionary");
 LABEL_27:
-        v14 = _os_log_send_and_compose_impl();
-        v15 = v14;
-        if (v14)
+        v15 = v12;
+        if (v12)
         {
-          sub_100002A8C(v14);
+          sub_100002A8C(v12);
         }
 
 LABEL_30:
@@ -1379,14 +4500,15 @@ LABEL_53:
 void sub_100036CA4(char *__format, ...)
 {
   va_start(va, __format);
+  va_copy(&v11[1], va);
+  v19 = 0u;
+  v20 = 0u;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   *__str = 0u;
-  v12 = 0u;
+  v14 = 0u;
   vsnprintf(__str, 0x80uLL, __format, va);
   if (qword_1000EB310 != -1)
   {
@@ -1396,6 +4518,7 @@ void sub_100036CA4(char *__format, ...)
   v1 = qword_1000EB308;
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
+    v11[0] = 0;
     v2 = sub_1000011A8(1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
@@ -1409,7 +4532,9 @@ void sub_100036CA4(char *__format, ...)
 
     if (v3)
     {
-      v5 = _os_log_send_and_compose_impl();
+      *v12 = 136315138;
+      *&v12[4] = __str;
+      v5 = _os_log_send_and_compose_impl(v3, v11, 0, 0, &_mh_execute_header, v1, 0, "FATAL:Entering RECOVERYMODE due to: %s", v12);
       v4 = v5;
       if (v5)
       {
@@ -1435,6 +4560,7 @@ void sub_100036CA4(char *__format, ...)
   v6 = qword_1000EB308;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
+    *v12 = 0;
     v7 = sub_1000011A8(1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
@@ -1448,7 +4574,8 @@ void sub_100036CA4(char *__format, ...)
 
     if (v8)
     {
-      v10 = _os_log_send_and_compose_impl();
+      LOWORD(v11[0]) = 0;
+      v10 = _os_log_send_and_compose_impl(v8, v12, 0, 0, &_mh_execute_header, v6, 0, "Rebooting...", v11, 2);
       v9 = v10;
       if (v10)
       {
@@ -1481,51 +4608,56 @@ uint64_t sub_100036F10(char *cStr, const char *a2)
     if (v6)
     {
       v7 = v6;
-      if (IORegistryEntrySetCFProperty(v5, v3, v6))
+      v8 = IORegistryEntrySetCFProperty(v5, v3, v6);
+      if (v8)
       {
+        v9 = v8;
         if (qword_1000EB310 != -1)
         {
           sub_100089D14();
         }
 
-        v8 = qword_1000EB308;
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = qword_1000EB308;
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = sub_1000011A8(1);
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v27 = 0;
+          v11 = sub_1000011A8(1);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
-            v10 = v9;
+            v12 = v11;
           }
 
           else
           {
-            v10 = v9 & 0xFFFFFFFE;
+            v12 = v11 & 0xFFFFFFFE;
           }
 
-          if (v10)
+          if (v12)
           {
-            v11 = _os_log_send_and_compose_impl();
-            v12 = v11;
-            if (v11)
+            v28[0] = 67109120;
+            v28[1] = v9;
+            v13 = _os_log_send_and_compose_impl(v12, &v27, 0, 0, &_mh_execute_header, v10, 0, "Could not save value:%08x", v28);
+            v14 = v13;
+            if (v13)
             {
-              sub_100002A8C(v11);
+              sub_100002A8C(v13);
             }
           }
 
           else
           {
-            v12 = 0;
+            v14 = 0;
           }
 
-          free(v12);
+          free(v14);
         }
 
-        v23 = 0xFFFFFFFFLL;
+        v25 = 0xFFFFFFFFLL;
       }
 
       else
       {
-        v23 = 0;
+        v25 = 0;
       }
 
       CFRelease(v7);
@@ -1538,39 +4670,41 @@ uint64_t sub_100036F10(char *cStr, const char *a2)
         sub_100089D14();
       }
 
-      v18 = qword_1000EB308;
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = qword_1000EB308;
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = sub_1000011A8(1);
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v27 = 0;
+        v21 = sub_1000011A8(1);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = v19;
+          v22 = v21;
         }
 
         else
         {
-          v20 = v19 & 0xFFFFFFFE;
+          v22 = v21 & 0xFFFFFFFE;
         }
 
-        if (v20)
+        if (v22)
         {
-          v21 = _os_log_send_and_compose_impl();
-          v22 = v21;
-          if (v21)
+          LOWORD(v28[0]) = 0;
+          v23 = _os_log_send_and_compose_impl(v22, &v27, 0, 0, &_mh_execute_header, v20, 0, "Could not create string for value", v28, 2);
+          v24 = v23;
+          if (v23)
           {
-            sub_100002A8C(v21);
+            sub_100002A8C(v23);
           }
         }
 
         else
         {
-          v22 = 0;
+          v24 = 0;
         }
 
-        free(v22);
+        free(v24);
       }
 
-      v23 = 0xFFFFFFFFLL;
+      v25 = 0xFFFFFFFFLL;
     }
 
     IOObjectRelease(v5);
@@ -1583,43 +4717,45 @@ uint64_t sub_100036F10(char *cStr, const char *a2)
       sub_100089D14();
     }
 
-    v13 = qword_1000EB308;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = qword_1000EB308;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = sub_1000011A8(1);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v27 = 0;
+      v16 = sub_1000011A8(1);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = v14;
+        v17 = v16;
       }
 
       else
       {
-        v15 = v14 & 0xFFFFFFFE;
+        v17 = v16 & 0xFFFFFFFE;
       }
 
-      if (v15)
+      if (v17)
       {
-        v16 = _os_log_send_and_compose_impl();
-        v17 = v16;
-        if (v16)
+        LOWORD(v28[0]) = 0;
+        v18 = _os_log_send_and_compose_impl(v17, &v27, 0, 0, &_mh_execute_header, v15, 0, "Could not get options entry from the device tree", v28, 2);
+        v19 = v18;
+        if (v18)
         {
-          sub_100002A8C(v16);
+          sub_100002A8C(v18);
         }
       }
 
       else
       {
-        v17 = 0;
+        v19 = 0;
       }
 
-      free(v17);
+      free(v19);
     }
 
-    v23 = 0xFFFFFFFFLL;
+    v25 = 0xFFFFFFFFLL;
   }
 
   CFRelease(v3);
-  return v23;
+  return v25;
 }
 
 const void *sub_100037278(NSObject *a1, int a2)
@@ -1652,18 +4788,19 @@ const void *sub_100037278(NSObject *a1, int a2)
         goto LABEL_65;
       }
 
-      v21 = sub_1000011A8(1);
+      v26 = 0;
+      v19 = sub_1000011A8(1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = v21;
+        v20 = v19;
       }
 
       else
       {
-        v22 = v21 & 0xFFFFFFFE;
+        v20 = v19 & 0xFFFFFFFE;
       }
 
-      if (v22)
+      if (v20)
       {
         goto LABEL_62;
       }
@@ -1680,6 +4817,7 @@ const void *sub_100037278(NSObject *a1, int a2)
     v6 = qword_1000EB308;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
+      v26 = 0;
       v7 = sub_1000011A8(1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
@@ -1693,7 +4831,8 @@ const void *sub_100037278(NSObject *a1, int a2)
 
       if (v8)
       {
-        v9 = _os_log_send_and_compose_impl();
+        LOWORD(v27) = 0;
+        v9 = _os_log_send_and_compose_impl(v8, &v26, 0, 0, &_mh_execute_header, v6, 0, "Updated the manifest with User Disk/Volume Information, saving the manifest", &v27, 2);
         v10 = v9;
         if (v9)
         {
@@ -1727,23 +4866,24 @@ const void *sub_100037278(NSObject *a1, int a2)
       goto LABEL_57;
     }
 
-    v16 = sub_1000011A8(1);
+    v26 = 0;
+    v15 = sub_1000011A8(1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v16;
+      v16 = v15;
     }
 
     else
     {
-      v17 = v16 & 0xFFFFFFFE;
+      v16 = v15 & 0xFFFFFFFE;
     }
 
-    if (v17)
+    if (v16)
     {
       goto LABEL_54;
     }
 
-    v18 = 0;
+    v4 = 0;
     goto LABEL_56;
   }
 
@@ -1760,18 +4900,19 @@ const void *sub_100037278(NSObject *a1, int a2)
       goto LABEL_61;
     }
 
-    v19 = sub_1000011A8(1);
+    v26 = 0;
+    v17 = sub_1000011A8(1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = v19;
+      v18 = v17;
     }
 
     else
     {
-      v20 = v19 & 0xFFFFFFFE;
+      v18 = v17 & 0xFFFFFFFE;
     }
 
-    if (v20)
+    if (v18)
     {
       goto LABEL_58;
     }
@@ -1783,13 +4924,15 @@ const void *sub_100037278(NSObject *a1, int a2)
 LABEL_61:
 
       sleep(2u);
-      sub_100018028("UserManagement early boot task missing volumeUUID for the booted user..");
+      v20 = sub_100018028("UserManagement early boot task missing volumeUUID for the booted user..");
 LABEL_62:
-      v26 = _os_log_send_and_compose_impl();
-      v2 = v26;
-      if (v26)
+      LOWORD(v27) = 0;
+      LODWORD(v25) = 2;
+      v24 = _os_log_send_and_compose_impl(v20, &v26, 0, 0, &_mh_execute_header, v4, 0, "Unable to find User Volume properties...", &v27, v25);
+      v2 = v24;
+      if (v24)
       {
-        sub_100002A8C(v26);
+        sub_100002A8C(v24);
       }
 
 LABEL_64:
@@ -1801,27 +4944,30 @@ LABEL_65:
 LABEL_66:
       sub_100089D14();
 LABEL_20:
-      v13 = qword_1000EB308;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v4 = qword_1000EB308;
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = sub_1000011A8(1);
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v26 = 0;
+        v13 = sub_1000011A8(1);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = v14;
+          v14 = v13;
         }
 
         else
         {
-          v15 = v14 & 0xFFFFFFFE;
+          v14 = v13 & 0xFFFFFFFE;
         }
 
-        if (v15)
+        if (v14)
         {
-          v23 = _os_log_send_and_compose_impl();
-          v2 = v23;
-          if (v23)
+          LOWORD(v27) = 0;
+          LODWORD(v25) = 2;
+          v21 = _os_log_send_and_compose_impl(v14, &v26, 0, 0, &_mh_execute_header, v4, 0, "Could not Locate primary user session of Update install user", &v27, v25);
+          v2 = v21;
+          if (v21)
           {
-            sub_100002A8C(v23);
+            sub_100002A8C(v21);
           }
         }
 
@@ -1834,27 +4980,31 @@ LABEL_20:
       }
 
       sleep(2u);
-      sub_100018028("UserManagement early boot task could not Locate primary user session of Update install user");
+      v16 = sub_100018028("UserManagement early boot task could not Locate primary user session of Update install user");
 LABEL_54:
-      v24 = _os_log_send_and_compose_impl();
-      v18 = v24;
-      if (v24)
+      v27 = 67109120;
+      v28 = v4;
+      v22 = _os_log_send_and_compose_impl(v16, &v26, 0, 0, &_mh_execute_header, v2, 0, "Missing disknode for the booted user:%d", &v27);
+      v4 = v22;
+      if (v22)
       {
-        sub_100002A8C(v24);
+        sub_100002A8C(v22);
       }
 
 LABEL_56:
-      free(v18);
+      free(v4);
 LABEL_57:
 
       sleep(2u);
-      sub_100018028("UserManagement early boot task missing disknode for the booted user..");
+      v18 = sub_100018028("UserManagement early boot task missing disknode for the booted user..");
 LABEL_58:
-      v25 = _os_log_send_and_compose_impl();
-      v4 = v25;
-      if (v25)
+      v27 = 67109120;
+      v28 = v4;
+      v23 = _os_log_send_and_compose_impl(v18, &v26, 0, 0, &_mh_execute_header, v2, 0, "Missing volumeUUID for the booted user:%d", &v27);
+      v4 = v23;
+      if (v23)
       {
-        sub_100002A8C(v25);
+        sub_100002A8C(v23);
       }
     }
   }
@@ -1878,6 +5028,7 @@ id sub_100037758()
     v3 = qword_1000EB308;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
+      v12 = 0;
       v4 = sub_1000011A8(1);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
@@ -1891,21 +5042,12 @@ id sub_100037758()
 
       if (v5)
       {
-LABEL_17:
-        v8 = _os_log_send_and_compose_impl();
-        v9 = v8;
-        if (v8)
-        {
-          sub_100002A8C(v8);
-        }
-
-        goto LABEL_20;
+        LOWORD(v11) = 0;
+        v6 = _os_log_send_and_compose_impl(v5, &v12, 0, 0, &_mh_execute_header, v3, 0, "volumeMigratinMarkerCreate Successful", &v11, 2, v11);
+        goto LABEL_18;
       }
 
-LABEL_19:
-      v9 = 0;
-LABEL_20:
-      free(v9);
+      goto LABEL_20;
     }
   }
 
@@ -1919,23 +5061,36 @@ LABEL_20:
     v3 = qword_1000EB308;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = sub_1000011A8(1);
+      v12 = 0;
+      v7 = sub_1000011A8(1);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = v6;
+        v8 = v7;
       }
 
       else
       {
-        v7 = v6 & 0xFFFFFFFE;
+        v8 = v7 & 0xFFFFFFFE;
       }
 
-      if (v7)
+      if (v8)
       {
-        goto LABEL_17;
+        LOWORD(v11) = 0;
+        v6 = _os_log_send_and_compose_impl(v8, &v12, 0, 0, &_mh_execute_header, v3, 0, "failed to write diskSaveUserSessions dict", &v11, 2, v11);
+LABEL_18:
+        v9 = v6;
+        if (v6)
+        {
+          sub_100002A8C(v6);
+        }
+
+        goto LABEL_21;
       }
 
-      goto LABEL_19;
+LABEL_20:
+      v9 = 0;
+LABEL_21:
+      free(v9);
     }
   }
 
@@ -1944,21 +5099,21 @@ LABEL_20:
 
 void sub_100037918()
 {
-  v1 = 1;
-  v625 = 1;
-  v2 = sub_1000561D0(UMDAPFSSupportVolumeHelper, qword_1000EB608, byte_1000EB602);
-  v3 = qword_1000EB2D8;
-  qword_1000EB2D8 = v2;
+  v2 = 1;
+  v623 = 1;
+  v3 = sub_1000561D0(UMDAPFSSupportVolumeHelper, qword_1000EB608, byte_1000EB602);
+  v4 = qword_1000EB2D8;
+  qword_1000EB2D8 = v3;
 
-  v4 = sub_100053060(UMDUserManager, qword_1000EB2D8);
-  v5 = qword_1000EB2E0;
-  qword_1000EB2E0 = v4;
+  v5 = sub_100053060(UMDUserManager, qword_1000EB2D8);
+  v6 = qword_1000EB2E0;
+  qword_1000EB2E0 = v5;
 
-  v6 = &off_1000EB000;
   v7 = &off_1000EB000;
+  v8 = &off_1000EB000;
   if (![qword_1000EB2D8 splitUserVolumeEnabled])
   {
-    v612 = 0;
+    v610 = 0;
     v12 = 0;
     goto LABEL_95;
   }
@@ -1971,42 +5126,40 @@ void sub_100037918()
       sub_100089D14();
     }
 
-    v8 = qword_1000EB308;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = qword_1000EB308;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v9 = sub_1000011A8(1);
-      v0 = v8;
+      v10 = sub_1000011A8(1);
+      v0 = v9;
       if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = v9;
+        v11 = v10;
       }
 
       else
       {
-        v10 = v9 & 0xFFFFFFFE;
+        v11 = v10 & 0xFFFFFFFE;
       }
 
-      if (v10)
+      if (v11)
       {
         LOWORD(uuid[0]) = 0;
-        LODWORD(v605) = 2;
-        v602 = uuid;
-        v11 = _os_log_send_and_compose_impl();
+        v1 = _os_log_send_and_compose_impl(v11, value, 0, 0, &_mh_execute_header, v0, 0, "UM debug panic boot arg umd-migration-debug=100, Trying to redo Volume Migration, setting marker file here..", uuid, 2);
 
-        if (v11)
+        if (v1)
         {
-          sub_100002A8C(v11);
+          sub_100002A8C(v1);
         }
       }
 
       else
       {
 
-        v11 = 0;
+        v1 = 0;
       }
 
-      free(v11);
+      free(v1);
     }
 
     sub_100037758();
@@ -2038,27 +5191,26 @@ void sub_100037918()
       if (v16)
       {
         LOWORD(uuid[0]) = 0;
-        LODWORD(v605) = 2;
-        v602 = uuid;
-        v17 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v1 = _os_log_send_and_compose_impl(v16, value, 0, 0, &_mh_execute_header, v15, 0, "UM debug panic boot arg umd-migration-debug=101, removing usersessionbag  continuing to avoid Primary Migrate Panic", uuid, v604);
 
-        if (v17)
+        if (v1)
         {
-          sub_100002A8C(v17);
+          sub_100002A8C(v1);
         }
       }
 
       else
       {
 
-        v17 = 0;
+        v1 = 0;
       }
 
-      free(v17);
+      free(v1);
     }
 
-    v18 = sub_1000013A0(qword_1000EB608);
-    v0 = [v18 removeFileAtPath:@"/private/var//keybags/usersession.kb" error:0];
+    v17 = sub_1000013A0(qword_1000EB608);
+    v0 = [v17 removeFileAtPath:@"/private/var//keybags/usersession.kb" error:0];
 
     if (v0)
     {
@@ -2067,30 +5219,30 @@ void sub_100037918()
         sub_100089CEC();
       }
 
-      v19 = qword_1000EB308;
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = qword_1000EB308;
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_49;
       }
 
       value[0] = 0;
-      v20 = sub_1000011A8(1);
-      v19 = v19;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_1000011A8(1);
+      v18 = v18;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = v20;
+        v20 = v19;
       }
 
       else
       {
-        v21 = v20 & 0xFFFFFFFE;
+        v20 = v19 & 0xFFFFFFFE;
       }
 
-      if (v21)
+      if (v20)
       {
         LOWORD(uuid[0]) = 0;
-        LODWORD(v605) = 2;
-        v602 = uuid;
+        LODWORD(v604) = 2;
+        v21 = _os_log_send_and_compose_impl(v20, value, 0, 0, &_mh_execute_header, v18, 0, "Removed USER_SESSION_BAG_PATH, continuing to boot.. ", uuid, v604);
         goto LABEL_45;
       }
     }
@@ -2102,16 +5254,16 @@ void sub_100037918()
         sub_100089CEC();
       }
 
-      v19 = qword_1000EB308;
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = qword_1000EB308;
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_49;
       }
 
       value[0] = 0;
       v22 = sub_1000011A8(1);
-      v19 = v19;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = v18;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v23 = v22;
       }
@@ -2124,10 +5276,10 @@ void sub_100037918()
       if (v23)
       {
         LOWORD(uuid[0]) = 0;
-        LODWORD(v605) = 2;
-        v602 = uuid;
+        LODWORD(v604) = 2;
+        v21 = _os_log_send_and_compose_impl(v23, value, 0, 0, &_mh_execute_header, v18, 0, "Unlink of USER_SESSION_BAG_PATH failed, unfortunately can't recover..", uuid, v604);
 LABEL_45:
-        v0 = _os_log_send_and_compose_impl();
+        v0 = v21;
 
         if (v0)
         {
@@ -2144,7 +5296,7 @@ LABEL_48:
 LABEL_49:
   }
 
-  if (sub_1000725AC(err, &v625))
+  if (sub_1000725AC(err, &v623))
   {
     if (qword_1000EB310 != -1)
     {
@@ -2170,23 +5322,22 @@ LABEL_49:
       if (v26)
       {
         LOWORD(uuid[0]) = 0;
-        LODWORD(v605) = 2;
-        v602 = uuid;
-        v27 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v1 = _os_log_send_and_compose_impl(v26, value, 0, 0, &_mh_execute_header, v0, 0, "Boot after Update Install, needs User & System volume migration", uuid, v604);
 
-        if (v27)
+        if (v1)
         {
-          sub_100002A8C(v27);
+          sub_100002A8C(v1);
         }
       }
 
       else
       {
 
-        v27 = 0;
+        v1 = 0;
       }
 
-      free(v27);
+      free(v1);
     }
 
     if (!sub_100037758())
@@ -2199,42 +5350,43 @@ LABEL_49:
       v84 = qword_1000EB308;
       if (!os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_1326;
+        goto LABEL_1337;
       }
 
       value[0] = 0;
-      v517 = sub_1000011A8(1);
+      v526 = sub_1000011A8(1);
       if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
       {
-        v518 = v517;
+        v527 = v526;
       }
 
       else
       {
-        v518 = v517 & 0xFFFFFFFE;
+        v527 = v526 & 0xFFFFFFFE;
       }
 
-      if (!v518)
+      if (!v527)
       {
-        v519 = 0;
-LABEL_1325:
-        free(v519);
-LABEL_1326:
+        v528 = 0;
+LABEL_1336:
+        free(v528);
+LABEL_1337:
 
-        sub_100018028("Creating classD marker file in /var/keybags in early boot task failed");
-        goto LABEL_1327;
+        v86 = sub_100018028("Creating classD marker file in /var/keybags in early boot task failed");
+        goto LABEL_1338;
       }
 
-LABEL_1323:
+LABEL_1334:
       LOWORD(uuid[0]) = 0;
-      v541 = _os_log_send_and_compose_impl();
-      v519 = v541;
-      if (v541)
+      LODWORD(v604) = 2;
+      v547 = _os_log_send_and_compose_impl(v527, value, 0, 0, &_mh_execute_header, v84, 0, "FAILED TO CREATE MARKER FILE TO INDICATE VOLUME MIGRATION IS NEEDED", uuid, v604);
+      v528 = v547;
+      if (v547)
       {
-        sub_100002A8C(v541);
+        sub_100002A8C(v547);
       }
 
-      goto LABEL_1325;
+      goto LABEL_1336;
     }
 
     if (qword_1000EB310 != -1)
@@ -2242,15 +5394,15 @@ LABEL_1323:
       sub_100089CEC();
     }
 
-    v28 = qword_1000EB308;
-    if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = qword_1000EB308;
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_94;
     }
 
     value[0] = 0;
     v35 = sub_1000011A8(1);
-    v0 = v28;
+    v0 = v27;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
       v36 = v35;
@@ -2264,10 +5416,10 @@ LABEL_1323:
     if (v36)
     {
       LOWORD(uuid[0]) = 0;
-      LODWORD(v605) = 2;
-      v602 = uuid;
+      LODWORD(v604) = 2;
+      v30 = _os_log_send_and_compose_impl(v36, value, 0, 0, &_mh_execute_header, v0, 0, "Successfully marker file to indicate volume migration needed, in progress", uuid, v604);
 LABEL_90:
-      v37 = _os_log_send_and_compose_impl();
+      v37 = v30;
 
       if (v37)
       {
@@ -2287,30 +5439,30 @@ LABEL_90:
       sub_100089CEC();
     }
 
-    v28 = qword_1000EB308;
-    if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = qword_1000EB308;
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_94;
     }
 
     value[0] = 0;
-    v29 = sub_1000011A8(1);
-    v0 = v28;
+    v28 = sub_1000011A8(1);
+    v0 = v27;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = v29;
+      v29 = v28;
     }
 
     else
     {
-      v30 = v29 & 0xFFFFFFFE;
+      v29 = v28 & 0xFFFFFFFE;
     }
 
-    if (v30)
+    if (v29)
     {
       LOWORD(uuid[0]) = 0;
-      LODWORD(v605) = 2;
-      v602 = uuid;
+      LODWORD(v604) = 2;
+      v30 = _os_log_send_and_compose_impl(v29, value, 0, 0, &_mh_execute_header, v0, 0, "UM-MARKER-FILE - Boot without completing Migration, needs User & System volume migration", uuid, v604);
       goto LABEL_90;
     }
 
@@ -2321,12 +5473,12 @@ LABEL_93:
     free(v37);
 LABEL_94:
 
-    v612 = 0;
+    v610 = 0;
     v12 = 1;
     goto LABEL_95;
   }
 
-  if (!v625)
+  if (!v623)
   {
     byte_1000EB603 = 1;
     if (qword_1000EB310 != -1)
@@ -2353,9 +5505,8 @@ LABEL_94:
       if (v33)
       {
         LOWORD(uuid[0]) = 0;
-        LODWORD(v605) = 2;
-        v602 = uuid;
-        v34 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v34 = _os_log_send_and_compose_impl(v33, value, 0, 0, &_mh_execute_header, v0, 0, "IS Encrypted FALSE", uuid, v604);
 
         if (v34)
         {
@@ -2372,65 +5523,64 @@ LABEL_94:
       free(v34);
     }
 
-    v182 = sub_100089A80(qword_1000EB608);
-    [v182 setIgnoreIdentityMethods:byte_1000EB603];
+    v183 = sub_100089A80(qword_1000EB608);
+    [v183 setIgnoreIdentityMethods:byte_1000EB603];
   }
 
-  v625 = 1;
-  if (sub_1000725EC(err, &v625))
+  v623 = 1;
+  if (sub_1000725EC(err, &v623))
   {
     if (qword_1000EB310 != -1)
     {
       sub_100089CEC();
     }
 
-    v183 = qword_1000EB308;
-    if (os_log_type_enabled(v183, OS_LOG_TYPE_DEFAULT))
+    v184 = qword_1000EB308;
+    if (os_log_type_enabled(v184, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v184 = sub_1000011A8(1);
-      v0 = v183;
+      v185 = sub_1000011A8(1);
+      v0 = v184;
       if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-        v185 = v184;
+        v186 = v185;
       }
 
       else
       {
-        v185 = v184 & 0xFFFFFFFE;
+        v186 = v185 & 0xFFFFFFFE;
       }
 
-      if (v185)
+      if (v186)
       {
         LOWORD(uuid[0]) = 0;
-        LODWORD(v605) = 2;
-        v602 = uuid;
-        v186 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v187 = _os_log_send_and_compose_impl(v186, value, 0, 0, &_mh_execute_header, v0, 0, "Boot after Erase Install, needs User volume migration", uuid, v604);
 
-        if (v186)
+        if (v187)
         {
-          sub_100002A8C(v186);
+          sub_100002A8C(v187);
         }
       }
 
       else
       {
 
-        v186 = 0;
+        v187 = 0;
       }
 
-      free(v186);
+      free(v187);
     }
 
     v12 = 0;
-    v612 = 1;
+    v610 = 1;
   }
 
   else
   {
-    v612 = 0;
+    v610 = 0;
     v12 = 0;
-    v1 = *err != 2;
+    v2 = *err != 2;
   }
 
 LABEL_95:
@@ -2460,9 +5610,8 @@ LABEL_95:
     if (v42)
     {
       *err = 0;
-      LODWORD(v605) = 2;
-      v602 = err;
-      v43 = _os_log_send_and_compose_impl();
+      LODWORD(v604) = 2;
+      v43 = _os_log_send_and_compose_impl(v42, value, 0, 0, &_mh_execute_header, v0, 0, "LOADING USER SESSIONS", err, v604);
 
       if (v43)
       {
@@ -2479,61 +5628,60 @@ LABEL_95:
     free(v43);
   }
 
-  v614 = v12 & v39;
+  v612 = v12 & v39;
 
-  v44 = &off_1000EB000;
+  v1 = 0x1000EB000;
   if (sub_10003E524(0))
   {
-    v45 = &off_1000EB000;
+    v44 = &off_1000EB000;
     if (qword_1000EB310 != -1)
     {
       sub_100089CEC();
     }
 
-    v46 = qword_1000EB308;
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v45 = qword_1000EB308;
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v47 = sub_1000011A8(1);
-      v0 = v46;
+      v46 = sub_1000011A8(1);
+      v0 = v45;
       if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-        v48 = v47;
+        v47 = v46;
       }
 
       else
       {
-        v48 = v47 & 0xFFFFFFFE;
+        v47 = v46 & 0xFFFFFFFE;
       }
 
-      if (v48)
+      if (v47)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v602 = err;
-        v49 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v48 = _os_log_send_and_compose_impl(v47, value, 0, 0, &_mh_execute_header, v0, 0, "LOADED USER SESSIONS", err, v604);
 
-        if (v49)
+        if (v48)
         {
-          sub_100002A8C(v49);
+          sub_100002A8C(v48);
         }
       }
 
       else
       {
 
-        v49 = 0;
+        v48 = 0;
       }
 
-      free(v49);
-      v44 = &off_1000EB000;
+      free(v48);
+      v1 = 0x1000EB000;
     }
 
     goto LABEL_133;
   }
 
-  v45 = &off_1000EB000;
-  if ([qword_1000EB2D8 splitUserVolumeEnabled] && v612 | v614 ^ 1)
+  v44 = &off_1000EB000;
+  if ([qword_1000EB2D8 splitUserVolumeEnabled] && v610 | v612 ^ 1)
   {
     if (qword_1000EB310 != -1)
     {
@@ -2544,39 +5692,40 @@ LABEL_95:
     if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v514 = sub_1000011A8(1);
+      v523 = sub_1000011A8(1);
       if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
       {
-        v515 = v514;
+        v524 = v523;
       }
 
       else
       {
-        v515 = v514 & 0xFFFFFFFE;
+        v524 = v523 & 0xFFFFFFFE;
       }
 
-      if (v515)
+      if (v524)
       {
         *err = 0;
-        v540 = _os_log_send_and_compose_impl();
-        v516 = v540;
-        if (v540)
+        LODWORD(v604) = 2;
+        v546 = _os_log_send_and_compose_impl(v524, value, 0, 0, &_mh_execute_header, v84, 0, "Erase Install or normal boot, no UserSessions to Load...", err, v604);
+        v525 = v546;
+        if (v546)
         {
-          sub_100002A8C(v540);
+          sub_100002A8C(v546);
         }
       }
 
       else
       {
-        v516 = 0;
+        v525 = 0;
       }
 
-      free(v516);
+      free(v525);
     }
 
     sleep(2u);
-    sub_100018028("UserManagement early boot task Erase Install or normal boot, no UserSessions to Load...");
-    goto LABEL_1323;
+    v527 = sub_100018028("UserManagement early boot task Erase Install or normal boot, no UserSessions to Load...");
+    goto LABEL_1334;
   }
 
   if (qword_1000EB310 != -1)
@@ -2584,84 +5733,84 @@ LABEL_95:
     sub_100089CEC();
   }
 
-  v50 = qword_1000EB308;
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+  v49 = qword_1000EB308;
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
     value[0] = 0;
-    v51 = sub_1000011A8(1);
-    v0 = v50;
+    v50 = sub_1000011A8(1);
+    v0 = v49;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v52 = v51;
+      v51 = v50;
     }
 
     else
     {
-      v52 = v51 & 0xFFFFFFFE;
+      v51 = v50 & 0xFFFFFFFE;
     }
 
-    if (v52)
+    if (v51)
     {
       *err = 0;
-      LODWORD(v605) = 2;
-      v602 = err;
-      v53 = _os_log_send_and_compose_impl();
+      LODWORD(v604) = 2;
+      v52 = _os_log_send_and_compose_impl(v51, value, 0, 0, &_mh_execute_header, v0, 0, "NO USER SESSIONS", err, v604);
 
-      if (v53)
+      if (v52)
       {
-        sub_100002A8C(v53);
+        sub_100002A8C(v52);
       }
     }
 
     else
     {
 
-      v53 = 0;
+      v52 = 0;
     }
 
-    free(v53);
-    v44 = &off_1000EB000;
+    free(v52);
+    v1 = &off_1000EB000;
   }
 
-  *(v44 + 364) = 0;
+  *(v1 + 1456) = 0;
   dword_1000EA3D0 = 501;
   qword_1000EB5A0 = sub_1000799A8();
   sub_100018C80();
 LABEL_133:
-  v54 = [v45[91] splitUserVolumeEnabled] ^ 1;
-  if (*(v44 + 364) == 1)
+  v53 = [v44[91] splitUserVolumeEnabled] ^ 1;
+  if (*(v1 + 1456) == 1)
   {
-    v54 = 1;
+    v53 = 1;
   }
 
-  if (((v1 | v54) & 1) == 0)
+  if (((v2 | v53) & 1) == 0)
   {
     if (qword_1000EB310 == -1)
     {
-LABEL_1220:
-      v501 = v7[97];
-      if (os_log_type_enabled(v501, OS_LOG_TYPE_DEFAULT))
+LABEL_1227:
+      v511 = v8[97];
+      if (os_log_type_enabled(v511, OS_LOG_TYPE_DEFAULT))
       {
         value[0] = 0;
-        v502 = sub_1000011A8(1);
-        if (os_log_type_enabled(v501, OS_LOG_TYPE_DEFAULT))
+        v512 = sub_1000011A8(1);
+        if (os_log_type_enabled(v511, OS_LOG_TYPE_DEFAULT))
         {
-          v503 = v502;
+          v513 = v512;
         }
 
         else
         {
-          v503 = v502 & 0xFFFFFFFE;
+          v513 = v512 & 0xFFFFFFFE;
         }
 
-        if (v503)
+        if (v513)
         {
           *err = 0;
-          v520 = _os_log_send_and_compose_impl();
-          v0 = v520;
-          if (v520)
+          LODWORD(v604) = 2;
+          v529 = _os_log_send_and_compose_impl(v513, value, 0, 0, &_mh_execute_header, v511, 0, "Not shared iPad, missing User Volume cannot be located...", err, v604);
+          v0 = v529;
+          if (v529)
           {
-            sub_100002A8C(v520);
+            sub_100002A8C(v529);
           }
         }
 
@@ -2674,13 +5823,13 @@ LABEL_1220:
       }
 
       sleep(2u);
-      sub_100018028("Not shared iPad, missing User Volume cannot be located...");
-      goto LABEL_1271;
+      v514 = sub_100018028("Not shared iPad, missing User Volume cannot be located...");
+      goto LABEL_1278;
     }
 
-LABEL_1475:
+LABEL_1487:
     sub_100089CEC();
-    goto LABEL_1220;
+    goto LABEL_1227;
   }
 
   sub_1000897B8(qword_1000EB2E0, qword_1000EB5A0);
@@ -2689,40 +5838,44 @@ LABEL_1475:
     sub_100089CEC();
   }
 
-  v55 = qword_1000EB308;
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+  v54 = qword_1000EB308;
+  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
   {
     *err = 0;
-    v56 = sub_1000011A8(1);
-    v0 = v55;
-    if (!os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    LODWORD(v55) = sub_1000011A8(1);
+    v0 = v54;
+    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v56 &= ~1u;
+      v55 = v55;
     }
 
-    if (v56)
+    else
     {
-      v1 = sub_100089624(qword_1000EB2E0);
-      LODWORD(value[0]) = 138412290;
-      *(value + 4) = v1;
-      LODWORD(v605) = 12;
-      v603 = value;
-      v57 = _os_log_send_and_compose_impl();
+      v55 = v55 & 0xFFFFFFFE;
+    }
 
-      if (v57)
+    if (v55)
+    {
+      v2 = sub_100089624(qword_1000EB2E0);
+      LODWORD(value[0]) = 138412290;
+      *(value + 4) = v2;
+      LODWORD(v604) = 12;
+      v56 = _os_log_send_and_compose_impl(v55, err, 0, 0, &_mh_execute_header, v0, 0, "ALL Users List is %@", value, v604);
+
+      if (v56)
       {
-        sub_100002A8C(v57);
+        sub_100002A8C(v56);
       }
     }
 
     else
     {
 
-      v57 = 0;
+      v56 = 0;
     }
 
-    free(v57);
-    v44 = &off_1000EB000;
+    free(v56);
+    v1 = 0x1000EB000;
   }
 
   if (qword_1000EB310 != -1)
@@ -2730,51 +5883,50 @@ LABEL_1475:
     sub_100089CEC();
   }
 
-  v58 = qword_1000EB308;
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  v57 = qword_1000EB308;
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
   {
     value[0] = 0;
-    v59 = sub_1000011A8(1);
-    v0 = v58;
+    v58 = sub_1000011A8(1);
+    v0 = v57;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v60 = v59;
+      v59 = v58;
     }
 
     else
     {
-      v60 = v59 & 0xFFFFFFFE;
+      v59 = v58 & 0xFFFFFFFE;
     }
 
-    if (v60)
+    if (v59)
     {
       *err = 0;
-      LODWORD(v605) = 2;
-      v603 = err;
-      v61 = _os_log_send_and_compose_impl();
+      LODWORD(v604) = 2;
+      v60 = _os_log_send_and_compose_impl(v59, value, 0, 0, &_mh_execute_header, v0, 0, "Determining the user to boot", err, v604);
 
-      if (v61)
+      if (v60)
       {
-        sub_100002A8C(v61);
+        sub_100002A8C(v60);
       }
     }
 
     else
     {
 
-      v61 = 0;
+      v60 = 0;
     }
 
-    free(v61);
-    v44 = &off_1000EB000;
+    free(v60);
+    v1 = &off_1000EB000;
   }
 
-  if (*(v44 + 364) == 1)
+  if (*(v1 + 1456) == 1)
   {
-    v62 = sub_10008A2F4(qword_1000EB2E0, 502);
-    if (v62)
+    v61 = sub_10008A2F4(qword_1000EB2E0, 502);
+    if (v61)
     {
-      goto LABEL_239;
+      goto LABEL_240;
     }
 
     if (qword_1000EB320 != -1)
@@ -2782,50 +5934,49 @@ LABEL_1475:
       sub_100089D68();
     }
 
-    v1 = &off_1000EB000;
-    v62 = qword_1000EB318;
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+    v2 = &off_1000EB000;
+    v61 = qword_1000EB318;
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
     {
       value[0] = 0;
-      v63 = sub_1000011A8(0);
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+      v62 = sub_1000011A8(0);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
-        v64 = v63;
+        v63 = v62;
       }
 
       else
       {
-        v64 = v63 & 0xFFFFFFFE;
+        v63 = v62 & 0xFFFFFFFE;
       }
 
-      if (v64)
+      if (v63)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v65 = _os_log_send_and_compose_impl();
-        v66 = v65;
-        if (v65)
+        LODWORD(v604) = 2;
+        v64 = _os_log_send_and_compose_impl(v63, value, 0, 0, &_mh_execute_header, v61, 1, "Loginwindow user not found", err, v604);
+        v65 = v64;
+        if (v64)
         {
-          sub_100002A8C(v65);
+          sub_100002A8C(v64);
         }
       }
 
       else
       {
-        v66 = 0;
+        v65 = 0;
       }
 
-      free(v66);
+      free(v65);
     }
 
-    v77 = sub_10001D4F4(-1, 0);
-    if (v77)
+    v76 = sub_10001D4F4(0xFFFFFFFFLL, 0);
+    if (v76)
     {
-      v62 = v77;
+      v61 = v76;
       if (qword_1000EB320 == -1)
       {
-        goto LABEL_195;
+        goto LABEL_196;
       }
     }
 
@@ -2835,43 +5986,43 @@ LABEL_1475:
     }
 
     sub_100089D68();
-LABEL_195:
-    v44 = &off_1000EB000;
+LABEL_196:
+    v1 = 0x1000EB000;
     v0 = qword_1000EB318;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v78 = sub_1000011A8(0);
+      v77 = sub_1000011A8(0);
       if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-        v79 = v78;
+        v78 = v77;
       }
 
       else
       {
-        v79 = v78 & 0xFFFFFFFE;
+        v78 = v77 & 0xFFFFFFFE;
       }
 
-      if (v79)
+      if (v78)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        goto LABEL_234;
+        LODWORD(v604) = 2;
+        v79 = _os_log_send_and_compose_impl(v78, value, 0, 0, &_mh_execute_header, v0, 0, "Created loginwindow user", err, v604);
+        goto LABEL_235;
       }
 
-      goto LABEL_236;
+      goto LABEL_237;
     }
 
-    goto LABEL_238;
+    goto LABEL_239;
   }
 
-  v62 = sub_10008A2F4(qword_1000EB2E0, 501);
-  if (![v45[91] splitUserVolumeEnabled])
+  v61 = sub_10008A2F4(qword_1000EB2E0, 501);
+  if (![v44[91] splitUserVolumeEnabled])
   {
-    if (v62)
+    if (v61)
     {
-      goto LABEL_239;
+      goto LABEL_240;
     }
 
     if (qword_1000EB320 != -1)
@@ -2879,50 +6030,49 @@ LABEL_195:
       sub_100089D68();
     }
 
-    v1 = &off_1000EB000;
-    v62 = qword_1000EB318;
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+    v2 = &off_1000EB000;
+    v61 = qword_1000EB318;
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
     {
       value[0] = 0;
-      v73 = sub_1000011A8(0);
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+      v72 = sub_1000011A8(0);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
-        v74 = v73;
+        v73 = v72;
       }
 
       else
       {
-        v74 = v73 & 0xFFFFFFFE;
+        v73 = v72 & 0xFFFFFFFE;
       }
 
-      if (v74)
+      if (v73)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v75 = _os_log_send_and_compose_impl();
-        v76 = v75;
-        if (v75)
+        LODWORD(v604) = 2;
+        v74 = _os_log_send_and_compose_impl(v73, value, 0, 0, &_mh_execute_header, v61, 1, "Mobile user not found", err, v604);
+        v75 = v74;
+        if (v74)
         {
-          sub_100002A8C(v75);
+          sub_100002A8C(v74);
         }
       }
 
       else
       {
-        v76 = 0;
+        v75 = 0;
       }
 
-      free(v76);
+      free(v75);
     }
 
     v87 = sub_10004E3FC(0);
     if (v87)
     {
-      v62 = v87;
+      v61 = v87;
       if (qword_1000EB320 == -1)
       {
-        goto LABEL_228;
+        goto LABEL_229;
       }
     }
 
@@ -2932,8 +6082,8 @@ LABEL_195:
     }
 
     sub_100089D68();
-LABEL_228:
-    v44 = &off_1000EB000;
+LABEL_229:
+    v1 = 0x1000EB000;
     v0 = qword_1000EB318;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
@@ -2952,88 +6102,86 @@ LABEL_228:
       if (v89)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-LABEL_234:
-        v90 = _os_log_send_and_compose_impl();
-        v91 = v90;
-        if (v90)
+        LODWORD(v604) = 2;
+        v79 = _os_log_send_and_compose_impl(v89, value, 0, 0, &_mh_execute_header, v0, 0, "Created mobile user", err, v604);
+LABEL_235:
+        v90 = v79;
+        if (v79)
         {
-          sub_100002A8C(v90);
+          sub_100002A8C(v79);
         }
 
-        goto LABEL_237;
+        goto LABEL_238;
       }
 
-LABEL_236:
-      v91 = 0;
 LABEL_237:
-      free(v91);
-      v44 = &off_1000EB000;
+      v90 = 0;
+LABEL_238:
+      free(v90);
+      v1 = &off_1000EB000;
     }
 
-LABEL_238:
+LABEL_239:
 
-    goto LABEL_239;
+    goto LABEL_240;
   }
 
-  v67 = v614 ^ 1;
-  if (v62)
+  v66 = v612 ^ 1;
+  if (v61)
   {
-    v67 = 1;
+    v66 = 1;
   }
 
-  if ((v67 & 1) == 0)
+  if ((v66 & 1) == 0)
   {
     if (qword_1000EB320 != -1)
     {
       sub_100089D68();
     }
 
-    v1 = &off_1000EB000;
-    v68 = qword_1000EB318;
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+    v2 = &off_1000EB000;
+    v67 = qword_1000EB318;
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v69 = sub_1000011A8(0);
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+      v68 = sub_1000011A8(0);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
-        v70 = v69;
+        v69 = v68;
       }
 
       else
       {
-        v70 = v69 & 0xFFFFFFFE;
+        v69 = v68 & 0xFFFFFFFE;
       }
 
-      if (v70)
+      if (v69)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v71 = _os_log_send_and_compose_impl();
-        v72 = v71;
-        if (v71)
+        LODWORD(v604) = 2;
+        v70 = _os_log_send_and_compose_impl(v69, value, 0, 0, &_mh_execute_header, v67, 0, "Boot after update install, Mobile user not found, creating", err, v604);
+        v71 = v70;
+        if (v70)
         {
-          sub_100002A8C(v71);
+          sub_100002A8C(v70);
         }
       }
 
       else
       {
-        v72 = 0;
+        v71 = 0;
       }
 
-      free(v72);
+      free(v71);
     }
 
-    v62 = sub_10004E3FC(1);
+    v61 = sub_10004E3FC(1);
     if (qword_1000EB320 != -1)
     {
       sub_100089D68();
     }
 
-    v44 = &off_1000EB000;
+    v1 = 0x1000EB000;
     v0 = qword_1000EB318;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
@@ -3052,9 +6200,8 @@ LABEL_238:
       if (v81)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v82 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v82 = _os_log_send_and_compose_impl(v81, value, 0, 0, &_mh_execute_header, v0, 0, "Created mobile user", err, v604);
         v83 = v82;
         if (v82)
         {
@@ -3068,11 +6215,11 @@ LABEL_238:
       }
 
       free(v83);
-      v44 = &off_1000EB000;
+      v1 = 0x1000EB000;
     }
   }
 
-  if (!v62)
+  if (!v61)
   {
     if (qword_1000EB310 != -1)
     {
@@ -3082,7 +6229,7 @@ LABEL_238:
     v84 = qword_1000EB308;
     if (!os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_1330;
+      goto LABEL_1341;
     }
 
     value[0] = 0;
@@ -3100,38 +6247,40 @@ LABEL_238:
     if (!v86)
     {
       v0 = 0;
-LABEL_1329:
+LABEL_1340:
       free(v0);
-LABEL_1330:
+LABEL_1341:
 
       sleep(2u);
       sub_100018028("UserManagement early boot task unable to locate Primary user..");
-      goto LABEL_1331;
+      goto LABEL_1342;
     }
 
-LABEL_1327:
+LABEL_1338:
     *err = 0;
-    v542 = _os_log_send_and_compose_impl();
-    v0 = v542;
-    if (v542)
+    LODWORD(v604) = 2;
+    v548 = _os_log_send_and_compose_impl(v86, value, 0, 0, &_mh_execute_header, v84, 0, "Boot after update install, Mobile MISSING, PANIC. ", err, v604);
+    v0 = v548;
+    if (v548)
     {
-      sub_100002A8C(v542);
+      sub_100002A8C(v548);
     }
 
-    goto LABEL_1329;
+    goto LABEL_1340;
   }
 
-LABEL_239:
-  CFRelease(v62);
-  if ((sub_10008B010(qword_1000EB2E0) & 1) == 0)
+LABEL_240:
+  CFRelease(v61);
+  Count = sub_10008B010(qword_1000EB2E0);
+  if ((Count & 1) == 0)
   {
     sub_100018028("UserManagement early boot task failed to remove nextSession file");
-    goto LABEL_1227;
+    goto LABEL_1234;
   }
 
-  if (*(v44 + 364) != 1)
+  if (*(v1 + 1456) != 1)
   {
-    goto LABEL_262;
+    goto LABEL_263;
   }
 
   if (byte_1000EA3D8 && qword_1000EB5A0)
@@ -3159,9 +6308,8 @@ LABEL_239:
       if (v94)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v95 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v95 = _os_log_send_and_compose_impl(v94, value, 0, 0, &_mh_execute_header, v92, 0, "RESET ALL USER VOLUME MOUNTED", err, v604);
         v96 = v95;
         if (v95)
         {
@@ -3177,17 +6325,17 @@ LABEL_239:
       free(v96);
     }
 
-    if (CFArrayGetCount(qword_1000EB5A0) >= 1)
+    Count = CFArrayGetCount(qword_1000EB5A0);
+    if (Count >= 1)
     {
-      v97 = 0;
-      do
+      for (i = 0; i < Count; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(qword_1000EB5A0, v97);
+        ValueAtIndex = CFArrayGetValueAtIndex(qword_1000EB5A0, i);
         if (ValueAtIndex)
         {
           v99 = ValueAtIndex;
-          v1 = CFGetTypeID(ValueAtIndex);
-          if (v1 == CFDictionaryGetTypeID())
+          v2 = CFGetTypeID(ValueAtIndex);
+          if (v2 == CFDictionaryGetTypeID())
           {
             if (CFDictionaryContainsKey(v99, kUMUserSessionVolumeMountedKey))
             {
@@ -3196,19 +6344,17 @@ LABEL_239:
           }
         }
 
-        ++v97;
+        Count = CFArrayGetCount(qword_1000EB5A0);
       }
-
-      while (CFArrayGetCount(qword_1000EB5A0) > v97);
     }
   }
 
-  sub_10003E710();
-  v44 = &off_1000EB000;
-  v6 = &off_1000EB000;
+  sub_10003E710(Count);
+  v1 = &off_1000EB000;
+  v7 = &off_1000EB000;
   if (dword_1000EB5B0 != 1)
   {
-LABEL_262:
+LABEL_263:
     if (qword_1000EB310 != -1)
     {
       sub_100089CEC();
@@ -3233,9 +6379,8 @@ LABEL_262:
       if (v103)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v104 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v104 = _os_log_send_and_compose_impl(v103, value, 0, 0, &_mh_execute_header, v102, 0, "LOADING PERSONA..", err, v604);
 
         if (v104)
         {
@@ -3250,7 +6395,7 @@ LABEL_262:
       }
 
       free(v104);
-      v44 = &off_1000EB000;
+      v1 = 0x1000EB000;
     }
 
     if (qword_1000EB2E8)
@@ -3260,13 +6405,14 @@ LABEL_262:
 
     else
     {
-      v45 = &off_1000EB000;
+      v44 = &off_1000EB000;
+      v7 = &selRef_StopBubbleWithPID_WithUID_WithStatus_;
       v105 = sub_100056424(UMDPersonaManager, qword_1000EB2E0);
       v106 = qword_1000EB2E8;
       qword_1000EB2E8 = v105;
 
       LODWORD(uuid[0]) = 0;
-      v1 = &off_1000EB000;
+      v2 = &off_1000EB000;
       if (!sub_10003E884(uuid))
       {
         if (qword_1000EB330 != -1)
@@ -3294,9 +6440,8 @@ LABEL_262:
           {
             *err = 67109120;
             *&err[4] = uuid[0];
-            LODWORD(v605) = 8;
-            v603 = err;
-            v111 = _os_log_send_and_compose_impl();
+            LODWORD(v604) = 8;
+            v111 = _os_log_send_and_compose_impl(v110, value, 0, 0, &_mh_execute_header, v109, 0, "Failed to load persona manifest: %{darwin.errno}d", err, v604);
 
             if (v111)
             {
@@ -3311,7 +6456,7 @@ LABEL_262:
           }
 
           free(v111);
-          v44 = &off_1000EB000;
+          v1 = 0x1000EB000;
         }
 
         v112 = sub_100089790(qword_1000EB2E8);
@@ -3320,13 +6465,13 @@ LABEL_262:
 
       if (qword_1000EB330 == -1)
       {
-        goto LABEL_288;
+        goto LABEL_289;
       }
     }
 
     sub_100089D40();
-LABEL_288:
-    v113 = *(v1 + 808);
+LABEL_289:
+    v113 = *(v2 + 808);
     if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
@@ -3345,9 +6490,8 @@ LABEL_288:
       if (v116)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v117 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v117 = _os_log_send_and_compose_impl(v116, value, 0, 0, &_mh_execute_header, v115, 0, "Loaded persona manifest", err, v604);
 
         if (v117)
         {
@@ -3362,7 +6506,7 @@ LABEL_288:
       }
 
       free(v117);
-      v44 = &off_1000EB000;
+      v1 = 0x1000EB000;
     }
 
     if (qword_1000EB330 != -1)
@@ -3370,17 +6514,22 @@ LABEL_288:
       sub_100089D40();
     }
 
-    v7 = v45;
-    v118 = *(v1 + 808);
-    v45 = &off_1000EB000;
+    v8 = v44;
+    v118 = *(v2 + 808);
+    v44 = &off_1000EB000;
     if (os_log_type_enabled(v118, OS_LOG_TYPE_DEBUG))
     {
       *err = 0;
-      v119 = sub_1000011A8(0);
+      LODWORD(v119) = sub_1000011A8(0);
       v120 = v118;
-      if (!os_log_type_enabled(v120, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v120, OS_LOG_TYPE_DEBUG))
       {
-        v119 &= ~1u;
+        v119 = v119;
+      }
+
+      else
+      {
+        v119 = v119 & 0xFFFFFFFE;
       }
 
       if (v119)
@@ -3388,9 +6537,8 @@ LABEL_288:
         v121 = sub_1000013A0(qword_1000EB2E8);
         LODWORD(value[0]) = 138412290;
         *(value + 4) = v121;
-        LODWORD(v605) = 12;
-        v603 = value;
-        v122 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 12;
+        v122 = _os_log_send_and_compose_impl(v119, err, 0, 0, &_mh_execute_header, v120, 2, "Persona state: %@", value, v604);
 
         if (v122)
         {
@@ -3405,11 +6553,12 @@ LABEL_288:
       }
 
       free(v122);
-      v44 = &off_1000EB000;
+      v1 = &off_1000EB000;
     }
 
-    v6 = &off_1000EB000;
-    if (sub_100056408())
+    v123 = sub_100056408(&v7[285]);
+    v7 = &off_1000EB000;
+    if (v123)
     {
       if (sub_10009501C(qword_1000EB2E8))
       {
@@ -3420,19 +6569,19 @@ LABEL_288:
     }
   }
 
-  v123 = v612 & v39;
-  v613 = v614 | v123;
-  v124 = byte_1000EB603;
-  v125 = [v45[91] splitUserVolumeEnabled];
-  v126 = *(v44 + 364);
-  if (!v125)
+  v124 = v610 & v39;
+  v611 = v612 | v124;
+  v125 = byte_1000EB603;
+  v126 = [v44[91] splitUserVolumeEnabled];
+  v127 = *(v1 + 1456);
+  if (!v126)
   {
-    if (v126 != 1)
+    if (v127 != 1)
     {
-      if ((dword_1000EA3D0 - 501) <= 0x36 && (sub_10008A2F4(qword_1000EB2E0, dword_1000EA3D0), v134 = objc_claimAutoreleasedReturnValue(), v134, v134))
+      if ((dword_1000EA3D0 - 501) <= 0x36 && (sub_10008A2F4(qword_1000EB2E0, dword_1000EA3D0), v135 = objc_claimAutoreleasedReturnValue(), v135, v135))
       {
-        v132 = 0;
-        v133 = dword_1000EA3D0;
+        v133 = 0;
+        v134 = dword_1000EA3D0;
       }
 
       else
@@ -3442,103 +6591,100 @@ LABEL_288:
           sub_100089D68();
         }
 
-        v135 = qword_1000EB318;
-        if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+        v136 = qword_1000EB318;
+        if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
         {
           value[0] = 0;
-          v136 = sub_1000011A8(0);
-          if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+          v137 = sub_1000011A8(0);
+          if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
           {
-            v137 = v136;
+            v138 = v137;
           }
 
           else
           {
-            v137 = v136 & 0xFFFFFFFE;
+            v138 = v137 & 0xFFFFFFFE;
           }
 
-          if (v137)
+          if (v138)
           {
             *err = 67109120;
             *&err[4] = dword_1000EA3D0;
-            LODWORD(v606) = 8;
-            v604 = err;
-            v138 = _os_log_send_and_compose_impl();
-            v139 = v138;
-            if (v138)
+            v139 = _os_log_send_and_compose_impl(v138, value, 0, 0, &_mh_execute_header, v136, 16, "BootedUser %d is invalid, reverting to mobile", err);
+            v140 = v139;
+            if (v139)
             {
-              sub_100002A8C(v138);
+              sub_100002A8C(v139);
             }
           }
 
           else
           {
-            v139 = 0;
+            v140 = 0;
           }
 
-          free(v139);
+          free(v140);
         }
 
-        v132 = 0;
-        v133 = 501;
+        v133 = 0;
+        v134 = 501;
         dword_1000EA3D0 = 501;
       }
 
-      goto LABEL_491;
+      goto LABEL_494;
     }
 
-LABEL_324:
-    v132 = 0;
-    v133 = 502;
-    goto LABEL_492;
+LABEL_326:
+    v133 = 0;
+    v134 = 502;
+    goto LABEL_495;
   }
 
-  if (v126 == 1)
+  if (v127 == 1)
   {
-    goto LABEL_324;
+    goto LABEL_326;
   }
 
-  if (((v613 | v124) & 1) == 0)
+  if (((v611 | v125) & 1) == 0)
   {
     if (qword_1000EB310 != -1)
     {
       sub_100089CEC();
     }
 
-    v140 = v7[97];
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
+    v141 = v8[97];
+    if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v141 = sub_1000011A8(1);
-      if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
+      v142 = sub_1000011A8(1);
+      if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
       {
-        v142 = v141;
+        v143 = v142;
       }
 
       else
       {
-        v142 = v141 & 0xFFFFFFFE;
+        v143 = v142 & 0xFFFFFFFE;
       }
 
-      if (v142)
+      if (v143)
       {
         *err = 0;
-        LODWORD(v606) = 2;
-        v604 = err;
-        v143 = _os_log_send_and_compose_impl();
-        v144 = v143;
-        if (v143)
+        LODWORD(v604) = 2;
+        v144 = _os_log_send_and_compose_impl(v143, value, 0, 0, &_mh_execute_header, v141, 0, "Reading Last Booted User from AKS, normal boot flow", err, v604);
+        v145 = v144;
+        if (v144)
         {
-          sub_100002A8C(v143);
+          sub_100002A8C(v144);
         }
       }
 
       else
       {
-        v144 = 0;
+        v145 = 0;
       }
 
-      free(v144);
+      free(v145);
     }
 
     *err = 0;
@@ -3550,46 +6696,50 @@ LABEL_324:
         sub_100089CEC();
       }
 
-      v150 = v7[97];
-      if (os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
+      v151 = v8[97];
+      if (os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT))
       {
-        v645 = 0;
-        v151 = sub_1000011A8(1);
-        if (!os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT))
+        v643 = 0;
+        LODWORD(v152) = sub_1000011A8(1);
+        if (os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT))
         {
-          v151 &= ~1u;
+          v152 = v152;
         }
 
-        if (v151)
+        else
         {
-          v152 = *err;
-          v153 = v150;
-          Code = CFErrorGetCode(v152);
+          v152 = v152 & 0xFFFFFFFE;
+        }
+
+        if (v152)
+        {
+          v153 = *err;
+          v154 = v151;
+          Code = CFErrorGetCode(v153);
           LODWORD(value[0]) = 67109378;
           HIDWORD(value[0]) = Code;
           LOWORD(value[1]) = 2112;
           *(&value[1] + 2) = *err;
-          LODWORD(v606) = 18;
-          v604 = value;
-          v155 = _os_log_send_and_compose_impl();
+          LODWORD(v604) = 18;
+          v156 = _os_log_send_and_compose_impl(v152, &v643, 0, 0, &_mh_execute_header, v154, 0, "AKSGetLastUser failed with errorcode: %d, CFError:%@", value, v604);
 
-          if (v155)
+          if (v156)
           {
-            sub_100002A8C(v155);
+            sub_100002A8C(v156);
           }
         }
 
         else
         {
-          v155 = 0;
+          v156 = 0;
         }
 
-        free(v155);
+        free(v156);
       }
 
-      v165 = CFErrorGetCode(*err);
-      v133 = 0xFFFFFFFFLL;
-      goto LABEL_464;
+      v167 = CFErrorGetCode(*err);
+      v134 = 0xFFFFFFFFLL;
+      goto LABEL_467;
     }
 
     if (qword_1000EB310 != -1)
@@ -3597,234 +6747,227 @@ LABEL_324:
       sub_100089CEC();
     }
 
-    v145 = v7[97];
-    if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+    v146 = v8[97];
+    if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
     {
-      v645 = 0;
-      v146 = sub_1000011A8(1);
-      if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+      v643 = 0;
+      v147 = sub_1000011A8(1);
+      if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
       {
-        v147 = v146;
+        v148 = v147;
       }
 
       else
       {
-        v147 = v146 & 0xFFFFFFFE;
+        v148 = v147 & 0xFFFFFFFE;
       }
 
-      if (v147)
+      if (v148)
       {
         LODWORD(value[0]) = 138412290;
         *(value + 4) = uuid[0];
-        LODWORD(v606) = 12;
-        v604 = value;
-        v148 = _os_log_send_and_compose_impl();
-        v149 = v148;
-        if (v148)
+        LODWORD(v604) = 12;
+        v149 = _os_log_send_and_compose_impl(v148, &v643, 0, 0, &_mh_execute_header, v146, 0, "AKSGetLastUser: Success, lastuser vol uuid is %@", value, v604);
+        v150 = v149;
+        if (v149)
         {
-          sub_100002A8C(v148);
+          sub_100002A8C(v149);
         }
       }
 
       else
       {
-        v149 = 0;
+        v150 = 0;
       }
 
-      free(v149);
+      free(v150);
     }
 
-    v156 = CFUUIDCreateString(kCFAllocatorDefault, uuid[0]);
-    if (v156)
+    v157 = CFUUIDCreateString(kCFAllocatorDefault, uuid[0]);
+    if (v157)
     {
       if (qword_1000EB310 != -1)
       {
         sub_100089CEC();
       }
 
-      v157 = v7[97];
-      if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
+      v158 = v8[97];
+      if (os_log_type_enabled(v158, OS_LOG_TYPE_DEFAULT))
       {
-        v645 = 0;
-        v158 = sub_1000011A8(1);
-        if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
+        v643 = 0;
+        v159 = sub_1000011A8(1);
+        if (os_log_type_enabled(v158, OS_LOG_TYPE_DEFAULT))
         {
-          v159 = v158;
+          v160 = v159;
         }
 
         else
         {
-          v159 = v158 & 0xFFFFFFFE;
+          v160 = v159 & 0xFFFFFFFE;
         }
 
-        if (v159)
+        if (v160)
         {
           LODWORD(value[0]) = 138412290;
-          *(value + 4) = v156;
-          LODWORD(v606) = 12;
-          v604 = value;
-          v160 = _os_log_send_and_compose_impl();
-          v161 = v160;
-          if (v160)
+          *(value + 4) = v157;
+          LODWORD(v604) = 12;
+          v161 = _os_log_send_and_compose_impl(v160, &v643, 0, 0, &_mh_execute_header, v158, 0, "Volume UUID String is %@", value, v604);
+          v162 = v161;
+          if (v161)
           {
-            sub_100002A8C(v160);
+            sub_100002A8C(v161);
           }
         }
 
         else
         {
-          v161 = 0;
+          v162 = 0;
         }
 
-        free(v161);
+        free(v162);
       }
 
-      v166 = sub_1000180D4(v156);
-      if (v166)
+      v168 = sub_1000180D4(v157);
+      if (v168)
       {
-        v167 = v166;
+        v169 = v168;
         if (qword_1000EB310 != -1)
         {
           sub_100089CEC();
         }
 
-        v168 = v7[97];
-        if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
+        v170 = v8[97];
+        if (os_log_type_enabled(v170, OS_LOG_TYPE_DEFAULT))
         {
-          v645 = 0;
-          v169 = sub_1000011A8(1);
-          if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
+          v643 = 0;
+          v171 = sub_1000011A8(1);
+          if (os_log_type_enabled(v170, OS_LOG_TYPE_DEFAULT))
           {
-            v170 = v169;
+            v172 = v171;
           }
 
           else
           {
-            v170 = v169 & 0xFFFFFFFE;
+            v172 = v171 & 0xFFFFFFFE;
           }
 
-          if (v170)
+          if (v172)
           {
             LODWORD(value[0]) = 138412290;
-            *(value + 4) = v167;
-            LODWORD(v606) = 12;
-            v604 = value;
-            v171 = _os_log_send_and_compose_impl();
-            v172 = v171;
-            if (v171)
+            *(value + 4) = v169;
+            LODWORD(v604) = 12;
+            v173 = _os_log_send_and_compose_impl(v172, &v643, 0, 0, &_mh_execute_header, v170, 0, "Found user session %@", value, v604);
+            v174 = v173;
+            if (v173)
             {
-              sub_100002A8C(v171);
+              sub_100002A8C(v173);
             }
           }
 
           else
           {
-            v172 = 0;
+            v174 = 0;
           }
 
-          free(v172);
+          free(v174);
         }
 
-        v133 = sub_1000023E8(v167, kUMUserSessionIDKey);
+        v134 = sub_1000023E8(v169, kUMUserSessionIDKey);
         if (qword_1000EB310 != -1)
         {
           sub_100089CEC();
         }
 
-        v187 = v7[97];
-        if (os_log_type_enabled(v187, OS_LOG_TYPE_DEFAULT))
+        v188 = v8[97];
+        if (os_log_type_enabled(v188, OS_LOG_TYPE_DEFAULT))
         {
           value[0] = 0;
-          v188 = sub_1000011A8(1);
-          if (os_log_type_enabled(v187, OS_LOG_TYPE_DEFAULT))
+          v189 = sub_1000011A8(1);
+          if (os_log_type_enabled(v188, OS_LOG_TYPE_DEFAULT))
           {
-            v189 = v188;
+            v190 = v189;
           }
 
           else
           {
-            v189 = v188 & 0xFFFFFFFE;
+            v190 = v189 & 0xFFFFFFFE;
           }
 
-          if (v189)
+          if (v190)
           {
-            LODWORD(v645) = 67109120;
-            HIDWORD(v645) = v133;
-            LODWORD(v606) = 8;
-            v604 = &v645;
-            v190 = _os_log_send_and_compose_impl();
-            v191 = v190;
-            if (v190)
+            LODWORD(v643) = 67109120;
+            HIDWORD(v643) = v134;
+            v191 = _os_log_send_and_compose_impl(v190, value, 0, 0, &_mh_execute_header, v188, 0, "returning last booted user as %d", &v643);
+            v192 = v191;
+            if (v191)
             {
-              sub_100002A8C(v190);
+              sub_100002A8C(v191);
             }
           }
 
           else
           {
-            v191 = 0;
+            v192 = 0;
           }
 
-          free(v191);
-          v6 = &off_1000EB000;
+          free(v192);
+          v7 = &off_1000EB000;
         }
 
-        CFRelease(v167);
-        v165 = 0;
-LABEL_463:
-        CFRelease(v156);
-LABEL_464:
+        CFRelease(v169);
+        v167 = 0;
+LABEL_466:
+        CFRelease(v157);
+LABEL_467:
         if (uuid[0])
         {
           CFRelease(uuid[0]);
         }
 
-        v132 = v133 == -1;
-        if (v133 == -1)
+        v133 = v134 == -1;
+        if (v134 == -1)
         {
           if (qword_1000EB310 != -1)
           {
             sub_100089CEC();
           }
 
-          v192 = v7[97];
-          if (os_log_type_enabled(v192, OS_LOG_TYPE_DEFAULT))
+          v193 = v8[97];
+          if (os_log_type_enabled(v193, OS_LOG_TYPE_DEFAULT))
           {
             value[0] = 0;
-            v193 = sub_1000011A8(1);
-            if (os_log_type_enabled(v192, OS_LOG_TYPE_DEFAULT))
+            v194 = sub_1000011A8(1);
+            if (os_log_type_enabled(v193, OS_LOG_TYPE_DEFAULT))
             {
-              v194 = v193;
+              v195 = v194;
             }
 
             else
             {
-              v194 = v193 & 0xFFFFFFFE;
+              v195 = v194 & 0xFFFFFFFE;
             }
 
-            if (v194)
+            if (v195)
             {
               *err = 67109120;
-              *&err[4] = v165;
-              LODWORD(v606) = 8;
-              v604 = err;
-              v195 = _os_log_send_and_compose_impl();
-              v196 = v195;
-              if (v195)
+              *&err[4] = v167;
+              v196 = _os_log_send_and_compose_impl(v195, value, 0, 0, &_mh_execute_header, v193, 0, "failed to find last booted user with error:%d, setup again", err);
+              v197 = v196;
+              if (v196)
               {
-                sub_100002A8C(v195);
+                sub_100002A8C(v196);
               }
             }
 
             else
             {
-              v196 = 0;
+              v197 = 0;
             }
 
-            free(v196);
+            free(v197);
           }
 
-          v133 = 501;
+          v134 = 501;
         }
 
         if (qword_1000EB310 != -1)
@@ -3832,46 +6975,44 @@ LABEL_464:
           sub_100089CEC();
         }
 
-        v197 = v7[97];
-        if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
+        v198 = v8[97];
+        if (os_log_type_enabled(v198, OS_LOG_TYPE_DEFAULT))
         {
           value[0] = 0;
-          v198 = sub_1000011A8(1);
-          if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
+          v199 = sub_1000011A8(1);
+          if (os_log_type_enabled(v198, OS_LOG_TYPE_DEFAULT))
           {
-            v199 = v198;
+            v200 = v199;
           }
 
           else
           {
-            v199 = v198 & 0xFFFFFFFE;
+            v200 = v199 & 0xFFFFFFFE;
           }
 
-          if (v199)
+          if (v200)
           {
             *err = 67109120;
-            *&err[4] = v133;
-            LODWORD(v606) = 8;
-            v604 = err;
-            v200 = _os_log_send_and_compose_impl();
-            v201 = v200;
-            if (v200)
+            *&err[4] = v134;
+            v201 = _os_log_send_and_compose_impl(v200, value, 0, 0, &_mh_execute_header, v198, 0, "LastBooted User is %d", err);
+            v202 = v201;
+            if (v201)
             {
-              sub_100002A8C(v200);
+              sub_100002A8C(v201);
             }
           }
 
           else
           {
-            v201 = 0;
+            v202 = 0;
           }
 
-          free(v201);
+          free(v202);
         }
 
-LABEL_491:
-        v44 = &off_1000EB000;
-        goto LABEL_492;
+LABEL_494:
+        v1 = 0x1000EB000;
+        goto LABEL_495;
       }
 
       if (qword_1000EB310 != -1)
@@ -3879,75 +7020,74 @@ LABEL_491:
         sub_100089CEC();
       }
 
-      v162 = v7[97];
-      if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
+      v163 = v8[97];
+      if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
       {
         value[0] = 0;
-        v173 = sub_1000011A8(1);
-        if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
+        v175 = sub_1000011A8(1);
+        if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
         {
-          v174 = v173;
+          v176 = v175;
         }
 
         else
         {
-          v174 = v173 & 0xFFFFFFFE;
+          v176 = v175 & 0xFFFFFFFE;
         }
 
-        if (v174)
+        if (v176)
         {
-          LOWORD(v645) = 0;
-          LODWORD(v606) = 2;
-          v604 = &v645;
-LABEL_415:
-          v175 = _os_log_send_and_compose_impl();
-          v176 = v175;
-          if (v175)
+          LOWORD(v643) = 0;
+          LODWORD(v604) = 2;
+          v166 = _os_log_send_and_compose_impl(v176, value, 0, 0, &_mh_execute_header, v163, 0, "UNABLE to find user session for volume uuid..", &v643, v604);
+LABEL_418:
+          v177 = v166;
+          if (v166)
           {
-            sub_100002A8C(v175);
+            sub_100002A8C(v166);
           }
 
+          goto LABEL_421;
+        }
+
+        goto LABEL_420;
+      }
+    }
+
+    else
+    {
+      if (qword_1000EB310 != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v163 = v8[97];
+      if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
+      {
+        value[0] = 0;
+        v164 = sub_1000011A8(1);
+        if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
+        {
+          v165 = v164;
+        }
+
+        else
+        {
+          v165 = v164 & 0xFFFFFFFE;
+        }
+
+        if (v165)
+        {
+          LOWORD(v643) = 0;
+          LODWORD(v604) = 2;
+          v166 = _os_log_send_and_compose_impl(v165, value, 0, 0, &_mh_execute_header, v163, 0, "Not able to get volume uuid string..", &v643, v604);
           goto LABEL_418;
         }
 
-        goto LABEL_417;
-      }
-    }
-
-    else
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v162 = v7[97];
-      if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
-      {
-        value[0] = 0;
-        v163 = sub_1000011A8(1);
-        if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
-        {
-          v164 = v163;
-        }
-
-        else
-        {
-          v164 = v163 & 0xFFFFFFFE;
-        }
-
-        if (v164)
-        {
-          LOWORD(v645) = 0;
-          LODWORD(v606) = 2;
-          v604 = &v645;
-          goto LABEL_415;
-        }
-
-LABEL_417:
-        v176 = 0;
-LABEL_418:
-        free(v176);
+LABEL_420:
+        v177 = 0;
+LABEL_421:
+        free(v177);
       }
     }
 
@@ -3956,50 +7096,49 @@ LABEL_418:
       sub_100089CEC();
     }
 
-    v177 = v7[97];
-    if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
+    v178 = v8[97];
+    if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v178 = sub_1000011A8(1);
-      if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
+      v179 = sub_1000011A8(1);
+      if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
       {
-        v179 = v178;
+        v180 = v179;
       }
 
       else
       {
-        v179 = v178 & 0xFFFFFFFE;
+        v180 = v179 & 0xFFFFFFFE;
       }
 
-      if (v179)
+      if (v180)
       {
-        LOWORD(v645) = 0;
-        LODWORD(v606) = 2;
-        v604 = &v645;
-        v180 = _os_log_send_and_compose_impl();
-        v181 = v180;
-        if (v180)
+        LOWORD(v643) = 0;
+        LODWORD(v604) = 2;
+        v181 = _os_log_send_and_compose_impl(v180, value, 0, 0, &_mh_execute_header, v178, 0, "Unable to find Usersession of the last booted user, returning error ENOENT", &v643, v604);
+        v182 = v181;
+        if (v181)
         {
-          sub_100002A8C(v180);
+          sub_100002A8C(v181);
         }
       }
 
       else
       {
-        v181 = 0;
+        v182 = 0;
       }
 
-      free(v181);
+      free(v182);
     }
 
-    v133 = 0xFFFFFFFFLL;
-    v165 = 2;
-    if (!v156)
+    v134 = 0xFFFFFFFFLL;
+    v167 = 2;
+    if (!v157)
     {
-      goto LABEL_464;
+      goto LABEL_467;
     }
 
-    goto LABEL_463;
+    goto LABEL_466;
   }
 
   if (qword_1000EB310 != -1)
@@ -4007,420 +7146,411 @@ LABEL_418:
     sub_100089CEC();
   }
 
-  v127 = v7[97];
-  if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+  v128 = v8[97];
+  if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
   {
     value[0] = 0;
-    v128 = sub_1000011A8(1);
-    if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+    v129 = sub_1000011A8(1);
+    if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
     {
-      v129 = v128;
+      v130 = v129;
     }
 
     else
     {
-      v129 = v128 & 0xFFFFFFFE;
+      v130 = v129 & 0xFFFFFFFE;
     }
 
-    if (v129)
+    if (v130)
     {
       *err = 0;
-      LODWORD(v606) = 2;
-      v604 = err;
-      v130 = _os_log_send_and_compose_impl();
-      v131 = v130;
-      if (v130)
+      LODWORD(v604) = 2;
+      v131 = _os_log_send_and_compose_impl(v130, value, 0, 0, &_mh_execute_header, v128, 0, "Boot after Update/Erase install/Unencrypted FS, using last user as Mobile User", err, v604);
+      v132 = v131;
+      if (v131)
       {
-        sub_100002A8C(v130);
+        sub_100002A8C(v131);
       }
     }
 
     else
     {
-      v131 = 0;
+      v132 = 0;
     }
 
-    free(v131);
+    free(v132);
   }
 
-  v132 = 0;
-  v133 = 501;
-LABEL_492:
+  v133 = 0;
+  v134 = 501;
+LABEL_495:
   if (qword_1000EB310 != -1)
   {
     sub_100089CEC();
   }
 
-  v0 = v7[97];
+  v0 = v8[97];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v202 = v132;
+    v203 = v133;
     value[0] = 0;
-    v203 = sub_1000011A8(1);
-    v204 = v0;
-    if (os_log_type_enabled(v204, OS_LOG_TYPE_DEFAULT))
+    v204 = sub_1000011A8(1);
+    v205 = v0;
+    if (os_log_type_enabled(v205, OS_LOG_TYPE_DEFAULT))
     {
-      v205 = v203;
+      v206 = v204;
     }
 
     else
     {
-      v205 = v203 & 0xFFFFFFFE;
+      v206 = v204 & 0xFFFFFFFE;
     }
 
-    if (v205)
+    if (v206)
     {
       *err = 67109120;
-      *&err[4] = v133;
-      LODWORD(v606) = 8;
-      v604 = err;
-      v206 = _os_log_send_and_compose_impl();
+      *&err[4] = v134;
+      v207 = _os_log_send_and_compose_impl(v206, value, 0, 0, &_mh_execute_header, v205, 0, "userToBoot is %d", err);
 
-      if (v206)
+      if (v207)
       {
-        sub_100002A8C(v206);
+        sub_100002A8C(v207);
       }
     }
 
     else
     {
 
-      v206 = 0;
+      v207 = 0;
     }
 
-    v44 = &off_1000EB000;
-    free(v206);
-    v132 = v202;
+    v1 = 0x1000EB000;
+    free(v207);
+    v133 = v203;
   }
 
-  if (v132)
+  if (v133)
   {
     if (qword_1000EB310 != -1)
     {
       sub_100089CEC();
     }
 
-    v0 = v7[97];
+    v0 = v8[97];
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v207 = v133;
-      v208 = v132;
+      v208 = v134;
+      v209 = v133;
       value[0] = 0;
-      v209 = sub_1000011A8(1);
-      v210 = v0;
-      if (os_log_type_enabled(v210, OS_LOG_TYPE_DEFAULT))
+      v210 = sub_1000011A8(1);
+      v211 = v0;
+      if (os_log_type_enabled(v211, OS_LOG_TYPE_DEFAULT))
       {
-        v211 = v209;
+        v212 = v210;
       }
 
       else
       {
-        v211 = v209 & 0xFFFFFFFE;
+        v212 = v210 & 0xFFFFFFFE;
       }
 
-      if (v211)
+      if (v212)
       {
         *err = 0;
-        LODWORD(v606) = 2;
-        v604 = err;
-        v212 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v213 = _os_log_send_and_compose_impl(v212, value, 0, 0, &_mh_execute_header, v211, 0, "Setup Last User volume again", err, v604);
 
-        if (v212)
+        if (v213)
         {
-          sub_100002A8C(v212);
+          sub_100002A8C(v213);
         }
       }
 
       else
       {
 
-        v212 = 0;
+        v213 = 0;
       }
 
-      v44 = &off_1000EB000;
-      free(v212);
-      v132 = v208;
-      v133 = v207;
-      v6 = &off_1000EB000;
+      v1 = 0x1000EB000;
+      free(v213);
+      v133 = v209;
+      v134 = v208;
+      v7 = &off_1000EB000;
     }
   }
 
-  if ([v45[91] splitUserVolumeEnabled])
+  if ([v44[91] splitUserVolumeEnabled])
   {
     uuid[0] = 0;
-    if (v613)
+    if (v611)
     {
-      if (v614)
+      if (v612)
       {
         if (qword_1000EB310 != -1)
         {
           sub_100089CEC();
         }
 
-        v0 = v7[97];
+        v0 = v8[97];
         if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
         {
-          v213 = v133;
-          v214 = v132;
+          v214 = v134;
+          v215 = v133;
           value[0] = 0;
-          v215 = sub_1000011A8(1);
-          v216 = v0;
-          if (os_log_type_enabled(v216, OS_LOG_TYPE_DEFAULT))
+          v216 = sub_1000011A8(1);
+          v217 = v0;
+          if (os_log_type_enabled(v217, OS_LOG_TYPE_DEFAULT))
           {
-            v217 = v215;
+            v218 = v216;
           }
 
           else
           {
-            v217 = v215 & 0xFFFFFFFE;
+            v218 = v216 & 0xFFFFFFFE;
           }
 
-          if (v217)
+          if (v218)
           {
             *err = 0;
-            LODWORD(v605) = 2;
-            v603 = err;
-            v218 = _os_log_send_and_compose_impl();
+            LODWORD(v604) = 2;
+            v219 = _os_log_send_and_compose_impl(v218, value, 0, 0, &_mh_execute_header, v217, 0, "Update Install, getting user UUID to setup AKS", err, v604);
 
-            if (v218)
+            if (v219)
             {
-              sub_100002A8C(v218);
+              sub_100002A8C(v219);
             }
           }
 
           else
           {
 
-            v218 = 0;
+            v219 = 0;
           }
 
-          v44 = &off_1000EB000;
-          free(v218);
-          v132 = v214;
-          v133 = v213;
+          v1 = 0x1000EB000;
+          free(v219);
+          v133 = v215;
+          v134 = v214;
         }
       }
 
-      if (!v123)
+      if (!v124)
       {
-LABEL_564:
-        v609 = v123;
-        v227 = sub_10008A2F4(qword_1000EB2E0, v133);
-        if (!v227)
+LABEL_567:
+        v607 = v124;
+        v229 = sub_10008A2F4(qword_1000EB2E0, v134);
+        if (!v229)
         {
           if (qword_1000EB310 != -1)
           {
             sub_100089CEC();
           }
 
-          v507 = v7[97];
-          if (os_log_type_enabled(v507, OS_LOG_TYPE_DEFAULT))
+          v516 = v8[97];
+          if (os_log_type_enabled(v516, OS_LOG_TYPE_DEFAULT))
           {
             value[0] = 0;
-            v508 = sub_1000011A8(1);
-            v0 = v507;
+            v517 = sub_1000011A8(1);
+            v0 = v516;
             if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
             {
-              v509 = v508;
+              v518 = v517;
             }
 
             else
             {
-              v509 = v508 & 0xFFFFFFFE;
+              v518 = v517 & 0xFFFFFFFE;
             }
 
-            if (v509)
+            if (v518)
             {
               *err = 0;
-              v526 = _os_log_send_and_compose_impl();
+              LODWORD(v604) = 2;
+              v532 = _os_log_send_and_compose_impl(v518, value, 0, 0, &_mh_execute_header, v0, 0, "Could not Locate primary user session of Update install user", err, v604);
 
-              v510 = 0;
-              if (v526)
+              v519 = 0;
+              if (v532)
               {
-                sub_100002A8C(v526);
-                v510 = v526;
+                sub_100002A8C(v532);
+                v519 = v532;
               }
             }
 
             else
             {
 
-              v510 = 0;
+              v519 = 0;
             }
 
-            free(v510);
+            free(v519);
           }
 
           sleep(2u);
-          sub_100018028("UserManagement early boot task could not Locate primary user session of Update install user");
-          goto LABEL_1293;
+          v521 = sub_100018028("UserManagement early boot task could not Locate primary user session of Update install user");
+          goto LABEL_1302;
         }
 
-        cf = v227;
-        v228 = sub_100079590(v227, kUMUserSessionUUIDKey);
-        if (v228)
+        cf = v229;
+        v230 = sub_100079590(v229, kUMUserSessionUUIDKey);
+        if (v230)
         {
-          v229 = v228;
-          v230 = CFUUIDCreateFromString(kCFAllocatorDefault, v228);
-          v231 = sub_1000169B4(NSUUID, v230);
-          v611 = v230;
-          if (v230)
+          v231 = v230;
+          v232 = CFUUIDCreateFromString(kCFAllocatorDefault, v230);
+          v233 = sub_1000169B4(NSUUID, v232);
+          v609 = v232;
+          if (v232)
           {
-            v0 = v231;
-            if (v614)
+            v0 = v233;
+            if (v612)
             {
               if (qword_1000EB310 != -1)
               {
                 sub_100089CEC();
               }
 
-              v6 = v7[97];
-              if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+              v7 = v8[97];
+              if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
               {
                 *err = 0;
-                v232 = sub_1000011A8(1);
-                v233 = v6;
-                if (os_log_type_enabled(v233, OS_LOG_TYPE_DEFAULT))
+                v234 = sub_1000011A8(1);
+                v235 = v7;
+                if (os_log_type_enabled(v235, OS_LOG_TYPE_DEFAULT))
                 {
-                  v234 = v232;
+                  v236 = v234;
                 }
 
                 else
                 {
-                  v234 = v232 & 0xFFFFFFFE;
+                  v236 = v234 & 0xFFFFFFFE;
                 }
 
-                if (v234)
+                if (v236)
                 {
                   LODWORD(value[0]) = 138412290;
-                  *(value + 4) = v611;
-                  LODWORD(v605) = 12;
-                  v603 = value;
-                  v235 = _os_log_send_and_compose_impl();
+                  *(value + 4) = v609;
+                  LODWORD(v604) = 12;
+                  v237 = _os_log_send_and_compose_impl(v236, err, 0, 0, &_mh_execute_header, v235, 0, "Update Install: Migrating Primary User Identity to uuid:%@", value, v604);
 
-                  if (v235)
+                  if (v237)
                   {
-                    sub_100002A8C(v235);
+                    sub_100002A8C(v237);
                   }
                 }
 
                 else
                 {
 
-                  v235 = 0;
+                  v237 = 0;
                 }
 
-                free(v235);
+                free(v237);
               }
 
-              v246 = AKSIdentityMigrateFirst();
-              v247 = qword_1000EB310 == -1;
-              if (v246)
+              v248 = AKSIdentityMigrateFirst();
+              v249 = qword_1000EB310 == -1;
+              if (v248)
               {
                 if (qword_1000EB310 != -1)
                 {
                   sub_100089CEC();
                 }
 
-                v248 = v7[97];
-                if (os_log_type_enabled(v248, OS_LOG_TYPE_DEFAULT))
+                v250 = v8[97];
+                if (os_log_type_enabled(v250, OS_LOG_TYPE_DEFAULT))
                 {
                   *err = 0;
-                  v249 = sub_1000011A8(1);
-                  v250 = v248;
-                  if (os_log_type_enabled(v250, OS_LOG_TYPE_DEFAULT))
+                  v251 = sub_1000011A8(1);
+                  v252 = v250;
+                  if (os_log_type_enabled(v252, OS_LOG_TYPE_DEFAULT))
                   {
-                    v251 = v249;
+                    v253 = v251;
                   }
 
                   else
                   {
-                    v251 = v249 & 0xFFFFFFFE;
+                    v253 = v251 & 0xFFFFFFFE;
                   }
 
-                  if (v251)
+                  if (v253)
                   {
                     LODWORD(value[0]) = 67109378;
-                    HIDWORD(value[0]) = v133;
+                    HIDWORD(value[0]) = v134;
                     LOWORD(value[1]) = 2112;
-                    *(&value[1] + 2) = v611;
-                    LODWORD(v605) = 18;
-                    v603 = value;
-                    v252 = _os_log_send_and_compose_impl();
+                    *(&value[1] + 2) = v609;
+                    LODWORD(v604) = 18;
+                    v254 = _os_log_send_and_compose_impl(v253, err, 0, 0, &_mh_execute_header, v252, 0, "Update Install: Loading post migrateFirst, AKS Identity for User:%d, uuid:%@", value, v604);
 
-                    if (v252)
+                    if (v254)
                     {
-                      sub_100002A8C(v252);
+                      sub_100002A8C(v254);
                     }
                   }
 
                   else
                   {
 
-                    v252 = 0;
+                    v254 = 0;
                   }
 
-                  free(v252);
+                  free(v254);
                 }
 
-                v624 = 0;
-                v253 = sub_100022428(v0, v133, &v624);
-                v6 = v624;
-                if (v253)
+                v622 = 0;
+                v255 = sub_100022428(v0, v134, &v622);
+                v7 = v622;
+                if (v255)
                 {
                   if (qword_1000EB310 != -1)
                   {
                     sub_100089CEC();
                   }
 
-                  v254 = v7[97];
-                  if (os_log_type_enabled(v254, OS_LOG_TYPE_DEFAULT))
+                  v256 = v8[97];
+                  if (os_log_type_enabled(v256, OS_LOG_TYPE_DEFAULT))
                   {
                     value[0] = 0;
-                    v255 = sub_1000011A8(1);
-                    v256 = v254;
-                    if (os_log_type_enabled(v256, OS_LOG_TYPE_DEFAULT))
+                    v257 = sub_1000011A8(1);
+                    v258 = v256;
+                    if (os_log_type_enabled(v258, OS_LOG_TYPE_DEFAULT))
                     {
-                      v257 = v255;
+                      v259 = v257;
                     }
 
                     else
                     {
-                      v257 = v255 & 0xFFFFFFFE;
+                      v259 = v257 & 0xFFFFFFFE;
                     }
 
-                    if (v257)
+                    if (v259)
                     {
                       *err = 0;
-                      LODWORD(v605) = 2;
-                      v603 = err;
-                      v258 = _os_log_send_and_compose_impl();
+                      LODWORD(v604) = 2;
+                      v260 = _os_log_send_and_compose_impl(v259, value, 0, 0, &_mh_execute_header, v258, 0, "AKSLoadIdentity Succeeded", err, v604);
 
-                      if (v258)
+                      if (v260)
                       {
-                        sub_100002A8C(v258);
+                        sub_100002A8C(v260);
                       }
                     }
 
                     else
                     {
 
-                      v258 = 0;
+                      v260 = 0;
                     }
 
-                    free(v258);
+                    free(v260);
                   }
 
                   sub_100036F10("IONVRAM-DELETE-PROPERTY", "usermanagerd");
-                  v6 = &off_1000EB000;
-                  v45 = &off_1000EB000;
-                  if (*(v44 + 364) != 1)
+                  v7 = &off_1000EB000;
+                  v44 = &off_1000EB000;
+                  if (*(v1 + 1456) != 1)
                   {
-                    goto LABEL_853;
+                    goto LABEL_858;
                   }
 
-                  v643 = 0u;
-                  v644 = 0u;
                   v641 = 0u;
                   v642 = 0u;
                   v639 = 0u;
@@ -4433,49 +7563,50 @@ LABEL_564:
                   v634 = 0u;
                   v631 = 0u;
                   v632 = 0u;
+                  v629 = 0u;
+                  v630 = 0u;
                   memset(value, 0, sizeof(value));
                   if (qword_1000EB310 != -1)
                   {
                     sub_100089CEC();
                   }
 
-                  v259 = v7[97];
-                  if (os_log_type_enabled(v259, OS_LOG_TYPE_DEFAULT))
+                  v261 = v8[97];
+                  if (os_log_type_enabled(v261, OS_LOG_TYPE_DEFAULT))
                   {
                     *err = 0;
-                    v260 = sub_1000011A8(1);
-                    v261 = v259;
-                    if (os_log_type_enabled(v261, OS_LOG_TYPE_DEFAULT))
+                    v262 = sub_1000011A8(1);
+                    v263 = v261;
+                    if (os_log_type_enabled(v263, OS_LOG_TYPE_DEFAULT))
                     {
-                      v262 = v260;
+                      v264 = v262;
                     }
 
                     else
                     {
-                      v262 = v260 & 0xFFFFFFFE;
+                      v264 = v262 & 0xFFFFFFFE;
                     }
 
-                    if (v262)
+                    if (v264)
                     {
-                      LOWORD(v645) = 0;
-                      LODWORD(v605) = 2;
-                      v603 = &v645;
-                      v263 = _os_log_send_and_compose_impl();
+                      LOWORD(v643) = 0;
+                      LODWORD(v604) = 2;
+                      v265 = _os_log_send_and_compose_impl(v264, err, 0, 0, &_mh_execute_header, v263, 0, "Trying to find User volume on shared iPad", &v643, v604);
 
-                      if (v263)
+                      if (v265)
                       {
-                        sub_100002A8C(v263);
+                        sub_100002A8C(v265);
                       }
                     }
 
                     else
                     {
 
-                      v263 = 0;
+                      v265 = 0;
                     }
 
-                    v45 = &off_1000EB000;
-                    free(v263);
+                    v44 = &off_1000EB000;
+                    free(v265);
                   }
 
                   if (!sub_100054A9C(value, 256))
@@ -4485,33 +7616,33 @@ LABEL_564:
                       sub_100089CEC();
                     }
 
-                    v306 = v7[97];
-                    if (!os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
+                    v308 = v8[97];
+                    if (!os_log_type_enabled(v308, OS_LOG_TYPE_DEFAULT))
                     {
-LABEL_852:
+LABEL_857:
 
-                      v6 = &off_1000EB000;
-                      if (*(v44 + 364) == 1)
+                      v7 = &off_1000EB000;
+                      if (*(v1 + 1456) == 1)
                       {
-LABEL_898:
-                        CFRelease(v611);
+LABEL_903:
+                        CFRelease(v609);
                         CFRelease(cf);
                         if (uuid[0])
                         {
                           CFRelease(uuid[0]);
-                          v299 = 0;
+                          v301 = 0;
                           uuid[0] = 0;
                         }
 
                         else
                         {
-                          v299 = 0;
+                          v301 = 0;
                         }
 
-                        goto LABEL_1150;
+                        goto LABEL_1157;
                       }
 
-LABEL_853:
+LABEL_858:
                       if (!CFDictionaryContainsValue(cf, kUMUserSessionKeybagOpaqueDataKey))
                       {
                         value[0] = 0;
@@ -4520,143 +7651,138 @@ LABEL_853:
                           sub_100089CEC();
                         }
 
-                        v363 = v7[97];
-                        if (os_log_type_enabled(v363, OS_LOG_TYPE_DEFAULT))
+                        v367 = v8[97];
+                        if (os_log_type_enabled(v367, OS_LOG_TYPE_DEFAULT))
                         {
                           *err = 0;
-                          v364 = sub_1000011A8(1);
-                          v365 = v363;
-                          if (os_log_type_enabled(v365, OS_LOG_TYPE_DEFAULT))
+                          v368 = sub_1000011A8(1);
+                          v369 = v367;
+                          if (os_log_type_enabled(v369, OS_LOG_TYPE_DEFAULT))
                           {
-                            v366 = v364;
+                            v370 = v368;
                           }
 
                           else
                           {
-                            v366 = v364 & 0xFFFFFFFE;
+                            v370 = v368 & 0xFFFFFFFE;
                           }
 
-                          if (v366)
+                          if (v370)
                           {
-                            LOWORD(v645) = 0;
-                            LODWORD(v605) = 2;
-                            v603 = &v645;
-                            v367 = _os_log_send_and_compose_impl();
+                            LOWORD(v643) = 0;
+                            LODWORD(v604) = 2;
+                            v371 = _os_log_send_and_compose_impl(v370, err, 0, 0, &_mh_execute_header, v369, 0, "No keybag data on the user session, trying to migrate from Keybag if it exists", &v643, v604);
 
-                            if (v367)
+                            if (v371)
                             {
-                              sub_100002A8C(v367);
+                              sub_100002A8C(v371);
                             }
                           }
 
                           else
                           {
 
-                            v367 = 0;
+                            v371 = 0;
                           }
 
-                          free(v367);
+                          free(v371);
                         }
 
-                        v368 = MKBKeyBagCopySystemOpaqueBlob();
-                        if (v368)
+                        v372 = MKBKeyBagCopySystemOpaqueBlob();
+                        if (v372)
                         {
-                          v369 = v368;
+                          v373 = v372;
                           if (qword_1000EB310 != -1)
                           {
                             sub_100089CEC();
                           }
 
-                          v370 = v7[97];
-                          if (os_log_type_enabled(v370, OS_LOG_TYPE_DEFAULT))
+                          v374 = v8[97];
+                          if (os_log_type_enabled(v374, OS_LOG_TYPE_DEFAULT))
                           {
                             *err = 0;
-                            v371 = sub_1000011A8(1);
-                            v372 = v370;
-                            if (os_log_type_enabled(v372, OS_LOG_TYPE_DEFAULT))
+                            v375 = sub_1000011A8(1);
+                            v376 = v374;
+                            if (os_log_type_enabled(v376, OS_LOG_TYPE_DEFAULT))
                             {
-                              v373 = v371;
+                              v377 = v375;
                             }
 
                             else
                             {
-                              v373 = v371 & 0xFFFFFFFE;
+                              v377 = v375 & 0xFFFFFFFE;
                             }
 
-                            if (v373)
+                            if (v377)
                             {
-                              LODWORD(v645) = 67109120;
-                              HIDWORD(v645) = v369;
-                              LODWORD(v605) = 8;
-                              v603 = &v645;
-                              v374 = _os_log_send_and_compose_impl();
+                              LODWORD(v643) = 67109120;
+                              HIDWORD(v643) = v373;
+                              v378 = _os_log_send_and_compose_impl(v377, err, 0, 0, &_mh_execute_header, v376, 0, "Failed to retrieve KeybagData from MKB with error:%d", &v643);
 
-                              if (v374)
+                              if (v378)
                               {
-                                sub_100002A8C(v374);
+                                sub_100002A8C(v378);
                               }
                             }
 
                             else
                             {
 
-                              v374 = 0;
+                              v378 = 0;
                             }
 
-                            free(v374);
+                            free(v378);
                           }
 
-                          v45 = &off_1000EB000;
+                          v44 = &off_1000EB000;
                         }
 
                         else if (value[0])
                         {
                           CFDictionarySetValue(cf, kUMUserSessionKeybagOpaqueDataKey, value[0]);
-                          v45 = &off_1000EB000;
+                          v44 = &off_1000EB000;
                           if (qword_1000EB310 != -1)
                           {
                             sub_100089CEC();
                           }
 
-                          v44 = &off_1000EB000;
-                          v375 = v7[97];
-                          if (os_log_type_enabled(v375, OS_LOG_TYPE_DEFAULT))
+                          v1 = 0x1000EB000;
+                          v379 = v8[97];
+                          if (os_log_type_enabled(v379, OS_LOG_TYPE_DEFAULT))
                           {
                             *err = 0;
-                            v376 = sub_1000011A8(1);
-                            v377 = v375;
-                            if (os_log_type_enabled(v377, OS_LOG_TYPE_DEFAULT))
+                            v380 = sub_1000011A8(1);
+                            v381 = v379;
+                            if (os_log_type_enabled(v381, OS_LOG_TYPE_DEFAULT))
                             {
-                              v378 = v376;
+                              v382 = v380;
                             }
 
                             else
                             {
-                              v378 = v376 & 0xFFFFFFFE;
+                              v382 = v380 & 0xFFFFFFFE;
                             }
 
-                            if (v378)
+                            if (v382)
                             {
-                              LODWORD(v645) = 67109120;
-                              HIDWORD(v645) = v133;
-                              LODWORD(v605) = 8;
-                              v603 = &v645;
-                              v379 = _os_log_send_and_compose_impl();
+                              LODWORD(v643) = 67109120;
+                              HIDWORD(v643) = v134;
+                              v383 = _os_log_send_and_compose_impl(v382, err, 0, 0, &_mh_execute_header, v381, 0, "Saved keybag Data for the user:%d", &v643);
 
-                              if (v379)
+                              if (v383)
                               {
-                                sub_100002A8C(v379);
+                                sub_100002A8C(v383);
                               }
                             }
 
                             else
                             {
 
-                              v379 = 0;
+                              v383 = 0;
                             }
 
-                            v45 = &off_1000EB000;
-                            free(v379);
+                            v44 = &off_1000EB000;
+                            free(v383);
                           }
 
                           sub_100018C80();
@@ -4668,95 +7794,93 @@ LABEL_853:
 
                         else
                         {
-                          v45 = &off_1000EB000;
+                          v44 = &off_1000EB000;
                           if (qword_1000EB310 != -1)
                           {
                             sub_100089CEC();
                           }
 
-                          v44 = &off_1000EB000;
-                          v380 = v7[97];
-                          if (os_log_type_enabled(v380, OS_LOG_TYPE_DEFAULT))
+                          v1 = 0x1000EB000;
+                          v384 = v8[97];
+                          if (os_log_type_enabled(v384, OS_LOG_TYPE_DEFAULT))
                           {
                             *err = 0;
-                            v381 = sub_1000011A8(1);
-                            v382 = v380;
-                            if (os_log_type_enabled(v382, OS_LOG_TYPE_DEFAULT))
+                            v385 = sub_1000011A8(1);
+                            v386 = v384;
+                            if (os_log_type_enabled(v386, OS_LOG_TYPE_DEFAULT))
                             {
-                              v383 = v381;
+                              v387 = v385;
                             }
 
                             else
                             {
-                              v383 = v381 & 0xFFFFFFFE;
+                              v387 = v385 & 0xFFFFFFFE;
                             }
 
-                            if (v383)
+                            if (v387)
                             {
-                              LOWORD(v645) = 0;
-                              LODWORD(v605) = 2;
-                              v603 = &v645;
-                              v384 = _os_log_send_and_compose_impl();
+                              LOWORD(v643) = 0;
+                              LODWORD(v604) = 2;
+                              v388 = _os_log_send_and_compose_impl(v387, err, 0, 0, &_mh_execute_header, v386, 0, "NO keybag Data on the system", &v643, v604);
 
-                              if (v384)
+                              if (v388)
                               {
-                                sub_100002A8C(v384);
+                                sub_100002A8C(v388);
                               }
                             }
 
                             else
                             {
 
-                              v384 = 0;
+                              v388 = 0;
                             }
 
-                            v45 = &off_1000EB000;
-                            free(v384);
+                            v44 = &off_1000EB000;
+                            free(v388);
                           }
                         }
 
-                        v6 = &off_1000EB000;
+                        v7 = &off_1000EB000;
                       }
 
-                      goto LABEL_898;
+                      goto LABEL_903;
                     }
 
                     *err = 0;
-                    v307 = sub_1000011A8(1);
-                    v306 = v306;
-                    if (os_log_type_enabled(v306, OS_LOG_TYPE_DEFAULT))
+                    v309 = sub_1000011A8(1);
+                    v308 = v308;
+                    if (os_log_type_enabled(v308, OS_LOG_TYPE_DEFAULT))
                     {
-                      v308 = v307;
+                      v310 = v309;
                     }
 
                     else
                     {
-                      v308 = v307 & 0xFFFFFFFE;
+                      v310 = v309 & 0xFFFFFFFE;
                     }
 
-                    if (v308)
+                    if (v310)
                     {
-                      LOWORD(v645) = 0;
-                      LODWORD(v605) = 2;
-                      v603 = &v645;
-                      v309 = _os_log_send_and_compose_impl();
+                      LOWORD(v643) = 0;
+                      LODWORD(v604) = 2;
+                      v311 = _os_log_send_and_compose_impl(v310, err, 0, 0, &_mh_execute_header, v308, 0, "Could not find Primary User Volume..", &v643, v604);
 
-                      if (v309)
+                      if (v311)
                       {
-                        sub_100002A8C(v309);
+                        sub_100002A8C(v311);
                       }
                     }
 
                     else
                     {
 
-                      v309 = 0;
+                      v311 = 0;
                     }
 
-                    free(v309);
-LABEL_851:
-                    v45 = &off_1000EB000;
-                    goto LABEL_852;
+                    free(v311);
+LABEL_856:
+                    v44 = &off_1000EB000;
+                    goto LABEL_857;
                   }
 
                   if (qword_1000EB310 != -1)
@@ -4764,92 +7888,89 @@ LABEL_851:
                     sub_100089CEC();
                   }
 
-                  v301 = v7[97];
-                  if (os_log_type_enabled(v301, OS_LOG_TYPE_DEFAULT))
+                  v303 = v8[97];
+                  if (os_log_type_enabled(v303, OS_LOG_TYPE_DEFAULT))
                   {
-                    v645 = 0;
-                    v302 = sub_1000011A8(1);
-                    v303 = v301;
-                    if (os_log_type_enabled(v303, OS_LOG_TYPE_DEFAULT))
+                    v643 = 0;
+                    v304 = sub_1000011A8(1);
+                    v305 = v303;
+                    if (os_log_type_enabled(v305, OS_LOG_TYPE_DEFAULT))
                     {
-                      v304 = v302;
+                      v306 = v304;
                     }
 
                     else
                     {
-                      v304 = v302 & 0xFFFFFFFE;
+                      v306 = v304 & 0xFFFFFFFE;
                     }
 
-                    if (v304)
+                    if (v306)
                     {
                       *err = 136315138;
                       *&err[4] = value;
-                      LODWORD(v605) = 12;
-                      v603 = err;
-                      v305 = _os_log_send_and_compose_impl();
+                      v307 = _os_log_send_and_compose_impl(v306, &v643, 0, 0, &_mh_execute_header, v305, 0, "Found Primary UserVolume disknode:%s", err);
 
-                      if (v305)
+                      if (v307)
                       {
-                        sub_100002A8C(v305);
+                        sub_100002A8C(v307);
                       }
                     }
 
                     else
                     {
 
-                      v305 = 0;
+                      v307 = 0;
                     }
 
-                    free(v305);
+                    free(v307);
                   }
 
-                  v306 = [NSString stringWithUTF8String:value];
-                  if (!v306)
+                  v308 = [NSString stringWithUTF8String:value];
+                  if (!v308)
                   {
                     if (qword_1000EB310 != -1)
                     {
                       sub_100089CEC();
                     }
 
-                    v315 = v7[97];
-                    if (os_log_type_enabled(v315, OS_LOG_TYPE_DEFAULT))
+                    v317 = v8[97];
+                    if (os_log_type_enabled(v317, OS_LOG_TYPE_DEFAULT))
                     {
                       *err = 0;
-                      v316 = sub_1000011A8(1);
-                      v315 = v315;
-                      if (os_log_type_enabled(v315, OS_LOG_TYPE_DEFAULT))
+                      v318 = sub_1000011A8(1);
+                      v317 = v317;
+                      if (os_log_type_enabled(v317, OS_LOG_TYPE_DEFAULT))
                       {
-                        v317 = v316;
+                        v319 = v318;
                       }
 
                       else
                       {
-                        v317 = v316 & 0xFFFFFFFE;
+                        v319 = v318 & 0xFFFFFFFE;
                       }
 
-                      if (v317)
+                      if (v319)
                       {
-                        LOWORD(v645) = 0;
-                        LODWORD(v605) = 2;
-                        v603 = &v645;
-                        v318 = _os_log_send_and_compose_impl();
+                        LOWORD(v643) = 0;
+                        LODWORD(v604) = 2;
+                        v320 = _os_log_send_and_compose_impl(v319, err, 0, 0, &_mh_execute_header, v317, 0, "Failed to created diskstring", &v643, v604);
 
-                        if (v318)
+                        if (v320)
                         {
-                          sub_100002A8C(v318);
+                          sub_100002A8C(v320);
                         }
                       }
 
                       else
                       {
 
-                        v318 = 0;
+                        v320 = 0;
                       }
 
-                      free(v318);
+                      free(v320);
                     }
 
-                    goto LABEL_850;
+                    goto LABEL_855;
                   }
 
                   if (qword_1000EB310 != -1)
@@ -4857,84 +7978,82 @@ LABEL_851:
                     sub_100089CEC();
                   }
 
-                  v310 = v7[97];
-                  if (os_log_type_enabled(v310, OS_LOG_TYPE_DEFAULT))
+                  v312 = v8[97];
+                  if (os_log_type_enabled(v312, OS_LOG_TYPE_DEFAULT))
                   {
-                    v645 = 0;
-                    v311 = sub_1000011A8(1);
-                    v312 = v310;
-                    if (os_log_type_enabled(v312, OS_LOG_TYPE_DEFAULT))
+                    v643 = 0;
+                    v313 = sub_1000011A8(1);
+                    v314 = v312;
+                    if (os_log_type_enabled(v314, OS_LOG_TYPE_DEFAULT))
                     {
-                      v313 = v311;
+                      v315 = v313;
                     }
 
                     else
                     {
-                      v313 = v311 & 0xFFFFFFFE;
+                      v315 = v313 & 0xFFFFFFFE;
                     }
 
-                    if (v313)
+                    if (v315)
                     {
                       *err = 138412546;
-                      *&err[4] = v306;
-                      v628 = 1024;
-                      v629 = v133;
-                      LODWORD(v605) = 18;
-                      v603 = err;
-                      v314 = _os_log_send_and_compose_impl();
+                      *&err[4] = v308;
+                      v626 = 1024;
+                      v627 = v134;
+                      LODWORD(v604) = 18;
+                      v316 = _os_log_send_and_compose_impl(v315, &v643, 0, 0, &_mh_execute_header, v314, 0, "Calling AKSVolumeMap with disk:%@ for useruid:%d", err, v604);
 
-                      if (v314)
+                      if (v316)
                       {
-                        sub_100002A8C(v314);
+                        sub_100002A8C(v316);
                       }
                     }
 
                     else
                     {
 
-                      v314 = 0;
+                      v316 = 0;
                     }
 
-                    free(v314);
+                    free(v316);
                   }
 
-                  v319 = sub_100089A80(qword_1000EB608);
-                  v623 = 0;
-                  v320 = [v319 mapVolume:v306 toSession:v133 withPersona:0 error:&v623];
-                  v315 = v623;
+                  v321 = sub_100089A80(qword_1000EB608);
+                  v621 = 0;
+                  v322 = [v321 mapVolume:v308 toSession:v134 withPersona:0 error:&v621];
+                  v317 = v621;
 
-                  if (v320)
+                  if (v322)
                   {
                     if (qword_1000EB310 != -1)
                     {
                       sub_100089CEC();
                     }
 
-                    v321 = v7[97];
-                    if (!os_log_type_enabled(v321, OS_LOG_TYPE_DEFAULT))
+                    v323 = v8[97];
+                    if (!os_log_type_enabled(v323, OS_LOG_TYPE_DEFAULT))
                     {
-                      goto LABEL_757;
+                      goto LABEL_761;
                     }
 
                     *err = 0;
-                    v322 = sub_1000011A8(1);
-                    v323 = v321;
-                    if (os_log_type_enabled(v323, OS_LOG_TYPE_DEFAULT))
+                    v324 = sub_1000011A8(1);
+                    v325 = v323;
+                    if (os_log_type_enabled(v325, OS_LOG_TYPE_DEFAULT))
                     {
-                      v324 = v322;
+                      v326 = v324;
                     }
 
                     else
                     {
-                      v324 = v322 & 0xFFFFFFFE;
+                      v326 = v324 & 0xFFFFFFFE;
                     }
 
-                    if (v324)
+                    if (v326)
                     {
-                      LOWORD(v645) = 0;
-                      LODWORD(v605) = 2;
-                      v603 = &v645;
-                      goto LABEL_753;
+                      LOWORD(v643) = 0;
+                      v327 = _os_log_send_and_compose_impl(v326, err, 0, 0, &_mh_execute_header, v325, 0, "AKS VolumeMapPath Success");
+                      goto LABEL_757;
                     }
                   }
 
@@ -4945,47 +8064,51 @@ LABEL_851:
                       sub_100089CEC();
                     }
 
-                    v321 = v7[97];
-                    if (!os_log_type_enabled(v321, OS_LOG_TYPE_DEFAULT))
-                    {
-                      goto LABEL_757;
-                    }
-
-                    v645 = 0;
-                    v325 = sub_1000011A8(1);
-                    v323 = v321;
+                    v323 = v8[97];
                     if (!os_log_type_enabled(v323, OS_LOG_TYPE_DEFAULT))
                     {
-                      v325 &= ~1u;
+                      goto LABEL_761;
                     }
 
-                    if (v325)
+                    v643 = 0;
+                    LODWORD(v328) = sub_1000011A8(1);
+                    v325 = v323;
+                    if (os_log_type_enabled(v325, OS_LOG_TYPE_DEFAULT))
                     {
-                      v326 = [v315 code];
-                      *err = 134217984;
-                      *&err[4] = v326;
-                      LODWORD(v605) = 12;
-                      v603 = err;
-LABEL_753:
-                      v327 = _os_log_send_and_compose_impl();
+                      v328 = v328;
+                    }
 
-                      if (v327)
+                    else
+                    {
+                      v328 = v328 & 0xFFFFFFFE;
+                    }
+
+                    if (v328)
+                    {
+                      v329 = [v317 code];
+                      *err = 134217984;
+                      *&err[4] = v329;
+                      v327 = _os_log_send_and_compose_impl(v328, &v643, 0, 0, &_mh_execute_header, v325, 0, "AKS VolumeMap failed with %ld", err);
+LABEL_757:
+                      v330 = v327;
+
+                      if (v330)
                       {
-                        sub_100002A8C(v327);
+                        sub_100002A8C(v330);
                       }
 
-                      goto LABEL_756;
+                      goto LABEL_760;
                     }
                   }
 
-                  v327 = 0;
-LABEL_756:
-                  free(v327);
-                  v44 = &off_1000EB000;
-LABEL_757:
+                  v330 = 0;
+LABEL_760:
+                  free(v330);
+                  v1 = 0x1000EB000;
+LABEL_761:
 
-LABEL_850:
-                  goto LABEL_851;
+LABEL_855:
+                  goto LABEL_856;
                 }
 
                 if (qword_1000EB310 != -1)
@@ -4993,209 +8116,221 @@ LABEL_850:
                   sub_100089CEC();
                 }
 
-                v84 = v7[97];
+                v84 = v8[97];
                 if (!os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
                 {
-LABEL_1338:
+LABEL_1349:
 
-                  v547 = MGGetBoolAnswer();
-                  v548 = [v6 code];
-                  if (v547)
+                  v552 = MGGetBoolAnswer();
+                  v553 = [v7 code];
+                  if (v552)
                   {
-                    v548 = sub_100018028("UpdateInstall-FATAL OTI LOAD ERROR:%ld", v548);
+                    v553 = sub_100018028("UpdateInstall-FATAL OTI LOAD ERROR:%ld", v553);
                   }
 
-                  sub_100036CA4("UpdateInstall-FATAL OTI LOAD ERROR:%ld", v548);
+                  sub_100036CA4("UpdateInstall-FATAL OTI LOAD ERROR:%ld", v553);
                 }
 
                 *err = 0;
-                v524 = sub_1000011A8(1);
+                LODWORD(v1) = sub_1000011A8(1);
                 v0 = v84;
-                if (!os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                 {
-                  v524 &= ~1u;
+                  v1 = v1;
                 }
 
-                if (!v524)
+                else
                 {
-
-                  v525 = 0;
-LABEL_1337:
-                  free(v525);
-                  goto LABEL_1338;
+                  v1 = v1 & 0xFFFFFFFE;
                 }
 
-LABEL_1335:
-                v545 = [v6 code:v603];
+                if (!v1)
+                {
+
+                  v531 = 0;
+LABEL_1348:
+                  free(v531);
+                  goto LABEL_1349;
+                }
+
+LABEL_1346:
+                v550 = [v7 code];
                 LODWORD(value[0]) = 134217984;
-                *(value + 4) = v545;
-                v546 = _os_log_send_and_compose_impl();
+                *(value + 4) = v550;
+                v551 = _os_log_send_and_compose_impl(v1, err, 0, 0, &_mh_execute_header, v0, 0, "AKSLoadIdentity failed with Error:%ld", value);
 
-                v525 = 0;
-                if (v546)
+                v531 = 0;
+                if (v551)
                 {
-                  sub_100002A8C(v546);
-                  v525 = v546;
+                  sub_100002A8C(v551);
+                  v531 = v551;
                 }
 
-                goto LABEL_1337;
+                goto LABEL_1348;
               }
 
-LABEL_1275:
-              if (!v247)
+LABEL_1282:
+              if (!v249)
               {
                 sub_100089CEC();
               }
 
-              v84 = v7[97];
+              v84 = v8[97];
               if (!os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
               {
-                goto LABEL_1334;
+                goto LABEL_1345;
               }
 
               value[0] = 0;
-              v522 = sub_1000011A8(1);
+              LODWORD(v1) = sub_1000011A8(1);
               v0 = v84;
-              if (!os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
               {
-                v522 &= ~1u;
+                v1 = v1;
               }
 
-              if (!v522)
+              else
+              {
+                v1 = v1 & 0xFFFFFFFE;
+              }
+
+              if (!v1)
               {
 
-                v523 = 0;
-LABEL_1333:
-                free(v523);
-LABEL_1334:
+                v530 = 0;
+LABEL_1344:
+                free(v530);
+LABEL_1345:
 
                 sleep(2u);
                 sub_100018028("UserManagement early boot task failed to migrate Primary User AKSIdentity during update install");
-                goto LABEL_1335;
+                goto LABEL_1346;
               }
 
-LABEL_1331:
-              v543 = CFErrorGetCode(uuid[0]);
+LABEL_1342:
+              v549 = CFErrorGetCode(uuid[0]);
               *err = 67109120;
-              *&err[4] = v543;
-              LODWORD(v605) = 8;
-              v603 = err;
-              v544 = _os_log_send_and_compose_impl();
+              *&err[4] = v549;
+              v1 = _os_log_send_and_compose_impl(v1, value, 0, 0, &_mh_execute_header, v0, 0, "AKSIdentityMigrateFirst failed with error:%d", err);
 
-              v523 = 0;
-              if (v544)
+              v530 = 0;
+              if (v1)
               {
-                sub_100002A8C(v544);
-                v523 = v544;
+                sub_100002A8C(v1);
+                v530 = v1;
               }
 
-              goto LABEL_1333;
+              goto LABEL_1344;
             }
 
-            if (v609)
+            if (v607)
             {
-              LODWORD(v645) = 0;
+              LODWORD(v643) = 0;
               if (qword_1000EB310 != -1)
               {
                 sub_100089CEC();
               }
 
-              v236 = v7[97];
-              if (os_log_type_enabled(v236, OS_LOG_TYPE_DEFAULT))
+              v238 = v8[97];
+              if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
               {
                 *err = 0;
-                v237 = sub_1000011A8(1);
-                v238 = v236;
-                if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
+                v239 = sub_1000011A8(1);
+                v240 = v238;
+                if (os_log_type_enabled(v240, OS_LOG_TYPE_DEFAULT))
                 {
-                  v239 = v237;
+                  v241 = v239;
                 }
 
                 else
                 {
-                  v239 = v237 & 0xFFFFFFFE;
+                  v241 = v239 & 0xFFFFFFFE;
                 }
 
-                if (v239)
+                if (v241)
                 {
                   LODWORD(value[0]) = 67109378;
-                  HIDWORD(value[0]) = v133;
+                  HIDWORD(value[0]) = v134;
                   LOWORD(value[1]) = 2112;
-                  *(&value[1] + 2) = v611;
-                  LODWORD(v605) = 18;
-                  v603 = value;
-                  v240 = _os_log_send_and_compose_impl();
+                  *(&value[1] + 2) = v609;
+                  LODWORD(v604) = 18;
+                  v242 = _os_log_send_and_compose_impl(v241, err, 0, 0, &_mh_execute_header, v240, 0, "Erase Install: Setting up AKS Identity for User:%d, uuid:%@", value, v604);
 
-                  if (v240)
+                  if (v242)
                   {
-                    sub_100002A8C(v240);
+                    sub_100002A8C(v242);
                   }
                 }
 
                 else
                 {
 
-                  v240 = 0;
+                  v242 = 0;
                 }
 
-                free(v240);
+                free(v242);
               }
 
-              v622 = 0;
-              v264 = sub_100022428(v0, v133, &v622);
-              v6 = v622;
-              v265 = qword_1000EB310 == -1;
-              if (!v264)
+              v620 = 0;
+              v266 = sub_100022428(v0, v134, &v620);
+              v7 = v620;
+              v267 = qword_1000EB310 == -1;
+              if (!v266)
               {
-LABEL_1297:
-                if (!v265)
+LABEL_1306:
+                if (!v267)
                 {
                   sub_100089CEC();
                 }
 
-                v528 = v7[97];
-                if (os_log_type_enabled(v528, OS_LOG_TYPE_DEFAULT))
+                v534 = v8[97];
+                if (os_log_type_enabled(v534, OS_LOG_TYPE_DEFAULT))
                 {
                   *err = 0;
-                  v529 = sub_1000011A8(1);
-                  v530 = v528;
-                  if (!os_log_type_enabled(v530, OS_LOG_TYPE_DEFAULT))
+                  LODWORD(v535) = sub_1000011A8(1);
+                  v536 = v534;
+                  if (os_log_type_enabled(v536, OS_LOG_TYPE_DEFAULT))
                   {
-                    v529 &= ~1u;
+                    v535 = v535;
                   }
 
-                  if (v529)
+                  else
                   {
-                    v573 = [v6 code];
-                    LODWORD(value[0]) = 134217984;
-                    *(value + 4) = v573;
-                    v574 = _os_log_send_and_compose_impl();
+                    v535 = v535 & 0xFFFFFFFE;
+                  }
 
-                    v531 = 0;
-                    if (v574)
+                  if (v535)
+                  {
+                    v576 = [v7 code];
+                    LODWORD(value[0]) = 134217984;
+                    *(value + 4) = v576;
+                    v577 = _os_log_send_and_compose_impl(v535, err, 0, 0, &_mh_execute_header, v536, 0, "AKSLoadIdentity failed with Error:%ld", value);
+
+                    v537 = 0;
+                    if (v577)
                     {
-                      sub_100002A8C(v574);
-                      v531 = v574;
+                      sub_100002A8C(v577);
+                      v537 = v577;
                     }
                   }
 
                   else
                   {
 
-                    v531 = 0;
+                    v537 = 0;
                   }
 
-                  free(v531);
+                  free(v537);
                 }
 
-                v575 = MGGetBoolAnswer();
-                v576 = [v6 code];
-                if (v575)
+                v578 = MGGetBoolAnswer();
+                v579 = [v7 code];
+                if (v578)
                 {
-                  v576 = sub_100018028("EraseInstall-FATAL OTI LOAD ERROR:%ld", v576);
+                  v579 = sub_100018028("EraseInstall-FATAL OTI LOAD ERROR:%ld", v579);
                 }
 
-                sub_100036CA4("EraseInstall-FATAL OTI LOAD ERROR:%ld", v576);
+                sub_100036CA4("EraseInstall-FATAL OTI LOAD ERROR:%ld", v579);
               }
 
               if (qword_1000EB310 != -1)
@@ -5203,123 +8338,121 @@ LABEL_1297:
                 sub_100089CEC();
               }
 
-              v266 = v7[97];
-              if (os_log_type_enabled(v266, OS_LOG_TYPE_DEFAULT))
+              v268 = v8[97];
+              if (os_log_type_enabled(v268, OS_LOG_TYPE_DEFAULT))
               {
                 value[0] = 0;
-                v267 = sub_1000011A8(1);
-                v268 = v266;
-                if (os_log_type_enabled(v268, OS_LOG_TYPE_DEFAULT))
+                v269 = sub_1000011A8(1);
+                v270 = v268;
+                if (os_log_type_enabled(v270, OS_LOG_TYPE_DEFAULT))
                 {
-                  v269 = v267;
+                  v271 = v269;
                 }
 
                 else
                 {
-                  v269 = v267 & 0xFFFFFFFE;
+                  v271 = v269 & 0xFFFFFFFE;
                 }
 
-                if (v269)
+                if (v271)
                 {
                   *err = 0;
-                  LODWORD(v605) = 2;
-                  v603 = err;
-                  v270 = _os_log_send_and_compose_impl();
+                  LODWORD(v604) = 2;
+                  v272 = _os_log_send_and_compose_impl(v271, value, 0, 0, &_mh_execute_header, v270, 0, "AKSLoadIdentity Succeeded", err, v604);
 
-                  if (v270)
+                  if (v272)
                   {
-                    sub_100002A8C(v270);
+                    sub_100002A8C(v272);
                   }
                 }
 
                 else
                 {
 
-                  v270 = 0;
+                  v272 = 0;
                 }
 
-                free(v270);
+                free(v272);
               }
 
               sub_100036F10("IONVRAM-DELETE-PROPERTY", "usermanagerd");
               CFRelease(cf);
-              CFRelease(v611);
+              CFRelease(v609);
 
-              v6 = &off_1000EB000;
+              v7 = &off_1000EB000;
               if (qword_1000EB310 != -1)
               {
                 sub_100089CEC();
               }
 
-              v45 = &off_1000EB000;
-              v279 = v7[97];
-              if (os_log_type_enabled(v279, OS_LOG_TYPE_DEFAULT))
+              v44 = &off_1000EB000;
+              v281 = v8[97];
+              if (os_log_type_enabled(v281, OS_LOG_TYPE_DEFAULT))
               {
-                v280 = v0;
-                v281 = v133;
-                v282 = v132;
+                v282 = v0;
+                v283 = v134;
+                v284 = v133;
                 value[0] = 0;
-                v283 = sub_1000011A8(1);
-                v284 = v279;
-                if (os_log_type_enabled(v284, OS_LOG_TYPE_DEFAULT))
+                v285 = sub_1000011A8(1);
+                v286 = v281;
+                if (os_log_type_enabled(v286, OS_LOG_TYPE_DEFAULT))
                 {
-                  v285 = v283;
+                  v287 = v285;
                 }
 
                 else
                 {
-                  v285 = v283 & 0xFFFFFFFE;
+                  v287 = v285 & 0xFFFFFFFE;
                 }
 
-                if (v285)
+                if (v287)
                 {
                   *err = 0;
-                  LODWORD(v605) = 2;
-                  v603 = err;
-                  v286 = _os_log_send_and_compose_impl();
+                  LODWORD(v604) = 2;
+                  v288 = _os_log_send_and_compose_impl(v287, value, 0, 0, &_mh_execute_header, v286, 0, "Migrating UserVolume Media Key to Class C after Volume Map", err, v604);
 
-                  if (v286)
+                  if (v288)
                   {
-                    sub_100002A8C(v286);
+                    sub_100002A8C(v288);
                   }
                 }
 
                 else
                 {
 
-                  v286 = 0;
+                  v288 = 0;
                 }
 
-                v132 = v282;
-                free(v286);
-                v6 = &off_1000EB000;
-                v133 = v281;
-                v0 = v280;
-                v45 = &off_1000EB000;
+                v133 = v284;
+                free(v288);
+                v7 = &off_1000EB000;
+                v134 = v283;
+                v0 = v282;
+                v44 = &off_1000EB000;
               }
 
-              if (sub_1000729D4(1, &v645))
+              if (sub_1000729D4(1, &v643))
               {
-                v299 = 0;
-                v44 = &off_1000EB000;
-LABEL_1150:
-                if (*(v44 + 364) != 1)
+                v301 = 0;
+                v1 = 0x1000EB000;
+LABEL_1157:
+                if (*(v1 + 1456) != 1)
                 {
-                  if (v613)
+                  if (v611)
                   {
-                    v479 = 1;
+                    v488 = 1;
                   }
 
                   else
                   {
-                    v479 = byte_1000EB603;
+                    v488 = byte_1000EB603;
                   }
 
-                  sub_100037278(v133, v479 & 1);
+                  sub_100037278(v134, v488 & 1);
                 }
 
-                v123 = v609;
-                goto LABEL_1156;
+                v124 = v607;
+                goto LABEL_1163;
               }
 
               if (qword_1000EB310 != -1)
@@ -5327,43 +8460,43 @@ LABEL_1150:
                 sub_100089CEC();
               }
 
-              v536 = v7[97];
-              if (os_log_type_enabled(v536, OS_LOG_TYPE_DEFAULT))
+              v542 = v8[97];
+              if (os_log_type_enabled(v542, OS_LOG_TYPE_DEFAULT))
               {
                 value[0] = 0;
-                v537 = sub_1000011A8(1);
-                v0 = v536;
+                v543 = sub_1000011A8(1);
+                v0 = v542;
                 if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                 {
-                  v538 = v537;
+                  v544 = v543;
                 }
 
                 else
                 {
-                  v538 = v537 & 0xFFFFFFFE;
+                  v544 = v543 & 0xFFFFFFFE;
                 }
 
-                if (v538)
+                if (v544)
                 {
                   *err = 67109120;
-                  *&err[4] = v645;
-                  v581 = _os_log_send_and_compose_impl();
+                  *&err[4] = v643;
+                  v584 = _os_log_send_and_compose_impl(v544, value, 0, 0, &_mh_execute_header, v0, 0, "APFSVolumeMigrateMediaKey Failed with Error:%d, PANIC!!", err);
 
-                  v539 = 0;
-                  if (v581)
+                  v545 = 0;
+                  if (v584)
                   {
-                    sub_100002A8C(v581);
-                    v539 = v581;
+                    sub_100002A8C(v584);
+                    v545 = v584;
                   }
                 }
 
                 else
                 {
 
-                  v539 = 0;
+                  v545 = 0;
                 }
 
-                free(v539);
+                free(v545);
               }
 
               sleep(2u);
@@ -5372,96 +8505,97 @@ LABEL_1150:
                 sub_100089CEC();
               }
 
-              v582 = v7[97];
-              if (os_log_type_enabled(v582, OS_LOG_TYPE_DEFAULT))
+              v585 = v8[97];
+              if (os_log_type_enabled(v585, OS_LOG_TYPE_DEFAULT))
               {
                 value[0] = 0;
-                v583 = sub_1000011A8(1);
-                v0 = v582;
+                v586 = sub_1000011A8(1);
+                v0 = v585;
                 if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                 {
-                  v584 = v583;
+                  v587 = v586;
                 }
 
                 else
                 {
-                  v584 = v583 & 0xFFFFFFFE;
+                  v587 = v586 & 0xFFFFFFFE;
                 }
 
-                if (v584)
+                if (v587)
                 {
                   *err = 0;
-                  v586 = _os_log_send_and_compose_impl();
+                  LODWORD(v604) = 2;
+                  v589 = _os_log_send_and_compose_impl(v587, value, 0, 0, &_mh_execute_header, v0, 0, "CALLING PANIC!!", err, v604);
 
-                  v585 = 0;
-                  if (v586)
+                  v588 = 0;
+                  if (v589)
                   {
-                    sub_100002A8C(v586);
-                    v585 = v586;
+                    sub_100002A8C(v589);
+                    v588 = v589;
                   }
                 }
 
                 else
                 {
 
-                  v585 = 0;
+                  v588 = 0;
                 }
 
-                free(v585);
+                free(v588);
               }
 
-              sub_100018028("UserManagement early boot task APFSVolumeMigrateMediaKey Failed with Error:%d", v645);
-LABEL_1431:
-              if (!v393)
+              sub_100018028("UserManagement early boot task APFSVolumeMigrateMediaKey Failed with Error:%d", v643);
+LABEL_1443:
+              if (!v398)
               {
                 sub_100089CEC();
               }
 
-              v549 = qword_1000EB308;
-              if (!os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+              v554 = qword_1000EB308;
+              if (!os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
               {
-                goto LABEL_1474;
+                goto LABEL_1486;
               }
 
               value[0] = 0;
-              v587 = sub_1000011A8(1);
-              v0 = v549;
+              v590 = sub_1000011A8(1);
+              v0 = v554;
               if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
               {
-                v588 = v587;
+                v591 = v590;
               }
 
               else
               {
-                v588 = v587 & 0xFFFFFFFE;
+                v591 = v590 & 0xFFFFFFFE;
               }
 
-              if (!v588)
+              if (!v591)
               {
 
-                v589 = 0;
-LABEL_1473:
-                free(v589);
-LABEL_1474:
+                v592 = 0;
+LABEL_1485:
+                free(v592);
+LABEL_1486:
 
                 sleep(2u);
-                sub_100018028("Failed to unmount 501 User Volume error:%d", v645);
-                goto LABEL_1475;
+                sub_100018028("Failed to unmount 501 User Volume error:%d", v643);
+                goto LABEL_1487;
               }
 
-LABEL_1471:
+LABEL_1483:
               *err = 67109120;
-              *&err[4] = v645;
-              v601 = _os_log_send_and_compose_impl();
+              *&err[4] = v643;
+              v603 = _os_log_send_and_compose_impl(v591, value, 0, 0, &_mh_execute_header, v0, 0, "Failed unmount of 501 User Volume,error:%d", err);
 
-              v589 = 0;
-              if (v601)
+              v592 = 0;
+              if (v603)
               {
-                sub_100002A8C(v601);
-                v589 = v601;
+                sub_100002A8C(v603);
+                v592 = v603;
               }
 
-              goto LABEL_1473;
+              goto LABEL_1485;
             }
 
             if (qword_1000EB310 != -1)
@@ -5469,101 +8603,105 @@ LABEL_1471:
               sub_100089CEC();
             }
 
-            v241 = v7[97];
-            if (os_log_type_enabled(v241, OS_LOG_TYPE_DEFAULT))
+            v243 = v8[97];
+            if (os_log_type_enabled(v243, OS_LOG_TYPE_DEFAULT))
             {
               *err = 0;
-              v242 = sub_1000011A8(1);
-              v243 = v241;
-              if (os_log_type_enabled(v243, OS_LOG_TYPE_DEFAULT))
+              v244 = sub_1000011A8(1);
+              v245 = v243;
+              if (os_log_type_enabled(v245, OS_LOG_TYPE_DEFAULT))
               {
-                v244 = v242;
+                v246 = v244;
               }
 
               else
               {
-                v244 = v242 & 0xFFFFFFFE;
+                v246 = v244 & 0xFFFFFFFE;
               }
 
-              if (v244)
+              if (v246)
               {
                 LODWORD(value[0]) = 67109378;
-                HIDWORD(value[0]) = v133;
+                HIDWORD(value[0]) = v134;
                 LOWORD(value[1]) = 2112;
-                *(&value[1] + 2) = v611;
-                LODWORD(v605) = 18;
-                v603 = value;
-                v245 = _os_log_send_and_compose_impl();
+                *(&value[1] + 2) = v609;
+                LODWORD(v604) = 18;
+                v247 = _os_log_send_and_compose_impl(v246, err, 0, 0, &_mh_execute_header, v245, 0, "Normal Boot: Setting up AKS Identity for User:%d, uuid:%@", value, v604);
 
-                if (v245)
+                if (v247)
                 {
-                  sub_100002A8C(v245);
+                  sub_100002A8C(v247);
                 }
               }
 
               else
               {
 
-                v245 = 0;
+                v247 = 0;
               }
 
-              free(v245);
-              v44 = &off_1000EB000;
+              free(v247);
+              v1 = 0x1000EB000;
             }
 
-            v621 = 0;
-            v271 = sub_100022428(v0, v133, &v621);
-            v272 = v621;
-            if (!v271)
+            v619 = 0;
+            v273 = sub_100022428(v0, v134, &v619);
+            v274 = v619;
+            if (!v273)
             {
               if (qword_1000EB310 != -1)
               {
                 sub_100089CEC();
               }
 
-              v532 = v7[97];
-              if (os_log_type_enabled(v532, OS_LOG_TYPE_DEFAULT))
+              v538 = v8[97];
+              if (os_log_type_enabled(v538, OS_LOG_TYPE_DEFAULT))
               {
                 *err = 0;
-                v533 = sub_1000011A8(1);
-                v534 = v532;
-                if (!os_log_type_enabled(v534, OS_LOG_TYPE_DEFAULT))
+                LODWORD(v539) = sub_1000011A8(1);
+                v540 = v538;
+                if (os_log_type_enabled(v540, OS_LOG_TYPE_DEFAULT))
                 {
-                  v533 &= ~1u;
+                  v539 = v539;
                 }
 
-                if (v533)
+                else
                 {
-                  v577 = [v272 code];
-                  LODWORD(value[0]) = 134217984;
-                  *(value + 4) = v577;
-                  v578 = _os_log_send_and_compose_impl();
+                  v539 = v539 & 0xFFFFFFFE;
+                }
 
-                  v535 = 0;
-                  if (v578)
+                if (v539)
+                {
+                  v580 = [v274 code];
+                  LODWORD(value[0]) = 134217984;
+                  *(value + 4) = v580;
+                  v581 = _os_log_send_and_compose_impl(v539, err, 0, 0, &_mh_execute_header, v540, 0, "AKSLoadIdentity failed with Error:%ld", value);
+
+                  v541 = 0;
+                  if (v581)
                   {
-                    sub_100002A8C(v578);
-                    v535 = v578;
+                    sub_100002A8C(v581);
+                    v541 = v581;
                   }
                 }
 
                 else
                 {
 
-                  v535 = 0;
+                  v541 = 0;
                 }
 
-                free(v535);
+                free(v541);
               }
 
-              v579 = MGGetBoolAnswer();
-              v580 = [v272 code];
-              if (v579)
+              v582 = MGGetBoolAnswer();
+              v583 = [v274 code];
+              if (v582)
               {
-                v580 = sub_100018028("RegularBoot-FATAL OTI LOAD ERROR:%ld", v580);
+                v583 = sub_100018028("RegularBoot-FATAL OTI LOAD ERROR:%ld", v583);
               }
 
-              sub_100036CA4("RegularBoot-FATAL OTI LOAD ERROR:%ld", v580);
+              sub_100036CA4("RegularBoot-FATAL OTI LOAD ERROR:%ld", v583);
             }
 
             if (qword_1000EB310 != -1)
@@ -5571,167 +8709,164 @@ LABEL_1471:
               sub_100089CEC();
             }
 
-            v273 = v7[97];
-            if (os_log_type_enabled(v273, OS_LOG_TYPE_DEFAULT))
+            v275 = v8[97];
+            if (os_log_type_enabled(v275, OS_LOG_TYPE_DEFAULT))
             {
-              v274 = v7;
+              v276 = v8;
               value[0] = 0;
-              v275 = sub_1000011A8(1);
-              v276 = v273;
-              if (os_log_type_enabled(v276, OS_LOG_TYPE_DEFAULT))
+              v277 = sub_1000011A8(1);
+              v278 = v275;
+              if (os_log_type_enabled(v278, OS_LOG_TYPE_DEFAULT))
               {
-                v277 = v275;
+                v279 = v277;
               }
 
               else
               {
-                v277 = v275 & 0xFFFFFFFE;
+                v279 = v277 & 0xFFFFFFFE;
               }
 
-              if (v277)
+              if (v279)
               {
                 *err = 0;
-                LODWORD(v605) = 2;
-                v603 = err;
-                v278 = _os_log_send_and_compose_impl();
+                LODWORD(v604) = 2;
+                v280 = _os_log_send_and_compose_impl(v279, value, 0, 0, &_mh_execute_header, v278, 0, "AKSLoadIdentity Succeeded", err, v604);
 
-                if (v278)
+                if (v280)
                 {
-                  sub_100002A8C(v278);
+                  sub_100002A8C(v280);
                 }
               }
 
               else
               {
 
-                v278 = 0;
+                v280 = 0;
               }
 
-              free(v278);
-              v7 = v274;
-              v44 = &off_1000EB000;
+              free(v280);
+              v8 = v276;
+              v1 = &off_1000EB000;
             }
 
             sub_100036F10("IONVRAM-DELETE-PROPERTY", "usermanagerd");
-            if (*(v44 + 364) == 1)
+            if (*(v1 + 1456) == 1)
             {
-              v6 = &off_1000EB000;
-              v45 = &off_1000EB000;
+              v7 = &off_1000EB000;
+              v44 = &off_1000EB000;
               if (sub_100002454(cf, kUMUserSessionNeedsCryptoSetupKey))
               {
-                v608 = v229;
-                v287 = sub_10008A2F4(qword_1000EB2E0, 501);
-                if (v287)
+                v606 = v231;
+                v289 = sub_10008A2F4(qword_1000EB2E0, 501);
+                if (v289)
                 {
-                  v288 = v287;
+                  v290 = v289;
                   bytes = 0;
-                  LODWORD(v645) = 0;
-                  v289 = CFDataCreate(kCFAllocatorDefault, &bytes, 1);
-                  v290 = sub_100079590(v288, kUMUserSessionUUIDKey);
-                  if (v290)
+                  LODWORD(v643) = 0;
+                  v291 = CFDataCreate(kCFAllocatorDefault, &bytes, 1);
+                  v292 = sub_100079590(v290, kUMUserSessionUUIDKey);
+                  if (v292)
                   {
-                    v291 = CFUUIDCreateFromString(kCFAllocatorDefault, v290);
-                    if (v291)
+                    v293 = CFUUIDCreateFromString(kCFAllocatorDefault, v292);
+                    if (v293)
                     {
-                      v6 = v291;
-                      v292 = sub_1000169B4(NSUUID, v291);
-                      CFRelease(v6);
-                      if (v292)
+                      v7 = v293;
+                      v294 = sub_1000169B4(NSUUID, v293);
+                      CFRelease(v7);
+                      if (v294)
                       {
-                        v615 = v288;
+                        v613 = v290;
                         if (qword_1000EB310 != -1)
                         {
                           sub_100089CEC();
                         }
 
-                        v293 = v7[97];
-                        if (os_log_type_enabled(v293, OS_LOG_TYPE_DEFAULT))
+                        v295 = v8[97];
+                        if (os_log_type_enabled(v295, OS_LOG_TYPE_DEFAULT))
                         {
-                          v294 = v7;
+                          v296 = v8;
                           value[0] = 0;
-                          v295 = sub_1000011A8(1);
-                          v296 = v293;
-                          if (os_log_type_enabled(v296, OS_LOG_TYPE_DEFAULT))
+                          v297 = sub_1000011A8(1);
+                          v298 = v295;
+                          if (os_log_type_enabled(v298, OS_LOG_TYPE_DEFAULT))
                           {
-                            v297 = v295;
+                            v299 = v297;
                           }
 
                           else
                           {
-                            v297 = v295 & 0xFFFFFFFE;
+                            v299 = v297 & 0xFFFFFFFE;
                           }
 
-                          if (v297)
+                          if (v299)
                           {
                             *err = 0;
-                            LODWORD(v605) = 2;
-                            v603 = err;
-                            v298 = _os_log_send_and_compose_impl();
+                            LODWORD(v604) = 2;
+                            v300 = _os_log_send_and_compose_impl(v299, value, 0, 0, &_mh_execute_header, v298, 0, "Verifying 501 OTI is loaded", err, v604);
 
-                            if (v298)
+                            if (v300)
                             {
-                              sub_100002A8C(v298);
+                              sub_100002A8C(v300);
                             }
                           }
 
                           else
                           {
 
-                            v298 = 0;
+                            v300 = 0;
                           }
 
-                          v7 = v294;
-                          free(v298);
+                          v8 = v296;
+                          free(v300);
                         }
 
-                        v619 = 0;
-                        v6 = sub_100022428(v292, 501, &v619);
-                        v328 = v619;
-                        if (v6)
+                        v617 = 0;
+                        v7 = sub_100022428(v294, 501, &v617);
+                        v331 = v617;
+                        if (v7)
                         {
-                          v329 = v328;
+                          v332 = v331;
                           if (qword_1000EB310 != -1)
                           {
                             sub_100089CEC();
                           }
 
-                          v330 = v7[97];
-                          if (os_log_type_enabled(v330, OS_LOG_TYPE_DEFAULT))
+                          v333 = v8[97];
+                          if (os_log_type_enabled(v333, OS_LOG_TYPE_DEFAULT))
                           {
                             value[0] = 0;
-                            v331 = sub_1000011A8(1);
-                            v6 = v330;
-                            if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                            v334 = sub_1000011A8(1);
+                            v7 = v333;
+                            if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
                             {
-                              v332 = v331;
+                              v335 = v334;
                             }
 
                             else
                             {
-                              v332 = v331 & 0xFFFFFFFE;
+                              v335 = v334 & 0xFFFFFFFE;
                             }
 
-                            if (v332)
+                            if (v335)
                             {
                               *err = 0;
-                              LODWORD(v605) = 2;
-                              v603 = err;
-                              v333 = _os_log_send_and_compose_impl();
+                              LODWORD(v604) = 2;
+                              v336 = _os_log_send_and_compose_impl(v335, value, 0, 0, &_mh_execute_header, v7, 0, "501 user Identity is loaded", err, v604);
 
-                              if (v333)
+                              if (v336)
                               {
-                                sub_100002A8C(v333);
+                                sub_100002A8C(v336);
                               }
                             }
 
                             else
                             {
 
-                              v333 = 0;
+                              v336 = 0;
                             }
 
-                            free(v333);
-                            v45 = &off_1000EB000;
+                            free(v336);
+                            v44 = &off_1000EB000;
                           }
 
                           if (qword_1000EB310 != -1)
@@ -5739,46 +8874,44 @@ LABEL_1471:
                             sub_100089CEC();
                           }
 
-                          v7 = &off_1000EB000;
-                          v334 = v615;
-                          v335 = qword_1000EB308;
-                          if (os_log_type_enabled(v335, OS_LOG_TYPE_DEFAULT))
+                          v8 = &off_1000EB000;
+                          v337 = v613;
+                          v338 = qword_1000EB308;
+                          if (os_log_type_enabled(v338, OS_LOG_TYPE_DEFAULT))
                           {
                             value[0] = 0;
-                            v336 = sub_1000011A8(1);
-                            v337 = v335;
-                            if (os_log_type_enabled(v337, OS_LOG_TYPE_DEFAULT))
+                            v339 = sub_1000011A8(1);
+                            v340 = v338;
+                            if (os_log_type_enabled(v340, OS_LOG_TYPE_DEFAULT))
                             {
-                              v338 = v336;
+                              v341 = v339;
                             }
 
                             else
                             {
-                              v338 = v336 & 0xFFFFFFFE;
+                              v341 = v339 & 0xFFFFFFFE;
                             }
 
-                            if (v338)
+                            if (v341)
                             {
                               *err = 67109120;
-                              *&err[4] = v133;
-                              LODWORD(v605) = 8;
-                              v603 = err;
-                              v6 = _os_log_send_and_compose_impl();
+                              *&err[4] = v134;
+                              v7 = _os_log_send_and_compose_impl(v341, value, 0, 0, &_mh_execute_header, v340, 0, "Transfer OTI from 501 to uid:%d", err);
 
-                              if (v6)
+                              if (v7)
                               {
-                                sub_100002A8C(v6);
+                                sub_100002A8C(v7);
                               }
                             }
 
                             else
                             {
 
-                              v6 = 0;
+                              v7 = 0;
                             }
 
-                            v334 = v615;
-                            free(v6);
+                            v337 = v613;
+                            free(v7);
                           }
 
                           if (AKSIdentityTransferPrimary())
@@ -5788,43 +8921,42 @@ LABEL_1471:
                               sub_100089CEC();
                             }
 
-                            v339 = qword_1000EB308;
-                            if (os_log_type_enabled(v339, OS_LOG_TYPE_DEFAULT))
+                            v342 = qword_1000EB308;
+                            if (os_log_type_enabled(v342, OS_LOG_TYPE_DEFAULT))
                             {
                               value[0] = 0;
-                              v340 = sub_1000011A8(1);
-                              v6 = v339;
-                              if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                              v343 = sub_1000011A8(1);
+                              v7 = v342;
+                              if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
                               {
-                                v341 = v340;
+                                v344 = v343;
                               }
 
                               else
                               {
-                                v341 = v340 & 0xFFFFFFFE;
+                                v344 = v343 & 0xFFFFFFFE;
                               }
 
-                              if (v341)
+                              if (v344)
                               {
                                 *err = 0;
-                                LODWORD(v605) = 2;
-                                v603 = err;
-                                v342 = _os_log_send_and_compose_impl();
+                                LODWORD(v604) = 2;
+                                v345 = _os_log_send_and_compose_impl(v344, value, 0, 0, &_mh_execute_header, v7, 0, "SUCCESSFUL migration of Primary from 501 to 502", err, v604);
 
-                                if (v342)
+                                if (v345)
                                 {
-                                  sub_100002A8C(v342);
+                                  sub_100002A8C(v345);
                                 }
                               }
 
                               else
                               {
 
-                                v342 = 0;
+                                v345 = 0;
                               }
 
-                              free(v342);
-                              v45 = &off_1000EB000;
+                              free(v345);
+                              v44 = &off_1000EB000;
                             }
 
                             if (qword_1000EB310 != -1)
@@ -5832,188 +8964,92 @@ LABEL_1471:
                               sub_100089CEC();
                             }
 
-                            v343 = qword_1000EB308;
-                            if (os_log_type_enabled(v343, OS_LOG_TYPE_DEFAULT))
+                            v346 = qword_1000EB308;
+                            if (os_log_type_enabled(v346, OS_LOG_TYPE_DEFAULT))
                             {
                               value[0] = 0;
-                              v344 = sub_1000011A8(1);
-                              v6 = v343;
-                              if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                              v347 = sub_1000011A8(1);
+                              v7 = v346;
+                              if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
                               {
-                                v345 = v344;
+                                v348 = v347;
                               }
 
                               else
                               {
-                                v345 = v344 & 0xFFFFFFFE;
+                                v348 = v347 & 0xFFFFFFFE;
                               }
 
-                              if (v345)
+                              if (v348)
                               {
                                 *err = 0;
-                                LODWORD(v605) = 2;
-                                v603 = err;
-                                v346 = _os_log_send_and_compose_impl();
+                                LODWORD(v604) = 2;
+                                v349 = _os_log_send_and_compose_impl(v348, value, 0, 0, &_mh_execute_header, v7, 0, "Deleting 501 homedir - User volume, checking if its mounted", err, v604);
 
-                                if (v346)
+                                if (v349)
                                 {
-                                  sub_100002A8C(v346);
+                                  sub_100002A8C(v349);
                                 }
                               }
 
                               else
                               {
 
-                                v346 = 0;
+                                v349 = 0;
                               }
 
-                              free(v346);
-                              v45 = &off_1000EB000;
+                              free(v349);
+                              v44 = &off_1000EB000;
                             }
 
-                            v347 = sub_100079590(v334, kUMUserSessionVolumeDeviceNodeKey);
-                            if (!v347)
+                            v350 = sub_100079590(v337, kUMUserSessionVolumeDeviceNodeKey);
+                            if (!v350)
                             {
                               if (qword_1000EB310 != -1)
                               {
                                 sub_100089CEC();
                               }
 
-                              v354 = qword_1000EB308;
-                              if (os_log_type_enabled(v354, OS_LOG_TYPE_DEFAULT))
+                              v357 = qword_1000EB308;
+                              if (os_log_type_enabled(v357, OS_LOG_TYPE_DEFAULT))
                               {
                                 value[0] = 0;
-                                v355 = sub_1000011A8(1);
-                                v354 = v354;
-                                if (os_log_type_enabled(v354, OS_LOG_TYPE_DEFAULT))
+                                v358 = sub_1000011A8(1);
+                                v357 = v357;
+                                if (os_log_type_enabled(v357, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  v356 = v355;
+                                  v359 = v358;
                                 }
 
                                 else
                                 {
-                                  v356 = v355 & 0xFFFFFFFE;
+                                  v359 = v358 & 0xFFFFFFFE;
                                 }
 
-                                if (v356)
+                                if (v359)
                                 {
                                   *err = 0;
-                                  LODWORD(v605) = 2;
-                                  v603 = err;
-                                  v6 = _os_log_send_and_compose_impl();
+                                  LODWORD(v604) = 2;
+                                  v7 = _os_log_send_and_compose_impl(v359, value, 0, 0, &_mh_execute_header, v357, 0, "could not find disknode for 501 user to identity unmap", err, v604);
 
-                                  if (v6)
+                                  if (v7)
                                   {
-                                    sub_100002A8C(v6);
+                                    sub_100002A8C(v7);
                                   }
                                 }
 
                                 else
                                 {
 
-                                  v6 = 0;
+                                  v7 = 0;
                                 }
 
-                                free(v6);
+                                free(v7);
                               }
 
-LABEL_907:
+LABEL_912:
 
-                              if ([v45[91] isVolumeMountedWithSession:v334 fsid:0])
-                              {
-                                if (qword_1000EB310 != -1)
-                                {
-                                  sub_100089CEC();
-                                }
-
-                                v385 = qword_1000EB308;
-                                if (os_log_type_enabled(v385, OS_LOG_TYPE_DEFAULT))
-                                {
-                                  value[0] = 0;
-                                  v386 = sub_1000011A8(1);
-                                  v6 = v385;
-                                  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-                                  {
-                                    v387 = v386;
-                                  }
-
-                                  else
-                                  {
-                                    v387 = v386 & 0xFFFFFFFE;
-                                  }
-
-                                  if (v387)
-                                  {
-                                    *err = 0;
-                                    LODWORD(v605) = 2;
-                                    v603 = err;
-                                    v388 = _os_log_send_and_compose_impl();
-
-                                    if (v388)
-                                    {
-                                      sub_100002A8C(v388);
-                                    }
-                                  }
-
-                                  else
-                                  {
-
-                                    v388 = 0;
-                                  }
-
-                                  free(v388);
-                                  v45 = &off_1000EB000;
-                                }
-
-                                v392 = [v45[91] unmountVolumeWithSession:v334 mountPath:@"/private/var/mobile" error:&v645];
-                                v393 = qword_1000EB310 == -1;
-                                if (!v392)
-                                {
-                                  goto LABEL_1431;
-                                }
-
-                                if (qword_1000EB310 != -1)
-                                {
-                                  sub_100089CEC();
-                                }
-
-                                v389 = qword_1000EB308;
-                                if (os_log_type_enabled(v389, OS_LOG_TYPE_DEFAULT))
-                                {
-                                  value[0] = 0;
-                                  v394 = sub_1000011A8(1);
-                                  v389 = v389;
-                                  if (os_log_type_enabled(v389, OS_LOG_TYPE_DEFAULT))
-                                  {
-                                    v395 = v394;
-                                  }
-
-                                  else
-                                  {
-                                    v395 = v394 & 0xFFFFFFFE;
-                                  }
-
-                                  if (v395)
-                                  {
-                                    *err = 0;
-                                    LODWORD(v605) = 2;
-                                    v603 = err;
-LABEL_936:
-                                    v6 = _os_log_send_and_compose_impl();
-
-                                    if (v6)
-                                    {
-                                      sub_100002A8C(v6);
-                                    }
-
-                                    goto LABEL_939;
-                                  }
-
-                                  goto LABEL_938;
-                                }
-                              }
-
-                              else
+                              if ([v44[91] isVolumeMountedWithSession:v337 fsid:0])
                               {
                                 if (qword_1000EB310 != -1)
                                 {
@@ -6025,8 +9061,8 @@ LABEL_936:
                                 {
                                   value[0] = 0;
                                   v390 = sub_1000011A8(1);
-                                  v389 = v389;
-                                  if (os_log_type_enabled(v389, OS_LOG_TYPE_DEFAULT))
+                                  v7 = v389;
+                                  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
                                   {
                                     v391 = v390;
                                   }
@@ -6039,16 +9075,109 @@ LABEL_936:
                                   if (v391)
                                   {
                                     *err = 0;
-                                    LODWORD(v605) = 2;
-                                    v603 = err;
-                                    goto LABEL_936;
+                                    LODWORD(v604) = 2;
+                                    v392 = _os_log_send_and_compose_impl(v391, value, 0, 0, &_mh_execute_header, v7, 0, "501 user session mounted, unmount prior to deletion", err, v604);
+
+                                    if (v392)
+                                    {
+                                      sub_100002A8C(v392);
+                                    }
                                   }
 
-LABEL_938:
+                                  else
+                                  {
 
-                                  v6 = 0;
-LABEL_939:
-                                  free(v6);
+                                    v392 = 0;
+                                  }
+
+                                  free(v392);
+                                  v44 = &off_1000EB000;
+                                }
+
+                                v397 = [v44[91] unmountVolumeWithSession:v337 mountPath:@"/private/var/mobile" error:&v643];
+                                v398 = qword_1000EB310 == -1;
+                                if (!v397)
+                                {
+                                  goto LABEL_1443;
+                                }
+
+                                if (qword_1000EB310 != -1)
+                                {
+                                  sub_100089CEC();
+                                }
+
+                                v393 = qword_1000EB308;
+                                if (os_log_type_enabled(v393, OS_LOG_TYPE_DEFAULT))
+                                {
+                                  value[0] = 0;
+                                  v399 = sub_1000011A8(1);
+                                  v393 = v393;
+                                  if (os_log_type_enabled(v393, OS_LOG_TYPE_DEFAULT))
+                                  {
+                                    v400 = v399;
+                                  }
+
+                                  else
+                                  {
+                                    v400 = v399 & 0xFFFFFFFE;
+                                  }
+
+                                  if (v400)
+                                  {
+                                    *err = 0;
+                                    LODWORD(v604) = 2;
+                                    v396 = _os_log_send_and_compose_impl(v400, value, 0, 0, &_mh_execute_header, v393, 0, "501 unmounted, set for volume 501 volume deletion", err, v604);
+LABEL_941:
+                                    v7 = v396;
+
+                                    if (v7)
+                                    {
+                                      sub_100002A8C(v7);
+                                    }
+
+                                    goto LABEL_944;
+                                  }
+
+                                  goto LABEL_943;
+                                }
+                              }
+
+                              else
+                              {
+                                if (qword_1000EB310 != -1)
+                                {
+                                  sub_100089CEC();
+                                }
+
+                                v393 = qword_1000EB308;
+                                if (os_log_type_enabled(v393, OS_LOG_TYPE_DEFAULT))
+                                {
+                                  value[0] = 0;
+                                  v394 = sub_1000011A8(1);
+                                  v393 = v393;
+                                  if (os_log_type_enabled(v393, OS_LOG_TYPE_DEFAULT))
+                                  {
+                                    v395 = v394;
+                                  }
+
+                                  else
+                                  {
+                                    v395 = v394 & 0xFFFFFFFE;
+                                  }
+
+                                  if (v395)
+                                  {
+                                    *err = 0;
+                                    LODWORD(v604) = 2;
+                                    v396 = _os_log_send_and_compose_impl(v395, value, 0, 0, &_mh_execute_header, v393, 0, "501 session not mounted, deleting volume", err, v604);
+                                    goto LABEL_941;
+                                  }
+
+LABEL_943:
+
+                                  v7 = 0;
+LABEL_944:
+                                  free(v7);
                                 }
                               }
 
@@ -6057,90 +9186,46 @@ LABEL_939:
                                 sub_100089CEC();
                               }
 
-                              v396 = qword_1000EB308;
-                              if (os_log_type_enabled(v396, OS_LOG_TYPE_DEFAULT))
+                              v401 = qword_1000EB308;
+                              if (os_log_type_enabled(v401, OS_LOG_TYPE_DEFAULT))
                               {
                                 value[0] = 0;
-                                v397 = sub_1000011A8(1);
-                                v6 = v396;
-                                if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                                v402 = sub_1000011A8(1);
+                                v7 = v401;
+                                if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  v398 = v397;
+                                  v403 = v402;
                                 }
 
                                 else
                                 {
-                                  v398 = v397 & 0xFFFFFFFE;
+                                  v403 = v402 & 0xFFFFFFFE;
                                 }
 
-                                if (v398)
+                                if (v403)
                                 {
                                   *err = 0;
-                                  LODWORD(v605) = 2;
-                                  v603 = err;
-                                  v399 = _os_log_send_and_compose_impl();
+                                  LODWORD(v604) = 2;
+                                  v404 = _os_log_send_and_compose_impl(v403, value, 0, 0, &_mh_execute_header, v7, 0, "Deleting 501 session volume", err, v604);
 
-                                  if (v399)
+                                  if (v404)
                                   {
-                                    sub_100002A8C(v399);
+                                    sub_100002A8C(v404);
                                   }
                                 }
 
                                 else
                                 {
 
-                                  v399 = 0;
+                                  v404 = 0;
                                 }
 
-                                free(v399);
-                                v45 = &off_1000EB000;
+                                free(v404);
+                                v44 = &off_1000EB000;
                               }
 
-                              if ([v45[91] deleteVolumeWithSession:v334 error:&v645])
+                              if ([v44[91] deleteVolumeWithSession:v337 error:&v643])
                               {
-                                if (qword_1000EB310 != -1)
-                                {
-                                  sub_100089CEC();
-                                }
-
-                                v400 = qword_1000EB308;
-                                if (os_log_type_enabled(v400, OS_LOG_TYPE_DEFAULT))
-                                {
-                                  value[0] = 0;
-                                  v401 = sub_1000011A8(1);
-                                  v402 = v400;
-                                  if (os_log_type_enabled(v402, OS_LOG_TYPE_DEFAULT))
-                                  {
-                                    v403 = v401;
-                                  }
-
-                                  else
-                                  {
-                                    v403 = v401 & 0xFFFFFFFE;
-                                  }
-
-                                  if (v403)
-                                  {
-                                    *err = 0;
-                                    LODWORD(v605) = 2;
-                                    v603 = err;
-                                    v404 = _os_log_send_and_compose_impl();
-
-                                    if (v404)
-                                    {
-                                      sub_100002A8C(v404);
-                                    }
-                                  }
-
-                                  else
-                                  {
-
-                                    v404 = 0;
-                                  }
-
-                                  free(v404);
-                                }
-
                                 if (qword_1000EB310 != -1)
                                 {
                                   sub_100089CEC();
@@ -6165,9 +9250,8 @@ LABEL_939:
                                   if (v408)
                                   {
                                     *err = 0;
-                                    LODWORD(v605) = 2;
-                                    v603 = err;
-                                    v409 = _os_log_send_and_compose_impl();
+                                    LODWORD(v604) = 2;
+                                    v409 = _os_log_send_and_compose_impl(v408, value, 0, 0, &_mh_execute_header, v407, 0, "Successful deletion of 501 User Volume", err, v604);
 
                                     if (v409)
                                     {
@@ -6192,7 +9276,7 @@ LABEL_939:
                                 v410 = qword_1000EB308;
                                 if (os_log_type_enabled(v410, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  *err = 0;
+                                  value[0] = 0;
                                   v411 = sub_1000011A8(1);
                                   v412 = v410;
                                   if (os_log_type_enabled(v412, OS_LOG_TYPE_DEFAULT))
@@ -6207,11 +9291,9 @@ LABEL_939:
 
                                   if (v413)
                                   {
-                                    LODWORD(value[0]) = 138412290;
-                                    *(value + 4) = v608;
-                                    LODWORD(v605) = 12;
-                                    v603 = value;
-                                    v414 = _os_log_send_and_compose_impl();
+                                    *err = 0;
+                                    LODWORD(v604) = 2;
+                                    v414 = _os_log_send_and_compose_impl(v413, value, 0, 0, &_mh_execute_header, v412, 0, "unbind/Deleting 501 Identity", err, v604);
 
                                     if (v414)
                                     {
@@ -6225,174 +9307,85 @@ LABEL_939:
                                     v414 = 0;
                                   }
 
-                                  v334 = v615;
                                   free(v414);
                                 }
 
-                                v607 = v289;
-                                if (sub_1000714B8(v608, v289, 0, &v645))
+                                if (qword_1000EB310 != -1)
                                 {
-                                  if (qword_1000EB310 != -1)
-                                  {
-                                    sub_100089CEC();
-                                  }
-
-                                  v415 = qword_1000EB308;
-                                  if (os_log_type_enabled(v415, OS_LOG_TYPE_DEFAULT))
-                                  {
-                                    value[0] = 0;
-                                    v416 = sub_1000011A8(1);
-                                    v415 = v415;
-                                    if (os_log_type_enabled(v415, OS_LOG_TYPE_DEFAULT))
-                                    {
-                                      v417 = v416;
-                                    }
-
-                                    else
-                                    {
-                                      v417 = v416 & 0xFFFFFFFE;
-                                    }
-
-                                    if (v417)
-                                    {
-                                      *err = 0;
-                                      LODWORD(v605) = 2;
-                                      v603 = err;
-                                      goto LABEL_1002;
-                                    }
-
-                                    goto LABEL_1004;
-                                  }
+                                  sub_100089CEC();
                                 }
 
-                                else
+                                v415 = qword_1000EB308;
+                                if (os_log_type_enabled(v415, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  if (qword_1000EB310 != -1)
+                                  *err = 0;
+                                  v416 = sub_1000011A8(1);
+                                  v417 = v415;
+                                  if (os_log_type_enabled(v417, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    sub_100089CEC();
+                                    v418 = v416;
                                   }
 
-                                  v415 = qword_1000EB308;
-                                  if (os_log_type_enabled(v415, OS_LOG_TYPE_DEFAULT))
+                                  else
                                   {
-                                    value[0] = 0;
-                                    v418 = sub_1000011A8(1);
-                                    v415 = v415;
-                                    if (os_log_type_enabled(v415, OS_LOG_TYPE_DEFAULT))
-                                    {
-                                      v419 = v418;
-                                    }
+                                    v418 = v416 & 0xFFFFFFFE;
+                                  }
 
-                                    else
-                                    {
-                                      v419 = v418 & 0xFFFFFFFE;
-                                    }
+                                  if (v418)
+                                  {
+                                    LODWORD(value[0]) = 138412290;
+                                    *(value + 4) = v606;
+                                    LODWORD(v604) = 12;
+                                    v419 = _os_log_send_and_compose_impl(v418, err, 0, 0, &_mh_execute_header, v417, 0, "binding the data volume  to 502 user uuid %@", value, v604);
 
                                     if (v419)
                                     {
-                                      *err = 67109120;
-                                      *&err[4] = v645;
-                                      LODWORD(v605) = 8;
-                                      v603 = err;
-LABEL_1002:
-                                      v420 = _os_log_send_and_compose_impl();
-
-                                      if (v420)
-                                      {
-                                        sub_100002A8C(v420);
-                                      }
-
-                                      goto LABEL_1005;
-                                    }
-
-LABEL_1004:
-
-                                    v420 = 0;
-LABEL_1005:
-                                    free(v420);
-                                  }
-                                }
-
-                                if (qword_1000EB310 != -1)
-                                {
-                                  sub_100089CEC();
-                                }
-
-                                v421 = qword_1000EB308;
-                                if (os_log_type_enabled(v421, OS_LOG_TYPE_DEFAULT))
-                                {
-                                  value[0] = 0;
-                                  v422 = sub_1000011A8(1);
-                                  v423 = v421;
-                                  if (os_log_type_enabled(v423, OS_LOG_TYPE_DEFAULT))
-                                  {
-                                    v424 = v422;
-                                  }
-
-                                  else
-                                  {
-                                    v424 = v422 & 0xFFFFFFFE;
-                                  }
-
-                                  if (v424)
-                                  {
-                                    *err = 0;
-                                    LODWORD(v605) = 2;
-                                    v603 = err;
-                                    v425 = _os_log_send_and_compose_impl();
-
-                                    if (v425)
-                                    {
-                                      sub_100002A8C(v425);
+                                      sub_100002A8C(v419);
                                     }
                                   }
 
                                   else
                                   {
 
-                                    v425 = 0;
+                                    v419 = 0;
                                   }
 
-                                  free(v425);
+                                  v337 = v613;
+                                  free(v419);
                                 }
 
-                                v6 = sub_100089A80(qword_1000EB608);
-                                v617 = 0;
-                                v426 = [v6 unloadIdentityFromSession:501 error:&v617];
-                                v427 = v617;
-
-                                if (v426)
+                                v605 = v291;
+                                if (sub_1000714B8(v606, v291, 0, &v643))
                                 {
                                   if (qword_1000EB310 != -1)
                                   {
                                     sub_100089CEC();
                                   }
 
-                                  v428 = qword_1000EB308;
-                                  if (os_log_type_enabled(v428, OS_LOG_TYPE_DEFAULT))
+                                  v420 = qword_1000EB308;
+                                  if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
                                   {
                                     value[0] = 0;
-                                    v429 = sub_1000011A8(1);
-                                    v428 = v428;
-                                    if (os_log_type_enabled(v428, OS_LOG_TYPE_DEFAULT))
+                                    v421 = sub_1000011A8(1);
+                                    v420 = v420;
+                                    if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      v430 = v429;
+                                      v422 = v421;
                                     }
 
                                     else
                                     {
-                                      v430 = v429 & 0xFFFFFFFE;
+                                      v422 = v421 & 0xFFFFFFFE;
                                     }
 
-                                    if (v430)
+                                    if (v422)
                                     {
                                       *err = 0;
-                                      LODWORD(v605) = 2;
-                                      v603 = err;
-                                      goto LABEL_1033;
+                                      v423 = _os_log_send_and_compose_impl(v422, value, 0, 0, &_mh_execute_header, v420, 0, "Successful binding the system data partition to the loginUI");
+                                      goto LABEL_1007;
                                     }
 
-                                    goto LABEL_1035;
+                                    goto LABEL_1009;
                                   }
                                 }
 
@@ -6403,40 +9396,43 @@ LABEL_1005:
                                     sub_100089CEC();
                                   }
 
-                                  v428 = qword_1000EB308;
-                                  if (os_log_type_enabled(v428, OS_LOG_TYPE_DEFAULT))
+                                  v420 = qword_1000EB308;
+                                  if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    *err = 0;
-                                    v431 = sub_1000011A8(1);
-                                    v428 = v428;
-                                    if (!os_log_type_enabled(v428, OS_LOG_TYPE_DEFAULT))
+                                    value[0] = 0;
+                                    v424 = sub_1000011A8(1);
+                                    v420 = v420;
+                                    if (os_log_type_enabled(v420, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      v431 &= ~1u;
+                                      v425 = v424;
                                     }
 
-                                    if (v431)
+                                    else
                                     {
-                                      v432 = [v427 code];
-                                      LODWORD(value[0]) = 134217984;
-                                      *(value + 4) = v432;
-                                      LODWORD(v605) = 12;
-                                      v603 = value;
-LABEL_1033:
-                                      v6 = _os_log_send_and_compose_impl();
+                                      v425 = v424 & 0xFFFFFFFE;
+                                    }
 
-                                      if (v6)
+                                    if (v425)
+                                    {
+                                      *err = 67109120;
+                                      *&err[4] = v643;
+                                      v423 = _os_log_send_and_compose_impl(v425, value, 0, 0, &_mh_execute_header, v420, 0, "Failed to bind the system data partition to loginUI with error %d", err);
+LABEL_1007:
+                                      v426 = v423;
+
+                                      if (v426)
                                       {
-                                        sub_100002A8C(v6);
+                                        sub_100002A8C(v426);
                                       }
 
-                                      goto LABEL_1036;
+                                      goto LABEL_1010;
                                     }
 
-LABEL_1035:
+LABEL_1009:
 
-                                    v6 = 0;
-LABEL_1036:
-                                    free(v6);
+                                    v426 = 0;
+LABEL_1010:
+                                    free(v426);
                                   }
                                 }
 
@@ -6445,191 +9441,240 @@ LABEL_1036:
                                   sub_100089CEC();
                                 }
 
-                                v433 = qword_1000EB308;
-                                if (os_log_type_enabled(v433, OS_LOG_TYPE_DEFAULT))
+                                v427 = qword_1000EB308;
+                                if (os_log_type_enabled(v427, OS_LOG_TYPE_DEFAULT))
                                 {
                                   value[0] = 0;
-                                  v434 = sub_1000011A8(1);
-                                  v6 = v433;
-                                  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                                  v428 = sub_1000011A8(1);
+                                  v429 = v427;
+                                  if (os_log_type_enabled(v429, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v435 = v434;
+                                    v430 = v428;
                                   }
 
                                   else
                                   {
-                                    v435 = v434 & 0xFFFFFFFE;
+                                    v430 = v428 & 0xFFFFFFFE;
                                   }
 
-                                  if (v435)
+                                  if (v430)
                                   {
                                     *err = 0;
-                                    LODWORD(v605) = 2;
-                                    v603 = err;
-                                    v436 = _os_log_send_and_compose_impl();
+                                    LODWORD(v604) = 2;
+                                    v431 = _os_log_send_and_compose_impl(v430, value, 0, 0, &_mh_execute_header, v429, 0, "AKS Unloading the Identity of uid 501", err, v604);
 
-                                    if (v436)
+                                    if (v431)
                                     {
-                                      sub_100002A8C(v436);
+                                      sub_100002A8C(v431);
                                     }
                                   }
 
                                   else
                                   {
 
-                                    v436 = 0;
+                                    v431 = 0;
                                   }
 
-                                  free(v436);
+                                  free(v431);
                                 }
 
-                                v437 = sub_100079590(v334, kUMUserSessionUUIDKey);
-                                if (v437)
+                                v7 = sub_100089A80(qword_1000EB608);
+                                v615 = 0;
+                                v432 = [v7 unloadIdentityFromSession:501 error:&v615];
+                                v433 = v615;
+
+                                if (v432)
                                 {
-                                  v438 = v437;
                                   if (qword_1000EB310 != -1)
                                   {
                                     sub_100089CEC();
                                   }
 
-                                  v439 = qword_1000EB308;
-                                  if (os_log_type_enabled(v439, OS_LOG_TYPE_DEFAULT))
+                                  v434 = qword_1000EB308;
+                                  if (os_log_type_enabled(v434, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    *err = 0;
-                                    v440 = sub_1000011A8(1);
-                                    v441 = v439;
-                                    if (os_log_type_enabled(v441, OS_LOG_TYPE_DEFAULT))
+                                    value[0] = 0;
+                                    v435 = sub_1000011A8(1);
+                                    v434 = v434;
+                                    if (os_log_type_enabled(v434, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      v442 = v440;
+                                      v436 = v435;
                                     }
 
                                     else
                                     {
-                                      v442 = v440 & 0xFFFFFFFE;
+                                      v436 = v435 & 0xFFFFFFFE;
                                     }
 
-                                    if (v442)
+                                    if (v436)
                                     {
-                                      LODWORD(value[0]) = 138412290;
-                                      *(value + 4) = v438;
-                                      LODWORD(v605) = 12;
-                                      v603 = value;
-                                      v443 = _os_log_send_and_compose_impl();
-
-                                      if (v443)
-                                      {
-                                        sub_100002A8C(v443);
-                                      }
+                                      *err = 0;
+                                      v437 = _os_log_send_and_compose_impl(v436, value, 0, 0, &_mh_execute_header, v434, 0, "AKS Unloading the Identity of uid:501 SUCCESS ");
+                                      goto LABEL_1039;
                                     }
 
-                                    else
-                                    {
+                                    goto LABEL_1041;
+                                  }
+                                }
 
-                                      v443 = 0;
-                                    }
-
-                                    free(v443);
+                                else
+                                {
+                                  if (qword_1000EB310 != -1)
+                                  {
+                                    sub_100089CEC();
                                   }
 
-                                  v444 = sub_100016954(NSUUID, v438);
-                                  v445 = sub_100089A80(qword_1000EB608);
-                                  v616 = 0;
-                                  v446 = [v445 deleteIdentity:v444 error:&v616];
-                                  v299 = v616;
-
-                                  v6 = &off_1000EB000;
-                                  if (v446)
+                                  v434 = qword_1000EB308;
+                                  if (os_log_type_enabled(v434, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    if (qword_1000EB310 != -1)
+                                    *err = 0;
+                                    LODWORD(v438) = sub_1000011A8(1);
+                                    v434 = v434;
+                                    if (os_log_type_enabled(v434, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      sub_100089CEC();
+                                      v438 = v438;
                                     }
 
-                                    v447 = qword_1000EB308;
-                                    if (os_log_type_enabled(v447, OS_LOG_TYPE_DEFAULT))
+                                    else
                                     {
-                                      value[0] = 0;
-                                      v448 = sub_1000011A8(1);
-                                      v447 = v447;
-                                      if (os_log_type_enabled(v447, OS_LOG_TYPE_DEFAULT))
+                                      v438 = v438 & 0xFFFFFFFE;
+                                    }
+
+                                    if (v438)
+                                    {
+                                      v439 = [v433 code];
+                                      LODWORD(value[0]) = 134217984;
+                                      *(value + 4) = v439;
+                                      v437 = _os_log_send_and_compose_impl(v438, err, 0, 0, &_mh_execute_header, v434, 0, "AKS Unloading the Identity of uid:501 FAILED with error:%ld", value);
+LABEL_1039:
+                                      v7 = v437;
+
+                                      if (v7)
                                       {
-                                        v449 = v448;
+                                        sub_100002A8C(v7);
                                       }
 
-                                      else
-                                      {
-                                        v449 = v448 & 0xFFFFFFFE;
-                                      }
+                                      goto LABEL_1042;
+                                    }
 
-                                      if (v449)
-                                      {
-                                        *err = 0;
-                                        LODWORD(v605) = 2;
-                                        v603 = err;
-                                        goto LABEL_1087;
-                                      }
+LABEL_1041:
 
-                                      goto LABEL_1089;
+                                    v7 = 0;
+LABEL_1042:
+                                    free(v7);
+                                  }
+                                }
+
+                                if (qword_1000EB310 != -1)
+                                {
+                                  sub_100089CEC();
+                                }
+
+                                v440 = qword_1000EB308;
+                                if (os_log_type_enabled(v440, OS_LOG_TYPE_DEFAULT))
+                                {
+                                  value[0] = 0;
+                                  v441 = sub_1000011A8(1);
+                                  v7 = v440;
+                                  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+                                  {
+                                    v442 = v441;
+                                  }
+
+                                  else
+                                  {
+                                    v442 = v441 & 0xFFFFFFFE;
+                                  }
+
+                                  if (v442)
+                                  {
+                                    *err = 0;
+                                    LODWORD(v604) = 2;
+                                    v443 = _os_log_send_and_compose_impl(v442, value, 0, 0, &_mh_execute_header, v7, 0, "Deleting 501 identity", err, v604);
+
+                                    if (v443)
+                                    {
+                                      sub_100002A8C(v443);
                                     }
                                   }
 
                                   else
                                   {
+
+                                    v443 = 0;
+                                  }
+
+                                  free(v443);
+                                }
+
+                                v444 = sub_100079590(v337, kUMUserSessionUUIDKey);
+                                if (v444)
+                                {
+                                  v445 = v444;
+                                  if (qword_1000EB310 != -1)
+                                  {
+                                    sub_100089CEC();
+                                  }
+
+                                  v446 = qword_1000EB308;
+                                  if (os_log_type_enabled(v446, OS_LOG_TYPE_DEFAULT))
+                                  {
+                                    *err = 0;
+                                    v447 = sub_1000011A8(1);
+                                    v448 = v446;
+                                    if (os_log_type_enabled(v448, OS_LOG_TYPE_DEFAULT))
+                                    {
+                                      v449 = v447;
+                                    }
+
+                                    else
+                                    {
+                                      v449 = v447 & 0xFFFFFFFE;
+                                    }
+
+                                    if (v449)
+                                    {
+                                      LODWORD(value[0]) = 138412290;
+                                      *(value + 4) = v445;
+                                      LODWORD(v604) = 12;
+                                      v450 = _os_log_send_and_compose_impl(v449, err, 0, 0, &_mh_execute_header, v448, 0, "Deleting 501 identity with uuid:%@", value, v604);
+
+                                      if (v450)
+                                      {
+                                        sub_100002A8C(v450);
+                                      }
+                                    }
+
+                                    else
+                                    {
+
+                                      v450 = 0;
+                                    }
+
+                                    free(v450);
+                                  }
+
+                                  v451 = sub_100016954(NSUUID, v445);
+                                  v452 = sub_100089A80(qword_1000EB608);
+                                  v614 = 0;
+                                  v453 = [v452 deleteIdentity:v451 error:&v614];
+                                  v301 = v614;
+
+                                  v7 = &off_1000EB000;
+                                  if (v453)
+                                  {
                                     if (qword_1000EB310 != -1)
                                     {
                                       sub_100089CEC();
                                     }
 
-                                    v450 = qword_1000EB308;
-                                    if (os_log_type_enabled(v450, OS_LOG_TYPE_DEFAULT))
-                                    {
-                                      *err = 0;
-                                      v451 = sub_1000011A8(1);
-                                      v452 = v450;
-                                      if (!os_log_type_enabled(v452, OS_LOG_TYPE_DEFAULT))
-                                      {
-                                        v451 &= ~1u;
-                                      }
-
-                                      if (v451)
-                                      {
-                                        v453 = [v299 code];
-                                        LODWORD(value[0]) = 134217984;
-                                        *(value + 4) = v453;
-                                        LODWORD(v605) = 12;
-                                        v603 = value;
-                                        v454 = _os_log_send_and_compose_impl();
-
-                                        if (v454)
-                                        {
-                                          sub_100002A8C(v454);
-                                        }
-                                      }
-
-                                      else
-                                      {
-
-                                        v454 = 0;
-                                      }
-
-                                      v7 = &off_1000EB000;
-                                      free(v454);
-                                      v6 = &off_1000EB000;
-                                    }
-
-                                    sleep(2u);
-                                    if (qword_1000EB310 != -1)
-                                    {
-                                      sub_100089CEC();
-                                    }
-
-                                    v447 = qword_1000EB308;
-                                    if (os_log_type_enabled(v447, OS_LOG_TYPE_DEFAULT))
+                                    v454 = qword_1000EB308;
+                                    if (os_log_type_enabled(v454, OS_LOG_TYPE_DEFAULT))
                                     {
                                       value[0] = 0;
                                       v455 = sub_1000011A8(1);
-                                      v447 = v447;
-                                      if (os_log_type_enabled(v447, OS_LOG_TYPE_DEFAULT))
+                                      v454 = v454;
+                                      if (os_log_type_enabled(v454, OS_LOG_TYPE_DEFAULT))
                                       {
                                         v456 = v455;
                                       }
@@ -6642,152 +9687,12 @@ LABEL_1036:
                                       if (v456)
                                       {
                                         *err = 0;
-                                        LODWORD(v605) = 2;
-                                        v603 = err;
-LABEL_1087:
-                                        v457 = _os_log_send_and_compose_impl();
-
-                                        if (v457)
-                                        {
-                                          sub_100002A8C(v457);
-                                        }
-
-                                        goto LABEL_1090;
+                                        LODWORD(v604) = 2;
+                                        v457 = _os_log_send_and_compose_impl(v456, value, 0, 0, &_mh_execute_header, v454, 0, "501 identity removed", err, v604);
+                                        goto LABEL_1094;
                                       }
 
-LABEL_1089:
-
-                                      v457 = 0;
-LABEL_1090:
-                                      free(v457);
-                                      v6 = &off_1000EB000;
-                                    }
-                                  }
-
-                                  if (qword_1000EB310 != -1)
-                                  {
-                                    sub_100089CEC();
-                                  }
-
-                                  v458 = qword_1000EB308;
-                                  if (os_log_type_enabled(v458, OS_LOG_TYPE_DEFAULT))
-                                  {
-                                    value[0] = 0;
-                                    v459 = sub_1000011A8(1);
-                                    v460 = v458;
-                                    if (os_log_type_enabled(v460, OS_LOG_TYPE_DEFAULT))
-                                    {
-                                      v461 = v459;
-                                    }
-
-                                    else
-                                    {
-                                      v461 = v459 & 0xFFFFFFFE;
-                                    }
-
-                                    if (v461)
-                                    {
-                                      *err = 0;
-                                      LODWORD(v605) = 2;
-                                      v603 = err;
-                                      v462 = _os_log_send_and_compose_impl();
-
-                                      if (v462)
-                                      {
-                                        sub_100002A8C(v462);
-                                      }
-                                    }
-
-                                    else
-                                    {
-
-                                      v462 = 0;
-                                    }
-
-                                    v6 = &off_1000EB000;
-                                    free(v462);
-                                  }
-
-                                  CFRelease(v615);
-                                  sub_10002E024(501, 0);
-                                  sub_100018C80();
-                                  if (qword_1000EB310 != -1)
-                                  {
-                                    sub_100089CEC();
-                                  }
-
-                                  v463 = qword_1000EB308;
-                                  if (os_log_type_enabled(v463, OS_LOG_TYPE_DEFAULT))
-                                  {
-                                    value[0] = 0;
-                                    v464 = sub_1000011A8(1);
-                                    v465 = v463;
-                                    if (os_log_type_enabled(v465, OS_LOG_TYPE_DEFAULT))
-                                    {
-                                      v466 = v464;
-                                    }
-
-                                    else
-                                    {
-                                      v466 = v464 & 0xFFFFFFFE;
-                                    }
-
-                                    if (v466)
-                                    {
-                                      *err = 0;
-                                      LODWORD(v605) = 2;
-                                      v603 = err;
-                                      v467 = _os_log_send_and_compose_impl();
-
-                                      if (v467)
-                                      {
-                                        sub_100002A8C(v467);
-                                      }
-                                    }
-
-                                    else
-                                    {
-
-                                      v467 = 0;
-                                    }
-
-                                    v6 = &off_1000EB000;
-                                    free(v467);
-                                  }
-
-                                  v44 = &off_1000EB000;
-                                  if (sub_10007324C("/var/Users", &v645))
-                                  {
-                                    if (qword_1000EB310 != -1)
-                                    {
-                                      sub_100089CEC();
-                                    }
-
-                                    v468 = qword_1000EB308;
-                                    if (!os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
-                                    {
-                                      goto LABEL_1145;
-                                    }
-
-                                    value[0] = 0;
-                                    v469 = sub_1000011A8(1);
-                                    v468 = v468;
-                                    if (os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
-                                    {
-                                      v470 = v469;
-                                    }
-
-                                    else
-                                    {
-                                      v470 = v469 & 0xFFFFFFFE;
-                                    }
-
-                                    if (v470)
-                                    {
-                                      *err = 0;
-                                      LODWORD(v605) = 2;
-                                      v603 = err;
-                                      goto LABEL_1141;
+                                      goto LABEL_1096;
                                     }
                                   }
 
@@ -6798,44 +9703,262 @@ LABEL_1090:
                                       sub_100089CEC();
                                     }
 
-                                    v471 = qword_1000EB308;
-                                    if (os_log_type_enabled(v471, OS_LOG_TYPE_DEFAULT))
+                                    v458 = qword_1000EB308;
+                                    if (os_log_type_enabled(v458, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      value[0] = 0;
-                                      v472 = sub_1000011A8(1);
-                                      v473 = v471;
-                                      if (os_log_type_enabled(v473, OS_LOG_TYPE_DEFAULT))
+                                      *err = 0;
+                                      LODWORD(v459) = sub_1000011A8(1);
+                                      v460 = v458;
+                                      if (os_log_type_enabled(v460, OS_LOG_TYPE_DEFAULT))
                                       {
-                                        v474 = v472;
+                                        v459 = v459;
                                       }
 
                                       else
                                       {
-                                        v474 = v472 & 0xFFFFFFFE;
+                                        v459 = v459 & 0xFFFFFFFE;
                                       }
 
-                                      if (v474)
+                                      if (v459)
                                       {
-                                        *err = 0;
-                                        LODWORD(v605) = 2;
-                                        v603 = err;
-                                        v475 = _os_log_send_and_compose_impl();
+                                        v461 = [v301 code];
+                                        LODWORD(value[0]) = 134217984;
+                                        *(value + 4) = v461;
+                                        v462 = _os_log_send_and_compose_impl(v459, err, 0, 0, &_mh_execute_header, v460, 0, "Failed to delete 501 Identity with error %ld", value);
 
-                                        if (v475)
+                                        if (v462)
                                         {
-                                          sub_100002A8C(v475);
+                                          sub_100002A8C(v462);
                                         }
                                       }
 
                                       else
                                       {
 
-                                        v475 = 0;
+                                        v462 = 0;
                                       }
 
-                                      v6 = &off_1000EB000;
-                                      free(v475);
-                                      v44 = &off_1000EB000;
+                                      v8 = &off_1000EB000;
+                                      free(v462);
+                                      v7 = &off_1000EB000;
+                                    }
+
+                                    sleep(2u);
+                                    if (qword_1000EB310 != -1)
+                                    {
+                                      sub_100089CEC();
+                                    }
+
+                                    v454 = qword_1000EB308;
+                                    if (os_log_type_enabled(v454, OS_LOG_TYPE_DEFAULT))
+                                    {
+                                      value[0] = 0;
+                                      v463 = sub_1000011A8(1);
+                                      v454 = v454;
+                                      if (os_log_type_enabled(v454, OS_LOG_TYPE_DEFAULT))
+                                      {
+                                        v464 = v463;
+                                      }
+
+                                      else
+                                      {
+                                        v464 = v463 & 0xFFFFFFFE;
+                                      }
+
+                                      if (v464)
+                                      {
+                                        *err = 0;
+                                        LODWORD(v604) = 2;
+                                        v457 = _os_log_send_and_compose_impl(v464, value, 0, 0, &_mh_execute_header, v454, 0, "Skipping panic to make further progress, pending check with AKS", err, v604);
+LABEL_1094:
+                                        v465 = v457;
+
+                                        if (v465)
+                                        {
+                                          sub_100002A8C(v465);
+                                        }
+
+                                        goto LABEL_1097;
+                                      }
+
+LABEL_1096:
+
+                                      v465 = 0;
+LABEL_1097:
+                                      free(v465);
+                                      v7 = &off_1000EB000;
+                                    }
+                                  }
+
+                                  if (qword_1000EB310 != -1)
+                                  {
+                                    sub_100089CEC();
+                                  }
+
+                                  v466 = qword_1000EB308;
+                                  if (os_log_type_enabled(v466, OS_LOG_TYPE_DEFAULT))
+                                  {
+                                    value[0] = 0;
+                                    v467 = sub_1000011A8(1);
+                                    v468 = v466;
+                                    if (os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
+                                    {
+                                      v469 = v467;
+                                    }
+
+                                    else
+                                    {
+                                      v469 = v467 & 0xFFFFFFFE;
+                                    }
+
+                                    if (v469)
+                                    {
+                                      *err = 0;
+                                      LODWORD(v604) = 2;
+                                      v470 = _os_log_send_and_compose_impl(v469, value, 0, 0, &_mh_execute_header, v468, 0, "removing 501 session from the list", err, v604);
+
+                                      if (v470)
+                                      {
+                                        sub_100002A8C(v470);
+                                      }
+                                    }
+
+                                    else
+                                    {
+
+                                      v470 = 0;
+                                    }
+
+                                    v7 = &off_1000EB000;
+                                    free(v470);
+                                  }
+
+                                  CFRelease(v613);
+                                  sub_10002E024(501, 0);
+                                  sub_100018C80();
+                                  if (qword_1000EB310 != -1)
+                                  {
+                                    sub_100089CEC();
+                                  }
+
+                                  v471 = qword_1000EB308;
+                                  if (os_log_type_enabled(v471, OS_LOG_TYPE_DEFAULT))
+                                  {
+                                    value[0] = 0;
+                                    v472 = sub_1000011A8(1);
+                                    v473 = v471;
+                                    if (os_log_type_enabled(v473, OS_LOG_TYPE_DEFAULT))
+                                    {
+                                      v474 = v472;
+                                    }
+
+                                    else
+                                    {
+                                      v474 = v472 & 0xFFFFFFFE;
+                                    }
+
+                                    if (v474)
+                                    {
+                                      *err = 0;
+                                      LODWORD(v604) = 2;
+                                      v475 = _os_log_send_and_compose_impl(v474, value, 0, 0, &_mh_execute_header, v473, 0, "Setting lastUsers to 502 User", err, v604);
+
+                                      if (v475)
+                                      {
+                                        sub_100002A8C(v475);
+                                      }
+                                    }
+
+                                    else
+                                    {
+
+                                      v475 = 0;
+                                    }
+
+                                    v7 = &off_1000EB000;
+                                    free(v475);
+                                  }
+
+                                  v1 = &off_1000EB000;
+                                  if (sub_10007324C("/var/Users", &v643))
+                                  {
+                                    if (qword_1000EB310 != -1)
+                                    {
+                                      sub_100089CEC();
+                                    }
+
+                                    v476 = qword_1000EB308;
+                                    if (!os_log_type_enabled(v476, OS_LOG_TYPE_DEFAULT))
+                                    {
+                                      goto LABEL_1152;
+                                    }
+
+                                    value[0] = 0;
+                                    v477 = sub_1000011A8(1);
+                                    v476 = v476;
+                                    if (os_log_type_enabled(v476, OS_LOG_TYPE_DEFAULT))
+                                    {
+                                      v478 = v477;
+                                    }
+
+                                    else
+                                    {
+                                      v478 = v477 & 0xFFFFFFFE;
+                                    }
+
+                                    if (v478)
+                                    {
+                                      *err = 0;
+                                      LODWORD(v604) = 2;
+                                      v479 = _os_log_send_and_compose_impl(v478, value, 0, 0, &_mh_execute_header, v476, 0, "Successful setting of Last Booted User", err, v604);
+                                      goto LABEL_1148;
+                                    }
+                                  }
+
+                                  else
+                                  {
+                                    if (qword_1000EB310 != -1)
+                                    {
+                                      sub_100089CEC();
+                                    }
+
+                                    v480 = qword_1000EB308;
+                                    if (os_log_type_enabled(v480, OS_LOG_TYPE_DEFAULT))
+                                    {
+                                      value[0] = 0;
+                                      v481 = sub_1000011A8(1);
+                                      v482 = v480;
+                                      if (os_log_type_enabled(v482, OS_LOG_TYPE_DEFAULT))
+                                      {
+                                        v483 = v481;
+                                      }
+
+                                      else
+                                      {
+                                        v483 = v481 & 0xFFFFFFFE;
+                                      }
+
+                                      if (v483)
+                                      {
+                                        *err = 0;
+                                        LODWORD(v604) = 2;
+                                        v484 = _os_log_send_and_compose_impl(v483, value, 0, 0, &_mh_execute_header, v482, 0, "Failed to set Last Booted User", err, v604);
+
+                                        if (v484)
+                                        {
+                                          sub_100002A8C(v484);
+                                        }
+                                      }
+
+                                      else
+                                      {
+
+                                        v484 = 0;
+                                      }
+
+                                      v7 = &off_1000EB000;
+                                      free(v484);
+                                      v1 = 0x1000EB000;
                                     }
 
                                     if (qword_1000EB310 != -1)
@@ -6843,57 +9966,57 @@ LABEL_1090:
                                       sub_100089CEC();
                                     }
 
-                                    v468 = qword_1000EB308;
-                                    if (!os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
+                                    v476 = qword_1000EB308;
+                                    if (!os_log_type_enabled(v476, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      goto LABEL_1145;
+                                      goto LABEL_1152;
                                     }
 
                                     value[0] = 0;
-                                    v476 = sub_1000011A8(1);
-                                    v468 = v468;
-                                    if (os_log_type_enabled(v468, OS_LOG_TYPE_DEFAULT))
+                                    v485 = sub_1000011A8(1);
+                                    v476 = v476;
+                                    if (os_log_type_enabled(v476, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      v477 = v476;
+                                      v486 = v485;
                                     }
 
                                     else
                                     {
-                                      v477 = v476 & 0xFFFFFFFE;
+                                      v486 = v485 & 0xFFFFFFFE;
                                     }
 
-                                    if (v477)
+                                    if (v486)
                                     {
                                       *err = 0;
-                                      LODWORD(v605) = 2;
-                                      v603 = err;
-LABEL_1141:
-                                      v478 = _os_log_send_and_compose_impl();
+                                      LODWORD(v604) = 2;
+                                      v479 = _os_log_send_and_compose_impl(v486, value, 0, 0, &_mh_execute_header, v476, 0, "Ignoring the failure as this is mere cleanup", err, v604);
+LABEL_1148:
+                                      v487 = v479;
 
-                                      if (v478)
+                                      if (v487)
                                       {
-                                        sub_100002A8C(v478);
+                                        sub_100002A8C(v487);
                                       }
 
-                                      goto LABEL_1144;
+                                      goto LABEL_1151;
                                     }
                                   }
 
-                                  v478 = 0;
-LABEL_1144:
-                                  free(v478);
-                                  v6 = &off_1000EB000;
-LABEL_1145:
+                                  v487 = 0;
+LABEL_1151:
+                                  free(v487);
+                                  v7 = &off_1000EB000;
+LABEL_1152:
 
-                                  if (v607)
+                                  if (v605)
                                   {
-                                    CFRelease(v607);
+                                    CFRelease(v605);
                                   }
 
                                   CFDictionarySetValue(cf, kUMUserSessionNeedsCryptoSetupKey, kCFBooleanFalse);
-                                  v300 = cf;
-                                  v45 = &off_1000EB000;
-                                  goto LABEL_1148;
+                                  v302 = cf;
+                                  v44 = &off_1000EB000;
+                                  goto LABEL_1155;
                                 }
 
                                 if (qword_1000EB310 != -1)
@@ -6901,50 +10024,51 @@ LABEL_1145:
                                   sub_100089CEC();
                                 }
 
-                                v549 = qword_1000EB308;
-                                if (!os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+                                v554 = qword_1000EB308;
+                                if (!os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
                                 {
-LABEL_1470:
+LABEL_1482:
 
                                   sleep(2u);
-                                  sub_100018028("UserManagement early boot task Unable to find 501 uuid");
-                                  goto LABEL_1471;
+                                  v591 = sub_100018028("UserManagement early boot task Unable to find 501 uuid");
+                                  goto LABEL_1483;
                                 }
 
                                 value[0] = 0;
-                                v570 = sub_1000011A8(1);
-                                v0 = v549;
+                                v573 = sub_1000011A8(1);
+                                v0 = v554;
                                 if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                                 {
-                                  v571 = v570;
+                                  v574 = v573;
                                 }
 
                                 else
                                 {
-                                  v571 = v570 & 0xFFFFFFFE;
+                                  v574 = v573 & 0xFFFFFFFE;
                                 }
 
-                                if (!v571)
+                                if (!v574)
                                 {
 
-                                  v572 = 0;
-LABEL_1469:
-                                  free(v572);
-                                  goto LABEL_1470;
+                                  v575 = 0;
+LABEL_1481:
+                                  free(v575);
+                                  goto LABEL_1482;
                                 }
 
-LABEL_1467:
+LABEL_1479:
                                 *err = 0;
-                                v600 = _os_log_send_and_compose_impl();
+                                LODWORD(v604) = 2;
+                                v602 = _os_log_send_and_compose_impl(v574, value, 0, 0, &_mh_execute_header, v0, 0, "Unable to find 501 uuid string ", err, v604);
 
-                                v572 = 0;
-                                if (v600)
+                                v575 = 0;
+                                if (v602)
                                 {
-                                  sub_100002A8C(v600);
-                                  v572 = v600;
+                                  sub_100002A8C(v602);
+                                  v575 = v602;
                                 }
 
-                                goto LABEL_1469;
+                                goto LABEL_1481;
                               }
 
                               if (qword_1000EB310 != -1)
@@ -6952,137 +10076,135 @@ LABEL_1467:
                                 sub_100089CEC();
                               }
 
-                              v549 = qword_1000EB308;
-                              if (!os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+                              v554 = qword_1000EB308;
+                              if (!os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
                               {
-LABEL_1466:
+LABEL_1478:
 
                                 sleep(2u);
-                                sub_100018028("Failed deletion of 501 User Volume error:%d", v645);
-                                goto LABEL_1467;
+                                v574 = sub_100018028("Failed deletion of 501 User Volume error:%d", v643);
+                                goto LABEL_1479;
                               }
 
                               value[0] = 0;
-                              v567 = sub_1000011A8(1);
-                              v0 = v549;
+                              v570 = sub_1000011A8(1);
+                              v0 = v554;
                               if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                               {
-                                v568 = v567;
+                                v571 = v570;
                               }
 
                               else
                               {
-                                v568 = v567 & 0xFFFFFFFE;
+                                v571 = v570 & 0xFFFFFFFE;
                               }
 
-                              if (!v568)
+                              if (!v571)
                               {
 
-                                v569 = 0;
-LABEL_1465:
-                                free(v569);
-                                goto LABEL_1466;
+                                v572 = 0;
+LABEL_1477:
+                                free(v572);
+                                goto LABEL_1478;
                               }
 
-LABEL_1463:
+LABEL_1475:
                               *err = 67109120;
-                              *&err[4] = v645;
-                              v599 = _os_log_send_and_compose_impl();
+                              *&err[4] = v643;
+                              v601 = _os_log_send_and_compose_impl(v571, value, 0, 0, &_mh_execute_header, v0, 0, "Failed deletion of 501 User Volume,error:%d", err);
 
-                              v569 = 0;
-                              if (v599)
+                              v572 = 0;
+                              if (v601)
                               {
-                                sub_100002A8C(v599);
-                                v569 = v599;
+                                sub_100002A8C(v601);
+                                v572 = v601;
                               }
 
-                              goto LABEL_1465;
+                              goto LABEL_1477;
                             }
 
-                            v348 = v347;
+                            v351 = v350;
                             if (qword_1000EB310 != -1)
                             {
                               sub_100089CEC();
                             }
 
-                            v349 = qword_1000EB308;
-                            if (os_log_type_enabled(v349, OS_LOG_TYPE_DEFAULT))
+                            v352 = qword_1000EB308;
+                            if (os_log_type_enabled(v352, OS_LOG_TYPE_DEFAULT))
                             {
                               *err = 0;
-                              v350 = sub_1000011A8(1);
-                              v351 = v349;
-                              if (os_log_type_enabled(v351, OS_LOG_TYPE_DEFAULT))
+                              v353 = sub_1000011A8(1);
+                              v354 = v352;
+                              if (os_log_type_enabled(v354, OS_LOG_TYPE_DEFAULT))
                               {
-                                v352 = v350;
+                                v355 = v353;
                               }
 
                               else
                               {
-                                v352 = v350 & 0xFFFFFFFE;
+                                v355 = v353 & 0xFFFFFFFE;
                               }
 
-                              if (v352)
+                              if (v355)
                               {
                                 LODWORD(value[0]) = 138412290;
-                                *(value + 4) = v348;
-                                LODWORD(v605) = 12;
-                                v603 = value;
-                                v353 = _os_log_send_and_compose_impl();
+                                *(value + 4) = v351;
+                                LODWORD(v604) = 12;
+                                v356 = _os_log_send_and_compose_impl(v355, err, 0, 0, &_mh_execute_header, v354, 0, "Calling AKSVolumeUnmap with disk:%@ if 501 User", value, v604);
 
-                                if (v353)
+                                if (v356)
                                 {
-                                  sub_100002A8C(v353);
+                                  sub_100002A8C(v356);
                                 }
                               }
 
                               else
                               {
 
-                                v353 = 0;
+                                v356 = 0;
                               }
 
-                              v7 = &off_1000EB000;
-                              free(v353);
+                              v8 = &off_1000EB000;
+                              free(v356);
                             }
 
-                            v6 = sub_100089A80(qword_1000EB608);
-                            v618 = 0;
-                            v357 = [v6 unmapVolume:v348 error:&v618];
-                            v354 = v618;
+                            v7 = sub_100089A80(qword_1000EB608);
+                            v616 = 0;
+                            v360 = [v7 unmapVolume:v351 error:&v616];
+                            v357 = v616;
 
-                            if (v357)
+                            if (v360)
                             {
                               if (qword_1000EB310 != -1)
                               {
                                 sub_100089CEC();
                               }
 
-                              v45 = &off_1000EB000;
-                              v358 = qword_1000EB308;
-                              if (!os_log_type_enabled(v358, OS_LOG_TYPE_DEFAULT))
+                              v44 = &off_1000EB000;
+                              v361 = qword_1000EB308;
+                              if (!os_log_type_enabled(v361, OS_LOG_TYPE_DEFAULT))
                               {
-                                goto LABEL_847;
+                                goto LABEL_852;
                               }
 
                               value[0] = 0;
-                              v359 = sub_1000011A8(1);
-                              v358 = v358;
-                              if (os_log_type_enabled(v358, OS_LOG_TYPE_DEFAULT))
+                              v362 = sub_1000011A8(1);
+                              v361 = v361;
+                              if (os_log_type_enabled(v361, OS_LOG_TYPE_DEFAULT))
                               {
-                                v360 = v359;
+                                v363 = v362;
                               }
 
                               else
                               {
-                                v360 = v359 & 0xFFFFFFFE;
+                                v363 = v362 & 0xFFFFFFFE;
                               }
 
-                              if (v360)
+                              if (v363)
                               {
                                 *err = 0;
-                                LODWORD(v605) = 2;
-                                v603 = err;
-                                goto LABEL_843;
+                                v364 = _os_log_send_and_compose_impl(v363, value, 0, 0, &_mh_execute_header, v361, 0, "Volume Unmap of 501 session succeeded");
+                                goto LABEL_848;
                               }
                             }
 
@@ -7093,47 +10215,51 @@ LABEL_1463:
                                 sub_100089CEC();
                               }
 
-                              v45 = &off_1000EB000;
-                              v358 = qword_1000EB308;
-                              if (!os_log_type_enabled(v358, OS_LOG_TYPE_DEFAULT))
+                              v44 = &off_1000EB000;
+                              v361 = qword_1000EB308;
+                              if (!os_log_type_enabled(v361, OS_LOG_TYPE_DEFAULT))
                               {
-                                goto LABEL_847;
+                                goto LABEL_852;
                               }
 
                               *err = 0;
-                              v361 = sub_1000011A8(1);
-                              v358 = v358;
-                              if (!os_log_type_enabled(v358, OS_LOG_TYPE_DEFAULT))
+                              LODWORD(v365) = sub_1000011A8(1);
+                              v361 = v361;
+                              if (os_log_type_enabled(v361, OS_LOG_TYPE_DEFAULT))
                               {
-                                v361 &= ~1u;
+                                v365 = v365;
                               }
 
-                              if (v361)
+                              else
                               {
-                                v362 = [v354 code];
-                                LODWORD(value[0]) = 134217984;
-                                *(value + 4) = v362;
-                                LODWORD(v605) = 12;
-                                v603 = value;
-LABEL_843:
-                                v6 = _os_log_send_and_compose_impl();
+                                v365 = v365 & 0xFFFFFFFE;
+                              }
 
-                                if (v6)
+                              if (v365)
+                              {
+                                v366 = [v357 code];
+                                LODWORD(value[0]) = 134217984;
+                                *(value + 4) = v366;
+                                v364 = _os_log_send_and_compose_impl(v365, err, 0, 0, &_mh_execute_header, v361, 0, "AKS volumeUnmap failed for 501 with error:%ld", value);
+LABEL_848:
+                                v7 = v364;
+
+                                if (v7)
                                 {
-                                  sub_100002A8C(v6);
+                                  sub_100002A8C(v7);
                                 }
 
-                                goto LABEL_846;
+                                goto LABEL_851;
                               }
                             }
 
-                            v6 = 0;
-LABEL_846:
-                            free(v6);
-LABEL_847:
+                            v7 = 0;
+LABEL_851:
+                            free(v7);
+LABEL_852:
 
-                            v334 = v615;
-                            goto LABEL_907;
+                            v337 = v613;
+                            goto LABEL_912;
                           }
 
                           if (qword_1000EB310 != -1)
@@ -7141,51 +10267,52 @@ LABEL_847:
                             sub_100089CEC();
                           }
 
-                          v549 = qword_1000EB308;
-                          if (!os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+                          v554 = qword_1000EB308;
+                          if (!os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
                           {
-LABEL_1462:
+LABEL_1474:
 
                             sleep(2u);
-                            v598 = CFErrorGetCode(uuid[0]);
-                            sub_100018028("FAILED to transfer Primary from 501 -> 502:with error:%ld", v598);
-                            goto LABEL_1463;
+                            v600 = CFErrorGetCode(uuid[0]);
+                            v571 = sub_100018028("FAILED to transfer Primary from 501 -> 502:with error:%ld", v600);
+                            goto LABEL_1475;
                           }
 
                           value[0] = 0;
-                          v564 = sub_1000011A8(1);
-                          v0 = v549;
+                          v567 = sub_1000011A8(1);
+                          v0 = v554;
                           if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                           {
-                            v565 = v564;
+                            v568 = v567;
                           }
 
                           else
                           {
-                            v565 = v564 & 0xFFFFFFFE;
+                            v568 = v567 & 0xFFFFFFFE;
                           }
 
-                          if (!v565)
+                          if (!v568)
                           {
 
-                            v566 = 0;
-LABEL_1461:
-                            free(v566);
-                            goto LABEL_1462;
+                            v569 = 0;
+LABEL_1473:
+                            free(v569);
+                            goto LABEL_1474;
                           }
 
-LABEL_1459:
+LABEL_1471:
                           *err = 0;
-                          v597 = _os_log_send_and_compose_impl();
+                          LODWORD(v604) = 2;
+                          v599 = _os_log_send_and_compose_impl(v568, value, 0, 0, &_mh_execute_header, v0, 0, "FAILED to transfer Primary from 501 -> 502", err, v604);
 
-                          v566 = 0;
-                          if (v597)
+                          v569 = 0;
+                          if (v599)
                           {
-                            sub_100002A8C(v597);
-                            v566 = v597;
+                            sub_100002A8C(v599);
+                            v569 = v599;
                           }
 
-                          goto LABEL_1461;
+                          goto LABEL_1473;
                         }
 
                         if (qword_1000EB310 != -1)
@@ -7193,48 +10320,53 @@ LABEL_1459:
                           sub_100089CEC();
                         }
 
-                        v549 = v7[97];
-                        if (!os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+                        v554 = v8[97];
+                        if (!os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
                         {
-LABEL_1458:
+LABEL_1470:
 
                           sleep(2u);
-                          v596 = CFErrorGetCode(uuid[0]);
-                          sub_100018028("FAILED to ensure 501 user Identity is loaded with error:%ld", v596);
-                          goto LABEL_1459;
+                          v598 = CFErrorGetCode(uuid[0]);
+                          v568 = sub_100018028("FAILED to ensure 501 user Identity is loaded with error:%ld", v598);
+                          goto LABEL_1471;
                         }
 
                         *err = 0;
-                        v562 = sub_1000011A8(1);
-                        v0 = v549;
-                        if (!os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+                        LODWORD(v290) = sub_1000011A8(1);
+                        v0 = v554;
+                        if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                         {
-                          v562 &= ~1u;
+                          v290 = v290;
                         }
 
-                        if (!v562)
+                        else
                         {
-
-                          v563 = 0;
-LABEL_1457:
-                          free(v563);
-                          goto LABEL_1458;
+                          v290 = v290 & 0xFFFFFFFE;
                         }
 
-LABEL_1455:
-                        v594 = CFErrorGetCode(uuid[0]);
+                        if (!v290)
+                        {
+
+                          v566 = 0;
+LABEL_1469:
+                          free(v566);
+                          goto LABEL_1470;
+                        }
+
+LABEL_1467:
+                        v596 = CFErrorGetCode(uuid[0]);
                         LODWORD(value[0]) = 134217984;
-                        *(value + 4) = v594;
-                        v595 = _os_log_send_and_compose_impl();
+                        *(value + 4) = v596;
+                        v597 = _os_log_send_and_compose_impl(v290, err, 0, 0, &_mh_execute_header, v0, 0, "FAILED to ensure 501 user Identity is loaded with error:%ld", value);
 
-                        v563 = 0;
-                        if (v595)
+                        v566 = 0;
+                        if (v597)
                         {
-                          sub_100002A8C(v595);
-                          v563 = v595;
+                          sub_100002A8C(v597);
+                          v566 = v597;
                         }
 
-                        goto LABEL_1457;
+                        goto LABEL_1469;
                       }
 
                       if (qword_1000EB310 != -1)
@@ -7242,50 +10374,51 @@ LABEL_1455:
                         sub_100089CEC();
                       }
 
-                      v549 = v7[97];
-                      if (!os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+                      v554 = v8[97];
+                      if (!os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
                       {
-LABEL_1454:
+LABEL_1466:
 
                         sleep(2u);
                         sub_100018028("FAILED to build 501 NSUUID to migrate to 502");
-                        goto LABEL_1455;
+                        goto LABEL_1467;
                       }
 
                       value[0] = 0;
-                      v559 = sub_1000011A8(1);
-                      v0 = v549;
+                      v290 = sub_1000011A8(1);
+                      v0 = v554;
                       if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                       {
-                        v560 = v559;
+                        v564 = v290;
                       }
 
                       else
                       {
-                        v560 = v559 & 0xFFFFFFFE;
+                        v564 = v290 & 0xFFFFFFFE;
                       }
 
-                      if (!v560)
+                      if (!v564)
                       {
 
-                        v561 = 0;
-LABEL_1453:
-                        free(v561);
-                        goto LABEL_1454;
+                        v565 = 0;
+LABEL_1465:
+                        free(v565);
+                        goto LABEL_1466;
                       }
 
-LABEL_1451:
+LABEL_1463:
                       *err = 0;
-                      v593 = _os_log_send_and_compose_impl();
+                      LODWORD(v604) = 2;
+                      v290 = _os_log_send_and_compose_impl(v564, value, 0, 0, &_mh_execute_header, v0, 0, "FAILED to build 501 NSUUID to migrate to 502", err, v604);
 
-                      v561 = 0;
-                      if (v593)
+                      v565 = 0;
+                      if (v290)
                       {
-                        sub_100002A8C(v593);
-                        v561 = v593;
+                        sub_100002A8C(v290);
+                        v565 = v290;
                       }
 
-                      goto LABEL_1453;
+                      goto LABEL_1465;
                     }
 
                     if (qword_1000EB310 != -1)
@@ -7293,50 +10426,51 @@ LABEL_1451:
                       sub_100089CEC();
                     }
 
-                    v549 = v7[97];
-                    if (!os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+                    v554 = v8[97];
+                    if (!os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
                     {
-LABEL_1450:
+LABEL_1462:
 
                       sleep(2u);
-                      sub_100018028("FAILED to construct CF501 uuid to migrate to 502");
-                      goto LABEL_1451;
+                      v564 = sub_100018028("FAILED to construct CF501 uuid to migrate to 502");
+                      goto LABEL_1463;
                     }
 
                     value[0] = 0;
-                    v556 = sub_1000011A8(1);
-                    v0 = v549;
+                    v561 = sub_1000011A8(1);
+                    v0 = v554;
                     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                     {
-                      v557 = v556;
+                      v562 = v561;
                     }
 
                     else
                     {
-                      v557 = v556 & 0xFFFFFFFE;
+                      v562 = v561 & 0xFFFFFFFE;
                     }
 
-                    if (!v557)
+                    if (!v562)
                     {
 
-                      v558 = 0;
-LABEL_1449:
-                      free(v558);
-                      goto LABEL_1450;
+                      v563 = 0;
+LABEL_1461:
+                      free(v563);
+                      goto LABEL_1462;
                     }
 
-LABEL_1447:
+LABEL_1459:
                     *err = 0;
-                    v592 = _os_log_send_and_compose_impl();
+                    LODWORD(v604) = 2;
+                    v595 = _os_log_send_and_compose_impl(v562, value, 0, 0, &_mh_execute_header, v0, 0, "FAILED to construct CF501 uuid to migrate to 502", err, v604);
 
-                    v558 = 0;
-                    if (v592)
+                    v563 = 0;
+                    if (v595)
                     {
-                      sub_100002A8C(v592);
-                      v558 = v592;
+                      sub_100002A8C(v595);
+                      v563 = v595;
                     }
 
-                    goto LABEL_1449;
+                    goto LABEL_1461;
                   }
 
                   if (qword_1000EB310 != -1)
@@ -7344,36 +10478,36 @@ LABEL_1447:
                     sub_100089CEC();
                   }
 
-                  v549 = v7[97];
-                  if (!os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+                  v554 = v8[97];
+                  if (!os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
                   {
-LABEL_1446:
+LABEL_1458:
 
                     sleep(2u);
-                    sub_100018028("FAILED to locate 501 uuid string to migrate OTI to 502");
-                    goto LABEL_1447;
+                    v562 = sub_100018028("FAILED to locate 501 uuid string to migrate OTI to 502");
+                    goto LABEL_1459;
                   }
 
                   value[0] = 0;
-                  v553 = sub_1000011A8(1);
-                  v0 = v549;
+                  v558 = sub_1000011A8(1);
+                  v0 = v554;
                   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                   {
-                    v554 = v553;
+                    v559 = v558;
                   }
 
                   else
                   {
-                    v554 = v553 & 0xFFFFFFFE;
+                    v559 = v558 & 0xFFFFFFFE;
                   }
 
-                  if (!v554)
+                  if (!v559)
                   {
 
-                    v555 = 0;
-LABEL_1445:
-                    free(v555);
-                    goto LABEL_1446;
+                    v560 = 0;
+LABEL_1457:
+                    free(v560);
+                    goto LABEL_1458;
                   }
                 }
 
@@ -7384,137 +10518,138 @@ LABEL_1445:
                     sub_100089CEC();
                   }
 
-                  v549 = v7[97];
-                  if (os_log_type_enabled(v549, OS_LOG_TYPE_DEFAULT))
+                  v554 = v8[97];
+                  if (os_log_type_enabled(v554, OS_LOG_TYPE_DEFAULT))
                   {
                     value[0] = 0;
-                    v550 = sub_1000011A8(1);
-                    v0 = v549;
+                    v555 = sub_1000011A8(1);
+                    v0 = v554;
                     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
                     {
-                      v551 = v550;
+                      v556 = v555;
                     }
 
                     else
                     {
-                      v551 = v550 & 0xFFFFFFFE;
+                      v556 = v555 & 0xFFFFFFFE;
                     }
 
-                    if (v551)
+                    if (v556)
                     {
                       *err = 0;
-                      v590 = _os_log_send_and_compose_impl();
+                      LODWORD(v604) = 2;
+                      v593 = _os_log_send_and_compose_impl(v556, value, 0, 0, &_mh_execute_header, v0, 0, "Unable to find 501 session", err, v604);
 
-                      v552 = 0;
-                      if (v590)
+                      v557 = 0;
+                      if (v593)
                       {
-                        sub_100002A8C(v590);
-                        v552 = v590;
+                        sub_100002A8C(v593);
+                        v557 = v593;
                       }
                     }
 
                     else
                     {
 
-                      v552 = 0;
+                      v557 = 0;
                     }
 
-                    free(v552);
+                    free(v557);
                   }
 
                   sleep(2u);
-                  sub_100018028("UserManagement early boot task Unable to find 501 session");
+                  v559 = sub_100018028("UserManagement early boot task Unable to find 501 session");
                 }
 
                 *err = 0;
-                v591 = _os_log_send_and_compose_impl();
+                LODWORD(v604) = 2;
+                v594 = _os_log_send_and_compose_impl(v559, value, 0, 0, &_mh_execute_header, v0, 0, "FAILED to locate 501 uuid string to migrate OTI to 502", err, v604);
 
-                v555 = 0;
-                if (v591)
+                v560 = 0;
+                if (v594)
                 {
-                  sub_100002A8C(v591);
-                  v555 = v591;
+                  sub_100002A8C(v594);
+                  v560 = v594;
                 }
 
-                goto LABEL_1445;
+                goto LABEL_1457;
               }
 
-              v299 = 0;
+              v301 = 0;
             }
 
             else
             {
-              v299 = 0;
-              v6 = &off_1000EB000;
-              v45 = &off_1000EB000;
+              v301 = 0;
+              v7 = &off_1000EB000;
+              v44 = &off_1000EB000;
             }
 
-            v300 = cf;
-LABEL_1148:
-            CFRelease(v300);
-            CFRelease(v611);
+            v302 = cf;
+LABEL_1155:
+            CFRelease(v302);
+            CFRelease(v609);
             if (uuid[0])
             {
               CFRelease(uuid[0]);
               uuid[0] = 0;
             }
 
-            goto LABEL_1150;
+            goto LABEL_1157;
           }
         }
 
-LABEL_1227:
+LABEL_1234:
         if (qword_1000EB310 != -1)
         {
           sub_100089CEC();
         }
 
-        v501 = v7[97];
-        if (!os_log_type_enabled(v501, OS_LOG_TYPE_DEFAULT))
+        v511 = v8[97];
+        if (!os_log_type_enabled(v511, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_1274;
+          goto LABEL_1281;
         }
 
         value[0] = 0;
-        v504 = sub_1000011A8(1);
-        v0 = v501;
+        v1 = sub_1000011A8(1);
+        v0 = v511;
         if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
         {
-          v505 = v504;
+          v514 = v1;
         }
 
         else
         {
-          v505 = v504 & 0xFFFFFFFE;
+          v514 = v1 & 0xFFFFFFFE;
         }
 
-        if (!v505)
+        if (!v514)
         {
 
-          v506 = 0;
-LABEL_1273:
-          free(v506);
-LABEL_1274:
+          v515 = 0;
+LABEL_1280:
+          free(v515);
+LABEL_1281:
 
           sleep(2u);
           sub_100018028("UserManagement early boot task unable to find uuid or create CFUUID of Update install user");
-          goto LABEL_1275;
+          goto LABEL_1282;
         }
 
-LABEL_1271:
+LABEL_1278:
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v521 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v1 = _os_log_send_and_compose_impl(v514, value, 0, 0, &_mh_execute_header, v0, 0, "Unable to find uuid or create CFUUID of Update install user", err, v604);
 
-        v506 = 0;
-        if (v521)
+        v515 = 0;
+        if (v1)
         {
-          sub_100002A8C(v521);
-          v506 = v521;
+          sub_100002A8C(v1);
+          v515 = v1;
         }
 
-        goto LABEL_1273;
+        goto LABEL_1280;
       }
 
       if (qword_1000EB310 != -1)
@@ -7522,41 +10657,41 @@ LABEL_1271:
         sub_100089CEC();
       }
 
-      v0 = v7[97];
+      v0 = v8[97];
       if (!os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-LABEL_563:
+LABEL_566:
 
-        goto LABEL_564;
+        goto LABEL_567;
       }
 
       value[0] = 0;
-      v224 = sub_1000011A8(1);
+      v226 = sub_1000011A8(1);
       v0 = v0;
       if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-        v225 = v224;
+        v227 = v226;
       }
 
       else
       {
-        v225 = v224 & 0xFFFFFFFE;
+        v227 = v226 & 0xFFFFFFFE;
       }
 
-      if (v225)
+      if (v227)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-LABEL_559:
-        v226 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v225 = _os_log_send_and_compose_impl(v227, value, 0, 0, &_mh_execute_header, v0, 0, "Erase Install, getting user UUID to setup AKS", err, v604);
+LABEL_562:
+        v228 = v225;
 
-        if (v226)
+        if (v228)
         {
-          sub_100002A8C(v226);
+          sub_100002A8C(v228);
         }
 
-        goto LABEL_562;
+        goto LABEL_565;
       }
     }
 
@@ -7567,39 +10702,39 @@ LABEL_559:
         sub_100089CEC();
       }
 
-      v0 = v7[97];
+      v0 = v8[97];
       if (!os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_563;
+        goto LABEL_566;
       }
 
       value[0] = 0;
-      v222 = sub_1000011A8(1);
+      v223 = sub_1000011A8(1);
       v0 = v0;
       if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
       {
-        v223 = v222;
+        v224 = v223;
       }
 
       else
       {
-        v223 = v222 & 0xFFFFFFFE;
+        v224 = v223 & 0xFFFFFFFE;
       }
 
-      if (v223)
+      if (v224)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        goto LABEL_559;
+        LODWORD(v604) = 2;
+        v225 = _os_log_send_and_compose_impl(v224, value, 0, 0, &_mh_execute_header, v0, 0, "Regular Boot", err, v604);
+        goto LABEL_562;
       }
     }
 
-    v226 = 0;
-LABEL_562:
-    free(v226);
-    v44 = &off_1000EB000;
-    goto LABEL_563;
+    v228 = 0;
+LABEL_565:
+    free(v228);
+    v1 = &off_1000EB000;
+    goto LABEL_566;
   }
 
   if (qword_1000EB310 != -1)
@@ -7607,3982 +10742,288 @@ LABEL_562:
     sub_100089CEC();
   }
 
-  v0 = v7[97];
+  v0 = v8[97];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
     value[0] = 0;
-    v219 = sub_1000011A8(1);
+    v220 = sub_1000011A8(1);
     v0 = v0;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v220 = v219;
+      v221 = v220;
     }
 
     else
     {
-      v220 = v219 & 0xFFFFFFFE;
+      v221 = v220 & 0xFFFFFFFE;
     }
 
-    if (v220)
+    if (v221)
     {
       *err = 0;
-      LODWORD(v605) = 2;
-      v603 = err;
-      v221 = _os_log_send_and_compose_impl();
+      LODWORD(v604) = 2;
+      v222 = _os_log_send_and_compose_impl(v221, value, 0, 0, &_mh_execute_header, v0, 0, "Not in Enhanced APFS Mode..", err, v604);
 
-      if (v221)
+      if (v222)
       {
-        sub_100002A8C(v221);
+        sub_100002A8C(v222);
       }
     }
 
     else
     {
 
-      v221 = 0;
+      v222 = 0;
     }
 
-    free(v221);
-    v44 = &off_1000EB000;
+    free(v222);
+    v1 = 0x1000EB000;
   }
 
-LABEL_1156:
+LABEL_1163:
 
-  sub_10003FC14(v133, -1, (v123 | byte_1000EB603) & 1, 0);
-  if ([v45[91] splitUserVolumeEnabled] && sub_100079BA8() == 100)
+  sub_10003FC14(v134, -1, (v124 | byte_1000EB603) & 1, 0);
+  if ([v44[91] splitUserVolumeEnabled] && sub_100079BA8() == 100)
   {
-    if (v6[98].isa != -1)
+    if (v7[98].isa != -1)
     {
       sub_100089CEC();
     }
 
-    v480 = v7[97];
-    if (os_log_type_enabled(v480, OS_LOG_TYPE_DEFAULT))
+    v489 = v8[97];
+    if (os_log_type_enabled(v489, OS_LOG_TYPE_DEFAULT))
     {
       value[0] = 0;
-      v481 = sub_1000011A8(1);
-      v482 = v480;
-      if (os_log_type_enabled(v482, OS_LOG_TYPE_DEFAULT))
+      v490 = sub_1000011A8(1);
+      v491 = v489;
+      if (os_log_type_enabled(v491, OS_LOG_TYPE_DEFAULT))
       {
-        v483 = v481;
+        v492 = v490;
       }
 
       else
       {
-        v483 = v481 & 0xFFFFFFFE;
-      }
-
-      if (v483)
-      {
-        *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        v484 = _os_log_send_and_compose_impl();
-
-        if (v484)
-        {
-          sub_100002A8C(v484);
-        }
-      }
-
-      else
-      {
-
-        v484 = 0;
-      }
-
-      free(v484);
-      v44 = &off_1000EB000;
-    }
-
-    v485 = sub_1000013A0(qword_1000EB608);
-    v486 = [v485 removeFileAtPath:@"/private/var/mobile/Library/Preferences/com.apple.migration.plist" error:0];
-
-    isa = v6[98].isa;
-    if (v486)
-    {
-      if (isa != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v488 = v7[97];
-      if (!os_log_type_enabled(v488, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_1190;
-      }
-
-      value[0] = 0;
-      v489 = sub_1000011A8(1);
-      v488 = v488;
-      if (os_log_type_enabled(v488, OS_LOG_TYPE_DEFAULT))
-      {
-        v490 = v489;
-      }
-
-      else
-      {
-        v490 = v489 & 0xFFFFFFFE;
-      }
-
-      if (v490)
-      {
-        *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-        goto LABEL_1186;
-      }
-    }
-
-    else
-    {
-      if (isa != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v488 = v7[97];
-      if (!os_log_type_enabled(v488, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_1190;
-      }
-
-      value[0] = 0;
-      v491 = sub_1000011A8(1);
-      v488 = v488;
-      if (os_log_type_enabled(v488, OS_LOG_TYPE_DEFAULT))
-      {
-        v492 = v491;
-      }
-
-      else
-      {
-        v492 = v491 & 0xFFFFFFFE;
+        v492 = v490 & 0xFFFFFFFE;
       }
 
       if (v492)
       {
         *err = 0;
-        LODWORD(v605) = 2;
-        v603 = err;
-LABEL_1186:
-        v493 = _os_log_send_and_compose_impl();
+        LODWORD(v604) = 2;
+        v493 = _os_log_send_and_compose_impl(v492, value, 0, 0, &_mh_execute_header, v491, 0, "UM debug panic boot arg umd-migration-debug=100, Trying to redo Volume Migration, clearing DM plsit file ..", err, v604);
 
         if (v493)
         {
           sub_100002A8C(v493);
         }
+      }
 
-        goto LABEL_1189;
+      else
+      {
+
+        v493 = 0;
+      }
+
+      free(v493);
+      v1 = 0x1000EB000;
+    }
+
+    v494 = sub_1000013A0(qword_1000EB608);
+    v495 = [v494 removeFileAtPath:@"/private/var/mobile/Library/Preferences/com.apple.migration.plist" error:0];
+
+    isa = v7[98].isa;
+    if (v495)
+    {
+      if (isa != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v497 = v8[97];
+      if (!os_log_type_enabled(v497, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_1197;
+      }
+
+      value[0] = 0;
+      v498 = sub_1000011A8(1);
+      v497 = v497;
+      if (os_log_type_enabled(v497, OS_LOG_TYPE_DEFAULT))
+      {
+        v499 = v498;
+      }
+
+      else
+      {
+        v499 = v498 & 0xFFFFFFFE;
+      }
+
+      if (v499)
+      {
+        *err = 0;
+        LODWORD(v604) = 2;
+        v500 = _os_log_send_and_compose_impl(v499, value, 0, 0, &_mh_execute_header, v497, 0, "Removed DM PLIST, continuing to boot.. ", err, v604);
+        goto LABEL_1193;
       }
     }
 
-    v493 = 0;
-LABEL_1189:
-    free(v493);
-LABEL_1190:
+    else
+    {
+      if (isa != -1)
+      {
+        sub_100089CEC();
+      }
+
+      v497 = v8[97];
+      if (!os_log_type_enabled(v497, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_1197;
+      }
+
+      value[0] = 0;
+      v501 = sub_1000011A8(1);
+      v497 = v497;
+      if (os_log_type_enabled(v497, OS_LOG_TYPE_DEFAULT))
+      {
+        v502 = v501;
+      }
+
+      else
+      {
+        v502 = v501 & 0xFFFFFFFE;
+      }
+
+      if (v502)
+      {
+        *err = 0;
+        LODWORD(v604) = 2;
+        v500 = _os_log_send_and_compose_impl(v502, value, 0, 0, &_mh_execute_header, v497, 0, "Unlink of DM Plist failed, unfortunately can't recover..", err, v604);
+LABEL_1193:
+        v503 = v500;
+
+        if (v503)
+        {
+          sub_100002A8C(v503);
+        }
+
+        goto LABEL_1196;
+      }
+    }
+
+    v503 = 0;
+LABEL_1196:
+    free(v503);
+LABEL_1197:
   }
 
-  if (![v45[91] splitUserVolumeEnabled] || !(v123 | v132))
+  if (![v44[91] splitUserVolumeEnabled] || !(v124 | v133))
   {
-    goto LABEL_1206;
+    goto LABEL_1213;
   }
 
   LODWORD(uuid[0]) = 0;
-  v494 = sub_10007324C("/var/mobile/", uuid);
-  v495 = v6[98].isa;
-  if (!v494)
+  v504 = sub_10007324C("/var/mobile/", uuid);
+  v505 = v7[98].isa;
+  if (!v504)
   {
-    if (v495 != -1)
+    if (v505 != -1)
     {
       sub_100089CEC();
     }
 
-    v507 = v7[97];
-    if (!os_log_type_enabled(v507, OS_LOG_TYPE_DEFAULT))
+    v516 = v8[97];
+    if (!os_log_type_enabled(v516, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_1296;
+      goto LABEL_1305;
     }
 
     value[0] = 0;
-    v511 = sub_1000011A8(1);
-    v0 = v507;
+    v520 = sub_1000011A8(1);
+    v0 = v516;
     if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      v512 = v511;
+      v521 = v520;
     }
 
     else
     {
-      v512 = v511 & 0xFFFFFFFE;
+      v521 = v520 & 0xFFFFFFFE;
     }
 
-    if (!v512)
+    if (!v521)
     {
 
-      v513 = 0;
-LABEL_1295:
-      free(v513);
-LABEL_1296:
+      v522 = 0;
+LABEL_1304:
+      free(v522);
+LABEL_1305:
 
       sleep(2u);
       sub_100018028("UserManagement early boot task failed to Set LAST BOOTED USER after Erase Install with error:%d", LODWORD(uuid[0]));
-      goto LABEL_1297;
+      goto LABEL_1306;
     }
 
-LABEL_1293:
+LABEL_1302:
     *err = 67109120;
     *&err[4] = uuid[0];
-    v527 = _os_log_send_and_compose_impl();
+    v533 = _os_log_send_and_compose_impl(v521, value, 0, 0, &_mh_execute_header, v0, 0, "FAILED to Set LAST BOOTED USER after Erase Install with error:%d", err);
 
-    v513 = 0;
-    if (v527)
+    v522 = 0;
+    if (v533)
     {
-      sub_100002A8C(v527);
-      v513 = v527;
+      sub_100002A8C(v533);
+      v522 = v533;
     }
 
-    goto LABEL_1295;
+    goto LABEL_1304;
   }
 
-  if (v495 != -1)
+  if (v505 != -1)
   {
     sub_100089CEC();
   }
 
-  v496 = v7[97];
-  if (os_log_type_enabled(v496, OS_LOG_TYPE_DEFAULT))
+  v506 = v8[97];
+  if (os_log_type_enabled(v506, OS_LOG_TYPE_DEFAULT))
   {
     value[0] = 0;
-    v497 = sub_1000011A8(1);
-    v498 = v496;
-    if (os_log_type_enabled(v498, OS_LOG_TYPE_DEFAULT))
+    v507 = sub_1000011A8(1);
+    v508 = v506;
+    if (os_log_type_enabled(v508, OS_LOG_TYPE_DEFAULT))
     {
-      v499 = v497;
+      v509 = v507;
     }
 
     else
     {
-      v499 = v497 & 0xFFFFFFFE;
+      v509 = v507 & 0xFFFFFFFE;
     }
 
-    if (v499)
+    if (v509)
     {
       *err = 0;
-      v500 = _os_log_send_and_compose_impl();
+      LODWORD(v604) = 2;
+      v510 = _os_log_send_and_compose_impl(v509, value, 0, 0, &_mh_execute_header, v508, 0, "Set Last Booted User for Primary User on erase install", err, v604);
 
-      if (v500)
+      if (v510)
       {
-        sub_100002A8C(v500);
+        sub_100002A8C(v510);
       }
     }
 
     else
     {
 
-      v500 = 0;
+      v510 = 0;
     }
 
-    free(v500);
-    v44 = &off_1000EB000;
+    free(v510);
+    v1 = &off_1000EB000;
   }
 
-LABEL_1206:
-  if (*(v44 + 364) == 1 || (sub_10001BB44(), *(v44 + 364) == 1))
+LABEL_1213:
+  if (*(v1 + 1456) == 1 || (sub_10001BB44(), *(v1 + 1456) == 1))
   {
     sub_10008B1C0(qword_1000EB2E0);
   }
-}
-
-uint64_t sub_10003E524(int a1)
-{
-  sub_10004C208(a1);
-  if (v1)
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089D14();
-    }
-
-    v2 = qword_1000EB308;
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = sub_1000011A8(1);
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-      {
-        v4 = v3;
-      }
-
-      else
-      {
-        v4 = v3 & 0xFFFFFFFE;
-      }
-
-      if (v4)
-      {
-        v5 = _os_log_send_and_compose_impl();
-        v6 = v5;
-        if (v5)
-        {
-          sub_100002A8C(v5);
-        }
-      }
-
-      else
-      {
-        v6 = 0;
-      }
-
-      free(v6);
-    }
-
-    v11 = 1;
-  }
-
-  else
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089D14();
-    }
-
-    v2 = qword_1000EB308;
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = sub_1000011A8(1);
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-      {
-        v8 = v7;
-      }
-
-      else
-      {
-        v8 = v7 & 0xFFFFFFFE;
-      }
-
-      if (v8)
-      {
-        v9 = _os_log_send_and_compose_impl();
-        v10 = v9;
-        if (v9)
-        {
-          sub_100002A8C(v9);
-        }
-      }
-
-      else
-      {
-        v10 = 0;
-      }
-
-      free(v10);
-    }
-
-    v11 = 0;
-  }
-
-  return v11;
-}
-
-void sub_10003E710()
-{
-  if (qword_1000EB5A0)
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089D14();
-    }
-
-    v0 = qword_1000EB308;
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-    {
-      v1 = sub_1000011A8(1);
-      if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-      {
-        v2 = v1;
-      }
-
-      else
-      {
-        v2 = v1 & 0xFFFFFFFE;
-      }
-
-      if (v2)
-      {
-        v3 = _os_log_send_and_compose_impl();
-        v4 = v3;
-        if (v3)
-        {
-          sub_100002A8C(v3);
-        }
-      }
-
-      else
-      {
-        v4 = 0;
-      }
-
-      free(v4);
-    }
-
-    if (CFArrayGetCount(qword_1000EB5A0) >= 1)
-    {
-      v5 = 0;
-      do
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(qword_1000EB5A0, v5);
-        if (ValueAtIndex)
-        {
-          v7 = ValueAtIndex;
-          v8 = CFGetTypeID(ValueAtIndex);
-          if (v8 == CFDictionaryGetTypeID())
-          {
-            CFDictionarySetValue(v7, kUMUserSessionForegroundKey, kCFBooleanFalse);
-          }
-        }
-
-        ++v5;
-      }
-
-      while (CFArrayGetCount(qword_1000EB5A0) > v5);
-    }
-  }
-}
-
-uint64_t sub_10003E884(_DWORD *a1)
-{
-  if (a1)
-  {
-    *a1 = 0;
-  }
-
-  v4 = &off_1000EB000;
-  v5 = sub_1000926B8(qword_1000EB2E8, 0);
-  if (v5)
-  {
-    v6 = v5;
-    v7 = [v5 version];
-    if (v7 >= +[UMDPersonaManifest currentVersion])
-    {
-      v15 = v6;
-      v8 = [v6 version];
-      if (v8 <= +[UMDPersonaManifest currentVersion])
-      {
-        goto LABEL_72;
-      }
-
-      sub_100018028("usermanagerd: persona manifest version %u is from the future! Downgrading is not supported.", [v6 version]);
-    }
-
-    else
-    {
-      v1 = &off_1000EB000;
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089D14();
-      }
-
-      v2 = &off_1000EB000;
-      v8 = qword_1000EB308;
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-      {
-LABEL_25:
-
-        v16 = v6;
-        v17 = +[UMDPersonaManifest manifest];
-        if ([v16 generation])
-        {
-          v18 = [v16 generation];
-        }
-
-        else
-        {
-          v18 = 1;
-        }
-
-        [v17 setGeneration:{v18, v134, v138}];
-        v19 = [v16 users];
-        v20 = [v19 count];
-
-        if (v20 == 1)
-        {
-          v21 = [v16 users];
-          v22 = [v21 anyObject];
-
-          v23 = objc_alloc_init(UMDPersonaManifestUser);
-          v24 = sub_100089624(qword_1000EB2E0);
-          v25 = [v24 count];
-
-          if (v25 == 1)
-          {
-            v26 = sub_100089624(qword_1000EB2E0);
-            v27 = [v26 objectAtIndexedSubscript:0];
-            v28 = sub_1000990F0(v27, kUMUserSessionUUIDKey);
-
-            if (v28)
-            {
-              sub_1000897B8(v23, v28);
-              v29 = sub_100088F2C(v22);
-              sub_100089CC4(v23, v29);
-
-              v30 = [NSSet setWithObject:v23];
-              [v17 setUsers:v30];
-
-              v31 = v17;
-              v4 = &off_1000EB000;
-            }
-
-            else
-            {
-              if (qword_1000EB330 != -1)
-              {
-                sub_100089D40();
-              }
-
-              v4 = &off_1000EB000;
-              v41 = qword_1000EB328;
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
-              {
-                v167[0] = 0;
-                v42 = sub_1000011A8(0);
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
-                {
-                  v43 = v42;
-                }
-
-                else
-                {
-                  v43 = v42 & 0xFFFFFFFE;
-                }
-
-                if (v43)
-                {
-                  v44 = qword_1000EB2E0;
-                  v45 = v41;
-                  v154 = sub_100089624(v44);
-                  v152 = [v154 objectAtIndexedSubscript:0];
-                  v46 = [v152 objectForKeyedSubscript:kUMUserSessionUUIDKey];
-                  *v168 = 138543362;
-                  *&v168[4] = v46;
-                  LODWORD(v138) = 12;
-                  v134 = v168;
-                  v47 = v45;
-                  v48 = _os_log_send_and_compose_impl();
-
-                  if (v48)
-                  {
-                    sub_100002A8C(v48);
-                  }
-                }
-
-                else
-                {
-                  v48 = 0;
-                }
-
-                v4 = &off_1000EB000;
-                free(v48);
-              }
-
-              v28 = 0;
-              v31 = 0;
-            }
-
-            v2 = &off_1000EB000;
-          }
-
-          else
-          {
-            if (qword_1000EB330 != -1)
-            {
-              sub_100089D40();
-            }
-
-            v2 = &off_1000EB000;
-            v28 = qword_1000EB328;
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-            {
-              *v168 = 0;
-              v37 = sub_1000011A8(0);
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-              {
-                v38 = v37;
-              }
-
-              else
-              {
-                v38 = v37 & 0xFFFFFFFE;
-              }
-
-              if (v38)
-              {
-                LOWORD(v167[0]) = 0;
-                LODWORD(v138) = 2;
-                v134 = v167;
-                v39 = _os_log_send_and_compose_impl();
-                v40 = v39;
-                if (v39)
-                {
-                  sub_100002A8C(v39);
-                }
-              }
-
-              else
-              {
-                v40 = 0;
-              }
-
-              free(v40);
-            }
-
-            v31 = 0;
-            v4 = &off_1000EB000;
-          }
-        }
-
-        else
-        {
-          if (v1[98] != -1)
-          {
-            sub_100089CEC();
-          }
-
-          v22 = v2[97];
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-          {
-            v167[0] = 0;
-            v32 = sub_1000011A8(1);
-            if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-            {
-              v32 &= ~1u;
-            }
-
-            if (v32)
-            {
-              v33 = v22;
-              v34 = [v16 users];
-              v35 = [v34 count];
-              *v168 = 134217984;
-              *&v168[4] = v35;
-              LODWORD(v138) = 12;
-              v134 = v168;
-              v36 = _os_log_send_and_compose_impl();
-
-              if (v36)
-              {
-                sub_100002A8C(v36);
-              }
-
-              v4 = &off_1000EB000;
-            }
-
-            else
-            {
-              v36 = 0;
-            }
-
-            free(v36);
-          }
-
-          v31 = 0;
-        }
-
-        if (v31)
-        {
-          v15 = v31;
-          if (sub_100092EA8(v4[93], v31, 0))
-          {
-LABEL_72:
-            v49 = v15;
-            if (a1)
-            {
-              *a1 = 0;
-            }
-
-            v142 = v49;
-            v50 = [v49 version];
-            if (v50 != +[UMDPersonaManifest currentVersion])
-            {
-              if (qword_1000EB310 != -1)
-              {
-                sub_100089CEC();
-              }
-
-              v59 = qword_1000EB308;
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
-              {
-                v167[0] = 0;
-                v60 = sub_1000011A8(1);
-                if (!os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
-                {
-                  v60 &= ~1u;
-                }
-
-                if (v60)
-                {
-                  v61 = v59;
-                  v62 = [v142 version];
-                  v63 = +[UMDPersonaManifest currentVersion];
-                  *v168 = 67109376;
-                  *&v168[4] = v62;
-                  *&v168[8] = 1024;
-                  *&v168[10] = v63;
-                  v64 = _os_log_send_and_compose_impl();
-
-                  if (v64)
-                  {
-                    sub_100002A8C(v64);
-                  }
-                }
-
-                else
-                {
-                  v64 = 0;
-                }
-
-                free(v64);
-              }
-
-              if (qword_1000EB310 != -1)
-              {
-                sub_100089CEC();
-              }
-
-              v75 = qword_1000EB308;
-              if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
-              {
-                *v168 = 0;
-                v76 = sub_1000011A8(1);
-                if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
-                {
-                  v77 = v76;
-                }
-
-                else
-                {
-                  v77 = v76 & 0xFFFFFFFE;
-                }
-
-                if (v77)
-                {
-                  LOWORD(v167[0]) = 0;
-                  v78 = _os_log_send_and_compose_impl();
-                  v79 = v78;
-                  if (v78)
-                  {
-                    sub_100002A8C(v78);
-                  }
-                }
-
-                else
-                {
-                  v79 = 0;
-                }
-
-                free(v79);
-              }
-
-              v74 = 0;
-              if (a1)
-              {
-                *a1 = 2;
-              }
-
-              goto LABEL_214;
-            }
-
-            v51 = sub_1000013A0(v4[93]);
-            v52 = [v51 userPersonas];
-            v53 = [v52 count];
-
-            if (v53)
-            {
-              if (qword_1000EB310 != -1)
-              {
-                sub_100089CEC();
-              }
-
-              v54 = qword_1000EB308;
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-              {
-                *v168 = 0;
-                v55 = sub_1000011A8(1);
-                if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-                {
-                  v56 = v55;
-                }
-
-                else
-                {
-                  v56 = v55 & 0xFFFFFFFE;
-                }
-
-                if (v56)
-                {
-                  LOWORD(v167[0]) = 0;
-                  LODWORD(v139) = 2;
-                  v135 = v167;
-                  v57 = _os_log_send_and_compose_impl();
-                  v58 = v57;
-                  if (v57)
-                  {
-                    sub_100002A8C(v57);
-                  }
-                }
-
-                else
-                {
-                  v58 = 0;
-                }
-
-                free(v58);
-              }
-            }
-
-            if ([v142 generation])
-            {
-              v80 = [v142 generation];
-              v81 = sub_100089790(v4[93]);
-              sub_1000553A0(v81, v80);
-
-              if (qword_1000EB310 != -1)
-              {
-                sub_100089CEC();
-              }
-
-              v82 = qword_1000EB308;
-              if (!os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
-              {
-                goto LABEL_154;
-              }
-
-              v167[0] = 0;
-              v83 = sub_1000011A8(1);
-              if (!os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
-              {
-                v83 &= ~1u;
-              }
-
-              if (v83)
-              {
-                v84 = v4[93];
-                v85 = v82;
-                v86 = sub_100089790(v84);
-                v87 = sub_100055380(v86);
-                *v168 = 134217984;
-                *&v168[4] = v87;
-                LODWORD(v140) = 12;
-                v136 = v168;
-                v88 = _os_log_send_and_compose_impl();
-
-                if (!v88)
-                {
-                  goto LABEL_153;
-                }
-
-                goto LABEL_151;
-              }
-            }
-
-            else
-            {
-              v89 = sub_100089790(v4[93]);
-              sub_1000553A0(v89, 1);
-
-              if (qword_1000EB310 != -1)
-              {
-                sub_100089CEC();
-              }
-
-              v82 = qword_1000EB308;
-              if (!os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
-              {
-                goto LABEL_154;
-              }
-
-              *v168 = 0;
-              v90 = sub_1000011A8(1);
-              if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
-              {
-                v91 = v90;
-              }
-
-              else
-              {
-                v91 = v90 & 0xFFFFFFFE;
-              }
-
-              if (v91)
-              {
-                LOWORD(v167[0]) = 0;
-                LODWORD(v140) = 2;
-                v136 = v167;
-                v88 = _os_log_send_and_compose_impl();
-                if (!v88)
-                {
-LABEL_153:
-                  free(v88);
-LABEL_154:
-
-                  v92 = &MGCopyAnswer_ptr;
-                  v93 = +[NSMutableDictionary dictionary];
-                  v94 = v142;
-                  v95 = [v142 users];
-                  v96 = [v95 count];
-
-                  if (!v96)
-                  {
-                    if (qword_1000EB310 != -1)
-                    {
-                      sub_100089CEC();
-                    }
-
-                    v97 = qword_1000EB308;
-                    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
-                    {
-                      *v168 = 0;
-                      v98 = sub_1000011A8(1);
-                      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v99 = v98;
-                      }
-
-                      else
-                      {
-                        v99 = v98 & 0xFFFFFFFE;
-                      }
-
-                      if (v99)
-                      {
-                        LOWORD(v167[0]) = 0;
-                        LODWORD(v140) = 2;
-                        v136 = v167;
-                        v100 = _os_log_send_and_compose_impl();
-                        v101 = v100;
-                        if (v100)
-                        {
-                          sub_100002A8C(v100);
-                        }
-                      }
-
-                      else
-                      {
-                        v101 = 0;
-                      }
-
-                      free(v101);
-                    }
-
-                    v94 = v142;
-                  }
-
-                  v163 = 0u;
-                  v164 = 0u;
-                  v161 = 0u;
-                  v162 = 0u;
-                  v102 = [v94 users];
-                  v146 = [v102 countByEnumeratingWithState:&v161 objects:v168 count:16];
-                  if (v146)
-                  {
-                    v103 = 0;
-                    v143 = *v162;
-                    v104 = &off_1000EB000;
-                    v144 = v102;
-                    v145 = v93;
-                    do
-                    {
-                      v105 = 0;
-                      do
-                      {
-                        if (*v162 != v143)
-                        {
-                          objc_enumerationMutation(v102);
-                        }
-
-                        v155 = *(*(&v161 + 1) + 8 * v105);
-                        if (v104[98] != -1)
-                        {
-                          sub_100089CEC();
-                        }
-
-                        v147 = v105;
-                        v106 = qword_1000EB308;
-                        if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
-                        {
-                          v160 = 0;
-                          v107 = sub_1000011A8(1);
-                          if (!os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
-                          {
-                            v107 &= ~1u;
-                          }
-
-                          if (v107)
-                          {
-                            v108 = v106;
-                            v109 = sub_100089624(v155);
-                            v110 = [v109 UUIDString];
-                            v165 = 138412290;
-                            *v166 = v110;
-                            LODWORD(v141) = 12;
-                            v137 = &v165;
-                            v111 = _os_log_send_and_compose_impl();
-
-                            if (v111)
-                            {
-                              sub_100002A8C(v111);
-                            }
-
-                            v104 = &off_1000EB000;
-                          }
-
-                          else
-                          {
-                            v111 = 0;
-                          }
-
-                          free(v111);
-                        }
-
-                        v151 = +[NSMutableArray array];
-                        v156 = 0u;
-                        v157 = 0u;
-                        v158 = 0u;
-                        v159 = 0u;
-                        obj = sub_100088F2C(v155);
-                        v153 = [obj countByEnumeratingWithState:&v156 objects:v167 count:16];
-                        if (v153)
-                        {
-                          v150 = *v157;
-                          v112 = &off_1000EB000;
-                          do
-                          {
-                            for (i = 0; i != v153; i = i + 1)
-                            {
-                              if (*v157 != v150)
-                              {
-                                objc_enumerationMutation(obj);
-                              }
-
-                              v114 = *(*(&v156 + 1) + 8 * i);
-                              if (v104[98] != -1)
-                              {
-                                sub_100089CEC();
-                              }
-
-                              v115 = v112[97];
-                              if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
-                              {
-                                v160 = 0;
-                                v116 = sub_1000011A8(1);
-                                if (!os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
-                                {
-                                  v116 &= ~1u;
-                                }
-
-                                if (v116)
-                                {
-                                  v149 = v103;
-                                  v117 = v92;
-                                  v118 = v4;
-                                  v119 = v115;
-                                  v120 = sub_100001660(v114);
-                                  v121 = sub_100089624(v155);
-                                  v122 = [v121 UUIDString];
-                                  v165 = 67109378;
-                                  *v166 = v120;
-                                  *&v166[4] = 2112;
-                                  *&v166[6] = v122;
-                                  LODWORD(v141) = 18;
-                                  v137 = &v165;
-                                  v123 = _os_log_send_and_compose_impl();
-
-                                  if (v123)
-                                  {
-                                    sub_100002A8C(v123);
-                                  }
-
-                                  v4 = v118;
-                                  v92 = v117;
-                                  v103 = v149;
-                                  v104 = &off_1000EB000;
-                                  v112 = &off_1000EB000;
-                                }
-
-                                else
-                                {
-                                  v123 = 0;
-                                }
-
-                                free(v123);
-                              }
-
-                              v124 = v92[416];
-                              v125 = sub_100096838(v114);
-                              v126 = [v124 dictionaryWithDictionary:v125];
-
-                              v127 = sub_100089624(v155);
-                              v128 = [v127 UUIDString];
-                              [v126 setObject:v128 forKeyedSubscript:kUMUserPersonaUserODUUIDKey];
-
-                              if (sub_100001434(v114) == 4 || sub_100001434(v114) == 3)
-                              {
-                                v103 |= sub_10008BEEC(v4[93], v126);
-                              }
-
-                              [v151 addObject:{v126, v137, v141}];
-                            }
-
-                            v153 = [obj countByEnumeratingWithState:&v156 objects:v167 count:16];
-                          }
-
-                          while (v153);
-                        }
-
-                        v129 = sub_100089624(v155);
-                        v130 = [v129 UUIDString];
-                        v93 = v145;
-                        [v145 setObject:v151 forKeyedSubscript:v130];
-
-                        v105 = v147 + 1;
-                        v102 = v144;
-                      }
-
-                      while ((v147 + 1) != v146);
-                      v146 = [v144 countByEnumeratingWithState:&v161 objects:v168 count:16];
-                    }
-
-                    while (v146);
-
-                    v131 = sub_1000013A0(v4[93]);
-                    [v131 setUserPersonas:v145];
-
-                    if (v103)
-                    {
-                      sub_10008EBBC(v4[93]);
-                    }
-                  }
-
-                  else
-                  {
-
-                    v132 = sub_1000013A0(v4[93]);
-                    [v132 setUserPersonas:v93];
-                  }
-
-                  v74 = 1;
-LABEL_214:
-
-                  v15 = v142;
-                  goto LABEL_215;
-                }
-
-LABEL_151:
-                sub_100002A8C(v88);
-                goto LABEL_153;
-              }
-            }
-
-            v88 = 0;
-            goto LABEL_153;
-          }
-
-          if (qword_1000EB310 != -1)
-          {
-            sub_100089CEC();
-          }
-
-          v69 = v2[97];
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-          {
-            *v168 = 0;
-            v70 = sub_1000011A8(1);
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-            {
-              v71 = v70;
-            }
-
-            else
-            {
-              v71 = v70 & 0xFFFFFFFE;
-            }
-
-            if (v71)
-            {
-              LOWORD(v167[0]) = 0;
-              v72 = _os_log_send_and_compose_impl();
-              v73 = v72;
-              if (v72)
-              {
-                sub_100002A8C(v72);
-              }
-            }
-
-            else
-            {
-              v73 = 0;
-            }
-
-            free(v73);
-          }
-
-          if (!a1)
-          {
-            goto LABEL_167;
-          }
-
-          goto LABEL_115;
-        }
-
-        if (qword_1000EB310 != -1)
-        {
-          sub_100089CEC();
-        }
-
-        v12 = v2[97];
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-        {
-          *v168 = 0;
-          v65 = sub_1000011A8(1);
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-          {
-            v66 = v65;
-          }
-
-          else
-          {
-            v66 = v65 & 0xFFFFFFFE;
-          }
-
-          if (v66)
-          {
-            LOWORD(v167[0]) = 0;
-LABEL_101:
-            v67 = _os_log_send_and_compose_impl();
-            v68 = v67;
-            if (v67)
-            {
-              sub_100002A8C(v67);
-            }
-
-            goto LABEL_113;
-          }
-
-          goto LABEL_112;
-        }
-
-        goto LABEL_114;
-      }
-
-      v167[0] = 0;
-      v9 = sub_1000011A8(1);
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-      {
-        v9 &= ~1u;
-      }
-
-      if (v9)
-      {
-        v10 = v8;
-        *v168 = 67109376;
-        *&v168[4] = [v6 version];
-        *&v168[8] = 1024;
-        *&v168[10] = +[UMDPersonaManifest currentVersion];
-        LODWORD(v138) = 14;
-        v134 = v168;
-        v11 = _os_log_send_and_compose_impl();
-
-        if (v11)
-        {
-          sub_100002A8C(v11);
-        }
-
-        goto LABEL_24;
-      }
-    }
-
-    v11 = 0;
-LABEL_24:
-    free(v11);
-    goto LABEL_25;
-  }
-
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089D14();
-  }
-
-  v12 = qword_1000EB308;
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-  {
-    *v168 = 0;
-    v13 = sub_1000011A8(1);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      v14 = v13;
-    }
-
-    else
-    {
-      v14 = v13 & 0xFFFFFFFE;
-    }
-
-    if (v14)
-    {
-      LOWORD(v167[0]) = 0;
-      goto LABEL_101;
-    }
-
-LABEL_112:
-    v68 = 0;
-LABEL_113:
-    free(v68);
-  }
-
-LABEL_114:
-
-  v15 = 0;
-  if (!a1)
-  {
-LABEL_167:
-    v74 = 0;
-    goto LABEL_215;
-  }
-
-LABEL_115:
-  v74 = 0;
-  *a1 = 2;
-LABEL_215:
-
-  return v74;
-}
-
-uint64_t sub_10003FC14(unsigned int a1, int a2, int a3, int a4)
-{
-  valuePtr = a2;
-  if (qword_1000EB320 != -1)
-  {
-    sub_100089D90();
-  }
-
-  v10 = qword_1000EB318;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    *v296 = 0;
-    v11 = sub_1000011A8(0);
-    v12 = v10;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      v13 = v11;
-    }
-
-    else
-    {
-      v13 = v11 & 0xFFFFFFFE;
-    }
-
-    if (v13)
-    {
-      v304.st_dev = 67109120;
-      *&v304.st_mode = a1;
-      LODWORD(v285) = 8;
-      v284 = &v304;
-      v4 = _os_log_send_and_compose_impl();
-
-      if (v4)
-      {
-        sub_100002A8C(v4);
-      }
-    }
-
-    else
-    {
-
-      v4 = 0;
-    }
-
-    free(v4);
-  }
-
-  if (a1 == -1)
-  {
-    sub_100089E1C();
-  }
-
-  else
-  {
-    v6 = &off_1000EB000;
-    v14 = sub_10008A2F4(qword_1000EB2E0, a1);
-
-    if (v14)
-    {
-      v4 = &off_1000EB000;
-      v7 = &qword_1000EB608;
-      v5 = &kUMUserSessionHomeDirKey;
-      if (dword_1000EB5B0 == 1)
-      {
-        if (qword_1000EB310 == -1)
-        {
-          goto LABEL_16;
-        }
-
-        goto LABEL_661;
-      }
-
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v20 = qword_1000EB308;
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-      {
-        *&v304.st_dev = 0;
-        v21 = sub_1000011A8(1);
-        v22 = v20;
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-        {
-          v23 = v21;
-        }
-
-        else
-        {
-          v23 = v21 & 0xFFFFFFFE;
-        }
-
-        if (v23)
-        {
-          *v296 = 67109632;
-          *&v296[4] = a1;
-          *&v296[8] = 1024;
-          *&v296[10] = qword_1000EB5A8;
-          *&v296[14] = 1024;
-          *&v296[16] = valuePtr;
-          v24 = _os_log_send_and_compose_impl();
-
-          if (v24)
-          {
-            sub_100002A8C(v24);
-          }
-        }
-
-        else
-        {
-
-          v24 = 0;
-        }
-
-        free(v24);
-      }
-
-      v30 = sub_10008A2F4(qword_1000EB2E0, a1);
-      if (qword_1000EB5A8 >= 2)
-      {
-        if (qword_1000EB310 != -1)
-        {
-          sub_100089CEC();
-        }
-
-        v31 = qword_1000EB308;
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-        {
-          *v296 = 0;
-          v32 = sub_1000011A8(1);
-          v33 = v31;
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
-          {
-            v34 = v32;
-          }
-
-          else
-          {
-            v34 = v32 & 0xFFFFFFFE;
-          }
-
-          if (v34)
-          {
-            LOWORD(v304.st_dev) = 0;
-            v35 = _os_log_send_and_compose_impl();
-
-            if (v35)
-            {
-              sub_100002A8C(v35);
-            }
-          }
-
-          else
-          {
-
-            v35 = 0;
-          }
-
-          free(v35);
-        }
-      }
-
-      v78 = sub_100088F2C(qword_1000EB608);
-      v79 = sub_100089B00(v78, a1);
-
-      v80 = &off_1000EB000;
-      if (v79)
-      {
-        if (qword_1000EB310 != -1)
-        {
-          sub_100089CEC();
-        }
-
-        v81 = qword_1000EB308;
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
-        {
-          *v296 = 0;
-          v82 = sub_1000011A8(1);
-          v81 = v81;
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
-          {
-            v83 = v82;
-          }
-
-          else
-          {
-            v83 = v82 & 0xFFFFFFFE;
-          }
-
-          if (v83)
-          {
-            LOWORD(v304.st_dev) = 0;
-            goto LABEL_166;
-          }
-
-          goto LABEL_169;
-        }
-      }
-
-      else
-      {
-        if (qword_1000EB310 != -1)
-        {
-          sub_100089CEC();
-        }
-
-        v81 = qword_1000EB308;
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
-        {
-          *v296 = 0;
-          v84 = sub_1000011A8(1);
-          v81 = v81;
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
-          {
-            v85 = v84;
-          }
-
-          else
-          {
-            v85 = v84 & 0xFFFFFFFE;
-          }
-
-          if (v85)
-          {
-            LOWORD(v304.st_dev) = 0;
-LABEL_166:
-            v86 = _os_log_send_and_compose_impl();
-
-            if (v86)
-            {
-              sub_100002A8C(v86);
-            }
-
-            goto LABEL_170;
-          }
-
-LABEL_169:
-
-          v86 = 0;
-LABEL_170:
-          v87 = a1;
-          free(v86);
-LABEL_171:
-
-          if (qword_1000EB310 != -1)
-          {
-            sub_100089CEC();
-          }
-
-          v88 = qword_1000EB308;
-          if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
-          {
-            *v296 = 0;
-            v89 = sub_1000011A8(1);
-            v90 = v88;
-            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
-            {
-              v91 = v89;
-            }
-
-            else
-            {
-              v91 = v89 & 0xFFFFFFFE;
-            }
-
-            if (v91)
-            {
-              LOWORD(v304.st_dev) = 0;
-              v92 = _os_log_send_and_compose_impl();
-
-              if (v92)
-              {
-                sub_100002A8C(v92);
-              }
-            }
-
-            else
-            {
-
-              v92 = 0;
-            }
-
-            v87 = a1;
-            free(v92);
-          }
-
-          if (![qword_1000EB2D8 splitUserVolumeEnabled])
-          {
-            goto LABEL_651;
-          }
-
-          if (qword_1000EB310 != -1)
-          {
-            sub_100089CEC();
-          }
-
-          v93 = qword_1000EB308;
-          if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
-          {
-            *v296 = 0;
-            v94 = sub_1000011A8(1);
-            v95 = v93;
-            if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
-            {
-              v96 = v94;
-            }
-
-            else
-            {
-              v96 = v94 & 0xFFFFFFFE;
-            }
-
-            if (v96)
-            {
-              LOWORD(v304.st_dev) = 0;
-              v97 = _os_log_send_and_compose_impl();
-
-              if (v97)
-              {
-                sub_100002A8C(v97);
-              }
-            }
-
-            else
-            {
-
-              v97 = 0;
-            }
-
-            v87 = a1;
-            free(v97);
-          }
-
-          sub_10001A918(v30, v87);
-          if (dword_1000EB5B0)
-          {
-            v98 = 0;
-            goto LABEL_230;
-          }
-
-          v99 = sub_1000013A0(qword_1000EB608);
-          v100 = v87;
-          v101 = v99;
-          v290 = 0;
-          v102 = [v99 fixupPath:@"/private/var/mobile/Library" withMode:493 toUser:v100 group:v100 error:&v290];
-          v98 = v290;
-
-          if (v102)
-          {
-            if (qword_1000EB310 != -1)
-            {
-              sub_100089CEC();
-            }
-
-            v103 = qword_1000EB308;
-            if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
-            {
-              *v296 = 0;
-              v104 = sub_1000011A8(1);
-              v103 = v103;
-              if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
-              {
-                v105 = v104;
-              }
-
-              else
-              {
-                v105 = v104 & 0xFFFFFFFE;
-              }
-
-              if (v105)
-              {
-                LOWORD(v304.st_dev) = 0;
-                goto LABEL_214;
-              }
-
-              goto LABEL_225;
-            }
-          }
-
-          else if (v98)
-          {
-            if (qword_1000EB310 != -1)
-            {
-              sub_100089CEC();
-            }
-
-            v103 = qword_1000EB308;
-            if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
-            {
-              *v296 = 0;
-              v106 = sub_1000011A8(1);
-              v103 = v103;
-              if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
-              {
-                v107 = v106;
-              }
-
-              else
-              {
-                v107 = v106 & 0xFFFFFFFE;
-              }
-
-              if (v107)
-              {
-                v108 = [v98 code];
-                v304.st_dev = 67109120;
-                *&v304.st_mode = v108;
-LABEL_214:
-                v109 = _os_log_send_and_compose_impl();
-
-                if (v109)
-                {
-                  sub_100002A8C(v109);
-                }
-
-                goto LABEL_226;
-              }
-
-LABEL_225:
-
-              v109 = 0;
-LABEL_226:
-              v87 = a1;
-              free(v109);
-LABEL_229:
-
-LABEL_230:
-              v113 = sub_100079590(v30, kUMUserSessionVolumeDeviceNodeKey);
-              if (!v113)
-              {
-                if (qword_1000EB310 != -1)
-                {
-                  sub_100089CEC();
-                }
-
-                v118 = qword_1000EB308;
-                if (!os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
-                {
-                  goto LABEL_649;
-                }
-
-                *v296 = 0;
-                v119 = sub_1000011A8(1);
-                if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
-                {
-                  v120 = v119;
-                }
-
-                else
-                {
-                  v120 = v119 & 0xFFFFFFFE;
-                }
-
-                if (v120)
-                {
-                  LOWORD(v304.st_dev) = 0;
-                  v121 = _os_log_send_and_compose_impl();
-                  v122 = v121;
-                  if (v121)
-                  {
-                    sub_100002A8C(v121);
-                  }
-                }
-
-                else
-                {
-                  v122 = 0;
-                }
-
-                v87 = a1;
-                v129 = v122;
-                goto LABEL_648;
-              }
-
-              if (a3)
-              {
-                if (qword_1000EB310 != -1)
-                {
-                  sub_100089CEC();
-                }
-
-                v114 = qword_1000EB308;
-                if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
-                {
-                  *v296 = 0;
-                  v115 = sub_1000011A8(1);
-                  v114 = v114;
-                  if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v116 = v115;
-                  }
-
-                  else
-                  {
-                    v116 = v115 & 0xFFFFFFFE;
-                  }
-
-                  if (v116)
-                  {
-                    LOWORD(v304.st_dev) = 0;
-                    v117 = _os_log_send_and_compose_impl();
-
-                    if (v117)
-                    {
-                      sub_100002A8C(v117);
-                    }
-                  }
-
-                  else
-                  {
-
-                    v117 = 0;
-                  }
-
-                  v87 = a1;
-                  free(v117);
-                }
-
-LABEL_288:
-
-                if (!a4 || !_os_feature_enabled_impl())
-                {
-                  if (qword_1000EB310 != -1)
-                  {
-                    sub_100089CEC();
-                  }
-
-                  v118 = qword_1000EB308;
-                  if (!os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
-                  {
-                    goto LABEL_649;
-                  }
-
-                  *v296 = 0;
-                  v144 = sub_1000011A8(1);
-                  v145 = v118;
-                  if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v146 = v144;
-                  }
-
-                  else
-                  {
-                    v146 = v144 & 0xFFFFFFFE;
-                  }
-
-                  if (v146)
-                  {
-                    LOWORD(v304.st_dev) = 0;
-                    goto LABEL_644;
-                  }
-
-LABEL_646:
-
-                  v279 = 0;
-LABEL_647:
-                  v87 = a1;
-                  v129 = v279;
-LABEL_648:
-                  free(v129);
-LABEL_649:
-
-                  goto LABEL_650;
-                }
-
-                memset(v302, 0, sizeof(v302));
-                v301 = 0u;
-                v300 = 0u;
-                v299 = 0u;
-                v298 = 0u;
-                v297 = 0u;
-                memset(&v296[20], 0, 128);
-                strcpy(v296, "/private/var/mobile");
-                if (v87 == 501)
-                {
-LABEL_636:
-                  if (qword_1000EB310 != -1)
-                  {
-                    sub_100089CEC();
-                  }
-
-                  v118 = qword_1000EB308;
-                  if (!os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
-                  {
-                    goto LABEL_649;
-                  }
-
-                  *&v304.st_dev = 0;
-                  v277 = sub_1000011A8(1);
-                  v145 = v118;
-                  if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v278 = v277;
-                  }
-
-                  else
-                  {
-                    v278 = v277 & 0xFFFFFFFE;
-                  }
-
-                  if (v278)
-                  {
-                    LOWORD(v303.st_dev) = 0;
-LABEL_644:
-                    v279 = _os_log_send_and_compose_impl();
-
-                    if (v279)
-                    {
-                      sub_100002A8C(v279);
-                    }
-
-                    goto LABEL_647;
-                  }
-
-                  goto LABEL_646;
-                }
-
-                if (qword_1000EB310 != -1)
-                {
-                  sub_100089CEC();
-                }
-
-                v139 = qword_1000EB308;
-                if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
-                {
-                  *&v303.st_dev = 0;
-                  v140 = sub_1000011A8(1);
-                  v141 = v139;
-                  if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v142 = v140;
-                  }
-
-                  else
-                  {
-                    v142 = v140 & 0xFFFFFFFE;
-                  }
-
-                  if (v142)
-                  {
-                    v304.st_dev = 67109378;
-                    v87 = a1;
-                    *&v304.st_mode = a1;
-                    LOWORD(v304.st_ino) = 2080;
-                    *(&v304.st_ino + 2) = v296;
-                    v143 = _os_log_send_and_compose_impl();
-
-                    if (v143)
-                    {
-                      sub_100002A8C(v143);
-                    }
-                  }
-
-                  else
-                  {
-
-                    v143 = 0;
-                    v87 = a1;
-                  }
-
-                  free(v143);
-                }
-
-                if (sub_100032B3C(v87, v296, 1))
-                {
-                  if (qword_1000EB310 != -1)
-                  {
-                    sub_100089CEC();
-                  }
-
-                  v271 = qword_1000EB308;
-                  if (!os_log_type_enabled(v271, OS_LOG_TYPE_DEFAULT))
-                  {
-                    goto LABEL_635;
-                  }
-
-                  *&v304.st_dev = 0;
-                  v272 = sub_1000011A8(1);
-                  v271 = v271;
-                  if (os_log_type_enabled(v271, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v273 = v272;
-                  }
-
-                  else
-                  {
-                    v273 = v272 & 0xFFFFFFFE;
-                  }
-
-                  if (v273)
-                  {
-                    v303.st_dev = 67109120;
-                    v87 = a1;
-                    *&v303.st_mode = a1;
-                    goto LABEL_631;
-                  }
-                }
-
-                else
-                {
-                  if (qword_1000EB310 != -1)
-                  {
-                    sub_100089CEC();
-                  }
-
-                  v271 = qword_1000EB308;
-                  if (!os_log_type_enabled(v271, OS_LOG_TYPE_DEFAULT))
-                  {
-                    goto LABEL_635;
-                  }
-
-                  *&v304.st_dev = 0;
-                  v274 = sub_1000011A8(1);
-                  v271 = v271;
-                  if (os_log_type_enabled(v271, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v275 = v274;
-                  }
-
-                  else
-                  {
-                    v275 = v274 & 0xFFFFFFFE;
-                  }
-
-                  if (v275)
-                  {
-                    v303.st_dev = 67109120;
-                    v87 = a1;
-                    *&v303.st_mode = a1;
-LABEL_631:
-                    v276 = _os_log_send_and_compose_impl();
-
-                    if (v276)
-                    {
-                      sub_100002A8C(v276);
-                    }
-
-                    goto LABEL_634;
-                  }
-                }
-
-                v276 = 0;
-                v87 = a1;
-LABEL_634:
-                free(v276);
-LABEL_635:
-
-                goto LABEL_636;
-              }
-
-              v123 = v113;
-              if (qword_1000EB310 != -1)
-              {
-                sub_100089CEC();
-              }
-
-              v124 = qword_1000EB308;
-              if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
-              {
-                *&v304.st_dev = 0;
-                v125 = sub_1000011A8(1);
-                v126 = v124;
-                if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
-                {
-                  v127 = v125;
-                }
-
-                else
-                {
-                  v127 = v125 & 0xFFFFFFFE;
-                }
-
-                if (v127)
-                {
-                  *v296 = 138412546;
-                  *&v296[4] = v123;
-                  *&v296[12] = 1024;
-                  *&v296[14] = a1;
-                  v128 = _os_log_send_and_compose_impl();
-
-                  if (v128)
-                  {
-                    sub_100002A8C(v128);
-                  }
-                }
-
-                else
-                {
-
-                  v128 = 0;
-                }
-
-                free(v128);
-                v6 = &off_1000EB000;
-                v80 = &off_1000EB000;
-              }
-
-              v130 = sub_100089A80(qword_1000EB608);
-              v289 = 0;
-              v131 = [v130 mapVolume:v123 toSession:a1 withPersona:0 error:&v289];
-              v114 = v289;
-
-              if (v131)
-              {
-                if (qword_1000EB310 != -1)
-                {
-                  sub_100089CEC();
-                }
-
-                v132 = qword_1000EB308;
-                if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
-                {
-                  *v296 = 0;
-                  v133 = sub_1000011A8(1);
-                  v132 = v132;
-                  if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v134 = v133;
-                  }
-
-                  else
-                  {
-                    v134 = v133 & 0xFFFFFFFE;
-                  }
-
-                  if (v134)
-                  {
-                    LOWORD(v304.st_dev) = 0;
-                    goto LABEL_282;
-                  }
-
-                  goto LABEL_285;
-                }
-              }
-
-              else
-              {
-                if (qword_1000EB310 != -1)
-                {
-                  sub_100089CEC();
-                }
-
-                v132 = qword_1000EB308;
-                if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
-                {
-                  *&v304.st_dev = 0;
-                  v135 = sub_1000011A8(1);
-                  v132 = v132;
-                  if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v136 = v135;
-                  }
-
-                  else
-                  {
-                    v136 = v135 & 0xFFFFFFFE;
-                  }
-
-                  if (v136)
-                  {
-                    v137 = [v114 code];
-                    *v296 = 134217984;
-                    *&v296[4] = v137;
-LABEL_282:
-                    v138 = _os_log_send_and_compose_impl();
-
-                    if (v138)
-                    {
-                      sub_100002A8C(v138);
-                    }
-
-                    goto LABEL_286;
-                  }
-
-LABEL_285:
-
-                  v138 = 0;
-LABEL_286:
-                  v87 = a1;
-                  free(v138);
-                  goto LABEL_287;
-                }
-              }
-
-              v87 = a1;
-LABEL_287:
-
-              goto LABEL_288;
-            }
-          }
-
-          else
-          {
-            if (qword_1000EB310 != -1)
-            {
-              sub_100089CEC();
-            }
-
-            v103 = qword_1000EB308;
-            if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
-            {
-              *v296 = 0;
-              v110 = sub_1000011A8(1);
-              v103 = v103;
-              if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
-              {
-                v111 = v110;
-              }
-
-              else
-              {
-                v111 = v110 & 0xFFFFFFFE;
-              }
-
-              if (v111)
-              {
-                LOWORD(v304.st_dev) = 0;
-                v112 = _os_log_send_and_compose_impl();
-
-                if (v112)
-                {
-                  sub_100002A8C(v112);
-                }
-              }
-
-              else
-              {
-
-                v112 = 0;
-              }
-
-              v87 = a1;
-              free(v112);
-              v98 = 0;
-              goto LABEL_229;
-            }
-
-            v98 = 0;
-          }
-
-          v87 = a1;
-          goto LABEL_229;
-        }
-      }
-
-      v87 = a1;
-      goto LABEL_171;
-    }
-  }
-
-  sub_100089E04();
-LABEL_661:
-  sub_100089CEC();
-LABEL_16:
-  v15 = *(v4 + 97);
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    *v296 = 0;
-    v16 = sub_1000011A8(1);
-    v17 = v15;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-    {
-      v18 = v16;
-    }
-
-    else
-    {
-      v18 = v16 & 0xFFFFFFFE;
-    }
-
-    if (v18)
-    {
-      LOWORD(v304.st_dev) = 0;
-      LODWORD(v285) = 2;
-      v284 = &v304;
-      v19 = _os_log_send_and_compose_impl();
-
-      if (v19)
-      {
-        sub_100002A8C(v19);
-      }
-    }
-
-    else
-    {
-
-      v19 = 0;
-    }
-
-    free(v19);
-  }
-
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v25 = *(v4 + 97);
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-  {
-    *v296 = 0;
-    v26 = sub_1000011A8(1);
-    v27 = v25;
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-    {
-      v28 = v26;
-    }
-
-    else
-    {
-      v28 = v26 & 0xFFFFFFFE;
-    }
-
-    if (v28)
-    {
-      v304.st_dev = 67109120;
-      *&v304.st_mode = a1;
-      LODWORD(v285) = 8;
-      v284 = &v304;
-      v29 = _os_log_send_and_compose_impl();
-
-      if (v29)
-      {
-        sub_100002A8C(v29);
-      }
-    }
-
-    else
-    {
-
-      v29 = 0;
-    }
-
-    free(v29);
-  }
-
-  v286 = sub_10008A2F4(v6[92], a1);
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v36 = *(v4 + 97);
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
-  {
-    *&v304.st_dev = 0;
-    v37 = sub_1000011A8(1);
-    v38 = v36;
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
-    {
-      v39 = v37;
-    }
-
-    else
-    {
-      v39 = v37 & 0xFFFFFFFE;
-    }
-
-    if (v39)
-    {
-      *v296 = 67109378;
-      *&v296[4] = a1;
-      *&v296[8] = 2112;
-      *&v296[10] = v286;
-      LODWORD(v285) = 18;
-      v284 = v296;
-      v40 = _os_log_send_and_compose_impl();
-
-      if (v40)
-      {
-        sub_100002A8C(v40);
-      }
-    }
-
-    else
-    {
-
-      v40 = 0;
-    }
-
-    free(v40);
-  }
-
-  if (a1 == 502)
-  {
-    v41 = sub_1000013A0(*v7);
-    [v41 removeFileAtPath:@"/private/var//keybags/nextsession_opaque.kb" error:0];
-
-    v42 = sub_1000013A0(*v7);
-    [v42 removeFileAtPath:@"/private/var//keybags/nextsession_SBD_opaque.kb" error:0];
-  }
-
-  v287 = sub_1000023E8(v286, kUMUserSessionGroupIDKey);
-  v43 = sub_100088F2C(*v7);
-  v44 = sub_100089B00(v43, a1);
-
-  if (v44)
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v45 = *(v4 + 97);
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-    {
-      *v296 = 0;
-      v46 = sub_1000011A8(1);
-      v45 = v45;
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-      {
-        v47 = v46;
-      }
-
-      else
-      {
-        v47 = v46 & 0xFFFFFFFE;
-      }
-
-      if (v47)
-      {
-        LOWORD(v304.st_dev) = 0;
-        LODWORD(v285) = 2;
-        v284 = &v304;
-        goto LABEL_87;
-      }
-
-      goto LABEL_89;
-    }
-  }
-
-  else
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v45 = *(v4 + 97);
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-    {
-      *v296 = 0;
-      v48 = sub_1000011A8(1);
-      v45 = v45;
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-      {
-        v49 = v48;
-      }
-
-      else
-      {
-        v49 = v48 & 0xFFFFFFFE;
-      }
-
-      if (v49)
-      {
-        LOWORD(v304.st_dev) = 0;
-        LODWORD(v285) = 2;
-        v284 = &v304;
-LABEL_87:
-        v50 = _os_log_send_and_compose_impl();
-
-        if (v50)
-        {
-          sub_100002A8C(v50);
-        }
-
-        goto LABEL_90;
-      }
-
-LABEL_89:
-
-      v50 = 0;
-LABEL_90:
-      free(v50);
-    }
-  }
-
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v51 = *(v4 + 97);
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
-  {
-    *v296 = 0;
-    v52 = sub_1000011A8(1);
-    v53 = v51;
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
-    {
-      v54 = v52;
-    }
-
-    else
-    {
-      v54 = v52 & 0xFFFFFFFE;
-    }
-
-    if (v54)
-    {
-      v304.st_dev = 67109120;
-      *&v304.st_mode = a1;
-      LODWORD(v285) = 8;
-      v284 = &v304;
-      v55 = _os_log_send_and_compose_impl();
-
-      if (v55)
-      {
-        sub_100002A8C(v55);
-      }
-    }
-
-    else
-    {
-
-      v55 = 0;
-    }
-
-    free(v55);
-    v4 = &off_1000EB000;
-  }
-
-  if (a1 == 502)
-  {
-    v56 = 1;
-  }
-
-  else
-  {
-    v56 = 2;
-  }
-
-  dword_1000EB5B8 = v56;
-  dword_1000EB5BC = 0;
-  memset(&v304, 0, sizeof(v304));
-  memset(&v303, 0, sizeof(v303));
-  if (lstat("/private/var/mobile", &v304))
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v57 = v286;
-    v58 = *(v4 + 97);
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_329;
-    }
-
-    *v293 = 0;
-    v59 = sub_1000011A8(1);
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-    {
-      v59 &= ~1u;
-    }
-
-    if (v59)
-    {
-      goto LABEL_112;
-    }
-
-LABEL_327:
-    v63 = 0;
-LABEL_328:
-    free(v63);
-    goto LABEL_329;
-  }
-
-  v64 = v304.st_mode & 0xF000;
-  if (v64 != 0x4000)
-  {
-    if (v64 == 40960)
-    {
-      v65 = sub_1000013A0(*v7);
-      v66 = [v65 removeFileAtPath:@"/private/var/mobile" error:0];
-
-      v57 = v286;
-      if (v66)
-      {
-        goto LABEL_330;
-      }
-
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v58 = *(v4 + 97);
-      if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_329;
-      }
-
-      *v296 = 0;
-      v67 = sub_1000011A8(1);
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-      {
-        v68 = v67;
-      }
-
-      else
-      {
-        v68 = v67 & 0xFFFFFFFE;
-      }
-
-      if (!v68)
-      {
-        goto LABEL_327;
-      }
-
-      *v293 = 0;
-      LODWORD(v285) = 2;
-      v284 = v293;
-    }
-
-    else
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v57 = v286;
-      v58 = *(v4 + 97);
-      if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_329;
-      }
-
-      *v296 = 0;
-      v75 = sub_1000011A8(1);
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-      {
-        v76 = v75;
-      }
-
-      else
-      {
-        v76 = v75 & 0xFFFFFFFE;
-      }
-
-      if (!v76)
-      {
-        goto LABEL_327;
-      }
-
-      *v293 = 67109120;
-      *&v293[4] = v304.st_mode;
-      LODWORD(v285) = 8;
-      v284 = v293;
-    }
-
-    v77 = _os_log_send_and_compose_impl();
-    v63 = v77;
-    if (v77)
-    {
-      sub_100002A8C(v77);
-    }
-
-    goto LABEL_328;
-  }
-
-  v57 = v286;
-  if (sub_100054EFC("/private/var/mobile", 0x80000))
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v69 = *(v4 + 97);
-    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-    {
-      *v293 = 0;
-      v70 = sub_1000011A8(1);
-      if (!os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
-      {
-        v70 &= ~1u;
-      }
-
-      if (v70)
-      {
-        v71 = v69;
-        v72 = __error();
-        v73 = strerror(*v72);
-        *v296 = 136315138;
-        *&v296[4] = v73;
-        LODWORD(v285) = 12;
-        v284 = v296;
-        v74 = _os_log_send_and_compose_impl();
-
-        if (v74)
-        {
-          sub_100002A8C(v74);
-        }
-
-        v4 = &off_1000EB000;
-      }
-
-      else
-      {
-        v74 = 0;
-      }
-
-      free(v74);
-    }
-  }
-
-  if (lstat("/private/var/OLDmobile", &v303))
-  {
-    rename("/private/var/mobile", "/private/var/OLDmobile", v147);
-    if (!v148)
-    {
-      goto LABEL_330;
-    }
-
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v58 = *(v4 + 97);
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_329;
-    }
-
-    *v293 = 0;
-    v149 = sub_1000011A8(1);
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-    {
-      v149 &= ~1u;
-    }
-
-    if (!v149)
-    {
-      goto LABEL_327;
-    }
-
-    goto LABEL_112;
-  }
-
-  if (!rmdir("/private/var/mobile"))
-  {
-    goto LABEL_330;
-  }
-
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v58 = *(v4 + 97);
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-  {
-    *v293 = 0;
-    v150 = sub_1000011A8(1);
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
-    {
-      v150 &= ~1u;
-    }
-
-    if (!v150)
-    {
-      goto LABEL_327;
-    }
-
-LABEL_112:
-    v60 = v58;
-    v61 = __error();
-    v62 = strerror(*v61);
-    *v296 = 136315138;
-    *&v296[4] = v62;
-    LODWORD(v285) = 12;
-    v284 = v296;
-    v63 = _os_log_send_and_compose_impl();
-
-    if (v63)
-    {
-      sub_100002A8C(v63);
-    }
-
-    v4 = &off_1000EB000;
-    goto LABEL_328;
-  }
-
-LABEL_329:
-
-LABEL_330:
-  if (mkdir("/private/var/mobile", 0x1FFu))
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v151 = *(v4 + 97);
-    if (os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT))
-    {
-      *v293 = 0;
-      v152 = sub_1000011A8(1);
-      if (!os_log_type_enabled(v151, OS_LOG_TYPE_DEFAULT))
-      {
-        v152 &= ~1u;
-      }
-
-      if (v152)
-      {
-        v153 = v151;
-        v154 = __error();
-        v155 = strerror(*v154);
-        *v296 = 136315138;
-        *&v296[4] = v155;
-        LODWORD(v285) = 12;
-        v284 = v296;
-        v156 = _os_log_send_and_compose_impl();
-
-        if (v156)
-        {
-          sub_100002A8C(v156);
-        }
-
-        v4 = &off_1000EB000;
-      }
-
-      else
-      {
-        v156 = 0;
-      }
-
-      free(v156);
-    }
-  }
-
-  if (chown("/private/var/mobile", a1, v287))
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v157 = *(v4 + 97);
-    if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
-    {
-      *v293 = 0;
-      v158 = sub_1000011A8(1);
-      if (!os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
-      {
-        v158 &= ~1u;
-      }
-
-      if (v158)
-      {
-        v159 = v157;
-        v160 = __error();
-        v161 = strerror(*v160);
-        *v296 = 67109634;
-        *&v296[4] = a1;
-        *&v296[8] = 1024;
-        *&v296[10] = v287;
-        *&v296[14] = 2080;
-        *&v296[16] = v161;
-        LODWORD(v285) = 24;
-        v284 = v296;
-        v162 = _os_log_send_and_compose_impl();
-
-        if (v162)
-        {
-          sub_100002A8C(v162);
-        }
-
-        v4 = &off_1000EB000;
-        goto LABEL_363;
-      }
-
-LABEL_362:
-      v162 = 0;
-LABEL_363:
-      free(v162);
-    }
-  }
-
-  else
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v157 = *(v4 + 97);
-    if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
-    {
-      *v293 = 0;
-      v163 = sub_1000011A8(1);
-      if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
-      {
-        v164 = v163;
-      }
-
-      else
-      {
-        v164 = v163 & 0xFFFFFFFE;
-      }
-
-      if (v164)
-      {
-        *v296 = 67109376;
-        *&v296[4] = a1;
-        *&v296[8] = 1024;
-        *&v296[10] = v287;
-        LODWORD(v285) = 14;
-        v284 = v296;
-        v165 = _os_log_send_and_compose_impl();
-        v162 = v165;
-        if (v165)
-        {
-          sub_100002A8C(v165);
-        }
-
-        goto LABEL_363;
-      }
-
-      goto LABEL_362;
-    }
-  }
-
-  bzero(v296, 0x400uLL);
-  sub_1000795D4(v57, *v5, v296, 1024);
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v166 = *(v4 + 97);
-  if (os_log_type_enabled(v166, OS_LOG_TYPE_DEFAULT))
-  {
-    v292 = 0;
-    v167 = sub_1000011A8(1);
-    if (os_log_type_enabled(v166, OS_LOG_TYPE_DEFAULT))
-    {
-      v168 = v167;
-    }
-
-    else
-    {
-      v168 = v167 & 0xFFFFFFFE;
-    }
-
-    if (v168)
-    {
-      *v293 = 136315138;
-      *&v293[4] = v296;
-      LODWORD(v285) = 12;
-      v284 = v293;
-      v169 = _os_log_send_and_compose_impl();
-      v170 = v169;
-      if (v169)
-      {
-        sub_100002A8C(v169);
-      }
-    }
-
-    else
-    {
-      v170 = 0;
-    }
-
-    free(v170);
-  }
-
-  v171 = fsctl("/private/var/", 0x2000410FuLL, v296, 0);
-  if (v171)
-  {
-    v172 = v171;
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v173 = *(v4 + 97);
-    if (os_log_type_enabled(v173, OS_LOG_TYPE_DEFAULT))
-    {
-      v292 = 0;
-      v174 = sub_1000011A8(1);
-      if (!os_log_type_enabled(v173, OS_LOG_TYPE_DEFAULT))
-      {
-        v174 &= ~1u;
-      }
-
-      if (v174)
-      {
-        v175 = v173;
-        v176 = strerror(v172);
-        *v293 = 67109634;
-        *&v293[4] = a1;
-        *&v293[8] = 2080;
-        *&v293[10] = v296;
-        v294 = 2080;
-        v295 = v176;
-        LODWORD(v285) = 28;
-        v284 = v293;
-        v177 = _os_log_send_and_compose_impl();
-
-        if (v177)
-        {
-          sub_100002A8C(v177);
-        }
-      }
-
-      else
-      {
-        v177 = 0;
-      }
-
-      v4 = &off_1000EB000;
-      free(v177);
-    }
-  }
-
-  else
-  {
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v178 = *(v4 + 97);
-    if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
-    {
-      v292 = 0;
-      v179 = sub_1000011A8(1);
-      if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
-      {
-        v180 = v179;
-      }
-
-      else
-      {
-        v180 = v179 & 0xFFFFFFFE;
-      }
-
-      if (v180)
-      {
-        *v293 = 67109378;
-        *&v293[4] = a1;
-        *&v293[8] = 2080;
-        *&v293[10] = v296;
-        LODWORD(v285) = 18;
-        v284 = v293;
-        v181 = _os_log_send_and_compose_impl();
-        v182 = v181;
-        if (v181)
-        {
-          sub_100002A8C(v181);
-        }
-      }
-
-      else
-      {
-        v182 = 0;
-      }
-
-      free(v182);
-    }
-
-    sub_100032B3C(a1, v296, 1);
-  }
-
-  strcpy(v296, "/private/var/DELETED");
-  if (!lstat("/private/var/DELETED", &v304))
-  {
-    if (sub_10002D62C(v296))
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v183 = *(v4 + 97);
-      if (!os_log_type_enabled(v183, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_430;
-      }
-
-      v292 = 0;
-      v189 = sub_1000011A8(1);
-      if (os_log_type_enabled(v183, OS_LOG_TYPE_DEFAULT))
-      {
-        v190 = v189;
-      }
-
-      else
-      {
-        v190 = v189 & 0xFFFFFFFE;
-      }
-
-      if (!v190)
-      {
-        goto LABEL_428;
-      }
-
-      *v293 = 136315138;
-      *&v293[4] = v296;
-      LODWORD(v285) = 12;
-      v284 = v293;
-    }
-
-    else
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v183 = *(v4 + 97);
-      if (!os_log_type_enabled(v183, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_430;
-      }
-
-      v292 = 0;
-      v191 = sub_1000011A8(1);
-      if (os_log_type_enabled(v183, OS_LOG_TYPE_DEFAULT))
-      {
-        v192 = v191;
-      }
-
-      else
-      {
-        v192 = v191 & 0xFFFFFFFE;
-      }
-
-      if (!v192)
-      {
-        goto LABEL_428;
-      }
-
-      *v293 = 136315138;
-      *&v293[4] = v296;
-      LODWORD(v285) = 12;
-      v284 = v293;
-    }
-
-    v193 = _os_log_send_and_compose_impl();
-    v188 = v193;
-    if (v193)
-    {
-      sub_100002A8C(v193);
-    }
-
-    goto LABEL_429;
-  }
-
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v183 = *(v4 + 97);
-  if (os_log_type_enabled(v183, OS_LOG_TYPE_DEFAULT))
-  {
-    v292 = 0;
-    v184 = sub_1000011A8(1);
-    if (!os_log_type_enabled(v183, OS_LOG_TYPE_DEFAULT))
-    {
-      v184 &= ~1u;
-    }
-
-    if (v184)
-    {
-      v185 = v183;
-      v186 = __error();
-      v187 = strerror(*v186);
-      *v293 = 136315138;
-      *&v293[4] = v187;
-      LODWORD(v285) = 12;
-      v284 = v293;
-      v188 = _os_log_send_and_compose_impl();
-
-      if (v188)
-      {
-        sub_100002A8C(v188);
-      }
-
-      v4 = &off_1000EB000;
-      goto LABEL_429;
-    }
-
-LABEL_428:
-    v188 = 0;
-LABEL_429:
-    free(v188);
-  }
-
-LABEL_430:
-
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v194 = *(v4 + 97);
-  if (os_log_type_enabled(v194, OS_LOG_TYPE_DEFAULT))
-  {
-    *v296 = 0;
-    v195 = sub_1000011A8(1);
-    if (os_log_type_enabled(v194, OS_LOG_TYPE_DEFAULT))
-    {
-      v196 = v195;
-    }
-
-    else
-    {
-      v196 = v195 & 0xFFFFFFFE;
-    }
-
-    if (v196)
-    {
-      v304.st_dev = 67109120;
-      *&v304.st_mode = 2;
-      LODWORD(v285) = 8;
-      v284 = &v304;
-      v197 = _os_log_send_and_compose_impl();
-      v198 = v197;
-      if (v197)
-      {
-        sub_100002A8C(v197);
-      }
-    }
-
-    else
-    {
-      v198 = 0;
-    }
-
-    free(v198);
-  }
-
-  v199 = 0;
-  v200 = 1;
-  v87 = a1;
-  do
-  {
-    v201 = v200;
-    memset(v296, 0, 144);
-    v202 = (&off_1000DD4A8)[6 * v199];
-    if (stat(v202, v296))
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v203 = *(v4 + 97);
-      if (os_log_type_enabled(v203, OS_LOG_TYPE_DEFAULT))
-      {
-        *&v303.st_dev = 0;
-        v204 = sub_1000011A8(1);
-        if (os_log_type_enabled(v203, OS_LOG_TYPE_DEFAULT))
-        {
-          v205 = v204;
-        }
-
-        else
-        {
-          v205 = v204 & 0xFFFFFFFE;
-        }
-
-        if (v205)
-        {
-          v304.st_dev = 136315138;
-          *&v304.st_mode = v202;
-          LODWORD(v285) = 12;
-          v284 = &v304;
-          v206 = _os_log_send_and_compose_impl();
-          v207 = v206;
-          if (v206)
-          {
-            sub_100002A8C(v206);
-          }
-        }
-
-        else
-        {
-          v207 = 0;
-        }
-
-        free(v207);
-        v4 = &off_1000EB000;
-      }
-
-      if (mkpath_np(v202, 0x1EDu))
-      {
-        if (qword_1000EB310 != -1)
-        {
-          sub_100089CEC();
-        }
-
-        v213 = *(v4 + 97);
-        if (os_log_type_enabled(v213, OS_LOG_TYPE_DEFAULT))
-        {
-          *&v303.st_dev = 0;
-          v214 = sub_1000011A8(1);
-          if (!os_log_type_enabled(v213, OS_LOG_TYPE_DEFAULT))
-          {
-            v214 &= ~1u;
-          }
-
-          if (v214)
-          {
-            v215 = v213;
-            v216 = __error();
-            v217 = strerror(*v216);
-            v304.st_dev = 136315394;
-            *&v304.st_mode = v202;
-            WORD2(v304.st_ino) = 2080;
-            *(&v304.st_ino + 6) = v217;
-            LODWORD(v285) = 22;
-            v284 = &v304;
-            v218 = _os_log_send_and_compose_impl();
-
-            if (v218)
-            {
-              sub_100002A8C(v218);
-            }
-
-            v87 = a1;
-          }
-
-          else
-          {
-            v218 = 0;
-          }
-
-          free(v218);
-          v4 = &off_1000EB000;
-        }
-      }
-    }
-
-    else
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v208 = *(v4 + 97);
-      if (os_log_type_enabled(v208, OS_LOG_TYPE_DEFAULT))
-      {
-        *&v303.st_dev = 0;
-        v209 = sub_1000011A8(1);
-        if (os_log_type_enabled(v208, OS_LOG_TYPE_DEFAULT))
-        {
-          v210 = v209;
-        }
-
-        else
-        {
-          v210 = v209 & 0xFFFFFFFE;
-        }
-
-        if (v210)
-        {
-          v304.st_dev = 136315138;
-          *&v304.st_mode = v202;
-          LODWORD(v285) = 12;
-          v284 = &v304;
-          v211 = _os_log_send_and_compose_impl();
-          v212 = v211;
-          if (v211)
-          {
-            sub_100002A8C(v211);
-          }
-        }
-
-        else
-        {
-          v212 = 0;
-        }
-
-        v87 = a1;
-        free(v212);
-        v4 = &off_1000EB000;
-      }
-
-      if (*&v296[16] != v87 || *&v296[20] != v287)
-      {
-        if (!chown(v202, v87, v287))
-        {
-          if (qword_1000EB310 != -1)
-          {
-            sub_100089CEC();
-          }
-
-          v219 = *(v4 + 97);
-          if (os_log_type_enabled(v219, OS_LOG_TYPE_DEFAULT))
-          {
-            *&v303.st_dev = 0;
-            v220 = sub_1000011A8(1);
-            if (os_log_type_enabled(v219, OS_LOG_TYPE_DEFAULT))
-            {
-              v221 = v220;
-            }
-
-            else
-            {
-              v221 = v220 & 0xFFFFFFFE;
-            }
-
-            if (v221)
-            {
-              v222 = v219;
-              v223 = __error();
-              v224 = strerror(*v223);
-              v304.st_dev = 136315394;
-              *&v304.st_mode = v202;
-              WORD2(v304.st_ino) = 2080;
-              *(&v304.st_ino + 6) = v224;
-              LODWORD(v285) = 22;
-              v284 = &v304;
-              v225 = _os_log_send_and_compose_impl();
-
-              if (v225)
-              {
-                sub_100002A8C(v225);
-              }
-            }
-
-            else
-            {
-              v225 = 0;
-            }
-
-            v87 = a1;
-            free(v225);
-            v4 = &off_1000EB000;
-          }
-        }
-
-        sub_10001C7AC(v202, v87);
-      }
-    }
-
-    v200 = 0;
-    v199 = 1;
-  }
-
-  while ((v201 & 1) != 0);
-  v6 = &off_1000EB000;
-  v30 = v286;
-  if (v87 == 502)
-  {
-    v226 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-    if (v226)
-    {
-      v227 = v226;
-      CFDictionarySetValue(v286, kUMUserSessionPreviousLoggedinIDKey, v226);
-      CFRelease(v227);
-    }
-
-    v228 = sub_100079590(v286, kUMUserSessionHomeDirKey);
-    sub_100070A64(v228, 0x1F6u, 0x1F6u);
-    if (!CFDictionaryContainsKey(v286, kUMUserSessionLanguageKey))
-    {
-      CFDictionarySetValue(v286, kUMUserSessionLanguageKey, @"en_US");
-    }
-  }
-
-  Current = CFAbsoluteTimeGetCurrent();
-  v230 = CFDateCreate(kCFAllocatorDefault, Current);
-  CFDictionaryReplaceValue(v286, kUMUserSessionLoginTimeStampKey, v230);
-  if (v230)
-  {
-    CFRelease(v230);
-  }
-
-  if ([qword_1000EB2D8 splitUserVolumeEnabled])
-  {
-LABEL_503:
-    if (v87 != 502)
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v231 = *(v4 + 97);
-      if (os_log_type_enabled(v231, OS_LOG_TYPE_DEFAULT))
-      {
-        *v296 = 0;
-        v232 = sub_1000011A8(1);
-        v233 = v231;
-        if (os_log_type_enabled(v233, OS_LOG_TYPE_DEFAULT))
-        {
-          v234 = v232;
-        }
-
-        else
-        {
-          v234 = v232 & 0xFFFFFFFE;
-        }
-
-        if (v234)
-        {
-          v304.st_dev = 67109120;
-          v87 = a1;
-          *&v304.st_mode = a1;
-          v235 = _os_log_send_and_compose_impl();
-
-          if (v235)
-          {
-            sub_100002A8C(v235);
-          }
-        }
-
-        else
-        {
-
-          v235 = 0;
-          v87 = a1;
-        }
-
-        free(v235);
-      }
-
-      sub_10001C1B8(v87);
-    }
-
-    sub_10001C0D0(v286, v87);
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v253 = *(v4 + 97);
-    if (os_log_type_enabled(v253, OS_LOG_TYPE_DEFAULT))
-    {
-      *v296 = 0;
-      v254 = sub_1000011A8(1);
-      v255 = v253;
-      if (os_log_type_enabled(v255, OS_LOG_TYPE_DEFAULT))
-      {
-        v256 = v254;
-      }
-
-      else
-      {
-        v256 = v254 & 0xFFFFFFFE;
-      }
-
-      if (v256)
-      {
-        v304.st_dev = 67109120;
-        v87 = a1;
-        *&v304.st_mode = a1;
-        v257 = _os_log_send_and_compose_impl();
-
-        if (v257)
-        {
-          sub_100002A8C(v257);
-        }
-      }
-
-      else
-      {
-
-        v257 = 0;
-        v87 = a1;
-      }
-
-      free(v257);
-    }
-
-    CFDictionarySetValue(v286, kUMUserSessionForegroundKey, kCFBooleanTrue);
-    sub_100018C80();
-    sub_100073538();
-    if (dword_1000EB5E0 < 1)
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v80 = &off_1000EB000;
-      v98 = *(v4 + 97);
-      if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_650;
-      }
-
-      *v296 = 0;
-      v263 = sub_1000011A8(1);
-      v98 = v98;
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
-      {
-        v264 = v263;
-      }
-
-      else
-      {
-        v264 = v263 & 0xFFFFFFFE;
-      }
-
-      if (v264)
-      {
-        LOWORD(v304.st_dev) = 0;
-        v265 = _os_log_send_and_compose_impl();
-
-        if (v265)
-        {
-          sub_100002A8C(v265);
-        }
-      }
-
-      else
-      {
-
-        v265 = 0;
-      }
-
-      v87 = a1;
-      goto LABEL_608;
-    }
-
-    if (qword_1000EB310 != -1)
-    {
-      sub_100089CEC();
-    }
-
-    v258 = *(v4 + 97);
-    if (os_log_type_enabled(v258, OS_LOG_TYPE_DEFAULT))
-    {
-      *v296 = 0;
-      v259 = sub_1000011A8(1);
-      v260 = v258;
-      if (os_log_type_enabled(v260, OS_LOG_TYPE_DEFAULT))
-      {
-        v261 = v259;
-      }
-
-      else
-      {
-        v261 = v259 & 0xFFFFFFFE;
-      }
-
-      if (v261)
-      {
-        v304.st_dev = 67109120;
-        *&v304.st_mode = dword_1000EB5E0;
-        v262 = _os_log_send_and_compose_impl();
-
-        if (v262)
-        {
-          sub_100002A8C(v262);
-        }
-      }
-
-      else
-      {
-
-        v262 = 0;
-      }
-
-      v87 = a1;
-      free(v262);
-    }
-
-    if (sub_10001C98C(dword_1000EB5E0))
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v98 = *(v4 + 97);
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
-      {
-        *v296 = 0;
-        v266 = sub_1000011A8(1);
-        v98 = v98;
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
-        {
-          v267 = v266;
-        }
-
-        else
-        {
-          v267 = v266 & 0xFFFFFFFE;
-        }
-
-        if (v267)
-        {
-          v304.st_dev = 67109120;
-          *&v304.st_mode = dword_1000EB5E0;
-          goto LABEL_596;
-        }
-
-        goto LABEL_599;
-      }
-    }
-
-    else
-    {
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v98 = *(v4 + 97);
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
-      {
-        *v296 = 0;
-        v268 = sub_1000011A8(1);
-        v98 = v98;
-        if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
-        {
-          v269 = v268;
-        }
-
-        else
-        {
-          v269 = v268 & 0xFFFFFFFE;
-        }
-
-        if (v269)
-        {
-          v304.st_dev = 67109120;
-          *&v304.st_mode = dword_1000EB5E0;
-LABEL_596:
-          v265 = _os_log_send_and_compose_impl();
-
-          if (v265)
-          {
-            sub_100002A8C(v265);
-          }
-
-          goto LABEL_600;
-        }
-
-LABEL_599:
-
-        v265 = 0;
-LABEL_600:
-        v87 = a1;
-        v80 = &off_1000EB000;
-LABEL_608:
-        free(v265);
-        goto LABEL_650;
-      }
-    }
-
-    v80 = &off_1000EB000;
-LABEL_650:
-
-LABEL_651:
-    v280 = sub_100079590(v30, kUMUserSessionHomeDirKey);
-    v281 = sub_100073D54(v280, v87, v87);
-    if (v281)
-    {
-      v283 = sub_100018028("failed to register the exclaves writable storage: %d\n", v281);
-      return sub_100042F8C(v283);
-    }
-
-    else
-    {
-      if (v30)
-      {
-        CFRelease(v30);
-      }
-
-      if (*(v80 + 364) != 1)
-      {
-        v282 = sub_10008A4DC(v6[92], v87);
-        sub_1000940D0();
-      }
-
-      return 1;
-    }
-  }
-
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v236 = *(v4 + 97);
-  if (os_log_type_enabled(v236, OS_LOG_TYPE_DEFAULT))
-  {
-    *v296 = 0;
-    v237 = sub_1000011A8(1);
-    v238 = v236;
-    if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
-    {
-      v239 = v237;
-    }
-
-    else
-    {
-      v239 = v237 & 0xFFFFFFFE;
-    }
-
-    if (v239)
-    {
-      v304.st_dev = 67109120;
-      v87 = a1;
-      *&v304.st_mode = a1;
-      v240 = _os_log_send_and_compose_impl();
-
-      if (v240)
-      {
-        sub_100002A8C(v240);
-      }
-    }
-
-    else
-    {
-
-      v240 = 0;
-      v87 = a1;
-    }
-
-    free(v240);
-  }
-
-  if (!MKBUserSessionLoadKeybagForUser())
-  {
-    v246 = MKBUserSessionUnloadSessionBags();
-    if (v246)
-    {
-      v247 = v246;
-      if (qword_1000EB310 != -1)
-      {
-        sub_100089CEC();
-      }
-
-      v248 = *(v4 + 97);
-      if (os_log_type_enabled(v248, OS_LOG_TYPE_DEFAULT))
-      {
-        *v296 = 0;
-        v249 = sub_1000011A8(1);
-        v250 = v248;
-        if (os_log_type_enabled(v250, OS_LOG_TYPE_DEFAULT))
-        {
-          v251 = v249;
-        }
-
-        else
-        {
-          v251 = v249 & 0xFFFFFFFE;
-        }
-
-        if (v251)
-        {
-          v304.st_dev = 67109120;
-          *&v304.st_mode = v247;
-          v252 = _os_log_send_and_compose_impl();
-
-          if (v252)
-          {
-            sub_100002A8C(v252);
-          }
-        }
-
-        else
-        {
-
-          v252 = 0;
-        }
-
-        v87 = a1;
-        free(v252);
-      }
-    }
-
-    goto LABEL_503;
-  }
-
-  if (qword_1000EB310 != -1)
-  {
-    sub_100089CEC();
-  }
-
-  v241 = *(v4 + 97);
-  if (os_log_type_enabled(v241, OS_LOG_TYPE_DEFAULT))
-  {
-    *v296 = 0;
-    v242 = sub_1000011A8(1);
-    v243 = v241;
-    if (os_log_type_enabled(v243, OS_LOG_TYPE_DEFAULT))
-    {
-      v244 = v242;
-    }
-
-    else
-    {
-      v244 = v242 & 0xFFFFFFFE;
-    }
-
-    if (v244)
-    {
-      LOWORD(v304.st_dev) = 0;
-      v245 = _os_log_send_and_compose_impl();
-
-      if (v245)
-      {
-        sub_100002A8C(v245);
-      }
-    }
-
-    else
-    {
-
-      v245 = 0;
-    }
-
-    free(v245);
-  }
-
-  if (v286)
-  {
-    CFRelease(v286);
-  }
-
-  return 0;
 }

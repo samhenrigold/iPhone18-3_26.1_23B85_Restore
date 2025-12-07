@@ -14,32 +14,31 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v15.receiver = self;
-  v15.super_class = LIGHTHOUSE_BITACORA_PROTOScheduleStatus;
-  v4 = [(LIGHTHOUSE_BITACORA_PROTOScheduleStatus *)&v15 description];
-  v9 = objc_msgSend_dictionaryRepresentation(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_stringWithFormat_(v3, v10, @"%@ %@", v11, v12, v4, v9);
+  v13.receiver = self;
+  v13.super_class = LIGHTHOUSE_BITACORA_PROTOScheduleStatus;
+  v4 = [(LIGHTHOUSE_BITACORA_PROTOScheduleStatus *)&v13 description];
+  v8 = objc_msgSend_dictionaryRepresentation(self, v5, v7, v6);
+  v11 = objc_msgSend_stringWithFormat_(v3, v9, v10, @"%@ %@", v4, v8);
 
-  return v13;
+  return v11;
 }
 
 - (id)dictionaryRepresentation
 {
-  v9 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2, v3, v4);
+  v6 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v3, v2);
   if (*&self->_has)
   {
-    v10 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v6, self->_scheduled, v7, v8);
-    objc_msgSend_setObject_forKey_(v9, v11, v10, @"scheduled", v12);
+    v8 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v5, v7, self->_scheduled);
+    objc_msgSend_setObject_forKey_(v6, v9, v10, v8, @"scheduled");
   }
 
-  return v9;
+  return v6;
 }
 
 - (void)writeTo:(id)to
 {
   if (*&self->_has)
   {
-    scheduled = self->_scheduled;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -56,8 +55,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
-  result = objc_msgSend_init(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_allocWithZone_(v5, v6, v7, zone);
+  result = objc_msgSend_init(v8, v9, v11, v10);
   if (*&self->_has)
   {
     *(result + 8) = self->_scheduled;
@@ -71,18 +70,18 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5, v7, v8))
+  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v7, v5))
   {
     goto LABEL_4;
   }
 
-  v9 = (equalCopy[12] & 1) == 0;
+  v8 = (equalCopy[12] & 1) == 0;
   if (*&self->_has)
   {
     if ((equalCopy[12] & 1) == 0)
     {
 LABEL_4:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_5;
     }
 
@@ -99,12 +98,12 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_5:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

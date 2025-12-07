@@ -63,8 +63,7 @@
   v5 = +[FMDFMIPSharedStateManager sharedInstance];
   [v5 recalculateLostMode];
 
-  [(FMDDaemon *)self waitForSpringBoard];
-  v6 = sub_100002880();
+  v6 = sub_100002880([(FMDDaemon *)self waitForSpringBoard]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -79,29 +78,29 @@
   v8 = +[FMXPCTransactionManager sharedInstance];
   [v8 setLaunchOnRebootActivity:@"com.apple.icloud.findmydeviced.launch-on-reboot" keepAliveActivity:@"com.apple.icloud.findmydeviced.keep-alive-on-dirty"];
 
-  v9 = +[FMDSystemConfig sharedInstance];
-  v10 = sub_100002880();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v9 = sub_100002880(+[FMDSystemConfig sharedInstance]);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_100226848(v10);
+    sub_100226848(v9);
   }
 
-  v11 = +[FMSystemInfo sharedInstance];
-  if ([v11 isInternalBuild])
+  v10 = +[FMSystemInfo sharedInstance];
+  if ([v10 isInternalBuild])
   {
-    v12 = +[FMDSystemConfig sharedInstance];
-    isRunningInRecovery = [v12 isRunningInRecovery];
+    v11 = +[FMDSystemConfig sharedInstance];
+    isRunningInRecovery = [v11 isRunningInRecovery];
 
     if (isRunningInRecovery)
     {
       goto LABEL_12;
     }
 
-    v11 = [(FMDDaemon *)self verifyLaunchEventsConfiguration:@"/System/Library/LaunchDaemons/com.apple.icloud.findmydeviced.plist" withExclusions:&off_1002E88B8];
-    if (v11)
+    v14 = [(FMDDaemon *)self verifyLaunchEventsConfiguration:@"/System/Library/LaunchDaemons/com.apple.icloud.findmydeviced.plist" withExclusions:&off_1002E88B8];
+    v10 = v14;
+    if (v14)
     {
-      v14 = sub_100002880();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100002880(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10022688C();
       }
@@ -109,21 +108,21 @@
   }
 
 LABEL_12:
-  v15 = sub_100002880();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = sub_100002880(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    sub_1002268F4(v15);
+    sub_1002268F4(v16);
   }
 
   [(FMDDaemon *)self startServiceProviders];
-  v16 = +[FMXPCTransactionManager sharedInstance];
-  v17 = +[FMNetworkMonitor sharedInstance];
-  isMonitoring = [v17 isMonitoring];
+  v17 = +[FMXPCTransactionManager sharedInstance];
+  v18 = +[FMNetworkMonitor sharedInstance];
+  isMonitoring = [v18 isMonitoring];
 
   if ((isMonitoring & 1) == 0)
   {
-    v19 = +[FMNetworkMonitor sharedInstance];
-    [v19 startMonitoring];
+    v20 = +[FMNetworkMonitor sharedInstance];
+    [v20 startMonitoring];
   }
 
   [(FMDDaemon *)self cleanupPostWipe];
@@ -137,8 +136,8 @@ LABEL_12:
   block[4] = self;
   dispatch_sync(apsHandlersModQueue, block);
 
-  v21 = +[FMDXPCManager sharedInstance];
-  [v21 initializeXPC];
+  v22 = +[FMDXPCManager sharedInstance];
+  [v22 initializeXPC];
 
   [(FMDDaemon *)self _performPostStartupTasks];
   if (completionCopy)
@@ -146,25 +145,26 @@ LABEL_12:
     completionCopy[2](completionCopy);
   }
 
-  v22 = [[FMDEventLoggerEventLaunch alloc] initWithEventName:@"FMDDaemonLaunchEvent"];
-  [(FMDEventLoggerEventLaunch *)v22 setLaunchReason:0];
-  v23 = +[FMDEventLogger sharedLogger];
-  v24 = +[FMDEventLoggerFacilityDataPeek facilityName];
-  v30 = v24;
-  v25 = [NSArray arrayWithObjects:&v30 count:1];
-  [v23 logEvent:v22 toFacilitiesNamed:v25];
+  v23 = [[FMDEventLoggerEventLaunch alloc] initWithEventName:@"FMDDaemonLaunchEvent"];
+  [(FMDEventLoggerEventLaunch *)v23 setLaunchReason:0];
+  v24 = +[FMDEventLogger sharedLogger];
+  v25 = +[FMDEventLoggerFacilityDataPeek facilityName];
+  v32 = v25;
+  v26 = [NSArray arrayWithObjects:&v32 count:1];
+  [v24 logEvent:v23 toFacilitiesNamed:v26];
 
-  if (!MKBGetDeviceLockState())
+  v27 = MKBGetDeviceLockState();
+  if (!v27)
   {
-    v26 = sub_100002880();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = sub_100002880(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Start clearing up empty folders", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Start clearing up empty folders", buf, 2u);
     }
 
-    v27 = +[FMDProtectedContextManager sharedManager];
-    [v27 cleanupEmptyFolders];
+    v29 = +[FMDProtectedContextManager sharedManager];
+    [v29 cleanupEmptyFolders];
   }
 }
 
@@ -206,7 +206,7 @@ LABEL_12:
 
   else
   {
-    v6 = sub_100002880();
+    v6 = sub_100002880(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1002269A8(v6);
@@ -233,12 +233,12 @@ LABEL_12:
   activeServiceProvider2 = [(FMDDaemon *)self activeServiceProvider];
   newLocationManager = [activeServiceProvider2 newLocationManager];
 
-  v8 = sub_100002880();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100002880(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = newLocationManager;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Started Location Manager (handling launch event) %p", &v9, 0xCu);
+    v10 = 134217984;
+    v11 = newLocationManager;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Started Location Manager (handling launch event) %p", &v10, 0xCu);
   }
 }
 
@@ -274,42 +274,42 @@ LABEL_12:
   v5 = +[FMDSystemConfig sharedInstance];
   isRunningInRecovery = [v5 isRunningInRecovery];
 
-  v7 = sub_100002880();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = sub_100002880(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (isRunningInRecovery)
   {
-    if (!v8)
+    if (!v9)
     {
       goto LABEL_7;
     }
 
-    *v12 = 138412290;
-    *&v12[4] = buildVersion;
-    v9 = "OS: %@ [Recovery Partition]";
+    *v13 = 138412290;
+    *&v13[4] = buildVersion;
+    v10 = "OS: %@ [Recovery Partition]";
   }
 
   else
   {
-    if (!v8)
+    if (!v9)
     {
       goto LABEL_7;
     }
 
-    *v12 = 138412290;
-    *&v12[4] = buildVersion;
-    v9 = "OS: %@";
+    *v13 = 138412290;
+    *&v13[4] = buildVersion;
+    v10 = "OS: %@";
   }
 
-  _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v9, v12, 0xCu);
+  _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v10, v13, 0xCu);
 LABEL_7:
 
-  v10 = +[FMDPreferencesMgr lastLaunchVersion];
-  v11 = v10;
-  if (v10)
+  v11 = +[FMDPreferencesMgr lastLaunchVersion];
+  v12 = v11;
+  if (v11)
   {
-    if (([v10 isEqualToString:buildVersion] & 1) == 0)
+    if (([v11 isEqualToString:buildVersion] & 1) == 0)
     {
-      [(FMDDaemon *)self migrateFromVersion:v11 toVersion:buildVersion];
+      [(FMDDaemon *)self migrateFromVersion:v12 toVersion:buildVersion];
     }
   }
 
@@ -318,12 +318,12 @@ LABEL_7:
     [(FMDDaemon *)self initialLaunchProcessing];
   }
 
-  [FMDPreferencesMgr setLastLaunchVersion:buildVersion, *v12];
+  [FMDPreferencesMgr setLastLaunchVersion:buildVersion, *v13, *&v13[8]];
 }
 
 - (void)initialLaunchProcessing
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -336,19 +336,19 @@ LABEL_7:
   versionCopy = version;
   toVersionCopy = toVersion;
   v7 = [versionCopy compare:toVersionCopy];
-  v8 = sub_100002880();
+  v8 = sub_100002880(v7);
   v9 = v8;
   if (v7 == 1)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = versionCopy;
-      v18 = 2112;
-      v19 = toVersionCopy;
-      v12 = "Back-migration from %@ to %@";
-      v13 = v9;
-      v14 = 22;
+      v18 = versionCopy;
+      v19 = 2112;
+      v20 = toVersionCopy;
+      v13 = "Back-migration from %@ to %@";
+      v14 = v9;
+      v15 = 22;
       goto LABEL_11;
     }
 
@@ -370,30 +370,30 @@ LABEL_14:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = versionCopy;
-    v18 = 2112;
-    v19 = toVersionCopy;
+    v18 = versionCopy;
+    v19 = 2112;
+    v20 = toVersionCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Migrating from %@ to %@", buf, 0x16u);
   }
 
   if ([@"12A196" compare:versionCopy] != -1)
   {
     v10 = +[NSFileManager defaultManager];
-    v15 = 0;
-    [v10 removeItemAtPath:@"/var/mobile/Library/Logs/findmydeviced" error:&v15];
-    v11 = v15;
+    v16 = 0;
+    [v10 removeItemAtPath:@"/var/mobile/Library/Logs/findmydeviced" error:&v16];
+    v11 = v16;
 
     if (v11)
     {
-      v9 = sub_100002880();
+      v9 = sub_100002880(v12);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v12 = "Failed to delete log directory. findmydeviced logging may not work";
-        v13 = v9;
-        v14 = 2;
+        v13 = "Failed to delete log directory. findmydeviced logging may not work";
+        v14 = v9;
+        v15 = 2;
 LABEL_11:
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
         goto LABEL_14;
       }
 
@@ -409,8 +409,7 @@ LABEL_15:
   v3 = sem_open("findmydeviced.boot_check", 0);
   if (v3 == -1)
   {
-    [(FMDDaemon *)self setIsFirstRunAfterBoot:1];
-    v4 = sub_100002880();
+    v4 = sub_100002880([(FMDDaemon *)self setIsFirstRunAfterBoot:1]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -420,7 +419,7 @@ LABEL_15:
     v5 = sem_open("findmydeviced.boot_check", 512, 256, 0);
     if (v5 == -1)
     {
-      v6 = sub_100002880();
+      v6 = sub_100002880(-1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = __error();
@@ -454,66 +453,66 @@ LABEL_15:
     notify_register_check("com.apple.springboard.finishedstartup", &out_token);
     if (out_token != -1)
     {
-      v7 = 0;
-      notify_get_state(out_token, &v7);
-      v2 = v7;
-      v3 = sub_100002880();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-      if (v2)
+      v9 = 0;
+      state = notify_get_state(out_token, &v9);
+      v3 = v9;
+      v4 = sub_100002880(state);
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+      if (v3)
       {
-        if (v4)
+        if (v5)
         {
           *buf = 0;
-          v5 = "SpringBoard is already running. Continuing to start findmydeviced";
+          v6 = "SpringBoard is already running. Continuing to start findmydeviced";
 LABEL_15:
-          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v5, buf, 2u);
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v6, buf, 2u);
         }
       }
 
       else
       {
-        if (v4)
+        if (v5)
         {
           *buf = 134217984;
-          v10 = 20;
-          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Waiting upto %ld seconds for SpringBoard to start...", buf, 0xCu);
+          v12 = 20;
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Waiting upto %ld seconds for SpringBoard to start...", buf, 0xCu);
         }
 
-        if (!v7)
+        if (!v9)
         {
-          v6 = 0;
+          v8 = 0;
           do
           {
             sleep(1u);
-            notify_get_state(out_token, &v7);
-            if (v6 > 0x12)
+            v7 = notify_get_state(out_token, &v9);
+            if (v8 > 0x12)
             {
               break;
             }
 
-            ++v6;
+            ++v8;
           }
 
-          while (!v7);
-          if (!v7)
+          while (!v9);
+          if (!v9)
           {
-            v3 = sub_100002880();
-            if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+            v4 = sub_100002880(v7);
+            if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_16;
             }
 
             *buf = 0;
-            v5 = "Timed out while waiting for SpringBoard to start. Continuing to start findmydeviced anyway";
+            v6 = "Timed out while waiting for SpringBoard to start. Continuing to start findmydeviced anyway";
             goto LABEL_15;
           }
         }
 
-        v3 = sub_100002880();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+        v4 = sub_100002880(v7);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v5 = "SpringBoard has started. Continuing to start findmydeviced";
+          v6 = "SpringBoard has started. Continuing to start findmydeviced";
           goto LABEL_15;
         }
       }
@@ -529,11 +528,11 @@ LABEL_16:
   CFNotificationCenterPostNotification(DarwinNotifyCenter, kFMDStartupCompleteNotification, 0, 0, 1u);
   v3 = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(v3, kFMDLocalActivationLockInfoChangedNotification, 0, 0, 1u);
-  v4 = sub_100002880();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002880(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDLocalActivationLockInfoManager posted activationLockInfo changed notification after startup", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDLocalActivationLockInfoManager posted activationLockInfo changed notification after startup", v6, 2u);
   }
 }
 
@@ -552,21 +551,22 @@ LABEL_16:
     {
       v7 = MAEGetActivationStateWithError();
       v8 = 0;
+      v9 = v8;
       if (v8)
       {
-        v9 = sub_100002880();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = sub_100002880(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           sub_100226A00();
         }
       }
 
-      v10 = sub_100002880();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100002880(v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v13 = v7;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Doing fallback cleanup of postwipe preferences.  Activation state: [%@]", buf, 0xCu);
+        v14 = v7;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Doing fallback cleanup of postwipe preferences.  Activation state: [%@]", buf, 0xCu);
       }
 
       [FMDPreferencesMgr setFMIPWipeLostModeInfo:0];
@@ -583,66 +583,67 @@ LABEL_16:
 
 - (void)migrateAosnotifydStuff
 {
-  if (!+[FMDPreferencesMgr importedAosnotifydData])
+  v2 = +[FMDPreferencesMgr importedAosnotifydData];
+  if ((v2 & 1) == 0)
   {
-    v2 = sub_100002880();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100002880(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Checking for stuff to migrate from aosnotifyd", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Checking for stuff to migrate from aosnotifyd", buf, 2u);
     }
 
-    v3 = [NSString stringWithFormat:@"%@/FMIP-trackedLocations.dat", @"/var/mobile/Library/Caches/com.apple.aosnotifyd"];
-    v4 = +[NSFileManager defaultManager];
-    v5 = [v4 fileExistsAtPath:v3];
+    v4 = [NSString stringWithFormat:@"%@/FMIP-trackedLocations.dat", @"/var/mobile/Library/Caches/com.apple.aosnotifyd"];
+    v5 = +[NSFileManager defaultManager];
+    v6 = [v5 fileExistsAtPath:v4];
 
-    if (v5)
+    if (v6)
     {
-      v6 = +[NSFileManager defaultManager];
-      [v6 removeItemAtPath:v3 error:0];
+      v7 = +[NSFileManager defaultManager];
+      [v7 removeItemAtPath:v4 error:0];
     }
-
-    v7 = +[NSFileManager defaultManager];
-    [v7 moveItemAtPath:@"/var/mobile/Library/Preferences/com.apple.AOSNotification.FMIPAccounts.plist" toPath:@"/var/mobile/Library/Preferences/com.apple.icloud.findmydeviced.FMIPAccounts.plist" error:0];
 
     v8 = +[NSFileManager defaultManager];
-    [v8 moveItemAtPath:@"/var/mobile/Library/Preferences/com.apple.AOSNotification.FMIPAccounts.notbackedup.plist" toPath:@"/var/mobile/Library/Preferences/com.apple.icloud.findmydeviced.FMIPAccounts.notbackedup.plist" error:0];
+    [v8 moveItemAtPath:@"/var/mobile/Library/Preferences/com.apple.AOSNotification.FMIPAccounts.plist" toPath:@"/var/mobile/Library/Preferences/com.apple.icloud.findmydeviced.FMIPAccounts.plist" error:0];
 
-    v9 = [FMPreferencesUtil dictionaryForKey:@"_trackingInfo_FMIP" inDomain:@"com.apple.AOSNotification.notbackedup"];
-    if (v9)
+    v9 = +[NSFileManager defaultManager];
+    [v9 moveItemAtPath:@"/var/mobile/Library/Preferences/com.apple.AOSNotification.FMIPAccounts.notbackedup.plist" toPath:@"/var/mobile/Library/Preferences/com.apple.icloud.findmydeviced.FMIPAccounts.notbackedup.plist" error:0];
+
+    v10 = [FMPreferencesUtil dictionaryForKey:@"_trackingInfo_FMIP" inDomain:@"com.apple.AOSNotification.notbackedup"];
+    if (v10)
     {
-      v10 = [FMDLocationTracker stringForLocationTrackerType:0];
-      [FMDPreferencesMgr setTrackingInfo:v9 forType:v10];
+      v11 = [FMDLocationTracker stringForLocationTrackerType:0];
+      [FMDPreferencesMgr setTrackingInfo:v10 forType:v11];
     }
 
-    v11 = [FMPreferencesUtil dictionaryForKey:@"ClientLostModeInfo" inDomain:@"com.apple.AOSNotification.public.notbackedup"];
-    if (v11)
-    {
-      [FMDPreferencesMgr setClientLostModeInfo:v11];
-    }
-
-    v12 = [FMPreferencesUtil dictionaryForKey:@"FMIPWipeLostModeInfo" inDomain:@"com.apple.AOSNotification.postwipe"];
+    v12 = [FMPreferencesUtil dictionaryForKey:@"ClientLostModeInfo" inDomain:@"com.apple.AOSNotification.public.notbackedup"];
     if (v12)
     {
-      [FMDPreferencesMgr setFMIPWipeLostModeInfo:v12];
+      [FMDPreferencesMgr setClientLostModeInfo:v12];
     }
 
-    v13 = [FMPreferencesUtil dictionaryForKey:@"FMIPLostModeInfo" inDomain:@"com.apple.AOSNotification.public.notbackedup"];
+    v13 = [FMPreferencesUtil dictionaryForKey:@"FMIPWipeLostModeInfo" inDomain:@"com.apple.AOSNotification.postwipe"];
     if (v13)
     {
-      [FMDPreferencesMgr setLostModeInfo:v13];
+      [FMDPreferencesMgr setFMIPWipeLostModeInfo:v13];
     }
 
-    v14 = [FMPreferencesUtil integerForKey:@"_wipeState" inDomain:@"com.apple.AOSNotification.notbackedup"];
+    v14 = [FMPreferencesUtil dictionaryForKey:@"FMIPLostModeInfo" inDomain:@"com.apple.AOSNotification.public.notbackedup"];
     if (v14)
     {
-      [FMDPreferencesMgr setWipeState:v14];
+      [FMDPreferencesMgr setLostModeInfo:v14];
     }
 
-    v15 = [FMPreferencesUtil dictionaryForKey:@"_wipeInfo" inDomain:@"com.apple.AOSNotification.notbackedup"];
+    v15 = [FMPreferencesUtil integerForKey:@"_wipeState" inDomain:@"com.apple.AOSNotification.notbackedup"];
     if (v15)
     {
-      [FMDPreferencesMgr setWipeInfo:v15];
+      [FMDPreferencesMgr setWipeState:v15];
+    }
+
+    v16 = [FMPreferencesUtil dictionaryForKey:@"_wipeInfo" inDomain:@"com.apple.AOSNotification.notbackedup"];
+    if (v16)
+    {
+      [FMDPreferencesMgr setWipeInfo:v16];
     }
 
     [FMDPreferencesMgr setImportedAosnotifydData:1];

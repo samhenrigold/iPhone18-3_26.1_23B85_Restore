@@ -29,9 +29,7 @@
   v7 = sub_245681B1C();
   v9 = v8;
 
-  v10 = *(&selfCopy->super.isa + OBJC_IVAR___CIDCSessionCryptarch_sessionCryptarch);
   sub_245681C5C();
-
   sub_24567E548(v7, v9);
   return 1;
 }
@@ -43,9 +41,7 @@
   v7 = sub_245681B1C();
   v9 = v8;
 
-  v10 = *(&selfCopy->super.isa + OBJC_IVAR___CIDCSessionCryptarch_sessionCryptarch);
   sub_245681C2C();
-
   sub_24567E548(v7, v9);
   return 1;
 }
@@ -61,9 +57,7 @@
   v13 = sub_245681B1C();
   v15 = v14;
 
-  v16 = *(&selfCopy->super.isa + OBJC_IVAR___CIDCSessionCryptarch_sessionCryptarch);
   sub_245681C2C();
-
   sub_24567E548(v13, v15);
   sub_24567E548(v10, v12);
   return 1;
@@ -81,29 +75,27 @@
 {
   v3 = sub_245681C6C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x28223BE20](v3);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v16 - v9;
-  v11 = *(&self->super.isa + OBJC_IVAR___CIDCSessionCryptarch_sessionCryptarch);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v9 = &v14 - v8;
   selfCopy = self;
   sub_245681C9C();
-  (*(v4 + 16))(v8, v10, v3);
-  v13 = (*(v4 + 88))(v8, v3);
-  v14 = 0;
-  if (v13 == *MEMORY[0x277CFF4C8])
+  (*(v4 + 16))(v7, v9, v3);
+  v11 = (*(v4 + 88))(v7, v3);
+  v12 = 0;
+  if (v11 == *MEMORY[0x277CFF4C8])
   {
     goto LABEL_4;
   }
 
-  if (v13 == *MEMORY[0x277CFF4C0])
+  if (v11 == *MEMORY[0x277CFF4C0])
   {
-    v14 = 1;
+    v12 = 1;
 LABEL_4:
 
-    (*(v4 + 8))(v10, v3);
-    return v14;
+    (*(v4 + 8))(v9, v3);
+    return v12;
   }
 
   result = sub_245681FBC();
@@ -122,55 +114,52 @@ LABEL_4:
 - (NSData)privateKey
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE209B8, &qword_245682C98);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v17 - v5;
-  v7 = *(&self->super.isa + OBJC_IVAR___CIDCSessionCryptarch_sessionCryptarch);
+  v5 = &v15 - v4;
   selfCopy = self;
   sub_245681CEC();
-  v9 = sub_245681C4C();
-  v10 = *(v9 - 8);
-  if ((*(v10 + 48))(v6, 1, v9) == 1)
+  v7 = sub_245681C4C();
+  v8 = *(v7 - 8);
+  if ((*(v8 + 48))(v5, 1, v7) == 1)
   {
 
-    sub_24567F348(v6, &qword_27EE209B8, &qword_245682C98);
-    v11 = 0;
+    sub_24567F348(v5, &qword_27EE209B8, &qword_245682C98);
+    v9 = 0;
   }
 
   else
   {
-    v12 = sub_245681C3C();
-    v14 = v13;
+    v10 = sub_245681C3C();
+    v12 = v11;
 
-    (*(v10 + 8))(v6, v9);
-    v15 = sub_245681B0C();
-    sub_24567E548(v12, v14);
-    v11 = v15;
+    (*(v8 + 8))(v5, v7);
+    v13 = sub_245681B0C();
+    sub_24567E548(v10, v12);
+    v9 = v13;
   }
 
-  return v11;
+  return v9;
 }
 
 - (NSData)publicKey
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___CIDCSessionCryptarch_sessionCryptarch);
   selfCopy = self;
-  v4 = sub_245681CFC();
-  v6 = v5;
+  v3 = sub_245681CFC();
+  v5 = v4;
 
-  if (v6 >> 60 == 15)
+  if (v5 >> 60 == 15)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v8 = sub_245681B0C();
-    sub_245681A34(v4, v6);
-    v7 = v8;
+    v7 = sub_245681B0C();
+    sub_245681A34(v3, v5);
+    v6 = v7;
   }
 
-  return v7;
+  return v6;
 }
 
 - (CIDCSessionCryptarch)init

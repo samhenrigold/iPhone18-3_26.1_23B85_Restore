@@ -111,28 +111,28 @@
         v14 = 0;
       }
 
-      v18 = [representationCopy objectForKeyedSubscript:@"widgetFamily"];
+      v20 = [representationCopy objectForKeyedSubscript:@"widgetFamily"];
       objc_opt_class();
-      v19 = objc_opt_isKindOfClass();
+      v21 = objc_opt_isKindOfClass();
 
-      if (v19)
+      if (v21)
       {
-        v20 = [representationCopy objectForKeyedSubscript:@"widgetFamily"];
-        v21 = CHSWidgetFamilyFromString();
+        v22 = [representationCopy objectForKeyedSubscript:@"widgetFamily"];
+        v23 = CHSWidgetFamilyFromString();
 
-        if ((CHSWidgetFamilyIsAccessory() & 1) != 0 || v21 == 1)
+        if ((CHSWidgetFamilyIsAccessory() & 1) != 0 || v23 == 1)
         {
-          v27 = [representationCopy objectForKeyedSubscript:@"intent"];
+          v31 = [representationCopy objectForKeyedSubscript:@"intent"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v28 = [v27 objectForKeyedSubscript:@"typeName"];
-            v29 = [v27 objectForKeyedSubscript:@"parameters"];
+            v32 = [v31 objectForKeyedSubscript:@"typeName"];
+            v33 = [v31 objectForKeyedSubscript:@"parameters"];
             objc_opt_class();
             if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
             {
-              v30 = [objc_alloc(MEMORY[0x1E69C5B78]) initWithTypeName:@"typeName" parameters:v29];
-              createIntent = [v30 createIntent];
+              v34 = [objc_alloc(MEMORY[0x1E69C5B78]) initWithTypeName:@"typeName" parameters:v33];
+              createIntent = [v34 createIntent];
             }
 
             else
@@ -146,20 +146,20 @@
             createIntent = 0;
           }
 
-          v17 = [[ATXComplication alloc] initWithExtensionBundleIdentifier:v8 kind:v11 containerBundleIdentifier:v14 widgetFamily:v21 intent:createIntent source:0];
+          v19 = [[ATXComplication alloc] initWithExtensionBundleIdentifier:v8 kind:v11 containerBundleIdentifier:v14 widgetFamily:v23 intent:createIntent source:0];
 
           goto LABEL_34;
         }
 
         if (error)
         {
-          v22 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v23 = NSStringFromWidgetFamily();
-          v24 = [v22 initWithFormat:@"missing key: provided widget family is not a complication family: %@", v23];
-          *error = errorWithDescription(v24);
+          v24 = objc_alloc(MEMORY[0x1E696AEC0]);
+          v25 = NSStringFromWidgetFamily();
+          v26 = [v24 initWithFormat:@"missing key: provided widget family is not a complication family: %@", v25];
+          *error = errorWithDescription(v26);
 
-          v25 = __atxlog_handle_lock_screen();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v28 = __atxlog_handle_lock_screen(v27);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_23;
           }
@@ -170,11 +170,11 @@
 
       else if (error)
       {
-        v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"missing key: %@", @"widgetFamily"];
-        *error = errorWithDescription(v26);
+        v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"missing key: %@", @"widgetFamily"];
+        *error = errorWithDescription(v29);
 
-        v25 = __atxlog_handle_lock_screen();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v28 = __atxlog_handle_lock_screen(v30);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
 LABEL_23:
           +[ATXComplication complicationFromDictionaryRepresentation:error:];
@@ -183,7 +183,7 @@ LABEL_23:
 LABEL_24:
       }
 
-      v17 = 0;
+      v19 = 0;
 LABEL_34:
 
 LABEL_35:
@@ -192,16 +192,16 @@ LABEL_35:
 
     if (error)
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"missing key: %@", @"kind"];
-      *error = errorWithDescription(v16);
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"missing key: %@", @"kind"];
+      *error = errorWithDescription(v17);
 
-      v11 = __atxlog_handle_lock_screen();
+      v11 = __atxlog_handle_lock_screen(v18);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         +[ATXComplication complicationFromDictionaryRepresentation:error:];
       }
 
-      v17 = 0;
+      v19 = 0;
       goto LABEL_35;
     }
   }
@@ -210,26 +210,26 @@ LABEL_35:
   {
     if (!error)
     {
-      v17 = 0;
+      v19 = 0;
       goto LABEL_37;
     }
 
     v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"missing key: %@", @"extensionBundleIdentifier"];
     *error = errorWithDescription(v15);
 
-    v8 = __atxlog_handle_lock_screen();
+    v8 = __atxlog_handle_lock_screen(v16);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[ATXComplication complicationFromDictionaryRepresentation:error:];
     }
   }
 
-  v17 = 0;
+  v19 = 0;
 LABEL_36:
 
 LABEL_37:
 
-  return v17;
+  return v19;
 }
 
 - (id)dictionaryRepresentation
@@ -319,7 +319,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v12 = __atxlog_handle_lock_screen();
+      v12 = __atxlog_handle_lock_screen(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [ATXComplication initWithCoder:];
@@ -328,7 +328,7 @@ LABEL_12:
 
     else
     {
-      v8 = __atxlog_handle_lock_screen();
+      v8 = __atxlog_handle_lock_screen(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [ATXComplication initWithCoder:];

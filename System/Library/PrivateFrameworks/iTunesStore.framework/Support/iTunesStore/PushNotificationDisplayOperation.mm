@@ -55,32 +55,37 @@
       shouldLog = [alertBodyString shouldLog];
       if ([alertBodyString shouldLogToDisk])
       {
-        v8 = shouldLog | 2;
+        LODWORD(v8) = shouldLog | 2;
       }
 
       else
       {
-        v8 = shouldLog;
+        LODWORD(v8) = shouldLog;
       }
 
       oSLogObject = [alertBodyString OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v8 = v8;
+      }
+
+      else
       {
         v8 &= 2u;
       }
 
       if (!v8)
       {
-        goto LABEL_45;
+        goto LABEL_48;
       }
 
-      *v29 = 138412546;
-      *&v29[4] = objc_opt_class();
-      *&v29[12] = 2112;
-      *&v29[14] = v3;
-      v10 = *&v29[4];
-      LODWORD(v28) = 22;
-      goto LABEL_12;
+      *v30 = 138412546;
+      *&v30[4] = objc_opt_class();
+      *&v30[12] = 2112;
+      *&v30[14] = v3;
+      v10 = *&v30[4];
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@]: Ignoring notification: no matching client: %@", v30, 22, *v30, *&v30[8]);
+      goto LABEL_13;
     }
   }
 
@@ -94,7 +99,7 @@
     if (![(PushNotificationDisplayOperation *)self requiresClientIdentifier]|| [(PushNotificationDisplayOperation *)self _notificationClass]!= 1)
     {
       [(PushNotificationDisplayOperation *)self _displayBadge];
-LABEL_47:
+LABEL_50:
       alertBodyString = [(SSRemoteNotification *)self->_notification alertBodyString];
       if (-[SSRemoteNotification actionType](self->_notification, "actionType") == 12 || ![alertBodyString length])
       {
@@ -106,7 +111,7 @@ LABEL_47:
         [(PushNotificationDisplayOperation *)self _displayAlert];
       }
 
-      goto LABEL_51;
+      goto LABEL_54;
     }
 
     if (!v3)
@@ -120,99 +125,107 @@ LABEL_47:
       shouldLog2 = [alertBodyString shouldLog];
       if ([alertBodyString shouldLogToDisk])
       {
-        v26 = shouldLog2 | 2;
+        LODWORD(v28) = shouldLog2 | 2;
       }
 
       else
       {
-        v26 = shouldLog2;
+        LODWORD(v28) = shouldLog2;
       }
 
       oSLogObject = [alertBodyString OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v26 &= 2u;
+        v28 = v28;
       }
 
-      if (!v26)
+      else
       {
-        goto LABEL_45;
+        v28 &= 2u;
       }
 
-      *v29 = 138412290;
-      *&v29[4] = objc_opt_class();
-      v10 = *&v29[4];
-      LODWORD(v28) = 12;
-LABEL_12:
-      v11 = _os_log_send_and_compose_impl();
+      if (!v28)
+      {
+        goto LABEL_48;
+      }
 
-      goto LABEL_43;
+      *v30 = 138412290;
+      *&v30[4] = objc_opt_class();
+      v10 = *&v30[4];
+      v11 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@]: Ignoring notification: invalid client ID", v30, 12, *v30, *&v30[8]);
+LABEL_13:
+      v12 = v11;
+
+      goto LABEL_46;
     }
 
     if (v5)
     {
-      v12 = 4;
+      v13 = 4;
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    v13 = +[SSLogConfig sharedDaemonConfig];
-    if (!v13)
+    v14 = +[SSLogConfig sharedDaemonConfig];
+    if (!v14)
     {
-      v13 = +[SSLogConfig sharedConfig];
+      v14 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v13 shouldLog];
-    if ([v13 shouldLogToDisk])
+    shouldLog3 = [v14 shouldLog];
+    if ([v14 shouldLogToDisk])
     {
-      v15 = shouldLog3 | 2;
+      LODWORD(v16) = shouldLog3 | 2;
     }
 
     else
     {
-      v15 = shouldLog3;
+      LODWORD(v16) = shouldLog3;
     }
 
-    oSLogObject2 = [v13 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v14 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v15 &= 2u;
+      v16 = v16;
     }
 
-    if (v15)
+    else
     {
-      *v29 = 138412802;
-      *&v29[4] = objc_opt_class();
-      *&v29[12] = 2112;
-      *&v29[14] = v3;
-      *&v29[22] = 2048;
-      v30 = v12;
-      v17 = *&v29[4];
-      LODWORD(v28) = 32;
-      v27 = v29;
-      v18 = _os_log_send_and_compose_impl();
+      v16 &= 2u;
+    }
 
-      if (!v18)
+    if (v16)
+    {
+      *v30 = 138412802;
+      *&v30[4] = objc_opt_class();
+      *&v30[12] = 2112;
+      *&v30[14] = v3;
+      *&v30[22] = 2048;
+      v31 = v13;
+      v18 = *&v30[4];
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%@]: Display notification with enabled types: %@ => %ld", v30, 32);
+
+      if (!v19)
       {
-        goto LABEL_32;
+        goto LABEL_34;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v18 encoding:4, v29, v28, *v29, *&v29[16], v30];
-      free(v18);
-      v27 = oSLogObject2;
+      oSLogObject2 = [NSString stringWithCString:v19 encoding:4];
+      free(v19);
+      v29 = oSLogObject2;
       SSFileLog();
     }
 
-LABEL_32:
+LABEL_34:
     if (!v5)
     {
-      goto LABEL_52;
+      goto LABEL_55;
     }
 
-    goto LABEL_47;
+    goto LABEL_50;
   }
 
   alertBodyString = +[SSLogConfig sharedDaemonConfig];
@@ -224,48 +237,53 @@ LABEL_32:
   shouldLog4 = [alertBodyString shouldLog];
   if ([alertBodyString shouldLogToDisk])
   {
-    v20 = shouldLog4 | 2;
+    LODWORD(v21) = shouldLog4 | 2;
   }
 
   else
   {
-    v20 = shouldLog4;
+    LODWORD(v21) = shouldLog4;
   }
 
   oSLogObject = [alertBodyString OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v20 &= 2u;
+    v21 = v21;
   }
 
-  if (!v20)
+  else
   {
-    goto LABEL_45;
+    v21 &= 2u;
   }
 
-  v21 = objc_opt_class();
+  if (!v21)
+  {
+    goto LABEL_48;
+  }
+
+  v22 = objc_opt_class();
   notification = self->_notification;
-  v23 = SSRemoteNotificationKeyURLString;
-  v24 = v21;
-  [(SSRemoteNotification *)notification valueForKey:v23];
-  *v29 = 138412546;
-  *&v29[4] = v21;
-  *&v29[14] = *&v29[12] = 2112;
-  LODWORD(v28) = 22;
-  v11 = _os_log_send_and_compose_impl();
+  v24 = SSRemoteNotificationKeyURLString;
+  v25 = v22;
+  v26 = [(SSRemoteNotification *)notification valueForKey:v24];
+  *v30 = 138412546;
+  *&v30[4] = v22;
+  *&v30[12] = 2112;
+  *&v30[14] = v26;
+  v12 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@]: Ignoring notification: no handler for URL: %@", v30, 22);
 
-LABEL_43:
-  if (v11)
+LABEL_46:
+  if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, v29, v28];
-    free(v11);
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
+    free(v12);
     SSFileLog();
-LABEL_45:
+LABEL_48:
   }
 
-LABEL_51:
+LABEL_54:
 
-LABEL_52:
+LABEL_55:
 }
 
 - (BOOL)_clientExistsWithIdentifier:(id)identifier
@@ -509,7 +527,7 @@ LABEL_17:
     case 2uLL:
       notificationUserInfo = +[StoreDownloadQueue sharedDownloadQueue];
       [notificationUserInfo checkAutomaticDownloadQueue];
-      goto LABEL_123;
+      goto LABEL_129;
     case 3uLL:
       if (!actionCopy)
       {
@@ -517,25 +535,25 @@ LABEL_17:
       }
 
       notificationUserInfo = [(SSRemoteNotification *)self->_notification valueForKey:SSRemoteNotificationKeyDownloadKinds];
-      v27 = [SetAutomaticDownloadKindsOperation alloc];
-      v28 = v27;
+      v28 = [SetAutomaticDownloadKindsOperation alloc];
+      v29 = v28;
       if (notificationUserInfo)
       {
-        v29 = [NSSet setWithArray:?];
-        v30 = [v28 initWithDownloadKinds:v29];
+        v30 = [NSSet setWithArray:?];
+        v31 = [v29 initWithDownloadKinds:v30];
 
-        v28 = v29;
+        v29 = v30;
       }
 
       else
       {
-        v30 = [(SetAutomaticDownloadKindsOperation *)v27 initWithDownloadKinds:?];
+        v31 = [(SetAutomaticDownloadKindsOperation *)v28 initWithDownloadKinds:?];
       }
 
-      v67 = +[ISOperationQueue mainQueue];
-      [v67 addOperation:v30];
+      v68 = +[ISOperationQueue mainQueue];
+      [v68 addOperation:v31];
 
-      goto LABEL_123;
+      goto LABEL_129;
     case 5uLL:
 
       [(PushNotificationDisplayOperation *)self _loadNotificationDownloadManifest];
@@ -546,20 +564,20 @@ LABEL_17:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        goto LABEL_48;
+        goto LABEL_50;
       }
 
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        goto LABEL_48;
+        goto LABEL_50;
       }
 
       v18 = +[SSAccountStore defaultStore];
       v19 = [v18 accountWithUniqueIdentifier:v8];
       if (!v19)
       {
-        goto LABEL_47;
+        goto LABEL_49;
       }
 
       v20 = +[SSLogConfig sharedAccountsConfig];
@@ -571,64 +589,69 @@ LABEL_17:
       shouldLog = [v20 shouldLog];
       if ([v20 shouldLogToDisk])
       {
-        v22 = shouldLog | 2;
+        LODWORD(v22) = shouldLog | 2;
       }
 
       else
       {
-        v22 = shouldLog;
+        LODWORD(v22) = shouldLog;
       }
 
       oSLogObject = [v20 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v22 = v22;
+      }
+
+      else
       {
         v22 &= 2u;
       }
 
       if (!v22)
       {
-        goto LABEL_45;
+        goto LABEL_47;
       }
 
       v24 = objc_opt_class();
-      v72 = v24;
+      v73 = v24;
       accountName = [v19 accountName];
-      SSHashIfNeeded();
-      v74 = 138543618;
-      v75 = v24;
-      v77 = v76 = 2114;
-      LODWORD(v70) = 22;
-      v26 = _os_log_send_and_compose_impl();
+      v26 = SSHashIfNeeded();
+      v75 = 138543618;
+      v76 = v24;
+      v77 = 2114;
+      v78 = v26;
+      v27 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Setting account credits. Saving %{public}@.", &v75, 22);
 
-      if (v26)
+      if (v27)
       {
-        oSLogObject = [NSString stringWithCString:v26 encoding:4, &v74, v70];
-        free(v26);
+        oSLogObject = [NSString stringWithCString:v27 encoding:4];
+        free(v27);
         SSFileLog();
-LABEL_45:
+LABEL_47:
       }
 
       [v19 setCreditsString:v17];
       [v18 saveAccount:v19 verifyCredentials:0 completion:0];
-LABEL_47:
+LABEL_49:
 
-LABEL_48:
-      goto LABEL_119;
+LABEL_50:
+      goto LABEL_125;
     case 8uLL:
     case 9uLL:
     case 0xAuLL:
       v5 = ISWeakLinkedClassForString();
       notificationUserInfo = [(SSRemoteNotification *)self->_notification notificationUserInfo];
       [v5 didReceiveStorePushNotificationWithPayload:?];
-      goto LABEL_123;
+      goto LABEL_129;
     case 0xBuLL:
-      v33 = +[SSAccountStore defaultStore];
-      activeAccount = [v33 activeAccount];
+      v34 = +[SSAccountStore defaultStore];
+      activeAccount = [v34 activeAccount];
       notificationUserInfo = [activeAccount uniqueIdentifier];
 
       notificationUserInfo3 = +[StoreDownloadQueue sharedDownloadQueue];
       [notificationUserInfo3 checkQueuesWithReason:@"trigger-download" accountID:notificationUserInfo];
-      goto LABEL_60;
+      goto LABEL_62;
     case 0xCuLL:
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       v7 = @"com.apple.itunesstored.PlaybackLeaseDidEnd";
@@ -638,7 +661,7 @@ LABEL_48:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        goto LABEL_119;
+        goto LABEL_125;
       }
 
       v11 = +[SSLogConfig sharedDaemonConfig];
@@ -650,43 +673,47 @@ LABEL_48:
       shouldLog2 = [v11 shouldLog];
       if ([v11 shouldLogToDisk])
       {
-        v13 = shouldLog2 | 2;
+        LODWORD(v13) = shouldLog2 | 2;
       }
 
       else
       {
-        v13 = shouldLog2;
+        LODWORD(v13) = shouldLog2;
       }
 
       oSLogObject2 = [v11 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+      {
+        v13 = v13;
+      }
+
+      else
       {
         v13 &= 2u;
       }
 
       if (!v13)
       {
-        goto LABEL_30;
+        goto LABEL_31;
       }
 
-      v74 = 138412546;
-      v75 = objc_opt_class();
-      v76 = 2112;
-      v77 = v8;
-      v15 = v75;
-      LODWORD(v70) = 22;
-      v16 = _os_log_send_and_compose_impl();
+      v75 = 138412546;
+      v76 = objc_opt_class();
+      v77 = 2112;
+      v78 = v8;
+      v15 = v76;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "[%@]: Finish delayed goto for identifier: %@", &v75, 22);
 
       if (v16)
       {
-        oSLogObject2 = [NSString stringWithCString:v16 encoding:4, &v74, v70];
+        oSLogObject2 = [NSString stringWithCString:v16 encoding:4];
         free(v16);
         SSFileLog();
-LABEL_30:
+LABEL_31:
       }
 
       [DelayedGotoSemaphore signalSemaphoreForPushToken:v8];
-      goto LABEL_119;
+      goto LABEL_125;
     case 0xEuLL:
       v8 = objc_alloc_init(SubscriptionStatusOperation);
       [(SubscriptionStatusOperation *)v8 setCarrierBundleProvisioningStyle:1];
@@ -694,18 +721,18 @@ LABEL_30:
 
       if (notificationUserInfo2)
       {
-        v73[0] = _NSConcreteStackBlock;
-        v73[1] = 3221225472;
-        v73[2] = sub_10011AF20;
-        v73[3] = &unk_100328FE8;
-        v73[4] = self;
-        [(SubscriptionStatusOperation *)v8 setStatusBlock:v73];
+        v74[0] = _NSConcreteStackBlock;
+        v74[1] = 3221225472;
+        v74[2] = sub_10011AF20;
+        v74[3] = &unk_100328FE8;
+        v74[4] = self;
+        [(SubscriptionStatusOperation *)v8 setStatusBlock:v74];
       }
 
       v10 = +[ISOperationQueue mainQueue];
       [v10 addOperation:v8];
 
-      goto LABEL_119;
+      goto LABEL_125;
     case 0xFuLL:
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       v7 = @"com.apple.itunesstored.mediacontenttastechangednotification";
@@ -718,241 +745,258 @@ LABEL_9:
       +[SSVSubscriptionEntitlementsCoordinator markCachedSubscriptionEntitlementsAsExpired];
       return;
     case 0x1DuLL:
-      v31 = [(SSRemoteNotification *)self->_notification valueForKey:SSRemoteNotificationKeyAccountIdentifier];
+      v32 = [(SSRemoteNotification *)self->_notification valueForKey:SSRemoteNotificationKeyAccountIdentifier];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v32 = v31;
-LABEL_63:
-        v8 = v32;
-        goto LABEL_76;
+        v33 = v32;
+LABEL_65:
+        v8 = v33;
+        goto LABEL_79;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v32 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [v31 longLongValue]);
-        goto LABEL_63;
+        v33 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [v32 longLongValue]);
+        goto LABEL_65;
       }
 
-      v36 = +[SSLogConfig sharedDaemonConfig];
-      if (!v36)
+      v37 = +[SSLogConfig sharedDaemonConfig];
+      if (!v37)
       {
-        v36 = +[SSLogConfig sharedConfig];
+        v37 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v36 shouldLog];
-      if ([v36 shouldLogToDisk])
+      shouldLog3 = [v37 shouldLog];
+      if ([v37 shouldLogToDisk])
       {
-        v38 = shouldLog3 | 2;
+        LODWORD(v39) = shouldLog3 | 2;
       }
 
       else
       {
-        v38 = shouldLog3;
+        LODWORD(v39) = shouldLog3;
       }
 
-      oSLogObject3 = [v36 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+      oSLogObject3 = [v37 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
       {
-        v38 &= 2u;
+        v39 = v39;
       }
 
-      if (!v38)
+      else
       {
-        goto LABEL_74;
+        v39 &= 2u;
       }
 
-      v74 = 138543362;
-      v75 = objc_opt_class();
-      v40 = v75;
-      LODWORD(v70) = 12;
-      v68 = &v74;
-      v41 = _os_log_send_and_compose_impl();
-
-      if (v41)
+      if (!v39)
       {
-        oSLogObject3 = [NSString stringWithCString:v41 encoding:4, &v74, v70];
-        free(v41);
-        v68 = oSLogObject3;
+        goto LABEL_77;
+      }
+
+      v75 = 138543362;
+      v76 = objc_opt_class();
+      v41 = v76;
+      v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: Resume buy failed to parse accountIdentifier", &v75, 12);
+
+      if (v42)
+      {
+        oSLogObject3 = [NSString stringWithCString:v42 encoding:4];
+        free(v42);
+        v69 = oSLogObject3;
         SSFileLog();
-LABEL_74:
+LABEL_77:
       }
 
       v8 = 0;
-LABEL_76:
-      v42 = [(SSRemoteNotification *)self->_notification valueForKey:SSRemoteNotificationKeyBuyParams, v68];
+LABEL_79:
+      v43 = [(SSRemoteNotification *)self->_notification valueForKey:SSRemoteNotificationKeyBuyParams, v69];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v43 = [NSURL queryStringForDictionary:v42 escapedValues:1];
-LABEL_80:
+        v44 = [NSURL queryStringForDictionary:v43 escapedValues:1];
+LABEL_83:
+        v45 = v44;
+        goto LABEL_97;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
         v44 = v43;
-        goto LABEL_93;
+        goto LABEL_83;
       }
 
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v46 = +[SSLogConfig sharedDaemonConfig];
+      if (!v46)
       {
-        v43 = v42;
-        goto LABEL_80;
+        v46 = +[SSLogConfig sharedConfig];
       }
 
-      v45 = +[SSLogConfig sharedDaemonConfig];
-      if (!v45)
+      shouldLog4 = [v46 shouldLog];
+      if ([v46 shouldLogToDisk])
       {
-        v45 = +[SSLogConfig sharedConfig];
-      }
-
-      shouldLog4 = [v45 shouldLog];
-      if ([v45 shouldLogToDisk])
-      {
-        v47 = shouldLog4 | 2;
+        LODWORD(v48) = shouldLog4 | 2;
       }
 
       else
       {
-        v47 = shouldLog4;
+        LODWORD(v48) = shouldLog4;
       }
 
-      oSLogObject4 = [v45 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+      oSLogObject4 = [v46 OSLogObject];
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
       {
-        v47 &= 2u;
+        v48 = v48;
       }
 
-      if (!v47)
+      else
       {
-        goto LABEL_91;
+        v48 &= 2u;
       }
 
-      v49 = objc_opt_class();
-      v74 = 138543362;
-      v75 = v49;
-      v50 = v49;
-      LODWORD(v70) = 12;
-      v69 = &v74;
-      v51 = _os_log_send_and_compose_impl();
-
-      if (v51)
+      if (!v48)
       {
-        oSLogObject4 = [NSString stringWithCString:v51 encoding:4, &v74, v70];
-        free(v51);
-        v69 = oSLogObject4;
+        goto LABEL_95;
+      }
+
+      v50 = objc_opt_class();
+      v75 = 138543362;
+      v76 = v50;
+      v51 = v50;
+      LODWORD(v71) = 12;
+      v52 = _os_log_send_and_compose_impl(v48, 0, 0, 0, &_mh_execute_header, oSLogObject4, 16, "%{public}@: Resume buy failed to parse buyParams", &v75, v71);
+
+      if (v52)
+      {
+        oSLogObject4 = [NSString stringWithCString:v52 encoding:4];
+        free(v52);
+        v70 = oSLogObject4;
         SSFileLog();
-LABEL_91:
+LABEL_95:
       }
 
-      v44 = 0;
-LABEL_93:
+      v45 = 0;
+LABEL_97:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v52 = objc_alloc_init(SSPurchase);
-          [v52 setAccountIdentifier:v8];
-          [v52 setBuyParameters:v44];
-          v53 = +[SSLogConfig sharedDaemonConfig];
-          if (!v53)
+          v53 = objc_alloc_init(SSPurchase);
+          [v53 setAccountIdentifier:v8];
+          [v53 setBuyParameters:v45];
+          v54 = +[SSLogConfig sharedDaemonConfig];
+          if (!v54)
           {
-            v53 = +[SSLogConfig sharedConfig];
+            v54 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog5 = [v53 shouldLog];
-          if ([v53 shouldLogToDisk])
+          shouldLog5 = [v54 shouldLog];
+          if ([v54 shouldLogToDisk])
           {
-            v55 = shouldLog5 | 2;
+            LODWORD(v56) = shouldLog5 | 2;
           }
 
           else
           {
-            v55 = shouldLog5;
+            LODWORD(v56) = shouldLog5;
           }
 
-          oSLogObject5 = [v53 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+          oSLogObject5 = [v54 OSLogObject];
+          if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
           {
-            v55 &= 2u;
+            v56 = v56;
           }
 
-          if (v55)
+          else
           {
-            v57 = objc_opt_class();
-            v74 = 138543362;
-            v75 = v57;
-            v58 = v57;
-            LODWORD(v70) = 12;
-            v59 = _os_log_send_and_compose_impl();
+            v56 &= 2u;
+          }
 
-            if (!v59)
+          if (v56)
+          {
+            v58 = objc_opt_class();
+            v75 = 138543362;
+            v76 = v58;
+            v59 = v58;
+            LODWORD(v71) = 12;
+            v60 = _os_log_send_and_compose_impl(v56, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%{public}@: Attempting to resume buy", &v75, v71);
+
+            if (!v60)
             {
-LABEL_106:
+LABEL_111:
 
-              oSLogObject6 = [[PurchaseOperation alloc] initWithPurchase:v52];
-              v61 = +[ISOperationQueue mainQueue];
-              [v61 addOperation:oSLogObject6];
+              oSLogObject6 = [[PurchaseOperation alloc] initWithPurchase:v53];
+              v62 = +[ISOperationQueue mainQueue];
+              [v62 addOperation:oSLogObject6];
 
-              goto LABEL_117;
+              goto LABEL_123;
             }
 
-            oSLogObject5 = [NSString stringWithCString:v59 encoding:4, &v74, v70];
-            free(v59);
+            oSLogObject5 = [NSString stringWithCString:v60 encoding:4];
+            free(v60);
             SSFileLog();
           }
 
-          goto LABEL_106;
+          goto LABEL_111;
         }
       }
 
-      v52 = +[SSLogConfig sharedDaemonConfig];
-      if (!v52)
+      v53 = +[SSLogConfig sharedDaemonConfig];
+      if (!v53)
       {
-        v52 = +[SSLogConfig sharedConfig];
+        v53 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog6 = [v52 shouldLog];
-      if ([v52 shouldLogToDisk])
+      shouldLog6 = [v53 shouldLog];
+      if ([v53 shouldLogToDisk])
       {
-        v63 = shouldLog6 | 2;
+        LODWORD(v64) = shouldLog6 | 2;
       }
 
       else
       {
-        v63 = shouldLog6;
+        LODWORD(v64) = shouldLog6;
       }
 
-      oSLogObject6 = [v52 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
+      oSLogObject6 = [v53 OSLogObject];
+      if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
       {
-        v63 &= 2u;
+        v64 = v64;
       }
 
-      if (v63)
+      else
       {
-        v64 = objc_opt_class();
-        v74 = 138543362;
-        v75 = v64;
-        v65 = v64;
-        LODWORD(v70) = 12;
-        v66 = _os_log_send_and_compose_impl();
+        v64 &= 2u;
+      }
 
-        if (!v66)
+      if (v64)
+      {
+        v65 = objc_opt_class();
+        v75 = 138543362;
+        v76 = v65;
+        v66 = v65;
+        LODWORD(v71) = 12;
+        v67 = _os_log_send_and_compose_impl(v64, 0, 0, 0, &_mh_execute_header, oSLogObject6, 16, "%{public}@: Resume buy failed for invalid notification arguments", &v75, v71);
+
+        if (!v67)
         {
-          goto LABEL_118;
+          goto LABEL_124;
         }
 
-        oSLogObject6 = [NSString stringWithCString:v66 encoding:4, &v74, v70];
-        free(v66);
+        oSLogObject6 = [NSString stringWithCString:v67 encoding:4];
+        free(v67);
         SSFileLog();
       }
 
-LABEL_117:
+LABEL_123:
 
-LABEL_118:
-LABEL_119:
+LABEL_124:
+LABEL_125:
 
       return;
     default:
@@ -964,9 +1008,9 @@ LABEL_119:
       notificationUserInfo = +[PushNotificationController sharedInstance];
       notificationUserInfo3 = [(SSRemoteNotification *)self->_notification notificationUserInfo];
       [notificationUserInfo postClientNotificationWithUserInfo:notificationUserInfo3];
-LABEL_60:
+LABEL_62:
 
-LABEL_123:
+LABEL_129:
 
       return;
   }

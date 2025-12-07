@@ -68,19 +68,19 @@
   paperCountCopy = paperCount;
   withTagsCopy = withTags;
   withMentionsCopy = withMentions;
-  v87 = a64;
-  v85 = a65;
-  v84 = a66;
-  v83 = a67;
-  v82 = a68;
-  v81 = a69;
-  v146.receiver = self;
-  v146.super_class = ICASAccountSnapshotData;
-  v77 = [(ICASAccountSnapshotData *)&v146 init];
-  p_isa = &v77->super.isa;
-  if (v77)
+  v81 = v141;
+  v79 = v142;
+  v78 = v143;
+  v77 = v144;
+  v76 = v145;
+  v75 = v146;
+  v140.receiver = self;
+  v140.super_class = ICASAccountSnapshotData;
+  v71 = [(ICASAccountSnapshotData *)&v140 init];
+  p_isa = &v71->super.isa;
+  if (v71)
   {
-    objc_storeStrong(&v77->_userStartMonth, month);
+    objc_storeStrong(&v71->_userStartMonth, month);
     objc_storeStrong(p_isa + 2, year);
     objc_storeStrong(p_isa + 3, version);
     objc_storeStrong(p_isa + 4, summary);
@@ -141,12 +141,12 @@
     objc_storeStrong(p_isa + 59, paperCount);
     objc_storeStrong(p_isa + 60, withTags);
     objc_storeStrong(p_isa + 61, withMentions);
-    objc_storeStrong(p_isa + 62, a64);
-    objc_storeStrong(p_isa + 63, a65);
-    objc_storeStrong(p_isa + 64, a66);
-    objc_storeStrong(p_isa + 65, a67);
-    objc_storeStrong(p_isa + 66, a68);
-    objc_storeStrong(p_isa + 67, a69);
+    objc_storeStrong(p_isa + 62, v141);
+    objc_storeStrong(p_isa + 63, v142);
+    objc_storeStrong(p_isa + 64, v143);
+    objc_storeStrong(p_isa + 65, v144);
+    objc_storeStrong(p_isa + 66, v145);
+    objc_storeStrong(p_isa + 67, v146);
   }
 
   return p_isa;
@@ -154,8 +154,8 @@
 
 - (id)toDict
 {
-  v208[67] = *MEMORY[0x277D85DE8];
-  v207[0] = @"userStartMonth";
+  v207[67] = *MEMORY[0x277D85DE8];
+  v206[0] = @"userStartMonth";
   userStartMonth = [(ICASAccountSnapshotData *)self userStartMonth];
   if (userStartMonth)
   {
@@ -167,9 +167,9 @@
     userStartMonth2 = objc_opt_new();
   }
 
-  v205 = userStartMonth2;
-  v208[0] = userStartMonth2;
-  v207[1] = @"userStartYear";
+  v204 = userStartMonth2;
+  v207[0] = userStartMonth2;
+  v206[1] = @"userStartYear";
   userStartYear = [(ICASAccountSnapshotData *)self userStartYear];
   if (userStartYear)
   {
@@ -181,9 +181,9 @@
     userStartYear2 = objc_opt_new();
   }
 
-  v203 = userStartYear2;
-  v208[1] = userStartYear2;
-  v207[2] = @"saltVersion";
+  v202 = userStartYear2;
+  v207[1] = userStartYear2;
+  v206[2] = @"saltVersion";
   saltVersion = [(ICASAccountSnapshotData *)self saltVersion];
   if (saltVersion)
   {
@@ -195,9 +195,9 @@
     saltVersion2 = objc_opt_new();
   }
 
-  v201 = saltVersion2;
-  v208[2] = saltVersion2;
-  v207[3] = @"accountSnapshotSummary";
+  v200 = saltVersion2;
+  v207[2] = saltVersion2;
+  v206[3] = @"accountSnapshotSummary";
   accountSnapshotSummary = [(ICASAccountSnapshotData *)self accountSnapshotSummary];
   if (accountSnapshotSummary)
   {
@@ -209,9 +209,9 @@
     accountSnapshotSummary2 = objc_opt_new();
   }
 
-  v199 = accountSnapshotSummary2;
-  v208[3] = accountSnapshotSummary2;
-  v207[4] = @"accountNotesTwoFactorSummary";
+  v198 = accountSnapshotSummary2;
+  v207[3] = accountSnapshotSummary2;
+  v206[4] = @"accountNotesTwoFactorSummary";
   accountNotesTwoFactorSummary = [(ICASAccountSnapshotData *)self accountNotesTwoFactorSummary];
   if (accountNotesTwoFactorSummary)
   {
@@ -223,9 +223,9 @@
     accountNotesTwoFactorSummary2 = objc_opt_new();
   }
 
-  v197 = accountNotesTwoFactorSummary2;
-  v208[4] = accountNotesTwoFactorSummary2;
-  v207[5] = @"collabNotesSummary";
+  v196 = accountNotesTwoFactorSummary2;
+  v207[4] = accountNotesTwoFactorSummary2;
+  v206[5] = @"collabNotesSummary";
   collabNotesSummary = [(ICASAccountSnapshotData *)self collabNotesSummary];
   if (collabNotesSummary)
   {
@@ -237,9 +237,9 @@
     collabNotesSummary2 = objc_opt_new();
   }
 
-  v195 = collabNotesSummary2;
-  v208[5] = collabNotesSummary2;
-  v207[6] = @"collabFoldersSummary";
+  v194 = collabNotesSummary2;
+  v207[5] = collabNotesSummary2;
+  v206[6] = @"collabFoldersSummary";
   collabFoldersSummary = [(ICASAccountSnapshotData *)self collabFoldersSummary];
   if (collabFoldersSummary)
   {
@@ -251,9 +251,9 @@
     collabFoldersSummary2 = objc_opt_new();
   }
 
-  v193 = collabFoldersSummary2;
-  v208[6] = collabFoldersSummary2;
-  v207[7] = @"noteAttachmentSummary";
+  v192 = collabFoldersSummary2;
+  v207[6] = collabFoldersSummary2;
+  v206[7] = @"noteAttachmentSummary";
   noteAttachmentSummary = [(ICASAccountSnapshotData *)self noteAttachmentSummary];
   if (noteAttachmentSummary)
   {
@@ -265,9 +265,9 @@
     noteAttachmentSummary2 = objc_opt_new();
   }
 
-  v191 = noteAttachmentSummary2;
-  v208[7] = noteAttachmentSummary2;
-  v207[8] = @"scrapPaperAttachmentSummary";
+  v190 = noteAttachmentSummary2;
+  v207[7] = noteAttachmentSummary2;
+  v206[8] = @"scrapPaperAttachmentSummary";
   scrapPaperAttachmentSummary = [(ICASAccountSnapshotData *)self scrapPaperAttachmentSummary];
   if (scrapPaperAttachmentSummary)
   {
@@ -279,9 +279,9 @@
     scrapPaperAttachmentSummary2 = objc_opt_new();
   }
 
-  v189 = scrapPaperAttachmentSummary2;
-  v208[8] = scrapPaperAttachmentSummary2;
-  v207[9] = @"lockedNotesSummary";
+  v188 = scrapPaperAttachmentSummary2;
+  v207[8] = scrapPaperAttachmentSummary2;
+  v206[9] = @"lockedNotesSummary";
   lockedNotesSummary = [(ICASAccountSnapshotData *)self lockedNotesSummary];
   if (lockedNotesSummary)
   {
@@ -293,9 +293,9 @@
     lockedNotesSummary2 = objc_opt_new();
   }
 
-  v187 = lockedNotesSummary2;
-  v208[9] = lockedNotesSummary2;
-  v207[10] = @"smartFoldersSummary";
+  v186 = lockedNotesSummary2;
+  v207[9] = lockedNotesSummary2;
+  v206[10] = @"smartFoldersSummary";
   smartFoldersSummary = [(ICASAccountSnapshotData *)self smartFoldersSummary];
   if (smartFoldersSummary)
   {
@@ -307,9 +307,9 @@
     smartFoldersSummary2 = objc_opt_new();
   }
 
-  v185 = smartFoldersSummary2;
-  v208[10] = smartFoldersSummary2;
-  v207[11] = @"totalNoteCount";
+  v184 = smartFoldersSummary2;
+  v207[10] = smartFoldersSummary2;
+  v206[11] = @"totalNoteCount";
   totalNoteCount = [(ICASAccountSnapshotData *)self totalNoteCount];
   if (totalNoteCount)
   {
@@ -321,9 +321,9 @@
     totalNoteCount2 = objc_opt_new();
   }
 
-  v183 = totalNoteCount2;
-  v208[11] = totalNoteCount2;
-  v207[12] = @"totalFolderCount";
+  v182 = totalNoteCount2;
+  v207[11] = totalNoteCount2;
+  v206[12] = @"totalFolderCount";
   totalFolderCount = [(ICASAccountSnapshotData *)self totalFolderCount];
   if (totalFolderCount)
   {
@@ -335,9 +335,9 @@
     totalFolderCount2 = objc_opt_new();
   }
 
-  v181 = totalFolderCount2;
-  v208[12] = totalFolderCount2;
-  v207[13] = @"totalSmartFolderCount";
+  v180 = totalFolderCount2;
+  v207[12] = totalFolderCount2;
+  v206[13] = @"totalSmartFolderCount";
   totalSmartFolderCount = [(ICASAccountSnapshotData *)self totalSmartFolderCount];
   if (totalSmartFolderCount)
   {
@@ -349,9 +349,9 @@
     totalSmartFolderCount2 = objc_opt_new();
   }
 
-  v179 = totalSmartFolderCount2;
-  v208[13] = totalSmartFolderCount2;
-  v207[14] = @"totalChecklistCount";
+  v178 = totalSmartFolderCount2;
+  v207[13] = totalSmartFolderCount2;
+  v206[14] = @"totalChecklistCount";
   totalChecklistCount = [(ICASAccountSnapshotData *)self totalChecklistCount];
   if (totalChecklistCount)
   {
@@ -363,9 +363,9 @@
     totalChecklistCount2 = objc_opt_new();
   }
 
-  v177 = totalChecklistCount2;
-  v208[14] = totalChecklistCount2;
-  v207[15] = @"totalNotesWithChecklistCount";
+  v176 = totalChecklistCount2;
+  v207[14] = totalChecklistCount2;
+  v206[15] = @"totalNotesWithChecklistCount";
   totalNotesWithChecklistCount = [(ICASAccountSnapshotData *)self totalNotesWithChecklistCount];
   if (totalNotesWithChecklistCount)
   {
@@ -377,9 +377,9 @@
     totalNotesWithChecklistCount2 = objc_opt_new();
   }
 
-  v175 = totalNotesWithChecklistCount2;
-  v208[15] = totalNotesWithChecklistCount2;
-  v207[16] = @"totalCountOfPinnedNotes";
+  v174 = totalNotesWithChecklistCount2;
+  v207[15] = totalNotesWithChecklistCount2;
+  v206[16] = @"totalCountOfPinnedNotes";
   totalCountOfPinnedNotes = [(ICASAccountSnapshotData *)self totalCountOfPinnedNotes];
   if (totalCountOfPinnedNotes)
   {
@@ -391,9 +391,9 @@
     totalCountOfPinnedNotes2 = objc_opt_new();
   }
 
-  v173 = totalCountOfPinnedNotes2;
-  v208[16] = totalCountOfPinnedNotes2;
-  v207[17] = @"totalCountOfLockedNotes";
+  v172 = totalCountOfPinnedNotes2;
+  v207[16] = totalCountOfPinnedNotes2;
+  v206[17] = @"totalCountOfLockedNotes";
   totalCountOfLockedNotes = [(ICASAccountSnapshotData *)self totalCountOfLockedNotes];
   if (totalCountOfLockedNotes)
   {
@@ -405,9 +405,9 @@
     totalCountOfLockedNotes2 = objc_opt_new();
   }
 
-  v171 = totalCountOfLockedNotes2;
-  v208[17] = totalCountOfLockedNotes2;
-  v207[18] = @"deviceSnapshotSummary";
+  v170 = totalCountOfLockedNotes2;
+  v207[17] = totalCountOfLockedNotes2;
+  v206[18] = @"deviceSnapshotSummary";
   deviceSnapshotSummary = [(ICASAccountSnapshotData *)self deviceSnapshotSummary];
   if (deviceSnapshotSummary)
   {
@@ -419,9 +419,9 @@
     deviceSnapshotSummary2 = objc_opt_new();
   }
 
-  v169 = deviceSnapshotSummary2;
-  v208[18] = deviceSnapshotSummary2;
-  v207[19] = @"userSnapshotSummary";
+  v168 = deviceSnapshotSummary2;
+  v207[18] = deviceSnapshotSummary2;
+  v206[19] = @"userSnapshotSummary";
   userSnapshotSummary = [(ICASAccountSnapshotData *)self userSnapshotSummary];
   if (userSnapshotSummary)
   {
@@ -433,9 +433,9 @@
     userSnapshotSummary2 = objc_opt_new();
   }
 
-  v167 = userSnapshotSummary2;
-  v208[19] = userSnapshotSummary2;
-  v207[20] = @"attachmentUTISummary";
+  v166 = userSnapshotSummary2;
+  v207[19] = userSnapshotSummary2;
+  v206[20] = @"attachmentUTISummary";
   attachmentUTISummary = [(ICASAccountSnapshotData *)self attachmentUTISummary];
   if (attachmentUTISummary)
   {
@@ -447,9 +447,9 @@
     attachmentUTISummary2 = objc_opt_new();
   }
 
-  v165 = attachmentUTISummary2;
-  v208[20] = attachmentUTISummary2;
-  v207[21] = @"folderDirectNoteCountHistogram";
+  v164 = attachmentUTISummary2;
+  v207[20] = attachmentUTISummary2;
+  v206[21] = @"folderDirectNoteCountHistogram";
   folderDirectNoteCountHistogram = [(ICASAccountSnapshotData *)self folderDirectNoteCountHistogram];
   if (folderDirectNoteCountHistogram)
   {
@@ -461,9 +461,9 @@
     folderDirectNoteCountHistogram2 = objc_opt_new();
   }
 
-  v163 = folderDirectNoteCountHistogram2;
-  v208[21] = folderDirectNoteCountHistogram2;
-  v207[22] = @"collabRootFolderTotalNoteCountHistogram";
+  v162 = folderDirectNoteCountHistogram2;
+  v207[21] = folderDirectNoteCountHistogram2;
+  v206[22] = @"collabRootFolderTotalNoteCountHistogram";
   collabRootFolderTotalNoteCountHistogram = [(ICASAccountSnapshotData *)self collabRootFolderTotalNoteCountHistogram];
   if (collabRootFolderTotalNoteCountHistogram)
   {
@@ -475,9 +475,9 @@
     collabRootFolderTotalNoteCountHistogram2 = objc_opt_new();
   }
 
-  v161 = collabRootFolderTotalNoteCountHistogram2;
-  v208[22] = collabRootFolderTotalNoteCountHistogram2;
-  v207[23] = @"docScanPageCountHistogram";
+  v160 = collabRootFolderTotalNoteCountHistogram2;
+  v207[22] = collabRootFolderTotalNoteCountHistogram2;
+  v206[23] = @"docScanPageCountHistogram";
   docScanPageCountHistogram = [(ICASAccountSnapshotData *)self docScanPageCountHistogram];
   if (docScanPageCountHistogram)
   {
@@ -489,9 +489,9 @@
     docScanPageCountHistogram2 = objc_opt_new();
   }
 
-  v159 = docScanPageCountHistogram2;
-  v208[23] = docScanPageCountHistogram2;
-  v207[24] = @"collabOwnedRootFolderInviteeCountHistogram";
+  v158 = docScanPageCountHistogram2;
+  v207[23] = docScanPageCountHistogram2;
+  v206[24] = @"collabOwnedRootFolderInviteeCountHistogram";
   collabOwnedRootFolderInviteeCountHistogram = [(ICASAccountSnapshotData *)self collabOwnedRootFolderInviteeCountHistogram];
   if (collabOwnedRootFolderInviteeCountHistogram)
   {
@@ -503,9 +503,9 @@
     collabOwnedRootFolderInviteeCountHistogram2 = objc_opt_new();
   }
 
-  v157 = collabOwnedRootFolderInviteeCountHistogram2;
-  v208[24] = collabOwnedRootFolderInviteeCountHistogram2;
-  v207[25] = @"collabOwnedRootFolderAcceptanceCountHistogram";
+  v156 = collabOwnedRootFolderInviteeCountHistogram2;
+  v207[24] = collabOwnedRootFolderInviteeCountHistogram2;
+  v206[25] = @"collabOwnedRootFolderAcceptanceCountHistogram";
   collabOwnedRootFolderAcceptanceCountHistogram = [(ICASAccountSnapshotData *)self collabOwnedRootFolderAcceptanceCountHistogram];
   if (collabOwnedRootFolderAcceptanceCountHistogram)
   {
@@ -517,9 +517,9 @@
     collabOwnedRootFolderAcceptanceCountHistogram2 = objc_opt_new();
   }
 
-  v155 = collabOwnedRootFolderAcceptanceCountHistogram2;
-  v208[25] = collabOwnedRootFolderAcceptanceCountHistogram2;
-  v207[26] = @"collabOwnedRootFolderNoReplyCountHistogram";
+  v154 = collabOwnedRootFolderAcceptanceCountHistogram2;
+  v207[25] = collabOwnedRootFolderAcceptanceCountHistogram2;
+  v206[26] = @"collabOwnedRootFolderNoReplyCountHistogram";
   collabOwnedRootFolderNoReplyCountHistogram = [(ICASAccountSnapshotData *)self collabOwnedRootFolderNoReplyCountHistogram];
   if (collabOwnedRootFolderNoReplyCountHistogram)
   {
@@ -531,9 +531,9 @@
     collabOwnedRootFolderNoReplyCountHistogram2 = objc_opt_new();
   }
 
-  v153 = collabOwnedRootFolderNoReplyCountHistogram2;
-  v208[26] = collabOwnedRootFolderNoReplyCountHistogram2;
-  v207[27] = @"collabOwnedRootFolderAcceptanceRatioHistogram";
+  v152 = collabOwnedRootFolderNoReplyCountHistogram2;
+  v207[26] = collabOwnedRootFolderNoReplyCountHistogram2;
+  v206[27] = @"collabOwnedRootFolderAcceptanceRatioHistogram";
   collabOwnedRootFolderAcceptanceRatioHistogram = [(ICASAccountSnapshotData *)self collabOwnedRootFolderAcceptanceRatioHistogram];
   if (collabOwnedRootFolderAcceptanceRatioHistogram)
   {
@@ -545,9 +545,9 @@
     collabOwnedRootFolderAcceptanceRatioHistogram2 = objc_opt_new();
   }
 
-  v151 = collabOwnedRootFolderAcceptanceRatioHistogram2;
-  v208[27] = collabOwnedRootFolderAcceptanceRatioHistogram2;
-  v207[28] = @"collabOwnedSingleNoteInviteeCountHistogram";
+  v150 = collabOwnedRootFolderAcceptanceRatioHistogram2;
+  v207[27] = collabOwnedRootFolderAcceptanceRatioHistogram2;
+  v206[28] = @"collabOwnedSingleNoteInviteeCountHistogram";
   collabOwnedSingleNoteInviteeCountHistogram = [(ICASAccountSnapshotData *)self collabOwnedSingleNoteInviteeCountHistogram];
   if (collabOwnedSingleNoteInviteeCountHistogram)
   {
@@ -559,9 +559,9 @@
     collabOwnedSingleNoteInviteeCountHistogram2 = objc_opt_new();
   }
 
-  v149 = collabOwnedSingleNoteInviteeCountHistogram2;
-  v208[28] = collabOwnedSingleNoteInviteeCountHistogram2;
-  v207[29] = @"collabOwnedSingleNoteAcceptanceCountHistogram";
+  v148 = collabOwnedSingleNoteInviteeCountHistogram2;
+  v207[28] = collabOwnedSingleNoteInviteeCountHistogram2;
+  v206[29] = @"collabOwnedSingleNoteAcceptanceCountHistogram";
   collabOwnedSingleNoteAcceptanceCountHistogram = [(ICASAccountSnapshotData *)self collabOwnedSingleNoteAcceptanceCountHistogram];
   if (collabOwnedSingleNoteAcceptanceCountHistogram)
   {
@@ -573,9 +573,9 @@
     collabOwnedSingleNoteAcceptanceCountHistogram2 = objc_opt_new();
   }
 
-  v147 = collabOwnedSingleNoteAcceptanceCountHistogram2;
-  v208[29] = collabOwnedSingleNoteAcceptanceCountHistogram2;
-  v207[30] = @"collabOwnedSingleNoteNoReplyCountHistogram";
+  v146 = collabOwnedSingleNoteAcceptanceCountHistogram2;
+  v207[29] = collabOwnedSingleNoteAcceptanceCountHistogram2;
+  v206[30] = @"collabOwnedSingleNoteNoReplyCountHistogram";
   collabOwnedSingleNoteNoReplyCountHistogram = [(ICASAccountSnapshotData *)self collabOwnedSingleNoteNoReplyCountHistogram];
   if (collabOwnedSingleNoteNoReplyCountHistogram)
   {
@@ -587,9 +587,9 @@
     collabOwnedSingleNoteNoReplyCountHistogram2 = objc_opt_new();
   }
 
-  v145 = collabOwnedSingleNoteNoReplyCountHistogram2;
-  v208[30] = collabOwnedSingleNoteNoReplyCountHistogram2;
-  v207[31] = @"collabOwnedSingleNoteAcceptanceRatioHistogram";
+  v144 = collabOwnedSingleNoteNoReplyCountHistogram2;
+  v207[30] = collabOwnedSingleNoteNoReplyCountHistogram2;
+  v206[31] = @"collabOwnedSingleNoteAcceptanceRatioHistogram";
   collabOwnedSingleNoteAcceptanceRatioHistogram = [(ICASAccountSnapshotData *)self collabOwnedSingleNoteAcceptanceRatioHistogram];
   if (collabOwnedSingleNoteAcceptanceRatioHistogram)
   {
@@ -601,9 +601,9 @@
     collabOwnedSingleNoteAcceptanceRatioHistogram2 = objc_opt_new();
   }
 
-  v143 = collabOwnedSingleNoteAcceptanceRatioHistogram2;
-  v208[31] = collabOwnedSingleNoteAcceptanceRatioHistogram2;
-  v207[32] = @"noteCharCountHistogram";
+  v142 = collabOwnedSingleNoteAcceptanceRatioHistogram2;
+  v207[31] = collabOwnedSingleNoteAcceptanceRatioHistogram2;
+  v206[32] = @"noteCharCountHistogram";
   noteCharCountHistogram = [(ICASAccountSnapshotData *)self noteCharCountHistogram];
   if (noteCharCountHistogram)
   {
@@ -615,9 +615,9 @@
     noteCharCountHistogram2 = objc_opt_new();
   }
 
-  v141 = noteCharCountHistogram2;
-  v208[32] = noteCharCountHistogram2;
-  v207[33] = @"inlineDrawingV1TotalStrokeCountHistogram";
+  v140 = noteCharCountHistogram2;
+  v207[32] = noteCharCountHistogram2;
+  v206[33] = @"inlineDrawingV1TotalStrokeCountHistogram";
   inlineDrawingV1TotalStrokeCountHistogram = [(ICASAccountSnapshotData *)self inlineDrawingV1TotalStrokeCountHistogram];
   if (inlineDrawingV1TotalStrokeCountHistogram)
   {
@@ -629,9 +629,9 @@
     inlineDrawingV1TotalStrokeCountHistogram2 = objc_opt_new();
   }
 
-  v139 = inlineDrawingV1TotalStrokeCountHistogram2;
-  v208[33] = inlineDrawingV1TotalStrokeCountHistogram2;
-  v207[34] = @"inlineDrawingV1PencilStrokeCountHistogram";
+  v138 = inlineDrawingV1TotalStrokeCountHistogram2;
+  v207[33] = inlineDrawingV1TotalStrokeCountHistogram2;
+  v206[34] = @"inlineDrawingV1PencilStrokeCountHistogram";
   inlineDrawingV1PencilStrokeCountHistogram = [(ICASAccountSnapshotData *)self inlineDrawingV1PencilStrokeCountHistogram];
   if (inlineDrawingV1PencilStrokeCountHistogram)
   {
@@ -643,9 +643,9 @@
     inlineDrawingV1PencilStrokeCountHistogram2 = objc_opt_new();
   }
 
-  v137 = inlineDrawingV1PencilStrokeCountHistogram2;
-  v208[34] = inlineDrawingV1PencilStrokeCountHistogram2;
-  v207[35] = @"inlineDrawingV1FingerStrokeCountHistogram";
+  v136 = inlineDrawingV1PencilStrokeCountHistogram2;
+  v207[34] = inlineDrawingV1PencilStrokeCountHistogram2;
+  v206[35] = @"inlineDrawingV1FingerStrokeCountHistogram";
   inlineDrawingV1FingerStrokeCountHistogram = [(ICASAccountSnapshotData *)self inlineDrawingV1FingerStrokeCountHistogram];
   if (inlineDrawingV1FingerStrokeCountHistogram)
   {
@@ -657,9 +657,9 @@
     inlineDrawingV1FingerStrokeCountHistogram2 = objc_opt_new();
   }
 
-  v135 = inlineDrawingV1FingerStrokeCountHistogram2;
-  v208[35] = inlineDrawingV1FingerStrokeCountHistogram2;
-  v207[36] = @"inlineDrawingV1FingerStrokeRatioHistogram";
+  v134 = inlineDrawingV1FingerStrokeCountHistogram2;
+  v207[35] = inlineDrawingV1FingerStrokeCountHistogram2;
+  v206[36] = @"inlineDrawingV1FingerStrokeRatioHistogram";
   inlineDrawingV1FingerStrokeRatioHistogram = [(ICASAccountSnapshotData *)self inlineDrawingV1FingerStrokeRatioHistogram];
   if (inlineDrawingV1FingerStrokeRatioHistogram)
   {
@@ -671,9 +671,9 @@
     inlineDrawingV1FingerStrokeRatioHistogram2 = objc_opt_new();
   }
 
-  v133 = inlineDrawingV1FingerStrokeRatioHistogram2;
-  v208[36] = inlineDrawingV1FingerStrokeRatioHistogram2;
-  v207[37] = @"inlineDrawingV2TotalStrokeCountHistogram";
+  v132 = inlineDrawingV1FingerStrokeRatioHistogram2;
+  v207[36] = inlineDrawingV1FingerStrokeRatioHistogram2;
+  v206[37] = @"inlineDrawingV2TotalStrokeCountHistogram";
   inlineDrawingV2TotalStrokeCountHistogram = [(ICASAccountSnapshotData *)self inlineDrawingV2TotalStrokeCountHistogram];
   if (inlineDrawingV2TotalStrokeCountHistogram)
   {
@@ -685,9 +685,9 @@
     inlineDrawingV2TotalStrokeCountHistogram2 = objc_opt_new();
   }
 
-  v131 = inlineDrawingV2TotalStrokeCountHistogram2;
-  v208[37] = inlineDrawingV2TotalStrokeCountHistogram2;
-  v207[38] = @"inlineDrawingV2PencilStrokeCountHistogram";
+  v130 = inlineDrawingV2TotalStrokeCountHistogram2;
+  v207[37] = inlineDrawingV2TotalStrokeCountHistogram2;
+  v206[38] = @"inlineDrawingV2PencilStrokeCountHistogram";
   inlineDrawingV2PencilStrokeCountHistogram = [(ICASAccountSnapshotData *)self inlineDrawingV2PencilStrokeCountHistogram];
   if (inlineDrawingV2PencilStrokeCountHistogram)
   {
@@ -699,9 +699,9 @@
     inlineDrawingV2PencilStrokeCountHistogram2 = objc_opt_new();
   }
 
-  v129 = inlineDrawingV2PencilStrokeCountHistogram2;
-  v208[38] = inlineDrawingV2PencilStrokeCountHistogram2;
-  v207[39] = @"inlineDrawingV2FingerStrokeCountHistogram";
+  v128 = inlineDrawingV2PencilStrokeCountHistogram2;
+  v207[38] = inlineDrawingV2PencilStrokeCountHistogram2;
+  v206[39] = @"inlineDrawingV2FingerStrokeCountHistogram";
   inlineDrawingV2FingerStrokeCountHistogram = [(ICASAccountSnapshotData *)self inlineDrawingV2FingerStrokeCountHistogram];
   if (inlineDrawingV2FingerStrokeCountHistogram)
   {
@@ -713,9 +713,9 @@
     inlineDrawingV2FingerStrokeCountHistogram2 = objc_opt_new();
   }
 
-  v127 = inlineDrawingV2FingerStrokeCountHistogram2;
-  v208[39] = inlineDrawingV2FingerStrokeCountHistogram2;
-  v207[40] = @"inlineDrawingV2FingerStrokeRatioHistogram";
+  v126 = inlineDrawingV2FingerStrokeCountHistogram2;
+  v207[39] = inlineDrawingV2FingerStrokeCountHistogram2;
+  v206[40] = @"inlineDrawingV2FingerStrokeRatioHistogram";
   inlineDrawingV2FingerStrokeRatioHistogram = [(ICASAccountSnapshotData *)self inlineDrawingV2FingerStrokeRatioHistogram];
   if (inlineDrawingV2FingerStrokeRatioHistogram)
   {
@@ -727,9 +727,9 @@
     inlineDrawingV2FingerStrokeRatioHistogram2 = objc_opt_new();
   }
 
-  v125 = inlineDrawingV2FingerStrokeRatioHistogram2;
-  v208[40] = inlineDrawingV2FingerStrokeRatioHistogram2;
-  v207[41] = @"fullscreenDrawingStrokeCountHistogram";
+  v124 = inlineDrawingV2FingerStrokeRatioHistogram2;
+  v207[40] = inlineDrawingV2FingerStrokeRatioHistogram2;
+  v206[41] = @"fullscreenDrawingStrokeCountHistogram";
   fullscreenDrawingStrokeCountHistogram = [(ICASAccountSnapshotData *)self fullscreenDrawingStrokeCountHistogram];
   if (fullscreenDrawingStrokeCountHistogram)
   {
@@ -741,9 +741,9 @@
     fullscreenDrawingStrokeCountHistogram2 = objc_opt_new();
   }
 
-  v123 = fullscreenDrawingStrokeCountHistogram2;
-  v208[41] = fullscreenDrawingStrokeCountHistogram2;
-  v207[42] = @"tableRowCountHistogram";
+  v122 = fullscreenDrawingStrokeCountHistogram2;
+  v207[41] = fullscreenDrawingStrokeCountHistogram2;
+  v206[42] = @"tableRowCountHistogram";
   tableRowCountHistogram = [(ICASAccountSnapshotData *)self tableRowCountHistogram];
   if (tableRowCountHistogram)
   {
@@ -755,9 +755,9 @@
     tableRowCountHistogram2 = objc_opt_new();
   }
 
-  v121 = tableRowCountHistogram2;
-  v208[42] = tableRowCountHistogram2;
-  v207[43] = @"tableColumnCountHistogram";
+  v120 = tableRowCountHistogram2;
+  v207[42] = tableRowCountHistogram2;
+  v206[43] = @"tableColumnCountHistogram";
   tableColumnCountHistogram = [(ICASAccountSnapshotData *)self tableColumnCountHistogram];
   if (tableColumnCountHistogram)
   {
@@ -769,9 +769,9 @@
     tableColumnCountHistogram2 = objc_opt_new();
   }
 
-  v119 = tableColumnCountHistogram2;
-  v208[43] = tableColumnCountHistogram2;
-  v207[44] = @"tableCellCountHistogram";
+  v118 = tableColumnCountHistogram2;
+  v207[43] = tableColumnCountHistogram2;
+  v206[44] = @"tableCellCountHistogram";
   tableCellCountHistogram = [(ICASAccountSnapshotData *)self tableCellCountHistogram];
   if (tableCellCountHistogram)
   {
@@ -783,9 +783,9 @@
     tableCellCountHistogram2 = objc_opt_new();
   }
 
-  v117 = tableCellCountHistogram2;
-  v208[44] = tableCellCountHistogram2;
-  v207[45] = @"passwordProtectedNoteWeeklyAgeHistogram";
+  v116 = tableCellCountHistogram2;
+  v207[44] = tableCellCountHistogram2;
+  v206[45] = @"passwordProtectedNoteWeeklyAgeHistogram";
   passwordProtectedNoteWeeklyAgeHistogram = [(ICASAccountSnapshotData *)self passwordProtectedNoteWeeklyAgeHistogram];
   if (passwordProtectedNoteWeeklyAgeHistogram)
   {
@@ -797,9 +797,9 @@
     passwordProtectedNoteWeeklyAgeHistogram2 = objc_opt_new();
   }
 
-  v115 = passwordProtectedNoteWeeklyAgeHistogram2;
-  v208[45] = passwordProtectedNoteWeeklyAgeHistogram2;
-  v207[46] = @"topLevelFolderTotalNoteCountHistogram";
+  v114 = passwordProtectedNoteWeeklyAgeHistogram2;
+  v207[45] = passwordProtectedNoteWeeklyAgeHistogram2;
+  v206[46] = @"topLevelFolderTotalNoteCountHistogram";
   topLevelFolderTotalNoteCountHistogram = [(ICASAccountSnapshotData *)self topLevelFolderTotalNoteCountHistogram];
   if (topLevelFolderTotalNoteCountHistogram)
   {
@@ -811,9 +811,9 @@
     topLevelFolderTotalNoteCountHistogram2 = objc_opt_new();
   }
 
-  v113 = topLevelFolderTotalNoteCountHistogram2;
-  v208[46] = topLevelFolderTotalNoteCountHistogram2;
-  v207[47] = @"attachmentCountPerNoteHistogram";
+  v112 = topLevelFolderTotalNoteCountHistogram2;
+  v207[46] = topLevelFolderTotalNoteCountHistogram2;
+  v206[47] = @"attachmentCountPerNoteHistogram";
   attachmentCountPerNoteHistogram = [(ICASAccountSnapshotData *)self attachmentCountPerNoteHistogram];
   if (attachmentCountPerNoteHistogram)
   {
@@ -825,9 +825,9 @@
     attachmentCountPerNoteHistogram2 = objc_opt_new();
   }
 
-  v111 = attachmentCountPerNoteHistogram2;
-  v208[47] = attachmentCountPerNoteHistogram2;
-  v207[48] = @"drawingCountPerNoteHistogram";
+  v110 = attachmentCountPerNoteHistogram2;
+  v207[47] = attachmentCountPerNoteHistogram2;
+  v206[48] = @"drawingCountPerNoteHistogram";
   drawingCountPerNoteHistogram = [(ICASAccountSnapshotData *)self drawingCountPerNoteHistogram];
   if (drawingCountPerNoteHistogram)
   {
@@ -839,9 +839,9 @@
     drawingCountPerNoteHistogram2 = objc_opt_new();
   }
 
-  v109 = drawingCountPerNoteHistogram2;
-  v208[48] = drawingCountPerNoteHistogram2;
-  v207[49] = @"inlineDrawingFingerStrokesCountPerNoteHistogram";
+  v108 = drawingCountPerNoteHistogram2;
+  v207[48] = drawingCountPerNoteHistogram2;
+  v206[49] = @"inlineDrawingFingerStrokesCountPerNoteHistogram";
   inlineDrawingFingerStrokesCountPerNoteHistogram = [(ICASAccountSnapshotData *)self inlineDrawingFingerStrokesCountPerNoteHistogram];
   if (inlineDrawingFingerStrokesCountPerNoteHistogram)
   {
@@ -853,9 +853,9 @@
     inlineDrawingFingerStrokesCountPerNoteHistogram2 = objc_opt_new();
   }
 
-  v107 = inlineDrawingFingerStrokesCountPerNoteHistogram2;
-  v208[49] = inlineDrawingFingerStrokesCountPerNoteHistogram2;
-  v207[50] = @"inlineDrawingPencilStrokesCountPerNoteHistogram";
+  v106 = inlineDrawingFingerStrokesCountPerNoteHistogram2;
+  v207[49] = inlineDrawingFingerStrokesCountPerNoteHistogram2;
+  v206[50] = @"inlineDrawingPencilStrokesCountPerNoteHistogram";
   inlineDrawingPencilStrokesCountPerNoteHistogram = [(ICASAccountSnapshotData *)self inlineDrawingPencilStrokesCountPerNoteHistogram];
   if (inlineDrawingPencilStrokesCountPerNoteHistogram)
   {
@@ -867,9 +867,9 @@
     inlineDrawingPencilStrokesCountPerNoteHistogram2 = objc_opt_new();
   }
 
-  v105 = inlineDrawingPencilStrokesCountPerNoteHistogram2;
-  v208[50] = inlineDrawingPencilStrokesCountPerNoteHistogram2;
-  v207[51] = @"fullScreenDrawingStrokesCountPerNoteHistogram";
+  v104 = inlineDrawingPencilStrokesCountPerNoteHistogram2;
+  v207[50] = inlineDrawingPencilStrokesCountPerNoteHistogram2;
+  v206[51] = @"fullScreenDrawingStrokesCountPerNoteHistogram";
   fullScreenDrawingStrokesCountPerNoteHistogram = [(ICASAccountSnapshotData *)self fullScreenDrawingStrokesCountPerNoteHistogram];
   if (fullScreenDrawingStrokesCountPerNoteHistogram)
   {
@@ -881,9 +881,9 @@
     fullScreenDrawingStrokesCountPerNoteHistogram2 = objc_opt_new();
   }
 
-  v103 = fullScreenDrawingStrokesCountPerNoteHistogram2;
-  v208[51] = fullScreenDrawingStrokesCountPerNoteHistogram2;
-  v207[52] = @"totalStrokesCountPerNoteHistogram";
+  v102 = fullScreenDrawingStrokesCountPerNoteHistogram2;
+  v207[51] = fullScreenDrawingStrokesCountPerNoteHistogram2;
+  v206[52] = @"totalStrokesCountPerNoteHistogram";
   totalStrokesCountPerNoteHistogram = [(ICASAccountSnapshotData *)self totalStrokesCountPerNoteHistogram];
   if (totalStrokesCountPerNoteHistogram)
   {
@@ -895,9 +895,9 @@
     totalStrokesCountPerNoteHistogram2 = objc_opt_new();
   }
 
-  v101 = totalStrokesCountPerNoteHistogram2;
-  v208[52] = totalStrokesCountPerNoteHistogram2;
-  v207[53] = @"tagCountPerNoteHistogram";
+  v100 = totalStrokesCountPerNoteHistogram2;
+  v207[52] = totalStrokesCountPerNoteHistogram2;
+  v206[53] = @"tagCountPerNoteHistogram";
   tagCountPerNoteHistogram = [(ICASAccountSnapshotData *)self tagCountPerNoteHistogram];
   if (tagCountPerNoteHistogram)
   {
@@ -909,9 +909,9 @@
     tagCountPerNoteHistogram2 = objc_opt_new();
   }
 
-  v99 = tagCountPerNoteHistogram2;
-  v208[53] = tagCountPerNoteHistogram2;
-  v207[54] = @"distinctTagCountPerNoteHistogram";
+  v98 = tagCountPerNoteHistogram2;
+  v207[53] = tagCountPerNoteHistogram2;
+  v206[54] = @"distinctTagCountPerNoteHistogram";
   distinctTagCountPerNoteHistogram = [(ICASAccountSnapshotData *)self distinctTagCountPerNoteHistogram];
   if (distinctTagCountPerNoteHistogram)
   {
@@ -923,9 +923,9 @@
     distinctTagCountPerNoteHistogram2 = objc_opt_new();
   }
 
-  v97 = distinctTagCountPerNoteHistogram2;
-  v208[54] = distinctTagCountPerNoteHistogram2;
-  v207[55] = @"totalCountOfNotesWithTags";
+  v96 = distinctTagCountPerNoteHistogram2;
+  v207[54] = distinctTagCountPerNoteHistogram2;
+  v206[55] = @"totalCountOfNotesWithTags";
   totalCountOfNotesWithTags = [(ICASAccountSnapshotData *)self totalCountOfNotesWithTags];
   if (totalCountOfNotesWithTags)
   {
@@ -937,9 +937,9 @@
     totalCountOfNotesWithTags2 = objc_opt_new();
   }
 
-  v95 = totalCountOfNotesWithTags2;
-  v208[55] = totalCountOfNotesWithTags2;
-  v207[56] = @"totalCountOfNotesWithCollapsedSections";
+  v94 = totalCountOfNotesWithTags2;
+  v207[55] = totalCountOfNotesWithTags2;
+  v206[56] = @"totalCountOfNotesWithCollapsedSections";
   totalCountOfNotesWithCollapsedSections = [(ICASAccountSnapshotData *)self totalCountOfNotesWithCollapsedSections];
   if (totalCountOfNotesWithCollapsedSections)
   {
@@ -951,9 +951,9 @@
     totalCountOfNotesWithCollapsedSections2 = objc_opt_new();
   }
 
-  v93 = totalCountOfNotesWithCollapsedSections2;
-  v208[56] = totalCountOfNotesWithCollapsedSections2;
-  v207[57] = @"totalCountOfNotesWithMentions";
+  v92 = totalCountOfNotesWithCollapsedSections2;
+  v207[56] = totalCountOfNotesWithCollapsedSections2;
+  v206[57] = @"totalCountOfNotesWithMentions";
   totalCountOfNotesWithMentions = [(ICASAccountSnapshotData *)self totalCountOfNotesWithMentions];
   if (totalCountOfNotesWithMentions)
   {
@@ -965,9 +965,9 @@
     totalCountOfNotesWithMentions2 = objc_opt_new();
   }
 
-  v91 = totalCountOfNotesWithMentions2;
-  v208[57] = totalCountOfNotesWithMentions2;
-  v207[58] = @"totalScrapPaperCount";
+  v90 = totalCountOfNotesWithMentions2;
+  v207[57] = totalCountOfNotesWithMentions2;
+  v206[58] = @"totalScrapPaperCount";
   totalScrapPaperCount = [(ICASAccountSnapshotData *)self totalScrapPaperCount];
   if (totalScrapPaperCount)
   {
@@ -979,9 +979,9 @@
     totalScrapPaperCount2 = objc_opt_new();
   }
 
-  v89 = totalScrapPaperCount2;
-  v208[58] = totalScrapPaperCount2;
-  v207[59] = @"totalCountOfScrapPapersWithTags";
+  v88 = totalScrapPaperCount2;
+  v207[58] = totalScrapPaperCount2;
+  v206[59] = @"totalCountOfScrapPapersWithTags";
   totalCountOfScrapPapersWithTags = [(ICASAccountSnapshotData *)self totalCountOfScrapPapersWithTags];
   if (totalCountOfScrapPapersWithTags)
   {
@@ -993,9 +993,9 @@
     totalCountOfScrapPapersWithTags2 = objc_opt_new();
   }
 
-  v87 = totalCountOfScrapPapersWithTags2;
-  v208[59] = totalCountOfScrapPapersWithTags2;
-  v207[60] = @"totalCountOfScrapPapersWithMentions";
+  v86 = totalCountOfScrapPapersWithTags2;
+  v207[59] = totalCountOfScrapPapersWithTags2;
+  v206[60] = @"totalCountOfScrapPapersWithMentions";
   totalCountOfScrapPapersWithMentions = [(ICASAccountSnapshotData *)self totalCountOfScrapPapersWithMentions];
   if (totalCountOfScrapPapersWithMentions)
   {
@@ -1007,9 +1007,9 @@
     totalCountOfScrapPapersWithMentions2 = objc_opt_new();
   }
 
-  v85 = totalCountOfScrapPapersWithMentions2;
-  v208[60] = totalCountOfScrapPapersWithMentions2;
-  v207[61] = @"totalCountOfPinnedScrapPapers";
+  v84 = totalCountOfScrapPapersWithMentions2;
+  v207[60] = totalCountOfScrapPapersWithMentions2;
+  v206[61] = @"totalCountOfPinnedScrapPapers";
   totalCountOfPinnedScrapPapers = [(ICASAccountSnapshotData *)self totalCountOfPinnedScrapPapers];
   if (totalCountOfPinnedScrapPapers)
   {
@@ -1021,9 +1021,9 @@
     totalCountOfPinnedScrapPapers2 = objc_opt_new();
   }
 
-  v83 = totalCountOfPinnedScrapPapers2;
-  v208[61] = totalCountOfPinnedScrapPapers2;
-  v207[62] = @"totalCountOfLockedScrapPapers";
+  v82 = totalCountOfPinnedScrapPapers2;
+  v207[61] = totalCountOfPinnedScrapPapers2;
+  v206[62] = @"totalCountOfLockedScrapPapers";
   totalCountOfLockedScrapPapers = [(ICASAccountSnapshotData *)self totalCountOfLockedScrapPapers];
   if (totalCountOfLockedScrapPapers)
   {
@@ -1036,8 +1036,8 @@
   }
 
   v67 = totalCountOfLockedScrapPapers2;
-  v208[62] = totalCountOfLockedScrapPapers2;
-  v207[63] = @"totalCountOfCollaboratedScrapPapers";
+  v207[62] = totalCountOfLockedScrapPapers2;
+  v206[63] = @"totalCountOfCollaboratedScrapPapers";
   totalCountOfCollaboratedScrapPapers = [(ICASAccountSnapshotData *)self totalCountOfCollaboratedScrapPapers];
   if (totalCountOfCollaboratedScrapPapers)
   {
@@ -1050,8 +1050,8 @@
   }
 
   v70 = totalCountOfCollaboratedScrapPapers2;
-  v208[63] = totalCountOfCollaboratedScrapPapers2;
-  v207[64] = @"mentionCountPerNoteHistogram";
+  v207[63] = totalCountOfCollaboratedScrapPapers2;
+  v206[64] = @"mentionCountPerNoteHistogram";
   mentionCountPerNoteHistogram = [(ICASAccountSnapshotData *)self mentionCountPerNoteHistogram];
   if (mentionCountPerNoteHistogram)
   {
@@ -1064,8 +1064,8 @@
   }
 
   v73 = mentionCountPerNoteHistogram2;
-  v208[64] = mentionCountPerNoteHistogram2;
-  v207[65] = @"distinctMentionCountPerNoteHistogram";
+  v207[64] = mentionCountPerNoteHistogram2;
+  v206[65] = @"distinctMentionCountPerNoteHistogram";
   distinctMentionCountPerNoteHistogram = [(ICASAccountSnapshotData *)self distinctMentionCountPerNoteHistogram];
   if (distinctMentionCountPerNoteHistogram)
   {
@@ -1078,8 +1078,8 @@
   }
 
   v76 = distinctMentionCountPerNoteHistogram2;
-  v208[65] = distinctMentionCountPerNoteHistogram2;
-  v207[66] = @"totalCountOfNotesWithMathUsage";
+  v207[65] = distinctMentionCountPerNoteHistogram2;
+  v206[66] = @"totalCountOfNotesWithMathUsage";
   totalCountOfNotesWithMathUsage = [(ICASAccountSnapshotData *)self totalCountOfNotesWithMathUsage];
   if (totalCountOfNotesWithMathUsage)
   {
@@ -1092,12 +1092,10 @@
   }
 
   v79 = totalCountOfNotesWithMathUsage2;
-  v208[66] = totalCountOfNotesWithMathUsage2;
-  v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v208 forKeys:v207 count:67];
+  v207[66] = totalCountOfNotesWithMathUsage2;
+  v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v207 forKeys:v206 count:67];
 
-  v80 = *MEMORY[0x277D85DE8];
-
-  return v82;
+  return v81;
 }
 
 @end

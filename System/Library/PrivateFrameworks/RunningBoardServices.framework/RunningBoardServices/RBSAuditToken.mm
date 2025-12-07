@@ -161,7 +161,7 @@
     memset(v12, 0, sizeof(v12));
     if (equalCopy)
     {
-      [(RBSAuditToken *)equalCopy realToken];
+      objc_msgSend_realToken(equalCopy);
     }
 
     if (LODWORD(v12[0]) == self->_auditToken.val[0])

@@ -43,25 +43,25 @@
     v9 = v8;
     if (v7 == v8)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v10 = 0;
+      isEqual = 0;
       if (v7 && v8)
       {
-        v10 = [(NSString *)v7 isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(v7);
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (id)description

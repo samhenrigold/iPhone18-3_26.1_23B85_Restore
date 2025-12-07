@@ -102,7 +102,7 @@
 
 - (void)validateTemplates:(id)templates
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   templatesCopy = templates;
   maximumTabCount = [objc_opt_class() maximumTabCount];
   v5 = [templatesCopy count];
@@ -116,28 +116,28 @@
     [v7 raise:v8 format:{@"Too many templates passed to %@. Maximum allowed is %@.", v9, v10}];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = templatesCopy;
-  v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v24;
     v14 = *v6;
     do
     {
       v15 = 0;
       do
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * v15);
+        v16 = *(*(&v23 + 1) + 8 * v15);
         if (CPTabTemplates_onceToken != -1)
         {
           [CPTabBarTemplate validateTemplates:];
@@ -156,13 +156,11 @@
       }
 
       while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v12 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v12);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (CPTemplate)selectedTemplate
@@ -187,23 +185,23 @@
 
 - (void)selectTemplate:(CPTemplate *)newTemplate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = newTemplate;
   templates = self->_templates;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __35__CPTabBarTemplate_selectTemplate___block_invoke;
-  v10[3] = &unk_278A11050;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __35__CPTabBarTemplate_selectTemplate___block_invoke;
+  v9[3] = &unk_278A11050;
   v6 = v4;
-  v11 = v6;
-  v7 = [(NSArray *)templates indexOfObjectPassingTest:v10];
+  v10 = v6;
+  v7 = [(NSArray *)templates indexOfObjectPassingTest:v9];
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = CarPlayFrameworkGeneralLogging();
+    v8 = CarPlayFrameworkGeneralLogging(0x7FFFFFFFFFFFFFFFLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "Requested template to select in tab bar doesn't exist: %@", buf, 0xCu);
     }
   }
@@ -212,8 +210,6 @@
   {
     [(CPTabBarTemplate *)self selectTemplateAtIndex:v7];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__CPTabBarTemplate_selectTemplate___block_invoke(uint64_t a1, void *a2)
@@ -228,44 +224,45 @@ uint64_t __35__CPTabBarTemplate_selectTemplate___block_invoke(uint64_t a1, void 
 - (void)selectTemplateAtIndex:(NSInteger)index
 {
   v14 = *MEMORY[0x277D85DE8];
-  if ([(CPTabBarTemplate *)self indexOfSelectedTab]== index)
+  indexOfSelectedTab = [(CPTabBarTemplate *)self indexOfSelectedTab];
+  if (indexOfSelectedTab == index)
   {
-    interfaceController = CarPlayFrameworkGeneralLogging();
+    interfaceController = CarPlayFrameworkGeneralLogging(indexOfSelectedTab);
     if (os_log_type_enabled(interfaceController, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [MEMORY[0x277CCABB0] numberWithInteger:index];
+      v7 = [MEMORY[0x277CCABB0] numberWithInteger:index];
       v12 = 138412290;
-      v13 = v6;
-      v7 = "Requested to select tab bar index %@, but it's already selected.";
+      v13 = v7;
+      v8 = "Requested to select tab bar index %@, but it's already selected.";
 LABEL_10:
-      _os_log_impl(&dword_236ED4000, interfaceController, OS_LOG_TYPE_DEFAULT, v7, &v12, 0xCu);
+      _os_log_impl(&dword_236ED4000, interfaceController, OS_LOG_TYPE_DEFAULT, v8, &v12, 0xCu);
     }
   }
 
   else
   {
-    v8 = [(NSArray *)self->_templates count];
-    interfaceController = CarPlayFrameworkGeneralLogging();
-    v9 = os_log_type_enabled(interfaceController, OS_LOG_TYPE_DEFAULT);
-    if (v8 <= index)
+    v9 = [(NSArray *)self->_templates count];
+    interfaceController = CarPlayFrameworkGeneralLogging(v9);
+    v10 = os_log_type_enabled(interfaceController, OS_LOG_TYPE_DEFAULT);
+    if (v9 <= index)
     {
-      if (v9)
+      if (v10)
       {
-        v6 = [MEMORY[0x277CCABB0] numberWithInteger:index];
+        v7 = [MEMORY[0x277CCABB0] numberWithInteger:index];
         v12 = 138412290;
-        v13 = v6;
-        v7 = "Requested template index in tab bar doesn't exist: %@";
+        v13 = v7;
+        v8 = "Requested template index in tab bar doesn't exist: %@";
         goto LABEL_10;
       }
     }
 
     else
     {
-      if (v9)
+      if (v10)
       {
-        v10 = [MEMORY[0x277CCABB0] numberWithInteger:index];
+        v11 = [MEMORY[0x277CCABB0] numberWithInteger:index];
         v12 = 138412290;
-        v13 = v10;
+        v13 = v11;
         _os_log_impl(&dword_236ED4000, interfaceController, OS_LOG_TYPE_DEFAULT, "Selecting tab bar template at index %@", &v12, 0xCu);
       }
 
@@ -273,28 +270,26 @@ LABEL_10:
       [interfaceController selectTabBarTemplateIndex:index];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleActionForControlIdentifier:(id)identifier
 {
   identifierCopy = identifier;
   templates = [(CPTabBarTemplate *)self templates];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__CPTabBarTemplate_handleActionForControlIdentifier___block_invoke;
-  v12[3] = &unk_278A11050;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__CPTabBarTemplate_handleActionForControlIdentifier___block_invoke;
+  v13[3] = &unk_278A11050;
   v6 = identifierCopy;
-  v13 = v6;
-  v7 = [templates indexOfObjectPassingTest:v12];
+  v14 = v6;
+  v7 = [templates indexOfObjectPassingTest:v13];
 
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CarPlayFrameworkGeneralLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(CPTabBarTemplate *)v6 handleActionForControlIdentifier:v8];
+      [(CPTabBarTemplate *)v6 handleActionForControlIdentifier:v9];
     }
   }
 
@@ -302,9 +297,9 @@ LABEL_10:
   {
     [(CPTabBarTemplate *)self setIndexOfSelectedTab:v7];
     delegate = [(CPTabBarTemplate *)self delegate];
-    v10 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
 
-    if (v10)
+    if (v11)
     {
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
@@ -350,11 +345,10 @@ void __53__CPTabBarTemplate_handleActionForControlIdentifier___block_invoke_12(u
 
 - (void)handleActionForControlIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_236ED4000, a2, OS_LOG_TYPE_ERROR, "Failed to identify a local template for identifier %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_236ED4000, a2, OS_LOG_TYPE_ERROR, "Failed to identify a local template for identifier %@", &v2, 0xCu);
 }
 
 @end

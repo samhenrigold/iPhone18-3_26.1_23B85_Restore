@@ -163,14 +163,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if (has)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint64Field();
   }
 
@@ -380,7 +378,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 136);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 136) & 2) == 0 || self->_timestamp != *(equal + 2))

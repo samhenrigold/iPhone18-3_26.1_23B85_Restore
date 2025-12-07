@@ -8,16 +8,16 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id DSLogSessionAvailability()
+id DSLogSessionAvailability(uint64_t a1)
 {
   if (qword_10001C0B0 != -1)
   {
     sub_10000AFDC();
   }
 
-  v1 = qword_10001C0A8;
+  v2 = qword_10001C0A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001368(id a1)
@@ -29,45 +29,45 @@ void sub_100001368(id a1)
 
 void sub_1000015B0(uint64_t a1)
 {
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
   v54 = 0;
-  v49[0] = 0;
-  v49[1] = v49;
-  v49[2] = 0x3032000000;
-  v49[3] = sub_100001AD0;
-  v49[4] = sub_100001AE0;
-  v50 = 0;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = sub_100001AD0;
-  v47 = sub_100001AE0;
-  v48 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
+  v52[0] = 0;
+  v52[1] = v52;
+  v52[2] = 0x3032000000;
+  v52[3] = sub_100001AD0;
+  v52[4] = sub_100001AE0;
+  v53 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = sub_100001AD0;
+  v50 = sub_100001AE0;
+  v51 = 0;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
   v2 = dispatch_group_create();
   dispatch_group_enter(v2);
   v3 = *(a1 + 32);
-  v27 = _NSConcreteStackBlock;
-  v28 = 3221225472;
-  v29 = sub_100001AE8;
-  v30 = &unk_1000144B8;
-  v35 = &v39;
+  v30 = _NSConcreteStackBlock;
+  v31 = 3221225472;
+  v32 = sub_100001AE8;
+  v33 = &unk_1000144B8;
+  v38 = &v42;
   v4 = v2;
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v31 = v4;
-  v32 = v5;
-  v33 = v6;
-  v34 = *(a1 + 48);
-  v36 = &v51;
-  v37 = v49;
-  v38 = &v43;
-  [v3 _getHasActiveEnhancedLoggingSessionWithCompletionHandler:&v27];
+  v34 = v4;
+  v35 = v5;
+  v36 = v6;
+  v37 = *(a1 + 48);
+  v39 = &v54;
+  v40 = v52;
+  v41 = &v46;
+  [v3 _getHasActiveEnhancedLoggingSessionWithCompletionHandler:&v30];
   v7 = *(a1 + 48);
   if (v7)
   {
@@ -81,113 +81,116 @@ void sub_1000015B0(uint64_t a1)
   }
 
   v10 = dispatch_time(0, (v9 * 1000000000.0));
-  if (dispatch_group_wait(v4, v10))
+  v11 = dispatch_group_wait(v4, v10);
+  if (v11)
   {
-    v11 = DSLogSessionAvailability();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = DSLogSessionAvailability(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_10000AFF0(v11, v9);
+      sub_10000AFF0(v12, v9);
     }
 
-    v12 = DSLogSessionAvailability();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = DSLogSessionAvailability(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 64);
+      v15 = *(a1 + 64);
       *buf = 67109120;
-      v56 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Returning timeout error to client PID %d", buf, 8u);
+      v59 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Returning timeout error to client PID %d", buf, 8u);
     }
 
-    v14 = [NSError errorWithDomain:@"com.apple.DiagnosticsSessionAvailability" code:0 userInfo:0];
+    v16 = [NSError errorWithDomain:@"com.apple.DiagnosticsSessionAvailability" code:0 userInfo:0];
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    if (*(v40 + 24) == 1)
+    if (*(v43 + 24) == 1)
     {
-      v15 = DSLogSessionAvailability();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = DSLogSessionAvailability(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(a1 + 64);
+        v18 = *(a1 + 64);
         *buf = 67109120;
-        v56 = v16;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Returning status activeEnhancedLogging to client PID %d", buf, 8u);
+        v59 = v18;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Returning status activeEnhancedLogging to client PID %d", buf, 8u);
       }
 
-      v17 = 0;
-      v18 = *(a1 + 56);
-      v19 = &off_100015328;
+      v19 = 0;
+      v20 = *(a1 + 56);
+      v21 = &off_100015328;
     }
 
-    else if (*(v52 + 24) == 1)
+    else if (*(v55 + 24) == 1)
     {
-      v20 = [*(a1 + 32) _getHasActiveDiagnosticsSession];
-      v21 = DSLogSessionAvailability();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-      if (v20)
+      v22 = [*(a1 + 32) _getHasActiveDiagnosticsSession];
+      v23 = v22;
+      v24 = DSLogSessionAvailability(v22);
+      v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+      if (v23)
       {
-        if (v22)
+        if (v25)
         {
-          v23 = *(a1 + 64);
+          v26 = *(a1 + 64);
           *buf = 67109120;
-          v56 = v23;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Returning session status activeDiagnostics to client PID %d", buf, 8u);
+          v59 = v26;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Returning session status activeDiagnostics to client PID %d", buf, 8u);
         }
 
-        v17 = 0;
-        v18 = *(a1 + 56);
-        v19 = &off_100015340;
+        v19 = 0;
+        v20 = *(a1 + 56);
+        v21 = &off_100015340;
       }
 
       else
       {
-        if (v22)
+        if (v25)
         {
-          v26 = *(a1 + 64);
+          v29 = *(a1 + 64);
           *buf = 67109120;
-          v56 = v26;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Returning session status available to client PID %d", buf, 8u);
+          v59 = v29;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Returning session status available to client PID %d", buf, 8u);
         }
 
-        v17 = 0;
-        v18 = *(a1 + 56);
-        v19 = &off_100015358;
+        v19 = 0;
+        v20 = *(a1 + 56);
+        v21 = &off_100015358;
       }
     }
 
     else
     {
-      v24 = DSLogSessionAvailability();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v27 = DSLogSessionAvailability(0);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = *(a1 + 64);
+        v28 = *(a1 + 64);
         *buf = 67109120;
-        v56 = v25;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Returning session status unavailable to client PID %d", buf, 8u);
+        v59 = v28;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Returning session status unavailable to client PID %d", buf, 8u);
       }
 
-      v18 = *(a1 + 56);
-      v17 = v44[5];
-      v19 = &off_100015310;
+      v20 = *(a1 + 56);
+      v19 = v47[5];
+      v21 = &off_100015310;
     }
 
-    (*(v18 + 16))(v18, v19, v17);
+    (*(v20 + 16))(v20, v21, v19);
   }
 
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v46, 8);
 
-  _Block_object_dispose(v49, 8);
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(v52, 8);
+  _Block_object_dispose(&v54, 8);
 }
 
-void sub_100001A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100001A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -272,7 +275,7 @@ void sub_100001E54(uint64_t a1, int a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  v9 = DSLogSessionAvailability();
+  v9 = DSLogSessionAvailability(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109634;
@@ -290,7 +293,7 @@ void sub_100001E54(uint64_t a1, int a2, void *a3, void *a4)
 void sub_100002134(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DSLogSessionAvailability();
+  v4 = DSLogSessionAvailability(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134217984;
@@ -299,7 +302,7 @@ void sub_100002134(uint64_t a1, void *a2)
   }
 
   v5 = [v3 status];
-  v6 = DSLogSessionAvailability();
+  v6 = DSLogSessionAvailability(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 67109120;
@@ -317,8 +320,7 @@ void sub_100002494(uint64_t a1, void *a2)
   v17[2] = sub_1000026AC;
   v17[3] = &unk_100014580;
   v18 = *(a1 + 32);
-  [a2 enumerateObjectsUsingBlock:v17];
-  v4 = DSLogSessionAvailability();
+  v4 = DSLogSessionAvailability([a2 enumerateObjectsUsingBlock:v17]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -396,10 +398,11 @@ void sub_1000026AC(uint64_t a1, void *a2)
 LABEL_6:
 }
 
-void sub_1000029E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000029E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_100002BB4(uint64_t a1, void *a2)
@@ -836,6 +839,27 @@ void sub_10000AFF0(os_log_t log, double a2)
   v2 = 134217984;
   v3 = a2;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Request timed out after %f seconds", &v2, 0xCu);
+}
+
+void sub_10000B06C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[DSDiagnosticsSessionAvailabilityService _getASTSessionStatusForTicketNumber:timeout:completion:]";
+  sub_1000029E0(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000B0E4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[DSDiagnosticsSessionAvailabilityService _getHasActiveDiagnosticsSession]";
+  sub_1000029E0(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000B15C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[DSDiagnosticsSessionAvailabilityService _getHasActiveEnhancedLoggingSessionWithCompletionHandler:]";
+  sub_1000029E0(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10000B1D4(uint64_t a1, NSObject *a2)

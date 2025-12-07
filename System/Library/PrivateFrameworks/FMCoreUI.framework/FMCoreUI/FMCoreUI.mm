@@ -1,37 +1,37 @@
-id LogCategory_Unspecified()
+id LogCategory_Unspecified(uint64_t a1)
 {
   if (LogCategory_Unspecified_onceToken != -1)
   {
     LogCategory_Unspecified_cold_1();
   }
 
-  v1 = LogCategory_Unspecified_log;
+  v2 = LogCategory_Unspecified_log;
 
-  return v1;
+  return v2;
 }
 
-id LogCategory_ViewControllerLifecyle()
+id LogCategory_ViewControllerLifecyle(uint64_t a1)
 {
   if (LogCategory_ViewControllerLifecyle_onceToken != -1)
   {
     LogCategory_ViewControllerLifecyle_cold_1();
   }
 
-  v1 = LogCategory_ViewControllerLifecyle_log;
+  v2 = LogCategory_ViewControllerLifecyle_log;
 
-  return v1;
+  return v2;
 }
 
-id LogCategory_FMSlidingPaneViewController()
+id LogCategory_FMSlidingPaneViewController(uint64_t a1)
 {
   if (LogCategory_FMSlidingPaneViewController_onceToken != -1)
   {
     LogCategory_FMSlidingPaneViewController_cold_1();
   }
 
-  v1 = LogCategory_FMSlidingPaneViewController_log;
+  v2 = LogCategory_FMSlidingPaneViewController_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_24A320240(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location)
@@ -48,10 +48,11 @@ void sub_24A3209E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)

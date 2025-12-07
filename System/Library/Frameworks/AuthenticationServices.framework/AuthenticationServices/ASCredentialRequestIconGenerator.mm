@@ -53,44 +53,46 @@
   height = size.height;
   width = size.width;
   identifierCopy = identifier;
-  if ([*MEMORY[0x1E69C8D30] isEqualToString:identifierCopy])
+  v8 = [*MEMORY[0x1E69C8D30] isEqualToString:identifierCopy];
+  if (v8)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXAuthorization(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [ASCredentialRequestIconGenerator iconForApplicationIdentifier:v8 size:?];
+      [ASCredentialRequestIconGenerator iconForApplicationIdentifier:v10 size:?];
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v17 = 0;
-    v10 = [MEMORY[0x1E6963620] bundleRecordWithApplicationIdentifier:identifierCopy error:&v17];
-    v11 = v17;
-    if (v10)
+    v21 = 0;
+    v12 = [MEMORY[0x1E6963620] bundleRecordWithApplicationIdentifier:identifierCopy error:&v21];
+    v13 = v21;
+    v15 = v13;
+    if (v12)
     {
-      v12 = objc_alloc(MEMORY[0x1E69A8A00]);
-      bundleIdentifier = [v10 bundleIdentifier];
-      v14 = [v12 initWithBundleIdentifier:bundleIdentifier];
+      v16 = objc_alloc(MEMORY[0x1E69A8A00]);
+      bundleIdentifier = [v12 bundleIdentifier];
+      v18 = [v16 initWithBundleIdentifier:bundleIdentifier];
 
-      v9 = [self _imageForIcon:v14 size:{width, height}];
+      v11 = [self _imageForIcon:v18 size:{width, height}];
     }
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v19 = WBS_LOG_CHANNEL_PREFIXAuthorization(v13, v14);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [ASCredentialRequestIconGenerator iconForApplicationIdentifier:v15 size:v11];
+        [ASCredentialRequestIconGenerator iconForApplicationIdentifier:v19 size:v15];
       }
 
-      v9 = 0;
+      v11 = 0;
     }
   }
 
-  return v9;
+  return v11;
 }
 
 + (id)passwordManagerIconWithSize:(CGSize)size
@@ -106,7 +108,7 @@
 + (id)iconForData:(id)data scale:(double)scale size:(CGSize)size
 {
   height = size.height;
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v7 = [MEMORY[0x1E69DCAB8] imageWithData:data scale:{scale, size.width}];
   cGImage = [v7 CGImage];
   [v7 scale];
@@ -126,8 +128,8 @@
   {
     v17 = [objc_alloc(MEMORY[0x1E69A8988]) initWithCGImage:cGImage scale:v10];
     v18 = objc_alloc(MEMORY[0x1E69A8A00]);
-    v24[0] = v17;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = v17;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     v20 = [v18 initWithImages:v19];
 
     v21 = [self _imageForIcon:v20 size:{v16, height}];
@@ -138,8 +140,6 @@
     v21 = [v7 imageByPreparingThumbnailOfSize:{v16, height}];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
@@ -147,7 +147,7 @@
 {
   height = size.height;
   width = size.width;
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69DCEB0];
   iconCopy = icon;
   mainScreen = [v6 mainScreen];
@@ -160,8 +160,8 @@
 
   [v11 setShouldApplyMask:1];
   [v11 setShape:1];
-  v20[0] = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+  v19[0] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
   [iconCopy prepareImagesForImageDescriptors:v13];
 
   v14 = [iconCopy imageForImageDescriptor:v11];
@@ -170,8 +170,6 @@
   cGImage = [v14 CGImage];
   [v14 scale];
   v17 = [v15 imageWithCGImage:cGImage scale:0 orientation:?];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -187,10 +185,10 @@
 
   if (!v7)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXAuthorization(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [ASCredentialRequestIconGenerator _iconForPasswordProviderBundleIdentifier:v8];
+      [ASCredentialRequestIconGenerator _iconForPasswordProviderBundleIdentifier:v10];
     }
   }
 
@@ -219,14 +217,12 @@
 
 + (void)iconForApplicationIdentifier:(void *)a1 size:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B1C8D000, v3, OS_LOG_TYPE_ERROR, "Could not get bundle record to get icon for credential with error: %{public}@.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B1C8D000, v3, OS_LOG_TYPE_ERROR, "Could not get bundle record to get icon for credential with error: %{public}@.", &v5, 0xCu);
 }
 
 @end

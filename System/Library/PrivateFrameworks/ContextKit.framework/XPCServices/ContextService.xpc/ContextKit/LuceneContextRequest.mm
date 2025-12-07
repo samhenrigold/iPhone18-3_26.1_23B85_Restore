@@ -16,10 +16,13 @@
 - (LuceneContextRequest)initWithEngine:(id)engine forRequest:(id)request;
 - (id)_addHomeAppExtractionResults:(id)results;
 - (id)_bestTypeVariantForTokenInfo:(id)info allowingAllCaps:(BOOL)caps;
+- (id)_bigramInfoForTokenA:(id)a tokenB:(id)b bigram:(id)bigram bothStartUppercase:(BOOL)uppercase;
+- (id)_computeHashesWithSeed:(int)seed forBytesRef:(id)ref reuse:(id)reuse;
 - (id)_constructQuery;
 - (id)_determineTitleFromUIElements:(id)elements;
 - (id)_getTagTypeForExtractionItemType:(unint64_t)type;
 - (id)_lookupBigramTermForTokenA:(id)a tokenB:(id)b tokenTypeOut:(unint64_t *)out docIdOut:(int *)idOut;
+- (id)_processResult:(int)result score:(float)score relativeScore:(float)relativeScore;
 - (id)_readTermInfo:(id)info tokenTypeOut:(unint64_t *)out weightOut:(float *)weightOut docIdOut:(int *)idOut;
 - (id)_resultForBigramInfo:(id)info minPrefix:(int64_t)prefix;
 - (id)_resultForTokenInfo:(id)info minPrefix:(int64_t)prefix;
@@ -31,6 +34,7 @@
 - (id)simplifiedDesiredLanguageTags;
 - (id)textTermsEnum;
 - (void)_addTermResults;
+- (void)_augmentResult:(id)result withDocId:(int)id checkLanguageRedirect:(BOOL)redirect;
 - (void)_blendResults;
 - (void)_determineSurroundingEntities:(id)entities withUIElementToResultsMapping:(id)mapping;
 - (void)_discardTokenInfos;
@@ -2894,7 +2898,7 @@ LABEL_165:
       v142 = 0u;
       v143 = 0u;
       v18 = v18;
-      v64 = [v18 countByEnumeratingWithState:&v142 objects:v157 count:16];
+      v64 = [v18 countByEnumeratingWithState:&v142 objects:v155 count:16];
       if (!v64)
       {
 
@@ -2997,7 +3001,7 @@ LABEL_85:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v156 = v71;
+            v154 = v71;
             v73 = "Illegal topic value: %i";
 LABEL_103:
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v73, buf, 8u);
@@ -3017,7 +3021,7 @@ LABEL_103:
           {
             if ((intValue & 7) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
             {
-              sub_1002BBBA8(v153, v71, v154);
+              sub_1002BBBA8(v152, v71, &v152[4]);
             }
           }
 
@@ -3037,7 +3041,7 @@ LABEL_103:
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
-                v156 = v74 - 64;
+                v154 = v74 - 64;
                 _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Illegal topic docID: %i", buf, 8u);
               }
 
@@ -3116,7 +3120,7 @@ LABEL_169:
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 67109120;
-                  v156 = v76;
+                  v154 = v76;
                   _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Couldn't resolve parentResult from parentField referenced from docID: %i", buf, 8u);
                 }
 
@@ -3189,7 +3193,7 @@ LABEL_134:
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
             {
-              sub_1002BBBF4(v151, v71 >> 3, v152);
+              sub_1002BBBF4(v151, v71 >> 3, &v151[4]);
             }
 
             goto LABEL_135;
@@ -3198,7 +3202,7 @@ LABEL_134:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v156 = 2;
+            v154 = 2;
             v73 = "Keep-walking value shouldn't be here: %i";
             goto LABEL_103;
           }
@@ -3207,7 +3211,7 @@ LABEL_134:
 LABEL_135:
         if (v65 == ++v69)
         {
-          v65 = [v18 countByEnumeratingWithState:&v142 objects:v157 count:16];
+          v65 = [v18 countByEnumeratingWithState:&v142 objects:v155 count:16];
           if (!v65)
           {
             v140 = v66;
@@ -3281,7 +3285,7 @@ LABEL_61:
     v148 = 0u;
     v141 = v149 = 0u;
     queryItems = [v141 queryItems];
-    v29 = [queryItems countByEnumeratingWithState:&v146 objects:v158 count:16];
+    v29 = [queryItems countByEnumeratingWithState:&v146 objects:v156 count:16];
     if (!v29)
     {
       value6 = 0;
@@ -3324,7 +3328,7 @@ LABEL_24:
 LABEL_50:
       if (v30 == ++v32)
       {
-        v44 = [queryItems countByEnumeratingWithState:&v146 objects:v158 count:16];
+        v44 = [queryItems countByEnumeratingWithState:&v146 objects:v156 count:16];
         v30 = v44;
         if (!v44)
         {
@@ -3513,57 +3517,67 @@ LABEL_6:
   languageTag = [(CKContextResponse *)self->_response languageTag];
   v5 = [LanguageUtilities simplifyTextForSearch:text withLanguage:languageTag];
   v6 = [v5 length];
-  if (v5 && [v5 length] >= 3)
+  v8 = v6;
+  if (v5 && (v6 = [v5 length], v6 >= 3))
   {
-    v7 = [(OrgApacheLuceneAnalysisAnalyzer *)self->_analyzer tokenStreamWithNSString:@"text" withNSString:v5];
+    v6 = [(OrgApacheLuceneAnalysisAnalyzer *)self->_analyzer tokenStreamWithNSString:@"text" withNSString:v5];
+    v9 = v6;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  v8 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_();
-  v9 = [v7 addAttributeWithIOSClass:v8];
+  v10 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(v6, v7);
+  v11 = [v9 addAttributeWithIOSClass:v10];
 
-  v10 = OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_();
-  v11 = [v7 addAttributeWithIOSClass:v10];
+  v14 = OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_(v12, v13);
+  v15 = [v9 addAttributeWithIOSClass:v14];
 
-  v90[0] = 0;
-  v90[1] = v90;
-  v90[2] = 0x3032000000;
-  v90[3] = sub_1002AA110;
-  v90[4] = sub_1002AA120;
-  v91 = [[BigramKey alloc] initWithTokenA:0 tokenB:0];
+  v93[0] = 0;
+  v93[1] = v93;
+  v93[2] = 0x3032000000;
+  v93[3] = sub_1002AA110;
+  v93[4] = sub_1002AA120;
+  v94 = [[BigramKey alloc] initWithTokenA:0 tokenB:0];
+  v91[0] = 0;
+  v91[1] = v91;
+  v91[2] = 0x2020000000;
+  v92 = 0;
   v87 = 0;
-  v88[0] = &v87;
-  v88[1] = 0x2020000000;
-  v89 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
+  v90 = 0;
   v83 = 0;
   v84 = &v83;
   v85 = 0x2020000000;
   v86 = 0;
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2020000000;
+  v81[0] = 0;
+  v81[1] = v81;
+  v81[2] = 0x2020000000;
   v82 = 0;
-  v77[0] = 0;
-  v77[1] = v77;
-  v77[2] = 0x2020000000;
+  v79[0] = 0;
+  v79[1] = v79;
+  v79[2] = 0x2020000000;
+  v80 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2020000000;
   v78 = 0;
-  v75[0] = 0;
-  v75[1] = v75;
-  v75[2] = 0x2020000000;
-  v76 = 0;
   v71 = 0;
   v72 = &v71;
   v73 = 0x2020000000;
   v74 = 0;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x2020000000;
-  v70 = 0;
   luceneIgnoreAfterPosition = [(ContextConfiguration *)self->_config luceneIgnoreAfterPosition];
+  v69[0] = 0;
+  v69[1] = v69;
+  v69[2] = 0x2020000000;
+  v70 = 0;
+  v67[0] = 0;
+  v67[1] = v67;
+  v67[2] = 0x2020000000;
+  v68 = 0;
   v65[0] = 0;
   v65[1] = v65;
   v65[2] = 0x2020000000;
@@ -3582,88 +3596,80 @@ LABEL_6:
   v60 = 0;
   v57[0] = 0;
   v57[1] = v57;
-  v57[2] = 0x2020000000;
+  v57[2] = 0x3032000000;
+  v57[3] = sub_1002AA110;
+  v57[4] = sub_1002AA120;
   v58 = 0;
-  v55[0] = 0;
-  v55[1] = v55;
-  v55[2] = 0x2020000000;
-  v56 = 0;
-  v53[0] = 0;
-  v53[1] = v53;
-  v53[2] = 0x3032000000;
-  v53[3] = sub_1002AA110;
-  v53[4] = sub_1002AA120;
-  v54 = 0;
   luceneMaxUniqueTotalTokens = [(ContextConfiguration *)self->_config luceneMaxUniqueTotalTokens];
   luceneMaxUniqueNotSkippedTokens = [(ContextConfiguration *)self->_config luceneMaxUniqueNotSkippedTokens];
-  v24 = v5;
+  v28 = v5;
   luceneMaxUniquePrimaryTokens = [(ContextConfiguration *)self->_config luceneMaxUniquePrimaryTokens];
-  v14 = text;
+  v18 = text;
   bigramMaxEnclosedStopwords = [(ContextConfiguration *)self->_config bigramMaxEnclosedStopwords];
-  v21 = languageTag;
-  v22 = v14;
+  v25 = languageTag;
+  v26 = v18;
   bigramMaxOffsetDelta = [(ContextConfiguration *)self->_config bigramMaxOffsetDelta];
-  v17 = bigramMaxEnclosedStopwords + 1;
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_1002B1A78;
-  v26[3] = &unk_100484078;
-  v31 = &v83;
-  v20 = v9;
-  v27 = v20;
+  v21 = bigramMaxEnclosedStopwords + 1;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_1002B1A78;
+  v30[3] = &unk_100484078;
+  v35 = &v87;
+  v24 = v11;
+  v31 = v24;
   selfCopy = self;
-  v32 = &v79;
-  v33 = &v71;
-  v34 = &v67;
-  v35 = v61;
-  v36 = v63;
-  v37 = v59;
-  v38 = v57;
+  v36 = &v83;
+  v37 = &v75;
+  v38 = &v71;
   v39 = v65;
-  v18 = v11;
-  v29 = v18;
-  v40 = &v87;
-  v46 = luceneIgnoreAfterPosition;
-  v41 = v75;
-  v19 = v24;
-  v52 = v6 - 1;
-  v30 = v19;
-  v42 = v53;
-  v43 = v55;
-  v44 = v90;
-  v47 = v17;
-  v48 = bigramMaxOffsetDelta;
-  v45 = v77;
-  v49 = luceneMaxUniquePrimaryTokens;
-  v50 = luceneMaxUniqueNotSkippedTokens;
-  v51 = luceneMaxUniqueTotalTokens;
-  sub_1002B198C(v7, v26);
+  v40 = v67;
+  v41 = v63;
+  v42 = v61;
+  v43 = v69;
+  v22 = v15;
+  v33 = v22;
+  v44 = v91;
+  v50 = luceneIgnoreAfterPosition;
+  v45 = v79;
+  v23 = v28;
+  v56 = v8 - 1;
+  v34 = v23;
+  v46 = v57;
+  v47 = v59;
+  v48 = v93;
+  v51 = v21;
+  v52 = bigramMaxOffsetDelta;
+  v49 = v81;
+  v53 = luceneMaxUniquePrimaryTokens;
+  v54 = luceneMaxUniqueNotSkippedTokens;
+  v55 = luceneMaxUniqueTotalTokens;
+  sub_1002B198C(v9, v30);
   if (self->_debug)
   {
-    [(CKContextResponse *)self->_response addDebug:@"tokenCount:%i, uniqueTokenCount:%i, uniqueTokenRatio:%f", v84[6], v80[6], v80[6] / v84[6]];
-    [(CKContextResponse *)self->_response addDebug:@"skippedTokenCount:%i, skippedUniqueTokenCount:%i, skippedUniqueTokenRatio:%f, skippedRatio:%f, skippedUniqueRatio:%f", v72[6], v68[6], (v68[6] / v72[6]), (v72[6] / v84[6]), (v68[6] / v80[6])];
+    [(CKContextResponse *)self->_response addDebug:@"tokenCount:%i, uniqueTokenCount:%i, uniqueTokenRatio:%f", v88[6], v84[6], v84[6] / v88[6]];
+    [(CKContextResponse *)self->_response addDebug:@"skippedTokenCount:%i, skippedUniqueTokenCount:%i, skippedUniqueTokenRatio:%f, skippedRatio:%f, skippedUniqueRatio:%f", v76[6], v72[6], (v72[6] / v76[6]), (v76[6] / v88[6]), (v72[6] / v84[6])];
   }
 
   if (self->_debugLogEnabled && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_1002BBC40(v88);
+    sub_1002BBC40();
   }
 
-  _Block_object_dispose(v53, 8);
-  _Block_object_dispose(v55, 8);
   _Block_object_dispose(v57, 8);
   _Block_object_dispose(v59, 8);
   _Block_object_dispose(v61, 8);
   _Block_object_dispose(v63, 8);
   _Block_object_dispose(v65, 8);
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(v67, 8);
+  _Block_object_dispose(v69, 8);
   _Block_object_dispose(&v71, 8);
-  _Block_object_dispose(v75, 8);
-  _Block_object_dispose(v77, 8);
-  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(v79, 8);
+  _Block_object_dispose(v81, 8);
   _Block_object_dispose(&v83, 8);
   _Block_object_dispose(&v87, 8);
-  _Block_object_dispose(v90, 8);
+  _Block_object_dispose(v91, 8);
+  _Block_object_dispose(v93, 8);
 }
 
 - (id)inspectTitle:(id)title titleForTokenization:(id)tokenization conditionals:(id)conditionals
@@ -3672,188 +3678,189 @@ LABEL_6:
   tokenizationCopy = tokenization;
   conditionalsCopy = conditionals;
   v8 = objc_opt_new();
-  v28 = titleCopy;
+  v32 = titleCopy;
   if (![titleCopy length])
   {
-    v10 = v8;
+    v12 = v8;
     goto LABEL_40;
   }
 
-  v27 = v8;
+  v31 = v8;
   [v8 setTitle:titleCopy];
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = sub_1002AA110;
-  v66 = sub_1002AA120;
-  v67 = objc_alloc_init(NSMutableSet);
-  [v8 setImportantTokens:v63[5]];
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = sub_1002AA110;
+  v70 = sub_1002AA120;
+  v71 = objc_alloc_init(NSMutableSet);
+  [v8 setImportantTokens:v67[5]];
   if (!tokenizationCopy)
   {
     tokenizationCopy = titleCopy;
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = sub_1002AA110;
-  v60 = sub_1002AA120;
-  v61 = objc_opt_new();
-  [v8 setTokenString:v57[5]];
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = sub_1002AA110;
+  v64 = sub_1002AA120;
+  v65 = objc_opt_new();
+  v9 = [v8 setTokenString:v61[5]];
   if (tokenizationCopy)
   {
     v9 = [(OrgApacheLuceneAnalysisAnalyzer *)self->_analyzer tokenStreamWithNSString:@"text" withNSString:?];
+    v11 = v9;
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  v11 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_();
-  v12 = [v9 addAttributeWithIOSClass:v11];
+  v13 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(v9, v10);
+  v14 = [v11 addAttributeWithIOSClass:v13];
 
-  v54[0] = 0;
-  v54[1] = v54;
-  v54[2] = 0x3032000000;
-  v54[3] = sub_1002AA110;
-  v54[4] = sub_1002AA120;
-  v55 = 0;
-  v52[0] = 0;
-  v52[1] = v52;
-  v52[2] = 0x3032000000;
-  v52[3] = sub_1002AA110;
-  v52[4] = sub_1002AA120;
-  v53 = [[BigramKey alloc] initWithTokenA:0 tokenB:0];
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_1002B2E2C;
-  v44[3] = &unk_1004840A0;
-  v13 = v12;
-  v45 = v13;
+  v58[0] = 0;
+  v58[1] = v58;
+  v58[2] = 0x3032000000;
+  v58[3] = sub_1002AA110;
+  v58[4] = sub_1002AA120;
+  v59 = 0;
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x3032000000;
+  v56[3] = sub_1002AA110;
+  v56[4] = sub_1002AA120;
+  v57 = [[BigramKey alloc] initWithTokenA:0 tokenB:0];
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_1002B2E2C;
+  v48[3] = &unk_1004840A0;
+  v15 = v14;
+  v49 = v15;
   selfCopy = self;
-  v48 = &v56;
-  v14 = v27;
-  v47 = v14;
-  v49 = &v62;
-  v50 = v54;
-  v51 = v52;
-  sub_1002B198C(v9, v44);
+  v52 = &v60;
+  v16 = v31;
+  v51 = v16;
+  v53 = &v66;
+  v54 = v58;
+  v55 = v56;
+  sub_1002B198C(v11, v48);
   if (!conditionalsCopy || ![conditionalsCopy count])
   {
     goto LABEL_38;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v15 = conditionalsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v40 objects:v68 count:16];
-  if (!v16)
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v17 = conditionalsCopy;
+  v18 = [v17 countByEnumeratingWithState:&v44 objects:v72 count:16];
+  if (!v18)
   {
 
     goto LABEL_38;
   }
 
-  v17 = *v41;
-  v18 = 1;
+  v19 = *v45;
+  v20 = 1;
   while (2)
   {
-    for (i = 0; i != v16; i = i + 1)
+    for (i = 0; i != v18; i = i + 1)
     {
-      if (*v41 != v17)
+      if (*v45 != v19)
       {
-        objc_enumerationMutation(v15);
+        objc_enumerationMutation(v17);
       }
 
-      v20 = *(*(&v40 + 1) + 8 * i);
-      v21 = [v20 characterAtIndex:1];
-      if (v21 <= 61)
+      v22 = *(*(&v44 + 1) + 8 * i);
+      v23 = [v22 characterAtIndex:1];
+      if (v23 <= 61)
       {
-        if (v21 == 33)
+        if (v23 == 33)
         {
-          if ([v20 length] < 2)
+          if ([v22 length] < 2)
           {
             goto LABEL_35;
           }
 
-          v22 = [v20 substringFromIndex:2];
-          if (v22)
+          v24 = [v22 substringFromIndex:2];
+          if (v24)
           {
-            v23 = [(OrgApacheLuceneAnalysisAnalyzer *)self->_analyzer tokenStreamWithNSString:@"text" withNSString:v22];
+            v25 = [(OrgApacheLuceneAnalysisAnalyzer *)self->_analyzer tokenStreamWithNSString:@"text" withNSString:v24];
           }
 
           else
           {
-            v23 = 0;
+            v25 = 0;
           }
 
-          v24 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_();
-          v25 = [v23 addAttributeWithIOSClass:v24];
+          v28 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(v26, v27);
+          v29 = [v25 addAttributeWithIOSClass:v28];
 
-          v36 = 0;
-          v37 = &v36;
-          v38 = 0x2020000000;
-          v39 = 0;
-          v32[0] = _NSConcreteStackBlock;
-          v32[1] = 3221225472;
-          v32[2] = sub_1002B32A4;
-          v32[3] = &unk_1004840C8;
-          v13 = v25;
-          v33 = v13;
+          v40 = 0;
+          v41 = &v40;
+          v42 = 0x2020000000;
+          v43 = 0;
+          v36[0] = _NSConcreteStackBlock;
+          v36[1] = 3221225472;
+          v36[2] = sub_1002B32A4;
+          v36[3] = &unk_1004840C8;
+          v15 = v29;
+          v37 = v15;
           selfCopy2 = self;
-          v35 = &v36;
-          sub_1002B198C(v23, v32);
-          LOBYTE(v25) = *(v37 + 24);
+          v39 = &v40;
+          sub_1002B198C(v25, v36);
+          LOBYTE(v29) = *(v41 + 24);
 
-          v18 = v25 ^ 1;
-          _Block_object_dispose(&v36, 8);
-          v9 = v23;
+          v20 = v29 ^ 1;
+          _Block_object_dispose(&v40, 8);
+          v11 = v25;
         }
 
         else
         {
-          if (v21 != 61 || [v20 length] < 2)
+          if (v23 != 61 || [v22 length] < 2)
           {
 LABEL_35:
 
 LABEL_36:
-            v10 = 0;
+            v12 = 0;
             goto LABEL_39;
           }
 
-          v22 = [v20 substringFromIndex:2];
-          [v14 setTopicIdOverride:v22];
+          v24 = [v22 substringFromIndex:2];
+          [v16 setTopicIdOverride:v24];
         }
 
         goto LABEL_30;
       }
 
-      if (v21 == 62)
+      if (v23 == 62)
       {
-        if ([v20 length] < 2)
+        if ([v22 length] < 2)
         {
           goto LABEL_35;
         }
 
-        v22 = [v20 substringFromIndex:2];
-        [v14 setMinPrefix:{objc_msgSend(v22, "integerValue")}];
+        v24 = [v22 substringFromIndex:2];
+        [v16 setMinPrefix:{objc_msgSend(v24, "integerValue")}];
 LABEL_30:
 
         continue;
       }
 
-      if (v21 != 118)
+      if (v23 != 118)
       {
         goto LABEL_35;
       }
 
-      [v14 setForceBottomRank:1];
+      [v16 setForceBottomRank:1];
     }
 
-    v16 = [v15 countByEnumeratingWithState:&v40 objects:v68 count:16];
-    if (v16)
+    v18 = [v17 countByEnumeratingWithState:&v44 objects:v72 count:16];
+    if (v18)
     {
       continue;
     }
@@ -3861,25 +3868,25 @@ LABEL_30:
     break;
   }
 
-  if ((v18 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     goto LABEL_36;
   }
 
 LABEL_38:
-  v10 = v14;
+  v12 = v16;
 LABEL_39:
 
-  _Block_object_dispose(v52, 8);
-  _Block_object_dispose(v54, 8);
+  _Block_object_dispose(v56, 8);
+  _Block_object_dispose(v58, 8);
 
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v66, 8);
 
-  v8 = v27;
+  v8 = v31;
 LABEL_40:
 
-  return v10;
+  return v12;
 }
 
 - (id)_readTermInfo:(id)info tokenTypeOut:(unint64_t *)out weightOut:(float *)weightOut docIdOut:(int *)idOut
@@ -4325,7 +4332,7 @@ LABEL_39:
 LABEL_34:
           if (self->_debug && self->_debugLogEnabled && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
           {
-            sub_1002BBD70(&v29);
+            sub_1002BBD70();
           }
 
           v24 = [[OrgApacheLuceneIndexTerm alloc] initWithNSString:@"text" withOrgApacheLuceneUtilBytesRef:v21];
@@ -4427,6 +4434,304 @@ LABEL_6:
   }
 
   return v9;
+}
+
+- (id)_bigramInfoForTokenA:(id)a tokenB:(id)b bigram:(id)bigram bothStartUppercase:(BOOL)uppercase
+{
+  uppercaseCopy = uppercase;
+  aCopy = a;
+  bCopy = b;
+  bigramCopy = bigram;
+  if (!aCopy || !bCopy)
+  {
+    v31 = qword_100557290;
+LABEL_12:
+    v32 = v31;
+    goto LABEL_69;
+  }
+
+  [aCopy weight];
+  if (v13 <= 0.0)
+  {
+    [bCopy weight];
+    if (v14 <= 0.0 && ![TokenInfo isSurnameType:bCopy[1]])
+    {
+      v31 = qword_100557298;
+      goto LABEL_12;
+    }
+  }
+
+  v72 = 3;
+  v71 = -1;
+  if (!self->_useBloomFilter && !self->_minHashPriorityQueue)
+  {
+    v18 = 0;
+LABEL_22:
+    v45 = [(LuceneContextRequest *)self _lookupBigramTermForTokenA:aCopy tokenB:bCopy tokenTypeOut:&v72 docIdOut:&v71];
+    v42 = v45 == 0;
+    if (!v45)
+    {
+      if (!v72)
+      {
+        v47 = qword_100557298;
+LABEL_68:
+        v32 = v47;
+
+        goto LABEL_69;
+      }
+
+      if (![(LuceneContextRequest *)self _isIntermediateNameBigramCandidate:aCopy tokenB:bCopy bothStartUppercase:uppercaseCopy])
+      {
+LABEL_67:
+        v47 = qword_100557290;
+        goto LABEL_68;
+      }
+
+      v45 = qword_1005572A0;
+    }
+
+    if (v72 <= 6)
+    {
+      v44 = 0.75;
+    }
+
+    else
+    {
+      v44 = 0.62;
+    }
+
+    goto LABEL_44;
+  }
+
+  bloomFilter = self->_bloomFilter;
+  hashes = [aCopy hashes];
+  hashes2 = [bCopy hashes];
+  v18 = [(_PASBloomFilter *)bloomFilter combineHashesWithSeed:2 hashA:hashes hashB:hashes2 reuse:self->_hashesTokenReuse];
+  objc_storeStrong(&self->_hashesTokenReuse, v18);
+
+  hashes3 = [v18 hashes];
+  minHashPriorityQueue = self->_minHashPriorityQueue;
+  v21 = [NSNumber numberWithInt:*hashes3];
+  v22 = [(OrgApacheLuceneUtilPriorityQueue *)minHashPriorityQueue insertWithOverflowWithId:v21];
+
+  if (!self->_useBloomFilter)
+  {
+    goto LABEL_22;
+  }
+
+  v67 = uppercaseCopy;
+  v70 = bigramCopy;
+  v23 = [(_PASBloomFilter *)self->_bloomFilter getWithHashes:v18];
+  v24 = self->_bloomFilter;
+  hashes4 = [aCopy hashes];
+  hashes5 = [bCopy hashes];
+  v68 = 3;
+  v27 = [(_PASBloomFilter *)v24 combineHashesWithSeed:3 hashA:hashes4 hashB:hashes5 reuse:self->_hashesTokenReuse];
+
+  objc_storeStrong(&self->_hashesTokenReuse, v27);
+  v28 = [(_PASBloomFilter *)self->_bloomFilter getWithHashes:v27];
+  v29 = v28;
+  v66 = v23;
+  v30 = v28 | v23;
+  if ((v28 | v23))
+  {
+    v65 = v28;
+    goto LABEL_15;
+  }
+
+  v72 = 1;
+  if ([(LuceneContextRequest *)self _isIntermediateNameBigramCandidate:aCopy tokenB:bCopy bothStartUppercase:v67])
+  {
+    v65 = v29;
+    v68 = 1;
+    v27 = 0;
+LABEL_15:
+    v33 = self->_bloomFilter;
+    hashes6 = [aCopy hashes];
+    hashes7 = [bCopy hashes];
+    v36 = [(_PASBloomFilter *)v33 combineHashesWithSeed:5 hashA:hashes6 hashB:hashes7 reuse:self->_hashesTokenReuse];
+
+    hashesTokenReuse = self->_hashesTokenReuse;
+    self->_hashesTokenReuse = v36;
+    v38 = v36;
+
+    LOBYTE(hashes7) = [(_PASBloomFilter *)self->_bloomFilter getWithHashes:v38];
+    v39 = self->_bloomFilter;
+    hashes8 = [aCopy hashes];
+    hashes9 = [bCopy hashes];
+    v18 = [(_PASBloomFilter *)v39 combineHashesWithSeed:4 hashA:hashes8 hashB:hashes9 reuse:self->_hashesTokenReuse];
+
+    v42 = v30 ^ 1;
+    objc_storeStrong(&self->_hashesTokenReuse, v18);
+
+    v43 = [(_PASBloomFilter *)self->_bloomFilter getWithHashes:v18];
+    if ((hashes7 & 1) == 0 && (v43 & 1) == 0 && ((v30 ^ 1) & 1) == 0)
+    {
+      if (v66 & 1 | ((v65 & 1) == 0))
+      {
+        v44 = -1.0;
+        bigramCopy = v70;
+        if (v66)
+        {
+          v68 = 10;
+          v72 = 10;
+          v44 = 0.62;
+        }
+      }
+
+      else
+      {
+        v68 = 3;
+        v72 = 3;
+        v44 = 0.75;
+        bigramCopy = v70;
+      }
+
+      if (self->_debug && self->_debugLogEnabled && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+      {
+        token = [aCopy token];
+        token2 = [bCopy token];
+        *buf = 134219522;
+        v74 = v68;
+        v75 = 1024;
+        v76 = v65;
+        v77 = 1024;
+        v78 = v66 & 1;
+        v79 = 1024;
+        v80 = 0;
+        v81 = 1024;
+        v82 = 0;
+        v83 = 2112;
+        v84 = token;
+        v85 = 2112;
+        v86 = token2;
+        _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "type:%lu primary:%i secondary:%i topic:%i name:%i bigram:%@ %@", buf, 0x38u);
+      }
+
+      v42 = 0;
+      v45 = 0;
+LABEL_44:
+      WeakRetained = objc_loadWeakRetained(&self->_engine);
+      wordlist = [WeakRetained wordlist];
+
+      if (!wordlist)
+      {
+        goto LABEL_52;
+      }
+
+      v69 = v18;
+      v50 = v42;
+      v51 = objc_loadWeakRetained(&self->_engine);
+      wordlist2 = [v51 wordlist];
+      words = [wordlist2 words];
+      v54 = [bigramCopy description];
+      v55 = [words objectForKeyedSubscript:v54];
+
+      if (v55)
+      {
+        intValue = [v55 intValue];
+        if (intValue)
+        {
+          v42 = v50;
+          if (intValue == -1)
+          {
+            v72 = 0;
+            v44 = 0.0;
+          }
+
+          goto LABEL_51;
+        }
+
+        v72 = 10;
+        v44 = 0.62;
+      }
+
+      v42 = v50;
+LABEL_51:
+
+      v18 = v69;
+LABEL_52:
+      v57 = v72;
+      if (v72 == 3)
+      {
+        if (v44 >= 0.65)
+        {
+          goto LABEL_62;
+        }
+
+        if (v44 >= 0.59)
+        {
+          v72 = 10;
+          goto LABEL_62;
+        }
+
+        v57 = 1;
+        v72 = 1;
+      }
+
+      if (v57 != 1 || (v42 & 1) == 0)
+      {
+        if (v57 == 1)
+        {
+          v58 = qword_100557290;
+        }
+
+        else
+        {
+          if (v57)
+          {
+            goto LABEL_62;
+          }
+
+          v58 = qword_100557298;
+        }
+
+        v61 = v58;
+        goto LABEL_65;
+      }
+
+      v72 = 13;
+      v44 = 0.62;
+LABEL_62:
+      v59 = [BigramInfo alloc];
+      *&v60 = v44;
+      v61 = [(BigramInfo *)v59 initWithTerm:v45 bigramTokenA:aCopy tokenB:bCopy type:v72 weight:v71 docId:v60];
+LABEL_65:
+      v32 = v61;
+
+      goto LABEL_69;
+    }
+
+    v46 = [(LuceneContextRequest *)self _lookupBigramTermForTokenA:aCopy tokenB:bCopy tokenTypeOut:&v72 docIdOut:&v71];
+    v44 = -1.0;
+    if (v46)
+    {
+      v45 = v46;
+      bigramCopy = v70;
+      goto LABEL_44;
+    }
+
+    bigramCopy = v70;
+    if ((v30 & 1) == 0)
+    {
+      v45 = qword_1005572A0;
+      v42 = 1;
+      goto LABEL_44;
+    }
+
+    goto LABEL_67;
+  }
+
+  if (self->_debug && self->_debugLogEnabled && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1002BBDFC(aCopy, bCopy);
+  }
+
+  v32 = qword_100557290;
+  bigramCopy = v70;
+LABEL_69:
+
+  return v32;
 }
 
 - (id)_constructQuery
@@ -5474,30 +5779,13 @@ LABEL_55:
 {
   infoCopy = info;
   v7 = infoCopy[1];
-  if (![TokenInfo isTopicType:v7])
+  if (+[TokenInfo isTopicType:](TokenInfo, "isTopicType:", v7) && (v7 != 3 || (v8 = [infoCopy count], objc_msgSend(infoCopy, "tokenA"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "partialNgramCount"), objc_msgSend(infoCopy, "tokenB"), v11 = objc_claimAutoreleasedReturnValue(), v12 = v8 - (v10 + objc_msgSend(v11, "partialNgramCount")), v11, v9, v12 >= 2)))
   {
-    goto LABEL_4;
-  }
+    tokenA = [infoCopy tokenA];
+    v15 = [(LuceneContextRequest *)self _bestTypeVariantForTokenInfo:tokenA allowingAllCaps:1];
 
-  if (v7 != 3)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [infoCopy count];
-  tokenA = [infoCopy tokenA];
-  partialNgramCount = [tokenA partialNgramCount];
-  tokenB = [infoCopy tokenB];
-  v12 = v8 - (partialNgramCount + [tokenB partialNgramCount]);
-
-  if (v12 >= 2)
-  {
-LABEL_5:
-    tokenA2 = [infoCopy tokenA];
-    v15 = [(LuceneContextRequest *)self _bestTypeVariantForTokenInfo:tokenA2 allowingAllCaps:1];
-
-    tokenB2 = [infoCopy tokenB];
-    v17 = [(LuceneContextRequest *)self _bestTypeVariantForTokenInfo:tokenB2 allowingAllCaps:1];
+    tokenB = [infoCopy tokenB];
+    v17 = [(LuceneContextRequest *)self _bestTypeVariantForTokenInfo:tokenB allowingAllCaps:1];
 
     v18 = @"%@ %@";
     if ([LanguageUtilities isChineseJapaneseToken:v15]&& [LanguageUtilities isChineseJapaneseToken:v17])
@@ -5560,18 +5848,18 @@ LABEL_5:
 
       if (term2 == v39)
       {
-        tokenA3 = [infoCopy tokenA];
-        token = [tokenA3 token];
-        tokenB3 = [infoCopy tokenB];
-        token2 = [tokenB3 token];
+        tokenA2 = [infoCopy tokenA];
+        token = [tokenA2 token];
+        tokenB2 = [infoCopy tokenB];
+        token2 = [tokenB2 token];
         v44 = [NSString stringWithFormat:@"?%@_%@", token, token2];
         [(LuceneContextResult *)v13 setDebug:v44];
       }
 
       else
       {
-        tokenA3 = [(LuceneContextResult *)v13 term];
-        token = [NSString stringWithFormat:@"+%@", tokenA3];
+        tokenA2 = [(LuceneContextResult *)v13 term];
+        token = [NSString stringWithFormat:@"+%@", tokenA2];
         [(LuceneContextResult *)v13 setDebug:token];
       }
     }
@@ -5581,11 +5869,121 @@ LABEL_5:
 
   else
   {
-LABEL_4:
     v13 = 0;
   }
 
   return v13;
+}
+
+- (void)_augmentResult:(id)result withDocId:(int)id checkLanguageRedirect:(BOOL)redirect
+{
+  redirectCopy = redirect;
+  v6 = *&id;
+  resultCopy = result;
+  if ((v6 & 0x80000000) == 0)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_engine);
+    maxDoc = [WeakRetained maxDoc];
+
+    if (maxDoc > v6)
+    {
+      v11 = [[LuceneResultDocument alloc] initWithDocId:v6 withLuceneContextRequest:self];
+      getDocument = [(LuceneResultDocument *)v11 getDocument];
+      v31 = 0;
+      if (redirectCopy)
+      {
+        v13 = &v31;
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      v14 = [(LuceneResultDocument *)v11 bestTitleWithSeeOtherDocIdRelative:v13];
+      title = [v14 title];
+
+      if (title)
+      {
+        title2 = [resultCopy title];
+        docId = [resultCopy docId];
+        if (v31 + v6 >= v6)
+        {
+          v17 = v6;
+        }
+
+        else
+        {
+          v17 = (v31 + v6);
+        }
+
+        docId2 = [resultCopy docId];
+
+        if (docId2)
+        {
+          docId3 = [resultCopy docId];
+          intValue = [docId3 intValue];
+
+          if (intValue >= v17)
+          {
+            v17 = v17;
+          }
+
+          else
+          {
+            v17 = intValue;
+          }
+        }
+
+        v21 = [NSNumber numberWithInt:v17];
+        [resultCopy setDocId:v21];
+
+        [resultCopy setTitle:title];
+        if (title2 && ([title2 isEqualToString:title] & 1) == 0)
+        {
+          v22 = [[LuceneContextResult alloc] initWithText:title2];
+          topicId = [resultCopy topicId];
+          [(LuceneContextResult *)v22 setTopicId:topicId];
+
+          LOBYTE(topicId) = self->_debug;
+          category = [resultCopy category];
+          v25 = category;
+          if (topicId)
+          {
+            v26 = [category stringByAppendingString:@" (alternative title)"];
+            [(LuceneContextResult *)v22 setCategory:v26];
+          }
+
+          else
+          {
+            [(LuceneContextResult *)v22 setCategory:category];
+          }
+
+          [(LuceneContextResult *)v22 setDocId:v30];
+          debug = [resultCopy debug];
+          [(LuceneContextResult *)v22 setDebug:debug];
+
+          [(LuceneContextResult *)v22 setForceBottomRank:1];
+          [(LuceneContextResult *)v22 setFoldScore:0x8000000000000000];
+          [(LuceneContextResult *)v22 setMinPrefix:3];
+          [resultCopy addToFoldedResults:v22];
+        }
+      }
+
+      v28 = [getDocument getWithNSString:@"portrait"];
+      if (v28)
+      {
+        [resultCopy setTopicId:v28];
+      }
+
+      if (v31)
+      {
+        [(LuceneContextRequest *)self _augmentResult:resultCopy withDocId:(v31 + v6) checkLanguageRedirect:0];
+      }
+
+      [(LuceneContextRequest *)self postprocessAddQuery:resultCopy];
+    }
+  }
 }
 
 - (void)_searchTopKWithQuery:(id)query topK:(unint64_t)k
@@ -6498,45 +6896,765 @@ LABEL_35:
 - (id)_tokenStringForText:(id)text
 {
   textCopy = text;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_1002AA110;
-  v22 = sub_1002AA120;
-  v23 = objc_opt_new();
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x2020000000;
-  v17 = 1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1002AA110;
+  v24 = sub_1002AA120;
+  v5 = objc_opt_new();
+  v25 = v5;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2020000000;
+  v19 = 1;
   if (textCopy)
   {
     v5 = [(OrgApacheLuceneAnalysisAnalyzer *)self->_analyzer tokenStreamWithNSString:@"text" withNSString:textCopy];
+    v7 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
   }
 
-  v6 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_();
-  v7 = [v5 addAttributeWithIOSClass:v6];
+  v8 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(v5, v6);
+  v9 = [v7 addAttributeWithIOSClass:v8];
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1002B89BC;
-  v11[3] = &unk_1004841E8;
-  v8 = v7;
-  v12 = v8;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1002B89BC;
+  v13[3] = &unk_1004841E8;
+  v10 = v9;
+  v14 = v10;
   selfCopy = self;
-  v14 = v16;
-  v15 = &v18;
-  sub_1002B198C(v5, v11);
-  v9 = v19[5];
+  v16 = v18;
+  v17 = &v20;
+  sub_1002B198C(v7, v13);
+  v11 = v21[5];
 
-  _Block_object_dispose(v16, 8);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(v18, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v9;
+  return v11;
+}
+
+- (id)_processResult:(int)result score:(float)score relativeScore:(float)relativeScore
+{
+  v7 = *&result;
+  dontSkip = [(CKContextRequest *)self->_request dontSkip];
+  v139 = v7;
+  selfCopy = self;
+  v185[0] = _NSConcreteStackBlock;
+  v185[1] = 3221225472;
+  v185[2] = sub_1002B9FE8;
+  v185[3] = &unk_100484210;
+  v9 = [[LuceneResultDocument alloc] initWithDocId:v7 withLuceneContextRequest:self];
+  v186 = v9;
+  v10 = sub_1002B9ED8(v185);
+  [(ContextConfiguration *)selfCopy->_config luceneMinAbsoluteScore];
+  v12 = v11;
+  v183[0] = _NSConcreteStackBlock;
+  v183[1] = 3221225472;
+  v183[2] = sub_1002B9FF0;
+  v183[3] = &unk_100484238;
+  v132 = v10;
+  v184 = v132;
+  v131 = sub_1002B9ED8(v183);
+  v181[0] = _NSConcreteStackBlock;
+  v181[1] = 3221225472;
+  v181[2] = sub_1002BA050;
+  v181[3] = &unk_100484260;
+  v138 = v9;
+  v182 = v138;
+  v135 = sub_1002B9ED8(v181);
+  v175 = 0;
+  v176 = &v175;
+  v177 = 0x3032000000;
+  v178 = sub_1002AA110;
+  v179 = sub_1002AA120;
+  v180 = NSMapGet(selfCopy->_perDocumentObjects, v139);
+  v174[0] = _NSConcreteStackBlock;
+  v174[1] = 3221225472;
+  v174[2] = sub_1002BA0B0;
+  v174[3] = &unk_100484288;
+  v174[4] = selfCopy;
+  v174[5] = &v175;
+  v134 = sub_1002B9ED8(v174);
+  phrases = [v176[5] phrases];
+  if ([phrases count] != 1)
+  {
+
+LABEL_7:
+    phrases2 = [v176[5] phrases];
+    if ([phrases2 count])
+    {
+      v133 = 0;
+LABEL_9:
+
+      goto LABEL_15;
+    }
+
+    terms = [v176[5] terms];
+    v23 = [terms count] == 2;
+
+    if (!v23)
+    {
+      goto LABEL_14;
+    }
+
+    terms2 = [v176[5] terms];
+    v25 = [terms2 objectAtIndexedSubscript:0];
+    getQuery = [v25 getQuery];
+    getTerm = [getQuery getTerm];
+    phrases2 = [getTerm text];
+
+    terms3 = [v176[5] terms];
+    v29 = [terms3 objectAtIndexedSubscript:1];
+    getQuery2 = [v29 getQuery];
+    getTerm2 = [getQuery2 getTerm];
+    text = [getTerm2 text];
+
+    if ([phrases2 hasPrefix:text])
+    {
+      if (dontSkip)
+      {
+        v133 = 1;
+LABEL_66:
+
+        goto LABEL_9;
+      }
+    }
+
+    else
+    {
+      v133 = [text hasPrefix:phrases2];
+      if (dontSkip & 1 | ((v133 & 1) == 0))
+      {
+        goto LABEL_66;
+      }
+    }
+
+    v60 = 0;
+LABEL_173:
+
+    goto LABEL_174;
+  }
+
+  terms4 = [v176[5] terms];
+  v15 = [terms4 count] < 3;
+
+  if (!v15)
+  {
+    goto LABEL_7;
+  }
+
+  v16 = v134[2]();
+  v17 = [v16 count] < 3;
+
+  if (!v17)
+  {
+LABEL_14:
+    v133 = 0;
+    goto LABEL_15;
+  }
+
+  v18 = v135[2]();
+  importantTokens = [v18 importantTokens];
+  v20 = [importantTokens count] != 0;
+
+  if (((v20 | dontSkip) & 1) == 0)
+  {
+    goto LABEL_61;
+  }
+
+  v133 = !v20;
+LABEL_15:
+  terms5 = [v176[5] terms];
+  v34 = [terms5 count];
+
+  if (v34)
+  {
+    v172 = 0u;
+    v173 = 0u;
+    v170 = 0u;
+    v171 = 0u;
+    terms6 = [v176[5] terms];
+    v36 = [terms6 countByEnumeratingWithState:&v170 objects:v194 count:16];
+    if (v36)
+    {
+      v37 = 0;
+      v38 = 0;
+      v39 = *v171;
+      while (2)
+      {
+        for (i = 0; i != v36; i = i + 1)
+        {
+          if (*v171 != v39)
+          {
+            objc_enumerationMutation(terms6);
+          }
+
+          getQuery3 = [*(*(&v170 + 1) + 8 * i) getQuery];
+          getUserObject = [getQuery3 getUserObject];
+
+          if (getUserObject)
+          {
+            if ([getUserObject docId] == v139)
+            {
+              ++v38;
+            }
+
+            v43 = getUserObject[1];
+            if (![TokenInfo isNameType:v43])
+            {
+LABEL_46:
+
+              LODWORD(v46) = 1;
+              goto LABEL_47;
+            }
+
+            v37 |= ![TokenInfo isSurnameType:v43];
+          }
+        }
+
+        v36 = [terms6 countByEnumeratingWithState:&v170 objects:v194 count:16];
+        if (v36)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    else
+    {
+      v38 = 0;
+      v37 = 0;
+    }
+  }
+
+  else
+  {
+    v38 = 0;
+    v37 = 0;
+  }
+
+  phrases3 = [v176[5] phrases];
+  v45 = [phrases3 count] == 0;
+
+  if (v45)
+  {
+    LODWORD(v46) = 0;
+  }
+
+  else
+  {
+    v168 = 0u;
+    v169 = 0u;
+    v166 = 0u;
+    v167 = 0u;
+    terms6 = [v176[5] phrases];
+    v46 = [terms6 countByEnumeratingWithState:&v166 objects:v193 count:16];
+    if (v46)
+    {
+      v47 = *v167;
+      do
+      {
+        for (j = 0; j != v46; j = j + 1)
+        {
+          if (*v167 != v47)
+          {
+            objc_enumerationMutation(terms6);
+          }
+
+          getQuery4 = [*(*(&v166 + 1) + 8 * j) getQuery];
+          getUserObject = [getQuery4 getUserObject];
+
+          if (getUserObject)
+          {
+            if ([getUserObject docId] == v139)
+            {
+              ++v38;
+            }
+
+            v50 = getUserObject[1];
+            if (![TokenInfo isNameType:v50])
+            {
+              goto LABEL_46;
+            }
+
+            v37 |= ![TokenInfo isSurnameType:v50];
+          }
+        }
+
+        v46 = [terms6 countByEnumeratingWithState:&v166 objects:v193 count:16];
+      }
+
+      while (v46);
+    }
+
+LABEL_47:
+  }
+
+  if (!(dontSkip & 1 | ((v133 & 1) == 0)))
+  {
+    goto LABEL_61;
+  }
+
+  titleField = [(LuceneResultDocument *)v138 titleField];
+  v52 = [titleField length] == 0;
+
+  if (v52)
+  {
+    goto LABEL_61;
+  }
+
+  if ([(LuceneResultDocument *)v138 titleMinTermsRequired])
+  {
+    v53 = v135[2]();
+    importantTokens2 = [v53 importantTokens];
+    v55 = [importantTokens2 count];
+
+    titleMinTermsRequired = [(LuceneResultDocument *)v138 titleMinTermsRequired];
+    if (!((v55 >= titleMinTermsRequired) | dontSkip & 1))
+    {
+      goto LABEL_61;
+    }
+
+    v133 |= v55 < titleMinTermsRequired;
+  }
+
+  if ([(LuceneResultDocument *)v138 minPrimaryTermsRequired])
+  {
+    primaryCount = [v176[5] primaryCount];
+    minPrimaryTermsRequired = [(LuceneResultDocument *)v138 minPrimaryTermsRequired];
+    if ((primaryCount >= minPrimaryTermsRequired) | dontSkip & 1)
+    {
+      v133 |= primaryCount < minPrimaryTermsRequired;
+      goto LABEL_57;
+    }
+
+LABEL_61:
+    v60 = 0;
+    goto LABEL_62;
+  }
+
+LABEL_57:
+  phrases2 = v135[2]();
+  tokenCountMatching = [phrases2 tokenCountMatching];
+  v59 = 0;
+  if ([phrases2 tokenCountPrimary] && tokenCountMatching >= 2)
+  {
+    if (tokenCountMatching >= [phrases2 tokenCount] - 1)
+    {
+      if (!(v46 & 1 | ((v37 & 1) == 0)))
+      {
+        goto LABEL_71;
+      }
+
+      terms7 = [v176[5] terms];
+      if ([terms7 count] >= 3)
+      {
+
+        goto LABEL_60;
+      }
+
+      phrases4 = [v176[5] phrases];
+      v64 = [phrases4 count] < 2;
+
+      if (v64)
+      {
+LABEL_71:
+        v133 = 0;
+        v59 = 1;
+        goto LABEL_72;
+      }
+    }
+
+LABEL_60:
+    v59 = 0;
+  }
+
+LABEL_72:
+  luceneMinTitleMatchAllNamesOK = [(ContextConfiguration *)selfCopy->_config luceneMinTitleMatchAllNamesOK];
+  v66 = luceneMinTitleMatchAllNamesOK;
+  if (!(v46 & 1 | ((v37 & 1) == 0)) && tokenCountMatching >= luceneMinTitleMatchAllNamesOK)
+  {
+    tokenCountPrimary = [phrases2 tokenCountPrimary];
+    if (tokenCountPrimary >= [(ContextConfiguration *)selfCopy->_config luceneMinTitleMatchPrimaryAllNamesOK])
+    {
+      v59 = 1;
+    }
+  }
+
+  if (!((v46 | v59) & 1 | (v38 >= v66) | dontSkip & 1))
+  {
+    goto LABEL_138;
+  }
+
+  if (v133 & 1 | (((v46 | v59) & 1 | (v38 >= v66)) == 0))
+  {
+    if (dontSkip)
+    {
+      v68 = 1;
+      goto LABEL_92;
+    }
+
+    goto LABEL_138;
+  }
+
+  if (v59)
+  {
+    [(ContextConfiguration *)selfCopy->_config luceneMinScoreTitlePrimary];
+LABEL_84:
+    v70 = v69 <= score;
+    goto LABEL_85;
+  }
+
+  if (tokenCountMatching)
+  {
+    [(ContextConfiguration *)selfCopy->_config luceneMinScoreTitleMatch];
+    goto LABEL_84;
+  }
+
+  v70 = v12 <= score;
+LABEL_85:
+  v68 = !v70;
+  v71 = v70;
+  if ((v71 | dontSkip))
+  {
+LABEL_92:
+    if (tokenCountMatching >= [(ContextConfiguration *)selfCopy->_config luceneMinTitleMatchForScoreBoost])
+    {
+      relativeScore = ((tokenCountMatching / [phrases2 tokenCount]) + 1.0) * relativeScore;
+    }
+
+    v137 = v68;
+    v129 = v59;
+    if (selfCopy->_debug)
+    {
+      text = objc_opt_new();
+      v72 = objc_opt_new();
+      v164 = 0u;
+      v165 = 0u;
+      v162 = 0u;
+      v163 = 0u;
+      phrases5 = [v176[5] phrases];
+      v74 = [phrases5 countByEnumeratingWithState:&v162 objects:v192 count:16];
+      if (v74)
+      {
+        v75 = *v163;
+        do
+        {
+          for (k = 0; k != v74; k = k + 1)
+          {
+            if (*v163 != v75)
+            {
+              objc_enumerationMutation(phrases5);
+            }
+
+            getQuery5 = [*(*(&v162 + 1) + 8 * k) getQuery];
+            [(LuceneContextRequest *)selfCopy addDebugStringTo:v72 withPrefix:@"+" forQuery:getQuery5];
+          }
+
+          v74 = [phrases5 countByEnumeratingWithState:&v162 objects:v192 count:16];
+        }
+
+        while (v74);
+      }
+
+      v160 = 0u;
+      v161 = 0u;
+      v158 = 0u;
+      v159 = 0u;
+      v78 = [v72 sortedArrayUsingSelector:?];
+      v79 = [v78 countByEnumeratingWithState:&v158 objects:v191 count:16];
+      if (v79)
+      {
+        v80 = *v159;
+        do
+        {
+          for (m = 0; m != v79; m = m + 1)
+          {
+            if (*v159 != v80)
+            {
+              objc_enumerationMutation(v78);
+            }
+
+            [text appendString:*(*(&v158 + 1) + 8 * m)];
+          }
+
+          v79 = [v78 countByEnumeratingWithState:&v158 objects:v191 count:16];
+        }
+
+        while (v79);
+      }
+
+      v82 = objc_opt_new();
+      v156 = 0u;
+      v157 = 0u;
+      v154 = 0u;
+      v155 = 0u;
+      terms8 = [v176[5] terms];
+      v84 = [terms8 countByEnumeratingWithState:&v154 objects:v190 count:16];
+      if (v84)
+      {
+        v85 = *v155;
+        do
+        {
+          for (n = 0; n != v84; n = n + 1)
+          {
+            if (*v155 != v85)
+            {
+              objc_enumerationMutation(terms8);
+            }
+
+            getQuery6 = [*(*(&v154 + 1) + 8 * n) getQuery];
+            [(LuceneContextRequest *)selfCopy addDebugStringTo:v82 withPrefix:@"+" forQuery:getQuery6];
+          }
+
+          v84 = [terms8 countByEnumeratingWithState:&v154 objects:v190 count:16];
+        }
+
+        while (v84);
+      }
+
+      v152 = 0u;
+      v153 = 0u;
+      v150 = 0u;
+      v151 = 0u;
+      v88 = [v82 sortedArrayUsingSelector:"compare:"];
+      v89 = [v88 countByEnumeratingWithState:&v150 objects:v189 count:16];
+      if (v89)
+      {
+        v90 = *v151;
+        do
+        {
+          for (ii = 0; ii != v89; ii = ii + 1)
+          {
+            if (*v151 != v90)
+            {
+              objc_enumerationMutation(v88);
+            }
+
+            [text appendString:*(*(&v150 + 1) + 8 * ii)];
+          }
+
+          v89 = [v88 countByEnumeratingWithState:&v150 objects:v189 count:16];
+        }
+
+        while (v89);
+      }
+
+      v92 = objc_opt_new();
+      v148 = 0u;
+      v149 = 0u;
+      v146 = 0u;
+      v147 = 0u;
+      secondary = [v176[5] secondary];
+      v94 = [secondary countByEnumeratingWithState:&v146 objects:v188 count:16];
+      if (v94)
+      {
+        v95 = *v147;
+        do
+        {
+          for (jj = 0; jj != v94; jj = jj + 1)
+          {
+            if (*v147 != v95)
+            {
+              objc_enumerationMutation(secondary);
+            }
+
+            getQuery7 = [*(*(&v146 + 1) + 8 * jj) getQuery];
+            [(LuceneContextRequest *)selfCopy addDebugStringTo:v92 withPrefix:@"?" forQuery:getQuery7];
+          }
+
+          v94 = [secondary countByEnumeratingWithState:&v146 objects:v188 count:16];
+        }
+
+        while (v94);
+      }
+
+      v144 = 0u;
+      v145 = 0u;
+      v142 = 0u;
+      v143 = 0u;
+      v98 = [v92 sortedArrayUsingSelector:"compare:"];
+      v99 = [v98 countByEnumeratingWithState:&v142 objects:v187 count:16];
+      if (v99)
+      {
+        v100 = *v143;
+        do
+        {
+          for (kk = 0; kk != v99; kk = kk + 1)
+          {
+            if (*v143 != v100)
+            {
+              objc_enumerationMutation(v98);
+            }
+
+            [text appendString:*(*(&v142 + 1) + 8 * kk)];
+          }
+
+          v99 = [v98 countByEnumeratingWithState:&v142 objects:v187 count:16];
+        }
+
+        while (v99);
+      }
+
+      score = [NSString stringWithFormat:@"%i %5.3f 🆑", (relativeScore * 100.0), score];
+    }
+
+    else
+    {
+      text = 0;
+      score = 0;
+    }
+
+    v103 = [LuceneContextResult alloc];
+    title = [phrases2 title];
+    v105 = [(LuceneContextResult *)v103 initWithDocId:v139 title:title query:0 url:0 category:score];
+
+    *&v106 = score;
+    [(LuceneContextResult *)v105 setLuceneScore:v106];
+    *&v107 = relativeScore;
+    [(LuceneContextResult *)v105 setRelativeScore:v107];
+    [(LuceneContextResult *)v105 setDebug:text];
+    topicIdOverride = [phrases2 topicIdOverride];
+    v109 = topicIdOverride;
+    if (!topicIdOverride)
+    {
+      v109 = v131[2]();
+    }
+
+    [(LuceneContextResult *)v105 setTopicId:v109];
+    if (!topicIdOverride)
+    {
+    }
+
+    [(LuceneContextResult *)v105 setTitleMatch:tokenCountMatching];
+    [(LuceneContextResult *)v105 setTitlePrimary:v129];
+    minPrefix = [(LuceneContextResult *)v105 minPrefix];
+    minPrefix2 = [phrases2 minPrefix];
+    if (minPrefix <= minPrefix2)
+    {
+      v112 = minPrefix2;
+    }
+
+    else
+    {
+      v112 = minPrefix;
+    }
+
+    [(LuceneContextResult *)v105 setMinPrefix:v112];
+    -[LuceneContextResult setForceBottomRank:](v105, "setForceBottomRank:", [phrases2 forceBottomRank]);
+    v113 = v132[2]();
+    v114 = [v113 getWithNSString:@"related"];
+    [(LuceneContextResult *)v105 setRelatedField:v114];
+
+    -[LuceneContextResult setExactMatch:](v105, "setExactMatch:", -[LuceneContextResult titleMatch](v105, "titleMatch") == [phrases2 tokenCount]);
+    if (selfCopy->_debug)
+    {
+      if (v137)
+      {
+        category = [(LuceneContextResult *)v105 category];
+        v116 = [category stringByAppendingString:@" (would skip)"];
+        [(LuceneContextResult *)v105 setCategory:v116];
+      }
+
+      if ([(LuceneContextResult *)v105 titleMatch])
+      {
+        category2 = [(LuceneContextResult *)v105 category];
+        v118 = [category2 stringByAppendingFormat:@" (title match:%lu/%lu)", -[LuceneContextResult titleMatch](v105, "titleMatch"), objc_msgSend(phrases2, "tokenCount")];
+        [(LuceneContextResult *)v105 setCategory:v118];
+      }
+    }
+
+    tokenString = [phrases2 tokenString];
+    [(LuceneContextResult *)v105 setTitleTokenString:tokenString];
+
+    [(LuceneContextRequest *)selfCopy postprocessAddQuery:v105];
+    [v176[5] seal];
+    v141 = 0;
+    v120 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v176[5] queryFingerprintWithPrimaryOut:&v141]);
+    v121 = [NSNumber numberWithUnsignedInteger:v141];
+    [(LuceneContextResult *)v105 setFingerprintPrimary:v121];
+    if (v129)
+    {
+      selfCopy->_needFingerprintPostprocessing = 1;
+      if (selfCopy->_debug)
+      {
+        category3 = [(LuceneContextResult *)v105 category];
+        v123 = [category3 stringByAppendingString:@" (title primary)"];
+        [(LuceneContextResult *)v105 setCategory:v123];
+      }
+
+      v124 = [(NSMutableDictionary *)selfCopy->_fingerprintsPrimary objectForKey:v121];
+      if (v124)
+      {
+        [(LuceneContextResult *)v105 setSkip:1];
+        selfCopy->_haveFingerprintDupes = 1;
+        [v124 addToFoldedResults:v105];
+      }
+
+      else
+      {
+        [(NSMutableDictionary *)selfCopy->_fingerprintsPrimary setObject:v105 forKey:v121];
+      }
+    }
+
+    if ([(LuceneResultDocument *)v138 seeOtherDocIdRelative])
+    {
+      [(LuceneContextRequest *)selfCopy _augmentResult:v105 withDocId:[(LuceneResultDocument *)v138 seeOtherDocIdRelative]+ v139 checkLanguageRedirect:0];
+    }
+
+    title2 = [(LuceneContextResult *)v105 title];
+    v126 = title2 == 0;
+
+    if (v126)
+    {
+      v60 = 0;
+LABEL_172:
+
+      goto LABEL_173;
+    }
+
+    v127 = [(NSMutableDictionary *)selfCopy->_fingerprints objectForKey:v120];
+    v128 = v127;
+    if (v127)
+    {
+      if (!v129)
+      {
+        selfCopy->_haveFingerprintDupes = 1;
+        [v127 addToFoldedResults:v105];
+        v60 = 0;
+        goto LABEL_171;
+      }
+
+      [v127 setSkip:1];
+    }
+
+    else
+    {
+      [(NSMutableDictionary *)selfCopy->_fingerprints setObject:v105 forKey:v120];
+    }
+
+    v60 = v105;
+LABEL_171:
+
+    goto LABEL_172;
+  }
+
+LABEL_138:
+  v60 = 0;
+LABEL_174:
+
+LABEL_62:
+  _Block_object_dispose(&v175, 8);
+
+  return v60;
 }
 
 - (void)postprocessAddQuery:(id)query
@@ -6559,141 +7677,142 @@ LABEL_35:
 - (void)_rerankFoldedResults:(id)results
 {
   resultsCopy = results;
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x3032000000;
-  v74 = sub_1002AA110;
-  v75 = sub_1002AA120;
-  v76 = [[BigramKey alloc] initWithTokenA:0 tokenB:0];
-  v67 = 0u;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = sub_1002AA110;
+  v76 = sub_1002AA120;
+  v77 = [[BigramKey alloc] initWithTokenA:0 tokenB:0];
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
   obj = resultsCopy;
-  v4 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
+  v4 = [obj countByEnumeratingWithState:&v68 objects:v78 count:16];
   selfCopy3 = self;
   if (v4)
   {
     v6 = 0;
-    v30 = 0;
-    v26 = *v68;
+    v31 = 0;
+    v27 = *v69;
     v7 = 5;
     LODWORD(v8) = 1;
 LABEL_3:
     v9 = 0;
     v8 = v8;
-    v27 = (v7 & ~(v7 >> 31));
-    v23 = v7 - v4;
-    v29 = v6;
-    v25 = v4;
+    v28 = (v7 & ~(v7 >> 31));
+    v24 = v7 - v4;
+    v30 = v6;
+    v26 = v4;
     while (1)
     {
-      if (*v68 != v26)
+      if (*v69 != v27)
       {
         objc_enumerationMutation(obj);
       }
 
-      if (v27 == v9)
+      if (v28 == v9)
       {
         break;
       }
 
-      v10 = *(*(&v67 + 1) + 8 * v9);
+      v10 = *(*(&v68 + 1) + 8 * v9);
       [v10 setFoldCurrentRank:v8];
       title = [v10 title];
+      v13 = title;
       if (title)
       {
-        v12 = [(OrgApacheLuceneAnalysisAnalyzer *)selfCopy3->_analyzer tokenStreamWithNSString:@"text" withNSString:title];
+        title = [(OrgApacheLuceneAnalysisAnalyzer *)selfCopy3->_analyzer tokenStreamWithNSString:@"text" withNSString:title];
+        v14 = title;
       }
 
       else
       {
-        v12 = 0;
+        v14 = 0;
       }
 
-      v28 = title;
-      v13 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_();
-      v14 = [v12 addAttributeWithIOSClass:v13];
+      v29 = v13;
+      v15 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(title, v12);
+      v16 = [v14 addAttributeWithIOSClass:v15];
 
-      v65[0] = 0;
-      v65[1] = v65;
-      v65[2] = 0x2020000000;
-      v66 = 0;
-      v63[0] = 0;
-      v63[1] = v63;
-      v63[2] = 0x3032000000;
-      v63[3] = sub_1002AA110;
-      v63[4] = sub_1002AA120;
-      v64 = 0;
+      v66[0] = 0;
+      v66[1] = v66;
+      v66[2] = 0x2020000000;
+      v67 = 0;
+      v64[0] = 0;
+      v64[1] = v64;
+      v64[2] = 0x3032000000;
+      v64[3] = sub_1002AA110;
+      v64[4] = sub_1002AA120;
+      v65 = 0;
+      v60 = 0;
+      v61 = &v60;
+      v62 = 0x2020000000;
+      v63 = 0;
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x2020000000;
       v59 = 0;
-      v60 = &v59;
-      v61 = 0x2020000000;
-      v62 = 0;
+      v52 = 0;
+      v53 = &v52;
+      v54 = 0x2020000000;
       v55 = 0;
-      v56 = &v55;
-      v57 = 0x2020000000;
-      v58 = 0;
+      v48 = 0;
+      v49 = &v48;
+      v50 = 0x2020000000;
       v51 = 0;
-      v52 = &v51;
-      v53 = 0x2020000000;
-      v54 = 0;
+      v44 = 0;
+      v45 = &v44;
+      v46 = 0x2020000000;
       v47 = 0;
-      v48 = &v47;
-      v49 = 0x2020000000;
-      v50 = 0;
-      v43 = 0;
-      v44 = &v43;
-      v45 = 0x2020000000;
-      v46 = 0;
-      v32[0] = _NSConcreteStackBlock;
-      v32[1] = 3221225472;
-      v32[2] = sub_1002BAA6C;
-      v32[3] = &unk_1004842B0;
-      v35 = v65;
-      v15 = v14;
-      v33 = v15;
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_1002BAA6C;
+      v33[3] = &unk_1004842B0;
+      v36 = v66;
+      v17 = v16;
+      v34 = v17;
       selfCopy2 = self;
-      v36 = &v55;
-      v37 = &v47;
-      v16 = v12;
-      v38 = v63;
-      v39 = &v71;
-      v40 = &v59;
-      v41 = &v51;
-      v42 = &v43;
-      sub_1002B198C(v12, v32);
-      v6 = 4 * v56[3] + 8 * v60[3] + 2 * v52[3] + v48[3] - v44[3];
-      v17 = v10;
+      v37 = &v56;
+      v38 = &v48;
+      v18 = v14;
+      v39 = v64;
+      v40 = &v72;
+      v41 = &v60;
+      v42 = &v52;
+      v43 = &v44;
+      sub_1002B198C(v14, v33);
+      v6 = 4 * v57[3] + 8 * v61[3] + 2 * v53[3] + v49[3] - v45[3];
+      v19 = v10;
       if (self->_debug && [(CKContextRequest *)self->_request dontSkip])
       {
         debug = [v10 debug];
         fingerprintPrimary = [v10 fingerprintPrimary];
         integerValue = [fingerprintPrimary integerValue];
-        v21 = v48[3];
-        v22 = [NSString stringWithFormat:@"%@ %lu %li <- %li %li %li %li -%li", debug, integerValue, v6, v60[3], v56[3], v52[3], v21, v44[3]];
-        [v17 setDebug:v22];
+        v23 = [NSString stringWithFormat:@"%@ %lu %li <- %li %li %li %li -%li", debug, integerValue, v6, v61[3], v57[3], v53[3], v49[3], v45[3]];
+        [v19 setDebug:v23];
       }
 
-      [v17 setFoldScore:v6];
-      [v72[5] recycle];
+      [v19 setFoldScore:v6];
+      [v73[5] recycle];
 
-      _Block_object_dispose(&v43, 8);
-      _Block_object_dispose(&v47, 8);
-      _Block_object_dispose(&v51, 8);
-      _Block_object_dispose(&v55, 8);
-      _Block_object_dispose(&v59, 8);
-      _Block_object_dispose(v63, 8);
+      _Block_object_dispose(&v44, 8);
+      _Block_object_dispose(&v48, 8);
+      _Block_object_dispose(&v52, 8);
+      _Block_object_dispose(&v56, 8);
+      _Block_object_dispose(&v60, 8);
+      _Block_object_dispose(v64, 8);
 
-      _Block_object_dispose(v65, 8);
-      v30 |= v6 > v29;
+      _Block_object_dispose(v66, 8);
+      v31 |= v6 > v30;
       v9 = v9 + 1;
       ++v8;
-      v29 = v6;
+      v30 = v6;
       selfCopy3 = self;
-      if (v25 == v9)
+      if (v26 == v9)
       {
-        v4 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
-        v7 = v23;
+        v4 = [obj countByEnumeratingWithState:&v68 objects:v78 count:16];
+        v7 = v24;
         if (v4)
         {
           goto LABEL_3;
@@ -6703,7 +7822,7 @@ LABEL_3:
       }
     }
 
-    if (v30)
+    if (v31)
     {
       [obj sortUsingComparator:&stru_1004842D0];
     }
@@ -6713,7 +7832,20 @@ LABEL_3:
   {
   }
 
-  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v72, 8);
+}
+
+- (id)_computeHashesWithSeed:(int)seed forBytesRef:(id)ref reuse:(id)reuse
+{
+  v5 = *&seed;
+  v7 = *(ref + 4);
+  v8 = *(ref + 1) + 12;
+  v9 = *(ref + 5);
+  reuseCopy = reuse;
+  v11 = [NSData dataWithBytesNoCopy:v8 + v7 length:v9 freeWhenDone:0];
+  v12 = [(_PASBloomFilter *)self->_bloomFilter computeHashesWithSeed:v5 forData:v11 reuse:reuseCopy];
+
+  return v12;
 }
 
 - (void)addDebugStringTo:(id)to withPrefix:(id)prefix forQuery:(id)query

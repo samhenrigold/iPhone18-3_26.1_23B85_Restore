@@ -9,6 +9,7 @@
 - (void)getResultRecordDictionariesForResultQueryDictionaries:(id)dictionaries withCompletionHandler:(id)handler;
 - (void)invalidate;
 - (void)recentlyBreachedResultRecordDictionariesWithCompletionHandler:(id)handler;
+- (void)runLookupSessionIgnoringMinimumDelay:(BOOL)delay completionHandler:(id)handler;
 - (void)writePasswordEvaluationsToCache:(id)cache completionHandler:(id)handler;
 @end
 
@@ -83,14 +84,14 @@
 
     [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v9];
     objc_initWeak(&location, self);
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke;
-    v38[3] = &unk_1E7CF15E8;
-    objc_copyWeak(&v39, &location);
-    [(NSXPCConnection *)self->_connection setInvalidationHandler:v38];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke;
+    v39[3] = &unk_1E7CF15E8;
+    objc_copyWeak(&v40, &location);
+    [(NSXPCConnection *)self->_connection setInvalidationHandler:v39];
     [(NSXPCConnection *)self->_connection resume];
-    objc_destroyWeak(&v39);
+    objc_destroyWeak(&v40);
     objc_destroyWeak(&location);
 
     connection = self->_connection;
@@ -98,32 +99,32 @@
 
   v28 = connection;
   os_unfair_lock_unlock(&self->_connectionLock);
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = *(v6 + 400);
-  v36[2] = __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke_2;
-  v36[3] = &unk_1E7CF2CC0;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = *(v6 + 400);
+  v37[2] = __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke_2;
+  v37[3] = &unk_1E7CF2CC0;
   v29 = handlerCopy;
-  v37 = v29;
-  v30 = [(NSXPCConnection *)v28 remoteObjectProxyWithErrorHandler:v36];
-  v31 = v30;
+  v38 = v29;
+  v30 = [(NSXPCConnection *)v28 remoteObjectProxyWithErrorHandler:v37];
+  v32 = v30;
   if (v30)
   {
-    v32 = v30;
+    v33 = v30;
   }
 
   else
   {
-    v33 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v31);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [WBSPasswordBreachHelperProxy _remoteObjectProxyWithErrorHandler:v33];
+      [WBSPasswordBreachHelperProxy _remoteObjectProxyWithErrorHandler:v34];
     }
 
-    v34 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A798] code:14 privacyPreservingDescription:@"Failed to acquire remote object proxy."];
-    (*(v29 + 2))(v29, v34);
+    v35 = [MEMORY[0x1E696ABC0] safari_errorWithDomain:*MEMORY[0x1E696A798] code:14 privacyPreservingDescription:@"Failed to acquire remote object proxy."];
+    (*(v29 + 2))(v29, v35);
   }
 
-  return v31;
+  return v32;
 }
 
 void __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1)
@@ -144,13 +145,27 @@ void __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___blo
 void __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke_2_cold_1(v4, v3);
+    __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke_2_cold_1(v5, v3);
   }
 
   (*(*(a1 + 32) + 16))();
+}
+
+- (void)runLookupSessionIgnoringMinimumDelay:(BOOL)delay completionHandler:(id)handler
+{
+  delayCopy = delay;
+  handlerCopy = handler;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __87__WBSPasswordBreachHelperProxy_runLookupSessionIgnoringMinimumDelay_completionHandler___block_invoke;
+  v9[3] = &unk_1E7CF2CC0;
+  v10 = handlerCopy;
+  v7 = handlerCopy;
+  v8 = [(WBSPasswordBreachHelperProxy *)self _remoteObjectProxyWithErrorHandler:v9];
+  [v8 runLookupSessionIgnoringMinimumDelay:delayCopy completionHandler:v7];
 }
 
 - (void)getResultRecordDictionariesForResultQueryDictionaries:(id)dictionaries withCompletionHandler:(id)handler
@@ -248,12 +263,12 @@ void __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___blo
   [v9 writePasswordEvaluationsToCache:cacheCopy completionHandler:v7];
 }
 
-uint64_t __82__WBSPasswordBreachHelperProxy_writePasswordEvaluationsToCache_completionHandler___block_invoke(uint64_t a1)
+uint64_t __82__WBSPasswordBreachHelperProxy_writePasswordEvaluationsToCache_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXPasswords(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __82__WBSPasswordBreachHelperProxy_writePasswordEvaluationsToCache_completionHandler___block_invoke_cold_1(v2);
+    __82__WBSPasswordBreachHelperProxy_writePasswordEvaluationsToCache_completionHandler___block_invoke_cold_1(v3);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -261,14 +276,12 @@ uint64_t __82__WBSPasswordBreachHelperProxy_writePasswordEvaluationsToCache_comp
 
 void __67__WBSPasswordBreachHelperProxy__remoteObjectProxyWithErrorHandler___block_invoke_2_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B8447000, v3, OS_LOG_TYPE_ERROR, "Remote proxy object error handler invoked with error: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B8447000, v3, OS_LOG_TYPE_ERROR, "Remote proxy object error handler invoked with error: %{public}@", &v5, 0xCu);
 }
 
 @end

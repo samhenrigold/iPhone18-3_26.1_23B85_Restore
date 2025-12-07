@@ -3,14 +3,14 @@
 
 @implementation PASInternPool
 
-uint64_t __25___PASInternPool_isEmpty__block_invoke(uint64_t a1, void *a2)
+void *__25___PASInternPool_isEmpty__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result == 0;
   return result;
 }
 
-uint64_t __29___PASInternPool_isInterned___block_invoke(uint64_t a1, void *a2)
+void *__29___PASInternPool_isInterned___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;

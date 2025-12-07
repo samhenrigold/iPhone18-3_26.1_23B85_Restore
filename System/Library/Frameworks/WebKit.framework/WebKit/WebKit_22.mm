@@ -1,4 +1,4 @@
-void sub_19D6E2970(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, char a24, int a25, __int16 a26, char a27, char a28)
+void sub_19D6E2970(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, int a25, __int16 a26, char a27, char a28)
 {
   if (a26 == 1 && a24 == 1)
   {
@@ -33,7 +33,7 @@ void IPC::ArgumentCoder<WebKit::FileSystemSyncAccessHandleInfo,void>::decode(IPC
       if (v4)
       {
         (*(*v24 + 16))(v24);
-        v4 = *(v2 + 1);
+        v4 = v2[1];
       }
     }
 
@@ -50,15 +50,15 @@ void IPC::ArgumentCoder<WebKit::FileSystemSyncAccessHandleInfo,void>::decode(IPC
   {
 LABEL_39:
     *v2 = 0;
-    *(v2 + 1) = 0;
-    v25 = *(v2 + 3);
+    v2[1] = 0;
+    v25 = v2[3];
     if (v25)
     {
       if (v4)
       {
         (*(*v25 + 16))(v25);
         v6 = *v2;
-        v4 = *(v2 + 1);
+        v4 = v2[1];
         goto LABEL_42;
       }
     }
@@ -71,8 +71,8 @@ LABEL_39:
     v6 = 0;
 LABEL_42:
     *v2 = 0;
-    *(v2 + 1) = 0;
-    v26 = *(v2 + 3);
+    v2[1] = 0;
+    v26 = v2[3];
     if (v26 && v4)
     {
       (*(*v26 + 16))(v26, v6);
@@ -98,10 +98,10 @@ LABEL_42:
 
 LABEL_43:
     v27 = *v2;
-    v28 = *(v2 + 1);
+    v28 = v2[1];
     *v2 = 0;
-    *(v2 + 1) = 0;
-    v29 = *(v2 + 3);
+    v2[1] = 0;
+    v29 = v2[3];
     if (v29 && v28)
     {
       (*(*v29 + 16))(v29, v27);
@@ -116,7 +116,7 @@ LABEL_43:
 LABEL_8:
   v11 = 1;
 LABEL_9:
-  IPC::Decoder::takeLastAttachment(v2, &v30);
+  IPC::Decoder::takeLastAttachment(&v30, v2);
   if (!*v2)
   {
     goto LABEL_28;
@@ -139,19 +139,19 @@ LABEL_9:
       WTF::MachSendRight::~MachSendRight(&v30);
     }
 
-    v12 = *(v2 + 1);
+    v12 = v2[1];
     if ((v34 & 1) == 0)
     {
       v20 = *v2;
       *v2 = 0;
-      *(v2 + 1) = 0;
-      v21 = *(v2 + 3);
+      v2[1] = 0;
+      v21 = v2[3];
       if (v21)
       {
         if (v12)
         {
           (*(*v21 + 16))(v21, v20);
-          v12 = *(v2 + 1);
+          v12 = v2[1];
         }
       }
 
@@ -162,7 +162,7 @@ LABEL_9:
     }
 
     v13 = *v2;
-    v14 = ((*(v2 + 2) + 7) & 0xFFFFFFFFFFFFFFF8);
+    v14 = ((v2[2] + 7) & 0xFFFFFFFFFFFFFFF8);
     v15 = v14 - *v2;
     v16 = v12 >= v15;
     v17 = v12 - v15;
@@ -171,7 +171,7 @@ LABEL_9:
       break;
     }
 
-    *(v2 + 2) = v14 + 1;
+    v2[2] = (v14 + 1);
     if (!v14)
     {
       goto LABEL_35;
@@ -213,14 +213,14 @@ LABEL_28:
   }
 
   *v2 = 0;
-  *(v2 + 1) = 0;
-  v22 = *(v2 + 3);
+  v2[1] = 0;
+  v22 = v2[3];
   if (v22)
   {
     if (v12)
     {
       (*(*v22 + 16))(v22);
-      v12 = *(v2 + 1);
+      v12 = v2[1];
     }
   }
 
@@ -231,8 +231,8 @@ LABEL_28:
 
 LABEL_35:
   *v2 = 0;
-  *(v2 + 1) = 0;
-  v23 = *(v2 + 3);
+  v2[1] = 0;
+  v23 = v2[3];
   if (v23)
   {
     if (v12)
@@ -257,7 +257,7 @@ LABEL_24:
   }
 }
 
-void sub_19D6E2DCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, int a16, char a17, __int16 a18, char a19, char a20, __int16 a21, char a22, char a23)
+void sub_19D6E2DCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, __int16 a18, char a19, char a20, __int16 a21, char a22, char a23)
 {
   if (a19 == 1)
   {
@@ -281,7 +281,7 @@ uint64_t IPC::ArgumentCoder<WebKit::OptionItem,void>::encode(IPC::Encoder *a1, u
 uint64_t IPC::ArgumentCoder<WebKit::FocusedElementInformation,void>::encode(IPC::Encoder *a1, uint64_t a2)
 {
   IPC::ArgumentCoder<WebCore::IntRect,void>::encode(a1, a2);
-  IPC::ArgumentCoder<WebCore::ElementContext,void>::encode(a1, a2 + 16);
+  IPC::ArgumentCoder<WebCore::ElementContext,void>::encode(a1, (a2 + 16));
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(a1, *(a2 + 96));
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(a1, *(a2 + 100));
   IPC::ArgumentCoder<double,void>::encode<IPC::Encoder>(a1, *(a2 + 104));
@@ -356,7 +356,7 @@ uint64_t IPC::ArgumentCoder<WebKit::FocusedElementInformation,void>::encode(IPC:
   return IPC::ArgumentCoder<std::optional<WebKit::FrameInfoData>,void>::encode<IPC::Encoder,std::optional<WebKit::FrameInfoData> const&>(a1, a2 + 416);
 }
 
-void IPC::ArgumentCoder<WebKit::FocusedElementInformation,void>::decode(IPC::Decoder *a1@<X0>, _BYTE *a2@<X8>)
+void IPC::ArgumentCoder<WebKit::FocusedElementInformation,void>::decode(IPC::Decoder *a1@<X0>, unint64_t a2@<X8>)
 {
   v468 = *MEMORY[0x1E69E9840];
   IPC::Decoder::decode<WebCore::IntRect>(a1, &v392);
@@ -643,7 +643,7 @@ LABEL_17:
   }
 
   LOBYTE(v347) = v31;
-  if (v25 <= v28 - v27)
+  if (v25 <= &v28[-v27])
   {
     v239 = 0;
     v290 = *(a1 + 3);
@@ -728,7 +728,7 @@ LABEL_24:
   }
 
   LOBYTE(v346) = v35;
-  if (v25 <= v32 - v27)
+  if (v25 <= &v32[-v27])
   {
     v242 = 0;
     v291 = *(a1 + 3);
@@ -813,7 +813,7 @@ LABEL_31:
   }
 
   LOBYTE(v345) = v39;
-  if (v25 <= v36 - v27)
+  if (v25 <= &v36[-v27])
   {
     v245 = 0;
     v292 = *(a1 + 3);
@@ -898,7 +898,7 @@ LABEL_38:
   }
 
   LOBYTE(v344) = v43;
-  if (v25 <= v40 - v27)
+  if (v25 <= &v40[-v27])
   {
     v248 = 0;
     v293 = *(a1 + 3);
@@ -983,7 +983,7 @@ LABEL_45:
   }
 
   LOBYTE(v343) = v47;
-  if (v25 <= v44 - v27)
+  if (v25 <= &v44[-v27])
   {
     v251 = 0;
     v294 = *(a1 + 3);
@@ -1063,7 +1063,7 @@ LABEL_52:
   }
 
   LOBYTE(v342) = v50;
-  if (v25 <= v48 - v27)
+  if (v25 <= &v48[-v27])
   {
     v254 = 0;
     v295 = *(a1 + 3);
@@ -1148,7 +1148,7 @@ LABEL_58:
   }
 
   LOBYTE(v341) = v54;
-  if (v25 <= v51 - v27)
+  if (v25 <= &v51[-v27])
   {
     v257 = 0;
     v296 = *(a1 + 3);
@@ -1215,7 +1215,7 @@ LABEL_65:
 
   LOBYTE(v340) = v56;
   v57 = *(a1 + 2);
-  if (v25 <= v57 - v27)
+  if (v25 <= &v57[-v27])
   {
 LABEL_495:
     *a1 = 0;
@@ -1342,7 +1342,7 @@ LABEL_506:
   v25 = *(a1 + 1);
 LABEL_71:
   v59 = *(a1 + 2);
-  if (v25 <= v59 - v27)
+  if (v25 <= &v59[-v27])
   {
     goto LABEL_503;
   }
@@ -1478,7 +1478,7 @@ LABEL_79:
   {
     if (v71)
     {
-      v72 = WTF::fastMalloc((16 * v71));
+      v72 = WTF::fastMalloc(v66, (16 * v71));
       LODWORD(v458) = v71;
       v457 = v72;
       v73 = v385;
@@ -1491,7 +1491,7 @@ LABEL_79:
           if (HIDWORD(v458) == v458)
           {
             v75 = WTF::Vector<WebKit::OptionItem,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v457, HIDWORD(v458) + 1, &v394);
-            v76 = (v457 + 16 * HIDWORD(v458));
+            v76 = &v457[2 * HIDWORD(v458)];
             v77 = *v75;
             *v75 = 0;
             v78 = v75 + 1;
@@ -1501,7 +1501,7 @@ LABEL_79:
           else
           {
             v79 = v394;
-            v76 = (v457 + 16 * HIDWORD(v458));
+            v76 = &v457[2 * HIDWORD(v458)];
             *&v394 = 0;
             *v76 = v79;
             v78 = &v394 + 1;
@@ -1558,7 +1558,7 @@ LABEL_117:
       if (HIDWORD(v458) == v458)
       {
         v85 = WTF::Vector<WebKit::OptionItem,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v457, HIDWORD(v458) + 1, &v394);
-        v86 = (v457 + 16 * HIDWORD(v458));
+        v86 = &v457[2 * HIDWORD(v458)];
         v87 = *v85;
         *v85 = 0;
         v88 = v85 + 1;
@@ -1568,7 +1568,7 @@ LABEL_117:
       else
       {
         v89 = v394;
-        v86 = (v457 + 16 * HIDWORD(v458));
+        v86 = &v457[2 * HIDWORD(v458)];
         *&v394 = 0;
         *v86 = v89;
         v88 = &v394 + 1;
@@ -1737,7 +1737,7 @@ LABEL_122:
 
     LOBYTE(v332) = v102;
     BYTE4(v332) = v101;
-    if (v96 <= v99 - v98)
+    if (v96 <= &v99[-v98])
     {
       v272 = 0;
       v297 = *(a1 + 3);
@@ -1877,7 +1877,7 @@ LABEL_544:
     v105 = *(a1 + 1);
 LABEL_135:
     v110 = *(a1 + 2);
-    if (v105 > v110 - v107)
+    if (v105 > &v110[-v107])
     {
       *(a1 + 2) = v110 + 1;
       if (v110)
@@ -2082,7 +2082,7 @@ LABEL_143:
 
     LOBYTE(v325) = v118;
     BYTE4(v325) = v117;
-    if (v112 <= v115 - v114)
+    if (v112 <= &v115[-v114])
     {
       v287 = 0;
       v298 = *(a1 + 3);
@@ -2157,7 +2157,7 @@ LABEL_150:
     }
 
     v322 = IPC::Decoder::decode<WebKit::ColorControlSupportsAlpha>(a1);
-    IPC::VectorArgumentCoder<false,WebCore::Color,0ul,WTF::CrashOnOverflow,16ul>::decode<IPC::Decoder>(a1, &v364);
+    IPC::VectorArgumentCoder<false,WebCore::Color,0ul,WTF::CrashOnOverflow,16ul>::decode<IPC::Decoder>(&v364, a1);
     v122 = *(a1 + 1);
     v323 = v121;
     v308 = a2;
@@ -2268,7 +2268,7 @@ LABEL_159:
     }
 
     v320 = v127;
-    if (v122 <= v125 - v123)
+    if (v122 <= &v125[-v123])
     {
       v163 = 0;
       v306 = *(a1 + 3);
@@ -2375,7 +2375,7 @@ LABEL_165:
     }
 
     v318 = v130;
-    if (v122 <= v128 - v123)
+    if (v122 <= &v128[-v123])
     {
       v166 = 0;
       v307 = *(a1 + 3);
@@ -2482,7 +2482,7 @@ LABEL_171:
     }
 
     v316 = v133;
-    if (v122 <= v131 - v123)
+    if (v122 <= &v131[-v123])
     {
       v169 = 0;
       v303 = *(a1 + 3);
@@ -2589,7 +2589,7 @@ LABEL_177:
     }
 
     v314 = v136;
-    if (v122 <= v134 - v123)
+    if (v122 <= &v134[-v123])
     {
       v172 = 0;
       v304 = *(a1 + 3);
@@ -2696,7 +2696,7 @@ LABEL_183:
     }
 
     v312 = v139;
-    if (v122 <= v137 - v123)
+    if (v122 <= &v137[-v123])
     {
       v175 = 0;
       v305 = *(a1 + 3);
@@ -2803,7 +2803,7 @@ LABEL_189:
     }
 
     v310 = v142;
-    if (v122 <= v140 - v123)
+    if (v122 <= &v140[-v123])
     {
       v178 = 0;
       v301 = *(a1 + 3);
@@ -2914,7 +2914,7 @@ LABEL_195:
     }
 
     v309 = v145;
-    if (v122 <= v143 - v123)
+    if (v122 <= &v143[-v123])
     {
       v181 = 0;
       v302 = *(a1 + 3);
@@ -3024,7 +3024,7 @@ LABEL_202:
       a2 = 0;
     }
 
-    if (v122 <= v146 - v123)
+    if (v122 <= &v146[-v123])
     {
       v184 = 0;
       v299 = *(a1 + 3);
@@ -3134,7 +3134,7 @@ LABEL_209:
       v152 = 0;
     }
 
-    if (v122 <= v149 - v123)
+    if (v122 <= &v149[-v123])
     {
       v187 = 0;
       v300 = *(a1 + 3);
@@ -3763,9 +3763,14 @@ void sub_19D6E608C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint
     WTF::StringImpl::destroy(a60, a2);
   }
 
-  if (a67 == 1 && a62 && atomic_fetch_add_explicit(a62, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (a65 == 1 && a62 && atomic_fetch_add_explicit(a62, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a62, a2);
+  }
+
+  if (a67 == 1 && a66 && atomic_fetch_add_explicit(a66, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(a66, a2);
   }
 
   if (a69 == 1 && a68 && atomic_fetch_add_explicit(a68, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -3773,25 +3778,20 @@ void sub_19D6E608C(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint
     WTF::StringImpl::destroy(a68, a2);
   }
 
-  if (a71 == 1 && a70 && atomic_fetch_add_explicit(a70, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(a70, a2);
-  }
-
   if (LOBYTE(STACK[0x208]) == 1)
   {
-    WTF::Vector<std::pair<WTF::String,WebCore::ContentSecurityPolicyHeaderType>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a72, a2);
+    WTF::Vector<std::pair<WTF::String,WebCore::ContentSecurityPolicyHeaderType>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&a70, a2);
   }
 
   if (LOBYTE(STACK[0x218]) == 1)
   {
-    v73 = STACK[0x210];
+    v71 = STACK[0x210];
     STACK[0x210] = 0;
-    if (v73)
+    if (v71)
     {
-      if (atomic_fetch_add_explicit(v73, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v71, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v73, a2);
+        WTF::StringImpl::destroy(v71, a2);
       }
     }
   }
@@ -4596,15 +4596,15 @@ uint64_t IPC::ArgumentCoder<WebKit::FrameTreeCreationParameters,void>::encode(IP
   return result;
 }
 
-WTF::StringImpl *IPC::Decoder::decode<WTF::Ref<WebCore::FrameTreeSyncData,WTF::RawPtrTraits<WebCore::FrameTreeSyncData>,WTF::DefaultRefDerefTraits<WebCore::FrameTreeSyncData>>>@<X0>(IPC::Decoder *a1@<X0>, _BYTE *a2@<X8>)
+WTF::StringImpl *IPC::Decoder::decode<WTF::Ref<WebCore::FrameTreeSyncData,WTF::RawPtrTraits<WebCore::FrameTreeSyncData>,WTF::DefaultRefDerefTraits<WebCore::FrameTreeSyncData>>>@<X0>(WTF::StringImpl **a1@<X0>, _BYTE *a2@<X8>)
 {
   result = IPC::ArgumentCoder<WebCore::FrameTreeSyncData,void>::decode(a1, a2);
   if ((a2[8] & 1) == 0)
   {
-    v5 = *(a1 + 1);
+    v5 = a1[1];
     *a1 = 0;
-    *(a1 + 1) = 0;
-    result = *(a1 + 3);
+    a1[1] = 0;
+    result = a1[3];
     if (result && v5 != 0)
     {
       v7 = *(*result + 16);
@@ -4669,7 +4669,7 @@ void IPC::ArgumentCoder<WebKit::FrameTreeNodeData,void>::decode(IPC::Decoder *a1
 
           else
           {
-            WebKit::FrameTreeNodeData::FrameTreeNodeData(v44 + 368 * HIDWORD(v45), &v66);
+            WebKit::FrameTreeNodeData::FrameTreeNodeData(&v44[46 * HIDWORD(v45)], &v66);
             ++HIDWORD(v45);
           }
         }
@@ -4738,7 +4738,7 @@ LABEL_44:
       }
 
       LODWORD(v45) = 368 * v11 / 0x170u;
-      v44 = WTF::fastMalloc((368 * v11));
+      v44 = WTF::fastMalloc(0x170, (368 * v11));
       while (1)
       {
         IPC::Decoder::decode<WebKit::FrameTreeNodeData>(&v66, a1);
@@ -4752,7 +4752,7 @@ LABEL_44:
 
           else
           {
-            WebKit::FrameTreeNodeData::FrameTreeNodeData(v44 + 368 * HIDWORD(v45), &v66);
+            WebKit::FrameTreeNodeData::FrameTreeNodeData(&v44[46 * HIDWORD(v45)], &v66);
             ++HIDWORD(v45);
           }
         }
@@ -4951,7 +4951,7 @@ LABEL_59:
   }
 }
 
-void sub_19D6E7870(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, WTF::StringImpl *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, CFTypeRef cf, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
+void sub_19D6E7870(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, WTF::StringImpl *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, CFTypeRef cf, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
 {
   if (a59 == 1)
   {
@@ -5322,7 +5322,7 @@ LABEL_38:
     v25 = v57;
     if (!v57)
     {
-      result = WTF::HashTable<WebCore::GamepadHapticEffectType,WebCore::GamepadHapticEffectType,WTF::IdentityExtractor,WTF::IntHash<WebCore::GamepadHapticEffectType>,WTF::StrongEnumHashTraits<WebCore::GamepadHapticEffectType>,WTF::StrongEnumHashTraits<WebCore::GamepadHapticEffectType>,WTF::FastMalloc>::expand(&v57);
+      result = WTF::HashTable<WebCore::GamepadHapticEffectType,WebCore::GamepadHapticEffectType,WTF::IdentityExtractor,WTF::IntHash<WebCore::GamepadHapticEffectType>,WTF::StrongEnumHashTraits<WebCore::GamepadHapticEffectType>,WTF::StrongEnumHashTraits<WebCore::GamepadHapticEffectType>,WTF::FastMalloc>::expand(&v57, 0);
       v25 = v57;
     }
 
@@ -5379,13 +5379,14 @@ LABEL_21:
     v36 = *(v25 - 4);
     if (v36 <= 0x400)
     {
-      if (3 * v36 > 4 * v35)
+      v36 *= 3;
+      if (v36 > 4 * v35)
       {
         continue;
       }
 
 LABEL_31:
-      result = WTF::HashTable<WebCore::GamepadHapticEffectType,WebCore::GamepadHapticEffectType,WTF::IdentityExtractor,WTF::IntHash<WebCore::GamepadHapticEffectType>,WTF::StrongEnumHashTraits<WebCore::GamepadHapticEffectType>,WTF::StrongEnumHashTraits<WebCore::GamepadHapticEffectType>,WTF::FastMalloc>::expand(&v57);
+      result = WTF::HashTable<WebCore::GamepadHapticEffectType,WebCore::GamepadHapticEffectType,WTF::IdentityExtractor,WTF::IntHash<WebCore::GamepadHapticEffectType>,WTF::StrongEnumHashTraits<WebCore::GamepadHapticEffectType>,WTF::StrongEnumHashTraits<WebCore::GamepadHapticEffectType>,WTF::FastMalloc>::expand(&v57, v36);
       continue;
     }
 
@@ -5572,7 +5573,7 @@ void sub_19D6E84D4(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t IPC::ArgumentCoder<WebKit::GPUProcessConnectionParameters,void>::encode(IPC::Encoder *a1, unint64_t a2)
+IPC::Decoder *IPC::ArgumentCoder<WebKit::GPUProcessConnectionParameters,void>::encode(IPC::Encoder *a1, unint64_t a2)
 {
   IPC::Encoder::addAttachment(a1, a2);
   IPC::ArgumentCoder<WebKit::SharedPreferencesForWebProcess,void>::encode(a1, a2 + 8);
@@ -5636,7 +5637,7 @@ void IPC::ArgumentCoder<WebKit::GPUProcessConnectionParameters,void>::decode(IPC
   }
 }
 
-void sub_19D6E8704(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, WTF::StringImpl *a18, char a19, uint64_t a20, char a21)
+void sub_19D6E8704(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, WTF::StringImpl *a18, char a19, uint64_t a20, char a21)
 {
   WebKit::GPUProcessConnectionParameters::~GPUProcessConnectionParameters(&a10, a2);
   if (a19 == 1)
@@ -6748,7 +6749,7 @@ uint64_t IPC::ArgumentCoder<WebKit::InteractionInformationAtPosition,void>::enco
   IPC::ArgumentCoder<std::optional<WebCore::ElementContext>,void>::encode<IPC::Encoder,std::optional<WebCore::ElementContext> const&>(a1, a2 + 320);
   IPC::ArgumentCoder<std::optional<WebCore::ElementContext>,void>::encode<IPC::Encoder,std::optional<WebCore::ElementContext> const&>(a1, a2 + 416);
 
-  return IPC::VectorArgumentCoder<false,WebCore::ElementAnimationContext,0ul,WTF::CrashOnOverflow,16ul>::encode<IPC::Encoder,WTF::Vector<WebCore::ElementAnimationContext,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(a1, a2 + 512);
+  return IPC::VectorArgumentCoder<false,WebCore::ElementAnimationContext,0ul,WTF::CrashOnOverflow,16ul>::encode<IPC::Encoder,WTF::Vector<WebCore::ElementAnimationContext,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(a1, (a2 + 512));
 }
 
 void IPC::ArgumentCoder<WebKit::InteractionInformationAtPosition,void>::decode(IPC::Decoder *a1@<X0>, IPC::Decoder *a2@<X8>)
@@ -6964,7 +6965,7 @@ LABEL_368:
   v9 = *(v2 + 1);
 LABEL_13:
   v14 = *(v2 + 2);
-  if (v9 <= &v14[-v11])
+  if (v9 <= v14 - v11)
   {
     goto LABEL_368;
   }
@@ -7083,7 +7084,7 @@ LABEL_17:
   }
 
   v363 = v17;
-  if (v9 <= &v15[-v11])
+  if (v9 <= v15 - v11)
   {
     v308 = v13;
     v199 = 0;
@@ -7194,7 +7195,7 @@ LABEL_23:
   }
 
   v361 = v21;
-  if (v9 <= &v18[-v11])
+  if (v9 <= v18 - v11)
   {
     v364 = v20;
     v310 = v13;
@@ -7305,7 +7306,7 @@ LABEL_30:
   }
 
   v358 = v24;
-  if (v9 <= &v22[-v11])
+  if (v9 <= v22 - v11)
   {
     v364 = v20;
     v312 = v13;
@@ -7420,7 +7421,7 @@ LABEL_36:
   }
 
   v357 = v28;
-  if (v9 <= &v25[-v11])
+  if (v9 <= v25 - v11)
   {
     v359 = v27;
     v364 = v20;
@@ -7535,7 +7536,7 @@ LABEL_43:
   }
 
   v354 = v31;
-  if (v9 <= &v29[-v11])
+  if (v9 <= v29 - v11)
   {
     v359 = v27;
     v364 = v20;
@@ -7654,7 +7655,7 @@ LABEL_49:
   }
 
   v353 = v35;
-  if (v9 <= &v32[-v11])
+  if (v9 <= v32 - v11)
   {
     v355 = v34;
     v359 = v27;
@@ -7773,7 +7774,7 @@ LABEL_56:
   }
 
   v350 = v38;
-  if (v9 <= &v36[-v11])
+  if (v9 <= v36 - v11)
   {
     v355 = v34;
     v359 = v27;
@@ -7896,7 +7897,7 @@ LABEL_62:
   }
 
   v349 = v42;
-  if (v9 <= &v39[-v11])
+  if (v9 <= v39 - v11)
   {
     v351 = v41;
     v355 = v34;
@@ -8019,7 +8020,7 @@ LABEL_69:
   }
 
   v346 = v45;
-  if (v9 <= &v43[-v11])
+  if (v9 <= v43 - v11)
   {
     v351 = v41;
     v355 = v34;
@@ -8146,7 +8147,7 @@ LABEL_75:
   }
 
   v345 = v49;
-  if (v9 <= &v46[-v11])
+  if (v9 <= v46 - v11)
   {
     v347 = v48;
     v351 = v41;
@@ -8273,7 +8274,7 @@ LABEL_82:
   }
 
   v343 = v52;
-  if (v9 <= &v50[-v11])
+  if (v9 <= v50 - v11)
   {
     v347 = v48;
     v351 = v41;
@@ -8410,7 +8411,7 @@ LABEL_88:
   v347 = v48;
   v341 = v56;
   v342 = v55;
-  if (v9 <= &v53[-v11])
+  if (v9 <= v53 - v11)
   {
     v306 = v13;
     v232 = 0;
@@ -8575,7 +8576,7 @@ LABEL_101:
   }
 
   v337 = v64;
-  if (v59 <= &v62[-v61])
+  if (v59 <= v62 - v61)
   {
     v264 = 0;
     v291 = *(v2 + 3);
@@ -8656,7 +8657,7 @@ LABEL_107:
   }
 
   v335 = v67;
-  if (v59 <= &v65[-v61])
+  if (v59 <= v65 - v61)
   {
     v267 = 0;
     v292 = *(v2 + 3);
@@ -8737,7 +8738,7 @@ LABEL_113:
   }
 
   v333 = v70;
-  if (v59 <= &v68[-v61])
+  if (v59 <= v68 - v61)
   {
     v270 = 0;
     v293 = *(v2 + 3);
@@ -8818,7 +8819,7 @@ LABEL_119:
   }
 
   v331 = v73;
-  if (v59 <= &v71[-v61])
+  if (v59 <= v71 - v61)
   {
     v273 = 0;
     v294 = *(v2 + 3);
@@ -8904,7 +8905,7 @@ LABEL_125:
 
   v329 = v77;
   v330 = v76;
-  if (v59 <= &v74[-v61])
+  if (v59 <= v74 - v61)
   {
     v276 = 0;
     v295 = *(v2 + 3);
@@ -9044,7 +9045,7 @@ LABEL_132:
   v90 = *(v2 + 2);
   v365 = v7;
   v362 = v8;
-  if (v89 <= &v90[-v88])
+  if (v89 <= v90 - v88)
   {
     *v2 = 0;
     *(v2 + 1) = 0;
@@ -9306,7 +9307,7 @@ LABEL_151:
     v99 = 0;
   }
 
-  if (v93 <= &v96[-v95])
+  if (v93 <= v96 - v95)
   {
     v285 = 0;
     v320 = *(v2 + 3);
@@ -9514,29 +9515,29 @@ LABEL_173:
             {
               v150 = WTF::Vector<WebCore::ElementAnimationContext,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v408, HIDWORD(v409) + 1, &v410);
               v149 = HIDWORD(v409);
-              v151 = (v408 + 96 * HIDWORD(v409));
+              v151 = &v408[12 * HIDWORD(v409)];
               v152 = *v150;
-              v151[1] = v150[1];
+              *(v151 + 1) = v150[1];
               v153 = v150[5];
               v155 = v150[2];
               v154 = v150[3];
-              v151[4] = v150[4];
+              *(v151 + 4) = v150[4];
             }
 
             else
             {
-              v151 = (v408 + 96 * HIDWORD(v409));
+              v151 = &v408[12 * HIDWORD(v409)];
               v152 = v410;
-              v151[1] = v411;
+              *(v151 + 1) = v411;
               v153 = v414;
               v155 = *v412;
               v154 = *&v412[16];
-              v151[4] = v413;
+              *(v151 + 4) = v413;
             }
 
-            v151[5] = v153;
-            v151[2] = v155;
-            v151[3] = v154;
+            *(v151 + 5) = v153;
+            *(v151 + 2) = v155;
+            *(v151 + 3) = v154;
             *v151 = v152;
             HIDWORD(v409) = v149 + 1;
             if (!--v121)
@@ -9814,7 +9815,7 @@ LABEL_326:
             goto LABEL_327;
           }
 
-          v122 = WTF::fastMalloc((96 * v121));
+          v122 = WTF::fastMalloc((3 * v121), (96 * v121));
           LODWORD(v409) = 96 * v121 / 0x60u;
           v408 = v122;
           v103 = v369;
@@ -9833,16 +9834,16 @@ LABEL_326:
               v124 = WTF::Vector<WebCore::ElementAnimationContext,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v408, HIDWORD(v409) + 1, &v410);
               v125 = HIDWORD(v409);
               v126 = v408;
-              v127 = (v408 + 96 * HIDWORD(v409));
+              v127 = &v408[12 * HIDWORD(v409)];
               v128 = *v124;
-              v127[1] = v124[1];
+              *(v127 + 1) = v124[1];
               v129 = v124[5];
               v131 = v124[2];
               v130 = v124[3];
-              v127[4] = v124[4];
-              v127[5] = v129;
-              v127[2] = v131;
-              v127[3] = v130;
+              *(v127 + 4) = v124[4];
+              *(v127 + 5) = v129;
+              *(v127 + 2) = v131;
+              *(v127 + 3) = v130;
               *v127 = v128;
               v123 = v125;
             }
@@ -9850,16 +9851,16 @@ LABEL_326:
             else
             {
               v126 = v408;
-              v132 = (v408 + 96 * HIDWORD(v409));
+              v132 = &v408[12 * HIDWORD(v409)];
               v133 = v410;
-              v132[1] = v411;
+              *(v132 + 1) = v411;
               v134 = v414;
               v136 = *v412;
               v135 = *&v412[16];
-              v132[4] = v413;
-              v132[5] = v134;
-              v132[2] = v136;
-              v132[3] = v135;
+              *(v132 + 4) = v413;
+              *(v132 + 5) = v134;
+              *(v132 + 2) = v136;
+              *(v132 + 3) = v135;
               *v132 = v133;
             }
 

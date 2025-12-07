@@ -1,6 +1,8 @@
 @interface MFRFC822AttachmentDataProvider
 - (MFRFC822AttachmentDataProvider)initWithMessage:(id)message;
+- (MFRFC822AttachmentDataProvider)initWithMessage:(id)message managed:(BOOL)managed;
 - (MFRFC822AttachmentDataProvider)initWithMessageData:(id)data parentPart:(id)part;
+- (MFRFC822AttachmentDataProvider)initWithMessageData:(id)data parentPart:(id)part managed:(BOOL)managed;
 - (void)fetchDataForAttachment:(id)attachment consumer:(id)consumer progress:(id)progress completion:(id)completion;
 @end
 
@@ -23,6 +25,21 @@
   return v10;
 }
 
+- (MFRFC822AttachmentDataProvider)initWithMessageData:(id)data parentPart:(id)part managed:(BOOL)managed
+{
+  managedCopy = managed;
+  dataCopy = data;
+  partCopy = part;
+  v10 = [(MFRFC822AttachmentDataProvider *)self initWithMessageData:dataCopy parentPart:partCopy];
+  v11 = v10;
+  if (v10)
+  {
+    [(MFMailMessage *)v10->_message setSourceIsManaged:managedCopy];
+  }
+
+  return v11;
+}
+
 - (MFRFC822AttachmentDataProvider)initWithMessage:(id)message
 {
   messageCopy = message;
@@ -36,9 +53,23 @@
   return v7;
 }
 
+- (MFRFC822AttachmentDataProvider)initWithMessage:(id)message managed:(BOOL)managed
+{
+  managedCopy = managed;
+  messageCopy = message;
+  v7 = [(MFRFC822AttachmentDataProvider *)self initWithMessage:messageCopy];
+  v8 = v7;
+  if (v7)
+  {
+    [(MFMailMessage *)v7->_message setSourceIsManaged:managedCopy];
+  }
+
+  return v8;
+}
+
 - (void)fetchDataForAttachment:(id)attachment consumer:(id)consumer progress:(id)progress completion:(id)completion
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   attachmentCopy = attachment;
   consumerCopy = consumer;
   progressCopy = progress;
@@ -47,9 +78,9 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __86__MFRFC822AttachmentDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke;
   aBlock[3] = &unk_1E7AA4D60;
-  v33 = progressCopy;
-  v36 = v33;
-  v34 = _Block_copy(aBlock);
+  v32 = progressCopy;
+  v35 = v32;
+  v33 = _Block_copy(aBlock);
   messageStore = [(MFMailMessage *)self->_message messageStore];
   part = [attachmentCopy part];
   mimeBody = [part mimeBody];
@@ -64,11 +95,11 @@
 
   v20 = [attachmentCopy decodeFilterWithDataConsumer:consumerCopy];
   v21 = objc_alloc(MEMORY[0x1E69AD750]);
-  v39[0] = v20;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+  v38[0] = v20;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
   v23 = [v21 initWithConsumers:v22 expectedSize:{objc_msgSend(attachmentCopy, "encodedFileSize")}];
 
-  [v23 setProgressBlock:v34];
+  [v23 setProgressBlock:v33];
   part3 = [attachmentCopy part];
   part4 = [attachmentCopy part];
   [part4 range];
@@ -86,9 +117,9 @@
 
     if (error)
     {
-      v37 = *MEMORY[0x1E696AA08];
-      v38 = error;
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v36 = *MEMORY[0x1E696AA08];
+      v37 = error;
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     }
 
     else
@@ -102,8 +133,6 @@
   [v23 done];
   [consumerCopy done];
   completionCopy[2](completionCopy, v27, v28, 0);
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __86__MFRFC822AttachmentDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)

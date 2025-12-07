@@ -25,10 +25,10 @@
   v4 = xpc_array_create(0, 0);
   xpc_array_set_string(v4, 0xFFFFFFFFFFFFFFFFLL, "Stewie");
   secure_udp = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
-  nw_parameters_set_allow_ultra_constrained();
+  v6 = nw_parameters_set_allow_ultra_constrained();
   if (!secure_udp)
   {
-    host = CTLogStewieMonitor();
+    host = CTLogStewieMonitor(v6, v7);
     if (os_log_type_enabled(host, OS_LOG_TYPE_ERROR))
     {
       [CTStewieDataClient createConnectionPairIfRequired];
@@ -41,63 +41,63 @@
   host = nw_endpoint_create_host("monitor", "42");
   if (!host)
   {
-    v8 = CTLogStewieMonitor();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = CTLogStewieMonitor(0, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CTStewieStateMonitor start];
     }
 
 LABEL_10:
-    v7 = 0;
+    v10 = 0;
     goto LABEL_13;
   }
 
   os_unfair_lock_lock(&self->fLock);
   if (self->fStarted)
   {
-    v7 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v7 = [(CTStewieStateMonitor *)self startWithEndpoint:host parameters:secure_udp];
-    self->fStarted = v7;
+    v10 = [(CTStewieStateMonitor *)self startWithEndpoint:host parameters:secure_udp];
+    self->fStarted = v10;
   }
 
   os_unfair_lock_unlock(&self->fLock);
 LABEL_13:
 
-  return v7;
+  return v10;
 }
 
 - (void)dealloc
 {
-  fPathEvaluator = self->fPathEvaluator;
   nw_path_evaluator_cancel();
-  v4 = self->fPathEvaluator;
+  fPathEvaluator = self->fPathEvaluator;
   self->fPathEvaluator = 0;
 
-  v5.receiver = self;
-  v5.super_class = CTStewieStateMonitor;
-  [(CTStewieStateMonitor *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = CTStewieStateMonitor;
+  [(CTStewieStateMonitor *)&v4 dealloc];
 }
 
 - (CTStewieStateMonitor)initWithDelegate:(id)delegate queue:(id)queue
 {
   delegateCopy = delegate;
   queueCopy = queue;
-  v14.receiver = self;
-  v14.super_class = CTStewieStateMonitor;
-  v8 = [(CTStewieStateMonitor *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = CTStewieStateMonitor;
+  v8 = [(CTStewieStateMonitor *)&v16 init];
   if (!v8)
   {
     goto LABEL_10;
   }
 
-  if (([objc_opt_class() conformsToProtocol:&unk_1EF07D1C0] & 1) == 0)
+  v9 = [objc_opt_class() conformsToProtocol:&unk_1EF07D1C0];
+  if ((v9 & 1) == 0)
   {
-    v12 = CTLogStewieMonitor();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CTLogStewieMonitor(v9, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CTStewieStateMonitor initWithDelegate:queue:];
     }
@@ -107,8 +107,8 @@ LABEL_13:
 
   if (!queueCopy)
   {
-    v12 = CTLogStewieMonitor();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = CTLogStewieMonitor(v9, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [CTStewieStateMonitor initWithDelegate:queue:];
     }
@@ -116,22 +116,22 @@ LABEL_13:
 LABEL_9:
 
 LABEL_10:
-    v11 = 0;
+    v13 = 0;
     goto LABEL_11;
   }
 
   v8->fLock._os_unfair_lock_opaque = 0;
-  v9 = objc_alloc_init(CTStewieState);
+  v11 = objc_alloc_init(CTStewieState);
   fState = v8->fState;
-  v8->fState = v9;
+  v8->fState = v11;
 
   objc_storeWeak(&v8->fDelegate, delegateCopy);
   objc_storeStrong(&v8->fDelegateQueue, queue);
   v8->fStarted = 0;
-  v11 = v8;
+  v13 = v8;
 LABEL_11:
 
-  return v11;
+  return v13;
 }
 
 - (BOOL)startWithEndpoint:(id)endpoint parameters:(id)parameters
@@ -145,19 +145,16 @@ LABEL_11:
   if (self->fPathEvaluator)
   {
     objc_initWeak(&location, self);
-    fDelegateQueue = self->fDelegateQueue;
-    v10 = self->fPathEvaluator;
-    v22 = MEMORY[0x1E69E9820];
-    objc_copyWeak(&v23, &location);
+    v21 = MEMORY[0x1E69E9820];
+    objc_copyWeak(&v22, &location);
     updated = nw_path_evaluator_set_update_handler();
     v13 = self->fPathEvaluator;
     if (updated)
     {
-      v14 = self->fPathEvaluator;
       v13 = nw_path_evaluator_copy_path();
       if (v13)
       {
-        v15 = [(CTStewieStateMonitor *)self stateFromPath:v13, v22, 3221225472, __53__CTStewieStateMonitor_startWithEndpoint_parameters___block_invoke, &unk_1E6A48230];
+        v15 = [(CTStewieStateMonitor *)self stateFromPath:v13, v21, 3221225472, __53__CTStewieStateMonitor_startWithEndpoint_parameters___block_invoke, &unk_1E6A48230];
         fState = self->fState;
         self->fState = v15;
 
@@ -166,13 +163,12 @@ LABEL_11:
 
       else
       {
-        v19 = CTLogStewieMonitor();
+        v19 = CTLogStewieMonitor(0, v14);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           [CTStewieStateMonitor startWithEndpoint:parameters:];
         }
 
-        v20 = self->fPathEvaluator;
         nw_path_evaluator_cancel();
         v17 = 0;
       }
@@ -184,13 +180,13 @@ LABEL_11:
       self->fPathEvaluator = 0;
     }
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v18 = CTLogStewieMonitor();
+    v18 = CTLogStewieMonitor(v10, v11);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [CTStewieStateMonitor startWithEndpoint:parameters:];
@@ -291,18 +287,18 @@ uint64_t __38__CTStewieStateMonitor_stateFromPath___block_invoke(uint64_t a1, ui
         {
           if (v8 == 226)
           {
-            v10 = [[CTStewieState alloc] initWithStewieState:v6 + 420];
-            v11 = *(*(a1 + 32) + 8);
-            v12 = *(v11 + 40);
-            *(v11 + 40) = v10;
+            v11 = [[CTStewieState alloc] initWithStewieState:v6 + 420];
+            v12 = *(*(a1 + 32) + 8);
+            v13 = *(v12 + 40);
+            *(v12 + 40) = v11;
           }
 
           else
           {
-            v12 = CTLogStewieMonitor();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v13 = CTLogStewieMonitor(v9, v10);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
-              __38__CTStewieStateMonitor_stateFromPath___block_invoke_cold_1(v8 - 204, v12);
+              __38__CTStewieStateMonitor_stateFromPath___block_invoke_cold_1(v8 - 204, v13);
             }
           }
 

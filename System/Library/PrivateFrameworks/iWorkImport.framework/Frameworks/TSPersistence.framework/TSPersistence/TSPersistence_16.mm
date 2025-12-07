@@ -1,1442 +1,3 @@
-const google::protobuf::UnknownFieldSet *google::protobuf::MessageOptions::_InternalSerialize(google::protobuf::MessageOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
-{
-  v4 = a2;
-  v6 = *(this + 10);
-  if (v6)
-  {
-    if (*a3 <= a2)
-    {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    }
-
-    v7 = *(this + 72);
-    *v4 = 8;
-    v4[1] = v7;
-    v4 += 2;
-    if ((v6 & 2) == 0)
-    {
-LABEL_3:
-      if ((v6 & 4) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_12;
-    }
-  }
-
-  else if ((v6 & 2) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v8 = *(this + 73);
-  *v4 = 16;
-  v4[1] = v8;
-  v4 += 2;
-  if ((v6 & 4) == 0)
-  {
-LABEL_4:
-    if ((v6 & 8) == 0)
-    {
-      goto LABEL_18;
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_12:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v9 = *(this + 74);
-  *v4 = 24;
-  v4[1] = v9;
-  v4 += 2;
-  if ((v6 & 8) != 0)
-  {
-LABEL_15:
-    if (*a3 <= v4)
-    {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-    }
-
-    v10 = *(this + 75);
-    *v4 = 56;
-    v4[1] = v10;
-    v4 += 2;
-  }
-
-LABEL_18:
-  v11 = *(this + 14);
-  if (v11)
-  {
-    for (i = 0; i != v11; ++i)
-    {
-      if (*a3 <= v4)
-      {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-      }
-
-      v13 = *(*(this + 8) + 8 * i + 8);
-      *v4 = 16058;
-      v14 = *(v13 + 5);
-      if (v14 > 0x7F)
-      {
-        v4[2] = v14 | 0x80;
-        v16 = v14 >> 7;
-        if (v14 >> 14)
-        {
-          v15 = v4 + 4;
-          do
-          {
-            *(v15 - 1) = v16 | 0x80;
-            v17 = v16 >> 7;
-            ++v15;
-            v18 = v16 >> 14;
-            v16 >>= 7;
-          }
-
-          while (v18);
-          *(v15 - 1) = v17;
-        }
-
-        else
-        {
-          v4[3] = v16;
-          v15 = v4 + 4;
-        }
-      }
-
-      else
-      {
-        v4[2] = v14;
-        v15 = v4 + 3;
-      }
-
-      v4 = google::protobuf::UninterpretedOption::_InternalSerialize(v13, v15, a3);
-    }
-  }
-
-  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v4, a3);
-  v21 = *(this + 1);
-  if (v21)
-  {
-
-    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v21 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v20);
-  }
-
-  return result;
-}
-
-const InternalMetadata *google::protobuf::MessageOptions::ByteSizeLong(google::protobuf::MessageOptions *this)
-{
-  v2 = google::protobuf::internal::ExtensionSet::ByteSize((this + 16));
-  v6 = *(this + 14);
-  v7 = (v2 + 2 * v6);
-  v8 = *(this + 8);
-  if (v8)
-  {
-    v9 = (v8 + 8);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (v6)
-  {
-    v10 = 8 * v6;
-    do
-    {
-      v11 = *v9++;
-      v12 = google::protobuf::UninterpretedOption::ByteSizeLong(v11, v3, v4, v5);
-      v7 = (v7 + v12 + ((9 * (__clz(v12 | 1) ^ 0x1F) + 73) >> 6));
-      v10 -= 8;
-    }
-
-    while (v10);
-  }
-
-  if ((*(this + 10) & 0xF) != 0)
-  {
-    v13 = (v7 + 2 * (*(this + 10) & 1) + (*(this + 10) & 2) + ((*(this + 10) >> 1) & 2) + ((*(this + 10) >> 2) & 2));
-  }
-
-  else
-  {
-    v13 = v7;
-  }
-
-  if (*(this + 8))
-  {
-
-    return google::protobuf::internal::ComputeUnknownFieldsSize((this + 8), v13, this + 11, v5);
-  }
-
-  else
-  {
-    *(this + 11) = v13;
-    return v13;
-  }
-}
-
-void google::protobuf::MessageOptions::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
-{
-  v4 = **lpsrc;
-  if (v5)
-  {
-
-    google::protobuf::MessageOptions::MergeFrom(this, v5);
-  }
-
-  else
-  {
-
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
-  }
-}
-
-void google::protobuf::MessageOptions::CopyFrom(char **this, char **a2)
-{
-  if (a2 != this)
-  {
-    google::protobuf::MessageOptions::Clear(this);
-
-    google::protobuf::MessageOptions::MergeFrom(this, a2);
-  }
-}
-
-void google::protobuf::MessageOptions::CopyFrom(google::protobuf::MessageOptions *this, const google::protobuf::MessageOptions *a2)
-{
-  if (a2 != this)
-  {
-    google::protobuf::MessageOptions::Clear(this);
-
-    google::protobuf::MessageOptions::MergeFrom(this, a2);
-  }
-}
-
-__n128 google::protobuf::MessageOptions::InternalSwap(google::protobuf::MessageOptions *this, google::protobuf::MessageOptions *a2)
-{
-  google::protobuf::internal::ExtensionSet::Swap((this + 16), (a2 + 16));
-  sub_2769DF630(this + 1, a2 + 1);
-  v4 = *(this + 10);
-  *(this + 10) = *(a2 + 10);
-  *(a2 + 10) = v4;
-  v5 = *(this + 7);
-  v6 = *(this + 8);
-  result = *(a2 + 56);
-  *(this + 56) = result;
-  *(a2 + 7) = v5;
-  *(a2 + 8) = v6;
-  LODWORD(v5) = *(this + 18);
-  *(this + 18) = *(a2 + 18);
-  *(a2 + 18) = v5;
-  return result;
-}
-
-uint64_t google::protobuf::MessageOptions::GetMetadata(google::protobuf::MessageOptions *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[28];
-  v2 = off_2812FC738[29];
-  return result;
-}
-
-google::protobuf::FieldOptions *google::protobuf::FieldOptions::FieldOptions(google::protobuf::FieldOptions *this, Arena *a2)
-{
-  *this = &unk_2885C6BA0;
-  *(this + 1) = a2;
-  google::protobuf::internal::ExtensionSet::ExtensionSet(this + 16, a2);
-  *(this + 6) = a2;
-  *(this + 5) = 0;
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  if (atomic_load_explicit(scc_info_FieldOptions_google_2fprotobuf_2fdescriptor_2eproto, memory_order_acquire))
-  {
-    google::protobuf::internal::InitSCCImpl(scc_info_FieldOptions_google_2fprotobuf_2fdescriptor_2eproto);
-  }
-
-  *(this + 20) = 0;
-  *(this + 9) = 0;
-  return this;
-}
-
-void sub_276B41040(_Unwind_Exception *a1)
-{
-  sub_276B4AF6C(v2);
-  google::protobuf::internal::ExtensionSet::~ExtensionSet((v1 + 16));
-  _Unwind_Resume(a1);
-}
-
-google::protobuf::FieldOptions *google::protobuf::FieldOptions::FieldOptions(google::protobuf::FieldOptions *this, const google::protobuf::FieldOptions *a2)
-{
-  *(this + 1) = 0;
-  v4 = (this + 8);
-  *(this + 2) = 0;
-  v5 = (this + 16);
-  *this = &unk_2885C6BA0;
-  *(this + 6) = 0;
-  *(this + 4) = 0;
-  *(this + 10) = *(a2 + 10);
-  *(this + 17) = 0;
-  *(this + 52) = 0;
-  *(this + 60) = 0;
-  *(this + 44) = 0;
-  v6 = *(a2 + 14);
-  if (v6)
-  {
-    v7 = *(a2 + 8);
-    v8 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 48), *(a2 + 14));
-    sub_276B4AFF0(this + 6, v8, (v7 + 8), v6, **(this + 8) - *(this + 14));
-    v9 = *(this + 14) + v6;
-    *(this + 14) = v9;
-    v10 = *(this + 8);
-    if (*v10 < v9)
-    {
-      *v10 = v9;
-    }
-  }
-
-  v11 = *(a2 + 1);
-  if (v11)
-  {
-    sub_2769F63D8(v4, ((v11 & 0xFFFFFFFFFFFFFFFELL) + 8));
-  }
-
-  google::protobuf::internal::ExtensionSet::MergeFrom(v5, (a2 + 16));
-  v12 = *(a2 + 9);
-  *(this + 20) = *(a2 + 20);
-  *(this + 9) = v12;
-  return this;
-}
-
-void google::protobuf::FieldOptions::~FieldOptions(google::protobuf::FieldOptions *this)
-{
-  sub_2769DEC8C(this + 1);
-  sub_276B4AF6C(this + 6);
-  google::protobuf::internal::ExtensionSet::~ExtensionSet((this + 16));
-}
-
-{
-  google::protobuf::FieldOptions::~FieldOptions(this);
-
-  JUMPOUT(0x277C9F670);
-}
-
-void *google::protobuf::FieldOptions::default_instance(google::protobuf::FieldOptions *this)
-{
-  if (atomic_load_explicit(scc_info_FieldOptions_google_2fprotobuf_2fdescriptor_2eproto, memory_order_acquire))
-  {
-    google::protobuf::internal::InitSCCImpl(scc_info_FieldOptions_google_2fprotobuf_2fdescriptor_2eproto);
-  }
-
-  return &google::protobuf::_FieldOptions_default_instance_;
-}
-
-google::protobuf::internal *google::protobuf::FieldOptions::_InternalParse(google::protobuf::FieldOptions *this, google::protobuf::internal *a2, int32x2_t *a3)
-{
-  v52 = a2;
-  v6 = 0;
-  if ((sub_2769F6104(a3, &v52, a3[11].i32[1]) & 1) == 0)
-  {
-    while (1)
-    {
-      v8 = (v52 + 1);
-      LODWORD(v9) = *v52;
-      if ((*v52 & 0x80000000) == 0)
-      {
-        goto LABEL_6;
-      }
-
-      v9 = (v9 + (*v8 << 7) - 128);
-      if ((*v8 & 0x80000000) == 0)
-      {
-        break;
-      }
-
-      TagFallback = google::protobuf::internal::ReadTagFallback(v52, v9);
-      v52 = TagFallback;
-      if (!TagFallback)
-      {
-        goto LABEL_97;
-      }
-
-      v8 = TagFallback;
-LABEL_7:
-      v10 = v9 >> 3;
-      if (v9 >> 3 <= 4)
-      {
-        if (v10 == 1)
-        {
-          if (v9 == 8)
-          {
-            v28 = (v8 + 1);
-            v27 = *v8;
-            if ((v27 & 0x8000000000000000) == 0)
-            {
-              goto LABEL_51;
-            }
-
-            v29 = *v28;
-            v27 = (v29 << 7) + v27 - 128;
-            if (v29 < 0)
-            {
-              v52 = google::protobuf::internal::VarintParseSlow64(v8, v27);
-              if (!v52)
-              {
-                goto LABEL_97;
-              }
-            }
-
-            else
-            {
-              v28 = (v8 + 2);
-LABEL_51:
-              v52 = v28;
-            }
-
-            if (v27 > 2)
-            {
-              sub_276BD43CC(this + 1);
-            }
-
-            else
-            {
-              *(this + 10) |= 1u;
-              *(this + 18) = v27;
-            }
-
-            goto LABEL_79;
-          }
-
-LABEL_69:
-          if (v9)
-          {
-            v39 = (v9 & 7) == 4;
-          }
-
-          else
-          {
-            v39 = 1;
-          }
-
-          if (v39)
-          {
-            a3[10].i32[0] = v9 - 1;
-            goto LABEL_2;
-          }
-
-          v40 = v9;
-          if (v9 >> 6 < 0x7D)
-          {
-            v42 = *(this + 1);
-            if (v42)
-            {
-              v43 = ((v42 & 0xFFFFFFFFFFFFFFFELL) + 8);
-            }
-
-            else
-            {
-              v43 = sub_2769F617C(this + 1);
-              v8 = v52;
-            }
-
-            v41 = google::protobuf::internal::UnknownFieldParse(v40, v43, v8, a3, v5);
-          }
-
-          else
-          {
-            v41 = google::protobuf::internal::ExtensionSet::ParseField((this + 16), v9, v8, &google::protobuf::_FieldOptions_default_instance_, this + 1, a3);
-          }
-
-          v52 = v41;
-          if (!v41)
-          {
-LABEL_97:
-            v52 = 0;
-            goto LABEL_2;
-          }
-
-          goto LABEL_79;
-        }
-
-        if (v10 == 2)
-        {
-          if (v9 != 16)
-          {
-            goto LABEL_69;
-          }
-
-          v6 |= 2u;
-          v37 = (v8 + 1);
-          v36 = *v8;
-          if ((v36 & 0x8000000000000000) == 0)
-          {
-            goto LABEL_68;
-          }
-
-          v38 = *v37;
-          v36 = (v38 << 7) + v36 - 128;
-          if ((v38 & 0x80000000) == 0)
-          {
-            v37 = (v8 + 2);
-LABEL_68:
-            v52 = v37;
-            *(this + 76) = v36 != 0;
-            goto LABEL_79;
-          }
-
-          v50 = google::protobuf::internal::VarintParseSlow64(v8, v36);
-          v52 = v50;
-          *(this + 76) = v51 != 0;
-          if (!v50)
-          {
-            goto LABEL_97;
-          }
-        }
-
-        else
-        {
-          if (v10 != 3 || v9 != 24)
-          {
-            goto LABEL_69;
-          }
-
-          v6 |= 8u;
-          v16 = (v8 + 1);
-          v15 = *v8;
-          if ((v15 & 0x8000000000000000) == 0)
-          {
-            goto LABEL_28;
-          }
-
-          v17 = *v16;
-          v15 = (v17 << 7) + v15 - 128;
-          if ((v17 & 0x80000000) == 0)
-          {
-            v16 = (v8 + 2);
-LABEL_28:
-            v52 = v16;
-            *(this + 78) = v15 != 0;
-            goto LABEL_79;
-          }
-
-          v48 = google::protobuf::internal::VarintParseSlow64(v8, v15);
-          v52 = v48;
-          *(this + 78) = v49 != 0;
-          if (!v48)
-          {
-            goto LABEL_97;
-          }
-        }
-      }
-
-      else
-      {
-        if (v9 >> 3 > 9)
-        {
-          if (v10 == 10)
-          {
-            if (v9 != 80)
-            {
-              goto LABEL_69;
-            }
-
-            v6 |= 0x10u;
-            v34 = (v8 + 1);
-            v33 = *v8;
-            if ((v33 & 0x8000000000000000) == 0)
-            {
-              goto LABEL_63;
-            }
-
-            v35 = *v34;
-            v33 = (v35 << 7) + v33 - 128;
-            if ((v35 & 0x80000000) == 0)
-            {
-              v34 = (v8 + 2);
-LABEL_63:
-              v52 = v34;
-              *(this + 79) = v33 != 0;
-              goto LABEL_79;
-            }
-
-            v46 = google::protobuf::internal::VarintParseSlow64(v8, v33);
-            v52 = v46;
-            *(this + 79) = v47 != 0;
-            if (!v46)
-            {
-              goto LABEL_97;
-            }
-
-            goto LABEL_79;
-          }
-
-          if (v10 != 999 || v9 != 58)
-          {
-            goto LABEL_69;
-          }
-
-          v18 = (v8 - 2);
-          while (2)
-          {
-            v19 = (v18 + 2);
-            v52 = (v18 + 2);
-            v20 = *(this + 8);
-            if (!v20)
-            {
-              v21 = *(this + 15);
-              goto LABEL_35;
-            }
-
-            v25 = *(this + 14);
-            v21 = *v20;
-            if (v25 >= *v20)
-            {
-              if (v21 == *(this + 15))
-              {
-LABEL_35:
-                google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v21 + 1);
-                v20 = *(this + 8);
-                v21 = *v20;
-              }
-
-              *v20 = v21 + 1;
-              v22 = google::protobuf::Arena::CreateMaybeMessage<google::protobuf::UninterpretedOption>(*(this + 6));
-              v23 = *(this + 14);
-              v24 = *(this + 8) + 8 * v23;
-              *(this + 14) = v23 + 1;
-              *(v24 + 8) = v22;
-              v19 = v52;
-            }
-
-            else
-            {
-              *(this + 14) = v25 + 1;
-              v22 = *&v20[2 * v25 + 2];
-            }
-
-            v18 = sub_276BD7A4C(a3, v22, v19);
-            v52 = v18;
-            if (!v18)
-            {
-              goto LABEL_97;
-            }
-
-            if (*a3 <= v18 || *v18 != 16058)
-            {
-              goto LABEL_79;
-            }
-
-            continue;
-          }
-        }
-
-        if (v10 != 5)
-        {
-          if (v10 == 6 && v9 == 48)
-          {
-            v12 = (v8 + 1);
-            v11 = *v8;
-            if ((v11 & 0x8000000000000000) != 0)
-            {
-              v13 = *v12;
-              v11 = (v13 << 7) + v11 - 128;
-              if (v13 < 0)
-              {
-                v52 = google::protobuf::internal::VarintParseSlow64(v8, v11);
-                if (!v52)
-                {
-                  goto LABEL_97;
-                }
-
-                goto LABEL_16;
-              }
-
-              v12 = (v8 + 2);
-            }
-
-            v52 = v12;
-LABEL_16:
-            if (v11 > 2)
-            {
-              sub_276BD2ABC(this + 1);
-            }
-
-            else
-            {
-              *(this + 10) |= 0x20u;
-              *(this + 20) = v11;
-            }
-
-            goto LABEL_79;
-          }
-
-          goto LABEL_69;
-        }
-
-        if (v9 != 40)
-        {
-          goto LABEL_69;
-        }
-
-        v6 |= 4u;
-        v31 = (v8 + 1);
-        v30 = *v8;
-        if ((v30 & 0x8000000000000000) == 0)
-        {
-          goto LABEL_58;
-        }
-
-        v32 = *v31;
-        v30 = (v32 << 7) + v30 - 128;
-        if ((v32 & 0x80000000) == 0)
-        {
-          v31 = (v8 + 2);
-LABEL_58:
-          v52 = v31;
-          *(this + 77) = v30 != 0;
-          goto LABEL_79;
-        }
-
-        v44 = google::protobuf::internal::VarintParseSlow64(v8, v30);
-        v52 = v44;
-        *(this + 77) = v45 != 0;
-        if (!v44)
-        {
-          goto LABEL_97;
-        }
-      }
-
-LABEL_79:
-      if (sub_2769F6104(a3, &v52, a3[11].i32[1]))
-      {
-        goto LABEL_2;
-      }
-    }
-
-    v8 = (v52 + 2);
-LABEL_6:
-    v52 = v8;
-    goto LABEL_7;
-  }
-
-LABEL_2:
-  *(this + 10) |= v6;
-  return v52;
-}
-
-const google::protobuf::UnknownFieldSet *google::protobuf::FieldOptions::_InternalSerialize(google::protobuf::FieldOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
-{
-  v4 = a2;
-  v6 = *(this + 10);
-  if (v6)
-  {
-    if (*a3 <= a2)
-    {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    }
-
-    v19 = *(this + 18);
-    *v4 = 8;
-    if (v19 > 0x7F)
-    {
-      v4[1] = v19 | 0x80;
-      v20 = v19 >> 7;
-      if (v19 >> 14)
-      {
-        v4 += 3;
-        do
-        {
-          *(v4 - 1) = v20 | 0x80;
-          v21 = v20 >> 7;
-          ++v4;
-          v22 = v20 >> 14;
-          v20 >>= 7;
-        }
-
-        while (v22);
-        *(v4 - 1) = v21;
-        if ((v6 & 2) != 0)
-        {
-          goto LABEL_35;
-        }
-      }
-
-      else
-      {
-        v4[2] = v20;
-        v4 += 3;
-        if ((v6 & 2) != 0)
-        {
-          goto LABEL_35;
-        }
-      }
-    }
-
-    else
-    {
-      v4[1] = v19;
-      v4 += 2;
-      if ((v6 & 2) != 0)
-      {
-        goto LABEL_35;
-      }
-    }
-
-LABEL_3:
-    if ((v6 & 8) == 0)
-    {
-      goto LABEL_4;
-    }
-
-    goto LABEL_38;
-  }
-
-  if ((v6 & 2) == 0)
-  {
-    goto LABEL_3;
-  }
-
-LABEL_35:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v23 = *(this + 76);
-  *v4 = 16;
-  v4[1] = v23;
-  v4 += 2;
-  if ((v6 & 8) == 0)
-  {
-LABEL_4:
-    if ((v6 & 4) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_41;
-  }
-
-LABEL_38:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v24 = *(this + 78);
-  *v4 = 24;
-  v4[1] = v24;
-  v4 += 2;
-  if ((v6 & 4) == 0)
-  {
-LABEL_5:
-    if ((v6 & 0x20) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_44;
-  }
-
-LABEL_41:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v25 = *(this + 77);
-  *v4 = 40;
-  v4[1] = v25;
-  v4 += 2;
-  if ((v6 & 0x20) == 0)
-  {
-LABEL_6:
-    if ((v6 & 0x10) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_7;
-  }
-
-LABEL_44:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v26 = *(this + 20);
-  *v4 = 48;
-  if (v26 > 0x7F)
-  {
-    v4[1] = v26 | 0x80;
-    v27 = v26 >> 7;
-    if (v26 >> 14)
-    {
-      v4 += 3;
-      do
-      {
-        *(v4 - 1) = v27 | 0x80;
-        v28 = v27 >> 7;
-        ++v4;
-        v29 = v27 >> 14;
-        v27 >>= 7;
-      }
-
-      while (v29);
-      *(v4 - 1) = v28;
-      if ((v6 & 0x10) == 0)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      v4[2] = v27;
-      v4 += 3;
-      if ((v6 & 0x10) == 0)
-      {
-        goto LABEL_10;
-      }
-    }
-  }
-
-  else
-  {
-    v4[1] = v26;
-    v4 += 2;
-    if ((v6 & 0x10) == 0)
-    {
-      goto LABEL_10;
-    }
-  }
-
-LABEL_7:
-  if (*a3 <= v4)
-  {
-    v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-  }
-
-  v7 = *(this + 79);
-  *v4 = 80;
-  v4[1] = v7;
-  v4 += 2;
-LABEL_10:
-  v8 = *(this + 14);
-  if (v8)
-  {
-    for (i = 0; i != v8; ++i)
-    {
-      if (*a3 <= v4)
-      {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-      }
-
-      v10 = *(*(this + 8) + 8 * i + 8);
-      *v4 = 16058;
-      v11 = *(v10 + 5);
-      if (v11 > 0x7F)
-      {
-        v4[2] = v11 | 0x80;
-        v13 = v11 >> 7;
-        if (v11 >> 14)
-        {
-          v12 = v4 + 4;
-          do
-          {
-            *(v12 - 1) = v13 | 0x80;
-            v14 = v13 >> 7;
-            ++v12;
-            v15 = v13 >> 14;
-            v13 >>= 7;
-          }
-
-          while (v15);
-          *(v12 - 1) = v14;
-        }
-
-        else
-        {
-          v4[3] = v13;
-          v12 = v4 + 4;
-        }
-      }
-
-      else
-      {
-        v4[2] = v11;
-        v12 = v4 + 3;
-      }
-
-      v4 = google::protobuf::UninterpretedOption::_InternalSerialize(v10, v12, a3);
-    }
-  }
-
-  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v4, a3);
-  v18 = *(this + 1);
-  if (v18)
-  {
-
-    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v18 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v17);
-  }
-
-  return result;
-}
-
-const InternalMetadata *google::protobuf::FieldOptions::ByteSizeLong(google::protobuf::FieldOptions *this)
-{
-  v2 = google::protobuf::internal::ExtensionSet::ByteSize((this + 16));
-  v6 = *(this + 14);
-  v7 = (v2 + 2 * v6);
-  v8 = *(this + 8);
-  if (v8)
-  {
-    v9 = (v8 + 8);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (v6)
-  {
-    v10 = 8 * v6;
-    do
-    {
-      v11 = *v9++;
-      v12 = google::protobuf::UninterpretedOption::ByteSizeLong(v11, v3, v4, v5);
-      v7 = (v7 + v12 + ((9 * (__clz(v12 | 1) ^ 0x1F) + 73) >> 6));
-      v10 -= 8;
-    }
-
-    while (v10);
-  }
-
-  v13 = *(this + 10);
-  if ((v13 & 0x3F) != 0)
-  {
-    if (v13)
-    {
-      v14 = *(this + 18);
-      v15 = ((9 * (__clz(v14 | 1) ^ 0x1F) + 73) >> 6) + 1;
-      if (v14 >= 0)
-      {
-        v16 = v15;
-      }
-
-      else
-      {
-        v16 = 11;
-      }
-
-      v7 = (v7 + v16);
-    }
-
-    v7 = (v7 + ((*(this + 10) >> 1) & 2) + (*(this + 10) & 2) + ((*(this + 10) >> 2) & 2) + ((*(this + 10) >> 3) & 2u));
-    if ((v13 & 0x20) != 0)
-    {
-      v17 = *(this + 20);
-      v18 = ((9 * (__clz(v17 | 1) ^ 0x1F) + 73) >> 6) + 1;
-      if (v17 >= 0)
-      {
-        v19 = v18;
-      }
-
-      else
-      {
-        v19 = 11;
-      }
-
-      v7 = (v7 + v19);
-    }
-  }
-
-  if (*(this + 8))
-  {
-
-    return google::protobuf::internal::ComputeUnknownFieldsSize((this + 8), v7, this + 11, v5);
-  }
-
-  else
-  {
-    *(this + 11) = v7;
-    return v7;
-  }
-}
-
-void google::protobuf::FieldOptions::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
-{
-  v4 = **lpsrc;
-  if (v5)
-  {
-
-    google::protobuf::FieldOptions::MergeFrom(this, v5);
-  }
-
-  else
-  {
-
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
-  }
-}
-
-void google::protobuf::FieldOptions::CopyFrom(char **this, char **a2)
-{
-  if (a2 != this)
-  {
-    google::protobuf::FieldOptions::Clear(this);
-
-    google::protobuf::FieldOptions::MergeFrom(this, a2);
-  }
-}
-
-void google::protobuf::FieldOptions::CopyFrom(google::protobuf::FieldOptions *this, const google::protobuf::FieldOptions *a2)
-{
-  if (a2 != this)
-  {
-    google::protobuf::FieldOptions::Clear(this);
-
-    google::protobuf::FieldOptions::MergeFrom(this, a2);
-  }
-}
-
-__n128 google::protobuf::FieldOptions::InternalSwap(google::protobuf::FieldOptions *this, google::protobuf::FieldOptions *a2)
-{
-  google::protobuf::internal::ExtensionSet::Swap((this + 16), (a2 + 16));
-  sub_2769DF630(this + 1, a2 + 1);
-  v4 = *(this + 10);
-  *(this + 10) = *(a2 + 10);
-  *(a2 + 10) = v4;
-  v5 = *(this + 7);
-  v6 = *(this + 8);
-  result = *(a2 + 56);
-  *(this + 56) = result;
-  *(a2 + 7) = v5;
-  *(a2 + 8) = v6;
-  v8 = *(this + 9);
-  *(this + 9) = *(a2 + 9);
-  *(a2 + 9) = v8;
-  LODWORD(v8) = *(this + 20);
-  *(this + 20) = *(a2 + 20);
-  *(a2 + 20) = v8;
-  return result;
-}
-
-uint64_t google::protobuf::FieldOptions::GetMetadata(google::protobuf::FieldOptions *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[30];
-  v2 = off_2812FC738[31];
-  return result;
-}
-
-google::protobuf::OneofOptions *google::protobuf::OneofOptions::OneofOptions(google::protobuf::OneofOptions *this, Arena *a2)
-{
-  *this = &unk_2885C6C50;
-  *(this + 1) = a2;
-  google::protobuf::internal::ExtensionSet::ExtensionSet(this + 16, a2);
-  *(this + 5) = a2;
-  *(this + 6) = 0;
-  *(this + 7) = 0;
-  *(this + 16) = 0;
-  if (atomic_load_explicit(scc_info_OneofOptions_google_2fprotobuf_2fdescriptor_2eproto, memory_order_acquire))
-  {
-    google::protobuf::internal::InitSCCImpl(scc_info_OneofOptions_google_2fprotobuf_2fdescriptor_2eproto);
-  }
-
-  return this;
-}
-
-void sub_276B41E9C(_Unwind_Exception *a1)
-{
-  sub_276B4AF6C(v2);
-  google::protobuf::internal::ExtensionSet::~ExtensionSet((v1 + 16));
-  _Unwind_Resume(a1);
-}
-
-google::protobuf::OneofOptions *google::protobuf::OneofOptions::OneofOptions(google::protobuf::OneofOptions *this, const google::protobuf::OneofOptions *a2)
-{
-  *(this + 1) = 0;
-  v4 = (this + 8);
-  *(this + 2) = 0;
-  v5 = (this + 16);
-  *this = &unk_2885C6C50;
-  *(this + 6) = 0;
-  *(this + 2) = 0u;
-  *(this + 3) = 0u;
-  v6 = *(a2 + 12);
-  if (v6)
-  {
-    v7 = *(a2 + 7);
-    v8 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 40), *(a2 + 12));
-    sub_276B4AFF0(this + 5, v8, (v7 + 8), v6, **(this + 7) - *(this + 12));
-    v9 = *(this + 12) + v6;
-    *(this + 12) = v9;
-    v10 = *(this + 7);
-    if (*v10 < v9)
-    {
-      *v10 = v9;
-    }
-  }
-
-  *(this + 16) = 0;
-  v11 = *(a2 + 1);
-  if (v11)
-  {
-    sub_2769F63D8(v4, ((v11 & 0xFFFFFFFFFFFFFFFELL) + 8));
-  }
-
-  google::protobuf::internal::ExtensionSet::MergeFrom(v5, (a2 + 16));
-  return this;
-}
-
-void google::protobuf::OneofOptions::~OneofOptions(google::protobuf::OneofOptions *this)
-{
-  sub_2769DEC8C(this + 1);
-  sub_276B4AF6C(this + 5);
-  google::protobuf::internal::ExtensionSet::~ExtensionSet((this + 16));
-}
-
-{
-  google::protobuf::OneofOptions::~OneofOptions(this);
-
-  JUMPOUT(0x277C9F670);
-}
-
-void *google::protobuf::OneofOptions::default_instance(google::protobuf::OneofOptions *this)
-{
-  if (atomic_load_explicit(scc_info_OneofOptions_google_2fprotobuf_2fdescriptor_2eproto, memory_order_acquire))
-  {
-    google::protobuf::internal::InitSCCImpl(scc_info_OneofOptions_google_2fprotobuf_2fdescriptor_2eproto);
-  }
-
-  return &google::protobuf::_OneofOptions_default_instance_;
-}
-
-google::protobuf::internal *google::protobuf::OneofOptions::_InternalParse(google::protobuf::OneofOptions *this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
-{
-  v23 = a2;
-  if ((sub_2769F6104(a3, &v23, *(a3 + 23)) & 1) == 0)
-  {
-    while (1)
-    {
-      v6 = (v23 + 1);
-      LODWORD(v7) = *v23;
-      if ((*v23 & 0x80000000) == 0)
-      {
-        goto LABEL_5;
-      }
-
-      v7 = (v7 + (*v6 << 7) - 128);
-      if ((*v6 & 0x80000000) == 0)
-      {
-        break;
-      }
-
-      TagFallback = google::protobuf::internal::ReadTagFallback(v23, v7);
-      v23 = TagFallback;
-      if (!TagFallback)
-      {
-        return 0;
-      }
-
-      v6 = TagFallback;
-LABEL_6:
-      if (v7 == 7994)
-      {
-        v11 = (v6 - 2);
-        while (1)
-        {
-          v12 = (v11 + 2);
-          v23 = (v11 + 2);
-          v13 = *(this + 7);
-          if (!v13)
-          {
-            break;
-          }
-
-          v18 = *(this + 12);
-          v14 = *v13;
-          if (v18 < *v13)
-          {
-            *(this + 12) = v18 + 1;
-            v15 = *&v13[2 * v18 + 2];
-            goto LABEL_20;
-          }
-
-          if (v14 == *(this + 13))
-          {
-            goto LABEL_16;
-          }
-
-LABEL_17:
-          *v13 = v14 + 1;
-          v15 = google::protobuf::Arena::CreateMaybeMessage<google::protobuf::UninterpretedOption>(*(this + 5));
-          v16 = *(this + 12);
-          v17 = *(this + 7) + 8 * v16;
-          *(this + 12) = v16 + 1;
-          *(v17 + 8) = v15;
-          v12 = v23;
-LABEL_20:
-          v11 = sub_276BD7A4C(a3, v15, v12);
-          v23 = v11;
-          if (!v11)
-          {
-            return 0;
-          }
-
-          if (*a3 <= v11 || *v11 != 16058)
-          {
-            goto LABEL_30;
-          }
-        }
-
-        v14 = *(this + 13);
-LABEL_16:
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 10, v14 + 1);
-        v13 = *(this + 7);
-        v14 = *v13;
-        goto LABEL_17;
-      }
-
-      if (v7)
-      {
-        v8 = (v7 & 7) == 4;
-      }
-
-      else
-      {
-        v8 = 1;
-      }
-
-      if (v8)
-      {
-        *(a3 + 20) = v7 - 1;
-        return v23;
-      }
-
-      v9 = v7;
-      if (v7 >> 6 < 0x7D)
-      {
-        v19 = *(this + 1);
-        if (v19)
-        {
-          v20 = ((v19 & 0xFFFFFFFFFFFFFFFELL) + 8);
-        }
-
-        else
-        {
-          v20 = sub_2769F617C(this + 1);
-          v6 = v23;
-        }
-
-        v10 = google::protobuf::internal::UnknownFieldParse(v9, v20, v6, a3, v5);
-      }
-
-      else
-      {
-        v10 = google::protobuf::internal::ExtensionSet::ParseField((this + 16), v7, v6, &google::protobuf::_OneofOptions_default_instance_, this + 1, a3);
-      }
-
-      v23 = v10;
-      if (!v10)
-      {
-        return 0;
-      }
-
-LABEL_30:
-      if (sub_2769F6104(a3, &v23, *(a3 + 23)))
-      {
-        return v23;
-      }
-    }
-
-    v6 = (v23 + 2);
-LABEL_5:
-    v23 = v6;
-    goto LABEL_6;
-  }
-
-  return v23;
-}
-
-const google::protobuf::UnknownFieldSet *google::protobuf::OneofOptions::_InternalSerialize(google::protobuf::OneofOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
-{
-  v6 = *(this + 12);
-  if (v6)
-  {
-    for (i = 0; i != v6; ++i)
-    {
-      if (*a3 <= a2)
-      {
-        a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-      }
-
-      v8 = *(*(this + 7) + 8 * i + 8);
-      *a2 = 16058;
-      v9 = *(v8 + 5);
-      if (v9 > 0x7F)
-      {
-        a2[2] = v9 | 0x80;
-        v11 = v9 >> 7;
-        if (v9 >> 14)
-        {
-          v10 = a2 + 4;
-          do
-          {
-            *(v10 - 1) = v11 | 0x80;
-            v12 = v11 >> 7;
-            ++v10;
-            v13 = v11 >> 14;
-            v11 >>= 7;
-          }
-
-          while (v13);
-          *(v10 - 1) = v12;
-        }
-
-        else
-        {
-          a2[3] = v11;
-          v10 = a2 + 4;
-        }
-      }
-
-      else
-      {
-        a2[2] = v9;
-        v10 = a2 + 3;
-      }
-
-      a2 = google::protobuf::UninterpretedOption::_InternalSerialize(v8, v10, a3);
-    }
-  }
-
-  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, a2, a3);
-  v16 = *(this + 1);
-  if (v16)
-  {
-
-    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v16 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v15);
-  }
-
-  return result;
-}
-
 const InternalMetadata *google::protobuf::OneofOptions::ByteSizeLong(google::protobuf::OneofOptions *this)
 {
   v2 = google::protobuf::internal::ExtensionSet::ByteSize((this + 16));
@@ -1480,23 +41,22 @@ const InternalMetadata *google::protobuf::OneofOptions::ByteSizeLong(google::pro
   }
 }
 
-void google::protobuf::OneofOptions::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
+void google::protobuf::OneofOptions::MergeFrom(google::protobuf::OneofOptions *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::OneofOptions::MergeFrom(this, v5);
+    google::protobuf::OneofOptions::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
-void google::protobuf::OneofOptions::CopyFrom(char **this, char **a2)
+void google::protobuf::OneofOptions::CopyFrom(google::protobuf::OneofOptions *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -1516,24 +76,16 @@ void google::protobuf::OneofOptions::CopyFrom(google::protobuf::OneofOptions *th
   }
 }
 
-__n128 google::protobuf::OneofOptions::InternalSwap(__n128 *this, google::protobuf::Arena **a2)
+__n128 google::protobuf::OneofOptions::InternalSwap(__n128 *this, __n128 *a2)
 {
-  google::protobuf::internal::ExtensionSet::Swap(&this[1], (a2 + 2));
-  sub_2769DF630(&this->n128_i64[1], a2 + 1);
+  google::protobuf::internal::ExtensionSet::Swap(&this[1], &a2[1]);
+  sub_2769DF630(&this->n128_i64[1], &a2->n128_u64[1]);
   v4 = this[3].n128_u64[0];
   v5 = this[3].n128_u64[1];
-  result = *(a2 + 3);
+  result = a2[3];
   this[3] = result;
-  a2[6] = v4;
-  a2[7] = v5;
-  return result;
-}
-
-uint64_t google::protobuf::OneofOptions::GetMetadata(google::protobuf::OneofOptions *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[32];
-  v2 = off_2812FC738[33];
+  a2[3].n128_u64[0] = v4;
+  a2[3].n128_u64[1] = v5;
   return result;
 }
 
@@ -1730,7 +282,7 @@ LABEL_56:
             if (v21 == *(this + 15))
             {
 LABEL_28:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v21 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v21 + 1);
               v20 = *(this + 8);
               v21 = *v20;
             }
@@ -1854,92 +406,92 @@ LABEL_2:
   return v36;
 }
 
-const google::protobuf::UnknownFieldSet *google::protobuf::EnumOptions::_InternalSerialize(google::protobuf::EnumOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+const google::protobuf::UnknownFieldSet *google::protobuf::EnumOptions::_InternalSerialize(google::protobuf::EnumOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3, __n128 a4)
 {
-  v4 = a2;
-  v6 = *(this + 10);
-  if (v6)
+  v5 = a2;
+  v7 = *(this + 10);
+  if (v7)
   {
     if (*a3 <= a2)
     {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
+      v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
     }
 
-    v7 = *(this + 72);
-    *v4 = 16;
-    v4[1] = v7;
-    v4 += 2;
+    v8 = *(this + 72);
+    *v5 = 16;
+    v5[1] = v8;
+    v5 += 2;
   }
 
-  if ((v6 & 2) != 0)
+  if ((v7 & 2) != 0)
   {
-    if (*a3 <= v4)
+    if (*a3 <= v5)
     {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
+      v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v5);
     }
 
-    v8 = *(this + 73);
-    *v4 = 24;
-    v4[1] = v8;
-    v4 += 2;
+    v9 = *(this + 73);
+    *v5 = 24;
+    v5[1] = v9;
+    v5 += 2;
   }
 
-  v9 = *(this + 14);
-  if (v9)
+  v10 = *(this + 14);
+  if (v10)
   {
-    for (i = 0; i != v9; ++i)
+    for (i = 0; i != v10; ++i)
     {
-      if (*a3 <= v4)
+      if (*a3 <= v5)
       {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
+        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v5);
       }
 
-      v11 = *(*(this + 8) + 8 * i + 8);
-      *v4 = 16058;
-      v12 = *(v11 + 5);
-      if (v12 > 0x7F)
+      v12 = *(*(this + 8) + 8 * i + 8);
+      *v5 = 16058;
+      v13 = *(v12 + 5);
+      if (v13 > 0x7F)
       {
-        v4[2] = v12 | 0x80;
-        v14 = v12 >> 7;
-        if (v12 >> 14)
+        v5[2] = v13 | 0x80;
+        v15 = v13 >> 7;
+        if (v13 >> 14)
         {
-          v13 = v4 + 4;
+          v14 = v5 + 4;
           do
           {
-            *(v13 - 1) = v14 | 0x80;
-            v15 = v14 >> 7;
-            ++v13;
-            v16 = v14 >> 14;
-            v14 >>= 7;
+            *(v14 - 1) = v15 | 0x80;
+            v16 = v15 >> 7;
+            ++v14;
+            v17 = v15 >> 14;
+            v15 >>= 7;
           }
 
-          while (v16);
-          *(v13 - 1) = v15;
+          while (v17);
+          *(v14 - 1) = v16;
         }
 
         else
         {
-          v4[3] = v14;
-          v13 = v4 + 4;
+          v5[3] = v15;
+          v14 = v5 + 4;
         }
       }
 
       else
       {
-        v4[2] = v12;
-        v13 = v4 + 3;
+        v5[2] = v13;
+        v14 = v5 + 3;
       }
 
-      v4 = google::protobuf::UninterpretedOption::_InternalSerialize(v11, v13, a3);
+      v5 = google::protobuf::UninterpretedOption::_InternalSerialize(v12, v14, a3);
     }
   }
 
-  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v4, a3);
-  v19 = *(this + 1);
-  if (v19)
+  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v5, a3, a4);
+  v20 = *(this + 1);
+  if (v20)
   {
 
-    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v19 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v18);
+    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v20 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v19);
   }
 
   return result;
@@ -1998,23 +550,22 @@ const InternalMetadata *google::protobuf::EnumOptions::ByteSizeLong(google::prot
   }
 }
 
-void google::protobuf::EnumOptions::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
+void google::protobuf::EnumOptions::MergeFrom(google::protobuf::EnumOptions *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::EnumOptions::MergeFrom(this, v5);
+    google::protobuf::EnumOptions::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
-void google::protobuf::EnumOptions::CopyFrom(char **this, char **a2)
+void google::protobuf::EnumOptions::CopyFrom(google::protobuf::EnumOptions *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -2050,14 +601,6 @@ __n128 google::protobuf::EnumOptions::InternalSwap(google::protobuf::EnumOptions
   LOWORD(v5) = *(this + 36);
   *(this + 36) = *(a2 + 36);
   *(a2 + 36) = v5;
-  return result;
-}
-
-uint64_t google::protobuf::EnumOptions::GetMetadata(google::protobuf::EnumOptions *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[34];
-  v2 = off_2812FC738[35];
   return result;
 }
 
@@ -2253,7 +796,7 @@ LABEL_48:
             if (v17 == *(this + 15))
             {
 LABEL_22:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v17 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v17 + 1);
               v16 = *(this + 8);
               v17 = *v16;
             }
@@ -2340,78 +883,78 @@ LABEL_2:
   return v30;
 }
 
-const google::protobuf::UnknownFieldSet *google::protobuf::EnumValueOptions::_InternalSerialize(google::protobuf::EnumValueOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+const google::protobuf::UnknownFieldSet *google::protobuf::EnumValueOptions::_InternalSerialize(google::protobuf::EnumValueOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3, __n128 a4)
 {
-  v4 = a2;
+  v5 = a2;
   if (*(this + 40))
   {
     if (*a3 <= a2)
     {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
+      v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
     }
 
-    v6 = *(this + 72);
-    *v4 = 8;
-    v4[1] = v6;
-    v4 += 2;
+    v7 = *(this + 72);
+    *v5 = 8;
+    v5[1] = v7;
+    v5 += 2;
   }
 
-  v7 = *(this + 14);
-  if (v7)
+  v8 = *(this + 14);
+  if (v8)
   {
-    for (i = 0; i != v7; ++i)
+    for (i = 0; i != v8; ++i)
     {
-      if (*a3 <= v4)
+      if (*a3 <= v5)
       {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
+        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v5);
       }
 
-      v9 = *(*(this + 8) + 8 * i + 8);
-      *v4 = 16058;
-      v10 = *(v9 + 5);
-      if (v10 > 0x7F)
+      v10 = *(*(this + 8) + 8 * i + 8);
+      *v5 = 16058;
+      v11 = *(v10 + 5);
+      if (v11 > 0x7F)
       {
-        v4[2] = v10 | 0x80;
-        v12 = v10 >> 7;
-        if (v10 >> 14)
+        v5[2] = v11 | 0x80;
+        v13 = v11 >> 7;
+        if (v11 >> 14)
         {
-          v11 = v4 + 4;
+          v12 = v5 + 4;
           do
           {
-            *(v11 - 1) = v12 | 0x80;
-            v13 = v12 >> 7;
-            ++v11;
-            v14 = v12 >> 14;
-            v12 >>= 7;
+            *(v12 - 1) = v13 | 0x80;
+            v14 = v13 >> 7;
+            ++v12;
+            v15 = v13 >> 14;
+            v13 >>= 7;
           }
 
-          while (v14);
-          *(v11 - 1) = v13;
+          while (v15);
+          *(v12 - 1) = v14;
         }
 
         else
         {
-          v4[3] = v12;
-          v11 = v4 + 4;
+          v5[3] = v13;
+          v12 = v5 + 4;
         }
       }
 
       else
       {
-        v4[2] = v10;
-        v11 = v4 + 3;
+        v5[2] = v11;
+        v12 = v5 + 3;
       }
 
-      v4 = google::protobuf::UninterpretedOption::_InternalSerialize(v9, v11, a3);
+      v5 = google::protobuf::UninterpretedOption::_InternalSerialize(v10, v12, a3);
     }
   }
 
-  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v4, a3);
-  v17 = *(this + 1);
-  if (v17)
+  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v5, a3, a4);
+  v18 = *(this + 1);
+  if (v18)
   {
 
-    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v17 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v16);
+    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v18 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v17);
   }
 
   return result;
@@ -2462,23 +1005,22 @@ uint64_t google::protobuf::EnumValueOptions::ByteSizeLong(google::protobuf::Enum
   }
 }
 
-void google::protobuf::EnumValueOptions::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
+void google::protobuf::EnumValueOptions::MergeFrom(google::protobuf::EnumValueOptions *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::EnumValueOptions::MergeFrom(this, v5);
+    google::protobuf::EnumValueOptions::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
-void google::protobuf::EnumValueOptions::CopyFrom(char **this, char **a2)
+void google::protobuf::EnumValueOptions::CopyFrom(google::protobuf::EnumValueOptions *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -2514,14 +1056,6 @@ __n128 google::protobuf::EnumValueOptions::InternalSwap(google::protobuf::EnumVa
   LOBYTE(v5) = *(this + 72);
   *(this + 72) = *(a2 + 72);
   *(a2 + 72) = v5;
-  return result;
-}
-
-uint64_t google::protobuf::EnumValueOptions::GetMetadata(google::protobuf::EnumValueOptions *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[36];
-  v2 = off_2812FC738[37];
   return result;
 }
 
@@ -2717,7 +1251,7 @@ LABEL_48:
             if (v17 == *(this + 15))
             {
 LABEL_22:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v17 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v17 + 1);
               v16 = *(this + 8);
               v17 = *v16;
             }
@@ -2804,78 +1338,78 @@ LABEL_2:
   return v30;
 }
 
-const google::protobuf::UnknownFieldSet *google::protobuf::ServiceOptions::_InternalSerialize(google::protobuf::ServiceOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+const google::protobuf::UnknownFieldSet *google::protobuf::ServiceOptions::_InternalSerialize(google::protobuf::ServiceOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3, __n128 a4)
 {
-  v4 = a2;
+  v5 = a2;
   if (*(this + 40))
   {
     if (*a3 <= a2)
     {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
+      v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
     }
 
-    v6 = *(this + 72);
-    *v4 = 648;
-    v4[2] = v6;
-    v4 += 3;
+    v7 = *(this + 72);
+    *v5 = 648;
+    v5[2] = v7;
+    v5 += 3;
   }
 
-  v7 = *(this + 14);
-  if (v7)
+  v8 = *(this + 14);
+  if (v8)
   {
-    for (i = 0; i != v7; ++i)
+    for (i = 0; i != v8; ++i)
     {
-      if (*a3 <= v4)
+      if (*a3 <= v5)
       {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
+        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v5);
       }
 
-      v9 = *(*(this + 8) + 8 * i + 8);
-      *v4 = 16058;
-      v10 = *(v9 + 5);
-      if (v10 > 0x7F)
+      v10 = *(*(this + 8) + 8 * i + 8);
+      *v5 = 16058;
+      v11 = *(v10 + 5);
+      if (v11 > 0x7F)
       {
-        v4[2] = v10 | 0x80;
-        v12 = v10 >> 7;
-        if (v10 >> 14)
+        v5[2] = v11 | 0x80;
+        v13 = v11 >> 7;
+        if (v11 >> 14)
         {
-          v11 = v4 + 4;
+          v12 = v5 + 4;
           do
           {
-            *(v11 - 1) = v12 | 0x80;
-            v13 = v12 >> 7;
-            ++v11;
-            v14 = v12 >> 14;
-            v12 >>= 7;
+            *(v12 - 1) = v13 | 0x80;
+            v14 = v13 >> 7;
+            ++v12;
+            v15 = v13 >> 14;
+            v13 >>= 7;
           }
 
-          while (v14);
-          *(v11 - 1) = v13;
+          while (v15);
+          *(v12 - 1) = v14;
         }
 
         else
         {
-          v4[3] = v12;
-          v11 = v4 + 4;
+          v5[3] = v13;
+          v12 = v5 + 4;
         }
       }
 
       else
       {
-        v4[2] = v10;
-        v11 = v4 + 3;
+        v5[2] = v11;
+        v12 = v5 + 3;
       }
 
-      v4 = google::protobuf::UninterpretedOption::_InternalSerialize(v9, v11, a3);
+      v5 = google::protobuf::UninterpretedOption::_InternalSerialize(v10, v12, a3);
     }
   }
 
-  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v4, a3);
-  v17 = *(this + 1);
-  if (v17)
+  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v5, a3, a4);
+  v18 = *(this + 1);
+  if (v18)
   {
 
-    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v17 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v16);
+    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v18 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v17);
   }
 
   return result;
@@ -2934,23 +1468,22 @@ const InternalMetadata *google::protobuf::ServiceOptions::ByteSizeLong(google::p
   }
 }
 
-void google::protobuf::ServiceOptions::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
+void google::protobuf::ServiceOptions::MergeFrom(google::protobuf::ServiceOptions *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::ServiceOptions::MergeFrom(this, v5);
+    google::protobuf::ServiceOptions::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
-void google::protobuf::ServiceOptions::CopyFrom(char **this, char **a2)
+void google::protobuf::ServiceOptions::CopyFrom(google::protobuf::ServiceOptions *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -2986,14 +1519,6 @@ __n128 google::protobuf::ServiceOptions::InternalSwap(google::protobuf::ServiceO
   LOBYTE(v5) = *(this + 72);
   *(this + 72) = *(a2 + 72);
   *(a2 + 72) = v5;
-  return result;
-}
-
-uint64_t google::protobuf::ServiceOptions::GetMetadata(google::protobuf::ServiceOptions *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[38];
-  v2 = off_2812FC738[39];
   return result;
 }
 
@@ -3142,7 +1667,7 @@ LABEL_7:
             if (v21 == *(this + 15))
             {
 LABEL_30:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v21 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v21 + 1);
               v20 = *(this + 8);
               v21 = *v20;
             }
@@ -3209,7 +1734,7 @@ LABEL_23:
 
           if (v15 > 2)
           {
-            sub_276BD8518(this + 1);
+            sub_276BD8518();
           }
 
           else
@@ -3323,122 +1848,122 @@ LABEL_2:
   return v34;
 }
 
-const google::protobuf::UnknownFieldSet *google::protobuf::MethodOptions::_InternalSerialize(google::protobuf::MethodOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+const google::protobuf::UnknownFieldSet *google::protobuf::MethodOptions::_InternalSerialize(google::protobuf::MethodOptions *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3, __n128 a4)
 {
-  v4 = a2;
-  v6 = *(this + 10);
-  if (v6)
+  v5 = a2;
+  v7 = *(this + 10);
+  if (v7)
   {
     if (*a3 <= a2)
     {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
+      v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
     }
 
-    v7 = *(this + 72);
-    *v4 = 648;
-    v4[2] = v7;
-    v4 += 3;
+    v8 = *(this + 72);
+    *v5 = 648;
+    v5[2] = v8;
+    v5 += 3;
   }
 
-  if ((v6 & 2) != 0)
+  if ((v7 & 2) != 0)
   {
-    if (*a3 <= v4)
+    if (*a3 <= v5)
     {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
+      v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v5);
     }
 
-    v8 = *(this + 19);
-    *v4 = 656;
-    if (v8 > 0x7F)
+    v9 = *(this + 19);
+    *v5 = 656;
+    if (v9 > 0x7F)
     {
-      v4[2] = v8 | 0x80;
-      v9 = v8 >> 7;
-      if (v8 >> 14)
+      v5[2] = v9 | 0x80;
+      v10 = v9 >> 7;
+      if (v9 >> 14)
       {
-        v4 += 4;
+        v5 += 4;
         do
         {
-          *(v4 - 1) = v9 | 0x80;
-          v10 = v9 >> 7;
-          ++v4;
-          v11 = v9 >> 14;
-          v9 >>= 7;
+          *(v5 - 1) = v10 | 0x80;
+          v11 = v10 >> 7;
+          ++v5;
+          v12 = v10 >> 14;
+          v10 >>= 7;
         }
 
-        while (v11);
-        *(v4 - 1) = v10;
+        while (v12);
+        *(v5 - 1) = v11;
       }
 
       else
       {
-        v4[3] = v9;
-        v4 += 4;
+        v5[3] = v10;
+        v5 += 4;
       }
     }
 
     else
     {
-      v4[2] = v8;
-      v4 += 3;
+      v5[2] = v9;
+      v5 += 3;
     }
   }
 
-  v12 = *(this + 14);
-  if (v12)
+  v13 = *(this + 14);
+  if (v13)
   {
-    for (i = 0; i != v12; ++i)
+    for (i = 0; i != v13; ++i)
     {
-      if (*a3 <= v4)
+      if (*a3 <= v5)
       {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
+        v5 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v5);
       }
 
-      v14 = *(*(this + 8) + 8 * i + 8);
-      *v4 = 16058;
-      v15 = *(v14 + 5);
-      if (v15 > 0x7F)
+      v15 = *(*(this + 8) + 8 * i + 8);
+      *v5 = 16058;
+      v16 = *(v15 + 5);
+      if (v16 > 0x7F)
       {
-        v4[2] = v15 | 0x80;
-        v17 = v15 >> 7;
-        if (v15 >> 14)
+        v5[2] = v16 | 0x80;
+        v18 = v16 >> 7;
+        if (v16 >> 14)
         {
-          v16 = v4 + 4;
+          v17 = v5 + 4;
           do
           {
-            *(v16 - 1) = v17 | 0x80;
-            v18 = v17 >> 7;
-            ++v16;
-            v19 = v17 >> 14;
-            v17 >>= 7;
+            *(v17 - 1) = v18 | 0x80;
+            v19 = v18 >> 7;
+            ++v17;
+            v20 = v18 >> 14;
+            v18 >>= 7;
           }
 
-          while (v19);
-          *(v16 - 1) = v18;
+          while (v20);
+          *(v17 - 1) = v19;
         }
 
         else
         {
-          v4[3] = v17;
-          v16 = v4 + 4;
+          v5[3] = v18;
+          v17 = v5 + 4;
         }
       }
 
       else
       {
-        v4[2] = v15;
-        v16 = v4 + 3;
+        v5[2] = v16;
+        v17 = v5 + 3;
       }
 
-      v4 = google::protobuf::UninterpretedOption::_InternalSerialize(v14, v16, a3);
+      v5 = google::protobuf::UninterpretedOption::_InternalSerialize(v15, v17, a3);
     }
   }
 
-  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v4, a3);
-  v22 = *(this + 1);
-  if (v22)
+  result = google::protobuf::internal::ExtensionSet::_InternalSerialize((this + 16), 1000, 0x20000000, v5, a3, a4);
+  v23 = *(this + 1);
+  if (v23)
   {
 
-    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v22 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v21);
+    return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v23 & 0xFFFFFFFFFFFFFFFELL) + 8), result, a3, v22);
   }
 
   return result;
@@ -3513,23 +2038,22 @@ const InternalMetadata *google::protobuf::MethodOptions::ByteSizeLong(google::pr
   }
 }
 
-void google::protobuf::MethodOptions::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
+void google::protobuf::MethodOptions::MergeFrom(google::protobuf::MethodOptions *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::MethodOptions::MergeFrom(this, v5);
+    google::protobuf::MethodOptions::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
-void google::protobuf::MethodOptions::CopyFrom(char **this, char **a2)
+void google::protobuf::MethodOptions::CopyFrom(google::protobuf::MethodOptions *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -3565,14 +2089,6 @@ __n128 google::protobuf::MethodOptions::InternalSwap(google::protobuf::MethodOpt
   v8 = *(this + 9);
   *(this + 9) = *(a2 + 9);
   *(a2 + 9) = v8;
-  return result;
-}
-
-uint64_t google::protobuf::MethodOptions::GetMetadata(google::protobuf::MethodOptions *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[40];
-  v2 = off_2812FC738[41];
   return result;
 }
 
@@ -3913,19 +2429,18 @@ const InternalMetadata *google::protobuf::UninterpretedOption_NamePart::ByteSize
   }
 }
 
-void google::protobuf::UninterpretedOption_NamePart::MergeFrom(google::protobuf::UninterpretedOption_NamePart *this, char **lpsrc)
+void google::protobuf::UninterpretedOption_NamePart::MergeFrom(google::protobuf::UninterpretedOption_NamePart *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::UninterpretedOption_NamePart::MergeFrom(this, v5);
+    google::protobuf::UninterpretedOption_NamePart::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -3965,7 +2480,7 @@ void *google::protobuf::UninterpretedOption_NamePart::MergeFrom(void *this, cons
   return this;
 }
 
-void google::protobuf::UninterpretedOption_NamePart::CopyFrom(char **this, char **a2)
+void google::protobuf::UninterpretedOption_NamePart::CopyFrom(google::protobuf::UninterpretedOption_NamePart *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -3988,26 +2503,18 @@ google::protobuf::UninterpretedOption_NamePart *google::protobuf::UninterpretedO
   return this;
 }
 
-uint64_t *google::protobuf::UninterpretedOption_NamePart::InternalSwap(google::protobuf::UninterpretedOption_NamePart *this, google::protobuf::Arena **a2)
+uint64_t *google::protobuf::UninterpretedOption_NamePart::InternalSwap(google::protobuf::UninterpretedOption_NamePart *this, google::protobuf::UninterpretedOption_NamePart *a2)
 {
   result = sub_2769DF630(this + 1, a2 + 1);
   v5 = *(this + 4);
   *(this + 4) = *(a2 + 4);
   *(a2 + 4) = v5;
   v6 = *(this + 3);
-  *(this + 3) = a2[3];
-  a2[3] = v6;
+  *(this + 3) = *(a2 + 3);
+  *(a2 + 3) = v6;
   LOBYTE(v6) = *(this + 32);
   *(this + 32) = *(a2 + 32);
   *(a2 + 32) = v6;
-  return result;
-}
-
-uint64_t google::protobuf::UninterpretedOption_NamePart::GetMetadata(google::protobuf::UninterpretedOption_NamePart *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[42];
-  v2 = off_2812FC738[43];
   return result;
 }
 
@@ -4179,10 +2686,10 @@ google::protobuf::UnknownFieldSet *google::protobuf::UninterpretedOption::Clear(
     }
 
     while (v2);
-    *(v1 + 32) = 0;
+    *(v1 + 8) = 0;
   }
 
-  v5 = *(v1 + 16);
+  v5 = *(v1 + 4);
   if ((v5 & 7) != 0)
   {
     if ((v5 & 1) == 0)
@@ -4193,7 +2700,7 @@ google::protobuf::UnknownFieldSet *google::protobuf::UninterpretedOption::Clear(
       }
 
 LABEL_14:
-      v7 = *(v1 + 56) & 0xFFFFFFFFFFFFFFFELL;
+      v7 = *(v1 + 7) & 0xFFFFFFFFFFFFFFFELL;
       if (*(v7 + 23) < 0)
       {
         **v7 = 0;
@@ -4217,7 +2724,7 @@ LABEL_14:
       goto LABEL_18;
     }
 
-    v6 = *(v1 + 48) & 0xFFFFFFFFFFFFFFFELL;
+    v6 = *(v1 + 6) & 0xFFFFFFFFFFFFFFFELL;
     if (*(v6 + 23) < 0)
     {
       **v6 = 0;
@@ -4245,7 +2752,7 @@ LABEL_8:
     }
 
 LABEL_18:
-    v8 = *(v1 + 64) & 0xFFFFFFFFFFFFFFFELL;
+    v8 = *(v1 + 8) & 0xFFFFFFFFFFFFFFFELL;
     if (*(v8 + 23) < 0)
     {
       **v8 = 0;
@@ -4262,14 +2769,14 @@ LABEL_18:
 LABEL_21:
   if ((v5 & 0x38) != 0)
   {
-    *(v1 + 72) = 0;
-    *(v1 + 80) = 0;
-    *(v1 + 88) = 0;
+    *(v1 + 9) = 0;
+    *(v1 + 10) = 0;
+    *(v1 + 11) = 0;
   }
 
   v10 = *(v1 + 8);
   v9 = v1 + 8;
-  *(v9 + 8) = 0;
+  *(v9 + 2) = 0;
   if (v10)
   {
 
@@ -4340,7 +2847,7 @@ LABEL_7:
               if (v22 == *(this + 9))
               {
 LABEL_33:
-                google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v22 + 1);
+                google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v22 + 1);
                 v21 = *(this + 5);
                 v22 = *v21;
               }
@@ -4936,19 +3443,18 @@ LABEL_18:
   }
 }
 
-void google::protobuf::UninterpretedOption::MergeFrom(google::protobuf::UninterpretedOption *this, char **lpsrc)
+void google::protobuf::UninterpretedOption::MergeFrom(google::protobuf::UninterpretedOption *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::UninterpretedOption::MergeFrom(this, v5);
+    google::protobuf::UninterpretedOption::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -5078,7 +3584,7 @@ LABEL_26:
   return this;
 }
 
-void google::protobuf::UninterpretedOption::CopyFrom(char **this, char **a2)
+void google::protobuf::UninterpretedOption::CopyFrom(google::protobuf::UnknownFieldSet *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -5148,14 +3654,6 @@ __n128 google::protobuf::UninterpretedOption::InternalSwap(google::protobuf::Uni
   v13 = *(this + 11);
   *(this + 11) = *(a2 + 11);
   *(a2 + 11) = v13;
-  return result;
-}
-
-uint64_t google::protobuf::UninterpretedOption::GetMetadata(google::protobuf::UninterpretedOption *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[44];
-  v2 = off_2812FC738[45];
   return result;
 }
 
@@ -5414,144 +3912,144 @@ google::protobuf::internal *google::protobuf::SourceCodeInfo_Location::_Internal
       return v31;
     }
 
-    v8 = (v31 + 1);
-    v9 = *v31;
+    v9 = (v31 + 1);
+    v10 = *v31;
     if ((*v31 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v10 = v9 + (*v8 << 7);
-    v9 = v10 - 128;
-    if ((*v8 & 0x80000000) == 0)
+    v11 = v10 + (*v9 << 7);
+    v10 = v11 - 128;
+    if ((*v9 & 0x80000000) == 0)
     {
-      v8 = (v31 + 2);
+      v9 = (v31 + 2);
 LABEL_6:
-      v31 = v8;
+      v31 = v9;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v31, (v10 - 128));
+    TagFallback = google::protobuf::internal::ReadTagFallback(v31, (v11 - 128));
     v31 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v8 = TagFallback;
-    v9 = v26;
+    v9 = TagFallback;
+    v10 = v6;
 LABEL_7:
-    v11 = v9 >> 3;
-    if (v9 >> 3 > 2)
+    v12 = v10 >> 3;
+    if (v10 >> 3 > 2)
     {
-      if (v11 == 3)
+      if (v12 == 3)
       {
-        if (v9 != 26)
+        if (v10 != 26)
         {
           goto LABEL_46;
         }
 
         *(this + 4) |= 1u;
-        v21 = *(this + 1);
-        if (v21)
+        v22 = *(this + 1);
+        if (v22)
         {
-          v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
+          v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v22 = (this + 96);
+        v23 = (this + 96);
       }
 
       else
       {
-        if (v11 != 4)
+        if (v12 != 4)
         {
-          if (v11 == 6 && v9 == 50)
+          if (v12 == 6 && v10 == 50)
           {
-            v12 = v8 - 1;
+            v13 = v9 - 1;
             while (1)
             {
-              v13 = (v12 + 1);
-              v31 = (v12 + 1);
-              v14 = *(this + 11);
-              if (!v14)
+              v14 = (v13 + 1);
+              v31 = (v13 + 1);
+              v15 = *(this + 11);
+              if (!v15)
               {
                 break;
               }
 
-              v15 = *(this + 20);
-              v16 = *v14;
-              if (v15 >= *v14)
+              v16 = *(this + 20);
+              v17 = *v15;
+              if (v16 >= *v15)
               {
-                if (v16 == *(this + 21))
+                if (v17 == *(this + 21))
                 {
 LABEL_18:
-                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 18, v16 + 1);
-                  v14 = *(this + 11);
-                  v16 = *v14;
+                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 72), v17 + 1);
+                  v15 = *(this + 11);
+                  v17 = *v15;
                 }
 
-                *v14 = v16 + 1;
-                v17 = sub_2769C64F4(*(this + 9));
-                v18 = *(this + 20);
-                v19 = *(this + 11) + 8 * v18;
-                *(this + 20) = v18 + 1;
-                *(v19 + 8) = v17;
-                v13 = v31;
+                *v15 = v17 + 1;
+                v18 = sub_2769C64F4(*(this + 9));
+                v19 = *(this + 20);
+                v20 = *(this + 11) + 8 * v19;
+                *(this + 20) = v19 + 1;
+                *(v20 + 8) = v18;
+                v14 = v31;
                 goto LABEL_20;
               }
 
-              *(this + 20) = v15 + 1;
-              v17 = *&v14[2 * v15 + 2];
+              *(this + 20) = v16 + 1;
+              v18 = *&v15[2 * v16 + 2];
 LABEL_20:
-              v12 = google::protobuf::internal::InlineGreedyStringParser(v17, v13, a3);
-              v31 = v12;
-              if (!v12)
+              v13 = google::protobuf::internal::InlineGreedyStringParser(v18, v14, a3);
+              v31 = v13;
+              if (!v13)
               {
                 return 0;
               }
 
-              if (*a3 <= v12 || *v12 != 50)
+              if (*a3 <= v13 || *v13 != 50)
               {
                 goto LABEL_54;
               }
             }
 
-            v16 = *(this + 21);
+            v17 = *(this + 21);
             goto LABEL_18;
           }
 
           goto LABEL_46;
         }
 
-        if (v9 != 34)
+        if (v10 != 34)
         {
           goto LABEL_46;
         }
 
         *(this + 4) |= 2u;
-        v21 = *(this + 1);
-        if (v21)
+        v22 = *(this + 1);
+        if (v22)
         {
-          v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
+          v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
         }
 
-        v22 = (this + 104);
+        v23 = (this + 104);
       }
 
-      v23 = google::protobuf::internal::ArenaStringPtr::Mutable(v22, v21);
-      v24 = google::protobuf::internal::InlineGreedyStringParser(v23, v31, a3);
+      v24 = google::protobuf::internal::ArenaStringPtr::Mutable(v23, v22);
+      v25 = google::protobuf::internal::InlineGreedyStringParser(v24, v31, a3);
       goto LABEL_53;
     }
 
-    if (v11 == 1)
+    if (v12 == 1)
     {
-      if (v9 == 10)
+      if (v10 == 10)
       {
-        v20 = (this + 24);
+        v21 = (this + 24);
         goto LABEL_39;
       }
 
-      if (v9 == 8)
+      if (v10 == 8)
       {
         goto LABEL_45;
       }
@@ -5559,29 +4057,29 @@ LABEL_20:
 
     else
     {
-      if (v11 != 2)
+      if (v12 != 2)
       {
         goto LABEL_46;
       }
 
-      if (v9 == 18)
+      if (v10 == 18)
       {
-        v20 = (this + 48);
+        v21 = (this + 48);
 LABEL_39:
-        v24 = google::protobuf::internal::PackedInt32Parser(v20, v8, a3, v6);
+        v25 = google::protobuf::internal::PackedInt32Parser(v21, v9, a3, v7);
         goto LABEL_53;
       }
 
-      if (v9 == 16)
+      if (v10 == 16)
       {
 LABEL_45:
-        v32 = sub_2769DF0C0(&v31);
+        v32 = sub_2769DF0C0(&v31, v6, v9);
         google::protobuf::RepeatedField<int>::Add();
       }
     }
 
 LABEL_46:
-    if (!v9 || (v9 & 7) == 4)
+    if (!v10 || (v10 & 7) == 4)
     {
       break;
     }
@@ -5595,13 +4093,13 @@ LABEL_46:
     else
     {
       v29 = sub_2769F617C(this + 1);
-      v8 = v31;
+      v9 = v31;
     }
 
-    v24 = google::protobuf::internal::UnknownFieldParse(v9, v29, v8, a3, v7);
+    v25 = google::protobuf::internal::UnknownFieldParse(v10, v29, v9, a3, v8);
 LABEL_53:
-    v31 = v24;
-    if (!v24)
+    v31 = v25;
+    if (!v25)
     {
       return 0;
     }
@@ -5610,7 +4108,7 @@ LABEL_54:
     ;
   }
 
-  *(a3 + 20) = v9 - 1;
+  *(a3 + 20) = v10 - 1;
   return v31;
 }
 
@@ -5776,19 +4274,18 @@ const InternalMetadata *google::protobuf::SourceCodeInfo_Location::ByteSizeLong(
   }
 }
 
-void google::protobuf::SourceCodeInfo_Location::MergeFrom(std::string *this, char **lpsrc)
+void google::protobuf::SourceCodeInfo_Location::MergeFrom(std::string *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::SourceCodeInfo_Location::MergeFrom(this, v5);
+    google::protobuf::SourceCodeInfo_Location::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -5803,37 +4300,35 @@ std::string *google::protobuf::SourceCodeInfo_Location::MergeFrom(std::string *t
 
   if (*(a2 + 6))
   {
-    data_low = SLODWORD(v3[1].__r_.__value_.__l.__data_);
     google::protobuf::RepeatedField<int>::Reserve();
   }
 
   if (*(a2 + 12))
   {
-    v6 = SLODWORD(v3[2].__r_.__value_.__l.__data_);
     google::protobuf::RepeatedField<int>::Reserve();
   }
 
-  v7 = *(a2 + 20);
-  if (v7)
+  v5 = *(a2 + 20);
+  if (v5)
   {
-    v8 = *(a2 + 11);
-    v9 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&v3[3], *(a2 + 20));
-    this = sub_276B4A878(v3 + 3, v9, (v8 + 8), v7, *v3[3].__r_.__value_.__r.__words[2] - LODWORD(v3[3].__r_.__value_.__r.__words[1]));
-    v10 = LODWORD(v3[3].__r_.__value_.__r.__words[1]) + v7;
-    LODWORD(v3[3].__r_.__value_.__r.__words[1]) = v10;
-    v11 = v3[3].__r_.__value_.__r.__words[2];
-    if (*v11 < v10)
+    v6 = *(a2 + 11);
+    v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend(&v3[3], *(a2 + 20));
+    this = sub_276B4A878(v3 + 3, v7, (v6 + 8), v5, *v3[3].__r_.__value_.__r.__words[2] - LODWORD(v3[3].__r_.__value_.__r.__words[1]));
+    v8 = LODWORD(v3[3].__r_.__value_.__r.__words[1]) + v5;
+    LODWORD(v3[3].__r_.__value_.__r.__words[1]) = v8;
+    v9 = v3[3].__r_.__value_.__r.__words[2];
+    if (*v9 < v8)
     {
-      *v11 = v10;
+      *v9 = v8;
     }
   }
 
-  v12 = *(a2 + 4);
-  if ((v12 & 3) != 0)
+  v10 = *(a2 + 4);
+  if ((v10 & 3) != 0)
   {
-    if (v12)
+    if (v10)
     {
-      v13 = *(a2 + 12);
+      v11 = *(a2 + 12);
       LODWORD(v3->__r_.__value_.__r.__words[2]) |= 1u;
       size = v3->__r_.__value_.__l.__size_;
       if (size)
@@ -5841,27 +4336,27 @@ std::string *google::protobuf::SourceCodeInfo_Location::MergeFrom(std::string *t
         size = *(size & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      this = google::protobuf::internal::ArenaStringPtr::Set(v3[4].__r_.__value_.__r.__words, (v13 & 0xFFFFFFFFFFFFFFFELL), size);
+      this = google::protobuf::internal::ArenaStringPtr::Set(&v3[4], (v11 & 0xFFFFFFFFFFFFFFFELL), size);
     }
 
-    if ((v12 & 2) != 0)
+    if ((v10 & 2) != 0)
     {
-      v15 = *(a2 + 13);
+      v13 = *(a2 + 13);
       LODWORD(v3->__r_.__value_.__r.__words[2]) |= 2u;
-      v16 = v3->__r_.__value_.__l.__size_;
-      if (v16)
+      v14 = v3->__r_.__value_.__l.__size_;
+      if (v14)
       {
-        v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
+        v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      return google::protobuf::internal::ArenaStringPtr::Set(&v3[4].__r_.__value_.__l.__size_, (v15 & 0xFFFFFFFFFFFFFFFELL), v16);
+      return google::protobuf::internal::ArenaStringPtr::Set(&v3[4].__r_.__value_.__l.__size_, (v13 & 0xFFFFFFFFFFFFFFFELL), v14);
     }
   }
 
   return this;
 }
 
-void google::protobuf::SourceCodeInfo_Location::CopyFrom(char **this, char **a2)
+void google::protobuf::SourceCodeInfo_Location::CopyFrom(google::protobuf::SourceCodeInfo_Location *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -5871,7 +4366,7 @@ void google::protobuf::SourceCodeInfo_Location::CopyFrom(char **this, char **a2)
   }
 }
 
-std::string *google::protobuf::SourceCodeInfo_Location::CopyFrom(std::string *this, std::string *a2)
+google::protobuf::SourceCodeInfo_Location *google::protobuf::SourceCodeInfo_Location::CopyFrom(google::protobuf::SourceCodeInfo_Location *this, const google::protobuf::SourceCodeInfo_Location *a2)
 {
   if (a2 != this)
   {
@@ -5912,14 +4407,6 @@ __n128 google::protobuf::SourceCodeInfo_Location::InternalSwap(google::protobuf:
   v13 = *(this + 13);
   *(this + 13) = *(a2 + 13);
   *(a2 + 13) = v13;
-  return result;
-}
-
-uint64_t google::protobuf::SourceCodeInfo_Location::GetMetadata(google::protobuf::SourceCodeInfo_Location *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[46];
-  v2 = off_2812FC738[47];
   return result;
 }
 
@@ -6077,7 +4564,7 @@ LABEL_23:
 
         v15 = *(this + 7);
 LABEL_19:
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 4, v15 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 16), v15 + 1);
         v14 = *(this + 4);
         v15 = *v14;
         goto LABEL_20;
@@ -6240,23 +4727,22 @@ const InternalMetadata *google::protobuf::SourceCodeInfo::ByteSizeLong(google::p
   }
 }
 
-void google::protobuf::SourceCodeInfo::MergeFrom(std::string *this, char **lpsrc)
+void google::protobuf::SourceCodeInfo::MergeFrom(std::string *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::SourceCodeInfo::MergeFrom(this, v5);
+    google::protobuf::SourceCodeInfo::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
-void google::protobuf::SourceCodeInfo::CopyFrom(char **this, char **a2)
+void google::protobuf::SourceCodeInfo::CopyFrom(google::protobuf::UnknownFieldSet *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -6266,7 +4752,7 @@ void google::protobuf::SourceCodeInfo::CopyFrom(char **this, char **a2)
   }
 }
 
-std::string *google::protobuf::SourceCodeInfo::CopyFrom(std::string *this, std::string *a2)
+google::protobuf::UnknownFieldSet *google::protobuf::SourceCodeInfo::CopyFrom(google::protobuf::UnknownFieldSet *this, const google::protobuf::SourceCodeInfo *a2)
 {
   if (a2 != this)
   {
@@ -6288,14 +4774,6 @@ __n128 google::protobuf::SourceCodeInfo::InternalSwap(google::protobuf::SourceCo
   *(this + 24) = result;
   *(a2 + 3) = v4;
   *(a2 + 4) = v5;
-  return result;
-}
-
-uint64_t google::protobuf::SourceCodeInfo::GetMetadata(google::protobuf::SourceCodeInfo *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[48];
-  v2 = off_2812FC738[49];
   return result;
 }
 
@@ -6453,57 +4931,57 @@ google::protobuf::UnknownFieldSet *google::protobuf::GeneratedCodeInfo_Annotatio
 google::protobuf::internal *google::protobuf::GeneratedCodeInfo_Annotation::_InternalParse(google::protobuf::GeneratedCodeInfo_Annotation *this, google::protobuf::internal *a2, google::protobuf::internal::ParseContext *a3)
 {
   v32 = a2;
-  v7 = 0;
+  v8 = 0;
   if ((sub_2769F6104(a3, &v32, *(a3 + 23)) & 1) == 0)
   {
     while (1)
     {
-      v9 = (v32 + 1);
-      v10 = *v32;
+      v10 = (v32 + 1);
+      v11 = *v32;
       if ((*v32 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
 
-      v11 = v10 + (*v9 << 7);
-      v10 = v11 - 128;
-      if ((*v9 & 0x80000000) == 0)
+      v12 = v11 + (*v10 << 7);
+      v11 = v12 - 128;
+      if ((*v10 & 0x80000000) == 0)
       {
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v32, (v11 - 128));
+      TagFallback = google::protobuf::internal::ReadTagFallback(v32, (v12 - 128));
       v32 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_51;
       }
 
-      v9 = TagFallback;
-      v10 = v24;
+      v10 = TagFallback;
+      v11 = v5;
 LABEL_7:
-      v12 = v10 >> 3;
-      if (v10 >> 3 <= 2)
+      v13 = v11 >> 3;
+      if (v11 >> 3 <= 2)
       {
-        if (v12 == 1)
+        if (v13 == 1)
         {
-          if (v10 == 10)
+          if (v11 == 10)
           {
-            v16 = google::protobuf::internal::PackedInt32Parser((this + 24), v9, a3, v5);
+            v17 = google::protobuf::internal::PackedInt32Parser((this + 24), v10, a3, v6);
           }
 
           else
           {
-            if (v10 == 8)
+            if (v11 == 8)
             {
-              v33 = sub_2769DF0C0(&v32);
+              v33 = sub_2769DF0C0(&v32, v5, v10);
               google::protobuf::RepeatedField<int>::Add();
             }
 
 LABEL_39:
-            if (v10)
+            if (v11)
             {
-              v29 = (v10 & 7) == 4;
+              v29 = (v11 & 7) == 4;
             }
 
             else
@@ -6513,7 +4991,7 @@ LABEL_39:
 
             if (v29)
             {
-              *(a3 + 20) = v10 - 1;
+              *(a3 + 20) = v11 - 1;
               goto LABEL_2;
             }
 
@@ -6526,33 +5004,33 @@ LABEL_39:
             else
             {
               v31 = sub_2769F617C(this + 1);
-              v9 = v32;
+              v10 = v32;
             }
 
-            v16 = google::protobuf::internal::UnknownFieldParse(v10, v31, v9, a3, v6);
+            v17 = google::protobuf::internal::UnknownFieldParse(v11, v31, v10, a3, v7);
           }
         }
 
         else
         {
-          if (v12 != 2 || v10 != 18)
+          if (v13 != 2 || v11 != 18)
           {
             goto LABEL_39;
           }
 
           *(this + 4) |= 1u;
-          v14 = *(this + 1);
-          if (v14)
+          v15 = *(this + 1);
+          if (v15)
           {
-            v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
+            v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v15 = google::protobuf::internal::ArenaStringPtr::Mutable(this + 6, v14);
-          v16 = google::protobuf::internal::InlineGreedyStringParser(v15, v32, a3);
+          v16 = google::protobuf::internal::ArenaStringPtr::Mutable(this + 6, v15);
+          v17 = google::protobuf::internal::InlineGreedyStringParser(v16, v32, a3);
         }
 
-        v32 = v16;
-        if (!v16)
+        v32 = v17;
+        if (!v17)
         {
 LABEL_51:
           v32 = 0;
@@ -6562,33 +5040,33 @@ LABEL_51:
         goto LABEL_47;
       }
 
-      if (v12 == 3)
+      if (v13 == 3)
       {
-        if (v10 != 24)
+        if (v11 != 24)
         {
           goto LABEL_39;
         }
 
-        v7 |= 2u;
-        v21 = (v9 + 1);
-        LODWORD(v20) = *v9;
-        if ((v20 & 0x80) == 0)
+        v8 |= 2u;
+        v22 = (v10 + 1);
+        LODWORD(v21) = *v10;
+        if ((v21 & 0x80) == 0)
         {
           goto LABEL_30;
         }
 
-        v22 = *v21;
-        v20 = v20 + (v22 << 7) - 128;
-        if ((v22 & 0x80000000) == 0)
+        v23 = *v22;
+        v21 = v21 + (v23 << 7) - 128;
+        if ((v23 & 0x80000000) == 0)
         {
-          v21 = (v9 + 2);
+          v22 = (v10 + 2);
 LABEL_30:
-          v32 = v21;
-          *(this + 14) = v20;
+          v32 = v22;
+          *(this + 14) = v21;
           goto LABEL_47;
         }
 
-        v27 = google::protobuf::internal::VarintParseSlow64(v9, v20);
+        v27 = google::protobuf::internal::VarintParseSlow64(v10, v21);
         v32 = v27;
         *(this + 14) = v28;
         if (!v27)
@@ -6599,31 +5077,31 @@ LABEL_30:
 
       else
       {
-        if (v12 != 4 || v10 != 32)
+        if (v13 != 4 || v11 != 32)
         {
           goto LABEL_39;
         }
 
-        v7 |= 4u;
-        v18 = (v9 + 1);
-        LODWORD(v17) = *v9;
-        if ((v17 & 0x80) == 0)
+        v8 |= 4u;
+        v19 = (v10 + 1);
+        LODWORD(v18) = *v10;
+        if ((v18 & 0x80) == 0)
         {
           goto LABEL_23;
         }
 
-        v19 = *v18;
-        v17 = v17 + (v19 << 7) - 128;
-        if ((v19 & 0x80000000) == 0)
+        v20 = *v19;
+        v18 = v18 + (v20 << 7) - 128;
+        if ((v20 & 0x80000000) == 0)
         {
-          v18 = (v9 + 2);
+          v19 = (v10 + 2);
 LABEL_23:
-          v32 = v18;
-          *(this + 15) = v17;
+          v32 = v19;
+          *(this + 15) = v18;
           goto LABEL_47;
         }
 
-        v25 = google::protobuf::internal::VarintParseSlow64(v9, v17);
+        v25 = google::protobuf::internal::VarintParseSlow64(v10, v18);
         v32 = v25;
         *(this + 15) = v26;
         if (!v25)
@@ -6639,14 +5117,14 @@ LABEL_47:
       }
     }
 
-    v9 = (v32 + 2);
+    v10 = (v32 + 2);
 LABEL_6:
-    v32 = v9;
+    v32 = v10;
     goto LABEL_7;
   }
 
 LABEL_2:
-  *(this + 4) |= v7;
+  *(this + 4) |= v8;
   return v32;
 }
 
@@ -6886,19 +5364,18 @@ LABEL_22:
   }
 }
 
-void google::protobuf::GeneratedCodeInfo_Annotation::MergeFrom(google::protobuf::GeneratedCodeInfo_Annotation *this, char **lpsrc)
+void google::protobuf::GeneratedCodeInfo_Annotation::MergeFrom(google::protobuf::GeneratedCodeInfo_Annotation *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::GeneratedCodeInfo_Annotation::MergeFrom(this, v5);
+    google::protobuf::GeneratedCodeInfo_Annotation::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -6913,31 +5390,30 @@ void *google::protobuf::GeneratedCodeInfo_Annotation::MergeFrom(void *this, cons
 
   if (*(a2 + 6))
   {
-    v5 = *(v3 + 6);
     google::protobuf::RepeatedField<int>::Reserve();
   }
 
-  v6 = *(a2 + 4);
-  if ((v6 & 7) != 0)
+  v5 = *(a2 + 4);
+  if ((v5 & 7) != 0)
   {
-    if (v6)
+    if (v5)
     {
-      v7 = *(a2 + 6);
+      v6 = *(a2 + 6);
       *(v3 + 4) |= 1u;
-      v8 = v3[1];
-      if (v8)
+      v7 = v3[1];
+      if (v7)
       {
-        v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
+        v7 = *(v7 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      this = google::protobuf::internal::ArenaStringPtr::Set(v3 + 6, (v7 & 0xFFFFFFFFFFFFFFFELL), v8);
-      if ((v6 & 2) == 0)
+      this = google::protobuf::internal::ArenaStringPtr::Set(v3 + 6, (v6 & 0xFFFFFFFFFFFFFFFELL), v7);
+      if ((v5 & 2) == 0)
       {
 LABEL_8:
-        if ((v6 & 4) == 0)
+        if ((v5 & 4) == 0)
         {
 LABEL_10:
-          *(v3 + 4) |= v6;
+          *(v3 + 4) |= v5;
           return this;
         }
 
@@ -6947,13 +5423,13 @@ LABEL_9:
       }
     }
 
-    else if ((v6 & 2) == 0)
+    else if ((v5 & 2) == 0)
     {
       goto LABEL_8;
     }
 
     *(v3 + 14) = *(a2 + 14);
-    if ((v6 & 4) == 0)
+    if ((v5 & 4) == 0)
     {
       goto LABEL_10;
     }
@@ -6964,7 +5440,7 @@ LABEL_9:
   return this;
 }
 
-void google::protobuf::GeneratedCodeInfo_Annotation::CopyFrom(char **this, char **a2)
+void google::protobuf::GeneratedCodeInfo_Annotation::CopyFrom(google::protobuf::GeneratedCodeInfo_Annotation *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -7005,14 +5481,6 @@ __n128 google::protobuf::GeneratedCodeInfo_Annotation::InternalSwap(google::prot
   v9 = *(this + 7);
   *(this + 7) = *(a2 + 7);
   *(a2 + 7) = v9;
-  return result;
-}
-
-uint64_t google::protobuf::GeneratedCodeInfo_Annotation::GetMetadata(google::protobuf::GeneratedCodeInfo_Annotation *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[50];
-  v2 = off_2812FC738[51];
   return result;
 }
 
@@ -7103,7 +5571,7 @@ google::protobuf::UnknownFieldSet *google::protobuf::GeneratedCodeInfo::Clear(go
     }
 
     while (v2);
-    *(v1 + 24) = 0;
+    *(v1 + 6) = 0;
   }
 
   v6 = *(v1 + 8);
@@ -7199,7 +5667,7 @@ LABEL_23:
 
         v15 = *(this + 7);
 LABEL_19:
-        google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 4, v15 + 1);
+        google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 16), v15 + 1);
         v14 = *(this + 4);
         v15 = *v14;
         goto LABEL_20;
@@ -7362,19 +5830,18 @@ const InternalMetadata *google::protobuf::GeneratedCodeInfo::ByteSizeLong(google
   }
 }
 
-void google::protobuf::GeneratedCodeInfo::MergeFrom(google::protobuf::GeneratedCodeInfo *this, char **lpsrc)
+void google::protobuf::GeneratedCodeInfo::MergeFrom(google::protobuf::GeneratedCodeInfo *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    google::protobuf::GeneratedCodeInfo::MergeFrom(this, v5);
+    google::protobuf::GeneratedCodeInfo::MergeFrom(this, v4);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -7405,7 +5872,7 @@ void *google::protobuf::GeneratedCodeInfo::MergeFrom(void *this, const google::p
   return this;
 }
 
-void google::protobuf::GeneratedCodeInfo::CopyFrom(char **this, char **a2)
+void google::protobuf::GeneratedCodeInfo::CopyFrom(google::protobuf::UnknownFieldSet *this, const google::protobuf::Message *a2)
 {
   if (a2 != this)
   {
@@ -7437,14 +5904,6 @@ __n128 google::protobuf::GeneratedCodeInfo::InternalSwap(google::protobuf::Gener
   *(this + 24) = result;
   *(a2 + 3) = v4;
   *(a2 + 4) = v5;
-  return result;
-}
-
-uint64_t google::protobuf::GeneratedCodeInfo::GetMetadata(google::protobuf::GeneratedCodeInfo *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_google_2fprotobuf_2fdescriptor_2eproto, 0);
-  result = off_2812FC738[52];
-  v2 = off_2812FC738[53];
   return result;
 }
 
@@ -7839,7 +6298,7 @@ void sub_276B4A488(void *a1)
   a1[2] = 0;
 }
 
-void sub_276B4A50C(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::FileDescriptorProto **a3, unsigned int a4, unsigned int a5)
+void sub_276B4A50C(uint64_t *result, google::protobuf::FileDescriptorProto **a2, google::protobuf::FileDescriptorProto **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -7871,7 +6330,7 @@ void sub_276B4A50C(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8047,7 +6506,7 @@ void sub_276B4A7F4(void *a1)
   a1[2] = 0;
 }
 
-std::string *sub_276B4A878(std::string *result, std::string **a2, const std::string **a3, unsigned int a4, unsigned int a5)
+std::string *sub_276B4A878(std::string *result, std::string **a2, const std::string **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8098,7 +6557,7 @@ std::string *sub_276B4A878(std::string *result, std::string **a2, const std::str
   return result;
 }
 
-void sub_276B4A924(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::DescriptorProto **a3, unsigned int a4, unsigned int a5)
+void sub_276B4A924(uint64_t *result, google::protobuf::DescriptorProto **a2, google::protobuf::DescriptorProto **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -8130,7 +6589,7 @@ void sub_276B4A924(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8146,7 +6605,7 @@ void sub_276B4A924(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   }
 }
 
-void sub_276B4A9E4(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::EnumDescriptorProto **a3, unsigned int a4, unsigned int a5)
+void sub_276B4A9E4(uint64_t *result, google::protobuf::EnumDescriptorProto **a2, google::protobuf::EnumDescriptorProto **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -8178,7 +6637,7 @@ void sub_276B4A9E4(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8194,7 +6653,7 @@ void sub_276B4A9E4(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   }
 }
 
-void sub_276B4AAA4(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::ServiceDescriptorProto **a3, unsigned int a4, unsigned int a5)
+void sub_276B4AAA4(uint64_t *result, google::protobuf::ServiceDescriptorProto **a2, google::protobuf::ServiceDescriptorProto **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -8226,7 +6685,7 @@ void sub_276B4AAA4(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8242,7 +6701,7 @@ void sub_276B4AAA4(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   }
 }
 
-void sub_276B4AB64(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::FieldDescriptorProto **a3, unsigned int a4, unsigned int a5)
+void sub_276B4AB64(uint64_t *result, google::protobuf::FieldDescriptorProto **a2, google::protobuf::FieldDescriptorProto **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -8274,7 +6733,7 @@ void sub_276B4AB64(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8352,7 +6811,7 @@ void sub_276B4ACA8(void *a1)
   a1[2] = 0;
 }
 
-void sub_276B4AD2C(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::DescriptorProto_ExtensionRange **a3, unsigned int a4, unsigned int a5)
+void sub_276B4AD2C(uint64_t *result, google::protobuf::DescriptorProto_ExtensionRange **a2, google::protobuf::DescriptorProto_ExtensionRange **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -8384,7 +6843,7 @@ void sub_276B4AD2C(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8400,7 +6859,7 @@ void sub_276B4AD2C(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   }
 }
 
-void sub_276B4ADEC(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::OneofDescriptorProto **a3, unsigned int a4, unsigned int a5)
+void sub_276B4ADEC(uint64_t *result, google::protobuf::OneofDescriptorProto **a2, google::protobuf::OneofDescriptorProto **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -8432,7 +6891,7 @@ void sub_276B4ADEC(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8448,7 +6907,7 @@ void sub_276B4ADEC(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   }
 }
 
-uint64_t *sub_276B4AEAC(uint64_t *result, google::protobuf::DescriptorProto_ReservedRange **a2, google::protobuf::DescriptorProto_ReservedRange **a3, unsigned int a4, unsigned int a5)
+google::protobuf::Arena **sub_276B4AEAC(google::protobuf::Arena **result, google::protobuf::DescriptorProto_ReservedRange **a2, google::protobuf::DescriptorProto_ReservedRange **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8530,7 +6989,7 @@ void sub_276B4AF6C(void *a1)
   a1[2] = 0;
 }
 
-uint64_t *sub_276B4AFF0(uint64_t *result, google::protobuf::UninterpretedOption **a2, google::protobuf::UninterpretedOption **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_276B4AFF0(uint64_t *result, google::protobuf::UninterpretedOption **a2, google::protobuf::UninterpretedOption **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8612,7 +7071,7 @@ void sub_276B4B0B0(void *a1)
   a1[2] = 0;
 }
 
-void sub_276B4B134(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::EnumValueDescriptorProto **a3, unsigned int a4, unsigned int a5)
+void sub_276B4B134(uint64_t *result, google::protobuf::EnumValueDescriptorProto **a2, google::protobuf::EnumValueDescriptorProto **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -8644,7 +7103,7 @@ void sub_276B4B134(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8660,7 +7119,7 @@ void sub_276B4B134(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   }
 }
 
-uint64_t *sub_276B4B1F4(uint64_t *result, google::protobuf::EnumDescriptorProto_EnumReservedRange **a2, google::protobuf::EnumDescriptorProto_EnumReservedRange **a3, unsigned int a4, unsigned int a5)
+google::protobuf::Arena **sub_276B4B1F4(google::protobuf::Arena **result, google::protobuf::EnumDescriptorProto_EnumReservedRange **a2, google::protobuf::EnumDescriptorProto_EnumReservedRange **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8742,7 +7201,7 @@ void sub_276B4B2B4(void *a1)
   a1[2] = 0;
 }
 
-void sub_276B4B338(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf::MethodDescriptorProto **a3, unsigned int a4, unsigned int a5)
+void sub_276B4B338(uint64_t *result, google::protobuf::MethodDescriptorProto **a2, google::protobuf::MethodDescriptorProto **a3, int a4, int a5)
 {
   if (a5 >= a4)
   {
@@ -8774,7 +7233,7 @@ void sub_276B4B338(uint64_t *a1, google::protobuf::Arena ***a2, google::protobuf
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *a1;
+    v18 = *result;
     v19 = &a3[a5];
     v20 = &a2[a5];
     do
@@ -8821,7 +7280,7 @@ void sub_276B4B3F8(void *a1)
   a1[2] = 0;
 }
 
-uint64_t *sub_276B4B47C(uint64_t *result, google::protobuf::UninterpretedOption_NamePart **a2, google::protobuf::UninterpretedOption_NamePart **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_276B4B47C(uint64_t *result, google::protobuf::UninterpretedOption_NamePart **a2, google::protobuf::UninterpretedOption_NamePart **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -8959,7 +7418,7 @@ void sub_276B4B650(void *a1)
   a1[2] = 0;
 }
 
-uint64_t *sub_276B4B6D4(uint64_t *result, google::protobuf::GeneratedCodeInfo_Annotation **a2, google::protobuf::GeneratedCodeInfo_Annotation **a3, unsigned int a4, unsigned int a5)
+uint64_t *sub_276B4B6D4(uint64_t *result, google::protobuf::GeneratedCodeInfo_Annotation **a2, google::protobuf::GeneratedCodeInfo_Annotation **a3, int a4, int a5)
 {
   v9 = result;
   if (a5 >= a4)
@@ -9595,22 +8054,22 @@ LABEL_3:
 
 uint64_t google::protobuf::DescriptorDatabase::FindAllPackageNames(uint64_t a1, uint64_t a2)
 {
-  v15 = 0;
   v16 = 0;
   v17 = 0;
-  if ((*(*a1 + 48))(a1, &v15))
+  v18 = 0;
+  if ((*(*a1 + 48))(a1, &v16))
   {
-    v14[0] = 0;
-    v14[1] = 0;
-    v13 = v14;
+    v15[0] = 0;
+    v15[1] = 0;
+    v14 = v15;
     google::protobuf::FileDescriptorProto::FileDescriptorProto(v12, 0);
-    v4 = v15;
-    v5 = v16;
+    v4 = v16;
+    v5 = v17;
     while (1)
     {
       if (v4 == v5)
       {
-        sub_276B4FD14(a2, *(a2 + 8), v13, v14);
+        sub_276B4FD14(a2, *(a2 + 8), v14, v15);
         v6 = 1;
         goto LABEL_9;
       }
@@ -9621,7 +8080,7 @@ uint64_t google::protobuf::DescriptorDatabase::FindAllPackageNames(uint64_t a1, 
         break;
       }
 
-      sub_276B2C720(&v13, (v12[23] & 0xFFFFFFFFFFFFFFFELL));
+      sub_276B2C720(&v14, (v13 & 0xFFFFFFFFFFFFFFFELL), v13 & 0xFFFFFFFFFFFFFFFELL);
       v4 += 24;
     }
 
@@ -9633,7 +8092,7 @@ uint64_t google::protobuf::DescriptorDatabase::FindAllPackageNames(uint64_t a1, 
     v6 = 0;
 LABEL_9:
     google::protobuf::FileDescriptorProto::~FileDescriptorProto(v12);
-    sub_276B2AD2C(&v13, v14[0]);
+    sub_276B2AD2C(&v14, v15[0]);
   }
 
   else
@@ -9641,7 +8100,7 @@ LABEL_9:
     v6 = 0;
   }
 
-  v12[0] = &v15;
+  v12[0] = &v16;
   sub_276B281C8(v12);
   return v6;
 }
@@ -9851,5 +8310,1487 @@ uint64_t google::protobuf::SimpleDescriptorDatabase::AddAndOwn(google::protobuf:
   }
 
   *(this + 11) = v6;
-  return sub_276B4CE28(this + 8, a2, a2);
+  return sub_276B4CE28(this + 1, a2, a2);
+}
+
+uint64_t sub_276B4CE28(uint64_t **a1, uint64_t a2, const char *a3)
+{
+  v23 = a3;
+  if ((sub_276B506FC(a1, *(a2 + 176) & 0xFFFFFFFFFFFFFFFELL, &v23) & 1) == 0)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(&__dst, 2, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/descriptor_database.cc", 120);
+    v5 = google::protobuf::internal::LogMessage::operator<<(&__dst, "File already exists in database: ");
+    v6 = google::protobuf::internal::LogMessage::operator<<(v5, (*(a2 + 176) & 0xFFFFFFFFFFFFFFFELL));
+    google::protobuf::internal::LogFinisher::operator=(__p, &v6->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&__dst.__r_.__value_.__l.__data_);
+    return 0;
+  }
+
+  if ((*(a2 + 16) & 2) != 0)
+  {
+    v8 = *(a2 + 184) & 0xFFFFFFFFFFFFFFFELL;
+    if (*(v8 + 23) < 0)
+    {
+      sub_276A07B90(&__dst, *v8, *(v8 + 8));
+    }
+
+    else
+    {
+      v9 = *v8;
+      __dst.__r_.__value_.__r.__words[2] = *(v8 + 16);
+      *&__dst.__r_.__value_.__l.__data_ = v9;
+    }
+  }
+
+  else
+  {
+    memset(&__dst, 0, sizeof(__dst));
+  }
+
+  size = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+  if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    size = __dst.__r_.__value_.__l.__size_;
+  }
+
+  if (size)
+  {
+    std::string::push_back(&__dst, 46);
+  }
+
+  if (*(a2 + 56) < 1)
+  {
+LABEL_19:
+    if (*(a2 + 80) < 1)
+    {
+LABEL_25:
+      if (*(a2 + 128) < 1)
+      {
+LABEL_32:
+        if (*(a2 + 104) < 1)
+        {
+          v7 = 1;
+        }
+
+        else
+        {
+          v18 = 0;
+          do
+          {
+            sub_276B50A78(&__dst.__r_.__value_.__l.__data_, (*(*(*(a2 + 112) + 8 * v18 + 8) + 48) & 0xFFFFFFFFFFFFFFFELL), __p);
+            v7 = sub_276B507A0(a1, __p, v23);
+            if (v21 < 0)
+            {
+              operator delete(__p[0]);
+            }
+
+            if ((v7 & 1) == 0)
+            {
+              break;
+            }
+
+            ++v18;
+          }
+
+          while (v18 < *(a2 + 104));
+        }
+
+        goto LABEL_40;
+      }
+
+      v16 = 1;
+      while (1)
+      {
+        sub_276B50A78(&__dst.__r_.__value_.__l.__data_, (*(*(*(a2 + 136) + 8 * v16) + 24) & 0xFFFFFFFFFFFFFFFELL), __p);
+        v17 = sub_276B507A0(a1, __p, v23);
+        if (v21 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        if ((v17 & 1) == 0 || (sub_276B50C10(a1, (*(a2 + 176) & 0xFFFFFFFFFFFFFFFELL), *(*(a2 + 136) + 8 * v16), v23) & 1) == 0)
+        {
+          break;
+        }
+
+        v13 = v16++ < *(a2 + 128);
+        if (!v13)
+        {
+          goto LABEL_32;
+        }
+      }
+    }
+
+    else
+    {
+      v14 = 0;
+      while (1)
+      {
+        sub_276B50A78(&__dst.__r_.__value_.__l.__data_, (*(*(*(a2 + 88) + 8 * v14 + 8) + 96) & 0xFFFFFFFFFFFFFFFELL), __p);
+        v15 = sub_276B507A0(a1, __p, v23);
+        if (v21 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        if ((v15 & 1) == 0)
+        {
+          break;
+        }
+
+        if (++v14 >= *(a2 + 80))
+        {
+          goto LABEL_25;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v11 = 1;
+    while (1)
+    {
+      sub_276B50A78(&__dst.__r_.__value_.__l.__data_, (*(*(*(a2 + 64) + 8 * v11) + 216) & 0xFFFFFFFFFFFFFFFELL), __p);
+      v12 = sub_276B507A0(a1, __p, v23);
+      if (v21 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if ((v12 & 1) == 0 || (sub_276B50B44(a1, (*(a2 + 176) & 0xFFFFFFFFFFFFFFFELL), *(*(a2 + 64) + 8 * v11), v23) & 1) == 0)
+      {
+        break;
+      }
+
+      v13 = v11++ < *(a2 + 56);
+      if (!v13)
+      {
+        goto LABEL_19;
+      }
+    }
+  }
+
+  v7 = 0;
+LABEL_40:
+  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__dst.__r_.__value_.__l.__data_);
+  }
+
+  return v7;
+}
+
+void sub_276B4D130(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t google::protobuf::SimpleDescriptorDatabase::FindFileByName(uint64_t a1, const void **a2, google::protobuf::FileDescriptorProto *a3)
+{
+  v5 = sub_276B27C88(a1 + 8, a2);
+  if (a1 + 16 == v5)
+  {
+    return 0;
+  }
+
+  v6 = *(v5 + 56);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  google::protobuf::FileDescriptorProto::CopyFrom(a3, v6);
+  return 1;
+}
+
+BOOL google::protobuf::SimpleDescriptorDatabase::MaybeCopy(google::protobuf::SimpleDescriptorDatabase *this, const google::protobuf::FileDescriptorProto *a2, google::protobuf::FileDescriptorProto *a3)
+{
+  if (a2)
+  {
+    google::protobuf::FileDescriptorProto::CopyFrom(a3, a2);
+  }
+
+  return a2 != 0;
+}
+
+BOOL google::protobuf::SimpleDescriptorDatabase::FindFileContainingSymbol(uint64_t a1, const void **a2, google::protobuf::FileDescriptorProto *a3)
+{
+  v4 = sub_276B4D26C(a1 + 8, a2);
+  if (v4)
+  {
+    google::protobuf::FileDescriptorProto::CopyFrom(a3, v4);
+  }
+
+  return v4 != 0;
+}
+
+uint64_t sub_276B4D26C(uint64_t a1, const void **a2)
+{
+  v4 = sub_276B50EFC((a1 + 24), a2);
+  if ((a1 + 32) == v4)
+  {
+    return 0;
+  }
+
+  v6 = v4;
+  sub_276B280C4(v10, v4 + 4, v5);
+  sub_276B280C4(v9, a2, v7);
+  if (!sub_276B4ED58(v10[0], v10[1], v9[0], v9[1]))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v6[7];
+  }
+}
+
+BOOL google::protobuf::SimpleDescriptorDatabase::FindFileContainingExtension(uint64_t a1, uint64_t a2, uint64_t a3, google::protobuf::FileDescriptorProto *a4)
+{
+  v5 = sub_276B4D330(a1 + 8, a2, a3);
+  if (v5)
+  {
+    google::protobuf::FileDescriptorProto::CopyFrom(a4, v5);
+  }
+
+  return v5 != 0;
+}
+
+uint64_t sub_276B4D330(uint64_t a1, uint64_t a2, int a3)
+{
+  if (*(a2 + 23) < 0)
+  {
+    sub_276A07B90(__p, *a2, *(a2 + 8));
+  }
+
+  else
+  {
+    *__p = *a2;
+    v9 = *(a2 + 16);
+  }
+
+  v10 = a3;
+  v5 = sub_276B51648(a1 + 48, __p);
+  if (a1 + 56 == v5)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = *(v5 + 64);
+  }
+
+  if (SHIBYTE(v9) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v6;
+}
+
+void sub_276B4D3C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_276B4D3E8(uint64_t a1, uint64_t a2, const void **a3)
+{
+  if (*(a2 + 23) < 0)
+  {
+    sub_276A07B90(__p, *a2, *(a2 + 8));
+  }
+
+  else
+  {
+    *__p = *a2;
+    v27 = *(a2 + 16);
+  }
+
+  v28 = 0;
+  v6 = (a1 + 56);
+  v7 = *(a1 + 56);
+  if (v7)
+  {
+    v8 = (a1 + 56);
+    do
+    {
+      v9 = sub_276B51498(a1 + 48, (v7 + 32), __p);
+      if (v9)
+      {
+        v10 = 8;
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+
+      if (!v9)
+      {
+        v8 = v7;
+      }
+
+      v7 = *(v7 + v10);
+    }
+
+    while (v7);
+  }
+
+  else
+  {
+    v8 = (a1 + 56);
+  }
+
+  if (SHIBYTE(v27) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (v8 == v6)
+  {
+    goto LABEL_44;
+  }
+
+  v11 = *(v8 + 55);
+  if ((v11 & 0x80000000) == 0)
+  {
+    v12 = *(v8 + 55);
+  }
+
+  else
+  {
+    v12 = *(v8 + 5);
+  }
+
+  v13 = *(a2 + 23);
+  v14 = *(a2 + 8);
+  if ((v13 & 0x80000000) == 0)
+  {
+    v14 = *(a2 + 23);
+  }
+
+  if (v12 != v14)
+  {
+LABEL_44:
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = 0;
+    v16 = v11 >> 63;
+    v17 = v13 >> 63;
+    do
+    {
+      v18 = (v16 & 1) != 0 ? *(v8 + 4) : v8 + 8;
+      v19 = (v17 & 1) != 0 ? *a2 : a2;
+      if (memcmp(v18, v19, v12))
+      {
+        break;
+      }
+
+      sub_276B112A4(a3, v8 + 14);
+      v20 = *(v8 + 1);
+      v21 = v8;
+      if (v20)
+      {
+        do
+        {
+          v8 = v20;
+          v20 = *v20;
+        }
+
+        while (v20);
+      }
+
+      else
+      {
+        do
+        {
+          v8 = *(v21 + 2);
+          v22 = *v8 == v21;
+          v21 = v8;
+        }
+
+        while (!v22);
+      }
+
+      if (v8 == v6)
+      {
+        v15 = 1;
+        return v15 & 1;
+      }
+
+      v23 = *(v8 + 55);
+      v16 = v23 >> 63;
+      if ((v23 & 0x80000000) == 0)
+      {
+        v12 = *(v8 + 55);
+      }
+
+      else
+      {
+        v12 = *(v8 + 5);
+      }
+
+      v24 = *(a2 + 23);
+      v17 = v24 >> 63;
+      if ((v24 & 0x80000000) != 0)
+      {
+        v24 = *(a2 + 8);
+      }
+
+      v15 = 1;
+    }
+
+    while (v12 == v24);
+  }
+
+  return v15 & 1;
+}
+
+void sub_276B4D598(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_276B4D5D4(void *a1, void *a2)
+{
+  sub_276B4F0C4(a2, a1[2]);
+  v6 = *a1;
+  v4 = a1 + 1;
+  v5 = v6;
+  if (v6 != v4)
+  {
+    v7 = 0;
+    do
+    {
+      std::string::operator=((*a2 + 24 * v7), (v5 + 4));
+      v8 = v5[1];
+      if (v8)
+      {
+        do
+        {
+          v9 = v8;
+          v8 = *v8;
+        }
+
+        while (v8);
+      }
+
+      else
+      {
+        do
+        {
+          v9 = v5[2];
+          v10 = *v9 == v5;
+          v5 = v9;
+        }
+
+        while (!v10);
+      }
+
+      ++v7;
+      v5 = v9;
+    }
+
+    while (v9 != v4);
+  }
+}
+
+void sub_276B4D734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
+  v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  google::protobuf::FileDescriptorProto::~FileDescriptorProto(va1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_276B4D760(void *a1, uint64_t a2, void *a3, int a4)
+{
+  v51[0] = a3;
+  LODWORD(v51[1]) = a4;
+  v53 = 0;
+  __p = 0uLL;
+  v6 = a1[1];
+  if (v6 >= a1[2])
+  {
+    v9 = sub_276B51B00(a1, v51);
+    v10 = SHIBYTE(v53);
+    a1[1] = v9;
+    if (v10 < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  else
+  {
+    v7 = v51[0];
+    *(v6 + 8) = v51[1];
+    *v6 = v7;
+    v8 = __p;
+    *(v6 + 32) = v53;
+    *(v6 + 16) = v8;
+    a1[1] = v6 + 40;
+  }
+
+  sub_276B280C4(v51, (*(a2 + 184) & 0xFFFFFFFFFFFFFFFELL), a3);
+  if ((sub_276B4EA0C(v51[0], v51[1]) & 1) == 0)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v51, 2, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/descriptor_database.cc", 631);
+    v23 = google::protobuf::internal::LogMessage::operator<<(v51, "Invalid package name: ");
+    v24 = google::protobuf::internal::LogMessage::operator<<(v23, (*(a2 + 184) & 0xFFFFFFFFFFFFFFFELL));
+    google::protobuf::internal::LogFinisher::operator=(&v54, &v24->__r_.__value_.__l.__data_);
+LABEL_18:
+    google::protobuf::internal::LogMessage::~LogMessage(v51);
+    return 0;
+  }
+
+  sub_276B280C4(&v50, (*(a2 + 184) & 0xFFFFFFFFFFFFFFFELL), v11);
+  v54 = v50;
+  sub_276B264AC(&v54, v51);
+  v13 = a1[1];
+  v14 = v13 - 24;
+  if (*(v13 - 1) < 0)
+  {
+    operator delete(*v14);
+  }
+
+  v15 = *v51;
+  *(v14 + 16) = __p;
+  *v14 = v15;
+  LODWORD(v51[0]) = -858993459 * ((a1[1] - *a1) >> 3) - 1;
+  sub_276B280C4(&v50, (*(a2 + 176) & 0xFFFFFFFFFFFFFFFELL), v12);
+  v54 = v50;
+  sub_276B264AC(&v54, &v51[1]);
+  sub_276B51E78(a1 + 3, v51, v51);
+  if ((v16 & 1) == 0)
+  {
+    if (SHIBYTE(__p) < 0)
+    {
+      operator delete(v51[1]);
+    }
+
+    goto LABEL_17;
+  }
+
+  v17 = a1[7];
+  v18 = a1[8];
+  v19 = *(a2 + 176);
+  *&v50 = a1[6];
+  LOBYTE(v54) = 0;
+  v21 = sub_276B52194(v17, (v19 & 0xFFFFFFFFFFFFFFFELL), ((v18 - v17) >> 5), &v50);
+  if (v21 == v18)
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    sub_276B280C4(&v54, (v19 & 0xFFFFFFFFFFFFFFFELL), v20);
+    v22 = !sub_276B52128(&v50, v54, *(&v54 + 1), v21);
+  }
+
+  if (SHIBYTE(__p) < 0)
+  {
+    operator delete(v51[1]);
+    if (v22)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else if (v22)
+  {
+LABEL_17:
+    google::protobuf::internal::LogMessage::LogMessage(v51, 2, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/descriptor_database.cc", 641);
+    v25 = google::protobuf::internal::LogMessage::operator<<(v51, "File already exists in database: ");
+    v26 = google::protobuf::internal::LogMessage::operator<<(v25, (*(a2 + 176) & 0xFFFFFFFFFFFFFFFELL));
+    google::protobuf::internal::LogFinisher::operator=(&v54, &v26->__r_.__value_.__l.__data_);
+    goto LABEL_18;
+  }
+
+  v28 = *(a2 + 64);
+  if (v28)
+  {
+    v29 = (v28 + 8);
+  }
+
+  else
+  {
+    v29 = 0;
+  }
+
+  v30 = *(a2 + 56);
+  if (v30)
+  {
+    v31 = 8 * v30;
+    while (1)
+    {
+      v32 = *v29;
+      sub_276B280C4(v51, (*(*v29 + 216) & 0xFFFFFFFFFFFFFFFELL), v20);
+      result = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol(a1, v51[0], v51[1]);
+      if (!result)
+      {
+        break;
+      }
+
+      sub_276B280C4(v51, (*(a2 + 176) & 0xFFFFFFFFFFFFFFFELL), v33);
+      if ((sub_276B51770(a1, v51[0], v51[1], v32) & 1) == 0)
+      {
+        return 0;
+      }
+
+      ++v29;
+      v31 -= 8;
+      if (!v31)
+      {
+        goto LABEL_30;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_30:
+    v34 = *(a2 + 88);
+    if (v34)
+    {
+      v35 = v34 + 8;
+    }
+
+    else
+    {
+      v35 = 0;
+    }
+
+    v36 = *(a2 + 80);
+    if (v36)
+    {
+      v37 = 8 * v36;
+      do
+      {
+        sub_276B280C4(v51, (*(*v35 + 96) & 0xFFFFFFFFFFFFFFFELL), v20);
+        if ((google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol(a1, v51[0], v51[1]) & 1) == 0)
+        {
+          return 0;
+        }
+
+        v35 += 8;
+        v37 -= 8;
+      }
+
+      while (v37);
+    }
+
+    v38 = *(a2 + 136);
+    if (v38)
+    {
+      v39 = (v38 + 8);
+    }
+
+    else
+    {
+      v39 = 0;
+    }
+
+    v40 = *(a2 + 128);
+    if (v40)
+    {
+      v41 = 8 * v40;
+      while (1)
+      {
+        v42 = *v39;
+        sub_276B280C4(v51, (*(*v39 + 24) & 0xFFFFFFFFFFFFFFFELL), v20);
+        result = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol(a1, v51[0], v51[1]);
+        if (!result)
+        {
+          break;
+        }
+
+        sub_276B280C4(v51, (*(a2 + 176) & 0xFFFFFFFFFFFFFFFELL), v43);
+        if ((sub_276B51840(a1, v51[0], v51[1], v42) & 1) == 0)
+        {
+          return 0;
+        }
+
+        ++v39;
+        v41 -= 8;
+        if (!v41)
+        {
+          goto LABEL_45;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_45:
+      v44 = *(a2 + 112);
+      if (v44)
+      {
+        v45 = (v44 + 8);
+      }
+
+      else
+      {
+        v45 = 0;
+      }
+
+      v46 = *(a2 + 104);
+      if (v46)
+      {
+        v47 = 8 * v46 - 8;
+        do
+        {
+          v48 = *v45++;
+          sub_276B280C4(v51, (*(v48 + 48) & 0xFFFFFFFFFFFFFFFELL), v20);
+          result = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol(a1, v51[0], v51[1]);
+          if (result)
+          {
+            v49 = v47 == 0;
+          }
+
+          else
+          {
+            v49 = 1;
+          }
+
+          v47 -= 8;
+        }
+
+        while (!v49);
+      }
+
+      else
+      {
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+void google::protobuf::EncodedDescriptorDatabase::AddCopy(google::protobuf::EncodedDescriptorDatabase *this, const void *a2, signed int a3)
+{
+  v6 = a3;
+  v7 = operator new(a3);
+  memcpy(v7, a2, v6);
+  v9 = *(this + 3);
+  v8 = *(this + 4);
+  if (v9 >= v8)
+  {
+    v11 = *(this + 2);
+    v12 = (v9 - v11) >> 3;
+    if ((v12 + 1) >> 61)
+    {
+      sub_2769BA860();
+    }
+
+    v13 = v8 - v11;
+    v14 = v13 >> 2;
+    if (v13 >> 2 <= (v12 + 1))
+    {
+      v14 = v12 + 1;
+    }
+
+    if (v13 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v15 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v15 = v14;
+    }
+
+    if (v15)
+    {
+      sub_2769BB09C(this + 16, v15);
+    }
+
+    *(8 * v12) = v7;
+    v10 = 8 * v12 + 8;
+    v16 = *(this + 2);
+    v17 = *(this + 3) - v16;
+    v18 = (8 * v12 - v17);
+    memcpy(v18, v16, v17);
+    v19 = *(this + 2);
+    *(this + 2) = v18;
+    *(this + 3) = v10;
+    *(this + 4) = 0;
+    if (v19)
+    {
+      operator delete(v19);
+    }
+  }
+
+  else
+  {
+    *v9 = v7;
+    v10 = (v9 + 1);
+  }
+
+  *(this + 3) = v10;
+
+  google::protobuf::EncodedDescriptorDatabase::Add(this, v7, a3);
+}
+
+const void *google::protobuf::EncodedDescriptorDatabase::FindFileByName(uint64_t a1, uint64_t *a2, char *a3)
+{
+  v4 = *(a1 + 8);
+  sub_276B280C4(v6, a2, a3);
+  result = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindFile(v4, v6[0], v6[1]);
+  if (result)
+  {
+    google::protobuf::MessageLite::ParseFromArray(a3, result);
+  }
+
+  return result;
+}
+
+uint64_t google::protobuf::EncodedDescriptorDatabase::MaybeParse(int a1, const void *a2, int a3, google::protobuf::MessageLite *this)
+{
+  if (a2)
+  {
+    google::protobuf::MessageLite::ParseFromArray(this, a2);
+  }
+
+  return 0;
+}
+
+uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindFile(uint64_t a1, const char *a2, int64_t a3)
+{
+  google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EnsureFlat(a1);
+  v8 = *(a1 + 56);
+  v7 = *(a1 + 64);
+  __s1[0] = *(a1 + 48);
+  if (v7 != v8)
+  {
+    v9 = (v7 - v8) >> 5;
+    do
+    {
+      v10 = &v8[4 * (v9 >> 1)];
+      v11 = sub_276B5222C(__s1, v10, a2, a3);
+      if (v11)
+      {
+        v9 += ~(v9 >> 1);
+      }
+
+      else
+      {
+        v9 >>= 1;
+      }
+
+      if (v11)
+      {
+        v8 = (v10 + 32);
+      }
+    }
+
+    while (v9);
+    v7 = *(a1 + 64);
+  }
+
+  if (v8 != v7 && (sub_276B280C4(__s1, v8 + 1, v6), __s1[1] == a3) && (__s1[0] == a2 || a3 < 1 || !memcmp(__s1[0], a2, a3)))
+  {
+    return *(*a1 + 40 * *v8);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+const void *google::protobuf::EncodedDescriptorDatabase::FindFileContainingSymbol(uint64_t a1, uint64_t *a2, char *a3)
+{
+  v4 = *(a1 + 8);
+  sub_276B280C4(v8, a2, a3);
+  v5 = v8[0];
+  v6 = v8[1];
+  google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EnsureFlat(v4);
+  result = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindSymbolOnlyFlat(v4, v5, v6);
+  if (result)
+  {
+    google::protobuf::MessageLite::ParseFromArray(a3, result);
+  }
+
+  return result;
+}
+
+BOOL google::protobuf::EncodedDescriptorDatabase::FindNameOfFileContainingSymbol(uint64_t a1, uint64_t *a2, std::string *a3)
+{
+  v4 = *(a1 + 8);
+  sub_276B280C4(v12, a2, a3);
+  v5 = v12[0];
+  v6 = v12[1];
+  google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EnsureFlat(v4);
+  SymbolOnlyFlat = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindSymbolOnlyFlat(v4, v5, v6);
+  Bytes = SymbolOnlyFlat;
+  if (!SymbolOnlyFlat)
+  {
+    return Bytes;
+  }
+
+  v13[0] = SymbolOnlyFlat;
+  v13[1] = &SymbolOnlyFlat[v8];
+  v13[2] = 0;
+  v14 = v8;
+  v15 = 0;
+  v16 = 0;
+  v18 = -NAN;
+  v17 = v8;
+  v19 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+  v20 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+  v21 = 0;
+  v22 = 0;
+  if (v8 < 1)
+  {
+    v10 = 0;
+    goto LABEL_6;
+  }
+
+  v10 = *SymbolOnlyFlat;
+  if (*SymbolOnlyFlat < 0)
+  {
+LABEL_6:
+    LODWORD(v10) = google::protobuf::io::CodedInputStream::ReadTagFallback(v13, v10);
+    goto LABEL_7;
+  }
+
+  v13[0] = SymbolOnlyFlat + 1;
+LABEL_7:
+  if (v10 != 10)
+  {
+    google::protobuf::FileDescriptorProto::FileDescriptorProto(v12, 0);
+    google::protobuf::MessageLite::ParseFromArray(v12, Bytes);
+  }
+
+  Bytes = google::protobuf::internal::WireFormatLite::ReadBytes(v13, a3);
+  google::protobuf::io::CodedInputStream::~CodedInputStream(v13);
+  return Bytes;
+}
+
+const void *google::protobuf::EncodedDescriptorDatabase::FindFileContainingExtension(uint64_t a1, uint64_t *a2, const char *a3, google::protobuf::MessageLite *a4)
+{
+  v5 = a3;
+  v6 = *(a1 + 8);
+  sub_276B280C4(v8, a2, a3);
+  result = google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindExtension(v6, v8[0], v8[1], v5);
+  if (result)
+  {
+    google::protobuf::MessageLite::ParseFromArray(a4, result);
+  }
+
+  return result;
+}
+
+uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindExtension(google::protobuf::EncodedDescriptorDatabase::DescriptorIndex *a1, const void *a2, int64_t a3, int a4)
+{
+  google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EnsureFlat(a1);
+  v8 = *(a1 + 21);
+  v9 = *(a1 + 22);
+  *&v16 = a2;
+  *(&v16 + 1) = a3;
+  v17 = a4;
+  v19 = *(a1 + 20);
+  v18 = 0;
+  v10 = sub_276B52E74(v8, &v16, 0xCCCCCCCCCCCCCCCDLL * ((v9 - v8) >> 3), &v19);
+  if (*(a1 + 22) != v10 && (v12 = v10, v13 = sub_276B4EDF4(v10, a1, v11), v14 == a3) && (a3 < 1 || v13 == a2 || !memcmp(v13, a2, a3)) && v12[8] == a4)
+  {
+    return *(*a1 + 40 * *v12);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t google::protobuf::EncodedDescriptorDatabase::FindAllExtensionNumbers(uint64_t a1, uint64_t *a2, char *a3)
+{
+  v4 = *(a1 + 8);
+  sub_276B280C4(v6, a2, a3);
+  return google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindAllExtensionNumbers(v4, v6[0], v6[1], a3);
+}
+
+uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::FindAllExtensionNumbers(google::protobuf::EncodedDescriptorDatabase::DescriptorIndex *a1, const void *a2, int64_t a3, const void **a4)
+{
+  google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EnsureFlat(a1);
+  v8 = *(a1 + 21);
+  v9 = *(a1 + 22);
+  *&v20 = a2;
+  *(&v20 + 1) = a3;
+  v21 = 0;
+  v23 = *(a1 + 20);
+  v22 = 0;
+  v10 = sub_276B52E74(v8, &v20, 0xCCCCCCCCCCCCCCCDLL * ((v9 - v8) >> 3), &v23);
+  if (*(a1 + 22) == v10 || (v12 = v10, v13 = sub_276B4EDF4(v10, a1, v11), v14 != a3))
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = 0;
+    v16 = v12 + 40;
+    while (a3 < 1 || v13 == a2 || !memcmp(v13, a2, a3))
+    {
+      sub_276B112A4(a4, (v16 - 8));
+      if (v16 == *(a1 + 22))
+      {
+        v15 = 1;
+        return v15 & 1;
+      }
+
+      v13 = sub_276B4EDF4(v16, a1, v17);
+      v16 += 40;
+      v15 = 1;
+      if (v18 != a3)
+      {
+        return v15 & 1;
+      }
+    }
+  }
+
+  return v15 & 1;
+}
+
+uint64_t google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::AddSymbol(uint64_t a1, unsigned __int8 *a2, int64_t a3)
+{
+  v73 = -858993459 * ((*(a1 + 8) - *a1) >> 3) - 1;
+  __p[0].__r_.__value_.__r.__words[0] = a2;
+  __p[0].__r_.__value_.__l.__size_ = a3;
+  sub_276B264AC(__p, &v74);
+  sub_276B4E948(&v73, a1, v6, &v72);
+  if ((sub_276B4EA0C(a2, a3) & 1) == 0)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(__p, 2, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/descriptor_database.cc", 703);
+    v16 = google::protobuf::internal::LogMessage::operator<<(__p, "Invalid symbol name: ");
+    v17 = google::protobuf::internal::LogMessage::operator<<(v16, &v72);
+    google::protobuf::internal::LogFinisher::operator=(&v77, &v17->__r_.__value_.__l.__data_);
+LABEL_49:
+    google::protobuf::internal::LogMessage::~LogMessage(&__p[0].__r_.__value_.__l.__data_);
+    v69 = 0;
+    goto LABEL_50;
+  }
+
+  v9 = (a1 + 88);
+  v8 = *(a1 + 88);
+  v10 = (a1 + 88);
+  if (v8)
+  {
+    v10 = (a1 + 88);
+    do
+    {
+      v11 = sub_276B526C4((a1 + 104), &v73, (v8 + 32));
+      if (v11)
+      {
+        v12 = 0;
+      }
+
+      else
+      {
+        v12 = 8;
+      }
+
+      if (v11)
+      {
+        v10 = v8;
+      }
+
+      v8 = *(v8 + v12);
+    }
+
+    while (v8);
+  }
+
+  if (v10 == *(a1 + 80))
+  {
+    v14 = v10;
+  }
+
+  else
+  {
+    v13 = *v10;
+    if (*v10)
+    {
+      do
+      {
+        v14 = v13;
+        v13 = v13[1];
+      }
+
+      while (v13);
+    }
+
+    else
+    {
+      do
+      {
+        v14 = v10[2];
+        v15 = *v14 == v10;
+        v10 = v14;
+      }
+
+      while (v15);
+    }
+  }
+
+  sub_276B280C4(&v71, &v72, v7);
+  v79 = v71;
+  if (v14 != v9)
+  {
+    sub_276B4E948(v14 + 8, a1, v18, __p);
+    sub_276B280C4(&v77, __p, v19);
+    v20 = sub_276B4ED58(v77.__r_.__value_.__l.__data_, v77.__r_.__value_.__l.__size_, v79, *(&v79 + 1));
+    v22 = v20;
+    if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p[0].__r_.__value_.__l.__data_);
+      if (v22)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    else if (v20)
+    {
+LABEL_21:
+      google::protobuf::internal::LogMessage::LogMessage(__p, 2, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/descriptor_database.cc", 668);
+      v23 = google::protobuf::internal::LogMessage::operator<<(__p, "Symbol name ");
+      v24 = google::protobuf::internal::LogMessage::operator<<(v23, &v79);
+      v25 = google::protobuf::internal::LogMessage::operator<<(v24, " conflicts with the existing symbol ");
+      sub_276B4E948(v14 + 8, a1, v26, &v77);
+      v27 = google::protobuf::internal::LogMessage::operator<<(v25, &v77);
+      v28 = google::protobuf::internal::LogMessage::operator<<(v27, ".");
+      google::protobuf::internal::LogFinisher::operator=(&v76, &v28->__r_.__value_.__l.__data_);
+      goto LABEL_47;
+    }
+
+    v29 = v14[1];
+    if (v29)
+    {
+      do
+      {
+        v30 = v29;
+        v29 = *v29;
+      }
+
+      while (v29);
+    }
+
+    else
+    {
+      do
+      {
+        v30 = v14[2];
+        v15 = *v30 == v14;
+        v14 = v30;
+      }
+
+      while (!v15);
+    }
+
+    if (v30 != v9)
+    {
+      v31 = v79;
+      sub_276B4E948(v30 + 8, a1, v21, __p);
+      sub_276B280C4(&v77, __p, v32);
+      v33 = sub_276B4ED58(v31, *(&v31 + 1), v77.__r_.__value_.__l.__data_, v77.__r_.__value_.__l.__size_);
+      v34 = v33;
+      if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p[0].__r_.__value_.__l.__data_);
+        if (v34)
+        {
+          goto LABEL_31;
+        }
+      }
+
+      else if (v33)
+      {
+LABEL_31:
+        google::protobuf::internal::LogMessage::LogMessage(__p, 2, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/descriptor_database.cc", 682);
+        v35 = google::protobuf::internal::LogMessage::operator<<(__p, "Symbol name ");
+        v36 = google::protobuf::internal::LogMessage::operator<<(v35, &v79);
+        v37 = google::protobuf::internal::LogMessage::operator<<(v36, " conflicts with the existing symbol ");
+        sub_276B4E948(v30 + 8, a1, v38, &v77);
+        v39 = google::protobuf::internal::LogMessage::operator<<(v37, &v77);
+        v40 = google::protobuf::internal::LogMessage::operator<<(v39, ".");
+        google::protobuf::internal::LogFinisher::operator=(&v76, &v40->__r_.__value_.__l.__data_);
+        goto LABEL_47;
+      }
+
+      v9 = v30;
+    }
+  }
+
+  v41 = *(a1 + 112);
+  v42 = *(a1 + 120);
+  __p[0].__r_.__value_.__r.__words[0] = *(a1 + 104);
+  v44 = sub_276B5294C(v41, v42, &v73, __p);
+  if (*(a1 + 112) == v44)
+  {
+    v45 = 0;
+  }
+
+  else
+  {
+    v45 = -32;
+  }
+
+  sub_276B280C4(&v71, &v72, v43);
+  v47 = (v44 + v45);
+  v48 = *(a1 + 120);
+  v79 = v71;
+  if (v47 != v48)
+  {
+    sub_276B4E948(v47, a1, v46, __p);
+    sub_276B280C4(&v77, __p, v49);
+    v50 = sub_276B4ED58(v77.__r_.__value_.__l.__data_, v77.__r_.__value_.__l.__size_, v79, *(&v79 + 1));
+    v52 = v50;
+    if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p[0].__r_.__value_.__l.__data_);
+      if (v52)
+      {
+        goto LABEL_40;
+      }
+    }
+
+    else if (v50)
+    {
+LABEL_40:
+      google::protobuf::internal::LogMessage::LogMessage(__p, 2, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/descriptor_database.cc", 668);
+      v53 = google::protobuf::internal::LogMessage::operator<<(__p, "Symbol name ");
+      v54 = google::protobuf::internal::LogMessage::operator<<(v53, &v79);
+      v55 = google::protobuf::internal::LogMessage::operator<<(v54, " conflicts with the existing symbol ");
+      sub_276B4E948(v47, a1, v56, &v77);
+      v57 = google::protobuf::internal::LogMessage::operator<<(v55, &v77);
+      v58 = google::protobuf::internal::LogMessage::operator<<(v57, ".");
+      google::protobuf::internal::LogFinisher::operator=(&v76, &v58->__r_.__value_.__l.__data_);
+      goto LABEL_47;
+    }
+
+    v59 = v47 + 8;
+    if (v59 != v48)
+    {
+      v60 = v79;
+      sub_276B4E948(v59, a1, v51, __p);
+      sub_276B280C4(&v77, __p, v61);
+      v62 = sub_276B4ED58(v60, *(&v60 + 1), v77.__r_.__value_.__l.__data_, v77.__r_.__value_.__l.__size_);
+      if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p[0].__r_.__value_.__l.__data_);
+      }
+
+      if (v62)
+      {
+        google::protobuf::internal::LogMessage::LogMessage(__p, 2, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/descriptor_database.cc", 682);
+        v63 = google::protobuf::internal::LogMessage::operator<<(__p, "Symbol name ");
+        v64 = google::protobuf::internal::LogMessage::operator<<(v63, &v79);
+        v65 = google::protobuf::internal::LogMessage::operator<<(v64, " conflicts with the existing symbol ");
+        sub_276B4E948(v59, a1, v66, &v77);
+        v67 = google::protobuf::internal::LogMessage::operator<<(v65, &v77);
+        v68 = google::protobuf::internal::LogMessage::operator<<(v67, ".");
+        google::protobuf::internal::LogFinisher::operator=(&v76, &v68->__r_.__value_.__l.__data_);
+LABEL_47:
+        if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v77.__r_.__value_.__l.__data_);
+        }
+
+        goto LABEL_49;
+      }
+    }
+  }
+
+  sub_276B529D4((a1 + 80), v9, &v73, &v73);
+  v69 = 1;
+LABEL_50:
+  if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v72.__r_.__value_.__l.__data_);
+  }
+
+  if (v75 < 0)
+  {
+    operator delete(v74);
+  }
+
+  return v69;
+}
+
+void sub_276B4E878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
+{
+  if (a31 < 0)
+  {
+    operator delete(__p);
+  }
+
+  google::protobuf::internal::LogMessage::~LogMessage(&a32);
+  if (a17 < 0)
+  {
+    operator delete(a12);
+  }
+
+  if (a24 < 0)
+  {
+    operator delete(a19);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_276B4E948(int *a1@<X0>, void *a2@<X1>, const char *a3@<X2>, std::string *a4@<X8>)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = (a1 + 2);
+  sub_276B280C4(&v10, (*a2 + 40 * *a1 + 16), a3);
+  v7 = "";
+  if (v11)
+  {
+    v7 = ".";
+  }
+
+  v9[0] = v7;
+  v9[1] = v11 != 0;
+  sub_276B280C4(&v8, v5, v6);
+  google::protobuf::StrCat(&v10, v9, &v8, a4);
+}
+
+uint64_t sub_276B4EA0C(unsigned __int8 *a1, uint64_t a2)
+{
+  if (!a2)
+  {
+    return 1;
+  }
+
+  while (1)
+  {
+    v2 = *a1;
+    if (v2 != 46 && v2 != 95)
+    {
+      v3 = v2 - 58;
+      v4 = (v2 & 0xFFFFFFDF) - 91;
+      if (v3 <= 0xFFFFFFF5 && v4 < 0xFFFFFFE6)
+      {
+        break;
+      }
+    }
+
+    ++a1;
+    if (!--a2)
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+void google::protobuf::EncodedDescriptorDatabase::DescriptorIndex::EnsureFlat(google::protobuf::EncodedDescriptorDatabase::DescriptorIndex *this)
+{
+  sub_276B4EE40(this);
+  v2 = *(this + 5);
+  if (v2)
+  {
+    sub_276B52F14(&v14, v2 + ((*(this + 8) - *(this + 7)) >> 5));
+    v3 = *(this + 3);
+    v4 = *(this + 7);
+    v5 = *(this + 8);
+    v16 = *(this + 6);
+    sub_276B530BC(v3, this + 4, v4, v5, v14, &v16);
+    sub_276B5328C(this + 7);
+    *(this + 56) = v14;
+    *(this + 9) = v15;
+    v15 = 0;
+    v14 = 0uLL;
+    sub_276B2E8B0(this + 24, *(this + 4));
+    *(this + 4) = 0;
+    *(this + 5) = 0;
+    *(this + 3) = this + 32;
+    v17 = &v14;
+    sub_276B53018(&v17);
+  }
+
+  v6 = *(this + 12);
+  if (v6)
+  {
+    sub_276B532CC(&v14, v6 + ((*(this + 15) - *(this + 14)) >> 5));
+    v7 = *(this + 10);
+    v8 = *(this + 14);
+    v9 = *(this + 15);
+    v16 = *(this + 13);
+    sub_276B5334C(v7, this + 11, v8, v9, v14, &v16);
+    sub_276B5328C(this + 14);
+    *(this + 7) = v14;
+    *(this + 16) = v15;
+    v15 = 0;
+    v14 = 0uLL;
+    sub_276B2E8B0(this + 80, *(this + 11));
+    *(this + 11) = 0;
+    *(this + 12) = 0;
+    *(this + 10) = this + 88;
+    v17 = &v14;
+    sub_276B53018(&v17);
+  }
+
+  v10 = *(this + 19);
+  if (v10)
+  {
+    sub_276B53488(&v14, v10 - 0x3333333333333333 * ((*(this + 22) - *(this + 21)) >> 3));
+    v11 = *(this + 17);
+    v12 = *(this + 21);
+    v13 = *(this + 22);
+    v16 = *(this + 20);
+    sub_276B53674(v11, this + 18, v12, v13, v14, &v16);
+    sub_276B53848(this + 21);
+    *(this + 168) = v14;
+    *(this + 23) = v15;
+    v15 = 0;
+    v14 = 0uLL;
+    sub_276B2E8B0(this + 136, *(this + 18));
+    *(this + 18) = 0;
+    *(this + 19) = 0;
+    *(this + 17) = this + 144;
+    v17 = &v14;
+    sub_276B535D0(&v17);
+  }
+}
+
+void sub_276B4EC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  sub_276B535D0(va);
+  _Unwind_Resume(a1);
 }

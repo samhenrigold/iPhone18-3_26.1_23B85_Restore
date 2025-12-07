@@ -18,17 +18,18 @@
   if (isInternalBuild)
   {
     v8 = [FMPreferencesUtil stringForKey:@"ApsEnvOverride" inDomain:@"com.apple.icloud.fmflocatord.notbackedup"];
+    v9 = v8;
     if (v8)
     {
-      v9 = sub_100002830();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100002830(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412290;
-        v11 = v8;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Overriding aps environment to %@", &v10, 0xCu);
+        v11 = 138412290;
+        v12 = v9;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Overriding aps environment to %@", &v11, 0xCu);
       }
 
-      objc_storeStrong(&self->_apsEnvironment, v8);
+      objc_storeStrong(&self->_apsEnvironment, v9);
     }
   }
 }

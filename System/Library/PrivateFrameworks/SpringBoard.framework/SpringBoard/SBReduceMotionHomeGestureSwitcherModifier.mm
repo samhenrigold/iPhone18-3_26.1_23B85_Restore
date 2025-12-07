@@ -272,7 +272,7 @@ LABEL_11:
 
 - (id)_updateForGestureDidEndWithEvent:(id)event
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (!self->_gestureHasBegun)
   {
@@ -311,66 +311,71 @@ LABEL_11:
   }
 
 LABEL_12:
-  if ([eventCopy isCanceled])
+  isCanceled = [eventCopy isCanceled];
+  if (isCanceled)
   {
     if (!self->_endingGestureForAppSwitcher)
     {
       goto LABEL_23;
     }
 
-    v11 = v8;
+    v12 = v8;
     v8 = @"EndedGestureForAppSwitcher";
     currentFinalDestination = 3;
     goto LABEL_22;
   }
 
-  if (self->_startingEnvironmentMode == 1 && [(SBAppLayout *)self->_selectedAppLayout type]!= 2 && currentFinalDestination == 4)
+  if (self->_startingEnvironmentMode == 1)
   {
-    v11 = objc_alloc_init(SBActivateHomeButtonSwitcherEventResponse);
-    [(SBChainableModifierEventResponse *)v5 addChildResponse:v11];
-    currentFinalDestination = 4;
+    isCanceled = [(SBAppLayout *)self->_selectedAppLayout type];
+    if (isCanceled != 2 && currentFinalDestination == 4)
+    {
+      v12 = objc_alloc_init(SBActivateHomeButtonSwitcherEventResponse);
+      [(SBChainableModifierEventResponse *)v5 addChildResponse:v12];
+      currentFinalDestination = 4;
 LABEL_22:
+    }
   }
 
 LABEL_23:
-  v13 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = SBLogSystemGestureAppSwitcher(isCanceled);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v14 = NSStringFromSBHomeGestureFinalDestination(currentFinalDestination);
+    v15 = NSStringFromSBHomeGestureFinalDestination(currentFinalDestination);
     *buf = 138412802;
-    v30 = v14;
-    v31 = 2048;
-    v32 = currentFinalDestination;
-    v33 = 2112;
-    v34 = v8;
-    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "Reduce Motion Home Gesture Modifier - Final Response: %@ (%lu), Reason: %@", buf, 0x20u);
+    v31 = v15;
+    v32 = 2048;
+    v33 = currentFinalDestination;
+    v34 = 2112;
+    v35 = v8;
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "Reduce Motion Home Gesture Modifier - Final Response: %@ (%lu), Reason: %@", buf, 0x20u);
   }
 
-  v15 = [(SBReduceMotionHomeGestureSwitcherModifier *)self _responseForActivatingFinalDestination:currentFinalDestination];
-  [(SBChainableModifierEventResponse *)v5 addChildResponse:v15];
+  v16 = [(SBReduceMotionHomeGestureSwitcherModifier *)self _responseForActivatingFinalDestination:currentFinalDestination];
+  [(SBChainableModifierEventResponse *)v5 addChildResponse:v16];
   if (currentFinalDestination - 3 <= 1)
   {
     objc_initWeak(buf, self);
     switcherSettings = [(SBReduceMotionHomeGestureSwitcherModifier *)self switcherSettings];
     animationSettings = [switcherSettings animationSettings];
     [animationSettings reduceMotionTriggerDelay];
-    v19 = v18;
+    v20 = v19;
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __78__SBReduceMotionHomeGestureSwitcherModifier__updateForGestureDidEndWithEvent___block_invoke;
-    v26[3] = &unk_2783AD4A0;
-    objc_copyWeak(&v27, buf);
-    [v15 setDelay:v26 withValidator:v19];
-    objc_destroyWeak(&v27);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __78__SBReduceMotionHomeGestureSwitcherModifier__updateForGestureDidEndWithEvent___block_invoke;
+    v27[3] = &unk_2783AD4A0;
+    objc_copyWeak(&v28, buf);
+    [v16 setDelay:v27 withValidator:v20];
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
   }
 
   if (currentFinalDestination == 4)
   {
-    v20 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:2 phase:1];
-    -[SBHapticSwitcherEventResponse setHidEventSenderID:](v20, "setHidEventSenderID:", [eventCopy hidEventSenderID]);
-    [(SBChainableModifierEventResponse *)v5 addChildResponse:v20];
+    v21 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:2 phase:1];
+    -[SBHapticSwitcherEventResponse setHidEventSenderID:](v21, "setHidEventSenderID:", [eventCopy hidEventSenderID]);
+    [(SBChainableModifierEventResponse *)v5 addChildResponse:v21];
   }
 
   else
@@ -380,23 +385,23 @@ LABEL_23:
       goto LABEL_32;
     }
 
-    v20 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:0 phase:0];
-    v21 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:0 phase:1];
-    -[SBHapticSwitcherEventResponse setHidEventSenderID:](v21, "setHidEventSenderID:", [eventCopy hidEventSenderID]);
-    v22 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:0 phase:2];
-    v28[0] = v20;
-    v28[1] = v21;
-    v28[2] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
-    [(SBChainableModifierEventResponse *)v5 addChildResponses:v23];
+    v21 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:0 phase:0];
+    v22 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:0 phase:1];
+    -[SBHapticSwitcherEventResponse setHidEventSenderID:](v22, "setHidEventSenderID:", [eventCopy hidEventSenderID]);
+    v23 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:0 phase:2];
+    v29[0] = v21;
+    v29[1] = v22;
+    v29[2] = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+    [(SBChainableModifierEventResponse *)v5 addChildResponses:v24];
   }
 
 LABEL_32:
   if (self->_didWarmupReduceMotionHaptic)
   {
     self->_didWarmupReduceMotionHaptic = 0;
-    v24 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:2 phase:2];
-    [(SBChainableModifierEventResponse *)v5 addChildResponse:v24];
+    v25 = [[SBHapticSwitcherEventResponse alloc] initWithHapticType:2 phase:2];
+    [(SBChainableModifierEventResponse *)v5 addChildResponse:v25];
   }
 
   return v5;
@@ -622,7 +627,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t __59__SBReduceMotionHomeGestureSwitcherModifier_frameForIndex___block_invoke(void *a1)
+void *__59__SBReduceMotionHomeGestureSwitcherModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 152) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -948,7 +953,7 @@ LABEL_11:
 
 - (void)_applyPrototypeSettings
 {
-  v3 = SBMainScreenPointsPerMillimeter();
+  v3 = SBMainScreenPointsPerMillimeter(self, a2);
   homeGestureSettings = [(SBReduceMotionHomeGestureSwitcherModifier *)self homeGestureSettings];
   [homeGestureSettings cardFlyInMaximumVelocityThreshold];
   *&kEndGestureForAppSwitcherMaximumVelocityThreshold = v3 * v4;

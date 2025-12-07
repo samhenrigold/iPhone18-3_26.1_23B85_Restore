@@ -76,53 +76,52 @@
 
 - (void)handleMessageResend
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_25616D38C;
-  v21 = sub_25616D39C;
-  v22 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_25616D3A4;
-  v16[3] = &unk_279824668;
-  v16[4] = &v17;
-  objc_msgSend_accessInflightMessageCache_(self, a2, v16);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_25616D38C;
+  v20 = sub_25616D39C;
+  v21 = 0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_25616D3A4;
+  v15[3] = &unk_279824668;
+  v15[4] = &v16;
+  objc_msgSend_accessInflightMessageCache_(self, a2, v15);
   v13 = 0u;
-  v3 = v18[5];
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v12, v23, 16);
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v3 = v17[5];
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v11, v22, 16);
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = objc_msgSend_objectForKeyedSubscript_(v18[5], v5, *(*(&v12 + 1) + 8 * v8), v12);
+        v9 = objc_msgSend_objectForKeyedSubscript_(v17[5], v5, *(*(&v11 + 1) + 8 * v8), v11);
         objc_msgSend_handleCacheMessage_(self, v10, v9);
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v12, v23, 16);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v5, &v11, v22, 16);
     }
 
     while (v6);
   }
 
-  _Block_object_dispose(&v17, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
 }
 
 - (void)setLocationAccessRecordAsActiveForDays:(int64_t)days completionHandler:(id)handler
@@ -265,7 +264,7 @@
 
 - (void)handleCacheMessage:(id)message
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = objc_msgSend_objectForKeyedSubscript_(messageCopy, v5, @"kInfoMessageNameKey");
   isEqual = objc_msgSend_isEqual_(v6, v7, @"kCLConnectionMessageSetLocationAccessRecordAsActive");
@@ -293,17 +292,15 @@ LABEL_5:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    v24 = objc_msgSend_objectForKeyedSubscript_(messageCopy, v22, @"kInfoMessageNameKey");
-    v25 = 138412546;
-    v26 = v24;
-    v27 = 2112;
+    v23 = objc_msgSend_objectForKeyedSubscript_(messageCopy, v22, @"kInfoMessageNameKey");
+    v24 = 138412546;
+    v25 = v23;
+    v26 = 2112;
     selfCopy = self;
-    _os_log_fault_impl(&dword_25616C000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "#Location Access Store #CLLA received unhandled message: %@ self: %@", &v25, 0x16u);
+    _os_log_fault_impl(&dword_25616C000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "#Location Access Store #CLLA received unhandled message: %@ self: %@", &v24, 0x16u);
   }
 
 LABEL_8:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

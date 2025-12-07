@@ -1,3 +1,1160 @@
+unint64_t *protocol witness for RangeReplaceableCollection.remove(at:) in conformance FocusStoreList@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *(*v2 + 16);
+  if (!v3)
+  {
+    __break(1u);
+    goto LABEL_8;
+  }
+
+  v4 = *result;
+  if ((*result & 0x8000000000000000) != 0)
+  {
+LABEL_8:
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  if (v4 >= v3)
+  {
+LABEL_9:
+    __break(1u);
+    return result;
+  }
+
+  outlined init with copy of FocusStoreList.Item(*v2 + 72 * v4 + 32, a2);
+
+  return specialized Array.replaceSubrange<A>(_:with:)(v4, v4 + 1);
+}
+
+double protocol witness for RangeReplaceableCollection._customRemoveLast() in conformance FocusStoreList@<D0>(uint64_t a1@<X8>)
+{
+  *(a1 + 64) = 0;
+  result = 0.0;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  return result;
+}
+
+uint64_t protocol witness for RangeReplaceableCollection.removeAll(keepingCapacity:) in conformance FocusStoreList(char a1)
+{
+  if (a1)
+  {
+    v2 = *(*v1 + 16);
+
+    return specialized Array.replaceSubrange<A>(_:with:)(0, v2);
+  }
+
+  else
+  {
+
+    *v1 = MEMORY[0x1E69E7CC0];
+  }
+
+  return result;
+}
+
+uint64_t (*protocol witness for Collection.subscript.read in conformance FocusStoreList(uint64_t (**a1)(), unint64_t *a2))()
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    result = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    result = malloc(0x41uLL);
+  }
+
+  *a1 = result;
+  v6 = *a2;
+  if ((*a2 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else if (v6 < *(*v2 + 16))
+  {
+    outlined init with copy of FocusStoreList.Item(*v2 + 72 * v6 + 32, result);
+    return protocol witness for Collection.subscript.read in conformance FocusStoreList;
+  }
+
+  __break(1u);
+  return result;
+}
+
+void protocol witness for Collection.subscript.read in conformance FocusStoreList(uint64_t *a1)
+{
+  v1 = *a1;
+  outlined destroy of FocusStoreList.Item(*a1);
+
+  free(v1);
+}
+
+void protocol witness for Collection.subscript.getter in conformance FocusStoreList(uint64_t *a1@<X0>, void *a2@<X8>)
+{
+  v3 = *a1;
+  if (*a1 < 0 || (v4 = a1[1], v5 = *v2, *(*v2 + 16) < v4))
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *a2 = v3;
+    a2[1] = v4;
+    a2[2] = v5;
+  }
+}
+
+double protocol witness for Collection.indices.getter in conformance FocusStoreList@<D0>(void *a1@<X8>)
+{
+  v2 = *(*v1 + 16);
+  *a1 = *v1;
+  a1[1] = 0;
+  a1[2] = v2;
+
+  return result;
+}
+
+unint64_t protocol witness for Collection.index(_:offsetBy:limitedBy:) in conformance FocusStoreList@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+{
+  result = specialized Collection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
+  *a4 = result;
+  *(a4 + 8) = v6 & 1;
+  return result;
+}
+
+void *protocol witness for Sequence._copyToContiguousArray() in conformance FocusStoreList()
+{
+  v1 = specialized _copyCollectionToContiguousArray<A>(_:)(*v0);
+
+  return v1;
+}
+
+unint64_t lazy protocol witness table accessor for type FocusStoreList and conformance FocusStoreList()
+{
+  result = lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList;
+  if (!lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for FocusStoreList, &type metadata for FocusStoreList, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList;
+  if (!lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for FocusStoreList, &type metadata for FocusStoreList, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList;
+  if (!lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for FocusStoreList, &type metadata for FocusStoreList, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type FocusStoreList and conformance FocusStoreList);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type IndexingIterator<FocusStoreList> and conformance IndexingIterator<A>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, ValueMetadata *, unint64_t), const char *a4)
+{
+  result = *a1;
+  if (!result)
+  {
+    type metadata accessor for IndexingIterator<FocusStoreList>(255, a2, a3);
+    result = swift_getWitnessTable(a4, v7);
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+void type metadata accessor for IndexingIterator<FocusStoreList>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, ValueMetadata *, unint64_t))
+{
+  if (!*a2)
+  {
+    v6 = lazy protocol witness table accessor for type FocusStoreList and conformance FocusStoreList();
+    v7 = a3(a1, &type metadata for FocusStoreList, v6);
+    if (!v8)
+    {
+      atomic_store(v7, a2);
+    }
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type Slice<FocusStoreList> and conformance <> Slice<A>()
+{
+  result = lazy protocol witness table cache variable for type Slice<FocusStoreList> and conformance <> Slice<A>;
+  if (!lazy protocol witness table cache variable for type Slice<FocusStoreList> and conformance <> Slice<A>)
+  {
+    v5[3] = v0;
+    v5[4] = v1;
+    type metadata accessor for IndexingIterator<FocusStoreList>(255, &lazy cache variable for type metadata for Slice<FocusStoreList>, MEMORY[0x1E69E74D0]);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type FocusStoreList and conformance FocusStoreList();
+    result = swift_getWitnessTable(MEMORY[0x1E69E7500], v4, v5);
+    atomic_store(result, &lazy protocol witness table cache variable for type Slice<FocusStoreList> and conformance <> Slice<A>);
+  }
+
+  return result;
+}
+
+unint64_t specialized Collection.index(_:offsetBy:limitedBy:)(unint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (a2 < 0)
+  {
+LABEL_21:
+    __break(1u);
+    return result;
+  }
+
+  if (a2)
+  {
+    v3 = a3 - result;
+    if (a3 - result >= a2 - 1)
+    {
+      v3 = a2 - 1;
+    }
+
+    if (v3 >= (result ^ 0x7FFFFFFFFFFFFFFFLL))
+    {
+      v3 = result ^ 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    v4 = v3 + 1;
+    if (v4 >= 5)
+    {
+      v7 = v4 & 3;
+      if ((v4 & 3) == 0)
+      {
+        v7 = 4;
+      }
+
+      v5 = v4 - v7;
+      v8 = 0uLL;
+      v9 = result;
+      v10 = vdupq_n_s64(1uLL);
+      v11 = v5;
+      do
+      {
+        v8 = vaddq_s64(v8, v10);
+        v9 = vaddq_s64(v9, v10);
+        v11 -= 4;
+      }
+
+      while (v11);
+      v6 = vaddvq_s64(vpaddq_s64(v9, v8));
+    }
+
+    else
+    {
+      v5 = 0;
+      v6 = result;
+    }
+
+    v12 = v5 + result - 0x7FFFFFFFFFFFFFFFLL;
+    v13 = v5 + result - a3;
+    v14 = a2 - v5;
+    result = v6;
+    while (1)
+    {
+      if (!v13)
+      {
+        return 0;
+      }
+
+      if (!v12)
+      {
+        break;
+      }
+
+      ++result;
+      ++v12;
+      ++v13;
+      if (!--v14)
+      {
+        return result;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_21;
+  }
+
+  return result;
+}
+
+uint64_t outlined init with take of Repeated<FocusStoreList.Item>(uint64_t a1, uint64_t a2)
+{
+  type metadata accessor for CollectionOfOne<FocusStoreList.Item>(0, &lazy cache variable for type metadata for Repeated<FocusStoreList.Item>, MEMORY[0x1E69E7BF8]);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+void type metadata accessor for IndexingIterator<Repeated<FocusStoreList.Item>>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for IndexingIterator<Repeated<FocusStoreList.Item>>)
+  {
+    type metadata accessor for CollectionOfOne<FocusStoreList.Item>(255, &lazy cache variable for type metadata for Repeated<FocusStoreList.Item>, MEMORY[0x1E69E7BF8]);
+    lazy protocol witness table accessor for type Repeated<FocusStoreList.Item> and conformance Repeated<A>();
+    v1 = type metadata accessor for IndexingIterator();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for IndexingIterator<Repeated<FocusStoreList.Item>>);
+    }
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type Repeated<FocusStoreList.Item> and conformance Repeated<A>()
+{
+  result = lazy protocol witness table cache variable for type Repeated<FocusStoreList.Item> and conformance Repeated<A>;
+  if (!lazy protocol witness table cache variable for type Repeated<FocusStoreList.Item> and conformance Repeated<A>)
+  {
+    type metadata accessor for CollectionOfOne<FocusStoreList.Item>(255, &lazy cache variable for type metadata for Repeated<FocusStoreList.Item>, MEMORY[0x1E69E7BF8]);
+    result = swift_getWitnessTable(MEMORY[0x1E69E7C18], v3, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type Repeated<FocusStoreList.Item> and conformance Repeated<A>);
+  }
+
+  return result;
+}
+
+unint64_t type metadata accessor for Hashable()
+{
+  result = lazy cache variable for type metadata for Hashable;
+  if (!lazy cache variable for type metadata for Hashable)
+  {
+    result = swift_getExistentialTypeMetadata();
+    atomic_store(result, &lazy cache variable for type metadata for Hashable);
+  }
+
+  return result;
+}
+
+uint64_t outlined destroy of CollectionOfOne<Decodable & Encodable & Hashable>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
+{
+  type metadata accessor for CollectionOfOne<Hashable>(0, a2, a3, a4);
+  (*(*(v5 - 8) + 8))(a1, v5);
+  return a1;
+}
+
+uint64_t outlined destroy of IndexingIterator<Repeated<Decodable & Encodable & Hashable>>(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+void type metadata accessor for IndexingIterator<Repeated<Hashable>>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for IndexingIterator<Repeated<Hashable>>)
+  {
+    v1 = MEMORY[0x1E69E7BF8];
+    type metadata accessor for CollectionOfOne<Hashable>(255, &lazy cache variable for type metadata for Repeated<Hashable>, type metadata accessor for Hashable, MEMORY[0x1E69E7BF8]);
+    lazy protocol witness table accessor for type CollectionOfOne<Hashable> and conformance CollectionOfOne<A>(&lazy protocol witness table cache variable for type Repeated<Hashable> and conformance Repeated<A>, &lazy cache variable for type metadata for Repeated<Hashable>, v1, MEMORY[0x1E69E7C18]);
+    v2 = type metadata accessor for IndexingIterator();
+    if (!v3)
+    {
+      atomic_store(v2, &lazy cache variable for type metadata for IndexingIterator<Repeated<Hashable>>);
+    }
+  }
+}
+
+uint64_t lazy protocol witness table accessor for type CollectionOfOne<Hashable> and conformance CollectionOfOne<A>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, uint64_t), const char *a4)
+{
+  result = *a1;
+  if (!result)
+  {
+    type metadata accessor for CollectionOfOne<Hashable>(255, a2, type metadata accessor for Hashable, a3);
+    result = swift_getWitnessTable(a4, v7);
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t outlined assign with take of Hashable?(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t (*a4)(uint64_t))
+{
+  type metadata accessor for CollectionOfOne<Hashable>(0, a3, a4, MEMORY[0x1E69E6720]);
+  (*(*(v6 - 8) + 40))(a2, a1, v6);
+  return a2;
+}
+
+uint64_t lazy protocol witness table accessor for type Repeated<Decodable & Encodable & Hashable> and conformance Repeated<A>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, uint64_t), const char *a4)
+{
+  result = *a1;
+  if (!result)
+  {
+    type metadata accessor for CollectionOfOne<Hashable>(255, a2, type metadata accessor for Decodable & Encodable & Hashable, a3);
+    result = swift_getWitnessTable(a4, v7);
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with copy of Decodable & Encodable & Hashable(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 24);
+  *(a2 + 24) = v3;
+  v4 = *(a1 + 48);
+  *(a2 + 32) = *(a1 + 32);
+  *(a2 + 48) = v4;
+  (**(v3 - 8))(a2, a1);
+  return a2;
+}
+
+void type metadata accessor for IndexingIterator<Repeated<Decodable & Encodable & Hashable>>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for IndexingIterator<Repeated<Decodable & Encodable & Hashable>>)
+  {
+    v1 = MEMORY[0x1E69E7BF8];
+    type metadata accessor for CollectionOfOne<Hashable>(255, &lazy cache variable for type metadata for Repeated<Decodable & Encodable & Hashable>, type metadata accessor for Decodable & Encodable & Hashable, MEMORY[0x1E69E7BF8]);
+    lazy protocol witness table accessor for type Repeated<Decodable & Encodable & Hashable> and conformance Repeated<A>(&lazy protocol witness table cache variable for type Repeated<Decodable & Encodable & Hashable> and conformance Repeated<A>, &lazy cache variable for type metadata for Repeated<Decodable & Encodable & Hashable>, v1, MEMORY[0x1E69E7C18]);
+    v2 = type metadata accessor for IndexingIterator();
+    if (!v3)
+    {
+      atomic_store(v2, &lazy cache variable for type metadata for IndexingIterator<Repeated<Decodable & Encodable & Hashable>>);
+    }
+  }
+}
+
+uint64_t partial apply for closure #1 in FocusStateBindingUpdateAction.init<A>(binding:value:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = *(v4 + 16);
+  v6 = type metadata accessor for FocusState.Binding(0, v5, *(v4 + 24), a4);
+  v7 = *(*(v6 - 8) + 80);
+  return specialized FocusState.Binding.binding.setter(v4 + ((((v7 + 32) & ~v7) + *(*(v6 - 8) + 64) + *(*(v5 - 8) + 80)) & ~*(*(v5 - 8) + 80)), v6);
+}
+
+uint64_t assignWithCopy for FocusStoreList.Item(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 8);
+  v4 = *(a2 + 24);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = v4;
+
+  v5 = *(a2 + 32);
+  if (!*(a1 + 32))
+  {
+    if (v5)
+    {
+      v7 = *(a2 + 40);
+      *(a1 + 32) = v5;
+      *(a1 + 40) = v7;
+
+      goto LABEL_8;
+    }
+
+LABEL_7:
+    *(a1 + 32) = *(a2 + 32);
+    goto LABEL_8;
+  }
+
+  if (!v5)
+  {
+
+    goto LABEL_7;
+  }
+
+  v6 = *(a2 + 40);
+  *(a1 + 32) = v5;
+  *(a1 + 40) = v6;
+
+LABEL_8:
+  swift_weakCopyAssign();
+  swift_weakCopyAssign();
+  *(a1 + 64) = *(a2 + 64);
+  return a1;
+}
+
+uint64_t assignWithTake for FocusStoreList.Item(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  v4 = *(a2 + 24);
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 24) = v4;
+
+  v5 = *(a2 + 32);
+  if (!*(a1 + 32))
+  {
+    if (v5)
+    {
+      v7 = *(a2 + 40);
+      *(a1 + 32) = v5;
+      *(a1 + 40) = v7;
+      goto LABEL_8;
+    }
+
+LABEL_7:
+    *(a1 + 32) = *(a2 + 32);
+    goto LABEL_8;
+  }
+
+  if (!v5)
+  {
+
+    goto LABEL_7;
+  }
+
+  v6 = *(a2 + 40);
+  *(a1 + 32) = v5;
+  *(a1 + 40) = v6;
+
+LABEL_8:
+  swift_weakTakeAssign();
+  swift_weakTakeAssign();
+  *(a1 + 64) = *(a2 + 64);
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for FocusStoreList.Item(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 65))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 16);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for FocusStoreList.Item(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 56) = 0;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 64) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 65) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 16) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 65) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t static View.makeMapKitView(inputs:_:)(__int128 *a1, void (*a2)(__int128 *, __int128 *))
+{
+  v3 = a1[1];
+  v10 = *a1;
+  v11 = v3;
+  v12 = a1[2];
+  outlined init with copy of _GraphInputs(&v10, v13);
+  _ViewInputs.init(withoutGeometry:)();
+  v7 = v10;
+  v8 = v11;
+  v9 = v12;
+  v5[2] = v13[2];
+  v5[3] = v13[3];
+  v5[4] = v13[4];
+  v6 = v14;
+  v5[0] = v13[0];
+  v5[1] = v13[1];
+  outlined init with copy of _GraphInputs(&v10, v15);
+  a2(&v7, v5);
+  v15[0] = v7;
+  v15[1] = v8;
+  v15[2] = v9;
+  outlined destroy of MapKitGraphInputs(v15);
+  return outlined destroy of _ViewInputs(v13);
+}
+
+uint64_t MapKitViewTraitCollection.updateTraitKeysWithForEach<A>(contentID:id:offset:isConstant:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
+{
+  ViewTraitCollection.subscript.setter();
+  ViewTraitCollection.subscript.setter();
+  if ((a4 & 1) == 0)
+  {
+    return ViewTraitCollection.setTag<A>(for:value:)();
+  }
+
+  type metadata accessor for TagValueTraitKey<Int>();
+  lazy protocol witness table accessor for type TagValueTraitKey<Int> and conformance TagValueTraitKey<A>();
+  return ViewTraitCollection.subscript.setter();
+}
+
+void type metadata accessor for TagValueTraitKey<Int>()
+{
+  if (!lazy cache variable for type metadata for TagValueTraitKey<Int>)
+  {
+    v0 = type metadata accessor for TagValueTraitKey();
+    if (!v1)
+    {
+      atomic_store(v0, &lazy cache variable for type metadata for TagValueTraitKey<Int>);
+    }
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type TagValueTraitKey<Int> and conformance TagValueTraitKey<A>()
+{
+  result = lazy protocol witness table cache variable for type TagValueTraitKey<Int> and conformance TagValueTraitKey<A>;
+  if (!lazy protocol witness table cache variable for type TagValueTraitKey<Int> and conformance TagValueTraitKey<A>)
+  {
+    type metadata accessor for TagValueTraitKey<Int>();
+    result = swift_getWitnessTable(MEMORY[0x1E697EB68], v3, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type TagValueTraitKey<Int> and conformance TagValueTraitKey<A>);
+  }
+
+  return result;
+}
+
+uint64_t CGSize.withinRange(axes:rangeCosine:)(unsigned __int8 *a1, CGFloat a2)
+{
+  v2 = *a1;
+  if (v2 == 15)
+  {
+    return 1;
+  }
+
+  v4 = CGSize.normalized()();
+  if ((v2 & 1) != 0 && -v4.width > a2)
+  {
+    return 1;
+  }
+
+  if ((v2 & 2) != 0 && v4.width > a2 || (v2 & 4) != 0 && -v4.height > a2)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return (v4.height > a2) & (v2 >> 3);
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type _EventDirections and conformance _EventDirections()
+{
+  result = lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections;
+  if (!lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for _EventDirections, &type metadata for _EventDirections, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections;
+  if (!lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for _EventDirections, &type metadata for _EventDirections, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections;
+  if (!lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for _EventDirections, &type metadata for _EventDirections, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections;
+  if (!lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for _EventDirections, &type metadata for _EventDirections, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type _EventDirections and conformance _EventDirections);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MagnifyEvent and conformance MagnifyEvent()
+{
+  result = lazy protocol witness table cache variable for type MagnifyEvent and conformance MagnifyEvent;
+  if (!lazy protocol witness table cache variable for type MagnifyEvent and conformance MagnifyEvent)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for MagnifyEvent, &type metadata for MagnifyEvent, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type MagnifyEvent and conformance MagnifyEvent);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type MagnifyEvent and conformance MagnifyEvent;
+  if (!lazy protocol witness table cache variable for type MagnifyEvent and conformance MagnifyEvent)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for MagnifyEvent, &type metadata for MagnifyEvent, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type MagnifyEvent and conformance MagnifyEvent);
+  }
+
+  return result;
+}
+
+__n128 (*protocol witness for SpatialEventType.location.modify in conformance MagnifyEvent(uint64_t a1))(__n128 *a1)
+{
+  *(a1 + 16) = v1;
+  *a1 = *(v1 + 24);
+  return protocol witness for SpatialEventType.location.modify in conformance MagnifyEvent;
+}
+
+__n128 protocol witness for SpatialEventType.location.modify in conformance MagnifyEvent(__n128 *a1)
+{
+  result = *a1;
+  *(a1[1].n128_u64[0] + 24) = *a1;
+  return result;
+}
+
+void protocol witness for EventType.init(_:) in conformance MagnifyEvent(uint64_t a3@<X8>)
+{
+  type metadata accessor for EventType();
+  if (swift_dynamicCast())
+  {
+    v4 = v8;
+    v5 = v10;
+    v6 = v11;
+    v7 = v12;
+    *(a3 + 8) = v9;
+  }
+
+  else
+  {
+    outlined consume of WheelEvent?(0, 0, 1);
+    v6 = 0uLL;
+    v4 = 0;
+    v7 = 0;
+    *(a3 + 8) = 0;
+    v5 = xmmword_18CD6A6D0;
+  }
+
+  *a3 = v4;
+  *(a3 + 16) = v5;
+  *(a3 + 32) = v6;
+  *(a3 + 48) = v7;
+}
+
+uint64_t protocol witness for HitTestableEventType.hitTestLocation.getter in conformance MagnifyEvent(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type MagnifyEvent and conformance MagnifyEvent();
+
+  return MEMORY[0x1EEDE1378](a1, a2, v4);
+}
+
+uint64_t protocol witness for HitTestableEventType.hitTestRadius.getter in conformance MagnifyEvent(uint64_t a1, uint64_t a2)
+{
+  v4 = lazy protocol witness table accessor for type MagnifyEvent and conformance MagnifyEvent();
+
+  return MEMORY[0x1EEDE1370](a1, a2, v4);
+}
+
+uint64_t initializeWithCopy for MagnifyEvent(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 40) = *(a2 + 40);
+
+  return a1;
+}
+
+uint64_t assignWithCopy for MagnifyEvent(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = *(a2 + 16);
+
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 48) = *(a2 + 48);
+  return a1;
+}
+
+uint64_t assignWithTake for MagnifyEvent(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = *(a2 + 16);
+
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 40) = *(a2 + 40);
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for MagnifyEvent(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFF && *(a1 + 56))
+  {
+    return (*a1 + 0x7FFFFFFF);
+  }
+
+  v3 = *(a1 + 16);
+  if (v3 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 - 1;
+  if (v4 < 0)
+  {
+    v4 = -1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for MagnifyEvent(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFE)
+  {
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 - 0x7FFFFFFF;
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 56) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 56) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 16) = a2;
+    }
+  }
+
+  return result;
+}
+
+BOOL specialized static MagnifyEvent.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  if (*a1 != *a2 || *(a1 + 8) != *(a2 + 8))
+  {
+    return 0;
+  }
+
+  v5 = *(a1 + 16);
+  v7 = *(a1 + 24);
+  v6 = *(a1 + 32);
+  v8 = *(a1 + 40);
+  v9 = *(a2 + 16);
+  v11 = *(a2 + 24);
+  v10 = *(a2 + 32);
+  v12 = *(a2 + 40);
+  if (!v5)
+  {
+    if (!v9)
+    {
+      if (v7 != v11 || v6 != v10 || v8 != v12)
+      {
+        return 0;
+      }
+
+      return *(a1 + 48) == *(a2 + 48);
+    }
+
+LABEL_18:
+
+    return 0;
+  }
+
+  if (!v9)
+  {
+    goto LABEL_18;
+  }
+
+  if (v5 != v9)
+  {
+    return 0;
+  }
+
+  v14 = v7 == v11 && v6 == v10 && v8 == v12;
+  result = 0;
+  if (v14)
+  {
+    return *(a1 + 48) == *(a2 + 48);
+  }
+
+  return result;
+}
+
+uint64_t type metadata completion function for OptionButton(uint64_t a1)
+{
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
+  {
+    swift_initStructMetadata();
+    return 0;
+  }
+
+  return result;
+}
+
+void *initializeBufferWithCopyOfBuffer for OptionButton(void *a1, void *a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 64);
+  v6 = *(v4 + 80);
+  if ((v6 & 0x1000F8) != 0 || (v5 & 0xFFFFFFFFFFFFFFF8) != 0 && (v5 & 0xFFFFFFFFFFFFFFF8) < 0xFFFFFFFFFFFFFFE8)
+  {
+    v8 = *a2;
+    *v3 = *a2;
+    v3 = (v8 + (((v6 & 0xF8) + 23) & ~(v6 & 0xF8) & 0x1F8));
+  }
+
+  else
+  {
+    (*(v4 + 16))(a1);
+    *(v3 + v5) = *(a2 + v5);
+    v10 = (v3 + v5) & 0xFFFFFFFFFFFFFFF8;
+    v11 = (a2 + v5) & 0xFFFFFFFFFFFFFFF8;
+    v12 = *(v11 + 16);
+    *(v10 + 8) = *(v11 + 8);
+    *(v10 + 16) = v12;
+  }
+
+  return v3;
+}
+
+double destroy for OptionButton(uint64_t a1, uint64_t a2)
+{
+  (*(*(*(a2 + 16) - 8) + 8))();
+
+  return result;
+}
+
+uint64_t initializeWithCopy for OptionButton(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(*(a3 + 16) - 8) + 16;
+  (*v5)();
+  v6 = *(v5 + 48);
+  v7 = v6 + a1;
+  v8 = v6 + a2;
+  *v7 = *v8;
+  v7 &= 0xFFFFFFFFFFFFFFF8;
+  v8 &= 0xFFFFFFFFFFFFFFF8;
+  v9 = *(v8 + 16);
+  *(v7 + 8) = *(v8 + 8);
+  *(v7 + 16) = v9;
+
+  return a1;
+}
+
+uint64_t assignWithCopy for OptionButton(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(*(a3 + 16) - 8) + 24;
+  (*v5)();
+  v6 = *(v5 + 40);
+  v7 = v6 + a1;
+  v8 = v6 + a2;
+  *v7 = *v8;
+  v7 &= 0xFFFFFFFFFFFFFFF8;
+  v8 &= 0xFFFFFFFFFFFFFFF8;
+  v9 = *(v8 + 16);
+  *(v7 + 8) = *(v8 + 8);
+  *(v7 + 16) = v9;
+
+  return a1;
+}
+
+uint64_t initializeWithTake for OptionButton(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(*(a3 + 16) - 8) + 32;
+  (*v5)();
+  v6 = *(v5 + 32);
+  v7 = v6 + a1;
+  v8 = v6 + a2;
+  *v7 = *v8;
+  *((v7 & 0xFFFFFFFFFFFFFFF8) + 8) = *((v8 & 0xFFFFFFFFFFFFFFF8) + 8);
+  return a1;
+}
+
+uint64_t assignWithTake for OptionButton(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(*(a3 + 16) - 8) + 40;
+  (*v5)();
+  v6 = *(v5 + 24);
+  v7 = v6 + a1;
+  v8 = v6 + a2;
+  *v7 = *v8;
+  *((v7 & 0xFFFFFFFFFFFFFFF8) + 8) = *((v8 & 0xFFFFFFFFFFFFFFF8) + 8);
+
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for OptionButton(_DWORD *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  v6 = *(v4 + 64);
+  if (v5 <= 0x7FFFFFFF)
+  {
+    v7 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v7 = *(v4 + 84);
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (v7 >= a2)
+  {
+    goto LABEL_28;
+  }
+
+  v8 = (v6 & 0xFFFFFFFFFFFFFFF8) + 24;
+  v9 = a2 - v7;
+  v10 = v8 & 0xFFFFFFF8;
+  if ((v8 & 0xFFFFFFF8) != 0)
+  {
+    v11 = 2;
+  }
+
+  else
+  {
+    v11 = v9 + 1;
+  }
+
+  if (v11 >= 0x10000)
+  {
+    v12 = 4;
+  }
+
+  else
+  {
+    v12 = 2;
+  }
+
+  if (v11 < 0x100)
+  {
+    v12 = 1;
+  }
+
+  if (v11 >= 2)
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  if (v13 > 1)
+  {
+    if (v13 == 2)
+    {
+      v14 = *(a1 + v8);
+      if (!v14)
+      {
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      v14 = *(a1 + v8);
+      if (!v14)
+      {
+        goto LABEL_28;
+      }
+    }
+  }
+
+  else if (!v13 || (v14 = *(a1 + v8)) == 0)
+  {
+LABEL_28:
+    if (v5 >= 0x7FFFFFFF)
+    {
+      return (*(v4 + 48))(a1);
+    }
+
+    v17 = *(((a1 + v6) & 0xFFFFFFFFFFFFFFF8) + 8);
+    if (v17 >= 0xFFFFFFFF)
+    {
+      LODWORD(v17) = -1;
+    }
+
+    return (v17 + 1);
+  }
+
+  v16 = v14 - 1;
+  if (v10)
+  {
+    v16 = 0;
+    LODWORD(v10) = *a1;
+  }
+
+  return v7 + (v10 | v16) + 1;
+}
+
 _DWORD *storeEnumTagSinglePayload for OptionButton(_DWORD *result, unsigned int a2, unsigned int a3, uint64_t a4)
 {
   v5 = *(*(a4 + 16) - 8);
@@ -179,7 +1336,7 @@ unint64_t ScrollEventConverter.convert(_:in:)(unint64_t a1, uint64_t a2)
   {
     v9 = v6;
     v10 = *v3;
-    type metadata accessor for (UIScrollEvent, PanEvent)();
+    type metadata accessor for (UIScrollEvent, PanEvent)(0);
     v12 = v11;
     [a1 _adjustedAcceleratedDeltaInView_];
     v14 = v3[1] + v13;
@@ -201,7 +1358,7 @@ unint64_t ScrollEventConverter.convert(_:in:)(unint64_t a1, uint64_t a2)
       v3[2] = 0.0;
     }
 
-    type metadata accessor for _ContiguousArrayStorage<(EventID, PanEvent)>();
+    type metadata accessor for _ContiguousArrayStorage<(EventID, PanEvent)>(0);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_18CD63400;
     *(inited + 32) = v12;
@@ -228,13 +1385,13 @@ unint64_t ScrollEventConverter.convert(_:in:)(unint64_t a1, uint64_t a2)
   }
 }
 
-void type metadata accessor for (UIScrollEvent, PanEvent)()
+void type metadata accessor for (UIScrollEvent, PanEvent)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (UIScrollEvent, PanEvent))
   {
     type metadata accessor for UIScrollEvent();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (UIScrollEvent, PanEvent));
     }
@@ -254,15 +1411,15 @@ unint64_t type metadata accessor for UIScrollEvent()
   return result;
 }
 
-void type metadata accessor for _ContiguousArrayStorage<(EventID, PanEvent)>()
+void type metadata accessor for _ContiguousArrayStorage<(EventID, PanEvent)>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ContiguousArrayStorage<(EventID, PanEvent)>)
   {
     type metadata accessor for (EventID, PanEvent)();
-    v0 = type metadata accessor for _ContiguousArrayStorage();
-    if (!v1)
+    v1 = type metadata accessor for _ContiguousArrayStorage();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(EventID, PanEvent)>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ContiguousArrayStorage<(EventID, PanEvent)>);
     }
   }
 }
@@ -334,24 +1491,26 @@ id PresentationHostingControllerBase.init(coder:rootView:)(void *a1, uint64_t a2
   return v10;
 }
 
-id PresentationHostingControllerBase.init(coder:)(void *a1)
+id PresentationHostingControllerBase.init(coder:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5.receiver = v1;
-  v5.super_class = type metadata accessor for PresentationHostingControllerBase();
-  v3 = objc_msgSendSuper2(&v5, sel_initWithCoder_, a1);
+  v6 = type metadata accessor for PresentationHostingControllerBase(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x3E8), *((*MEMORY[0x1E69E7D40] & *v4) + 0x3F0), a4);
+  v9.receiver = v4;
+  v9.super_class = v6;
+  v7 = objc_msgSendSuper2(&v9, sel_initWithCoder_, a1);
 
-  if (v3)
+  if (v7)
   {
   }
 
-  return v3;
+  return v7;
 }
 
-id PresentationHostingControllerBase.__deallocating_deinit()
+id PresentationHostingControllerBase.__deallocating_deinit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for PresentationHostingControllerBase();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v5 = type metadata accessor for PresentationHostingControllerBase(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x3E8), *((*MEMORY[0x1E69E7D40] & *v4) + 0x3F0), a4);
+  v7.receiver = v4;
+  v7.super_class = v5;
+  return objc_msgSendSuper2(&v7, sel_dealloc);
 }
 
 uint64_t PresentationHostingController.HostingView.defaultBackgroundIsTransparent.getter()
@@ -381,24 +1540,28 @@ void *PresentationHostingController.HostingView.__allocating_init(rootView:)(uin
 
 id PresentationHostingController.HostingView.init(coder:)(void *a1)
 {
+  v3 = *v1;
+  v4 = *MEMORY[0x1E69E7D40];
   *(v1 + *((*MEMORY[0x1E69E7D40] & *v1) + 0x710) + 8) = 0;
   swift_unknownObjectWeakInit();
-  v5.receiver = v1;
-  v5.super_class = type metadata accessor for PresentationHostingController.HostingView();
-  v3 = objc_msgSendSuper2(&v5, sel_initWithCoder_, a1);
+  v6 = type metadata accessor for PresentationHostingController.HostingView(0, *((v4 & v3) + 0x700), *((v4 & v3) + 0x708), v5);
+  v9.receiver = v1;
+  v9.super_class = v6;
+  v7 = objc_msgSendSuper2(&v9, sel_initWithCoder_, a1);
 
-  if (v3)
+  if (v7)
   {
   }
 
-  return v3;
+  return v7;
 }
 
-id PresentationHostingController.HostingView.__deallocating_deinit()
+id PresentationHostingController.HostingView.__deallocating_deinit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for PresentationHostingController.HostingView();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v5 = type metadata accessor for PresentationHostingController.HostingView(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x700), *((*MEMORY[0x1E69E7D40] & *v4) + 0x708), a4);
+  v7.receiver = v4;
+  v7.super_class = v5;
+  return objc_msgSendSuper2(&v7, sel_dealloc);
 }
 
 uint64_t PresentationHostingController.defaultBackgroundIsTransparent.getter()
@@ -461,7 +1624,7 @@ void @objc PresentationHostingController.preferredContentSize.setter(void *a1, d
   PresentationHostingController.preferredContentSize.setter(a2, a3);
 }
 
-uint64_t PresentationHostingController.preferredContentSize.setter(double a1, double a2)
+void PresentationHostingController.preferredContentSize.setter(double a1, double a2)
 {
   v5 = objc_opt_self();
   v6 = swift_allocObject();
@@ -471,13 +1634,13 @@ uint64_t PresentationHostingController.preferredContentSize.setter(double a1, do
   v7 = swift_allocObject();
   *(v7 + 16) = partial apply for closure #1 in PresentationHostingController.preferredContentSize.setter;
   *(v7 + 24) = v6;
-  v12[4] = partial apply for thunk for @callee_guaranteed () -> ();
-  v12[5] = v7;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1107296256;
-  v12[2] = thunk for @escaping @callee_guaranteed () -> ();
-  v12[3] = &block_descriptor_71;
-  v8 = _Block_copy(v12);
+  v11[4] = partial apply for thunk for @callee_guaranteed () -> ();
+  v11[5] = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 1107296256;
+  v11[2] = thunk for @escaping @callee_guaranteed () -> ();
+  v11[3] = &block_descriptor_71;
+  v8 = _Block_copy(v11);
   v9 = v2;
 
   [v5 performWithoutAnimation_];
@@ -488,33 +1651,31 @@ uint64_t PresentationHostingController.preferredContentSize.setter(double a1, do
   {
     __break(1u);
   }
-
-  return result;
 }
 
-id closure #1 in PresentationHostingController.preferredContentSize.setter(void *a1, double a2, double a3)
+id closure #1 in PresentationHostingController.preferredContentSize.setter(void *a1, double a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v6.receiver = a1;
-  v6.super_class = type metadata accessor for PresentationHostingController();
-  return objc_msgSendSuper2(&v6, sel_setPreferredContentSize_, a2, a3);
+  v9 = type metadata accessor for PresentationHostingController(0, *((*MEMORY[0x1E69E7D40] & *a1) + 0x408), *((*MEMORY[0x1E69E7D40] & *a1) + 0x410), a6);
+  v11.receiver = a1;
+  v11.super_class = v9;
+  return objc_msgSendSuper2(&v11, sel_setPreferredContentSize_, a2, a3);
 }
 
-uint64_t closure #1 in PresentationHostingController.sizingOptionsDidChange(from:)(uint64_t a1, uint64_t a2)
+void closure #1 in PresentationHostingController.sizingOptionsDidChange(from:)(uint64_t *a1, uint64_t a2)
 {
   v3 = specialized UIHostingController.host.getter();
-  _UIHostingView.viewGraph.getter();
+  _UIHostingView.viewGraph.getter(v3);
 
   _ProposedSize.init(width:height:)();
   swift_beginAccess();
-  type metadata accessor for ViewGraphGeometryObservers<SizeThatFitsMeasurer>();
+  type metadata accessor for ViewGraphGeometryObservers<SizeThatFitsMeasurer>(0);
   ViewGraphGeometryObservers.stopObserving(proposal:)();
   swift_endAccess();
 
-  v5 = a2 + direct field offset for PresentationHostingController.observedSize;
-  *v5 = 0;
-  *(v5 + 8) = 0;
-  *(v5 + 16) = 1;
-  return result;
+  v4 = a2 + direct field offset for PresentationHostingController.observedSize;
+  *v4 = 0;
+  *(v4 + 8) = 0;
+  *(v4 + 16) = 1;
 }
 
 uint64_t PresentationHostingController.shouldUsePresentationSizing.getter()
@@ -619,147 +1780,151 @@ LABEL_17:
   return v3;
 }
 
-void closure #2 in PresentationHostingController.sizingOptionsDidChange(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void closure #2 in PresentationHostingController.sizingOptionsDidChange(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v8 = Strong;
-    v9 = direct field offset for PresentationHostingController.lastPresentationOptions;
+    v12 = Strong;
+    v13 = direct field offset for PresentationHostingController.lastPresentationOptions;
     swift_beginAccess();
-    if (*&v8[v9])
+    if (*&v12[v13])
     {
-      outlined init with copy of PresentationOptionsPreference(&v8[v9], &v43);
+      outlined init with copy of PresentationOptionsPreference(&v12[v13], &v51);
       type metadata accessor for EnvironmentPropertyKey<PresentationKind.Key>(0, &lazy cache variable for type metadata for _SemanticFeature<Semantics_v6>, MEMORY[0x1E697DF60], MEMORY[0x1E697DF58], MEMORY[0x1E697EC20]);
       lazy protocol witness table accessor for type _SemanticFeature<Semantics_v6> and conformance _SemanticFeature<A>();
       if (static SemanticFeature.isEnabled.getter())
       {
-        outlined init with copy of PresentationSizing?(&v51, &v38);
-        if (v39)
+        outlined init with copy of PresentationSizing?(&v59, &v46);
+        if (v47)
         {
-          outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(&v38, &v56);
+          outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(&v46, &v64);
         }
 
         else
         {
-          *(&v57 + 1) = &type metadata for AutomaticPresentationSizing;
-          v58 = &protocol witness table for AutomaticPresentationSizing;
+          *(&v65 + 1) = &type metadata for AutomaticPresentationSizing;
+          v66 = &protocol witness table for AutomaticPresentationSizing;
         }
       }
 
       else
       {
-        v58 = 0;
-        v56 = 0;
-        v57 = 0u;
+        v66 = 0;
+        v64 = 0;
+        v65 = 0u;
       }
 
-      outlined destroy of PresentationOptionsPreference(&v43);
-      if (*(&v57 + 1))
+      outlined destroy of PresentationOptionsPreference(&v51);
+      if (*(&v65 + 1))
       {
-        outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(&v56, v59);
-        v10 = v8;
-        v11 = [v10 presentingViewController];
-        if (!v11)
+        outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(&v64, v67);
+        v14 = v12;
+        v15 = [v14 presentingViewController];
+        if (!v15)
         {
 
 LABEL_27:
-          __swift_destroy_boxed_opaque_existential_1(v59);
+          __swift_destroy_boxed_opaque_existential_1(v67);
           return;
         }
 
-        v12 = v11;
-        v13 = UIViewController.nonPresentedAncestor.getter();
-        v14 = [v13 view];
+        v16 = v15;
+        v17 = UIViewController.nonPresentedAncestor.getter();
+        v18 = [v17 view];
 
-        if (!v14)
+        if (!v18)
         {
           __break(1u);
           return;
         }
 
-        v37 = *&v10[direct field offset for PresentationHostingController.lastColumnCount];
+        v45 = *&v14[direct field offset for PresentationHostingController.lastColumnCount];
         ObjectType = swift_getObjectType();
-        v43.receiver = v10;
-        v43.super_class = ObjectType;
-        objc_msgSendSuper2(&v43, sel_preferredContentSize);
-        v17 = v16;
-        v19 = v18;
-        v20 = [v10 traitCollection];
+        v51.receiver = v14;
+        v51.super_class = ObjectType;
+        objc_msgSendSuper2(&v51, sel_preferredContentSize);
+        v21 = v20;
+        v23 = v22;
+        v24 = [v14 traitCollection];
 
-        v21 = [v20 _environmentWrapper];
-        if (v21)
+        v25 = [v24 _environmentWrapper];
+        if (v25)
         {
-          v22 = v21;
-          type metadata accessor for EnvironmentWrapper();
+          v26 = v25;
+          type metadata accessor for EnvironmentWrapper(0);
           if (swift_dynamicCastClass())
           {
-            v23 = a4;
-            v24 = a5;
-            v25 = v12;
-            v26 = v14;
-            v27 = v22;
+            v44 = a6;
+            v27 = a7;
+            v28 = a4;
+            v29 = a5;
+            v30 = v16;
+            v31 = v18;
+            v32 = v26;
             dispatch thunk of ViewGraphHostEnvironmentWrapper.environment.getter();
 
-            v14 = v26;
-            v12 = v25;
-            a5 = v24;
-            a4 = v23;
+            v18 = v31;
+            v16 = v30;
+            a5 = v29;
+            a4 = v28;
+            a7 = v27;
+            a6 = v44;
 
-            receiver = v43.receiver;
-            super_class = v43.super_class;
-            v56 = v43;
+            receiver = v51.receiver;
+            super_class = v51.super_class;
+            v64 = v51;
 LABEL_26:
-            v43.receiver = receiver;
-            v43.super_class = super_class;
+            v51.receiver = receiver;
+            v51.super_class = super_class;
             EnvironmentValues.readableWidth.getter();
-            v32 = v31;
+            v37 = v36;
 
-            v42 = 0;
-            v41 = 1;
-            v40 = 1;
-            outlined init with copy of _Benchmark(v59, &v43);
-            v44 = v14;
-            v45 = v37;
-            v46 = v17;
-            v47 = v19;
-            v48 = 0;
-            v49 = 0;
-            v50 = 1;
-            v51 = 0;
-            v52 = 1;
-            v53 = a4;
-            v54 = a5;
-            v55 = v32;
+            v50 = 0;
+            v49 = 1;
+            v48 = 1;
+            outlined init with copy of _Benchmark(v67, &v51);
+            v52 = v18;
+            v53 = v45;
+            v54 = v21;
+            v55 = v23;
+            v56 = 0;
+            v57 = 0;
+            v58 = 1;
+            v59 = 0;
+            v60 = 1;
+            v61 = a4;
+            v62 = a5;
+            v63 = v37;
             specialized UIHostingController.host.getter();
             specialized UIHostingController.host.getter();
-            type metadata accessor for _UIHostingView();
-            *(&v38 + 1) = swift_getWitnessTable();
+            v39 = type metadata accessor for _UIHostingView(255, a6, a7, v38);
+            *(&v46 + 1) = swift_getWitnessTable(protocol conformance descriptor for _UIHostingView<A>, v39);
             swift_unknownObjectWeakInit();
-            specialized SheetSizing.sheetSizeThatFits<A>(host:subview:)(&v38);
-            v34 = v33;
-            v36 = v35;
-            outlined destroy of weak FallbackResponderProvider?(&v38);
-            PresentationHostingController.preferredContentSize.setter(v34, v36);
+            specialized SheetSizing.sheetSizeThatFits<A>(host:subview:)(&v46);
+            v41 = v40;
+            v43 = v42;
+            outlined destroy of weak FallbackResponderProvider?(&v46);
+            PresentationHostingController.preferredContentSize.setter(v41, v43);
 
-            outlined destroy of SheetSizing(&v43);
+            outlined destroy of SheetSizing(&v51);
             goto LABEL_27;
           }
         }
 
         EnvironmentValues.init()();
-        v56 = v43;
+        v64 = v51;
         EnvironmentValues.configureForRoot()();
-        v30 = v56.receiver;
+        v35 = v64.receiver;
         if (one-time initialization token for configuredForPlatform != -1)
         {
           swift_once();
         }
 
-        if (v30)
+        if (v35)
         {
-          if (!static EnvironmentValues.configuredForPlatform || v30 != static EnvironmentValues.configuredForPlatform)
+          if (!static EnvironmentValues.configuredForPlatform || v35 != static EnvironmentValues.configuredForPlatform)
           {
             goto LABEL_25;
           }
@@ -772,10 +1937,10 @@ LABEL_26:
 
         EnvironmentValues.plist.setter();
 LABEL_25:
-        EnvironmentValues._configureForPlatform(traitCollection:)(v20);
+        EnvironmentValues._configureForPlatform(traitCollection:)(v24);
 
-        super_class = v56.super_class;
-        receiver = v56.receiver;
+        super_class = v64.super_class;
+        receiver = v64.receiver;
         goto LABEL_26;
       }
     }
@@ -783,12 +1948,12 @@ LABEL_25:
     else
     {
 
-      v58 = 0;
-      v56 = 0;
-      v57 = 0u;
+      v66 = 0;
+      v64 = 0;
+      v65 = 0u;
     }
 
-    outlined destroy of PresentationSizing?(&v56);
+    outlined destroy of PresentationSizing?(&v64);
   }
 }
 
@@ -871,7 +2036,7 @@ id closure #1 in PresentationHostingController._canShowWhileLocked()@<X0>(void *
 {
   ObjectType = swift_getObjectType();
   v5 = specialized UIHostingController.host.getter();
-  _UIHostingView.viewGraph.getter();
+  _UIHostingView.viewGraph.getter(v5);
 
   GraphHost.preferenceValue<A>(_:)();
 
@@ -899,14 +2064,13 @@ BOOL @objc PresentationHostingController._canShowWhileLocked()(void *a1)
   return canShowWhile;
 }
 
-uint64_t PresentationHostingController.willTransition(to:with:)(void *a1, void *a2)
+double PresentationHostingController.willTransition(to:with:)(void *a1, void *a2)
 {
   v13.receiver = v2;
   v13.super_class = swift_getObjectType();
   objc_msgSendSuper2(&v13, sel_willTransitionToTraitCollection_withTransitionCoordinator_, a1, a2);
   v5 = &v2[direct field offset for PresentationHostingController.delegate];
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
+  if (swift_unknownObjectWeakLoadStrong())
   {
     v7 = *(v5 + 1);
     ObjectType = swift_getObjectType();
@@ -928,7 +2092,7 @@ uint64_t PresentationHostingController.willTransition(to:with:)(void *a1, void *
       _Block_release(v10);
     }
 
-    return swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
 
   return result;
@@ -1062,24 +2226,18 @@ LABEL_8:
   }
 }
 
-uint64_t closure #1 in PresentationHostingController.viewWillDisappear(_:)(void *a1, uint64_t a2)
+double closure #1 in PresentationHostingController.viewWillDisappear(_:)(void *a1, uint64_t a2)
 {
-  result = [a1 isInteractive];
-  if ((result & 1) == 0)
+  if (([a1 isInteractive] & 1) == 0 && (objc_msgSend(a1, sel_isCancelled) & 1) == 0)
   {
-    result = [a1 isCancelled];
-    if ((result & 1) == 0)
+    v5 = a2 + direct field offset for PresentationHostingController.delegate;
+    if (swift_unknownObjectWeakLoadStrong())
     {
-      v5 = a2 + direct field offset for PresentationHostingController.delegate;
-      result = swift_unknownObjectWeakLoadStrong();
-      if (result)
-      {
-        v6 = *(v5 + 8);
-        ObjectType = swift_getObjectType();
-        (*(v6 + 8))(a2, ObjectType, v6);
+      v6 = *(v5 + 8);
+      ObjectType = swift_getObjectType();
+      (*(v6 + 8))(a2, ObjectType, v6);
 
-        return swift_unknownObjectRelease();
-      }
+      swift_unknownObjectRelease();
     }
   }
 
@@ -1139,7 +2297,7 @@ uint64_t closure #1 in PresentationHostingController.configureDetents(of:using:)
   return result;
 }
 
-uint64_t closure #1 in PresentationHostingController.updateDetentsSelection(of:using:)(void *a1, void *a2)
+void closure #1 in PresentationHostingController.updateDetentsSelection(of:using:)(void *a1, void *a2)
 {
   v4 = swift_allocObject();
   *(v4 + 16) = a1;
@@ -1147,13 +2305,13 @@ uint64_t closure #1 in PresentationHostingController.updateDetentsSelection(of:u
   v5 = swift_allocObject();
   *(v5 + 16) = partial apply for closure #1 in closure #1 in PresentationHostingController.updateDetentsSelection(of:using:);
   *(v5 + 24) = v4;
-  v10[4] = closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply;
-  v10[5] = v5;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1107296256;
-  v10[2] = thunk for @escaping @callee_guaranteed () -> ();
-  v10[3] = &block_descriptor_44_0;
-  v6 = _Block_copy(v10);
+  v9[4] = closure #1 in PlatformViewCoordinator.dispatchUpdate(reason:_:)partial apply;
+  v9[5] = v5;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 1107296256;
+  v9[2] = thunk for @escaping @callee_guaranteed () -> ();
+  v9[3] = &block_descriptor_44_0;
+  v6 = _Block_copy(v9);
   v7 = a1;
   v8 = a2;
 
@@ -1165,24 +2323,22 @@ uint64_t closure #1 in PresentationHostingController.updateDetentsSelection(of:u
   {
     __break(1u);
   }
-
-  return result;
 }
 
-uint64_t PresentationHostingController.update(_:)(uint64_t a1)
+void PresentationHostingController.update(_:)(uint64_t *a1)
 {
-  PresentationHostingController.presentationKind.getter(&v4);
+  PresentationHostingController.presentationKind.getter(&v3);
   type metadata accessor for EnvironmentPropertyKey<PresentationKind.Key>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<PresentationKind.Key>, &type metadata for PresentationKind.Key, &protocol witness table for PresentationKind.Key, MEMORY[0x1E697FE38]);
   lazy protocol witness table accessor for type EnvironmentPropertyKey<PresentationKind.Key> and conformance EnvironmentPropertyKey<A>();
 
   PropertyList.subscript.setter();
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2)
   {
     PropertyList.Tracker.invalidateValue<A>(for:from:to:)();
   }
 
-  LOBYTE(v4) = 3;
+  LOBYTE(v3) = 3;
   type metadata accessor for EnvironmentPropertyKey<PresentationKind.Key>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ContainerBackgroundKeys.HasContainerBackgroundPlacementKey>, &type metadata for ContainerBackgroundKeys.HasContainerBackgroundPlacementKey, &protocol witness table for ContainerBackgroundKeys.HasContainerBackgroundPlacementKey, MEMORY[0x1E697FE38]);
   lazy protocol witness table accessor for type EnvironmentPropertyKey<ContainerBackgroundKeys.HasContainerBackgroundPlacementKey> and conformance EnvironmentPropertyKey<A>();
 
@@ -1193,7 +2349,7 @@ uint64_t PresentationHostingController.update(_:)(uint64_t a1)
   }
 
   specialized UIHostingController.host.getter();
-  LOBYTE(v4) = _UIHostingView.wantsTransparentBackground.getter();
+  LOBYTE(v3) = _UIHostingView.wantsTransparentBackground.getter();
   type metadata accessor for EnvironmentPropertyKey<PresentationKind.Key>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ContainerBackgroundKeys.TransparentPresentation>, &type metadata for ContainerBackgroundKeys.TransparentPresentation, &protocol witness table for ContainerBackgroundKeys.TransparentPresentation, MEMORY[0x1E697FE38]);
   lazy protocol witness table accessor for type EnvironmentPropertyKey<ContainerBackgroundKeys.TransparentPresentation> and conformance EnvironmentPropertyKey<A>();
 
@@ -1205,13 +2361,13 @@ uint64_t PresentationHostingController.update(_:)(uint64_t a1)
 
   if (EnvironmentValues.isVisionEnabled.getter())
   {
-    v4 = 0uLL;
+    v3 = 0uLL;
     EnvironmentValues.backgroundInfo.setter();
-    v4 = xmmword_18CD6E1E0;
+    v3 = xmmword_18CD6E1E0;
     EnvironmentValues.backgroundMaterial.setter();
   }
 
-  return UIHostingController.update(_:)(a1);
+  UIHostingController.update(_:)(a1);
 }
 
 id @objc PresentationHostingController._showcaseView.getter(void *a1)
@@ -1224,56 +2380,62 @@ id @objc PresentationHostingController._showcaseView.getter(void *a1)
 
 id PresentationHostingController._showcaseView.getter()
 {
-  v0 = specialized UIHostingController.host.getter();
-  type metadata accessor for _UIHostingView();
-  v1 = v0;
-  swift_getWitnessTable();
+  v1 = *v0;
+  v2 = *MEMORY[0x1E69E7D40];
+  v3 = specialized UIHostingController.host.getter();
+  v5 = type metadata accessor for _UIHostingView(0, *((v2 & v1) + 0x408), *((v2 & v1) + 0x410), v4);
+  v6 = v3;
+  swift_getWitnessTable(protocol conformance descriptor for _UIHostingView<A>, v5);
   ViewRendererHost.preferenceValue<A>(_:)();
 
-  if (v8 == 1)
+  if (v13 == 1)
   {
-    outlined destroy of PresentationOptionsPreference?(v7, &lazy cache variable for type metadata for _NavigationTransitionOutputs?, &type metadata for _NavigationTransitionOutputs);
+    outlined destroy of PresentationOptionsPreference?(v12, &lazy cache variable for type metadata for _NavigationTransitionOutputs?, &type metadata for _NavigationTransitionOutputs);
   }
 
   else
   {
-    outlined init with copy of _NavigationTransitionOutputs.Content(v7, v6);
-    outlined destroy of _NavigationTransitionOutputs(v7);
-    v7[0] = *v6;
-    v7[1] = *&v6[16];
-    v8 = *&v6[32];
-    outlined init with copy of _NavigationTransitionOutputs.Content(v7, v6);
-    if (*&v6[32])
+    outlined init with copy of _NavigationTransitionOutputs.Content(v12, v11);
+    outlined destroy of _NavigationTransitionOutputs(v12);
+    v12[0] = *v11;
+    v12[1] = *&v11[16];
+    v13 = *&v11[32];
+    outlined init with copy of _NavigationTransitionOutputs.Content(v12, v11);
+    if (*&v11[32])
     {
-      v4[0] = *&v6[8];
-      v4[1] = *&v6[24];
-      v5 = *&v6[40];
-      v2 = UIHostingController.findMatchedTransitionDestinationView<A>(id:namespace:)(v4, *v6, MEMORY[0x1E69E69B8], MEMORY[0x1E69E69C0]);
-      outlined destroy of AnyHashable(v4);
-      outlined destroy of _NavigationTransitionOutputs.Content(v7);
-      return v2;
+      v9[0] = *&v11[8];
+      v9[1] = *&v11[24];
+      v10 = *&v11[40];
+      v7 = UIHostingController.findMatchedTransitionDestinationView<A>(id:namespace:)(v9, *v11, MEMORY[0x1E69E69B8], MEMORY[0x1E69E69C0]);
+      outlined destroy of AnyHashable(v9);
+      outlined destroy of _NavigationTransitionOutputs.Content(v12);
+      return v7;
     }
 
-    outlined destroy of _NavigationTransitionOutputs.Content(v7);
+    outlined destroy of _NavigationTransitionOutputs.Content(v12);
   }
 
   return 0;
 }
 
-uint64_t PresentationHostingController.__ivar_destroyer()
+double PresentationHostingController.__ivar_destroyer()
 {
   outlined destroy of weak FallbackResponderProvider?(v0 + direct field offset for PresentationHostingController.delegate);
   outlined destroy of weak FallbackResponderProvider?(v0 + direct field offset for PresentationHostingController.secondaryDismissDelegate);
   outlined destroy of PresentationOptionsPreference?(v0 + direct field offset for PresentationHostingController.lastPresentationOptions, &lazy cache variable for type metadata for PresentationOptionsPreference?, &type metadata for PresentationOptionsPreference);
   outlined destroy of PresentationOptionsPreference?(v0 + direct field offset for PresentationHostingController.lastPreferenceForSheetControllerConfiguration, &lazy cache variable for type metadata for PresentationOptionsPreference?, &type metadata for PresentationOptionsPreference);
+
+  return result;
 }
 
-uint64_t @objc PresentationHostingController.__ivar_destroyer(uint64_t a1)
+double @objc PresentationHostingController.__ivar_destroyer(uint64_t a1)
 {
   outlined destroy of weak FallbackResponderProvider?(a1 + direct field offset for PresentationHostingController.delegate);
   outlined destroy of weak FallbackResponderProvider?(a1 + direct field offset for PresentationHostingController.secondaryDismissDelegate);
   outlined destroy of PresentationOptionsPreference?(a1 + direct field offset for PresentationHostingController.lastPresentationOptions, &lazy cache variable for type metadata for PresentationOptionsPreference?, &type metadata for PresentationOptionsPreference);
   outlined destroy of PresentationOptionsPreference?(a1 + direct field offset for PresentationHostingController.lastPreferenceForSheetControllerConfiguration, &lazy cache variable for type metadata for PresentationOptionsPreference?, &type metadata for PresentationOptionsPreference);
+
+  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type PresentationHostingControllerPresenterKind and conformance PresentationHostingControllerPresenterKind()
@@ -1281,7 +2443,7 @@ unint64_t lazy protocol witness table accessor for type PresentationHostingContr
   result = lazy protocol witness table cache variable for type PresentationHostingControllerPresenterKind and conformance PresentationHostingControllerPresenterKind;
   if (!lazy protocol witness table cache variable for type PresentationHostingControllerPresenterKind and conformance PresentationHostingControllerPresenterKind)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for PresentationHostingControllerPresenterKind, &type metadata for PresentationHostingControllerPresenterKind, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type PresentationHostingControllerPresenterKind and conformance PresentationHostingControllerPresenterKind);
   }
 
@@ -1311,7 +2473,7 @@ void *specialized PresentationHostingController.HostingView.init(rootView:)(uint
   *(v1 + *((*MEMORY[0x1E69E7D40] & *v1) + 0x710) + 8) = 0;
   swift_unknownObjectWeakInit();
 
-  return specialized _UIHostingView.init(rootView:)(a1);
+  return specialized _UIHostingView.init(rootView:)(a1, v3);
 }
 
 void specialized PresentationHostingController.init(rootView:)()
@@ -1451,7 +2613,7 @@ uint64_t assignWithCopy for PresentationState(uint64_t a1, __int128 *a2)
           {
             *(a1 + 56) = v66;
             *(a1 + 64) = *(a2 + 8);
-            (**(v66 - 8))(a1 + 32, (a2 + 2));
+            (**(v66 - 8))(a1 + 32, a2 + 2);
           }
 
           else
@@ -1550,7 +2712,7 @@ LABEL_103:
         {
           *(a1 + 56) = v80;
           *(a1 + 64) = *(a2 + 8);
-          (**(v80 - 8))(a1 + 32, (a2 + 2));
+          (**(v80 - 8))(a1 + 32, a2 + 2);
         }
 
         else
@@ -1651,7 +2813,7 @@ LABEL_98:
           {
             *(a1 + 56) = v81;
             *(a1 + 64) = *(a2 + 8);
-            (**(v81 - 8))(a1 + 32, (a2 + 2));
+            (**(v81 - 8))(a1 + 32, a2 + 2);
           }
 
           else
@@ -1749,7 +2911,7 @@ LABEL_98:
           {
             *(a1 + 56) = v69;
             *(a1 + 64) = *(a2 + 8);
-            (**(v69 - 8))(a1 + 32, (a2 + 2));
+            (**(v69 - 8))(a1 + 32, a2 + 2);
           }
 
           else
@@ -1795,7 +2957,7 @@ LABEL_98:
           {
             *(a1 + 56) = v82;
             *(a1 + 64) = *(a2 + 8);
-            (**(v82 - 8))(a1 + 32, (a2 + 2));
+            (**(v82 - 8))(a1 + 32, a2 + 2);
           }
 
           else
@@ -1839,7 +3001,7 @@ LABEL_98:
           {
             *(a1 + 56) = v49;
             *(a1 + 64) = *(a2 + 8);
-            (**(v49 - 8))(a1 + 32, (a2 + 2));
+            (**(v49 - 8))(a1 + 32, a2 + 2);
           }
 
           else
@@ -1888,7 +3050,7 @@ LABEL_98:
       {
         *(a1 + 56) = v67;
         *(a1 + 64) = *(a2 + 8);
-        (**(v67 - 8))(a1 + 32, (a2 + 2));
+        (**(v67 - 8))(a1 + 32, a2 + 2);
       }
 
       else
@@ -1936,7 +3098,7 @@ LABEL_98:
         {
           *(a1 + 56) = v47;
           *(a1 + 64) = *(a2 + 8);
-          (**(v47 - 8))(a1 + 32, (a2 + 2));
+          (**(v47 - 8))(a1 + 32, a2 + 2);
         }
 
         else
@@ -1981,7 +3143,7 @@ LABEL_98:
         {
           *(a1 + 184) = v63;
           *(a1 + 192) = *(a2 + 24);
-          (**(v63 - 8))(a1 + 160, (a2 + 10));
+          (**(v63 - 8))(a1 + 160, a2 + 10);
         }
 
         else
@@ -2074,7 +3236,7 @@ __n128 __swift_memcpy235_8(uint64_t a1, __int128 *a2)
   return result;
 }
 
-uint64_t assignWithTake for PresentationState(uint64_t result, _OWORD *a2)
+_OWORD *assignWithTake for PresentationState(_OWORD *result, _OWORD *a2)
 {
   if (result != a2)
   {
@@ -2177,7 +3339,7 @@ uint64_t storeEnumTagSinglePayload for PresentationState(uint64_t result, unsign
   return result;
 }
 
-uint64_t assignWithCopy for PresentationState.Base(uint64_t a1, __int128 *a2)
+uint64_t assignWithCopy for PresentationState.Base(uint64_t a1, uint64_t *a2)
 {
   if (a1 == a2)
   {
@@ -2204,7 +3366,7 @@ LABEL_35:
 
         if (*(a1 + 56))
         {
-          __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+          __swift_destroy_boxed_opaque_existential_1((a1 + 32));
         }
 
         v5 = *(a1 + 112);
@@ -2228,7 +3390,7 @@ LABEL_35:
 
         if (*(a1 + 56))
         {
-          __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+          __swift_destroy_boxed_opaque_existential_1((a1 + 32));
         }
 
         if (*(a1 + 136))
@@ -2237,7 +3399,7 @@ LABEL_35:
 
         if (*(a1 + 184))
         {
-          __swift_destroy_boxed_opaque_existential_1(a1 + 160);
+          __swift_destroy_boxed_opaque_existential_1((a1 + 160));
         }
 
         goto LABEL_34;
@@ -2257,7 +3419,7 @@ LABEL_30:
 
     if (*(a1 + 56))
     {
-      __swift_destroy_boxed_opaque_existential_1(a1 + 32);
+      __swift_destroy_boxed_opaque_existential_1((a1 + 32));
     }
 
     goto LABEL_34;
@@ -2291,7 +3453,7 @@ LABEL_22:
 
   if (*(a1 + 64))
   {
-    __swift_destroy_boxed_opaque_existential_1(a1 + 40);
+    __swift_destroy_boxed_opaque_existential_1((a1 + 40));
   }
 
 LABEL_34:
@@ -2311,45 +3473,45 @@ LABEL_42:
       {
         v23 = *a2;
         *a1 = *a2;
-        *(a1 + 8) = *(a2 + 1);
-        v24 = *(a2 + 2);
+        *(a1 + 8) = a2[1];
+        v24 = a2[2];
         v25 = v23;
 
         if (v24)
         {
-          v26 = *(a2 + 3);
+          v26 = a2[3];
           *(a1 + 16) = v24;
           *(a1 + 24) = v26;
         }
 
         else
         {
-          *(a1 + 16) = a2[1];
+          *(a1 + 16) = *(a2 + 1);
         }
 
-        *(a1 + 32) = *(a2 + 4);
-        v70 = *(a2 + 8);
+        *(a1 + 32) = a2[4];
+        v70 = a2[8];
         if (v70)
         {
           *(a1 + 64) = v70;
-          *(a1 + 72) = *(a2 + 9);
-          (**(v70 - 8))(a1 + 40, a2 + 40);
+          *(a1 + 72) = a2[9];
+          (**(v70 - 8))(a1 + 40, a2 + 5);
         }
 
         else
         {
-          v77 = *(a2 + 40);
-          v78 = *(a2 + 56);
-          *(a1 + 72) = *(a2 + 9);
+          v77 = *(a2 + 5);
+          v78 = *(a2 + 7);
+          *(a1 + 72) = a2[9];
           *(a1 + 56) = v78;
           *(a1 + 40) = v77;
         }
 
         *(a1 + 80) = *(a2 + 80);
         *(a1 + 81) = *(a2 + 81);
-        *(a1 + 88) = *(a2 + 11);
-        *(a1 + 96) = *(a2 + 12);
-        *(a1 + 104) = *(a2 + 13);
+        *(a1 + 88) = a2[11];
+        *(a1 + 96) = a2[12];
+        *(a1 + 104) = a2[13];
         *(a1 + 112) = *(a2 + 112);
         *(a1 + 113) = *(a2 + 113);
         v54 = 3;
@@ -2358,43 +3520,43 @@ LABEL_42:
       else if (v6 == 4)
       {
         *a1 = *a2;
-        v33 = *(a2 + 1);
+        v33 = a2[1];
 
         if (v33)
         {
-          v34 = *(a2 + 2);
+          v34 = a2[2];
           *(a1 + 8) = v33;
           *(a1 + 16) = v34;
         }
 
         else
         {
-          *(a1 + 8) = *(a2 + 8);
+          *(a1 + 8) = *(a2 + 1);
         }
 
-        *(a1 + 24) = *(a2 + 3);
-        v83 = *(a2 + 7);
+        *(a1 + 24) = a2[3];
+        v83 = a2[7];
         if (v83)
         {
           *(a1 + 56) = v83;
-          *(a1 + 64) = *(a2 + 8);
-          (**(v83 - 8))(a1 + 32, (a2 + 2));
+          *(a1 + 64) = a2[8];
+          (**(v83 - 8))(a1 + 32, a2 + 4);
         }
 
         else
         {
-          v88 = a2[2];
-          v89 = a2[3];
-          *(a1 + 64) = *(a2 + 8);
+          v88 = *(a2 + 2);
+          v89 = *(a2 + 3);
+          *(a1 + 64) = a2[8];
           *(a1 + 32) = v88;
           *(a1 + 48) = v89;
         }
 
         *(a1 + 72) = *(a2 + 72);
         *(a1 + 73) = *(a2 + 73);
-        *(a1 + 80) = *(a2 + 10);
-        *(a1 + 88) = *(a2 + 11);
-        *(a1 + 96) = *(a2 + 12);
+        *(a1 + 80) = a2[10];
+        *(a1 + 88) = a2[11];
+        *(a1 + 96) = a2[12];
         *(a1 + 104) = *(a2 + 104);
         *(a1 + 105) = *(a2 + 105);
         v54 = 4;
@@ -2404,45 +3566,45 @@ LABEL_42:
       {
         v13 = *a2;
         *a1 = *a2;
-        *(a1 + 8) = *(a2 + 1);
-        v14 = *(a2 + 2);
+        *(a1 + 8) = a2[1];
+        v14 = a2[2];
         v15 = v13;
 
         if (v14)
         {
-          v16 = *(a2 + 3);
+          v16 = a2[3];
           *(a1 + 16) = v14;
           *(a1 + 24) = v16;
         }
 
         else
         {
-          *(a1 + 16) = a2[1];
+          *(a1 + 16) = *(a2 + 1);
         }
 
-        *(a1 + 32) = *(a2 + 4);
-        v50 = *(a2 + 8);
+        *(a1 + 32) = a2[4];
+        v50 = a2[8];
         if (v50)
         {
           *(a1 + 64) = v50;
-          *(a1 + 72) = *(a2 + 9);
-          (**(v50 - 8))(a1 + 40, a2 + 40);
+          *(a1 + 72) = a2[9];
+          (**(v50 - 8))(a1 + 40, a2 + 5);
         }
 
         else
         {
-          v61 = *(a2 + 40);
-          v62 = *(a2 + 56);
-          *(a1 + 72) = *(a2 + 9);
+          v61 = *(a2 + 5);
+          v62 = *(a2 + 7);
+          *(a1 + 72) = a2[9];
           *(a1 + 56) = v62;
           *(a1 + 40) = v61;
         }
 
         *(a1 + 80) = *(a2 + 80);
         *(a1 + 81) = *(a2 + 81);
-        *(a1 + 88) = *(a2 + 11);
-        *(a1 + 96) = *(a2 + 12);
-        *(a1 + 104) = *(a2 + 13);
+        *(a1 + 88) = a2[11];
+        *(a1 + 96) = a2[12];
+        *(a1 + 104) = a2[13];
         *(a1 + 112) = *(a2 + 112);
         *(a1 + 113) = *(a2 + 113);
         v54 = 5;
@@ -2454,46 +3616,46 @@ LABEL_42:
     if (!v6)
     {
       *a1 = *a2;
-      v19 = *(a2 + 1);
+      v19 = a2[1];
 
       if (v19)
       {
-        v20 = *(a2 + 2);
+        v20 = a2[2];
         *(a1 + 8) = v19;
         *(a1 + 16) = v20;
       }
 
       else
       {
-        *(a1 + 8) = *(a2 + 8);
+        *(a1 + 8) = *(a2 + 1);
       }
 
-      *(a1 + 24) = *(a2 + 3);
-      v68 = *(a2 + 7);
+      *(a1 + 24) = a2[3];
+      v68 = a2[7];
       if (v68)
       {
         *(a1 + 56) = v68;
-        *(a1 + 64) = *(a2 + 8);
-        (**(v68 - 8))(a1 + 32, (a2 + 2));
+        *(a1 + 64) = a2[8];
+        (**(v68 - 8))(a1 + 32, a2 + 4);
       }
 
       else
       {
-        v72 = a2[2];
-        v73 = a2[3];
-        *(a1 + 64) = *(a2 + 8);
+        v72 = *(a2 + 2);
+        v73 = *(a2 + 3);
+        *(a1 + 64) = a2[8];
         *(a1 + 32) = v72;
         *(a1 + 48) = v73;
       }
 
       *(a1 + 72) = *(a2 + 72);
       *(a1 + 73) = *(a2 + 73);
-      *(a1 + 80) = *(a2 + 10);
-      *(a1 + 88) = *(a2 + 11);
-      *(a1 + 96) = *(a2 + 12);
+      *(a1 + 80) = a2[10];
+      *(a1 + 88) = a2[11];
+      *(a1 + 96) = a2[12];
       *(a1 + 104) = *(a2 + 104);
       *(a1 + 105) = *(a2 + 105);
-      v74 = *(a2 + 14);
+      v74 = a2[14];
       *(a1 + 112) = v74;
       *(a1 + 120) = *(a2 + 30);
       *(a1 + 234) = 0;
@@ -2506,45 +3668,45 @@ LABEL_42:
       {
         v7 = *a2;
         *a1 = *a2;
-        *(a1 + 8) = *(a2 + 1);
-        v8 = *(a2 + 2);
+        *(a1 + 8) = a2[1];
+        v8 = a2[2];
         v9 = v7;
 
         if (v8)
         {
-          v10 = *(a2 + 3);
+          v10 = a2[3];
           *(a1 + 16) = v8;
           *(a1 + 24) = v10;
         }
 
         else
         {
-          *(a1 + 16) = a2[1];
+          *(a1 + 16) = *(a2 + 1);
         }
 
-        *(a1 + 32) = *(a2 + 4);
-        v48 = *(a2 + 8);
+        *(a1 + 32) = a2[4];
+        v48 = a2[8];
         if (v48)
         {
           *(a1 + 64) = v48;
-          *(a1 + 72) = *(a2 + 9);
-          (**(v48 - 8))(a1 + 40, a2 + 40);
+          *(a1 + 72) = a2[9];
+          (**(v48 - 8))(a1 + 40, a2 + 5);
         }
 
         else
         {
-          v52 = *(a2 + 40);
-          v53 = *(a2 + 56);
-          *(a1 + 72) = *(a2 + 9);
+          v52 = *(a2 + 5);
+          v53 = *(a2 + 7);
+          *(a1 + 72) = a2[9];
           *(a1 + 56) = v53;
           *(a1 + 40) = v52;
         }
 
         *(a1 + 80) = *(a2 + 80);
         *(a1 + 81) = *(a2 + 81);
-        *(a1 + 88) = *(a2 + 11);
-        *(a1 + 96) = *(a2 + 12);
-        *(a1 + 104) = *(a2 + 13);
+        *(a1 + 88) = a2[11];
+        *(a1 + 96) = a2[12];
+        *(a1 + 104) = a2[13];
         *(a1 + 112) = *(a2 + 112);
         *(a1 + 113) = *(a2 + 113);
         v54 = 2;
@@ -2558,46 +3720,46 @@ LABEL_144:
     }
 
     *a1 = *a2;
-    v29 = *(a2 + 1);
+    v29 = a2[1];
 
     if (v29)
     {
-      v30 = *(a2 + 2);
+      v30 = a2[2];
       *(a1 + 8) = v29;
       *(a1 + 16) = v30;
     }
 
     else
     {
-      *(a1 + 8) = *(a2 + 8);
+      *(a1 + 8) = *(a2 + 1);
     }
 
-    *(a1 + 24) = *(a2 + 3);
-    v82 = *(a2 + 7);
+    *(a1 + 24) = a2[3];
+    v82 = a2[7];
     if (v82)
     {
       *(a1 + 56) = v82;
-      *(a1 + 64) = *(a2 + 8);
-      (**(v82 - 8))(a1 + 32, (a2 + 2));
+      *(a1 + 64) = a2[8];
+      (**(v82 - 8))(a1 + 32, a2 + 4);
     }
 
     else
     {
-      v85 = a2[2];
-      v86 = a2[3];
-      *(a1 + 64) = *(a2 + 8);
+      v85 = *(a2 + 2);
+      v86 = *(a2 + 3);
+      *(a1 + 64) = a2[8];
       *(a1 + 32) = v85;
       *(a1 + 48) = v86;
     }
 
     *(a1 + 72) = *(a2 + 72);
     *(a1 + 73) = *(a2 + 73);
-    *(a1 + 80) = *(a2 + 10);
-    *(a1 + 88) = *(a2 + 11);
-    *(a1 + 96) = *(a2 + 12);
+    *(a1 + 80) = a2[10];
+    *(a1 + 88) = a2[11];
+    *(a1 + 96) = a2[12];
     *(a1 + 104) = *(a2 + 104);
     *(a1 + 105) = *(a2 + 105);
-    v74 = *(a2 + 14);
+    v74 = a2[14];
     *(a1 + 112) = v74;
     *(a1 + 120) = *(a2 + 30);
     v81 = 1;
@@ -2616,43 +3778,43 @@ LABEL_139:
       if (v6 == 10)
       {
         *a1 = *a2;
-        v35 = *(a2 + 1);
+        v35 = a2[1];
 
         if (v35)
         {
-          v36 = *(a2 + 2);
+          v36 = a2[2];
           *(a1 + 8) = v35;
           *(a1 + 16) = v36;
         }
 
         else
         {
-          *(a1 + 8) = *(a2 + 8);
+          *(a1 + 8) = *(a2 + 1);
         }
 
-        *(a1 + 24) = *(a2 + 3);
-        v84 = *(a2 + 7);
+        *(a1 + 24) = a2[3];
+        v84 = a2[7];
         if (v84)
         {
           *(a1 + 56) = v84;
-          *(a1 + 64) = *(a2 + 8);
-          (**(v84 - 8))(a1 + 32, (a2 + 2));
+          *(a1 + 64) = a2[8];
+          (**(v84 - 8))(a1 + 32, a2 + 4);
         }
 
         else
         {
-          v90 = a2[2];
-          v91 = a2[3];
-          *(a1 + 64) = *(a2 + 8);
+          v90 = *(a2 + 2);
+          v91 = *(a2 + 3);
+          *(a1 + 64) = a2[8];
           *(a1 + 32) = v90;
           *(a1 + 48) = v91;
         }
 
         *(a1 + 72) = *(a2 + 72);
         *(a1 + 73) = *(a2 + 73);
-        *(a1 + 80) = *(a2 + 10);
-        *(a1 + 88) = *(a2 + 11);
-        *(a1 + 96) = *(a2 + 12);
+        *(a1 + 80) = a2[10];
+        *(a1 + 88) = a2[11];
+        *(a1 + 96) = a2[12];
         *(a1 + 104) = *(a2 + 104);
         *(a1 + 105) = *(a2 + 105);
         *(a1 + 106) = *(a2 + 106);
@@ -2663,43 +3825,43 @@ LABEL_139:
       if (v6 == 11)
       {
         *a1 = *a2;
-        v17 = *(a2 + 1);
+        v17 = a2[1];
 
         if (v17)
         {
-          v18 = *(a2 + 2);
+          v18 = a2[2];
           *(a1 + 8) = v17;
           *(a1 + 16) = v18;
         }
 
         else
         {
-          *(a1 + 8) = *(a2 + 8);
+          *(a1 + 8) = *(a2 + 1);
         }
 
-        *(a1 + 24) = *(a2 + 3);
-        v51 = *(a2 + 7);
+        *(a1 + 24) = a2[3];
+        v51 = a2[7];
         if (v51)
         {
           *(a1 + 56) = v51;
-          *(a1 + 64) = *(a2 + 8);
-          (**(v51 - 8))(a1 + 32, (a2 + 2));
+          *(a1 + 64) = a2[8];
+          (**(v51 - 8))(a1 + 32, a2 + 4);
         }
 
         else
         {
-          v63 = a2[2];
-          v64 = a2[3];
-          *(a1 + 64) = *(a2 + 8);
+          v63 = *(a2 + 2);
+          v64 = *(a2 + 3);
+          *(a1 + 64) = a2[8];
           *(a1 + 32) = v63;
           *(a1 + 48) = v64;
         }
 
         *(a1 + 72) = *(a2 + 72);
         *(a1 + 73) = *(a2 + 73);
-        *(a1 + 80) = *(a2 + 10);
-        *(a1 + 88) = *(a2 + 11);
-        *(a1 + 96) = *(a2 + 12);
+        *(a1 + 80) = a2[10];
+        *(a1 + 88) = a2[11];
+        *(a1 + 96) = a2[12];
         *(a1 + 104) = *(a2 + 104);
         *(a1 + 105) = *(a2 + 105);
         v54 = 11;
@@ -2708,27 +3870,27 @@ LABEL_139:
 
 LABEL_80:
       v37 = *a2;
-      v38 = a2[2];
-      *(a1 + 16) = a2[1];
+      v38 = *(a2 + 2);
+      *(a1 + 16) = *(a2 + 1);
       *(a1 + 32) = v38;
       *a1 = v37;
-      v39 = a2[3];
-      v40 = a2[4];
-      v41 = a2[6];
-      *(a1 + 80) = a2[5];
+      v39 = *(a2 + 3);
+      v40 = *(a2 + 4);
+      v41 = *(a2 + 6);
+      *(a1 + 80) = *(a2 + 5);
       *(a1 + 96) = v41;
       *(a1 + 48) = v39;
       *(a1 + 64) = v40;
-      v42 = a2[7];
-      v43 = a2[8];
-      v44 = a2[10];
-      *(a1 + 144) = a2[9];
+      v42 = *(a2 + 7);
+      v43 = *(a2 + 8);
+      v44 = *(a2 + 10);
+      *(a1 + 144) = *(a2 + 9);
       *(a1 + 160) = v44;
       *(a1 + 112) = v42;
       *(a1 + 128) = v43;
-      v45 = a2[11];
-      v46 = a2[12];
-      v47 = a2[13];
+      v45 = *(a2 + 11);
+      v46 = *(a2 + 12);
+      v47 = *(a2 + 13);
       *(a1 + 219) = *(a2 + 219);
       *(a1 + 192) = v46;
       *(a1 + 208) = v47;
@@ -2737,46 +3899,46 @@ LABEL_80:
     }
 
     *a1 = *a2;
-    v27 = *(a2 + 1);
+    v27 = a2[1];
 
     if (v27)
     {
-      v28 = *(a2 + 2);
+      v28 = a2[2];
       *(a1 + 8) = v27;
       *(a1 + 16) = v28;
     }
 
     else
     {
-      *(a1 + 8) = *(a2 + 8);
+      *(a1 + 8) = *(a2 + 1);
     }
 
-    *(a1 + 24) = *(a2 + 3);
-    v71 = *(a2 + 7);
+    *(a1 + 24) = a2[3];
+    v71 = a2[7];
     if (v71)
     {
       *(a1 + 56) = v71;
-      *(a1 + 64) = *(a2 + 8);
-      (**(v71 - 8))(a1 + 32, (a2 + 2));
+      *(a1 + 64) = a2[8];
+      (**(v71 - 8))(a1 + 32, a2 + 4);
     }
 
     else
     {
-      v79 = a2[2];
-      v80 = a2[3];
-      *(a1 + 64) = *(a2 + 8);
+      v79 = *(a2 + 2);
+      v80 = *(a2 + 3);
+      *(a1 + 64) = a2[8];
       *(a1 + 32) = v79;
       *(a1 + 48) = v80;
     }
 
     *(a1 + 72) = *(a2 + 72);
     *(a1 + 73) = *(a2 + 73);
-    *(a1 + 80) = *(a2 + 10);
-    *(a1 + 88) = *(a2 + 11);
-    *(a1 + 96) = *(a2 + 12);
+    *(a1 + 80) = a2[10];
+    *(a1 + 88) = a2[11];
+    *(a1 + 96) = a2[12];
     *(a1 + 104) = *(a2 + 104);
     *(a1 + 105) = *(a2 + 105);
-    v74 = *(a2 + 14);
+    v74 = a2[14];
     *(a1 + 112) = v74;
     *(a1 + 120) = *(a2 + 120);
     v81 = 9;
@@ -2786,43 +3948,43 @@ LABEL_80:
   if (v6 == 6)
   {
     *a1 = *a2;
-    v21 = *(a2 + 1);
+    v21 = a2[1];
 
     if (v21)
     {
-      v22 = *(a2 + 2);
+      v22 = a2[2];
       *(a1 + 8) = v21;
       *(a1 + 16) = v22;
     }
 
     else
     {
-      *(a1 + 8) = *(a2 + 8);
+      *(a1 + 8) = *(a2 + 1);
     }
 
-    *(a1 + 24) = *(a2 + 3);
-    v69 = *(a2 + 7);
+    *(a1 + 24) = a2[3];
+    v69 = a2[7];
     if (v69)
     {
       *(a1 + 56) = v69;
-      *(a1 + 64) = *(a2 + 8);
-      (**(v69 - 8))(a1 + 32, (a2 + 2));
+      *(a1 + 64) = a2[8];
+      (**(v69 - 8))(a1 + 32, a2 + 4);
     }
 
     else
     {
-      v75 = a2[2];
-      v76 = a2[3];
-      *(a1 + 64) = *(a2 + 8);
+      v75 = *(a2 + 2);
+      v76 = *(a2 + 3);
+      *(a1 + 64) = a2[8];
       *(a1 + 32) = v75;
       *(a1 + 48) = v76;
     }
 
     *(a1 + 72) = *(a2 + 72);
     *(a1 + 73) = *(a2 + 73);
-    *(a1 + 80) = *(a2 + 10);
-    *(a1 + 88) = *(a2 + 11);
-    *(a1 + 96) = *(a2 + 12);
+    *(a1 + 80) = a2[10];
+    *(a1 + 88) = a2[11];
+    *(a1 + 96) = a2[12];
     *(a1 + 104) = *(a2 + 104);
     *(a1 + 105) = *(a2 + 105);
     v54 = 6;
@@ -2832,88 +3994,88 @@ LABEL_80:
   if (v6 != 7)
   {
     *a1 = *a2;
-    v11 = *(a2 + 1);
+    v11 = a2[1];
 
     if (v11)
     {
-      v12 = *(a2 + 2);
+      v12 = a2[2];
       *(a1 + 8) = v11;
       *(a1 + 16) = v12;
     }
 
     else
     {
-      *(a1 + 8) = *(a2 + 8);
+      *(a1 + 8) = *(a2 + 1);
     }
 
-    *(a1 + 24) = *(a2 + 3);
-    v49 = *(a2 + 7);
+    *(a1 + 24) = a2[3];
+    v49 = a2[7];
     if (v49)
     {
       *(a1 + 56) = v49;
-      *(a1 + 64) = *(a2 + 8);
-      (**(v49 - 8))(a1 + 32, (a2 + 2));
+      *(a1 + 64) = a2[8];
+      (**(v49 - 8))(a1 + 32, a2 + 4);
     }
 
     else
     {
-      v55 = a2[2];
-      v56 = a2[3];
-      *(a1 + 64) = *(a2 + 8);
+      v55 = *(a2 + 2);
+      v56 = *(a2 + 3);
+      *(a1 + 64) = a2[8];
       *(a1 + 32) = v55;
       *(a1 + 48) = v56;
     }
 
     *(a1 + 72) = *(a2 + 72);
     *(a1 + 73) = *(a2 + 73);
-    *(a1 + 80) = *(a2 + 10);
-    *(a1 + 88) = *(a2 + 11);
-    *(a1 + 96) = *(a2 + 12);
+    *(a1 + 80) = a2[10];
+    *(a1 + 88) = a2[11];
+    *(a1 + 96) = a2[12];
     *(a1 + 104) = *(a2 + 104);
     *(a1 + 105) = *(a2 + 105);
-    v57 = *(a2 + 14);
+    v57 = a2[14];
     *(a1 + 112) = v57;
     *(a1 + 120) = *(a2 + 120);
-    *(a1 + 128) = *(a2 + 16);
-    v58 = *(a2 + 17);
+    *(a1 + 128) = a2[16];
+    v58 = a2[17];
 
     v59 = v57;
 
     if (v58)
     {
-      v60 = *(a2 + 18);
+      v60 = a2[18];
       *(a1 + 136) = v58;
       *(a1 + 144) = v60;
     }
 
     else
     {
-      *(a1 + 136) = *(a2 + 136);
+      *(a1 + 136) = *(a2 + 17);
     }
 
-    *(a1 + 152) = *(a2 + 19);
-    v65 = *(a2 + 23);
+    *(a1 + 152) = a2[19];
+    v65 = a2[23];
     if (v65)
     {
       *(a1 + 184) = v65;
-      *(a1 + 192) = *(a2 + 24);
-      (**(v65 - 8))(a1 + 160, (a2 + 10));
+      *(a1 + 192) = a2[24];
+      (**(v65 - 8))(a1 + 160, a2 + 20);
     }
 
     else
     {
-      v66 = a2[10];
-      v67 = a2[11];
-      *(a1 + 192) = *(a2 + 24);
+      v66 = *(a2 + 10);
+      v67 = *(a2 + 11);
+      *(a1 + 192) = a2[24];
       *(a1 + 160) = v66;
       *(a1 + 176) = v67;
     }
 
     *(a1 + 200) = *(a2 + 200);
     *(a1 + 201) = *(a2 + 201);
-    *(a1 + 208) = *(a2 + 26);
-    *(a1 + 216) = *(a2 + 27);
-    *(a1 + 224) = *(a2 + 28);
+    *(a1 + 208) = a2[26];
+    *(a1 + 216) = a2[27];
+    *(a1 + 224) = a2[28];
     *(a1 + 232) = *(a2 + 232);
     *(a1 + 233) = *(a2 + 233);
     v54 = 8;
@@ -4149,152 +5311,168 @@ uint64_t static ToolbarEdges.bars.getter(uint64_t a1, uint64_t a2)
 
 uint64_t InferredToolbarModifier.body(content:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v25 = a2;
+  v35 = a2;
   v3 = *(a1 + 16);
-  swift_getWitnessTable();
+  swift_getWitnessTable("%");
   v4 = type metadata accessor for _ViewModifier_Content();
   v5 = *(a1 + 24);
-  type metadata accessor for InferredToolbarModifier.OnScrollStateChange();
-  v22 = v4;
-  type metadata accessor for ModifiedContent();
-  type metadata accessor for EdgesPredicate();
+  type metadata accessor for InferredToolbarModifier.OnScrollStateChange(255, v3, v5, v6);
+  v32 = v4;
+  v7 = type metadata accessor for ModifiedContent();
+  v47 = v3;
+  v48 = &type metadata for TopToolbarEdges;
+  v49 = v5;
+  v50 = &protocol witness table for TopToolbarEdges;
+  v8 = type metadata accessor for EdgesPredicate(255, &v47);
   type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(255);
-  type metadata accessor for StaticIf();
-  type metadata accessor for ModifiedContent();
-  type metadata accessor for EdgesPredicate();
+  v9 = type metadata accessor for StaticIf();
+  v10 = type metadata accessor for ModifiedContent();
+  v47 = v3;
+  v48 = &type metadata for BottomToolbarEdges;
+  v49 = v5;
+  v50 = &protocol witness table for BottomToolbarEdges;
+  v11 = type metadata accessor for EdgesPredicate(255, &v47);
   type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(255);
-  v20 = type metadata accessor for StaticIf();
-  v21 = type metadata accessor for ModifiedContent();
-  WitnessTable = swift_getWitnessTable();
-  v44 = WitnessTable;
-  v45 = &protocol witness table for InferredToolbarModifier<A>.OnScrollStateChange;
-  v6 = swift_getWitnessTable();
-  v41 = swift_getWitnessTable();
-  v42 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>);
-  v43 = MEMORY[0x1E697E100];
-  v39 = v6;
-  v40 = swift_getWitnessTable();
-  v7 = swift_getWitnessTable();
-  v36 = swift_getWitnessTable();
-  v37 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>);
-  v38 = MEMORY[0x1E697E100];
-  v34 = v7;
-  v35 = swift_getWitnessTable();
-  v46 = v3;
-  v47 = v21;
-  v48 = v5;
-  v49 = swift_getWitnessTable();
-  type metadata accessor for ToolbarReader();
-  v8 = type metadata accessor for StaticIf();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v20 - v13;
-  v28 = v3;
-  v29 = v5;
-  v30 = v24;
-  v26 = v3;
-  v27 = v5;
-  v15 = lazy protocol witness table accessor for type EnableInferredToolbar and conformance EnableInferredToolbar();
-  v16 = WitnessTable;
+  v30 = type metadata accessor for StaticIf();
+  v31 = type metadata accessor for ModifiedContent();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E697FDF8], v4);
+  v46[0] = WitnessTable;
+  v46[1] = &protocol witness table for InferredToolbarModifier<A>.OnScrollStateChange;
+  v12 = MEMORY[0x1E697E858];
+  v13 = swift_getWitnessTable(MEMORY[0x1E697E858], v7, v46);
+  v14 = swift_getWitnessTable(protocol conformance descriptor for EdgesPredicate<A, B>, v8);
+  v15 = MEMORY[0x1E697F598];
+  v45[0] = v14;
+  v45[1] = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>, MEMORY[0x1E697F598]);
+  v45[2] = MEMORY[0x1E697E100];
+  v16 = MEMORY[0x1E6981CE0];
+  v44[0] = v13;
+  v44[1] = swift_getWitnessTable(MEMORY[0x1E6981CE0], v9, v45);
+  v17 = swift_getWitnessTable(v12, v10, v44);
+  v43[0] = swift_getWitnessTable(protocol conformance descriptor for EdgesPredicate<A, B>, v11);
+  v43[1] = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>, v15);
+  v43[2] = MEMORY[0x1E697E100];
+  v42[0] = v17;
+  v42[1] = swift_getWitnessTable(v16, v30, v43);
+  v18 = swift_getWitnessTable(v12, v31, v42);
+  v47 = v3;
+  v48 = v31;
+  v49 = v5;
+  v50 = v18;
+  type metadata accessor for ToolbarReader(255, &v47);
+  v19 = type metadata accessor for StaticIf();
+  v20 = *(v19 - 8);
+  MEMORY[0x1EEE9AC00](v19);
+  v22 = &v30 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v25 = &v30 - v24;
+  v38 = v3;
+  v39 = v5;
+  v40 = v34;
+  v36 = v3;
+  v37 = v5;
+  v26 = lazy protocol witness table accessor for type EnableInferredToolbar and conformance EnableInferredToolbar();
+  v27 = WitnessTable;
   StaticIf<>.init(_:then:else:)();
-  v31 = v15;
-  v32 = &protocol witness table for ToolbarReader<A, B>;
-  v33 = v16;
-  v17 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v11, v8, v17);
-  v18 = *(v9 + 8);
-  v18(v11, v8);
-  static ViewBuilder.buildExpression<A>(_:)(v14, v8, v17);
-  return (v18)(v14, v8);
+  v41[0] = v26;
+  v41[1] = &protocol witness table for ToolbarReader<A, B>;
+  v41[2] = v27;
+  swift_getWitnessTable(MEMORY[0x1E6981CE8], v19, v41);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v28 = *(v20 + 8);
+  v28(v22, v19);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v28)(v25, v19);
 }
 
-uint64_t closure #1 in InferredToolbarModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t closure #1 in InferredToolbarModifier.body(content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>, uint64_t a5@<X3>)
 {
-  v45 = a1;
-  v46 = a4;
-  v6 = type metadata accessor for InferredToolbarModifier();
-  v43 = *(v6 - 8);
-  v44 = *(v43 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v42 = &v36 - v7;
-  v41 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v48 = &v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = v6;
-  swift_getWitnessTable();
-  type metadata accessor for _ViewModifier_Content();
-  type metadata accessor for InferredToolbarModifier.OnScrollStateChange();
-  type metadata accessor for ModifiedContent();
-  v61 = a2;
-  v62 = &type metadata for TopToolbarEdges;
-  v63 = a3;
-  v64 = &protocol witness table for TopToolbarEdges;
-  v39 = a3;
-  type metadata accessor for EdgesPredicate();
+  v58 = a1;
+  v59 = a4;
+  v7 = type metadata accessor for InferredToolbarModifier(0, a2, a3, a5);
+  v56 = *(v7 - 8);
+  v57 = *(v56 + 64);
+  MEMORY[0x1EEE9AC00](v7);
+  v55 = &v49 - v8;
+  v54 = *(a2 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v9);
+  v61 = &v49 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = v7;
+  swift_getWitnessTable("%", v7, v10);
+  v12 = type metadata accessor for _ViewModifier_Content();
+  type metadata accessor for InferredToolbarModifier.OnScrollStateChange(255, a2, a3, v13);
+  v14 = type metadata accessor for ModifiedContent();
+  v67 = a2;
+  v68 = &type metadata for TopToolbarEdges;
+  v69 = a3;
+  v70 = &protocol witness table for TopToolbarEdges;
+  v52 = a3;
+  v15 = type metadata accessor for EdgesPredicate(255, &v67);
   type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(255);
-  type metadata accessor for StaticIf();
-  type metadata accessor for ModifiedContent();
-  v61 = a2;
-  v62 = &type metadata for BottomToolbarEdges;
-  v63 = a3;
-  v64 = &protocol witness table for BottomToolbarEdges;
-  type metadata accessor for EdgesPredicate();
+  v16 = type metadata accessor for StaticIf();
+  v17 = type metadata accessor for ModifiedContent();
+  v67 = a2;
+  v68 = &type metadata for BottomToolbarEdges;
+  v69 = a3;
+  v70 = &protocol witness table for BottomToolbarEdges;
+  v18 = type metadata accessor for EdgesPredicate(255, &v67);
   type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(255);
-  type metadata accessor for StaticIf();
-  v47 = type metadata accessor for ModifiedContent();
-  WitnessTable = swift_getWitnessTable();
-  v60 = &protocol witness table for InferredToolbarModifier<A>.OnScrollStateChange;
-  v10 = swift_getWitnessTable();
-  v11 = swift_getWitnessTable();
-  v12 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>);
-  v56 = v11;
-  v57 = v12;
-  v58 = MEMORY[0x1E697E100];
-  v13 = swift_getWitnessTable();
-  v54 = v10;
-  v55 = v13;
-  v14 = swift_getWitnessTable();
-  v15 = swift_getWitnessTable();
-  v16 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>);
-  v51 = v15;
-  v52 = v16;
-  v53 = MEMORY[0x1E697E100];
-  v17 = swift_getWitnessTable();
-  v49 = v14;
-  v50 = v17;
-  v18 = v47;
-  v38 = swift_getWitnessTable();
-  v19 = a2;
-  v61 = a2;
-  v62 = v18;
-  v20 = v39;
-  v63 = v39;
-  v64 = v38;
-  v21 = type metadata accessor for ToolbarReader();
-  v37 = *(v21 - 8);
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v36 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = MEMORY[0x1EEE9AC00](v24);
-  v27 = &v36 - v26;
-  v28 = v45;
-  (*(v41 + 16))(v48, v45, a2, v25);
-  v29 = v43;
-  v30 = v42;
-  v31 = v40;
-  (*(v43 + 16))(v42, v28, v40);
-  v32 = (*(v29 + 80) + 32) & ~*(v29 + 80);
-  v33 = swift_allocObject();
-  *(v33 + 16) = v19;
-  *(v33 + 24) = v20;
-  (*(v29 + 32))(v33 + v32, v30, v31);
-  ToolbarReader.init(edges:content:)(v48, partial apply for closure #1 in closure #1 in InferredToolbarModifier.body(content:), v33, v19, v23);
-  static ViewBuilder.buildExpression<A>(_:)(v23, v21, &protocol witness table for ToolbarReader<A, B>);
-  v34 = *(v37 + 8);
-  v34(v23, v21);
-  static ViewBuilder.buildExpression<A>(_:)(v27, v21, &protocol witness table for ToolbarReader<A, B>);
-  return (v34)(v27, v21);
+  v19 = type metadata accessor for StaticIf();
+  v60 = type metadata accessor for ModifiedContent();
+  v66[0] = swift_getWitnessTable(MEMORY[0x1E697FDF8], v12);
+  v66[1] = &protocol witness table for InferredToolbarModifier<A>.OnScrollStateChange;
+  v20 = MEMORY[0x1E697E858];
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E697E858], v14, v66);
+  v22 = swift_getWitnessTable(protocol conformance descriptor for EdgesPredicate<A, B>, v15);
+  v23 = MEMORY[0x1E697F598];
+  v24 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>, MEMORY[0x1E697F598]);
+  v65[0] = v22;
+  v65[1] = v24;
+  v65[2] = MEMORY[0x1E697E100];
+  v25 = MEMORY[0x1E6981CE0];
+  v26 = swift_getWitnessTable(MEMORY[0x1E6981CE0], v16, v65);
+  v64[0] = WitnessTable;
+  v64[1] = v26;
+  v27 = swift_getWitnessTable(v20, v17, v64);
+  v28 = swift_getWitnessTable(protocol conformance descriptor for EdgesPredicate<A, B>, v18);
+  v29 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>, v23);
+  v63[0] = v28;
+  v63[1] = v29;
+  v63[2] = MEMORY[0x1E697E100];
+  v30 = swift_getWitnessTable(v25, v19, v63);
+  v62[0] = v27;
+  v62[1] = v30;
+  v31 = v60;
+  v51 = swift_getWitnessTable(v20, v60, v62);
+  v32 = a2;
+  v67 = a2;
+  v68 = v31;
+  v33 = v52;
+  v69 = v52;
+  v70 = v51;
+  v34 = type metadata accessor for ToolbarReader(0, &v67);
+  v50 = *(v34 - 8);
+  MEMORY[0x1EEE9AC00](v34);
+  v36 = &v49 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = MEMORY[0x1EEE9AC00](v37);
+  v40 = &v49 - v39;
+  v41 = v58;
+  (*(v54 + 16))(v61, v58, a2, v38);
+  v42 = v56;
+  v43 = v55;
+  v44 = v53;
+  (*(v56 + 16))(v55, v41, v53);
+  v45 = (*(v42 + 80) + 32) & ~*(v42 + 80);
+  v46 = swift_allocObject();
+  *(v46 + 16) = v32;
+  *(v46 + 24) = v33;
+  (*(v42 + 32))(v46 + v45, v43, v44);
+  ToolbarReader.init(edges:content:)(v61, partial apply for closure #1 in closure #1 in InferredToolbarModifier.body(content:), v46, v32, v60, v33, v51, v36);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v47 = *(v50 + 8);
+  v47(v36, v34);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v47)(v40, v34);
 }
 
 uint64_t closure #1 in closure #1 in InferredToolbarModifier.body(content:)(uint64_t a1)
@@ -4303,11 +5481,11 @@ uint64_t closure #1 in closure #1 in InferredToolbarModifier.body(content:)(uint
   v2 = v1;
   v4 = v3;
   v6 = v5;
-  v30 = *v7;
-  v31 = v7[2];
-  v27 = v7[3];
-  v28 = v7[1];
-  v8 = type metadata accessor for InferredToolbarModifier();
+  v37 = *v7;
+  v38 = v7[2];
+  v32 = v7[3];
+  v33 = v7[1];
+  v8 = type metadata accessor for InferredToolbarModifier(0, v3, v1, v1);
   v9 = (v6 + *(v8 + 36));
   v11 = *v9;
   v10 = v9[1];
@@ -4315,96 +5493,103 @@ uint64_t closure #1 in closure #1 in InferredToolbarModifier.body(content:)(uint
   *(&__dst[0] + 1) = v10;
   type metadata accessor for State<InferredToolbarState>(0, &lazy cache variable for type metadata for State<InferredToolbarState>, &type metadata for InferredToolbarState, MEMORY[0x1E6981790]);
   State.projectedValue.getter();
-  swift_getWitnessTable();
+  swift_getWitnessTable("%", v8);
+  v34 = v8;
   v12 = type metadata accessor for _ViewModifier_Content();
-  v13 = type metadata accessor for InferredToolbarModifier.OnScrollStateChange();
-  WitnessTable = swift_getWitnessTable();
-  MEMORY[0x18D00A570](v38, v41, v12, v13, WitnessTable);
+  v14 = type metadata accessor for InferredToolbarModifier.OnScrollStateChange(0, v4, v2, v13);
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E697FDF8], v12);
+  MEMORY[0x18D00A570](v48, v51, v12, v14, WitnessTable);
 
-  v39[0] = v38[0];
-  *&v39[1] = *&v38[1];
-  *&__dst[0] = __PAIR64__(v28, v30);
-  *(&__dst[0] + 1) = __PAIR64__(v27, v31);
+  v49[0] = v48[0];
+  *&v49[1] = *&v48[1];
+  *&__dst[0] = __PAIR64__(v33, v37);
+  *(&__dst[0] + 1) = __PAIR64__(v32, v38);
   InferredToolbarModifier.topSafeArea(toolbar:)(__dst, v8);
-  memcpy(__dst, v41, 0x198uLL);
-  v15 = type metadata accessor for ModifiedContent();
-  v36[0] = v4;
-  v36[1] = &type metadata for TopToolbarEdges;
-  v36[2] = v2;
-  v36[3] = &protocol witness table for TopToolbarEdges;
-  type metadata accessor for EdgesPredicate();
+  memcpy(__dst, v51, 0x198uLL);
+  v16 = type metadata accessor for ModifiedContent();
+  v46[0] = v4;
+  v46[1] = &type metadata for TopToolbarEdges;
+  v46[2] = v2;
+  v46[3] = &protocol witness table for TopToolbarEdges;
+  v17 = type metadata accessor for EdgesPredicate(255, v46);
   type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(255);
-  v16 = type metadata accessor for StaticIf();
-  v34 = WitnessTable;
-  v35 = &protocol witness table for InferredToolbarModifier<A>.OnScrollStateChange;
-  v29 = swift_getWitnessTable();
-  MEMORY[0x18D00A570](__src, __dst, v15, v16, v29);
-  memcpy(v37, __dst, sizeof(v37));
-  (*(*(v16 - 8) + 8))(v37, v16);
-
-  memcpy(v33, __src, sizeof(v33));
-  v41[0] = __PAIR64__(v28, v30);
-  v41[1] = __PAIR64__(v27, v31);
-  InferredToolbarModifier.bottomSafeArea(toolbar:)(v41, v8);
-  memcpy(v36, __dst, 0x240uLL);
-  v17 = type metadata accessor for ModifiedContent();
-  v41[0] = v4;
-  v41[1] = &type metadata for BottomToolbarEdges;
-  v41[2] = v2;
-  v41[3] = &protocol witness table for BottomToolbarEdges;
-  type metadata accessor for EdgesPredicate();
-  type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(255);
   v18 = type metadata accessor for StaticIf();
-  v19 = swift_getWitnessTable();
-  v20 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>);
-  __src[128] = v19;
-  __src[129] = v20;
-  __src[130] = MEMORY[0x1E697E100];
-  v21 = swift_getWitnessTable();
-  __src[126] = v29;
-  __src[127] = v21;
-  v22 = swift_getWitnessTable();
-  MEMORY[0x18D00A570](v41, v36, v17, v18, v22);
-  memcpy(v38, v36, sizeof(v38));
-  (*(*(v18 - 8) + 8))(v38, v18);
-  memcpy(v39, v33, sizeof(v39));
-  (*(*(v17 - 8) + 8))(v39, v17);
-  memcpy(__src, v41, 0x3F0uLL);
-  v23 = type metadata accessor for ModifiedContent();
-  swift_getWitnessTable();
-  lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>);
-  swift_getWitnessTable();
-  v24 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(__src, v23, v24);
+  v45[0] = WitnessTable;
+  v45[1] = &protocol witness table for InferredToolbarModifier<A>.OnScrollStateChange;
+  v36 = MEMORY[0x1E697E858];
+  v35 = swift_getWitnessTable(MEMORY[0x1E697E858], v16, v45);
+  MEMORY[0x18D00A570](__src, __dst, v16, v18, v35);
+  memcpy(v47, __dst, sizeof(v47));
+  (*(*(v18 - 8) + 8))(v47, v18);
+
+  memcpy(v44, __src, sizeof(v44));
+  v51[0] = __PAIR64__(v33, v37);
+  v51[1] = __PAIR64__(v32, v38);
+  InferredToolbarModifier.bottomSafeArea(toolbar:)(v51, v34);
+  memcpy(v46, __dst, 0x240uLL);
+  v19 = type metadata accessor for ModifiedContent();
+  v51[0] = v4;
+  v51[1] = &type metadata for BottomToolbarEdges;
+  v51[2] = v2;
+  v51[3] = &protocol witness table for BottomToolbarEdges;
+  v20 = type metadata accessor for EdgesPredicate(255, v51);
+  type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(255);
+  v21 = type metadata accessor for StaticIf();
+  v22 = swift_getWitnessTable(protocol conformance descriptor for EdgesPredicate<A, B>, v17);
+  v23 = MEMORY[0x1E697F598];
+  v24 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>, MEMORY[0x1E697F598]);
+  v43[0] = v22;
+  v43[1] = v24;
+  v25 = MEMORY[0x1E697E100];
+  v43[2] = MEMORY[0x1E697E100];
+  v26 = MEMORY[0x1E6981CE0];
+  v27 = swift_getWitnessTable(MEMORY[0x1E6981CE0], v18, v43);
+  v42[0] = v35;
+  v42[1] = v27;
+  v28 = swift_getWitnessTable(v36, v19, v42);
+  MEMORY[0x18D00A570](v51, v46, v19, v21, v28);
+  memcpy(v48, v46, sizeof(v48));
+  (*(*(v21 - 8) + 8))(v48, v21);
+  memcpy(v49, v44, sizeof(v49));
+  (*(*(v19 - 8) + 8))(v49, v19);
+  memcpy(__src, v51, sizeof(__src));
+  v29 = type metadata accessor for ModifiedContent();
+  v40[0] = swift_getWitnessTable(protocol conformance descriptor for EdgesPredicate<A, B>, v20);
+  v40[1] = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>, v23);
+  v40[2] = v25;
+  v39[0] = v28;
+  v39[1] = swift_getWitnessTable(v26, v21, v40);
+  swift_getWitnessTable(v36, v29, v39);
+  static ViewBuilder.buildExpression<A>(_:)();
   memcpy(__dst, __src, sizeof(__dst));
-  v25 = *(*(v23 - 8) + 8);
-  v25(__dst, v23);
-  memcpy(__src, v36, 0x3F0uLL);
-  static ViewBuilder.buildExpression<A>(_:)(__src, v23, v24);
-  memcpy(v41, __src, 0x3F0uLL);
-  return v25(v41, v23);
+  v30 = *(*(v29 - 8) + 8);
+  v30(__dst, v29);
+  memcpy(__src, v46, sizeof(__src));
+  static ViewBuilder.buildExpression<A>(_:)();
+  memcpy(v51, __src, 0x3F0uLL);
+  return v30(v51, v29);
 }
 
 uint64_t InferredToolbarModifier.topSafeArea(toolbar:)(_OWORD *a1, uint64_t a2)
 {
   *__dst = *a1;
-  InferredToolbarModifier.navigationBar(toolbar:)(__dst, v6);
-  memcpy(__dst, v6, 0x178uLL);
+  InferredToolbarModifier.navigationBar(toolbar:)(__dst, a2, v7);
+  memcpy(__dst, v7, 0x178uLL);
   v3 = static HorizontalAlignment.center.getter();
   v4 = *(a2 + 24);
-  v6[0] = *(a2 + 16);
-  v6[1] = &type metadata for TopToolbarEdges;
-  v6[2] = v4;
-  v6[3] = &protocol witness table for TopToolbarEdges;
-  type metadata accessor for EdgesPredicate();
-  memcpy(v6, __dst, 0x178uLL);
-  v6[47] = 1;
-  v6[48] = 0;
-  v7 = 0;
-  v8 = v3;
+  v7[0] = *(a2 + 16);
+  v7[1] = &type metadata for TopToolbarEdges;
+  v7[2] = v4;
+  v7[3] = &protocol witness table for TopToolbarEdges;
+  v5 = type metadata accessor for EdgesPredicate(0, v7);
+  memcpy(v7, __dst, 0x178uLL);
+  v7[47] = 1;
+  v7[48] = 0;
+  v8 = 0;
+  v9 = v3;
   type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(0);
-  swift_getWitnessTable();
-  lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>);
+  swift_getWitnessTable(protocol conformance descriptor for EdgesPredicate<A, B>, v5);
+  lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>, MEMORY[0x1E697F598]);
   return StaticIf<>.init<>(_:then:)();
 }
 
@@ -4413,55 +5598,55 @@ uint64_t InferredToolbarModifier.bottomSafeArea(toolbar:)(unint64_t *a1, uint64_
   v3 = v2;
   v4 = *(a2 + 16);
   v5 = *(a2 + 24);
-  closure #1 in InferredToolbarModifier.bottomBar(toolbar:)(*a1, a1[1], v3, v4, v5, v8);
+  closure #1 in InferredToolbarModifier.bottomBar(toolbar:)(*a1, a1[1], v3, v4, v5, v9);
   v6 = static HorizontalAlignment.center.getter();
-  v11 = v4;
-  v12 = &type metadata for BottomToolbarEdges;
-  v13 = v5;
-  v14 = &protocol witness table for BottomToolbarEdges;
-  type metadata accessor for EdgesPredicate();
-  v8[34] = xmmword_18CD6A6D0;
-  v9 = 512;
-  v10 = v6;
+  v13[0] = v4;
+  v13[1] = &type metadata for BottomToolbarEdges;
+  v13[2] = v5;
+  v13[3] = &protocol witness table for BottomToolbarEdges;
+  v7 = type metadata accessor for EdgesPredicate(0, v13);
+  v10 = xmmword_18CD6A6D0;
+  v11 = 512;
+  v12 = v6;
   type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(0);
-  swift_getWitnessTable();
-  lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>);
+  swift_getWitnessTable(protocol conformance descriptor for EdgesPredicate<A, B>, v7);
+  lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>> and conformance _InsetViewModifier<A>, type metadata accessor for _InsetViewModifier<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>, MEMORY[0x1E697F598]);
   return StaticIf<>.init<>(_:then:)();
 }
 
-uint64_t closure #2 in InferredToolbarModifier.body(content:)()
+uint64_t closure #2 in InferredToolbarModifier.body(content:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for InferredToolbarModifier();
-  swift_getWitnessTable();
-  v0 = type metadata accessor for _ViewModifier_Content();
-  WitnessTable = swift_getWitnessTable();
-  v2 = static ViewBuilder.buildExpression<A>(_:)(WitnessTable, v0, WitnessTable);
+  v4 = type metadata accessor for InferredToolbarModifier(255, a1, a2, a4);
+  swift_getWitnessTable("%", v4);
+  v5 = type metadata accessor for _ViewModifier_Content();
+  swift_getWitnessTable(MEMORY[0x1E697FDF8], v5);
+  static ViewBuilder.buildExpression<A>(_:)();
 
-  return static ViewBuilder.buildExpression<A>(_:)(v2, v0, WitnessTable);
+  return static ViewBuilder.buildExpression<A>(_:)();
 }
 
 uint64_t InferredToolbarModifier.bar<A>(toolbar:edge:content:)@<X0>(unsigned int *a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  v51 = a7;
-  v54 = a5;
-  v52 = a4;
-  v50 = a3;
-  v53 = a8;
-  type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?();
-  v49 = a6;
+  v50 = a7;
+  v53 = a5;
+  v51 = a4;
+  v49 = a3;
+  v52 = a8;
+  type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?(255);
+  v48 = a6;
   type metadata accessor for ModifiedContent();
   type metadata accessor for ModifiedContent();
   type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for _BackgroundStyleModifier<AnyShapeStyle>, MEMORY[0x1E697E0B8], MEMORY[0x1E697E0A8], MEMORY[0x1E6980460]);
   type metadata accessor for ModifiedContent();
   swift_getTupleTypeMetadata3();
-  v47 = type metadata accessor for TupleView();
-  WitnessTable = swift_getWitnessTable();
+  v46 = type metadata accessor for TupleView();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E6981F48], v46);
   v11 = type metadata accessor for VStack();
   v12 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
-  v14 = &v41[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = &v40[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v41[-v16];
+  v17 = &v40[-v16];
   v19 = *a1;
   v18 = a1[1];
   v20 = a1[2];
@@ -4473,73 +5658,73 @@ uint64_t InferredToolbarModifier.bar<A>(toolbar:edge:content:)@<X0>(unsigned int
     v23 = 0;
   }
 
-  memset(v59, 0, 24);
-  v59[3] = v23;
-  v59[4] = 0;
-  v56 = __PAIR64__(v18, v19);
-  v57 = __PAIR64__(v21, v20);
-  ToolbarProxy_V1.appearance(in:)(v59, v58);
-  outlined destroy of ToolbarAppearanceConfiguration(v58);
-  v24 = v54;
+  memset(v57, 0, 24);
+  v57[3] = v23;
+  v57[4] = 0;
+  *&v55 = __PAIR64__(v18, v19);
+  *(&v55 + 1) = __PAIR64__(v21, v20);
+  ToolbarProxy_V1.appearance(in:)(v57, v56);
+  outlined destroy of ToolbarAppearanceConfiguration(v56);
+  v24 = v53;
   v25 = 1.0;
-  if (v58[24] == 1)
+  if (v56[24] == 1)
   {
     goto LABEL_7;
   }
 
-  v42 = v20;
-  v43 = v19;
-  v44 = v18;
-  v45 = v11;
-  v26 = (v46 + *(v54 + 36));
+  v41 = v20;
+  v42 = v19;
+  v43 = v18;
+  v44 = v11;
+  v26 = (v45 + *(v53 + 36));
   v28 = *v26;
   v27 = v26[1];
-  v56 = v28;
-  v57 = v27;
+  *&v55 = v28;
+  *(&v55 + 1) = v27;
   type metadata accessor for State<InferredToolbarState>(0, &lazy cache variable for type metadata for State<InferredToolbarState>, &type metadata for InferredToolbarState, MEMORY[0x1E6981790]);
   result = State.wrappedValue.getter();
-  v30 = v55;
-  if (*(v55 + 16))
+  v30 = v54;
+  if (*(v54 + 16))
   {
     result = specialized __RawDictionaryStorage.find<A>(_:)(v22);
     if (v31)
     {
       v25 = *(*(v30 + 56) + 8 * result);
 
-      v24 = v54;
-      v11 = v45;
-      v18 = v44;
-      v19 = v43;
-      v20 = v42;
+      v24 = v53;
+      v11 = v44;
+      v18 = v43;
+      v19 = v42;
+      v20 = v41;
 LABEL_7:
-      v56 = __PAIR64__(v18, v19);
-      v57 = __PAIR64__(v21, v20);
+      *&v55 = __PAIR64__(v18, v19);
+      *(&v55 + 1) = __PAIR64__(v21, v20);
       v32 = *(v24 + 16);
       v33 = *(v24 + 24);
-      v34 = specialized InferredToolbarModifier.backgroundStyle(in:toolbar:opacity:)(v59);
+      v34 = specialized InferredToolbarModifier.backgroundStyle(in:toolbar:opacity:)(v57, &v55, v25);
       MEMORY[0x1EEE9AC00](v34);
-      v35 = v49;
-      *&v41[-80] = v32;
-      *&v41[-72] = v35;
-      v36 = v51;
-      *&v41[-64] = v33;
-      *&v41[-56] = v36;
-      v41[-48] = v22;
-      *&v41[-40] = v25;
-      v37 = v52;
-      *&v41[-32] = v50;
-      *&v41[-24] = v37;
-      *&v41[-16] = v38;
+      v35 = v48;
+      *&v40[-80] = v32;
+      *&v40[-72] = v35;
+      v36 = v50;
+      *&v40[-64] = v33;
+      *&v40[-56] = v36;
+      v40[-48] = v22;
+      *&v40[-40] = v25;
+      v37 = v51;
+      *&v40[-32] = v49;
+      *&v40[-24] = v37;
+      *&v40[-16] = v38;
       static HorizontalAlignment.center.getter();
       VStack.init(alignment:spacing:content:)();
 
-      outlined destroy of ToolbarPlacement.Role(v59);
-      v39 = swift_getWitnessTable();
-      static ViewBuilder.buildExpression<A>(_:)(v14, v11, v39);
-      v40 = *(v12 + 8);
-      v40(v14, v11);
-      static ViewBuilder.buildExpression<A>(_:)(v17, v11, v39);
-      return (v40)(v17, v11);
+      outlined destroy of ToolbarPlacement.Role(v57);
+      swift_getWitnessTable(MEMORY[0x1E6981870], v11);
+      static ViewBuilder.buildExpression<A>(_:)();
+      v39 = *(v12 + 8);
+      v39(v14, v11);
+      static ViewBuilder.buildExpression<A>(_:)();
+      return (v39)(v17, v11);
     }
   }
 
@@ -4554,227 +5739,228 @@ LABEL_7:
 
 uint64_t closure #1 in InferredToolbarModifier.bar<A>(toolbar:edge:content:)@<X0>(uint64_t a1@<X0>, void (*a2)(double)@<X1>, uint64_t a3@<X3>, uint64_t a4@<X5>, uint64_t a5@<X7>, uint64_t a6@<X8>, double a7@<D0>)
 {
-  v43 = a3;
-  v37 = a2;
-  v44 = a1;
-  v45 = a6;
-  v39 = *(a4 - 8);
+  v44 = a3;
+  v38 = a2;
+  v45 = a1;
+  v46 = a6;
+  v40 = *(a4 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v11 = &v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for ModifiedContent();
-  v40 = *(v12 - 8);
+  v41 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
-  v14 = &v36 - v13;
+  v14 = &v37 - v13;
   v15 = type metadata accessor for ModifiedContent();
-  v42 = *(v15 - 8);
+  v43 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15);
-  v17 = &v36 - v16;
+  v17 = &v37 - v16;
   type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for _BackgroundStyleModifier<AnyShapeStyle>, MEMORY[0x1E697E0B8], MEMORY[0x1E697E0A8], MEMORY[0x1E6980460]);
   v18 = type metadata accessor for ModifiedContent();
-  v41 = *(v18 - 8);
+  v42 = *(v18 - 8);
   MEMORY[0x1EEE9AC00](v18);
-  v20 = &v36 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = &v37 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   v22 = MEMORY[0x1EEE9AC00](v21);
-  v36 = &v36 - v23;
-  v38 = a7;
-  v37(v22);
+  v37 = &v37 - v23;
+  v39 = a7;
+  v38(v22);
   static Alignment.center.getter();
   View.frame(width:height:alignment:)();
-  (*(v39 + 8))(v11, a4);
+  (*(v40 + 8))(v11, a4);
   static Edge.Set.horizontal.getter();
-  v54[7] = a5;
-  v54[8] = MEMORY[0x1E697E040];
-  WitnessTable = swift_getWitnessTable();
+  v58[0] = a5;
+  v58[1] = MEMORY[0x1E697E040];
+  v24 = MEMORY[0x1E697E858];
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E697E858], v12, v58);
   View.padding(_:_:)();
-  (*(v40 + 8))(v14, v12);
-  v54[0] = v43;
+  (*(v41 + 8))(v14, v12);
+  v55[0] = v44;
   static Edge.Set.all.getter();
-  v54[5] = WitnessTable;
-  v54[6] = MEMORY[0x1E697E5D8];
-  v25 = swift_getWitnessTable();
+  v57[0] = WitnessTable;
+  v57[1] = MEMORY[0x1E697E5D8];
+  v26 = swift_getWitnessTable(v24, v15, v57);
   View.background<A>(_:ignoresSafeAreaEdges:)();
-  (*(v42 + 8))(v17, v15);
-  v26 = lazy protocol witness table accessor for type _BackgroundStyleModifier<AnyShapeStyle> and conformance _BackgroundStyleModifier<A>();
-  v54[3] = v25;
-  v54[4] = v26;
-  v27 = swift_getWitnessTable();
-  v28 = v36;
-  static ViewBuilder.buildExpression<A>(_:)(v20, v18, v27);
-  v29 = v41;
-  v30 = *(v41 + 8);
-  v30(v20, v18);
-  v31 = v44 & 1;
-  if (v44)
+  (*(v43 + 8))(v17, v15);
+  v27 = lazy protocol witness table accessor for type _BackgroundStyleModifier<AnyShapeStyle> and conformance _BackgroundStyleModifier<A>();
+  v56[0] = v26;
+  v56[1] = v27;
+  v28 = swift_getWitnessTable(v24, v18, v56);
+  v29 = v37;
+  static ViewBuilder.buildExpression<A>(_:)();
+  v30 = v42;
+  v31 = *(v42 + 8);
+  v31(v20, v18);
+  v32 = v45 & 1;
+  if (v45)
   {
-    v32 = v38;
+    v33 = v39;
   }
 
   else
-  {
-    v32 = 0.0;
-  }
-
-  if (v44)
   {
     v33 = 0.0;
   }
 
-  else
+  if (v45)
   {
-    v33 = v38;
+    v34 = 0.0;
   }
 
+  else
+  {
+    v34 = v39;
+  }
+
+  v53 = v33;
+  v54 = (v45 & 1) == 0;
+  v55[0] = &v53;
+  (*(v30 + 16))(v20, v29, v18);
+  v51 = v34;
   v52 = v32;
-  v53 = (v44 & 1) == 0;
-  v54[0] = &v52;
-  (*(v29 + 16))(v20, v28, v18);
-  v50 = v33;
-  v51 = v31;
-  v54[1] = v20;
-  v54[2] = &v50;
-  type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?();
-  v49[0] = v34;
-  v49[1] = v18;
-  v49[2] = v34;
-  v46 = lazy protocol witness table accessor for type ModifiedContent<Divider, _OpacityEffect>? and conformance <A> A?();
-  v47 = v27;
-  v48 = v46;
-  static ViewBuilder.buildBlock<each A>(_:)(v54, 3uLL, v49);
-  v30(v28, v18);
-  return (v30)(v20, v18);
+  v55[1] = v20;
+  v55[2] = &v51;
+  type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?(0);
+  v50[0] = v35;
+  v50[1] = v18;
+  v50[2] = v35;
+  v47 = lazy protocol witness table accessor for type ModifiedContent<Divider, _OpacityEffect>? and conformance <A> A?();
+  v48 = v28;
+  v49 = v47;
+  static ViewBuilder.buildBlock<each A>(_:)(v55, 3uLL, v50);
+  v31(v29, v18);
+  return (v31)(v20, v18);
 }
 
-void *InferredToolbarModifier.navigationBar(toolbar:)@<X0>(unint64_t *a1@<X0>, void *a2@<X8>)
+void *InferredToolbarModifier.navigationBar(toolbar:)@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  closure #1 in InferredToolbarModifier.navigationBar(toolbar:)(*a1, a1[1], __src);
+  closure #1 in InferredToolbarModifier.navigationBar(toolbar:)(*a1, a1[1], *(a2 + 16), *(a2 + 24), __src);
   lazy protocol witness table accessor for type MoveTransition and conformance MoveTransition();
-  v3 = AnyTransition.init<A>(_:)();
-  result = memcpy(a2, __src, 0x170uLL);
-  a2[46] = v3;
+  v4 = AnyTransition.init<A>(_:)();
+  result = memcpy(a3, __src, 0x170uLL);
+  a3[46] = v4;
   return result;
 }
 
-void *closure #1 in InferredToolbarModifier.navigationBar(toolbar:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+void *closure #1 in InferredToolbarModifier.navigationBar(toolbar:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, void *a5@<X8>)
 {
-  v3 = a2;
-  v4 = a1;
-  v6 = HIDWORD(a1);
-  v7 = HIDWORD(a2);
-  memset(v25, 0, 40);
-  outlined init with copy of ToolbarPlacement.Storage(v25, v21);
-  if (*(&v21[1] + 1) == 7)
+  v7 = a2;
+  v8 = a1;
+  v10 = HIDWORD(a1);
+  v11 = HIDWORD(a2);
+  memset(v30, 0, 40);
+  outlined init with copy of ToolbarPlacement.Storage(v30, v26);
+  if (*(&v26[1] + 1) == 7)
   {
-    v8 = outlined destroy of ToolbarPlacement(v25);
+    v12 = outlined destroy of ToolbarPlacement(v30);
 LABEL_5:
-    v16 = a3;
-    *&v21[0] = __PAIR64__(v6, v4);
-    *(&v21[0] + 1) = __PAIR64__(v7, v3);
-    MEMORY[0x1EEE9AC00](v8);
-    v15[4] = v4;
-    v15[5] = v6;
-    v15[6] = v3;
-    v15[7] = v7;
-    v10 = type metadata accessor for InferredToolbarModifier();
-    type metadata accessor for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>();
-    v12 = v11;
-    v13 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>, type metadata accessor for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>);
-    InferredToolbarModifier.bar<A>(toolbar:edge:content:)(v21, 0, partial apply for closure #1 in closure #1 in InferredToolbarModifier.navigationBar(toolbar:), v15, v10, v12, v13, v25);
-    a3 = v16;
-    memcpy(v21, v25, 0x169uLL);
-    _s7SwiftUI19_ConditionalContentV7StorageOyAA6VStackVyAA9TupleViewVyAA08ModifiedD0VyAA7DividerVAA14_OpacityEffectVGSg_AKyAKyAKyAA6HStackVyAIyAA7ForEachVySayAA07ToolbarE0V5EntryVGAY2IDVAA07BarItemH0VG_AA6SpacerVA3_A5_A3_tGGAA12_FrameLayoutVGAA08_PaddingW0VGAA24_BackgroundStyleModifierVyAA08AnyShapeZ0VGGAQtGGAKyAA05EmptyH0VA9_G_GWOi_(v21);
+    v21 = a5;
+    *&v26[0] = __PAIR64__(v10, v8);
+    *(&v26[0] + 1) = __PAIR64__(v11, v7);
+    MEMORY[0x1EEE9AC00](v12);
+    v20[4] = v8;
+    v20[5] = v10;
+    v20[6] = v7;
+    v20[7] = v11;
+    v15 = type metadata accessor for InferredToolbarModifier(0, a3, a4, v14);
+    type metadata accessor for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>(0);
+    v17 = v16;
+    v18 = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>, type metadata accessor for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, MEMORY[0x1E69817F8]);
+    InferredToolbarModifier.bar<A>(toolbar:edge:content:)(v26, 0, partial apply for closure #1 in closure #1 in InferredToolbarModifier.navigationBar(toolbar:), v20, v15, v17, v18, v30);
+    a5 = v21;
+    memcpy(v26, v30, 0x169uLL);
+    _s7SwiftUI19_ConditionalContentV7StorageOyAA6VStackVyAA9TupleViewVyAA08ModifiedD0VyAA7DividerVAA14_OpacityEffectVGSg_AKyAKyAKyAA6HStackVyAIyAA7ForEachVySayAA07ToolbarE0V5EntryVGAY2IDVAA07BarItemH0VG_AA6SpacerVA3_A5_A3_tGGAA12_FrameLayoutVGAA08_PaddingW0VGAA24_BackgroundStyleModifierVyAA08AnyShapeZ0VGGAQtGGAKyAA05EmptyH0VA9_G_GWOi_(v26);
     goto LABEL_6;
   }
 
-  v22 = v21[0];
-  v23 = v21[1];
-  *&v24 = *&v21[2];
-  v17 = v4;
-  v18 = v6;
-  v19 = v3;
-  v20 = v7;
-  v9 = ToolbarProxy_V1.visibility(in:)(&v22);
-  outlined destroy of ToolbarPlacement.Role(&v22);
-  v8 = outlined destroy of ToolbarPlacement(v25);
-  if (v9 != 2)
+  v27 = v26[0];
+  v28 = v26[1];
+  *&v29 = *&v26[2];
+  v22 = v8;
+  v23 = v10;
+  v24 = v7;
+  v25 = v11;
+  v13 = ToolbarProxy_V1.visibility(in:)(&v27);
+  outlined destroy of ToolbarPlacement.Role(&v27);
+  v12 = outlined destroy of ToolbarPlacement(v30);
+  if (v13 != 2)
   {
     goto LABEL_5;
   }
 
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  *&v21[0] = v22;
-  BYTE8(v21[0]) = BYTE8(v22);
-  *&v21[1] = v23;
-  BYTE8(v21[1]) = BYTE8(v23);
-  v21[2] = v24;
-  _s7SwiftUI19_ConditionalContentV7StorageOyAA6VStackVyAA9TupleViewVyAA08ModifiedD0VyAA7DividerVAA14_OpacityEffectVGSg_AKyAKyAKyAA6HStackVyAIyAA7ForEachVySayAA07ToolbarE0V5EntryVGAY2IDVAA07BarItemH0VG_AA6SpacerVA3_A5_A3_tGGAA12_FrameLayoutVGAA08_PaddingW0VGAA24_BackgroundStyleModifierVyAA08AnyShapeZ0VGGAQtGGAKyAA05EmptyH0VA9_G_GWOi0_(v21);
+  *&v26[0] = v27;
+  BYTE8(v26[0]) = BYTE8(v27);
+  *&v26[1] = v28;
+  BYTE8(v26[1]) = BYTE8(v28);
+  v26[2] = v29;
+  _s7SwiftUI19_ConditionalContentV7StorageOyAA6VStackVyAA9TupleViewVyAA08ModifiedD0VyAA7DividerVAA14_OpacityEffectVGSg_AKyAKyAKyAA6HStackVyAIyAA7ForEachVySayAA07ToolbarE0V5EntryVGAY2IDVAA07BarItemH0VG_AA6SpacerVA3_A5_A3_tGGAA12_FrameLayoutVGAA08_PaddingW0VGAA24_BackgroundStyleModifierVyAA08AnyShapeZ0VGGAQtGGAKyAA05EmptyH0VA9_G_GWOi0_(v26);
 LABEL_6:
-  memcpy(v25, v21, 0x16AuLL);
-  return memcpy(a3, v25, 0x16AuLL);
+  memcpy(v30, v26, 0x16AuLL);
+  return memcpy(a5, v30, 0x16AuLL);
 }
 
-double closure #1 in closure #1 in InferredToolbarModifier.navigationBar(toolbar:)@<D0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+double closure #1 in closure #1 in InferredToolbarModifier.navigationBar(toolbar:)@<D0>(unint64_t a1@<X0>, uint64_t a3@<X8>)
 {
-  v4 = static VerticalAlignment.center.getter();
-  v25 = 1;
-  closure #1 in closure #1 in closure #1 in InferredToolbarModifier.navigationBar(toolbar:)(a1, &v13);
-  v34 = v21;
+  v5 = static VerticalAlignment.center.getter();
+  v26 = 1;
+  closure #1 in closure #1 in closure #1 in InferredToolbarModifier.navigationBar(toolbar:)(a1, &v14);
   v35 = v22;
   v36 = v23;
-  v30 = v17;
+  v37 = v24;
   v31 = v18;
   v32 = v19;
   v33 = v20;
-  v26 = v13;
+  v34 = v21;
   v27 = v14;
   v28 = v15;
   v29 = v16;
-  v37[8] = v21;
-  v37[9] = v22;
-  v37[10] = v23;
-  v37[4] = v17;
-  v37[5] = v18;
-  v37[6] = v19;
-  v37[7] = v20;
-  v37[0] = v13;
-  v37[1] = v14;
-  v37[2] = v15;
-  v37[3] = v16;
-  outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(&v26, &v12, type metadata accessor for TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>);
-  outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v37, type metadata accessor for TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>);
-  *&v24[119] = v33;
-  *&v24[135] = v34;
-  *&v24[151] = v35;
-  *&v24[167] = v36;
-  *&v24[55] = v29;
-  *&v24[71] = v30;
-  *&v24[87] = v31;
-  *&v24[103] = v32;
-  *&v24[7] = v26;
-  *&v24[23] = v27;
-  *&v24[39] = v28;
-  v5 = *&v24[144];
-  *(a2 + 145) = *&v24[128];
-  *(a2 + 161) = v5;
-  *(a2 + 177) = *&v24[160];
-  v6 = *&v24[80];
-  *(a2 + 81) = *&v24[64];
-  *(a2 + 97) = v6;
-  v7 = *&v24[112];
-  *(a2 + 113) = *&v24[96];
-  *(a2 + 129) = v7;
-  v8 = *&v24[16];
-  *(a2 + 17) = *v24;
-  *(a2 + 33) = v8;
-  result = *&v24[32];
-  v10 = *&v24[48];
-  *(a2 + 49) = *&v24[32];
-  v11 = v25;
-  *a2 = v4;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = v11;
-  *(a2 + 192) = *&v24[175];
-  *(a2 + 65) = v10;
+  v30 = v17;
+  v38[8] = v22;
+  v38[9] = v23;
+  v38[10] = v24;
+  v38[4] = v18;
+  v38[5] = v19;
+  v38[6] = v20;
+  v38[7] = v21;
+  v38[0] = v14;
+  v38[1] = v15;
+  v38[2] = v16;
+  v38[3] = v17;
+  outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(&v27, &v13, type metadata accessor for TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>);
+  outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v38, type metadata accessor for TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>);
+  *&v25[119] = v34;
+  *&v25[135] = v35;
+  *&v25[151] = v36;
+  *&v25[167] = v37;
+  *&v25[55] = v30;
+  *&v25[71] = v31;
+  *&v25[87] = v32;
+  *&v25[103] = v33;
+  *&v25[7] = v27;
+  *&v25[23] = v28;
+  *&v25[39] = v29;
+  v6 = *&v25[144];
+  *(a3 + 145) = *&v25[128];
+  *(a3 + 161) = v6;
+  *(a3 + 177) = *&v25[160];
+  v7 = *&v25[80];
+  *(a3 + 81) = *&v25[64];
+  *(a3 + 97) = v7;
+  v8 = *&v25[112];
+  *(a3 + 113) = *&v25[96];
+  *(a3 + 129) = v8;
+  v9 = *&v25[16];
+  *(a3 + 17) = *v25;
+  *(a3 + 33) = v9;
+  result = *&v25[32];
+  v11 = *&v25[48];
+  *(a3 + 49) = *&v25[32];
+  v12 = v26;
+  *a3 = v5;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = v12;
+  *(a3 + 192) = *&v25[175];
+  *(a3 + 65) = v11;
   return result;
 }
 
@@ -4784,205 +5970,211 @@ uint64_t closure #1 in closure #1 in closure #1 in InferredToolbarModifier.navig
   v4 = type metadata accessor for ToolbarStorage.Entry(0);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v53 = &v52 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v52 = &v51 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v9 = &v52 - v8;
+  v9 = &v51 - v8;
   MEMORY[0x1EEE9AC00](v10);
-  v12 = &v52 - v11;
-  memset(v86, 0, 24);
-  *(&v86[1] + 8) = xmmword_18CD90770;
-  v84 = 0;
-  v82 = 0u;
-  v83 = 0u;
-  v85 = -1;
-  v81 = MEMORY[0x1E69E7CC0];
-  v65 = v3;
+  v12 = &v51 - v11;
+  memset(v84, 0, 24);
+  *(&v84[1] + 8) = xmmword_18CD90770;
+  v82 = 0;
+  v80 = 0u;
+  v81 = 0u;
+  v83 = -1;
+  v79 = MEMORY[0x1E69E7CC0];
+  v64 = v3;
   v13 = *AGGraphGetInputValue();
-  v66 = &v82;
-  v67 = &v81;
+  v65[2] = &v80;
+  v65[3] = &v79;
   v14 = v13;
-  specialized ToolbarBridge.adjustEntries(in:_:)(v86, closure #1 in ToolbarProxy_V1.callAsFunction(in:placement:showSeparator:)partial apply, v15);
+  specialized ToolbarBridge.adjustEntries(in:_:)(v84, closure #1 in ToolbarProxy_V1.callAsFunction(in:placement:showSeparator:)partial apply, v65);
 
-  v16 = v81;
-  v17 = *(v81 + 16);
-  v62 = v5;
-  if (v17)
+  v15 = v79;
+  v16 = *(v79 + 16);
+  v61 = v5;
+  if (v16)
   {
-    outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v81 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * (v17 - 1), v12, type metadata accessor for ToolbarStorage.Entry);
+    outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v79 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * (v16 - 1), v12, type metadata accessor for ToolbarStorage.Entry);
 
-    ToolbarStorage.Entry.id.getter(&v75);
+    ToolbarStorage.Entry.id.getter(&v73);
     outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v12, type metadata accessor for ToolbarStorage.Entry);
   }
 
   else
   {
-    v80 = 0;
-    v78 = 0u;
-    v79 = 0u;
+    v78 = 0;
     v76 = 0u;
     v77 = 0u;
+    v74 = 0u;
     v75 = 0u;
+    v73 = 0u;
   }
 
   KeyPath = swift_getKeyPath();
-  outlined init with copy of ToolbarStorage.Entry.ID?(&v75, &v70, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID, MEMORY[0x1E69E6720], type metadata accessor for State<InferredToolbarState>);
-  v19 = swift_allocObject();
-  v20 = v72;
-  *(v19 + 56) = v71[1];
-  *(v19 + 72) = v20;
-  *(v19 + 88) = v73;
-  v21 = v71[0];
-  *(v19 + 24) = v70;
-  *(v19 + 16) = 0;
-  *(v19 + 104) = v74;
-  *(v19 + 40) = v21;
-  v68 = KeyPath;
-  v69 = v16;
-  type metadata accessor for [ToolbarStorage.Entry]();
-  v23 = v22;
+  outlined init with copy of ToolbarStorage.Entry.ID?(&v73, &v68, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID, MEMORY[0x1E69E6720], type metadata accessor for State<InferredToolbarState>);
+  v18 = swift_allocObject();
+  v19 = v70;
+  *(v18 + 56) = v69[1];
+  *(v18 + 72) = v19;
+  *(v18 + 88) = v71;
+  v20 = v69[0];
+  *(v18 + 24) = v68;
+  *(v18 + 16) = 0;
+  *(v18 + 104) = v72;
+  *(v18 + 40) = v20;
+  v66 = KeyPath;
+  v67 = v15;
+  type metadata accessor for [ToolbarStorage.Entry](0);
+  v22 = v21;
   lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A]();
-  v63 = lazy protocol witness table accessor for type ToolbarStorage.Entry.ID and conformance ToolbarStorage.Entry.ID();
-  v64 = v23;
+  v62 = lazy protocol witness table accessor for type ToolbarStorage.Entry.ID and conformance ToolbarStorage.Entry.ID();
+  v63 = v22;
   ForEach.init(_:idGenerator:content:)();
-  outlined destroy of ToolbarPlacement.Role?(&v75, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID);
-  outlined destroy of Toolbar.BarLocation(v86);
+  outlined destroy of ToolbarPlacement.Role?(&v73, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID);
+  outlined destroy of Toolbar.BarLocation(v84);
 
-  outlined destroy of ToolbarPlacement.Role?(&v82, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
-  v59 = v70;
-  v60 = *(&v71[0] + 1);
-  v61 = *&v71[0];
-  v57 = *(&v71[1] + 1);
-  v58 = *&v71[1];
-  memset(v86, 0, 40);
-  v84 = 0;
-  v82 = 0u;
-  v83 = 0u;
-  v85 = -1;
-  v24 = MEMORY[0x1E69E7CC0];
-  v81 = MEMORY[0x1E69E7CC0];
+  outlined destroy of ToolbarPlacement.Role?(&v80, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+  v58 = v68;
+  v59 = *(&v69[0] + 1);
+  v60 = *&v69[0];
+  v56 = *(&v69[1] + 1);
+  v57 = *&v69[1];
+  memset(v84, 0, 40);
+  v82 = 0;
+  v80 = 0u;
+  v81 = 0u;
+  v83 = -1;
+  v23 = MEMORY[0x1E69E7CC0];
+  v79 = MEMORY[0x1E69E7CC0];
   InputValue = AGGraphGetInputValue();
   MEMORY[0x1EEE9AC00](InputValue);
-  v27 = v26;
-  specialized ToolbarBridge.adjustEntries(in:_:)(v86, closure #1 in ToolbarProxy_V1.callAsFunction(in:placement:showSeparator:)partial apply, v28);
+  v49 = &v80;
+  v50 = &v79;
+  v26 = v25;
+  specialized ToolbarBridge.adjustEntries(in:_:)(v84, closure #1 in ToolbarProxy_V1.callAsFunction(in:placement:showSeparator:)partial apply, (&v51 - 4));
 
-  v29 = v81;
-  v30 = *(v81 + 16);
-  if (v30)
+  v27 = v79;
+  v28 = *(v79 + 16);
+  if (v28)
   {
-    outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v81 + ((*(v62 + 80) + 32) & ~*(v62 + 80)) + *(v62 + 72) * (v30 - 1), v9, type metadata accessor for ToolbarStorage.Entry);
+    outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v79 + ((*(v61 + 80) + 32) & ~*(v61 + 80)) + *(v61 + 72) * (v28 - 1), v9, type metadata accessor for ToolbarStorage.Entry);
 
-    ToolbarStorage.Entry.id.getter(&v75);
+    ToolbarStorage.Entry.id.getter(&v73);
     outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v9, type metadata accessor for ToolbarStorage.Entry);
   }
 
   else
   {
-    v80 = 0;
-    v78 = 0u;
-    v79 = 0u;
+    v78 = 0;
     v76 = 0u;
     v77 = 0u;
+    v74 = 0u;
     v75 = 0u;
+    v73 = 0u;
   }
 
-  v31 = swift_getKeyPath();
-  outlined init with copy of ToolbarStorage.Entry.ID?(&v75, &v70, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID, MEMORY[0x1E69E6720], type metadata accessor for State<InferredToolbarState>);
-  v32 = swift_allocObject();
-  v33 = v72;
-  *(v32 + 56) = v71[1];
-  *(v32 + 72) = v33;
-  *(v32 + 88) = v73;
-  v34 = v71[0];
-  *(v32 + 24) = v70;
-  *(v32 + 16) = 0;
-  *(v32 + 104) = v74;
-  *(v32 + 40) = v34;
-  v68 = v31;
-  v69 = v29;
+  v29 = swift_getKeyPath();
+  outlined init with copy of ToolbarStorage.Entry.ID?(&v73, &v68, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID, MEMORY[0x1E69E6720], type metadata accessor for State<InferredToolbarState>);
+  v30 = swift_allocObject();
+  v31 = v70;
+  *(v30 + 56) = v69[1];
+  *(v30 + 72) = v31;
+  *(v30 + 88) = v71;
+  v32 = v69[0];
+  *(v30 + 24) = v68;
+  *(v30 + 16) = 0;
+  *(v30 + 104) = v72;
+  *(v30 + 40) = v32;
+  v66 = v29;
+  v67 = v27;
+  v49 = v62;
   ForEach.init(_:idGenerator:content:)();
-  outlined destroy of ToolbarPlacement.Role?(&v75, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID);
-  outlined destroy of Toolbar.BarLocation(v86);
+  outlined destroy of ToolbarPlacement.Role?(&v73, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID);
+  outlined destroy of Toolbar.BarLocation(v84);
 
-  outlined destroy of ToolbarPlacement.Role?(&v82, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
-  v56 = v70;
-  v35 = v71[0];
-  v54 = *(&v71[1] + 1);
-  v55 = *&v71[1];
-  memset(v86, 0, 24);
-  *(&v86[1] + 8) = xmmword_18CD7DD20;
-  v84 = 0;
-  v82 = 0u;
-  v83 = 0u;
-  v85 = -1;
-  v81 = v24;
-  v36 = AGGraphGetInputValue();
-  MEMORY[0x1EEE9AC00](v36);
-  v38 = v37;
-  specialized ToolbarBridge.adjustEntries(in:_:)(v86, closure #1 in ToolbarProxy_V1.callAsFunction(in:placement:showSeparator:)partial apply, v39);
+  outlined destroy of ToolbarPlacement.Role?(&v80, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+  v55 = v68;
+  v33 = v69[0];
+  v53 = *(&v69[1] + 1);
+  v54 = *&v69[1];
+  memset(v84, 0, 24);
+  *(&v84[1] + 8) = xmmword_18CD7DD20;
+  v82 = 0;
+  v80 = 0u;
+  v81 = 0u;
+  v83 = -1;
+  v79 = v23;
+  v34 = AGGraphGetInputValue();
+  MEMORY[0x1EEE9AC00](v34);
+  v49 = &v80;
+  v50 = &v79;
+  v36 = v35;
+  specialized ToolbarBridge.adjustEntries(in:_:)(v84, closure #1 in ToolbarProxy_V1.callAsFunction(in:placement:showSeparator:)partial apply, (&v51 - 4));
 
-  v40 = v81;
-  v41 = *(v81 + 16);
-  if (v41)
+  v37 = v79;
+  v38 = *(v79 + 16);
+  if (v38)
   {
-    v42 = v53;
-    outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v81 + ((*(v62 + 80) + 32) & ~*(v62 + 80)) + *(v62 + 72) * (v41 - 1), v53, type metadata accessor for ToolbarStorage.Entry);
+    v39 = v52;
+    outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v79 + ((*(v61 + 80) + 32) & ~*(v61 + 80)) + *(v61 + 72) * (v38 - 1), v52, type metadata accessor for ToolbarStorage.Entry);
 
-    ToolbarStorage.Entry.id.getter(&v75);
-    outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v42, type metadata accessor for ToolbarStorage.Entry);
+    ToolbarStorage.Entry.id.getter(&v73);
+    outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v39, type metadata accessor for ToolbarStorage.Entry);
   }
 
   else
   {
-    v80 = 0;
-    v78 = 0u;
-    v79 = 0u;
+    v78 = 0;
     v76 = 0u;
     v77 = 0u;
+    v74 = 0u;
     v75 = 0u;
+    v73 = 0u;
   }
 
-  v43 = swift_getKeyPath();
-  outlined init with copy of ToolbarStorage.Entry.ID?(&v75, &v70, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID, MEMORY[0x1E69E6720], type metadata accessor for State<InferredToolbarState>);
-  v44 = swift_allocObject();
-  v45 = v72;
-  *(v44 + 56) = v71[1];
-  *(v44 + 72) = v45;
-  *(v44 + 88) = v73;
-  v46 = v71[0];
-  *(v44 + 24) = v70;
-  *(v44 + 16) = 0;
-  *(v44 + 104) = v74;
-  *(v44 + 40) = v46;
-  v68 = v43;
-  v69 = v40;
+  v40 = swift_getKeyPath();
+  outlined init with copy of ToolbarStorage.Entry.ID?(&v73, &v68, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID, MEMORY[0x1E69E6720], type metadata accessor for State<InferredToolbarState>);
+  v41 = swift_allocObject();
+  v42 = v70;
+  *(v41 + 56) = v69[1];
+  *(v41 + 72) = v42;
+  *(v41 + 88) = v71;
+  v43 = v69[0];
+  *(v41 + 24) = v68;
+  *(v41 + 16) = 0;
+  *(v41 + 104) = v72;
+  *(v41 + 40) = v43;
+  v66 = v40;
+  v67 = v37;
+  v49 = v62;
   ForEach.init(_:idGenerator:content:)();
-  outlined destroy of ToolbarPlacement.Role?(&v75, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID);
-  outlined destroy of Toolbar.BarLocation(v86);
+  outlined destroy of ToolbarPlacement.Role?(&v73, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID);
+  outlined destroy of Toolbar.BarLocation(v84);
 
-  outlined destroy of ToolbarPlacement.Role?(&v82, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
-  v47 = *&v71[0];
-  v48 = *(&v71[1] + 1);
-  LOBYTE(v69) = 1;
-  LOBYTE(v68) = 1;
-  *a2 = v59;
-  v49 = v60;
-  *(a2 + 16) = v61;
-  *(a2 + 24) = v49;
-  v50 = v57;
-  *(a2 + 32) = v58;
-  *(a2 + 40) = v50;
+  outlined destroy of ToolbarPlacement.Role?(&v80, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+  v44 = *&v69[0];
+  v45 = *(&v69[1] + 1);
+  LOBYTE(v67) = 1;
+  LOBYTE(v66) = 1;
+  *a2 = v58;
+  v46 = v59;
+  *(a2 + 16) = v60;
+  *(a2 + 24) = v46;
+  v47 = v56;
+  *(a2 + 32) = v57;
+  *(a2 + 40) = v47;
   *(a2 + 48) = 0;
   *(a2 + 56) = 1;
-  *(a2 + 64) = v56;
-  *(a2 + 80) = v35;
-  *(a2 + 96) = v55;
-  *(a2 + 104) = v54;
+  *(a2 + 64) = v55;
+  *(a2 + 80) = v33;
+  *(a2 + 96) = v54;
+  *(a2 + 104) = v53;
   *(a2 + 112) = 0;
   *(a2 + 120) = 1;
-  *(a2 + 128) = v70;
-  *(a2 + 144) = v47;
-  *(a2 + 152) = *(v71 + 8);
-  *(a2 + 168) = v48;
+  *(a2 + 128) = v68;
+  *(a2 + 144) = v44;
+  *(a2 + 152) = *(v69 + 8);
+  *(a2 + 168) = v45;
 }
 
 void *closure #1 in InferredToolbarModifier.bottomBar(toolbar:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
@@ -4991,50 +6183,50 @@ void *closure #1 in InferredToolbarModifier.bottomBar(toolbar:)@<X0>(unint64_t a
   v10 = a1;
   v12 = HIDWORD(a1);
   v13 = HIDWORD(a2);
-  memset(v35, 0, 24);
-  *&v35[3] = xmmword_18CD7DD20;
-  outlined init with copy of ToolbarPlacement.Storage(v35, v34);
-  if (*(&v34[1] + 1) == 7)
+  memset(v36, 0, 24);
+  *&v36[3] = xmmword_18CD7DD20;
+  outlined init with copy of ToolbarPlacement.Storage(v36, v35);
+  if (*(&v35[1] + 1) == 7)
   {
-    v14 = outlined destroy of ToolbarPlacement(v35);
+    v14 = outlined destroy of ToolbarPlacement(v36);
 LABEL_5:
-    v28 = a6;
-    *&v34[0] = __PAIR64__(v12, v10);
-    *(&v34[0] + 1) = __PAIR64__(v13, v9);
+    v29 = a6;
+    *&v35[0] = __PAIR64__(v12, v10);
+    *(&v35[0] + 1) = __PAIR64__(v13, v9);
     MEMORY[0x1EEE9AC00](v14);
-    v22[2] = a4;
-    v22[3] = a5;
-    v23 = v10;
-    v24 = v12;
-    v25 = v9;
-    v26 = v13;
-    v27 = a3;
-    v16 = type metadata accessor for InferredToolbarModifier();
+    v23[2] = a4;
+    v23[3] = a5;
+    v24 = v10;
+    v25 = v12;
+    v26 = v9;
+    v27 = v13;
+    v28 = a3;
+    v17 = type metadata accessor for InferredToolbarModifier(0, a4, a5, v16);
     type metadata accessor for ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>(0);
-    v18 = v17;
-    v19 = lazy protocol witness table accessor for type ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
-    InferredToolbarModifier.bar<A>(toolbar:edge:content:)(v34, 1, partial apply for closure #1 in closure #1 in InferredToolbarModifier.bottomBar(toolbar:), v22, v16, v18, v19, v35);
-    a6 = v28;
-    memcpy(v33, v35, 0x209uLL);
-    LOBYTE(v34[0]) = 2;
+    v19 = v18;
+    v20 = lazy protocol witness table accessor for type ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
+    InferredToolbarModifier.bar<A>(toolbar:edge:content:)(v35, 1, partial apply for closure #1 in closure #1 in InferredToolbarModifier.bottomBar(toolbar:), v23, v17, v19, v20, v36);
+    a6 = v29;
+    memcpy(v34, v36, 0x209uLL);
+    LOBYTE(v35[0]) = 2;
     lazy protocol witness table accessor for type MoveTransition and conformance MoveTransition();
-    v20 = AnyTransition.init<A>(_:)();
-    memcpy(v34, v33, 0x210uLL);
-    *&v34[33] = v20;
-    _s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA6VStackVyAA9TupleViewVyAGyAA7DividerVAA14_OpacityEffectVGSg_AGyAGyAGyAGyAA6HStackVyAKyAA7ForEachVys10ArraySliceVyAA07ToolbarE0V5EntryVGA_2IDVAA07BarItemI0VG_AKyAA6SpacerV_AUySayA_GA2_A4_GA7_tGSgA5_tGGAA16_FlexFrameLayoutVGAA01_yZ0VGAA08_PaddingZ0VGAA24_BackgroundStyleModifierVyAA13AnyShapeStyleVGGAQtGGAA21_TraitWritingModifierVyAA18TransitionTraitKeyVGGAGyAA05EmptyI0VA18_G_GWOi_(v34);
+    v21 = AnyTransition.init<A>(_:)();
+    memcpy(v35, v34, 0x210uLL);
+    *&v35[33] = v21;
+    _s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA6VStackVyAA9TupleViewVyAGyAA7DividerVAA14_OpacityEffectVGSg_AGyAGyAGyAGyAA6HStackVyAKyAA7ForEachVys10ArraySliceVyAA07ToolbarE0V5EntryVGA_2IDVAA07BarItemI0VG_AKyAA6SpacerV_AUySayA_GA2_A4_GA7_tGSgA5_tGGAA16_FlexFrameLayoutVGAA01_yZ0VGAA08_PaddingZ0VGAA24_BackgroundStyleModifierVyAA13AnyShapeStyleVGGAQtGGAA21_TraitWritingModifierVyAA18TransitionTraitKeyVGGAGyAA05EmptyI0VA18_G_GWOi_(v35);
     goto LABEL_6;
   }
 
-  v33[0] = v34[0];
-  v33[1] = v34[1];
-  *&v33[2] = *&v34[2];
-  v29 = v10;
-  v30 = v12;
-  v31 = v9;
-  v32 = v13;
-  v15 = ToolbarProxy_V1.visibility(in:)(v33);
-  outlined destroy of ToolbarPlacement.Role(v33);
-  v14 = outlined destroy of ToolbarPlacement(v35);
+  v34[0] = v35[0];
+  v34[1] = v35[1];
+  *&v34[2] = *&v35[2];
+  v30 = v10;
+  v31 = v12;
+  v32 = v9;
+  v33 = v13;
+  v15 = ToolbarProxy_V1.visibility(in:)(v34);
+  outlined destroy of ToolbarPlacement.Role(v34);
+  v14 = outlined destroy of ToolbarPlacement(v36);
   if (v15 != 2)
   {
     goto LABEL_5;
@@ -5042,135 +6234,135 @@ LABEL_5:
 
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  *&v34[0] = *&v33[0];
-  BYTE8(v34[0]) = BYTE8(v33[0]);
-  *&v34[1] = *&v33[1];
-  BYTE8(v34[1]) = BYTE8(v33[1]);
-  v34[2] = v33[2];
-  _s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA6VStackVyAA9TupleViewVyAGyAA7DividerVAA14_OpacityEffectVGSg_AGyAGyAGyAGyAA6HStackVyAKyAA7ForEachVys10ArraySliceVyAA07ToolbarE0V5EntryVGA_2IDVAA07BarItemI0VG_AKyAA6SpacerV_AUySayA_GA2_A4_GA7_tGSgA5_tGGAA16_FlexFrameLayoutVGAA01_yZ0VGAA08_PaddingZ0VGAA24_BackgroundStyleModifierVyAA13AnyShapeStyleVGGAQtGGAA21_TraitWritingModifierVyAA18TransitionTraitKeyVGGAGyAA05EmptyI0VA18_G_GWOi0_(v34);
+  *&v35[0] = *&v34[0];
+  BYTE8(v35[0]) = BYTE8(v34[0]);
+  *&v35[1] = *&v34[1];
+  BYTE8(v35[1]) = BYTE8(v34[1]);
+  v35[2] = v34[2];
+  _s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA6VStackVyAA9TupleViewVyAGyAA7DividerVAA14_OpacityEffectVGSg_AGyAGyAGyAGyAA6HStackVyAKyAA7ForEachVys10ArraySliceVyAA07ToolbarE0V5EntryVGA_2IDVAA07BarItemI0VG_AKyAA6SpacerV_AUySayA_GA2_A4_GA7_tGSgA5_tGGAA16_FlexFrameLayoutVGAA01_yZ0VGAA08_PaddingZ0VGAA24_BackgroundStyleModifierVyAA13AnyShapeStyleVGGAQtGGAA21_TraitWritingModifierVyAA18TransitionTraitKeyVGGAGyAA05EmptyI0VA18_G_GWOi0_(v35);
 LABEL_6:
-  memcpy(v35, v34, 0x219uLL);
-  return memcpy(a6, v35, 0x219uLL);
+  memcpy(v36, v35, 0x219uLL);
+  return memcpy(a6, v36, 0x219uLL);
 }
 
-double closure #1 in closure #1 in InferredToolbarModifier.bottomBar(toolbar:)@<D0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+double closure #1 in closure #1 in InferredToolbarModifier.bottomBar(toolbar:)@<D0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a6@<X8>)
 {
-  v6 = static VerticalAlignment.center.getter();
-  v37 = 1;
-  closure #1 in closure #1 in closure #1 in InferredToolbarModifier.bottomBar(toolbar:)(a1, a2, &v22);
+  v9 = static VerticalAlignment.center.getter();
+  v40 = 1;
+  closure #1 in closure #1 in closure #1 in InferredToolbarModifier.bottomBar(toolbar:)(a1, a2, &v25);
+  v51 = v35;
+  v52 = v36;
+  v53 = v37;
+  v54 = v38;
+  v47 = v31;
   v48 = v32;
   v49 = v33;
   v50 = v34;
-  v51 = v35;
+  v43 = v27;
   v44 = v28;
   v45 = v29;
   v46 = v30;
-  v47 = v31;
-  v40 = v24;
   v41 = v25;
   v42 = v26;
-  v43 = v27;
-  v38 = v22;
-  v39 = v23;
-  v52[10] = v32;
-  v52[11] = v33;
-  v52[12] = v34;
-  v52[13] = v35;
-  v52[6] = v28;
-  v52[7] = v29;
-  v52[8] = v30;
-  v52[9] = v31;
-  v52[2] = v24;
-  v52[3] = v25;
-  v52[4] = v26;
-  v52[5] = v27;
-  v52[0] = v22;
-  v52[1] = v23;
-  outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(&v38, v21, type metadata accessor for TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>);
-  outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v52, type metadata accessor for TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>);
-  *&v36[167] = v48;
-  *&v36[183] = v49;
-  *&v36[199] = v50;
-  *&v36[215] = v51;
-  *&v36[103] = v44;
-  *&v36[119] = v45;
-  *&v36[135] = v46;
-  *&v36[151] = v47;
-  *&v36[39] = v40;
-  *&v36[55] = v41;
-  *&v36[71] = v42;
-  *&v36[87] = v43;
-  *&v36[7] = v38;
-  *&v36[23] = v39;
-  v7 = v37;
+  v55[10] = v35;
+  v55[11] = v36;
+  v55[12] = v37;
+  v55[13] = v38;
+  v55[6] = v31;
+  v55[7] = v32;
+  v55[8] = v33;
+  v55[9] = v34;
+  v55[2] = v27;
+  v55[3] = v28;
+  v55[4] = v29;
+  v55[5] = v30;
+  v55[0] = v25;
+  v55[1] = v26;
+  outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(&v41, v24, type metadata accessor for TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>);
+  outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v55, type metadata accessor for TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>);
+  *&v39[167] = v51;
+  *&v39[183] = v52;
+  *&v39[199] = v53;
+  *&v39[215] = v54;
+  *&v39[103] = v47;
+  *&v39[119] = v48;
+  *&v39[135] = v49;
+  *&v39[151] = v50;
+  *&v39[39] = v43;
+  *&v39[55] = v44;
+  *&v39[71] = v45;
+  *&v39[87] = v46;
+  *&v39[7] = v41;
+  *&v39[23] = v42;
+  v10 = v40;
   static Alignment.center.getter();
   _FlexFrameLayout.init(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)();
-  v8 = *&v36[160];
-  *(a3 + 193) = *&v36[176];
-  v9 = *&v36[208];
-  *(a3 + 209) = *&v36[192];
-  *(a3 + 225) = v9;
-  v10 = *&v36[96];
-  *(a3 + 129) = *&v36[112];
-  v11 = *&v36[144];
-  *(a3 + 145) = *&v36[128];
-  *(a3 + 161) = v11;
-  *(a3 + 177) = v8;
-  v12 = *&v36[32];
-  *(a3 + 65) = *&v36[48];
-  v13 = *&v36[80];
-  *(a3 + 81) = *&v36[64];
-  *(a3 + 97) = v13;
-  *(a3 + 113) = v10;
-  v14 = *&v36[16];
-  *(a3 + 17) = *v36;
-  *(a3 + 33) = v14;
-  *(a3 + 49) = v12;
-  v15 = v26;
-  v16 = v27;
-  v17 = v24;
-  *(a3 + 296) = v25;
-  *(a3 + 312) = v15;
-  v18 = v28;
-  *(a3 + 328) = v16;
-  *(a3 + 344) = v18;
-  result = *&v22;
-  v20 = v23;
-  *(a3 + 248) = v22;
-  *a3 = v6;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = v7;
-  *(a3 + 240) = *&v36[223];
-  *(a3 + 264) = v20;
-  *(a3 + 280) = v17;
+  v11 = *&v39[160];
+  *(a6 + 193) = *&v39[176];
+  v12 = *&v39[208];
+  *(a6 + 209) = *&v39[192];
+  *(a6 + 225) = v12;
+  v13 = *&v39[96];
+  *(a6 + 129) = *&v39[112];
+  v14 = *&v39[144];
+  *(a6 + 145) = *&v39[128];
+  *(a6 + 161) = v14;
+  *(a6 + 177) = v11;
+  v15 = *&v39[32];
+  *(a6 + 65) = *&v39[48];
+  v16 = *&v39[80];
+  *(a6 + 81) = *&v39[64];
+  *(a6 + 97) = v16;
+  *(a6 + 113) = v13;
+  v17 = *&v39[16];
+  *(a6 + 17) = *v39;
+  *(a6 + 33) = v17;
+  *(a6 + 49) = v15;
+  v18 = v29;
+  v19 = v30;
+  v20 = v27;
+  *(a6 + 296) = v28;
+  *(a6 + 312) = v18;
+  v21 = v31;
+  *(a6 + 328) = v19;
+  *(a6 + 344) = v21;
+  result = *&v25;
+  v23 = v26;
+  *(a6 + 248) = v25;
+  *a6 = v9;
+  *(a6 + 8) = 0;
+  *(a6 + 16) = v10;
+  *(a6 + 240) = *&v39[223];
+  *(a6 + 264) = v23;
+  *(a6 + 280) = v20;
   return result;
 }
 
-void closure #1 in closure #1 in closure #1 in InferredToolbarModifier.bottomBar(toolbar:)(uint64_t a1@<X0>, unint64_t a2@<X1>, _OWORD *a3@<X8>)
+void closure #1 in closure #1 in closure #1 in InferredToolbarModifier.bottomBar(toolbar:)(unint64_t a1@<X0>, unint64_t a2@<X1>, _OWORD *a3@<X8>)
 {
-  *&v118 = a1;
-  *(&v118 + 1) = a2;
-  v74 = a2;
+  *&v117 = a1;
+  *(&v117 + 1) = a2;
+  v73 = a2;
   v5 = type metadata accessor for ToolbarStorage.Entry(0);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v61 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  memset(v116, 0, sizeof(v116));
-  v117 = xmmword_18CD90760;
-  v112 = 13;
+  v8 = &v60 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  memset(v115, 0, sizeof(v115));
+  v116 = xmmword_18CD90760;
+  v111 = 13;
+  v112 = 0u;
   v113 = 0u;
-  v114 = 0u;
-  v115 = 2;
-  v99 = 0uLL;
-  *&v100[0] = 0;
-  v75 = xmmword_18CD90760;
-  *(v100 + 8) = xmmword_18CD90760;
-  v103[0] = 13;
-  memset(&v103[1], 0, 32);
-  LOBYTE(v103[5]) = 2;
-  v9 = ToolbarProxy_V1.count(in:placement:)(&v99, v103);
-  outlined destroy of ToolbarPlacement.Role?(v103, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
-  outlined destroy of Toolbar.BarLocation(&v99);
+  v114 = 2;
+  v98 = 0uLL;
+  *&v99[0] = 0;
+  v74 = xmmword_18CD90760;
+  *(v99 + 8) = xmmword_18CD90760;
+  v102[0] = 13;
+  memset(&v102[1], 0, 32);
+  LOBYTE(v102[5]) = 2;
+  v9 = ToolbarProxy_V1.count(in:placement:)(&v98, v102);
+  outlined destroy of ToolbarPlacement.Role?(v102, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+  outlined destroy of Toolbar.BarLocation(&v98);
   if (v9 < 2)
   {
     if (v9 < 0)
@@ -5184,291 +6376,300 @@ void closure #1 in closure #1 in closure #1 in InferredToolbarModifier.bottomBar
     v9 = v9 >> 1;
   }
 
-  *&v99 = MEMORY[0x1E69E7CC0];
+  *&v98 = MEMORY[0x1E69E7CC0];
   InputValue = AGGraphGetInputValue();
   MEMORY[0x1EEE9AC00](InputValue);
+  v58 = &v111;
+  v59 = &v98;
   v12 = v11;
-  specialized ToolbarBridge.adjustEntries(in:_:)(v116, partial apply for closure #1 in ToolbarProxy_V1.callAsFunction<A>(in:placement:range:), v13);
+  specialized ToolbarBridge.adjustEntries(in:_:)(v115, partial apply for closure #1 in ToolbarProxy_V1.callAsFunction<A>(in:placement:range:), (&v60 - 4));
 
-  v14 = v99;
-  if (*(v99 + 16) < v9)
+  v13 = v98;
+  if (*(v98 + 16) < v9)
   {
     __break(1u);
   }
 
   else
   {
-    v72 = v6;
-    v73 = v8;
-    v15 = v74;
-    v68 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-    v16 = v99 + v68;
+    v71 = v6;
+    v72 = v8;
+    v14 = v73;
+    v67 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+    v15 = v98 + v67;
     KeyPath = swift_getKeyPath();
-    v103[0] = v14;
-    v103[1] = v16;
-    v103[2] = 0;
-    v103[3] = (2 * v9) | 1;
-    *v96 = KeyPath;
+    v102[0] = v13;
+    v102[1] = v15;
+    v102[2] = 0;
+    v102[3] = (2 * v9) | 1;
+    *v95 = KeyPath;
     type metadata accessor for ArraySlice<ToolbarStorage.Entry>(0);
-    v19 = v18;
-    v20 = lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>();
-    v21 = lazy protocol witness table accessor for type ToolbarStorage.Entry.ID and conformance ToolbarStorage.Entry.ID();
+    v18 = v17;
+    v19 = lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>();
+    v20 = lazy protocol witness table accessor for type ToolbarStorage.Entry.ID and conformance ToolbarStorage.Entry.ID();
 
-    v69 = v21;
-    v65 = v20;
-    v66 = v19;
+    v68 = v20;
+    v58 = v20;
+    v64 = v19;
+    v65 = v18;
     ForEach.init(_:idGenerator:content:)();
-    outlined destroy of Toolbar.BarLocation(v116);
+    outlined destroy of Toolbar.BarLocation(v115);
 
-    outlined destroy of ToolbarItemPlacement.Role(&v112);
+    outlined destroy of ToolbarItemPlacement.Role(&v111);
+    v108 = v119;
     v109 = v120;
     v110 = v121;
-    v111 = v122;
+    v106 = v117;
     v107 = v118;
-    v108 = v119;
-    *v96 = a1;
-    *&v96[8] = v15;
-    v67 = HIDWORD(v15);
-    v99 = 0uLL;
-    *&v100[0] = 0;
-    *(v100 + 8) = v75;
-    v103[0] = 4;
-    memset(&v103[1], 0, 32);
-    LOBYTE(v103[5]) = 2;
-    v22 = ToolbarProxy_V1.count(in:placement:)(&v99, v103);
-    outlined destroy of ToolbarPlacement.Role?(v103, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
-    outlined destroy of Toolbar.BarLocation(&v99);
-    if (v22)
+    *v95 = a1;
+    *&v95[8] = v14;
+    v66 = HIDWORD(v14);
+    v98 = 0uLL;
+    *&v99[0] = 0;
+    *(v99 + 8) = v74;
+    v102[0] = 4;
+    memset(&v102[1], 0, 32);
+    LOBYTE(v102[5]) = 2;
+    v21 = ToolbarProxy_V1.count(in:placement:)(&v98, v102);
+    outlined destroy of ToolbarPlacement.Role?(v102, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+    outlined destroy of Toolbar.BarLocation(&v98);
+    if (v21)
     {
-      v87 = 0uLL;
-      *&v88[0] = 0;
-      *(v88 + 8) = v75;
-      *v96 = 4;
-      memset(&v96[8], 0, 32);
-      v96[40] = 2;
-      *&v85[0] = MEMORY[0x1E69E7CC0];
-      v23 = AGGraphGetInputValue();
-      MEMORY[0x1EEE9AC00](v23);
-      v25 = v24;
-      specialized ToolbarBridge.adjustEntries(in:_:)(&v87, partial apply for closure #1 in ToolbarProxy_V1.callAsFunction(in:placement:showSeparator:), v26);
+      v86 = 0uLL;
+      *&v87[0] = 0;
+      *(v87 + 8) = v74;
+      *v95 = 4;
+      memset(&v95[8], 0, 32);
+      v95[40] = 2;
+      *&v84[0] = MEMORY[0x1E69E7CC0];
+      v22 = AGGraphGetInputValue();
+      MEMORY[0x1EEE9AC00](v22);
+      v58 = v95;
+      v59 = v84;
+      v24 = v23;
+      specialized ToolbarBridge.adjustEntries(in:_:)(&v86, partial apply for closure #1 in ToolbarProxy_V1.callAsFunction(in:placement:showSeparator:), (&v60 - 4));
 
-      v27 = *&v85[0];
-      v28 = *(*&v85[0] + 16);
-      v29 = a1;
-      if (v28)
+      v25 = *&v84[0];
+      v26 = *(*&v84[0] + 16);
+      v27 = a1;
+      if (v26)
       {
-        v30 = v73;
-        outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(*&v85[0] + v68 + *(v72 + 72) * (v28 - 1), v73, type metadata accessor for ToolbarStorage.Entry);
+        v28 = v72;
+        outlined init with copy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(*&v84[0] + v67 + *(v71 + 72) * (v26 - 1), v72, type metadata accessor for ToolbarStorage.Entry);
 
-        ToolbarStorage.Entry.id.getter(v103);
-        outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v30, type metadata accessor for ToolbarStorage.Entry);
+        ToolbarStorage.Entry.id.getter(v102);
+        outlined destroy of TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(v28, type metadata accessor for ToolbarStorage.Entry);
       }
 
       else
       {
-        v106 = 0;
+        v105 = 0;
+        v103 = 0u;
         v104 = 0u;
-        v105 = 0u;
-        memset(v103, 0, sizeof(v103));
+        memset(v102, 0, sizeof(v102));
       }
 
-      v32 = swift_getKeyPath();
-      outlined init with copy of ToolbarStorage.Entry.ID?(v103, &v99, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID, MEMORY[0x1E69E6720], type metadata accessor for State<InferredToolbarState>);
-      v33 = swift_allocObject();
-      v34 = v101[0];
-      *(v33 + 56) = v100[1];
-      *(v33 + 72) = v34;
-      *(v33 + 88) = v101[1];
-      v35 = v100[0];
-      *(v33 + 24) = v99;
-      *(v33 + 16) = 0;
-      *(v33 + 104) = v102;
-      *(v33 + 40) = v35;
-      *&v83[0] = v27;
-      *&v81[0] = v32;
-      type metadata accessor for [ToolbarStorage.Entry]();
+      v30 = swift_getKeyPath();
+      outlined init with copy of ToolbarStorage.Entry.ID?(v102, &v98, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID, MEMORY[0x1E69E6720], type metadata accessor for State<InferredToolbarState>);
+      v31 = swift_allocObject();
+      v32 = v100[0];
+      *(v31 + 56) = v99[1];
+      *(v31 + 72) = v32;
+      *(v31 + 88) = v100[1];
+      v33 = v99[0];
+      *(v31 + 24) = v98;
+      *(v31 + 16) = 0;
+      *(v31 + 104) = v101;
+      *(v31 + 40) = v33;
+      *&v82[0] = v25;
+      *&v80[0] = v30;
+      type metadata accessor for [ToolbarStorage.Entry](0);
       lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A]();
+      v58 = v68;
       ForEach.init(_:idGenerator:content:)();
-      outlined destroy of ToolbarPlacement.Role?(v103, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID);
-      outlined destroy of Toolbar.BarLocation(&v87);
+      outlined destroy of ToolbarPlacement.Role?(v102, &lazy cache variable for type metadata for ToolbarStorage.Entry.ID?, &type metadata for ToolbarStorage.Entry.ID);
+      outlined destroy of Toolbar.BarLocation(&v86);
 
-      outlined destroy of ToolbarPlacement.Role?(v96, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
-      v63 = *(&v100[0] + 1);
-      v64 = *(&v99 + 1);
-      v72 = *&v100[1];
-      v73 = v99;
-      v70 = *&v100[0];
-      v71 = *(&v100[1] + 1);
-      LOBYTE(v83[0]) = 1;
-      LOBYTE(v81[0]) = 1;
-      v31 = 1;
-      v62 = 1;
+      outlined destroy of ToolbarPlacement.Role?(v95, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+      v62 = *(&v99[0] + 1);
+      v63 = *(&v98 + 1);
+      v71 = *&v99[1];
+      v72 = v98;
+      v69 = *&v99[0];
+      v70 = *(&v99[1] + 1);
+      LOBYTE(v82[0]) = 1;
+      LOBYTE(v80[0]) = 1;
+      v29 = 1;
+      v61 = 1;
     }
 
     else
     {
-      v72 = 0;
-      v73 = 0;
-      v63 = 0;
-      v64 = 0;
-      v70 = 0;
       v71 = 0;
+      v72 = 0;
       v62 = 0;
-      v31 = 0;
-      v29 = a1;
+      v63 = 0;
+      v69 = 0;
+      v70 = 0;
+      v61 = 0;
+      v29 = 0;
+      v27 = a1;
     }
 
-    memset(v94, 0, sizeof(v94));
-    v95 = v75;
-    v90 = 13;
+    memset(v93, 0, sizeof(v93));
+    v94 = v74;
+    v89 = 13;
+    v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
-    v93 = 2;
-    *v96 = v29;
-    *&v96[4] = HIDWORD(a1);
-    *&v96[8] = v74;
-    *&v96[12] = v67;
-    v99 = 0uLL;
-    *&v100[0] = 0;
-    *(v100 + 8) = v75;
-    v103[0] = 13;
-    memset(&v103[1], 0, 32);
-    LOBYTE(v103[5]) = 2;
-    v36 = ToolbarProxy_V1.count(in:placement:)(&v99, v103);
-    outlined destroy of ToolbarPlacement.Role?(v103, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
-    outlined destroy of Toolbar.BarLocation(&v99);
-    if (v36 <= 1)
+    v92 = 2;
+    *v95 = v27;
+    *&v95[4] = HIDWORD(a1);
+    *&v95[8] = v73;
+    *&v95[12] = v66;
+    v98 = 0uLL;
+    *&v99[0] = 0;
+    *(v99 + 8) = v74;
+    v102[0] = 13;
+    memset(&v102[1], 0, 32);
+    LOBYTE(v102[5]) = 2;
+    v34 = ToolbarProxy_V1.count(in:placement:)(&v98, v102);
+    outlined destroy of ToolbarPlacement.Role?(v102, &lazy cache variable for type metadata for ToolbarItemPlacement.Role?, &type metadata for ToolbarItemPlacement.Role);
+    outlined destroy of Toolbar.BarLocation(&v98);
+    if (v34 <= 1)
     {
-      v37 = 0;
+      v35 = 0;
     }
 
     else
     {
-      v37 = v36 >> 1;
+      v35 = v34 >> 1;
     }
 
-    if (v36 <= 1)
+    if (v34 <= 1)
     {
-      v38 = 0;
+      v36 = 0;
     }
 
     else
     {
-      v38 = v36;
+      v36 = v34;
     }
 
-    *&v99 = MEMORY[0x1E69E7CC0];
-    v39 = AGGraphGetInputValue();
-    MEMORY[0x1EEE9AC00](v39);
-    v41 = v40;
-    specialized ToolbarBridge.adjustEntries(in:_:)(v94, closure #1 in ToolbarProxy_V1.callAsFunction<A>(in:placement:range:)partial apply, v42);
+    *&v98 = MEMORY[0x1E69E7CC0];
+    v37 = AGGraphGetInputValue();
+    MEMORY[0x1EEE9AC00](v37);
+    v58 = &v89;
+    v59 = &v98;
+    v39 = v38;
+    specialized ToolbarBridge.adjustEntries(in:_:)(v93, closure #1 in ToolbarProxy_V1.callAsFunction<A>(in:placement:range:)partial apply, (&v60 - 4));
 
-    v43 = v99;
-    v44 = *(v99 + 16);
-    if (v44 >= v37 && v44 >= v38)
+    v40 = v98;
+    v41 = *(v98 + 16);
+    if (v41 >= v35 && v41 >= v36)
     {
-      v45 = v99 + v68;
-      v46 = swift_getKeyPath();
-      v103[0] = v43;
-      v103[1] = v45;
-      v103[2] = v37;
-      v103[3] = (2 * v38) | 1;
-      *&v87 = v46;
+      v42 = v98 + v67;
+      v43 = swift_getKeyPath();
+      v102[0] = v40;
+      v102[1] = v42;
+      v102[2] = v35;
+      v102[3] = (2 * v36) | 1;
+      *&v86 = v43;
 
+      v58 = v68;
       ForEach.init(_:idGenerator:content:)();
-      outlined destroy of Toolbar.BarLocation(v94);
+      outlined destroy of Toolbar.BarLocation(v93);
 
-      outlined destroy of ToolbarItemPlacement.Role(&v90);
-      v85[2] = *&v96[32];
-      v85[3] = v97;
-      v85[0] = *v96;
-      v85[1] = *&v96[16];
-      v81[2] = v109;
-      v81[3] = v110;
-      v81[0] = v107;
-      v81[1] = v108;
-      v78 = v109;
-      v79 = v110;
-      v76 = v107;
+      outlined destroy of ToolbarItemPlacement.Role(&v89);
+      v84[2] = *&v95[32];
+      v84[3] = v96;
+      v84[0] = *v95;
+      v84[1] = *&v95[16];
+      v80[2] = v108;
+      v80[3] = v109;
+      v80[0] = v106;
+      v80[1] = v107;
       v77 = v108;
-      *&v99 = 0;
-      v61 = v31;
-      *(&v99 + 1) = v31;
-      *&v100[0] = v73;
-      v47 = v63;
-      v48 = v64;
-      *(&v100[0] + 1) = v64;
-      *&v100[1] = v70;
-      *(&v100[1] + 1) = v63;
-      *&v101[0] = v72;
-      *(&v101[0] + 1) = v71;
-      *(v80 + 8) = v99;
-      *(&v80[3] + 8) = v101[0];
-      *&v101[1] = 0;
-      v49 = v62;
-      BYTE8(v101[1]) = v62;
-      *(&v80[2] + 8) = v100[1];
-      *(&v80[1] + 8) = v100[0];
-      *(&v80[4] + 1) = *(v101 + 9);
-      v83[2] = *&v96[32];
-      v83[3] = v97;
-      v83[0] = *v96;
-      v83[1] = *&v96[16];
-      v86 = v98;
-      v82 = v111;
-      *&v80[0] = v111;
-      v84 = v98;
-      *(&v80[5] + 8) = *v96;
-      *(&v80[9] + 1) = v98;
-      *(&v80[8] + 8) = v97;
-      *(&v80[7] + 8) = *&v96[32];
-      *(&v80[6] + 8) = *&v96[16];
-      v50 = v108;
-      *a3 = v107;
-      a3[1] = v50;
-      v51 = v78;
-      v52 = v79;
-      v53 = v80[1];
-      a3[4] = v80[0];
-      a3[5] = v53;
-      a3[2] = v51;
-      a3[3] = v52;
-      v54 = v80[2];
-      v55 = v80[3];
-      v56 = v80[5];
-      a3[8] = v80[4];
-      a3[9] = v56;
-      a3[6] = v54;
-      a3[7] = v55;
-      v57 = v80[6];
-      v58 = v80[7];
-      v59 = v80[9];
-      a3[12] = v80[8];
-      a3[13] = v59;
-      a3[10] = v57;
-      a3[11] = v58;
-      outlined init with copy of ToolbarStorage.Entry.ID?(v81, v103, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>, type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
-      v60 = MEMORY[0x1E69E6720];
-      outlined init with copy of ToolbarStorage.Entry.ID?(&v99, v103, &lazy cache variable for type metadata for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, type metadata accessor for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>, MEMORY[0x1E69E6720], type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>);
-      outlined init with copy of ToolbarStorage.Entry.ID?(v83, v103, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>, type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
-      outlined destroy of TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?(v85, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>, type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
-      v103[0] = 0;
-      v103[1] = v61;
-      v103[2] = v73;
-      v103[3] = v48;
-      v103[4] = v70;
-      v103[5] = v47;
-      *&v104 = v72;
-      *(&v104 + 1) = v71;
-      *&v105 = 0;
-      BYTE8(v105) = v49;
-      outlined destroy of TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?(v103, &lazy cache variable for type metadata for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, type metadata accessor for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>, v60, type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>);
-      v88[1] = v109;
-      v88[2] = v110;
-      v89 = v111;
-      v87 = v107;
-      v88[0] = v108;
-      outlined destroy of TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?(&v87, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>, type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
+      v78 = v109;
+      v75 = v106;
+      v76 = v107;
+      *&v98 = 0;
+      v60 = v29;
+      *(&v98 + 1) = v29;
+      *&v99[0] = v72;
+      v44 = v62;
+      v45 = v63;
+      *(&v99[0] + 1) = v63;
+      *&v99[1] = v69;
+      *(&v99[1] + 1) = v62;
+      *&v100[0] = v71;
+      *(&v100[0] + 1) = v70;
+      *(v79 + 8) = v98;
+      *(&v79[3] + 8) = v100[0];
+      *&v100[1] = 0;
+      v46 = v61;
+      BYTE8(v100[1]) = v61;
+      *(&v79[2] + 8) = v99[1];
+      *(&v79[1] + 8) = v99[0];
+      *(&v79[4] + 1) = *(v100 + 9);
+      v82[2] = *&v95[32];
+      v82[3] = v96;
+      v82[0] = *v95;
+      v82[1] = *&v95[16];
+      v85 = v97;
+      v81 = v110;
+      *&v79[0] = v110;
+      v83 = v97;
+      *(&v79[5] + 8) = *v95;
+      *(&v79[9] + 1) = v97;
+      *(&v79[8] + 8) = v96;
+      *(&v79[7] + 8) = *&v95[32];
+      *(&v79[6] + 8) = *&v95[16];
+      v47 = v107;
+      *a3 = v106;
+      a3[1] = v47;
+      v48 = v77;
+      v49 = v78;
+      v50 = v79[1];
+      a3[4] = v79[0];
+      a3[5] = v50;
+      a3[2] = v48;
+      a3[3] = v49;
+      v51 = v79[2];
+      v52 = v79[3];
+      v53 = v79[5];
+      a3[8] = v79[4];
+      a3[9] = v53;
+      a3[6] = v51;
+      a3[7] = v52;
+      v54 = v79[6];
+      v55 = v79[7];
+      v56 = v79[9];
+      a3[12] = v79[8];
+      a3[13] = v56;
+      a3[10] = v54;
+      a3[11] = v55;
+      outlined init with copy of ToolbarStorage.Entry.ID?(v80, v102, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>, type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
+      v57 = MEMORY[0x1E69E6720];
+      outlined init with copy of ToolbarStorage.Entry.ID?(&v98, v102, &lazy cache variable for type metadata for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, type metadata accessor for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>, MEMORY[0x1E69E6720], type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>);
+      outlined init with copy of ToolbarStorage.Entry.ID?(v82, v102, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>, type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
+      outlined destroy of TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?(v84, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>, type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
+      v102[0] = 0;
+      v102[1] = v60;
+      v102[2] = v72;
+      v102[3] = v45;
+      v102[4] = v69;
+      v102[5] = v44;
+      *&v103 = v71;
+      *(&v103 + 1) = v70;
+      *&v104 = 0;
+      BYTE8(v104) = v46;
+      outlined destroy of TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?(v102, &lazy cache variable for type metadata for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, type metadata accessor for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>, v57, type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>);
+      v87[1] = v108;
+      v87[2] = v109;
+      v88 = v110;
+      v86 = v106;
+      v87[0] = v107;
+      outlined destroy of TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?(&v86, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>, type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>);
       return;
     }
   }
@@ -5478,691 +6679,695 @@ LABEL_22:
   __break(1u);
 }
 
-double static InferredToolbarModifier.OnScrollStateChange._makeView(modifier:inputs:body:)@<D0>(int *a1@<X0>, __int128 *a2@<X1>, void (*a3)(_OWORD *__return_ptr, uint64_t, __int128 *)@<X2>, uint64_t a4@<X4>, void *a5@<X8>)
+double static InferredToolbarModifier.OnScrollStateChange._makeView(modifier:inputs:body:)@<D0>(int *a1@<X0>, __int128 *a2@<X1>, void (*a3)(_OWORD *__return_ptr, uint64_t, __int128 *)@<X2>, uint64_t a4@<X4>, uint64_t a5@<X5>, void *a6@<X8>)
 {
-  v32 = a4;
-  v74 = *MEMORY[0x1E69E9840];
-  v7 = a2[3];
-  v8 = a2[1];
-  v52 = a2[2];
-  v53 = v7;
+  v37 = a4;
+  v79 = *MEMORY[0x1E69E9840];
   v9 = a2[3];
-  v54 = a2[4];
   v10 = a2[1];
-  v50 = *a2;
-  v51 = v10;
-  v46 = v52;
-  v47 = v9;
-  v48 = a2[4];
-  v11 = *a1;
-  v55 = *(a2 + 20);
-  v49 = *(a2 + 20);
-  v44 = v50;
-  v45 = v8;
-  outlined init with copy of _ViewInputs(&v50, &v38);
+  v57 = a2[2];
+  v58 = v9;
+  v11 = a2[3];
+  v59 = a2[4];
+  v12 = a2[1];
+  v55 = *a2;
+  v56 = v12;
+  v51 = v57;
+  v52 = v11;
+  v53 = a2[4];
+  v13 = *a1;
+  v60 = *(a2 + 20);
+  v54 = *(a2 + 20);
+  v49 = v55;
+  v50 = v10;
+  outlined init with copy of _ViewInputs(&v55, &v43);
   PreferenceKeys.add(_:)();
-  v56[2] = v46;
-  v56[3] = v47;
-  v56[4] = v48;
-  v57 = v49;
-  v56[0] = v44;
-  v56[1] = v45;
-  v40[0] = v46;
-  v40[1] = v47;
-  v40[2] = v48;
-  LODWORD(v40[3]) = v49;
-  v38 = v44;
-  v39 = v45;
-  v12 = outlined init with copy of _ViewInputs(v56, v58);
-  a3(v41, v12, &v38);
-  v58[2] = v40[0];
-  v58[3] = v40[1];
-  v58[4] = v40[2];
-  v59 = v40[3];
-  v58[0] = v38;
-  v58[1] = v39;
-  outlined destroy of _ViewInputs(v58);
-  *&v14 = *(&v41[0] + 1);
-  v13 = *&v41[0];
-  *&v38 = *&v41[0];
-  *v33 = v14;
-  DWORD2(v38) = DWORD2(v41[0]);
-  v15 = PreferencesOutputs.subscript.getter();
-  if ((v15 & 0x100000000) == 0)
+  v61[2] = v51;
+  v61[3] = v52;
+  v61[4] = v53;
+  v62 = v54;
+  v61[0] = v49;
+  v61[1] = v50;
+  v45[0] = v51;
+  v45[1] = v52;
+  v45[2] = v53;
+  LODWORD(v45[3]) = v54;
+  v43 = v49;
+  v44 = v50;
+  v14 = outlined init with copy of _ViewInputs(v61, v63);
+  a3(v46, v14, &v43);
+  v63[2] = v45[0];
+  v63[3] = v45[1];
+  v63[4] = v45[2];
+  v64 = v45[3];
+  v63[0] = v43;
+  v63[1] = v44;
+  outlined destroy of _ViewInputs(v63);
+  *&v16 = *(&v46[0] + 1);
+  v15 = *&v46[0];
+  *&v43 = *&v46[0];
+  *v38 = v16;
+  DWORD2(v43) = DWORD2(v46[0]);
+  v17 = PreferencesOutputs.subscript.getter();
+  if ((v17 & 0x100000000) == 0)
   {
-    v16 = v15;
-    v37 = v11;
-    type metadata accessor for InferredToolbarModifier.OnScrollStateChange();
+    v19 = v17;
+    v42 = v13;
+    type metadata accessor for InferredToolbarModifier.OnScrollStateChange(255, v37, a5, v18);
     type metadata accessor for _GraphValue();
-    v30 = _GraphValue.value.getter();
-    v41[2] = v52;
-    v41[3] = v53;
-    v41[4] = v54;
-    v42 = v55;
-    v41[0] = v50;
-    v41[1] = v51;
-    v17 = _ViewInputs.position.getter();
-    v31 = a5;
-    v28 = HIDWORD(v53);
-    v29 = DWORD2(v54);
-    v18 = DWORD2(v51);
-    default argument 2 of Observer.init(modifier:environment:cycleDetector:lastValue:)(&v34);
-    v19 = v35;
-    v20 = v36;
-    _s7SwiftUI19ScrollGeometryStateVSgWOi0_(&v38);
-    v64 = v40[2];
-    v65 = v40[3];
-    *v66 = v40[4];
-    *&v66[13] = *(&v40[4] + 13);
-    v60 = v38;
-    v61 = v39;
-    v62 = v40[0];
-    v63 = v40[1];
-    v67 = v38;
-    v68 = v39;
-    v69 = v40[0];
-    v70 = v40[1];
-    v71 = v40[2];
-    v72 = v40[3];
-    v73[0] = v40[4];
-    *(v73 + 13) = *(&v40[4] + 13);
-    *&v43[49] = v40[2];
-    *&v43[53] = v40[3];
-    *&v43[57] = v73[0];
-    *(&v43[60] + 1) = *(&v40[4] + 13);
-    *&v43[33] = v38;
-    *&v43[37] = v39;
-    *&v43[41] = v40[0];
-    *&v43[45] = v40[1];
-    *&v43[17] = v40[2];
-    *&v43[21] = v40[3];
-    *&v43[25] = *v66;
-    *&v43[29] = *&v66[16];
-    *&v43[1] = v38;
-    *&v43[5] = v39;
-    *&v43[9] = v40[0];
-    *&v43[13] = v40[1];
-    *&v38 = __PAIR64__(v16, v30);
-    *(&v38 + 1) = __PAIR64__(v29, v17);
-    *&v39 = __PAIR64__(v18, v28);
-    *(&v39 + 1) = v34;
-    LODWORD(v40[0]) = v19;
-    BYTE4(v40[0]) = v20;
-    DWORD2(v40[0]) = 0;
-    v21 = memcpy(v40 + 12, v43, 0x101uLL);
-    MEMORY[0x1EEE9AC00](v21);
-    v26 = type metadata accessor for InferredToolbarModifier.ScrollGeometryActionBinding();
-    WitnessTable = swift_getWitnessTable();
+    v35 = _GraphValue.value.getter();
+    v46[2] = v57;
+    v46[3] = v58;
+    v46[4] = v59;
+    v47 = v60;
+    v46[0] = v55;
+    v46[1] = v56;
+    v20 = _ViewInputs.position.getter();
+    v36 = a6;
+    v33 = HIDWORD(v58);
+    v34 = DWORD2(v59);
+    v21 = a5;
+    v22 = DWORD2(v56);
+    default argument 2 of Observer.init(modifier:environment:cycleDetector:lastValue:)(&v39);
+    v23 = v40;
+    v24 = v41;
+    _s7SwiftUI19ScrollGeometryStateVSgWOi0_(&v43);
+    v69 = v45[2];
+    v70 = v45[3];
+    *v71 = v45[4];
+    *&v71[13] = *(&v45[4] + 13);
+    v65 = v43;
+    v66 = v44;
+    v67 = v45[0];
+    v68 = v45[1];
+    v72 = v43;
+    v73 = v44;
+    v74 = v45[0];
+    v75 = v45[1];
+    v76 = v45[2];
+    v77 = v45[3];
+    v78[0] = v45[4];
+    *(v78 + 13) = *(&v45[4] + 13);
+    *&v48[49] = v45[2];
+    *&v48[53] = v45[3];
+    *&v48[57] = v78[0];
+    *(&v48[60] + 1) = *(&v45[4] + 13);
+    *&v48[33] = v43;
+    *&v48[37] = v44;
+    *&v48[41] = v45[0];
+    *&v48[45] = v45[1];
+    *&v48[17] = v45[2];
+    *&v48[21] = v45[3];
+    *&v48[25] = *v71;
+    *&v48[29] = *&v71[16];
+    *&v48[1] = v43;
+    *&v48[5] = v44;
+    *&v48[9] = v45[0];
+    *&v48[13] = v45[1];
+    *&v43 = __PAIR64__(v19, v35);
+    *(&v43 + 1) = __PAIR64__(v34, v20);
+    *&v44 = __PAIR64__(v22, v33);
+    *(&v44 + 1) = v39;
+    LODWORD(v45[0]) = v23;
+    BYTE4(v45[0]) = v24;
+    DWORD2(v45[0]) = 0;
+    v25 = memcpy(v45 + 12, v48, 0x101uLL);
+    MEMORY[0x1EEE9AC00](v25);
+    v31 = type metadata accessor for InferredToolbarModifier.ScrollGeometryActionBinding(0, v37, v21, v26);
+    WitnessTable = swift_getWitnessTable(protocol conformance descriptor for InferredToolbarModifier<A>.ScrollGeometryActionBinding, v31);
     type metadata accessor for State<InferredToolbarState>(0, &lazy cache variable for type metadata for Attribute<()>, MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E698D388]);
-    _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v38, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_TA_7, &v25, v26, MEMORY[0x1E69E73E0], v22, MEMORY[0x1E69E7410], v23);
-    a5 = v31;
+    _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v43, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_TA_7, &v30, v31, MEMORY[0x1E69E73E0], v27, MEMORY[0x1E69E7410], v28);
+    a6 = v36;
     AGGraphSetFlags();
   }
 
-  v40[0] = v46;
-  v40[1] = v47;
-  v40[2] = v48;
-  LODWORD(v40[3]) = v49;
-  v38 = v44;
-  v39 = v45;
-  outlined destroy of _ViewInputs(&v38);
-  *a5 = v13;
-  result = v33[0];
-  a5[1] = *&v33[0];
+  v45[0] = v51;
+  v45[1] = v52;
+  v45[2] = v53;
+  LODWORD(v45[3]) = v54;
+  v43 = v49;
+  v44 = v50;
+  outlined destroy of _ViewInputs(&v43);
+  *a6 = v15;
+  result = v38[0];
+  a6[1] = *&v38[0];
   return result;
 }
 
 uint64_t protocol witness for static ViewModifier._makeViewList(modifier:inputs:body:) in conformance InferredToolbarModifier<A>.OnScrollStateChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for InferredToolbarModifier<A>.OnScrollStateChange, a5);
 
   return MEMORY[0x1EEDE07E0](a1, a2, a3, a4, a5, WitnessTable);
 }
 
-uint64_t InferredToolbarModifier.ScrollGeometryActionBinding.modifier.getter()
+uint64_t InferredToolbarModifier.ScrollGeometryActionBinding.modifier.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for InferredToolbarModifier.OnScrollStateChange();
-  v0 = *AGGraphGetValue();
+  type metadata accessor for InferredToolbarModifier.OnScrollStateChange(0, *(a1 + 16), *(a1 + 24), a4);
+  v4 = *AGGraphGetValue();
 
-  return v0;
+  return v4;
 }
 
-uint64_t *InferredToolbarModifier.ScrollGeometryActionBinding.updateValue()()
+void InferredToolbarModifier.ScrollGeometryActionBinding.updateValue()(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *(v0 + 40);
-  if (v2 != *AGGraphGetValue() >> 1)
+  v2 = v1;
+  v4 = *(v1 + 40);
+  if (v4 != *AGGraphGetValue() >> 1)
   {
-    *(v1 + 40) = *AGGraphGetValue() >> 1;
-    *(v1 + 28) = 0xFFFFFFFFLL;
-    *(v1 + 36) = 0;
+    *(v2 + 40) = *AGGraphGetValue() >> 1;
+    *(v2 + 28) = 0xFFFFFFFFLL;
+    *(v2 + 36) = 0;
     _s7SwiftUI19ScrollGeometryStateVSgWOi0_(__dst);
-    v170 = __dst[4];
-    v171 = __dst[5];
-    *v172 = __dst[6];
-    *&v172[13] = *(&__dst[6] + 13);
-    v166 = __dst[0];
-    v167 = __dst[1];
-    v168 = __dst[2];
-    v169 = __dst[3];
-    v173 = __dst[0];
+    v177 = __dst[4];
     v178 = __dst[5];
-    v179[0] = __dst[6];
-    *(v179 + 13) = *(&__dst[6] + 13);
+    *v179 = __dst[6];
+    *&v179[13] = *(&__dst[6] + 13);
+    v173 = __dst[0];
     v174 = __dst[1];
     v175 = __dst[2];
-    v177 = __dst[4];
     v176 = __dst[3];
-    v3 = __dst[5];
-    *(v1 + 240) = __dst[4];
-    *(v1 + 256) = v3;
-    *(v1 + 272) = v179[0];
-    *(v1 + 285) = *(v179 + 13);
-    v4 = v174;
-    *(v1 + 176) = v173;
-    *(v1 + 192) = v4;
-    v5 = v176;
-    *(v1 + 208) = v175;
-    *(v1 + 224) = v5;
-    v6 = v171;
-    *(v1 + 112) = v170;
-    *(v1 + 128) = v6;
-    v7 = *&v172[16];
-    *(v1 + 144) = *v172;
-    *(v1 + 160) = v7;
-    v8 = v167;
-    *(v1 + 48) = v166;
-    *(v1 + 64) = v8;
-    v9 = v169;
-    *(v1 + 80) = v168;
-    *(v1 + 96) = v9;
+    v180 = __dst[0];
+    v185 = __dst[5];
+    v186[0] = __dst[6];
+    *(v186 + 13) = *(&__dst[6] + 13);
+    v181 = __dst[1];
+    v182 = __dst[2];
+    v184 = __dst[4];
+    v183 = __dst[3];
+    v5 = __dst[5];
+    *(v2 + 240) = __dst[4];
+    *(v2 + 256) = v5;
+    *(v2 + 272) = v186[0];
+    *(v2 + 285) = *(v186 + 13);
+    v6 = v181;
+    *(v2 + 176) = v180;
+    *(v2 + 192) = v6;
+    v7 = v183;
+    *(v2 + 208) = v182;
+    *(v2 + 224) = v7;
+    v8 = v178;
+    *(v2 + 112) = v177;
+    *(v2 + 128) = v8;
+    v9 = *&v179[16];
+    *(v2 + 144) = *v179;
+    *(v2 + 160) = v9;
+    v10 = v174;
+    *(v2 + 48) = v173;
+    *(v2 + 64) = v10;
+    v11 = v176;
+    *(v2 + 80) = v175;
+    *(v2 + 96) = v11;
   }
 
   type metadata accessor for State<InferredToolbarState>(0, &lazy cache variable for type metadata for [ScrollGeometryState], MEMORY[0x1E697F7D0], MEMORY[0x1E69E62F8]);
-  result = AGGraphGetValue();
-  if (v11)
+  Value = AGGraphGetValue();
+  if (v13)
   {
-    v12 = *result;
+    v14 = *Value;
 
     if ((UpdateCycleDetector.dispatch(label:isDebug:)() & 1) == 0)
     {
+
+      return;
     }
 
     AGGraphClearUpdate();
-    type metadata accessor for InferredToolbarModifier.ScrollGeometryActionBinding();
+    v16 = type metadata accessor for InferredToolbarModifier.ScrollGeometryActionBinding(0, *(a1 + 16), *(a1 + 24), v15);
     type metadata accessor for CGPoint(0);
-    Value = AGGraphGetValue();
-    v14 = *Value;
-    v15 = Value[1];
+    v17 = AGGraphGetValue();
+    v18 = *v17;
+    v19 = v17[1];
     AGGraphSetUpdate();
     AGGraphClearUpdate();
-    v16 = AGGraphGetValue();
-    v87 = v16[1];
-    v89 = *v16;
+    v20 = AGGraphGetValue();
+    v94 = v20[1];
+    v96 = *v20;
     AGGraphSetUpdate();
     AGGraphClearUpdate();
-    memcpy(__dst, v1, 0x12DuLL);
-    AlertTransformModifier.Transform.transform.getter(&v104);
+    memcpy(__dst, v2, 0x12DuLL);
+    v85 = v16;
+    AlertTransformModifier.Transform.transform.getter(&v111);
     AGGraphSetUpdate();
-    v17 = v104;
-    v83 = v106;
-    v85 = v105;
+    v21 = v111;
+    v90 = v113;
+    v92 = v112;
     static ScrollGeometryState.zero.getter();
-    v133[4] = __dst[4];
-    v133[5] = __dst[5];
-    v133[6] = __dst[6];
-    v133[0] = __dst[0];
-    v133[1] = __dst[1];
-    v133[2] = __dst[2];
-    v133[3] = __dst[3];
-    v80 = __dst[7];
-    v132 = BYTE3(__dst[7]);
-    v131 = *(&__dst[7] + 1);
-    v81 = DWORD2(__dst[7]);
-    v82 = DWORD1(__dst[7]);
-    v18 = memcpy(__dst, v1, 0x12DuLL);
-    *v101 = v89;
-    *&v101[16] = v87;
-    v19 = MEMORY[0x18D00B390](v18);
-    *v91 = v17;
-    *&v91[16] = v85;
-    *&v91[32] = v83;
-    InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:position:size:transform:)(v12, v91, &v104, v14, v15, v19, v20);
+    v140[4] = __dst[4];
+    v140[5] = __dst[5];
+    v140[6] = __dst[6];
+    v140[0] = __dst[0];
+    v140[1] = __dst[1];
+    v140[2] = __dst[2];
+    v140[3] = __dst[3];
+    v87 = __dst[7];
+    v139 = BYTE3(__dst[7]);
+    v138 = *(&__dst[7] + 1);
+    v88 = DWORD2(__dst[7]);
+    v89 = DWORD1(__dst[7]);
+    v22 = memcpy(__dst, v2, 0x12DuLL);
+    *v108 = v96;
+    *&v108[16] = v94;
+    v23 = MEMORY[0x18D00B390](v22);
+    *v98 = v21;
+    *&v98[16] = v92;
+    *&v98[32] = v90;
+    InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:position:size:transform:)(v14, v98, &v111, v18, v19, v23, v24);
 
-    v140 = v108;
-    v141 = v109;
-    v142 = *v110;
-    v136 = v104;
-    v137 = v105;
-    v139 = v107;
-    v138 = v106;
-    v21 = v110[16];
-    v135 = v110[19];
-    v134 = *&v110[17];
-    v22 = *&v110[20];
-    v23 = *&v110[24];
-    v79 = v110[28];
-    v149 = v115;
-    v150 = v116;
-    v151 = v117;
-    v145 = v111;
-    v146 = v112;
-    v148 = v114;
-    v147 = v113;
-    v90 = v118;
-    v144 = v120;
-    v143 = v119;
-    v88 = v121;
-    v86 = v122;
-    v84 = v123;
-    _s7SwiftUI19ScrollGeometryStateVSgWOi0_(&v152);
-    v24 = swift_allocObject();
-    v25 = v157;
-    v24[5] = v156;
-    v24[6] = v25;
-    v24[7] = v158[0];
-    *(v24 + 125) = *(v158 + 13);
-    v26 = v153;
-    v24[1] = v152;
-    v24[2] = v26;
-    v27 = v155;
-    v24[3] = v154;
-    v24[4] = v27;
-    v28 = *(v1 + 80);
-    *&v91[51] = *(v1 + 96);
-    v29 = *(v1 + 128);
-    *&v91[67] = *(v1 + 112);
-    *&v91[83] = v29;
-    *&v91[99] = *(v1 + 144);
-    v30 = *(v1 + 64);
-    *&v91[3] = *(v1 + 48);
-    v31 = *(v1 + 160);
-    LOWORD(v94) = *(v1 + 161);
-    BYTE2(v94) = *(v1 + 163);
-    v32 = *(v1 + 164);
-    v33 = *(v1 + 168);
-    v34 = *(v1 + 172);
-    v161 = v134;
-    v162 = v135;
-    *&v91[19] = v30;
-    *&v91[35] = v28;
-    v159[1] = v137;
-    v159[0] = v136;
-    v159[6] = v142;
-    v159[5] = v141;
-    v159[4] = v140;
-    v159[2] = v138;
-    v159[3] = v139;
-    v160 = v21;
-    v78 = v22;
-    v163 = v22;
-    v164 = v23;
-    v165 = v79;
-    if (_s7SwiftUI19ScrollGeometryStateVSgWOg(v159) == 1)
+    v147 = v115;
+    v148 = v116;
+    v149 = *v117;
+    v143 = v111;
+    v144 = v112;
+    v146 = v114;
+    v145 = v113;
+    v25 = v117[16];
+    v142 = v117[19];
+    v141 = *&v117[17];
+    LODWORD(v16) = *&v117[20];
+    v26 = *&v117[24];
+    v86 = v117[28];
+    v156 = v122;
+    v157 = v123;
+    v158 = v124;
+    v152 = v118;
+    v153 = v119;
+    v155 = v121;
+    v154 = v120;
+    v97 = v125;
+    v151 = v127;
+    v150 = v126;
+    v95 = v128;
+    v93 = v129;
+    v91 = v130;
+    _s7SwiftUI19ScrollGeometryStateVSgWOi0_(&v159);
+    v27 = swift_allocObject();
+    v28 = v164;
+    v27[5] = v163;
+    v27[6] = v28;
+    v27[7] = v165[0];
+    *(v27 + 125) = *(v165 + 13);
+    v29 = v160;
+    v27[1] = v159;
+    v27[2] = v29;
+    v30 = v162;
+    v27[3] = v161;
+    v27[4] = v30;
+    v31 = *(v2 + 80);
+    *&v98[51] = *(v2 + 96);
+    v32 = *(v2 + 128);
+    *&v98[67] = *(v2 + 112);
+    *&v98[83] = v32;
+    *&v98[99] = *(v2 + 144);
+    v33 = *(v2 + 64);
+    *&v98[3] = *(v2 + 48);
+    v34 = *(v2 + 160);
+    LOWORD(v101) = *(v2 + 161);
+    BYTE2(v101) = *(v2 + 163);
+    v35 = *(v2 + 164);
+    v36 = *(v2 + 168);
+    v37 = *(v2 + 172);
+    v168 = v141;
+    v169 = v142;
+    *&v98[19] = v33;
+    *&v98[35] = v31;
+    v166[1] = v144;
+    v166[0] = v143;
+    v166[6] = v149;
+    v166[5] = v148;
+    v166[4] = v147;
+    v166[2] = v145;
+    v166[3] = v146;
+    v167 = v25;
+    v84 = v16;
+    v170 = v16;
+    v171 = v26;
+    v172 = v86;
+    if (_s7SwiftUI19ScrollGeometryStateVSgWOg(v166) == 1)
     {
-      __dst[4] = *&v91[67];
-      __dst[5] = *&v91[83];
-      __dst[6] = *&v91[99];
-      __dst[0] = *&v91[3];
-      __dst[1] = *&v91[19];
-      __dst[3] = *&v91[51];
-      __dst[2] = *&v91[35];
-      *(&__dst[7] + 1) = v94;
-      BYTE3(__dst[7]) = BYTE2(v94);
-      LOBYTE(__dst[7]) = v31;
-      *(&__dst[7] + 4) = __PAIR64__(v33, v32);
-      BYTE12(__dst[7]) = v34;
+      __dst[4] = *&v98[67];
+      __dst[5] = *&v98[83];
+      __dst[6] = *&v98[99];
+      __dst[0] = *&v98[3];
+      __dst[1] = *&v98[19];
+      __dst[3] = *&v98[51];
+      __dst[2] = *&v98[35];
+      *(&__dst[7] + 1) = v101;
+      BYTE3(__dst[7]) = BYTE2(v101);
+      LOBYTE(__dst[7]) = v34;
+      *(&__dst[7] + 4) = __PAIR64__(v36, v35);
+      BYTE12(__dst[7]) = v37;
       if (_s7SwiftUI19ScrollGeometryStateVSgWOg(__dst) == 1)
       {
 LABEL_7:
-        v128 = v156;
-        v129 = v157;
-        v130[0] = v158[0];
-        *(v130 + 13) = *(v158 + 13);
-        v124 = v152;
-        v125 = v153;
-        v126 = v154;
-        v127 = v155;
-        v35 = v80;
+        v135 = v163;
+        v136 = v164;
+        v137[0] = v165[0];
+        *(v137 + 13) = *(v165 + 13);
+        v131 = v159;
+        v132 = v160;
+        v133 = v161;
+        v134 = v162;
+        v38 = v87;
         goto LABEL_20;
       }
     }
 
     else
     {
-      __dst[4] = *&v91[67];
-      __dst[5] = *&v91[83];
-      __dst[6] = *&v91[99];
-      __dst[0] = *&v91[3];
-      __dst[1] = *&v91[19];
-      __dst[3] = *&v91[51];
-      __dst[2] = *&v91[35];
-      *(&__dst[7] + 1) = v94;
-      BYTE3(__dst[7]) = BYTE2(v94);
-      LOBYTE(__dst[7]) = v31;
-      *(&__dst[7] + 4) = __PAIR64__(v33, v32);
-      BYTE12(__dst[7]) = v34;
+      __dst[4] = *&v98[67];
+      __dst[5] = *&v98[83];
+      __dst[6] = *&v98[99];
+      __dst[0] = *&v98[3];
+      __dst[1] = *&v98[19];
+      __dst[3] = *&v98[51];
+      __dst[2] = *&v98[35];
+      *(&__dst[7] + 1) = v101;
+      BYTE3(__dst[7]) = BYTE2(v101);
+      LOBYTE(__dst[7]) = v34;
+      *(&__dst[7] + 4) = __PAIR64__(v36, v35);
+      BYTE12(__dst[7]) = v37;
       if (_s7SwiftUI19ScrollGeometryStateVSgWOg(__dst) != 1)
       {
-        *&v101[64] = *&v91[67];
-        *&v101[80] = *&v91[83];
-        *&v101[96] = *&v91[99];
-        *v101 = *&v91[3];
-        *&v101[16] = *&v91[19];
-        *&v101[32] = *&v91[35];
-        *&v101[48] = *&v91[51];
-        v108 = v140;
-        v109 = v141;
-        *v110 = v142;
-        v104 = v136;
-        v105 = v137;
-        v106 = v138;
-        v107 = v139;
-        v36 = v21;
-        if ((MEMORY[0x18D004CD0](&v104, v101) & 1) != 0 && v21 == v31)
+        *&v108[64] = *&v98[67];
+        *&v108[80] = *&v98[83];
+        *&v108[96] = *&v98[99];
+        *v108 = *&v98[3];
+        *&v108[16] = *&v98[19];
+        *&v108[32] = *&v98[35];
+        *&v108[48] = *&v98[51];
+        v115 = v147;
+        v116 = v148;
+        *v117 = v149;
+        v111 = v143;
+        v112 = v144;
+        v113 = v145;
+        v114 = v146;
+        v39 = v25;
+        if ((MEMORY[0x18D004CD0](&v111, v108) & 1) != 0 && v25 == v34)
         {
-          v37 = v78;
+          v40 = v84;
           if (static WeakAttribute.== infix(_:_:)())
           {
             goto LABEL_7;
           }
 
-          v35 = v80;
+          v38 = v87;
 LABEL_12:
-          __dst[4] = v140;
-          __dst[5] = v141;
-          __dst[6] = v142;
-          __dst[0] = v136;
-          __dst[1] = v137;
-          __dst[3] = v139;
-          __dst[2] = v138;
-          LOBYTE(__dst[7]) = v36;
-          BYTE3(__dst[7]) = v135;
-          *(&__dst[7] + 1) = v134;
-          *(&__dst[7] + 4) = __PAIR64__(v23, v37);
-          BYTE12(__dst[7]) = v79;
-          v38 = _s7SwiftUI19ScrollGeometryStateVSgWOg(__dst);
-          v39 = &v136;
-          if (v38 == 1)
+          __dst[4] = v147;
+          __dst[5] = v148;
+          __dst[6] = v149;
+          __dst[0] = v143;
+          __dst[1] = v144;
+          __dst[3] = v146;
+          __dst[2] = v145;
+          LOBYTE(__dst[7]) = v39;
+          BYTE3(__dst[7]) = v142;
+          *(&__dst[7] + 1) = v141;
+          *(&__dst[7] + 4) = __PAIR64__(v26, v40);
+          BYTE12(__dst[7]) = v86;
+          v41 = _s7SwiftUI19ScrollGeometryStateVSgWOg(__dst);
+          v42 = &v143;
+          if (v41 == 1)
           {
-            v39 = v133;
+            v42 = v140;
           }
 
-          v40 = v39[5];
-          v41 = &v134;
-          *&v101[64] = v39[4];
-          *&v101[80] = v40;
-          if (v38 == 1)
+          v43 = v42[5];
+          v44 = &v141;
+          *&v108[64] = v42[4];
+          *&v108[80] = v43;
+          if (v41 == 1)
           {
-            v41 = &v131;
-            v42 = v35;
+            v44 = &v138;
+            v45 = v38;
           }
 
           else
           {
-            v42 = v36;
+            v45 = v39;
           }
 
-          v44 = v81;
-          v43 = v82;
-          if (v38 != 1)
+          v47 = v88;
+          v46 = v89;
+          if (v41 != 1)
           {
-            v43 = v37;
-            v44 = v23;
+            v46 = v40;
+            v47 = v26;
           }
 
-          *&v101[96] = v39[6];
-          v45 = v39[1];
-          *v101 = *v39;
-          *&v101[16] = v45;
-          v46 = v39[3];
-          *&v101[32] = v39[2];
-          *&v101[48] = v46;
-          v102 = *v41;
-          v103 = *(v41 + 2);
-          v108 = *&v101[64];
-          v109 = *&v101[80];
-          *v110 = *&v101[96];
-          v104 = *v101;
-          v105 = v45;
-          v106 = *&v101[32];
-          v107 = v46;
-          v110[16] = v42;
-          *&v110[17] = v102;
-          v110[19] = v103;
-          *&v110[20] = v43;
-          *&v110[24] = v44;
-          _s7SwiftUI19ScrollGeometryStateVSgWOi_(&v104);
-          v128 = v108;
-          v129 = v109;
-          v130[0] = *v110;
-          *(v130 + 13) = *&v110[13];
-          v124 = v104;
-          v125 = v105;
-          v126 = v106;
-          v127 = v107;
+          *&v108[96] = v42[6];
+          v48 = v42[1];
+          *v108 = *v42;
+          *&v108[16] = v48;
+          v49 = v42[3];
+          *&v108[32] = v42[2];
+          *&v108[48] = v49;
+          v109 = *v44;
+          v110 = *(v44 + 2);
+          v115 = *&v108[64];
+          v116 = *&v108[80];
+          *v117 = *&v108[96];
+          v111 = *v108;
+          v112 = v48;
+          v113 = *&v108[32];
+          v114 = v49;
+          v117[16] = v45;
+          *&v117[17] = v109;
+          v117[19] = v110;
+          *&v117[20] = v46;
+          *&v117[24] = v47;
+          _s7SwiftUI19ScrollGeometryStateVSgWOi_(&v111);
+          v135 = v115;
+          v136 = v116;
+          v137[0] = *v117;
+          *(v137 + 13) = *&v117[13];
+          v131 = v111;
+          v132 = v112;
+          v133 = v113;
+          v134 = v114;
 LABEL_20:
-          v47 = *(v1 + 288);
-          v102 = *(v1 + 289);
-          v103 = *(v1 + 291);
-          v48 = *(v1 + 292);
-          v49 = *(v1 + 296);
-          v50 = *(v1 + 300);
-          v51 = *(v1 + 208);
-          *&v101[51] = *(v1 + 224);
-          v52 = *(v1 + 256);
-          *&v101[67] = *(v1 + 240);
-          *&v101[83] = v52;
-          *&v101[99] = *(v1 + 272);
-          v53 = *(v1 + 192);
-          *&v101[3] = *(v1 + 176);
-          *&v101[19] = v53;
-          *&v101[35] = v51;
-          v104 = v145;
-          v105 = v146;
-          v109 = v150;
-          *v110 = v151;
-          v107 = v148;
-          v108 = v149;
-          v106 = v147;
-          v110[16] = v90;
-          v110[19] = v144;
-          *&v110[17] = v143;
-          *&v110[20] = v88;
-          *&v110[24] = v86;
-          v110[28] = v84;
-          if (_s7SwiftUI19ScrollGeometryStateVSgWOg(&v104) == 1)
+          v50 = *(v2 + 288);
+          v109 = *(v2 + 289);
+          v110 = *(v2 + 291);
+          v51 = *(v2 + 292);
+          v52 = *(v2 + 296);
+          v53 = *(v2 + 300);
+          v54 = *(v2 + 208);
+          *&v108[51] = *(v2 + 224);
+          v55 = *(v2 + 256);
+          *&v108[67] = *(v2 + 240);
+          *&v108[83] = v55;
+          *&v108[99] = *(v2 + 272);
+          v56 = *(v2 + 192);
+          *&v108[3] = *(v2 + 176);
+          *&v108[19] = v56;
+          *&v108[35] = v54;
+          v111 = v152;
+          v112 = v153;
+          v116 = v157;
+          *v117 = v158;
+          v114 = v155;
+          v115 = v156;
+          v113 = v154;
+          v117[16] = v97;
+          v117[19] = v151;
+          *&v117[17] = v150;
+          *&v117[20] = v95;
+          *&v117[24] = v93;
+          v117[28] = v91;
+          if (_s7SwiftUI19ScrollGeometryStateVSgWOg(&v111) == 1)
           {
-            __dst[4] = *&v101[67];
-            __dst[5] = *&v101[83];
-            __dst[6] = *&v101[99];
-            __dst[0] = *&v101[3];
-            __dst[1] = *&v101[19];
-            __dst[3] = *&v101[51];
-            __dst[2] = *&v101[35];
-            *(&__dst[7] + 1) = v102;
-            BYTE3(__dst[7]) = v103;
-            LOBYTE(__dst[7]) = v47;
-            *(&__dst[7] + 4) = __PAIR64__(v49, v48);
-            BYTE12(__dst[7]) = v50;
+            __dst[4] = *&v108[67];
+            __dst[5] = *&v108[83];
+            __dst[6] = *&v108[99];
+            __dst[0] = *&v108[3];
+            __dst[1] = *&v108[19];
+            __dst[3] = *&v108[51];
+            __dst[2] = *&v108[35];
+            *(&__dst[7] + 1) = v109;
+            BYTE3(__dst[7]) = v110;
+            LOBYTE(__dst[7]) = v50;
+            *(&__dst[7] + 4) = __PAIR64__(v52, v51);
+            BYTE12(__dst[7]) = v53;
             if (_s7SwiftUI19ScrollGeometryStateVSgWOg(__dst) == 1)
             {
 LABEL_32:
-              *&v91[64] = v128;
-              *&v91[80] = v129;
-              *&v91[96] = v130[0];
-              *&v91[109] = *(v130 + 13);
-              *v91 = v124;
-              *&v91[16] = v125;
-              *&v91[32] = v126;
-              *&v91[48] = v127;
-              if (_s7SwiftUI19ScrollGeometryStateVSgWOg(v91) != 1 || (v66 = v24[6], __dst[4] = v24[5], __dst[5] = v66, __dst[6] = v24[7], *(&__dst[6] + 13) = *(v24 + 125), v67 = v24[2], __dst[0] = v24[1], __dst[1] = v67, v68 = v24[4], __dst[2] = v24[3], __dst[3] = v68, _s7SwiftUI19ScrollGeometryStateVSgWOg(__dst) != 1))
+              *&v98[64] = v135;
+              *&v98[80] = v136;
+              *&v98[96] = v137[0];
+              *&v98[109] = *(v137 + 13);
+              *v98 = v131;
+              *&v98[16] = v132;
+              *&v98[32] = v133;
+              *&v98[48] = v134;
+              if (_s7SwiftUI19ScrollGeometryStateVSgWOg(v98) != 1 || (v69 = v27[6], __dst[4] = v27[5], __dst[5] = v69, __dst[6] = v27[7], *(&__dst[6] + 13) = *(v27 + 125), v70 = v27[2], __dst[0] = v27[1], __dst[1] = v70, v71 = v27[4], __dst[2] = v27[3], __dst[3] = v71, _s7SwiftUI19ScrollGeometryStateVSgWOg(__dst) != 1))
               {
                 AGGraphClearUpdate();
-                memcpy(__dst, v1, 0x12DuLL);
-                v69 = InferredToolbarModifier.ScrollGeometryActionBinding.modifier.getter();
-                v71 = v70;
-                v73 = v72;
+                memcpy(__dst, v2, 0x12DuLL);
+                v75 = InferredToolbarModifier.ScrollGeometryActionBinding.modifier.getter(v85, v72, v73, v74);
+                v77 = v76;
+                v79 = v78;
                 AGGraphSetUpdate();
                 LOBYTE(__dst[0]) = 17;
-                v74 = swift_allocObject();
-                v75 = v129;
-                *(v74 + 80) = v128;
-                *(v74 + 96) = v75;
-                *(v74 + 112) = v130[0];
-                *(v74 + 125) = *(v130 + 13);
-                v76 = v125;
-                *(v74 + 16) = v124;
-                *(v74 + 32) = v76;
-                v77 = v127;
-                *(v74 + 48) = v126;
-                *(v74 + 64) = v77;
-                *(v74 + 144) = v69;
-                *(v74 + 152) = v71;
-                *(v74 + 160) = v73;
-                *(v74 + 168) = v24;
+                v80 = swift_allocObject();
+                v81 = v136;
+                *(v80 + 80) = v135;
+                *(v80 + 96) = v81;
+                *(v80 + 112) = v137[0];
+                *(v80 + 125) = *(v137 + 13);
+                v82 = v132;
+                *(v80 + 16) = v131;
+                *(v80 + 32) = v82;
+                v83 = v134;
+                *(v80 + 48) = v133;
+                *(v80 + 64) = v83;
+                *(v80 + 144) = v75;
+                *(v80 + 152) = v77;
+                *(v80 + 160) = v79;
+                *(v80 + 168) = v27;
 
                 static Update.enqueueAction(reason:_:)();
               }
+
+              return;
             }
           }
 
           else
           {
-            __dst[4] = *&v101[67];
-            __dst[5] = *&v101[83];
-            __dst[6] = *&v101[99];
-            __dst[0] = *&v101[3];
-            __dst[1] = *&v101[19];
-            __dst[3] = *&v101[51];
-            __dst[2] = *&v101[35];
-            *(&__dst[7] + 1) = v102;
-            BYTE3(__dst[7]) = v103;
-            LOBYTE(__dst[7]) = v47;
-            *(&__dst[7] + 4) = __PAIR64__(v49, v48);
-            BYTE12(__dst[7]) = v50;
+            __dst[4] = *&v108[67];
+            __dst[5] = *&v108[83];
+            __dst[6] = *&v108[99];
+            __dst[0] = *&v108[3];
+            __dst[1] = *&v108[19];
+            __dst[3] = *&v108[51];
+            __dst[2] = *&v108[35];
+            *(&__dst[7] + 1) = v109;
+            BYTE3(__dst[7]) = v110;
+            LOBYTE(__dst[7]) = v50;
+            *(&__dst[7] + 4) = __PAIR64__(v52, v51);
+            BYTE12(__dst[7]) = v53;
             if (_s7SwiftUI19ScrollGeometryStateVSgWOg(__dst) != 1)
             {
-              v98 = *&v101[67];
-              v99 = *&v101[83];
-              v100 = *&v101[99];
-              v94 = *&v101[3];
-              v95 = *&v101[19];
-              v96 = *&v101[35];
-              v97 = *&v101[51];
-              *&v91[64] = v149;
-              *&v91[80] = v150;
-              *&v91[96] = v151;
-              *v91 = v145;
-              *&v91[16] = v146;
-              *&v91[32] = v147;
-              *&v91[48] = v148;
-              if (MEMORY[0x18D004CD0](v91, &v94) & 1) != 0 && v90 == v47 && (static WeakAttribute.== infix(_:_:)())
+              v105 = *&v108[67];
+              v106 = *&v108[83];
+              v107 = *&v108[99];
+              v101 = *&v108[3];
+              v102 = *&v108[19];
+              v103 = *&v108[35];
+              v104 = *&v108[51];
+              *&v98[64] = v156;
+              *&v98[80] = v157;
+              *&v98[96] = v158;
+              *v98 = v152;
+              *&v98[16] = v153;
+              *&v98[32] = v154;
+              *&v98[48] = v155;
+              if (MEMORY[0x18D004CD0](v98, &v101) & 1) != 0 && v97 == v50 && (static WeakAttribute.== infix(_:_:)())
               {
                 goto LABEL_32;
               }
             }
           }
 
-          __dst[4] = v149;
-          __dst[5] = v150;
-          __dst[6] = v151;
-          __dst[0] = v145;
-          __dst[1] = v146;
-          __dst[3] = v148;
-          __dst[2] = v147;
-          LOBYTE(__dst[7]) = v90;
-          BYTE3(__dst[7]) = v144;
-          *(&__dst[7] + 1) = v143;
-          *(&__dst[7] + 4) = __PAIR64__(v86, v88);
-          BYTE12(__dst[7]) = v84;
-          v54 = _s7SwiftUI19ScrollGeometryStateVSgWOg(__dst);
-          v55 = &v145;
-          if (v54 == 1)
+          __dst[4] = v156;
+          __dst[5] = v157;
+          __dst[6] = v158;
+          __dst[0] = v152;
+          __dst[1] = v153;
+          __dst[3] = v155;
+          __dst[2] = v154;
+          LOBYTE(__dst[7]) = v97;
+          BYTE3(__dst[7]) = v151;
+          *(&__dst[7] + 1) = v150;
+          *(&__dst[7] + 4) = __PAIR64__(v93, v95);
+          BYTE12(__dst[7]) = v91;
+          v57 = _s7SwiftUI19ScrollGeometryStateVSgWOg(__dst);
+          v58 = &v152;
+          if (v57 == 1)
           {
-            v55 = v133;
+            v58 = v140;
           }
 
-          v56 = v55[5];
-          v57 = &v143;
-          v98 = v55[4];
-          v99 = v56;
-          if (v54 == 1)
+          v59 = v58[5];
+          v60 = &v150;
+          v105 = v58[4];
+          v106 = v59;
+          if (v57 == 1)
           {
-            v57 = &v131;
-            v58 = v35;
+            v60 = &v138;
+            v61 = v38;
           }
 
           else
           {
-            v58 = v90;
+            v61 = v97;
           }
 
-          v60 = v81;
-          v59 = v82;
-          if (v54 != 1)
+          v63 = v88;
+          v62 = v89;
+          if (v57 != 1)
           {
-            v59 = v88;
-            v60 = v86;
+            v62 = v95;
+            v63 = v93;
           }
 
-          v100 = v55[6];
-          v61 = v55[1];
-          v94 = *v55;
-          v95 = v61;
-          v62 = v55[3];
-          v96 = v55[2];
-          v97 = v62;
-          v92 = *v57;
-          v93 = *(v57 + 2);
-          *&v91[64] = v98;
-          *&v91[80] = v99;
-          *&v91[96] = v100;
-          *v91 = v94;
-          *&v91[16] = v61;
-          *&v91[32] = v96;
-          *&v91[48] = v62;
-          v91[112] = v58;
-          *&v91[113] = v92;
-          v91[115] = v93;
-          *&v91[116] = v59;
-          *&v91[120] = v60;
-          _s7SwiftUI19ScrollGeometryStateVSgWOi_(v91);
-          v63 = *&v91[80];
-          v24[5] = *&v91[64];
-          v24[6] = v63;
-          v24[7] = *&v91[96];
-          *(v24 + 125) = *&v91[109];
-          v64 = *&v91[16];
-          v24[1] = *v91;
-          v24[2] = v64;
-          v65 = *&v91[48];
-          v24[3] = *&v91[32];
-          v24[4] = v65;
+          v107 = v58[6];
+          v64 = v58[1];
+          v101 = *v58;
+          v102 = v64;
+          v65 = v58[3];
+          v103 = v58[2];
+          v104 = v65;
+          v99 = *v60;
+          v100 = *(v60 + 2);
+          *&v98[64] = v105;
+          *&v98[80] = v106;
+          *&v98[96] = v107;
+          *v98 = v101;
+          *&v98[16] = v64;
+          *&v98[32] = v103;
+          *&v98[48] = v65;
+          v98[112] = v61;
+          *&v98[113] = v99;
+          v98[115] = v100;
+          *&v98[116] = v62;
+          *&v98[120] = v63;
+          _s7SwiftUI19ScrollGeometryStateVSgWOi_(v98);
+          v66 = *&v98[80];
+          v27[5] = *&v98[64];
+          v27[6] = v66;
+          v27[7] = *&v98[96];
+          *(v27 + 125) = *&v98[109];
+          v67 = *&v98[16];
+          v27[1] = *v98;
+          v27[2] = v67;
+          v68 = *&v98[48];
+          v27[3] = *&v98[32];
+          v27[4] = v68;
           goto LABEL_32;
         }
 
-        v35 = v80;
+        v38 = v87;
 LABEL_11:
-        v37 = v78;
+        v40 = v84;
         goto LABEL_12;
       }
     }
 
-    v35 = v80;
-    v36 = v21;
+    v38 = v87;
+    v39 = v25;
     goto LABEL_11;
   }
-
-  return result;
 }
 
-double InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:position:size:transform:)@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, _OWORD *a3@<X8>, double a4@<D0>, double a5@<D1>, double a6@<D2>, double a7@<D3>)
+double InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:position:size:transform:)@<D0>(uint64_t a1@<X0>, __n128 *a2@<X1>, _OWORD *a3@<X8>, double a4@<D0>, double a5@<D1>, double a6@<D2>, double a7@<D3>)
 {
-  v47 = a2[1];
-  v48 = *a2;
-  v45 = *(a2 + 1);
-  v46 = *(a2 + 2);
+  v47 = a2->n128_u64[1];
+  v48 = a2->n128_u64[0];
+  v45 = a2[1];
+  v46 = a2[2];
   _s7SwiftUI19ScrollGeometryStateVSgWOi0_(&v90);
   v80 = v94;
   v81 = v95;
@@ -6193,13 +7398,13 @@ double InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:pos
       v13 = v9[5];
       v75[0] = v9[6];
       *(v75 + 12) = *(v9 + 108);
-      v14 = v9[1];
+      v14 = *(v9 + 1);
       v69 = *v9;
       v70 = v14;
       v15 = v9[3];
       v17 = *v9;
-      v16 = v9[1];
-      v71 = v9[2];
+      v16 = *(v9 + 1);
+      v71 = *(v9 + 2);
       v72 = v15;
       v94 = v73;
       v95 = v13;
@@ -6222,7 +7427,7 @@ double InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:pos
         v68 = a7;
         hostingViewCoordinateSpace.getter();
         *&v53 = v61;
-        BYTE8(v55) = 1;
+        v55.n128_u8[8] = 1;
         *&v90 = v48;
         *(&v90 + 1) = v47;
         v91 = v45;
@@ -6243,7 +7448,7 @@ double InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:pos
         v64 = v25;
         hostingViewCoordinateSpace.getter();
         *&v53 = v60;
-        BYTE8(v55) = 1;
+        v55.n128_u8[8] = 1;
         *&v90 = v18;
         *(&v90 + 1) = v19;
         v91 = v20;
@@ -6289,7 +7494,7 @@ double InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:pos
         v98.size.width = v32;
         v98.size.height = v33;
         v35 = CGRectGetMaxY(v98);
-        outlined consume of EnvironmentValues?(v18);
+        outlined consume of EnvironmentValues?(v18, v19);
         if (MaxY == v35)
         {
           v94 = v73;
@@ -6365,7 +7570,7 @@ double InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:pos
   v41 = v77;
   *a3 = v76;
   a3[1] = v41;
-  result = *&v78;
+  result = v78.n128_f64[0];
   v43 = v79;
   a3[2] = v78;
   a3[3] = v43;
@@ -6375,59 +7580,59 @@ double InferredToolbarModifier.ScrollGeometryActionBinding.findBestStates(in:pos
 uint64_t specialized closure #5 in InferredToolbarModifier.ScrollGeometryActionBinding.updateValue()(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5)
 {
   v9 = a1[5];
-  v36 = a1[4];
-  v37 = v9;
-  v38[0] = a1[6];
-  *(v38 + 13) = *(a1 + 109);
+  v48 = a1[4];
+  v49 = v9;
+  v50[0] = a1[6];
+  *(v50 + 13) = *(a1 + 109);
   v10 = a1[1];
-  v32 = *a1;
-  v33 = v10;
+  v44 = *a1;
+  v45 = v10;
   v11 = a1[3];
-  v34 = a1[2];
-  v35 = v11;
-  if (_s7SwiftUI19ScrollGeometryStateVSgWOg(&v32) != 1)
+  v46 = a1[2];
+  v47 = v11;
+  if (_s7SwiftUI19ScrollGeometryStateVSgWOg(&v44) != 1)
   {
-    v29 = v36;
-    v30 = v37;
-    v31[0] = v38[0];
-    v25 = v32;
-    v26 = v33;
-    v27 = v34;
-    v28 = v35;
-    *&v17 = a2;
-    *(&v17 + 1) = a3;
-    *&v18 = a4;
+    v41 = v48;
+    v42 = v49;
+    v43[0] = v50[0];
+    v37 = v44;
+    v38 = v45;
+    v39 = v46;
+    v40 = v47;
+    *&v29 = a2;
+    *(&v29 + 1) = a3;
+    *&v30 = a4;
     type metadata accessor for State<InferredToolbarState>(0, &lazy cache variable for type metadata for Binding<InferredToolbarState>, &type metadata for InferredToolbarState, MEMORY[0x1E6981948]);
-    MEMORY[0x18D00ACC0](v24);
-    InferredToolbarState.update(edge:to:)(0);
+    MEMORY[0x18D00ACC0](v36);
+    InferredToolbarState.update(edge:to:)(0, &v37, v12, v13, v14, v15, v16, v17);
     dispatch thunk of AnyLocation.set(_:transaction:)();
   }
 
   swift_beginAccess();
-  v12 = a5[6];
-  v29 = a5[5];
-  v30 = v12;
-  v31[0] = a5[7];
-  *(v31 + 13) = *(a5 + 125);
-  v13 = a5[2];
-  v25 = a5[1];
-  v26 = v13;
-  v14 = a5[4];
-  v27 = a5[3];
-  v28 = v14;
-  result = _s7SwiftUI19ScrollGeometryStateVSgWOg(&v25);
+  v18 = a5[6];
+  v41 = a5[5];
+  v42 = v18;
+  v43[0] = a5[7];
+  *(v43 + 13) = *(a5 + 125);
+  v19 = a5[2];
+  v37 = a5[1];
+  v38 = v19;
+  v20 = a5[4];
+  v39 = a5[3];
+  v40 = v20;
+  result = _s7SwiftUI19ScrollGeometryStateVSgWOg(&v37);
   if (result != 1)
   {
-    v21 = v29;
-    v22 = v30;
-    v23 = v31[0];
-    v17 = v25;
-    v18 = v26;
-    v19 = v27;
-    v20 = v28;
+    v33 = v41;
+    v34 = v42;
+    v35 = v43[0];
+    v29 = v37;
+    v30 = v38;
+    v31 = v39;
+    v32 = v40;
     type metadata accessor for State<InferredToolbarState>(0, &lazy cache variable for type metadata for Binding<InferredToolbarState>, &type metadata for InferredToolbarState, MEMORY[0x1E6981948]);
-    MEMORY[0x18D00ACC0](&v16);
-    InferredToolbarState.update(edge:to:)(1);
+    MEMORY[0x18D00ACC0](&v28);
+    InferredToolbarState.update(edge:to:)(1, &v29, v22, v23, v24, v25, v26, v27);
     dispatch thunk of AnyLocation.set(_:transaction:)();
   }
 
@@ -6442,7 +7647,7 @@ uint64_t static InferredToolbarState.Storage.== infix(_:_:)(uint64_t a1, uint64_
   return MEMORY[0x1EEE68930](a1, a2, v9, a3, v8, a4);
 }
 
-uint64_t protocol witness for static ViewInputPredicate.evaluate(inputs:) in conformance InferredToolbarUserDefaultFeature()
+uint64_t protocol witness for static ViewInputPredicate.evaluate(inputs:) in conformance InferredToolbarUserDefaultFeature(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type InferredToolbarUserDefaultFeature and conformance InferredToolbarUserDefaultFeature();
 
@@ -6465,7 +7670,7 @@ uint64_t View.inferToolbar()(uint64_t a1, uint64_t a2)
   MEMORY[0x18D00A570](v6, a1, v4, a2);
 }
 
-BOOL specialized static ViewInputPredicate.evaluate(listInputs:)()
+BOOL specialized static ViewInputPredicate.evaluate(listInputs:)(uint64_t *a1)
 {
   type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(0, &lazy cache variable for type metadata for _SemanticFeature<Semantics_v4>, MEMORY[0x1E697DF40], MEMORY[0x1E697DF38], MEMORY[0x1E697EC20]);
   lazy protocol witness table accessor for type _SemanticFeature<Semantics_v4> and conformance _SemanticFeature<A>();
@@ -6474,15 +7679,15 @@ BOOL specialized static ViewInputPredicate.evaluate(listInputs:)()
     return 0;
   }
 
-  v0 = lazy protocol witness table accessor for type InferredToolbarUserDefaultFeature and conformance InferredToolbarUserDefaultFeature();
-  if (((*(v0 + 16))(&type metadata for InferredToolbarUserDefaultFeature, v0) & 1) == 0)
+  v1 = lazy protocol witness table accessor for type InferredToolbarUserDefaultFeature and conformance InferredToolbarUserDefaultFeature();
+  if (((*(v1 + 16))(&type metadata for InferredToolbarUserDefaultFeature, v1) & 1) == 0)
   {
     return 0;
   }
 
   lazy protocol witness table accessor for type DocumentGroupConfiguration.DocumentKey and conformance DocumentGroupConfiguration.DocumentKey();
   PropertyList.subscript.getter();
-  return v2 == *MEMORY[0x1E698D3F8];
+  return v3 == *MEMORY[0x1E698D3F8];
 }
 
 unint64_t lazy protocol witness table accessor for type InferredToolbarModifier<AllToolbarEdges> and conformance InferredToolbarModifier<A>()
@@ -6491,17 +7696,17 @@ unint64_t lazy protocol witness table accessor for type InferredToolbarModifier<
   if (!lazy protocol witness table cache variable for type InferredToolbarModifier<AllToolbarEdges> and conformance InferredToolbarModifier<A>)
   {
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for InferredToolbarModifier<AllToolbarEdges>, &type metadata for AllToolbarEdges, &protocol witness table for AllToolbarEdges, type metadata accessor for InferredToolbarModifier);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("%", v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type InferredToolbarModifier<AllToolbarEdges> and conformance InferredToolbarModifier<A>);
   }
 
   return result;
 }
 
-uint64_t type metadata completion function for InferredToolbarModifier()
+uint64_t type metadata completion function for InferredToolbarModifier(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -6535,9 +7740,11 @@ uint64_t *initializeBufferWithCopyOfBuffer for InferredToolbarModifier(uint64_t 
   return v3;
 }
 
-uint64_t destroy for InferredToolbarModifier(uint64_t a1, uint64_t a2)
+double destroy for InferredToolbarModifier(uint64_t a1, uint64_t a2)
 {
   (*(*(*(a2 + 16) - 8) + 8))();
+
+  return result;
 }
 
 uint64_t initializeWithCopy for InferredToolbarModifier(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6581,21 +7788,21 @@ uint64_t assignWithTake for InferredToolbarModifier(uint64_t a1, uint64_t a2, ui
   return a1;
 }
 
-void type metadata accessor for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>()
+void type metadata accessor for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>)
   {
     type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>(255);
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for _TraitWritingModifier<TransitionTraitKey>, MEMORY[0x1E697F528], MEMORY[0x1E697F518], MEMORY[0x1E697FDB8]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>);
     }
   }
 }
 
-void type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t), void (*a4)(void))
+void type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(void))
 {
   if (!*a2)
   {
@@ -6609,82 +7816,82 @@ void type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<ModifiedCo
   }
 }
 
-void type metadata accessor for _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>()
+void type metadata accessor for _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>)
   {
-    type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>();
+    type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>(255);
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for ModifiedContent<EmptyView, _FrameLayout>, MEMORY[0x1E6981E70], MEMORY[0x1E697E048], MEMORY[0x1E697E830]);
-    v0 = type metadata accessor for _ConditionalContent();
-    if (!v1)
+    v1 = type metadata accessor for _ConditionalContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>);
     }
   }
 }
 
-void type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>()
+void type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>)
   {
     type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>(255);
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>);
-    v0 = type metadata accessor for VStack();
-    if (!v1)
+    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>, MEMORY[0x1E6981F48]);
+    v1 = type metadata accessor for VStack();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>);
+      atomic_store(v1, &lazy cache variable for type metadata for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?()
+void type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<Divider, _OpacityEffect>?)
   {
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for ModifiedContent<Divider, _OpacityEffect>, &type metadata for Divider, MEMORY[0x1E697E5C8], MEMORY[0x1E697E830]);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<Divider, _OpacityEffect>?);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<Divider, _OpacityEffect>?);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>)
   {
     type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, type metadata accessor for ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>);
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for _BackgroundStyleModifier<AnyShapeStyle>, MEMORY[0x1E697E0B8], MEMORY[0x1E697E0A8], MEMORY[0x1E6980460]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>);
     }
   }
 }
 
-void type metadata accessor for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>()
+void type metadata accessor for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>)
   {
     type metadata accessor for TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>(255);
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>);
-    v0 = type metadata accessor for HStack();
-    if (!v1)
+    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>, MEMORY[0x1E6981F48]);
+    v1 = type metadata accessor for HStack();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>);
+      atomic_store(v1, &lazy cache variable for type metadata for HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>);
     }
   }
 }
 
-void type metadata accessor for (ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)()
+void type metadata accessor for (ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>))
   {
     type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>(255, &lazy cache variable for type metadata for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for [ToolbarStorage.Entry], lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A]);
     TupleTypeMetadata = swift_getTupleTypeMetadata();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata, &lazy cache variable for type metadata for (ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>));
     }
@@ -6696,10 +7903,13 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<VSta
   result = lazy protocol witness table cache variable for type _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>> and conformance <> _ConditionalContent<A, B>)
   {
-    type metadata accessor for _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>();
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>> and conformance VStack<A>, type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>);
-    lazy protocol witness table accessor for type ModifiedContent<EmptyView, _FrameLayout> and conformance <> ModifiedContent<A, B>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>> and conformance VStack<A>, type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, MEMORY[0x1E6981870]);
+    v5[1] = lazy protocol witness table accessor for type ModifiedContent<EmptyView, _FrameLayout> and conformance <> ModifiedContent<A, B>();
+    result = swift_getWitnessTable(MEMORY[0x1E697F968], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>> and conformance <> _ConditionalContent<A, B>);
   }
 
@@ -6711,8 +7921,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<EmptyVie
   result = lazy protocol witness table cache variable for type ModifiedContent<EmptyView, _FrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<EmptyView, _FrameLayout> and conformance <> ModifiedContent<A, B>)
   {
+    v4[2] = v0;
+    v4[3] = v1;
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for ModifiedContent<EmptyView, _FrameLayout>, MEMORY[0x1E6981E70], MEMORY[0x1E697E048], MEMORY[0x1E697E830]);
-    result = swift_getWitnessTable();
+    v4[0] = MEMORY[0x1E6981E60];
+    v4[1] = MEMORY[0x1E697E040];
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v3, v4);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<EmptyView, _FrameLayout> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -6724,10 +7938,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>, type metadata accessor for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>);
-    lazy protocol witness table accessor for type ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>();
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>();
+    v5[1] = lazy protocol witness table accessor for type StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -6739,17 +7956,20 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_UnaryVi
   result = lazy protocol witness table cache variable for type ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>();
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>> and conformance _UnaryViewAdaptor<A>, type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>);
-    lazy protocol witness table accessor for type _TraitWritingModifier<TransitionTraitKey> and conformance _TraitWritingModifier<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>> and conformance _UnaryViewAdaptor<A>, type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, MEMORY[0x1E697F380]);
+    v5[1] = lazy protocol witness table accessor for type _TraitWritingModifier<TransitionTraitKey> and conformance _TraitWritingModifier<A>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>);
   }
 
   return result;
 }
 
-void type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(uint64_t a1, unint64_t *a2, unint64_t *a3, void (*a4)(uint64_t), void (*a5)(void))
+void type metadata accessor for _InsetViewModifier<ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>>(uint64_t a1, unint64_t *a2, unint64_t *a3, void (*a4)(uint64_t), uint64_t (*a5)(void))
 {
   if (!*a2)
   {
@@ -6768,7 +7988,7 @@ void type metadata accessor for ModifiedContent<ModifiedContent<_UnaryViewAdapto
   if (!*a2)
   {
     a3(255);
-    type metadata accessor for StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>();
+    type metadata accessor for StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>(255);
     v4 = type metadata accessor for ModifiedContent();
     if (!v5)
     {
@@ -6777,53 +7997,53 @@ void type metadata accessor for ModifiedContent<ModifiedContent<_UnaryViewAdapto
   }
 }
 
-void type metadata accessor for _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>()
+void type metadata accessor for _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>)
   {
-    type metadata accessor for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>();
+    type metadata accessor for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>(255);
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for ModifiedContent<EmptyView, _FrameLayout>, MEMORY[0x1E6981E70], MEMORY[0x1E697E048], MEMORY[0x1E697E830]);
-    v0 = type metadata accessor for _ConditionalContent();
-    if (!v1)
+    v1 = type metadata accessor for _ConditionalContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>()
+void type metadata accessor for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>)
   {
-    type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>();
+    type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>(255);
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for _TraitWritingModifier<TransitionTraitKey>, MEMORY[0x1E697F528], MEMORY[0x1E697F518], MEMORY[0x1E697FDB8]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>);
     }
   }
 }
 
-void type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>()
+void type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>)
   {
     type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>(255);
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>);
-    v0 = type metadata accessor for VStack();
-    if (!v1)
+    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>, MEMORY[0x1E6981F48]);
+    v1 = type metadata accessor for VStack();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>);
+      atomic_store(v1, &lazy cache variable for type metadata for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>);
     }
   }
 }
 
-void type metadata accessor for (ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata accessor for (ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
-    type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?();
+    type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?(255);
     a3(255);
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
     if (!v6)
@@ -6833,16 +8053,16 @@ void type metadata accessor for (ModifiedContent<Divider, _OpacityEffect>?, Modi
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>)
   {
     type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>);
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for _BackgroundStyleModifier<AnyShapeStyle>, MEMORY[0x1E697E0B8], MEMORY[0x1E697E0A8], MEMORY[0x1E6980460]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>);
     }
   }
 }
@@ -6860,35 +8080,35 @@ void type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView
   }
 }
 
-void type metadata accessor for HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>()
+void type metadata accessor for HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>)
   {
     type metadata accessor for TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>(255);
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>);
-    v0 = type metadata accessor for HStack();
-    if (!v1)
+    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>, MEMORY[0x1E6981F48]);
+    v1 = type metadata accessor for HStack();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>);
+      atomic_store(v1, &lazy cache variable for type metadata for HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>);
     }
   }
 }
 
-void type metadata accessor for (ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)()
+void type metadata accessor for (ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>))
   {
     type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>(255, &lazy cache variable for type metadata for ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for ArraySlice<ToolbarStorage.Entry>, lazy protocol witness table accessor for type ArraySlice<ToolbarStorage.Entry> and conformance ArraySlice<A>);
     type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>(255, &lazy cache variable for type metadata for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, type metadata accessor for TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>, MEMORY[0x1E69E6720]);
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>));
     }
   }
 }
 
-void type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t), void (*a4)(void))
+void type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(void))
 {
   if (!*a2)
   {
@@ -6916,13 +8136,13 @@ void type metadata accessor for TupleView<(ModifiedContent<Divider, _OpacityEffe
   }
 }
 
-void type metadata accessor for (Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)()
+void type metadata accessor for (Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer))
   {
     type metadata accessor for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>(255, &lazy cache variable for type metadata for ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, type metadata accessor for [ToolbarStorage.Entry], lazy protocol witness table accessor for type [ToolbarStorage.Entry] and conformance [A]);
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer));
     }
@@ -6934,10 +8154,13 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Modi
   result = lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>> and conformance <> _ConditionalContent<A, B>)
   {
-    type metadata accessor for _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>();
-    lazy protocol witness table accessor for type ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type ModifiedContent<EmptyView, _FrameLayout> and conformance <> ModifiedContent<A, B>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>();
+    v5[1] = lazy protocol witness table accessor for type ModifiedContent<EmptyView, _FrameLayout> and conformance <> ModifiedContent<A, B>();
+    result = swift_getWitnessTable(MEMORY[0x1E697F968], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>> and conformance <> _ConditionalContent<A, B>);
   }
 
@@ -6949,10 +8172,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>();
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>> and conformance VStack<A>, type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>);
-    lazy protocol witness table accessor for type _TraitWritingModifier<TransitionTraitKey> and conformance _TraitWritingModifier<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>> and conformance VStack<A>, type metadata accessor for VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, MEMORY[0x1E6981870]);
+    v5[1] = lazy protocol witness table accessor for type _TraitWritingModifier<TransitionTraitKey> and conformance _TraitWritingModifier<A>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -6964,10 +8190,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_UnaryVi
   result = lazy protocol witness table cache variable for type ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for ModifiedContent<ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, ModifiedContent<EmptyView, _FrameLayout>>>, _TraitWritingModifier<TransitionTraitKey>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>(255, &lazy cache variable for type metadata for ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>>, type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>);
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>> and conformance _UnaryViewAdaptor<A>, type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>);
-    lazy protocol witness table accessor for type StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>();
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type _UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>> and conformance _UnaryViewAdaptor<A>, type metadata accessor for _UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, MEMORY[0x1E697F380]);
+    v5[1] = lazy protocol witness table accessor for type StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_UnaryViewAdaptor<_ConditionalContent<ModifiedContent<VStack<TupleView<(ModifiedContent<Divider, _OpacityEffect>?, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>, _FrameLayout>, _PaddingLayout>, _BackgroundStyleModifier<AnyShapeStyle>>, ModifiedContent<Divider, _OpacityEffect>?)>>, _TraitWritingModifier<TransitionTraitKey>>, ModifiedContent<EmptyView, _FrameLayout>>>, StaticIf<BothFeatures<_SemanticFeature<Semantics_v4>, InferredToolbarUserDefaultFeature>, ToolbarScopeModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -6979,16 +8208,16 @@ unint64_t lazy protocol witness table accessor for type EnableInferredToolbar an
   result = lazy protocol witness table cache variable for type EnableInferredToolbar and conformance EnableInferredToolbar;
   if (!lazy protocol witness table cache variable for type EnableInferredToolbar and conformance EnableInferredToolbar)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for EnableInferredToolbar, &type metadata for EnableInferredToolbar, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type EnableInferredToolbar and conformance EnableInferredToolbar);
   }
 
   return result;
 }
 
-uint64_t partial apply for closure #1 in closure #1 in InferredToolbarModifier.body(content:)(uint64_t a1)
+uint64_t partial apply for closure #1 in closure #1 in InferredToolbarModifier.body(content:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for InferredToolbarModifier();
+  type metadata accessor for InferredToolbarModifier(0, *(v4 + 16), *(v4 + 24), a4);
 
   return closure #1 in closure #1 in InferredToolbarModifier.body(content:)(a1);
 }
@@ -6998,22 +8227,26 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<HStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout>(255);
-    lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>, type metadata accessor for HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>);
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>, type metadata accessor for HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, MEMORY[0x1E69817F8]);
+    v5[1] = MEMORY[0x1E697EBF8];
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>, TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?, ForEach<ArraySlice<ToolbarStorage.Entry>, ToolbarStorage.Entry.ID, BarItemView>)>>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type HStack<TupleView<(ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>)>> and conformance HStack<A>(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
@@ -7025,20 +8258,20 @@ unint64_t lazy protocol witness table accessor for type MoveTransition and confo
   result = lazy protocol witness table cache variable for type MoveTransition and conformance MoveTransition;
   if (!lazy protocol witness table cache variable for type MoveTransition and conformance MoveTransition)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697E408], MEMORY[0x1E697E418], v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type MoveTransition and conformance MoveTransition);
   }
 
   return result;
 }
 
-uint64_t specialized InferredToolbarModifier.backgroundStyle(in:toolbar:opacity:)(uint64_t a1)
+uint64_t specialized InferredToolbarModifier.backgroundStyle(in:toolbar:opacity:)(uint64_t a1, __int128 *a2, double a3)
 {
-  ToolbarProxy_V1.appearance(in:)(a1, v3);
-  v1 = v4;
+  ToolbarProxy_V1.appearance(in:)(a1, v5);
+  v3 = v6;
 
-  outlined destroy of ToolbarAppearanceConfiguration(v3);
-  if (v1)
+  outlined destroy of ToolbarAppearanceConfiguration(v5);
+  if (v3)
   {
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(0, &lazy cache variable for type metadata for _OpacityShapeStyle<AnyShapeStyle>, MEMORY[0x1E697E0B8], MEMORY[0x1E697E0A8], MEMORY[0x1E697F5B0]);
     lazy protocol witness table accessor for type _OpacityShapeStyle<AnyShapeStyle> and conformance _OpacityShapeStyle<A>();
@@ -7060,7 +8293,7 @@ unint64_t lazy protocol witness table accessor for type _BackgroundStyleModifier
   if (!lazy protocol witness table cache variable for type _BackgroundStyleModifier<AnyShapeStyle> and conformance _BackgroundStyleModifier<A>)
   {
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for _BackgroundStyleModifier<AnyShapeStyle>, MEMORY[0x1E697E0B8], MEMORY[0x1E697E0A8], MEMORY[0x1E6980460]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6980468], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _BackgroundStyleModifier<AnyShapeStyle> and conformance _BackgroundStyleModifier<A>);
   }
 
@@ -7072,9 +8305,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Divider,
   result = lazy protocol witness table cache variable for type ModifiedContent<Divider, _OpacityEffect>? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Divider, _OpacityEffect>? and conformance <A> A?)
   {
-    type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?();
-    lazy protocol witness table accessor for type ModifiedContent<Divider, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
-    result = swift_getWitnessTable();
+    v5[3] = v0;
+    v5[4] = v1;
+    type metadata accessor for ModifiedContent<Divider, _OpacityEffect>?(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<Divider, _OpacityEffect> and conformance <> ModifiedContent<A, B>();
+    result = swift_getWitnessTable(MEMORY[0x1E6982090], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Divider, _OpacityEffect>? and conformance <A> A?);
   }
 
@@ -7086,8 +8322,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Divider,
   result = lazy protocol witness table cache variable for type ModifiedContent<Divider, _OpacityEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Divider, _OpacityEffect> and conformance <> ModifiedContent<A, B>)
   {
+    v4[2] = v0;
+    v4[3] = v1;
     type metadata accessor for InferredToolbarModifier<AllToolbarEdges>(255, &lazy cache variable for type metadata for ModifiedContent<Divider, _OpacityEffect>, &type metadata for Divider, MEMORY[0x1E697E5C8], MEMORY[0x1E697E830]);
-    result = swift_getWitnessTable();
+    v4[0] = &protocol witness table for Divider;
+    v4[1] = MEMORY[0x1E697E5C0];
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v3, v4);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Divider, _OpacityEffect> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -7136,7 +8376,7 @@ uint64_t outlined init with copy of ToolbarStorage.Entry.ID?(uint64_t a1, uint64
 
 uint64_t outlined destroy of TupleView<(Spacer, ForEach<[ToolbarStorage.Entry], ToolbarStorage.Entry.ID, BarItemView>, Spacer)>?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v6 = a5(0);
+  v6 = (a5)(0, a2, a3, a4);
   (*(*(v6 - 8) + 8))(a1, v6);
   return a1;
 }
@@ -7145,10 +8385,10 @@ uint64_t objectdestroy_6Tm_0()
 {
   if (*(v0 + 48))
   {
-    __swift_destroy_boxed_opaque_existential_1(v0 + 24);
+    __swift_destroy_boxed_opaque_existential_1((v0 + 24));
     if (*(v0 + 104) == 1)
     {
-      __swift_destroy_boxed_opaque_existential_1(v0 + 64);
+      __swift_destroy_boxed_opaque_existential_1((v0 + 64));
     }
   }
 
@@ -7365,7 +8605,7 @@ uint64_t static BackgroundTaskProtocol<>.runTasks(identifier:)(uint64_t a1, uint
   return static BackgroundTaskProtocol.runTasks(_:identifier:)(a1, v9, a2, a3, a4);
 }
 
-uint64_t _sScG7addTask8priority9operationyScPSg_xyYaYAcntF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double _sScG7addTask8priority9operationyScPSg_xyYaYAcntF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = v4;
   type metadata accessor for TaskPriority?(0);
@@ -7421,6 +8661,8 @@ LABEL_6:
   v22[2] = v20;
   v22[3] = v18;
   swift_task_create();
+
+  return result;
 }
 
 uint64_t static BackgroundTaskProtocol<>.runTasks(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7522,7 +8764,7 @@ void static BackgroundTask.urlSession.getter(uint64_t (**a1)()@<X8>)
   a1[1] = 0;
 }
 
-uint64_t static BackgroundTask.urlSession(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (**a3)(uint64_t a1, uint64_t a2)@<X8>)
+double static BackgroundTask.urlSession(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (**a3)(uint64_t a1, uint64_t a2)@<X8>)
 {
   v6 = swift_allocObject();
   *(v6 + 16) = a1;
@@ -7531,103 +8773,106 @@ uint64_t static BackgroundTask.urlSession(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2
   a3[4] = &protocol witness table for URLSessionBackgroundTask;
   *a3 = partial apply for closure #1 in URLSessionBackgroundTask.init(identifier:);
   a3[1] = v6;
+
+  return result;
 }
 
-uint64_t static BackgroundTask.urlSession(matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+double static BackgroundTask.urlSession(matching:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   a3[3] = &type metadata for UnidentifiedURLSessionBackgroundTask;
   a3[4] = &protocol witness table for UnidentifiedURLSessionBackgroundTask;
   *a3 = a1;
   a3[1] = a2;
+
+  return result;
 }
 
-uint64_t static BackgroundTask.appRefresh(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+double static BackgroundTask.appRefresh(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   a3[3] = &type metadata for AppRefreshBackgroundTask;
   a3[4] = &protocol witness table for AppRefreshBackgroundTask;
   *a3 = a1;
   a3[1] = a2;
+
+  return result;
 }
 
-uint64_t Scene.backgroundTask<A, B>(_:action:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void (*a8)(_BYTE *, uint64_t, uint64_t, uint64_t))
+uint64_t Scene.backgroundTask<A, B>(_:action:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void (*a8)(_BYTE *, uint64_t, uint64_t, uint64_t, __n128))
 {
-  v14 = type metadata accessor for BackgroundTask();
-  (*(*(v14 - 8) + 16))(v17, a1, v14);
-  v18 = a2;
-  v19 = a3;
-  v15 = type metadata accessor for BackgroundTaskModifier();
+  v16 = type metadata accessor for BackgroundTask(0, a5, a6, a4);
+  (*(*(v16 - 8) + 16))(v20, a1, v16);
+  v21 = a2;
+  v22 = a3;
+  v18 = type metadata accessor for BackgroundTaskModifier(0, a5, a6, v17);
 
-  a8(v17, a4, v15, a7);
-  return (*(*(v15 - 8) + 8))(v17, v15);
+  (a8)(v20, a4, v18, a7);
+  return (*(*(v18 - 8) + 8))(v20, v18);
 }
 
 uint64_t static BackgroundTaskProtocol.currentTasks()(uint64_t a1, uint64_t a2)
 {
-  v12[6] = a1;
-  v12[7] = a2;
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedTypeWitness();
-  type metadata accessor for TaskActionsContainer();
+  v18[6] = a1;
+  v18[7] = a2;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v5 = swift_getAssociatedTypeWitness();
+  type metadata accessor for TaskActionsContainer(0, AssociatedTypeWitness, v5, v6);
   static Update.ensure<A>(_:)();
-  v13[0] = (*(a2 + 40))(a1, a2);
-  v13[1] = v4;
-  type metadata accessor for TaskActionsContainer.ContainerEntry();
-  v5 = type metadata accessor for Array();
-  MEMORY[0x18D00C560](v14, v13, v14[2], MEMORY[0x1E69E6158], v5, MEMORY[0x1E69E6168]);
+  v19[0] = (*(a2 + 40))(a1, a2);
+  v19[1] = v7;
+  type metadata accessor for TaskActionsContainer.ContainerEntry(255, AssociatedTypeWitness, v5, v8);
+  v9 = type metadata accessor for Array();
+  MEMORY[0x18D00C560](v20, v19, v20[2], MEMORY[0x1E69E6158], v9, MEMORY[0x1E69E6168]);
 
-  if (v14[0])
+  if (v20[0])
   {
-    v13[0] = v14[0];
-    MEMORY[0x1EEE9AC00](v6);
-    v12[2] = a1;
-    v12[3] = a2;
-    v7 = type metadata accessor for BackgroundTaskEntry();
-    WitnessTable = swift_getWitnessTable();
-    v10 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #2 in static BackgroundTaskProtocol.currentTasks(), v12, v5, v7, MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v9);
+    v19[0] = v20[0];
+    MEMORY[0x1EEE9AC00](v10);
+    v18[2] = a1;
+    v18[3] = a2;
+    v13 = type metadata accessor for BackgroundTaskEntry(0, a1, a2, v12);
+    WitnessTable = swift_getWitnessTable(MEMORY[0x1E69E6340], v9);
+    v16 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #2 in static BackgroundTaskProtocol.currentTasks(), v18, v9, v13, MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v15);
 
-    return v10;
+    return v16;
   }
 
   else
   {
-    type metadata accessor for BackgroundTaskEntry();
+    type metadata accessor for BackgroundTaskEntry(0, a1, a2, v11);
     return static Array._allocateUninitialized(_:)();
   }
 }
 
-uint64_t closure #1 in static BackgroundTaskProtocol.currentTasks()@<X0>(uint64_t *a1@<X8>)
+void closure #1 in static BackgroundTaskProtocol.currentTasks()(unint64_t *a3@<X8>)
 {
   if (static AppGraph.shared)
   {
-    swift_getAssociatedTypeWitness();
-    swift_getAssociatedTypeWitness();
-    type metadata accessor for TaskActionsContainer.Key();
+    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+    v5 = swift_getAssociatedTypeWitness();
+    v7 = type metadata accessor for TaskActionsContainer.Key(0, AssociatedTypeWitness, v5, v6);
 
-    swift_getWitnessTable();
+    swift_getWitnessTable(protocol conformance descriptor for TaskActionsContainer<A, B>.Key, v7);
     GraphHost.preferenceValue<A>(_:)();
   }
 
   else
   {
-    swift_getAssociatedTypeWitness();
-    swift_getAssociatedTypeWitness();
-    result = TaskActionsContainer.init()();
-    *a1 = result;
+    v8 = swift_getAssociatedTypeWitness();
+    v9 = swift_getAssociatedTypeWitness();
+    *a3 = TaskActionsContainer.init()(v8, v9, v10, v11);
   }
-
-  return result;
 }
 
-uint64_t TaskActionsContainer.init()()
+unint64_t TaskActionsContainer.init()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for TaskActionsContainer.ContainerEntry();
-  v0 = type metadata accessor for Array();
-  v1 = MEMORY[0x1E69E6158];
+  type metadata accessor for TaskActionsContainer.ContainerEntry(255, a1, a2, a4);
+  v4 = type metadata accessor for Array();
+  v5 = MEMORY[0x1E69E6158];
   swift_getTupleTypeMetadata2();
-  v2 = static Array._allocateUninitialized(_:)();
-  v3 = specialized Dictionary.init(dictionaryLiteral:)(v2, v1, v0, MEMORY[0x1E69E6168]);
+  v6 = static Array._allocateUninitialized(_:)();
+  v7 = specialized Dictionary.init(dictionaryLiteral:)(v6, v5, v4, MEMORY[0x1E69E6168]);
 
-  return v3;
+  return v7;
 }
 
 uint64_t static BackgroundTaskProtocol.runTasks(_:identifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -7658,7 +8903,7 @@ uint64_t static BackgroundTaskProtocol.runTasks(_:identifier:)()
   v7 = v0[4];
   v8 = v0[2];
 
-  return (partial apply for closure #1 in static BackgroundTaskProtocol.runTasks(actions:))(v8, v6, v7);
+  return partial apply for closure #1 in static BackgroundTaskProtocol.runTasks(actions:)(v8, v6, v7);
 }
 
 {
@@ -7825,21 +9070,21 @@ uint64_t closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol
   v7[4] = a1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v7[11] = AssociatedTypeWitness;
-  v9 = *(AssociatedTypeWitness - 8);
-  v7[12] = v9;
-  v7[13] = *(v9 + 64);
+  v11 = *(AssociatedTypeWitness - 8);
+  v7[12] = v11;
+  v7[13] = *(v11 + 64);
   v7[14] = swift_task_alloc();
   type metadata accessor for TaskPriority?(0);
   v7[15] = swift_task_alloc();
-  v10 = swift_getAssociatedTypeWitness();
-  v7[16] = v10;
-  v7[17] = *(v10 - 8);
+  v12 = swift_getAssociatedTypeWitness();
+  v7[16] = v12;
+  v7[17] = *(v12 - 8);
   v7[18] = swift_task_alloc();
-  v11 = type metadata accessor for BackgroundTaskEntry();
-  v7[19] = v11;
-  v12 = *(v11 - 8);
-  v7[20] = v12;
-  v7[21] = *(v12 + 64);
+  v14 = type metadata accessor for BackgroundTaskEntry(0, a6, a7, v13);
+  v7[19] = v14;
+  v15 = *(v14 - 8);
+  v7[20] = v15;
+  v7[21] = *(v15 + 64);
   v7[22] = swift_task_alloc();
   v7[23] = swift_task_alloc();
   v7[24] = swift_task_alloc();
@@ -7959,7 +9204,7 @@ LABEL_11:
   v34 = swift_task_alloc();
   *(v0 + 216) = v34;
   v35 = type metadata accessor for TaskGroup();
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E69E85A0], v35);
   *v34 = v0;
   v34[1] = closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:);
   v22 = *(v0 + 144);
@@ -8001,21 +9246,22 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in static Backgrou
   return MEMORY[0x1EEE6DFA0](closure #1 in closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:), 0, 0);
 }
 
-uint64_t closure #1 in closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:)()
+uint64_t closure #1 in closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = v0[3];
-  v2 = (v1 + *(type metadata accessor for BackgroundTaskEntry() + 36));
-  v7 = (*v2 + **v2);
-  v3 = swift_task_alloc();
-  v0[7] = v3;
-  *v3 = v0;
-  v3[1] = closure #1 in closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:);
-  v4 = v0[4];
-  v5 = v0[2];
+  v5 = v4[3];
+  v6 = (v5 + *(type metadata accessor for BackgroundTaskEntry(0, v4[5], v4[6], a4) + 36));
+  v11 = (*v6 + **v6);
+  v7 = swift_task_alloc();
+  v4[7] = v7;
+  *v7 = v4;
+  v7[1] = closure #1 in closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:);
+  v8 = v4[4];
+  v9 = v4[2];
 
-  return v7(v5, v4);
+  return v11(v9, v8);
 }
 
+uint64_t closure #1 in closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:)()
 {
   v3 = *v0;
 
@@ -8032,144 +9278,144 @@ uint64_t thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed A.Back
   return v5();
 }
 
-void *static BackgroundTaskProtocol.runTasks(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  return static BackgroundTaskProtocol.runTasks(from:)(a1, a2, a3);
-}
-
-{
-  v5 = static BackgroundTaskProtocol.currentTasks(in:)();
-  v6 = swift_allocObject();
-  v6[2] = a2;
-  v6[3] = a3;
-  v6[4] = v5;
-  return &async function pointer to partial apply for closure #1 in static BackgroundTaskProtocol.runTasks(actions:);
-}
-
 uint64_t closure #1 in static BackgroundTaskProtocol.currentTasks(in:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
 {
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedTypeWitness();
-  type metadata accessor for TaskActionsContainer.Key();
-  swift_getWitnessTable();
-  WidgetBundleHost.readPreference<A>(_:)();
-  v15[0] = (*(a2 + 40))(a1, a2);
-  v15[1] = v6;
-  type metadata accessor for TaskActionsContainer.ContainerEntry();
-  v7 = type metadata accessor for Array();
-  MEMORY[0x18D00C560](v16, v15, v16[2], MEMORY[0x1E69E6158], v7, MEMORY[0x1E69E6168]);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v7 = swift_getAssociatedTypeWitness();
+  v9 = type metadata accessor for TaskActionsContainer.Key(0, AssociatedTypeWitness, v7, v8);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for TaskActionsContainer<A, B>.Key, v9);
+  WidgetBundleHost.readPreference<A>(_:)(v9, v9, WitnessTable);
+  v23[0] = (*(a2 + 40))(a1, a2);
+  v23[1] = v11;
+  type metadata accessor for TaskActionsContainer.ContainerEntry(255, AssociatedTypeWitness, v7, v12);
+  v13 = type metadata accessor for Array();
+  MEMORY[0x18D00C560](v24, v23, v24[2], MEMORY[0x1E69E6158], v13, MEMORY[0x1E69E6168]);
 
-  if (v16[0])
+  if (v24[0])
   {
-    v15[0] = v16[0];
-    MEMORY[0x1EEE9AC00](v8);
-    v14[2] = a1;
-    v14[3] = a2;
-    v9 = type metadata accessor for BackgroundTaskEntry();
-    WitnessTable = swift_getWitnessTable();
-    v12 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in closure #1 in static BackgroundTaskProtocol.currentTasks(in:), v14, v7, v9, MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v11);
+    v23[0] = v24[0];
+    MEMORY[0x1EEE9AC00](v14);
+    v22[2] = a1;
+    v22[3] = a2;
+    v17 = type metadata accessor for BackgroundTaskEntry(0, a1, a2, v16);
+    v18 = swift_getWitnessTable(MEMORY[0x1E69E6340], v13);
+    v20 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in closure #1 in static BackgroundTaskProtocol.currentTasks(in:), v22, v13, v17, MEMORY[0x1E69E73E0], v18, MEMORY[0x1E69E7410], v19);
   }
 
   else
   {
-    type metadata accessor for BackgroundTaskEntry();
+    type metadata accessor for BackgroundTaskEntry(0, a1, a2, v15);
     result = static Array._allocateUninitialized(_:)();
-    v12 = result;
+    v20 = result;
   }
 
-  *a3 = v12;
+  *a3 = v20;
   return result;
 }
 
-uint64_t closure #2 in static BackgroundTaskProtocol.currentTasks()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double closure #2 in static BackgroundTaskProtocol.currentTasks()@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v6 = *(a2 - 8);
+  v8 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedTypeWitness();
-  v9 = type metadata accessor for BackgroundTask();
-  (*(*(v9 - 8) + 16))(v14, a1, v9);
-  outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v14, v15);
+  v10 = v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v12 = swift_getAssociatedTypeWitness();
+  v14 = type metadata accessor for BackgroundTask(0, AssociatedTypeWitness, v12, v13);
+  (*(*(v14 - 8) + 16))(v20, a1, v14);
+  outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v20, v21);
   type metadata accessor for BackgroundTaskProtocol();
   swift_dynamicCast();
-  v11 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  (*(v6 + 32))(a3, v8, a2);
-  v12 = (a3 + *(type metadata accessor for BackgroundTaskEntry() + 36));
-  *v12 = v11;
-  v12[1] = v10;
+  v16 = *(a1 + 40);
+  v15 = *(a1 + 48);
+  (*(v8 + 32))(a4, v10, a2);
+  v18 = (a4 + *(type metadata accessor for BackgroundTaskEntry(0, a2, a3, v17) + 36));
+  *v18 = v16;
+  v18[1] = v15;
+
+  return result;
 }
 
-uint64_t static BackgroundTaskProtocol.currentTasks(in:)()
+void *static BackgroundTaskProtocol.runTasks(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for BackgroundTaskEntry();
+  v6 = static BackgroundTaskProtocol.currentTasks(in:)(a1, a2, a3, a4);
+  v7 = swift_allocObject();
+  v7[2] = a2;
+  v7[3] = a3;
+  v7[4] = v6;
+  return &async function pointer to partial apply for closure #1 in static BackgroundTaskProtocol.runTasks(actions:);
+}
+
+uint64_t static BackgroundTaskProtocol.currentTasks(in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for BackgroundTaskEntry(255, a2, a3, a4);
   type metadata accessor for Array();
   static Update.ensure<A>(_:)();
-  return v1;
+  return v5;
 }
 
 uint64_t closure #1 in static BackgroundTaskProtocol.currentTasks<A>(in:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v7 = *a1;
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedTypeWitness();
-  type metadata accessor for TaskActionsContainer.Key();
-  swift_getWitnessTable();
-  WidgetHost.readPreference<A>(_:)();
-  v20[0] = (*(a3 + 40))(a2, a3);
-  v20[1] = v8;
-  type metadata accessor for TaskActionsContainer.ContainerEntry();
-  v9 = type metadata accessor for Array();
-  MEMORY[0x18D00C560](v21, v20, v21[2], MEMORY[0x1E69E6158], v9, MEMORY[0x1E69E6168]);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v9 = swift_getAssociatedTypeWitness();
+  v11 = type metadata accessor for TaskActionsContainer.Key(0, AssociatedTypeWitness, v9, v10);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for TaskActionsContainer<A, B>.Key, v11);
+  WidgetHost.readPreference<A>(_:)(v11, v11, WitnessTable);
+  v28[0] = (*(a3 + 40))(a2, a3);
+  v28[1] = v13;
+  type metadata accessor for TaskActionsContainer.ContainerEntry(255, AssociatedTypeWitness, v9, v14);
+  v15 = type metadata accessor for Array();
+  MEMORY[0x18D00C560](v29, v28, v29[2], MEMORY[0x1E69E6158], v15, MEMORY[0x1E69E6168]);
 
-  if (v21[0])
+  if (v29[0])
   {
-    v19 = a4;
-    v20[0] = v21[0];
-    MEMORY[0x1EEE9AC00](v10);
-    v11 = *(v7 + 80);
-    v12 = *(v7 + 88);
-    v18[2] = a2;
-    v18[3] = v11;
-    v18[4] = a3;
-    v18[5] = v12;
-    v13 = type metadata accessor for BackgroundTaskEntry();
-    WitnessTable = swift_getWitnessTable();
-    v16 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in closure #1 in static BackgroundTaskProtocol.currentTasks<A>(in:), v18, v9, v13, MEMORY[0x1E69E73E0], WitnessTable, MEMORY[0x1E69E7410], v15);
+    v27 = a4;
+    v28[0] = v29[0];
+    MEMORY[0x1EEE9AC00](v16);
+    v18 = *(v7 + 80);
+    v19 = *(v7 + 88);
+    v26[2] = a2;
+    v26[3] = v18;
+    v26[4] = a3;
+    v26[5] = v19;
+    v21 = type metadata accessor for BackgroundTaskEntry(0, a2, a3, v20);
+    v22 = swift_getWitnessTable(MEMORY[0x1E69E6340], v15);
+    v24 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in closure #1 in static BackgroundTaskProtocol.currentTasks<A>(in:), v26, v15, v21, MEMORY[0x1E69E73E0], v22, MEMORY[0x1E69E7410], v23);
 
-    a4 = v19;
+    a4 = v27;
   }
 
   else
   {
-    type metadata accessor for BackgroundTaskEntry();
+    type metadata accessor for BackgroundTaskEntry(0, a2, a3, v17);
     result = static Array._allocateUninitialized(_:)();
-    v16 = result;
+    v24 = result;
   }
 
-  *a4 = v16;
+  *a4 = v24;
   return result;
 }
 
-uint64_t closure #1 in closure #1 in static BackgroundTaskProtocol.currentTasks<A>(in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double closure #1 in closure #1 in static BackgroundTaskProtocol.currentTasks<A>(in:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
-  v6 = *(a2 - 8);
+  v8 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedTypeWitness();
-  v9 = type metadata accessor for BackgroundTask();
-  (*(*(v9 - 8) + 16))(v14, a1, v9);
-  outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v14, v15);
+  v10 = v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v12 = swift_getAssociatedTypeWitness();
+  v14 = type metadata accessor for BackgroundTask(0, AssociatedTypeWitness, v12, v13);
+  (*(*(v14 - 8) + 16))(v20, a1, v14);
+  outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v20, v21);
   type metadata accessor for BackgroundTaskProtocol();
   swift_dynamicCast();
-  v11 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  (*(v6 + 32))(a3, v8, a2);
-  v12 = (a3 + *(type metadata accessor for BackgroundTaskEntry() + 36));
-  *v12 = v11;
-  v12[1] = v10;
+  v16 = *(a1 + 40);
+  v15 = *(a1 + 48);
+  (*(v8 + 32))(a4, v10, a2);
+  v18 = (a4 + *(type metadata accessor for BackgroundTaskEntry(0, a2, a3, v17) + 36));
+  *v18 = v16;
+  v18[1] = v15;
+
+  return result;
 }
 
 uint64_t partial apply for closure #1 in URLSessionBackgroundTask.init(identifier:)(uint64_t a1, uint64_t a2)
@@ -8185,11 +9431,14 @@ uint64_t partial apply for closure #1 in URLSessionBackgroundTask.init(identifie
   }
 }
 
-uint64_t get_witness_table_7SwiftUI5SceneRzs8SendableRd__sACRd_0_r_0_lAA15ModifiedContentVyxAA22BackgroundTaskModifierVyqd__qd_0_GGAaBHpxAaBHD1__AhA01_cI0HPyHCHCTm()
+uint64_t get_witness_table_7SwiftUI5SceneRzs8SendableRd__sACRd_0_r_0_lAA15ModifiedContentVyxAA22BackgroundTaskModifierVyqd__qd_0_GGAaBHpxAaBHD1__AhA01_cI0HPyHCHCTm(uint64_t *a1, uint64_t a2, const char *a3, uint64_t a4)
 {
-  type metadata accessor for BackgroundTaskModifier();
-  type metadata accessor for ModifiedContent();
-  return swift_getWitnessTable();
+  v6 = a1[3];
+  type metadata accessor for BackgroundTaskModifier(255, a1[1], a1[2], a4);
+  v7 = type metadata accessor for ModifiedContent();
+  v9[0] = v6;
+  v9[1] = a2;
+  return swift_getWitnessTable(a3, v7, v9);
 }
 
 void protocol witness for BackgroundTaskProtocol.register() in conformance AppRefreshBackgroundTask()
@@ -8208,7 +9457,7 @@ void protocol witness for BackgroundTaskProtocol.register() in conformance AppRe
   BGTaskSchedulerWrapper.observeTask(_:)(*&v1);
 }
 
-uint64_t protocol witness for BackgroundTaskProtocol.predicate(_:) in conformance AppRefreshBackgroundTask(void *a1)
+uint64_t protocol witness for BackgroundTaskProtocol.predicate(_:) in conformance AppRefreshBackgroundTask(uint64_t *a1)
 {
   v2 = a1[1];
   if (!v2)
@@ -8227,135 +9476,136 @@ uint64_t protocol witness for BackgroundTaskProtocol.predicate(_:) in conformanc
   }
 }
 
-uint64_t static BackgroundTaskModifier.makeRegistration(modifier:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t static BackgroundTaskModifier.makeRegistration(modifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  type metadata accessor for BackgroundTaskModifier();
+  v22 = *MEMORY[0x1E69E9840];
+  type metadata accessor for BackgroundTaskModifier(255, a2, a3, a4);
   type metadata accessor for _GraphValue();
-  v13 = _GraphValue.value.getter();
-  type metadata accessor for TaskActionsContainer.Key();
-  swift_getWitnessTable();
-  v15 = type metadata accessor for _PreferenceTransformModifier();
-  v16 = type metadata accessor for BackgroundTaskModifier.Registration();
-  WitnessTable = swift_getWitnessTable();
-  v5 = type metadata accessor for Attribute();
-  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v13, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_TA_2, v14, v16, MEMORY[0x1E69E73E0], v5, MEMORY[0x1E69E7410], v6);
-  v7 = AGCreateWeakAttribute();
-  v8 = v7;
-  v9 = HIDWORD(v7);
-  LOBYTE(v13) = 17;
-  v10 = swift_allocObject();
-  *(v10 + 16) = a2;
-  *(v10 + 24) = a3;
-  *(v10 + 32) = v8;
-  *(v10 + 36) = v9;
+  v17 = _GraphValue.value.getter();
+  v7 = type metadata accessor for TaskActionsContainer.Key(255, a2, a3, v6);
+  swift_getWitnessTable(protocol conformance descriptor for TaskActionsContainer<A, B>.Key, v7);
+  v19 = type metadata accessor for _PreferenceTransformModifier();
+  v20 = type metadata accessor for BackgroundTaskModifier.Registration(0, a2, a3, v8);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for BackgroundTaskModifier<A, B>.Registration, v20);
+  v9 = type metadata accessor for Attribute();
+  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v17, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_TA_2, v18, v20, MEMORY[0x1E69E73E0], v9, MEMORY[0x1E69E7410], v10);
+  v11 = AGCreateWeakAttribute();
+  v12 = v11;
+  v13 = HIDWORD(v11);
+  LOBYTE(v17) = 17;
+  v14 = swift_allocObject();
+  *(v14 + 16) = a2;
+  *(v14 + 24) = a3;
+  *(v14 + 32) = v12;
+  *(v14 + 36) = v13;
   static Update.enqueueAction(reason:_:)();
 
-  return v12;
+  return v16;
 }
 
-uint64_t closure #1 in closure #1 in static BackgroundTaskModifier.makeRegistration(modifier:)()
+uint64_t closure #1 in closure #1 in static BackgroundTaskModifier.makeRegistration(modifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for TaskActionsContainer.Key();
-  swift_getWitnessTable();
+  v4 = type metadata accessor for TaskActionsContainer.Key(255, a2, a3, a4);
+  swift_getWitnessTable(protocol conformance descriptor for TaskActionsContainer<A, B>.Key, v4);
   type metadata accessor for _PreferenceTransformModifier();
 
   return AGGraphGetWeakValue();
 }
 
-uint64_t BackgroundTaskModifier.Registration.modifier.getter@<X0>(uint64_t a1@<X8>)
+uint64_t BackgroundTaskModifier.Registration.modifier.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v2 = type metadata accessor for BackgroundTaskModifier();
+  v6 = type metadata accessor for BackgroundTaskModifier(0, a2, a3, a4);
   Value = AGGraphGetValue();
-  v4 = *(*(v2 - 8) + 16);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v4(a1, Value, v2);
+  return v8(a5, Value, v6);
 }
 
 Swift::Void __swiftcall BackgroundTaskModifier.Registration.updateValue()()
 {
-  v1 = v0;
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  v4 = type metadata accessor for TaskActionsContainer.Key();
-  WitnessTable = swift_getWitnessTable();
+  v2 = v0;
+  v25 = *MEMORY[0x1E69E9840];
+  v3 = *(v0 + 16);
+  v4 = *(v0 + 24);
+  v5 = type metadata accessor for TaskActionsContainer.Key(255, v3, v4, v1);
+  swift_getWitnessTable(protocol conformance descriptor for TaskActionsContainer<A, B>.Key, v5);
   v6 = type metadata accessor for _PreferenceTransformModifier();
   if (!AGGraphGetOutputValue())
   {
-    BackgroundTaskModifier.Registration.modifier.getter(v21);
-    v7 = type metadata accessor for BackgroundTask();
-    (*(*(v7 - 8) + 16))(v18, v21, v7);
-    v8 = type metadata accessor for BackgroundTaskModifier();
-    (*(*(v8 - 8) + 8))(v21, v8);
-    v9 = v19;
-    v10 = v20;
-    __swift_project_boxed_opaque_existential_1(v18, v19);
-    (*(v10 + 32))(v9, v10);
-    __swift_destroy_boxed_opaque_existential_1(v18);
+    BackgroundTaskModifier.Registration.modifier.getter(v3, v4, v7, v23);
+    v9 = type metadata accessor for BackgroundTask(0, v3, v4, v8);
+    (*(*(v9 - 8) + 16))(v20, v23, v9);
+    v11 = type metadata accessor for BackgroundTaskModifier(0, v3, v4, v10);
+    (*(*(v11 - 8) + 8))(v23, v11);
+    v12 = v21;
+    v13 = v22;
+    __swift_project_boxed_opaque_existential_1(v20, v21);
+    (*(v13 + 32))(v12, v13);
+    __swift_destroy_boxed_opaque_existential_1(v20);
   }
 
-  BackgroundTaskModifier.Registration.modifier.getter(v21);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v2;
-  *(v11 + 24) = v3;
-  v12 = v21[1];
-  *(v11 + 32) = v21[0];
-  *(v11 + 48) = v12;
-  *(v11 + 64) = v21[2];
-  *(v11 + 80) = v22;
-  destructiveProjectEnumData for CapsuleSlider.ScrollState.Orientation(v4, WitnessTable, v13, v14);
-  *&v21[0] = _PreferenceTransformModifier.init(key:transform:)();
-  *(&v21[0] + 1) = v15;
-  MEMORY[0x1EEE9AC00](*&v21[0]);
-  v17[2] = v1;
-  v17[3] = swift_getWitnessTable();
-  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v21, partial apply for closure #1 in StatefulRule.value.setter, v17, v6, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v16);
+  BackgroundTaskModifier.Registration.modifier.getter(v3, v4, v7, v23);
+  v14 = swift_allocObject();
+  *(v14 + 16) = v3;
+  *(v14 + 24) = v4;
+  v15 = v23[1];
+  *(v14 + 32) = v23[0];
+  *(v14 + 48) = v15;
+  *(v14 + 64) = v23[2];
+  *(v14 + 80) = v24;
+  destructiveProjectEnumData for CapsuleSlider.ScrollState.Orientation();
+  *&v23[0] = _PreferenceTransformModifier.init(key:transform:)();
+  *(&v23[0] + 1) = v16;
+  v17 = MEMORY[0x1EEE9AC00](*&v23[0]);
+  v19[2] = v2;
+  v19[3] = swift_getWitnessTable(protocol conformance descriptor for BackgroundTaskModifier<A, B>.Registration, v2, v17);
+  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v23, partial apply for closure #1 in StatefulRule.value.setter, v19, v6, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v18);
 }
 
-uint64_t closure #1 in closure #1 in BackgroundTaskModifier.Registration.updateValue()(void *a1)
+unint64_t closure #1 in closure #1 in BackgroundTaskModifier.Registration.updateValue()(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for TaskActionsContainer.ContainerEntry();
-  v2 = type metadata accessor for Array();
-  v3 = MEMORY[0x1E69E6158];
-  swift_getTupleTypeMetadata2();
+  v7 = type metadata accessor for TaskActionsContainer.ContainerEntry(255, a2, a3, a4);
+  v8 = type metadata accessor for Array();
+  v9 = MEMORY[0x1E69E6158];
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
   type metadata accessor for _ContiguousArrayStorage();
   swift_initStackObject();
-  v4 = static Array._adoptStorage(_:count:)();
-  v6 = v5;
-  v7 = type metadata accessor for BackgroundTask();
-  v8 = a1[3];
-  v9 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v8);
-  *v6 = (*(v9 + 40))(v8, v9);
-  v6[1] = v10;
-  type metadata accessor for _ContiguousArrayStorage();
-  swift_allocObject();
   v11 = static Array._adoptStorage(_:count:)();
   v13 = v12;
-  (*(*(v7 - 8) + 16))(v20, a1, v7);
-  v14 = a1[5];
-  v15 = a1[6];
-  v16 = v21;
-  v17 = v20[1];
-  *v13 = v20[0];
-  *(v13 + 16) = v17;
-  *(v13 + 32) = v16;
-  *(v13 + 40) = v14;
-  *(v13 + 48) = v15;
-  _finalizeUninitializedArray<A>(_:)();
-  v6[2] = v11;
-  _finalizeUninitializedArray<A>(_:)();
+  v15 = type metadata accessor for BackgroundTask(0, a2, a3, v14);
+  v16 = a1[3];
+  v17 = a1[4];
+  __swift_project_boxed_opaque_existential_1(a1, v16);
+  *v13 = (*(v17 + 40))(v16, v17);
+  v13[1] = v18;
+  type metadata accessor for _ContiguousArrayStorage();
+  swift_allocObject();
+  v19 = static Array._adoptStorage(_:count:)();
+  v21 = v20;
+  (*(*(v15 - 8) + 16))(v31, a1, v15);
+  v22 = a1[5];
+  v23 = a1[6];
+  v24 = v32;
+  v25 = v31[1];
+  *v21 = v31[0];
+  *(v21 + 16) = v25;
+  *(v21 + 32) = v24;
+  *(v21 + 40) = v22;
+  *(v21 + 48) = v23;
+  _finalizeUninitializedArray<A>(_:)(v19, v7);
+  v13[2] = v26;
+  _finalizeUninitializedArray<A>(_:)(v11, TupleTypeMetadata2);
+  v28 = v27;
 
-  v18 = specialized Dictionary.init(dictionaryLiteral:)(v4, v3, v2, MEMORY[0x1E69E6168]);
+  v29 = specialized Dictionary.init(dictionaryLiteral:)(v28, v9, v8, MEMORY[0x1E69E6168]);
 
-  return v18;
+  return v29;
 }
 
-uint64_t static TaskActionsContainer.Key.reduce(value:nextValue:)(uint64_t a1, void (*a2)(void))
+uint64_t static TaskActionsContainer.Key.reduce(value:nextValue:)(uint64_t a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4, uint64_t a5)
 {
   a2();
-  type metadata accessor for TaskActionsContainer.ContainerEntry();
+  type metadata accessor for TaskActionsContainer.ContainerEntry(255, a4, a5, v7);
   type metadata accessor for Array();
   type metadata accessor for Dictionary();
   return Dictionary.merge(_:uniquingKeysWith:)();
@@ -8363,19 +9613,19 @@ uint64_t static TaskActionsContainer.Key.reduce(value:nextValue:)(uint64_t a1, v
 
 uint64_t static BackgroundTaskModifier._makeScene(modifier:inputs:body:)(int *a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(int *, _OWORD *, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v10 = *a1;
-  v11 = a2[1];
-  v16[0] = *a2;
-  v16[1] = v11;
-  v17[0] = a2[2];
-  *(v17 + 12) = *(a2 + 44);
-  v15 = v10;
-  static BackgroundTaskModifier.makeRegistration(modifier:)(&v15, a5, a6);
-  v12 = type metadata accessor for TaskActionsContainer.Key();
-  WitnessTable = swift_getWitnessTable();
+  v12 = *a1;
+  v13 = a2[1];
+  v19[0] = *a2;
+  v19[1] = v13;
+  v20[0] = a2[2];
+  *(v20 + 12) = *(a2 + 44);
+  v18 = v12;
+  static BackgroundTaskModifier.makeRegistration(modifier:)(&v18, a5, a6, a4);
+  v15 = type metadata accessor for TaskActionsContainer.Key(255, a5, a6, v14);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for TaskActionsContainer<A, B>.Key, v15);
   type metadata accessor for _PreferenceTransformModifier();
   _GraphValue.init(_:)();
-  return a7(&v15, v16, a3, a4, v12, WitnessTable);
+  return a7(&v18, v19, a3, a4, v15, WitnessTable);
 }
 
 uint64_t protocol witness for static PreferenceKey.defaultValue.getter in conformance TaskActionsContainer<A, B>.Key@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -8385,9 +9635,19 @@ uint64_t protocol witness for static PreferenceKey.defaultValue.getter in confor
   return result;
 }
 
+uint64_t protocol witness for static PreferenceKey.reduce(value:nextValue:) in conformance TaskActionsContainer<A, B>.Key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a4 + 24);
+  v7 = *(a4 + 16);
+  v8 = v4;
+  v9 = a2;
+  v10 = a3;
+  return static TaskActionsContainer.Key.reduce(value:nextValue:)(a1, partial apply for thunk for @callee_guaranteed () -> (@out TaskActionsContainer<A, B>), &v6, v7, v4);
+}
+
 uint64_t protocol witness for static PreferenceKey._isReadableByHost.getter in conformance TaskActionsContainer<A, B>.Key(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for TaskActionsContainer<A, B>.Key, a1);
 
   return MEMORY[0x1EEDE0700](a1, WitnessTable);
 }
@@ -8438,19 +9698,19 @@ unint64_t __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2,
   return v12;
 }
 
-uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfcBoSRys4Int8VGXEfU_@<X0>(uint64_t result@<X0>, uint64_t *a2@<X5>, uint64_t a3@<X6>, uint64_t *a4@<X8>)
+uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfcBoSRys4Int8VGXEfU_@<X0>(uint64_t result@<X0>, uint64_t *a5@<X5>, uint64_t a6@<X6>, uint64_t *a7@<X8>)
 {
   if (result)
   {
-    v7 = *a2;
-    v6 = a2[1];
-    v8 = swift_allocObject();
-    v8[2] = a3;
-    v8[3] = v7;
-    v8[4] = v6;
+    v10 = *a5;
+    v9 = a5[1];
+    v11 = swift_allocObject();
+    v11[2] = a6;
+    v11[3] = v10;
+    v11[4] = v9;
 
     result = swift_task_create();
-    *a4 = result;
+    *a7 = result;
   }
 
   else
@@ -8461,12 +9721,16 @@ uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcnt
   return result;
 }
 
-uint64_t partial apply for closure #1 in static BackgroundTaskModifier.makeRegistration(modifier:)()
+double partial apply for closure #1 in static BackgroundTaskModifier.makeRegistration(modifier:)(uint64_t a1)
 {
+  v2 = v1[2];
+  v3 = v1[3];
+  v4 = v1[4];
   AGGraphClearUpdate();
-  closure #1 in closure #1 in static BackgroundTaskModifier.makeRegistration(modifier:)();
+  closure #1 in closure #1 in static BackgroundTaskModifier.makeRegistration(modifier:)(v4, v2, v3, v5);
 
-  return AGGraphSetUpdate();
+  AGGraphSetUpdate();
+  return result;
 }
 
 uint64_t partial apply for closure #1 in static BackgroundTaskProtocol.runTasks(actions:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8538,1261 +9802,4 @@ uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in
   v9[1] = thunk for @escaping @callee_guaranteed @Sendable @async () -> ();
 
   return thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed A.BackgroundTaskProtocol.Response, @in_guaranteed A.BackgroundTaskProtocol.Response) -> (@out A.BackgroundTaskProtocol.Response)(a1, a2, a3, v8);
-}
-
-uint64_t partial apply for closure #1 in closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:)(uint64_t a1)
-{
-  v3 = v2;
-  v6 = v1[4];
-  v5 = v1[5];
-  v7 = *(type metadata accessor for BackgroundTaskEntry() - 8);
-  v8 = (*(v7 + 80) + 48) & ~*(v7 + 80);
-  v9 = *(v7 + 64);
-  v10 = *(swift_getAssociatedTypeWitness() - 8);
-  v11 = (v8 + v9 + *(v10 + 80)) & ~*(v10 + 80);
-  v12 = v1[2];
-  v13 = v1[3];
-  v14 = swift_task_alloc();
-  *(v3 + 16) = v14;
-  *v14 = v3;
-  v14[1] = thunk for @escaping @callee_guaranteed @Sendable @async () -> ();
-
-  return closure #1 in closure #1 in closure #1 in closure #1 in static BackgroundTaskProtocol.runTasks(actions:)(a1, v12, v13, v1 + v8, v1 + v11, v6, v5);
-}
-
-uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTRTA(uint64_t a1)
-{
-  v4 = *(v1 + 24);
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = partial apply for thunk for @escaping @callee_guaranteed @Sendable @async () -> (@out ());
-
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRScSy7SwiftUI22TextEditorModificationVG_Tg5(a1, v4);
-}
-
-uint64_t initializeWithCopy for BackgroundTaskModifier(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 24);
-  *(a1 + 24) = v4;
-  (**(v4 - 8))();
-  v5 = *(a2 + 48);
-  *(a1 + 40) = *(a2 + 40);
-  *(a1 + 48) = v5;
-
-  return a1;
-}
-
-uint64_t *assignWithCopy for BackgroundTaskModifier(uint64_t *a1, uint64_t *a2)
-{
-  __swift_assign_boxed_opaque_existential_1(a1, a2);
-  v4 = a2[6];
-  a1[5] = a2[5];
-  a1[6] = v4;
-
-  return a1;
-}
-
-uint64_t assignWithTake for BackgroundTaskModifier(uint64_t a1, uint64_t a2)
-{
-  __swift_destroy_boxed_opaque_existential_1(a1);
-  v4 = *(a2 + 16);
-  *a1 = *a2;
-  *(a1 + 16) = v4;
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = *(a2 + 40);
-
-  return a1;
-}
-
-uint64_t instantiation function for generic protocol witness table for TaskActionsContainer<A, B>.Key(uint64_t a1)
-{
-  result = swift_getWitnessTable();
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t partial apply for closure #1 in static TaskActionsContainer.Key.reduce(value:nextValue:)@<X0>(uint64_t *a1@<X8>)
-{
-  type metadata accessor for TaskActionsContainer.ContainerEntry();
-  result = static Array.+ infix(_:_:)();
-  *a1 = result;
-  return result;
-}
-
-uint64_t View.accessibilityAutomationType(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = a1;
-  v5 = 0;
-  return View.accessibility<A>(_:_:isEnabled:)(MEMORY[0x1E6980050], &v4, 1, a2, MEMORY[0x1E6980050], a3);
-}
-
-unint64_t lazy protocol witness table accessor for type AXAutomationType and conformance AXAutomationType()
-{
-  result = lazy protocol witness table cache variable for type AXAutomationType and conformance AXAutomationType;
-  if (!lazy protocol witness table cache variable for type AXAutomationType and conformance AXAutomationType)
-  {
-    type metadata accessor for AXAutomationType(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AXAutomationType and conformance AXAutomationType);
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for Serializable.serialize(to:) in conformance AXAutomationType(void *a1)
-{
-  v2 = *v1;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  dispatch thunk of Encoder.singleValueContainer()();
-  v6 = v2;
-  __swift_mutable_project_boxed_opaque_existential_1(v4, v5);
-  dispatch thunk of SingleValueEncodingContainer.encode<A>(_:)();
-  return __swift_destroy_boxed_opaque_existential_1(v4);
-}
-
-uint64_t assignWithCopy for FocusItem.ViewItem(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  *(a1 + 4) = *(a2 + 4);
-  *(a1 + 8) = *(a2 + 8);
-  v3 = *(a2 + 24);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = v3;
-
-  return a1;
-}
-
-uint64_t assignWithTake for FocusItem.ViewItem(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  *(a1 + 4) = *(a2 + 4);
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-
-  return a1;
-}
-
-uint64_t assignWithTake for FocusItem(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    outlined destroy of FocusItem.Base(a1);
-    v4 = *(a2 + 32);
-    if (v4 == 2)
-    {
-      swift_unknownObjectWeakTakeInit();
-      v5 = 2;
-    }
-
-    else if (v4 == 1)
-    {
-      swift_unknownObjectWeakTakeInit();
-      v5 = 1;
-    }
-
-    else
-    {
-      v6 = *(a2 + 16);
-      *a1 = *a2;
-      *(a1 + 16) = v6;
-      v5 = *(a2 + 32);
-    }
-
-    *(a1 + 32) = v5;
-  }
-
-  *(a1 + 33) = *(a2 + 33);
-  swift_weakTakeAssign();
-  v7 = *(a2 + 56);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 56) = v7;
-  return a1;
-}
-
-uint64_t assignWithCopy for FocusItem.Base(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v4 = *(a1 + 32);
-    if (v4 >= 3)
-    {
-      v4 = *a1 + 3;
-    }
-
-    if (v4 == 2 || v4 == 1)
-    {
-      MEMORY[0x18D011290](a1);
-    }
-
-    else
-    {
-    }
-
-    v5 = *(a2 + 32);
-    if (v5 >= 3)
-    {
-      v5 = *a2 + 3;
-    }
-
-    if (v5 == 2)
-    {
-      swift_unknownObjectWeakCopyInit();
-      v6 = 2;
-    }
-
-    else
-    {
-      if (v5 != 1)
-      {
-        *a1 = *a2;
-        *(a1 + 4) = *(a2 + 4);
-        *(a1 + 8) = *(a2 + 8);
-        v7 = *(a2 + 24);
-        *(a1 + 16) = *(a2 + 16);
-        *(a1 + 24) = v7;
-        *(a1 + 32) = 0;
-
-        return a1;
-      }
-
-      swift_unknownObjectWeakCopyInit();
-      v6 = 1;
-    }
-
-    *(a1 + 32) = v6;
-  }
-
-  return a1;
-}
-
-uint64_t initializeWithTake for FocusItem.Base(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  if (v2 >= 3)
-  {
-    v2 = *a2 + 3;
-  }
-
-  if (v2 == 2)
-  {
-    result = swift_unknownObjectWeakTakeInit();
-    v3 = 2;
-  }
-
-  else if (v2 == 1)
-  {
-    result = swift_unknownObjectWeakTakeInit();
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 0;
-    v4 = *(a2 + 16);
-    *result = *a2;
-    *(result + 16) = v4;
-  }
-
-  *(result + 32) = v3;
-  return result;
-}
-
-uint64_t assignWithTake for FocusItem.Base(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v4 = *(a1 + 32);
-    if (v4 >= 3)
-    {
-      v4 = *a1 + 3;
-    }
-
-    if (v4 == 2 || v4 == 1)
-    {
-      MEMORY[0x18D011290](a1);
-    }
-
-    else
-    {
-    }
-
-    v5 = *(a2 + 32);
-    if (v5 >= 3)
-    {
-      v5 = *a2 + 3;
-    }
-
-    if (v5 == 2)
-    {
-      swift_unknownObjectWeakTakeInit();
-      v6 = 2;
-    }
-
-    else if (v5 == 1)
-    {
-      swift_unknownObjectWeakTakeInit();
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = 0;
-      v7 = *(a2 + 16);
-      *a1 = *a2;
-      *(a1 + 16) = v7;
-    }
-
-    *(a1 + 32) = v6;
-  }
-
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for FocusItem.Base(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFE && *(a1 + 33))
-  {
-    return (*a1 + 254);
-  }
-
-  v3 = *(a1 + 32);
-  if (v3 >= 3)
-  {
-    return (v3 ^ 0xFF) + 1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t storeEnumTagSinglePayload for FocusItem.Base(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFD)
-  {
-    *(result + 32) = 0;
-    *result = 0u;
-    *(result + 16) = 0u;
-    *result = a2 - 254;
-    if (a3 >= 0xFE)
-    {
-      *(result + 33) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFE)
-    {
-      *(result + 33) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 32) = -a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTag for FocusItem.Base(uint64_t a1)
-{
-  result = *(a1 + 32);
-  if (result >= 3)
-  {
-    return (*a1 + 3);
-  }
-
-  return result;
-}
-
-uint64_t destructiveInjectEnumTag for FocusItem.Base(uint64_t result, unsigned int a2)
-{
-  if (a2 > 2)
-  {
-    *result = 0u;
-    *(result + 16) = 0u;
-    *result = a2 - 3;
-    LOBYTE(a2) = 3;
-  }
-
-  *(result + 32) = a2;
-  return result;
-}
-
-void specialized RangeReplaceableCollection.removeFirst()(uint64_t a1@<X8>)
-{
-  v3 = *v1;
-  if (!(v3 >> 62))
-  {
-    if (*((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      goto LABEL_3;
-    }
-
-LABEL_10:
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  if (!__CocoaSet.count.getter())
-  {
-    goto LABEL_10;
-  }
-
-  if (!__CocoaSet.count.getter())
-  {
-    __break(1u);
-    goto LABEL_10;
-  }
-
-LABEL_3:
-  if ((v3 & 0xC000000000000001) != 0)
-  {
-LABEL_11:
-    v5 = MEMORY[0x18D00E9C0](0, v3);
-    v4 = v5;
-    goto LABEL_6;
-  }
-
-  if (*((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    v4 = *(v3 + 32);
-
-LABEL_6:
-    (*(*v4 + 112))(v6, v5);
-
-    outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v6, a1);
-    specialized RangeReplaceableCollection.removeFirst(_:)(1);
-    return;
-  }
-
-  __break(1u);
-}
-
-{
-  if (*(*v1 + 16))
-  {
-    outlined init with copy of FocusStoreList.Item(*v1 + 32, a1);
-
-    specialized Array.replaceSubrange<A>(_:with:)(0, 1);
-  }
-
-  else
-  {
-    __break(1u);
-  }
-}
-
-void type metadata accessor for (FocusItem.Base, FocusItem.Base)()
-{
-  if (!lazy cache variable for type metadata for (FocusItem.Base, FocusItem.Base))
-  {
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (FocusItem.Base, FocusItem.Base));
-    }
-  }
-}
-
-uint64_t protocol witness for static View._makeView(view:inputs:) in conformance ResolvedTokenFieldStyle(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = lazy protocol witness table accessor for type ResolvedTokenFieldStyle and conformance ResolvedTokenFieldStyle(&lazy protocol witness table cache variable for type ResolvedTokenFieldStyle and conformance ResolvedTokenFieldStyle, type metadata accessor for ResolvedTokenFieldStyle);
-
-  return MEMORY[0x1EEDDE4C0](a1, a2, a3, v6);
-}
-
-uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance ResolvedTokenFieldStyle(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = lazy protocol witness table accessor for type ResolvedTokenFieldStyle and conformance ResolvedTokenFieldStyle(&lazy protocol witness table cache variable for type ResolvedTokenFieldStyle and conformance ResolvedTokenFieldStyle, type metadata accessor for ResolvedTokenFieldStyle);
-
-  return MEMORY[0x1EEDDE4C8](a1, a2, a3, v6);
-}
-
-uint64_t TokenFieldStyleModifier.styleBody(configuration:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 16);
-  v3 = *(a2 + 24);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x1EEE9AC00](v9);
-  v12 = &v16 - v11;
-  (*(v3 + 24))(a1, v4, v3, v10);
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  static ViewBuilder.buildExpression<A>(_:)(v8, AssociatedTypeWitness, AssociatedConformanceWitness);
-  v14 = *(v6 + 8);
-  v14(v8, AssociatedTypeWitness);
-  static ViewBuilder.buildExpression<A>(_:)(v12, AssociatedTypeWitness, AssociatedConformanceWitness);
-  return (v14)(v12, AssociatedTypeWitness);
-}
-
-uint64_t protocol witness for static ViewModifier._makeViewList(modifier:inputs:body:) in conformance TokenFieldStyleModifier<A>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  WitnessTable = swift_getWitnessTable();
-
-  return MEMORY[0x1EEDDE4A8](a1, a2, a3, a4, a5, WitnessTable);
-}
-
-char *initializeBufferWithCopyOfBuffer for ResolvedTokenFieldStyle(char *a1, char *a2)
-{
-  v4 = type metadata accessor for TokenFieldConfiguration(0);
-  v5 = *(*(v4 - 8) + 80);
-  v6 = *a2;
-  *a1 = *a2;
-  if ((v5 & 0x20000) != 0)
-  {
-    a1 = (v6 + ((v5 + 16) & ~v5));
-  }
-
-  else
-  {
-    *(a1 + 1) = *(a2 + 1);
-    type metadata accessor for Binding<AttributedString>();
-    v8 = *(v7 + 32);
-    v9 = type metadata accessor for AttributedString();
-    v10 = *(*(v9 - 8) + 16);
-
-    v10(&a1[v8], &a2[v8], v9);
-    v11 = *(v4 + 24);
-    v12 = &a1[v11];
-    v13 = &a2[v11];
-    if (*&a2[v11 + 24])
-    {
-      v14 = *v13;
-      v15 = *(v13 + 1);
-      v16 = v13[16];
-      outlined copy of Text.Storage(*v13, v15, v16);
-      *v12 = v14;
-      *(v12 + 1) = v15;
-      v12[16] = v16;
-      *(v12 + 3) = *(v13 + 3);
-    }
-
-    else
-    {
-      v17 = *(v13 + 1);
-      *v12 = *v13;
-      *(v12 + 1) = v17;
-    }
-
-    v18 = *(v4 + 28);
-    v19 = &a1[v18];
-    v20 = &a2[v18];
-    v21 = *(v20 + 1);
-    *v19 = *v20;
-    *(v19 + 1) = v21;
-  }
-
-  return a1;
-}
-
-uint64_t destroy for ResolvedTokenFieldStyle(uint64_t a1)
-{
-
-  type metadata accessor for Binding<AttributedString>();
-  v3 = *(v2 + 32);
-  v4 = type metadata accessor for AttributedString();
-  (*(*(v4 - 8) + 8))(a1 + v3, v4);
-  v5 = a1 + *(type metadata accessor for TokenFieldConfiguration(0) + 24);
-  if (*(v5 + 24))
-  {
-    outlined consume of Text.Storage(*v5, *(v5 + 8), *(v5 + 16));
-  }
-}
-
-char *initializeWithCopy for ResolvedTokenFieldStyle(char *a1, char *a2)
-{
-  v4 = *(a2 + 1);
-  *a1 = *a2;
-  *(a1 + 1) = v4;
-  type metadata accessor for Binding<AttributedString>();
-  v6 = *(v5 + 32);
-  v7 = type metadata accessor for AttributedString();
-  v8 = *(*(v7 - 8) + 16);
-
-  v8(&a1[v6], &a2[v6], v7);
-  v9 = type metadata accessor for TokenFieldConfiguration(0);
-  v10 = *(v9 + 24);
-  v11 = &a1[v10];
-  v12 = &a2[v10];
-  if (*&a2[v10 + 24])
-  {
-    v13 = *v12;
-    v14 = *(v12 + 1);
-    v15 = v12[16];
-    outlined copy of Text.Storage(*v12, v14, v15);
-    *v11 = v13;
-    *(v11 + 1) = v14;
-    v11[16] = v15;
-    *(v11 + 3) = *(v12 + 3);
-  }
-
-  else
-  {
-    v16 = *(v12 + 1);
-    *v11 = *v12;
-    *(v11 + 1) = v16;
-  }
-
-  v17 = *(v9 + 28);
-  v18 = &a1[v17];
-  v19 = &a2[v17];
-  v20 = *(v19 + 1);
-  *v18 = *v19;
-  *(v18 + 1) = v20;
-
-  return a1;
-}
-
-char *assignWithCopy for ResolvedTokenFieldStyle(char *a1, char *a2)
-{
-  *a1 = *a2;
-
-  *(a1 + 1) = *(a2 + 1);
-
-  type metadata accessor for Binding<AttributedString>();
-  v5 = *(v4 + 32);
-  v6 = type metadata accessor for AttributedString();
-  (*(*(v6 - 8) + 24))(&a1[v5], &a2[v5], v6);
-  v7 = type metadata accessor for TokenFieldConfiguration(0);
-  v8 = *(v7 + 24);
-  v9 = &a1[v8];
-  v10 = &a2[v8];
-  v11 = *&a1[v8 + 24];
-  v12 = *&a2[v8 + 24];
-  if (v11)
-  {
-    if (v12)
-    {
-      v13 = *v10;
-      v14 = *(v10 + 1);
-      v15 = v10[16];
-      outlined copy of Text.Storage(*v10, v14, v15);
-      v16 = *v9;
-      v17 = *(v9 + 8);
-      v18 = *(v9 + 16);
-      *v9 = v13;
-      *(v9 + 8) = v14;
-      *(v9 + 16) = v15;
-      outlined consume of Text.Storage(v16, v17, v18);
-      *(v9 + 24) = *(v10 + 3);
-    }
-
-    else
-    {
-      outlined destroy of Text(v9);
-      v22 = *(v10 + 1);
-      *v9 = *v10;
-      *(v9 + 16) = v22;
-    }
-  }
-
-  else if (v12)
-  {
-    v19 = *v10;
-    v20 = *(v10 + 1);
-    v21 = v10[16];
-    outlined copy of Text.Storage(*v10, v20, v21);
-    *v9 = v19;
-    *(v9 + 8) = v20;
-    *(v9 + 16) = v21;
-    *(v9 + 24) = *(v10 + 3);
-  }
-
-  else
-  {
-    v23 = *(v10 + 1);
-    *v9 = *v10;
-    *(v9 + 16) = v23;
-  }
-
-  v24 = *(v7 + 28);
-  v25 = &a1[v24];
-  v26 = &a2[v24];
-  v27 = *(v26 + 1);
-  *v25 = *v26;
-  *(v25 + 1) = v27;
-
-  return a1;
-}
-
-char *initializeWithTake for ResolvedTokenFieldStyle(char *a1, char *a2)
-{
-  v4 = *(a2 + 1);
-  *a1 = *a2;
-  *(a1 + 1) = v4;
-  type metadata accessor for Binding<AttributedString>();
-  v6 = *(v5 + 32);
-  v7 = type metadata accessor for AttributedString();
-  (*(*(v7 - 8) + 32))(&a1[v6], &a2[v6], v7);
-  v8 = type metadata accessor for TokenFieldConfiguration(0);
-  v9 = *(v8 + 24);
-  v10 = &a1[v9];
-  v11 = &a2[v9];
-  v12 = *(v11 + 1);
-  *v10 = *v11;
-  *(v10 + 1) = v12;
-  *&a1[*(v8 + 28)] = *&a2[*(v8 + 28)];
-  return a1;
-}
-
-char *assignWithTake for ResolvedTokenFieldStyle(char *a1, char *a2)
-{
-  *a1 = *a2;
-
-  *(a1 + 1) = *(a2 + 1);
-
-  type metadata accessor for Binding<AttributedString>();
-  v5 = *(v4 + 32);
-  v6 = type metadata accessor for AttributedString();
-  (*(*(v6 - 8) + 40))(&a1[v5], &a2[v5], v6);
-  v7 = type metadata accessor for TokenFieldConfiguration(0);
-  v8 = *(v7 + 24);
-  v9 = &a1[v8];
-  v10 = &a2[v8];
-  if (!*&a1[v8 + 24])
-  {
-    goto LABEL_5;
-  }
-
-  if (!*(v10 + 3))
-  {
-    outlined destroy of Text(v9);
-LABEL_5:
-    v15 = *(v10 + 1);
-    *v9 = *v10;
-    *(v9 + 16) = v15;
-    goto LABEL_6;
-  }
-
-  v11 = v10[16];
-  v12 = *v9;
-  v13 = *(v9 + 8);
-  v14 = *(v9 + 16);
-  *v9 = *v10;
-  *(v9 + 16) = v11;
-  outlined consume of Text.Storage(v12, v13, v14);
-  *(v9 + 24) = *(v10 + 3);
-
-LABEL_6:
-  *&a1[*(v7 + 28)] = *&a2[*(v7 + 28)];
-
-  return a1;
-}
-
-uint64_t type metadata completion function for ResolvedTokenFieldStyle()
-{
-  result = type metadata accessor for TokenFieldConfiguration(319);
-  if (v1 <= 0x3F)
-  {
-    swift_initStructMetadata();
-    return 0;
-  }
-
-  return result;
-}
-
-char *initializeBufferWithCopyOfBuffer for TokenFieldConfiguration(char *a1, char *a2, uint64_t a3)
-{
-  v4 = *(*(a3 - 8) + 80);
-  v5 = *a2;
-  *a1 = *a2;
-  if ((v4 & 0x20000) != 0)
-  {
-    a1 = (v5 + ((v4 + 16) & ~v4));
-  }
-
-  else
-  {
-    *(a1 + 1) = *(a2 + 1);
-    type metadata accessor for Binding<AttributedString>();
-    v9 = *(v8 + 32);
-    v10 = type metadata accessor for AttributedString();
-    v11 = *(*(v10 - 8) + 16);
-
-    v11(&a1[v9], &a2[v9], v10);
-    v12 = *(a3 + 24);
-    v13 = &a1[v12];
-    v14 = &a2[v12];
-    if (*&a2[v12 + 24])
-    {
-      v15 = *v14;
-      v16 = *(v14 + 1);
-      v17 = v14[16];
-      outlined copy of Text.Storage(*v14, v16, v17);
-      *v13 = v15;
-      *(v13 + 1) = v16;
-      v13[16] = v17;
-      *(v13 + 3) = *(v14 + 3);
-    }
-
-    else
-    {
-      v18 = *(v14 + 1);
-      *v13 = *v14;
-      *(v13 + 1) = v18;
-    }
-
-    v19 = *(a3 + 28);
-    v20 = &a1[v19];
-    v21 = &a2[v19];
-    v22 = *(v21 + 1);
-    *v20 = *v21;
-    *(v20 + 1) = v22;
-  }
-
-  return a1;
-}
-
-uint64_t destroy for TokenFieldConfiguration(uint64_t a1, uint64_t a2)
-{
-
-  type metadata accessor for Binding<AttributedString>();
-  v5 = *(v4 + 32);
-  v6 = type metadata accessor for AttributedString();
-  (*(*(v6 - 8) + 8))(a1 + v5, v6);
-  v7 = a1 + *(a2 + 24);
-  if (*(v7 + 24))
-  {
-    outlined consume of Text.Storage(*v7, *(v7 + 8), *(v7 + 16));
-  }
-}
-
-char *initializeWithCopy for TokenFieldConfiguration(char *a1, char *a2, uint64_t a3)
-{
-  v6 = *(a2 + 1);
-  *a1 = *a2;
-  *(a1 + 1) = v6;
-  type metadata accessor for Binding<AttributedString>();
-  v8 = *(v7 + 32);
-  v9 = type metadata accessor for AttributedString();
-  v10 = *(*(v9 - 8) + 16);
-
-  v10(&a1[v8], &a2[v8], v9);
-  v11 = *(a3 + 24);
-  v12 = &a1[v11];
-  v13 = &a2[v11];
-  if (*&a2[v11 + 24])
-  {
-    v14 = *v13;
-    v15 = *(v13 + 1);
-    v16 = v13[16];
-    outlined copy of Text.Storage(*v13, v15, v16);
-    *v12 = v14;
-    *(v12 + 1) = v15;
-    v12[16] = v16;
-    *(v12 + 3) = *(v13 + 3);
-  }
-
-  else
-  {
-    v17 = *(v13 + 1);
-    *v12 = *v13;
-    *(v12 + 1) = v17;
-  }
-
-  v18 = *(a3 + 28);
-  v19 = &a1[v18];
-  v20 = &a2[v18];
-  v21 = *(v20 + 1);
-  *v19 = *v20;
-  *(v19 + 1) = v21;
-
-  return a1;
-}
-
-char *assignWithCopy for TokenFieldConfiguration(char *a1, char *a2, uint64_t a3)
-{
-  *a1 = *a2;
-
-  *(a1 + 1) = *(a2 + 1);
-
-  type metadata accessor for Binding<AttributedString>();
-  v7 = *(v6 + 32);
-  v8 = type metadata accessor for AttributedString();
-  (*(*(v8 - 8) + 24))(&a1[v7], &a2[v7], v8);
-  v9 = *(a3 + 24);
-  v10 = &a1[v9];
-  v11 = &a2[v9];
-  v12 = *&a1[v9 + 24];
-  v13 = *&a2[v9 + 24];
-  if (v12)
-  {
-    if (v13)
-    {
-      v14 = *v11;
-      v15 = *(v11 + 1);
-      v16 = v11[16];
-      outlined copy of Text.Storage(*v11, v15, v16);
-      v17 = *v10;
-      v18 = *(v10 + 8);
-      v19 = *(v10 + 16);
-      *v10 = v14;
-      *(v10 + 8) = v15;
-      *(v10 + 16) = v16;
-      outlined consume of Text.Storage(v17, v18, v19);
-      *(v10 + 24) = *(v11 + 3);
-    }
-
-    else
-    {
-      outlined destroy of Text(v10);
-      v23 = *(v11 + 1);
-      *v10 = *v11;
-      *(v10 + 16) = v23;
-    }
-  }
-
-  else if (v13)
-  {
-    v20 = *v11;
-    v21 = *(v11 + 1);
-    v22 = v11[16];
-    outlined copy of Text.Storage(*v11, v21, v22);
-    *v10 = v20;
-    *(v10 + 8) = v21;
-    *(v10 + 16) = v22;
-    *(v10 + 24) = *(v11 + 3);
-  }
-
-  else
-  {
-    v24 = *(v11 + 1);
-    *v10 = *v11;
-    *(v10 + 16) = v24;
-  }
-
-  v25 = *(a3 + 28);
-  v26 = &a1[v25];
-  v27 = &a2[v25];
-  v28 = *(v27 + 1);
-  *v26 = *v27;
-  *(v26 + 1) = v28;
-
-  return a1;
-}
-
-char *initializeWithTake for TokenFieldConfiguration(char *a1, char *a2, uint64_t a3)
-{
-  v6 = *(a2 + 1);
-  *a1 = *a2;
-  *(a1 + 1) = v6;
-  type metadata accessor for Binding<AttributedString>();
-  v8 = *(v7 + 32);
-  v9 = type metadata accessor for AttributedString();
-  (*(*(v9 - 8) + 32))(&a1[v8], &a2[v8], v9);
-  v10 = *(a3 + 24);
-  v11 = *(a3 + 28);
-  v12 = &a1[v10];
-  v13 = &a2[v10];
-  v14 = *(v13 + 1);
-  *v12 = *v13;
-  *(v12 + 1) = v14;
-  *&a1[v11] = *&a2[v11];
-  return a1;
-}
-
-char *assignWithTake for TokenFieldConfiguration(char *a1, char *a2, uint64_t a3)
-{
-  *a1 = *a2;
-
-  *(a1 + 1) = *(a2 + 1);
-
-  type metadata accessor for Binding<AttributedString>();
-  v7 = *(v6 + 32);
-  v8 = type metadata accessor for AttributedString();
-  (*(*(v8 - 8) + 40))(&a1[v7], &a2[v7], v8);
-  v9 = *(a3 + 24);
-  v10 = &a1[v9];
-  v11 = &a2[v9];
-  if (!*&a1[v9 + 24])
-  {
-    goto LABEL_5;
-  }
-
-  if (!*(v11 + 3))
-  {
-    outlined destroy of Text(v10);
-LABEL_5:
-    v16 = *(v11 + 1);
-    *v10 = *v11;
-    *(v10 + 16) = v16;
-    goto LABEL_6;
-  }
-
-  v12 = v11[16];
-  v13 = *v10;
-  v14 = *(v10 + 8);
-  v15 = *(v10 + 16);
-  *v10 = *v11;
-  *(v10 + 16) = v12;
-  outlined consume of Text.Storage(v13, v14, v15);
-  *(v10 + 24) = *(v11 + 3);
-
-LABEL_6:
-  *&a1[*(a3 + 28)] = *&a2[*(a3 + 28)];
-
-  return a1;
-}
-
-uint64_t lazy protocol witness table accessor for type ResolvedTokenFieldStyle and conformance ResolvedTokenFieldStyle(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-void type metadata accessor for TokenFieldStyleModifier<AutomaticTokenFieldStyle>()
-{
-  if (!lazy cache variable for type metadata for TokenFieldStyleModifier<AutomaticTokenFieldStyle>)
-  {
-    lazy protocol witness table accessor for type AutomaticTokenFieldStyle and conformance AutomaticTokenFieldStyle();
-    v0 = type metadata accessor for TokenFieldStyleModifier();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for TokenFieldStyleModifier<AutomaticTokenFieldStyle>);
-    }
-  }
-}
-
-unint64_t lazy protocol witness table accessor for type AutomaticTokenFieldStyle and conformance AutomaticTokenFieldStyle()
-{
-  result = lazy protocol witness table cache variable for type AutomaticTokenFieldStyle and conformance AutomaticTokenFieldStyle;
-  if (!lazy protocol witness table cache variable for type AutomaticTokenFieldStyle and conformance AutomaticTokenFieldStyle)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AutomaticTokenFieldStyle and conformance AutomaticTokenFieldStyle);
-  }
-
-  return result;
-}
-
-unint64_t instantiation function for generic protocol witness table for TokenFieldConfiguration.Label(uint64_t a1)
-{
-  result = lazy protocol witness table accessor for type TokenFieldConfiguration.Label and conformance TokenFieldConfiguration.Label();
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t outlined init with copy of ResolvedTokenFieldStyle(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
-  return a2;
-}
-
-SwiftUI::NSHostingSceneBridgingOptions __swiftcall NSHostingSceneBridgingOptions.init(rawValue:)(Swift::Int rawValue)
-{
-  result.rawValue = _diagnoseUnavailableCodeReached()();
-  __break(1u);
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions()
-{
-  result = lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions;
-  if (!lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions;
-  if (!lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions;
-  if (!lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions;
-  if (!lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NSHostingSceneBridgingOptions and conformance NSHostingSceneBridgingOptions);
-  }
-
-  return result;
-}
-
-void *assignWithCopy for AnimatedValueTrack<A>.PacedPathSource(void *a1, void *a2)
-{
-  *a1 = *a2;
-
-  a1[1] = a2[1];
-  return a1;
-}
-
-void *assignWithTake for AnimatedValueTrack<A>.PacedPathSource(void *a1, void *a2)
-{
-  *a1 = *a2;
-
-  a1[1] = a2[1];
-  return a1;
-}
-
-uint64_t AnimatedValueTrackSource.keyPath<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  v6 = MEMORY[0x1EEE9AC00](a1);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v9 + 16))(v8, v10, a2, v6);
-  a3[3] = type metadata accessor for PrependingKeyPathSource();
-  a3[4] = swift_getWitnessTable();
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a3);
-  PrependingKeyPathSource.init(base:keyPath:)(v8, a1, a2, boxed_opaque_existential_1);
-}
-
-uint64_t PrependingKeyPathSource.init(base:keyPath:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  (*(*(a3 - 8) + 32))(a4, a1);
-  result = type metadata accessor for PrependingKeyPathSource();
-  *(a4 + *(result + 44)) = a2;
-  return result;
-}
-
-uint64_t PrependingKeyPathSource.update(value:mix:at:)(double a1, double a2, uint64_t a3, uint64_t a4)
-{
-  v7 = swift_modifyAtWritableKeyPath();
-  (*(*(a4 + 32) + 24))(v8, *(a4 + 24), a1, a2);
-  return v7(&v10, 0);
-}
-
-uint64_t PrependingKeyPathSource.update(velocity:mix:at:)(double a1, double a2, uint64_t a3, uint64_t a4)
-{
-  v7 = swift_modifyAtWritableKeyPath();
-  (*(*(a4 + 32) + 32))(v8, *(a4 + 24), a1, a2);
-  return v7(&v10, 0);
-}
-
-uint64_t static PrependingKeyPathSource.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  type metadata accessor for AnyKeyPath();
-  v4 = type metadata accessor for PrependingKeyPathSource();
-  return MEMORY[0x18D00E580](*(a1 + *(v4 + 44)), *(a2 + *(v4 + 44))) & 1;
-}
-
-uint64_t AnimatedValueTrack<A>.PacedPathSource.init(duration:keyframes:interpolation:)(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
-{
-  v8 = type metadata accessor for AnimatedValueKeyframe();
-  v9 = type metadata accessor for Optional();
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v11 = &v26 - v10;
-  v12 = *(v8 - 8);
-  v27 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v26 - v14;
-  v16 = *a2;
-  v17 = MEMORY[0x1E69E63B0];
-  swift_getTupleTypeMetadata2();
-  v18 = static Array._allocateUninitialized(_:)();
-  v19 = specialized Dictionary.init(dictionaryLiteral:)(v18, v17, v8, MEMORY[0x1E69E63D0]);
-
-  v33 = v19;
-  if (MEMORY[0x18D00CDE0](a1, v8))
-  {
-    v28 = v16;
-    v29 = a3;
-    v30 = a4;
-    v20 = 0;
-    v31 = (v12 + 16);
-    v21 = 0.0;
-    while (1)
-    {
-      IsNativeType = Array._hoistableIsNativeTypeChecked()();
-      Array._checkSubscript(_:wasNativeTypeChecked:)();
-      if (IsNativeType)
-      {
-        (*(v12 + 16))(v15, a1 + ((*(v12 + 80) + 32) & ~*(v12 + 80)) + *(v12 + 72) * v20, v8);
-        v23 = v20 + 1;
-        if (__OFADD__(v20, 1))
-        {
-          goto LABEL_10;
-        }
-      }
-
-      else
-      {
-        result = _ArrayBuffer._getElementSlowPath(_:)();
-        if (v27 != 8)
-        {
-          __break(1u);
-          return result;
-        }
-
-        v32 = *&result;
-        (*v31)(v15, &v32, v8);
-        swift_unknownObjectRelease();
-        v23 = v20 + 1;
-        if (__OFADD__(v20, 1))
-        {
-LABEL_10:
-          __break(1u);
-LABEL_11:
-
-          v25 = v33;
-          a3 = v29;
-          a4 = v30;
-          LOBYTE(v16) = v28;
-          goto LABEL_13;
-        }
-      }
-
-      (*(v12 + 32))(v11, v15, v8);
-      (*(v12 + 56))(v11, 0, 1, v8);
-      v32 = v21;
-      type metadata accessor for Dictionary();
-      Dictionary.subscript.setter();
-      v21 = v21 + 1.0;
-      ++v20;
-      if (v23 == MEMORY[0x18D00CDE0](a1, v8))
-      {
-        goto LABEL_11;
-      }
-    }
-  }
-
-  v25 = v19;
-LABEL_13:
-  LOBYTE(v32) = v16;
-  return AnimatedValueTrack<A>.VectorPath.init(keyframes:interpolation:)(v25, &v32, a3, a4);
 }

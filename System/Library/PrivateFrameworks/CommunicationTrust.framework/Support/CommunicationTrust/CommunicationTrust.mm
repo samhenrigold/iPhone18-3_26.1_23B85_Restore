@@ -1,81 +1,81 @@
 int main(int argc, const char **argv, const char **envp)
 {
-  v34 = sub_1000016F0;
-  v37 = sub_100003778;
-  v39 = sub_1000036FC;
-  v41 = sub_100003730;
-  v44 = sub_1000037C4;
-  v23 = 0;
+  v35 = sub_1000016F0;
+  v38 = sub_100003778;
+  v40 = sub_1000036FC;
+  v42 = sub_100003730;
+  v45 = sub_1000037C4;
   v24 = 0;
-  v25 = type metadata accessor for Logger();
-  v26 = *(v25 - 8);
-  v27 = v25 - 8;
-  v28 = (*(v26 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v25 = 0;
+  v26 = type metadata accessor for Logger();
+  v27 = *(v26 - 8);
+  v28 = v26 - 8;
+  v29 = (*(v27 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(0);
-  v29 = v15 - v28;
-  v31 = type metadata accessor for CommunicationTrustDaemon();
-  v30 = qword_10000C020;
-  sub_1000015FC(v31, qword_10000C020);
-  v32 = sub_100001698(v31, v30);
+  v30 = &v15 - v29;
+  v32 = type metadata accessor for CommunicationTrustDaemon();
+  v31 = qword_10000C020;
+  sub_1000015FC(v32, qword_10000C020);
+  v33 = sub_100001698(v32, v31);
   CommunicationTrustDaemon.init()();
   static Log.daemon.getter();
-  v48 = Logger.logObject.getter();
-  v49 = static os_log_type_t.default.getter();
-  v33 = 17;
-  v36 = 7;
-  v40 = swift_allocObject();
-  *(v40 + 16) = 32;
-  v42 = swift_allocObject();
-  *(v42 + 16) = 8;
-  v35 = 32;
+  v49 = Logger.logObject.getter();
+  v50 = static os_log_type_t.default.getter();
+  v34 = 17;
+  v37 = 7;
+  v41 = swift_allocObject();
+  *(v41 + 16) = 32;
+  v43 = swift_allocObject();
+  *(v43 + 16) = 8;
+  v36 = 32;
   v3 = swift_allocObject();
-  v38 = v3;
-  *(v3 + 16) = v34;
+  v39 = v3;
+  *(v3 + 16) = v35;
   *(v3 + 24) = 0;
   v4 = swift_allocObject();
-  v5 = v38;
-  v45 = v4;
-  *(v4 + 16) = v37;
+  v5 = v39;
+  v46 = v4;
+  *(v4 + 16) = v38;
   *(v4 + 24) = v5;
-  v47 = sub_1000037D0(&qword_10000C000, &qword_100003E30);
-  v43 = _allocateUninitializedArray<A>(_:)();
-  v46 = v6;
+  v48 = sub_1000037D0(&qword_10000C000, &qword_100003E30);
+  v44 = _allocateUninitializedArray<A>(_:)();
+  v47 = v6;
 
-  v7 = v40;
-  v8 = v46;
-  *v46 = v39;
+  v7 = v41;
+  v8 = v47;
+  *v47 = v40;
   v8[1] = v7;
 
-  v9 = v42;
-  v10 = v46;
-  v46[2] = v41;
+  v9 = v43;
+  v10 = v47;
+  v47[2] = v42;
   v10[3] = v9;
 
-  v11 = v45;
-  v12 = v46;
-  v46[4] = v44;
+  v11 = v46;
+  v12 = v47;
+  v47[4] = v45;
   v12[5] = v11;
   sub_10000383C();
 
-  if (os_log_type_enabled(v48, v49))
+  if (os_log_type_enabled(v49, v50))
   {
-    v13 = v23;
-    v16 = static UnsafeMutablePointer.allocate(capacity:)();
-    v15[2] = sub_1000037D0(&qword_10000C010, &qword_100003E38);
-    v17 = sub_10000190C(0);
-    v18 = sub_10000190C(1);
-    v19 = &v54;
-    v54 = v16;
-    v20 = &v53;
-    v53 = v17;
-    v21 = &v52;
-    v52 = v18;
-    sub_100001960(2, &v54);
-    sub_100001960(1, v19);
-    v50 = v39;
+    v13 = v24;
+    v17 = static UnsafeMutablePointer.allocate(capacity:)();
+    v16 = sub_1000037D0(&qword_10000C010, &qword_100003E38);
+    v18 = sub_10000190C(0, v16, v16);
+    v19 = sub_10000190C(1, &type metadata for Any + 8, &type metadata for Any + 8);
+    v20 = &v55;
+    v55 = v17;
+    v21 = &v54;
+    v54 = v18;
+    v22 = &v53;
+    v53 = v19;
+    sub_100001960(2, &v55);
+    sub_100001960(1, v20);
     v51 = v40;
-    sub_100001974(&v50, v19, v20, v21);
-    v22 = v13;
+    v52 = v41;
+    sub_100001974(&v51, v20, v21, v22);
+    v23 = v13;
     if (v13)
     {
 
@@ -84,16 +84,16 @@ int main(int argc, const char **argv, const char **envp)
 
     else
     {
-      v50 = v41;
       v51 = v42;
-      sub_100001974(&v50, &v54, &v53, &v52);
-      v15[0] = 0;
-      v50 = v44;
+      v52 = v43;
+      sub_100001974(&v51, &v55, &v54, &v53);
+      v15 = 0;
       v51 = v45;
-      sub_100001974(&v50, &v54, &v53, &v52);
-      _os_log_impl(&_mh_execute_header, v48, v49, "Started daemon at %s", v16, 0xCu);
-      sub_1000019C0(v17);
-      sub_1000019C0(v18);
+      v52 = v46;
+      sub_100001974(&v51, &v55, &v54, &v53);
+      _os_log_impl(&_mh_execute_header, v49, v50, "Started daemon at %s", v17, 0xCu);
+      sub_1000019C0(v18, 0);
+      sub_1000019C0(v19, 1);
       UnsafeMutablePointer.deallocate()();
     }
   }
@@ -102,24 +102,23 @@ int main(int argc, const char **argv, const char **envp)
   {
   }
 
-  (*(v26 + 8))(v29, v25);
+  (*(v27 + 8))(v30, v26);
   sub_100003880();
   Daemon.main()();
   return 0;
 }
 
-uint64_t sub_1000015FC(uint64_t a1, uint64_t *a2)
+uint64_t *sub_1000015FC(uint64_t a1, uint64_t *a2)
 {
-  v6 = a2;
+  v5 = a2;
   if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *(*(a1 - 8) + 64);
-    v3 = swift_slowAlloc();
-    *a2 = v3;
-    return v3;
+    v2 = swift_slowAlloc();
+    *a2 = v2;
+    return v2;
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t sub_100001698(uint64_t a1, uint64_t a2)
@@ -165,7 +164,7 @@ uint64_t sub_1000016F0()
   return v18;
 }
 
-uint64_t sub_10000190C(uint64_t a1)
+uint64_t sub_10000190C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
@@ -186,7 +185,7 @@ uint64_t sub_100001960(uint64_t result, _BYTE **a2)
   return result;
 }
 
-void sub_1000019C0(uint64_t a1)
+void sub_1000019C0(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -197,7 +196,7 @@ void sub_1000019C0(uint64_t a1)
 
 void *sub_100001A5C(void *a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
 {
-  v4 = a4();
+  v4 = (a4)(a1, a2);
   sub_100001AF8(v4, v5, a3);
   v8 = *a1;
 
@@ -262,7 +261,7 @@ uint64_t sub_100001AF8(uint64_t a1, uint64_t a2, uint64_t *a3)
   return v11;
 }
 
-uint64_t sub_100001C9C(uint64_t result, char *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
+void *sub_100001C9C(void *result, char *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
 {
   v19 = result;
   v25 = a6;
@@ -413,10 +412,10 @@ void *sub_1000021D0(uint64_t a1, uint64_t a2)
   v7 = sub_10000228C(a1, a2);
   sub_1000037D0(&qword_10000C018, &qword_100003E40);
   inited = swift_initStackObject();
-  v3 = sub_100002A9C(inited, 1);
-  *v4 = 0;
+  sub_100002A9C(inited, 1);
+  *v3 = 0;
   sub_100002AE8();
-  sub_100002B1C(v3);
+  sub_100002B1C(v4);
 
   v8 = sub_100002EC4(v7);
 
@@ -554,46 +553,44 @@ uint64_t sub_100002A9C(uint64_t a1, uint64_t a2)
 
 void sub_100002B1C(uint64_t a1)
 {
-  v20 = sub_100002EC4(a1);
+  v18 = sub_100002EC4(a1);
   v2 = sub_100002EC4(*v1);
-  v21 = v2 + v20;
-  if (__OFADD__(v2, v20))
+  v19 = v2 + v18;
+  if (__OFADD__(v2, v18))
   {
     goto LABEL_31;
   }
 
-  v16 = *v19;
+  v14 = *v17;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *v19 = v16;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v21 > *(*v19 + 24) >> 1)
+  *v17 = v14;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v19 > *(*v17 + 24) >> 1)
   {
-    if (*(*v19 + 16) < v21)
+    if (*(*v17 + 16) < v19)
     {
-      v15 = v21;
+      v13 = v19;
     }
 
     else
     {
-      v15 = *(*v19 + 16);
+      v13 = *(*v17 + 16);
     }
 
-    v14 = *v19;
+    v12 = *v17;
 
-    v4 = sub_100003420(isUniquelyReferenced_nonNull_native, v15, 1, v14);
-    v5 = *v19;
-    *v19 = v4;
+    *v17 = sub_100003420(isUniquelyReferenced_nonNull_native, v13, 1, v12);
   }
 
-  v6 = *(*v19 + 16);
-  v12 = (*v19 + 32 + v6);
-  v7 = *(*v19 + 24) >> 1;
-  v13 = v7 - v6;
-  if (__OFSUB__(v7, v6))
+  v4 = *(*v17 + 16);
+  v10 = (*v17 + 32 + v4);
+  v5 = *(*v17 + 24) >> 1;
+  v11 = v5 - v4;
+  if (__OFSUB__(v5, v4))
   {
     goto LABEL_32;
   }
 
-  if (v13 < 0)
+  if (v11 < 0)
   {
 LABEL_30:
     _fatalErrorMessage(_:_:file:line:flags:)();
@@ -609,7 +606,7 @@ LABEL_32:
   {
 LABEL_21:
 
-    if (v20 <= 0)
+    if (v18 <= 0)
     {
       goto LABEL_28;
     }
@@ -619,26 +616,26 @@ LABEL_21:
     goto LABEL_30;
   }
 
-  if (v13 < v20)
+  if (v11 < v18)
   {
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
     goto LABEL_21;
   }
 
-  sub_100003020((a1 + 32), v20, v12);
+  sub_100003020((a1 + 32), v18, v10);
 
   swift_unknownObjectRelease();
-  if (v20 <= 0)
+  if (v18 <= 0)
   {
     goto LABEL_28;
   }
 
-  v9 = *(*v19 + 16);
-  v11 = v9 + v20;
-  if (!__OFADD__(v9, v20))
+  v7 = *(*v17 + 16);
+  v9 = v7 + v18;
+  if (!__OFADD__(v7, v18))
   {
-    *(*v19 + 16) = v11;
+    *(*v17 + 16) = v9;
 LABEL_28:
     sub_100003414();
     return;
@@ -706,7 +703,7 @@ void *sub_100003020(char *a1, size_t a2, char *a3)
   return result;
 }
 
-uint64_t sub_100003170(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t sub_100003170(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v11 = a1;
   if ((a3 & 0x1000000000000000) != 0 && (a2 & 0x800000000000000) == 0)
@@ -836,32 +833,17 @@ _BYTE **sub_1000036BC(_BYTE **result, uint64_t a2, uint64_t a3, char a4)
   return result;
 }
 
-uint64_t sub_100003738()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100003784()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t sub_1000037D0(uint64_t *a1, uint64_t *a2)
 {
-  v6 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
-    v3 = *a2;
     TypeByMangledNameInContext2 = swift_getTypeByMangledNameInContext2();
     *a1 = TypeByMangledNameInContext2;
     return TypeByMangledNameInContext2;
   }
 
-  return v6;
+  return v5;
 }
 
 unint64_t sub_100003880()
@@ -878,15 +860,17 @@ unint64_t sub_100003880()
   return v2;
 }
 
-uint64_t sub_100003900(uint64_t *a1)
+uint64_t sub_100003900(void *a1)
 {
-  v3 = a1[3];
-  if ((*(*(v3 - 8) + 80) & 0x20000) == 0)
+  v2 = a1[3];
+  if ((*(*(v2 - 8) + 80) & 0x20000) != 0)
   {
-    return (*(*(v3 - 8) + 8))(a1);
   }
 
-  v2 = *a1;
+  else
+  {
+    return (*(*(v2 - 8) + 8))(a1);
+  }
 }
 
 uint64_t sub_1000039A0(uint64_t a1, uint64_t a2)
@@ -895,11 +879,4 @@ uint64_t sub_1000039A0(uint64_t a1, uint64_t a2)
   *(a2 + 24) = v2;
   (**(v2 - 8))(a2);
   return a2;
-}
-
-uint64_t sub_100003A38(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-
-  return a1;
 }

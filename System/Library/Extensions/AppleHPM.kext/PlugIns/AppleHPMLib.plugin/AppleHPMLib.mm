@@ -1,5 +1,6 @@
-uint64_t AppleHPMLibRT13Interface::forceATCRTUpdateModeCIO(AppleHPMLibRT13Interface *this, int a2)
+uint64_t AppleHPMLibRT13Interface::forceATCRTUpdateModeCIO(AppleHPMLibRT13Interface *this, unint64_t a2)
 {
+  v2 = a2;
   if (*(this + 25) == 1 && (*(this + 32) & 2) != 0)
   {
     printf("AppleHPMLibRT13Interface::%s@0x%llx RID%u - entry. enable = 0x%X\n\n", "forceATCRTUpdateModeCIO", *(this + 2), *(this + 10), a2);
@@ -16,7 +17,7 @@ uint64_t AppleHPMLibRT13Interface::forceATCRTUpdateModeCIO(AppleHPMLibRT13Interf
     v14 = 1024;
     v15 = v5;
     v16 = 1024;
-    v17 = a2;
+    v17 = v2;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "AppleHPMLibRT13Interface::%s@0x%llx RID%u - entry. enable = 0x%X\n\n", buf, 0x22u);
   }
 
@@ -30,7 +31,7 @@ uint64_t AppleHPMLibRT13Interface::forceATCRTUpdateModeCIO(AppleHPMLibRT13Interf
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_37E8(this + 2, this);
+      sub_37E8();
     }
 
     if (*(this + 24) == 1)
@@ -258,7 +259,7 @@ uint64_t AppleHPMLibRT13Interface::execVOUT(AppleHPMLibRT13Interface *this, int 
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_386C(this + 2, this);
+      sub_386C();
     }
 
     v10 = 3758097129;
@@ -275,7 +276,7 @@ uint64_t AppleHPMLibRT13Interface::execVOUT(AppleHPMLibRT13Interface *this, int 
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_38F8(this + 2, this);
+      sub_38F8();
     }
 
     v10 = 3758097129;
@@ -290,7 +291,7 @@ uint64_t AppleHPMLibRT13Interface::execVOUT(AppleHPMLibRT13Interface *this, int 
 
   else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_3984(this + 2, this);
+    sub_3984();
   }
 
   v29 = 1145460070;
@@ -306,7 +307,7 @@ uint64_t AppleHPMLibRT13Interface::execVOUT(AppleHPMLibRT13Interface *this, int 
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_3A08(this + 2, this);
+      sub_3A08();
     }
 
     v19 = AppleHPMLibPriv::IECSAtomicCommand(*(this + 1), &dword_0 + 1, &v33, &v34, 0, &v32, 0, 1u, 1u, v27, 1uLL, *(this + 2), 0);
@@ -507,7 +508,7 @@ uint64_t AppleHPMLibRT13InterfaceA3::inADFU(AppleHPMLibRT13InterfaceA3 *this, BO
 
         else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_3B3C(this + 2, this);
+          sub_3B3C();
         }
 
         v7 = 0;
@@ -523,7 +524,7 @@ uint64_t AppleHPMLibRT13InterfaceA3::inADFU(AppleHPMLibRT13InterfaceA3 *this, BO
 
         else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_3AB0(this + 2, this);
+          sub_3AB0();
         }
 
         v7 = 0;
@@ -546,7 +547,7 @@ uint64_t AppleHPMLibRT13InterfaceA3::inADFU(AppleHPMLibRT13InterfaceA3 *this, BO
 
   else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_3BC0(this);
+    sub_3BC0();
   }
 
   AppleHPMLibRTInterface::triggerSystemPanic(this, "AppleHPMLibRTUpdaterInterface - Check for in ADFU failed\n");
@@ -646,14 +647,6 @@ uint64_t AppleHPMLibRT13InterfaceA3::forceATCRTPower(AppleHPMLibRT13InterfaceA3 
   return v8;
 }
 
-uint64_t *sub_1DA8@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(v3 - 8) = a3;
-  v4 = *result;
-  v5 = *(a2 + 40);
-  return result;
-}
-
 void AppleHPMLibRTInterface::AppleHPMLibRTInterface(AppleHPMLibRTInterface *this, void **a2, uint64_t a3, int a4)
 {
   *(this + 10) = a4;
@@ -683,11 +676,11 @@ void AppleHPMLibRTInterface::AppleHPMLibRTInterface(AppleHPMLibRTInterface *this
 
   else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_3C5C(v8, v5, v6);
+    sub_3C5C();
   }
 }
 
-void AppleHPMLibRTInterface::triggerSystemPanic(AppleHPMLibRTInterface *this, const char *a2)
+void AppleHPMLibRTInterface::triggerSystemPanic(uint64_t this, const char *a2)
 {
   if (*(this + 24) == 1)
   {
@@ -696,15 +689,60 @@ void AppleHPMLibRTInterface::triggerSystemPanic(AppleHPMLibRTInterface *this, co
     {
       if (*(this + 25) == 1)
       {
-        printf("AppleHPMLibRTInterface::%s@0x%llx RID%u - Failed to trigger system panic: %u\n", "triggerSystemPanic", *(this + 2), *(this + 10), v3);
+        printf("AppleHPMLibRTInterface::%s@0x%llx RID%u - Failed to trigger system panic: %u\n", "triggerSystemPanic", *(this + 16), *(this + 40), v3);
       }
 
       else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_3D00(this);
+        sub_3D00();
       }
     }
   }
+}
+
+uint64_t AppleHPMLibPriv::queryInterfaceStatic(AppleHPMLibPriv *this, void *a2, CFUUIDBytes a3, void **a4)
+{
+  v4 = *&a3.byte8;
+  v5 = *(this + 1);
+  v6 = CFUUIDCreateFromUUIDBytes(0, *&a2);
+  v7 = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault, 0, 0, 0, 0, 0, 0, 0, 0, 0xC0u, 0, 0, 0, 0, 0, 0, 0x46u);
+  if (CFEqual(v6, v7) || (v8 = CFUUIDGetConstantUUIDWithBytes(0, 0xC2u, 0x44u, 0xE8u, 0x58u, 0x10u, 0x9Cu, 0x11u, 0xD4u, 0x91u, 0xD4u, 0, 0x50u, 0xE4u, 0xC6u, 0x42u, 0x6Fu), CFEqual(v6, v8)))
+  {
+    v9 = 0;
+    *v4 = v5 + 1;
+    v10 = v5[2];
+  }
+
+  else
+  {
+    v12 = CFUUIDGetConstantUUIDWithBytes(0, 0xC1u, 0x3Au, 0xCDu, 0xD9u, 0x20u, 0x9Eu, 0x4Bu, 1u, 0xB7u, 0xBEu, 0xE0u, 0x5Cu, 0xD8u, 0x83u, 0xC7u, 0xB1u);
+    if (CFEqual(v6, v12) || (v13 = CFUUIDGetConstantUUIDWithBytes(0, 0xACu, 0xE8u, 0x66u, 0xD8u, 0xAu, 0xE1u, 0x47u, 0x9Eu, 0xBAu, 0xEEu, 0x22u, 0xB7u, 0x69u, 9u, 0xAu, 0xA3u), CFEqual(v6, v13)) || (v14 = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault, 0xCFu, 0xCAu, 0x49u, 0xA5u, 0xEFu, 0xB5u, 0x47u, 0x6Bu, 0xA2u, 0xF0u, 0x21u, 9u, 0x86u, 0x1Cu, 0xAAu, 4u), CFEqual(v6, v14)) || (v15 = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault, 0xCFu, 0x8Bu, 0xE9u, 0xB3u, 9u, 0x9Au, 0x43u, 0x5Au, 0xAAu, 0x49u, 0x56u, 0x35u, 0x12u, 0x21u, 0xFAu, 0x78u), CFEqual(v6, v15)) || (v16 = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault, 0xAEu, 0x1Eu, 0xB8u, 0x38u, 0x3Au, 0x7Bu, 0x43u, 0xF1u, 0x89u, 0xD8u, 0x67u, 0xBCu, 0x16u, 0xE3u, 0x33u, 0x4Fu), CFEqual(v6, v16)))
+    {
+      v9 = 0;
+      *v4 = v5 + 3;
+      v10 = v5[4];
+    }
+
+    else
+    {
+      v17 = CFUUIDGetConstantUUIDWithBytes(kCFAllocatorSystemDefault, 0x7Fu, 0xDCu, 0xF9u, 0x71u, 0x6Cu, 0x14u, 0x4Du, 0xB4u, 0xAEu, 6u, 0x77u, 0x7Bu, 0x6Du, 0xBDu, 6u, 0xFFu);
+      if (!CFEqual(v6, v17))
+      {
+        *v4 = 0;
+        v9 = 2147483652;
+        goto LABEL_5;
+      }
+
+      v9 = 0;
+      *v4 = v5 + 5;
+      v10 = v5[6];
+    }
+  }
+
+  ++*(v10 + 64);
+LABEL_5:
+  CFRelease(v6);
+  return v9;
 }
 
 uint64_t AppleHPMLibPriv::addRefStatic(AppleHPMLibPriv *this, void *a2)
@@ -1055,7 +1093,7 @@ uint64_t AppleHPMLibPriv::forceUpdateMode(AppleHPMLibPriv *this, void *a2)
     return 3758097084;
   }
 
-  __chkstk_darwin();
+  __chkstk_darwin(this);
   v6[0] = v2;
   v6[1] = v3;
   outputCnt = 0;
@@ -1245,9 +1283,9 @@ uint64_t AppleHPMLibPriv::EnableOptions(AppleHPMLibPriv *this, void *a2)
   return IOConnectCallScalarMethod(*(v4 + 72), 0xAu, v6, 2u, 0, &outputCnt);
 }
 
-uint64_t AppleHPMLibPriv::forceATCRTUpdateMode(AppleHPMLibPriv *this, void *a2)
+uint64_t AppleHPMLibPriv::forceATCRTUpdateMode(AppleHPMLibPriv *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = this;
+  v5 = this;
   if (*(*(this + 1) + 72))
   {
     operator new();
@@ -1256,9 +1294,9 @@ uint64_t AppleHPMLibPriv::forceATCRTUpdateMode(AppleHPMLibPriv *this, void *a2)
   return 3758097084;
 }
 
-uint64_t AppleHPMLibPriv::forceATCRTPower(AppleHPMLibPriv *this, void *a2)
+uint64_t AppleHPMLibPriv::forceATCRTPower(AppleHPMLibPriv *this, uint64_t a2, int a3)
 {
-  v3 = this;
+  v4 = this;
   if (*(*(this + 1) + 72))
   {
     operator new();
@@ -1383,94 +1421,86 @@ uint64_t AppleHPMLibPriv::getRID(AppleHPMLibPriv *this)
   return v2;
 }
 
-void sub_37E8(uint64_t *a1, uint64_t a2)
+void sub_37E8()
 {
-  sub_1DA8(a1, a2, __stack_chk_guard);
+  sub_1DA8(__stack_chk_guard);
   sub_1D88();
   sub_1DB8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_386C(uint64_t *a1, uint64_t a2)
+void sub_386C()
 {
-  sub_1DA8(a1, a2, __stack_chk_guard);
+  sub_1DA8(__stack_chk_guard);
   sub_1D88();
   sub_1DB8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-void sub_38F8(uint64_t *a1, uint64_t a2)
+void sub_38F8()
 {
-  sub_1DA8(a1, a2, __stack_chk_guard);
+  sub_1DA8(__stack_chk_guard);
   sub_1D88();
   sub_1DB8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-void sub_3984(uint64_t *a1, uint64_t a2)
+void sub_3984()
 {
-  sub_1DA8(a1, a2, __stack_chk_guard);
+  sub_1DA8(__stack_chk_guard);
   sub_1D88();
   sub_1DB8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_3A08(uint64_t *a1, uint64_t a2)
+void sub_3A08()
 {
-  sub_1DA8(a1, a2, __stack_chk_guard);
-  v8 = *v2;
+  sub_1DA8(__stack_chk_guard);
   sub_1DB8();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x22u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-void sub_3AB0(uint64_t *a1, uint64_t a2)
+void sub_3AB0()
 {
-  sub_1DA8(a1, a2, __stack_chk_guard);
+  sub_1DA8(__stack_chk_guard);
   sub_1D88();
   sub_1DB8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-void sub_3B3C(uint64_t *a1, uint64_t a2)
+void sub_3B3C()
 {
-  sub_1DA8(a1, a2, __stack_chk_guard);
+  sub_1DA8(__stack_chk_guard);
   sub_1D88();
   sub_1DB8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_3BC0(uint64_t a1)
+void sub_3BC0()
 {
-  v1 = *(a1 + 16);
-  v2 = *(a1 + 40);
   sub_1D88();
   sub_1DB8();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x22u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-void sub_3C5C(uint64_t *a1, unsigned int *a2, unsigned __int8 *a3)
+void sub_3C5C()
 {
-  v3 = *a1;
-  v4 = *a2;
-  v5 = *a3;
-  v7 = 136315906;
-  v8 = "AppleHPMLibRTInterface";
-  v9 = 2048;
+  v1 = 136315906;
+  v2 = "AppleHPMLibRTInterface";
+  v3 = 2048;
   sub_1F84();
-  v10 = v6;
-  _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "AppleHPMLibRTInterface::%s@0x%llx RID%u - AppleHPMLibRTUpdater - panic debug enabled:%u\n\n", &v7, 0x22u);
+  v4 = v0;
+  _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "AppleHPMLibRTInterface::%s@0x%llx RID%u - AppleHPMLibRTUpdater - panic debug enabled:%u\n\n", &v1, 0x22u);
 }
 
-void sub_3D00(uint64_t a1)
+void sub_3D00()
 {
-  v1 = *(a1 + 16);
-  v2 = *(a1 + 40);
-  v4 = 136315906;
-  v5 = "triggerSystemPanic";
-  v6 = 2048;
+  v1 = 136315906;
+  v2 = "triggerSystemPanic";
+  v3 = 2048;
   sub_1F84();
-  v7 = v3;
-  _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "AppleHPMLibRTInterface::%s@0x%llx RID%u - Failed to trigger system panic: %u\n", &v4, 0x22u);
+  v4 = v0;
+  _os_log_error_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "AppleHPMLibRTInterface::%s@0x%llx RID%u - Failed to trigger system panic: %u\n", &v1, 0x22u);
 }
 
 void operator delete()

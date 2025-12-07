@@ -384,7 +384,7 @@ LABEL_11:
     }
   }
 
-  [(AVConferenceXPCClient *)self->_connection sendMessageSync:"vcMediaAnalyzerUnInitialize", *v13, *&v13[16], v14, selfCopy, v16, v17];
+  [(AVConferenceXPCClient *)self->_connection sendMessageSync:"vcMediaAnalyzerUnInitialize", *v13, *&v13[8], v14, selfCopy, v16, v17];
 }
 
 - (void)registerBlocksForNotifications
@@ -411,7 +411,7 @@ LABEL_11:
   [(AVConferenceXPCClient *)self->_connection registerBlockForService:"conferenceDidServerDie" block:v4 queue:self->_callbackQueue];
 }
 
-uint64_t __50__AVCMediaAnalyzer_registerBlocksForNotifications__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__50__AVCMediaAnalyzer_registerBlocksForNotifications__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)
@@ -424,7 +424,7 @@ uint64_t __50__AVCMediaAnalyzer_registerBlocksForNotifications__block_invoke(uin
   return result;
 }
 
-uint64_t __50__AVCMediaAnalyzer_registerBlocksForNotifications__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *__50__AVCMediaAnalyzer_registerBlocksForNotifications__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 objectForKeyedSubscript:@"SERVERDIED"];
   if (!result)

@@ -3,6 +3,7 @@
 - (void)didMoveToParentViewController:(id)controller;
 - (void)dismissWithCompletion:(id)completion;
 - (void)loadView;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AXHearingAidDisplayController
@@ -34,6 +35,13 @@
   view2 = [(AXHearingAidDisplayController *)self view];
   window = [view2 window];
   [window setHidden:1];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AXHearingAidDisplayController;
+  [(AXHearingAidDisplayController *)&v3 viewWillAppear:appear];
 }
 
 - (void)loadView

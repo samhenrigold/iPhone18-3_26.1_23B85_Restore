@@ -263,7 +263,7 @@
       v33 = 0u;
       v30 = 0u;
       v31 = 0u;
-      if (self && ([(CAReplicatorLayer *)self instanceTransform], v30.f64[0] == 1.0))
+      if (self && (objc_msgSend_instanceTransform(self), v30.f64[0] == 1.0))
       {
         v17 = 1;
         while (v17 != 16)
@@ -387,7 +387,7 @@ LABEL_8:
   v18 = 0uLL;
   if (self)
   {
-    [(CAReplicatorLayer *)self instanceTransform:0.0];
+    objc_msgSend_instanceTransform(self, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
     v10 = 0uLL;
     v18 = v33;
     v17 = v34;

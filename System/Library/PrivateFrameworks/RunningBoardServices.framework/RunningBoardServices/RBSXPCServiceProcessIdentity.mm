@@ -8,6 +8,7 @@
 - (BOOL)supportsLaunchingDirectly;
 - (RBSXPCServiceProcessIdentity)initWithDecodeFromJob:(id)job uuid:(id)uuid;
 - (RBSXPCServiceProcessIdentity)initWithRBSXPCCoder:(id)coder;
+- (id)_initWithXPCServiceID:(id)d pid:(int)pid auid:(unsigned int)auid;
 - (id)encodeForJob;
 - (id)hostIdentifier;
 - (id)hostIdentity;
@@ -29,7 +30,7 @@
 
 - (unsigned)defaultManageFlags
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (defaultManageFlags_onceToken != -1)
   {
     [RBSXPCServiceProcessIdentity defaultManageFlags];
@@ -42,16 +43,15 @@
 
   if (v3)
   {
-    v6 = rbs_process_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = rbs_process_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       serviceIdentity = self->_serviceIdentity;
-      v14 = 138412290;
-      v15 = serviceIdentity;
-      _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_INFO, "Not managing %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = serviceIdentity;
+      _os_log_impl(&dword_18E8AD000, v7, OS_LOG_TYPE_INFO, "Not managing %@", &v13, 0xCu);
     }
 
-    v8 = *MEMORY[0x1E69E9840];
     return 0;
   }
 
@@ -61,7 +61,6 @@
     identity = [host identity];
     defaultManageFlags = [identity defaultManageFlags];
 
-    v13 = *MEMORY[0x1E69E9840];
     return defaultManageFlags;
   }
 }
@@ -84,7 +83,7 @@
 
 - (id)encodeForJob
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   empty = xpc_dictionary_create_empty();
   xpc_dictionary_set_int64(empty, "TYPE", 4);
   pid = self->super._pid;
@@ -107,7 +106,7 @@
   if (uuid)
   {
     *uuid = 0;
-    v24 = 0;
+    v23 = 0;
     [uuid getUUIDBytes:uuid];
     xpc_dictionary_set_uuid(empty, "hu", uuid);
   }
@@ -125,7 +124,7 @@
 
     else
     {
-      v12 = rbs_process_log();
+      v12 = rbs_process_log(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         [(RBSXPCServiceProcessIdentity *)identity encodeForJob];
@@ -160,7 +159,6 @@
   variant = [definition variant];
 
   xpc_dictionary_set_int64(empty, "r", variant);
-  v21 = *MEMORY[0x1E69E9840];
 
   return empty;
 }
@@ -179,6 +177,118 @@
   v3 = [definition variant] == 3;
 
   return v3;
+}
+
+- (id)_initWithXPCServiceID:(id)d pid:(int)pid auid:(unsigned int)auid
+{
+  v5 = *&auid;
+  dCopy = d;
+  v50.receiver = self;
+  v50.super_class = RBSXPCServiceProcessIdentity;
+  _init = [(RBSProcessIdentity *)&v50 _init];
+  v11 = _init;
+  if (_init)
+  {
+    v49 = dCopy;
+    objc_storeStrong(_init + 7, d);
+    if (pid >= 1)
+    {
+      *(v11 + 2) = pid;
+    }
+
+    definition = [v11[7] definition];
+    variant = [definition variant];
+
+    if (variant == 3)
+    {
+      v14 = @"extextension";
+    }
+
+    else
+    {
+      v14 = @"xpcservice";
+    }
+
+    v15 = MEMORY[0x1E696AEC0];
+    definition2 = [v11[7] definition];
+    identifier = [definition2 identifier];
+    host = [v11[7] host];
+    v19 = host;
+    if (host)
+    {
+      v20 = host;
+    }
+
+    else
+    {
+      v20 = @"no host";
+    }
+
+    validationToken = [v11[7] validationToken];
+    v22 = [validationToken hash];
+    if (v5)
+    {
+      [v15 stringWithFormat:@"%@<%@(%@)(%d)>{vt hash: %lu}", v14, identifier, v20, v5, v22];
+    }
+
+    else
+    {
+      [v15 stringWithFormat:@"%@<%@(%@)>{vt hash: %lu}", v14, identifier, v20, v22, v48];
+    }
+    v23 = ;
+    v24 = v11[2];
+    v11[2] = v23;
+
+    uuid = [v11 uuid];
+
+    if (uuid)
+    {
+      v26 = MEMORY[0x1E696AEC0];
+      v27 = v11[2];
+      uuid2 = [v11 uuid];
+      v29 = [v26 stringWithFormat:@"%@[uuid:%@]", v27, uuid2];
+      v30 = v11[2];
+      v11[2] = v29;
+    }
+
+    personaString = [v11 personaString];
+
+    if (personaString)
+    {
+      v32 = MEMORY[0x1E696AEC0];
+      v33 = v11[2];
+      personaString2 = [v11 personaString];
+      v35 = [v32 stringWithFormat:@"%@{persona:%@}", v33, personaString2];
+      v36 = v11[2];
+      v11[2] = v35;
+    }
+
+    definition3 = [v11[7] definition];
+
+    if (definition3)
+    {
+      v38 = MEMORY[0x1E696AEC0];
+      v39 = v11[2];
+      definition4 = [v11[7] definition];
+      v41 = [v38 stringWithFormat:@"%@{definition:%@}", v39, definition4];
+      v42 = v11[2];
+      v11[2] = v41;
+    }
+
+    v43 = *(v11 + 2);
+    if (v43)
+    {
+      v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%d", v11[2], v43];
+      v45 = v11[2];
+      v11[2] = v44;
+    }
+
+    v11[3] = [v11[7] hash];
+    v46 = v11;
+    dCopy = v49;
+  }
+
+  return v11;
 }
 
 - (BOOL)isMultiInstanceExtension
@@ -402,13 +512,12 @@ LABEL_3:
 
 - (void)encodeForJob
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_18E8AD000, log, OS_LOG_TYPE_FAULT, "error encoding host identity for job: %@ of %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_18E8AD000, log, OS_LOG_TYPE_FAULT, "error encoding host identity for job: %@ of %@", &v3, 0x16u);
 }
 
 @end

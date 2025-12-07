@@ -16,42 +16,42 @@ void __76___LTMultilingualSpeechRecognizer_initWithModelURLs_modelVersions_taskH
 
 void __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _LTOSLogSpeech();
-  v8 = v7;
+  v8 = _LTOSLogSpeech(v6, v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_cold_1(v6, v8);
+      __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_cold_1(v6, v9);
     }
 
     objc_storeStrong((*(*(a1 + 96) + 8) + 40), a3);
-    v9 = *(a1 + 32);
-    v10 = v9;
-    v11 = *(a1 + 112);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+    v10 = *(a1 + 32);
+    v11 = v10;
+    v12 = *(a1 + 112);
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
-      v12 = *(a1 + 40);
+      v13 = *(a1 + 40);
       *buf = 138543618;
-      v49 = v12;
-      v50 = 2112;
-      v51 = v6;
-      _os_signpost_emit_with_name_impl(&dword_232E53000, v10, OS_SIGNPOST_INTERVAL_END, v11, "ASR", "Failed ASR (%{public}@) with error: %@", buf, 0x16u);
+      v51 = v13;
+      v52 = 2112;
+      v53 = v6;
+      _os_signpost_emit_with_name_impl(&dword_232E53000, v11, OS_SIGNPOST_INTERVAL_END, v12, "ASR", "Failed ASR (%{public}@) with error: %@", buf, 0x16u);
     }
 
     if (v5)
     {
-      v13 = *(a1 + 48);
+      v14 = *(a1 + 48);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_5;
       block[3] = &unk_2789B6D38;
-      v46 = *(a1 + 88);
-      v45 = v5;
-      dispatch_async(v13, block);
+      v48 = *(a1 + 88);
+      v47 = v5;
+      dispatch_async(v14, block);
     }
 
     dispatch_group_leave(*(a1 + 56));
@@ -59,98 +59,97 @@ void __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoi
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_cold_2(v8, v5);
+      __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_cold_2(v9, v5);
     }
 
-    if (*(a1 + 120) != 1 || ([v5 locale], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 64), "currentLocale"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqual:", v15), v15, v14, v16))
+    if (*(a1 + 120) != 1 || ([v5 locale], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 64), "currentLocale"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, v17))
     {
-      v17 = *(a1 + 48);
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_7;
-      v41[3] = &unk_2789B6D38;
-      v43 = *(a1 + 88);
-      v18 = v5;
-      v42 = v18;
-      dispatch_async(v17, v41);
-      if ([v18 isFinal])
+      v18 = *(a1 + 48);
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_7;
+      v43[3] = &unk_2789B6D38;
+      v45 = *(a1 + 88);
+      v19 = v5;
+      v44 = v19;
+      dispatch_async(v18, v43);
+      v20 = [v19 isFinal];
+      if (v20)
       {
-        v35 = 0;
-        v19 = _LTOSLogSpeech();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v37 = 0;
+        v22 = _LTOSLogSpeech(v20, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_cold_3();
         }
 
+        v41 = 0u;
+        v42 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v20 = *(a1 + 72);
-        v21 = [v20 countByEnumeratingWithState:&v37 objects:v47 count:16];
-        if (v21)
+        v23 = *(a1 + 72);
+        v24 = [v23 countByEnumeratingWithState:&v39 objects:v49 count:16];
+        if (v24)
         {
-          v22 = v21;
-          v23 = *v38;
+          v25 = v24;
+          v26 = *v40;
           do
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v25; ++i)
             {
-              if (*v38 != v23)
+              if (*v40 != v26)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v23);
               }
 
-              v25 = *(*(&v37 + 1) + 8 * i);
-              v26 = [v25 language];
-              v27 = [*(a1 + 80) language];
-              v28 = [v26 isEqual:v27];
+              v28 = *(*(&v39 + 1) + 8 * i);
+              v29 = [v28 language];
+              v30 = [*(a1 + 80) language];
+              v31 = [v29 isEqual:v30];
 
-              if ((v28 & 1) == 0)
+              if ((v31 & 1) == 0)
               {
-                [v25 triggerServerSideEndPointer];
+                [v28 triggerServerSideEndPointer];
               }
             }
 
-            v22 = [v20 countByEnumeratingWithState:&v37 objects:v47 count:16];
+            v25 = [v23 countByEnumeratingWithState:&v39 objects:v49 count:16];
           }
 
-          while (v22);
+          while (v25);
         }
 
-        v29 = *(a1 + 48);
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_8;
-        v36[3] = &unk_2789B57C0;
-        v36[4] = *(a1 + 104);
-        dispatch_async(v29, v36);
-        v30 = *(a1 + 32);
-        v31 = v30;
-        v32 = *(a1 + 112);
-        if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+        v32 = *(a1 + 48);
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_8;
+        v38[3] = &unk_2789B57C0;
+        v38[4] = *(a1 + 104);
+        dispatch_async(v32, v38);
+        v33 = *(a1 + 32);
+        v34 = v33;
+        v35 = *(a1 + 112);
+        if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
         {
-          v33 = *(a1 + 40);
+          v36 = *(a1 + 40);
           *buf = 138412290;
-          v49 = v33;
-          _os_signpost_emit_with_name_impl(&dword_232E53000, v31, OS_SIGNPOST_INTERVAL_END, v32, "ASR", "Completed ASR for %@", buf, 0xCu);
+          v51 = v36;
+          _os_signpost_emit_with_name_impl(&dword_232E53000, v34, OS_SIGNPOST_INTERVAL_END, v35, "ASR", "Completed ASR for %@", buf, 0xCu);
         }
 
         dispatch_group_leave(*(a1 + 56));
-        v6 = v35;
+        v6 = v37;
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-void __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_10(void *a1)
+void __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_10(void *a1, uint64_t a2)
 {
-  v2 = _LTOSLogSpeech();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _LTOSLogSpeech(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_10_cold_1();
   }
@@ -166,28 +165,25 @@ void __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoi
 
 void __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Recognition error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Recognition error: %@", &v2, 0xCu);
 }
 
 void __143___LTMultilingualSpeechRecognizer_startRecognitionForLocale_autoEndpoint_enableStreamingSpeechTranslation_enableMultiFieldInput_resultHandler___block_invoke_cold_2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 locale];
   v5 = [v4 _ltLocaleIdentifier];
   v6 = [a2 bestTranscription];
   v7 = [v6 formattedString];
-  v9 = 138543619;
-  v10 = v5;
-  v11 = 2117;
-  v12 = v7;
-  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "ASR result (%{public}@): %{sensitive}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543619;
+  v9 = v5;
+  v10 = 2117;
+  v11 = v7;
+  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "ASR result (%{public}@): %{sensitive}@", &v8, 0x16u);
 }
 
 @end

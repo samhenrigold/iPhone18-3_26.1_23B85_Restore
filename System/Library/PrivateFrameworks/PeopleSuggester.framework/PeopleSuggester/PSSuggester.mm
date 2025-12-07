@@ -14,78 +14,79 @@ void __56___PSSuggester_initWithConfiguration_feedbackRecording___block_invoke(u
   v7 = [v5 path];
   LOBYTE(v4) = [v6 fileExistsAtPath:v7];
 
-  if ((v4 & 1) != 0 || ((v26 = 0, v8 = [v6 createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:0 error:&v26], v9 = v26, v8) ? (v10 = v9 == 0) : (v10 = 0), v10))
+  if ((v4 & 1) != 0 || ((v27 = 0, v8 = [v6 createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:0 error:&v27], v9 = v27, v8) ? (v10 = v9 == 0) : (v10 = 0), v10))
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2050000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2050000000;
     v13 = getBMStoreConfigClass_softClass;
-    v35 = getBMStoreConfigClass_softClass;
+    v36 = getBMStoreConfigClass_softClass;
     if (!getBMStoreConfigClass_softClass)
     {
-      v27 = MEMORY[0x1E69E9820];
-      v28 = 3221225472;
-      v29 = __getBMStoreConfigClass_block_invoke;
-      v30 = &unk_1E7C23BF0;
-      v31 = &v32;
-      BiomeStorageLibraryCore();
+      v28 = MEMORY[0x1E69E9820];
+      v29 = 3221225472;
+      v30 = __getBMStoreConfigClass_block_invoke;
+      v31 = &unk_1E7C23BF0;
+      v32 = &v33;
+      BiomeStorageLibraryCore(0);
       Class = objc_getClass("BMStoreConfig");
-      *(v31[1] + 24) = Class;
-      getBMStoreConfigClass_softClass = *(v31[1] + 24);
-      v13 = v33[3];
+      *(v32[1] + 24) = Class;
+      getBMStoreConfigClass_softClass = *(v32[1] + 24);
+      v13 = v34[3];
     }
 
     v15 = v13;
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v33, 8);
     v16 = [v13 alloc];
     v17 = [v5 path];
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
     v18 = getbm_defaultStoreSegmentSizeSymbolLoc_ptr;
-    v35 = getbm_defaultStoreSegmentSizeSymbolLoc_ptr;
+    v36 = getbm_defaultStoreSegmentSizeSymbolLoc_ptr;
     if (!getbm_defaultStoreSegmentSizeSymbolLoc_ptr)
     {
-      v27 = MEMORY[0x1E69E9820];
-      v28 = 3221225472;
-      v29 = __getbm_defaultStoreSegmentSizeSymbolLoc_block_invoke;
-      v30 = &unk_1E7C23BF0;
-      v31 = &v32;
-      __getbm_defaultStoreSegmentSizeSymbolLoc_block_invoke(&v27);
-      v18 = v33[3];
+      v28 = MEMORY[0x1E69E9820];
+      v29 = 3221225472;
+      v30 = __getbm_defaultStoreSegmentSizeSymbolLoc_block_invoke;
+      v31 = &unk_1E7C23BF0;
+      v32 = &v33;
+      __getbm_defaultStoreSegmentSizeSymbolLoc_block_invoke(&v28);
+      v18 = v34[3];
     }
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v33, 8);
     if (!v18)
     {
-      v25 = [_PSBlockedHandlesCache beginSyncingWithTU];
-      _Block_object_dispose(&v32, 8);
-      _Unwind_Resume(v25);
+      [_PSBlockedHandlesCache beginSyncingWithTU];
+      v26 = v25;
+      _Block_object_dispose(&v33, 8);
+      _Unwind_Resume(v26);
     }
 
     v11 = [v16 initWithStoreBasePath:v17 segmentSize:*v18];
 
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2050000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2050000000;
     v19 = getBMStoreStreamClass_softClass;
-    v35 = getBMStoreStreamClass_softClass;
+    v36 = getBMStoreStreamClass_softClass;
     if (!getBMStoreStreamClass_softClass)
     {
-      v27 = MEMORY[0x1E69E9820];
-      v28 = 3221225472;
-      v29 = __getBMStoreStreamClass_block_invoke;
-      v30 = &unk_1E7C23BF0;
-      v31 = &v32;
-      BiomeStreamsLibraryCore();
+      v28 = MEMORY[0x1E69E9820];
+      v29 = 3221225472;
+      v30 = __getBMStoreStreamClass_block_invoke;
+      v31 = &unk_1E7C23BF0;
+      v32 = &v33;
+      BiomeStreamsLibraryCore(0);
       v20 = objc_getClass("BMStoreStream");
-      *(v31[1] + 24) = v20;
-      getBMStoreStreamClass_softClass = *(v31[1] + 24);
-      v19 = v33[3];
+      *(v32[1] + 24) = v20;
+      getBMStoreStreamClass_softClass = *(v32[1] + 24);
+      v19 = v34[3];
     }
 
     v21 = v19;
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v33, 8);
     v12 = [[v19 alloc] initWithPrivateStreamIdentifier:@"CNA" storeConfig:v11];
     v22 = [v12 source];
     v23 = *(a1 + 32);
@@ -136,10 +137,7 @@ void __46___PSSuggester_candidatesForShareSheetRanking__block_invoke_70(uint64_t
 
 uint64_t __46___PSSuggester_candidatesForShareSheetRanking__block_invoke_74(uint64_t a1, void *a2)
 {
-  v3 = [a2 allObjects];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 allObjects];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -210,44 +208,42 @@ void __68___PSSuggester_showNotificationToFileARadarForUserStudyParticipants__bl
 
 void __68___PSSuggester_showNotificationToFileARadarForUserStudyParticipants__block_invoke_153(uint64_t a1)
 {
-  v10[7] = *MEMORY[0x1E69E9840];
+  v9[7] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E695EE60];
-  v9[0] = *MEMORY[0x1E695EE58];
-  v9[1] = v2;
-  v10[0] = @"ShareSheet Study Feedback request";
-  v10[1] = @"Could you please share with us your feedback on your experience with the ShareSheet for this session?";
+  v8[0] = *MEMORY[0x1E695EE58];
+  v8[1] = v2;
+  v9[0] = @"ShareSheet Study Feedback request";
+  v9[1] = @"Could you please share with us your feedback on your experience with the ShareSheet for this session?";
   v3 = *MEMORY[0x1E695EE98];
-  v9[2] = *MEMORY[0x1E695EE78];
-  v9[3] = v3;
-  v10[2] = @"File a radar";
-  v10[3] = @"Dismiss";
+  v8[2] = *MEMORY[0x1E695EE78];
+  v8[3] = v3;
+  v9[2] = @"File a radar";
+  v9[3] = @"Dismiss";
   v4 = *MEMORY[0x1E69D4500];
-  v9[4] = *MEMORY[0x1E695EE68];
-  v9[5] = v4;
-  v10[4] = MEMORY[0x1E695E118];
-  v10[5] = MEMORY[0x1E695E118];
-  v9[6] = *MEMORY[0x1E69D44E0];
-  v10[6] = MEMORY[0x1E695E118];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:7];
+  v8[4] = *MEMORY[0x1E695EE68];
+  v8[5] = v4;
+  v9[4] = MEMORY[0x1E695E118];
+  v9[5] = MEMORY[0x1E695E118];
+  v8[6] = *MEMORY[0x1E69D44E0];
+  v9[6] = MEMORY[0x1E695E118];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:7];
   v6 = CFUserNotificationCreate(*MEMORY[0x1E695E480], 0.0, 1uLL, 0, v5);
-  v8 = 0;
-  CFUserNotificationReceiveResponse(v6, 0.0, &v8);
+  v7 = 0;
+  CFUserNotificationReceiveResponse(v6, 0.0, &v7);
   if (v6)
   {
     CFRelease(v6);
   }
 
-  if (!v8)
+  if (!v7)
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_PSLogging suggestionSignpost];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -256,10 +252,10 @@ void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
   }
 
   v5 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v13 = *MEMORY[0x1E696A578];
+  v12 = *MEMORY[0x1E696A578];
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"XPC Error: %@", v3, 0];
-  v14[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v8 = [v5 initWithDomain:@"com.apple.PeopleSuggester" code:1 userInfo:v7];
 
   v9 = +[_PSConstants suggestionPathXPCError];
@@ -270,7 +266,6 @@ void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
   [v10 logErrorEventWithName:@"XPCError" details:v11 attributes:MEMORY[0x1E695E0F8]];
 
   (*(*(a1 + 48) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHandler___block_invoke_204(uint64_t a1)
@@ -284,7 +279,7 @@ BOOL __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
 
 void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
@@ -296,8 +291,8 @@ void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
     v10 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v32) = 0;
-      _os_log_impl(&dword_1B5ED1000, v10, OS_LOG_TYPE_DEFAULT, "Simulating a empty suggestion for testing", &v32, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_1B5ED1000, v10, OS_LOG_TYPE_DEFAULT, "Simulating a empty suggestion for testing", &v29, 2u);
     }
 
     v11 = *(*(a1 + 56) + 8);
@@ -317,23 +312,23 @@ void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
     if (*(*(*(a1 + 72) + 8) + 24) == 1)
     {
       v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v34 = *MEMORY[0x1E696A578];
-      v35[0] = @"Suggestions timed out";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+      v31 = *MEMORY[0x1E696A578];
+      v32[0] = @"Suggestions timed out";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
       v16 = [v14 initWithDomain:@"com.apple.PeopleSuggester" code:1 userInfo:v15];
 
       v17 = +[_PSLogging suggestionSignpost];
       if (os_signpost_enabled(v17))
       {
-        LOWORD(v32) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSSuggestionAsyncFallbackTotalTime", &unk_1B5FD970D, &v32, 2u);
+        LOWORD(v29) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSSuggestionAsyncFallbackTotalTime", &unk_1B5FD970D, &v29, 2u);
       }
 
       v18 = +[_PSLogging generalChannel];
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v32) = 0;
-        _os_log_impl(&dword_1B5ED1000, v18, OS_LOG_TYPE_DEFAULT, "Timed out people suggestions", &v32, 2u);
+        LOWORD(v29) = 0;
+        _os_log_impl(&dword_1B5ED1000, v18, OS_LOG_TYPE_DEFAULT, "Timed out people suggestions", &v29, 2u);
       }
 
       [*(a1 + 48) logErrorEventWithName:@"NormalPathTimedout" details:&stru_1F2D6CE98 attributes:MEMORY[0x1E695E0F8]];
@@ -344,27 +339,25 @@ void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
       v20 = +[_PSLogging suggestionSignpost];
       if (os_signpost_enabled(v20))
       {
-        LOWORD(v32) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSSuggestionAsyncTotalTime", &unk_1B5FD970D, &v32, 2u);
+        LOWORD(v29) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1B5ED1000, v20, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_PSSuggestionAsyncTotalTime", &unk_1B5FD970D, &v29, 2u);
       }
 
       v16 = 0;
     }
 
-    v21 = *(*(*(a1 + 56) + 8) + 40);
-    v22 = *(*(*(a1 + 72) + 8) + 24);
     (*(*(*(*(a1 + 64) + 8) + 40) + 16))();
-    v23 = *(*(a1 + 64) + 8);
-    v24 = *(v23 + 40);
-    *(v23 + 40) = 0;
+    v21 = *(*(a1 + 64) + 8);
+    v22 = *(v21 + 40);
+    *(v21 + 40) = 0;
 
-    v25 = +[_PSLogging generalChannel];
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v23 = +[_PSLogging generalChannel];
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [MEMORY[0x1E696AD98] numberWithBool:*(*(*(a1 + 72) + 8) + 24)];
-      v32 = 138412290;
-      v33 = v26;
-      _os_log_impl(&dword_1B5ED1000, v25, OS_LOG_TYPE_DEFAULT, "Finished fetching people suggestions, timedOut: %@", &v32, 0xCu);
+      v24 = [MEMORY[0x1E696AD98] numberWithBool:*(*(*(a1 + 72) + 8) + 24)];
+      v29 = 138412290;
+      v30 = v24;
+      _os_log_impl(&dword_1B5ED1000, v23, OS_LOG_TYPE_DEFAULT, "Finished fetching people suggestions, timedOut: %@", &v29, 0xCu);
     }
   }
 
@@ -373,23 +366,21 @@ void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
     v19 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v32) = 0;
-      _os_log_impl(&dword_1B5ED1000, v19, OS_LOG_TYPE_DEFAULT, "Received completion without valid reply block", &v32, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_1B5ED1000, v19, OS_LOG_TYPE_DEFAULT, "Received completion without valid reply block", &v29, 2u);
     }
 
     [*(a1 + 48) logErrorEventWithName:@"ReceivedNilReplyBlock" details:&stru_1F2D6CE98 attributes:MEMORY[0x1E695E0F8]];
   }
 
-  v27 = *(a1 + 48);
-  v28 = [*(a1 + 40) trialDeploymentId];
-  v29 = [*(a1 + 40) trialExperimentId];
-  v30 = [*(a1 + 40) trialTreatmentId];
-  [v27 addTrialDeploymentId:v28 trialExperimentId:v29 trialTreatmentId:v30];
+  v25 = *(a1 + 48);
+  v26 = [*(a1 + 40) trialDeploymentId];
+  v27 = [*(a1 + 40) trialExperimentId];
+  v28 = [*(a1 + 40) trialTreatmentId];
+  [v25 addTrialDeploymentId:v26 trialExperimentId:v27 trialTreatmentId:v28];
 
   [*(a1 + 48) end];
   os_unfair_lock_unlock((*(a1 + 32) + 24));
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHandler___block_invoke_221(uint64_t a1)
@@ -404,8 +395,8 @@ void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
     v5 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_INFO, "Timeout. Falling back to cached suggestions.", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_INFO, "Timeout. Falling back to cached suggestions.", v10, 2u);
     }
 
     os_unfair_lock_lock((*(a1 + 40) + 24));
@@ -420,7 +411,6 @@ void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHa
     v9 = [v8 getCachedContext];
     [*(a1 + 56) setIsFallbackFetch:1];
     [*(a1 + 56) sync:v9];
-    v10 = *(a1 + 56);
     (*(*(a1 + 72) + 16))();
     [v2 end];
   }
@@ -560,16 +550,16 @@ void __84___PSSuggester_asyncShareExtensionSuggestionsFromContext_timeout_comple
 
 void __84___PSSuggester_asyncShareExtensionSuggestionsFromContext_timeout_completionHandler___block_invoke_255(void *a1, void *a2)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(a1[5] + 8) + 40), a2);
   os_unfair_lock_lock((a1[4] + 24));
   if (*(*(a1[6] + 8) + 24) == 1)
   {
     v5 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A578];
-    v17[0] = @"Suggestions timed out";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A578];
+    v16[0] = @"Suggestions timed out";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v5 initWithDomain:@"com.apple.PeopleSuggester" code:1 userInfo:v6];
   }
 
@@ -586,9 +576,9 @@ void __84___PSSuggester_asyncShareExtensionSuggestionsFromContext_timeout_comple
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x1E696AD98] numberWithBool:*(*(a1[6] + 8) + 24)];
-      v14 = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_DEFAULT, "Finished fetching people suggestions, timedOut: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v10;
+      _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_DEFAULT, "Finished fetching people suggestions, timedOut: %@", &v13, 0xCu);
     }
 
     v11 = *(a1[7] + 8);
@@ -597,35 +587,31 @@ void __84___PSSuggester_asyncShareExtensionSuggestionsFromContext_timeout_comple
   }
 
   os_unfair_lock_unlock((a1[4] + 24));
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __84___PSSuggester_asyncShareExtensionSuggestionsFromContext_timeout_completionHandler___block_invoke_256(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v6) = 0;
-    _os_log_impl(&dword_1B5ED1000, v2, OS_LOG_TYPE_DEFAULT, "Timed out app suggestions", &v6, 2u);
+    LOWORD(v5) = 0;
+    _os_log_impl(&dword_1B5ED1000, v2, OS_LOG_TYPE_DEFAULT, "Timed out app suggestions", &v5, 2u);
   }
 
   v3 = [*(a1 + 32) shareExtensionSuggestionsFromContext:*(a1 + 40)];
   v4 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138477827;
-    v7 = v3;
-    _os_log_impl(&dword_1B5ED1000, v4, OS_LOG_TYPE_INFO, "Fetched %{private}@ app suggestions in process", &v6, 0xCu);
+    v5 = 138477827;
+    v6 = v3;
+    _os_log_impl(&dword_1B5ED1000, v4, OS_LOG_TYPE_INFO, "Fetched %{private}@ app suggestions in process", &v5, 0xCu);
   }
 
   os_unfair_lock_lock((*(a1 + 32) + 24));
   *(*(*(a1 + 56) + 8) + 24) = 1;
   os_unfair_lock_unlock((*(a1 + 32) + 24));
   (*(*(a1 + 48) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 intptr_t __84___PSSuggester_asyncShareExtensionSuggestionsFromContext_timeout_completionHandler___block_invoke_257(uint64_t a1)
@@ -738,12 +724,12 @@ void __63___PSSuggester_autocompleteSearchResultsWithPredictionContext___block_i
 
         v10 = [v8 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_283];
         v11 = *(a1 + 32);
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __63___PSSuggester_autocompleteSearchResultsWithPredictionContext___block_invoke_284;
-        v18[3] = &unk_1E7C243A0;
-        v18[4] = *(a1 + 48);
-        [v10 autocompleteSearchResultsWithPredictionContext:v11 reply:v18];
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __63___PSSuggester_autocompleteSearchResultsWithPredictionContext___block_invoke_284;
+        v15[3] = &unk_1E7C243A0;
+        v15[4] = *(a1 + 48);
+        [v10 autocompleteSearchResultsWithPredictionContext:v11 reply:v15];
         v12 = +[_PSLogging suggestionSignpost];
         if (os_signpost_enabled(v12))
         {
@@ -754,24 +740,21 @@ void __63___PSSuggester_autocompleteSearchResultsWithPredictionContext___block_i
 
       else
       {
-        v16 = +[_PSLogging generalChannel];
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v13 = +[_PSLogging generalChannel];
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           __63___PSSuggester_autocompleteSearchResultsWithPredictionContext___block_invoke_2_cold_1();
         }
 
-        v17 = *(*(a1 + 48) + 8);
-        v10 = *(v17 + 40);
-        *(v17 + 40) = MEMORY[0x1E695E0F0];
+        v14 = *(*(a1 + 48) + 8);
+        v10 = *(v14 + 40);
+        *(v14 + 40) = MEMORY[0x1E695E0F0];
       }
     }
 
     else
     {
-      v13 = [v7 rankedZKWSuggestionsFromContext:*(a1 + 32)];
-      v14 = *(*(a1 + 48) + 8);
-      v15 = *(v14 + 40);
-      *(v14 + 40) = v13;
+      *(*(*(a1 + 48) + 8) + 40) = [v7 rankedZKWSuggestionsFromContext:*(a1 + 32)];
 
       MEMORY[0x1EEE66BB8]();
     }
@@ -867,17 +850,15 @@ void __46___PSSuggester_provideFeedbackForSuggestions___block_invoke(uint64_t a1
 
 void __46___PSSuggester_provideFeedbackForSuggestions___block_invoke_433(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = +[_PSLogging feedbackChannel];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_DEFAULT, "Persisted feedback, reply: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_DEFAULT, "Persisted feedback, reply: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 id __46___PSSuggester_provideFeedbackForSuggestions___block_invoke_471(uint64_t a1)
@@ -970,17 +951,15 @@ LABEL_6:
 
 void __72___PSSuggester__recordFeedbackToInteractionStoreWithFeedback_mechanism___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = +[_PSLogging feedbackChannel];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_INFO, "Persisted interaction for feedback, reply: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_INFO, "Persisted interaction for feedback, reply: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62___PSSuggester_deleteInteractionsMatchingSuggestLessFeedback___block_invoke(uint64_t a1, void *a2)
@@ -995,7 +974,7 @@ void __62___PSSuggester_deleteInteractionsMatchingSuggestLessFeedback___block_in
 
 void __62___PSSuggester_deleteInteractionsMatchingSuggestLessFeedback___block_invoke_529(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = +[_PSLogging feedbackChannel];
   v6 = v5;
@@ -1012,16 +991,14 @@ void __62___PSSuggester_deleteInteractionsMatchingSuggestLessFeedback___block_in
     v7 = [*(a1 + 32) contactId];
     v8 = [*(a1 + 32) bundleId];
     v9 = [*(a1 + 32) conversationId];
-    v11 = 138478339;
-    v12 = v7;
-    v13 = 2113;
-    v14 = v8;
-    v15 = 2113;
-    v16 = v9;
-    _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "SuggestLess: Deleted all interactions for contact id: %{private}@ bundle: %{private}@ conversation id: %{private}@", &v11, 0x20u);
+    v10 = 138478339;
+    v11 = v7;
+    v12 = 2113;
+    v13 = v8;
+    v14 = 2113;
+    v15 = v9;
+    _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "SuggestLess: Deleted all interactions for contact id: %{private}@ bundle: %{private}@ conversation id: %{private}@", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64___PSSuggester_deleteUIInteractionsMatchingSuggestLessFeedback___block_invoke(uint64_t a1, void *a2)
@@ -1098,7 +1075,7 @@ void __64___PSSuggester_writeFeedbackForContactsAutocompleteSuggestions___block_
 
 uint64_t __96___PSSuggester_InteractionInformation__interactionCountForHandle_fetchLimit_interactionStoreDB___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (![v3 isInteractionMechanismCalls])
   {
@@ -1125,21 +1102,20 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  v12 = +[_PSLogging generalChannel];
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = +[_PSLogging generalChannel];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 32);
-    v14 = 138478083;
-    v15 = v13;
-    v16 = 2048;
-    v17 = v8;
-    _os_log_impl(&dword_1B5ED1000, v12, OS_LOG_TYPE_DEFAULT, "_PSSuggester: Dropped interaction for handle: %{private}@ since call interval is %f", &v14, 0x16u);
+    v12 = *(a1 + 32);
+    v13 = 138478083;
+    v14 = v12;
+    v15 = 2048;
+    v16 = v8;
+    _os_log_impl(&dword_1B5ED1000, v11, OS_LOG_TYPE_DEFAULT, "_PSSuggester: Dropped interaction for handle: %{private}@ since call interval is %f", &v13, 0x16u);
   }
 
   v9 = 0;
 LABEL_8:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1158,32 +1134,25 @@ uint64_t __54___PSSuggester_InteractionInformation___dateFormatter__block_invoke
 
 void __56___PSSuggester_initWithConfiguration_feedbackRecording___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68___PSSuggester_showNotificationToFileARadarForUserStudyParticipants__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __78___PSSuggester_asyncSuggestInteractionsFromContext_timeout_completionHandler___block_invoke_228_cold_1(NSObject *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_7();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void __63___PSSuggester_autocompleteSearchResultsWithPredictionContext___block_invoke_2_cold_1()
@@ -1195,13 +1164,10 @@ void __63___PSSuggester_autocompleteSearchResultsWithPredictionContext___block_i
 
 void __62___PSSuggester_deleteInteractionsMatchingSuggestLessFeedback___block_invoke_529_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) contactId];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __64___PSSuggester_writeFeedbackForContactsAutocompleteSuggestions___block_invoke_cold_1()

@@ -1900,16 +1900,16 @@ LABEL_29:
 
 - (int)setActivityLevel:(id)level
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   levelCopy = level;
   array = [MEMORY[0x1E695DF70] array];
-  v32 = 0.0;
-  if (SocType() < 247)
+  v33 = 0.0;
+  if (SocType(array, v6) < 247)
   {
     [(VCPVideoGlobalAnalyzer *)self assetActivityLevelFromAnalysisResults:levelCopy];
-    v32 = v7;
-    v8 = AddResultDictionary(0, 0, &v32, 0, 0, array);
-    if (!v8)
+    v33 = v8;
+    v9 = AddResultDictionary(0, 0, &v33, 0, 0, array);
+    if (!v9)
     {
       goto LABEL_17;
     }
@@ -1917,71 +1917,71 @@ LABEL_29:
 
   else
   {
-    v6 = [levelCopy objectForKeyedSubscript:@"ActivityLevelResults"];
-    if ([v6 count] <= 1)
+    v7 = [levelCopy objectForKeyedSubscript:@"ActivityLevelResults"];
+    if ([v7 count] <= 1)
     {
 
 LABEL_18:
-      v8 = 0;
+      v9 = 0;
       goto LABEL_19;
     }
 
+    memset(&v32, 0, sizeof(v32));
+    firstObject = [v7 firstObject];
+    CMTimeRangeMakeFromDictionary(&v32, firstObject);
+
     memset(&v31, 0, sizeof(v31));
-    firstObject = [v6 firstObject];
-    CMTimeRangeMakeFromDictionary(&v31, firstObject);
+    lastObject = [v7 lastObject];
+    CMTimeRangeMakeFromDictionary(&v31, lastObject);
 
     memset(&v30, 0, sizeof(v30));
-    lastObject = [v6 lastObject];
-    CMTimeRangeMakeFromDictionary(&v30, lastObject);
-
-    memset(&v29, 0, sizeof(v29));
-    start = v31.start;
-    range = v30;
-    CMTimeRangeGetEnd(&v26, &range);
-    range.start = v26;
-    rhs = v31.start;
+    start = v32.start;
+    range = v31;
+    CMTimeRangeGetEnd(&v27, &range);
+    range.start = v27;
+    rhs = v32.start;
     CMTimeSubtract(&duration, &range.start, &rhs);
-    CMTimeRangeMake(&v29, &start, &duration);
-    v21 = 0u;
+    CMTimeRangeMake(&v30, &start, &duration);
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v11 = v6;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v34 count:16];
-    if (v12)
+    v25 = 0u;
+    v12 = v7;
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v35 count:16];
+    if (v13)
     {
-      v13 = *v22;
-      v14 = 0.0;
+      v14 = *v23;
+      v15 = 0.0;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v13)
+          if (*v23 != v14)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
+          v17 = *(*(&v22 + 1) + 8 * i);
           memset(&range, 0, sizeof(range));
-          CMTimeRangeMakeFromDictionary(&range, v16);
-          [(__CFDictionary *)v16 vcp_quality];
-          v18 = v17;
+          CMTimeRangeMakeFromDictionary(&range, v17);
+          [(__CFDictionary *)v17 vcp_quality];
+          v19 = v18;
           rhs = range.duration;
           Seconds = CMTimeGetSeconds(&rhs);
-          *&Seconds = v32 + v18 * Seconds;
-          v32 = *&Seconds;
+          *&Seconds = v33 + v19 * Seconds;
+          v33 = *&Seconds;
           rhs = range.duration;
-          v14 = CMTimeGetSeconds(&rhs) + v14;
+          v15 = CMTimeGetSeconds(&rhs) + v15;
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v21 objects:v34 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v22 objects:v35 count:16];
       }
 
-      while (v12);
+      while (v13);
 
-      if (v14 != 0.0)
+      if (v15 != 0.0)
       {
-        v32 = v32 / v14;
+        v33 = v33 / v15;
       }
     }
 
@@ -1989,19 +1989,19 @@ LABEL_18:
     {
     }
 
-    v8 = AddResultDictionary(&v29.start, &v29.duration, &v32, 0, 0, array);
+    v9 = AddResultDictionary(&v30.start, &v30.duration, &v33, 0, 0, array);
 
-    if (!v8)
+    if (!v9)
     {
 LABEL_17:
-      [levelCopy setObject:array forKey:{@"ActivityLevelResults", v21}];
+      [levelCopy setObject:array forKey:{@"ActivityLevelResults", v22}];
       goto LABEL_18;
     }
   }
 
 LABEL_19:
 
-  return v8;
+  return v9;
 }
 
 @end

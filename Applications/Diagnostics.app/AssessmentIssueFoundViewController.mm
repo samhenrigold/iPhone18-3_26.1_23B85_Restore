@@ -17,7 +17,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for AssessmentIssueFoundViewController();
+  v5.super_class = type metadata accessor for AssessmentIssueFoundViewController(0);
   v4 = v5.receiver;
   [(AssessmentIssueFoundViewController *)&v5 viewDidAppear:appearCopy];
   sub_1000EBDFC(9);

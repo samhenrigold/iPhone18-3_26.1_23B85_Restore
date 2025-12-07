@@ -972,7 +972,7 @@
   v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v111 forKeys:v110 count:3];
   [_orderedDisplayItemPlacements addEntriesFromDictionary:v53];
 
-  if ((_UIInternalPreferenceUsesDefault(&dword_1ED48B518, @"StatusBarEnableActivity", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B51C)
+  if (!_UIInternalPreferenceUsesDefault(&dword_1ED48B518, @"StatusBarEnableActivity", _UIInternalPreferenceUpdateBool) && byte_1ED48B51C)
   {
     v54 = +[_UIStatusBarActivityItem_Split pillDisplayIdentifier];
     v55 = [_UIStatusBarDisplayItemPlacement placementWithIdentifier:v54 priority:100];
@@ -981,7 +981,7 @@
     [_orderedDisplayItemPlacements setObject:v56 forKeyedSubscript:@"topTrailing"];
   }
 
-  if ((_UIInternalPreferenceUsesDefault(&_MergedGlobals_951, @"StatusBarPromoteThermalWarning", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B514)
+  if (!_UIInternalPreferenceUsesDefault(&_MergedGlobals_951, @"StatusBarPromoteThermalWarning", _UIInternalPreferenceUpdateBool) && byte_1ED48B514)
   {
     v57 = [_orderedDisplayItemPlacements objectForKeyedSubscript:@"trailing"];
     v58 = [v57 mutableCopy];
@@ -1139,7 +1139,7 @@ LABEL_7:
   regionCopy = region;
   itemsCopy = items;
   identifier = [regionCopy identifier];
-  if (![identifier isEqual:@"trailing"])
+  if (!objc_msgSend_isEqual_(identifier))
   {
     goto LABEL_11;
   }
@@ -1209,7 +1209,7 @@ LABEL_12:
   v13.receiver = self;
   v13.super_class = _UIStatusBarVisualProvider_FixedSplit;
   v5 = [(_UIStatusBarVisualProvider_Split *)&v13 regionIdentifiersForPartWithIdentifier:identifierCopy];
-  if ([identifierCopy isEqual:@"leadingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v15[0] = @"pill";
     v15[1] = @"pillContent";
@@ -1223,14 +1223,14 @@ LABEL_3:
     goto LABEL_10;
   }
 
-  if ([identifierCopy isEqual:@"trailingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v11 = [v5 setByAddingObject:@"topTrailing"];
   }
 
   else
   {
-    if ([identifierCopy isEqual:0x1EFB9C3D0])
+    if (objc_msgSend_isEqual_(identifierCopy))
     {
       v14[0] = @"pill";
       v14[1] = @"pillContent";

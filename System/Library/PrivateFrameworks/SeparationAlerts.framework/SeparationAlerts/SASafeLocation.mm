@@ -216,34 +216,34 @@ LABEL_16:
 
 - (id)descriptionDictionary
 {
-  v23[8] = *MEMORY[0x277D85DE8];
-  v22[0] = @"EventType";
+  v22[8] = *MEMORY[0x277D85DE8];
+  v21[0] = @"EventType";
   v4 = objc_opt_class();
-  v21 = NSStringFromClass(v4);
-  v23[0] = v21;
-  v22[1] = @"SASafeLocationIdentifier";
+  v20 = NSStringFromClass(v4);
+  v22[0] = v20;
+  v21[1] = @"SASafeLocationIdentifier";
   identifier = [(SASafeLocation *)self identifier];
-  v19 = [identifier description];
-  v23[1] = v19;
-  v22[2] = @"SASafeLocationLatitude";
+  v18 = [identifier description];
+  v22[1] = v18;
+  v21[2] = @"SASafeLocationLatitude";
   v5 = MEMORY[0x277CCABB0];
   [(SASafeLocation *)self latitude];
   v6 = [v5 numberWithDouble:?];
-  v23[2] = v6;
-  v22[3] = @"SASafeLocationLongitude";
+  v22[2] = v6;
+  v21[3] = @"SASafeLocationLongitude";
   v7 = MEMORY[0x277CCABB0];
   [(SASafeLocation *)self longitude];
   v8 = [v7 numberWithDouble:?];
-  v23[3] = v8;
-  v22[4] = @"SASafeLocationRadius";
+  v22[3] = v8;
+  v21[4] = @"SASafeLocationRadius";
   v9 = MEMORY[0x277CCABB0];
   [(SASafeLocation *)self radius];
   v10 = [v9 numberWithDouble:?];
-  v23[4] = v10;
-  v22[5] = @"SASafeLocationReferenceFrame";
+  v22[4] = v10;
+  v21[5] = @"SASafeLocationReferenceFrame";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SASafeLocation referenceFrame](self, "referenceFrame")}];
-  v23[5] = v11;
-  v22[6] = @"SASafeLocationNameString";
+  v22[5] = v11;
+  v21[6] = @"SASafeLocationNameString";
   name = [(SASafeLocation *)self name];
   if (name)
   {
@@ -256,18 +256,16 @@ LABEL_16:
     v13 = &stru_287709218;
   }
 
-  v23[6] = v13;
-  v22[7] = @"SASafeLocationDate";
+  v22[6] = v13;
+  v21[7] = @"SASafeLocationDate";
   date = [(SASafeLocation *)self date];
   getDateString = [date getDateString];
-  v23[7] = getDateString;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:8];
+  v22[7] = getDateString;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:8];
 
   if (name)
   {
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

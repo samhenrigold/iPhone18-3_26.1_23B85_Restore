@@ -223,15 +223,18 @@ LABEL_12:
 - (void)canvasViewDrawingDidChange:(id)change
 {
   drawing = [change drawing];
+  v5 = drawing;
   if (drawing)
   {
-    v6 = drawing;
+    v7 = drawing;
     [(AKInkSignatureView *)self setLatestDrawing:drawing];
-    strokes = [v6 strokes];
+    strokes = [v7 strokes];
     -[AKInkSignatureView setHasStrokes:](self, "setHasStrokes:", [strokes count] != 0);
+
+    v5 = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](drawing, v5);
 }
 
 @end

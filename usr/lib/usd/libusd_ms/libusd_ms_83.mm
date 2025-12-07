@@ -1,3 +1,463 @@
+void sub_29A4E1380(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  *a1 = a2;
+  if (v3)
+  {
+    v4 = sub_29A4E13BC(v3);
+
+    operator delete(v4);
+  }
+}
+
+uint64_t sub_29A4E13BC(uint64_t a1)
+{
+  sub_29A4E13F8(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_29A4E13F8(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix2d>::_DecRef();
+  }
+}
+
+void sub_29A4E143C(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  *a1 = a2;
+  if (v3)
+  {
+    v4 = sub_29A4E1478(v3);
+
+    operator delete(v4);
+  }
+}
+
+uint64_t sub_29A4E1478(uint64_t a1)
+{
+  sub_29A4E14B4(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_29A4E14B4(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix3d>::_DecRef();
+  }
+}
+
+void sub_29A4E14F8(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  *a1 = a2;
+  if (v3)
+  {
+    v4 = sub_29A4E1534(v3);
+
+    operator delete(v4);
+  }
+}
+
+uint64_t sub_29A4E1534(uint64_t a1)
+{
+  sub_29A4E1570(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_29A4E1570(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfMatrix4d>::_DecRef();
+  }
+}
+
+void sub_29A4E15B4(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  *a1 = a2;
+  if (v3)
+  {
+    v4 = sub_29A4E15F0(v3);
+
+    operator delete(v4);
+  }
+}
+
+uint64_t sub_29A4E15F0(uint64_t a1)
+{
+  sub_29A4E162C(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_29A4E162C(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      sub_29A4E1670(v2 + 2);
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+void sub_29A4E1670(void *a1)
+{
+  v1 = a1[4];
+  if (v1)
+  {
+    v4 = (a1 + 3);
+    v3 = a1[3];
+    if (v3)
+    {
+      sub_29B2943EC(v3, v4);
+    }
+
+    else if (atomic_fetch_add_explicit((v1 - 16), 0xFFFFFFFFFFFFFFFFLL, memory_order_release) == 1)
+    {
+      __dmb(9u);
+      v5 = a1[4];
+      if (*a1)
+      {
+        v6 = 8 * *a1;
+        do
+        {
+          sub_29A184A10(v5++, 0);
+          v6 -= 8;
+        }
+
+        while (v6);
+        v5 = a1[4];
+      }
+
+      operator delete(v5 - 2);
+    }
+
+    *v4 = 0;
+    v4[1] = 0;
+  }
+}
+
+void sub_29A4E170C(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  *a1 = a2;
+  if (v3)
+  {
+    v4 = sub_29A4E1748(v3);
+
+    operator delete(v4);
+  }
+}
+
+uint64_t sub_29A4E1748(uint64_t a1)
+{
+  sub_29A4E1784(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_29A4E1784(uint64_t a1, void **a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      sub_29A184A10(v2 + 2, 0);
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+void sub_29A4E17CC(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  *a1 = a2;
+  if (v3)
+  {
+    v4 = sub_29A4E1808(v3);
+
+    operator delete(v4);
+  }
+}
+
+uint64_t sub_29A4E1808(uint64_t a1)
+{
+  sub_29A4E1844(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_29A4E1844(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      sub_29A4E1888(v2 + 2);
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+void sub_29A4E1888(void *a1)
+{
+  v1 = a1[4];
+  if (v1)
+  {
+    v4 = (a1 + 3);
+    v3 = a1[3];
+    if (v3)
+    {
+      sub_29B2943EC(v3, v4);
+    }
+
+    else if (atomic_fetch_add_explicit((v1 - 16), 0xFFFFFFFFFFFFFFFFLL, memory_order_release) == 1)
+    {
+      __dmb(9u);
+      v5 = a1[4];
+      if (*a1)
+      {
+        v6 = 0;
+        v7 = 152 * *a1;
+        do
+        {
+          v8 = (v5 + v6 + 128);
+          sub_29A124AB0(&v8);
+          v8 = (v5 + v6 + 104);
+          sub_29A124AB0(&v8);
+          v8 = (v5 + v6 + 80);
+          sub_29A124AB0(&v8);
+          v8 = (v5 + v6 + 56);
+          sub_29A124AB0(&v8);
+          v8 = (v5 + v6 + 32);
+          sub_29A124AB0(&v8);
+          v8 = (v5 + v6 + 8);
+          sub_29A124AB0(&v8);
+          v6 += 152;
+        }
+
+        while (v7 != v6);
+        v5 = a1[4];
+      }
+
+      operator delete((v5 - 16));
+    }
+
+    *v4 = 0;
+    v4[1] = 0;
+  }
+}
+
+void sub_29A4E1994(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  *a1 = a2;
+  if (v3)
+  {
+    v4 = sub_29A4E19D0(v3);
+
+    operator delete(v4);
+  }
+}
+
+uint64_t sub_29A4E19D0(uint64_t a1)
+{
+  sub_29A4E1A0C(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_29A4E1A0C(uint64_t a1, void **a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      sub_29A4E1A50(v2 + 2);
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+void sub_29A4E1A50(void **a1)
+{
+  v2 = a1 + 16;
+  sub_29A124AB0(&v2);
+  v2 = a1 + 13;
+  sub_29A124AB0(&v2);
+  v2 = a1 + 10;
+  sub_29A124AB0(&v2);
+  v2 = a1 + 7;
+  sub_29A124AB0(&v2);
+  v2 = a1 + 4;
+  sub_29A124AB0(&v2);
+  v2 = a1 + 1;
+  sub_29A124AB0(&v2);
+}
+
+void sub_29A4E1AD8(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  *a1 = a2;
+  if (v3)
+  {
+    v4 = sub_29A4E1B14(v3);
+
+    operator delete(v4);
+  }
+}
+
+uint64_t sub_29A4E1B14(uint64_t a1)
+{
+  sub_29A4E1B50(a1, *(a1 + 16));
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void sub_29A4E1B50(uint64_t a1, void *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v3 = *v2;
+      sub_29A4E1B94(v2 + 2);
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+}
+
+void sub_29A4E1B94(void *a1)
+{
+  v1 = a1[4];
+  if (v1)
+  {
+    v4 = (a1 + 3);
+    v3 = a1[3];
+    if (v3)
+    {
+      sub_29B2943EC(v3, v4);
+    }
+
+    else if (atomic_fetch_add_explicit((v1 - 16), 0xFFFFFFFFFFFFFFFFLL, memory_order_release) == 1)
+    {
+      __dmb(9u);
+      v5 = a1[4];
+      if (*a1)
+      {
+        v6 = 0;
+        v7 = 152 * *a1;
+        do
+        {
+          v8 = (v5 + v6 + 128);
+          sub_29A012C90(&v8);
+          v8 = (v5 + v6 + 104);
+          sub_29A012C90(&v8);
+          v8 = (v5 + v6 + 80);
+          sub_29A012C90(&v8);
+          v8 = (v5 + v6 + 56);
+          sub_29A012C90(&v8);
+          v8 = (v5 + v6 + 32);
+          sub_29A012C90(&v8);
+          v8 = (v5 + v6 + 8);
+          sub_29A012C90(&v8);
+          v6 += 152;
+        }
+
+        while (v7 != v6);
+        v5 = a1[4];
+      }
+
+      operator delete((v5 - 16));
+    }
+
+    *v4 = 0;
+    v4[1] = 0;
+  }
+}
+
 void sub_29A4E1CA0(uint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
@@ -1541,7 +2001,7 @@ void sub_29A4E3780(void *a1)
   }
 }
 
-void sub_29A4E3828(uint64_t *a1, uint64_t a2)
+void sub_29A4E3828(void ***a1, void **a2)
 {
   v3 = *a1;
   *a1 = a2;
@@ -2515,7 +2975,7 @@ void sub_29A4E4950(void *a1)
   }
 }
 
-void sub_29A4E49F0(uint64_t *a1, uint64_t a2)
+void sub_29A4E49F0(void ***a1, void **a2)
 {
   v3 = *a1;
   *a1 = a2;
@@ -2578,7 +3038,7 @@ void sub_29A4E4B0C(uint64_t a1@<X0>, uint64_t a2@<X1>, atomic_ullong **a3@<X2>, 
     *(&v24 + i) = byte_29B734F74[v11];
   }
 
-  v12 = v24 | 1;
+  v12 = (v24 | 1);
   sub_29A4E4D04(a1, v8, &v25);
   v14 = a1 + 16;
   if (a3)
@@ -2728,7 +3188,7 @@ void sub_29A4E4DA0(uint64_t a1, atomic_ullong *a2)
   sub_29A1A8110(a1, a2, &v11);
 }
 
-atomic_ullong *sub_29A4E4E84@<X0>(atomic_ullong **a1@<X1>, unint64_t a2@<X2>, atomic_ullong **a3@<X8>)
+atomic_ullong *sub_29A4E4E84@<X0>(atomic_ullong ***a1@<X1>, unint64_t a2@<X2>, atomic_ullong **a3@<X8>)
 {
   i = **a1;
   result = tbb::internal::allocate_via_handler_v3(0x38);
@@ -2821,45 +3281,37 @@ void *sub_29A4E4F44(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
     v9 = *(*a1 + 8 * v4);
     if (v9)
     {
-      result = *v9;
-      if (*v9)
+      for (result = *v9; result; result = *result)
       {
-        do
+        v11 = result[1];
+        if (v11 == v6)
         {
-          v11 = result[1];
-          if (v11 == v6)
+          if (result[2] == *a2)
           {
-            if (result[2] == *a2)
+            return result;
+          }
+        }
+
+        else
+        {
+          if (v8.u32[0] > 1uLL)
+          {
+            if (v11 >= v7)
             {
-              return result;
+              v11 %= v7;
             }
           }
 
           else
           {
-            if (v8.u32[0] > 1uLL)
-            {
-              if (v11 >= v7)
-              {
-                v11 %= v7;
-              }
-            }
-
-            else
-            {
-              v11 &= v7 - 1;
-            }
-
-            if (v11 != v4)
-            {
-              break;
-            }
+            v11 &= v7 - 1;
           }
 
-          result = *result;
+          if (v11 != v4)
+          {
+            break;
+          }
         }
-
-        while (result);
       }
     }
   }
@@ -2949,9 +3401,9 @@ void *sub_29A4E4F44(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
   return result;
 }
 
-void sub_29A4E5174(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4E5174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A4E5208(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3067,21 +3519,21 @@ uint64_t sub_29A4E5308(void *a1, uint64_t a2, unint64_t a3)
 
 uint64_t sub_29A4E5468(uint64_t a1, unint64_t a2, float a3, float a4)
 {
-  v13 = a2;
-  v7 = sub_29A10A6B8(a1, &v13);
-  sub_29A4E5600(v7 + 1, v13);
-  v8 = *(a1 + 8);
-  if (v8 == *(a1 + 16))
+  v14 = a2;
+  v7 = sub_29A10A6B8(a1, &v14);
+  sub_29A4E5600(v7 + 1, v14);
+  v9 = *(a1 + 8);
+  if (v9 == *(a1 + 16))
   {
-    v8 = sub_29A4E55C8();
+    v9 = sub_29A4E55C8(a1, v8);
   }
 
-  v9 = v13;
-  *(a1 + 32) = v8;
-  *(a1 + 40) = v9;
+  v10 = v14;
+  *(a1 + 32) = v9;
+  *(a1 + 40) = v10;
   *(a1 + 48) = 0;
   *(a1 + 72) = 0;
-  if (v9 >> 58)
+  if (v10 >> 58)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "The map exceeds its maximum bucket count.");
@@ -3089,28 +3541,28 @@ uint64_t sub_29A4E5468(uint64_t a1, unint64_t a2, float a3, float a4)
     __cxa_throw(exception, off_29F294A20, MEMORY[0x29EDC9348]);
   }
 
-  if (v9)
+  if (v10)
   {
     *(*(a1 + 16) - 58) = 1;
   }
 
-  v10 = fminf(fmaxf(a4, 0.2), 0.95);
+  v11 = fminf(fmaxf(a4, 0.2), 0.95);
   *(a1 + 64) = fminf(fmaxf(a3, 0.0), 0.15);
-  *(a1 + 68) = v10;
-  *(a1 + 56) = (v10 * v9);
+  *(a1 + 68) = v11;
+  *(a1 + 56) = (v11 * v10);
   return a1;
 }
 
-void sub_29A4E55A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4E55A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A4DABE8(va);
   _Unwind_Resume(a1);
 }
 
-void *sub_29A4E55C8()
+void *sub_29A4E55C8(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2A14F8078, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2A14F8078, memory_order_acquire) & 1) == 0)
   {
     sub_29B2AAB60();
   }
@@ -3451,7 +3903,7 @@ void sub_29A4E5B68(uint64_t a1, uint64_t a2)
 
 void sub_29A4E5C58(uint64_t a1, uint64_t a2)
 {
-  v49[9] = *MEMORY[0x29EDCA608];
+  v53[9] = *MEMORY[0x29EDCA608];
   v4 = atomic_load(pxrInternal__aapl__pxrReserved__::TfMallocTag::_isInitialized);
   if (v4)
   {
@@ -3463,8 +3915,8 @@ void sub_29A4E5C58(uint64_t a1, uint64_t a2)
     v5 = 0;
   }
 
-  v41 = v5;
-  v42 = v5 != 0;
+  v45 = v5;
+  v46 = v5 != 0;
   Section = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_TableOfContents::GetSection((a1 + 6544), "TOKENS");
   if (!Section)
   {
@@ -3492,59 +3944,59 @@ void sub_29A4E5C58(uint64_t a1, uint64_t a2)
         goto LABEL_46;
       }
 
-      v38 = 0;
-      if ((sub_29A4E7A0C(a2 + 8, &v38, 8uLL) & 1) == 0)
+      v42 = 0;
+      if ((sub_29A4E7A0C(a2 + 8, &v42, 8uLL) & 1) == 0)
       {
         goto LABEL_46;
       }
 
-      if (!__sz || !v38)
+      if (!__sz || !v42)
       {
-        v43 = "usd/crateFile.cpp";
-        v44 = "_ReadTokens";
-        v45 = 4233;
-        v46 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-        v47 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v43, 3, "Usd crate file corrupt, tokens section is empty");
+        v47 = "usd/crateFile.cpp";
+        v48 = "_ReadTokens";
+        v49 = 4233;
+        v50 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+        v51 = 0;
+        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v47, 3, "Usd crate file corrupt, tokens section is empty");
         goto LABEL_46;
       }
 
-      v26 = *(**(a2 + 16) + 32);
-      v27 = *(a2 + 8) - *(**(a2 + 16) + 24);
-      v28 = v26 - v27;
-      if (v27 < 0 || (v28 & 0x8000000000000000) != 0 || v38 > v28)
+      v29 = *(**(a2 + 16) + 32);
+      v30 = *(a2 + 8) - *(**(a2 + 16) + 24);
+      v31 = v29 - v30;
+      if (v30 < 0 || (v31 & 0x8000000000000000) != 0 || v42 > v31)
       {
-        v43 = "usd/crateFile.cpp";
-        v44 = "_ReadTokens";
-        v45 = 4239;
-        v46 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-        v47 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v43, 3, "Failed to read tokens size %llu with remaining file size is %lld of %lld", v38, v28, v26);
+        v47 = "usd/crateFile.cpp";
+        v48 = "_ReadTokens";
+        v49 = 4239;
+        v50 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+        v51 = 0;
+        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v47, 3, "Failed to read tokens size %llu with remaining file size is %lld of %lld", v42, v31, v29);
         goto LABEL_46;
       }
 
       CompressedBufferSize = pxrInternal__aapl__pxrReserved__::TfFastCompression::GetCompressedBufferSize(__sz);
-      v30 = v38;
-      if (!CompressedBufferSize || CompressedBufferSize < v38)
+      v33 = v42;
+      if (!CompressedBufferSize || CompressedBufferSize < v42)
       {
-        v43 = "usd/crateFile.cpp";
-        v44 = "_ReadTokens";
-        v45 = 4246;
-        v46 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-        v47 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v43, 3, "Failed to read tokens. Corrupt compression data. Compressed size %llu, uncompressed size %llu", v38, __sz);
+        v47 = "usd/crateFile.cpp";
+        v48 = "_ReadTokens";
+        v49 = 4246;
+        v50 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+        v51 = 0;
+        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v47, 3, "Failed to read tokens. Corrupt compression data. Compressed size %llu, uncompressed size %llu", v42, __sz);
         goto LABEL_46;
       }
 
-      v31 = __sz;
+      v34 = __sz;
       v14 = operator new[](__sz);
       __p = v14;
-      v32 = operator new[](v30);
-      sub_29A4E7A0C(a2 + 8, v32, v30);
-      pxrInternal__aapl__pxrReserved__::TfFastCompression::DecompressFromBuffer(v32, v14, v38, __sz);
-      v15 = &v14[v31];
+      v35 = operator new[](v33);
+      sub_29A4E7A0C(a2 + 8, v35, v33);
+      pxrInternal__aapl__pxrReserved__::TfFastCompression::DecompressFromBuffer(v35, v14, v42, __sz, v36);
+      v15 = &v14[v34];
       v16 = __sz;
-      operator delete[](v32);
+      operator delete[](v35);
     }
 
     else
@@ -3561,12 +4013,12 @@ void sub_29A4E5C58(uint64_t a1, uint64_t a2)
       v13 = __sz;
       if (v11 < 0 || (v12 & 0x8000000000000000) != 0 || __sz > v12)
       {
-        v43 = "usd/crateFile.cpp";
-        v44 = "_ReadTokens";
-        v45 = 4217;
-        v46 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-        v47 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v43, 3, "Failed to read tokens size %llu with remaining file size being %lld of %lld", __sz, v12, v10);
+        v47 = "usd/crateFile.cpp";
+        v48 = "_ReadTokens";
+        v49 = 4217;
+        v50 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+        v51 = 0;
+        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v47, 3, "Failed to read tokens size %llu with remaining file size being %lld of %lld", __sz, v12, v10);
         goto LABEL_46;
       }
 
@@ -3579,24 +4031,24 @@ void sub_29A4E5C58(uint64_t a1, uint64_t a2)
 
     if (v14 != v15 && *(v15 - 1))
     {
-      v43 = "usd/crateFile.cpp";
-      v44 = "_ReadTokens";
-      v45 = 4261;
-      v46 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-      v47 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v43, 3, "Tokens section not null-terminated in crate file");
+      v47 = "usd/crateFile.cpp";
+      v48 = "_ReadTokens";
+      v49 = 4261;
+      v50 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+      v51 = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v47, 3, "Tokens section not null-terminated in crate file");
       *(v15 - 1) = 0;
     }
 
     v17 = __dst;
     if (__dst - 1 >= v16)
     {
-      v43 = "usd/crateFile.cpp";
-      v44 = "_ReadTokens";
-      v45 = 4271;
-      v46 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-      v47 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v43, 3, "Failed to read tokens. Corrupt data. Data size %llu, num tokens %llu", v16, __dst);
+      v47 = "usd/crateFile.cpp";
+      v48 = "_ReadTokens";
+      v49 = 4271;
+      v50 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+      v51 = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v47, 3, "Failed to read tokens. Corrupt data. Data size %llu, num tokens %llu", v16, __dst);
       __p = 0;
     }
 
@@ -3625,58 +4077,58 @@ void sub_29A4E5C58(uint64_t a1, uint64_t a2)
       *(a1 + 128) = v18;
       sub_29A3275DC((a1 + 120), v17);
       v14[v16 - 1] = 0;
-      pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(&v43);
-      v23 = 0;
+      pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(&v47, v23, v24, v25);
+      v26 = 0;
       if (v14 < v15 && __dst)
       {
-        v23 = 0;
-        v24 = __p;
-        while (v14 - v24 < v16)
+        v26 = 0;
+        v27 = __p;
+        while (v14 - v27 < v16)
         {
           __sz = 0;
-          v34 = v48;
-          v25 = tbb::internal::allocate_additional_child_of_proxy::allocate(&__sz, 0x28uLL);
-          *(v25 - 11) = 1;
-          *v25 = &unk_2A20521D0;
-          v25[1] = v20;
-          v25[2] = v23;
-          v25[3] = v14;
-          v25[4] = v49;
-          (***(v25 - 5))();
+          v38 = v52;
+          v28 = tbb::internal::allocate_additional_child_of_proxy::allocate(&__sz, 0x28uLL);
+          *(v28 - 11) = 1;
+          *v28 = &unk_2A20521D0;
+          v28[1] = v20;
+          v28[2] = v26;
+          v28[3] = v14;
+          v28[4] = v53;
+          (***(v28 - 5))();
           v14 += strlen(v14) + 1;
-          ++v23;
-          if (v14 >= v15 || v23 == __dst)
+          ++v26;
+          if (v14 >= v15 || v26 == __dst)
           {
             goto LABEL_29;
           }
         }
 
         __sz = "usd/crateFile.cpp";
-        v34 = "_ReadTokens";
-        v35 = 4305;
-        v36 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-        v37 = 0;
+        v38 = "_ReadTokens";
+        v39 = 4305;
+        v40 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+        v41 = 0;
         pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__sz, 3, "Failed read tokens, buffer overflow.");
       }
 
       else
       {
 LABEL_29:
-        pxrInternal__aapl__pxrReserved__::WorkDispatcher::Wait(&v43);
-        if (v23 != __dst)
+        pxrInternal__aapl__pxrReserved__::WorkDispatcher::Wait(&v47);
+        if (v26 != __dst)
         {
           __sz = "usd/crateFile.cpp";
-          v34 = "_ReadTokens";
-          v35 = 4315;
-          v36 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-          v37 = 0;
-          pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__sz, 3, "Crate file claims %zu tokens, found %zu", __dst, v23);
+          v38 = "_ReadTokens";
+          v39 = 4315;
+          v40 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+          v41 = 0;
+          pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__sz, 3, "Crate file claims %zu tokens, found %zu", __dst, v26);
         }
 
         sub_29A4E7DB8(&__p);
       }
 
-      pxrInternal__aapl__pxrReserved__::WorkDispatcher::~WorkDispatcher(&v43);
+      pxrInternal__aapl__pxrReserved__::WorkDispatcher::~WorkDispatcher(&v47);
       v14 = __p;
       __p = 0;
       if (!v14)
@@ -3687,24 +4139,24 @@ LABEL_29:
 
     operator delete[](v14);
 LABEL_46:
-    v5 = v41;
+    v5 = v45;
     goto LABEL_47;
   }
 
-  v43 = "usd/crateFile.cpp";
-  v44 = "_ReadTokens";
-  v45 = 4191;
-  v46 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-  v47 = 0;
-  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v43, 3, "Usd crate file corrupt, tokens section is possibly truncatedat offset %lld but file size is %lld", v9, v8);
+  v47 = "usd/crateFile.cpp";
+  v48 = "_ReadTokens";
+  v49 = 4191;
+  v50 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+  v51 = 0;
+  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v47, 3, "Usd crate file corrupt, tokens section is possibly truncatedat offset %lld but file size is %lld", v9, v8);
 LABEL_47:
   if (v5)
   {
-    pxrInternal__aapl__pxrReserved__::TfMallocTag::_End(v42, v5);
+    pxrInternal__aapl__pxrReserved__::TfMallocTag::_End(v46, v5);
   }
 }
 
-void sub_29A4E62BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, char a21, uint64_t a22, char a23)
+void sub_29A4E62BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
 {
   if (__p)
   {
@@ -3715,7 +4167,7 @@ void sub_29A4E62BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A4E6360(uint64_t a1, uint64_t a2)
+const char *sub_29A4E6360(uint64_t a1, uint64_t a2)
 {
   v4 = atomic_load(pxrInternal__aapl__pxrReserved__::TfMallocTag::_isInitialized);
   if (v4)
@@ -3731,7 +4183,7 @@ uint64_t sub_29A4E6360(uint64_t a1, uint64_t a2)
   result = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_TableOfContents::GetSection((a1 + 6544), "STRINGS");
   if (result)
   {
-    *(a2 + 8) = *(**(a2 + 16) + 24) + *(result + 16);
+    *(a2 + 8) = *(**(a2 + 16) + 24) + *(result + 2);
     result = sub_29A4E824C(a2, (a1 + 144));
   }
 
@@ -3757,7 +4209,7 @@ void sub_29A4E6438(uint64_t a1, uint64_t a2)
   }
 
   __dst[1] = v5;
-  v32 = v5 != 0;
+  v33 = v5 != 0;
   Section = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_TableOfContents::GetSection((a1 + 6544), "FIELDS");
   if (!Section)
   {
@@ -3780,10 +4232,10 @@ void sub_29A4E6438(uint64_t a1, uint64_t a2)
     if (CompressedBufferSize && DecompressionWorkingSpaceSize)
     {
       sub_29A4E83FC((a1 + 48), __dst[0]);
-      sub_29A01112C(&v26, __dst[0]);
-      *v28 = 0u;
+      sub_29A01112C(&v27, __dst[0]);
+      *v29 = 0u;
       *__p = 0u;
-      v10 = sub_29A4E8914(v28, a2, v26, ((v27 - v26) >> 2));
+      v10 = sub_29A4E8914(v29, a2, v27, ((v28 - v27) >> 2));
       v11 = __p[0];
       __p[0] = 0;
       if (v11)
@@ -3791,8 +4243,8 @@ void sub_29A4E6438(uint64_t a1, uint64_t a2)
         operator delete[](v11);
       }
 
-      v12 = v28[0];
-      v28[0] = 0;
+      v12 = v29[0];
+      v29[0] = 0;
       if (v12)
       {
         operator delete[](v12);
@@ -3806,7 +4258,7 @@ void sub_29A4E6438(uint64_t a1, uint64_t a2)
       v13 = __dst[0];
       if (__dst[0])
       {
-        v14 = v26;
+        v14 = v27;
         v15 = (*(a1 + 48) + 4);
         do
         {
@@ -3831,17 +4283,17 @@ void sub_29A4E6438(uint64_t a1, uint64_t a2)
       v20 = __sz;
       if (v18 < 0 || (v19 & 0x8000000000000000) != 0 || __sz > v19)
       {
-        v28[0] = "usd/crateFile.cpp";
-        v28[1] = "_ReadFields";
+        v29[0] = "usd/crateFile.cpp";
+        v29[1] = "_ReadFields";
         __p[0] = 3965;
         __p[1] = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadFields(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-        v30 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v28, 3, "Failed to read fields of size %llu with remaining file size is %lld of %lld", __sz, v19, v17);
+        v31 = 0;
+        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v29, 3, "Failed to read fields of size %llu with remaining file size is %lld of %lld", __sz, v19, v17);
 LABEL_30:
-        if (v26)
+        if (v27)
         {
-          v27 = v26;
-          operator delete(v26);
+          v28 = v27;
+          operator delete(v27);
         }
 
         goto LABEL_32;
@@ -3850,32 +4302,32 @@ LABEL_30:
       v21 = operator new[](__sz);
       if (sub_29A4E7A0C(v7, v21, v20))
       {
-        v28[0] = 0;
-        v28[1] = 0;
+        v29[0] = 0;
+        v29[1] = 0;
         __p[0] = 0;
-        sub_29A00BF50(v28, __dst[0]);
-        pxrInternal__aapl__pxrReserved__::TfFastCompression::DecompressFromBuffer(v21, v28[0], __sz, v28[1] - v28[0]);
-        v22 = v28[0];
+        sub_29A00BF50(v29, __dst[0]);
+        pxrInternal__aapl__pxrReserved__::TfFastCompression::DecompressFromBuffer(v21, v29[0], __sz, v29[1] - v29[0], v22);
+        v23 = v29[0];
         if (__dst[0])
         {
-          v23 = 0;
-          v24 = (*(a1 + 48) + 8);
+          v24 = 0;
+          v25 = (*(a1 + 48) + 8);
           do
           {
-            *v24 = v22[v23];
-            v24 += 2;
-            v23 = (v23 + 1);
+            *v25 = v23[v24];
+            v25 += 2;
+            v24 = (v24 + 1);
           }
 
-          while (v23 != __dst[0]);
+          while (v24 != __dst[0]);
           goto LABEL_28;
         }
 
-        if (v28[0])
+        if (v29[0])
         {
 LABEL_28:
-          v28[1] = v22;
-          operator delete(v22);
+          v29[1] = v23;
+          operator delete(v23);
         }
       }
 
@@ -3885,12 +4337,12 @@ LABEL_28:
 
     if (__dst[0])
     {
-      v28[0] = "usd/crateFile.cpp";
-      v28[1] = "_ReadFields";
+      v29[0] = "usd/crateFile.cpp";
+      v29[1] = "_ReadFields";
       __p[0] = 3946;
       __p[1] = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadFields(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-      v30 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v28, 3, "Failed read compressed fields of size %llu.", __dst[0]);
+      v31 = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v29, 3, "Failed read compressed fields of size %llu.", __dst[0]);
     }
   }
 
@@ -4025,9 +4477,9 @@ LABEL_25:
   }
 }
 
-void sub_29A4E6A90(uint64_t a1, uint64_t a2)
+void sub_29A4E6A90(uint64_t a1, __int128 *a2)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v31[43] = *MEMORY[0x29EDCA608];
   v4 = atomic_load(pxrInternal__aapl__pxrReserved__::TfMallocTag::_isInitialized);
   if (v4)
   {
@@ -4039,141 +4491,141 @@ void sub_29A4E6A90(uint64_t a1, uint64_t a2)
     v5 = 0;
   }
 
-  v26 = v5;
-  v27 = v5 != 0;
+  v29 = v5;
+  v30 = v5 != 0;
   Section = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_TableOfContents::GetSection((a1 + 6544), "PATHS");
   if (!Section)
   {
     goto LABEL_20;
   }
 
-  *(a2 + 8) = *(**(a2 + 16) + 24) + *(Section + 2);
+  *(a2 + 1) = *(**(a2 + 2) + 24) + *(Section + 2);
   __dst = 0;
   if ((sub_29A4E7A0C(a2 + 8, &__dst, 8uLL) & 1) == 0)
   {
     goto LABEL_20;
   }
 
-  pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(v28);
-  v7 = (*(a1 + 6576) << 16) | (*(a1 + 6577) << 8);
-  if ((v7 | *(a1 + 6578)) == 1)
+  pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(v31, v7, v8, v9);
+  v10 = (*(a1 + 6576) << 16) | (*(a1 + 6577) << 8);
+  if ((v10 | *(a1 + 6578)) == 1)
   {
     sub_29A38B6A4((a1 + 96), __dst);
-    v8 = *(a1 + 96);
-    v9 = *(a1 + 104);
-    *&v22 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v22);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v22 + 1);
-    v10 = (v9 - v8) >> 3;
-    if (v10 >= 1)
+    v11 = *(a1 + 96);
+    v12 = *(a1 + 104);
+    *&v25 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v25);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v25 + 1);
+    v13 = (v12 - v11) >> 3;
+    if (v13 >= 1)
     {
-      v11 = v10 + 1;
+      v14 = v13 + 1;
       do
       {
-        sub_29A2258F0(v8, &v22);
-        sub_29A225948(v8 + 1, &v22 + 1);
-        --v11;
-        v8 += 2;
+        sub_29A2258F0(v11, &v25);
+        sub_29A225948(v11 + 1, &v25 + 1);
+        --v14;
+        v11 += 2;
       }
 
-      while (v11 > 1);
+      while (v14 > 1);
     }
 
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v22 + 1);
-    sub_29A1DE3A4(&v22);
-    v12 = *(a2 + 16);
-    v22 = *a2;
-    v23 = v12;
-    v24 = *(a2 + 32);
-    v21 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v21);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v21 + 1);
-    sub_29A4E8E28(a1, &v22, v28, &v21);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v21 + 1);
-    v13 = &v21;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v25 + 1);
+    sub_29A1DE3A4(&v25);
+    v15 = a2[1];
+    v25 = *a2;
+    v26 = v15;
+    v27 = *(a2 + 4);
+    v24 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v24);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v24 + 1);
+    sub_29A4E8E28(a1, &v25, v31, &v24);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v24 + 1);
+    v16 = &v24;
   }
 
   else
   {
-    if (v7 > 0x3FF)
+    if (v10 > 0x3FF)
     {
-      v19 = *(a2 + 16);
-      v22 = *a2;
-      v23 = v19;
-      v24 = *(a2 + 32);
-      sub_29A4E92F8(a1, &v22, v28, __dst);
+      v22 = a2[1];
+      v25 = *a2;
+      v26 = v22;
+      v27 = *(a2 + 4);
+      sub_29A4E92F8(a1, &v25, v31, __dst);
       goto LABEL_19;
     }
 
-    if (__dst > *(**(a2 + 16) + 32) - *(a2 + 8) + *(**(a2 + 16) + 24))
+    if (__dst > *(**(a2 + 2) + 32) - *(a2 + 1) + *(**(a2 + 2) + 24))
     {
-      *&v22 = "usd/crateFile.cpp";
-      *(&v22 + 1) = "_ReadPaths";
-      *&v23 = 4352;
-      *(&v23 + 1) = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadPaths(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-      LOBYTE(v24) = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v22, 3, "Invalid number of paths in file.");
+      *&v25 = "usd/crateFile.cpp";
+      *(&v25 + 1) = "_ReadPaths";
+      *&v26 = 4352;
+      *(&v26 + 1) = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadPaths(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+      LOBYTE(v27) = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v25, 3, "Invalid number of paths in file.");
       goto LABEL_19;
     }
 
     sub_29A38B6A4((a1 + 96), __dst);
-    v14 = *(a1 + 96);
-    v15 = *(a1 + 104);
-    *&v22 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v22);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v22 + 1);
-    v16 = (v15 - v14) >> 3;
-    if (v16 >= 1)
+    v17 = *(a1 + 96);
+    v18 = *(a1 + 104);
+    *&v25 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v25);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v25 + 1);
+    v19 = (v18 - v17) >> 3;
+    if (v19 >= 1)
     {
-      v17 = v16 + 1;
+      v20 = v19 + 1;
       do
       {
-        sub_29A2258F0(v14, &v22);
-        sub_29A225948(v14 + 1, &v22 + 1);
-        --v17;
-        v14 += 2;
+        sub_29A2258F0(v17, &v25);
+        sub_29A225948(v17 + 1, &v25 + 1);
+        --v20;
+        v17 += 2;
       }
 
-      while (v17 > 1);
+      while (v20 > 1);
     }
 
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v22 + 1);
-    sub_29A1DE3A4(&v22);
-    v18 = *(a2 + 16);
-    v22 = *a2;
-    v23 = v18;
-    v24 = *(a2 + 32);
-    v20 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v20);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v20 + 1);
-    sub_29A4E9090(a1, &v22, v28, &v20);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v20 + 1);
-    v13 = &v20;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v25 + 1);
+    sub_29A1DE3A4(&v25);
+    v21 = a2[1];
+    v25 = *a2;
+    v26 = v21;
+    v27 = *(a2 + 4);
+    v23 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v23);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v23 + 1);
+    sub_29A4E9090(a1, &v25, v31, &v23);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23 + 1);
+    v16 = &v23;
   }
 
-  sub_29A1DE3A4(v13);
+  sub_29A1DE3A4(v16);
 LABEL_19:
-  pxrInternal__aapl__pxrReserved__::WorkDispatcher::~WorkDispatcher(v28);
-  v5 = v26;
+  pxrInternal__aapl__pxrReserved__::WorkDispatcher::~WorkDispatcher(v31);
+  v5 = v29;
 LABEL_20:
   if (v5)
   {
-    pxrInternal__aapl__pxrReserved__::TfMallocTag::_End(v27, v5);
+    pxrInternal__aapl__pxrReserved__::TfMallocTag::_End(v30, v5);
   }
 }
 
-void sub_29A4E6DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29A4E6DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
   pxrInternal__aapl__pxrReserved__::WorkDispatcher::~WorkDispatcher(va1);
   sub_29A0E9CEC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_29A4E6E64(uint64_t *a1, uint64_t a2)
+void sub_29A4E6E64(const char **a1, uint64_t a2)
 {
   v4 = atomic_load(pxrInternal__aapl__pxrReserved__::TfMallocTag::_isInitialized);
   if (v4)
@@ -4357,7 +4809,7 @@ void sub_29A4E6E64(uint64_t *a1, uint64_t a2)
           if (__dst)
           {
             v58 = v77;
-            v59 = (*a1 + 4);
+            v59 = *a1 + 4;
             do
             {
               v60 = *v58++;
@@ -4408,13 +4860,13 @@ void sub_29A4E6E64(uint64_t *a1, uint64_t a2)
                       v90 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadSpecs(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
                       v91 = 0;
                       pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__p, 3, "Invalid spec type %zu", v69);
-                      *(*a1 + v68) = 0;
+                      *&(*a1)[v68] = 0;
                       v66 = __dst;
                     }
 
                     else
                     {
-                      *(*a1 + v68) = v69;
+                      *&(*a1)[v68] = v69;
                     }
 
                     v67 = (v67 + 1);
@@ -4479,7 +4931,7 @@ LABEL_15:
   {
     v17 = *(v15 - 2);
     v18 = a1[12];
-    if (v17 >= (a1[13] - v18) >> 3)
+    if (v17 >= &a1[13][-v18] >> 3)
     {
       v19 = pxrInternal__aapl__pxrReserved__::SdfPath::EmptyPath(v12);
     }
@@ -4491,7 +4943,7 @@ LABEL_15:
 
     if (!pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(v19))
     {
-      pxrInternal__aapl__pxrReserved__::TfStringPrintf("spec at index %zu has empty path", v20, v21, 0xAAAAAAAAAAAAAAABLL * (&v13[-*a1] >> 2));
+      pxrInternal__aapl__pxrReserved__::TfStringPrintf("spec at index %zu has empty path", v20, v21, 0xAAAAAAAAAAAAAAABLL * ((v13 - *a1) >> 2));
       v12 = sub_29A091654(&__dst, &v77);
       if (SHIBYTE(v78) < 0)
       {
@@ -4511,7 +4963,7 @@ LABEL_15:
         goto LABEL_48;
       }
 
-      pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(v19, &v83);
+      pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(&v83, v19);
       v26 = &v83;
       if ((v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
@@ -4529,7 +4981,7 @@ LABEL_15:
       goto LABEL_44;
     }
 
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(v19, &v83);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(&v83, v19);
     if ((v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v30 = &v83;
@@ -4606,17 +5058,17 @@ LABEL_48:
     v34 = a1[1];
     if (*a1 == v34)
     {
-      v37 = a1 + 512;
+      v37 = (a1 + 512);
     }
 
     else
     {
-      v36 = (v35 + 12);
-      v37 = a1 + 512;
+      v36 = v35 + 12;
+      v37 = (a1 + 512);
       while (*(v36 - 1))
       {
         v38 = v36 == v34;
-        v36 = (v36 + 12);
+        v36 += 12;
         if (v38)
         {
           goto LABEL_101;
@@ -4624,7 +5076,7 @@ LABEL_48:
       }
 
       v35 = v36 - 12;
-      if ((v36 - 12) != v34 && v36 != v34)
+      if (v36 - 12 != v34 && v36 != v34)
       {
         do
         {
@@ -4636,7 +5088,7 @@ LABEL_48:
             v35 += 12;
           }
 
-          v36 = (v36 + 12);
+          v36 += 12;
         }
 
         while (v36 != v34);
@@ -4675,7 +5127,7 @@ LABEL_101:
       v74 = *v74;
     }
 
-    pxrInternal__aapl__pxrReserved__::TfStringJoin(", ", &__dst, &v83);
+    pxrInternal__aapl__pxrReserved__::TfStringJoin(&__dst, ", ", &v83);
     if ((v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v75 = &v83;
@@ -4921,14 +5373,14 @@ uint64_t sub_29A4E7E30(uint64_t a1)
   return 0;
 }
 
-void sub_29A4E7EC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4E7EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::TfErrorMark::~TfErrorMark(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A4E7ED4(uint64_t a1)
+pxrInternal__aapl__pxrReserved__::TfToken *sub_29A4E7ED4(uint64_t a1)
 {
   result = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v4, *(a1 + 16));
   v3 = (**a1 + 8 * *(a1 + 8));
@@ -4953,7 +5405,7 @@ uint64_t sub_29A4E7ED4(uint64_t a1)
   return result;
 }
 
-void sub_29A4E7F5C(pxrInternal__aapl__pxrReserved__ *a1)
+void sub_29A4E7F5C(void **a1)
 {
   v1 = *a1;
   __p = *a1;
@@ -5061,9 +5513,9 @@ uint64_t sub_29A4E81A8(uint64_t a1)
   return 0;
 }
 
-void sub_29A4E8238(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4E8238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::TfErrorMark::~TfErrorMark(va);
   _Unwind_Resume(a1);
 }
@@ -5155,20 +5607,20 @@ void sub_29A4E83E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A4E83FC(void *a1, unint64_t a2)
+void sub_29A4E83FC(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    sub_29A4E86DC(a1, a2 - v2);
+    sub_29A4E86DC(result, a2 - v2);
   }
 }
 
@@ -5551,20 +6003,20 @@ void sub_29A4E8A78(uint64_t a1, pxrInternal__aapl__pxrReserved__::Usd_IntegerCom
   }
 }
 
-void sub_29A4E8B14(void *a1, unint64_t a2)
+void sub_29A4E8B14(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    sub_29A4E8CF4(a1, a2 - v2);
+    sub_29A4E8CF4(result, a2 - v2);
   }
 }
 
@@ -5725,7 +6177,7 @@ void sub_29A4E8CF4(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_29A4E8E28(void *a1, __int128 *a2, uint64_t a3, int *a4)
+void sub_29A4E8E28(void *a1, __int128 *a2, uint64_t a3, pxrInternal__aapl__pxrReserved__::SdfPath *a4)
 {
   do
   {
@@ -5744,7 +6196,7 @@ void sub_29A4E8E28(void *a1, __int128 *a2, uint64_t a3, int *a4)
         v10 = (v9 + 8 * HIDWORD(v29));
         if ((v30 & 4) != 0)
         {
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(a4, v10, &v19);
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(&v19, a4, v10);
         }
 
         else
@@ -5814,7 +6266,7 @@ void sub_29A4E8E28(void *a1, __int128 *a2, uint64_t a3, int *a4)
   while ((v14 & 3) != 0);
 }
 
-void sub_29A4E9090(void *a1, __int128 *a2, uint64_t a3, int *a4)
+void sub_29A4E9090(void *a1, __int128 *a2, uint64_t a3, pxrInternal__aapl__pxrReserved__::SdfPath *a4)
 {
   do
   {
@@ -5833,7 +6285,7 @@ void sub_29A4E9090(void *a1, __int128 *a2, uint64_t a3, int *a4)
         v10 = (v9 + 8 * HIDWORD(__dst));
         if ((v29 & 4) != 0)
         {
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(a4, v10, &v19);
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(&v19, a4, v10);
         }
 
         else
@@ -5903,70 +6355,70 @@ void sub_29A4E9090(void *a1, __int128 *a2, uint64_t a3, int *a4)
   while ((v14 & 3) != 0);
 }
 
-void sub_29A4E92F8(uint64_t a1, uint64_t a2, pxrInternal__aapl__pxrReserved__::WorkDispatcher *a3, unint64_t a4)
+void sub_29A4E92F8(void **a1, uint64_t a2, pxrInternal__aapl__pxrReserved__::WorkDispatcher *a3, unint64_t a4)
 {
-  v37 = 0;
   v38 = 0;
   v39 = 0;
-  v34 = 0;
+  v40 = 0;
   v35 = 0;
   v36 = 0;
-  v31 = 0;
+  v37 = 0;
   v32 = 0;
   v33 = 0;
+  v34 = 0;
   __dst = 0;
   if (sub_29A4E7A0C(a2 + 8, &__dst, 8uLL))
   {
-    *v28 = 0u;
+    *v29 = 0u;
     *__p = 0u;
     CompressedBufferSize = pxrInternal__aapl__pxrReserved__::Usd_IntegerCompression::GetCompressedBufferSize(__dst);
     DecompressionWorkingSpaceSize = pxrInternal__aapl__pxrReserved__::Usd_IntegerCompression::GetDecompressionWorkingSpaceSize(__dst);
     if (CompressedBufferSize && DecompressionWorkingSpaceSize)
     {
-      sub_29A0A171C(&v37, __dst);
-      if (sub_29A4E8914(v28, a2, v37, __dst))
+      sub_29A0A171C(&v38, __dst);
+      if (sub_29A4E8914(v29, a2, v38, __dst))
       {
-        v10 = v37;
-        if (v37 == v38)
+        v10 = v38;
+        if (v38 == v39)
         {
           v11 = 0;
 LABEL_13:
           if (v11 + 1 < a4)
           {
-            v23 = "usd/crateFile.cpp";
-            v24 = "_ReadCompressedPaths";
-            v25 = 4480;
-            v26 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-            v27 = 0;
-            pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v23, 3, "Failed to read compressed paths. numPaths = %llu too large for max index = %llu", a4, v11);
+            v24 = "usd/crateFile.cpp";
+            v25 = "_ReadCompressedPaths";
+            v26 = 4480;
+            v27 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+            v28 = 0;
+            pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v24, 3, "Failed to read compressed paths. numPaths = %llu too large for max index = %llu", a4, v11);
           }
 
           else if (__dst > a4)
           {
-            v23 = "usd/crateFile.cpp";
-            v24 = "_ReadCompressedPaths";
-            v25 = 4486;
-            v26 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-            v27 = 0;
-            pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v23, 3, "Failed to read compressed paths. numEncodedPaths %llu > numPaths = %llu", __dst, a4);
+            v24 = "usd/crateFile.cpp";
+            v25 = "_ReadCompressedPaths";
+            v26 = 4486;
+            v27 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+            v28 = 0;
+            pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v24, 3, "Failed to read compressed paths. numEncodedPaths %llu > numPaths = %llu", __dst, a4);
           }
 
           else
           {
-            sub_29A38B6A4((a1 + 96), a4);
-            v13 = *(a1 + 96);
-            v14 = *(a1 + 104);
-            v23 = 0;
-            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v23);
-            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v23 + 1);
+            sub_29A38B6A4(a1 + 12, a4);
+            v13 = a1[12];
+            v14 = a1[13];
+            v24 = 0;
+            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v24);
+            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v24 + 1);
             v15 = (v14 - v13) >> 3;
             if (v15 >= 1)
             {
               v16 = v15 + 1;
               do
               {
-                sub_29A2258F0(v13, &v23);
-                sub_29A225948(v13 + 1, &v23 + 1);
+                sub_29A2258F0(v13, &v24);
+                sub_29A225948(v13 + 1, &v24 + 1);
                 --v16;
                 v13 += 2;
               }
@@ -5974,31 +6426,31 @@ LABEL_13:
               while (v16 > 1);
             }
 
-            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23 + 1);
-            sub_29A1DE3A4(&v23);
-            sub_29A0A171C(&v34, __dst);
-            if (sub_29A4E9E78(v28, a2, v34, __dst))
+            pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v24 + 1);
+            sub_29A1DE3A4(&v24);
+            sub_29A0A171C(&v35, __dst);
+            if (sub_29A4E9E78(v29, a2, v35, __dst))
             {
-              v17 = v34;
-              if (v34 == v35)
+              v17 = v35;
+              if (v35 == v36)
               {
 LABEL_26:
-                sub_29A0A171C(&v31, __dst);
-                if (sub_29A4E9E78(v28, a2, v31, __dst))
+                sub_29A0A171C(&v32, __dst);
+                if (sub_29A4E9E78(v29, a2, v32, __dst))
                 {
-                  v22 = 0;
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v22);
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v22 + 1);
-                  pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_BuildDecompressedPathsImpl(a1, &v37, &v34, &v31, 0, &v22, a3);
-                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v22 + 1);
-                  sub_29A1DE3A4(&v22);
+                  v23 = 0;
+                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v23);
+                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v23 + 1);
+                  pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_BuildDecompressedPathsImpl(a1, &v38, &v35, &v32, 0, &v23, a3, v20);
+                  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23 + 1);
+                  sub_29A1DE3A4(&v23);
                   pxrInternal__aapl__pxrReserved__::WorkDispatcher::Wait(a3);
                 }
               }
 
               else
               {
-                v18 = (*(a1 + 128) - *(a1 + 120)) >> 3;
+                v18 = (a1[16] - a1[15]) >> 3;
                 while (1)
                 {
                   LODWORD(v19) = *v17;
@@ -6008,18 +6460,18 @@ LABEL_26:
                     break;
                   }
 
-                  if (++v17 == v35)
+                  if (++v17 == v36)
                   {
                     goto LABEL_26;
                   }
                 }
 
-                v23 = "usd/crateFile.cpp";
-                v24 = "_ReadCompressedPaths";
-                v25 = 4507;
-                v26 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-                v27 = 0;
-                pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v23, 3, "Corrupt path element token index in crate file (%d >= %zu)", v19, v18);
+                v24 = "usd/crateFile.cpp";
+                v25 = "_ReadCompressedPaths";
+                v26 = 4507;
+                v27 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+                v28 = 0;
+                pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v24, 3, "Corrupt path element token index in crate file (%d >= %zu)", v19, v18);
               }
             }
           }
@@ -6041,67 +6493,67 @@ LABEL_26:
               v11 = *v10;
             }
 
-            if (++v10 == v38)
+            if (++v10 == v39)
             {
               goto LABEL_13;
             }
           }
 
-          v23 = "usd/crateFile.cpp";
-          v24 = "_ReadCompressedPaths";
-          v25 = 4470;
-          v26 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-          v27 = 0;
-          pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v23, 3, "Corrupt path index in crate file (%u >= %zu)", v12, a4);
+          v24 = "usd/crateFile.cpp";
+          v25 = "_ReadCompressedPaths";
+          v26 = 4470;
+          v27 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+          v28 = 0;
+          pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v24, 3, "Corrupt path index in crate file (%u >= %zu)", v12, a4);
         }
       }
     }
 
     else
     {
-      v23 = "usd/crateFile.cpp";
-      v24 = "_ReadCompressedPaths";
-      v25 = 4457;
-      v26 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
-      v27 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v23, 3, "Failed to read compressed paths of size %llu", __dst);
+      v24 = "usd/crateFile.cpp";
+      v25 = "_ReadCompressedPaths";
+      v26 = 4457;
+      v27 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadCompressedPaths(Reader, WorkDispatcher &, uint64_t) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_MmapStream<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_FileMapping *>>]";
+      v28 = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v24, 3, "Failed to read compressed paths of size %llu", __dst);
     }
 
-    v20 = __p[0];
+    v21 = __p[0];
     __p[0] = 0;
-    if (v20)
-    {
-      operator delete[](v20);
-    }
-
-    v21 = v28[0];
-    v28[0] = 0;
     if (v21)
     {
       operator delete[](v21);
     }
 
-    if (v31)
+    v22 = v29[0];
+    v29[0] = 0;
+    if (v22)
     {
-      v32 = v31;
-      operator delete(v31);
+      operator delete[](v22);
+    }
+
+    if (v32)
+    {
+      v33 = v32;
+      operator delete(v32);
     }
   }
 
-  if (v34)
+  if (v35)
   {
-    v35 = v34;
-    operator delete(v34);
+    v36 = v35;
+    operator delete(v35);
   }
 
-  if (v37)
+  if (v38)
   {
-    v38 = v37;
-    operator delete(v37);
+    v39 = v38;
+    operator delete(v38);
   }
 }
 
-void sub_29A4E96FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
+void sub_29A4E96FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
 {
   sub_29A4E8A34(&a17);
   if (__p)
@@ -6193,9 +6645,9 @@ uint64_t sub_29A4E9910(uint64_t a1)
   return 0;
 }
 
-void sub_29A4E99A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4E99A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::TfErrorMark::~TfErrorMark(va);
   _Unwind_Resume(a1);
 }
@@ -6224,10 +6676,11 @@ _DWORD *sub_29A4E99B4(uint64_t a1)
   return result;
 }
 
-void sub_29A4E9A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_29A4E9A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   sub_29A1DCEA8(&a9);
-  sub_29A0E9CEC(&a15);
+  sub_29A0E9CEC(va);
   _Unwind_Resume(a1);
 }
 
@@ -6322,9 +6775,9 @@ uint64_t sub_29A4E9CDC(uint64_t a1)
   return 0;
 }
 
-void sub_29A4E9D6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4E9D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::TfErrorMark::~TfErrorMark(va);
   _Unwind_Resume(a1);
 }
@@ -6353,10 +6806,11 @@ _DWORD *sub_29A4E9D80(uint64_t a1)
   return result;
 }
 
-void sub_29A4E9E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_29A4E9E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   sub_29A1DCEA8(&a9);
-  sub_29A0E9CEC(&a15);
+  sub_29A0E9CEC(va);
   _Unwind_Resume(a1);
 }
 
@@ -6421,19 +6875,19 @@ uint64_t sub_29A4E9E78(uint64_t a1, uint64_t a2, _DWORD *a3, pxrInternal__aapl__
   return result;
 }
 
-void sub_29A4E9F98(void *a1, unint64_t a2)
+void sub_29A4E9F98(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    sub_29A4EA184(a1, v4);
+    sub_29A4EA184(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
@@ -6680,7 +7134,7 @@ void sub_29A4EA400(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_29A4EA41C(void *a1, unint64_t a2)
+uint64_t *sub_29A4EA41C(uint64_t *a1, unint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -6806,21 +7260,21 @@ void *sub_29A4EA498(void *result, char *__src, char *a3, unint64_t a4)
 
 uint64_t sub_29A4EA5F4(uint64_t a1, unint64_t a2, float a3, float a4)
 {
-  v13 = a2;
-  v7 = sub_29A10A6B8(a1, &v13);
-  sub_29A37997C(v7 + 1, v13);
-  v8 = *(a1 + 8);
-  if (v8 == *(a1 + 16))
+  v14 = a2;
+  v7 = sub_29A10A6B8(a1, &v14);
+  sub_29A37997C(v7 + 1, v14);
+  v9 = *(a1 + 8);
+  if (v9 == *(a1 + 16))
   {
-    v8 = sub_29A4EA760();
+    v9 = sub_29A4EA760(a1, v8);
   }
 
-  v9 = v13;
-  *(a1 + 32) = v8;
-  *(a1 + 40) = v9;
+  v10 = v14;
+  *(a1 + 32) = v9;
+  *(a1 + 40) = v10;
   *(a1 + 48) = 0;
   *(a1 + 72) = 0;
-  if (v9 >= 0x1555555555555556)
+  if (v10 >= 0x1555555555555556)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "The map exceeds its maximum bucket count.");
@@ -6828,28 +7282,28 @@ uint64_t sub_29A4EA5F4(uint64_t a1, unint64_t a2, float a3, float a4)
     __cxa_throw(exception, off_29F294A20, MEMORY[0x29EDC9348]);
   }
 
-  if (v9)
+  if (v10)
   {
     *(*(a1 + 16) - 10) = 1;
   }
 
-  v10 = fminf(fmaxf(a4, 0.2), 0.95);
+  v11 = fminf(fmaxf(a4, 0.2), 0.95);
   *(a1 + 64) = fminf(fmaxf(a3, 0.0), 0.15);
-  *(a1 + 68) = v10;
-  *(a1 + 56) = (v10 * v9);
+  *(a1 + 68) = v11;
+  *(a1 + 56) = (v11 * v10);
   return a1;
 }
 
-void sub_29A4EA738(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4EA738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A36B394(va);
   _Unwind_Resume(a1);
 }
 
-__int16 *sub_29A4EA760()
+__int16 *sub_29A4EA760(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2A14F8090, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2A14F8090, memory_order_acquire) & 1) == 0)
   {
     sub_29B2AAE0C();
   }
@@ -6976,9 +7430,9 @@ _DWORD *sub_29A4EAA00(uint64_t *a1, uint64_t a2, __int16 a3, uint64_t a4, _DWORD
   return sub_29A1DE3A4(&v11);
 }
 
-void sub_29A4EAA90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A4EAA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -7019,15 +7473,15 @@ void sub_29A4EAB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29A4EABA8(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void sub_29A4EABA8(char *result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = a2 - v9;
     v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v9) >> 3);
@@ -7040,8 +7494,8 @@ LABEL_2:
 
       if (v13 == 2)
       {
-        v29 = *(a2 - 24);
-        v28 = a2 - 24;
+        v29 = *(a2 - 3);
+        v28 = (a2 - 3);
         v27 = v29;
         if (*(v28 + 23) >= 0)
         {
@@ -7049,7 +7503,7 @@ LABEL_2:
         }
 
         v30 = *v27;
-        if (*(v9 + 23) >= 0)
+        if (v9[23] >= 0)
         {
           v31 = v9;
         }
@@ -7072,10 +7526,10 @@ LABEL_2:
           return;
         }
 
-        v41 = *(v9 + 16);
+        v41 = *(v9 + 2);
         v39 = *v9;
         v37 = *v28;
-        *(v9 + 16) = *(v28 + 16);
+        *(v9 + 2) = *(v28 + 16);
         *v9 = v37;
         *v28 = v39;
         *(v28 + 16) = v41;
@@ -7134,10 +7588,10 @@ LABEL_10:
     }
 
     v14 = v13 >> 1;
-    v15 = v9 + 24 * (v13 >> 1);
+    v15 = &v9[24 * (v13 >> 1)];
     if (v12 < 0xC01)
     {
-      sub_29A4EB0A4(v9 + 24 * v14, v9, a2 - 24, a3);
+      sub_29A4EB0A4(&v9[24 * v14], v9, a2 - 24, a3);
       if (a5)
       {
         goto LABEL_27;
@@ -7146,19 +7600,19 @@ LABEL_10:
 
     else
     {
-      sub_29A4EB0A4(v9, v9 + 24 * v14, a2 - 24, a3);
+      sub_29A4EB0A4(v9, &v9[24 * v14], a2 - 24, a3);
       v16 = 3 * v14;
-      v17 = v9 + 24 * v14 - 24;
+      v17 = &v9[24 * v14 - 24];
       sub_29A4EB0A4(v9 + 24, v17, a2 - 48, a3);
-      v18 = v9 + 24 + 8 * v16;
-      sub_29A4EB0A4(a1 + 48, v18, a2 - 72, a3);
+      v18 = &v9[8 * v16 + 24];
+      sub_29A4EB0A4(result + 48, v18, a2 - 72, a3);
       sub_29A4EB0A4(v17, v15, v18, a3);
-      v40 = *(a1 + 16);
-      v38 = *a1;
+      v40 = *(result + 2);
+      v38 = *result;
       v19 = *v15;
-      *(a1 + 16) = *(v15 + 16);
-      *a1 = v19;
-      *(v15 + 16) = v40;
+      *(result + 2) = *(v15 + 2);
+      *result = v19;
+      *(v15 + 2) = v40;
       *v15 = v38;
       if (a5)
       {
@@ -7166,29 +7620,29 @@ LABEL_10:
       }
     }
 
-    v20 = *(a1 - 24);
-    if (*(a1 - 1) >= 0)
+    v20 = *(result - 3);
+    if (*(result - 1) >= 0)
     {
-      v20 = (a1 - 24);
+      v20 = result - 24;
     }
 
     v21 = *v20;
-    if (*(a1 + 23) >= 0)
+    if (result[23] >= 0)
     {
-      v22 = a1;
+      v22 = result;
     }
 
     else
     {
-      v22 = *a1;
+      v22 = *result;
     }
 
     if (v21 < 0 || (v23 = *v22, v23 < 0) || v21 < 0x40u || ((v23 ^ v21) & 0x5F) == 0 || v23 < 0x40u)
     {
-      if ((pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, a1 - 24, a1) & 1) == 0)
+      if ((pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, (result - 24), result) & 1) == 0)
       {
 LABEL_32:
-        v9 = sub_29A4EBDA4(a1, a2, a3);
+        v9 = sub_29A4EBDA4(result, a2, a3);
 LABEL_34:
         a5 = 0;
         a4 = -v11;
@@ -7202,13 +7656,13 @@ LABEL_34:
     }
 
 LABEL_27:
-    v24 = sub_29A4EC260(a1, a2, a3);
+    v24 = sub_29A4EC260(result, a2, a3);
     if ((v25 & 1) == 0)
     {
       goto LABEL_33;
     }
 
-    v26 = sub_29A4EC6B4(a1, v24, a3);
+    v26 = sub_29A4EC6B4(result, v24, a3);
     v9 = v24 + 24;
     if (sub_29A4EC6B4(v24 + 24, a2, a3))
     {
@@ -7226,7 +7680,7 @@ LABEL_27:
     if (!v26)
     {
 LABEL_33:
-      sub_29A4EABA8(a1, v24, a3, -v11, a5 & 1);
+      sub_29A4EABA8(result, v24, a3, -v11, a5 & 1);
       v9 = v24 + 24;
       goto LABEL_34;
     }
@@ -7235,9 +7689,9 @@ LABEL_33:
   sub_29A4EB0A4(v9, v9 + 24, a2 - 24, a3);
 }
 
-uint64_t sub_29A4EB0A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_29A4EB0A4(char *a1, char *a2, char *a3, uint64_t a4)
 {
-  v8 = *(a2 + 23);
+  v8 = a2[23];
   v9 = *a2;
   if (v8 >= 0)
   {
@@ -7250,7 +7704,7 @@ uint64_t sub_29A4EB0A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v11 = *v10;
-  if (*(a1 + 23) >= 0)
+  if (a1[23] >= 0)
   {
     v12 = a1;
   }
@@ -7263,7 +7717,7 @@ uint64_t sub_29A4EB0A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   if (v11 < 0 || (v13 = *v12, v13 < 0) || ((v14 = v11, v15 = v13, v16 = (v13 ^ v14) & 0x5F, v14 >= 0x40) ? (v17 = v16 == 0) : (v17 = 1), v17 || v15 < 0x40))
   {
     v27 = pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a4, a2, a1);
-    LOBYTE(v8) = *(a2 + 23);
+    LOBYTE(v8) = a2[23];
     v9 = *a2;
     if (v27)
     {
@@ -7274,7 +7728,7 @@ uint64_t sub_29A4EB0A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   else if (((v14 + 5) & 0x1Fu) < ((v15 + 5) & 0x1Fu))
   {
 LABEL_15:
-    if (*(a3 + 23) >= 0)
+    if (a3[23] >= 0)
     {
       v18 = a3;
     }
@@ -7301,25 +7755,25 @@ LABEL_15:
     else if (((v21 + 5) & 0x1Fu) < ((v20 + 5) & 0x1Fu))
     {
 LABEL_28:
-      v24 = *(a1 + 16);
+      v24 = *(a1 + 2);
       v25 = *a1;
-      v26 = *(a3 + 16);
+      v26 = *(a3 + 2);
       *a1 = *a3;
-      *(a1 + 16) = v26;
+      *(a1 + 2) = v26;
 LABEL_71:
       *a3 = v25;
-      *(a3 + 16) = v24;
+      *(a3 + 2) = v24;
       return 1;
     }
 
-    v45 = *(a1 + 16);
+    v45 = *(a1 + 2);
     v46 = *a1;
-    v47 = *(a2 + 16);
+    v47 = *(a2 + 2);
     *a1 = *a2;
-    *(a1 + 16) = v47;
+    *(a1 + 2) = v47;
     *a2 = v46;
-    *(a2 + 16) = v45;
-    if (*(a3 + 23) >= 0)
+    *(a2 + 2) = v45;
+    if (a3[23] >= 0)
     {
       v48 = a3;
     }
@@ -7330,7 +7784,7 @@ LABEL_71:
     }
 
     v49 = *v48;
-    if (*(a2 + 23) >= 0)
+    if (a2[23] >= 0)
     {
       v50 = a2;
     }
@@ -7353,18 +7807,18 @@ LABEL_71:
     if (((v49 + 5) & 0x1Fu) < ((v51 + 5) & 0x1Fu))
     {
 LABEL_70:
-      v24 = *(a2 + 16);
+      v24 = *(a2 + 2);
       v25 = *a2;
-      v52 = *(a3 + 16);
+      v52 = *(a3 + 2);
       *a2 = *a3;
-      *(a2 + 16) = v52;
+      *(a2 + 2) = v52;
       goto LABEL_71;
     }
 
     return 1;
   }
 
-  if (*(a3 + 23) >= 0)
+  if (a3[23] >= 0)
   {
     v28 = a3;
   }
@@ -7396,14 +7850,14 @@ LABEL_70:
         }
 
 LABEL_43:
-        v34 = *(a2 + 16);
+        v34 = *(a2 + 2);
         v35 = *a2;
-        v36 = *(a3 + 16);
+        v36 = *(a3 + 2);
         *a2 = *a3;
-        *(a2 + 16) = v36;
+        *(a2 + 2) = v36;
         *a3 = v35;
-        *(a3 + 16) = v34;
-        if (*(a2 + 23) >= 0)
+        *(a3 + 2) = v34;
+        if (a2[23] >= 0)
         {
           v37 = a2;
         }
@@ -7414,7 +7868,7 @@ LABEL_43:
         }
 
         v38 = *v37;
-        if (*(a1 + 23) >= 0)
+        if (a1[23] >= 0)
         {
           v39 = a1;
         }
@@ -7437,13 +7891,13 @@ LABEL_43:
           return 1;
         }
 
-        v41 = *(a1 + 16);
+        v41 = *(a1 + 2);
         v42 = *a1;
-        v43 = *(a2 + 16);
+        v43 = *(a2 + 2);
         *a1 = *a2;
-        *(a1 + 16) = v43;
+        *(a1 + 2) = v43;
         *a2 = v42;
-        *(a2 + 16) = v41;
+        *(a2 + 2) = v41;
         return 1;
       }
     }
@@ -7458,10 +7912,10 @@ LABEL_43:
   return result;
 }
 
-uint64_t sub_29A4EB42C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_29A4EB42C(char *a1, char *a2, char *a3, unsigned __int8 *a4, uint64_t a5)
 {
   result = sub_29A4EB0A4(a1, a2, a3, a5);
-  if (*(a4 + 23) >= 0)
+  if ((a4[23] & 0x80u) == 0)
   {
     v11 = a4;
   }
@@ -7472,7 +7926,7 @@ uint64_t sub_29A4EB42C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v12 = *v11;
-  if (*(a3 + 23) >= 0)
+  if (a3[23] >= 0)
   {
     v13 = a3;
   }
@@ -7496,14 +7950,14 @@ uint64_t sub_29A4EB42C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return result;
   }
 
-  v16 = *(a3 + 16);
+  v16 = *(a3 + 2);
   v17 = *a3;
-  v18 = *(a4 + 16);
+  v18 = *(a4 + 2);
   *a3 = *a4;
-  *(a3 + 16) = v18;
+  *(a3 + 2) = v18;
   *a4 = v17;
-  *(a4 + 16) = v16;
-  if (*(a3 + 23) >= 0)
+  *(a4 + 2) = v16;
+  if (a3[23] >= 0)
   {
     v19 = a3;
   }
@@ -7514,7 +7968,7 @@ uint64_t sub_29A4EB42C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v20 = *v19;
-  if (*(a2 + 23) >= 0)
+  if (a2[23] >= 0)
   {
     v21 = a2;
   }
@@ -7538,14 +7992,14 @@ uint64_t sub_29A4EB42C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return result;
   }
 
-  v27 = *(a2 + 16);
+  v27 = *(a2 + 2);
   v28 = *a2;
-  v29 = *(a3 + 16);
+  v29 = *(a3 + 2);
   *a2 = *a3;
-  *(a2 + 16) = v29;
+  *(a2 + 2) = v29;
   *a3 = v28;
-  *(a3 + 16) = v27;
-  if (*(a2 + 23) >= 0)
+  *(a3 + 2) = v27;
+  if (a2[23] >= 0)
   {
     v30 = a2;
   }
@@ -7556,7 +8010,7 @@ uint64_t sub_29A4EB42C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v31 = *v30;
-  if (*(a1 + 23) >= 0)
+  if (a1[23] >= 0)
   {
     v32 = a1;
   }
@@ -7580,20 +8034,20 @@ uint64_t sub_29A4EB42C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return result;
   }
 
-  v34 = *(a1 + 16);
+  v34 = *(a1 + 2);
   v35 = *a1;
-  v36 = *(a2 + 16);
+  v36 = *(a2 + 2);
   *a1 = *a2;
-  *(a1 + 16) = v36;
+  *(a1 + 2) = v36;
   *a2 = v35;
-  *(a2 + 16) = v34;
+  *(a2 + 2) = v34;
   return result;
 }
 
-uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_29A4EB670(char *a1, char *a2, char *a3, unsigned __int8 *a4, char *a5, uint64_t a6)
 {
   result = sub_29A4EB42C(a1, a2, a3, a4, a6);
-  if (*(a5 + 23) >= 0)
+  if (a5[23] >= 0)
   {
     v13 = a5;
   }
@@ -7604,7 +8058,7 @@ uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v14 = *v13;
-  if (*(a4 + 23) >= 0)
+  if ((a4[23] & 0x80u) == 0)
   {
     v15 = a4;
   }
@@ -7628,14 +8082,14 @@ uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return result;
   }
 
-  v21 = *(a4 + 16);
+  v21 = *(a4 + 2);
   v22 = *a4;
-  v23 = *(a5 + 16);
+  v23 = *(a5 + 2);
   *a4 = *a5;
-  *(a4 + 16) = v23;
+  *(a4 + 2) = v23;
   *a5 = v22;
-  *(a5 + 16) = v21;
-  if (*(a4 + 23) >= 0)
+  *(a5 + 2) = v21;
+  if ((a4[23] & 0x80u) == 0)
   {
     v24 = a4;
   }
@@ -7646,7 +8100,7 @@ uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v25 = *v24;
-  if (*(a3 + 23) >= 0)
+  if (a3[23] >= 0)
   {
     v26 = a3;
   }
@@ -7670,14 +8124,14 @@ uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return result;
   }
 
-  v32 = *(a3 + 16);
+  v32 = *(a3 + 2);
   v33 = *a3;
-  v34 = *(a4 + 16);
+  v34 = *(a4 + 2);
   *a3 = *a4;
-  *(a3 + 16) = v34;
+  *(a3 + 2) = v34;
   *a4 = v33;
-  *(a4 + 16) = v32;
-  if (*(a3 + 23) >= 0)
+  *(a4 + 2) = v32;
+  if (a3[23] >= 0)
   {
     v35 = a3;
   }
@@ -7688,7 +8142,7 @@ uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v36 = *v35;
-  if (*(a2 + 23) >= 0)
+  if (a2[23] >= 0)
   {
     v37 = a2;
   }
@@ -7712,14 +8166,14 @@ uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return result;
   }
 
-  v39 = *(a2 + 16);
+  v39 = *(a2 + 2);
   v40 = *a2;
-  v41 = *(a3 + 16);
+  v41 = *(a3 + 2);
   *a2 = *a3;
-  *(a2 + 16) = v41;
+  *(a2 + 2) = v41;
   *a3 = v40;
-  *(a3 + 16) = v39;
-  if (*(a2 + 23) >= 0)
+  *(a3 + 2) = v39;
+  if (a2[23] >= 0)
   {
     v42 = a2;
   }
@@ -7730,7 +8184,7 @@ uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 
   v43 = *v42;
-  if (*(a1 + 23) >= 0)
+  if (a1[23] >= 0)
   {
     v44 = a1;
   }
@@ -7754,13 +8208,13 @@ uint64_t sub_29A4EB670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return result;
   }
 
-  v46 = *(a1 + 16);
+  v46 = *(a1 + 2);
   v47 = *a1;
-  v48 = *(a2 + 16);
+  v48 = *(a2 + 2);
   *a1 = *a2;
-  *(a1 + 16) = v48;
+  *(a1 + 2) = v48;
   *a2 = v47;
-  *(a2 + 16) = v46;
+  *(a2 + 2) = v46;
   return result;
 }
 
@@ -8041,13 +8495,12 @@ void sub_29A4EBD88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t sub_29A4EBDA4(__int128 *a1, unint64_t a2, uint64_t a3)
+char *sub_29A4EBDA4(__int128 *a1, unint64_t a2, uint64_t a3)
 {
   v4 = a2;
   v67 = *(a1 + 2);
   v66 = *a1;
-  *(a1 + 1) = 0;
-  *(a1 + 2) = 0;
+  *(a1 + 8) = 0uLL;
   *a1 = 0;
   v6 = *(a2 - 24);
   v7 = &v66;
@@ -8072,10 +8525,10 @@ LABEL_13:
       {
         while (1)
         {
-          i = v14;
+          v15 = v14;
           v16 = v67 >= 0 ? &v66 : v66;
           v17 = *v16;
-          v18 = *(v14 + 23) >= 0 ? v14 : *v14;
+          v18 = v14[23] >= 0 ? v14 : *v14;
           v14 += 24;
           if (v17 < 0)
           {
@@ -8104,7 +8557,7 @@ LABEL_13:
         }
       }
 
-      while ((pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, &v66, i) & 1) == 0);
+      while ((pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, &v66, v15) & 1) == 0);
       goto LABEL_50;
     }
   }
@@ -8114,45 +8567,53 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  for (i = a1 + 24; i < v4; i += 24)
+  v15 = a1 + 24;
+  if (a1 + 24 < v4)
   {
-    if (v67 >= 0)
+    do
     {
-      v24 = &v66;
-    }
+      if (v67 >= 0)
+      {
+        v24 = &v66;
+      }
 
-    else
-    {
-      v24 = v66;
-    }
+      else
+      {
+        v24 = v66;
+      }
 
-    v25 = *v24;
-    if (*(i + 23) >= 0)
-    {
-      v26 = i;
-    }
+      v25 = *v24;
+      if (v15[23] >= 0)
+      {
+        v26 = v15;
+      }
 
-    else
-    {
-      v26 = *i;
-    }
+      else
+      {
+        v26 = *v15;
+      }
 
-    if (v25 < 0 || (v27 = *v26, v27 < 0) || ((v28 = v25, v29 = v27, v30 = (v27 ^ v28) & 0x5F, v28 >= 0x40) ? (v31 = v30 == 0) : (v31 = 1), v31 || v29 < 0x40))
-    {
-      if (pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, &v66, i))
+      if (v25 < 0 || (v27 = *v26, v27 < 0) || ((v28 = v25, v29 = v27, v30 = (v27 ^ v28) & 0x5F, v28 >= 0x40) ? (v31 = v30 == 0) : (v31 = 1), v31 || v29 < 0x40))
+      {
+        if (pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, &v66, v15))
+        {
+          break;
+        }
+      }
+
+      else if (((v28 + 5) & 0x1Fu) < ((v29 + 5) & 0x1Fu))
       {
         break;
       }
+
+      v15 += 24;
     }
 
-    else if (((v28 + 5) & 0x1Fu) < ((v29 + 5) & 0x1Fu))
-    {
-      break;
-    }
+    while (v15 < v4);
   }
 
 LABEL_50:
-  if (i < v4)
+  if (v15 < v4)
   {
     v32 = v4 - 24;
     do
@@ -8195,26 +8656,26 @@ LABEL_50:
   }
 
 LABEL_68:
-  while (i < v4)
+  while (v15 < v4)
   {
-    v41 = *i;
-    v69 = *(i + 16);
+    v41 = *v15;
+    v69 = *(v15 + 2);
     v68 = v41;
     v42 = *v4;
-    *(i + 16) = *(v4 + 16);
-    *i = v42;
+    *(v15 + 2) = *(v4 + 16);
+    *v15 = v42;
     v43 = v68;
     *(v4 + 16) = v69;
     *v4 = v43;
-    v44 = i + 24;
+    v44 = v15 + 24;
     do
     {
       while (1)
       {
-        i = v44;
+        v15 = v44;
         v45 = v67 >= 0 ? &v66 : v66;
         v46 = *v45;
-        v47 = *(v44 + 23) >= 0 ? v44 : *v44;
+        v47 = v44[23] >= 0 ? v44 : *v44;
         v44 += 24;
         if (v46 < 0)
         {
@@ -8243,7 +8704,7 @@ LABEL_68:
       }
     }
 
-    while (!pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, &v66, i));
+    while (!pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, &v66, v15));
 LABEL_86:
     v53 = v4 - 24;
     do
@@ -8287,10 +8748,10 @@ LABEL_103:
     ;
   }
 
-  v62 = (i - 24);
-  if ((i - 24) == a1)
+  v62 = (v15 - 24);
+  if (v15 - 24 == a1)
   {
-    if (*(i - 1) < 0)
+    if (*(v15 - 1) < 0)
     {
       operator delete(*v62);
     }
@@ -8304,16 +8765,16 @@ LABEL_103:
     }
 
     v63 = *v62;
-    *(a1 + 2) = *(i - 8);
+    *(a1 + 2) = *(v15 - 1);
     *a1 = v63;
-    *(i - 1) = 0;
-    *(i - 24) = 0;
+    *(v15 - 1) = 0;
+    *(v15 - 24) = 0;
   }
 
   v64 = v66;
-  *(i - 8) = v67;
+  *(v15 - 1) = v67;
   *v62 = v64;
-  return i;
+  return v15;
 }
 
 void sub_29A4EC230(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -8326,13 +8787,12 @@ void sub_29A4EC230(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t sub_29A4EC260(__int128 *a1, unint64_t a2, uint64_t a3)
+char *sub_29A4EC260(__int128 *a1, char *a2, uint64_t a3)
 {
   v6 = 0;
   v63 = *a1;
   v64 = *(a1 + 2);
-  *(a1 + 1) = 0;
-  *(a1 + 2) = 0;
+  *(a1 + 8) = 0uLL;
   *a1 = 0;
   while (1)
   {
@@ -8382,7 +8842,7 @@ LABEL_17:
   v15 = a1 + v6 + 24;
   if (v6)
   {
-    v16 = a2 - 24;
+    v16 = (a2 - 24);
     do
     {
       while (1)
@@ -8426,7 +8886,7 @@ LABEL_17:
   {
     for (a2 -= 24; ; a2 -= 24)
     {
-      if (*(a2 + 23) >= 0)
+      if (a2[23] >= 0)
       {
         v25 = a2;
       }
@@ -8486,10 +8946,10 @@ LABEL_60:
     do
     {
       v38 = *v36;
-      v66 = *(v36 + 16);
+      v66 = *(v36 + 2);
       v65 = v38;
       v39 = *v37;
-      *(v36 + 16) = *(v37 + 16);
+      *(v36 + 2) = *(v37 + 16);
       *v36 = v39;
       v40 = v65;
       *(v37 + 16) = v66;
@@ -8500,7 +8960,7 @@ LABEL_60:
         while (1)
         {
           v36 = v41;
-          v42 = *(v41 + 23) >= 0 ? v41 : *v41;
+          v42 = v41[23] >= 0 ? v41 : *v41;
           v43 = *v42;
           v44 = v64 >= 0 ? &v63 : v63;
           v41 += 24;
@@ -8579,7 +9039,7 @@ LABEL_96:
   }
 
   v59 = (v36 - 24);
-  if ((v36 - 24) == a1)
+  if (v36 - 24 == a1)
   {
     if (*(v36 - 1) < 0)
     {
@@ -8595,14 +9055,14 @@ LABEL_96:
     }
 
     v60 = *v59;
-    *(a1 + 2) = *(v36 - 8);
+    *(a1 + 2) = *(v36 - 1);
     *a1 = v60;
     *(v36 - 1) = 0;
     *(v36 - 24) = 0;
   }
 
   v61 = v63;
-  *(v36 - 8) = v64;
+  *(v36 - 1) = v64;
   *v59 = v61;
   return v36 - 24;
 }
@@ -8617,7 +9077,7 @@ void sub_29A4EC688(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_29A4EC6B4(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL sub_29A4EC6B4(char *a1, char *a2, uint64_t a3)
 {
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v6 > 2)
@@ -8646,14 +9106,14 @@ BOOL sub_29A4EC6B4(uint64_t a1, uint64_t a2, uint64_t a3)
     if (v6 == 2)
     {
       v8 = a2 - 24;
-      v7 = *(a2 - 24);
+      v7 = *(a2 - 3);
       if (*(a2 - 1) >= 0)
       {
-        v7 = (a2 - 24);
+        v7 = a2 - 24;
       }
 
       v9 = *v7;
-      if (*(a1 + 23) >= 0)
+      if (a1[23] >= 0)
       {
         v10 = a1;
       }
@@ -8665,7 +9125,7 @@ BOOL sub_29A4EC6B4(uint64_t a1, uint64_t a2, uint64_t a3)
 
       if (v9 < 0 || (v11 = *v10, v11 < 0) || ((v12 = v9, v13 = v11, v14 = (v11 ^ v12) & 0x5F, v12 >= 0x40) ? (v15 = v14 == 0) : (v15 = 1), v15 || v13 < 0x40))
       {
-        if (!pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, a2 - 24, a1))
+        if (!pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, (a2 - 24), a1))
         {
           return 1;
         }
@@ -8676,20 +9136,20 @@ BOOL sub_29A4EC6B4(uint64_t a1, uint64_t a2, uint64_t a3)
         return 1;
       }
 
-      v16 = *(a1 + 16);
+      v16 = *(a1 + 2);
       v17 = *a1;
-      v18 = *(v8 + 16);
+      v18 = *(v8 + 2);
       *a1 = *v8;
-      *(a1 + 16) = v18;
+      *(a1 + 2) = v18;
       *v8 = v17;
-      *(v8 + 16) = v16;
+      *(v8 + 2) = v16;
       return 1;
     }
   }
 
-  v19 = a1 + 48;
+  v19 = (a1 + 48);
   sub_29A4EB0A4(a1, a1 + 24, a1 + 48, a3);
-  v20 = a1 + 72;
+  v20 = (a1 + 72);
   if (a1 + 72 == a2)
   {
     return 1;
@@ -8741,23 +9201,23 @@ BOOL sub_29A4EC6B4(uint64_t a1, uint64_t a2, uint64_t a3)
     *v20 = 0;
     for (i = v21; ; i -= 24)
     {
-      v33 = a1 + i;
+      v33 = &a1[i];
       if ((v31 & 0x80) != 0)
       {
-        operator delete(*(v33 + 72));
+        operator delete(*(v33 + 9));
       }
 
-      *(v33 + 72) = *(v33 + 48);
-      *(v33 + 88) = *(v33 + 64);
-      *(v33 + 71) = 0;
-      *(v33 + 48) = 0;
+      *(v33 + 72) = *(v33 + 3);
+      *(v33 + 11) = *(v33 + 8);
+      v33[71] = 0;
+      v33[48] = 0;
       if (i == -48)
       {
         v43 = a1;
         goto LABEL_63;
       }
 
-      v34 = *(a1 + i + 24);
+      v34 = *&a1[i + 24];
       if (v46 >= 0)
       {
         v35 = &v45;
@@ -8769,9 +9229,9 @@ BOOL sub_29A4EC6B4(uint64_t a1, uint64_t a2, uint64_t a3)
       }
 
       v36 = *v35;
-      if (*(a1 + i + 47) >= 0)
+      if (a1[i + 47] >= 0)
       {
-        v34 = (a1 + i + 24);
+        v34 = &a1[i + 24];
       }
 
       if (v36 < 0)
@@ -8796,7 +9256,7 @@ BOOL sub_29A4EC6B4(uint64_t a1, uint64_t a2, uint64_t a3)
 
       if (((v38 + 5) & 0x1Fu) >= ((v39 + 5) & 0x1Fu))
       {
-        v43 = a1 + i + 48;
+        v43 = &a1[i + 48];
         goto LABEL_63;
       }
 
@@ -8805,14 +9265,14 @@ LABEL_57:
       ;
     }
 
-    v42 = pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, &v45, a1 + i + 24);
-    v31 = *(v33 + 71);
+    v42 = pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, &v45, &a1[i + 24]);
+    v31 = v33[71];
     if (v42)
     {
       goto LABEL_57;
     }
 
-    v43 = a1 + i + 48;
+    v43 = &a1[i + 48];
     if (v31 < 0)
     {
       operator delete(*v43);
@@ -8849,17 +9309,17 @@ void sub_29A4ECA4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_29A4ECA68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_29A4ECA68(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v8 = a2 - a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
+    v9 = 0xAAAAAAAAAAAAAAABLL * (a2 - a1);
     if (a2 - a1 >= 25)
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = a1 + 24 * v10;
+      v12 = &a1[3 * v10];
       do
       {
         sub_29A4ECD18(a1, a4, v9, v12);
@@ -8920,11 +9380,11 @@ LABEL_22:
 LABEL_21:
       v22 = *(v13 + 16);
       v23 = *v13;
-      v24 = *(a1 + 16);
+      v24 = a1[2];
       *v13 = *a1;
       *(v13 + 16) = v24;
       *a1 = v23;
-      *(a1 + 16) = v22;
+      a1[2] = v22;
       sub_29A4ECD18(a1, a4, v9, a1);
       goto LABEL_22;
     }
@@ -8933,15 +9393,15 @@ LABEL_26:
     if (v8 >= 25)
     {
       v25 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 3);
-      v26 = a2 - 24;
+      v26 = (a2 - 3);
       do
       {
         v27 = *a1;
-        *v35 = *(a1 + 8);
+        *v35 = a1[1];
         *&v35[7] = *(a1 + 15);
         v28 = *(a1 + 23);
-        *(a1 + 8) = 0;
-        *(a1 + 16) = 0;
+        a1[1] = 0;
+        a1[2] = 0;
         *a1 = 0;
         v29 = sub_29A4ED0AC(a1, a4, v25);
         v30 = v29;
@@ -8967,16 +9427,16 @@ LABEL_26:
           }
 
           v32 = *v26;
-          *(v30 + 16) = *(v26 + 16);
+          *(v30 + 16) = *(v26 + 2);
           *v30 = v32;
           *v26 = v27;
-          *(v26 + 8) = *v35;
+          *(v26 + 1) = *v35;
           *(v26 + 15) = *&v35[7];
           *(v26 + 23) = v28;
           sub_29A4ED1F8(a1, v30 + 24, a4, 0xAAAAAAAAAAAAAAABLL * ((v30 + 24 - a1) >> 3));
         }
 
-        v26 -= 24;
+        v26 = (v26 - 24);
       }
 
       while (v25-- > 2);
@@ -9316,606 +9776,4 @@ LABEL_17:
 
   while (v6 <= v7);
   return v9;
-}
-
-void sub_29A4ED1F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4 = a4 - 2;
-  if (a4 >= 2)
-  {
-    v7 = v4 >> 1;
-    v8 = a1 + 24 * (v4 >> 1);
-    v10 = a2 - 24;
-    v9 = *(a2 - 24);
-    if (*(v8 + 23) >= 0)
-    {
-      v11 = (a1 + 24 * (v4 >> 1));
-    }
-
-    else
-    {
-      v11 = *v8;
-    }
-
-    v12 = *v11;
-    if (*(a2 - 1) >= 0)
-    {
-      v9 = (a2 - 24);
-    }
-
-    if (v12 < 0 || (v13 = *v9, v13 < 0) || ((v14 = v12, v15 = v13, v16 = (v13 ^ v14) & 0x5F, v14 >= 0x40) ? (v17 = v16 == 0) : (v17 = 1), v17 || v15 < 0x40))
-    {
-      if (!pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, v8, v10))
-      {
-        return;
-      }
-    }
-
-    else if (((v14 + 5) & 0x1Fu) >= ((v15 + 5) & 0x1Fu))
-    {
-      return;
-    }
-
-    v28 = *v10;
-    v29 = *(v10 + 16);
-    *(v10 + 8) = 0;
-    *(v10 + 16) = 0;
-    *v10 = 0;
-    while (1)
-    {
-      v18 = v8;
-      if (*(v10 + 23) < 0)
-      {
-        operator delete(*v10);
-      }
-
-      v19 = *v8;
-      *(v10 + 16) = *(v8 + 16);
-      *v10 = v19;
-      *(v8 + 23) = 0;
-      *v8 = 0;
-      if (!v7)
-      {
-        break;
-      }
-
-      v7 = (v7 - 1) >> 1;
-      v8 = a1 + 24 * v7;
-      if (*(v8 + 23) >= 0)
-      {
-        v20 = (a1 + 24 * v7);
-      }
-
-      else
-      {
-        v20 = *v8;
-      }
-
-      v21 = *v20;
-      if (v29 >= 0)
-      {
-        v22 = &v28;
-      }
-
-      else
-      {
-        v22 = v28;
-      }
-
-      if (v21 < 0 || (v23 = *v22, v23 < 0) || ((v24 = v21, v25 = v23, v26 = (v23 ^ v24) & 0x5F, v24 >= 0x40) ? (v27 = v26 == 0) : (v27 = 1), v27 || v25 < 0x40))
-      {
-        v10 = v18;
-        if ((pxrInternal__aapl__pxrReserved__::TfDictionaryLessThan::_LessImpl(a3, a1 + 24 * v7, &v28) & 1) == 0)
-        {
-          if (*(v18 + 23) < 0)
-          {
-            operator delete(*v18);
-          }
-
-          break;
-        }
-      }
-
-      else
-      {
-        v10 = v18;
-        if (((v24 + 5) & 0x1Fu) >= ((v25 + 5) & 0x1Fu))
-        {
-          break;
-        }
-      }
-    }
-
-    *v18 = v28;
-    *(v18 + 16) = v29;
-  }
-}
-
-void sub_29A4ED3F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A4ED40C(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(a3 + 8) = 0u;
-  *(a3 + 72) = 0u;
-  *(a3 + 56) = 0u;
-  *(a3 + 40) = 0u;
-  *(a3 + 24) = 0u;
-  *a3 = 0x434453552D525850;
-  *(a3 + 9) = 12;
-  if (a2 > 87)
-  {
-    *(a1 + 8) = 0;
-    v6 = pxrInternal__aapl__pxrReserved__::ArchPRead(*(a1 + 24), a3, 0x58, *a1);
-    if (v6 != -1)
-    {
-      *(a1 + 8) += v6;
-    }
-
-    if (*a3 == 0x434453552D525850)
-    {
-      v9 = *(a3 + 8);
-      v10 = *(a3 + 9);
-      if (*(a3 + 8) || v10 >= 0xD)
-      {
-        v19 = "usd/crateFile.cpp";
-        v20 = "_ReadBootStrap";
-        v21 = 3837;
-        v22 = "static CrateFile::_BootStrap pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadBootStrap(ByteStream, int64_t) [ByteStream = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream]";
-        v23 = 0;
-        pxrInternal__aapl__pxrReserved__::TfStringPrintf("%hhd.%hhd.%hhd", v7, v8, v9, v10, *(a3 + 10));
-        pxrInternal__aapl__pxrReserved__::TfStringPrintf("%hhd.%hhd.%hhd", v11, v12, 0, 12, 0);
-        if (v18 >= 0)
-        {
-          v13 = &v17;
-        }
-
-        else
-        {
-          v13 = v17;
-        }
-
-        if (v16 >= 0)
-        {
-          p_p = &__p;
-        }
-
-        else
-        {
-          p_p = __p;
-        }
-
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v19, 3, "Usd crate file version mismatch -- file is %s, software supports %s", v13, p_p);
-        if (v16 < 0)
-        {
-          operator delete(__p);
-        }
-
-        if (v18 < 0)
-        {
-          operator delete(v17);
-        }
-      }
-
-      else if (*(a3 + 16) >= a2)
-      {
-        v19 = "usd/crateFile.cpp";
-        v20 = "_ReadBootStrap";
-        v21 = 3845;
-        v22 = "static CrateFile::_BootStrap pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadBootStrap(ByteStream, int64_t) [ByteStream = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream]";
-        v23 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v19, 3, "Usd crate file corrupt, possibly truncated: table of contents at offset %lld but file size is %lld");
-      }
-    }
-
-    else
-    {
-      v19 = "usd/crateFile.cpp";
-      v20 = "_ReadBootStrap";
-      v21 = 3830;
-      v22 = "static CrateFile::_BootStrap pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadBootStrap(ByteStream, int64_t) [ByteStream = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream]";
-      v23 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v19, 3, "Usd crate bootstrap section corrupt");
-    }
-  }
-
-  else
-  {
-    v19 = "usd/crateFile.cpp";
-    v20 = "_ReadBootStrap";
-    v21 = 3823;
-    v22 = "static CrateFile::_BootStrap pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadBootStrap(ByteStream, int64_t) [ByteStream = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream]";
-    v23 = 0;
-    pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v19, 3, "File too small to contain bootstrap structure");
-  }
-}
-
-void sub_29A4ED64C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a23 < 0)
-  {
-    operator delete(a18);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A4ED680(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  *(a1 + 16) = *(a2 + 16);
-  __p[0] = 0;
-  __p[1] = 0;
-  v5 = 0;
-  if (sub_29A4EF4FC(a1, __p))
-  {
-    *a3 = *__p;
-    *(a3 + 16) = v5;
-  }
-
-  else
-  {
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    if (__p[0])
-    {
-      __p[1] = __p[0];
-      operator delete(__p[0]);
-    }
-  }
-}
-
-void sub_29A4ED6F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A4ED710(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 6544);
-  v3 = *(a1 + 6552);
-  if (v2 != v3)
-  {
-    v4 = -1;
-    v5 = -1;
-    do
-    {
-      v6 = *(v2 + 16);
-      if (v6 >= v4)
-      {
-        v7 = v4;
-      }
-
-      else
-      {
-        v7 = *(v2 + 16);
-      }
-
-      if (v4 == -1)
-      {
-        v4 = *(v2 + 16);
-      }
-
-      else
-      {
-        v4 = v7;
-      }
-
-      v8 = *(v2 + 24) + v6;
-      if (v8 <= v5)
-      {
-        v9 = v5;
-      }
-
-      else
-      {
-        v9 = v8;
-      }
-
-      if (v5 == -1)
-      {
-        v5 = v8;
-      }
-
-      else
-      {
-        v5 = v9;
-      }
-
-      v2 += 32;
-    }
-
-    while (v2 != v3);
-    if (v4 != -1 && v5 != -1)
-    {
-      if (a2[3] >= v5 - v4)
-      {
-        v11 = a2[4];
-        v12 = a2[1] + v4;
-
-        pxrInternal__aapl__pxrReserved__::ArchFileAdvise(v11, v12);
-      }
-
-      else
-      {
-        v13[0] = "usd/crateFile.cpp";
-        v13[1] = "_PrefetchStructuralSections";
-        v13[2] = 3867;
-        v13[3] = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_PrefetchStructuralSections(Reader) const [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-        v14 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v13, 3, "Usd crate file corrupt, table of contents section size error");
-      }
-    }
-  }
-}
-
-void sub_29A4ED7FC(uint64_t a1, uint64_t a2)
-{
-  v39[9] = *MEMORY[0x29EDCA608];
-  v4 = atomic_load(pxrInternal__aapl__pxrReserved__::TfMallocTag::_isInitialized);
-  if (v4)
-  {
-    base = pxrInternal__aapl__pxrReserved__::TfMallocTag::_Begin("_ReadTokens", 0);
-  }
-
-  else
-  {
-    base = 0;
-  }
-
-  v37._bf._base = base;
-  v37._bf._size = base != 0;
-  Section = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_TableOfContents::GetSection((a1 + 6544), "TOKENS");
-  if (!Section)
-  {
-    goto LABEL_47;
-  }
-
-  v7 = *(a2 + 24);
-  v8 = *(Section + 2);
-  if (v7 > v8 && (v8 & 0x8000000000000000) == 0)
-  {
-    *(a2 + 16) = v8;
-    *&v37._flags = 0;
-    if (!sub_29A4EF670(a2 + 8, 0, &v37._flags))
-    {
-      goto LABEL_47;
-    }
-
-    *&v37._r = 0;
-    if (((*(a1 + 6576) << 16) | (*(a1 + 6577) << 8)) > 0x3FFu)
-    {
-      __sz = 0;
-      if (!sub_29A4EF670(a2 + 8, 0, &__sz))
-      {
-        goto LABEL_46;
-      }
-
-      v37._p = 0;
-      if (!sub_29A4EF670(a2 + 8, 0, &v37))
-      {
-        goto LABEL_46;
-      }
-
-      if (!__sz || !v37._p)
-      {
-        *&v37._lbfsize = "usd/crateFile.cpp";
-        v37._cookie = "_ReadTokens";
-        v37._close = 4233;
-        v37._read = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-        LOBYTE(v37._seek) = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v37._lbfsize, 3, "Usd crate file corrupt, tokens section is empty");
-        goto LABEL_46;
-      }
-
-      v26 = *(a2 + 16);
-      v25 = *(a2 + 24);
-      v27 = (v25 - v26);
-      if (v26 < 0 || (v27 & 0x8000000000000000) != 0 || v37._p > v27)
-      {
-        *&v37._lbfsize = "usd/crateFile.cpp";
-        v37._cookie = "_ReadTokens";
-        v37._close = 4239;
-        v37._read = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-        LOBYTE(v37._seek) = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v37._lbfsize, 3, "Failed to read tokens size %llu with remaining file size is %lld of %lld", v37._p, v27, v25);
-        goto LABEL_46;
-      }
-
-      CompressedBufferSize = pxrInternal__aapl__pxrReserved__::TfFastCompression::GetCompressedBufferSize(__sz);
-      p = v37._p;
-      if (!CompressedBufferSize || CompressedBufferSize < v37._p)
-      {
-        *&v37._lbfsize = "usd/crateFile.cpp";
-        v37._cookie = "_ReadTokens";
-        v37._close = 4246;
-        v37._read = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-        LOBYTE(v37._seek) = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v37._lbfsize, 3, "Failed to read tokens. Corrupt compression data. Compressed size %llu, uncompressed size %llu", v37._p, __sz);
-        goto LABEL_46;
-      }
-
-      v30 = __sz;
-      v13 = operator new[](__sz);
-      *&v37._r = v13;
-      v31 = operator new[](p);
-      sub_29A4D3508(a2, v31, p);
-      pxrInternal__aapl__pxrReserved__::TfFastCompression::DecompressFromBuffer(v31, v13, v37._p, __sz);
-      v14 = &v13[v30];
-      v15 = __sz;
-      operator delete[](v31);
-    }
-
-    else
-    {
-      __sz = 0;
-      if (!sub_29A4EF670(a2 + 8, 0, &__sz))
-      {
-        goto LABEL_46;
-      }
-
-      v10 = *(a2 + 16);
-      v9 = *(a2 + 24);
-      v11 = v9 - v10;
-      v12 = __sz;
-      if (v10 < 0 || (v11 & 0x8000000000000000) != 0 || __sz > v11)
-      {
-        *&v37._lbfsize = "usd/crateFile.cpp";
-        v37._cookie = "_ReadTokens";
-        v37._close = 4217;
-        v37._read = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-        LOBYTE(v37._seek) = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v37._lbfsize, 3, "Failed to read tokens size %llu with remaining file size being %lld of %lld", __sz, v11, v9);
-        goto LABEL_46;
-      }
-
-      v13 = operator new[](__sz);
-      *&v37._r = v13;
-      sub_29A4D3508(a2, v13, v12);
-      v14 = &v12[v13];
-      v15 = __sz;
-    }
-
-    if (v13 != v14 && *(v14 - 1))
-    {
-      *&v37._lbfsize = "usd/crateFile.cpp";
-      v37._cookie = "_ReadTokens";
-      v37._close = 4261;
-      v37._read = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-      LOBYTE(v37._seek) = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v37._lbfsize, 3, "Tokens section not null-terminated in crate file");
-      *(v14 - 1) = 0;
-    }
-
-    v16 = *&v37._flags;
-    if (*&v37._flags - 1 >= v15)
-    {
-      *&v37._lbfsize = "usd/crateFile.cpp";
-      v37._cookie = "_ReadTokens";
-      v37._close = 4271;
-      v37._read = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-      LOBYTE(v37._seek) = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v37._lbfsize, 3, "Failed to read tokens. Corrupt data. Data size %llu, num tokens %llu", v15, *&v37._flags);
-      *&v37._r = 0;
-    }
-
-    else
-    {
-      v17 = *(a1 + 120);
-      v18 = *(a1 + 128);
-      v19 = a1 + 120;
-      if (v18 != v17)
-      {
-        do
-        {
-          v21 = *(v18 - 8);
-          v18 -= 8;
-          v20 = v21;
-          if ((v21 & 7) != 0)
-          {
-            atomic_fetch_add_explicit((v20 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-          }
-        }
-
-        while (v18 != v17);
-        v16 = *&v37._flags;
-      }
-
-      *(a1 + 128) = v17;
-      sub_29A3275DC((a1 + 120), v16);
-      v13[v15 - 1] = 0;
-      pxrInternal__aapl__pxrReserved__::WorkDispatcher::WorkDispatcher(&v37._lbfsize);
-      v22 = 0;
-      if (v13 < v14 && *&v37._flags)
-      {
-        v22 = 0;
-        v23 = *&v37._r;
-        while (&v13[-v23] < v15)
-        {
-          __sz = 0;
-          v33 = v38;
-          v24 = tbb::internal::allocate_additional_child_of_proxy::allocate(&__sz, 0x28uLL);
-          *(v24 - 11) = 1;
-          *v24 = &unk_2A20522F0;
-          v24[1] = v19;
-          v24[2] = v22;
-          v24[3] = v13;
-          v24[4] = v39;
-          (***(v24 - 5))();
-          v13 += strlen(v13) + 1;
-          ++v22;
-          if (v13 >= v14 || v22 == *&v37._flags)
-          {
-            goto LABEL_29;
-          }
-        }
-
-        __sz = "usd/crateFile.cpp";
-        v33 = "_ReadTokens";
-        v34 = 4305;
-        v35 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-        v36 = 0;
-        pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__sz, 3, "Failed read tokens, buffer overflow.");
-      }
-
-      else
-      {
-LABEL_29:
-        pxrInternal__aapl__pxrReserved__::WorkDispatcher::Wait(&v37._lbfsize);
-        if (v22 != *&v37._flags)
-        {
-          __sz = "usd/crateFile.cpp";
-          v33 = "_ReadTokens";
-          v34 = 4315;
-          v35 = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-          v36 = 0;
-          pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&__sz, 3, "Crate file claims %zu tokens, found %zu", *&v37._flags, v22);
-        }
-
-        sub_29A4E7DB8(&v37._r);
-      }
-
-      pxrInternal__aapl__pxrReserved__::WorkDispatcher::~WorkDispatcher(&v37._lbfsize);
-      v13 = *&v37._r;
-      *&v37._r = 0;
-      if (!v13)
-      {
-        goto LABEL_46;
-      }
-    }
-
-    operator delete[](v13);
-LABEL_46:
-    base = v37._bf._base;
-    goto LABEL_47;
-  }
-
-  *&v37._lbfsize = "usd/crateFile.cpp";
-  v37._cookie = "_ReadTokens";
-  v37._close = 4191;
-  v37._read = "void pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_ReadTokens(Reader) [Reader = pxrInternal__aapl__pxrReserved__::Usd_CrateFile::CrateFile::_Reader<pxrInternal__aapl__pxrReserved__::Usd_CrateFile::_PreadStream>]";
-  LOBYTE(v37._seek) = 0;
-  pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v37._lbfsize, 3, "Usd crate file corrupt, tokens section is possibly truncatedat offset %lld but file size is %lld", v8, v7);
-LABEL_47:
-  if (base)
-  {
-    pxrInternal__aapl__pxrReserved__::TfMallocTag::_End(v37._bf._size, base);
-  }
 }

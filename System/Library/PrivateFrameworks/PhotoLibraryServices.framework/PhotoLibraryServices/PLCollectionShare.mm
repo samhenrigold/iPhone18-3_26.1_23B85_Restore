@@ -64,7 +64,7 @@
   fetchCopy = fetch;
   dsCopy = ds;
   dsCopy = [v7 predicateWithFormat:@"uuid IN %@", dsCopy];
-  v12 = [dsCopy count];
+  v12 = objc_msgSend_count(dsCopy);
 
   v13 = [(PLShare *)PLCollectionShare sharesWithPredicate:dsCopy fetchLimit:v12 includesPendingChanges:0 propertiesToFetch:fetchCopy inManagedObjectContext:contextCopy];
 
@@ -448,7 +448,7 @@ void __50__PLCollectionShare_declineWithCompletionHandler___block_invoke(uint64_
   }
 
   changedValues = [(PLCollectionShare *)self changedValues];
-  if ([changedValues count] && (objc_msgSend(changedValues, "objectForKeyedSubscript:", @"lastModifiedDate"), v4 = objc_claimAutoreleasedReturnValue(), v4, !v4))
+  if (objc_msgSend_count(changedValues) && ([changedValues objectForKeyedSubscript:@"lastModifiedDate"], v4 = objc_claimAutoreleasedReturnValue(), v4, !v4))
   {
     v6 = MEMORY[0x1E695DFD8];
     allKeys = [changedValues allKeys];

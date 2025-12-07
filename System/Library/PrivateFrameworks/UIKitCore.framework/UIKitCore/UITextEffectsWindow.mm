@@ -300,14 +300,16 @@
   else
   {
     v3 = objc_opt_class();
-    if ([v3 isEqual:objc_opt_class()])
+    objc_opt_class();
+    if (objc_msgSend_isEqual_(v3))
     {
     }
 
     else
     {
       v4 = objc_opt_class();
-      LOBYTE(v4) = [v4 isEqual:objc_opt_class()];
+      objc_opt_class();
+      LOBYTE(v4) = objc_msgSend_isEqual_(v4);
 
       if ((v4 & 1) == 0)
       {
@@ -704,7 +706,8 @@ LABEL_10:
   if (_userInterfaceIdiom != 3 && (self->_activeEffectsCount & 0x100) == 0)
   {
     v17 = objc_opt_class();
-    if (([v17 isEqual:objc_opt_class()] & 1) != 0 || (v18 = objc_opt_class(), objc_msgSend(v18, "isEqual:", objc_opt_class())))
+    objc_opt_class();
+    if ((objc_msgSend_isEqual_(v17) & 1) != 0 || (v18 = objc_opt_class(), objc_opt_class(), objc_msgSend_isEqual_(v18)))
     {
       v19 = objc_alloc_init(UIEditingOverlayViewController);
       v20 = *&self->_manualHostingOverride;
@@ -1579,7 +1582,7 @@ LABEL_12:
 
   session = [sceneCopy session];
   role = [session role];
-  v19 = [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+  isEqualToString = objc_msgSend_isEqualToString_(role);
 
   if ([objc_opt_class() _suppressesTextEffectsWindow])
   {
@@ -1623,7 +1626,7 @@ LABEL_23:
     v36[4] = v27;
     v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:5];
 
-    v29 = [_UIObjectPerScene objectOfClass:v23 forScene:sceneCopy withOptions:v28 createIfNecessary:necessaryCopy & ~v19];
+    v29 = [_UIObjectPerScene objectOfClass:v23 forScene:sceneCopy withOptions:v28 createIfNecessary:necessaryCopy & ~isEqualToString];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

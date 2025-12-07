@@ -79,8 +79,7 @@
 
 - (void)_updateCounter:(void *)counter streamNameCounts:
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v23 = a2;
+  v22 = a2;
   counterCopy = counter;
   if (self)
   {
@@ -112,20 +111,9 @@
             v17 = [v12 isEqualToString:name];
 
             v18 = @"entity";
-            if (v17)
+            if ((v17 & 1) != 0 || (+[_CDPortraitStreams topicStream](_CDPortraitStreams, "topicStream", @"entity"), v19 = objc_claimAutoreleasedReturnValue(), [v19 name], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v12, "isEqualToString:", v20), v20, v19, v18 = @"topic", v21))
             {
-              goto LABEL_10;
-            }
-
-            v19 = +[_CDPortraitStreams topicStream];
-            name2 = [v19 name];
-            v21 = [v12 isEqualToString:name2];
-
-            v18 = @"topic";
-            if (v21)
-            {
-LABEL_10:
-              [(_DKEventTypeStatsCounter *)v23 incrementCountByNumber:v14 typeValue:v18];
+              [(_DKEventTypeStatsCounter *)v22 incrementCountByNumber:v14 typeValue:v18];
             }
           }
         }
@@ -137,8 +125,6 @@ LABEL_10:
       while (v9);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendDistributedNotificationName:(void *)name object:(void *)object throttledActivityName:
@@ -162,12 +148,11 @@ LABEL_10:
 
 - (void)_sendDistributedNotificationName:(void *)name streamNameCounts:
 {
-  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   nameCopy = name;
   if (self)
   {
-    v16 = 0;
+    v15 = 0;
     streamNamesNotificationWhitelist = [(_DKKnowledgeStorageLogging *)self streamNamesNotificationWhitelist];
     OUTLINED_FUNCTION_38();
     v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
@@ -187,7 +172,7 @@ LABEL_10:
           v13 = *(8 * i);
           if ([nameCopy countForObject:v13])
           {
-            v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_DKKnowledgeStorageLogging%@:%@", v5, v13, v16];
+            v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_DKKnowledgeStorageLogging%@:%@", v5, v13, v15];
             [(_DKKnowledgeStorageLogging *)self _sendDistributedNotificationName:v5 object:v13 throttledActivityName:v14];
           }
         }
@@ -199,8 +184,6 @@ LABEL_10:
       while (v10);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)knowledgeStorage:(id)storage didInsertEventsWithStreamNameCounts:(id)counts

@@ -228,15 +228,15 @@ uint64_t __54__TUIStaticIdentitySpecifierProvider_reloadSpecifiers__block_invoke
 
 void __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = objc_alloc(MEMORY[0x277D73568]);
     v3 = [v2 initWithApplication:*MEMORY[0x277D735B0]];
-    v13 = 0;
-    v4 = [v3 status:&v13];
-    v5 = v13;
+    v12 = 0;
+    v4 = [v3 status:&v12];
+    v5 = v12;
     if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_17 != -1)
     {
       __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_cold_1();
@@ -246,11 +246,11 @@ void __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke(uint
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v15 = WeakRetained;
-      v16 = 2114;
-      v17 = v4;
-      v18 = 2114;
-      v19 = v5;
+      v14 = WeakRetained;
+      v15 = 2114;
+      v16 = v4;
+      v17 = 2114;
+      v18 = v5;
       _os_log_impl(&dword_26F50B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ got CKV status = %{public}@, error = %{public}@", buf, 0x20u);
     }
 
@@ -259,12 +259,12 @@ void __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke(uint
     block[1] = 3221225472;
     block[2] = __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_91;
     block[3] = &unk_279DDA9E8;
-    objc_copyWeak(&v12, buf);
-    v11 = v4;
+    objc_copyWeak(&v11, buf);
+    v10 = v4;
     v7 = v4;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
 
@@ -279,12 +279,10 @@ void __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke(uint
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "[TUIStaticIdentitySpecifierProvider _noMatchAction:]_block_invoke";
+      v14 = "[TUIStaticIdentitySpecifierProvider _noMatchAction:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_2()
@@ -303,7 +301,7 @@ uint64_t __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_
 
 void __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_91(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -319,25 +317,25 @@ void __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_91(u
       v9 = MEMORY[0x277D750F8];
       v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v11 = [v10 localizedStringForKey:@"REPORT_TO_APPLE_TITLE" value:&stru_287F92480 table:@"Localizable"];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_107;
-      v21[3] = &unk_279DDAD80;
-      v22 = *(a1 + 32);
-      v23 = WeakRetained;
-      v12 = [v9 actionWithTitle:v11 style:0 handler:v21];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_107;
+      v20[3] = &unk_279DDAD80;
+      v21 = *(a1 + 32);
+      v22 = WeakRetained;
+      v12 = [v9 actionWithTitle:v11 style:0 handler:v20];
       [v8 addAction:v12];
     }
 
     v13 = MEMORY[0x277D750F8];
     v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v15 = [v14 localizedStringForKey:@"DISMISS" value:&stru_287F92480 table:@"Localizable"];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_117;
-    v20[3] = &unk_279DDAD58;
-    v20[4] = WeakRetained;
-    v16 = [v13 actionWithTitle:v15 style:1 handler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_117;
+    v19[3] = &unk_279DDAD58;
+    v19[4] = WeakRetained;
+    v16 = [v13 actionWithTitle:v15 style:1 handler:v19];
     [v8 addAction:v16];
 
     v17 = [WeakRetained delegate];
@@ -355,12 +353,10 @@ void __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_91(u
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = "[TUIStaticIdentitySpecifierProvider _noMatchAction:]_block_invoke";
+      v24 = "[TUIStaticIdentitySpecifierProvider _noMatchAction:]_block_invoke";
       _os_log_impl(&dword_26F50B000, v18, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_2_92()
@@ -467,12 +463,11 @@ uint64_t __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_
 
 void __53__TUIStaticIdentitySpecifierProvider__noMatchAction___block_invoke_107_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_26F50B000, a2, OS_LOG_TYPE_ERROR, "%{public}@ no recent failed event id found, cannot get report data for no match", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_26F50B000, a2, OS_LOG_TYPE_ERROR, "%{public}@ no recent failed event id found, cannot get report data for no match", &v3, 0xCu);
 }
 
 @end

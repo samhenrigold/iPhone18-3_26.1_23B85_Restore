@@ -1,8 +1,19 @@
 @interface BRCPQLInjectionChildrenEnumerationSortOrder
 + (id)_createInjectionSortOrder:(unsigned __int8)order;
+- (BRCPQLInjectionChildrenEnumerationSortOrder)initWithSortOrder:(unsigned __int8)order;
 @end
 
 @implementation BRCPQLInjectionChildrenEnumerationSortOrder
+
+- (BRCPQLInjectionChildrenEnumerationSortOrder)initWithSortOrder:(unsigned __int8)order
+{
+  v4 = [objc_opt_class() _createInjectionSortOrder:order];
+  v7.receiver = self;
+  v7.super_class = BRCPQLInjectionChildrenEnumerationSortOrder;
+  v5 = [(BRCPQLInjectionBase *)&v7 initWithActualInjection:v4];
+
+  return v5;
+}
 
 + (id)_createInjectionSortOrder:(unsigned __int8)order
 {

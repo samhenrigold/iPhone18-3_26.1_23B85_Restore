@@ -64,7 +64,7 @@
 
   else
   {
-    v8 = _AAUILogSystem();
+    v8 = _AAUILogSystem(accountCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -80,7 +80,7 @@
   v26 = *MEMORY[0x1E69E9840];
   dataclassesCopy = dataclasses;
   accountCopy = account;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(accountCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -136,7 +136,7 @@
 - (void)_refreshEnabledDataclassesForAccount:(id)account
 {
   accountCopy = account;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(accountCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(AAUISignInOperationManager *)accountCopy _refreshEnabledDataclassesForAccount:v4];
@@ -153,10 +153,10 @@
 
   else
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [AAUISignInOperationManager _refreshEnabledDataclassesForAccount:v8];
+      [AAUISignInOperationManager _refreshEnabledDataclassesForAccount:v9];
     }
   }
 }
@@ -178,7 +178,7 @@
   v12 = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   accountCopy = account;
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(accountCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -196,7 +196,7 @@
   helperCopy = helper;
   accountCopy = account;
   errorCopy = error;
-  v13 = _AAUILogSystem();
+  v13 = _AAUILogSystem(errorCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = @"NO";
@@ -253,7 +253,7 @@ uint64_t __80__AAUISignInOperationManager_operationsHelper_didSaveAccount_withSu
   v12 = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   accountCopy = account;
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(accountCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -271,7 +271,7 @@ uint64_t __80__AAUISignInOperationManager_operationsHelper_didSaveAccount_withSu
   helperCopy = helper;
   accountCopy = account;
   errorCopy = error;
-  v12 = _AAUILogSystem();
+  v12 = _AAUILogSystem(errorCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = @"NO";
@@ -297,7 +297,7 @@ uint64_t __80__AAUISignInOperationManager_operationsHelper_didSaveAccount_withSu
   v23 = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   pickerCopy = picker;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(pickerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -354,7 +354,7 @@ void __80__AAUISignInOperationManager_operationsHelper_desiredDataclassActionFro
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;

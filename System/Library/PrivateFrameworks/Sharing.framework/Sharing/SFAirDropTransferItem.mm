@@ -68,33 +68,45 @@
 
 - (id)description
 {
-  objc_opt_class();
-  type = self->_type;
-  NSAppendPrintF();
-  v3 = 0;
-  v4 = v3;
-  if (self->_subtype)
+  v18 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v18, "<%@: type: %@", v3, self->_type);
+  v4 = v18;
+  v5 = v4;
+  subtype = self->_subtype;
+  if (subtype)
   {
-    v13 = v3;
-    subtype = self->_subtype;
-    NSAppendPrintF();
-    v5 = v13;
+    v17 = v4;
+    NSAppendPrintF(&v17, ", subtype: %@", subtype);
+    v7 = v17;
 
-    v4 = v5;
+    v5 = v7;
   }
 
-  count = self->_count;
-  NSAppendPrintF();
-  v6 = v4;
+  v16 = v5;
+  NSAppendPrintF(&v16, ", count: %d", self->_count);
+  v8 = v16;
 
-  self->_isFile;
-  NSAppendPrintF();
-  v7 = v6;
+  v15 = v8;
+  if (self->_isFile)
+  {
+    v9 = "yes";
+  }
 
-  NSAppendPrintF();
-  v8 = v7;
+  else
+  {
+    v9 = "no";
+  }
 
-  return v7;
+  NSAppendPrintF(&v15, ", isFile: %s", v9);
+  v10 = v15;
+
+  v14 = v10;
+  NSAppendPrintF(&v14, ">");
+  v11 = v14;
+  v12 = v14;
+
+  return v11;
 }
 
 - (unint64_t)hash

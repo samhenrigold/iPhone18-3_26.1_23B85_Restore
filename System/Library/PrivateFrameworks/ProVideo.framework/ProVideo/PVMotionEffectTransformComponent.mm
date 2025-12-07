@@ -22,7 +22,7 @@
 - (__n128)convertPointFromView_NoLock:(uint64_t)lock@<X3> viewPoint:(int)point@<W4> atTime:(void *)time@<X5> viewSize:(float64x2_t *)size@<X8> viewOrigin:(double)origin@<D0> properties:(float64_t)properties@<D1>;
 - (__n128)getScale;
 - (double)convertPointToView:(double)view withEffectToViewTransform:(uint64_t)transform viewSize:(__int128 *)size;
-- (float64_t)convertPointToView_NoLock:(uint64_t)lock effectPoint:(__int128 *)point withEffectToViewTransform:(_OWORD *)transform viewSize:;
+- (double)convertPointToView_NoLock:(uint64_t)lock effectPoint:(__int128 *)point withEffectToViewTransform:(_OWORD *)transform viewSize:;
 - (id)addToTopLevelTransform:(double)transform atTime:(uint64_t)time forcePosterFrame:(__int128 *)frame restrictToBounds:(__int128 *)bounds viewSize:(char)size viewOrigin:(char)origin;
 - (id)addToTopLevelTransform_NoLock:(double)lock transform:(uint64_t)transform atTime:(uint64_t)time forcePosterFrame:(__int128 *)frame restrictToBounds:(__int128 *)bounds viewSize:(uint64_t)size viewOrigin:(unsigned int)origin properties:(uint64_t)self0;
 - (id)additionalTopLevelScaleInDictionary:(id)dictionary orInDefaultDictionary:(id)defaultDictionary;
@@ -168,72 +168,72 @@
   if (time->var2)
   {
     v15 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVTopLevelTransformKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
-    v45 = [(PVMotionEffectTransformComponent *)self additionalTopLevelScaleInDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
-    if (v45)
+    v44 = [(PVMotionEffectTransformComponent *)self additionalTopLevelScaleInDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
+    if (v44)
     {
-      v43 = v15;
-      v16 = [(PVMotionEffectTransformComponent *)self isForceRenderAtPosterFrameEnabledInDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
-      v51 = 0uLL;
-      v52 = 0;
+      v42 = v15;
+      [(PVMotionEffectTransformComponent *)self isForceRenderAtPosterFrameEnabledInDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
+      v50 = 0uLL;
+      v51 = 0;
       motionEffect4 = [(PVMotionEffectComponent *)self motionEffect];
       timelineComponent = [motionEffect4 timelineComponent];
-      v19 = timelineComponent;
-      v49 = *&time->var0;
+      v18 = timelineComponent;
+      v48 = *&time->var0;
       var3 = time->var3;
       if (timelineComponent)
       {
-        v20 = v45;
-        [timelineComponent timelineTimeFromComponentTime_NoLock:&v49 forcePosterFrame:v16 documentInfo:lock];
+        v19 = v44;
+        objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(timelineComponent);
       }
 
       else
       {
-        v51 = 0uLL;
-        v52 = 0;
-        v20 = v45;
+        v50 = 0uLL;
+        v51 = 0;
+        v19 = v44;
       }
 
-      v48.origin.x = 0.0;
-      v48.origin.y = 0.0;
+      v47.origin.x = 0.0;
+      v47.origin.y = 0.0;
       __asm { FMOV            V0.2D, #-1.0 }
 
-      v48.size = _Q0;
-      v26 = *(lock + 40);
+      v47.size = _Q0;
+      v25 = *(lock + 40);
+      v45 = v50;
       v46 = v51;
-      v47 = v52;
-      v15 = v43;
-      if (![(PVMotionEffectTransformComponent *)self objectBounds_NoLock:&v48 objectID:v26 timelineTime:&v46 includeDropShadow:1 includeMasks:1 documentInfo:lock])
+      v15 = v42;
+      if (![(PVMotionEffectTransformComponent *)self objectBounds_NoLock:&v47 objectID:v25 timelineTime:&v45 includeDropShadow:1 includeMasks:1 documentInfo:lock])
       {
-        [v20 CGPointValue];
-        v28 = v27;
-        v30 = v29;
-        x = v48.origin.x;
-        y = v48.origin.y;
-        size = v48.size;
-        MidX = CGRectGetMidX(v48);
-        v53.origin.x = x;
-        v53.origin.y = y;
-        v53.size = size;
-        v35 = [(PVMotionEffectTransformComponent *)self applyAdditionalTopLevelScale:v43 aroundPoint:v28 toTransform:v30, MidX, CGRectGetMidY(v53)];
+        [v19 CGPointValue];
+        v27 = v26;
+        v29 = v28;
+        x = v47.origin.x;
+        y = v47.origin.y;
+        size = v47.size;
+        MidX = CGRectGetMidX(v47);
+        v52.origin.x = x;
+        v52.origin.y = y;
+        v52.size = size;
+        v34 = [(PVMotionEffectTransformComponent *)self applyAdditionalTopLevelScale:v42 aroundPoint:v27 toTransform:v29, MidX, CGRectGetMidY(v52)];
 
-        v15 = v35;
+        v15 = v34;
       }
     }
 
     [(PVMotionEffectTransformComponent *)self applyTopLevelGroupTransform_NoLock:lock transform:v15];
-    v36 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVTransformKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
-    v37 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVTransformUnitsAreInMeters" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
-    bOOLValue = [v37 BOOLValue];
-    v39 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVCameraEnabledKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
-    if ([v39 BOOLValue])
+    v35 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVTransformKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
+    v36 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVTransformUnitsAreInMeters" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
+    bOOLValue = [v36 BOOLValue];
+    v38 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVCameraEnabledKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
+    if ([v38 BOOLValue])
     {
-      v44 = v15;
-      v40 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVCameraProjectionKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
-      v41 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVCameraTransformKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
-      v42 = v41;
-      if (v40 && v41)
+      v43 = v15;
+      v39 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVCameraProjectionKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
+      v40 = [MEMORY[0x277CBEAC0] objectForKey:@"kPVCameraTransformKey" inDictionary:propertiesCopy orInDefaultDictionary:defaultPropertiesCopy];
+      v41 = v40;
+      if (v39 && v40)
       {
-        [(PVMotionEffectTransformComponent *)self enableCameraOverride_NoLock:lock transform:v41 projection:v40 transformUnitsAreInMeters:bOOLValue];
+        [(PVMotionEffectTransformComponent *)self enableCameraOverride_NoLock:lock transform:v40 projection:v39 transformUnitsAreInMeters:bOOLValue];
       }
 
       else
@@ -241,7 +241,7 @@
         [(PVMotionEffectTransformComponent *)self disableCameraOverride_NoLock:lock];
       }
 
-      v15 = v44;
+      v15 = v43;
     }
 
     else
@@ -249,7 +249,7 @@
       [(PVMotionEffectTransformComponent *)self disableCameraOverride_NoLock:lock];
     }
 
-    [(PVMotionEffectTransformComponent *)self setTransform_NoLock:lock transform:v36 transformUnitsAreInMeters:bOOLValue];
+    [(PVMotionEffectTransformComponent *)self setTransform_NoLock:lock transform:v35 transformUnitsAreInMeters:bOOLValue];
   }
 }
 
@@ -538,28 +538,28 @@ void __120__PVMotionEffectTransformComponent_addToTopLevelTransform_atTime_force
   v56 = [v52 objectForKeyedSubscript:@"kPVTopLevelTransformKey"];
   if (v56)
   {
+    a41 = 0u;
+    a42 = 0u;
+    a39 = 0u;
+    a40 = 0u;
+    a37 = 0u;
+    a38 = 0u;
     a35 = 0u;
     a36 = 0u;
-    a33 = 0u;
-    a34 = 0u;
-    a31 = 0u;
-    a32 = 0u;
-    a29 = 0u;
-    a30 = 0u;
 LABEL_4:
-    [v56 SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(v56);
     goto LABEL_5;
   }
 
   v56 = +[PVMatrix44Double matrix];
+  a41 = 0u;
+  a42 = 0u;
+  a39 = 0u;
+  a40 = 0u;
+  a37 = 0u;
+  a38 = 0u;
   a35 = 0u;
   a36 = 0u;
-  a33 = 0u;
-  a34 = 0u;
-  a31 = 0u;
-  a32 = 0u;
-  a29 = 0u;
-  a30 = 0u;
   if (v56)
   {
     goto LABEL_4;
@@ -568,10 +568,10 @@ LABEL_4:
 LABEL_5:
   a17 = *bounds;
   *&a18 = *(bounds + 2);
-  a37 = 0uLL;
-  a38 = 0u;
+  a43 = 0uLL;
+  v92 = 0u;
   LODWORD(v84) = properties;
-  [self convertPointToView_NoLock:time effectPoint:&a37 atTime:&a17 forcePosterFrame:size includeTransformAnimation:1 includePlayableAspectScale:1 viewSize:a2 viewOrigin:lock properties:v84];
+  [self convertPointToView_NoLock:time effectPoint:&a43 atTime:&a17 forcePosterFrame:size includeTransformAnimation:1 includePlayableAspectScale:1 viewSize:a2 viewOrigin:lock properties:v84];
   vars0 = v58;
   v90 = v57;
   originCopy = origin;
@@ -579,14 +579,14 @@ LABEL_5:
   a28 = 0u;
   a25 = 0u;
   a26 = 0u;
-  a37 = *bounds;
-  *&a38 = *(bounds + 2);
-  [self cornersAtTime_NoLock:time time:&a37 forcePosterFrame:size includeDropShadow:1 scale:properties viewSize:v52 viewOrigin:1.0 properties:{1.0, a2, lock}];
-  a37 = a25;
-  a38 = a26;
-  a39 = a27;
-  a40 = a28;
-  quad_center = pv_CGPoint_get_quad_center(&a37);
+  a43 = *bounds;
+  *&v92 = *(bounds + 2);
+  objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, a2, lock);
+  a43 = a25;
+  v92 = a26;
+  v93 = a27;
+  v94 = a28;
+  quad_center = pv_CGPoint_get_quad_center(&a43);
   v85 = v60;
   v86 = quad_center;
   v61 = 0;
@@ -594,14 +594,14 @@ LABEL_5:
   *&v62.f64[1] = vars0;
   v91 = v62;
   v63 = frame[3];
-  a39 = frame[2];
-  a40 = v63;
+  v93 = frame[2];
+  v94 = v63;
   v64 = frame[5];
-  a41 = frame[4];
-  a42 = v64;
+  v95 = frame[4];
+  v96 = v64;
   v65 = frame[1];
-  a37 = *frame;
-  a38 = v65;
+  a43 = *frame;
+  v92 = v65;
   *&v66 = 0;
   *(&v66 + 1) = *(frame + 15);
   a23 = 0u;
@@ -612,20 +612,20 @@ LABEL_5:
   a20 = 0u;
   a17 = 0u;
   a18 = 0u;
-  v68 = a29;
-  v67 = a30;
-  v70 = a31;
-  v69 = a32;
-  v72 = a33;
-  v71 = a34;
-  v74 = a35;
-  v73 = a36;
-  a43 = 0uLL;
+  v68 = a35;
+  v67 = a36;
+  v70 = a37;
+  v69 = a38;
+  v72 = a39;
+  v71 = a40;
+  v74 = a41;
+  v73 = a42;
+  v97 = 0uLL;
   *&STACK[0x500] = v66;
   do
   {
-    v76 = *(&a37 + v61);
-    v75 = *(&a37 + v61 + 16);
+    v76 = *(&a43 + v61);
+    v75 = *(&a43 + v61 + 16);
     v77 = (&a17 + v61);
     *v77 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v68, v76.f64[0]), v70, v76, 1), v72, v75.f64[0]), v74, v75, 1);
     v77[1] = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v67, v76.f64[0]), v69, v76, 1), v71, v75.f64[0]), v73, v75, 1);
@@ -633,30 +633,30 @@ LABEL_5:
   }
 
   while (v61 != 128);
-  a41 = a21;
-  a42 = a22;
-  a43 = a23;
+  v95 = a21;
+  v96 = a22;
+  v97 = a23;
   *&STACK[0x500] = a24;
-  a37 = a17;
-  a38 = a18;
-  a39 = a19;
-  a40 = a20;
-  v78 = [PVMatrix44Double matrixWithSIMDDouble4x4:&a37];
+  a43 = a17;
+  v92 = a18;
+  v93 = a19;
+  v94 = a20;
+  v78 = [PVMatrix44Double matrixWithSIMDDouble4x4:&a43];
 
   [self applyTopLevelGroupTransform_NoLock:time transform:v78];
   [v52 setObject:v78 forKeyedSubscript:@"kPVTopLevelTransformKey"];
   vars0a = frame[6];
-  a39 = 0u;
-  a40 = 0u;
-  a37 = 0u;
-  a38 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  a43 = 0u;
+  v92 = 0u;
   a13 = *bounds;
   *&a14 = *(bounds + 2);
-  [self cornersAtTime_NoLock:time time:&a13 forcePosterFrame:size includeDropShadow:1 scale:properties viewSize:v52 viewOrigin:1.0 properties:{1.0, a2, lock}];
-  a13 = a37;
-  a14 = a38;
-  a15 = a39;
-  a16 = a40;
+  objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, a2, lock);
+  a13 = a43;
+  a14 = v92;
+  a15 = v93;
+  a16 = v94;
   v79.f64[0] = pv_CGPoint_get_quad_center(&a13);
   v80.f64[0] = v86;
   v80.f64[1] = v85;
@@ -794,7 +794,7 @@ void __152__PVMotionEffectTransformComponent_convertPointToView_atTime_forcePost
   v23 = v22;
   if (v22)
   {
-    [v22 SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(v22);
   }
 
   else
@@ -870,7 +870,7 @@ void __152__PVMotionEffectTransformComponent_convertPointToView_atTime_forcePost
   return v15;
 }
 
-uint64_t __90__PVMotionEffectTransformComponent_convertPointToView_withEffectToViewTransform_viewSize___block_invoke(uint64_t a1, uint64_t a2)
+void *__90__PVMotionEffectTransformComponent_convertPointToView_withEffectToViewTransform_viewSize___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 192);
   v4 = *(a1 + 32);
@@ -898,7 +898,7 @@ uint64_t __90__PVMotionEffectTransformComponent_convertPointToView_withEffectToV
   return result;
 }
 
-- (float64_t)convertPointToView_NoLock:(uint64_t)lock effectPoint:(__int128 *)point withEffectToViewTransform:(_OWORD *)transform viewSize:
+- (double)convertPointToView_NoLock:(uint64_t)lock effectPoint:(__int128 *)point withEffectToViewTransform:(_OWORD *)transform viewSize:
 {
   v5 = *point;
   v6 = point[1];
@@ -974,31 +974,26 @@ void __84__PVMotionEffectTransformComponent_convertPointFromView_atTime_viewSize
 __n128 __84__PVMotionEffectTransformComponent_convertPointFromView_atTime_viewSize_viewOrigin___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  *&v7 = *(a1 + 64);
-  v14 = *(a1 + 88);
-  v15 = *(a1 + 104);
-  if (v4)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    [v4 convertPointFromView_NoLock:v5 viewPoint:&v14 atTime:*(a1 + 112) viewSize:v3 viewOrigin:v6 properties:{*&v7, *(a1 + 72), *(a1 + 80)}];
-    v8 = v12;
-    v7 = v13;
-    v9 = vextq_s8(v8, v8, 8uLL).u64[0];
+    objc_msgSend_convertPointFromView_NoLock_viewPoint_atTime_viewSize_viewOrigin_properties_(v5, *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80));
+    v6 = v10;
+    v4 = v11;
+    v7 = vextq_s8(v6, v6, 8uLL).u64[0];
   }
 
   else
   {
-    v8.i64[0] = 0;
-    v9 = 0;
-    *&v7 = 0;
+    v6.i64[0] = 0;
+    v7 = 0;
+    *&v4 = 0;
   }
 
-  v10 = *(*(a1 + 40) + 8);
-  v8.i64[1] = v9;
-  *(v10 + 32) = v8;
-  *(v10 + 48) = v7;
+  v8 = *(*(a1 + 40) + 8);
+  v6.i64[1] = v7;
+  *(v8 + 32) = v6;
+  *(v8 + 48) = v4;
 
   return result;
 }
@@ -1050,7 +1045,7 @@ __n128 __84__PVMotionEffectTransformComponent_convertPointFromView_atTime_viewSi
     *&v103 = v109;
     v110.x = a9 * 0.5;
     v110.y = a10 * 0.5;
-    CGAffineTransformFromPointWithPVAnimInfo(&v102, v110, &t1);
+    CGAffineTransformFromPointWithPVAnimInfo(&t1, &v102, v110);
     t2 = t1;
     CGAffineTransformInvert(&v102, &t2);
     v77 = vaddq_f64(*&v102.tx, vaddq_f64(vmulq_n_f64(*&v102.a, v77.f64[0]), vmulq_laneq_f64(*&v102.c, v77, 1)));
@@ -1176,14 +1171,14 @@ LABEL_23:
       v105 = 0u;
       v103 = 0u;
       memset(&v102, 0, sizeof(v102));
-      [v71 SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(v71);
       v100 = 0u;
       v101 = 0u;
       v98 = 0u;
       v99 = 0u;
       v97 = 0u;
       memset(&t1, 0, sizeof(t1));
-      [v46 SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(v46);
       size = sizeCopy;
       if (bOOLValue2)
       {
@@ -1258,7 +1253,7 @@ LABEL_23:
       v87 = v101;
       v82 = t1;
       v83 = v97;
-      [v48 SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(v48);
       v64.n128_u64[0] = v79;
       v64.n128_u64[1] = v68;
       v65.f64[0] = v70;
@@ -1357,15 +1352,14 @@ void __98__PVMotionEffectTransformComponent_setPositionInView_atTime_viewSize_vi
 - (id)setPositionInView_NoLock:(const void *)lock viewPoint:(CGPoint)point atTime:(id *)time forcePosterFrame:(BOOL)frame viewSize:(CGSize)size viewOrigin:(int)origin restrictToBounds:(BOOL)bounds topLevelTransform:(id)self0 properties:(id)self1
 {
   boundsCopy = bounds;
-  v12 = *&origin;
   height = size.height;
   width = size.width;
   frameCopy = frame;
   vars0 = *&point.y;
   x = point.x;
-  v19 = point.x;
+  v18 = point.x;
   transformCopy = transform;
-  v21 = *&v19;
+  v20 = *&v18;
   motionEffect = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect assertDocumentIsLocked];
 
@@ -1377,120 +1371,120 @@ void __98__PVMotionEffectTransformComponent_setPositionInView_atTime_viewSize_vi
 
   if (boundsCopy)
   {
-    v60 = *&time->var0;
-    *&v61 = time->var3;
-    v68 = 0uLL;
-    v69 = 0u;
-    [(PVMotionEffectTransformComponent *)self convertPointToView_NoLock:lock effectPoint:&v68 atTime:&v60 forcePosterFrame:frameCopy includeTransformAnimation:1 includePlayableAspectScale:1 viewSize:width viewOrigin:height properties:?];
-    v54 = v26;
-    v55 = v25;
-    v70 = 0u;
-    v71 = 0u;
+    v59 = *&time->var0;
+    *&v60 = time->var3;
+    v67 = 0uLL;
     v68 = 0u;
+    [(PVMotionEffectTransformComponent *)self convertPointToView_NoLock:lock effectPoint:&v67 atTime:&v59 forcePosterFrame:frameCopy includeTransformAnimation:1 includePlayableAspectScale:1 viewSize:width viewOrigin:height properties:?];
+    v53 = v25;
+    v54 = v24;
     v69 = 0u;
-    v60 = *&time->var0;
-    *&v61 = time->var3;
-    [(PVMotionEffectTransformComponent *)self cornersAtTime_NoLock:lock time:&v60 forcePosterFrame:frameCopy includeDropShadow:1 scale:v12 viewSize:v21 viewOrigin:1.0 properties:1.0, width, height];
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
+    v59 = *&time->var0;
+    *&v60 = time->var3;
+    objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, width, height);
+    v59 = v67;
     v60 = v68;
     v61 = v69;
     v62 = v70;
-    v63 = v71;
-    quad_center = pv_CGPoint_get_quad_center(&v60);
-    v52 = v28;
-    v53 = quad_center;
+    quad_center = pv_CGPoint_get_quad_center(&v59);
+    v51 = v27;
+    v52 = quad_center;
     motionEffect4 = [(PVMotionEffectComponent *)self motionEffect];
-    [motionEffect4 playableRectInView_NoLock:v21 properties:{width, height}];
-    v31 = v30;
-    v33 = v32;
-    v35 = v34;
-    v37 = v36;
+    [motionEffect4 playableRectInView_NoLock:v20 properties:{width, height}];
+    v30 = v29;
+    v32 = v31;
+    v34 = v33;
+    v36 = v35;
 
-    v78.origin.x = v31;
-    v78.origin.y = v33;
-    v78.size.width = v35;
-    v78.size.height = v37;
-    MinX = CGRectGetMinX(v78);
-    v79.origin.x = v31;
-    v79.origin.y = v33;
-    v79.size.width = v35;
-    v79.size.height = v37;
-    MinY = CGRectGetMinY(v79);
-    v80.origin.x = v31;
-    v80.origin.y = v33;
-    v80.size.width = v35;
-    v80.size.height = v37;
-    MaxX = CGRectGetMaxX(v80);
-    v81.origin.x = v31;
-    v81.origin.y = v33;
-    v81.size.width = v35;
-    v81.size.height = v37;
-    MaxY = CGRectGetMaxY(v81);
-    v39.f64[0] = v53;
-    v39.f64[1] = v52;
-    v40.f64[0] = v55;
-    v40.f64[1] = v54;
-    v41 = vsubq_f64(v39, v40);
-    v42.f64[0] = x;
-    *&v42.f64[1] = vars0;
-    v39.f64[0] = MinX;
-    v39.f64[1] = MinY;
-    v43.f64[0] = MaxX;
-    v43.f64[1] = MaxY;
-    v44 = vsubq_f64(vminnmq_f64(vmaxnmq_f64(vaddq_f64(v42, v41), v39), v43), v41);
-    v45 = v44.f64[1];
+    v77.origin.x = v30;
+    v77.origin.y = v32;
+    v77.size.width = v34;
+    v77.size.height = v36;
+    MinX = CGRectGetMinX(v77);
+    v78.origin.x = v30;
+    v78.origin.y = v32;
+    v78.size.width = v34;
+    v78.size.height = v36;
+    MinY = CGRectGetMinY(v78);
+    v79.origin.x = v30;
+    v79.origin.y = v32;
+    v79.size.width = v34;
+    v79.size.height = v36;
+    MaxX = CGRectGetMaxX(v79);
+    v80.origin.x = v30;
+    v80.origin.y = v32;
+    v80.size.width = v34;
+    v80.size.height = v36;
+    MaxY = CGRectGetMaxY(v80);
+    v38.f64[0] = v52;
+    v38.f64[1] = v51;
+    v39.f64[0] = v54;
+    v39.f64[1] = v53;
+    v40 = vsubq_f64(v38, v39);
+    v41.f64[0] = x;
+    *&v41.f64[1] = vars0;
+    v38.f64[0] = MinX;
+    v38.f64[1] = MinY;
+    v42.f64[0] = MaxX;
+    v42.f64[1] = MaxY;
+    v43 = vsubq_f64(vminnmq_f64(vmaxnmq_f64(vaddq_f64(v41, v40), v38), v42), v40);
+    v44 = v43.f64[1];
   }
 
   else
   {
-    v45 = *&vars0;
-    v44.f64[0] = x;
+    v44 = *&vars0;
+    v43.f64[0] = x;
   }
 
-  v68 = *&time->var0;
-  *&v69 = time->var3;
-  [(PVMotionEffectTransformComponent *)self convertPointFromView_NoLock:lock viewPoint:&v68 atTime:v12 viewSize:v21 viewOrigin:v44.f64[0] properties:v45, width, height];
-  vars0a = v76;
-  v59 = v77;
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
+  v67 = *&time->var0;
+  *&v68 = time->var3;
+  objc_msgSend_convertPointFromView_NoLock_viewPoint_atTime_viewSize_viewOrigin_properties_(self, v43.f64[0], v44, width, height);
+  vars0a = v75;
+  v58 = v76;
   v73 = 0u;
-  v70 = 0u;
+  v74 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   if (transformCopy)
   {
-    [transformCopy SIMDDouble4x4];
-    v46 = *(&v75 + 1);
+    objc_msgSend_SIMDDouble4x4(transformCopy);
+    v45 = *(&v74 + 1);
   }
 
   else
   {
-    v72 = 0uLL;
-    v73 = 0uLL;
-    v70 = 0uLL;
     v71 = 0uLL;
-    v46 = 0;
-    v68 = 0uLL;
+    v72 = 0uLL;
     v69 = 0uLL;
+    v70 = 0uLL;
+    v45 = 0;
+    v67 = 0uLL;
+    v68 = 0uLL;
   }
 
-  *&v47 = v59;
-  *(&v47 + 1) = v46;
-  v74 = vars0a;
-  v75 = v47;
+  *&v46 = v58;
+  *(&v46 + 1) = v45;
+  v73 = vars0a;
+  v74 = v46;
+  v63 = v71;
   v64 = v72;
-  v65 = v73;
-  v66 = vars0a;
-  v67 = v47;
+  v65 = vars0a;
+  v66 = v46;
+  v59 = v67;
   v60 = v68;
   v61 = v69;
   v62 = v70;
-  v63 = v71;
-  [transformCopy setSIMDDouble4x4:&v60];
+  [transformCopy setSIMDDouble4x4:&v59];
   [(PVMotionEffectTransformComponent *)self applyTopLevelGroupTransform_NoLock:lock transform:transformCopy];
-  [v21 setObject:transformCopy forKeyedSubscript:@"kPVTopLevelTransformKey"];
+  [v20 setObject:transformCopy forKeyedSubscript:@"kPVTopLevelTransformKey"];
 
   return transformCopy;
 }
@@ -1591,7 +1585,7 @@ void __108__PVMotionEffectTransformComponent_scaleToFit_atTime_forcePosterFrame_
   {
     v43.a = *&time->var0;
     *&v43.b.x = time->var3;
-    [(PVMotionEffectTransformComponent *)self cornersAtTime_NoLock:lock time:&v43 forcePosterFrame:frameCopy includeDropShadow:0 scale:v11 viewSize:propertiesCopy viewOrigin:1.0 properties:1.0, width, height];
+    objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, width, height);
     pv_bounding_CGRect(&v44);
     v24 = v16 - height * self->_normalizedFixedShadowSize.height;
     v25 = (v17 - width * self->_normalizedFixedShadowSize.width) / v23;
@@ -1604,7 +1598,7 @@ void __108__PVMotionEffectTransformComponent_scaleToFit_atTime_forcePosterFrame_
   {
     v43.a = *&time->var0;
     *&v43.b.x = time->var3;
-    [(PVMotionEffectTransformComponent *)self cornersAtTime_NoLock:lock time:&v43 forcePosterFrame:frameCopy includeDropShadow:1 scale:v11 viewSize:propertiesCopy viewOrigin:1.0 properties:1.0, width, height];
+    objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, width, height);
     pv_bounding_CGRect(&v44);
     v25 = v17 / v23;
     v31 = v30 * (v17 / v23);
@@ -1644,7 +1638,7 @@ void __108__PVMotionEffectTransformComponent_scaleToFit_atTime_forcePosterFrame_
   memset(&v43, 0, sizeof(v43));
   v44.a = *&time->var0;
   *&v44.b.x = time->var3;
-  [(PVMotionEffectTransformComponent *)self cornersAtTime_NoLock:lock time:&v44 forcePosterFrame:frameCopy includeDropShadow:1 scale:v11 viewSize:propertiesCopy viewOrigin:1.0 properties:1.0, width, height];
+  objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, width, height);
   v44 = v43;
   *&v37 = MidX - pv_CGPoint_get_quad_center(&v44);
   *(&v37 + 1) = MidY - v38;
@@ -1745,7 +1739,7 @@ void __62__PVMotionEffectTransformComponent_setTopLevelGroupTransform___block_in
     v29 = *(MEMORY[0x277CC08F0] + 16);
     if (v6)
     {
-      [v6 timelineTimeFromComponentTime_NoLock:&v28 forcePosterFrame:*(*(*(a1 + 56) + 8) + 24) documentInfo:a2];
+      objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(v6);
     }
 
     else
@@ -1796,7 +1790,7 @@ void __62__PVMotionEffectTransformComponent_setTopLevelGroupTransform___block_in
 
   if (transformCopy && !*(lock + 41))
   {
-    [transformCopy SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(transformCopy);
     v9 = 0;
     v22[4] = v18;
     v22[5] = v19;
@@ -1821,7 +1815,7 @@ void __62__PVMotionEffectTransformComponent_setTopLevelGroupTransform___block_in
     while (v9 != 4);
     OZXSetObjectTransform(*lock, MEMORY[0x277CC08F0], *(lock + 40), v23);
     motionEffect3 = [(PVMotionEffectComponent *)self motionEffect];
-    [transformCopy SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(transformCopy);
     v13 = [PVMatrix44Double matrixWithSIMDDouble4x4:v22];
     [motionEffect3 didSetCacheInvalidatingParameter_NoLock:v13 forKey:@"kPVTopLevelTransformKey"];
   }
@@ -1913,7 +1907,7 @@ void __49__PVMotionEffectTransformComponent_setTransform___block_invoke(uint64_t
       v29 = 0uLL;
       v26 = 0uLL;
       v27 = 0uLL;
-      [transformCopy SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(transformCopy);
       if (metersCopy)
       {
         v13.f64[0] = self->_metersToWorldUnitScale;
@@ -1927,26 +1921,26 @@ void __49__PVMotionEffectTransformComponent_setTransform___block_invoke(uint64_t
       v16 = 0;
       var30[0] = v26;
       var30[1] = v27;
-      v17 = v25;
+      v17 = &v25;
       var30[2] = v28;
       var30[3] = v29;
       do
       {
         for (i = 0; i != 4; ++i)
         {
-          *&v17[8 * i] = *(&var30[2 * i] & 0xFFFFFFFFFFFFFFE7 | (8 * (v16 & 3)));
+          v17[i] = *(&var30[2 * i] & 0xFFFFFFFFFFFFFFE7 | (8 * (v16 & 3)));
         }
 
         ++v16;
-        v17 += 32;
+        v17 += 4;
       }
 
       while (v16 != 4);
       for (j = 0; j != 128; j += 32)
       {
         v20 = (&v34 + j);
-        v21 = *&v25[j + 16];
-        *v20 = *&v25[j];
+        v21 = *(&v25 + j + 16);
+        *v20 = *(&v25 + j);
         v20[1] = v21;
       }
     }
@@ -2000,7 +1994,7 @@ void __49__PVMotionEffectTransformComponent_setTransform___block_invoke(uint64_t
       v28 = 0uLL;
       v25 = 0uLL;
       v26 = 0uLL;
-      [transformCopy SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(transformCopy);
       if (metersCopy)
       {
         v12.f64[0] = self->_metersToWorldUnitScale;
@@ -2014,26 +2008,26 @@ void __49__PVMotionEffectTransformComponent_setTransform___block_invoke(uint64_t
       v15 = 0;
       var30[0] = v25;
       var30[1] = v26;
-      v16 = v24;
+      v16 = &v24;
       var30[2] = v27;
       var30[3] = v28;
       do
       {
         for (i = 0; i != 4; ++i)
         {
-          *&v16[8 * i] = *(&var30[2 * i] & 0xFFFFFFFFFFFFFFE7 | (8 * (v15 & 3)));
+          v16[i] = *(&var30[2 * i] & 0xFFFFFFFFFFFFFFE7 | (8 * (v15 & 3)));
         }
 
         ++v15;
-        v16 += 32;
+        v16 += 4;
       }
 
       while (v15 != 4);
       for (j = 0; j != 128; j += 32)
       {
         v19 = (&v33 + j);
-        v20 = *&v24[j + 16];
-        *v19 = *&v24[j];
+        v20 = *(&v24 + j + 16);
+        *v19 = *(&v24 + j);
         v19[1] = v20;
       }
     }
@@ -2127,10 +2121,10 @@ LABEL_17:
   return v13;
 }
 
-uint64_t __51__PVMotionEffectTransformComponent_cameraTransform__block_invoke(uint64_t result, uint64_t *a2)
+void *__51__PVMotionEffectTransformComponent_cameraTransform__block_invoke(void *result, uint64_t *a2)
 {
-  *(*(*(result + 40) + 8) + 24) = *(*(result + 32) + 36);
-  if (!*(*(*(result + 40) + 8) + 24))
+  *(*(result[5] + 8) + 24) = *(result[4] + 36);
+  if (!*(*(result[5] + 8) + 24))
   {
     v2 = result;
     result = OZXGetCameraTransform(*a2, *(v2[4] + 32), (*(v2[6] + 8) + 48));
@@ -2168,7 +2162,7 @@ uint64_t __51__PVMotionEffectTransformComponent_cameraTransform__block_invoke(ui
     v36 = 0u;
     if (transformCopy)
     {
-      [transformCopy SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(transformCopy);
       v10 = 0;
       v26[4] = v22;
       v26[5] = v23;
@@ -2289,13 +2283,13 @@ LABEL_16:
   return v13;
 }
 
-uint64_t __52__PVMotionEffectTransformComponent_cameraProjection__block_invoke(uint64_t result, void *a2)
+void *__52__PVMotionEffectTransformComponent_cameraProjection__block_invoke(void *result, uint64_t *a2)
 {
-  *(*(*(result + 40) + 8) + 24) = *(*(result + 32) + 36);
-  if (!*(*(*(result + 40) + 8) + 24))
+  *(*(result[5] + 8) + 24) = *(result[4] + 36);
+  if (!*(*(result[5] + 8) + 24))
   {
     v2 = result;
-    result = OZXGetCameraProjection(*a2, *(v2[4] + 32), *(v2[6] + 8) + 48);
+    result = OZXGetCameraProjection(*a2, *(v2[4] + 32), (*(v2[6] + 8) + 48));
     *(*(v2[5] + 8) + 24) = result;
   }
 
@@ -2457,10 +2451,10 @@ LABEL_8:
   return selfCopy;
 }
 
-uint64_t __59__PVMotionEffectTransformComponent_isCameraOverrideEnabled__block_invoke(uint64_t result, void **a2)
+void *__59__PVMotionEffectTransformComponent_isCameraOverrideEnabled__block_invoke(void *result, void **a2)
 {
-  *(*(*(result + 40) + 8) + 24) = *(*(result + 32) + 36);
-  if (!*(*(*(result + 40) + 8) + 24))
+  *(*(result[5] + 8) + 24) = *(result[4] + 36);
+  if (!*(*(result[5] + 8) + 24))
   {
     v2 = result;
     result = OZXGetIsCameraEnabled(*a2, *(v2[4] + 32), (*(v2[6] + 8) + 24));
@@ -2548,21 +2542,21 @@ uint64_t __59__PVMotionEffectTransformComponent_isCameraOverrideEnabled__block_i
   return v18;
 }
 
-uint64_t __98__PVMotionEffectTransformComponent_bounds_atTime_forcePosterFrame_includeDropShadow_includeMasks___block_invoke(uint64_t result, uint64_t a2)
+id *__98__PVMotionEffectTransformComponent_bounds_atTime_forcePosterFrame_includeDropShadow_includeMasks___block_invoke(id *result, uint64_t a2)
 {
   if (!*(a2 + 164))
   {
     v3 = result;
     v14 = 0uLL;
     v15 = 0;
-    v4 = [*(result + 32) motionEffect];
+    v4 = [result[4] motionEffect];
     v5 = [v4 timelineComponent];
     v6 = v5;
-    v12 = *(v3 + 56);
-    v13 = *(v3 + 72);
+    v12 = *(v3 + 7);
+    v13 = v3[9];
     if (v5)
     {
-      [v5 timelineTimeFromComponentTime_NoLock:&v12 forcePosterFrame:*(v3 + 80) documentInfo:a2];
+      objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(v5);
     }
 
     else
@@ -2571,13 +2565,13 @@ uint64_t __98__PVMotionEffectTransformComponent_bounds_atTime_forcePosterFrame_i
       v15 = 0;
     }
 
-    v7 = *(v3 + 32);
-    v8 = *(*(v3 + 48) + 8);
+    v7 = v3[4];
+    v8 = *(v3[6] + 1);
     v9 = *(a2 + 160);
     v10 = v14;
     v11 = v15;
     result = [v7 objectBounds_NoLock:v8 + 48 objectID:v9 timelineTime:&v10 includeDropShadow:*(v3 + 81) includeMasks:*(v3 + 82) documentInfo:a2];
-    *(*(*(v3 + 40) + 8) + 24) = result;
+    *(*(v3[5] + 1) + 24) = result;
   }
 
   return result;
@@ -2664,30 +2658,24 @@ void __111__PVMotionEffectTransformComponent_cornersAtTime_forcePosterFrame_incl
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = *(a1 + 48);
-  v10 = *(a1 + 88);
-  v11 = *(a1 + 104);
   if (v4)
   {
-    [v4 cornersAtTime_NoLock:v5 time:&v10 forcePosterFrame:*(a1 + 116) includeDropShadow:*(a1 + 117) scale:*(a1 + 112) viewSize:v3 viewOrigin:*(a1 + 56) properties:{*(a1 + 64), *(a1 + 72), *(a1 + 80)}];
+    objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(v4, *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 104));
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v6 = 0u;
+    v7 = 0u;
   }
 
-  v6 = *(*(a1 + 40) + 8);
-  v7 = v13;
-  v9 = v14;
-  v8 = v15;
-  v6[3] = v12;
-  v6[4] = v7;
-  v6[5] = v9;
-  v6[6] = v8;
+  v5 = *(*(a1 + 40) + 8);
+  v5[3] = v6;
+  v5[4] = v7;
+  v5[5] = v8;
+  v5[6] = v9;
 }
 
 - (PVCGPointQuad)cornersAtTime_NoLock:(SEL)lock time:(const void *)time forcePosterFrame:(id *)frame includeDropShadow:(BOOL)shadow scale:(BOOL)scale viewSize:(CGPoint)size viewOrigin:(CGSize)origin properties:(int)self0
@@ -2696,9 +2684,7 @@ void __111__PVMotionEffectTransformComponent_cornersAtTime_forcePosterFrame_incl
   width = origin.width;
   y = size.y;
   x = size.x;
-  scaleCopy = scale;
-  shadowCopy = shadow;
-  v24 = a11;
+  v22 = a11;
   motionEffect = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect assertDocumentIsLocked];
 
@@ -2716,84 +2702,80 @@ void __111__PVMotionEffectTransformComponent_cornersAtTime_forcePosterFrame_incl
   *retstr = *PVCGPointQuadZero;
   if (!*(time + 41))
   {
-    propertiesCopy = properties;
-    v51 = v24;
-    v30 = *(time + 40);
-    v63 = 0;
-    v64 = 0.0;
+    v47 = v22;
+    v57 = 0;
+    v58 = 0.0;
     motionEffect5 = [(PVMotionEffectComponent *)self motionEffect];
     timelineComponent = [motionEffect5 timelineComponent];
-    v33 = timelineComponent;
-    v61 = *&frame->var0;
+    v30 = timelineComponent;
+    v55 = *&frame->var0;
     var3 = frame->var3;
     if (timelineComponent)
     {
-      [timelineComponent timelineTimeFromComponentTime_NoLock:&v61 forcePosterFrame:shadowCopy documentInfo:time];
+      objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(timelineComponent);
     }
 
     else
     {
-      v63 = 0;
-      v64 = 0.0;
+      v57 = 0;
+      v58 = 0.0;
     }
 
-    v54.a = v63;
-    v54.b.x = v64;
-    v55 = *&frame->var0;
-    v56 = frame->var3;
-    [(PVMotionEffectTransformComponent *)self objectCorners_NoLock:v30 timelineTime:&v54 componentTime:&v55 includeDropShadow:scaleCopy includeMasks:1 documentInfo:time];
-    v34 = v58;
-    retstr->a = v57;
-    retstr->b = v34;
-    v35 = v60;
-    retstr->c = v59;
-    retstr->d = v35;
+    v48.a = v57;
+    v48.b.x = v58;
+    v49 = *&frame->var0;
+    v50 = frame->var3;
+    objc_msgSend_objectCorners_NoLock_timelineTime_componentTime_includeDropShadow_includeMasks_documentInfo_(self);
+    v31 = v52;
+    retstr->a = v51;
+    retstr->b = v31;
+    v32 = v54;
+    retstr->c = v53;
+    retstr->d = v32;
     b = retstr->b;
-    v54.a = retstr->a;
-    v54.b = b;
+    v48.a = retstr->a;
+    v48.b = b;
     d = retstr->d;
-    v54.c = retstr->c;
-    v54.d = d;
-    v38 = x;
+    v48.c = retstr->c;
+    v48.d = d;
+    v35 = x;
     d.x = y;
-    v24 = v51;
-    PVCGPointQuad_scale(&v54, *(&d - 8), &v57);
-    v39 = v58;
-    retstr->a = v57;
-    retstr->b = v39;
-    v40 = v60;
-    retstr->c = v59;
-    retstr->d = v40;
-    v41 = retstr->b;
-    v54.a = retstr->a;
-    v54.b = v41;
-    v42 = retstr->d;
-    v54.c = retstr->c;
-    v54.d = v42;
-    v55 = v63;
-    v56 = *&v64;
-    v52 = *&frame->var0;
-    v53 = frame->var3;
-    [(PVMotionEffectTransformComponent *)self transformObjectCornersToImage_NoLock:&v54 objectID:v30 timelineTime:&v55 componentTime:&v52 flatten:0 documentInfo:time properties:v51];
-    v43 = v58;
-    retstr->a = v57;
-    retstr->b = v43;
-    v44 = v60;
-    retstr->c = v59;
-    retstr->d = v44;
-    v45 = retstr->b;
-    v54.a = retstr->a;
-    v54.b = v45;
-    v46 = retstr->d;
-    v54.c = retstr->c;
-    v54.d = v46;
-    pv_transform_PVCGPointQuad_between_coordinate_systems(&v54, origin, propertiesCopy, &v57, v12, v11, width, height);
-    v47 = v58;
-    retstr->a = v57;
-    retstr->b = v47;
-    v48 = v60;
-    retstr->c = v59;
-    retstr->d = v48;
+    v22 = v47;
+    PVCGPointQuad_scale(&v51, &v48, *(&d - 8));
+    v36 = v52;
+    retstr->a = v51;
+    retstr->b = v36;
+    v37 = v54;
+    retstr->c = v53;
+    retstr->d = v37;
+    v38 = retstr->b;
+    v48.a = retstr->a;
+    v48.b = v38;
+    v39 = retstr->d;
+    v48.c = retstr->c;
+    v48.d = v39;
+    v49 = v57;
+    v50 = *&v58;
+    objc_msgSend_transformObjectCornersToImage_NoLock_objectID_timelineTime_componentTime_flatten_documentInfo_properties_(self, v47);
+    v40 = v52;
+    retstr->a = v51;
+    retstr->b = v40;
+    v41 = v54;
+    retstr->c = v53;
+    retstr->d = v41;
+    v42 = retstr->b;
+    v48.a = retstr->a;
+    v48.b = v42;
+    v43 = retstr->d;
+    v48.c = retstr->c;
+    v48.d = v43;
+    pv_transform_PVCGPointQuad_between_coordinate_systems(&v48, origin, properties, &v51, v12, v11, width, height);
+    v44 = v52;
+    retstr->a = v51;
+    retstr->b = v44;
+    v45 = v54;
+    retstr->c = v53;
+    retstr->d = v45;
   }
 
   return result;
@@ -2862,7 +2844,7 @@ void __111__PVMotionEffectTransformComponent_cornersAtTime_forcePosterFrame_incl
     v55 = 0u;
     v52 = 0u;
     v53 = 0u;
-    [v22 SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(v22);
     v48.var0 = 0;
     *&v48.var1 = &v48;
     v48.var3 = 0x7012000000;
@@ -2974,7 +2956,7 @@ CGFloat *__141__PVMotionEffectTransformComponent_transformObjectCornersToImage_N
       v38 = 0u;
       v35 = 0u;
       v36 = 0u;
-      [v20 SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(v20);
       v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(lockCopy, "count")}];
       v25[0] = MEMORY[0x277D85DD0];
       v25[1] = *"";
@@ -3031,6 +3013,7 @@ void __140__PVMotionEffectTransformComponent_transformObjectPointsToImage_NoLock
 {
   masksCopy = masks;
   shadowCopy = shadow;
+  v12 = *&d;
   motionEffect = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect assertDocumentIsLocked];
 
@@ -3055,13 +3038,14 @@ void __140__PVMotionEffectTransformComponent_transformObjectPointsToImage_NoLock
 
   v19 = *info;
 
-  return OZXGetObjectBounds(v19, time, d, v18, lock);
+  return OZXGetObjectBounds(v19, time, v12, v18, lock);
 }
 
 - (id)objectToImageTransform_NoLock:(unsigned int)lock timelineTime:(id *)time componentTime:(id *)componentTime flatten:(BOOL)flatten includeTransformAnimation:(BOOL)animation includePlayableAspectScale:(BOOL)scale documentInfo:(const void *)info properties:(id)self0
 {
   scaleCopy = scale;
   animationCopy = animation;
+  v15 = *&lock;
   propertiesCopy = properties;
   motionEffect = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect assertDocumentIsLocked];
@@ -3084,7 +3068,7 @@ void __140__PVMotionEffectTransformComponent_transformObjectPointsToImage_NoLock
   v74 = 0u;
   v76 = 0u;
   v77 = 0u;
-  if (OZXGetObjectTransform(*info, time, flatten, lock, &v70) || (*&v69[40] = 0x3FF0000000000000, *v69 = 0x3FF0000000000000, *&v67[40] = 0x3FF0000000000000, *v67 = 0x3FF0000000000000, memset(&v67[8], 0, 32), *&v67[48] = 0u, v68 = 0u, memset(&v69[8], 0, 32), OZXGetWorldToFilmTransform(*info, time, v67)))
+  if (OZXGetObjectTransform(*info, time, flatten, v15, &v70) || (*&v69[40] = 0x3FF0000000000000, *v69 = 0x3FF0000000000000, *&v67[40] = 0x3FF0000000000000, *v67 = 0x3FF0000000000000, memset(&v67[8], 0, 32), *&v67[48] = 0u, v68 = 0u, memset(&v69[8], 0, 32), OZXGetWorldToFilmTransform(*info, time, v67)))
   {
     v21 = 0;
     goto LABEL_4;
@@ -3109,7 +3093,7 @@ void __140__PVMotionEffectTransformComponent_transformObjectPointsToImage_NoLock
       *&v67[16] = v65[1];
       *&v67[32] = v65[2];
       *&v67[48] = v66;
-      CGAffineTransformFromPointWithPVAnimInfo(v67, *MEMORY[0x277CBF348], &v62);
+      CGAffineTransformFromPointWithPVAnimInfo(&v62, v67, *MEMORY[0x277CBF348]);
       v28 = 0;
       v54 = v62;
       v55 = 0u;
@@ -3344,7 +3328,7 @@ LABEL_4:
     v45 = 0u;
     if (transformCopy)
     {
-      [transformCopy SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(transformCopy);
     }
 
     else
@@ -3441,7 +3425,7 @@ LABEL_4:
   v12 = *(lock + 23);
   v33 = v35;
   v34 = v36;
-  [(PVMotionEffectTransformComponent *)self cornersAtTime_NoLock:lock time:&v33 forcePosterFrame:1 includeDropShadow:1 scale:1 viewSize:propertiesCopy viewOrigin:1.0 properties:1.0, v11, v12];
+  objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, v11, v12);
   pv_bounding_CGRect(&v28);
   width = v37.size.width;
   height = v37.size.height;
@@ -3449,7 +3433,7 @@ LABEL_4:
   {
     v33 = v35;
     v34 = v36;
-    [(PVMotionEffectTransformComponent *)self cornersAtTime_NoLock:lock time:&v33 forcePosterFrame:1 includeDropShadow:0 scale:1 viewSize:propertiesCopy viewOrigin:1.0 properties:1.0, v11, v12];
+    objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, v11, v12);
     pv_bounding_CGRect(&v28);
     v16 = v15;
     v18 = v17;
@@ -3466,13 +3450,13 @@ LABEL_4:
     propertiesCopy = [(PVMotionEffectTransformComponent *)self addToTopLevelTransform_NoLock:lock transform:&v28 atTime:&v33 forcePosterFrame:1 restrictToBounds:0 viewSize:1 viewOrigin:v11 properties:v12, propertiesCopy];
     v33 = v35;
     v34 = v36;
-    [(PVMotionEffectTransformComponent *)self cornersAtTime_NoLock:lock time:&v33 forcePosterFrame:1 includeDropShadow:1 scale:1 viewSize:propertiesCopy viewOrigin:1.0 properties:1.0, v11, v12];
+    objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, v11, v12);
     pv_bounding_CGRect(&v28);
     v21 = v20;
     v23 = v22;
     v33 = v35;
     v34 = v36;
-    [(PVMotionEffectTransformComponent *)self cornersAtTime_NoLock:lock time:&v33 forcePosterFrame:1 includeDropShadow:0 scale:1 viewSize:propertiesCopy viewOrigin:1.0 properties:1.0, v11, v12];
+    objc_msgSend_cornersAtTime_NoLock_time_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_properties_(self, 1.0, 1.0, v11, v12);
     pv_bounding_CGRect(&v28);
     v24 = vabdd_f64(width, v16);
     v25 = vabdd_f64(height, v18);

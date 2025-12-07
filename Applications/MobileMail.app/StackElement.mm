@@ -248,7 +248,8 @@ LABEL_24:
     v16 = *&CGAffineTransformIdentity.tx;
     [v8 setTransform:&v14];
     [v9 setFrame:{x, y, width, height}];
-    [(StackElement *)self stackTransformWithDepth:[(StackElement *)self targetDepth]];
+    [(StackElement *)self targetDepth];
+    objc_msgSend_stackTransformWithDepth_(self);
     v14 = v11;
     v15 = v12;
     v16 = v13;
@@ -497,7 +498,7 @@ LABEL_26:
       v9 = 0;
     }
 
-    [(StackElement *)self fullsizeTransform];
+    objc_msgSend_fullsizeTransform(self);
     v25[0] = v25[3];
     v25[1] = v25[4];
     v25[2] = v25[5];
@@ -534,7 +535,7 @@ LABEL_26:
     superview = [v5 superview];
     [superview sendSubviewToBack:v5];
 
-    [(StackElement *)self fullsizeTransform];
+    objc_msgSend_fullsizeTransform(self);
     v15[0] = v15[3];
     v15[1] = v15[4];
     v15[2] = v15[5];
@@ -722,16 +723,15 @@ LABEL_26:
   viewCopy = view;
   if (stackCopy)
   {
-    x = CGPointZero.x;
-    y = CGPointZero.y;
+    objc_msgSend_stackTransformWithDepth_translation_(self, CGPointZero.x, CGPointZero.y);
   }
 
   else
   {
     [(StackElement *)self offStackTranslation];
+    objc_msgSend_stackTransformWithDepth_translation_(self, v11, v12);
   }
 
-  [(StackElement *)self stackTransformWithDepth:depth translation:x, y];
   v22[0] = v22[3];
   v22[1] = v22[4];
   v22[2] = v22[5];
@@ -833,12 +833,12 @@ LABEL_26:
   if (!v14)
   {
     v16 = v9 + -64.0;
-    UIRoundToViewScale();
+    v17 = UIRoundToViewScale(v10 * ((v9 + -64.0) / v9));
     v18 = v17;
     if (depth)
     {
       v16 = v16 + depth * -2.0 * 4.0;
-      UIRoundToViewScale();
+      v17 = UIRoundToViewScale(v12 * (v16 / v11));
       if (!translation)
       {
 LABEL_8:

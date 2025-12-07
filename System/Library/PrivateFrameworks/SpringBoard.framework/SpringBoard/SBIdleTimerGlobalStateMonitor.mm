@@ -309,10 +309,10 @@ uint64_t __90__SBIdleTimerGlobalStateMonitor_backlightController_didTransitionTo
   return result;
 }
 
-uint64_t __80__SBIdleTimerGlobalStateMonitor_pocketStateMonitor_pocketStateDidChangeFrom_to___block_invoke(uint64_t result)
+char *__80__SBIdleTimerGlobalStateMonitor_pocketStateMonitor_pocketStateDidChangeFrom_to___block_invoke(char *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = *(result + 5);
   v3 = (result + 32);
   if (*(v1 + 112) != v2)
   {
@@ -343,14 +343,14 @@ void __87__SBIdleTimerGlobalStateMonitor_idleTimerServiceTimeoutAssertionsDidCha
   [v1 _updateObserversForReason:v2];
 }
 
-uint64_t __59__SBIdleTimerGlobalStateMonitor_thermalBlockStatusChanged___block_invoke(uint64_t result)
+unsigned __int8 *__59__SBIdleTimerGlobalStateMonitor_thermalBlockStatusChanged___block_invoke(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 121) != v2)
   {
     *(v1 + 121) = v2;
-    return [*(result + 32) _updateObserversForReason:@"ThermalBlockedDidChange"];
+    return [*(result + 4) _updateObserversForReason:@"ThermalBlockedDidChange"];
   }
 
   return result;

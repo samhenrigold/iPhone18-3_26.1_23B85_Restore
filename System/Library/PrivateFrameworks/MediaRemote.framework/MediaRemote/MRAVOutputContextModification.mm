@@ -24,7 +24,7 @@
 
 - (void)modifyWithOutputContext:(id)context queue:(id)queue completion:(id)completion
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   completionCopy = completion;
   queueCopy = queue;
@@ -51,14 +51,14 @@
   }
 
   v19 = v18;
-  v47 = qos_class_self();
+  v46 = qos_class_self();
   v20 = objc_alloc(MEMORY[0x1E696AEC0]);
   contextID = [contextCopy contextID];
   v22 = [v20 initWithFormat:@"contextID=%@", contextID];
 
   type = [(MRGroupTopologyModificationRequest *)self->_request type];
   v24 = type;
-  v49 = v22;
+  v48 = v22;
   switch(type)
   {
     case 3uLL:
@@ -114,7 +114,7 @@
 LABEL_17:
       _os_signpost_emit_with_name_impl(&dword_1A2860000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v27, v28, &unk_1A2BB0121, buf, 2u);
 LABEL_18:
-      v22 = v49;
+      v22 = v48;
 
       break;
   }
@@ -130,26 +130,26 @@ LABEL_18:
   if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v61 = v32;
+    v60 = v32;
     _os_log_impl(&dword_1A2860000, v33, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completion___block_invoke;
-  v52[3] = &unk_1E769C8C0;
-  v59 = v47;
-  v53 = v19;
-  v54 = requestID;
-  v58 = v24;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completion___block_invoke;
+  v51[3] = &unk_1E769C8C0;
+  v58 = v46;
+  v52 = v19;
+  v53 = requestID;
+  v57 = v24;
   v34 = contextCopy;
-  v55 = v34;
-  v56 = date;
-  v57 = completionCopy;
-  v48 = date;
+  v54 = v34;
+  v55 = date;
+  v56 = completionCopy;
+  v47 = date;
   v35 = requestID;
   v36 = v19;
-  v37 = MEMORY[0x1A58E3570](v52);
+  v37 = MEMORY[0x1A58E3570](v51);
   v38 = MRCreateXPCMessage(0x300000000000028uLL);
   request2 = [(MRAVOutputContextModification *)self request];
   data = [request2 data];
@@ -162,21 +162,20 @@ LABEL_18:
   v42 = +[MRMediaRemoteServiceClient sharedServiceClient];
   service = [v42 service];
   mrXPCConnection = [service mrXPCConnection];
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completion___block_invoke_32;
-  v50[3] = &unk_1E769B338;
-  v51 = v37;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completion___block_invoke_32;
+  v49[3] = &unk_1E769B338;
+  v50 = v37;
   v45 = v37;
-  [mrXPCConnection sendMessage:v38 queue:queueCopy reply:v50];
+  [mrXPCConnection sendMessage:v38 queue:queueCopy reply:v49];
 
 LABEL_24:
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = qos_class_self();
   if (!v3 && *(a1 + 80) != v4)
@@ -188,11 +187,11 @@ void __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completio
       v7 = *(a1 + 32);
       v8 = *(a1 + 40);
       *buf = 138543874;
-      v35 = v7;
-      v36 = 2114;
-      v37 = v8;
-      v38 = 2112;
-      v39 = v5;
+      v34 = v7;
+      v35 = 2114;
+      v36 = v8;
+      v37 = 2112;
+      v38 = v5;
       _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
     }
   }
@@ -279,11 +278,11 @@ LABEL_20:
       v22 = [MEMORY[0x1E695DF00] date];
       [v22 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138543874;
-      v35 = v29;
-      v36 = 2114;
-      v37 = v30;
-      v38 = 2048;
-      v39 = v31;
+      v34 = v29;
+      v35 = 2114;
+      v36 = v30;
+      v37 = 2048;
+      v38 = v31;
       _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", buf, 0x20u);
       goto LABEL_32;
     }
@@ -299,13 +298,13 @@ LABEL_20:
     v23 = [MEMORY[0x1E695DF00] date];
     [v23 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544130;
-    v35 = v26;
-    v36 = 2114;
-    v37 = v27;
-    v38 = 2114;
-    v39 = v22;
-    v40 = 2048;
-    v41 = v28;
+    v34 = v26;
+    v35 = 2114;
+    v36 = v27;
+    v37 = 2114;
+    v38 = v22;
+    v39 = 2048;
+    v40 = v28;
     _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds", buf, 0x2Au);
 LABEL_27:
 
@@ -327,15 +326,15 @@ LABEL_32:
     v23 = [MEMORY[0x1E695DF00] date];
     [v23 timeIntervalSinceDate:*(a1 + 56)];
     *buf = 138544386;
-    v35 = v20;
-    v36 = 2114;
-    v37 = v21;
-    v38 = 2114;
-    v39 = v3;
-    v40 = 2114;
-    v41 = v22;
-    v42 = 2048;
-    v43 = v24;
+    v34 = v20;
+    v35 = 2114;
+    v36 = v21;
+    v37 = 2114;
+    v38 = v3;
+    v39 = 2114;
+    v40 = v22;
+    v41 = 2048;
+    v42 = v24;
     _os_log_error_impl(&dword_1A2860000, v18, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
     goto LABEL_27;
   }
@@ -352,8 +351,6 @@ LABEL_33:
   {
     (*(v32 + 16))(v32, v3);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completion___block_invoke_32(uint64_t a1, void *a2, void *a3)
@@ -379,22 +376,20 @@ void __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completio
 
 void __74__MRAVOutputContextModification_modifyWithOutputContext_queue_completion___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a1[4];
   v7 = a1[5];
   v8 = [MEMORY[0x1E695DF00] date];
   [v8 timeIntervalSinceDate:a1[7]];
-  v11 = 138544130;
-  v12 = v6;
-  v13 = 2114;
-  v14 = v7;
-  v15 = 2114;
-  v16 = a2;
-  v17 = 2048;
-  v18 = v9;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10 = 138544130;
+  v11 = v6;
+  v12 = 2114;
+  v13 = v7;
+  v14 = 2114;
+  v15 = a2;
+  v16 = 2048;
+  v17 = v9;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", &v10, 0x2Au);
 }
 
 @end

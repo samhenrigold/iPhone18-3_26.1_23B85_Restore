@@ -8,7 +8,7 @@
 {
   lCopy = l;
   completionCopy = completion;
-  v8 = IntentHandlerDefaultLog();
+  v8 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10002F5E4();

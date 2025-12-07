@@ -20,7 +20,7 @@
   v18 = v17;
   if (v17)
   {
-    [v17 auditToken];
+    objc_msgSend_auditToken(v17);
   }
 
   else
@@ -102,7 +102,7 @@ LABEL_5:
   v9 = xPCConnection;
   if (xPCConnection)
   {
-    [xPCConnection auditToken];
+    objc_msgSend_auditToken(xPCConnection);
   }
 
   else

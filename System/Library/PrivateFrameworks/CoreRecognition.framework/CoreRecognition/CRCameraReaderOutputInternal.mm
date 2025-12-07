@@ -27,7 +27,7 @@
 
 - (void)setFormattedStringValue:(id)value
 {
-  v4 = [MEMORY[0x277CCACA8] _newZStringWithString:value];
+  v4 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
   formattedStringValue = self->_formattedStringValue;
   self->_formattedStringValue = v4;
 }

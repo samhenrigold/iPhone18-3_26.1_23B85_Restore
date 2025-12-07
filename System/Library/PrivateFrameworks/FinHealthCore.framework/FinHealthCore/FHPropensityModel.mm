@@ -35,7 +35,7 @@
 
 - (void)_createNewBookRankMapping
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [[FHExperiment alloc] initWithNamespaceName:@"WPC_ANALYTICS_OFFLINE_LAB"];
   v4 = [(FHExperiment *)v3 getFilePathForFactor:@"card_preselect_rank_mapping"];
   if (v4)
@@ -43,9 +43,9 @@
     v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v4];
     if (v5)
     {
-      v21 = 0;
-      v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v21];
-      v7 = v21;
+      v20 = 0;
+      v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v20];
+      v7 = v20;
       newbookRankRecords = self->_newbookRankRecords;
       self->_newbookRankRecords = v6;
 
@@ -59,7 +59,7 @@
       {
         localizedDescription = [v7 localizedDescription];
         *buf = 138412290;
-        v23 = localizedDescription;
+        v22 = localizedDescription;
         _os_log_impl(&dword_226DD4000, v9, OS_LOG_TYPE_ERROR, "Error serializing new book rank mapping %@", buf, 0xCu);
       }
     }
@@ -76,9 +76,9 @@
   v13 = [v12 pathForResource:@"ModelResources/assets_WPC_ANALYTICS_OFFLINE_LAB/model_rank_mapping" ofType:@"json"];
 
   v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v13];
-  v20 = 0;
-  v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v20];
-  v15 = v20;
+  v19 = 0;
+  v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v19];
+  v15 = v19;
   v16 = self->_newbookRankRecords;
   self->_newbookRankRecords = v14;
 
@@ -89,42 +89,40 @@
     {
       localizedDescription2 = [v15 localizedDescription];
       *buf = 138412290;
-      v23 = localizedDescription2;
+      v22 = localizedDescription2;
       _os_log_impl(&dword_226DD4000, v17, OS_LOG_TYPE_ERROR, "Error serializing new book rank mapping %@", buf, 0xCu);
     }
   }
 
   v4 = v13;
 LABEL_15:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getNewbookRank:(id)rank
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   rankCopy = rank;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v5 = self->_newbookRankRecords;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
-        v11 = [v10 objectForKey:{@"Lower_Bound", v24}];
+        v10 = *(*(&v23 + 1) + 8 * i);
+        v11 = [v10 objectForKey:{@"Lower_Bound", v23}];
         [v11 doubleValue];
         v13 = v12;
 
@@ -150,7 +148,7 @@ LABEL_15:
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
       if (v7)
       {
         continue;
@@ -164,14 +162,12 @@ LABEL_15:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v29 = rankCopy;
+    v28 = rankCopy;
     _os_log_impl(&dword_226DD4000, v20, OS_LOG_TYPE_ERROR, "No newbook rank found for score %@", buf, 0xCu);
   }
 
   v21 = [MEMORY[0x277CCABB0] numberWithInt:0xFFFFFFFFLL];
 LABEL_15:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

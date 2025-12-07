@@ -37,7 +37,7 @@
 
 - (void)modelTuner:(id)tuner heartBeatWithlambda:(float)withlambda w0:(float)w0 threshold:(float)threshold score:(float)score progress:(float)progress
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   tunerCopy = tuner;
   v15 = [_CDPSimpleModelParameterManagerTuningValue alloc];
   *&v16 = withlambda;
@@ -65,28 +65,28 @@
 
   if (progress == 1.0)
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     tuningValues2 = [(_CDPSimpleModelParameterManagerAccountState *)self->_accountState tuningValues];
-    v30 = [tuningValues2 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v30 = [tuningValues2 countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v30)
     {
       v31 = v30;
       v32 = 0;
-      v33 = *v43;
+      v33 = *v42;
       v34 = -1.0;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v43 != v33)
+          if (*v42 != v33)
           {
             objc_enumerationMutation(tuningValues2);
           }
 
-          v36 = *(*(&v42 + 1) + 8 * i);
+          v36 = *(*(&v41 + 1) + 8 * i);
           [v36 score];
           if (v37 > v34)
           {
@@ -98,7 +98,7 @@
           }
         }
 
-        v31 = [tuningValues2 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v31 = [tuningValues2 countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
       while (v31);
@@ -115,8 +115,6 @@
     [(_CDPSimpleModelParameterManagerAccountState *)self->_accountState setPreviousBestTuningValue:v32];
     [(_CDPSimpleModelParameterManagerAccountState *)self->_accountState setLastTuningState:0];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getLambda:(float *)lambda w0:(float *)w0 threshold:(float *)threshold

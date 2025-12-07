@@ -5,6 +5,7 @@
 - (id)cancelSessionCommand;
 - (id)searchCommandForFingerprintData:(id)data withDuration:(double)duration;
 - (void)_addOutstandingSearchId:(id)id;
+- (void)_clearOutstandingSearchIds;
 - (void)failCurrentSession;
 - (void)handleCommandFailed:(id)failed;
 - (void)handleRetrySearch:(id)search;
@@ -168,6 +169,13 @@
   self->_minimumFingerprintDuration = 0.0;
   currentSession = self->_currentSession;
   self->_currentSession = 0;
+}
+
+- (void)_clearOutstandingSearchIds
+{
+  outstandingSearches = self->_outstandingSearches;
+  self->_outstandingSearches = 0;
+  _objc_release_x1(self, outstandingSearches);
 }
 
 - (void)_addOutstandingSearchId:(id)id

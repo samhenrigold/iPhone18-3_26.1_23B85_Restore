@@ -12,34 +12,33 @@
 
 - (HFValveActiveStateControlItem)initWithValueSource:(id)source displayResults:(id)results
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB98];
-  v26[0] = *MEMORY[0x277CCF908];
+  v25[0] = *MEMORY[0x277CCF908];
   v7 = MEMORY[0x277CBEA60];
   resultsCopy = results;
   sourceCopy = source;
-  v10 = [v7 arrayWithObjects:v26 count:1];
+  v10 = [v7 arrayWithObjects:v25 count:1];
   v11 = [v6 setWithArray:v10];
 
   v12 = MEMORY[0x277CBEB98];
-  v25 = *MEMORY[0x277CCFA08];
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+  v24 = *MEMORY[0x277CCFA08];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
   v14 = [v12 setWithArray:v13];
 
   v15 = [HFControlItemCharacteristicOptions alloc];
-  v23[0] = &unk_282524FD8;
-  v23[1] = &unk_282524FF0;
-  v24[0] = v11;
-  v24[1] = v14;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v22[0] = &unk_282524FD8;
+  v22[1] = &unk_282524FF0;
+  v23[0] = v11;
+  v23[1] = v14;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
   v17 = [(HFControlItemCharacteristicOptions *)v15 initWithCharacteristicTypesByUsage:v16];
 
   v18 = [MEMORY[0x277CBEB98] set];
-  v22.receiver = self;
-  v22.super_class = HFValveActiveStateControlItem;
-  v19 = [(HFPowerStateControlItem *)&v22 initWithValueSource:sourceCopy auxiliaryTargetValueTuples:v18 additionalCharacteristicOptions:v17 displayResults:resultsCopy];
+  v21.receiver = self;
+  v21.super_class = HFValveActiveStateControlItem;
+  v19 = [(HFPowerStateControlItem *)&v21 initWithValueSource:sourceCopy auxiliaryTargetValueTuples:v18 additionalCharacteristicOptions:v17 displayResults:resultsCopy];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -65,7 +64,7 @@
 
 - (id)writeValue:(id)value
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   v5 = valueCopy;
@@ -82,12 +81,12 @@
   v7 = v6;
 
   integerValue = [v7 integerValue];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __44__HFValveActiveStateControlItem_writeValue___block_invoke;
-  v21[3] = &__block_descriptor_40_e5__8__0l;
-  v21[4] = integerValue;
-  v9 = __44__HFValveActiveStateControlItem_writeValue___block_invoke(v21);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __44__HFValveActiveStateControlItem_writeValue___block_invoke;
+  v20[3] = &__block_descriptor_40_e5__8__0l;
+  v20[4] = integerValue;
+  v9 = __44__HFValveActiveStateControlItem_writeValue___block_invoke(v20);
   v10 = [HFServiceTreeTypePredicate alloc];
   v11 = [MEMORY[0x277CBEB98] set];
   v12 = [(HFServiceTreeTypePredicate *)v10 initWithServiceTypes:v9 serviceSubtypes:v11 includeChildServices:0];
@@ -101,12 +100,10 @@
     v16 = &unk_282525008;
   }
 
-  v22 = v14;
-  v23[0] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v21 = v14;
+  v22[0] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v18 = [valueSource writeValuesForCharacteristicRecipes:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -147,30 +144,26 @@ LABEL_6:
 
 void __44__HFValveActiveStateControlItem_writeValue___block_invoke_3()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0E80];
-  v6[0] = *MEMORY[0x277CD0F38];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = *MEMORY[0x277CD0F38];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v3 = [v0 setWithArray:v2];
   v4 = qword_280E03C38;
   qword_280E03C38 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HFValveActiveStateControlItem_writeValue___block_invoke_5()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = *MEMORY[0x277CD0F38];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *MEMORY[0x277CD0F38];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = qword_280E03C48;
   qword_280E03C48 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resultsForBatchReadResponse:(id)response
@@ -259,37 +252,35 @@ LABEL_10:
 
 void __71__HFValveActiveStateControlItem__faucetValveSubtypeToIconIdentifierMap__block_invoke_2()
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CD0DC0];
-  v5[0] = *MEMORY[0x277CD0DB0];
-  v5[1] = v0;
-  v6[0] = @"HFCAPackageIconIdentifierValveShowerHead";
-  v6[1] = @"HFCAPackageIconIdentifierFaucet";
+  v4[0] = *MEMORY[0x277CD0DB0];
+  v4[1] = v0;
+  v5[0] = @"HFCAPackageIconIdentifierValveShowerHead";
+  v5[1] = @"HFCAPackageIconIdentifierFaucet";
   v1 = *MEMORY[0x277CD0DA8];
-  v5[2] = *MEMORY[0x277CD0DA0];
-  v5[3] = v1;
-  v6[2] = @"HFCAPackageIconIdentifierFaucet";
-  v6[3] = @"HFCAPackageIconIdentifierFaucet";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4[2] = *MEMORY[0x277CD0DA0];
+  v4[3] = v1;
+  v5[2] = @"HFCAPackageIconIdentifierFaucet";
+  v5[3] = @"HFCAPackageIconIdentifierFaucet";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
   v3 = qword_280E03C58;
   qword_280E03C58 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_iconDescriptorForServiceSubtype:(id)subtype inUse:(BOOL)use active:(BOOL)active hasFaucetAsParentService:(BOOL)service
 {
   serviceCopy = service;
   activeCopy = active;
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   subtypeCopy = subtype;
   if (([subtypeCopy isEqualToString:*MEMORY[0x277CD0DA8]] & 1) != 0 || !serviceCopy)
   {
     _faucetValveSubtypeToIconIdentifierMap = [MEMORY[0x277D755D0] configurationWithPointSize:5 weight:32.0];
     v11 = [[HFSymbolIconConfiguration alloc] initWithSystemImageName:@"drop.fill" configuration:_faucetValveSubtypeToIconIdentifierMap];
-    v18 = &unk_282525038;
-    v19[0] = v11;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = &unk_282525038;
+    v18[0] = v11;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v14 = [[HFMultistateImageIconDescriptor alloc] initWithSymbolIconConfigurationsKeyedByPrimaryState:v13];
 LABEL_8:
     v15 = v14;
@@ -314,8 +305,6 @@ LABEL_8:
 
   v15 = 0;
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

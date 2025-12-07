@@ -1,4 +1,6 @@
 @interface HDSeriesSampleEntity
++ (BOOL)deleteSeriesWithID:(id)d deleteSeriesData:(BOOL)data insertDeletedObject:(BOOL)object profile:(id)profile transaction:(id)transaction error:(id *)error;
++ (BOOL)replaceObjectID:(id)d replacementObjectID:(id)iD deleteOriginalSeriesData:(BOOL)data insertDeletedObject:(BOOL)object profile:(id)profile transaction:(id)transaction error:(id *)error;
 + (const)columnDefinitionsWithCount:(unint64_t *)count;
 + (id)entityEncoderForProfile:(id)profile transaction:(id)transaction purpose:(int64_t)purpose encodingOptions:(id)options authorizationFilter:(id)filter;
 + (id)foreignKeys;
@@ -44,13 +46,11 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"data_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"data_id";
   v2 = +[(HDDataEntity *)HDSampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -109,144 +109,192 @@
 
 uint64_t __74__HDSeriesSampleEntity_freezeSeriesWithIdentifier_metadata_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 databaseForEntityClass:*(a1 + 64)];
   v7 = *(a1 + 64);
-  v8 = *(a1 + 32);
-  v9 = HDDataEntityPredicateForDataUUID();
-  v10 = [v7 anyInDatabase:v6 predicate:v9 error:a3];
+  v8 = HDDataEntityPredicateForDataUUID();
+  v9 = [v7 anyInDatabase:v6 predicate:v8 error:a3];
 
-  if (v10)
+  if (v9)
   {
-    v11 = [v10 freezeWithTransaction:v5 profile:*(a1 + 40) error:a3];
+    v10 = [v9 freezeWithTransaction:v5 profile:*(a1 + 40) error:a3];
 
-    if (v11)
+    if (v10)
     {
-      v12 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v11, "persistentID")}];
-      v13 = *(a1 + 48);
-      if (!v13 || ![v13 count])
+      v11 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v10, "persistentID")}];
+      v12 = *(a1 + 48);
+      if (!v12 || ![v12 count])
       {
-        v23 = 0;
+        v22 = 0;
         goto LABEL_11;
       }
 
-      v14 = [*(a1 + 64) seriesSampleWithID:v12 profile:*(a1 + 40) error:a3];
-      v15 = v14;
-      if (!v14)
+      v13 = [*(a1 + 64) seriesSampleWithID:v11 profile:*(a1 + 40) error:a3];
+      v14 = v13;
+      if (!v13)
       {
-        v23 = 0;
+        v22 = 0;
         goto LABEL_24;
       }
 
-      [v14 _setMetadata:*(a1 + 48)];
-      v16 = [v15 sourceRevision];
-      v17 = [v16 source];
-      v18 = [v17 _sourceID];
+      [v13 _setMetadata:*(a1 + 48)];
+      v15 = [v14 sourceRevision];
+      v16 = [v15 source];
+      v17 = [v16 _sourceID];
 
-      v19 = *(a1 + 64);
-      v20 = *(a1 + 40);
-      v44 = 0;
-      v45 = 0;
-      v42 = v18;
-      v21 = [v19 shouldInsertObject:v15 sourceID:v18 profile:v20 transaction:v5 objectToReplace:&v45 objectID:&v44 error:a3];
-      v22 = v45;
-      v40 = v22;
-      v41 = v44;
-      if (v21 == 1)
+      v18 = *(a1 + 64);
+      v19 = *(a1 + 40);
+      v42 = 0;
+      v43 = 0;
+      v40 = v17;
+      v20 = [v18 shouldInsertObject:v14 sourceID:v17 profile:v19 transaction:v5 objectToReplace:&v43 objectID:&v42 error:a3];
+      v21 = v43;
+      v38 = v21;
+      v39 = v42;
+      if (v20 == 1)
       {
-        if ([*(a1 + 64) deleteSeriesWithID:v12 deleteSeriesData:1 insertDeletedObject:0 profile:*(a1 + 40) transaction:v5 error:a3])
+        if ([*(a1 + 64) deleteSeriesWithID:v11 deleteSeriesData:1 insertDeletedObject:0 profile:*(a1 + 40) transaction:v5 error:a3])
         {
-          v35 = [v22 UUID];
-          v24 = 0;
+          v34 = [v21 UUID];
           v23 = 0;
-          v36 = *(*(a1 + 56) + 8);
-          v26 = *(v36 + 40);
-          *(v36 + 40) = v35;
-          v25 = 1;
+          v22 = 0;
+          v35 = *(*(a1 + 56) + 8);
+          v25 = *(v35 + 40);
+          *(v35 + 40) = v34;
+          v24 = 1;
           goto LABEL_19;
         }
       }
 
-      else if (v21 != 2)
+      else if (v20 != 2)
       {
-        v23 = v41;
-        v39 = [*(a1 + 40) metadataManager];
-        v24 = [v39 insertMetadata:*(a1 + 48) forObjectID:v12 sourceID:v18 externalSyncObjectCode:objc_msgSend(v15 objectDeleted:"_externalSyncObjectCode") error:{0, a3}];
-        v25 = 0;
-        v26 = v39;
+        v22 = v39;
+        v37 = [*(a1 + 40) metadataManager];
+        v23 = [v37 insertMetadata:*(a1 + 48) forObjectID:v11 sourceID:v17 externalSyncObjectCode:objc_msgSend(v14 objectDeleted:"_externalSyncObjectCode") error:{0, a3}];
+        v24 = 0;
+        v25 = v37;
 LABEL_19:
 
         goto LABEL_21;
       }
 
-      v24 = 0;
       v23 = 0;
-      v25 = 0;
+      v22 = 0;
+      v24 = 0;
 LABEL_21:
 
-      if ((v24 & 1) == 0)
+      if ((v23 & 1) == 0)
       {
 LABEL_25:
 
         goto LABEL_26;
       }
 
-      if (v23 && ([*(a1 + 64) replaceObjectID:v23 replacementObjectID:v12 deleteOriginalSeriesData:1 insertDeletedObject:1 profile:*(a1 + 40) transaction:v5 error:a3] & 1) == 0)
+      if (v22 && ([*(a1 + 64) replaceObjectID:v22 replacementObjectID:v11 deleteOriginalSeriesData:1 insertDeletedObject:1 profile:*(a1 + 40) transaction:v5 error:a3] & 1) == 0)
       {
 LABEL_24:
-        v25 = 0;
+        v24 = 0;
         goto LABEL_25;
       }
 
 LABEL_11:
-      v27 = *(a1 + 64);
-      v28 = *(a1 + 32);
-      v29 = *(a1 + 40);
-      v43 = 0;
-      v30 = [v27 objectWithUUID:v28 encodingOptions:0 profile:v29 error:&v43];
-      v31 = v43;
-      if (v30)
+      v26 = *(a1 + 64);
+      v27 = *(a1 + 32);
+      v28 = *(a1 + 40);
+      v41 = 0;
+      v29 = [v26 objectWithUUID:v27 encodingOptions:0 profile:v28 error:&v41];
+      v30 = v41;
+      if (v29)
       {
-        v32 = [*(a1 + 40) dataManager];
-        v48[0] = v30;
-        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
-        [v32 shouldNotifyForDataObjects:v33 provenance:0 database:v6 anchor:v12];
+        v31 = [*(a1 + 40) dataManager];
+        v46[0] = v29;
+        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
+        [v31 shouldNotifyForDataObjects:v32 provenance:0 database:v6 anchor:v11];
       }
 
       else
       {
         _HKInitializeLogging();
-        v34 = *MEMORY[0x277CCC2A0];
+        v33 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v47 = v31;
-          _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "Failed to look up series after freezing: %{public}@", buf, 0xCu);
+          v45 = v30;
+          _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "Failed to look up series after freezing: %{public}@", buf, 0xCu);
         }
       }
 
-      v25 = 1;
+      v24 = 1;
       goto LABEL_25;
     }
   }
 
-  v25 = 0;
+  v24 = 0;
 LABEL_26:
 
-  v37 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v24;
 }
 
 uint64_t __74__HDSeriesSampleEntity_freezeSeriesWithIdentifier_metadata_profile_error___block_invoke_330(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = [_HDSeriesFreezeJournalEntry alloc];
-  v6 = *(a1 + 56);
-  v7 = [(_HDSeriesFreezeJournalEntry *)v5 initWithSeriesUUID:*(a1 + 32) metadata:*(a1 + 40) class:objc_opt_class()];
-  v8 = [*(a1 + 48) database];
-  v9 = [v8 addJournalEntry:v7 error:a3];
+  v5 = [[_HDSeriesFreezeJournalEntry alloc] initWithSeriesUUID:*(a1 + 32) metadata:*(a1 + 40) class:objc_opt_class()];
+  v6 = [*(a1 + 48) database];
+  v7 = [v6 addJournalEntry:v5 error:a3];
 
-  return v9;
+  return v7;
+}
+
++ (BOOL)deleteSeriesWithID:(id)d deleteSeriesData:(BOOL)data insertDeletedObject:(BOOL)object profile:(id)profile transaction:(id)transaction error:(id *)error
+{
+  objectCopy = object;
+  dataCopy = data;
+  dCopy = d;
+  profileCopy = profile;
+  transactionCopy = transaction;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__85;
+  v28 = __Block_byref_object_dispose__85;
+  v29 = 0;
+  v16 = [[HDDataEntityDeletionContext alloc] initWithProfile:profileCopy transaction:transactionCopy];
+  [(HDDataEntityDeletionContext *)v16 setInsertDeletedObjects:objectCopy];
+  [(HDDataEntityDeletionContext *)v16 setCallWillDeleteWithProfileTransaction:dataCopy];
+  v17 = HDDataEntityPredicateForRowID(dCopy, 1);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __106__HDSeriesSampleEntity_deleteSeriesWithID_deleteSeriesData_insertDeletedObject_profile_transaction_error___block_invoke;
+  v23[3] = &unk_27861FF90;
+  v23[4] = &v30;
+  v23[5] = &v24;
+  [HDSampleEntity deleteSamplesWithPredicate:v17 limit:0 deletionContext:v16 completionHandler:v23];
+
+  v18 = v25[5];
+  v19 = v18;
+  if (v18)
+  {
+    if (error)
+    {
+      v20 = v18;
+      *error = v19;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  v21 = *(v31 + 24);
+  _Block_object_dispose(&v24, 8);
+
+  _Block_object_dispose(&v30, 8);
+  return v21;
 }
 
 + (id)seriesSampleWithID:(id)d profile:(id)profile error:(id *)error
@@ -287,6 +335,26 @@ LABEL_6:
 LABEL_10:
 
   return v9;
+}
+
++ (BOOL)replaceObjectID:(id)d replacementObjectID:(id)iD deleteOriginalSeriesData:(BOOL)data insertDeletedObject:(BOOL)object profile:(id)profile transaction:(id)transaction error:(id *)error
+{
+  objectCopy = object;
+  dataCopy = data;
+  dCopy = d;
+  profileCopy = profile;
+  transactionCopy = transaction;
+  if ([HDAssociationEntity copyAssociationsFromChildID:dCopy toObjectID:iD profile:profileCopy error:error])
+  {
+    v18 = [self deleteSeriesWithID:dCopy deleteSeriesData:dataCopy insertDeletedObject:objectCopy profile:profileCopy transaction:transactionCopy error:error];
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
 }
 
 - (id)freezeWithTransaction:(id)transaction profile:(id)profile error:(id *)error
@@ -337,18 +405,17 @@ uint64_t __52__HDSeriesSampleEntity_canAddDatumInDatabase_error___block_invoke_2
 
 - (BOOL)updateSampleCount:(int64_t)count withDatabase:(id)database error:(id *)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   databaseCopy = database;
-  v13[0] = @"count";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__HDSeriesSampleEntity_updateSampleCount_withDatabase_error___block_invoke;
-  v12[3] = &__block_descriptor_40_e34_v16__0__HDSQLiteStatementBinder__8l;
-  v12[4] = count;
-  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v9 database:databaseCopy error:error bindingHandler:v12];
+  v12[0] = @"count";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__HDSeriesSampleEntity_updateSampleCount_withDatabase_error___block_invoke;
+  v11[3] = &__block_descriptor_40_e34_v16__0__HDSQLiteStatementBinder__8l;
+  v11[4] = count;
+  LOBYTE(error) = [(HDSQLiteEntity *)self updateProperties:v9 database:databaseCopy error:error bindingHandler:v11];
 
-  v10 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -428,10 +495,9 @@ uint64_t __86__HDSeriesSampleEntity_insertDataObject_withProvenance_inDatabase_p
   sqlite3_bind_int64(a2, 1, [*(a1 + 32) longLongValue]);
   sqlite3_bind_int(a2, 2, [*(a1 + 40) _isFrozen]);
   sqlite3_bind_int64(a2, 3, [*(a1 + 40) count]);
-  v4 = *(a1 + 48);
-  v5 = +[HDSeriesSampleEntity _insertionEra];
+  v4 = +[HDSeriesSampleEntity _insertionEra];
 
-  return sqlite3_bind_int64(a2, 4, v5);
+  return sqlite3_bind_int64(a2, 4, v4);
 }
 
 + (id)entityEncoderForProfile:(id)profile transaction:(id)transaction purpose:(int64_t)purpose encodingOptions:(id)options authorizationFilter:(id)filter
@@ -443,24 +509,24 @@ uint64_t __86__HDSeriesSampleEntity_insertDataObject_withProvenance_inDatabase_p
 
 - (id)HFDKeyWithDatabase:(id)database error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   databaseCopy = database;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v17[0] = @"hfd_key";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __49__HDSeriesSampleEntity_HFDKeyWithDatabase_error___block_invoke;
-  v12[3] = &unk_278620008;
-  v12[4] = &v13;
-  v8 = [(HDSQLiteEntity *)self getValuesForProperties:v7 database:databaseCopy error:error handler:v12];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v16[0] = @"hfd_key";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __49__HDSeriesSampleEntity_HFDKeyWithDatabase_error___block_invoke;
+  v11[3] = &unk_278620008;
+  v11[4] = &v12;
+  v8 = [(HDSQLiteEntity *)self getValuesForProperties:v7 database:databaseCopy error:error handler:v11];
 
   if (v8)
   {
-    if (v14[3])
+    if (v13[3])
     {
       v9 = [MEMORY[0x277CCABB0] numberWithLongLong:?];
       goto LABEL_6;
@@ -471,14 +537,12 @@ uint64_t __86__HDSeriesSampleEntity_insertDataObject_withProvenance_inDatabase_p
 
   v9 = 0;
 LABEL_6:
-  _Block_object_dispose(&v13, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
 
   return v9;
 }
 
-uint64_t __49__HDSeriesSampleEntity_HFDKeyWithDatabase_error___block_invoke(uint64_t a1)
+uint64_t __49__HDSeriesSampleEntity_HFDKeyWithDatabase_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = HDSQLiteColumnAsInt64();
   *(*(*(a1 + 32) + 8) + 24) = result;

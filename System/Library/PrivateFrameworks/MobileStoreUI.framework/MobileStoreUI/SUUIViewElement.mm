@@ -88,22 +88,22 @@ void __85__SUUIViewElement_SUUIReviewListPageSection__expandableLabelElementForW
   if (v9)
   {
     v10 = [elementCopy getAttribute:@"pin"];
-    if ([v10 isEqualToString:@"alone"])
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 2;
     }
 
-    else if ([v10 isEqualToString:@"group"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 3;
     }
 
-    else if ([v10 isEqualToString:@"rubberband"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 4;
     }
 
-    else if ([v10 isEqualToString:@"group-rubberband"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 5;
     }
@@ -114,7 +114,7 @@ void __85__SUUIViewElement_SUUIReviewListPageSection__expandableLabelElementForW
       {
 LABEL_14:
         v13 = [elementCopy getAttribute:@"pinGroup"];
-        v9->_pinGroup = [v13 isEqualToString:@"before-top"];
+        v9->_pinGroup = objc_msgSend_isEqualToString_(v13);
 
         goto LABEL_15;
       }
@@ -265,9 +265,9 @@ LABEL_7:
   v19 = __Block_byref_object_dispose__36;
   v20 = 0;
   itmlID = [(SUUIViewElement *)self itmlID];
-  v6 = [itmlID isEqualToString:identifierCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = v16;
     selfCopy = self;
@@ -581,9 +581,9 @@ uint64_t __74__SUUIViewElement_enumerateViewElementsWithDictionary_factory_using
 
         v9 = *(*(&v13 + 1) + 8 * i);
         featureName = [v9 featureName];
-        v11 = [featureName isEqualToString:nameCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(featureName);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;
@@ -662,9 +662,9 @@ void __44__SUUIViewElement_firstChildForElementType___block_invoke(uint64_t a1, 
 void __44__SUUIViewElement_firstChildForElementName___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v6 = [a2 elementName];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a3 = 1;
@@ -1038,9 +1038,9 @@ void __48__SUUIViewElement__entityValueProviderDidChange__block_invoke(uint64_t 
   if ([dCopy length])
   {
     indexBarEntryID = [(SUUIViewElement *)self indexBarEntryID];
-    v6 = [indexBarEntryID isEqualToString:dCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(indexBarEntryID);
 
-    if (v6)
+    if (isEqualToString)
     {
       selfCopy = self;
     }
@@ -1078,9 +1078,9 @@ void __77__SUUIViewElement_SUUIIndexBarAdditions__firstDescendentWithIndexBarEnt
 {
   v11 = a2;
   v6 = [v11 indexBarEntryID];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }

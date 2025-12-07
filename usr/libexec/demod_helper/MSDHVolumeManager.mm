@@ -50,33 +50,35 @@
 {
   snapshotCopy = snapshot;
   v7 = open([at UTF8String], 0);
+  v8 = v7;
   if (v7 <= 0)
   {
-    sub_10002D774();
-    v14 = 0;
+    sub_10002D774(v7);
+    v19 = 0;
     goto LABEL_24;
   }
 
   if ([snapshotCopy isEqualToString:@"RevertSnapshot"])
   {
-    v8 = fs_snapshot_revert(v7, "com.apple.snapshot.mobilestoredemo", 0);
-    v9 = sub_100021268();
+    v9 = fs_snapshot_revert(v8, "com.apple.snapshot.mobilestoredemo", 0);
     v10 = v9;
-    if (!v8)
+    v11 = sub_100021268(v9);
+    v12 = v11;
+    if (!v10)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        v11 = "Snapshot reverted.";
+        LOWORD(v21) = 0;
+        v13 = "Snapshot reverted.";
 LABEL_21:
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, &v16, 2u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, &v21, 2u);
         goto LABEL_22;
       }
 
       goto LABEL_22;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10002D6EC();
     }
@@ -86,12 +88,13 @@ LABEL_21:
   {
     if ([snapshotCopy isEqualToString:@"DeleteSnapshot"])
     {
-      if (fs_snapshot_delete(v7, "com.apple.snapshot.mobilestoredemo", 0))
+      if (fs_snapshot_delete(v8, "com.apple.snapshot.mobilestoredemo", 0))
       {
-        if (*__error() != 2)
+        v14 = __error();
+        if (*v14 != 2)
         {
-          v10 = sub_100021268();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v12 = sub_100021268(v14);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             sub_10002D664();
           }
@@ -102,40 +105,42 @@ LABEL_21:
 
       else
       {
-        [(MSDHVolumeManager *)self waitForSnapshotDeletionOnVolume:v7];
+        v14 = [(MSDHVolumeManager *)self waitForSnapshotDeletionOnVolume:v8];
       }
 
-      v10 = sub_100021268();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100021268(v14);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        v11 = "Snapshot deleted.";
+        LOWORD(v21) = 0;
+        v13 = "Snapshot deleted.";
         goto LABEL_21;
       }
 
       goto LABEL_22;
     }
 
-    if ([snapshotCopy isEqualToString:@"CreateSnapshot"])
+    v15 = [snapshotCopy isEqualToString:@"CreateSnapshot"];
+    if (v15)
     {
-      v12 = fs_snapshot_create(v7, "com.apple.snapshot.mobilestoredemo", 0);
-      v13 = sub_100021268();
-      v10 = v13;
-      if (!v12)
+      v16 = fs_snapshot_create(v8, "com.apple.snapshot.mobilestoredemo", 0);
+      v17 = v16;
+      v18 = sub_100021268(v16);
+      v12 = v18;
+      if (!v17)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          v11 = "Snapshot created.";
+          LOWORD(v21) = 0;
+          v13 = "Snapshot created.";
           goto LABEL_21;
         }
 
 LABEL_22:
-        v14 = 1;
+        v19 = 1;
         goto LABEL_23;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_10002D5DC();
       }
@@ -143,76 +148,79 @@ LABEL_22:
 
     else
     {
-      v10 = sub_100021268();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100021268(v15);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138543362;
-        v17 = snapshotCopy;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Unknown snapshot operation: %{public}@", &v16, 0xCu);
+        v21 = 138543362;
+        v22 = snapshotCopy;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Unknown snapshot operation: %{public}@", &v21, 0xCu);
       }
     }
   }
 
 LABEL_17:
-  v14 = 0;
+  v19 = 0;
 LABEL_23:
 
-  close(v7);
+  close(v8);
 LABEL_24:
 
-  return v14;
+  return v19;
 }
 
 - (BOOL)mountSnapshotAt:(id)at forVolumeAt:(id)volumeAt
 {
   atCopy = at;
   v6 = open([volumeAt UTF8String], 0);
+  v7 = v6;
   if (v6 <= 0)
   {
-    sub_10002D774();
-    v8 = 0;
+    sub_10002D774(v6);
+    v10 = 0;
   }
 
   else
   {
-    v7 = fs_snapshot_mount(v6, [atCopy UTF8String], "com.apple.snapshot.mobilestoredemo", 0);
-    v8 = v7 == 0;
-    v9 = sub_100021268();
-    v10 = v9;
-    if (v7)
+    v8 = fs_snapshot_mount(v6, [atCopy UTF8String], "com.apple.snapshot.mobilestoredemo", 0);
+    v9 = v8;
+    v10 = v8 == 0;
+    v11 = sub_100021268(v8);
+    v12 = v11;
+    if (v9)
     {
-      sub_10002D810(v9);
+      sub_10002D810(v11);
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Snapshot mounted.", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Snapshot mounted.", v14, 2u);
     }
 
-    close(v6);
+    close(v7);
   }
 
-  return v8;
+  return v10;
 }
 
 - (BOOL)unmountSnapshotAt:(id)at
 {
   v3 = unmount([at UTF8String], 0x80000);
-  v4 = sub_100021268();
-  v5 = v4;
-  if (v3)
+  v4 = v3;
+  v5 = sub_100021268(v3);
+  v6 = v5;
+  if (v4)
   {
-    sub_10002D8A8(v4);
+    sub_10002D8A8(v5);
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Snapshot unmounted.", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Snapshot unmounted.", v8, 2u);
   }
 
-  return v3 == 0;
+  return v4 == 0;
 }
 
 - (id)getAPFSBootContainerDeviceNode
@@ -236,7 +244,7 @@ LABEL_24:
   if (SpaceInfo)
   {
     v7 = SpaceInfo;
-    v8 = sub_100021268();
+    v8 = sub_100021268(SpaceInfo);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10002DBE4(v7, v8, v9);
@@ -250,7 +258,7 @@ LABEL_24:
       return 1;
     }
 
-    v8 = sub_100021268();
+    v8 = sub_100021268(SpaceInfo);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10002DC54(v10, space, v8);
@@ -270,37 +278,38 @@ LABEL_24:
   if (nameCopy)
   {
     v5 = IOServiceNameMatching([nameCopy UTF8String]);
-    if (!IOServiceGetMatchingServices(kIOMasterPortDefault, v5, &existing))
+    MatchingServices = IOServiceGetMatchingServices(kIOMasterPortDefault, v5, &existing);
+    if (!MatchingServices)
     {
-      v6 = IOIteratorNext(existing);
-      if (v6)
+      v7 = IOIteratorNext(existing);
+      if (v7)
       {
-        v7 = v6;
+        v8 = v7;
         do
         {
-          if (IOObjectConformsTo(v7, "AppleAPFSVolume"))
+          if (IOObjectConformsTo(v8, "AppleAPFSVolume"))
           {
             memset(name, 0, 128);
-            if (IORegistryEntryGetName(v7, name) || IORegistryEntryCreateCFProperties(v7, &properties, kCFAllocatorDefault, 0))
+            if (IORegistryEntryGetName(v8, name) || IORegistryEntryCreateCFProperties(v8, &properties, kCFAllocatorDefault, 0))
             {
               goto LABEL_31;
             }
 
             if (!strncmp([v4 UTF8String], name, 0x80uLL))
             {
-              v9 = CFDictionaryGetValue(properties, @"BSD Name");
-              if (!v9)
+              v10 = CFDictionaryGetValue(properties, @"BSD Name");
+              if (!v10)
               {
                 goto LABEL_31;
               }
 
-              v10 = v9;
-              v8 = [NSString stringWithFormat:@"/dev/%@", v9];
+              v11 = v10;
+              v9 = [NSString stringWithFormat:@"/dev/%@", v10];
             }
 
             else
             {
-              v8 = 0;
+              v9 = 0;
             }
 
             CFRelease(properties);
@@ -308,38 +317,38 @@ LABEL_24:
 
           else
           {
-            v8 = 0;
+            v9 = 0;
           }
 
-          IOObjectRelease(v7);
-          v7 = IOIteratorNext(existing);
-          if (v7)
+          IOObjectRelease(v8);
+          v8 = IOIteratorNext(existing);
+          if (v8)
           {
-            v11 = v8 == 0;
+            v12 = v9 == 0;
           }
 
           else
           {
-            v11 = 0;
+            v12 = 0;
           }
         }
 
-        while (v11);
-        IOObjectRelease(existing);
-        if (v8)
+        while (v12);
+        v13 = IOObjectRelease(existing);
+        if (v9)
         {
-          v12 = sub_100021268();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v14 = sub_100021268(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v20 = v4;
-            v21 = 2114;
-            v22 = v8;
-            v13 = "APFS volume '%{public}@' found as '%{public}@'.";
-            v14 = v12;
-            v15 = 22;
+            v22 = v4;
+            v23 = 2114;
+            v24 = v9;
+            v15 = "APFS volume '%{public}@' found as '%{public}@'.";
+            v16 = v14;
+            v17 = 22;
 LABEL_24:
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
             goto LABEL_25;
           }
 
@@ -349,18 +358,18 @@ LABEL_24:
 
       else
       {
-        IOObjectRelease(existing);
-        v8 = 0;
+        v13 = IOObjectRelease(existing);
+        v9 = 0;
       }
 
-      v12 = sub_100021268();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100021268(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v20 = v4;
-        v13 = "APFS volume '%{public}@' NOT found.";
-        v14 = v12;
-        v15 = 12;
+        v22 = v4;
+        v15 = "APFS volume '%{public}@' NOT found.";
+        v16 = v14;
+        v17 = 12;
         goto LABEL_24;
       }
 
@@ -369,19 +378,19 @@ LABEL_25:
       goto LABEL_26;
     }
 
-    sub_10002DCE8();
+    sub_10002DCE8(MatchingServices);
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_31:
   if (existing)
   {
     IOObjectRelease(existing);
   }
 
-  if (v7)
+  if (v8)
   {
-    IOObjectRelease(v7);
+    IOObjectRelease(v8);
   }
 
   if (properties)
@@ -389,42 +398,43 @@ LABEL_31:
     CFRelease(properties);
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_26:
 
-  return v8;
+  return v9;
 }
 
 - (void)waitForSnapshotDeletionOnVolume:(int)volume
 {
-  v9[1] = 0;
-  v9[2] = 0;
-  v9[0] = 3;
-  if (ffsctl(volume, 0x80184A24uLL, v9, 0) < 0)
+  v10[1] = 0;
+  v10[2] = 0;
+  v10[0] = 3;
+  if (ffsctl(volume, 0x80184A24uLL, v10, 0) < 0)
   {
-    v3 = *__error();
-    v4 = sub_100021268();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (v3 == 35)
+    v3 = __error();
+    v4 = *v3;
+    v5 = sub_100021268(v3);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    if (v4 == 35)
     {
-      if (v5)
+      if (v6)
       {
         *buf = 0;
-        v6 = "Timed out waiting for snapshot deletion to finish.";
-        v7 = v4;
-        v8 = 2;
+        v7 = "Timed out waiting for snapshot deletion to finish.";
+        v8 = v5;
+        v9 = 2;
 LABEL_7:
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v6, buf, v8);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v7, buf, v9);
       }
     }
 
-    else if (v5)
+    else if (v6)
     {
       *buf = 67240192;
-      v11 = v3;
-      v6 = "Wait for snapshot deletion failed: %{public, errno}d";
-      v7 = v4;
-      v8 = 8;
+      v12 = v4;
+      v7 = "Wait for snapshot deletion failed: %{public, errno}d";
+      v8 = v5;
+      v9 = 8;
       goto LABEL_7;
     }
   }
@@ -434,52 +444,25 @@ LABEL_7:
 {
   demoVolumeDev = [(MSDHVolumeManager *)self demoVolumeDev];
 
-  if (!demoVolumeDev)
+  if ((demoVolumeDev || ([(MSDHVolumeManager *)self getAPFSBootContainerDeviceNode], v4 = objc_claimAutoreleasedReturnValue(), [(MSDHVolumeManager *)self createAPFSVolume:@"com.apple.mobilestoredemo.storage" withSizeInMB:64 inContainer:v4], v5 = objc_claimAutoreleasedReturnValue(), [(MSDHVolumeManager *)self setDemoVolumeDev:v5], v5, v4, [(MSDHVolumeManager *)self demoVolumeDev], v6 = objc_claimAutoreleasedReturnValue(), v6, v6)) && (v19[0] = NSFileOwnerAccountName, v19[1] = NSFileGroupOwnerAccountName, v20[0] = @"mobile", v20[1] = @"mobile", v19[2] = NSFilePosixPermissions, [NSNumber numberWithShort:448], v7 = objc_claimAutoreleasedReturnValue(), v20[2] = v7, [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:3], v6 = objc_claimAutoreleasedReturnValue(), v7, [(MSDHVolumeManager *)self demoVolumeDev], v8 = objc_claimAutoreleasedReturnValue(), v9 = [(MSDHVolumeManager *)self mountAPFSVolume:v8 atMountPoint:@"/private/var/mnt/com.apple.mobilestoredemo.storage" withAttributes:v6], v8, v9))
   {
-    getAPFSBootContainerDeviceNode = [(MSDHVolumeManager *)self getAPFSBootContainerDeviceNode];
-    v5 = [(MSDHVolumeManager *)self createAPFSVolume:@"com.apple.mobilestoredemo.storage" withSizeInMB:64 inContainer:getAPFSBootContainerDeviceNode];
-    [(MSDHVolumeManager *)self setDemoVolumeDev:v5];
-
-    demoVolumeDev2 = [(MSDHVolumeManager *)self demoVolumeDev];
-
-    if (!demoVolumeDev2)
+    v11 = sub_100021268(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_8;
-    }
-  }
-
-  v18[0] = NSFileOwnerAccountName;
-  v18[1] = NSFileGroupOwnerAccountName;
-  v19[0] = @"mobile";
-  v19[1] = @"mobile";
-  v18[2] = NSFilePosixPermissions;
-  v7 = [NSNumber numberWithShort:448];
-  v19[2] = v7;
-  demoVolumeDev2 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:3];
-
-  demoVolumeDev3 = [(MSDHVolumeManager *)self demoVolumeDev];
-  v9 = [(MSDHVolumeManager *)self mountAPFSVolume:demoVolumeDev3 atMountPoint:@"/private/var/mnt/com.apple.mobilestoredemo.storage" withAttributes:demoVolumeDev2];
-
-  if (v9)
-  {
-    v10 = sub_100021268();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      demoVolumeDev4 = [(MSDHVolumeManager *)self demoVolumeDev];
+      demoVolumeDev2 = [(MSDHVolumeManager *)self demoVolumeDev];
       sub_100013F48();
-      _os_log_impl(v11, v12, OS_LOG_TYPE_DEFAULT, v13, v14, 0xCu);
+      _os_log_impl(v12, v13, OS_LOG_TYPE_DEFAULT, v14, v15, 0xCu);
     }
 
-    v15 = 1;
+    v16 = 1;
   }
 
   else
   {
-LABEL_8:
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 - (BOOL)deleteDemoVolume
@@ -489,41 +472,40 @@ LABEL_8:
   if (demoVolumeDev)
   {
     demoVolumeDev2 = [(MSDHVolumeManager *)self demoVolumeDev];
-    v5 = [(MSDHVolumeManager *)self unmountAPFSVolume:demoVolumeDev2];
+    v6 = [(MSDHVolumeManager *)self unmountAPFSVolume:demoVolumeDev2];
 
-    if (!v5)
+    if (!v6)
     {
       return 0;
     }
 
     demoVolumeDev3 = [(MSDHVolumeManager *)self demoVolumeDev];
-    v7 = [(MSDHVolumeManager *)self deleteAPFSVolume:demoVolumeDev3];
+    v8 = [(MSDHVolumeManager *)self deleteAPFSVolume:demoVolumeDev3];
 
-    if (!v7)
+    if (!v8)
     {
       return 0;
     }
 
-    [(MSDHVolumeManager *)self setDemoVolumeDev:0];
-    v8 = sub_100021268();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100021268([(MSDHVolumeManager *)self setDemoVolumeDev:0]);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 0;
-      v9 = "Demo volume is unmounted and deleted.";
-      v10 = &v12;
+      v13 = 0;
+      v10 = "Demo volume is unmounted and deleted.";
+      v11 = &v13;
 LABEL_8:
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
     }
   }
 
   else
   {
-    v8 = sub_100021268();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100021268(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v9 = "Demo volume not found. Skip delete.";
-      v10 = buf;
+      v10 = "Demo volume not found. Skip delete.";
+      v11 = buf;
       goto LABEL_8;
     }
   }
@@ -554,7 +536,7 @@ LABEL_8:
       if (v14)
       {
         v18 = v14;
-        v19 = sub_100021268();
+        v19 = sub_100021268(v14);
         if (sub_100013F30(v19))
         {
           *buf = 67109120;
@@ -570,9 +552,9 @@ LABEL_8:
       {
         v15 = [v10 objectForKey:kAPFSVolumeFSIndexKey];
         v12 = v15;
-        if (!v15 || ([v15 intValue] & 0x80000000) != 0)
+        if (!v15 || (v15 = [v15 intValue], (v15 & 0x80000000) != 0))
         {
-          v17 = sub_100021268();
+          v17 = sub_100021268(v15);
           if (sub_100013F30(v17))
           {
             *buf = 0;
@@ -585,7 +567,7 @@ LABEL_8:
         else
         {
           v11 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%ss%d", [containerCopy UTF8String], objc_msgSend(v12, "intValue") + 1);
-          self = sub_100021268();
+          self = sub_100021268(v11);
           if (os_log_type_enabled(&self->super, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
@@ -616,31 +598,32 @@ LABEL_8:
   {
     [volumeCopy UTF8String];
     v5 = APFSVolumeDelete();
-    v6 = v5 == 0;
-    v7 = sub_100021268();
-    v8 = v7;
-    if (v5)
+    v6 = v5;
+    v7 = v5 == 0;
+    v8 = sub_100021268(v5);
+    v9 = v8;
+    if (v6)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_100013F48();
-        sub_100013F18(v14, v15, v16, v17, v18);
+        sub_100013F18(v15, v16, v17, v18, v19);
       }
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       sub_100013F48();
-      _os_log_impl(v9, v10, OS_LOG_TYPE_DEFAULT, v11, v12, 0xCu);
+      _os_log_impl(v10, v11, OS_LOG_TYPE_DEFAULT, v12, v13, 0xCu);
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)findAPFSVolumeMountPoint:(id)point
@@ -657,7 +640,7 @@ LABEL_22:
   v4 = getmntinfo_r_np(&v18, 2);
   if (v4 < 1 || (v5 = v18) == 0)
   {
-    v15 = sub_100021268();
+    v15 = sub_100021268(v4);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = __error();
@@ -698,7 +681,7 @@ LABEL_22:
   if (v11)
   {
     v12 = v11;
-    v13 = sub_100021268();
+    v13 = sub_100021268(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
@@ -727,8 +710,8 @@ LABEL_16:
   volumeCopy = volume;
   pointCopy = point;
   attributesCopy = attributes;
-  bzero(&v57, 0x144uLL);
-  bzero(&v51, 0x90uLL);
+  bzero(&v62, 0x144uLL);
+  bzero(&v56, 0x90uLL);
   v11 = 0;
   v12 = 0;
   v13 = 0;
@@ -741,12 +724,12 @@ LABEL_16:
 
   if (v14)
   {
-    v22 = sub_100021268();
-    if (sub_100013F30(v22))
+    v27 = sub_100021268(v15);
+    if (sub_100013F30(v27))
     {
       *buf = 0;
       sub_100013F08();
-      _os_log_error_impl(v38, v39, v40, v41, v42, 2u);
+      _os_log_error_impl(v43, v44, v45, v46, v47, 2u);
     }
 
     v12 = 0;
@@ -755,46 +738,49 @@ LABEL_16:
   }
 
   v13 = +[NSFileManager defaultManager];
-  v50 = 0;
-  v11 = [v13 createDirectoryAtPath:pointCopy withIntermediateDirectories:1 attributes:0 error:&v50];
-  v12 = v50;
+  v55 = 0;
+  v11 = [v13 createDirectoryAtPath:pointCopy withIntermediateDirectories:1 attributes:0 error:&v55];
+  v16 = v55;
+  v12 = v16;
   if ((v11 & 1) == 0)
   {
-    v23 = sub_100021268();
-    if (sub_100013F30(v23))
+    v28 = sub_100021268(v16);
+    if (sub_100013F30(v28))
     {
       localizedDescription = [v12 localizedDescription];
       *buf = 138543618;
-      v53 = pointCopy;
-      v54 = 2114;
-      v55 = localizedDescription;
+      v58 = pointCopy;
+      v59 = 2114;
+      v60 = localizedDescription;
       sub_100013F08();
-      _os_log_error_impl(v25, v26, v27, v28, v29, 0x16u);
+      _os_log_error_impl(v30, v31, v32, v33, v34, 0x16u);
     }
 
     goto LABEL_31;
   }
 
-  if (stat([pointCopy UTF8String], &v51))
+  v17 = stat([pointCopy UTF8String], &v56);
+  if (v17)
   {
-    v30 = sub_100021268();
-    if (sub_100013F30(v30))
+    v35 = sub_100021268(v17);
+    if (sub_100013F30(v35))
     {
-      v31 = *__error();
+      v36 = *__error();
       *buf = 67109120;
-      LODWORD(v53) = v31;
+      LODWORD(v58) = v36;
       sub_100013F08();
-      _os_log_error_impl(v32, v33, v34, v35, v36, 8u);
+      _os_log_error_impl(v37, v38, v39, v40, v41, 8u);
     }
 
     goto LABEL_31;
   }
 
   uTF8String = [volumeCopy UTF8String];
-  v58 = 1;
-  v59 = *&v51.st_uid;
-  v57 = 0x100000;
-  if (!mount("apfs", [pointCopy UTF8String], 0x100000, &uTF8String))
+  v63 = 1;
+  v64 = *&v56.st_uid;
+  v62 = 0x100000;
+  v18 = mount("apfs", [pointCopy UTF8String], 0x100000, &uTF8String);
+  if (!v18)
   {
 LABEL_16:
     if (!attributesCopy)
@@ -803,57 +789,58 @@ LABEL_16:
       goto LABEL_20;
     }
 
-    v49 = v12;
-    v11 = [v13 setAttributes:attributesCopy ofItemAtPath:pointCopy error:&v49];
-    v20 = v49;
+    v54 = v12;
+    v11 = [v13 setAttributes:attributesCopy ofItemAtPath:pointCopy error:&v54];
+    v24 = v54;
 
     if (v11)
     {
       LOBYTE(v11) = 1;
-      v12 = v20;
+      v12 = v24;
       goto LABEL_20;
     }
 
-    v37 = sub_100021268();
-    if (sub_100013F30(v37))
+    v42 = sub_100021268(v25);
+    if (sub_100013F30(v42))
     {
-      localizedDescription2 = [v20 localizedDescription];
+      localizedDescription2 = [v24 localizedDescription];
       *buf = 138543362;
-      v53 = localizedDescription2;
+      v58 = localizedDescription2;
       sub_100013F08();
-      _os_log_error_impl(v44, v45, v46, v47, v48, 0xCu);
+      _os_log_error_impl(v49, v50, v51, v52, v53, 0xCu);
     }
 
-    v12 = v20;
+    v12 = v24;
 LABEL_31:
 
     LOBYTE(v11) = 0;
     goto LABEL_20;
   }
 
-  v15 = 3;
+  v19 = 3;
   while (1)
   {
-    v16 = sub_100021268();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = sub_100021268(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v19 = *__error();
+      v23 = *__error();
       *buf = 138543618;
-      v53 = pointCopy;
-      v54 = 1024;
-      LODWORD(v55) = v19;
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to mount APFS volume on %{public}@ - %{errno}d", buf, 0x12u);
+      v58 = pointCopy;
+      v59 = 1024;
+      LODWORD(v60) = v23;
+      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to mount APFS volume on %{public}@ - %{errno}d", buf, 0x12u);
     }
 
-    if (*__error() != 2 || v15 < 2)
+    if (*__error() != 2 || v19 < 2)
     {
       break;
     }
 
-    --v15;
+    --v19;
     usleep(0x7A120u);
     uTF8String2 = [pointCopy UTF8String];
-    if (!mount("apfs", uTF8String2, v57, &uTF8String))
+    v18 = mount("apfs", uTF8String2, v62, &uTF8String);
+    if (!v18)
     {
       goto LABEL_16;
     }
@@ -870,9 +857,9 @@ LABEL_20:
   volumeCopy = volume;
   if (!volumeCopy)
   {
-    v10 = 0;
+    v12 = 0;
     v7 = 0;
-    v8 = 0;
+    v9 = 0;
     v6 = 0;
     goto LABEL_11;
   }
@@ -881,54 +868,56 @@ LABEL_20:
   v6 = v5 == 0;
   if (!v5)
   {
-    v11 = sub_100021268();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100021268(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Volume is not mounted.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Volume is not mounted.", buf, 2u);
     }
 
-    v10 = 0;
+    v12 = 0;
     v7 = 0;
     goto LABEL_9;
   }
 
   v7 = v5;
-  if (unmount([v5 UTF8String], 0x80000))
+  v8 = unmount([v5 UTF8String], 0x80000);
+  if (v8)
   {
-    v11 = sub_100021268();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100021268(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = __error();
-      v15 = strerror(*v14);
+      v16 = __error();
+      v17 = strerror(*v16);
       *buf = 136446210;
-      v18 = v15;
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to unmount APFS volume - %{public}s", buf, 0xCu);
+      v20 = v17;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to unmount APFS volume - %{public}s", buf, 0xCu);
     }
 
-    v10 = 0;
+    v12 = 0;
 LABEL_9:
-    v8 = 0;
+    v9 = 0;
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  v8 = +[NSFileManager defaultManager];
-  v16 = 0;
-  v9 = [v8 removeItemAtPath:v7 error:&v16];
-  v10 = v16;
-  if ((v9 & 1) == 0)
+  v9 = +[NSFileManager defaultManager];
+  v18 = 0;
+  v10 = [v9 removeItemAtPath:v7 error:&v18];
+  v11 = v18;
+  v12 = v11;
+  if ((v10 & 1) == 0)
   {
-    v11 = sub_100021268();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100021268(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v10 localizedDescription];
+      localizedDescription = [v12 localizedDescription];
       *buf = 138543618;
-      v18 = v7;
-      v19 = 2114;
-      v20 = localizedDescription;
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to remove mount point at '%{public}@' -  %{public}@", buf, 0x16u);
+      v20 = v7;
+      v21 = 2114;
+      v22 = localizedDescription;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to remove mount point at '%{public}@' -  %{public}@", buf, 0x16u);
     }
 
     goto LABEL_10;

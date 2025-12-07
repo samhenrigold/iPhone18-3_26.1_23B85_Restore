@@ -43,7 +43,7 @@ LABEL_3:
   if (images)
   {
 LABEL_4:
-    sub_1902188FC(0, &qword_1EAD44EB0);
+    sub_1902188FC(0, &qword_1EAD44EB0, 0x1E69DCAB8);
     images = sub_190D57180();
   }
 
@@ -53,7 +53,7 @@ LABEL_5:
   objectsCopy = objects;
   if (contactsCopy)
   {
-    sub_1902188FC(0, &qword_1EAD44E40);
+    sub_1902188FC(0, &qword_1EAD44E40, 0x1E695CD58);
     v23 = sub_190D57180();
   }
 
@@ -62,7 +62,7 @@ LABEL_5:
     v23 = 0;
   }
 
-  sub_1902188FC(0, &unk_1EAD45008);
+  sub_1902188FC(0, &unk_1EAD45008, off_1E72E4958);
   v24 = sub_190D57180();
 
   if (v16)
@@ -81,7 +81,7 @@ LABEL_5:
   *(&v29 + 1) = v25;
   sub_1909267E4(v30, title, v18, string, images, v23, imageCopy, v24, centering, v29);
   v27 = v26;
-  sub_19022123C(v16);
+  sub_19022123C(v16, v25);
 
   return v27;
 }

@@ -44,7 +44,7 @@
 
 - (id)_fallbackTaskForDevice:(id)device
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (!deviceCopy)
   {
@@ -52,25 +52,25 @@
   }
 
   v5 = deviceCopy;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   remoteFallbackTasks = [(HMDHAPAccessoryPrimaryResidentOperationTask *)self remoteFallbackTasks];
-  v7 = [remoteFallbackTasks countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [remoteFallbackTasks countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(remoteFallbackTasks);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -110,7 +110,7 @@
         }
       }
 
-      v7 = [remoteFallbackTasks countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [remoteFallbackTasks countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -121,8 +121,6 @@
   }
 
 LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -171,7 +169,7 @@ LABEL_18:
 
 uint64_t __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_responseWaitGroup___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) context];
   v5 = [v4 requestMessage];
@@ -179,35 +177,35 @@ uint64_t __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests
   v6 = [v3 accessory];
   if ([v5 isRemote] && objc_msgSend(v6, "hasBTLELink") && (objc_msgSend(v6, "hasIPLink") & 1) == 0)
   {
-    v10 = [v5 dictionaryForKey:*MEMORY[0x277CCE7A8]];
-    v11 = [v6 uuid];
-    v12 = [v11 UUIDString];
-    v13 = [v10 objectForKeyedSubscript:v12];
-    v14 = [v13 objectForKeyedSubscript:@"kAccessoryLinkQuality"];
+    v9 = [v5 dictionaryForKey:*MEMORY[0x277CCE7A8]];
+    v10 = [v6 uuid];
+    v11 = [v10 UUIDString];
+    v12 = [v9 objectForKeyedSubscript:v11];
+    v13 = [v12 objectForKeyedSubscript:@"kAccessoryLinkQuality"];
 
-    v15 = [v6 uuid];
-    v16 = [v15 UUIDString];
-    v17 = [v10 objectForKeyedSubscript:v16];
-    v18 = [v17 objectForKeyedSubscript:@"kAccessoryLastSeen"];
+    v14 = [v6 uuid];
+    v15 = [v14 UUIDString];
+    v16 = [v9 objectForKeyedSubscript:v15];
+    v17 = [v16 objectForKeyedSubscript:@"kAccessoryLastSeen"];
 
     v7 = 0;
-    if (v14 && v18)
+    if (v13 && v17)
     {
-      v37 = 0;
-      v19 = [v6 home];
-      v36 = 5;
-      v20 = [v6 identifier];
-      v35 = 0;
-      v33 = v19;
-      [v19 retrieveStateForTrackedAccessory:v20 stateNumber:0 isReachable:&v37 linkQuality:&v36 lastSeen:&v35];
-      v34 = v35;
+      v36 = 0;
+      v18 = [v6 home];
+      v35 = 5;
+      v19 = [v6 identifier];
+      v34 = 0;
+      v32 = v18;
+      [v18 retrieveStateForTrackedAccessory:v19 stateNumber:0 isReachable:&v36 linkQuality:&v35 lastSeen:&v34];
+      v33 = v34;
 
-      v21 = [MEMORY[0x277D0F8D0] sharedPreferences];
-      v22 = [v21 preferenceForKey:@"BTLEAccessoryLossDetectionTimeInSec"];
-      v23 = [v22 numberValue];
-      v24 = [v23 unsignedIntegerValue];
+      v20 = [MEMORY[0x277D0F8D0] sharedPreferences];
+      v21 = [v20 preferenceForKey:@"BTLEAccessoryLossDetectionTimeInSec"];
+      v22 = [v21 numberValue];
+      v23 = [v22 unsignedIntegerValue];
 
-      if ((v37 & 1) != 0 || (v25 = [v14 integerValue], v25 >= v36) || objc_msgSend(v18, "unsignedIntegerValue") >= v24)
+      if ((v36 & 1) != 0 || (v24 = [v13 integerValue], v24 >= v35) || objc_msgSend(v17, "unsignedIntegerValue") >= v23)
       {
 
         v7 = 0;
@@ -215,36 +213,36 @@ uint64_t __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests
 
       else
       {
-        v26 = objc_autoreleasePoolPush();
-        v27 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v25 = objc_autoreleasePoolPush();
+        v26 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v28 = HMFGetLogIdentifier();
-          [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v36];
-          v29 = v32 = v26;
-          v30 = [v5 shortDescription];
+          v27 = HMFGetLogIdentifier();
+          [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v35];
+          v28 = v31 = v25;
+          v29 = [v5 shortDescription];
           *buf = 138544898;
-          v39 = v28;
-          v40 = 2112;
-          v41 = v3;
-          v42 = 2112;
-          v43 = v14;
-          v44 = 2112;
-          v45 = v18;
-          v46 = 2112;
-          v47 = v29;
-          v48 = 2112;
-          v49 = v34;
-          v50 = 2112;
-          v51 = v30;
-          _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Skipping characteristic request: %@, accessory has a better link quality: %@(%@s) / %@(%@s) to the device originating message: %@", buf, 0x48u);
+          v38 = v27;
+          v39 = 2112;
+          v40 = v3;
+          v41 = 2112;
+          v42 = v13;
+          v43 = 2112;
+          v44 = v17;
+          v45 = 2112;
+          v46 = v28;
+          v47 = 2112;
+          v48 = v33;
+          v49 = 2112;
+          v50 = v29;
+          _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Skipping characteristic request: %@, accessory has a better link quality: %@(%@s) / %@(%@s) to the device originating message: %@", buf, 0x48u);
 
-          v26 = v32;
+          v25 = v31;
         }
 
-        objc_autoreleasePoolPop(v26);
-        v31 = [v6 workQueue];
-        [v33 retrieveHAPAccessoryForHMDAccessory:v6 linkType:2 forceRetrieve:0 queue:v31 completion:0];
+        objc_autoreleasePoolPop(v25);
+        v30 = [v6 workQueue];
+        [v32 retrieveHAPAccessoryForHMDAccessory:v6 linkType:2 forceRetrieve:0 queue:v30 completion:0];
 
         v7 = 1;
       }
@@ -256,13 +254,12 @@ uint64_t __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_responseWaitGroup___block_invoke_432(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -308,25 +305,23 @@ void __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_res
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for local task completion handler", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for local task completion handler", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     dispatch_group_leave(*(a1 + 32));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fanOutRemoteRequests:(id)requests residentToAccessoriesMap:(id)map responseWaitGroup:(id)group
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   mapCopy = map;
   groupCopy3 = group;
-  v30 = requestsCopy;
+  v29 = requestsCopy;
   if (([requestsCopy hmf_isEmpty] & 1) == 0)
   {
     group = groupCopy3;
@@ -336,50 +331,50 @@ void __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_res
     v12 = accessoryRequestMapFromRequests(requestsCopy, array, user);
 
     [(HMDHAPAccessoryTask *)self addCharacteristicResponses:array isRemote:0];
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     obj = mapCopy;
-    v34 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
-    if (v34)
+    v33 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+    if (v33)
     {
-      v32 = *v46;
+      v31 = *v45;
       do
       {
-        for (i = 0; i != v34; ++i)
+        for (i = 0; i != v33; ++i)
         {
-          if (*v46 != v32)
+          if (*v45 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v45 + 1) + 8 * i);
+          v14 = *(*(&v44 + 1) + 8 * i);
           v15 = [obj objectForKey:v14];
           array2 = [MEMORY[0x277CBEB18] array];
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
           v42 = 0u;
+          v43 = 0u;
+          v40 = 0u;
+          v41 = 0u;
           v17 = v15;
-          v18 = [v17 countByEnumeratingWithState:&v41 objects:v49 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v40 objects:v48 count:16];
           if (v18)
           {
-            v19 = *v42;
+            v19 = *v41;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v42 != v19)
+                if (*v41 != v19)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v21 = [v12 objectForKey:*(*(&v41 + 1) + 8 * j)];
+                v21 = [v12 objectForKey:*(*(&v40 + 1) + 8 * j)];
                 [array2 addObjectsFromArray:v21];
               }
 
-              v18 = [v17 countByEnumeratingWithState:&v41 objects:v49 count:16];
+              v18 = [v17 countByEnumeratingWithState:&v40 objects:v48 count:16];
             }
 
             while (v18);
@@ -389,16 +384,16 @@ void __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_res
           {
             dispatch_group_enter(group);
             objc_initWeak(&location, self);
-            v22 = [array2 copy];
+            v22 = objc_msgSend_copy(array2);
             device = [v14 device];
-            v36[0] = MEMORY[0x277D85DD0];
-            v36[1] = 3221225472;
-            v36[2] = __112__HMDHAPAccessoryPrimaryResidentOperationTask__fanOutRemoteRequests_residentToAccessoriesMap_responseWaitGroup___block_invoke;
-            v36[3] = &unk_2797353D0;
-            objc_copyWeak(&v39, &location);
+            v35[0] = MEMORY[0x277D85DD0];
+            v35[1] = 3221225472;
+            v35[2] = __112__HMDHAPAccessoryPrimaryResidentOperationTask__fanOutRemoteRequests_residentToAccessoriesMap_responseWaitGroup___block_invoke;
+            v35[3] = &unk_2797353D0;
+            objc_copyWeak(&v38, &location);
             groupCopy2 = group;
-            v38 = v14;
-            v24 = [(HMDHAPAccessoryPrimaryResidentOperationTask *)self _makeRemoteWithFallbackTaskWithRequests:v22 delegateDevice:device completion:v36];
+            v37 = v14;
+            v24 = [(HMDHAPAccessoryPrimaryResidentOperationTask *)self _makeRemoteWithFallbackTaskWithRequests:v22 delegateDevice:device completion:v35];
 
             remoteFallbackTasks = [(HMDHAPAccessoryPrimaryResidentOperationTask *)self remoteFallbackTasks];
             LODWORD(device) = remoteFallbackTasks == 0;
@@ -413,26 +408,24 @@ void __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_res
             [remoteFallbackTasks2 addObject:v24];
 
             [v24 execute];
-            objc_destroyWeak(&v39);
+            objc_destroyWeak(&v38);
             objc_destroyWeak(&location);
           }
         }
 
-        v34 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v33 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
 
     groupCopy3 = group;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HMDHAPAccessoryPrimaryResidentOperationTask__fanOutRemoteRequests_residentToAccessoriesMap_responseWaitGroup___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -467,16 +460,14 @@ void __112__HMDHAPAccessoryPrimaryResidentOperationTask__fanOutRemoteRequests_re
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for fallback task completion handler", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for fallback task completion handler", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     dispatch_group_leave(*(a1 + 32));
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)execute
@@ -580,29 +571,29 @@ uint64_t __54__HMDHAPAccessoryPrimaryResidentOperationTask_execute__block_invoke
 
 + (void)filterAccessoriesByDevicesFromMap:(id)map currentDeviceAccessories:(id)accessories otherDeviceAccessories:(id)deviceAccessories
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   accessoriesCopy = accessories;
   deviceAccessoriesCopy = deviceAccessories;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v10 = [mapCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [mapCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(mapCopy);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         v15 = [mapCopy objectForKey:v14];
         if ([v14 isCurrentDevice])
         {
@@ -617,13 +608,11 @@ uint64_t __54__HMDHAPAccessoryPrimaryResidentOperationTask_execute__block_invoke
         [v16 addObjectsFromArray:v15];
       }
 
-      v11 = [mapCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [mapCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

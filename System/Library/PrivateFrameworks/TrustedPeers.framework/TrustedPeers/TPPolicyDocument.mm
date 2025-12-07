@@ -52,7 +52,7 @@
 
 - (id)cloneWithVersionNumber:(unint64_t)number prependingCategoriesByView:(id)view prependingKeyViewMapping:(id)mapping prependingRedactions:(id)redactions
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   mappingCopy = mapping;
   redactionsCopy = redactions;
@@ -61,36 +61,36 @@
   v15 = [(TPPBPolicyDocument *)v13 initWithData:protobuf];
 
   [(TPPBPolicyDocument *)v15 setPolicyVersion:number];
-  v49 = viewCopy;
+  v48 = viewCopy;
   if (viewCopy)
   {
     selfCopy = self;
-    v47 = redactionsCopy;
-    v48 = mappingCopy;
+    v46 = redactionsCopy;
+    v47 = mappingCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
     allKeys = [viewCopy allKeys];
-    v18 = [allKeys countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v18 = [allKeys countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v51;
+      v20 = *v50;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v51 != v20)
+          if (*v50 != v20)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v22 = *(*(&v50 + 1) + 8 * i);
+          v22 = *(*(&v49 + 1) + 8 * i);
           v23 = objc_alloc_init(TPPBPolicyCategoriesByView);
           [(TPPBPolicyCategoriesByView *)v23 setView:v22];
-          v24 = [v49 objectForKeyedSubscript:v22];
+          v24 = [v48 objectForKeyedSubscript:v22];
           allObjects = [v24 allObjects];
           v26 = [allObjects mutableCopy];
           [(TPPBPolicyCategoriesByView *)v23 setCategories:v26];
@@ -98,7 +98,7 @@
           [array addObject:v23];
         }
 
-        v19 = [allKeys countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v19 = [allKeys countByEnumeratingWithState:&v49 objects:v53 count:16];
       }
 
       while (v19);
@@ -109,8 +109,8 @@
     v29 = [v28 mutableCopy];
     [(TPPBPolicyDocument *)v15 setCategoriesByViews:v29];
 
-    redactionsCopy = v47;
-    mappingCopy = v48;
+    redactionsCopy = v46;
+    mappingCopy = v47;
     self = selfCopy;
   }
 
@@ -139,8 +139,6 @@
   v41 = [TPPolicyDocument alloc];
   data2 = [(TPPBPolicyDocument *)v15 data];
   v43 = [(TPPolicyDocument *)v41 initWithHash:v40 data:data2];
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v43;
 }
@@ -185,7 +183,7 @@
 
 - (id)policyWithSecrets:(id)secrets decrypter:(id)decrypter error:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   secretsCopy = secrets;
   decrypterCopy = decrypter;
   v9 = [TPPBPolicyDocument alloc];
@@ -193,40 +191,40 @@
   protobuf = [(TPPolicyDocument *)self protobuf];
   v11 = [(TPPBPolicyDocument *)v9 initWithData:protobuf];
 
-  v52 = v11;
+  v51 = v11;
   redactions = [(TPPBPolicyDocument *)v11 redactions];
   v13 = [TPPolicyDocument redactionsFromPb:redactions];
 
-  v55 = objc_opt_new();
+  v54 = objc_opt_new();
   v14 = MEMORY[0x277CBEB58];
   allKeys = [v13 allKeys];
-  v54 = [v14 setWithArray:allKeys];
+  v53 = [v14 setWithArray:allKeys];
 
-  v57 = secretsCopy;
+  v56 = secretsCopy;
   allKeys2 = [secretsCopy allKeys];
   v17 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   obj = v17;
-  v18 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v18 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v59;
+    v20 = *v58;
     while (2)
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v59 != v20)
+        if (*v58 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v58 + 1) + 8 * i);
-        v23 = [v57 objectForKeyedSubscript:v22];
+        v22 = *(*(&v57 + 1) + 8 * i);
+        v23 = [v56 objectForKeyedSubscript:v22];
         v24 = [v13 objectForKeyedSubscript:v22];
         if (v24)
         {
@@ -249,12 +247,12 @@
           }
 
           v29 = v28;
-          [v54 removeObject:v22];
-          [v55 mergeFrom:v29];
+          [v53 removeObject:v22];
+          [v54 mergeFrom:v29];
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v19 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
       if (v19)
       {
         continue;
@@ -264,34 +262,32 @@
     }
   }
 
-  [v55 mergeFrom:v52];
-  modelToCategorys = [v55 modelToCategorys];
+  [v54 mergeFrom:v51];
+  modelToCategorys = [v54 modelToCategorys];
   v23 = [TPPolicyDocument modelToCategoryFromPb:modelToCategorys];
-  categoriesByViews = [v55 categoriesByViews];
+  categoriesByViews = [v54 categoriesByViews];
   v27 = [TPPolicyDocument categoriesByViewFromPb:categoriesByViews];
-  introducersByCategorys = [v55 introducersByCategorys];
-  v49 = [TPPolicyDocument introducersByCategoryFromPb:introducersByCategorys];
-  keyViewMappings = [v55 keyViewMappings];
-  v44 = [v54 count] != 0;
+  introducersByCategorys = [v54 introducersByCategorys];
+  v48 = [TPPolicyDocument introducersByCategoryFromPb:introducersByCategorys];
+  keyViewMappings = [v54 keyViewMappings];
+  v43 = [v53 count] != 0;
   v30 = MEMORY[0x277CBEB98];
-  userControllableViews = [v55 userControllableViews];
-  v42 = [v30 setWithArray:userControllableViews];
+  userControllableViews = [v54 userControllableViews];
+  v41 = [v30 setWithArray:userControllableViews];
   v31 = MEMORY[0x277CBEB98];
-  piggybackViews = [v55 piggybackViews];
-  v41 = [v31 setWithArray:piggybackViews];
+  piggybackViews = [v54 piggybackViews];
+  v40 = [v31 setWithArray:piggybackViews];
   v32 = MEMORY[0x277CBEB98];
-  priorityViews = [v55 priorityViews];
-  v40 = [v32 setWithArray:priorityViews];
+  priorityViews = [v54 priorityViews];
+  v39 = [v32 setWithArray:priorityViews];
   v33 = MEMORY[0x277CBEB98];
-  inheritedExcludedViews = [v55 inheritedExcludedViews];
+  inheritedExcludedViews = [v54 inheritedExcludedViews];
   v35 = [v33 setWithArray:inheritedExcludedViews];
   version = [(TPPolicyDocument *)selfCopy version];
-  v37 = [TPPolicy policyWithModelToCategory:v23 categoriesByView:v27 introducersByCategory:v49 keyViewMapping:keyViewMappings unknownRedactions:v44 userControllableViewList:v42 piggybackViews:v41 priorityViews:v40 inheritedExcludedViews:v35 version:version];
+  v37 = [TPPolicy policyWithModelToCategory:v23 categoriesByView:v27 introducersByCategory:v48 keyViewMapping:keyViewMappings unknownRedactions:v43 userControllableViewList:v41 piggybackViews:v40 priorityViews:v39 inheritedExcludedViews:v35 version:version];
 
 LABEL_15:
 LABEL_16:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -481,73 +477,71 @@ LABEL_16:
 
 + (void)addKeyViewMapping:(id)mapping toPB:(id)b
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   bCopy = b;
   if (mappingCopy)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v7 = [mappingCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v7 = [mappingCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(mappingCopy);
           }
 
-          [bCopy addKeyViewMapping:*(*(&v12 + 1) + 8 * v10++)];
+          [bCopy addKeyViewMapping:*(*(&v11 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [mappingCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [mappingCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addIntroducersByCategory:(id)category toPB:(id)b
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   bCopy = b;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allKeys = [categoryCopy allKeys];
   v8 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   obj = v8;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       v12 = 0;
       do
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v12);
+        v13 = *(*(&v19 + 1) + 8 * v12);
         v14 = objc_alloc_init(TPPBPolicyIntroducersByCategory);
         [(TPPBPolicyIntroducersByCategory *)v14 setCategory:v13];
         v15 = [categoryCopy objectForKeyedSubscript:v13];
@@ -560,44 +554,42 @@ LABEL_16:
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addCategoriesByView:(id)view toPB:(id)b
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   bCopy = b;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allKeys = [viewCopy allKeys];
   v8 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   obj = v8;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       v12 = 0;
       do
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v12);
+        v13 = *(*(&v19 + 1) + 8 * v12);
         v14 = objc_alloc_init(TPPBPolicyCategoriesByView);
         [(TPPBPolicyCategoriesByView *)v14 setView:v13];
         v15 = [viewCopy objectForKeyedSubscript:v13];
@@ -610,45 +602,43 @@ LABEL_16:
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addModelToCategory:(id)category toPB:(id)b
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   bCopy = b;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"prefix" ascending:{1, 0}];
-  v23 = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v22 = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
   v9 = [categoryCopy sortedArrayUsingDescriptors:v8];
 
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * v13);
+        v14 = *(*(&v18 + 1) + 8 * v13);
         v15 = objc_alloc_init(TPPBPolicyModelToCategory);
         prefix = [v14 prefix];
         [(TPPBPolicyModelToCategory *)v15 setPrefix:prefix];
@@ -661,81 +651,77 @@ LABEL_16:
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)redactionsFromPb:(id)pb
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   pbCopy = pb;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(pbCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = pbCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         ciphertext = [v10 ciphertext];
         name = [v10 name];
         [v4 setObject:ciphertext forKeyedSubscript:name];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)introducersByCategoryFromPb:(id)pb
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pbCopy = pb;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(pbCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = pbCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         category = [v10 category];
         v12 = [v4 objectForKeyedSubscript:category];
         v13 = [v12 mutableCopy];
@@ -760,42 +746,40 @@ LABEL_16:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)categoriesByViewFromPb:(id)pb
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pbCopy = pb;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(pbCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = pbCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         view = [v10 view];
         v12 = [v4 objectForKeyedSubscript:view];
         v13 = [v12 mutableCopy];
@@ -820,55 +804,51 @@ LABEL_16:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)modelToCategoryFromPb:(id)pb
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pbCopy = pb;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(pbCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = pbCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         prefix = [v10 prefix];
         category = [v10 category];
         v13 = [TPCategoryRule ruleWithPrefix:prefix category:category];
         [v4 addObject:v13];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

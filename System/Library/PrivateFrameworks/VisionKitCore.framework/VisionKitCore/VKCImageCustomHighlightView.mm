@@ -120,7 +120,7 @@
   highlightColorLayer = [(VKCImageCustomHighlightView *)self highlightColorLayer];
   highlightShadowLayer = [(VKCImageCustomHighlightView *)self highlightShadowLayer];
   memset(&v27, 0, sizeof(v27));
-  [(VKCImageCustomHighlightView *)self transformForHighlightLayerInCurrentBounds];
+  objc_msgSend_transformForHighlightLayerInCurrentBounds(self);
   [(VKCImageCustomHighlightView *)self currentContentsRectInLayerCoordinates];
   v7 = v6;
   v9 = v8;

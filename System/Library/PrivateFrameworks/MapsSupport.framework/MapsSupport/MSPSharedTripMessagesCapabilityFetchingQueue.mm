@@ -30,12 +30,12 @@
 
 - (void)_processPendingHandles
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = MSPSharedTripMessagesCapabilityFetchingQueue;
-  [(MSPSharedTripCapabilityFetchingQueue *)&v17 _processPendingHandles];
+  v21 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = MSPSharedTripMessagesCapabilityFetchingQueue;
+  [(MSPSharedTripCapabilityFetchingQueue *)&v16 _processPendingHandles];
   _pendingHandles = [(MSPSharedTripCapabilityFetchingQueue *)self _pendingHandles];
-  v4 = MSPGetSharedTripCapabilityFetchingLog();
+  v4 = MSPGetSharedTripCapabilityFetchingLog(_pendingHandles);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     if (self)
@@ -52,9 +52,9 @@
 
     v8 = [_pendingHandles count];
     *buf = 138543618;
-    v19 = selfCopy;
-    v20 = 2048;
-    v21 = v8;
+    v18 = selfCopy;
+    v19 = 2048;
+    v20 = v8;
     _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_INFO, "[%{public}@] requesting %lu Text Message handles from IDS", buf, 0x16u);
   }
 
@@ -96,13 +96,11 @@
     [(MSPSharedTripCapabilityFetchingQueue *)self _markHandlesInflight:_pendingHandles];
     [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _fetchTextMessageReachability:_pendingHandles];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchTextMessageReachability:(id)reachability
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   reachabilityCopy = reachability;
   dispatch_assert_queue_V2(self->super._workQueue);
   if ([reachabilityCopy count])
@@ -115,32 +113,32 @@
       [v6 addObject:*MEMORY[0x277D1A618]];
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v25 = reachabilityCopy;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v24 = reachabilityCopy;
     obj = reachabilityCopy;
-    v7 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v7 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v32;
-      v10 = v29;
+      v9 = *v31;
+      v10 = v28;
       v11 = &unk_279866300;
       do
       {
         v12 = 0;
-        v26 = v8;
+        v25 = v8;
         do
         {
-          if (*v32 != v9)
+          if (*v31 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v31 + 1) + 8 * v12);
-          v14 = MSPGetSharedTripCapabilityFetchingLog();
+          v13 = *(*(&v30 + 1) + 8 * v12);
+          v14 = MSPGetSharedTripCapabilityFetchingLog(v7);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             v15 = MEMORY[0x277CCACA8];
@@ -158,49 +156,45 @@
             self = selfCopy2;
             v9 = v18;
             v10 = v17;
-            v8 = v26;
+            v8 = v25;
             *buf = 138543619;
-            v36 = selfCopy;
-            v37 = 2113;
-            v38 = v13;
+            v35 = selfCopy;
+            v36 = 2113;
+            v37 = v13;
             _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_INFO, "[%{public}@] Will fetch best text service for %{private}@", buf, 0x16u);
           }
 
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
-          v29[0] = __78__MSPSharedTripMessagesCapabilityFetchingQueue__fetchTextMessageReachability___block_invoke;
-          v29[1] = v11;
-          v29[2] = v13;
-          v29[3] = self;
-          v30 = v6;
+          v28[0] = __78__MSPSharedTripMessagesCapabilityFetchingQueue__fetchTextMessageReachability___block_invoke;
+          v28[1] = v11;
+          v28[2] = v13;
+          v28[3] = self;
+          v29 = v6;
           dispatch_async(MEMORY[0x277D85CD0], block);
 
           ++v12;
         }
 
         while (v8 != v12);
-        v8 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v7 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v8 = v7;
       }
 
-      while (v8);
+      while (v7);
     }
 
-    reachabilityCopy = v25;
+    reachabilityCopy = v24;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MSPSharedTripMessagesCapabilityFetchingQueue__fetchTextMessageReachability___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = *(a1 + 32);
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-  v4 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
-  v5 = *(a1 + 48);
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *(a1 + 32);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3 = *(a1 + 48);
   IMSPICalculateSendingServiceByDestinationsAndChatGUID();
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MSPSharedTripMessagesCapabilityFetchingQueue__fetchTextMessageReachability___block_invoke_2(void *a1, void *a2, void *a3)
@@ -239,108 +233,108 @@ void __78__MSPSharedTripMessagesCapabilityFetchingQueue__fetchTextMessageReachab
 
 - (void)_processFetchedServiceName:(id)name forHandle:(id)handle permittedServiceNames:(id)names
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   handleCopy = handle;
   namesCopy = names;
   dispatch_assert_queue_V2(self->super._workQueue);
-  if ([(MSPCountedOrderedSet *)self->super._requestedHandles containsObject:handleCopy])
+  v11 = [(MSPCountedOrderedSet *)self->super._requestedHandles containsObject:handleCopy];
+  if (v11)
   {
-    v11 = [MEMORY[0x277CBEB98] setWithObject:handleCopy];
-    [(MSPSharedTripCapabilityFetchingQueue *)self _updateRequestedHandlesWithAdditions:0 subtractions:v11];
+    v12 = [MEMORY[0x277CBEB98] setWithObject:handleCopy];
+    [(MSPSharedTripCapabilityFetchingQueue *)self _updateRequestedHandlesWithAdditions:0 subtractions:v12];
 
-    v12 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = MSPGetSharedTripCapabilityFetchingLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v13 = MEMORY[0x277CCACA8];
+      v15 = MEMORY[0x277CCACA8];
       selfCopy = self;
-      selfCopy = [v13 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+      selfCopy = [v15 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
       *buf = 138543875;
-      v33 = selfCopy;
-      v34 = 2114;
-      v35 = nameCopy;
-      v36 = 2113;
-      v37 = handleCopy;
-      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_INFO, "[%{public}@] Fetched service %{public}@ for %{private}@", buf, 0x20u);
+      v35 = selfCopy;
+      v36 = 2114;
+      v37 = nameCopy;
+      v38 = 2113;
+      v39 = handleCopy;
+      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_INFO, "[%{public}@] Fetched service %{public}@ for %{private}@", buf, 0x20u);
     }
 
-    if ([namesCopy containsObject:nameCopy])
+    v18 = [namesCopy containsObject:nameCopy];
+    if (v18)
     {
       if (nameCopy)
       {
-        v16 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v16 = 2;
+        v19 = 2;
       }
 
       if (([nameCopy isEqualToString:*MEMORY[0x277D1A620]] & 1) != 0 || objc_msgSend(nameCopy, "isEqualToString:", *MEMORY[0x277D1A628]))
       {
-        v17 = 3;
+        v20 = 3;
       }
 
       else
       {
-        v17 = 2;
+        v20 = 2;
       }
 
-      v26 = [MSPSharedTripFetchedCapabilityStatus alloc];
-      v27 = v17;
-      v28 = nameCopy;
-      v29 = v16;
+      v29 = [MSPSharedTripFetchedCapabilityStatus alloc];
+      v30 = v20;
+      v31 = nameCopy;
+      v32 = v19;
     }
 
     else
     {
-      v22 = MSPGetSharedTripCapabilityFetchingLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v25 = MSPGetSharedTripCapabilityFetchingLog(v18);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        v23 = MEMORY[0x277CCACA8];
+        v26 = MEMORY[0x277CCACA8];
         selfCopy2 = self;
-        selfCopy2 = [v23 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+        selfCopy2 = [v26 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
         *buf = 138543618;
-        v33 = selfCopy2;
-        v34 = 2114;
-        v35 = nameCopy;
-        _os_log_impl(&dword_25813A000, v22, OS_LOG_TYPE_INFO, "[%{public}@] - %{public}@ not permitted for Share ETA", buf, 0x16u);
+        v35 = selfCopy2;
+        v36 = 2114;
+        v37 = nameCopy;
+        _os_log_impl(&dword_25813A000, v25, OS_LOG_TYPE_INFO, "[%{public}@] - %{public}@ not permitted for Share ETA", buf, 0x16u);
       }
 
-      v26 = [MSPSharedTripFetchedCapabilityStatus alloc];
-      v27 = 2;
-      v28 = 0;
-      v29 = 2;
+      v29 = [MSPSharedTripFetchedCapabilityStatus alloc];
+      v30 = 2;
+      v31 = 0;
+      v32 = 2;
     }
 
-    v30 = [(MSPSharedTripFetchedCapabilityStatus *)v26 initWithCapabilityType:v27 serviceName:v28 status:v29];
-    [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _processFetchedStatus:v30 forHandle:handleCopy];
+    v33 = [(MSPSharedTripFetchedCapabilityStatus *)v29 initWithCapabilityType:v30 serviceName:v31 status:v32];
+    [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _processFetchedStatus:v33 forHandle:handleCopy];
   }
 
   else
   {
-    v18 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v21 = MSPGetSharedTripCapabilityFetchingLog(v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v19 = MEMORY[0x277CCACA8];
+      v22 = MEMORY[0x277CCACA8];
       selfCopy3 = self;
-      selfCopy3 = [v19 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
+      selfCopy3 = [v22 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
 
       *buf = 138543875;
-      v33 = selfCopy3;
-      v34 = 2114;
-      v35 = nameCopy;
-      v36 = 2113;
-      v37 = handleCopy;
-      _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_INFO, "[%{public}@] Fetched service %{public}@ for %{private}@, but it was no longer in fetch queue, dropping", buf, 0x20u);
+      v35 = selfCopy3;
+      v36 = 2114;
+      v37 = nameCopy;
+      v38 = 2113;
+      v39 = handleCopy;
+      _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_INFO, "[%{public}@] Fetched service %{public}@ for %{private}@, but it was no longer in fetch queue, dropping", buf, 0x20u);
     }
 
     [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _resetIfNeeded];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processFetchedStatus:(id)status forHandle:(id)handle
@@ -351,12 +345,12 @@ void __78__MSPSharedTripMessagesCapabilityFetchingQueue__fetchTextMessageReachab
   dispatch_assert_queue_V2(self->super._workQueue);
   if (handleCopy)
   {
-    v8 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = MSPGetSharedTripCapabilityFetchingLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = MEMORY[0x277CCACA8];
+      v10 = MEMORY[0x277CCACA8];
       selfCopy = self;
-      selfCopy = [v9 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+      selfCopy = [v10 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
       *buf = 138543875;
       v14 = selfCopy;
@@ -364,14 +358,12 @@ void __78__MSPSharedTripMessagesCapabilityFetchingQueue__fetchTextMessageReachab
       v16 = handleCopy;
       v17 = 2114;
       v18 = statusCopy;
-      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "[%{public}@] Fetched %{private}@: %{public}@@", buf, 0x20u);
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "[%{public}@] Fetched %{private}@: %{public}@@", buf, 0x20u);
     }
 
     [(NSMutableDictionary *)self->_fetchedStatusesByHandle setObject:statusCopy forKeyedSubscript:handleCopy];
     [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _notifyDelegateIfNeeded];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyDelegateIfNeeded
@@ -381,30 +373,30 @@ void __78__MSPSharedTripMessagesCapabilityFetchingQueue__fetchTextMessageReachab
   v3 = [(NSMutableDictionary *)self->_fetchedStatusesByHandle count];
   if (!v3)
   {
-    goto LABEL_17;
+    return;
   }
 
   v4 = v3;
   if (![(NSMutableOrderedSet *)self->super._inflightHandles count])
   {
-    v13 = MSPGetSharedTripCapabilityFetchingLog();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = MSPGetSharedTripCapabilityFetchingLog(0);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       goto LABEL_16;
     }
 
-    v14 = MEMORY[0x277CCACA8];
+    v15 = MEMORY[0x277CCACA8];
     selfCopy = self;
-    selfCopy = [v14 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
+    selfCopy = [v15 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
     *buf = 138543362;
     v27 = selfCopy;
-    v17 = "[%{public}@] Will notify delegate, no more handles in-flight";
+    v18 = "[%{public}@] Will notify delegate, no more handles in-flight";
 LABEL_12:
-    v20 = v13;
-    v21 = 12;
+    v21 = v14;
+    v22 = 12;
 LABEL_15:
-    _os_log_impl(&dword_25813A000, v20, OS_LOG_TYPE_INFO, v17, buf, v21);
+    _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_INFO, v18, buf, v22);
 
     goto LABEL_16;
   }
@@ -412,79 +404,75 @@ LABEL_15:
   batchDelayTimer = self->_batchDelayTimer;
   if (!batchDelayTimer)
   {
-    v13 = MSPGetSharedTripCapabilityFetchingLog();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = MSPGetSharedTripCapabilityFetchingLog(0);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       goto LABEL_16;
     }
 
-    v18 = MEMORY[0x277CCACA8];
+    v19 = MEMORY[0x277CCACA8];
     selfCopy2 = self;
-    selfCopy = [v18 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
+    selfCopy = [v19 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy2];
 
     *buf = 138543362;
     v27 = selfCopy;
-    v17 = "[%{public}@] Will notify delegate, no delay timer";
+    v18 = "[%{public}@] Will notify delegate, no delay timer";
     goto LABEL_12;
   }
 
   if (v4 >= self->_batchSize)
   {
-    v13 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = MSPGetSharedTripCapabilityFetchingLog(batchDelayTimer);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v22 = MEMORY[0x277CCACA8];
+      v23 = MEMORY[0x277CCACA8];
       selfCopy3 = self;
-      selfCopy = [v22 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
+      selfCopy = [v23 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy3];
 
       batchSize = self->_batchSize;
       *buf = 138543618;
       v27 = selfCopy;
       v28 = 2048;
       v29 = batchSize;
-      v17 = "[%{public}@] Will notify delegate, batch reached %lu items";
-      v20 = v13;
-      v21 = 22;
+      v18 = "[%{public}@] Will notify delegate, batch reached %lu items";
+      v21 = v14;
+      v22 = 22;
       goto LABEL_15;
     }
 
 LABEL_16:
 
     [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _notifyDelegateNow];
-    goto LABEL_17;
+    return;
   }
 
   fireDate = [(GCDTimer *)batchDelayTimer fireDate];
   [fireDate timeIntervalSinceNow];
   v8 = v7;
 
-  v9 = MSPGetSharedTripCapabilityFetchingLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = MSPGetSharedTripCapabilityFetchingLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = MEMORY[0x277CCACA8];
+    v11 = MEMORY[0x277CCACA8];
     selfCopy4 = self;
-    selfCopy4 = [v10 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy4];
+    selfCopy4 = [v11 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy4];
 
     *buf = 138543618;
     v27 = selfCopy4;
     v28 = 2048;
     v29 = v8;
-    _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_INFO, "[%{public}@] Cannot notify delegate, %lfs remaining until permitted", buf, 0x16u);
+    _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_INFO, "[%{public}@] Cannot notify delegate, %lfs remaining until permitted", buf, 0x16u);
   }
-
-LABEL_17:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyDelegateNow
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->super._workQueue);
   v3 = [(NSMutableDictionary *)self->_fetchedStatusesByHandle copy];
   if ([v3 count])
   {
-    [(NSMutableDictionary *)self->_fetchedStatusesByHandle removeAllObjects];
-    v4 = MSPGetSharedTripCapabilityFetchingLog();
+    v4 = MSPGetSharedTripCapabilityFetchingLog([(NSMutableDictionary *)self->_fetchedStatusesByHandle removeAllObjects]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = MEMORY[0x277CCACA8];
@@ -492,9 +480,9 @@ LABEL_17:
       selfCopy = [v5 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
       *buf = 138543619;
-      v13 = selfCopy;
-      v14 = 2113;
-      v15 = v3;
+      v12 = selfCopy;
+      v13 = 2113;
+      v14 = v3;
       _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_INFO, "[%{public}@] Notifying: %{private}@", buf, 0x16u);
     }
 
@@ -504,14 +492,12 @@ LABEL_17:
     block[2] = __66__MSPSharedTripMessagesCapabilityFetchingQueue__notifyDelegateNow__block_invoke;
     block[3] = &unk_279865EF8;
     block[4] = self;
-    v11 = v3;
+    v10 = v3;
     dispatch_async(callbackQueue, block);
     [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _scheduleBatchDelayTimerWithInterval:self->_batchDelayInterval];
   }
 
   [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _resetIfNeeded];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66__MSPSharedTripMessagesCapabilityFetchingQueue__notifyDelegateNow__block_invoke(uint64_t a1)
@@ -522,7 +508,7 @@ void __66__MSPSharedTripMessagesCapabilityFetchingQueue__notifyDelegateNow__bloc
 
 - (void)_scheduleBatchDelayTimerWithInterval:(double)interval
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->super._workQueue);
   batchDelayTimer = self->_batchDelayTimer;
   if (batchDelayTimer)
@@ -534,7 +520,7 @@ void __66__MSPSharedTripMessagesCapabilityFetchingQueue__notifyDelegateNow__bloc
 
   if (interval >= 0.0)
   {
-    v7 = MSPGetSharedTripCapabilityFetchingLog();
+    v7 = MSPGetSharedTripCapabilityFetchingLog(batchDelayTimer);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = MEMORY[0x277CCACA8];
@@ -542,88 +528,84 @@ void __66__MSPSharedTripMessagesCapabilityFetchingQueue__notifyDelegateNow__bloc
       selfCopy = [v8 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
       *buf = 138543618;
-      v18 = selfCopy;
-      v19 = 2048;
+      v17 = selfCopy;
+      v18 = 2048;
       intervalCopy = interval;
       _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_INFO, "[%{public}@] Scheduling batch delay for %.3lfs", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     workQueue = self->super._workQueue;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __85__MSPSharedTripMessagesCapabilityFetchingQueue__scheduleBatchDelayTimerWithInterval___block_invoke;
-    v15[3] = &unk_279866328;
-    objc_copyWeak(&v16, buf);
-    v15[4] = self;
-    v12 = [GCDTimer scheduledTimerWithTimeInterval:workQueue queue:0 repeating:v15 block:interval];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __85__MSPSharedTripMessagesCapabilityFetchingQueue__scheduleBatchDelayTimerWithInterval___block_invoke;
+    v14[3] = &unk_279866328;
+    objc_copyWeak(&v15, buf);
+    v14[4] = self;
+    v12 = [GCDTimer scheduledTimerWithTimeInterval:workQueue queue:0 repeating:v14 block:interval];
     v13 = self->_batchDelayTimer;
     self->_batchDelayTimer = v12;
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __85__MSPSharedTripMessagesCapabilityFetchingQueue__scheduleBatchDelayTimerWithInterval___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = MSPGetSharedTripCapabilityFetchingLog(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 32);
-      if (v4)
+      v5 = *(a1 + 32);
+      if (v5)
       {
-        v5 = MEMORY[0x277CCACA8];
-        v6 = v4;
-        v7 = [v5 stringWithFormat:@"%@<%p>", objc_opt_class(), v6];
+        v6 = MEMORY[0x277CCACA8];
+        v7 = v5;
+        v8 = [v6 stringWithFormat:@"%@<%p>", objc_opt_class(), v7];
       }
 
       else
       {
-        v7 = @"<nil>";
+        v8 = @"<nil>";
       }
 
       *buf = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_INFO, "[%{public}@] Batch delay timer fired", buf, 0xCu);
+      v12 = v8;
+      _os_log_impl(&dword_25813A000, v4, OS_LOG_TYPE_INFO, "[%{public}@] Batch delay timer fired", buf, 0xCu);
     }
 
-    v10 = WeakRetained[9];
-    WeakRetained[9] = 0;
+    v10 = v3[9];
+    v3[9] = 0;
 
-    [WeakRetained _notifyDelegateIfNeeded];
+    [v3 _notifyDelegateIfNeeded];
   }
 
   else
   {
-    v8 = *MEMORY[0x277D0E798];
     v9 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[MSPSharedTripMessagesCapabilityFetchingQueue _scheduleBatchDelayTimerWithInterval:]_block_invoke";
-      v14 = 1024;
-      v15 = 224;
+      v12 = "[MSPSharedTripMessagesCapabilityFetchingQueue _scheduleBatchDelayTimerWithInterval:]_block_invoke";
+      v13 = 1024;
+      v14 = 224;
       _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetIfNeeded
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->super._workQueue);
   if (![(NSMutableOrderedSet *)self->super._inflightHandles count]&& (self->_batchSize || self->_batchDelayTimer))
   {
-    v3 = MSPGetSharedTripCapabilityFetchingLog();
+    v3 = MSPGetSharedTripCapabilityFetchingLog(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v4 = MEMORY[0x277CCACA8];
@@ -631,14 +613,12 @@ void __85__MSPSharedTripMessagesCapabilityFetchingQueue__scheduleBatchDelayTimer
       selfCopy = [v4 stringWithFormat:@"%@<%p>", objc_opt_class(), selfCopy];
 
       *buf = 138543362;
-      v9 = selfCopy;
+      v8 = selfCopy;
       _os_log_impl(&dword_25813A000, v3, OS_LOG_TYPE_DEBUG, "[%{public}@] No more in-flight handles, resetting flags and clearing batch delay timer", buf, 0xCu);
     }
 
     [(MSPSharedTripMessagesCapabilityFetchingQueue *)self _resetAfterLastHandleFetched];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetAfterLastHandleFetched

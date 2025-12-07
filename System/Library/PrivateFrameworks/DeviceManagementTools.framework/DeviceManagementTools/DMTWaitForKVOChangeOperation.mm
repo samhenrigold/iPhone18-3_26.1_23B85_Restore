@@ -156,7 +156,7 @@ LABEL_14:
 
 - (void)compareExpectedValueWithChangedValue:(id)value
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (!valueCopy)
   {
@@ -175,7 +175,7 @@ LABEL_14:
 
     if ((v7 & 1) == 0)
     {
-      v14[0] = @"DMTWaitForKVOChangeOperationUnexpectedValue";
+      v13[0] = @"DMTWaitForKVOChangeOperationUnexpectedValue";
       null = [MEMORY[0x277CBEB68] null];
       goto LABEL_9;
     }
@@ -190,11 +190,11 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v14[0] = @"DMTWaitForKVOChangeOperationUnexpectedValue";
+  v13[0] = @"DMTWaitForKVOChangeOperationUnexpectedValue";
   null = valueCopy;
 LABEL_9:
-  v14[1] = @"kDMTWaitForKVOChangeOperationExpectedValue";
-  v15[0] = null;
+  v13[1] = @"kDMTWaitForKVOChangeOperationExpectedValue";
+  v14[0] = null;
   expectedValue3 = [(DMTWaitForKVOChangeOperation *)self expectedValue];
   null2 = expectedValue3;
   if (!expectedValue3)
@@ -202,8 +202,8 @@ LABEL_9:
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[1] = null2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = null2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
   if (!expectedValue3)
   {
   }
@@ -216,7 +216,6 @@ LABEL_9:
   [(DMTWaitForKVOChangeOperation *)self endOperationAndTearDownWithError:v12 resultObject:0];
 
 LABEL_16:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endOperationAndTearDownWithError:(id)error resultObject:(id)object

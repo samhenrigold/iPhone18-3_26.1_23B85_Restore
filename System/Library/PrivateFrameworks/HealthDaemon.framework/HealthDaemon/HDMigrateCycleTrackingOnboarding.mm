@@ -39,16 +39,15 @@ uint64_t ___HDMigrateCycleTrackingOnboarding_block_invoke_3(uint64_t a1, sqlite3
 
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 3, 1);
-  v5 = *(*(*(a1 + 32) + 8) + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = [MEMORY[0x277CBEAA8] date];
+  v5 = [MEMORY[0x277CBEAA8] date];
   HDSQLiteBindFoundationValueToStatement();
 
   sqlite3_bind_int(a2, 6, 0);
   sqlite3_bind_int64(a2, 7, 0);
-  v7 = *(a1 + 40);
+  v6 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 8, v7);
+  return sqlite3_bind_int64(a2, 8, v6);
 }
 
 @end

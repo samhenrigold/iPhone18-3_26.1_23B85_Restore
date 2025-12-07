@@ -385,7 +385,7 @@
           v45 = self->_layoutInfo;
           if (v45)
           {
-            [(_UIVectorTextLayoutInfo *)v45 coordinateAdjustment];
+            objc_msgSend_coordinateAdjustment(v45);
           }
 
           else
@@ -415,7 +415,7 @@
           v52 = self->_layoutInfo;
           if (v52)
           {
-            [(_UIVectorTextLayoutInfo *)v52 coordinateAdjustment];
+            objc_msgSend_coordinateAdjustment(v52);
             b = v93.b;
             d = v93.d;
             ty = v93.ty;

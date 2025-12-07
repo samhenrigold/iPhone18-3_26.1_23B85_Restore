@@ -79,7 +79,7 @@ void __31__EMDiagnosticInfoGatherer_log__block_invoke(uint64_t a1)
   log_log_12 = v1;
 }
 
-uint64_t __61__EMDiagnosticInfoGatherer__registerSelfAsProviderIfRequired__block_invoke(uint64_t a1, uint64_t a2)
+void *__61__EMDiagnosticInfoGatherer__registerSelfAsProviderIfRequired__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) setProviderCancelable:a2];
   atomic_store(1u, (*(a1 + 32) + 12));
@@ -155,7 +155,7 @@ void __53__EMDiagnosticInfoGatherer_initWithRemoteConnection___block_invoke(uint
 
 void __53__EMDiagnosticInfoGatherer_initWithRemoteConnection___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   v3 = atomic_load(WeakRetained + 12);
@@ -169,13 +169,11 @@ void __53__EMDiagnosticInfoGatherer_initWithRemoteConnection___block_invoke_2(ui
     v4 = +[EMDiagnosticInfoGatherer log];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
-      v7 = v2;
-      _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "EMDiagnosticInfoProviding: %p, Not registered as provider - Skipping recovery", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = v2;
+      _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "EMDiagnosticInfoProviding: %p, Not registered as provider - Skipping recovery", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -192,43 +190,41 @@ void __53__EMDiagnosticInfoGatherer_initWithRemoteConnection___block_invoke_2(ui
 
 - (id)registerDiagnosticInfoProvider:(id)provider
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   [(EMDiagnosticInfoGatherer *)self _registerSelfAsProviderIfRequired];
   providers = [(EMDiagnosticInfoGatherer *)self providers];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __59__EMDiagnosticInfoGatherer_registerDiagnosticInfoProvider___block_invoke;
-  v20[3] = &unk_1E826CD80;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __59__EMDiagnosticInfoGatherer_registerDiagnosticInfoProvider___block_invoke;
+  v19[3] = &unk_1E826CD80;
   v6 = providerCopy;
-  v21 = v6;
-  [providers performWhileLocked:v20];
+  v20 = v6;
+  [providers performWhileLocked:v19];
 
   v7 = objc_alloc_init(MEMORY[0x1E699B7F8]);
   objc_initWeak(&location, self);
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __59__EMDiagnosticInfoGatherer_registerDiagnosticInfoProvider___block_invoke_2;
-  v16 = &unk_1E826CA80;
-  objc_copyWeak(&v18, &location);
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __59__EMDiagnosticInfoGatherer_registerDiagnosticInfoProvider___block_invoke_2;
+  v15 = &unk_1E826CA80;
+  objc_copyWeak(&v17, &location);
   v8 = v6;
-  v17 = v8;
-  [v7 addCancelationBlock:&v13];
-  v9 = [EMDiagnosticInfoGatherer log:v13];
+  v16 = v8;
+  [v7 addCancelationBlock:&v12];
+  v9 = [EMDiagnosticInfoGatherer log:v12];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     providerObjectID = [v8 providerObjectID];
     *buf = 134218242;
-    v23 = v8;
-    v24 = 2114;
-    v25 = providerObjectID;
+    v22 = v8;
+    v23 = 2114;
+    v24 = providerObjectID;
     _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_DEFAULT, "Registerd EMDiagnosticInfoProviding: %p, objectID: %{public}@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -304,93 +300,92 @@ void __75__EMDiagnosticInfoGatherer_gatherDiagnosticsWithOptions_completionHandl
 
 - (void)provideDiagnosticsAt:(id)at options:(unint64_t)options completion:(id)completion
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   atCopy = at;
   completionCopy = completion;
   array = [MEMORY[0x1E695DF70] array];
   providers = [(EMDiagnosticInfoGatherer *)self providers];
   getObject = [providers getObject];
 
-  v29 = [atCopy url];
-  startAccessingSecurityScopedResource = [v29 startAccessingSecurityScopedResource];
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x3032000000;
-  v47[3] = __Block_byref_object_copy__3;
-  v47[4] = __Block_byref_object_dispose__3;
+  v28 = [atCopy url];
+  startAccessingSecurityScopedResource = [v28 startAccessingSecurityScopedResource];
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x3032000000;
+  v46[3] = __Block_byref_object_copy__3;
+  v46[4] = __Block_byref_object_dispose__3;
   v8 = objc_alloc(MEMORY[0x1E699B7F0]);
   v9 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v48 = [v8 initWithObject:v9];
+  v47 = [v8 initWithObject:v9];
 
-  v24 = [(EMDiagnosticInfoGatherer *)self _moveLocalDiagnosticsTo:v29];
+  v23 = [(EMDiagnosticInfoGatherer *)self _moveLocalDiagnosticsTo:v28];
   [array addObject:?];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = getObject;
-  v10 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v10 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v10)
   {
-    v11 = *v44;
+    v11 = *v43;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v44 != v11)
+        if (*v43 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * i);
+        v13 = *(*(&v42 + 1) + 8 * i);
         promise = [MEMORY[0x1E699B868] promise];
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke;
-        v40[3] = &unk_1E826CDD0;
-        v42 = v47;
-        v40[4] = self;
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke;
+        v39[3] = &unk_1E826CDD0;
+        v41 = v46;
+        v39[4] = self;
         v15 = promise;
-        v41 = v15;
-        [v13 provideDiagnosticsAt:v29 options:options completion:v40];
+        v40 = v15;
+        [v13 provideDiagnosticsAt:v28 options:options completion:v39];
         future = [v15 future];
         [array addObject:future];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v10 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v10);
   }
 
   v17 = [MEMORY[0x1E699B7C8] combine:array];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke_3;
-  v37[3] = &unk_1E826CDF8;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke_3;
+  v36[3] = &unk_1E826CDF8;
   v18 = completionCopy;
-  v38 = v18;
-  v39 = v47;
-  [v17 addSuccessBlock:v37];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke_4;
-  v34[3] = &unk_1E826CE20;
+  v37 = v18;
+  v38 = v46;
+  [v17 addSuccessBlock:v36];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke_4;
+  v33[3] = &unk_1E826CE20;
   v19 = v18;
-  v35 = v19;
-  v36 = v47;
-  [v17 addFailureBlock:v34];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke_5;
-  v31[3] = &unk_1E826CE48;
-  v33 = startAccessingSecurityScopedResource;
-  v20 = v29;
-  v32 = v20;
-  [v17 always:v31];
+  v34 = v19;
+  v35 = v46;
+  [v17 addFailureBlock:v33];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke_5;
+  v30[3] = &unk_1E826CE48;
+  v32 = startAccessingSecurityScopedResource;
+  v20 = v28;
+  v31 = v20;
+  [v17 always:v30];
 
-  _Block_object_dispose(v47, 8);
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v46, 8);
 }
 
 void __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -435,11 +430,11 @@ void __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___bl
   (*(v3 + 16))(v3, v4, v5);
 }
 
-uint64_t __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke_5(uint64_t result)
+id *__68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion___block_invoke_5(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) stopAccessingSecurityScopedResource];
+    return [result[4] stopAccessingSecurityScopedResource];
   }
 
   return result;
@@ -447,24 +442,22 @@ uint64_t __68__EMDiagnosticInfoGatherer_provideDiagnosticsAt_options_completion_
 
 void __68__EMDiagnosticInfoGatherer__logCategoryMetadataForMessageObjectIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[EMDiagnosticInfoGatherer log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134218242;
-    v6 = [v2 globalMessageID];
-    v7 = 2112;
-    v8 = MEMORY[0x1E695E0F8];
-    _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "Recategorization metadata ID:%lld metadata:%@", &v5, 0x16u);
+    v4 = 134218242;
+    v5 = [v2 globalMessageID];
+    v6 = 2112;
+    v7 = MEMORY[0x1E695E0F8];
+    _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "Recategorization metadata ID:%lld metadata:%@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_moveLocalDiagnosticsTo:(id)to
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   toCopy = to;
   promise = [MEMORY[0x1E699B868] promise];
   localDiagnosticsDirectoryURL = [objc_opt_class() localDiagnosticsDirectoryURL];
@@ -474,34 +467,34 @@ void __68__EMDiagnosticInfoGatherer__logCategoryMetadataForMessageObjectIDs___bl
 
   if (v6)
   {
-    v32 = 0;
-    v7 = [defaultManager contentsOfDirectoryAtURL:localDiagnosticsDirectoryURL includingPropertiesForKeys:0 options:0 error:&v32];
-    v8 = v32;
+    v31 = 0;
+    v7 = [defaultManager contentsOfDirectoryAtURL:localDiagnosticsDirectoryURL includingPropertiesForKeys:0 options:0 error:&v31];
+    v8 = v31;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v39 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v38 count:16];
     if (v10)
     {
-      v11 = *v29;
+      v11 = *v28;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v29 != v11)
+          if (*v28 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v28 + 1) + 8 * i);
+          v13 = *(*(&v27 + 1) + 8 * i);
           lastPathComponent = [v13 lastPathComponent];
           v15 = [toCopy URLByAppendingPathComponent:lastPathComponent];
 
-          v27 = v8;
-          [defaultManager moveItemAtURL:v13 toURL:v15 error:&v27];
-          v16 = v27;
+          v26 = v8;
+          [defaultManager moveItemAtURL:v13 toURL:v15 error:&v26];
+          v16 = v26;
 
           if (v16)
           {
@@ -511,11 +504,11 @@ void __68__EMDiagnosticInfoGatherer__logCategoryMetadataForMessageObjectIDs___bl
               path2 = [v13 path];
               path3 = [v15 path];
               *buf = 138543874;
-              v34 = path2;
-              v35 = 2114;
-              v36 = path3;
-              v37 = 2112;
-              v38 = v16;
+              v33 = path2;
+              v34 = 2114;
+              v35 = path3;
+              v36 = 2112;
+              v37 = v16;
               _os_log_error_impl(&dword_1C6655000, v18, OS_LOG_TYPE_ERROR, "Error moving file from %{public}@ to %{public}@, error: %{error}@", buf, 0x20u);
             }
 
@@ -525,7 +518,7 @@ void __68__EMDiagnosticInfoGatherer__logCategoryMetadataForMessageObjectIDs___bl
           v8 = 0;
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v28 objects:v39 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v27 objects:v38 count:16];
         v8 = 0;
         v16 = 0;
         if (v10)
@@ -555,8 +548,6 @@ LABEL_16:
   }
 
   future = [promise future];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return future;
 }

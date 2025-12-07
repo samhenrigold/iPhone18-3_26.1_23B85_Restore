@@ -2,6 +2,7 @@
 + (id)validateEntitlements:(id)entitlements;
 - (BOOL)readyForVAS;
 - (BOOL)useFilteredApplets;
+- (_NFLoyaltyAndPaymentSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode;
 - (id)handleAPDU:(id)u;
 - (id)handleSelect:(id)select;
 - (id)hostCardEmulationLog;
@@ -86,6 +87,29 @@
   return v5;
 }
 
+- (_NFLoyaltyAndPaymentSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode
+{
+  v13.receiver = self;
+  v13.super_class = _NFLoyaltyAndPaymentSession;
+  v5 = [(_NFContactlessPaymentSession *)&v13 initWithRemoteObject:object workQueue:queue allowsBackgroundMode:mode hostCardEmulationSupport:1];
+  if (v5)
+  {
+    v6 = objc_alloc_init(NSMutableArray);
+    v7 = *(v5 + 412);
+    *(v5 + 412) = v6;
+
+    v8 = objc_alloc_init(NFLoyaltyAgent);
+    v9 = *(v5 + 396);
+    *(v5 + 396) = v8;
+
+    v10 = objc_alloc_init(NFHostCardEmulationManager);
+    v11 = *(v5 + 404);
+    *(v5 + 404) = v10;
+  }
+
+  return v5;
+}
+
 - (void)didEndSession:(id)session
 {
   sessionCopy = session;
@@ -96,7 +120,7 @@
     {
       sub_100029F08(v5);
       v6 = +[_NFHardwareManager sharedHardwareManager];
-      v7 = sub_10004C144();
+      v7 = sub_10004C144(NFRoutingConfig);
       v8 = [v6 setRoutingConfig:v7];
 
       v5 = *(&self->_loyaltyAgent + 4);

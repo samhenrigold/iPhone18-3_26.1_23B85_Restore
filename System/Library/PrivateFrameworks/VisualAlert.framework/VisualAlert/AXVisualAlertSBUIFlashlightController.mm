@@ -17,10 +17,10 @@
 
 - (void)setLevel:(unint64_t)level
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = AXVisualAlertSBUIFlashlightController;
-  [(AXVisualAlertSBUIFlashlightController *)&v17 setLevel:?];
+  v19 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = AXVisualAlertSBUIFlashlightController;
+  [(AXVisualAlertSBUIFlashlightController *)&v16 setLevel:?];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -38,7 +38,7 @@
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138543362;
-        v19 = v11;
+        v18 = v11;
         _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", buf, 0xCu);
       }
     }
@@ -57,16 +57,14 @@
   }
 
   [defaultCenter postNotificationName:v14 object:self];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_turnPowerOff
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = AXVisualAlertSBUIFlashlightController;
-  [(AXVisualAlertSBUIFlashlightController *)&v12 _turnPowerOff];
+  v14 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = AXVisualAlertSBUIFlashlightController;
+  [(AXVisualAlertSBUIFlashlightController *)&v11 _turnPowerOff];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -83,7 +81,7 @@
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v14 = v9;
+        v13 = v9;
         _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -91,16 +89,14 @@
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"AXVisualAlertManagerControlCenterTorchWasDisabledNotification" object:self];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_turnPowerOn
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = AXVisualAlertSBUIFlashlightController;
-  [(AXVisualAlertSBUIFlashlightController *)&v12 _turnPowerOn];
+  v14 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = AXVisualAlertSBUIFlashlightController;
+  [(AXVisualAlertSBUIFlashlightController *)&v11 _turnPowerOn];
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -117,7 +113,7 @@
       if (os_log_type_enabled(v6, v7))
       {
         *buf = 138543362;
-        v14 = v9;
+        v13 = v9;
         _os_log_impl(&dword_27102A000, v6, v7, "%{public}@", buf, 0xCu);
       }
     }
@@ -125,8 +121,6 @@
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"AXVisualAlertManagerControlCenterTorchWasEnabledNotification" object:self];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

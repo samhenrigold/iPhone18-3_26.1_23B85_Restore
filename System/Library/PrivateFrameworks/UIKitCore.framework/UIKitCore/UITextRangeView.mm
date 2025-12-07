@@ -1324,7 +1324,7 @@ LABEL_20:
   memset(&v22, 0, sizeof(v22));
   if (layerCopy)
   {
-    [layerCopy transform];
+    objc_msgSend_transform(layerCopy);
     v14 = 0uLL;
   }
 
@@ -2531,7 +2531,7 @@ LABEL_11:
   v4 = layer;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
     v5 = v8;
   }
 

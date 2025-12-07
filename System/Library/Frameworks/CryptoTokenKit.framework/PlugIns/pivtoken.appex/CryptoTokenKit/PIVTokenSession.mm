@@ -17,52 +17,52 @@
 - (id)tokenSession:(id)session beginAuthForOperation:(int64_t)operation constraint:(id)constraint error:(id *)error
 {
   constraintCopy = constraint;
-  if ([constraintCopy isEqual:@"PIN"] & 1) != 0 || (objc_msgSend(constraintCopy, "isEqual:", @"PINAlways"))
+  if ([constraintCopy isEqual:@"PIN"] & 1) != 0 || (v9 = objc_msgSend(constraintCopy, "isEqual:", @"PINAlways"), (v9))
   {
-    v9 = [(PIVTokenSession *)self getSmartCardWithError:error];
-    if (v9)
+    v10 = [(PIVTokenSession *)self getSmartCardWithError:error];
+    if (v10)
     {
-      if (!-[PIVTokenSession authState](self, "authState") || [constraintCopy isEqual:@"PINAlways"] && -[PIVTokenSession authState](self, "authState") == 2 || (objc_msgSend(v9, "context"), v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
+      if (!-[PIVTokenSession authState](self, "authState") || [constraintCopy isEqual:@"PINAlways"] && -[PIVTokenSession authState](self, "authState") == 2 || (objc_msgSend(v10, "context"), v11 = objc_claimAutoreleasedReturnValue(), v11, !v11))
       {
-        v11 = [[PIVAuthOperation alloc] initWithSession:self smartCard:v9];
+        v12 = [[PIVAuthOperation alloc] initWithSession:self smartCard:v10];
       }
 
       else
       {
-        v11 = objc_opt_new();
+        v12 = objc_opt_new();
       }
 
-      v12 = v11;
+      v13 = v12;
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v13 = sub_100001258();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100001258(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1000036C0(constraintCopy, v13);
+      sub_1000036C0(constraintCopy, v14);
     }
 
     if (error)
     {
-      v18 = NSLocalizedDescriptionKey;
-      v14 = +[NSBundle mainBundle];
-      v15 = [v14 localizedStringForKey:@"WRONG_CONSTR" value:&stru_1000083D8 table:0];
-      v19 = v15;
-      v16 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-      *error = [NSError errorWithDomain:TKErrorDomain code:-8 userInfo:v16];
+      v19 = NSLocalizedDescriptionKey;
+      v15 = +[NSBundle mainBundle];
+      v16 = [v15 localizedStringForKey:@"WRONG_CONSTR" value:&stru_1000083D8 table:0];
+      v20 = v16;
+      v17 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      *error = [NSError errorWithDomain:TKErrorDomain code:-8 userInfo:v17];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)tokenSession:(id)session supportsOperation:(int64_t)operation usingKey:(id)key algorithm:(id)algorithm
@@ -199,7 +199,7 @@ LABEL_30:
 
   if (v18)
   {
-    v41 = dataCopy;
+    v42 = dataCopy;
     constraints = [v18 constraints];
     v20 = [constraints objectForKeyedSubscript:operationCopy];
     v21 = [v20 isEqual:&__kCFBooleanTrue];
@@ -236,55 +236,56 @@ LABEL_15:
         }
 
 LABEL_26:
-        dataCopy = v41;
+        dataCopy = v42;
         goto LABEL_27;
       }
 
       [(PIVTokenSession *)self setAuthState:2];
     }
 
-    v40 = operationCopy;
-    v42 = 0;
+    v41 = operationCopy;
+    v43 = 0;
     v26 = [TKBERTLVRecord alloc];
     v27 = [TKBERTLVRecord alloc];
     v28 = +[NSData data];
     v29 = [v27 initWithTag:130 value:v28];
-    v49[0] = v29;
-    v30 = [[TKBERTLVRecord alloc] initWithTag:tag value:v41];
-    v49[1] = v30;
-    v31 = [NSArray arrayWithObjects:v49 count:2];
+    v50[0] = v29;
+    v30 = [[TKBERTLVRecord alloc] initWithTag:tag value:v42];
+    v50[1] = v30;
+    v31 = [NSArray arrayWithObjects:v50 count:2];
     v32 = [v26 initWithTag:124 records:v31];
 
     [v15 setUseCommandChaining:1];
-    v33 = [v15 sendIns:135 p1:objc_msgSend(v18 p2:"algID") request:objc_msgSend(v18 expectedTag:"keyID") sw:v32 error:{124, &v42, error}];
+    v33 = [v15 sendIns:135 p1:objc_msgSend(v18 p2:"algID") request:objc_msgSend(v18 expectedTag:"keyID") sw:v32 error:{124, &v43, error}];
     v34 = v33;
     if (v33)
     {
       value = [v33 value];
       v36 = [TKBERTLVRecord recordFromData:value];
 
-      if ([v36 tag] == 130)
+      v37 = [v36 tag];
+      if (v37 == 130)
       {
         value2 = [v36 value];
-        operationCopy = v40;
+        operationCopy = v41;
       }
 
       else
       {
-        v37 = sub_100001258();
-        operationCopy = v40;
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v38 = sub_100001258(v37);
+        operationCopy = v41;
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           token2 = [(PIVTokenSession *)self token];
           *buf = 138543874;
-          v44 = token2;
-          v45 = 2114;
-          v46 = keyCopy;
-          v47 = 2112;
-          v48 = v34;
-          _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "%{public}@: crypto with key %{public}@ returned bad formatted response %@", buf, 0x20u);
+          v45 = token2;
+          v46 = 2114;
+          v47 = keyCopy;
+          v48 = 2112;
+          v49 = v34;
+          _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "%{public}@: crypto with key %{public}@ returned bad formatted response %@", buf, 0x20u);
 
-          operationCopy = v40;
+          operationCopy = v41;
         }
 
         if (error)
@@ -303,7 +304,7 @@ LABEL_26:
     else
     {
       value2 = 0;
-      operationCopy = v40;
+      operationCopy = v41;
     }
 
     goto LABEL_26;

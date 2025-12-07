@@ -2019,7 +2019,7 @@ void *sub_29A0A573C(void *result, int a2, _BYTE *a3, unsigned int a4)
   return result;
 }
 
-uint64_t sub_29A0A57C0(unsigned __int16 *a1, int a2)
+uint64_t sub_29A0A57C0(unsigned __int16 *a1, unsigned int a2)
 {
   result = *a1;
   if (a2 >= 2)
@@ -2438,7 +2438,7 @@ BOOL sub_29A0A5EB8(int *a1)
   sub_29A0A171C(a1 + 33, 2 * v2);
   sub_29A0A171C(v1 + 42, 2 * v2);
   sub_29A0A171C(v1 + 51, v2);
-  sub_29A0A72CC((v1 + 108), v2);
+  sub_29A0A72CC(v1 + 54, v2);
   bzero(*(v1 + 54), 2 * v1[2]);
   *v1 = v3;
   sub_29A0A171C(v1 + 3, 2 * v3);
@@ -3023,7 +3023,7 @@ uint64_t sub_29A0A6A34(int *a1)
         else
         {
           v29 = &v25;
-          v20 = sub_29A0A7450(a1 + 3, &v25, &unk_29B433E70, &v29)[5];
+          v20 = sub_29A0A7450((a1 + 6), &v25, &unk_29B433E70, &v29)[5];
           if (v8 <= v16)
           {
             v8 = v16;
@@ -3460,24 +3460,24 @@ void sub_29A0A71C8(uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-void sub_29A0A72CC(uint64_t a1, unint64_t a2)
+void sub_29A0A72CC(char **result, unint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      *(a1 + 8) = *a1 + 2 * a2;
+      result[1] = &(*result)[2 * a2];
     }
   }
 
   else
   {
-    sub_29A0A72FC(a1, a2 - v2);
+    sub_29A0A72FC(result, a2 - v2);
   }
 }
 
-void sub_29A0A72FC(const void **a1, unint64_t a2)
+void sub_29A0A72FC(char **a1, unint64_t a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3557,10 +3557,10 @@ void sub_29A0A73EC(uint64_t a1, void *a2)
   }
 }
 
-uint64_t **sub_29A0A7450(uint64_t **a1, int *a2, uint64_t a3, _DWORD **a4)
+uint64_t **sub_29A0A7450(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v7 = a1 + 1;
-  v6 = a1[1];
+  v7 = (a1 + 8);
+  v6 = *(a1 + 8);
   if (v6)
   {
     v8 = *a2;
@@ -3599,7 +3599,7 @@ uint64_t **sub_29A0A7450(uint64_t **a1, int *a2, uint64_t a3, _DWORD **a4)
 
   else
   {
-    v9 = a1 + 1;
+    v9 = (a1 + 8);
 LABEL_10:
     v11 = operator new(0x40uLL);
     v11[8] = **a4;
@@ -3655,20 +3655,20 @@ void sub_29A0A7584(uint64_t a1)
   sub_29A0A766C((a1 + 240), v8, &v13);
 }
 
-void sub_29A0A766C(void *a1, unint64_t a2, int *a3)
+void sub_29A0A766C(void *result, unint64_t a2, int *a3)
 {
-  v3 = (a1[1] - *a1) >> 2;
+  v3 = (result[1] - *result) >> 2;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    sub_29A0A8ACC(a1, a2 - v3, a3);
+    sub_29A0A8ACC(result, a2 - v3, a3);
   }
 }
 
@@ -5396,58 +5396,58 @@ void *sub_29A0A8DBC(void *a1)
   return a1;
 }
 
-void sub_29A0A8F4C(void *a1)
+void sub_29A0A8F4C(void *result)
 {
-  v2 = a1[1];
+  v2 = result[1];
   v3 = *v2;
-  v4 = a1[51];
-  v5 = a1[52] - v4;
+  v4 = result[51];
+  v5 = result[52] - v4;
   if (v3 <= v5)
   {
     if (v3 < v5)
     {
-      a1[52] = v4 + v3;
+      result[52] = v4 + v3;
     }
   }
 
   else
   {
-    sub_29A0AB2A4((a1 + 51), v3 - v5);
-    v2 = a1[1];
+    sub_29A0AB2A4((result + 51), v3 - v5);
+    v2 = result[1];
   }
 
   v6 = v2[1];
-  v7 = a1[54];
-  v8 = a1[55] - v7;
+  v7 = result[54];
+  v8 = result[55] - v7;
   if (v6 <= v8)
   {
     if (v6 < v8)
     {
-      a1[55] = v7 + v6;
+      result[55] = v7 + v6;
     }
   }
 
   else
   {
-    sub_29A0AB2A4((a1 + 54), v6 - v8);
-    v2 = a1[1];
+    sub_29A0AB2A4((result + 54), v6 - v8);
+    v2 = result[1];
   }
 
   v9 = v2[2];
-  v10 = a1[57];
-  v11 = a1[58] - v10;
+  v10 = result[57];
+  v11 = result[58] - v10;
   if (v9 <= v11)
   {
     if (v9 < v11)
     {
-      a1[58] = v10 + v9;
+      result[58] = v10 + v9;
     }
   }
 
   else
   {
 
-    sub_29A0AB2A4((a1 + 57), v9 - v11);
+    sub_29A0AB2A4((result + 57), v9 - v11);
   }
 }
 
@@ -5499,10 +5499,10 @@ void sub_29A0A9010(uint64_t a1, char a2)
   }
 }
 
-uint64_t sub_29A0A914C(uint64_t a1)
+uint64_t sub_29A0A914C(_BYTE *a1)
 {
   (*(*a1 + 16))(a1);
-  if ((*(a1 + 36) & 1) == 0)
+  if ((a1[36] & 1) == 0)
   {
     sub_29A0A94F0(a1);
   }
@@ -7046,7 +7046,7 @@ uint64_t sub_29A0AA800(uint64_t a1)
 
 uint64_t sub_29A0AA894(uint64_t a1)
 {
-  sub_29A0A72CC(*(a1 + 16) + 432, *(*(a1 + 16) + 8));
+  sub_29A0A72CC((*(a1 + 16) + 432), *(*(a1 + 16) + 8));
   sub_29A0AA9A8(a1);
   sub_29A0AAA54(a1);
   result = sub_29A0AAAF4(a1);
@@ -7559,20 +7559,20 @@ LABEL_34:
   return result;
 }
 
-void sub_29A0AB144(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void sub_29A0AB144(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    sub_29A0AB3CC(a1, a2 - v4, a3, a4);
+    sub_29A0AB3CC(result, a2 - v4, a3, a4);
   }
 }
 
@@ -7878,19 +7878,19 @@ void sub_29A0AB3CC(uint64_t a1, unint64_t a2, __int32 *a3, int16x4_t a4)
   }
 }
 
-void sub_29A0AB614(uint64_t a1, int a2)
+void sub_29A0AB614(void *result, int a2)
 {
-  if ((*(a1 + 8) & 1) == 0)
+  if ((result[1] & 1) == 0)
   {
-    sub_29A0A8F4C(*a1);
-    *(a1 + 8) = 1;
+    sub_29A0A8F4C(*result);
+    *(result + 8) = 1;
   }
 
-  v4 = *(*a1 + 408);
+  v4 = *(*result + 408);
   if ((*(v4 + a2) & 1) == 0)
   {
     *(v4 + a2) |= 1u;
-    v5 = *(*a1 + 8);
+    v5 = *(*result + 8);
     v6 = v5[3];
     v7 = *(v6 + 8 * a2);
     if (v7 >= 1)
@@ -7901,9 +7901,9 @@ void sub_29A0AB614(uint64_t a1, int a2)
       do
       {
         v11 = *v9++;
-        *(*(*a1 + 432) + v11) |= 1u;
+        *(*(*result + 432) + v11) |= 1u;
         v12 = *v10++;
-        *(*(*a1 + 456) + v12) |= 1u;
+        *(*(*result + 456) + v12) |= 1u;
         --v7;
       }
 
@@ -9062,91 +9062,91 @@ double sub_29A0ACB6C(uint64_t a1, unsigned int *a2, uint64_t *a3)
 
 void sub_29A0ACBD0()
 {
-  v0 = nullsub_1();
+  nullsub_1();
 
   operator delete(v0);
 }
 
-uint64_t sub_29A0ACC1C(uint64_t a1, uint64_t a2, int a3, int *a4)
+uint64_t sub_29A0ACC1C(uint64_t a1, uint64_t a2, int a3, unsigned int *a4, __n128 a5)
 {
   switch(a3)
   {
     case 3:
-      v10 = a2;
-      sub_29A0AFC74(&v10, a4);
+      v11 = a2;
+      sub_29A0AFC74(&v11, a4);
       break;
     case 6:
-      sub_29A0AEF04(v11, a2, a4);
-      v7 = &v12;
-      v8 = -864;
+      sub_29A0AEF04(v12, a2, a4);
+      v8 = &v13;
+      v9 = -864;
       do
       {
-        operator delete(v7[22]);
-        *v7 = (v7 + 2);
-        *(v7 + 3) = 40;
-        v7 -= 27;
-        v8 += 216;
+        operator delete(v8[22]);
+        *v8 = (v8 + 2);
+        *(v8 + 3) = 40;
+        v8 -= 27;
+        v9 += 216;
       }
 
-      while (v8);
+      while (v9);
       break;
     case 9:
-      sub_29A0ACE88(v13, a2, a4);
-      v5 = &v14;
-      v6 = -864;
+      sub_29A0ACE88(v14, a5, a2, a4);
+      v6 = &v15;
+      v7 = -864;
       do
       {
-        operator delete(v5[22]);
-        *v5 = (v5 + 2);
-        *(v5 + 3) = 40;
-        v5 -= 27;
-        v6 += 216;
+        operator delete(v6[22]);
+        *v6 = (v6 + 2);
+        *(v6 + 3) = 40;
+        v6 -= 27;
+        v7 += 216;
       }
 
-      while (v6);
+      while (v7);
       break;
   }
 
   return *a4;
 }
 
-uint64_t sub_29A0ACD04(uint64_t a1, uint64_t a2, int a3, int *a4)
+uint64_t sub_29A0ACD04(uint64_t a1, uint64_t a2, int a3, unsigned int *a4, __n128 a5)
 {
   switch(a3)
   {
     case 3:
-      v10 = a2;
-      sub_29A0B2E68(&v10, a4);
+      v11 = a2;
+      sub_29A0B2E68(&v11, a4);
       break;
     case 6:
-      sub_29A0B20F8(v11, a2, a4);
-      v7 = &v12;
-      v8 = -896;
+      sub_29A0B20F8(v12, a2, a4);
+      v8 = &v13;
+      v9 = -896;
       do
       {
-        operator delete(v7[22]);
-        *v7 = (v7 + 2);
-        *(v7 + 3) = 40;
-        v7 -= 28;
-        v8 += 224;
+        operator delete(v8[22]);
+        *v8 = (v8 + 2);
+        *(v8 + 3) = 40;
+        v8 -= 28;
+        v9 += 224;
       }
 
-      while (v8);
+      while (v9);
       break;
     case 9:
-      sub_29A0B00F4(v13, a2, a4);
-      v5 = &v14;
-      v6 = -896;
+      sub_29A0B00F4(v14, a5, a2, a4);
+      v6 = &v15;
+      v7 = -896;
       do
       {
-        operator delete(v5[22]);
-        *v5 = (v5 + 2);
-        *(v5 + 3) = 40;
-        v5 -= 28;
-        v6 += 224;
+        operator delete(v6[22]);
+        *v6 = (v6 + 2);
+        *(v6 + 3) = 40;
+        v6 -= 28;
+        v7 += 224;
       }
 
-      while (v6);
+      while (v7);
       break;
   }
 
@@ -9173,23 +9173,23 @@ double sub_29A0ACDE8(uint64_t a1, unsigned int *a2, uint64_t *a3)
 
 void sub_29A0ACE50()
 {
-  v0 = nullsub_1();
+  nullsub_1();
 
   operator delete(v0);
 }
 
-uint64_t sub_29A0ACE88(uint64_t a1, uint64_t a2, int *a3)
+uint64_t sub_29A0ACE88(uint64_t a1, __n128 a2, uint64_t a3, int *a4)
 {
   for (i = 0; i != 864; i += 216)
   {
-    v6 = (a1 + i);
-    v6[7] = a1 + i + 72;
-    v6[8] = 0x2800000000;
-    v6[29] = 0;
+    v7 = (a1 + i);
+    v7[7] = a1 + i + 72;
+    v7[8] = 0x2800000000;
+    v7[29] = 0;
   }
 
-  sub_29A0ACF04(a1, a2);
-  sub_29A0AD268(a1, a3);
+  sub_29A0ACF04(a1, a3);
+  sub_29A0AD268(a1, a4);
   return a1;
 }
 
@@ -9462,7 +9462,7 @@ void sub_29A0AD45C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_29A0AD498(int *a1, int *a2, int a3, int a4)
+void sub_29A0AD498(unsigned int *a1, int *a2, int a3, int a4)
 {
   v4 = (2 * a4) | 1;
   v11 = *MEMORY[0x29EDCA608];
@@ -9484,7 +9484,7 @@ void sub_29A0AD498(int *a1, int *a2, int a3, int a4)
   sub_29A0AE410(a2, *a1, 7 * v4 + 85, v10);
 }
 
-void sub_29A0AD588(int *a1, int *a2)
+void sub_29A0AD588(unsigned int *a1, int *a2)
 {
   v3 = 0;
   v4 = 0;
@@ -9935,7 +9935,7 @@ LABEL_9:
   v45 = &a4[v44 + 1 + v43];
   v74 = v44 + v43 + 1;
   v76 = &a4[2 * v74];
-  sub_29A0AE860(v44, *(v19 + 12), a4, &a4[v72 + 1], &a4[2 * v72 + 2]);
+  sub_29A0AE860(v44, *(v19 + 12), a4, &a4[v72 + 1], &a4[2 * (v72 + 1)]);
   v46 = (v10 + 4 * v8);
   v47 = *(v19 + 32);
   v48 = *v47;
@@ -9978,7 +9978,8 @@ LABEL_9:
       {
         v60 = *v58++;
         v59 = v60;
-        v61 = *v57++;
+        v61 = *v57;
+        v57 += 4;
         *v56++ = v59;
         *v55++ = v61;
         --v53;
@@ -9999,7 +10000,7 @@ LABEL_9:
 
   if (v72 <= 0x7FFFFFFE)
   {
-    v64 = (v72 + 2) - 1;
+    v64 = v72 + 2 - 1;
     v65 = 4 * v78 + 4;
     v66 = (v10 + v65);
     v67 = (v80 + v65);
@@ -10008,7 +10009,8 @@ LABEL_9:
     {
       v70 = *v47++;
       v69 = v70;
-      v71 = *v68++;
+      v71 = *v68;
+      v68 += 4;
       result = v71;
       *v67++ = v69;
       *v66++ = v71;

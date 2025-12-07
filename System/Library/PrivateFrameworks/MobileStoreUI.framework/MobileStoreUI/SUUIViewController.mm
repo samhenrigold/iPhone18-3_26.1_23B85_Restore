@@ -64,8 +64,8 @@
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     keyWindow = [mEMORY[0x277D75128] keyWindow];
-    [keyWindow bounds];
-    if (v6 <= SUUICompactThreshold())
+    bounds = [keyWindow bounds];
+    if (v8 <= SUUICompactThreshold(bounds, v7))
     {
     }
 
@@ -144,9 +144,9 @@ LABEL_7:
   navigationItem = [(SUUIViewController *)self navigationItem];
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   keyWindow = [mEMORY[0x277D75128] keyWindow];
-  [keyWindow bounds];
-  v7 = [(SUUIViewController *)self _defaultRightBarButtonItemsIsCompact:v6 <= SUUICompactThreshold()];
-  [navigationItem setRightBarButtonItems:v7];
+  bounds = [keyWindow bounds];
+  v9 = [(SUUIViewController *)self _defaultRightBarButtonItemsIsCompact:v8 <= SUUICompactThreshold(bounds, v7)];
+  [navigationItem setRightBarButtonItems:v9];
 
   navigationItem2 = [(SUUIViewController *)self navigationItem];
   _defaultLeftBarButtonItems = [(SUUIViewController *)self _defaultLeftBarButtonItems];
@@ -161,8 +161,8 @@ LABEL_7:
   [v5 setLeftBarButtonItems:_defaultLeftBarButtonItems];
 
   navigationItem = [(SUUIViewController *)self navigationItem];
-  v7 = [(SUUIViewController *)self _defaultRightBarButtonItemsIsCompact:width <= SUUICompactThreshold()];
-  [navigationItem setRightBarButtonItems:v7];
+  v8 = [(SUUIViewController *)self _defaultRightBarButtonItemsIsCompact:width <= SUUICompactThreshold(navigationItem, v7)];
+  [navigationItem setRightBarButtonItems:v8];
 }
 
 - (void)showDefaultNavigationItemsIsCompact:(BOOL)compact
@@ -324,22 +324,22 @@ LABEL_7:
 
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   keyWindow = [mEMORY[0x277D75128] keyWindow];
-  [keyWindow bounds];
-  v13 = v12;
-  v14 = SUUICompactThreshold();
+  bounds = [keyWindow bounds];
+  v14 = v13;
+  v16 = SUUICompactThreshold(bounds, v15);
 
-  if (v13 <= v14)
+  if (v14 <= v16)
   {
 LABEL_7:
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __57__SUUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke;
-    v28[3] = &unk_2798F5AF8;
-    v23 = &v29;
-    v28[4] = self;
-    v29 = itemCopy;
-    v25 = itemCopy;
-    [wishlistCopy dismissViewControllerAnimated:1 completion:v28];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __57__SUUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke;
+    v30[3] = &unk_2798F5AF8;
+    v25 = &v31;
+    v30[4] = self;
+    v31 = itemCopy;
+    v27 = itemCopy;
+    [wishlistCopy dismissViewControllerAnimated:1 completion:v30];
     goto LABEL_8;
   }
 
@@ -354,28 +354,28 @@ LABEL_7:
 
   if (!self->_productPageOverlayController)
   {
-    v17 = [[SUUIProductPageOverlayController alloc] initWithParentViewController:self];
+    v19 = [[SUUIProductPageOverlayController alloc] initWithParentViewController:self];
     productPageOverlayController = self->_productPageOverlayController;
-    self->_productPageOverlayController = v17;
+    self->_productPageOverlayController = v19;
 
-    v19 = self->_productPageOverlayController;
+    v21 = self->_productPageOverlayController;
     clientContext = [(SUUIViewController *)self clientContext];
-    [(SUUIProductPageOverlayController *)v19 setClientContext:clientContext];
+    [(SUUIProductPageOverlayController *)v21 setClientContext:clientContext];
 
     [(SUUIProductPageOverlayController *)self->_productPageOverlayController setDelegate:self];
   }
 
   UIAnimationDragCoefficient();
-  v22 = dispatch_time(0, (v21 * 0.35 * 1000000000.0));
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __57__SUUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke_4;
-  v26[3] = &unk_2798F5AF8;
-  v23 = &v27;
-  v26[4] = self;
-  v27 = itemCopy;
-  v24 = itemCopy;
-  dispatch_after(v22, MEMORY[0x277D85CD0], v26);
+  v24 = dispatch_time(0, (v23 * 0.35 * 1000000000.0));
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __57__SUUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke_4;
+  v28[3] = &unk_2798F5AF8;
+  v25 = &v29;
+  v28[4] = self;
+  v29 = itemCopy;
+  v26 = itemCopy;
+  dispatch_after(v24, MEMORY[0x277D85CD0], v28);
 LABEL_8:
 }
 
@@ -432,11 +432,11 @@ void __57__SUUIViewController_wishlist_didSelectItem_atIndexPath___block_invoke_
 
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   keyWindow = [mEMORY[0x277D75128] keyWindow];
-  [keyWindow bounds];
-  v8 = v7;
-  v9 = SUUICompactThreshold();
+  bounds = [keyWindow bounds];
+  v9 = v8;
+  v11 = SUUICompactThreshold(bounds, v10);
 
-  if (v8 <= v9)
+  if (v9 <= v11)
   {
 LABEL_7:
     [(SUUIViewController *)self _presentWishlistFromSheet];
@@ -448,7 +448,7 @@ LABEL_7:
   {
     [(SUUIPopoverObserver *)wishlistPopoverObserver setTarget:0 selector:0];
     [(SUUIPopoverObserver *)self->_wishlistPopoverObserver dismissPopoverAnimated:1];
-    v11 = self->_wishlistPopoverObserver;
+    v13 = self->_wishlistPopoverObserver;
     self->_wishlistPopoverObserver = 0;
 
     [(SUUIWishlistViewController *)self->_wishlistViewController setDelegate:0];

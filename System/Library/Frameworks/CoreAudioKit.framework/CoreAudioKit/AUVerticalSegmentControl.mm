@@ -58,7 +58,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_237115094(0, &qword_27DE94790);
+  sub_237115094(0, &qword_27DE94790, 0x277D75C68);
   sub_237114F70();
   v6 = sub_2371966DC();
   eventCopy = event;
@@ -68,7 +68,7 @@
 
 - (void)touchesMoved:(id)moved withEvent:(id)event
 {
-  sub_237115094(0, &qword_27DE94790);
+  sub_237115094(0, &qword_27DE94790, 0x277D75C68);
   sub_237114F70();
   v6 = sub_2371966DC();
   selfCopy = self;

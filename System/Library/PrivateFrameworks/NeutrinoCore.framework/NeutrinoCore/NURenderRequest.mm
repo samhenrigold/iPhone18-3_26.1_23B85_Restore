@@ -420,7 +420,7 @@ LABEL_14:
 
   if (requestCopy)
   {
-    [requestCopy time];
+    objc_msgSend_time(requestCopy);
   }
 
   else
@@ -472,9 +472,11 @@ LABEL_14:
   pipelineFilters = self->_pipelineFilters;
   self->_pipelineFilters = MEMORY[0x1E695E0F0];
 
-  self->_priority = objc_alloc_init(NUPriority);
+  v13 = objc_alloc_init(NUPriority);
+  priority = self->_priority;
+  self->_priority = v13;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v13, priority);
 }
 
 - (NURenderRequest)initWithRequest:(id)request

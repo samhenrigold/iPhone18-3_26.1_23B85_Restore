@@ -136,7 +136,6 @@ LABEL_12:
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v43;
 }
 
@@ -162,7 +161,6 @@ LABEL_12:
   }
 
   objc_storeStrong(&oslog, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccelerometerData:(id)data withTimestamp:(double)timestamp
@@ -418,7 +416,6 @@ void __31__AXPhoenixClassifierRNN_reset__block_invoke(id *a1)
 
   objc_storeStrong(&v49, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v18 = v53;
 
   return v18;
@@ -534,7 +531,6 @@ void __31__AXPhoenixClassifierRNN_reset__block_invoke(id *a1)
   MEMORY[0x277D82BD8](accelerometerBuffer3);
   v11 = MEMORY[0x277D82BE0](v29);
   objc_storeStrong(&v29, 0);
-  *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -678,8 +674,6 @@ void __31__AXPhoenixClassifierRNN_reset__block_invoke(id *a1)
 
     [(AXPhoenixClassifierRNN *)selfCopy _updateAccelerationData];
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAccelerationData
@@ -941,7 +935,6 @@ void __31__AXPhoenixClassifierRNN_reset__block_invoke(id *a1)
 
   objc_storeStrong(&v71, 0);
   objc_storeStrong(v72, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_evaluateTapData
@@ -1080,8 +1073,6 @@ void __31__AXPhoenixClassifierRNN_reset__block_invoke(id *a1)
     selfCopy->_runFrequency = (selfCopy->_tapSpeed * 100.0);
     selfCopy->_frameLength = selfCopy->_runFrequency;
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_logWindowData:(id)data doubleTap:(BOOL)tap tapData:(id)tapData
@@ -1218,7 +1209,6 @@ void __59__AXPhoenixClassifierRNN__logWindowData_doubleTap_tapData___block_invok
   objc_storeStrong(&buffer, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(v37, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }

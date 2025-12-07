@@ -62,6 +62,7 @@
   v2 = qword_1000EB450;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
+    v9 = 0;
     v3 = sub_1000011A8(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
@@ -75,7 +76,8 @@
 
     if (v4)
     {
-      v5 = _os_log_send_and_compose_impl();
+      v8 = 0;
+      v5 = _os_log_send_and_compose_impl(v4, &v9, 0, 0, &_mh_execute_header, v2, 16, "-dataValue called on UMDPersonaManifest", &v8, 2);
       v6 = v5;
       if (v5)
       {
@@ -122,8 +124,8 @@
 
       if (v25)
       {
-        LOWORD(v49) = 0;
-        v26 = _os_log_send_and_compose_impl();
+        LOWORD(v49[0]) = 0;
+        v26 = _os_log_send_and_compose_impl(v25, v51, 0, 0, &_mh_execute_header, v5, 16, "Failed to parse persona manifest persona list: data is invalid", v49, 2);
         v27 = v26;
         if (v26)
         {
@@ -140,7 +142,7 @@
     }
 
     v19 = 0;
-    goto LABEL_98;
+    goto LABEL_99;
   }
 
   v5 = [v3 objectForKeyedSubscript:@"NUMENT"];
@@ -168,8 +170,8 @@
 
       if (v21)
       {
-        LOWORD(v49) = 0;
-        v22 = _os_log_send_and_compose_impl();
+        LOWORD(v49[0]) = 0;
+        v22 = _os_log_send_and_compose_impl(v21, v51, 0, 0, &_mh_execute_header, v6, 16, "Failed to parse persona manifest persona list: entry count is invalid", v49, 2);
         v23 = v22;
         if (v22)
         {
@@ -186,7 +188,7 @@
     }
 
     v19 = 0;
-    goto LABEL_97;
+    goto LABEL_98;
   }
 
   v6 = [v4 objectForKeyedSubscript:@"BLOB"];
@@ -214,8 +216,8 @@
 
       if (v29)
       {
-        LOWORD(v49) = 0;
-        v30 = _os_log_send_and_compose_impl();
+        LOWORD(v49[0]) = 0;
+        v30 = _os_log_send_and_compose_impl(v29, v51, 0, 0, &_mh_execute_header, v8, 16, "Failed to parse persona manifest persona list: data blob is invalid", v49, 2);
         v31 = v30;
         if (v30)
         {
@@ -232,7 +234,7 @@
     }
 
     v19 = 0;
-    goto LABEL_96;
+    goto LABEL_97;
   }
 
   v7 = sub_100099704(v6);
@@ -247,7 +249,7 @@
     v10 = qword_1000EB450;
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_94;
+      goto LABEL_95;
     }
 
     *v51 = 0;
@@ -264,19 +266,19 @@
 
     if (v33)
     {
-      LOWORD(v49) = 0;
-      v34 = _os_log_send_and_compose_impl();
+      LOWORD(v49[0]) = 0;
+      v34 = _os_log_send_and_compose_impl(v33, v51, 0, 0, &_mh_execute_header, v10, 16, "Failed to parse persona manifest persona list: persona list is invalid", v49, 2);
       if (!v34)
       {
-        goto LABEL_82;
+        goto LABEL_83;
       }
 
-      goto LABEL_70;
+      goto LABEL_71;
     }
 
-LABEL_81:
+LABEL_82:
     v34 = 0;
-    goto LABEL_82;
+    goto LABEL_83;
   }
 
   v9 = [v7 count];
@@ -290,14 +292,19 @@ LABEL_81:
     v10 = qword_1000EB450;
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_94;
+      goto LABEL_95;
     }
 
-    v49 = 0;
-    v35 = sub_1000011A8(0);
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v49[0] = 0;
+    LODWORD(v35) = sub_1000011A8(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v35 &= ~1u;
+      v35 = v35;
+    }
+
+    else
+    {
+      v35 = v35 & 0xFFFFFFFE;
     }
 
     if (v35)
@@ -307,23 +314,23 @@ LABEL_81:
       *&v51[4] = [v8 count];
       v52 = 2048;
       unsignedLongValue = [v5 unsignedLongValue];
-      v34 = _os_log_send_and_compose_impl();
+      v34 = _os_log_send_and_compose_impl(v35, v49, 0, 0, &_mh_execute_header, v36, 16, "Failed to parse persona manifest persona list: entry count mismatch: %lu != %lu", v51, 22);
 
       if (!v34)
       {
-LABEL_82:
+LABEL_83:
         free(v34);
-LABEL_94:
+LABEL_95:
         v19 = 0;
-        goto LABEL_95;
+        goto LABEL_96;
       }
 
-LABEL_70:
+LABEL_71:
       sub_100002A8C(v34);
-      goto LABEL_82;
+      goto LABEL_83;
     }
 
-    goto LABEL_81;
+    goto LABEL_82;
   }
 
   v10 = +[NSMutableSet set];
@@ -361,7 +368,7 @@ LABEL_70:
         v37 = qword_1000EB450;
         if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_93;
+          goto LABEL_94;
         }
 
         *v51 = 0;
@@ -378,17 +385,18 @@ LABEL_70:
 
         if (v39)
         {
-          LOWORD(v49) = 0;
-          goto LABEL_79;
+          LOWORD(v49[0]) = 0;
+          v40 = _os_log_send_and_compose_impl(v39, v51, 0, 0, &_mh_execute_header, v37, 16, "Failed to parse persona manifest persona list: persona is invalid", v49, 2, v45);
+          goto LABEL_80;
         }
 
-LABEL_91:
-        v41 = 0;
 LABEL_92:
-        free(v41);
+        v41 = 0;
 LABEL_93:
+        free(v41);
+LABEL_94:
 
-        goto LABEL_94;
+        goto LABEL_95;
       }
 
       v17 = sub_100096310(UMDPersonaManifestPersona, v16);
@@ -402,7 +410,7 @@ LABEL_93:
         v37 = qword_1000EB450;
         if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_93;
+          goto LABEL_94;
         }
 
         *v51 = 0;
@@ -419,19 +427,19 @@ LABEL_93:
 
         if (v43)
         {
-          LOWORD(v49) = 0;
-LABEL_79:
-          v40 = _os_log_send_and_compose_impl();
+          LOWORD(v49[0]) = 0;
+          v40 = _os_log_send_and_compose_impl(v43, v51, 0, 0, &_mh_execute_header, v37, 16, "Failed to parse persona manifest persona list: failed to parse persona", v49, 2, v45);
+LABEL_80:
           v41 = v40;
           if (v40)
           {
             sub_100002A8C(v40);
           }
 
-          goto LABEL_92;
+          goto LABEL_93;
         }
 
-        goto LABEL_91;
+        goto LABEL_92;
       }
 
       v18 = v17;
@@ -451,12 +459,12 @@ LABEL_17:
 
   v10 = v10;
   v19 = v10;
-LABEL_95:
-
 LABEL_96:
-LABEL_97:
 
+LABEL_97:
 LABEL_98:
+
+LABEL_99:
 
   return v19;
 }
@@ -510,37 +518,35 @@ LABEL_98:
 {
   dictCopy = dict;
   v5 = +[NSMutableSet set];
+  v61 = 0u;
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
   v6 = dictCopy;
-  v7 = [v6 countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v61 objects:v69 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v64;
+    v9 = *v62;
     v10 = &MGCopyAnswer_ptr;
-    v11 = &MGCopyAnswer_ptr;
 LABEL_3:
-    v12 = 0;
+    v11 = 0;
     while (1)
     {
-      if (*v64 != v9)
+      if (*v62 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v13 = *(*(&v63 + 1) + 8 * v12);
-      v14 = sub_100016954(v10[439], v13);
-      if (!v14)
+      v12 = *(*(&v61 + 1) + 8 * v11);
+      v13 = sub_100016954(v10[439], v12);
+      if (!v13)
       {
         break;
       }
 
-      v15 = v14;
-      v16 = [v6 objectForKeyedSubscript:v13];
-      v17 = v11[411];
+      v14 = v13;
+      v15 = [v6 objectForKeyedSubscript:v12];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -549,84 +555,84 @@ LABEL_3:
           sub_100097EFC();
         }
 
-        v43 = qword_1000EB450;
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v41 = qword_1000EB450;
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          *v67 = 0;
-          v44 = sub_1000011A8(0);
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          *v65 = 0;
+          v42 = sub_1000011A8(0);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            v45 = v44;
+            v43 = v42;
           }
 
           else
           {
-            v45 = v44 & 0xFFFFFFFE;
+            v43 = v42 & 0xFFFFFFFE;
           }
 
-          if (v45)
+          if (v43)
           {
-            LOWORD(v62) = 0;
-            v46 = _os_log_send_and_compose_impl();
-            v47 = v46;
-            if (v46)
+            LOWORD(v60[0]) = 0;
+            v44 = _os_log_send_and_compose_impl(v43, v65, 0, 0, &_mh_execute_header, v41, 16, "Failed to parse persona manifest user list: user value is invalid", v60, 2);
+            v45 = v44;
+            if (v44)
             {
-              sub_100002A8C(v46);
+              sub_100002A8C(v44);
             }
           }
 
           else
           {
-            v47 = 0;
+            v45 = 0;
           }
 
-          free(v47);
+          free(v45);
         }
 
         goto LABEL_37;
       }
 
-      v18 = [self personaSetFromData:v16];
-      v19 = v18;
-      if (!v18)
+      v16 = [self personaSetFromData:v15];
+      v17 = v16;
+      if (!v16)
       {
         if (qword_1000EB458 != -1)
         {
           sub_100097EFC();
         }
 
-        v20 = qword_1000EB450;
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v18 = qword_1000EB450;
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          *v67 = 0;
-          v48 = sub_1000011A8(0);
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          *v65 = 0;
+          v46 = sub_1000011A8(0);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            v49 = v48;
+            v47 = v46;
           }
 
           else
           {
-            v49 = v48 & 0xFFFFFFFE;
+            v47 = v46 & 0xFFFFFFFE;
           }
 
-          if (v49)
+          if (v47)
           {
-            LOWORD(v62) = 0;
-            v50 = _os_log_send_and_compose_impl();
-            v51 = v50;
-            if (v50)
+            LOWORD(v60[0]) = 0;
+            v48 = _os_log_send_and_compose_impl(v47, v65, 0, 0, &_mh_execute_header, v18, 16, "Failed to parse persona manifest user list: failed to parse user personas", v60, 2);
+            v49 = v48;
+            if (v48)
             {
-              sub_100002A8C(v50);
+              sub_100002A8C(v48);
             }
           }
 
           else
           {
-            v51 = 0;
+            v49 = 0;
           }
 
-          free(v51);
+          free(v49);
         }
 
 LABEL_36:
@@ -634,91 +640,91 @@ LABEL_36:
 LABEL_37:
 LABEL_38:
 
-        v31 = 0;
+        v29 = 0;
         goto LABEL_39;
       }
 
-      v52 = v12;
-      v53 = v9;
+      v50 = v11;
+      v51 = v9;
       selfCopy = self;
-      v55 = v16;
-      v56 = v6;
-      v57 = v5;
-      v60 = 0u;
-      v61 = 0u;
+      v53 = v15;
+      v54 = v6;
+      v55 = v5;
       v58 = 0u;
       v59 = 0u;
-      v20 = v18;
-      v21 = [v20 countByEnumeratingWithState:&v58 objects:v70 count:16];
-      if (v21)
+      v56 = 0u;
+      v57 = 0u;
+      v18 = v16;
+      v19 = [v18 countByEnumeratingWithState:&v56 objects:v68 count:16];
+      if (v19)
       {
-        v22 = v21;
-        v23 = *v59;
+        v20 = v19;
+        v21 = *v57;
         while (2)
         {
-          for (i = 0; i != v22; i = i + 1)
+          for (i = 0; i != v20; i = i + 1)
           {
-            if (*v59 != v23)
+            if (*v57 != v21)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v18);
             }
 
-            v25 = *(*(&v58 + 1) + 8 * i);
-            if (v25)
+            v23 = *(*(&v56 + 1) + 8 * i);
+            if (v23)
             {
-              v26 = *(v25 + 128);
-              if (v26)
+              v24 = *(v23 + 128);
+              if (v24)
               {
-                v27 = v26;
-                v28 = [*(v25 + 128) isEqual:v15];
+                v25 = v24;
+                v26 = [*(v23 + 128) isEqual:v14];
 
-                if ((v28 & 1) == 0)
+                if ((v26 & 1) == 0)
                 {
                   if (qword_1000EB458 != -1)
                   {
                     sub_100097EFC();
                   }
 
-                  v6 = v56;
-                  v5 = v57;
-                  v16 = v55;
-                  v32 = qword_1000EB450;
-                  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                  v6 = v54;
+                  v5 = v55;
+                  v15 = v53;
+                  v30 = qword_1000EB450;
+                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                   {
-                    v62 = 0;
-                    v33 = sub_1000011A8(0);
-                    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+                    v60[0] = 0;
+                    v31 = sub_1000011A8(0);
+                    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                     {
-                      v34 = v33;
+                      v32 = v31;
                     }
 
                     else
                     {
-                      v34 = v33 & 0xFFFFFFFE;
+                      v32 = v31 & 0xFFFFFFFE;
                     }
 
-                    if (v34)
+                    if (v32)
                     {
-                      v35 = *(v25 + 128);
-                      *v67 = 138543618;
-                      *&v67[4] = v35;
-                      v68 = 2114;
-                      v69 = v15;
-                      v36 = v32;
-                      v37 = _os_log_send_and_compose_impl();
+                      v33 = *(v23 + 128);
+                      *v65 = 138543618;
+                      *&v65[4] = v33;
+                      v66 = 2114;
+                      v67 = v14;
+                      v34 = v30;
+                      v35 = _os_log_send_and_compose_impl(v32, v60, 0, 0, &_mh_execute_header, v34, 16, "Failed to parse persona manifest user list: persona user UUID mismatch: %{public}@ != %{public}@", v65, 22);
 
-                      if (v37)
+                      if (v35)
                       {
-                        sub_100002A8C(v37);
+                        sub_100002A8C(v35);
                       }
                     }
 
                     else
                     {
-                      v37 = 0;
+                      v35 = 0;
                     }
 
-                    free(v37);
+                    free(v35);
                   }
 
                   goto LABEL_36;
@@ -727,8 +733,8 @@ LABEL_38:
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v58 objects:v70 count:16];
-          if (v22)
+          v20 = [v18 countByEnumeratingWithState:&v56 objects:v68 count:16];
+          if (v20)
           {
             continue;
           }
@@ -737,25 +743,24 @@ LABEL_38:
         }
       }
 
-      v29 = objc_alloc_init(UMDPersonaManifestUser);
-      sub_1000897B8(v29, v15);
-      if (v29)
+      v27 = objc_alloc_init(UMDPersonaManifestUser);
+      sub_1000897B8(v27, v14);
+      if (v27)
       {
-        objc_setProperty_nonatomic_copy(v29, v30, v20, 16);
+        objc_setProperty_nonatomic_copy(v27, v28, v18, 16);
       }
 
-      v5 = v57;
-      [v57 addObject:v29];
+      v5 = v55;
+      [v55 addObject:v27];
 
-      v9 = v53;
-      v12 = v52 + 1;
-      v6 = v56;
+      v9 = v51;
+      v11 = v50 + 1;
+      v6 = v54;
       self = selfCopy;
       v10 = &MGCopyAnswer_ptr;
-      v11 = &MGCopyAnswer_ptr;
-      if ((v52 + 1) == v8)
+      if ((v50 + 1) == v8)
       {
-        v8 = [v56 countByEnumeratingWithState:&v63 objects:v71 count:16];
+        v8 = [v54 countByEnumeratingWithState:&v61 objects:v69 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -770,39 +775,39 @@ LABEL_38:
       sub_100097EFC();
     }
 
-    v15 = qword_1000EB450;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = qword_1000EB450;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v62 = 0;
-      v39 = sub_1000011A8(0);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v60[0] = 0;
+      v37 = sub_1000011A8(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v40 = v39;
+        v38 = v37;
       }
 
       else
       {
-        v40 = v39 & 0xFFFFFFFE;
+        v38 = v37 & 0xFFFFFFFE;
       }
 
-      if (v40)
+      if (v38)
       {
-        *v67 = 138543362;
-        *&v67[4] = v13;
-        v41 = _os_log_send_and_compose_impl();
-        v42 = v41;
-        if (v41)
+        *v65 = 138543362;
+        *&v65[4] = v12;
+        v39 = _os_log_send_and_compose_impl(v38, v60, 0, 0, &_mh_execute_header, v14, 16, "Failed to parse persona manifest user list: invalid UUID: %{public}@", v65, 12);
+        v40 = v39;
+        if (v39)
         {
-          sub_100002A8C(v41);
+          sub_100002A8C(v39);
         }
       }
 
       else
       {
-        v42 = 0;
+        v40 = 0;
       }
 
-      free(v42);
+      free(v40);
     }
 
     goto LABEL_38;
@@ -810,39 +815,39 @@ LABEL_38:
 
 LABEL_23:
 
-  v31 = v5;
+  v29 = v5;
 LABEL_39:
 
-  return v31;
+  return v29;
 }
 
 + (id)dictForUserSet:(id)set
 {
   setCopy = set;
   v4 = +[NSMutableDictionary dictionary];
-  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
   v5 = setCopy;
-  v6 = [v5 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v6)
   {
-    v7 = *v45;
+    v7 = *v46;
     v38 = v5;
     v39 = v4;
-    v36 = *v45;
+    v36 = *v46;
     while (2)
     {
       v37 = v6;
       for (i = 0; i != v37; i = i + 1)
       {
-        if (*v45 != v7)
+        if (*v46 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v44 + 1) + 8 * i);
+        v9 = *(*(&v45 + 1) + 8 * i);
         if (!v9 || !*(v9 + 24))
         {
           if (qword_1000EB458 != -1)
@@ -853,7 +858,7 @@ LABEL_39:
           v10 = qword_1000EB450;
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            *v48 = 0;
+            *v49 = 0;
             v32 = sub_1000011A8(0);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
@@ -867,7 +872,8 @@ LABEL_39:
 
             if (v33)
             {
-              v34 = _os_log_send_and_compose_impl();
+              LOWORD(v40[0]) = 0;
+              v34 = _os_log_send_and_compose_impl(v33, v49, 0, 0, &_mh_execute_header, v10, 16, "Failed to generate dict for persona manifest user: missing user UUID", v40, 2);
               v35 = v34;
               if (v34)
               {
@@ -883,32 +889,32 @@ LABEL_39:
             free(v35);
           }
 
-LABEL_34:
+LABEL_35:
 
           v23 = 0;
-          goto LABEL_35;
+          goto LABEL_36;
         }
 
-        v42 = 0u;
         v43 = 0u;
-        v40 = 0u;
+        v44 = 0u;
         v41 = 0u;
+        v42 = 0u;
         v10 = *(v9 + 16);
-        v11 = [v10 countByEnumeratingWithState:&v40 objects:v51 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v41 objects:v52 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v41;
+          v13 = *v42;
           while (2)
           {
             for (j = 0; j != v12; j = j + 1)
             {
-              if (*v41 != v13)
+              if (*v42 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v40 + 1) + 8 * j);
+              v15 = *(*(&v41 + 1) + 8 * j);
               if (v15)
               {
                 v16 = *(v15 + 128);
@@ -930,23 +936,29 @@ LABEL_34:
                     v24 = qword_1000EB450;
                     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                     {
-                      v25 = sub_1000011A8(0);
-                      if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+                      v40[0] = 0;
+                      LODWORD(v25) = sub_1000011A8(0);
+                      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                       {
-                        v25 &= ~1u;
+                        v25 = v25;
+                      }
+
+                      else
+                      {
+                        v25 = v25 & 0xFFFFFFFE;
                       }
 
                       if (v25)
                       {
                         v26 = *(v15 + 128);
                         v27 = *(v9 + 24);
-                        *v48 = 138543618;
-                        *&v48[4] = v26;
-                        v49 = 2114;
-                        v50 = v27;
+                        *v49 = 138543618;
+                        *&v49[4] = v26;
+                        v50 = 2114;
+                        v51 = v27;
                         v28 = v26;
                         v29 = v24;
-                        v30 = _os_log_send_and_compose_impl();
+                        v30 = _os_log_send_and_compose_impl(v25, v40, 0, 0, &_mh_execute_header, v29, 16, "Failed to generate dict for persona manifest user: persona user UUID mismatch: %{public}@ != %{public}@", v49, 22);
 
                         if (v30)
                         {
@@ -963,13 +975,13 @@ LABEL_34:
                     }
 
                     v4 = v39;
-                    goto LABEL_34;
+                    goto LABEL_35;
                   }
                 }
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v40 objects:v51 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v41 objects:v52 count:16];
             if (v12)
             {
               continue;
@@ -989,7 +1001,7 @@ LABEL_34:
         v7 = v36;
       }
 
-      v6 = [v38 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v6 = [v38 countByEnumeratingWithState:&v45 objects:v53 count:16];
       if (v6)
       {
         continue;
@@ -1000,7 +1012,7 @@ LABEL_34:
   }
 
   v23 = v4;
-LABEL_35:
+LABEL_36:
 
   return v23;
 }

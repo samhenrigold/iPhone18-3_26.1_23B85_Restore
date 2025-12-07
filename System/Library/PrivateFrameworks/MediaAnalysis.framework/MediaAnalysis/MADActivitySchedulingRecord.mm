@@ -14,10 +14,10 @@
   v6 = VCPTaskIDDescription([(MADActivitySchedulingRecord *)self activityID]);
   [string appendFormat:@"activityID: %@, ", v6];
 
-  startTime = [(MADActivitySchedulingRecord *)self startTime];
-  [string appendFormat:@"startTime: %@, ", startTime];
+  v7 = objc_msgSend_startTime(self);
+  [string appendFormat:@"startTime: %@, ", v7];
 
-  [(MADActivitySchedulingRecord *)self duration];
+  objc_msgSend_duration(self);
   [string appendFormat:@"duration: %f(sec), ", v8];
   [string appendFormat:@"exitStatus: %d>", -[MADActivitySchedulingRecord exitStatus](self, "exitStatus")];
 

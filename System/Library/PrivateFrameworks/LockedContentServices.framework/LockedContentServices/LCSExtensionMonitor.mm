@@ -76,12 +76,12 @@ void __33__LCSExtensionMonitor_invalidate__block_invoke(uint64_t a1)
 
 void __28__LCSExtensionMonitor_start__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (!*(*(a1 + 32) + 16))
   {
     v2 = [objc_alloc(MEMORY[0x277CC5DF8]) initWithExtensionPointIdentifier:*(*(a1 + 32) + 48)];
-    v9[0] = v2;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v2;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
     v4 = [objc_alloc(MEMORY[0x277CC5E00]) initWithQueries:v3 delegate:*(a1 + 32)];
     v5 = *(a1 + 32);
@@ -93,54 +93,52 @@ void __28__LCSExtensionMonitor_start__block_invoke(uint64_t a1)
     v7 = [MEMORY[0x277CC5E00] executeQueries:v3];
     [*(a1 + 32) _queue_notifyUpdatedExtensions:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_notifyUpdatedExtensions:(id)extensions
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
-  v5 = LCSLogExtension();
+  v5 = LCSLogExtension(extensionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     extensionPointIdentifier = self->_extensionPointIdentifier;
     *buf = 138412802;
-    v51 = extensionPointIdentifier;
-    v52 = 2048;
-    v53 = [extensionsCopy count];
-    v54 = 2112;
-    v55 = extensionsCopy;
+    v50 = extensionPointIdentifier;
+    v51 = 2048;
+    v52 = [extensionsCopy count];
+    v53 = 2112;
+    v54 = extensionsCopy;
     _os_log_impl(&dword_256175000, v5, OS_LOG_TYPE_DEFAULT, "Extensions updated for %@ monitoring; Received %lu extensions: %@", buf, 0x20u);
   }
 
   weakToWeakObjectsMapTable = [MEMORY[0x277CCAB00] weakToWeakObjectsMapTable];
   os_unfair_lock_lock(&self->_lock);
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v8 = self->_lock_knownExtensions;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v45;
+    v11 = *v44;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v45 != v11)
+        if (*v44 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v44 + 1) + 8 * i);
+        v13 = *(*(&v43 + 1) + 8 * i);
         identity = [v13 identity];
         [weakToWeakObjectsMapTable setObject:v13 forKey:identity];
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v10);
@@ -157,34 +155,34 @@ void __28__LCSExtensionMonitor_start__block_invoke(uint64_t a1)
     lock_knownExtensions = MEMORY[0x277CBEBF8];
   }
 
-  v33 = [MEMORY[0x277CBEB98] setWithArray:lock_knownExtensions];
+  v32 = [MEMORY[0x277CBEB98] setWithArray:lock_knownExtensions];
   v16 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(extensionsCopy, "count")}];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = extensionsCopy;
-  v17 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v17 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v41;
+    v19 = *v40;
     do
     {
       v20 = 0;
       do
       {
-        if (*v41 != v19)
+        if (*v40 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v40 + 1) + 8 * v20);
-        v22 = LCSLogExtension();
+        v21 = *(*(&v39 + 1) + 8 * v20);
+        v22 = LCSLogExtension(v17);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v51 = v21;
+          v50 = v21;
           _os_log_impl(&dword_256175000, v22, OS_LOG_TYPE_DEFAULT, "Examining extension identity %@", buf, 0xCu);
         }
 
@@ -192,11 +190,11 @@ void __28__LCSExtensionMonitor_start__block_invoke(uint64_t a1)
         if (v23)
         {
           v24 = v23;
-          v25 = LCSLogExtension();
+          v25 = LCSLogExtension(v23);
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v51 = v21;
+            v50 = v21;
             _os_log_impl(&dword_256175000, v25, OS_LOG_TYPE_DEFAULT, "Extension identity %@ already tracked", buf, 0xCu);
           }
 
@@ -211,11 +209,11 @@ LABEL_25:
           goto LABEL_25;
         }
 
-        v24 = LCSLogExtension();
+        v24 = LCSLogExtension(0);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v51 = v21;
+          v50 = v21;
           _os_log_error_impl(&dword_256175000, v24, OS_LOG_TYPE_ERROR, "Failed to add new extension wrapper: %@; PRPosterExtension unable to create extension", buf, 0xCu);
         }
 
@@ -225,18 +223,18 @@ LABEL_26:
       }
 
       while (v18 != v20);
-      v26 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
-      v18 = v26;
+      v17 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v18 = v17;
     }
 
-    while (v26);
+    while (v17);
   }
 
-  v27 = [v16 copy];
-  if ([v33 isEqual:v27])
+  v26 = [v16 copy];
+  if ([v32 isEqual:v26])
   {
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v28 = LCSLogExtension();
+    v28 = LCSLogExtension(v27);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -246,7 +244,7 @@ LABEL_26:
 
   else
   {
-    bs_array = [v27 bs_array];
+    bs_array = [v26 bs_array];
     v30 = selfCopy->_lock_knownExtensions;
     selfCopy->_lock_knownExtensions = bs_array;
 
@@ -257,39 +255,37 @@ LABEL_26:
     block[2] = __54__LCSExtensionMonitor__queue_notifyUpdatedExtensions___block_invoke;
     block[3] = &unk_279824DF0;
     block[4] = selfCopy;
-    v37 = v27;
-    v38 = v33;
-    v39 = v37;
+    v36 = v26;
+    v37 = v32;
+    v38 = v36;
     dispatch_async(queue, block);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __54__LCSExtensionMonitor__queue_notifyUpdatedExtensions___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = [*(a1[4] + 32) copy];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 captureExtensionProvider:a1[4] didUpdateKnownExtensions:a1[5]];
@@ -304,13 +300,11 @@ void __54__LCSExtensionMonitor__queue_notifyUpdatedExtensions___block_invoke(voi
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)knownExtensions
@@ -328,26 +322,13 @@ void __54__LCSExtensionMonitor__queue_notifyUpdatedExtensions___block_invoke(voi
   os_unfair_lock_lock(&self->_lock);
   v5 = [(NSArray *)self->_lock_knownExtensions copy];
   os_unfair_lock_unlock(&self->_lock);
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __55__LCSExtensionMonitor_hasExtensionForBundleIdentifier___block_invoke;
-  v14[3] = &unk_279824F38;
-  v15 = identifierCopy;
-  v6 = [v5 bs_firstObjectPassingTest:v14];
-
-  if (v6)
+  if (v5 && (v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = __55__LCSExtensionMonitor_hasExtensionForBundleIdentifier___block_invoke, v14[3] = &unk_279824F38, v15 = identifierCopy, [v5 bs_firstObjectPassingTest:v14], v6 = objc_claimAutoreleasedReturnValue(), v6, v15, v6))
   {
     v7 = 1;
   }
 
   else
   {
-LABEL_4:
     v8 = [objc_alloc(MEMORY[0x277CC5DF8]) initWithExtensionPointIdentifier:self->_extensionPointIdentifier];
     v9 = [MEMORY[0x277CC5E00] executeQuery:v8];
     v12[0] = MEMORY[0x277D85DD0];

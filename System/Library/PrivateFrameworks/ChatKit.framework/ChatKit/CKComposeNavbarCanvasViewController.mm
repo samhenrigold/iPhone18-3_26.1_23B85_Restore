@@ -119,9 +119,9 @@ void __60__CKComposeNavbarCanvasViewController_updateTitle_animated___block_invo
     [titleLabel setFont:v7];
 
     v8 = self->_cancelButton;
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UIButton *)v8 setTitle:v10 forState:0];
+    v10 = CKFrameworkBundle(v9);
+    v11 = [v10 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UIButton *)v8 setTitle:v11 forState:0];
 
     cancelButton = self->_cancelButton;
   }

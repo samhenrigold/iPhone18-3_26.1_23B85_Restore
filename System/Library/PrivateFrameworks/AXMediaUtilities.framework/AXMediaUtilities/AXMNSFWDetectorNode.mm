@@ -98,25 +98,26 @@
   contentCopy = content;
   contextCopy = context;
   identifierCopy = identifier;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v11 = getVN81aedeb999c79d74e79af7f1c922cf97SymbolLoc_ptr;
-  v24 = getVN81aedeb999c79d74e79af7f1c922cf97SymbolLoc_ptr;
+  v25 = getVN81aedeb999c79d74e79af7f1c922cf97SymbolLoc_ptr;
   if (!getVN81aedeb999c79d74e79af7f1c922cf97SymbolLoc_ptr)
   {
     v12 = VisionLibrary_5();
-    v22[3] = dlsym(v12, "VN81aedeb999c79d74e79af7f1c922cf97");
-    getVN81aedeb999c79d74e79af7f1c922cf97SymbolLoc_ptr = v22[3];
-    v11 = v22[3];
+    v23[3] = dlsym(v12, "VN81aedeb999c79d74e79af7f1c922cf97");
+    getVN81aedeb999c79d74e79af7f1c922cf97SymbolLoc_ptr = v23[3];
+    v11 = v23[3];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v11)
   {
-    v20 = __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
-    _Block_object_dispose(&v21, 8);
-    _Unwind_Resume(v20);
+    __77__AXMVisionFeatureFaceAttributes__AXMAgeCategoryForVisionCategoryIdentifier___block_invoke_cold_1();
+    v21 = v20;
+    _Block_object_dispose(&v22, 8);
+    _Unwind_Resume(v21);
   }
 
   v13 = [identifierCopy isEqualToString:*v11];

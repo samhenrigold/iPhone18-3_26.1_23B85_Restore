@@ -183,7 +183,7 @@ void __64__PXCuratedLibraryAssetCollectionSkimmingModel__updateViewModel__block_
 - (void)_prepareIndexesForAssetCollectionReference:(id)reference willStartSkimming:(BOOL)skimming willStartSlideshow:(BOOL)slideshow
 {
   slideshowCopy = slideshow;
-  v71 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   referenceCopy = reference;
   zoomLevel = [(PXCuratedLibraryViewModel *)self->_viewModel zoomLevel];
   self->_zoomLevel = zoomLevel;
@@ -213,44 +213,44 @@ void __64__PXCuratedLibraryAssetCollectionSkimmingModel__updateViewModel__block_
   objc_storeStrong(&self->_containingAssetCollectionReference, reference);
   assetsDataSourceManager = [(PXCuratedLibraryViewModel *)self->_viewModel assetsDataSourceManager];
   skimmingZoomLevel = self->_skimmingZoomLevel;
-  v69 = 0;
-  v16 = [assetsDataSourceManager assetCollectionReferencesInDataSourceForZoomLevel:skimmingZoomLevel withParentAssetCollectionReference:referenceCopy assetCollectionReferenceWithSameKeyAssetAsParent:&v69];
-  v17 = v69;
+  v67 = 0;
+  v16 = [assetsDataSourceManager assetCollectionReferencesInDataSourceForZoomLevel:skimmingZoomLevel withParentAssetCollectionReference:referenceCopy assetCollectionReferenceWithSameKeyAssetAsParent:&v67];
+  v17 = v67;
   v18 = objc_alloc_init(off_1E77217C8);
-  v67 = 0u;
-  v68 = 0u;
   v65 = 0u;
   v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v19 = v16;
-  v20 = [v19 countByEnumeratingWithState:&v65 objects:v70 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v63 objects:v68 count:16];
   if (v20)
   {
-    v21 = *v66;
+    v21 = *v64;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v66 != v21)
+        if (*v64 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v65 + 1) + 8 * i);
+        v23 = *(*(&v63 + 1) + 8 * i);
         if (v23)
         {
-          [v23 indexPath];
+          objc_msgSend_indexPath(v23);
         }
 
         else
         {
-          v63 = 0u;
-          v64 = 0u;
+          v61 = 0u;
+          v62 = 0u;
         }
 
-        [v18 addIndexPath:&v63];
+        [v18 addIndexPath:&v61];
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v65 objects:v70 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v63 objects:v68 count:16];
     }
 
     while (v20);
@@ -263,61 +263,61 @@ void __64__PXCuratedLibraryAssetCollectionSkimmingModel__updateViewModel__block_
   if (skimming || slideshowCopy)
   {
     v26 = self->_indexPathSetForSkimming;
-    *&v63 = 0;
-    *(&v63 + 1) = &v63;
-    *&v64 = 0x2020000000;
-    BYTE8(v64) = 0;
+    *&v61 = 0;
+    *(&v61 + 1) = &v61;
+    *&v62 = 0x2020000000;
+    BYTE8(v62) = 0;
     if ([(PXIndexPathSet *)v26 count]>= 1)
     {
       if (v26)
       {
-        [(PXIndexPathSet *)v26 anySectionIndexPath];
-        v27 = v61;
+        objc_msgSend_anySectionIndexPath(v26);
+        v27 = v59;
       }
 
       else
       {
         v27 = 0;
-        v61 = 0u;
-        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
       }
 
       v28 = [(PXIndexPathSet *)v26 sectionIndexSetForDataSourceIdentifier:v27];
-      v57[0] = MEMORY[0x1E69E9820];
-      v57[1] = 3221225472;
-      v57[2] = __128__PXCuratedLibraryAssetCollectionSkimmingModel__prepareIndexesForAssetCollectionReference_willStartSkimming_willStartSlideshow___block_invoke;
-      v57[3] = &unk_1E7741080;
-      v60 = &v63;
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __128__PXCuratedLibraryAssetCollectionSkimmingModel__prepareIndexesForAssetCollectionReference_willStartSkimming_willStartSlideshow___block_invoke;
+      v55[3] = &unk_1E7741080;
+      v58 = &v61;
       v29 = v28;
-      v58 = v29;
+      v56 = v29;
       selfCopy = self;
-      [assetsDataSourceManager performChanges:v57];
+      [assetsDataSourceManager performChanges:v55];
     }
 
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = __128__PXCuratedLibraryAssetCollectionSkimmingModel__prepareIndexesForAssetCollectionReference_willStartSkimming_willStartSlideshow___block_invoke_2;
-    v56[3] = &unk_1E77410A8;
-    v56[4] = self;
-    [assetsDataSourceManager performChanges:v56];
-    _Block_object_dispose(&v63, 8);
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __128__PXCuratedLibraryAssetCollectionSkimmingModel__prepareIndexesForAssetCollectionReference_willStartSkimming_willStartSlideshow___block_invoke_2;
+    v54[3] = &unk_1E77410A8;
+    v54[4] = self;
+    [assetsDataSourceManager performChanges:v54];
+    _Block_object_dispose(&v61, 8);
   }
 
-  v63 = 0u;
-  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   if (v17)
   {
-    [v17 indexPath];
+    objc_msgSend_indexPath(v17);
   }
 
   else
   {
     v30 = *(off_1E7722228 + 1);
-    v63 = *off_1E7722228;
-    v64 = v30;
+    v61 = *off_1E7722228;
+    v62 = v30;
   }
 
-  if (v63 == *off_1E7721F68)
+  if (v61 == *off_1E7721F68)
   {
     v31 = [assetsDataSourceManager dataSourceForZoomLevel:self->_skimmingZoomLevel];
     v32 = [v31 objectReferenceNearestToObjectReference:referenceCopy];
@@ -327,46 +327,46 @@ void __64__PXCuratedLibraryAssetCollectionSkimmingModel__updateViewModel__block_
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-        v45 = objc_opt_class();
-        v47 = NSStringFromClass(v45);
+        v44 = objc_opt_class();
+        v46 = NSStringFromClass(v44);
         px_descriptionForAssertionMessage = [v32 px_descriptionForAssertionMessage];
-        [currentHandler3 handleFailureInMethod:a2 object:self file:@"PXCuratedLibrarySkimmingController.m" lineNumber:594 description:{@"%@ should be nil or an instance inheriting from %@, but it is %@", @"[dataSource objectReferenceNearestToObjectReference:assetCollectionReference]", v47, px_descriptionForAssertionMessage}];
+        [currentHandler3 handleFailureInMethod:a2 object:self file:@"PXCuratedLibrarySkimmingController.m" lineNumber:594 description:{@"%@ should be nil or an instance inheriting from %@, but it is %@", @"[dataSource objectReferenceNearestToObjectReference:assetCollectionReference]", v46, px_descriptionForAssertionMessage}];
       }
     }
 
     if (v31)
     {
-      [v31 indexPathForAssetCollectionReference:v32];
+      objc_msgSend_indexPathForAssetCollectionReference_(v31);
     }
 
     else
     {
-      v54 = 0u;
-      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
     }
 
-    v63 = v54;
-    v64 = v55;
-    if (([(PXIndexPathSet *)self->_indexPathSetForSkimming containsIndexPath:&v54]& 1) == 0)
+    v61 = v52;
+    v62 = v53;
+    if (([(PXIndexPathSet *)self->_indexPathSetForSkimming containsIndexPath:&v52]& 1) == 0)
     {
-      v54 = 0u;
-      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       v33 = self->_indexPathSetForSkimming;
       if (v33)
       {
         v34 = *&self->_initialIndexPath.item;
-        v52 = *&self->_initialIndexPath.dataSourceIdentifier;
-        v53 = v34;
-        [(PXIndexPathSet *)v33 indexPathLessThanIndexPath:&v52];
+        v50 = *&self->_initialIndexPath.dataSourceIdentifier;
+        v51 = v34;
+        objc_msgSend_indexPathLessThanIndexPath_(v33);
         v33 = self->_indexPathSetForSkimming;
       }
 
-      v52 = v54;
-      v53 = v55;
-      if ([(PXIndexPathSet *)v33 containsIndexPath:&v52])
+      v50 = v52;
+      v51 = v53;
+      if ([(PXIndexPathSet *)v33 containsIndexPath:&v50])
       {
-        v35 = v54;
-        v36 = v55;
+        v35 = v52;
+        v36 = v53;
       }
 
       else
@@ -374,60 +374,57 @@ void __64__PXCuratedLibraryAssetCollectionSkimmingModel__updateViewModel__block_
         v37 = self->_indexPathSetForSkimming;
         if (v37)
         {
-          v38 = *&self->_initialIndexPath.item;
-          v51[0] = *&self->_initialIndexPath.dataSourceIdentifier;
-          v51[1] = v38;
-          [(PXIndexPathSet *)v37 indexPathGreaterThanIndexPath:v51];
+          objc_msgSend_indexPathGreaterThanIndexPath_(v37);
         }
 
         else
         {
-          v52 = 0u;
-          v53 = 0u;
+          v50 = 0u;
+          v51 = 0u;
         }
 
-        v35 = v52;
-        v36 = v53;
+        v35 = v50;
+        v36 = v51;
       }
 
-      v63 = v35;
-      v64 = v36;
+      v61 = v35;
+      v62 = v36;
     }
   }
 
-  v39 = self->_indexPathSetForSkimming;
-  v54 = v63;
-  v55 = v64;
-  if (([(PXIndexPathSet *)v39 containsIndexPath:&v54]& 1) == 0)
+  v38 = self->_indexPathSetForSkimming;
+  v52 = v61;
+  v53 = v62;
+  if (([(PXIndexPathSet *)v38 containsIndexPath:&v52]& 1) == 0)
   {
-    v40 = self->_indexPathSetForSkimming;
-    if (v40)
+    v39 = self->_indexPathSetForSkimming;
+    if (v39)
     {
-      [(PXIndexPathSet *)v40 anySectionIndexPath];
+      objc_msgSend_anySectionIndexPath(v39);
     }
 
     else
     {
-      v54 = 0u;
-      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
     }
 
-    v63 = v54;
-    v64 = v55;
+    v61 = v52;
+    v62 = v53;
   }
 
-  v41 = v63;
-  v42 = v64;
-  *&self->_initialIndexPath.dataSourceIdentifier = v63;
-  *&self->_initialIndexPath.item = v42;
+  v40 = v61;
+  v41 = v62;
+  *&self->_initialIndexPath.dataSourceIdentifier = v61;
+  *&self->_initialIndexPath.item = v41;
   self->_isPlayingSlideshow = slideshowCopy;
   self->_isInteractionInProgress = skimming;
-  *&self->_skimmedIndexPath.dataSourceIdentifier = v41;
-  *&self->_skimmedIndexPath.item = v42;
+  *&self->_skimmedIndexPath.dataSourceIdentifier = v40;
+  *&self->_skimmedIndexPath.item = v41;
   [(PXCuratedLibraryAssetCollectionSkimmingModel *)self _updateViewModel];
 }
 
-uint64_t __128__PXCuratedLibraryAssetCollectionSkimmingModel__prepareIndexesForAssetCollectionReference_willStartSkimming_willStartSlideshow___block_invoke(void *a1, void *a2)
+void *__128__PXCuratedLibraryAssetCollectionSkimmingModel__prepareIndexesForAssetCollectionReference_willStartSkimming_willStartSlideshow___block_invoke(void *a1, void *a2)
 {
   result = [a2 forceAccurateSectionsIfNeeded:a1[4] inZoomLevel:*(a1[5] + 24)];
   *(*(a1[6] + 8) + 24) = result;

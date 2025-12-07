@@ -19,7 +19,7 @@ id __41__CNQueryAnalyticsLogger_processIdentity__block_invoke(uint64_t a1)
   v3 = v2[1];
   if (!v3)
   {
-    v4 = [v2 auditToken];
+    v4 = objc_msgSend_auditToken(v2);
     if (v4)
     {
       v5 = [MEMORY[0x1E6996640] bundleIdentifierForAuditToken:v4];

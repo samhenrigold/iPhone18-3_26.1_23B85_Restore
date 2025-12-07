@@ -130,51 +130,51 @@ LABEL_19:
 
 - (int)deduplicateIssues:(id)issues forFeatureHashGroup:(id)group
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   issuesCopy = issues;
   groupCopy = group;
   array = [MEMORY[0x277CBEB18] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = issuesCopy;
-  v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v29;
+    v10 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * i);
+        v12 = *(*(&v27 + 1) + 8 * i);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         issues = [groupCopy issues];
-        v14 = [issues countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v14 = [issues countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v25;
+          v16 = *v24;
           while (2)
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v25 != v16)
+              if (*v24 != v16)
               {
                 objc_enumerationMutation(issues);
               }
 
-              if ([(AXAuditDeduplicatorHeuristics *)self compareIssues:v12 and:*(*(&v24 + 1) + 8 * j)])
+              if ([(AXAuditDeduplicatorHeuristics *)self compareIssues:v12 and:*(*(&v23 + 1) + 8 * j)])
               {
 
                 [v12 setIsDuplicate:1];
@@ -183,7 +183,7 @@ LABEL_19:
               }
             }
 
-            v15 = [issues countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v15 = [issues countByEnumeratingWithState:&v23 objects:v31 count:16];
             if (v15)
             {
               continue;
@@ -198,7 +198,7 @@ LABEL_16:
         ;
       }
 
-      v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v8 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v8);
@@ -212,13 +212,12 @@ LABEL_16:
   issues2 = [groupCopy issues];
   [issues2 addObjectsFromArray:array];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)setPlatformThreshold:(id)threshold
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   thresholdCopy = threshold;
   if ([thresholdCopy localizedCaseInsensitiveContainsString:@"AppleTV"])
   {
@@ -252,14 +251,12 @@ LABEL_16:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     [(AXAuditDeduplicatorHeuristics *)self targetThreshold];
-    v9 = 134218242;
-    v10 = v7;
-    v11 = 2112;
-    v12 = thresholdCopy;
-    _os_log_impl(&dword_23D6FE000, v6, OS_LOG_TYPE_DEFAULT, "Setting threshold to %fl for platform: %@", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = v7;
+    v10 = 2112;
+    v11 = thresholdCopy;
+    _os_log_impl(&dword_23D6FE000, v6, OS_LOG_TYPE_DEFAULT, "Setting threshold to %fl for platform: %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

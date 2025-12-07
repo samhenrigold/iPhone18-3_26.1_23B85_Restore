@@ -46,7 +46,7 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = dataCopy;
-    [v5 timestamp];
+    objc_msgSend_timestamp(v5);
     traceKey = [(ARTechnique *)self traceKey];
     if (ARTechnique_Image_to_Result_Timestamp_onceToken != -1)
     {
@@ -75,7 +75,7 @@
 
 - (void)requestResultDataAtTimestamp:(double)timestamp context:(id)context
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   dispatch_semaphore_wait(self->_pendingRequestsSemaphore, 0xFFFFFFFFFFFFFFFFLL);
   v7 = [(NSMutableArray *)self->_pendingResultData count];
@@ -86,28 +86,28 @@ LABEL_9:
     {
       firstObject = [(NSMutableArray *)self->_pendingRequestContexts firstObject];
       imageData = [firstObject imageData];
-      [imageData timestamp];
+      objc_msgSend_timestamp(imageData);
       v21 = timestamp - v20;
       [(ARTechnique *)self requiredTimeInterval];
       v23 = v22 + v22;
 
       if (v21 > v23)
       {
-        v24 = _ARLogTechnique_2();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v25 = _ARLogTechnique_2(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          v25 = objc_opt_class();
-          v26 = NSStringFromClass(v25);
+          v26 = objc_opt_class();
+          v27 = NSStringFromClass(v26);
           firstObject2 = [(NSMutableArray *)self->_pendingRequestContexts firstObject];
           imageData2 = [firstObject2 imageData];
-          [imageData2 timestamp];
-          v40 = 138543874;
-          v41 = v26;
-          v42 = 2048;
+          objc_msgSend_timestamp(imageData2);
+          v43 = 138543874;
+          v44 = v27;
+          v45 = 2048;
           selfCopy4 = self;
-          v44 = 2048;
-          v45 = v29;
-          _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropping timed-out context: %f", &v40, 0x20u);
+          v47 = 2048;
+          v48 = v30;
+          _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropping timed-out context: %f", &v43, 0x20u);
         }
 
         [(NSMutableArray *)self->_pendingRequestContexts removeObjectAtIndex:0];
@@ -123,25 +123,25 @@ LABEL_9:
   if (v7 < 1)
   {
 LABEL_6:
-    v12 = _ARLogTechnique_2();
+    v12 = _ARLogTechnique_2(v7);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = objc_opt_class();
       v14 = NSStringFromClass(v13);
       imageData3 = [contextCopy imageData];
-      [imageData3 timestamp];
+      objc_msgSend_timestamp(imageData3);
       pendingResultData = self->_pendingResultData;
-      v40 = 138544386;
-      v41 = v14;
-      v42 = 2048;
+      v43 = 138544386;
+      v44 = v14;
+      v45 = 2048;
       selfCopy4 = self;
-      v44 = 2048;
-      v45 = v17;
-      v46 = 2048;
-      v47 = v8;
-      v48 = 2112;
-      v49 = pendingResultData;
-      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Enqueuing context (%f) even though %ld results (%@) are pending", &v40, 0x34u);
+      v47 = 2048;
+      v48 = v17;
+      v49 = 2048;
+      v50 = v8;
+      v51 = 2112;
+      v52 = pendingResultData;
+      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Enqueuing context (%f) even though %ld results (%@) are pending", &v43, 0x34u);
     }
 
     goto LABEL_9;
@@ -164,65 +164,70 @@ LABEL_6:
     }
   }
 
-  v30 = [(NSMutableArray *)self->_pendingResultData objectAtIndexedSubscript:v9];
+  v31 = [(NSMutableArray *)self->_pendingResultData objectAtIndexedSubscript:v9];
+  v32 = v31;
   if (v9)
   {
-    v31 = _ARLogTechnique_2();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v33 = _ARLogTechnique_2(v31);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
-      v40 = 138543874;
-      v41 = v33;
-      v42 = 2048;
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
+      v43 = 138543874;
+      v44 = v35;
+      v45 = 2048;
       selfCopy4 = self;
-      v44 = 2048;
-      v45 = v9;
-      _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropping %ld received result datas - newer data available", &v40, 0x20u);
+      v47 = 2048;
+      v48 = v9;
+      _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropping %ld received result datas - newer data available", &v43, 0x20u);
     }
   }
 
   [(NSMutableArray *)self->_pendingFrameReferences removeObjectsInRange:0, v9 + 1];
   [(NSMutableArray *)self->_pendingResultData removeObjectsInRange:0, v9 + 1];
-  if (!v30)
+  if (!v32)
   {
     goto LABEL_9;
   }
 
-  if ([v30 count] && -[NSMutableArray count](self->_pendingRequestContexts, "count"))
+  if ([v32 count])
   {
-    v34 = _ARLogTechnique_2();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v36 = [(NSMutableArray *)self->_pendingRequestContexts count];
+    if (v36)
     {
-      v35 = objc_opt_class();
-      v36 = NSStringFromClass(v35);
-      v37 = [(NSMutableArray *)self->_pendingRequestContexts count];
-      pendingRequestContexts = self->_pendingRequestContexts;
-      v40 = 138544130;
-      v41 = v36;
-      v42 = 2048;
-      selfCopy4 = self;
-      v44 = 2048;
-      v45 = v37;
-      v46 = 2112;
-      v47 = pendingRequestContexts;
-      _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropping %ld skipped contexts (%@)", &v40, 0x2Au);
-    }
+      v37 = _ARLogTechnique_2(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      {
+        v38 = objc_opt_class();
+        v39 = NSStringFromClass(v38);
+        v40 = [(NSMutableArray *)self->_pendingRequestContexts count];
+        pendingRequestContexts = self->_pendingRequestContexts;
+        v43 = 138544130;
+        v44 = v39;
+        v45 = 2048;
+        selfCopy4 = self;
+        v47 = 2048;
+        v48 = v40;
+        v49 = 2112;
+        v50 = pendingRequestContexts;
+        _os_log_impl(&dword_1C241C000, v37, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropping %ld skipped contexts (%@)", &v43, 0x2Au);
+      }
 
-    [(NSMutableArray *)self->_pendingRequestContexts removeAllObjects];
+      [(NSMutableArray *)self->_pendingRequestContexts removeAllObjects];
+    }
   }
 
   dispatch_semaphore_signal(self->_pendingRequestsSemaphore);
-  [(ARImageBasedTechnique *)self prepareResultData:v30 forContext:contextCopy];
+  [(ARImageBasedTechnique *)self prepareResultData:v32 forContext:contextCopy];
   delegate = [(ARTechnique *)self delegate];
-  [delegate technique:self didOutputResultData:v30 timestamp:contextCopy context:timestamp];
+  [delegate technique:self didOutputResultData:v32 timestamp:contextCopy context:timestamp];
 
 LABEL_15:
 }
 
 - (void)pushResultData:(id)data forFrameReference:(id)reference
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   referenceCopy = reference;
   dispatch_semaphore_wait(self->_pendingRequestsSemaphore, 0xFFFFFFFFFFFFFFFFLL);
@@ -240,23 +245,23 @@ LABEL_9:
   if (v8 < 1)
   {
 LABEL_6:
-    v12 = _ARLogTechnique_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = _ARLogTechnique_2(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       pendingRequestContexts = self->_pendingRequestContexts;
-      v27 = 138544386;
-      v28 = v14;
-      v29 = 2048;
+      v29 = 138544386;
+      v30 = v15;
+      v31 = 2048;
       selfCopy3 = self;
-      v31 = 2112;
-      v32 = dataCopy;
-      v33 = 2048;
-      v34 = v9;
-      v35 = 2112;
-      v36 = pendingRequestContexts;
-      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Enqueuing result data (%@) even though %ld contexts are pending (%@)", &v27, 0x34u);
+      v33 = 2112;
+      v34 = dataCopy;
+      v35 = 2048;
+      v36 = v9;
+      v37 = 2112;
+      v38 = pendingRequestContexts;
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Enqueuing result data (%@) even though %ld contexts are pending (%@)", &v29, 0x34u);
     }
 
     goto LABEL_9;
@@ -266,7 +271,8 @@ LABEL_6:
   while (1)
   {
     v11 = [(NSMutableArray *)self->_pendingRequestContexts objectAtIndexedSubscript:v10];
-    if ([(ARImageBasedTechnique *)self context:v11 matchesFrameReference:referenceCopy])
+    v12 = [(ARImageBasedTechnique *)self context:v11 matchesFrameReference:referenceCopy];
+    if (v12)
     {
       break;
     }
@@ -279,21 +285,21 @@ LABEL_6:
 
   if (v10)
   {
-    v16 = _ARLogTechnique_2();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = _ARLogTechnique_2(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = self->_pendingRequestContexts;
-      v27 = 138544130;
-      v28 = v18;
-      v29 = 2048;
-      selfCopy3 = self;
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = self->_pendingRequestContexts;
+      v29 = 138544130;
+      v30 = v19;
       v31 = 2048;
-      v32 = v10;
-      v33 = 2112;
-      v34 = v19;
-      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Result data received, skipped %ld contexts (%@)", &v27, 0x2Au);
+      selfCopy3 = self;
+      v33 = 2048;
+      v34 = v10;
+      v35 = 2112;
+      v36 = v20;
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Result data received, skipped %ld contexts (%@)", &v29, 0x2Au);
     }
   }
 
@@ -303,24 +309,25 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  if ([(NSMutableArray *)self->_pendingResultData count])
+  v21 = [(NSMutableArray *)self->_pendingResultData count];
+  if (v21)
   {
-    v20 = _ARLogTechnique_2();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = _ARLogTechnique_2(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
-      v23 = [(NSMutableArray *)self->_pendingResultData count];
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = [(NSMutableArray *)self->_pendingResultData count];
       pendingResultData = self->_pendingResultData;
-      v27 = 138544130;
-      v28 = v22;
-      v29 = 2048;
-      selfCopy3 = self;
+      v29 = 138544130;
+      v30 = v24;
       v31 = 2048;
-      v32 = v23;
-      v33 = 2112;
-      v34 = pendingResultData;
-      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropping %ld skipped result datas (%@)", &v27, 0x2Au);
+      selfCopy3 = self;
+      v33 = 2048;
+      v34 = v25;
+      v35 = 2112;
+      v36 = pendingResultData;
+      _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Dropping %ld skipped result datas (%@)", &v29, 0x2Au);
     }
 
     [(NSMutableArray *)self->_pendingResultData removeAllObjects];
@@ -331,7 +338,7 @@ LABEL_6:
   [(ARImageBasedTechnique *)self prepareResultData:dataCopy forContext:v11];
   delegate = [(ARTechnique *)self delegate];
   imageData = [v11 imageData];
-  [imageData timestamp];
+  objc_msgSend_timestamp(imageData);
   [delegate technique:self didOutputResultData:dataCopy timestamp:v11 context:?];
 
 LABEL_10:
@@ -381,7 +388,7 @@ LABEL_10:
     [referenceCopy doubleValue];
     v8 = v7;
     imageData = [contextCopy imageData];
-    [imageData timestamp];
+    objc_msgSend_timestamp(imageData);
     v11 = v8 == v10;
   }
 

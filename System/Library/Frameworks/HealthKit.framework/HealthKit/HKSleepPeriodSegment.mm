@@ -14,14 +14,12 @@
 
 + (id)sleepPeriodSegmentWithDateInterval:(id)interval category:(int64_t)category
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   v6 = MEMORY[0x1E695DEC8];
   intervalCopy2 = interval;
   v8 = [v6 arrayWithObjects:&intervalCopy count:1];
-  v9 = [self sleepPeriodSegmentWithDateInterval:intervalCopy2 sampleIntervals:v8 category:category containsAppleSleepTrackingData:{0, intervalCopy, v13}];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [self sleepPeriodSegmentWithDateInterval:intervalCopy2 sampleIntervals:v8 category:category containsAppleSleepTrackingData:{0, intervalCopy, v12}];
 
   return v9;
 }
@@ -48,7 +46,7 @@
 
 - (id)mergingSleepPeriodSegment:(id)segment
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   segmentCopy = segment;
   category = [(HKSleepPeriodSegment *)self category];
   if (category != [segmentCopy category])
@@ -58,57 +56,57 @@
 
   v7 = objc_alloc_init(HKDateIntervalTree);
   [(HKDateIntervalTree *)v7 setMergeIntervals:1];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   sampleIntervals = [(HKSleepPeriodSegment *)self sampleIntervals];
-  v9 = [sampleIntervals countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v9 = [sampleIntervals countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v39;
+    v11 = *v38;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v39 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(sampleIntervals);
         }
 
-        [(HKDateIntervalTree *)v7 insertInterval:*(*(&v38 + 1) + 8 * i)];
+        [(HKDateIntervalTree *)v7 insertInterval:*(*(&v37 + 1) + 8 * i)];
       }
 
-      v10 = [sampleIntervals countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v10 = [sampleIntervals countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v10);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   sampleIntervals2 = [segmentCopy sampleIntervals];
-  v14 = [sampleIntervals2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v14 = [sampleIntervals2 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v35;
+    v16 = *v34;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v35 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(sampleIntervals2);
         }
 
-        [(HKDateIntervalTree *)v7 insertInterval:*(*(&v34 + 1) + 8 * j)];
+        [(HKDateIntervalTree *)v7 insertInterval:*(*(&v33 + 1) + 8 * j)];
       }
 
-      v15 = [sampleIntervals2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v15 = [sampleIntervals2 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v15);
@@ -139,8 +137,6 @@
   }
 
   v31 = [HKSleepPeriodSegment sleepPeriodSegmentWithDateInterval:v29 sampleIntervals:mergedIntervals category:[(HKSleepPeriodSegment *)self category] containsAppleSleepTrackingData:containsAppleSleepTrackingData];
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
@@ -182,11 +178,11 @@
 
 - (HKSleepPeriodSegment)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = HKSleepPeriodSegment;
-  v5 = [(HKSleepPeriodSegment *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = HKSleepPeriodSegment;
+  v5 = [(HKSleepPeriodSegment *)&v14 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DateInterval"];
@@ -194,9 +190,9 @@
     v5->_dateInterval = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"SampleIntervals"];
     sampleIntervals = v5->_sampleIntervals;
@@ -206,7 +202,6 @@
     v5->_containsAppleSleepTrackingData = [coderCopy decodeBoolForKey:@"ContainsAppleSleepTrackingData"];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

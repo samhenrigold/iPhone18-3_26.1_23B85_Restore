@@ -248,9 +248,9 @@
   }
 
   sub_214C5D884(v29, v30, v32, v33, v35, v36, v20, v21, v18, v19, v14, v15);
-  sub_214A6B584(v14);
+  sub_214A6B584(v14, v15);
 
-  sub_214A6B584(v20);
+  sub_214A6B584(v20, v21);
 
   MEMORY[0x277D82BD8](confirmTitle);
 

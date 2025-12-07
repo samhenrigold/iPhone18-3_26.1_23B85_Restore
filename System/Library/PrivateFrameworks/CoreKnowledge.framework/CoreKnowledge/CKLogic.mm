@@ -9,9 +9,10 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = sub_1C86C17B8();
+  sub_1C86C17B8();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (NSString)identifier
@@ -28,7 +29,7 @@
 {
   andCopy = and;
   selfCopy = self;
-  v6 = sub_1C86C21E0();
+  v6 = sub_1C86C21E0(andCopy);
 
   return v6;
 }

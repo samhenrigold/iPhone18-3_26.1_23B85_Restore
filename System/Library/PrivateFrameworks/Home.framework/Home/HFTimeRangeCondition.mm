@@ -20,27 +20,25 @@
   return v3;
 }
 
-void __54__HFTimeRangeCondition__primitiveTimePredicateClasses__block_invoke_2()
+void __54__HFTimeRangeCondition__primitiveTimePredicateClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = qword_280E02628;
-  qword_280E02628 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = qword_280E02628;
+  qword_280E02628 = v4;
 }
 
 - (HFTimeRangeCondition)initWithPredicate:(id)predicate
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
-  v52.receiver = self;
-  v52.super_class = HFTimeRangeCondition;
-  v5 = [(HFCondition *)&v52 initWithPredicate:predicateCopy];
+  v51.receiver = self;
+  v51.super_class = HFTimeRangeCondition;
+  v5 = [(HFCondition *)&v51 initWithPredicate:predicateCopy];
   if (v5)
   {
     objc_opt_class();
@@ -60,48 +58,48 @@ LABEL_49:
       goto LABEL_48;
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
-    v41 = v6;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v40 = v6;
     obj = [v6 subpredicates];
-    v9 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+    v9 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v49;
-      v40 = predicateCopy;
+      v11 = *v48;
+      v39 = predicateCopy;
 LABEL_6:
       v12 = 0;
       while (2)
       {
-        if (*v49 != v11)
+        if (*v48 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * v12);
+        v13 = *(*(&v47 + 1) + 8 * v12);
+        v43 = 0u;
         v44 = 0u;
         v45 = 0u;
         v46 = 0u;
-        v47 = 0u;
         _primitiveTimePredicateClasses = [objc_opt_class() _primitiveTimePredicateClasses];
-        v15 = [_primitiveTimePredicateClasses countByEnumeratingWithState:&v44 objects:v53 count:16];
+        v15 = [_primitiveTimePredicateClasses countByEnumeratingWithState:&v43 objects:v52 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v45;
+          v17 = *v44;
 LABEL_11:
           v18 = 0;
           while (1)
           {
-            if (*v45 != v17)
+            if (*v44 != v17)
             {
               objc_enumerationMutation(_primitiveTimePredicateClasses);
             }
 
-            v19 = [objc_alloc(*(*(&v44 + 1) + 8 * v18)) initWithPredicate:v13];
+            v19 = [objc_alloc(*(*(&v43 + 1) + 8 * v18)) initWithPredicate:v13];
             if (v19)
             {
               break;
@@ -109,7 +107,7 @@ LABEL_11:
 
             if (v16 == ++v18)
             {
-              v16 = [_primitiveTimePredicateClasses countByEnumeratingWithState:&v44 objects:v53 count:16];
+              v16 = [_primitiveTimePredicateClasses countByEnumeratingWithState:&v43 objects:v52 count:16];
               if (v16)
               {
                 goto LABEL_11;
@@ -131,8 +129,8 @@ LABEL_11:
             continue;
           }
 
-          v10 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
-          predicateCopy = v40;
+          v10 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+          predicateCopy = v39;
           if (v10)
           {
             goto LABEL_6;
@@ -143,7 +141,7 @@ LABEL_11:
         {
 LABEL_26:
 
-          predicateCopy = v40;
+          predicateCopy = v39;
         }
 
         break;
@@ -151,7 +149,7 @@ LABEL_26:
     }
 
     startCondition = v5->_startCondition;
-    v6 = v41;
+    v6 = v40;
     if (!startCondition || !v5->_endCondition)
     {
 LABEL_48:
@@ -192,13 +190,13 @@ LABEL_48:
     v33 = v31;
     v34 = v33;
     v35 = 0;
-    v43 = v33;
+    v42 = v33;
     if (v32 && v33)
     {
       v35 = [(HFPrimitiveTimeCondition *)v32 compare:v33];
     }
 
-    compoundPredicateType = [v41 compoundPredicateType];
+    compoundPredicateType = [v40 compoundPredicateType];
     if (compoundPredicateType == 2)
     {
       if (!v25 || !v34 || v35 == -1)
@@ -218,7 +216,6 @@ LABEL_47:
   v37 = v5;
 LABEL_50:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -238,7 +235,7 @@ uint64_t __42__HFTimeRangeCondition_initWithPredicate___block_invoke(uint64_t a1
 
 - (HFTimeRangeCondition)initWithStartCondition:(id)condition endCondition:(id)endCondition
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   conditionCopy = condition;
   endConditionCopy = endCondition;
   v8 = &unk_282573590;
@@ -268,9 +265,9 @@ uint64_t __42__HFTimeRangeCondition_initWithPredicate___block_invoke(uint64_t a1
 
   v14 = v13;
 
-  v30 = MEMORY[0x277D85DD0];
-  v31 = v10;
-  v32 = v14;
+  v29 = MEMORY[0x277D85DD0];
+  v30 = v10;
+  v31 = v14;
   v15 = v14;
   v16 = v10;
   v17 = 0;
@@ -289,8 +286,8 @@ uint64_t __42__HFTimeRangeCondition_initWithPredicate___block_invoke(uint64_t a1
     v17 = [v16 compare:v15];
   }
 
-  v28 = MEMORY[0x277D85DD0];
-  v29 = v17;
+  v27 = MEMORY[0x277D85DD0];
+  v28 = v17;
   if (v17 == 1)
   {
     v19 = 2;
@@ -303,14 +300,13 @@ uint64_t __42__HFTimeRangeCondition_initWithPredicate___block_invoke(uint64_t a1
 
   v20 = objc_alloc(MEMORY[0x277CCA920]);
   predicate = [conditionCopy predicate];
-  v33[0] = predicate;
+  v32[0] = predicate;
   predicate2 = [v11 predicate];
-  v33[1] = predicate2;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v32[1] = predicate2;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
   v24 = [v20 initWithType:v19 subpredicates:v23];
 
   v25 = [(HFTimeRangeCondition *)self initWithPredicate:v24];
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

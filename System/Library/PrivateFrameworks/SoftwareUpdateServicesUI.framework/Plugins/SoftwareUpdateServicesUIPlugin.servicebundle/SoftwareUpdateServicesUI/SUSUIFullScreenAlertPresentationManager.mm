@@ -46,41 +46,40 @@
 - (NSMutableArray)activeFullScreenAlerts
 {
   selfCopy = self;
-  v15[1] = a2;
-  queue = self->_queue;
+  v14[1] = a2;
   BSDispatchQueueAssert();
-  v15[0] = 0;
+  v14[0] = 0;
   memset(__b, 0, sizeof(__b));
   obj = [(NSMapTable *)selfCopy->_alertToHandleMapping keyEnumerator];
-  v12 = [(NSEnumerator *)obj countByEnumeratingWithState:__b objects:v17 count:16];
-  if (v12)
+  v11 = [(NSEnumerator *)obj countByEnumeratingWithState:__b objects:v16 count:16];
+  if (v11)
   {
-    v8 = *__b[2];
-    v9 = 0;
-    v10 = v12;
+    v7 = *__b[2];
+    v8 = 0;
+    v9 = v11;
     while (1)
     {
-      v7 = v9;
-      if (*__b[2] != v8)
+      v6 = v8;
+      if (*__b[2] != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(__b[1] + 8 * v9);
-      if (!v15[0])
+      v13 = *(__b[1] + 8 * v8);
+      if (!v14[0])
       {
-        v3 = +[NSMutableArray array];
-        v4 = v15[0];
-        v15[0] = v3;
+        v2 = +[NSMutableArray array];
+        v3 = v14[0];
+        v14[0] = v2;
       }
 
-      [v15[0] addObject:v14];
-      ++v9;
-      if (v7 + 1 >= v10)
+      [v14[0] addObject:v13];
+      ++v8;
+      if (v6 + 1 >= v9)
       {
-        v9 = 0;
-        v10 = [(NSEnumerator *)obj countByEnumeratingWithState:__b objects:v17 count:16];
-        if (!v10)
+        v8 = 0;
+        v9 = [(NSEnumerator *)obj countByEnumeratingWithState:__b objects:v16 count:16];
+        if (!v9)
         {
           break;
         }
@@ -88,10 +87,10 @@
     }
   }
 
-  v6 = v15[0];
-  objc_storeStrong(v15, 0);
+  v5 = v14[0];
+  objc_storeStrong(v14, 0);
 
-  return v6;
+  return v5;
 }
 
 - (void)presentAlert:(id)alert completion:(id)completion
@@ -100,35 +99,34 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, alert);
-  v12 = 0;
-  objc_storeStrong(&v12, completion);
-  queue = selfCopy->_queue;
+  v11 = 0;
+  objc_storeStrong(&v11, completion);
   BSDispatchQueueAssert();
   configurationContext = [location[0] configurationContext];
   remoteDefinition = [location[0] remoteDefinition];
-  v10 = [SBSRemoteAlertHandle newHandleWithDefinition:"newHandleWithDefinition:configurationContext:" configurationContext:?];
+  v9 = [SBSRemoteAlertHandle newHandleWithDefinition:"newHandleWithDefinition:configurationContext:" configurationContext:?];
 
-  [v10 addObserver:selfCopy];
-  [(NSMapTable *)selfCopy->_alertToHandleMapping setObject:v10 forKey:location[0]];
-  if (v12)
+  [v9 addObserver:selfCopy];
+  [(NSMapTable *)selfCopy->_alertToHandleMapping setObject:v9 forKey:location[0]];
+  if (v11)
   {
     alertActivationBlocks = selfCopy->_alertActivationBlocks;
-    v6 = objc_retainBlock(v12);
+    v5 = objc_retainBlock(v11);
     [NSMapTable setObject:"setObject:forKey:" forKey:?];
   }
 
-  v9 = SUSUILog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = SUSUILog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_195C(v15, location[0], v10);
-    _os_log_debug_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "Activate full-screen alert (%@) with handle: %@", v15, 0x16u);
+    sub_195C(v14, location[0], v9);
+    _os_log_debug_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, "Activate full-screen alert (%@) with handle: %@", v14, 0x16u);
   }
 
+  objc_storeStrong(&v8, 0);
+  [v9 activateWithOptions:0];
   objc_storeStrong(&v9, 0);
-  [v10 activateWithOptions:0];
-  objc_storeStrong(&v10, 0);
   objc_storeStrong(&configurationContext, 0);
-  objc_storeStrong(&v12, 0);
+  objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -138,18 +136,17 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, alert);
-  queue = selfCopy->_queue;
   BSDispatchQueueAssert();
   oslog = SUSUILog();
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
   {
-    sub_1FCC(v8, location[0]);
-    _os_log_debug_impl(&dword_0, oslog, OS_LOG_TYPE_DEBUG, "invalidating full-screen alert (%@)", v8, 0xCu);
+    sub_1FCC(v7, location[0]);
+    _os_log_debug_impl(&dword_0, oslog, OS_LOG_TYPE_DEBUG, "invalidating full-screen alert (%@)", v7, 0xCu);
   }
 
   objc_storeStrong(&oslog, 0);
-  v4 = [(NSMapTable *)selfCopy->_alertToHandleMapping objectForKey:location[0]];
-  [v4 invalidate];
+  v3 = [(NSMapTable *)selfCopy->_alertToHandleMapping objectForKey:location[0]];
+  [v3 invalidate];
 
   [(NSMapTable *)selfCopy->_alertToHandleMapping removeObjectForKey:location[0]];
   objc_storeStrong(location, 0);
@@ -158,40 +155,39 @@
 - (void)dismissAlertsOfClass:(Class)class
 {
   selfCopy = self;
-  v14 = a2;
+  v13 = a2;
   classCopy = class;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   memset(__b, 0, sizeof(__b));
-  v8 = [(NSMapTable *)selfCopy->_alertToHandleMapping copy];
-  obj = [v8 keyEnumerator];
+  v7 = [(NSMapTable *)selfCopy->_alertToHandleMapping copy];
+  obj = [v7 keyEnumerator];
 
-  v10 = [obj countByEnumeratingWithState:__b objects:v16 count:16];
-  if (v10)
+  v9 = [obj countByEnumeratingWithState:__b objects:v15 count:16];
+  if (v9)
   {
-    v5 = *__b[2];
-    v6 = 0;
-    v7 = v10;
+    v4 = *__b[2];
+    v5 = 0;
+    v6 = v9;
     while (1)
     {
-      v4 = v6;
-      if (*__b[2] != v5)
+      v3 = v5;
+      if (*__b[2] != v4)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(__b[1] + 8 * v6);
+      v11 = *(__b[1] + 8 * v5);
       if (objc_opt_isKindOfClass())
       {
-        [(SUSUIFullScreenAlertPresentationManager *)selfCopy dismissAlert:v12];
+        [(SUSUIFullScreenAlertPresentationManager *)selfCopy dismissAlert:v11];
       }
 
-      ++v6;
-      if (v4 + 1 >= v7)
+      ++v5;
+      if (v3 + 1 >= v6)
       {
-        v6 = 0;
-        v7 = [obj countByEnumeratingWithState:__b objects:v16 count:16];
-        if (!v7)
+        v5 = 0;
+        v6 = [obj countByEnumeratingWithState:__b objects:v15 count:16];
+        if (!v6)
         {
           break;
         }

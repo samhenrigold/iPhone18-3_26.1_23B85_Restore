@@ -25,15 +25,15 @@
 
 - (id)dictionaryRepresentation
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v12[0] = @"origin";
+  v11[0] = @"origin";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[LTUISourceMeta origin](self, "origin")}];
-  v12[1] = @"languageHints";
-  v13[0] = v4;
+  v11[1] = @"languageHints";
+  v12[0] = v4;
   languageHints = [(LTUISourceMeta *)self languageHints];
-  v13[1] = languageHints;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = languageHints;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v7 = [v3 dictionaryWithDictionary:v6];
 
   context = [(LTUISourceMeta *)self context];
@@ -43,8 +43,6 @@
     context2 = [(LTUISourceMeta *)self context];
     [v7 setObject:context2 forKeyedSubscript:@"context"];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

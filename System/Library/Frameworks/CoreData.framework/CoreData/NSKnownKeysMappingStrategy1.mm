@@ -154,7 +154,7 @@
 
 - (CFMutableArrayRef)_makeBranchTableForKeys:(const void *)keys count:(unint64_t)count
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   memset(&valueCallBacks, 0, sizeof(valueCallBacks));
   valueCallBacks.release = *(MEMORY[0x1E695E9E8] + 16);
   if (count)
@@ -171,7 +171,7 @@
     }
 
     v5 = (8 * countCopy2 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v6 = (&v28 - v5);
+    v6 = (&v26 - v5);
     v7 = 8 * count;
     if (countCopy > 0x200)
     {
@@ -180,137 +180,135 @@
 
     else
     {
-      bzero(&v28 - v5, v7);
+      bzero(&v26 - v5, v7);
     }
 
-    v11 = 0;
-    v12 = xmmword_18592E480;
-    v13 = vdupq_n_s64(countCopy - 1);
-    v14 = vdupq_n_s64(2uLL);
+    v10 = 0;
+    v11 = xmmword_18592E480;
+    v12 = vdupq_n_s64(countCopy - 1);
+    v13 = vdupq_n_s64(2uLL);
     do
     {
-      v15 = vmovn_s64(vcgeq_u64(v13, v12));
-      if (v15.i8[0])
+      v14 = vmovn_s64(vcgeq_u64(v12, v11));
+      if (v14.i8[0])
       {
-        v6[v11] = v11;
+        v6[v10] = v10;
       }
 
-      if (v15.i8[4])
+      if (v14.i8[4])
       {
-        v6[v11 + 1] = (v11 + 1);
+        v6[v10 + 1] = (v10 + 1);
       }
 
-      v11 += 2;
-      v12 = vaddq_s64(v12, v14);
+      v10 += 2;
+      v11 = vaddq_s64(v11, v13);
     }
 
-    while (((countCopy + 1) & 0xFFFFFFFFFFFFFFFELL) != v11);
-    v16 = *MEMORY[0x1E695E480];
-    v17 = CFDictionaryCreate(*MEMORY[0x1E695E480], keys, v6, countCopy, 0, 0);
+    while (((countCopy + 1) & 0xFFFFFFFFFFFFFFFELL) != v10);
+    v15 = *MEMORY[0x1E695E480];
+    v16 = CFDictionaryCreate(*MEMORY[0x1E695E480], keys, v6, countCopy, 0, 0);
     if (countCopy >= 0x201)
     {
       NSZoneFree(0, v6);
     }
 
-    v18 = CFDictionaryCreateMutable(v16, 0, 0, &valueCallBacks);
+    v17 = CFDictionaryCreateMutable(v15, 0, 0, &valueCallBacks);
     do
     {
-      v19 = *keys;
-      v20 = strlen(*keys);
-      Value = CFDictionaryGetValue(v18, v20);
+      v18 = *keys;
+      v19 = strlen(*keys);
+      Value = CFDictionaryGetValue(v17, v19);
       if (!Value)
       {
-        Value = CFArrayCreateMutable(v16, 0, 0);
-        CFDictionarySetValue(v18, v20, Value);
+        Value = CFArrayCreateMutable(v15, 0, 0);
+        CFDictionarySetValue(v17, v19, Value);
       }
 
-      CFArrayAppendValue(Value, v19);
+      CFArrayAppendValue(Value, v18);
       ++keys;
       --countCopy;
     }
 
     while (countCopy);
-    Count = CFDictionaryGetCount(v18);
-    v23 = Count;
+    Count = CFDictionaryGetCount(v17);
+    v22 = Count;
     if (Count <= 1)
+    {
+      v23 = 1;
+    }
+
+    else
+    {
+      v23 = Count;
+    }
+
+    if (Count >= 0x201)
     {
       v24 = 1;
     }
 
     else
     {
-      v24 = Count;
+      v24 = v23;
     }
 
-    if (Count >= 0x201)
-    {
-      v25 = 1;
-    }
-
-    else
-    {
-      v25 = v24;
-    }
-
-    v26 = (&v28 - ((8 * v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v25 = (&v26 - ((8 * v24 + 15) & 0xFFFFFFFFFFFFFFF0));
     if (Count > 0x200)
     {
-      v26 = NSAllocateScannedUncollectable();
+      v25 = NSAllocateScannedUncollectable();
     }
 
     else
     {
-      bzero(&v28 - ((8 * v25 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v24);
+      bzero(&v26 - ((8 * v24 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v23);
     }
 
-    CFDictionaryGetKeysAndValues(v18, 0, v26);
-    v31 = xmmword_1EF3F0BB8;
+    CFDictionaryGetKeysAndValues(v17, 0, v25);
+    v29 = xmmword_1EF3F0BB8;
     CFMergeSortArray();
-    Mutable = CFArrayCreateMutable(v16, 0, 0);
-    makeBranchRow(&Mutable, v26, v23, v17, 0, 0, 0, 0);
-    CFRelease(v17);
-    if (v23 >= 0x201)
+    Mutable = CFArrayCreateMutable(v15, 0, 0);
+    makeBranchRow(&Mutable, v25, v22, v16, 0, 0, 0, 0);
+    CFRelease(v16);
+    if (v22 >= 0x201)
     {
-      NSZoneFree(0, v26);
+      NSZoneFree(0, v25);
     }
 
-    CFRelease(v18);
-    result = Mutable;
-    v27 = *MEMORY[0x1E69E9840];
+    CFRelease(v17);
+    return Mutable;
   }
 
   else
   {
-    v8 = *MEMORY[0x1E69E9840];
-    v9 = *MEMORY[0x1E695E480];
+    v8 = *MEMORY[0x1E695E480];
 
-    return CFArrayCreateMutable(v9, 0, 0);
+    return CFArrayCreateMutable(v8, 0, 0);
   }
-
-  return result;
 }
 
 - (void)_coreCreationForKeys:(unint64_t)keys count:
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_18;
+    return;
   }
 
   if (keys > 0x8000)
   {
-    v25 = MEMORY[0x1E695DF30];
-    v26 = *MEMORY[0x1E695D940];
-    keys = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ supports a maximum of 32, 768 elements.  parameter was %lu", objc_opt_class(), keys];
+    v24 = MEMORY[0x1E695DF30];
+    v25 = *MEMORY[0x1E695D940];
+    v26 = MEMORY[0x1E696AEC0];
+    v27 = objc_opt_class();
+    v21 = objc_msgSend_stringWithFormat_(v26, v27, keys);
+    v22 = v24;
     v23 = v25;
-    v24 = v26;
 LABEL_20:
-    objc_exception_throw([v23 exceptionWithName:v24 reason:keys userInfo:0]);
+    objc_exception_throw([v22 exceptionWithName:v23 reason:v21 userInfo:0]);
   }
 
   MEMORY[0x1EEE9AC00](self);
-  v8 = (v27 - v7);
+  v8 = (v28 - v7);
   if (keys >= 0x201)
   {
     v8 = NSAllocateScannedUncollectable();
@@ -318,7 +316,7 @@ LABEL_20:
 
   else
   {
-    bzero(v27 - v7, 8 * v6);
+    bzero(v28 - v7, 8 * v6);
     if (!keys)
     {
       v9 = 1;
@@ -334,11 +332,11 @@ LABEL_20:
     uTF8String = [v11 UTF8String];
     if (!uTF8String)
     {
-      v20 = MEMORY[0x1E695DF30];
-      v21 = *MEMORY[0x1E695D940];
-      keys = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ cannot be encoded as UTF-8", v11];
+      v19 = MEMORY[0x1E695DF30];
+      v20 = *MEMORY[0x1E695D940];
+      v21 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v11);
+      v22 = v19;
       v23 = v20;
-      v24 = v21;
       goto LABEL_20;
     }
 
@@ -359,9 +357,9 @@ LABEL_11:
 
   v17 = malloc_type_zone_calloc(v16, Count + 1, 8uLL, 0x80040B8603338uLL);
   self[2] = v17;
-  v28.location = 0;
-  v28.length = Count;
-  CFArrayGetValues(v14, v28, v17);
+  v29.location = 0;
+  v29.length = Count;
+  CFArrayGetValues(v14, v29, v17);
   CFRelease(v14);
   *(self[2] + 8 * Count) = 0;
   self[3] = keys;
@@ -382,9 +380,6 @@ LABEL_11:
   {
     NSZoneFree(0, v8);
   }
-
-LABEL_18:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initForKeys:(id *)keys count:(unint64_t)count
@@ -403,10 +398,10 @@ LABEL_18:
 
 - (id)initForKeys:(id)keys
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = [keys count];
   v6 = MEMORY[0x1EEE9AC00](v5);
-  v9 = v13 - v8;
+  v9 = v12 - v8;
   if (v6 > 0x200)
   {
     v9 = NSAllocateScannedUncollectable();
@@ -414,7 +409,7 @@ LABEL_18:
 
   else
   {
-    bzero(v13 - v8, 8 * v7);
+    bzero(v12 - v8, 8 * v7);
   }
 
   [keys getObjects:v9 range:{0, v5}];
@@ -424,7 +419,6 @@ LABEL_18:
     NSZoneFree(0, v9);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -497,7 +491,7 @@ LABEL_10:
 
 - (NSKnownKeysMappingStrategy1)initWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   self->_length = 0xFFFFFFFFLL;
   v5 = [coder decodeInt64ForKey:@"length"];
   objc_getClass("NSKeyedUnarchiver");
@@ -520,9 +514,7 @@ LABEL_10:
     {
       [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4864, &unk_1EF434F40)}];
 
-LABEL_31:
-      selfCopy = 0;
-      goto LABEL_32;
+      return 0;
     }
 
     v7 = v9;
@@ -540,7 +532,7 @@ LABEL_31:
       [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4864, &unk_1EF434F68)}];
 
       selfCopy = 0;
-      goto LABEL_32;
+      return selfCopy;
     }
   }
 
@@ -551,7 +543,7 @@ LABEL_31:
       [coder failWithError:{objc_msgSend(coder, "error")}];
 
       selfCopy = 0;
-      goto LABEL_32;
+      return selfCopy;
     }
 
     v13 = 0;
@@ -564,37 +556,37 @@ LABEL_31:
   }
 
   v15 = [v13 count];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v16 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v16 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
   v17 = v16;
   if (v16)
   {
-    v18 = *v26;
+    v18 = *v25;
     while (2)
     {
       v19 = 0;
       do
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        if (([*(*(&v25 + 1) + 8 * v19) isNSString] & 1) == 0)
+        if (([*(*(&v24 + 1) + 8 * v19) isNSString] & 1) == 0)
         {
           [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF434F90)}];
 
-          goto LABEL_31;
+          return 0;
         }
 
         ++v19;
       }
 
       while (v17 != v19);
-      v16 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
       v17 = v16;
       if (v16)
       {
@@ -609,11 +601,11 @@ LABEL_31:
   {
     [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4864, &unk_1EF434FB8)}];
 
-    goto LABEL_31;
+    return 0;
   }
 
   MEMORY[0x1EEE9AC00](v16);
-  v22 = &v25 - v21;
+  v22 = &v24 - v21;
   if (v5 > 0x200)
   {
     v22 = NSAllocateScannedUncollectable();
@@ -621,7 +613,7 @@ LABEL_31:
 
   else
   {
-    bzero(&v25 - v21, 8 * v20);
+    bzero(&v24 - v21, 8 * v20);
   }
 
   [v13 getObjects:v22 range:{0, v5}];
@@ -631,8 +623,6 @@ LABEL_31:
     NSZoneFree(0, v22);
   }
 
-LABEL_32:
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -687,7 +677,7 @@ LABEL_32:
           ;
         }
 
-        v11 = [MEMORY[0x1E696AD60] stringWithFormat:@"mapping table %p has %d branch rows:", self->_table, v9];
+        v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AD60], self->_table, v9);
         v12 = *table;
         if (*table)
         {
@@ -695,7 +685,7 @@ LABEL_32:
           do
           {
             [(__CFString *)v11 appendFormat:@"\n\t %@", descriptionForBranchRow(v12, v13)];
-            v12 = table[++v13];
+            v12 = table[v13++ + 1];
           }
 
           while (v12);
@@ -732,16 +722,17 @@ LABEL_32:
       v7 = 0;
     }
 
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"mapping table %p has %d branch rows: (...)", self->_table, v7];
+    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_table, v7);
   }
 
   v14 = MEMORY[0x1E696AEC0];
   v15 = objc_opt_class();
-  v16 = [v14 stringWithFormat:@"%@ (%p) table of length %d with known keys:%@ and %@", NSStringFromClass(v15), self, v4, v5, v11];
+  v16 = NSStringFromClass(v15);
+  v17 = objc_msgSend_stringWithFormat_(v14, v16, self, v4, v5, v11);
 
   objc_autoreleasePoolPop(v3);
 
-  return v16;
+  return v17;
 }
 
 @end

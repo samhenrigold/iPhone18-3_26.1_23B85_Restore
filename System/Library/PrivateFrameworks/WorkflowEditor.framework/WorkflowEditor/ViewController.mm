@@ -39,7 +39,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_27455B2DC(controllerCopy, animated, v8, v9);
-  sub_274406A94(v8);
+  sub_274406A94(v8, v9);
 }
 
 - (_TtC14WorkflowEditorP33_4F6B3E8D8EDFB1AA2880F20B202F8EFE14ViewController)initWithNibName:(id)name bundle:(id)bundle

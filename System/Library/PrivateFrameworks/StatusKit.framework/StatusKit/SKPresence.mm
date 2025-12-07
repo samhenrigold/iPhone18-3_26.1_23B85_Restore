@@ -9,6 +9,7 @@
 - (BOOL)isPersonal;
 - (NSArray)invitedHandles;
 - (NSArray)presentDevices;
+- (SKPresence)initWithPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal;
 - (SKPresence)initWithPresenceIdentifier:(id)identifier options:(id)options;
 - (SKPresenceAssertionOptions)presenceAssertionOptions;
 - (SKPresenceDaemonConnection)daemonConnection;
@@ -51,9 +52,20 @@
 
 @implementation SKPresence
 
+- (SKPresence)initWithPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal
+{
+  personalCopy = personal;
+  identifierCopy = identifier;
+  v7 = [[SKPresenceOptions alloc] initWithServiceIdentifier:&stru_287C6A200];
+  [(SKPresenceOptions *)v7 setIsPersonal:personalCopy];
+  v8 = [(SKPresence *)self initWithPresenceIdentifier:identifierCopy options:v7];
+
+  return v8;
+}
+
 - (SKPresence)initWithPresenceIdentifier:(id)identifier options:(id)options
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   optionsCopy = options;
   if (!identifierCopy)
@@ -62,9 +74,9 @@
   }
 
   v8 = optionsCopy;
-  v38.receiver = self;
-  v38.super_class = SKPresence;
-  v9 = [(SKPresence *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = SKPresence;
+  v9 = [(SKPresence *)&v37 init];
   if (v9)
   {
     ValidateIdentifierMeetsBlastdoorRequirements(identifierCopy);
@@ -106,7 +118,7 @@
         {
           presenceIdentifier = [(SKPresence *)v9 presenceIdentifier];
           *buf = 138412290;
-          v40 = presenceIdentifier;
+          v39 = presenceIdentifier;
           _os_log_impl(&dword_26BA07000, v24, OS_LOG_TYPE_DEFAULT, "Registering presenceIdentifier: %@ to re-initiate connections to daemon", buf, 0xCu);
         }
 
@@ -118,7 +130,7 @@
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v40 = v26;
+            v39 = v26;
             _os_log_impl(&dword_26BA07000, defaultCenter, OS_LOG_TYPE_DEFAULT, "Registering prefixed presenceIdentifier: %@", buf, 0xCu);
           }
 
@@ -134,7 +146,6 @@
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -187,7 +198,7 @@
 
 - (void)_handleStatusKitAgentAliveNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   object = [notification object];
   presenceIdentifier = [(SKPresence *)self presenceIdentifier];
   v6 = [object containsString:presenceIdentifier];
@@ -198,9 +209,9 @@
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = object;
-      _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Received notice that %@ has an update, re-establish state with SKA", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = object;
+      _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Received notice that %@ has an update, re-establish state with SKA", &v16, 0xCu);
     }
 
     [(SKPresence *)self _reestablishDaemonConnection];
@@ -213,8 +224,6 @@
       [(SKPresence *)v8 _handleStatusKitAgentAliveNotification:v9, v10, v11, v12, v13, v14, v15];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reestablishDaemonConnection
@@ -298,7 +307,7 @@ void __61__SKPresence_hasInitialCloudKitImportOccurredWithCompletion___block_inv
 
 void __61__SKPresence_hasInitialCloudKitImportOccurredWithCompletion___block_invoke_30(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (v5)
   {
@@ -318,9 +327,9 @@ void __61__SKPresence_hasInitialCloudKitImportOccurredWithCompletion___block_inv
       v8 = @"YES";
     }
 
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Has initial CloudKit import occurred? %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Has initial CloudKit import occurred? %@", &v10, 0xCu);
   }
 
   v9 = *(a1 + 32);
@@ -328,8 +337,6 @@ void __61__SKPresence_hasInitialCloudKitImportOccurredWithCompletion___block_inv
   {
     (*(v9 + 16))(v9, a3, v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertPresenceWithPresencePayload:(id)payload completion:(id)completion
@@ -342,7 +349,7 @@ void __61__SKPresence_hasInitialCloudKitImportOccurredWithCompletion___block_inv
 
 - (void)assertPresenceWithPresencePayload:(id)payload assertionOptions:(id)options completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   optionsCopy = options;
   completionCopy = completion;
@@ -352,41 +359,39 @@ void __61__SKPresence_hasInitialCloudKitImportOccurredWithCompletion___block_inv
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = presenceIdentifier;
-    v32 = 2112;
-    v33 = payloadCopy;
+    v30 = presenceIdentifier;
+    v31 = 2112;
+    v32 = payloadCopy;
     _os_log_impl(&dword_26BA07000, v13, OS_LOG_TYPE_DEFAULT, "Asserting presence for %@ with payload %@", buf, 0x16u);
   }
 
   [(SKPresence *)self _registerForDelegateCallbacksIfNecessary];
   daemonConnection = [(SKPresence *)self daemonConnection];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_completion___block_invoke;
-  v28[3] = &unk_279D128F8;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_completion___block_invoke;
+  v27[3] = &unk_279D128F8;
   v15 = completionCopy;
-  v29 = v15;
-  v16 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v28];
+  v28 = v15;
+  v16 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v27];
   objc_initWeak(buf, self);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_completion___block_invoke_39;
-  v22[3] = &unk_279D12998;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_completion___block_invoke_39;
+  v21[3] = &unk_279D12998;
   v17 = presenceIdentifier;
-  v23 = v17;
-  objc_copyWeak(&v27, buf);
+  v22 = v17;
+  objc_copyWeak(&v26, buf);
   v18 = payloadCopy;
-  v24 = v18;
+  v23 = v18;
   v19 = v11;
-  v25 = v19;
+  v24 = v19;
   v20 = v15;
-  v26 = v20;
-  [v16 assertPresenceForIdentifier:v17 withPresencePayload:v18 assertionOptions:v19 completion:v22];
+  v25 = v20;
+  [v16 assertPresenceForIdentifier:v17 withPresencePayload:v18 assertionOptions:v19 completion:v21];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(buf);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_completion___block_invoke(uint64_t a1, void *a2)
@@ -407,7 +412,7 @@ void __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_complet
 
 void __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_completion___block_invoke_39(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKPresence _logger];
   v5 = v4;
@@ -424,9 +429,9 @@ void __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_complet
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully asserted presence for presence identifier %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully asserted presence for presence identifier %@", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -444,49 +449,45 @@ void __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_complet
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releasePresenceWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   presenceIdentifier = [(SKPresence *)self presenceIdentifier];
   v6 = +[SKPresence _logger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = presenceIdentifier;
+    v20 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v6, OS_LOG_TYPE_DEFAULT, "Releasing presence for  %@", buf, 0xCu);
   }
 
   [(SKPresence *)self _registerForDelegateCallbacksIfNecessary];
   daemonConnection = [(SKPresence *)self daemonConnection];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __44__SKPresence_releasePresenceWithCompletion___block_invoke;
-  v18[3] = &unk_279D128F8;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __44__SKPresence_releasePresenceWithCompletion___block_invoke;
+  v17[3] = &unk_279D128F8;
   v8 = completionCopy;
-  v19 = v8;
-  v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v18];
+  v18 = v8;
+  v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v17];
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __44__SKPresence_releasePresenceWithCompletion___block_invoke_40;
-  v13[3] = &unk_279D129C0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __44__SKPresence_releasePresenceWithCompletion___block_invoke_40;
+  v12[3] = &unk_279D129C0;
   v10 = presenceIdentifier;
-  v14 = v10;
-  objc_copyWeak(&v17, buf);
+  v13 = v10;
+  objc_copyWeak(&v16, buf);
   selfCopy = self;
   v11 = v8;
-  v16 = v11;
-  [v9 releasePresenceForIdentifier:v10 completion:v13];
+  v15 = v11;
+  [v9 releasePresenceForIdentifier:v10 completion:v12];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SKPresence_releasePresenceWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -507,7 +508,7 @@ void __44__SKPresence_releasePresenceWithCompletion___block_invoke(uint64_t a1, 
 
 void __44__SKPresence_releasePresenceWithCompletion___block_invoke_40(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKPresence _logger];
   v5 = v4;
@@ -524,9 +525,9 @@ void __44__SKPresence_releasePresenceWithCompletion___block_invoke_40(uint64_t a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released presence for presence identifier %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released presence for presence identifier %@", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -548,20 +549,18 @@ void __44__SKPresence_releasePresenceWithCompletion___block_invoke_40(uint64_t a
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retainTransientSubscriptionAssertionWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   presenceIdentifier = [(SKPresence *)self presenceIdentifier];
   v6 = +[SKPresence _logger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = presenceIdentifier;
+    v22 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v6, OS_LOG_TYPE_DEFAULT, "Retaining transient subscription assertion for presenceIdentifier %@", buf, 0xCu);
   }
 
@@ -570,42 +569,40 @@ void __44__SKPresence_releasePresenceWithCompletion___block_invoke_40(uint64_t a
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = presenceIdentifier;
+    v22 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "calling _registerForDelegateCallbacksIfNecessary for presenceIdentifier %@", buf, 0xCu);
   }
 
   [(SKPresence *)self _registerForDelegateCallbacksIfNecessary];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block_invoke;
-  v20[3] = &unk_279D128F8;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block_invoke;
+  v19[3] = &unk_279D128F8;
   v9 = completionCopy;
-  v21 = v9;
-  v10 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v20];
+  v20 = v9;
+  v10 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v19];
   objc_initWeak(&location, self);
   v11 = +[SKPresence _logger];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = presenceIdentifier;
+    v22 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v11, OS_LOG_TYPE_DEFAULT, "calling daemon retainTransientSubscriptionAssertionForPresenceIdentifier for presenceIdentifier %@", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block_invoke_41;
-  v15[3] = &unk_279D129E8;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block_invoke_41;
+  v14[3] = &unk_279D129E8;
   v12 = presenceIdentifier;
-  v16 = v12;
-  objc_copyWeak(&v18, &location);
+  v15 = v12;
+  objc_copyWeak(&v17, &location);
   v13 = v9;
-  v17 = v13;
-  [v10 retainTransientSubscriptionAssertionForPresenceIdentifier:v12 completion:v15];
+  v16 = v13;
+  [v10 retainTransientSubscriptionAssertionForPresenceIdentifier:v12 completion:v14];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -626,7 +623,7 @@ void __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block
 
 void __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block_invoke_41(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKPresence _logger];
   v5 = v4;
@@ -643,9 +640,9 @@ void __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained transient subscription assertion for presence identifier %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully retained transient subscription assertion for presence identifier %@", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -661,48 +658,44 @@ void __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseTransientSubscriptionAssertionWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   presenceIdentifier = [(SKPresence *)self presenceIdentifier];
   v6 = +[SKPresence _logger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = presenceIdentifier;
+    v20 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v6, OS_LOG_TYPE_DEFAULT, "Releasing transient subscription assertion for presenceIdentifier %@", buf, 0xCu);
   }
 
   daemonConnection = [(SKPresence *)self daemonConnection];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___block_invoke;
-  v18[3] = &unk_279D128F8;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___block_invoke;
+  v17[3] = &unk_279D128F8;
   v8 = completionCopy;
-  v19 = v8;
-  v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v18];
+  v18 = v8;
+  v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v17];
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___block_invoke_42;
-  v13[3] = &unk_279D129C0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___block_invoke_42;
+  v12[3] = &unk_279D129C0;
   v10 = presenceIdentifier;
-  v14 = v10;
-  objc_copyWeak(&v17, buf);
+  v13 = v10;
+  objc_copyWeak(&v16, buf);
   selfCopy = self;
   v11 = v8;
-  v16 = v11;
-  [v9 releaseTransientSubscriptionAssertionForPresenceIdentifier:v10 completion:v13];
+  v15 = v11;
+  [v9 releaseTransientSubscriptionAssertionForPresenceIdentifier:v10 completion:v12];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -723,7 +716,7 @@ void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___bloc
 
 void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___block_invoke_42(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKPresence _logger];
   v5 = v4;
@@ -740,9 +733,9 @@ void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___bloc
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released transient subscription assertion for presence identifier %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_26BA07000, v5, OS_LOG_TYPE_DEFAULT, "Successfully released transient subscription assertion for presence identifier %@", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -763,13 +756,11 @@ void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___bloc
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)presentDevices
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [(SKPresence *)self _registerForDelegateCallbacksIfNecessary];
   presenceIdentifier = [(SKPresence *)self presenceIdentifier];
   v4 = +[SKPresence _logger];
@@ -782,29 +773,29 @@ void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___bloc
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
   daemonConnection = [(SKPresence *)self daemonConnection];
   objc_initWeak(&location, self);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __28__SKPresence_presentDevices__block_invoke;
-  v16[3] = &unk_279D12A10;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __28__SKPresence_presentDevices__block_invoke;
+  v15[3] = &unk_279D12A10;
   v6 = presenceIdentifier;
-  v17 = v6;
-  objc_copyWeak(&v19, &location);
+  v16 = v6;
+  objc_copyWeak(&v18, &location);
   p_buf = &buf;
-  v7 = [daemonConnection synchronousRemoteDaemonWithErrorHandler:v16];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __28__SKPresence_presentDevices__block_invoke_43;
-  v13[3] = &unk_279D12A38;
+  v7 = [daemonConnection synchronousRemoteDaemonWithErrorHandler:v15];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __28__SKPresence_presentDevices__block_invoke_43;
+  v12[3] = &unk_279D12A38;
   v8 = v6;
-  v14 = v8;
-  v15 = &buf;
-  [v7 presentDevicesForPresenceIdentifier:v8 completion:v13];
+  v13 = v8;
+  v14 = &buf;
+  [v7 presentDevicesForPresenceIdentifier:v8 completion:v12];
   v9 = *(*(&buf + 1) + 40);
   if (!v9)
   {
@@ -813,11 +804,10 @@ void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___bloc
 
   v10 = v9;
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
 
   _Block_object_dispose(&buf, 8);
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -828,7 +818,7 @@ void __28__SKPresence_presentDevices__block_invoke(uint64_t a1, void *a2)
   v4 = +[SKPresence _logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __28__SKPresence_presentDevices__block_invoke_cold_1(a1);
+    __28__SKPresence_presentDevices__block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -841,7 +831,7 @@ void __28__SKPresence_presentDevices__block_invoke(uint64_t a1, void *a2)
 
 void __28__SKPresence_presentDevices__block_invoke_43(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[SKPresence _oversizeLogger];
@@ -851,36 +841,34 @@ void __28__SKPresence_presentDevices__block_invoke_43(uint64_t a1, void *a2, voi
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = *(a1 + 32);
-      v14 = 138543874;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_error_impl(&dword_26BA07000, v8, OS_LOG_TYPE_ERROR, "Retrieved present devices. Presence: %{public}@ Handles: %@ Error: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_error_impl(&dword_26BA07000, v8, OS_LOG_TYPE_ERROR, "Retrieved present devices. Presence: %{public}@ Handles: %@ Error: %@", &v13, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Retrieved present devices. Presence: %{public}@ Handles: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v10;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Retrieved present devices. Presence: %{public}@ Handles: %@", &v13, 0x16u);
   }
 
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v5;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)invitedHandles
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [(SKPresence *)self _registerForDelegateCallbacksIfNecessary];
   presenceIdentifier = [(SKPresence *)self presenceIdentifier];
   v4 = +[SKPresence _logger];
@@ -893,29 +881,29 @@ void __28__SKPresence_presentDevices__block_invoke_43(uint64_t a1, void *a2, voi
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
   daemonConnection = [(SKPresence *)self daemonConnection];
   objc_initWeak(&location, self);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __28__SKPresence_invitedHandles__block_invoke;
-  v16[3] = &unk_279D12A10;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __28__SKPresence_invitedHandles__block_invoke;
+  v15[3] = &unk_279D12A10;
   v6 = presenceIdentifier;
-  v17 = v6;
-  objc_copyWeak(&v19, &location);
+  v16 = v6;
+  objc_copyWeak(&v18, &location);
   p_buf = &buf;
-  v7 = [daemonConnection synchronousRemoteDaemonWithErrorHandler:v16];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __28__SKPresence_invitedHandles__block_invoke_45;
-  v13[3] = &unk_279D12A38;
+  v7 = [daemonConnection synchronousRemoteDaemonWithErrorHandler:v15];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __28__SKPresence_invitedHandles__block_invoke_45;
+  v12[3] = &unk_279D12A38;
   v8 = v6;
-  v14 = v8;
-  v15 = &buf;
-  [v7 invitedHandlesForPresenceIdentifier:v8 completion:v13];
+  v13 = v8;
+  v14 = &buf;
+  [v7 invitedHandlesForPresenceIdentifier:v8 completion:v12];
   v9 = *(*(&buf + 1) + 40);
   if (!v9)
   {
@@ -924,11 +912,10 @@ void __28__SKPresence_presentDevices__block_invoke_43(uint64_t a1, void *a2, voi
 
   v10 = v9;
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
 
   _Block_object_dispose(&buf, 8);
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -939,7 +926,7 @@ void __28__SKPresence_invitedHandles__block_invoke(uint64_t a1, void *a2)
   v4 = +[SKPresence _logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __28__SKPresence_presentDevices__block_invoke_cold_1(a1);
+    __28__SKPresence_presentDevices__block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -952,7 +939,7 @@ void __28__SKPresence_invitedHandles__block_invoke(uint64_t a1, void *a2)
 
 void __28__SKPresence_invitedHandles__block_invoke_45(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[SKPresence _logger];
@@ -962,36 +949,34 @@ void __28__SKPresence_invitedHandles__block_invoke_45(uint64_t a1, void *a2, voi
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = *(a1 + 32);
-      v14 = 138543874;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_error_impl(&dword_26BA07000, v8, OS_LOG_TYPE_ERROR, "Retrieved invited handles. Presence: %{public}@ Handles: %@ Error: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_error_impl(&dword_26BA07000, v8, OS_LOG_TYPE_ERROR, "Retrieved invited handles. Presence: %{public}@ Handles: %@ Error: %@", &v13, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Retrieved invited handles. Presence: %{public}@ Handles: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v10;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Retrieved invited handles. Presence: %{public}@ Handles: %@", &v13, 0x16u);
   }
 
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v5;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isHandleInvited:(id)invited fromSenderHandle:(id)handle
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   invitedCopy = invited;
   handleCopy = handle;
   [(SKPresence *)self _registerForDelegateCallbacksIfNecessary];
@@ -1004,37 +989,36 @@ void __28__SKPresence_invitedHandles__block_invoke_45(uint64_t a1, void *a2, voi
     *&buf[12] = 2112;
     *&buf[14] = handleCopy;
     *&buf[22] = 2114;
-    v26 = presenceIdentifier;
+    v25 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v9, OS_LOG_TYPE_DEFAULT, "Checking if handle %@ has already been invited (sync) from handle: %@. Presence: %{public}@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v26) = 0;
+  LOBYTE(v25) = 0;
   daemonConnection = [(SKPresence *)self daemonConnection];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke;
-  v22[3] = &unk_279D12A60;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke;
+  v21[3] = &unk_279D12A60;
   v11 = presenceIdentifier;
-  v23 = v11;
-  v24 = buf;
-  v12 = [daemonConnection synchronousRemoteDaemonWithErrorHandler:v22];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_46;
-  v18[3] = &unk_279D12A88;
+  v22 = v11;
+  v23 = buf;
+  v12 = [daemonConnection synchronousRemoteDaemonWithErrorHandler:v21];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_46;
+  v17[3] = &unk_279D12A88;
   v13 = v11;
-  v19 = v13;
+  v18 = v13;
   v14 = invitedCopy;
-  v20 = v14;
-  v21 = buf;
-  [v12 isHandleInvited:v14 fromSenderHandle:handleCopy forPresenceIdentifier:v13 completion:v18];
+  v19 = v14;
+  v20 = buf;
+  [v12 isHandleInvited:v14 fromSenderHandle:handleCopy forPresenceIdentifier:v13 completion:v17];
   v15 = *(*&buf[8] + 24);
 
   _Block_object_dispose(buf, 8);
-  v16 = *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -1044,7 +1028,7 @@ void __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke(uint64_t 
   v4 = +[SKPresence _logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_cold_1(a1);
+    __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_cold_1();
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -1052,7 +1036,7 @@ void __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke(uint64_t 
 
 void __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_46(void *a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[SKPresence _logger];
   v7 = v6;
@@ -1062,15 +1046,15 @@ void __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_46(void *
     {
       v8 = a1[4];
       v9 = a1[5];
-      v13 = 138544130;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_error_impl(&dword_26BA07000, v7, OS_LOG_TYPE_ERROR, "Checked if handle is invited (sync). Presence: %{public}@ Handle: %@ isInvited:%d Error: %@", &v13, 0x26u);
+      v12 = 138544130;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 1024;
+      v17 = a2;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_error_impl(&dword_26BA07000, v7, OS_LOG_TYPE_ERROR, "Checked if handle is invited (sync). Presence: %{public}@ Handle: %@ isInvited:%d Error: %@", &v12, 0x26u);
     }
   }
 
@@ -1078,22 +1062,21 @@ void __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_46(void *
   {
     v10 = a1[4];
     v11 = a1[5];
-    v13 = 138543874;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v11;
-    v17 = 1024;
-    v18 = a2;
-    _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Determined if handle is invited (sync). Presence: %{public}@ Handle: %@ isInvited: %d", &v13, 0x1Cu);
+    v12 = 138543874;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    v16 = 1024;
+    v17 = a2;
+    _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Determined if handle is invited (sync). Presence: %{public}@ Handle: %@ isInvited: %d", &v12, 0x1Cu);
   }
 
   *(*(a1[6] + 8) + 24) = a2;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isHandleInvited:(id)invited fromSenderHandle:(id)handle completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   invitedCopy = invited;
   handleCopy = handle;
   completionCopy = completion;
@@ -1103,39 +1086,37 @@ void __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_46(void *
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v31 = invitedCopy;
-    v32 = 2112;
-    v33 = handleCopy;
-    v34 = 2114;
-    v35 = presenceIdentifier;
+    v30 = invitedCopy;
+    v31 = 2112;
+    v32 = handleCopy;
+    v33 = 2114;
+    v34 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v12, OS_LOG_TYPE_DEFAULT, "Checking if handle %@ has already been invited (async) from handle: %@. Presence: %{public}@", buf, 0x20u);
   }
 
   daemonConnection = [(SKPresence *)self daemonConnection];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke;
-  v26[3] = &unk_279D12AB0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke;
+  v25[3] = &unk_279D12AB0;
   v14 = presenceIdentifier;
-  v27 = v14;
+  v26 = v14;
   v15 = invitedCopy;
-  v28 = v15;
+  v27 = v15;
   v16 = completionCopy;
-  v29 = v16;
-  v17 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v26];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke_48;
-  v22[3] = &unk_279D12AD8;
-  v23 = v14;
-  v24 = v15;
-  v25 = v16;
+  v28 = v16;
+  v17 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v25];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke_48;
+  v21[3] = &unk_279D12AD8;
+  v22 = v14;
+  v23 = v15;
+  v24 = v16;
   v18 = v16;
   v19 = v15;
   v20 = v14;
-  [v17 isHandleInvited:v19 fromSenderHandle:handleCopy forPresenceIdentifier:v20 completion:v22];
-
-  v21 = *MEMORY[0x277D85DE8];
+  [v17 isHandleInvited:v19 fromSenderHandle:handleCopy forPresenceIdentifier:v20 completion:v21];
 }
 
 void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke(uint64_t a1, void *a2)
@@ -1144,7 +1125,7 @@ void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invok
   v4 = +[SKPresence _logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke_cold_1(a1);
+    __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -1152,7 +1133,7 @@ void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invok
 
 void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke_48(void *a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = +[SKPresence _logger];
   v7 = v6;
@@ -1162,15 +1143,15 @@ void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invok
     {
       v8 = a1[4];
       v9 = a1[5];
-      v13 = 138544130;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_error_impl(&dword_26BA07000, v7, OS_LOG_TYPE_ERROR, "Error while checking if handle has already been invited (async). Presence: %{public}@ Handle: %@ isInvited:%d Error: %@", &v13, 0x26u);
+      v12 = 138544130;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 1024;
+      v17 = a2;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_error_impl(&dword_26BA07000, v7, OS_LOG_TYPE_ERROR, "Error while checking if handle has already been invited (async). Presence: %{public}@ Handle: %@ isInvited:%d Error: %@", &v12, 0x26u);
     }
   }
 
@@ -1178,22 +1159,21 @@ void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invok
   {
     v10 = a1[4];
     v11 = a1[5];
-    v13 = 138543874;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v11;
-    v17 = 1024;
-    v18 = a2;
-    _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Checked if handle is invited (async). Presence: %{public}@ Handle: %@ isInvited: %d", &v13, 0x1Cu);
+    v12 = 138543874;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    v16 = 1024;
+    v17 = a2;
+    _os_log_impl(&dword_26BA07000, v7, OS_LOG_TYPE_DEFAULT, "Checked if handle is invited (async). Presence: %{public}@ Handle: %@ isInvited: %d", &v12, 0x1Cu);
   }
 
   (*(a1[6] + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchHandleInvitability:(id)invitability fromSenderHandle:(id)handle completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   invitabilityCopy = invitability;
   handleCopy = handle;
   completionCopy = completion;
@@ -1209,37 +1189,35 @@ void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invok
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v32 = invitabilityCopy;
-    v33 = 2114;
-    v34 = presenceIdentifier;
+    v31 = invitabilityCopy;
+    v32 = 2114;
+    v33 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v13, OS_LOG_TYPE_DEFAULT, "Fetching handle %@ invitability. Presence: %{public}@", buf, 0x16u);
   }
 
   daemonConnection = [(SKPresence *)self daemonConnection];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke;
-  v27[3] = &unk_279D12AB0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke;
+  v26[3] = &unk_279D12AB0;
   v15 = presenceIdentifier;
-  v28 = v15;
+  v27 = v15;
   v16 = invitabilityCopy;
-  v29 = v16;
+  v28 = v16;
   v17 = v11;
-  v30 = v17;
-  v18 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v27];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke_50;
-  v23[3] = &unk_279D12B00;
-  v24 = v15;
-  v25 = v16;
-  v26 = v17;
+  v29 = v17;
+  v18 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v26];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke_50;
+  v22[3] = &unk_279D12B00;
+  v23 = v15;
+  v24 = v16;
+  v25 = v17;
   v19 = v17;
   v20 = v16;
   v21 = v15;
-  [v18 fetchHandleInvitability:v20 fromHandle:handleCopy forPresenceIdentifier:v21 completion:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [v18 fetchHandleInvitability:v20 fromHandle:handleCopy forPresenceIdentifier:v21 completion:v22];
 }
 
 void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke(uint64_t a1, void *a2)
@@ -1248,7 +1226,7 @@ void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___blo
   v4 = +[SKPresence _logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke_cold_1(a1);
+    __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -1256,7 +1234,7 @@ void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___blo
 
 void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke_50(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[SKPresence _logger];
@@ -1267,15 +1245,15 @@ void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___blo
     {
       v9 = a1[4];
       v10 = a1[5];
-      v14 = 138544130;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
-      _os_log_error_impl(&dword_26BA07000, v8, OS_LOG_TYPE_ERROR, "Error fetching handle invitability. Presence: %{public}@ Handle: %@ invitability:%@ Error: %@", &v14, 0x2Au);
+      v13 = 138544130;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v6;
+      _os_log_error_impl(&dword_26BA07000, v8, OS_LOG_TYPE_ERROR, "Error fetching handle invitability. Presence: %{public}@ Handle: %@ invitability:%@ Error: %@", &v13, 0x2Au);
     }
   }
 
@@ -1283,22 +1261,21 @@ void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___blo
   {
     v11 = a1[4];
     v12 = a1[5];
-    v14 = 138543874;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Checked if handle is invitable. Presence: %{public}@ Handle: %@ invitability: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v5;
+    _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Checked if handle is invitable. Presence: %{public}@ Handle: %@ invitability: %@", &v13, 0x20u);
   }
 
   (*(a1[6] + 16))();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)inviteHandle:(id)handle fromSenderHandle:(id)senderHandle completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v8 = MEMORY[0x277CBEA60];
   completionCopy = completion;
@@ -1306,26 +1283,24 @@ void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___blo
   handleCopy2 = handle;
   v12 = [v8 arrayWithObjects:&handleCopy count:1];
 
-  [(SKPresence *)self _inviteHandles:v12 fromSenderHandle:senderHandleCopy completion:completionCopy, handleCopy, v15];
-  v13 = *MEMORY[0x277D85DE8];
+  [(SKPresence *)self _inviteHandles:v12 fromSenderHandle:senderHandleCopy completion:completionCopy, handleCopy, v14];
 }
 
 - (void)inviteHandleFromPrimaryAccountHandle:(id)handle completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v6 = MEMORY[0x277CBEA60];
   completionCopy = completion;
   handleCopy2 = handle;
   v9 = [v6 arrayWithObjects:&handleCopy count:1];
 
-  [(SKPresence *)self _inviteHandles:v9 fromSenderHandle:0 completion:completionCopy, handleCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(SKPresence *)self _inviteHandles:v9 fromSenderHandle:0 completion:completionCopy, handleCopy, v11];
 }
 
 - (void)_inviteHandles:(id)handles fromSenderHandle:(id)handle completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   handleCopy = handle;
   completionCopy = completion;
@@ -1341,42 +1316,41 @@ void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___blo
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v30 = handlesCopy;
-    v31 = 2114;
-    v32 = presenceIdentifier;
-    v33 = 2112;
-    v34 = handleCopy;
+    v29 = handlesCopy;
+    v30 = 2114;
+    v31 = presenceIdentifier;
+    v32 = 2112;
+    v33 = handleCopy;
     _os_log_impl(&dword_26BA07000, v13, OS_LOG_TYPE_DEFAULT, "Received request to invite handles: %@ to presenceIdentifier: %{public}@ from sender handle: %@", buf, 0x20u);
   }
 
   daemonConnection = [(SKPresence *)self daemonConnection];
   objc_initWeak(buf, self);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke;
-  v24[3] = &unk_279D12B28;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke;
+  v23[3] = &unk_279D12B28;
   v15 = presenceIdentifier;
-  v25 = v15;
+  v24 = v15;
   v16 = handlesCopy;
-  v26 = v16;
-  objc_copyWeak(&v28, buf);
+  v25 = v16;
+  objc_copyWeak(&v27, buf);
   v17 = v11;
-  v27 = v17;
-  v18 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v24];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_53;
-  v21[3] = &unk_279D12B50;
-  objc_copyWeak(&v23, buf);
+  v26 = v17;
+  v18 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v23];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_53;
+  v20[3] = &unk_279D12B50;
+  objc_copyWeak(&v22, buf);
   v19 = v17;
-  v22 = v19;
-  [v18 inviteHandles:v16 fromSenderHandle:handleCopy presenceIdentifier:v15 completion:v21];
+  v21 = v19;
+  [v18 inviteHandles:v16 fromSenderHandle:handleCopy presenceIdentifier:v15 completion:v20];
 
-  objc_destroyWeak(&v23);
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v27);
 
   objc_destroyWeak(buf);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke(uint64_t a1, void *a2)
@@ -1385,7 +1359,7 @@ void __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke(
   v4 = +[SKPresence _logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_cold_1(a1);
+    __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -1421,20 +1395,19 @@ void __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_
 
 - (void)removeInvitedHandle:(id)handle completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v6 = MEMORY[0x277CBEA60];
   completionCopy = completion;
   handleCopy2 = handle;
   v9 = [v6 arrayWithObjects:&handleCopy count:1];
 
-  [(SKPresence *)self removeInvitedHandles:v9 completion:completionCopy, handleCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(SKPresence *)self removeInvitedHandles:v9 completion:completionCopy, handleCopy, v11];
 }
 
 - (void)removeInvitedHandles:(id)handles completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   completionCopy = completion;
   [(SKPresence *)self _registerForDelegateCallbacksIfNecessary];
@@ -1443,40 +1416,39 @@ void __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v26 = presenceIdentifier;
-    v27 = 2112;
-    v28 = handlesCopy;
+    v25 = presenceIdentifier;
+    v26 = 2112;
+    v27 = handlesCopy;
     _os_log_impl(&dword_26BA07000, v9, OS_LOG_TYPE_DEFAULT, "Removing invited handles. Presence: %{public}@ Handles: %@", buf, 0x16u);
   }
 
   daemonConnection = [(SKPresence *)self daemonConnection];
   objc_initWeak(buf, self);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __46__SKPresence_removeInvitedHandles_completion___block_invoke;
-  v20[3] = &unk_279D12B28;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __46__SKPresence_removeInvitedHandles_completion___block_invoke;
+  v19[3] = &unk_279D12B28;
   v11 = presenceIdentifier;
-  v21 = v11;
+  v20 = v11;
   v12 = handlesCopy;
-  v22 = v12;
-  objc_copyWeak(&v24, buf);
+  v21 = v12;
+  objc_copyWeak(&v23, buf);
   v13 = completionCopy;
-  v23 = v13;
-  v14 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v20];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __46__SKPresence_removeInvitedHandles_completion___block_invoke_54;
-  v17[3] = &unk_279D12B50;
-  objc_copyWeak(&v19, buf);
+  v22 = v13;
+  v14 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v19];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __46__SKPresence_removeInvitedHandles_completion___block_invoke_54;
+  v16[3] = &unk_279D12B50;
+  objc_copyWeak(&v18, buf);
   v15 = v13;
-  v18 = v15;
-  [v14 removeInvitedHandles:v12 presenceIdentifier:v11 completion:v17];
+  v17 = v15;
+  [v14 removeInvitedHandles:v12 presenceIdentifier:v11 completion:v16];
 
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v23);
 
   objc_destroyWeak(buf);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SKPresence_removeInvitedHandles_completion___block_invoke(uint64_t a1, void *a2)
@@ -1485,7 +1457,7 @@ void __46__SKPresence_removeInvitedHandles_completion___block_invoke(uint64_t a1
   v4 = +[SKPresence _logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __46__SKPresence_removeInvitedHandles_completion___block_invoke_cold_1(a1);
+    __46__SKPresence_removeInvitedHandles_completion___block_invoke_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -1521,7 +1493,7 @@ void __46__SKPresence_removeInvitedHandles_completion___block_invoke_54(uint64_t
 
 - (void)rollChannelWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(SKPresence *)self _registerForDelegateCallbacksIfNecessary];
   presenceIdentifier = [(SKPresence *)self presenceIdentifier];
@@ -1529,32 +1501,30 @@ void __46__SKPresence_removeInvitedHandles_completion___block_invoke_54(uint64_t
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = presenceIdentifier;
+    v17 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v6, OS_LOG_TYPE_DEFAULT, "Rolling presence channel with presence identifier: %@", buf, 0xCu);
   }
 
   daemonConnection = [(SKPresence *)self daemonConnection];
   objc_initWeak(buf, self);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __40__SKPresence_rollChannelWithCompletion___block_invoke;
-  v15[3] = &unk_279D128F8;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __40__SKPresence_rollChannelWithCompletion___block_invoke;
+  v14[3] = &unk_279D128F8;
   v8 = completionCopy;
-  v16 = v8;
-  v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v15];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __40__SKPresence_rollChannelWithCompletion___block_invoke_55;
-  v12[3] = &unk_279D12B50;
-  objc_copyWeak(&v14, buf);
+  v15 = v8;
+  v9 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v14];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __40__SKPresence_rollChannelWithCompletion___block_invoke_55;
+  v11[3] = &unk_279D12B50;
+  objc_copyWeak(&v13, buf);
   v10 = v8;
-  v13 = v10;
-  [v9 rollChannelForPresenceIdentifier:presenceIdentifier completion:v12];
+  v12 = v10;
+  [v9 rollChannelForPresenceIdentifier:presenceIdentifier completion:v11];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __40__SKPresence_rollChannelWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -1642,18 +1612,16 @@ void __38__SKPresence_fetchPresenceCapability___block_invoke(uint64_t a1, void *
 
 uint64_t __38__SKPresence_fetchPresenceCapability___block_invoke_56(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = +[SKPresence _logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_26BA07000, v4, OS_LOG_TYPE_DEFAULT, "Checked if account is presence capable: %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_26BA07000, v4, OS_LOG_TYPE_DEFAULT, "Checked if account is presence capable: %d", v6, 8u);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)addDelegate:(id)delegate queue:(id)queue
@@ -1720,7 +1688,7 @@ uint64_t __38__SKPresence_fetchPresenceCapability___block_invoke_56(uint64_t a1,
 
 - (void)_registerForDelegateCallbacksIfNecessary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[SKPresence _logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1764,34 +1732,32 @@ uint64_t __38__SKPresence_fetchPresenceCapability___block_invoke_56(uint64_t a1,
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v20 = presenceIdentifier;
+      v19 = presenceIdentifier;
       _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Registering for delegate callbacks for presenceIdentifier: %{public}@", buf, 0xCu);
     }
 
     daemonConnection = [(SKPresence *)self daemonConnection];
     objc_initWeak(buf, self);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke;
-    v17[3] = &unk_279D12BA0;
-    objc_copyWeak(&v18, buf);
-    v10 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke;
+    v16[3] = &unk_279D12BA0;
+    objc_copyWeak(&v17, buf);
+    v10 = [daemonConnection asynchronousRemoteDaemonWithErrorHandler:v16];
     options = [(SKPresence *)self options];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke_59;
-    v14[3] = &unk_279D12BC8;
-    objc_copyWeak(&v16, buf);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke_59;
+    v13[3] = &unk_279D12BC8;
+    objc_copyWeak(&v15, buf);
     v12 = presenceIdentifier;
-    v15 = v12;
-    [v10 registerForDelegateCallbacksWithPresenceIdentifier:v12 options:options completion:v14];
+    v14 = v12;
+    [v10 registerForDelegateCallbacksWithPresenceIdentifier:v12 options:options completion:v13];
 
-    objc_destroyWeak(&v16);
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke(uint64_t a1, void *a2)
@@ -1809,7 +1775,7 @@ void __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke(uin
 
 void __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke_59(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKPresence _logger];
   WeakRetained = v4;
@@ -1827,17 +1793,15 @@ void __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke_59(
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_26BA07000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Completed registration for delegate callbacks for presence identifier: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_26BA07000, WeakRetained, OS_LOG_TYPE_DEFAULT, "Completed registration for delegate callbacks for presence identifier: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_delegatesPerformOnResponseQueueForGroup:(id)group block:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   blockCopy = block;
   os_unfair_lock_lock(&self->_delegateLock);
@@ -1853,26 +1817,26 @@ void __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke_59(
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = [v8 keyEnumerator];
-  v10 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v10 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         v15 = [v8 objectForKey:v14];
         dispatchQueue = [v15 dispatchQueue];
         dispatch_group_enter(groupCopy);
@@ -1880,59 +1844,55 @@ void __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke_59(
         block[1] = 3221225472;
         block[2] = __61__SKPresence__delegatesPerformOnResponseQueueForGroup_block___block_invoke;
         block[3] = &unk_279D12BF0;
-        v21 = blockCopy;
+        v20 = blockCopy;
         block[4] = v14;
-        v20 = groupCopy;
+        v19 = groupCopy;
         dispatch_async(dispatchQueue, block);
       }
 
-      v11 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v11 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void __61__SKPresence__delegatesPerformOnResponseQueueForGroup_block___block_invoke(void *a1)
+void __61__SKPresence__delegatesPerformOnResponseQueueForGroup_block___block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  dispatch_group_leave(v3);
+  dispatch_group_leave(v2);
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = +[SKPresence _logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     presenceIdentifier = self->_presenceIdentifier;
     *buf = 138412290;
-    v8 = presenceIdentifier;
+    v7 = presenceIdentifier;
     _os_log_impl(&dword_26BA07000, v3, OS_LOG_TYPE_DEFAULT, "Deallocing SKPresence for presence identifier %@", buf, 0xCu);
   }
 
   [(SKPresence *)self releaseDaemonConnection];
-  v6.receiver = self;
-  v6.super_class = SKPresence;
-  [(SKPresence *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SKPresence;
+  [(SKPresence *)&v5 dealloc];
 }
 
 - (void)presentHandlesChangedForPresenceIdentifier:(id)identifier completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = +[SKPresence _logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = identifierCopy;
+    v19 = identifierCopy;
     _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Present devices changed on presence: %@", buf, 0xCu);
   }
 
@@ -1942,12 +1902,12 @@ void __61__SKPresence__delegatesPerformOnResponseQueueForGroup_block___block_inv
 
   if (v11)
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___block_invoke;
-    v18[3] = &unk_279D12C18;
-    v18[4] = self;
-    [(SKPresence *)self _delegatesPerformOnResponseQueueForGroup:v9 block:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___block_invoke;
+    v17[3] = &unk_279D12C18;
+    v17[4] = self;
+    [(SKPresence *)self _delegatesPerformOnResponseQueueForGroup:v9 block:v17];
   }
 
   else
@@ -1956,26 +1916,24 @@ void __61__SKPresence__delegatesPerformOnResponseQueueForGroup_block___block_inv
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = identifierCopy;
+      v19 = identifierCopy;
       _os_log_impl(&dword_26BA07000, v12, OS_LOG_TYPE_DEFAULT, "Delegate received message for other identifier: %@", buf, 0xCu);
     }
   }
 
   privateWorkQueue = self->_privateWorkQueue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___block_invoke_66;
-  v16[3] = &unk_279D12C40;
-  v17 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___block_invoke_66;
+  v15[3] = &unk_279D12C40;
+  v16 = completionCopy;
   v14 = completionCopy;
-  dispatch_group_notify(v9, privateWorkQueue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(v9, privateWorkQueue, v15);
 }
 
 void __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_respondsToSelector();
   v5 = +[SKPresence _logger];
@@ -1984,9 +1942,9 @@ void __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___bl
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_26BA07000, v6, OS_LOG_TYPE_DEFAULT, "Informing delegate of present devices update. Delegate: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_26BA07000, v6, OS_LOG_TYPE_DEFAULT, "Informing delegate of present devices update. Delegate: %@", &v7, 0xCu);
     }
 
     [v3 presentDevicesChangedForPresence:*(a1 + 32)];
@@ -1999,20 +1957,18 @@ void __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___bl
       __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___block_invoke_cold_1();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invitedHandlesChangedForPresenceIdentifier:(id)identifier completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = +[SKPresence _logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = identifierCopy;
+    v19 = identifierCopy;
     _os_log_impl(&dword_26BA07000, v8, OS_LOG_TYPE_DEFAULT, "Invited handles changed for presence identifier: %@", buf, 0xCu);
   }
 
@@ -2022,12 +1978,12 @@ void __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___bl
 
   if (v11)
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___block_invoke;
-    v18[3] = &unk_279D12C18;
-    v18[4] = self;
-    [(SKPresence *)self _delegatesPerformOnResponseQueueForGroup:v9 block:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___block_invoke;
+    v17[3] = &unk_279D12C18;
+    v17[4] = self;
+    [(SKPresence *)self _delegatesPerformOnResponseQueueForGroup:v9 block:v17];
   }
 
   else
@@ -2036,26 +1992,24 @@ void __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___bl
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = identifierCopy;
+      v19 = identifierCopy;
       _os_log_impl(&dword_26BA07000, v12, OS_LOG_TYPE_DEFAULT, "Delegate received message for other identifier: %@", buf, 0xCu);
     }
   }
 
   privateWorkQueue = self->_privateWorkQueue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___block_invoke_69;
-  v16[3] = &unk_279D12C40;
-  v17 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___block_invoke_69;
+  v15[3] = &unk_279D12C40;
+  v16 = completionCopy;
   v14 = completionCopy;
-  dispatch_group_notify(v9, privateWorkQueue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(v9, privateWorkQueue, v15);
 }
 
 void __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_respondsToSelector();
   v5 = +[SKPresence _logger];
@@ -2064,9 +2018,9 @@ void __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___bl
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_26BA07000, v6, OS_LOG_TYPE_DEFAULT, "Informing delegate of invited handle update. Delegate: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_26BA07000, v6, OS_LOG_TYPE_DEFAULT, "Informing delegate of invited handle update. Delegate: %@", &v7, 0xCu);
     }
 
     [v3 invitedHandlesChangedForPresence:*(a1 + 32)];
@@ -2079,8 +2033,6 @@ void __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___bl
       __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___block_invoke_cold_1();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presenceDaemonConnectionDidDisconnect:(id)disconnect
@@ -2548,212 +2500,50 @@ uint64_t __29__SKPresence__oversizeLogger__block_invoke()
   return v3;
 }
 
-void __61__SKPresence_hasInitialCloudKitImportOccurredWithCompletion___block_invoke_cold_1()
+void __28__SKPresence_presentDevices__block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error checking initial CloudKit import. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__SKPresence_hasInitialCloudKitImportOccurredWithCompletion___block_invoke_30_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Error checking if the CloudKit import has occurred. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error retaining presence assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__SKPresence_assertPresenceWithPresencePayload_assertionOptions_completion___block_invoke_39_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Error asserting presence. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __44__SKPresence_releasePresenceWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error releasing presence assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __44__SKPresence_releasePresenceWithCompletion___block_invoke_40_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Error releasing presence. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error retaining transient subscription assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65__SKPresence_retainTransientSubscriptionAssertionWithCompletion___block_invoke_41_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Error retaining transient subscription assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error releasing transient subscription assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__SKPresence_releaseTransientSubscriptionAssertionWithCompletion___block_invoke_42_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Error releasing transient subscription assertion. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __28__SKPresence_presentDevices__block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_cold_1(uint64_t a1)
+void __48__SKPresence__isHandleInvited_fromSenderHandle___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke_cold_1(uint64_t a1)
+void __59__SKPresence__isHandleInvited_fromSenderHandle_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke_cold_1(uint64_t a1)
+void __67__SKPresence__fetchHandleInvitability_fromSenderHandle_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_cold_1(uint64_t a1)
+void __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __57__SKPresence__inviteHandles_fromSenderHandle_completion___block_invoke_53_cold_1()
+void __46__SKPresence_removeInvitedHandles_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Inviting handles completed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __46__SKPresence_removeInvitedHandles_completion___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __46__SKPresence_removeInvitedHandles_completion___block_invoke_54_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Remove invited handles completed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __40__SKPresence_rollChannelWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC error rolling presence channel. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __40__SKPresence_rollChannelWithCompletion___block_invoke_55_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Presence channel roll completed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __38__SKPresence_fetchPresenceCapability___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error checking presence capability.  Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "XPC Error registering for delegate callbacks. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __54__SKPresence__registerForDelegateCallbacksIfNecessary__block_invoke_59_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Error registering for delegate callbacks. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__SKPresence_presentHandlesChangedForPresenceIdentifier_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Delegate does not implement presentDevicesChangedForPresence:, not informing delegate: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__SKPresence_invitedHandlesChangedForPresenceIdentifier_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_26BA07000, v0, v1, "Delegate does not implement presentHandlesChangedForPresence:, not informing delegate: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 @end

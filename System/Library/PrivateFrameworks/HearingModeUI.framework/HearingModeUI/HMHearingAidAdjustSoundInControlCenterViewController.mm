@@ -5,6 +5,8 @@
 - (void)addControlCenterModule;
 - (void)mainButtonTapped;
 - (void)updateButtonTray;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -27,10 +29,10 @@
 
 - (void)viewDidLoad
 {
-  v41[4] = *MEMORY[0x277D85DE8];
-  v40.receiver = self;
-  v40.super_class = HMHearingAidAdjustSoundInControlCenterViewController;
-  [(OBBaseWelcomeController *)&v40 viewDidLoad];
+  v40[4] = *MEMORY[0x277D85DE8];
+  v39.receiver = self;
+  v39.super_class = HMHearingAidAdjustSoundInControlCenterViewController;
+  [(OBBaseWelcomeController *)&v39 viewDidLoad];
   [(HMHearingAidAdjustSoundInControlCenterViewController *)self updateButtonTray];
   [(HMHearingAidAdjustSoundInControlCenterViewController *)self addControlCenterModule];
   traitCollection = [(HMHearingAidAdjustSoundInControlCenterViewController *)self traitCollection];
@@ -57,11 +59,11 @@
     v7 = &stru_286444CA0;
   }
 
-  v39 = [v6 stringByAppendingString:v7];
+  v38 = [v6 stringByAppendingString:v7];
 
   v8 = objc_alloc(MEMORY[0x277CF0D48]);
   v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [v8 initWithPackageName:v39 inBundle:v9];
+  v10 = [v8 initWithPackageName:v38 inBundle:v9];
   [(HMHearingAidAdjustSoundInControlCenterViewController *)self setMicaView:v10];
 
   micaView = [(HMHearingAidAdjustSoundInControlCenterViewController *)self micaView];
@@ -75,35 +77,58 @@
   contentView2 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self contentView];
   [contentView2 setBackgroundColor:clearColor];
 
-  v29 = MEMORY[0x277CCAAD0];
+  v28 = MEMORY[0x277CCAAD0];
   micaView3 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self micaView];
   leadingAnchor = [micaView3 leadingAnchor];
   contentView3 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self contentView];
   leadingAnchor2 = [contentView3 leadingAnchor];
-  v34 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v41[0] = v34;
+  v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v40[0] = v33;
   micaView4 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self micaView];
   trailingAnchor = [micaView4 trailingAnchor];
   contentView4 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self contentView];
   trailingAnchor2 = [contentView4 trailingAnchor];
-  v28 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v41[1] = v28;
+  v27 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v40[1] = v27;
   micaView5 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self micaView];
   topAnchor = [micaView5 topAnchor];
   contentView5 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self contentView];
   topAnchor2 = [contentView5 topAnchor];
   v19 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v41[2] = v19;
+  v40[2] = v19;
   micaView6 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self micaView];
   bottomAnchor = [micaView6 bottomAnchor];
   contentView6 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self contentView];
   bottomAnchor2 = [contentView6 bottomAnchor];
   v24 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v41[3] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
-  [v29 activateConstraints:v25];
+  v40[3] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
+  [v28 activateConstraints:v25];
+}
 
-  v26 = *MEMORY[0x277D85DE8];
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = HMHearingAidAdjustSoundInControlCenterViewController;
+  [(OBBaseWelcomeController *)&v9 viewDidAppear:appear];
+  micaView = [(HMHearingAidAdjustSoundInControlCenterViewController *)self micaView];
+  micaView2 = [(HMHearingAidAdjustSoundInControlCenterViewController *)self micaView];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __70__HMHearingAidAdjustSoundInControlCenterViewController_viewDidAppear___block_invoke;
+  v7[3] = &unk_2796F3C58;
+  v8 = micaView;
+  v6 = micaView;
+  [micaView2 setState:@"State 2" animated:1 transitionSpeed:v7 completion:1.0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HMHearingAidAdjustSoundInControlCenterViewController;
+  [(OBBaseWelcomeController *)&v5 viewDidDisappear:disappear];
+  micaView = [(HMHearingAidAdjustSoundInControlCenterViewController *)self micaView];
+  [micaView setState:@"State 1" animated:0];
 }
 
 - (void)updateButtonTray

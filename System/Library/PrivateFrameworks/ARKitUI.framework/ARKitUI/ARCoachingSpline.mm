@@ -6,6 +6,7 @@
 - (ARCoachingSpline)initWithPoints:(ARCoachingSpline *)self numPoints:(SEL)points relativeThickness:pattern:mat:;
 - (id).cxx_construct;
 - (unsigned)indices;
+- (void)genLeftCapWithWidth:(float)width;
 - (void)genRightCapWithWidth:(float)width;
 - (void)genTubeIndicesWithPattern:(unint64_t)pattern;
 @end
@@ -156,9 +157,70 @@
   return v15;
 }
 
+- (void)genLeftCapWithWidth:(float)width
+{
+  v26 = *&width;
+  v37 = *MEMORY[0x277D85DE8];
+  p_controlPoints = &self->_controlPoints;
+  [ARCoachingSpline interpolate:**p_controlPoints p1:(*p_controlPoints)[4] p2:(*p_controlPoints)[8] p3:(*p_controlPoints)[12] t:0.0];
+  v25 = v5;
+  [ARCoachingSpline interpolateTangent:**p_controlPoints p1:(*p_controlPoints)[4] p2:(*p_controlPoints)[8] p3:(*p_controlPoints)[12] t:0.0];
+  v7 = vmulq_f32(v6, v6);
+  *&v8 = v7.f32[2] + vaddv_f32(*v7.f32);
+  *v7.f32 = vrsqrte_f32(v8);
+  *v7.f32 = vmul_f32(*v7.f32, vrsqrts_f32(v8, vmul_f32(*v7.f32, *v7.f32)));
+  v9 = vmulq_n_f32(v6, vmul_f32(*v7.f32, vrsqrts_f32(v8, vmul_f32(*v7.f32, *v7.f32))).f32[0]);
+  v10 = vmlsq_lane_f32(v25, v9, v26, 0);
+  _Q0 = vmulq_n_f32(v9, v26.f32[0]);
+  v31 = v10;
+  v29 = vmlaq_f32(v10, vdupq_n_s32(0xBA83126F), _Q0);
+  v30 = 0;
+  cap_error = self->_cap_error;
+  relativeThickness = self->_relativeThickness;
+  v33 = vmlaq_n_f32(v25, _Q0, cap_error);
+  v34 = relativeThickness;
+  v35 = v33;
+  v36 = relativeThickness;
+  v28 = xmmword_23D3DC4E0;
+  __asm { FMOV            V0.2S, #1.0 }
+
+  v27[0] = _Q0.i64[0];
+  v27[1] = _Q0.i64[0];
+  begin = self->_indices.__begin_;
+  end = self->_indices.__end_;
+  v19 = end - begin;
+  if (end != begin)
+  {
+    v20 = 0;
+    v21 = v19 >> 1;
+    do
+    {
+      *begin++ += 4;
+      ++v20;
+    }
+
+    while (v21 > v20);
+  }
+
+  for (i = 96; i != -32; i -= 32)
+  {
+    std::vector<ARCoachingControlPoint>::insert(&self->_controlPoints.__begin_, *p_controlPoints, &v29 + i);
+  }
+
+  for (j = 14; j != -2; j -= 2)
+  {
+    std::vector<unsigned short>::insert(&self->_indices.__begin_, self->_indices.__begin_, &v28 + j);
+  }
+
+  for (k = 1; k != -1; --k)
+  {
+    std::vector<ARCoachingPatchData>::insert(&self->_patchData.__begin_, self->_patchData.__begin_, &v27[k]);
+  }
+}
+
 - (void)genRightCapWithWidth:(float)width
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   begin = self->_controlPoints.__begin_;
   p_controlPoints = &self->_controlPoints;
   v7 = (self->_controlPoints.__end_ - begin) >> 5;
@@ -168,7 +230,7 @@
   v11 = 32 * (v7 - 1);
   LODWORD(v3) = 1.0;
   [ARCoachingSpline interpolate:*(begin + v8) p1:*(begin + v9) p2:*(begin + v10) p3:*(begin + v11) t:v3];
-  v27 = v12;
+  v26 = v12;
   LODWORD(v13) = 1.0;
   [ARCoachingSpline interpolateTangent:*(p_controlPoints->__begin_ + v8) p1:*(p_controlPoints->__begin_ + v9) p2:*(p_controlPoints->__begin_ + v10) p3:*(p_controlPoints->__begin_ + v11) t:v13];
   v14 = 0;
@@ -178,37 +240,36 @@
   *v16.f32 = vmul_f32(*v16.f32, vrsqrts_f32(v17, vmul_f32(*v16.f32, *v16.f32)));
   _Q0 = vmulq_n_f32(vmulq_n_f32(v15, vmul_f32(*v16.f32, vrsqrts_f32(v17, vmul_f32(*v16.f32, *v16.f32))).f32[0]), width);
   v19 = vdupq_n_s32(0x3F7FBE77u);
-  v20 = vmlaq_f32(v27, v19, _Q0);
+  v20 = vmlaq_f32(v26, v19, _Q0);
   v19.i32[0] = HIDWORD(p_controlPoints[3].__begin_);
-  v33 = p_controlPoints[3].__begin_;
-  v34 = vmlsq_lane_f32(v27, _Q0, *v19.f32, 0);
-  v35 = v33;
-  v36 = v20;
-  v37 = v33;
-  v38 = vmlaq_f32(v20, vdupq_n_s32(0x3C23D70Au), _Q0);
-  v39 = 0;
-  v31 = xmmword_23D3DC4F0;
-  v32 = v34;
-  v31 = vaddq_s16(vdupq_n_s16(*(p_controlPoints[2].__end_ - 1) + 1), xmmword_23D3DC4F0);
+  v32 = p_controlPoints[3].__begin_;
+  v33 = vmlsq_lane_f32(v26, _Q0, *v19.f32, 0);
+  v34 = v32;
+  v35 = v20;
+  v36 = v32;
+  v37 = vmlaq_f32(v20, vdupq_n_s32(0x3C23D70Au), _Q0);
+  v38 = 0;
+  v30 = xmmword_23D3DC4F0;
+  v31 = v33;
+  v30 = vaddq_s16(vdupq_n_s16(*(p_controlPoints[2].__end_ - 1) + 1), xmmword_23D3DC4F0);
   __asm { FMOV            V0.2S, #1.0 }
 
+  v28 = _Q0.i64[0];
   v29 = _Q0.i64[0];
-  v30 = _Q0.i64[0];
   do
   {
-    std::vector<ARCoachingControlPoint>::push_back[abi:ne200100](p_controlPoints, &v32.f32[v14]);
+    std::vector<ARCoachingControlPoint>::push_back[abi:ne200100](p_controlPoints, &v31.f32[v14]);
     v14 += 8;
   }
 
   while (v14 != 32);
   for (i = 0; i != 8; ++i)
   {
-    std::vector<unsigned short>::push_back[abi:ne200100](&p_controlPoints[2].__begin_, &v31.i16[i]);
+    std::vector<unsigned short>::push_back[abi:ne200100](&p_controlPoints[2].__begin_, &v30.u16[i]);
   }
 
+  std::vector<ARCoachingPatchData>::push_back[abi:ne200100](&self->_patchData, &v28);
   std::vector<ARCoachingPatchData>::push_back[abi:ne200100](&self->_patchData, &v29);
-  std::vector<ARCoachingPatchData>::push_back[abi:ne200100](&self->_patchData, &v30);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)genTubeIndicesWithPattern:(unint64_t)pattern

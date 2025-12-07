@@ -10,10 +10,11 @@
 {
   length = range.length;
   location = range.location;
-  sub_AB92A0();
+  v9 = sub_AB92A0();
+  v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  sub_5B6200(fieldCopy, location, length);
+  sub_5B6200(fieldCopy, location, length, v9, v11);
 
   return 1;
 }

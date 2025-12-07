@@ -1,105 +1,104 @@
-void sub_1000008E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1000008E8()
 {
   *notification = 0;
   if (qword_100010218)
   {
-    v8 = qword_100010218;
+    v0 = qword_100010218;
   }
 
   else
   {
-    v8 = &_os_log_default;
+    v0 = &_os_log_default;
   }
 
-  sub_100007804(v8, "Going to discover services \n", a3, a4, a5, a6, a7, a8, v66);
+  sub_100007804(v0, "Going to discover services \n");
   if (dword_100010220)
   {
-    *&v9 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v83 = v9;
-    v84 = v9;
-    v82 = v9;
-    v80 = v9;
-    v81 = v9;
-    v78 = v9;
-    v79 = v9;
-    *v77 = v9;
-    v75 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v75);
-    v10 = localtime(&v75);
-    strftime(v77, 0x80uLL, "%b %d %H:%M:%S", v10);
-    dprintf(dword_100010220, "%s ", v77);
+    *&v1 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v1 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v40 = v1;
+    v41 = v1;
+    v39 = v1;
+    v37 = v1;
+    v38 = v1;
+    v35 = v1;
+    v36 = v1;
+    *v34 = v1;
+    v32 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v32);
+    v2 = localtime(&v32);
+    strftime(v34, 0x80uLL, "%b %d %H:%M:%S", v2);
+    dprintf(dword_100010220, "%s ", v34);
     dprintf(dword_100010220, "Going to discover services \n");
   }
 
-  v17 = IONotificationPortCreate(kIOMainPortDefault);
+  v3 = IONotificationPortCreate(kIOMainPortDefault);
   if (qword_100010218)
   {
-    v18 = qword_100010218;
+    v4 = qword_100010218;
   }
 
   else
   {
-    v18 = &_os_log_default;
+    v4 = &_os_log_default;
   }
 
-  if (v17)
+  if (v3)
   {
-    v71 = "com.apple.driver.AppleBCMWLANCore";
-    sub_100007804(v18, "Matching with -> Core match:'%s', Bundle ID match:'%s'\n", v11, v12, v13, v14, v15, v16, "AppleBCMWLANCore");
+    sub_100007804(v4, "Matching with -> Core match:'%s', Bundle ID match:'%s'\n", "AppleBCMWLANCore", "com.apple.driver.AppleBCMWLANCore");
     if (dword_100010220)
     {
-      *&v19 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v83 = v19;
-      v84 = v19;
-      v82 = v19;
-      v80 = v19;
-      v81 = v19;
-      v78 = v19;
-      v79 = v19;
-      *v77 = v19;
-      v75 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v75);
-      v20 = localtime(&v75);
-      strftime(v77, 0x80uLL, "%b %d %H:%M:%S", v20);
-      dprintf(dword_100010220, "%s ", v77);
+      *&v5 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v40 = v5;
+      v41 = v5;
+      v39 = v5;
+      v37 = v5;
+      v38 = v5;
+      v35 = v5;
+      v36 = v5;
+      *v34 = v5;
+      v32 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v32);
+      v6 = localtime(&v32);
+      strftime(v34, 0x80uLL, "%b %d %H:%M:%S", v6);
+      dprintf(dword_100010220, "%s ", v34);
       dprintf(dword_100010220, "Matching with -> Core match:'%s', Bundle ID match:'%s'\n", "AppleBCMWLANCore", "com.apple.driver.AppleBCMWLANCore");
     }
 
-    RunLoopSource = IONotificationPortGetRunLoopSource(v17);
-    v22 = IOServiceNameMatching("AppleBCMWLANCore");
-    if (IOServiceAddMatchingNotification(v17, "IOServiceFirstMatch", v22, sub_100000ED4, notification, &notification[1]))
+    RunLoopSource = IONotificationPortGetRunLoopSource(v3);
+    v8 = IOServiceNameMatching("AppleBCMWLANCore");
+    if (IOServiceAddMatchingNotification(v3, "IOServiceFirstMatch", v8, sub_100000ED4, notification, &notification[1]))
     {
       if (qword_100010218)
       {
-        v29 = qword_100010218;
+        v9 = qword_100010218;
       }
 
       else
       {
-        v29 = &_os_log_default;
+        v9 = &_os_log_default;
       }
 
-      sub_100007804(v29, "Failed to add matching notification\n", v23, v24, v25, v26, v27, v28, v68);
+      sub_100007804(v9, "Failed to add matching notification\n");
       if (dword_100010220)
       {
-        *&v30 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v83 = v30;
-        v84 = v30;
-        v82 = v30;
-        v80 = v30;
-        v81 = v30;
-        v78 = v30;
-        v79 = v30;
-        *v77 = v30;
-        v75 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v75);
-        v31 = localtime(&v75);
-        strftime(v77, 0x80uLL, "%b %d %H:%M:%S", v31);
-        dprintf(dword_100010220, "%s ", v77);
-        dprintf(dword_100010220, "Failed to add matching notification\n", v69, v71);
+        *&v10 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v40 = v10;
+        v41 = v10;
+        v39 = v10;
+        v37 = v10;
+        v38 = v10;
+        v35 = v10;
+        v36 = v10;
+        *v34 = v10;
+        v32 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v32);
+        v11 = localtime(&v32);
+        strftime(v34, 0x80uLL, "%b %d %H:%M:%S", v11);
+        dprintf(dword_100010220, "%s ", v34);
+        dprintf(dword_100010220, "Failed to add matching notification\n", v28);
       }
     }
 
@@ -107,103 +106,103 @@ void sub_1000008E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     {
       Current = CFRunLoopGetCurrent();
       CFRunLoopAddSource(Current, RunLoopSource, kCFRunLoopDefaultMode);
-      v35 = CFRunLoopGetCurrent();
+      v15 = CFRunLoopGetCurrent();
       block[0] = _NSConcreteStackBlock;
       block[1] = 0x40000000;
       block[2] = sub_100000EC8;
       block[3] = &unk_10000C408;
-      v73 = notification[0];
-      v74 = notification[1];
-      CFRunLoopPerformBlock(v35, kCFRunLoopDefaultMode, block);
+      v30 = notification[0];
+      v31 = notification[1];
+      CFRunLoopPerformBlock(v15, kCFRunLoopDefaultMode, block);
       if (qword_100010218)
       {
-        v42 = qword_100010218;
+        v16 = qword_100010218;
       }
 
       else
       {
-        v42 = &_os_log_default;
+        v16 = &_os_log_default;
       }
 
-      sub_100007804(v42, "Waiting for firmware to load\n", v36, v37, v38, v39, v40, v41, v68);
+      sub_100007804(v16, "Waiting for firmware to load\n");
       if (dword_100010220)
       {
-        *&v43 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v43 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v83 = v43;
-        v84 = v43;
-        v82 = v43;
-        v80 = v43;
-        v81 = v43;
-        v78 = v43;
-        v79 = v43;
-        *v77 = v43;
-        v75 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v75);
-        v44 = localtime(&v75);
-        strftime(v77, 0x80uLL, "%b %d %H:%M:%S", v44);
-        dprintf(dword_100010220, "%s ", v77);
+        *&v17 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v40 = v17;
+        v41 = v17;
+        v39 = v17;
+        v37 = v17;
+        v38 = v17;
+        v35 = v17;
+        v36 = v17;
+        *v34 = v17;
+        v32 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v32);
+        v18 = localtime(&v32);
+        strftime(v34, 0x80uLL, "%b %d %H:%M:%S", v18);
+        dprintf(dword_100010220, "%s ", v34);
         dprintf(dword_100010220, "Waiting for firmware to load\n");
       }
 
       if (CFRunLoopRunInMode(kCFRunLoopDefaultMode, 300.0, 0) == kCFRunLoopRunTimedOut)
       {
-        v51 = qword_100010218 ? qword_100010218 : &_os_log_default;
-        sub_100007804(v51, "Runloop timed out\n", v45, v46, v47, v48, v49, v50, v70);
+        v19 = qword_100010218 ? qword_100010218 : &_os_log_default;
+        sub_100007804(v19, "Runloop timed out\n");
         if (dword_100010220)
         {
-          *&v52 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v52 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v83 = v52;
-          v84 = v52;
-          v82 = v52;
-          v80 = v52;
-          v81 = v52;
-          v78 = v52;
-          v79 = v52;
-          *v77 = v52;
-          v75 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v75);
-          v53 = localtime(&v75);
-          strftime(v77, 0x80uLL, "%b %d %H:%M:%S", v53);
-          dprintf(dword_100010220, "%s ", v77);
+          *&v20 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v40 = v20;
+          v41 = v20;
+          v39 = v20;
+          v37 = v20;
+          v38 = v20;
+          v35 = v20;
+          v36 = v20;
+          *v34 = v20;
+          v32 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v32);
+          v21 = localtime(&v32);
+          strftime(v34, 0x80uLL, "%b %d %H:%M:%S", v21);
+          dprintf(dword_100010220, "%s ", v34);
           dprintf(dword_100010220, "Runloop timed out\n");
         }
       }
 
-      v54 = CFRunLoopGetCurrent();
-      CFRunLoopRemoveSource(v54, RunLoopSource, kCFRunLoopDefaultMode);
-      IONotificationPortDestroy(v17);
-      v61 = dword_100010118 == 2 && dword_100010114 == 1 || dword_100010190 == 2 && dword_10001018C == 1;
-      HIDWORD(qword_100010100) = v61;
+      v22 = CFRunLoopGetCurrent();
+      CFRunLoopRemoveSource(v22, RunLoopSource, kCFRunLoopDefaultMode);
+      IONotificationPortDestroy(v3);
+      v23 = dword_100010118 == 2 && dword_100010114 == 1 || dword_100010190 == 2 && dword_10001018C == 1;
+      HIDWORD(qword_100010100) = v23;
       if (qword_100010218)
       {
-        v63 = qword_100010218;
+        v25 = qword_100010218;
       }
 
       else
       {
-        v63 = &_os_log_default;
+        v25 = &_os_log_default;
       }
 
-      sub_100007804(v63, "wifiFirmwareLoaderThread exiting with %d\n", v55, v56, v57, v58, v59, v60, v61);
+      sub_100007804(v25, "wifiFirmwareLoaderThread exiting with %d\n", v23);
       if (dword_100010220)
       {
-        *&v64 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v64 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v83 = v64;
-        v84 = v64;
-        v82 = v64;
-        v80 = v64;
-        v81 = v64;
-        v78 = v64;
-        v79 = v64;
-        *v77 = v64;
-        v75 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v75);
-        v65 = localtime(&v75);
-        strftime(v77, 0x80uLL, "%b %d %H:%M:%S", v65);
-        dprintf(dword_100010220, "%s ", v77);
+        *&v26 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v40 = v26;
+        v41 = v26;
+        v39 = v26;
+        v37 = v26;
+        v38 = v26;
+        v35 = v26;
+        v36 = v26;
+        *v34 = v26;
+        v32 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v32);
+        v27 = localtime(&v32);
+        strftime(v34, 0x80uLL, "%b %d %H:%M:%S", v27);
+        dprintf(dword_100010220, "%s ", v34);
         dprintf(dword_100010220, "wifiFirmwareLoaderThread exiting with %d\n");
       }
     }
@@ -211,24 +210,24 @@ void sub_1000008E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   else
   {
-    sub_100007804(v18, "Failed to create notification port\n", v11, v12, v13, v14, v15, v16, v67);
+    sub_100007804(v4, "Failed to create notification port\n");
     if (dword_100010220)
     {
-      *&v32 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v83 = v32;
-      v84 = v32;
-      v82 = v32;
-      v80 = v32;
-      v81 = v32;
-      v78 = v32;
-      v79 = v32;
-      *v77 = v32;
-      v75 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v75);
-      v33 = localtime(&v75);
-      strftime(v77, 0x80uLL, "%b %d %H:%M:%S", v33);
-      dprintf(dword_100010220, "%s ", v77);
+      *&v12 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v40 = v12;
+      v41 = v12;
+      v39 = v12;
+      v37 = v12;
+      v38 = v12;
+      v35 = v12;
+      v36 = v12;
+      *v34 = v12;
+      v32 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v32);
+      v13 = localtime(&v32);
+      strftime(v34, 0x80uLL, "%b %d %H:%M:%S", v13);
+      dprintf(dword_100010220, "%s ", v34);
       dprintf(dword_100010220, "Failed to create notification port\n");
     }
   }
@@ -261,30 +260,30 @@ uint64_t sub_100000ED4(io_registry_entry_t *a1, io_iterator_t a2)
         unk_100010041 = 0u;
         xmmword_100010011 = 0u;
         unk_100010021 = 0u;
-        v79 = 0;
-        v88.length = CFStringGetLength(v7);
-        v88.location = 0;
-        if (!CFStringGetBytes(v7, v88, 0x8000100u, 0, 0, &xmmword_100010011, 64, &v79))
+        usedBufLen = 0;
+        v51.length = CFStringGetLength(v7);
+        v51.location = 0;
+        if (!CFStringGetBytes(v7, v51, 0x8000100u, 0, 0, &xmmword_100010011, 64, &usedBufLen))
         {
-          v16 = qword_100010218 ? qword_100010218 : &_os_log_default;
-          sub_100007804(v16, "%s failed, no characters converted\n", v10, v11, v12, v13, v14, v15, "__serviceCallback");
+          v10 = qword_100010218 ? qword_100010218 : &_os_log_default;
+          sub_100007804(v10, "%s failed, no characters converted\n", "__serviceCallback");
           if (dword_100010220)
           {
-            *&v17 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v86 = v17;
-            v87 = v17;
-            v84 = v17;
-            v85 = v17;
-            v82 = v17;
-            v83 = v17;
-            *v80 = v17;
-            v81 = v17;
-            v78 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v78);
-            v18 = localtime(&v78);
-            strftime(v80, 0x80uLL, "%b %d %H:%M:%S", v18);
-            dprintf(dword_100010220, "%s ", v80);
+            *&v11 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v49 = v11;
+            v50 = v11;
+            v47 = v11;
+            v48 = v11;
+            v45 = v11;
+            v46 = v11;
+            *v43 = v11;
+            v44 = v11;
+            v41 = 0xAAAAAAAAAAAAAAAALL;
+            time(&v41);
+            v12 = localtime(&v41);
+            strftime(v43, 0x80uLL, "%b %d %H:%M:%S", v12);
+            dprintf(dword_100010220, "%s ", v43);
             dprintf(dword_100010220, "%s failed, no characters converted\n", "__serviceCallback");
           }
         }
@@ -293,78 +292,78 @@ uint64_t sub_100000ED4(io_registry_entry_t *a1, io_iterator_t a2)
       }
     }
 
-    v19 = IORegistryEntryCreateCFProperty(v5, @"DriverKitDriver", kCFAllocatorDefault, 0);
-    if (v19)
+    v13 = IORegistryEntryCreateCFProperty(v5, @"DriverKitDriver", kCFAllocatorDefault, 0);
+    if (v13)
     {
-      v26 = v19;
-      LOBYTE(v3[1].__sig) = CFBooleanGetValue(v19) != 0;
-      CFRelease(v26);
+      v14 = v13;
+      LOBYTE(v3[1].__sig) = CFBooleanGetValue(v13) != 0;
+      CFRelease(v14);
     }
 
     if (qword_100010218)
     {
-      v27 = qword_100010218;
+      v15 = qword_100010218;
     }
 
     else
     {
-      v27 = &_os_log_default;
+      v15 = &_os_log_default;
     }
 
     if (LOBYTE(v3[1].__sig) == 1)
     {
-      sub_100007804(v27, "We are using driverkit driver\n", v20, v21, v22, v23, v24, v25, usedBufLen);
+      sub_100007804(v15, "We are using driverkit driver\n");
       if (dword_100010220)
       {
-        *&v28 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v86 = v28;
-        v87 = v28;
-        v84 = v28;
-        v85 = v28;
-        v82 = v28;
-        v83 = v28;
-        *v80 = v28;
-        v81 = v28;
-        v79 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v79);
-        v29 = localtime(&v79);
-        strftime(v80, 0x80uLL, "%b %d %H:%M:%S", v29);
-        dprintf(dword_100010220, "%s ", v80);
+        *&v16 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v49 = v16;
+        v50 = v16;
+        v47 = v16;
+        v48 = v16;
+        v45 = v16;
+        v46 = v16;
+        *v43 = v16;
+        v44 = v16;
+        usedBufLen = 0xAAAAAAAAAAAAAAAALL;
+        time(&usedBufLen);
+        v17 = localtime(&usedBufLen);
+        strftime(v43, 0x80uLL, "%b %d %H:%M:%S", v17);
+        dprintf(dword_100010220, "%s ", v43);
         dprintf(dword_100010220, "We are using driverkit driver\n");
       }
 
-      v30 = IORegistryEntryCreateCFProperty(v5, @"IOUserClass", kCFAllocatorDefault, 0);
-      if (!v30)
+      v18 = IORegistryEntryCreateCFProperty(v5, @"IOUserClass", kCFAllocatorDefault, 0);
+      if (!v18)
       {
         if (qword_100010218)
         {
-          v37 = qword_100010218;
+          v19 = qword_100010218;
         }
 
         else
         {
-          v37 = &_os_log_default;
+          v19 = &_os_log_default;
         }
 
-        sub_100007804(v37, "Property read for %s returned NULL\n", v31, v32, v33, v34, v35, v36, "IOUserClass");
+        sub_100007804(v19, "Property read for %s returned NULL\n", "IOUserClass");
         if (dword_100010220)
         {
-          *&v38 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v38 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v86 = v38;
-          v87 = v38;
-          v84 = v38;
-          v85 = v38;
-          v82 = v38;
-          v83 = v38;
-          *v80 = v38;
-          v81 = v38;
-          v79 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v79);
-          v39 = localtime(&v79);
-          strftime(v80, 0x80uLL, "%b %d %H:%M:%S", v39);
-          dprintf(dword_100010220, "%s ", v80);
+          *&v20 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v49 = v20;
+          v50 = v20;
+          v47 = v20;
+          v48 = v20;
+          v45 = v20;
+          v46 = v20;
+          *v43 = v20;
+          v44 = v20;
+          usedBufLen = 0xAAAAAAAAAAAAAAAALL;
+          time(&usedBufLen);
+          v21 = localtime(&usedBufLen);
+          strftime(v43, 0x80uLL, "%b %d %H:%M:%S", v21);
+          dprintf(dword_100010220, "%s ", v43);
           dprintf(dword_100010220, "Property read for %s returned NULL\n", "IOUserClass");
         }
 
@@ -374,98 +373,97 @@ uint64_t sub_100000ED4(io_registry_entry_t *a1, io_iterator_t a2)
 
     else
     {
-      sub_100007804(v27, "We are using IOKit driver\n", v20, v21, v22, v23, v24, v25, usedBufLen);
+      sub_100007804(v15, "We are using IOKit driver\n");
       if (dword_100010220)
       {
-        *&v40 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v86 = v40;
-        v87 = v40;
-        v84 = v40;
-        v85 = v40;
-        v82 = v40;
-        v83 = v40;
-        *v80 = v40;
-        v81 = v40;
-        v79 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v79);
-        v41 = localtime(&v79);
-        strftime(v80, 0x80uLL, "%b %d %H:%M:%S", v41);
-        dprintf(dword_100010220, "%s ", v80);
+        *&v22 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v49 = v22;
+        v50 = v22;
+        v47 = v22;
+        v48 = v22;
+        v45 = v22;
+        v46 = v22;
+        *v43 = v22;
+        v44 = v22;
+        usedBufLen = 0xAAAAAAAAAAAAAAAALL;
+        time(&usedBufLen);
+        v23 = localtime(&usedBufLen);
+        strftime(v43, 0x80uLL, "%b %d %H:%M:%S", v23);
+        dprintf(dword_100010220, "%s ", v43);
         dprintf(dword_100010220, "We are using IOKit driver\n");
       }
 
-      v30 = IOObjectCopyClass(v5);
-      if (!v30)
+      v18 = IOObjectCopyClass(v5);
+      if (!v18)
       {
         goto LABEL_51;
       }
     }
 
-    v42 = v30;
-    if (CFStringCompare(v30, @"AppleBCMWLANCore", 0) == kCFCompareEqualTo)
+    v24 = v18;
+    if (CFStringCompare(v18, @"AppleBCMWLANCore", 0) == kCFCompareEqualTo)
     {
-      v43 = qword_100010218;
-      CStringPtr = CFStringGetCStringPtr(v42, 0);
-      v51 = &_os_log_default;
-      if (v43)
+      v25 = qword_100010218;
+      CStringPtr = CFStringGetCStringPtr(v24, 0);
+      v27 = &_os_log_default;
+      if (v25)
       {
-        v51 = v43;
+        v27 = v25;
       }
 
-      sub_100007804(v51, "Matched class name '%s', starting ...\n", v45, v46, v47, v48, v49, v50, CStringPtr);
+      sub_100007804(v27, "Matched class name '%s', starting ...\n", CStringPtr);
       if (dword_100010220)
       {
-        *&v58 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v58 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v86 = v58;
-        v87 = v58;
-        v84 = v58;
-        v85 = v58;
-        v82 = v58;
-        v83 = v58;
-        *v80 = v58;
-        v81 = v58;
-        v79 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v79);
-        v59 = localtime(&v79);
-        strftime(v80, 0x80uLL, "%b %d %H:%M:%S", v59);
-        dprintf(dword_100010220, "%s ", v80);
-        v60 = dword_100010220;
-        v61 = CFStringGetCStringPtr(v42, 0);
-        dprintf(v60, "Matched class name '%s', starting ...\n", v61);
+        *&v28 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v49 = v28;
+        v50 = v28;
+        v47 = v28;
+        v48 = v28;
+        v45 = v28;
+        v46 = v28;
+        *v43 = v28;
+        v44 = v28;
+        usedBufLen = 0xAAAAAAAAAAAAAAAALL;
+        time(&usedBufLen);
+        v29 = localtime(&usedBufLen);
+        strftime(v43, 0x80uLL, "%b %d %H:%M:%S", v29);
+        dprintf(dword_100010220, "%s ", v43);
+        v30 = dword_100010220;
+        v31 = CFStringGetCStringPtr(v24, 0);
+        dprintf(v30, "Matched class name '%s', starting ...\n", v31);
       }
 
       if (qword_100010218)
       {
-        v62 = qword_100010218;
+        v32 = qword_100010218;
       }
 
       else
       {
-        v62 = &_os_log_default;
+        v32 = &_os_log_default;
       }
 
-      sub_100007804(v62, "%s()\n", v52, v53, v54, v55, v56, v57, "startWiFiFirmwareLoaderService");
+      sub_100007804(v32, "%s()\n", "startWiFiFirmwareLoaderService");
       if (dword_100010220)
       {
-        *&v69 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v69 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v86 = v69;
-        v87 = v69;
-        v84 = v69;
-        v85 = v69;
-        v82 = v69;
-        v83 = v69;
-        *v80 = v69;
-        v81 = v69;
-        v79 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v79);
-        v70 = localtime(&v79);
-        strftime(v80, 0x80uLL, "%b %d %H:%M:%S", v70);
-        dprintf(dword_100010220, "%s ", v80);
-        usedBufLen = "startWiFiFirmwareLoaderService";
-        dprintf(dword_100010220, "%s()\n");
+        *&v33 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v33 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v49 = v33;
+        v50 = v33;
+        v47 = v33;
+        v48 = v33;
+        v45 = v33;
+        v46 = v33;
+        *v43 = v33;
+        v44 = v33;
+        usedBufLen = 0xAAAAAAAAAAAAAAAALL;
+        time(&usedBufLen);
+        v34 = localtime(&usedBufLen);
+        strftime(v43, 0x80uLL, "%b %d %H:%M:%S", v34);
+        dprintf(dword_100010220, "%s ", v43);
+        dprintf(dword_100010220, "%s()\n", "startWiFiFirmwareLoaderService");
       }
 
       v3 = &stru_100010000;
@@ -473,33 +471,33 @@ uint64_t sub_100000ED4(io_registry_entry_t *a1, io_iterator_t a2)
       {
         if (qword_100010218)
         {
-          v71 = qword_100010218;
+          v35 = qword_100010218;
         }
 
         else
         {
-          v71 = &_os_log_default;
+          v35 = &_os_log_default;
         }
 
-        sub_100007804(v71, "No free interface slot, ignoring service..", v63, v64, v65, v66, v67, v68, usedBufLen);
+        sub_100007804(v35, "No free interface slot, ignoring service..");
         v2 = a1;
         if (dword_100010220)
         {
-          *&v72 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v72 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v86 = v72;
-          v87 = v72;
-          v84 = v72;
-          v85 = v72;
-          v82 = v72;
-          v83 = v72;
-          *v80 = v72;
-          v81 = v72;
-          v79 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v79);
-          v73 = localtime(&v79);
-          strftime(v80, 0x80uLL, "%b %d %H:%M:%S", v73);
-          dprintf(dword_100010220, "%s ", v80);
+          *&v36 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v36 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v49 = v36;
+          v50 = v36;
+          v47 = v36;
+          v48 = v36;
+          v45 = v36;
+          v46 = v36;
+          *v43 = v36;
+          v44 = v36;
+          usedBufLen = 0xAAAAAAAAAAAAAAAALL;
+          time(&usedBufLen);
+          v37 = localtime(&usedBufLen);
+          strftime(v43, 0x80uLL, "%b %d %H:%M:%S", v37);
+          dprintf(dword_100010220, "%s ", v43);
           dprintf(dword_100010220, "No free interface slot, ignoring service..");
         }
       }
@@ -521,10 +519,10 @@ LABEL_56:
           goto LABEL_56;
         }
 
-        v74 = &unk_100010058 + 120 * qword_100010100;
-        *(v74 + 48) = 1;
-        *(v74 + 46) = v5;
-        pthread_create(v74 + 22, 0, sub_1000015F4, v74 + 176);
+        v38 = &unk_100010058 + 120 * qword_100010100;
+        *(v38 + 48) = 1;
+        *(v38 + 46) = v5;
+        pthread_create(v38 + 22, 0, sub_1000015F4, v38 + 176);
         if (__OFADD__(qword_100010100, 1))
         {
           goto LABEL_55;
@@ -534,7 +532,7 @@ LABEL_56:
       }
     }
 
-    CFRelease(v42);
+    CFRelease(v24);
 LABEL_51:
     if (!*v2)
     {
@@ -557,7 +555,7 @@ void sub_1000015F4(uint64_t a1)
     v2 = @"/usr/share/firmware/wifi/";
   }
 
-  v681 = v2;
+  v362 = v2;
   if (*(&xmmword_1000100A0 + 1))
   {
     v3 = kCFAllocatorDefault;
@@ -569,20 +567,20 @@ void sub_1000015F4(uint64_t a1)
     }
 
     v5 = *(v1 + 8);
-    v727 = 0u;
-    v728 = 0u;
-    v725 = 0u;
-    v726 = 0u;
-    v723 = 0u;
-    v724 = 0u;
-    v721 = 0u;
-    v722 = 0u;
-    v719 = 0u;
-    v720 = 0u;
-    v717 = 0u;
-    v718 = 0u;
-    v715 = 0u;
-    v716 = 0u;
+    v408 = 0u;
+    v409 = 0u;
+    v406 = 0u;
+    v407 = 0u;
+    v404 = 0u;
+    v405 = 0u;
+    v402 = 0u;
+    v403 = 0u;
+    v400 = 0u;
+    v401 = 0u;
+    v398 = 0u;
+    v399 = 0u;
+    v396 = 0u;
+    v397 = 0u;
     memset(cStr, 0, sizeof(cStr));
     size[0] = 0;
     if (!v5)
@@ -606,83 +604,83 @@ void sub_1000015F4(uint64_t a1)
     {
       if (qword_100010218)
       {
-        v215 = qword_100010218;
+        v96 = qword_100010218;
       }
 
       else
       {
-        v215 = &_os_log_default;
+        v96 = &_os_log_default;
       }
 
-      sub_100007804(v215, "msf cal file is too big or too small\n", v6, v7, v8, v9, v10, v11, outputStruct);
+      sub_100007804(v96, "msf cal file is too big or too small\n");
       if (dword_100010220)
       {
-        *&v216 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v216 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v216;
-        v705 = v216;
-        v702 = v216;
-        v703 = v216;
-        v700 = v216;
-        v701 = v216;
-        v698 = v216;
-        v699 = v216;
+        *&v97 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v97 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v97;
+        v386 = v97;
+        v383 = v97;
+        v384 = v97;
+        v381 = v97;
+        v382 = v97;
+        outputStruct = v97;
+        v380 = v97;
         length = 0xAAAAAAAAAAAAAAAALL;
         time(&length);
-        v217 = localtime(&length);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v217);
-        dprintf(dword_100010220, "%s ", &v698);
+        v98 = localtime(&length);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v98);
+        dprintf(dword_100010220, "%s ", &outputStruct);
         dprintf(dword_100010220, "msf cal file is too big or too small\n");
       }
     }
 
     else
     {
-      v12 = malloc_type_malloc(size[0], 0x100004077774924uLL);
-      if (v12)
+      v6 = malloc_type_malloc(size[0], 0x100004077774924uLL);
+      if (v6)
       {
-        v19 = v12;
+        v7 = v6;
         length = size[0];
-        if (sub_100007AC8(cStr, v12, &length))
+        if (sub_100007AC8(cStr, v6, &length))
         {
-          v26 = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, v19, length, kCFAllocatorNull);
-          if (v26)
+          v8 = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, v7, length, kCFAllocatorNull);
+          if (v8)
           {
-            v33 = v26;
-            IORegistryEntrySetCFProperty(v5, @"WiFiMSFCal", v26);
-            free(v19);
-            CFRelease(v33);
+            v9 = v8;
+            IORegistryEntrySetCFProperty(v5, @"WiFiMSFCal", v8);
+            free(v7);
+            CFRelease(v9);
             goto LABEL_15;
           }
 
           if (qword_100010218)
           {
-            v224 = qword_100010218;
+            v105 = qword_100010218;
           }
 
           else
           {
-            v224 = &_os_log_default;
+            v105 = &_os_log_default;
           }
 
-          sub_100007804(v224, "failed to create MSF Data Ref\n", v27, v28, v29, v30, v31, v32, outputStruct);
+          sub_100007804(v105, "failed to create MSF Data Ref\n");
           if (dword_100010220)
           {
-            *&v225 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v225 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v704 = v225;
-            v705 = v225;
-            v702 = v225;
-            v703 = v225;
-            v700 = v225;
-            v701 = v225;
-            v698 = v225;
-            v699 = v225;
-            v689 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v689);
-            v226 = localtime(&v689);
-            strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v226);
-            dprintf(dword_100010220, "%s ", &v698);
+            *&v106 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v106 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v385 = v106;
+            v386 = v106;
+            v383 = v106;
+            v384 = v106;
+            v381 = v106;
+            v382 = v106;
+            outputStruct = v106;
+            v380 = v106;
+            v370 = 0xAAAAAAAAAAAAAAAALL;
+            time(&v370);
+            v107 = localtime(&v370);
+            strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v107);
+            dprintf(dword_100010220, "%s ", &outputStruct);
             dprintf(dword_100010220, "failed to create MSF Data Ref\n");
           }
         }
@@ -691,69 +689,69 @@ void sub_1000015F4(uint64_t a1)
         {
           if (qword_100010218)
           {
-            v221 = qword_100010218;
+            v102 = qword_100010218;
           }
 
           else
           {
-            v221 = &_os_log_default;
+            v102 = &_os_log_default;
           }
 
-          sub_100007804(v221, "copy MSF CAL failed\n", v20, v21, v22, v23, v24, v25, outputStruct);
+          sub_100007804(v102, "copy MSF CAL failed\n");
           if (dword_100010220)
           {
-            *&v222 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v222 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v704 = v222;
-            v705 = v222;
-            v702 = v222;
-            v703 = v222;
-            v700 = v222;
-            v701 = v222;
-            v698 = v222;
-            v699 = v222;
-            v689 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v689);
-            v223 = localtime(&v689);
-            strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v223);
-            dprintf(dword_100010220, "%s ", &v698);
+            *&v103 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v103 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v385 = v103;
+            v386 = v103;
+            v383 = v103;
+            v384 = v103;
+            v381 = v103;
+            v382 = v103;
+            outputStruct = v103;
+            v380 = v103;
+            v370 = 0xAAAAAAAAAAAAAAAALL;
+            time(&v370);
+            v104 = localtime(&v370);
+            strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v104);
+            dprintf(dword_100010220, "%s ", &outputStruct);
             dprintf(dword_100010220, "copy MSF CAL failed\n");
           }
         }
 
-        free(v19);
+        free(v7);
       }
 
       else
       {
         if (qword_100010218)
         {
-          v218 = qword_100010218;
+          v99 = qword_100010218;
         }
 
         else
         {
-          v218 = &_os_log_default;
+          v99 = &_os_log_default;
         }
 
-        sub_100007804(v218, "failed to alloc memory for msf cal\n", v13, v14, v15, v16, v17, v18, outputStruct);
+        sub_100007804(v99, "failed to alloc memory for msf cal\n");
         if (dword_100010220)
         {
-          *&v219 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v219 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v704 = v219;
-          v705 = v219;
-          v702 = v219;
-          v703 = v219;
-          v700 = v219;
-          v701 = v219;
-          v698 = v219;
-          v699 = v219;
+          *&v100 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v100 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v385 = v100;
+          v386 = v100;
+          v383 = v100;
+          v384 = v100;
+          v381 = v100;
+          v382 = v100;
+          outputStruct = v100;
+          v380 = v100;
           length = 0xAAAAAAAAAAAAAAAALL;
           time(&length);
-          v220 = localtime(&length);
-          strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v220);
-          dprintf(dword_100010220, "%s ", &v698);
+          v101 = localtime(&length);
+          strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v101);
+          dprintf(dword_100010220, "%s ", &outputStruct);
           dprintf(dword_100010220, "failed to alloc memory for msf cal\n");
         }
       }
@@ -769,137 +767,137 @@ void sub_1000015F4(uint64_t a1)
 LABEL_15:
   if (xmmword_1000100A0)
   {
-    v34 = CFStringCreateMutableCopy(v3, 255, xmmword_1000100A0);
+    v10 = CFStringCreateMutableCopy(v3, 255, xmmword_1000100A0);
   }
 
   else
   {
-    v34 = 0;
+    v10 = 0;
   }
 
-  *(v1 + 104) = v34;
+  *(v1 + 104) = v10;
   CFProperty = IORegistryEntryCreateCFProperty(*(v1 + 8), @"FirmwareLoaded", v3, 0);
   if (CFProperty)
   {
-    v36 = CFProperty;
-    v37 = CFBooleanGetValue(CFProperty) != 0;
-    CFRelease(v36);
+    v12 = CFProperty;
+    v13 = CFBooleanGetValue(CFProperty) != 0;
+    CFRelease(v12);
   }
 
   else
   {
-    v37 = 0;
+    v13 = 0;
   }
 
-  v38 = *(v1 + 8);
+  v14 = *(v1 + 8);
   length = 0;
   size[0] = 0;
-  *&v39 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v39 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v727 = v39;
-  v728 = v39;
-  v725 = v39;
-  v726 = v39;
-  v723 = v39;
-  v724 = v39;
-  v721 = v39;
-  v722 = v39;
-  v719 = v39;
-  v720 = v39;
-  v717 = v39;
-  v718 = v39;
-  v715 = v39;
-  v716 = v39;
-  *cStr = v39;
-  *&cStr[16] = v39;
-  v40 = *(v1 + 104);
-  if (v40)
+  *&v15 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v408 = v15;
+  v409 = v15;
+  v406 = v15;
+  v407 = v15;
+  v404 = v15;
+  v405 = v15;
+  v402 = v15;
+  v403 = v15;
+  v400 = v15;
+  v401 = v15;
+  v398 = v15;
+  v399 = v15;
+  v396 = v15;
+  v397 = v15;
+  *cStr = v15;
+  *&cStr[16] = v15;
+  v16 = *(v1 + 104);
+  if (v16)
   {
-    CFStringGetCStringPtr(v40, 0);
+    CFStringGetCStringPtr(v16, 0);
     __strlcpy_chk();
-    v41 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v42 = IORegistryEntryCreateCFProperty(v38, @"PlatformConfigFileName", v3, 0);
-    if (!v42)
+    v18 = IORegistryEntryCreateCFProperty(v14, @"PlatformConfigFileName", v3, 0);
+    if (!v18)
     {
       if (qword_100010218)
       {
-        v227 = qword_100010218;
+        v108 = qword_100010218;
       }
 
       else
       {
-        v227 = &_os_log_default;
+        v108 = &_os_log_default;
       }
 
-      sub_100007804(v227, "no PlatformConfigFileName in ioreg\n", v43, v44, v45, v46, v47, v48, outputStruct);
+      sub_100007804(v108, "no PlatformConfigFileName in ioreg\n");
       if (dword_100010220)
       {
-        *&v228 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v228 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v228;
-        v705 = v228;
-        v702 = v228;
-        v703 = v228;
-        v700 = v228;
-        v701 = v228;
-        v698 = v228;
-        v699 = v228;
-        v689 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v689);
-        v229 = localtime(&v689);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v229);
-        dprintf(dword_100010220, "%s ", &v698);
-        v41 = 0;
-        v107 = 0;
-        v91 = 0;
-        v99 = 0;
+        *&v109 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v109 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v109;
+        v386 = v109;
+        v383 = v109;
+        v384 = v109;
+        v381 = v109;
+        v382 = v109;
+        outputStruct = v109;
+        v380 = v109;
+        v370 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v370);
+        v110 = localtime(&v370);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v110);
+        dprintf(dword_100010220, "%s ", &outputStruct);
+        v17 = 0;
+        v35 = 0;
+        v31 = 0;
+        v33 = 0;
         dprintf(dword_100010220, "no PlatformConfigFileName in ioreg\n");
         goto LABEL_177;
       }
 
-      v41 = 0;
+      v17 = 0;
       goto LABEL_175;
     }
 
-    v41 = v42;
+    v17 = v18;
     TypeID = CFStringGetTypeID();
-    if (TypeID != CFGetTypeID(v41))
+    if (TypeID != CFGetTypeID(v17))
     {
       if (qword_100010218)
       {
-        v230 = qword_100010218;
+        v111 = qword_100010218;
       }
 
       else
       {
-        v230 = &_os_log_default;
+        v111 = &_os_log_default;
       }
 
-      sub_100007804(v230, "PlatformConfigFileName is not CFstring!\n", v50, v51, v52, v53, v54, v55, outputStruct);
+      sub_100007804(v111, "PlatformConfigFileName is not CFstring!\n");
       if (dword_100010220)
       {
-        *&v231 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v231 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v231;
-        v705 = v231;
-        v702 = v231;
-        v703 = v231;
-        v700 = v231;
-        v701 = v231;
-        v698 = v231;
-        v699 = v231;
-        v689 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v689);
-        v232 = localtime(&v689);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v232);
-        dprintf(dword_100010220, "%s ", &v698);
-        v107 = 0;
-        v91 = 0;
-        v99 = 0;
+        *&v112 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v112 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v112;
+        v386 = v112;
+        v383 = v112;
+        v384 = v112;
+        v381 = v112;
+        v382 = v112;
+        outputStruct = v112;
+        v380 = v112;
+        v370 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v370);
+        v113 = localtime(&v370);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v113);
+        dprintf(dword_100010220, "%s ", &outputStruct);
+        v35 = 0;
+        v31 = 0;
+        v33 = 0;
         dprintf(dword_100010220, "PlatformConfigFileName is not CFstring!\n");
         goto LABEL_177;
       }
@@ -914,32 +912,32 @@ LABEL_15:
       __strlcat_chk();
       if (qword_100010218)
       {
-        v62 = qword_100010218;
+        v20 = qword_100010218;
       }
 
       else
       {
-        v62 = &_os_log_default;
+        v20 = &_os_log_default;
       }
 
-      sub_100007804(v62, "platformType:'%s' platformConfig path:'%s'\n", v56, v57, v58, v59, v60, v61, &xmmword_100010011);
+      sub_100007804(v20, "platformType:'%s' platformConfig path:'%s'\n", &xmmword_100010011, cStr);
       if (dword_100010220)
       {
-        *&v63 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v63 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v63;
-        v705 = v63;
-        v702 = v63;
-        v703 = v63;
-        v700 = v63;
-        v701 = v63;
-        v698 = v63;
-        v699 = v63;
-        v689 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v689);
-        v64 = localtime(&v689);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v64);
-        dprintf(dword_100010220, "%s ", &v698);
+        *&v21 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v21;
+        v386 = v21;
+        v383 = v21;
+        v384 = v21;
+        v381 = v21;
+        v382 = v21;
+        outputStruct = v21;
+        v380 = v21;
+        v370 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v370);
+        v22 = localtime(&v370);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v22);
+        dprintf(dword_100010220, "%s ", &outputStruct);
         dprintf(dword_100010220, "platformType:'%s' platformConfig path:'%s'\n", &xmmword_100010011, cStr);
       }
     }
@@ -949,85 +947,85 @@ LABEL_15:
       __strlcpy_chk();
     }
 
-    CFStringGetCStringPtr(v41, 0);
+    CFStringGetCStringPtr(v17, 0);
     __strlcat_chk();
   }
 
-  v71 = sub_1000073A0(cStr, &length);
+  v23 = sub_1000073A0(cStr, &length);
   if (qword_100010218)
   {
-    v72 = qword_100010218;
+    v24 = qword_100010218;
   }
 
   else
   {
-    v72 = &_os_log_default;
+    v24 = &_os_log_default;
   }
 
-  sub_100007804(v72, "config full name %s size %zu\n", v65, v66, v67, v68, v69, v70, cStr);
+  sub_100007804(v24, "config full name %s size %zu\n", cStr, length);
   if (dword_100010220)
   {
-    *&v79 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v79 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v704 = v79;
-    v705 = v79;
-    v702 = v79;
-    v703 = v79;
-    v700 = v79;
-    v701 = v79;
-    v698 = v79;
-    v699 = v79;
-    v689 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v689);
-    v80 = localtime(&v689);
-    strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v80);
-    dprintf(dword_100010220, "%s ", &v698);
+    *&v25 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v385 = v25;
+    v386 = v25;
+    v383 = v25;
+    v384 = v25;
+    v381 = v25;
+    v382 = v25;
+    outputStruct = v25;
+    v380 = v25;
+    v370 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v370);
+    v26 = localtime(&v370);
+    strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v26);
+    dprintf(dword_100010220, "%s ", &outputStruct);
     dprintf(dword_100010220, "config full name %s size %zu\n", cStr, length);
   }
 
-  if (!v71)
+  if (!v23)
   {
 LABEL_175:
-    v107 = 0;
-    v91 = 0;
+    v35 = 0;
+    v31 = 0;
 LABEL_176:
-    v99 = 0;
+    v33 = 0;
     goto LABEL_177;
   }
 
   if (qword_100010218)
   {
-    v81 = qword_100010218;
+    v27 = qword_100010218;
   }
 
   else
   {
-    v81 = &_os_log_default;
+    v27 = &_os_log_default;
   }
 
   if ((length - 0x2000) <= 0xFFFFFFFFFFFFE080)
   {
-    sub_100007804(v81, "Platform config file is too big or too small\n", v73, v74, v75, v76, v77, v78, outputStructa);
+    sub_100007804(v27, "Platform config file is too big or too small\n");
     if (dword_100010220)
     {
-      *&v190 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v190 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v190;
-      v705 = v190;
-      v702 = v190;
-      v703 = v190;
-      v700 = v190;
-      v701 = v190;
-      v698 = v190;
-      v699 = v190;
-      v689 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v689);
-      v191 = localtime(&v689);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v191);
-      dprintf(dword_100010220, "%s ", &v698);
-      v107 = 0;
-      v91 = 0;
-      v99 = 0;
+      *&v71 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v71 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v71;
+      v386 = v71;
+      v383 = v71;
+      v384 = v71;
+      v381 = v71;
+      v382 = v71;
+      outputStruct = v71;
+      v380 = v71;
+      v370 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v370);
+      v72 = localtime(&v370);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v72);
+      dprintf(dword_100010220, "%s ", &outputStruct);
+      v35 = 0;
+      v31 = 0;
+      v33 = 0;
       dprintf(dword_100010220, "Platform config file is too big or too small\n");
       goto LABEL_177;
     }
@@ -1035,61 +1033,61 @@ LABEL_176:
     goto LABEL_175;
   }
 
-  sub_100007804(v81, "config full name %s\n", v73, v74, v75, v76, v77, v78, cStr);
+  sub_100007804(v27, "config full name %s\n", cStr);
   if (dword_100010220)
   {
-    *&v82 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v82 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v704 = v82;
-    v705 = v82;
-    v702 = v82;
-    v703 = v82;
-    v700 = v82;
-    v701 = v82;
-    v698 = v82;
-    v699 = v82;
-    v689 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v689);
-    v83 = localtime(&v689);
-    strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v83);
-    dprintf(dword_100010220, "%s ", &v698);
+    *&v28 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v385 = v28;
+    v386 = v28;
+    v383 = v28;
+    v384 = v28;
+    v381 = v28;
+    v382 = v28;
+    outputStruct = v28;
+    v380 = v28;
+    v370 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v370);
+    v29 = localtime(&v370);
+    strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v29);
+    dprintf(dword_100010220, "%s ", &outputStruct);
     dprintf(dword_100010220, "config full name %s\n", cStr);
   }
 
-  v84 = CFStringCreateWithCString(0, cStr, 0);
-  if (!v84)
+  v30 = CFStringCreateWithCString(0, cStr, 0);
+  if (!v30)
   {
     if (qword_100010218)
     {
-      v192 = qword_100010218;
+      v73 = qword_100010218;
     }
 
     else
     {
-      v192 = &_os_log_default;
+      v73 = &_os_log_default;
     }
 
-    sub_100007804(v192, "fail to create CFStringRef for file w path\n", v85, v86, v87, v88, v89, v90, outputStructb);
+    sub_100007804(v73, "fail to create CFStringRef for file w path\n");
     if (dword_100010220)
     {
-      *&v193 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v193 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v193;
-      v705 = v193;
-      v702 = v193;
-      v703 = v193;
-      v700 = v193;
-      v701 = v193;
-      v698 = v193;
-      v699 = v193;
-      v689 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v689);
-      v194 = localtime(&v689);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v194);
-      dprintf(dword_100010220, "%s ", &v698);
-      v107 = 0;
-      v91 = 0;
-      v99 = 0;
+      *&v74 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v74 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v74;
+      v386 = v74;
+      v383 = v74;
+      v384 = v74;
+      v381 = v74;
+      v382 = v74;
+      outputStruct = v74;
+      v380 = v74;
+      v370 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v370);
+      v75 = localtime(&v370);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v75);
+      dprintf(dword_100010220, "%s ", &outputStruct);
+      v35 = 0;
+      v31 = 0;
+      v33 = 0;
       dprintf(dword_100010220, "fail to create CFStringRef for file w path\n");
       goto LABEL_177;
     }
@@ -1097,133 +1095,133 @@ LABEL_176:
     goto LABEL_175;
   }
 
-  v91 = v84;
-  v92 = CFURLCreateWithFileSystemPath(v3, v84, kCFURLPOSIXPathStyle, 0);
-  if (!v92)
+  v31 = v30;
+  v32 = CFURLCreateWithFileSystemPath(v3, v30, kCFURLPOSIXPathStyle, 0);
+  if (!v32)
   {
     if (qword_100010218)
     {
-      v195 = qword_100010218;
+      v76 = qword_100010218;
     }
 
     else
     {
-      v195 = &_os_log_default;
+      v76 = &_os_log_default;
     }
 
-    sub_100007804(v195, "fail to create fileURL\n", v93, v94, v95, v96, v97, v98, outputStructb);
+    sub_100007804(v76, "fail to create fileURL\n");
     if (dword_100010220)
     {
-      *&v196 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v196 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v196;
-      v705 = v196;
-      v702 = v196;
-      v703 = v196;
-      v700 = v196;
-      v701 = v196;
-      v698 = v196;
-      v699 = v196;
-      v689 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v689);
-      v197 = localtime(&v689);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v197);
-      dprintf(dword_100010220, "%s ", &v698);
-      v107 = 0;
-      v99 = 0;
+      *&v77 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v77 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v77;
+      v386 = v77;
+      v383 = v77;
+      v384 = v77;
+      v381 = v77;
+      v382 = v77;
+      outputStruct = v77;
+      v380 = v77;
+      v370 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v370);
+      v78 = localtime(&v370);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v78);
+      dprintf(dword_100010220, "%s ", &outputStruct);
+      v35 = 0;
+      v33 = 0;
       dprintf(dword_100010220, "fail to create fileURL\n");
       goto LABEL_177;
     }
 
-    v107 = 0;
+    v35 = 0;
     goto LABEL_176;
   }
 
-  v99 = v92;
-  v100 = CFReadStreamCreateWithFile(v3, v92);
-  if (!v100)
+  v33 = v32;
+  v34 = CFReadStreamCreateWithFile(v3, v32);
+  if (!v34)
   {
     if (qword_100010218)
     {
-      v198 = qword_100010218;
+      v79 = qword_100010218;
     }
 
     else
     {
-      v198 = &_os_log_default;
+      v79 = &_os_log_default;
     }
 
-    sub_100007804(v198, "fail to create fileStream\n", v101, v102, v103, v104, v105, v106, outputStructb);
+    sub_100007804(v79, "fail to create fileStream\n");
     if (dword_100010220)
     {
-      *&v199 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v199 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v199;
-      v705 = v199;
-      v702 = v199;
-      v703 = v199;
-      v700 = v199;
-      v701 = v199;
-      v698 = v199;
-      v699 = v199;
-      v689 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v689);
-      v200 = localtime(&v689);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v200);
-      dprintf(dword_100010220, "%s ", &v698);
-      v107 = 0;
+      *&v80 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v80 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v80;
+      v386 = v80;
+      v383 = v80;
+      v384 = v80;
+      v381 = v80;
+      v382 = v80;
+      outputStruct = v80;
+      v380 = v80;
+      v370 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v370);
+      v81 = localtime(&v370);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v81);
+      dprintf(dword_100010220, "%s ", &outputStruct);
+      v35 = 0;
       dprintf(dword_100010220, "fail to create fileStream\n");
     }
 
     else
     {
-      v107 = 0;
+      v35 = 0;
     }
 
     goto LABEL_177;
   }
 
-  v107 = v100;
-  v108 = CFReadStreamOpen(v100);
-  if (!v108)
+  v35 = v34;
+  v36 = CFReadStreamOpen(v34);
+  if (!v36)
   {
     if (qword_100010218)
     {
-      v201 = qword_100010218;
+      v82 = qword_100010218;
     }
 
     else
     {
-      v201 = &_os_log_default;
+      v82 = &_os_log_default;
     }
 
-    sub_100007804(v201, "fail to open fileStream\n", v109, v110, v111, v112, v113, v114, outputStructb);
+    sub_100007804(v82, "fail to open fileStream\n");
     if (dword_100010220)
     {
-      *&v202 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v202 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v202;
-      v705 = v202;
-      v702 = v202;
-      v703 = v202;
-      v700 = v202;
-      v701 = v202;
-      v698 = v202;
-      v699 = v202;
-      v689 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v689);
-      v203 = localtime(&v689);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v203);
-      dprintf(dword_100010220, "%s ", &v698);
+      *&v83 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v83 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v83;
+      v386 = v83;
+      v383 = v83;
+      v384 = v83;
+      v381 = v83;
+      v382 = v83;
+      outputStruct = v83;
+      v380 = v83;
+      v370 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v370);
+      v84 = localtime(&v370);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v84);
+      dprintf(dword_100010220, "%s ", &outputStruct);
       dprintf(dword_100010220, "fail to open fileStream\n");
     }
 
 LABEL_177:
-    v150 = 0;
-    v123 = 0;
-    v685 = 0;
-    v186 = v107 != 0;
-    if (!v41)
+    v48 = 0;
+    v39 = 0;
+    v366 = 0;
+    v67 = v35 != 0;
+    if (!v17)
     {
       goto LABEL_179;
     }
@@ -1231,120 +1229,120 @@ LABEL_177:
     goto LABEL_178;
   }
 
-  v115 = v108;
-  entry = v38;
-  v116 = CFPropertyListCreateWithStream(v3, v107, 0, 2uLL, 0, size);
-  v123 = v116;
-  if (!v116)
+  v37 = v36;
+  entry = v14;
+  v38 = CFPropertyListCreateWithStream(v3, v35, 0, 2uLL, 0, size);
+  v39 = v38;
+  if (!v38)
   {
-    CFReadStreamClose(v107);
+    CFReadStreamClose(v35);
 LABEL_131:
-    v150 = 0;
-    v685 = 0;
+    v48 = 0;
+    v366 = 0;
     goto LABEL_90;
   }
 
-  cf = v116;
+  cf = v38;
   if (qword_100010218)
   {
-    v124 = qword_100010218;
+    v40 = qword_100010218;
   }
 
   else
   {
-    v124 = &_os_log_default;
+    v40 = &_os_log_default;
   }
 
-  sub_100007804(v124, "Setting property list  errorCode:%d, status:%u\n", v117, v118, v119, v120, v121, v122, 0);
+  sub_100007804(v40, "Setting property list  errorCode:%d, status:%u\n", 0, v37);
   if (dword_100010220)
   {
-    *&v131 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v131 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v704 = v131;
-    v705 = v131;
-    v702 = v131;
-    v703 = v131;
-    v700 = v131;
-    v701 = v131;
-    v698 = v131;
-    v699 = v131;
-    v689 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v689);
-    v132 = localtime(&v689);
-    strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v132);
-    dprintf(dword_100010220, "%s ", &v698);
-    dprintf(dword_100010220, "Setting property list  errorCode:%d, status:%u\n", 0, v115);
+    *&v41 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v41 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v385 = v41;
+    v386 = v41;
+    v383 = v41;
+    v384 = v41;
+    v381 = v41;
+    v382 = v41;
+    outputStruct = v41;
+    v380 = v41;
+    v370 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v370);
+    v42 = localtime(&v370);
+    strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v42);
+    dprintf(dword_100010220, "%s ", &outputStruct);
+    dprintf(dword_100010220, "Setting property list  errorCode:%d, status:%u\n", 0, v37);
   }
 
   if (size[0])
   {
     if (qword_100010218)
     {
-      v204 = qword_100010218;
+      v85 = qword_100010218;
     }
 
     else
     {
-      v204 = &_os_log_default;
+      v85 = &_os_log_default;
     }
 
-    sub_100007804(v204, "fail to create property list\n", v125, v126, v127, v128, v129, v130, outputStructc);
-    v123 = cf;
+    sub_100007804(v85, "fail to create property list\n");
+    v39 = cf;
     if (dword_100010220)
     {
-      *&v205 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v205 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v205;
-      v705 = v205;
-      v702 = v205;
-      v703 = v205;
-      v700 = v205;
-      v701 = v205;
-      v698 = v205;
-      v699 = v205;
-      v689 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v689);
-      v206 = localtime(&v689);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v206);
-      dprintf(dword_100010220, "%s ", &v698);
+      *&v86 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v86 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v86;
+      v386 = v86;
+      v383 = v86;
+      v384 = v86;
+      v381 = v86;
+      v382 = v86;
+      outputStruct = v86;
+      v380 = v86;
+      v370 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v370);
+      v87 = localtime(&v370);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v87);
+      dprintf(dword_100010220, "%s ", &outputStruct);
       dprintf(dword_100010220, "fail to create property list\n");
     }
 
     goto LABEL_131;
   }
 
-  v133 = CFDictionaryGetTypeID();
-  v123 = cf;
-  if (v133 != CFGetTypeID(cf))
+  v43 = CFDictionaryGetTypeID();
+  v39 = cf;
+  if (v43 != CFGetTypeID(cf))
   {
     if (qword_100010218)
     {
-      v207 = qword_100010218;
+      v88 = qword_100010218;
     }
 
     else
     {
-      v207 = &_os_log_default;
+      v88 = &_os_log_default;
     }
 
-    sub_100007804(v207, "Propery list is not CFDictionary!\n", v134, v135, v136, v137, v138, v139, outputStructc);
+    sub_100007804(v88, "Propery list is not CFDictionary!\n");
     if (dword_100010220)
     {
-      *&v208 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v208 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v208;
-      v705 = v208;
-      v702 = v208;
-      v703 = v208;
-      v700 = v208;
-      v701 = v208;
-      v698 = v208;
-      v699 = v208;
-      v689 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v689);
-      v209 = localtime(&v689);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v209);
-      dprintf(dword_100010220, "%s ", &v698);
+      *&v89 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v89 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v89;
+      v386 = v89;
+      v383 = v89;
+      v384 = v89;
+      v381 = v89;
+      v382 = v89;
+      outputStruct = v89;
+      v380 = v89;
+      v370 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v370);
+      v90 = localtime(&v370);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v90);
+      dprintf(dword_100010220, "%s ", &outputStruct);
       dprintf(dword_100010220, "Propery list is not CFDictionary!\n");
     }
 
@@ -1357,8 +1355,8 @@ LABEL_131:
     goto LABEL_621;
   }
 
-  v677 = v41;
-  v678 = v1;
+  v358 = v17;
+  v359 = v1;
   if (Count >> 61)
   {
 LABEL_622:
@@ -1366,26 +1364,26 @@ LABEL_622:
     return;
   }
 
-  v141 = 8 * Count;
-  v142 = malloc_type_malloc(v141, 0x6004044C4A2DFuLL);
-  if (v142)
+  v45 = 8 * Count;
+  v46 = malloc_type_malloc(v45, 0x6004044C4A2DFuLL);
+  if (v46)
   {
-    v149 = v142;
-    v675 = v107;
-    v676 = v91;
-    v680 = v37;
-    CFDictionaryGetKeysAndValues(cf, v142, 0);
-    v150 = 0;
-    v151 = 0;
-    v685 = v149;
-    while (v151 < CFDictionaryGetCount(v123))
+    v47 = v46;
+    v356 = v35;
+    v357 = v31;
+    v361 = v13;
+    CFDictionaryGetKeysAndValues(cf, v46, 0);
+    v48 = 0;
+    v49 = 0;
+    v366 = v47;
+    while (v49 < CFDictionaryGetCount(v39))
     {
-      if (v151 >> 60 || ((v151 & 0x1000000000000000) != 0) == 8 * v151 <= ~v149)
+      if (v49 >> 60 || ((v49 & 0x1000000000000000) != 0) == 8 * v49 <= ~v47)
       {
         goto LABEL_619;
       }
 
-      if (v151 == v141 >> 3)
+      if (v49 == v45 >> 3)
       {
         __break(1u);
 LABEL_619:
@@ -1394,199 +1392,200 @@ LABEL_620:
         __break(0x5500u);
       }
 
-      CStringPtr = CFStringGetCStringPtr(v149[v151], 0);
-      v153 = 0;
-      v154 = qword_100010218;
+      CStringPtr = CFStringGetCStringPtr(v47[v49], 0);
+      v51 = 0;
+      v52 = qword_100010218;
+      v53 = 1;
       do
       {
-        if (!strcmp(CStringPtr, off_10000C468[v153]))
+        if (!strcmp(CStringPtr, off_10000C468[v51]))
         {
           break;
         }
 
-        ++v153;
+        v53 = v51++ < 0x32;
       }
 
-      while (v153 != 51);
-      if (v154)
+      while (v51 != 51);
+      if (v52)
       {
-        v161 = v154;
+        v54 = v52;
       }
 
       else
       {
-        v161 = &_os_log_default;
+        v54 = &_os_log_default;
       }
 
-      sub_100007804(v161, "%5ld: %s allow: %d\n", v155, v156, v157, v158, v159, v160, v151);
+      sub_100007804(v54, "%5ld: %s allow: %d\n", v49, CStringPtr, v53);
       if (dword_100010220)
       {
-        *&v162 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v162 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v162;
-        v705 = v162;
-        v702 = v162;
-        v703 = v162;
-        v700 = v162;
-        v701 = v162;
-        v698 = v162;
-        v699 = v162;
-        v689 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v689);
-        v163 = localtime(&v689);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v163);
-        dprintf(dword_100010220, "%s ", &v698);
-        v164 = 0;
-        v165 = dword_100010220;
-        v166 = 1;
+        *&v55 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v55;
+        v386 = v55;
+        v383 = v55;
+        v384 = v55;
+        v381 = v55;
+        v382 = v55;
+        outputStruct = v55;
+        v380 = v55;
+        v370 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v370);
+        v56 = localtime(&v370);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v56);
+        dprintf(dword_100010220, "%s ", &outputStruct);
+        v57 = 0;
+        v58 = dword_100010220;
+        v59 = 1;
         do
         {
-          if (!strcmp(CStringPtr, off_10000C468[v164]))
+          if (!strcmp(CStringPtr, off_10000C468[v57]))
           {
             break;
           }
 
-          v166 = v164++ < 0x32;
+          v59 = v57++ < 0x32;
         }
 
-        while (v164 != 51);
-        dprintf(v165, "%5ld: %s allow: %d\n", v151, CStringPtr, v166);
+        while (v57 != 51);
+        dprintf(v58, "%5ld: %s allow: %d\n", v49, CStringPtr, v59);
       }
 
-      v167 = 0;
-      v168 = 1;
+      v60 = 0;
+      v61 = 1;
       do
       {
-        if (!strcmp(CStringPtr, off_10000C468[v167]))
+        if (!strcmp(CStringPtr, off_10000C468[v60]))
         {
           break;
         }
 
-        v168 = v167++ < 0x32;
+        v61 = v60++ < 0x32;
       }
 
-      while (v167 != 51);
-      v123 = cf;
-      if (!v168)
+      while (v60 != 51);
+      v39 = cf;
+      if (!v61)
       {
         if (qword_100010218)
         {
-          v187 = qword_100010218;
+          v68 = qword_100010218;
         }
 
         else
         {
-          v187 = &_os_log_default;
+          v68 = &_os_log_default;
         }
 
-        sub_100007804(v187, "key not in allowList\n", v169, v170, v171, v172, v173, v174, outputStructc);
+        sub_100007804(v68, "key not in allowList\n");
         if (dword_100010220)
         {
-          *&v188 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v188 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v704 = v188;
-          v705 = v188;
-          v702 = v188;
-          v703 = v188;
-          v700 = v188;
-          v701 = v188;
-          v698 = v188;
-          v699 = v188;
-          v689 = 0xAAAAAAAAAAAAAAAALL;
-          time(&v689);
-          v189 = localtime(&v689);
-          strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v189);
-          dprintf(dword_100010220, "%s ", &v698);
+          *&v69 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v69 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v385 = v69;
+          v386 = v69;
+          v383 = v69;
+          v384 = v69;
+          v381 = v69;
+          v382 = v69;
+          outputStruct = v69;
+          v380 = v69;
+          v370 = 0xAAAAAAAAAAAAAAAALL;
+          time(&v370);
+          v70 = localtime(&v370);
+          strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v70);
+          dprintf(dword_100010220, "%s ", &outputStruct);
           dprintf(dword_100010220, "key not in allowList\n");
         }
 
-        v1 = v678;
-        v37 = v680;
-        v91 = v676;
-        v41 = v677;
-        v107 = v675;
+        v1 = v359;
+        v13 = v361;
+        v31 = v357;
+        v17 = v358;
+        v35 = v356;
         goto LABEL_90;
       }
 
       if (!strncmp(CStringPtr, "wlan.is.fdr.cal", 0x10uLL))
       {
-        v150 = 1;
+        v48 = 1;
       }
 
-      ++v151;
+      ++v49;
     }
 
-    v175 = CFDictionaryGetTypeID();
-    v182 = CFGetTypeID(v123);
+    v62 = CFDictionaryGetTypeID();
+    v63 = CFGetTypeID(v39);
     if (qword_100010218)
     {
-      v183 = qword_100010218;
+      v64 = qword_100010218;
     }
 
     else
     {
-      v183 = &_os_log_default;
+      v64 = &_os_log_default;
     }
 
-    v1 = v678;
-    v107 = v675;
-    if (v175 == v182)
+    v1 = v359;
+    v35 = v356;
+    if (v62 == v63)
     {
-      sub_100007804(v183, "%s isFdrCal %d\n", v176, v177, v178, v179, v180, v181, "writePlatformConfig");
-      v41 = v677;
-      v37 = v680;
+      sub_100007804(v64, "%s isFdrCal %d\n", "writePlatformConfig", v48);
+      v17 = v358;
+      v13 = v361;
       if (dword_100010220)
       {
-        *&v184 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v184 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v184;
-        v705 = v184;
-        v702 = v184;
-        v703 = v184;
-        v700 = v184;
-        v701 = v184;
-        v698 = v184;
-        v699 = v184;
-        v689 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v689);
-        v185 = localtime(&v689);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v185);
-        dprintf(dword_100010220, "%s ", &v698);
-        v123 = cf;
-        dprintf(dword_100010220, "%s isFdrCal %d\n", "writePlatformConfig", v150);
+        *&v65 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v65 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v65;
+        v386 = v65;
+        v383 = v65;
+        v384 = v65;
+        v381 = v65;
+        v382 = v65;
+        outputStruct = v65;
+        v380 = v65;
+        v370 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v370);
+        v66 = localtime(&v370);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v66);
+        dprintf(dword_100010220, "%s ", &outputStruct);
+        v39 = cf;
+        dprintf(dword_100010220, "%s isFdrCal %d\n", "writePlatformConfig", v48);
       }
 
-      IORegistryEntrySetCFProperty(entry, @"PlatformConfig", v123);
-      v91 = v676;
+      IORegistryEntrySetCFProperty(entry, @"PlatformConfig", v39);
+      v31 = v357;
     }
 
     else
     {
-      sub_100007804(v183, "Propery list is not CFDictionary!\n", v176, v177, v178, v179, v180, v181, outputStructc);
-      v41 = v677;
-      v37 = v680;
-      v91 = v676;
+      sub_100007804(v64, "Propery list is not CFDictionary!\n");
+      v17 = v358;
+      v13 = v361;
+      v31 = v357;
       if (dword_100010220)
       {
-        *&v213 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v213 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v213;
-        v705 = v213;
-        v702 = v213;
-        v703 = v213;
-        v700 = v213;
-        v701 = v213;
-        v698 = v213;
-        v699 = v213;
-        v689 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v689);
-        v214 = localtime(&v689);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v214);
-        dprintf(dword_100010220, "%s ", &v698);
+        *&v94 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v94 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v94;
+        v386 = v94;
+        v383 = v94;
+        v384 = v94;
+        v381 = v94;
+        v382 = v94;
+        outputStruct = v94;
+        v380 = v94;
+        v370 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v370);
+        v95 = localtime(&v370);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v95);
+        dprintf(dword_100010220, "%s ", &outputStruct);
         dprintf(dword_100010220, "Propery list is not CFDictionary!\n");
       }
 
-      v123 = cf;
+      v39 = cf;
     }
   }
 
@@ -1594,62 +1593,62 @@ LABEL_620:
   {
     if (qword_100010218)
     {
-      v210 = qword_100010218;
+      v91 = qword_100010218;
     }
 
     else
     {
-      v210 = &_os_log_default;
+      v91 = &_os_log_default;
     }
 
-    sub_100007804(v210, "fail to allocate memory for keys\n", v143, v144, v145, v146, v147, v148, outputStructc);
+    sub_100007804(v91, "fail to allocate memory for keys\n");
     if (dword_100010220)
     {
-      *&v211 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v211 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v211;
-      v705 = v211;
-      v702 = v211;
-      v703 = v211;
-      v700 = v211;
-      v701 = v211;
-      v698 = v211;
-      v699 = v211;
-      v689 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v689);
-      v212 = localtime(&v689);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v212);
-      dprintf(dword_100010220, "%s ", &v698);
+      *&v92 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v92 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v92;
+      v386 = v92;
+      v383 = v92;
+      v384 = v92;
+      v381 = v92;
+      v382 = v92;
+      outputStruct = v92;
+      v380 = v92;
+      v370 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v370);
+      v93 = localtime(&v370);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v93);
+      dprintf(dword_100010220, "%s ", &outputStruct);
       dprintf(dword_100010220, "fail to allocate memory for keys\n");
     }
 
-    v150 = 0;
-    v685 = 0;
+    v48 = 0;
+    v366 = 0;
   }
 
 LABEL_90:
-  CFReadStreamClose(v107);
-  v186 = 1;
-  if (v41)
+  CFReadStreamClose(v35);
+  v67 = 1;
+  if (v17)
   {
 LABEL_178:
-    CFRelease(v41);
+    CFRelease(v17);
   }
 
 LABEL_179:
-  if (v91)
+  if (v31)
   {
-    CFRelease(v91);
+    CFRelease(v31);
   }
 
-  if (v99)
+  if (v33)
   {
-    CFRelease(v99);
+    CFRelease(v33);
   }
 
-  if (v186)
+  if (v67)
   {
-    CFRelease(v107);
+    CFRelease(v35);
   }
 
   if (size[0])
@@ -1658,67 +1657,67 @@ LABEL_179:
   }
 
   size[0] = 0;
-  if (v123)
+  if (v39)
   {
-    CFRelease(v123);
+    CFRelease(v39);
   }
 
-  if (v685)
+  if (v366)
   {
-    free(v685);
+    free(v366);
   }
 
-  v233 = *(v1 + 8);
+  v114 = *(v1 + 8);
   if (!qword_100010210)
   {
     pthread_once(&stru_100010000, sub_100007164);
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v241 = &stru_100010000;
+  v116 = &stru_100010000;
   if (!Instance)
   {
     goto LABEL_584;
   }
 
-  v242 = Instance;
+  v117 = Instance;
   *(Instance + 20) = 0;
-  v243 = (Instance + 20);
-  *(Instance + 16) = v233;
-  if (IOServiceOpen(v233, mach_task_self_, 0x57694669u, (Instance + 20)) || IOConnectCallScalarMethod(*v243, 0, 0, 0, 0, 0))
+  v118 = (Instance + 20);
+  *(Instance + 16) = v114;
+  if (IOServiceOpen(v114, mach_task_self_, 0x57694669u, (Instance + 20)) || IOConnectCallScalarMethod(*v118, 0, 0, 0, 0, 0))
   {
-    CFRelease(v242);
+    CFRelease(v117);
 LABEL_584:
     *(v1 + 24) = 0;
     goto LABEL_475;
   }
 
-  *(v242 + 24) = 1;
-  *(v1 + 24) = v242;
-  v244 = IORegistryEntryCreateCFProperty(*(v242 + 16), @"RequestedFiles", v3, 0);
-  *(v1 + 32) = v244;
-  if (!v244)
+  *(v117 + 24) = 1;
+  *(v1 + 24) = v117;
+  v119 = IORegistryEntryCreateCFProperty(*(v117 + 16), @"RequestedFiles", v3, 0);
+  *(v1 + 32) = v119;
+  if (!v119)
   {
     goto LABEL_475;
   }
 
   *(v1 + 40) = IORegistryEntryCreateCFProperty(*(*(v1 + 24) + 16), @"FileExtensions", v3, 0);
-  v245 = IORegistryEntryCreateCFProperty(*(*(v1 + 24) + 16), @"RequestedFilesOverride", v3, 0);
-  *(v1 + 48) = v245;
-  v246 = *(v1 + 32);
-  if (v245)
+  v120 = IORegistryEntryCreateCFProperty(*(*(v1 + 24) + 16), @"RequestedFilesOverride", v3, 0);
+  *(v1 + 48) = v120;
+  v121 = *(v1 + 32);
+  if (v120)
   {
-    Value = CFDictionaryGetValue(v245, @"wifi-fw-path");
-    v248 = *(&xmmword_100010070 + 1);
+    Value = CFDictionaryGetValue(v120, @"wifi-fw-path");
+    v123 = *(&xmmword_100010070 + 1);
     if (!*(&xmmword_100010070 + 1))
     {
-      v249 = Value;
+      v124 = Value;
       if (Value)
       {
-        v250 = CFGetTypeID(Value);
-        if (v250 == CFDataGetTypeID())
+        v125 = CFGetTypeID(Value);
+        if (v125 == CFDataGetTypeID())
         {
-          v251 = CFStringCreateFromExternalRepresentation(v3, v249, 0);
+          v126 = CFStringCreateFromExternalRepresentation(v3, v124, 0);
           goto LABEL_205;
         }
       }
@@ -1727,102 +1726,102 @@ LABEL_584:
     }
 
 LABEL_203:
-    v251 = CFStringCreateMutableCopy(v3, 255, v248);
+    v126 = CFStringCreateMutableCopy(v3, 255, v123);
     goto LABEL_205;
   }
 
-  v248 = *(&xmmword_100010070 + 1);
+  v123 = *(&xmmword_100010070 + 1);
   if (*(&xmmword_100010070 + 1))
   {
     goto LABEL_203;
   }
 
 LABEL_204:
-  v251 = sub_1000082E0(v246, @"Firmware", dword_1000100E8, v681);
+  v126 = sub_1000082E0(v121, @"Firmware", dword_1000100E8, v362);
 LABEL_205:
-  v258 = v251;
-  v259 = &stru_100010000;
+  v127 = v126;
+  v128 = &stru_100010000;
   if (BYTE1(dword_1000100B0) == 1)
   {
-    v260 = CFStringGetCStringPtr(v251, 0);
-    v261 = &unk_10000A556;
-    if (v260)
+    v129 = CFStringGetCStringPtr(v126, 0);
+    v130 = &unk_10000A556;
+    if (v129)
     {
-      v261 = v260;
+      v130 = v129;
     }
 
-    fprintf(__stdoutp, "Resolved to Firmware file path: %s\n", v261);
+    fprintf(__stdoutp, "Resolved to Firmware file path: %s\n", v130);
   }
 
-  *(v1 + 64) = v258;
-  if (!v258)
+  *(v1 + 64) = v127;
+  if (!v127)
   {
     goto LABEL_383;
   }
 
   if (qword_100010218)
   {
-    v262 = qword_100010218;
+    v131 = qword_100010218;
   }
 
   else
   {
-    v262 = &_os_log_default;
+    v131 = &_os_log_default;
   }
 
-  sub_100007804(v262, "%s: enter\n", v252, v253, v254, v255, v256, v257, "handleFdr");
-  v269 = &stru_100010000;
+  sub_100007804(v131, "%s: enter\n", "handleFdr");
+  v132 = &stru_100010000;
   if (dword_100010220)
   {
-    *&v270 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v270 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v719 = v270;
-    v720 = v270;
-    v717 = v270;
-    v718 = v270;
-    v715 = v270;
-    v716 = v270;
-    *cStr = v270;
-    *&cStr[16] = v270;
-    *&v698 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v698);
-    v271 = localtime(&v698);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v271);
+    *&v133 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v133 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v400 = v133;
+    v401 = v133;
+    v398 = v133;
+    v399 = v133;
+    v396 = v133;
+    v397 = v133;
+    *cStr = v133;
+    *&cStr[16] = v133;
+    *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+    time(&outputStruct);
+    v134 = localtime(&outputStruct);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v134);
     dprintf(dword_100010220, "%s ", cStr);
     dprintf(dword_100010220, "%s: enter\n", "handleFdr");
   }
 
-  if (v150)
+  if (v48)
   {
     if (qword_100010218)
     {
-      v272 = qword_100010218;
+      v135 = qword_100010218;
     }
 
     else
     {
-      v272 = &_os_log_default;
+      v135 = &_os_log_default;
     }
 
     if (BYTE1(dword_1000100B0) == 1)
     {
-      sub_100007804(v272, "%s: showFilesOnly mode does not need FDR.\n", v263, v264, v265, v266, v267, v268, "handleFdr");
+      sub_100007804(v135, "%s: showFilesOnly mode does not need FDR.\n", "handleFdr");
       if (dword_100010220)
       {
-        *&v279 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v279 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v719 = v279;
-        v720 = v279;
-        v717 = v279;
-        v718 = v279;
-        v715 = v279;
-        v716 = v279;
-        *cStr = v279;
-        *&cStr[16] = v279;
-        *&v698 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v698);
-        v280 = localtime(&v698);
-        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v280);
+        *&v136 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v136 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v400 = v136;
+        v401 = v136;
+        v398 = v136;
+        v399 = v136;
+        v396 = v136;
+        v397 = v136;
+        *cStr = v136;
+        *&cStr[16] = v136;
+        *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+        time(&outputStruct);
+        v137 = localtime(&outputStruct);
+        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v137);
         dprintf(dword_100010220, "%s ", cStr);
         dprintf(dword_100010220, "%s: showFilesOnly mode does not need FDR.\n");
       }
@@ -1830,472 +1829,472 @@ LABEL_205:
       goto LABEL_295;
     }
 
-    sub_100007804(v272, "%s enter\n", v263, v264, v265, v266, v267, v268, "getFDRCal");
+    sub_100007804(v135, "%s enter\n", "getFDRCal");
     if (dword_100010220)
     {
-      *&v290 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v290 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v719 = v290;
-      v720 = v290;
-      v717 = v290;
-      v718 = v290;
-      v715 = v290;
-      v716 = v290;
-      *cStr = v290;
-      *&cStr[16] = v290;
-      *&v698 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v698);
-      v291 = localtime(&v698);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v291);
+      *&v141 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v141 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v400 = v141;
+      v401 = v141;
+      v398 = v141;
+      v399 = v141;
+      v396 = v141;
+      v397 = v141;
+      *cStr = v141;
+      *&cStr[16] = v141;
+      *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+      time(&outputStruct);
+      v142 = localtime(&outputStruct);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v142);
       dprintf(dword_100010220, "%s ", cStr);
       dprintf(dword_100010220, "%s enter\n", "getFDRCal");
     }
 
-    LODWORD(v689) = 0;
+    LODWORD(v370) = 0;
     if (qword_100010218)
     {
-      v292 = qword_100010218;
+      v143 = qword_100010218;
     }
 
     else
     {
-      v292 = &_os_log_default;
+      v143 = &_os_log_default;
     }
 
-    sub_100007804(v292, "%s enter\n", v284, v285, v286, v287, v288, v289, "findHwIdentifiersPolling");
-    *&v293 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v293 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v719 = v293;
-    v720 = v293;
-    v717 = v293;
-    v718 = v293;
-    v715 = v293;
-    v716 = v293;
-    *cStr = v293;
-    *&cStr[16] = v293;
+    sub_100007804(v143, "%s enter\n", "findHwIdentifiersPolling");
+    *&v144 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v144 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v400 = v144;
+    v401 = v144;
+    v398 = v144;
+    v399 = v144;
+    v396 = v144;
+    v397 = v144;
+    *cStr = v144;
+    *&cStr[16] = v144;
     if (dword_100010220)
     {
-      v704 = v293;
-      v705 = v293;
-      v702 = v293;
-      v703 = v293;
-      v700 = v293;
-      v701 = v293;
-      v698 = v293;
-      v699 = v293;
+      v385 = v144;
+      v386 = v144;
+      v383 = v144;
+      v384 = v144;
+      v381 = v144;
+      v382 = v144;
+      outputStruct = v144;
+      v380 = v144;
       size[0] = 0xAAAAAAAAAAAAAAAALL;
       time(size);
-      v294 = localtime(size);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v294);
-      dprintf(dword_100010220, "%s ", &v698);
+      v145 = localtime(size);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v145);
+      dprintf(dword_100010220, "%s ", &outputStruct);
       dprintf(dword_100010220, "%s enter\n", "findHwIdentifiersPolling");
     }
 
     cfa = IORegistryGetRootEntry(kIOMainPortDefault);
-    if (!cfa || IORegistryCreateIterator(kIOMainPortDefault, "IOService", 0, &v689))
+    if (!cfa || IORegistryCreateIterator(kIOMainPortDefault, "IOService", 0, &v370))
     {
-      v332 = 1;
+      v165 = 1;
     }
 
     else
     {
-      v301 = v3;
-      v302 = 1;
-      v686 = 1;
+      v146 = v3;
+      v147 = 1;
+      v367 = 1;
       while (1)
       {
-        v303 = IOIteratorNext(v689);
-        if (!v303)
+        v148 = IOIteratorNext(v370);
+        if (!v148)
         {
           break;
         }
 
-        v304 = v303;
+        v149 = v148;
         strcpy(cStr, "IOPlatformExpertDevice");
-        if (IOObjectConformsTo(v303, cStr))
+        if (IOObjectConformsTo(v148, cStr))
         {
-          v679 = v1;
+          v360 = v1;
           do
           {
             if (qword_100010218)
             {
-              v311 = qword_100010218;
+              v150 = qword_100010218;
             }
 
             else
             {
-              v311 = &_os_log_default;
+              v150 = &_os_log_default;
             }
 
-            sub_100007804(v311, "%s Find HWIdentifiers...%d\n", v305, v306, v307, v308, v309, v310, "findHwIdentifiersPolling");
+            sub_100007804(v150, "%s Find HWIdentifiers...%d\n", "findHwIdentifiersPolling", v147);
             if (dword_100010220)
             {
-              *&v312 = 0xAAAAAAAAAAAAAAAALL;
-              *(&v312 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v704 = v312;
-              v705 = v312;
-              v702 = v312;
-              v703 = v312;
-              v700 = v312;
-              v701 = v312;
-              v698 = v312;
-              v699 = v312;
+              *&v151 = 0xAAAAAAAAAAAAAAAALL;
+              *(&v151 + 1) = 0xAAAAAAAAAAAAAAAALL;
+              v385 = v151;
+              v386 = v151;
+              v383 = v151;
+              v384 = v151;
+              v381 = v151;
+              v382 = v151;
+              outputStruct = v151;
+              v380 = v151;
               size[0] = 0xAAAAAAAAAAAAAAAALL;
               time(size);
-              v313 = localtime(size);
-              strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v313);
-              dprintf(dword_100010220, "%s ", &v698);
-              dprintf(dword_100010220, "%s Find HWIdentifiers...%d\n", "findHwIdentifiersPolling", v302);
+              v152 = localtime(size);
+              strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v152);
+              dprintf(dword_100010220, "%s ", &outputStruct);
+              dprintf(dword_100010220, "%s Find HWIdentifiers...%d\n", "findHwIdentifiersPolling", v147);
             }
 
-            v314 = IORegistryEntrySearchCFProperty(v304, "IOService", @"HWIdentifiers", v301, 1u);
-            v315 = v314;
-            if (v302 <= 2 && !v314)
+            v153 = IORegistryEntrySearchCFProperty(v149, "IOService", @"HWIdentifiers", v146, 1u);
+            v154 = v153;
+            if (v147 <= 2 && !v153)
             {
               usleep(0x222E0u);
             }
 
-            v316 = v302 + 1;
-            if (__OFADD__(v302, 1))
+            v155 = v147 + 1;
+            if (__OFADD__(v147, 1))
             {
               goto LABEL_620;
             }
 
-            if (v316 > 3)
+            if (v155 > 3)
             {
               break;
             }
 
-            ++v302;
+            ++v147;
           }
 
-          while (!v315);
-          if (v315)
+          while (!v154);
+          if (v154)
           {
-            v317 = CFDictionaryGetValue(v315, @"P");
-            *&v318 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v318 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            *&v693[12] = v318;
-            v692 = v318;
-            *v693 = v318;
-            *size = v318;
-            CFStringGetCString(v317, size, 60, 0x8000100u);
-            v319 = CFDictionaryGetValue(v315, @"C");
+            v156 = CFDictionaryGetValue(v154, @"P");
+            *&v157 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v157 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            *&v374[12] = v157;
+            v373 = v157;
+            *v374 = v157;
+            *size = v157;
+            CFStringGetCString(v156, size, 60, 0x8000100u);
+            v158 = CFDictionaryGetValue(v154, @"C");
             LODWORD(valuePtr) = -1431655766;
-            CFNumberGetValue(v319, kCFNumberIntType, &valuePtr);
+            CFNumberGetValue(v158, kCFNumberIntType, &valuePtr);
             if (qword_100010218)
             {
-              v326 = qword_100010218;
+              v159 = qword_100010218;
             }
 
             else
             {
-              v326 = &_os_log_default;
+              v159 = &_os_log_default;
             }
 
-            sub_100007804(v326, "%s HWIdentifiers: chipNumber %d platformName %s\n", v320, v321, v322, v323, v324, v325, "findHwIdentifiersPolling");
+            sub_100007804(v159, "%s HWIdentifiers: chipNumber %d platformName %s\n", "findHwIdentifiersPolling", valuePtr, size);
             if (dword_100010220)
             {
-              *&v327 = 0xAAAAAAAAAAAAAAAALL;
-              *(&v327 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v704 = v327;
-              v705 = v327;
-              v702 = v327;
-              v703 = v327;
-              v700 = v327;
-              v701 = v327;
-              v698 = v327;
-              v699 = v327;
+              *&v160 = 0xAAAAAAAAAAAAAAAALL;
+              *(&v160 + 1) = 0xAAAAAAAAAAAAAAAALL;
+              v385 = v160;
+              v386 = v160;
+              v383 = v160;
+              v384 = v160;
+              v381 = v160;
+              v382 = v160;
+              outputStruct = v160;
+              v380 = v160;
               length = 0xAAAAAAAAAAAAAAAALL;
               time(&length);
-              v328 = localtime(&length);
-              strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v328);
-              dprintf(dword_100010220, "%s ", &v698);
+              v161 = localtime(&length);
+              strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v161);
+              dprintf(dword_100010220, "%s ", &outputStruct);
               dprintf(dword_100010220, "%s HWIdentifiers: chipNumber %d platformName %s\n", "findHwIdentifiersPolling", valuePtr, size);
             }
 
-            v686 = 0;
+            v367 = 0;
           }
 
           else
           {
             if (qword_100010218)
             {
-              v329 = qword_100010218;
+              v162 = qword_100010218;
             }
 
             else
             {
-              v329 = &_os_log_default;
+              v162 = &_os_log_default;
             }
 
-            sub_100007804(v329, "%s No %s in ioreg\n", v305, v306, v307, v308, v309, v310, "findHwIdentifiersPolling");
+            sub_100007804(v162, "%s No %s in ioreg\n", "findHwIdentifiersPolling", "HWIdentifiers");
             if (dword_100010220)
             {
-              *&v330 = 0xAAAAAAAAAAAAAAAALL;
-              *(&v330 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v704 = v330;
-              v705 = v330;
-              v702 = v330;
-              v703 = v330;
-              v700 = v330;
-              v701 = v330;
-              v698 = v330;
-              v699 = v330;
+              *&v163 = 0xAAAAAAAAAAAAAAAALL;
+              *(&v163 + 1) = 0xAAAAAAAAAAAAAAAALL;
+              v385 = v163;
+              v386 = v163;
+              v383 = v163;
+              v384 = v163;
+              v381 = v163;
+              v382 = v163;
+              outputStruct = v163;
+              v380 = v163;
               size[0] = 0xAAAAAAAAAAAAAAAALL;
               time(size);
-              v331 = localtime(size);
-              strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v331);
-              dprintf(dword_100010220, "%s ", &v698);
+              v164 = localtime(size);
+              strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v164);
+              dprintf(dword_100010220, "%s ", &outputStruct);
               dprintf(dword_100010220, "%s No %s in ioreg\n", "findHwIdentifiersPolling", "HWIdentifiers");
             }
           }
 
-          IOObjectRelease(v304);
-          v302 = v316;
-          v1 = v679;
+          IOObjectRelease(v149);
+          v147 = v155;
+          v1 = v360;
         }
       }
 
-      if (v302 >= 3)
+      if (v147 >= 3)
       {
         IORegistryEntrySetCFProperty(*(v1 + 8), @"HWIdentifiersLate", kCFBooleanTrue);
       }
 
-      v3 = v301;
-      v269 = &stru_100010000;
-      v259 = &stru_100010000;
-      v332 = v686;
+      v3 = v146;
+      v132 = &stru_100010000;
+      v128 = &stru_100010000;
+      v165 = v367;
     }
 
-    if (v689)
+    if (v370)
     {
-      IOObjectRelease(v689);
+      IOObjectRelease(v370);
     }
 
-    v241 = &stru_100010000;
+    v116 = &stru_100010000;
     if (cfa)
     {
       IOObjectRelease(cfa);
     }
 
-    if (!v332)
+    if (!v165)
     {
       if (qword_100010218)
       {
-        v421 = qword_100010218;
+        v222 = qword_100010218;
       }
 
       else
       {
-        v421 = &_os_log_default;
+        v222 = &_os_log_default;
       }
 
-      sub_100007804(v421, "%s dataClass %s\n", v295, v296, v297, v298, v299, v300, "getFDRCal");
+      sub_100007804(v222, "%s dataClass %s\n", "getFDRCal", "BWCl");
       if (dword_100010220)
       {
-        *&v422 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v422 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v719 = v422;
-        v720 = v422;
-        v717 = v422;
-        v718 = v422;
-        v715 = v422;
-        v716 = v422;
-        *cStr = v422;
-        *&cStr[16] = v422;
-        *&v698 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v698);
-        v423 = localtime(&v698);
-        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v423);
+        *&v223 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v223 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v400 = v223;
+        v401 = v223;
+        v398 = v223;
+        v399 = v223;
+        v396 = v223;
+        v397 = v223;
+        *cStr = v223;
+        *&cStr[16] = v223;
+        *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+        time(&outputStruct);
+        v224 = localtime(&outputStruct);
+        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v224);
         dprintf(dword_100010220, "%s ", cStr);
         dprintf(dword_100010220, "%s dataClass %s\n", "getFDRCal", "BWCl");
       }
 
-      v424 = CFStringCreateWithCString(0, "BWCl", 0);
-      *&v698 = 0;
-      v431 = AMFDRSealingMapCopyLocalDictForClass();
-      v432 = v698;
-      v433 = 1;
-      if (v431 && !v698)
+      v225 = CFStringCreateWithCString(0, "BWCl", 0);
+      *&outputStruct = 0;
+      v226 = AMFDRSealingMapCopyLocalDictForClass();
+      v227 = outputStruct;
+      v228 = 1;
+      if (v226 && !outputStruct)
       {
         if (qword_100010218)
         {
-          v434 = qword_100010218;
+          v229 = qword_100010218;
         }
 
         else
         {
-          v434 = &_os_log_default;
+          v229 = &_os_log_default;
         }
 
-        sub_100007804(v434, "%s successful fdr\n", v425, v426, v427, v428, v429, v430, "getFDRCal");
+        sub_100007804(v229, "%s successful fdr\n", "getFDRCal");
         if (dword_100010220)
         {
-          *&v435 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v435 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v719 = v435;
-          v720 = v435;
-          v717 = v435;
-          v718 = v435;
-          v715 = v435;
-          v716 = v435;
-          *cStr = v435;
-          *&cStr[16] = v435;
+          *&v230 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v230 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v400 = v230;
+          v401 = v230;
+          v398 = v230;
+          v399 = v230;
+          v396 = v230;
+          v397 = v230;
+          *cStr = v230;
+          *&cStr[16] = v230;
           size[0] = 0xAAAAAAAAAAAAAAAALL;
           time(size);
-          v436 = localtime(size);
-          strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v436);
+          v231 = localtime(size);
+          strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v231);
           dprintf(dword_100010220, "%s ", cStr);
           dprintf(dword_100010220, "%s successful fdr\n", "getFDRCal");
         }
 
-        v443 = CFDictionaryGetValue(v431, @"WCAL");
-        v433 = v443 == 0;
+        v232 = CFDictionaryGetValue(v226, @"WCAL");
+        v228 = v232 == 0;
         if (qword_100010218)
         {
-          v444 = qword_100010218;
+          v233 = qword_100010218;
         }
 
         else
         {
-          v444 = &_os_log_default;
+          v233 = &_os_log_default;
         }
 
-        if (v443)
+        if (v232)
         {
-          sub_100007804(v444, "%s add fdr cal\n", v437, v438, v439, v440, v441, v442, "getFDRCal");
+          sub_100007804(v233, "%s add fdr cal\n", "getFDRCal");
           if (dword_100010220)
           {
-            *&v445 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v445 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v719 = v445;
-            v720 = v445;
-            v717 = v445;
-            v718 = v445;
-            v715 = v445;
-            v716 = v445;
-            *cStr = v445;
-            *&cStr[16] = v445;
+            *&v234 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v234 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v400 = v234;
+            v401 = v234;
+            v398 = v234;
+            v399 = v234;
+            v396 = v234;
+            v397 = v234;
+            *cStr = v234;
+            *&cStr[16] = v234;
             size[0] = 0xAAAAAAAAAAAAAAAALL;
             time(size);
-            v446 = localtime(size);
-            strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v446);
+            v235 = localtime(size);
+            strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v235);
             dprintf(dword_100010220, "%s ", cStr);
             dprintf(dword_100010220, "%s add fdr cal\n", "getFDRCal");
           }
 
-          IORegistryEntrySetCFProperty(*(v1 + 8), @"WiFiFdrCal", v443);
-          v269 = &stru_100010000;
-          v241 = &stru_100010000;
+          IORegistryEntrySetCFProperty(*(v1 + 8), @"WiFiFdrCal", v232);
+          v132 = &stru_100010000;
+          v116 = &stru_100010000;
         }
 
         else
         {
-          sub_100007804(v444, "%s failed dict get value\n", v437, v438, v439, v440, v441, v442, "getFDRCal");
-          v269 = &stru_100010000;
+          sub_100007804(v233, "%s failed dict get value\n", "getFDRCal");
+          v132 = &stru_100010000;
           if (dword_100010220)
           {
-            *&v637 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v637 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v719 = v637;
-            v720 = v637;
-            v717 = v637;
-            v718 = v637;
-            v715 = v637;
-            v716 = v637;
-            *cStr = v637;
-            *&cStr[16] = v637;
+            *&v331 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v331 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v400 = v331;
+            v401 = v331;
+            v398 = v331;
+            v399 = v331;
+            v396 = v331;
+            v397 = v331;
+            *cStr = v331;
+            *&cStr[16] = v331;
             size[0] = 0xAAAAAAAAAAAAAAAALL;
             time(size);
-            v638 = localtime(size);
-            strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v638);
+            v332 = localtime(size);
+            strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v332);
             dprintf(dword_100010220, "%s ", cStr);
             dprintf(dword_100010220, "%s failed dict get value\n", "getFDRCal");
           }
         }
 
-        v432 = v698;
+        v227 = outputStruct;
       }
 
-      if (v432)
+      if (v227)
       {
-        CFRelease(v432);
+        CFRelease(v227);
       }
 
-      *&v698 = 0;
-      if (v424)
+      *&outputStruct = 0;
+      if (v225)
       {
-        CFRelease(v424);
+        CFRelease(v225);
       }
 
-      if (v431)
+      if (v226)
       {
-        CFRelease(v431);
+        CFRelease(v226);
       }
 
       CFRelease(@"WCAL");
-      if (!v433)
+      if (!v228)
       {
-        v346 = "fdr";
+        v173 = "fdr";
 LABEL_288:
-        v347 = strlen(v346);
-        v354 = CFStringCreateWithBytes(v3, v346, v347, 0x8000100u, 0);
+        v174 = strlen(v173);
+        v175 = CFStringCreateWithBytes(v3, v173, v174, 0x8000100u, 0);
         if (qword_100010218)
         {
-          v355 = qword_100010218;
+          v176 = qword_100010218;
         }
 
         else
         {
-          v355 = &_os_log_default;
+          v176 = &_os_log_default;
         }
 
-        if (v354)
+        if (v175)
         {
-          sub_100007804(v355, "%s add msfSource %s\n", v348, v349, v350, v351, v352, v353, "handleFdr");
+          sub_100007804(v176, "%s add msfSource %s\n", "handleFdr", v173);
           if (dword_100010220)
           {
-            *&v356 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v356 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v719 = v356;
-            v720 = v356;
-            v717 = v356;
-            v718 = v356;
-            v715 = v356;
-            v716 = v356;
-            *cStr = v356;
-            *&cStr[16] = v356;
-            *&v698 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v698);
-            v357 = localtime(&v698);
-            strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v357);
+            *&v177 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v177 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v400 = v177;
+            v401 = v177;
+            v398 = v177;
+            v399 = v177;
+            v396 = v177;
+            v397 = v177;
+            *cStr = v177;
+            *&cStr[16] = v177;
+            *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+            time(&outputStruct);
+            v178 = localtime(&outputStruct);
+            strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v178);
             dprintf(dword_100010220, "%s ", cStr);
-            dprintf(dword_100010220, "%s add msfSource %s\n", "handleFdr", v346);
+            dprintf(dword_100010220, "%s add msfSource %s\n", "handleFdr", v173);
           }
 
-          IORegistryEntrySetCFProperty(*(v1 + 8), @"WiFiMSFSource", v354);
+          IORegistryEntrySetCFProperty(*(v1 + 8), @"WiFiMSFSource", v175);
         }
 
         else
         {
-          sub_100007804(v355, "%s failed to create msfSourceRef\n", v348, v349, v350, v351, v352, v353, "handleFdr");
+          sub_100007804(v176, "%s failed to create msfSourceRef\n", "handleFdr");
           if (dword_100010220)
           {
-            *&v447 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v447 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v719 = v447;
-            v720 = v447;
-            v717 = v447;
-            v718 = v447;
-            v715 = v447;
-            v716 = v447;
-            *cStr = v447;
-            *&cStr[16] = v447;
-            *&v698 = 0xAAAAAAAAAAAAAAAALL;
-            time(&v698);
-            v448 = localtime(&v698);
-            strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v448);
+            *&v236 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v236 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v400 = v236;
+            v401 = v236;
+            v398 = v236;
+            v399 = v236;
+            v396 = v236;
+            v397 = v236;
+            *cStr = v236;
+            *&cStr[16] = v236;
+            *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+            time(&outputStruct);
+            v237 = localtime(&outputStruct);
+            strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v237);
             dprintf(dword_100010220, "%s ", cStr);
             dprintf(dword_100010220, "%s failed to create msfSourceRef\n");
           }
@@ -2306,68 +2305,68 @@ LABEL_288:
 
       if (qword_100010218)
       {
-        v645 = qword_100010218;
+        v333 = qword_100010218;
       }
 
       else
       {
-        v645 = &_os_log_default;
+        v333 = &_os_log_default;
       }
 
-      sub_100007804(v645, "%s failed\n", v639, v640, v641, v642, v643, v644, "getFDRCal");
+      sub_100007804(v333, "%s failed\n", "getFDRCal");
       if (dword_100010220)
       {
-        *&v646 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v646 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v719 = v646;
-        v720 = v646;
-        v717 = v646;
-        v718 = v646;
-        v715 = v646;
-        v716 = v646;
-        *cStr = v646;
-        *&cStr[16] = v646;
-        *&v698 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v698);
-        v647 = localtime(&v698);
-        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v647);
+        *&v334 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v334 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v400 = v334;
+        v401 = v334;
+        v398 = v334;
+        v399 = v334;
+        v396 = v334;
+        v397 = v334;
+        *cStr = v334;
+        *&cStr[16] = v334;
+        *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+        time(&outputStruct);
+        v335 = localtime(&outputStruct);
+        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v335);
         dprintf(dword_100010220, "%s ", cStr);
         dprintf(dword_100010220, "%s failed\n", "getFDRCal");
       }
     }
 
-    v727 = 0u;
-    v728 = 0u;
-    v725 = 0u;
-    v726 = 0u;
-    v723 = 0u;
-    v724 = 0u;
-    v721 = 0u;
-    v722 = 0u;
-    v719 = 0u;
-    v720 = 0u;
-    v717 = 0u;
-    v718 = 0u;
-    v715 = 0u;
-    v716 = 0u;
+    v408 = 0u;
+    v409 = 0u;
+    v406 = 0u;
+    v407 = 0u;
+    v404 = 0u;
+    v405 = 0u;
+    v402 = 0u;
+    v403 = 0u;
+    v400 = 0u;
+    v401 = 0u;
+    v398 = 0u;
+    v399 = 0u;
+    v396 = 0u;
+    v397 = 0u;
     memset(cStr, 0, sizeof(cStr));
     length = 0;
-    v712 = 0u;
-    v713 = 0u;
-    v710 = 0u;
-    v711 = 0u;
-    v708 = 0u;
-    v709 = 0u;
-    v706 = 0u;
-    v707 = 0u;
-    v704 = 0u;
-    v705 = 0u;
-    v702 = 0u;
-    v703 = 0u;
-    v700 = 0u;
-    v701 = 0u;
-    v698 = 0u;
-    v699 = 0u;
+    v393 = 0u;
+    v394 = 0u;
+    v391 = 0u;
+    v392 = 0u;
+    v389 = 0u;
+    v390 = 0u;
+    v387 = 0u;
+    v388 = 0u;
+    v385 = 0u;
+    v386 = 0u;
+    v383 = 0u;
+    v384 = 0u;
+    v381 = 0u;
+    v382 = 0u;
+    outputStruct = 0u;
+    v380 = 0u;
     if (byte_100010010 == 1)
     {
       goto LABEL_286;
@@ -2379,102 +2378,102 @@ LABEL_288:
       {
         if ((length - 0x2000) >= 0xFFFFFFFFFFFFE081)
         {
-          v333 = malloc_type_malloc(length, 0x100004077774924uLL);
-          if (v333)
+          v166 = malloc_type_malloc(length, 0x100004077774924uLL);
+          if (v166)
           {
-            v334 = v333;
-            v689 = length;
-            if (sub_100007AC8(cStr, v333, &v689))
+            v167 = v166;
+            v370 = length;
+            if (sub_100007AC8(cStr, v166, &v370))
             {
-              v335 = CFDataCreateWithBytesNoCopy(v3, v334, v689, kCFAllocatorNull);
-              if (v335)
+              v168 = CFDataCreateWithBytesNoCopy(v3, v167, v370, kCFAllocatorNull);
+              if (v168)
               {
-                v342 = v335;
+                v169 = v168;
                 if (qword_100010218)
                 {
-                  v343 = qword_100010218;
+                  v170 = qword_100010218;
                 }
 
                 else
                 {
-                  v343 = &_os_log_default;
+                  v170 = &_os_log_default;
                 }
 
-                sub_100007804(v343, "%s writes %s size %zu to %s\n", v336, v337, v338, v339, v340, v341, "getGenericCalibrationData");
+                sub_100007804(v170, "%s writes %s size %zu to %s\n", "getGenericCalibrationData", cStr, length, "wifi-calibration-gen");
                 if (dword_100010220)
                 {
-                  *&v344 = 0xAAAAAAAAAAAAAAAALL;
-                  *(&v344 + 1) = 0xAAAAAAAAAAAAAAAALL;
-                  v697 = v344;
-                  v695 = v344;
-                  v696 = v344;
-                  *&v693[16] = v344;
-                  v694 = v344;
-                  v692 = v344;
-                  *v693 = v344;
-                  *size = v344;
+                  *&v171 = 0xAAAAAAAAAAAAAAAALL;
+                  *(&v171 + 1) = 0xAAAAAAAAAAAAAAAALL;
+                  v378 = v171;
+                  v376 = v171;
+                  v377 = v171;
+                  *&v374[16] = v171;
+                  v375 = v171;
+                  v373 = v171;
+                  *v374 = v171;
+                  *size = v171;
                   valuePtr = 0xAAAAAAAAAAAAAAAALL;
                   time(&valuePtr);
-                  v345 = localtime(&valuePtr);
-                  strftime(size, 0x80uLL, "%b %d %H:%M:%S", v345);
+                  v172 = localtime(&valuePtr);
+                  strftime(size, 0x80uLL, "%b %d %H:%M:%S", v172);
                   dprintf(dword_100010220, "%s ", size);
                   dprintf(dword_100010220, "%s writes %s size %zu to %s\n", "getGenericCalibrationData", cStr, length, "wifi-calibration-gen");
                 }
 
-                IORegistryEntrySetCFProperty(*(v1 + 8), @"WiFiGenericCal", v342);
-                v269 = &stru_100010000;
-                v241 = &stru_100010000;
-                if (!sub_100005784(v1, &v698, "clmb"))
+                IORegistryEntrySetCFProperty(*(v1 + 8), @"WiFiGenericCal", v169);
+                v132 = &stru_100010000;
+                v116 = &stru_100010000;
+                if (!sub_100005784(v1, &outputStruct, "clmb"))
                 {
                   HIBYTE(dword_1000100B0) = 1;
-                  qword_100010088 = CFStringCreateWithCString(0, &v698, 0);
-                  free(v334);
+                  qword_100010088 = CFStringCreateWithCString(0, &outputStruct, 0);
+                  free(v167);
 LABEL_286:
-                  v346 = "genCal";
+                  v173 = "genCal";
 LABEL_287:
-                  v259 = &stru_100010000;
+                  v128 = &stru_100010000;
                   goto LABEL_288;
                 }
               }
             }
 
-            free(v334);
+            free(v167);
           }
         }
       }
     }
 
-    v346 = "unavailable";
+    v173 = "unavailable";
     goto LABEL_287;
   }
 
   if (qword_100010218)
   {
-    v281 = qword_100010218;
+    v138 = qword_100010218;
   }
 
   else
   {
-    v281 = &_os_log_default;
+    v138 = &_os_log_default;
   }
 
-  sub_100007804(v281, "%s: platform does not need FDR.\n", v263, v264, v265, v266, v267, v268, "handleFdr");
+  sub_100007804(v138, "%s: platform does not need FDR.\n", "handleFdr");
   if (dword_100010220)
   {
-    *&v282 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v282 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v719 = v282;
-    v720 = v282;
-    v717 = v282;
-    v718 = v282;
-    v715 = v282;
-    v716 = v282;
-    *cStr = v282;
-    *&cStr[16] = v282;
-    *&v698 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v698);
-    v283 = localtime(&v698);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v283);
+    *&v139 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v139 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v400 = v139;
+    v401 = v139;
+    v398 = v139;
+    v399 = v139;
+    v396 = v139;
+    v397 = v139;
+    *cStr = v139;
+    *&cStr[16] = v139;
+    *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+    time(&outputStruct);
+    v140 = localtime(&outputStruct);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v140);
     dprintf(dword_100010220, "%s ", cStr);
     dprintf(dword_100010220, "%s: platform does not need FDR.\n");
   }
@@ -2482,43 +2481,43 @@ LABEL_287:
 LABEL_295:
   if (BYTE2(dword_1000100B0))
   {
-    v358 = 0;
+    v179 = 0;
   }
 
   else
   {
-    v358 = v37;
+    v179 = v13;
   }
 
-  if (v358 && !BYTE1(dword_1000100B0))
+  if (v179 && !BYTE1(dword_1000100B0))
   {
     if (qword_100010218)
     {
-      v359 = qword_100010218;
+      v180 = qword_100010218;
     }
 
     else
     {
-      v359 = &_os_log_default;
+      v180 = &_os_log_default;
     }
 
-    sub_100007804(v359, "Already loaded, bailing use '-r' to force load\n", v273, v274, v275, v276, v277, v278, outputStructd);
+    sub_100007804(v180, "Already loaded, bailing use '-r' to force load\n");
     if (dword_100010220)
     {
-      *&v360 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v360 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v719 = v360;
-      v720 = v360;
-      v717 = v360;
-      v718 = v360;
-      v715 = v360;
-      v716 = v360;
-      *cStr = v360;
-      *&cStr[16] = v360;
-      *&v698 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v698);
-      v361 = localtime(&v698);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v361);
+      *&v181 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v181 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v400 = v181;
+      v401 = v181;
+      v398 = v181;
+      v399 = v181;
+      v396 = v181;
+      v397 = v181;
+      *cStr = v181;
+      *&cStr[16] = v181;
+      *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+      time(&outputStruct);
+      v182 = localtime(&outputStruct);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v182);
       dprintf(dword_100010220, "%s ", cStr);
       dprintf(dword_100010220, "Already loaded, bailing use '-r' to force load\n");
     }
@@ -2529,273 +2528,275 @@ LABEL_295:
 
   if (byte_1000101F8 == 1)
   {
-    v362 = v3;
-    v363 = v259;
+    v183 = v3;
+    v184 = v128;
     if ((qword_1000101FC - 1) > 3)
     {
-      v364 = @"PreventUserIdleSystemSleep";
+      v185 = @"PreventUserIdleSystemSleep";
     }
 
     else
     {
-      v364 = off_10000C600[(qword_1000101FC - 1)];
+      v185 = off_10000C600[(qword_1000101FC - 1)];
     }
 
-    v365 = HIDWORD(qword_1000101FC);
-    v366 = SHIDWORD(qword_1000101FC);
-    v367 = qword_100010218;
-    v368 = CFStringGetCStringPtr(v364, 0);
-    CFStringGetCStringPtr(@"com.apple.wifiFirmwareLoader.IOPMAssertion.loading-firmware", 0);
-    CFStringGetCStringPtr(@"wifiFirmwareLoader: IOPMAssertion: Loading firmware", 0);
-    CFStringGetCStringPtr(@"TimeoutActionTurnOff", 0);
-    v375 = &_os_log_default;
-    if (v367)
+    v186 = HIDWORD(qword_1000101FC);
+    v187 = SHIDWORD(qword_1000101FC);
+    v188 = qword_100010218;
+    v189 = CFStringGetCStringPtr(v185, 0);
+    v190 = CFStringGetCStringPtr(@"com.apple.wifiFirmwareLoader.IOPMAssertion.loading-firmware", 0);
+    v191 = CFStringGetCStringPtr(@"wifiFirmwareLoader: IOPMAssertion: Loading firmware", 0);
+    v192 = CFStringGetCStringPtr(@"TimeoutActionTurnOff", 0);
+    v193 = &_os_log_default;
+    if (v188)
     {
-      v375 = v367;
+      v193 = v188;
     }
 
-    sub_100007804(v375, "_createIOPMHelperCreateAssertion assertionType[%s] assertionName[%s] details[%s] reason[%s] bundle[%s] timeout[%f sec] assertionID[%p] assertionLevel[0x%08x]\n", v369, v370, v371, v372, v373, v374, v368);
-    v269 = &stru_100010000;
+    sub_100007804(v193, "_createIOPMHelperCreateAssertion assertionType[%s] assertionName[%s] details[%s] reason[%s] bundle[%s] timeout[%f sec] assertionID[%p] assertionLevel[0x%08x]\n", v189, v190, v191, &unk_10000A556, &unk_10000A556, v187, v192, 0);
+    v132 = &stru_100010000;
     if (dword_100010220)
     {
-      *&v382 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v382 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v719 = v382;
-      v720 = v382;
-      v717 = v382;
-      v718 = v382;
-      v715 = v382;
-      v716 = v382;
-      *cStr = v382;
-      *&cStr[16] = v382;
-      *&v698 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v698);
-      v383 = localtime(&v698);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v383);
+      *&v194 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v194 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v400 = v194;
+      v401 = v194;
+      v398 = v194;
+      v399 = v194;
+      v396 = v194;
+      v397 = v194;
+      *cStr = v194;
+      *&cStr[16] = v194;
+      *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+      time(&outputStruct);
+      v195 = localtime(&outputStruct);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v195);
       dprintf(dword_100010220, "%s ", cStr);
-      v384 = dword_100010220;
-      v385 = CFStringGetCStringPtr(v364, 0);
-      v386 = CFStringGetCStringPtr(@"com.apple.wifiFirmwareLoader.IOPMAssertion.loading-firmware", 0);
-      v387 = CFStringGetCStringPtr(@"wifiFirmwareLoader: IOPMAssertion: Loading firmware", 0);
-      v388 = CFStringGetCStringPtr(@"TimeoutActionTurnOff", 0);
-      outputStructCnt = v386;
-      v269 = &stru_100010000;
-      dprintf(v384, "_createIOPMHelperCreateAssertion assertionType[%s] assertionName[%s] details[%s] reason[%s] bundle[%s] timeout[%f sec] assertionID[%p] assertionLevel[0x%08x]\n", v385, outputStructCnt, v387, &unk_10000A556, &unk_10000A556, v366, v388, 0);
+      v196 = dword_100010220;
+      v197 = CFStringGetCStringPtr(v185, 0);
+      v198 = CFStringGetCStringPtr(@"com.apple.wifiFirmwareLoader.IOPMAssertion.loading-firmware", 0);
+      v199 = CFStringGetCStringPtr(@"wifiFirmwareLoader: IOPMAssertion: Loading firmware", 0);
+      v200 = CFStringGetCStringPtr(@"TimeoutActionTurnOff", 0);
+      outputStructCnt = v198;
+      v132 = &stru_100010000;
+      dprintf(v196, "_createIOPMHelperCreateAssertion assertionType[%s] assertionName[%s] details[%s] reason[%s] bundle[%s] timeout[%f sec] assertionID[%p] assertionLevel[0x%08x]\n", v197, outputStructCnt, v199, &unk_10000A556, &unk_10000A556, v187, v200, 0);
     }
 
-    v259 = v363;
-    if (v365 <= 0)
+    v128 = v184;
+    if (v186 <= 0)
     {
-      v395 = -536870911;
-      v3 = v362;
-      v241 = &stru_100010000;
+      v205 = dword_100010208;
+      v201 = -536870911;
+      v3 = v183;
+      v116 = &stru_100010000;
     }
 
     else
     {
       LODWORD(size[0]) = 0;
-      v395 = IOPMAssertionCreateWithDescription(v364, @"com.apple.wifiFirmwareLoader.IOPMAssertion.loading-firmware", @"wifiFirmwareLoader: IOPMAssertion: Loading firmware", 0, 0, v366, @"TimeoutActionTurnOff", size);
+      v201 = IOPMAssertionCreateWithDescription(v185, @"com.apple.wifiFirmwareLoader.IOPMAssertion.loading-firmware", @"wifiFirmwareLoader: IOPMAssertion: Loading firmware", 0, 0, v187, @"TimeoutActionTurnOff", size);
       if (qword_100010218)
       {
-        v396 = qword_100010218;
+        v202 = qword_100010218;
       }
 
       else
       {
-        v396 = &_os_log_default;
+        v202 = &_os_log_default;
       }
 
-      sub_100007804(v396, "_createIOPMHelperCreateAssertion 'IOPMAssertionCreateWithDescription': return [0x%08x], id[0x%08x]\n", v389, v390, v391, v392, v393, v394, v395);
-      v3 = v362;
+      sub_100007804(v202, "_createIOPMHelperCreateAssertion 'IOPMAssertionCreateWithDescription': return [0x%08x], id[0x%08x]\n", v201, LODWORD(size[0]));
+      v3 = v183;
       if (dword_100010220)
       {
-        *&v397 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v397 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v719 = v397;
-        v720 = v397;
-        v717 = v397;
-        v718 = v397;
-        v715 = v397;
-        v716 = v397;
-        *cStr = v397;
-        *&cStr[16] = v397;
-        *&v698 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v698);
-        v398 = localtime(&v698);
-        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v398);
+        *&v203 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v203 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v400 = v203;
+        v401 = v203;
+        v398 = v203;
+        v399 = v203;
+        v396 = v203;
+        v397 = v203;
+        *cStr = v203;
+        *&cStr[16] = v203;
+        *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+        time(&outputStruct);
+        v204 = localtime(&outputStruct);
+        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v204);
         dprintf(dword_100010220, "%s ", cStr);
-        dprintf(dword_100010220, "_createIOPMHelperCreateAssertion 'IOPMAssertionCreateWithDescription': return [0x%08x], id[0x%08x]\n", v395, LODWORD(size[0]));
+        dprintf(dword_100010220, "_createIOPMHelperCreateAssertion 'IOPMAssertionCreateWithDescription': return [0x%08x], id[0x%08x]\n", v201, LODWORD(size[0]));
       }
 
-      v241 = &stru_100010000;
+      v205 = size[0];
+      v116 = &stru_100010000;
       dword_100010208 = size[0];
     }
 
     if (qword_100010218)
     {
-      v399 = qword_100010218;
+      v206 = qword_100010218;
     }
 
     else
     {
-      v399 = &_os_log_default;
+      v206 = &_os_log_default;
     }
 
-    sub_100007804(v399, "wifiFirmwareLoaderServiceThread: _createIOPMHelperCreateAssertion return[0x%08x], id[0x%08x]\n", v376, v377, v378, v379, v380, v381, v395);
+    sub_100007804(v206, "wifiFirmwareLoaderServiceThread: _createIOPMHelperCreateAssertion return[0x%08x], id[0x%08x]\n", v201, v205);
     if (dword_100010220)
     {
-      *&v400 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v400 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v719 = v400;
-      v720 = v400;
-      v717 = v400;
-      v718 = v400;
-      v715 = v400;
-      v716 = v400;
-      *cStr = v400;
-      *&cStr[16] = v400;
-      *&v698 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v698);
-      v401 = localtime(&v698);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v401);
+      *&v207 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v207 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v400 = v207;
+      v401 = v207;
+      v398 = v207;
+      v399 = v207;
+      v396 = v207;
+      v397 = v207;
+      *cStr = v207;
+      *&cStr[16] = v207;
+      *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+      time(&outputStruct);
+      v208 = localtime(&outputStruct);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v208);
       dprintf(dword_100010220, "%s ", cStr);
-      dprintf(dword_100010220, "wifiFirmwareLoaderServiceThread: _createIOPMHelperCreateAssertion return[0x%08x], id[0x%08x]\n", v395, dword_100010208);
+      dprintf(dword_100010220, "wifiFirmwareLoaderServiceThread: _createIOPMHelperCreateAssertion return[0x%08x], id[0x%08x]\n", v201, dword_100010208);
     }
   }
 
-  v408 = CFStringGetCStringPtr(*(v1 + 64), 0);
+  v209 = CFStringGetCStringPtr(*(v1 + 64), 0);
   if (qword_100010218)
   {
-    v409 = qword_100010218;
+    v210 = qword_100010218;
   }
 
   else
   {
-    v409 = &_os_log_default;
+    v210 = &_os_log_default;
   }
 
-  sub_100007804(v409, "full path firmwareName is %s\n", v402, v403, v404, v405, v406, v407, v408);
+  sub_100007804(v210, "full path firmwareName is %s\n", v209);
   if (dword_100010220)
   {
-    *&v410 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v410 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v719 = v410;
-    v720 = v410;
-    v717 = v410;
-    v718 = v410;
-    v715 = v410;
-    v716 = v410;
-    *cStr = v410;
-    *&cStr[16] = v410;
-    *&v698 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v698);
-    v411 = localtime(&v698);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v411);
+    *&v211 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v211 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v400 = v211;
+    v401 = v211;
+    v398 = v211;
+    v399 = v211;
+    v396 = v211;
+    v397 = v211;
+    *cStr = v211;
+    *&cStr[16] = v211;
+    *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+    time(&outputStruct);
+    v212 = localtime(&outputStruct);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v212);
     dprintf(dword_100010220, "%s ", cStr);
-    dprintf(dword_100010220, "full path firmwareName is %s\n", v408);
+    dprintf(dword_100010220, "full path firmwareName is %s\n", v209);
   }
 
-  if ((sub_1000073A0(v408, &qword_1000100B8) & 1) == 0)
+  if ((sub_1000073A0(v209, &qword_1000100B8) & 1) == 0)
   {
     goto LABEL_383;
   }
 
   if (!sub_100008458(*(v1 + 32), @"Signature"))
   {
-    v420 = 0;
+    v221 = 0;
     goto LABEL_374;
   }
 
-  v412 = *(v1 + 32);
-  v413 = *(v1 + 48);
-  if (!v413)
+  v213 = *(v1 + 32);
+  v214 = *(v1 + 48);
+  if (!v214)
   {
-    v415 = qword_100010080;
+    v216 = qword_100010080;
     if (!qword_100010080)
     {
 LABEL_364:
-      v419 = sub_1000082E0(v412, @"Signature", &qword_1000100C0, v681);
+      v220 = sub_1000082E0(v213, @"Signature", &qword_1000100C0, v362);
       goto LABEL_365;
     }
 
     goto LABEL_363;
   }
 
-  v414 = CFDictionaryGetValue(v413, @"wifi-signature-path");
-  v415 = qword_100010080;
+  v215 = CFDictionaryGetValue(v214, @"wifi-signature-path");
+  v216 = qword_100010080;
   if (qword_100010080)
   {
 LABEL_363:
-    v419 = CFStringCreateMutableCopy(v3, 255, v415);
+    v220 = CFStringCreateMutableCopy(v3, 255, v216);
     goto LABEL_365;
   }
 
-  v416 = v414;
-  if (!v414)
+  v217 = v215;
+  if (!v215)
   {
     goto LABEL_364;
   }
 
-  v417 = CFGetTypeID(v414);
-  v418 = v417 == CFDataGetTypeID();
-  v269 = &stru_100010000;
-  if (!v418)
+  v218 = CFGetTypeID(v215);
+  v219 = v218 == CFDataGetTypeID();
+  v132 = &stru_100010000;
+  if (!v219)
   {
     goto LABEL_364;
   }
 
-  v419 = CFStringCreateFromExternalRepresentation(v3, v416, 0);
+  v220 = CFStringCreateFromExternalRepresentation(v3, v217, 0);
 LABEL_365:
-  v449 = v419;
-  if (!v419)
+  v238 = v220;
+  if (!v220)
   {
     *(v1 + 72) = 0;
     goto LABEL_383;
   }
 
-  v450 = CFStringGetCStringPtr(v419, 0);
-  v451 = &unk_10000A556;
-  if (v450)
+  v239 = CFStringGetCStringPtr(v220, 0);
+  v240 = &unk_10000A556;
+  if (v239)
   {
-    v451 = v450;
+    v240 = v239;
   }
 
-  fprintf(__stdoutp, "Resolved to signature file path: %s\n", v451);
-  *(v1 + 72) = v449;
-  v420 = CFStringGetCStringPtr(v449, 0);
-  v458 = sub_1000073A0(v420, &qword_1000100C0);
+  fprintf(__stdoutp, "Resolved to signature file path: %s\n", v240);
+  *(v1 + 72) = v238;
+  v221 = CFStringGetCStringPtr(v238, 0);
+  v241 = sub_1000073A0(v221, &qword_1000100C0);
   if (qword_100010218)
   {
-    v459 = qword_100010218;
+    v242 = qword_100010218;
   }
 
   else
   {
-    v459 = &_os_log_default;
+    v242 = &_os_log_default;
   }
 
-  sub_100007804(v459, "full path signatureName is %s (%zu bytes)\n", v452, v453, v454, v455, v456, v457, v420);
-  if (LODWORD(v269[34].__sig))
+  sub_100007804(v242, "full path signatureName is %s (%zu bytes)\n", v221, qword_1000100C0);
+  if (LODWORD(v132[34].__sig))
   {
-    *&v460 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v460 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v719 = v460;
-    v720 = v460;
-    v717 = v460;
-    v718 = v460;
-    v715 = v460;
-    v716 = v460;
-    *cStr = v460;
-    *&cStr[16] = v460;
-    *&v698 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v698);
-    v461 = localtime(&v698);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v461);
-    dprintf(v269[34].__sig, "%s ", cStr);
-    dprintf(v269[34].__sig, "full path signatureName is %s (%zu bytes)\n", v420, qword_1000100C0);
+    *&v243 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v243 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v400 = v243;
+    v401 = v243;
+    v398 = v243;
+    v399 = v243;
+    v396 = v243;
+    v397 = v243;
+    *cStr = v243;
+    *&cStr[16] = v243;
+    *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+    time(&outputStruct);
+    v244 = localtime(&outputStruct);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v244);
+    dprintf(v132[34].__sig, "%s ", cStr);
+    dprintf(v132[34].__sig, "full path signatureName is %s (%zu bytes)\n", v221, qword_1000100C0);
   }
 
-  if ((v458 & 1) == 0)
+  if ((v241 & 1) == 0)
   {
     goto LABEL_383;
   }
@@ -2803,28 +2804,28 @@ LABEL_365:
 LABEL_374:
   if (!sub_100008458(*(v1 + 32), @"Platcfg"))
   {
-    v476 = 0;
+    v253 = 0;
     goto LABEL_400;
   }
 
-  v462 = *(v1 + 32);
-  v463 = *(v1 + 48);
-  if (v463)
+  v245 = *(v1 + 32);
+  v246 = *(v1 + 48);
+  if (v246)
   {
-    v464 = CFDictionaryGetValue(v463, @"wifi-platcfg-path");
-    v465 = *(&xmmword_100010090 + 1);
+    v247 = CFDictionaryGetValue(v246, @"wifi-platcfg-path");
+    v248 = *(&xmmword_100010090 + 1);
     if (!*(&xmmword_100010090 + 1))
     {
-      v466 = v464;
-      if (v464)
+      v249 = v247;
+      if (v247)
       {
-        v467 = v259;
-        v468 = CFGetTypeID(v464);
-        v418 = v468 == CFDataGetTypeID();
-        v259 = v467;
-        if (v418)
+        v250 = v128;
+        v251 = CFGetTypeID(v247);
+        v219 = v251 == CFDataGetTypeID();
+        v128 = v250;
+        if (v219)
         {
-          v469 = CFStringCreateFromExternalRepresentation(v3, v466, 0);
+          v252 = CFStringCreateFromExternalRepresentation(v3, v249, 0);
           goto LABEL_387;
         }
       }
@@ -2833,98 +2834,100 @@ LABEL_374:
     }
 
 LABEL_385:
-    v469 = CFStringCreateMutableCopy(v3, 255, v465);
+    v252 = CFStringCreateMutableCopy(v3, 255, v248);
     goto LABEL_387;
   }
 
-  v465 = *(&xmmword_100010090 + 1);
+  v248 = *(&xmmword_100010090 + 1);
   if (*(&xmmword_100010090 + 1))
   {
     goto LABEL_385;
   }
 
 LABEL_386:
-  v469 = sub_1000082E0(v462, @"Platcfg", &qword_1000100E0, v681);
+  v252 = sub_1000082E0(v245, @"Platcfg", &qword_1000100E0, v362);
 LABEL_387:
-  v477 = v469;
-  if (v469)
+  v254 = v252;
+  if (v252)
   {
-    v478 = CFStringGetCStringPtr(v469, 0);
-    v479 = &unk_10000A556;
-    if (v478)
+    v255 = CFStringGetCStringPtr(v252, 0);
+    v256 = &unk_10000A556;
+    if (v255)
     {
-      v479 = v478;
+      v256 = v255;
     }
 
-    fprintf(__stdoutp, "Resolved to platcfg file path: %s\n", v479);
-    *(v1 + 96) = v477;
-    v476 = CFStringGetCStringPtr(v477, 0);
-    v480 = sub_1000073A0(v476, &qword_1000100E0);
-    if (*(v1 + 96) && v480)
+    fprintf(__stdoutp, "Resolved to platcfg file path: %s\n", v256);
+    *(v1 + 96) = v254;
+    v253 = CFStringGetCStringPtr(v254, 0);
+    v257 = sub_1000073A0(v253, &qword_1000100E0);
+    if (*(v1 + 96) && v257)
     {
+      v258 = qword_1000100E0;
       goto LABEL_395;
     }
   }
 
   else
   {
-    v476 = 0;
+    v253 = 0;
     *(v1 + 96) = 0;
   }
 
+  v258 = 0;
   qword_1000100E0 = 0;
 LABEL_395:
   if (qword_100010218)
   {
-    v481 = qword_100010218;
+    v259 = qword_100010218;
   }
 
   else
   {
-    v481 = &_os_log_default;
+    v259 = &_os_log_default;
   }
 
-  sub_100007804(v481, "full path platcfgName is %s (%zu bytes)\n", v470, v471, v472, v473, v474, v475, v476);
-  if (LODWORD(v269[34].__sig))
+  sub_100007804(v259, "full path platcfgName is %s (%zu bytes)\n", v253, v258);
+  if (LODWORD(v132[34].__sig))
   {
-    *&v482 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v482 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v719 = v482;
-    v720 = v482;
-    v717 = v482;
-    v718 = v482;
-    v715 = v482;
-    v716 = v482;
-    *cStr = v482;
-    *&cStr[16] = v482;
-    *&v698 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v698);
-    v483 = localtime(&v698);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v483);
-    dprintf(v269[34].__sig, "%s ", cStr);
-    dprintf(v269[34].__sig, "full path platcfgName is %s (%zu bytes)\n", v476, qword_1000100E0);
+    *&v260 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v260 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v400 = v260;
+    v401 = v260;
+    v398 = v260;
+    v399 = v260;
+    v396 = v260;
+    v397 = v260;
+    *cStr = v260;
+    *&cStr[16] = v260;
+    *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+    time(&outputStruct);
+    v261 = localtime(&outputStruct);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v261);
+    dprintf(v132[34].__sig, "%s ", cStr);
+    dprintf(v132[34].__sig, "full path platcfgName is %s (%zu bytes)\n", v253, qword_1000100E0);
   }
 
 LABEL_400:
-  v687 = v476;
-  v484 = *(v1 + 32);
-  v485 = *(v1 + 48);
-  if (v485)
+  v368 = v253;
+  v262 = *(v1 + 32);
+  v263 = *(v1 + 48);
+  if (v263)
   {
-    v486 = CFDictionaryGetValue(v485, @"wifi-nvram-path");
-    v487 = xmmword_100010070;
+    v264 = CFDictionaryGetValue(v263, @"wifi-nvram-path");
+    v265 = xmmword_100010070;
     if (!xmmword_100010070)
     {
-      v488 = v486;
-      if (v486)
+      v266 = v264;
+      if (v264)
       {
-        v489 = v420;
-        v490 = CFGetTypeID(v486);
-        v418 = v490 == CFDataGetTypeID();
-        v420 = v489;
-        if (v418)
+        v267 = v221;
+        v268 = CFGetTypeID(v264);
+        v219 = v268 == CFDataGetTypeID();
+        v221 = v267;
+        if (v219)
         {
-          v491 = CFStringCreateFromExternalRepresentation(v3, v488, 0);
+          v269 = CFStringCreateFromExternalRepresentation(v3, v266, 0);
           goto LABEL_409;
         }
       }
@@ -2933,188 +2936,188 @@ LABEL_400:
     }
 
 LABEL_407:
-    v491 = CFStringCreateMutableCopy(v3, 255, v487);
+    v269 = CFStringCreateMutableCopy(v3, 255, v265);
     goto LABEL_409;
   }
 
-  v487 = xmmword_100010070;
+  v265 = xmmword_100010070;
   if (xmmword_100010070)
   {
     goto LABEL_407;
   }
 
 LABEL_408:
-  v491 = sub_1000082E0(v484, @"NVRAM", dword_1000100F0, v681);
+  v269 = sub_1000082E0(v262, @"NVRAM", dword_1000100F0, v362);
 LABEL_409:
-  v492 = v491;
-  if (BYTE1(v259[11].__sig) == 1)
+  v270 = v269;
+  if (BYTE1(v128[11].__sig) == 1)
   {
-    v493 = CFStringGetCStringPtr(v491, 0);
-    v494 = &unk_10000A556;
-    if (v493)
+    v271 = CFStringGetCStringPtr(v269, 0);
+    v272 = &unk_10000A556;
+    if (v271)
     {
-      v494 = v493;
+      v272 = v271;
     }
 
-    fprintf(__stdoutp, "Resolved to NVRAM file path: %s\n", v494);
+    fprintf(__stdoutp, "Resolved to NVRAM file path: %s\n", v272);
   }
 
-  *(v1 + 56) = v492;
-  if (!v492)
+  *(v1 + 56) = v270;
+  if (!v270)
   {
     goto LABEL_383;
   }
 
-  cfb = v420;
-  v501 = CFStringGetCStringPtr(v492, 0);
+  cfb = v221;
+  v273 = CFStringGetCStringPtr(v270, 0);
   if (qword_100010218)
   {
-    v502 = qword_100010218;
+    v274 = qword_100010218;
   }
 
   else
   {
-    v502 = &_os_log_default;
+    v274 = &_os_log_default;
   }
 
-  sub_100007804(v502, "full path NVRAM is %s\n", v495, v496, v497, v498, v499, v500, v501);
-  if (LODWORD(v269[34].__sig))
+  sub_100007804(v274, "full path NVRAM is %s\n", v273);
+  if (LODWORD(v132[34].__sig))
   {
-    *&v503 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v503 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v719 = v503;
-    v720 = v503;
-    v717 = v503;
-    v718 = v503;
-    v715 = v503;
-    v716 = v503;
-    *cStr = v503;
-    *&cStr[16] = v503;
-    *&v698 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v698);
-    v504 = localtime(&v698);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v504);
-    dprintf(v269[34].__sig, "%s ", cStr);
-    dprintf(v269[34].__sig, "full path NVRAM is %s\n", v501);
+    *&v275 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v275 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v400 = v275;
+    v401 = v275;
+    v398 = v275;
+    v399 = v275;
+    v396 = v275;
+    v397 = v275;
+    *cStr = v275;
+    *&cStr[16] = v275;
+    *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+    time(&outputStruct);
+    v276 = localtime(&outputStruct);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v276);
+    dprintf(v132[34].__sig, "%s ", cStr);
+    dprintf(v132[34].__sig, "full path NVRAM is %s\n", v273);
   }
 
-  if ((sub_1000073A0(v501, &qword_1000100C8) & 1) == 0)
+  if ((sub_1000073A0(v273, &qword_1000100C8) & 1) == 0)
   {
     goto LABEL_383;
   }
 
   if (dword_1000100B0 == 1 && HIBYTE(dword_1000100B0) != 1)
   {
-    v511 = v3;
-    v512 = 0;
+    v283 = v3;
+    v284 = 0;
     goto LABEL_451;
   }
 
   if (qword_100010088)
   {
-    v505 = CFStringCreateMutableCopy(v3, 255, qword_100010088);
+    v277 = CFStringCreateMutableCopy(v3, 255, qword_100010088);
 LABEL_424:
-    v506 = v505;
+    v278 = v277;
     goto LABEL_432;
   }
 
   if (!*(v1 + 40))
   {
-    v505 = sub_1000082E0(*(v1 + 32), @"Regulatory", &qword_1000100F8, v681);
+    v277 = sub_1000082E0(*(v1 + 32), @"Regulatory", &qword_1000100F8, v362);
     goto LABEL_424;
   }
 
   if (qword_100010218)
   {
-    v507 = qword_100010218;
+    v279 = qword_100010218;
   }
 
   else
   {
-    v507 = &_os_log_default;
+    v279 = &_os_log_default;
   }
 
-  sub_100007964(v507, "Deprecated feature\n", 0, v236, v237, v238, v239, v240, outputStructe);
-  if (LODWORD(v269[34].__sig))
+  sub_100007964(v279, "Deprecated feature\n");
+  if (LODWORD(v132[34].__sig))
   {
-    *&v508 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v508 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v719 = v508;
-    v720 = v508;
-    v717 = v508;
-    v718 = v508;
-    v715 = v508;
-    v716 = v508;
-    *cStr = v508;
-    *&cStr[16] = v508;
-    *&v698 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v698);
-    v509 = localtime(&v698);
-    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v509);
-    dprintf(v269[34].__sig, "%s ", cStr);
-    dprintf(v269[34].__sig, "Deprecated feature\n");
+    *&v280 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v280 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v400 = v280;
+    v401 = v280;
+    v398 = v280;
+    v399 = v280;
+    v396 = v280;
+    v397 = v280;
+    *cStr = v280;
+    *&cStr[16] = v280;
+    *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+    time(&outputStruct);
+    v281 = localtime(&outputStruct);
+    strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v281);
+    dprintf(v132[34].__sig, "%s ", cStr);
+    dprintf(v132[34].__sig, "Deprecated feature\n");
   }
 
-  v506 = 0;
+  v278 = 0;
 LABEL_432:
-  if (BYTE1(v259[11].__sig) == 1)
+  if (BYTE1(v128[11].__sig) == 1)
   {
-    if (v506)
+    if (v278)
     {
-      v510 = CFStringGetCStringPtr(v506, 0);
+      v282 = CFStringGetCStringPtr(v278, 0);
     }
 
     else
     {
-      v510 = 0;
+      v282 = 0;
     }
 
-    v513 = &unk_10000A556;
-    if (v510)
+    v285 = &unk_10000A556;
+    if (v282)
     {
-      v513 = v510;
+      v285 = v282;
     }
 
-    fprintf(__stdoutp, "Resolved to Regulatory file path: %s\n", v513);
+    fprintf(__stdoutp, "Resolved to Regulatory file path: %s\n", v285);
   }
 
-  v511 = v3;
-  *(v1 + 80) = v506;
-  if (v506)
+  v283 = v3;
+  *(v1 + 80) = v278;
+  if (v278)
   {
-    v512 = CFStringGetCStringPtr(v506, 0);
+    v284 = CFStringGetCStringPtr(v278, 0);
     if (qword_100010218)
     {
-      v520 = qword_100010218;
+      v286 = qword_100010218;
     }
 
     else
     {
-      v520 = &_os_log_default;
+      v286 = &_os_log_default;
     }
 
-    sub_100007804(v520, "full path Regulatory is %s\n", v514, v515, v516, v517, v518, v519, v512);
-    if (LODWORD(v269[34].__sig))
+    sub_100007804(v286, "full path Regulatory is %s\n", v284);
+    if (LODWORD(v132[34].__sig))
     {
-      *&v521 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v521 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v719 = v521;
-      v720 = v521;
-      v717 = v521;
-      v718 = v521;
-      v715 = v521;
-      v716 = v521;
-      *cStr = v521;
-      *&cStr[16] = v521;
-      *&v698 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v698);
-      v522 = localtime(&v698);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v522);
-      dprintf(v269[34].__sig, "%s ", cStr);
-      dprintf(v269[34].__sig, "full path Regulatory is %s\n", v512);
+      *&v287 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v287 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v400 = v287;
+      v401 = v287;
+      v398 = v287;
+      v399 = v287;
+      v396 = v287;
+      v397 = v287;
+      *cStr = v287;
+      *&cStr[16] = v287;
+      *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+      time(&outputStruct);
+      v288 = localtime(&outputStruct);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v288);
+      dprintf(v132[34].__sig, "%s ", cStr);
+      dprintf(v132[34].__sig, "full path Regulatory is %s\n", v284);
     }
 
-    if ((sub_1000073A0(v512, &qword_1000100D0) & 1) == 0 || qword_1000100D0 >= 0x19000 || qword_1000100D0 <= 0x20)
+    if ((sub_1000073A0(v284, &qword_1000100D0) & 1) == 0 || qword_1000100D0 >= 0x19000 || qword_1000100D0 <= 0x20)
     {
       goto LABEL_383;
     }
@@ -3122,85 +3125,85 @@ LABEL_432:
 
   else
   {
-    v512 = 0;
+    v284 = 0;
     qword_1000100F8 = -1;
   }
 
 LABEL_451:
   if (dword_1000100B0 == 1 && word_1000100B4 != 1)
   {
-    v524 = 0;
+    v290 = 0;
     goto LABEL_473;
   }
 
   if (xmmword_100010090)
   {
-    v523 = CFStringCreateMutableCopy(v511, 255, xmmword_100010090);
+    v289 = CFStringCreateMutableCopy(v283, 255, xmmword_100010090);
   }
 
   else
   {
-    v523 = sub_1000082E0(*(v1 + 32), @"TxCap", cStr, v681);
+    v289 = sub_1000082E0(*(v1 + 32), @"TxCap", cStr, v362);
   }
 
-  v524 = v523;
-  if (BYTE1(v259[11].__sig) == 1)
+  v290 = v289;
+  if (BYTE1(v128[11].__sig) == 1)
   {
-    if (v523)
+    if (v289)
     {
-      v525 = CFStringGetCStringPtr(v523, 0);
+      v291 = CFStringGetCStringPtr(v289, 0);
     }
 
     else
     {
-      v525 = 0;
+      v291 = 0;
     }
 
-    v526 = &unk_10000A556;
-    if (v525)
+    v292 = &unk_10000A556;
+    if (v291)
     {
-      v526 = v525;
+      v292 = v291;
     }
 
-    fprintf(__stdoutp, "Resolved to TxCap file path: %s\n", v526);
+    fprintf(__stdoutp, "Resolved to TxCap file path: %s\n", v292);
   }
 
-  *(v1 + 88) = v524;
-  if (v524)
+  *(v1 + 88) = v290;
+  if (v290)
   {
-    v524 = CFStringGetCStringPtr(v524, 0);
+    v290 = CFStringGetCStringPtr(v290, 0);
     if (qword_100010218)
     {
-      v533 = qword_100010218;
+      v293 = qword_100010218;
     }
 
     else
     {
-      v533 = &_os_log_default;
+      v293 = &_os_log_default;
     }
 
-    sub_100007804(v533, "full path TxCap is %s\n", v527, v528, v529, v530, v531, v532, v524);
-    if (LODWORD(v269[34].__sig))
+    sub_100007804(v293, "full path TxCap is %s\n", v290);
+    if (LODWORD(v132[34].__sig))
     {
-      *&v534 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v534 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v719 = v534;
-      v720 = v534;
-      v717 = v534;
-      v718 = v534;
-      v715 = v534;
-      v716 = v534;
-      *cStr = v534;
-      *&cStr[16] = v534;
-      *&v698 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v698);
-      v535 = localtime(&v698);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v535);
-      dprintf(v269[34].__sig, "%s ", cStr);
-      dprintf(v269[34].__sig, "full path TxCap is %s\n", v524);
+      *&v294 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v294 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v400 = v294;
+      v401 = v294;
+      v398 = v294;
+      v399 = v294;
+      v396 = v294;
+      v397 = v294;
+      *cStr = v294;
+      *&cStr[16] = v294;
+      *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+      time(&outputStruct);
+      v295 = localtime(&outputStruct);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v295);
+      dprintf(v132[34].__sig, "%s ", cStr);
+      dprintf(v132[34].__sig, "full path TxCap is %s\n", v290);
     }
 
-    if ((sub_1000073A0(v524, &qword_1000100D8) & 1) == 0 || qword_1000100D8 >= 0x8000 || qword_1000100D8 <= 0x20)
+    if ((sub_1000073A0(v290, &qword_1000100D8) & 1) == 0 || qword_1000100D8 >= 0x8000 || qword_1000100D8 <= 0x20)
     {
 LABEL_383:
       IOConnectCallScalarMethod(*(*(v1 + 24) + 20), 4u, 0, 0, 0, 0);
@@ -3209,166 +3212,166 @@ LABEL_383:
   }
 
 LABEL_473:
-  if ((v259[11].__sig & 0x100) != 0)
+  if ((v128[11].__sig & 0x100) != 0)
   {
 LABEL_474:
     *(v1 + 12) = 0;
     goto LABEL_475;
   }
 
-  v719 = 0u;
-  v720 = 0u;
-  v717 = 0u;
-  v718 = 0u;
-  v715 = 0u;
-  v716 = 0u;
+  v400 = 0u;
+  v401 = 0u;
+  v398 = 0u;
+  v399 = 0u;
+  v396 = 0u;
+  v397 = 0u;
   memset(cStr, 0, sizeof(cStr));
   if (byte_100010010 != 1)
   {
-    v581 = *(v1 + 24);
-    *&v698 = 128;
-    v577 = IOConnectCallMethod(*(v581 + 20), 2u, 0, 0, &qword_1000100B8, 0x48uLL, 0, 0, cStr, &v698);
+    v323 = *(v1 + 24);
+    *&outputStruct = 128;
+    v319 = IOConnectCallMethod(*(v323 + 20), 2u, 0, 0, &qword_1000100B8, 0x48uLL, 0, 0, cStr, &outputStruct);
     if (qword_100010218)
     {
-      v588 = qword_100010218;
+      v324 = qword_100010218;
     }
 
     else
     {
-      v588 = &_os_log_default;
+      v324 = &_os_log_default;
     }
 
-    sub_100007804(v588, "WiFiUserClientPrepareMapping return %x firmwarebuffer len %lld nvrambuffer len %lld reg len %lld signatureBuffer len %lld platcfgBuffer len %lld\n", v582, v583, v584, v585, v586, v587, v577);
-    if (LODWORD(v269[34].__sig))
+    sub_100007804(v324, "WiFiUserClientPrepareMapping return %x firmwarebuffer len %lld nvrambuffer len %lld reg len %lld signatureBuffer len %lld platcfgBuffer len %lld\n", v319, *&cStr[8], v396, *(&v399 + 1), v397, v398);
+    if (LODWORD(v132[34].__sig))
     {
-      *&v589 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v589 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v589;
-      v705 = v589;
-      v702 = v589;
-      v703 = v589;
-      v700 = v589;
-      v701 = v589;
-      v698 = v589;
-      v699 = v589;
+      *&v325 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v325 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v325;
+      v386 = v325;
+      v383 = v325;
+      v384 = v325;
+      v381 = v325;
+      v382 = v325;
+      outputStruct = v325;
+      v380 = v325;
       size[0] = 0xAAAAAAAAAAAAAAAALL;
       time(size);
-      v590 = localtime(size);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v590);
-      dprintf(v269[34].__sig, "%s ", &v698);
-      dprintf(v269[34].__sig, "WiFiUserClientPrepareMapping return %x firmwarebuffer len %lld nvrambuffer len %lld reg len %lld signatureBuffer len %lld platcfgBuffer len %lld\n", v577, *&cStr[8], v715, *(&v718 + 1), v716, v717);
+      v326 = localtime(size);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v326);
+      dprintf(v132[34].__sig, "%s ", &outputStruct);
+      dprintf(v132[34].__sig, "WiFiUserClientPrepareMapping return %x firmwarebuffer len %lld nvrambuffer len %lld reg len %lld signatureBuffer len %lld platcfgBuffer len %lld\n", v319, *&cStr[8], v396, *(&v399 + 1), v397, v398);
     }
 
     goto LABEL_542;
   }
 
-  *&v569 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v569 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v704 = v569;
-  v705 = v569;
-  v702 = v569;
-  v703 = v569;
-  v700 = v569;
-  v701 = v569;
-  v698 = v569;
-  v699 = v569;
-  v570 = *(v1 + 24);
+  *&v317 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v317 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v385 = v317;
+  v386 = v317;
+  v383 = v317;
+  v384 = v317;
+  v381 = v317;
+  v382 = v317;
+  outputStruct = v317;
+  v380 = v317;
+  v318 = *(v1 + 24);
   size[0] = 128;
-  v577 = IOConnectCallMethod(*(v570 + 20), 2u, 0, 0, &qword_1000100B8, 0x48uLL, 0, 0, &v698, size);
+  v319 = IOConnectCallMethod(*(v318 + 20), 2u, 0, 0, &qword_1000100B8, 0x48uLL, 0, 0, &outputStruct, size);
   if (qword_100010218)
   {
-    v578 = qword_100010218;
+    v320 = qword_100010218;
   }
 
   else
   {
-    v578 = &_os_log_default;
+    v320 = &_os_log_default;
   }
 
-  sub_100007804(v578, "WiFiUserClientPrepareMappingDK return %x firmware len %lld nvram len %lld reg len %lld txcap len %lld signature len %lld platcfg len %lld\n", v571, v572, v573, v574, v575, v576, v577);
-  if (LODWORD(v269[34].__sig))
+  sub_100007804(v320, "WiFiUserClientPrepareMappingDK return %x firmware len %lld nvram len %lld reg len %lld txcap len %lld signature len %lld platcfg len %lld\n", v319, *(&outputStruct + 1), v381, *(&v384 + 1), v386, v382, v383);
+  if (LODWORD(v132[34].__sig))
   {
-    *&v579 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v579 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v697 = v579;
-    v695 = v579;
-    v696 = v579;
-    *&v693[16] = v579;
-    v694 = v579;
-    v692 = v579;
-    *v693 = v579;
-    *size = v579;
+    *&v321 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v321 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v378 = v321;
+    v376 = v321;
+    v377 = v321;
+    *&v374[16] = v321;
+    v375 = v321;
+    v373 = v321;
+    *v374 = v321;
+    *size = v321;
     length = 0xAAAAAAAAAAAAAAAALL;
     time(&length);
-    v580 = localtime(&length);
-    strftime(size, 0x80uLL, "%b %d %H:%M:%S", v580);
-    dprintf(v269[34].__sig, "%s ", size);
-    dprintf(v269[34].__sig, "WiFiUserClientPrepareMappingDK return %x firmware len %lld nvram len %lld reg len %lld txcap len %lld signature len %lld platcfg len %lld\n", v577, *(&v698 + 1), v700, *(&v703 + 1), v705, v701, v702);
+    v322 = localtime(&length);
+    strftime(size, 0x80uLL, "%b %d %H:%M:%S", v322);
+    dprintf(v132[34].__sig, "%s ", size);
+    dprintf(v132[34].__sig, "WiFiUserClientPrepareMappingDK return %x firmware len %lld nvram len %lld reg len %lld txcap len %lld signature len %lld platcfg len %lld\n", v319, *(&outputStruct + 1), v381, *(&v384 + 1), v386, v382, v383);
   }
 
-  if (*(&v698 + 1))
+  if (*(&outputStruct + 1))
   {
-    if (DWORD1(v698))
+    if (DWORD1(outputStruct))
     {
       goto LABEL_621;
     }
 
-    *cStr = sub_100007278(*(*(v1 + 24) + 20), v698, &cStr[8]);
-    *&cStr[16] = v699;
+    *cStr = sub_100007278(*(*(v1 + 24) + 20), outputStruct, &cStr[8]);
+    *&cStr[16] = v380;
   }
 
-  if (v700)
+  if (v381)
   {
-    if (HIDWORD(v699))
+    if (HIDWORD(v380))
     {
       goto LABEL_621;
     }
 
-    *&cStr[24] = sub_100007278(*(*(v1 + 24) + 20), DWORD2(v699), &v715);
+    *&cStr[24] = sub_100007278(*(*(v1 + 24) + 20), DWORD2(v380), &v396);
   }
 
-  if (*(&v703 + 1))
+  if (*(&v384 + 1))
   {
-    if (DWORD1(v703))
+    if (DWORD1(v384))
     {
       goto LABEL_621;
     }
 
-    *&v718 = sub_100007278(*(*(v1 + 24) + 20), v703, &v718 + 1);
-    LOBYTE(v719) = v704;
+    *&v399 = sub_100007278(*(*(v1 + 24) + 20), v384, &v399 + 1);
+    LOBYTE(v400) = v385;
   }
 
-  if (v705)
+  if (v386)
   {
-    if (HIDWORD(v704))
+    if (HIDWORD(v385))
     {
       goto LABEL_621;
     }
 
-    *(&v719 + 1) = sub_100007278(*(*(v1 + 24) + 20), DWORD2(v704), &v720);
-    BYTE8(v720) = BYTE8(v705);
+    *(&v400 + 1) = sub_100007278(*(*(v1 + 24) + 20), DWORD2(v385), &v401);
+    BYTE8(v401) = BYTE8(v386);
   }
 
-  if (!v701)
+  if (!v382)
   {
     goto LABEL_534;
   }
 
-  if (HIDWORD(v700))
+  if (HIDWORD(v381))
   {
 LABEL_621:
     __break(0x5507u);
     goto LABEL_622;
   }
 
-  *(&v715 + 1) = sub_100007278(*(*(v1 + 24) + 20), DWORD2(v700), &v716);
+  *(&v396 + 1) = sub_100007278(*(*(v1 + 24) + 20), DWORD2(v381), &v397);
 LABEL_534:
-  if (v702)
+  if (v383)
   {
-    if (!HIDWORD(v701))
+    if (!HIDWORD(v382))
     {
-      *(&v716 + 1) = sub_100007278(*(*(v1 + 24) + 20), DWORD2(v701), &v717);
-      BYTE8(v717) = BYTE8(v702);
+      *(&v397 + 1) = sub_100007278(*(*(v1 + 24) + 20), DWORD2(v382), &v398);
+      BYTE8(v398) = BYTE8(v383);
       goto LABEL_542;
     }
 
@@ -3376,298 +3379,298 @@ LABEL_534:
   }
 
 LABEL_542:
-  if (!v577)
+  if (!v319)
   {
-    if ((sub_100007AC8(v408, *cStr, &cStr[8]) & 1) == 0)
+    if ((sub_100007AC8(v209, *cStr, &cStr[8]) & 1) == 0)
     {
       if (qword_100010218)
       {
-        v648 = qword_100010218;
+        v336 = qword_100010218;
       }
 
       else
       {
-        v648 = &_os_log_default;
+        v336 = &_os_log_default;
       }
 
-      sub_100007804(v648, "copy FW to image map fail\n", v591, v592, v593, v594, v595, v596, outputStructf);
-      if (LODWORD(v269[34].__sig))
+      sub_100007804(v336, "copy FW to image map fail\n");
+      if (LODWORD(v132[34].__sig))
       {
-        *&v649 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v649 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v649;
-        v705 = v649;
-        v702 = v649;
-        v703 = v649;
-        v700 = v649;
-        v701 = v649;
-        v698 = v649;
-        v699 = v649;
+        *&v337 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v337 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v337;
+        v386 = v337;
+        v383 = v337;
+        v384 = v337;
+        v381 = v337;
+        v382 = v337;
+        outputStruct = v337;
+        v380 = v337;
         size[0] = 0xAAAAAAAAAAAAAAAALL;
         time(size);
-        v650 = localtime(size);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v650);
-        dprintf(v269[34].__sig, "%s ", &v698);
-        dprintf(v269[34].__sig, "copy FW to image map fail\n");
+        v338 = localtime(size);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v338);
+        dprintf(v132[34].__sig, "%s ", &outputStruct);
+        dprintf(v132[34].__sig, "copy FW to image map fail\n");
       }
 
       goto LABEL_475;
     }
 
-    if (*(&v718 + 1) && v718 && (sub_100007AC8(v512, v718, &v718 + 1) & 1) == 0)
+    if (*(&v399 + 1) && v399 && (sub_100007AC8(v284, v399, &v399 + 1) & 1) == 0)
     {
       if (qword_100010218)
       {
-        v651 = qword_100010218;
+        v339 = qword_100010218;
       }
 
       else
       {
-        v651 = &_os_log_default;
+        v339 = &_os_log_default;
       }
 
-      sub_100007804(v651, "copy RegTable to image map fail\n", v597, v598, v599, v600, v601, v602, outputStructf);
-      if (LODWORD(v269[34].__sig))
+      sub_100007804(v339, "copy RegTable to image map fail\n");
+      if (LODWORD(v132[34].__sig))
       {
-        *&v652 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v652 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v652;
-        v705 = v652;
-        v702 = v652;
-        v703 = v652;
-        v700 = v652;
-        v701 = v652;
-        v698 = v652;
-        v699 = v652;
+        *&v340 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v340 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v340;
+        v386 = v340;
+        v383 = v340;
+        v384 = v340;
+        v381 = v340;
+        v382 = v340;
+        outputStruct = v340;
+        v380 = v340;
         size[0] = 0xAAAAAAAAAAAAAAAALL;
         time(size);
-        v653 = localtime(size);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v653);
-        dprintf(v269[34].__sig, "%s ", &v698);
-        dprintf(v269[34].__sig, "copy RegTable to image map fail\n");
+        v341 = localtime(size);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v341);
+        dprintf(v132[34].__sig, "%s ", &outputStruct);
+        dprintf(v132[34].__sig, "copy RegTable to image map fail\n");
       }
 
       goto LABEL_475;
     }
 
-    if (v720 && *(&v719 + 1) && (sub_100007AC8(v524, *(&v719 + 1), &v720) & 1) == 0)
+    if (v401 && *(&v400 + 1) && (sub_100007AC8(v290, *(&v400 + 1), &v401) & 1) == 0)
     {
       if (qword_100010218)
       {
-        v654 = qword_100010218;
+        v342 = qword_100010218;
       }
 
       else
       {
-        v654 = &_os_log_default;
+        v342 = &_os_log_default;
       }
 
-      sub_100007804(v654, "copy txCapTable to image map fail\n", v603, v604, v605, v606, v607, v608, outputStructf);
-      if (LODWORD(v269[34].__sig))
+      sub_100007804(v342, "copy txCapTable to image map fail\n");
+      if (LODWORD(v132[34].__sig))
       {
-        *&v655 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v655 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v655;
-        v705 = v655;
-        v702 = v655;
-        v703 = v655;
-        v700 = v655;
-        v701 = v655;
-        v698 = v655;
-        v699 = v655;
+        *&v343 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v343 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v343;
+        v386 = v343;
+        v383 = v343;
+        v384 = v343;
+        v381 = v343;
+        v382 = v343;
+        outputStruct = v343;
+        v380 = v343;
         size[0] = 0xAAAAAAAAAAAAAAAALL;
         time(size);
-        v656 = localtime(size);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v656);
-        dprintf(v269[34].__sig, "%s ", &v698);
-        dprintf(v269[34].__sig, "copy txCapTable to image map fail\n");
+        v344 = localtime(size);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v344);
+        dprintf(v132[34].__sig, "%s ", &outputStruct);
+        dprintf(v132[34].__sig, "copy txCapTable to image map fail\n");
       }
 
       goto LABEL_475;
     }
 
-    if (v715 && *&cStr[24] && (sub_100007AC8(v501, *&cStr[24], &v715) & 1) == 0)
+    if (v396 && *&cStr[24] && (sub_100007AC8(v273, *&cStr[24], &v396) & 1) == 0)
     {
       if (qword_100010218)
       {
-        v657 = qword_100010218;
+        v345 = qword_100010218;
       }
 
       else
       {
-        v657 = &_os_log_default;
+        v345 = &_os_log_default;
       }
 
-      sub_100007804(v657, "copy NVRAM to image map fail\n", v609, v610, v611, v612, v613, v614, outputStructf);
-      if (LODWORD(v269[34].__sig))
+      sub_100007804(v345, "copy NVRAM to image map fail\n");
+      if (LODWORD(v132[34].__sig))
       {
-        *&v658 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v658 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v658;
-        v705 = v658;
-        v702 = v658;
-        v703 = v658;
-        v700 = v658;
-        v701 = v658;
-        v698 = v658;
-        v699 = v658;
+        *&v346 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v346 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v346;
+        v386 = v346;
+        v383 = v346;
+        v384 = v346;
+        v381 = v346;
+        v382 = v346;
+        outputStruct = v346;
+        v380 = v346;
         size[0] = 0xAAAAAAAAAAAAAAAALL;
         time(size);
-        v659 = localtime(size);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v659);
-        dprintf(v269[34].__sig, "%s ", &v698);
-        dprintf(v269[34].__sig, "copy NVRAM to image map fail\n");
+        v347 = localtime(size);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v347);
+        dprintf(v132[34].__sig, "%s ", &outputStruct);
+        dprintf(v132[34].__sig, "copy NVRAM to image map fail\n");
       }
 
       goto LABEL_475;
     }
 
-    if (v716 && *(&v715 + 1) && (sub_100007AC8(cfb, *(&v715 + 1), &v716) & 1) == 0)
+    if (v397 && *(&v396 + 1) && (sub_100007AC8(cfb, *(&v396 + 1), &v397) & 1) == 0)
     {
       if (qword_100010218)
       {
-        v660 = qword_100010218;
+        v348 = qword_100010218;
       }
 
       else
       {
-        v660 = &_os_log_default;
+        v348 = &_os_log_default;
       }
 
-      sub_100007804(v660, "copy Signature to image map fail\n", v615, v616, v617, v618, v619, v620, outputStructf);
-      if (LODWORD(v269[34].__sig))
+      sub_100007804(v348, "copy Signature to image map fail\n");
+      if (LODWORD(v132[34].__sig))
       {
-        *&v661 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v661 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v661;
-        v705 = v661;
-        v702 = v661;
-        v703 = v661;
-        v700 = v661;
-        v701 = v661;
-        v698 = v661;
-        v699 = v661;
+        *&v349 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v349 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v349;
+        v386 = v349;
+        v383 = v349;
+        v384 = v349;
+        v381 = v349;
+        v382 = v349;
+        outputStruct = v349;
+        v380 = v349;
         size[0] = 0xAAAAAAAAAAAAAAAALL;
         time(size);
-        v662 = localtime(size);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v662);
-        dprintf(v269[34].__sig, "%s ", &v698);
-        dprintf(v269[34].__sig, "copy Signature to image map fail\n");
+        v350 = localtime(size);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v350);
+        dprintf(v132[34].__sig, "%s ", &outputStruct);
+        dprintf(v132[34].__sig, "copy Signature to image map fail\n");
       }
 
       goto LABEL_475;
     }
 
-    if (v717 && *(&v716 + 1) && (sub_100007AC8(v687, *(&v716 + 1), &v717) & 1) == 0)
+    if (v398 && *(&v397 + 1) && (sub_100007AC8(v368, *(&v397 + 1), &v398) & 1) == 0)
     {
       if (qword_100010218)
       {
-        v663 = qword_100010218;
+        v351 = qword_100010218;
       }
 
       else
       {
-        v663 = &_os_log_default;
+        v351 = &_os_log_default;
       }
 
-      sub_100007804(v663, "copy PLatcfg to image map fail\n", v621, v622, v623, v624, v625, v626, outputStructf);
-      if (LODWORD(v269[34].__sig))
+      sub_100007804(v351, "copy PLatcfg to image map fail\n");
+      if (LODWORD(v132[34].__sig))
       {
-        *&v664 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v664 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v704 = v664;
-        v705 = v664;
-        v702 = v664;
-        v703 = v664;
-        v700 = v664;
-        v701 = v664;
-        v698 = v664;
-        v699 = v664;
+        *&v352 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v352 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v385 = v352;
+        v386 = v352;
+        v383 = v352;
+        v384 = v352;
+        v381 = v352;
+        v382 = v352;
+        outputStruct = v352;
+        v380 = v352;
         size[0] = 0xAAAAAAAAAAAAAAAALL;
         time(size);
-        v665 = localtime(size);
-        strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v665);
-        dprintf(v269[34].__sig, "%s ", &v698);
-        dprintf(v269[34].__sig, "copy PLatcfg to image map fail\n");
+        v353 = localtime(size);
+        strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v353);
+        dprintf(v132[34].__sig, "%s ", &outputStruct);
+        dprintf(v132[34].__sig, "copy PLatcfg to image map fail\n");
       }
 
       goto LABEL_475;
     }
 
     *&cStr[16] = dword_1000100B0;
-    LOBYTE(v719) = HIBYTE(dword_1000100B0);
-    BYTE8(v717) = HIBYTE(word_1000100B4);
-    BYTE8(v720) = word_1000100B4;
-    v633 = IOConnectCallMethod(*(*(v1 + 24) + 20), 3u, 0, 0, cStr, 0x80uLL, 0, 0, 0, 0);
+    LOBYTE(v400) = HIBYTE(dword_1000100B0);
+    BYTE8(v398) = HIBYTE(word_1000100B4);
+    BYTE8(v401) = word_1000100B4;
+    v327 = IOConnectCallMethod(*(*(v1 + 24) + 20), 3u, 0, 0, cStr, 0x80uLL, 0, 0, 0, 0);
     if (qword_100010218)
     {
-      v634 = qword_100010218;
+      v328 = qword_100010218;
     }
 
     else
     {
-      v634 = &_os_log_default;
+      v328 = &_os_log_default;
     }
 
-    sub_100007804(v634, "WiFiUserClientCompleteMapping return %x\n", v627, v628, v629, v630, v631, v632, v633);
-    if (LODWORD(v269[34].__sig))
+    sub_100007804(v328, "WiFiUserClientCompleteMapping return %x\n", v327);
+    if (LODWORD(v132[34].__sig))
     {
-      *&v635 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v635 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v704 = v635;
-      v705 = v635;
-      v702 = v635;
-      v703 = v635;
-      v700 = v635;
-      v701 = v635;
-      v698 = v635;
-      v699 = v635;
+      *&v329 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v329 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v385 = v329;
+      v386 = v329;
+      v383 = v329;
+      v384 = v329;
+      v381 = v329;
+      v382 = v329;
+      outputStruct = v329;
+      v380 = v329;
       size[0] = 0xAAAAAAAAAAAAAAAALL;
       time(size);
-      v636 = localtime(size);
-      strftime(&v698, 0x80uLL, "%b %d %H:%M:%S", v636);
-      dprintf(v269[34].__sig, "%s ", &v698);
-      dprintf(v269[34].__sig, "WiFiUserClientCompleteMapping return %x\n", v633);
+      v330 = localtime(size);
+      strftime(&outputStruct, 0x80uLL, "%b %d %H:%M:%S", v330);
+      dprintf(v132[34].__sig, "%s ", &outputStruct);
+      dprintf(v132[34].__sig, "WiFiUserClientCompleteMapping return %x\n", v327);
     }
 
-    if (!v633)
+    if (!v327)
     {
       goto LABEL_474;
     }
   }
 
 LABEL_475:
-  if (*v241[32].__opaque)
+  if (*v116[32].__opaque)
   {
     if (dword_100010204)
     {
       if (qword_100010218)
       {
-        v536 = qword_100010218;
+        v296 = qword_100010218;
       }
 
       else
       {
-        v536 = &_os_log_default;
+        v296 = &_os_log_default;
       }
 
-      sub_100007804(v536, "wifiFirmwareLoaderServiceThread: delay[%u sec] - started\n", v235, v236, v237, v238, v239, v240, dword_100010204);
+      sub_100007804(v296, "wifiFirmwareLoaderServiceThread: delay[%u sec] - started\n", dword_100010204);
       if (dword_100010220)
       {
-        *&v537 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v537 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v719 = v537;
-        v720 = v537;
-        v717 = v537;
-        v718 = v537;
-        v715 = v537;
-        v716 = v537;
-        *cStr = v537;
-        *&cStr[16] = v537;
-        *&v698 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v698);
-        v538 = localtime(&v698);
-        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v538);
+        *&v297 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v297 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v400 = v297;
+        v401 = v297;
+        v398 = v297;
+        v399 = v297;
+        v396 = v297;
+        v397 = v297;
+        *cStr = v297;
+        *&cStr[16] = v297;
+        *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+        time(&outputStruct);
+        v298 = localtime(&outputStruct);
+        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v298);
         dprintf(dword_100010220, "%s ", cStr);
         dprintf(dword_100010220, "wifiFirmwareLoaderServiceThread: delay[%u sec] - started\n", dword_100010204);
       }
@@ -3675,139 +3678,139 @@ LABEL_475:
       sleep(dword_100010204);
       if (qword_100010218)
       {
-        v545 = qword_100010218;
+        v299 = qword_100010218;
       }
 
       else
       {
-        v545 = &_os_log_default;
+        v299 = &_os_log_default;
       }
 
-      sub_100007804(v545, "wifiFirmwareLoaderServiceThread: delay[%u sec] - ended\n", v539, v540, v541, v542, v543, v544, dword_100010204);
+      sub_100007804(v299, "wifiFirmwareLoaderServiceThread: delay[%u sec] - ended\n", dword_100010204);
       if (dword_100010220)
       {
-        *&v546 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v546 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v719 = v546;
-        v720 = v546;
-        v717 = v546;
-        v718 = v546;
-        v715 = v546;
-        v716 = v546;
-        *cStr = v546;
-        *&cStr[16] = v546;
-        *&v698 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v698);
-        v547 = localtime(&v698);
-        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v547);
+        *&v300 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v300 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v400 = v300;
+        v401 = v300;
+        v398 = v300;
+        v399 = v300;
+        v396 = v300;
+        v397 = v300;
+        *cStr = v300;
+        *&cStr[16] = v300;
+        *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+        time(&outputStruct);
+        v301 = localtime(&outputStruct);
+        strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v301);
         dprintf(dword_100010220, "%s ", cStr);
         dprintf(dword_100010220, "wifiFirmwareLoaderServiceThread: delay[%u sec] - ended\n", dword_100010204);
       }
     }
 
-    v548 = *v241[32].__opaque;
-    v555 = IOPMAssertionRelease(v548);
-    *v241[32].__opaque = 0;
+    v302 = *v116[32].__opaque;
+    v303 = IOPMAssertionRelease(v302);
+    *v116[32].__opaque = 0;
     if (qword_100010218)
     {
-      v556 = qword_100010218;
+      v304 = qword_100010218;
     }
 
     else
     {
-      v556 = &_os_log_default;
+      v304 = &_os_log_default;
     }
 
-    sub_100007804(v556, "wifiFirmwareLoaderServiceThread: _releaseIOPMHelperAssertionRelease return[0x%08x], id[0x%08x], release id[0x%08x]\n", v549, v550, v551, v552, v553, v554, v555);
+    sub_100007804(v304, "wifiFirmwareLoaderServiceThread: _releaseIOPMHelperAssertionRelease return[0x%08x], id[0x%08x], release id[0x%08x]\n", v303, v302, 0);
     if (dword_100010220)
     {
-      *&v557 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v557 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v719 = v557;
-      v720 = v557;
-      v717 = v557;
-      v718 = v557;
-      v715 = v557;
-      v716 = v557;
-      *cStr = v557;
-      *&cStr[16] = v557;
-      *&v698 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v698);
-      v558 = localtime(&v698);
-      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v558);
+      *&v305 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v305 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v400 = v305;
+      v401 = v305;
+      v398 = v305;
+      v399 = v305;
+      v396 = v305;
+      v397 = v305;
+      *cStr = v305;
+      *&cStr[16] = v305;
+      *&outputStruct = 0xAAAAAAAAAAAAAAAALL;
+      time(&outputStruct);
+      v306 = localtime(&outputStruct);
+      strftime(cStr, 0x80uLL, "%b %d %H:%M:%S", v306);
       dprintf(dword_100010220, "%s ", cStr);
-      dprintf(dword_100010220, "wifiFirmwareLoaderServiceThread: _releaseIOPMHelperAssertionRelease return[0x%08x], id[0x%08x], release id[0x%08x]\n", v555, v548, *v241[32].__opaque);
+      dprintf(dword_100010220, "wifiFirmwareLoaderServiceThread: _releaseIOPMHelperAssertionRelease return[0x%08x], id[0x%08x], release id[0x%08x]\n", v303, v302, *v116[32].__opaque);
     }
   }
 
   *(v1 + 16) = 2;
-  v559 = *(v1 + 24);
-  if (v559)
+  v307 = *(v1 + 24);
+  if (v307)
   {
-    CFRelease(v559);
+    CFRelease(v307);
   }
 
   *(v1 + 24) = 0;
-  v560 = *(v1 + 32);
-  if (v560)
+  v308 = *(v1 + 32);
+  if (v308)
   {
-    CFRelease(v560);
+    CFRelease(v308);
   }
 
   *(v1 + 32) = 0;
-  v561 = *(v1 + 40);
-  if (v561)
+  v309 = *(v1 + 40);
+  if (v309)
   {
-    CFRelease(v561);
+    CFRelease(v309);
   }
 
   *(v1 + 40) = 0;
-  v562 = *(v1 + 48);
-  if (v562)
+  v310 = *(v1 + 48);
+  if (v310)
   {
-    CFRelease(v562);
+    CFRelease(v310);
   }
 
   *(v1 + 48) = 0;
-  v563 = *(v1 + 64);
-  if (v563)
+  v311 = *(v1 + 64);
+  if (v311)
   {
-    CFRelease(v563);
+    CFRelease(v311);
   }
 
   *(v1 + 64) = 0;
-  v564 = *(v1 + 56);
-  if (v564)
+  v312 = *(v1 + 56);
+  if (v312)
   {
-    CFRelease(v564);
+    CFRelease(v312);
   }
 
   *(v1 + 56) = 0;
-  v565 = *(v1 + 80);
-  if (v565)
+  v313 = *(v1 + 80);
+  if (v313)
   {
-    CFRelease(v565);
+    CFRelease(v313);
   }
 
   *(v1 + 80) = 0;
-  v566 = *(v1 + 88);
-  if (v566)
+  v314 = *(v1 + 88);
+  if (v314)
   {
-    CFRelease(v566);
+    CFRelease(v314);
   }
 
   *(v1 + 88) = 0;
-  v567 = *(v1 + 96);
-  if (v567)
+  v315 = *(v1 + 96);
+  if (v315)
   {
-    CFRelease(v567);
+    CFRelease(v315);
   }
 
   *(v1 + 96) = 0;
-  v568 = *(v1 + 8);
-  if (v568)
+  v316 = *(v1 + 8);
+  if (v316)
   {
-    IOObjectRelease(v568);
+    IOObjectRelease(v316);
     *(v1 + 8) = 0;
   }
 
@@ -3841,34 +3844,34 @@ LABEL_12:
   strlcat(a2, "_gen.", 0xFFuLL);
   strlcat(a2, a3, 0xFFuLL);
   v9 = qword_100010218;
-  CFStringGetCStringPtr(*(a1 + 64), 0);
-  v16 = &_os_log_default;
+  v10 = CFStringGetCStringPtr(*(a1 + 64), 0);
+  v11 = &_os_log_default;
   if (v9)
   {
-    v16 = v9;
+    v11 = v9;
   }
 
-  sub_100007804(v16, "%s %s from FW path %s\n", v10, v11, v12, v13, v14, v15, "createGenericPath");
+  sub_100007804(v11, "%s %s from FW path %s\n", "createGenericPath", a2, v10);
   if (dword_100010220)
   {
-    *&v17 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v28 = v17;
-    v29 = v17;
-    v26 = v17;
-    v27 = v17;
-    v24 = v17;
-    v25 = v17;
-    *v22 = v17;
-    v23 = v17;
-    v21 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v21);
-    v18 = localtime(&v21);
-    strftime(v22, 0x80uLL, "%b %d %H:%M:%S", v18);
-    dprintf(dword_100010220, "%s ", v22);
-    v19 = dword_100010220;
-    v20 = CFStringGetCStringPtr(*(a1 + 64), 0);
-    dprintf(v19, "%s %s from FW path %s\n", "createGenericPath", a2, v20);
+    *&v12 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v23 = v12;
+    v24 = v12;
+    v21 = v12;
+    v22 = v12;
+    v19 = v12;
+    v20 = v12;
+    *v17 = v12;
+    v18 = v12;
+    v16 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v16);
+    v13 = localtime(&v16);
+    strftime(v17, 0x80uLL, "%b %d %H:%M:%S", v13);
+    dprintf(dword_100010220, "%s ", v17);
+    v14 = dword_100010220;
+    v15 = CFStringGetCStringPtr(*(a1 + 64), 0);
+    dprintf(v14, "%s %s from FW path %s\n", "createGenericPath", a2, v15);
   }
 
   return 0;
@@ -3884,72 +3887,72 @@ uint64_t start(int a1, char *const *a2)
     sandbox_free_error(errorbuf);
     if (qword_100010218)
     {
-      v10 = qword_100010218;
+      v4 = qword_100010218;
     }
 
     else
     {
-      v10 = &_os_log_default;
+      v4 = &_os_log_default;
     }
 
-    sub_100007804(v10, "Sandboxing init issue, couldn't find profile in default paths, attempting default compiled profile", v4, v5, v6, v7, v8, v9, v243);
+    sub_100007804(v4, "Sandboxing init issue, couldn't find profile in default paths, attempting default compiled profile");
     if (dword_100010220)
     {
-      *&v11 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v256 = v11;
-      v254 = v11;
-      v255 = v11;
-      v252 = v11;
-      v253 = v11;
-      v250 = v11;
-      v251 = v11;
-      *valuePtr = v11;
-      v247 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v247);
-      v12 = localtime(&v247);
-      strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v12);
+      *&v5 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v143 = v5;
+      v141 = v5;
+      v142 = v5;
+      v139 = v5;
+      v140 = v5;
+      v137 = v5;
+      v138 = v5;
+      *valuePtr = v5;
+      v134 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v134);
+      v6 = localtime(&v134);
+      strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v6);
       dprintf(dword_100010220, "%s ", valuePtr);
       dprintf(dword_100010220, "Sandboxing init issue, couldn't find profile in default paths, attempting default compiled profile");
     }
 
     if (sandbox_init("(version 1)(deny default)(import system.sb)(allow file-read-metadata (literal /Library/Preferences))(allow file-read-data (literal /private/var/preferences/SystemConfiguration/com.apple.wifi.plist))(allow file-read-data (literal /Library/Managed Preferences/mobile/com.apple.wifiFirmwareLoader.plist))(allow mach-lookup (global-name com.apple.system.logger))(allow mach-lookup (global-name com.apple.system.notification_center))(allow mach-lookup (global-name com.apple.corecaptured))(allow mach-lookup (global-name com.apple.PowerManagement.control))(allow ipc-posix-shm-read-data (ipc-posix-name apple.shm.notification_center))(allow sysctl-read)(allow iokit-open (iokit-user-client-class IOUserUserClient))(allow iokit-open (iokit-user-client-class AppleBCMWLANUserClient))(allow iokit-open (iokit-user-client-class AppleKeyStoreUserClient))(allow iokit-set-properties (iokit-property PlatformConfig))(allow iokit-set-properties (iokit-property WiFiMSFCal))(allow iokit-set-properties (iokit-property WiFiFdrCal))(allow iokit-set-properties (iokit-property WiFiGenericCal))(allow iokit-set-properties (iokit-property WiFiMSFSource))(allow iokit-set-properties (iokit-property HWIdentifiersLate))(allow file-read* (subpath /usr/share/firmware/wifi))(allow file-read* (subpath /usr/local/share/firmware))(allow file-read* (subpath /AppleInternal))(allow file-read-metadata (literal /usr))(allow file-read-metadata (regex #^/usr/.*$))(allow file-read-metadata (literal /var))(allow file-write* (literal /private/var/logs/wifiFirmwareLoader.log))(allow file-read* (literal /private/var/logs/wifiFirmwareLoader.log))(allow file-read-metadata (regex #^/private/var/db/timezone/.*$))(allow file-read-data (regex #^/usr/share/zoneinfo.default/.*$))(allow file-read-data (literal /Library/Preferences/SystemConfiguration/com.apple.wifiFirmwareLoader.plist))", 0, &errorbuf) == -1)
     {
-      v22 = errorbuf;
+      v10 = errorbuf;
       if (!errorbuf)
       {
-        v22 = &unk_10000A556;
+        v10 = &unk_10000A556;
       }
 
-      fprintf(__stderrp, "wifiFirmwareLoader sandbox_init: %s \nwifiFirmwareLoader failed to run, check profile\n", v22);
+      fprintf(__stderrp, "wifiFirmwareLoader sandbox_init: %s \nwifiFirmwareLoader failed to run, check profile\n", v10);
       sandbox_free_error(errorbuf);
       if (qword_100010218)
       {
-        v29 = qword_100010218;
+        v11 = qword_100010218;
       }
 
       else
       {
-        v29 = &_os_log_default;
+        v11 = &_os_log_default;
       }
 
-      sub_100007804(v29, "Sandboxing init issue failed, wifiFirmwareLoader failed to run, check profile", v23, v24, v25, v26, v27, v28, v245);
+      sub_100007804(v11, "Sandboxing init issue failed, wifiFirmwareLoader failed to run, check profile");
       if (dword_100010220)
       {
-        *&v30 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v256 = v30;
-        v254 = v30;
-        v255 = v30;
-        v252 = v30;
-        v253 = v30;
-        v250 = v30;
-        v251 = v30;
-        *valuePtr = v30;
-        v247 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v247);
-        v31 = localtime(&v247);
-        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v31);
+        *&v12 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v143 = v12;
+        v141 = v12;
+        v142 = v12;
+        v139 = v12;
+        v140 = v12;
+        v137 = v12;
+        v138 = v12;
+        *valuePtr = v12;
+        v134 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v134);
+        v13 = localtime(&v134);
+        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v13);
         dprintf(dword_100010220, "%s ", valuePtr);
         dprintf(dword_100010220, "Sandboxing init issue failed, wifiFirmwareLoader failed to run, check profile");
       }
@@ -3960,38 +3963,38 @@ uint64_t start(int a1, char *const *a2)
       fwrite("wifiFirmwareLoader sandbox_init: Success\n", 0x29uLL, 1uLL, __stderrp);
       if (qword_100010218)
       {
-        v19 = qword_100010218;
+        v7 = qword_100010218;
       }
 
       else
       {
-        v19 = &_os_log_default;
+        v7 = &_os_log_default;
       }
 
-      sub_100007804(v19, "Sandboxing init issue resolved: Success", v13, v14, v15, v16, v17, v18, v244);
+      sub_100007804(v7, "Sandboxing init issue resolved: Success");
       if (dword_100010220)
       {
-        *&v20 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v256 = v20;
-        v254 = v20;
-        v255 = v20;
-        v252 = v20;
-        v253 = v20;
-        v250 = v20;
-        v251 = v20;
-        *valuePtr = v20;
-        v247 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v247);
-        v21 = localtime(&v247);
-        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v21);
+        *&v8 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v143 = v8;
+        v141 = v8;
+        v142 = v8;
+        v139 = v8;
+        v140 = v8;
+        v137 = v8;
+        v138 = v8;
+        *valuePtr = v8;
+        v134 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v134);
+        v9 = localtime(&v134);
+        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v9);
         dprintf(dword_100010220, "%s ", valuePtr);
         dprintf(dword_100010220, "Sandboxing init issue resolved: Success");
       }
     }
   }
 
-  v32 = 0;
+  v14 = 0;
   qword_100010100 = &_mh_execute_header;
   dword_100010110 = 0;
   dword_100010118 = 0;
@@ -4008,17 +4011,17 @@ uint64_t start(int a1, char *const *a2)
   *&xmmword_1000100A0 = 0;
   while (1)
   {
-    v33 = getopt(a1, a2, "fF:N:C:S:rR:T:MmP:p:");
-    if (v33 < 0)
+    v15 = getopt(a1, a2, "fF:N:C:S:rR:T:MmP:p:");
+    if (v15 < 0)
     {
       break;
     }
 
-    if (v33 > 82)
+    if (v15 > 82)
     {
-      if (v33 > 108)
+      if (v15 > 108)
       {
-        switch(v33)
+        switch(v15)
         {
           case 'm':
             goto LABEL_42;
@@ -4041,7 +4044,7 @@ uint64_t start(int a1, char *const *a2)
 
       else
       {
-        switch(v33)
+        switch(v15)
         {
           case 'S':
             if (!optarg)
@@ -4069,9 +4072,9 @@ uint64_t start(int a1, char *const *a2)
       }
     }
 
-    else if (v33 > 77)
+    else if (v15 > 77)
     {
-      if (v33 == 78)
+      if (v15 == 78)
       {
         if (!optarg)
         {
@@ -4081,7 +4084,7 @@ uint64_t start(int a1, char *const *a2)
         *&xmmword_100010070 = CFStringCreateWithCString(0, optarg, 0);
       }
 
-      else if (v33 == 80)
+      else if (v15 == 80)
       {
         if (!optarg)
         {
@@ -4093,7 +4096,7 @@ uint64_t start(int a1, char *const *a2)
 
       else
       {
-        if (v33 != 82 || !optarg)
+        if (v15 != 82 || !optarg)
         {
 LABEL_64:
           puts("\nUsage:\n\n  -F <filename> [mfg]\n                    uploads firmware data from a file \n                    <filename>  specifies the path to a binary image of firmware.\n                    mfg denotes a manufacturing firmware; if given the driver will omit initial setup after writing the firmware.\n  -N <filename>     uploads nvram data from a file\n                    <filename>  specifies the path to a text file of NVRAM data\n  -S <filename>     uploads signature data from a file\n                    <filename>  specifies the path to a text file of signature data\n  -p <filename>     uploads platcfg blob data from a file\n                    <filename>  specifies the path to a binary file of platcfg blob data\n  -R <filename>     uploads regulatory table from a file\n                    <filename>  specifies the path to a text file of clmb data\n  -T <filename>     uploads tx cap table from a file\n                    <filename>  specifies the path to a text file of cap tx table\n  -P <filename>     Sets the Platform Config from a file\n                    <filename>  specifies the path to a the PlatformConfig file\n  -f                Prints the file paths for Firmware image and NVRAM file (doesn't perform an upload).\n  -r                Force to load Firmware\n  -M                Set MFG firmware flag\n  -m                Clear MFG firmware flag\n");
@@ -4107,7 +4110,7 @@ LABEL_64:
 
     else
     {
-      switch(v33)
+      switch(v15)
       {
         case 'C':
           if (!optarg)
@@ -4124,22 +4127,22 @@ LABEL_64:
           }
 
           *(&xmmword_100010070 + 1) = CFStringCreateWithCString(0, optarg, 0);
-          if (v32)
+          if (v14)
           {
-            v34 = dword_1000100B0;
+            v16 = dword_1000100B0;
           }
 
           else
           {
-            v34 = strcasestr(optarg, "mfg") != 0;
+            v16 = strcasestr(optarg, "mfg") != 0;
           }
 
-          LOBYTE(dword_1000100B0) = v34;
+          LOBYTE(dword_1000100B0) = v16;
           break;
         case 'M':
 LABEL_42:
-          LOBYTE(dword_1000100B0) = v33 == 77;
-          v32 = 1;
+          LOBYTE(dword_1000100B0) = v15 == 77;
+          v14 = 1;
           break;
         default:
           goto LABEL_64;
@@ -4147,111 +4150,110 @@ LABEL_42:
     }
   }
 
-  v35 = SCPreferencesCreate(0, @"com.apple.wifiFirmwareLoader", @"/Library/Managed Preferences/mobile/com.apple.wifiFirmwareLoader.plist");
+  v17 = SCPreferencesCreate(0, @"com.apple.wifiFirmwareLoader", @"/Library/Managed Preferences/mobile/com.apple.wifiFirmwareLoader.plist");
   *valuePtr = 0;
-  if (v35)
+  if (v17)
   {
-    v36 = v35;
-    Value = SCPreferencesGetValue(v35, @"LoggingEnabled");
+    v18 = v17;
+    Value = SCPreferencesGetValue(v17, @"LoggingEnabled");
     if (Value)
     {
-      v38 = Value;
+      v20 = Value;
       TypeID = CFNumberGetTypeID();
-      if (TypeID != CFGetTypeID(v38))
+      if (TypeID != CFGetTypeID(v20))
       {
-        v41 = CFBooleanGetTypeID();
-        if (v41 == CFGetTypeID(v38))
+        v23 = CFBooleanGetTypeID();
+        if (v23 == CFGetTypeID(v20))
         {
-          IntValue = CFEqual(v38, kCFBooleanTrue);
+          IntValue = CFEqual(v20, kCFBooleanTrue);
         }
 
         else
         {
-          v43 = CFStringGetTypeID();
-          if (v43 != CFGetTypeID(v38))
+          v25 = CFStringGetTypeID();
+          if (v25 != CFGetTypeID(v20))
           {
             goto LABEL_71;
           }
 
-          IntValue = CFStringGetIntValue(v38);
+          IntValue = CFStringGetIntValue(v20);
         }
 
         *valuePtr = IntValue;
         goto LABEL_71;
       }
 
-      CFNumberGetValue(v38, kCFNumberIntType, valuePtr);
+      CFNumberGetValue(v20, kCFNumberIntType, valuePtr);
     }
 
 LABEL_71:
-    CFRelease(v36);
+    CFRelease(v18);
     if (*valuePtr)
     {
-      v50 = qword_100010218;
+      v26 = qword_100010218;
       if (!qword_100010218)
       {
         qword_100010218 = os_log_create("com.apple.wififirmwareloaderdaemon", "wififirmwareloader");
-        v242 = -92;
-        dword_100010220 = open("/private/var/logs/wifiFirmwareLoader.log", 522);
+        dword_100010220 = open("/private/var/logs/wifiFirmwareLoader.log", 522, 420);
         if (qword_100010218)
         {
-          v50 = qword_100010218;
+          v26 = qword_100010218;
         }
 
         else
         {
-          v50 = &_os_log_default;
+          v26 = &_os_log_default;
         }
       }
 
-      sub_100007804(v50, "WiFi Firmware Loader logging enabled\n", v44, v45, v46, v47, v48, v49, v242);
+      sub_100007804(v26, "WiFi Firmware Loader logging enabled\n");
       if (dword_100010220)
       {
-        *&v57 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v57 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v256 = v57;
-        v254 = v57;
-        v255 = v57;
-        v252 = v57;
-        v253 = v57;
-        v250 = v57;
-        v251 = v57;
-        *valuePtr = v57;
+        *&v27 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v143 = v27;
+        v141 = v27;
+        v142 = v27;
+        v139 = v27;
+        v140 = v27;
+        v137 = v27;
+        v138 = v27;
+        *valuePtr = v27;
         errorbuf = 0xAAAAAAAAAAAAAAAALL;
         time(&errorbuf);
-        v58 = localtime(&errorbuf);
-        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v58);
+        v28 = localtime(&errorbuf);
+        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v28);
         dprintf(dword_100010220, "%s ", valuePtr);
         dprintf(dword_100010220, "WiFi Firmware Loader logging enabled\n");
       }
 
       if (qword_100010218)
       {
-        v59 = qword_100010218;
+        v29 = qword_100010218;
       }
 
       else
       {
-        v59 = &_os_log_default;
+        v29 = &_os_log_default;
       }
 
-      sub_100007804(v59, "Kicking corecaptured to start logging...\n", v51, v52, v53, v54, v55, v56, v246);
+      sub_100007804(v29, "Kicking corecaptured to start logging...\n");
       if (dword_100010220)
       {
-        *&v60 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v60 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v256 = v60;
-        v254 = v60;
-        v255 = v60;
-        v252 = v60;
-        v253 = v60;
-        v250 = v60;
-        v251 = v60;
-        *valuePtr = v60;
+        *&v30 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v143 = v30;
+        v141 = v30;
+        v142 = v30;
+        v139 = v30;
+        v140 = v30;
+        v137 = v30;
+        v138 = v30;
+        *valuePtr = v30;
         errorbuf = 0xAAAAAAAAAAAAAAAALL;
         time(&errorbuf);
-        v61 = localtime(&errorbuf);
-        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v61);
+        v31 = localtime(&errorbuf);
+        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v31);
         dprintf(dword_100010220, "%s ", valuePtr);
         dprintf(dword_100010220, "Kicking corecaptured to start logging...\n");
       }
@@ -4270,137 +4272,137 @@ LABEL_71:
 
   qword_1000101FC = 0xA00000002;
   dword_100010204 = 0;
-  v62 = SCPreferencesCreate(0, @"com.apple.wifiFirmwareLoader", @"/Library/Managed Preferences/mobile/com.apple.wifiFirmwareLoader.plist");
-  LODWORD(v247) = 0;
-  if (!v62)
+  v32 = SCPreferencesCreate(0, @"com.apple.wifiFirmwareLoader", @"/Library/Managed Preferences/mobile/com.apple.wifiFirmwareLoader.plist");
+  LODWORD(v134) = 0;
+  if (!v32)
   {
 LABEL_137:
-    if (*(&xmmword_100010070 + 1) || ((vaddvq_s32(vbicq_s8(xmmword_100008C40, vuzp1q_s32(vceqzq_s64(*&qword_100010088), vceqzq_s64(xmmword_1000100A0)))) & 0xF) == 0 ? (v114 = xmmword_100010070 == 0) : (v114 = 0), v114 ? (v115 = *(&xmmword_100010090 + 1) == 0) : (v115 = 0), !v115))
+    if (*(&xmmword_100010070 + 1) || ((vaddvq_s32(vbicq_s8(xmmword_100008C40, vuzp1q_s32(vceqzq_s64(*&qword_100010088), vceqzq_s64(xmmword_1000100A0)))) & 0xF) == 0 ? (v68 = xmmword_100010070 == 0) : (v68 = 0), v68 ? (v69 = *(&xmmword_100010090 + 1) == 0) : (v69 = 0), !v69))
     {
       if (qword_100010218)
       {
-        v116 = qword_100010218;
+        v70 = qword_100010218;
       }
 
       else
       {
-        v116 = &_os_log_default;
+        v70 = &_os_log_default;
       }
 
-      sub_100007804(v116, "Settings:\n", v63, v64, v65, v66, v67, v68, v242);
+      sub_100007804(v70, "Settings:\n");
       if (dword_100010220)
       {
-        *&v117 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v117 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v256 = v117;
-        v254 = v117;
-        v255 = v117;
-        v252 = v117;
-        v253 = v117;
-        v250 = v117;
-        v251 = v117;
-        *valuePtr = v117;
+        *&v71 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v71 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v143 = v71;
+        v141 = v71;
+        v142 = v71;
+        v139 = v71;
+        v140 = v71;
+        v137 = v71;
+        v138 = v71;
+        *valuePtr = v71;
         errorbuf = 0xAAAAAAAAAAAAAAAALL;
         time(&errorbuf);
-        v118 = localtime(&errorbuf);
-        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v118);
+        v72 = localtime(&errorbuf);
+        strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v72);
         dprintf(dword_100010220, "%s ", valuePtr);
         dprintf(dword_100010220, "Settings:\n");
       }
 
       if (xmmword_1000100A0 && CFStringGetCStringPtr(xmmword_1000100A0, 0))
       {
-        v119 = qword_100010218;
+        v73 = qword_100010218;
         CStringPtr = CFStringGetCStringPtr(xmmword_1000100A0, 0);
-        v127 = (v119 ? v119 : &_os_log_default);
-        sub_100007804(v127, "    pathPlatformConfig: %s\n", v121, v122, v123, v124, v125, v126, CStringPtr);
+        v75 = (v73 ? v73 : &_os_log_default);
+        sub_100007804(v75, "    pathPlatformConfig: %s\n", CStringPtr);
         if (dword_100010220)
         {
-          *&v128 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v128 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v128;
-          v254 = v128;
-          v255 = v128;
-          v252 = v128;
-          v253 = v128;
-          v250 = v128;
-          v251 = v128;
-          *valuePtr = v128;
+          *&v76 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v76 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v76;
+          v141 = v76;
+          v142 = v76;
+          v139 = v76;
+          v140 = v76;
+          v137 = v76;
+          v138 = v76;
+          *valuePtr = v76;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v129 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v129);
+          v77 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v77);
           dprintf(dword_100010220, "%s ", valuePtr);
-          v130 = dword_100010220;
-          v131 = CFStringGetCStringPtr(xmmword_1000100A0, 0);
-          dprintf(v130, "    pathPlatformConfig: %s\n", v131);
+          v78 = dword_100010220;
+          v79 = CFStringGetCStringPtr(xmmword_1000100A0, 0);
+          dprintf(v78, "    pathPlatformConfig: %s\n", v79);
         }
       }
 
       if (*(&xmmword_100010070 + 1) && CFStringGetCStringPtr(*(&xmmword_100010070 + 1), 0))
       {
-        v132 = qword_100010218;
-        v133 = CFStringGetCStringPtr(*(&xmmword_100010070 + 1), 0);
-        if (v132)
+        v80 = qword_100010218;
+        v81 = CFStringGetCStringPtr(*(&xmmword_100010070 + 1), 0);
+        if (v80)
         {
-          v140 = v132;
+          v82 = v80;
         }
 
         else
         {
-          v140 = &_os_log_default;
+          v82 = &_os_log_default;
         }
 
-        sub_100007804(v140, "          pathFirmware: %s\n", v134, v135, v136, v137, v138, v139, v133);
+        sub_100007804(v82, "          pathFirmware: %s\n", v81);
         if (dword_100010220)
         {
-          *&v147 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v147 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v147;
-          v254 = v147;
-          v255 = v147;
-          v252 = v147;
-          v253 = v147;
-          v250 = v147;
-          v251 = v147;
-          *valuePtr = v147;
+          *&v83 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v83 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v83;
+          v141 = v83;
+          v142 = v83;
+          v139 = v83;
+          v140 = v83;
+          v137 = v83;
+          v138 = v83;
+          *valuePtr = v83;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v148 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v148);
+          v84 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v84);
           dprintf(dword_100010220, "%s ", valuePtr);
-          v149 = dword_100010220;
-          v150 = CFStringGetCStringPtr(*(&xmmword_100010070 + 1), 0);
-          dprintf(v149, "          pathFirmware: %s\n", v150);
+          v85 = dword_100010220;
+          v86 = CFStringGetCStringPtr(*(&xmmword_100010070 + 1), 0);
+          dprintf(v85, "          pathFirmware: %s\n", v86);
         }
 
         if (qword_100010218)
         {
-          v151 = qword_100010218;
+          v87 = qword_100010218;
         }
 
         else
         {
-          v151 = &_os_log_default;
+          v87 = &_os_log_default;
         }
 
-        sub_100007804(v151, "                   mfg: %d\n", v141, v142, v143, v144, v145, v146, dword_1000100B0);
+        sub_100007804(v87, "                   mfg: %d\n", dword_1000100B0);
         if (dword_100010220)
         {
-          *&v152 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v152 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v152;
-          v254 = v152;
-          v255 = v152;
-          v252 = v152;
-          v253 = v152;
-          v250 = v152;
-          v251 = v152;
-          *valuePtr = v152;
+          *&v88 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v88 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v88;
+          v141 = v88;
+          v142 = v88;
+          v139 = v88;
+          v140 = v88;
+          v137 = v88;
+          v138 = v88;
+          *valuePtr = v88;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v153 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v153);
+          v89 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v89);
           dprintf(dword_100010220, "%s ", valuePtr);
           dprintf(dword_100010220, "                   mfg: %d\n", dword_1000100B0);
         }
@@ -4408,175 +4410,175 @@ LABEL_137:
 
       if (xmmword_100010070 && CFStringGetCStringPtr(xmmword_100010070, 0))
       {
-        v154 = qword_100010218;
-        v155 = CFStringGetCStringPtr(xmmword_100010070, 0);
-        v162 = (v154 ? v154 : &_os_log_default);
-        sub_100007804(v162, "             pathNVRAM: %s\n", v156, v157, v158, v159, v160, v161, v155);
+        v90 = qword_100010218;
+        v91 = CFStringGetCStringPtr(xmmword_100010070, 0);
+        v92 = (v90 ? v90 : &_os_log_default);
+        sub_100007804(v92, "             pathNVRAM: %s\n", v91);
         if (dword_100010220)
         {
-          *&v163 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v163 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v163;
-          v254 = v163;
-          v255 = v163;
-          v252 = v163;
-          v253 = v163;
-          v250 = v163;
-          v251 = v163;
-          *valuePtr = v163;
+          *&v93 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v93 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v93;
+          v141 = v93;
+          v142 = v93;
+          v139 = v93;
+          v140 = v93;
+          v137 = v93;
+          v138 = v93;
+          *valuePtr = v93;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v164 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v164);
+          v94 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v94);
           dprintf(dword_100010220, "%s ", valuePtr);
-          v165 = dword_100010220;
-          v166 = CFStringGetCStringPtr(xmmword_100010070, 0);
-          dprintf(v165, "             pathNVRAM: %s\n", v166);
+          v95 = dword_100010220;
+          v96 = CFStringGetCStringPtr(xmmword_100010070, 0);
+          dprintf(v95, "             pathNVRAM: %s\n", v96);
         }
       }
 
       if (qword_100010080 && CFStringGetCStringPtr(qword_100010080, 0))
       {
-        v167 = qword_100010218;
-        v168 = CFStringGetCStringPtr(qword_100010080, 0);
-        v175 = (v167 ? v167 : &_os_log_default);
-        sub_100007804(v175, "             pathSignature: %s\n", v169, v170, v171, v172, v173, v174, v168);
+        v97 = qword_100010218;
+        v98 = CFStringGetCStringPtr(qword_100010080, 0);
+        v99 = (v97 ? v97 : &_os_log_default);
+        sub_100007804(v99, "             pathSignature: %s\n", v98);
         if (dword_100010220)
         {
-          *&v176 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v176 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v176;
-          v254 = v176;
-          v255 = v176;
-          v252 = v176;
-          v253 = v176;
-          v250 = v176;
-          v251 = v176;
-          *valuePtr = v176;
+          *&v100 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v100 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v100;
+          v141 = v100;
+          v142 = v100;
+          v139 = v100;
+          v140 = v100;
+          v137 = v100;
+          v138 = v100;
+          *valuePtr = v100;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v177 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v177);
+          v101 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v101);
           dprintf(dword_100010220, "%s ", valuePtr);
-          v178 = dword_100010220;
-          v179 = CFStringGetCStringPtr(qword_100010080, 0);
-          dprintf(v178, "             pathSignature: %s\n", v179);
+          v102 = dword_100010220;
+          v103 = CFStringGetCStringPtr(qword_100010080, 0);
+          dprintf(v102, "             pathSignature: %s\n", v103);
         }
       }
 
       if (*(&xmmword_100010090 + 1) && CFStringGetCStringPtr(*(&xmmword_100010090 + 1), 0))
       {
-        v180 = qword_100010218;
-        v181 = CFStringGetCStringPtr(*(&xmmword_100010090 + 1), 0);
-        v188 = (v180 ? v180 : &_os_log_default);
-        sub_100007804(v188, "             pathPlatcfg: %s\n", v182, v183, v184, v185, v186, v187, v181);
+        v104 = qword_100010218;
+        v105 = CFStringGetCStringPtr(*(&xmmword_100010090 + 1), 0);
+        v106 = (v104 ? v104 : &_os_log_default);
+        sub_100007804(v106, "             pathPlatcfg: %s\n", v105);
         if (dword_100010220)
         {
-          *&v189 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v189 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v189;
-          v254 = v189;
-          v255 = v189;
-          v252 = v189;
-          v253 = v189;
-          v250 = v189;
-          v251 = v189;
-          *valuePtr = v189;
+          *&v107 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v107 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v107;
+          v141 = v107;
+          v142 = v107;
+          v139 = v107;
+          v140 = v107;
+          v137 = v107;
+          v138 = v107;
+          *valuePtr = v107;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v190 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v190);
+          v108 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v108);
           dprintf(dword_100010220, "%s ", valuePtr);
-          v191 = dword_100010220;
-          v192 = CFStringGetCStringPtr(*(&xmmword_100010090 + 1), 0);
-          dprintf(v191, "             pathPlatcfg: %s\n", v192);
+          v109 = dword_100010220;
+          v110 = CFStringGetCStringPtr(*(&xmmword_100010090 + 1), 0);
+          dprintf(v109, "             pathPlatcfg: %s\n", v110);
         }
       }
 
       if (qword_100010088 && CFStringGetCStringPtr(qword_100010088, 0))
       {
-        v193 = qword_100010218;
-        v194 = CFStringGetCStringPtr(qword_100010088, 0);
-        v201 = (v193 ? v193 : &_os_log_default);
-        sub_100007804(v201, "               pathReg: %s\n", v195, v196, v197, v198, v199, v200, v194);
+        v111 = qword_100010218;
+        v112 = CFStringGetCStringPtr(qword_100010088, 0);
+        v113 = (v111 ? v111 : &_os_log_default);
+        sub_100007804(v113, "               pathReg: %s\n", v112);
         if (dword_100010220)
         {
-          *&v202 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v202 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v202;
-          v254 = v202;
-          v255 = v202;
-          v252 = v202;
-          v253 = v202;
-          v250 = v202;
-          v251 = v202;
-          *valuePtr = v202;
+          *&v114 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v114 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v114;
+          v141 = v114;
+          v142 = v114;
+          v139 = v114;
+          v140 = v114;
+          v137 = v114;
+          v138 = v114;
+          *valuePtr = v114;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v203 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v203);
+          v115 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v115);
           dprintf(dword_100010220, "%s ", valuePtr);
-          v204 = dword_100010220;
-          v205 = CFStringGetCStringPtr(qword_100010088, 0);
-          dprintf(v204, "               pathReg: %s\n", v205);
+          v116 = dword_100010220;
+          v117 = CFStringGetCStringPtr(qword_100010088, 0);
+          dprintf(v116, "               pathReg: %s\n", v117);
         }
       }
 
       if (xmmword_100010090 && CFStringGetCStringPtr(xmmword_100010090, 0))
       {
-        v206 = qword_100010218;
-        v207 = CFStringGetCStringPtr(xmmword_100010090, 0);
-        v214 = (v206 ? v206 : &_os_log_default);
-        sub_100007804(v214, "             pathTxCap: %s\n", v208, v209, v210, v211, v212, v213, v207);
+        v118 = qword_100010218;
+        v119 = CFStringGetCStringPtr(xmmword_100010090, 0);
+        v120 = (v118 ? v118 : &_os_log_default);
+        sub_100007804(v120, "             pathTxCap: %s\n", v119);
         if (dword_100010220)
         {
-          *&v215 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v215 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v215;
-          v254 = v215;
-          v255 = v215;
-          v252 = v215;
-          v253 = v215;
-          v250 = v215;
-          v251 = v215;
-          *valuePtr = v215;
+          *&v121 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v121 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v121;
+          v141 = v121;
+          v142 = v121;
+          v139 = v121;
+          v140 = v121;
+          v137 = v121;
+          v138 = v121;
+          *valuePtr = v121;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v216 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v216);
+          v122 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v122);
           dprintf(dword_100010220, "%s ", valuePtr);
-          v217 = dword_100010220;
-          v218 = CFStringGetCStringPtr(xmmword_100010090, 0);
-          dprintf(v217, "             pathTxCap: %s\n", v218);
+          v123 = dword_100010220;
+          v124 = CFStringGetCStringPtr(xmmword_100010090, 0);
+          dprintf(v123, "             pathTxCap: %s\n", v124);
         }
       }
 
       if (*(&xmmword_1000100A0 + 1) && CFStringGetCStringPtr(*(&xmmword_1000100A0 + 1), 0))
       {
-        v219 = qword_100010218;
-        v220 = CFStringGetCStringPtr(*(&xmmword_1000100A0 + 1), 0);
-        v227 = (v219 ? v219 : &_os_log_default);
-        sub_100007804(v227, "             pathMSFCal: %s\n", v221, v222, v223, v224, v225, v226, v220);
+        v125 = qword_100010218;
+        v126 = CFStringGetCStringPtr(*(&xmmword_1000100A0 + 1), 0);
+        v127 = (v125 ? v125 : &_os_log_default);
+        sub_100007804(v127, "             pathMSFCal: %s\n", v126);
         if (dword_100010220)
         {
-          *&v228 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v228 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v256 = v228;
-          v254 = v228;
-          v255 = v228;
-          v252 = v228;
-          v253 = v228;
-          v250 = v228;
-          v251 = v228;
-          *valuePtr = v228;
+          *&v128 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v128 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v143 = v128;
+          v141 = v128;
+          v142 = v128;
+          v139 = v128;
+          v140 = v128;
+          v137 = v128;
+          v138 = v128;
+          *valuePtr = v128;
           errorbuf = 0xAAAAAAAAAAAAAAAALL;
           time(&errorbuf);
-          v229 = localtime(&errorbuf);
-          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v229);
+          v129 = localtime(&errorbuf);
+          strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v129);
           dprintf(dword_100010220, "%s ", valuePtr);
-          v230 = dword_100010220;
-          v231 = CFStringGetCStringPtr(*(&xmmword_1000100A0 + 1), 0);
-          dprintf(v230, "             pathMSFCal: %s\n", v231);
+          v130 = dword_100010220;
+          v131 = CFStringGetCStringPtr(*(&xmmword_1000100A0 + 1), 0);
+          dprintf(v130, "             pathMSFCal: %s\n", v131);
         }
       }
     }
@@ -4588,12 +4590,12 @@ LABEL_137:
     qword_100010060 = CFRunLoopGetCurrent();
     os_transaction_create();
     Current = CFAbsoluteTimeGetCurrent();
-    v233 = CFRunLoopTimerCreate(kCFAllocatorDefault, Current + 360.0, 0.0, 0, 0, sub_100007020, 0);
-    qword_100010068 = v233;
-    if (v233)
+    v133 = CFRunLoopTimerCreate(kCFAllocatorDefault, Current + 360.0, 0.0, 0, 0, sub_100007020, 0);
+    qword_100010068 = v133;
+    if (v133)
     {
-      CFRunLoopAddTimer(qword_100010060, v233, kCFRunLoopDefaultMode);
-      sub_1000008E8(v234, v235, v236, v237, v238, v239, v240, v241);
+      CFRunLoopAddTimer(qword_100010060, v133, kCFRunLoopDefaultMode);
+      sub_1000008E8();
       CFRunLoopRemoveTimer(qword_100010060, qword_100010068, kCFRunLoopDefaultMode);
       sub_100006EB4();
     }
@@ -4601,199 +4603,200 @@ LABEL_137:
     return HIDWORD(qword_100010100);
   }
 
-  v69 = v62;
+  v33 = v32;
   if (qword_100010218)
   {
-    v70 = qword_100010218;
+    v34 = qword_100010218;
   }
 
   else
   {
-    v70 = &_os_log_default;
+    v34 = &_os_log_default;
   }
 
-  sub_100007804(v70, "WiFi Firmware processing preferences\n", v63, v64, v65, v66, v67, v68, v242);
+  sub_100007804(v34, "WiFi Firmware processing preferences\n");
   if (dword_100010220)
   {
-    *&v71 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v71 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v256 = v71;
-    v254 = v71;
-    v255 = v71;
-    v252 = v71;
-    v253 = v71;
-    v250 = v71;
-    v251 = v71;
-    *valuePtr = v71;
+    *&v35 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v35 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v143 = v35;
+    v141 = v35;
+    v142 = v35;
+    v139 = v35;
+    v140 = v35;
+    v137 = v35;
+    v138 = v35;
+    *valuePtr = v35;
     errorbuf = 0xAAAAAAAAAAAAAAAALL;
     time(&errorbuf);
-    v72 = localtime(&errorbuf);
-    strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v72);
+    v36 = localtime(&errorbuf);
+    strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v36);
     dprintf(dword_100010220, "%s ", valuePtr);
     dprintf(dword_100010220, "WiFi Firmware processing preferences\n");
   }
 
-  v73 = SCPreferencesGetValue(v69, @"assertionEnabled");
-  if (v73)
+  v37 = SCPreferencesGetValue(v33, @"assertionEnabled");
+  if (v37)
   {
-    v74 = v73;
-    v75 = CFBooleanGetTypeID();
-    if (v75 == CFGetTypeID(v74))
+    v38 = v37;
+    v39 = CFBooleanGetTypeID();
+    if (v39 == CFGetTypeID(v38))
     {
-      byte_1000101F8 = CFEqual(v74, kCFBooleanTrue) != 0;
+      byte_1000101F8 = CFEqual(v38, kCFBooleanTrue) != 0;
     }
   }
 
-  v76 = SCPreferencesGetValue(v69, @"assertionType");
-  if (v76)
+  v40 = SCPreferencesGetValue(v33, @"assertionType");
+  if (v40)
   {
-    v77 = v76;
-    v78 = CFNumberGetTypeID();
-    if (v78 == CFGetTypeID(v77))
+    v41 = v40;
+    v42 = CFNumberGetTypeID();
+    if (v42 == CFGetTypeID(v41))
     {
-      if (CFNumberGetValue(v77, kCFNumberIntType, &v247))
+      if (CFNumberGetValue(v41, kCFNumberIntType, &v134))
       {
-        LODWORD(qword_1000101FC) = v247;
+        LODWORD(qword_1000101FC) = v134;
       }
     }
   }
 
-  v79 = SCPreferencesGetValue(v69, @"assertionTimeout");
-  if (v79)
+  v43 = SCPreferencesGetValue(v33, @"assertionTimeout");
+  if (v43)
   {
-    v80 = v79;
-    v81 = CFNumberGetTypeID();
-    if (v81 == CFGetTypeID(v80) && CFNumberGetValue(v80, kCFNumberIntType, &v247) && (v247 - 1) <= 9)
+    v44 = v43;
+    v45 = CFNumberGetTypeID();
+    if (v45 == CFGetTypeID(v44) && CFNumberGetValue(v44, kCFNumberIntType, &v134) && (v134 - 1) <= 9)
     {
-      HIDWORD(qword_1000101FC) = v247;
+      HIDWORD(qword_1000101FC) = v134;
     }
   }
 
-  v82 = SCPreferencesGetValue(v69, @"assertionReleaseDelay");
-  if (!v82 || (v83 = v82, v84 = CFNumberGetTypeID(), v84 != CFGetTypeID(v83)) || (result = CFNumberGetValue(v83, kCFNumberIntType, &v247), !result) || v247 > 3 || (dword_100010204 = v247) == 0)
+  v46 = SCPreferencesGetValue(v33, @"assertionReleaseDelay");
+  if (!v46 || (v47 = v46, v48 = CFNumberGetTypeID(), v48 != CFGetTypeID(v47)) || (result = CFNumberGetValue(v47, kCFNumberIntType, &v134), !result) || v134 > 3 || (dword_100010204 = v134) == 0)
   {
 LABEL_116:
-    v95 = qword_100010218;
-    v96 = byte_1000101F8;
+    v53 = qword_100010218;
+    v54 = byte_1000101F8;
+    v55 = qword_1000101FC;
     if (qword_100010218)
     {
-      v97 = @"PreventUserIdleSystemSleep";
-      v98 = @"NoIdleSleepAssertion";
-      v99 = @"NoDisplaySleepAssertion";
+      v56 = @"PreventUserIdleSystemSleep";
+      v57 = @"NoIdleSleepAssertion";
+      v58 = @"NoDisplaySleepAssertion";
       if (qword_1000101FC != 4)
       {
-        v99 = @"PreventUserIdleSystemSleep";
+        v58 = @"PreventUserIdleSystemSleep";
       }
 
       if (qword_1000101FC != 3)
       {
-        v98 = v99;
+        v57 = v58;
       }
 
       if (qword_1000101FC == 2)
       {
-        v97 = @"PreventSystemSleep";
+        v56 = @"PreventSystemSleep";
       }
 
       if (qword_1000101FC == 1)
       {
-        v97 = @"PreventUserIdleDisplaySleep";
+        v56 = @"PreventUserIdleDisplaySleep";
       }
 
       if (qword_1000101FC <= 2)
       {
-        v100 = v97;
+        v59 = v56;
       }
 
       else
       {
-        v100 = v98;
+        v59 = v57;
       }
     }
 
     else if ((qword_1000101FC - 1) > 3)
     {
-      v95 = &_os_log_default;
-      v100 = @"PreventUserIdleSystemSleep";
+      v53 = &_os_log_default;
+      v59 = @"PreventUserIdleSystemSleep";
     }
 
     else
     {
-      v100 = off_10000C600[(qword_1000101FC - 1)];
-      v95 = &_os_log_default;
+      v59 = off_10000C600[(qword_1000101FC - 1)];
+      v53 = &_os_log_default;
     }
 
-    CFStringGetCStringPtr(v100, 0);
-    sub_100007804(v95, "WiFi Firmware processing preferences using: assertionEnabled:%u, assertionType:%u mapped['%s'], timeout[%u sec], assertionReleaseDelay[%u sec]\n", v101, v102, v103, v104, v105, v106, v96);
+    v60 = CFStringGetCStringPtr(v59, 0);
+    sub_100007804(v53, "WiFi Firmware processing preferences using: assertionEnabled:%u, assertionType:%u mapped['%s'], timeout[%u sec], assertionReleaseDelay[%u sec]\n", v54, v55, v60, HIDWORD(qword_1000101FC), dword_100010204);
     if (dword_100010220)
     {
-      *&v107 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v107 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v256 = v107;
-      v254 = v107;
-      v255 = v107;
-      v252 = v107;
-      v253 = v107;
-      v250 = v107;
-      v251 = v107;
-      *valuePtr = v107;
+      *&v61 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v61 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v143 = v61;
+      v141 = v61;
+      v142 = v61;
+      v139 = v61;
+      v140 = v61;
+      v137 = v61;
+      v138 = v61;
+      *valuePtr = v61;
       errorbuf = 0xAAAAAAAAAAAAAAAALL;
       time(&errorbuf);
-      v108 = localtime(&errorbuf);
-      strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v108);
+      v62 = localtime(&errorbuf);
+      strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v62);
       dprintf(dword_100010220, "%s ", valuePtr);
-      v109 = dword_100010220;
-      v110 = byte_1000101F8;
-      v111 = qword_1000101FC;
+      v63 = dword_100010220;
+      v64 = byte_1000101F8;
+      v65 = qword_1000101FC;
       if ((qword_1000101FC - 1) > 3)
       {
-        v112 = @"PreventUserIdleSystemSleep";
+        v66 = @"PreventUserIdleSystemSleep";
       }
 
       else
       {
-        v112 = off_10000C600[(qword_1000101FC - 1)];
+        v66 = off_10000C600[(qword_1000101FC - 1)];
       }
 
-      v113 = CFStringGetCStringPtr(v112, 0);
-      dprintf(v109, "WiFi Firmware processing preferences using: assertionEnabled:%u, assertionType:%u mapped['%s'], timeout[%u sec], assertionReleaseDelay[%u sec]\n", v110, v111, v113, HIDWORD(qword_1000101FC), dword_100010204);
+      v67 = CFStringGetCStringPtr(v66, 0);
+      dprintf(v63, "WiFi Firmware processing preferences using: assertionEnabled:%u, assertionType:%u mapped['%s'], timeout[%u sec], assertionReleaseDelay[%u sec]\n", v64, v65, v67, HIDWORD(qword_1000101FC), dword_100010204);
     }
 
-    CFRelease(v69);
+    CFRelease(v33);
     goto LABEL_137;
   }
 
-  v91 = BYTE4(qword_1000101FC) + v247;
-  if (!__OFADD__(HIDWORD(qword_1000101FC), v247))
+  v49 = HIDWORD(qword_1000101FC) + v134;
+  if (!__OFADD__(HIDWORD(qword_1000101FC), v134))
   {
-    HIDWORD(qword_1000101FC) += v247;
+    HIDWORD(qword_1000101FC) += v134;
     if (qword_100010218)
     {
-      v92 = qword_100010218;
+      v50 = qword_100010218;
     }
 
     else
     {
-      v92 = &_os_log_default;
+      v50 = &_os_log_default;
     }
 
-    sub_100007804(v92, "WiFi Firmware processing preferences, adjusting timeout -> timeout[%u sec], adjusted[%u sec]\n", v85, v86, v87, v88, v89, v90, v91);
+    sub_100007804(v50, "WiFi Firmware processing preferences, adjusting timeout -> timeout[%u sec], adjusted[%u sec]\n", v49, v134);
     if (dword_100010220)
     {
-      *&v93 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v93 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v256 = v93;
-      v254 = v93;
-      v255 = v93;
-      v252 = v93;
-      v253 = v93;
-      v250 = v93;
-      v251 = v93;
-      *valuePtr = v93;
+      *&v51 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v51 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v143 = v51;
+      v141 = v51;
+      v142 = v51;
+      v139 = v51;
+      v140 = v51;
+      v137 = v51;
+      v138 = v51;
+      *valuePtr = v51;
       errorbuf = 0xAAAAAAAAAAAAAAAALL;
       time(&errorbuf);
-      v94 = localtime(&errorbuf);
-      strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v94);
+      v52 = localtime(&errorbuf);
+      strftime(valuePtr, 0x80uLL, "%b %d %H:%M:%S", v52);
       dprintf(dword_100010220, "%s ", valuePtr);
       dprintf(dword_100010220, "WiFi Firmware processing preferences, adjusting timeout -> timeout[%u sec], adjusted[%u sec]\n", HIDWORD(qword_1000101FC), dword_100010204);
     }
@@ -4813,32 +4816,32 @@ void sub_100006EB4()
   signal(1, 1);
   if (qword_100010218)
   {
-    v6 = qword_100010218;
+    v0 = qword_100010218;
   }
 
   else
   {
-    v6 = &_os_log_default;
+    v0 = &_os_log_default;
   }
 
-  sub_100007804(v6, "Shutting down\n", v0, v1, v2, v3, v4, v5, v9);
+  sub_100007804(v0, "Shutting down\n");
   if (dword_100010220)
   {
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v17 = v7;
-    v18 = v7;
-    v15 = v7;
-    v16 = v7;
-    v13 = v7;
-    v14 = v7;
-    *v11 = v7;
-    v12 = v7;
-    v10 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v10);
-    v8 = localtime(&v10);
-    strftime(v11, 0x80uLL, "%b %d %H:%M:%S", v8);
-    dprintf(dword_100010220, "%s ", v11);
+    *&v1 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v1 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v10 = v1;
+    v11 = v1;
+    v8 = v1;
+    v9 = v1;
+    v6 = v1;
+    v7 = v1;
+    *v4 = v1;
+    v5 = v1;
+    v3 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v3);
+    v2 = localtime(&v3);
+    strftime(v4, 0x80uLL, "%b %d %H:%M:%S", v2);
+    dprintf(dword_100010220, "%s ", v4);
     dprintf(dword_100010220, "Shutting down\n");
   }
 
@@ -4901,32 +4904,32 @@ void sub_100007078(id a1, void *a2)
 {
   if (qword_100010218)
   {
-    v8 = qword_100010218;
+    v2 = qword_100010218;
   }
 
   else
   {
-    v8 = &_os_log_default;
+    v2 = &_os_log_default;
   }
 
-  sub_100007804(v8, "Woken up by IOKit matching\n", v2, v3, v4, v5, v6, v7, v11);
+  sub_100007804(v2, "Woken up by IOKit matching\n");
   if (dword_100010220)
   {
-    *&v9 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v19 = v9;
-    v20 = v9;
-    v17 = v9;
-    v18 = v9;
-    v15 = v9;
-    v16 = v9;
-    *v13 = v9;
-    v14 = v9;
-    v12 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v12);
-    v10 = localtime(&v12);
-    strftime(v13, 0x80uLL, "%b %d %H:%M:%S", v10);
-    dprintf(dword_100010220, "%s ", v13);
+    *&v3 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v12 = v3;
+    v13 = v3;
+    v10 = v3;
+    v11 = v3;
+    v8 = v3;
+    v9 = v3;
+    *v6 = v3;
+    v7 = v3;
+    v5 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v5);
+    v4 = localtime(&v5);
+    strftime(v6, 0x80uLL, "%b %d %H:%M:%S", v4);
+    dprintf(dword_100010220, "%s ", v6);
     dprintf(dword_100010220, "Woken up by IOKit matching\n");
   }
 }
@@ -4963,36 +4966,36 @@ uint64_t sub_100007218(uint64_t a1)
 mach_vm_address_t sub_100007278(io_connect_t a1, uint32_t a2, mach_vm_size_t *ofSize)
 {
   atAddress = 0xAAAAAAAAAAAAAAAALL;
-  v10 = IOConnectMapMemory(a1, a2, mach_task_self_, &atAddress, ofSize, 1u);
+  v4 = IOConnectMapMemory(a1, a2, mach_task_self_, &atAddress, ofSize, 1u);
   if (qword_100010218)
   {
-    v11 = qword_100010218;
+    v5 = qword_100010218;
   }
 
   else
   {
-    v11 = &_os_log_default;
+    v5 = &_os_log_default;
   }
 
-  sub_100007804(v11, "WiFiUserClientGetMemoryDescriptorForType return %d for type %d\n", v4, v5, v6, v7, v8, v9, v10);
+  sub_100007804(v5, "WiFiUserClientGetMemoryDescriptorForType return %d for type %d\n", v4, a2);
   if (dword_100010220)
   {
-    *&v12 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23 = v12;
-    v24 = v12;
-    v21 = v12;
-    v22 = v12;
-    v19 = v12;
-    v20 = v12;
-    *v17 = v12;
-    v18 = v12;
-    v15 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v15);
-    v13 = localtime(&v15);
-    strftime(v17, 0x80uLL, "%b %d %H:%M:%S", v13);
-    dprintf(dword_100010220, "%s ", v17);
-    dprintf(dword_100010220, "WiFiUserClientGetMemoryDescriptorForType return %d for type %d\n", v10, a2);
+    *&v6 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v17 = v6;
+    v18 = v6;
+    v15 = v6;
+    v16 = v6;
+    v13 = v6;
+    v14 = v6;
+    *v11 = v6;
+    v12 = v6;
+    v9 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v9);
+    v7 = localtime(&v9);
+    strftime(v11, 0x80uLL, "%b %d %H:%M:%S", v7);
+    dprintf(dword_100010220, "%s ", v11);
+    dprintf(dword_100010220, "WiFiUserClientGetMemoryDescriptorForType return %d for type %d\n", v4, a2);
   }
 
   return atAddress;
@@ -5000,246 +5003,9 @@ mach_vm_address_t sub_100007278(io_connect_t a1, uint32_t a2, mach_vm_size_t *of
 
 uint64_t sub_1000073A0(const char *a1, off_t *a2)
 {
-  memset(&v69, 0, sizeof(v69));
-  bzero(v68, 0x401uLL);
+  memset(&v40, 0, sizeof(v40));
+  bzero(v39, 0x401uLL);
   if (!a1 || !a2)
-  {
-    if (qword_100010218)
-    {
-      v54 = qword_100010218;
-    }
-
-    else
-    {
-      v54 = &_os_log_default;
-    }
-
-    sub_100007804(v54, "'%s' failed !!\n", v4, v5, v6, v7, v8, v9, "getSizeFromFile");
-    if (dword_100010220)
-    {
-      *&v55 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v66 = v55;
-      v67 = v55;
-      v64 = v55;
-      v65 = v55;
-      v62 = v55;
-      v63 = v55;
-      *v60 = v55;
-      v61 = v55;
-      v59 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v59);
-      v56 = localtime(&v59);
-      strftime(v60, 0x80uLL, "%b %d %H:%M:%S", v56);
-      dprintf(dword_100010220, "%s ", v60);
-      dprintf(dword_100010220, "'%s' failed !!\n");
-    }
-
-    return 0;
-  }
-
-  realpath_DARWIN_EXTSN(a1, v68);
-  v16 = &_os_log_default;
-  if (qword_100010218)
-  {
-    v17 = qword_100010218;
-  }
-
-  else
-  {
-    v17 = &_os_log_default;
-  }
-
-  v58 = v68;
-  sub_100007804(v17, "%s: path['%s'], resolved['%s']\n", v10, v11, v12, v13, v14, v15, "getSizeFromFile");
-  if (dword_100010220)
-  {
-    *&v18 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v66 = v18;
-    v67 = v18;
-    v64 = v18;
-    v65 = v18;
-    v62 = v18;
-    v63 = v18;
-    *v60 = v18;
-    v61 = v18;
-    v59 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v59);
-    v19 = localtime(&v59);
-    strftime(v60, 0x80uLL, "%b %d %H:%M:%S", v19);
-    dprintf(dword_100010220, "%s ", v60);
-    dprintf(dword_100010220, "%s: path['%s'], resolved['%s']\n", "getSizeFromFile", a1, v68);
-  }
-
-  if (lstat(v68, &v69))
-  {
-    v20 = qword_100010218;
-    v21 = __error();
-    if (!v20)
-    {
-      v20 = &_os_log_default;
-    }
-
-    strerror(*v21);
-    sub_100007964(v20, "Error: Could not stat %s (%s)\n", v22, v23, v24, v25, v26, v27, v68);
-    if (!dword_100010220)
-    {
-      return 0;
-    }
-
-    *&v28 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v66 = v28;
-    v67 = v28;
-    v64 = v28;
-    v65 = v28;
-    v62 = v28;
-    v63 = v28;
-    *v60 = v28;
-    v61 = v28;
-    v59 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v59);
-    v29 = localtime(&v59);
-    strftime(v60, 0x80uLL, "%b %d %H:%M:%S", v29);
-    dprintf(dword_100010220, "%s ", v60);
-    v30 = dword_100010220;
-    v31 = __error();
-    v57 = strerror(*v31);
-    v32 = "Error: Could not stat %s (%s)\n";
-    goto LABEL_13;
-  }
-
-  v34 = open(v68, 0);
-  if (qword_100010218)
-  {
-    v16 = qword_100010218;
-  }
-
-  if (v34 < 0)
-  {
-    v44 = __error();
-    strerror(*v44);
-    sub_100007804(v16, "Could not Open file %s (%s)\n", v45, v46, v47, v48, v49, v50, v68);
-    if (!dword_100010220)
-    {
-      return 0;
-    }
-
-    *&v51 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v51 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v66 = v51;
-    v67 = v51;
-    v64 = v51;
-    v65 = v51;
-    v62 = v51;
-    v63 = v51;
-    *v60 = v51;
-    v61 = v51;
-    v59 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v59);
-    v52 = localtime(&v59);
-    strftime(v60, 0x80uLL, "%b %d %H:%M:%S", v52);
-    dprintf(dword_100010220, "%s ", v60);
-    v30 = dword_100010220;
-    v53 = __error();
-    v57 = strerror(*v53);
-    v32 = "Could not Open file %s (%s)\n";
-LABEL_13:
-    dprintf(v30, v32, v68, v57, v58);
-    return 0;
-  }
-
-  v41 = v34;
-  sub_100007804(v16, "Get size of %s, size = %d bytes\n", v35, v36, v37, v38, v39, v40, v68);
-  if (dword_100010220)
-  {
-    *&v42 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v42 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v66 = v42;
-    v67 = v42;
-    v64 = v42;
-    v65 = v42;
-    v62 = v42;
-    v63 = v42;
-    *v60 = v42;
-    v61 = v42;
-    v59 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v59);
-    v43 = localtime(&v59);
-    strftime(v60, 0x80uLL, "%b %d %H:%M:%S", v43);
-    dprintf(dword_100010220, "%s ", v60);
-    dprintf(dword_100010220, "Get size of %s, size = %d bytes\n", v68, LODWORD(v69.st_size));
-  }
-
-  *a2 = v69.st_size;
-  close(v41);
-  return 1;
-}
-
-void sub_100007804(NSObject *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  bzero(__str, 0x800uLL);
-  vsnprintf(__str, 0x800uLL, a2, &a9);
-  v11 = mach_continuous_time();
-  *info = 0xAAAAAAAAAAAAAAAALL;
-  mach_timebase_info(info);
-  if (is_mul_ok(v11, *info) && *&info[4])
-  {
-    v12 = v11 * *info / *&info[4];
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
-  {
-    *info = 134218498;
-    *&info[4] = v12 / 0x3B9ACA00;
-    v14 = 2048;
-    v15 = v12 % 0x3B9ACA00 / 0x3E8;
-    v16 = 2082;
-    v17 = __str;
-    _os_log_impl(&_mh_execute_header, a1, OS_LOG_TYPE_DEFAULT, "%06llu.%06llu %{public}s", info, 0x20u);
-  }
-}
-
-void sub_100007964(NSObject *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  bzero(__str, 0x800uLL);
-  vsnprintf(__str, 0x800uLL, a2, &a9);
-  v11 = mach_continuous_time();
-  *info = 0xAAAAAAAAAAAAAAAALL;
-  mach_timebase_info(info);
-  if (is_mul_ok(v11, *info) && *&info[4])
-  {
-    v12 = v11 * *info / *&info[4];
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
-  {
-    *info = 134218498;
-    *&info[4] = v12 / 0x3B9ACA00;
-    v14 = 2048;
-    v15 = v12 % 0x3B9ACA00 / 0x3E8;
-    v16 = 2082;
-    v17 = __str;
-    _os_log_error_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "%06llu.%06llu %{public}s", info, 0x20u);
-  }
-}
-
-uint64_t sub_100007AC8(const char *a1, void *a2, off_t *a3)
-{
-  memset(&v131, 0, sizeof(v131));
-  bzero(v130, 0x401uLL);
-  if (!a2 || !a3)
   {
     if (qword_100010218)
     {
@@ -5251,79 +5017,390 @@ uint64_t sub_100007AC8(const char *a1, void *a2, off_t *a3)
       v26 = &_os_log_default;
     }
 
-    sub_100007964(v26, "Error: copyDataFromFile data/datalength is null\n", v6, v7, v8, v9, v10, v11, v118);
+    sub_100007804(v26, "'%s' failed !!\n", "getSizeFromFile");
+    if (dword_100010220)
+    {
+      *&v27 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v37 = v27;
+      v38 = v27;
+      v35 = v27;
+      v36 = v27;
+      v33 = v27;
+      v34 = v27;
+      *v31 = v27;
+      v32 = v27;
+      v30 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v30);
+      v28 = localtime(&v30);
+      strftime(v31, 0x80uLL, "%b %d %H:%M:%S", v28);
+      dprintf(dword_100010220, "%s ", v31);
+      dprintf(dword_100010220, "'%s' failed !!\n");
+    }
+
+    return 0;
+  }
+
+  realpath_DARWIN_EXTSN(a1, v39);
+  v4 = &_os_log_default;
+  if (qword_100010218)
+  {
+    v5 = qword_100010218;
+  }
+
+  else
+  {
+    v5 = &_os_log_default;
+  }
+
+  sub_100007804(v5, "%s: path['%s'], resolved['%s']\n", "getSizeFromFile", a1, v39);
+  if (dword_100010220)
+  {
+    *&v6 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v37 = v6;
+    v38 = v6;
+    v35 = v6;
+    v36 = v6;
+    v33 = v6;
+    v34 = v6;
+    *v31 = v6;
+    v32 = v6;
+    v30 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v30);
+    v7 = localtime(&v30);
+    strftime(v31, 0x80uLL, "%b %d %H:%M:%S", v7);
+    dprintf(dword_100010220, "%s ", v31);
+    dprintf(dword_100010220, "%s: path['%s'], resolved['%s']\n", "getSizeFromFile", a1, v39);
+  }
+
+  if (lstat(v39, &v40))
+  {
+    v8 = qword_100010218;
+    v9 = __error();
+    if (!v8)
+    {
+      v8 = &_os_log_default;
+    }
+
+    v10 = strerror(*v9);
+    sub_100007964(v8, "Error: Could not stat %s (%s)\n", v39, v10);
     if (!dword_100010220)
     {
       return 0;
     }
 
-    *&v27 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v27 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v128 = v27;
-    v129 = v27;
-    v126 = v27;
-    v127 = v27;
-    v124 = v27;
-    v125 = v27;
-    *v122 = v27;
-    v123 = v27;
-    v121 = 0xAAAAAAAAAAAAAAAALL;
-    time(&v121);
-    v28 = localtime(&v121);
-    strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v28);
-    dprintf(dword_100010220, "%s ", v122);
-    v25 = dword_100010220;
-    v24 = "Error: copyDataFromFile data/datalength is null\n";
+    *&v11 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v37 = v11;
+    v38 = v11;
+    v35 = v11;
+    v36 = v11;
+    v33 = v11;
+    v34 = v11;
+    *v31 = v11;
+    v32 = v11;
+    v30 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v30);
+    v12 = localtime(&v30);
+    strftime(v31, 0x80uLL, "%b %d %H:%M:%S", v12);
+    dprintf(dword_100010220, "%s ", v31);
+    v13 = dword_100010220;
+    v14 = __error();
+    v29 = strerror(*v14);
+    v15 = "Error: Could not stat %s (%s)\n";
+    goto LABEL_13;
+  }
+
+  v17 = open(v39, 0);
+  if (qword_100010218)
+  {
+    v4 = qword_100010218;
+  }
+
+  if (v17 < 0)
+  {
+    v21 = __error();
+    v22 = strerror(*v21);
+    sub_100007804(v4, "Could not Open file %s (%s)\n", v39, v22);
+    if (!dword_100010220)
+    {
+      return 0;
+    }
+
+    *&v23 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v37 = v23;
+    v38 = v23;
+    v35 = v23;
+    v36 = v23;
+    v33 = v23;
+    v34 = v23;
+    *v31 = v23;
+    v32 = v23;
+    v30 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v30);
+    v24 = localtime(&v30);
+    strftime(v31, 0x80uLL, "%b %d %H:%M:%S", v24);
+    dprintf(dword_100010220, "%s ", v31);
+    v13 = dword_100010220;
+    v25 = __error();
+    v29 = strerror(*v25);
+    v15 = "Could not Open file %s (%s)\n";
+LABEL_13:
+    dprintf(v13, v15, v39, v29);
+    return 0;
+  }
+
+  v18 = v17;
+  sub_100007804(v4, "Get size of %s, size = %d bytes\n", v39, LODWORD(v40.st_size));
+  if (dword_100010220)
+  {
+    *&v19 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v37 = v19;
+    v38 = v19;
+    v35 = v19;
+    v36 = v19;
+    v33 = v19;
+    v34 = v19;
+    *v31 = v19;
+    v32 = v19;
+    v30 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v30);
+    v20 = localtime(&v30);
+    strftime(v31, 0x80uLL, "%b %d %H:%M:%S", v20);
+    dprintf(dword_100010220, "%s ", v31);
+    dprintf(dword_100010220, "Get size of %s, size = %d bytes\n", v39, LODWORD(v40.st_size));
+  }
+
+  *a2 = v40.st_size;
+  close(v18);
+  return 1;
+}
+
+void sub_100007804(NSObject *a1, const char *a2, ...)
+{
+  va_start(va, a2);
+  bzero(__str, 0x800uLL);
+  vsnprintf(__str, 0x800uLL, a2, va);
+  v4 = mach_continuous_time();
+  *info = 0xAAAAAAAAAAAAAAAALL;
+  mach_timebase_info(info);
+  if (is_mul_ok(v4, *info) && *&info[4])
+  {
+    v5 = v4 * *info / *&info[4];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
+  {
+    *info = 134218498;
+    *&info[4] = v5 / 0x3B9ACA00;
+    v7 = 2048;
+    v8 = v5 % 0x3B9ACA00 / 0x3E8;
+    v9 = 2082;
+    v10 = __str;
+    _os_log_impl(&_mh_execute_header, a1, OS_LOG_TYPE_DEFAULT, "%06llu.%06llu %{public}s", info, 0x20u);
+  }
+}
+
+void sub_100007964(NSObject *a1, const char *a2, ...)
+{
+  va_start(va, a2);
+  bzero(__str, 0x800uLL);
+  vsnprintf(__str, 0x800uLL, a2, va);
+  v4 = mach_continuous_time();
+  *info = 0xAAAAAAAAAAAAAAAALL;
+  mach_timebase_info(info);
+  if (is_mul_ok(v4, *info) && *&info[4])
+  {
+    v5 = v4 * *info / *&info[4];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
+  {
+    *info = 134218498;
+    *&info[4] = v5 / 0x3B9ACA00;
+    v7 = 2048;
+    v8 = v5 % 0x3B9ACA00 / 0x3E8;
+    v9 = 2082;
+    v10 = __str;
+    _os_log_error_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "%06llu.%06llu %{public}s", info, 0x20u);
+  }
+}
+
+uint64_t sub_100007AC8(char *a1, void *a2, off_t *a3)
+{
+  memset(&v76, 0, sizeof(v76));
+  bzero(v75, 0x401uLL);
+  if (!a2 || !a3)
+  {
+    if (qword_100010218)
+    {
+      v15 = qword_100010218;
+    }
+
+    else
+    {
+      v15 = &_os_log_default;
+    }
+
+    sub_100007964(v15, "Error: copyDataFromFile data/datalength is null\n");
+    if (!dword_100010220)
+    {
+      return 0;
+    }
+
+    *&v16 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v73 = v16;
+    v74 = v16;
+    v71 = v16;
+    v72 = v16;
+    v69 = v16;
+    v70 = v16;
+    *v67 = v16;
+    v68 = v16;
+    v66 = 0xAAAAAAAAAAAAAAAALL;
+    time(&v66);
+    v17 = localtime(&v66);
+    strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v17);
+    dprintf(dword_100010220, "%s ", v67);
+    v14 = dword_100010220;
+    v13 = "Error: copyDataFromFile data/datalength is null\n";
     goto LABEL_14;
   }
 
-  if (!lstat(a1, &v131))
+  if (!lstat(a1, &v76))
   {
-    v31 = realpath_DARWIN_EXTSN(a1, v130);
-    v38 = qword_100010218;
-    if (!v31)
+    v20 = realpath_DARWIN_EXTSN(a1, v75);
+    v21 = qword_100010218;
+    if (!v20)
     {
-      v54 = __error();
-      if (v38)
+      v32 = __error();
+      if (v21)
       {
-        v55 = v38;
+        v33 = v21;
       }
 
       else
       {
-        v55 = &_os_log_default;
+        v33 = &_os_log_default;
       }
 
-      strerror(*v54);
-      sub_100007964(v55, "Error: Could not resolve path %s (%s)\n", v56, v57, v58, v59, v60, v61, a1);
+      v34 = strerror(*v32);
+      sub_100007964(v33, "Error: Could not resolve path %s (%s)\n", a1, v34);
       if (!dword_100010220)
       {
         return 0;
       }
 
-      *&v62 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v62 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v62;
-      v129 = v62;
-      v126 = v62;
-      v127 = v62;
-      v124 = v62;
-      v125 = v62;
-      *v122 = v62;
-      v123 = v62;
-      v121 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v121);
-      v63 = localtime(&v121);
-      strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v63);
-      dprintf(dword_100010220, "%s ", v122);
-      v22 = dword_100010220;
-      v64 = __error();
-      v119 = a1;
-      v120 = strerror(*v64);
-      v24 = "Error: Could not resolve path %s (%s)\n";
+      *&v35 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v35 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v73 = v35;
+      v74 = v35;
+      v71 = v35;
+      v72 = v35;
+      v69 = v35;
+      v70 = v35;
+      *v67 = v35;
+      v68 = v35;
+      v66 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v66);
+      v36 = localtime(&v66);
+      strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v36);
+      dprintf(dword_100010220, "%s ", v67);
+      v11 = dword_100010220;
+      v37 = __error();
+      v64 = a1;
+      v65 = strerror(*v37);
+      v13 = "Error: Could not resolve path %s (%s)\n";
       goto LABEL_8;
     }
 
+    if (qword_100010218)
+    {
+      v22 = qword_100010218;
+    }
+
+    else
+    {
+      v22 = &_os_log_default;
+    }
+
+    sub_100007804(v22, "%s: path['%s'], resolved['%s']\n", "copyDataFromFile", a1, v75);
+    if (dword_100010220)
+    {
+      *&v23 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v73 = v23;
+      v74 = v23;
+      v71 = v23;
+      v72 = v23;
+      v69 = v23;
+      v70 = v23;
+      *v67 = v23;
+      v68 = v23;
+      v66 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v66);
+      v24 = localtime(&v66);
+      strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v24);
+      dprintf(dword_100010220, "%s ", v67);
+      dprintf(dword_100010220, "%s: path['%s'], resolved['%s']\n", "copyDataFromFile", a1, v75);
+    }
+
+    if (lstat(v75, &v76))
+    {
+      v25 = qword_100010218;
+      v26 = __error();
+      if (!v25)
+      {
+        v25 = &_os_log_default;
+      }
+
+      v27 = strerror(*v26);
+      sub_100007964(v25, "Error: Could not stat %s (%s)\n", v75, v27);
+      if (!dword_100010220)
+      {
+        return 0;
+      }
+
+      *&v28 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v73 = v28;
+      v74 = v28;
+      v71 = v28;
+      v72 = v28;
+      v69 = v28;
+      v70 = v28;
+      *v67 = v28;
+      v68 = v28;
+      v66 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v66);
+      v29 = localtime(&v66);
+      strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v29);
+      dprintf(dword_100010220, "%s ", v67);
+      v30 = dword_100010220;
+      v31 = __error();
+      v64 = v75;
+      v65 = strerror(*v31);
+      v13 = "Error: Could not stat %s (%s)\n";
+LABEL_28:
+      v14 = v30;
+      goto LABEL_14;
+    }
+
+    v38 = open(v75, 0);
     if (qword_100010218)
     {
       v39 = qword_100010218;
@@ -5334,294 +5411,221 @@ uint64_t sub_100007AC8(const char *a1, void *a2, off_t *a3)
       v39 = &_os_log_default;
     }
 
-    sub_100007804(v39, "%s: path['%s'], resolved['%s']\n", v32, v33, v34, v35, v36, v37, "copyDataFromFile");
-    if (dword_100010220)
+    if (v38 < 0)
     {
-      *&v40 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v40 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v40;
-      v129 = v40;
-      v126 = v40;
-      v127 = v40;
-      v124 = v40;
-      v125 = v40;
-      *v122 = v40;
-      v123 = v40;
-      v121 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v121);
-      v41 = localtime(&v121);
-      strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v41);
-      dprintf(dword_100010220, "%s ", v122);
-      dprintf(dword_100010220, "%s: path['%s'], resolved['%s']\n", "copyDataFromFile", a1, v130);
-    }
-
-    if (lstat(v130, &v131))
-    {
-      v42 = qword_100010218;
-      v43 = __error();
-      if (!v42)
-      {
-        v42 = &_os_log_default;
-      }
-
-      strerror(*v43);
-      sub_100007964(v42, "Error: Could not stat %s (%s)\n", v44, v45, v46, v47, v48, v49, v130);
+      v47 = __error();
+      v48 = strerror(*v47);
+      sub_100007804(v39, "Could not Open file %s (%s)\n", v75, v48);
       if (!dword_100010220)
       {
         return 0;
       }
 
-      *&v50 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v50 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v50;
-      v129 = v50;
-      v126 = v50;
-      v127 = v50;
-      v124 = v50;
-      v125 = v50;
-      *v122 = v50;
-      v123 = v50;
-      v121 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v121);
-      v51 = localtime(&v121);
-      strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v51);
-      dprintf(dword_100010220, "%s ", v122);
-      v52 = dword_100010220;
-      v53 = __error();
-      v119 = v130;
-      v120 = strerror(*v53);
-      v24 = "Error: Could not stat %s (%s)\n";
-LABEL_28:
-      v25 = v52;
-      goto LABEL_14;
-    }
-
-    v65 = open(v130, 0);
-    if (qword_100010218)
-    {
-      v72 = qword_100010218;
-    }
-
-    else
-    {
-      v72 = &_os_log_default;
-    }
-
-    if (v65 < 0)
-    {
-      v85 = __error();
-      strerror(*v85);
-      sub_100007804(v72, "Could not Open file %s (%s)\n", v86, v87, v88, v89, v90, v91, v130);
-      if (!dword_100010220)
-      {
-        return 0;
-      }
-
-      *&v92 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v92 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v92;
-      v129 = v92;
-      v126 = v92;
-      v127 = v92;
-      v124 = v92;
-      v125 = v92;
-      *v122 = v92;
-      v123 = v92;
-      v121 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v121);
-      v93 = localtime(&v121);
-      strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v93);
-      dprintf(dword_100010220, "%s ", v122);
-      v52 = dword_100010220;
-      v94 = __error();
-      v119 = v130;
-      v120 = strerror(*v94);
-      v24 = "Could not Open file %s (%s)\n";
+      *&v49 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v49 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v73 = v49;
+      v74 = v49;
+      v71 = v49;
+      v72 = v49;
+      v69 = v49;
+      v70 = v49;
+      *v67 = v49;
+      v68 = v49;
+      v66 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v66);
+      v50 = localtime(&v66);
+      strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v50);
+      dprintf(dword_100010220, "%s ", v67);
+      v30 = dword_100010220;
+      v51 = __error();
+      v64 = v75;
+      v65 = strerror(*v51);
+      v13 = "Could not Open file %s (%s)\n";
       goto LABEL_28;
     }
 
-    v73 = v65;
-    sub_100007804(v72, "Copying %s, file size = %d bytes\n", v66, v67, v68, v69, v70, v71, v130);
+    v40 = v38;
+    sub_100007804(v39, "Copying %s, file size = %d bytes\n", v75, LODWORD(v76.st_size));
     if (dword_100010220)
     {
-      *&v79 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v79 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v128 = v79;
-      v129 = v79;
-      v126 = v79;
-      v127 = v79;
-      v124 = v79;
-      v125 = v79;
-      *v122 = v79;
-      v123 = v79;
-      v121 = 0xAAAAAAAAAAAAAAAALL;
-      time(&v121);
-      v80 = localtime(&v121);
-      strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v80);
-      dprintf(dword_100010220, "%s ", v122);
-      dprintf(dword_100010220, "Copying %s, file size = %d bytes\n", v130, LODWORD(v131.st_size));
+      *&v41 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v41 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v73 = v41;
+      v74 = v41;
+      v71 = v41;
+      v72 = v41;
+      v69 = v41;
+      v70 = v41;
+      *v67 = v41;
+      v68 = v41;
+      v66 = 0xAAAAAAAAAAAAAAAALL;
+      time(&v66);
+      v42 = localtime(&v66);
+      strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v42);
+      dprintf(dword_100010220, "%s ", v67);
+      dprintf(dword_100010220, "Copying %s, file size = %d bytes\n", v75, LODWORD(v76.st_size));
     }
 
-    st_size = v131.st_size;
-    if (v131.st_size > *a3)
+    st_size = v76.st_size;
+    if (v76.st_size > *a3)
     {
       if (qword_100010218)
       {
-        v82 = qword_100010218;
+        v44 = qword_100010218;
       }
 
       else
       {
-        v82 = &_os_log_default;
+        v44 = &_os_log_default;
       }
 
-      sub_100007964(v82, "Error: copyDataFromFile ilestat.st_size %lld is bigger then supplied buffer %lld\n", v131.st_size, v74, v75, v76, v77, v78, v131.st_size);
+      sub_100007964(v44, "Error: copyDataFromFile ilestat.st_size %lld is bigger then supplied buffer %lld\n", v76.st_size, *a3);
       if (dword_100010220)
       {
-        *&v83 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v83 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v128 = v83;
-        v129 = v83;
-        v126 = v83;
-        v127 = v83;
-        v124 = v83;
-        v125 = v83;
-        *v122 = v83;
-        v123 = v83;
-        v121 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v121);
-        v84 = localtime(&v121);
-        strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v84);
-        dprintf(dword_100010220, "%s ", v122);
-        dprintf(dword_100010220, "Error: copyDataFromFile ilestat.st_size %lld is bigger then supplied buffer %lld\n", v131.st_size, *a3);
+        *&v45 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v45 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v73 = v45;
+        v74 = v45;
+        v71 = v45;
+        v72 = v45;
+        v69 = v45;
+        v70 = v45;
+        *v67 = v45;
+        v68 = v45;
+        v66 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v66);
+        v46 = localtime(&v66);
+        strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v46);
+        dprintf(dword_100010220, "%s ", v67);
+        dprintf(dword_100010220, "Error: copyDataFromFile ilestat.st_size %lld is bigger then supplied buffer %lld\n", v76.st_size, *a3);
       }
 
-      close(v73);
+      close(v40);
       return 0;
     }
 
-    *a3 = v131.st_size;
-    v95 = read(v73, a2, st_size);
-    if (v95 < 0)
+    *a3 = v76.st_size;
+    v52 = read(v40, a2, st_size);
+    if (v52 < 0)
     {
-      v103 = qword_100010218;
-      v104 = __error();
-      if (!v103)
+      v54 = qword_100010218;
+      v55 = __error();
+      if (!v54)
       {
-        v103 = &_os_log_default;
+        v54 = &_os_log_default;
       }
 
-      strerror(*v104);
-      sub_100007964(v103, "Error: read %s (%s)\n", v105, v106, v107, v108, v109, v110, a1);
+      v56 = strerror(*v55);
+      sub_100007964(v54, "Error: read %s (%s)\n", a1, v56);
       if (dword_100010220)
       {
-        *&v111 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v111 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v128 = v111;
-        v129 = v111;
-        v126 = v111;
-        v127 = v111;
-        v124 = v111;
-        v125 = v111;
-        *v122 = v111;
-        v123 = v111;
-        v121 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v121);
-        v112 = localtime(&v121);
-        strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v112);
-        dprintf(dword_100010220, "%s ", v122);
-        v113 = dword_100010220;
-        v114 = __error();
-        strerror(*v114);
-        dprintf(v113, "Error: read %s (%s)\n");
+        *&v57 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v57 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v73 = v57;
+        v74 = v57;
+        v71 = v57;
+        v72 = v57;
+        v69 = v57;
+        v70 = v57;
+        *v67 = v57;
+        v68 = v57;
+        v66 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v66);
+        v58 = localtime(&v66);
+        strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v58);
+        dprintf(dword_100010220, "%s ", v67);
+        v59 = dword_100010220;
+        v60 = __error();
+        strerror(*v60);
+        dprintf(v59, "Error: read %s (%s)\n");
       }
     }
 
     else
     {
-      v102 = v95;
-      if (v95 == v131.st_size)
+      v53 = v52;
+      if (v52 == v76.st_size)
       {
-        v29 = 1;
+        v18 = 1;
 LABEL_62:
-        close(v73);
-        return v29;
+        close(v40);
+        return v18;
       }
 
       if (qword_100010218)
       {
-        v115 = qword_100010218;
+        v61 = qword_100010218;
       }
 
       else
       {
-        v115 = &_os_log_default;
+        v61 = &_os_log_default;
       }
 
-      sub_100007964(v115, "Error: Only read %ld of %d files\n", v96, v97, v98, v99, v100, v101, v102);
+      sub_100007964(v61, "Error: Only read %ld of %d files\n", v53, LODWORD(v76.st_size));
       if (dword_100010220)
       {
-        *&v116 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v116 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v128 = v116;
-        v129 = v116;
-        v126 = v116;
-        v127 = v116;
-        v124 = v116;
-        v125 = v116;
-        *v122 = v116;
-        v123 = v116;
-        v121 = 0xAAAAAAAAAAAAAAAALL;
-        time(&v121);
-        v117 = localtime(&v121);
-        strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v117);
-        dprintf(dword_100010220, "%s ", v122);
+        *&v62 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v62 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v73 = v62;
+        v74 = v62;
+        v71 = v62;
+        v72 = v62;
+        v69 = v62;
+        v70 = v62;
+        *v67 = v62;
+        v68 = v62;
+        v66 = 0xAAAAAAAAAAAAAAAALL;
+        time(&v66);
+        v63 = localtime(&v66);
+        strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v63);
+        dprintf(dword_100010220, "%s ", v67);
         dprintf(dword_100010220, "Error: Only read %ld of %d files\n");
       }
     }
 
-    v29 = 0;
+    v18 = 0;
     goto LABEL_62;
   }
 
-  v12 = qword_100010218;
-  v13 = __error();
-  if (!v12)
+  v6 = qword_100010218;
+  v7 = __error();
+  if (!v6)
   {
-    v12 = &_os_log_default;
+    v6 = &_os_log_default;
   }
 
-  strerror(*v13);
-  sub_100007964(v12, "Error: Could not stat %s (%s)\n", v14, v15, v16, v17, v18, v19, a1);
+  v8 = strerror(*v7);
+  sub_100007964(v6, "Error: Could not stat %s (%s)\n", a1, v8);
   if (!dword_100010220)
   {
     return 0;
   }
 
-  *&v20 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v128 = v20;
-  v129 = v20;
-  v126 = v20;
-  v127 = v20;
-  v124 = v20;
-  v125 = v20;
-  *v122 = v20;
-  v123 = v20;
-  v121 = 0xAAAAAAAAAAAAAAAALL;
-  time(&v121);
-  v21 = localtime(&v121);
-  strftime(v122, 0x80uLL, "%b %d %H:%M:%S", v21);
-  dprintf(dword_100010220, "%s ", v122);
-  v22 = dword_100010220;
-  v23 = __error();
-  v119 = a1;
-  v120 = strerror(*v23);
-  v24 = "Error: Could not stat %s (%s)\n";
+  *&v9 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v73 = v9;
+  v74 = v9;
+  v71 = v9;
+  v72 = v9;
+  v69 = v9;
+  v70 = v9;
+  *v67 = v9;
+  v68 = v9;
+  v66 = 0xAAAAAAAAAAAAAAAALL;
+  time(&v66);
+  v10 = localtime(&v66);
+  strftime(v67, 0x80uLL, "%b %d %H:%M:%S", v10);
+  dprintf(dword_100010220, "%s ", v67);
+  v11 = dword_100010220;
+  v12 = __error();
+  v64 = a1;
+  v65 = strerror(*v12);
+  v13 = "Error: Could not stat %s (%s)\n";
 LABEL_8:
-  v25 = v22;
+  v14 = v11;
 LABEL_14:
-  dprintf(v25, v24, v119, v120);
+  dprintf(v14, v13, v64, v65);
   return 0;
 }
 

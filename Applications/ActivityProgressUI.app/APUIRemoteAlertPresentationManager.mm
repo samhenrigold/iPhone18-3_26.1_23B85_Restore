@@ -20,7 +20,7 @@
 {
   activateCopy = activate;
   selfCopy = self;
-  APUIRemoteAlertPresentationManager.remoteAlertHandleDidActivate(_:)();
+  APUIRemoteAlertPresentationManager.remoteAlertHandleDidActivate(_:)(activateCopy);
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate

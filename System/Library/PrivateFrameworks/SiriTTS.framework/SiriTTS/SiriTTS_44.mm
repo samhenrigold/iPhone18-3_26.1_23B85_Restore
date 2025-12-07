@@ -1,58 +1,3 @@
-uint64_t mosyntkbsymtab_WritePhonSym(uint64_t a1, void *a2, unsigned int a3)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  memset(v6, 0, sizeof(v6));
-  kbsymtab_PhonSymString(a2, a3, v6, 200);
-  result = mosyntbase_WString(a1, v6, 200);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t mosyntkbsymtab_WriteCons(uint64_t a1, void *a2, unsigned int a3)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  memset(v6, 0, sizeof(v6));
-  kbsymtab_ConsSymString(a2, a3, v6, 200);
-  result = mosyntbase_WString(a1, v6, 200);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t mosyntkbsymtab_ConsFeatToComprConsFeatStr(uint64_t a1, int a2)
-{
-  if (a2 >= 1)
-  {
-    for (i = 0; i != a2; ++i)
-    {
-      v3 = *(a1 + i);
-      if ((v3 - 40) < 2 || v3 == 44)
-      {
-        *(a1 + i) = 58;
-      }
-
-      else if (!*(a1 + i))
-      {
-        goto LABEL_10;
-      }
-    }
-
-    LODWORD(i) = a2;
-LABEL_10:
-    if (i >= 2)
-    {
-      v4 = a1 + i;
-      if (*(v4 - 2) == 40 && *(v4 - 1) == 41)
-      {
-        *(v4 - 2) = 0;
-      }
-    }
-  }
-
-  return 0;
-}
-
 uint64_t mosyntkbsymtab_ComprConsFeatToConsFeatStr(uint64_t a1, int a2)
 {
   if (a2 >= 1)
@@ -126,49 +71,47 @@ LABEL_14:
   return 0;
 }
 
-uint64_t mosyntkbsymtab_AppDecomprConsToString(uint64_t a1, void *a2, unsigned int a3, uint64_t a4, int a5, int *a6)
+uint64_t mosyntkbsymtab_AppDecomprConsToString(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, int *a6)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v7 = a5;
+  v13 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  memset(v11, 0, sizeof(v11));
+  v10 = 0;
+  kbsymtab_ConsSymString(a2, a3, v11, 200);
+  mosyntkbsymtab_ComprConsFeatToConsFeatStr(v11, 200);
+  return mosyntbase_App(a4, v7, a6, v11, 0xC8u, &v10);
+}
+
+uint64_t mosyntkbsymtab_AppConsFeatToString(uint64_t a1, void *a2, uint64_t a3, __int16 *a4, uint64_t a5, uint64_t a6, int *a7)
+{
+  v16 = *MEMORY[0x1E69E9840];
   v13 = 0;
-  memset(v12, 0, sizeof(v12));
-  v11 = 0;
-  kbsymtab_ConsSymString(a2, a3, v12, 200);
-  mosyntkbsymtab_ComprConsFeatToConsFeatStr(v12, 200);
-  result = mosyntbase_App(a4, a5, a6, v12, 200, &v11);
-  v10 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
+  kbsymtab_ConsSymString(a2, a3, v14, 200);
+  result = mosyntbase_App(a5, a6, a7, v14, 0xC8u, &v13);
+  if ((result & 0x80000000) == 0)
+  {
+    return AppFeatListToString(a2, a4, a5, a6, a7);
+  }
+
   return result;
 }
 
-uint64_t mosyntkbsymtab_AppConsFeatToString(uint64_t a1, void *a2, unsigned int a3, __int16 *a4, uint64_t a5, int a6, int *a7)
+uint64_t AppFeatListToString(void *a1, __int16 *a2, uint64_t a3, uint64_t a4, int *a5)
 {
+  v6 = a4;
   v17 = *MEMORY[0x1E69E9840];
   v14 = 0;
   v16 = 0;
   memset(v15, 0, sizeof(v15));
-  kbsymtab_ConsSymString(a2, a3, v15, 200);
-  result = mosyntbase_App(a5, a6, a7, v15, 200, &v14);
-  if ((result & 0x80000000) == 0)
-  {
-    result = AppFeatListToString(a2, a4, a5, a6, a7);
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t AppFeatListToString(void *a1, __int16 *a2, uint64_t a3, int a4, int *a5)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
-  result = mosyntbase_CApp(a3, a4, a5, "(", 0, &v15);
+  result = mosyntbase_CApp(a3, a4, a5, "(", 0, &v14);
   if ((result & 0x80000000) == 0)
   {
     if (*a2 < 1)
     {
-LABEL_13:
-      result = mosyntbase_CApp(a3, a4, a5, ")", 0, &v15);
+      return mosyntbase_CApp(a3, v6, a5, ")", 0, &v14);
     }
 
     else
@@ -178,7 +121,7 @@ LABEL_13:
       {
         if (v11)
         {
-          result = mosyntbase_CApp(a3, a4, a5, ",", 0, &v15);
+          result = mosyntbase_CApp(a3, v6, a5, ",", 0, &v14);
           if ((result & 0x80000000) != 0)
           {
             break;
@@ -189,158 +132,154 @@ LABEL_13:
         v13 = v12[1];
         if (v13 < 0)
         {
-          kbsymtab_AtomSymString(a1, -v13, v16, 200);
+          kbsymtab_AtomSymString(a1, -v13, v15, 200);
         }
 
         else
         {
-          result = mosyntbase_CApp(a3, a4, a5, "?", 0, &v15);
+          result = mosyntbase_CApp(a3, v6, a5, "?", 0, &v14);
           if ((result & 0x80000000) != 0)
           {
-            break;
+            return result;
           }
 
-          result = mosyntpal_IntToString(v12[1], 0, v16, 200);
+          result = mosyntpal_IntToString(v12[1], 0, v15, 200);
           if ((result & 0x80000000) != 0)
           {
-            break;
+            return result;
           }
         }
 
-        result = mosyntbase_App(a3, a4, a5, v16, 200, &v15);
+        result = mosyntbase_App(a3, v6, a5, v15, 0xC8u, &v14);
         if ((result & 0x80000000) != 0)
         {
-          break;
+          return result;
         }
 
         if (++v11 >= *a2)
         {
-          goto LABEL_13;
+          return mosyntbase_CApp(a3, v6, a5, ")", 0, &v14);
         }
       }
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t mosyntkbsymtab_WriteFeatList(uint64_t a1, void *a2, __int16 *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  memset(v7, 0, sizeof(v7));
-  v6 = 0;
-  result = AppFeatListToString(a2, a3, v7, 200, &v6);
+  v8 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  memset(v6, 0, sizeof(v6));
+  v5 = 0;
+  result = AppFeatListToString(a2, a3, v6, 200, &v5);
   if ((result & 0x80000000) == 0)
   {
-    result = mosyntbase_WString(a1, v7, 200);
+    return mosyntbase_WString(a1, v6, 0xC8u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t mosyntkbsymtab_WriteConsAndFeat(uint64_t a1, void *a2, unsigned int a3, __int16 *a4)
+uint64_t mosyntkbsymtab_WriteConsAndFeat(uint64_t a1, void *a2, uint64_t a3, __int16 *a4)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  memset(v9, 0, sizeof(v9));
-  kbsymtab_ConsSymString(a2, a3, v9, 200);
-  result = mosyntbase_WString(a1, v9, 200);
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  memset(v8, 0, sizeof(v8));
+  kbsymtab_ConsSymString(a2, a3, v8, 200);
+  result = mosyntbase_WString(a1, v8, 0xC8u);
   if ((result & 0x80000000) == 0)
   {
     result = mosyntbase_WString(a1, " ", 0);
     if ((result & 0x80000000) == 0)
     {
-      result = mosyntkbsymtab_WriteFeatList(a1, a2, a4);
+      return mosyntkbsymtab_WriteFeatList(a1, a2, a4);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t mosyntkbsymtab_GetConsFeatFromString(uint64_t a1, void *a2, int a3, unsigned __int8 *a4, int a5, signed int *a6, _DWORD *a7, __int16 *a8)
+uint64_t mosyntkbsymtab_GetConsFeatFromString(uint64_t a1, void *a2, int a3, unsigned __int8 *a4, uint64_t a5, int *a6, _DWORD *a7, __int16 *a8)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  memset(v26, 0, sizeof(v26));
-  v25 = 0;
-  result = mosyntutils_GetIdentFromString(a1, a4, a5, a6, v26, 100);
+  v11 = a5;
+  v27 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  memset(v25, 0, sizeof(v25));
+  v24 = 0;
+  result = mosyntutils_GetIdentFromString(a1, a4, a5, a6, v25, 100);
   if ((result & 0x80000000) == 0)
   {
-    v17 = kbsymtab_KnownConsId(a2, v26);
+    v17 = kbsymtab_KnownConsId(a2, v25);
     *a7 = v17;
     if (v17 < 0)
     {
-      result = mosyntbase_WString3Ln(a1, "*** error: unknown constituent symbol '", 0, v26, 100, "'", 0);
+      result = mosyntbase_WString3Ln(a1, "*** error: unknown constituent symbol '", 0, v25, 0x64u, "'", 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_14;
+        return result;
       }
 
       *a7 = 0;
     }
 
-    result = mosyntutils_SkipBlanksInString(a4, a5, a6);
+    result = mosyntutils_SkipBlanksInString(a4, v11, a6);
     if ((result & 0x80000000) == 0)
     {
       *a8 = 0;
       v18 = *a6;
-      if (v18 >= a5 || a4[v18] != 40)
+      if (v18 >= v11 || a4[v18] != 40)
       {
-        goto LABEL_13;
+        return mosyntutils_SkipBlanksInString(a4, v11, a6);
       }
 
-      result = mosyntutils_CheckSkipCharInString(a1, a4, a5, a6, 0x28u);
+      result = mosyntutils_CheckSkipCharInString(a1, a4, v11, a6, 0x28u);
       if ((result & 0x80000000) == 0)
       {
-        result = mosyntutils_SkipBlanksInString(a4, a5, a6);
+        result = mosyntutils_SkipBlanksInString(a4, v11, a6);
         if ((result & 0x80000000) == 0)
         {
           v19 = *a6;
-          if (v19 >= a5 || a4[v19] == 41)
+          if (v19 >= v11 || a4[v19] == 41)
           {
 LABEL_12:
-            result = mosyntutils_CheckSkipCharInString(a1, a4, a5, a6, 0x29u);
-            if ((result & 0x80000000) == 0)
+            result = mosyntutils_CheckSkipCharInString(a1, a4, v11, a6, 0x29u);
+            if ((result & 0x80000000) != 0)
             {
-LABEL_13:
-              result = mosyntutils_SkipBlanksInString(a4, a5, a6);
-              goto LABEL_14;
+              return result;
             }
 
-            goto LABEL_14;
+            return mosyntutils_SkipBlanksInString(a4, v11, a6);
           }
 
           while (1)
           {
-            result = mosyntutils_SkipBlanksInString(a4, a5, a6);
+            result = mosyntutils_SkipBlanksInString(a4, v11, a6);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_14;
+              return result;
             }
 
             if (a4[*a6] != 63)
             {
-              result = mosyntutils_GetIdentFromString(a1, a4, a5, a6, v26, 100);
+              result = mosyntutils_GetIdentFromString(a1, a4, v11, a6, v25, 100);
               if ((result & 0x80000000) != 0)
               {
-                goto LABEL_14;
+                return result;
               }
 
-              v22 = kbsymtab_KnownAtomId(a2, v26);
-              if ((v22 & 0x80000000) == 0)
+              v21 = kbsymtab_KnownAtomId(a2, v25);
+              if ((v21 & 0x80000000) == 0)
               {
-                v21 = -v22;
+                v20 = -v21;
                 goto LABEL_30;
               }
 
-              result = mosyntbase_WString3Ln(a1, "*** error: unknown feature value '", 0, v26, 100, "'", 0);
+              result = mosyntbase_WString3Ln(a1, "*** error: unknown feature value '", 0, v25, 0x64u, "'", 0);
               if ((result & 0x80000000) != 0)
               {
-                goto LABEL_14;
+                return result;
               }
 
               goto LABEL_29;
@@ -351,71 +290,71 @@ LABEL_13:
               break;
             }
 
-            result = mosyntutils_CheckSkipCharInString(a1, a4, a5, a6, 0x3Fu);
+            result = mosyntutils_CheckSkipCharInString(a1, a4, v11, a6, 0x3Fu);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_14;
+              return result;
             }
 
-            result = mosyntutils_GetCardFromString(a1, a4, a5, a6, &v25);
+            result = mosyntutils_GetCardFromString(a1, a4, v11, a6, &v24);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_14;
+              return result;
             }
 
-            LOWORD(v21) = v25;
-            if (v25 >= 50)
+            LOWORD(v20) = v24;
+            if (v24 >= 50)
             {
-              result = mosyntbase_WInt3Ln(a1, "*** error: illegal variable number '", 0, v25, "'", 0);
+              result = mosyntbase_WInt3Ln(a1, "*** error: illegal variable number '", 0, v24, "'", 0);
               if ((result & 0x80000000) != 0)
               {
-                goto LABEL_14;
+                return result;
               }
 
 LABEL_29:
-              LOWORD(v21) = 0;
+              LOWORD(v20) = 0;
             }
 
 LABEL_30:
-            result = mosyntutils_SkipBlanksInString(a4, a5, a6);
+            result = mosyntutils_SkipBlanksInString(a4, v11, a6);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_14;
+              return result;
             }
 
-            v23 = *a8;
-            if (v23 > 8)
+            v22 = *a8;
+            if (v22 > 8)
             {
-              result = mosyntbase_WString3Ln(a1, "*** error: too many features in '", 0, a4, a5, "'", 0);
+              result = mosyntbase_WString3Ln(a1, "*** error: too many features in '", 0, a4, v11, "'", 0);
               if ((result & 0x80000000) != 0)
               {
-                goto LABEL_14;
+                return result;
               }
             }
 
             else
             {
-              a8[v23 + 1] = v21;
+              a8[v22 + 1] = v20;
               ++*a8;
             }
 
-            v24 = *a6;
-            if (v24 >= a5 || a4[v24] != 44)
+            v23 = *a6;
+            if (v23 >= v11 || a4[v23] != 44)
             {
               goto LABEL_12;
             }
 
-            result = mosyntutils_CheckSkipCharInString(a1, a4, a5, a6, 0x2Cu);
+            result = mosyntutils_CheckSkipCharInString(a1, a4, v11, a6, 0x2Cu);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_14;
+              return result;
             }
           }
 
           result = mosyntbase_WStringLn(a1, "*** error: variables are not allowed as features'", 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_14;
+            return result;
           }
 
           goto LABEL_29;
@@ -424,94 +363,90 @@ LABEL_30:
     }
   }
 
-LABEL_14:
-  v20 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t mosyntkbsymtab_DecompressCons(uint64_t a1, void *a2, unsigned int a3, _DWORD *a4, __int16 *a5)
+uint64_t mosyntkbsymtab_DecompressCons(uint64_t a1, void *a2, uint64_t a3, _DWORD *a4, __int16 *a5)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
-  kbsymtab_ConsSymString(a2, a3, v16, 200);
-  v15 = 0;
-  v19 = 0;
-  memset(v18, 0, sizeof(v18));
-  IdentFromString = mosyntutils_GetIdentFromString(a1, v16, 200, &v15, v18, 100);
+  v19 = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  memset(v15, 0, sizeof(v15));
+  kbsymtab_ConsSymString(a2, a3, v15, 200);
+  v14 = 0;
+  v18 = 0;
+  memset(v17, 0, sizeof(v17));
+  IdentFromString = mosyntutils_GetIdentFromString(a1, v15, 200, &v14, v17, 100);
   if ((IdentFromString & 0x80000000) == 0)
   {
-    v10 = kbsymtab_KnownConsId(a2, v18);
+    v10 = kbsymtab_KnownConsId(a2, v17);
     *a4 = v10;
     if (v10 < 0)
     {
-      IdentFromString = mosyntbase_WString3Ln(a1, "*** error: unknown constituent symbol '", 0, v18, 100, "'", 0);
+      IdentFromString = mosyntbase_WString3Ln(a1, "*** error: unknown constituent symbol '", 0, v17, 0x64u, "'", 0);
       if ((IdentFromString & 0x80000000) != 0)
       {
-        goto LABEL_21;
+        return IdentFromString;
       }
 
       *a4 = 0;
     }
 
     *a5 = 0;
-    if (v15 <= 199 && *(v16 + v15) == 58)
+    if (v14 <= 199 && *(v15 + v14) == 58)
     {
-      IdentFromString = mosyntutils_CheckSkipCharInString(a1, v16, 200, &v15, 0x3Au);
-      if ((IdentFromString & 0x80000000) == 0 && v15 <= 199 && *(v16 + v15))
+      IdentFromString = mosyntutils_CheckSkipCharInString(a1, v15, 200, &v14, 0x3Au);
+      if ((IdentFromString & 0x80000000) == 0 && v14 <= 199 && *(v15 + v14))
       {
         while (1)
         {
-          v11 = mosyntutils_GetIdentFromString(a1, v16, 200, &v15, v18, 100);
+          v11 = mosyntutils_GetIdentFromString(a1, v15, 200, &v14, v17, 100);
           if ((v11 & 0x80000000) != 0)
           {
             break;
           }
 
-          IdentFromString = mosyntutils_CheckSkipCharInString(a1, v16, 200, &v15, 0x3Au);
+          IdentFromString = mosyntutils_CheckSkipCharInString(a1, v15, 200, &v14, 0x3Au);
           if ((IdentFromString & 0x80000000) != 0)
           {
-            goto LABEL_21;
+            return IdentFromString;
           }
 
           if (*a5 > 8)
           {
-            IdentFromString = mosyntbase_WString3Ln(a1, "*** error: too many features in '", 0, v16, 200, "'", 0);
+            IdentFromString = mosyntbase_WString3Ln(a1, "*** error: too many features in '", 0, v15, 0xC8u, "'", 0);
             if ((IdentFromString & 0x80000000) != 0)
             {
-              goto LABEL_21;
+              return IdentFromString;
             }
           }
 
           else
           {
-            v12 = kbsymtab_KnownAtomId(a2, v18);
+            v12 = kbsymtab_KnownAtomId(a2, v17);
             if (v12 < 0)
             {
-              IdentFromString = mosyntbase_WString3Ln(a1, "*** error: unknown feature value '", 0, v18, 100, "'", 0);
+              IdentFromString = mosyntbase_WString3Ln(a1, "*** error: unknown feature value '", 0, v17, 0x64u, "'", 0);
               LOWORD(v12) = 0;
               if ((IdentFromString & 0x80000000) != 0)
               {
-                goto LABEL_21;
+                return IdentFromString;
               }
             }
 
             a5[++*a5] = -v12;
           }
 
-          if (v15 >= 200 || !*(v16 + v15))
+          if (v14 >= 200 || !*(v15 + v14))
           {
-            goto LABEL_21;
+            return IdentFromString;
           }
         }
 
-        IdentFromString = v11;
+        return v11;
       }
     }
   }
 
-LABEL_21:
-  v13 = *MEMORY[0x1E69E9840];
   return IdentFromString;
 }
 
@@ -524,7 +459,7 @@ uint64_t mosyntwordana_ParseWord(uint64_t a1, int a2, uint64_t a3, int a4, char 
   result = mosyntpal_ALLOCATE(a1, &v114, 0x8A8u);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_183;
+    return result;
   }
 
   v27 = 0;
@@ -543,10 +478,10 @@ uint64_t mosyntwordana_ParseWord(uint64_t a1, int a2, uint64_t a3, int a4, char 
   v29 = v114;
   *(v114 + 220) = 0;
   *(v29 + 224) = a4;
-  m2__cp__arr(a5, (v29 + 232), 80);
+  m2__cp__arr(a5, (v29 + 232), 0x50u);
   v30 = v114;
   *(v114 + 312) = a6;
-  m2__cp__arr(a7, (v30 + 320), 80);
+  m2__cp__arr(a7, (v30 + 320), 0x50u);
   v32 = a1;
   v31 = v114;
   *(v114 + 400) = a8;
@@ -555,7 +490,7 @@ uint64_t mosyntwordana_ParseWord(uint64_t a1, int a2, uint64_t a3, int a4, char 
   result = mosyntdata_StartPhonList(a1, v31 + 62, v31 + 63);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_183;
+    return result;
   }
 
   v33 = v114;
@@ -583,15 +518,15 @@ uint64_t mosyntwordana_ParseWord(uint64_t a1, int a2, uint64_t a3, int a4, char 
       result = mosyntutils_GetUTF8Char(a1, a12, a13, &v119, &v115);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_183;
+        return result;
       }
 
       if (v115)
       {
-        result = mosyntbase_Copy(&v115, 4, __dst, 5, &v128);
+        result = mosyntbase_Copy(&v115, 4u, __dst, 5, &v128);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_183;
+          return result;
         }
 
         v36 = mosyntkbsymtab_KnownGraphId(a1, *(v33 + 8), __dst);
@@ -605,7 +540,7 @@ uint64_t mosyntwordana_ParseWord(uint64_t a1, int a2, uint64_t a3, int a4, char 
           result = mosyntbase_WStringLn(a1, "*** token too long; character ignored", 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_183;
+            return result;
           }
         }
       }
@@ -626,7 +561,7 @@ LABEL_20:
   result = mosyntpal_ALLOCATE(a1, (v114 + 424), 0x9C48u);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_183;
+    return result;
   }
 
   v117 = 0;
@@ -638,7 +573,7 @@ LABEL_20:
   result = mosyntpal_ALLOCATE(a1, __dst, 0x80u);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_183;
+    return result;
   }
 
   v38 = *&__dst[0];
@@ -672,10 +607,10 @@ LABEL_20:
   LODWORD(v42) = *(v37 + 432);
   if (v42 + v40 >= 5001)
   {
-    result = mosyntbase_WriteDevelMessage(a1, "token too long; truncated", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+    result = mosyntbase_WriteDevelMessage(a1, "token too long; truncated", 0, "", 0, "", 0, "", 0, 0);
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_183;
+      return result;
     }
 
     LODWORD(v42) = *(v37 + 432);
@@ -698,7 +633,7 @@ LABEL_20:
       result = mosyntpal_ALLOCATE(a1, &v118, 0x80u);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_183;
+        return result;
       }
 
       v46 = v118;
@@ -750,7 +685,7 @@ LABEL_158:
           result = mosyntdata_WriteReadingList(v32, *(v114 + 8), (v96 + 2));
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_183;
+            return result;
           }
         }
       }
@@ -811,7 +746,7 @@ LABEL_178:
             {
 LABEL_182:
               *(v95 + 464) = 0;
-              result = mosyntpal_DEALLOCATE(v32, &v114);
+              return mosyntpal_DEALLOCATE(v32, &v114);
             }
           }
         }
@@ -837,7 +772,7 @@ LABEL_182:
                 result = mosyntdata_PruneLexEleBranch(v32, v100 + 2);
                 if ((result & 0x80000000) != 0)
                 {
-                  goto LABEL_183;
+                  return result;
                 }
 
                 *&__dst[0] = v100;
@@ -845,7 +780,7 @@ LABEL_182:
                 result = mosyntpal_DEALLOCATE(v32, __dst);
                 if ((result & 0x80000000) != 0)
                 {
-                  goto LABEL_183;
+                  return result;
                 }
               }
 
@@ -856,7 +791,7 @@ LABEL_182:
             result = mosyntpal_DEALLOCATE(v32, (*(v95 + 424) + 8 * v98));
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_183;
+              return result;
             }
 
             if (v98++ >= *(v95 + 432))
@@ -868,7 +803,7 @@ LABEL_182:
       }
     }
 
-    goto LABEL_183;
+    return result;
   }
 
   v49 = 0;
@@ -939,7 +874,7 @@ LABEL_49:
   result = mosyntpal_ALLOCATE(v32, (v37 + 480), 0x18u);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_183;
+    return result;
   }
 
   v121 = 0;
@@ -975,13 +910,13 @@ LABEL_49:
     result = mosyntknowl_WriteTraceHeader(v32, 1u);
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_183;
+      return result;
     }
 
     result = mosyntbase_WInt3Ln(v32, "analyzing as internal full-form starting at position ", 0, v50, "", 0);
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_183;
+      return result;
     }
   }
 
@@ -996,13 +931,13 @@ LABEL_62:
         result = mosyntknowl_WriteTraceHeader(v32, 1u);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_183;
+          return result;
         }
 
         result = mosyntbase_WInt3Ln(v32, "analyzing as morpheme sequence starting at position ", 0, v50, "", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_183;
+          return result;
         }
       }
 
@@ -1029,7 +964,7 @@ LABEL_62:
       result = AnalyzeInParts(v32, v37, v50, v56, __dst, v67);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_183;
+        return result;
       }
 
       v66 = *(v37 + 488);
@@ -1057,13 +992,13 @@ LABEL_62:
         result = mosyntknowl_WriteTraceHeader(v32, 1u);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_183;
+          return result;
         }
 
         result = mosyntbase_WInt3Ln(v32, "analyzing as submorpheme sequence starting at position ", 0, v50, "", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_183;
+          return result;
         }
       }
 
@@ -1092,7 +1027,7 @@ LABEL_62:
       result = AnalyzeInParts(v32, v37, v50, v69, __dst, v70 + 1);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_183;
+        return result;
       }
 
       v66 = *(v37 + 488);
@@ -1103,10 +1038,10 @@ LABEL_62:
     {
       if (*(*(*(v37 + 424) + 8 * v50) + 120))
       {
-        result = mosyntbase_WriteDevelMessage(v32, "*** error: empty reading detected; check word grammar\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+        result = mosyntbase_WriteDevelMessage(v32, "*** error: empty reading detected; check word grammar\\n", 0, "", 0, "", 0, "", 0, 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_183;
+          return result;
         }
       }
 
@@ -1127,7 +1062,7 @@ LABEL_62:
             result = mosyntdata_SetLexEleRefCounts(v32, v75);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_183;
+              return result;
             }
 
             v76 = *(v74 + 120);
@@ -1178,13 +1113,13 @@ LABEL_62:
                   result = mosyntdata_PruneLexEleBranch(a1, v76 + 2);
                   if ((result & 0x80000000) != 0)
                   {
-                    goto LABEL_183;
+                    return result;
                   }
 
                   result = mosyntpal_DEALLOCATE(a1, &v128);
                   if ((result & 0x80000000) != 0)
                   {
-                    goto LABEL_183;
+                    return result;
                   }
                 }
 
@@ -1200,7 +1135,7 @@ LABEL_62:
               v72 = v105;
               if ((result & 0x80000000) != 0)
               {
-                goto LABEL_183;
+                return result;
               }
             }
 
@@ -1243,7 +1178,7 @@ LABEL_62:
                     result = mosyntkblex_GetEntryPhon(a1, v84 + 1, &v128, 10);
                     if ((result & 0x80000000) != 0)
                     {
-                      goto LABEL_183;
+                      return result;
                     }
 
                     if (v128)
@@ -1251,7 +1186,7 @@ LABEL_62:
                       result = mosyntpal_ALLOCATE(a1, &v122, 0x38u);
                       if ((result & 0x80000000) != 0)
                       {
-                        goto LABEL_183;
+                        return result;
                       }
 
                       *v122 = 0;
@@ -1286,7 +1221,7 @@ LABEL_62:
                           result = PutOutReadingItem(a1, v37, v109, v110, v87 - v85, v87, v111, &v124);
                           if ((result & 0x80000000) != 0)
                           {
-                            goto LABEL_183;
+                            return result;
                           }
                         }
                       }
@@ -1318,7 +1253,7 @@ LABEL_142:
                 v49 = v108;
                 if ((result & 0x80000000) != 0)
                 {
-                  goto LABEL_183;
+                  return result;
                 }
 
                 v72 = v105;
@@ -1346,7 +1281,7 @@ LABEL_122:
               v73 = v106;
               if ((result & 0x80000000) != 0)
               {
-                goto LABEL_183;
+                return result;
               }
             }
           }
@@ -1365,10 +1300,12 @@ LABEL_148:
 LABEL_150:
     if (v50 >= *(v37 + 436) && !kaldi::nnet1::Component::IsUpdatable(result) && (a16 || *v37 >= 1))
     {
-      result = mosyntbase_WriteDevelMessage(v32, "*** no word analysis found starting at token position %d\\n", 0, "", 0, "", 0, "", 0, v50, 0, 0);
+      LODWORD(v103) = 0;
+      HIDWORD(v103) = v50;
+      result = mosyntbase_WriteDevelMessage(v32, "*** no word analysis found starting at token position %d\\n", 0, "", 0, "", 0, "", v103, 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_183;
+        return result;
       }
     }
 
@@ -1376,7 +1313,7 @@ LABEL_155:
     result = DisposeLexEleTreeList(v32, (v37 + 480));
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_183;
+      return result;
     }
 
     LODWORD(v42) = *(v37 + 432);
@@ -1394,15 +1331,15 @@ LABEL_155:
     result = mosyntkblex_StartLookup(v65, &v128);
     if ((result & 0x80000000) != 0)
     {
-      break;
+      return result;
     }
 
     v122 = v128;
     v123 = v129;
-    result = GetAndTreatEntries(v32, v37, 1, 1, v50, v50, v56, 1u, 1u, &v122, GenFullFormReading);
+    result = GetAndTreatEntries(v32, v37, 1, 1, v50, v50, v56, 1u, 1, &v122, GenFullFormReading);
     if ((result & 0x80000000) != 0)
     {
-      break;
+      return result;
     }
 
     if (++v64 >= *(v37 + 224))
@@ -1410,14 +1347,11 @@ LABEL_155:
       goto LABEL_62;
     }
   }
-
-LABEL_183:
-  v103 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-uint64_t AnalyzeInParts(uint64_t a1, uint64_t a2, uint64_t a3, signed int a4, void *a5, int a6)
+uint64_t AnalyzeInParts(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, unsigned int a6)
 {
+  v8 = a4;
   v9 = a3;
   v30 = 0uLL;
   v31 = 0;
@@ -1454,10 +1388,10 @@ uint64_t AnalyzeInParts(uint64_t a1, uint64_t a2, uint64_t a3, signed int a4, vo
       v32[0] = v34;
       v32[1] = v35;
       result = InsertEntry(a1, a2, v9, v9, 1, v33, 1, 0, 0, v32);
-      if ((result & 0x80000000) == 0 && v9 <= a4)
+      if ((result & 0x80000000) == 0 && v9 <= v8)
       {
         v9 = v9;
-        v16 = a4 + 1;
+        v16 = v8 + 1;
 LABEL_9:
         if (*a2 < 2 || (result = mosyntknowl_WriteTraceHeader(a1, 1u), (result & 0x80000000) == 0) && (result = mosyntbase_WInt3Ln(a1, "parsing at position ", 0, v9, "", 0), (result & 0x80000000) == 0))
         {
@@ -1518,7 +1452,7 @@ LABEL_9:
                       v23 = *(v20 + 4);
                       v34 = v30;
                       *&v35 = v31;
-                      result = GetAndTreatEntries(a1, a2, 1, 0, v9, v9, a4, v23, v23, &v34, TreatLexEntryList);
+                      result = GetAndTreatEntries(a1, a2, 1, 0, v9, v9, v8, v23, v23, &v34, TreatLexEntryList);
                       if ((result & 0x80000000) != 0)
                       {
                         return result;
@@ -1581,7 +1515,7 @@ LABEL_9:
                     v27 = *(i + 4);
                     v34 = v30;
                     *&v35 = v31;
-                    result = GetAndTreatEntries(a1, a2, 0, 1, v9, v9, a4, v27, v27, &v34, TreatLexEntryList);
+                    result = GetAndTreatEntries(a1, a2, 0, 1, v9, v9, v8, v27, v27, &v34, TreatLexEntryList);
                     if ((result & 0x80000000) != 0)
                     {
                       return result;
@@ -1620,13 +1554,13 @@ LABEL_9:
   return result;
 }
 
-uint64_t GetAndTreatEntries(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, unsigned int a8, unsigned int a9, __int128 *a10, uint64_t (*a11)(uint64_t, uint64_t, uint64_t, void, uint64_t, void, uint64_t, uint64_t, uint64_t))
+uint64_t GetAndTreatEntries(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, signed int a7, unsigned int a8, int a9, __int128 *a10, uint64_t (*a11)(uint64_t, uint64_t, uint64_t, void, uint64_t, void, uint64_t, uint64_t, uint64_t))
 {
   v32[0] = 0;
   v28 = 0uLL;
   v29 = 0;
   v27 = 0;
-  FirstSameInSymPair = mosyntkbfst_GetFirstSameInSymPair(*(a2 + 408), 0, v32, &v27);
+  FirstSameInSymPair = mosyntkbfst_GetFirstSameInSymPair(a2[51], 0, v32, &v27);
   if ((FirstSameInSymPair & 0x80000000) == 0)
   {
     v31 = 0;
@@ -1650,17 +1584,17 @@ uint64_t GetAndTreatEntries(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
         }
       }
 
-      FirstSameInSymPair = mosyntkbfst_GetNextSameInSymPair(*(a2 + 408), v32, &v27);
+      FirstSameInSymPair = mosyntkbfst_GetNextSameInSymPair(a2[51], v32, &v27);
       if ((FirstSameInSymPair & 0x80000000) != 0)
       {
         return FirstSameInSymPair;
       }
     }
 
-    if (*(*(*(a2 + 424) + 8 * a6) + 4))
+    if (*(*(a2[53] + 8 * a6) + 4))
     {
-      v18 = mosyntkbsymtab_GraphTermId(*(a2 + 8));
-      for (i = mosyntkbfst_GetFirstSameInSymPair(*(a2 + 408), v18, v32, &v27); ; i = mosyntkbfst_GetNextSameInSymPair(*(a2 + 408), v32, &v27))
+      v18 = mosyntkbsymtab_GraphTermId(a2[1]);
+      for (i = mosyntkbfst_GetFirstSameInSymPair(a2[51], v18, v32, &v27); ; i = mosyntkbfst_GetNextSameInSymPair(a2[51], v32, &v27))
       {
         FirstSameInSymPair = i;
         if ((i & 0x80000000) != 0)
@@ -1673,7 +1607,7 @@ uint64_t GetAndTreatEntries(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
           goto LABEL_18;
         }
 
-        if (mosyntkbfst_OutSym(*(a2 + 408), v32) == v18)
+        if (mosyntkbfst_OutSym(a2[51], v32) == v18)
         {
           if (!v27)
           {
@@ -1700,7 +1634,7 @@ LABEL_18:
 LABEL_19:
         if (a6 < a7)
         {
-          FirstSameInSymPair = mosyntkbfst_GetFirstSameInSymPair(*(a2 + 408), **(*(a2 + 424) + 8 * a6), v32, &v27);
+          FirstSameInSymPair = mosyntkbfst_GetFirstSameInSymPair(a2[51], **(a2[53] + 8 * a6), v32, &v27);
           if ((FirstSameInSymPair & 0x80000000) == 0 && v27)
           {
             while (1)
@@ -1722,7 +1656,7 @@ LABEL_19:
                 }
               }
 
-              FirstSameInSymPair = mosyntkbfst_GetNextSameInSymPair(*(a2 + 408), v32, &v27);
+              FirstSameInSymPair = mosyntkbfst_GetNextSameInSymPair(a2[51], v32, &v27);
               if ((FirstSameInSymPair & 0x80000000) != 0 || !v27)
               {
                 return FirstSameInSymPair;
@@ -1739,72 +1673,72 @@ LABEL_19:
   return FirstSameInSymPair;
 }
 
-uint64_t GenFullFormReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __int16 a6, uint64_t a7, int a8, unsigned int a9)
+uint64_t GenFullFormReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, __int16 a6, uint64_t a7, int a8, unsigned int a9)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v29 = 0uLL;
-  v30 = 0;
+  v35 = *MEMORY[0x1E69E9840];
+  v28 = 0uLL;
+  v29 = 0;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v35 = 0;
-  memset(v34, 0, sizeof(v34));
+  v34 = 0;
+  memset(v33, 0, sizeof(v33));
   if (!*(*(*(a2 + 424) + 8 * a8) + 4))
   {
-    goto LABEL_20;
+    return 0;
   }
 
   result = IsAcceptingFSTState(a1, a2, a9);
   if (result)
   {
-    v31 = 0;
-    v26 = 0;
-    v24 = 0;
+    v30 = 0;
     v25 = 0;
-    result = mosyntkblex_GetFirstEntry(a5, &v31, &v29);
+    v23 = 0;
+    v24 = 0;
+    result = mosyntkblex_GetFirstEntry(a5, &v30, &v28);
     if ((result & 0x80000000) == 0)
     {
       v15 = a8 - a6;
-      while (v31)
+      while (v30)
       {
-        result = mosyntkblex_GetEntryCostAndConsList(a1, &v29, &v24, v34, 500);
+        result = mosyntkblex_GetEntryCostAndConsList(a1, &v28, &v23, v33, 500);
         if ((result & 0x80000000) == 0)
         {
-          result = mosyntdata_GetFirstLexItem(a1, *(a2 + 8), &v29, v34, 500, &v25, &v26, &v27);
+          result = mosyntdata_GetFirstLexItem(a1, *(a2 + 8), &v28, v33, 500, &v24, &v25, &v26);
           if ((result & 0x80000000) == 0)
           {
-            while (v26)
+            while (v25)
             {
-              v16 = v24;
-              v17 = v28;
-              v23 = v27;
+              v16 = v23;
+              v17 = v27;
+              v22 = v26;
+              v31 = 0;
               v32 = 0;
-              v33 = 0;
-              result = mosyntpal_ALLOCATE(a1, &v33, 0x38u);
+              result = mosyntpal_ALLOCATE(a1, &v32, 0x38u);
               if ((result & 0x80000000) == 0)
               {
-                *v33 = 0;
-                v18 = v33;
-                *(v33 + 8) = v23;
+                *v32 = 0;
+                v18 = v32;
+                *(v32 + 8) = v22;
                 *(v18 + 24) = v17;
                 *(v18 + 40) = v15;
                 *(v18 + 48) = 1;
-                result = mosyntpal_ALLOCATE(a1, &v32, 0x18u);
+                result = mosyntpal_ALLOCATE(a1, &v31, 0x18u);
                 if ((result & 0x80000000) == 0)
                 {
                   v19 = *(a2 + 424);
-                  *v32 = *(*(v19 + 8 * a8) + 120);
-                  v20 = v32;
-                  *(*(v19 + 8 * a8) + 120) = v32;
+                  *v31 = *(*(v19 + 8 * a8) + 120);
+                  v20 = v31;
+                  *(*(v19 + 8 * a8) + 120) = v31;
                   *(v20 + 2) = DWORD2(v17);
                   *(v20 + 3) = v16;
-                  v20[2] = v33;
+                  v20[2] = v32;
                   if (*(a2 + 436) < a8)
                   {
                     *(a2 + 436) = a8;
                   }
 
                   ++*(a2 + 488);
-                  result = mosyntdata_GetNextLexItem(a1, *(a2 + 8), &v29, v34, 500, &v25, &v26, &v27);
+                  result = mosyntdata_GetNextLexItem(a1, *(a2 + 8), &v28, v33, 500, &v24, &v25, &v26);
                   if ((result & 0x80000000) == 0)
                   {
                     continue;
@@ -1812,10 +1746,10 @@ uint64_t GenFullFormReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
                 }
               }
 
-              goto LABEL_21;
+              return result;
             }
 
-            result = mosyntkblex_GetNextEntry(&v31, &v29);
+            result = mosyntkblex_GetNextEntry(&v30, &v28);
             if ((result & 0x80000000) == 0)
             {
               continue;
@@ -1823,10 +1757,10 @@ uint64_t GenFullFormReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
           }
         }
 
-        goto LABEL_21;
+        return result;
       }
 
-      result = mosyntkblex_FinishEntrySearch(&v29);
+      result = mosyntkblex_FinishEntrySearch(&v28);
       if ((result & 0x80000000) == 0)
       {
         v21 = *(*(a2 + 424) + 8 * a8);
@@ -1834,21 +1768,18 @@ uint64_t GenFullFormReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
         {
           result = 0;
           *(v21 + 4) = 2;
-          goto LABEL_21;
+          return result;
         }
 
-LABEL_20:
-        result = 0;
+        return 0;
       }
     }
   }
 
-LABEL_21:
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t ApplyChar(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, __int128 *a10, uint64_t (*a11)(uint64_t, uint64_t, uint64_t, void, uint64_t, void, uint64_t, uint64_t, uint64_t), int *a12, uint64_t a13, _BYTE *a14)
+uint64_t ApplyChar(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, __int128 *a10, uint64_t (*a11)(uint64_t, uint64_t, uint64_t, void, uint64_t, void, uint64_t, uint64_t, uint64_t), int *a12, void *a13, _BYTE *a14)
 {
   v19 = 0;
   v37 = a7;
@@ -1888,7 +1819,7 @@ uint64_t ApplyChar(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsig
   }
 
   v22 = *a10;
-  *(a13 + 16) = *(a10 + 2);
+  a13[2] = *(a10 + 2);
   *a13 = v22;
   if (*a2 >= 3)
   {
@@ -1970,7 +1901,7 @@ LABEL_34:
       return v20;
     }
 
-    v20 = mosyntbase_WString(a1, (a2 + 512), 500);
+    v20 = mosyntbase_WString(a1, (a2 + 512), 0x1F4u);
     if ((v20 & 0x80000000) != 0)
     {
       return v20;
@@ -1983,7 +1914,7 @@ LABEL_34:
     }
   }
 
-  v26 = mosyntbase_Length(a2 + 512, 500);
+  v26 = mosyntbase_Length(a2 + 512, 0x1F4u);
   v36 = 1;
   if (v26 < 1)
   {
@@ -2030,6 +1961,7 @@ LABEL_34:
 
 BOOL IsAcceptingFSTState(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v9 = 0;
   v8 = 0;
   v6 = mosyntkbsymtab_GraphTermId(*(a2 + 8));
@@ -2040,7 +1972,7 @@ BOOL IsAcceptingFSTState(uint64_t a1, uint64_t a2, uint64_t a3)
     {
       if (v8)
       {
-        return mosyntkbfst_FSTTrans(*(a2 + 408), a3, &v9) == 1;
+        return mosyntkbfst_FSTTrans(*(a2 + 408), v3, &v9) == 1;
       }
 
       break;
@@ -2097,200 +2029,107 @@ uint64_t AddTwolState(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t TreatLexEntryList(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, signed int a6, unsigned int a7, uint64_t a8, unsigned int a9)
+uint64_t TreatLexEntryList(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   if (a3 && a8 == a6 || (result = 0, a4) && a8 > a6)
   {
-    v33 = 0;
     v32 = 0;
-    v31 = 0uLL;
+    v31 = 0;
+    v30 = 0uLL;
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v27 = 0;
-    v28 = 0;
     v26 = 0;
-    v37[1] = 0;
-    v38[0] = 0;
-    v37[0] = 0;
-    *(v38 + 6) = 0;
+    v27 = 0;
     v25 = 0;
+    v36[1] = 0;
+    v37[0] = 0;
+    v36[0] = 0;
+    *(v37 + 6) = 0;
     v24 = 0;
-    v36 = 0;
-    memset(v35, 0, sizeof(v35));
-    result = mosyntkblex_GetFirstEntry(a5, &v33, &v31);
+    v23 = 0;
+    v35 = 0;
+    memset(v34, 0, sizeof(v34));
+    result = mosyntkblex_GetFirstEntry(a5, &v32, &v30);
     if ((result & 0x80000000) == 0)
     {
       v15 = "found lex item";
       v16 = " ";
       while (1)
       {
-        if (!v33)
+        if (!v32)
         {
-          result = mosyntkblex_FinishEntrySearch(&v31);
-          goto LABEL_51;
+          return mosyntkblex_FinishEntrySearch(&v30);
         }
 
-        result = mosyntkblex_GetEntryCostAndConsList(a1, &v31, &v26 + 4, v35, 500);
+        result = mosyntkblex_GetEntryCostAndConsList(a1, &v30, &v25 + 1, v34, 500);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_51;
+          return result;
         }
 
-        result = mosyntdata_GetFirstLexItem(a1, *(a2 + 8), &v31, v35, 500, &v24, &v25, &v29);
+        result = mosyntdata_GetFirstLexItem(a1, *(a2 + 8), &v30, v34, 500, &v23, &v24, &v28);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_51;
+          return result;
         }
 
 LABEL_10:
-        if (v25 && !kaldi::nnet1::Component::IsUpdatable(result))
+        if (v24 && !kaldi::nnet1::Component::IsUpdatable(result))
         {
           break;
         }
 
-        result = mosyntkblex_GetNextEntry(&v33, &v31);
+        result = mosyntkblex_GetNextEntry(&v32, &v30);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_51;
+          return result;
         }
       }
 
-      if (*a2 < 2)
+      if (*a2 < 2 || (result = mosyntknowl_WriteTraceHeader(a1, 1u), (result & 0x80000000) == 0) && (m2__cp__str(v15, v36, 0x1Eu), v21 = v28, v22 = v29, result = mosyntkblex_GetEntryGraph(a1, &v21, (a2 + 1012), 1000), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, v36, 0x1Eu), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, v16, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, (a2 + 1012), 0x3E8u), (result & 0x80000000) == 0) && (result = mosyntkblex_GetEntryPhon(a1, &v21, (a2 + 1012), 1000), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " [", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, (a2 + 1012), 0x3E8u), (result & 0x80000000) == 0) && (v33 = 0, result = mosyntkblex_GetEntryCost(a1, &v21, &v33), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "] cons ", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), DWORD2(v22)), (result & 0x80000000) == 0) && (v33 == 1 || (result = mosyntbase_WString(a1, "(cost ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, v33, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, ") ", 0), (result & 0x80000000) == 0)) && (result = mosyntbase_WString(a1, " from pos ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, a6, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " / FST state ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, a7, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " to pos ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, a8, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " / FST state ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, a9, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
       {
-        goto LABEL_54;
-      }
-
-      result = mosyntknowl_WriteTraceHeader(a1, 1u);
-      if ((result & 0x80000000) == 0)
-      {
-        m2__cp__str(v15, v37, 30);
-        v22 = v29;
-        v23 = v30;
-        result = mosyntkblex_GetEntryGraph(a1, &v22, a2 + 1012, 1000);
+        result = mosyntkbwgram_GetFirstNFATrans(*(a2 + 416), DWORD2(v29), &v27, &v26 + 4, &v26, &v25);
         if ((result & 0x80000000) == 0)
         {
-          result = mosyntbase_WString(a1, v37, 30);
-          if ((result & 0x80000000) == 0)
+          v17 = v16;
+          v18 = v15;
+          while ((v26 & 0x8000000000000000) == 0)
           {
-            result = mosyntbase_WString(a1, v16, 0);
-            if ((result & 0x80000000) == 0)
+            for (i = *(*(*(a2 + 424) + 8 * a6) + 8 * ((HIDWORD(v26) + a7) % 13) + 16); i; i = *(i + 16))
             {
-              result = mosyntbase_WString(a1, (a2 + 1012), 1000);
-              if ((result & 0x80000000) == 0)
+              if (__PAIR64__(*(i + 36), *(i + 32)) == __PAIR64__(a7, HIDWORD(v26)))
               {
-                result = mosyntkblex_GetEntryPhon(a1, &v22, a2 + 1012, 1000);
-                if ((result & 0x80000000) == 0)
+                v20 = v25 + *(i + 40);
+                v21 = v28;
+                v22 = v29;
+                result = InsertEntry(a1, a2, a6, a8, 0, v26, a9, v20 + HIDWORD(v25), i, &v21);
+                if ((result & 0x80000000) != 0)
                 {
-                  result = mosyntbase_WString(a1, " [", 0);
-                  if ((result & 0x80000000) == 0)
-                  {
-                    result = mosyntbase_WString(a1, (a2 + 1012), 1000);
-                    if ((result & 0x80000000) == 0)
-                    {
-                      v34 = 0;
-                      result = mosyntkblex_GetEntryCost(a1, &v22, &v34);
-                      if ((result & 0x80000000) == 0)
-                      {
-                        result = mosyntbase_WString(a1, "] cons ", 0);
-                        if ((result & 0x80000000) == 0)
-                        {
-                          result = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), DWORD2(v23));
-                          if ((result & 0x80000000) == 0)
-                          {
-                            if (v34 == 1 || (result = mosyntbase_WString(a1, "(cost ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, v34, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, ") ", 0), (result & 0x80000000) == 0))
-                            {
-                              result = mosyntbase_WString(a1, " from pos ", 0);
-                              if ((result & 0x80000000) == 0)
-                              {
-                                result = mosyntbase_WInt(a1, a6, 0);
-                                if ((result & 0x80000000) == 0)
-                                {
-                                  result = mosyntbase_WString(a1, " / FST state ", 0);
-                                  if ((result & 0x80000000) == 0)
-                                  {
-                                    result = mosyntbase_WInt(a1, a7, 0);
-                                    if ((result & 0x80000000) == 0)
-                                    {
-                                      result = mosyntbase_WString(a1, " to pos ", 0);
-                                      if ((result & 0x80000000) == 0)
-                                      {
-                                        result = mosyntbase_WInt(a1, a8, 0);
-                                        if ((result & 0x80000000) == 0)
-                                        {
-                                          result = mosyntbase_WString(a1, " / FST state ", 0);
-                                          if ((result & 0x80000000) == 0)
-                                          {
-                                            result = mosyntbase_WInt(a1, a9, 0);
-                                            if ((result & 0x80000000) == 0)
-                                            {
-                                              result = mosyntbase_WLn(a1);
-                                              if ((result & 0x80000000) == 0)
-                                              {
-LABEL_54:
-                                                result = mosyntkbwgram_GetFirstNFATrans(*(a2 + 416), DWORD2(v30), &v28, &v27 + 4, &v27, &v26);
-                                                if ((result & 0x80000000) == 0)
-                                                {
-                                                  v17 = v16;
-                                                  v18 = v15;
-                                                  while ((v27 & 0x8000000000000000) == 0)
-                                                  {
-                                                    for (i = *(*(*(a2 + 424) + 8 * a6) + 8 * ((HIDWORD(v27) + a7) % 13) + 16); i; i = *(i + 16))
-                                                    {
-                                                      if (__PAIR64__(*(i + 36), *(i + 32)) == __PAIR64__(a7, HIDWORD(v27)))
-                                                      {
-                                                        v20 = v26 + *(i + 40);
-                                                        v22 = v29;
-                                                        v23 = v30;
-                                                        result = InsertEntry(a1, a2, a6, a8, 0, v27, a9, v20 + HIDWORD(v26), i, &v22);
-                                                        if ((result & 0x80000000) != 0)
-                                                        {
-                                                          goto LABEL_51;
-                                                        }
-                                                      }
-                                                    }
-
-                                                    result = mosyntkbwgram_GetNextNFATrans(*(a2 + 416), DWORD2(v30), &v28, &v27 + 4, &v27, &v26);
-                                                    if ((result & 0x80000000) != 0)
-                                                    {
-                                                      goto LABEL_51;
-                                                    }
-                                                  }
-
-                                                  result = mosyntdata_GetNextLexItem(a1, *(a2 + 8), &v31, v35, 500, &v24, &v25, &v29);
-                                                  v15 = v18;
-                                                  v16 = v17;
-                                                  if ((result & 0x80000000) == 0)
-                                                  {
-                                                    goto LABEL_10;
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
+                  return result;
                 }
               }
             }
+
+            result = mosyntkbwgram_GetNextNFATrans(*(a2 + 416), DWORD2(v29), &v27, &v26 + 4, &v26, &v25);
+            if ((result & 0x80000000) != 0)
+            {
+              return result;
+            }
+          }
+
+          result = mosyntdata_GetNextLexItem(a1, *(a2 + 8), &v30, v34, 500, &v23, &v24, &v28);
+          v15 = v18;
+          v16 = v17;
+          if ((result & 0x80000000) == 0)
+          {
+            goto LABEL_10;
           }
         }
       }
     }
   }
 
-LABEL_51:
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2336,7 +2175,7 @@ LABEL_29:
     {
       if (*(v13 + 30) != *(v9 + 28))
       {
-        v11 = mosyntbase_WriteDevelMessage(a1, "***** inconsistent word analysis reading\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+        v11 = mosyntbase_WriteDevelMessage(a1, "***** inconsistent word analysis reading\\n", 0, "", 0, "", 0, "", 0, 0);
         if ((v11 & 0x80000000) != 0)
         {
           return v11;
@@ -2357,7 +2196,7 @@ LABEL_29:
         v15 = *(i + 16);
         if (v15)
         {
-          v16 = mosyntdata_IdenticalLexItems(v15 + 8, v9 + 56);
+          v16 = mosyntdata_IdenticalLexItems((v15 + 8), v9 + 56);
           i = v29;
           if (v16)
           {
@@ -2514,14 +2353,14 @@ uint64_t RemoveUnreferenced(uint64_t result, int a2)
   return result;
 }
 
-uint64_t InsertEntry(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, __int128 *a10)
+uint64_t InsertEntry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, __int128 *a10)
 {
-  v34[4] = *MEMORY[0x1E69E9840];
-  memset(v34, 0, 30);
+  v33[4] = *MEMORY[0x1E69E9840];
+  memset(v33, 0, 30);
   v16 = (a7 + a6) % 13;
   v17 = *(a2 + 424);
   v18 = *(*(v17 + 8 * a4) + 8 * v16 + 16);
-  v33 = v18;
+  v32 = v18;
   if (v18)
   {
     while (*(v18 + 32) != a6 || *(v18 + 36) != a7)
@@ -2529,14 +2368,14 @@ uint64_t InsertEntry(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int
       v18 = *(v18 + 16);
       if (!v18)
       {
-        v33 = 0;
+        v32 = 0;
         goto LABEL_6;
       }
     }
 
     if (*(v18 + 40) <= a8)
     {
-      result = 0;
+      return 0;
     }
 
     else
@@ -2562,7 +2401,7 @@ uint64_t InsertEntry(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int
       result = TreatEmptyTrans(a1, a2, a4, v18);
       if ((result & 0x80000000) == 0)
       {
-        if (*a2 < 2 || (result = mosyntknowl_WriteTraceHeader(a1, 1u), (result & 0x80000000) == 0) && (m2__cp__str("modified edge", v34, 30), result = WriteParseEntry(a1, a2, v34, v18, v28, a4), (result & 0x80000000) == 0))
+        if (*a2 < 2 || (result = mosyntknowl_WriteTraceHeader(a1, 1u), (result & 0x80000000) == 0) && (m2__cp__str("modified edge", v33, 0x1Eu), result = WriteParseEntry(a1, a2, v33, v18, v28, a4), (result & 0x80000000) == 0))
         {
           *(a2 + 492) = 1;
         }
@@ -2576,27 +2415,27 @@ LABEL_6:
     v19 = *(a2 + 456);
     if (v19)
     {
-      v33 = *(a2 + 456);
+      v32 = *(a2 + 456);
       *(a2 + 456) = *(v19 + 8);
     }
 
     else
     {
-      v31 = a5;
-      v32 = a3;
-      result = mosyntpal_ALLOCATE(a1, &v33, 0x60u);
+      v30 = a5;
+      v31 = a3;
+      result = mosyntpal_ALLOCATE(a1, &v32, 0x60u);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_30;
+        return result;
       }
 
-      *v33 = *(a2 + 440);
-      v19 = v33;
-      *(a2 + 440) = v33;
+      *v32 = *(a2 + 440);
+      v19 = v32;
+      *(a2 + 440) = v32;
       ++*(a2 + 448);
       v17 = *(a2 + 424);
-      a5 = v31;
-      a3 = v32;
+      a5 = v30;
+      a3 = v31;
     }
 
     v21 = *(v17 + 8 * a4);
@@ -2605,8 +2444,8 @@ LABEL_6:
     v22 = v21 + 8 * v16;
     *(v19 + 16) = *(v22 + 16);
     *(v22 + 16) = v19;
-    v23 = v33;
-    *(v33 + 24) = 0;
+    v23 = v32;
+    *(v32 + 24) = 0;
     *(v23 + 28) = a3;
     *(v23 + 30) = a4;
     *(v23 + 32) = a6;
@@ -2624,22 +2463,20 @@ LABEL_6:
     *(v23 + 56) = v24;
     if (a4 != a3 || a5 || (v25 = a3, result = AddTwolState(a1, a2, a7), a3 = v25, (result & 0x80000000) == 0))
     {
-      if (*a2 < 2 || (v26 = a3, result = mosyntknowl_WriteTraceHeader(a1, 1u), (result & 0x80000000) == 0) && (m2__cp__str("inserted edge", v34, 30), result = WriteParseEntry(a1, a2, v34, v33, v26, a4), (result & 0x80000000) == 0))
+      if (*a2 < 2 || (v26 = a3, result = mosyntknowl_WriteTraceHeader(a1, 1u), (result & 0x80000000) == 0) && (m2__cp__str("inserted edge", v33, 0x1Eu), result = WriteParseEntry(a1, a2, v33, v32, v26, a4), (result & 0x80000000) == 0))
       {
         *(a2 + 492) = 1;
-        result = TreatEmptyTrans(a1, a2, a4, v33);
+        return TreatEmptyTrans(a1, a2, a4, v32);
       }
     }
   }
 
-LABEL_30:
-  v30 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t WriteParseEntry(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, unsigned int a5, unsigned int a6)
+uint64_t WriteParseEntry(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = mosyntbase_WString(a1, a3, 30);
+  result = mosyntbase_WString(a1, a3, 0x1Eu);
   if ((result & 0x80000000) == 0)
   {
     if (*(a4 + 48))
@@ -2731,80 +2568,83 @@ uint64_t WriteParseEntry(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t
 
 uint64_t TreatEmptyTrans(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v18 = 0;
+  v17 = 0;
+  v16 = 0;
   v15 = 0;
-  v14 = 0;
-  v13 = 0;
-  v12 = 0;
-  memset(v11, 0, sizeof(v11));
-  result = mosyntdata_GetNilLexItem(v11);
+  v13 = 0u;
+  v14 = 0u;
+  result = mosyntdata_GetNilLexItem(&v13);
   if ((result & 0x80000000) == 0)
   {
-    result = mosyntkbwgram_GetFirstEpsTrans(*(a2 + 416), *(a4 + 32), &v15, &v14, &v13, &v12);
-    if ((result & 0x80000000) == 0 && (v14 & 0x80000000) == 0)
+    result = mosyntkbwgram_GetFirstEpsTrans(*(a2 + 416), *(a4 + 32), &v18, &v17, &v16, &v15);
+    if ((result & 0x80000000) == 0)
     {
-      do
+      for (i = v17; (v17 & 0x80000000) == 0; i = v17)
       {
-        if (v13)
+        if (v16)
         {
           *(a4 + 38) = 1;
         }
 
-        v9 = *(a4 + 36);
-        v10 = *(a4 + 40);
-        result = InsertEntry(a1, a2, a3, a3, 1);
+        v10 = *(a4 + 36);
+        v11 = *(a4 + 40);
+        v12[0] = v13;
+        v12[1] = v14;
+        result = InsertEntry(a1, a2, a3, a3, 1, i, v10, v15 + v11, a4, v12);
         if ((result & 0x80000000) != 0)
         {
           break;
         }
 
-        result = mosyntkbwgram_GetNextEpsTrans(*(a2 + 416), *(a4 + 32), &v15, &v14, &v13, &v12);
+        result = mosyntkbwgram_GetNextEpsTrans(*(a2 + 416), *(a4 + 32), &v18, &v17, &v16, &v15);
         if ((result & 0x80000000) != 0)
         {
           break;
         }
       }
-
-      while ((v14 & 0x80000000) == 0);
     }
   }
 
   return result;
 }
 
-uint64_t PutOutReadingItem(uint64_t a1, uint64_t a2, int a3, int a4, unsigned int a5, int a6, uint64_t a7, void *a8)
+uint64_t PutOutReadingItem(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, uint64_t a7, void *a8)
 {
-  v19 = 0;
   v20 = 0;
-  result = mosyntpal_ALLOCATE(a1, &v19, 0x18u);
+  v21 = 0;
+  result = mosyntpal_ALLOCATE(a1, &v20, 0x18u);
   if ((result & 0x80000000) == 0)
   {
-    *v19 = 0;
-    v17 = v19;
-    *(v19 + 8) = a3;
+    *v20 = 0;
+    v17 = v20;
+    *(v20 + 8) = a3;
     *(v17 + 12) = a4;
     *(v17 + 16) = a7;
-    result = mosyntpal_ALLOCATE(a1, &v20, 0x28u);
+    result = mosyntpal_ALLOCATE(a1, &v21, 0x28u);
     if ((result & 0x80000000) == 0)
     {
-      v18 = v20;
-      *(v20 + 8) = 0;
+      v18 = v21;
+      *(v21 + 8) = 0;
       *(v18 + 16) = *(a2 + 2212);
       *(v18 + 20) = a5;
       *(v18 + 24) = a6;
-      *(v18 + 32) = v19;
-      if ((a5 & 0x80000000) != 0)
+      *(v18 + 32) = v20;
+      if (a5 < 0)
       {
-        result = mosyntbase_WriteDevelMessage(a1, "***** erroneous reading start position %d; reading ignored\\n", 0, "", 0, "", 0, "", 0, a5, 0, 0);
+        LODWORD(v19) = 0;
+        HIDWORD(v19) = a5;
+        result = mosyntbase_WriteDevelMessage(a1, "***** erroneous reading start position %d; reading ignored\\n", 0, "", 0, "", 0, "", v19, 0);
         if ((result & 0x80000000) == 0)
         {
-          return mosyntdata_DisposeItem(a1, &v20);
+          return mosyntdata_DisposeItem(a1, &v21);
         }
       }
 
       else
       {
         *v18 = *a8;
-        *a8 = v20;
+        *a8 = v21;
       }
     }
   }
@@ -2812,7 +2652,7 @@ uint64_t PutOutReadingItem(uint64_t a1, uint64_t a2, int a3, int a4, unsigned in
   return result;
 }
 
-uint64_t DisposeLexEleTreeList(uint64_t a1, uint64_t *a2)
+uint64_t DisposeLexEleTreeList(uint64_t a1, uint64_t **a2)
 {
   v3 = *a2;
   if (*a2)
@@ -2827,7 +2667,7 @@ uint64_t DisposeLexEleTreeList(uint64_t a1, uint64_t *a2)
       }
 
       v6 = v3;
-      v3 = *(v3 + 8);
+      v3 = v3[1];
       result = mosyntpal_DEALLOCATE(a1, &v6);
       if ((result & 0x80000000) != 0)
       {
@@ -2851,23 +2691,24 @@ LABEL_8:
   return result;
 }
 
-uint64_t mosyntknowl_GetPhraseBoundFromString(uint64_t a1, unsigned __int8 *a2, int a3, int *a4, _DWORD *a5)
+uint64_t mosyntknowl_GetPhraseBoundFromString(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int *a4, _DWORD *a5)
 {
+  v7 = a3;
   *a5 = -1;
   result = mosyntutils_SkipBlanksInString(a2, a3, a4);
   if ((result & 0x80000000) == 0)
   {
-    result = mosyntutils_CheckSkipCharInString(a1, a2, a3, a4, 0x23u);
+    result = mosyntutils_CheckSkipCharInString(a1, a2, v7, a4, 0x23u);
     if ((result & 0x80000000) == 0)
     {
-      result = mosyntutils_CheckSkipCharInString(a1, a2, a3, a4, 0x7Bu);
+      result = mosyntutils_CheckSkipCharInString(a1, a2, v7, a4, 0x7Bu);
       if ((result & 0x80000000) == 0)
       {
-        result = mosyntutils_GetCardFromString(a1, a2, a3, a4, a5);
+        result = mosyntutils_GetCardFromString(a1, a2, v7, a4, a5);
         if ((result & 0x80000000) == 0)
         {
 
-          return mosyntutils_CheckSkipCharInString(a1, a2, a3, a4, 0x7Du);
+          return mosyntutils_CheckSkipCharInString(a1, a2, v7, a4, 0x7Du);
         }
       }
     }
@@ -2876,48 +2717,49 @@ uint64_t mosyntknowl_GetPhraseBoundFromString(uint64_t a1, unsigned __int8 *a2, 
   return result;
 }
 
-uint64_t mosyntknowl_GetPhraseTypeFromString(uint64_t a1, unsigned __int8 *a2, int a3, int *a4, int *a5)
+uint64_t mosyntknowl_GetPhraseTypeFromString(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int *a4, int *a5)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v7 = a3;
+  v13 = *MEMORY[0x1E69E9840];
   *a5 = 0;
   result = mosyntutils_SkipBlanksInString(a2, a3, a4);
   if ((result & 0x80000000) == 0)
   {
-    result = mosyntutils_CheckSkipCharInString(a1, a2, a3, a4, 0x28u);
+    result = mosyntutils_CheckSkipCharInString(a1, a2, v7, a4, 0x28u);
     if ((result & 0x80000000) == 0)
     {
-      v13 = 0;
       v12 = 0;
-      result = mosyntutils_GetIdent1FromString(a1, a2, a3, a4, &v12, 10);
+      v11 = 0;
+      result = mosyntutils_GetIdent1FromString(a1, a2, v7, a4, &v11, 10);
       if ((result & 0x80000000) == 0)
       {
-        result = mosyntutils_CheckSkipCharInString(a1, a2, a3, a4, 0x29u);
+        result = mosyntutils_CheckSkipCharInString(a1, a2, v7, a4, 0x29u);
         if ((result & 0x80000000) == 0)
         {
-          result = mosyntkbaccphr_StringToPhraseType(a1, &v12, 10, a5);
+          return mosyntkbaccphr_StringToPhraseType(a1, &v11, 0xAu, a5);
         }
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t mosyntknowl_GetAccentFromString(uint64_t a1, unsigned __int8 *a2, int a3, int *a4, _DWORD *a5)
+uint64_t mosyntknowl_GetAccentFromString(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int *a4, _DWORD *a5)
 {
+  v7 = a3;
   *a5 = -1;
   result = mosyntutils_SkipBlanksInString(a2, a3, a4);
   if ((result & 0x80000000) == 0)
   {
-    result = mosyntutils_CheckSkipCharInString(a1, a2, a3, a4, 0x5Bu);
+    result = mosyntutils_CheckSkipCharInString(a1, a2, v7, a4, 0x5Bu);
     if ((result & 0x80000000) == 0)
     {
-      result = mosyntutils_GetCardFromString(a1, a2, a3, a4, a5);
+      result = mosyntutils_GetCardFromString(a1, a2, v7, a4, a5);
       if ((result & 0x80000000) == 0)
       {
 
-        return mosyntutils_CheckSkipCharInString(a1, a2, a3, a4, 0x5Du);
+        return mosyntutils_CheckSkipCharInString(a1, a2, v7, a4, 0x5Du);
       }
     }
   }
@@ -2925,7 +2767,7 @@ uint64_t mosyntknowl_GetAccentFromString(uint64_t a1, unsigned __int8 *a2, int a
   return result;
 }
 
-uint64_t mosyntknowl_GetPhoneFromString(uint64_t a1, void *a2, unsigned __int8 *a3, int a4, int *a5, int *a6)
+uint64_t mosyntknowl_GetPhoneFromString(uint64_t a1, char *a2, unsigned __int8 *a3, uint64_t a4, int *a5, int *a6)
 {
   v29[2] = *MEMORY[0x1E69E9840];
   v12 = mosyntkbsymtab_LHPlusMode(a2);
@@ -2933,8 +2775,7 @@ uint64_t mosyntknowl_GetPhoneFromString(uint64_t a1, void *a2, unsigned __int8 *
   v13 = *a5;
   if (v13 >= a4 || !a3[v13])
   {
-    v15 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   v14 = v12;
@@ -2966,12 +2807,14 @@ uint64_t mosyntknowl_GetPhoneFromString(uint64_t a1, void *a2, unsigned __int8 *
           v15 = LhPlusPhone;
           if ((LhPlusPhone & 0x80000000) != 0)
           {
-            goto LABEL_13;
+            return v15;
           }
 
           if (!HIBYTE(v26))
           {
-            v20 = mosyntbase_WriteDevelMessage(a1, "***** unknown phone at pos %d in '%s'\\n", 0, a3, a4, "", 0, "", 0, *a5, 0, 0);
+            LODWORD(v25) = 0;
+            HIDWORD(v25) = *a5;
+            v20 = mosyntbase_WriteDevelMessage(a1, "***** unknown phone at pos %d in '%s'\\n", 0, a3, a4, "", 0, "", v25, 0);
 LABEL_23:
             v15 = v20;
             if ((v20 & 0x80000000) == 0)
@@ -2979,34 +2822,34 @@ LABEL_23:
               goto LABEL_24;
             }
 
-            goto LABEL_13;
+            return v15;
           }
 
           BYTE6(v29[1]) = 0;
-          v24 = mosyntkbsymtab_KnownPhonId(a1, a2, v29);
-          *a6 = v24;
-          if (v24 > 0)
+          v23 = mosyntkbsymtab_KnownPhonId(a1, a2, v29);
+          *a6 = v23;
+          if (v23 > 0)
           {
-            goto LABEL_13;
+            return v15;
           }
 
-          v18 = mosyntbase_WriteDevelMessage(a1, "***** unknown phone '%s'\\n", 0, v29, 15, "", 0, "", 0, 0, 0, 0);
+          return mosyntbase_WriteDevelMessage(a1, "***** unknown phone '%s'\\n", 0, v29, 0xFu, "", 0, "", 0, 0);
         }
 
         else
         {
-          m2__cp__str("{c", v29, 15);
+          m2__cp__str("{c", v29, 0xFu);
           v18 = mosyntpal_IntToString(a3[*a5], 0, &v27, 10);
           if ((v18 & 0x80000000) == 0)
           {
-            v18 = mosyntbase_AppendTo(v29, 15, &v27, 10, &v26);
+            v18 = mosyntbase_AppendTo(v29, 15, &v27, 0xAu, &v26);
             if ((v18 & 0x80000000) == 0)
             {
-              m2__cp__str("}", &v27, 10);
-              v15 = mosyntbase_AppendTo(v29, 15, &v27, 10, &v26);
+              m2__cp__str("}", &v27, 0xAu);
+              v15 = mosyntbase_AppendTo(v29, 15, &v27, 0xAu, &v26);
               if ((v15 & 0x80000000) != 0)
               {
-                goto LABEL_13;
+                return v15;
               }
 
               BYTE6(v29[1]) = 0;
@@ -3016,95 +2859,96 @@ LABEL_23:
               {
 LABEL_24:
                 ++*a5;
-                goto LABEL_13;
+                return v15;
               }
 
-              v25 = a3[*a5];
-              v20 = mosyntbase_WriteDevelMessage(a1, "***** error in conversion of control character %d to symbol\\n", 0, "", 0, "", 0, "", 0, v25, HIDWORD(v25), 0);
+              LODWORD(v24) = 0;
+              HIDWORD(v24) = a3[*a5];
+              v20 = mosyntbase_WriteDevelMessage(a1, "***** error in conversion of control character %d to symbol\\n", 0, "", 0, "", 0, "", v24, 0);
               goto LABEL_23;
             }
           }
         }
 
-        v15 = v18;
+        return v18;
       }
     }
   }
 
-LABEL_13:
-  v21 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
-uint64_t GetSVOXPAPhone(uint64_t a1, uint64_t a2, int a3, int *a4, _BYTE *a5, char *a6)
+uint64_t GetSVOXPAPhone(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, _BYTE *a5, char *a6)
 {
-  v23[2] = *MEMORY[0x1E69E9840];
-  memset(v23, 0, 14);
-  v22 = 0;
-  v20 = 0;
+  v22[2] = *MEMORY[0x1E69E9840];
+  memset(v22, 0, 14);
   v21 = 0;
+  v19 = 0;
+  v20 = 0;
   v12 = *a4;
   *a5 = 0;
   *a6 = 1;
   v13 = *a4;
   if (v13 < a3 && *(a2 + v13) == 123)
   {
-    result = mosyntutils_AppChar(a5, 15, &v21, 123);
+    result = mosyntutils_AppChar(a5, 15, &v20, 123);
+    if ((result & 0x80000000) != 0)
+    {
+      return result;
+    }
+
+    v15 = *a4 + 1;
+    *a4 = v15;
+    if (v15 < a3)
+    {
+      v16 = *(a2 + v15);
+      if (v16 >= 0x21)
+      {
+        while (v16 != 125)
+        {
+          result = mosyntutils_GetUTF8Char(a1, a2, a3, a4, &v19);
+          if ((result & 0x80000000) != 0)
+          {
+            return result;
+          }
+
+          result = mosyntbase_App(a5, 15, &v20, &v19, 4u, &v21);
+          if ((result & 0x80000000) != 0)
+          {
+            return result;
+          }
+
+          LODWORD(v15) = *a4;
+          if (*a4 < a3)
+          {
+            v16 = *(a2 + v15);
+            if (v16 >= 0x21)
+            {
+              continue;
+            }
+          }
+
+          break;
+        }
+      }
+    }
+
+    if (v15 >= a3 - 1 || *(a2 + v15) != 125)
+    {
+      *a6 = 0;
+LABEL_31:
+      *a4 = v12;
+      *a5 = 0;
+      return result;
+    }
+
+    result = mosyntutils_AppChar(a5, 15, &v20, 125);
     if ((result & 0x80000000) == 0)
     {
-      v15 = *a4 + 1;
-      *a4 = v15;
-      if (v15 < a3)
+      ++*a4;
+      if (!*a6)
       {
-        v16 = *(a2 + v15);
-        if (v16 >= 0x21)
-        {
-          while (v16 != 125)
-          {
-            result = mosyntutils_GetUTF8Char(a1, a2, a3, a4, &v20);
-            if ((result & 0x80000000) != 0)
-            {
-              goto LABEL_32;
-            }
-
-            result = mosyntbase_App(a5, 15, &v21, &v20, 4, &v22);
-            if ((result & 0x80000000) != 0)
-            {
-              goto LABEL_32;
-            }
-
-            LODWORD(v15) = *a4;
-            if (*a4 < a3)
-            {
-              v16 = *(a2 + v15);
-              if (v16 >= 0x21)
-              {
-                continue;
-              }
-            }
-
-            break;
-          }
-        }
-      }
-
-      if (v15 >= a3 - 1 || *(a2 + v15) != 125)
-      {
-        *a6 = 0;
-LABEL_31:
-        *a4 = v12;
-        *a5 = 0;
-        goto LABEL_32;
-      }
-
-      result = mosyntutils_AppChar(a5, 15, &v21, 125);
-      if ((result & 0x80000000) == 0)
-      {
-        ++*a4;
-        if (!*a6)
-        {
-          goto LABEL_31;
-        }
+        goto LABEL_31;
       }
     }
   }
@@ -3113,19 +2957,19 @@ LABEL_31:
   {
     while (1)
     {
-      result = GetSVOXPADiacPhone(a1, a2, a3, a4, v23, a6);
+      result = GetSVOXPADiacPhone(a1, a2, a3, a4, v22, a6);
       if ((result & 0x80000000) != 0)
       {
         break;
       }
 
-      result = mosyntbase_App(a5, 15, &v21, v23, 14, &v22);
+      result = mosyntbase_App(a5, 15, &v20, v22, 0xEu, &v21);
       if ((result & 0x80000000) != 0)
       {
         break;
       }
 
-      v17 = !v22 || *a6 == 0;
+      v17 = !v21 || *a6 == 0;
       v18 = !v17;
       *a6 = v18;
       if (v17)
@@ -3135,26 +2979,24 @@ LABEL_31:
 
       if (*a4 >= a3)
       {
-        break;
+        return result;
       }
 
       if (*(a2 + *a4) != 95)
       {
-        break;
+        return result;
       }
 
-      result = mosyntutils_AppChar(a5, 15, &v21, 95);
+      result = mosyntutils_AppChar(a5, 15, &v20, 95);
       if ((result & 0x80000000) != 0)
       {
-        break;
+        return result;
       }
 
       ++*a4;
     }
   }
 
-LABEL_32:
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3595,111 +3437,72 @@ LABEL_7:
   return 0;
 }
 
-uint64_t mosyntknowl_Unif2(uint64_t a1, void *a2, int a3, uint64_t a4, __int16 *a5, __int16 *a6, __int16 *a7, __int16 *a8, __int16 *a9, __int16 *a10, char *a11)
+uint64_t mosyntknowl_Unif2(uint64_t a1, void *a2, int a3, uint64_t a4, unsigned __int16 *a5, unsigned __int16 *a6, unsigned __int16 *a7, unsigned __int16 *a8, __int16 *a9, __int16 *a10, char *a11)
 {
   v24 = 0;
-  if (a3 < 3)
+  if (a3 < 3 || (result = mosyntbase_WString(a1, "      unifying sc1A", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteFeatList(a1, a2, a5), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "/sc1B", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteFeatList(a1, a2, a6), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " and sc2A", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteFeatList(a1, a2, a7), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "/sc2B", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteFeatList(a1, a2, a8), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
   {
-    goto LABEL_11;
-  }
-
-  result = mosyntbase_WString(a1, "      unifying sc1A", 0);
-  if ((result & 0x80000000) == 0)
-  {
-    result = mosyntkbsymtab_WriteFeatList(a1, a2, a5);
-    if ((result & 0x80000000) == 0)
+    v25 = 0;
+    Unify(a4, a5, a6, 50, &v25);
+    if (v25 && (Unify(a4, a7, a8, 100, &v24), v24))
     {
-      result = mosyntbase_WString(a1, "/sc1B", 0);
+      result = GenRetFeat(a1, a4, a9, a10);
       if ((result & 0x80000000) == 0)
       {
-        result = mosyntkbsymtab_WriteFeatList(a1, a2, a6);
-        if ((result & 0x80000000) == 0)
+        if (a3 < 3 || (result = mosyntbase_WString(a1, "      returning ", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteFeatList(a1, a2, a9), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " as ", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteFeatList(a1, a2, a10), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
         {
-          result = mosyntbase_WString(a1, " and sc2A", 0);
-          if ((result & 0x80000000) == 0)
+          if (!a4)
           {
-            result = mosyntkbsymtab_WriteFeatList(a1, a2, a7);
-            if ((result & 0x80000000) == 0)
-            {
-              result = mosyntbase_WString(a1, "/sc2B", 0);
-              if ((result & 0x80000000) == 0)
-              {
-                result = mosyntkbsymtab_WriteFeatList(a1, a2, a8);
-                if ((result & 0x80000000) == 0)
-                {
-                  result = mosyntbase_WLn(a1);
-                  if ((result & 0x80000000) == 0)
-                  {
-LABEL_11:
-                    v25 = 0;
-                    Unify(a4, a5, a6, 50, &v25);
-                    if (v25 && (Unify(a4, a7, a8, 100, &v24), v24))
-                    {
-                      result = GenRetFeat(a1, a4, a9, a10);
-                      if ((result & 0x80000000) == 0)
-                      {
-                        if (a3 < 3 || (result = mosyntbase_WString(a1, "      returning ", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteFeatList(a1, a2, a9), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " as ", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WriteFeatList(a1, a2, a10), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
-                        {
-                          if (!a4)
-                          {
-                            v22 = 1;
-                            goto LABEL_36;
-                          }
-
-                          v20 = (a4 + 600);
-                          if (*(a4 + 600) >= 1)
-                          {
-                            v21 = 0;
-                            do
-                            {
-                              *(a4 + 4 * *(a4 + 604 + 4 * v21)) = *(a4 + 604 + 4 * v21);
-                              ++v21;
-                            }
-
-                            while (v21 < *(a4 + 600));
-                          }
-
-                          v22 = 1;
-                          goto LABEL_33;
-                        }
-                      }
-                    }
-
-                    else if (a3 < 3 || (result = mosyntbase_WString(a1, "      failed", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
-                    {
-                      if (!a4)
-                      {
-                        v22 = 0;
-                        goto LABEL_36;
-                      }
-
-                      v20 = (a4 + 600);
-                      if (*(a4 + 600) >= 1)
-                      {
-                        v23 = 0;
-                        do
-                        {
-                          *(a4 + 4 * *(a4 + 604 + 4 * v23)) = *(a4 + 604 + 4 * v23);
-                          ++v23;
-                        }
-
-                        while (v23 < *(a4 + 600));
-                      }
-
-                      v22 = 0;
-LABEL_33:
-                      *v20 = 0;
-LABEL_36:
-                      result = 0;
-                      *a11 = v22;
-                    }
-                  }
-                }
-              }
-            }
+            v22 = 1;
+            goto LABEL_36;
           }
+
+          v20 = (a4 + 600);
+          if (*(a4 + 600) >= 1)
+          {
+            v21 = 0;
+            do
+            {
+              *(a4 + 4 * *(a4 + 604 + 4 * v21)) = *(a4 + 604 + 4 * v21);
+              ++v21;
+            }
+
+            while (v21 < *(a4 + 600));
+          }
+
+          v22 = 1;
+          goto LABEL_33;
         }
       }
+    }
+
+    else if (a3 < 3 || (result = mosyntbase_WString(a1, "      failed", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
+    {
+      if (!a4)
+      {
+        v22 = 0;
+        goto LABEL_36;
+      }
+
+      v20 = (a4 + 600);
+      if (*(a4 + 600) >= 1)
+      {
+        v23 = 0;
+        do
+        {
+          *(a4 + 4 * *(a4 + 604 + 4 * v23)) = *(a4 + 604 + 4 * v23);
+          ++v23;
+        }
+
+        while (v23 < *(a4 + 600));
+      }
+
+      v22 = 0;
+LABEL_33:
+      *v20 = 0;
+LABEL_36:
+      result = 0;
+      *a11 = v22;
     }
   }
 
@@ -3777,22 +3580,23 @@ uint64_t mosyntknowl_WriteTraceHeader(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t GetSVOXPADiacPhone(uint64_t a1, uint64_t a2, int a3, int *a4, _BYTE *a5, char *a6)
+uint64_t GetSVOXPADiacPhone(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, _BYTE *a5, char *a6)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  *&v23[3] = 0;
-  *(v23 + 1) = 0;
-  *a5 = 0;
+  v9 = a3;
+  v23 = *MEMORY[0x1E69E9840];
   v19 = 0;
+  *&v22[3] = 0;
+  *(v22 + 1) = 0;
+  *a5 = 0;
+  v18 = 0;
   v12 = *a4;
   v13 = *(a2 + v12);
   if (v12 < a3 && v13 == 94 || v13 == 126 || v13 == 61)
   {
-    result = mosyntutils_AppChar(a5, 14, &v19, v13);
+    result = mosyntutils_AppChar(a5, 14, &v18, v13);
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_21;
+      return result;
     }
 
     v15 = *a4 + 1;
@@ -3800,41 +3604,41 @@ uint64_t GetSVOXPADiacPhone(uint64_t a1, uint64_t a2, int a3, int *a4, _BYTE *a5
     v13 = *(a2 + v15);
   }
 
-  LOBYTE(v23[0]) = 0;
+  LOBYTE(v22[0]) = 0;
   if (!v13)
   {
     goto LABEL_15;
   }
 
-  v22 = 0;
   v21 = 0;
-  result = mosyntutils_GetUTF8Char(a1, a2, a3, a4, &v22 + 4);
+  v20 = 0;
+  result = mosyntutils_GetUTF8Char(a1, a2, v9, a4, &v21 + 4);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_21;
+    return result;
   }
 
-  result = mosyntbase_App(v23, 14, &v22, &v22 + 4, 4, &v21);
+  result = mosyntbase_App(v22, 14, &v21, &v21 + 4, 4u, &v20);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_21;
+    return result;
   }
 
-  if (LOBYTE(v23[0]) < 0x21u || LOBYTE(v23[0]) - 58 <= 0x25 && ((1 << (LOBYTE(v23[0]) - 58)) & 0x3000000009) != 0 || (v16 = 1, LOBYTE(v23[0]) - 123 <= 3) && LOBYTE(v23[0]) != 124)
+  if (LOBYTE(v22[0]) < 0x21u || LOBYTE(v22[0]) - 58 <= 0x25 && ((1 << (LOBYTE(v22[0]) - 58)) & 0x3000000009) != 0 || (v16 = 1, LOBYTE(v22[0]) - 123 <= 3) && LOBYTE(v22[0]) != 124)
   {
 LABEL_15:
     v16 = 0;
-    v23[0] = 33;
+    strcpy(v22, "!");
   }
 
   *a6 = v16;
-  result = mosyntbase_App(a5, 14, &v19, v23, 14, &v20);
+  result = mosyntbase_App(a5, 14, &v18, v22, 0xEu, &v19);
   if ((result & 0x80000000) == 0)
   {
     v17 = *a4;
-    if (v17 < a3 && *(a2 + v17) == 58)
+    if (v17 < v9 && *(a2 + v17) == 58)
     {
-      result = mosyntutils_AppChar(a5, 14, &v19, 58);
+      result = mosyntutils_AppChar(a5, 14, &v18, 58);
       if ((result & 0x80000000) == 0)
       {
         ++*a4;
@@ -3842,31 +3646,29 @@ LABEL_15:
     }
   }
 
-LABEL_21:
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t auxkbcommondef_RecallString(uint64_t a1, uint64_t a2, signed int a3, uint64_t a4, int a5)
+uint64_t auxkbcommondef_RecallString(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   v9 = a3;
-  v28 = *MEMORY[0x1E69E9840];
-  if ((a3 & 0x80000000) == 0 && *(a2 + 8) > a3 || (result = mosyntbase_WString(a1, "*** error in dynamic array reading position: start ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, v9, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, ", length ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, 1u, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, ", actual data length: ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, *(a2 + 8), 0), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
+  v27 = *MEMORY[0x1E69E9840];
+  if ((a3 & 0x80000000) == 0 && *(a2 + 8) > a3 || (result = mosyntbase_WString(a1, "*** error in dynamic array reading position: start ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, v9, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, ", length ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, 1, 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, ", actual data length: ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, *(a2 + 8), 0), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
   {
     v12 = 0;
-    v27 = 0;
     v26 = 0;
+    v25 = 0;
     v13 = v9 / 512;
     do
     {
-      *(&v26 + v12) = v13 - (v5 & 0xFFFFFFC0);
+      *(&v25 + v12) = v13 - (v5 & 0xFFFFFFC0);
       v12 += 4;
       v13 /= 64;
     }
 
     while (v12 != 12);
     v14 = v9 % 512;
-    v15 = *(*(*(*(a2 + 16) + 8 * v27 + 8) + 8 * SHIDWORD(v26) + 8) + 8 * v26 + 8);
+    v15 = *(*(*(*(a2 + 16) + 8 * v26 + 8) + 8 * SHIDWORD(v25) + 8) + 8 * v25 + 8);
     v16 = *(v15 + v9 % 512);
     v17 = a5 > 0;
     if (v16)
@@ -3894,7 +3696,7 @@ uint64_t auxkbcommondef_RecallString(uint64_t a1, uint64_t a2, signed int a3, ui
       do
       {
         *(a4 + v21) = v16;
-        ++v9;
+        LODWORD(v9) = v9 + 1;
         if (v14 < 511)
         {
           ++v14;
@@ -3903,19 +3705,19 @@ uint64_t auxkbcommondef_RecallString(uint64_t a1, uint64_t a2, signed int a3, ui
         else
         {
           v22 = 0;
-          v27 = 0;
           v26 = 0;
+          v25 = 0;
           v23 = v9 / 512;
           do
           {
-            *(&v26 + v22) = v23 - (v6 & 0xFFFFFFC0);
+            *(&v25 + v22) = v23 - (v6 & 0xFFFFFFC0);
             v22 += 4;
             v23 /= 64;
           }
 
           while (v22 != 12);
           v14 = v9 % 512;
-          v15 = *(*(*(*(a2 + 16) + 8 * v27 + 8) + 8 * SHIDWORD(v26) + 8) + 8 * v26 + 8);
+          v15 = *(*(*(*(a2 + 16) + 8 * v26 + 8) + 8 * SHIDWORD(v25) + 8) + 8 * v25 + 8);
         }
 
         ++v21;
@@ -3940,7 +3742,7 @@ LABEL_31:
         result = mosyntbase_WStringLn(a1, "*** RecallString: output array too small", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_34;
+          return result;
         }
 
         goto LABEL_32;
@@ -3955,132 +3757,130 @@ LABEL_32:
     }
   }
 
-LABEL_34:
-  v25 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t accphr_LoadData(_WORD *a1, uint64_t a2, uint64_t *a3)
 {
-  v57 = *MEMORY[0x1E69E9840];
-  v49 = 0;
-  v50 = 0;
-  memset(v56, 0, sizeof(v56));
+  v49 = *MEMORY[0x1E69E9840];
+  v41 = 0;
+  v42 = 0;
+  memset(v48, 0, sizeof(v48));
   *a3 = 0;
-  result = InitRsrcFunction(a1, a2, &v50);
+  result = InitRsrcFunction(a1, a2, &v42);
   if ((result & 0x80000000) == 0)
   {
-    result = kbaux_BuildBrokerString(v50, "accphr", v56, 0x100uLL);
+    result = kbaux_BuildBrokerString(v42, "accphr", v48, 0x100uLL);
     if ((result & 0x80000000) == 0)
     {
-      v7 = ssftriff_reader_ObjOpen(a1, a2, 2, v56, "ACPH", 1031, &v49);
+      v7 = ssftriff_reader_ObjOpen(a1, a2, 2, v48, "ACPH", 1031, &v41);
       if (v7 < 0)
       {
-        v17 = v7;
+        v10 = v7;
       }
 
       else
       {
-        v15 = v49;
-        v16 = v50;
-        v55 = 0;
-        v54 = 0;
-        v53 = 0;
-        v52 = 0;
-        v17 = ssftriff_reader_OpenChunk(v49, &v52, &v55, &v54, v11, v12, v13, v14);
-        if ((v17 & 0x80000000) == 0 && !(v52 ^ 0x48504341 | v53))
+        v8 = v41;
+        v9 = v42;
+        v47 = 0;
+        v46 = 0;
+        v45 = 0;
+        v44 = 0;
+        v10 = ssftriff_reader_OpenChunk(v41, &v44, &v47, &v46);
+        if ((v10 & 0x80000000) == 0 && !(v44 ^ 0x48504341 | v45))
         {
-          v51 = 0;
-          v17 = ssftriff_reader_DetachChunkData(v15, &v51, &v54, v10, v11, v12, v13, v14);
-          if ((v17 & 0x80000000) == 0)
+          v43 = 0;
+          v10 = ssftriff_reader_DetachChunkData(v8, &v43, &v46);
+          if ((v10 & 0x80000000) == 0)
           {
-            v18 = -1923080192;
-            v19 = heap_Alloc(*(v16 + 8), 176);
-            *a3 = v19;
-            if (v19)
+            v11 = -1923080192;
+            v12 = heap_Alloc(*(v9 + 8), 176);
+            *a3 = v12;
+            if (v12)
             {
-              v19[9] = 0u;
-              v19[10] = 0u;
-              v19[7] = 0u;
-              v19[8] = 0u;
-              v19[5] = 0u;
-              v19[6] = 0u;
-              v19[3] = 0u;
-              v19[4] = 0u;
-              v19[1] = 0u;
-              v19[2] = 0u;
-              *v19 = 0u;
-              v20 = *a3;
-              *v20 = v55;
-              *(v20 + 16) = v51;
-              v21 = v54;
-              *(*a3 + 8) = v54;
-              v22 = *a3;
-              *(v22 + 24) = *v21;
-              *(v22 + 28) = v21[1];
-              v21 += 2;
-              *(v22 + 64) = v21;
-              v23 = &v21[*(*a3 + 28)];
-              *(*a3 + 72) = v23;
-              v24 = *a3;
-              v25 = *(*a3 + 28);
-              if (v25 >= 1)
+              v12[9] = 0u;
+              v12[10] = 0u;
+              v12[7] = 0u;
+              v12[8] = 0u;
+              v12[5] = 0u;
+              v12[6] = 0u;
+              v12[3] = 0u;
+              v12[4] = 0u;
+              v12[1] = 0u;
+              v12[2] = 0u;
+              *v12 = 0u;
+              v13 = *a3;
+              *v13 = v47;
+              *(v13 + 16) = v43;
+              v14 = v46;
+              *(*a3 + 8) = v46;
+              v15 = *a3;
+              *(v15 + 24) = *v14;
+              *(v15 + 28) = v14[1];
+              v14 += 2;
+              *(v15 + 64) = v14;
+              v16 = &v14[*(*a3 + 28)];
+              *(*a3 + 72) = v16;
+              v17 = *a3;
+              v18 = *(*a3 + 28);
+              if (v18 >= 1)
               {
                 do
                 {
-                  v23 += *v23 + 1;
-                  --v25;
+                  v16 += *v16 + 1;
+                  --v18;
                 }
 
-                while (v25);
+                while (v18);
               }
 
-              v27 = *v23;
-              v26 = v23 + 1;
-              *(v24 + 32) = v27;
-              *(v24 + 80) = v26;
-              v28 = *a3;
-              v29 = &v26[3 * *(*a3 + 32)];
-              v30 = *v29++;
-              *(v28 + 36) = v30;
-              *(v28 + 88) = v29;
-              v31 = *a3;
-              v32 = &v29[7 * *(*a3 + 36)];
-              v33 = *v32++;
-              *(v31 + 40) = v33;
-              *(v31 + 96) = v32;
-              v34 = *a3;
-              v35 = &v32[3 * *(*a3 + 40)];
-              v36 = *v35++;
-              *(v34 + 44) = v36;
-              *(v34 + 104) = v35;
-              v37 = *a3;
-              v38 = &v35[7 * *(*a3 + 44)];
-              v39 = *v38++;
-              *(v37 + 48) = v39;
-              *(v37 + 112) = v38;
-              v40 = *a3;
-              v41 = &v38[16 * *(*a3 + 48)];
-              v42 = *v41++;
-              *(v40 + 52) = v42;
-              *(v40 + 120) = v41;
-              v43 = *a3;
-              v44 = &v41[4 * *(*a3 + 52)];
-              v45 = *v44++;
-              *(v43 + 56) = v45;
-              *(v43 + 128) = v44;
-              v46 = *a3;
-              v47 = &v44[16 * *(*a3 + 56)];
-              *(v46 + 136) = *v47;
-              *(v46 + 140) = v47[1];
-              *(v46 + 144) = v47[2];
-              *(v46 + 148) = v47[3];
-              *(v46 + 152) = v47[4];
-              *(v46 + 156) = v47[5];
-              *(v46 + 160) = v47[6];
-              v47 += 7;
-              *(v46 + 168) = v47;
-              if (v47[*(*a3 + 160)] == 1234567890)
+              v20 = *v16;
+              v19 = v16 + 1;
+              *(v17 + 32) = v20;
+              *(v17 + 80) = v19;
+              v21 = *a3;
+              v22 = &v19[3 * *(*a3 + 32)];
+              v23 = *v22++;
+              *(v21 + 36) = v23;
+              *(v21 + 88) = v22;
+              v24 = *a3;
+              v25 = &v22[7 * *(*a3 + 36)];
+              v26 = *v25++;
+              *(v24 + 40) = v26;
+              *(v24 + 96) = v25;
+              v27 = *a3;
+              v28 = &v25[3 * *(*a3 + 40)];
+              v29 = *v28++;
+              *(v27 + 44) = v29;
+              *(v27 + 104) = v28;
+              v30 = *a3;
+              v31 = &v28[7 * *(*a3 + 44)];
+              v32 = *v31++;
+              *(v30 + 48) = v32;
+              *(v30 + 112) = v31;
+              v33 = *a3;
+              v34 = &v31[16 * *(*a3 + 48)];
+              v35 = *v34++;
+              *(v33 + 52) = v35;
+              *(v33 + 120) = v34;
+              v36 = *a3;
+              v37 = &v34[4 * *(*a3 + 52)];
+              v38 = *v37++;
+              *(v36 + 56) = v38;
+              *(v36 + 128) = v37;
+              v39 = *a3;
+              v40 = &v37[16 * *(*a3 + 56)];
+              *(v39 + 136) = *v40;
+              *(v39 + 140) = v40[1];
+              *(v39 + 144) = v40[2];
+              *(v39 + 148) = v40[3];
+              *(v39 + 152) = v40[4];
+              *(v39 + 156) = v40[5];
+              *(v39 + 160) = v40[6];
+              v40 += 7;
+              *(v39 + 168) = v40;
+              if (v40[*(*a3 + 160)] == 1234567890)
               {
                 goto LABEL_13;
               }
@@ -4088,57 +3888,55 @@ uint64_t accphr_LoadData(_WORD *a1, uint64_t a2, uint64_t *a3)
 
             else
             {
-              v18 = -1923080182;
+              v11 = -1923080182;
             }
 
-            ssftriff_reader_ReleaseChunkData(v51, v8, v9, v10, v11, v12, v13, v14);
-            v8 = *a3;
+            ssftriff_reader_ReleaseChunkData(v43);
             if (*a3)
             {
-              heap_Free(*(v16 + 8), v8);
+              heap_Free(*(v9 + 8), *a3);
               *a3 = 0;
             }
 
-            v17 = v18;
+            v10 = v11;
           }
         }
       }
 
 LABEL_13:
-      LODWORD(result) = ssftriff_reader_ObjClose(v49, v8, v9, v10, v11, v12, v13, v14);
-      if (v17 >= 0)
+      LODWORD(result) = ssftriff_reader_ObjClose(v41);
+      if (v10 >= 0)
       {
-        result = result;
+        return result;
       }
 
       else
       {
-        result = v17;
+        return v10;
       }
     }
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t accphr_UnloadData(_WORD *a1, int a2, uint64_t *a3)
 {
-  v13 = 0;
+  v6 = 0;
   if (!a3)
   {
     return 2371887111;
   }
 
-  inited = InitRsrcFunction(a1, a2, &v13);
+  inited = InitRsrcFunction(a1, a2, &v6);
   if ((inited & 0x80000000) == 0)
   {
     if (*a3)
     {
-      ssftriff_reader_ReleaseChunkData(*(*a3 + 16), v4, v5, v6, v7, v8, v9, v10);
+      ssftriff_reader_ReleaseChunkData(*(*a3 + 16));
       if (*a3)
       {
-        heap_Free(*(v13 + 8), *a3);
+        heap_Free(*(v6 + 8), *a3);
         *a3 = 0;
       }
     }
@@ -4222,7 +4020,7 @@ uint64_t accphr_getDomains(uint64_t a1)
   }
 }
 
-uint64_t accphr_getFeatList(uint64_t a1, unsigned int a2, _DWORD *a3)
+uint64_t accphr_getFeatList(uint64_t a1, signed int a2, _DWORD *a3)
 {
   result = 2371887111;
   if (a1 && (a2 & 0x80000000) == 0 && *(a1 + 28) > a2)
@@ -5056,7 +4854,9 @@ uint64_t mosyntutils_DetUTF8Length(uint64_t a1, unsigned int a2)
     return 2;
   }
 
-  mosyntbase_WriteDevelMessage(a1, "DetUTF8Length: malformed UTF8 string starting with %d", 0, "", 0, "", 0, "", 0, a2, 0, 0);
+  LODWORD(v5) = 0;
+  HIDWORD(v5) = a2;
+  mosyntbase_WriteDevelMessage(a1, "DetUTF8Length: malformed UTF8 string starting with %d", 0, "", 0, "", 0, "", v5, 0, v2, v3);
   return 1;
 }
 
@@ -5090,12 +4890,12 @@ uint64_t mosyntutils_GetUTF8Char(uint64_t a1, uint64_t a2, int a3, int *a4, _BYT
   return 0;
 }
 
-uint64_t mosyntutils_AppChar(uint64_t a1, int a2, int *a3, char a4)
+uint64_t mosyntutils_AppChar(uint64_t a1, uint64_t a2, int *a3, char a4)
 {
   v5 = 0;
   v6[0] = a4;
   v6[1] = 0;
-  return mosyntbase_App(a1, a2, a3, v6, 2, &v5);
+  return mosyntbase_App(a1, a2, a3, v6, 2u, &v5);
 }
 
 uint64_t mosyntutils_SkipBlanksInString(uint64_t a1, int a2, int *a3)
@@ -5124,7 +4924,7 @@ uint64_t mosyntutils_SkipBlanksInString(uint64_t a1, int a2, int *a3)
   return 0;
 }
 
-uint64_t mosyntutils_CheckSkipCharInString(uint64_t a1, unsigned __int8 *a2, int a3, signed int *a4, unsigned __int8 a5)
+uint64_t mosyntutils_CheckSkipCharInString(uint64_t a1, unsigned __int8 *a2, int a3, int *a4, unsigned __int8 a5)
 {
   v8 = *a4;
   if (*a4 >= a3 || a2[v8] == a5)
@@ -5134,9 +4934,11 @@ uint64_t mosyntutils_CheckSkipCharInString(uint64_t a1, unsigned __int8 *a2, int
 
   else
   {
-    v10[0] = a5;
-    v10[1] = 0;
-    result = mosyntbase_WriteDevelMessage(a1, "***** error getting character '%s' at position %d in string '%s'\\n", 0, v10, 2, a2, a3, "", 0, v8, 0, 0);
+    v11[0] = a5;
+    v11[1] = 0;
+    LODWORD(v10) = 0;
+    HIDWORD(v10) = v8;
+    result = mosyntbase_WriteDevelMessage(a1, "***** error getting character '%s' at position %d in string '%s'\\n", 0, v11, 2u, a2, a3, "", v10, 0);
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -5156,7 +4958,7 @@ uint64_t mosyntutils_CheckSkipCharInString(uint64_t a1, unsigned __int8 *a2, int
   return result;
 }
 
-uint64_t mosyntutils_GetCardFromString(uint64_t a1, unsigned __int8 *a2, int a3, signed int *a4, _DWORD *a5)
+uint64_t mosyntutils_GetCardFromString(uint64_t a1, unsigned __int8 *a2, int a3, int *a4, _DWORD *a5)
 {
   v9 = *a4;
   if (*a4 < a3 && a2[v9] == 32)
@@ -5191,7 +4993,9 @@ LABEL_8:
 
   else
   {
-    result = mosyntbase_WriteDevelMessage(a1, "***** error in getting cardinal from string '%s' at position %d\\n", 0, a2, a3, "", 0, "", 0, v9, 0, 0);
+    LODWORD(v16) = 0;
+    HIDWORD(v16) = v9;
+    result = mosyntbase_WriteDevelMessage(a1, "***** error in getting cardinal from string '%s' at position %d\\n", 0, a2, a3, "", 0, "", v16, 0);
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -5214,8 +5018,9 @@ LABEL_8:
   return result;
 }
 
-uint64_t mosyntutils_GetIdentFromString(uint64_t a1, unsigned __int8 *a2, int a3, signed int *a4, _BYTE *a5, int a6)
+uint64_t mosyntutils_GetIdentFromString(uint64_t a1, unsigned __int8 *a2, int a3, int *a4, _BYTE *a5, uint64_t a6)
 {
+  v6 = a6;
   v11 = *a4;
   if (*a4 < a3 && a2[v11] == 32)
   {
@@ -5242,15 +5047,15 @@ uint64_t mosyntutils_GetIdentFromString(uint64_t a1, unsigned __int8 *a2, int a3
   }
 
 LABEL_8:
-  if ((a2[v11] & 0xDFu) - 91 > 0xFFFFFFE5 || (result = mosyntbase_WriteDevelMessage(a1, "***** error in getting identifier from string '%s' at position %d\\n", 0, a2, a3, "", 0, "", 0, v11, 0, 0), (result & 0x80000000) == 0))
+  if ((a2[v11] & 0xDFu) - 91 > 0xFFFFFFE5 || (LODWORD(v21) = 0, HIDWORD(v21) = v11, result = mosyntbase_WriteDevelMessage(a1, "***** error in getting identifier from string '%s' at position %d\\n", 0, a2, a3, "", 0, "", v21, 0), (result & 0x80000000) == 0))
   {
     *a5 = 0;
-    v21 = 0;
-    v16 = a2[*a4];
     v22 = 0;
-    v23[0] = v16;
-    v23[1] = 0;
-    result = mosyntbase_App(a5, a6, &v21, v23, 2, &v22);
+    v16 = a2[*a4];
+    v23 = 0;
+    v24[0] = v16;
+    v24[1] = 0;
+    result = mosyntbase_App(a5, v6, &v22, v24, 2u, &v23);
     if ((result & 0x80000000) == 0)
     {
       v17 = a3 - 1;
@@ -5274,14 +5079,14 @@ LABEL_8:
 
         if (v19 != 95 && v19 != 45)
         {
-          return mosyntbase_UpperCase(a5, a6);
+          return mosyntbase_UpperCase(a5, v6);
         }
 
 LABEL_21:
-        v24 = 0;
-        v25[0] = v19;
-        v25[1] = 0;
-        result = mosyntbase_App(a5, a6, &v21, v25, 2, &v24);
+        v25 = 0;
+        v26[0] = v19;
+        v26[1] = 0;
+        result = mosyntbase_App(a5, v6, &v22, v26, 2u, &v25);
       }
 
       while ((result & 0x80000000) == 0);
@@ -5291,8 +5096,9 @@ LABEL_21:
   return result;
 }
 
-uint64_t mosyntutils_GetIdent1FromString(uint64_t a1, unsigned __int8 *a2, int a3, signed int *a4, _BYTE *a5, int a6)
+uint64_t mosyntutils_GetIdent1FromString(uint64_t a1, unsigned __int8 *a2, int a3, int *a4, _BYTE *a5, uint64_t a6)
 {
+  v6 = a6;
   v11 = *a4;
   if (*a4 < a3 && a2[v11] == 32)
   {
@@ -5319,15 +5125,15 @@ uint64_t mosyntutils_GetIdent1FromString(uint64_t a1, unsigned __int8 *a2, int a
   }
 
 LABEL_8:
-  if ((a2[v11] & 0xDFu) - 91 > 0xFFFFFFE5 || (result = mosyntbase_WriteDevelMessage(a1, "***** error in getting identifier from string '%s' at position %d\\n", 0, a2, a3, "", 0, "", 0, v11, 0, 0), (result & 0x80000000) == 0))
+  if ((a2[v11] & 0xDFu) - 91 > 0xFFFFFFE5 || (LODWORD(v20) = 0, HIDWORD(v20) = v11, result = mosyntbase_WriteDevelMessage(a1, "***** error in getting identifier from string '%s' at position %d\\n", 0, a2, a3, "", 0, "", v20, 0), (result & 0x80000000) == 0))
   {
     *a5 = 0;
-    v20 = 0;
-    v16 = a2[*a4];
     v21 = 0;
-    v22[0] = v16;
-    v22[1] = 0;
-    result = mosyntbase_App(a5, a6, &v20, v22, 2, &v21);
+    v16 = a2[*a4];
+    v22 = 0;
+    v23[0] = v16;
+    v23[1] = 0;
+    result = mosyntbase_App(a5, v6, &v21, v23, 2u, &v22);
     if ((result & 0x80000000) == 0)
     {
       v17 = a3 - 1;
@@ -5346,17 +5152,17 @@ LABEL_8:
           break;
         }
 
-        v23 = 0;
-        v24[0] = v19;
-        v24[1] = 0;
-        result = mosyntbase_App(a5, a6, &v20, v24, 2, &v23);
+        v24 = 0;
+        v25[0] = v19;
+        v25[1] = 0;
+        result = mosyntbase_App(a5, v6, &v21, v25, 2u, &v24);
         if ((result & 0x80000000) != 0)
         {
           return result;
         }
       }
 
-      return mosyntbase_UpperCase(a5, a6);
+      return mosyntbase_UpperCase(a5, v6);
     }
   }
 
@@ -5410,7 +5216,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t mosynttrans_NewTransState(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, char a7, int a8, uint64_t *a9)
+uint64_t mosynttrans_NewTransState(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, char a7, unsigned int a8, uint64_t *a9)
 {
   TransductionMode = mosyntpal_ALLOCATE(a1, a9, 0xA0u);
   if ((TransductionMode & 0x80000000) != 0)
@@ -5451,7 +5257,7 @@ uint64_t mosynttrans_NewTransState(uint64_t a1, uint64_t a2, int a3, uint64_t a4
     v21 = a8;
   }
 
-  if (a8 < 0)
+  if ((a8 & 0x80000000) != 0)
   {
     v21 = 50;
   }
@@ -5470,10 +5276,10 @@ uint64_t mosynttrans_NewTransState(uint64_t a1, uint64_t a2, int a3, uint64_t a4
     *(*a9 + 104) = 0;
     if ((a6 - 1) > 1)
     {
-      *(*a9 + 132) = mosyntkbsymtab_PhonStartId(*(a2 + 8));
-      *(*a9 + 134) = mosyntkbsymtab_PhonTermId(*(a2 + 8));
+      *(*a9 + 132) = mosyntkbsymtab_PhonStartId();
+      *(*a9 + 134) = mosyntkbsymtab_PhonTermId();
       *(*a9 + 136) = mosyntkbsymtab_FSTDefaultId(*(a2 + 8));
-      v28 = mosyntkbsymtab_SyllSepId(*(a2 + 8));
+      v28 = mosyntkbsymtab_SyllSepId();
       v29 = *a9;
       *(v29 + 138) = v28;
       v30 = *(v29 + 128);
@@ -5484,14 +5290,13 @@ uint64_t mosynttrans_NewTransState(uint64_t a1, uint64_t a2, int a3, uint64_t a4
 
       if (v30 == 1)
       {
-        *(*a9 + 140) = mosyntkbsymtab_WordSep2Id(*(a2 + 8));
-        *(*a9 + 142) = mosyntkbsymtab_PhrSepPause2Id(*(a2 + 8));
+        *(*a9 + 140) = mosyntkbsymtab_WordSep2Id();
+        *(*a9 + 142) = mosyntkbsymtab_PhrSepPause2Id();
         v31 = 0;
-        *(*a9 + 144) = mosyntkbsymtab_PhrSepNoPause2Id(*(a2 + 8));
+        *(*a9 + 144) = mosyntkbsymtab_PhrSepNoPause2Id();
         do
         {
-          *(*a9 + 2 * v31 + 146) = mosyntkbsymtab_AccId(*(a2 + 8), v31);
-          ++v31;
+          *(*a9 + 2 * v31++ + 146) = mosyntkbsymtab_AccId();
         }
 
         while (v31 != 5);
@@ -5501,29 +5306,29 @@ uint64_t mosynttrans_NewTransState(uint64_t a1, uint64_t a2, int a3, uint64_t a4
       if (*a2 < 1 || (started = TraceUnknownTransductionMode(a1, v29), (started & 0x80000000) == 0))
       {
 LABEL_26:
-        *(*a9 + 140) = mosyntkbsymtab_WordSepId(*(a2 + 8));
-        *(*a9 + 142) = mosyntkbsymtab_PhrSepPauseId(*(a2 + 8));
-        *(*a9 + 144) = mosyntkbsymtab_PhrSepNoPauseId(*(a2 + 8));
+        *(*a9 + 140) = mosyntkbsymtab_WordSepId();
+        *(*a9 + 142) = mosyntkbsymtab_PhrSepPauseId();
+        *(*a9 + 144) = mosyntkbsymtab_PhrSepNoPauseId();
         for (i = 146; i != 156; i += 2)
         {
-          *(*a9 + i) = mosyntkbsymtab_PrimAccId(*(a2 + 8));
+          *(*a9 + i) = mosyntkbsymtab_PrimAccId();
         }
       }
     }
 
     else if (!*(*a9 + 128) || *a2 < 1 || (started = TraceUnknownTransductionMode(a1, *a9), (started & 0x80000000) == 0))
     {
-      *(*a9 + 132) = mosyntkbsymtab_IPABeginId(*(a2 + 8));
-      *(*a9 + 134) = mosyntkbsymtab_IPAEndId(*(a2 + 8));
+      *(*a9 + 132) = mosyntkbsymtab_IPABeginId();
+      *(*a9 + 134) = mosyntkbsymtab_IPAEndId();
       *(*a9 + 136) = mosyntkbsymtab_FSTDefaultId(*(a2 + 8));
-      *(*a9 + 138) = mosyntkbsymtab_IPASyllSepId(*(a2 + 8));
-      v24 = mosyntkbsymtab_IPAWordSepId(*(a2 + 8));
+      *(*a9 + 138) = mosyntkbsymtab_IPASyllSepId();
+      v24 = mosyntkbsymtab_IPAWordSepId();
       v25 = *a9;
       *(v25 + 140) = v24;
       *(v25 + 142) = 0;
       for (j = 146; j != 156; j += 2)
       {
-        *(*a9 + j) = mosyntkbsymtab_IPAPrimAccId(*(a2 + 8));
+        *(*a9 + j) = mosyntkbsymtab_IPAPrimAccId();
       }
     }
   }
@@ -5559,7 +5364,7 @@ uint64_t TraceUnknownTransductionMode(uint64_t a1, unsigned int *a2)
   return result;
 }
 
-uint64_t mosynttrans_NewTransStateSeq(uint64_t a1, uint64_t a2, int a3, int *a4, int a5, int a6, unsigned int a7, int a8, uint64_t *a9)
+uint64_t mosynttrans_NewTransStateSeq(uint64_t a1, uint64_t a2, int a3, int *a4, int a5, int a6, unsigned int a7, unsigned int a8, uint64_t *a9)
 {
   *a9 = 0;
   v14 = a4 + 2;
@@ -5717,7 +5522,7 @@ uint64_t SingleTransducerGet(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, vo
   result = mosyntdata_StartPhonList(a1, a4, a5);
   if ((result & 0x80000000) == 0)
   {
-    v29 = 0;
+    v31 = 0;
     v11 = *(a3 + 32);
     if (v11 == fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::InitMatcher())
     {
@@ -5736,18 +5541,18 @@ uint64_t SingleTransducerGet(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, vo
       {
         do
         {
-          result = mosyntdata_PopPhonEle(a1, (a3 + 48), (a3 + 56), &v29);
+          result = mosyntdata_PopPhonEle(a1, (a3 + 48), (a3 + 56), &v31);
           if ((result & 0x80000000) != 0)
           {
             break;
           }
 
-          if (!v29)
+          if (!v31)
           {
             break;
           }
 
-          result = mosyntdata_AppendPhonList(a1, a4, a5, v29, v29);
+          result = mosyntdata_AppendPhonList(a1, a4, a5, v31, v31);
           if ((result & 0x80000000) != 0)
           {
             break;
@@ -5764,21 +5569,21 @@ uint64_t SingleTransducerGet(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, vo
     {
       if (!*(a3 + 80) && *(a3 + 64) < *(a3 + 68))
       {
-        result = mosyntdata_PopPhonEle(a1, (a3 + 48), (a3 + 56), &v29);
+        result = mosyntdata_PopPhonEle(a1, (a3 + 48), (a3 + 56), &v31);
         if ((result & 0x80000000) != 0)
         {
           return result;
         }
 
-        v12 = v29;
-        while (v29)
+        v12 = v31;
+        while (v31)
         {
-          v30 = 0;
-          v31 = v12;
+          v32 = 0;
+          v33 = v12;
           if (*v12)
           {
             *v12 = 0;
-            result = mosyntbase_WriteDevelMessage(a1, "*** SVOXTrans.DoTransduction() expects isolated phone\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+            result = mosyntbase_WriteDevelMessage(a1, "*** SVOXTrans.DoTransduction() expects isolated phone\\n", 0, "", 0, "", 0, "", 0, 0);
             if ((result & 0x80000000) != 0)
             {
               return result;
@@ -5803,7 +5608,7 @@ uint64_t SingleTransducerGet(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, vo
             }
 
             v17 = v16;
-            v18 = &v31;
+            v18 = &v33;
             v19 = a1;
             v20 = a2;
             v21 = a3;
@@ -5840,7 +5645,7 @@ LABEL_19:
               v15 = *(a3 + 138);
               break;
             default:
-              result = mosyntbase_WriteDevelMessage(a1, "*** unexpected NILBOUNDARY boundary phone\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+              result = mosyntbase_WriteDevelMessage(a1, "*** unexpected NILBOUNDARY boundary phone\\n", 0, "", 0, "", 0, "", 0, 0);
               if ((result & 0x80000000) != 0)
               {
                 return result;
@@ -5849,7 +5654,7 @@ LABEL_19:
               goto LABEL_23;
           }
 
-          result = TransduceSymbol(a1, a2, a3, v15, 0, &v31);
+          result = TransduceSymbol(a1, a2, a3, v15, 0, &v33);
           if ((result & 0x80000000) != 0)
           {
             return result;
@@ -5862,7 +5667,9 @@ LABEL_23:
             {
               if ((v13 & 0x8000) != 0)
               {
-                result = mosyntbase_WriteDevelMessage(a1, "fst: %d ***** negative accent %d; using 0 instead\\n", 0, "", 0, "", 0, "", 0, *(a3 + 20), 0, 0);
+                LODWORD(v29) = 0;
+                HIDWORD(v29) = *(a3 + 20);
+                result = mosyntbase_WriteDevelMessage(a1, "fst: %d ***** negative accent %d; using 0 instead\\n", 0, "", 0, "", 0, "", v29, 0);
                 v13 = 0;
                 if ((result & 0x80000000) != 0)
                 {
@@ -5889,7 +5696,7 @@ LABEL_23:
             v17 = *(a3 + 146);
           }
 
-          v18 = &v30;
+          v18 = &v32;
           v19 = a1;
           v20 = a2;
           v21 = a3;
@@ -5902,9 +5709,9 @@ LABEL_32:
           }
 
 LABEL_33:
-          if (v31)
+          if (v33)
           {
-            result = mosyntdata_DisposePhonEleList(a1, &v31);
+            result = mosyntdata_DisposePhonEleList(a1, &v33);
             if ((result & 0x80000000) != 0)
             {
               return result;
@@ -5922,17 +5729,17 @@ LABEL_33:
 
           if (*(a3 + 80) || *(a3 + 64) >= *(a3 + 68))
           {
-            v29 = 0;
+            v31 = 0;
             break;
           }
 
-          result = mosyntdata_PopPhonEle(a1, (a3 + 48), (a3 + 56), &v29);
+          result = mosyntdata_PopPhonEle(a1, (a3 + 48), (a3 + 56), &v31);
           if ((result & 0x80000000) != 0)
           {
             return result;
           }
 
-          v12 = v29;
+          v12 = v31;
         }
       }
 
@@ -5950,7 +5757,9 @@ LABEL_64:
             v26 = *(a3 + 68);
             if (v25 >= v26)
             {
-              result = mosyntbase_WriteDevelMessage(a1, "---- forced emission %d >= %d\\n", 0, "", 0, "", 0, "", 0, v25, v26, 0);
+              LODWORD(v30) = 0;
+              HIDWORD(v30) = *(a3 + 64);
+              result = mosyntbase_WriteDevelMessage(a1, "---- forced emission %d >= %d\\n", 0, "", 0, "", 0, "", v30, v26);
               if ((result & 0x80000000) != 0)
               {
                 return result;
@@ -5993,18 +5802,18 @@ LABEL_64:
       {
         while (1)
         {
-          result = mosyntdata_PopPhonEle(a1, (a3 + 80), (a3 + 88), &v29);
+          result = mosyntdata_PopPhonEle(a1, (a3 + 80), (a3 + 88), &v31);
           if ((result & 0x80000000) != 0)
           {
             break;
           }
 
-          if (!v29)
+          if (!v31)
           {
             goto LABEL_64;
           }
 
-          result = mosyntdata_AppendPhonList(a1, a4, a5, v29, v29);
+          result = mosyntdata_AppendPhonList(a1, a4, a5, v31, v31);
           if ((result & 0x80000000) != 0)
           {
             break;
@@ -6012,7 +5821,7 @@ LABEL_64:
 
           if (!--v24)
           {
-            v29 = 0;
+            v31 = 0;
             goto LABEL_64;
           }
         }
@@ -6031,7 +5840,7 @@ uint64_t mosynttrans_TransducePhonList(uint64_t a1, uint64_t a2, int a3, uint64_
     v23 = 0;
     v24 = 0;
     v22 = 0;
-    result = mosynttrans_NewTransState(a1, a2, a3, a4, a5, a7, a8, 1000, &v22);
+    result = mosynttrans_NewTransState(a1, a2, a3, a4, a5, a7, a8, 0x3E8u, &v22);
     if ((result & 0x80000000) == 0)
     {
       v20 = v22;
@@ -6074,7 +5883,7 @@ uint64_t mosynttrans_TransducePhonList(uint64_t a1, uint64_t a2, int a3, uint64_
   return result;
 }
 
-uint64_t mosynttrans_SeqTransducePhonList(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t *a4, uint64_t **a5, uint64_t a6, int a7, int a8, unsigned int a9, unsigned __int8 *a10, int a11)
+uint64_t mosynttrans_SeqTransducePhonList(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t *a4, uint64_t **a5, uint64_t a6, int a7, int a8, unsigned int a9, char *a10, unsigned int a11)
 {
   v28 = 0;
   v29 = 0;
@@ -6091,7 +5900,7 @@ uint64_t mosynttrans_SeqTransducePhonList(uint64_t a1, uint64_t a2, unsigned int
     v21 = *(a6 + 16);
     v24[0] = *a6;
     v24[1] = v21;
-    result = mosynttrans_NewTransStateSeq(a1, a2, a3, v24, a7, a8, a9, 1000, &v26);
+    result = mosynttrans_NewTransStateSeq(a1, a2, a3, v24, a7, a8, a9, 0x3E8u, &v26);
     if ((result & 0x80000000) == 0)
     {
       if (*a2 < 2 || (result = mosyntknowl_WriteTraceHeader(a1, a3), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "before ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, a10, a11), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " ", 0), (result & 0x80000000) == 0) && (result = mosyntdata_WritePhonList(a1, *(a2 + 8), a4), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
@@ -6193,7 +6002,7 @@ LABEL_9:
 uint64_t StartTransduction(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v7 = 0;
-  if (!*(a3 + 112) || (result = mosyntbase_WriteDevelMessage(a1, "*** position list not empty at transduction start\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0), (result & 0x80000000) == 0) && (result = DisposePositionList(a1, a2, a3), (result & 0x80000000) == 0))
+  if (!*(a3 + 112) || (result = mosyntbase_WriteDevelMessage(a1, "*** position list not empty at transduction start\\n", 0, "", 0, "", 0, "", 0, 0), (result & 0x80000000) == 0) && (result = DisposePositionList(a1, a2, a3), (result & 0x80000000) == 0))
   {
     result = AddPosition(a1, a3, 0);
     if ((result & 0x80000000) == 0)
@@ -6213,7 +6022,7 @@ uint64_t StartTransduction(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t TransduceSymbol(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, char a5, uint64_t *a6)
+uint64_t TransduceSymbol(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t *a6)
 {
   if (*a2 < 3 || (result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16)), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "fst: ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, *(a3 + 20), 1), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " --- treating input symbol ", 0), (result & 0x80000000) == 0) && (result = mosyntkbsymtab_WritePhonSym(a1, *(a2 + 8), a4), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
   {
@@ -6242,50 +6051,15 @@ uint64_t TransduceSymbol(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4,
 
             while (v25)
             {
-              if (*a2 < 3)
+              if (*a2 < 3 || (result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16)), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "trying pos/state ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, *(v13 + 16), 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "/", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, *(v15 + 16), 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " and pair ", 0), (result & 0x80000000) == 0) && (result = mosyntkbfst_WritePhonPair(a1, *(a2 + 8), *(a3 + 32), &v27, 2), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
               {
-                goto LABEL_67;
-              }
-
-              result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16));
-              if ((result & 0x80000000) == 0)
-              {
-                result = mosyntbase_WString(a1, "trying pos/state ", 0);
-                if ((result & 0x80000000) == 0)
+                v16 = mosyntkbfst_FSTTrans(*(a3 + 32), *(v15 + 16), &v27);
+                if (v16 < 1 || (v17 = v16, v18 = mosyntkbfst_OutSym(*(a3 + 32), &v27), result = AddPosState(a1, a2, a3, v13, v17, v15, 0, v18, a5, 0), (result & 0x80000000) == 0))
                 {
-                  result = mosyntbase_WInt(a1, *(v13 + 16), 0);
+                  result = mosyntkbfst_GetNextSameInSymPair(*(a3 + 32), &v27, &v25);
                   if ((result & 0x80000000) == 0)
                   {
-                    result = mosyntbase_WString(a1, "/", 0);
-                    if ((result & 0x80000000) == 0)
-                    {
-                      result = mosyntbase_WInt(a1, *(v15 + 16), 0);
-                      if ((result & 0x80000000) == 0)
-                      {
-                        result = mosyntbase_WString(a1, " and pair ", 0);
-                        if ((result & 0x80000000) == 0)
-                        {
-                          result = mosyntkbfst_WritePhonPair(a1, *(a2 + 8), *(a3 + 32), &v27, 2);
-                          if ((result & 0x80000000) == 0)
-                          {
-                            result = mosyntbase_WLn(a1);
-                            if ((result & 0x80000000) == 0)
-                            {
-LABEL_67:
-                              v16 = mosyntkbfst_FSTTrans(*(a3 + 32), *(v15 + 16), &v27);
-                              if (v16 < 1 || (v17 = v16, v18 = mosyntkbfst_OutSym(*(a3 + 32), &v27), result = AddPosState(a1, a2, a3, v13, v17, v15, 0, v18, a5, 0), (result & 0x80000000) == 0))
-                              {
-                                result = mosyntkbfst_GetNextSameInSymPair(*(a3 + 32), &v27, &v25);
-                                if ((result & 0x80000000) == 0)
-                                {
-                                  continue;
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
+                    continue;
                   }
                 }
               }
@@ -6302,51 +6076,16 @@ LABEL_67:
             v19 = 0;
             while (v25)
             {
-              if (*a2 < 3)
+              if (*a2 < 3 || (result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16)), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "trying pos/state ", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, *(v13 + 16), 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, "/", 0), (result & 0x80000000) == 0) && (result = mosyntbase_WInt(a1, *(v15 + 16), 0), (result & 0x80000000) == 0) && (result = mosyntbase_WString(a1, " and pair ", 0), (result & 0x80000000) == 0) && (result = mosyntkbfst_WritePhonPair(a1, *(a2 + 8), *(a3 + 32), &v27, 2), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
               {
-                goto LABEL_68;
-              }
-
-              result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16));
-              if ((result & 0x80000000) == 0)
-              {
-                result = mosyntbase_WString(a1, "trying pos/state ", 0);
-                if ((result & 0x80000000) == 0)
+                v20 = mosyntkbfst_FSTTrans(*(a3 + 32), *(v15 + 16), &v27);
+                if (v20 < 1 || (v21 = v20, v24 = *(v13 + 8), v22 = mosyntkbfst_OutSym(*(a3 + 32), &v27), result = AddPosState(a1, a2, a3, v24, v21, v15, a4, v22, a5, v14), (result & 0x80000000) == 0))
                 {
-                  result = mosyntbase_WInt(a1, *(v13 + 16), 0);
+                  result = mosyntkbfst_GetNextSameInSymPair(*(a3 + 32), &v27, &v25);
+                  --v19;
                   if ((result & 0x80000000) == 0)
                   {
-                    result = mosyntbase_WString(a1, "/", 0);
-                    if ((result & 0x80000000) == 0)
-                    {
-                      result = mosyntbase_WInt(a1, *(v15 + 16), 0);
-                      if ((result & 0x80000000) == 0)
-                      {
-                        result = mosyntbase_WString(a1, " and pair ", 0);
-                        if ((result & 0x80000000) == 0)
-                        {
-                          result = mosyntkbfst_WritePhonPair(a1, *(a2 + 8), *(a3 + 32), &v27, 2);
-                          if ((result & 0x80000000) == 0)
-                          {
-                            result = mosyntbase_WLn(a1);
-                            if ((result & 0x80000000) == 0)
-                            {
-LABEL_68:
-                              v20 = mosyntkbfst_FSTTrans(*(a3 + 32), *(v15 + 16), &v27);
-                              if (v20 < 1 || (v21 = v20, v24 = *(v13 + 8), v22 = mosyntkbfst_OutSym(*(a3 + 32), &v27), result = AddPosState(a1, a2, a3, v24, v21, v15, a4, v22, a5, v14), (result & 0x80000000) == 0))
-                              {
-                                result = mosyntkbfst_GetNextSameInSymPair(*(a3 + 32), &v27, &v25);
-                                --v19;
-                                if ((result & 0x80000000) == 0)
-                                {
-                                  continue;
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
+                    continue;
                   }
                 }
               }
@@ -6470,11 +6209,11 @@ LABEL_68:
 
 uint64_t GetTransduction(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v40 = 0;
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v43 = *MEMORY[0x1E69E9840];
+  v39 = 0;
+  v41[0] = 0;
+  v41[1] = 0;
+  v42 = 0;
   v6 = *(a3 + 64);
   if (v6 > *(a3 + 72))
   {
@@ -6484,31 +6223,31 @@ uint64_t GetTransduction(uint64_t a1, uint64_t a2, uint64_t a3)
       result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16));
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
 
       result = mosyntbase_WString(a1, "fst: ", 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
 
       result = mosyntbase_WInt(a1, *(a3 + 20), 1);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
 
       result = mosyntbase_WInt3Ln(a1, " max transduction path length:  ", 0, *(a3 + 72), "", 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
 
       result = mosyntbase_WLn(a1);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
     }
   }
@@ -6519,10 +6258,10 @@ uint64_t GetTransduction(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (v9 < 2)
     {
-      result = mosyntbase_WriteDevelMessage(a1, "*** no transduction found (use tracing to get more info)\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+      result = mosyntbase_WriteDevelMessage(a1, "*** no transduction found (use tracing to get more info)\\n", 0, "", 0, "", 0, "", 0, 0, v39);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
     }
 
@@ -6531,31 +6270,31 @@ uint64_t GetTransduction(uint64_t a1, uint64_t a2, uint64_t a3)
       result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16));
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
 
       result = mosyntbase_WString(a1, "fst: ", 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
 
       result = mosyntbase_WInt(a1, *(a3 + 20), 1);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
 
       result = mosyntbase_WStringLn(a1, " ***** no transduction found for input ", 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
 
       result = mosyntbase_WLn(a1);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_143;
+        return result;
       }
     }
 
@@ -6563,15 +6302,15 @@ uint64_t GetTransduction(uint64_t a1, uint64_t a2, uint64_t a3)
     result = GetInPhonList(a1, a3, v10, (a3 + 80));
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_143;
+      return result;
     }
 
     *(a3 + 88) = mosyntdata_LastPhonEle(a1, *(a3 + 80));
-    m2__cp__str("output", v42, 20);
-    result = TraceTransductionIO(a1, a2, a3, v42, *(a3 + 80));
+    m2__cp__str("output", v41, 0x14u);
+    result = TraceTransductionIO(a1, a2, a3, v41, *(a3 + 80));
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_143;
+      return result;
     }
 
     goto LABEL_124;
@@ -6596,25 +6335,25 @@ LABEL_29:
         result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16));
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_143;
+          return result;
         }
 
         result = mosyntbase_WString(a1, "fst: ", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_143;
+          return result;
         }
 
         result = mosyntbase_WInt(a1, *(a3 + 20), 1);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_143;
+          return result;
         }
 
         result = mosyntbase_WString(a1, " treating output symbol '", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_143;
+          return result;
         }
 
         if (v13)
@@ -6622,7 +6361,7 @@ LABEL_29:
           result = mosyntkbsymtab_WritePhonSym(a1, *(a2 + 8), v13);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
         }
 
@@ -6631,14 +6370,14 @@ LABEL_29:
           result = mosyntbase_WString(a1, "@", 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
         }
 
         result = mosyntbase_WString(a1, "' with input element ", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_143;
+          return result;
         }
 
         v14 = *(v8 + 40);
@@ -6647,7 +6386,7 @@ LABEL_29:
           result = mosyntdata_WritePhonEle(a1, *(a2 + 8), v14, 0, 0, v8 == *(a3 + 104), *v8 == 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
         }
 
@@ -6656,14 +6395,14 @@ LABEL_29:
           result = mosyntbase_WString(a1, "NIL", 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
         }
 
         result = mosyntbase_WLn(a1);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_143;
+          return result;
         }
       }
 
@@ -6758,7 +6497,7 @@ LABEL_86:
                 result = mosyntdata_AddBound(v22, v20, v21, 0, v23, v17, v18, v19);
                 if ((result & 0x80000000) != 0)
                 {
-                  goto LABEL_143;
+                  return result;
                 }
               }
 
@@ -6807,25 +6546,25 @@ LABEL_71:
             result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16));
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_143;
+              return result;
             }
 
             result = mosyntbase_WString(a1, "*** transduction error: illegal attempt to change a boundary element to phone ", 0);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_143;
+              return result;
             }
 
             result = mosyntkbsymtab_WritePhonSym(a1, *(a2 + 8), v13);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_143;
+              return result;
             }
 
             result = mosyntbase_WStringLn(a1, "; phone ignored", 0);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_143;
+              return result;
             }
           }
         }
@@ -6862,7 +6601,7 @@ LABEL_76:
             result = mosyntdata_AddPhonEle(a1, (a3 + 80), (a3 + 88), 0, v13);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_143;
+              return result;
             }
 
             v28 = *(v8 + 40);
@@ -6888,10 +6627,10 @@ LABEL_89:
       {
         if (*a2 < 2)
         {
-          result = mosyntbase_WriteDevelMessage(a1, "*** ambiguous transducer solution (use tracing to get more info)\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+          result = mosyntbase_WriteDevelMessage(a1, "*** ambiguous transducer solution (use tracing to get more info)\\n", 0, "", 0, "", 0, "", 0, 0, v39);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
         }
 
@@ -6900,31 +6639,31 @@ LABEL_89:
           result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16));
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
 
           result = mosyntbase_WString(a1, "fst: ", 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
 
           result = mosyntbase_WInt(a1, *(a3 + 20), 1);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
 
           result = mosyntbase_WStringLn(a1, " ***** ambiguous transducer solution", 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
 
           result = mosyntbase_WLn(a1);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_143;
+            return result;
           }
         }
       }
@@ -6941,13 +6680,13 @@ LABEL_89:
   result = mosyntknowl_WriteTraceHeader(a1, *(a3 + 16));
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_143;
+    return result;
   }
 
   result = mosyntbase_WStringLn(a1, "getting transduction path", 0);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_143;
+    return result;
   }
 
   v8 = *(a3 + 104);
@@ -6956,12 +6695,12 @@ LABEL_89:
     goto LABEL_29;
   }
 
-  result = mosyntbase_WriteDevelMessage(a1, "***SVOXTrans.CollectTransductionPath() must not be called with emissionState = NIL\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+  result = mosyntbase_WriteDevelMessage(a1, "***SVOXTrans.CollectTransductionPath() must not be called with emissionState = NIL\\n", 0, "", 0, "", 0, "", 0, 0, v39);
 LABEL_14:
   if ((result & 0x80000000) == 0)
   {
     v10 = *(*(a3 + 104) + 8);
-    if (*a2 < 2 || (result = GetInPhonList(a1, a3, *(*(a3 + 104) + 8), &v40), (result & 0x80000000) == 0) && (m2__cp__str("input ", v42, 20), result = TraceTransductionIO(a1, a2, a3, v42, v40), (result & 0x80000000) == 0) && (m2__cp__str("output", v42, 20), result = TraceTransductionIO(a1, a2, a3, v42, *(a3 + 80)), (result & 0x80000000) == 0) && (result = mosyntdata_DisposePhonEleList(a1, &v40), (result & 0x80000000) == 0))
+    if (*a2 < 2 || (result = GetInPhonList(a1, a3, *(*(a3 + 104) + 8), &v39), (result & 0x80000000) == 0) && (m2__cp__str("input ", v41, 0x14u), result = TraceTransductionIO(a1, a2, a3, v41, v39), (result & 0x80000000) == 0) && (m2__cp__str("output", v41, 0x14u), result = TraceTransductionIO(a1, a2, a3, v41, *(a3 + 80)), (result & 0x80000000) == 0) && (result = mosyntdata_DisposePhonEleList(a1, &v39), (result & 0x80000000) == 0))
     {
 LABEL_124:
       v34 = v10[1];
@@ -7004,7 +6743,7 @@ LABEL_124:
         }
       }
 
-      v41 = v10;
+      v40 = v10;
       if (v35 == v10)
       {
 LABEL_139:
@@ -7023,13 +6762,13 @@ LABEL_140:
         while (1)
         {
           v10 = *v10;
-          result = DisposePosition(a1, a2, a3, &v41);
+          result = DisposePosition(a1, a2, a3, &v40);
           if ((result & 0x80000000) != 0)
           {
             break;
           }
 
-          v41 = v10;
+          v40 = v10;
           v35 = *(a3 + 112);
           if (v10 == v35)
           {
@@ -7040,8 +6779,6 @@ LABEL_140:
     }
   }
 
-LABEL_143:
-  v39 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7378,7 +7115,7 @@ LABEL_29:
       v18 = 0;
       v3[5] = 0;
 LABEL_27:
-      result = mosyntbase_WriteDevelMessage(a1, "*** no state left\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+      result = mosyntbase_WriteDevelMessage(a1, "*** no state left\\n", 0, "", 0, "", 0, "", 0, 0);
       if ((result & 0x80000000) != 0)
       {
         return result;
@@ -7433,7 +7170,7 @@ uint64_t GetInPhonList(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   return result;
 }
 
-uint64_t TraceTransductionIO(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned __int8 *a4, void *a5)
+uint64_t TraceTransductionIO(uint64_t a1, uint64_t a2, unsigned int *a3, char *a4, void *a5)
 {
   result = mosyntknowl_WriteTraceHeader(a1, a3[4]);
   if ((result & 0x80000000) == 0)
@@ -7447,7 +7184,7 @@ uint64_t TraceTransductionIO(uint64_t a1, uint64_t a2, unsigned int *a3, unsigne
         result = mosyntbase_WString(a1, " transduction ", 0);
         if ((result & 0x80000000) == 0)
         {
-          result = mosyntbase_WString(a1, a4, 20);
+          result = mosyntbase_WString(a1, a4, 0x14u);
           if ((result & 0x80000000) == 0)
           {
             if (a3[10] - 1 > 1 || (result = mosyntbase_WString(a1, " (IPA)", 0), (result & 0x80000000) == 0))
@@ -7475,180 +7212,158 @@ uint64_t TraceTransductionIO(uint64_t a1, uint64_t a2, unsigned int *a3, unsigne
 
 uint64_t fst_LoadData(_WORD *a1, uint64_t a2, uint64_t *a3)
 {
-  v66 = *MEMORY[0x1E69E9840];
-  v58 = 0;
-  v59 = 0;
-  memset(v65, 0, sizeof(v65));
+  v51 = *MEMORY[0x1E69E9840];
+  v43 = 0;
+  v44 = 0;
+  memset(v50, 0, sizeof(v50));
   *a3 = 0;
-  result = InitRsrcFunction(a1, a2, &v59);
+  result = InitRsrcFunction(a1, a2, &v44);
   if ((result & 0x80000000) == 0)
   {
-    result = kbaux_BuildBrokerString(v59, "fsts", v65, 0x100uLL);
+    result = kbaux_BuildBrokerString(v44, "fsts", v50, 0x100uLL);
     if ((result & 0x80000000) == 0)
     {
-      v7 = ssftriff_reader_ObjOpen(a1, a2, 2, v65, "FSTS", 1031, &v58);
+      v7 = ssftriff_reader_ObjOpen(a1, a2, 2, v50, "FSTS", 1031, &v43);
       if (v7 < 0)
       {
-        v17 = v7;
+        v10 = v7;
       }
 
       else
       {
-        v16 = v58;
-        v15 = v59;
-        v64 = 0;
-        v63 = 0;
-        v62 = 0;
-        v61 = 0;
-        v17 = ssftriff_reader_OpenChunk(v58, &v61, &v64, &v63, v11, v12, v13, v14);
-        if ((v17 & 0x80000000) == 0 && !(v61 ^ 0x53545346 | v62))
+        v9 = v43;
+        v8 = v44;
+        v49 = 0;
+        v48 = 0;
+        v47 = 0;
+        v46 = 0;
+        v10 = ssftriff_reader_OpenChunk(v43, &v46, &v49, &v48);
+        if ((v10 & 0x80000000) == 0 && !(v46 ^ 0x53545346 | v47))
         {
-          v60 = 0;
-          v17 = ssftriff_reader_DetachChunkData(v16, &v60, &v63, v10, v11, v12, v13, v14);
-          if ((v17 & 0x80000000) == 0)
+          v45 = 0;
+          v10 = ssftriff_reader_DetachChunkData(v9, &v45, &v48);
+          if ((v10 & 0x80000000) == 0)
           {
-            v18 = heap_Alloc(v15[1], 48);
-            *a3 = v18;
-            if (!v18)
+            v11 = heap_Alloc(v8[1], 48);
+            *a3 = v11;
+            if (v11 && (v11[1] = 0u, v11[2] = 0u, *v11 = 0u, v12 = *a3, *v12 = v49, *(v12 + 16) = v45, v13 = v48, *(*a3 + 8) = v48, v15 = *v13, v14 = v13 + 1, v16 = *a3, *(v16 + 24) = v15, *(v16 + 32) = v14, v17 = *(*a3 + 24), *(*a3 + 40) = heap_Alloc(v8[1], (16 * v17)), (v18 = *(*a3 + 40)) != 0))
             {
-              goto LABEL_23;
-            }
-
-            v18[1] = 0u;
-            v18[2] = 0u;
-            *v18 = 0u;
-            v26 = *a3;
-            *v26 = v64;
-            *(v26 + 16) = v60;
-            v27 = v63;
-            *(*a3 + 8) = v63;
-            v29 = *v27;
-            v28 = v27 + 1;
-            v30 = *a3;
-            *(v30 + 24) = v29;
-            *(v30 + 32) = v28;
-            v31 = *(*a3 + 24);
-            *(*a3 + 40) = heap_Alloc(v15[1], (16 * v31));
-            v32 = *(*a3 + 40);
-            if (v32)
-            {
-              bzero(v32, (16 * *(*a3 + 24)));
-              v33 = *a3;
+              bzero(v18, (16 * *(*a3 + 24)));
+              v19 = *a3;
               if (*(*a3 + 24) >= 1)
               {
-                v34 = 0;
-                v35 = &v28[v31];
+                v20 = 0;
+                v21 = &v14[v17];
                 do
                 {
-                  v36 = *v35++;
-                  v37 = *(v33 + 40) + 16 * v34;
-                  *v37 = v36;
-                  *(v37 + 8) = 0;
-                  v33 = *a3;
-                  v38 = *(*(*a3 + 40) + 16 * v34);
-                  if (v38 >= 1)
+                  v22 = *v21++;
+                  v23 = *(v19 + 40) + 16 * v20;
+                  *v23 = v22;
+                  *(v23 + 8) = 0;
+                  v19 = *a3;
+                  v24 = *(*(*a3 + 40) + 16 * v20);
+                  if (v24 >= 1)
                   {
-                    *(*(*a3 + 40) + 16 * v34 + 8) = heap_Alloc(v15[1], (v38 << 6));
-                    v39 = *(*a3 + 40) + 16 * v34;
-                    v40 = *(v39 + 8);
-                    if (!v40)
+                    *(*(*a3 + 40) + 16 * v20 + 8) = heap_Alloc(v8[1], (v24 << 6));
+                    v25 = *(*a3 + 40) + 16 * v20;
+                    v26 = *(v25 + 8);
+                    if (!v26)
                     {
                       goto LABEL_23;
                     }
 
-                    bzero(v40, (*v39 << 6));
-                    v33 = *a3;
-                    v41 = *(*a3 + 40);
-                    if (*(v41 + 16 * v34) >= 1)
+                    bzero(v26, (*v25 << 6));
+                    v19 = *a3;
+                    v27 = *(*a3 + 40);
+                    if (*(v27 + 16 * v20) >= 1)
                     {
-                      v42 = 0;
-                      v43 = *(v41 + 16 * v34 + 8);
-                      v44 = 56;
+                      v28 = 0;
+                      v29 = *(v27 + 16 * v20 + 8);
+                      v30 = 56;
                       do
                       {
-                        v46 = *v35;
-                        v45 = v35 + 1;
-                        v47 = v43 + v44;
-                        *(v47 - 56) = v46;
-                        *(v47 - 48) = v45;
-                        v48 = *(*(*a3 + 40) + 16 * v34 + 8) + v44;
-                        v49 = &v45[*(v48 - 56) + 1];
-                        v50 = *v49++;
-                        *(v48 - 40) = v50;
-                        *(v48 - 32) = v49;
-                        v51 = *(*(*a3 + 40) + 16 * v34 + 8) + v44;
-                        v52 = (v49 + 6 * *(v51 - 40) + 2 * (*(v51 - 40) & 1));
-                        *(v51 - 24) = *v52;
-                        *(v51 - 16) = v52[1];
-                        v53 = v52 + 2;
-                        *(v51 - 8) = v52 + 2;
-                        v33 = *a3;
-                        v54 = (*(*a3 + 40) + 16 * v34);
-                        v43 = *(v54 + 1);
-                        v55 = (v53 + 2 * *(v43 + v44 - 16) + 2 * (*(v43 + v44 - 16) & 1));
-                        v56 = *v55;
-                        v35 = v55 + 1;
-                        *(v43 + v44) = v56;
-                        ++v42;
-                        v44 += 64;
+                        v32 = *v21;
+                        v31 = v21 + 1;
+                        v33 = v29 + v30;
+                        *(v33 - 56) = v32;
+                        *(v33 - 48) = v31;
+                        v34 = *(*(*a3 + 40) + 16 * v20 + 8) + v30;
+                        v35 = &v31[*(v34 - 56) + 1];
+                        v36 = *v35++;
+                        *(v34 - 40) = v36;
+                        *(v34 - 32) = v35;
+                        v37 = *(*(*a3 + 40) + 16 * v20 + 8) + v30;
+                        v38 = (v35 + 6 * *(v37 - 40) + 2 * (*(v37 - 40) & 1));
+                        *(v37 - 24) = *v38;
+                        *(v37 - 16) = v38[1];
+                        v39 = v38 + 2;
+                        *(v37 - 8) = v38 + 2;
+                        v19 = *a3;
+                        v40 = (*(*a3 + 40) + 16 * v20);
+                        v29 = *(v40 + 1);
+                        v41 = (v39 + 2 * *(v29 + v30 - 16) + 2 * (*(v29 + v30 - 16) & 1));
+                        v42 = *v41;
+                        v21 = v41 + 1;
+                        *(v29 + v30) = v42;
+                        ++v28;
+                        v30 += 64;
                       }
 
-                      while (v42 < *v54);
+                      while (v28 < *v40);
                     }
                   }
 
-                  ++v34;
+                  ++v20;
                 }
 
-                while (v34 < *(v33 + 24));
+                while (v20 < *(v19 + 24));
               }
             }
 
             else
             {
 LABEL_23:
-              ssftriff_reader_ReleaseChunkData(v60, v19, v20, v21, v22, v23, v24, v25);
-              free_FSTS(v15, a3);
-              v17 = -1923080182;
+              ssftriff_reader_ReleaseChunkData(v45);
+              free_FSTS(v8, a3);
+              v10 = -1923080182;
             }
           }
         }
       }
 
-      LODWORD(result) = ssftriff_reader_ObjClose(v58, v8, v9, v10, v11, v12, v13, v14);
-      if (v17 >= 0)
+      LODWORD(result) = ssftriff_reader_ObjClose(v43);
+      if (v10 >= 0)
       {
-        result = result;
+        return result;
       }
 
       else
       {
-        result = v17;
+        return v10;
       }
     }
   }
 
-  v57 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t fst_UnloadData(_WORD *a1, int a2, uint64_t *a3)
 {
-  v13 = 0;
+  v6 = 0;
   if (!a3)
   {
     return 2371887111;
   }
 
-  inited = InitRsrcFunction(a1, a2, &v13);
+  inited = InitRsrcFunction(a1, a2, &v6);
   if ((inited & 0x80000000) == 0)
   {
     if (*a3)
     {
-      ssftriff_reader_ReleaseChunkData(*(*a3 + 16), v4, v5, v6, v7, v8, v9, v10);
+      ssftriff_reader_ReleaseChunkData(*(*a3 + 16));
     }
 
-    free_FSTS(v13, a3);
+    free_FSTS(v6, a3);
   }
 
   return inited;
@@ -7857,7 +7572,7 @@ uint64_t fst_getTransductionMode(uint64_t a1, _DWORD *a2)
 uint64_t kblex_LoadOneLex(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v7 = 2371887104;
-  v40 = 0;
+  v33 = 0;
   *a5 = 0;
   v8 = *(a4 + 264);
   if (v8 > 3)
@@ -7866,7 +7581,7 @@ uint64_t kblex_LoadOneLex(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
     {
       if (v8 == 6)
       {
-        v47 = 0;
+        v40 = 0;
         v10 = 21575;
       }
 
@@ -7877,14 +7592,14 @@ uint64_t kblex_LoadOneLex(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
           return v7;
         }
 
-        v47 = 0;
+        v40 = 0;
         v10 = 21072;
       }
     }
 
     else if (v8 == 4)
     {
-      v47 = 0;
+      v40 = 0;
       v10 = 21571;
     }
 
@@ -7895,7 +7610,7 @@ uint64_t kblex_LoadOneLex(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
         return v7;
       }
 
-      v47 = 0;
+      v40 = 0;
       v10 = 21569;
     }
 
@@ -7906,7 +7621,7 @@ uint64_t kblex_LoadOneLex(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   {
     if (v8 == 2)
     {
-      v47 = 0;
+      v40 = 0;
       v10 = 19795;
     }
 
@@ -7917,7 +7632,7 @@ uint64_t kblex_LoadOneLex(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
         return v7;
       }
 
-      v47 = 0;
+      v40 = 0;
       v10 = 21584;
     }
 
@@ -7928,145 +7643,145 @@ LABEL_20:
 
   if (*(a4 + 264))
   {
-    v47 = 0;
+    v40 = 0;
     v9 = 19533;
   }
 
   else
   {
-    v47 = 0;
+    v40 = 0;
     v9 = 19526;
   }
 
   v11 = v9 | 0x58450000;
 LABEL_21:
-  v46 = v11;
+  v39 = v11;
   *__s2 = v11;
-  v45 = 0;
-  v43 = 0;
+  v38 = 0;
+  v36 = 0;
   *__s1 = 0;
-  v41 = 0;
-  v39 = 0;
-  v12 = ssftriff_reader_ObjOpen(a1, a2, 2, (a4 + 8), &v46, 1031, &v40);
+  v34 = 0;
+  v32 = 0;
+  v12 = ssftriff_reader_ObjOpen(a1, a2, 2, (a4 + 8), &v39, 1031, &v33);
   if (v12 < 0)
   {
-    v20 = v12;
+    v13 = v12;
   }
 
   else
   {
-    v20 = ssftriff_reader_OpenChunk(v40, __s1, &v39, &v41, v16, v17, v18, v19);
-    if ((v20 & 0x80000000) == 0 && !strcmp(__s1, __s2))
+    v13 = ssftriff_reader_OpenChunk(v33, __s1, &v32, &v34);
+    if ((v13 & 0x80000000) == 0 && !strcmp(__s1, __s2))
     {
-      v38 = 0;
-      v20 = ssftriff_reader_DetachChunkData(v40, &v38, &v41, v15, v16, v17, v18, v19);
-      if ((v20 & 0x80000000) == 0)
+      v31 = 0;
+      v13 = ssftriff_reader_DetachChunkData(v33, &v31, &v34);
+      if ((v13 & 0x80000000) == 0)
       {
-        v21 = v41;
-        if (v8 == *v41)
+        v14 = v34;
+        if (v8 == *v34)
         {
-          v22 = *(v41 + 1);
-          v23 = heap_Calloc(*(a3 + 8), 1, 296 * v22);
-          if (v23)
+          v15 = *(v34 + 1);
+          v16 = heap_Calloc(*(a3 + 8), 1, 296 * v15);
+          if (v16)
           {
-            v24 = v23;
-            if (v22 <= 0)
+            v17 = v16;
+            if (v15 <= 0)
             {
               __strcpy_chk();
               goto LABEL_38;
             }
 
-            v25 = v21 + 4;
-            v26 = v23 + 260;
+            v18 = v14 + 4;
+            v19 = v16 + 260;
             do
             {
-              v27 = v25[2];
-              *v26 = v25[1];
-              *(v26 + 4) = v27;
-              v28 = v25[3];
-              *(v26 + 8) = v28;
-              v29 = v25 + 4;
-              *(v26 + 12) = v29;
-              v30 = v29 + v28;
-              *(v26 + 20) = -1;
-              *(v26 + 28) = v38;
-              v31 = -v28 < 0;
-              v32 = -v28 & 3;
-              v33 = v28 & 3;
-              if (!v31)
+              v20 = v18[2];
+              *v19 = v18[1];
+              *(v19 + 4) = v20;
+              v21 = v18[3];
+              *(v19 + 8) = v21;
+              v22 = v18 + 4;
+              *(v19 + 12) = v22;
+              v23 = v22 + v21;
+              *(v19 + 20) = -1;
+              *(v19 + 28) = v31;
+              v24 = -v21 < 0;
+              v25 = -v21 & 3;
+              v26 = v21 & 3;
+              if (!v24)
               {
-                v33 = -v32;
+                v26 = -v25;
               }
 
-              v34 = &v30[-v33];
-              v35 = *(v34 + 1);
-              v25 = v34 + 4;
-              if (v35 != 1234567890)
+              v27 = &v23[-v26];
+              v28 = *(v27 + 1);
+              v18 = v27 + 4;
+              if (v28 != 1234567890)
               {
-                v20 = -1923080192;
+                v13 = -1923080192;
               }
 
-              v26 += 296;
-              --v22;
+              v19 += 296;
+              --v15;
             }
 
-            while (v22);
+            while (v15);
             __strcpy_chk();
-            if ((v20 & 0x80000000) == 0)
+            if ((v13 & 0x80000000) == 0)
             {
               goto LABEL_38;
             }
 
-            ssftriff_reader_ReleaseChunkData(v38, v13, v14, v15, v16, v17, v18, v19);
-            heap_Free(*(a3 + 8), v24);
+            ssftriff_reader_ReleaseChunkData(v31);
+            heap_Free(*(a3 + 8), v17);
             goto LABEL_37;
           }
 
           LODWORD(v7) = -1923080182;
         }
 
-        ssftriff_reader_ReleaseChunkData(v38, v13, v14, v15, v16, v17, v18, v19);
-        v24 = 0;
-        v20 = v7;
+        ssftriff_reader_ReleaseChunkData(v31);
+        v17 = 0;
+        v13 = v7;
         goto LABEL_38;
       }
     }
   }
 
 LABEL_37:
-  v24 = 0;
+  v17 = 0;
 LABEL_38:
-  v36 = ssftriff_reader_ObjClose(v40, v13, v14, v15, v16, v17, v18, v19);
-  if (v20 >= 0)
+  v29 = ssftriff_reader_ObjClose(v33);
+  if (v13 >= 0)
   {
-    v7 = v36;
+    v7 = v29;
   }
 
   else
   {
-    v7 = v20;
+    v7 = v13;
   }
 
-  *a5 = v24;
+  *a5 = v17;
   return v7;
 }
 
 uint64_t kblex_loadLex(_WORD *a1, int a2, _WORD *a3, int a4, int a5, void *a6)
 {
   v7 = a5;
-  v40[3] = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20 = 0;
+  v39[3] = *MEMORY[0x1E69E9840];
   v18 = 0;
+  v19 = 0;
+  v17 = 0;
   AddRefCountedObject = 2371887104;
-  memset(v39, 0, sizeof(v39));
+  memset(v38, 0, sizeof(v38));
   if (a5 > 3)
   {
     if (a5 > 5)
     {
       if (a5 == 6)
       {
-        strcpy(&v40[1], "lex");
+        strcpy(&v39[1], "lex");
         v12 = "graphtablex";
       }
 
@@ -8074,17 +7789,17 @@ uint64_t kblex_loadLex(_WORD *a1, int a2, _WORD *a3, int a4, int a5, void *a6)
       {
         if (a5 != 7)
         {
-          goto LABEL_28;
+          return AddRefCountedObject;
         }
 
-        strcpy(v40 + 7, "lex");
+        *(v39 + 7) = 7890284;
         v12 = "proptablex";
       }
     }
 
     else
     {
-      strcpy(v40 + 7, "lex");
+      *(v39 + 7) = 7890284;
       if (a5 == 4)
       {
         v12 = "constablex";
@@ -8097,7 +7812,7 @@ uint64_t kblex_loadLex(_WORD *a1, int a2, _WORD *a3, int a4, int a5, void *a6)
     }
 
 LABEL_20:
-    v40[0] = *v12;
+    v39[0] = *v12;
     goto LABEL_21;
   }
 
@@ -8105,42 +7820,41 @@ LABEL_20:
   {
     if (a5 == 2)
     {
-      strcpy(v40 + 4, "x");
+      WORD2(v39[0]) = 120;
       v13 = 1701604723;
       goto LABEL_18;
     }
 
-    strcpy(v40 + 7, "lex");
+    *(v39 + 7) = 7890284;
     v12 = "phontablex";
     goto LABEL_20;
   }
 
   if (!a5)
   {
-    BYTE4(v40[0]) = 0;
+    BYTE4(v39[0]) = 0;
     v11 = 27750;
     goto LABEL_15;
   }
 
   if (a5 == 1)
   {
-    BYTE4(v40[0]) = 0;
+    BYTE4(v39[0]) = 0;
     v11 = 27757;
 LABEL_15:
     v13 = v11 | 0x78650000;
 LABEL_18:
-    LODWORD(v40[0]) = v13;
+    LODWORD(v39[0]) = v13;
 LABEL_21:
-    inited = InitRsrcFunction(a1, a2, &v20);
-    if ((inited & 0x80000000) != 0 || (inited = InitRsrcFunction(a3, a4, &v19), (inited & 0x80000000) != 0) || (inited = kbaux_BuildBrokerString(v20, v40, v39, 0x100uLL), (inited & 0x80000000) != 0))
+    inited = InitRsrcFunction(a1, a2, &v19);
+    if ((inited & 0x80000000) != 0 || (inited = InitRsrcFunction(a3, a4, &v18), (inited & 0x80000000) != 0) || (inited = kbaux_BuildBrokerString(v19, v39, v38, 0x100uLL), (inited & 0x80000000) != 0))
     {
       AddRefCountedObject = inited;
     }
 
     else
     {
-      v38 = 0;
-      v37 = 0u;
+      v37 = 0;
       v36 = 0u;
       v35 = 0u;
       v34 = 0u;
@@ -8156,23 +7870,22 @@ LABEL_21:
       v24 = 0u;
       v23 = 0u;
       v22 = 0u;
-      v21 = v20;
+      v21 = 0u;
+      v20 = v19;
       __strcpy_chk();
-      LOWORD(v38) = v7;
-      ObjcForThisApi = getObjcForThisApi(v20, v19);
-      AddRefCountedObject = objc_GetAddRefCountedObject(ObjcForThisApi, v39, kblex_loc_ObjcLoadLex, kblex_loc_ObjcUnloadLex, &v21, &v18);
+      LOWORD(v37) = v7;
+      ObjcForThisApi = getObjcForThisApi(v19, v18);
+      AddRefCountedObject = objc_GetAddRefCountedObject(ObjcForThisApi, v38, kblex_loc_ObjcLoadLex, kblex_loc_ObjcUnloadLex, &v20, &v17);
       if ((AddRefCountedObject & 0x80000000) == 0)
       {
-        *a6 = *(v18 + 32);
-        goto LABEL_28;
+        *a6 = *(v17 + 32);
+        return AddRefCountedObject;
       }
     }
 
     *a6 = 0;
   }
 
-LABEL_28:
-  v16 = *MEMORY[0x1E69E9840];
   return AddRefCountedObject;
 }
 
@@ -8193,16 +7906,16 @@ uint64_t kblex_loc_ObjcLoadLex(_WORD *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t kblex_loc_ObjcUnloadLex(_WORD *a1, int a2, uint64_t a3)
 {
-  v14 = 0;
-  result = InitRsrcFunction(a1, a2, &v14);
+  v7 = 0;
+  result = InitRsrcFunction(a1, a2, &v7);
   if ((result & 0x80000000) == 0)
   {
-    v12 = *(a3 + 32);
-    if (v12)
+    v5 = *(a3 + 32);
+    if (v5)
     {
-      v13 = v14;
-      ssftriff_reader_ReleaseChunkData(*(v12 + 288), v5, v6, v7, v8, v9, v10, v11);
-      heap_Free(*(v13 + 8), v12);
+      v6 = v7;
+      ssftriff_reader_ReleaseChunkData(*(v5 + 288));
+      heap_Free(*(v6 + 8), v5);
       return 0;
     }
 
@@ -8247,184 +7960,177 @@ uint64_t kblex_FinishLex(_WORD *a1, int a2, _WORD *a3, int a4, uint64_t a5)
   return result;
 }
 
-uint64_t mosyntsentana_InsertTerminalEdge(uint64_t a1, int *a2, signed int a3, signed int a4, signed int a5, uint64_t a6, uint64_t a7, int a8)
+uint64_t mosyntsentana_InsertTerminalEdge(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
   v8 = a3;
-  v40 = *MEMORY[0x1E69E9840];
-  if (a3 < 0)
+  v36 = *MEMORY[0x1E69E9840];
+  if ((a3 & 0x80000000) != 0)
   {
-    v13 = *MEMORY[0x1E69E9840];
-    v12 = "tried to insert terminal sentence edge starting at position ";
+    v11 = "tried to insert terminal sentence edge starting at position ";
     a4 = a3;
     goto LABEL_33;
   }
 
   v10 = a4;
-  if (a4 < 5001)
+  if (a4 >= 5001)
   {
-    v14 = a5;
-    if (a5 < 0)
+    v11 = "impossible to insert terminal sentence edge ending at position ";
+LABEL_33:
+
+    return mosyntbase_WInt3Ln(a1, v11, 0, a4, "", 0);
+  }
+
+  v12 = a5;
+  if ((a5 & 0x80000000) != 0)
+  {
+    v11 = "tried to insert terminal sentence edge with constituent id < 0: ";
+    a4 = a5;
+    goto LABEL_33;
+  }
+
+  v17 = a2[10010];
+  v18 = v17 < a3;
+  if (v17 <= a3)
+  {
+    v17 = a3;
+  }
+
+  if (v18 || v17 < a4)
+  {
+    if (v17 <= a4)
     {
-      v36 = *MEMORY[0x1E69E9840];
-      v12 = "tried to insert terminal sentence edge with constituent id < 0: ";
-      a4 = a5;
-      goto LABEL_33;
+      v17 = a4;
     }
 
-    v19 = a2[10010];
-    v20 = v19 < a3;
-    if (v19 <= a3)
+    a2[10010] = v17;
+  }
+
+  v20 = &a2[2 * a3 + 8];
+  if (!*v20)
+  {
+    result = mosyntpal_ALLOCATE(a1, &a2[2 * a3 + 8], 0x130u);
+    if ((result & 0x80000000) != 0)
     {
-      v19 = a3;
+      return result;
     }
 
-    if (v20 || v19 < a4)
+    v22 = *v20;
+    v22[17] = 0u;
+    v22[18] = 0u;
+    v22[15] = 0u;
+    v22[16] = 0u;
+    v22[13] = 0u;
+    v22[14] = 0u;
+    v22[11] = 0u;
+    v22[12] = 0u;
+    v22[9] = 0u;
+    v22[10] = 0u;
+    v22[7] = 0u;
+    v22[8] = 0u;
+    v22[5] = 0u;
+    v22[6] = 0u;
+    v22[3] = 0u;
+    v22[4] = 0u;
+    v22[1] = 0u;
+    v22[2] = 0u;
+    *v22 = 0u;
+  }
+
+  v23 = &a2[2 * v10 + 8];
+  if (!*v23)
+  {
+    result = mosyntpal_ALLOCATE(a1, &a2[2 * v10 + 8], 0x130u);
+    if ((result & 0x80000000) != 0)
     {
-      if (v19 <= a4)
+      return result;
+    }
+
+    v24 = *v23;
+    v24[17] = 0u;
+    v24[18] = 0u;
+    v24[15] = 0u;
+    v24[16] = 0u;
+    v24[13] = 0u;
+    v24[14] = 0u;
+    v24[11] = 0u;
+    v24[12] = 0u;
+    v24[9] = 0u;
+    v24[10] = 0u;
+    v24[7] = 0u;
+    v24[8] = 0u;
+    v24[5] = 0u;
+    v24[6] = 0u;
+    v24[3] = 0u;
+    v24[4] = 0u;
+    v24[1] = 0u;
+    v24[2] = 0u;
+    *v24 = 0u;
+  }
+
+  v33 = 0;
+  memset(v34, 0, sizeof(v34));
+  v35 = 0;
+  ++a2[25026];
+  result = mosyntpal_ALLOCATE(a1, &v33, 0x78u);
+  if ((result & 0x80000000) == 0)
+  {
+    v25 = v33;
+    v33[12] = v8;
+    v25[13] = v10;
+    v25[14] = v12;
+    v26 = *(a6 + 16);
+    *(v25 + 2) = *a6;
+    *(v25 + 6) = v26;
+    *(v25 + 58) = 1;
+    *(v25 + 8) = a7;
+    result = mosyntkbsgram_NilIter(v25 + 10);
+    if ((result & 0x80000000) == 0)
+    {
+      v27 = v33;
+      *(v33 + 24) = a8;
+      *(v27 + 57) = 0;
+      *(v27 + 13) = 0;
+      *(v27 + 112) = 0;
+      v28 = *v23;
+      v29 = (v27[14] - 37 * ((((7085 * v27[14]) >> 16) >> 2) + (((7085 * v27[14]) >> 16) >> 15)));
+      *v27 = *(*v23 + 8 * v29);
+      v30 = v33;
+      *(v28 + v29) = v33;
+      *(v30 + 2) = 0;
+      *(v30 + 56) = 0;
+      v31 = *(*v20 + 296);
+      if (v31)
       {
-        v19 = a4;
-      }
-
-      a2[10010] = v19;
-    }
-
-    v22 = &a2[2 * a3 + 8];
-    if (!*v22)
-    {
-      result = mosyntpal_ALLOCATE(a1, &a2[2 * a3 + 8], 0x130u);
-      if ((result & 0x80000000) != 0)
-      {
-        goto LABEL_31;
-      }
-
-      v24 = *v22;
-      v24[17] = 0u;
-      v24[18] = 0u;
-      v24[15] = 0u;
-      v24[16] = 0u;
-      v24[13] = 0u;
-      v24[14] = 0u;
-      v24[11] = 0u;
-      v24[12] = 0u;
-      v24[9] = 0u;
-      v24[10] = 0u;
-      v24[7] = 0u;
-      v24[8] = 0u;
-      v24[5] = 0u;
-      v24[6] = 0u;
-      v24[3] = 0u;
-      v24[4] = 0u;
-      v24[1] = 0u;
-      v24[2] = 0u;
-      *v24 = 0u;
-    }
-
-    v25 = &a2[2 * v10 + 8];
-    if (*v25)
-    {
-LABEL_22:
-      v37 = 0;
-      memset(v38, 0, sizeof(v38));
-      v39 = 0;
-      ++a2[25026];
-      result = mosyntpal_ALLOCATE(a1, &v37, 0x78u);
-      if ((result & 0x80000000) == 0)
-      {
-        v27 = v37;
-        v37[12] = v8;
-        v27[13] = v10;
-        v27[14] = v14;
-        v28 = *(a6 + 16);
-        *(v27 + 2) = *a6;
-        *(v27 + 6) = v28;
-        *(v27 + 58) = 1;
-        *(v27 + 8) = a7;
-        result = mosyntkbsgram_NilIter(v27 + 10);
-        if ((result & 0x80000000) == 0)
+        v32 = *(*v20 + 296);
+        while (*(v32 + 28) != v30[14])
         {
-          v29 = v37;
-          *(v37 + 24) = a8;
-          *(v29 + 57) = 0;
-          *(v29 + 13) = 0;
-          *(v29 + 112) = 0;
-          v30 = *v25;
-          v31 = (v29[14] - 37 * ((((7085 * v29[14]) >> 16) >> 2) + (((7085 * v29[14]) >> 16) >> 15)));
-          *v29 = *(*v25 + 8 * v31);
-          v32 = v37;
-          *(v30 + v31) = v37;
-          *(v32 + 2) = 0;
-          *(v32 + 56) = 0;
-          v33 = *(*v22 + 296);
-          if (v33)
+          v32 = *(v32 + 8);
+          if (!v32)
           {
-            v34 = *(*v22 + 296);
-            while (*(v34 + 28) != v32[14])
-            {
-              v34 = *(v34 + 8);
-              if (!v34)
-              {
-                goto LABEL_28;
-              }
-            }
-          }
-
-          else
-          {
-LABEL_28:
-            *(v32 + 1) = v33;
-            *(*v22 + 296) = v32;
-          }
-
-          if (*a2 >= 3)
-          {
-            m2__cp__str("inserted terminal edge", v38, 100);
-            result = WriteEdge(a1, a2, v38, 100, v37);
+            goto LABEL_28;
           }
         }
       }
 
-      goto LABEL_31;
-    }
+      else
+      {
+LABEL_28:
+        *(v30 + 1) = v31;
+        *(*v20 + 296) = v30;
+      }
 
-    result = mosyntpal_ALLOCATE(a1, &a2[2 * v10 + 8], 0x130u);
-    if ((result & 0x80000000) == 0)
-    {
-      v26 = *v25;
-      v26[17] = 0u;
-      v26[18] = 0u;
-      v26[15] = 0u;
-      v26[16] = 0u;
-      v26[13] = 0u;
-      v26[14] = 0u;
-      v26[11] = 0u;
-      v26[12] = 0u;
-      v26[9] = 0u;
-      v26[10] = 0u;
-      v26[7] = 0u;
-      v26[8] = 0u;
-      v26[5] = 0u;
-      v26[6] = 0u;
-      v26[3] = 0u;
-      v26[4] = 0u;
-      v26[1] = 0u;
-      v26[2] = 0u;
-      *v26 = 0u;
-      goto LABEL_22;
+      if (*a2 >= 3)
+      {
+        m2__cp__str("inserted terminal edge", v34, 0x64u);
+        return WriteEdge(a1, a2, v34, 100, v33);
+      }
     }
-
-LABEL_31:
-    v35 = *MEMORY[0x1E69E9840];
-    return result;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  v12 = "impossible to insert terminal sentence edge ending at position ";
-LABEL_33:
-
-  return mosyntbase_WInt3Ln(a1, v12, 0, a4, "", 0);
+  return result;
 }
 
-uint64_t WriteEdge(uint64_t a1, uint64_t a2, unsigned __int8 *a3, int a4, __int16 *a5)
+uint64_t WriteEdge(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, __int16 *a5)
 {
   result = mosyntbase_WString(a1, a3, a4);
   if (a5)
@@ -8490,7 +8196,7 @@ uint64_t WriteEdge(uint64_t a1, uint64_t a2, unsigned __int8 *a3, int a4, __int1
 
 uint64_t mosyntsentana_CreateAndInitParseDesc(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, uint64_t *a6)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   result = mosyntpal_ALLOCATE(a1, a6, 0x18728u);
   if ((result & 0x80000000) == 0)
   {
@@ -8544,27 +8250,27 @@ uint64_t mosyntsentana_CreateAndInitParseDesc(uint64_t a1, int a2, uint64_t a3, 
         v18[2] = 0u;
         *v18 = 0u;
         v19 = *a6;
+        v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
-        v21 = 0;
-        v28 = 0;
-        v27 = 0u;
-        v26 = 0;
-        v25 = 0u;
-        v24 = 0;
+        v20 = 0;
+        v27 = 0;
+        v26 = 0u;
+        v25 = 0;
+        v24 = 0u;
+        v23 = 0;
         *(v19 + 100064) = 0u;
-        result = mosyntkbsgram_GetFirstEmptyRule(*(v19 + 16), &v22, &v21);
+        result = mosyntkbsgram_GetFirstEmptyRule(*(v19 + 16), &v21, &v20);
         if ((result & 0x80000000) == 0)
         {
-          while (v21 >= 1)
+          while (v20 >= 1)
           {
-            result = mosyntkbsgram_GetRuleFeatLists(&v22, &v27, &v25, &v23);
+            result = mosyntkbsgram_GetRuleFeatLists(&v21, &v26, &v24, &v22);
             if ((result & 0x80000000) == 0)
             {
-              result = InsertRuleEdge(a1, v19, v21, &v27, 0, 0, 0, 0, &v22);
+              result = InsertRuleEdge(a1, v19, v20, &v26, 0, 0, 0, 0, &v21);
               if ((result & 0x80000000) == 0)
               {
-                result = mosyntkbsgram_GetNextEmptyRule(*(v19 + 16), &v22, &v21);
+                result = mosyntkbsgram_GetNextEmptyRule(*(v19 + 16), &v21, &v20);
                 if ((result & 0x80000000) == 0)
                 {
                   continue;
@@ -8572,7 +8278,7 @@ uint64_t mosyntsentana_CreateAndInitParseDesc(uint64_t a1, int a2, uint64_t a3, 
               }
             }
 
-            goto LABEL_14;
+            return result;
           }
 
           result = ParseAndOptimizePosition(a1, v19, 0, 0);
@@ -8585,8 +8291,6 @@ uint64_t mosyntsentana_CreateAndInitParseDesc(uint64_t a1, int a2, uint64_t a3, 
     }
   }
 
-LABEL_14:
-  v20 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8700,7 +8404,7 @@ uint64_t mosyntsentana_DoParse(uint64_t a1, uint64_t a2)
     *(v8 + 4 * v5) = *(v7 + 4 * v5) + 1000;
     if (*(a2 + 8 * v5 + 40))
     {
-      result = ParseAndOptimizePosition(a1, a2, v5 + 1, v9 == v2);
+      result = ParseAndOptimizePosition(a1, a2, (v5 + 1), v9 == v2);
       if ((result & 0x80000000) != 0)
       {
         return result;
@@ -8716,12 +8420,13 @@ uint64_t mosyntsentana_DoParse(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t ParseAndOptimizePosition(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+uint64_t ParseAndOptimizePosition(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   v8 = 0;
   v9 = 0;
   v10 = 0;
-  v70[3] = *MEMORY[0x1E69E9840];
+  v69[3] = *MEMORY[0x1E69E9840];
   v11 = a2 + 100064;
   v12 = (a2 + 32);
   *(a2 + 100096) = 0;
@@ -8763,35 +8468,32 @@ uint64_t ParseAndOptimizePosition(uint64_t a1, uint64_t a2, unsigned int a3, int
   }
 
   while (v10 != 37);
-  v63[0] = 0;
-  v63[1] = 0;
-  v62 = 0;
+  v62 = 0uLL;
   v61 = 0;
   v60 = 0;
+  v59 = 0;
   if (*a2 >= 3)
   {
     FirstRuleSameLast = mosyntbase_WInt3Ln(a1, "treating agenda in position ", 0, a3, "", 0);
     if ((FirstRuleSameLast & 0x80000000) != 0)
     {
-LABEL_153:
-      RuleVisAndCost = FirstRuleSameLast;
-      goto LABEL_154;
+      return FirstRuleSameLast;
     }
   }
 
-  v58 = a4;
+  v57 = a4;
   v17 = *v11;
   if (*v11)
   {
     v18 = 0;
-    memset(v70, 0, 24);
-    v68 = 0;
-    v69[0] = 0;
+    memset(v69, 0, 24);
     v67 = 0;
-    *(v69 + 6) = 0;
-    memset(v66, 0, sizeof(v66));
+    v68[0] = 0;
+    v66 = 0;
+    *(v68 + 6) = 0;
     memset(v65, 0, sizeof(v65));
     memset(v64, 0, sizeof(v64));
+    memset(v63, 0, sizeof(v63));
     do
     {
       v19 = *(v17 + 16);
@@ -8805,26 +8507,26 @@ LABEL_153:
       *(v17 + 16) = 0;
       if (*a2 >= 3)
       {
-        m2__cp__str("  treating agenda edge", &v67, 30);
-        FirstRuleSameLast = WriteEdge(a1, a2, &v67, 30, v17);
+        m2__cp__str("  treating agenda edge", &v66, 0x1Eu);
+        FirstRuleSameLast = WriteEdge(a1, a2, &v66, 30, v17);
         if ((FirstRuleSameLast & 0x80000000) != 0)
         {
-          goto LABEL_153;
+          return FirstRuleSameLast;
         }
       }
 
-      FirstRuleSameLast = mosyntkbsgram_GetFirstRuleSameLast(*(a2 + 16), *(v17 + 28), v63, &v61, &v60 + 4, &v60);
+      FirstRuleSameLast = mosyntkbsgram_GetFirstRuleSameLast(*(a2 + 16), *(v17 + 28), &v62, &v60, &v59 + 1, &v59);
       if ((FirstRuleSameLast & 0x80000000) != 0)
       {
-        goto LABEL_153;
+        return FirstRuleSameLast;
       }
 
-      while (v61 >= 1)
+      while (v60 >= 1)
       {
-        FirstRuleSameLast = mosyntkbsgram_GetRuleFeatLists(v63, v66, v65, v64);
+        FirstRuleSameLast = mosyntkbsgram_GetRuleFeatLists(&v62, v65, v64, v63);
         if ((FirstRuleSameLast & 0x80000000) != 0)
         {
-          goto LABEL_153;
+          return FirstRuleSameLast;
         }
 
         if (v18 < 0)
@@ -8832,7 +8534,7 @@ LABEL_153:
           FirstRuleSameLast = kaldi::nnet1::Component::IsUpdatable(FirstRuleSameLast);
           if ((FirstRuleSameLast & 0x80000000) != 0)
           {
-            goto LABEL_153;
+            return FirstRuleSameLast;
           }
 
           v18 = 1000;
@@ -8844,46 +8546,46 @@ LABEL_153:
         }
 
         v20 = *a2;
-        if (v60)
+        if (v59)
         {
           if (v20 >= 3)
           {
             FirstRuleSameLast = mosyntbase_WString(a1, "    looking for left edge ", 0);
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
 
-            FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), HIDWORD(v60));
+            FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), HIDWORD(v59));
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
 
             FirstRuleSameLast = mosyntbase_WString(a1, " to complete ", 0);
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
 
-            FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), v61);
+            FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), v60);
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
 
             FirstRuleSameLast = mosyntbase_WLn(a1);
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
           }
 
-          v21 = HIDWORD(v60);
-          FirstRuleSameLast = mosyntkbsgram_GetRuleFeatLists(v63, v66, v65, v64);
+          v21 = HIDWORD(v59);
+          FirstRuleSameLast = mosyntkbsgram_GetRuleFeatLists(&v62, v65, v64, v63);
           if ((FirstRuleSameLast & 0x80000000) != 0)
           {
-            goto LABEL_153;
+            return FirstRuleSameLast;
           }
 
           v22 = v21 % 37;
@@ -8898,7 +8600,7 @@ LABEL_153:
             v24 = v22;
             for (i = *(v12[v23] + 8 * v22); i; i = *i)
             {
-              if (HIDWORD(v60) == *(i + 28))
+              if (HIDWORD(v59) == *(i + 28))
               {
                 v26 = *a2;
                 if (*a2 >= 3)
@@ -8906,24 +8608,24 @@ LABEL_153:
                   FirstRuleSameLast = mosyntbase_WStringLn(a1, "      found left edge; trying unification", 0);
                   if ((FirstRuleSameLast & 0x80000000) != 0)
                   {
-                    goto LABEL_153;
+                    return FirstRuleSameLast;
                   }
 
                   v26 = *a2;
                 }
 
-                FirstRuleSameLast = mosyntknowl_Unif2(a1, *(a2 + 8), v26, *(v11 + 64), v65, (i + 32), v64, (v17 + 32), v66, v70, &v62);
+                FirstRuleSameLast = mosyntknowl_Unif2(a1, *(a2 + 8), v26, *(v11 + 64), v64, (i + 32), v63, (v17 + 32), v65, v69, &v61);
                 if ((FirstRuleSameLast & 0x80000000) != 0)
                 {
-                  goto LABEL_153;
+                  return FirstRuleSameLast;
                 }
 
-                if (v62)
+                if (v61)
                 {
-                  FirstRuleSameLast = InsertRuleEdge(a1, a2, v61, v70, *(i + 24), a3, i, v17, v63);
+                  FirstRuleSameLast = InsertRuleEdge(a1, a2, v60, v69, *(i + 24), v5, i, v17, &v62);
                   if ((FirstRuleSameLast & 0x80000000) != 0)
                   {
-                    goto LABEL_153;
+                    return FirstRuleSameLast;
                   }
                 }
               }
@@ -8932,7 +8634,7 @@ LABEL_153:
 
           for (j = *(*v12 + 8 * v24); j; j = *j)
           {
-            if (HIDWORD(v60) == *(j + 28))
+            if (HIDWORD(v59) == *(j + 28))
             {
               v28 = *a2;
               if (*a2 >= 3)
@@ -8940,24 +8642,24 @@ LABEL_153:
                 FirstRuleSameLast = mosyntbase_WStringLn(a1, "      found left edge; trying unification", 0);
                 if ((FirstRuleSameLast & 0x80000000) != 0)
                 {
-                  goto LABEL_153;
+                  return FirstRuleSameLast;
                 }
 
                 v28 = *a2;
               }
 
-              FirstRuleSameLast = mosyntknowl_Unif2(a1, *(a2 + 8), v28, *(v11 + 64), v65, (j + 32), v64, (v17 + 32), v66, v70, &v62);
+              FirstRuleSameLast = mosyntknowl_Unif2(a1, *(a2 + 8), v28, *(v11 + 64), v64, (j + 32), v63, (v17 + 32), v65, v69, &v61);
               if ((FirstRuleSameLast & 0x80000000) != 0)
               {
-                goto LABEL_153;
+                return FirstRuleSameLast;
               }
 
-              if (v62)
+              if (v61)
               {
-                FirstRuleSameLast = InsertRuleEdge(a1, a2, v61, v70, *(v17 + 24), a3, j, v17, v63);
+                FirstRuleSameLast = InsertRuleEdge(a1, a2, v60, v69, *(v17 + 24), v5, j, v17, &v62);
                 if ((FirstRuleSameLast & 0x80000000) != 0)
                 {
-                  goto LABEL_153;
+                  return FirstRuleSameLast;
                 }
               }
             }
@@ -8971,99 +8673,99 @@ LABEL_153:
             FirstRuleSameLast = mosyntbase_WString(a1, "    trying to directly complete ", 0);
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
 
-            FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), v61);
+            FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), v60);
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
 
             FirstRuleSameLast = mosyntbase_WLn(a1);
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
 
             v20 = *a2;
           }
 
-          FirstRuleSameLast = mosyntknowl_Unif (a1, *(a2 + 8), v20, *(v11 + 64), v65, (v17 + 32), v66, v70, &v62);
+          FirstRuleSameLast = mosyntknowl_Unif (a1, *(a2 + 8), v20, *(v11 + 64), v64, (v17 + 32), v65, v69, &v61);
           if ((FirstRuleSameLast & 0x80000000) != 0)
           {
-            goto LABEL_153;
+            return FirstRuleSameLast;
           }
 
-          if (v62)
+          if (v61)
           {
-            FirstRuleSameLast = InsertRuleEdge(a1, a2, v61, v70, *(v17 + 24), a3, v17, 0, v63);
+            FirstRuleSameLast = InsertRuleEdge(a1, a2, v60, v69, *(v17 + 24), v5, v17, 0, &v62);
             if ((FirstRuleSameLast & 0x80000000) != 0)
             {
-              goto LABEL_153;
+              return FirstRuleSameLast;
             }
           }
         }
 
-        FirstRuleSameLast = mosyntkbsgram_GetNextRuleSameLast(*(a2 + 16), *(v17 + 28), v63, &v61, &v60 + 1, &v60);
+        FirstRuleSameLast = mosyntkbsgram_GetNextRuleSameLast(*(a2 + 16), *(v17 + 28), &v62, &v60, &v59 + 1, &v59);
         if ((FirstRuleSameLast & 0x80000000) != 0)
         {
-          goto LABEL_153;
+          return FirstRuleSameLast;
         }
       }
 
       if (mosyntkbsgram_HasEmptyRules(*(a2 + 16)))
       {
-        FirstRuleSameLast = mosyntkbsgram_GetFirstRuleSameFirst(*(a2 + 16), *(v17 + 28), v63, &v61, &v60 + 4, &v60);
+        FirstRuleSameLast = mosyntkbsgram_GetFirstRuleSameFirst(*(a2 + 16), *(v17 + 28), &v62, &v60, &v59 + 1, &v59);
         if ((FirstRuleSameLast & 0x80000000) != 0)
         {
-          goto LABEL_153;
+          return FirstRuleSameLast;
         }
 
-        while (v61 >= 1)
+        while (v60 >= 1)
         {
-          FirstRuleSameLast = mosyntkbsgram_GetRuleFeatLists(v63, v66, v65, v64);
+          FirstRuleSameLast = mosyntkbsgram_GetRuleFeatLists(&v62, v65, v64, v63);
           if ((FirstRuleSameLast & 0x80000000) != 0)
           {
-            goto LABEL_153;
+            return FirstRuleSameLast;
           }
 
-          v29 = v60;
-          if (v60 >= 1)
+          v29 = v59;
+          if (v59 >= 1)
           {
             if (*a2 >= 3)
             {
               FirstRuleSameLast = mosyntbase_WString(a1, "    looking for empty right edge ", 0);
               if ((FirstRuleSameLast & 0x80000000) != 0)
               {
-                goto LABEL_153;
+                return FirstRuleSameLast;
               }
 
-              FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), v60);
+              FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), v59);
               if ((FirstRuleSameLast & 0x80000000) != 0)
               {
-                goto LABEL_153;
+                return FirstRuleSameLast;
               }
 
               FirstRuleSameLast = mosyntbase_WString(a1, " to complete ", 0);
               if ((FirstRuleSameLast & 0x80000000) != 0)
               {
-                goto LABEL_153;
+                return FirstRuleSameLast;
               }
 
-              FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), v61);
+              FirstRuleSameLast = mosyntkbsymtab_WriteCons(a1, *(a2 + 8), v60);
               if ((FirstRuleSameLast & 0x80000000) != 0)
               {
-                goto LABEL_153;
+                return FirstRuleSameLast;
               }
 
               FirstRuleSameLast = mosyntbase_WLn(a1);
               if ((FirstRuleSameLast & 0x80000000) != 0)
               {
-                goto LABEL_153;
+                return FirstRuleSameLast;
               }
 
-              v29 = v60;
+              v29 = v59;
             }
 
             for (k = *(*v12 + 8 * (v29 % 37)); k; k = *k)
@@ -9073,7 +8775,7 @@ LABEL_153:
                 FirstRuleSameLast = kaldi::nnet1::Component::IsUpdatable(FirstRuleSameLast);
                 if ((FirstRuleSameLast & 0x80000000) != 0)
                 {
-                  goto LABEL_153;
+                  return FirstRuleSameLast;
                 }
 
                 v18 = 1000;
@@ -9084,7 +8786,7 @@ LABEL_153:
                 --v18;
               }
 
-              if (v60 == *(k + 28))
+              if (v59 == *(k + 28))
               {
                 v31 = *a2;
                 if (*a2 >= 3)
@@ -9092,34 +8794,34 @@ LABEL_153:
                   FirstRuleSameLast = mosyntbase_WStringLn(a1, "      found empty right edge; trying unification ", 0);
                   if ((FirstRuleSameLast & 0x80000000) != 0)
                   {
-                    goto LABEL_153;
+                    return FirstRuleSameLast;
                   }
 
                   v31 = *a2;
                 }
 
-                FirstRuleSameLast = mosyntknowl_Unif2(a1, *(a2 + 8), v31, *(v11 + 64), v65, (v17 + 32), v64, (k + 32), v66, v70, &v62);
+                FirstRuleSameLast = mosyntknowl_Unif2(a1, *(a2 + 8), v31, *(v11 + 64), v64, (v17 + 32), v63, (k + 32), v65, v69, &v61);
                 if ((FirstRuleSameLast & 0x80000000) != 0)
                 {
-                  goto LABEL_153;
+                  return FirstRuleSameLast;
                 }
 
-                if (v62)
+                if (v61)
                 {
-                  FirstRuleSameLast = InsertRuleEdge(a1, a2, v61, v70, *(v17 + 24), a3, v17, k, v63);
+                  FirstRuleSameLast = InsertRuleEdge(a1, a2, v60, v69, *(v17 + 24), v5, v17, k, &v62);
                   if ((FirstRuleSameLast & 0x80000000) != 0)
                   {
-                    goto LABEL_153;
+                    return FirstRuleSameLast;
                   }
                 }
               }
             }
           }
 
-          FirstRuleSameLast = mosyntkbsgram_GetNextRuleSameFirst(*(a2 + 16), *(v17 + 28), v63, &v61, &v60 + 1, &v60);
+          FirstRuleSameLast = mosyntkbsgram_GetNextRuleSameFirst(*(a2 + 16), *(v17 + 28), &v62, &v60, &v59 + 1, &v59);
           if ((FirstRuleSameLast & 0x80000000) != 0)
           {
-            goto LABEL_153;
+            return FirstRuleSameLast;
           }
         }
       }
@@ -9130,27 +8832,27 @@ LABEL_153:
     while (*v11);
   }
 
+  v66 = 0;
   v67 = 0;
-  v68 = 0;
-  LOBYTE(v66[0]) = 0;
-  LODWORD(v70[0]) = 0;
-  RuleVisAndCost = mosyntkbsgram_NilIter(&v67);
+  LOBYTE(v65[0]) = 0;
+  LODWORD(v69[0]) = 0;
+  RuleVisAndCost = mosyntkbsgram_NilIter(&v66);
   if ((RuleVisAndCost & 0x80000000) == 0)
   {
-    if (a3)
+    if (v5)
     {
-      if (a3 >= 1)
+      if (v5 >= 1)
       {
         v33 = 0;
-        v55 = 0;
+        v54 = 0;
         v34 = 0;
         v35 = 0;
-        v59 = a2 + 80056;
-        v56 = 0;
-        v57 = a2 + 40048;
+        v58 = a2 + 80056;
+        v55 = 0;
+        v56 = a2 + 40048;
         while (1)
         {
-          v36 = *(v12[a3] + 8 * v33);
+          v36 = *(v12[v5] + 8 * v33);
           if (v36)
           {
             break;
@@ -9159,22 +8861,22 @@ LABEL_153:
 LABEL_123:
           if (++v33 == 37)
           {
-            if (v34 || (v34 = v56, v35 = v55, v56))
+            if (v34 || (v34 = v55, v35 = v54, v55))
             {
-              *(v57 + 8 * a3) = v34;
-              *(v59 + 4 * a3) = v35;
+              *(v56 + 8 * v5) = v34;
+              *(v58 + 4 * v5) = v35;
             }
 
-            if (!v58 && (RuleVisAndCost & 0x80000000) == 0 && mosyntkbsgram_HasSimpleFollowRel(*(a2 + 16)))
+            if (!v57 && (RuleVisAndCost & 0x80000000) == 0 && mosyntkbsgram_HasSimpleFollowRel(*(a2 + 16)))
             {
-              FixEdgeAndSubEdges(*(v57 + 8 * a3));
+              FixEdgeAndSubEdges(*(v56 + 8 * v5));
               for (m = 0; m != 37; ++m)
               {
-                for (n = *(v12[a3] + 8 * m); n; n = *n)
+                for (n = *(v12[v5] + 8 * m); n; n = *n)
                 {
                   if (!*(n + 57))
                   {
-                    v47 = *(v12[a3] + 296);
+                    v47 = *(v12[v5] + 296);
                     if (v47)
                     {
                       while (!mosyntkbsgram_IsFollowerCons(*(a2 + 16), *(v47 + 28), *(n + 28)))
@@ -9197,12 +8899,12 @@ LABEL_133:
 
               v48 = 0;
               RuleVisAndCost = 0;
-              v67 = 0;
+              v66 = 0;
               do
               {
-                v49 = v12[a3];
+                v49 = v12[v5];
                 v50 = *(v49 + 8 * v48);
-                v67 = v50;
+                v66 = v50;
                 v51 = 0;
                 if (v50)
                 {
@@ -9212,7 +8914,7 @@ LABEL_133:
                     if (*(v50 + 57))
                     {
                       *v50 = v51;
-                      v51 = v67;
+                      v51 = v66;
                     }
 
                     else
@@ -9229,19 +8931,19 @@ LABEL_133:
                         --*(v11 + 44);
                       }
 
-                      RuleVisAndCost = DisposeEdge(a1, &v67);
+                      RuleVisAndCost = DisposeEdge(a1, &v66);
                       if ((RuleVisAndCost & 0x80000000) != 0)
                       {
-                        goto LABEL_154;
+                        return RuleVisAndCost;
                       }
                     }
 
-                    v67 = v52;
+                    v66 = v52;
                     v50 = v52;
                   }
 
                   while (v52);
-                  v49 = v12[a3];
+                  v49 = v12[v5];
                 }
 
                 *(v49 + 8 * v48++) = v51;
@@ -9250,29 +8952,29 @@ LABEL_133:
               while (v48 != 37);
             }
 
-            goto LABEL_154;
+            return RuleVisAndCost;
           }
         }
 
         while (1)
         {
-          RuleVisAndCost = mosyntkbsgram_GetRuleVisAndCost(v36 + 20, v66, v70);
+          RuleVisAndCost = mosyntkbsgram_GetRuleVisAndCost(v36 + 20, v65, v69);
           if ((RuleVisAndCost & 0x80000000) != 0)
           {
             break;
           }
 
-          if (mosyntkbsgram_IsNilIter(v36 + 10) || !LOBYTE(v66[0]))
+          if (mosyntkbsgram_IsNilIter(v36 + 10) || !LOBYTE(v65[0]))
           {
             v37 = *(v36 + 12);
-            v38 = *(v59 + 4 * v37) + *(v36 + 24) + 1000;
-            if (*(v36 + 12) && !*(v57 + 8 * v37))
+            v38 = *(v58 + 4 * v37) + *(v36 + 24) + 1000;
+            if (*(v36 + 12) && !*(v56 + 8 * v37))
             {
-              v41 = v56;
-              v42 = v55;
-              if (v56)
+              v41 = v55;
+              v42 = v54;
+              if (v55)
               {
-                v43 = v38 < v55;
+                v43 = v38 < v54;
               }
 
               else
@@ -9286,13 +8988,13 @@ LABEL_133:
                 v42 = v38;
               }
 
-              v55 = v42;
+              v54 = v42;
               if (v44)
               {
                 v41 = v36;
               }
 
-              v56 = v41;
+              v55 = v41;
             }
 
             else
@@ -9331,19 +9033,17 @@ LABEL_133:
     }
   }
 
-LABEL_154:
-  v53 = *MEMORY[0x1E69E9840];
   return RuleVisAndCost;
 }
 
 void mosyntsentana_GetOptimalTree(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a2 + 36864;
   v7 = *(a2 + 40040);
-  v21 = 0;
-  v22 = 0uLL;
-  v23 = 0;
+  v20 = 0;
+  v21 = 0uLL;
+  v22 = 0;
   started = mosyntkbsgram_StartCons(*(a2 + 16));
   v9 = started;
   v10 = *(*(a2 + 8 * v7 + 32) + 8 * (started % 37));
@@ -9355,20 +9055,20 @@ void mosyntsentana_GetOptimalTree(uint64_t a1, uint64_t a2, void *a3)
   v11 = 0;
   do
   {
-    if (started == *(v10 + 28) && !*(v10 + 24) && (!v11 || *(v10 + 96) < *(v11 + 96)))
+    if (started == v10[1].n128_i16[6] && !v10[1].n128_u16[4] && (!v11 || v10[6].n128_u32[0] < v11[6].n128_u32[0]))
     {
       v11 = v10;
     }
 
-    v10 = *v10;
+    v10 = v10->n128_u64[0];
   }
 
   while (v10);
   if (v11)
   {
-    if ((mosyntdata_StartPhonList(a1, a3, &v21) & 0x80000000) == 0)
+    if ((mosyntdata_StartPhonList(a1, a3, &v20) & 0x80000000) == 0)
     {
-      AppendTree(a1, v11, a3, &v21);
+      AppendTree(a1, v11, a3, &v20);
     }
   }
 
@@ -9406,16 +9106,16 @@ LABEL_13:
         while (v13 > 0);
       }
 
-      if ((mosyntdata_StartPhonList(a1, a3, &v21) & 0x80000000) == 0)
+      if ((mosyntdata_StartPhonList(a1, a3, &v20) & 0x80000000) == 0)
       {
-        v22.n128_u16[0] = 0;
-        mosyntdata_AddNode(a1, a3, &v21, 1, v9, &v22);
+        v21.n128_u16[0] = 0;
+        mosyntdata_AddNode(a1, a3, &v20, 1, v9, &v21);
         if ((v16 & 0x80000000) == 0)
         {
-          v17 = v21;
-          v21[6] = *(a2 + 4 * v7 + 80056);
+          v17 = v20;
+          v20[6] = *(a2 + 4 * v7 + 80056);
           *(v17 + 14) = v7;
-          v21 = 0;
+          v20 = 0;
           if (v7 >= 1)
           {
             v18 = (v6 + 3192);
@@ -9423,7 +9123,7 @@ LABEL_13:
             {
               if (*v18)
               {
-                AppendTree(a1, *v18, (*a3 + 8), &v21);
+                AppendTree(a1, *v18, (*a3 + 8), &v20);
                 if (v19 < 0)
                 {
                   break;
@@ -9440,11 +9140,9 @@ LABEL_13:
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t mosyntsentana_DisplayTree(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t mosyntsentana_DisplayTree(uint64_t a1, uint64_t a2, __int16 *a3)
 {
   result = mosyntdata_WriteTree(a1, *(a2 + 8), 2, a3);
   if ((result & 0x80000000) == 0)
@@ -9456,49 +9154,48 @@ uint64_t mosyntsentana_DisplayTree(uint64_t a1, uint64_t a2, uint64_t *a3)
   return result;
 }
 
-uint64_t InsertRuleEdge(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, _DWORD *a9)
+uint64_t InsertRuleEdge(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, _OWORD *a9)
 {
-  v47[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
   v9 = a2 + 98304;
   if (*(a2 + 100084) > *(a2 + 24))
   {
-    RuleVisAndCost = 0;
-    goto LABEL_35;
+    return 0;
   }
 
-  v42 = 0;
-  v46[1] = 0;
-  v47[0] = 0;
-  v46[0] = 0;
-  *(v47 + 6) = 0;
   v41 = 0;
+  v45[1] = 0;
+  v46[0] = 0;
+  v45[0] = 0;
+  *(v46 + 6) = 0;
   v40 = 0;
-  memset(v44, 0, sizeof(v44));
-  v45 = 0;
-  RuleVisAndCost = mosyntkbsgram_GetRuleVisAndCost(a9, &v41, &v42);
+  v39 = 0;
+  memset(v43, 0, sizeof(v43));
+  v44 = 0;
+  RuleVisAndCost = mosyntkbsgram_GetRuleVisAndCost(a9, &v40, &v41);
   if ((RuleVisAndCost & 0x80000000) != 0)
   {
-    goto LABEL_35;
+    return RuleVisAndCost;
   }
 
   if (a7)
   {
-    v42 += *(a7 + 96);
+    v41 += *(a7 + 96);
     *(a7 + 112) = 1;
   }
 
-  v39 = a7;
+  v38 = a7;
   if (a8)
   {
-    v42 += *(a8 + 96);
+    v41 += *(a8 + 96);
     *(a8 + 112) = 1;
   }
 
-  v38 = a8;
+  v37 = a8;
   v19 = a3 % 37;
   for (i = *(*(a2 + 32 + 8 * a6) + 8 * (a3 % 37)); ; i = *i)
   {
-    v43 = i;
+    v42 = i;
     if (!i)
     {
       goto LABEL_20;
@@ -9507,7 +9204,7 @@ uint64_t InsertRuleEdge(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, i
     if (*(i + 28) == a3 && *(i + 24) == a5)
     {
       v21 = mosyntknowl_DiffFeat(a1, (i + 32), a4);
-      i = v43;
+      i = v42;
       if (!v21)
       {
         break;
@@ -9515,56 +9212,54 @@ uint64_t InsertRuleEdge(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, i
     }
   }
 
-  if (v43)
+  if (v42)
   {
-    v22 = v42;
-    if (v42 >= *(v43 + 96))
+    v22 = v41;
+    if (v41 >= *(v42 + 96))
     {
-      goto LABEL_35;
+      return RuleVisAndCost;
     }
 
-    if (*(v43 + 58) && *a2 >= 1)
+    if (*(v42 + 58) && *a2 >= 1)
     {
-      v40 = 0;
-      v23 = mosyntkbsymtab_AppConsFeatToString(a1, *(a2 + 8), *(v43 + 28), (v43 + 32), v44, 50, &v40);
+      v39 = 0;
+      v23 = mosyntkbsymtab_AppConsFeatToString(a1, *(a2 + 8), *(v42 + 28), (v42 + 32), v43, 50, &v39);
       if ((v23 & 0x80000000) == 0)
       {
-        v23 = mosyntbase_WString3Ln(a1, "***** illegal attempt to replace terminal constituent '", 0, v44, 50, "' by rule-generated identical constituent", 0);
+        return mosyntbase_WString3Ln(a1, "***** illegal attempt to replace terminal constituent '", 0, v43, 0x32u, "' by rule-generated identical constituent", 0);
       }
 
-LABEL_34:
-      RuleVisAndCost = v23;
-      goto LABEL_35;
+      return v23;
     }
 
     ++*(v9 + 1792);
     ++*(v9 + 1816);
     *(i + 80) = *a9;
     *(i + 96) = v22;
-    *(i + 64) = v39;
-    *(i + 72) = v38;
+    *(i + 64) = v38;
+    *(i + 72) = v37;
     if (!*(i + 56))
     {
       *(i + 16) = 0;
-      v36 = *(v9 + 1768);
-      if (v36)
+      v35 = *(v9 + 1768);
+      if (v35)
       {
-        v37 = (v36 + 16);
+        v36 = (v35 + 16);
       }
 
       else
       {
-        v37 = (v9 + 1760);
+        v36 = (v9 + 1760);
       }
 
-      *v37 = i;
+      *v36 = i;
       *(v9 + 1768) = i;
       *(i + 56) = 1;
     }
 
     if (*a2 >= 3)
     {
-      m2__cp__str("noted reparsing of edge ", v46, 30);
+      m2__cp__str("noted reparsing of edge ", v45, 0x1Eu);
       v32 = a1;
       v33 = a2;
       v31 = i;
@@ -9577,12 +9272,12 @@ LABEL_34:
 LABEL_20:
     ++*(v9 + 1780);
     ++*(v9 + 1804);
-    if (v39)
+    if (v38)
     {
-      if (v38)
+      if (v37)
       {
-        v24 = v38[12];
-        if (v39[12] < v24 && v24 < a6)
+        v24 = v37[12];
+        if (v38[12] < v24 && v24 < a6)
         {
           ++*(v9 + 1784);
           ++*(v9 + 1808);
@@ -9590,28 +9285,28 @@ LABEL_20:
       }
     }
 
-    RuleVisAndCost = mosyntpal_ALLOCATE(a1, &v43, 0x78u);
+    RuleVisAndCost = mosyntpal_ALLOCATE(a1, &v42, 0x78u);
     if ((RuleVisAndCost & 0x80000000) == 0)
     {
-      v25 = v43;
-      *(v43 + 24) = a5;
+      v25 = v42;
+      *(v42 + 24) = a5;
       *(v25 + 26) = a6;
       *(v25 + 28) = a3;
       v26 = *(a4 + 16);
       *(v25 + 32) = *a4;
       *(v25 + 48) = v26;
       *(v25 + 58) = 0;
-      *(v25 + 64) = v39;
-      *(v25 + 72) = v38;
+      *(v25 + 64) = v38;
+      *(v25 + 72) = v37;
       *(v25 + 80) = *a9;
-      *(v25 + 96) = v42;
+      *(v25 + 96) = v41;
       *(v25 + 104) = 0;
       *(v25 + 112) = 0;
       *(v25 + 57) = a6 == 0;
       v27 = *(a2 + 32 + 8 * a6);
       *v25 = *(v27 + 8 * v19);
-      v28 = v43;
-      *(v27 + 8 * v19) = v43;
+      v28 = v42;
+      *(v27 + 8 * v19) = v42;
       *(v28 + 16) = 0;
       v29 = *(v9 + 1768);
       v30 = (v29 ? v29 + 16 : v9 + 1760);
@@ -9620,29 +9315,260 @@ LABEL_20:
       *(v28 + 56) = 1;
       if (*a2 >= 3)
       {
-        m2__cp__str("inserted edge", v46, 30);
-        v31 = v43;
+        m2__cp__str("inserted edge", v45, 0x1Eu);
+        v31 = v42;
         v32 = a1;
         v33 = a2;
 LABEL_31:
-        v23 = WriteEdge(v32, v33, v46, 30, v31);
+        v23 = WriteEdge(v32, v33, v45, 30, v31);
         if ((v23 & 0x80000000) == 0)
         {
-          m2__cp__str("subedge1", v46, 30);
-          v23 = WriteEdge(a1, a2, v46, 30, v39);
+          m2__cp__str("subedge1", v45, 0x1Eu);
+          v23 = WriteEdge(a1, a2, v45, 30, v38);
           if ((v23 & 0x80000000) == 0)
           {
-            m2__cp__str("subedge2", v46, 30);
-            v23 = WriteEdge(a1, a2, v46, 30, v38);
+            m2__cp__str("subedge2", v45, 0x1Eu);
+            return WriteEdge(a1, a2, v45, 30, v37);
           }
         }
 
-        goto LABEL_34;
+        return v23;
       }
     }
   }
 
-LABEL_35:
-  v34 = *MEMORY[0x1E69E9840];
   return RuleVisAndCost;
+}
+
+uint64_t FixEdgeAndSubEdges(uint64_t result)
+{
+  if (result)
+  {
+    v1 = result;
+    do
+    {
+      if (*(v1 + 57))
+      {
+        break;
+      }
+
+      *(v1 + 57) = 1;
+      if (*(v1 + 58))
+      {
+        break;
+      }
+
+      result = FixEdgeAndSubEdges(*(v1 + 64));
+      v1 = *(v1 + 72);
+    }
+
+    while (v1);
+  }
+
+  return result;
+}
+
+void AppendTree(uint64_t a1, __n128 *a2, void *a3, uint64_t *a4)
+{
+  if (a2)
+  {
+    if (!a2[3].n128_u8[10])
+    {
+      v18 = 0;
+      v17 = 0;
+      if ((mosyntkbsgram_GetRuleVisAndCost(&a2[5], &v18, &v17) & 0x80000000) != 0)
+      {
+        return;
+      }
+
+      if (mosyntkbsgram_IsNilIter(a2[5].n128_u64) || !v18)
+      {
+        AppendNode(a1, a2, a3, a4);
+        if (v15 < 0)
+        {
+          return;
+        }
+
+        v16 = *a4;
+        *(v16 + 60) = 0;
+        *(v16 + 64) = 0;
+        v19 = 0;
+        if ((AppendTree(a1, a2[4].n128_i64[0], v16 + 8, &v19) & 0x80000000) != 0)
+        {
+          return;
+        }
+
+        v11 = a2[4].n128_i64[1];
+        v13 = (v16 + 8);
+        v14 = &v19;
+        v12 = a1;
+      }
+
+      else
+      {
+        if ((AppendTree(a1, a2[4].n128_i64[0], a3, a4) & 0x80000000) != 0)
+        {
+          return;
+        }
+
+        v11 = a2[4].n128_i64[1];
+        v12 = a1;
+        v13 = a3;
+        v14 = a4;
+      }
+
+      AppendTree(v12, v11, v13, v14);
+      return;
+    }
+
+    AppendNode(a1, a2, a3, a4);
+    if ((v8 & 0x80000000) == 0)
+    {
+      v9 = *a4;
+      *(v9 + 60) = 1;
+      mosyntdata_CopyTermInfo(a1, a2[4].n128_u64[0], (v9 + 64));
+      if ((v10 & 0x80000000) == 0)
+      {
+        *(v9 + 8) = 0;
+      }
+    }
+  }
+}
+
+void AppendNode(uint64_t a1, __n128 *a2, void *a3, void *a4)
+{
+  mosyntdata_AddNode(a1, a3, a4, 1, a2[1].n128_i16[6], a2 + 2);
+  if ((v6 & 0x80000000) == 0)
+  {
+    v7 = *a4;
+    v8 = a2[1].n128_i16[4];
+    v7[12] = a2[6].n128_u32[0];
+    v7[13] = v8;
+    v7[14] = a2[1].n128_i16[5];
+  }
+}
+
+uint64_t com_mosynt_GetCfgParamVal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, char **a6)
+{
+  *a6 = a5;
+  *(__c + 1) = -1;
+  LOBYTE(__c[0]) = 0;
+  v11 = 0;
+  v7 = (*(a3 + 96))(a1, a2, "fecfg", a4, &v11, __c + 1, __c);
+  if ((v7 & 0x80000000) == 0 && *(__c + 1))
+  {
+    v8 = *v11;
+    v9 = strchr(*v11, LOBYTE(__c[0]));
+    if (v9)
+    {
+      *v9 = 0;
+      v8 = *v11;
+    }
+
+    *a6 = v8;
+  }
+
+  return v7;
+}
+
+uint64_t com_mosynt_GetBacktransPOS(uint64_t a1, uint64_t a2, uint64_t a3, char *__s, _WORD *a5)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  strcpy(__sa, "backtrans_");
+  if (strlen(__s) < 0x81)
+  {
+    __strcat_chk();
+  }
+
+  else
+  {
+    __strncat_chk();
+  }
+
+  v10 = strchr(__sa, 40);
+  if (v10)
+  {
+    *v10 = 0;
+  }
+
+  v12 = 0;
+  result = com_mosynt_GetCfgParamVal(a1, a2, a3, __sa, __s, &v12);
+  if ((result & 0x80000000) == 0)
+  {
+    *a5 = *v12;
+  }
+
+  return result;
+}
+
+uint64_t com_mosynt_GetBacktrans2POS(uint64_t a1, uint64_t a2, uint64_t a3, char *__s, unsigned int a5, char *a6)
+{
+  v24 = *MEMORY[0x1E69E9840];
+  v10 = strlen(__s);
+  *a6 = 0;
+  if (!v10)
+  {
+    return 0;
+  }
+
+  v11 = 0;
+  CfgParamVal = 0;
+  v22 = 0;
+  v13 = v10;
+  do
+  {
+    v14 = __s[v11];
+    if (v14 != 92)
+    {
+      strcpy(__sa, "backtrans2_");
+      v15 = strlen(__sa);
+      __sa[v15] = v14;
+      __sa[(v15 + 1)] = 0;
+      CfgParamVal = com_mosynt_GetCfgParamVal(a1, a2, a3, __sa, a6, &v22);
+      if ((CfgParamVal & 0x80000000) != 0)
+      {
+        return CfgParamVal;
+      }
+
+      v16 = v22;
+      v17 = strlen(v22);
+      if (v17)
+      {
+        v18 = strlen(a6);
+        if (v22 != a6 && v17 + v18 + 1 < a5)
+        {
+          if (v18)
+          {
+            *&a6[strlen(a6)] = 92;
+          }
+
+          strcat(a6, v16);
+        }
+      }
+    }
+
+    ++v11;
+  }
+
+  while (v11 < v13);
+  return CfgParamVal;
+}
+
+uint64_t com_mosynt_UseMosynt(uint64_t a1, uint64_t a2, uint64_t a3, _BOOL4 *a4)
+{
+  __s1 = 0;
+  CfgParamVal = com_mosynt_GetCfgParamVal(a1, a2, a3, "mosynt_usemosynt", "NO", &__s1);
+  if ((CfgParamVal & 0x80000000) != 0)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v6 = __s1;
+    v7 = !strcmp(__s1, "YES") || strcmp(v6, "yes") == 0;
+  }
+
+  *a4 = v7;
+  return CfgParamVal;
 }

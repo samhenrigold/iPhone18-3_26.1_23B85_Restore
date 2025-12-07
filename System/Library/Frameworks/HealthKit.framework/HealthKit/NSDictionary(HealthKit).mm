@@ -46,30 +46,30 @@
 
 - (id)hk_filterKeysWithBlock:()HealthKit
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = [selfCopy objectForKeyedSubscript:{v11, v16}];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        v12 = [selfCopy objectForKeyedSubscript:{v11, v15}];
         v13 = v4[2](v4, v12);
 
         if (v13)
@@ -78,13 +78,11 @@
         }
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -150,32 +148,32 @@
 
 - (uint64_t)hk_containsValuePassingTest:()HealthKit
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
     [(NSDictionary(HealthKit) *)a2 hk_containsValuePassingTest:self];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = [selfCopy objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
+        v10 = [selfCopy objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
         v11 = v5[2](v5, v10);
 
         if (v11)
@@ -185,7 +183,7 @@
         }
       }
 
-      v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -197,7 +195,6 @@
 
 LABEL_13:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

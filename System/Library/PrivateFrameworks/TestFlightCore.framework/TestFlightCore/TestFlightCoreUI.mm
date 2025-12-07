@@ -8,11 +8,11 @@
 
 + (id)generateWhatToTestViewWithDelegate:(id)delegate
 {
-  type metadata accessor for WhatToTestViewModel();
+  type metadata accessor for WhatToTestViewModel(0);
   v3 = swift_unknownObjectRetain_n();
   sub_26D3074E4(v3);
   sub_26D3048E4(&v7);
-  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804F9A48));
+  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804F9A48, &qword_26D314D40));
 
   v5 = sub_26D30FAB8();
 
@@ -23,16 +23,16 @@
 
 + (id)generateFeedbackViewWithDelegate:(id)delegate
 {
-  v3 = type metadata accessor for FeedbackView();
+  v3 = type metadata accessor for FeedbackView(0);
   v5 = MEMORY[0x28223BE20](v3 - 8, v4);
   v7 = &v17[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v5, v8);
   v10 = (&v17[-1] - v9);
-  v11 = type metadata accessor for FeedbackViewModel();
+  v11 = type metadata accessor for FeedbackViewModel(0);
   v12 = swift_unknownObjectRetain_n();
   sub_26D2F5D8C(v12);
   sub_26D2EA374(v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804F9A50);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804F9A50, qword_26D314D48);
   sub_26D2F1CD0(v10, v7);
   v13 = sub_26D2E96EC();
   v17[3] = v11;

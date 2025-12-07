@@ -11,18 +11,16 @@
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C843870, &qword_20DD93F40);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_20DD94280;
-  v3 = *MEMORY[0x277CD0F48];
   *(inited + 32) = sub_20DD64EB4();
-  *(inited + 40) = v4;
-  v5 = *MEMORY[0x277CD0F50];
+  *(inited + 40) = v3;
   *(inited + 48) = sub_20DD64EB4();
-  *(inited + 56) = v6;
+  *(inited + 56) = v4;
   sub_20D9EE93C(inited);
   swift_setDeallocating();
   swift_arrayDestroy();
-  v7 = sub_20DD651C4();
+  v5 = sub_20DD651C4();
 
-  return v7;
+  return v5;
 }
 
 - (id)_subclass_updateWithOptions:(id)options

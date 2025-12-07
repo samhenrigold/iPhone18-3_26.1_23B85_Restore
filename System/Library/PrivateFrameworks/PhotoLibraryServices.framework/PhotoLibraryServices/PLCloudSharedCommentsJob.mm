@@ -282,7 +282,7 @@ LABEL_23:
         {
           v40 = [v5 GUID];
           v41 = [*(a1 + 32) assetGUID];
-          v42 = [v36 count];
+          v42 = objc_msgSend_count(v36);
           *buf = v66;
           v79 = v40;
           v80 = 2112;

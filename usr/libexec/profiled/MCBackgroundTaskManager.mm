@@ -1,5 +1,6 @@
 @interface MCBackgroundTaskManager
 + (double)_intervalForDate:(id)date normalize:(BOOL)normalize;
++ (double)_intervalForInterval:(double)interval normalize:(BOOL)normalize;
 + (id)_nextRegularDate;
 - (MCBackgroundTaskManager)initWithQueue:(id)queue;
 - (void)_activationLockBypassCodeWasStored:(id)stored;
@@ -433,6 +434,16 @@
   requirementsCopy = requirements;
   v12 = taskCopy;
   dispatch_async(scheduleQueue, v13);
+}
+
++ (double)_intervalForInterval:(double)interval normalize:(BOOL)normalize
+{
+  normalizeCopy = normalize;
+  v6 = [NSDate dateWithTimeIntervalSinceNow:interval];
+  [self _intervalForDate:v6 normalize:normalizeCopy];
+  v8 = v7;
+
+  return v8;
 }
 
 + (double)_intervalForDate:(id)date normalize:(BOOL)normalize

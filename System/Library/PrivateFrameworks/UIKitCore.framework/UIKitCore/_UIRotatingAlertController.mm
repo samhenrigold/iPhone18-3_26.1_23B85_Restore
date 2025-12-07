@@ -170,7 +170,7 @@ LABEL_13:
     return 0;
   }
 
-  [coordinator targetTransform];
+  objc_msgSend_targetTransform(coordinator, a2, collection, traitCollection);
   return !CGAffineTransformIsIdentity(&v6);
 }
 

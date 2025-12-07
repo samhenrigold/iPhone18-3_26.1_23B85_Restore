@@ -209,7 +209,7 @@ void __77__ResourceLoader_refreshCacheForRequest_usingCachedResponse_completionB
 
 - (void)asynchronousDataFromURL:(id)l completionBlock:(id)block
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   blockCopy = block;
   if (![lCopy isFileURL])
@@ -255,16 +255,16 @@ LABEL_13:
     }
 
 LABEL_9:
-    v33 = v17;
+    v32 = v17;
     data = [v12 data];
 
     if (data)
     {
-      v39 = ResourceLoaderPayloadDataKey;
+      v38 = ResourceLoaderPayloadDataKey;
       data2 = [v12 data];
-      v40 = data2;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-      v32 = urlCache;
+      v39 = data2;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+      v31 = urlCache;
       v24 = v12;
       v25 = allHeaderFields;
       v26 = v14;
@@ -277,24 +277,24 @@ LABEL_9:
       v14 = v26;
       allHeaderFields = v25;
       v12 = v24;
-      urlCache = v32;
+      urlCache = v31;
     }
 
-    v17 = v33;
+    v17 = v32;
     if (v21)
     {
       queue = [(ResourceLoader *)self queue];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __58__ResourceLoader_asynchronousDataFromURL_completionBlock___block_invoke;
-      v35[3] = &unk_278F65AF8;
-      v35[4] = self;
-      v36 = v11;
-      v37 = v12;
-      v38 = blockCopy;
-      [queue addOperationWithBlock:v35];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __58__ResourceLoader_asynchronousDataFromURL_completionBlock___block_invoke;
+      v34[3] = &unk_278F65AF8;
+      v34[4] = self;
+      v35 = v11;
+      v36 = v12;
+      v37 = blockCopy;
+      [queue addOperationWithBlock:v34];
 
-      v17 = v33;
+      v17 = v32;
     }
 
     goto LABEL_13;
@@ -304,13 +304,11 @@ LABEL_9:
   path = [lCopy path];
   urlCache = [v8 dataWithContentsOfFile:path];
 
-  v41 = ResourceLoaderPayloadDataKey;
-  v42[0] = urlCache;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+  v40 = ResourceLoaderPayloadDataKey;
+  v41[0] = urlCache;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
   blockCopy[2](blockCopy, v11, 1);
 LABEL_14:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ResourceLoader_asynchronousDataFromURL_completionBlock___block_invoke(uint64_t a1)

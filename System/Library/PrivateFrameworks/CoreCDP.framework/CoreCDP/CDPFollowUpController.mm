@@ -72,33 +72,31 @@ void __55__CDPFollowUpController_postFollowUpWithContext_error___block_invoke(ui
 {
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = _CDPLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = _CDPLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __55__CDPFollowUpController_postFollowUpWithContext_error___block_invoke_cold_1(v4, v5);
+    __55__CDPFollowUpController_postFollowUpWithContext_error___block_invoke_cold_1(v4, v6);
   }
 }
 
 void __55__CDPFollowUpController_postFollowUpWithContext_error___block_invoke_17(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109378;
-    v10[1] = a2;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Posted follow ups (%{BOOL}d) with error: %@", v10, 0x12u);
+    v9[0] = 67109378;
+    v9[1] = a2;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Posted follow ups (%{BOOL}d) with error: %@", v9, 0x12u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
   v7 = *(*(a1 + 40) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v5;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)clearFollowUpWithContext:(id)context error:(id *)error
@@ -150,33 +148,31 @@ void __56__CDPFollowUpController_clearFollowUpWithContext_error___block_invoke(u
 {
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = _CDPLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = _CDPLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __56__CDPFollowUpController_clearFollowUpWithContext_error___block_invoke_cold_1(v4, v5);
+    __56__CDPFollowUpController_clearFollowUpWithContext_error___block_invoke_cold_1(v4, v6);
   }
 }
 
 void __56__CDPFollowUpController_clearFollowUpWithContext_error___block_invoke_19(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109378;
-    v10[1] = a2;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Cleared follow ups (%{BOOL}d) with error: %@", v10, 0x12u);
+    v9[0] = 67109378;
+    v9[1] = a2;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Cleared follow ups (%{BOOL}d) with error: %@", v9, 0x12u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
   v7 = *(*(a1 + 40) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v5;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -189,7 +185,7 @@ void __56__CDPFollowUpController_clearFollowUpWithContext_error___block_invoke_1
 
 - (void)invalidate
 {
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(CDPFollowUpController *)v3 invalidate];
@@ -208,20 +204,18 @@ void __56__CDPFollowUpController_clearFollowUpWithContext_error___block_invoke_1
 
 void __55__CDPFollowUpController_postFollowUpWithContext_error___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error posting a follow up: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error posting a follow up: %@", &v2, 0xCu);
 }
 
 void __56__CDPFollowUpController_clearFollowUpWithContext_error___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error cleaning up follow ups: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error cleaning up follow ups: %@", &v2, 0xCu);
 }
 
 @end

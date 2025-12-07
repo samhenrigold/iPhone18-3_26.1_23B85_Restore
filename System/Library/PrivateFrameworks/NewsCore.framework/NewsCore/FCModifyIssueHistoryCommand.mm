@@ -1,8 +1,42 @@
 @interface FCModifyIssueHistoryCommand
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord;
+- (FCModifyIssueHistoryCommand)initWithIssueHistoryItems:(id)items merge:(BOOL)merge;
 @end
 
 @implementation FCModifyIssueHistoryCommand
+
+- (FCModifyIssueHistoryCommand)initWithIssueHistoryItems:(id)items merge:(BOOL)merge
+{
+  mergeCopy = merge;
+  v23 = *MEMORY[0x1E69E9840];
+  itemsCopy = items;
+  if (!itemsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "historyItems != nil"];
+    *buf = 136315906;
+    v16 = "[FCModifyIssueHistoryCommand initWithIssueHistoryItems:merge:]";
+    v17 = 2080;
+    v18 = "FCModifyIssueHistoryCommand.m";
+    v19 = 1024;
+    v20 = 23;
+    v21 = 2114;
+    v22 = v11;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __63__FCModifyIssueHistoryCommand_initWithIssueHistoryItems_merge___block_invoke;
+  aBlock[3] = &unk_1E7C3B578;
+  v14 = itemsCopy;
+  v7 = itemsCopy;
+  v8 = _Block_copy(aBlock);
+  v12.receiver = self;
+  v12.super_class = FCModifyIssueHistoryCommand;
+  v9 = [(FCModifyRecordsCommand *)&v12 initWithLocalRecordsGenerator:v8 merge:mergeCopy];
+
+  return v9;
+}
 
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord
 {

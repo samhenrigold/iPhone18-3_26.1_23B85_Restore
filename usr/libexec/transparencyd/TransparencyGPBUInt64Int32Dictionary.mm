@@ -10,6 +10,7 @@
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndInt32sUsingBlock:(id)block;
 - (void)removeInt32ForKey:(unint64_t)key;
+- (void)setInt32:(int)int32 forKey:(unint64_t)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -227,6 +228,17 @@
 
       sub_100192DE8(autocreator, self);
     }
+  }
+}
+
+- (void)setInt32:(int)int32 forKey:(unint64_t)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:?], [NSNumber numberWithUnsignedLongLong:key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_100192DE8(autocreator, self);
   }
 }
 

@@ -56,21 +56,20 @@
     connectionListener = v20->_connectionListener;
     v20->_connectionListener = v21;
 
-    v23 = CHSLogChronoServices();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = CHSLogChronoServices(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = [(CHSWidgetEventServiceListener *)v20 description];
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      v27 = [(CHSWidgetEventServiceListener *)v20 description];
       *buf = 138543618;
-      v35 = v25;
+      v35 = v26;
       v36 = 2114;
-      v37 = v26;
-      _os_log_impl(&dword_195EB2000, v23, OS_LOG_TYPE_DEFAULT, "Initializing new %{public}@ instance: %{public}@", buf, 0x16u);
+      v37 = v27;
+      _os_log_impl(&dword_195EB2000, v24, OS_LOG_TYPE_DEFAULT, "Initializing new %{public}@ instance: %{public}@", buf, 0x16u);
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -106,19 +105,17 @@ void __64__CHSWidgetEventServiceListener_initWithServiceDomain_delegate___block_
 
   else
   {
-    v10 = CHSLogChronoServices();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = CHSLogChronoServices(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       localizedDescription = [v9 localizedDescription];
-      [(CHSWidgetEventServiceListener *)v12 listener:localizedDescription didReceiveConnection:buf withContext:v10];
+      [(CHSWidgetEventServiceListener *)v13 listener:localizedDescription didReceiveConnection:buf withContext:v11];
     }
 
     [connectionCopy invalidate];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __75__CHSWidgetEventServiceListener_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -152,38 +149,35 @@ void __75__CHSWidgetEventServiceListener_listener_didReceiveConnection_withConte
 
 void __75__CHSWidgetEventServiceListener_listener_didReceiveConnection_withContext___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = CHSLogChronoServices();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = CHSLogChronoServices(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ (client-side) connection did activate", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_195EB2000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ (client-side) connection did activate", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __75__CHSWidgetEventServiceListener_listener_didReceiveConnection_withContext___block_invoke_20(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = CHSLogChronoServices();
+  v5 = CHSLogChronoServices(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ (client-side) connection invalidated", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_195EB2000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ (client-side) connection invalidated", &v8, 0xCu);
   }
 
   [WeakRetained _removeConnection:v3];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleOpenEventWithURL:(id)l
@@ -211,11 +205,9 @@ void __75__CHSWidgetEventServiceListener_listener_didReceiveConnection_withConte
 
 void __56__CHSWidgetEventServiceListener_handleOpenEventWithURL___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
+  v1 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v4 = *(a1 + 40);
-  v5 = WeakRetained;
-  [v2 eventServiceListener:? didReceiveOpenEventWithURL:?];
+  [v1 eventServiceListener:? didReceiveOpenEventWithURL:?];
 }
 
 - (void)handleOpenEventWithUserActivityData:(id)data
@@ -245,11 +237,9 @@ void __56__CHSWidgetEventServiceListener_handleOpenEventWithURL___block_invoke(u
 
 void __69__CHSWidgetEventServiceListener_handleOpenEventWithUserActivityData___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
+  v1 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v4 = *(a1 + 40);
-  v5 = WeakRetained;
-  [v2 eventServiceListener:? didReceiveOpenEventWithUserActivity:?];
+  [v1 eventServiceListener:? didReceiveOpenEventWithUserActivity:?];
 }
 
 - (void)activate

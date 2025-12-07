@@ -219,7 +219,7 @@ LABEL_7:
 
 - (void)_collateContextsIntoArray:(id)array
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
   {
@@ -229,9 +229,9 @@ LABEL_7:
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315138;
-    v14 = "[AFContextManager _collateContextsIntoArray:]";
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[AFContextManager _collateContextsIntoArray:]";
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", &v12, 0xCu);
   }
 
   Count = CFArrayGetCount(self->_contextProviders);
@@ -264,8 +264,6 @@ LABEL_7:
 
     while (v7 > 1);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

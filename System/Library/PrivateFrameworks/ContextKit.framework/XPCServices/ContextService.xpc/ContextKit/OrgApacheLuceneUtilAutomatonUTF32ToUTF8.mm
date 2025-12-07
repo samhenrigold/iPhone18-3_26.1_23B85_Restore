@@ -1,10 +1,26 @@
 @interface OrgApacheLuceneUtilAutomatonUTF32ToUTF8
 + (void)initialize;
 - (id)convertWithOrgApacheLuceneUtilAutomatonAutomaton:(id)automaton;
+- (void)convertOneEdgeWithInt:(int)int withInt:(int)withInt withInt:(int)a5 withInt:(int)a6;
 - (void)dealloc;
 @end
 
 @implementation OrgApacheLuceneUtilAutomatonUTF32ToUTF8
+
+- (void)convertOneEdgeWithInt:(int)int withInt:(int)withInt withInt:(int)a5 withInt:(int)a6
+{
+  startUTF8 = self->startUTF8_;
+  if (!startUTF8 || (v8 = *&a6, v9 = *&withInt, v10 = *&int, sub_10000D530(startUTF8, *&a5), (endUTF8 = self->endUTF8_) == 0))
+  {
+    JreThrowNullPointerException();
+  }
+
+  sub_10000D530(endUTF8, v8);
+  v12 = self->startUTF8_;
+  v13 = self->endUTF8_;
+
+  sub_10000D7F8(self, v10, v9, v12, v13, 0);
+}
 
 - (id)convertWithOrgApacheLuceneUtilAutomatonAutomaton:(id)automaton
 {

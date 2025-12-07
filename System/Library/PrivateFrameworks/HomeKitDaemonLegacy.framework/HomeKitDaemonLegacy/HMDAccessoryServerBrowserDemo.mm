@@ -70,36 +70,36 @@
 
 - (id)_handleTestAccessorySetReachability:(id)reachability
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   reachabilityCopy = reachability;
-  v47 = [reachabilityCopy countByEnumeratingWithState:&v63 objects:v77 count:16];
-  if (v47)
+  v46 = [reachabilityCopy countByEnumeratingWithState:&v62 objects:v76 count:16];
+  if (v46)
   {
-    v51 = 0;
-    v48 = *MEMORY[0x277CD1FC8];
-    v49 = *v64;
+    v50 = 0;
+    v47 = *MEMORY[0x277CD1FC8];
+    v48 = *v63;
     *&v4 = 138543874;
-    v45 = v4;
-    v46 = reachabilityCopy;
+    v44 = v4;
+    v45 = reachabilityCopy;
     while (1)
     {
       v5 = 0;
 LABEL_4:
-      if (*v64 != v49)
+      if (*v63 != v48)
       {
         objc_enumerationMutation(reachabilityCopy);
       }
 
-      v6 = *(*(&v63 + 1) + 8 * v5);
-      v7 = [v6 hmf_stringForKey:{v48, v45}];
+      v6 = *(*(&v62 + 1) + 8 * v5);
+      v7 = [v6 hmf_stringForKey:{v47, v44}];
       v8 = [v6 hmf_numberForKey:@"kAccessoryInstanceIDKey"];
-      v62 = 0;
-      v53 = [v6 hmf_BOOLForKey:@"kAccessoryIsReachableKey" isPresent:&v62];
-      if ((v62 & 1) == 0)
+      v61 = 0;
+      v52 = [v6 hmf_BOOLForKey:@"kAccessoryIsReachableKey" isPresent:&v61];
+      if ((v61 & 1) == 0)
       {
         v39 = objc_autoreleasePoolPush();
         v40 = HMFGetOSLogHandle();
@@ -107,9 +107,9 @@ LABEL_4:
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v68 = v41;
-          v69 = 2112;
-          v70 = v6;
+          v67 = v41;
+          v68 = 2112;
+          v69 = v6;
           _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_INFO, "%{public}@No reachability setting for the setReachability request: %@", buf, 0x16u);
         }
 
@@ -119,30 +119,30 @@ LABEL_4:
         goto LABEL_50;
       }
 
-      v52 = v5;
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
+      v51 = v5;
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       servers = [(HMDAccessoryServerBrowserDemo *)self servers];
-      v10 = [servers countByEnumeratingWithState:&v58 objects:v76 count:16];
+      v10 = [servers countByEnumeratingWithState:&v57 objects:v75 count:16];
       if (!v10)
       {
         break;
       }
 
       v11 = v10;
-      v12 = *v59;
+      v12 = *v58;
 LABEL_9:
       v13 = 0;
       while (1)
       {
-        if (*v59 != v12)
+        if (*v58 != v12)
         {
           objc_enumerationMutation(servers);
         }
 
-        v14 = *(*(&v58 + 1) + 8 * v13);
+        v14 = *(*(&v57 + 1) + 8 * v13);
         identifier = [v14 identifier];
         v16 = [identifier isEqual:v7];
 
@@ -153,7 +153,7 @@ LABEL_9:
 
         if (v11 == ++v13)
         {
-          v11 = [servers countByEnumeratingWithState:&v58 objects:v76 count:16];
+          v11 = [servers countByEnumeratingWithState:&v57 objects:v75 count:16];
           if (v11)
           {
             goto LABEL_9;
@@ -172,26 +172,26 @@ LABEL_9:
 
       if (v8)
       {
-        v56 = 0u;
-        v57 = 0u;
-        v54 = 0u;
         v55 = 0u;
+        v56 = 0u;
+        v53 = 0u;
+        v54 = 0u;
         accessories = [v17 accessories];
-        v19 = [accessories countByEnumeratingWithState:&v54 objects:v75 count:16];
+        v19 = [accessories countByEnumeratingWithState:&v53 objects:v74 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v55;
+          v21 = *v54;
           while (2)
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v55 != v21)
+              if (*v54 != v21)
               {
                 objc_enumerationMutation(accessories);
               }
 
-              v23 = *(*(&v54 + 1) + 8 * i);
+              v23 = *(*(&v53 + 1) + 8 * i);
               instanceID = [v23 instanceID];
               v25 = [v8 isEqual:instanceID];
 
@@ -202,7 +202,7 @@ LABEL_9:
               }
             }
 
-            v20 = [accessories countByEnumeratingWithState:&v54 objects:v75 count:16];
+            v20 = [accessories countByEnumeratingWithState:&v53 objects:v74 count:16];
             if (v20)
             {
               continue;
@@ -213,7 +213,7 @@ LABEL_9:
 
           firstObject = 0;
 LABEL_28:
-          reachabilityCopy = v46;
+          reachabilityCopy = v45;
         }
 
         else
@@ -238,18 +238,18 @@ LABEL_28:
           v30 = HMFGetLogIdentifier();
           v31 = HMFBooleanToString();
           *buf = 138544130;
-          v68 = v30;
-          v69 = 2112;
-          v70 = v7;
-          v71 = 2112;
-          v72 = v8;
-          v73 = 2112;
-          v74 = v31;
+          v67 = v30;
+          v68 = 2112;
+          v69 = v7;
+          v70 = 2112;
+          v71 = v8;
+          v72 = 2112;
+          v73 = v31;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Setting the reachability of accessory %@+%@ to %@", buf, 0x2Au);
         }
 
         objc_autoreleasePoolPop(v27);
-        [firstObject setReachable:v53];
+        [firstObject setReachable:v52];
       }
 
       else
@@ -257,31 +257,31 @@ LABEL_28:
         if (v29)
         {
           v32 = HMFGetLogIdentifier();
-          *buf = v45;
-          v68 = v32;
-          v69 = 2112;
-          v70 = v7;
-          v71 = 2112;
-          v72 = v8;
+          *buf = v44;
+          v67 = v32;
+          v68 = 2112;
+          v69 = v7;
+          v70 = 2112;
+          v71 = v8;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Unable to look up accessory with deviceIdentifier %@, instanceID %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v27);
         v33 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
 
-        v51 = v33;
+        v50 = v33;
       }
 
       if (firstObject)
       {
-        v5 = v52 + 1;
-        if (v52 + 1 != v47)
+        v5 = v51 + 1;
+        if (v51 + 1 != v46)
         {
           goto LABEL_4;
         }
 
-        v47 = [reachabilityCopy countByEnumeratingWithState:&v63 objects:v77 count:16];
-        if (v47)
+        v46 = [reachabilityCopy countByEnumeratingWithState:&v62 objects:v76 count:16];
+        if (v46)
         {
           continue;
         }
@@ -299,9 +299,9 @@ LABEL_44:
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v68 = v36;
-      v69 = 2112;
-      v70 = v7;
+      v67 = v36;
+      v68 = 2112;
+      v69 = v7;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Unable to look up accessoryServer with deviceIdentifier %@", buf, 0x16u);
     }
 
@@ -311,83 +311,81 @@ LABEL_44:
 LABEL_50:
     v42 = [v37 hmfErrorWithCode:v38];
 
-    v51 = v42;
+    v50 = v42;
   }
 
   else
   {
-    v51 = 0;
+    v50 = 0;
   }
 
 LABEL_51:
 
-  v43 = *MEMORY[0x277D85DE8];
-
-  return v51;
+  return v50;
 }
 
 - (id)_handleTestAccessorySetValue:(id)value response:(id *)response
 {
-  v160 = *MEMORY[0x277D85DE8];
+  v159 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   array = [MEMORY[0x277CBEB18] array];
+  v133 = 0u;
   v134 = 0u;
   v135 = 0u;
   v136 = 0u;
-  v137 = 0u;
   obj = valueCopy;
-  v107 = [obj countByEnumeratingWithState:&v134 objects:v159 count:16];
+  v106 = [obj countByEnumeratingWithState:&v133 objects:v158 count:16];
   v5 = 0;
-  if (v107)
+  if (v106)
   {
-    v104 = *MEMORY[0x277CD1FC8];
-    v105 = *v135;
-    v103 = *MEMORY[0x277CD25F8];
-    v102 = *MEMORY[0x277CD2140];
-    v106 = *MEMORY[0x277CD21B8];
+    v103 = *MEMORY[0x277CD1FC8];
+    v104 = *v134;
+    v102 = *MEMORY[0x277CD25F8];
+    v101 = *MEMORY[0x277CD2140];
+    v105 = *MEMORY[0x277CD21B8];
     do
     {
       v6 = 0;
       do
       {
-        v115 = v5;
-        if (*v135 != v105)
+        v114 = v5;
+        if (*v134 != v104)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v134 + 1) + 8 * v6);
-        v114 = [v7 mutableCopy];
-        v8 = [v7 hmf_stringForKey:v104];
+        v7 = *(*(&v133 + 1) + 8 * v6);
+        v113 = [v7 mutableCopy];
+        v8 = [v7 hmf_stringForKey:v103];
         v9 = [v7 hmf_numberForKey:@"kAccessoryInstanceIDKey"];
-        v117 = [v7 hmf_numberForKey:v103];
         v116 = [v7 hmf_numberForKey:v102];
-        v110 = [v7 objectForKey:v106];
-        v109 = [v7 hmf_numberForKey:@"kConfigTestingResponseDelayKey"];
-        v101 = [v7 hmf_BOOLForKey:@"kCharacteristicEnableNotificationRequestKey"];
+        v115 = [v7 hmf_numberForKey:v101];
+        v109 = [v7 objectForKey:v105];
+        v108 = [v7 hmf_numberForKey:@"kConfigTestingResponseDelayKey"];
+        v100 = [v7 hmf_BOOLForKey:@"kCharacteristicEnableNotificationRequestKey"];
+        v129 = 0u;
         v130 = 0u;
         v131 = 0u;
         v132 = 0u;
-        v133 = 0u;
         servers = [(HMDAccessoryServerBrowserDemo *)self servers];
-        v11 = [servers countByEnumeratingWithState:&v130 objects:v158 count:16];
+        v11 = [servers countByEnumeratingWithState:&v129 objects:v157 count:16];
         if (!v11)
         {
           goto LABEL_14;
         }
 
         v12 = v11;
-        v13 = *v131;
+        v13 = *v130;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v131 != v13)
+            if (*v130 != v13)
             {
               objc_enumerationMutation(servers);
             }
 
-            v15 = *(*(&v130 + 1) + 8 * i);
+            v15 = *(*(&v129 + 1) + 8 * i);
             identifier = [v15 identifier];
             v17 = [identifier isEqual:v8];
 
@@ -400,41 +398,41 @@ LABEL_51:
                 goto LABEL_26;
               }
 
-              v100 = v18;
+              v99 = v18;
               if (v9)
               {
-                v128 = 0u;
-                v129 = 0u;
-                v126 = 0u;
                 v127 = 0u;
+                v128 = 0u;
+                v125 = 0u;
+                v126 = 0u;
                 accessories = [v18 accessories];
-                v20 = [accessories countByEnumeratingWithState:&v126 objects:v157 count:16];
+                v20 = [accessories countByEnumeratingWithState:&v125 objects:v156 count:16];
                 if (v20)
                 {
                   v21 = v20;
-                  v22 = *v127;
+                  v22 = *v126;
                   while (2)
                   {
                     for (j = 0; j != v21; ++j)
                     {
-                      if (*v127 != v22)
+                      if (*v126 != v22)
                       {
                         objc_enumerationMutation(accessories);
                       }
 
-                      v24 = *(*(&v126 + 1) + 8 * j);
+                      v24 = *(*(&v125 + 1) + 8 * j);
                       instanceID = [v24 instanceID];
                       v26 = [v9 isEqual:instanceID];
 
                       if (v26)
                       {
                         firstObject = v24;
-                        v18 = v100;
+                        v18 = v99;
                         goto LABEL_31;
                       }
                     }
 
-                    v21 = [accessories countByEnumeratingWithState:&v126 objects:v157 count:16];
+                    v21 = [accessories countByEnumeratingWithState:&v125 objects:v156 count:16];
                     if (v21)
                     {
                       continue;
@@ -444,7 +442,7 @@ LABEL_51:
                   }
                 }
 
-                v18 = v100;
+                v18 = v99;
 LABEL_41:
                 v43 = objc_autoreleasePoolPush();
                 v44 = HMFGetOSLogHandle();
@@ -452,11 +450,11 @@ LABEL_41:
                 {
                   v45 = HMFGetLogIdentifier();
                   *buf = 138543874;
-                  v142 = v45;
-                  v143 = 2112;
-                  v144 = v8;
-                  v145 = 2112;
-                  v146 = v9;
+                  v141 = v45;
+                  v142 = 2112;
+                  v143 = v8;
+                  v144 = 2112;
+                  v145 = v9;
                   _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_INFO, "%{public}@Unable to look up accessory with deviceIdentifier %@, instanceID %@", buf, 0x20u);
                 }
 
@@ -465,10 +463,10 @@ LABEL_41:
                 v46 = 0;
 LABEL_57:
                 v30 = 0;
-                v31 = v114;
-                v59 = v115;
-                v33 = v109;
-                v32 = v110;
+                v31 = v113;
+                v59 = v114;
+                v33 = v108;
+                v32 = v109;
               }
 
               else
@@ -482,13 +480,13 @@ LABEL_31:
                   goto LABEL_41;
                 }
 
-                v124 = 0u;
-                v125 = 0u;
-                v122 = 0u;
                 v123 = 0u;
-                v98 = firstObject;
+                v124 = 0u;
+                v121 = 0u;
+                v122 = 0u;
+                v97 = firstObject;
                 services = [firstObject services];
-                v36 = [services countByEnumeratingWithState:&v122 objects:v156 count:16];
+                v36 = [services countByEnumeratingWithState:&v121 objects:v155 count:16];
                 if (!v36)
                 {
 LABEL_40:
@@ -496,19 +494,19 @@ LABEL_40:
 LABEL_54:
                   v56 = objc_autoreleasePoolPush();
                   v57 = HMFGetOSLogHandle();
-                  v18 = v100;
-                  v46 = v98;
+                  v18 = v99;
+                  v46 = v97;
                   if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
                   {
                     v58 = HMFGetLogIdentifier();
                     *buf = 138544130;
-                    v142 = v58;
-                    v143 = 2112;
-                    v144 = v8;
-                    v145 = 2112;
-                    v146 = v9;
-                    v147 = 2112;
-                    v148 = v117;
+                    v141 = v58;
+                    v142 = 2112;
+                    v143 = v8;
+                    v144 = 2112;
+                    v145 = v9;
+                    v146 = 2112;
+                    v147 = v116;
                     _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_INFO, "%{public}@Unable to look up accessory with deviceIdentifier %@, instanceID %@, serviceInstanceID %@", buf, 0x2Au);
                   }
 
@@ -518,19 +516,19 @@ LABEL_54:
                 }
 
                 v37 = v36;
-                v38 = *v123;
+                v38 = *v122;
 LABEL_34:
                 v39 = 0;
                 while (1)
                 {
-                  if (*v123 != v38)
+                  if (*v122 != v38)
                   {
                     objc_enumerationMutation(services);
                   }
 
-                  v40 = *(*(&v122 + 1) + 8 * v39);
+                  v40 = *(*(&v121 + 1) + 8 * v39);
                   instanceID2 = [v40 instanceID];
-                  v42 = [v117 isEqual:instanceID2];
+                  v42 = [v116 isEqual:instanceID2];
 
                   if (v42)
                   {
@@ -539,7 +537,7 @@ LABEL_34:
 
                   if (v37 == ++v39)
                   {
-                    v37 = [services countByEnumeratingWithState:&v122 objects:v156 count:16];
+                    v37 = [services countByEnumeratingWithState:&v121 objects:v155 count:16];
                     if (v37)
                     {
                       goto LABEL_34;
@@ -556,29 +554,29 @@ LABEL_34:
                   goto LABEL_54;
                 }
 
-                v120 = 0u;
-                v121 = 0u;
-                v118 = 0u;
                 v119 = 0u;
-                v97 = v47;
+                v120 = 0u;
+                v117 = 0u;
+                v118 = 0u;
+                v96 = v47;
                 characteristics = [v47 characteristics];
-                v49 = [characteristics countByEnumeratingWithState:&v118 objects:v155 count:16];
+                v49 = [characteristics countByEnumeratingWithState:&v117 objects:v154 count:16];
                 if (v49)
                 {
                   v50 = v49;
-                  v51 = *v119;
+                  v51 = *v118;
 LABEL_47:
                   v52 = 0;
                   while (1)
                   {
-                    if (*v119 != v51)
+                    if (*v118 != v51)
                     {
                       objc_enumerationMutation(characteristics);
                     }
 
-                    v53 = *(*(&v118 + 1) + 8 * v52);
+                    v53 = *(*(&v117 + 1) + 8 * v52);
                     instanceID3 = [v53 instanceID];
-                    v55 = [v116 isEqual:instanceID3];
+                    v55 = [v115 isEqual:instanceID3];
 
                     if (v55)
                     {
@@ -587,7 +585,7 @@ LABEL_47:
 
                     if (v50 == ++v52)
                     {
-                      v50 = [characteristics countByEnumeratingWithState:&v118 objects:v155 count:16];
+                      v50 = [characteristics countByEnumeratingWithState:&v117 objects:v154 count:16];
                       if (v50)
                       {
                         goto LABEL_47;
@@ -604,12 +602,12 @@ LABEL_47:
                     goto LABEL_67;
                   }
 
-                  v31 = v114;
-                  v61 = v115;
-                  v33 = v109;
-                  v46 = v98;
-                  v96 = v60;
-                  if (v109)
+                  v31 = v113;
+                  v61 = v114;
+                  v33 = v108;
+                  v46 = v97;
+                  v95 = v60;
+                  if (v108)
                   {
                     v62 = objc_autoreleasePoolPush();
                     v63 = HMFGetOSLogHandle();
@@ -617,58 +615,58 @@ LABEL_47:
                     {
                       v64 = HMFGetLogIdentifier();
                       *buf = 138544642;
-                      v142 = v64;
-                      v143 = 2112;
-                      v144 = v8;
-                      v145 = 2112;
-                      v146 = v9;
-                      v147 = 2112;
-                      v148 = v117;
-                      v149 = 2112;
-                      v150 = v116;
-                      v151 = 2112;
-                      v152 = v109;
+                      v141 = v64;
+                      v142 = 2112;
+                      v143 = v8;
+                      v144 = 2112;
+                      v145 = v9;
+                      v146 = 2112;
+                      v147 = v116;
+                      v148 = 2112;
+                      v149 = v115;
+                      v150 = 2112;
+                      v151 = v108;
                       _os_log_impl(&dword_2531F8000, v63, OS_LOG_TYPE_INFO, "%{public}@Setting the responseDelay for characteristic (%@+%@/%@/%@) to %@", buf, 0x3Eu);
                     }
 
                     objc_autoreleasePoolPop(v62);
-                    [v96 setResponseDelay:v109];
-                    v32 = v110;
+                    [v95 setResponseDelay:v108];
+                    v32 = v109;
                   }
 
                   else
                   {
                     responseDelay = [v60 responseDelay];
 
-                    v32 = v110;
+                    v32 = v109;
                     if (responseDelay)
                     {
-                      responseDelay2 = [v96 responseDelay];
-                      [v114 setObject:responseDelay2 forKey:@"kConfigTestingResponseDelayKey"];
+                      responseDelay2 = [v95 responseDelay];
+                      [v113 setObject:responseDelay2 forKey:@"kConfigTestingResponseDelayKey"];
 
                       v72 = objc_autoreleasePoolPush();
                       v73 = HMFGetOSLogHandle();
                       if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
                       {
                         HMFGetLogIdentifier();
-                        v74 = v93 = v72;
-                        responseDelay3 = [v96 responseDelay];
+                        v74 = v92 = v72;
+                        responseDelay3 = [v95 responseDelay];
                         *buf = 138544642;
-                        v142 = v74;
-                        v143 = 2112;
-                        v144 = v8;
-                        v145 = 2112;
-                        v146 = v9;
-                        v147 = 2112;
-                        v148 = v117;
-                        v149 = 2112;
-                        v150 = v116;
-                        v151 = 2112;
-                        v152 = responseDelay3;
+                        v141 = v74;
+                        v142 = 2112;
+                        v143 = v8;
+                        v144 = 2112;
+                        v145 = v9;
+                        v146 = 2112;
+                        v147 = v116;
+                        v148 = 2112;
+                        v149 = v115;
+                        v150 = 2112;
+                        v151 = responseDelay3;
                         _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_INFO, "%{public}@Getting the value for characteristic responseDelay (%@+%@/%@/%@): %@ ", buf, 0x3Eu);
 
-                        v46 = v98;
-                        v72 = v93;
+                        v46 = v97;
+                        v72 = v92;
                       }
 
                       objc_autoreleasePoolPop(v72);
@@ -683,30 +681,30 @@ LABEL_47:
                     if (v78)
                     {
                       HMFGetLogIdentifier();
-                      v79 = v111 = v76;
-                      responseDelay4 = [v96 responseDelay];
+                      v79 = v110 = v76;
+                      responseDelay4 = [v95 responseDelay];
                       *buf = 138544898;
-                      v142 = v79;
-                      v143 = 2112;
-                      v144 = v8;
-                      v145 = 2112;
-                      v146 = v9;
-                      v147 = 2112;
-                      v148 = v117;
-                      v149 = 2112;
-                      v150 = v116;
-                      v151 = 2112;
-                      v152 = v32;
-                      v153 = 2112;
-                      v154 = responseDelay4;
+                      v141 = v79;
+                      v142 = 2112;
+                      v143 = v8;
+                      v144 = 2112;
+                      v145 = v9;
+                      v146 = 2112;
+                      v147 = v116;
+                      v148 = 2112;
+                      v149 = v115;
+                      v150 = 2112;
+                      v151 = v32;
+                      v152 = 2112;
+                      v153 = responseDelay4;
                       _os_log_impl(&dword_2531F8000, v77, OS_LOG_TYPE_INFO, "%{public}@Setting the value for characteristic (%@+%@/%@/%@) to %@ with responseDelay %@ milliseconds", buf, 0x48u);
 
-                      v46 = v98;
-                      v76 = v111;
+                      v46 = v97;
+                      v76 = v110;
                     }
 
                     objc_autoreleasePoolPop(v76);
-                    [v96 setValue:v32];
+                    [v95 setValue:v32];
                   }
 
                   else
@@ -714,76 +712,76 @@ LABEL_47:
                     if (v78)
                     {
                       HMFGetLogIdentifier();
-                      v81 = v112 = v76;
+                      v81 = v111 = v76;
                       *buf = 138544642;
-                      v142 = v81;
-                      v143 = 2112;
-                      v144 = v8;
-                      v145 = 2112;
-                      v146 = v9;
-                      v147 = 2112;
-                      v148 = v117;
-                      v149 = 2112;
-                      v150 = v116;
-                      v151 = 2112;
-                      v152 = 0;
+                      v141 = v81;
+                      v142 = 2112;
+                      v143 = v8;
+                      v144 = 2112;
+                      v145 = v9;
+                      v146 = 2112;
+                      v147 = v116;
+                      v148 = 2112;
+                      v149 = v115;
+                      v150 = 2112;
+                      v151 = 0;
                       _os_log_impl(&dword_2531F8000, v77, OS_LOG_TYPE_INFO, "%{public}@Getting the value for characteristic (%@+%@/%@/%@): %@ ", buf, 0x3Eu);
 
-                      v76 = v112;
+                      v76 = v111;
                     }
 
                     objc_autoreleasePoolPop(v76);
-                    value = [v96 value];
+                    value = [v95 value];
                     if (value)
                     {
-                      [v114 setObject:value forKey:v106];
+                      [v113 setObject:value forKey:v105];
                     }
 
                     else
                     {
                       null = [MEMORY[0x277CBEB68] null];
-                      [v114 setObject:null forKey:v106];
+                      [v113 setObject:null forKey:v105];
                     }
                   }
 
-                  if (v101)
+                  if (v100)
                   {
                     v84 = objc_autoreleasePoolPush();
                     v85 = HMFGetOSLogHandle();
                     if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
                     {
                       HMFGetLogIdentifier();
-                      v86 = v113 = v84;
-                      responseDelay5 = [v96 responseDelay];
+                      v86 = v112 = v84;
+                      responseDelay5 = [v95 responseDelay];
                       *buf = 138544898;
-                      v142 = v86;
-                      v143 = 2112;
-                      v144 = v8;
-                      v145 = 2112;
-                      v146 = v9;
-                      v147 = 2112;
-                      v148 = v117;
-                      v149 = 2112;
-                      v150 = v116;
-                      v151 = 2112;
-                      v152 = v32;
-                      v153 = 2112;
-                      v154 = responseDelay5;
+                      v141 = v86;
+                      v142 = 2112;
+                      v143 = v8;
+                      v144 = 2112;
+                      v145 = v9;
+                      v146 = 2112;
+                      v147 = v116;
+                      v148 = 2112;
+                      v149 = v115;
+                      v150 = 2112;
+                      v151 = v32;
+                      v152 = 2112;
+                      v153 = responseDelay5;
                       _os_log_impl(&dword_2531F8000, v85, OS_LOG_TYPE_INFO, "%{public}@Triggering update notification for characteristic (%@+%@/%@/%@) with value %@, responseDelay %@ milliseconds", buf, 0x48u);
 
-                      v46 = v98;
-                      v84 = v113;
+                      v46 = v97;
+                      v84 = v112;
                     }
 
                     objc_autoreleasePoolPop(v84);
-                    v140 = v96;
-                    v88 = [MEMORY[0x277CBEA60] arrayWithObjects:&v140 count:1];
-                    [v100 handleUpdatesForCharacteristics:v88 stateNumber:0];
+                    v139 = v95;
+                    v88 = [MEMORY[0x277CBEA60] arrayWithObjects:&v139 count:1];
+                    [v99 handleUpdatesForCharacteristics:v88 stateNumber:0];
                   }
 
-                  [array addObject:v114];
+                  [array addObject:v113];
                   v30 = 1;
-                  v69 = v96;
+                  v69 = v95;
                 }
 
                 else
@@ -793,44 +791,44 @@ LABEL_53:
 LABEL_67:
                   v65 = objc_autoreleasePoolPush();
                   v66 = HMFGetOSLogHandle();
-                  v31 = v114;
-                  v33 = v109;
-                  v46 = v98;
+                  v31 = v113;
+                  v33 = v108;
+                  v46 = v97;
                   if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
                   {
                     v67 = HMFGetLogIdentifier();
                     *buf = 138544386;
-                    v142 = v67;
-                    v143 = 2112;
-                    v144 = v8;
-                    v145 = 2112;
-                    v146 = v9;
-                    v147 = 2112;
-                    v148 = v117;
-                    v149 = 2112;
-                    v150 = v116;
+                    v141 = v67;
+                    v142 = 2112;
+                    v143 = v8;
+                    v144 = 2112;
+                    v145 = v9;
+                    v146 = 2112;
+                    v147 = v116;
+                    v148 = 2112;
+                    v149 = v115;
                     _os_log_impl(&dword_2531F8000, v66, OS_LOG_TYPE_INFO, "%{public}@Unable to look up accessory with deviceIdentifier %@, instanceID %@, serviceInstanceID %@, characteristicInstanceID %@", buf, 0x34u);
                   }
 
                   objc_autoreleasePoolPop(v65);
                   v68 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
                   v30 = 0;
-                  v69 = v115;
+                  v69 = v114;
                   v61 = v68;
-                  v32 = v110;
+                  v32 = v109;
                 }
 
                 v5 = v61;
 
-                v59 = v97;
-                v18 = v100;
+                v59 = v96;
+                v18 = v99;
               }
 
               goto LABEL_59;
             }
           }
 
-          v12 = [servers countByEnumeratingWithState:&v130 objects:v158 count:16];
+          v12 = [servers countByEnumeratingWithState:&v129 objects:v157 count:16];
           if (v12)
           {
             continue;
@@ -848,19 +846,19 @@ LABEL_26:
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v142 = v29;
-          v143 = 2112;
-          v144 = v8;
+          v141 = v29;
+          v142 = 2112;
+          v143 = v8;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Unable to look up accessoryServer with deviceIdentifier %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v27);
         [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
         v5 = v30 = 0;
-        v31 = v114;
-        v18 = v115;
-        v33 = v109;
-        v32 = v110;
+        v31 = v113;
+        v18 = v114;
+        v33 = v108;
+        v32 = v109;
 LABEL_59:
 
         if (!v30)
@@ -871,9 +869,9 @@ LABEL_59:
         ++v6;
       }
 
-      while (v6 != v107);
-      v89 = [obj countByEnumeratingWithState:&v134 objects:v159 count:16];
-      v107 = v89;
+      while (v6 != v106);
+      v89 = [obj countByEnumeratingWithState:&v133 objects:v158 count:16];
+      v106 = v89;
     }
 
     while (v89);
@@ -881,12 +879,10 @@ LABEL_59:
 
 LABEL_91:
 
-  v138 = @"CharacteristicConfiguration";
-  v90 = [array copy];
-  v139 = v90;
-  *response = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
-
-  v91 = *MEMORY[0x277D85DE8];
+  v137 = @"CharacteristicConfiguration";
+  v90 = objc_msgSend_copy(array);
+  v138 = v90;
+  *response = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
 
   return v5;
 }
@@ -995,57 +991,55 @@ void __71__HMDAccessoryServerBrowserDemo_discoverAccessoryServerWithIdentifier__
 
 void __53__HMDAccessoryServerBrowserDemo_resetDemoAccessories__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) servers];
-  v3 = [v2 copy];
+  v3 = objc_msgSend_copy(v2);
 
   v4 = [*(a1 + 32) servers];
   [v4 removeAllObjects];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if ([*(a1 + 32) _delegateRespondsToSelector:sel_accessoryServerBrowser_didRemoveAccessoryServer_error_])
         {
           v11 = [*(a1 + 32) delegateQueue];
-          v13[0] = MEMORY[0x277D85DD0];
-          v13[1] = 3221225472;
-          v13[2] = __53__HMDAccessoryServerBrowserDemo_resetDemoAccessories__block_invoke_2;
-          v13[3] = &unk_2797359B0;
-          v13[4] = *(a1 + 32);
-          v13[5] = v10;
-          dispatch_async(v11, v13);
+          v12[0] = MEMORY[0x277D85DD0];
+          v12[1] = 3221225472;
+          v12[2] = __53__HMDAccessoryServerBrowserDemo_resetDemoAccessories__block_invoke_2;
+          v12[3] = &unk_2797359B0;
+          v12[4] = *(a1 + 32);
+          v12[5] = v10;
+          dispatch_async(v11, v12);
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDAccessoryServerBrowserDemo_resetDemoAccessories__block_invoke_2(uint64_t a1)
@@ -1090,7 +1084,7 @@ void __52__HMDAccessoryServerBrowserDemo_resetDemoAccessory___block_invoke(uint6
 
 void __52__HMDAccessoryServerBrowserDemo_resetDemoAccessory___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) servers];
   [v2 removeObject:*(a1 + 40)];
 
@@ -1108,9 +1102,9 @@ void __52__HMDAccessoryServerBrowserDemo_resetDemoAccessory___block_invoke_2(uin
     v11 = HMFGetLogIdentifier();
     v12 = [(HAPAccessoryServer *)v8 identifier];
     *buf = 138543618;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v12;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v12;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@[CoreHAP] Discovered new accessory server %@ with Demo info", buf, 0x16u);
   }
 
@@ -1126,11 +1120,9 @@ void __52__HMDAccessoryServerBrowserDemo_resetDemoAccessory___block_invoke_2(uin
     block[2] = __52__HMDAccessoryServerBrowserDemo_resetDemoAccessory___block_invoke_27;
     block[3] = &unk_2797359B0;
     block[4] = *(a1 + 32);
-    v17 = v8;
+    v16 = v8;
     dispatch_async(v14, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HMDAccessoryServerBrowserDemo_resetDemoAccessory___block_invoke_27(uint64_t a1)
@@ -1159,7 +1151,7 @@ void __52__HMDAccessoryServerBrowserDemo_resetDemoAccessory___block_invoke_27(ui
 
 void __48__HMDAccessoryServerBrowserDemo_appendDemoData___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v2 = [WeakRetained[11] hmf_arrayForKey:@"accessories"];
   v3 = [v2 mutableCopy];
@@ -1171,36 +1163,36 @@ void __48__HMDAccessoryServerBrowserDemo_appendDemoData___block_invoke(uint64_t 
 
   v4 = v3;
   v5 = [MEMORY[0x277CBEB18] array];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = *(a1 + 32);
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v6 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [*(*(&v29 + 1) + 8 * i) hmf_arrayForKey:@"accessories"];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __48__HMDAccessoryServerBrowserDemo_appendDemoData___block_invoke_2;
-        v26[3] = &unk_279723218;
-        v27 = v4;
-        v28 = v5;
-        [v10 hmf_enumerateWithAutoreleasePoolUsingBlock:v26];
+        v10 = [*(*(&v28 + 1) + 8 * i) hmf_arrayForKey:@"accessories"];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __48__HMDAccessoryServerBrowserDemo_appendDemoData___block_invoke_2;
+        v25[3] = &unk_279723218;
+        v26 = v4;
+        v27 = v5;
+        [v10 hmf_enumerateWithAutoreleasePoolUsingBlock:v25];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v7 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v7);
@@ -1218,16 +1210,16 @@ void __48__HMDAccessoryServerBrowserDemo_appendDemoData___block_invoke(uint64_t 
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v16;
-      v37 = 2112;
-      v38 = v4;
+      v35 = v16;
+      v36 = 2112;
+      v37 = v4;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Updated demo accessory list: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
-    v33 = @"accessories";
-    v34 = v4;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v32 = @"accessories";
+    v33 = v4;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
     v18 = WeakRetained[11];
     WeakRetained[11] = v17;
   }
@@ -1242,7 +1234,7 @@ void __48__HMDAccessoryServerBrowserDemo_appendDemoData___block_invoke(uint64_t 
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v22;
+      v35 = v22;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@No new accessories (but kicking re-discovery anyway).", buf, 0xCu);
     }
 
@@ -1253,8 +1245,6 @@ void __48__HMDAccessoryServerBrowserDemo_appendDemoData___block_invoke(uint64_t 
   {
     [v13 discoverServer];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDAccessoryServerBrowserDemo_appendDemoData___block_invoke_2(uint64_t a1, void *a2)
@@ -1327,7 +1317,7 @@ void __56__HMDAccessoryServerBrowserDemo_loadDemoData_finalized___block_invoke(u
 
 void __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained[10])
   {
@@ -1343,28 +1333,28 @@ void __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke(uint64_t a
     v6 = [v4 objectForKey:@"accessories"];
     if (v6)
     {
-      v29 = v6;
-      v30 = v5;
-      v46 = 0u;
-      v44 = 0u;
+      v28 = v6;
+      v29 = v5;
       v45 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v42 = 0u;
       obj = v6;
-      v38 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
-      if (v38)
+      v37 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+      if (v37)
       {
-        v37 = *v44;
-        v31 = WeakRetained;
+        v36 = *v43;
+        v30 = WeakRetained;
         do
         {
-          for (i = 0; i != v38; ++i)
+          for (i = 0; i != v37; ++i)
           {
-            if (*v44 != v37)
+            if (*v43 != v36)
             {
               objc_enumerationMutation(obj);
             }
 
-            v8 = *(*(&v43 + 1) + 8 * i);
+            v8 = *(*(&v42 + 1) + 8 * i);
             v9 = [v8 objectForKeyedSubscript:@"name"];
             v10 = [v8 objectForKeyedSubscript:@"identifier"];
             v11 = [v8 objectForKeyedSubscript:@"attrDB"];
@@ -1376,11 +1366,11 @@ void __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke(uint64_t a
             {
               v16 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v48 = v16;
-              v49 = 2112;
-              v50 = v9;
-              v51 = 2112;
-              v52 = v10;
+              v47 = v16;
+              v48 = 2112;
+              v49 = v9;
+              v50 = 2112;
+              v51 = v10;
               _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Processing Demo Accessory information: %@ / %@", buf, 0x20u);
             }
 
@@ -1390,16 +1380,16 @@ void __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke(uint64_t a
               v17 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v11 options:0 error:0];
               if (v17)
               {
-                v35 = v17;
-                v36 = v12;
+                v34 = v17;
+                v35 = v12;
                 v18 = WeakRetained[10];
-                v41[0] = MEMORY[0x277D85DD0];
-                v41[1] = 3221225472;
-                v41[2] = __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke_16;
-                v41[3] = &unk_2797231F0;
+                v40[0] = MEMORY[0x277D85DD0];
+                v40[1] = 3221225472;
+                v40[2] = __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke_16;
+                v40[3] = &unk_2797231F0;
                 v19 = v10;
-                v42 = v19;
-                v20 = [v18 na_firstObjectPassingTest:v41];
+                v41 = v19;
+                v20 = [v18 na_firstObjectPassingTest:v40];
                 if (v20)
                 {
                   v21 = v20;
@@ -1408,26 +1398,26 @@ void __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke(uint64_t a
                   v24 = HMFGetOSLogHandle();
                   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
                   {
-                    v32 = HMFGetLogIdentifier();
+                    v31 = HMFGetLogIdentifier();
                     *buf = 138543874;
-                    v48 = v32;
-                    v49 = 2112;
-                    v50 = v9;
-                    v51 = 2112;
-                    v52 = v19;
+                    v47 = v31;
+                    v48 = 2112;
+                    v49 = v9;
+                    v50 = 2112;
+                    v51 = v19;
                     _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Server already exists for Demo Accessory: %@ / %@ - leaving it in place", buf, 0x20u);
                   }
 
                   objc_autoreleasePoolPop(v22);
-                  WeakRetained = v31;
+                  WeakRetained = v30;
                 }
 
                 else
                 {
-                  v33 = [HMDAccessoryServerDemo alloc];
+                  v32 = [HMDAccessoryServerDemo alloc];
                   v25 = [v14 accessoryPaired];
                   v26 = [v14 keyStore];
-                  v21 = -[HMDAccessoryServerDemo initWithName:identifier:deviceInfo:paired:keyStore:testMode:browser:](v33, "initWithName:identifier:deviceInfo:paired:keyStore:testMode:browser:", v9, v19, v35, v25, v26, [v36 BOOLValue], v14);
+                  v21 = -[HMDAccessoryServerDemo initWithName:identifier:deviceInfo:paired:keyStore:testMode:browser:](v32, "initWithName:identifier:deviceInfo:paired:keyStore:testMode:browser:", v9, v19, v34, v25, v26, [v35 BOOLValue], v14);
 
                   [WeakRetained[10] addObject:v21];
                 }
@@ -1440,28 +1430,26 @@ void __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke(uint64_t a
                   block[2] = __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke_21;
                   block[3] = &unk_2797359B0;
                   block[4] = v14;
-                  v40 = v21;
+                  v39 = v21;
                   dispatch_async(v27, block);
                 }
 
-                v17 = v35;
-                v12 = v36;
+                v17 = v34;
+                v12 = v35;
               }
             }
           }
 
-          v38 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+          v37 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
         }
 
-        while (v38);
+        while (v37);
       }
 
       v5 = 0;
-      v6 = v29;
+      v6 = v28;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke_16(uint64_t a1, void *a2)
@@ -1491,20 +1479,19 @@ void __47__HMDAccessoryServerBrowserDemo_discoverServer__block_invoke_21(uint64_
 
 void __64__HMDAccessoryServerBrowserDemo_stopDiscoveringAccessoryServers__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 61) = 0;
   v1 = objc_autoreleasePoolPush();
   v2 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = HMFGetLogIdentifier();
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_2531F8000, v2, OS_LOG_TYPE_INFO, "%{public}@[Demo Accessory Browser] Stopping browse for Demo accessories", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_2531F8000, v2, OS_LOG_TYPE_INFO, "%{public}@[Demo Accessory Browser] Stopping browse for Demo accessories", &v4, 0xCu);
   }
 
   objc_autoreleasePoolPop(v1);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDiscoveringAccessoryServers
@@ -1520,14 +1507,14 @@ void __64__HMDAccessoryServerBrowserDemo_stopDiscoveringAccessoryServers__block_
 
 uint64_t __65__HMDAccessoryServerBrowserDemo_startDiscoveringAccessoryServers__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v4;
+    v9 = v4;
     _os_log_impl(&dword_2531F8000, v3, OS_LOG_TYPE_INFO, "%{public}@[Demo Accessory Browser] Starting browse for Demo accessories...", buf, 0xCu);
   }
 
@@ -1544,9 +1531,7 @@ uint64_t __65__HMDAccessoryServerBrowserDemo_startDiscoveringAccessoryServers__b
     dispatch_async(v5, block);
   }
 
-  result = [*(a1 + 32) discoverServer];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) discoverServer];
 }
 
 void __65__HMDAccessoryServerBrowserDemo_startDiscoveringAccessoryServers__block_invoke_1(uint64_t a1)

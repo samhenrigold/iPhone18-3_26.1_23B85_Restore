@@ -1,10 +1,12 @@
 @interface CSDAVCMoments
 - (CSDAVCMomentsDelegate)delegate;
 - (_TtC13callservicesd13CSDAVCMoments)initWithStreamToken:(int64_t)token requesterID:(id)d delegate:(id)delegate dispatchQueue:(id)queue;
+- (id)newRequestWithMediaType:(unsigned __int8)type mode:(unsigned __int8)mode requesteeID:(id)d;
 - (int)activeRequestCount;
 - (int)pendingRequestCount;
 - (int64_t)streamToken;
 - (unsigned)capabilities;
+- (void)moments:(id)moments capabilitiesDidChange:(unsigned int)change;
 - (void)moments:(id)moments didEndProcessingRequest:(id)request stillImageURL:(id)l movieURL:(id)rL error:(id)error;
 - (void)moments:(id)moments didEndProcessingRequest:(id)request url:(id)url error:(id)error;
 - (void)momentsServerDidDisconnect:(id)disconnect;
@@ -24,7 +26,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10044C950();
+  sub_10044C950(delegate);
 }
 
 - (_TtC13callservicesd13CSDAVCMoments)initWithStreamToken:(int64_t)token requesterID:(id)d delegate:(id)delegate dispatchQueue:(id)queue
@@ -78,68 +80,95 @@
   return v3;
 }
 
-- (void)moments:(id)moments didEndProcessingRequest:(id)request url:(id)url error:(id)error
+- (id)newRequestWithMediaType:(unsigned __int8)type mode:(unsigned __int8)mode requesteeID:(id)d
 {
-  v7 = sub_10026D814(&unk_1006A52C0, &unk_10057D930);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8, v9);
-  v11 = &v14 - v10;
-  if (url)
+  typeCopy = type;
+  if (d)
   {
-    static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = type metadata accessor for URL();
-    v13 = 0;
+    v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v10 = v9;
   }
 
   else
   {
-    v12 = type metadata accessor for URL();
-    v13 = 1;
+    v8 = 0;
+    v10 = 0;
   }
 
-  sub_10000AF74(v11, v13, 1, v12);
-  sub_1002E1320(v11);
+  selfCopy = self;
+  v12 = sub_10044CC44(typeCopy, mode, v8, v10);
+
+  return v12;
+}
+
+- (void)moments:(id)moments capabilitiesDidChange:(unsigned int)change
+{
+  v4 = *&change;
+  momentsCopy = moments;
+  selfCopy = self;
+  sub_10044CE1C(selfCopy, v4);
+}
+
+- (void)moments:(id)moments didEndProcessingRequest:(id)request url:(id)url error:(id)error
+{
+  v7 = sub_10026D814(&unk_1006A52C0, &unk_10057D930);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v12 - v8;
+  if (url)
+  {
+    static URL._unconditionallyBridgeFromObjectiveC(_:)();
+    v10 = type metadata accessor for URL();
+    v11 = 0;
+  }
+
+  else
+  {
+    v10 = type metadata accessor for URL();
+    v11 = 1;
+  }
+
+  sub_10000AF74(v9, v11, 1, v10);
+  sub_1002E1320(v9);
 }
 
 - (void)moments:(id)moments didEndProcessingRequest:(id)request stillImageURL:(id)l movieURL:(id)rL error:(id)error
 {
   v13 = sub_10026D814(&unk_1006A52C0, &unk_10057D930);
-  v14 = *(*(v13 - 8) + 64);
-  v16 = __chkstk_darwin(v13 - 8, v15);
-  v18 = &v30 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16, v19);
-  v21 = &v30 - v20;
+  v14 = __chkstk_darwin(v13 - 8);
+  v16 = &v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v18 = &v27 - v17;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v22 = type metadata accessor for URL();
-    v23 = 0;
+    v19 = type metadata accessor for URL();
+    v20 = 0;
   }
 
   else
   {
-    v22 = type metadata accessor for URL();
-    v23 = 1;
+    v19 = type metadata accessor for URL();
+    v20 = 1;
   }
 
-  v24 = 1;
-  sub_10000AF74(v21, v23, 1, v22);
+  v21 = 1;
+  sub_10000AF74(v18, v20, 1, v19);
   if (rL)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v24 = 0;
+    v21 = 0;
   }
 
-  v25 = type metadata accessor for URL();
-  sub_10000AF74(v18, v24, 1, v25);
+  v22 = type metadata accessor for URL();
+  sub_10000AF74(v16, v21, 1, v22);
   momentsCopy = moments;
   requestCopy = request;
   errorCopy = error;
   selfCopy = self;
-  sub_10044D108(selfCopy, requestCopy, v21, v18, error);
+  sub_10044D108(selfCopy, requestCopy, v18, v16, error);
 
+  sub_1002E1320(v16);
   sub_1002E1320(v18);
-  sub_1002E1320(v21);
 }
 
 - (void)momentsServerDidDisconnect:(id)disconnect

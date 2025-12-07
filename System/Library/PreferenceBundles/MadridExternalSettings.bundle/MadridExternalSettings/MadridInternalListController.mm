@@ -46,6 +46,8 @@
 - (void)setTimeStampValue:(id)value forSpecifier:(id)specifier;
 - (void)startAutomationTapped:(id)tapped;
 - (void)viewAccountsTapped:(id)tapped;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation MadridInternalListController
@@ -177,6 +179,24 @@
 {
   firstResponder = [(MadridInternalListController *)self firstResponder];
   [firstResponder resignFirstResponder];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MadridInternalListController;
+  [(MadridInternalListController *)&v5 viewDidAppear:appear];
+  [(MadridInternalListController *)self _startListeningForReturnKey];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  [CNFInternalSettingsUtilities setCurrentInternalSettingsBundle:v4];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = MadridInternalListController;
+  [(MadridInternalListController *)&v4 viewWillDisappear:disappear];
+  [(MadridInternalListController *)self _stopListeningForReturnKey];
 }
 
 - (id)pushLoggingEnabled:(id)enabled

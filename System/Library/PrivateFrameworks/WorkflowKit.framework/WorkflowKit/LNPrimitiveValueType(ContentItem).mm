@@ -6,19 +6,17 @@
 
 - (id)wf_contentItemClassWithAppBundleIdentifier:()ContentItem
 {
-  typeIdentifier = [self typeIdentifier];
-  if (typeIdentifier > 0xC)
+  if ([self typeIdentifier] > 0xC)
   {
-    v3 = 0;
+    v1 = 0;
   }
 
   else
   {
-    v2 = **(&unk_1E837FE18 + typeIdentifier);
-    v3 = objc_opt_class();
+    v1 = objc_opt_class();
   }
 
-  return v3;
+  return v1;
 }
 
 @end

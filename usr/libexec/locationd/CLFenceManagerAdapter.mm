@@ -205,11 +205,11 @@
 - (BOOL)syncgetHasMonitoredFences:(id)fences
 {
   adaptee = [(CLFenceManagerAdapter *)self adaptee];
-  sub_10000EC00(&__p, [fences UTF8String]);
-  v5 = sub_100CAF89C(adaptee + 112);
+  sub_10000EC00(__p, [fences UTF8String]);
+  v5 = sub_100CAF89C(adaptee + 112, __p);
   if (v8 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
   return v5;
@@ -255,7 +255,7 @@
   sub_10000EC00(v23, [iD UTF8String]);
   if (location)
   {
-    [location clientLocation];
+    objc_msgSend_clientLocation(location);
   }
 
   else

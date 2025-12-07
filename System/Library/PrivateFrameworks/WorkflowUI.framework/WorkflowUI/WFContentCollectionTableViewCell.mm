@@ -156,7 +156,7 @@ id __54__WFContentCollectionTableViewCell_setCheckmarkStyle___block_invoke(uint6
 
 - (void)setListItem:(id)item
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   objc_storeStrong(&self->_listItem, item);
   v6 = itemCopy;
@@ -189,27 +189,27 @@ id __54__WFContentCollectionTableViewCell_setCheckmarkStyle___block_invoke(uint6
 
       if (titleLineLimit)
       {
-        [v15 setMaxLines:{objc_msgSend(titleLineLimit, "unsignedIntegerValue")}];
+        v18 = [v15 setMaxLines:{objc_msgSend(titleLineLimit, "unsignedIntegerValue")}];
       }
 
-      getTLKRichTextClass();
-      v18 = objc_opt_new();
-      v28[0] = v15;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-      [v18 setFormattedTextItems:v19];
+      getTLKRichTextClass(v18);
+      v19 = objc_opt_new();
+      v29[0] = v15;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+      [v19 setFormattedTextItems:v20];
 
-      [rowView setLeadingTitle:v18];
+      [rowView setLeadingTitle:v19];
       [(WFContentCollectionTableViewCell *)self setPrefersSeparatorInsetForImage:0];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __48__WFContentCollectionTableViewCell_setListItem___block_invoke_2;
-      v21[3] = &unk_279EE8DF8;
-      v22 = v6;
-      v23 = rowView;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __48__WFContentCollectionTableViewCell_setListItem___block_invoke_2;
+      v22[3] = &unk_279EE8DF8;
+      v23 = v6;
+      v24 = rowView;
       selfCopy = self;
       v9 = v6;
-      v20 = rowView;
-      [v9 prepareForDisplayWithCompletionHandler:v21];
+      v21 = rowView;
+      [v9 prepareForDisplayWithCompletionHandler:v22];
 
       goto LABEL_11;
     }
@@ -226,14 +226,14 @@ LABEL_13:
     [previewView2 removeFromSuperview];
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __48__WFContentCollectionTableViewCell_setListItem___block_invoke;
-  v25[3] = &unk_279EE8D58;
-  v26 = v6;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __48__WFContentCollectionTableViewCell_setListItem___block_invoke;
+  v26[3] = &unk_279EE8D58;
+  v27 = v6;
   selfCopy2 = self;
   v9 = v6;
-  [v9 prepareForDisplayWithCompletionHandler:v25];
+  [v9 prepareForDisplayWithCompletionHandler:v26];
 
 LABEL_11:
 LABEL_14:
@@ -334,37 +334,37 @@ void __48__WFContentCollectionTableViewCell_setListItem___block_invoke_2(uint64_
 
 void __48__WFContentCollectionTableViewCell_setListItem___block_invoke_3(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 length])
   {
     v4 = [(objc_class *)getTLKFormattedTextClass() formattedTextWithString:v3];
-    [v4 setMaxLines:2];
-    getTLKRichTextClass();
-    v5 = objc_opt_new();
-    v7[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-    [v5 setFormattedTextItems:v6];
+    v5 = [v4 setMaxLines:2];
+    getTLKRichTextClass(v5);
+    v6 = objc_opt_new();
+    v8[0] = v4;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    [v6 setFormattedTextItems:v7];
 
-    [*(a1 + 32) setLeadingSubtitle:v5];
+    [*(a1 + 32) setLeadingSubtitle:v6];
   }
 }
 
 void __48__WFContentCollectionTableViewCell_setListItem___block_invoke_4(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 length])
   {
     v4 = [(objc_class *)getTLKFormattedTextClass() formattedTextWithString:v3];
-    [v4 setMaxLines:1];
-    getTLKRichTextClass();
-    v5 = objc_opt_new();
-    v7[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-    [v5 setFormattedTextItems:v6];
+    v5 = [v4 setMaxLines:1];
+    getTLKRichTextClass(v5);
+    v6 = objc_opt_new();
+    v8[0] = v4;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    [v6 setFormattedTextItems:v7];
 
-    [*(a1 + 32) setTrailingTitle:v5];
+    [*(a1 + 32) setTrailingTitle:v6];
   }
 }
 
@@ -410,7 +410,7 @@ void __48__WFContentCollectionTableViewCell_setListItem___block_invoke_6(uint64_
   TLKImageClass = getTLKImageClass();
   v7 = [*(a1 + 40) tintColor];
   v8 = [v7 UIColor];
-  v9 = [TLKImageClass applyTintColor:v8 toImage:v5];
+  v9 = [(objc_class *)TLKImageClass applyTintColor:v8 toImage:v5];
 
   v10 = [objc_alloc(getTLKImageClass()) initWithImage:v9];
   [v10 setSize:{*(a1 + 72), *(a1 + 80)}];

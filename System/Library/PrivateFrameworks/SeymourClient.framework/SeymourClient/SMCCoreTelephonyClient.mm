@@ -19,15 +19,13 @@
   self->_ctClient = v3;
 
   [(CoreTelephonyClient *)self->_ctClient setDelegate:self];
-  v5 = *MEMORY[0x1E695E480];
-  queue = self->_queue;
   self->_ctServerConnection = _CTServerConnectionCreateOnTargetQueue();
-  v7 = self->_ctClient;
-  v11 = 0;
-  v8 = [(CoreTelephonyClient *)v7 getPreferredDataSubscriptionContextSync:&v11];
-  v9 = v11;
+  v5 = self->_ctClient;
+  v9 = 0;
+  v6 = [(CoreTelephonyClient *)v5 getPreferredDataSubscriptionContextSync:&v9];
+  v7 = v9;
   preferredDataSubscriptionContext = self->_preferredDataSubscriptionContext;
-  self->_preferredDataSubscriptionContext = v8;
+  self->_preferredDataSubscriptionContext = v6;
 }
 
 - (SMCCoreTelephonyClient)initWithQueue:(id)queue

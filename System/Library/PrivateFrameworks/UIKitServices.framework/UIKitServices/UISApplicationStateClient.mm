@@ -253,7 +253,7 @@ LABEL_8:
   return _remoteTarget;
 }
 
-uint64_t __50__UISApplicationStateClient_usesBackgroundNetwork__block_invoke(uint64_t a1, void *a2)
+void *__50__UISApplicationStateClient_usesBackgroundNetwork__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 BOOLValue];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -294,7 +294,7 @@ uint64_t __50__UISApplicationStateClient_usesBackgroundNetwork__block_invoke(uin
   return v3;
 }
 
-uint64_t __63__UISApplicationStateClient_nextWakeIntervalSinceReferenceDate__block_invoke(uint64_t a1, void *a2)
+void *__63__UISApplicationStateClient_nextWakeIntervalSinceReferenceDate__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 doubleValue];
   *(*(*(a1 + 32) + 8) + 24) = v4;

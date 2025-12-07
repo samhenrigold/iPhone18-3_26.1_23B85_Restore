@@ -31,7 +31,6 @@
 
 - (void)barrierAfterQueueStages:(unint64_t)stages beforeStages:(unint64_t)beforeStages visibilityOptions:(unint64_t)options
 {
-  device = self->_device;
   _MTLMessageContextBegin_();
   if (stages <= 0)
   {
@@ -55,7 +54,6 @@
 
 - (void)barrierAfterStages:(unint64_t)stages beforeQueueStages:(unint64_t)queueStages visibilityOptions:(unint64_t)options
 {
-  device = self->_device;
   _MTLMessageContextBegin_();
   if (stages <= 0)
   {
@@ -79,7 +77,6 @@
 
 - (void)barrierAfterEncoderStages:(unint64_t)stages beforeEncoderStages:(unint64_t)encoderStages visibilityOptions:(unint64_t)options
 {
-  device = self->_device;
   _MTLMessageContextBegin_();
   if (stages && (encoderStageMask = self->_encoderStageMask, (encoderStageMask & stages) == stages))
   {
@@ -116,7 +113,6 @@ LABEL_5:
 
 - (void)updateFence:(id)fence afterEncoderStages:(unint64_t)stages
 {
-  device = self->_device;
   _MTLMessageContextBegin_();
   if (stages && (self->_encoderStageMask & stages) == stages)
   {
@@ -148,7 +144,6 @@ LABEL_4:
 
 - (void)waitForFence:(id)fence beforeEncoderStages:(unint64_t)stages
 {
-  device = self->_device;
   _MTLMessageContextBegin_();
   if (stages && (self->_encoderStageMask & stages) == stages)
   {
@@ -180,7 +175,6 @@ LABEL_4:
 
 - (void)endEncodingPreamble
 {
-  device = self->_device;
   _MTLMessageContextBegin_();
   if ((*&self->_encoderState & 1) == 0)
   {
@@ -201,27 +195,27 @@ LABEL_4:
 
 - (void)validateFunctionArguments:(_MTLMessageContext *)arguments stage:(id)stage functionName:(id)name argumentTable:(id)table boundThreadgroupMemoryArguments:(MTLDebugFunctionArgument *)memoryArguments bindings:(id)bindings allowNullBufferBindings:(BOOL)bufferBindings
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v11 = [bindings countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v11 = [bindings countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v45;
+    v13 = *v44;
     do
     {
       v14 = 0;
       do
       {
-        if (*v45 != v13)
+        if (*v44 != v13)
         {
           objc_enumerationMutation(bindings);
         }
 
-        v15 = *(*(&v44 + 1) + 8 * v14);
+        v15 = *(*(&v43 + 1) + 8 * v14);
         if (![v15 isUsed])
         {
           goto LABEL_51;
@@ -244,7 +238,7 @@ LABEL_4:
                   goto LABEL_51;
                 }
 
-                v36 = index;
+                v35 = index;
                 threadgroupMemoryDataSize = name;
                 stageCopy9 = stage;
                 nameCopy9 = name;
@@ -263,9 +257,9 @@ LABEL_4:
                 }
 
                 threadgroupMemoryDataSize = name;
-                v38 = stage;
+                v37 = stage;
                 nameCopy9 = name;
-                v36 = index;
+                v35 = index;
                 stageCopy9 = stage;
               }
 
@@ -292,9 +286,9 @@ LABEL_27:
               stage2 = [MEMORY[0x277CCACA8] stringWithFormat:@"No argument table set for %@ stage", stage];
             }
 
-            v38 = name;
-            v39 = stage2;
-            v36 = MTLArgumentTypeToString(type);
+            v37 = name;
+            v38 = stage2;
+            v35 = MTLArgumentTypeToString(type);
             threadgroupMemoryDataSize = index;
             stageCopy9 = stage;
             nameCopy9 = name;
@@ -321,9 +315,9 @@ LABEL_27:
 
 LABEL_44:
               threadgroupMemoryDataSize = index;
-              v38 = name;
+              v37 = name;
               nameCopy9 = name;
-              v36 = MTLArgumentTypeToString(type);
+              v35 = MTLArgumentTypeToString(type);
               stageCopy9 = stage;
 LABEL_50:
               _MTLMessageContextPush_();
@@ -338,9 +332,9 @@ LABEL_50:
             if ((!bufferBindings & *(v25 + 4)) == 1)
             {
               threadgroupMemoryDataSize = index;
-              v38 = name;
+              v37 = name;
               nameCopy9 = name;
-              v36 = MTLArgumentTypeToString(0);
+              v35 = MTLArgumentTypeToString(0);
               stageCopy9 = stage;
               goto LABEL_50;
             }
@@ -376,7 +370,7 @@ LABEL_50:
             {
               if (!*v22)
               {
-                v36 = index;
+                v35 = index;
                 threadgroupMemoryDataSize = name;
                 stageCopy9 = stage;
                 nameCopy9 = name;
@@ -397,9 +391,9 @@ LABEL_50:
               }
 
               threadgroupMemoryDataSize = name;
-              v38 = stage3;
+              v37 = stage3;
               nameCopy9 = name;
-              v36 = index;
+              v35 = index;
               stageCopy9 = stage;
 LABEL_24:
               _MTLMessageContextPush_();
@@ -416,11 +410,11 @@ LABEL_24:
 
         [(MTLToolsDevice *)self->_device maxComputeLocalMemorySizes];
         v28 = &memoryArguments[index];
-        if (v28->isValid || (nameCopy9 = index, v36 = name, stageCopy9 = name, _MTLMessageContextPush_(), v28->isValid))
+        if (v28->isValid || (nameCopy9 = index, v35 = name, stageCopy9 = name, _MTLMessageContextPush_(), v28->isValid))
         {
           if (v28->type != 3)
           {
-            v36 = index;
+            v35 = index;
             threadgroupMemoryDataSize = name;
             stageCopy9 = stage;
             nameCopy9 = name;
@@ -430,9 +424,9 @@ LABEL_24:
           threadgroupMemoryLength = v28->threadgroupMemoryLength;
           if (threadgroupMemoryLength < [v15 threadgroupMemoryDataSize])
           {
-            v38 = index;
-            v39 = name;
-            v36 = v28->threadgroupMemoryLength;
+            v37 = index;
+            v38 = name;
+            v35 = v28->threadgroupMemoryLength;
             threadgroupMemoryDataSize = [v15 threadgroupMemoryDataSize];
             stageCopy9 = stage;
             nameCopy9 = name;
@@ -446,14 +440,12 @@ LABEL_51:
       }
 
       while (v14 != v12);
-      v32 = [bindings countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v32 = [bindings countByEnumeratingWithState:&v43 objects:v47 count:16];
       v12 = v32;
     }
 
     while (v32);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 @end

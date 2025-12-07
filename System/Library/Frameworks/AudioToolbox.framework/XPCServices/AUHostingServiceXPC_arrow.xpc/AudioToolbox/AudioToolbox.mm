@@ -145,9 +145,9 @@ void sub_10000186C(uint64_t a1)
   xpc_connection_send_message(v6, v9);
 }
 
-void sub_100001E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -314,9 +314,9 @@ void sub_100002A38(id a1)
   [qword_1000153D0 addListener:v6 withName:&stru_100010DE8];
 }
 
-void sub_100002C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -380,9 +380,9 @@ void sub_100002E74(uint64_t a1, void *a2, void *a3)
   (*(*(a1 + 48) + 16))();
 }
 
-void sub_1000030C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000030C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -450,9 +450,9 @@ void sub_10000340C(uint64_t a1, void *a2, void *a3)
   (*(*(a1 + 48) + 16))();
 }
 
-void sub_1000036E8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000036E8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   objc_begin_catch(a1);
   objc_exception_rethrow();
@@ -558,10 +558,7 @@ id sub_10000433C(void *a1, void *a2, void *a3)
 
 uint64_t sub_100004448(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKeyedSubscript:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKeyedSubscript:*(a1 + 32)];
 
   return _objc_release_x1();
 }
@@ -622,58 +619,57 @@ void sub_100004624(uint64_t a1, void *a2)
 void sub_10000474C(uint64_t a1)
 {
   xpc_connection_set_event_handler(*(*(a1 + 32) + 24), &stru_100010770);
-  v15 = 0;
-  v2 = [*(a1 + 80) endpointForReply:*(a1 + 40) withListenerName:*(*(a1 + 32) + 32) replyErrorCode:&v15];
-  if (v15)
+  v14 = 0;
+  v2 = [*(a1 + 80) endpointForReply:*(a1 + 40) withListenerName:*(*(a1 + 32) + 32) replyErrorCode:&v14];
+  if (v14)
   {
-    [*(a1 + 32) addError:v15 description:"returned by service" forListenerNamed:*(a1 + 48) fromServiceNamed:*(a1 + 56)];
+    [*(a1 + 32) addError:v14 description:"returned by service" forListenerNamed:*(a1 + 48) fromServiceNamed:*(a1 + 56)];
   }
 
   if ([*(*(a1 + 32) + 16) count] >= 2)
   {
-    v3 = *(a1 + 48);
-    NSLog(@"while attempting to connect to %@, multiple errors occurred: %@", v3, *(*(a1 + 32) + 16));
+    NSLog(@"while attempting to connect to %@, multiple errors occurred: %@", *(a1 + 48), *(*(a1 + 32) + 16));
   }
 
   if (![*(*(a1 + 32) + 16) count])
   {
-    v4 = *(a1 + 56);
-    v5 = *(a1 + 64);
-    v6 = *(a1 + 48);
+    v3 = *(a1 + 56);
+    v4 = *(a1 + 64);
+    v5 = *(a1 + 48);
+    v6 = v3;
     v7 = v4;
-    v8 = v5;
-    v9 = v2;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000049C4;
-    v19[3] = &unk_100010A80;
-    v21 = &v22;
-    v10 = v7;
-    v20 = v10;
-    sub_1000049FC(v19);
-    if (*(v23 + 24))
+    v8 = v2;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000049C4;
+    v18[3] = &unk_100010A80;
+    v20 = &v21;
+    v9 = v6;
+    v19 = v9;
+    sub_1000049FC(v18);
+    if (*(v22 + 24))
     {
-      v11 = sub_10000433C(v6, v10, v8);
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_100004A90;
-      v16[3] = &unk_100010AA8;
-      v12 = v11;
-      v17 = v12;
-      v18 = v9;
-      sub_100004498(v16);
+      v10 = sub_10000433C(v5, v9, v7);
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100004A90;
+      v15[3] = &unk_100010AA8;
+      v11 = v10;
+      v16 = v11;
+      v17 = v8;
+      sub_100004498(v15);
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
   }
 
-  v13 = *(a1 + 72);
-  v14 = [*(*(a1 + 32) + 16) firstObject];
-  (*(v13 + 16))(v13, v2, v14);
+  v12 = *(a1 + 72);
+  v13 = [*(*(a1 + 32) + 16) firstObject];
+  (*(v12 + 16))(v12, v2, v13);
 }
 
 id sub_1000049C4(uint64_t a1, void *a2)
@@ -752,10 +748,7 @@ uint64_t sub_100004C38(uint64_t a1)
 
 uint64_t sub_100004DF0(uint64_t a1, void *a2)
 {
-  v3 = [a2 copy];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 copy];
 
   return _objc_release_x1();
 }
@@ -788,19 +781,16 @@ void sub_100004EF4(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000507C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000507C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100005094(uint64_t a1, uint64_t a2)
 {
-  v3 = [NSMutableDictionary dictionaryWithDictionary:a2];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [NSMutableDictionary dictionaryWithDictionary:a2];
 
   return _objc_release_x1();
 }
@@ -877,7 +867,7 @@ void sub_100005788(uint64_t a1)
 
   if (*(a1 + 48) == 1)
   {
-    atomic_load(&unk_100015400);
+    atomic_load(dword_100015400);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -1048,6 +1038,41 @@ uint64_t start()
 
   objc_autoreleasePoolPop(v0);
   return 0;
+}
+
+void sub_100006C7C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int128 a10, int a11, __int16 a12, __int16 a13, void *a14, __int128 a15)
+{
+  if (a2 == 1)
+  {
+    v20 = objc_begin_catch(a1);
+    sub_100006A2C();
+    v21 = *(v17 + 1088);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = [v20 name];
+      v23 = [v20 reason];
+      v24 = [v20 userInfo];
+      v25 = [v20 callStackSymbols];
+      LODWORD(a9) = 136316418;
+      *(&a9 + 4) = "AUHostingServiceMain.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 119;
+      WORD1(a10) = 2112;
+      *(&a10 + 4) = v22;
+      WORD6(a10) = 2112;
+      *(&a10 + 14) = v23;
+      a13 = 2112;
+      a14 = v24;
+      LOWORD(a15) = 2112;
+      *(&a15 + 2) = v25;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d caught %@: '%@' with user dictionary %@ and call stack %@", &a9, 0x3Au);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x100006C04);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void sub_100006E30()

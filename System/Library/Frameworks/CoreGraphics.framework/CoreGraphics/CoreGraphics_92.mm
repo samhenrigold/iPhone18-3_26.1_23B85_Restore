@@ -3973,9 +3973,9 @@ LABEL_51:
 
 uint64_t CMYKF_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v6 = *a1;
-  memset(v39, 0, 512);
+  memset(v32, 0, 512);
   if (*(a2 + 12))
   {
     v7 = 0;
@@ -3997,63 +3997,62 @@ uint64_t CMYKF_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
     return 0;
   }
 
-  if (_blt_image_initialize(a2, a3, &v33, v39) < 1)
+  if (_blt_image_initialize(a2, a3, &v26, v32) < 1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v18 = *v6;
-  v19 = *a3;
-  v34 = v19;
-  v35 = v18;
-  if (v19 == 538985477)
+  v11 = *v6;
+  v12 = *a3;
+  v27 = v12;
+  v28 = v11;
+  if (v12 == 538985477)
   {
-    if (!v38 && (~v37 & 0xC3) == 0)
+    if (!v31 && (~v30 & 0xC3) == 0)
     {
-      v17.n128_u32[0] = *(a3 + 8);
-      if (v17.n128_f32[0] >= 1.0 && !*(a3 + 24))
+      v10.n128_u32[0] = *(a3 + 8);
+      if (v10.n128_f32[0] >= 1.0 && !*(a3 + 24))
       {
-        if ((v37 & 4) != 0)
+        if ((v30 & 4) != 0)
         {
-          v17.n128_u64[0] = *(a3 + 32);
-          *(a2 + 8) = v17.n128_u64[0];
+          *(a2 + 8) = *(a3 + 32);
         }
 
-        CMYKF_mark_inner(*(*a1 + 56), v17);
+        CMYKF_mark_inner(*(*a1 + 56));
         return 1;
       }
     }
 
-    v33 = CMYKf_sample_CMYKF_inner;
+    v26 = CMYKf_sample_CMYKF_inner;
     goto LABEL_38;
   }
 
-  v20 = SAMPLEINDEX(v19, v10, v11, v12, v13, v14, v15, v16);
-  if (!v20)
+  v13 = SAMPLEINDEX(v12);
+  if (!v13)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if (v20 > 0xB)
+  if (v13 > 0xB)
   {
     goto LABEL_28;
   }
 
-  if (v20 > 6)
+  if (v13 > 6)
   {
-    switch(v20)
+    switch(v13)
     {
       case 7:
-        v21 = 0;
-        v22 = 32;
+        v14 = 0;
+        v15 = 32;
         break;
       case 9:
-        v21 = 0;
-        v22 = 40;
+        v14 = 0;
+        v15 = 40;
         break;
       case 8:
-        v21 = 0;
-        v22 = 8;
+        v14 = 0;
+        v15 = 8;
         goto LABEL_29;
       default:
         goto LABEL_28;
@@ -4062,39 +4061,39 @@ uint64_t CMYKF_image(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
     goto LABEL_29;
   }
 
-  if (v20 == 2)
+  if (v13 == 2)
   {
     if (!*(a2 + 12))
     {
-      v21 = 0;
-      v22 = 16;
+      v14 = 0;
+      v15 = 16;
       goto LABEL_29;
     }
 
 LABEL_28:
-    v22 = 255;
-    v21 = 1;
+    v15 = 255;
+    v14 = 1;
     goto LABEL_29;
   }
 
-  if (v20 != 5)
+  if (v13 != 5)
   {
-    if (v20 == 6)
+    if (v13 == 6)
     {
-      v21 = 0;
-      v22 = 0;
+      v14 = 0;
+      v15 = 0;
       goto LABEL_29;
     }
 
     goto LABEL_28;
   }
 
-  v21 = 0;
-  v22 = 24;
+  v14 = 0;
+  v15 = 24;
 LABEL_29:
-  v23 = CMYKF_image_sample;
-  v33 = *&CMYKF_image_sample[2 * v20 + 2];
-  if (v33)
+  v16 = CMYKF_image_sample;
+  v26 = *&CMYKF_image_sample[2 * v13 + 2];
+  if (v26)
   {
     goto LABEL_37;
   }
@@ -4109,91 +4108,91 @@ LABEL_29:
     goto LABEL_34;
   }
 
-  v23 = CMYK8_image_sample;
-  v33 = *&CMYK8_image_sample[2 * v20 + 2];
-  if (!v33)
+  v16 = CMYK8_image_sample;
+  v26 = *&CMYK8_image_sample[2 * v13 + 2];
+  if (!v26)
   {
 LABEL_34:
-    v23 = CMYK16_image_sample;
-    v33 = *&CMYK16_image_sample[2 * v20 + 2];
-    if (v33)
+    v16 = CMYK16_image_sample;
+    v26 = *&CMYK16_image_sample[2 * v13 + 2];
+    if (v26)
     {
-      v24 = 16;
+      v17 = 16;
       goto LABEL_36;
     }
 
     return 0xFFFFFFFFLL;
   }
 
-  v24 = 8;
+  v17 = 8;
 LABEL_36:
-  v36 = v24;
+  v29 = v17;
 LABEL_37:
-  v34 = *v23;
-  if ((v21 & 1) != 0 || (v8 - 1) > 1 || (v37 & 7) != 3 || a2[2] != 5 && a2[2] || v20 > 0xB)
+  v27 = *v16;
+  if ((v14 & 1) != 0 || (v8 - 1) > 1 || (v30 & 7) != 3 || a2[2] != 5 && a2[2] || v13 > 0xB)
   {
     goto LABEL_38;
   }
 
-  HIDWORD(v26) = v22;
-  LODWORD(v26) = v22;
-  v25 = v26 >> 3;
-  if (v25 > 2)
+  HIDWORD(v19) = v15;
+  LODWORD(v19) = v15;
+  v18 = v19 >> 3;
+  if (v18 > 2)
   {
-    if (v25 == 3)
+    if (v18 == 3)
     {
-      v34 = *a3;
-      v27 = CMYKF_image_mark_RGB24;
+      v27 = *a3;
+      v20 = CMYKF_image_mark_RGB24;
       goto LABEL_67;
     }
 
-    if (v25 == 4)
+    if (v18 == 4)
     {
-      v34 = *a3;
-      v27 = CMYKF_image_mark_rgb32;
+      v27 = *a3;
+      v20 = CMYKF_image_mark_rgb32;
       goto LABEL_67;
     }
 
-    if (v25 != 5)
+    if (v18 != 5)
     {
       goto LABEL_38;
     }
 
-    v34 = *a3;
-    v28 = CMYKF_image_mark_rgb32;
+    v27 = *a3;
+    v21 = CMYKF_image_mark_rgb32;
 LABEL_65:
-    v29 = v28;
-    v30 = a2;
-    v31 = v8;
-    v32 = 8;
+    v22 = v21;
+    v23 = a2;
+    v24 = v8;
+    v25 = 8;
 LABEL_68:
-    CMYKF_image_mark_image(v30, &v33, v31, v32, v29);
+    CMYKF_image_mark_image(v23, &v26, v24, v25, v22);
     return 1;
   }
 
-  switch(v25)
+  switch(v18)
   {
     case 0:
-      v34 = *a3;
-      v27 = CMYKF_image_mark_RGB32;
+      v27 = *a3;
+      v20 = CMYKF_image_mark_RGB32;
       goto LABEL_67;
     case 1:
-      v34 = *a3;
-      v28 = CMYKF_image_mark_RGB32;
+      v27 = *a3;
+      v21 = CMYKF_image_mark_RGB32;
       goto LABEL_65;
     case 2:
-      v34 = *a3;
-      v27 = CMYKF_image_mark_W8;
+      v27 = *a3;
+      v20 = CMYKF_image_mark_W8;
 LABEL_67:
-      v29 = v27;
-      v30 = a2;
-      v31 = v8;
-      v32 = 0;
+      v22 = v20;
+      v23 = a2;
+      v24 = v8;
+      v25 = 0;
       goto LABEL_68;
   }
 
 LABEL_38:
-  CMYKF_image_mark(a2, &v33, v8, v17);
+  CMYKF_image_mark(a2, &v26, v8, v10);
   return 1;
 }
 
@@ -4442,7 +4441,7 @@ void CMYKF_image_mark(uint64_t a1, uint64_t a2, int a3, __n128 a4)
 
     else
     {
-      MEMORY[0x1EEE9AC00](a1, a4);
+      MEMORY[0x1EEE9AC00](a1);
       v18 = &v428 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v18, v17);
       v21 = 0;
@@ -4566,10 +4565,10 @@ LABEL_22:
     v51 = *v38;
     v445 = v39;
     v51(v38, v37, v39, v44);
-    v67 = v38[20];
-    v68 = v38[18];
-    v69 = *(v38 + 2);
-    if (v69 == *(v38 + 3))
+    v67 = *(v38 + 160);
+    v68 = *(v38 + 144);
+    v69 = *(v38 + 8);
+    if (v69 == *(v38 + 12))
     {
       v60 = v440;
       if (v440.n128_f32[0] >= 1.0)
@@ -4580,7 +4579,7 @@ LABEL_22:
       else
       {
         v70 = v44;
-        v71 = v38[18];
+        v71 = *(v38 + 144);
         v72 = v446;
         do
         {
@@ -4604,7 +4603,7 @@ LABEL_22:
 
     else
     {
-      v73 = v38[19];
+      v73 = *(v38 + 152);
       v74 = HIWORD(v69) & 0x3F;
       v61.i64[0] = v440.n128_u64[0];
       if (v74 == 16)
@@ -5091,8 +5090,8 @@ LABEL_557:
                 --v444;
                 v50 = 0;
                 v40 = v94 + 1;
-                v37 += v38[16];
-                v39 = v38[17] + v192;
+                v37 += *(v38 + 128);
+                v39 = *(v38 + 136) + v192;
                 if (v443)
                 {
                   v46 = v40;
@@ -5118,8 +5117,8 @@ LABEL_561:
                         goto LABEL_557;
                       }
 
-                      v425 = v38[17];
-                      v437 += v38[16] * v424;
+                      v425 = *(v38 + 136);
+                      v437 += *(v38 + 128) * v424;
                       v39 += v425 * v424;
                       v32 += v428 * v424;
                       v426 = v422 * v424;
@@ -7047,7 +7046,7 @@ LABEL_432:
   }
 }
 
-uint64_t CMYKF_image_mark_rgb32(uint64_t result, int *a2, int a3, int a4, int a5, int a6, double a7, double a8, double a9, double a10, double a11, double a12, int32x4_t a13)
+uint64_t CMYKF_image_mark_rgb32(uint64_t result, int *a2, int a3, int a4, unsigned int a5, int a6, double a7, double a8, double a9, double a10, double a11, double a12, int32x4_t a13)
 {
   if (*(result + 40))
   {
@@ -7674,7 +7673,7 @@ LABEL_156:
   return result;
 }
 
-uint64_t CMYKF_image_mark_RGB32(uint64_t result, int *a2, int a3, int a4, int a5, int a6, double a7, double a8, double a9, double a10, double a11, double a12, int32x4_t a13)
+uint64_t CMYKF_image_mark_RGB32(uint64_t result, int *a2, int a3, int a4, unsigned int a5, int a6, double a7, double a8, double a9, double a10, double a11, double a12, int32x4_t a13)
 {
   if (*(result + 40))
   {
@@ -8301,7 +8300,7 @@ LABEL_156:
   return result;
 }
 
-uint64_t CMYKF_image_mark_RGB24(uint64_t a1, int *a2, int a3, int a4, int a5, int a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, int32x4_t a14)
+uint64_t CMYKF_image_mark_RGB24(uint64_t a1, int *a2, int a3, int a4, unsigned int a5, int a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, int32x4_t a14)
 {
   v14 = *(a2 + 2);
   v15 = *(a2 + 4);
@@ -8744,7 +8743,7 @@ LABEL_115:
     }
   }
 
-  v84 = (v18 + 16 * a3);
+  v84 = v18 + 16 * a3;
   do
   {
     v85 = &v22[(v21 >> v19) * v17];
@@ -8998,7 +8997,7 @@ LABEL_176:
   return result;
 }
 
-uint64_t CMYKF_image_mark_W8(uint64_t a1, int *a2, int a3, int a4, int a5, int a6, double a7, int32x4_t _Q1, float32x2_t a9, double a10, double a11)
+uint64_t CMYKF_image_mark_W8(uint64_t a1, int *a2, int a3, int a4, unsigned int a5, int a6, double a7, int32x4_t _Q1, float32x2_t a9, double a10, double a11)
 {
   v12 = *(a2 + 2);
   v13 = *(a2 + 4);
@@ -9498,33 +9497,33 @@ uint64_t CMYKF_image_mark_W8(uint64_t a1, int *a2, int a3, int a4, int a5, int a
   return result;
 }
 
-uint64_t CMYKF_shade(uint64_t a1, __n128 a2)
+uint64_t CMYKF_shade(uint64_t a1)
 {
-  v2 = MEMORY[0x1EEE9AC00](a1, a2);
-  v5 = v4;
-  v6 = v3;
-  v20[482] = *MEMORY[0x1E69E9840];
-  v7 = *v2;
-  v8 = !*(v3 + 12) && !*(v4 + 72) && *(v4 + 4) >= 1.0;
-  v9 = *(*(*v2 + 56) + 16 * *v3 + 8 * v8 + 4 * (*(v3 + 6) == 0));
-  if (v9 > 27)
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v4 = v3;
+  v5 = v2;
+  v19[482] = *MEMORY[0x1E69E9840];
+  v6 = *v1;
+  v7 = !*(v2 + 12) && !*(v3 + 72) && *(v3 + 4) >= 1.0;
+  v8 = *(*(*v1 + 56) + 16 * *v2 + 8 * v7 + 4 * (*(v2 + 6) == 0));
+  if (v8 > 27)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if (*(v3 + 1) < 1 || *(v3 + 2) < 1)
+  if (*(v2 + 1) < 1 || *(v2 + 2) < 1)
   {
     return 0;
   }
 
-  if (_blt_shade_initialize(v3, v4, &v13, v18) < 1)
+  if (_blt_shade_initialize(v2, v3, &v12, v17) < 1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  if ((*v5 & 0xF000000) != 0x4000000)
+  if ((*v4 & 0xF000000) != 0x4000000)
   {
-    if (v13)
+    if (v12)
     {
       goto LABEL_22;
     }
@@ -9532,34 +9531,34 @@ uint64_t CMYKF_shade(uint64_t a1, __n128 a2)
     return 0xFFFFFFFFLL;
   }
 
-  if (*(v5 + 16))
+  if (*(v4 + 16))
   {
-    v12 = CMYKf_shade_radial_CMYK;
+    v11 = CMYKf_shade_radial_CMYK;
   }
 
-  else if (*(v5 + 24))
+  else if (*(v4 + 24))
   {
-    v12 = CMYKf_shade_conic_CMYK;
+    v11 = CMYKf_shade_conic_CMYK;
   }
 
-  else if (v16 < 2)
+  else if (v15 < 2)
   {
-    v12 = CMYKf_shade_axial_CMYK;
+    v11 = CMYKf_shade_axial_CMYK;
   }
 
   else
   {
-    v12 = CMYKf_shade_custom_CMYK;
+    v11 = CMYKf_shade_custom_CMYK;
   }
 
-  v13 = v12;
+  v12 = v11;
 LABEL_22:
-  v14 = *v7;
-  v15 = v14;
-  CMYKF_image_mark(v6, &v13, v9, v11);
-  if (v17 && (v17 < &v19 || v20 < v17))
+  v13 = *v6;
+  v14 = v13;
+  CMYKF_image_mark(v5, &v12, v8, v10);
+  if (v16 && (v16 < &v18 || v19 < v16))
   {
-    free(v17);
+    free(v16);
   }
 
   return 1;
@@ -9700,7 +9699,7 @@ void *__getCTFontCopyTableSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __CoreTextLibraryCore_block_invoke()
+uint64_t __CoreTextLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreTextLibraryCore_frameworkLibrary = result;
@@ -9748,79 +9747,79 @@ void PDFContentStreamRelease(uint64_t a1)
   {
     while (CFArrayGetCount(*(a1 + 176)) >= 1)
     {
-      PDFContentStreamEndTag(a1, v2, v3, v4, v5, v6, v7, v8, v19);
+      PDFContentStreamEndTag(a1);
     }
 
-    v9 = *(a1 + 176);
+    v2 = *(a1 + 176);
+    if (v2)
+    {
+      CFRelease(v2);
+    }
+
+    v3 = *(a1 + 104);
+    if (v3)
+    {
+      v4 = (*v3)-- == 1;
+      if (v4)
+      {
+        v5 = v3[5];
+        if (v5)
+        {
+          CFRelease(v5);
+        }
+
+        gstate_clear(v3);
+        free(v3);
+      }
+    }
+
+    CGPDFAssociationRelease(*(a1 + 64));
+    v6 = *(a1 + 112);
+    if (v6)
+    {
+      v4 = (*v6)-- == 1;
+      if (v4)
+      {
+        CGOrderedSetRelease(v6[4]);
+        CGOrderedSetRelease(v6[5]);
+        CGOrderedSetRelease(v6[6]);
+        CGOrderedSetRelease(v6[7]);
+        CGOrderedSetRelease(v6[8]);
+        CGOrderedSetRelease(v6[9]);
+        CGOrderedSetRelease(v6[10]);
+        CGOrderedSetRelease(v6[11]);
+        free(v6);
+      }
+    }
+
+    v7 = *(a1 + 40);
+    if (v7)
+    {
+      CFRelease(v7);
+    }
+
+    v8 = *(a1 + 32);
+    if (v8)
+    {
+      CFRelease(v8);
+    }
+
+    v9 = *(a1 + 48);
     if (v9)
     {
       CFRelease(v9);
     }
 
-    v10 = *(a1 + 104);
+    v10 = *(a1 + 56);
     if (v10)
     {
-      v11 = (*v10)-- == 1;
-      if (v11)
-      {
-        v12 = v10[5];
-        if (v12)
-        {
-          CFRelease(v12);
-        }
-
-        gstate_clear(v10);
-        free(v10);
-      }
+      CFRelease(v10);
     }
 
-    CGPDFAssociationRelease(*(a1 + 64));
-    v13 = *(a1 + 112);
-    if (v13)
+    v11 = *(a1 + 200);
+    if (v11)
     {
-      v11 = (*v13)-- == 1;
-      if (v11)
-      {
-        CGOrderedSetRelease(v13[4]);
-        CGOrderedSetRelease(v13[5]);
-        CGOrderedSetRelease(v13[6]);
-        CGOrderedSetRelease(v13[7]);
-        CGOrderedSetRelease(v13[8]);
-        CGOrderedSetRelease(v13[9]);
-        CGOrderedSetRelease(v13[10]);
-        CGOrderedSetRelease(v13[11]);
-        free(v13);
-      }
-    }
-
-    v14 = *(a1 + 40);
-    if (v14)
-    {
-      CFRelease(v14);
-    }
-
-    v15 = *(a1 + 32);
-    if (v15)
-    {
-      CFRelease(v15);
-    }
-
-    v16 = *(a1 + 48);
-    if (v16)
-    {
-      CFRelease(v16);
-    }
-
-    v17 = *(a1 + 56);
-    if (v17)
-    {
-      CFRelease(v17);
-    }
-
-    v18 = *(a1 + 200);
-    if (v18)
-    {
-      CFRelease(v18);
+      CFRelease(v11);
     }
 
     free(a1);

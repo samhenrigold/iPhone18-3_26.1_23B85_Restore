@@ -50,25 +50,25 @@
 
 - (FCFetchedValueManager)initWithDescriptor:(id)descriptor
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   if (!descriptorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "descriptor"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "descriptor"];
     *buf = 136315906;
-    v32 = "[FCFetchedValueManager initWithDescriptor:]";
-    v33 = 2080;
-    v34 = "FCFetchedValueManager.m";
-    v35 = 1024;
-    v36 = 43;
-    v37 = 2114;
-    v38 = v22;
+    v31 = "[FCFetchedValueManager initWithDescriptor:]";
+    v32 = 2080;
+    v33 = "FCFetchedValueManager.m";
+    v34 = 1024;
+    v35 = 43;
+    v36 = 2114;
+    v37 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v29.receiver = self;
-  v29.super_class = FCFetchedValueManager;
-  v5 = [(FCFetchedValueManager *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = FCFetchedValueManager;
+  v5 = [(FCFetchedValueManager *)&v28 init];
   if (v5)
   {
     v6 = [descriptorCopy copy];
@@ -81,39 +81,39 @@
 
     v10 = [FCFetchedValueObservable alloc];
     fastCachedValue = [descriptorCopy fastCachedValue];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __44__FCFetchedValueManager_initWithDescriptor___block_invoke;
-    v27[3] = &unk_1E7C404F0;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __44__FCFetchedValueManager_initWithDescriptor___block_invoke;
+    v26[3] = &unk_1E7C404F0;
     v12 = descriptorCopy;
-    v28 = v12;
-    v13 = [(FCFetchedValueObservable *)v10 initWithManager:v5 initialValue:fastCachedValue equalityTest:v27];
+    v27 = v12;
+    v13 = [(FCFetchedValueObservable *)v10 initWithManager:v5 initialValue:fastCachedValue equalityTest:v26];
     observable = v5->_observable;
     v5->_observable = v13;
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     inputManagers = [v12 inputManagers];
-    v16 = [inputManagers countByEnumeratingWithState:&v23 objects:v30 count:16];
+    v16 = [inputManagers countByEnumeratingWithState:&v22 objects:v29 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v24;
+      v18 = *v23;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v24 != v18)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(inputManagers);
           }
 
-          [*(*(&v23 + 1) + 8 * i) addObserver:v5];
+          [*(*(&v22 + 1) + 8 * i) addObserver:v5];
         }
 
-        v17 = [inputManagers countByEnumeratingWithState:&v23 objects:v30 count:16];
+        v17 = [inputManagers countByEnumeratingWithState:&v22 objects:v29 count:16];
       }
 
       while (v17);
@@ -122,7 +122,6 @@
     [v12 setObserver:v5];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -153,50 +152,46 @@ void __79__FCFetchedValueManager_fetchValueWithCachePolicy_qualityOfService_comp
 
 - (void)addObserver:(id)observer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   if (!observerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer"];
     *buf = 136315906;
-    v9 = "[FCFetchedValueManager addObserver:]";
-    v10 = 2080;
-    v11 = "FCFetchedValueManager.m";
-    v12 = 1024;
-    v13 = 97;
-    v14 = 2114;
-    v15 = v7;
+    v8 = "[FCFetchedValueManager addObserver:]";
+    v9 = 2080;
+    v10 = "FCFetchedValueManager.m";
+    v11 = 1024;
+    v12 = 97;
+    v13 = 2114;
+    v14 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   observable = [(FCFetchedValueManager *)self observable];
   [observable addObserver:observerCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   if (!observerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer"];
     *buf = 136315906;
-    v9 = "[FCFetchedValueManager removeObserver:]";
-    v10 = 2080;
-    v11 = "FCFetchedValueManager.m";
-    v12 = 1024;
-    v13 = 103;
-    v14 = 2114;
-    v15 = v7;
+    v8 = "[FCFetchedValueManager removeObserver:]";
+    v9 = 2080;
+    v10 = "FCFetchedValueManager.m";
+    v11 = 1024;
+    v12 = 103;
+    v13 = 2114;
+    v14 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   observable = [(FCFetchedValueManager *)self observable];
   [observable removeObserver:observerCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchedValueDescriptorValueIsDirty:(id)dirty
@@ -309,48 +304,48 @@ void __97__FCFetchedValueManager_operationThrottler_performAsyncOperationWithQua
 
 void __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v29 = a2;
-  v28 = a3;
+  v47 = *MEMORY[0x1E69E9840];
+  v28 = a2;
+  v27 = a3;
   v5 = objc_opt_new();
   v6 = dispatch_group_create();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v7 = [*(a1 + 32) descriptor];
   v8 = [v7 inputManagers];
 
-  v9 = [v8 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v44;
+    v11 = *v43;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v44 != v11)
+        if (*v43 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * i);
+        v13 = *(*(&v42 + 1) + 8 * i);
         [v13 removeObserver:*(a1 + 32)];
         dispatch_group_enter(v6);
         v14 = *(a1 + 40);
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke_2;
-        v38[3] = &unk_1E7C40590;
-        v39 = v5;
-        v40 = v13;
-        v41 = *(a1 + 32);
-        v42 = v6;
-        [v13 fetchValueWithQualityOfService:v14 completion:v38];
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke_2;
+        v37[3] = &unk_1E7C40590;
+        v38 = v5;
+        v39 = v13;
+        v40 = *(a1 + 32);
+        v41 = v6;
+        [v13 fetchValueWithQualityOfService:v14 completion:v37];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v10);
@@ -358,22 +353,22 @@ void __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfSer
 
   if (FCDispatchGroupIsEmpty(v6))
   {
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke_3;
-    v34[3] = &unk_1E7C390B8;
-    v15 = &v35;
-    v16 = &v36;
-    v18 = v28;
-    v17 = v29;
-    v35 = v5;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke_3;
+    v33[3] = &unk_1E7C390B8;
+    v15 = &v34;
+    v16 = &v35;
+    v18 = v27;
+    v17 = v28;
+    v34 = v5;
+    v35 = v27;
+    v19 = &v36;
     v36 = v28;
-    v19 = &v37;
-    v37 = v29;
-    v20 = v29;
-    v21 = v28;
+    v20 = v28;
+    v21 = v27;
     v22 = v5;
-    __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke_3(v34);
+    __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke_3(v33);
   }
 
   else
@@ -383,21 +378,19 @@ void __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfSer
     block[1] = 3221225472;
     block[2] = __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke_4;
     block[3] = &unk_1E7C390B8;
-    v15 = &v31;
-    v16 = &v32;
-    v18 = v28;
-    v17 = v29;
-    v31 = v5;
+    v15 = &v30;
+    v16 = &v31;
+    v18 = v27;
+    v17 = v28;
+    v30 = v5;
+    v31 = v27;
+    v19 = &v32;
     v32 = v28;
-    v19 = &v33;
-    v33 = v29;
-    v24 = v29;
-    v25 = v28;
+    v24 = v28;
+    v25 = v27;
     v26 = v5;
     dispatch_group_notify(v6, v23, block);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __77__FCFetchedValueManager__updateDependentManagersPromiseWithQualityOfService___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)

@@ -12,7 +12,7 @@
   sub_759210();
   *(&self->super.super.super.super.isa + v4) = sub_759020();
   v5 = OBJC_IVAR____TtC18ASMessagesProvider31TodayCardChinLockupListIconView_clickAction;
-  v6 = sub_BD88(&unk_950960);
+  v6 = sub_BD88(&unk_950960, &qword_793110);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   result = sub_76A840();
   __break(1u);

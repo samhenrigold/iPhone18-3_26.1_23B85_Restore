@@ -16,9 +16,9 @@
   connectionCopy = connection;
   dCopy = d;
   queueCopy = queue;
-  v25.receiver = self;
-  v25.super_class = SFBonjourEndpoint;
-  v14 = [(SFBonjourEndpoint *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = SFBonjourEndpoint;
+  v14 = [(SFBonjourEndpoint *)&v26 init];
   v15 = v14;
   if (v14)
   {
@@ -37,50 +37,50 @@
         [(SFBonjourEndpoint *)v15 _startConnection];
         if (!v15->_isAdvToBrowserConnection)
         {
-          v18 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+          v19 = objc_alloc_init(MEMORY[0x1E695DFA8]);
           remoteAdvDataSet = v15->_remoteAdvDataSet;
-          v15->_remoteAdvDataSet = v18;
+          v15->_remoteAdvDataSet = v19;
         }
 
         goto LABEL_8;
       }
 
-      v21 = daemon_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = daemon_log(v18);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v24[0] = 0;
-        v22 = "Invalid remoteEndpoint ";
+        v25[0] = 0;
+        v23 = "Invalid remoteEndpoint ";
         goto LABEL_13;
       }
     }
 
     else
     {
-      v21 = daemon_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = daemon_log(v14);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v24[0] = 0;
-        v22 = "Invalid arguments to SFBonjourEndpoint";
+        v25[0] = 0;
+        v23 = "Invalid arguments to SFBonjourEndpoint";
 LABEL_13:
-        _os_log_impl(&dword_1A9662000, v21, OS_LOG_TYPE_DEFAULT, v22, v24, 2u);
+        _os_log_impl(&dword_1A9662000, v22, OS_LOG_TYPE_DEFAULT, v23, v25, 2u);
       }
     }
 
-    v20 = 0;
+    v21 = 0;
     goto LABEL_15;
   }
 
 LABEL_8:
-  v20 = v15;
+  v21 = v15;
 LABEL_15:
 
-  return v20;
+  return v21;
 }
 
 - (void)_startConnection
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v3 = daemon_log();
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = daemon_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
@@ -93,31 +93,30 @@ LABEL_15:
   objc_initWeak(&location, self);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__17;
-  v18 = __Block_byref_object_dispose__17;
-  v19 = 0;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__17;
+  v17 = __Block_byref_object_dispose__17;
+  v18 = 0;
   v5 = self->_connection;
-  v7 = MEMORY[0x1E69E9820];
-  v8 = 3221225472;
-  v9 = __37__SFBonjourEndpoint__startConnection__block_invoke;
-  v10 = &unk_1E7890B50;
-  objc_copyWeak(&v13, &location);
+  v6 = MEMORY[0x1E69E9820];
+  v7 = 3221225472;
+  v8 = __37__SFBonjourEndpoint__startConnection__block_invoke;
+  v9 = &unk_1E7890B50;
+  objc_copyWeak(&v12, &location);
   selfCopy = self;
   p_buf = &buf;
-  nw_connection_set_state_changed_handler(v5, &v7);
-  [(SFBonjourEndpoint *)self _handleUUIDHeaders:v7];
+  nw_connection_set_state_changed_handler(v5, &v6);
+  [(SFBonjourEndpoint *)self _handleUUIDHeaders:v6];
   nw_connection_start(self->_connection);
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   _Block_object_dispose(&buf, 8);
 
   objc_destroyWeak(&location);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __37__SFBonjourEndpoint__startConnection__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v8 = WeakRetained;
@@ -136,110 +135,111 @@ void __37__SFBonjourEndpoint__startConnection__block_invoke(uint64_t a1, int a2,
       error_code = 0;
     }
 
-    *__error() = error_code;
-    v12 = daemon_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v12 = __error();
+    *v12 = error_code;
+    v13 = daemon_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       hostname = nw_endpoint_get_hostname(v10);
       port = nw_endpoint_get_port(v10);
-      v15 = *__error();
-      v39 = 67109890;
-      *v40 = a2;
-      *&v40[4] = 2080;
-      *&v40[6] = hostname;
-      *&v40[14] = 1024;
-      *&v40[16] = port;
-      LOWORD(v41[0]) = 1024;
-      *(v41 + 2) = v15;
-      _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "Connection state changed to %d (host %s port %u error %d)", &v39, 0x1Eu);
+      v16 = *__error();
+      v41 = 67109890;
+      *v42 = a2;
+      *&v42[4] = 2080;
+      *&v42[6] = hostname;
+      *&v42[14] = 1024;
+      *&v42[16] = port;
+      LOWORD(v43[0]) = 1024;
+      *(v43 + 2) = v16;
+      _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "Connection state changed to %d (host %s port %u error %d)", &v41, 0x1Eu);
     }
 
     switch(a2)
     {
       case 5:
-        v25 = daemon_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v28 = daemon_log(v17);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = *(v8 + 6);
-          v27 = nw_endpoint_get_hostname(v10);
-          v28 = nw_endpoint_get_port(v10);
-          v39 = 138412802;
-          *v40 = v26;
-          *&v40[8] = 2080;
-          *&v40[10] = v27;
-          *&v40[18] = 1024;
-          v41[0] = v28;
-          _os_log_impl(&dword_1A9662000, v25, OS_LOG_TYPE_DEFAULT, "Connection (%@) to %s port %u cancelled", &v39, 0x1Cu);
+          v29 = *(v8 + 6);
+          v30 = nw_endpoint_get_hostname(v10);
+          v31 = nw_endpoint_get_port(v10);
+          v41 = 138412802;
+          *v42 = v29;
+          *&v42[8] = 2080;
+          *&v42[10] = v30;
+          *&v42[18] = 1024;
+          v43[0] = v31;
+          _os_log_impl(&dword_1A9662000, v28, OS_LOG_TYPE_DEFAULT, "Connection (%@) to %s port %u cancelled", &v41, 0x1Cu);
         }
 
-        v29 = [v8 didDisconnectHandler];
+        v32 = [v8 didDisconnectHandler];
 
-        if (v29)
+        if (v32)
         {
-          v30 = *(*(*(a1 + 40) + 8) + 40);
-          if (v30)
+          v33 = *(*(*(a1 + 40) + 8) + 40);
+          if (v33)
           {
-            v31 = nw_error_copy_cf_error(v30);
+            v34 = nw_error_copy_cf_error(v33);
           }
 
           else
           {
-            v31 = 0;
+            v34 = 0;
           }
 
-          v33 = [v8 didDisconnectHandler];
-          (v33)[2](v33, v31);
+          v36 = [v8 didDisconnectHandler];
+          (v36)[2](v36, v34);
         }
 
-        v34 = *(v8 + 6);
+        v37 = *(v8 + 6);
         *(v8 + 6) = 0;
 
-        v35 = *(v8 + 5);
+        v38 = *(v8 + 5);
         *(v8 + 5) = 0;
 
-        v36 = *(*(a1 + 40) + 8);
-        v37 = *(v36 + 40);
-        *(v36 + 40) = 0;
+        v39 = *(*(a1 + 40) + 8);
+        v40 = *(v39 + 40);
+        *(v39 + 40) = 0;
 
         break;
       case 4:
         objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
-        v24 = [v8 connection];
-        nw_connection_cancel(v24);
+        v27 = [v8 connection];
+        nw_connection_cancel(v27);
 
         break;
       case 3:
-        v16 = daemon_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = daemon_log(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = *(v8 + 6);
-          v18 = nw_endpoint_get_hostname(v10);
-          v19 = nw_endpoint_get_port(v10);
-          v39 = 138412802;
-          *v40 = v17;
-          *&v40[8] = 2080;
-          *&v40[10] = v18;
-          *&v40[18] = 1024;
-          v41[0] = v19;
-          _os_log_impl(&dword_1A9662000, v16, OS_LOG_TYPE_DEFAULT, "Connection (%@) to %s port %u succeeded! begin receiving messages", &v39, 0x1Cu);
+          v19 = *(v8 + 6);
+          v20 = nw_endpoint_get_hostname(v10);
+          v21 = nw_endpoint_get_port(v10);
+          v41 = 138412802;
+          *v42 = v19;
+          *&v42[8] = 2080;
+          *&v42[10] = v20;
+          *&v42[18] = 1024;
+          v43[0] = v21;
+          _os_log_impl(&dword_1A9662000, v18, OS_LOG_TYPE_DEFAULT, "Connection (%@) to %s port %u succeeded! begin receiving messages", &v41, 0x1Cu);
         }
 
         if (([v8 isAdvToBrowserConnection] & 1) == 0)
         {
-          v20 = [v8 _getServerRemoteUUIDFromConnectionMetadata:*(*(a1 + 32) + 48) isAdvToBrowserConnection:{objc_msgSend(*(a1 + 32), "isAdvToBrowserConnection")}];
-          [v8 setRemoteUniqueIDString:v20];
+          v22 = [v8 _getServerRemoteUUIDFromConnectionMetadata:*(*(a1 + 32) + 48) isAdvToBrowserConnection:{objc_msgSend(*(a1 + 32), "isAdvToBrowserConnection")}];
+          [v8 setRemoteUniqueIDString:v22];
         }
 
-        v21 = [v8 remoteUniqueIDString];
+        v23 = [v8 remoteUniqueIDString];
 
-        if (v21)
+        if (v23)
         {
-          v22 = [v8 didConnectHandler];
+          v25 = [v8 didConnectHandler];
 
-          if (v22)
+          if (v25)
           {
-            v23 = [v8 didConnectHandler];
-            v23[2]();
+            v26 = [v8 didConnectHandler];
+            v26[2]();
           }
 
           [v8 receiveNextMessage];
@@ -247,8 +247,8 @@ void __37__SFBonjourEndpoint__startConnection__block_invoke(uint64_t a1, int a2,
 
         else
         {
-          v32 = daemon_log();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v35 = daemon_log(v24);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             __37__SFBonjourEndpoint__startConnection__block_invoke_cold_1();
           }
@@ -259,8 +259,6 @@ void __37__SFBonjourEndpoint__startConnection__block_invoke(uint64_t a1, int a2,
         break;
     }
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_getServerRemoteUUIDFromConnectionMetadata:(id)metadata isAdvToBrowserConnection:(BOOL)connection
@@ -292,13 +290,13 @@ void __37__SFBonjourEndpoint__startConnection__block_invoke(uint64_t a1, int a2,
       enumerator[2] = __89__SFBonjourEndpoint__getServerRemoteUUIDFromConnectionMetadata_isAdvToBrowserConnection___block_invoke;
       enumerator[3] = &unk_1E7890B78;
       enumerator[4] = &v16;
-      nw_ws_response_enumerate_additional_headers(v10, enumerator);
+      v10 = nw_ws_response_enumerate_additional_headers(v10, enumerator);
     }
 
     v12 = v17[5];
     if (!v12)
     {
-      v13 = daemon_log();
+      v13 = daemon_log(v10);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SFBonjourEndpoint _getServerRemoteUUIDFromConnectionMetadata:isAdvToBrowserConnection:];
@@ -332,52 +330,52 @@ uint64_t __89__SFBonjourEndpoint__getServerRemoteUUIDFromConnectionMetadata_isAd
 {
   v3 = nw_connection_copy_parameters(self->_connection);
   v4 = nw_parameters_copy_default_protocol_stack(v3);
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__17;
-  v17 = __Block_byref_object_dispose__17;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__17;
+  v18 = __Block_byref_object_dispose__17;
+  v19 = 0;
   iterate_block[0] = MEMORY[0x1E69E9820];
   iterate_block[1] = 3221225472;
   iterate_block[2] = __39__SFBonjourEndpoint__handleUUIDHeaders__block_invoke;
   iterate_block[3] = &unk_1E7890BA0;
-  iterate_block[4] = &v13;
+  iterate_block[4] = &v14;
   nw_protocol_stack_iterate_application_protocols(v4, iterate_block);
-  v5 = v14[5];
-  if (v5)
+  v6 = v15[5];
+  if (v6)
   {
     if (self->_isAdvToBrowserConnection)
     {
       objc_initWeak(&location, self);
-      v6 = v14[5];
+      v7 = v15[5];
       queue = self->_queue;
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __39__SFBonjourEndpoint__handleUUIDHeaders__block_invoke_127;
       handler[3] = &unk_1E7890BF0;
-      objc_copyWeak(&v10, &location);
-      nw_ws_options_set_client_request_handler(v6, queue, handler);
-      objc_destroyWeak(&v10);
+      objc_copyWeak(&v11, &location);
+      nw_ws_options_set_client_request_handler(v7, queue, handler);
+      objc_destroyWeak(&v11);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      nw_ws_options_add_additional_header(v5, "SFBonjourEndpointClientUUIDHeader", [(NSString *)self->_localUniqueIDString UTF8String]);
+      nw_ws_options_add_additional_header(v6, "SFBonjourEndpointClientUUIDHeader", [(NSString *)self->_localUniqueIDString UTF8String]);
     }
   }
 
   else
   {
-    v8 = daemon_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = daemon_log(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SFBonjourEndpoint _handleUUIDHeaders];
     }
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
 void __39__SFBonjourEndpoint__handleUUIDHeaders__block_invoke(uint64_t a1, void *a2)
@@ -443,7 +441,7 @@ uint64_t __39__SFBonjourEndpoint__handleUUIDHeaders__block_invoke_2(uint64_t a1,
 
   else
   {
-    v4 = daemon_log();
+    v4 = daemon_log(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [SFBonjourEndpoint cancel];
@@ -458,20 +456,20 @@ uint64_t __39__SFBonjourEndpoint__handleUUIDHeaders__block_invoke_2(uint64_t a1,
   {
     objc_initWeak(&location, self);
     connection = self->_connection;
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __39__SFBonjourEndpoint_receiveNextMessage__block_invoke;
-    v5[3] = &unk_1E7890C18;
-    objc_copyWeak(&v6, &location);
-    nw_connection_receive_message(connection, v5);
-    objc_destroyWeak(&v6);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __39__SFBonjourEndpoint_receiveNextMessage__block_invoke;
+    v6[3] = &unk_1E7890C18;
+    objc_copyWeak(&v7, &location);
+    nw_connection_receive_message(connection, v6);
+    objc_destroyWeak(&v7);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v4 = daemon_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = daemon_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [SFBonjourEndpoint receiveNextMessage];
     }
@@ -480,58 +478,57 @@ uint64_t __39__SFBonjourEndpoint__handleUUIDHeaders__block_invoke_2(uint64_t a1,
 
 void __39__SFBonjourEndpoint_receiveNextMessage__block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = a3;
   v10 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v12 = WeakRetained;
   if (WeakRetained)
   {
-    v12 = daemon_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = daemon_log(WeakRetained);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v10;
-      _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "receiveNextMessage data %@ error:%@", &v19, 0x16u);
+      v20 = 138412546;
+      v21 = v8;
+      v22 = 2112;
+      v23 = v10;
+      _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "receiveNextMessage data %@ error:%@", &v20, 0x16u);
     }
 
-    v13 = v8;
-    if (v9 && nw_content_context_get_is_final(v9))
+    v14 = v8;
+    if (v9 && (is_final = nw_content_context_get_is_final(v9)))
     {
-      v14 = daemon_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = daemon_log(is_final);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = WeakRetained[6];
-        v19 = 138412290;
-        v20 = v15;
-        _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "receiveNextMessage got connection closed %@", &v19, 0xCu);
+        v17 = v12[6];
+        v20 = 138412290;
+        v21 = v17;
+        _os_log_impl(&dword_1A9662000, v16, OS_LOG_TYPE_DEFAULT, "receiveNextMessage got connection closed %@", &v20, 0xCu);
       }
 
-      nw_connection_cancel(WeakRetained[6]);
+      nw_connection_cancel(v12[6]);
     }
 
     else if (!v10)
     {
-      v16 = [(nw_connection_t *)WeakRetained didReceiveDataHandler];
+      v18 = [(nw_connection_t *)v12 didReceiveDataHandler];
 
-      if (v13 && v16)
+      if (v14 && v18)
       {
-        v17 = [(nw_connection_t *)WeakRetained didReceiveDataHandler];
-        (v17)[2](v17, v13);
+        v19 = [(nw_connection_t *)v12 didReceiveDataHandler];
+        (v19)[2](v19, v14);
       }
 
-      [(nw_connection_t *)WeakRetained receiveNextMessage];
+      [(nw_connection_t *)v12 receiveNextMessage];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendDataMessage:(id)message completion:(id)completion
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
@@ -546,8 +543,8 @@ void __39__SFBonjourEndpoint_receiveNextMessage__block_invoke(uint64_t a1, void 
     completion[1] = 3221225472;
     completion[2] = __48__SFBonjourEndpoint_sendDataMessage_completion___block_invoke;
     completion[3] = &unk_1E7890C40;
-    v17 = messageCopy;
-    v18 = completionCopy;
+    v16 = messageCopy;
+    v17 = completionCopy;
     nw_connection_send(connection, v8, v10, 1, completion);
 
 LABEL_5:
@@ -558,9 +555,9 @@ LABEL_5:
   {
     v12 = MEMORY[0x1E696ABC0];
     v13 = *MEMORY[0x1E696A768];
-    v19 = *MEMORY[0x1E696A578];
-    v20[0] = @"Unable to send message, nil connection";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A578];
+    v19[0] = @"Unable to send message, nil connection";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v8 = [v12 errorWithDomain:v13 code:-6700 userInfo:v14];
 
     (*(completionCopy + 2))(completionCopy, v8);
@@ -568,23 +565,21 @@ LABEL_5:
   }
 
 LABEL_6:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __48__SFBonjourEndpoint_sendDataMessage_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = daemon_log();
+  v4 = daemon_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) length];
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2048;
-    v12 = v5;
-    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "nw_connection_send completed with error: %@, bytes :%lu", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v3;
+    v10 = 2048;
+    v11 = v5;
+    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "nw_connection_send completed with error: %@, bytes :%lu", &v8, 0x16u);
   }
 
   v6 = *(a1 + 40);
@@ -603,8 +598,6 @@ void __48__SFBonjourEndpoint_sendDataMessage_completion___block_invoke(uint64_t 
 
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)createConnectionParameters

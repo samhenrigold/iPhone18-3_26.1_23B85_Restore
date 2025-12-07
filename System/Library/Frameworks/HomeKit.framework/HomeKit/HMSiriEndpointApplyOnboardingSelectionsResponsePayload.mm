@@ -50,14 +50,12 @@
 
 - (NSArray)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   v4 = HMSiriEndpointOnboardingResultAsString([(HMSiriEndpointApplyOnboardingSelectionsResponsePayload *)self onboardingResult]);
   v5 = [v3 initWithName:@"onboardingResult" value:v4];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -71,11 +69,11 @@
 
 - (HMSiriEndpointApplyOnboardingSelectionsResponsePayload)initWithPayload:(id)payload
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
-  v14 = 0;
-  v5 = [payloadCopy hmf_integerForKey:@"HMSiriEndpointOnboardingResultPayloadKey" error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [payloadCopy hmf_integerForKey:@"HMSiriEndpointOnboardingResultPayloadKey" error:&v13];
+  v6 = v13;
   if (v6)
   {
     v7 = objc_autoreleasePoolPush();
@@ -85,11 +83,11 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v16 = v10;
-      v17 = 2112;
-      v18 = payloadCopy;
-      v19 = 2112;
-      v20 = v6;
+      v15 = v10;
+      v16 = 2112;
+      v17 = payloadCopy;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Failed to decode apply onboarding selections payload: %@ error: %@", buf, 0x20u);
     }
 
@@ -103,19 +101,16 @@
     v11 = selfCopy;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)payloadCopy
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"HMSiriEndpointOnboardingResultPayloadKey";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"HMSiriEndpointOnboardingResultPayloadKey";
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMSiriEndpointApplyOnboardingSelectionsResponsePayload onboardingResult](self, "onboardingResult")}];
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -147,12 +142,11 @@
 
 uint64_t __69__HMSiriEndpointApplyOnboardingSelectionsResponsePayload_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_53309;
-  logCategory__hmf_once_v2_53309 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_53309;
+  logCategory__hmf_once_v2_53309 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

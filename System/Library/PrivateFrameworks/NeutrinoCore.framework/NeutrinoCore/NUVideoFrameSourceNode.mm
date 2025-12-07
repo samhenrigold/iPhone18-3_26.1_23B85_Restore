@@ -25,7 +25,7 @@
   v4 = 0;
   v5 = 0;
   v6 = 0;
-  [(NUVideoFrameSourceNode *)self time];
+  objc_msgSend_time(self, a2);
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"t=%lld/%d", v4, v5];
 
   return v2;
@@ -231,7 +231,7 @@ LABEL_14:
     {
       v20 = 0u;
       v21 = 0u;
-      [v12 nu_pixelRect];
+      objc_msgSend_nu_pixelRect(v12);
       CGAffineTransformMakeTranslation(&v19, -v20, -*(&v20 + 1));
       v14 = [imageCopy imageByApplyingTransform:&v19];
 
@@ -240,12 +240,12 @@ LABEL_14:
 
     else
     {
-      [(NUVideoFrameSourceNode *)self originalExtent];
+      objc_msgSend_originalExtent(self);
       if (*&v19.c && *&v19.d)
       {
         v20 = 0u;
         v21 = 0u;
-        [(NUVideoFrameSourceNode *)self originalExtent];
+        objc_msgSend_originalExtent(self);
         CGAffineTransformMakeTranslation(&v19, -v20, -*(&v20 + 1));
         v15 = [imageCopy imageByApplyingTransform:&v19];
 
@@ -447,7 +447,7 @@ LABEL_14:
   v10 = v9;
   if (v9)
   {
-    [v9 nu_pixelRect];
+    objc_msgSend_nu_pixelRect(v9);
     v11 = *&buf[16];
     v8->_originalExtent.origin = *buf;
     v8->_originalExtent.size = v11;

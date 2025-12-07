@@ -12,6 +12,7 @@
 - (void)performQueuedSubscriptions;
 - (void)subscribeForExperimentId:(id)id;
 - (void)subscribeForRolloutDeployment:(id)deployment;
+- (void)switchToEnvironment:(unsigned __int8)environment;
 - (void)unsubscribeForExperimentId:(id)id;
 @end
 
@@ -54,25 +55,23 @@
 
 - (void)_logFaultIfNotTestingIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (![(TRIPushServiceConnectionMultiplexer *)self _isTestingIdentifier:identifierCopy])
   {
     v5 = TRILogCategory_Server();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = identifierCopy;
-      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Failed to create channel id for identifier %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = identifierCopy;
+      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Failed to create channel id for identifier %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeForRolloutDeployment:(id)deployment
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   deploymentCopy = deployment;
   v5 = +[TRICKServerEnvironmentReader currentEnvironment];
   v6 = +[TRISystemConfiguration sharedInstance];
@@ -83,9 +82,9 @@
     v10 = TRILogCategory_Server();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = deploymentCopy;
-      _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, "Skipping subscribing to cloud channel for rollout deployment: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = deploymentCopy;
+      _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, "Skipping subscribing to cloud channel for rollout deployment: %@", &v12, 0xCu);
     }
   }
 
@@ -103,8 +102,6 @@
       [(TRIPushServiceConnectionMultiplexer *)self _logFaultIfNotTestingIdentifier:rolloutId];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeForExperimentId:(id)id
@@ -138,7 +135,7 @@
 
 uint64_t __68__TRIPushServiceConnectionMultiplexer__debouncedSubscribeToChannel___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   [v3 _setupDebounceTimerIfNeededWithGuardedData:v4];
@@ -146,15 +143,13 @@ uint64_t __68__TRIPushServiceConnectionMultiplexer__debouncedSubscribeToChannel_
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 40);
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Received request to subscribe %@. Queueing for later subscription", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Received request to subscribe %@. Queueing for later subscription", &v9, 0xCu);
   }
 
   v7 = v4[2];
-  result = [v7 addObject:*(a1 + 40)];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v7 addObject:*(a1 + 40)];
 }
 
 - (double)_debounceTime
@@ -235,15 +230,15 @@ void __82__TRIPushServiceConnectionMultiplexer__setupDebounceTimerIfNeededWithGu
 
 void __65__TRIPushServiceConnectionMultiplexer_performQueuedSubscriptions__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(v3 + 2) allObjects];
   v5 = TRILogCategory_Server();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
-    v13 = [v4 count];
-    _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Subscribing %lu queued channels", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = [v4 count];
+    _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Subscribing %lu queued channels", &v11, 0xCu);
   }
 
   v6 = [*(a1 + 32) currentConnection];
@@ -261,8 +256,6 @@ void __65__TRIPushServiceConnectionMultiplexer_performQueuedSubscriptions__block
 
   v10 = *(v3 + 1);
   *(v3 + 1) = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsubscribeForExperimentId:(id)id
@@ -409,20 +402,20 @@ void __66__TRIPushServiceConnectionMultiplexer__channelIdFromExperimentId___bloc
 
 - (id)_expectedChannelsForRolloutDeployments:(id)deployments experimentIds:(id)ids maxChannelsAllowed:(unint64_t)allowed
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __111__TRIPushServiceConnectionMultiplexer__expectedChannelsForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke;
-  v19[3] = &unk_279DE22D0;
-  v19[4] = self;
-  idsCopy = ids;
-  v9 = [deployments _pas_mappedArrayWithTransform:v19];
+  v23 = *MEMORY[0x277D85DE8];
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
-  v18[2] = __111__TRIPushServiceConnectionMultiplexer__expectedChannelsForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke_2;
-  v18[3] = &unk_279DE22F8;
+  v18[2] = __111__TRIPushServiceConnectionMultiplexer__expectedChannelsForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke;
+  v18[3] = &unk_279DE22D0;
   v18[4] = self;
-  v10 = [idsCopy _pas_mappedArrayWithTransform:v18];
+  idsCopy = ids;
+  v9 = [deployments _pas_mappedArrayWithTransform:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __111__TRIPushServiceConnectionMultiplexer__expectedChannelsForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke_2;
+  v17[3] = &unk_279DE22F8;
+  v17[4] = self;
+  v10 = [idsCopy _pas_mappedArrayWithTransform:v17];
 
   v11 = [v9 arrayByAddingObjectsFromArray:v10];
   if ([v11 count] > allowed)
@@ -432,8 +425,8 @@ void __66__TRIPushServiceConnectionMultiplexer__channelIdFromExperimentId___bloc
     {
       v13 = [v11 count];
       *buf = 134218240;
-      v21 = v13;
-      v22 = 2048;
+      v20 = v13;
+      v21 = 2048;
       allowedCopy = allowed;
       _os_log_impl(&dword_26F567000, v12, OS_LOG_TYPE_DEFAULT, "Number of expected channels (%tu) exceeded the max channels allowed (%tu)", buf, 0x16u);
     }
@@ -445,14 +438,12 @@ void __66__TRIPushServiceConnectionMultiplexer__channelIdFromExperimentId___bloc
 
   v15 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v11];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (void)ensureSubscriptionsExistOnlyForRolloutDeployments:(id)deployments experimentIds:(id)ids maxChannelsAllowed:(unint64_t)allowed
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   deploymentsCopy = deployments;
   idsCopy = ids;
   [(TRIPushServiceConnectionMultiplexer *)self performQueuedSubscriptions];
@@ -466,9 +457,9 @@ void __66__TRIPushServiceConnectionMultiplexer__channelIdFromExperimentId___bloc
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v51 = [deploymentsCopy count];
-      v52 = 2048;
-      v53 = [idsCopy count];
+      v50 = [deploymentsCopy count];
+      v51 = 2048;
+      v52 = [idsCopy count];
       _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Keeping channels for %tu rollouts + %tu experiments", buf, 0x16u);
     }
 
@@ -478,54 +469,54 @@ void __66__TRIPushServiceConnectionMultiplexer__channelIdFromExperimentId___bloc
       v15 = [subscribedChannelIds count];
       v16 = [v12 count];
       *buf = 134218240;
-      v51 = v15;
-      v52 = 2048;
-      v53 = v16;
+      v50 = v15;
+      v51 = 2048;
+      v52 = v16;
       _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, "Reconciling %tu actual subscriptions with %tu expected subscriptions", buf, 0x16u);
     }
 
-    v40 = deploymentsCopy;
+    v39 = deploymentsCopy;
 
-    v39 = v12;
+    v38 = v12;
     v17 = [v12 _pas_mappedSetWithTransform:&__block_literal_global_28];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __122__TRIPushServiceConnectionMultiplexer_ensureSubscriptionsExistOnlyForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke_2;
-    v47[3] = &unk_279DE2048;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __122__TRIPushServiceConnectionMultiplexer_ensureSubscriptionsExistOnlyForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke_2;
+    v46[3] = &unk_279DE2048;
     v18 = v17;
-    v48 = v18;
-    v19 = [subscribedChannelIds _pas_filteredArrayWithTest:v47];
+    v47 = v18;
+    v19 = [subscribedChannelIds _pas_filteredArrayWithTest:v46];
     v20 = TRILogCategory_Server();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v36 = [v19 count];
+      v35 = [v19 count];
       *buf = 134218242;
-      v51 = v36;
-      v52 = 2112;
-      v53 = v19;
+      v50 = v35;
+      v51 = 2112;
+      v52 = v19;
       _os_log_debug_impl(&dword_26F567000, v20, OS_LOG_TYPE_DEBUG, "Unsubscribing %ld channels: %@", buf, 0x16u);
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v21 = v19;
-    v22 = [v21 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v44;
+      v24 = *v43;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v44 != v24)
+          if (*v43 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = [[TRIPushChannelId alloc] initWithPushChannelId:*(*(&v43 + 1) + 8 * i)];
+          v26 = [[TRIPushChannelId alloc] initWithPushChannelId:*(*(&v42 + 1) + 8 * i)];
           if (v26)
           {
             currentConnection2 = [(TRIPushServiceConnectionMultiplexer *)self currentConnection];
@@ -533,30 +524,30 @@ void __66__TRIPushServiceConnectionMultiplexer__channelIdFromExperimentId___bloc
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v42 objects:v48 count:16];
       }
 
       while (v23);
     }
 
     v28 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:subscribedChannelIds];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __122__TRIPushServiceConnectionMultiplexer_ensureSubscriptionsExistOnlyForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke_67;
-    v41[3] = &unk_279DE2320;
-    v42 = v28;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __122__TRIPushServiceConnectionMultiplexer_ensureSubscriptionsExistOnlyForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke_67;
+    v40[3] = &unk_279DE2320;
+    v41 = v28;
     v29 = v28;
-    v30 = v39;
-    v31 = [v39 _pas_filteredSetWithTest:v41];
+    v30 = v38;
+    v31 = [v38 _pas_filteredSetWithTest:v40];
     v32 = TRILogCategory_Server();
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      v37 = [subscribedChannelIds count];
+      v36 = [subscribedChannelIds count];
       allObjects = [v31 allObjects];
       *buf = 134218242;
-      v51 = v37;
-      v52 = 2112;
-      v53 = allObjects;
+      v50 = v36;
+      v51 = 2112;
+      v52 = allObjects;
       _os_log_debug_impl(&dword_26F567000, v32, OS_LOG_TYPE_DEBUG, "Adding %ld subscriptions for the following channels: %@", buf, 0x16u);
     }
 
@@ -564,7 +555,7 @@ void __66__TRIPushServiceConnectionMultiplexer__channelIdFromExperimentId___bloc
     allObjects2 = [v31 allObjects];
     [currentConnection3 subscribeToChannels:allObjects2];
 
-    deploymentsCopy = v40;
+    deploymentsCopy = v39;
   }
 
   else
@@ -576,8 +567,6 @@ void __66__TRIPushServiceConnectionMultiplexer__channelIdFromExperimentId___bloc
       _os_log_error_impl(&dword_26F567000, v30, OS_LOG_TYPE_ERROR, "Couldn't resolve subscriptions since channel list is nil", buf, 2u);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __122__TRIPushServiceConnectionMultiplexer_ensureSubscriptionsExistOnlyForRolloutDeployments_experimentIds_maxChannelsAllowed___block_invoke_67(uint64_t a1, void *a2)
@@ -596,6 +585,12 @@ uint64_t __122__TRIPushServiceConnectionMultiplexer_ensureSubscriptionsExistOnly
   }
 
   return v4;
+}
+
+- (void)switchToEnvironment:(unsigned __int8)environment
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"TRIPushServiceConnectionMultiplexer.m" lineNumber:312 description:@"Not implemented yet"];
 }
 
 - (TRIPushServiceConnectionMultiplexer)initWithServerContext:(id)context taskQueue:(id)queue

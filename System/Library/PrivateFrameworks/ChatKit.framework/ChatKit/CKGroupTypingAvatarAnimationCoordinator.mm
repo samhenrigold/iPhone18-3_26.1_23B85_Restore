@@ -22,7 +22,7 @@
   typingCellCopy = typingCell;
   viewCopy = view;
   contactCopy = contact;
-  v22 = sub_190B2BB10(x, y, width, height, cellCopy, typingCellCopy, viewCopy, contactCopy, sub_190841A8C, v17);
+  v22 = sub_190B2BB10(cellCopy, typingCellCopy, viewCopy, contactCopy, sub_190841A8C, v17, x, y, width, height);
 
   return v22;
 }

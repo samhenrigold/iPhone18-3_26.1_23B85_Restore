@@ -192,7 +192,7 @@ LABEL_3:
 LABEL_12:
   sub_1003579B0();
 LABEL_4:
-  v13 = +[(GPBMessage *)CSHWProtoMessageKey];
+  v13 = objc_msgSend_message(CSHWProtoMessageKey);
   [v13 setKey:keyCopy];
   [v13 setIv:ivCopy];
   data = [v13 data];
@@ -285,7 +285,7 @@ LABEL_15:
 - (BOOL)startWithError:(id *)error
 {
   CC_SHA256_Init(&self->_sha256Context);
-  v5 = +[(GPBMessage *)CSHWProtoMessageHeader];
+  v5 = objc_msgSend_message(CSHWProtoMessageHeader);
   header = self->_header;
   self->_header = v5;
 

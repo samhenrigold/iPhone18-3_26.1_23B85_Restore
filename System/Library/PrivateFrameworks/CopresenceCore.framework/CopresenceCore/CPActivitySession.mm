@@ -23,14 +23,13 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR___CPActivitySession_id, v3);
-  v8.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR___CPActivitySession_id, v3);
+  v7.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v8.super.isa;
+  return v7.super.isa;
 }
 
 - (NSString)persistentSceneIdentifier
@@ -177,19 +176,18 @@
 {
   v8 = type metadata accessor for URL();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   metadataCopy = metadata;
   selfCopy = self;
-  v15 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = v16;
+  v14 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v16 = v15;
 
-  ActivitySession.receivedResource(atURL:withMetadata:fromParticipantIdentifier:)(v12, v15, v17, identifier);
-  outlined consume of Data._Representation(v15, v17);
+  ActivitySession.receivedResource(atURL:withMetadata:fromParticipantIdentifier:)(v11, v14, v16, identifier);
+  outlined consume of Data._Representation(v14, v16);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (NSString)description

@@ -162,78 +162,78 @@
 
 - (void)_setupSubviews
 {
-  v88 = *MEMORY[0x277D85DE8];
-  v52 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76998] addingSymbolicTraits:0x8000 options:2];
+  v87 = *MEMORY[0x277D85DE8];
+  v51 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76998] addingSymbolicTraits:0x8000 options:2];
   v3 = [MEMORY[0x277D74300] fontWithDescriptor:0.0 size:?];
-  v50 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76968] addingSymbolicTraits:0x8000 options:2];
+  v49 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76968] addingSymbolicTraits:0x8000 options:2];
   v4 = [MEMORY[0x277D74300] fontWithDescriptor:0.0 size:?];
   v5 = objc_opt_new();
   v6 = objc_opt_new();
   v7 = objc_opt_new();
   v8 = objc_opt_new();
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  v54 = v6;
-  v55 = v5;
-  v86[0] = v5;
-  v86[1] = v6;
-  v86[2] = v7;
-  v56 = objc_opt_new();
-  v57 = v8;
-  v86[3] = v8;
-  v86[4] = v56;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:5];
-  v10 = [v9 countByEnumeratingWithState:&v74 objects:v87 count:16];
+  v53 = v6;
+  v54 = v5;
+  v85[0] = v5;
+  v85[1] = v6;
+  v85[2] = v7;
+  v55 = objc_opt_new();
+  v56 = v8;
+  v85[3] = v8;
+  v85[4] = v55;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:5];
+  v10 = [v9 countByEnumeratingWithState:&v73 objects:v86 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v75;
+    v12 = *v74;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v75 != v12)
+        if (*v74 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v74 + 1) + 8 * i);
+        v14 = *(*(&v73 + 1) + 8 * i);
         [v14 setAdjustsFontForContentSizeCategory:1];
         [v14 setTranslatesAutoresizingMaskIntoConstraints:0];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v74 objects:v87 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v73 objects:v86 count:16];
     }
 
     while (v11);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v53 = v7;
-  v84[0] = v7;
-  v84[1] = v57;
-  v84[2] = v56;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:3];
-  v16 = [v15 countByEnumeratingWithState:&v70 objects:v85 count:16];
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v52 = v7;
+  v83[0] = v7;
+  v83[1] = v56;
+  v83[2] = v55;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:3];
+  v16 = [v15 countByEnumeratingWithState:&v69 objects:v84 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v71;
+    v18 = *v70;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v71 != v18)
+        if (*v70 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v70 + 1) + 8 * j);
+        v20 = *(*(&v69 + 1) + 8 * j);
         v21 = WADetailColor();
         [v20 setTextColor:v21];
 
@@ -241,95 +241,95 @@
         [v20 setNumberOfLines:1];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v70 objects:v85 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v69 objects:v84 count:16];
     }
 
     while (v17);
   }
 
-  [v55 setFont:v3];
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
+  [v54 setFont:v3];
   v67 = 0u;
-  v82[0] = v55;
-  v82[1] = v53;
-  v82[2] = v57;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:3];
-  v23 = [v22 countByEnumeratingWithState:&v66 objects:v83 count:16];
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v81[0] = v54;
+  v81[1] = v52;
+  v81[2] = v56;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:3];
+  v23 = [v22 countByEnumeratingWithState:&v65 objects:v82 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v67;
+    v25 = *v66;
     do
     {
       for (k = 0; k != v24; ++k)
       {
-        if (*v67 != v25)
+        if (*v66 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v66 + 1) + 8 * k);
+        v27 = *(*(&v65 + 1) + 8 * k);
         [v27 setAdjustsFontSizeToFitWidth:1];
         [v27 setMinimumScaleFactor:0.4];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v66 objects:v83 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v65 objects:v82 count:16];
     }
 
     while (v24);
   }
 
-  v51 = v3;
+  v50 = v3;
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
-  v80[0] = v54;
-  v80[1] = v56;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
-  v29 = [v28 countByEnumeratingWithState:&v62 objects:v81 count:16];
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v79[0] = v53;
+  v79[1] = v55;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
+  v29 = [v28 countByEnumeratingWithState:&v61 objects:v80 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v63;
+    v31 = *v62;
     do
     {
       for (m = 0; m != v30; ++m)
       {
-        if (*v63 != v31)
+        if (*v62 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = *(*(&v62 + 1) + 8 * m);
+        v33 = *(*(&v61 + 1) + 8 * m);
         [v33 setAdjustsFontSizeToFitWidth:1];
         [v33 setMinimumScaleFactor:0.2];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v62 objects:v81 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v61 objects:v80 count:16];
     }
 
     while (v30);
   }
 
   v34 = WAContentColor();
-  [v54 setTextColor:v34];
+  [v53 setTextColor:v34];
 
-  [v54 setTextAlignment:2];
-  [v56 setTextAlignment:1];
+  [v53 setTextAlignment:2];
+  [v55 setTextAlignment:1];
   v35 = WAContentColor();
-  [v56 setTextColor:v35];
+  [v55 setTextColor:v35];
 
   v36 = objc_opt_new();
   [v36 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v36 setContentMode:1];
   [v36 setTranslatesAutoresizingMaskIntoConstraints:0];
   [(WATodayHeaderView *)self addSubview:v36];
-  v49 = [MEMORY[0x277D75D00] widgetEffectForVibrancyStyle:101];
-  v37 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:v49];
+  v48 = [MEMORY[0x277D75D00] widgetEffectForVibrancyStyle:101];
+  v37 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:v48];
   [(WATodayHeaderView *)self setWeatherInformationVisualEffectView:v37];
 
   weatherInformationVisualEffectView = [(WATodayHeaderView *)self weatherInformationVisualEffectView];
@@ -338,56 +338,54 @@
   weatherInformationVisualEffectView2 = [(WATodayHeaderView *)self weatherInformationVisualEffectView];
   [(WATodayHeaderView *)self addSubview:weatherInformationVisualEffectView2];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v78[0] = v55;
-  v78[1] = v54;
-  v78[2] = v53;
-  v78[3] = v57;
-  v78[4] = v56;
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:5];
-  v41 = [v40 countByEnumeratingWithState:&v58 objects:v79 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v77[0] = v54;
+  v77[1] = v53;
+  v77[2] = v52;
+  v77[3] = v56;
+  v77[4] = v55;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:5];
+  v41 = [v40 countByEnumeratingWithState:&v57 objects:v78 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v59;
+    v43 = *v58;
     do
     {
       for (n = 0; n != v42; ++n)
       {
-        if (*v59 != v43)
+        if (*v58 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        v45 = *(*(&v58 + 1) + 8 * n);
+        v45 = *(*(&v57 + 1) + 8 * n);
         weatherInformationVisualEffectView3 = [(WATodayHeaderView *)self weatherInformationVisualEffectView];
         contentView = [weatherInformationVisualEffectView3 contentView];
         [contentView addSubview:v45];
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v58 objects:v79 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v57 objects:v78 count:16];
     }
 
     while (v42);
   }
 
-  [(WATodayHeaderView *)self setLocationLabel:v55];
-  [(WATodayHeaderView *)self setConditionsLabel1:v53];
-  [(WATodayHeaderView *)self setConditionsLabel2:v57];
-  [(WATodayHeaderView *)self setTemperatureHighLowLabel:v56];
-  [(WATodayHeaderView *)self setTemperatureLabel:v54];
+  [(WATodayHeaderView *)self setLocationLabel:v54];
+  [(WATodayHeaderView *)self setConditionsLabel1:v52];
+  [(WATodayHeaderView *)self setConditionsLabel2:v56];
+  [(WATodayHeaderView *)self setTemperatureHighLowLabel:v55];
+  [(WATodayHeaderView *)self setTemperatureLabel:v53];
   [(WATodayHeaderView *)self setConditionsImageView:v36];
   [(WATodayHeaderView *)self _setupConstraints];
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupConstraints
 {
-  v170 = *MEMORY[0x277D85DE8];
+  v169 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = MEMORY[0x277CCAAD0];
   conditionsImageView = [(WATodayHeaderView *)self conditionsImageView];
@@ -589,34 +587,34 @@
   v140 = [font4 _scaledValueForValue:20.0];
   __38__WATodayHeaderView__setupConstraints__block_invoke_2(-v141, v140, conditionsLabel27, v142, weatherInformationVisualEffectView12, 4, v3);
 
-  v166 = 0u;
-  v167 = 0u;
-  v164 = 0u;
   v165 = 0u;
+  v166 = 0u;
+  v163 = 0u;
+  v164 = 0u;
   locationLabel8 = [(WATodayHeaderView *)self locationLabel];
-  v168[0] = locationLabel8;
+  v167[0] = locationLabel8;
   conditionsLabel19 = [(WATodayHeaderView *)self conditionsLabel1];
-  v168[1] = conditionsLabel19;
+  v167[1] = conditionsLabel19;
   conditionsLabel28 = [(WATodayHeaderView *)self conditionsLabel2];
-  v168[2] = conditionsLabel28;
-  v146 = [MEMORY[0x277CBEA60] arrayWithObjects:v168 count:3];
+  v167[2] = conditionsLabel28;
+  v146 = [MEMORY[0x277CBEA60] arrayWithObjects:v167 count:3];
 
-  v147 = [v146 countByEnumeratingWithState:&v164 objects:v169 count:16];
+  v147 = [v146 countByEnumeratingWithState:&v163 objects:v168 count:16];
   if (v147)
   {
     v148 = v147;
-    v149 = *v165;
+    v149 = *v164;
     do
     {
       v150 = 0;
       do
       {
-        if (*v165 != v149)
+        if (*v164 != v149)
         {
           objc_enumerationMutation(v146);
         }
 
-        trailingAnchor9 = [*(*(&v164 + 1) + 8 * v150) trailingAnchor];
+        trailingAnchor9 = [*(*(&v163 + 1) + 8 * v150) trailingAnchor];
         temperatureLabel8 = [(WATodayHeaderView *)self temperatureLabel];
         leadingAnchor13 = [temperatureLabel8 leadingAnchor];
         v154 = [trailingAnchor9 constraintLessThanOrEqualToAnchor:leadingAnchor13 constant:-8.0];
@@ -626,7 +624,7 @@
       }
 
       while (v148 != v150);
-      v148 = [v146 countByEnumeratingWithState:&v164 objects:v169 count:16];
+      v148 = [v146 countByEnumeratingWithState:&v163 objects:v168 count:16];
     }
 
     while (v148);
@@ -645,7 +643,6 @@
   [v3 addObject:v162];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v3];
-  v163 = *MEMORY[0x277D85DE8];
 }
 
 void __38__WATodayHeaderView__setupConstraints__block_invoke(double a1, uint64_t a2, void *a3, uint64_t a4, void *a5)

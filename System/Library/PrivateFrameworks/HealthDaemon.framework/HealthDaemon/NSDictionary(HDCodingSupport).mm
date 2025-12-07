@@ -22,32 +22,32 @@
 
 + (id)hk_dictionaryWithCodableMetadata:()HDCodingSupport
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a3;
   keyValuePairsCount = [v3 keyValuePairsCount];
   v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:keyValuePairsCount];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v24 = v3;
+  v23 = v3;
   keyValuePairs = [v3 keyValuePairs];
-  v7 = [keyValuePairs countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [keyValuePairs countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       v10 = 0;
       do
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(keyValuePairs);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * v10);
+        v11 = *(*(&v24 + 1) + 8 * v10);
         v12 = [v11 key];
         if ([v11 hasStringValue])
         {
@@ -122,14 +122,12 @@ LABEL_20:
       }
 
       while (v8 != v10);
-      v21 = [keyValuePairs countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v21 = [keyValuePairs countByEnumeratingWithState:&v24 objects:v28 count:16];
       v8 = v21;
     }
 
     while (v21);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

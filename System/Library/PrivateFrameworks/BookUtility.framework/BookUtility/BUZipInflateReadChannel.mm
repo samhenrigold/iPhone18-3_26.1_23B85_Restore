@@ -30,9 +30,9 @@
 - (BUZipInflateReadChannel)initWithReadChannel:(id)channel uncompressedSize:(unint64_t)size CRC:(unsigned int)c validateCRC:(BOOL)rC
 {
   channelCopy = channel;
-  v16.receiver = self;
-  v16.super_class = BUZipInflateReadChannel;
-  v12 = [(BUZipInflateReadChannel *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = BUZipInflateReadChannel;
+  v12 = [(BUZipInflateReadChannel *)&v17 init];
   v13 = v12;
   if (v12)
   {
@@ -47,10 +47,11 @@
     v13->_stream.zfree = 0;
     v13->_stream.opaque = 0;
     v13->_stream.zalloc = 0;
-    if (inflateInit2_(&v13->_stream, -15, "1.2.12", 112))
+    v14 = inflateInit2_(&v13->_stream, -15, "1.2.12", 112);
+    if (v14)
     {
-      v14 = BUZipLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = BUZipLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_241DD1A40();
       }
@@ -179,7 +180,7 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v21 = BUZipLog();
+      v21 = BUZipLog(v17);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_241DD1AC0();
@@ -194,7 +195,7 @@ LABEL_18:
 LABEL_7:
     if (self->_CRC != *c)
     {
-      v21 = BUZipLog();
+      v21 = BUZipLog(v17);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_241DD1A80();

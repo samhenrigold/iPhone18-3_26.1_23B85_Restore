@@ -14,11 +14,10 @@
 
 - (id)description
 {
-  v11.receiver = self;
-  v11.super_class = OrgApacheLuceneSearchFieldValueHitQueue_Entry;
-  v2 = *(&self->super.shardIndex_ + 1);
-  [(OrgApacheLuceneSearchScoreDoc *)&v11 description];
-  return JreStrcat("$IC$", v3, v4, v5, v6, v7, v8, v9, @"slot:");
+  v10.receiver = self;
+  v10.super_class = OrgApacheLuceneSearchFieldValueHitQueue_Entry;
+  [(OrgApacheLuceneSearchScoreDoc *)&v10 description];
+  return JreStrcat("$IC$", v2, v3, v4, v5, v6, v7, v8, @"slot:");
 }
 
 @end

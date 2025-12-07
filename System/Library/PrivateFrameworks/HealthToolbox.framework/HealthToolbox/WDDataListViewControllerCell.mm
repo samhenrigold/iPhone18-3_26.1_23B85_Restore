@@ -113,7 +113,7 @@
 
 - (void)setupConstraints
 {
-  v72[8] = *MEMORY[0x277D85DE8];
+  v71[8] = *MEMORY[0x277D85DE8];
   iconImageView = [(WDDataListViewControllerCell *)self iconImageView];
   LODWORD(v4) = 1148846080;
   [iconImageView setContentCompressionResistancePriority:0 forAxis:v4];
@@ -130,79 +130,78 @@
   leadingAnchor = [iconImageView3 leadingAnchor];
   contentView = [(WDDataListViewControllerCell *)self contentView];
   leadingAnchor2 = [contentView leadingAnchor];
-  v64 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  v72[0] = v64;
+  v63 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
+  v71[0] = v63;
   iconImageView4 = [(WDDataListViewControllerCell *)self iconImageView];
   widthAnchor = [iconImageView4 widthAnchor];
-  v60 = [widthAnchor constraintEqualToConstant:29.0];
-  v72[1] = v60;
+  v59 = [widthAnchor constraintEqualToConstant:29.0];
+  v71[1] = v59;
   subtitleTextLabel2 = [(WDDataListViewControllerCell *)self subtitleTextLabel];
   leadingAnchor3 = [subtitleTextLabel2 leadingAnchor];
   iconImageView5 = [(WDDataListViewControllerCell *)self iconImageView];
   trailingAnchor = [iconImageView5 trailingAnchor];
-  v55 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:16.0];
-  v72[2] = v55;
+  v54 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:16.0];
+  v71[2] = v54;
   subtitleTextLabel3 = [(WDDataListViewControllerCell *)self subtitleTextLabel];
   trailingAnchor2 = [subtitleTextLabel3 trailingAnchor];
   contentView2 = [(WDDataListViewControllerCell *)self contentView];
   trailingAnchor3 = [contentView2 trailingAnchor];
-  v50 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:trailingAnchor3 constant:-16.0];
-  v72[3] = v50;
+  v49 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:trailingAnchor3 constant:-16.0];
+  v71[3] = v49;
   subtitleTextLabel4 = [(WDDataListViewControllerCell *)self subtitleTextLabel];
   topAnchor = [subtitleTextLabel4 topAnchor];
   contentView3 = [(WDDataListViewControllerCell *)self contentView];
   topAnchor2 = [contentView3 topAnchor];
-  v45 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:9.0];
-  v72[4] = v45;
+  v44 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:9.0];
+  v71[4] = v44;
   titleTextLabel = [(WDDataListViewControllerCell *)self titleTextLabel];
   trailingAnchor4 = [titleTextLabel trailingAnchor];
   contentView4 = [(WDDataListViewControllerCell *)self contentView];
   trailingAnchor5 = [contentView4 trailingAnchor];
-  v40 = [trailingAnchor4 constraintLessThanOrEqualToAnchor:trailingAnchor5 constant:-16.0];
-  v72[5] = v40;
+  v39 = [trailingAnchor4 constraintLessThanOrEqualToAnchor:trailingAnchor5 constant:-16.0];
+  v71[5] = v39;
   titleTextLabel2 = [(WDDataListViewControllerCell *)self titleTextLabel];
   bottomAnchor = [titleTextLabel2 bottomAnchor];
   contentView5 = [(WDDataListViewControllerCell *)self contentView];
   bottomAnchor2 = [contentView5 bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-6.0];
-  v72[6] = v14;
+  v71[6] = v14;
   titleTextLabel3 = [(WDDataListViewControllerCell *)self titleTextLabel];
   topAnchor3 = [titleTextLabel3 topAnchor];
   subtitleTextLabel5 = [(WDDataListViewControllerCell *)self subtitleTextLabel];
   bottomAnchor3 = [subtitleTextLabel5 bottomAnchor];
   v19 = [topAnchor3 constraintGreaterThanOrEqualToAnchor:bottomAnchor3 constant:1.0];
-  v72[7] = v19;
-  v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:8];
+  v71[7] = v19;
+  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:8];
 
   iconImageView6 = [(WDDataListViewControllerCell *)self iconImageView];
   centerYAnchor2 = [iconImageView6 centerYAnchor];
   contentView6 = [(WDDataListViewControllerCell *)self contentView];
   centerYAnchor3 = [contentView6 centerYAnchor];
   v23 = [centerYAnchor2 constraintEqualToAnchor:centerYAnchor3];
-  v71[0] = v23;
+  v70[0] = v23;
   titleTextLabel4 = [(WDDataListViewControllerCell *)self titleTextLabel];
   leadingAnchor4 = [titleTextLabel4 leadingAnchor];
   iconImageView7 = [(WDDataListViewControllerCell *)self iconImageView];
   trailingAnchor6 = [iconImageView7 trailingAnchor];
   v28 = [leadingAnchor4 constraintEqualToAnchor:trailingAnchor6 constant:16.0];
-  v71[1] = v28;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+  v70[1] = v28;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
   regularConstraints = self->_regularConstraints;
   self->_regularConstraints = v29;
 
-  v70[0] = self->_largeTextIconImageCenterYAnchorConstraint;
+  v69[0] = self->_largeTextIconImageCenterYAnchorConstraint;
   titleTextLabel5 = [(WDDataListViewControllerCell *)self titleTextLabel];
   leadingAnchor5 = [titleTextLabel5 leadingAnchor];
   iconImageView8 = [(WDDataListViewControllerCell *)self iconImageView];
   leadingAnchor6 = [iconImageView8 leadingAnchor];
   v35 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v70[1] = v35;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+  v69[1] = v35;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
   largeTextConstraints = self->_largeTextConstraints;
   self->_largeTextConstraints = v36;
 
-  [MEMORY[0x277CCAAD0] activateConstraints:v63];
-  v38 = *MEMORY[0x277D85DE8];
+  [MEMORY[0x277CCAAD0] activateConstraints:v62];
 }
 
 - (void)_updateForCurrentSizeCategory

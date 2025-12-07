@@ -1,6 +1,7 @@
 @interface _UIFocusWeakHelper
 - (_UIFocusWeakHelper)initWithDeallocationBlock:(id)block;
 - (void)dealloc;
+- (void)invalidate;
 @end
 
 @implementation _UIFocusWeakHelper
@@ -18,6 +19,13 @@
   }
 
   return v6;
+}
+
+- (void)invalidate
+{
+  deallocationBlock = self->_deallocationBlock;
+  self->_deallocationBlock = 0;
+  MEMORY[0x2821F96F8](self, deallocationBlock);
 }
 
 - (void)dealloc

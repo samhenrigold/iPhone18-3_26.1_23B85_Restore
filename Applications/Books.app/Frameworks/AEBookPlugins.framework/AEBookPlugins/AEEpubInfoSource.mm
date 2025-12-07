@@ -157,60 +157,60 @@
   persistentStoreFileName = [(AEEpubInfoSource *)self persistentStoreFileName];
   [(AEEpubInfoSource *)self recreatePersistentStoreDirectory];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v6 = objc_sync_enter(selfCopy);
   if (!selfCopy->_persistentContainer)
   {
-    v6 = AEBundle();
-    v7 = [v6 URLForResource:@"AEBookInfo" withExtension:@"momd"];
-    v8 = [[NSManagedObjectModel alloc] initWithContentsOfURL:v7];
-    v9 = [NSPersistentContainer persistentContainerWithName:@"AEBookInfo" managedObjectModel:v8];
-    v23 = v8;
+    v7 = AEBundle(v6);
+    v8 = [v7 URLForResource:@"AEBookInfo" withExtension:@"momd"];
+    v9 = [[NSManagedObjectModel alloc] initWithContentsOfURL:v8];
+    v10 = [NSPersistentContainer persistentContainerWithName:@"AEBookInfo" managedObjectModel:v9];
+    v24 = v9;
     persistentContainer = selfCopy->_persistentContainer;
-    selfCopy->_persistentContainer = v9;
+    selfCopy->_persistentContainer = v10;
 
-    v11 = [persistentStoreDirectory stringByAppendingPathComponent:persistentStoreFileName];
-    v12 = [NSURL fileURLWithPath:v11 isDirectory:0];
-    v13 = [NSPersistentStoreDescription persistentStoreDescriptionWithURL:v12];
-    [v13 setOption:NSFileProtectionNone forKey:NSPersistentStoreFileProtectionKey];
-    v32 = v13;
-    v14 = [NSArray arrayWithObjects:&v32 count:1];
-    [(NSPersistentContainer *)selfCopy->_persistentContainer setPersistentStoreDescriptions:v14];
-    v22 = v6;
+    v12 = [persistentStoreDirectory stringByAppendingPathComponent:persistentStoreFileName];
+    v13 = [NSURL fileURLWithPath:v12 isDirectory:0];
+    v14 = [NSPersistentStoreDescription persistentStoreDescriptionWithURL:v13];
+    [v14 setOption:NSFileProtectionNone forKey:NSPersistentStoreFileProtectionKey];
+    v33 = v14;
+    v15 = [NSArray arrayWithObjects:&v33 count:1];
+    [(NSPersistentContainer *)selfCopy->_persistentContainer setPersistentStoreDescriptions:v15];
+    v23 = v7;
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 1;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
+    v32 = 1;
     persistentStoreCoordinator = [(NSPersistentContainer *)selfCopy->_persistentContainer persistentStoreCoordinator];
-    v16 = selfCopy->_persistentContainer;
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_D7B70;
-    v25[3] = &unk_1E54E8;
-    v17 = persistentStoreCoordinator;
-    v26 = v17;
-    v27 = &v28;
-    [(NSPersistentContainer *)v16 loadPersistentStoresWithCompletionHandler:v25];
-    if (*(v29 + 24) == 1)
+    v17 = selfCopy->_persistentContainer;
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_D7B70;
+    v26[3] = &unk_1E54E8;
+    v18 = persistentStoreCoordinator;
+    v27 = v18;
+    v28 = &v29;
+    [(NSPersistentContainer *)v17 loadPersistentStoresWithCompletionHandler:v26];
+    if (*(v30 + 24) == 1)
     {
-      v18 = selfCopy->_persistentContainer;
-      v24[0] = _NSConcreteStackBlock;
-      v24[1] = 3221225472;
-      v24[2] = sub_D7DF4;
-      v24[3] = &unk_1E5510;
-      v24[4] = &v28;
-      [(NSPersistentContainer *)v18 loadPersistentStoresWithCompletionHandler:v24, v22, v8];
+      v19 = selfCopy->_persistentContainer;
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_D7DF4;
+      v25[3] = &unk_1E5510;
+      v25[4] = &v29;
+      [(NSPersistentContainer *)v19 loadPersistentStoresWithCompletionHandler:v25, v23, v9];
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
   objc_sync_exit(selfCopy);
 
-  v19 = selfCopy->_persistentContainer;
-  v20 = v19;
+  v20 = selfCopy->_persistentContainer;
+  v21 = v20;
 
-  return v19;
+  return v20;
 }
 
 - (id)newManagedObjectContextWithPrivateQueueConcurrency

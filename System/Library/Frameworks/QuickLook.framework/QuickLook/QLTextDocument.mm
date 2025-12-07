@@ -85,22 +85,21 @@
 {
   v4 = sub_23A7EDF64();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23A7EDF44();
-  v9 = self + OBJC_IVAR____TtC9QuickLook14QLTextDocument_content;
-  *v9 = 0;
-  *(v9 + 1) = 0;
-  v9[16] = -1;
-  v10 = sub_23A7EDF24();
-  v11 = type metadata accessor for QLTextDocument();
-  v14.receiver = self;
-  v14.super_class = v11;
-  v12 = [(UIDocument *)&v14 initWithFileURL:v10];
+  v8 = self + OBJC_IVAR____TtC9QuickLook14QLTextDocument_content;
+  *v8 = 0;
+  *(v8 + 1) = 0;
+  v8[16] = -1;
+  v9 = sub_23A7EDF24();
+  v10 = type metadata accessor for QLTextDocument();
+  v13.receiver = self;
+  v13.super_class = v10;
+  v11 = [(UIDocument *)&v13 initWithFileURL:v9];
 
-  (*(v5 + 8))(v8, v4);
-  return v12;
+  (*(v5 + 8))(v7, v4);
+  return v11;
 }
 
 @end

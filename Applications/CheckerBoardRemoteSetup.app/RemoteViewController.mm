@@ -20,22 +20,28 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_1000055E8;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_100002D60(context, v6);
-  sub_1000055A0(v6);
+  sub_1000055A0(v6, v7);
 }
 
 - (void)didInvalidateForRemoteAlert
 {
   sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-  v2 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v3 = static OS_os_log.default.getter();
+  v2 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("didInvalidateForRemoteAlert", 27, 2, &_mh_execute_header, v3, v2, &_swiftEmptyArrayStorage);
 }
 
 - (void)viewDidAppear:(BOOL)appear

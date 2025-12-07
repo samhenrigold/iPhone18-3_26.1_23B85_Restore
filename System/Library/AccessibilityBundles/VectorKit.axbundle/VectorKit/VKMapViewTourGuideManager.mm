@@ -770,7 +770,7 @@ void __55__VKMapViewTourGuideManager__setZoomLevelForUserSpeed___block_invoke(ui
   [v11 removePointsAndPaths];
   _elements = [(VKMapViewTourGuideManager *)self _elements];
   v5 = objc_opt_class();
-  v6 = AXVKAccessibilityPaths(_elements, v5, 25);
+  v6 = AXVKAccessibilityPaths(_elements, v5, 0x19);
   [v11 addBuildingPaths:v6];
 
   v7 = objc_opt_class();

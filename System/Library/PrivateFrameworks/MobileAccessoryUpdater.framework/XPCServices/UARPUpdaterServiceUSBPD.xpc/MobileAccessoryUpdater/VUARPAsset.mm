@@ -56,10 +56,9 @@
   if (v8)
   {
     objc_storeStrong(&v8->_assetTag, asset);
-    assetTag = v9->_assetTag;
-    v11 = uarpDynamicAssetURL();
+    v10 = uarpDynamicAssetURL();
     url = v9->_url;
-    v9->_url = v11;
+    v9->_url = v10;
   }
 
   return v9;
@@ -272,7 +271,7 @@
 
     if ((v13 & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_10002571C(&self->_url);
+      sub_10002571C();
     }
 
     [v11 uarpCloseAndReturnError:0];

@@ -935,25 +935,25 @@ void __90__PKPaymentSetupCredentialsViewController__requestExternalizedAuthIfNee
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __90__PKPaymentSetupCredentialsViewController__requestExternalizedAuthIfNeededWithCompletion___block_invoke_2(void *a1)
+uint64_t __90__PKPaymentSetupCredentialsViewController__requestExternalizedAuthIfNeededWithCompletion___block_invoke_2(void *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (a1[4])
     {
-      v3 = @"Y";
+      v4 = @"Y";
     }
 
     else
     {
-      v3 = @"N";
+      v4 = @"N";
     }
 
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "CredentialsVC requestExternaliziedAuthIfNeededWithCompletion requested local auth and returning %@.", &v5, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "CredentialsVC requestExternaliziedAuthIfNeededWithCompletion requested local auth and returning %@.", &v6, 0xCu);
   }
 
   if (a1[4])
@@ -987,25 +987,25 @@ void __90__PKPaymentSetupCredentialsViewController__requestExternalizedAuthIfNee
   }
 }
 
-void __90__PKPaymentSetupCredentialsViewController__requestExternalizedAuthIfNeededWithCompletion___block_invoke_2_213(void *a1)
+void __90__PKPaymentSetupCredentialsViewController__requestExternalizedAuthIfNeededWithCompletion___block_invoke_2_213(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "CredentialsVC requestExternalizedAuthForWatchWithVisibleViewController returning error: %@", &v7, 0xCu);
+    v4 = a1[4];
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "CredentialsVC requestExternalizedAuthForWatchWithVisibleViewController returning error: %@", &v8, 0xCu);
   }
 
   (*(a1[6] + 16))(a1[6], a1[4] == 0, 0);
-  v4 = a1[4];
-  if (v4)
+  v5 = a1[4];
+  if (v5)
   {
-    v5 = a1[5];
-    v6 = PKAlertForDisplayableErrorWithHandlers(v4, 0, 0, 0);
-    [v5 presentViewController:v6 animated:1 completion:0];
+    v6 = a1[5];
+    v7 = PKAlertForDisplayableErrorWithHandlers(v5, 0, 0, 0);
+    [v6 presentViewController:v7 animated:1 completion:0];
   }
 }
 

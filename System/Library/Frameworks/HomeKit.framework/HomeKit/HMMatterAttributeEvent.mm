@@ -30,7 +30,7 @@
 
 + (id)createWithDictionary:(id)dictionary home:(id)home
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   homeCopy = home;
   v8 = [dictionaryCopy objectForKeyedSubscript:@"HMAttributeValueKey"];
@@ -55,16 +55,16 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v23 = v26 = v8;
+        v23 = v25 = v8;
         *buf = 138543874;
-        v30 = v23;
-        v31 = 2112;
-        v32 = objc_opt_class();
-        v33 = 2112;
-        v34 = v9;
+        v29 = v23;
+        v30 = 2112;
+        v31 = objc_opt_class();
+        v32 = 2112;
+        v33 = v9;
         _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, failed to resolve accessory %@", buf, 0x20u);
 
-        v8 = v26;
+        v8 = v25;
       }
 
       objc_autoreleasePoolPop(context);
@@ -83,9 +83,9 @@
       contexta = homeCopy;
       v20 = v19 = v8;
       *buf = 138543618;
-      v30 = v20;
-      v31 = 2112;
-      v32 = objc_opt_class();
+      v29 = v20;
+      v30 = 2112;
+      v31 = objc_opt_class();
       _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, missing accessory/attribute/cluster/endpoint ids", buf, 0x16u);
 
       v8 = v19;
@@ -95,8 +95,6 @@
     objc_autoreleasePoolPop(v16);
     v15 = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -263,8 +261,8 @@
 
 - (HMMatterAttributeEvent)initWithAttributeID:(id)d clusterID:(id)iD endpointID:(id)endpointID accessory:(id)accessory triggerValue:(id)value
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v23 = @"kEventUUIDKey";
+  v23[1] = *MEMORY[0x1E69E9840];
+  v22 = @"kEventUUIDKey";
   v12 = MEMORY[0x1E696AFB0];
   valueCopy = value;
   accessoryCopy = accessory;
@@ -272,11 +270,10 @@
   iDCopy = iD;
   dCopy = d;
   uUID = [v12 UUID];
-  v24[0] = uUID;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v23[0] = uUID;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   v20 = [(HMMatterAttributeEvent *)self initWithDict:v19 attributeID:dCopy clusterID:iDCopy endpointID:endpointIDCopy accessory:accessoryCopy triggerValue:valueCopy];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

@@ -8,7 +8,7 @@
 - (id)accessibilityContextualLabel
 {
   v2 = [MEMORY[0x1E696ADA0] localizedStringFromNumber:&unk_1F538A1C0 numberStyle:0];
-  v3 = SXBundle();
+  v3 = SXBundle(v2);
   v4 = [v3 localizedStringForKey:@"Heading level %@" value:&stru_1F532F6C0 table:0];
 
   v5 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:v4, v2];

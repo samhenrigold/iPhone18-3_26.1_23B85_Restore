@@ -836,7 +836,7 @@ LABEL_43:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_6_26();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v2, v3, " [%s] %s:%d %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v2, v3, " [%s] %s:%d %@", v4, v5, v6, v7);
 }
 
 - (void)getInfoUnserialized:type:.cold.1()

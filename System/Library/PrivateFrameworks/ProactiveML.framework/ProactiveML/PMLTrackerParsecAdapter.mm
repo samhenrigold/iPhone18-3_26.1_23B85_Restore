@@ -8,7 +8,7 @@
 
 - (void)postMetricId:(unsigned int)id message:(id)message
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = [PMLTrackerParsecAdapter wrappedMessage:messageCopy];
   if ([objc_opt_class() _writeDataForTransparency:v5])
@@ -18,13 +18,13 @@
     v8 = PML_LogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = objc_opt_class();
-      v12 = v11;
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2048;
-      v16 = [data length];
-      _os_log_debug_impl(&dword_260D68000, v8, OS_LOG_TYPE_DEBUG, "Sending %@ (size: %tu) to Parsec.", &v13, 0x16u);
+      v10 = objc_opt_class();
+      v11 = v10;
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2048;
+      v15 = [data length];
+      _os_log_debug_impl(&dword_260D68000, v8, OS_LOG_TYPE_DEBUG, "Sending %@ (size: %tu) to Parsec.", &v12, 0x16u);
     }
 
     mEMORY[0x277D007C0] = [MEMORY[0x277D007C0] sharedSession];
@@ -36,17 +36,15 @@
     data = PML_LogHandle();
     if (os_log_type_enabled(data, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      _os_log_error_impl(&dword_260D68000, data, OS_LOG_TYPE_ERROR, "Failed writing analytics log for data transparency. Skip upload", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_error_impl(&dword_260D68000, data, OS_LOG_TYPE_ERROR, "Failed writing analytics log for data transparency. Skip upload", &v12, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)wrappedMessage:(id)message
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = objc_opt_new();
   objc_opt_class();
@@ -93,7 +91,7 @@
             if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v9 = messageCopy;
+              v8 = messageCopy;
               _os_log_error_impl(&dword_260D68000, v5, OS_LOG_TYPE_ERROR, "Unsupported proto buf message: %@", buf, 0xCu);
             }
 
@@ -104,25 +102,23 @@
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 + (BOOL)_writeDataForTransparency:(id)transparency
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAA0];
   dictionaryRepresentation = [transparency dictionaryRepresentation];
-  v13 = 0;
-  v5 = [v3 dataWithJSONObject:dictionaryRepresentation options:1 error:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [v3 dataWithJSONObject:dictionaryRepresentation options:1 error:&v12];
+  v6 = v12;
 
   if (v5)
   {
-    v12 = v5;
+    v11 = v5;
     v7 = OSAWriteLogForSubmission();
-    v8 = v12;
+    v8 = v11;
   }
 
   else
@@ -132,14 +128,13 @@
     {
       localizedDescription = [v6 localizedDescription];
       *buf = 138412290;
-      v15 = localizedDescription;
+      v14 = localizedDescription;
       _os_log_error_impl(&dword_260D68000, v8, OS_LOG_TYPE_ERROR, "Error serializing trystero envelope to JSON: %@", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

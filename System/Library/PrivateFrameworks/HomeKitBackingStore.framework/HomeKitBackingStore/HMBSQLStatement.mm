@@ -29,18 +29,18 @@
 
 - (void)finalize
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v6;
-    v17 = 2048;
+    v14 = 138543618;
+    v15 = v6;
+    v16 = 2048;
     statement = [(HMBSQLStatement *)selfCopy statement];
-    _os_log_impl(&dword_22AD27000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Finalizing statement: %p", &v15, 0x16u);
+    _os_log_impl(&dword_22AD27000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Finalizing statement: %p", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -67,22 +67,20 @@
     {
       v12 = HMFGetLogIdentifier();
       statement2 = [(HMBSQLStatement *)v10 statement];
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2048;
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2048;
       statement = statement2;
-      _os_log_impl(&dword_22AD27000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Can't finalize statement because context is nil: %p", &v15, 0x16u);
+      _os_log_impl(&dword_22AD27000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Can't finalize statement because context is nil: %p", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (![(HMBSQLStatement *)self isFinalized])
   {
     context = [(HMBSQLStatement *)self context];
@@ -102,8 +100,8 @@
       {
         v7 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v11 = v7;
-        v12 = 2048;
+        v10 = v7;
+        v11 = 2048;
         statement = [(HMBSQLStatement *)selfCopy statement];
         _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Can't finalize statement in dealloc because context is nil: %p", buf, 0x16u);
       }
@@ -112,10 +110,9 @@
     }
   }
 
-  v9.receiver = self;
-  v9.super_class = HMBSQLStatement;
-  [(HMBSQLStatement *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HMBSQLStatement;
+  [(HMBSQLStatement *)&v8 dealloc];
 }
 
 - (HMBSQLStatement)initWithContext:(id)context statement:(id)statement
@@ -166,17 +163,16 @@
 
 uint64_t __30__HMBSQLStatement_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8;
-  logCategory__hmf_once_v8 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8;
+  logCategory__hmf_once_v8 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)queryPlansForContext:(id)context statement:(id)statement
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   statementCopy = statement;
   if ([self explainStatements])
@@ -184,9 +180,9 @@ uint64_t __30__HMBSQLStatement_logCategory__block_invoke()
     connection = [contextCopy connection];
     v9 = [@"EXPLAIN QUERY PLAN " stringByAppendingString:statementCopy];
     uTF8String = [v9 UTF8String];
-    v20 = 0;
-    v11 = selectSQLite3(connection, uTF8String, MEMORY[0x277CBEC10], &v20);
-    v12 = v20;
+    v19 = 0;
+    v11 = selectSQLite3(connection, uTF8String, MEMORY[0x277CBEC10], &v19);
+    v12 = v19;
 
     if (v11)
     {
@@ -202,11 +198,11 @@ uint64_t __30__HMBSQLStatement_logCategory__block_invoke()
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v22 = v17;
-        v23 = 2112;
-        v24 = statementCopy;
-        v25 = 2112;
-        v26 = v12;
+        v21 = v17;
+        v22 = 2112;
+        v23 = statementCopy;
+        v24 = 2112;
+        v25 = v12;
         _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to explain statement '%@': %@", buf, 0x20u);
       }
 
@@ -219,8 +215,6 @@ uint64_t __30__HMBSQLStatement_logCategory__block_invoke()
   {
     v13 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -235,12 +229,12 @@ HMBSQLStatementQueryPlanTuple *__50__HMBSQLStatement_queryPlansForContext_statem
 
 + (sqlite3_stmt)sqlStatementForContext:(id)context statement:(id)statement
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   statementCopy = statement;
-  v22 = 0;
-  v8 = prepareSQLite3([contextCopy connection], objc_msgSend(statementCopy, "UTF8String"), &v22);
-  v9 = v22;
+  v21 = 0;
+  v8 = prepareSQLite3([contextCopy connection], objc_msgSend(statementCopy, "UTF8String"), &v21);
+  v9 = v21;
   v10 = objc_autoreleasePoolPush();
   selfCopy = self;
   v12 = HMFGetOSLogHandle();
@@ -252,9 +246,9 @@ HMBSQLStatementQueryPlanTuple *__50__HMBSQLStatement_queryPlansForContext_statem
       v14 = HMFGetLogIdentifier();
       v15 = sqlite3_sql(v8);
       *buf = 138543618;
-      v24 = v14;
-      v25 = 2080;
-      v26 = v15;
+      v23 = v14;
+      v24 = 2080;
+      v25 = v15;
       v16 = "%{public}@Prepared SQL statement: %s";
       v17 = v13;
       v18 = OS_LOG_TYPE_DEBUG;
@@ -268,11 +262,11 @@ LABEL_6:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v24 = v14;
-    v25 = 2112;
-    v26 = statementCopy;
-    v27 = 2112;
-    v28 = v9;
+    v23 = v14;
+    v24 = 2112;
+    v25 = statementCopy;
+    v26 = 2112;
+    v27 = v9;
     v16 = "%{public}@Unable to prepare SQL statement '%@': %@";
     v17 = v13;
     v18 = OS_LOG_TYPE_ERROR;
@@ -281,7 +275,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v10);
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

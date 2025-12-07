@@ -103,7 +103,7 @@ WFEvernoteTag *__45__WFEvernoteTagsTagFieldParameter_updateTags__block_invoke_2(
 
 - (void)setActionResources:(id)resources
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   anyObject = [resources anyObject];
   v5 = objc_opt_class();
   v6 = anyObject;
@@ -112,16 +112,16 @@ WFEvernoteTag *__45__WFEvernoteTagsTagFieldParameter_updateTags__block_invoke_2(
     v8 = getWFGeneralLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = 136315906;
-      v12 = "WFEnforceClass";
-      v13 = 2114;
-      v14 = v6;
-      v15 = 2114;
-      v16 = objc_opt_class();
-      v17 = 2114;
-      v18 = v5;
-      v9 = v16;
-      _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v11, 0x2Au);
+      v10 = 136315906;
+      v11 = "WFEnforceClass";
+      v12 = 2114;
+      v13 = v6;
+      v14 = 2114;
+      v15 = objc_opt_class();
+      v16 = 2114;
+      v17 = v5;
+      v9 = v15;
+      _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v10, 0x2Au);
     }
 
     v7 = 0;
@@ -133,7 +133,6 @@ WFEvernoteTag *__45__WFEvernoteTagsTagFieldParameter_updateTags__block_invoke_2(
   }
 
   [(WFEvernoteTagsTagFieldParameter *)self setEvernoteAccessResource:v7];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)referencedActionResourceClasses

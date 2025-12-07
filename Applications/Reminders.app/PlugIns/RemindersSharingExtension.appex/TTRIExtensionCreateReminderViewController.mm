@@ -6,6 +6,7 @@
 - (void)didTapCancel:(id)cancel;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -21,6 +22,23 @@
 {
   selfCopy = self;
   sub_10001A038(appear);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v6.receiver = self;
+  v6.super_class = swift_getObjectType();
+  v4 = v6.receiver;
+  [(TTRIExtensionCreateReminderViewController *)&v6 viewWillDisappear:disappearCopy];
+  if (*&v4[OBJC_IVAR____TtC25RemindersSharingExtension41TTRIExtensionCreateReminderViewController_currentTextInputModeObserver])
+  {
+
+    sub_10004B1C0();
+  }
+
+  sub_10001C334(&qword_100067E70, v5, type metadata accessor for TTRIExtensionCreateReminderViewController, &unk_10005318C);
+  sub_10004A8E0();
 }
 
 - (void)viewWillLayoutSubviews
@@ -49,16 +67,15 @@
   selfCopy = self;
   sub_10004CBA0();
   swift_unknownObjectRelease();
-  v5 = *(selfCopy + OBJC_IVAR____TtC25RemindersSharingExtension41TTRIExtensionCreateReminderViewController_presenter);
   if (qword_100066EF8 != -1)
   {
     swift_once();
   }
 
-  v6 = sub_10004C1B0();
-  sub_10000D49C(v6, qword_100067710);
-  sub_100011BA4(_swiftEmptyArrayStorage);
-  sub_100014D1C();
+  v5 = sub_10004C1B0();
+  sub_10000D49C(v5, qword_100067710);
+  v6 = sub_100011BA4(_swiftEmptyArrayStorage);
+  sub_100014D1C("ExtensionCreateReminder cancel", 30, 2, v6);
 
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
@@ -78,9 +95,8 @@
   swift_unknownObjectRelease();
   sub_10004C930();
   [(TTRIExtensionCreateReminderViewController *)selfCopy resignFirstResponder];
-  v5 = *(selfCopy + OBJC_IVAR____TtC25RemindersSharingExtension41TTRIExtensionCreateReminderViewController_presenter);
   sub_10000F348();
-  sub_10000343C(v6);
+  sub_10000343C(v5);
 }
 
 - (_TtC25RemindersSharingExtension41TTRIExtensionCreateReminderViewController)initWithNibName:(id)name bundle:(id)bundle

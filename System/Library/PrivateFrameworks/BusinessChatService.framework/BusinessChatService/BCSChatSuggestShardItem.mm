@@ -363,12 +363,11 @@ LABEL_66:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    index = self->_index;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -387,22 +386,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  count = self->_count;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    ttl = self->_ttl;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_filter)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -505,7 +502,6 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 40);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_index != *(equalCopy + 2))
@@ -517,7 +513,7 @@ LABEL_5:
   else if ((*(equalCopy + 40) & 2) != 0)
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -550,17 +546,17 @@ LABEL_19:
   filter = self->_filter;
   if (filter | *(equalCopy + 4))
   {
-    v7 = [(NSData *)filter isEqual:?];
+    v6 = [(NSData *)filter isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

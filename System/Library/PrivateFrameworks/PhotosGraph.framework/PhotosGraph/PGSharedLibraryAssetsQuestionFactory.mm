@@ -10,13 +10,13 @@
 
 + (id)_libraryScopeFromPhotoLibrary:(id)library
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   librarySpecificFetchOptions = [library librarySpecificFetchOptions];
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:1];
-  v17[0] = v4;
+  v16[0] = v4;
   v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v17[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   [librarySpecificFetchOptions setSortDescriptors:v6];
 
   v7 = [MEMORY[0x277CD98A8] fetchActiveLibraryScopeWithOptions:librarySpecificFetchOptions];
@@ -34,9 +34,9 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
     {
       localIdentifier = [firstObject localIdentifier];
-      v15 = 138412290;
-      v16 = localIdentifier;
-      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGSharedLibraryAssetsQuestionFactory] more than 1 scope configured, using first one: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = localIdentifier;
+      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGSharedLibraryAssetsQuestionFactory] more than 1 scope configured, using first one: %@", &v14, 0xCu);
     }
   }
 
@@ -47,15 +47,14 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGSharedLibraryAssetsQuestionFactory] no active scope", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGSharedLibraryAssetsQuestionFactory] no active scope", &v14, 2u);
     }
 
     firstObject = 0;
   }
 
 LABEL_9:
-  v13 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -70,7 +69,7 @@ LABEL_9:
 
 - (id)_assetsFetchResultFromMoment:(id)moment
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   momentCopy = moment;
   workingContext = [(PGSurveyQuestionFactory *)self workingContext];
   photoLibrary = [workingContext photoLibrary];
@@ -78,31 +77,29 @@ LABEL_9:
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
   v8 = MEMORY[0x277CCA920];
   v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != %d", @"kindSubtype", 10];
-  v20[0] = v9;
+  v19[0] = v9;
   v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K != %d", @"kindSubtype", 103];
-  v20[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v12 = [v8 andPredicateWithSubpredicates:v11];
 
   [librarySpecificFetchOptions setInternalPredicate:v12];
   v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:1];
-  v19[0] = v13;
+  v18[0] = v13;
   v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v19[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   [librarySpecificFetchOptions setSortDescriptors:v15];
 
   [librarySpecificFetchOptions setWantsIncrementalChangeDetails:0];
   v16 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:momentCopy options:librarySpecificFetchOptions];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)_eligibleMomentsFetchResult
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   workingContext = [(PGSurveyQuestionFactory *)self workingContext];
   photoLibrary = [workingContext photoLibrary];
 
@@ -112,26 +109,26 @@ LABEL_9:
     librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
     v6 = [MEMORY[0x277CD98C0] fetchLibraryScopeRulesForLibraryScope:v4 options:librarySpecificFetchOptions];
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v28 objects:v38 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v27 objects:v37 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v29;
+      v11 = *v28;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v29 != v11)
+          if (*v28 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dateRangeCondition = [*(*(&v28 + 1) + 8 * i) dateRangeCondition];
+          dateRangeCondition = [*(*(&v27 + 1) + 8 * i) dateRangeCondition];
           v14 = dateRangeCondition;
           if (dateRangeCondition && [dateRangeCondition criteria] == 2)
           {
@@ -142,7 +139,7 @@ LABEL_9:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v28 objects:v38 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v27 objects:v37 count:16];
         if (v10)
         {
           continue;
@@ -161,25 +158,25 @@ LABEL_14:
     {
       localIdentifier = [v4 localIdentifier];
       *buf = 138412546;
-      v35 = localIdentifier;
-      v36 = 2112;
-      v37 = distantPast;
+      v34 = localIdentifier;
+      v35 = 2112;
+      v36 = distantPast;
       _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGSharedLibraryAssetsQuestionFactory] using scope: %@, with %@ start date", buf, 0x16u);
     }
 
     librarySpecificFetchOptions2 = [photoLibrary librarySpecificFetchOptions];
-    v33 = *MEMORY[0x277CD9AA8];
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+    v32 = *MEMORY[0x277CD9AA8];
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
     [librarySpecificFetchOptions2 setFetchPropertySets:v21];
 
     v22 = [MEMORY[0x277CCAC30] predicateWithFormat:@"startDate >= %@", distantPast];
     [librarySpecificFetchOptions2 setInternalPredicate:v22];
 
     v23 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:0];
-    v32[0] = v23;
+    v31[0] = v23;
     v24 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-    v32[1] = v24;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[1] = v24;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     [librarySpecificFetchOptions2 setSortDescriptors:v25];
 
     [librarySpecificFetchOptions2 setWantsIncrementalChangeDetails:0];
@@ -191,14 +188,12 @@ LABEL_14:
     v15 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)generateQuestionsWithLimit:(unint64_t)limit progressBlock:(id)block
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = _Block_copy(blockCopy);
   v6 = 0.0;
@@ -218,51 +213,51 @@ LABEL_8:
         if (v13)
         {
           v14 = v13;
-          v59 = 0u;
-          v60 = 0u;
-          v57 = 0u;
           v58 = 0u;
+          v59 = 0u;
+          v56 = 0u;
+          v57 = 0u;
           v15 = _eligibleMomentsFetchResult;
-          v43 = [v15 countByEnumeratingWithState:&v57 objects:v63 count:16];
-          if (v43)
+          v42 = [v15 countByEnumeratingWithState:&v56 objects:v62 count:16];
+          if (v42)
           {
             v16 = 1.0 / v14;
-            v17 = *v58;
-            v41 = v5 + 16;
+            v17 = *v57;
+            v40 = v5 + 16;
             v18 = 0.0;
             v19 = 0x277CBE000uLL;
-            v48 = v5;
-            v49 = blockCopy;
-            v46 = _eligibleMomentsFetchResult;
-            v47 = photoLibrary;
-            v45 = v15;
-            v42 = *v58;
+            v47 = v5;
+            v48 = blockCopy;
+            v45 = _eligibleMomentsFetchResult;
+            v46 = photoLibrary;
+            v44 = v15;
+            v41 = *v57;
             while (2)
             {
               v20 = 0;
               do
               {
-                if (*v58 != v17)
+                if (*v57 != v17)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v21 = *(*(&v57 + 1) + 8 * v20);
+                v21 = *(*(&v56 + 1) + 8 * v20);
                 if (v5)
                 {
                   Current = CFAbsoluteTimeGetCurrent();
                   if (Current - v6 >= 0.01)
                   {
-                    v61 = 0;
-                    (*(v5 + 2))(v5, &v61, v18);
-                    if (v61)
+                    v60 = 0;
+                    (*(v5 + 2))(v5, &v60, v18);
+                    if (v60)
                     {
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                       {
                         *buf = 67109378;
-                        v65 = 72;
-                        v66 = 2080;
-                        v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
+                        v64 = 72;
+                        v65 = 2080;
+                        v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
                         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
                       }
 
@@ -273,33 +268,33 @@ LABEL_8:
                   }
                 }
 
-                v44 = v20;
+                v43 = v20;
                 context = objc_autoreleasePoolPush();
                 v23 = [(PGSharedLibraryAssetsQuestionFactory *)self _assetsFetchResultFromMoment:v21];
                 lastObject = [v23 lastObject];
                 uuid = [lastObject uuid];
 
                 distantPast = [*(v19 + 2728) distantPast];
+                v52 = 0u;
                 v53 = 0u;
                 v54 = 0u;
                 v55 = 0u;
-                v56 = 0u;
                 v27 = v23;
-                v28 = [v27 countByEnumeratingWithState:&v53 objects:v62 count:16];
+                v28 = [v27 countByEnumeratingWithState:&v52 objects:v61 count:16];
                 if (v28)
                 {
                   v29 = v28;
-                  v30 = *v54;
+                  v30 = *v53;
                   while (2)
                   {
                     for (i = 0; i != v29; ++i)
                     {
-                      if (*v54 != v30)
+                      if (*v53 != v30)
                       {
                         objc_enumerationMutation(v27);
                       }
 
-                      v32 = *(*(&v53 + 1) + 8 * i);
+                      v32 = *(*(&v52 + 1) + 8 * i);
                       creationDate = [v32 creationDate];
                       uuid2 = [v32 uuid];
                       if (([uuid isEqualToString:uuid2] & 1) != 0 || (-[PGSharedLibraryAssetsQuestion timeIntervalSinceDate:](creationDate, "timeIntervalSinceDate:", distantPast), v35 >= 600.0))
@@ -312,11 +307,11 @@ LABEL_8:
                           {
 
                             objc_autoreleasePoolPop(context);
-                            v5 = v48;
-                            blockCopy = v49;
-                            _eligibleMomentsFetchResult = v46;
-                            photoLibrary = v47;
-                            v15 = v45;
+                            v5 = v47;
+                            blockCopy = v48;
+                            _eligibleMomentsFetchResult = v45;
+                            photoLibrary = v46;
+                            v15 = v44;
                             goto LABEL_49;
                           }
                         }
@@ -331,7 +326,7 @@ LABEL_8:
                       }
                     }
 
-                    v29 = [v27 countByEnumeratingWithState:&v53 objects:v62 count:16];
+                    v29 = [v27 countByEnumeratingWithState:&v52 objects:v61 count:16];
                     if (v29)
                     {
                       continue;
@@ -343,19 +338,19 @@ LABEL_8:
 
                 objc_autoreleasePoolPop(context);
                 v18 = v16 + v18;
-                v20 = v44 + 1;
-                v5 = v48;
-                blockCopy = v49;
-                _eligibleMomentsFetchResult = v46;
-                photoLibrary = v47;
-                v15 = v45;
-                v17 = v42;
+                v20 = v43 + 1;
+                v5 = v47;
+                blockCopy = v48;
+                _eligibleMomentsFetchResult = v45;
+                photoLibrary = v46;
+                v15 = v44;
+                v17 = v41;
                 v19 = 0x277CBE000;
               }
 
-              while (v44 + 1 != v43);
-              v43 = [v45 countByEnumeratingWithState:&v57 objects:v63 count:16];
-              if (v43)
+              while (v43 + 1 != v42);
+              v42 = [v44 countByEnumeratingWithState:&v56 objects:v62 count:16];
+              if (v42)
               {
                 continue;
               }
@@ -366,7 +361,7 @@ LABEL_8:
 
 LABEL_49:
 
-          if (!v5 || CFAbsoluteTimeGetCurrent() - v6 < 0.01 || (v61 = 0, (*(v5 + 2))(v5, &v61, 1.0), !v61))
+          if (!v5 || CFAbsoluteTimeGetCurrent() - v6 < 0.01 || (v60 = 0, (*(v5 + 2))(v5, &v60, 1.0), !v60))
           {
             allObjects = [v11 allObjects];
 LABEL_62:
@@ -382,9 +377,9 @@ LABEL_61:
           }
 
           *buf = 67109378;
-          v65 = 103;
-          v66 = 2080;
-          v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
+          v64 = 103;
+          v65 = 2080;
+          v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
           v38 = MEMORY[0x277D86220];
         }
 
@@ -400,17 +395,17 @@ LABEL_61:
             goto LABEL_61;
           }
 
-          v61 = 0;
-          (*(v5 + 2))(v5, &v61, 1.0);
-          if (!v61 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+          v60 = 0;
+          (*(v5 + 2))(v5, &v60, 1.0);
+          if (!v60 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             goto LABEL_61;
           }
 
           *buf = 67109378;
-          v65 = 64;
-          v66 = 2080;
-          v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
+          v64 = 64;
+          v65 = 2080;
+          v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
           v38 = MEMORY[0x277D86220];
         }
 
@@ -418,7 +413,7 @@ LABEL_61:
         goto LABEL_61;
       }
 
-      if (!v5 || CFAbsoluteTimeGetCurrent() - v6 < 0.01 || (v61 = 0, (*(v5 + 2))(v5, &v61, 1.0), !v61) || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      if (!v5 || CFAbsoluteTimeGetCurrent() - v6 < 0.01 || (v60 = 0, (*(v5 + 2))(v5, &v60, 1.0), !v60) || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
 LABEL_47:
         allObjects = MEMORY[0x277CBEBF8];
@@ -428,9 +423,9 @@ LABEL_63:
       }
 
       *buf = 67109378;
-      v65 = 54;
-      v66 = 2080;
-      v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
+      v64 = 54;
+      v65 = 2080;
+      v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
       v37 = MEMORY[0x277D86220];
     }
 
@@ -446,17 +441,17 @@ LABEL_63:
         goto LABEL_47;
       }
 
-      v61 = 0;
-      (*(v5 + 2))(v5, &v61, 1.0);
-      if (!v61 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      v60 = 0;
+      (*(v5 + 2))(v5, &v60, 1.0);
+      if (!v60 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_47;
       }
 
       *buf = 67109378;
-      v65 = 49;
-      v66 = 2080;
-      v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
+      v64 = 49;
+      v65 = 2080;
+      v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
       v37 = MEMORY[0x277D86220];
     }
 
@@ -464,9 +459,9 @@ LABEL_63:
     goto LABEL_47;
   }
 
-  v61 = 0;
-  (*(v5 + 2))(v5, &v61, 0.0);
-  if (v61 != 1)
+  v60 = 0;
+  (*(v5 + 2))(v5, &v60, 0.0);
+  if (v60 != 1)
   {
     v6 = v7;
     goto LABEL_8;
@@ -475,16 +470,14 @@ LABEL_63:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v65 = 45;
-    v66 = 2080;
-    v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
+    v64 = 45;
+    v65 = 2080;
+    v66 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/SharedLibrary/PGSharedLibraryAssetsQuestionFactory.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   allObjects = MEMORY[0x277CBEBF8];
 LABEL_64:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }

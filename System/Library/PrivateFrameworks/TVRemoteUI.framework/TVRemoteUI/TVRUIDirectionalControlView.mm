@@ -123,113 +123,114 @@
 
 - (void)layoutSubviews
 {
-  v41.receiver = self;
-  v41.super_class = TVRUIDirectionalControlView;
-  [(TVRUIDirectionalControlView *)&v41 layoutSubviews];
+  v43.receiver = self;
+  v43.super_class = TVRUIDirectionalControlView;
+  [(TVRUIDirectionalControlView *)&v43 layoutSubviews];
   [(TVRUIDirectionalControlView *)self bounds];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
   [(UIView *)self->_tapHandlingSquareWrapperView setBounds:0.0, 0.0, v7, v7];
-  v42.origin.x = v4;
-  v42.origin.y = v6;
-  v42.size.width = v8;
-  v42.size.height = v10;
-  v11 = 0.5;
-  v12 = CGRectGetWidth(v42) * 0.5;
-  v43.origin.x = v4;
-  v43.origin.y = v6;
-  v43.size.width = v8;
-  v43.size.height = v10;
-  [(UIView *)self->_tapHandlingSquareWrapperView setCenter:v12, CGRectGetHeight(v43) * 0.5];
   v44.origin.x = v4;
   v44.origin.y = v6;
   v44.size.width = v8;
   v44.size.height = v10;
-  Width = CGRectGetWidth(v44);
-  [(UIView *)self->_directionControlsWrapperView setBounds:0.0, 0.0, Width * 0.69, Width * 0.69];
+  v11 = 0.5;
+  v12 = CGRectGetWidth(v44) * 0.5;
   v45.origin.x = v4;
   v45.origin.y = v6;
   v45.size.width = v8;
   v45.size.height = v10;
-  Height = CGRectGetHeight(v45);
+  [(UIView *)self->_tapHandlingSquareWrapperView setCenter:v12, CGRectGetHeight(v45) * 0.5];
+  v46.origin.x = v4;
+  v46.origin.y = v6;
+  v46.size.width = v8;
+  v46.size.height = v10;
+  Width = CGRectGetWidth(v46);
+  [(UIView *)self->_directionControlsWrapperView setBounds:0.0, 0.0, Width * 0.69, Width * 0.69];
+  v47.origin.x = v4;
+  v47.origin.y = v6;
+  v47.size.width = v8;
+  v47.size.height = v10;
+  Height = CGRectGetHeight(v47);
   [(UIView *)self->_directionControlsWrapperView bounds];
   x = v15;
   y = v17;
-  v39 = v18;
+  v41 = v18;
   v20 = v19;
-  if ([(TVRUIDirectionalControlView *)self offsetDirectionalPad])
+  offsetDirectionalPad = [(TVRUIDirectionalControlView *)self offsetDirectionalPad];
+  if (offsetDirectionalPad)
   {
-    v21 = _TVRUIViewControllerLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = _TVRUIViewControllerLog(offsetDirectionalPad);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26CFEB000, v21, OS_LOG_TYPE_DEFAULT, "Directional view adjusting position for media controls", buf, 2u);
+      _os_log_impl(&dword_26CFEB000, v22, OS_LOG_TYPE_DEFAULT, "Directional view adjusting position for media controls", buf, 2u);
     }
 
-    v46.origin.x = v4;
-    v46.origin.y = v6;
-    v46.size.width = v8;
-    v46.size.height = v10;
-    v22 = CGRectGetHeight(v46);
+    v48.origin.x = v4;
+    v48.origin.y = v6;
+    v48.size.width = v8;
+    v48.size.height = v10;
+    v23 = CGRectGetHeight(v48);
     styleProvider = [(TVRUIDirectionalControlView *)self styleProvider];
     [styleProvider mediaControlsViewHeight];
-    v25 = v22 - v24;
+    v26 = v23 - v25;
 
-    v26 = v25 * 0.5;
+    v27 = v26 * 0.5;
     styleProvider2 = [(TVRUIDirectionalControlView *)self styleProvider];
     isSmallDevice = [styleProvider2 isSmallDevice];
 
     if (isSmallDevice)
     {
       rect = v20;
-      v29 = _TVRUIViewControllerLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v31 = _TVRUIViewControllerLog(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_26CFEB000, v29, OS_LOG_TYPE_DEFAULT, "Showing the directional controls on a small device so adjusting the insets to ensure the controls fit.", buf, 2u);
+        _os_log_impl(&dword_26CFEB000, v31, OS_LOG_TYPE_DEFAULT, "Showing the directional controls on a small device so adjusting the insets to ensure the controls fit.", buf, 2u);
       }
 
       styleProvider3 = [(TVRUIDirectionalControlView *)self styleProvider];
       [styleProvider3 directionalPadInsetForSmallDevices];
-      v32 = v31;
       v34 = v33;
+      v36 = v35;
 
-      v47.origin.x = x;
-      v47.origin.y = y;
-      v47.size.width = v39;
-      v47.size.height = rect;
-      v48 = CGRectInset(v47, v34, v32);
-      x = v48.origin.x;
-      y = v48.origin.y;
-      v39 = v48.size.width;
-      v26 = v26 + v34;
-      v20 = v48.size.height;
+      v49.origin.x = x;
+      v49.origin.y = y;
+      v49.size.width = v41;
+      v49.size.height = rect;
+      v50 = CGRectInset(v49, v36, v34);
+      x = v50.origin.x;
+      y = v50.origin.y;
+      v41 = v50.size.width;
+      v27 = v27 + v36;
+      v20 = v50.size.height;
       v11 = 0.5;
     }
   }
 
   else
   {
-    v26 = Height * 0.5;
+    v27 = Height * 0.5;
   }
 
-  v49.origin.x = v4;
-  v49.origin.y = v6;
-  v49.size.width = v8;
-  v49.size.height = v10;
-  [(UIView *)self->_directionControlsWrapperView setCenter:CGRectGetWidth(v49) * v11, v26];
+  v51.origin.x = v4;
+  v51.origin.y = v6;
+  v51.size.width = v8;
+  v51.size.height = v10;
+  [(UIView *)self->_directionControlsWrapperView setCenter:CGRectGetWidth(v51) * v11, v27];
   [(TVRUIDirectionalControlView *)self centerEdgeLength];
-  [(UIView *)self->_selectIndicator setBounds:0.0, 0.0, v35, v35];
+  [(UIView *)self->_selectIndicator setBounds:0.0, 0.0, v37, v37];
   [(UIView *)self->_directionControlsWrapperView bounds];
-  v36 = CGRectGetWidth(v50) * v11;
+  v38 = CGRectGetWidth(v52) * v11;
   [(UIView *)self->_directionControlsWrapperView bounds];
-  [(UIView *)self->_selectIndicator setCenter:v36, CGRectGetHeight(v51) * v11];
-  [(UIImageView *)self->_upImageView setFrame:_TVRImageFrameForDirectionalImage_0(self->_upImageView, 1, x, y, v39, v20)];
-  [(UIImageView *)self->_downImageView setFrame:_TVRImageFrameForDirectionalImage_0(self->_downImageView, 4, x, y, v39, v20)];
-  [(UIImageView *)self->_leftImageView setFrame:_TVRImageFrameForDirectionalImage_0(self->_leftImageView, 2, x, y, v39, v20)];
-  [(UIImageView *)self->_rightImageView setFrame:_TVRImageFrameForDirectionalImage_0(self->_rightImageView, 8, x, y, v39, v20)];
+  [(UIView *)self->_selectIndicator setCenter:v38, CGRectGetHeight(v53) * v11];
+  [(UIImageView *)self->_upImageView setFrame:_TVRImageFrameForDirectionalImage_0(self->_upImageView, 1, x, y, v41, v20)];
+  [(UIImageView *)self->_downImageView setFrame:_TVRImageFrameForDirectionalImage_0(self->_downImageView, 4, x, y, v41, v20)];
+  [(UIImageView *)self->_leftImageView setFrame:_TVRImageFrameForDirectionalImage_0(self->_leftImageView, 2, x, y, v41, v20)];
+  [(UIImageView *)self->_rightImageView setFrame:_TVRImageFrameForDirectionalImage_0(self->_rightImageView, 8, x, y, v41, v20)];
 }
 
 - (void)setOffsetDirectionalPad:(BOOL)pad
@@ -713,7 +714,7 @@ uint64_t __53__TVRUIDirectionalControlView__unhighlightArrowView___block_invoke(
 
 - (void)handleTap:(id)tap
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   tapCopy = tap;
   if ([tapCopy state] == 3)
   {
@@ -732,9 +733,9 @@ uint64_t __53__TVRUIDirectionalControlView__unhighlightArrowView___block_invoke(
         v12 = v11;
         tapHandlingSquareWrapperView = [(TVRUIDirectionalControlView *)self tapHandlingSquareWrapperView];
         [tapHandlingSquareWrapperView frame];
-        v34.x = v10;
-        v34.y = v12;
-        v14 = CGRectContainsPoint(v35, v34);
+        v37.x = v10;
+        v37.y = v12;
+        v14 = CGRectContainsPoint(v38, v37);
 
         if (v14)
         {
@@ -750,16 +751,16 @@ uint64_t __53__TVRUIDirectionalControlView__unhighlightArrowView___block_invoke(
           eventDelegate4 = [(TVRUIDirectionalControlView *)self eventDelegate];
           [eventDelegate4 generatedButtonEvent:v19];
 
-          v21 = _TVRUIViewControllerLog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = _TVRUIViewControllerLog(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v32 = v16;
-            v22 = "Detected directional control tap within bounds of button type %ld";
-            v23 = v21;
-            v24 = 12;
+            v35 = v16;
+            v23 = "Detected directional control tap within bounds of button type %ld";
+            v24 = v22;
+            v25 = 12;
 LABEL_13:
-            _os_log_impl(&dword_26CFEB000, v23, OS_LOG_TYPE_DEFAULT, v22, buf, v24);
+            _os_log_impl(&dword_26CFEB000, v24, OS_LOG_TYPE_DEFAULT, v23, buf, v25);
           }
 
 LABEL_14:
@@ -774,7 +775,7 @@ LABEL_14:
         }
 
         [(TVRUIDirectionalControlView *)self bounds];
-        if (v12 >= v25 * 0.5)
+        if (v12 >= v26 * 0.5)
         {
           v17 = [TVRUIButtonEvent createButtonEvent:1 buttonType:13];
           eventDelegate5 = [(TVRUIDirectionalControlView *)self eventDelegate];
@@ -784,14 +785,14 @@ LABEL_14:
           eventDelegate6 = [(TVRUIDirectionalControlView *)self eventDelegate];
           [eventDelegate6 generatedButtonEvent:v19];
 
-          v21 = _TVRUIViewControllerLog();
-          if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = _TVRUIViewControllerLog(v32);
+          if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_14;
           }
 
           *buf = 0;
-          v22 = "Detected directional control tap outside bounds - lower half. Sending arrow down";
+          v23 = "Detected directional control tap outside bounds - lower half. Sending arrow down";
         }
 
         else
@@ -804,18 +805,18 @@ LABEL_14:
           eventDelegate8 = [(TVRUIDirectionalControlView *)self eventDelegate];
           [eventDelegate8 generatedButtonEvent:v19];
 
-          v21 = _TVRUIViewControllerLog();
-          if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = _TVRUIViewControllerLog(v29);
+          if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_14;
           }
 
           *buf = 0;
-          v22 = "Detected directional control tap outside bounds - top half. Sending arrow up";
+          v23 = "Detected directional control tap outside bounds - top half. Sending arrow up";
         }
 
-        v23 = v21;
-        v24 = 2;
+        v24 = v22;
+        v25 = 2;
         goto LABEL_13;
       }
     }

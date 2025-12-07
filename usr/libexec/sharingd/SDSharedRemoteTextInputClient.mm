@@ -47,39 +47,43 @@
 {
   if (!self->_rtiClient)
   {
-    v11[5] = v5;
-    v11[6] = v4;
-    v11[9] = v2;
-    v11[10] = v3;
-    if (dword_100971508 <= 30 && (dword_100971508 != -1 || _LogCategory_Initialize()))
+    v12[5] = v6;
+    v12[6] = v5;
+    v12[9] = v3;
+    v12[10] = v4;
+    selfCopy = self;
+    if (dword_100971508 <= 30)
     {
-      sub_10013F814();
+      if (dword_100971508 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10013F814(self, a2, v2);
+      }
     }
 
-    v7 = objc_alloc_init(SFRemoteTextInputClient);
-    rtiClient = self->_rtiClient;
-    self->_rtiClient = v7;
+    v8 = objc_alloc_init(SFRemoteTextInputClient);
+    rtiClient = selfCopy->_rtiClient;
+    selfCopy->_rtiClient = v8;
 
-    [(SFRemoteTextInputClient *)self->_rtiClient setDispatchQueue:self->_dispatchQueue];
+    [(SFRemoteTextInputClient *)selfCopy->_rtiClient setDispatchQueue:selfCopy->_dispatchQueue];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10013ED40;
+    v12[3] = &unk_1008CF400;
+    v12[4] = selfCopy;
+    [(SFRemoteTextInputClient *)selfCopy->_rtiClient setEventHandler:v12];
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_10013ED40;
-    v11[3] = &unk_1008CF400;
-    v11[4] = self;
-    [(SFRemoteTextInputClient *)self->_rtiClient setEventHandler:v11];
+    v11[2] = sub_10013ED4C;
+    v11[3] = &unk_1008D14D8;
+    v11[4] = selfCopy;
+    [(SFRemoteTextInputClient *)selfCopy->_rtiClient setTextInputDidBegin:v11];
     v10[0] = _NSConcreteStackBlock;
     v10[1] = 3221225472;
-    v10[2] = sub_10013ED4C;
+    v10[2] = sub_10013EDAC;
     v10[3] = &unk_1008D14D8;
-    v10[4] = self;
-    [(SFRemoteTextInputClient *)self->_rtiClient setTextInputDidBegin:v10];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_10013EDAC;
-    v9[3] = &unk_1008D14D8;
-    v9[4] = self;
-    [(SFRemoteTextInputClient *)self->_rtiClient setTextInputDidEnd:v9];
-    [(SFRemoteTextInputClient *)self->_rtiClient activate];
+    v10[4] = selfCopy;
+    [(SFRemoteTextInputClient *)selfCopy->_rtiClient setTextInputDidEnd:v10];
+    [(SFRemoteTextInputClient *)selfCopy->_rtiClient activate];
   }
 }
 
@@ -102,12 +106,15 @@
   }
 
   [(SDSharedRemoteTextInputClient *)self removeAllDelegates];
-  [(SDSharedRemoteTextInputClient *)self _stopClock:3];
+  v3 = [(SDSharedRemoteTextInputClient *)self _stopClock:3];
   if (self->_rtiClient)
   {
-    if (dword_100971508 <= 30 && (dword_100971508 != -1 || _LogCategory_Initialize()))
+    if (dword_100971508 <= 30)
     {
-      sub_10013F850();
+      if (dword_100971508 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_10013F850(v3, v4, v5);
+      }
     }
 
     [(SFRemoteTextInputClient *)self->_rtiClient invalidate];
@@ -121,7 +128,7 @@
   delegateCopy = delegate;
   if (dword_100971508 <= 30 && (dword_100971508 != -1 || _LogCategory_Initialize()))
   {
-    sub_10013F86C();
+    sub_10013F86C(delegateCopy);
   }
 
   delegates = self->_delegates;
@@ -145,7 +152,7 @@
   {
     if (dword_100971508 != -1 || (v5 = _LogCategory_Initialize(), delegateCopy = v6, v5))
     {
-      sub_10013F8AC();
+      sub_10013F8AC(delegateCopy);
       delegateCopy = v6;
     }
   }
@@ -183,7 +190,7 @@
   infoCopy = info;
   if (dword_100971508 <= 30 && (dword_100971508 != -1 || _LogCategory_Initialize()))
   {
-    sub_10013F948();
+    sub_10013F948(flags);
   }
 
   [(SDSharedRemoteTextInputClient *)self _startClockWithResetIfNeeded];
@@ -203,7 +210,7 @@
   infoCopy = info;
   if (dword_100971508 <= 30 && (dword_100971508 != -1 || _LogCategory_Initialize()))
   {
-    sub_10013F988();
+    sub_10013F988(flags);
   }
 
   [(SDSharedRemoteTextInputClient *)self _stopClock:2];
@@ -225,23 +232,25 @@
   {
     clockCopy = clock;
     [(NSDate *)sessionClock timeIntervalSinceNow];
+    v9 = v8;
     [(NSDate *)self->_sessionClock timeIntervalSinceNow];
+    v11 = v9 >= 0.0 ? v10 : -v10;
     if (clockCopy)
     {
       if (dword_100971508 <= 30 && (dword_100971508 != -1 || _LogCategory_Initialize()))
       {
-        sub_10013F9C8(event);
+        sub_10013F9C8(event, (v11 * 1000.0));
       }
 
-      v8 = self->_sessionClock;
+      v12 = self->_sessionClock;
       self->_sessionClock = 0;
 
       overrunTimer = self->_overrunTimer;
       if (overrunTimer)
       {
-        v11 = overrunTimer;
-        dispatch_source_cancel(v11);
-        v10 = self->_overrunTimer;
+        v15 = overrunTimer;
+        dispatch_source_cancel(v15);
+        v14 = self->_overrunTimer;
         self->_overrunTimer = 0;
       }
     }
@@ -250,44 +259,48 @@
 
 - (void)_startClockWithResetIfNeeded
 {
+  selfCopy = self;
   if (self->_sessionClock)
   {
-    [(SDSharedRemoteTextInputClient *)self _stopClock:4];
+    self = [(SDSharedRemoteTextInputClient *)self _stopClock:4];
   }
 
-  if (dword_100971508 <= 30 && (dword_100971508 != -1 || _LogCategory_Initialize()))
+  if (dword_100971508 <= 30)
   {
-    sub_10013FA28();
+    if (dword_100971508 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10013FA28(self, a2, v2);
+    }
   }
 
-  v3 = +[NSDate date];
-  sessionClock = self->_sessionClock;
-  self->_sessionClock = v3;
+  v4 = +[NSDate date];
+  sessionClock = selfCopy->_sessionClock;
+  selfCopy->_sessionClock = v4;
 
-  overrunTimer = self->_overrunTimer;
+  overrunTimer = selfCopy->_overrunTimer;
   if (overrunTimer)
   {
-    v6 = overrunTimer;
-    dispatch_source_cancel(v6);
-    v7 = self->_overrunTimer;
-    self->_overrunTimer = 0;
+    v7 = overrunTimer;
+    dispatch_source_cancel(v7);
+    v8 = selfCopy->_overrunTimer;
+    selfCopy->_overrunTimer = 0;
   }
 
-  v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-  v9 = self->_overrunTimer;
-  self->_overrunTimer = v8;
+  v9 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, selfCopy->_dispatchQueue);
+  v10 = selfCopy->_overrunTimer;
+  selfCopy->_overrunTimer = v9;
 
-  v10 = self->_overrunTimer;
-  v11 = dispatch_time(0, 3600000000000);
-  dispatch_source_set_timer(v10, v11, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
-  v12 = self->_overrunTimer;
+  v11 = selfCopy->_overrunTimer;
+  v12 = dispatch_time(0, 3600000000000);
+  dispatch_source_set_timer(v11, v12, 0xFFFFFFFFFFFFFFFFLL, 0xEE6B280uLL);
+  v13 = selfCopy->_overrunTimer;
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_10013F6D4;
   handler[3] = &unk_1008CDEA0;
-  handler[4] = self;
-  dispatch_source_set_event_handler(v12, handler);
-  dispatch_resume(self->_overrunTimer);
+  handler[4] = selfCopy;
+  dispatch_source_set_event_handler(v13, handler);
+  dispatch_resume(selfCopy->_overrunTimer);
 }
 
 @end

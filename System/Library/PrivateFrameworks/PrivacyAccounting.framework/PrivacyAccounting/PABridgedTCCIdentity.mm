@@ -26,17 +26,17 @@
 
 - (PABridgedTCCIdentity)initWithCoder:(id)coder
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v18[0] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   v7 = [v4 setWithArray:v6];
   v8 = MEMORY[0x1E695DFD8];
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
-  v10 = [v8 setWithArray:{v9, v17[0]}];
+  v16[0] = objc_opt_class();
+  v16[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v10 = [v8 setWithArray:{v9, v16[0]}];
   v11 = [coderCopy decodeDictionaryWithKeysOfClasses:v7 objectsOfClasses:v10 forKey:@"identity"];
 
   if (!v11)
@@ -58,37 +58,31 @@ LABEL_5:
 LABEL_6:
   v14 = selfCopy;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  identity = self->_identity;
   coderCopy = coder;
-  v5 = tcc_identity_copy_external_representation();
-  [coderCopy encodeObject:v5 forKey:@"identity"];
+  v4 = tcc_identity_copy_external_representation();
+  [coderCopy encodeObject:v4 forKey:@"identity"];
 }
 
 - (unint64_t)hash
 {
-  identity = self->_identity;
   type = tcc_identity_get_type();
-  v5 = self->_identity;
-  v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:tcc_identity_get_identifier()];
-  v7 = [v6 hash] - type + 32 * type;
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:tcc_identity_get_identifier()];
+  v4 = [v3 hash] - type + 32 * type;
 
-  v8 = self->_identity;
   verifier_type = tcc_identity_get_verifier_type();
-  v10 = verifier_type - v7 + 32 * v7;
+  v6 = verifier_type - v4 + 32 * v4;
   if (verifier_type)
   {
-    v11 = self->_identity;
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:tcc_identity_get_verifier_code_requirement_string()];
-    v10 = [v12 hash] - v10 + 32 * v10;
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:tcc_identity_get_verifier_code_requirement_string()];
+    v6 = [v7 hash] - v6 + 32 * v6;
   }
 
-  return v10;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -114,10 +108,9 @@ LABEL_6:
 
 - (id)description
 {
-  identity = self->_identity;
-  v3 = tcc_object_copy_description();
+  v2 = tcc_object_copy_description();
 
-  return v3;
+  return v2;
 }
 
 @end

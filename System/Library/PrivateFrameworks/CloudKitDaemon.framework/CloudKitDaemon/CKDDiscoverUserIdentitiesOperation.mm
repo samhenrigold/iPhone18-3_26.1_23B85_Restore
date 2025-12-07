@@ -34,7 +34,7 @@
 
 - (void)_handleDiscoveredIdentity:(id)identity lookupInfo:(id)info responseCode:(id)code
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   infoCopy = info;
   codeCopy = code;
@@ -47,9 +47,9 @@
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v37 = infoCopy;
-    v38 = 2112;
-    v39 = identityCopy;
+    v36 = infoCopy;
+    v37 = 2112;
+    v38 = identityCopy;
     _os_log_impl(&dword_22506F000, v11, OS_LOG_TYPE_INFO, "For lookup info %@, discovered identity %@", buf, 0x16u);
   }
 
@@ -63,8 +63,8 @@
       block[2] = sub_225260FE8;
       block[3] = &unk_278546990;
       block[4] = self;
-      v34 = infoCopy;
-      v35 = identityCopy;
+      v33 = infoCopy;
+      v34 = identityCopy;
       dispatch_async(v16, block);
     }
   }
@@ -82,8 +82,6 @@
     v29 = objc_msgSend_request(self, v27, v28);
     objc_msgSend_cancel(v29, v30, v31);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_discoverIdentitiesWithLookupInfos:(id)infos completionBlock:(id)block

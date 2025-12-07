@@ -12,11 +12,11 @@ void sub_223C7A994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_223C7B270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_223C7B270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -27,16 +27,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_223C7C3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_223C7C3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_223C7C640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_223C7C640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -143,33 +143,31 @@ LABEL_6:
 
 void __VOSProcessAllowsScreenRecognition_block_invoke()
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CE6918];
-  v7[0] = *MEMORY[0x277CE6928];
-  v7[1] = v1;
+  v6[0] = *MEMORY[0x277CE6928];
+  v6[1] = v1;
   v2 = *MEMORY[0x277CE6818];
-  v7[2] = *MEMORY[0x277CE6920];
-  v7[3] = v2;
-  v7[4] = *MEMORY[0x277CE68C0];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
+  v6[2] = *MEMORY[0x277CE6920];
+  v6[3] = v2;
+  v6[4] = *MEMORY[0x277CE68C0];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
   v4 = [v0 setWithArray:v3];
   v5 = VOSProcessAllowsScreenRecognition_UnsupportedApps;
   VOSProcessAllowsScreenRecognition_UnsupportedApps = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-id VOSVoiceOverServicesBundle()
+id VOSVoiceOverServicesBundle(uint64_t a1)
 {
   if (VOSVoiceOverServicesBundle_onceToken != -1)
   {
     VOSVoiceOverServicesBundle_cold_1();
   }
 
-  v1 = VOSVoiceOverServicesBundle__Bundle;
+  v2 = VOSVoiceOverServicesBundle__Bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __VOSVoiceOverServicesBundle_block_invoke()
@@ -370,7 +368,7 @@ BOOL __VOSFirstGesturesCompatibleBrailleTable_block_invoke(uint64_t a1, void *a2
 
 id _VOSCrystalReplacementForTableIdentifier(void *a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (v3)
   {
@@ -388,45 +386,45 @@ id _VOSCrystalReplacementForTableIdentifier(void *a1, uint64_t a2)
         v6 = *(&off_2784F3588 + a2 - 1);
       }
 
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v9 = v5;
-      v20 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
-      if (v20)
+      v19 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      if (v19)
       {
-        v10 = *v26;
-        v19 = *v26;
+        v10 = *v25;
+        v18 = *v25;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v19; ++i)
           {
-            if (*v26 != v10)
+            if (*v25 != v10)
             {
               objc_enumerationMutation(v9);
             }
 
-            v12 = *(*(&v25 + 1) + 8 * i);
+            v12 = *(*(&v24 + 1) + 8 * i);
+            v20 = 0u;
             v21 = 0u;
             v22 = 0u;
             v23 = 0u;
-            v24 = 0u;
-            v13 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:{16, v19}];
+            v13 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:{16, v18}];
             if (v13)
             {
               v14 = v13;
-              v15 = *v22;
+              v15 = *v21;
               while (2)
               {
                 for (j = 0; j != v14; ++j)
                 {
-                  if (*v22 != v15)
+                  if (*v21 != v15)
                   {
                     objc_enumerationMutation(v6);
                   }
 
-                  if ([v12 hasSuffix:*(*(&v21 + 1) + 8 * j)])
+                  if ([v12 hasSuffix:*(*(&v20 + 1) + 8 * j)])
                   {
                     v7 = v12;
 
@@ -434,7 +432,7 @@ id _VOSCrystalReplacementForTableIdentifier(void *a1, uint64_t a2)
                   }
                 }
 
-                v14 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
+                v14 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
                 if (v14)
                 {
                   continue;
@@ -444,13 +442,13 @@ id _VOSCrystalReplacementForTableIdentifier(void *a1, uint64_t a2)
               }
             }
 
-            v10 = v19;
+            v10 = v18;
           }
 
-          v20 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v19 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
         }
 
-        while (v20);
+        while (v19);
       }
 
       v8 = [v9 firstObject];
@@ -471,36 +469,34 @@ LABEL_26:
     v7 = [v4 identifier];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 uint64_t _VOSHasReplaceableTableInRotorItems()
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CE7E20] sharedInstance];
   v1 = [v0 voiceOverBrailleLanguageRotorItems];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v2 = v1;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = VOSBrailleTableForRotorItem(*(*(&v11 + 1) + 8 * i));
+        v6 = VOSBrailleTableForRotorItem(*(*(&v10 + 1) + 8 * i));
         v7 = [v6 replacements];
         v8 = [v7 count];
 
@@ -511,7 +507,7 @@ uint64_t _VOSHasReplaceableTableInRotorItems()
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -523,13 +519,12 @@ uint64_t _VOSHasReplaceableTableInRotorItems()
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 void VOSCrystalMigrateBrailleTableReplacements()
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl())
   {
     v0 = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -555,26 +550,26 @@ void VOSCrystalMigrateBrailleTableReplacements()
 
       v10 = objc_opt_new();
       v11 = objc_opt_new();
+      v83 = 0u;
       v84 = 0u;
       v85 = 0u;
       v86 = 0u;
-      v87 = 0u;
       obj = v9;
-      v77 = [obj countByEnumeratingWithState:&v84 objects:v97 count:16];
-      if (v77)
+      v76 = [obj countByEnumeratingWithState:&v83 objects:v96 count:16];
+      if (v76)
       {
-        v76 = *v85;
-        v72 = v7;
+        v75 = *v84;
+        v71 = v7;
         do
         {
-          for (i = 0; i != v77; ++i)
+          for (i = 0; i != v76; ++i)
           {
-            if (*v85 != v76)
+            if (*v84 != v75)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v84 + 1) + 8 * i);
+            v13 = *(*(&v83 + 1) + 8 * i);
             v14 = [v13 objectForKeyedSubscript:@"Default"];
             v15 = [v14 BOOLValue];
 
@@ -584,7 +579,7 @@ void VOSCrystalMigrateBrailleTableReplacements()
               v17 = [v7 localeIdentifier];
               v18 = [v16 objectForKeyedSubscript:v17];
 
-              v75 = v18;
+              v74 = v18;
               if (v18)
               {
                 v19 = [objc_alloc(MEMORY[0x277CF3340]) initWithIdentifier:v18];
@@ -596,7 +591,7 @@ void VOSCrystalMigrateBrailleTableReplacements()
               }
 
               v22 = v19;
-              v79 = i;
+              v78 = i;
               v31 = [v19 replacements];
               v32 = [v31 count];
 
@@ -608,9 +603,9 @@ void VOSCrystalMigrateBrailleTableReplacements()
                 [v11 addObject:v34];
                 v35 = [v13 mutableCopy];
                 v36 = [v7 localeIdentifier];
-                v95 = v36;
-                v96 = v34;
-                [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+                v94 = v36;
+                v95 = v34;
+                [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
                 v38 = v37 = v22;
                 [v35 setObject:v38 forKeyedSubscript:@"LanguageDefaults"];
 
@@ -628,11 +623,11 @@ void VOSCrystalMigrateBrailleTableReplacements()
 
                     if (([v11 containsObject:v43] & 1) == 0)
                     {
-                      v93[0] = @"Enabled";
-                      v93[1] = @"RotorItem";
-                      v94[0] = MEMORY[0x277CBEC38];
-                      v94[1] = v43;
-                      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:2];
+                      v92[0] = @"Enabled";
+                      v92[1] = @"RotorItem";
+                      v93[0] = MEMORY[0x277CBEC38];
+                      v93[1] = v43;
+                      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:2];
                       [v10 addObject:v44];
 
                       [v11 addObject:v43];
@@ -646,29 +641,29 @@ void VOSCrystalMigrateBrailleTableReplacements()
                   while (v41 < v46);
                 }
 
-                i = v79;
-                v7 = v72;
+                i = v78;
+                v7 = v71;
                 v22 = v37;
 LABEL_37:
               }
 
               else
               {
-                v91[0] = @"Default";
-                v91[1] = @"Enabled";
-                v92[0] = MEMORY[0x277CBEC38];
-                v92[1] = MEMORY[0x277CBEC38];
-                v91[2] = @"LanguageDefaults";
+                v90[0] = @"Default";
+                v90[1] = @"Enabled";
+                v91[0] = MEMORY[0x277CBEC38];
+                v91[1] = MEMORY[0x277CBEC38];
+                v90[2] = @"LanguageDefaults";
                 v49 = [v7 localeIdentifier];
-                v89 = v49;
+                v88 = v49;
                 v50 = [v22 identifier];
-                v90 = v50;
-                v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-                v92[2] = v51;
-                v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:3];
+                v89 = v50;
+                v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+                v91[2] = v51;
+                v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:3];
                 [v10 addObject:v52];
 
-                i = v79;
+                i = v78;
                 if (v22)
                 {
                   v34 = [v22 identifier];
@@ -689,28 +684,28 @@ LABEL_37:
 
             if (v24)
             {
-              v82 = 0u;
-              v83 = 0u;
-              v80 = 0u;
               v81 = 0u;
+              v82 = 0u;
+              v79 = 0u;
+              v80 = 0u;
               v16 = [v22 replacements];
-              v25 = [v16 countByEnumeratingWithState:&v80 objects:v88 count:16];
+              v25 = [v16 countByEnumeratingWithState:&v79 objects:v87 count:16];
               if (v25)
               {
                 v26 = v25;
-                v74 = v22;
-                v78 = i;
-                v27 = *v81;
+                v73 = v22;
+                v77 = i;
+                v27 = *v80;
                 do
                 {
                   for (j = 0; j != v26; ++j)
                   {
-                    if (*v81 != v27)
+                    if (*v80 != v27)
                     {
                       objc_enumerationMutation(v16);
                     }
 
-                    v29 = *(*(&v80 + 1) + 8 * j);
+                    v29 = *(*(&v79 + 1) + 8 * j);
                     if (([v11 containsObject:v29] & 1) == 0)
                     {
                       v30 = [v13 mutableCopy];
@@ -720,13 +715,13 @@ LABEL_37:
                     }
                   }
 
-                  v26 = [v16 countByEnumeratingWithState:&v80 objects:v88 count:16];
+                  v26 = [v16 countByEnumeratingWithState:&v79 objects:v87 count:16];
                 }
 
                 while (v26);
-                v7 = v72;
-                i = v78;
-                v22 = v74;
+                v7 = v71;
+                i = v77;
+                v22 = v73;
               }
             }
 
@@ -750,10 +745,10 @@ LABEL_39:
 LABEL_40:
           }
 
-          v77 = [obj countByEnumeratingWithState:&v84 objects:v97 count:16];
+          v76 = [obj countByEnumeratingWithState:&v83 objects:v96 count:16];
         }
 
-        while (v77);
+        while (v76);
       }
 
       v53 = v7;
@@ -762,14 +757,14 @@ LABEL_40:
       [v54 setVoiceOverBrailleLanguageRotorItems:v10];
 
       v55 = [MEMORY[0x277CE7E20] sharedInstance];
-      v56 = v71;
-      v57 = _VOSCrystalReplacementForTableIdentifier(v71, [v55 voiceOverTouchBrailleDisplayOutputMode]);
+      v56 = v70;
+      v57 = _VOSCrystalReplacementForTableIdentifier(v70, [v55 voiceOverTouchBrailleDisplayOutputMode]);
 
       v58 = [MEMORY[0x277CE7E20] sharedInstance];
-      v59 = _VOSCrystalReplacementForTableIdentifier(v71, [v58 voiceOverTouchBrailleDisplayInputMode]);
+      v59 = _VOSCrystalReplacementForTableIdentifier(v70, [v58 voiceOverTouchBrailleDisplayInputMode]);
 
       v60 = [MEMORY[0x277CE7E20] sharedInstance];
-      v61 = _VOSCrystalReplacementForTableIdentifier(v71, [v60 voiceOverTouchBrailleGesturesInputMode]);
+      v61 = _VOSCrystalReplacementForTableIdentifier(v70, [v60 voiceOverTouchBrailleGesturesInputMode]);
 
       v62 = [objc_alloc(MEMORY[0x277CF3340]) initWithIdentifier:v61];
       v63 = [MEMORY[0x277CE7E20] sharedInstance];
@@ -788,7 +783,7 @@ LABEL_40:
         v68 = [MEMORY[0x277CE7E20] sharedInstance];
         [v68 setVoiceOverTouchBrailleGesturesInputTableIdentifier:v67];
 
-        v56 = v71;
+        v56 = v70;
       }
 
       else
@@ -801,14 +796,12 @@ LABEL_40:
       [v69 setObject:MEMORY[0x277CBEC38] forKey:@"_AccessibilityMigration__BrailleTableReplacements_18"];
     }
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 id VOSLocString(void *a1)
 {
   v1 = a1;
-  v2 = VOSVoiceOverServicesBundle();
+  v2 = VOSVoiceOverServicesBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"VoiceOverServices"];
 
   return v3;
@@ -817,25 +810,26 @@ id VOSLocString(void *a1)
 id soft_AXUILocalizedStringForKey(void *a1)
 {
   v1 = a1;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getAXUILocalizedStringForKeySymbolLoc_ptr;
-  v10 = getAXUILocalizedStringForKeySymbolLoc_ptr;
+  v11 = getAXUILocalizedStringForKeySymbolLoc_ptr;
   if (!getAXUILocalizedStringForKeySymbolLoc_ptr)
   {
     v3 = AccessibilityUIUtilitiesLibrary();
-    v8[3] = dlsym(v3, "AXUILocalizedStringForKey");
-    getAXUILocalizedStringForKeySymbolLoc_ptr = v8[3];
-    v2 = v8[3];
+    v9[3] = dlsym(v3, "AXUILocalizedStringForKey");
+    getAXUILocalizedStringForKeySymbolLoc_ptr = v9[3];
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    v6 = soft_AXUILocalizedStringForKey_cold_1();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v6);
+    soft_AXUILocalizedStringForKey_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
   v4 = v2(v1);
@@ -854,45 +848,41 @@ void *__getAXUILocalizedStringForKeySymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t AccessibilityUIUtilitiesLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!AccessibilityUIUtilitiesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __AccessibilityUIUtilitiesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_2784F3730;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __AccessibilityUIUtilitiesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_2784F3730;
+    v5 = 0;
     AccessibilityUIUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = AccessibilityUIUtilitiesLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!AccessibilityUIUtilitiesLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __AccessibilityUIUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AccessibilityUIUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -905,9 +895,9 @@ void *__getAXLocalizedTimeSummarySymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_223C9AFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_223C9AFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -930,43 +920,38 @@ void __getUIAlertControllerClass_block_invoke(uint64_t a1)
 
 void UIKitLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __UIKitLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_2784F38C0;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __UIKitLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_2784F38C0;
+    v3 = 0;
     UIKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -982,17 +967,18 @@ VOSOutputEventDispatcher *__getUIAlertActionClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getUIAlertActionClass_block_invoke_cold_1();
+    __getUIAlertActionClass_block_invoke_cold_1();
     return +[(VOSOutputEventDispatcher *)v3];
   }
 
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id getUIAlertActionClass()
@@ -1019,9 +1005,9 @@ id getUIAlertActionClass()
   return v1;
 }
 
-void sub_223CA0DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223CA0DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1042,47 +1028,42 @@ Class __getUIDeviceClass_block_invoke(uint64_t a1)
 
 void UIKitLibrary_0()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary_0)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __UIKitLibraryCore_block_invoke_0;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_2784F3A28;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __UIKitLibraryCore_block_invoke_0;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_2784F3A28;
+    v3 = 0;
     UIKitLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!UIKitLibraryCore_frameworkLibrary_0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __UIKitLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-VOSOutputEventCategory *__getUIAlertControllerClass_block_invoke_0(uint64_t a1)
+Class __getUIAlertControllerClass_block_invoke_0(uint64_t a1)
 {
   UIKitLibrary_0();
   result = objc_getClass("UIAlertController");
@@ -1113,16 +1094,16 @@ VOSOutputEventCategory *__getUIAlertActionClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getUIAlertActionClass_block_invoke_cold_1();
+    __getUIAlertActionClass_block_invoke_cold_1();
     return +[(VOSOutputEventCategory *)v3];
   }
 
   return result;
 }
 
-uint64_t soft_AXUILocalizedStringForKey_cold_1()
+void soft_AXUILocalizedStringForKey_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return +[(VOSSettingsHelper *)v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[VOSSettingsHelper percentageFormatter];
 }

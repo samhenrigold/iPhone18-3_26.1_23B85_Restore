@@ -2,6 +2,7 @@
 - (VCAggregatorAudioStream)initWithDelegate:(id)delegate withMode:(int)mode;
 - (id)aggregatedCallReport;
 - (id)aggregatedCallReports;
+- (id)aggregatedSegmentReport:(int)report;
 - (id)aggregatedSessionReport;
 - (id)composeSegmentReport:(int)report;
 - (id)dispatchedAggregatedSessionReport;
@@ -13,7 +14,10 @@
 - (void)aggregateRealtimeStats:(id)stats;
 - (void)aggregateSystemInfoReport:(id)report;
 - (void)aggregatedCallReport;
+- (void)allModesProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload;
 - (void)dealloc;
+- (void)defaultProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload;
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload;
 - (void)processAudioPlaybackRealtimeStats:(id)stats;
 - (void)processAudioStreamStart:(id)start;
 - (void)processChannelSequenceStats:(id)stats;
@@ -28,6 +32,7 @@
 - (void)reset;
 - (void)startNewSegment;
 - (void)telephonyCallingProcessAWDMetrics:(id)metrics;
+- (void)telephonyCallingProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload;
 - (void)telephonyCallingProcessRealtimeStatsTelephonyCalling:(id)calling;
 - (void)updateAudioStreamHostTimeJumpSizeStats:(id)stats;
 @end
@@ -128,17 +133,29 @@ uint64_t __47__VCAggregatorAudioStream_aggregatedCallReport__block_invoke(uint64
   [(VCMediaAnalyzerDataCollector *)mediaAnalyzerDataCollector processMediaAnalyzerMetrics:calling];
 }
 
+- (void)telephonyCallingProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
+{
+  if (category == 140)
+  {
+    [(VCAggregatorAudioStream *)self telephonyCallingProcessAWDMetrics:payload, type];
+  }
+
+  else if (category == 130)
+  {
+    [(VCAggregatorAudioStream *)self telephonyCallingProcessRealtimeStatsTelephonyCalling:payload, type];
+  }
+}
+
 - (void)reportSegment
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 136315650;
   selfCopy = self;
-  v5 = 2080;
-  v6 = "[VCAggregatorAudioStream reportSegment]";
-  v7 = 1024;
-  v8 = 274;
-  _os_log_error_impl(&dword_23D4DF000, a2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to report audio stream segment: Invalid stream direction", &v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = 2080;
+  v5 = "[VCAggregatorAudioStream reportSegment]";
+  v6 = 1024;
+  v7 = 274;
+  _os_log_error_impl(&dword_23D4DF000, a2, OS_LOG_TYPE_ERROR, " [%s] %s:%d Failed to report audio stream segment: Invalid stream direction", &v2, 0x1Cu);
 }
 
 - (void)reset
@@ -195,7 +212,7 @@ uint64_t __47__VCAggregatorAudioStream_aggregatedCallReport__block_invoke(uint64
 
 - (id)composeSegmentReport:(int)report
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->super._stateQueue);
   if (self->_sessionTotalDuration == 0.0)
   {
@@ -204,18 +221,18 @@ uint64_t __47__VCAggregatorAudioStream_aggregatedCallReport__block_invoke(uint64
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = VCAggregatorAudioStream;
-    dispatchedAggregatedReportCommon = [(VCReportingCommon *)&v15 dispatchedAggregatedReportCommon];
-    v26[0] = @"DRCT";
-    v27[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._direction];
-    v26[1] = @"DRTN";
-    v27[1] = [MEMORY[0x277CCABA8] numberWithDouble:{self->_sessionTotalDuration * -[VCAggregator RTPeriod](self, "RTPeriod")}];
-    v26[2] = @"TT";
-    v27[2] = [MEMORY[0x277CCABA8] numberWithInt:self->super._transportType];
-    v26[3] = @"RTCPTOCNT";
-    v27[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_rtcpTimeoutCount];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v27, v26, 4)}];
+    v14.receiver = self;
+    v14.super_class = VCAggregatorAudioStream;
+    dispatchedAggregatedReportCommon = [(VCReportingCommon *)&v14 dispatchedAggregatedReportCommon];
+    v25[0] = @"DRCT";
+    v26[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._direction];
+    v25[1] = @"DRTN";
+    v26[1] = [MEMORY[0x277CCABA8] numberWithDouble:{self->_sessionTotalDuration * -[VCAggregator RTPeriod](self, "RTPeriod")}];
+    v25[2] = @"TT";
+    v26[2] = [MEMORY[0x277CCABA8] numberWithInt:self->super._transportType];
+    v25[3] = @"RTCPTOCNT";
+    v26[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_rtcpTimeoutCount];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v26, v25, 4)}];
     countHostTimeJumped = self->_countHostTimeJumped;
     if (countHostTimeJumped)
     {
@@ -257,15 +274,15 @@ uint64_t __47__VCAggregatorAudioStream_aggregatedCallReport__block_invoke(uint64
           if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
-            v17 = v9;
-            v18 = 2080;
-            v19 = "[VCAggregatorAudioStream composeSegmentReport:]";
-            v20 = 1024;
-            v21 = 344;
-            v22 = 2080;
-            v23 = "AudioStream: segmentReport";
-            v24 = 2080;
-            v25 = v8;
+            v16 = v9;
+            v17 = 2080;
+            v18 = "[VCAggregatorAudioStream composeSegmentReport:]";
+            v19 = 1024;
+            v20 = 344;
+            v21 = 2080;
+            v22 = "AudioStream: segmentReport";
+            v23 = 2080;
+            v24 = v8;
             _os_log_impl(&dword_23D4DF000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
           }
         }
@@ -278,11 +295,41 @@ uint64_t __47__VCAggregatorAudioStream_aggregatedCallReport__block_invoke(uint64
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return dispatchedAggregatedReportCommon;
 }
 
-uint64_t __51__VCAggregatorAudioStream_aggregatedSegmentReport___block_invoke(uint64_t a1)
+- (id)aggregatedSegmentReport:(int)report
+{
+  v3 = *&report;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3052000000;
+  v14 = __Block_byref_object_copy__6;
+  v15 = __Block_byref_object_dispose__6;
+  v16 = 0;
+  if ([(VCAggregatorAudioStream *)self supportsSegmentReporting])
+  {
+    direction = self->super._direction;
+    if (direction == [VCAggregator mediaStreamDirectionForSegmentReportDirection:v3])
+    {
+      stateQueue = self->super._stateQueue;
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __51__VCAggregatorAudioStream_aggregatedSegmentReport___block_invoke;
+      block[3] = &unk_278BD4890;
+      block[4] = self;
+      block[5] = &v11;
+      v10 = v3;
+      dispatch_sync(stateQueue, block);
+    }
+  }
+
+  v7 = v12[5];
+  _Block_object_dispose(&v11, 8);
+  return v7;
+}
+
+void *__51__VCAggregatorAudioStream_aggregatedSegmentReport___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) composeSegmentReport:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -291,19 +338,19 @@ uint64_t __51__VCAggregatorAudioStream_aggregatedSegmentReport___block_invoke(ui
 
 - (id)dispatchedAggregatedSessionReport
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = VCAggregatorAudioStream;
-  dispatchedAggregatedSessionReport = [(VCAggregator *)&v8 dispatchedAggregatedSessionReport];
-  v9[0] = @"DRCT";
-  v10[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._direction];
-  v9[1] = @"DRTN";
-  v10[1] = [MEMORY[0x277CCABA8] numberWithDouble:{self->_sessionTotalDuration * -[VCAggregator RTPeriod](self, "RTPeriod")}];
-  v9[2] = @"TT";
-  v10[2] = [MEMORY[0x277CCABA8] numberWithInt:self->super._transportType];
-  v9[3] = @"RTCPTOCNT";
-  v10[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_rtcpTimeoutCount];
-  [dispatchedAggregatedSessionReport addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v10, v9, 4)}];
+  v9[4] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = VCAggregatorAudioStream;
+  dispatchedAggregatedSessionReport = [(VCAggregator *)&v7 dispatchedAggregatedSessionReport];
+  v8[0] = @"DRCT";
+  v9[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->super._direction];
+  v8[1] = @"DRTN";
+  v9[1] = [MEMORY[0x277CCABA8] numberWithDouble:{self->_sessionTotalDuration * -[VCAggregator RTPeriod](self, "RTPeriod")}];
+  v8[2] = @"TT";
+  v9[2] = [MEMORY[0x277CCABA8] numberWithInt:self->super._transportType];
+  v8[3] = @"RTCPTOCNT";
+  v9[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_rtcpTimeoutCount];
+  [dispatchedAggregatedSessionReport addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v9, v8, 4)}];
   countHostTimeJumped = self->_countHostTimeJumped;
   if (countHostTimeJumped)
   {
@@ -335,19 +382,18 @@ uint64_t __51__VCAggregatorAudioStream_aggregatedSegmentReport___block_invoke(ui
     [(VCAggregatorAudioStream *)self aggregateJitterBufferMetricsToReportDictionary:dispatchedAggregatedSessionReport];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return dispatchedAggregatedSessionReport;
 }
 
 - (id)aggregatedSessionReport
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3052000000;
-  v18 = __Block_byref_object_copy__6;
-  v19 = __Block_byref_object_dispose__6;
-  v20 = 0;
+  v30 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3052000000;
+  v17 = __Block_byref_object_copy__6;
+  v18 = __Block_byref_object_dispose__6;
+  v19 = 0;
   if ([(VCAggregatorAudioStream *)self supportsSessionReporting])
   {
     stateQueue = self->super._stateQueue;
@@ -356,12 +402,12 @@ uint64_t __51__VCAggregatorAudioStream_aggregatedSegmentReport___block_invoke(ui
     block[2] = __50__VCAggregatorAudioStream_aggregatedSessionReport__block_invoke;
     block[3] = &unk_278BD4C10;
     block[4] = self;
-    block[5] = &v15;
+    block[5] = &v14;
     dispatch_sync(stateQueue, block);
     if (VRTraceGetErrorLogLevelForModule("") >= 7)
     {
       __str = 0;
-      v4 = v16[5];
+      v4 = v15[5];
       v5 = v4 ? [objc_msgSend(v4 "description")] : "<nil>";
       asprintf(&__str, "%s", v5);
       if (__str)
@@ -377,15 +423,15 @@ uint64_t __51__VCAggregatorAudioStream_aggregatedSegmentReport___block_invoke(ui
             if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316162;
-              v22 = v7;
-              v23 = 2080;
-              v24 = "[VCAggregatorAudioStream aggregatedSessionReport]";
-              v25 = 1024;
-              v26 = 404;
-              v27 = 2080;
-              v28 = "AudioStream: sessionReport";
-              v29 = 2080;
-              v30 = v6;
+              v21 = v7;
+              v22 = 2080;
+              v23 = "[VCAggregatorAudioStream aggregatedSessionReport]";
+              v24 = 1024;
+              v25 = 404;
+              v26 = 2080;
+              v27 = "AudioStream: sessionReport";
+              v28 = 2080;
+              v29 = v6;
               _os_log_impl(&dword_23D4DF000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
             }
           }
@@ -399,13 +445,12 @@ uint64_t __51__VCAggregatorAudioStream_aggregatedSegmentReport___block_invoke(ui
     }
   }
 
-  v9 = v16[5];
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v15[5];
+  _Block_object_dispose(&v14, 8);
   return v9;
 }
 
-uint64_t __50__VCAggregatorAudioStream_aggregatedSessionReport__block_invoke(uint64_t a1)
+void *__50__VCAggregatorAudioStream_aggregatedSessionReport__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedAggregatedSessionReport];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -803,6 +848,151 @@ LABEL_5:
   }
 }
 
+- (void)defaultProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
+{
+  if (category <= 182)
+  {
+    switch(category)
+    {
+      case 0x29u:
+        [(VCAggregatorAudioStream *)self processTransportInfo:payload, type];
+        break;
+      case 0x82u:
+        [(VCAggregatorAudioStream *)self processRealtimeStats:payload, type];
+        break;
+      case 0xB6u:
+        [(VCAggregatorAudioStream *)self processAudioStreamStart:payload, type];
+        break;
+    }
+  }
+
+  else if (category > 241)
+  {
+    if (category == 242)
+    {
+      ++self->_rtcpTimeoutCount;
+    }
+
+    else if (category == 374)
+    {
+      [(VCAggregatorAudioStream *)self processEndpointChanged:type];
+    }
+  }
+
+  else if (category == 183)
+  {
+    [(VCAggregatorAudioStream *)self processMediaStreamEndState:payload, type];
+  }
+
+  else if (category == 241)
+  {
+    [(VCAggregatorAudioStream *)self updateAudioStreamHostTimeJumpSizeStats:payload, type];
+  }
+}
+
+- (void)allModesProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
+{
+  categoryCopy = category;
+  if (!self->super._streamToken && [payload objectForKeyedSubscript:{@"VCVSStreamToken", type}] && objc_msgSend(payload, "objectForKeyedSubscript:", @"VCMSDirection"))
+  {
+    self->super._streamToken = [objc_msgSend(payload objectForKeyedSubscript:{@"VCVSStreamToken", "copy"}];
+    self->super._sessionID = [objc_msgSend(payload objectForKeyedSubscript:{@"CallID", "copy"}];
+    self->super._direction = [objc_msgSend(payload objectForKeyedSubscript:{@"VCMSDirection", "integerValue"}];
+  }
+
+  v8 = [payload objectForKeyedSubscript:{@"UJBL", type}];
+  if (v8)
+  {
+    -[VCHistogram addValue:](self->_jbUnclippedTarget, "addValue:", [v8 unsignedIntValue]);
+  }
+
+  v9 = [payload objectForKeyedSubscript:@"JBSpikeSizeDelta"];
+  if (v9)
+  {
+    jbSpikeSizeDelta = self->_jbSpikeSizeDelta;
+    [v9 doubleValue];
+    [(VCHistogram *)jbSpikeSizeDelta addValue:(v11 * 1000.0)];
+  }
+
+  v12 = [payload objectForKeyedSubscript:@"JBJumpSpikeCount"];
+  if (v12)
+  {
+    self->_jbJumpSpikeCount += [v12 unsignedIntValue];
+  }
+
+  v13 = [payload objectForKeyedSubscript:@"JBSlopeSpikeCount"];
+  if (v13)
+  {
+    self->_jbSlopeSpikeCount += [v13 unsignedIntValue];
+  }
+
+  v14 = [payload objectForKeyedSubscript:@"ARxPLR"];
+  if (v14)
+  {
+    self->_remoteMicPacketLossRateAccumulator += [v14 unsignedIntValue];
+  }
+
+  if (categoryCopy == 101)
+  {
+
+    [(VCAggregatorAudioStream *)self processCallStart:payload];
+  }
+
+  else if (categoryCopy == 130)
+  {
+
+    [(VCAggregatorAudioStream *)self allModesProcessRealtimeStats:payload];
+  }
+}
+
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
+{
+  typeCopy = type;
+  categoryCopy = category;
+  v22 = *MEMORY[0x277D85DE8];
+  if (VRTraceGetErrorLogLevelForModule("") >= 8)
+  {
+    v9 = VRTraceErrorLogLevelToCSTR(8u);
+    v10 = gVRTraceOSLog;
+    if (gVRTraceLogDebugAsInfo == 1)
+    {
+      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315906;
+        v15 = v9;
+        v16 = 2080;
+        v17 = "[VCAggregatorAudioStream dispatchedProcessEventWithCategory:type:payload:]";
+        v18 = 1024;
+        v19 = 751;
+        v20 = 1024;
+        v21 = categoryCopy;
+        _os_log_impl(&dword_23D4DF000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AudioStream: received method=%d", buf, 0x22u);
+      }
+    }
+
+    else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
+    {
+      [VCAggregatorAudioStream dispatchedProcessEventWithCategory:v9 type:categoryCopy payload:v10];
+    }
+  }
+
+  [(VCAggregatorAudioStream *)self allModesProcessEventWithCategory:categoryCopy type:typeCopy payload:payload];
+  mode = self->_mode;
+  if ((mode - 3) < 7 || mode == 1)
+  {
+    [(VCAggregatorAudioStream *)self defaultProcessEventWithCategory:categoryCopy type:typeCopy payload:payload];
+  }
+
+  else if (mode == 2)
+  {
+    [(VCAggregatorAudioStream *)self telephonyCallingProcessEventWithCategory:categoryCopy type:typeCopy payload:payload];
+  }
+
+  v13.receiver = self;
+  v13.super_class = VCAggregatorAudioStream;
+  [(VCAggregator *)&v13 dispatchedProcessEventWithCategory:categoryCopy type:typeCopy payload:payload];
+}
+
 - (void)processEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
 {
   stateQueue = self->super._stateQueue;
@@ -819,15 +1009,14 @@ LABEL_5:
 
 - (id)aggregatedCallReports
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   result = [(VCAggregatorAudioStream *)self aggregatedCallReport];
   if (result)
   {
-    v4[0] = result;
-    result = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+    v3[0] = result;
+    return [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -929,38 +1118,35 @@ LABEL_5:
 
 - (void)aggregatedCallReport
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = gVRTraceOSLog;
   if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*a2 + 40);
-    v7 = 136315906;
+    v6 = 136315906;
     selfCopy = self;
-    v9 = 2080;
-    v10 = "[VCAggregatorAudioStream aggregatedCallReport]";
-    v11 = 1024;
-    v12 = 206;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AudioStream: aggregatedCallReport=%@", &v7, 0x26u);
+    v8 = 2080;
+    v9 = "[VCAggregatorAudioStream aggregatedCallReport]";
+    v10 = 1024;
+    v11 = 206;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AudioStream: aggregatedCallReport=%@", &v6, 0x26u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchedProcessEventWithCategory:(uint64_t)a1 type:(unsigned __int16)a2 payload:(os_log_t)log .cold.1(uint64_t a1, unsigned __int16 a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = 136315906;
-  v5 = a1;
-  v6 = 2080;
-  v7 = "[VCAggregatorAudioStream dispatchedProcessEventWithCategory:type:payload:]";
-  v8 = 1024;
-  v9 = 751;
-  v10 = 1024;
-  v11 = a2;
-  _os_log_debug_impl(&dword_23D4DF000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d AudioStream: received method=%d", &v4, 0x22u);
-  v3 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = 136315906;
+  v4 = a1;
+  v5 = 2080;
+  v6 = "[VCAggregatorAudioStream dispatchedProcessEventWithCategory:type:payload:]";
+  v7 = 1024;
+  v8 = 751;
+  v9 = 1024;
+  v10 = a2;
+  _os_log_debug_impl(&dword_23D4DF000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d AudioStream: received method=%d", &v3, 0x22u);
 }
 
 @end

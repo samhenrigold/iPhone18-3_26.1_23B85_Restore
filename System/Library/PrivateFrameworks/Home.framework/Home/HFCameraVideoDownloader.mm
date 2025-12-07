@@ -44,33 +44,31 @@
 
 - (id)_downloadOperationForClip:(id)clip
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v5 = HFLogForCategory(0x1DuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     hf_prettyDescription = [clipCopy hf_prettyDescription];
     *buf = 138412290;
-    v15 = hf_prettyDescription;
+    v14 = hf_prettyDescription;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Called download block for clip: %@", buf, 0xCu);
   }
 
   v7 = [HFCameraVideoDownloadOperation downloadOperationForClip:clipCopy];
   objc_initWeak(buf, v7);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __53__HFCameraVideoDownloader__downloadOperationForClip___block_invoke;
-  v11[3] = &unk_277DF6458;
-  objc_copyWeak(&v13, buf);
-  v11[4] = self;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__HFCameraVideoDownloader__downloadOperationForClip___block_invoke;
+  v10[3] = &unk_277DF6458;
+  objc_copyWeak(&v12, buf);
+  v10[4] = self;
   v8 = clipCopy;
-  v12 = v8;
-  [v7 setDownloadBlock:v11];
+  v11 = v8;
+  [v7 setDownloadBlock:v10];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -70,11 +70,11 @@
 
 - (NFCNDEFTag)initWithCoder:(id)coder
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = NFCNDEFTag;
-  v6 = [(NFCNDEFTag *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = NFCNDEFTag;
+  v6 = [(NFCNDEFTag *)&v30 init];
   if (v6)
   {
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"tag"];
@@ -140,19 +140,18 @@
         v25 = object_getClassName(v6);
         v26 = sel_getName(a2);
         *buf = 67109890;
-        v33 = v24;
-        v34 = 2082;
-        v35 = v25;
-        v36 = 2082;
-        v37 = v26;
-        v38 = 1024;
-        v39 = 69;
+        v32 = v24;
+        v33 = 2082;
+        v34 = v25;
+        v35 = 2082;
+        v36 = v26;
+        v37 = 1024;
+        v38 = 69;
         _os_log_impl(&dword_23728C000, delegateQueue, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session has been invalidated", buf, 0x22u);
       }
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -345,9 +344,7 @@
 
 - (void)_setSession:(id)session
 {
-  sessionId = [session sessionId];
-  sessionKey = self->_sessionKey;
-  self->_sessionKey = sessionId;
+  self->_sessionKey = [session sessionId];
 
   MEMORY[0x2821F96F8]();
 }
@@ -526,7 +523,7 @@ LABEL_8:
 
 - (void)dispatchBlockOnDelegateQueueAsync:(id)async
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   delegateQueue = self->_delegateQueue;
   asyncCopy = async;
   if (delegateQueue)
@@ -568,13 +565,13 @@ LABEL_8:
       }
 
       *buf = 67109890;
-      v20 = v16;
-      v21 = 2082;
-      v22 = object_getClassName(self);
-      v23 = 2082;
-      v24 = sel_getName(a2);
-      v25 = 1024;
-      v26 = 330;
+      v19 = v16;
+      v20 = 2082;
+      v21 = object_getClassName(self);
+      v22 = 2082;
+      v23 = sel_getName(a2);
+      v24 = 1024;
+      v25 = 330;
       _os_log_impl(&dword_23728C000, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session queue is not available; dispatching on main queue", buf, 0x22u);
     }
 
@@ -582,8 +579,6 @@ LABEL_8:
   }
 
   dispatch_async(v7, asyncCopy);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

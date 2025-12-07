@@ -106,11 +106,11 @@
 - (NSArray)keyCommands
 {
   selfCopy = self;
-  v3 = sub_1EA500();
+  v3 = sub_1EA500(selfCopy);
 
   if (v3)
   {
-    sub_BE70(0, &unk_949C60);
+    sub_BE70(0, &unk_949C60, UIKeyCommand_ptr);
     v4.super.isa = sub_769450().super.isa;
   }
 

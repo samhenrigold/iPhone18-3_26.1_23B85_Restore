@@ -10,6 +10,7 @@
 + (id)_importedTypeWithIdentifier:(id)identifier bundle:(id)bundle conformingToType:(id)type;
 + (id)_typeOfItemAtFileURL:(id)l error:(id *)error;
 + (id)_typeOfPromiseAtFileURL:(id)l error:(id *)error;
++ (id)_typeWithBluetoothProductID:(unsigned int)d vendorID:(unsigned __int16)iD;
 + (id)_typeWithDeviceModelCode:(id)code;
 + (id)_typeWithDeviceModelCode:(id)code enclosureColor:(UTHardwareColor)color;
 + (id)_typeWithDeviceModelCodeWithoutResolvingCurrentDevice:(id)device;
@@ -91,8 +92,8 @@
 
 + (UTType)_typeOfCurrentDevice
 {
-  v17[2] = *MEMORY[0x1E69E9840];
-  LOBYTE(v15) = 0;
+  v16[2] = *MEMORY[0x1E69E9840];
+  LOBYTE(v14) = 0;
   if (qword_1ED40DB98 != -1)
   {
     dispatch_once(&qword_1ED40DB98, &__block_literal_global_42);
@@ -140,15 +141,15 @@
     }
 
 LABEL_18:
-    v15 = v11 | v9;
-    v16 = v10;
-    v12 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(v3, &v15, 3);
+    v14 = v11 | v9;
+    v15 = v10;
+    v12 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(v3, &v14, 3);
 
     goto LABEL_22;
   }
 
-  memset(v17, 0, 12);
-  if (sscanf(v5, "%u,%u,%u", v17, &v17[0].u8[4], &v17[1]) < 3)
+  memset(v16, 0, 12);
+  if (sscanf(v5, "%u,%u,%u", v16, &v16[0].u8[4], &v16[1]) < 3)
   {
     v10 = 0;
     v9 = 0;
@@ -156,11 +157,11 @@ LABEL_18:
 
   else
   {
-    v6 = vand_s8(*(v17 + 4), 0xFF000000FFLL);
+    v6 = vand_s8(*(v16 + 4), 0xFF000000FFLL);
     v7.i64[0] = v6.u32[0];
     v7.i64[1] = v6.u32[1];
     v8 = vshlq_u64(v7, xmmword_1AC1BBC50);
-    v9 = vorrq_s8(vdupq_laneq_s64(v8, 1), v8).u64[0] | (v17[0].u8[0] << 32);
+    v9 = vorrq_s8(vdupq_laneq_s64(v8, 1), v8).u64[0] | (v16[0].u8[0] << 32);
     v10 = 1;
   }
 
@@ -184,7 +185,6 @@ LABEL_19:
 
   v12 = qword_1ED40DB88;
 LABEL_22:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -277,7 +277,7 @@ void __48__UTType_DeviceModelCodes___typeOfCurrentDevice__block_invoke()
 
 - (unint64_t)_getEnclosureColors:(UTHardwareColor *)colors count:(unint64_t)count
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (colors)
   {
     if (count)
@@ -285,9 +285,7 @@ void __48__UTType_DeviceModelCodes___typeOfCurrentDevice__block_invoke()
       goto LABEL_3;
     }
 
-LABEL_54:
-    v9 = 0;
-    goto LABEL_55;
+    return 0;
   }
 
   countCopy = count;
@@ -297,7 +295,7 @@ LABEL_54:
   count = countCopy;
   if (!countCopy)
   {
-    goto LABEL_54;
+    return 0;
   }
 
 LABEL_3:
@@ -357,10 +355,10 @@ LABEL_26:
       }
 
       v17 = [objc_alloc(MEMORY[0x1E696AE88]) initWithString:v10];
-      v47[0] = -1;
-      v18 = [v17 scanLongLong:v47];
-      v19 = v47[0];
-      if (v47[0] >> 31)
+      v46[0] = -1;
+      v18 = [v17 scanLongLong:v46];
+      v19 = v46[0];
+      if (v46[0] >> 31)
       {
         v20 = 0;
       }
@@ -381,12 +379,12 @@ LABEL_26:
 
     else
     {
-      v46 = 0;
-      LODWORD(v47[0]) = 0;
-      if (sscanf([v10 UTF8String], "%x%n", v47, &v46) == 1 && v46 == 6)
+      v45 = 0;
+      LODWORD(v46[0]) = 0;
+      if (sscanf([v10 UTF8String], "%x%n", v46, &v45) == 1 && v45 == 6)
       {
         v16 = 0;
-        countCopy = bswap64(v47[0] & 0xFFFFFF) >> 16;
+        countCopy = bswap64(v46[0] & 0xFFFFFF) >> 16;
         goto LABEL_26;
       }
     }
@@ -401,83 +399,332 @@ LABEL_30:
 LABEL_31:
   if (v9 >= countCopy2)
   {
-    v9 = 1;
+    return 1;
+  }
+
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  tags = [(UTType *)self tags];
+  v22 = [tags objectForKeyedSubscript:@"com.apple.device-model-code"];
+
+  v23 = [v22 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  if (v23)
+  {
+    v24 = *v42;
+    while (2)
+    {
+      for (i = 0; i != v23; ++i)
+      {
+        if (*v42 != v24)
+        {
+          objc_enumerationMutation(v22);
+        }
+
+        v26 = *(*(&v41 + 1) + 8 * i);
+        v28 = [v26 rangeOfString:@"@ECOLOR="];
+        if (v28 != 0x7FFFFFFFFFFFFFFFLL)
+        {
+          v29 = v27;
+          v30 = [objc_alloc(MEMORY[0x1E696AE88]) initWithString:v26];
+          [v30 setCharactersToBeSkipped:0];
+          [v30 setScanLocation:v28 + v29];
+          memset(v46, 0, 12);
+          if ([v30 scanInt:v46])
+          {
+            if ([v30 scanString:@" intoString:{", 0}] && objc_msgSend(v30, "scanInt:", v46 + 4) && objc_msgSend(v30, "scanString:intoString:", @",", 0) && objc_msgSend(v30, "scanInt:", &v46[1]))
+            {
+              v31 = vand_s8(vmax_s32(*(v46 + 4), 0), 0xFF000000FFLL);
+              v32.i64[0] = v31.u32[0];
+              v32.i64[1] = v31.u32[1];
+              v33 = vshlq_u64(v32, xmmword_1AC1BBC50);
+              v34 = vorrq_s8(vdupq_laneq_s64(v33, 1), v33).u64[0];
+              v35 = (LOBYTE(v46[0]) & ~(SLODWORD(v46[0]) >> 31));
+            }
+
+            else
+            {
+              v35 = LODWORD(v46[0]);
+              v34 = 1;
+            }
+
+            colors[v9++] = (v34 | (v35 << 32));
+            if (v9 >= countCopy2)
+            {
+
+              goto LABEL_52;
+            }
+          }
+        }
+      }
+
+      v23 = [v22 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      if (v23)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_52:
+
+  return v9;
+}
+
++ (id)_typeWithBluetoothProductID:(unsigned int)d vendorID:(unsigned __int16)iD
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d:%d", iD, *&d];
+  isDeclared = [UTType typeWithTag:v5 tagClass:@"public.bluetooth-vendor-product-id" conformingToType:&off_1ED40D7C0];
+  v7 = isDeclared;
+  if (isDeclared)
+  {
+    isDeclared = [isDeclared isDeclared];
+    if (isDeclared)
+    {
+      v8 = v7;
+      v9 = v8;
+      goto LABEL_81;
+    }
+  }
+
+  v10 = UniformTypeIdentifiers::Accessory::log(isDeclared);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109120;
+    dCopy2 = d;
+    _os_log_error_impl(&dword_1AC1AE000, v10, OS_LOG_TYPE_ERROR, "Failed to find type for bluetooth device '%d'", buf, 8u);
+  }
+
+  if (d > 21759)
+  {
+    if (d > 28943)
+    {
+      if (d <= 29714)
+      {
+        if (d == 28944)
+        {
+          v11 = "AudioAccessory1,2";
+          goto LABEL_74;
+        }
+
+        if (d == 29455)
+        {
+          v11 = "AppleTV11,1";
+          goto LABEL_74;
+        }
+      }
+
+      else
+      {
+        switch(d)
+        {
+          case 0x7413u:
+            v11 = "AudioAccessory5,1";
+            goto LABEL_74;
+          case 0xFFFDu:
+            v11 = "HeGn";
+            goto LABEL_74;
+          case 0xFFFEu:
+            v11 = "ApGn";
+            goto LABEL_74;
+        }
+      }
+    }
+
+    else if (d <= 28419)
+    {
+      if (d == 21760)
+      {
+        v11 = "Device1,21760";
+        goto LABEL_74;
+      }
+
+      if (d == 22034)
+      {
+        v11 = "Device1,22034";
+        goto LABEL_74;
+      }
+    }
+
+    else
+    {
+      switch(d)
+      {
+        case 0x6F04u:
+          v11 = "AppleTV5,3";
+          goto LABEL_74;
+        case 0x7108u:
+          v11 = "AppleTV6,2";
+          goto LABEL_74;
+        case 0x710Fu:
+          v11 = "AudioAccessory1,1";
+          goto LABEL_74;
+      }
+    }
   }
 
   else
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    tags = [(UTType *)self tags];
-    v22 = [tags objectForKeyedSubscript:@"com.apple.device-model-code"];
-
-    v23 = [v22 countByEnumeratingWithState:&v42 objects:v48 count:16];
-    if (v23)
+    if (d > 8193)
     {
-      v24 = *v43;
-      while (2)
+      switch(d)
       {
-        for (i = 0; i != v23; ++i)
-        {
-          if (*v43 != v24)
-          {
-            objc_enumerationMutation(v22);
-          }
-
-          v26 = *(*(&v42 + 1) + 8 * i);
-          v28 = [v26 rangeOfString:@"@ECOLOR="];
-          if (v28 != 0x7FFFFFFFFFFFFFFFLL)
-          {
-            v29 = v27;
-            v30 = [objc_alloc(MEMORY[0x1E696AE88]) initWithString:v26];
-            [v30 setCharactersToBeSkipped:0];
-            [v30 setScanLocation:v28 + v29];
-            memset(v47, 0, 12);
-            if ([v30 scanInt:v47])
-            {
-              if ([v30 scanString:@" intoString:{", 0}] && objc_msgSend(v30, "scanInt:", v47 + 4) && objc_msgSend(v30, "scanString:intoString:", @",", 0) && objc_msgSend(v30, "scanInt:", &v47[1]))
-              {
-                v31 = vand_s8(vmax_s32(*(v47 + 4), 0), 0xFF000000FFLL);
-                v32.i64[0] = v31.u32[0];
-                v32.i64[1] = v31.u32[1];
-                v33 = vshlq_u64(v32, xmmword_1AC1BBC50);
-                v34 = vorrq_s8(vdupq_laneq_s64(v33, 1), v33).u64[0];
-                v35 = (LOBYTE(v47[0]) & ~(SLODWORD(v47[0]) >> 31));
-              }
-
-              else
-              {
-                v35 = LODWORD(v47[0]);
-                v34 = 1;
-              }
-
-              colors[v9++] = (v34 | (v35 << 32));
-              if (v9 >= countCopy2)
-              {
-
-                goto LABEL_52;
-              }
-            }
-          }
-        }
-
-        v23 = [v22 countByEnumeratingWithState:&v42 objects:v48 count:16];
-        if (v23)
-        {
-          continue;
-        }
-
-        break;
+        case 0x2002u:
+          v11 = "AirPods1,1";
+          break;
+        case 0x2003u:
+          v11 = "PowerBeats3,1";
+          break;
+        case 0x2005u:
+          v11 = "BeatsX1,1";
+          break;
+        case 0x2006u:
+          v11 = "BeatsSolo3,1";
+          break;
+        case 0x2009u:
+          v11 = "BeatsStudio3,2";
+          break;
+        case 0x200Au:
+          v11 = "Device1,8202";
+          break;
+        case 0x200Bu:
+          v11 = "PowerbeatsPro1,1";
+          break;
+        case 0x200Cu:
+          v11 = "BeatsSoloPro1,1";
+          break;
+        case 0x200Du:
+          v11 = "Powerbeats4,1";
+          break;
+        case 0x200Eu:
+          v11 = "AirPodsPro1,1";
+          break;
+        case 0x200Fu:
+          v11 = "AirPods1,3";
+          break;
+        case 0x2010u:
+          v11 = "Device1,8208";
+          break;
+        case 0x2011u:
+          v11 = "BeatsStudioBuds1,1";
+          break;
+        case 0x2012u:
+          v11 = "Device1,8210";
+          break;
+        case 0x2013u:
+          v11 = "Device1,8211";
+          break;
+        case 0x2014u:
+          v11 = "Device1,8212";
+          break;
+        case 0x2015u:
+          v11 = "Device1,8213";
+          break;
+        case 0x2016u:
+          v11 = "BeatsStudioBuds1,2";
+          break;
+        case 0x2017u:
+          v11 = "BeatsStudioPro1,1";
+          break;
+        case 0x2018u:
+          v11 = "Device1,8216";
+          break;
+        case 0x2019u:
+          v11 = "Device1,8217";
+          break;
+        case 0x201Au:
+          v11 = "Device1,8218";
+          break;
+        case 0x201Bu:
+          v11 = "Device1,8219";
+          break;
+        case 0x201Cu:
+          v11 = "Device1,8220";
+          break;
+        case 0x201Du:
+          v11 = "Powerb3,1";
+          break;
+        case 0x201Eu:
+          v11 = "Device1,8222";
+          break;
+        case 0x201Fu:
+          v11 = "Device1,8223";
+          break;
+        case 0x2020u:
+          v11 = "Device1,8224";
+          break;
+        case 0x2024u:
+          v11 = "Device1,8228";
+          break;
+        case 0x2025u:
+          v11 = "Device1,8229";
+          break;
+        case 0x2026u:
+          v11 = "Device1,8230";
+          break;
+        case 0x2027u:
+          v11 = "AirPods3,4";
+          break;
+        case 0x2028u:
+          v11 = "Device1,8232";
+          break;
+        case 0x2029u:
+          v11 = "Device1,8233";
+          break;
+        case 0x202Fu:
+          v11 = "Device1,8239";
+          break;
+        default:
+          goto LABEL_73;
       }
+
+      goto LABEL_74;
     }
 
-LABEL_52:
+    switch(d)
+    {
+      case 0u:
+        v11 = "Invalid";
+        goto LABEL_74;
+      case 0x266u:
+        v11 = "ATVRemote1,1";
+        goto LABEL_74;
+      case 0x26Du:
+        v11 = "ATVRemote1,2";
+        goto LABEL_74;
+    }
   }
 
-LABEL_55:
-  v38 = *MEMORY[0x1E69E9840];
+LABEL_73:
+  v11 = "?";
+LABEL_74:
+  v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
+  v8 = [UTType _typeWithDeviceModelCodeWithoutResolvingCurrentDevice:v12];
+
+  if (v8 && (v13 = [v8 isDeclared], v13))
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v14 = UniformTypeIdentifiers::Accessory::log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      dCopy2 = d;
+      _os_log_impl(&dword_1AC1AE000, v14, OS_LOG_TYPE_DEFAULT, "Failed to find type for bluetooth device '%d' via model code", buf, 8u);
+    }
+
+    v9 = 0;
+  }
+
+LABEL_81:
+
   return v9;
 }
 
@@ -515,41 +762,41 @@ LABEL_55:
 
 + (void)_enumerateAllDeclaredTypesUsingBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!block)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"UTType.mm" lineNumber:204 description:{@"Invalid parameter not satisfying: %@", @"block != nil"}];
   }
 
-  v20 = 0;
+  v19 = 0;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   enumerator = [MEMORY[0x1E69636B0] enumerator];
-  v5 = [enumerator countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v5 = [enumerator countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
 LABEL_5:
     v7 = 0;
     while (1)
     {
-      if (*v17 != v6)
+      if (*v16 != v6)
       {
         objc_enumerationMutation(enumerator);
       }
 
-      v8 = *(*(&v16 + 1) + 8 * v7);
+      v8 = *(*(&v15 + 1) + 8 * v7);
       v9 = objc_autoreleasePoolPush();
       v10 = [UTType _typeWithTypeRecord:v8 detachTypeRecord:1 findConstant:1];
       if (v10)
       {
-        (*(block + 2))(block, v10, &v20);
+        (*(block + 2))(block, v10, &v19);
       }
 
-      v11 = v20;
+      v11 = v19;
       objc_autoreleasePoolPop(v9);
       if (v11)
       {
@@ -558,7 +805,7 @@ LABEL_5:
 
       if (v5 == ++v7)
       {
-        v5 = [enumerator countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v5 = [enumerator countByEnumeratingWithState:&v15 objects:v20 count:16];
         if (v5)
         {
           goto LABEL_5;
@@ -568,50 +815,48 @@ LABEL_5:
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_typesWithIdentifiers:(id)identifiers
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy_;
-  v36 = __Block_byref_object_dispose_;
-  v37 = 0;
+  v40 = *MEMORY[0x1E69E9840];
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy_;
+  v35 = __Block_byref_object_dispose_;
+  v36 = 0;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   identifiersCopy = identifiers;
-  v4 = [identifiersCopy countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v4 = [identifiersCopy countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v29;
+    v6 = *v28;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(identifiersCopy);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         v9 = __UTFindCoreTypesConstantWithIdentifier(v8, 0x7FFFFFFFFFFFFFFFuLL);
         if ([v9 _isRealized])
         {
-          v10 = v33[5];
+          v10 = v32[5];
           if (!v10)
           {
             v11 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
-            v12 = v33[5];
-            v33[5] = v11;
+            v12 = v32[5];
+            v32[5] = v11;
 
-            v10 = v33[5];
+            v10 = v32[5];
           }
 
           [v10 setObject:v9 forKeyedSubscript:v8];
@@ -624,7 +869,7 @@ LABEL_5:
         }
       }
 
-      v4 = [identifiersCopy countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v4 = [identifiersCopy countByEnumeratingWithState:&v27 objects:v39 count:16];
     }
 
     while (v4);
@@ -654,15 +899,15 @@ LABEL_19:
   v16 = v15;
   if (v15)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __32__UTType__typesWithIdentifiers___block_invoke;
-    v24[3] = &unk_1E796E9E0;
-    v27 = &v32;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __32__UTType__typesWithIdentifiers___block_invoke;
+    v23[3] = &unk_1E796E9E0;
+    v26 = &v31;
     v17 = v15;
-    v25 = v17;
-    v26 = identifiersCopy;
-    [v17 enumerateKeysAndObjectsUsingBlock:v24];
+    v24 = v17;
+    v25 = identifiersCopy;
+    [v17 enumerateKeysAndObjectsUsingBlock:v23];
     if (qword_1ED40DC18 != -1)
     {
       dispatch_once(&qword_1ED40DC18, &__block_literal_global_2);
@@ -676,8 +921,8 @@ LABEL_19:
       {
         if (v18 > 0x80)
         {
-          v38 = 0;
-          std::vector<UTTypeRecord *>::vector[abi:ne200100](&__p, v18);
+          v37 = 0;
+          std::vector<UTTypeRecord *>::vector[abi:ne200100](&__p, v18, &v37);
         }
 
         bzero(&__p, 0x400uLL);
@@ -688,7 +933,7 @@ LABEL_19:
   }
 
 LABEL_29:
-  v20 = v33[5];
+  v20 = v32[5];
   if (v20)
   {
     v21 = [v20 copy];
@@ -699,8 +944,7 @@ LABEL_29:
     v21 = MEMORY[0x1E695E0F8];
   }
 
-  _Block_object_dispose(&v32, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v31, 8);
 
   return v21;
 }
@@ -816,10 +1060,10 @@ void __32__UTType__typesWithIdentifiers___block_invoke(uint64_t a1, void *a2, ui
 
 + (id)_typeOfItemAtFileURL:(id)l error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v6 = [l getResourceValue:&v15 forKey:*MEMORY[0x1E695DAA0] error:error];
-  v7 = v15;
+  v16[1] = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v6 = [l getResourceValue:&v14 forKey:*MEMORY[0x1E695DAA0] error:error];
+  v7 = v14;
   v8 = v7;
   if (v6)
   {
@@ -834,20 +1078,18 @@ void __32__UTType__typesWithIdentifiers___block_invoke(uint64_t a1, void *a2, ui
   if (!v9 && v7 == 0)
   {
     v11 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v16 = *MEMORY[0x1E696A998];
-    v17[0] = l;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A998];
+    v16[0] = l;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = [v11 initWithDomain:*MEMORY[0x1E696A250] code:256 userInfo:v12];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)_typeOfPromiseAtFileURL:(id)l error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (([l isFileURL] & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -855,7 +1097,7 @@ void __32__UTType__typesWithIdentifiers___block_invoke(uint64_t a1, void *a2, ui
 
     if (!error)
     {
-      goto LABEL_4;
+      return 0;
     }
 
     goto LABEL_3;
@@ -865,30 +1107,28 @@ void __32__UTType__typesWithIdentifiers___block_invoke(uint64_t a1, void *a2, ui
   {
 LABEL_3:
     v8 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v13 = *MEMORY[0x1E696A998];
-    v14[0] = l;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A998];
+    v13[0] = l;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = [v8 initWithDomain:*MEMORY[0x1E696A250] code:3328 userInfo:v9];
   }
 
-LABEL_4:
-  v10 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (NSOrderedSet)_parentTypes
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA0]);
   v4 = objc_autoreleasePoolPush();
   _typeRecord = [(UTType *)self _typeRecord];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __22__UTType__parentTypes__block_invoke;
-  v20[3] = &unk_1E796EA08;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __22__UTType__parentTypes__block_invoke;
+  v19[3] = &unk_1E796EA08;
   v6 = v3;
-  v21 = v6;
-  [_typeRecord enumerateParentTypesWithBlock:v20];
+  v20 = v6;
+  [_typeRecord enumerateParentTypesWithBlock:v19];
 
   v7 = v6;
   if (qword_1ED40DC18 != -1)
@@ -903,26 +1143,26 @@ LABEL_4:
     {
       if (v8 > 0x80)
       {
-        v26[0] = 0;
-        std::vector<UTTypeRecord *>::vector[abi:ne200100](__p, v8);
+        v25[0] = 0;
+        std::vector<UTTypeRecord *>::vector[abi:ne200100](__p, v8, v25);
       }
 
-      bzero(v26, 0x400uLL);
+      bzero(v25, 0x400uLL);
       *__p = 0u;
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       v9 = v7;
-      v10 = [v9 countByEnumeratingWithState:__p objects:v27 count:16];
+      v10 = [v9 countByEnumeratingWithState:__p objects:v26 count:16];
       if (v10)
       {
         v11 = 0;
-        v12 = *v23;
+        v12 = *v22;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v23 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(v9);
             }
@@ -934,19 +1174,19 @@ LABEL_4:
               _typeRecord2 = [v15 _typeRecord];
               if (_typeRecord2)
               {
-                v26[v11++] = _typeRecord2;
+                v25[v11++] = _typeRecord2;
               }
             }
           }
 
-          v10 = [v9 countByEnumeratingWithState:__p objects:v27 count:16];
+          v10 = [v9 countByEnumeratingWithState:__p objects:v26 count:16];
         }
 
         while (v10);
 
         if (v11)
         {
-          _UTDetachTypeRecords(v26, v11);
+          _UTDetachTypeRecords(v25, v11);
         }
       }
 
@@ -958,8 +1198,6 @@ LABEL_4:
 
   objc_autoreleasePoolPop(v4);
   v17 = [v7 copy];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1132,37 +1370,35 @@ LABEL_12:
 
 + (void)_unrealizeAllCoreTypes
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v2 = _UTGetAllCoreTypesConstants();
-  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) _unrealize];
+        [*(*(&v6 + 1) + 8 * v5++) _unrealize];
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_preferredTagOfClass:(id)class
@@ -1245,7 +1481,7 @@ LABEL_12:
 
 - (UTType)initWithCoder:(id)coder
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   v5 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"declared"];
   v7 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"dynamic"];
@@ -1269,7 +1505,7 @@ LABEL_12:
       }
 
       v11 = v10;
-      v26 = v10;
+      v25 = v10;
       if (v10)
       {
         v12 = _UTTaggedTypeCreate(v10);
@@ -1284,22 +1520,22 @@ LABEL_12:
           v14 = [(UTType *)self _initWithTypeRecord:v11];
           if (v14)
           {
-            _UTDetachTypeRecords(&v26, 1);
+            _UTDetachTypeRecords(&v25, 1);
           }
         }
 
-        v22 = v26;
+        v22 = v25;
       }
 
       else
       {
 
         v21 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v31[0] = *MEMORY[0x1E696A278];
-        v31[1] = @"UTIdentifier";
-        v32[0] = @"Unrecognized type identifier.";
-        v32[1] = v5;
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+        v30[0] = *MEMORY[0x1E696A278];
+        v30[1] = @"UTIdentifier";
+        v31[0] = @"Unrecognized type identifier.";
+        v31[1] = v5;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
         v23 = [v21 initWithDomain:*MEMORY[0x1E696A250] code:4864 userInfo:v22];
         [coder failWithError:v23];
 
@@ -1314,20 +1550,20 @@ LABEL_12:
     v15 = objc_alloc(MEMORY[0x1E696ABC0]);
     if (v5)
     {
-      v29[0] = *MEMORY[0x1E696A278];
-      v29[1] = @"UTIdentifier";
-      v30[0] = @"Type identifier was not a string.";
-      v30[1] = v5;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+      v28[0] = *MEMORY[0x1E696A278];
+      v28[1] = @"UTIdentifier";
+      v29[0] = @"Type identifier was not a string.";
+      v29[1] = v5;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
       v17 = [v15 initWithDomain:*MEMORY[0x1E696A250] code:4864 userInfo:v16];
       [coder failWithError:v17];
     }
 
     else
     {
-      v27 = *MEMORY[0x1E696A278];
-      v28 = @"Type identifier was not encoded.";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      v26 = *MEMORY[0x1E696A278];
+      v27 = @"Type identifier was not encoded.";
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
       v19 = [v15 initWithDomain:*MEMORY[0x1E696A250] code:4865 userInfo:v18];
       [coder failWithError:v19];
     }
@@ -1335,7 +1571,6 @@ LABEL_12:
     v14 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -1401,16 +1636,16 @@ LABEL_12:
 
 - (NSSet)supertypes
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   _typeRecord = [(UTType *)self _typeRecord];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __33__UTType_Conformance__supertypes__block_invoke;
-  v18[3] = &unk_1E796EA08;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __33__UTType_Conformance__supertypes__block_invoke;
+  v17[3] = &unk_1E796EA08;
   v5 = v3;
-  v19 = v5;
-  [_typeRecord enumeratePedigreeWithBlock:v18];
+  v18 = v5;
+  [_typeRecord enumeratePedigreeWithBlock:v17];
 
   v6 = [v5 copy];
   if (qword_1ED40DC18 != -1)
@@ -1425,26 +1660,26 @@ LABEL_12:
     {
       if (v7 > 0x80)
       {
-        v24[0] = 0;
-        std::vector<UTTypeRecord *>::vector[abi:ne200100](__p, v7);
+        v23[0] = 0;
+        std::vector<UTTypeRecord *>::vector[abi:ne200100](__p, v7, v23);
       }
 
-      bzero(v24, 0x400uLL);
+      bzero(v23, 0x400uLL);
       *__p = 0u;
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:__p objects:v25 count:16];
+      v9 = [v8 countByEnumeratingWithState:__p objects:v24 count:16];
       if (v9)
       {
         v10 = 0;
-        v11 = *v21;
+        v11 = *v20;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v21 != v11)
+            if (*v20 != v11)
             {
               objc_enumerationMutation(v8);
             }
@@ -1456,19 +1691,19 @@ LABEL_12:
               _typeRecord2 = [v14 _typeRecord];
               if (_typeRecord2)
               {
-                v24[v10++] = _typeRecord2;
+                v23[v10++] = _typeRecord2;
               }
             }
           }
 
-          v9 = [v8 countByEnumeratingWithState:__p objects:v25 count:16];
+          v9 = [v8 countByEnumeratingWithState:__p objects:v24 count:16];
         }
 
         while (v9);
 
         if (v10)
         {
-          _UTDetachTypeRecords(v24, v10);
+          _UTDetachTypeRecords(v23, v10);
         }
       }
 
@@ -1477,8 +1712,6 @@ LABEL_12:
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1544,7 +1777,7 @@ LABEL_3:
 
 + (NSArray)typesWithTag:(NSString *)tag tagClass:(NSString *)tagClass conformingToType:(UTType *)supertype
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (tag)
   {
     if (tagClass)
@@ -1583,29 +1816,29 @@ LABEL_3:
   }
 
   v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v12, "count")}];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v15)
   {
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = [UTType _typeWithTypeRecord:*(*(&v26 + 1) + 8 * i) detachTypeRecord:0 findConstant:1];
+        v18 = [UTType _typeWithTypeRecord:*(*(&v25 + 1) + 8 * i) detachTypeRecord:0 findConstant:1];
         [v13 addObject:v18];
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v15);
@@ -1625,8 +1858,8 @@ LABEL_3:
     {
       if (v20 > 0x80)
       {
-        v30 = 0;
-        std::vector<UTTypeRecord *>::vector[abi:ne200100](&__p, v20);
+        v29 = 0;
+        std::vector<UTTypeRecord *>::vector[abi:ne200100](&__p, v20, &v29);
       }
 
       bzero(&__p, 0x400uLL);
@@ -1640,8 +1873,6 @@ LABEL_3:
 LABEL_20:
     v19 = MEMORY[0x1E695E0F0];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -1726,7 +1957,7 @@ LABEL_20:
 
 + (id)_typeWithIdentifier:(id)identifier constantIndex:(int64_t)index error:(id *)error
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   if (!identifier)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -1741,10 +1972,10 @@ LABEL_20:
       goto LABEL_8;
     }
 
-    v14 = [MEMORY[0x1E69636B0] typeRecordWithIdentifier:identifier];
-    if (v14)
+    v13 = [MEMORY[0x1E69636B0] typeRecordWithIdentifier:identifier];
+    if (v13)
     {
-      v9 = [UTType _typeWithTypeRecord:v14 detachTypeRecord:1 findConstant:0];
+      v9 = [UTType _typeWithTypeRecord:v13 detachTypeRecord:1 findConstant:0];
     }
 
     else
@@ -1770,18 +2001,17 @@ LABEL_20:
   if (!v9)
   {
     v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v17[0] = *MEMORY[0x1E696A278];
-    v17[1] = @"UTIdentifier";
-    v18[0] = @"Unrecognized type identifier.";
-    v18[1] = identifier;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v16[0] = *MEMORY[0x1E696A278];
+    v16[1] = @"UTIdentifier";
+    v17[0] = @"Unrecognized type identifier.";
+    v17[1] = identifier;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
     *error = [v10 initWithDomain:*MEMORY[0x1E696A250] code:4864 userInfo:v11];
 
     v9 = 0;
   }
 
 LABEL_8:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

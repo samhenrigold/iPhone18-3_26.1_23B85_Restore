@@ -600,7 +600,7 @@
     v19 = v18;
     if (v18)
     {
-      [v18 transformFromViewToStrokeSpaceInDrawing:v4];
+      objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(v18);
       v20 = v28;
       v21 = v29;
       v22 = v30;
@@ -687,7 +687,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  [v18 transformFromViewToStrokeSpaceInDrawing:v4];
+  objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(v18);
   v20 = v29;
   v21 = v30;
   v22 = v31;
@@ -1308,7 +1308,7 @@ LABEL_19:
       v19 = WeakRetained;
       if (WeakRetained)
       {
-        [WeakRetained transformFromViewToStrokeSpaceInDrawing:v14];
+        objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(WeakRetained);
         v21 = v37;
         v20 = v38;
         v23 = v39;
@@ -1486,7 +1486,7 @@ LABEL_20:
     currentDrawing2 = [(PKSelectionInteraction *)self currentDrawing];
     if (v27)
     {
-      [v27 transformFromViewToStrokeSpaceInDrawing:currentDrawing2];
+      objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(v27);
       v72 = v84;
       v74 = v83;
       v76 = v85;
@@ -2253,7 +2253,7 @@ void __59__PKSelectionInteraction__selectViaContinuousTapWithInput___block_invok
       v38 = 2;
     }
 
-    [(PKSelectionGlowRenderer *)self->_glowRenderer _didEndDragKnobLocation:v37 knobDragMode:0, v38];
+    [(PKSelectionGlowRenderer *)&self->_glowRenderer->super.isa _didEndDragKnobLocation:v37 knobDragMode:0, v38];
     v32 = [PKSelectionInput inputWithType:1 location:v11 inputType:v8, v10];
     v39 = self->_modificationType;
     v57[0] = MEMORY[0x1E69E9820];
@@ -2836,7 +2836,7 @@ LABEL_18:
         currentDrawing2 = [(PKSelectionInteraction *)self currentDrawing];
         if (WeakRetained)
         {
-          [WeakRetained transformFromStrokeSpaceToViewInDrawing:currentDrawing2];
+          objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
           v65 = *&v83[5];
           v64 = *&v83[6];
           v66 = *&v83[7];
@@ -2859,7 +2859,7 @@ LABEL_18:
         glowRenderer = self->_glowRenderer;
         if (glowRenderer)
         {
-          [(PKSelectionGlowRenderer *)glowRenderer _updateKnobAppearanceForDragAtKnobLocation:v9 point:v11 otherKnobPoint:v68 + v82 * v66 + v65 * v79 selectionType:v69 + v82 * v67 + v64 * v79 touchType:?];
+          [(PKSelectionGlowRenderer *)&glowRenderer->super.isa _updateKnobAppearanceForDragAtKnobLocation:v9 point:v11 otherKnobPoint:v68 + v82 * v66 + v65 * v79 selectionType:v69 + v82 * v67 + v64 * v79 touchType:?];
         }
 
         goto LABEL_35;
@@ -2878,7 +2878,7 @@ LABEL_18:
 
   if ([expandCopy state] == 3)
   {
-    [(PKSelectionGlowRenderer *)self->_glowRenderer _didEndDragKnobLocation:v35 knobDragMode:self->_currentlyDraggedKnob, self->_knobDragMode];
+    [(PKSelectionGlowRenderer *)&self->_glowRenderer->super.isa _didEndDragKnobLocation:v35 knobDragMode:self->_currentlyDraggedKnob, self->_knobDragMode];
     initialStrokeSelectionBeforeModification = self->_initialStrokeSelectionBeforeModification;
     v83[0] = MEMORY[0x1E69E9820];
     v83[1] = 3221225472;
@@ -2896,7 +2896,7 @@ LABEL_18:
 LABEL_35:
 }
 
-uint64_t __52__PKSelectionInteraction__pressAndHoldLinearExpand___block_invoke(uint64_t a1)
+void *__52__PKSelectionInteraction__pressAndHoldLinearExpand___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _liveSelectionGestureStillActive];
   if (result)
@@ -3401,7 +3401,7 @@ LABEL_24:
     currentDrawing = [(PKSelectionInteraction *)self currentDrawing];
     if (v37)
     {
-      [v37 transformFromStrokeSpaceToViewInDrawing:currentDrawing];
+      objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(v37);
       v39 = *&v53[7];
       v49 = *&v53[5];
       v50 = *&v53[8];
@@ -3434,7 +3434,7 @@ LABEL_24:
     glowRenderer = self->_glowRenderer;
     if (glowRenderer)
     {
-      [(PKSelectionGlowRenderer *)glowRenderer _updateKnobAppearanceForDragAtKnobLocation:v7 point:v9 otherKnobPoint:v40 + v39 * v42 + v49 * v41 selectionType:v52 + v50 * v42 + v51 * v41 touchType:?];
+      [(PKSelectionGlowRenderer *)&glowRenderer->super.isa _updateKnobAppearanceForDragAtKnobLocation:v7 point:v9 otherKnobPoint:v40 + v39 * v42 + v49 * v41 selectionType:v52 + v50 * v42 + v51 * v41 touchType:?];
     }
 
     goto LABEL_31;
@@ -3442,7 +3442,7 @@ LABEL_24:
 
   if ([knobCopy state] == 3)
   {
-    [(PKSelectionGlowRenderer *)self->_glowRenderer _didEndDragKnobLocation:v34 knobDragMode:self->_currentlyDraggedKnob, self->_knobDragMode];
+    [(PKSelectionGlowRenderer *)&self->_glowRenderer->super.isa _didEndDragKnobLocation:v34 knobDragMode:self->_currentlyDraggedKnob, self->_knobDragMode];
     v53[0] = MEMORY[0x1E69E9820];
     v53[1] = 3221225472;
     v53[2] = __39__PKSelectionInteraction__didDragKnob___block_invoke;
@@ -3533,7 +3533,7 @@ void __39__PKSelectionInteraction__didDragKnob___block_invoke(uint64_t a1, void 
   currentDrawing = [(PKSelectionInteraction *)self currentDrawing];
   if (WeakRetained)
   {
-    [WeakRetained transformFromStrokeSpaceToViewInDrawing:currentDrawing];
+    objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
   }
 
   else
@@ -3606,7 +3606,7 @@ void __39__PKSelectionInteraction__didDragKnob___block_invoke(uint64_t a1, void 
   currentDrawing = [(PKSelectionInteraction *)self currentDrawing];
   if (WeakRetained)
   {
-    [WeakRetained transformFromStrokeSpaceToViewInDrawing:currentDrawing];
+    objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
   }
 
   else
@@ -3683,7 +3683,7 @@ void __39__PKSelectionInteraction__didDragKnob___block_invoke(uint64_t a1, void 
   currentDrawing = [(PKSelectionInteraction *)self currentDrawing];
   if (WeakRetained)
   {
-    [WeakRetained transformFromStrokeSpaceToViewInDrawing:currentDrawing];
+    objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
   }
 
   else
@@ -3733,7 +3733,7 @@ void __39__PKSelectionInteraction__didDragKnob___block_invoke(uint64_t a1, void 
   currentDrawing = [(PKSelectionInteraction *)self currentDrawing];
   if (WeakRetained)
   {
-    [WeakRetained transformFromStrokeSpaceToViewInDrawing:currentDrawing];
+    objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
   }
 
   else
@@ -3894,7 +3894,7 @@ void __39__PKSelectionInteraction__didDragKnob___block_invoke(uint64_t a1, void 
 
   if ([knobCopy state] == 3)
   {
-    [(PKSelectionGlowRenderer *)self->_glowRenderer _didEndDragKnobLocation:v40 knobDragMode:self->_currentlyDraggedKnob, self->_knobDragMode];
+    [(PKSelectionGlowRenderer *)&self->_glowRenderer->super.isa _didEndDragKnobLocation:v40 knobDragMode:self->_currentlyDraggedKnob, self->_knobDragMode];
     [knobCopy lastTouchTimestamp];
     [PKSelectionInteraction _updateVelocityWindowWithTimestamp:"_updateVelocityWindowWithTimestamp:location:" location:?];
     v41 = [(PKSelectionInteraction *)self _selectionTypeForVelocity:?];
@@ -5309,7 +5309,7 @@ LABEL_10:
   if (selectionController && (WeakRetained = objc_loadWeakRetained((selectionController + 120))) != 0)
   {
     v9 = WeakRetained;
-    [WeakRetained transformFromViewToStrokeSpaceInDrawing:{drawingCopy, v13, spaceCopy}];
+    objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(WeakRetained, v13, spaceCopy);
   }
 
   else

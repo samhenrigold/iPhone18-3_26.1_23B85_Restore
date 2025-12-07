@@ -260,7 +260,7 @@ LABEL_8:
 {
   dataCopy = data;
   statesCopy = states;
-  v144 = objc_msgSend_textureVariablesArray(self, v6, v7, v8, v9);
+  v142 = objc_msgSend_textureVariablesArray(self, v6, v7, v8, v9);
   if (!objc_msgSend_count(self->_materials, v10, v11, v12, v13))
   {
     v18 = MEMORY[0x277D81150];
@@ -273,19 +273,19 @@ LABEL_8:
   }
 
   v34 = objc_msgSend_count(self->_materials, v14, v15, v16, v17);
-  if (v34 > objc_msgSend_count(v144, v35, v36, v37, v38))
+  if (v34 > objc_msgSend_count(v142, v35, v36, v37, v38))
   {
     v43 = MEMORY[0x277D81150];
     v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, v40, v41, v42, "[TSCH3DSphericalEnvironmentShaderEffect uploadData:effectsStates:]");
     v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DSphericalEnvironmentShaderEffect.mm");
     v54 = objc_msgSend_count(self->_materials, v50, v51, v52, v53);
-    v59 = objc_msgSend_count(v144, v55, v56, v57, v58);
+    v59 = objc_msgSend_count(v142, v55, v56, v57, v58);
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v60, v61, v62, v63, v44, v49, 183, 0, "_materials count %lu exceeds texture variables %zu", v54, v59);
 
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v64, v65, v66, v67);
   }
 
-  v142 = objc_msgSend_stateForStateInfo_createIfNil_(statesCopy, v39, v40, v41, v42, self, 1);
+  v140 = objc_msgSend_stateForStateInfo_createIfNil_(statesCopy, v39, v40, v41, v42, self, 1);
   v73 = objc_msgSend_count(self->_materials, v68, v69, v70, v71);
   if (v73)
   {
@@ -297,75 +297,75 @@ LABEL_8:
       if (v83)
       {
         objc_opt_class();
-        v88 = objc_msgSend_objectAtIndexedSubscript_(v142, v84, v85, v86, v87, i);
+        v88 = objc_msgSend_objectAtIndexedSubscript_(v140, v84, v85, v86, v87, i);
         v89 = TSUCheckedDynamicCast();
         v94 = objc_msgSend_intValue(v89, v90, v91, v92, v93);
 
-        v99 = objc_msgSend_objectAtIndexedSubscript_(v144, v95, v96, v97, v98, i);
+        v99 = objc_msgSend_objectAtIndexedSubscript_(v142, v95, v96, v97, v98, i);
         v104 = objc_msgSend_texture(v99, v100, v101, v102, v103);
-        v155[0].i32[0] = v94;
-        objc_msgSend_uniform_ivec1_(dataCopy, v105, v106, v107, v108, v104, v155);
+        v153[0].i32[0] = v94;
+        objc_msgSend_uniform_ivec1_(dataCopy, v105, v106, v107, v108, v104, v153);
 
         objc_opt_class();
         v113 = objc_msgSend_firstTiling(v78, v109, v110, v111, v112);
         v114 = TSUCheckedDynamicCast();
 
-        objc_msgSend_rotation(v114, v115, v116, v117, v118);
-        v123 = __sincosf_stret(v119 * 0.5);
-        *&v121 = v123.__sinval;
-        *&v124 = v123.__sinval * 0.0;
-        v125 = (v123.__sinval * 0.0) * -2.0;
-        v126 = (v125 * (v123.__sinval * 0.0)) + 1.0;
-        v152.f32[0] = v126 + ((*&v121 * -2.0) * *&v121);
-        v152.f32[1] = (v123.__sinval * (v123.__cosval + v123.__cosval)) + ((*&v124 + *&v124) * *&v124);
-        v152.i64[1] = COERCE_UNSIGNED_INT(((*&v121 * 0.0) * (v123.__cosval * -2.0)) + ((*&v124 + *&v124) * *&v121));
-        v153.f32[0] = (v123.__sinval * (v123.__cosval * -2.0)) + ((*&v124 + *&v124) * *&v124);
-        v153.f32[1] = v152.f32[0];
-        v153.f32[2] = ((*&v121 * 0.0) * (v123.__cosval + v123.__cosval)) + ((*&v124 + *&v124) * *&v121);
-        v153.i32[3] = 0;
-        *v154 = v153.f32[2];
-        *&v154[4] = ((*&v121 * 0.0) * (v123.__cosval * -2.0)) + ((*&v124 + *&v124) * *&v121);
-        *&v154[8] = v126 + (v125 * (v123.__sinval * 0.0));
-        *&v154[20] = 0;
-        *&v154[12] = 0;
-        *&v154[28] = 1065353216;
+        objc_msgSend_rotation(v114, v115, v116, v117);
+        v121 = __sincosf_stret(v118 * 0.5);
+        *&v119 = v121.__sinval;
+        *&v122 = v121.__sinval * 0.0;
+        v123 = (v121.__sinval * 0.0) * -2.0;
+        v124 = (v123 * (v121.__sinval * 0.0)) + 1.0;
+        v150.f32[0] = v124 + ((*&v119 * -2.0) * *&v119);
+        v150.f32[1] = (v121.__sinval * (v121.__cosval + v121.__cosval)) + ((*&v122 + *&v122) * *&v122);
+        v150.i64[1] = COERCE_UNSIGNED_INT(((*&v119 * 0.0) * (v121.__cosval * -2.0)) + ((*&v122 + *&v122) * *&v119));
+        v151.f32[0] = (v121.__sinval * (v121.__cosval * -2.0)) + ((*&v122 + *&v122) * *&v122);
+        v151.f32[1] = v150.f32[0];
+        v151.f32[2] = ((*&v119 * 0.0) * (v121.__cosval + v121.__cosval)) + ((*&v122 + *&v122) * *&v119);
+        v151.i32[3] = 0;
+        *v152 = v151.f32[2];
+        *&v152[4] = ((*&v119 * 0.0) * (v121.__cosval * -2.0)) + ((*&v122 + *&v122) * *&v119);
+        *&v152[8] = v124 + (v123 * (v121.__sinval * 0.0));
+        *&v152[20] = 0;
+        *&v152[12] = 0;
+        *&v152[28] = 1065353216;
         if (v114)
         {
-          *&v121 = v126 + (v125 * (v123.__sinval * 0.0));
-          *&v122 = (v123.__sinval * (v123.__cosval * -2.0)) + ((*&v124 + *&v124) * *&v124);
-          objc_msgSend_scale(v114, v120, v121, v122, v124);
-          v127 = *(&v145 + 1);
-          v128 = *&v145;
+          *&v119 = v124 + (v123 * (v121.__sinval * 0.0));
+          *&v120 = (v121.__sinval * (v121.__cosval * -2.0)) + ((*&v122 + *&v122) * *&v122);
+          objc_msgSend_scale(v114, v119, v120, v122);
+          v125 = *(&v143 + 1);
+          v126 = *&v143;
         }
 
         else
         {
-          v145 = 0;
-          v127 = 0.0;
-          v128 = 0.0;
+          v143 = 0;
+          v125 = 0.0;
+          v126 = 0.0;
         }
 
-        *v146 = v128;
-        *&v146[1] = v128 * 0.0;
-        *&v146[2] = v128 * 0.0;
-        *&v146[3] = v128 * 0.0;
-        *&v146[4] = v127 * -0.0;
-        *&v146[5] = -v127;
-        *&v146[6] = v127 * -0.0;
-        *&v146[7] = v127 * -0.0;
+        *v144 = v126;
+        *&v144[1] = v126 * 0.0;
+        *&v144[2] = v126 * 0.0;
+        *&v144[3] = v126 * 0.0;
+        *&v144[4] = v125 * -0.0;
+        *&v144[5] = -v125;
+        *&v144[6] = v125 * -0.0;
+        *&v144[7] = v125 * -0.0;
+        v145 = 0;
+        v148 = 0;
         v147 = 0;
-        v150 = 0;
-        v149 = 0;
-        v148 = 1065353216;
-        v151 = 1065353216;
-        sub_2761558A0(&v152, v146, v155);
-        v152 = v155[0];
-        v153 = v155[1];
-        *v154 = v156;
-        *&v154[16] = *v157;
-        v131 = objc_msgSend_objectAtIndexedSubscript_(v144, v129, *&v156, v157[0], v130, i);
-        v136 = objc_msgSend_textureMatrix(v131, v132, v133, v134, v135);
-        objc_msgSend_uniform_mat4_(dataCopy, v137, v138, v139, v140, v136, &v152);
+        v146 = 1065353216;
+        v149 = 1065353216;
+        sub_2761558A0(&v150, v144, v153);
+        v150 = v153[0];
+        v151 = v153[1];
+        *v152 = v153[2];
+        *&v152[16] = v153[3];
+        v129 = objc_msgSend_objectAtIndexedSubscript_(v142, v127, *v153[2].i64, *v153[3].i64, v128, i);
+        v134 = objc_msgSend_textureMatrix(v129, v130, v131, v132, v133);
+        objc_msgSend_uniform_mat4_(dataCopy, v135, v136, v137, v138, v134, &v150);
       }
     }
   }

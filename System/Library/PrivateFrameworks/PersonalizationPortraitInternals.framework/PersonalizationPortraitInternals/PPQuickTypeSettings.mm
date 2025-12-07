@@ -6,7 +6,7 @@
 
 + (BOOL)servantShouldRespondToQuery:(id)query
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   if (!queryCopy)
   {
@@ -42,14 +42,13 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v15 = v6;
+    v14 = v6;
     _os_log_fault_impl(&dword_23224A000, v7, OS_LOG_TYPE_FAULT, "unknown servant passed to servantShouldRespondToQuery: %@", buf, 0xCu);
   }
 
   v8 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

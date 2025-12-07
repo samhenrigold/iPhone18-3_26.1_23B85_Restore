@@ -14,17 +14,17 @@
   underCopy = under;
   dataCopy = data;
   v8 = objc_autoreleasePoolPush();
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 1;
-  v9 = sub_100021268();
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 1;
+  v9 = sub_100021268(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v34 = "[MSDHFileMetadataRestore restoreAttributesUnder:fromManifestData:]";
-    v35 = 2114;
-    v36 = underCopy;
+    v35 = "[MSDHFileMetadataRestore restoreAttributesUnder:fromManifestData:]";
+    v36 = 2114;
+    v37 = underCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: Restoring file attributes under: %{public}@", buf, 0x16u);
   }
 
@@ -44,37 +44,37 @@
     pathSet = [(MSDManifest *)v16 pathSet];
     allObjects = [pathSet allObjects];
 
-    v19 = [allObjects count];
+    v20 = [allObjects count];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100017B60;
     block[3] = &unk_100051000;
-    v28 = &v29;
-    v24 = allObjects;
-    v25 = v16;
-    v26 = underCopy;
+    v29 = &v30;
+    v25 = allObjects;
+    v26 = v16;
+    v27 = underCopy;
     selfCopy = self;
-    dispatch_apply(v19, 0, block);
-    v20 = *(v30 + 24);
+    dispatch_apply(v20, 0, block);
+    v21 = *(v31 + 24);
 
-    v21 = v24;
+    v22 = v25;
   }
 
   else
   {
-    v21 = sub_100021268();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = sub_100021268(v17);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_10002EA44(v21);
+      sub_10002EA44(v22);
     }
 
-    v20 = 0;
+    v21 = 0;
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v30, 8);
   objc_autoreleasePoolPop(v8);
 
-  return v20 & 1;
+  return v21 & 1;
 }
 
 - (BOOL)_gatherDeviceDemoUserAccountInfo
@@ -105,7 +105,7 @@
       return 1;
     }
 
-    sub_10002EB0C(self, &v4->pw_gid);
+    sub_10002EB0C(self);
   }
 
   else
@@ -208,23 +208,23 @@ LABEL_11:
 
   if (v10)
   {
-    v11 = [(MSDHFileMetadataRestore *)self _updateFileAttributes:attributesCopy];
+    v12 = [(MSDHFileMetadataRestore *)self _updateFileAttributes:attributesCopy];
   }
 
   else
   {
-    v12 = sub_100021268();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = sub_100021268(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_10002EDCC(fileCopy, v8, v12);
+      sub_10002EDCC(fileCopy, v8, v13);
     }
 
-    v11 = attributesCopy;
+    v12 = attributesCopy;
   }
 
-  v13 = v11;
+  v14 = v12;
 
-  return v13;
+  return v14;
 }
 
 - (id)_updateFileAttributes:(id)attributes

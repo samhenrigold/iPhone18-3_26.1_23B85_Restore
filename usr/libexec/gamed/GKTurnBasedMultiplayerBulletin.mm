@@ -391,8 +391,8 @@
   v6 = os_log_GKTrace;
   if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
   {
-    *v23 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "GKTurnBasedMultiplayerBulletin declineTurnBasedInviteWithReason:", v23, 2u);
+    *v20 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "GKTurnBasedMultiplayerBulletin declineTurnBasedInviteWithReason:", v20, 2u);
   }
 
   if (!os_log_GKGeneral)
@@ -403,51 +403,45 @@
   v8 = os_log_GKDaemon;
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
-    *v23 = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Decline Turn Based Invite", v23, 2u);
+    *v20 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Decline Turn Based Invite", v20, 2u);
   }
 
   guestID = [(GKTurnBasedMultiplayerBulletin *)self guestID];
   if (guestID)
   {
-    v26[0] = @"session-id";
+    v25 = @"session-id";
     matchID = [(GKTurnBasedMultiplayerBulletin *)self matchID];
-    v27[0] = matchID;
-    v26[1] = @"reason";
+    v28 = matchID;
+    v26 = @"reason";
     v11 = [NSNumber numberWithUnsignedInt:v3];
-    v26[2] = @"guest-id";
-    v27[1] = v11;
-    v27[2] = guestID;
-    v12 = v27;
-    v13 = v26;
-    v14 = 3;
+    v27 = @"guest-id";
+    v29 = v11;
+    v30 = guestID;
   }
 
   else
   {
-    v24[0] = @"session-id";
+    v21 = @"session-id";
     matchID = [(GKTurnBasedMultiplayerBulletin *)self matchID];
-    v24[1] = @"reason";
-    v25[0] = matchID;
+    v22 = @"reason";
+    v23 = matchID;
     v11 = [NSNumber numberWithUnsignedInt:v3];
-    v25[1] = v11;
-    v12 = v25;
-    v13 = v24;
-    v14 = 2;
+    v24 = v11;
   }
 
-  v15 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:v14];
-  v16 = [NSPropertyListSerialization dataWithPropertyList:v15 format:100 options:0 error:0];
+  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v13 = [NSPropertyListSerialization dataWithPropertyList:v12 format:100 options:0 error:0];
 
-  v17 = +[GKClientProxy gameCenterClient];
-  v18 = +[GKDataRequestManager sharedManager];
-  storeBag = [v18 storeBag];
-  v20 = +[GKPlayerCredentialController sharedController];
-  v21 = [v20 pushCredentialForEnvironment:{objc_msgSend(v17, "environment")}];
-  [storeBag writeDataForBagKey:@"gk-tb-decline" postData:v16 client:0 credential:v21 completion:0];
+  v14 = +[GKClientProxy gameCenterClient];
+  v15 = +[GKDataRequestManager sharedManager];
+  storeBag = [v15 storeBag];
+  v17 = +[GKPlayerCredentialController sharedController];
+  v18 = [v17 pushCredentialForEnvironment:{objc_msgSend(v14, "environment")}];
+  [storeBag writeDataForBagKey:@"gk-tb-decline" postData:v13 client:0 credential:v18 completion:0];
 
-  v22 = +[GKReporter reporter];
-  [v22 reportEvent:GKReporterDomainTurnBased type:GKReporterTurnBasedDecline];
+  v19 = +[GKReporter reporter];
+  [v19 reportEvent:GKReporterDomainTurnBased type:GKReporterTurnBasedDecline];
 }
 
 - (void)removePreviousTurnBulletins

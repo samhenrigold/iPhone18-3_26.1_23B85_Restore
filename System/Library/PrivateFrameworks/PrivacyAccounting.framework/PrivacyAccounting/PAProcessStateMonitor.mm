@@ -56,29 +56,27 @@ uint64_t __39__PAProcessStateMonitor_sharedInstance__block_invoke()
 
 void __97__PAProcessStateMonitor_startMonitoringVisibilityStateForBundleIdentifiers_onQueue_withDelegate___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E69C7610] predicateMatchingBundleIdentifiers:*(a1 + 32)];
-  v13[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   [v3 setPredicates:v5];
 
   v6 = [MEMORY[0x1E69C7630] descriptor];
-  v12 = @"com.apple.frontboard.visibility";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+  v11 = @"com.apple.frontboard.visibility";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
   [v6 setEndowmentNamespaces:v7];
 
   [v3 setStateDescriptor:v6];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __97__PAProcessStateMonitor_startMonitoringVisibilityStateForBundleIdentifiers_onQueue_withDelegate___block_invoke_2;
-  v9[3] = &unk_1E86ABE18;
-  v10 = *(a1 + 40);
-  objc_copyWeak(&v11, (a1 + 48));
-  [v3 setUpdateHandler:v9];
-  objc_destroyWeak(&v11);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __97__PAProcessStateMonitor_startMonitoringVisibilityStateForBundleIdentifiers_onQueue_withDelegate___block_invoke_2;
+  v8[3] = &unk_1E86ABE18;
+  v9 = *(a1 + 40);
+  objc_copyWeak(&v10, (a1 + 48));
+  [v3 setUpdateHandler:v8];
+  objc_destroyWeak(&v10);
 }
 
 void __97__PAProcessStateMonitor_startMonitoringVisibilityStateForBundleIdentifiers_onQueue_withDelegate___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)

@@ -10,22 +10,21 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.sso";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.sso";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCSingleSignOnPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v45.receiver = self;
-  v45.super_class = MCSingleSignOnPayload;
-  v10 = [(MCPayload *)&v45 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v44.receiver = self;
+  v44.super_class = MCSingleSignOnPayload;
+  v10 = [(MCPayload *)&v44 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_23;
@@ -33,24 +32,24 @@
 
   if ([profileCopy isStub])
   {
-    v44 = 0;
-    v11 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Name" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v44];
-    v12 = v44;
+    v43 = 0;
+    v11 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"Name" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v43];
+    v12 = v43;
     humanReadableName = v10->_humanReadableName;
     v10->_humanReadableName = v11;
 
     if (!v12)
     {
-      v43 = 0;
-      v14 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"Kerberos" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v43];
-      v15 = v43;
+      v42 = 0;
+      v14 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"Kerberos" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v42];
+      v15 = v42;
       if (!v15)
       {
         v16 = [MCSingleSignOnPayloadKerberosInfo alloc];
         v17 = [v14 mutableCopy];
-        v42 = 0;
-        v18 = [(MCSingleSignOnPayloadKerberosInfo *)v16 initWithDictionary:v17 profile:profileCopy outError:&v42];
-        v12 = v42;
+        v41 = 0;
+        v18 = [(MCSingleSignOnPayloadKerberosInfo *)v16 initWithDictionary:v17 profile:profileCopy outError:&v41];
+        v12 = v41;
         kerberosInfo = v10->_kerberosInfo;
         v10->_kerberosInfo = v18;
 
@@ -77,9 +76,9 @@ LABEL_14:
       v32 = v31;
       mCVerboseDescription = [v27 MCVerboseDescription];
       *buf = 138543618;
-      v47 = v31;
-      v48 = 2114;
-      v49 = mCVerboseDescription;
+      v46 = v31;
+      v47 = 2114;
+      v48 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -87,9 +86,9 @@ LABEL_14:
     goto LABEL_19;
   }
 
-  v41 = 0;
-  v20 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"Name" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v41];
-  v12 = v41;
+  v40 = 0;
+  v20 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"Name" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v40];
+  v12 = v40;
   v21 = v10->_humanReadableName;
   v10->_humanReadableName = v20;
 
@@ -98,9 +97,9 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v40 = 0;
-  v14 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"Kerberos" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v40];
-  v15 = v40;
+  v39 = 0;
+  v14 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"Kerberos" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v39];
+  v15 = v39;
   if (v15)
   {
 LABEL_8:
@@ -110,9 +109,9 @@ LABEL_8:
 
   v22 = [MCSingleSignOnPayloadKerberosInfo alloc];
   v23 = [v14 mutableCopy];
-  v39 = 0;
-  v24 = [(MCSingleSignOnPayloadKerberosInfo *)v22 initWithDictionary:v23 profile:profileCopy outError:&v39];
-  v12 = v39;
+  v38 = 0;
+  v24 = [(MCSingleSignOnPayloadKerberosInfo *)v22 initWithDictionary:v23 profile:profileCopy outError:&v38];
+  v12 = v38;
   v25 = v10->_kerberosInfo;
   v10->_kerberosInfo = v24;
 
@@ -145,15 +144,14 @@ LABEL_19:
       v35 = v34;
       friendlyName = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v47 = friendlyName;
-      v48 = 2114;
-      v49 = dictionaryCopy;
+      v46 = friendlyName;
+      v47 = 2114;
+      v48 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v35, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_23:
-  v37 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

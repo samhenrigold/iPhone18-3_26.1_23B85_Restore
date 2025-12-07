@@ -3,15 +3,15 @@
 
 @implementation SessionIdentifierDateFormatter
 
-void ___SessionIdentifierDateFormatter_block_invoke()
+void ___SessionIdentifierDateFormatter_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = _SessionIdentifierDateFormatter___formatter;
-  _SessionIdentifierDateFormatter___formatter = v0;
+  v2 = objc_opt_new();
+  v3 = _SessionIdentifierDateFormatter___formatter;
+  _SessionIdentifierDateFormatter___formatter = v2;
 
   [_SessionIdentifierDateFormatter___formatter setDateFormat:@"'P'yyyy-MM-dd'T'HH:mm:ss.SSS"];
-  v2 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:0];
-  [_SessionIdentifierDateFormatter___formatter setTimeZone:v2];
+  v4 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:0];
+  [_SessionIdentifierDateFormatter___formatter setTimeZone:v4];
 }
 
 @end

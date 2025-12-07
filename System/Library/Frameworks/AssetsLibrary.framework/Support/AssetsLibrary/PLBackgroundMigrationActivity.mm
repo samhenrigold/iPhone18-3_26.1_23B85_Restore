@@ -100,23 +100,23 @@ LABEL_14:
   v3 = [PLFileBackedLogger setupWithLibraryIdentifier:0 type:1];
   if (self->_bundle)
   {
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_10000A3FC;
-    v28[3] = &unk_10002CF78;
-    v28[4] = self;
-    v4 = objc_retainBlock(v28);
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10000A3FC;
+    v29[3] = &unk_10002CF78;
+    v29[4] = self;
+    v4 = objc_retainBlock(v29);
     bundle = self->_bundle;
-    v27 = 0;
-    v21 = _NSConcreteStackBlock;
-    v22 = 3221225472;
-    v23 = sub_10000A410;
-    v24 = &unk_10002CFA0;
+    v28 = 0;
+    v22 = _NSConcreteStackBlock;
+    v23 = 3221225472;
+    v24 = sub_10000A410;
+    v25 = &unk_10002CFA0;
     selfCopy = self;
     v6 = v3;
-    v26 = v6;
-    v7 = [PLBackgroundModelMigration migrateBackgroundActionsWithPhotoLibraryBundle:bundle logger:v6 error:&v27 reportProgressUsingBlock:v4 continuationHandler:&v21];
-    v8 = v27;
+    v27 = v6;
+    v7 = [PLBackgroundModelMigration migrateBackgroundActionsWithPhotoLibraryBundle:bundle logger:v6 error:&v28 reportProgressUsingBlock:v4 continuationHandler:&v22];
+    v8 = v28;
     if (v7 == 3)
     {
       v9 = PLMigrationGetLog();
@@ -126,60 +126,68 @@ LABEL_14:
       {
         if (v6)
         {
-          v61 = 0u;
           v62 = 0u;
-          v59 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v57 = 0u;
+          v61 = 0u;
           v58 = 0u;
-          v55 = 0u;
+          v59 = 0u;
           v56 = 0u;
-          v53 = 0u;
+          v57 = 0u;
           v54 = 0u;
-          v51 = 0u;
+          v55 = 0u;
           v52 = 0u;
-          v49 = 0u;
+          v53 = 0u;
           v50 = 0u;
-          v47 = 0u;
+          v51 = 0u;
           v48 = 0u;
-          v45 = 0u;
+          v49 = 0u;
           v46 = 0u;
-          v43 = 0u;
+          v47 = 0u;
           v44 = 0u;
-          v41 = 0u;
+          v45 = 0u;
           v42 = 0u;
-          v39 = 0u;
+          v43 = 0u;
           v40 = 0u;
-          v37 = 0u;
+          v41 = 0u;
           v38 = 0u;
-          v35 = 0u;
+          v39 = 0u;
           v36 = 0u;
-          v33 = 0u;
+          v37 = 0u;
           v34 = 0u;
+          v35 = 0u;
           *buf = 0u;
-          v32 = 0u;
+          v33 = 0u;
           v11 = PLMigrationGetLog();
-          os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-          v29 = 138412290;
-          v30 = v8;
-          LODWORD(v20) = 12;
-          v12 = _os_log_send_and_compose_impl();
-
-          [v6 logWithMessage:v12 fromCodeLocation:"PLBackgroundMigrationActivity.m" type:{53, 16, &v29, v20, v21, v22, v23, v24, selfCopy}];
-          if (v12 != buf)
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            free(v12);
+            v12 = 3;
+          }
+
+          else
+          {
+            v12 = 2;
+          }
+
+          v30 = 138412290;
+          v31 = v8;
+          v13 = _os_log_send_and_compose_impl(v12, 0, buf, 512, &_mh_execute_header, v11, 16, "Failed to perform background migration tasks. Error: %@", &v30, 12, v22, v23, v24, v25, selfCopy);
+
+          [v6 logWithMessage:v13 fromCodeLocation:"PLBackgroundMigrationActivity.m" type:{53, 16}];
+          if (v13 != buf)
+          {
+            free(v13);
           }
         }
 
         else
         {
-          v18 = PLMigrationGetLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v20 = PLMigrationGetLog();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             *&buf[4] = v8;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to perform background migration tasks. Error: %@", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to perform background migration tasks. Error: %@", buf, 0xCu);
           }
         }
       }
@@ -188,65 +196,73 @@ LABEL_14:
 
   else
   {
-    v13 = PLMigrationGetLog();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+    v14 = PLMigrationGetLog();
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-    if (v14)
+    if (v15)
     {
       if (v3)
       {
-        v61 = 0u;
         v62 = 0u;
-        v59 = 0u;
+        v63 = 0u;
         v60 = 0u;
-        v57 = 0u;
+        v61 = 0u;
         v58 = 0u;
-        v55 = 0u;
+        v59 = 0u;
         v56 = 0u;
-        v53 = 0u;
+        v57 = 0u;
         v54 = 0u;
-        v51 = 0u;
+        v55 = 0u;
         v52 = 0u;
-        v49 = 0u;
+        v53 = 0u;
         v50 = 0u;
-        v47 = 0u;
+        v51 = 0u;
         v48 = 0u;
-        v45 = 0u;
+        v49 = 0u;
         v46 = 0u;
-        v43 = 0u;
+        v47 = 0u;
         v44 = 0u;
-        v41 = 0u;
+        v45 = 0u;
         v42 = 0u;
-        v39 = 0u;
+        v43 = 0u;
         v40 = 0u;
-        v37 = 0u;
+        v41 = 0u;
         v38 = 0u;
-        v35 = 0u;
+        v39 = 0u;
         v36 = 0u;
-        v33 = 0u;
+        v37 = 0u;
         v34 = 0u;
+        v35 = 0u;
         *buf = 0u;
-        v32 = 0u;
-        v15 = PLMigrationGetLog();
-        os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-        LOWORD(v29) = 0;
-        LODWORD(v20) = 2;
-        v16 = _os_log_send_and_compose_impl();
-
-        [v3 logWithMessage:v16 fromCodeLocation:"PLBackgroundMigrationActivity.m" type:{56, 16, &v29, v20}];
-        if (v16 != buf)
+        v33 = 0u;
+        v16 = PLMigrationGetLog();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          free(v16);
+          v17 = 3;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        LOWORD(v30) = 0;
+        v18 = _os_log_send_and_compose_impl(v17, 0, buf, 512, &_mh_execute_header, v16, 16, "Missing bundle for background migration actions", &v30, 2);
+
+        [v3 logWithMessage:v18 fromCodeLocation:"PLBackgroundMigrationActivity.m" type:{56, 16}];
+        if (v18 != buf)
+        {
+          free(v18);
         }
       }
 
       else
       {
-        v17 = PLMigrationGetLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = PLMigrationGetLog();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Missing bundle for background migration actions", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Missing bundle for background migration actions", buf, 2u);
         }
       }
     }

@@ -6,6 +6,7 @@
 - (BOOL)manualPasswordGenerationIsDisallowedByRequirements:(id)requirements;
 - (BOOL)passwordGenerationIsDisallowedByRequirements:(id)requirements;
 - (WBSPasswordGenerationManager)initWithPasswordRequirementsByDomain:(id)domain;
+- (id)_generated15CharacterAlphanumericPasswordRejectingUnwantedWords:(BOOL)words;
 - (id)_generatedPasswordMatchingRequirements:(id)requirements rejectUnwantedWords:(BOOL)words;
 - (id)_moreTypeablePassword;
 - (id)defaultRequirementsForDomain:(id)domain;
@@ -21,7 +22,7 @@
 
 + (id)requirementsForPasswordRuleSet:(id)set respectingMinLength:(id)length maxLength:(id)maxLength
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   setCopy = set;
   lengthCopy = length;
   maxLengthCopy = maxLength;
@@ -85,25 +86,25 @@ LABEL_12:
   {
     [dictionary setObject:v13 forKeyedSubscript:@"PasswordAllowedCharacters"];
     array = [MEMORY[0x1E695DF70] array];
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    requiredRules = [v27 requiredRules];
-    v16 = [requiredRules countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    requiredRules = [v26 requiredRules];
+    v16 = [requiredRules countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v16)
     {
-      v17 = *v30;
+      v17 = *v29;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(requiredRules);
           }
 
-          value2 = [*(*(&v29 + 1) + 8 * i) value];
+          value2 = [*(*(&v28 + 1) + 8 * i) value];
           v20 = appendedCanonicalizedCharactersFromCharacterClasses(value2);
 
           if ([v20 length])
@@ -112,14 +113,14 @@ LABEL_12:
           }
         }
 
-        v16 = [requiredRules countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v16 = [requiredRules countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v16);
     }
 
     [dictionary setObject:array forKeyedSubscript:@"PasswordRequiredCharacters"];
-    maxConsecutiveRule = [v27 maxConsecutiveRule];
+    maxConsecutiveRule = [v26 maxConsecutiveRule];
     value3 = [maxConsecutiveRule value];
 
     if (value3)
@@ -135,8 +136,6 @@ LABEL_12:
     v23 = dictionary;
     dictionary = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -357,42 +356,42 @@ uint64_t __85__WBSPasswordGenerationManager__lexiconEnumerateEntries_forString_c
 
 - (BOOL)_tokensContainUnwantedWords:(id)words
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   wordsCopy = words;
   if ([wordsCopy count])
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     obj = wordsCopy;
-    v5 = [obj countByEnumeratingWithState:&v16 objects:v24 count:16];
+    v5 = [obj countByEnumeratingWithState:&v15 objects:v23 count:16];
     if (v5)
     {
-      v6 = *v17;
+      v6 = *v16;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v17 != v6)
+          if (*v16 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v16 + 1) + 8 * i);
+          v8 = *(*(&v15 + 1) + 8 * i);
           aBlock[0] = MEMORY[0x1E69E9820];
           aBlock[1] = 3221225472;
           aBlock[2] = __60__WBSPasswordGenerationManager__tokensContainUnwantedWords___block_invoke;
           aBlock[3] = &unk_1E7CF3530;
           aBlock[4] = v8;
-          aBlock[5] = &v20;
+          aBlock[5] = &v19;
           v9 = _Block_copy(aBlock);
           [(WBSPasswordGenerationManager *)self _lexiconEnumerateEntries:self->_lexiconForEnglish forString:v8 completionHandler:v9];
-          if ((v21[3] & 1) != 0 || (lexiconForUserLocale = self->_lexiconForUserLocale) != 0 && ([(WBSPasswordGenerationManager *)self _lexiconEnumerateEntries:lexiconForUserLocale forString:v8 completionHandler:v9], *(v21 + 24) == 1))
+          if ((v20[3] & 1) != 0 || (lexiconForUserLocale = self->_lexiconForUserLocale) != 0 && ([(WBSPasswordGenerationManager *)self _lexiconEnumerateEntries:lexiconForUserLocale forString:v8 completionHandler:v9], *(v20 + 24) == 1))
           {
 
             v11 = 1;
@@ -400,7 +399,7 @@ uint64_t __85__WBSPasswordGenerationManager__lexiconEnumerateEntries_forString_c
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v5 = [obj countByEnumeratingWithState:&v15 objects:v23 count:16];
         v11 = 0;
         if (v5)
         {
@@ -418,7 +417,7 @@ uint64_t __85__WBSPasswordGenerationManager__lexiconEnumerateEntries_forString_c
 
 LABEL_16:
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   else
@@ -426,11 +425,10 @@ LABEL_16:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
-uint64_t __60__WBSPasswordGenerationManager__tokensContainUnwantedWords___block_invoke(uint64_t a1, uint64_t a2, int a3, int a4, _BYTE *a5)
+void *__60__WBSPasswordGenerationManager__tokensContainUnwantedWords___block_invoke(uint64_t a1, uint64_t a2, int a3, int a4, _BYTE *a5)
 {
   result = [*(a1 + 32) safari_isCaseAndDiacriticInsensitiveEqualToString:a2];
   if (result)
@@ -456,7 +454,7 @@ uint64_t __60__WBSPasswordGenerationManager__tokensContainUnwantedWords___block_
 - (id)_generatedPasswordMatchingRequirements:(id)requirements rejectUnwantedWords:(BOOL)words
 {
   wordsCopy = words;
-  v134[16] = *MEMORY[0x1E69E9840];
+  v137[16] = *MEMORY[0x1E69E9840];
   requirementsCopy = requirements;
   v4 = [requirementsCopy safari_numberForKey:@"PasswordMinLength"];
   unsignedIntegerValue = [v4 unsignedIntegerValue];
@@ -464,111 +462,111 @@ uint64_t __60__WBSPasswordGenerationManager__tokensContainUnwantedWords___block_
   v5 = [requirementsCopy safari_numberForKey:@"PasswordMaxLength"];
   unsignedIntegerValue2 = [v5 unsignedIntegerValue];
 
-  v109 = unsignedIntegerValue2;
+  v112 = unsignedIntegerValue2;
   if (unsignedIntegerValue > unsignedIntegerValue2)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswords(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [WBSPasswordGenerationManager _generatedPasswordMatchingRequirements:v7 rejectUnwantedWords:?];
+      [WBSPasswordGenerationManager _generatedPasswordMatchingRequirements:v9 rejectUnwantedWords:?];
     }
 
     unsignedIntegerValue = 0;
   }
 
-  v8 = [requirementsCopy safari_stringForKey:@"PasswordAllowedCharacters"];
-  v118 = v8;
-  v9 = [requirementsCopy safari_arrayForKey:@"PasswordRequiredCharacters"];
-  unsignedIntegerValue4 = v9;
-  if (v9)
+  v10 = [requirementsCopy safari_stringForKey:@"PasswordAllowedCharacters"];
+  v121 = v10;
+  v11 = [requirementsCopy safari_arrayForKey:@"PasswordRequiredCharacters"];
+  unsignedIntegerValue4 = v11;
+  if (v11)
   {
-    obj = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v9, "count")}];
-    v122 = 0u;
+    obj = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v125 = 0u;
+    v126 = 0u;
     v123 = 0u;
-    v120 = 0u;
-    v121 = 0u;
-    v10 = unsignedIntegerValue4;
-    v11 = [v10 countByEnumeratingWithState:&v120 objects:__p count:16];
-    if (v11)
+    v124 = 0u;
+    v12 = unsignedIntegerValue4;
+    v13 = [v12 countByEnumeratingWithState:&v123 objects:__p count:16];
+    if (v13)
     {
-      v12 = *v121;
+      v14 = *v124;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v121 != v12)
+          if (*v124 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v12);
           }
 
-          v14 = *(*(&v120 + 1) + 8 * i);
-          v15 = v8;
-          v16 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:v14];
-          v17 = [v15 rangeOfCharacterFromSet:v16] == 0x7FFFFFFFFFFFFFFFLL;
+          v16 = *(*(&v123 + 1) + 8 * i);
+          v17 = v10;
+          v18 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:v16];
+          v19 = [v17 rangeOfCharacterFromSet:v18] == 0x7FFFFFFFFFFFFFFFLL;
 
-          if (!v17)
+          if (!v19)
           {
-            v18 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:v14];
-            [obj addObject:v18];
+            v20 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:v16];
+            [obj addObject:v20];
           }
 
-          v8 = v118;
+          v10 = v121;
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v120 objects:__p count:16];
+        v13 = [v12 countByEnumeratingWithState:&v123 objects:__p count:16];
       }
 
-      while (v11);
+      while (v13);
     }
 
-    v19 = obj;
-    v8 = v118;
+    v21 = obj;
+    v10 = v121;
   }
 
   else
   {
-    v19 = 0;
+    v21 = 0;
   }
 
-  v119 = v8;
-  v20 = v19;
-  v106 = unsignedIntegerValue2 - 1;
-  if (unsignedIntegerValue2 - 1 >= 0x13 && unsignedIntegerValue <= 0x14 && (!v119 || (-[__CFString safari_containsAllCharactersInString:](v119, "safari_containsAllCharactersInString:", @"abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ0123456789") & 1) != 0) && [v20 count] <= 0x14)
+  v122 = v10;
+  v22 = v21;
+  v109 = unsignedIntegerValue2 - 1;
+  if (unsignedIntegerValue2 - 1 >= 0x13 && unsignedIntegerValue <= 0x14 && (!v122 || (-[__CFString safari_containsAllCharactersInString:](v122, "safari_containsAllCharactersInString:", @"abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ0123456789") & 1) != 0) && [v22 count] <= 0x14)
   {
-    v132 = 0u;
-    v133 = 0u;
-    *v130 = 0u;
-    v131 = 0u;
-    obja = v20;
-    v90 = [obja countByEnumeratingWithState:v130 objects:v134 count:16];
-    if (v90)
+    v135 = 0u;
+    v136 = 0u;
+    *v133 = 0u;
+    v134 = 0u;
+    obja = v22;
+    v93 = [obja countByEnumeratingWithState:v133 objects:v137 count:16];
+    if (v93)
     {
-      v91 = 0;
-      v92 = 0;
-      v105 = *v131;
+      v94 = 0;
+      v95 = 0;
+      v108 = *v134;
       while (2)
       {
-        for (j = 0; j != v90; ++j)
+        for (j = 0; j != v93; ++j)
         {
-          if (*v131 != v105)
+          if (*v134 != v108)
           {
             objc_enumerationMutation(obja);
           }
 
-          v94 = *(v130[1] + j);
-          v95 = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZ" rangeOfCharacterFromSet:v94];
-          if (((v95 != 0x7FFFFFFFFFFFFFFFLL) & v92) != 0 || (v96 = [@"0123456789" rangeOfCharacterFromSet:v94], v97 = v96 != 0x7FFFFFFFFFFFFFFFLL, ((v96 != 0x7FFFFFFFFFFFFFFFLL) & v91) != 0) || (v95 == 0x7FFFFFFFFFFFFFFFLL ? (v98 = v96 == 0x7FFFFFFFFFFFFFFFLL) : (v98 = 0), v98 && objc_msgSend(@"abcdefghijkmnopqrstuvwxyz-", "rangeOfCharacterFromSet:", v94) == 0x7FFFFFFFFFFFFFFFLL))
+          v97 = *(v133[1] + j);
+          v98 = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZ" rangeOfCharacterFromSet:v97];
+          if (((v98 != 0x7FFFFFFFFFFFFFFFLL) & v95) != 0 || (v99 = [@"0123456789" rangeOfCharacterFromSet:v97], v100 = v99 != 0x7FFFFFFFFFFFFFFFLL, ((v99 != 0x7FFFFFFFFFFFFFFFLL) & v94) != 0) || (v98 == 0x7FFFFFFFFFFFFFFFLL ? (v101 = v99 == 0x7FFFFFFFFFFFFFFFLL) : (v101 = 0), v101 && objc_msgSend(@"abcdefghijkmnopqrstuvwxyz-", "rangeOfCharacterFromSet:", v97) == 0x7FFFFFFFFFFFFFFFLL))
           {
 
             goto LABEL_23;
           }
 
-          v92 |= v95 != 0x7FFFFFFFFFFFFFFFLL;
-          v91 |= v97;
+          v95 |= v98 != 0x7FFFFFFFFFFFFFFFLL;
+          v94 |= v100;
         }
 
-        v90 = [obja countByEnumeratingWithState:v130 objects:v134 count:16];
-        if (v90)
+        v93 = [obja countByEnumeratingWithState:v133 objects:v137 count:16];
+        if (v93)
         {
           continue;
         }
@@ -577,73 +575,73 @@ uint64_t __60__WBSPasswordGenerationManager__tokensContainUnwantedWords___block_
       }
     }
 
-    if (v119)
+    if (v122)
     {
-      if ([(__CFString *)v119 rangeOfString:@"-"]== 0x7FFFFFFFFFFFFFFFLL)
+      if ([(__CFString *)v122 rangeOfString:@"-"]== 0x7FFFFFFFFFFFFFFFLL)
       {
-        v99 = 3;
+        v102 = 3;
       }
 
       else
       {
-        v99 = 2;
+        v102 = 2;
       }
     }
 
     else
     {
 LABEL_183:
-      v99 = 2;
+      v102 = 2;
     }
 
-    v130[0] = @"PasswordGenerationStyle";
-    v34 = [MEMORY[0x1E696AD98] numberWithInteger:v99];
-    v134[0] = v34;
-    v110 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v134 forKeys:v130 count:1];
+    v133[0] = @"PasswordGenerationStyle";
+    v38 = [MEMORY[0x1E696AD98] numberWithInteger:v102];
+    v137[0] = v38;
+    v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v137 forKeys:v133 count:1];
     goto LABEL_60;
   }
 
 LABEL_23:
-  v21 = 12;
+  v23 = 12;
   if (unsignedIntegerValue > 0xF)
   {
-    v21 = unsignedIntegerValue;
+    v23 = unsignedIntegerValue;
   }
 
-  if (v106 >= 0xE)
+  if (v109 >= 0xE)
   {
-    v22 = v21;
+    v24 = v23;
   }
 
   else
   {
-    v22 = v109;
+    v24 = v112;
   }
 
-  v23 = unsignedIntegerValue > 0xF || v106 < 0xE;
-  if (v119)
+  v25 = unsignedIntegerValue > 0xF || v109 < 0xE;
+  if (v122)
   {
-    if ([(__CFString *)v119 rangeOfString:@"-"]== 0x7FFFFFFFFFFFFFFFLL || v23)
+    if ([(__CFString *)v122 rangeOfString:@"-"]== 0x7FFFFFFFFFFFFFFFLL || v25)
     {
 LABEL_34:
-      v24 = 15;
+      v26 = 15;
       if (unsignedIntegerValue > 0xF)
       {
-        v24 = unsignedIntegerValue;
+        v26 = unsignedIntegerValue;
       }
 
-      if (v106 >= 0xE)
+      if (v109 >= 0xE)
       {
-        v22 = v24;
+        v24 = v26;
       }
 
       else
       {
-        v22 = v109;
+        v24 = v112;
       }
 
-      v25 = 1;
-      if (v20)
+      v27 = 1;
+      if (v22)
       {
         goto LABEL_46;
       }
@@ -654,188 +652,188 @@ LABEL_34:
 
   else
   {
-    v119 = @"abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ0123456789";
-    if (v23)
+    v122 = @"abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ0123456789";
+    if (v25)
     {
       goto LABEL_34;
     }
   }
 
-  v26 = [(__CFString *)v119 stringByReplacingOccurrencesOfString:@"-" withString:&stru_1F3064D08];
+  v28 = [(__CFString *)v122 stringByReplacingOccurrencesOfString:@"-" withString:&stru_1F3064D08];
 
-  v25 = 0;
-  v119 = v26;
-  if (!v20)
+  v27 = 0;
+  v122 = v28;
+  if (!v22)
   {
 LABEL_43:
     {
       uppercaseLetterCharacterSet = [MEMORY[0x1E696AB08] uppercaseLetterCharacterSet];
-      v134[0] = uppercaseLetterCharacterSet;
+      v137[0] = uppercaseLetterCharacterSet;
       lowercaseLetterCharacterSet = [MEMORY[0x1E696AB08] lowercaseLetterCharacterSet];
-      v134[1] = lowercaseLetterCharacterSet;
+      v137[1] = lowercaseLetterCharacterSet;
       decimalDigitCharacterSet = [MEMORY[0x1E696AB08] decimalDigitCharacterSet];
-      v134[2] = decimalDigitCharacterSet;
-      defaultRequiredCharacterSets(void)::requiredCharacterSets = [MEMORY[0x1E695DEC8] arrayWithObjects:v134 count:3];
+      v137[2] = decimalDigitCharacterSet;
+      defaultRequiredCharacterSets(void)::requiredCharacterSets = [MEMORY[0x1E695DEC8] arrayWithObjects:v137 count:3];
     }
 
-    v20 = defaultRequiredCharacterSets(void)::requiredCharacterSets;
+    v22 = defaultRequiredCharacterSets(void)::requiredCharacterSets;
   }
 
 LABEL_46:
-  if ([v20 count] > v22)
+  if ([v22 count] > v24)
   {
 
-    v27 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v31 = WBS_LOG_CHANNEL_PREFIXPasswords(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      [WBSPasswordGenerationManager _generatedPasswordMatchingRequirements:v27 rejectUnwantedWords:?];
+      [WBSPasswordGenerationManager _generatedPasswordMatchingRequirements:v31 rejectUnwantedWords:?];
     }
 
-    v20 = 0;
+    v22 = 0;
   }
 
-  v28 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(unsignedIntegerValue4, "count")}];
-  v132 = 0u;
-  v133 = 0u;
-  *v130 = 0u;
-  v131 = 0u;
-  v29 = v20;
-  v30 = [v29 countByEnumeratingWithState:v130 objects:v134 count:16];
-  if (v30)
+  v32 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(unsignedIntegerValue4, "count")}];
+  v135 = 0u;
+  v136 = 0u;
+  *v133 = 0u;
+  v134 = 0u;
+  v33 = v22;
+  v34 = [v33 countByEnumeratingWithState:v133 objects:v137 count:16];
+  if (v34)
   {
-    v31 = *v131;
+    v35 = *v134;
     do
     {
-      for (k = 0; k != v30; ++k)
+      for (k = 0; k != v34; ++k)
       {
-        if (*v131 != v31)
+        if (*v134 != v35)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v33);
         }
 
-        v33 = *(v130[1] + k);
-        if ([(__CFString *)v119 rangeOfCharacterFromSet:v33]!= 0x7FFFFFFFFFFFFFFFLL)
+        v37 = *(v133[1] + k);
+        if ([(__CFString *)v122 rangeOfCharacterFromSet:v37]!= 0x7FFFFFFFFFFFFFFFLL)
         {
-          [v28 addObject:v33];
+          [v32 addObject:v37];
         }
       }
 
-      v30 = [v29 countByEnumeratingWithState:v130 objects:v134 count:16];
+      v34 = [v33 countByEnumeratingWithState:v133 objects:v137 count:16];
     }
 
-    while (v30);
+    while (v34);
   }
 
-  v34 = v28;
-  v124[0] = @"PasswordGenerationStyle";
-  v35 = [MEMORY[0x1E696AD98] numberWithInteger:v25];
-  v125[0] = v35;
-  v124[1] = @"NumberOfRequiredRandomCharacters";
-  v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v22];
-  v125[1] = v36;
-  v125[2] = v119;
-  v124[2] = @"AllowedCharacters";
-  v124[3] = @"RequiredCharacterSets";
-  v125[3] = v34;
-  v110 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v125 forKeys:v124 count:4];
+  v38 = v32;
+  v127[0] = @"PasswordGenerationStyle";
+  v39 = [MEMORY[0x1E696AD98] numberWithInteger:v27];
+  v128[0] = v39;
+  v127[1] = @"NumberOfRequiredRandomCharacters";
+  v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v24];
+  v128[1] = v40;
+  v128[2] = v122;
+  v127[2] = @"AllowedCharacters";
+  v127[3] = @"RequiredCharacterSets";
+  v128[3] = v38;
+  v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v128 forKeys:v127 count:4];
 
-  obja = v34;
+  obja = v38;
 LABEL_60:
 
-  v37 = [v110 safari_numberForKey:@"PasswordGenerationStyle"];
-  unsignedIntegerValue3 = [v37 unsignedIntegerValue];
+  v41 = [v113 safari_numberForKey:@"PasswordGenerationStyle"];
+  unsignedIntegerValue3 = [v41 unsignedIntegerValue];
 
-  v39 = [v110 safari_numberForKey:@"NumberOfRequiredRandomCharacters"];
-  unsignedIntegerValue4 = [v39 unsignedIntegerValue];
+  v43 = [v113 safari_numberForKey:@"NumberOfRequiredRandomCharacters"];
+  unsignedIntegerValue4 = [v43 unsignedIntegerValue];
 
-  std::vector<unsigned short>::vector[abi:sn200100](v130, unsignedIntegerValue4);
-  v107 = [v110 safari_stringForKey:@"AllowedCharacters"];
-  v104 = [requirementsCopy safari_numberForKey:@"PasswordRepeatedCharacterLimit"];
-  LODWORD(obja) = v104 != 0;
-  v103 = 0;
+  std::vector<unsigned short>::vector[abi:sn200100](v133, unsignedIntegerValue4);
+  v110 = [v113 safari_stringForKey:@"AllowedCharacters"];
+  v107 = [requirementsCopy safari_numberForKey:@"PasswordRepeatedCharacterLimit"];
+  LODWORD(obja) = v107 != 0;
+  v106 = 0;
   while (1)
   {
     if (unsignedIntegerValue3 < 2)
     {
-      v119 = [requirementsCopy safari_stringForKey:@"PasswordFirstCharacterCandidates"];
-      if (unsignedIntegerValue4 && [(__CFString *)v119 length])
+      v122 = [requirementsCopy safari_stringForKey:@"PasswordFirstCharacterCandidates"];
+      if (unsignedIntegerValue4 && [(__CFString *)v122 length])
       {
-        v44 = v107;
-        v45 = v119;
+        v48 = v110;
+        v49 = v122;
         operator new();
       }
 
-      getPasswordRandomCharacters(v130, v107);
+      getPasswordRandomCharacters(v133, v110);
       if (unsignedIntegerValue3)
       {
-        v51 = [MEMORY[0x1E696AEC0] stringWithCharacters:v130[0] length:unsignedIntegerValue4];
+        v55 = [MEMORY[0x1E696AEC0] stringWithCharacters:v133[0] length:unsignedIntegerValue4];
       }
 
       else
       {
-        v52 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v53 = v130[1] - v130[0];
-        if (v130[1] == v130[0] || (v54 = v53 >> 1, (v53 >> 1) <= 1) || v53 == 4 || v54 <= 3 || v53 == 8 || v54 <= 5 || v53 == 12 || v54 <= 7 || v53 == 16 || v54 <= 9 || v53 == 20 || v54 <= 0xB)
+        v56 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v57 = v133[1] - v133[0];
+        if (v133[1] == v133[0] || (v58 = v57 >> 1, (v57 >> 1) <= 1) || v57 == 4 || v58 <= 3 || v57 == 8 || v58 <= 5 || v57 == 12 || v58 <= 7 || v57 == 16 || v58 <= 9 || v57 == 20 || v58 <= 0xB)
         {
           __break(1u);
           goto LABEL_183;
         }
 
-        v51 = [v52 initWithFormat:@"%C%C%C-%C%C%C-%C%C%C-%C%C%C", *v130[0], *(v130[0] + 1), *(v130[0] + 2), *(v130[0] + 3), *(v130[0] + 4), *(v130[0] + 5), *(v130[0] + 6), *(v130[0] + 7), *(v130[0] + 8), *(v130[0] + 9), *(v130[0] + 10), *(v130[0] + 11)];
+        v55 = [v56 initWithFormat:@"%C%C%C-%C%C%C-%C%C%C-%C%C%C", *v133[0], *(v133[0] + 1), *(v133[0] + 2), *(v133[0] + 3), *(v133[0] + 4), *(v133[0] + 5), *(v133[0] + 6), *(v133[0] + 7), *(v133[0] + 8), *(v133[0] + 9), *(v133[0] + 10), *(v133[0] + 11)];
       }
 
-      v55 = v51;
-      v56 = [v110 safari_arrayForKey:@"RequiredCharacterSets"];
-      v41 = v55;
-      v57 = v56;
+      v59 = v55;
+      v60 = [v113 safari_arrayForKey:@"RequiredCharacterSets"];
+      v45 = v59;
+      v61 = v60;
       *__p = 0u;
-      v127 = 0u;
-      v128 = 0u;
-      v129 = 0u;
-      v58 = v57;
-      v59 = [v58 countByEnumeratingWithState:__p objects:v134 count:16];
-      v60 = v41;
-      if (v59)
+      v130 = 0u;
+      v131 = 0u;
+      v132 = 0u;
+      v62 = v61;
+      v63 = [v62 countByEnumeratingWithState:__p objects:v137 count:16];
+      v64 = v45;
+      if (v63)
       {
-        v61 = *v127;
-        v60 = v41;
+        v65 = *v130;
+        v64 = v45;
         do
         {
-          v62 = 0;
-          v63 = v60;
+          v66 = 0;
+          v67 = v64;
           do
           {
-            if (*v127 != v61)
+            if (*v130 != v65)
             {
-              objc_enumerationMutation(v58);
+              objc_enumerationMutation(v62);
             }
 
-            v65 = [v63 rangeOfCharacterFromSet:*(__p[1] + v62)];
-            if (v65 == 0x7FFFFFFFFFFFFFFFLL)
+            v69 = [v67 rangeOfCharacterFromSet:*(__p[1] + v66)];
+            if (v69 == 0x7FFFFFFFFFFFFFFFLL)
             {
 
               goto LABEL_155;
             }
 
-            v60 = [v63 stringByReplacingCharactersInRange:v65 withString:{v64, &stru_1F3064D08}];
+            v64 = [v67 stringByReplacingCharactersInRange:v69 withString:{v68, &stru_1F3064D08}];
 
-            ++v62;
-            v63 = v60;
+            ++v66;
+            v67 = v64;
           }
 
-          while (v59 != v62);
-          v59 = [v58 countByEnumeratingWithState:__p objects:v134 count:16];
+          while (v63 != v66);
+          v63 = [v62 countByEnumeratingWithState:__p objects:v137 count:16];
         }
 
-        while (v59);
+        while (v63);
       }
 
       if (wordsCopy)
       {
-        v66 = tokenizedPassword(v41, unsignedIntegerValue3);
-        v67 = [(WBSPasswordGenerationManager *)self _tokensContainUnwantedWords:v66];
+        v70 = tokenizedPassword(v45, unsignedIntegerValue3);
+        v71 = [(WBSPasswordGenerationManager *)self _tokensContainUnwantedWords:v70];
 
-        if (v67)
+        if (v71)
         {
           goto LABEL_155;
         }
@@ -846,7 +844,7 @@ LABEL_60:
 
     if (unsignedIntegerValue3 - 2 >= 2)
     {
-      v41 = 0;
+      v45 = 0;
 LABEL_112:
       if ((obja & 1) == 0)
       {
@@ -858,32 +856,32 @@ LABEL_112:
     }
 
     _moreTypeablePassword = [(WBSPasswordGenerationManager *)self _moreTypeablePassword];
-    v41 = _moreTypeablePassword;
+    v45 = _moreTypeablePassword;
     if (wordsCopy)
     {
-      v119 = tokenizedPassword(_moreTypeablePassword, unsignedIntegerValue3);
+      v122 = tokenizedPassword(_moreTypeablePassword, unsignedIntegerValue3);
       if ([(WBSPasswordGenerationManager *)self _tokensContainUnwantedWords:?])
       {
-        v42 = v103 + 1;
+        v46 = v106 + 1;
         if (unsignedIntegerValue3 == 2)
         {
-          v43 = 0;
+          v47 = 0;
         }
 
         else
         {
-          v43 = unsignedIntegerValue3;
+          v47 = unsignedIntegerValue3;
         }
 
-        if (v43 == 3)
+        if (v47 == 3)
         {
-          v43 = 1;
+          v47 = 1;
         }
 
-        ++v103;
-        if (v42 > 0x64)
+        ++v106;
+        if (v46 > 0x64)
         {
-          unsignedIntegerValue3 = v43;
+          unsignedIntegerValue3 = v47;
         }
 
 LABEL_155:
@@ -894,59 +892,59 @@ LABEL_155:
 
     if (unsignedIntegerValue3 == 2)
     {
-      v46 = MEMORY[0x1E696AEC0];
-      v47 = [v41 substringWithRange:{0, 6}];
-      v48 = [v41 substringWithRange:{6, 6}];
-      v49 = [v41 substringWithRange:{12, 6}];
-      v50 = [v46 stringWithFormat:@"%@-%@-%@", v47, v48, v49];
+      v50 = MEMORY[0x1E696AEC0];
+      v51 = [v45 substringWithRange:{0, 6}];
+      v52 = [v45 substringWithRange:{6, 6}];
+      v53 = [v45 substringWithRange:{12, 6}];
+      v54 = [v50 stringWithFormat:@"%@-%@-%@", v51, v52, v53];
     }
 
     else
     {
-      v50 = v41;
+      v54 = v45;
     }
 
-    if ((obja & 1) == 0 || [v104 integerValue] != 1)
+    if ((obja & 1) == 0 || [v107 integerValue] != 1)
     {
       LODWORD(obja) = 0;
-      v41 = v50;
+      v45 = v54;
       goto LABEL_126;
     }
 
-    v41 = v50;
+    v45 = v54;
 LABEL_113:
-    integerValue = [v104 integerValue];
+    integerValue = [v107 integerValue];
     if (integerValue < 1)
     {
       break;
     }
 
-    v41 = v41;
-    v69 = [v41 characterAtIndex:0];
-    v70 = 0;
-    v71 = 1;
-    v72 = 1;
-    while (v71 < [v41 length])
+    v45 = v45;
+    v73 = [v45 characterAtIndex:0];
+    v74 = 0;
+    v75 = 1;
+    v76 = 1;
+    while (v75 < [v45 length])
     {
-      v73 = [v41 characterAtIndex:v71];
-      v74 = v71 - v70;
-      if (v71 - v70 <= v72)
+      v77 = [v45 characterAtIndex:v75];
+      v78 = v75 - v74;
+      if (v75 - v74 <= v76)
       {
-        v74 = v72;
+        v78 = v76;
       }
 
-      if (v73 != v69)
+      if (v77 != v73)
       {
-        v70 = v71;
-        v72 = v74;
+        v74 = v75;
+        v76 = v78;
       }
 
-      ++v71;
-      v69 = v73;
+      ++v75;
+      v73 = v77;
     }
 
     LODWORD(obja) = 1;
-    if (v72 <= integerValue)
+    if (v76 <= integerValue)
     {
       goto LABEL_126;
     }
@@ -956,117 +954,129 @@ LABEL_156:
 
   LODWORD(obja) = 1;
 LABEL_126:
-  v119 = [requirementsCopy safari_numberForKey:@"PasswordConsecutiveCharacterLimit"];
-  if (!v119)
+  v122 = [requirementsCopy safari_numberForKey:@"PasswordConsecutiveCharacterLimit"];
+  if (!v122)
   {
     goto LABEL_157;
   }
 
-  integerValue2 = [(__CFString *)v119 integerValue];
+  integerValue2 = [(__CFString *)v122 integerValue];
   if (integerValue2 < 1)
   {
     goto LABEL_157;
   }
 
-  v114 = unsignedIntegerValue3;
-  v76 = v41;
-  v77 = 0;
-  v78 = 0;
-  v79 = 1;
-  v80 = 1;
+  v117 = unsignedIntegerValue3;
+  v80 = v45;
+  v81 = 0;
+  v82 = 0;
+  v83 = 1;
+  v84 = 1;
   while (2)
   {
-    if (v79 < [v76 length])
+    if (v83 < [v80 length])
     {
-      v81 = [v76 characterAtIndex:v79];
-      v82 = v79 - 1;
-      v83 = [v76 characterAtIndex:v79 - 1];
-      v84 = v83;
-      if (v77)
+      v85 = [v80 characterAtIndex:v83];
+      v86 = v83 - 1;
+      v87 = [v80 characterAtIndex:v83 - 1];
+      v88 = v87;
+      if (v81)
       {
-        if (![v77 BOOLValue] || v84 + 1 != v81)
+        if (![v81 BOOLValue] || v88 + 1 != v85)
         {
-          bOOLValue = [v77 BOOLValue];
-          v86 = v84 - 1 == v81 ? bOOLValue : 1;
-          if (v86)
+          bOOLValue = [v81 BOOLValue];
+          v90 = v88 - 1 == v85 ? bOOLValue : 1;
+          if (v90)
           {
-            if (v84 + 1 == v81)
+            if (v88 + 1 == v85)
             {
-              v77 = MEMORY[0x1E695E118];
+              v81 = MEMORY[0x1E695E118];
 LABEL_144:
-              ++v79;
-              v78 = v82;
+              ++v83;
+              v82 = v86;
               continue;
             }
 
-            if (v84 - 1 == v81)
+            if (v88 - 1 == v85)
             {
-              v77 = MEMORY[0x1E695E110];
+              v81 = MEMORY[0x1E695E110];
               goto LABEL_144;
             }
 
 LABEL_147:
-            v77 = 0;
-            if (v79 - v78 > v80)
+            v81 = 0;
+            if (v83 - v82 > v84)
             {
-              v80 = v79 - v78;
+              v84 = v83 - v82;
             }
 
-            v82 = v79;
+            v86 = v83;
             goto LABEL_144;
           }
         }
       }
 
-      else if (v83 + 1 == v81)
+      else if (v87 + 1 == v85)
       {
-        v77 = MEMORY[0x1E695E118];
+        v81 = MEMORY[0x1E695E118];
       }
 
       else
       {
-        if (v83 - 1 != v81)
+        if (v87 - 1 != v85)
         {
           goto LABEL_147;
         }
 
-        v77 = MEMORY[0x1E695E110];
+        v81 = MEMORY[0x1E695E110];
       }
 
-      v82 = v78;
+      v86 = v82;
       goto LABEL_144;
     }
 
     break;
   }
 
-  if (v77)
+  if (v81)
   {
-    v87 = [v76 length];
-    if (v87 - v78 > v80)
+    v91 = [v80 length];
+    if (v91 - v82 > v84)
     {
-      v80 = v87 - v78;
+      v84 = v91 - v82;
     }
   }
 
-  unsignedIntegerValue3 = v114;
-  if (v80 > integerValue2)
+  unsignedIntegerValue3 = v117;
+  if (v84 > integerValue2)
   {
-    v41 = v76;
+    v45 = v80;
     goto LABEL_155;
   }
 
 LABEL_157:
 
-  if (v130[0])
+  if (v133[0])
   {
-    v130[1] = v130[0];
-    operator delete(v130[0]);
+    v133[1] = v133[0];
+    operator delete(v133[0]);
   }
 
-  v88 = *MEMORY[0x1E69E9840];
+  return v45;
+}
 
-  return v41;
+- (id)_generated15CharacterAlphanumericPasswordRejectingUnwantedWords:(BOOL)words
+{
+  wordsCopy = words;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"PasswordAllowedCharacters";
+  v10[0] = @"abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ0123456789";
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v6 = [(WBSPasswordGenerationManager *)self updatedRequirements:v5 respectingMaxLength:15];
+
+  v7 = [(WBSPasswordGenerationManager *)self _generatedPasswordMatchingRequirements:v6 rejectUnwantedWords:wordsCopy];
+
+  return v7;
 }
 
 - (id)defaultRequirementsForDomain:(id)domain

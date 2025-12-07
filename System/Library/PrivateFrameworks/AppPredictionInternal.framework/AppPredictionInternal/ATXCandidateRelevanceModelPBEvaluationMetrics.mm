@@ -1052,7 +1052,6 @@ LABEL_34:
   has = self->_has;
   if ((*&has & 0x10000000) != 0)
   {
-    uiEvaluationSuccessAt1 = self->_uiEvaluationSuccessAt1;
     PBDataWriterWriteFloatField();
     has = self->_has;
     if ((*&has & 0x20000000) == 0)
@@ -1072,7 +1071,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  uiEvaluationSuccessAt2 = self->_uiEvaluationSuccessAt2;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1087,7 +1085,6 @@ LABEL_4:
   }
 
 LABEL_39:
-  uiEvaluationSuccessAt4 = self->_uiEvaluationSuccessAt4;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1102,7 +1099,6 @@ LABEL_5:
   }
 
 LABEL_40:
-  uiEvaluationSuccessAt8 = self->_uiEvaluationSuccessAt8;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1117,7 +1113,6 @@ LABEL_6:
   }
 
 LABEL_41:
-  uiEvaluationMRR = self->_uiEvaluationMRR;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1132,7 +1127,6 @@ LABEL_7:
   }
 
 LABEL_42:
-  uiEvaluationNumberOfSessionsWithPredictions = self->_uiEvaluationNumberOfSessionsWithPredictions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1147,7 +1141,6 @@ LABEL_8:
   }
 
 LABEL_43:
-  uiEvaluationNumberOfSessions = self->_uiEvaluationNumberOfSessions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1162,7 +1155,6 @@ LABEL_9:
   }
 
 LABEL_44:
-  uiEvaluationNumberOfDaysWithSessions = self->_uiEvaluationNumberOfDaysWithSessions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1177,7 +1169,6 @@ LABEL_10:
   }
 
 LABEL_45:
-  shadowEvaluationSuccessAt1 = self->_shadowEvaluationSuccessAt1;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1192,7 +1183,6 @@ LABEL_11:
   }
 
 LABEL_46:
-  shadowEvaluationSuccessAt2 = self->_shadowEvaluationSuccessAt2;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1207,7 +1197,6 @@ LABEL_12:
   }
 
 LABEL_47:
-  shadowEvaluationSuccessAt4 = self->_shadowEvaluationSuccessAt4;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1222,7 +1211,6 @@ LABEL_13:
   }
 
 LABEL_48:
-  shadowEvaluationSuccessAt8 = self->_shadowEvaluationSuccessAt8;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1237,7 +1225,6 @@ LABEL_14:
   }
 
 LABEL_49:
-  shadowEvaluationMRR = self->_shadowEvaluationMRR;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1252,7 +1239,6 @@ LABEL_15:
   }
 
 LABEL_50:
-  shadowEvaluationNumberOfSessionsWithPredictions = self->_shadowEvaluationNumberOfSessionsWithPredictions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1267,7 +1253,6 @@ LABEL_16:
   }
 
 LABEL_51:
-  shadowEvaluationNumberOfSessions = self->_shadowEvaluationNumberOfSessions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1282,7 +1267,6 @@ LABEL_17:
   }
 
 LABEL_52:
-  shadowEvaluationNumberOfDaysWithSessions = self->_shadowEvaluationNumberOfDaysWithSessions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1297,7 +1281,6 @@ LABEL_18:
   }
 
 LABEL_53:
-  prodUIEvaluationSuccessAt1 = self->_prodUIEvaluationSuccessAt1;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1312,7 +1295,6 @@ LABEL_19:
   }
 
 LABEL_54:
-  prodUIEvaluationSuccessAt2 = self->_prodUIEvaluationSuccessAt2;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1327,7 +1309,6 @@ LABEL_20:
   }
 
 LABEL_55:
-  prodUIEvaluationSuccessAt4 = self->_prodUIEvaluationSuccessAt4;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1342,7 +1323,6 @@ LABEL_21:
   }
 
 LABEL_56:
-  prodUIEvaluationSuccessAt8 = self->_prodUIEvaluationSuccessAt8;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1357,7 +1337,6 @@ LABEL_22:
   }
 
 LABEL_57:
-  prodUIEvaluationMRR = self->_prodUIEvaluationMRR;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1372,7 +1351,6 @@ LABEL_23:
   }
 
 LABEL_58:
-  prodUIEvaluationNumberOfSessionsWithPredictions = self->_prodUIEvaluationNumberOfSessionsWithPredictions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1387,7 +1365,6 @@ LABEL_24:
   }
 
 LABEL_59:
-  prodUIEvaluationNumberOfSessions = self->_prodUIEvaluationNumberOfSessions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1402,7 +1379,6 @@ LABEL_25:
   }
 
 LABEL_60:
-  prodUIEvaluationNumberOfDaysWithSessions = self->_prodUIEvaluationNumberOfDaysWithSessions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1417,7 +1393,6 @@ LABEL_26:
   }
 
 LABEL_61:
-  prodShadowEvaluationSuccessAt1 = self->_prodShadowEvaluationSuccessAt1;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1432,7 +1407,6 @@ LABEL_27:
   }
 
 LABEL_62:
-  prodShadowEvaluationSuccessAt2 = self->_prodShadowEvaluationSuccessAt2;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1447,7 +1421,6 @@ LABEL_28:
   }
 
 LABEL_63:
-  prodShadowEvaluationSuccessAt4 = self->_prodShadowEvaluationSuccessAt4;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1462,7 +1435,6 @@ LABEL_29:
   }
 
 LABEL_64:
-  prodShadowEvaluationSuccessAt8 = self->_prodShadowEvaluationSuccessAt8;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1477,7 +1449,6 @@ LABEL_30:
   }
 
 LABEL_65:
-  prodShadowEvaluationMRR = self->_prodShadowEvaluationMRR;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1492,7 +1463,6 @@ LABEL_31:
   }
 
 LABEL_66:
-  prodShadowEvaluationNumberOfSessionsWithPredictions = self->_prodShadowEvaluationNumberOfSessionsWithPredictions;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1507,12 +1477,10 @@ LABEL_32:
   }
 
 LABEL_67:
-  prodShadowEvaluationNumberOfSessions = self->_prodShadowEvaluationNumberOfSessions;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_33:
-    prodShadowEvaluationNumberOfDaysWithSessions = self->_prodShadowEvaluationNumberOfDaysWithSessions;
     PBDataWriterWriteUint32Field();
   }
 

@@ -13,6 +13,7 @@
 - (void)cloudCitiesChangedExternally:(id)externally;
 - (void)encryptedStoreChanged:(id)changed;
 - (void)removeObjectForKey:(id)key;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 - (void)synchronizeWithCompletionHandler:(id)handler;
 @end
@@ -236,18 +237,16 @@ void __44__WeatherCloudPersistence_initWithDelegate___block_invoke(uint64_t a1, 
 
 void __56__WeatherCloudPersistence_cloudCitiesChangedExternally___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) isInitialSyncNotification:*(a1 + 40)];
-  v8 = @"WeatherCloudStoreIsInitialSyncKey";
+  v7 = @"WeatherCloudStoreIsInitialSyncKey";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:v2];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   v5 = [MEMORY[0x277CCAB88] notificationWithName:@"WeatherCloudStoreChangedExternally" object:*(a1 + 32) userInfo:v4];
   v6 = [MEMORY[0x277CCAB98] defaultCenter];
   [v6 postNotification:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isInitialSyncNotification:(id)notification
@@ -319,6 +318,14 @@ void __56__WeatherCloudPersistence_cloudCitiesChangedExternally___block_invoke(u
   return v6;
 }
 
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  activeCloudStore = [(WeatherCloudPersistence *)self activeCloudStore];
+  [activeCloudStore setBool:boolCopy forKey:keyCopy];
+}
+
 - (BOOL)synchronize
 {
   activeCloudStore = [(WeatherCloudPersistence *)self activeCloudStore];
@@ -382,18 +389,16 @@ void __56__WeatherCloudPersistence_cloudCitiesChangedExternally___block_invoke(u
 
 void __44__WeatherCloudPersistence_initWithDelegate___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) nonEncryptedStore];
   v5 = [v4 dictionaryRepresentation];
   v6 = [*(a1 + 32) encryptedStore];
   v7 = [v6 dictionaryRepresentation];
-  v9 = 138412546;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Migration failed, fromContents=%@, toContents=%@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Migration failed, fromContents=%@, toContents=%@", &v8, 0x16u);
 }
 
 @end

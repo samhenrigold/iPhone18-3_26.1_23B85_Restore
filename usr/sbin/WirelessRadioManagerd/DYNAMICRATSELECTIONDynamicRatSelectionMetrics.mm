@@ -146,7 +146,6 @@ LABEL_18:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    ratType = self->_ratType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -166,7 +165,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  bbChipset = self->_bbChipset;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -181,7 +179,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  mcc = self->_mcc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -196,7 +193,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  mnc = self->_mnc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -211,7 +207,6 @@ LABEL_6:
   }
 
 LABEL_15:
-  bandwidthInMhz = self->_bandwidthInMhz;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -226,7 +221,6 @@ LABEL_7:
   }
 
 LABEL_16:
-  downlinkThroughputInMbps = self->_downlinkThroughputInMbps;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -238,7 +232,6 @@ LABEL_8:
     }
 
 LABEL_18:
-    throughputCount = self->_throughputCount;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -249,7 +242,6 @@ LABEL_18:
   }
 
 LABEL_17:
-  mmWavePresent = self->_mmWavePresent;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) != 0)
@@ -264,7 +256,6 @@ LABEL_9:
   }
 
 LABEL_19:
-  count = self->_count;
 
   PBDataWriterWriteUint32Field();
 }
@@ -503,7 +494,6 @@ LABEL_48:
     goto LABEL_48;
   }
 
-  v8 = *(equal + 40);
   if (self->_mmWavePresent)
   {
     if ((*(equal + 40) & 1) == 0)

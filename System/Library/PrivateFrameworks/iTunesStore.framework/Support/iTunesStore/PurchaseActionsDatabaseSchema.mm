@@ -14,7 +14,7 @@
   {
 LABEL_15:
     v7 = 1;
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   while (1)
@@ -33,7 +33,7 @@ LABEL_15:
           v5 = sub_1001D32AC;
           break;
         default:
-          goto LABEL_28;
+          goto LABEL_29;
       }
 
       goto LABEL_12;
@@ -60,23 +60,28 @@ LABEL_13:
       shouldLog = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v10 = shouldLog | 2;
+        LODWORD(v10) = shouldLog | 2;
       }
 
       else
       {
-        v10 = shouldLog;
+        LODWORD(v10) = shouldLog;
       }
 
       oSLogObject = [v8 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
 
       if (!v10)
       {
-        goto LABEL_25;
+        goto LABEL_26;
       }
 
       v12 = objc_opt_class();
@@ -85,8 +90,8 @@ LABEL_13:
       v23 = 2048;
       v24 = v20;
       v13 = v12;
-      LODWORD(v19) = 22;
-      goto LABEL_23;
+      v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@] Failed updating Purchase Intent Database to version %li", &v21, 22);
+      goto LABEL_24;
     }
 
     userVersion = v20;
@@ -96,55 +101,60 @@ LABEL_13:
     }
   }
 
-LABEL_28:
+LABEL_29:
   v8 = +[SSLogConfig sharedConfig];
   shouldLog2 = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v17 = shouldLog2 | 2;
+    LODWORD(v18) = shouldLog2 | 2;
   }
 
   else
   {
-    v17 = shouldLog2;
+    LODWORD(v18) = shouldLog2;
   }
 
   oSLogObject = [v8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
   {
-    v17 &= 2u;
+    v18 = v18;
   }
 
-  if (!v17)
+  else
   {
-    goto LABEL_25;
+    v18 &= 2u;
   }
 
-  v18 = objc_opt_class();
-  v21 = 138543874;
-  v22 = v18;
-  v23 = 2048;
-  v24 = v20;
-  v25 = 2048;
-  v26 = 11302;
-  v13 = v18;
-  LODWORD(v19) = 32;
-LABEL_23:
-  v14 = _os_log_send_and_compose_impl();
-
-  if (!v14)
+  if (!v18)
   {
     goto LABEL_26;
   }
 
-  oSLogObject = [NSString stringWithCString:v14 encoding:4, &v21, v19];
-  free(v14);
-  SSFileLog();
-LABEL_25:
+  v19 = objc_opt_class();
+  v21 = 138543874;
+  v22 = v19;
+  v23 = 2048;
+  v24 = v20;
+  v25 = 2048;
+  v26 = 11302;
+  v13 = v19;
+  v14 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@] No Purchase Intent Database migration function for %li => %li", &v21, 32);
+LABEL_24:
+  v15 = v14;
 
+  if (!v15)
+  {
+    goto LABEL_27;
+  }
+
+  oSLogObject = [NSString stringWithCString:v15 encoding:4];
+  free(v15);
+  SSFileLog();
 LABEL_26:
-  v7 = 0;
+
 LABEL_27:
+  v7 = 0;
+LABEL_28:
 
   return v7;
 }

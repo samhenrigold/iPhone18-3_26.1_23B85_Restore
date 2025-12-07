@@ -36,7 +36,7 @@ id SAUILayoutSpecifyingOverriderForElementViewController(void *a1)
   return v3;
 }
 
-uint64_t SAUIDirectionEdgeInsetsAnyComponentIsZero()
+uint64_t SAUIDirectionEdgeInsetsAnyComponentIsZero(double a1, double a2, double a3, double a4)
 {
   if (BSFloatIsZero() & 1) != 0 || (BSFloatIsZero() & 1) != 0 || (BSFloatIsZero())
   {
@@ -110,7 +110,7 @@ void SAUISetViewFrameMaintainingTransform(void *a1, double a2, double a3, double
   v22 = 0u;
   if (v9)
   {
-    [v9 transform];
+    objc_msgSend_transform(v9);
   }
 
   v11 = MEMORY[0x277D75D18];
@@ -214,7 +214,7 @@ void sub_26C48ADF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SAUIRegisterSystemApertureLogging()
+void SAUIRegisterSystemApertureLogging(uint64_t result, uint64_t a2)
 {
   if (SAUIRegisterSystemApertureLogging_onceToken != -1)
   {
@@ -275,10 +275,11 @@ void sub_26C491BEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26C492430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_26C492430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  objc_sync_exit(v25);
-  _Block_object_dispose(&a25, 8);
+  va_start(va, a24);
+  objc_sync_exit(v24);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 

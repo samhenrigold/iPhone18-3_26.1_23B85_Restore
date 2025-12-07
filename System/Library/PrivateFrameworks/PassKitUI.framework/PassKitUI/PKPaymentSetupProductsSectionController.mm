@@ -222,43 +222,43 @@
 
 - (void)configureSupplementaryRegistration:(id)registration elementKind:(id)kind sectionIdentifier:(id)identifier
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   if (self->_showSectionHeaders)
   {
     v7 = MEMORY[0x1E69DCC28];
     identifierCopy = identifier;
     registrationCopy = registration;
     headerConfiguration = [v7 headerConfiguration];
-    [headerConfiguration setAxesPreservingSuperviewLayoutMargins:0];
-    v22[0] = *MEMORY[0x1E69DB648];
-    v11 = PKOBKListHeaderFont();
-    v23[0] = v11;
-    v22[1] = *MEMORY[0x1E69DB650];
-    v12 = PKOBKListHeaderTextColor();
-    v23[1] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v11 = [headerConfiguration setAxesPreservingSuperviewLayoutMargins:0];
+    v23[0] = *MEMORY[0x1E69DB648];
+    v12 = PKOBKListHeaderFont(v11);
+    v24[0] = v12;
+    v23[1] = *MEMORY[0x1E69DB650];
+    v13 = PKOBKListHeaderTextColor(v12);
+    v24[1] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
-    v14 = [(NSDictionary *)self->_sectionIdentifierToSectionMetadataMapping objectForKey:identifierCopy];
+    v15 = [(NSDictionary *)self->_sectionIdentifierToSectionMetadataMapping objectForKey:identifierCopy];
 
-    title = [v14 title];
+    title = [v15 title];
 
     if (title)
     {
-      v16 = objc_alloc(MEMORY[0x1E696AAB0]);
-      title2 = [v14 title];
-      v18 = [v16 initWithString:title2 attributes:v13];
-      [headerConfiguration setAttributedText:v18];
+      v17 = objc_alloc(MEMORY[0x1E696AAB0]);
+      title2 = [v15 title];
+      v19 = [v17 initWithString:title2 attributes:v14];
+      [headerConfiguration setAttributedText:v19];
     }
 
-    v19 = PKSetupViewConstantsViewMargin();
-    v20 = PKSetupListViewConstantsViewMargin();
-    v21 = v19 - v20;
-    if (v20 > v19)
+    v20 = PKSetupViewConstantsViewMargin();
+    v21 = PKSetupListViewConstantsViewMargin();
+    v22 = v20 - v21;
+    if (v21 > v20)
     {
-      v21 = 0.0;
+      v22 = 0.0;
     }
 
-    [headerConfiguration setDirectionalLayoutMargins:{10.0, v21, 10.0, v21}];
+    [headerConfiguration setDirectionalLayoutMargins:{10.0, v22, 10.0, v22}];
     [registrationCopy setContentConfiguration:headerConfiguration];
   }
 }

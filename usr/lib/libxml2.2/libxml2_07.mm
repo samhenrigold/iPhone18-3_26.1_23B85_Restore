@@ -1,4 +1,157 @@
-_DWORD *xmlFatalErrMsg(_DWORD *result, int a2, char a3)
+uint64_t xmlParserEntityCheck(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+{
+  if (result)
+  {
+    v4 = result;
+    if ((*(result + 566) & 8) == 0)
+    {
+      if (*(result + 604) == 89)
+      {
+        return 1;
+      }
+
+      if (a3)
+      {
+        if (*(a3 + 92) != 6)
+        {
+          v8 = *(a3 + 80);
+          if (v8)
+          {
+            if (!*(a3 + 132) && *(result + 136) != 89)
+            {
+              v9 = *(result + 696);
+              *(a3 + 132) = 1;
+              ++*(result + 392);
+              v10 = xmlStrlen(v8);
+              v11 = xmlStringLenDecodeEntities(v4, v8, v10, 1, 0, 0, 0);
+              v12 = v11;
+              --*(v4 + 392);
+              if (!v11 || *(v4 + 136) == 89)
+              {
+                **(a3 + 80) = 0;
+              }
+
+              v13 = *(v4 + 696) - v9;
+              if ((v13 + 1) < 0x3FFFFFFF)
+              {
+                v14 = v13 + 1;
+              }
+
+              else
+              {
+                v14 = 0x3FFFFFFF;
+              }
+
+              *(a3 + 132) = 2 * v14;
+              if (v11)
+              {
+                if (xmlStrchr(v11, 0x3Cu))
+                {
+                  *(a3 + 132) |= 1u;
+                }
+
+                free(v12);
+              }
+            }
+          }
+        }
+      }
+
+      if (*(v4 + 272) == 3)
+      {
+        v15 = *(v4 + 696);
+        if (v15 >= 0x2711 && (v15 & 0x3FF) == 0)
+        {
+          v16 = *(v4 + 64);
+          if (v16 < 1)
+          {
+            goto LABEL_27;
+          }
+
+          v17 = 0;
+          v18 = *(v4 + 72);
+          do
+          {
+            v19 = *v18++;
+            v17 = v19[8] + v17 + v19[4] - v19[3];
+            --v16;
+          }
+
+          while (v16);
+          if (v15 > 10 * v17)
+          {
+LABEL_27:
+            xmlFatalErr(v4, 89, 0);
+            *(v4 + 272) = -1;
+            return 1;
+          }
+        }
+      }
+
+      if (a4)
+      {
+        if (a4 >= 0x989680)
+        {
+          v20 = *(v4 + 56);
+          if (v20)
+          {
+            v20 = (v20[8] + v20[4] - v20[3]);
+          }
+
+          if (10 * (v20 + *(v4 + 704)) <= a4)
+          {
+            goto LABEL_50;
+          }
+        }
+      }
+
+      else if (a2)
+      {
+        if (a2 >= 0x3E8)
+        {
+          v21 = *(v4 + 56);
+          if (v21)
+          {
+            v21 = (v21[8] + v21[4] - v21[3]);
+          }
+
+          v22 = 10 * (v21 + *(v4 + 704));
+          if (v22 <= a2 || 3 * *(v4 + 696) >= v22)
+          {
+            goto LABEL_50;
+          }
+        }
+      }
+
+      else if (a3)
+      {
+        v23 = *(v4 + 56);
+        if (v23)
+        {
+          v23 = (v23[8] + v23[4] - v23[3]);
+        }
+
+        if (3 * ((*(a3 + 132) + (*(a3 + 132) >> 31)) >> 1) >= (10 * (v23 + *(v4 + 704))))
+        {
+          goto LABEL_50;
+        }
+      }
+
+      else if ((*(v4 + 604) & 0xFFFFFFFE) == 0x1A && *(v4 + 696) >= 0x2711uLL)
+      {
+LABEL_50:
+        xmlFatalErr(v4, 89, 0);
+        return 1;
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+xmlError *xmlFatalErrMsg(xmlError *result, int a2, char a3)
 {
   if (!result)
   {
@@ -6,14 +159,14 @@ _DWORD *xmlFatalErrMsg(_DWORD *result, int a2, char a3)
   }
 
   v3 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = a2;
+    LODWORD(result[1].str2) = a2;
     result = __xmlRaiseError(0, 0, 0, result, 0, 1u, a2, 3, 0, 0, 0, 0, 0, 0, 0, "%s", a3);
-    v3[6] = 0;
-    if (!v3[112])
+    LODWORD(v3->file) = 0;
+    if (!LODWORD(v3[5].message))
     {
-      v3[83] = 1;
+      v3[3].int2 = 1;
     }
   }
 
@@ -32,7 +185,7 @@ xmlChar *__cdecl xmlStringDecodeEntities(xmlParserCtxtPtr ctxt, const xmlChar *s
   return xmlStringLenDecodeEntities(ctxt, str, v12, what, end, end2, end3);
 }
 
-_DWORD *xmlWarningMsg(_DWORD *result, int a2, const char *a3, const xmlChar *a4)
+xmlError *xmlWarningMsg(xmlError *result, int a2, const char *a3, const xmlChar *a4)
 {
   if (!result)
   {
@@ -40,10 +193,10 @@ _DWORD *xmlWarningMsg(_DWORD *result, int a2, const char *a3, const xmlChar *a4)
   }
 
   v5 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    v6 = *result;
-    if (*result)
+    v6 = *&result->domain;
+    if (*&result->domain)
     {
       if (*(v6 + 216) == -554844497)
       {
@@ -64,13 +217,13 @@ _DWORD *xmlWarningMsg(_DWORD *result, int a2, const char *a3, const xmlChar *a4)
       v8 = 0;
     }
 
-    return __xmlRaiseError(v7, v8, *(v5 + 8), v5, 0, 1u, a2, 1, 0, 0, a4, 0, 0, 0, 0, a3, a4);
+    return __xmlRaiseError(v7, v8, v5->message, v5, 0, 1u, a2, 1, 0, 0, a4, 0, 0, 0, 0, a3, a4);
   }
 
   return result;
 }
 
-_DWORD *xmlFatalErrMsgStr(_DWORD *result, int a2, const char *a3, const xmlChar *a4)
+xmlError *xmlFatalErrMsgStr(xmlError *result, int a2, const char *a3, const xmlChar *a4)
 {
   if (!result)
   {
@@ -78,14 +231,14 @@ _DWORD *xmlFatalErrMsgStr(_DWORD *result, int a2, const char *a3, const xmlChar 
   }
 
   v4 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = a2;
+    LODWORD(result[1].str2) = a2;
     result = __xmlRaiseError(0, 0, 0, result, 0, 1u, a2, 3, 0, 0, a4, 0, 0, 0, 0, a3, a4);
-    v4[6] = 0;
-    if (!v4[112])
+    LODWORD(v4->file) = 0;
+    if (!LODWORD(v4[5].message))
     {
-      v4[83] = 1;
+      v4[3].int2 = 1;
     }
   }
 
@@ -94,7 +247,7 @@ _DWORD *xmlFatalErrMsgStr(_DWORD *result, int a2, const char *a3, const xmlChar 
 
 xmlChar *__cdecl xmlParseNmtoken(xmlParserCtxtPtr ctxt)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   memset(__src, 0, 105);
   if ((ctxt->options & 0x80000) != 0)
   {
@@ -113,7 +266,7 @@ xmlChar *__cdecl xmlParseNmtoken(xmlParserCtxtPtr ctxt)
 
   if (ctxt->instate == XML_PARSER_EOF)
   {
-    goto LABEL_60;
+    return 0;
   }
 
   len = 0;
@@ -127,11 +280,10 @@ xmlChar *__cdecl xmlParseNmtoken(xmlParserCtxtPtr ctxt)
     {
       if (!v4)
       {
-        goto LABEL_60;
+        return 0;
       }
 
-      v13 = xmlStrndup(__src, v4);
-      goto LABEL_61;
+      return xmlStrndup(__src, v4);
     }
 
     if (v5 >= 101)
@@ -190,7 +342,7 @@ xmlChar *__cdecl xmlParseNmtoken(xmlParserCtxtPtr ctxt)
 
       if (ctxt->instate == XML_PARSER_EOF)
       {
-        goto LABEL_60;
+        return 0;
       }
 
       v3 = xmlCurrentChar(ctxt, &len);
@@ -205,7 +357,7 @@ xmlChar *__cdecl xmlParseNmtoken(xmlParserCtxtPtr ctxt)
   if (!v12)
   {
     xmlErrMemory(ctxt, 0);
-    goto LABEL_61;
+    return v13;
   }
 
   memcpy(v12, __src, v4);
@@ -215,7 +367,7 @@ xmlChar *__cdecl xmlParseNmtoken(xmlParserCtxtPtr ctxt)
     if (!v14)
     {
       v13[v4] = 0;
-      goto LABEL_61;
+      return v13;
     }
 
     if (v5 < 101)
@@ -292,11 +444,7 @@ LABEL_44:
   xmlErrMemory(ctxt, 0);
 LABEL_59:
   free(v13);
-LABEL_60:
-  v13 = 0;
-LABEL_61:
-  v19 = *MEMORY[0x1E69E9840];
-  return v13;
+  return 0;
 }
 
 __n128 xmlIsNameChar(uint64_t a1, signed int val)
@@ -543,13 +691,13 @@ LABEL_67:
 
 xmlChar *xmlParseStringName(xmlParserCtxt *a1, const xmlChar **a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v26 = 0u;
-  memset(v27, 0, sizeof(v27));
-  v24 = 0u;
+  v27 = *MEMORY[0x1E69E9840];
   v25 = 0u;
-  *out = 0u;
+  memset(v26, 0, sizeof(v26));
   v23 = 0u;
+  v24 = 0u;
+  *out = 0u;
+  v22 = 0u;
   v4 = *a2;
   len = 0;
   if ((a1->options & 0x80000) != 0)
@@ -566,7 +714,7 @@ xmlChar *xmlParseStringName(xmlParserCtxt *a1, const xmlChar **a2)
   xmlIsNameStartChar(a1, v6);
   if (!v7)
   {
-    goto LABEL_32;
+    return 0;
   }
 
   if (len == 1)
@@ -592,12 +740,11 @@ xmlChar *xmlParseStringName(xmlParserCtxt *a1, const xmlChar **a2)
       if (v9 > v5)
       {
         xmlFatalErr(a1, 110, "NCName");
-        goto LABEL_32;
+        return 0;
       }
 
       *a2 = v10;
-      v16 = xmlStrndup(out, v9);
-      goto LABEL_33;
+      return xmlStrndup(out, v9);
     }
 
     if (len == 1)
@@ -623,7 +770,7 @@ xmlChar *xmlParseStringName(xmlParserCtxt *a1, const xmlChar **a2)
   if (!v15)
   {
     xmlErrMemory(a1, 0);
-    goto LABEL_33;
+    return v16;
   }
 
   memcpy(v15, out, v9);
@@ -634,7 +781,7 @@ xmlChar *xmlParseStringName(xmlParserCtxt *a1, const xmlChar **a2)
     {
       v16[v9] = 0;
       *a2 = v10;
-      goto LABEL_33;
+      return v16;
     }
 
     if (v9 + 10 <= v14)
@@ -673,11 +820,7 @@ LABEL_20:
   xmlErrMemory(a1, 0);
 LABEL_31:
   free(v16);
-LABEL_32:
-  v16 = 0;
-LABEL_33:
-  v19 = *MEMORY[0x1E69E9840];
-  return v16;
+  return 0;
 }
 
 xmlChar *__cdecl xmlParseAttValue(xmlParserCtxtPtr ctxt)
@@ -1743,7 +1886,6 @@ const xmlChar *__cdecl xmlParsePITarget(xmlParserCtxtPtr ctxt)
     v4 = *v2;
     if ((v4 | 0x20) == 0x78 && (v5 = v2[1], (v5 | 0x20) == 0x6D) && (v6 = v2[2], (v6 | 0x20) == 0x6C))
     {
-      v7 = v2[3];
       if (v4 == 120 && v5 == 109 && v6 == 108)
       {
         if (!v2[3])
@@ -1759,10 +1901,10 @@ const xmlChar *__cdecl xmlParsePITarget(xmlParserCtxtPtr ctxt)
         return v3;
       }
 
-      v8 = 0;
-      while (!xmlStrEqual(v3, xmlW3CPIs[v8]))
+      v7 = 0;
+      while (!xmlStrEqual(v3, xmlW3CPIs[v7]))
       {
-        if (++v8 == 2)
+        if (++v7 == 2)
         {
           xmlWarningMsg(ctxt, 64, "xmlParsePITarget: invalid name prefix 'xml'\n", 0);
           goto LABEL_15;
@@ -1783,7 +1925,7 @@ LABEL_15:
   return v3;
 }
 
-_DWORD *xmlNsErr(_DWORD *result, int a2, const char *a3, const xmlChar *a4, xmlChar *a5, xmlChar *a6)
+xmlError *xmlNsErr(xmlError *result, int a2, const char *a3, const xmlChar *a4, xmlChar *a5, xmlChar *a6)
 {
   if (!result)
   {
@@ -1791,11 +1933,11 @@ _DWORD *xmlNsErr(_DWORD *result, int a2, const char *a3, const xmlChar *a4, xmlC
   }
 
   v6 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = a2;
+    LODWORD(result[1].str2) = a2;
     result = __xmlRaiseError(0, 0, 0, result, 0, 3u, a2, 2, 0, 0, a4, a5, a6, 0, 0, a3, a4);
-    v6[140] = 0;
+    v6[6].line = 0;
   }
 
   return result;
@@ -2701,16 +2843,16 @@ LABEL_95:
   }
 }
 
-_DWORD *xmlErrMsgStr(_DWORD *result, int a2, const char *a3, const xmlChar *a4)
+xmlError *xmlErrMsgStr(xmlError *result, int a2, const char *a3, const xmlChar *a4)
 {
   if (!result)
   {
     return __xmlRaiseError(0, 0, 0, result, 0, 1u, a2, 2, 0, 0, a4, 0, 0, 0, 0, a3, a4);
   }
 
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = a2;
+    LODWORD(result[1].str2) = a2;
     return __xmlRaiseError(0, 0, 0, result, 0, 1u, a2, 2, 0, 0, a4, 0, 0, 0, 0, a3, a4);
   }
 
@@ -2894,7 +3036,7 @@ LABEL_24:
   return 0;
 }
 
-_DWORD *xmlValidityError(_DWORD *result, int a2, const char *a3, const xmlChar *a4, xmlChar *a5)
+xmlError *xmlValidityError(xmlError *result, int a2, const char *a3, const xmlChar *a4, xmlChar *a5)
 {
   if (!result)
   {
@@ -2902,11 +3044,11 @@ _DWORD *xmlValidityError(_DWORD *result, int a2, const char *a3, const xmlChar *
   }
 
   v5 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = a2;
-    v6 = *result;
-    if (*result && *(v6 + 216) == -554844497)
+    LODWORD(result[1].str2) = a2;
+    v6 = *&result->domain;
+    if (*&result->domain && *(v6 + 216) == -554844497)
     {
       v7 = *(v6 + 248);
     }
@@ -2916,8 +3058,8 @@ _DWORD *xmlValidityError(_DWORD *result, int a2, const char *a3, const xmlChar *
       v7 = 0;
     }
 
-    result = __xmlRaiseError(v7, *(v5 + 168), *(v5 + 160), v5, 0, 4u, a2, 2, 0, 0, a4, a5, 0, 0, 0, a3, a4);
-    *(v5 + 152) = 0;
+    result = __xmlRaiseError(v7, v5[1].node, v5[1].ctxt, v5, 0, 4u, a2, 2, 0, 0, a4, a5, 0, 0, 0, a3, a4);
+    v5[1].int1 = 0;
   }
 
   return result;
@@ -3431,7 +3573,7 @@ LABEL_9:
   return result;
 }
 
-_DWORD *xmlAddDefAttrs(uint64_t a1, xmlChar *name, xmlChar *name2, const xmlChar *a4)
+xmlError *xmlAddDefAttrs(uint64_t a1, xmlChar *name, xmlChar *name2, const xmlChar *a4)
 {
   v8 = *(a1 + 552);
   if (v8)
@@ -3546,7 +3688,7 @@ LABEL_19:
   return result;
 }
 
-_DWORD *xmlAddSpecialAttr(uint64_t a1, xmlChar *name, xmlChar *name2, unsigned int a4)
+xmlError *xmlAddSpecialAttr(uint64_t a1, xmlChar *name, xmlChar *name2, unsigned int a4)
 {
   Dict = *(a1 + 552);
   if (Dict || (Dict = xmlHashCreateDict(10, *(a1 + 456)), (*(a1 + 552) = Dict) != 0))
@@ -3768,7 +3910,7 @@ LABEL_26:
   return 0;
 }
 
-xmlElementContentPtr xmlParseElementChildrenContentDeclPriv(uint64_t a1, int a2, int a3)
+xmlElementContentPtr xmlParseElementChildrenContentDeclPriv(uint64_t a1, int a2, unsigned int a3)
 {
   if (a3 >= 129 && (a3 > 0x800 || (*(a1 + 564) & 0x80000) == 0))
   {
@@ -3837,7 +3979,7 @@ LABEL_28:
   v7 = *(v6 + 100);
   xmlNextChar(a1);
   xmlSkipBlankChars(a1);
-  v8 = xmlParseElementChildrenContentDeclPriv(a1, v7, (a3 + 1));
+  v8 = xmlParseElementChildrenContentDeclPriv(a1, v7, a3 + 1);
   if (!v8)
   {
     return v8;
@@ -4086,7 +4228,7 @@ LABEL_122:
       v23 = *(v22 + 100);
       xmlNextChar(a1);
       xmlSkipBlankChars(a1);
-      v24 = xmlParseElementChildrenContentDeclPriv(a1, v23, (a3 + 1));
+      v24 = xmlParseElementChildrenContentDeclPriv(a1, v23, a3 + 1);
       if (!v24)
       {
         goto LABEL_124;
@@ -4201,7 +4343,7 @@ int xmlParseElementContentDecl(xmlParserCtxtPtr ctxt, const xmlChar *name, xmlEl
 
   else
   {
-    v7 = xmlParseElementChildrenContentDeclPriv(ctxt, id, 1);
+    v7 = xmlParseElementChildrenContentDeclPriv(ctxt, id, 1u);
     v8 = 4;
   }
 
@@ -4943,69 +5085,516 @@ LABEL_85:
 
 void xmlParseReference(xmlParserCtxtPtr ctxt)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   cur = 0;
   v1 = ctxt->input->cur;
   if (*v1 != 38)
   {
-    goto LABEL_86;
+    return;
   }
 
-  if (v1[1] == 35)
+  if (v1[1] != 35)
   {
-    *out = 0;
-    v69 = 0;
-    v3 = v1[2];
-    v4 = xmlParseCharRef(ctxt);
-    if (!v4)
+    v9 = xmlParseEntityRef(ctxt);
+    if (!v9 || !ctxt->wellFormed)
     {
-LABEL_86:
-      v38 = *MEMORY[0x1E69E9840];
       return;
     }
 
-    if (ctxt->charset == 1)
+    v10 = v9;
+    if (!v9->name || (etype = v9->etype, etype == XML_INTERNAL_PREDEFINED_ENTITY))
     {
-      v5 = xmlCopyCharMultiByte(out, v4);
-      out[v5] = 0;
-      if (!ctxt->sax)
+      content = v9->content;
+      if (content && ctxt->sax && ctxt->sax->characters && !ctxt->disableSAX)
       {
-        goto LABEL_86;
+        characters = ctxt->sax->characters;
+        userData = ctxt->userData;
+        v14 = xmlStrlen(content);
+
+        (characters)(userData, content, v14);
       }
 
-      characters = ctxt->sax->characters;
-      if (!characters || ctxt->disableSAX)
-      {
-        goto LABEL_86;
-      }
-
-      v7 = v5;
-      userData = ctxt->userData;
-      goto LABEL_25;
+      return;
     }
 
-    if (v4 <= 255)
+    checked = v9->checked;
+    if (!checked || !v9->children && (ctxt->options & 2) != 0)
     {
-      out[0] = v4;
-      out[1] = 0;
+      if (etype != XML_EXTERNAL_GENERAL_PARSED_ENTITY)
+      {
+        p_nbentities = &ctxt->nbentities;
+        nbentities = ctxt->nbentities;
+        if (etype != XML_INTERNAL_GENERAL_ENTITY)
+        {
+          xmlErrMsgStr(ctxt, 1, "invalid entity type found\n", 0);
+          v30 = 88;
+LABEL_75:
+          v34 = *p_nbentities - nbentities;
+          if (v34 + 1 < 0x3FFFFFFF)
+          {
+            v35 = v34 + 1;
+          }
+
+          else
+          {
+            v35 = 0x3FFFFFFF;
+          }
+
+          *(v10 + 132) = 2 * v35;
+          v36 = *(v10 + 80);
+          if (v36 && xmlStrchr(v36, 0x3Cu))
+          {
+            *(v10 + 132) |= 1u;
+          }
+
+          if (v30 == 111 || v30 == 89)
+          {
+            xmlFatalErr(ctxt, v30, 0);
+            xmlHaltParser(ctxt);
+LABEL_85:
+            xmlFreeNodeList(cur);
+            return;
+          }
+
+          if (xmlParserEntityCheck(ctxt, 0, v10, 0))
+          {
+            goto LABEL_85;
+          }
+
+          v42 = cur;
+          if (v30 || !cur)
+          {
+            if (v30 && v30 != 27)
+            {
+              xmlFatalErrMsgStr(ctxt, 26, "Entity '%s' failed to parse\n", *(v10 + 16));
+              v58 = *(v10 + 80);
+              if (v58)
+              {
+                *v58 = 0;
+              }
+
+              xmlParserEntityCheck(ctxt, 0, v10, 0);
+LABEL_134:
+              if (!*(v10 + 132))
+              {
+                *(v10 + 132) = 2;
+              }
+
+              p_children = (v10 + 24);
+              if (!*(v10 + 24))
+              {
+                goto LABEL_137;
+              }
+
+              goto LABEL_46;
+            }
+
+            if (!cur)
+            {
+              goto LABEL_134;
+            }
+          }
+
+          else
+          {
+            v43 = *(v10 + 92);
+            if ((v43 - 1) <= 1 && !*(v10 + 24))
+            {
+              *(v10 + 24) = cur;
+              if (ctxt->replaceEntities && ctxt->parseMode != XML_PARSE_READER && (v42->type != XML_TEXT_NODE || v42->next))
+              {
+                *(v10 + 128) = 0;
+                node = ctxt->node;
+                p_private = &v42->_private;
+                myDoc = ctxt->myDoc;
+                do
+                {
+                  v62 = p_private;
+                  p_private[5] = node;
+                  p_private[8] = myDoc;
+                  p_private = p_private[6];
+                }
+
+                while (p_private);
+                *(v10 + 32) = v62;
+                if (v43 == 2 && xmlEntityRefFunc)
+                {
+                  xmlEntityRefFunc(v10, v42, 0);
+                }
+
+                goto LABEL_134;
+              }
+
+              *(v10 + 128) = 1;
+              v42->parent = v10;
+              v44 = *(v10 + 64);
+              next = v42;
+              while (1)
+              {
+                xmlSetTreeDoc(next, v44);
+                next = cur->next;
+                if (!next)
+                {
+                  break;
+                }
+
+                cur = cur->next;
+                next->parent = v10;
+                v44 = *(v10 + 64);
+              }
+
+              *(v10 + 32) = cur;
+LABEL_133:
+              cur = 0;
+              goto LABEL_134;
+            }
+          }
+
+          xmlFreeNodeList(cur);
+          goto LABEL_133;
+        }
+
+        if (ctxt->userData == ctxt)
+        {
+          v29 = 0;
+        }
+
+        else
+        {
+          v29 = ctxt->userData;
+        }
+
+        ++ctxt->depth;
+        v24 = xmlParseBalancedChunkMemoryInternal(ctxt, v9->content, v29, &cur);
+LABEL_66:
+        v30 = v24;
+        --ctxt->depth;
+        goto LABEL_75;
+      }
+
+      if ((ctxt->options & 0x12) != 0)
+      {
+        p_nbentities = &ctxt->nbentities;
+        nbentities = ctxt->nbentities;
+        sax = ctxt->sax;
+        if (ctxt->userData == ctxt)
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = ctxt->userData;
+        }
+
+        v23 = ctxt->depth + 1;
+        ctxt->depth = v23;
+        v24 = xmlParseExternalEntityPrivate(ctxt->myDoc, ctxt, sax, v22, v23, v9->URI, v9->ExternalID, &cur);
+        goto LABEL_66;
+      }
+    }
+
+    if (checked != 1)
+    {
+      ctxt->nbentities += checked / 2;
+    }
+
+    p_children = &v9->children;
+    if (!v9->children)
+    {
+      if (checked)
+      {
+        if (ctxt->userData == ctxt)
+        {
+          v31 = 0;
+        }
+
+        else
+        {
+          v31 = ctxt->userData;
+        }
+
+        if (etype == XML_EXTERNAL_GENERAL_PARSED_ENTITY)
+        {
+          p_depth = &ctxt->depth;
+          v46 = ctxt->depth + 1;
+          ctxt->depth = v46;
+          v33 = xmlParseExternalEntityPrivate(ctxt->myDoc, ctxt, ctxt->sax, v31, v46, v9->URI, v9->ExternalID, 0);
+        }
+
+        else
+        {
+          if (etype != XML_INTERNAL_GENERAL_ENTITY)
+          {
+            xmlErrMsgStr(ctxt, 1, "invalid entity type found\n", 0);
+            goto LABEL_137;
+          }
+
+          p_depth = &ctxt->depth;
+          ++ctxt->depth;
+          v33 = xmlParseBalancedChunkMemoryInternal(ctxt, v9->content, v31, 0);
+        }
+
+        --*p_depth;
+        if (v33 == 89)
+        {
+
+          xmlFatalErr(ctxt, 89, 0);
+          return;
+        }
+      }
+
+LABEL_137:
       if (!ctxt->sax)
       {
-        goto LABEL_86;
+        return;
       }
 
-      characters = ctxt->sax->characters;
-      if (!characters || ctxt->disableSAX)
+      reference = ctxt->sax->reference;
+      if (!reference || ctxt->replaceEntities || ctxt->disableSAX)
       {
-        goto LABEL_86;
+        return;
       }
 
-      userData = ctxt->userData;
-      v7 = 1;
+      goto LABEL_141;
+    }
+
+LABEL_46:
+    if (ctxt->sax)
+    {
+      reference = ctxt->sax->reference;
+      if (reference)
+      {
+        if (!ctxt->replaceEntities && !ctxt->disableSAX)
+        {
+LABEL_141:
+          v16 = ctxt->userData;
+          v17 = *(v10 + 16);
+          goto LABEL_33;
+        }
+      }
+    }
+
+    if (!ctxt->replaceEntities || !ctxt->node)
+    {
+      return;
+    }
+
+    if (cur)
+    {
+      if (ctxt->parseMode != XML_PARSE_READER)
+      {
+        if (ctxt->inputNr < 1)
+        {
+          v26 = xmlDictLookup(ctxt->dict, "nbktext", -1);
+          v27 = *p_children;
+          if ((*p_children)->type == XML_TEXT_NODE)
+          {
+            v27->name = v26;
+          }
+
+          v28 = *(v10 + 32);
+          if (v28 != v27 && *(v28 + 8) == 3)
+          {
+            *(v28 + 16) = v26;
+          }
+
+          xmlAddChildList(ctxt->node, v27);
+          goto LABEL_163;
+        }
+
+LABEL_117:
+        v47 = *(v10 + 88) + ctxt->sizeentcopy + 5;
+        ctxt->sizeentcopy = v47;
+        if (xmlParserEntityCheck(ctxt, 0, v10, v47))
+        {
+          return;
+        }
+
+        v48 = *(v10 + 24);
+        v49 = *(v10 + 32);
+        *(v10 + 24) = 0;
+        *(v10 + 32) = 0;
+        if (v48)
+        {
+          v50 = 0;
+          do
+          {
+            v51 = v48->next;
+            v48->parent = 0;
+            v48->next = 0;
+            v52 = xmlDocCopyNode(v48, ctxt->myDoc, 1);
+            v53 = v52;
+            if (v52)
+            {
+              if (!v52->_private)
+              {
+                v52->_private = v48->_private;
+              }
+
+              if (!v50)
+              {
+                v50 = v48;
+              }
+
+              xmlAddChild(v10, v52);
+              xmlAddChild(ctxt->node, v48);
+            }
+
+            if (v48 == v49)
+            {
+              break;
+            }
+
+            v48 = v51;
+          }
+
+          while (v51);
+        }
+
+        else
+        {
+          v53 = 0;
+          v50 = 0;
+        }
+
+        if (!*(v10 + 128))
+        {
+          *(v10 + 128) = 1;
+        }
+
+        if (*(v10 + 92) == 2)
+        {
+          v55 = xmlEntityRefFunc;
+          if (xmlEntityRefFunc)
+          {
+            v56 = v10;
+            v57 = v50;
+            v41 = v53;
+            goto LABEL_162;
+          }
+        }
+
+        goto LABEL_163;
+      }
+    }
+
+    else if (*(v10 + 128) && ctxt->parseMode != XML_PARSE_READER)
+    {
+      goto LABEL_117;
+    }
+
+    v37 = *(v10 + 88) + ctxt->sizeentcopy + 5;
+    ctxt->sizeentcopy = v37;
+    if (xmlParserEntityCheck(ctxt, 0, v10, v37))
+    {
+      return;
+    }
+
+    v38 = *p_children;
+    if (*p_children)
+    {
+      v39 = 0;
+      while (1)
+      {
+        v40 = xmlDocCopyNode(v38, ctxt->myDoc, 1);
+        if (v40)
+        {
+          if (!v40->_private)
+          {
+            v40->_private = v38->_private;
+          }
+
+          if (!v39)
+          {
+            v39 = v40;
+          }
+
+          v41 = xmlAddChild(ctxt->node, v40);
+        }
+
+        else
+        {
+          v41 = 0;
+        }
+
+        if (v38 == *(v10 + 32))
+        {
+          break;
+        }
+
+        v38 = v38->next;
+        if (!v38)
+        {
+          goto LABEL_150;
+        }
+      }
+
+      v54 = ctxt->parseMode != XML_PARSE_READER || v41 == 0;
+      if (!v54 && v41->type == XML_ELEMENT_NODE && !v41->children)
+      {
+        v41->extra = v41->extra & 0xF000 | 1;
+      }
+    }
+
+    else
+    {
+      v41 = 0;
+      v39 = 0;
+    }
+
+LABEL_150:
+    if (*(v10 + 92) == 2)
+    {
+      v55 = xmlEntityRefFunc;
+      if (xmlEntityRefFunc)
+      {
+        v56 = v10;
+        v57 = v39;
+LABEL_162:
+        v55(v56, v57, v41);
+      }
+    }
+
+LABEL_163:
+    *&ctxt->nodelen = 0;
+    return;
+  }
+
+  *out = 0;
+  v66 = 0;
+  v3 = v1[2];
+  v4 = xmlParseCharRef(ctxt);
+  if (!v4)
+  {
+    return;
+  }
+
+  if (ctxt->charset == 1)
+  {
+    v5 = xmlCopyCharMultiByte(out, v4);
+    out[v5] = 0;
+    if (ctxt->sax)
+    {
+      v6 = ctxt->sax->characters;
+      if (v6)
+      {
+        if (!ctxt->disableSAX)
+        {
+          v7 = v5;
+          v8 = ctxt->userData;
 LABEL_25:
-      (characters)(userData, out, v7);
-      goto LABEL_86;
+          (v6)(v8, out, v7);
+          return;
+        }
+      }
     }
 
+    return;
+  }
+
+  if (v4 > 255)
+  {
     if ((v3 & 0xFFFFFFDF) == 0x58)
     {
       snprintf(out, 0x10uLL, "#x%X");
@@ -5018,492 +5607,37 @@ LABEL_25:
 
     if (!ctxt->sax)
     {
-      goto LABEL_86;
+      return;
     }
 
     reference = ctxt->sax->reference;
     if (!reference || ctxt->disableSAX)
     {
-      goto LABEL_86;
+      return;
     }
 
-    v17 = ctxt->userData;
-    v18 = out;
+    v16 = ctxt->userData;
+    v17 = out;
 LABEL_33:
-    (reference)(v17, v18);
-    goto LABEL_86;
+    (reference)(v16, v17);
+    return;
   }
 
-  v9 = xmlParseEntityRef(ctxt);
-  if (!v9 || !ctxt->wellFormed)
+  out[0] = v4;
+  out[1] = 0;
+  if (ctxt->sax)
   {
-    goto LABEL_86;
-  }
-
-  v10 = v9;
-  if (v9->name)
-  {
-    etype = v9->etype;
-    if (etype != XML_INTERNAL_PREDEFINED_ENTITY)
+    v6 = ctxt->sax->characters;
+    if (v6)
     {
-      checked = v9->checked;
-      if (!checked || !v9->children && (ctxt->options & 2) != 0)
+      if (!ctxt->disableSAX)
       {
-        if (etype != XML_EXTERNAL_GENERAL_PARSED_ENTITY)
-        {
-          p_nbentities = &ctxt->nbentities;
-          nbentities = ctxt->nbentities;
-          if (etype != XML_INTERNAL_GENERAL_ENTITY)
-          {
-            xmlErrMsgStr(ctxt, 1, "invalid entity type found\n", 0);
-            v31 = 88;
-LABEL_75:
-            v35 = *p_nbentities - nbentities;
-            if (v35 + 1 < 0x3FFFFFFF)
-            {
-              v36 = v35 + 1;
-            }
-
-            else
-            {
-              v36 = 0x3FFFFFFF;
-            }
-
-            *(v10 + 132) = 2 * v36;
-            v37 = *(v10 + 80);
-            if (v37 && xmlStrchr(v37, 0x3Cu))
-            {
-              *(v10 + 132) |= 1u;
-            }
-
-            if (v31 == 111 || v31 == 89)
-            {
-              xmlFatalErr(ctxt, v31, 0);
-              xmlHaltParser(ctxt);
-LABEL_85:
-              xmlFreeNodeList(cur);
-              goto LABEL_86;
-            }
-
-            if (xmlParserEntityCheck(ctxt, 0, v10, 0))
-            {
-              goto LABEL_85;
-            }
-
-            v44 = cur;
-            if (v31 || !cur)
-            {
-              if (v31 && v31 != 27)
-              {
-                xmlFatalErrMsgStr(ctxt, 26, "Entity '%s' failed to parse\n", *(v10 + 16));
-                v61 = *(v10 + 80);
-                if (v61)
-                {
-                  *v61 = 0;
-                }
-
-                xmlParserEntityCheck(ctxt, 0, v10, 0);
-LABEL_134:
-                if (!*(v10 + 132))
-                {
-                  *(v10 + 132) = 2;
-                }
-
-                p_children = (v10 + 24);
-                if (!*(v10 + 24))
-                {
-                  goto LABEL_137;
-                }
-
-                goto LABEL_46;
-              }
-
-              if (!cur)
-              {
-                goto LABEL_134;
-              }
-            }
-
-            else
-            {
-              v45 = *(v10 + 92);
-              if ((v45 - 1) <= 1 && !*(v10 + 24))
-              {
-                *(v10 + 24) = cur;
-                if (ctxt->replaceEntities && ctxt->parseMode != XML_PARSE_READER && (v44->type != XML_TEXT_NODE || v44->next))
-                {
-                  *(v10 + 128) = 0;
-                  node = ctxt->node;
-                  p_private = &v44->_private;
-                  myDoc = ctxt->myDoc;
-                  do
-                  {
-                    v65 = p_private;
-                    p_private[5] = node;
-                    p_private[8] = myDoc;
-                    p_private = p_private[6];
-                  }
-
-                  while (p_private);
-                  *(v10 + 32) = v65;
-                  if (v45 == 2 && xmlEntityRefFunc)
-                  {
-                    xmlEntityRefFunc(v10, v44, 0);
-                  }
-
-                  goto LABEL_134;
-                }
-
-                *(v10 + 128) = 1;
-                v44->parent = v10;
-                v46 = *(v10 + 64);
-                next = v44;
-                while (1)
-                {
-                  xmlSetTreeDoc(next, v46);
-                  next = cur->next;
-                  if (!next)
-                  {
-                    break;
-                  }
-
-                  cur = cur->next;
-                  next->parent = v10;
-                  v46 = *(v10 + 64);
-                }
-
-                *(v10 + 32) = cur;
-LABEL_133:
-                cur = 0;
-                goto LABEL_134;
-              }
-            }
-
-            xmlFreeNodeList(cur);
-            goto LABEL_133;
-          }
-
-          if (ctxt->userData == ctxt)
-          {
-            v30 = 0;
-          }
-
-          else
-          {
-            v30 = ctxt->userData;
-          }
-
-          ++ctxt->depth;
-          v25 = xmlParseBalancedChunkMemoryInternal(ctxt, v9->content, v30, &cur);
-LABEL_66:
-          v31 = v25;
-          --ctxt->depth;
-          goto LABEL_75;
-        }
-
-        if ((ctxt->options & 0x12) != 0)
-        {
-          p_nbentities = &ctxt->nbentities;
-          nbentities = ctxt->nbentities;
-          sax = ctxt->sax;
-          if (ctxt->userData == ctxt)
-          {
-            v23 = 0;
-          }
-
-          else
-          {
-            v23 = ctxt->userData;
-          }
-
-          v24 = ctxt->depth + 1;
-          ctxt->depth = v24;
-          v25 = xmlParseExternalEntityPrivate(ctxt->myDoc, ctxt, sax, v23, v24, v9->URI, v9->ExternalID, &cur);
-          goto LABEL_66;
-        }
+        v8 = ctxt->userData;
+        v7 = 1;
+        goto LABEL_25;
       }
-
-      if (checked != 1)
-      {
-        ctxt->nbentities += checked / 2;
-      }
-
-      p_children = &v9->children;
-      if (!v9->children)
-      {
-        if (checked)
-        {
-          if (ctxt->userData == ctxt)
-          {
-            v32 = 0;
-          }
-
-          else
-          {
-            v32 = ctxt->userData;
-          }
-
-          if (etype == XML_EXTERNAL_GENERAL_PARSED_ENTITY)
-          {
-            p_depth = &ctxt->depth;
-            v48 = ctxt->depth + 1;
-            ctxt->depth = v48;
-            v34 = xmlParseExternalEntityPrivate(ctxt->myDoc, ctxt, ctxt->sax, v32, v48, v9->URI, v9->ExternalID, 0);
-          }
-
-          else
-          {
-            if (etype != XML_INTERNAL_GENERAL_ENTITY)
-            {
-              xmlErrMsgStr(ctxt, 1, "invalid entity type found\n", 0);
-              goto LABEL_137;
-            }
-
-            p_depth = &ctxt->depth;
-            ++ctxt->depth;
-            v34 = xmlParseBalancedChunkMemoryInternal(ctxt, v9->content, v32, 0);
-          }
-
-          --*p_depth;
-          if (v34 == 89)
-          {
-            v49 = *MEMORY[0x1E69E9840];
-
-            xmlFatalErr(ctxt, 89, 0);
-            return;
-          }
-        }
-
-LABEL_137:
-        if (!ctxt->sax)
-        {
-          goto LABEL_86;
-        }
-
-        reference = ctxt->sax->reference;
-        if (!reference || ctxt->replaceEntities || ctxt->disableSAX)
-        {
-          goto LABEL_86;
-        }
-
-        goto LABEL_141;
-      }
-
-LABEL_46:
-      if (ctxt->sax)
-      {
-        reference = ctxt->sax->reference;
-        if (reference)
-        {
-          if (!ctxt->replaceEntities && !ctxt->disableSAX)
-          {
-LABEL_141:
-            v17 = ctxt->userData;
-            v18 = *(v10 + 16);
-            goto LABEL_33;
-          }
-        }
-      }
-
-      if (!ctxt->replaceEntities || !ctxt->node)
-      {
-        goto LABEL_86;
-      }
-
-      if (cur)
-      {
-        if (ctxt->parseMode != XML_PARSE_READER)
-        {
-          if (ctxt->inputNr < 1)
-          {
-            v27 = xmlDictLookup(ctxt->dict, "nbktext", -1);
-            v28 = *p_children;
-            if ((*p_children)->type == XML_TEXT_NODE)
-            {
-              v28->name = v27;
-            }
-
-            v29 = *(v10 + 32);
-            if (v29 != v28 && *(v29 + 8) == 3)
-            {
-              *(v29 + 16) = v27;
-            }
-
-            xmlAddChildList(ctxt->node, v28);
-            goto LABEL_163;
-          }
-
-LABEL_117:
-          v50 = *(v10 + 88) + ctxt->sizeentcopy + 5;
-          ctxt->sizeentcopy = v50;
-          if (xmlParserEntityCheck(ctxt, 0, v10, v50))
-          {
-            goto LABEL_86;
-          }
-
-          v51 = *(v10 + 24);
-          v52 = *(v10 + 32);
-          *(v10 + 24) = 0;
-          *(v10 + 32) = 0;
-          if (v51)
-          {
-            v53 = 0;
-            do
-            {
-              v54 = v51->next;
-              v51->parent = 0;
-              v51->next = 0;
-              v55 = xmlDocCopyNode(v51, ctxt->myDoc, 1);
-              v56 = v55;
-              if (v55)
-              {
-                if (!v55->_private)
-                {
-                  v55->_private = v51->_private;
-                }
-
-                if (!v53)
-                {
-                  v53 = v51;
-                }
-
-                xmlAddChild(v10, v55);
-                xmlAddChild(ctxt->node, v51);
-              }
-
-              if (v51 == v52)
-              {
-                break;
-              }
-
-              v51 = v54;
-            }
-
-            while (v54);
-          }
-
-          else
-          {
-            v56 = 0;
-            v53 = 0;
-          }
-
-          if (!*(v10 + 128))
-          {
-            *(v10 + 128) = 1;
-          }
-
-          if (*(v10 + 92) == 2)
-          {
-            v58 = xmlEntityRefFunc;
-            if (xmlEntityRefFunc)
-            {
-              v59 = v10;
-              v60 = v53;
-              v43 = v56;
-              goto LABEL_162;
-            }
-          }
-
-          goto LABEL_163;
-        }
-      }
-
-      else if (*(v10 + 128) && ctxt->parseMode != XML_PARSE_READER)
-      {
-        goto LABEL_117;
-      }
-
-      v39 = *(v10 + 88) + ctxt->sizeentcopy + 5;
-      ctxt->sizeentcopy = v39;
-      if (xmlParserEntityCheck(ctxt, 0, v10, v39))
-      {
-        goto LABEL_86;
-      }
-
-      v40 = *p_children;
-      if (*p_children)
-      {
-        v41 = 0;
-        while (1)
-        {
-          v42 = xmlDocCopyNode(v40, ctxt->myDoc, 1);
-          if (v42)
-          {
-            if (!v42->_private)
-            {
-              v42->_private = v40->_private;
-            }
-
-            if (!v41)
-            {
-              v41 = v42;
-            }
-
-            v43 = xmlAddChild(ctxt->node, v42);
-          }
-
-          else
-          {
-            v43 = 0;
-          }
-
-          if (v40 == *(v10 + 32))
-          {
-            break;
-          }
-
-          v40 = v40->next;
-          if (!v40)
-          {
-            goto LABEL_150;
-          }
-        }
-
-        v57 = ctxt->parseMode != XML_PARSE_READER || v43 == 0;
-        if (!v57 && v43->type == XML_ELEMENT_NODE && !v43->children)
-        {
-          v43->extra = v43->extra & 0xF000 | 1;
-        }
-      }
-
-      else
-      {
-        v43 = 0;
-        v41 = 0;
-      }
-
-LABEL_150:
-      if (*(v10 + 92) == 2)
-      {
-        v58 = xmlEntityRefFunc;
-        if (xmlEntityRefFunc)
-        {
-          v59 = v10;
-          v60 = v41;
-LABEL_162:
-          v58(v59, v60, v43);
-        }
-      }
-
-LABEL_163:
-      *&ctxt->nodelen = 0;
-      goto LABEL_86;
     }
   }
-
-  content = v9->content;
-  if (!content || !ctxt->sax || !ctxt->sax->characters || ctxt->disableSAX)
-  {
-    goto LABEL_86;
-  }
-
-  v66 = ctxt->sax->characters;
-  v13 = ctxt->userData;
-  v14 = xmlStrlen(content);
-  v15 = *MEMORY[0x1E69E9840];
-
-  (v66)(v13, content, v14);
 }
 
 xmlEntityPtr xmlParseEntityRef(xmlParserCtxtPtr ctxt)
@@ -5905,7 +6039,7 @@ LABEL_56:
   return v4;
 }
 
-uint64_t xmlParseExternalEntityPrivate(uint64_t a1, uint64_t a2, _xmlSAXHandler *a3, void *a4, int a5, const xmlChar *a6, const char *a7, _xmlNode **a8)
+uint64_t xmlParseExternalEntityPrivate(uint64_t a1, uint64_t a2, _xmlSAXHandler *a3, void *a4, unsigned int a5, const xmlChar *a6, const char *a7, _xmlNode **a8)
 {
   if (a5 < 41 || (v14 = 89, a2) && a5 <= 0x400 && (*(a2 + 564) & 0x80000) != 0)
   {
@@ -6302,17 +6436,17 @@ const xmlChar *__cdecl xmlParseAttribute(xmlParserCtxtPtr ctxt, xmlChar **value)
   return v4;
 }
 
-_DWORD *xmlErrAttributeDup(_DWORD *result, const xmlChar *a2, xmlChar *a3)
+xmlError *xmlErrAttributeDup(xmlError *result, const xmlChar *a2, xmlChar *a3)
 {
   v3 = result;
   if (result)
   {
-    if (result[83] && result[68] == -1)
+    if (result[3].int2 && LODWORD(result[3].message) == -1)
     {
       return result;
     }
 
-    result[34] = 42;
+    LODWORD(result[1].str2) = 42;
   }
 
   if (a2)
@@ -6327,10 +6461,10 @@ _DWORD *xmlErrAttributeDup(_DWORD *result, const xmlChar *a2, xmlChar *a3)
 
   if (v3)
   {
-    v3[6] = 0;
-    if (!v3[112])
+    LODWORD(v3->file) = 0;
+    if (!LODWORD(v3[5].message))
     {
-      v3[83] = 1;
+      v3[3].int2 = 1;
     }
   }
 
@@ -6401,7 +6535,7 @@ xmlParserInput *xmlParseEndTag1(xmlParserCtxt *a1)
       {
         if (!a1->disableSAX)
         {
-          result = endElement(a1->userData, a1->name);
+          result = (endElement)(a1->userData, a1->name);
         }
       }
     }
@@ -6733,7 +6867,7 @@ void xmlParseContent(xmlParserCtxtPtr ctxt)
   }
 }
 
-_DWORD *xmlFatalErrMsgStrIntStr(_DWORD *result, int a2, const char *a3, const xmlChar *a4, int a5, xmlChar *cur)
+xmlError *xmlFatalErrMsgStrIntStr(xmlError *result, int a2, const char *a3, const xmlChar *a4, int a5, xmlChar *cur)
 {
   if (!result)
   {
@@ -6741,14 +6875,14 @@ _DWORD *xmlFatalErrMsgStrIntStr(_DWORD *result, int a2, const char *a3, const xm
   }
 
   v6 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = a2;
+    LODWORD(result[1].str2) = a2;
     result = __xmlRaiseError(0, 0, 0, result, 0, 1u, a2, 3, 0, 0, a4, cur, 0, a5, 0, a3, a4);
-    v6[6] = 0;
-    if (!v6[112])
+    LODWORD(v6->file) = 0;
+    if (!LODWORD(v6[5].message))
     {
-      v6[83] = 1;
+      v6[3].int2 = 1;
     }
   }
 
@@ -7561,6 +7695,283 @@ LABEL_49:
   return errNo;
 }
 
+xmlParserErrors xmlParseInNodeContext(xmlNodePtr node, const char *data, int datalen, int options, xmlNodePtr *lst)
+{
+  errNo = XML_ERR_INTERNAL_ERROR;
+  if (datalen < 0)
+  {
+    return errNo;
+  }
+
+  if (!data)
+  {
+    return errNo;
+  }
+
+  v6 = node;
+  if (!node)
+  {
+    return errNo;
+  }
+
+  if (!lst)
+  {
+    return errNo;
+  }
+
+  type = node->type;
+  if (type > XML_HTML_DOCUMENT_NODE || ((1 << type) & 0x23BE) == 0)
+  {
+    return errNo;
+  }
+
+  v9 = *&options;
+  while (1)
+  {
+    v10 = v6->type;
+    if (v10 == XML_ELEMENT_NODE)
+    {
+      break;
+    }
+
+    if (v10 == XML_DOCUMENT_NODE || v10 == XML_HTML_DOCUMENT_NODE)
+    {
+      doc = v6;
+      goto LABEL_18;
+    }
+
+    v6 = v6->parent;
+    if (!v6)
+    {
+      return 1;
+    }
+  }
+
+  doc = v6->doc;
+  if (!doc)
+  {
+    return 1;
+  }
+
+  v10 = doc->type;
+LABEL_18:
+  if (v10 != XML_HTML_DOCUMENT_NODE)
+  {
+    if (v10 == XML_DOCUMENT_NODE)
+    {
+      MemoryParserCtxt = xmlCreateMemoryParserCtxt(data, datalen);
+      if (!MemoryParserCtxt)
+      {
+        return 2;
+      }
+
+      goto LABEL_24;
+    }
+
+    return 1;
+  }
+
+  MemoryParserCtxt = htmlCreateMemoryParserCtxt(data, datalen);
+  v9 = v9 | 0x2000;
+  if (!MemoryParserCtxt)
+  {
+    return 2;
+  }
+
+LABEL_24:
+  dict = doc->dict;
+  if (dict)
+  {
+    v15 = MemoryParserCtxt->dict;
+    if (v15)
+    {
+      xmlDictFree(v15);
+      dict = doc->dict;
+    }
+
+    MemoryParserCtxt->dict = dict;
+  }
+
+  else
+  {
+    v9 = v9 | 0x1000;
+  }
+
+  encoding = doc->encoding;
+  if (encoding)
+  {
+    if (MemoryParserCtxt->encoding)
+    {
+      free(MemoryParserCtxt->encoding);
+      encoding = doc->encoding;
+    }
+
+    MemoryParserCtxt->encoding = xmlStrdup(encoding);
+    CharEncodingHandler = xmlFindCharEncodingHandler(doc->encoding);
+    if (!CharEncodingHandler)
+    {
+      return 32;
+    }
+
+    xmlSwitchToEncoding(MemoryParserCtxt, CharEncodingHandler);
+  }
+
+  xmlCtxtUseOptionsInternal(MemoryParserCtxt, v9, 0);
+  xmlDetectSAX2(MemoryParserCtxt);
+  MemoryParserCtxt->myDoc = doc;
+  MemoryParserCtxt->input_id = 2;
+  MemoryParserCtxt->instate = XML_PARSER_CONTENT;
+  v18 = xmlNewComment(0);
+  if (!v18)
+  {
+    xmlFreeParserCtxt(MemoryParserCtxt);
+    return 2;
+  }
+
+  v19 = v18;
+  xmlAddChild(v6, v18);
+  if (v6->type == XML_ELEMENT_NODE)
+  {
+    nodePush(MemoryParserCtxt, v6);
+    v20 = 0;
+    v21 = v6;
+    do
+    {
+      if (v21->type != XML_ELEMENT_NODE)
+      {
+        break;
+      }
+
+      for (i = v21->nsDef; i; i = i->next)
+      {
+        v23 = MemoryParserCtxt->dict;
+        prefix = i->prefix;
+        if (v23)
+        {
+          prefix = xmlDictLookup(v23, i->prefix, -1);
+          href = xmlDictLookup(MemoryParserCtxt->dict, i->href, -1);
+        }
+
+        else
+        {
+          href = i->href;
+        }
+
+        if (!xmlGetNamespace(MemoryParserCtxt, prefix))
+        {
+          nsPush(MemoryParserCtxt, prefix, href);
+          ++v20;
+        }
+      }
+
+      v21 = v21->parent;
+    }
+
+    while (v21);
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  if (MemoryParserCtxt->validate || MemoryParserCtxt->replaceEntities)
+  {
+    MemoryParserCtxt->loadsubset |= 8u;
+  }
+
+  if (doc->type == XML_HTML_DOCUMENT_NODE)
+  {
+    __htmlParseContent(MemoryParserCtxt);
+  }
+
+  else
+  {
+    xmlParseContent(MemoryParserCtxt);
+  }
+
+  nsPop(MemoryParserCtxt, v20);
+  cur = MemoryParserCtxt->input->cur;
+  if (*cur)
+  {
+    if (*cur == 60 && cur[1] == 47)
+    {
+      v27 = 85;
+    }
+
+    else
+    {
+      v27 = 86;
+    }
+
+    xmlFatalErr(MemoryParserCtxt, v27, 0);
+  }
+
+  v28 = MemoryParserCtxt->node;
+  if (!v28 || v28 == v6)
+  {
+    if (MemoryParserCtxt->wellFormed)
+    {
+      errNo = XML_ERR_OK;
+      goto LABEL_70;
+    }
+  }
+
+  else
+  {
+    xmlFatalErr(MemoryParserCtxt, 85, 0);
+    MemoryParserCtxt->wellFormed = 0;
+  }
+
+  if (MemoryParserCtxt->errNo <= 1u)
+  {
+    errNo = XML_ERR_INTERNAL_ERROR;
+  }
+
+  else
+  {
+    errNo = MemoryParserCtxt->errNo;
+  }
+
+LABEL_70:
+  next = v19->next;
+  v19->next = 0;
+  v6->last = v19;
+  if (next)
+  {
+    next->prev = 0;
+    *lst = next;
+    do
+    {
+      next->parent = 0;
+      next = next->next;
+    }
+
+    while (next);
+  }
+
+  else
+  {
+    *lst = 0;
+  }
+
+  xmlUnlinkNode(v19);
+  xmlFreeNode(v19);
+  if (errNo)
+  {
+    xmlFreeNodeList(*lst);
+    *lst = 0;
+  }
+
+  if (doc->dict)
+  {
+    MemoryParserCtxt->dict = 0;
+  }
+
+  xmlFreeParserCtxt(MemoryParserCtxt);
+  return errNo;
+}
+
 xmlDocPtr xmlSAXParseEntity(xmlSAXHandlerPtr sax, const char *filename)
 {
   URLParserCtxt = xmlCreateURLParserCtxt(filename, 0);
@@ -7685,6 +8096,53 @@ LABEL_23:
   }
 
   return v9;
+}
+
+xmlParserCtxtPtr xmlCreateURLParserCtxt(const char *filename, int options)
+{
+  v2 = *&options;
+  v4 = xmlNewParserCtxt();
+  v5 = v4;
+  if (!v4)
+  {
+    xmlErrMemory(0, "cannot allocate parser context");
+    return v5;
+  }
+
+  if (v2)
+  {
+    xmlCtxtUseOptionsInternal(v4, v2, 0);
+  }
+
+  v5->linenumbers = 1;
+  ExternalEntity = xmlLoadExternalEntity(filename, 0, v5);
+  if (!ExternalEntity)
+  {
+LABEL_12:
+    xmlFreeParserCtxt(v5);
+    return 0;
+  }
+
+  v7 = ExternalEntity;
+  if (inputPush(v5, ExternalEntity) < 0)
+  {
+    xmlFreeInputStream(v7);
+    goto LABEL_12;
+  }
+
+  if (!v5->directory)
+  {
+    Directory = xmlParserGetDirectory(filename);
+    if (!v5->directory)
+    {
+      if (Directory)
+      {
+        v5->directory = Directory;
+      }
+    }
+  }
+
+  return v5;
 }
 
 xmlDocPtr xmlSAXParseFileWithData(xmlSAXHandlerPtr sax, const char *filename, int recovery, void *data)
@@ -8297,7 +8755,311 @@ LABEL_13:
   return 0;
 }
 
-__n128 xmlIsNameStartChar(uint64_t a1, signed int val)
+xmlDocPtr xmlReadDoc(const xmlChar *cur, const char *URL, const char *encoding, int options)
+{
+  if (!cur)
+  {
+    return 0;
+  }
+
+  v4 = *&options;
+  xmlInitParser();
+  v8 = xmlStrlen(cur);
+  MemoryParserCtxt = xmlCreateMemoryParserCtxt(cur, v8);
+  if (!MemoryParserCtxt)
+  {
+    return 0;
+  }
+
+  return xmlDoRead(MemoryParserCtxt, URL, encoding, v4, 0);
+}
+
+xmlDocPtr xmlReadFile(const char *URL, const char *encoding, int options)
+{
+  v3 = *&options;
+  xmlInitParser();
+  result = xmlCreateURLParserCtxt(URL, v3);
+  if (result)
+  {
+
+    return xmlDoRead(result, 0, encoding, v3, 0);
+  }
+
+  return result;
+}
+
+xmlDocPtr xmlReadFd(int fd, const char *URL, const char *encoding, int options)
+{
+  if (fd < 0)
+  {
+    return 0;
+  }
+
+  v4 = *&options;
+  xmlInitParser();
+  v8 = xmlParserInputBufferCreateFd(fd, XML_CHAR_ENCODING_NONE);
+  if (!v8)
+  {
+    return 0;
+  }
+
+  v9 = v8;
+  v8->closecallback = 0;
+  v10 = xmlNewParserCtxt();
+  if (!v10)
+  {
+    xmlFreeParserInputBuffer(v9);
+    return 0;
+  }
+
+  v11 = v10;
+  v12 = xmlNewIOInputStream(v10, v9, XML_CHAR_ENCODING_NONE);
+  if (!v12)
+  {
+    xmlFreeParserInputBuffer(v9);
+LABEL_12:
+    xmlFreeParserCtxt(v11);
+    return 0;
+  }
+
+  v13 = v12;
+  if (inputPush(v11, v12) < 0)
+  {
+    xmlFreeInputStream(v13);
+    goto LABEL_12;
+  }
+
+  return xmlDoRead(v11, URL, encoding, v4, 0);
+}
+
+xmlDocPtr xmlReadIO(xmlInputReadCallback ioread, xmlInputCloseCallback ioclose, void *ioctx, const char *URL, const char *encoding, int options)
+{
+  if (!ioread)
+  {
+    return 0;
+  }
+
+  v6 = *&options;
+  xmlInitParser();
+  IO = xmlParserInputBufferCreateIO(ioread, ioclose, ioctx, XML_CHAR_ENCODING_NONE);
+  if (!IO)
+  {
+    if (ioclose)
+    {
+      (ioclose)(ioctx);
+    }
+
+    return 0;
+  }
+
+  v13 = IO;
+  v14 = xmlNewParserCtxt();
+  if (!v14)
+  {
+    xmlFreeParserInputBuffer(v13);
+    return 0;
+  }
+
+  v15 = v14;
+  v16 = xmlNewIOInputStream(v14, v13, XML_CHAR_ENCODING_NONE);
+  if (!v16)
+  {
+    xmlFreeParserInputBuffer(v13);
+LABEL_14:
+    xmlFreeParserCtxt(v15);
+    return 0;
+  }
+
+  v17 = v16;
+  if (inputPush(v15, v16) < 0)
+  {
+    xmlFreeInputStream(v17);
+    goto LABEL_14;
+  }
+
+  return xmlDoRead(v15, URL, encoding, v6, 0);
+}
+
+xmlDocPtr xmlCtxtReadDoc(xmlParserCtxtPtr ctxt, const xmlChar *cur, const char *URL, const char *encoding, int options)
+{
+  if (!ctxt)
+  {
+    return 0;
+  }
+
+  if (!cur)
+  {
+    return 0;
+  }
+
+  v6 = *&options;
+  xmlInitParser();
+  xmlCtxtReset(ctxt);
+  v10 = xmlNewStringInputStream(ctxt, cur);
+  if (!v10)
+  {
+    return 0;
+  }
+
+  v11 = v10;
+  if (inputPush(ctxt, v10) < 0)
+  {
+    xmlFreeInputStream(v11);
+    xmlFreeParserCtxt(ctxt);
+    return 0;
+  }
+
+  return xmlDoRead(ctxt, URL, encoding, v6, 1);
+}
+
+xmlDocPtr xmlCtxtReadFile(xmlParserCtxtPtr ctxt, const char *filename, const char *encoding, int options)
+{
+  if (!ctxt)
+  {
+    return 0;
+  }
+
+  if (!filename)
+  {
+    return 0;
+  }
+
+  v5 = *&options;
+  xmlInitParser();
+  xmlCtxtReset(ctxt);
+  ExternalEntity = xmlLoadExternalEntity(filename, 0, ctxt);
+  if (!ExternalEntity)
+  {
+    return 0;
+  }
+
+  v9 = ExternalEntity;
+  if (inputPush(ctxt, ExternalEntity) < 0)
+  {
+    xmlFreeInputStream(v9);
+    xmlFreeParserCtxt(ctxt);
+    return 0;
+  }
+
+  return xmlDoRead(ctxt, 0, encoding, v5, 1);
+}
+
+xmlDocPtr xmlCtxtReadMemory(xmlParserCtxtPtr ctxt, const char *buffer, int size, const char *URL, const char *encoding, int options)
+{
+  if (!ctxt)
+  {
+    return 0;
+  }
+
+  if (!buffer)
+  {
+    return 0;
+  }
+
+  v7 = *&options;
+  xmlInitParser();
+  xmlCtxtReset(ctxt);
+  Mem = xmlParserInputBufferCreateMem(buffer, size, XML_CHAR_ENCODING_NONE);
+  if (!Mem)
+  {
+    return 0;
+  }
+
+  v13 = Mem;
+  v14 = xmlNewIOInputStream(ctxt, Mem, XML_CHAR_ENCODING_NONE);
+  if (!v14)
+  {
+    xmlFreeParserInputBuffer(v13);
+    return 0;
+  }
+
+  v15 = v14;
+  if (inputPush(ctxt, v14) < 0)
+  {
+    xmlFreeInputStream(v15);
+    xmlFreeParserCtxt(ctxt);
+    return 0;
+  }
+
+  return xmlDoRead(ctxt, URL, encoding, v7, 1);
+}
+
+xmlDocPtr xmlCtxtReadFd(xmlParserCtxtPtr ctxt, int fd, const char *URL, const char *encoding, int options)
+{
+  if (!ctxt)
+  {
+    return 0;
+  }
+
+  if (fd < 0)
+  {
+    return 0;
+  }
+
+  v6 = *&options;
+  xmlInitParser();
+  xmlCtxtReset(ctxt);
+  v10 = xmlParserInputBufferCreateFd(fd, XML_CHAR_ENCODING_NONE);
+  if (!v10)
+  {
+    return 0;
+  }
+
+  v11 = v10;
+  v10->closecallback = 0;
+  v12 = xmlNewIOInputStream(ctxt, v10, XML_CHAR_ENCODING_NONE);
+  if (!v12)
+  {
+    xmlFreeParserInputBuffer(v11);
+    return 0;
+  }
+
+  v13 = v12;
+  if (inputPush(ctxt, v12) < 0)
+  {
+    xmlFreeInputStream(v13);
+    xmlFreeParserCtxt(ctxt);
+    return 0;
+  }
+
+  return xmlDoRead(ctxt, URL, encoding, v6, 1);
+}
+
+xmlDocPtr xmlCtxtReadIO(xmlParserCtxtPtr ctxt, xmlInputReadCallback ioread, xmlInputCloseCallback ioclose, void *ioctx, const char *URL, const char *encoding, int options)
+{
+  if (!ctxt || !ioread)
+  {
+    return 0;
+  }
+
+  v8 = *&options;
+  xmlInitParser();
+  xmlCtxtReset(ctxt);
+  IO = xmlParserInputBufferCreateIO(ioread, ioclose, ioctx, XML_CHAR_ENCODING_NONE);
+  if (!IO)
+  {
+    if (ioclose)
+    {
+      (ioclose)(ioctx);
+    }
+
+    return 0;
+  }
+
+  v15 = IO;
+  v16 = xmlNewIOInputStream(ctxt, IO, XML_CHAR_ENCODING_NONE);
+  if (!v16)
+  {
+    xmlFreeParserInputBuffer(v15);
+    return 0;
+  }
+
+  inputPush(ctxt, v16);
+
+  return xmlDoRead(ctxt, URL, encoding, v8, 1);
+}
+
+__n128 xmlIsNameStartChar(uint64_t a1, unsigned int val)
 {
   if ((*(a1 + 566) & 2) != 0)
   {
@@ -8316,9 +9078,9 @@ __n128 xmlIsNameStartChar(uint64_t a1, signed int val)
   return result;
 }
 
-_DWORD *xmlNsWarn(_DWORD *result, const char *a2, const xmlChar *a3, xmlChar *a4)
+xmlError *xmlNsWarn(xmlError *result, const char *a2, const xmlChar *a3, xmlChar *a4)
 {
-  if (!result || !result[83] || result[68] != -1)
+  if (!result || !result[3].int2 || LODWORD(result[3].message) != -1)
   {
     return __xmlRaiseError(0, 0, 0, result, 0, 3u, 100, 1, 0, 0, a3, a4, 0, 0, 0, a2, a3);
   }
@@ -8520,18 +9282,18 @@ void xmlCheckVersion(int version)
   }
 }
 
-_DWORD *xmlErrMemory(_DWORD *result, const xmlChar *a2)
+xmlError *xmlErrMemory(xmlError *result, const xmlChar *a2)
 {
   if (!result)
   {
     goto LABEL_5;
   }
 
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = 2;
-    result[68] = -1;
-    result[83] = 1;
+    LODWORD(result[1].str2) = 2;
+    LODWORD(result[3].message) = -1;
+    result[3].int2 = 1;
 LABEL_5:
     if (a2)
     {
@@ -8547,7 +9309,7 @@ LABEL_5:
   return result;
 }
 
-_DWORD *__xmlErrEncoding(_DWORD *result, int a2, const char *a3, const xmlChar *a4, xmlChar *a5)
+xmlError *__xmlErrEncoding(xmlError *result, int a2, const char *a3, const xmlChar *a4, xmlChar *a5)
 {
   if (!result)
   {
@@ -8555,14 +9317,14 @@ _DWORD *__xmlErrEncoding(_DWORD *result, int a2, const char *a3, const xmlChar *
   }
 
   v5 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = a2;
+    LODWORD(result[1].str2) = a2;
     result = __xmlRaiseError(0, 0, 0, result, 0, 1u, a2, 3, 0, 0, a4, a5, 0, 0, 0, a3, a4);
-    v5[6] = 0;
-    if (!v5[112])
+    LODWORD(v5->file) = 0;
+    if (!LODWORD(v5[5].message))
     {
-      v5[83] = 1;
+      v5[3].int2 = 1;
     }
   }
 
@@ -8594,7 +9356,7 @@ int xmlIsLetter(int c)
   }
 }
 
-_DWORD *xmlErrInternal(_DWORD *result, const char *a2, const xmlChar *a3)
+xmlError *xmlErrInternal(xmlError *result, const char *a2, const xmlChar *a3)
 {
   if (!result)
   {
@@ -8602,21 +9364,21 @@ _DWORD *xmlErrInternal(_DWORD *result, const char *a2, const xmlChar *a3)
   }
 
   v3 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = 1;
+    LODWORD(result[1].str2) = 1;
     result = __xmlRaiseError(0, 0, 0, result, 0, 1u, 1, 3, 0, 0, a3, 0, 0, 0, 0, a2, a3);
-    v3[6] = 0;
-    if (!v3[112])
+    LODWORD(v3->file) = 0;
+    if (!LODWORD(v3[5].message))
     {
-      v3[83] = 1;
+      v3[3].int2 = 1;
     }
   }
 
   return result;
 }
 
-_DWORD *xmlErrEncodingInt(_DWORD *result, const char *a2, int a3)
+xmlError *xmlErrEncodingInt(xmlError *result, const char *a2, int a3)
 {
   if (!result)
   {
@@ -8624,14 +9386,14 @@ _DWORD *xmlErrEncodingInt(_DWORD *result, const char *a2, int a3)
   }
 
   v3 = result;
-  if (!result[83] || result[68] != -1)
+  if (!result[3].int2 || LODWORD(result[3].message) != -1)
   {
-    result[34] = 9;
+    LODWORD(result[1].str2) = 9;
     result = __xmlRaiseError(0, 0, 0, result, 0, 1u, 9, 3, 0, 0, 0, 0, 0, a3, 0, a2, a3);
-    v3[6] = 0;
-    if (!v3[112])
+    LODWORD(v3->file) = 0;
+    if (!LODWORD(v3[5].message))
     {
-      v3[83] = 1;
+      v3[3].int2 = 1;
     }
   }
 
@@ -8641,79 +9403,78 @@ _DWORD *xmlErrEncodingInt(_DWORD *result, const char *a2, int a3)
 int xmlStringCurrentChar(xmlParserCtxtPtr ctxt, const xmlChar *cur, int *len)
 {
   v3 = 0;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!cur || !len)
   {
-    goto LABEL_7;
+    return v3;
   }
 
   if (ctxt && ctxt->charset != 1 || (*cur & 0x80000000) == 0)
   {
 LABEL_6:
     *len = 1;
-    v3 = *cur;
-    goto LABEL_7;
+    return *cur;
   }
 
-  v9 = cur + 1;
+  v8 = cur + 1;
   if ((cur[1] & 0xC0) != 0x80)
   {
     goto LABEL_34;
   }
 
-  v10 = *cur;
-  if ((~v10 & 0xE0) != 0)
+  v9 = *cur;
+  if ((~v9 & 0xE0) != 0)
   {
     *len = 2;
-    v16 = (*cur & 0x1F) << 6;
+    v15 = (*cur & 0x1F) << 6;
     goto LABEL_23;
   }
 
-  v9 = cur + 2;
+  v8 = cur + 2;
   if ((cur[2] & 0xC0) != 0x80)
   {
     goto LABEL_34;
   }
 
-  if ((~v10 & 0xF0) != 0)
+  if ((~v9 & 0xF0) != 0)
   {
     *len = 3;
-    v11 = (*cur & 0xF) << 12;
-    v12 = cur[1];
+    v10 = (*cur & 0xF) << 12;
+    v11 = cur[1];
     goto LABEL_22;
   }
 
-  if ((v10 & 0xF8) != 0xF0 || (v9 = cur + 3, (cur[3] & 0xC0) != 0x80))
+  if ((v9 & 0xF8) != 0xF0 || (v8 = cur + 3, (cur[3] & 0xC0) != 0x80))
   {
 LABEL_34:
-    if (!ctxt || (input = ctxt->input) == 0 || (p_cur = &input->cur, v14 = input->cur, p_cur[1] - v14 <= 3))
+    if (!ctxt || (input = ctxt->input) == 0 || (p_cur = &input->cur, v13 = input->cur, p_cur[1] - v13 <= 3))
     {
       v3 = 0;
       *len = 0;
-      goto LABEL_7;
+      return v3;
     }
 
-    v24 = 0u;
-    memset(v25, 0, sizeof(v25));
-    v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    memset(v24, 0, sizeof(v24));
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     *__str = 0u;
-    snprintf(__str, 0x95uLL, "Bytes: 0x%02X 0x%02X 0x%02X 0x%02X\n", *v14, v14[1], v14[2], v14[3]);
+    snprintf(__str, 0x95uLL, "Bytes: 0x%02X 0x%02X 0x%02X 0x%02X\n", *v13, v13[1], v13[2], v13[3]);
     __xmlErrEncoding(ctxt, 9, "Input is not proper UTF-8, indicate encoding !\n%s", __str, 0);
     goto LABEL_6;
   }
 
   *len = 4;
-  v11 = ((*cur & 7) << 18) | ((cur[1] & 0x3F) << 12);
-  v12 = cur[2];
+  v10 = ((*cur & 7) << 18) | ((cur[1] & 0x3F) << 12);
+  v11 = cur[2];
 LABEL_22:
-  v16 = v11 & 0xFFFFF03F | ((v12 & 0x3F) << 6);
+  v15 = v10 & 0xFFFFF03F | ((v11 & 0x3F) << 6);
 LABEL_23:
-  v3 = v16 | *v9 & 0x3F;
+  v3 = v15 | *v8 & 0x3F;
   if (v3 > 0xFF)
   {
     if (v3 >> 11 >= 0x1B && (v3 - 57344) >> 1 >= 0xFFF && v3 - 0x10000 >= 0x100000)
@@ -8728,8 +9489,6 @@ LABEL_31:
     xmlErrEncodingInt(ctxt, "Char 0x%X out of allowed range\n", v3);
   }
 
-LABEL_7:
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -8995,803 +9754,4 @@ xmlParserInputPtr xmlNewInputFromFile(xmlParserCtxtPtr ctxt, const char *filenam
   }
 
   return v10;
-}
-
-void xmlInitNodeInfoSeq(xmlParserNodeInfoSeqPtr seq)
-{
-  if (seq)
-  {
-    seq->maximum = 0;
-    seq->length = 0;
-    seq->buffer = 0;
-  }
-}
-
-void xmlClearParserCtxt(xmlParserCtxtPtr ctxt)
-{
-  if (ctxt)
-  {
-    buffer = ctxt->node_seq.buffer;
-    if (buffer)
-    {
-      free(buffer);
-    }
-
-    ctxt->node_seq.maximum = 0;
-    ctxt->node_seq.length = 0;
-    ctxt->node_seq.buffer = 0;
-
-    xmlCtxtReset(ctxt);
-  }
-}
-
-void xmlClearNodeInfoSeq(xmlParserNodeInfoSeqPtr seq)
-{
-  if (seq)
-  {
-    buffer = seq->buffer;
-    if (buffer)
-    {
-      free(buffer);
-    }
-
-    seq->maximum = 0;
-    seq->length = 0;
-    seq->buffer = 0;
-  }
-}
-
-const xmlParserNodeInfo *__cdecl xmlParserFindNodeInfo(const xmlParserCtxtPtr ctxt, const xmlNodePtr node)
-{
-  result = 0;
-  if (ctxt)
-  {
-    if (node)
-    {
-      NodeInfoIndex = xmlParserFindNodeInfoIndex(&ctxt->node_seq, node);
-      if (NodeInfoIndex >= ctxt->node_seq.length)
-      {
-        return 0;
-      }
-
-      result = &ctxt->node_seq.buffer[NodeInfoIndex];
-      if (result->node != node)
-      {
-        return 0;
-      }
-    }
-  }
-
-  return result;
-}
-
-unint64_t xmlParserFindNodeInfoIndex(const xmlParserNodeInfoSeqPtr seq, const xmlNodePtr node)
-{
-  length = -1;
-  if (seq)
-  {
-    if (node)
-    {
-      length = seq->length;
-      if (length)
-      {
-        v3 = 1;
-        do
-        {
-          v4 = v3 + ((length - v3) >> 1);
-          v5 = seq->buffer[v4 - 1].node;
-          if (v5 > node)
-          {
-            length = v4 - 1;
-          }
-
-          if (v5 < node)
-          {
-            v3 = v4 + 1;
-          }
-        }
-
-        while (v3 <= length && v5 != node);
-        if (v4)
-        {
-          if (seq->buffer[v4 - 1].node >= node)
-          {
-            return v4 - 1;
-          }
-
-          else
-          {
-            return v4;
-          }
-        }
-
-        else
-        {
-          return 0;
-        }
-      }
-    }
-  }
-
-  return length;
-}
-
-void xmlParserAddNodeInfo(xmlParserCtxtPtr ctxt, const xmlParserNodeInfoPtr info)
-{
-  if (!ctxt || !info)
-  {
-    return;
-  }
-
-  node = info->node;
-  NodeInfoIndex = xmlParserFindNodeInfoIndex(&ctxt->node_seq, info->node);
-  v6 = NodeInfoIndex;
-  length = ctxt->node_seq.length;
-  if (NodeInfoIndex < length)
-  {
-    buffer = ctxt->node_seq.buffer;
-    if (buffer)
-    {
-      v9 = &buffer[NodeInfoIndex];
-      if (v9->node == node)
-      {
-        v20 = *&info->node;
-        v21 = *&info->begin_line;
-        v9->end_line = info->end_line;
-        *&v9->node = v20;
-        *&v9->begin_line = v21;
-        return;
-      }
-    }
-  }
-
-  maximum = ctxt->node_seq.maximum;
-  if (length + 1 <= maximum)
-  {
-    v11 = ctxt->node_seq.buffer;
-    if (v11)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  if (maximum)
-  {
-    if (maximum >= 0x3333334)
-    {
-      v12 = "detected unsigned wraparound \n";
-LABEL_23:
-
-      xmlErrMemory(ctxt, v12);
-      return;
-    }
-  }
-
-  else
-  {
-    LODWORD(maximum) = 2;
-    ctxt->node_seq.maximum = 2;
-  }
-
-  v13 = ctxt->node_seq.buffer;
-  if (!v13)
-  {
-    v11 = malloc_type_malloc((80 * maximum), 0x1060040A09B13B7uLL);
-    if (v11)
-    {
-      goto LABEL_14;
-    }
-
-LABEL_22:
-    v12 = "failed to allocate buffer\n";
-    goto LABEL_23;
-  }
-
-  v11 = malloc_type_realloc(v13, (80 * maximum), 0x1060040A09B13B7uLL);
-  if (!v11)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_14:
-  ctxt->node_seq.buffer = v11;
-  length = ctxt->node_seq.length;
-  ctxt->node_seq.maximum *= 2;
-LABEL_15:
-  if (length > v6)
-  {
-    v14 = length;
-    do
-    {
-      v15 = &ctxt->node_seq.buffer[v14];
-      v16 = *&v15[-1].begin_line;
-      *&v15->node = *&v15[-1].node;
-      *&v15->begin_line = v16;
-      v15->end_line = v15[-1].end_line;
-      --length;
-      --v14;
-    }
-
-    while (length > v6);
-    v11 = ctxt->node_seq.buffer;
-  }
-
-  v17 = &v11[v6];
-  v18 = *&info->node;
-  v19 = *&info->begin_line;
-  v17->end_line = info->end_line;
-  *&v17->node = v18;
-  *&v17->begin_line = v19;
-  ++ctxt->node_seq.length;
-}
-
-int xmlPedanticParserDefault(int val)
-{
-  v2 = *__xmlPedanticParserDefaultValue();
-  *__xmlPedanticParserDefaultValue() = val;
-  return v2;
-}
-
-int xmlLineNumbersDefault(int val)
-{
-  v2 = *__xmlLineNumbersDefaultValue();
-  *__xmlLineNumbersDefaultValue() = val;
-  return v2;
-}
-
-int xmlSubstituteEntitiesDefault(int val)
-{
-  v2 = *__xmlSubstituteEntitiesDefaultValue();
-  *__xmlSubstituteEntitiesDefaultValue() = val;
-  return v2;
-}
-
-int xmlKeepBlanksDefault(int val)
-{
-  v2 = *__xmlKeepBlanksDefaultValue();
-  *__xmlKeepBlanksDefaultValue() = val;
-  if (!val)
-  {
-    *__xmlIndentTreeOutput() = 1;
-  }
-
-  return v2;
-}
-
-void xmlFreePatternList(xmlPatternPtr comp)
-{
-  if (comp)
-  {
-    v1 = comp;
-    do
-    {
-      v2 = *(v1 + 2);
-      *(v1 + 2) = 0;
-      v3 = *(v1 + 7);
-      if (v3)
-      {
-        xmlFreeStreamComp(v3);
-      }
-
-      v4 = *(v1 + 3);
-      if (v4)
-      {
-        free(v4);
-      }
-
-      v5 = *(v1 + 6);
-      if (v5)
-      {
-        if (!*(v1 + 1) && *(v1 + 9) >= 1)
-        {
-          v6 = 0;
-          v7 = 0;
-          do
-          {
-            v8 = *(v1 + 6) + v6;
-            v9 = *(v8 + 8);
-            if (v9)
-            {
-              free(v9);
-            }
-
-            v10 = *(v8 + 16);
-            if (v10)
-            {
-              free(v10);
-            }
-
-            ++v7;
-            v6 += 24;
-          }
-
-          while (v7 < *(v1 + 9));
-          v5 = *(v1 + 6);
-        }
-
-        free(v5);
-      }
-
-      v11 = *(v1 + 1);
-      if (v11)
-      {
-        xmlDictFree(v11);
-      }
-
-      *&v12 = -1;
-      *(&v12 + 1) = -1;
-      *(v1 + 2) = v12;
-      *(v1 + 3) = v12;
-      *v1 = v12;
-      *(v1 + 1) = v12;
-      free(v1);
-      v1 = v2;
-    }
-
-    while (v2);
-  }
-}
-
-void xmlFreeStreamCtxt(xmlStreamCtxtPtr stream)
-{
-  if (stream)
-  {
-    v1 = stream;
-    do
-    {
-      v2 = *v1;
-      v3 = *(v1 + 4);
-      if (v3)
-      {
-        free(v3);
-      }
-
-      free(v1);
-      v1 = v2;
-    }
-
-    while (v2);
-  }
-}
-
-uint64_t xmlStreamPushInternal(uint64_t a1, xmlChar *a2, xmlChar *a3, int a4)
-{
-  if (!a1)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v4 = a1;
-  v5 = 0xFFFFFFFFLL;
-  if ((*(a1 + 16) & 0x80000000) == 0)
-  {
-    v7 = a3;
-    v8 = a2;
-    v9 = 0;
-    v10 = 0;
-    if (a2)
-    {
-      v11 = 0;
-    }
-
-    else
-    {
-      v11 = a4 == 1;
-    }
-
-    v13 = v11 && a3 == 0;
-    v64 = a4 - 3;
-    while (1)
-    {
-      v14 = 0;
-      v15 = v10;
-      v16 = v4;
-      while (1)
-      {
-        v17 = *(v16 + 8);
-        if (v13)
-        {
-          break;
-        }
-
-        if (*(v17 + 8))
-        {
-          if (*(v16 + 44) != -1 || v64 <= 0xFFFFFFFD && (*(v17 + 25) & 0x40) == 0)
-          {
-LABEL_79:
-            ++*(v16 + 24);
-            goto LABEL_17;
-          }
-
-          v60 = v10;
-          v61 = v9;
-          str2 = v8;
-          v63 = v7;
-          v19 = *(v16 + 16);
-          if (v19 >= 1)
-          {
-            v20 = 0;
-            v21 = *(v17 + 24);
-            do
-            {
-              v22 = *(v16 + 32);
-              if ((v21 & 0x10000) != 0)
-              {
-                v25 = *(v22 + 4 * (2 * v20));
-                if ((v25 & 0x80000000) != 0)
-                {
-                  goto LABEL_67;
-                }
-
-                v34 = *(v22 + 4 * ((2 * v20) | 1u));
-                v24 = *(v16 + 24);
-                if (v34 > v24)
-                {
-                  goto LABEL_67;
-                }
-
-                v26 = *(v17 + 16);
-                if (v34 < v24 && (*(v26 + 32 * v25) & 1) == 0)
-                {
-                  goto LABEL_67;
-                }
-              }
-
-              else
-              {
-                v23 = 2 * *(v16 + 16);
-                v24 = *(v16 + 24);
-                if (*(v22 + 4 * (v23 - 1)) < v24)
-                {
-                  return 0xFFFFFFFFLL;
-                }
-
-                LODWORD(v25) = *(v22 + 4 * (v23 - 2));
-                v26 = *(v17 + 16);
-                v20 = v19;
-              }
-
-              v27 = (v26 + 32 * v25);
-              v28 = *v27;
-              v29 = v27[6];
-              if (v29 == a4)
-              {
-                if (a4 != 100)
-                {
-                  v30 = *(v27 + 1);
-                  v31 = *(v27 + 2);
-                  if (v30)
-                  {
-                    v32 = 1;
-                    if (!str2 || (v63 == 0) == (v31 != 0))
-                    {
-                      goto LABEL_60;
-                    }
-
-                    if (*v30 != *str2)
-                    {
-                      goto LABEL_59;
-                    }
-
-                    v56 = v14;
-                    v57 = v15;
-                    if (!xmlStrEqual(v30, str2))
-                    {
-                      v32 = 1;
-                      v14 = v56;
-                      v15 = v57;
-                      goto LABEL_60;
-                    }
-
-                    LODWORD(v15) = v57;
-                    if (v31 != v63)
-                    {
-                      v33 = xmlStrEqual(v31, v63);
-                      v14 = v56;
-                      v15 = v57;
-                      if (!v33)
-                      {
-                        goto LABEL_59;
-                      }
-                    }
-                  }
-
-                  else if (v31)
-                  {
-                    if (!v63)
-                    {
-                      goto LABEL_59;
-                    }
-
-                    v58 = v15;
-                    v36 = v14;
-                    v37 = xmlStrEqual(*(v27 + 2), v63);
-                    v15 = v58;
-                    if (!v37)
-                    {
-                      v14 = v36;
-LABEL_59:
-                      v32 = 1;
-                      goto LABEL_60;
-                    }
-                  }
-                }
-              }
-
-              else if (v29 != 100)
-              {
-                if (v29 != 2 || (v21 & 0x10000) != 0)
-                {
-                  goto LABEL_67;
-                }
-
-LABEL_65:
-                *(v16 + 44) = v24 + 1;
-                goto LABEL_67;
-              }
-
-              if ((v28 & 2) != 0)
-              {
-                v32 = 0;
-                v14 = v28 & 2;
-                v15 = 1;
-              }
-
-              else
-              {
-                v38 = v25 + 1;
-                v39 = v15;
-                xmlStreamCtxtAddState(v16, v38, *(v16 + 24) + 1);
-                v32 = 0;
-                if (v39 == 1)
-                {
-                  v15 = 1;
-                }
-
-                else
-                {
-                  v15 = (v28 >> 5) & 1;
-                }
-
-                v14 = 0;
-              }
-
-LABEL_60:
-              v21 = *(v17 + 24);
-              if ((v21 & 0x10000) == 0)
-              {
-                if (v14)
-                {
-                  v32 = 1;
-                }
-
-                if (v32 != 1)
-                {
-                  v14 = 0;
-                  goto LABEL_67;
-                }
-
-                v24 = *(v16 + 24);
-                goto LABEL_65;
-              }
-
-LABEL_67:
-              ++v20;
-            }
-
-            while (v20 < v19);
-          }
-
-          v40 = *(v16 + 24);
-          *(v16 + 24) = v40 + 1;
-          v41 = *(v17 + 16);
-          v42 = *v41;
-          if ((*v41 & 4) != 0)
-          {
-            v9 = v61;
-            v7 = v63;
-          }
-
-          else
-          {
-            v43 = *(v41 + 1);
-            v44 = *(v41 + 2);
-            v45 = v41[6];
-            v46 = *(v16 + 40);
-            v7 = v63;
-            if ((v46 & 7) != 0)
-            {
-              if (v40)
-              {
-                if ((v42 & 1) == 0 && (v40 != 1 || (v46 & 6) == 0))
-                {
-                  goto LABEL_96;
-                }
-              }
-
-              else if ((v46 & 6) != 0)
-              {
-                goto LABEL_96;
-              }
-            }
-
-            if (v45 == a4)
-            {
-              if (a4 == 100)
-              {
-                goto LABEL_94;
-              }
-
-              if (v43)
-              {
-                if (!str2 || (v63 == 0) == (v44 != 0) || *v43 != *str2 || (v47 = v15, v48 = xmlStrEqual(v43, str2), v15 = v47, !v48) || v44 != v63 && (v49 = xmlStrEqual(v44, v63), v15 = v47, !v49))
-                {
-LABEL_106:
-                  v14 = v42 & 2;
-                  v50 = 1;
-                  goto LABEL_107;
-                }
-
-LABEL_94:
-                v14 = v42 & 2;
-                if ((v42 & 2) != 0)
-                {
-LABEL_95:
-                  v50 = 0;
-                  v15 = 1;
-                  goto LABEL_107;
-                }
-
-LABEL_102:
-                v52 = v15;
-                xmlStreamCtxtAddState(v16, 1, *(v16 + 24));
-                v14 = 0;
-                if (v52 == 1)
-                {
-                  v15 = 1;
-                }
-
-                else
-                {
-                  v15 = (v42 >> 5) & 1;
-                }
-
-                v50 = 0;
-LABEL_107:
-                v10 = v60;
-                v9 = v61;
-              }
-
-              else
-              {
-                if (!v44)
-                {
-                  goto LABEL_94;
-                }
-
-                if (!v63)
-                {
-                  goto LABEL_106;
-                }
-
-                v59 = v15;
-                v51 = xmlStrEqual(v44, v63);
-                v14 = v42 & 2;
-                if (v51)
-                {
-                  LODWORD(v15) = v59;
-                  if ((v42 & 2) != 0)
-                  {
-                    goto LABEL_95;
-                  }
-
-                  goto LABEL_102;
-                }
-
-                v50 = 1;
-                v10 = v60;
-                v9 = v61;
-                v15 = v59;
-              }
-
-              v8 = str2;
-              if ((*(v17 + 26) & 1) == 0)
-              {
-                if (((v14 == 0) & ~v50) != 0)
-                {
-                  v14 = 0;
-                }
-
-                else
-                {
-                  *(v16 + 44) = *(v16 + 24);
-                }
-              }
-
-              goto LABEL_17;
-            }
-
-            if (a4 != 2 && v45 == 100)
-            {
-              goto LABEL_94;
-            }
-
-LABEL_96:
-            v9 = v61;
-          }
-
-          v8 = str2;
-          v10 = v60;
-          goto LABEL_17;
-        }
-
-        v18 = *(v16 + 40);
-        if ((v18 & 1) == 0)
-        {
-          if (a4 != 2 && ((v18 & 6) == 0 || !*(v16 + 24)))
-          {
-            v15 = 1;
-          }
-
-          goto LABEL_79;
-        }
-
-LABEL_17:
-        v16 = *v16;
-        if (!v16)
-        {
-          LODWORD(v10) = v15;
-LABEL_125:
-          if (v9 > 0)
-          {
-            return 0xFFFFFFFFLL;
-          }
-
-          else
-          {
-            return v10;
-          }
-        }
-      }
-
-      *(v4 + 16) = 0;
-      *(v4 + 24) = 0;
-      *(v4 + 44) = -1;
-      if ((*(v17 + 25) & 0x80) != 0)
-      {
-        v53 = *(v17 + 8);
-        if (v53)
-        {
-          if (v53 != 1)
-          {
-            v54 = *(v17 + 16);
-LABEL_120:
-            if ((*v54 & 4) != 0)
-            {
-              v9 += xmlStreamCtxtAddState(v4, 0, 0) >> 31;
-            }
-
-            goto LABEL_122;
-          }
-
-          v54 = *(v17 + 16);
-          if (*(v54 + 24) != 100 || (*v54 & 1) == 0)
-          {
-            goto LABEL_120;
-          }
-        }
-
-        v10 = 1;
-      }
-
-LABEL_122:
-      v4 = *v4;
-      if (!v4)
-      {
-        goto LABEL_125;
-      }
-    }
-  }
-
-  return v5;
 }

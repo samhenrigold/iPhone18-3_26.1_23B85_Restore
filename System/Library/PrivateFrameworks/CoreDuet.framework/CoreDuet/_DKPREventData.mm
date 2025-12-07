@@ -52,8 +52,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  version = self->_version;
-  v7 = toCopy;
   PBDataWriterWriteUint32Field();
   if (!self->_event)
   {
@@ -63,7 +61,6 @@
   PBDataWriterWriteDataField();
   if (*&self->_has)
   {
-    uncompressedLength = self->_uncompressedLength;
     PBDataWriterWriteUint64Field();
   }
 }

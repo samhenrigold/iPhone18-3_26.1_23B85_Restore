@@ -38,24 +38,22 @@
   }
 }
 
-id __58__NTKRingsAndDotsViewAccessibility_setRingsFillFractions___block_invoke(uint64_t a1, uint64_t a2)
+id __58__NTKRingsAndDotsViewAccessibility_setRingsFillFractions___block_invoke(double *a1, uint64_t a2)
 {
-  if (*(a1 + 32) >= 0.0 || *(a1 + 40) >= 0.0 || *(a1 + 48) >= 0.0)
+  if (a1[4] >= 0.0 || a1[5] >= 0.0 || a1[6] >= 0.0)
   {
+    v3 = UIAXFormatFloatWithPercentage();
     v4 = UIAXFormatFloatWithPercentage();
-    v5 = *(a1 + 40);
-    v6 = UIAXFormatFloatWithPercentage();
-    v7 = *(a1 + 48);
-    v8 = UIAXFormatFloatWithPercentage();
-    v3 = accessibilityWellnessStringUsingUnitNames(v4, v6, v8);
+    v5 = UIAXFormatFloatWithPercentage();
+    v2 = accessibilityWellnessStringUsingUnitNames(v3, v4, v5);
   }
 
   else
   {
-    v3 = accessibilityLocalizedString(@"lifestyle.no.activity.data", a2);
+    v2 = accessibilityLocalizedString(@"lifestyle.no.activity.data");
   }
 
-  return v3;
+  return v2;
 }
 
 @end

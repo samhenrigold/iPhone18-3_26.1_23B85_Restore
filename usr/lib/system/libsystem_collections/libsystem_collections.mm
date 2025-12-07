@@ -64,15 +64,15 @@ uint64_t os_map_str_find(uint64_t *a1, char *__s1)
   return 0;
 }
 
-uint64_t os_map_str_delete(uint64_t a1, char *__s1)
+uint64_t os_map_str_delete(uint64_t *a1, char *__s1)
 {
-  if (*(a1 + 8))
+  if (*(a1 + 2))
   {
-    v4 = *(a1 + 12);
+    v4 = *(a1 + 3);
     v5 = *a1;
     v6 = *a1 + 8 * v4;
     v7 = *__s1;
-    v27 = *(a1 + 8);
+    v27 = *(a1 + 2);
     v8 = 0;
     if (*__s1)
     {
@@ -89,8 +89,8 @@ uint64_t os_map_str_delete(uint64_t a1, char *__s1)
     }
 
     v11 = 32769 * (v8 ^ (v8 >> 11)) % v4;
-    v12 = *(a1 + 18) + 1;
-    v13 = *(a1 + 12);
+    v12 = *(a1 + 9) + 1;
+    v13 = *(a1 + 3);
     while (v12)
     {
       v14 = *(v6 + 8 * v11);
@@ -172,7 +172,7 @@ LABEL_33:
         }
 
         *(v6 + 8 * v15) = 0;
-        *(a1 + 8) = v27 - 1;
+        *(a1 + 2) = v27 - 1;
         if (v4 >= 0x40 && v27 - 1 < v4 >> 3)
         {
           _os_map_str_rehash(a1, -1);
@@ -257,19 +257,20 @@ uint64_t os_map_32_find(uint64_t *a1, unsigned int a2)
   return 0;
 }
 
-uint64_t *os_map_32_insert(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t *os_map_32_insert(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
     os_map_32_insert_cold_1();
   }
 
+  v4 = a2;
   if (*(a1 + 8) >= 4 * *(a1 + 12) / 5u)
   {
     _os_map_32_rehash(a1, 1);
   }
 
-  return _os_map_32_insert_no_rehash(a1, a2, a3);
+  return _os_map_32_insert_no_rehash(a1, v4, a3);
 }
 
 uint64_t *_os_map_32_insert_no_rehash(uint64_t *result, unsigned int a2, uint64_t a3)
@@ -901,7 +902,7 @@ void *os_set_32_ptr_init(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t *os_set_str_ptr_insert(uint64_t a1, void *a2)
+uint64_t *os_set_str_ptr_insert(uint64_t a1, unsigned __int8 **a2)
 {
   if (!a2)
   {
@@ -916,7 +917,7 @@ uint64_t *os_set_str_ptr_insert(uint64_t a1, void *a2)
   return _os_set_str_ptr_insert_no_rehash(a1, a2, a2);
 }
 
-uint64_t *_os_set_str_ptr_insert_no_rehash(uint64_t *result, void *a2, void *a3)
+uint64_t *_os_set_str_ptr_insert_no_rehash(uint64_t *result, void *a2, unsigned __int8 **a3)
 {
   v3 = *(result + 3);
   v4 = **a2;
@@ -961,7 +962,7 @@ uint64_t *_os_set_str_ptr_insert_no_rehash(uint64_t *result, void *a2, void *a3)
     if (**v13)
     {
       v15 = 0;
-      v16 = (*v13 + 1);
+      v16 = *v13 + 1;
       do
       {
         v15 = (1025 * (v15 + v14)) ^ ((1025 * (v15 + v14)) >> 6);
@@ -1038,16 +1039,16 @@ LABEL_22:
   return result;
 }
 
-void *os_set_64_ptr_delete(uint64_t a1, uint64_t a2)
+void *os_set_64_ptr_delete(uint64_t *a1, uint64_t a2)
 {
-  v2 = *(a1 + 8);
+  v2 = *(a1 + 2);
   if (v2)
   {
-    v3 = *(a1 + 12);
+    v3 = *(a1 + 3);
     v4 = *a1;
     v5 = 73244475 * ((73244475 * (a2 ^ WORD1(a2))) ^ ((73244475 * (a2 ^ WORD1(a2))) >> 16));
     v6 = (v5 ^ HIWORD(v5)) % v3;
-    v7 = *(a1 + 18) + 1;
+    v7 = *(a1 + 9) + 1;
     v8 = v3;
     while (v7)
     {
@@ -1112,7 +1113,7 @@ LABEL_22:
 
         *(v4 + 8 * v15) = 0;
         v16 = v2 - 1;
-        *(a1 + 8) = v16;
+        *(a1 + 2) = v16;
         if (v3 >= 0x40 && v16 < v3 >> 3)
         {
           _os_set_64_ptr_rehash(a1, -1);
@@ -1365,12 +1366,12 @@ void *os_set_64_ptr_init(uint64_t a1, uint64_t a2)
   return result;
 }
 
-const char **os_set_str_ptr_delete(uint64_t a1, char *__s1)
+const char **os_set_str_ptr_delete(uint64_t *a1, char *__s1)
 {
-  v2 = *(a1 + 8);
+  v2 = *(a1 + 2);
   if (v2)
   {
-    v5 = *(a1 + 12);
+    v5 = *(a1 + 3);
     v6 = *a1;
     v7 = *__s1;
     if (*__s1)
@@ -1394,8 +1395,8 @@ const char **os_set_str_ptr_delete(uint64_t a1, char *__s1)
     }
 
     v12 = 32769 * (v11 ^ (v11 >> 11)) % v5;
-    v13 = *(a1 + 18) + 1;
-    v14 = *(a1 + 12);
+    v13 = *(a1 + 9) + 1;
+    v14 = *(a1 + 3);
     while (v13)
     {
       v15 = *(v6 + 8 * v12);
@@ -1478,7 +1479,7 @@ LABEL_35:
         }
 
         *(v6 + 8 * v24) = 0;
-        *(a1 + 8) = v2 - 1;
+        *(a1 + 2) = v2 - 1;
         if (v5 >= 0x40 && v2 - 1 < v5 >> 3)
         {
           _os_set_str_ptr_rehash(a1, -1);
@@ -1508,17 +1509,17 @@ LABEL_35:
   return 0;
 }
 
-uint64_t os_map_32_delete(uint64_t a1, unsigned int a2)
+uint64_t os_map_32_delete(uint64_t *a1, unsigned int a2)
 {
-  if (*(a1 + 8))
+  if (*(a1 + 2))
   {
-    v2 = *(a1 + 12);
+    v2 = *(a1 + 3);
     v3 = *a1;
     v4 = *a1 + 4 * v2;
     v5 = 73244475 * ((73244475 * (a2 ^ HIWORD(a2))) ^ ((73244475 * (a2 ^ HIWORD(a2))) >> 16));
     v6 = (v5 ^ HIWORD(v5)) % v2;
-    v7 = *(a1 + 18) + 1;
-    v8 = *(a1 + 12);
+    v7 = *(a1 + 9) + 1;
+    v8 = *(a1 + 3);
     while (v7)
     {
       v9 = *(v4 + 8 * v6);
@@ -1547,7 +1548,7 @@ uint64_t os_map_32_delete(uint64_t a1, unsigned int a2)
             v13 = v10;
             v14 = *(v3 + 4 * v10);
             v15 = 73244475 * ((73244475 * (v14 ^ HIWORD(v14))) ^ ((73244475 * (v14 ^ HIWORD(v14))) >> 16));
-            if ((v15 ^ HIWORD(v15)) % *(a1 + 12) == v13)
+            if ((v15 ^ HIWORD(v15)) % *(a1 + 3) == v13)
             {
               break;
             }
@@ -1568,19 +1569,19 @@ uint64_t os_map_32_delete(uint64_t a1, unsigned int a2)
             v6 = v13;
             if (!v12)
             {
-              LODWORD(v2) = *(a1 + 12);
+              LODWORD(v2) = *(a1 + 3);
               v6 = v13;
               goto LABEL_21;
             }
           }
 
-          LODWORD(v2) = *(a1 + 12);
+          LODWORD(v2) = *(a1 + 3);
         }
 
 LABEL_21:
         *(v4 + 8 * v6) = 0;
-        v16 = *(a1 + 8) - 1;
-        *(a1 + 8) = v16;
+        v16 = *(a1 + 2) - 1;
+        *(a1 + 2) = v16;
         if (v2 >= 0x40 && v16 < v2 >> 3)
         {
           _os_map_32_rehash(a1, -1);
@@ -1601,9 +1602,9 @@ LABEL_21:
   return 0;
 }
 
-uint64_t os_map_str_foreach(uint64_t result, uint64_t a2)
+uint64_t *os_map_str_foreach(uint64_t *result, uint64_t a2)
 {
-  v2 = *(result + 12);
+  v2 = *(result + 3);
   if (v2)
   {
     v4 = result;
@@ -1632,16 +1633,16 @@ uint64_t os_map_str_foreach(uint64_t result, uint64_t a2)
   return result;
 }
 
-_DWORD *os_set_32_ptr_delete(uint64_t a1, unsigned int a2)
+_DWORD *os_set_32_ptr_delete(uint64_t *a1, unsigned int a2)
 {
-  v2 = *(a1 + 8);
+  v2 = *(a1 + 2);
   if (v2)
   {
-    v3 = *(a1 + 12);
+    v3 = *(a1 + 3);
     v4 = *a1;
     v5 = 73244475 * ((73244475 * (a2 ^ HIWORD(a2))) ^ ((73244475 * (a2 ^ HIWORD(a2))) >> 16));
     v6 = (v5 ^ HIWORD(v5)) % v3;
-    v7 = *(a1 + 18) + 1;
+    v7 = *(a1 + 9) + 1;
     v8 = v3;
     while (v7)
     {
@@ -1706,7 +1707,7 @@ LABEL_22:
 
         *(v4 + 8 * v15) = 0;
         v16 = v2 - 1;
-        *(a1 + 8) = v16;
+        *(a1 + 2) = v16;
         if (v3 >= 0x40 && v16 < v3 >> 3)
         {
           _os_set_32_ptr_rehash(a1, -1);
@@ -1951,14 +1952,14 @@ void os_set_str_ptr_clear(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t os_set_str_ptr_foreach(uint64_t result, uint64_t a2)
+uint64_t *os_set_str_ptr_foreach(uint64_t *result, uint64_t a2)
 {
   v7[0] = MEMORY[0x29EDCA5F8];
   v7[1] = 0x40000000;
   v8 = __os_set_str_ptr_foreach_block_invoke;
   v9 = &unk_29F28BDF0;
   v10 = a2;
-  v2 = *(result + 12);
+  v2 = *(result + 3);
   if (v2)
   {
     v3 = result;
@@ -2053,14 +2054,14 @@ void os_set_32_ptr_clear(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t os_set_32_ptr_foreach(uint64_t result, uint64_t a2)
+uint64_t *os_set_32_ptr_foreach(uint64_t *result, uint64_t a2)
 {
   v7[0] = MEMORY[0x29EDCA5F8];
   v7[1] = 0x40000000;
   v8 = __os_set_32_ptr_foreach_block_invoke;
   v9 = &unk_29F28BE40;
   v10 = a2;
-  v2 = *(result + 12);
+  v2 = *(result + 3);
   if (v2)
   {
     v3 = result;
@@ -2155,14 +2156,14 @@ void os_set_64_ptr_clear(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t os_set_64_ptr_foreach(uint64_t result, uint64_t a2)
+uint64_t *os_set_64_ptr_foreach(uint64_t *result, uint64_t a2)
 {
   v7[0] = MEMORY[0x29EDCA5F8];
   v7[1] = 0x40000000;
   v8 = __os_set_64_ptr_foreach_block_invoke;
   v9 = &unk_29F28BE90;
   v10 = a2;
-  v2 = *(result + 12);
+  v2 = *(result + 3);
   if (v2)
   {
     v3 = result;
@@ -2336,9 +2337,9 @@ void os_map_32_clear(char **a1, uint64_t a2)
   free(v4);
 }
 
-uint64_t os_map_32_foreach(uint64_t result, uint64_t a2)
+uint64_t *os_map_32_foreach(uint64_t *result, uint64_t a2)
 {
-  v2 = *(result + 12);
+  v2 = *(result + 3);
   if (v2)
   {
     v4 = result;
@@ -2471,18 +2472,18 @@ uint64_t os_map_64_find(uint64_t *a1, uint64_t a2)
   return 0;
 }
 
-uint64_t os_map_64_delete(uint64_t a1, uint64_t a2)
+uint64_t os_map_64_delete(uint64_t *a1, uint64_t a2)
 {
-  v2 = *(a1 + 8);
+  v2 = *(a1 + 2);
   if (v2)
   {
-    v3 = *(a1 + 12);
+    v3 = *(a1 + 3);
     v4 = *a1;
     v5 = *a1 + 8 * v3;
     v6 = 73244475 * (HIDWORD(a2) ^ a2 ^ ((HIDWORD(a2) ^ a2) >> 16));
     v7 = ((73244475 * (v6 ^ HIWORD(v6))) ^ ((73244475 * (v6 ^ HIWORD(v6))) >> 16)) % v3;
-    v8 = *(a1 + 18) + 1;
-    v9 = *(a1 + 12);
+    v8 = *(a1 + 9) + 1;
+    v9 = *(a1 + 3);
     while (v8)
     {
       v10 = *(v5 + 8 * v7);
@@ -2544,7 +2545,7 @@ LABEL_21:
 
         *(v5 + 8 * v11) = 0;
         v18 = v2 - 1;
-        *(a1 + 8) = v18;
+        *(a1 + 2) = v18;
         if (v3 >= 0x40 && v18 < v3 >> 3)
         {
           _os_map_64_rehash(a1, -1);
@@ -2600,9 +2601,9 @@ void os_map_64_clear(uint64_t a1, uint64_t a2)
   free(v4);
 }
 
-uint64_t os_map_64_foreach(uint64_t result, uint64_t a2)
+uint64_t *os_map_64_foreach(uint64_t *result, uint64_t a2)
 {
-  v2 = *(result + 12);
+  v2 = *(result + 3);
   if (v2)
   {
     v4 = result;
@@ -2743,17 +2744,17 @@ uint64_t os_map_128_find(uint64_t *a1, uint64_t a2, unint64_t a3)
   return 0;
 }
 
-uint64_t os_map_128_delete(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t os_map_128_delete(uint64_t *a1, uint64_t a2, unint64_t a3)
 {
-  if (*(a1 + 8))
+  if (*(a1 + 2))
   {
-    v3 = *(a1 + 12);
+    v3 = *(a1 + 3);
     v4 = *a1;
     v5 = *a1 + 16 * v3;
     v6 = 73244475 * (((a2 ^ a3) >> 32) ^ a2 ^ a3 ^ ((((a2 ^ a3) >> 32) ^ a2 ^ a3) >> 16));
     v7 = ((73244475 * (v6 ^ HIWORD(v6))) ^ ((73244475 * (v6 ^ HIWORD(v6))) >> 16)) % v3;
-    v8 = *(a1 + 18) + 1;
-    v9 = *(a1 + 12);
+    v8 = *(a1 + 9) + 1;
+    v9 = *(a1 + 3);
     while (v8)
     {
       v10 = *(v5 + 8 * v7);
@@ -2786,7 +2787,7 @@ uint64_t os_map_128_delete(uint64_t a1, uint64_t a2, unint64_t a3)
             v19 = *(v4 + 16 * v14);
             v20 = veorq_s8(v19, vdupq_laneq_s64(v19, 1)).u64[0];
             v21 = 73244475 * (HIDWORD(v20) ^ v20 ^ ((HIDWORD(v20) ^ v20) >> 16));
-            if (((73244475 * (v21 ^ HIWORD(v21))) ^ ((73244475 * (v21 ^ HIWORD(v21))) >> 16)) % *(a1 + 12) == v18)
+            if (((73244475 * (v21 ^ HIWORD(v21))) ^ ((73244475 * (v21 ^ HIWORD(v21))) >> 16)) % *(a1 + 3) == v18)
             {
               break;
             }
@@ -2807,19 +2808,19 @@ uint64_t os_map_128_delete(uint64_t a1, uint64_t a2, unint64_t a3)
             v7 = v18;
             if (!v17)
             {
-              LODWORD(v3) = *(a1 + 12);
+              LODWORD(v3) = *(a1 + 3);
               v7 = v18;
               goto LABEL_24;
             }
           }
 
-          LODWORD(v3) = *(a1 + 12);
+          LODWORD(v3) = *(a1 + 3);
         }
 
 LABEL_24:
         *(v5 + 8 * v7) = 0;
-        v22 = *(a1 + 8) - 1;
-        *(a1 + 8) = v22;
+        v22 = *(a1 + 2) - 1;
+        *(a1 + 2) = v22;
         if (v3 >= 0x40 && v22 < v3 >> 3)
         {
           _os_map_128_rehash(a1, -1);
@@ -2876,9 +2877,9 @@ void os_map_128_clear(uint64_t a1, uint64_t a2)
   free(v4);
 }
 
-uint64_t os_map_128_foreach(uint64_t result, uint64_t a2)
+unsigned int *os_map_128_foreach(unsigned int *result, uint64_t a2)
 {
-  v2 = *(result + 12);
+  v2 = result[3];
   if (v2)
   {
     v4 = result;

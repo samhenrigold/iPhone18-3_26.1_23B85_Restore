@@ -104,8 +104,9 @@
   if (self->_referenceItemsSourceType != type)
   {
     self->_referenceItemsSourceType = type;
+    cachedReferenceItemsSource = self->_cachedReferenceItemsSource;
     self->_cachedReferenceItemsSource = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, cachedReferenceItemsSource);
   }
 }
 
@@ -153,8 +154,9 @@
   if (self->_imageComparatorStrategy != strategy)
   {
     self->_imageComparatorStrategy = strategy;
+    cachedImageComparator = self->_cachedImageComparator;
     self->_cachedImageComparator = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, cachedImageComparator);
   }
 }
 

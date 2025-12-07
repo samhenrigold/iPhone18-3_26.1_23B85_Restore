@@ -46,9 +46,9 @@
         goto LABEL_14;
       }
 
-      v10 = [(_UIFeedbackDiscretePlayable *)v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (!v10)
+      if (!isEqual)
       {
         goto LABEL_15;
       }
@@ -77,7 +77,7 @@ LABEL_16:
 
     if (v7 && v13)
     {
-      v14 = [(_UIFeedbackDiscretePlayable *)v7 isEqual:v13];
+      v14 = objc_msgSend_isEqual_(v7);
 
       if (!v14)
       {

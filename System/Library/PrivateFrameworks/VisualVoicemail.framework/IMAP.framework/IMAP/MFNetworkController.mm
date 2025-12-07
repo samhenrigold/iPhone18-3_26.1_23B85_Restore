@@ -52,9 +52,11 @@
 
 uint64_t __37__MFNetworkController_sharedInstance__block_invoke_2()
 {
-  sharedInstance__sharedInstance = objc_alloc_init(MFNetworkController);
+  v0 = objc_alloc_init(MFNetworkController);
+  v1 = sharedInstance__sharedInstance;
+  sharedInstance__sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MFNetworkController)init
@@ -108,7 +110,7 @@ uint64_t __37__MFNetworkController_sharedInstance__block_invoke_2()
 
     else
     {
-      v15 = vm_imap_log();
+      v15 = vm_imap_log(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf.version) = 0;
@@ -188,7 +190,7 @@ LABEL_13:
   self->_wifiManager = v3;
   if (!v3)
   {
-    v4 = vm_imap_log();
+    v4 = vm_imap_log(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -217,7 +219,7 @@ void __44__MFNetworkController__initializeDataStatus__block_invoke(uint64_t a1)
   v30 = 0;
   v3 = [v2 getSubscriptionInfoWithError:&v30];
   v4 = v30;
-  v5 = vm_imap_log();
+  v5 = vm_imap_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -279,39 +281,39 @@ LABEL_10:
         }
       }
 
-      v15 = v12;
+      v16 = v12;
 
-      if (!v15)
+      if (!v16)
       {
         goto LABEL_25;
       }
 
-      v16 = *(*(a1 + 32) + 96);
+      v17 = *(*(a1 + 32) + 96);
       v25 = 0;
-      v17 = [v16 getDataStatus:v15 error:&v25];
-      v18 = v25;
-      v4 = v18;
-      if (v17)
+      v18 = [v17 getDataStatus:v16 error:&v25];
+      v19 = v25;
+      v4 = v19;
+      if (v18)
       {
-        v19 = v18 == 0;
+        v20 = v19 == 0;
       }
 
       else
       {
-        v19 = 0;
+        v20 = 0;
       }
 
-      if (v19)
+      if (v20)
       {
-        [*(a1 + 32) _setDataStatus_nts:v17];
+        [*(a1 + 32) _setDataStatus_nts:v18];
       }
 
       else
       {
-        v20 = vm_imap_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = vm_imap_log(v19);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          __44__MFNetworkController__initializeDataStatus__block_invoke_cold_1(v15, v4, v20);
+          __44__MFNetworkController__initializeDataStatus__block_invoke_cold_1(v16, v4, v21);
         }
       }
     }
@@ -321,25 +323,23 @@ LABEL_10:
 LABEL_16:
 
 LABEL_25:
-      v15 = vm_imap_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = vm_imap_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        __44__MFNetworkController__initializeDataStatus__block_invoke_cold_2(v15);
+        __44__MFNetworkController__initializeDataStatus__block_invoke_cold_2(v16);
       }
 
       v4 = 0;
     }
   }
 
-  v21 = objc_alloc_init(MEMORY[0x277CBAF70]);
-  v22 = *(a1 + 32);
-  v23 = *(v22 + 152);
-  *(v22 + 152) = v21;
+  v22 = objc_alloc_init(MEMORY[0x277CBAF70]);
+  v23 = *(a1 + 32);
+  v24 = *(v23 + 152);
+  *(v23 + 152) = v22;
 
   [*(*(a1 + 32) + 152) setDelegate:*(a1 + 32) queue:*(*(a1 + 32) + 112)];
   [*(a1 + 32) _updateActiveCalls];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupSymptons
@@ -463,14 +463,14 @@ void __37__MFNetworkController__setupSymptons__block_invoke(uint64_t a1, int tok
 
 - (void)_setDataStatus_nts:(id)status_nts
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   status_ntsCopy = status_nts;
-  v5 = vm_imap_log();
+  v5 = vm_imap_log(status_ntsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = status_ntsCopy;
-    _os_log_impl(&dword_2720B1000, v5, OS_LOG_TYPE_DEFAULT, "#Network setting data status: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = status_ntsCopy;
+    _os_log_impl(&dword_2720B1000, v5, OS_LOG_TYPE_DEFAULT, "#Network setting data status: %@", &v7, 0xCu);
   }
 
   if (status_ntsCopy)
@@ -487,8 +487,6 @@ void __37__MFNetworkController__setupSymptons__block_invoke(uint64_t a1, int tok
     self->_isRoamingAllowed = 0;
     self->_cellularDataAvailable = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int)dataStatus
@@ -788,12 +786,15 @@ VFCancelationToken *__40__MFNetworkController_networkObservable__block_invoke(ui
 uint64_t __40__MFNetworkController_networkObservable__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    [*(a1 + 32) observerDidReceiveResult:WeakRetained];
+    v5 = WeakRetained;
+    WeakRetained = [*(a1 + 32) observerDidReceiveResult:WeakRetained];
+    v3 = v5;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v3);
 }
 
 void __40__MFNetworkController_networkObservable__block_invoke_3(uint64_t a1)
@@ -804,15 +805,13 @@ void __40__MFNetworkController_networkObservable__block_invoke_3(uint64_t a1)
 
 - (VFObservable)wifiObservable
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   networkObservable = [(MFNetworkController *)self networkObservable];
-  v10[0] = self;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = self;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v5 = [networkObservable startWith:v4];
   v6 = [v5 map:&__block_literal_global_49];
   distinctUntilChanged = [v6 distinctUntilChanged];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return distinctUntilChanged;
 }
@@ -828,12 +827,11 @@ uint64_t __37__MFNetworkController_wifiObservable__block_invoke(uint64_t a1, voi
 - (void)_updateWifiClientType
 {
   v3 = [(NSMutableSet *)self->_backgroundWifiClients count]!= 0;
-  wifiManager = self->_wifiManager;
   if (WiFiManagerClientGetType() != v3)
   {
-    v5 = self->_wifiManager;
+    wifiManager = self->_wifiManager;
 
-    MEMORY[0x2821878C8](v5, v3);
+    MEMORY[0x2821878C8](wifiManager, v3);
   }
 }
 
@@ -896,8 +894,8 @@ void __46__MFNetworkController__carrierBundleDidChange__block_invoke(uint64_t a1
 
   if (!connection && bOOLValue)
   {
-    v11 = vm_imap_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = vm_imap_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412802;
       v14 = errorCopy;
@@ -905,28 +903,23 @@ void __46__MFNetworkController__carrierBundleDidChange__block_invoke(uint64_t a1
       v16 = 0;
       v17 = 1024;
       v18 = a5;
-      _os_log_impl(&dword_2720B1000, v11, OS_LOG_TYPE_DEFAULT, "#Network failed to bring up data context (context: %@, connection: %u, error: %d", &v13, 0x18u);
+      _os_log_impl(&dword_2720B1000, v12, OS_LOG_TYPE_DEFAULT, "#Network failed to bring up data context (context: %@, connection: %u, error: %d", &v13, 0x18u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preferredDataSimChanged:(id)changed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   dispatch_assert_queue_V2(self->_dataStatusQueue);
-  [(MFNetworkController *)self _carrierBundleDidChange];
-  v5 = vm_imap_log();
+  v5 = vm_imap_log([(MFNetworkController *)self _carrierBundleDidChange]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     slotID = [changedCopy slotID];
-    _os_log_impl(&dword_2720B1000, v5, OS_LOG_TYPE_DEFAULT, "#Network preferred data sim was changed to slot %lu", &v7, 0xCu);
+    _os_log_impl(&dword_2720B1000, v5, OS_LOG_TYPE_DEFAULT, "#Network preferred data sim was changed to slot %lu", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStatus:(id)status dataStatusInfo:(id)info
@@ -948,20 +941,19 @@ void __46__MFNetworkController__carrierBundleDidChange__block_invoke(uint64_t a1
 {
   v11 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  if ([status isEqualToString:*MEMORY[0x277CC3F00]])
+  v7 = [status isEqualToString:*MEMORY[0x277CC3F00]];
+  if (v7)
   {
-    v7 = vm_imap_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = vm_imap_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134217984;
       slotID = [changeCopy slotID];
-      _os_log_impl(&dword_2720B1000, v7, OS_LOG_TYPE_DEFAULT, "#Network SIM is now ready (slot %lu)", &v9, 0xCu);
+      _os_log_impl(&dword_2720B1000, v8, OS_LOG_TYPE_DEFAULT, "#Network SIM is now ready (slot %lu)", &v9, 0xCu);
     }
 
     [(MFNetworkController *)self _carrierBundleDidChange];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateActiveCalls
@@ -1001,16 +993,15 @@ void __46__MFNetworkController__carrierBundleDidChange__block_invoke(uint64_t a1
     v6 = 0;
   }
 
-  v9 = vm_imap_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = vm_imap_log(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
     v16 = v6;
-    _os_log_impl(&dword_2720B1000, v9, OS_LOG_TYPE_DEFAULT, "#Network %d active calls", buf, 8u);
+    _os_log_impl(&dword_2720B1000, v10, OS_LOG_TYPE_DEFAULT, "#Network %d active calls", buf, 8u);
   }
 
   self->_activeCalls = v6;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)callObserver:(id)observer callChanged:(id)changed
@@ -1022,7 +1013,7 @@ void __46__MFNetworkController__carrierBundleDidChange__block_invoke(uint64_t a1
 
 - (id)copyDiagnosticInformation
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [(NSLock *)self->_lock lock];
   [v3 appendString:@"\n==== Network Controller State ====\n"];
@@ -1090,49 +1081,47 @@ void __46__MFNetworkController__carrierBundleDidChange__block_invoke(uint64_t a1
   [(MFNetworkController *)self _initializeDataStatus];
   [v3 appendFormat:@"    cellular data plans:\n"];
   v10 = [(CoreTelephonyClient *)self->_ctc getSubscriptionInfoWithError:0];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   subscriptions = [v10 subscriptions];
-  v12 = [subscriptions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [subscriptions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(subscriptions);
         }
 
-        [v3 appendFormat:@"        %@\n", *(*(&v18 + 1) + 8 * v15++)];
+        [v3 appendFormat:@"        %@\n", *(*(&v17 + 1) + 8 * v15++)];
       }
 
       while (v13 != v15);
-      v13 = [subscriptions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [subscriptions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 void __44__MFNetworkController__initializeDataStatus__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2720B1000, log, OS_LOG_TYPE_ERROR, "#Network failed to get data status for context %@ with error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2720B1000, log, OS_LOG_TYPE_ERROR, "#Network failed to get data status for context %@ with error: %@", &v3, 0x16u);
 }
 
 @end

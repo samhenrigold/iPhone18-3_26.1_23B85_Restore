@@ -130,7 +130,7 @@ void sub_1A8C(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_2484()
+void sub_2484(uint64_t result, uint64_t a2)
 {
   if (qword_51320 != -1)
   {

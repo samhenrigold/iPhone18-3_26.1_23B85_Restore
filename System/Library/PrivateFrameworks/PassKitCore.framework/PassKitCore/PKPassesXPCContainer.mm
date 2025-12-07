@@ -419,7 +419,7 @@ LABEL_7:
     v9 = *(*(&v38 + 1) + 8 * v8);
     lastPathComponent = [v9 lastPathComponent];
     pathExtension = [lastPathComponent pathExtension];
-    if (([pathExtension isEqualToString:@"pkpass"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(pathExtension) & 1) == 0)
     {
       goto LABEL_24;
     }
@@ -576,12 +576,12 @@ LABEL_42:
   self->_fd = 0;
 }
 
-void __34__PKPassesXPCContainer__unarchive__block_invoke(uint64_t a1, int a2)
+void __34__PKPassesXPCContainer__unarchive__block_invoke(uint64_t a1, uint64_t a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v4 = *(*(a1 + 40) + 8);
   v5 = *(*(a1 + 32) + 40);
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     v9 = 1;
   }

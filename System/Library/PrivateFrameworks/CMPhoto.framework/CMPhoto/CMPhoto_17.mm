@@ -1,15 +1,15 @@
 void sub_1A5A1914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
-  v96 = -5472;
-  v97 = v92;
+  v91 = -5472;
+  v92 = v87;
   do
   {
-    vega::dicom::TransferSyntax::~TransferSyntax(v97);
-    v97 = (v98 - 48);
-    v96 += 48;
+    vega::dicom::TransferSyntax::~TransferSyntax(v92);
+    v92 = (v93 - 48);
+    v91 += 48;
   }
 
-  while (v96);
+  while (v91);
   if (a21 < 0)
   {
     operator delete(__p);
@@ -50,7 +50,7 @@ void sub_1A5A1914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a46);
   }
 
-  if (a69 < 0)
+  if (a65 < 0)
   {
     operator delete(a64);
   }
@@ -60,54 +60,54 @@ void sub_1A5A1914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a58);
   }
 
-  if (a74 < 0)
+  if (a69 < 0)
   {
-    operator delete(a73);
+    operator delete(a68);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
+  {
+    operator delete(a66);
+  }
+
+  if (a73 < 0)
+  {
+    operator delete(a72);
+  }
+
+  if (a71 < 0)
   {
     operator delete(a70);
   }
 
-  if (a78 < 0)
+  if (a77 < 0)
   {
-    operator delete(a77);
+    operator delete(a76);
   }
 
-  if (a76 < 0)
+  if (a75 < 0)
   {
-    operator delete(a75);
+    operator delete(a74);
   }
 
-  if (a82 < 0)
+  if (a81 < 0)
   {
-    operator delete(a81);
+    operator delete(a80);
   }
 
-  if (a80 < 0)
+  if (a79 < 0)
   {
-    operator delete(a79);
+    operator delete(a78);
   }
 
-  if (a86 < 0)
+  if (a85 < 0)
   {
-    operator delete(a85);
+    operator delete(a84);
   }
 
-  if (a84 < 0)
+  if (a83 < 0)
   {
-    operator delete(a83);
-  }
-
-  if (a90 < 0)
-  {
-    operator delete(a89);
-  }
-
-  if (a88 < 0)
-  {
-    operator delete(a87);
+    operator delete(a82);
   }
 
   if (SLOBYTE(STACK[0x217]) < 0)
@@ -115,9 +115,9 @@ void sub_1A5A1914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x200]);
   }
 
-  if (a92 < 0)
+  if (a87 < 0)
   {
-    operator delete(a91);
+    operator delete(a86);
   }
 
   if (SLOBYTE(STACK[0x247]) < 0)
@@ -830,7 +830,7 @@ void sub_1A5A1914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0xF38]);
   }
 
-  if (v94[3815] < 0)
+  if (v89[3815] < 0)
   {
     operator delete(STACK[0xF80]);
   }
@@ -840,312 +840,312 @@ void sub_1A5A1914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0xF68]);
   }
 
-  if (v94[3863] < 0)
+  if (v89[3863] < 0)
   {
     operator delete(STACK[0xFB0]);
   }
 
-  if (v94[3839] < 0)
+  if (v89[3839] < 0)
   {
     operator delete(STACK[0xF98]);
   }
 
-  if (v94[3911] < 0)
+  if (v89[3911] < 0)
   {
     operator delete(STACK[0xFE0]);
   }
 
-  if (v94[3887] < 0)
+  if (v89[3887] < 0)
   {
     operator delete(STACK[0xFC8]);
   }
 
-  if (v94[3959] < 0)
+  if (v89[3959] < 0)
   {
     operator delete(STACK[0x1010]);
   }
 
-  if (v94[3935] < 0)
+  if (v89[3935] < 0)
   {
     operator delete(STACK[0xFF8]);
   }
 
-  if (v94[4007] < 0)
+  if (v89[4007] < 0)
   {
     operator delete(STACK[0x1040]);
   }
 
-  if (v94[3983] < 0)
+  if (v89[3983] < 0)
   {
     operator delete(STACK[0x1028]);
   }
 
-  if (v94[4055] < 0)
+  if (v89[4055] < 0)
   {
     operator delete(STACK[0x1070]);
   }
 
-  if (v94[4031] < 0)
+  if (v89[4031] < 0)
   {
     operator delete(STACK[0x1058]);
   }
 
-  if (v93[23] < 0)
+  if (v88[23] < 0)
   {
     operator delete(STACK[0x10A0]);
   }
 
-  if (v94[4079] < 0)
+  if (v89[4079] < 0)
   {
     operator delete(STACK[0x1088]);
   }
 
-  if (v93[71] < 0)
+  if (v88[71] < 0)
   {
     operator delete(STACK[0x10D0]);
   }
 
-  if (v93[47] < 0)
+  if (v88[47] < 0)
   {
     operator delete(STACK[0x10B8]);
   }
 
-  if (v93[119] < 0)
+  if (v88[119] < 0)
   {
     operator delete(STACK[0x1100]);
   }
 
-  if (v93[95] < 0)
+  if (v88[95] < 0)
   {
     operator delete(STACK[0x10E8]);
   }
 
-  if (v93[167] < 0)
+  if (v88[167] < 0)
   {
     operator delete(STACK[0x1130]);
   }
 
-  if (v93[143] < 0)
+  if (v88[143] < 0)
   {
     operator delete(STACK[0x1118]);
   }
 
-  if (v93[215] < 0)
+  if (v88[215] < 0)
   {
     operator delete(STACK[0x1160]);
   }
 
-  if (v93[191] < 0)
+  if (v88[191] < 0)
   {
     operator delete(STACK[0x1148]);
   }
 
-  if (v93[263] < 0)
+  if (v88[263] < 0)
   {
     operator delete(STACK[0x1190]);
   }
 
-  if (v93[239] < 0)
+  if (v88[239] < 0)
   {
     operator delete(STACK[0x1178]);
   }
 
-  if (v93[311] < 0)
+  if (v88[311] < 0)
   {
     operator delete(STACK[0x11C0]);
   }
 
-  if (v93[287] < 0)
+  if (v88[287] < 0)
   {
     operator delete(STACK[0x11A8]);
   }
 
-  if (v93[359] < 0)
+  if (v88[359] < 0)
   {
     operator delete(STACK[0x11F0]);
   }
 
-  if (v93[335] < 0)
+  if (v88[335] < 0)
   {
     operator delete(STACK[0x11D8]);
   }
 
-  if (v93[407] < 0)
+  if (v88[407] < 0)
   {
     operator delete(STACK[0x1220]);
   }
 
-  if (v93[383] < 0)
+  if (v88[383] < 0)
   {
     operator delete(STACK[0x1208]);
   }
 
-  if (v93[455] < 0)
+  if (v88[455] < 0)
   {
     operator delete(STACK[0x1250]);
   }
 
-  if (v93[431] < 0)
+  if (v88[431] < 0)
   {
     operator delete(STACK[0x1238]);
   }
 
-  if (v93[503] < 0)
+  if (v88[503] < 0)
   {
     operator delete(STACK[0x1280]);
   }
 
-  if (v93[479] < 0)
+  if (v88[479] < 0)
   {
     operator delete(STACK[0x1268]);
   }
 
-  if (v93[551] < 0)
+  if (v88[551] < 0)
   {
     operator delete(STACK[0x12B0]);
   }
 
-  if (v93[527] < 0)
+  if (v88[527] < 0)
   {
     operator delete(STACK[0x1298]);
   }
 
-  if (v93[599] < 0)
+  if (v88[599] < 0)
   {
     operator delete(STACK[0x12E0]);
   }
 
-  if (v93[575] < 0)
+  if (v88[575] < 0)
   {
     operator delete(STACK[0x12C8]);
   }
 
-  if (v93[647] < 0)
+  if (v88[647] < 0)
   {
     operator delete(STACK[0x1310]);
   }
 
-  if (v93[623] < 0)
+  if (v88[623] < 0)
   {
     operator delete(STACK[0x12F8]);
   }
 
-  if (v93[695] < 0)
+  if (v88[695] < 0)
   {
     operator delete(STACK[0x1340]);
   }
 
-  if (v93[671] < 0)
+  if (v88[671] < 0)
   {
     operator delete(STACK[0x1328]);
   }
 
-  if (v93[743] < 0)
+  if (v88[743] < 0)
   {
     operator delete(STACK[0x1370]);
   }
 
-  if (v93[719] < 0)
+  if (v88[719] < 0)
   {
     operator delete(STACK[0x1358]);
   }
 
-  if (v93[791] < 0)
+  if (v88[791] < 0)
   {
     operator delete(STACK[0x13A0]);
   }
 
-  if (v93[767] < 0)
+  if (v88[767] < 0)
   {
     operator delete(STACK[0x1388]);
   }
 
-  if (v93[839] < 0)
+  if (v88[839] < 0)
   {
     operator delete(STACK[0x13D0]);
   }
 
-  if (v93[815] < 0)
+  if (v88[815] < 0)
   {
     operator delete(STACK[0x13B8]);
   }
 
-  if (v93[887] < 0)
+  if (v88[887] < 0)
   {
     operator delete(STACK[0x1400]);
   }
 
-  if (v93[863] < 0)
+  if (v88[863] < 0)
   {
     operator delete(STACK[0x13E8]);
   }
 
-  if (v93[935] < 0)
+  if (v88[935] < 0)
   {
     operator delete(STACK[0x1430]);
   }
 
-  if (v93[911] < 0)
+  if (v88[911] < 0)
   {
     operator delete(STACK[0x1418]);
   }
 
-  if (v93[983] < 0)
+  if (v88[983] < 0)
   {
     operator delete(STACK[0x1460]);
   }
 
-  if (v93[959] < 0)
+  if (v88[959] < 0)
   {
     operator delete(STACK[0x1448]);
   }
 
-  if (v93[1031] < 0)
+  if (v88[1031] < 0)
   {
     operator delete(STACK[0x1490]);
   }
 
-  if (v93[1007] < 0)
+  if (v88[1007] < 0)
   {
     operator delete(STACK[0x1478]);
   }
 
-  if (v93[1079] < 0)
+  if (v88[1079] < 0)
   {
     operator delete(STACK[0x14C0]);
   }
 
-  if (v93[1055] < 0)
+  if (v88[1055] < 0)
   {
     operator delete(STACK[0x14A8]);
   }
 
-  if (v93[1127] < 0)
+  if (v88[1127] < 0)
   {
     operator delete(STACK[0x14F0]);
   }
 
-  if (v93[1103] < 0)
+  if (v88[1103] < 0)
   {
     operator delete(STACK[0x14D8]);
   }
 
-  if (v93[1175] < 0)
+  if (v88[1175] < 0)
   {
     operator delete(STACK[0x1520]);
   }
 
-  if (v93[1151] < 0)
+  if (v88[1151] < 0)
   {
     operator delete(STACK[0x1508]);
   }
 
-  if (v93[1223] < 0)
+  if (v88[1223] < 0)
   {
     operator delete(STACK[0x1550]);
   }
 
-  if (v93[1199] < 0)
+  if (v88[1199] < 0)
   {
     operator delete(STACK[0x1538]);
   }
@@ -1153,37 +1153,34 @@ void sub_1A5A1914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void vega::dicom::SOPClass::generate_name_to_uid_map(vega::dicom::SOPClass *this@<X0>, void *a2@<X8>)
+void vega::dicom::SOPClass::generate_name_to_uid_map(vega::dicom::SOPClass *this@<X0>, uint64_t **a2@<X8>)
 {
   a2[2] = 0;
   a2[1] = 0;
-  *a2 = a2 + 1;
-  vega::dicom::SOPClass::NAME_UID_PAIRS(v5, this);
-  v3 = v5[0];
-  v4 = v5[1];
-  while (v3 != v4)
+  *a2 = (a2 + 1);
+  vega::dicom::SOPClass::NAME_UID_PAIRS(this);
+  for (i = v4[0]; i != v4[1]; i += 6)
   {
-    std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_unique_key_args<std::string,std::pair<std::string,vega::UID> const&>(a2, v3);
-    v3 += 6;
+    std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_unique_key_args<std::string,std::pair<std::string,vega::UID> const&>(a2, i, i);
   }
 
-  v6 = v5;
-  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v5 = v4;
+  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
-void vega::dicom::SOPClass::generate_uid_to_name_map(vega::dicom::SOPClass *this@<X0>, void *a2@<X8>)
+void vega::dicom::SOPClass::generate_uid_to_name_map(vega::dicom::SOPClass *this@<X0>, uint64_t **a2@<X8>)
 {
   a2[2] = 0;
   a2[1] = 0;
-  *a2 = a2 + 1;
-  vega::dicom::SOPClass::NAME_UID_PAIRS(v9, this);
+  *a2 = (a2 + 1);
+  vega::dicom::SOPClass::NAME_UID_PAIRS(this);
   v3 = v9[0];
   v4 = v9[1];
   while (v3 != v4)
   {
-    EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(v3 + 24);
-    std::pair<std::string,std::string>::pair[abi:ne200100]<true,0>(&v6, EncodeAccelerationModeOverride, v3);
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string> &>(a2, &v6.__r_.__value_.__l.__data_);
+    CMPhotoGetEncodeAccelerationModeOverride();
+    std::pair<std::string,std::string>::pair[abi:ne200100]<true,0>(&v6, v5, v3);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string> &>(a2, &v6, &v6);
     if (v8 < 0)
     {
       operator delete(__p);
@@ -1201,24 +1198,24 @@ void vega::dicom::SOPClass::generate_uid_to_name_map(vega::dicom::SOPClass *this
   std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v6);
 }
 
-void *vega::dicom::SOPClass::NAME_TO_UID_MAP@<X0>(void *a1@<X8>)
+uint64_t *vega::dicom::SOPClass::NAME_TO_UID_MAP@<X0>(uint64_t *a1@<X8>)
 {
   {
-    if (v4)
+    if (v3)
     {
-      vega::dicom::SOPClass::generate_name_to_uid_map(v4, vega::dicom::SOPClass::NAME_TO_UID_MAP(void)::NAME_TO_UID_MAP);
+      vega::dicom::SOPClass::generate_name_to_uid_map(v3, vega::dicom::SOPClass::NAME_TO_UID_MAP(void)::NAME_TO_UID_MAP);
     }
   }
 
   return std::map<std::string,vega::UID>::map[abi:ne200100](a1, vega::dicom::SOPClass::NAME_TO_UID_MAP(void)::NAME_TO_UID_MAP);
 }
 
-void *vega::dicom::SOPClass::UID_TO_NAME_MAP@<X0>(void *a1@<X8>)
+uint64_t *vega::dicom::SOPClass::UID_TO_NAME_MAP@<X0>(uint64_t *a1@<X8>)
 {
   {
-    if (v4)
+    if (v3)
     {
-      vega::dicom::SOPClass::generate_uid_to_name_map(v4, vega::dicom::SOPClass::UID_TO_NAME_MAP(void)::UID_TO_NAME_MAP);
+      vega::dicom::SOPClass::generate_uid_to_name_map(v3, vega::dicom::SOPClass::UID_TO_NAME_MAP(void)::UID_TO_NAME_MAP);
     }
   }
 
@@ -1261,10 +1258,10 @@ std::string *vega::dicom::SOPClass::SOPClass(std::string *this, __int128 *a2)
   vega::UID::UID(this[1].__r_.__value_.__r.__words);
   vega::dicom::SOPClass::NAME_TO_UID_MAP(&v17);
   vega::dicom::SOPClass::UID_TO_NAME_MAP(&v15);
-  v4 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v17, &this->__r_.__value_.__l.__data_);
+  v4 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v17, this);
   if (&v18 == v4)
   {
-    v5 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v15, &this->__r_.__value_.__l.__data_);
+    v5 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v15, this);
     if (&v16 == v5)
     {
       exception = __cxa_allocate_exception(0x10uLL);
@@ -1321,7 +1318,7 @@ std::string *vega::dicom::SOPClass::SOPClass(std::string *this, __int128 *a2)
   return this;
 }
 
-void sub_1A5A1B150(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, void *a24)
+void sub_1A5A1B150(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *a24)
 {
   if (a21 < 0)
   {
@@ -1361,8 +1358,7 @@ LABEL_8:
 
 std::string *vega::dicom::SOPClass::SOPClass(std::string *this, const vega::UID *a2)
 {
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
   this->__r_.__value_.__r.__words[2] = 0;
   if (*(a2 + 23) < 0)
   {
@@ -1377,8 +1373,8 @@ std::string *vega::dicom::SOPClass::SOPClass(std::string *this, const vega::UID 
   }
 
   vega::dicom::SOPClass::UID_TO_NAME_MAP(&v8);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(&this[1]);
-  v5 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v8, EncodeAccelerationModeOverride);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  v5 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v8, v4);
   if (&v9 == v5)
   {
     if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
@@ -1415,7 +1411,7 @@ void sub_1A5A1B2FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID> const*,std::pair<std::string,vega::UID> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID> const*,std::pair<std::string,vega::UID> const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1509,7 +1505,7 @@ void sub_1A5A1B4D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID>*,std::pair<std::string,vega::UID>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID>*,std::pair<std::string,vega::UID>*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1654,15 +1650,15 @@ void std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compa
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_unique_key_args<std::string,std::pair<std::string,vega::UID> const&>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_unique_key_args<std::string,std::pair<std::string,vega::UID> const&>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__construct_node<std::pair<std::string,vega::UID> const&>();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,vega::UID>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,vega::UID>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -1721,15 +1717,15 @@ void sub_1A5A1B958(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string> &>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string> &>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string,std::string> &>();
   }
 
-  return v2;
+  return v3;
 }
 
 std::string *std::pair<std::string const,std::string>::pair[abi:ne200100]<std::string,std::string,0>(std::string *this, __int128 *a2)
@@ -1771,16 +1767,16 @@ void sub_1A5A1BAF4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,vega::UID>::map[abi:ne200100](void *a1, uint64_t a2)
+uint64_t *std::map<std::string,vega::UID>::map[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,vega::UID>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,vega::UID>,std::__tree_node<std::__value_type<std::string,vega::UID>,void *> *,long>>>(a1, *a2, (a2 + 8));
   return a1;
 }
 
-void *std::map<std::string,vega::UID>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,vega::UID>,std::__tree_node<std::__value_type<std::string,vega::UID>,void *> *,long>>>(void *result, void **a2, void **a3)
+uint64_t *std::map<std::string,vega::UID>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,vega::UID>,std::__tree_node<std::__value_type<std::string,vega::UID>,void *> *,long>>>(uint64_t *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -1788,8 +1784,8 @@ void *std::map<std::string,vega::UID>::insert[abi:ne200100]<std::__map_const_ite
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,vega::UID> const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,vega::UID> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -1805,7 +1801,7 @@ void *std::map<std::string,vega::UID>::insert[abi:ne200100]<std::__map_const_ite
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -1822,21 +1818,21 @@ void *std::map<std::string,vega::UID>::insert[abi:ne200100]<std::__map_const_ite
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,vega::UID> const&>(void *a1, uint64_t a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,vega::UID> const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__construct_node<std::pair<std::string const,vega::UID> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
-void **std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__find_equal<std::string>(void *a1, uint64_t a2, void ***a3, uint64_t *a4, void **a5)
+char *std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__find_equal<std::string>(uint64_t **a1, uint64_t *a2, char **a3, uint64_t *a4, char *a5)
 {
   v9 = (a1 + 1);
-  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, (a2 + 32)) & 0x80) != 0)
+  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, a2 + 32) & 0x80) != 0)
   {
     if (*a1 == a2)
     {
@@ -1889,18 +1885,18 @@ void **std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_com
     }
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a2 + 32), a5) & 0x80) == 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 + 4, a5) & 0x80) == 0)
   {
     *a3 = a2;
     *a4 = a2;
     return a4;
   }
 
-  a4 = (a2 + 8);
-  v13 = *(a2 + 8);
+  a4 = a2 + 1;
+  v13 = a2[1];
   if (v13)
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
     do
     {
       v15 = v14;
@@ -1940,7 +1936,7 @@ LABEL_29:
     return a4;
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 4) & 0x80) != 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 32) & 0x80) != 0)
   {
     v13 = *a4;
     goto LABEL_29;
@@ -1990,16 +1986,16 @@ void sub_1A5A1BF08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,std::string>::map[abi:ne200100](void *a1, uint64_t a2)
+uint64_t *std::map<std::string,std::string>::map[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(a1, *a2, (a2 + 8));
   return a1;
 }
 
-void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(void *result, void **a2, void **a3)
+uint64_t *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(uint64_t *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -2007,8 +2003,8 @@ void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_i
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -2024,7 +2020,7 @@ void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_i
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -2041,15 +2037,15 @@ void *std::map<std::string,std::string>::insert[abi:ne200100]<std::__map_const_i
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::pair<std::string const,std::string> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
 std::string *std::pair<std::string const,std::string>::pair[abi:ne200100](std::string *this, __int128 *a2)
@@ -2097,12 +2093,12 @@ void vega::Date::SINGLE_REGEX(void *a1@<X8>)
     std::allocate_shared[abi:ne200100]<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>,char const(&)[56],0>();
   }
 
-  v3 = unk_1EB1ECBF0;
+  v2 = unk_1EB1ECBF0;
   *a1 = vega::Date::SINGLE_REGEX(void)::SINGLE_REGEX;
-  a1[1] = v3;
-  if (v3)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 }
 
@@ -2112,19 +2108,19 @@ void vega::Date::RANGE_REGEX(void *a1@<X8>)
     std::allocate_shared[abi:ne200100]<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>,char const(&)[32],0>();
   }
 
-  v3 = *algn_1EB1ECC08;
+  v2 = *algn_1EB1ECC08;
   *a1 = vega::Date::RANGE_REGEX(void)::RANGE_REGEX;
-  a1[1] = v3;
-  if (v3)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 }
 
-uint64_t vega::Date::Date(uint64_t a1, uint64_t a2)
+_OWORD *vega::Date::Date(_OWORD *a1, uint64_t a2)
 {
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
+  a1[1] = 0u;
+  a1[2] = 0u;
   *a1 = 0u;
   vega::Date::set_string(a1, a2);
   return a1;
@@ -2252,7 +2248,7 @@ void vega::Date::set_string(void *a1, uint64_t a2)
 
     if (value_high)
     {
-      std::allocate_shared[abi:ne200100]<vega::Date const,std::allocator<vega::Date>,std::string &,0>(__dst, &v26, &__p);
+      std::allocate_shared[abi:ne200100]<vega::Date const,std::allocator<vega::Date>,std::string &,0>(&__p, __dst);
       v15 = *__dst;
       __dst[0] = 0;
       __dst[1] = 0;
@@ -2310,7 +2306,7 @@ void vega::Date::set_string(void *a1, uint64_t a2)
 
     if (v23)
     {
-      std::allocate_shared[abi:ne200100]<vega::Date const,std::allocator<vega::Date>,std::string &,0>(&v26, &v40, __dst);
+      std::allocate_shared[abi:ne200100]<vega::Date const,std::allocator<vega::Date>,std::string &,0>(__dst, &v26);
       v24 = v26;
       v26 = 0uLL;
       v25 = a1[5];
@@ -2386,9 +2382,9 @@ uint64_t *vega::Date::str@<X0>(uint64_t *__return_ptr a1@<X8>, vega::dictionary:
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A1C85C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A1C85C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -2414,7 +2410,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t vega::Date::read_single_string_from@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t vega::Date::read_single_string_from@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   v12 = 0;
@@ -2476,8 +2472,8 @@ LABEL_8:
 
 LABEL_14:
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
 LABEL_15:
   v13[0] = *MEMORY[0x1E69E54D8];
   v10 = *(MEMORY[0x1E69E54D8] + 72);
@@ -2495,9 +2491,9 @@ LABEL_15:
   return MEMORY[0x1AC552AF0](&v18);
 }
 
-void sub_1A5A1CCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A5A1CCB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -2602,7 +2598,7 @@ void sub_1A5A1CFD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[56],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, const char *a2)
+void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[56],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, char *a2)
 {
   a1->__ct_ = 0;
   a1->__col_ = 0;
@@ -2610,7 +2606,7 @@ void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> co
   std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](a1 + 1, a2, 0);
 }
 
-void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[32],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, const char *a2)
+void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[32],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, char *a2)
 {
   a1->__ct_ = 0;
   a1->__col_ = 0;
@@ -2618,12 +2614,12 @@ void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> co
   std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](a1 + 1, a2, 0);
 }
 
-void *std::__shared_ptr_emplace<vega::Date const>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::allocator<vega::Date>,0>(void *a1, uint64_t a2)
+uint64_t std::__shared_ptr_emplace<vega::Date const>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::allocator<vega::Date>,0>(uint64_t a1, uint64_t a2)
 {
-  a1[1] = 0;
-  a1[2] = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
   *a1 = &unk_1F1919688;
-  vega::Date::Date((a1 + 3), a2);
+  vega::Date::Date((a1 + 24), a2);
   return a1;
 }
 
@@ -2663,12 +2659,12 @@ void vega::Time::SINGLE_REGEX(void *a1@<X8>)
     std::allocate_shared[abi:ne200100]<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>,char const(&)[55],0>();
   }
 
-  v3 = unk_1EB1ECC20;
+  v2 = unk_1EB1ECC20;
   *a1 = vega::Time::SINGLE_REGEX(void)::SING_REGEX;
-  a1[1] = v3;
-  if (v3)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 }
 
@@ -2678,12 +2674,12 @@ void vega::Time::RANGE_REGEX(void *a1@<X8>)
     std::allocate_shared[abi:ne200100]<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>,char const(&)[32],0>();
   }
 
-  v3 = *algn_1EB1ECC38;
+  v2 = *algn_1EB1ECC38;
   *a1 = vega::Time::RANGE_REGEX(void)::RANGE_REGEX;
-  a1[1] = v3;
-  if (v3)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 }
 
@@ -2857,7 +2853,7 @@ LABEL_14:
 
     if (value_high)
     {
-      std::allocate_shared[abi:ne200100]<vega::Time const,std::allocator<vega::Time>,std::string &,0>(__dst, &v32, &__p);
+      std::allocate_shared[abi:ne200100]<vega::Time const,std::allocator<vega::Time>,std::string &,0>(&__p, __dst);
       v21 = *__dst;
       __dst[0] = 0;
       __dst[1] = 0;
@@ -2915,7 +2911,7 @@ LABEL_14:
 
     if (v29)
     {
-      std::allocate_shared[abi:ne200100]<vega::Time const,std::allocator<vega::Time>,std::string &,0>(&v32, &v46, __dst);
+      std::allocate_shared[abi:ne200100]<vega::Time const,std::allocator<vega::Time>,std::string &,0>(__dst, &v32);
       v30 = v32;
       v32 = 0uLL;
       v31 = *(a1 + 40);
@@ -2991,9 +2987,9 @@ uint64_t *vega::Time::str@<X0>(uint64_t *__return_ptr a1@<X8>, vega::dictionary:
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A1DA74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A1DA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3019,7 +3015,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t vega::Time::read_single_string_from@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::Time::read_single_string_from@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
   v10 = 0;
@@ -3094,9 +3090,9 @@ LABEL_17:
   return MEMORY[0x1AC552AF0](&v16);
 }
 
-void sub_1A5A1DEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A5A1DEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3201,7 +3197,7 @@ void sub_1A5A1E21C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[55],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, const char *a2)
+void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[55],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, char *a2)
 {
   a1->__ct_ = 0;
   a1->__col_ = 0;
@@ -3256,7 +3252,7 @@ void *vega::dictionary::PrivateOwnerBlocks::PrivateOwnerBlocks(void *this)
   return this;
 }
 
-uint64_t *vega::dictionary::PrivateOwnerBlocks::add_private_owner_block(uint64_t a1, vega::dictionary::Page **a2)
+uint64_t **vega::dictionary::PrivateOwnerBlocks::add_private_owner_block(uint64_t a1, vega::dictionary::Page **a2)
 {
   v4 = vega::dictionary::Page::name(*a2);
   v5 = *v4;
@@ -3290,7 +3286,7 @@ LABEL_9:
     v17[0] = 0;
     v17[1] = 0;
     v16 = v17;
-    std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>(a1, &v19);
+    std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>(a1, &v19, &v19, &v16);
     std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::destroy(&v16, v17[0]);
     v12 = *v7;
     if (!*v7)
@@ -3320,12 +3316,12 @@ LABEL_17:
     }
   }
 
-  return std::__tree<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>&>(v8 + 40, &v18);
+  return std::__tree<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>&>((v8 + 40), &v18, &v18, a2);
 }
 
-unsigned __int16 *vega::dictionary::PrivateOwnerBlocks::find_block@<X0>(vega::dictionary::PrivateOwnerBlocks *this@<X0>, const vega::Tag *a2@<X1>, void *a3@<X8>)
+void vega::dictionary::PrivateOwnerBlocks::find_block(uint64_t *__return_ptr a1@<X8>, vega::dictionary::PrivateOwnerBlocks *this@<X0>, const vega::Tag *a3@<X1>)
 {
-  result = CMPhotoGetEncodeAccelerationModeOverride(a2);
+  CMPhotoGetEncodeAccelerationModeOverride();
   v9 = *(this + 1);
   v8 = this + 8;
   v7 = v9;
@@ -3334,7 +3330,7 @@ unsigned __int16 *vega::dictionary::PrivateOwnerBlocks::find_block@<X0>(vega::di
     goto LABEL_17;
   }
 
-  v10 = *result;
+  v10 = *v6;
   v11 = v8;
   do
   {
@@ -3360,129 +3356,127 @@ unsigned __int16 *vega::dictionary::PrivateOwnerBlocks::find_block@<X0>(vega::di
     goto LABEL_17;
   }
 
-  result = vega::Tag::element(a2);
-  v17 = *(v11 + 6);
-  v16 = v11 + 48;
-  v15 = v17;
-  if (!v17)
+  v15 = vega::Tag::element(a3);
+  v18 = *(v11 + 6);
+  v17 = v11 + 48;
+  v16 = v18;
+  if (!v18)
   {
     goto LABEL_17;
   }
 
-  v18 = *(result + 1) << 8;
-  v19 = v16;
+  v19 = *(v15 + 1) << 8;
+  v20 = v17;
   do
   {
-    v20 = *(v15 + 16);
-    v13 = v20 >= v18;
-    v21 = v20 < v18;
+    v21 = *(v16 + 16);
+    v13 = v21 >= v19;
+    v22 = v21 < v19;
     if (v13)
     {
-      v19 = v15;
+      v20 = v16;
     }
 
-    v15 = *&v15[8 * v21];
+    v16 = *&v16[8 * v22];
   }
 
-  while (v15);
-  if (v19 != v16 && v18 >= *(v19 + 16))
+  while (v16);
+  if (v20 != v17 && v19 >= *(v20 + 16))
   {
-    v23 = *(v19 + 5);
-    v22 = *(v19 + 6);
-    *a3 = v23;
-    a3[1] = v22;
-    if (v22)
+    v24 = *(v20 + 5);
+    v23 = *(v20 + 6);
+    *a1 = v24;
+    a1[1] = v23;
+    if (v23)
     {
-      atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
 LABEL_17:
-    *a3 = 0;
-    a3[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
-
-  return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>(uint64_t **a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>>::__construct_node<unsigned short &,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 16);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>&>(uint64_t a1, unsigned __int16 *a2)
+uint64_t **std::__tree<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>&>(uint64_t **a1, unsigned __int16 *a2, _WORD *a3, void *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 16);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -3571,7 +3565,7 @@ void std::vector<unsigned int>::resize(std::vector<unsigned int> *this, std::vec
   }
 }
 
-BOOL vega::manipulators::EncapsulatedPixelDataManipulator::operator==(uint64_t a1, void *lpsrc)
+uint64_t vega::manipulators::EncapsulatedPixelDataManipulator::operator==(uint64_t a1, void *lpsrc)
 {
   if (!v3)
   {
@@ -3648,7 +3642,7 @@ BOOL vega::manipulators::EncapsulatedPixelDataManipulator::allows_vr(vega::manip
     return 1;
   }
 
-  if ((atomic_load_explicit(&qword_1ED6FA8D8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA8D8, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::EncapsulatedPixelDataManipulator::allows_vr();
   }
@@ -3658,7 +3652,7 @@ BOOL vega::manipulators::EncapsulatedPixelDataManipulator::allows_vr(vega::manip
     return 1;
   }
 
-  if ((atomic_load_explicit(qword_1ED6FA8E8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA8E8, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::EncapsulatedPixelDataManipulator::allows_vr();
   }
@@ -3680,13 +3674,13 @@ void vega::manipulators::EncapsulatedPixelDataManipulator::~EncapsulatedPixelDat
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
   *this = &unk_1F1919740;
-  v4 = (this + 32);
-  std::vector<std::vector<vega::Byte>>::__destroy_vector::operator()[abi:ne200100](&v4);
+  v3 = (this + 32);
+  std::vector<std::vector<vega::Byte>>::__destroy_vector::operator()[abi:ne200100](&v3);
   v2 = *(this + 1);
   if (v2)
   {
@@ -3694,8 +3688,8 @@ void vega::manipulators::EncapsulatedPixelDataManipulator::~EncapsulatedPixelDat
     operator delete(v2);
   }
 
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xB1C4074777734);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 void std::vector<unsigned int>::__append(std::vector<unsigned int> *this, std::vector<unsigned int>::size_type __n)
@@ -3827,7 +3821,7 @@ void std::__shared_ptr_emplace<vega::dicom::RawValue>::__shared_ptr_emplace[abi:
   vega::dicom::RawValue::RawValue((a1 + 3), a2, *a3);
 }
 
-void *std::__shared_ptr_emplace<vega::manipulators::OtherByteManipulator>::__shared_ptr_emplace[abi:ne200100]<std::__wrap_iter<vega::Byte const*>,std::__wrap_iter<vega::Byte const*>,std::allocator<vega::manipulators::OtherByteManipulator>,0>(void *a1, uint64_t *a2, uint64_t *a3)
+void *std::__shared_ptr_emplace<vega::manipulators::OtherByteManipulator>::__shared_ptr_emplace[abi:ne200100]<std::__wrap_iter<vega::Byte const*>,std::__wrap_iter<vega::Byte const*>,std::allocator<vega::manipulators::OtherByteManipulator>,0>(void *a1, char **a2, char **a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3837,18 +3831,18 @@ void *std::__shared_ptr_emplace<vega::manipulators::OtherByteManipulator>::__sha
   return a1;
 }
 
-void *vega::manipulators::FixedSizeElementManipulator<vega::Byte>::FixedSizeElementManipulator(void *a1, uint64_t a2, uint64_t a3)
+void *vega::manipulators::FixedSizeElementManipulator<vega::Byte>::FixedSizeElementManipulator(void *a1, char *a2, char *a3)
 {
   *a1 = &unk_1F1917B90;
   a1[2] = 0;
   a1[3] = 0;
   a1[1] = 0;
-  std::vector<vega::Byte>::__init_with_size[abi:ne200100]<std::__wrap_iter<vega::Byte const*>,std::__wrap_iter<vega::Byte const*>>((a1 + 1), a2, a3, a3 - a2);
+  std::vector<vega::Byte>::__init_with_size[abi:ne200100]<std::__wrap_iter<vega::Byte const*>,std::__wrap_iter<vega::Byte const*>>(a1 + 1, a2, a3, a3 - a2);
   *a1 = &unk_1F1919618;
   return a1;
 }
 
-uint64_t std::vector<vega::Byte>::__init_with_size[abi:ne200100]<std::__wrap_iter<vega::Byte const*>,std::__wrap_iter<vega::Byte const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<vega::Byte>::__init_with_size[abi:ne200100]<std::__wrap_iter<vega::Byte const*>,std::__wrap_iter<vega::Byte const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3872,21 +3866,21 @@ void sub_1A5A1FE40(_Unwind_Exception *exception_object)
 
 void vega::manipulators::EncapsulatedPixelDataManipulator::allows_vr()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA8D8))
+  if (__cxa_guard_acquire(byte_1ED6FA8D8))
   {
     word_1ED6FA8CA = 22351;
 
-    __cxa_guard_release(&qword_1ED6FA8D8);
+    __cxa_guard_release(byte_1ED6FA8D8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(qword_1ED6FA8E8))
+  if (__cxa_guard_acquire(byte_1ED6FA8E8))
   {
     word_1ED6FA8CC = 30831;
     qword_1ED6FA8E0 = &word_1ED6FA8CC;
 
-    __cxa_guard_release(qword_1ED6FA8E8);
+    __cxa_guard_release(byte_1ED6FA8E8);
   }
 }
 
@@ -3910,79 +3904,79 @@ std::string *vega::dictionary::PrivateOwner::PrivateOwner(std::string *this, __i
   return this;
 }
 
-uint64_t *vega::dictionary::PrivateOwner::add_page(uint64_t a1, vega::dictionary::Page **a2)
+uint64_t **vega::dictionary::PrivateOwner::add_page(uint64_t a1, vega::dictionary::Page **a2)
 {
-  v4 = vega::dictionary::Page::tag_mask(*a2);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(v4);
-  v6 = *EncodeAccelerationModeOverride;
-  v22 = *EncodeAccelerationModeOverride;
-  v7 = vega::dictionary::Page::tag_mask(*a2);
-  v21 = *vega::Tag::element(v7);
-  v10 = *(a1 + 32);
-  v9 = (a1 + 32);
-  v8 = v10;
-  if (!v10)
+  vega::dictionary::Page::tag_mask(*a2);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  v5 = *v4;
+  v21 = *v4;
+  v6 = vega::dictionary::Page::tag_mask(*a2);
+  v20 = *vega::Tag::element(v6);
+  v9 = *(a1 + 32);
+  v8 = (a1 + 32);
+  v7 = v9;
+  if (!v9)
   {
     goto LABEL_9;
   }
 
-  v11 = v9;
+  v10 = v8;
   do
   {
-    v12 = *(v8 + 32);
-    v13 = v12 >= v6;
-    v14 = v12 < v6;
-    if (v13)
+    v11 = *(v7 + 32);
+    v12 = v11 >= v5;
+    v13 = v11 < v5;
+    if (v12)
     {
-      v11 = v8;
+      v10 = v7;
     }
 
-    v8 = *(v8 + 8 * v14);
+    v7 = *(v7 + 8 * v13);
   }
 
-  while (v8);
-  if (v11 == v9 || v6 < *(v11 + 16))
+  while (v7);
+  if (v10 == v8 || v5 < *(v10 + 16))
   {
 LABEL_9:
-    v20[0] = 0;
-    v20[1] = 0;
-    v19 = v20;
-    std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>((v9 - 1), &v22);
-    std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::destroy(&v19, v20[0]);
-    v15 = *v9;
-    if (!*v9)
+    v19[0] = 0;
+    v19[1] = 0;
+    v18 = v19;
+    std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::map<unsigned short,std::shared_ptr<vega::dictionary::PrivateOwnerBlock>>>(v8 - 1, &v21, &v21, &v18);
+    std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::destroy(&v18, v19[0]);
+    v14 = *v8;
+    if (!*v8)
     {
       goto LABEL_17;
     }
 
-    v11 = v9;
+    v10 = v8;
     do
     {
-      v16 = *(v15 + 32);
-      v13 = v16 >= v22;
-      v17 = v16 < v22;
-      if (v13)
+      v15 = *(v14 + 16);
+      v12 = v15 >= v21;
+      v16 = v15 < v21;
+      if (v12)
       {
-        v11 = v15;
+        v10 = v14;
       }
 
-      v15 = *(v15 + 8 * v17);
+      v14 = v14[v16];
     }
 
-    while (v15);
-    if (v11 == v9 || v22 < *(v11 + 16))
+    while (v14);
+    if (v10 == v8 || v21 < *(v10 + 16))
     {
 LABEL_17:
-      v11 = v9;
+      v10 = v8;
     }
   }
 
-  return std::__tree<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::shared_ptr<vega::dictionary::Page const>&>((v11 + 5), &v21);
+  return std::__tree<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::shared_ptr<vega::dictionary::Page const>&>(v10 + 5, &v20, &v20, a2);
 }
 
-unsigned __int16 *vega::dictionary::PrivateOwner::find_page@<X0>(vega::dictionary::PrivateOwner *this@<X0>, const vega::Tag *a2@<X1>, void *a3@<X8>)
+void vega::dictionary::PrivateOwner::find_page(vega::dictionary::PrivateOwner *this@<X0>, const vega::Tag *a2@<X1>, void *a3@<X8>)
 {
-  result = CMPhotoGetEncodeAccelerationModeOverride(a2);
+  CMPhotoGetEncodeAccelerationModeOverride();
   v9 = *(this + 4);
   v8 = this + 32;
   v7 = v9;
@@ -3991,7 +3985,7 @@ unsigned __int16 *vega::dictionary::PrivateOwner::find_page@<X0>(vega::dictionar
     goto LABEL_17;
   }
 
-  v10 = *result;
+  v10 = *v6;
   v11 = v8;
   do
   {
@@ -4017,40 +4011,40 @@ unsigned __int16 *vega::dictionary::PrivateOwner::find_page@<X0>(vega::dictionar
     goto LABEL_17;
   }
 
-  result = vega::Tag::element(a2);
-  v17 = *(v11 + 6);
-  v16 = v11 + 48;
-  v15 = v17;
-  if (!v17)
+  v15 = vega::Tag::element(a2);
+  v18 = *(v11 + 6);
+  v17 = v11 + 48;
+  v16 = v18;
+  if (!v18)
   {
     goto LABEL_17;
   }
 
-  v18 = *result;
-  v19 = v16;
+  v19 = *v15;
+  v20 = v17;
   do
   {
-    v20 = *(v15 + 16);
-    v13 = v20 >= v18;
-    v21 = v20 < v18;
+    v21 = *(v16 + 16);
+    v13 = v21 >= v19;
+    v22 = v21 < v19;
     if (v13)
     {
-      v19 = v15;
+      v20 = v16;
     }
 
-    v15 = *&v15[8 * v21];
+    v16 = *&v16[8 * v22];
   }
 
-  while (v15);
-  if (v19 != v16 && v18 >= *(v19 + 16))
+  while (v16);
+  if (v20 != v17 && v19 >= *(v20 + 16))
   {
-    v23 = *(v19 + 5);
-    v22 = *(v19 + 6);
-    *a3 = v23;
-    a3[1] = v22;
-    if (v22)
+    v24 = *(v20 + 5);
+    v23 = *(v20 + 6);
+    *a3 = v24;
+    a3[1] = v23;
+    if (v23)
     {
-      atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -4060,45 +4054,43 @@ LABEL_17:
     *a3 = 0;
     a3[1] = 0;
   }
-
-  return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::shared_ptr<vega::dictionary::Page const>&>(uint64_t a1, unsigned __int16 *a2)
+uint64_t **std::__tree<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<unsigned short,unsigned short &,std::shared_ptr<vega::dictionary::Page const>&>(uint64_t **a1, unsigned __int16 *a2, _WORD *a3, void *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 16);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -4112,7 +4104,7 @@ vega::manipulators::UniqueIdentifierManipulator *vega::manipulators::UniqueIdent
   return this;
 }
 
-uint64_t vega::manipulators::UniqueIdentifierManipulator::UniqueIdentifierManipulator(uint64_t a1, vega::dicom::RawValue **a2)
+uint64_t vega::manipulators::UniqueIdentifierManipulator::UniqueIdentifierManipulator(uint64_t a1, void ****a2)
 {
   *a1 = &unk_1F19197B0;
   v4 = (a1 + 8);
@@ -4192,7 +4184,7 @@ void sub_1A5A20430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(*v24);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(v23);
+  CMPhotoGetEncodeAccelerationModeOverride();
   _Unwind_Resume(a1);
 }
 
@@ -4265,14 +4257,14 @@ void sub_1A5A205B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(*v16);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(v15);
+  CMPhotoGetEncodeAccelerationModeOverride();
   _Unwind_Resume(a1);
 }
 
-void vega::manipulators::UniqueIdentifierManipulator::raw_value(vega::manipulators::UniqueIdentifierManipulator *this)
+void vega::manipulators::UniqueIdentifierManipulator::raw_value()
 {
-  CMPhotoGetEncodeAccelerationModeOverride(this + 8);
-  CMPhotoGetEncodeAccelerationModeOverride(this + 8);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  CMPhotoGetEncodeAccelerationModeOverride();
   std::allocate_shared[abi:ne200100]<vega::dicom::RawValue,std::allocator<vega::dicom::RawValue>,unsigned long,0>();
 }
 
@@ -4287,22 +4279,22 @@ void sub_1A5A20704(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void vega::manipulators::UniqueIdentifierManipulator::str(vega::manipulators::UniqueIdentifierManipulator *this@<X0>, std::string *a2@<X8>)
+void vega::manipulators::UniqueIdentifierManipulator::str(std::string *a1@<X8>)
 {
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this + 8);
-  if (*(EncodeAccelerationModeOverride + 23) < 0)
+  CMPhotoGetEncodeAccelerationModeOverride();
+  if (*(v2 + 23) < 0)
   {
-    v5 = *EncodeAccelerationModeOverride;
-    v6 = *(EncodeAccelerationModeOverride + 8);
+    v4 = *v2;
+    v5 = *(v2 + 1);
 
-    std::string::__init_copy_ctor_external(a2, v5, v6);
+    std::string::__init_copy_ctor_external(a1, v4, v5);
   }
 
   else
   {
-    v4 = *EncodeAccelerationModeOverride;
-    a2->__r_.__value_.__r.__words[2] = *(EncodeAccelerationModeOverride + 16);
-    *&a2->__r_.__value_.__l.__data_ = v4;
+    v3 = *v2;
+    a1->__r_.__value_.__r.__words[2] = *(v2 + 2);
+    *&a1->__r_.__value_.__l.__data_ = v3;
   }
 }
 
@@ -4315,7 +4307,7 @@ BOOL vega::manipulators::UniqueIdentifierManipulator::read_from(void **this, veg
     v6 = 0;
     v7 = 1;
     v8 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       if (v14)
       {
@@ -4387,47 +4379,47 @@ void sub_1A5A209BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t vega::manipulators::UniqueIdentifierManipulator::write_to(vega::manipulators::UniqueIdentifierManipulator *this, vega::dicom::RawWriter *a2)
 {
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this + 8);
-  if (*(EncodeAccelerationModeOverride + 23) >= 0)
+  CMPhotoGetEncodeAccelerationModeOverride();
+  if (*(v3 + 23) >= 0)
   {
-    v5 = EncodeAccelerationModeOverride;
+    v4 = v3;
   }
 
   else
   {
-    v5 = *EncodeAccelerationModeOverride;
+    v4 = *v3;
   }
 
-  v6 = CMPhotoGetEncodeAccelerationModeOverride(this + 8);
-  v7 = *(v6 + 23);
-  if ((v7 & 0x80u) == 0)
+  CMPhotoGetEncodeAccelerationModeOverride();
+  v6 = *(v5 + 23);
+  if ((v6 & 0x80u) == 0)
   {
-    v8 = v6;
+    v7 = v5;
   }
 
   else
   {
-    v8 = *v6;
+    v7 = *v5;
   }
 
-  if ((v7 & 0x80u) != 0)
+  if ((v6 & 0x80u) != 0)
   {
-    v7 = *(v6 + 8);
+    v6 = v5[1];
   }
 
-  vega::dicom::RawWriter::write_from<std::__wrap_iter<char *>>(a2, v5, v8 + v7);
-  v9 = CMPhotoGetEncodeAccelerationModeOverride(this + 8);
-  LOBYTE(v10) = *(v9 + 23);
-  if ((v10 & 0x80u) != 0)
+  vega::dicom::RawWriter::write_from<std::__wrap_iter<char *>>(a2, v4, v7 + v6);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  LOBYTE(v9) = *(v8 + 23);
+  if ((v9 & 0x80u) != 0)
   {
-    v10 = *(v9 + 8);
+    v9 = *(v8 + 8);
   }
 
-  if (v10)
+  if (v9)
   {
     vega::dicom::IOState::swap(a2);
     std::ostream::write();
-    v13 = CMPhotoGetEncodeAccelerationModeOverride(this + 8);
+    CMPhotoGetEncodeAccelerationModeOverride();
     v14 = *(v13 + 23);
     if ((v14 & 0x80u) != 0)
     {
@@ -4439,8 +4431,9 @@ uint64_t vega::manipulators::UniqueIdentifierManipulator::write_to(vega::manipul
 
   else
   {
-    v11 = CMPhotoGetEncodeAccelerationModeOverride(this + 8);
-    result = *(v11 + 23);
+    CMPhotoGetEncodeAccelerationModeOverride();
+    v11 = v10;
+    result = *(v10 + 23);
     if (result < 0)
     {
       return *(v11 + 8);
@@ -4508,7 +4501,7 @@ void vega::manipulators::UniqueIdentifierManipulator::~UniqueIdentifierManipulat
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -4518,7 +4511,7 @@ void vega::manipulators::UniqueIdentifierManipulator::~UniqueIdentifierManipulat
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -4526,7 +4519,7 @@ void vega::manipulators::UniqueIdentifierManipulator::~UniqueIdentifierManipulat
 BOOL vega::manipulators::UniqueIdentifierManipulator::is_valid_for (vega::manipulators::UniqueIdentifierManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA900, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA900, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::UniqueIdentifierManipulator::is_valid_for ();
     v3 = a2;
@@ -4535,12 +4528,12 @@ BOOL vega::manipulators::UniqueIdentifierManipulator::is_valid_for (vega::manipu
   return vega::Word::operator==(v3, &_MergedGlobals_17);
 }
 
-void std::__shared_ptr_emplace<vega::dicom::RawValue>::__shared_ptr_emplace[abi:ne200100]<unsigned long,std::allocator<vega::dicom::RawValue>,0>(void *a1)
+void std::__shared_ptr_emplace<vega::dicom::RawValue>::__shared_ptr_emplace[abi:ne200100]<unsigned long,std::allocator<vega::dicom::RawValue>,0>(void *a1, unint64_t *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917E00;
-  vega::dicom::RawValue::RawValue((a1 + 3));
+  vega::dicom::RawValue::RawValue((a1 + 3), *a2);
 }
 
 void vega::manipulators::UniqueIdentifierManipulator::from_json()
@@ -4554,15 +4547,15 @@ void vega::manipulators::UniqueIdentifierManipulator::from_json()
 
 void vega::manipulators::UniqueIdentifierManipulator::is_valid_for ()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA900))
+  if (__cxa_guard_acquire(byte_1ED6FA900))
   {
     _MergedGlobals_17 = 18773;
 
-    __cxa_guard_release(&qword_1ED6FA900);
+    __cxa_guard_release(byte_1ED6FA900);
   }
 }
 
-void vega::VR::name(std::string::value_type *this@<X0>, std::string *a2@<X8>)
+void vega::VR::name(std::string *__return_ptr a1@<X8>, std::string::value_type *this@<X0>)
 {
   *(&v4.__r_.__value_.__s + 23) = 0;
   v4.__r_.__value_.__s.__data_[0] = 0;
@@ -4570,7 +4563,7 @@ void vega::VR::name(std::string::value_type *this@<X0>, std::string *a2@<X8>)
   v5 = v4;
   memset(&v4, 0, sizeof(v4));
   std::string::push_back(&v5, this[1]);
-  *a2 = v5;
+  *a1 = v5;
   memset(&v5, 0, sizeof(v5));
   if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4593,11 +4586,11 @@ void sub_1A5A20F5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::VR::str@<X0>(vega::VR *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *vega::VR::str@<X0>(uint64_t *__return_ptr a1@<X8>, vega::VR *this@<X0>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   vega::operator<<(&v7, this);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v6, a2);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v6, a1);
   v6[0] = *MEMORY[0x1E69E54D8];
   v4 = *(MEMORY[0x1E69E54D8] + 72);
   *(v6 + *(v6[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
@@ -4614,9 +4607,9 @@ uint64_t vega::VR::str@<X0>(vega::VR *this@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A21118(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A21118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4675,33 +4668,34 @@ void *vega::operator<<(void *a1, char *a2)
   return a1;
 }
 
-uint64_t vega::VR::long_str@<X0>(vega::VR *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *vega::VR::long_str@<X0>(uint64_t *__return_ptr a1@<X8>, vega::VR *this@<X0>)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v8);
-  vega::operator<<(&v9, this);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " (", 2);
-  v5 = vega::operator<<(v4);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v9);
+  vega::operator<<(&v10, this);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " (", 2);
+  v8 = *this;
+  v5 = vega::operator<<(v4, &v8);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ")", 1);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v8, a2);
-  v8[0] = *MEMORY[0x1E69E54D8];
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v9, a1);
+  v9[0] = *MEMORY[0x1E69E54D8];
   v6 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v8 + *(v8[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v9 = v6;
-  v10 = MEMORY[0x1E69E5548] + 16;
-  if (v12 < 0)
+  *(v9 + *(v9[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v10 = v6;
+  v11 = MEMORY[0x1E69E5548] + 16;
+  if (v13 < 0)
   {
-    operator delete(v11[7].__locale_);
+    operator delete(v12[7].__locale_);
   }
 
-  v10 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v11);
+  v11 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v12);
   std::iostream::~basic_iostream();
-  return MEMORY[0x1AC552AF0](&v13);
+  return MEMORY[0x1AC552AF0](&v14);
 }
 
-void sub_1A5A213C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A213C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4909,10 +4903,10 @@ uint64_t vega::VR::is_combined_vr(vega::VR *this)
   return result;
 }
 
-uint64_t vega::vr::parse_vr_string(unsigned __int16 *a1)
+uint64_t vega::vr::parse_vr_string(unsigned __int16 *a1, uint64_t a2)
 {
-  v1 = *(a1 + 23);
-  if (v1 < 0)
+  v2 = *(a1 + 23);
+  if (v2 < 0)
   {
     if (*(a1 + 1) != 2)
     {
@@ -4922,7 +4916,7 @@ uint64_t vega::vr::parse_vr_string(unsigned __int16 *a1)
     a1 = *a1;
   }
 
-  else if (v1 != 2)
+  else if (v2 != 2)
   {
 LABEL_7:
     vega::vr::parse_vr_string();
@@ -5074,7 +5068,7 @@ void sub_1A5A21900(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::Age::str@<X0>(vega::Age *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *vega::Age::str@<X0>(uint64_t *__return_ptr a1@<X8>, vega::Age *this@<X0>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v9);
   vega::operator<<(&v10, this);
@@ -5095,7 +5089,7 @@ uint64_t vega::Age::str@<X0>(vega::Age *this@<X0>, _BYTE *a2@<X8>)
     if ((v17 & 8) == 0)
     {
       v4 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_14;
     }
 
@@ -5114,14 +5108,14 @@ uint64_t vega::Age::str@<X0>(vega::Age *this@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
-    memmove(a2, locale, v4);
+    memmove(a1, locale, v4);
   }
 
 LABEL_14:
-  a2[v4] = 0;
+  *(a1 + v4) = 0;
   v9[0] = *MEMORY[0x1E69E54D8];
   v7 = *(MEMORY[0x1E69E54D8] + 72);
   *(v9 + *(v9[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
@@ -5138,11 +5132,11 @@ LABEL_14:
   return MEMORY[0x1AC552AF0](&v18);
 }
 
-void sub_1A5A21B9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A21B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x1E69E54D8]);
-  MEMORY[0x1AC552AF0](v2 + 128);
+  MEMORY[0x1AC552AF0](v3 + 128);
   _Unwind_Resume(a1);
 }
 
@@ -5186,20 +5180,21 @@ uint64_t vega::dicom::IOState::set_dicom_endianness(uint64_t result, int *a2)
 
 vega::dicom::Preamble *vega::dicom::Preamble::Preamble(vega::dicom::Preamble *this, vega::dicom::Reader *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   *this = 1;
-  vega::dicom::Reader::dicom_endian(a2);
-  vega::dicom::Reader::set_dicom_endianness(a2);
-  v15 = 0u;
+  v9 = *vega::dicom::Reader::dicom_endian(a2);
+  LODWORD(__p[0]) = 0;
+  vega::dicom::Reader::set_dicom_endianness(a2, __p);
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
   *__p = 0u;
-  v10 = 0u;
-  v17 = 128;
-  vega::dicom::Reader::seek_delta();
+  v11 = 0u;
+  v18 = 128;
+  vega::dicom::Reader::seek_delta(a2, __p);
   std::vector<char>::vector[abi:ne200100](__p, 4);
   v4 = vega::dictionary::Page::tag_mask(a2);
   v5 = __p[0];
@@ -5216,7 +5211,7 @@ LABEL_6:
   else
   {
     v7 = v4;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(v7) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(v7, v5) & 1) != 0)
     {
       v5 = (v5 + 1);
       if (v5 == v6)
@@ -5230,7 +5225,7 @@ LABEL_6:
   *this = 0;
   vega::dicom::Reader::rewind(a2);
 LABEL_8:
-  vega::dicom::Reader::set_dicom_endianness(a2);
+  vega::dicom::Reader::set_dicom_endianness(a2, &v9);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -5250,37 +5245,37 @@ void sub_1A5A21EC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::dicom::Preamble::write(_BYTE *a1, void *a2)
+uint64_t vega::dicom::Preamble::write(_BYTE *a1)
 {
   if (*a1 != 1)
   {
     return 0;
   }
 
-  v12 = 0;
-  v3 = 32;
+  v10 = 0;
+  v1 = 32;
   do
   {
-    EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(*a2);
-    vega::dicom::RawWriter::write_from<unsigned int>(EncodeAccelerationModeOverride, &v12);
-    --v3;
+    CMPhotoGetEncodeAccelerationModeOverride();
+    vega::dicom::RawWriter::write_from<unsigned int>(v2, &v10);
+    --v1;
   }
 
-  while (v3);
-  v8 = 1296255300;
-  v10 = 0;
-  v11 = 0;
+  while (v1);
+  v6 = 1296255300;
+  v8 = 0;
+  v9 = 0;
   __p = 0;
-  std::vector<char>::__init_with_size[abi:ne200100]<char const*,char const*>(&__p, &v8, &__p, 4);
-  v5 = CMPhotoGetEncodeAccelerationModeOverride(*a2);
-  v6 = vega::dicom::RawWriter::write_from<std::__wrap_iter<char *>>(v5, __p, v10) + 128;
+  std::vector<char>::__init_with_size[abi:ne200100]<char const*,char const*>(&__p, &v6, &__p, 4);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  v4 = vega::dicom::RawWriter::write_from<std::__wrap_iter<char *>>(v3, __p, v8) + 128;
   if (__p)
   {
-    v10 = __p;
+    v8 = __p;
     operator delete(__p);
   }
 
-  return v6;
+  return v4;
 }
 
 void sub_1A5A21FA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
@@ -5293,7 +5288,7 @@ void sub_1A5A21FA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<char>::__init_with_size[abi:ne200100]<char const*,char const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<char>::__init_with_size[abi:ne200100]<char const*,char const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -5324,41 +5319,40 @@ void vega::to_string<std::string>(uint64_t a1@<X0>, std::string *a2@<X8>)
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a2 = *a1;
   }
 }
 
-uint64_t vega::to_string<float>@<X0>(_BYTE *a1@<X8>)
+uint64_t vega::to_string<float>@<X0>(void *a2@<X8>)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v4);
-  *(&v5 + *(v5 - 24) + 8) = *(&v5 + *(v5 - 24) + 8) & 0xFFFFFEFB | 0x100;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v5);
+  *(&v6 + *(v6 - 24) + 8) = *(&v6 + *(v6 - 24) + 8) & 0xFFFFFEFB | 0x100;
   std::ostream::operator<<();
-  std::stringbuf::str[abi:ne200100](&v6, a1);
-  v4[0] = *MEMORY[0x1E69E54D8];
-  v2 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v5 = v2;
-  v6 = MEMORY[0x1E69E5548] + 16;
-  if (v8 < 0)
+  std::stringbuf::str[abi:ne200100](&v7, a2);
+  v5[0] = *MEMORY[0x1E69E54D8];
+  v3 = *(MEMORY[0x1E69E54D8] + 72);
+  *(v5 + *(v5[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v6 = v3;
+  v7 = MEMORY[0x1E69E5548] + 16;
+  if (v9 < 0)
   {
-    operator delete(v7[7].__locale_);
+    operator delete(v8[7].__locale_);
   }
 
-  v6 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v7);
+  v7 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v8);
   std::iostream::~basic_iostream();
-  return MEMORY[0x1AC552AF0](&v9);
+  return MEMORY[0x1AC552AF0](&v10);
 }
 
-void sub_1A5A2220C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A2220C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::to_string<double>@<X0>(double *a1@<X0>, int *a2@<X1>, _BYTE *a3@<X8>)
+uint64_t vega::to_string<double>@<X0>(double *a1@<X0>, int *a2@<X1>, void *a3@<X8>)
 {
   v15 = 0;
   v4 = vega::math::frexp10(&v15, *a1, a2);
@@ -5383,7 +5377,7 @@ uint64_t vega::to_string<double>@<X0>(double *a1@<X0>, int *a2@<X1>, _BYTE *a3@<
   return MEMORY[0x1AC552AF0](&v14);
 }
 
-uint64_t vega::to_string<vega::Byte>@<X0>(_BYTE *a1@<X8>)
+uint64_t vega::to_string<vega::Byte>@<X0>(void *a1@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
   v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v7, "0x", 2);
@@ -5408,12 +5402,11 @@ uint64_t vega::to_string<vega::Byte>@<X0>(_BYTE *a1@<X8>)
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A225FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A225FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -5426,12 +5419,13 @@ void sub_1A5A225FC(_Unwind_Exception *a1, uint64_t a2, ...)
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   std::ostringstream::~ostringstream(va, MEMORY[0x1E69E54E8]);
   MEMORY[0x1AC552AF0](va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::to_string<vega::Word>@<X0>(_BYTE *a1@<X8>)
+uint64_t vega::to_string<vega::Word>@<X0>(void *a1@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v8);
   v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "0x", 2);
@@ -5458,129 +5452,129 @@ uint64_t vega::to_string<vega::Word>@<X0>(_BYTE *a1@<X8>)
   return MEMORY[0x1AC552AF0](&v13);
 }
 
-void sub_1A5A22844(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A22844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::dicom::TransferSyntax::NAME_UID_PAIRS@<X0>(void *a1@<X8>)
+uint64_t *vega::dicom::TransferSyntax::NAME_UID_PAIRS@<X0>(uint64_t *a1@<X8>)
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   {
-    std::string::basic_string[abi:ne200100]<0>(v65, "1.2.840.10008.1.2");
-    vega::UID::UID(&v67, v65);
-    std::string::basic_string[abi:ne200100]<0>(v68, "Implicit VR Little Endian");
-    v69 = v67;
-    memset(&v67, 0, sizeof(v67));
-    std::string::basic_string[abi:ne200100]<0>(v62, "1.2.840.10008.1.2.1");
-    vega::UID::UID(&v64, v62);
-    std::string::basic_string[abi:ne200100]<0>(v70, "Explicit VR Little Endian");
-    v71 = v64;
-    memset(&v64, 0, sizeof(v64));
-    std::string::basic_string[abi:ne200100]<0>(v59, "1.2.840.10008.1.2.1.99");
-    vega::UID::UID(&v61, v59);
-    std::string::basic_string[abi:ne200100]<0>(v72, "Deflated Explicit VR Little Endian");
-    v73 = v61;
-    memset(&v61, 0, sizeof(v61));
-    std::string::basic_string[abi:ne200100]<0>(v56, "1.2.840.10008.1.2.2");
-    vega::UID::UID(&v58, v56);
-    std::string::basic_string[abi:ne200100]<0>(v74, "Explicit VR Big Endian");
-    v75 = v58;
-    memset(&v58, 0, sizeof(v58));
-    std::string::basic_string[abi:ne200100]<0>(v53, "1.2.840.10008.1.2.4.50");
-    vega::UID::UID(&v55, v53);
-    std::string::basic_string[abi:ne200100]<0>(v76, "JPEG Baseline (Process 1)");
-    v77 = v55;
-    memset(&v55, 0, sizeof(v55));
-    std::string::basic_string[abi:ne200100]<0>(v50, "1.2.840.10008.1.2.4.51");
-    vega::UID::UID(&v52, v50);
-    std::string::basic_string[abi:ne200100]<0>(v78, "JPEG Baseline (Processes 2 & 4)");
-    v79 = v52;
-    memset(&v52, 0, sizeof(v52));
-    std::string::basic_string[abi:ne200100]<0>(v47, "1.2.840.10008.1.2.4.57");
-    vega::UID::UID(&v49, v47);
-    std::string::basic_string[abi:ne200100]<0>(v80, "JPEG Lossless, Nonhierarchical (Processes 14)");
-    v81 = v49;
-    memset(&v49, 0, sizeof(v49));
-    std::string::basic_string[abi:ne200100]<0>(v44, "1.2.840.10008.1.2.4.70");
-    vega::UID::UID(&v46, v44);
-    std::string::basic_string[abi:ne200100]<0>(v82, "JPEG Lossless, Nonhierarchical, First-Order Prediction (Processes 14 [Selection Value 1])");
-    v83 = v46;
-    memset(&v46, 0, sizeof(v46));
-    std::string::basic_string[abi:ne200100]<0>(v41, "1.2.840.10008.1.2.4.80");
-    vega::UID::UID(&v43, v41);
-    std::string::basic_string[abi:ne200100]<0>(v84, "JPEG-LS Lossless Image Compression");
-    v85 = v43;
-    memset(&v43, 0, sizeof(v43));
-    std::string::basic_string[abi:ne200100]<0>(v38, "1.2.840.10008.1.2.4.81");
-    vega::UID::UID(&v40, v38);
-    std::string::basic_string[abi:ne200100]<0>(v86, "JPEG-LS Lossy (Near-Lossless) Image Compression");
-    v87 = v40;
-    memset(&v40, 0, sizeof(v40));
-    std::string::basic_string[abi:ne200100]<0>(v35, "1.2.840.10008.1.2.4.90");
-    vega::UID::UID(&v37, v35);
-    std::string::basic_string[abi:ne200100]<0>(v88, "JPEG 2000 Image Compression (Lossless Only)");
-    v89 = v37;
-    memset(&v37, 0, sizeof(v37));
-    std::string::basic_string[abi:ne200100]<0>(v32, "1.2.840.10008.1.2.4.91");
-    vega::UID::UID(&v34, v32);
-    std::string::basic_string[abi:ne200100]<0>(v90, "JPEG 2000 Image Compression");
-    v91 = v34;
-    memset(&v34, 0, sizeof(v34));
-    std::string::basic_string[abi:ne200100]<0>(v29, "1.2.840.10008.1.2.4.92");
-    vega::UID::UID(&v31, v29);
-    std::string::basic_string[abi:ne200100]<0>(v92, "JPEG 2000 Part 2 Multicomponent Image Compression (Lossless Only)");
-    v93 = v31;
-    memset(&v31, 0, sizeof(v31));
-    std::string::basic_string[abi:ne200100]<0>(v26, "1.2.840.10008.1.2.4.93");
-    vega::UID::UID(&v28, v26);
-    std::string::basic_string[abi:ne200100]<0>(v94, "JPEG 2000 Part 2 Multicomponent Image Compression");
-    v95 = v28;
-    memset(&v28, 0, sizeof(v28));
-    std::string::basic_string[abi:ne200100]<0>(v23, "1.2.840.10008.1.2.4.94");
-    vega::UID::UID(&v25, v23);
-    std::string::basic_string[abi:ne200100]<0>(v96, "JPIP Referenced");
-    v97 = v25;
-    memset(&v25, 0, sizeof(v25));
-    std::string::basic_string[abi:ne200100]<0>(v20, "1.2.840.10008.1.2.4.95");
-    vega::UID::UID(&v22, v20);
-    std::string::basic_string[abi:ne200100]<0>(v98, "JPIP Referenced Deflate");
-    v99 = v22;
-    memset(&v22, 0, sizeof(v22));
-    std::string::basic_string[abi:ne200100]<0>(v17, "1.2.840.10008.1.2.5");
-    vega::UID::UID(&v19, v17);
-    std::string::basic_string[abi:ne200100]<0>(v100, "RLE Lossless");
-    v101 = v19;
-    memset(&v19, 0, sizeof(v19));
-    std::string::basic_string[abi:ne200100]<0>(v14, "1.2.840.10008.1.2.6.1");
-    vega::UID::UID(&v16, v14);
-    std::string::basic_string[abi:ne200100]<0>(v102, "RFC 2557 MIME Encapsulation");
-    v103 = v16;
-    memset(&v16, 0, sizeof(v16));
-    std::string::basic_string[abi:ne200100]<0>(v11, "1.2.840.10008.1.2.4.100");
-    vega::UID::UID(&v13, v11);
-    std::string::basic_string[abi:ne200100]<0>(v104, "MPEG2 Main Profile Main Level");
-    v105 = v13;
-    memset(&v13, 0, sizeof(v13));
-    std::string::basic_string[abi:ne200100]<0>(v8, "1.2.840.10008.1.2.4.102");
-    vega::UID::UID(&v10, v8);
-    std::string::basic_string[abi:ne200100]<0>(v106, "MPEG-4 AVC/H.264 High Profile / Level 4.1");
-    v107 = v10;
-    memset(&v10, 0, sizeof(v10));
-    std::string::basic_string[abi:ne200100]<0>(v5, "1.2.840.10008.1.2.4.103");
-    vega::UID::UID(&__p, v5);
-    std::string::basic_string[abi:ne200100]<0>(v108, "MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1");
-    v109 = __p;
+    std::string::basic_string[abi:ne200100]<0>(v64, "1.2.840.10008.1.2");
+    vega::UID::UID(&v66, v64);
+    std::string::basic_string[abi:ne200100]<0>(v67, "Implicit VR Little Endian");
+    v68 = v66;
+    memset(&v66, 0, sizeof(v66));
+    std::string::basic_string[abi:ne200100]<0>(v61, "1.2.840.10008.1.2.1");
+    vega::UID::UID(&v63, v61);
+    std::string::basic_string[abi:ne200100]<0>(v69, "Explicit VR Little Endian");
+    v70 = v63;
+    memset(&v63, 0, sizeof(v63));
+    std::string::basic_string[abi:ne200100]<0>(v58, "1.2.840.10008.1.2.1.99");
+    vega::UID::UID(&v60, v58);
+    std::string::basic_string[abi:ne200100]<0>(v71, "Deflated Explicit VR Little Endian");
+    v72 = v60;
+    memset(&v60, 0, sizeof(v60));
+    std::string::basic_string[abi:ne200100]<0>(v55, "1.2.840.10008.1.2.2");
+    vega::UID::UID(&v57, v55);
+    std::string::basic_string[abi:ne200100]<0>(v73, "Explicit VR Big Endian");
+    v74 = v57;
+    memset(&v57, 0, sizeof(v57));
+    std::string::basic_string[abi:ne200100]<0>(v52, "1.2.840.10008.1.2.4.50");
+    vega::UID::UID(&v54, v52);
+    std::string::basic_string[abi:ne200100]<0>(v75, "JPEG Baseline (Process 1)");
+    v76 = v54;
+    memset(&v54, 0, sizeof(v54));
+    std::string::basic_string[abi:ne200100]<0>(v49, "1.2.840.10008.1.2.4.51");
+    vega::UID::UID(&v51, v49);
+    std::string::basic_string[abi:ne200100]<0>(v77, "JPEG Baseline (Processes 2 & 4)");
+    v78 = v51;
+    memset(&v51, 0, sizeof(v51));
+    std::string::basic_string[abi:ne200100]<0>(v46, "1.2.840.10008.1.2.4.57");
+    vega::UID::UID(&v48, v46);
+    std::string::basic_string[abi:ne200100]<0>(v79, "JPEG Lossless, Nonhierarchical (Processes 14)");
+    v80 = v48;
+    memset(&v48, 0, sizeof(v48));
+    std::string::basic_string[abi:ne200100]<0>(v43, "1.2.840.10008.1.2.4.70");
+    vega::UID::UID(&v45, v43);
+    std::string::basic_string[abi:ne200100]<0>(v81, "JPEG Lossless, Nonhierarchical, First-Order Prediction (Processes 14 [Selection Value 1])");
+    v82 = v45;
+    memset(&v45, 0, sizeof(v45));
+    std::string::basic_string[abi:ne200100]<0>(v40, "1.2.840.10008.1.2.4.80");
+    vega::UID::UID(&v42, v40);
+    std::string::basic_string[abi:ne200100]<0>(v83, "JPEG-LS Lossless Image Compression");
+    v84 = v42;
+    memset(&v42, 0, sizeof(v42));
+    std::string::basic_string[abi:ne200100]<0>(v37, "1.2.840.10008.1.2.4.81");
+    vega::UID::UID(&v39, v37);
+    std::string::basic_string[abi:ne200100]<0>(v85, "JPEG-LS Lossy (Near-Lossless) Image Compression");
+    v86 = v39;
+    memset(&v39, 0, sizeof(v39));
+    std::string::basic_string[abi:ne200100]<0>(v34, "1.2.840.10008.1.2.4.90");
+    vega::UID::UID(&v36, v34);
+    std::string::basic_string[abi:ne200100]<0>(v87, "JPEG 2000 Image Compression (Lossless Only)");
+    v88 = v36;
+    memset(&v36, 0, sizeof(v36));
+    std::string::basic_string[abi:ne200100]<0>(v31, "1.2.840.10008.1.2.4.91");
+    vega::UID::UID(&v33, v31);
+    std::string::basic_string[abi:ne200100]<0>(v89, "JPEG 2000 Image Compression");
+    v90 = v33;
+    memset(&v33, 0, sizeof(v33));
+    std::string::basic_string[abi:ne200100]<0>(v28, "1.2.840.10008.1.2.4.92");
+    vega::UID::UID(&v30, v28);
+    std::string::basic_string[abi:ne200100]<0>(v91, "JPEG 2000 Part 2 Multicomponent Image Compression (Lossless Only)");
+    v92 = v30;
+    memset(&v30, 0, sizeof(v30));
+    std::string::basic_string[abi:ne200100]<0>(v25, "1.2.840.10008.1.2.4.93");
+    vega::UID::UID(&v27, v25);
+    std::string::basic_string[abi:ne200100]<0>(v93, "JPEG 2000 Part 2 Multicomponent Image Compression");
+    v94 = v27;
+    memset(&v27, 0, sizeof(v27));
+    std::string::basic_string[abi:ne200100]<0>(v22, "1.2.840.10008.1.2.4.94");
+    vega::UID::UID(&v24, v22);
+    std::string::basic_string[abi:ne200100]<0>(v95, "JPIP Referenced");
+    v96 = v24;
+    memset(&v24, 0, sizeof(v24));
+    std::string::basic_string[abi:ne200100]<0>(v19, "1.2.840.10008.1.2.4.95");
+    vega::UID::UID(&v21, v19);
+    std::string::basic_string[abi:ne200100]<0>(v97, "JPIP Referenced Deflate");
+    v98 = v21;
+    memset(&v21, 0, sizeof(v21));
+    std::string::basic_string[abi:ne200100]<0>(v16, "1.2.840.10008.1.2.5");
+    vega::UID::UID(&v18, v16);
+    std::string::basic_string[abi:ne200100]<0>(v99, "RLE Lossless");
+    v100 = v18;
+    memset(&v18, 0, sizeof(v18));
+    std::string::basic_string[abi:ne200100]<0>(v13, "1.2.840.10008.1.2.6.1");
+    vega::UID::UID(&v15, v13);
+    std::string::basic_string[abi:ne200100]<0>(v101, "RFC 2557 MIME Encapsulation");
+    v102 = v15;
+    memset(&v15, 0, sizeof(v15));
+    std::string::basic_string[abi:ne200100]<0>(v10, "1.2.840.10008.1.2.4.100");
+    vega::UID::UID(&v12, v10);
+    std::string::basic_string[abi:ne200100]<0>(v103, "MPEG2 Main Profile Main Level");
+    v104 = v12;
+    memset(&v12, 0, sizeof(v12));
+    std::string::basic_string[abi:ne200100]<0>(v7, "1.2.840.10008.1.2.4.102");
+    vega::UID::UID(&v9, v7);
+    std::string::basic_string[abi:ne200100]<0>(v105, "MPEG-4 AVC/H.264 High Profile / Level 4.1");
+    v106 = v9;
+    memset(&v9, 0, sizeof(v9));
+    std::string::basic_string[abi:ne200100]<0>(v4, "1.2.840.10008.1.2.4.103");
+    vega::UID::UID(&__p, v4);
+    std::string::basic_string[abi:ne200100]<0>(v107, "MPEG-4 AVC/H.264 BD-compatible High Profile / Level 4.1");
+    v108 = __p;
     memset(&__p, 0, sizeof(__p));
     qword_1EB1ECC50 = 0;
     unk_1EB1ECC58 = 0;
     vega::dicom::TransferSyntax::NAME_UID_PAIRS(void)::NAME_UID_PAIRS = 0;
-    std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID> const*,std::pair<std::string,vega::UID> const*>(&vega::dicom::TransferSyntax::NAME_UID_PAIRS(void)::NAME_UID_PAIRS, v68, &v110, 0x15uLL);
-    for (i = 960; i != -48; i -= 48)
+    std::vector<std::pair<std::string,vega::UID>>::__init_with_size[abi:ne200100]<std::pair<std::string,vega::UID> const*,std::pair<std::string,vega::UID> const*>(&vega::dicom::TransferSyntax::NAME_UID_PAIRS(void)::NAME_UID_PAIRS, v67, &v109, 0x15uLL);
+    for (i = 120; i != -6; i -= 6)
     {
-      vega::dicom::TransferSyntax::~TransferSyntax(&v68[i]);
+      vega::dicom::TransferSyntax::~TransferSyntax(&v67[i]);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5588,209 +5582,209 @@ uint64_t vega::dicom::TransferSyntax::NAME_UID_PAIRS@<X0>(void *a1@<X8>)
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v6 < 0)
+    if (v5 < 0)
     {
-      operator delete(v5[0]);
+      operator delete(v4[0]);
     }
 
-    if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v10.__r_.__value_.__l.__data_);
+      operator delete(v9.__r_.__value_.__l.__data_);
     }
 
-    if (v9 < 0)
+    if (v8 < 0)
     {
-      operator delete(v8[0]);
+      operator delete(v7[0]);
     }
 
-    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v13.__r_.__value_.__l.__data_);
+      operator delete(v12.__r_.__value_.__l.__data_);
     }
 
-    if (v12 < 0)
+    if (v11 < 0)
     {
-      operator delete(v11[0]);
+      operator delete(v10[0]);
     }
 
-    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v16.__r_.__value_.__l.__data_);
+      operator delete(v15.__r_.__value_.__l.__data_);
     }
 
-    if (v15 < 0)
+    if (v14 < 0)
     {
-      operator delete(v14[0]);
+      operator delete(v13[0]);
     }
 
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v19.__r_.__value_.__l.__data_);
+      operator delete(v18.__r_.__value_.__l.__data_);
     }
 
-    if (v18 < 0)
+    if (v17 < 0)
     {
-      operator delete(v17[0]);
+      operator delete(v16[0]);
     }
 
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v22.__r_.__value_.__l.__data_);
+      operator delete(v21.__r_.__value_.__l.__data_);
     }
 
-    if (v21 < 0)
+    if (v20 < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v19[0]);
     }
 
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v25.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
-    if (v24 < 0)
+    if (v23 < 0)
     {
-      operator delete(v23[0]);
+      operator delete(v22[0]);
     }
 
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v28.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
 
-    if (v27 < 0)
+    if (v26 < 0)
     {
-      operator delete(v26[0]);
+      operator delete(v25[0]);
     }
 
-    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v31.__r_.__value_.__l.__data_);
+      operator delete(v30.__r_.__value_.__l.__data_);
     }
 
-    if (v30 < 0)
+    if (v29 < 0)
     {
-      operator delete(v29[0]);
+      operator delete(v28[0]);
     }
 
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v34.__r_.__value_.__l.__data_);
+      operator delete(v33.__r_.__value_.__l.__data_);
     }
 
-    if (v33 < 0)
+    if (v32 < 0)
     {
-      operator delete(v32[0]);
+      operator delete(v31[0]);
     }
 
-    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v37.__r_.__value_.__l.__data_);
+      operator delete(v36.__r_.__value_.__l.__data_);
     }
 
-    if (v36 < 0)
+    if (v35 < 0)
     {
-      operator delete(v35[0]);
+      operator delete(v34[0]);
     }
 
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v40.__r_.__value_.__l.__data_);
+      operator delete(v39.__r_.__value_.__l.__data_);
     }
 
-    if (v39 < 0)
+    if (v38 < 0)
     {
-      operator delete(v38[0]);
+      operator delete(v37[0]);
     }
 
-    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v43.__r_.__value_.__l.__data_);
+      operator delete(v42.__r_.__value_.__l.__data_);
     }
 
-    if (v42 < 0)
+    if (v41 < 0)
     {
-      operator delete(v41[0]);
+      operator delete(v40[0]);
     }
 
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
     }
 
-    if (v45 < 0)
+    if (v44 < 0)
     {
-      operator delete(v44[0]);
+      operator delete(v43[0]);
     }
 
-    if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v49.__r_.__value_.__l.__data_);
+      operator delete(v48.__r_.__value_.__l.__data_);
     }
 
-    if (v48 < 0)
+    if (v47 < 0)
     {
-      operator delete(v47[0]);
+      operator delete(v46[0]);
     }
 
-    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v52.__r_.__value_.__l.__data_);
+      operator delete(v51.__r_.__value_.__l.__data_);
     }
 
-    if (v51 < 0)
+    if (v50 < 0)
     {
-      operator delete(v50[0]);
+      operator delete(v49[0]);
     }
 
-    if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v55.__r_.__value_.__l.__data_);
+      operator delete(v54.__r_.__value_.__l.__data_);
     }
 
-    if (v54 < 0)
+    if (v53 < 0)
     {
-      operator delete(v53[0]);
+      operator delete(v52[0]);
     }
 
-    if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v58.__r_.__value_.__l.__data_);
+      operator delete(v57.__r_.__value_.__l.__data_);
     }
 
-    if (v57 < 0)
+    if (v56 < 0)
     {
-      operator delete(v56[0]);
+      operator delete(v55[0]);
     }
 
-    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v61.__r_.__value_.__l.__data_);
+      operator delete(v60.__r_.__value_.__l.__data_);
     }
 
-    if (v60 < 0)
+    if (v59 < 0)
     {
-      operator delete(v59[0]);
+      operator delete(v58[0]);
     }
 
-    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v64.__r_.__value_.__l.__data_);
+      operator delete(v63.__r_.__value_.__l.__data_);
     }
 
-    if (v63 < 0)
+    if (v62 < 0)
     {
-      operator delete(v62[0]);
+      operator delete(v61[0]);
     }
 
-    if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v67.__r_.__value_.__l.__data_);
+      operator delete(v66.__r_.__value_.__l.__data_);
     }
 
-    if (v66 < 0)
+    if (v65 < 0)
     {
-      operator delete(v65[0]);
+      operator delete(v64[0]);
     }
   }
 
@@ -5802,16 +5796,16 @@ uint64_t vega::dicom::TransferSyntax::NAME_UID_PAIRS@<X0>(void *a1@<X8>)
 
 void sub_1A5A232D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
-  v94 = -1008;
-  v95 = v92;
+  v89 = -1008;
+  v90 = v87;
   do
   {
-    vega::dicom::TransferSyntax::~TransferSyntax(v95);
-    v95 = (v96 - 48);
-    v94 += 48;
+    vega::dicom::TransferSyntax::~TransferSyntax(v90);
+    v90 = (v91 - 48);
+    v89 += 48;
   }
 
-  while (v94);
+  while (v89);
   if (a21 < 0)
   {
     operator delete(__p);
@@ -5852,7 +5846,7 @@ void sub_1A5A232D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a46);
   }
 
-  if (a69 < 0)
+  if (a65 < 0)
   {
     operator delete(a64);
   }
@@ -5862,54 +5856,54 @@ void sub_1A5A232D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a58);
   }
 
-  if (a74 < 0)
+  if (a69 < 0)
   {
-    operator delete(a73);
+    operator delete(a68);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
+  {
+    operator delete(a66);
+  }
+
+  if (a73 < 0)
+  {
+    operator delete(a72);
+  }
+
+  if (a71 < 0)
   {
     operator delete(a70);
   }
 
-  if (a78 < 0)
+  if (a77 < 0)
   {
-    operator delete(a77);
+    operator delete(a76);
   }
 
-  if (a76 < 0)
+  if (a75 < 0)
   {
-    operator delete(a75);
+    operator delete(a74);
   }
 
-  if (a82 < 0)
+  if (a81 < 0)
   {
-    operator delete(a81);
+    operator delete(a80);
   }
 
-  if (a80 < 0)
+  if (a79 < 0)
   {
-    operator delete(a79);
+    operator delete(a78);
   }
 
-  if (a86 < 0)
+  if (a85 < 0)
   {
-    operator delete(a85);
+    operator delete(a84);
   }
 
-  if (a84 < 0)
+  if (a83 < 0)
   {
-    operator delete(a83);
-  }
-
-  if (a90 < 0)
-  {
-    operator delete(a89);
-  }
-
-  if (a88 < 0)
-  {
-    operator delete(a87);
+    operator delete(a82);
   }
 
   if (SLOBYTE(STACK[0x217]) < 0)
@@ -5917,9 +5911,9 @@ void sub_1A5A232D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x200]);
   }
 
-  if (a92 < 0)
+  if (a87 < 0)
   {
-    operator delete(a91);
+    operator delete(a86);
   }
 
   if (SLOBYTE(STACK[0x247]) < 0)
@@ -6025,70 +6019,70 @@ void sub_1A5A232D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void vega::dicom::TransferSyntax::generate_name_to_uid_map(void *a1@<X8>)
+void vega::dicom::TransferSyntax::generate_name_to_uid_map(uint64_t a1@<X8>)
 {
-  a1[2] = 0;
-  a1[1] = 0;
-  *a1 = a1 + 1;
-  vega::dicom::TransferSyntax::NAME_UID_PAIRS(v5);
-  v3 = v5[0];
-  v4 = v5[1];
-  while (v3 != v4)
+  *(a1 + 16) = 0;
+  *(a1 + 8) = 0;
+  *a1 = a1 + 8;
+  vega::dicom::TransferSyntax::NAME_UID_PAIRS(v4);
+  v2 = v4[0];
+  v3 = v4[1];
+  while (v2 != v3)
   {
-    std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_unique_key_args<std::string,std::pair<std::string,vega::UID> const&>(a1, v3);
-    v3 += 6;
+    std::__tree<std::__value_type<std::string,vega::UID>,std::__map_value_compare<std::string,std::__value_type<std::string,vega::UID>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,vega::UID>>>::__emplace_unique_key_args<std::string,std::pair<std::string,vega::UID> const&>(a1, v2, v2);
+    v2 += 6;
   }
 
-  v6 = v5;
-  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v5 = v4;
+  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
-void vega::dicom::TransferSyntax::generate_uid_to_name_map(void *a1@<X8>)
+void vega::dicom::TransferSyntax::generate_uid_to_name_map(uint64_t a1@<X8>)
 {
-  a1[2] = 0;
-  a1[1] = 0;
-  *a1 = a1 + 1;
-  vega::dicom::TransferSyntax::NAME_UID_PAIRS(v9);
-  v3 = v9[0];
-  v4 = v9[1];
-  while (v3 != v4)
+  *(a1 + 16) = 0;
+  *(a1 + 8) = 0;
+  *a1 = a1 + 8;
+  vega::dicom::TransferSyntax::NAME_UID_PAIRS(v8);
+  v2 = v8[0];
+  v3 = v8[1];
+  while (v2 != v3)
   {
-    EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(v3 + 24);
-    std::pair<std::string,std::string>::pair[abi:ne200100]<true,0>(&v6, EncodeAccelerationModeOverride, v3);
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string> &>(a1, &v6.__r_.__value_.__l.__data_);
-    if (v8 < 0)
+    CMPhotoGetEncodeAccelerationModeOverride();
+    std::pair<std::string,std::string>::pair[abi:ne200100]<true,0>(&v5, v4, v2);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string> &>(a1, &v5, &v5);
+    if (v7 < 0)
     {
       operator delete(__p);
     }
 
-    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v6.__r_.__value_.__l.__data_);
+      operator delete(v5.__r_.__value_.__l.__data_);
     }
 
-    v3 += 3;
+    v2 += 3;
   }
 
-  v6.__r_.__value_.__r.__words[0] = v9;
-  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v5.__r_.__value_.__r.__words[0] = v8;
+  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
-void *vega::dicom::TransferSyntax::NAME_TO_UID_MAP@<X0>(void *a1@<X8>)
+uint64_t *vega::dicom::TransferSyntax::NAME_TO_UID_MAP@<X0>(uint64_t *a1@<X8>)
 {
   {
-    vega::dicom::TransferSyntax::generate_name_to_uid_map(vega::dicom::TransferSyntax::NAME_TO_UID_MAP(void)::NAME_TO_UID_MAP);
+    vega::dicom::TransferSyntax::generate_name_to_uid_map(&vega::dicom::TransferSyntax::NAME_TO_UID_MAP(void)::NAME_TO_UID_MAP);
   }
 
-  return std::map<std::string,vega::UID>::map[abi:ne200100](a1, vega::dicom::TransferSyntax::NAME_TO_UID_MAP(void)::NAME_TO_UID_MAP);
+  return std::map<std::string,vega::UID>::map[abi:ne200100](a1, &vega::dicom::TransferSyntax::NAME_TO_UID_MAP(void)::NAME_TO_UID_MAP);
 }
 
-void *vega::dicom::TransferSyntax::UID_TO_NAME_MAP@<X0>(void *a1@<X8>)
+uint64_t *vega::dicom::TransferSyntax::UID_TO_NAME_MAP@<X0>(uint64_t *a1@<X8>)
 {
   {
-    vega::dicom::TransferSyntax::generate_uid_to_name_map(vega::dicom::TransferSyntax::UID_TO_NAME_MAP(void)::UID_TO_NAME_MAP);
+    vega::dicom::TransferSyntax::generate_uid_to_name_map(&vega::dicom::TransferSyntax::UID_TO_NAME_MAP(void)::UID_TO_NAME_MAP);
   }
 
-  return std::map<std::string,std::string>::map[abi:ne200100](a1, vega::dicom::TransferSyntax::UID_TO_NAME_MAP(void)::UID_TO_NAME_MAP);
+  return std::map<std::string,std::string>::map[abi:ne200100](a1, &vega::dicom::TransferSyntax::UID_TO_NAME_MAP(void)::UID_TO_NAME_MAP);
 }
 
 void vega::dicom::TransferSyntax::IMPLICIT_VR_LITTLE_ENDIAN(std::string *a1@<X8>)
@@ -6096,7 +6090,7 @@ void vega::dicom::TransferSyntax::IMPLICIT_VR_LITTLE_ENDIAN(std::string *a1@<X8>
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "Implicit VR Little Endian");
     vega::dicom::TransferSyntax::TransferSyntax(&vega::dicom::TransferSyntax::IMPLICIT_VR_LITTLE_ENDIAN(void)::IMPLICIT_VR_LITTLE_ENDIAN, __p);
-    if (v4 < 0)
+    if (v3 < 0)
     {
       operator delete(__p[0]);
     }
@@ -6140,7 +6134,7 @@ void vega::dicom::TransferSyntax::EXPLICIT_VR_LITTLE_ENDIAN(std::string *a1@<X8>
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "Explicit VR Little Endian");
     vega::dicom::TransferSyntax::TransferSyntax(&vega::dicom::TransferSyntax::EXPLICIT_VR_LITTLE_ENDIAN(void)::EXPLICIT_VR_LITTLE_ENDIAN, __p);
-    if (v4 < 0)
+    if (v3 < 0)
     {
       operator delete(__p[0]);
     }
@@ -6184,7 +6178,7 @@ void vega::dicom::TransferSyntax::DEFLATED_EXPLICIT_VR_LITTLE_ENDIAN(std::string
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "Deflated Explicit VR Little Endian");
     vega::dicom::TransferSyntax::TransferSyntax(&vega::dicom::TransferSyntax::DEFLATED_EXPLICIT_VR_LITTLE_ENDIAN(void)::DEFLATED_EXPLICIT_VR_LITTLE_ENDIAN, __p);
-    if (v4 < 0)
+    if (v3 < 0)
     {
       operator delete(__p[0]);
     }
@@ -6228,7 +6222,7 @@ void vega::dicom::TransferSyntax::EXPLICIT_VR_BIG_ENDIAN(std::string *a1@<X8>)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "Explicit VR Big Endian");
     vega::dicom::TransferSyntax::TransferSyntax(&vega::dicom::TransferSyntax::EXPLICIT_VR_BIG_ENDIAN(void)::EXPLICIT_VR_BIG_ENDIAN, __p);
-    if (v4 < 0)
+    if (v3 < 0)
     {
       operator delete(__p[0]);
     }
@@ -6303,10 +6297,10 @@ std::string *vega::dicom::TransferSyntax::TransferSyntax(std::string *this, __in
   vega::UID::UID(this[1].__r_.__value_.__r.__words);
   vega::dicom::TransferSyntax::NAME_TO_UID_MAP(&v17);
   vega::dicom::TransferSyntax::UID_TO_NAME_MAP(&v15);
-  v4 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v17, &this->__r_.__value_.__l.__data_);
+  v4 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v17, this);
   if (&v18 == v4)
   {
-    v5 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v15, &this->__r_.__value_.__l.__data_);
+    v5 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v15, this);
     if (&v16 == v5)
     {
       exception = __cxa_allocate_exception(0x10uLL);
@@ -6363,7 +6357,7 @@ std::string *vega::dicom::TransferSyntax::TransferSyntax(std::string *this, __in
   return this;
 }
 
-void sub_1A5A2421C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, void *a24)
+void sub_1A5A2421C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *a24)
 {
   if (a21 < 0)
   {
@@ -6403,8 +6397,7 @@ LABEL_8:
 
 std::string *vega::dicom::TransferSyntax::TransferSyntax(std::string *this, const vega::UID *a2)
 {
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
   this->__r_.__value_.__r.__words[2] = 0;
   if (*(a2 + 23) < 0)
   {
@@ -6419,13 +6412,13 @@ std::string *vega::dicom::TransferSyntax::TransferSyntax(std::string *this, cons
   }
 
   vega::dicom::TransferSyntax::UID_TO_NAME_MAP(&v16);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(&this[1]);
-  v5 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v16, EncodeAccelerationModeOverride);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  v5 = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(&v16, v4);
   if (&v17 == v5)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v14, "Could not find transfer syntax with uid: ");
-    v8 = CMPhotoGetEncodeAccelerationModeOverride(&this[1]);
+    CMPhotoGetEncodeAccelerationModeOverride();
     v9 = *(v8 + 23);
     if (v9 >= 0)
     {
@@ -6463,7 +6456,7 @@ std::string *vega::dicom::TransferSyntax::TransferSyntax(std::string *this, cons
   return this;
 }
 
-void sub_1A5A24438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, void *a23)
+void sub_1A5A24438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23)
 {
   if (a21 < 0)
   {
@@ -6551,7 +6544,7 @@ BOOL vega::dicom::TransferSyntax::endianness(vega::dicom::TransferSyntax *this)
   return v2;
 }
 
-void *std::__shared_ptr_emplace<std::vector<char>>::__shared_ptr_emplace[abi:ne200100]<unsigned long &,std::allocator<std::vector<char>>,0>(void *a1, uint64_t *a2)
+void *std::__shared_ptr_emplace<std::vector<char>>::__shared_ptr_emplace[abi:ne200100]<unsigned long &,std::allocator<std::vector<char>>,0>(void *a1, size_t *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -6578,7 +6571,7 @@ void std::__shared_ptr_emplace<std::vector<char>>::__on_zero_shared(uint64_t a1)
   }
 }
 
-uint64_t std::__shared_ptr_emplace<std::vector<char>>::__shared_ptr_emplace[abi:ne200100]<char const* const&,char const* const&,std::allocator<std::vector<char>>,0>(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t std::__shared_ptr_emplace<std::vector<char>>::__shared_ptr_emplace[abi:ne200100]<char const* const&,char const* const&,std::allocator<std::vector<char>>,0>(uint64_t a1, char **a2, char **a3)
 {
   *(a1 + 8) = 0u;
   *a1 = &unk_1F1919838;
@@ -6586,7 +6579,7 @@ uint64_t std::__shared_ptr_emplace<std::vector<char>>::__shared_ptr_emplace[abi:
   v5 = *a3;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0u;
-  std::vector<char>::__init_with_size[abi:ne200100]<char const*,char const*>(a1 + 24, v4, v5, v5 - v4);
+  std::vector<char>::__init_with_size[abi:ne200100]<char const*,char const*>((a1 + 24), v4, v5, v5 - v4);
   return a1;
 }
 
@@ -7061,7 +7054,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-uint64_t vega::dicom::DataElement::DataElement(uint64_t a1, _DWORD *a2, vega::VR *a3, uint64_t a4)
+uint64_t vega::dicom::DataElement::DataElement(uint64_t a1, vega::Tag *a2, vega::VR *a3, uint64_t a4)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -7110,7 +7103,7 @@ uint64_t vega::dicom::DataElement::DataElement(uint64_t a1, _DWORD *a2, vega::VR
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v61, "DataElement cannot be constructed with multi-VR of ");
-    vega::VR::str(v8, &v60);
+    vega::VR::str(&v60, v8);
     if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v14 = &v60;
@@ -7179,12 +7172,12 @@ uint64_t vega::dicom::DataElement::DataElement(uint64_t a1, _DWORD *a2, vega::VR
     v18->__vftable = &unk_1F1917110;
   }
 
-  if (!vega::dictionary::Page::allows_vr(v11, v8))
+  if ((vega::dictionary::Page::allows_vr(v11, v8) & 1) == 0)
   {
     v23 = a3;
     v24 = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v55, "In DataElement(Tag, VR), invalid VR of ");
-    vega::VR::str(v23, v53);
+    vega::VR::str(v53, v23);
     if ((v54 & 0x80u) == 0)
     {
       v25 = v53;
@@ -7468,7 +7461,7 @@ __n128 vega::dicom::DataElement::set_value_field(uint64_t a1, uint64_t *a2, uint
 
 void vega::dicom::DataElement::lazy_load(vega::dicom::DataElement *this)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v1 = (this + 88);
   if (*(this + 11))
   {
@@ -7497,7 +7490,7 @@ void vega::dicom::DataElement::lazy_load(vega::dicom::DataElement *this)
         v1[1] = 0;
       }
 
-      vega::dicom::Reader::tell(v24, v3);
+      vega::dicom::Reader::tell();
       v6 = *(this + 184);
       v7 = *(this + 216);
       v21 = *(this + 200);
@@ -7511,7 +7504,7 @@ void vega::dicom::DataElement::lazy_load(vega::dicom::DataElement *this)
       v20 = v6;
       v15 = *(this + 104);
       v16 = v8;
-      vega::dicom::Reader::seek_pos();
+      vega::dicom::Reader::seek_pos(v3, &v15);
       if (!vega::dicom::DataElement::is_sequence(this))
       {
         if (!vega::dicom::DataElementHeader::is_undefined_length((this + 16)))
@@ -7534,16 +7527,16 @@ void vega::dicom::DataElement::lazy_load(vega::dicom::DataElement *this)
       }
 
       vega::dicom::DataElement::read_finite_sequence(this, v14);
-      v21 = v24[6];
-      v22 = v24[7];
-      v23 = v25;
-      v17 = v24[2];
-      v18 = v24[3];
-      v19 = v24[4];
-      v20 = v24[5];
-      v15 = v24[0];
-      v16 = v24[1];
-      vega::dicom::Reader::seek_pos();
+      v21 = v30;
+      v22 = v31;
+      v23 = v32;
+      v17 = v26;
+      v18 = v27;
+      v19 = v28;
+      v20 = v29;
+      v15 = v24;
+      v16 = v25;
+      vega::dicom::Reader::seek_pos(v3, &v15);
       if (v4)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -7581,7 +7574,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t vega::dicom::DataElement::str(vega::dicom::DataElement *this)
+uint64_t *vega::dicom::DataElement::str(vega::dicom::DataElement *this)
 {
   vega::dicom::DataElement::lazy_load(this);
   v2 = *(**(this + 30) + 24);
@@ -7608,40 +7601,39 @@ uint64_t vega::dicom::DataElement::is_sequence(vega::dicom::DataElement *this)
 
 uint64_t *vega::dicom::DataElement::read_finite_sequence(uint64_t a1, vega::dicom::Reader **a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  vega::dicom::Reader::tell(v11, *a2);
+  v12 = *MEMORY[0x1E69E9840];
+  vega::dicom::Reader::tell();
   v4 = *(a1 + 24);
-  v5 = v12;
-  result = vega::dicom::Reader::tell(v11, *a2);
-  v7 = v5 + v4;
-  while (v12 < v7)
+  result = vega::dicom::Reader::tell();
+  v6 = v11 + v4;
+  while (v11 < v6)
   {
-    v8 = *a2;
-    std::shared_ptr<vega::dicom::Reader>::shared_ptr[abi:ne200100]<vega::dicom::Reader,0>(&v9, a1);
-    v10 = v9;
-    v9 = 0uLL;
-    vega::dicom::Reader::read_data_set(v8, v11);
-    if (*(&v10 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
-    }
-
+    v7 = *a2;
+    std::shared_ptr<vega::dicom::Reader>::shared_ptr[abi:ne200100]<vega::dicom::Reader,0>(&v8, a1);
+    v9 = v8;
+    v8 = 0uLL;
+    vega::dicom::Reader::read_data_set(v7, v10);
     if (*(&v9 + 1))
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&v9 + 1));
     }
 
-    if (*&v11[0])
+    if (*(&v8 + 1))
     {
-      std::vector<std::shared_ptr<vega::manipulators::OtherWordManipulator>>::push_back[abi:ne200100]((a1 + 64), v11);
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v8 + 1));
     }
 
-    if (*(&v11[0] + 1))
+    if (*&v10[0])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v11[0] + 1));
+      std::vector<std::shared_ptr<vega::manipulators::OtherWordManipulator>>::push_back[abi:ne200100]((a1 + 64), v10);
     }
 
-    result = vega::dicom::Reader::tell(v11, *a2);
+    if (*(&v10[0] + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10[0] + 1));
+    }
+
+    result = vega::dicom::Reader::tell();
   }
 
   return result;
@@ -8009,7 +8001,7 @@ BOOL vega::manipulators::SingleStringManipulator::read_from(void **this, vega::d
     v14 = 0;
     v7 = 1;
     v8 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       LOBYTE(v12) = v14;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, &v12, 1);
@@ -8066,9 +8058,9 @@ BOOL vega::manipulators::SingleStringManipulator::read_from(void **this, vega::d
   return v6;
 }
 
-void sub_1A5A26D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1A5A26D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -8149,7 +8141,7 @@ void *vega::manipulators::SingleStringManipulator::operator==(uint64_t a1, void 
       }
 
       v14 = result[1];
-      v12 = (result + 1);
+      v12 = result + 1;
       v13 = v14;
       if (v7 >= 0)
       {
@@ -8195,7 +8187,7 @@ void vega::manipulators::SingleStringManipulator::~SingleStringManipulator(void 
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -8205,24 +8197,24 @@ void vega::manipulators::SingleStringManipulator::~SingleStringManipulator(void 
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-void std::__shared_ptr_emplace<vega::dicom::RawValue>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::allocator<vega::dicom::RawValue>,0>(void *a1)
+void std::__shared_ptr_emplace<vega::dicom::RawValue>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::allocator<vega::dicom::RawValue>,0>(void *a1, uint64_t *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917E00;
-  vega::dicom::RawValue::RawValue();
+  vega::dicom::RawValue::RawValue((a1 + 3), a2);
 }
 
 uint64_t CMPhotoDetectCorruptionForSource(void *a1, uint64_t a2, char *a3)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = 0;
+  v28[1] = *MEMORY[0x1E69E9840];
+  v22 = 0;
+  v23 = 0;
   v3 = 4294950306;
   if (!a1 || !a3)
   {
@@ -8235,7 +8227,7 @@ uint64_t CMPhotoDetectCorruptionForSource(void *a1, uint64_t a2, char *a3)
     goto LABEL_40;
   }
 
-  v7 = CMPhotoByteStreamCreateFromSource(a1, 0, 0, 0, &v21, 0);
+  v7 = CMPhotoByteStreamCreateFromSource(a1, 0, 0, 0, &v23, 0);
   if (v7)
   {
 LABEL_40:
@@ -8243,55 +8235,55 @@ LABEL_40:
     goto LABEL_35;
   }
 
-  if (!CMPhotoImageContainerFormatDetectFromBytestream(v21, 0, 0))
+  if (!CMPhotoImageContainerFormatDetectFromBytestream(v23, 0, 0))
   {
     v7 = _detectCorruptionForFile(a1, a2, a3);
     goto LABEL_40;
   }
 
-  v19 = 0;
-  if (!CMPhotoDetectDNGHeaderFromBytestream(v21, &v19, 0, 0) && v19)
+  v21 = 0;
+  if (!CMPhotoDetectDNGHeaderFromBytestream(v23, &v21, 0, 0) && v21)
   {
     cf[0] = 0;
-    v23 = 0;
+    v25 = 0;
+    v26 = 0;
     v24 = 0;
-    v22 = 0;
-    v25 = @"MainBufferPixelFormat";
-    v26[0] = &unk_1F194A0A8;
-    if (CMPhotoDNGUnpack(a1, [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1], 0, cf, &v24, &v23))
+    v27 = @"MainBufferPixelFormat";
+    v28[0] = &unk_1F194A0A8;
+    if (CMPhotoDNGUnpack(a1, [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1], 0, cf, &v26, &v25))
     {
-      v3 = FigSignalErrorAtGM();
+      v3 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v17, v18);
       v9 = 0;
       goto LABEL_25;
     }
 
-    v8 = _detectCorruptionForImage(cf[0], a2, &v22);
-    v9 = v22;
+    v8 = _detectCorruptionForImage(cf[0], a2, &v24);
+    v9 = v24;
     if (!v8)
     {
-      if (v22)
+      if (v24)
       {
         goto LABEL_20;
       }
 
-      if (!v24)
+      if (!v26)
       {
         goto LABEL_12;
       }
 
-      v8 = _detectCorruptionForFile(v24, a2, &v22);
-      v9 = v22;
+      v8 = _detectCorruptionForFile(v26, a2, &v24);
+      v9 = v24;
       if (!v8)
       {
-        if (!v22)
+        if (!v24)
         {
 LABEL_12:
           for (i = 0; ; ++i)
           {
-            Count = v23;
-            if (v23)
+            Count = v25;
+            if (v25)
             {
-              Count = CFArrayGetCount(v23);
+              Count = CFArrayGetCount(v25);
             }
 
             if (i >= Count)
@@ -8299,18 +8291,18 @@ LABEL_12:
               break;
             }
 
-            ValueAtIndex = CFArrayGetValueAtIndex(v23, i);
+            ValueAtIndex = CFArrayGetValueAtIndex(v25, i);
             Value = CFDictionaryGetValue(ValueAtIndex, @"AuxPixelBuffer");
             if (Value)
             {
-              v8 = _detectCorruptionForImage(Value, a2, &v22);
-              v9 = v22;
+              v8 = _detectCorruptionForImage(Value, a2, &v24);
+              v9 = v24;
               if (v8)
               {
                 goto LABEL_44;
               }
 
-              if (v22)
+              if (v24)
               {
                 goto LABEL_20;
               }
@@ -8318,7 +8310,7 @@ LABEL_12:
           }
 
           v3 = 0;
-          v9 = v22;
+          v9 = v24;
 LABEL_25:
           *a3 = v9;
           if (cf[0])
@@ -8326,14 +8318,14 @@ LABEL_25:
             CFRelease(cf[0]);
           }
 
-          if (v24)
+          if (v26)
           {
-            CFRelease(v24);
+            CFRelease(v26);
           }
 
-          if (v23)
+          if (v25)
           {
-            CFRelease(v23);
+            CFRelease(v25);
           }
 
           if (v3)
@@ -8356,11 +8348,11 @@ LABEL_44:
   }
 
   *cf = 0u;
-  v18 = 0u;
+  v20 = 0u;
   BYTE4(v16) = 0;
   LODWORD(v16) = 0;
-  PixelBufferWithURL = CMPhotoCreatePixelBufferWithURL(a1, 0, 0, 0, 0, 0, cf, 0, v16, 1, &v20);
-  if (PixelBufferWithURL || (PixelBufferWithURL = _detectCorruptionForImage(v20, a2, a3), PixelBufferWithURL))
+  PixelBufferWithURL = CMPhotoCreatePixelBufferWithURL(a1, 0, 0, 0, 0, 0, cf, 0, v16, 1, &v22);
+  if (PixelBufferWithURL || (PixelBufferWithURL = _detectCorruptionForImage(v22, a2, a3), PixelBufferWithURL))
   {
     v3 = PixelBufferWithURL;
     goto LABEL_33;
@@ -8369,21 +8361,21 @@ LABEL_44:
 LABEL_32:
   v3 = 0;
 LABEL_33:
-  if (v20)
+  if (v22)
   {
-    CFRelease(v20);
+    CFRelease(v22);
   }
 
 LABEL_35:
-  if (v21)
+  if (v23)
   {
-    CFRelease(v21);
+    CFRelease(v23);
   }
 
   return v3;
 }
 
-uint64_t _detectCorruptionForFile(void *a1, uint64_t a2, _BYTE *a3)
+uint64_t _detectCorruptionForFile(const __CFData *a1, uint64_t a2, _BYTE *a3)
 {
   v59 = 0;
   v58 = 0;
@@ -8564,11 +8556,11 @@ LABEL_33:
   return v7;
 }
 
-uint64_t _detectCorruptionForImage(void *a1, uint64_t a2, char *a3)
+unint64_t _detectCorruptionForImage(void *a1, uint64_t a2, char *a3)
 {
-  v215[3] = *MEMORY[0x1E69E9840];
-  v206 = 0;
-  v207 = 0;
+  v219[3] = *MEMORY[0x1E69E9840];
+  v210 = 0;
+  v211 = 0;
   if (!a1)
   {
     return 4294950306;
@@ -8578,29 +8570,29 @@ uint64_t _detectCorruptionForImage(void *a1, uint64_t a2, char *a3)
   if (!a3)
   {
     cf = 0;
-    v59 = 4294950306;
+    v60 = 4294950306;
     goto LABEL_291;
   }
 
   v5 = *MEMORY[0x1E695E480];
-  PixelBufferFromImage = CMPhotoCreatePixelBufferFromImage(*MEMORY[0x1E695E480], a1, &v207);
+  PixelBufferFromImage = CMPhotoCreatePixelBufferFromImage(*MEMORY[0x1E695E480], a1, &v211);
   if (PixelBufferFromImage)
   {
-    v59 = PixelBufferFromImage;
+    v60 = PixelBufferFromImage;
     cf = 0;
     goto LABEL_291;
   }
 
-  v185 = a2;
-  PixelFormatType = CVPixelBufferGetPixelFormatType(v207);
+  v189 = a2;
+  PixelFormatType = CVPixelBufferGetPixelFormatType(v211);
   v8 = PixelFormatType;
   BitDepthForPixelFormat = CMPhotoGetBitDepthForPixelFormat(PixelFormatType);
-  PixelBufferCLAPAsRect = CMPhotoGetPixelBufferCLAPAsRect(v207);
+  PixelBufferCLAPAsRect = CMPhotoGetPixelBufferCLAPAsRect(v211);
   v14 = v13;
   v15 = PixelBufferCLAPAsRect == *MEMORY[0x1E695EFF8] && v11 == *(MEMORY[0x1E695EFF8] + 8);
   if (v15)
   {
-    v17 = v12 != CMPhotoGetPixelBufferSize(v207);
+    v17 = v12 != CMPhotoGetPixelBufferSize(v211);
     v16 = v14 != v18 || v17;
   }
 
@@ -8609,13 +8601,13 @@ uint64_t _detectCorruptionForImage(void *a1, uint64_t a2, char *a3)
     v16 = 1;
   }
 
-  if (CMPhotoPixelBufferContainsRGB(v207) || BitDepthForPixelFormat != 8 || v16)
+  if (CMPhotoPixelBufferContainsRGB(v211) || BitDepthForPixelFormat != 8 || v16)
   {
     Mutable = CFDictionaryCreateMutable(v5, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     if (!Mutable)
     {
       cf = 0;
-      v59 = 4294950305;
+      v60 = 4294950305;
       goto LABEL_291;
     }
 
@@ -8628,20 +8620,20 @@ uint64_t _detectCorruptionForImage(void *a1, uint64_t a2, char *a3)
       goto LABEL_299;
     }
 
-    v22 = CMPhotoScaleAndRotateSessionTransformImage(0, v207, v21, &v206);
+    v22 = CMPhotoScaleAndRotateSessionTransformImage(0, v211, v21, &v210);
     if (v22)
     {
       goto LABEL_299;
     }
 
-    if (v207)
+    if (v211)
     {
-      CFRelease(v207);
+      CFRelease(v211);
     }
 
-    v23 = v206;
-    v206 = 0;
-    v207 = v23;
+    v23 = v210;
+    v210 = 0;
+    v211 = v23;
     v19 = CMPhotoGetBitDepthForPixelFormat(1278226488) == 8;
   }
 
@@ -8651,8 +8643,8 @@ uint64_t _detectCorruptionForImage(void *a1, uint64_t a2, char *a3)
     v19 = 1;
   }
 
-  v196 = v19;
-  IsPlanar = CVPixelBufferIsPlanar(v207);
+  v200 = v19;
+  IsPlanar = CVPixelBufferIsPlanar(v211);
   v25 = v8 - 1278226736;
   if (IsPlanar)
   {
@@ -8660,16 +8652,16 @@ uint64_t _detectCorruptionForImage(void *a1, uint64_t a2, char *a3)
     {
       if (v8 != 1278226488)
       {
-        PlaneCount = CVPixelBufferGetPlaneCount(v207);
-        CVPixelBufferLockBaseAddress(v207, 1uLL);
+        PlaneCount = CVPixelBufferGetPlaneCount(v211);
+        CVPixelBufferLockBaseAddress(v211, 1uLL);
         if (!PlaneCount)
         {
           v27 = 0;
 LABEL_289:
-          v59 = 0;
+          v60 = 0;
           *v3 = v27;
 LABEL_290:
-          CVPixelBufferUnlockBaseAddress(v207, 1uLL);
+          CVPixelBufferUnlockBaseAddress(v211, 1uLL);
           goto LABEL_291;
         }
 
@@ -8679,12 +8671,12 @@ LABEL_290:
 
 LABEL_33:
     PlaneCount = 1;
-    CVPixelBufferLockBaseAddress(v207, 1uLL);
+    CVPixelBufferLockBaseAddress(v211, 1uLL);
 LABEL_34:
-    v182 = v3;
+    v186 = v3;
     v28 = 0;
-    v184 = vdupq_n_s64(8uLL);
-    v191 = PlaneCount;
+    v188 = vdupq_n_s64(8uLL);
+    v195 = PlaneCount;
     while (1)
     {
       v29 = OUTLINED_FUNCTION_8();
@@ -8710,23 +8702,23 @@ LABEL_34:
         goto LABEL_267;
       }
 
-      v212 = 0;
-      v213 = 0;
+      v216 = 0;
+      v217 = 0;
       if (!BaseAddressOfPlane)
       {
-        v59 = 4294950306;
+        v60 = 4294950306;
         goto LABEL_290;
       }
 
       v42 = HeightOfPlane;
-      v198 = BaseAddressOfPlane;
+      v202 = BaseAddressOfPlane;
       count = WidthOfPlane;
       v43 = HeightOfPlane * WidthOfPlane;
-      v199 = malloc_type_calloc(HeightOfPlane * WidthOfPlane, 1uLL, 0x126EB88AuLL);
-      if (!v199)
+      v203 = malloc_type_calloc(HeightOfPlane * WidthOfPlane, 1uLL, 0x126EB88AuLL);
+      if (!v203)
       {
         LOBYTE(v41) = 0;
-        v59 = 4294950305;
+        v60 = 4294950305;
         goto LABEL_261;
       }
 
@@ -8734,15 +8726,15 @@ LABEL_34:
       if (!v44)
       {
         LOBYTE(v41) = 0;
-        v59 = 4294950305;
-        v50 = v199;
+        v60 = 4294950305;
+        v50 = v203;
 LABEL_260:
         free(v50);
         goto LABEL_261;
       }
 
       v45 = v44;
-      v194 = v28;
+      v198 = v28;
       v46 = malloc_type_calloc(v43, 1uLL, 0x1F02CE4EuLL);
       if (!v46)
       {
@@ -8750,7 +8742,7 @@ LABEL_260:
         v50 = 0;
         v47 = 0;
 LABEL_274:
-        v59 = 4294950305;
+        v60 = 4294950305;
         goto LABEL_255;
       }
 
@@ -8780,45 +8772,45 @@ LABEL_274:
         goto LABEL_274;
       }
 
-      v195 = v49;
-      v197 = v46;
-      if (!v196)
+      v199 = v49;
+      v201 = v46;
+      if (!v200)
       {
         OUTLINED_FUNCTION_0();
         OUTLINED_FUNCTION_6_1();
-        v58 = FigSignalErrorAtGM();
-        v59 = v198;
+        v59 = FigSignalErrorAtGM(v58);
+        v60 = v202;
         goto LABEL_155;
       }
 
-      v190 = v41;
+      v194 = v41;
       v51 = malloc_type_calloc(3 * count, 1uLL, 0x6D79E183uLL);
       if (!v51)
       {
-        v126 = -16991;
-        v59 = v198;
+        v127 = -16991;
+        v60 = v202;
         goto LABEL_154;
       }
 
-      v189 = v51;
-      v215[0] = v51;
-      v215[1] = &v51[count];
-      v215[2] = &v51[count + count];
+      v193 = v51;
+      v219[0] = v51;
+      v219[1] = &v51[count];
+      v219[2] = &v51[count + count];
       v52 = malloc_type_calloc(3 * count, 1uLL, 0x642053D0uLL);
       if (v52)
       {
         break;
       }
 
-      v126 = -16991;
-      v128 = v189;
-      v59 = v198;
+      v127 = -16991;
+      v129 = v193;
+      v60 = v202;
 LABEL_153:
-      free(v128);
+      free(v129);
 LABEL_154:
-      v58 = v126;
+      v59 = v127;
 LABEL_155:
-      if (v58)
+      if (v59)
       {
         goto LABEL_252;
       }
@@ -8828,71 +8820,71 @@ LABEL_155:
         goto LABEL_231;
       }
 
-      if (v196)
+      if (v200)
       {
-        v129 = 0;
-        v130 = count;
-        v131 = 1;
-        while ((103 * count) >> 7 >= v45[v131])
+        v130 = 0;
+        v131 = count;
+        v132 = 1;
+        while ((103 * count) >> 7 >= v45[v132])
         {
-          v132 = v131 + 1;
+          v133 = v132 + 1;
 LABEL_169:
-          v131 = v132;
-          if (v132 == v42 - 1)
+          v132 = v133;
+          if (v133 == v42 - 1)
           {
-            v139 = 0;
-            v140 = v42 * BytesPerRowOfPlane;
-            v141 = 1;
+            v140 = 0;
+            v141 = v42 * BytesPerRowOfPlane;
+            v142 = 1;
             do
             {
-              if ((103 * v42) >> 7 < v47[v141])
+              if ((103 * v42) >> 7 < v47[v142])
               {
-                ++v139;
-                v142 = v141 + 1;
-                v143 = v141 - 1;
-                v144 = v59 - 1 + v141;
+                ++v140;
+                v143 = v142 + 1;
+                v144 = v142 - 1;
+                v145 = v60 - 1 + v142;
                 while (1)
                 {
-                  if (v140)
+                  if (v141)
                   {
-                    v145 = 0;
                     v146 = 0;
+                    v147 = 0;
                     do
                     {
-                      if (*(v144 + v145) < 9u)
+                      if (*(v145 + v146) < 9u)
                       {
-                        ++v146;
+                        ++v147;
                       }
 
-                      v145 += BytesPerRowOfPlane;
+                      v146 += BytesPerRowOfPlane;
                     }
 
-                    while (v145 < v140);
-                    if (v146 > (29 * v42) >> 5)
+                    while (v146 < v141);
+                    if (v147 > (29 * v42) >> 5)
                     {
                       goto LABEL_213;
                     }
                   }
 
-                  ++v143;
                   ++v144;
-                  if (v143 > v142)
+                  ++v145;
+                  if (v144 > v143)
                   {
                     goto LABEL_182;
                   }
                 }
               }
 
-              v142 = v141 + 1;
+              v143 = v142 + 1;
 LABEL_182:
-              v141 = v142;
+              v142 = v143;
             }
 
-            while (v142 != count - 1);
-            if (!v129 || !v139)
+            while (v143 != count - 1);
+            if (!v130 || !v140)
             {
-              v147 = v45;
-              v148 = v129 <= v139;
+              v148 = v45;
+              v149 = v130 <= v140;
               goto LABEL_188;
             }
 
@@ -8900,120 +8892,120 @@ LABEL_182:
           }
         }
 
-        ++v129;
-        v132 = v131 + 1;
-        v133 = v131 - 1;
-        v134 = (v59 + BytesPerRowOfPlane * v133);
+        ++v130;
+        v133 = v132 + 1;
+        v134 = v132 - 1;
+        v135 = (v60 + BytesPerRowOfPlane * v134);
         while (1)
         {
-          v135 = 0;
-          v136 = v134;
-          v137 = count;
+          v136 = 0;
+          v137 = v135;
+          v138 = count;
           do
           {
-            v138 = *v136++;
-            if (v138 < 9)
+            v139 = *v137++;
+            if (v139 < 9)
             {
-              ++v135;
+              ++v136;
             }
 
-            --v137;
+            --v138;
           }
 
-          while (v137);
-          if (v135 >= (29 * count) >> 5)
+          while (v138);
+          if (v136 >= (29 * count) >> 5)
           {
             break;
           }
 
-          ++v133;
-          v134 += BytesPerRowOfPlane;
-          if (v133 > v132)
+          ++v134;
+          v135 += BytesPerRowOfPlane;
+          if (v134 > v133)
           {
             goto LABEL_169;
           }
         }
 
 LABEL_213:
-        v59 = 0;
+        v60 = 0;
         LOBYTE(v41) = 1;
         goto LABEL_255;
       }
 
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_6_1();
-      if (FigSignalErrorAtGM())
+      if (FigSignalErrorAtGM(v150))
       {
         goto LABEL_283;
       }
 
-      v147 = v45;
-      v148 = 1;
-      v130 = count;
+      v148 = v45;
+      v149 = 1;
+      v131 = count;
 LABEL_188:
-      if (v130 >> 6 <= 5)
+      if (v131 >> 6 <= 5)
       {
-        v149 = 5;
+        v151 = 5;
       }
 
       else
       {
-        v149 = v130 >> 6;
+        v151 = v131 >> 6;
       }
 
       if (v42 >> 6 <= 5)
       {
-        v150 = 5;
+        v152 = 5;
       }
 
       else
       {
-        v150 = v42 >> 6;
+        v152 = v42 >> 6;
       }
 
-      if (v149 <= v150)
+      if (v151 <= v152)
       {
-        v151 = v150;
+        v153 = v152;
       }
 
       else
       {
-        v151 = v149;
+        v153 = v151;
       }
 
-      v211 = 0;
-      if (v151 <= v41 >> 6)
+      v215 = 0;
+      if (v153 <= v41 >> 6)
       {
         v41 >>= 6;
       }
 
       else
       {
-        v41 = v151;
+        v41 = v153;
       }
 
-      v209 = 0u;
-      v210 = 0u;
-      if (v148)
+      v213 = 0u;
+      v214 = 0u;
+      if (v149)
       {
         OUTLINED_FUNCTION_9_2();
-        v59 = v152;
-        if (_detectHorizLineSegments(v199, v152, v42, v147, v47, v149, v150, v153, v180, v181))
+        v60 = v154;
+        if (_detectHorizLineSegments(v203, v154, v42, v148, v47, v151, v152, v155, v184, v185))
         {
           goto LABEL_277;
         }
 
         OUTLINED_FUNCTION_2_2();
-        v46 = v197;
-        if (_checkForPairedVertSegments(v197, v59, v42, v154, v50, v155, v150, v41, v180, v181))
+        v46 = v201;
+        if (_checkForPairedVertSegments(v201, v60, v42, v156, v50, v157, v152, v41, v184, v185))
         {
           OUTLINED_FUNCTION_4_1();
-          v45 = v147;
+          v45 = v148;
           goto LABEL_255;
         }
 
-        v45 = v147;
-        if (!v211)
+        v45 = v148;
+        if (!v215)
         {
           goto LABEL_276;
         }
@@ -9022,51 +9014,51 @@ LABEL_188:
       else
       {
         OUTLINED_FUNCTION_9_2();
-        v59 = v156;
-        if (_detectHorizLineSegments(v197, v42, v156, v47, v147, v150, v149, v157, v180, v181))
+        v60 = v158;
+        if (_detectHorizLineSegments(v201, v42, v158, v47, v148, v152, v151, v159, v184, v185))
         {
 LABEL_277:
           OUTLINED_FUNCTION_4_1();
-          v45 = v147;
-          v46 = v197;
+          v45 = v148;
+          v46 = v201;
           goto LABEL_255;
         }
 
         OUTLINED_FUNCTION_2_2();
-        v45 = v147;
-        if (_checkForPairedVertSegments(v199, v42, v59, v158, v50, v159, v149, v41, v180, v181))
+        v45 = v148;
+        if (_checkForPairedVertSegments(v203, v42, v60, v160, v50, v161, v151, v41, v184, v185))
         {
 LABEL_283:
           OUTLINED_FUNCTION_4_1();
-          v46 = v197;
+          v46 = v201;
 LABEL_286:
-          v50 = v195;
+          v50 = v199;
           goto LABEL_255;
         }
 
-        v46 = v197;
-        if (!v211)
+        v46 = v201;
+        if (!v215)
         {
           LOBYTE(v41) = 0;
-          v59 = 0;
+          v60 = 0;
           goto LABEL_286;
         }
 
-        v209 = vextq_s8(v209, v209, 8uLL);
-        v210 = vextq_s8(v210, v210, 8uLL);
-        v50 = v195;
+        v213 = vextq_s8(v213, v213, 8uLL);
+        v214 = vextq_s8(v214, v214, 8uLL);
+        v50 = v199;
       }
 
-      v208 = 1;
-      if (v185)
+      v212 = 1;
+      if (v189)
       {
         CMPhotoCFDictionaryGetBooleanIfPresent();
-        v160 = v210.i64[0];
-        v161 = v198;
-        if (!v208)
+        v162 = v214.i64[0];
+        v163 = v202;
+        if (!v212)
         {
-          v162 = count;
-          if (v210.i64[0] > count >> 3 && v210.i64[1] > v42 >> 3)
+          v164 = count;
+          if (v214.i64[0] > count >> 3 && v214.i64[1] > v42 >> 3)
           {
             goto LABEL_213;
           }
@@ -9077,115 +9069,115 @@ LABEL_286:
 
       else
       {
-        v160 = v210.i64[0];
-        v161 = v198;
+        v162 = v214.i64[0];
+        v163 = v202;
       }
 
-      v162 = count;
+      v164 = count;
 LABEL_216:
-      v163 = v210.i64[1] + v209.i64[1];
-      if (v162 >= v160 + v209.i64[0])
+      v165 = v214.i64[1] + v213.i64[1];
+      if (v164 >= v162 + v213.i64[0])
       {
-        v162 = v160 + v209.i64[0];
+        v164 = v162 + v213.i64[0];
       }
 
-      if (v42 >= v163)
+      if (v42 >= v165)
       {
-        v164 = v210.i64[1] + v209.i64[1];
-      }
-
-      else
-      {
-        v164 = v42;
-      }
-
-      v166 = v162 > v209.i64[0];
-      v165 = v162 - v209.i64[0];
-      v166 = v166 && v164 > v209.i64[1];
-      if (v166)
-      {
-        v167 = v164 - v209.i64[1];
-        v168 = v209.i64[1];
-        v169 = v209.i64[0];
+        v166 = v214.i64[1] + v213.i64[1];
       }
 
       else
       {
-        v167 = 0;
-        v165 = 0;
-        v168 = 0;
+        v166 = v42;
+      }
+
+      v168 = v164 > v213.i64[0];
+      v167 = v164 - v213.i64[0];
+      v168 = v168 && v166 > v213.i64[1];
+      if (v168)
+      {
+        v169 = v166 - v213.i64[1];
+        v170 = v213.i64[1];
+        v171 = v213.i64[0];
+      }
+
+      else
+      {
         v169 = 0;
+        v167 = 0;
+        v170 = 0;
+        v171 = 0;
       }
 
-      v170 = v209.i64[0] == v169 && v209.i64[1] == v168;
-      if (!v170 || (v160 == v165 ? (v171 = v210.i64[1] == v167) : (v171 = 0), !v171))
+      v172 = v213.i64[0] == v171 && v213.i64[1] == v170;
+      if (!v172 || (v162 == v167 ? (v173 = v214.i64[1] == v169) : (v173 = 0), !v173))
       {
 LABEL_231:
         LOBYTE(v41) = 0;
-        v59 = 4294950306;
+        v60 = 4294950306;
         goto LABEL_255;
       }
 
-      if (v160 < 6 || v210.i64[1] < 6uLL)
+      if (v162 < 6 || v214.i64[1] < 6uLL)
       {
 LABEL_276:
         LOBYTE(v41) = 0;
-        v59 = 0;
+        v60 = 0;
         goto LABEL_255;
       }
 
-      if (!v196)
+      if (!v200)
       {
         OUTLINED_FUNCTION_0();
         OUTLINED_FUNCTION_6_1();
-        FigSignalErrorAtGM();
+        FigSignalErrorAtGM(v181);
 LABEL_252:
         OUTLINED_FUNCTION_4_1();
         goto LABEL_255;
       }
 
-      v173 = v209.i64[1] + 1;
-      v174 = v163 - 2;
-      if (v209.i64[1] + 1 >= v174)
+      v175 = v213.i64[1] + 1;
+      v176 = v165 - 2;
+      if (v213.i64[1] + 1 >= v176)
       {
-        v175 = 0;
+        v177 = 0;
       }
 
       else
       {
-        v175 = 0;
-        v176 = &v161[v173 * BytesPerRowOfPlane];
+        v177 = 0;
+        v178 = &v163[v175 * BytesPerRowOfPlane];
         do
         {
-          v177 = v160 - 3;
-          v178 = v209.i64[0] + 1;
-          if (v209.i64[0] + 1 < v160 + v209.i64[0] - 2)
+          v179 = v162 - 3;
+          v180 = v213.i64[0] + 1;
+          if (v213.i64[0] + 1 < v162 + v213.i64[0] - 2)
           {
             do
             {
-              if (v176[v178] < 9u)
+              if (v178[v180] < 9u)
               {
-                ++v175;
+                ++v177;
               }
 
-              ++v178;
-              --v177;
+              ++v180;
+              --v179;
             }
 
-            while (v177);
+            while (v179);
           }
 
-          v176 += BytesPerRowOfPlane;
-          ++v173;
+          v178 += BytesPerRowOfPlane;
+          ++v175;
         }
 
-        while (v173 != v174);
+        while (v175 != v176);
       }
 
-      v59 = 0;
-      LOBYTE(v41) = v175 >= ((15 * v160 - 45) * (v210.i64[1] - 3)) >> 4;
+      v60 = 0;
+      LOBYTE(v41) = v177 >= ((15 * v162 - 45) * (v214.i64[1] - 3)) >> 4;
 LABEL_255:
-      free(v199);
+      free(v203);
       free(v45);
       if (v46)
       {
@@ -9197,26 +9189,26 @@ LABEL_255:
         free(v47);
       }
 
-      PlaneCount = v191;
-      v28 = v194;
+      PlaneCount = v195;
+      v28 = v198;
       if (v50)
       {
         goto LABEL_260;
       }
 
 LABEL_261:
-      if (v213)
+      if (v217)
       {
-        CFRelease(v213);
-        v213 = 0;
+        CFRelease(v217);
+        v217 = 0;
       }
 
-      if (v212)
+      if (v216)
       {
-        CFRelease(v212);
+        CFRelease(v216);
       }
 
-      if (v59)
+      if (v60)
       {
         goto LABEL_290;
       }
@@ -9232,16 +9224,16 @@ LABEL_267:
       {
         v27 = 0;
 LABEL_288:
-        v3 = v182;
+        v3 = v186;
         goto LABEL_289;
       }
     }
 
-    v193 = v45;
-    v188 = v52;
-    v214[0] = v52;
-    v214[1] = &v52[count];
-    v214[2] = &v52[count + count];
+    v197 = v45;
+    v192 = v52;
+    v218[0] = v52;
+    v218[1] = &v52[count];
+    v218[2] = &v52[count + count];
     v53 = malloc_type_calloc(v42, 2uLL, 0x403672CCuLL);
     if (v53)
     {
@@ -9256,13 +9248,13 @@ LABEL_288:
           {
             if (count <= 0x5FF)
             {
-              v60 = count >> 7;
+              v61 = count >> 7;
               if (count >> 7 <= 1)
               {
-                LODWORD(v60) = 1;
+                LODWORD(v61) = 1;
               }
 
-              v57 = ((v60 - 1) >> 1);
+              v57 = ((v61 - 1) >> 1);
             }
 
             else
@@ -9270,347 +9262,347 @@ LABEL_288:
               v57 = 5;
             }
 
-            v201 = v57;
+            v205 = v57;
             if (v42 <= 0x5FF)
             {
-              v64 = v42 >> 7;
+              v65 = v42 >> 7;
               if (v42 >> 7 <= 1)
               {
-                LODWORD(v64) = 1;
+                LODWORD(v65) = 1;
               }
 
-              v65 = (v64 - 1) >> 1;
-              v61 = v65;
-              v62 = 2 * v65;
-              v63 = (2 * v65) | 1;
-              v202 = v65;
+              v66 = (v65 - 1) >> 1;
+              v62 = v66;
+              v63 = 2 * v66;
+              v64 = (2 * v66) | 1;
+              v206 = v66;
             }
 
             else
             {
-              v61 = 5;
-              v62 = 10;
-              v63 = 11;
-              v202 = 5;
+              v62 = 5;
+              v63 = 10;
+              v64 = 11;
+              v206 = 5;
             }
 
-            v66 = 0;
-            v67 = (v193 - 1);
-            LODWORD(v68) = -1;
-            v186 = v62;
-            v187 = v63;
-            v69 = count - 1;
-            v70 = (-1 << v63) & 0xFFFE;
-            v71 = (v198 + 1);
-            v203 = 1 << v62;
-            v72 = count - 2;
-            v192 = v56;
-            v200 = v56 + 1;
-            v73 = (v197 + v42);
-            v205 = v199;
+            v67 = 0;
+            v68 = (v197 - 1);
+            LODWORD(v69) = -1;
+            v190 = v63;
+            v191 = v64;
+            v70 = count - 1;
+            v71 = (-1 << v64) & 0xFFFE;
+            v72 = (v202 + 1);
+            v207 = 1 << v63;
+            v73 = count - 2;
+            v196 = v56;
+            v204 = v56 + 1;
+            v74 = (v201 + v42);
+            v209 = v203;
             do
             {
-              v68 = (v68 + 4) % 3u;
-              if (v66 < v42 - 1)
+              v69 = (v69 + 4) % 3u;
+              if (v67 < v42 - 1)
               {
-                v74 = v215[v68];
-                v75 = v214[v68];
-                v76 = v71;
-                v77 = count - 1;
-                v78 = v74;
+                v75 = v219[v69];
+                v76 = v218[v69];
+                v77 = v72;
+                v78 = count - 1;
                 v79 = v75;
+                v80 = v76;
                 do
                 {
-                  v81 = v76[BytesPerRowOfPlane - 1] + v76[BytesPerRowOfPlane] - (*(v76 - 1) + *v76);
-                  if (v81 < 0)
-                  {
-                    v81 = *(v76 - 1) + *v76 - (v76[BytesPerRowOfPlane - 1] + v76[BytesPerRowOfPlane]);
-                  }
-
-                  *v78++ = v81 >> 1;
-                  v80 = &v76[BytesPerRowOfPlane];
-                  v82 = *v76 + *v80 - (*(v76 - 1) + *(v80 - 1));
+                  v82 = v77[BytesPerRowOfPlane - 1] + v77[BytesPerRowOfPlane] - (*(v77 - 1) + *v77);
                   if (v82 < 0)
                   {
-                    v82 = *(v76 - 1) + *(v80 - 1) - (*v76 + *v80);
+                    v82 = *(v77 - 1) + *v77 - (v77[BytesPerRowOfPlane - 1] + v77[BytesPerRowOfPlane]);
                   }
 
                   *v79++ = v82 >> 1;
-                  ++v76;
-                  --v77;
+                  v81 = &v77[BytesPerRowOfPlane];
+                  v83 = *v77 + *v81 - (*(v77 - 1) + *(v81 - 1));
+                  if (v83 < 0)
+                  {
+                    v83 = *(v77 - 1) + *(v81 - 1) - (*v77 + *v81);
+                  }
+
+                  *v80++ = v83 >> 1;
+                  ++v77;
+                  --v78;
                 }
 
-                while (v77);
-                v83 = (v66 - v202) * count;
-                if (v66 <= v202)
+                while (v78);
+                v84 = (v67 - v206) * count;
+                if (v67 <= v206)
                 {
-                  v83 = 0;
+                  v84 = 0;
                 }
 
-                v84 = v74 + 1;
-                v85 = v55 + 1;
-                v86 = &v200[v83];
-                v87 = v75 + 1;
-                v88 = v73;
-                v89 = count - 2;
+                v85 = v75 + 1;
+                v86 = v55 + 1;
+                v87 = &v204[v84];
+                v88 = v76 + 1;
+                v89 = v74;
+                v90 = count - 2;
                 do
                 {
-                  v90 = *v87;
-                  if (v90 < 0x16 || *v84 > (22 * v90) >> 8 || (v91 = v90 - 3, *(v87 - 1) >= v91) || v87[1] >= v91)
+                  v91 = *v88;
+                  if (v91 < 0x16 || *v85 > (22 * v91) >> 8 || (v92 = v91 - 3, *(v88 - 1) >= v92) || v88[1] >= v92)
                   {
-                    v92 = 0;
+                    v93 = 0;
                   }
 
                   else
                   {
-                    *v88 = 1;
-                    if (*v84 <= (9 * *v87) >> 9)
+                    *v89 = 1;
+                    if (*v85 <= (9 * *v88) >> 9)
                     {
-                      v92 = v203;
+                      v93 = v207;
                     }
 
                     else
                     {
-                      v92 = 0;
+                      v93 = 0;
                     }
                   }
 
-                  v93 = v92 | (*v85 >> 1);
-                  *v85 = v92 | (*v85 >> 1);
+                  v94 = v93 | (*v86 >> 1);
+                  *v86 = v93 | (*v86 >> 1);
+                  ++v86;
+                  *v87++ = (v71 ^ v94) == 0xFFFF;
                   ++v85;
-                  *v86++ = (v70 ^ v93) == 0xFFFF;
-                  ++v84;
-                  ++v87;
-                  v88 += v42;
-                  --v89;
+                  ++v88;
+                  v89 += v42;
+                  --v90;
                 }
 
-                while (v89);
+                while (v90);
               }
 
-              if (v66 >= 2)
+              if (v67 >= 2)
               {
-                v94 = 0;
-                v205 += count;
-                v95 = (v68 + 2) % 3u;
-                if (v68 == 2)
+                v95 = 0;
+                v209 += count;
+                v96 = (v69 + 2) % 3u;
+                if (v69 == 2)
                 {
-                  v96 = 0;
+                  v97 = 0;
                 }
 
                 else
                 {
-                  v96 = v68 + 1;
+                  v97 = v69 + 1;
                 }
 
-                v97 = v215[v95];
+                v98 = v219[v96];
                 do
                 {
-                  if (v94 >= v201)
+                  if (v95 >= v205)
                   {
-                    v98 = v201;
+                    v99 = v205;
                   }
 
                   else
                   {
-                    v98 = v94;
+                    v99 = v95;
                   }
 
-                  v99 = *(v97 + v94);
-                  if (v99 < 0x16 || *(v214[v95] + v94) > (22 * v99) >> 8 || (v100 = v99 - 3, *(v215[v96] + v94) >= v100) || *(v215[v68] + v94) >= v100)
+                  v100 = *(v98 + v95);
+                  if (v100 < 0x16 || *(v218[v96] + v95) > (22 * v100) >> 8 || (v101 = v100 - 3, *(v219[v97] + v95) >= v101) || *(v219[v69] + v95) >= v101)
                   {
-                    v101 = 0;
+                    v102 = 0;
                   }
 
                   else
                   {
-                    v205[v94] = 1;
-                    v97 = v215[v95];
-                    if (*(v214[v95] + v94) <= (9 * *(v97 + v94)) >> 9)
+                    v209[v95] = 1;
+                    v98 = v219[v96];
+                    if (*(v218[v96] + v95) <= (9 * *(v98 + v95)) >> 9)
                     {
-                      v101 = 1 << (2 * v201);
+                      v102 = 1 << (2 * v205);
                     }
 
                     else
                     {
-                      v101 = 0;
+                      v102 = 0;
                     }
                   }
 
-                  v102 = v101 | (v53[v95] >> 1);
-                  v53[v95] = v101 | (v53[v95] >> 1);
-                  v54[v94++ - v98] = ((-1 << ((2 * v201) | 1)) & 0xFFFE ^ v102) == 0xFFFF;
+                  v103 = v102 | (v53[v96] >> 1);
+                  v53[v96] = v102 | (v53[v96] >> 1);
+                  v54[v95++ - v99] = ((-1 << ((2 * v205) | 1)) & 0xFFFE ^ v103) == 0xFFFF;
                 }
 
-                while (v69 != v94);
-                v103 = &v54[v201];
-                v104 = count - 2 * v201;
-                v105 = (2 * v201) | 1u;
-                if (count - v201 > v201)
+                while (v70 != v95);
+                v104 = &v54[v205];
+                v105 = count - 2 * v205;
+                v106 = (2 * v205) | 1u;
+                if (count - v205 > v205)
                 {
                   do
                   {
-                    if (*v103++)
+                    if (*v104++)
                     {
-                      if (v105 <= 2 * v201)
+                      if (v106 <= 2 * v205)
                       {
-                        v107 = v105;
+                        v108 = v106;
                       }
 
                       else
                       {
-                        v107 = v201;
+                        v108 = v205;
                       }
 
-                      *&v67[2 * v66] += v107 + 1;
-                      v105 = 0;
+                      *&v68[2 * v67] += v108 + 1;
+                      v106 = 0;
                     }
 
                     else
                     {
-                      ++v105;
+                      ++v106;
                     }
 
-                    --v104;
+                    --v105;
                   }
 
-                  while (v104);
+                  while (v105);
                 }
 
-                v108 = v201;
-                if (!*&v67[2 * v66])
+                v109 = v205;
+                if (!*&v68[2 * v67])
                 {
-                  v108 = 0;
+                  v109 = 0;
                 }
 
-                *&v67[2 * v66] += v108;
+                *&v68[2 * v67] += v109;
               }
 
-              ++v66;
-              v71 += BytesPerRowOfPlane;
-              ++v73;
+              ++v67;
+              v72 += BytesPerRowOfPlane;
+              ++v74;
             }
 
-            while (v66 != v42);
-            v109 = (count + 7) & 0xFFFFFFFFFFFFFFF8;
-            v110 = v55 + 4;
-            v111 = vdupq_n_s64(v69);
-            v112 = xmmword_1A5AACFC0;
-            v113 = xmmword_1A5AACFB0;
-            v114 = xmmword_1A5AACFA0;
-            v115 = xmmword_1A5AACF90;
-            v50 = v195;
-            v116 = v202;
+            while (v67 != v42);
+            v110 = (count + 7) & 0xFFFFFFFFFFFFFFF8;
+            v111 = v55 + 4;
+            v112 = vdupq_n_s64(v70);
+            v113 = xmmword_1A5AACFC0;
+            v114 = xmmword_1A5AACFB0;
+            v115 = xmmword_1A5AACFA0;
+            v116 = xmmword_1A5AACF90;
+            v50 = v199;
+            v117 = v206;
             do
             {
-              v117 = vmovn_s64(vcgeq_u64(v111, v112));
-              if (vuzp1_s8(vuzp1_s16(v117, *v111.i8), *v111.i8).u8[0])
+              v118 = vmovn_s64(vcgeq_u64(v112, v113));
+              if (vuzp1_s8(vuzp1_s16(v118, *v112.i8), *v112.i8).u8[0])
               {
-                *(v110 - 4) = v187;
+                *(v111 - 4) = v191;
               }
 
-              if (vuzp1_s8(vuzp1_s16(v117, *&v111), *&v111).i8[1])
+              if (vuzp1_s8(vuzp1_s16(v118, *&v112), *&v112).i8[1])
               {
-                *(v110 - 3) = v187;
+                *(v111 - 3) = v191;
               }
 
-              if (vuzp1_s8(vuzp1_s16(*&v111, vmovn_s64(vcgeq_u64(v111, *&v113))), *&v111).i8[2])
+              if (vuzp1_s8(vuzp1_s16(*&v112, vmovn_s64(vcgeq_u64(v112, *&v114))), *&v112).i8[2])
               {
-                *(v110 - 2) = v187;
-                *(v110 - 1) = v187;
+                *(v111 - 2) = v191;
+                *(v111 - 1) = v191;
               }
 
-              v118 = vmovn_s64(vcgeq_u64(v111, v114));
-              if (vuzp1_s8(*&v111, vuzp1_s16(v118, *&v111)).i32[1])
+              v119 = vmovn_s64(vcgeq_u64(v112, v115));
+              if (vuzp1_s8(*&v112, vuzp1_s16(v119, *&v112)).i32[1])
               {
-                *v110 = v187;
+                *v111 = v191;
               }
 
-              if (vuzp1_s8(*&v111, vuzp1_s16(v118, *&v111)).i8[5])
+              if (vuzp1_s8(*&v112, vuzp1_s16(v119, *&v112)).i8[5])
               {
-                v110[1] = v187;
+                v111[1] = v191;
               }
 
-              if (vuzp1_s8(*&v111, vuzp1_s16(*&v111, vmovn_s64(vcgeq_u64(v111, *&v115)))).i8[6])
+              if (vuzp1_s8(*&v112, vuzp1_s16(*&v112, vmovn_s64(vcgeq_u64(v112, *&v116)))).i8[6])
               {
-                v110[2] = v187;
-                v110[3] = v187;
+                v111[2] = v191;
+                v111[3] = v191;
               }
 
-              v114 = vaddq_s64(v114, v184);
-              v113 = vaddq_s64(v113, v184);
-              v112 = vaddq_s64(v112, v184);
-              v110 += 8;
-              v115 = vaddq_s64(v115, v184);
-              v109 -= 8;
+              v115 = vaddq_s64(v115, v188);
+              v114 = vaddq_s64(v114, v188);
+              v113 = vaddq_s64(v113, v188);
+              v111 += 8;
+              v116 = vaddq_s64(v116, v188);
+              v110 -= 8;
             }
 
-            while (v109);
-            if (v42 - v202 > v202)
+            while (v110);
+            if (v42 - v206 > v206)
             {
-              v119 = &v192[count * v202];
+              v120 = &v196[count * v206];
               do
               {
-                v120 = 1;
+                v121 = 1;
                 do
                 {
-                  v121 = v55[v120];
-                  if (v119[v120] == 1)
+                  v122 = v55[v121];
+                  if (v120[v121] == 1)
                   {
-                    v122 = 0;
-                    if (v121 <= v186)
+                    v123 = 0;
+                    if (v122 <= v190)
                     {
-                      v123 = v55[v120];
+                      v124 = v55[v121];
                     }
 
                     else
                     {
-                      v123 = v61;
+                      v124 = v62;
                     }
 
-                    v47[v120] += v123 + 1;
+                    v47[v121] += v124 + 1;
                   }
 
                   else
                   {
-                    v122 = v121 + 1;
+                    v123 = v122 + 1;
                   }
 
-                  v55[v120++] = v122;
+                  v55[v121++] = v123;
                 }
 
-                while (2 - count + v120 != 1);
-                v119 += count;
-                ++v116;
+                while (2 - count + v121 != 1);
+                v120 += count;
+                ++v117;
               }
 
-              while (v116 != v42 - v202);
+              while (v117 != v42 - v206);
             }
 
-            v124 = v47 + 1;
+            v125 = v47 + 1;
             do
             {
-              if (*v124)
+              if (*v125)
               {
-                v125 = v61;
+                v126 = v62;
               }
 
               else
               {
-                v125 = 0;
+                v126 = 0;
               }
 
-              *v124++ += v125;
-              --v72;
+              *v125++ += v126;
+              --v73;
             }
 
-            while (v72);
-            v126 = 0;
-            v59 = v198;
-            v127 = v189;
+            while (v73);
+            v127 = 0;
+            v60 = v202;
+            v128 = v193;
 LABEL_146:
-            free(v127);
-            free(v188);
+            free(v128);
+            free(v192);
             if (v53)
             {
               free(v53);
@@ -9621,16 +9613,16 @@ LABEL_146:
               free(v55);
             }
 
-            v45 = v193;
+            v45 = v197;
             if (v54)
             {
               free(v54);
             }
 
-            v46 = v197;
-            v41 = v190;
-            v128 = v192;
-            if (!v192)
+            v46 = v201;
+            v41 = v194;
+            v129 = v196;
+            if (!v196)
             {
               goto LABEL_154;
             }
@@ -9639,26 +9631,26 @@ LABEL_146:
           }
         }
 
-        v192 = 0;
+        v196 = 0;
       }
 
       else
       {
-        v192 = 0;
+        v196 = 0;
         v55 = 0;
       }
     }
 
     else
     {
-      v192 = 0;
+      v196 = 0;
       v55 = 0;
       v54 = 0;
     }
 
-    v126 = -16991;
-    v127 = v189;
-    v59 = v198;
+    v127 = -16991;
+    v128 = v193;
+    v60 = v202;
     goto LABEL_146;
   }
 
@@ -9678,18 +9670,18 @@ LABEL_146:
 
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6_1();
-  v22 = FigSignalErrorAtGM();
+  v22 = FigSignalErrorAtGM(v183);
 LABEL_299:
-  v59 = v22;
+  v60 = v22;
 LABEL_291:
-  if (v207)
+  if (v211)
   {
-    CFRelease(v207);
+    CFRelease(v211);
   }
 
-  if (v206)
+  if (v210)
   {
-    CFRelease(v206);
+    CFRelease(v210);
   }
 
   if (cf)
@@ -9697,7 +9689,7 @@ LABEL_291:
     CFRelease(cf);
   }
 
-  return v59;
+  return v60;
 }
 
 uint64_t _detectHorizLineSegments(uint64_t a1, int a2, uint64_t a3, int a4, int a5, int a6, int a7, CFMutableArrayRef *a8, _WORD *__b, void *a10)

@@ -319,12 +319,12 @@ LABEL_27:
         v22 = currentActiveBundleIdentifier2;
         [(UIStatusBarCarPlayDockItemView *)self currentActiveBundleIdentifier];
         v24 = v23 = v18;
-        v46 = [v24 isEqualToString:activeBundleIdentifier];
+        isEqualToString = objc_msgSend_isEqualToString_(v24);
 
         v18 = v23;
         v17 = v50;
 
-        if (v46)
+        if (isEqualToString)
         {
           goto LABEL_31;
         }
@@ -687,7 +687,7 @@ void __59__UIStatusBarCarPlayDockItemView_updateForNewData_actions___block_invok
 
   v37 = *(a1 + 104);
   v38 = [v37 bundleIdentifier];
-  [v37 setActive:{objc_msgSend(v38, "isEqualToString:", *(a1 + 128))}];
+  [v37 setActive:objc_msgSend_isEqualToString_(v38)];
 
   [*(a1 + 104) setEnabled:{objc_msgSend(*(a1 + 104), "isActive") ^ 1}];
   [*(a1 + 104) setHasBadge:*(a1 + 200)];
@@ -869,9 +869,9 @@ void __65__UIStatusBarCarPlayDockItemView__toItemViewForBundleIdentifier___block
   if (objc_opt_isKindOfClass())
   {
     v7 = [v9 bundleIdentifier];
-    v8 = [v7 isEqualToString:*(a1 + 32)];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (v8)
+    if (isEqualToString)
     {
       objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
       *a4 = 1;

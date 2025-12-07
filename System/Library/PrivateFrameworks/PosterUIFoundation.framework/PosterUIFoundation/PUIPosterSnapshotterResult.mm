@@ -54,9 +54,11 @@
 
   else
   {
-    self->_cleanupURLs = [MEMORY[0x1E695DFA8] setWithObject:cleanup];
+    v5 = [MEMORY[0x1E695DFA8] setWithObject:cleanup];
+    v6 = self->_cleanupURLs;
+    self->_cleanupURLs = v5;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v5, v6);
   }
 }
 

@@ -70,6 +70,7 @@
 - (void)setAppleRelatedUUIDSupport:(unint64_t)support;
 - (void)setContentCatalogPercentCompleted:(unint64_t)completed;
 - (void)setDelegate:(id)delegate;
+- (void)setICloudPhotosEnabled:(BOOL)enabled;
 - (void)setICloudPhotosOptimizeStorageState:(unint64_t)state;
 - (void)setIsAccessRestrictedAppleDevice:(BOOL)device;
 - (void)setMediaPresentation:(ICMediaPresentation)mediaPresentation;
@@ -110,7 +111,7 @@
   v4 = identifierCopy;
   __src[0] = 0;
   __src[1] = 0;
-  v30 = 0;
+  v29 = 0;
   if (!identifierCopy)
   {
     goto LABEL_10;
@@ -120,7 +121,7 @@
   [v4 length];
   v6 = [v4 length] - 16;
   [v4 length];
-  if (![v4 getBytes:__src maxLength:16 usedLength:&v30 encoding:smallestEncoding options:1 range:v6 remainingRange:{16, 0}])
+  if (![v4 getBytes:__src maxLength:16 usedLength:&v29 encoding:smallestEncoding options:1 range:v6 remainingRange:{16, 0}])
   {
     goto LABEL_10;
   }
@@ -142,15 +143,15 @@
   v21 = 0;
   v22 = 0;
   *byte6 = 0;
-  v32 = 0;
-  if (v30 >= 0x10)
+  v31 = 0;
+  if (v29 >= 0x10)
   {
     v23 = 0;
   }
 
   else
   {
-    v23 = 16 - v30;
+    v23 = 16 - v29;
   }
 
   if (v23 <= 15)
@@ -164,14 +165,14 @@
     v17 = byte6[5];
     v16 = byte6[6];
     byte7 = byte6[7];
-    v14 = v32;
-    v13 = BYTE1(v32);
-    v12 = BYTE2(v32);
-    v11 = BYTE3(v32);
-    v10 = BYTE4(v32);
-    v9 = BYTE5(v32);
-    v8 = BYTE6(v32);
-    byte15 = HIBYTE(v32);
+    v14 = v31;
+    v13 = BYTE1(v31);
+    v12 = BYTE2(v31);
+    v11 = BYTE3(v31);
+    v10 = BYTE4(v31);
+    v9 = BYTE5(v31);
+    v8 = BYTE6(v31);
+    byte15 = HIBYTE(v31);
   }
 
   v24 = *MEMORY[0x1E695E480];
@@ -188,8 +189,6 @@
 LABEL_10:
     v27 = 0;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -456,7 +455,7 @@ void __37__ICCameraDevice_relateGroupedMedia___block_invoke(uint64_t a1, uint64_
 
 - (int64_t)stitchMedia:(id)media withMedia:(id)withMedia
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   mediaCopy = media;
   withMediaCopy = withMedia;
   objectID = [mediaCopy objectID];
@@ -472,53 +471,53 @@ void __37__ICCameraDevice_relateGroupedMedia___block_invoke(uint64_t a1, uint64_
     {
       [withMediaCopy setTwinID:{objc_msgSend(mediaCopy, "objectID")}];
       [mediaCopy setTwinID:{objc_msgSend(withMediaCopy, "objectID")}];
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
-      v21 = mediaCopy;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v20 = mediaCopy;
       obj = [mediaCopy sidecarFiles];
-      v9 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v28;
+        v11 = *v27;
         do
         {
           v12 = 0;
           do
           {
-            if (*v28 != v11)
+            if (*v27 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v27 + 1) + 8 * v12);
+            v13 = *(*(&v26 + 1) + 8 * v12);
+            v22 = 0u;
             v23 = 0u;
             v24 = 0u;
             v25 = 0u;
-            v26 = 0u;
             sidecarFiles = [withMediaCopy sidecarFiles];
-            v15 = [sidecarFiles countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v15 = [sidecarFiles countByEnumeratingWithState:&v22 objects:v30 count:16];
             if (v15)
             {
               v16 = v15;
-              v17 = *v24;
+              v17 = *v23;
               do
               {
                 v18 = 0;
                 do
                 {
-                  if (*v24 != v17)
+                  if (*v23 != v17)
                   {
                     objc_enumerationMutation(sidecarFiles);
                   }
 
-                  [(ICCameraDevice *)self stitchMedia:v13 withMedia:*(*(&v23 + 1) + 8 * v18++)];
+                  [(ICCameraDevice *)self stitchMedia:v13 withMedia:*(*(&v22 + 1) + 8 * v18++)];
                 }
 
                 while (v16 != v18);
-                v16 = [sidecarFiles countByEnumeratingWithState:&v23 objects:v31 count:16];
+                v16 = [sidecarFiles countByEnumeratingWithState:&v22 objects:v30 count:16];
               }
 
               while (v16);
@@ -528,17 +527,16 @@ void __37__ICCameraDevice_relateGroupedMedia___block_invoke(uint64_t a1, uint64_
           }
 
           while (v12 != v10);
-          v10 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v10 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v10);
       }
 
-      mediaCopy = v21;
+      mediaCopy = v20;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -647,7 +645,7 @@ LABEL_7:
 
 - (id)relateMedia:(id)media
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   mediaCopy = media;
   if ([(ICCameraDevice *)self legacyDevice])
   {
@@ -660,9 +658,9 @@ LABEL_7:
   }
 
   v6 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:v5 ascending:1];
-  v26[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-  v22 = mediaCopy;
+  v25[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v21 = mediaCopy;
   v8 = [mediaCopy sortedArrayUsingDescriptors:v7];
   v9 = [v8 mutableCopy];
 
@@ -689,14 +687,14 @@ LABEL_7:
 
   v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v16 = [v9 copyGroupIntoDictionary:&__block_literal_global_4];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __30__ICCameraDevice_relateMedia___block_invoke_2;
-  v23[3] = &unk_1E829D058;
-  v24 = v5;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __30__ICCameraDevice_relateMedia___block_invoke_2;
+  v22[3] = &unk_1E829D058;
+  v23 = v5;
   v17 = v15;
-  v25 = v17;
-  [v16 enumerateKeysAndObjectsUsingBlock:v23];
+  v24 = v17;
+  [v16 enumerateKeysAndObjectsUsingBlock:v22];
   if ([(ICCameraDevice *)self legacyDevice])
   {
     [(ICCameraDevice *)self relateLegacyMedia:v17];
@@ -709,8 +707,6 @@ LABEL_7:
   v18 = ;
   [(ICCameraDevice *)self addCapability:@"ICCameraDeviceSupportsHEIF"];
   v19 = [v18 objectForKeyedSubscript:@"newMedia"];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -778,7 +774,7 @@ void __30__ICCameraDevice_relateMedia___block_invoke_4(uint64_t a1, void *a2, vo
 
 - (void)updateAccessRestriction
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if ([(ICDevice *)self isAppleDevice]&& (self->_devAccessRestriction != 8 || [(ICCameraDevice *)self notifyDelegateRestrictionChanged]))
   {
     devAccessRestriction = [(ICCameraDevice *)self devAccessRestriction];
@@ -792,12 +788,12 @@ void __30__ICCameraDevice_relateMedia___block_invoke_4(uint64_t a1, void *a2, vo
       if ((devAccessRestriction & 8) != 0 || (devAccessRestriction2 & 6) == 6 || (devAccessRestriction3 & 3) == 3 || (devAccessRestriction4 & 5) == 5)
       {
         [(ICCameraDevice *)self setDevAccessRestriction:8];
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __41__ICCameraDevice_updateAccessRestriction__block_invoke;
-        v27[3] = &unk_1E829C848;
-        v27[4] = self;
-        ICPerformBlockOnMainThread(v27);
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __41__ICCameraDevice_updateAccessRestriction__block_invoke;
+        v26[3] = &unk_1E829C848;
+        v26[4] = self;
+        ICPerformBlockOnMainThread(v26);
       }
 
       else
@@ -824,8 +820,8 @@ void __30__ICCameraDevice_relateMedia___block_invoke_4(uint64_t a1, void *a2, vo
           v17 = v15;
           *buf = 136446466;
           uTF8String = [name UTF8String];
-          v30 = 2114;
-          v31 = v14;
+          v29 = 2114;
+          v30 = v14;
           _os_log_impl(&dword_1C6F19000, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
         }
 
@@ -860,19 +856,17 @@ void __30__ICCameraDevice_relateMedia___block_invoke_4(uint64_t a1, void *a2, vo
         v24 = v22;
         *buf = 136446466;
         uTF8String = [name2 UTF8String];
-        v30 = 2114;
-        v31 = v21;
+        v29 = 2114;
+        v30 = v21;
         _os_log_impl(&dword_1C6F19000, v24, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __41__ICCameraDevice_updateAccessRestriction__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
@@ -894,9 +888,9 @@ void __41__ICCameraDevice_updateAccessRestriction__block_invoke(uint64_t a1)
     v10 = v5;
     v11 = v9;
     *buf = 136446466;
-    v15 = [v5 UTF8String];
-    v16 = 2114;
-    v17 = v8;
+    v14 = [v5 UTF8String];
+    v15 = 2114;
+    v16 = v8;
     _os_log_impl(&dword_1C6F19000, v11, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
@@ -909,8 +903,6 @@ void __41__ICCameraDevice_updateAccessRestriction__block_invoke(uint64_t a1)
   {
     [v12 performSelector:sel_cameraDeviceDidRemoveAccessRestriction_ withObject:*(a1 + 32)];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__ICCameraDevice_updateAccessRestriction__block_invoke_148(uint64_t a1)
@@ -1152,6 +1144,21 @@ void __47__ICCameraDevice_remoteCameraWithFailureBlock___block_invoke(uint64_t a
   return v5;
 }
 
+- (void)setICloudPhotosEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  [(ICCameraDevice *)self willChangeValueForKey:@"iCloudPhotosEnabled"];
+  self->_iCloudPhotosEnabled = enabledCopy;
+  if (enabledCopy)
+  {
+    [(ICDevice *)self removeCapability:@"ICCameraDeviceCanDeleteOneFile"];
+  }
+
+  [(ICCameraDevice *)self didChangeValueForKey:@"iCloudPhotosEnabled"];
+
+  [(ICCameraDevice *)self setLocked:enabledCopy];
+}
+
 - (void)setICloudPhotosOptimizeStorageState:(unint64_t)state
 {
   [(ICCameraDevice *)self willChangeValueForKey:@"iCloudPhotosOptimizeStorageState"];
@@ -1201,7 +1208,7 @@ void __47__ICCameraDevice_remoteCameraWithFailureBlock___block_invoke(uint64_t a
 
 uint64_t __40__ICCameraDevice_updateMediaFilesCount___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) willChangeValueForKey:@"preflightCountOfObjects"];
   [*(a1 + 32) setPreflightCountOfObjects:*(a1 + 40)];
   __ICOSLogCreate();
@@ -1219,16 +1226,14 @@ uint64_t __40__ICCameraDevice_updateMediaFilesCount___block_invoke(uint64_t a1)
     v6 = v2;
     v7 = v5;
     *buf = 136446466;
-    v11 = [(__CFString *)v2 UTF8String];
-    v12 = 2114;
-    v13 = v4;
+    v10 = [(__CFString *)v2 UTF8String];
+    v11 = 2114;
+    v12 = v4;
     _os_log_impl(&dword_1C6F19000, v7, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
   [*(a1 + 32) didChangeValueForKey:@"preflightCountOfObjects"];
-  result = [*(a1 + 32) updateContentCatalogPercentCompleted];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) updateContentCatalogPercentCompleted];
 }
 
 - (void)updateContentCatalogPercentCompleted
@@ -1272,7 +1277,7 @@ LABEL_9:
 
 - (void)setContentCatalogPercentCompleted:(unint64_t)completed
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if ((completed != 100 || [(ICDevice *)self ready]) && self->_devContentCatalogPercentCompleted != 100 && ![(ICCameraDevice *)self containsRestrictedStorage])
   {
     [(ICCameraDevice *)self willChangeValueForKey:@"contentCatalogPercentCompleted"];
@@ -1297,8 +1302,8 @@ LABEL_9:
       v12 = v10;
       *buf = 136446466;
       uTF8String = [name UTF8String];
-      v27 = 2114;
-      v28 = v8;
+      v26 = 2114;
+      v27 = v8;
       _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -1344,19 +1349,17 @@ LABEL_9:
         uTF8String2 = [name2 UTF8String];
         *buf = 136446466;
         uTF8String = uTF8String2;
-        v27 = 2114;
-        v28 = v18;
+        v26 = 2114;
+        v27 = v18;
         _os_log_impl(&dword_1C6F19000, v21, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __52__ICCameraDevice_setContentCatalogPercentCompleted___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
   if (v2 && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -1384,9 +1387,9 @@ void __52__ICCameraDevice_setContentCatalogPercentCompleted___block_invoke(uint6
     v11 = v3;
     v12 = v10;
     *buf = 136446466;
-    v23 = [v3 UTF8String];
-    v24 = 2114;
-    v25 = v8;
+    v22 = [v3 UTF8String];
+    v23 = 2114;
+    v24 = v8;
     _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
@@ -1410,14 +1413,12 @@ void __52__ICCameraDevice_setContentCatalogPercentCompleted___block_invoke(uint6
       v19 = v17;
       v20 = [v13 UTF8String];
       *buf = 136446466;
-      v23 = v20;
-      v24 = 2114;
-      v25 = v16;
+      v22 = v20;
+      v23 = 2114;
+      v24 = v16;
       _os_log_impl(&dword_1C6F19000, v19, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cameraFolderWithObjectID:(unint64_t)d
@@ -1446,7 +1447,7 @@ void __52__ICCameraDevice_setContentCatalogPercentCompleted___block_invoke(uint6
 
 - (void)requestOpenSession
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   __ICOSLogCreate();
   v3 = @"openSession";
   if ([@"openSession" length] >= 0x15)
@@ -1466,18 +1467,17 @@ void __52__ICCameraDevice_setContentCatalogPercentCompleted___block_invoke(uint6
     v10 = v8;
     *buf = 136446466;
     uTF8String = [(__CFString *)v3 UTF8String];
-    v15 = 2114;
-    v16 = v7;
+    v14 = 2114;
+    v15 = v7;
     _os_log_impl(&dword_1C6F19000, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __36__ICCameraDevice_requestOpenSession__block_invoke;
-  v12[3] = &unk_1E829C820;
-  v12[4] = self;
-  [(ICCameraDevice *)self requestOpenSessionWithOptions:MEMORY[0x1E695E0F8] completion:v12];
-  v11 = *MEMORY[0x1E69E9840];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __36__ICCameraDevice_requestOpenSession__block_invoke;
+  v11[3] = &unk_1E829C820;
+  v11[4] = self;
+  [(ICCameraDevice *)self requestOpenSessionWithOptions:MEMORY[0x1E695E0F8] completion:v11];
 }
 
 void __36__ICCameraDevice_requestOpenSession__block_invoke(uint64_t a1, void *a2)
@@ -1511,15 +1511,14 @@ uint64_t __36__ICCameraDevice_requestOpenSession__block_invoke_2(uint64_t *a1)
 
   if (a1[6])
   {
-    v3 = a1[4];
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v4 = a1[4];
-      v5 = a1[5];
-      v6 = a1[6];
+      v3 = a1[4];
+      v4 = a1[5];
+      v5 = a1[6];
 
-      return [v4 performSelector:sel_device_didEncounterError_ withObject:v5 withObject:v6];
+      return [v3 performSelector:sel_device_didEncounterError_ withObject:v4 withObject:v5];
     }
   }
 
@@ -1743,7 +1742,7 @@ uint64_t __64__ICCameraDevice_requestEnumerateContentWithOptions_completion___bl
 
 - (void)removeCameraFileFromIndex:(id)index
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   array = [MEMORY[0x1E695DF70] array];
   if (indexCopy)
@@ -1762,31 +1761,31 @@ uint64_t __64__ICCameraDevice_requestEnumerateContentWithOptions_completion___bl
         }
       }
 
-      v20 = 324;
+      v19 = 324;
       os_unfair_lock_lock(&self->_mediaLock);
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
-      v21 = array;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v20 = array;
       v8 = array;
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v9)
       {
         v10 = v9;
         v11 = 0;
-        v12 = *v23;
+        v12 = *v22;
         do
         {
           v13 = 0;
           do
           {
-            if (*v23 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(v8);
             }
 
-            v14 = *(*(&v22 + 1) + 8 * v13);
+            v14 = *(*(&v21 + 1) + 8 * v13);
             sidecarFiles = [indexCopy sidecarFiles];
             v16 = sidecarFiles;
             if (sidecarFiles && [sidecarFiles count])
@@ -1805,18 +1804,16 @@ uint64_t __64__ICCameraDevice_requestEnumerateContentWithOptions_completion___bl
           }
 
           while (v10 != v13);
-          v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v10);
       }
 
-      os_unfair_lock_unlock((self + v20));
-      array = v21;
+      os_unfair_lock_unlock((self + v19));
+      array = v20;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)supportsMediaFormatCatalog
@@ -1908,32 +1905,32 @@ uint64_t __27__ICCameraDevice_addItems___block_invoke(uint64_t a1)
 
 - (NSArray)filesOfType:(NSString *)fileUTType
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = fileUTType;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:0];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = self->_devContents;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 addItemsMatchingType:v4 fromFolder:{*(*(&v13 + 1) + 8 * i), v13}];
+        [v5 addItemsMatchingType:v4 fromFolder:{*(*(&v12 + 1) + 8 * i), v12}];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -1945,75 +1942,60 @@ uint64_t __27__ICCameraDevice_addItems___block_invoke(uint64_t a1)
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (BOOL)containsRestrictedStorage
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if ([(ICDevice *)self isAppleDevice])
+  v17 = *MEMORY[0x1E69E9840];
+  if (![(ICDevice *)self isAppleDevice])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v3 = self->_devContents;
-    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v4)
-    {
-      v5 = v4;
-      v6 = 0;
-      v7 = *v14;
+    return 0;
+  }
+
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v3 = self->_devContents;
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = 0;
+    v7 = *v13;
 LABEL_4:
-      v8 = 0;
-      v6 += v5;
-      while (1)
+    v8 = 0;
+    v6 += v5;
+    while (1)
+    {
+      if (*v13 != v7)
       {
-        if (*v14 != v7)
+        objc_enumerationMutation(v3);
+      }
+
+      name = [*(*(&v12 + 1) + 8 * v8) name];
+      v10 = [name isEqualToString:@"0xFEEDFACE"];
+
+      if (v10)
+      {
+        break;
+      }
+
+      if (v5 == ++v8)
+      {
+        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        if (v5)
         {
-          objc_enumerationMutation(v3);
+          goto LABEL_4;
         }
 
-        name = [*(*(&v13 + 1) + 8 * v8) name];
-        v10 = [name isEqualToString:@"0xFEEDFACE"];
-
-        if (v10)
-        {
-          break;
-        }
-
-        if (v5 == ++v8)
-        {
-          v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-          if (v5)
-          {
-            goto LABEL_4;
-          }
-
-          if (!v6)
-          {
-            goto LABEL_13;
-          }
-
-          goto LABEL_11;
-        }
+        return !v6;
       }
     }
-
-LABEL_13:
-    result = 1;
   }
 
-  else
-  {
-LABEL_11:
-    result = 0;
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (void)storageAvailable
@@ -2070,7 +2052,7 @@ LABEL_11:
 
 - (void)handleStatusNotification:(id)notification
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = [notificationCopy objectForKeyedSubscript:@"ICDeviceStatus"];
   if ([v5 isEqualToString:@"ICDeviceIsReady"])
@@ -2081,7 +2063,7 @@ LABEL_11:
     block[2] = __43__ICCameraDevice_handleStatusNotification___block_invoke;
     block[3] = &unk_1E829C870;
     block[4] = self;
-    v32 = notificationCopy;
+    v31 = notificationCopy;
     dispatch_async(deviceNotificationQueue, block);
   }
 
@@ -2105,8 +2087,8 @@ LABEL_11:
       v13 = v11;
       *buf = 136446466;
       uTF8String = [name UTF8String];
-      v35 = 2114;
-      v36 = v10;
+      v34 = 2114;
+      v35 = v10;
       _os_log_impl(&dword_1C6F19000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -2157,8 +2139,8 @@ LABEL_11:
         v29 = v27;
         *buf = 136446466;
         uTF8String = [name2 UTF8String];
-        v35 = 2114;
-        v36 = v26;
+        v34 = 2114;
+        v35 = v26;
         _os_log_impl(&dword_1C6F19000, v29, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
@@ -2168,8 +2150,6 @@ LABEL_11:
       [(ICCameraDevice *)self didChangeValueForKey:@"isEnumeratingContent"];
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __43__ICCameraDevice_handleStatusNotification___block_invoke(uint64_t a1)
@@ -2189,14 +2169,13 @@ void __43__ICCameraDevice_handleStatusNotification___block_invoke(uint64_t a1)
 
 uint64_t __43__ICCameraDevice_handleStatusNotification___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) ready] & 1) != 0 || !objc_msgSend(*(a1 + 32), "hasOpenSession"))
   {
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 48);
-    v13 = *MEMORY[0x1E69E9840];
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 48);
 
-    return [v11 updateMediaFilesCount:v12];
+    return [v10 updateMediaFilesCount:v11];
   }
 
   else
@@ -2218,11 +2197,11 @@ uint64_t __43__ICCameraDevice_handleStatusNotification___block_invoke_2(uint64_t
     {
       v7 = v2;
       v8 = v6;
-      v14 = 136446466;
-      v15 = [v2 UTF8String];
-      v16 = 2114;
-      v17 = v5;
-      _os_log_impl(&dword_1C6F19000, v8, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v14, 0x16u);
+      v12 = 136446466;
+      v13 = [v2 UTF8String];
+      v14 = 2114;
+      v15 = v5;
+      _os_log_impl(&dword_1C6F19000, v8, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v12, 0x16u);
     }
 
     if (*(a1 + 40))
@@ -2233,11 +2212,8 @@ uint64_t __43__ICCameraDevice_handleStatusNotification___block_invoke_2(uint64_t
       }
     }
 
-    result = [*(a1 + 32) updateMediaFilesCount:*(a1 + 48)];
-    v10 = *MEMORY[0x1E69E9840];
+    return [*(a1 + 32) updateMediaFilesCount:*(a1 + 48)];
   }
-
-  return result;
 }
 
 - (void)updateLockedErrorStatus
@@ -2281,15 +2257,14 @@ uint64_t __43__ICCameraDevice_handleStatusNotification___block_invoke_2(uint64_t
 
 uint64_t __41__ICCameraDevice_updateLockedErrorStatus__block_invoke(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 performSelector:sel_device_didEncounterError_ withObject:v5 withObject:v6];
+    return [v3 performSelector:sel_device_didEncounterError_ withObject:v4 withObject:v5];
   }
 
   return result;
@@ -2326,15 +2301,14 @@ uint64_t __41__ICCameraDevice_updateLockedErrorStatus__block_invoke(void *a1)
 
 uint64_t __46__ICCameraDevice_updateEnumeratingErrorStatus__block_invoke(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 performSelector:sel_device_didEncounterError_ withObject:v5 withObject:v6];
+    return [v3 performSelector:sel_device_didEncounterError_ withObject:v4 withObject:v5];
   }
 
   return result;
@@ -2342,30 +2316,30 @@ uint64_t __46__ICCameraDevice_updateEnumeratingErrorStatus__block_invoke(void *a
 
 - (void)removeItems:(id)items
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = itemsCopy;
-  v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       v8 = 0;
       do
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = -[ICCameraDevice cameraFileWithObjectID:](self, "cameraFileWithObjectID:", [*(*(&v19 + 1) + 8 * v8) integerValue]);
+        v9 = -[ICCameraDevice cameraFileWithObjectID:](self, "cameraFileWithObjectID:", [*(*(&v18 + 1) + 8 * v8) integerValue]);
         v10 = v9;
         if (v9)
         {
@@ -2407,7 +2381,7 @@ uint64_t __46__ICCameraDevice_updateEnumeratingErrorStatus__block_invoke(void *a
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -2418,11 +2392,9 @@ uint64_t __46__ICCameraDevice_updateEnumeratingErrorStatus__block_invoke(void *a
   block[2] = __30__ICCameraDevice_removeItems___block_invoke;
   block[3] = &unk_1E829C870;
   block[4] = self;
-  v18 = array;
+  v17 = array;
   v13 = array;
   ICPerformBlockOnMainThread(block);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __30__ICCameraDevice_removeItems___block_invoke(uint64_t a1)
@@ -2639,7 +2611,7 @@ uint64_t __60__ICCameraDevice_requestCloseSessionWithOptions_completion___block_
 
 void __34__ICCameraDevice_requestSyncClock__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = [a3 objectForKeyedSubscript:@"errCode"];
   v6 = [v5 intValue];
@@ -2658,7 +2630,7 @@ void __34__ICCameraDevice_requestSyncClock__block_invoke(uint64_t a1, void *a2, 
       if (os_log_type_enabled(*MEMORY[0x1E69A8B08], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v14 = v9;
+        v13 = v9;
         _os_log_impl(&dword_1C6F19000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
       }
     }
@@ -2668,8 +2640,6 @@ void __34__ICCameraDevice_requestSyncClock__block_invoke(uint64_t a1, void *a2, 
       __34__ICCameraDevice_requestSyncClock__block_invoke_cold_1();
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dispatchAsyncForOperationType:(int64_t)type block:(id)block
@@ -2876,7 +2846,7 @@ void __61__ICCameraDevice_requestDeleteFiles_deleteFailed_completion___block_inv
 
 void __61__ICCameraDevice_requestDeleteFiles_deleteFailed_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = a3;
   __ICOSLogCreate();
   v5 = @"iccameradevice";
@@ -2896,9 +2866,9 @@ void __61__ICCameraDevice_requestDeleteFiles_deleteFailed_completion___block_inv
     v11 = v5;
     v12 = v10;
     *buf = 136446466;
-    v32 = [(__CFString *)v5 UTF8String];
-    v33 = 2114;
-    v34 = v9;
+    v31 = [(__CFString *)v5 UTF8String];
+    v32 = 2114;
+    v33 = v9;
     _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
@@ -2912,11 +2882,11 @@ void __61__ICCameraDevice_requestDeleteFiles_deleteFailed_completion___block_inv
     {
       v16 = *(a1 + 48);
       v22 = *(a1 + 32);
-      v27 = @"ICDeleteErrorFileMissing";
-      v28 = v22;
+      v26 = @"ICDeleteErrorFileMissing";
+      v27 = v22;
       v18 = MEMORY[0x1E695DF20];
-      v19 = &v28;
-      v20 = &v27;
+      v19 = &v27;
+      v20 = &v26;
       goto LABEL_15;
     }
 
@@ -2932,11 +2902,11 @@ void __61__ICCameraDevice_requestDeleteFiles_deleteFailed_completion___block_inv
     {
       v16 = *(a1 + 48);
       v21 = *(a1 + 32);
-      v29 = @"ICDeleteErrorCanceled";
-      v30 = v21;
+      v28 = @"ICDeleteErrorCanceled";
+      v29 = v21;
       v18 = MEMORY[0x1E695DF20];
-      v19 = &v30;
-      v20 = &v29;
+      v19 = &v29;
+      v20 = &v28;
       goto LABEL_15;
     }
 
@@ -2944,11 +2914,11 @@ void __61__ICCameraDevice_requestDeleteFiles_deleteFailed_completion___block_inv
     {
       v16 = *(a1 + 48);
       v17 = *(a1 + 32);
-      v25 = @"ICDeleteErrorReadOnly";
-      v26 = v17;
+      v24 = @"ICDeleteErrorReadOnly";
+      v25 = v17;
       v18 = MEMORY[0x1E695DF20];
-      v19 = &v26;
-      v20 = &v25;
+      v19 = &v25;
+      v20 = &v24;
 LABEL_15:
       v23 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:1];
       (*(v16 + 16))(v16, v23);
@@ -2960,8 +2930,6 @@ LABEL_15:
   [*(*(*(a1 + v15) + 8) + 40) addObject:*(a1 + 32)];
   [*(*(*(a1 + 72) + 8) + 40) removeLastObject];
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestEject
@@ -3025,23 +2993,21 @@ void __59__ICCameraDevice_requestSendPTPCommand_outData_completion___block_invok
 - (void)setPtpEventForwarding:(BOOL)forwarding
 {
   forwardingCopy = forwarding;
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   deviceManager = [(ICDevice *)self deviceManager];
   if (forwardingCopy)
   {
-    v9[0] = @"ICNotificationTypeDeviceForwardPTPEvents";
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = @"ICNotificationTypeDeviceForwardPTPEvents";
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
     [deviceManager registerDevice:self forImageCaptureEventNotifications:v6];
   }
 
   else
   {
-    v8 = @"ICNotificationTypeDeviceForwardPTPEvents";
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
+    v7 = @"ICNotificationTypeDeviceForwardPTPEvents";
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
     [deviceManager unregisterDevice:self forImageCaptureEventNotifications:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelDelete
@@ -3120,7 +3086,7 @@ id __95__ICCameraDevice_requestDownloadFile_options_downloadDelegate_didDownload
 
 - (void)addFolder:(id)folder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   folderCopy = folder;
   if (folderCopy)
   {
@@ -3146,8 +3112,8 @@ id __95__ICCameraDevice_requestDownloadFile_options_downloadDelegate_didDownload
       v13 = v11;
       *buf = 136446466;
       uTF8String = [name UTF8String];
-      v17 = 2114;
-      v18 = v10;
+      v16 = 2114;
+      v17 = v10;
       _os_log_impl(&dword_1C6F19000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -3156,8 +3122,6 @@ id __95__ICCameraDevice_requestDownloadFile_options_downloadDelegate_didDownload
     [(ICCameraDevice *)self addCameraFolderToIndex:folderCopy];
     [(ICCameraDevice *)self storageAvailable];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFolder:(id)folder
@@ -3187,34 +3151,34 @@ id __95__ICCameraDevice_requestDownloadFile_options_downloadDelegate_didDownload
 
 - (int64_t)cameraFilesContentSizeInBytes
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   indexedMediaSet = [(ICCameraDevice *)self indexedMediaSet];
   v3 = [indexedMediaSet orderedSetForType:@"file"];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v7 += 5120 + [*(*(&v12 + 1) + 8 * i) fileSize];
+        v7 += 5120 + [*(*(&v11 + 1) + 8 * i) fileSize];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -3225,7 +3189,6 @@ id __95__ICCameraDevice_requestDownloadFile_options_downloadDelegate_didDownload
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -3348,7 +3311,7 @@ id __95__ICCameraDevice_requestDownloadFile_options_downloadDelegate_didDownload
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   __ICOSLogCreate();
   name = [(ICDevice *)self name];
   if ([name length] >= 0x15)
@@ -3367,8 +3330,8 @@ id __95__ICCameraDevice_requestDownloadFile_options_downloadDelegate_didDownload
     v9 = v7;
     *buf = 136446466;
     uTF8String = [name UTF8String];
-    v15 = 2114;
-    v16 = v6;
+    v14 = 2114;
+    v15 = v6;
     _os_log_impl(&dword_1C6F19000, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
@@ -3377,10 +3340,9 @@ id __95__ICCameraDevice_requestDownloadFile_options_downloadDelegate_didDownload
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v12.receiver = self;
-  v12.super_class = ICCameraDevice;
-  [(ICCameraDevice *)&v12 dealloc];
-  v11 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = ICCameraDevice;
+  [(ICCameraDevice *)&v11 dealloc];
 }
 
 - (void)requestReadDataFromFile:(ICCameraFile *)file atOffset:(off_t)offset length:(off_t)length readDelegate:(id)readDelegate didReadDataSelector:(SEL)selector contextInfo:(void *)contextInfo
@@ -3461,18 +3423,17 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
   result = a1[4];
   if (result)
   {
-    v3 = a1[8];
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v4 = a1[4];
-      v5 = a1[5];
-      v6 = a1[6];
-      v7 = a1[7];
-      v8 = a1[9];
-      v9 = a1[10];
+      v3 = a1[4];
+      v4 = a1[5];
+      v5 = a1[6];
+      v6 = a1[7];
+      v7 = a1[9];
+      v8 = a1[10];
 
-      return [v4 v8];
+      return [v3 v7];
     }
   }
 
@@ -3481,14 +3442,14 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
 
 - (void)dumpPTPPassthruCommand:(id)command andData:(id)data
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   dataCopy = data;
-  v92 = 0;
   v91 = 0;
-  [commandCopy getBytes:&v92 range:{0, 4}];
-  [commandCopy getBytes:&v91 range:{6, 2}];
-  if (v91 != 37142 && v91 != 37203)
+  v90 = 0;
+  [commandCopy getBytes:&v91 range:{0, 4}];
+  [commandCopy getBytes:&v90 range:{6, 2}];
+  if (v90 != 37142 && v90 != 37203)
   {
     __ICOSLogCreate();
     v8 = @"--cmd--";
@@ -3505,9 +3466,9 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
     {
       uTF8String = [(__CFString *)v8 UTF8String];
       *buf = 136446466;
-      v94 = uTF8String;
-      v95 = 2114;
-      v96 = v10;
+      v93 = uTF8String;
+      v94 = 2114;
+      v95 = v10;
       _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -3519,19 +3480,19 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
       v14 = [v15 stringByAppendingString:@".."];
     }
 
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v92];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v91];
     v17 = *v11;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       uTF8String2 = [(__CFString *)v14 UTF8String];
       *buf = 136446466;
-      v94 = uTF8String2;
-      v95 = 2114;
-      v96 = v16;
+      v93 = uTF8String2;
+      v94 = 2114;
+      v95 = v16;
       _os_log_impl(&dword_1C6F19000, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    [commandCopy getBytes:&v91 range:{4, 2}];
+    [commandCopy getBytes:&v90 range:{4, 2}];
     __ICOSLogCreate();
     v19 = @"type";
     if ([@"type" length] >= 0x15)
@@ -3540,20 +3501,20 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
       v19 = [v20 stringByAppendingString:@".."];
     }
 
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v91];
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v90];
     v22 = *v11;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       uTF8String3 = [(__CFString *)v19 UTF8String];
       *buf = 136446466;
-      v94 = uTF8String3;
-      v95 = 2114;
-      v96 = v21;
+      v93 = uTF8String3;
+      v94 = 2114;
+      v95 = v21;
       _os_log_impl(&dword_1C6F19000, v22, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    [commandCopy getBytes:&v91 range:{6, 2}];
-    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u", v91];
+    [commandCopy getBytes:&v90 range:{6, 2}];
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u", v90];
     __ICOSLogCreate();
     v25 = @"op";
     if ([@"op" length] >= 0x15)
@@ -3568,13 +3529,13 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
     {
       uTF8String4 = [(__CFString *)v25 UTF8String];
       *buf = 136446466;
-      v94 = uTF8String4;
-      v95 = 2114;
-      v96 = v27;
+      v93 = uTF8String4;
+      v94 = 2114;
+      v95 = v27;
       _os_log_impl(&dword_1C6F19000, v28, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    [commandCopy getBytes:&v92 range:{8, 4}];
+    [commandCopy getBytes:&v91 range:{8, 4}];
     __ICOSLogCreate();
     v30 = @"tid";
     if ([@"tid" length] >= 0x15)
@@ -3583,15 +3544,15 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
       v30 = [v31 stringByAppendingString:@".."];
     }
 
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v92];
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v91];
     v33 = *v11;
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       uTF8String5 = [(__CFString *)v30 UTF8String];
       *buf = 136446466;
-      v94 = uTF8String5;
-      v95 = 2114;
-      v96 = v32;
+      v93 = uTF8String5;
+      v94 = 2114;
+      v95 = v32;
       _os_log_impl(&dword_1C6F19000, v33, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -3611,13 +3572,13 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
       {
         uTF8String6 = [(__CFString *)v35 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String6;
-        v95 = 2114;
-        v96 = v37;
+        v93 = uTF8String6;
+        v94 = 2114;
+        v95 = v37;
         _os_log_impl(&dword_1C6F19000, v38, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
-      [commandCopy getBytes:&v92 range:{12, 4}];
+      [commandCopy getBytes:&v91 range:{12, 4}];
       __ICOSLogCreate();
       v40 = @"(p1)";
       if ([@"(p1)" length] >= 0x15)
@@ -3626,22 +3587,22 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
         v40 = [v41 stringByAppendingString:@".."];
       }
 
-      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v92];
+      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v91];
       v43 = *v11;
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         uTF8String7 = [(__CFString *)v40 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String7;
-        v95 = 2114;
-        v96 = v42;
+        v93 = uTF8String7;
+        v94 = 2114;
+        v95 = v42;
         _os_log_impl(&dword_1C6F19000, v43, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
 
     if ([commandCopy length] >= 0x14)
     {
-      [commandCopy getBytes:&v92 range:{16, 4}];
+      [commandCopy getBytes:&v91 range:{16, 4}];
       __ICOSLogCreate();
       v45 = @"(p2)";
       if ([@"(p2)" length] >= 0x15)
@@ -3650,22 +3611,22 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
         v45 = [v46 stringByAppendingString:@".."];
       }
 
-      v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v92];
+      v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v91];
       v48 = *v11;
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         uTF8String8 = [(__CFString *)v45 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String8;
-        v95 = 2114;
-        v96 = v47;
+        v93 = uTF8String8;
+        v94 = 2114;
+        v95 = v47;
         _os_log_impl(&dword_1C6F19000, v48, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
 
     if ([commandCopy length] >= 0x18)
     {
-      [commandCopy getBytes:&v92 range:{20, 4}];
+      [commandCopy getBytes:&v91 range:{20, 4}];
       __ICOSLogCreate();
       v50 = @"(p3)";
       if ([@"(p3)" length] >= 0x15)
@@ -3674,22 +3635,22 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
         v50 = [v51 stringByAppendingString:@".."];
       }
 
-      v52 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v92];
+      v52 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v91];
       v53 = *v11;
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
         uTF8String9 = [(__CFString *)v50 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String9;
-        v95 = 2114;
-        v96 = v52;
+        v93 = uTF8String9;
+        v94 = 2114;
+        v95 = v52;
         _os_log_impl(&dword_1C6F19000, v53, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
 
     if ([commandCopy length] >= 0x1C)
     {
-      [commandCopy getBytes:&v92 range:{24, 4}];
+      [commandCopy getBytes:&v91 range:{24, 4}];
       __ICOSLogCreate();
       v55 = @"(p4)";
       if ([@"(p4)" length] >= 0x15)
@@ -3698,22 +3659,22 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
         v55 = [v56 stringByAppendingString:@".."];
       }
 
-      v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v92];
+      v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v91];
       v58 = *v11;
       if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         uTF8String10 = [(__CFString *)v55 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String10;
-        v95 = 2114;
-        v96 = v57;
+        v93 = uTF8String10;
+        v94 = 2114;
+        v95 = v57;
         _os_log_impl(&dword_1C6F19000, v58, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
 
     if ([commandCopy length] >= 0x20)
     {
-      [commandCopy getBytes:&v92 range:{28, 4}];
+      [commandCopy getBytes:&v91 range:{28, 4}];
       __ICOSLogCreate();
       v60 = @"(p5)";
       if ([@"(p5)" length] >= 0x15)
@@ -3722,15 +3683,15 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
         v60 = [v61 stringByAppendingString:@".."];
       }
 
-      v62 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v92];
+      v62 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v91];
       v63 = *v11;
       if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
       {
         uTF8String11 = [(__CFString *)v60 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String11;
-        v95 = 2114;
-        v96 = v62;
+        v93 = uTF8String11;
+        v94 = 2114;
+        v95 = v62;
         _os_log_impl(&dword_1C6F19000, v63, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
@@ -3751,14 +3712,14 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
       {
         uTF8String12 = [(__CFString *)v65 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String12;
-        v95 = 2114;
-        v96 = v67;
+        v93 = uTF8String12;
+        v94 = 2114;
+        v95 = v67;
         _os_log_impl(&dword_1C6F19000, v68, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
-      v90 = 0;
-      [dataCopy getBytes:&v90 range:{0, 4}];
+      v89 = 0;
+      [dataCopy getBytes:&v89 range:{0, 4}];
       __ICOSLogCreate();
       v70 = @"|-->      length";
       if ([@"|-->      length" length] >= 0x15)
@@ -3767,19 +3728,19 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
         v70 = [v71 stringByAppendingString:@".."];
       }
 
-      v72 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v90];
+      v72 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v89];
       v73 = *v11;
       if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
         uTF8String13 = [(__CFString *)v70 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String13;
-        v95 = 2114;
-        v96 = v72;
+        v93 = uTF8String13;
+        v94 = 2114;
+        v95 = v72;
         _os_log_impl(&dword_1C6F19000, v73, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
-      [dataCopy getBytes:&v90 range:{4, 4}];
+      [dataCopy getBytes:&v89 range:{4, 4}];
       __ICOSLogCreate();
       v75 = @"|-->  propertyID";
       if ([@"|-->  propertyID" length] >= 0x15)
@@ -3788,19 +3749,19 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
         v75 = [v76 stringByAppendingString:@".."];
       }
 
-      v77 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v90];
+      v77 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v89];
       v78 = *v11;
       if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
         uTF8String14 = [(__CFString *)v75 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String14;
-        v95 = 2114;
-        v96 = v77;
+        v93 = uTF8String14;
+        v94 = 2114;
+        v95 = v77;
         _os_log_impl(&dword_1C6F19000, v78, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
-      [dataCopy getBytes:&v90 range:{8, 4}];
+      [dataCopy getBytes:&v89 range:{8, 4}];
       __ICOSLogCreate();
       v80 = @"|--> propertyVal";
       if ([@"|--> propertyVal" length] >= 0x15)
@@ -3809,15 +3770,15 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
         v80 = [v81 stringByAppendingString:@".."];
       }
 
-      v82 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v90];
+      v82 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%X", v89];
       v83 = *v11;
       if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
       {
         uTF8String15 = [(__CFString *)v80 UTF8String];
         *buf = 136446466;
-        v94 = uTF8String15;
-        v95 = 2114;
-        v96 = v82;
+        v93 = uTF8String15;
+        v94 = 2114;
+        v95 = v82;
         _os_log_impl(&dword_1C6F19000, v83, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
@@ -3832,7 +3793,7 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
       if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v94 = v85;
+        v93 = v85;
         _os_log_impl(&dword_1C6F19000, v88, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
       }
     }
@@ -3842,8 +3803,6 @@ uint64_t __103__ICCameraDevice_requestReadDataFromFile_atOffset_length_readDeleg
       __34__ICCameraDevice_requestSyncClock__block_invoke_cold_1();
     }
   }
-
-  v89 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestSendPTPCommand:(NSData *)command outData:(NSData *)data sendCommandDelegate:(id)sendCommandDelegate didSendCommandSelector:(SEL)selector contextInfo:(void *)contextInfo
@@ -3909,7 +3868,7 @@ void __103__ICCameraDevice_requestSendPTPCommand_outData_sendCommandDelegate_did
 
 - (BOOL)updateAppleProperties:(id)properties
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if (![(ICDevice *)self isAppleDevice])
   {
@@ -3942,8 +3901,8 @@ void __103__ICCameraDevice_requestSendPTPCommand_outData_sendCommandDelegate_did
         v13 = v11;
         *buf = 136446466;
         uTF8String = [(__CFString *)v6 UTF8String];
-        v45 = 2114;
-        v46 = v10;
+        v44 = 2114;
+        v45 = v10;
         _os_log_impl(&dword_1C6F19000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
@@ -4053,8 +4012,8 @@ LABEL_35:
         uTF8String2 = [(__CFString *)v29 UTF8String];
         *buf = 136446466;
         uTF8String = uTF8String2;
-        v45 = 2114;
-        v46 = v34;
+        v44 = 2114;
+        v45 = v34;
         _os_log_impl(&dword_1C6F19000, v37, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
@@ -4090,7 +4049,6 @@ LABEL_43:
   }
 
 LABEL_47:
-  v41 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -4140,7 +4098,7 @@ void __89__ICCameraDevice_requestUploadFile_options_uploadDelegate_didUploadSele
 
 void __36__ICCameraDevice_requestTakePicture__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -4166,11 +4124,11 @@ void __36__ICCameraDevice_requestTakePicture__block_invoke(uint64_t a1, void *a2
       {
         v17 = v12;
         v18 = v16;
-        v20 = 136446466;
-        v21 = [v12 UTF8String];
-        v22 = 2114;
-        v23 = v15;
-        _os_log_impl(&dword_1C6F19000, v18, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v20, 0x16u);
+        v19 = 136446466;
+        v20 = [v12 UTF8String];
+        v21 = 2114;
+        v22 = v15;
+        _os_log_impl(&dword_1C6F19000, v18, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v19, 0x16u);
       }
     }
   }
@@ -4179,36 +4137,29 @@ void __36__ICCameraDevice_requestTakePicture__block_invoke(uint64_t a1, void *a2
   {
     v11 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __30__ICCameraDevice_remoteCamera__block_invoke_cold_1(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v4 = a1;
   v5 = a2;
   [a1 UTF8String];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1C6F19000, v6, v7, "%{public}20s ! %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1C6F19000, v6, v7, "%{public}20s ! %{public}@", v8, v9, v10, v11);
 }
 
 - (void)setMediaPresentation:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1C6F19000, v0, OS_LOG_TYPE_ERROR, "%{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C6F19000, v0, OS_LOG_TYPE_ERROR, "%{public}@", v1, 0xCu);
 }
 
 void __34__ICCameraDevice_requestSyncClock__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_1C6F19000, v0, OS_LOG_TYPE_DEBUG, "%{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C6F19000, v0, OS_LOG_TYPE_DEBUG, "%{public}@", v1, 0xCu);
 }
 
 @end

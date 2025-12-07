@@ -5,6 +5,7 @@
 - (void)_pause;
 - (void)_reset;
 - (void)_resume;
+- (void)_setIdleTimeout:(double)timeout shouldReset:(BOOL)reset;
 - (void)_setShouldNotifyOfUnidle:(BOOL)unidle;
 @end
 
@@ -100,6 +101,77 @@ void __28__BLSHUserIdleProvider_init__block_invoke(uint64_t a1, void *a2)
   }
 }
 
+- (void)_setIdleTimeout:(double)timeout shouldReset:(BOOL)reset
+{
+  resetCopy = reset;
+  v32 = *MEMORY[0x277D85DE8];
+  v7 = bls_backlight_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    idleTimeout = self->_idleTimeout;
+    shouldNotifyOfUnidleChanged = self->_shouldNotifyOfUnidleChanged;
+    *buf = 134218752;
+    timeoutCopy2 = timeout;
+    v26 = 2048;
+    v27 = idleTimeout;
+    v28 = 1024;
+    v29 = resetCopy;
+    v30 = 1024;
+    v31 = shouldNotifyOfUnidleChanged;
+    _os_log_debug_impl(&dword_21FD11000, v7, OS_LOG_TYPE_DEBUG, "BLSHUserIdleProvider _setIdleTimeout %lf currentTimeout %lf shouldReset=%{BOOL}u _shouldNotifyOfUnidleChanged=%{BOOL}u", buf, 0x22u);
+  }
+
+  if (vabdd_f64(timeout, self->_idleTimeout) > 2.22044605e-16 || self->_shouldNotifyOfUnidleChanged)
+  {
+    v8 = bls_backlight_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134218240;
+      timeoutCopy2 = timeout;
+      v26 = 1024;
+      LODWORD(v27) = resetCopy;
+      _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEFAULT, "BLSHUserIdleProvider updating timeout %lf shouldReset=%{BOOL}u", buf, 0x12u);
+    }
+
+    self->_shouldNotifyOfUnidleChanged = 0;
+    self->_idleTimeout = timeout;
+    v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    attentionLostTimeoutDictionary = self->_attentionLostTimeoutDictionary;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __52__BLSHUserIdleProvider__setIdleTimeout_shouldReset___block_invoke;
+    v22[3] = &unk_278420808;
+    v11 = v9;
+    v23 = v11;
+    [(NSMutableDictionary *)attentionLostTimeoutDictionary enumerateKeysAndObjectsUsingBlock:v22];
+    v12 = [MEMORY[0x277CCABB0] numberWithDouble:timeout];
+    [v11 setObject:@"idleTimeout" forKey:v12];
+
+    attentionAwarenessConfiguration = self->_attentionAwarenessConfiguration;
+    v14 = [v11 copy];
+    [(AWAttentionAwarenessConfiguration *)attentionAwarenessConfiguration setAttentionLostTimeoutDictionary:v14];
+
+    attentionAwarenessClient = self->_attentionAwarenessClient;
+    v16 = self->_attentionAwarenessConfiguration;
+    v21 = 0;
+    [(AWAttentionAwarenessClient *)attentionAwarenessClient setConfiguration:v16 shouldReset:resetCopy error:&v21];
+    v17 = v21;
+    if (v17)
+    {
+      v18 = bls_backlight_log();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        [BLSHUserIdleProvider _setIdleTimeout:shouldReset:];
+      }
+    }
+  }
+
+  else if (resetCopy)
+  {
+    [(BLSHUserIdleProvider *)self _reset];
+  }
+}
+
 void __52__BLSHUserIdleProvider__setIdleTimeout_shouldReset___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
@@ -135,34 +207,75 @@ void __52__BLSHUserIdleProvider__setIdleTimeout_shouldReset___block_invoke(uint6
 
 - (void)_pause
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_16(&dword_21FD11000, v0, v1, "error starting up attention awareness client %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  attentionAwarenessClient = self->_attentionAwarenessClient;
+  v5 = 0;
+  [(AWAttentionAwarenessClient *)attentionAwarenessClient suspendWithError:&v5];
+  v3 = v5;
+  if (v3)
+  {
+    v4 = bls_backlight_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      [BLSHUserIdleProvider _pause];
+    }
+  }
 }
 
 - (void)_resume
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_16(&dword_21FD11000, v0, v1, "error resuming attention awareness client %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  attentionAwarenessClient = self->_attentionAwarenessClient;
+  v5 = 0;
+  [(AWAttentionAwarenessClient *)attentionAwarenessClient resumeWithError:&v5];
+  v3 = v5;
+  if (v3)
+  {
+    v4 = bls_backlight_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      [BLSHUserIdleProvider _resume];
+    }
+  }
 }
 
 - (void)_reset
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_16(&dword_21FD11000, v0, v1, "could not reset user idle provider error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  attentionAwarenessClient = self->_attentionAwarenessClient;
+  attentionAwarenessConfiguration = self->_attentionAwarenessConfiguration;
+  v6 = 0;
+  [(AWAttentionAwarenessClient *)attentionAwarenessClient setConfiguration:attentionAwarenessConfiguration shouldReset:1 error:&v6];
+  v4 = v6;
+  if (v4)
+  {
+    v5 = bls_backlight_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [BLSHUserIdleProvider _reset];
+    }
+  }
 }
 
 - (void)_invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_16(&dword_21FD11000, v0, v1, "error invalidating attention awareness client %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  attentionAwarenessClient = self->_attentionAwarenessClient;
+  v8 = 0;
+  [(AWAttentionAwarenessClient *)attentionAwarenessClient invalidateWithError:&v8];
+  v4 = v8;
+  if (v4)
+  {
+    v5 = bls_backlight_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [BLSHUserIdleProvider _invalidate];
+    }
+  }
+
+  v6 = self->_attentionAwarenessClient;
+  self->_attentionAwarenessClient = 0;
+
+  attentionAwarenessConfiguration = self->_attentionAwarenessConfiguration;
+  self->_attentionAwarenessConfiguration = 0;
+
+  objc_storeWeak(&self->_delegate, 0);
 }
 
 - (BLSHUserIdleProvidingDelegate)delegate
@@ -170,14 +283,6 @@ void __52__BLSHUserIdleProvider__setIdleTimeout_shouldReset___block_invoke(uint6
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)_setIdleTimeout:shouldReset:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_16(&dword_21FD11000, v0, v1, "could not update idle timeout for user idle provider error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

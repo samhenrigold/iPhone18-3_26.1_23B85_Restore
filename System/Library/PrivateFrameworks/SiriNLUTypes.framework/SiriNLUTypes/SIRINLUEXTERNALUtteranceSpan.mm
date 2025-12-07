@@ -445,7 +445,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    startIndex = self->_startIndex;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -465,7 +464,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  endIndex = self->_endIndex;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -480,7 +478,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  startUnicodeScalarIndex = self->_startUnicodeScalarIndex;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -495,7 +492,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  endUnicodeScalarIndex = self->_endUnicodeScalarIndex;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -510,12 +506,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  startMilliSeconds = self->_startMilliSeconds;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_7:
-    endMilliSeconds = self->_endMilliSeconds;
     PBDataWriterWriteInt32Field();
   }
 

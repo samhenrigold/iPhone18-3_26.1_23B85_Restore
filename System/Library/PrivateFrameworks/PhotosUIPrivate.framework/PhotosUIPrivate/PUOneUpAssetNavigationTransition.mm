@@ -108,7 +108,7 @@ void __68__PUOneUpAssetNavigationTransition__animateTransitionWithOperation___bl
 
   v8 = *(a1 + 32);
   v7 = *(a1 + 40);
-  [v8 duration];
+  objc_msgSend_duration(v8);
   v10 = v9;
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;

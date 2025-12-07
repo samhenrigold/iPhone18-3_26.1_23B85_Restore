@@ -264,10 +264,9 @@ void __52__STAskForTimeClient__asynchronousProxyWithHandler___block_invoke(uint6
 
 void __51__STAskForTimeClient__synchronousProxyWithHandler___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "Connection error from %{public}@: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B831F000, v0, OS_LOG_TYPE_ERROR, "Connection error from %{public}@: %{public}@", v1, 0x16u);
 }
 
 @end

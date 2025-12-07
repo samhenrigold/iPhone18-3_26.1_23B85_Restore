@@ -265,54 +265,52 @@ BOOL __114__HDOnboardingCompletionManager__performWriteTransactionAndNotifyObser
 
 void __114__HDOnboardingCompletionManager__performWriteTransactionAndNotifyObserversWithError_block_inaccessibilityHandler___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(*(*(a1 + 40) + 8) + 40);
   if (v1)
   {
     os_unfair_lock_lock((v1 + 16));
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v11 = v2;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v10 = v2;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
+          v8 = *(*(&v12 + 1) + 8 * i);
           v9 = [*(v1 + 24) objectForKeyedSubscript:v8];
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __70__HDOnboardingCompletionManager__notifyObserversOfFeatureIdentifiers___block_invoke;
-          v12[3] = &unk_27861B058;
-          v12[4] = v1;
-          v12[5] = v8;
-          [v9 notifyObservers:v12];
+          v11[0] = MEMORY[0x277D85DD0];
+          v11[1] = 3221225472;
+          v11[2] = __70__HDOnboardingCompletionManager__notifyObserversOfFeatureIdentifiers___block_invoke;
+          v11[3] = &unk_27861B058;
+          v11[4] = v1;
+          v11[5] = v8;
+          [v9 notifyObservers:v11];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
     }
 
     os_unfair_lock_unlock((v1 + 16));
-    v2 = v11;
+    v2 = v10;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)insertCodableOnboardingCompletions:(id)completions syncProvenance:(int64_t)provenance error:(id *)error
@@ -383,41 +381,40 @@ id __113__HDOnboardingCompletionManager__insertCodableOnboardingCompletions_sync
 
 - (void)unregisterObserver:(id)observer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   os_unfair_lock_lock(&self->_lock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   allKeys = [(NSMutableDictionary *)self->_observersByFeatureIdentifier allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(HDOnboardingCompletionManager *)self _lock_unregisterObserver:observerCopy featureIdentifier:*(*(&v11 + 1) + 8 * v9++)];
+        [(HDOnboardingCompletionManager *)self _lock_unregisterObserver:observerCopy featureIdentifier:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

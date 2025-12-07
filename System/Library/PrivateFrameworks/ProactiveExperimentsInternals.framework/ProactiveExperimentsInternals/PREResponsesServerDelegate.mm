@@ -58,7 +58,7 @@
 
 BOOL __65__PREResponsesServerDelegate_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) setClientProcessName:v6];
@@ -75,29 +75,29 @@ BOOL __65__PREResponsesServerDelegate_listener_shouldAcceptNewConnection___block
     {
       if (v11)
       {
-        v20 = 138412546;
-        *v21 = v6;
-        *&v21[8] = 2112;
-        *&v21[10] = @"com.apple.proactive.experiments.responses";
+        v19 = 138412546;
+        *v20 = v6;
+        *&v20[8] = 2112;
+        *&v20[10] = @"com.apple.proactive.experiments.responses";
         v12 = "Rejecting connection from %@ to %@ due to missing entitlement";
         v13 = v10;
         v14 = 22;
 LABEL_9:
-        _os_log_error_impl(&dword_260D12000, v13, OS_LOG_TYPE_ERROR, v12, &v20, v14);
+        _os_log_error_impl(&dword_260D12000, v13, OS_LOG_TYPE_ERROR, v12, &v19, v14);
       }
     }
 
     else if (v11)
     {
-      v17 = [v5 processIdentifier];
-      v18 = __error();
-      v19 = strerror(*v18);
-      v20 = 67109634;
-      *v21 = v17;
-      *&v21[4] = 2112;
-      *&v21[6] = @"com.apple.proactive.experiments.responses";
-      *&v21[14] = 2080;
-      *&v21[16] = v19;
+      v16 = [v5 processIdentifier];
+      v17 = __error();
+      v18 = strerror(*v17);
+      v19 = 67109634;
+      *v20 = v16;
+      *&v20[4] = 2112;
+      *&v20[6] = @"com.apple.proactive.experiments.responses";
+      *&v20[14] = 2080;
+      *&v20[16] = v18;
       v12 = "Rejecting connection from %d to %@ due to failed entitlement check (error: %s)";
       v13 = v10;
       v14 = 28;
@@ -105,7 +105,6 @@ LABEL_9:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

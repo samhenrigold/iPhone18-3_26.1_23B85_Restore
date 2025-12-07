@@ -3,6 +3,7 @@
 - (RadioTS)init;
 - (RadioTSInternal)radioTSInternal;
 - (void)queryThermalSensorInfo;
+- (void)registerForThermalReport;
 - (void)setRadioTSInternal:(RadioTSInternal *)internal;
 @end
 
@@ -66,13 +67,28 @@
 {
   if (sub_100028C04(&self->_radioTSInternal))
   {
-    sub_100028508(&self->_radioTSInternal);
+    v3[0] = _NSConcreteStackBlock;
+    v3[1] = 3221225472;
+    v3[2] = sub_100029A38;
+    v3[3] = &unk_100085E18;
+    v3[4] = self;
+    sub_100028508(&self->_radioTSInternal, v3);
   }
 
   else if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
   {
     sub_100053CE0();
   }
+}
+
+- (void)registerForThermalReport
+{
+  v2[0] = _NSConcreteStackBlock;
+  v2[1] = 3221225472;
+  v2[2] = sub_100029C54;
+  v2[3] = &unk_100085E68;
+  v2[4] = self;
+  sub_1000288A0(&self->_radioTSInternal, v2);
 }
 
 - (RadioTSInternal)radioTSInternal

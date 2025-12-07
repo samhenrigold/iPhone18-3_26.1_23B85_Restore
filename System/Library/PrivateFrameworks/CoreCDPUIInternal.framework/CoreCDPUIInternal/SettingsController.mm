@@ -3,6 +3,7 @@
 - (id)_enableCentralizedRPDFlow;
 - (id)_enableSwiftUIRemoteSecretFlowSwitchCellSpecifier;
 - (id)_enableWalrusSwitchCellSpecifier;
+- (id)_fakeDevicesWithExpectedSecret:(id)secret isNumber:(BOOL)number numericLength:(id)length;
 - (id)_recoverAndSyncrhonizeDataSpecifier;
 - (id)_recoverStingrayDataSpecifier;
 - (id)_recoveryKeySpecifier;
@@ -361,7 +362,7 @@ uint64_t __37__SettingsController__loadSpecifiers__block_invoke_2(uint64_t a1)
 
 - (id)_walrusSpecifiers
 {
-  v12[6] = *MEMORY[0x277D85DE8];
+  v11[6] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:@"Walrus"];
   v4 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Enabled" target:self set:0 get:sel_walrusEnabled detail:0 cell:6 edit:0];
   v5 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Test Enable Walrus UI" target:self set:0 get:0 detail:0 cell:13 edit:0];
@@ -372,35 +373,31 @@ uint64_t __37__SettingsController__loadSpecifiers__block_invoke_2(uint64_t a1)
   [v7 setButtonAction:sel_showADPLandingPage_];
   v8 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Simulate ADP Upsell CFU" target:self set:0 get:0 detail:0 cell:13 edit:0];
   [v8 setButtonAction:sel_simulateADPUpsell_];
-  v12[0] = v3;
-  v12[1] = v4;
-  v12[2] = v5;
-  v12[3] = v6;
-  v12[4] = v7;
-  v12[5] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = v3;
+  v11[1] = v4;
+  v11[2] = v5;
+  v11[3] = v6;
+  v11[4] = v7;
+  v11[5] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:6];
 
   return v9;
 }
 
 - (id)_webAccessSpecifiers
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:@"Web Access"];
   v4 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Enabled" target:self set:0 get:sel_webAccessEnabled detail:0 cell:6 edit:0];
   v5 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Test Enable Web Access UI" target:self set:0 get:0 detail:0 cell:13 edit:0];
   [v5 setButtonAction:sel_showEnableWebAccessUI_];
   v6 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:@"Test Disable Web Access UI" target:self set:0 get:0 detail:0 cell:13 edit:0];
   [v6 setButtonAction:sel_showDisableWebAccessUI_];
-  v10[0] = v3;
-  v10[1] = v4;
-  v10[2] = v5;
-  v10[3] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v3;
+  v9[1] = v4;
+  v9[2] = v5;
+  v9[3] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
 
   return v7;
 }
@@ -661,17 +658,17 @@ void __32__SettingsController_enableCDP___block_invoke(uint64_t a1, void *a2, vo
 
 void __32__SettingsController_enableCDP___block_invoke_195(uint64_t a1, int a2, int a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = _CDPLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109634;
-    v21 = a2;
-    v22 = 1024;
-    v23 = a3;
-    v24 = 2112;
-    v25 = v7;
+    v20 = a2;
+    v21 = 1024;
+    v22 = a3;
+    v23 = 2112;
+    v24 = v7;
     _os_log_debug_impl(&dword_245291000, v8, OS_LOG_TYPE_DEBUG, "State machine finished with shouldCompleteSignIn=%i cloudDataProtectionEnabled=%i error=%@", buf, 0x18u);
   }
 
@@ -695,13 +692,13 @@ void __32__SettingsController_enableCDP___block_invoke_195(uint64_t a1, int a2, 
   {
     v13 = [MEMORY[0x277D75110] alertControllerWithTitle:@"iCDP Not Enabled" message:@"iCDP was not enabled on your account preferredStyle:{please file a radar to PEP CoreCDP | 1.0", 1}];
     CFPreferencesSetAppValue(@"UseCDP", *MEMORY[0x277CBED28], @"com.apple.corecdp");
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __32__SettingsController_enableCDP___block_invoke_208;
-    v19[3] = &unk_278E2FA50;
-    v19[4] = *(a1 + 40);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __32__SettingsController_enableCDP___block_invoke_208;
+    v18[3] = &unk_278E2FA50;
+    v18[4] = *(a1 + 40);
     v14 = MEMORY[0x277D85CD0];
-    v15 = v19;
+    v15 = v18;
   }
 
   else
@@ -728,8 +725,129 @@ LABEL_11:
   }
 
 LABEL_12:
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (id)_fakeDevicesWithExpectedSecret:(id)secret isNumber:(BOOL)number numericLength:(id)length
+{
+  numberCopy = number;
+  v30[1] = *MEMORY[0x277D85DE8];
+  secretCopy = secret;
+  lengthCopy = length;
+  v9 = CFPreferencesCopyAppValue(@"DevicePlatforms", @"com.apple.corecdp");
+  v10 = _CDPLogSystem();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    [SettingsController _fakeDevicesWithExpectedSecret:isNumber:numericLength:];
+  }
+
+  v11 = objc_alloc_init(MEMORY[0x277CFD4C0]);
+  secretCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"James' iPhone 1 (%@)", secretCopy];
+  [v11 setLocalizedName:secretCopy];
+
+  [v11 setHasNumericSecret:numberCopy];
+  [v11 setNumericSecretLength:lengthCopy];
+  if ([v9 integerValue] < 1)
+  {
+    [v11 setPlatform:1];
+    [v11 setModelClass:@"iPhone"];
+    [v11 setModel:@"iPhone 6"];
+    v13 = @"iPhone8,1";
+  }
+
+  else
+  {
+    [v11 setPlatform:2];
+    [v11 setModel:@"Mac Pro"];
+    [v11 setModelClass:@"MacPro"];
+    v13 = @"MacPro1,1";
+  }
+
+  [v11 setModelVersion:v13];
+  v14 = objc_alloc_init(MEMORY[0x277CFD4C0]);
+  secretCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"James' iPad 2 (%@)", secretCopy];
+  [v14 setLocalizedName:secretCopy2];
+
+  [v14 setHasNumericSecret:numberCopy];
+  [v14 setNumericSecretLength:lengthCopy];
+  integerValue = [v9 integerValue];
+  if (integerValue == 1)
+  {
+    v17 = @"MacBook Pro";
+  }
+
+  else
+  {
+    v17 = @"iPad Air";
+  }
+
+  if (integerValue == 1)
+  {
+    v18 = @"MacBookPro11,1";
+  }
+
+  else
+  {
+    v18 = @"iPad4,1";
+  }
+
+  if (integerValue == 1)
+  {
+    v19 = @"MacBookPro";
+  }
+
+  else
+  {
+    v19 = @"iPad";
+  }
+
+  if (integerValue == 1)
+  {
+    v20 = 2;
+  }
+
+  else
+  {
+    v20 = 1;
+  }
+
+  [v14 setModel:v17];
+  [v14 setModelVersion:v18];
+  [v14 setModelClass:v19];
+  [v14 setPlatform:v20];
+  v21 = CFPreferencesCopyAppValue(@"NumberOfDevices", @"com.apple.corecdp");
+  v22 = v21;
+  if (!v21)
+  {
+    goto LABEL_22;
+  }
+
+  integerValue2 = [v21 integerValue];
+  if (integerValue2)
+  {
+    if (integerValue2 == 1)
+    {
+      v30[0] = v11;
+      v24 = MEMORY[0x277CBEA60];
+      v25 = v30;
+      v26 = 1;
+LABEL_23:
+      v27 = [v24 arrayWithObjects:v25 count:v26];
+      goto LABEL_25;
+    }
+
+LABEL_22:
+    v29[0] = v11;
+    v29[1] = v14;
+    v24 = MEMORY[0x277CBEA60];
+    v25 = v29;
+    v26 = 2;
+    goto LABEL_23;
+  }
+
+  v27 = MEMORY[0x277CBEBF8];
+LABEL_25:
+
+  return v27;
 }
 
 - (void)promptForLocalSecret:(id)secret
@@ -1430,61 +1548,47 @@ void __45__SettingsController__showStatusChangeUIFor___block_invoke(uint64_t a1,
 
 - (void)setUserDefaultEnabled:specifier:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_245291000, v0, OS_LOG_TYPE_ERROR, "CoreCDP: missing key on specifier: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_245291000, v0, OS_LOG_TYPE_ERROR, "CoreCDP: missing key on specifier: %@", v1, 0xCu);
 }
 
 - (void)enableCDP:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 username];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __32__SettingsController_enableCDP___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fakeDevicesWithExpectedSecret:isNumber:numericLength:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SettingsController_promptForLocalSecret___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SettingsController_promptForLocalSecret___block_invoke_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a1 validatedSecret];
+  v7 = [a1 validatedSecret];
   [a1 secretType];
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

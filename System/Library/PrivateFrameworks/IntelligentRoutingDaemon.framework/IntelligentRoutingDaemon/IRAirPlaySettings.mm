@@ -49,7 +49,7 @@ uint64_t __27__IRAirPlaySettings_shared__block_invoke(uint64_t a1)
 
 - (BOOL)isAutoRoutingSettingEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keyExistsAndHasValidFormat = 0;
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"EnableAutoRouting", @"com.apple.coremedia", &keyExistsAndHasValidFormat);
   if (keyExistsAndHasValidFormat)
@@ -73,19 +73,17 @@ uint64_t __27__IRAirPlaySettings_shared__block_invoke(uint64_t a1)
       v8 = v6;
       v9 = [v7 numberWithBool:{-[IRAirPlaySettings isAutoRoutingSettingEnabledInternal](self, "isAutoRoutingSettingEnabledInternal")}];
       *buf = 138412290;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_DEFAULT, "#airplay-settings, autoRoutingSettingEnabled: %@", buf, 0xCu);
     }
   }
 
-  result = [(IRAirPlaySettings *)self isAutoRoutingSettingEnabledInternal];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(IRAirPlaySettings *)self isAutoRoutingSettingEnabledInternal];
 }
 
 - (BOOL)isRoutePredictionSettingEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keyExistsAndHasValidFormat = 0;
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"EnableRoutePrediction", @"com.apple.coremedia", &keyExistsAndHasValidFormat);
   if (keyExistsAndHasValidFormat)
@@ -109,14 +107,12 @@ uint64_t __27__IRAirPlaySettings_shared__block_invoke(uint64_t a1)
       v8 = v6;
       v9 = [v7 numberWithBool:{-[IRAirPlaySettings isRoutePredictionSettingEnabledInternal](self, "isRoutePredictionSettingEnabledInternal")}];
       *buf = 138412290;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_DEFAULT, "#airplay-settings, routePredictionSettingEnabled: %@", buf, 0xCu);
     }
   }
 
-  result = [(IRAirPlaySettings *)self isRoutePredictionSettingEnabledInternal]|| [(IRAirPlaySettings *)self isAutoRoutingSettingEnabledInternal];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(IRAirPlaySettings *)self isRoutePredictionSettingEnabledInternal]|| [(IRAirPlaySettings *)self isAutoRoutingSettingEnabledInternal];
 }
 
 - (id)dumpState

@@ -52,7 +52,7 @@
   v15 = [HDHRSOriginInformation alloc];
   if (behaviorCopy)
   {
-    [behaviorCopy currentOSVersionStruct];
+    objc_msgSend_currentOSVersionStruct(behaviorCopy);
   }
 
   else
@@ -135,11 +135,11 @@
 
   if (informationCopy)
   {
-    [informationCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(informationCopy);
     [v22 setOriginVersionMajor:v44];
-    [informationCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(informationCopy);
     [v22 setOriginVersionMinor:v43];
-    [informationCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(informationCopy);
     v38 = v42;
   }
 

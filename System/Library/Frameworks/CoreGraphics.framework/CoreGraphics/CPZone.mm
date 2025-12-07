@@ -791,8 +791,8 @@ LABEL_16:
               fillColor = [neighborShape fillColor];
               if (fillColor)
               {
-                v30 = (fillColor & 0x8000000000000000) != 0 ? CGTaggedColorGetAlpha(fillColor, v23, v24, v25, v26, v27, v28, v29) : *(fillColor + 8 * *(fillColor + 56) + 64);
-                if (v30 > 0.0 && [v20 shapeSide] == v14)
+                v23 = (fillColor & 0x8000000000000000) != 0 ? CGTaggedColorGetAlpha(fillColor) : *(fillColor + 8 * *(fillColor + 56) + 64);
+                if (v23 > 0.0 && [v20 shapeSide] == v14)
                 {
                   [(NSMutableArray *)self->backgroundGraphics addObject:neighborShape];
                 }
@@ -851,19 +851,19 @@ LABEL_16:
     }
 
     [(CPZone *)self area];
-    if (v20 <= 0.0)
+    if (v13 <= 0.0)
     {
       return SRGB;
     }
 
     else
     {
-      v21 = v20;
+      v14 = v13;
       if (SRGB)
       {
         if ((SRGB & 0x8000000000000000) != 0)
         {
-          Alpha = CGTaggedColorGetAlpha(SRGB, v13, v14, v15, v16, v17, v18, v19);
+          Alpha = CGTaggedColorGetAlpha(SRGB);
         }
 
         else
@@ -877,13 +877,13 @@ LABEL_16:
         Alpha = 0.0;
       }
 
-      v24 = v11 * (v9 * Alpha) / v21;
-      if (v24 > 1.0)
+      v17 = v11 * (v9 * Alpha) / v14;
+      if (v17 > 1.0)
       {
-        v24 = 1.0;
+        v17 = 1.0;
       }
 
-      CopyWithAlpha = CGColorCreateCopyWithAlpha(SRGB, v24);
+      CopyWithAlpha = CGColorCreateCopyWithAlpha(SRGB, v17);
       if (SRGB)
       {
         CFRelease(SRGB);

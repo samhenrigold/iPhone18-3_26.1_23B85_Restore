@@ -2,6 +2,9 @@
 + (id)histogramBundleIdForModeWithUUID:(id)d modeType:(int)type origin:(int)origin originAnchorType:(id)anchorType;
 - (ATXActivitySuggestionsFeedbackHistogramHelper)init;
 - (ATXActivitySuggestionsFeedbackHistogramHelper)initWithFeedbackCategoricalHistogram:(id)histogram;
+- (double)acceptancesForLockScreenSuggestionWithModeUUID:(id)d modeType:(int)type origin:(int)origin originAnchorType:(id)anchorType;
+- (double)rejectionsForLockScreenSuggestionWithModeUUID:(id)d modeType:(int)type origin:(int)origin originAnchorType:(id)anchorType;
+- (double)suggestionsGivenForLockScreenSuggestionWithModeUUID:(id)d modeType:(int)type origin:(int)origin originAnchorType:(id)anchorType;
 - (void)updateFeedbackHistogramWithEvent:(id)event;
 @end
 
@@ -33,23 +36,24 @@
 
 - (void)updateFeedbackHistogramWithEvent:(id)event
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  if ([eventCopy location]== 1)
+  location = [eventCopy location];
+  if (location == 1)
   {
     selfCopy = self;
-    v5 = objc_opt_class();
+    v6 = objc_opt_class();
     activity = [eventCopy activity];
     modeUUID = [activity modeUUID];
     activity2 = [eventCopy activity];
     [activity2 activityType];
-    v9 = ATXActivityTypeToBMUserFocusInferredModeType();
+    v10 = ATXActivityTypeToBMUserFocusInferredModeType();
     activity3 = [eventCopy activity];
     [activity3 origin];
-    v11 = BMUserFocusInferredModeOriginFromLegacy();
+    v12 = BMUserFocusInferredModeOriginFromLegacy();
     activity4 = [eventCopy activity];
     originAnchorType = [activity4 originAnchorType];
-    v14 = [v5 histogramBundleIdForModeWithUUID:modeUUID modeType:v9 origin:v11 originAnchorType:originAnchorType];
+    v15 = [v6 histogramBundleIdForModeWithUUID:modeUUID modeType:v10 origin:v12 originAnchorType:originAnchorType];
 
     eventType = [eventCopy eventType];
     switch(eventType)
@@ -57,33 +61,33 @@
       case 3:
         feedbackCategoricalHistogram = selfCopy->_feedbackCategoricalHistogram;
         eventDate = [eventCopy eventDate];
-        [(_ATXAppLaunchCategoricalHistogram *)feedbackCategoricalHistogram addLaunchWithBundleId:v14 date:eventDate category:@"rejected"];
+        [(_ATXAppLaunchCategoricalHistogram *)feedbackCategoricalHistogram addLaunchWithBundleId:v15 date:eventDate category:@"rejected"];
 
-        v18 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = __atxlog_handle_modes(v27);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v27 = "[ATXActivitySuggestionsFeedbackHistogramHelper updateFeedbackHistogramWithEvent:]";
-          v28 = 2112;
-          v29 = v14;
-          v19 = "%s: adding rejected count to feedback event of id: %@";
+          v30 = "[ATXActivitySuggestionsFeedbackHistogramHelper updateFeedbackHistogramWithEvent:]";
+          v31 = 2112;
+          v32 = v15;
+          v21 = "%s: adding rejected count to feedback event of id: %@";
           goto LABEL_13;
         }
 
         goto LABEL_14;
       case 2:
-        v20 = selfCopy->_feedbackCategoricalHistogram;
+        v22 = selfCopy->_feedbackCategoricalHistogram;
         eventDate2 = [eventCopy eventDate];
-        [(_ATXAppLaunchCategoricalHistogram *)v20 addLaunchWithBundleId:v14 date:eventDate2 category:@"accepted"];
+        [(_ATXAppLaunchCategoricalHistogram *)v22 addLaunchWithBundleId:v15 date:eventDate2 category:@"accepted"];
 
-        v18 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = __atxlog_handle_modes(v24);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v27 = "[ATXActivitySuggestionsFeedbackHistogramHelper updateFeedbackHistogramWithEvent:]";
-          v28 = 2112;
-          v29 = v14;
-          v19 = "%s: adding accepted count to feedback event of id: %@";
+          v30 = "[ATXActivitySuggestionsFeedbackHistogramHelper updateFeedbackHistogramWithEvent:]";
+          v31 = 2112;
+          v32 = v15;
+          v21 = "%s: adding accepted count to feedback event of id: %@";
           goto LABEL_13;
         }
 
@@ -91,20 +95,20 @@ LABEL_14:
 
         break;
       case 0:
-        v16 = selfCopy->_feedbackCategoricalHistogram;
+        v17 = selfCopy->_feedbackCategoricalHistogram;
         eventDate3 = [eventCopy eventDate];
-        [(_ATXAppLaunchCategoricalHistogram *)v16 addLaunchWithBundleId:v14 date:eventDate3 category:@"suggested"];
+        [(_ATXAppLaunchCategoricalHistogram *)v17 addLaunchWithBundleId:v15 date:eventDate3 category:@"suggested"];
 
-        v18 = __atxlog_handle_modes();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = __atxlog_handle_modes(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v27 = "[ATXActivitySuggestionsFeedbackHistogramHelper updateFeedbackHistogramWithEvent:]";
-          v28 = 2112;
-          v29 = v14;
-          v19 = "%s: adding suggested count to feedback event of id: %@";
+          v30 = "[ATXActivitySuggestionsFeedbackHistogramHelper updateFeedbackHistogramWithEvent:]";
+          v31 = 2112;
+          v32 = v15;
+          v21 = "%s: adding suggested count to feedback event of id: %@";
 LABEL_13:
-          _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, 0x16u);
+          _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0x16u);
           goto LABEL_14;
         }
 
@@ -114,18 +118,16 @@ LABEL_13:
 
   else
   {
-    v14 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = __atxlog_handle_modes(location);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v27 = "[ATXActivitySuggestionsFeedbackHistogramHelper updateFeedbackHistogramWithEvent:]";
-      v28 = 2112;
-      v29 = eventCopy;
-      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "%s: skipping feedback event since it does not pertain to lock screen: %@", buf, 0x16u);
+      v30 = "[ATXActivitySuggestionsFeedbackHistogramHelper updateFeedbackHistogramWithEvent:]";
+      v31 = 2112;
+      v32 = eventCopy;
+      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "%s: skipping feedback event since it does not pertain to lock screen: %@", buf, 0x16u);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (id)histogramBundleIdForModeWithUUID:(id)d modeType:(int)type origin:(int)origin originAnchorType:(id)anchorType
@@ -138,6 +140,48 @@ LABEL_13:
   anchorTypeCopy = [v10 initWithFormat:@"%@:%lu:%lu:%@", dCopy, v11, BMUserFocusInferredModeOriginToLegacy(), anchorTypeCopy];
 
   return anchorTypeCopy;
+}
+
+- (double)suggestionsGivenForLockScreenSuggestionWithModeUUID:(id)d modeType:(int)type origin:(int)origin originAnchorType:(id)anchorType
+{
+  v6 = *&origin;
+  v7 = *&type;
+  anchorTypeCopy = anchorType;
+  dCopy = d;
+  v12 = [objc_opt_class() histogramBundleIdForModeWithUUID:dCopy modeType:v7 origin:v6 originAnchorType:anchorTypeCopy];
+
+  [(_ATXAppLaunchCategoricalHistogram *)self->_feedbackCategoricalHistogram totalLaunchesForBundleId:v12 category:@"suggested"];
+  v14 = v13;
+
+  return v14;
+}
+
+- (double)acceptancesForLockScreenSuggestionWithModeUUID:(id)d modeType:(int)type origin:(int)origin originAnchorType:(id)anchorType
+{
+  v6 = *&origin;
+  v7 = *&type;
+  anchorTypeCopy = anchorType;
+  dCopy = d;
+  v12 = [objc_opt_class() histogramBundleIdForModeWithUUID:dCopy modeType:v7 origin:v6 originAnchorType:anchorTypeCopy];
+
+  [(_ATXAppLaunchCategoricalHistogram *)self->_feedbackCategoricalHistogram totalLaunchesForBundleId:v12 category:@"accepted"];
+  v14 = v13;
+
+  return v14;
+}
+
+- (double)rejectionsForLockScreenSuggestionWithModeUUID:(id)d modeType:(int)type origin:(int)origin originAnchorType:(id)anchorType
+{
+  v6 = *&origin;
+  v7 = *&type;
+  anchorTypeCopy = anchorType;
+  dCopy = d;
+  v12 = [objc_opt_class() histogramBundleIdForModeWithUUID:dCopy modeType:v7 origin:v6 originAnchorType:anchorTypeCopy];
+
+  [(_ATXAppLaunchCategoricalHistogram *)self->_feedbackCategoricalHistogram totalLaunchesForBundleId:v12 category:@"rejected"];
+  v14 = v13;
+
+  return v14;
 }
 
 @end

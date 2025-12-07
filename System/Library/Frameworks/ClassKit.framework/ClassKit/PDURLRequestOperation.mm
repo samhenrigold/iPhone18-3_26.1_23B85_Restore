@@ -119,23 +119,22 @@
 {
   if (*(&self->_error + 2))
   {
-    v9.receiver = self;
-    v9.super_class = PDURLRequestOperation;
-    operationID = [(PDOperation *)&v9 operationID];
-    v4 = *(&self->_requestUUID + 2);
-    [NSString stringWithFormat:@"%@+%ld+%@", operationID, v4, *(&self->_error + 2)];
+    v8.receiver = self;
+    v8.super_class = PDURLRequestOperation;
+    operationID = [(PDOperation *)&v8 operationID];
+    [NSString stringWithFormat:@"%@+%ld+%@", operationID, *(&self->_requestUUID + 2), *(&self->_error + 2)];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = PDURLRequestOperation;
-    operationID = [(PDOperation *)&v8 operationID];
-    [NSString stringWithFormat:@"%@+%ld", operationID, *(&self->_requestUUID + 2), v7];
+    v7.receiver = self;
+    v7.super_class = PDURLRequestOperation;
+    operationID = [(PDOperation *)&v7 operationID];
+    [NSString stringWithFormat:@"%@+%ld", operationID, *(&self->_requestUUID + 2), v6];
   }
-  v5 = ;
+  v4 = ;
 
-  return v5;
+  return v4;
 }
 
 - (void)prepareForNextRequest
@@ -579,7 +578,7 @@ LABEL_13:
     requestContentType = v22;
   }
 
-  v19 = sub_1000B2730();
+  v19 = sub_1000B2730(PDClient);
   if ([v19 length])
   {
     [requestCopy setValue:v19 forHTTPHeaderField:@"X-Schoolwork-Info"];
@@ -604,7 +603,7 @@ LABEL_13:
   requestCopy = request;
   if (![(PDOperation *)self isAborted])
   {
-    v4 = sub_10003E1B4();
+    v4 = sub_10003E1B4(PDAccountInfo);
     if (objc_opt_respondsToSelector())
     {
       if (v4)
@@ -954,8 +953,8 @@ LABEL_5:
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "STATS=resp:%{public}@", buf, 0xCu);
   }
 
-  v20 = sub_1000B51E4();
-  v21 = sub_1000B51E4();
+  v20 = sub_1000B51E4(PDAnalytics);
+  v21 = sub_1000B51E4(PDAnalytics);
   statusReport = [(PDURLRequestOperation *)self statusReport];
   v23 = sub_1000B5648(v21, statusReport);
   database = [(PDOperation *)self database];

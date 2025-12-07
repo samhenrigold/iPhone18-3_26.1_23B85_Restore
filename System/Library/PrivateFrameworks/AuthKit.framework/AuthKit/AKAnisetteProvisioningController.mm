@@ -231,7 +231,6 @@
   _Block_object_dispose(v45, 8);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __60__AKAnisetteProvisioningController_provisionWithCompletion___block_invoke(void *a1, char a2, id obj)
@@ -271,7 +270,6 @@ void __60__AKAnisetteProvisioningController_provisionWithCompletion___block_invo
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __60__AKAnisetteProvisioningController_provisionWithCompletion___block_invoke_6(NSObject *a1, void *a2)
@@ -291,7 +289,6 @@ void __60__AKAnisetteProvisioningController_provisionWithCompletion___block_invo
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __60__AKAnisetteProvisioningController_provisionWithCompletion___block_invoke_8(void *a1, char a2, id obj)
@@ -332,7 +329,6 @@ void __60__AKAnisetteProvisioningController_provisionWithCompletion___block_invo
 
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)shouldAllowReprovisionForHostName:(id)name completion:(id)completion
@@ -472,7 +468,6 @@ LABEL_19:
 
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)syncWithSIMData:(id)data completion:(id)completion
@@ -571,7 +566,6 @@ void __63__AKAnisetteProvisioningController_syncWithSIMData_completion___block_i
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __63__AKAnisetteProvisioningController_syncWithSIMData_completion___block_invoke_13(void *a1, char a2, id obj)
@@ -612,7 +606,6 @@ void __63__AKAnisetteProvisioningController_syncWithSIMData_completion___block_i
 
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)eraseWithCompletion:(id)completion
@@ -703,7 +696,6 @@ void __63__AKAnisetteProvisioningController_syncWithSIMData_completion___block_i
   _Block_object_dispose(v45, 8);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __56__AKAnisetteProvisioningController_eraseWithCompletion___block_invoke(void *a1, char a2, id obj)
@@ -743,7 +735,6 @@ void __56__AKAnisetteProvisioningController_eraseWithCompletion___block_invoke(v
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __56__AKAnisetteProvisioningController_eraseWithCompletion___block_invoke_15(NSObject *a1, void *a2)
@@ -763,7 +754,6 @@ void __56__AKAnisetteProvisioningController_eraseWithCompletion___block_invoke_1
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __56__AKAnisetteProvisioningController_eraseWithCompletion___block_invoke_16(void *a1, char a2, id obj)
@@ -804,7 +794,6 @@ void __56__AKAnisetteProvisioningController_eraseWithCompletion___block_invoke_1
 
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)anisetteDataForURLRequest:(id)request error:(id *)error
@@ -999,7 +988,6 @@ void __56__AKAnisetteProvisioningController_eraseWithCompletion___block_invoke_1
   objc_storeStrong(&v33, 0);
   os_activity_scope_leave(&state);
   objc_storeStrong(&v44, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1068,7 +1056,6 @@ void __56__AKAnisetteProvisioningController_eraseWithCompletion___block_invoke_1
   objc_storeStrong(&v30, 0);
   _Block_object_dispose(&v31, 8);
   objc_storeStrong(&v37, 0);
-  *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1090,7 +1077,6 @@ void __84__AKAnisetteProvisioningController__fetchAnisetteDataAndProvisionIfNece
   objc_storeStrong(oslog, 0);
   objc_storeStrong((*(a1[4].isa + 1) + 40), location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __84__AKAnisetteProvisioningController__fetchAnisetteDataAndProvisionIfNecessary_error___block_invoke_17(void *a1, void *a2, void *a3)
@@ -1181,7 +1167,6 @@ void __84__AKAnisetteProvisioningController__fetchAnisetteDataAndProvisionIfNece
   os_activity_scope_leave(&state);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __92__AKAnisetteProvisioningController_fetchAnisetteDataAndProvisionIfNecessary_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1252,7 +1237,6 @@ void __92__AKAnisetteProvisioningController_fetchAnisetteDataAndProvisionIfNeces
 
   objc_storeStrong(&v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __92__AKAnisetteProvisioningController_fetchAnisetteDataAndProvisionIfNecessary_withCompletion___block_invoke_19(void *a1, void *a2, void *a3)
@@ -1293,7 +1277,6 @@ void __92__AKAnisetteProvisioningController_fetchAnisetteDataAndProvisionIfNeces
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchAnisetteDataAndProvisionIfNecessary:(BOOL)necessary withCompletion:(id)completion
@@ -1382,7 +1365,6 @@ void __93__AKAnisetteProvisioningController__fetchAnisetteDataAndProvisionIfNece
 
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __93__AKAnisetteProvisioningController__fetchAnisetteDataAndProvisionIfNecessary_withCompletion___block_invoke_20(void *a1, void *a2)
@@ -1493,7 +1475,6 @@ void __77__AKAnisetteProvisioningController_legacyAnisetteDataForDSID_withComple
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAnisetteProvisioningController_legacyAnisetteDataForDSID_withCompletion___block_invoke_23(void *a1, void *a2, void *a3)
@@ -1536,7 +1517,6 @@ void __77__AKAnisetteProvisioningController_legacyAnisetteDataForDSID_withComple
   (*(a1[4] + 16))();
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPeerAttestationDataForRequest:(id)request completion:(id)completion
@@ -1629,7 +1609,6 @@ void __77__AKAnisetteProvisioningController_legacyAnisetteDataForDSID_withComple
   objc_storeStrong(&v52, 0);
   objc_storeStrong(&v53, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __82__AKAnisetteProvisioningController_fetchPeerAttestationDataForRequest_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1671,7 +1650,6 @@ void __82__AKAnisetteProvisioningController_fetchPeerAttestationDataForRequest_c
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __82__AKAnisetteProvisioningController_fetchPeerAttestationDataForRequest_completion___block_invoke_25(NSObject *a1, void *a2)
@@ -1691,7 +1669,6 @@ void __82__AKAnisetteProvisioningController_fetchPeerAttestationDataForRequest_c
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __82__AKAnisetteProvisioningController_fetchPeerAttestationDataForRequest_completion___block_invoke_26(uint64_t a1, void *a2, void *a3)
@@ -1753,7 +1730,6 @@ void __82__AKAnisetteProvisioningController_fetchPeerAttestationDataForRequest_c
   (*(*(a1 + 40) + 16))();
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)attestationDataForRequestData:(id)data error:(id *)error
@@ -1860,7 +1836,6 @@ void __82__AKAnisetteProvisioningController_fetchPeerAttestationDataForRequest_c
   os_activity_scope_leave(&state);
   objc_storeStrong(&v45, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1993,7 +1968,6 @@ void __82__AKAnisetteProvisioningController_fetchPeerAttestationDataForRequest_c
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_attestationDataForRequestData:(id)data error:(id *)error
@@ -2073,7 +2047,6 @@ void __73__AKAnisetteProvisioningController__attestationDataForRequestData_error
   objc_storeStrong(oslog, 0);
   objc_storeStrong((*(a1[4].isa + 1) + 40), location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAnisetteProvisioningController__attestationDataForRequestData_error___block_invoke_28(uint64_t a1, void *a2, void *a3)
@@ -2137,7 +2110,6 @@ void __73__AKAnisetteProvisioningController__attestationDataForRequestData_error
 
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)attestationDataForRequestData:(id)data completion:(id)completion
@@ -2202,7 +2174,6 @@ void __73__AKAnisetteProvisioningController__attestationDataForRequestData_error
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAnisetteProvisioningController_attestationDataForRequestData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2273,7 +2244,6 @@ void __77__AKAnisetteProvisioningController_attestationDataForRequestData_comple
 
   objc_storeStrong(&v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAnisetteProvisioningController_attestationDataForRequestData_completion___block_invoke_29(void *a1, void *a2, void *a3)
@@ -2314,7 +2284,6 @@ void __77__AKAnisetteProvisioningController_attestationDataForRequestData_comple
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_attestationDataForRequestData:(id)data completion:(id)completion
@@ -2425,7 +2394,6 @@ void __78__AKAnisetteProvisioningController__attestationDataForRequestData_compl
 
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __78__AKAnisetteProvisioningController__attestationDataForRequestData_completion___block_invoke_30(void *a1, void *a2)
@@ -2569,7 +2537,6 @@ void __70__AKAnisetteProvisioningController_resetDeviceIdentityWithCompletion___
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKAnisetteProvisioningController_resetDeviceIdentityWithCompletion___block_invoke_33(void *a1, void *a2)
@@ -2609,7 +2576,6 @@ void __70__AKAnisetteProvisioningController_resetDeviceIdentityWithCompletion___
 
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshBAADeviceTokenWithCompletion:(id)completion
@@ -2697,7 +2663,6 @@ void __72__AKAnisetteProvisioningController_refreshBAADeviceTokenWithCompletion_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAnisetteProvisioningController_refreshBAADeviceTokenWithCompletion___block_invoke_34(void *a1, void *a2)
@@ -2737,7 +2702,6 @@ void __72__AKAnisetteProvisioningController_refreshBAADeviceTokenWithCompletion_
 
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setTimeAdjustmentWithServerTime:(id)time completion:(id)completion
@@ -2803,7 +2767,6 @@ void __72__AKAnisetteProvisioningController_refreshBAADeviceTokenWithCompletion_
 
   objc_storeStrong(&v14, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_setTimeAdjustmentWithServerTime:(id)time completion:(id)completion
@@ -2897,7 +2860,6 @@ void __80__AKAnisetteProvisioningController__setTimeAdjustmentWithServerTime_com
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAnisetteProvisioningController__setTimeAdjustmentWithServerTime_completion___block_invoke_35(uint64_t a1, uint64_t a2, id obj)
@@ -2939,7 +2901,6 @@ void __80__AKAnisetteProvisioningController__setTimeAdjustmentWithServerTime_com
 
   (*(*(a1 + 40) + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)postAttestationAnalytics:(id)analytics completion:(id)completion
@@ -3024,7 +2985,6 @@ void __72__AKAnisetteProvisioningController_postAttestationAnalytics_completion_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAnisetteProvisioningController_postAttestationAnalytics_completion___block_invoke_37(void *a1, void *a2)
@@ -3064,7 +3024,6 @@ void __72__AKAnisetteProvisioningController_postAttestationAnalytics_completion_
 
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_tearDownConnection

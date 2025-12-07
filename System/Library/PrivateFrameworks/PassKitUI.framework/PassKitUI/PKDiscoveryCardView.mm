@@ -650,7 +650,7 @@ void __110__PKDiscoveryCardView_initWithArticleLayout_cardTemplateInformation_ca
 
 - (void)layoutSubviews
 {
-  v163[1] = *MEMORY[0x1E69E9840];
+  v297[1] = *MEMORY[0x1E69E9840];
   [(PKDiscoveryCardView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -659,10 +659,10 @@ void __110__PKDiscoveryCardView_initWithArticleLayout_cardTemplateInformation_ca
   [(PKDiscoveryCardView *)self _currentContentInsets];
   v12 = v4 + v11;
   v14 = v6 + v13;
-  v140 = v11;
-  v141 = v15;
+  v273 = v11;
+  v274 = v15;
   v16 = v8 - (v11 + v15);
-  v151 = v10 - (v13 + v17);
+  v285 = v10 - (v13 + v17);
   _isLargeFormat = [(PKDiscoveryCardView *)self _isLargeFormat];
   _isMaskedDisplay = [(PKDiscoveryCardView *)self _isMaskedDisplay];
   isWritingDirectionRTL = [(PKDiscoveryArticleLayout *)self->_articleLayout isWritingDirectionRTL];
@@ -676,165 +676,240 @@ void __110__PKDiscoveryCardView_initWithArticleLayout_cardTemplateInformation_ca
     _shouldReverseLayoutDirection = [(PKDiscoveryCardView *)self _shouldReverseLayoutDirection];
   }
 
-  v146 = _shouldReverseLayoutDirection;
+  v279 = _shouldReverseLayoutDirection;
+  if (_shouldReverseLayoutDirection)
+  {
+    v22 = 0;
+  }
+
+  else
+  {
+    v22 = 2;
+  }
+
+  v281 = v22;
   memset(&slice, 0, sizeof(slice));
   remainder.origin.x = v12;
   remainder.origin.y = v14;
   remainder.size.width = v16;
-  remainder.size.height = v151;
+  remainder.size.height = v285;
   if (!self->_headingLabel && self->_miniCardTemplate == 2 && !_isLargeFormat)
   {
-    v22 = objc_alloc(MEMORY[0x1E69DCC10]);
-    v23 = [v22 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    v23 = objc_alloc(MEMORY[0x1E69DCC10]);
+    v24 = [v23 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
     headingLabel = self->_headingLabel;
-    self->_headingLabel = v23;
+    self->_headingLabel = v24;
 
-    v25 = self->_headingLabel;
+    v26 = self->_headingLabel;
     _headingLabelFont = [(PKDiscoveryCardView *)self _headingLabelFont];
-    [(UILabel *)v25 setFont:_headingLabelFont];
+    [(UILabel *)v26 setFont:_headingLabelFont];
 
-    v27 = self->_headingLabel;
+    v28 = self->_headingLabel;
     text = [(UILabel *)self->_titleLabel text];
-    [(UILabel *)v27 setText:text];
+    [(UILabel *)v28 setText:text];
 
-    v29 = self->_headingLabel;
+    v30 = self->_headingLabel;
     _headingLabelTextColor = [(PKDiscoveryCardView *)self _headingLabelTextColor];
-    [(UILabel *)v29 setTextColor:_headingLabelTextColor];
+    [(UILabel *)v30 setTextColor:_headingLabelTextColor];
 
     [(UILabel *)self->_headingLabel setNumberOfLines:1];
     [(PKDiscoveryCardView *)self addSubview:self->_headingLabel];
   }
 
-  v142 = v16;
-  v143 = v14;
-  v144 = v12;
+  v275 = v16;
+  v276 = v14;
+  v277 = v12;
   text2 = [(UILabel *)self->_titleLabel text];
   text3 = [(UILabel *)self->_headingLabel text];
-  v33 = [text2 isEqual:text3];
+  v34 = [text2 isEqual:text3];
 
-  [(UILabel *)self->_titleLabel setHidden:v33];
-  v34 = _isLargeFormat || !_isMaskedDisplay;
+  [(UILabel *)self->_titleLabel setHidden:v34];
+  v35 = _isLargeFormat || !_isMaskedDisplay;
   ctaFooterView = self->_ctaFooterView;
-  v148 = v10;
-  v149 = v8;
+  v282 = v10;
+  v283 = v8;
   *rect = v4;
-  v150 = v6;
-  if (v34)
+  v284 = v6;
+  if (v35)
   {
     [(PKDiscoveryCallToActionFooterView *)ctaFooterView setHidden:0];
     [(UIView *)self->_miniCardBackgroundColorView setHidden:1];
     +[PKDiscoveryCardView expandedWidth];
+    v38 = (v37 - v8) * 0.5;
     +[PKDiscoveryCardView expandedHeight];
-    PKFloatRoundToPixel();
-    v36 = v8;
-    v38 = v37;
-    PKFloatRoundToPixel();
-    v39 = v4;
-    v41 = v40;
-    +[PKDiscoveryCardView expandedWidth];
-    v43 = v42;
-    +[PKDiscoveryCardView expandedHeight];
+    v40 = (v39 - v10) * 0.5;
+    v41.n128_f64[0] = v4 - v38;
+    PKFloatRoundToPixel(v41, v42);
+    v43 = v8;
     v45 = v44;
-    goto LABEL_16;
+    v46.n128_f64[0] = v6 - v40;
+    PKFloatRoundToPixel(v46, v47);
+    v48 = v4;
+    v50 = v49;
+    +[PKDiscoveryCardView expandedWidth];
+    v52 = v51;
+    +[PKDiscoveryCardView expandedHeight];
+    v54 = v53;
+    goto LABEL_19;
   }
 
   [(PKDiscoveryCallToActionFooterView *)ctaFooterView setHidden:1];
   [(UIView *)self->_miniCardBackgroundColorView setHidden:0];
   [(PKDiscoveryCardView *)self _miniCardImageSize];
+  v55 = v6;
+  v57 = v56;
+  v59 = v58;
   +[PKDiscoveryCardView compressedWidth];
-  PKFloatRoundToPixel();
-  v139 = v46;
-  PKFloatRoundToPixel();
-  v48 = v47;
+  v61.n128_u64[0] = 0.5;
+  v62.n128_f64[0] = v4 - (v60 - v8) * 0.5;
+  PKFloatRoundToPixel(v62, v61);
+  v271 = v63;
+  v64.n128_f64[0] = v55 - (120.0 - v10) * 0.5;
+  PKFloatRoundToPixel(v64, v65);
+  v67 = v66;
   miniCardTemplate = self->_miniCardTemplate;
   if (miniCardTemplate == 2 || miniCardTemplate == 1)
   {
-    PKContentAlignmentMake();
-    goto LABEL_14;
+    v73 = PKContentAlignmentMake();
+    v75.n128_u64[0] = v57;
+    v76.n128_u64[0] = v59;
+    v77.n128_f64[0] = v4;
+    v78.n128_f64[0] = v284;
+    v79.n128_f64[0] = v8;
+    v80.n128_f64[0] = v10;
+    goto LABEL_17;
   }
 
+  v54 = 0.0;
+  v52 = 0.0;
+  v50 = 0.0;
   v45 = 0.0;
-  v43 = 0.0;
-  v41 = 0.0;
-  v38 = 0.0;
   if (!miniCardTemplate)
   {
-    *&v164.origin.x = rect[0];
-    v164.size.width = v149;
-    v164.origin.y = v6;
-    v164.size.height = v10;
-    CGRectInset(v164, 16.0, 0.0);
-    PKContentAlignmentMake();
-LABEL_14:
-    PKSizeAlignedInRect();
-    v38 = v50;
-    v41 = v51;
-    v43 = v52;
-    v45 = v53;
+    *&v298.origin.x = rect[0];
+    v298.size.width = v283;
+    v298.origin.y = v284;
+    v298.size.height = v10;
+    v299 = CGRectInset(v298, 16.0, 0.0);
+    x = v299.origin.x;
+    y = v299.origin.y;
+    width = v299.size.width;
+    height = v299.size.height;
+    v73 = PKContentAlignmentMake();
+    v75.n128_u64[0] = v57;
+    v76.n128_u64[0] = v59;
+    v77.n128_f64[0] = x;
+    v78.n128_f64[0] = y;
+    v79.n128_f64[0] = width;
+    v80.n128_f64[0] = height;
+    v10 = v282;
+LABEL_17:
+    PKSizeAlignedInRect(v73, v75, v76, v77, v78, v79, v80, v74);
+    v45 = v81;
+    v50 = v82;
+    v52 = v83;
+    v54 = v84;
   }
 
   miniCardBackgroundColorView = self->_miniCardBackgroundColorView;
   +[PKDiscoveryCardView compressedWidth];
-  [(UIView *)miniCardBackgroundColorView setFrame:v139, v48, v55, 120.0];
+  [(UIView *)miniCardBackgroundColorView setFrame:v271, v67, v86, 120.0];
   [(UIView *)self->_miniCardBackgroundColorView setClipsToBounds:1];
-  v36 = v149;
-  v39 = *rect;
-LABEL_16:
-  [(UIImageView *)self->_backgroundImageView setFrame:v38, v41, v43, v45];
+  v43 = v283;
+  v6 = v284;
+  v48 = *rect;
+LABEL_19:
+  v272 = v52;
+  [(UIImageView *)self->_backgroundImageView setFrame:v45, v50, v52, v54];
   [(UIImageView *)self->_backgroundImageView setClipsToBounds:1];
   [(UIButton *)self->_dismissButton sizeToFit];
-  v165.origin.x = v39;
-  v165.origin.y = v6;
-  v165.size.width = v36;
-  v165.size.height = v10;
-  CGRectInset(v165, 16.0, 16.0);
-  PKSizeAlignedInRect();
+  v300.origin.x = v48;
+  v300.origin.y = v6;
+  v300.size.width = v43;
+  v300.size.height = v10;
+  v301 = CGRectInset(v300, 16.0, 16.0);
+  v87 = v301.origin.x;
+  v88 = v301.origin.y;
+  v89.n128_u64[0] = *&v301.size.width;
+  v90 = v301.size.height;
+  v301.origin.x = 30.0;
+  v301.origin.y = 30.0;
+  v301.size.width = v87;
+  v301.size.height = v88;
+  v91.n128_u64[0] = v89.n128_u64[0];
+  v92.n128_f64[0] = v90;
+  PKSizeAlignedInRect(v281, v301.origin, *&v301.origin.y, v301.size, *&v301.size.height, v91, v92, v89);
   [(UIButton *)self->_dismissButton setFrame:?];
   +[PKDiscoveryCardView compressedWidth];
-  PKFloatRoundToPixel();
-  if (v34)
+  v93.n128_u64[0] = 3.0;
+  v95.n128_f64[0] = v94 / 3.0 + v94 / 3.0;
+  PKFloatRoundToPixel(v95, v93);
+  if (v35)
   {
     +[PKDiscoveryCardView compressedWidth];
   }
 
-  v57 = v56 - v140 - v141;
-  v58 = v57 + -42.0;
-  v59 = self->_headingLabel;
-  if (v59)
+  v97 = v96 - v273 - v274;
+  v98 = v97 + -42.0;
+  v99 = self->_headingLabel;
+  if (v99)
   {
-    [(UILabel *)v59 sizeThatFits:v57 + -42.0, v10];
-    v61 = v60;
+    [(UILabel *)v99 sizeThatFits:v97 + -42.0, v10];
+    v102 = v101;
   }
 
   else
   {
-    v61 = *(MEMORY[0x1E695F060] + 8);
+    v100 = *MEMORY[0x1E695F060];
+    v102 = *(MEMORY[0x1E695F060] + 8);
+  }
+
+  if (v100 <= v98)
+  {
+    *&v103 = v100;
+  }
+
+  else
+  {
+    *&v103 = v98;
   }
 
   [(PKDiscoveryCardView *)self _yOffsetToHeadingLabel];
-  v63 = v62;
-  v166.origin.x = v144;
-  v166.origin.y = v143;
-  v166.size.width = v142;
-  v166.size.height = v151;
-  CGRectDivide(v166, &slice, &remainder, v63, CGRectMinYEdge);
-  CGRectDivide(remainder, &slice, &remainder, v61, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v65 = v64;
-  v67 = v66;
-  v69 = v68;
-  v71 = v70;
+  v105 = v104;
+  v302.origin.x = v277;
+  v302.origin.y = v276;
+  v302.size.width = v275;
+  v302.size.height = v285;
+  CGRectDivide(v302, &slice, &remainder, v105, CGRectMinYEdge);
+  CGRectDivide(remainder, &slice, &remainder, *&v102, CGRectMinYEdge);
+  v106 = PKContentAlignmentMake();
+  v107.n128_u64[0] = *&slice.origin.x;
+  v108.n128_u64[0] = *&slice.origin.y;
+  v109.n128_u64[0] = *&slice.size.width;
+  v110.n128_u64[0] = *&slice.size.height;
+  v111.n128_u64[0] = v103;
+  v112.n128_u64[0] = v102;
+  PKSizeAlignedInRect(v106, v111, v112, v107, v108, v109, v110, v113);
+  v115 = v114;
+  v117 = v116;
+  v119 = v118;
+  v121 = v120;
   titleLabel = self->_titleLabel;
   if (titleLabel)
   {
-    [(UILabel *)titleLabel sizeThatFits:v58, remainder.size.height];
-    v74 = v73;
+    [(UILabel *)titleLabel sizeThatFits:v98, remainder.size.height];
+    v125 = v124;
   }
 
   else
   {
-    v74 = *(MEMORY[0x1E695F060] + 8);
+    v123 = *MEMORY[0x1E695F060];
+    v125 = *(MEMORY[0x1E695F060] + 8);
+  }
+
+  if (v123 <= v98)
+  {
+    v98 = v123;
   }
 
   if (self->_headingLabel)
@@ -842,210 +917,288 @@ LABEL_16:
     CGRectDivide(remainder, &slice, &remainder, 4.0, CGRectMinYEdge);
   }
 
-  CGRectDivide(remainder, &slice, &remainder, v74, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v76 = v75;
-  v152 = v77;
-  v145 = v78;
-  v80 = v79;
+  CGRectDivide(remainder, &slice, &remainder, v125, CGRectMinYEdge);
+  v126 = PKContentAlignmentMake();
+  v127.n128_u64[0] = *&slice.origin.x;
+  v128.n128_u64[0] = *&slice.origin.y;
+  v129.n128_u64[0] = *&slice.size.width;
+  v130.n128_u64[0] = *&slice.size.height;
+  v131.n128_f64[0] = v98;
+  v132.n128_f64[0] = v125;
+  PKSizeAlignedInRect(v126, v131, v132, v127, v128, v129, v130, v133);
+  v135 = v134;
+  v286 = v136;
+  v278 = v137;
+  v139 = v138;
   text4 = [(UILabel *)self->_titleLabel text];
-  v82 = [text4 length];
+  v141 = [text4 length];
 
-  if (v146)
+  if (v279)
   {
-    v83 = 2;
+    v142 = 2;
   }
 
   else
   {
-    v83 = 0;
+    v142 = 0;
   }
 
-  [(UILabel *)self->_headingLabel setTextAlignment:v83];
-  if (!v34)
+  [(UILabel *)self->_headingLabel setTextAlignment:v142];
+  if (!v35)
   {
-    v84 = self->_miniCardTemplate;
-    if (v84 == 2)
+    v145 = self->_miniCardTemplate;
+    if (v145 == 2)
     {
       [(UILabel *)self->_titleLabel setHidden:1];
       [(UILabel *)self->_headingLabel setTextAlignment:1];
       [(PKDiscoveryCardView *)self _miniCardImageSize];
-      PKFloatRoundToPixel();
-      v109 = v108;
-      *&v169.origin.x = rect[0];
-      v169.size.width = v149;
-      v169.origin.y = v150;
-      v169.size.height = v10;
-      CGRectInset(v169, 0.0, v109);
-      PKContentAlignmentMake();
+      v192 = 120.0 - v191 - *&v102;
+      v193.n128_u64[0] = 0.5;
+      v194.n128_f64[0] = v192 * 0.5;
+      PKFloatRoundToPixel(v194, v193);
+      v196 = v195;
+      *&v306.origin.x = rect[0];
+      v306.size.width = v283;
+      v306.origin.y = v284;
+      v306.size.height = v282;
+      v307 = CGRectInset(v306, 0.0, v196);
+      v197 = v307.origin.x;
+      v198 = v135;
+      v199 = v307.origin.y;
+      v200 = v307.size.width;
+      v201 = v307.size.height;
+      v183 = PKContentAlignmentMake();
+      v185.n128_u64[0] = v103;
+      v186.n128_u64[0] = v102;
+      v187.n128_f64[0] = v197;
+      v188.n128_f64[0] = v199;
+      v135 = v198;
+      v189.n128_f64[0] = v200;
+      v190.n128_f64[0] = v201;
     }
 
     else
     {
-      if (v84 != 1)
+      if (v145 != 1)
       {
-        if (v84)
+        if (v145)
         {
-          goto LABEL_48;
+          goto LABEL_56;
         }
 
-        v147 = v76;
-        PKFloatRoundToPixel();
-        v86 = v85;
-        if (v82)
+        v280 = v135;
+        v144.n128_u64[0] = -10.0;
+        v143.n128_f64[0] = v283 - v272 + -32.0 + -30.0 + -12.0 + -10.0;
+        PKFloatRoundToPixel(v143, v144);
+        v147 = v146;
+        if (v141)
         {
-          v87 = objc_alloc_init(MEMORY[0x1E69DB7E0]);
-          [v87 setMaximumNumberOfLines:3];
+          v148 = objc_alloc_init(MEMORY[0x1E69DB7E0]);
+          [v148 setMaximumNumberOfLines:3];
           text5 = [(UILabel *)self->_titleLabel text];
-          v153 = *MEMORY[0x1E69DB648];
-          v162 = *MEMORY[0x1E69DB648];
+          v287 = *MEMORY[0x1E69DB648];
+          v296 = *MEMORY[0x1E69DB648];
           _titleLabelFont = [(PKDiscoveryCardView *)self _titleLabelFont];
-          v163[0] = _titleLabelFont;
-          v90 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v163 forKeys:&v162 count:1];
-          [text5 boundingRectWithSize:1 options:v90 attributes:v87 context:{v86, 3.40282347e38}];
-          v92 = v91;
+          v297[0] = _titleLabelFont;
+          v151 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v297 forKeys:&v296 count:1];
+          [text5 boundingRectWithSize:1 options:v151 attributes:v148 context:{*&v147, 3.40282347e38}];
+          v153 = v152;
 
-          v93 = v150;
-          if (v92 <= 62.0 - v61)
+          v154 = v284;
+          if (v153 <= 62.0 - *&v102)
           {
-            v118 = rect[0];
-            v120 = v148;
-            v119 = v149;
-            v171 = CGRectInset(*(&v93 - 1), 56.0, 29.0);
-            x = v171.origin.x;
-            y = v171.origin.y;
-            width = v171.size.width;
-            height = v171.size.height;
-            [v87 setMaximumNumberOfLines:2];
+            v222 = rect[0];
+            v224 = v282;
+            v223 = v283;
+            v310 = CGRectInset(*(&v154 - 1), 56.0, 29.0);
+            v158 = v310.origin.x;
+            v159 = v310.origin.y;
+            v160 = v310.size.width;
+            v161 = v310.size.height;
+            [v148 setMaximumNumberOfLines:2];
             text6 = [(UILabel *)self->_titleLabel text];
-            v160 = v153;
+            v294 = v287;
             _titleLabelFont2 = [(PKDiscoveryCardView *)self _titleLabelFont];
-            v161 = _titleLabelFont2;
-            v123 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v161 forKeys:&v160 count:1];
-            [text6 boundingRectWithSize:1 options:v123 attributes:v87 context:{v86, 3.40282347e38}];
-            v92 = v124;
+            v295 = _titleLabelFont2;
+            v227 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v295 forKeys:&v294 count:1];
+            [text6 boundingRectWithSize:1 options:v227 attributes:v148 context:{*&v147, 3.40282347e38}];
+            v153 = v228;
 
-            [v87 setMaximumNumberOfLines:1];
+            [v148 setMaximumNumberOfLines:1];
             text7 = [(UILabel *)self->_titleLabel text];
-            v158 = v153;
+            v292 = v287;
             _titleLabelFont3 = [(PKDiscoveryCardView *)self _titleLabelFont];
-            v159 = _titleLabelFont3;
-            v127 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
-            [text7 boundingRectWithSize:1 options:v127 attributes:v87 context:{v86, 3.40282347e38}];
-            v129 = v128;
+            v293 = _titleLabelFont3;
+            v231 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v293 forKeys:&v292 count:1];
+            [text7 boundingRectWithSize:1 options:v231 attributes:v148 context:{*&v147, 3.40282347e38}];
+            v233 = v232;
 
-            v101 = self->_titleLabel;
-            if (v92 <= v129)
+            v162 = self->_titleLabel;
+            if (v153 <= v233)
             {
-              [(UILabel *)v101 setNumberOfLines:1];
-              v92 = v129;
-              goto LABEL_47;
+              [(UILabel *)v162 setNumberOfLines:1];
+              v153 = v233;
+              goto LABEL_55;
             }
 
-            v102 = 2;
+            v163 = 2;
           }
 
           else
           {
-            v94 = rect[0];
-            v96 = v148;
-            v95 = v149;
-            v167 = CGRectInset(*(&v93 - 1), 56.0, 19.0);
-            x = v167.origin.x;
-            y = v167.origin.y;
-            width = v167.size.width;
-            height = v167.size.height;
-            v101 = self->_titleLabel;
-            v102 = 3;
+            v155 = rect[0];
+            v157 = v282;
+            v156 = v283;
+            v303 = CGRectInset(*(&v154 - 1), 56.0, 19.0);
+            v158 = v303.origin.x;
+            v159 = v303.origin.y;
+            v160 = v303.size.width;
+            v161 = v303.size.height;
+            v162 = self->_titleLabel;
+            v163 = 3;
           }
 
-          [(UILabel *)v101 setNumberOfLines:v102];
-LABEL_47:
-          memset(&v155, 0, sizeof(v155));
+          [(UILabel *)v162 setNumberOfLines:v163];
+LABEL_55:
+          memset(&v289, 0, sizeof(v289));
           memset(&rect[1], 0, 32);
-          v172.origin.x = x;
-          v172.origin.y = y;
-          v172.size.width = width;
-          v172.size.height = height;
-          CGRectDivide(v172, &rect[1], &v155, v92 + (height - v92 - v61) * 0.5, CGRectMaxYEdge);
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
-          v65 = v130;
-          v67 = v131;
-          v69 = v132;
-          v71 = v133;
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
-          v76 = v134;
-          v152 = v135;
-          v145 = v136;
-          v80 = v137;
+          v311.origin.x = v158;
+          v311.origin.y = v159;
+          v311.size.width = v160;
+          v311.size.height = v161;
+          CGRectDivide(v311, &rect[1], &v289, v153 + (v161 - v153 - *&v102) * 0.5, CGRectMaxYEdge);
+          v234 = PKContentAlignmentMake();
+          v235.n128_u64[0] = *&v289.origin.x;
+          v236.n128_u64[0] = *&v289.origin.y;
+          v237.n128_u64[0] = *&v289.size.width;
+          v238.n128_u64[0] = *&v289.size.height;
+          v239.n128_u64[0] = v147;
+          v240.n128_u64[0] = v102;
+          PKSizeAlignedInRect(v234, v239, v240, v235, v236, v237, v238, v241);
+          v115 = v242;
+          v117 = v243;
+          v119 = v244;
+          v121 = v245;
+          v246 = PKContentAlignmentMake();
+          v247.n128_u64[0] = rect[1];
+          v248.n128_u64[0] = rect[2];
+          v249.n128_u64[0] = rect[3];
+          v250.n128_u64[0] = rect[4];
+          v251.n128_u64[0] = v147;
+          v252.n128_f64[0] = v153;
+          PKSizeAlignedInRect(v246, v251, v252, v247, v248, v249, v250, v253);
+          v135 = v254;
+          v286 = v255;
+          v278 = v256;
+          v139 = v257;
 
-          goto LABEL_48;
+          goto LABEL_56;
         }
 
-        *&v170.origin.x = rect[0];
-        v170.origin.y = v150;
-        v170.size.width = v149;
-        v170.size.height = v10;
-        CGRectInset(v170, 56.0, 29.0);
-        PKContentAlignmentMake();
-LABEL_42:
-        PKSizeAlignedInRect();
-        v65 = v114;
-        v67 = v115;
-        v69 = v116;
-        v71 = v117;
-        v76 = v147;
-        goto LABEL_48;
+        *&v308.origin.x = rect[0];
+        v308.origin.y = v284;
+        v308.size.width = v283;
+        v308.size.height = v282;
+        v309 = CGRectInset(v308, 56.0, 29.0);
+        v214 = v309.origin.x;
+        v215 = v309.origin.y;
+        v216 = v309.size.width;
+        v217 = v309.size.height;
+        v206 = PKContentAlignmentMake();
+        v208.n128_u64[0] = v147;
+        v209.n128_u64[0] = v102;
+        v210.n128_f64[0] = v214;
+        v211.n128_f64[0] = v215;
+        v212.n128_f64[0] = v216;
+        v213.n128_f64[0] = v217;
+LABEL_50:
+        PKSizeAlignedInRect(v206, v208, v209, v210, v211, v212, v213, v207);
+        v115 = v218;
+        v117 = v219;
+        v119 = v220;
+        v121 = v221;
+        v135 = v280;
+        goto LABEL_56;
       }
 
-      v147 = v76;
-      PKFloatRoundToPixel();
-      *&v168.origin.x = rect[0];
-      v168.origin.y = v150;
-      v168.size.width = v149;
-      v168.size.height = v10;
-      CGRectInset(v168, 16.0, 29.0);
-      if (!v82)
+      v280 = v135;
+      v144.n128_u64[0] = -12.0;
+      v143.n128_f64[0] = v283 - v272 + -16.0 + -12.0;
+      PKFloatRoundToPixel(v143, v144);
+      v165 = v164;
+      *&v304.origin.x = rect[0];
+      v304.origin.y = v284;
+      v304.size.width = v283;
+      v304.size.height = v282;
+      v305 = CGRectInset(v304, 16.0, 29.0);
+      v166 = v305.origin.x;
+      v167 = v305.origin.y;
+      v168 = v305.size.width;
+      v169 = v305.size.height;
+      if (!v141)
       {
-        PKContentAlignmentMake();
-        goto LABEL_42;
+        v206 = PKContentAlignmentMake();
+        v208.n128_u64[0] = v165;
+        v209.n128_u64[0] = v102;
+        v210.n128_f64[0] = v166;
+        v211.n128_f64[0] = v167;
+        v212.n128_f64[0] = v168;
+        v213.n128_f64[0] = v169;
+        goto LABEL_50;
       }
 
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      v104 = v103;
-      v152 = v105;
-      v145 = v106;
-      v80 = v107;
-      PKContentAlignmentMake();
-      v76 = v104;
+      v170 = PKContentAlignmentMake();
+      v171.n128_u64[0] = v165;
+      v172.n128_f64[0] = 62.0 - *&v102;
+      v173.n128_f64[0] = v166;
+      v174.n128_f64[0] = v167;
+      v175.n128_f64[0] = v168;
+      v176.n128_f64[0] = v169;
+      PKSizeAlignedInRect(v170, v171, v172, v173, v174, v175, v176, v177);
+      v179 = v178;
+      v286 = v180;
+      v278 = v181;
+      v139 = v182;
+      v183 = PKContentAlignmentMake();
+      v185.n128_u64[0] = v165;
+      v186.n128_u64[0] = v102;
+      v187.n128_f64[0] = v166;
+      v188.n128_f64[0] = v167;
+      v189.n128_f64[0] = v168;
+      v190.n128_f64[0] = v169;
+      v135 = v179;
     }
 
-    PKSizeAlignedInRect();
-    v65 = v110;
-    v67 = v111;
-    v69 = v112;
-    v71 = v113;
+    PKSizeAlignedInRect(v183, v185, v186, v187, v188, v189, v190, v184);
+    v115 = v202;
+    v117 = v203;
+    v119 = v204;
+    v121 = v205;
   }
 
-LABEL_48:
-  [(UILabel *)self->_headingLabel setFrame:v65, v67, v69, v71];
-  if (v82)
+LABEL_56:
+  [(UILabel *)self->_headingLabel setFrame:v115, v117, v119, v121];
+  if (v141)
   {
-    [(UILabel *)self->_titleLabel setTextAlignment:v83];
-    [(UILabel *)self->_titleLabel setFrame:v76, v152, v145, v80];
+    [(UILabel *)self->_titleLabel setTextAlignment:v142];
+    [(UILabel *)self->_titleLabel setFrame:v135, v286, v278, v139];
   }
 
   callToAction = [(PKDiscoveryCard *)self->_card callToAction];
 
   if (callToAction)
   {
-    [(PKDiscoveryCallToActionFooterView *)self->_ctaFooterView sizeThatFits:v149, v148];
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    [(PKDiscoveryCallToActionFooterView *)self->_ctaFooterView sizeThatFits:v283, v282];
+    v260 = v259;
+    v262 = v261;
+    v263 = PKContentAlignmentMake();
+    v264.n128_u64[0] = v260;
+    v265.n128_u64[0] = v262;
+    v266.n128_u64[0] = rect[0];
+    v267.n128_f64[0] = v284;
+    v268.n128_f64[0] = v283;
+    v269.n128_f64[0] = v282;
+    PKSizeAlignedInRect(v263, v264, v265, v266, v267, v268, v269, v270);
     [(PKDiscoveryCallToActionFooterView *)self->_ctaFooterView setFrame:?];
   }
 }

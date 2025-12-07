@@ -296,34 +296,39 @@ void __44__SUScriptSegmentedControlItem_setImageURL___block_invoke(uint64_t a1)
     v4 = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = v4 | 2;
+      LODWORD(v5) = v4 | 2;
     }
 
     else
     {
-      v5 = v4;
+      LODWORD(v5) = v4;
     }
 
-    if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v6 = [v3 OSLogObject];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
 
     if (v5)
     {
-      v6 = objc_opt_class();
-      v7 = *(a1 + 40);
+      v7 = objc_opt_class();
+      v8 = *(a1 + 40);
       v12 = 138412546;
-      v13 = v6;
+      v13 = v7;
       v14 = 2112;
-      v15 = v7;
-      LODWORD(v10) = 22;
-      v8 = _os_log_send_and_compose_impl();
-      if (v8)
+      v15 = v8;
+      v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, v6, 0, "%@: Could not create image for URL: %@", &v12, 22);
+      if (v9)
       {
-        v9 = v8;
-        [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v12, v10}];
-        free(v9);
+        v10 = v9;
+        [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+        free(v10);
         SSFileLog();
       }
     }
@@ -405,7 +410,7 @@ uint64_t __41__SUScriptSegmentedControlItem_setTitle___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __37__SUScriptSegmentedControlItem_title__block_invoke(uint64_t a1)
+void *__37__SUScriptSegmentedControlItem_title__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 104) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

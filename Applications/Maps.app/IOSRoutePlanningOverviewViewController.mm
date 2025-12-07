@@ -280,8 +280,8 @@ LABEL_12:
 
     if (v6)
     {
-      configuration = [v6 configuration];
-      shouldAutoLaunchNavigation = [configuration shouldAutoLaunchNavigation];
+      v15 = objc_msgSend_configuration(v6);
+      shouldAutoLaunchNavigation = [v15 shouldAutoLaunchNavigation];
 
       if (shouldAutoLaunchNavigation)
       {

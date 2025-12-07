@@ -73,26 +73,26 @@ void __43__FAInviteInPersonActivity_performActivity__block_invoke(uint64_t a1, v
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
-  v6 = _FALogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = _FALogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __43__FAInviteInPersonActivity_performActivity__block_invoke_cold_1(v3, v6);
+    __43__FAInviteInPersonActivity_performActivity__block_invoke_cold_1(v3, v7);
   }
 
-  v7 = [v3 userInfo];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 144);
-  *(v8 + 144) = v7;
+  v8 = [v3 userInfo];
+  v9 = *(a1 + 32);
+  v10 = *(v9 + 144);
+  *(v9 + 144) = v8;
 
-  v10 = [MEMORY[0x277D75418] currentDevice];
-  v11 = [v10 userInterfaceIdiom];
+  v11 = [MEMORY[0x277D75418] currentDevice];
+  v12 = [v11 userInterfaceIdiom];
 
-  if (v11 != 1)
+  if (v12 != 1)
   {
-    v12 = *(a1 + 32);
-    v13 = [v3 success];
-    v14 = [v3 userInfo];
-    [v12 _notifyCompletionWithSuccess:v13 userInfo:v14];
+    v13 = *(a1 + 32);
+    v14 = [v3 success];
+    v15 = [v3 userInfo];
+    [v13 _notifyCompletionWithSuccess:v14 userInfo:v15];
   }
 }
 
@@ -130,12 +130,13 @@ uint64_t __66__FAInviteInPersonActivity__notifyCompletionWithSuccess_userInfo___
     userInfo = [dismissCopy userInfo];
     v8 = [userInfo objectForKeyedSubscript:@"success"];
 
-    if ([v8 length])
+    v9 = [v8 length];
+    if (v9)
     {
-      v9 = _FALogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = _FALogSystem(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        [(FAInviteInPersonActivity *)v8 _handleRUIDismiss:v9];
+        [(FAInviteInPersonActivity *)v8 _handleRUIDismiss:v10];
       }
 
       bOOLValue = [v8 BOOLValue];
@@ -154,20 +155,18 @@ uint64_t __66__FAInviteInPersonActivity__notifyCompletionWithSuccess_userInfo___
 
 void __43__FAInviteInPersonActivity_performActivity__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_21BB35000, a2, OS_LOG_TYPE_DEBUG, "Finished FAInviteInPersonActivity %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_21BB35000, a2, OS_LOG_TYPE_DEBUG, "Finished FAInviteInPersonActivity %@", &v2, 0xCu);
 }
 
 - (void)_handleRUIDismiss:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_21BB35000, a2, OS_LOG_TYPE_DEBUG, "Server indicated success: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_21BB35000, a2, OS_LOG_TYPE_DEBUG, "Server indicated success: %@", &v2, 0xCu);
 }
 
 @end

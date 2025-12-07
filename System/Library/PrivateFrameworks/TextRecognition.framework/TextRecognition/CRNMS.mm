@@ -29,7 +29,7 @@
     {
       nms::PyramidNMS<unsigned short,double,unsigned char>::PyramidNMS(&v6);
       p_preNMSForests = &v3->_preNMSForests;
-      nms::PyramidNMS<unsigned short,double,unsigned char>::operator=(&v3->_pyrNMS, &v6);
+      nms::PyramidNMS<unsigned short,double,unsigned char>::operator=(&v3->_pyrNMS._vptr$PyramidNMS, &v6);
       nms::PyramidNMS<unsigned short,double,unsigned char>::~PyramidNMS(&v6);
       nms::PyramidNMSConfig::PyramidNMSConfig(&v6, 1, 1uLL);
       v6 = &unk_1F2BAF6A8;
@@ -67,7 +67,7 @@
   {
     nms::PyramidNMS<unsigned short,double,unsigned char>::PyramidNMS(&v8);
     v9[120] = &v6->_preNMSForests;
-    nms::PyramidNMS<unsigned short,double,unsigned char>::operator=(&v6->_pyrNMS, &v8);
+    nms::PyramidNMS<unsigned short,double,unsigned char>::operator=(&v6->_pyrNMS._vptr$PyramidNMS, &v8);
     nms::PyramidNMS<unsigned short,double,unsigned char>::~PyramidNMS(&v8);
     nms::PyramidNMSConfig::PyramidNMSConfig(&v8, type, scoreType);
     if (type == 1)
@@ -89,7 +89,7 @@
   rectsCopy = rects;
   optionsCopy = options;
   nms::RectForest<unsigned short,double>::RectForest(v19, 0);
-  std::deque<nms::RectForest<unsigned short,double>>::push_back(&self->_preNMSForests.__map_.__first_, v19);
+  std::deque<nms::RectForest<unsigned short,double>>::push_back(&self->_preNMSForests, v19);
   nms::RectForest<unsigned short,double>::~RectForest(v19);
   v17 = self->_preNMSForests.__size_ + self->_preNMSForests.__start_ - 1;
   LOBYTE(map) = [(CRNMS *)self buildRectForest:self->_preNMSForests.__map_.__begin_[v17 / 0x14] + 200 * (v17 % 0x14) fromTextDetectorQuadFeatures:features forestFeatureType:0 withInputSize:map scoreMap:rectsCopy scoreMapScaleFactor:optionsCopy andTileRects:width options:height, factor];
@@ -341,15 +341,15 @@ LABEL_38:
             while (v21);
             if (v23 == v16 || v23[4] > v18 || (v27 = v23[5], v27 > 8))
             {
-              v28 = 0.0;
+              v28 = 0;
             }
 
             else
             {
-              v28 = dbl_1B42AFA98[v27];
+              v28 = qword_1B42AFA98[v27];
             }
 
-            v29 = v22 / *&v28;
+            v29 = v22 / v28;
           }
 
           if (v20 > v19 && v29 == v17)
@@ -377,7 +377,7 @@ LABEL_38:
             }
 
             while (v31);
-            if (v33 == v16 || v33[4] > v19 || (v36 = v33[5], v36 > 8) || *&dbl_1B42AFA98[v36] <= v32)
+            if (v33 == v16 || v33[4] > v19 || (v36 = v33[5], v36 > 8) || qword_1B42AFA98[v36] <= v32)
             {
 LABEL_37:
               v14 = 1;
@@ -437,7 +437,7 @@ LABEL_39:
       self->_pyrNMS.fullySpecifiedForests.__start_ = start - 4096;
       v230 = *begin;
       self->_pyrNMS.fullySpecifiedForests.__map_.__begin_ = begin + 1;
-      std::__split_buffer<int *>::emplace_back<int *&>(&self->_pyrNMS.fullySpecifiedForests.__map_.__first_, &v230);
+      std::__split_buffer<int *>::emplace_back<int *&>(&self->_pyrNMS.fullySpecifiedForests, &v230);
       self = selfCopy;
       begin = selfCopy->_pyrNMS.fullySpecifiedForests.__map_.__begin_;
       size = selfCopy->_pyrNMS.fullySpecifiedForests.__size_;
@@ -650,9 +650,9 @@ LABEL_55:
   v88 = v239[0];
   if (!v239[0])
   {
-    v102 = 0.0;
-    v92 = 0.0;
-    v96 = 0.0;
+    v102 = 0;
+    v92 = 0;
+    v96 = 0;
 LABEL_137:
     v106 = 0;
     goto LABEL_138;
@@ -668,12 +668,12 @@ LABEL_137:
   while (v89);
   if (v90 == v239 || v90[4] || (v91 = v90[5], v91 >= 9))
   {
-    v92 = 0.0;
+    v92 = 0;
   }
 
   else
   {
-    v92 = dbl_1B42AFA98[v91];
+    v92 = qword_1B42AFA98[v91];
   }
 
   v93 = v239;
@@ -691,12 +691,12 @@ LABEL_137:
   while (v94);
   if (v93 == v239 || v93[4] > 1uLL || (v95 = v93[5], v95 > 8))
   {
-    v96 = 0.0;
+    v96 = 0;
   }
 
   else
   {
-    v96 = dbl_1B42AFA98[v95];
+    v96 = qword_1B42AFA98[v95];
   }
 
   v97 = v239;
@@ -717,12 +717,12 @@ LABEL_137:
   while (v98);
   if (v97 == v239 || v97[4] > 3uLL || (v101 = v97[5], v101 > 8))
   {
-    v102 = 0.0;
+    v102 = 0;
   }
 
   else
   {
-    v102 = dbl_1B42AFA98[v101];
+    v102 = qword_1B42AFA98[v101];
   }
 
   v103 = v239;
@@ -796,10 +796,10 @@ LABEL_297:
 
 LABEL_138:
   v108 = WORD4(v244);
-  std::valarray<double>::resize(*(v235 + ((v236 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v236, *&v92 * WORD4(v244));
-  std::valarray<double>::resize(*(v235 + (((v236 + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 1), *&v96 * v87);
-  std::valarray<double>::resize(*(v235 + (((v236 + 3) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 3), *&v102 * v108);
-  std::valarray<double>::resize(*(v235 + (((v236 + 4) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 4), v106 * v87);
+  std::valarray<double>::resize(*(v235 + ((v236 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v236, v92 * WORD4(v244), 0.0);
+  std::valarray<double>::resize(*(v235 + (((v236 + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 1), v96 * v87, 0.0);
+  std::valarray<double>::resize(*(v235 + (((v236 + 3) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 3), v102 * v108, 0.0);
+  std::valarray<double>::resize(*(v235 + (((v236 + 4) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 4), v106 * v87, 0.0);
   featuresCopy = v222;
   std::deque<std::pair<unsigned short,unsigned short>>::resize((*(v237 + 8 * (v238 / 0x55)) + 48 * (v238 % 0x55)), v108);
   std::deque<std::pair<unsigned short,unsigned short>>::resize((*(v237 + 8 * ((v238 + 4) / 0x55)) + 48 * ((v238 + 4) % 0x55)), v108);
@@ -831,12 +831,12 @@ LABEL_138:
       if (v116 == v115 || v116[4] || (v117 = v116[5], v117 > 8))
       {
 LABEL_146:
-        v118 = 0.0;
+        v118 = 0;
       }
 
       else
       {
-        v118 = dbl_1B42AFA98[v117];
+        v118 = qword_1B42AFA98[v117];
       }
 
       v119 = *(v113[17] + 8 * (v113[20] / 0x55uLL)) + 48 * (v113[20] % 0x55uLL);
@@ -845,28 +845,28 @@ LABEL_146:
       v122 = v121[1];
       v123 = *v121;
       v247 = *(v113[11] + ((v113[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v113[14];
-      v248 = *&v118 * v120;
+      v248 = v118 * v120;
       v249 = v118;
       v250 = 1;
       std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v245, &v247);
-      v124 = *v239;
+      v124 = v239[0];
       if (v239[0])
       {
         do
         {
           v125 = v124;
-          v124 = **&v124;
+          v124 = *v124;
         }
 
-        while (v124 != 0.0);
-        if (*&v125 == v239 || *(*&v125 + 32) || (v126 = *(*&v125 + 40), v126 > 8))
+        while (v124);
+        if (v125 == v239 || v125[4] || (v126 = v125[5], v126 > 8))
         {
-          v124 = 0.0;
+          v124 = 0;
         }
 
         else
         {
-          v124 = dbl_1B42AFA98[v126];
+          v124 = qword_1B42AFA98[v126];
         }
       }
 
@@ -908,26 +908,26 @@ LABEL_162:
       if (v135 == v115 || v135[4] > 3uLL || (v138 = v135[5], v138 > 8))
       {
 LABEL_172:
-        v139 = 0.0;
+        v139 = 0;
       }
 
       else
       {
-        v139 = dbl_1B42AFA98[v138];
+        v139 = qword_1B42AFA98[v138];
       }
 
       v247 = *(v113[11] + (((v113[14] + 3) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v113 + 112) + 3);
-      v248 = *&v139 * v133;
+      v248 = v139 * v133;
       v249 = v139;
       v250 = 1;
       std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v245, &v247);
-      v140 = *v239;
+      v140 = v239[0];
       if (v239[0])
       {
-        v141 = COERCE_DOUBLE(v239);
+        v141 = v239;
         do
         {
-          v142 = *(*&v140 + 32);
+          v142 = v140[4];
           v25 = v142 >= 3;
           v143 = v142 < 3;
           if (v25)
@@ -935,18 +935,18 @@ LABEL_172:
             v141 = v140;
           }
 
-          v140 = *(*&v140 + 8 * v143);
+          v140 = v140[v143];
         }
 
-        while (v140 != 0.0);
-        if (*&v141 == v239 || *(*&v141 + 32) > 3uLL || (v144 = *(*&v141 + 40), v144 > 8))
+        while (v140);
+        if (v141 == v239 || v141[4] > 3uLL || (v144 = v141[5], v144 > 8))
         {
-          v140 = 0.0;
+          v140 = 0;
         }
 
         else
         {
-          v140 = dbl_1B42AFA98[v144];
+          v140 = qword_1B42AFA98[v144];
         }
       }
 
@@ -954,7 +954,7 @@ LABEL_172:
       v146 = v246;
       if (v246 != v245)
       {
-        v147 = (*(*(v235 + (((v236 + 3) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 3)) + 8 * *&v140 * v109);
+        v147 = (*(*(v235 + (((v236 + 3) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 3)) + 8 * v140 * v109);
         v148 = (v246 - v245) >> 3;
         if (v148 <= 1)
         {
@@ -1004,43 +1004,43 @@ LABEL_192:
       if (v153 == v115 || v153[4] > 1uLL || (v154 = v153[5], v154 > 8))
       {
 LABEL_201:
-        v155 = 0.0;
+        v155 = 0;
       }
 
       else
       {
-        v155 = dbl_1B42AFA98[v154];
+        v155 = qword_1B42AFA98[v154];
       }
 
       v156 = v122 - v123 + 1;
       v247 = *(v113[11] + (((v113[14] + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v113 + 112) + 1);
-      v248 = *&v155 * v151;
-      *&v249 = *&v155 * v156;
+      v248 = v155 * v151;
+      v249 = v155 * v156;
       v250 = 1;
       std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v245, &v247);
-      v157 = *v239;
+      v157 = v239[0];
       if (v239[0])
       {
-        v158 = COERCE_DOUBLE(v239);
+        v158 = v239;
         do
         {
-          if (*(*&v157 + 32))
+          if (v157[4])
           {
             v158 = v157;
           }
 
-          v157 = *(*&v157 + 8 * (*(*&v157 + 32) == 0));
+          v157 = v157[v157[4] == 0];
         }
 
-        while (v157 != 0.0);
-        if (*&v158 == v239 || *(*&v158 + 32) > 1uLL || (v159 = *(*&v158 + 40), v159 > 8))
+        while (v157);
+        if (v158 == v239 || v158[4] > 1uLL || (v159 = v158[5], v159 > 8))
         {
-          v157 = 0.0;
+          v157 = 0;
         }
 
         else
         {
-          v157 = dbl_1B42AFA98[v159];
+          v157 = qword_1B42AFA98[v159];
         }
       }
 
@@ -1049,7 +1049,7 @@ LABEL_201:
       v162 = v246;
       if (v246 != v245)
       {
-        v163 = (*(*(v235 + (((v236 + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 1)) + 8 * *&v157 * v110);
+        v163 = (*(*(v235 + (((v236 + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 1)) + 8 * v157 * v110);
         v164 = (v246 - v245) >> 3;
         if (v164 <= 1)
         {
@@ -1101,7 +1101,7 @@ LABEL_220:
       if (v168 == v115)
       {
 LABEL_230:
-        v172 = 0.0;
+        v172 = 0;
         featuresCopy = v222;
       }
 
@@ -1110,28 +1110,28 @@ LABEL_230:
         featuresCopy = v222;
         if (v168[4] > 4uLL || (v171 = v168[5], v171 > 8))
         {
-          v172 = 0.0;
+          v172 = 0;
         }
 
         else
         {
-          v172 = dbl_1B42AFA98[v171];
+          v172 = qword_1B42AFA98[v171];
         }
       }
 
-      v173 = *&v172 * *v121;
+      v173 = v172 * *v121;
       v247 = *(v113[11] + (((v113[14] + 4) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v113 + 112) + 4);
       v248 = v173;
-      *&v249 = *&v172 * v156;
+      v249 = v172 * v156;
       v250 = 1;
       std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v245, &v247);
-      v174 = *v239;
+      v174 = v239[0];
       if (v239[0])
       {
-        v175 = COERCE_DOUBLE(v239);
+        v175 = v239;
         do
         {
-          v176 = *(*&v174 + 32);
+          v176 = v174[4];
           v25 = v176 >= 4;
           v177 = v176 < 4;
           if (v25)
@@ -1139,18 +1139,18 @@ LABEL_230:
             v175 = v174;
           }
 
-          v174 = *(*&v174 + 8 * v177);
+          v174 = v174[v177];
         }
 
-        while (v174 != 0.0);
-        if (*&v175 == v239 || *(*&v175 + 32) > 4uLL || (v178 = *(*&v175 + 40), v178 > 8))
+        while (v174);
+        if (v175 == v239 || v175[4] > 4uLL || (v178 = v175[5], v178 > 8))
         {
-          v174 = 0.0;
+          v174 = 0;
         }
 
         else
         {
-          v174 = dbl_1B42AFA98[v178];
+          v174 = qword_1B42AFA98[v178];
         }
       }
 
@@ -1158,7 +1158,7 @@ LABEL_230:
       v180 = v246;
       if (v246 != v245)
       {
-        v181 = (*(*(v235 + (((v236 + 4) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 4)) + 8 * *&v174 * v110);
+        v181 = (*(*(v235 + (((v236 + 4) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v236 + 4)) + 8 * v174 * v110);
         v182 = (v246 - v245) >> 3;
         if (v182 <= 1)
         {
@@ -1219,7 +1219,7 @@ LABEL_251:
       }
     }
 
-    v129 = (*(*(v235 + ((v236 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v236) + 8 * *&v124 * v109);
+    v129 = (*(*(v235 + ((v236 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v236) + 8 * v124 * v109);
     v130 = (v246 - v245) >> 3;
     if (v130 <= 1)
     {
@@ -1251,7 +1251,7 @@ LABEL_256:
   nms::RectForest<unsigned short,double>::~RectForest(v228);
   std::deque<std::valarray<unsigned char>>::~deque[abi:ne200100](v229);
 LABEL_257:
-  std::deque<nms::RectForest<unsigned short,double>>::push_back(&self->_postNMSForests.__map_.__first_, v227);
+  std::deque<nms::RectForest<unsigned short,double>>::push_back(&self->_postNMSForests, v227);
   nms::RectForest<unsigned short,double>::~RectForest(v227);
   v196 = self->_preNMSForests.__map_.__begin_;
   v197 = self->_preNMSForests.__map_.__end_;
@@ -1426,7 +1426,7 @@ LABEL_286:
       while (v9);
     }
 
-    std::valarray<double>::resize(rects, 4 * v8);
+    std::valarray<double>::resize(rects, 4 * v8, 0.0);
     v25 = 0u;
     v26 = 0u;
     v23 = 0u;
@@ -1495,7 +1495,7 @@ LABEL_286:
 
   v17 = 0xCF3CF3CF3CF3CF3DLL * ((*(features + 1) - *features) >> 3);
   LOBYTE(dest.a) = 0;
-  std::vector<BOOL>::vector(&__p, v17);
+  std::vector<BOOL>::vector(&__p, v17, &dest);
   nms::RectForest<unsigned short,double>::setDataRepresentationDims(forest, type);
   if (map->data)
   {
@@ -1681,12 +1681,12 @@ LABEL_30:
       while (v58);
       if (v59 == v57 || v59[4] || (v60 = v59[5], v60 > 8))
       {
-        v61 = 0.0;
+        v61 = 0;
       }
 
       else
       {
-        v61 = dbl_1B42AFA98[v60];
+        v61 = qword_1B42AFA98[v60];
       }
 
       v63 = forestCopy + 23;
@@ -1704,12 +1704,12 @@ LABEL_30:
       while (v64);
       if (v63 == v57 || v63[4] > 1uLL || (v65 = v63[5], v65 > 8))
       {
-        v109 = 0.0;
+        v109 = 0;
       }
 
       else
       {
-        v109 = dbl_1B42AFA98[v65];
+        v109 = qword_1B42AFA98[v65];
       }
 
       v66 = forestCopy + 23;
@@ -1735,7 +1735,7 @@ LABEL_30:
 
       else
       {
-        v102 = dbl_1B42AFA98[v71];
+        v102 = *&qword_1B42AFA98[v71];
       }
 
       v72 = forestCopy + 23;
@@ -1769,13 +1769,13 @@ LABEL_30:
 
 LABEL_88:
             v100 = (*(forestCopy[11] + ((forestCopy[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * forestCopy[14]);
-            std::valarray<double>::resize(v100, *&v61 * v27);
+            std::valarray<double>::resize(v100, v61 * v27, 0.0);
             v107 = (*(forestCopy[11] + (((forestCopy[14] + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forestCopy + 112) + 1));
-            std::valarray<double>::resize(v107, *&v109 * v28);
+            std::valarray<double>::resize(v107, v109 * v28, 0.0);
             v101 = (*(forestCopy[11] + (((forestCopy[14] + 3) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forestCopy + 112) + 3));
-            std::valarray<double>::resize(v101, *&v102 * v27);
+            std::valarray<double>::resize(v101, *&v102 * v27, 0.0);
             v108 = (*(forestCopy[11] + (((forestCopy[14] + 4) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forestCopy + 112) + 4));
-            std::valarray<double>::resize(v108, v110 * v28);
+            std::valarray<double>::resize(v108, v110 * v28, 0.0);
             v98 = (*(forestCopy[17] + 8 * (forestCopy[20] / 0x55uLL)) + 48 * (forestCopy[20] % 0x55uLL));
             std::deque<std::pair<unsigned short,unsigned short>>::resize(v98, v27);
             v99 = (*(forestCopy[17] + 8 * ((forestCopy[20] + 4) / 0x55uLL)) + 48 * ((forestCopy[20] + 4) % 0x55uLL));
@@ -1793,7 +1793,7 @@ LABEL_88:
               v106 = 0;
               v82 = 0;
               v112 = 8 * v110;
-              v114 = 8 * *&v109;
+              v114 = 8 * v109;
               v97 = v61;
               do
               {
@@ -1807,8 +1807,8 @@ LABEL_88:
                   *&dest.c = 1;
                   std::map<nms::ForestLevelType,nms::RepresentationDimType>::at(*v57, 3uLL);
                   [(CRNMS *)self fillRectForestDatum:&dest asDimType:*std::map<nms::ForestLevelType withCRTextDetectorQuad:nms::RepresentationDimType>::at(*v57 andInputSize:3uLL), *features + 168 * v81, width, height];
-                  v128[0] = *v100 + 8 * v82 * *&v61;
-                  *&v128[1] = v61;
+                  v128[0] = *v100 + 8 * v82 * v61;
+                  v128[1] = v61;
                   v128[2] = 1;
                   std::map<nms::ForestLevelType,nms::RepresentationDimType>::at(*v57, 0);
                   v86 = *std::map<nms::ForestLevelType,nms::RepresentationDimType>::at(*v57, 0);
@@ -1853,7 +1853,7 @@ LABEL_88:
                       std::map<nms::ForestLevelType,nms::RepresentationDimType>::at(*v57, 4uLL);
                       [(CRNMS *)self fillRectForestDatum:&v125 asDimType:*std::map<nms::ForestLevelType withCRTextDetectorQuad:nms::RepresentationDimType>::at(*v57 andInputSize:4uLL), *(*features + 168 * v118 + 144) + v88, width, height];
                       v124[0] = *v107 + v91;
-                      *&v124[1] = v109;
+                      v124[1] = v109;
                       v124[2] = 1;
                       std::map<nms::ForestLevelType,nms::RepresentationDimType>::at(*v57, 1uLL);
                       v93 = *std::map<nms::ForestLevelType,nms::RepresentationDimType>::at(*v57, 1uLL);
@@ -1949,8 +1949,8 @@ LABEL_118:
     else
     {
       v102 = 0.0;
-      v61 = 0.0;
-      v109 = 0.0;
+      v61 = 0;
+      v109 = 0;
     }
 
     v110 = 0;
@@ -2062,16 +2062,16 @@ LABEL_50:
           if (v16 == v14 || *(v16 + 4) > v8 || (v20 = *(v16 + 5), v20 > 8))
           {
 LABEL_18:
-            v21 = 0.0;
+            v21 = 0;
           }
 
           else
           {
-            v21 = dbl_1B42AFA98[v20];
+            v21 = qword_1B42AFA98[v20];
           }
 
           v95 = *(*(forest + 11) + (((*(forest + 14) + v8) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forest + 112) + v8);
-          v96 = *&v21 * v13;
+          v96 = v21 * v13;
           v97 = v21;
           v98 = 1;
           std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v93, &v95);
@@ -2108,16 +2108,16 @@ LABEL_18:
               if (v26 == v14 || *(v26 + 4) > v9 || (v29 = *(v26 + 5), v29 > 8))
               {
 LABEL_30:
-                v30 = 0.0;
+                v30 = 0;
               }
 
               else
               {
-                v30 = dbl_1B42AFA98[v29];
+                v30 = qword_1B42AFA98[v29];
               }
 
               v95 = *(*(forest + 11) + (((*(forest + 14) + v9) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forest + 112) + v9);
-              v96 = *&v30 * v24;
+              v96 = v30 * v24;
               v97 = v30;
               v98 = 1;
               std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&__p, &v95);
@@ -2193,16 +2193,16 @@ LABEL_30:
           if (v61 == v59 || *(v61 + 4) || (v62 = *(v61 + 5), v62 > 8))
           {
 LABEL_88:
-            v63 = 0.0;
+            v63 = 0;
           }
 
           else
           {
-            v63 = dbl_1B42AFA98[v62];
+            v63 = qword_1B42AFA98[v62];
           }
 
           v95 = *(*(forest + 11) + ((*(forest + 14) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(forest + 14);
-          v96 = *&v63 * v88;
+          v96 = v63 * v88;
           v97 = v63;
           v98 = 1;
           std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v93, &v95);
@@ -2236,16 +2236,16 @@ LABEL_88:
               if (v67 == v59 || *(v67 + 4) > 1uLL || (v68 = *(v67 + 5), v68 > 8))
               {
 LABEL_99:
-                v69 = 0.0;
+                v69 = 0;
               }
 
               else
               {
-                v69 = dbl_1B42AFA98[v68];
+                v69 = qword_1B42AFA98[v68];
               }
 
               v95 = *(*(forest + 11) + (((*(forest + 14) + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forest + 112) + 1);
-              v96 = *&v69 * v65;
+              v96 = v69 * v65;
               v97 = v69;
               v98 = 1;
               std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&__p, &v95);
@@ -2283,16 +2283,16 @@ LABEL_99:
                   if (v76 == v59 || *(v76 + 4) > 2uLL || (v79 = *(v76 + 5), v79 > 8))
                   {
 LABEL_111:
-                    v80 = 0.0;
+                    v80 = 0;
                   }
 
                   else
                   {
-                    v80 = dbl_1B42AFA98[v79];
+                    v80 = qword_1B42AFA98[v79];
                   }
 
                   v95 = *(*(forest + 11) + (((*(forest + 14) + 2) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forest + 112) + 2);
-                  v96 = *&v80 * v74;
+                  v96 = v80 * v74;
                   v97 = v80;
                   v98 = 1;
                   std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v89, &v95);
@@ -2391,16 +2391,16 @@ LABEL_111:
         if (v36 == v34 || *(v36 + 4) > 3uLL || (v39 = *(v36 + 5), v39 > 8))
         {
 LABEL_55:
-          v40 = 0.0;
+          v40 = 0;
         }
 
         else
         {
-          v40 = dbl_1B42AFA98[v39];
+          v40 = qword_1B42AFA98[v39];
         }
 
         v95 = *(*(forest + 11) + (((*(forest + 14) + 3) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forest + 112) + 3);
-        v96 = *&v40 * v33;
+        v96 = v40 * v33;
         v97 = v40;
         v98 = 1;
         std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v93, &v95);
@@ -2436,16 +2436,16 @@ LABEL_55:
             if (v46 == v34 || *(v46 + 4) > 4uLL || (v49 = *(v46 + 5), v49 > 8))
             {
 LABEL_67:
-              v50 = 0.0;
+              v50 = 0;
             }
 
             else
             {
-              v50 = dbl_1B42AFA98[v49];
+              v50 = qword_1B42AFA98[v49];
             }
 
             v95 = *(*(forest + 11) + (((*(forest + 14) + 4) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(forest + 112) + 4);
-            v96 = *&v50 * v44;
+            v96 = v50 * v44;
             v97 = v50;
             v98 = 1;
             std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&__p, &v95);
@@ -2495,10 +2495,10 @@ LABEL_67:
 {
   v16 = 0;
   v17 = 0;
-  std::valarray<double>::resize(&v16, 4uLL);
+  std::valarray<double>::resize(&v16, 4uLL, 0.0);
   if (type == 5)
   {
-    std::valarray<double>::resize(&v16, 5uLL);
+    std::valarray<double>::resize(&v16, 5uLL, 0.0);
   }
 
   v8 = v16;
@@ -2545,7 +2545,7 @@ LABEL_67:
       return;
     }
 
-    std::valarray<double>::resize(&v27, 5uLL);
+    std::valarray<double>::resize(&v27, 5uLL, 0.0);
     if (dimType == 8 || dimType == 6)
     {
       v27[4] = *(*quad + 64);
@@ -2554,7 +2554,7 @@ LABEL_67:
 
   else
   {
-    std::valarray<double>::resize(&v27, 4uLL);
+    std::valarray<double>::resize(&v27, 4uLL, 0.0);
   }
 
   v9 = **quad;
@@ -2614,7 +2614,7 @@ LABEL_67:
   v19 = 0;
   if (type == 2)
   {
-    std::valarray<double>::resize(&__p, 8uLL);
+    std::valarray<double>::resize(&__p, 8uLL, 0.0);
     v10 = __p;
   }
 
@@ -2622,7 +2622,7 @@ LABEL_67:
   {
     if (type == 6)
     {
-      std::valarray<double>::resize(&__p, 9uLL);
+      std::valarray<double>::resize(&__p, 9uLL, 0.0);
       v10 = __p;
     }
 
@@ -2633,7 +2633,7 @@ LABEL_67:
         return;
       }
 
-      std::valarray<double>::resize(&__p, 0xEuLL);
+      std::valarray<double>::resize(&__p, 0xEuLL, 0.0);
       v10 = __p;
       LOBYTE(v11) = *(quad + 136);
       *(__p + 9) = *(quad + 13);

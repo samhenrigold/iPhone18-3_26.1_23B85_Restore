@@ -114,7 +114,7 @@
 
 - (HMMTRAccessorySetupPayload)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CPASP.ck.setupCode"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CPASP.ck.discriminator"];
@@ -137,13 +137,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v5;
-      v25 = 2112;
-      v26 = v7;
-      _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded setupCode: %@ discriminator: %@ ", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v5;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded setupCode: %@ discriminator: %@ ", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -172,7 +172,6 @@
     v18 = selfCopy;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -239,7 +238,7 @@
 
 + (BOOL)isValidSetupPayloadURLScheme:(id)scheme
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   schemeCopy = scheme;
   if ([schemeCopy isEqualToString:@"CH"])
   {
@@ -249,9 +248,9 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Legacy Matter prefix 'CH' detected, support will be removed in the future.", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Legacy Matter prefix 'CH' detected, support will be removed in the future.", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -263,7 +262,6 @@
     v9 = [schemeCopy isEqualToString:@"MT"];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -298,58 +296,7 @@
     {
       discriminator = [(HMMTRAccessorySetupPayload *)self discriminator];
       discriminator2 = [v6 discriminator];
-      if (![discriminator isEqualToNumber:discriminator2])
-      {
-        goto LABEL_16;
-      }
-
-      hasShortDiscriminator = [(HMMTRAccessorySetupPayload *)self hasShortDiscriminator];
-      if (hasShortDiscriminator != [v6 hasShortDiscriminator])
-      {
-        goto LABEL_16;
-      }
-
-      vendorID = [(HMMTRAccessorySetupPayload *)self vendorID];
-      vendorID2 = [v6 vendorID];
-      v14 = HMFEqualObjects();
-
-      if (!v14)
-      {
-        goto LABEL_16;
-      }
-
-      productID = [(HMMTRAccessorySetupPayload *)self productID];
-      productID2 = [v6 productID];
-      v17 = HMFEqualObjects();
-
-      if (!v17)
-      {
-        goto LABEL_16;
-      }
-
-      deviceTypeID = [(HMMTRAccessorySetupPayload *)self deviceTypeID];
-      deviceTypeID2 = [v6 deviceTypeID];
-      v20 = HMFEqualObjects();
-
-      if (!v20)
-      {
-        goto LABEL_16;
-      }
-
-      serialNumber = [(HMMTRAccessorySetupPayload *)self serialNumber];
-      serialNumber2 = [v6 serialNumber];
-      v23 = HMFEqualObjects();
-
-      if (!v23)
-      {
-        goto LABEL_16;
-      }
-
-      setupPayloadString = [(HMMTRAccessorySetupPayload *)self setupPayloadString];
-      setupPayloadString2 = [v6 setupPayloadString];
-      v26 = HMFEqualObjects();
-
-      if (v26)
+      if ([discriminator isEqualToNumber:discriminator2] && (v11 = -[HMMTRAccessorySetupPayload hasShortDiscriminator](self, "hasShortDiscriminator"), v11 == objc_msgSend(v6, "hasShortDiscriminator")) && (-[HMMTRAccessorySetupPayload vendorID](self, "vendorID"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "vendorID"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14) && (-[HMMTRAccessorySetupPayload productID](self, "productID"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "productID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = HMFEqualObjects(), v16, v15, v17) && (-[HMMTRAccessorySetupPayload deviceTypeID](self, "deviceTypeID"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "deviceTypeID"), v19 = objc_claimAutoreleasedReturnValue(), v20 = HMFEqualObjects(), v19, v18, v20) && (-[HMMTRAccessorySetupPayload serialNumber](self, "serialNumber"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "serialNumber"), v22 = objc_claimAutoreleasedReturnValue(), v23 = HMFEqualObjects(), v22, v21, v23) && (-[HMMTRAccessorySetupPayload setupPayloadString](self, "setupPayloadString"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "setupPayloadString"), v25 = objc_claimAutoreleasedReturnValue(), v26 = HMFEqualObjects(), v25, v24, v26))
       {
         requiresCustomFlow = [(HMMTRAccessorySetupPayload *)self requiresCustomFlow];
         v28 = requiresCustomFlow ^ [v6 requiresCustomFlow] ^ 1;
@@ -357,7 +304,6 @@
 
       else
       {
-LABEL_16:
         LOBYTE(v28) = 0;
       }
     }
@@ -462,7 +408,7 @@ LABEL_7:
 
 - (HMMTRAccessorySetupPayload)initWithSetupPayloadString:(id)string
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (!stringCopy)
   {
@@ -471,9 +417,9 @@ LABEL_7:
 
   v5 = stringCopy;
   v6 = [objc_alloc(MEMORY[0x277CD5488]) initWithBase38Representation:stringCopy];
-  v16 = 0;
-  v7 = [v6 populatePayload:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [v6 populatePayload:&v15];
+  v8 = v15;
   if (v7)
   {
     selfCopy = [(HMMTRAccessorySetupPayload *)self initWithCHIPSetupPayload:v7 setupPayloadString:v5];
@@ -489,11 +435,11 @@ LABEL_7:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v8;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse CHIP setup payload from setup payload string %@: %@", buf, 0x20u);
     }
 
@@ -501,13 +447,12 @@ LABEL_7:
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (HMMTRAccessorySetupPayload)initWithSetupCodeString:(id)string
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (!stringCopy)
   {
@@ -516,9 +461,9 @@ LABEL_7:
 
   v5 = stringCopy;
   v6 = [objc_alloc(MEMORY[0x277CD5428]) initWithDecimalStringRepresentation:stringCopy];
-  v16 = 0;
-  v7 = [v6 populatePayload:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [v6 populatePayload:&v15];
+  v8 = v15;
   if (v7)
   {
     selfCopy = [(HMMTRAccessorySetupPayload *)self initWithCHIPSetupPayload:v7 setupPayloadString:v5];
@@ -534,11 +479,11 @@ LABEL_7:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v8;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v8;
       _os_log_impl(&dword_22AEAE000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse CHIP setup payload from decimal string %@: %@", buf, 0x20u);
     }
 
@@ -546,7 +491,6 @@ LABEL_7:
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

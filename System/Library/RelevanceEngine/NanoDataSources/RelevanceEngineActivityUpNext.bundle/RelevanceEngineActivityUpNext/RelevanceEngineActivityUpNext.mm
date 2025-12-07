@@ -45,10 +45,11 @@ id _CoachingProgressUpdatesEnabled()
   return v3;
 }
 
-void sub_1B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -88,30 +89,30 @@ void sub_1F10(uint64_t a1)
   [WeakRetained _significantTimeChangeOccurred];
 }
 
-void sub_1F50(uint64_t a1)
+void sub_1F50(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v2 = HKLogCoaching;
+  v3 = HKLogCoaching;
   if (os_log_type_enabled(HKLogCoaching, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = v2;
-    v4 = +[NSUserDefaults standardUserDefaults];
-    v5 = [v4 persistentDomainForName:kHKNanolifestylePreferencesDomain];
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[Supergreen] Coaching preferences changed: %@", &v10, 0xCu);
+    v4 = v3;
+    v5 = +[NSUserDefaults standardUserDefaults];
+    v6 = [v5 persistentDomainForName:kHKNanolifestylePreferencesDomain];
+    v11 = 138412290;
+    v12 = v6;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[Supergreen] Coaching preferences changed: %@", &v11, 0xCu);
   }
 
-  v6 = _CoachingProgressUpdatesEnabled();
+  v7 = _CoachingProgressUpdatesEnabled();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained setProgressUpdatesEnabled:v6];
+  [WeakRetained setProgressUpdatesEnabled:v7];
 
-  v8 = objc_loadWeakRetained((a1 + 32));
-  v9 = [v8 delegate];
-  [v9 invalidateElements];
+  v9 = objc_loadWeakRetained((a1 + 32));
+  v10 = [v9 delegate];
+  [v10 invalidateElements];
 }
 
-void sub_2260(uint64_t a1)
+void sub_2260(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
   if (os_log_type_enabled(HKLogCoaching, OS_LOG_TYPE_DEBUG))
@@ -119,59 +120,59 @@ void sub_2260(uint64_t a1)
     sub_4EF8();
   }
 
-  v2 = [*(a1 + 32) _createWalkSuggestionElement];
+  v3 = [*(a1 + 32) _createWalkSuggestionElement];
   _HKInitializeLogging();
   if (os_log_type_enabled(HKLogCoaching, OS_LOG_TYPE_DEBUG))
   {
     sub_4F2C();
   }
 
-  v3 = *(a1 + 40);
-  if (v2)
+  v4 = *(a1 + 40);
+  if (v3)
   {
-    v5 = v2;
-    v4 = [NSArray arrayWithObjects:&v5 count:1];
-    (*(v3 + 16))(v3, v4);
+    v6 = v3;
+    v5 = [NSArray arrayWithObjects:&v6 count:1];
+    (*(v4 + 16))(v4, v5);
   }
 
   else
   {
-    (*(v3 + 16))(v3, &__NSArray0__struct);
+    (*(v4 + 16))(v4, &__NSArray0__struct);
   }
 }
 
-void sub_2DF8(uint64_t a1)
+void sub_2DF8(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v2 = HKLogCoaching;
+  v3 = HKLogCoaching;
   if (os_log_type_enabled(HKLogCoaching, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "[Supergreen] Calling into typical day model to cache values.", buf, 2u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[Supergreen] Calling into typical day model to cache values.", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) typicalDayModel];
-  v4 = [v3 willCompleteMoveGoalWithBufferPercentage:0.15];
+  v4 = [*(a1 + 32) typicalDayModel];
+  v5 = [v4 willCompleteMoveGoalWithBufferPercentage:0.15];
 
-  v5 = [*(a1 + 32) typicalDayModel];
-  v6 = [*(a1 + 32) settingsController];
-  LOBYTE(v3) = [v5 shouldSuggestWalkWithActivitySettingsController:v6];
+  v6 = [*(a1 + 32) typicalDayModel];
+  v7 = [*(a1 + 32) settingsController];
+  LOBYTE(v4) = [v6 shouldSuggestWalkWithActivitySettingsController:v7];
 
-  v7 = [*(a1 + 32) typicalDayModel];
-  v8 = [*(a1 + 32) settingsController];
-  [v7 briskWalkTimeToCompleteMoveGoalWithAcitivitySettingsController:v8];
-  v10 = v9;
+  v8 = [*(a1 + 32) typicalDayModel];
+  v9 = [*(a1 + 32) settingsController];
+  [v8 briskWalkTimeToCompleteMoveGoalWithAcitivitySettingsController:v9];
+  v11 = v10;
 
-  v11 = [*(a1 + 32) serialQueue];
+  v12 = [*(a1 + 32) serialQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_2F88;
   block[3] = &unk_C450;
   block[4] = *(a1 + 32);
-  v13 = v4;
-  v14 = v3;
-  block[5] = v10;
-  dispatch_async(v11, block);
+  v14 = v5;
+  v15 = v4;
+  block[5] = v11;
+  dispatch_async(v12, block);
 }
 
 id sub_2F88(uint64_t a1)
@@ -241,27 +242,27 @@ void sub_31CC(uint64_t a1)
   }
 }
 
-void sub_32A4(uint64_t a1)
+void sub_32A4(uint64_t a1, uint64_t a2)
 {
   _HKInitializeLogging();
-  v2 = HKLogCoaching;
+  v3 = HKLogCoaching;
   if (os_log_type_enabled(HKLogCoaching, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "[Supergreen] Rebuilding the typical day model.", buf, 2u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[Supergreen] Rebuilding the typical day model.", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) typicalDayModel];
-  v4 = [*(a1 + 32) _typicalDayDateInterval];
-  [v3 rebuildWithInterval:v4];
+  v4 = [*(a1 + 32) typicalDayModel];
+  v5 = [*(a1 + 32) _typicalDayDateInterval];
+  [v4 rebuildWithInterval:v5];
 
-  v5 = [*(a1 + 32) serialQueue];
+  v6 = [*(a1 + 32) serialQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_33B8;
   block[3] = &unk_C428;
   block[4] = *(a1 + 32);
-  dispatch_async(v5, block);
+  dispatch_async(v6, block);
 }
 
 id sub_33B8(uint64_t a1)
@@ -438,10 +439,11 @@ void sub_4374(uint64_t a1)
   [*(a1 + 32) setQueries:v9];
 }
 
-void sub_4720(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_4720(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_4754(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -451,16 +453,16 @@ void sub_4754(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id NLActivityUpNextRelevanceEngineDemoDateFormatter()
+id NLActivityUpNextRelevanceEngineDemoDateFormatter(uint64_t a1)
 {
   if (qword_11040 != -1)
   {
     sub_51E0();
   }
 
-  v1 = qword_11038;
+  v2 = qword_11038;
 
-  return v1;
+  return v2;
 }
 
 void sub_47B8(id a1)
@@ -520,16 +522,16 @@ id NLActivityUpNextRelevanceEngineContent(unint64_t a1)
   return v2;
 }
 
-id _NLActivityUpNextRelevanceEngineSampleFeature()
+id _NLActivityUpNextRelevanceEngineSampleFeature(uint64_t a1)
 {
   if (qword_11050 != -1)
   {
     sub_51F4();
   }
 
-  v1 = qword_11048;
+  v2 = qword_11048;
 
-  return v1;
+  return v2;
 }
 
 void sub_4AE8(id a1)
@@ -539,13 +541,13 @@ void sub_4AE8(id a1)
   _objc_release_x1();
 }
 
-id NLActivityUpNextRelevanceEngineSampleRelevanceProviderForPosition(double a1)
+id NLActivityUpNextRelevanceEngineSampleRelevanceProviderForPosition(uint64_t a1, double a2)
 {
-  v2 = _NLActivityUpNextRelevanceEngineSampleFeature();
-  v3 = [REFeatureValue featureValueWithDouble:a1];
-  v4 = [RERelevanceProvider customRelevanceProviderForFeature:v2 withValue:v3];
+  v3 = _NLActivityUpNextRelevanceEngineSampleFeature(a1);
+  v4 = [REFeatureValue featureValueWithDouble:a2];
+  v5 = [RERelevanceProvider customRelevanceProviderForFeature:v3 withValue:v4];
 
-  return v4;
+  return v5;
 }
 
 void sub_4FA0(void *a1, void *a2)

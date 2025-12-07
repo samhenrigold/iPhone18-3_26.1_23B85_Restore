@@ -9,7 +9,7 @@
 - (id)retargetedPreviewWithTarget:(id)target
 {
   ObjectType = swift_getObjectType();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93BA10);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93BA10, &qword_18A6526E0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v15[-v7];
   v16.receiver = self;
@@ -19,11 +19,11 @@
   v11 = swift_dynamicCastClassUnconditional();
   v12 = OBJC_IVAR____TtC5UIKitP33_F83AB3ECBB2C378B4FCEB681A4D7DB7421GlassMorphablePreview_glass;
   swift_beginAccess();
-  sub_188A3F29C(selfCopy + v12, v8, &unk_1EA93BA10);
+  sub_188A3F29C(selfCopy + v12, v8, &unk_1EA93BA10, &qword_18A6526E0);
 
   v13 = OBJC_IVAR____TtC5UIKitP33_F83AB3ECBB2C378B4FCEB681A4D7DB7421GlassMorphablePreview_glass;
   swift_beginAccess();
-  sub_188A4B4F4(v8, v11 + v13, &unk_1EA93BA10);
+  sub_188A4B4F4(v8, v11 + v13, &unk_1EA93BA10, &qword_18A6526E0);
   swift_endAccess();
 
   return v11;

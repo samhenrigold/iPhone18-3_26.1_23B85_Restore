@@ -8,6 +8,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)linkLifetimeScopeAsString:(int)string;
 - (int)StringAsLinkLifetimeScope:(id)scope;
 - (int)linkLifetimeScope;
 - (unint64_t)hash;
@@ -397,6 +398,29 @@ LABEL_10:
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)linkLifetimeScopeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"CallDuration";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Indefinite";
+  }
+
+  return v4;
+}
+
 - (int)StringAsLinkLifetimeScope:(id)scope
 {
   scopeCopy = scope;
@@ -562,30 +586,29 @@ LABEL_10:
     PBDataWriterWriteDataField();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_invitedHandles;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -593,7 +616,6 @@ LABEL_10:
 
   if (*&self->_has)
   {
-    creationDateEpochTime = self->_creationDateEpochTime;
     PBDataWriterWriteDoubleField();
   }
 
@@ -610,14 +632,12 @@ LABEL_10:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    pseudonymExpirationDateEpochTime = self->_pseudonymExpirationDateEpochTime;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    isActivated = self->_isActivated;
     PBDataWriterWriteBOOLField();
   }
 
@@ -633,7 +653,6 @@ LABEL_10:
 
   if ((*&self->_has & 4) != 0)
   {
-    linkLifetimeScope = self->_linkLifetimeScope;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -856,7 +875,6 @@ LABEL_10:
     }
   }
 
-  v9 = *(equalCopy + 100);
   if (*&self->_has)
   {
     if ((*(equalCopy + 100) & 1) == 0 || self->_creationDateEpochTime != *(equalCopy + 1))
@@ -885,7 +903,6 @@ LABEL_10:
     }
   }
 
-  v12 = *(equalCopy + 100);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 100) & 2) == 0 || self->_pseudonymExpirationDateEpochTime != *(equalCopy + 2))
@@ -907,7 +924,7 @@ LABEL_10:
     }
 
 LABEL_35:
-    v15 = 0;
+    v13 = 0;
     goto LABEL_36;
   }
 
@@ -916,7 +933,6 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v17 = *(equalCopy + 96);
   if (self->_isActivated)
   {
     if ((*(equalCopy + 96) & 1) == 0)
@@ -946,7 +962,7 @@ LABEL_26:
     }
   }
 
-  v15 = (*(equalCopy + 100) & 4) == 0;
+  v13 = (*(equalCopy + 100) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 100) & 4) == 0 || self->_linkLifetimeScope != *(equalCopy + 12))
@@ -954,12 +970,12 @@ LABEL_26:
       goto LABEL_35;
     }
 
-    v15 = 1;
+    v13 = 1;
   }
 
 LABEL_36:
 
-  return v15;
+  return v13;
 }
 
 - (unint64_t)hash

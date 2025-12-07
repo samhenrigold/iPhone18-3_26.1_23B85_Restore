@@ -69,39 +69,34 @@
 
     if (!v10)
     {
-      v21.receiver = self;
-      v21.super_class = SUUITextBoxViewAccessibility;
-      accessibilityLabel = [(SUUITextBoxViewAccessibility *)&v21 accessibilityLabel];
-      goto LABEL_12;
+      v19.receiver = self;
+      v19.super_class = SUUITextBoxViewAccessibility;
+      accessibilityLabel = [(SUUITextBoxViewAccessibility *)&v19 accessibilityLabel];
+      goto LABEL_10;
     }
 
     v7 = [(SUUITextBoxViewAccessibility *)self safeValueForKey:@"_subtitleLabel"];
     v11 = [(SUUITextBoxViewAccessibility *)self safeValueForKey:@"_ratingLabel"];
     v12 = [(SUUITextBoxViewAccessibility *)self safeValueForKey:@"_ratingImageView"];
-    v13 = [(SUUITextBoxViewAccessibility *)self safeIvarForKey:@"_textFrame"];
-    if (v13)
-    {
-      v14 = *v13;
-    }
-
-    v15 = UIAccessibilitySafeTextForCoreTextObject();
+    [(SUUITextBoxViewAccessibility *)self safeIvarForKey:@"_textFrame"];
+    v13 = UIAccessibilitySafeTextForCoreTextObject();
     whitespaceAndNewlineCharacterSet = [MEMORY[0x29EDB9F50] whitespaceAndNewlineCharacterSet];
-    v17 = [v15 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+    v15 = [v13 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-    if ([v17 length])
+    if ([v15 length])
     {
-      [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{4, v7, v11, v12, v15}];
+      [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{4, v7, v11, v12, v13}];
     }
 
     else
     {
-      [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{3, v7, v11, v12, v20}];
+      [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{3, v7, v11, v12, v18}];
     }
-    v18 = ;
+    v16 = ;
     accessibilityLabel = MEMORY[0x29C2E1480]();
   }
 
-LABEL_12:
+LABEL_10:
 
   return accessibilityLabel;
 }
@@ -198,34 +193,34 @@ LABEL_12:
 
 - (void)_accessibilitySwitchOrderedChildrenFrom:(id)from
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   fromCopy = from;
   v5 = MEMORY[0x29EDC7620];
   v6 = [fromCopy _accessibilityValueForKey:*MEMORY[0x29EDC7620]];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         [v11 setAccessibilityDelegate:self];
         [v11 setAccessibilityContainer:self];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -233,8 +228,6 @@ LABEL_12:
 
   [(SUUITextBoxViewAccessibility *)self _accessibilitySetRetainedValue:v6 forKey:*v5];
   [fromCopy _accessibilityRemoveValueForKey:*v5];
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 @end

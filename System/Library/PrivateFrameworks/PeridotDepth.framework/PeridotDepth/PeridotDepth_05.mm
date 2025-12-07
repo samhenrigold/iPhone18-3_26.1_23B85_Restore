@@ -52,19 +52,19 @@ uint64_t peridot::sMatrixOversized<unsigned short,3u,27u>::~sMatrixOversized(uin
   return result;
 }
 
-double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(char *a1, char *a2, uint64_t **a3, unint64_t a4, uint64_t *a5, uint64_t a6, __n128 a7)
+double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(uint64_t *result, uint64_t *a2, uint64_t **a3, unint64_t a4, uint64_t *a5, int64_t a6, __n128 a7)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v7 = *(a2 - 1);
-      v8 = *a1;
+      v8 = *result;
       v9 = **a3;
       a7.n128_u32[0] = *(v9 + 4 * v7);
-      if (a7.n128_f32[0] > *(v9 + 4 * *a1))
+      if (a7.n128_f32[0] > *(v9 + 4 * *result))
       {
-        *a1 = v7;
+        *result = v7;
         *(a2 - 1) = v8;
       }
     }
@@ -72,19 +72,19 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
     else if (a4 > 128)
     {
       v19 = a4 >> 1;
-      v20 = 8 * (a4 >> 1);
+      v20 = a4 >> 1;
       v21 = a4 - (a4 >> 1);
-      v22 = &a1[v20];
+      v22 = &result[v20];
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(a1, v22, a3, a4 >> 1, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(result, v22, a3, a4 >> 1, a5);
         v31 = &a5[v19];
-        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(&a1[v20], a2, a3, v21, v31);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(&result[v20], a2, a3, v21, v31);
         v32 = *a3;
         v33 = -1;
         v34 = v31;
         v35 = a5;
-        v36 = a1;
+        v36 = result;
         v37 = &a5[a4];
         do
         {
@@ -96,12 +96,12 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
               return a7.n128_f64[0];
             }
 
-            v51 = &a5[v20 / 8] - v35 - 8;
+            v51 = &a5[v20] - v35 - 8;
             if (v51 >= 0x38)
             {
-              if ((&a1[8 * v33] - v35) >= 0x20)
+              if ((&result[v33] - v35) >= 0x20)
               {
-                v53 = v36 + 1;
+                v53 = (v36 + 2);
                 v54 = (v51 >> 3) + 1;
                 v55 = v54 & 0x3FFFFFFFFFFFFFFCLL;
                 v52 = &v35[v55];
@@ -141,8 +141,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
             do
             {
               v59 = *v52++;
-              v36->n128_u64[0] = v59;
-              v36 = (v36 + 8);
+              *v36++ = v59;
             }
 
             while (v52 != v31);
@@ -166,8 +165,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
           v35 += a7.n128_f32[0] <= v40;
           v42 = a7.n128_f32[0] > v40;
           v34 = &v38[v42];
-          v36->n128_u64[0] = v41;
-          v36 = (v36 + 8);
+          *v36++ = v41;
         }
 
         while (v35 != v31);
@@ -177,12 +175,12 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
         }
 
         v43 = v37 - &v38[v42] - 8;
-        if (v43 <= 0x57 || (&a1[8 * v33] - &v38[v42] + 8) < 0x20)
+        if (v43 <= 0x57 || (&result[v33] - &v38[v42] + 8) < 0x20)
         {
           goto LABEL_35;
         }
 
-        v44 = v36 + 1;
+        v44 = (v36 + 2);
         v45 = (v43 >> 3) + 1;
         v46 = 8 * (v45 & 0x3FFFFFFFFFFFFFFCLL);
         v34 = (v34 + v46);
@@ -207,8 +205,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
           {
 LABEL_35:
             v50 = *v34++;
-            v36->n128_u64[0] = v50;
-            v36 = (v36 + 8);
+            *v36++ = v50;
           }
 
           while (v34 != v37);
@@ -217,21 +214,21 @@ LABEL_35:
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(a1, v22, a3, a4 >> 1, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(&a1[v20], a2, a3, v21, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(result, v22, a3, a4 >> 1, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(&result[v20], a2, a3, v21, a5, a6);
 
-        a7.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(a1, &a1[v20], a2, a3, v19, v21, a5, a6, v27).n128_u64[0];
+        a7.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(result, &result[v20], a2, a3, v19, v21, a5, a6, v27).n128_u64[0];
       }
     }
 
-    else if (a1 != a2)
+    else if (result != a2)
     {
-      v10 = a1 + 8;
-      if (a1 + 8 != a2)
+      v10 = result + 1;
+      if (result + 1 != a2)
       {
         v11 = 0;
         v12 = **a3;
-        v13 = a1;
+        v13 = result;
         do
         {
           v15 = *v13;
@@ -243,28 +240,28 @@ LABEL_35:
             v17 = v11;
             do
             {
-              *&a1[v17 + 8] = v15;
+              *(result + v17 + 8) = v15;
               if (!v17)
               {
-                v14 = a1;
+                v14 = result;
                 goto LABEL_11;
               }
 
-              v15 = *&a1[v17 - 8];
+              v15 = *(result + v17 - 8);
               v17 -= 8;
             }
 
             while (a7.n128_f32[0] > *(v12 + 4 * v15));
-            v14 = &a1[v17 + 8];
+            v14 = (result + v17 + 8);
 LABEL_11:
             *v14 = v16;
           }
 
-          v10 = v13 + 8;
+          v10 = v13 + 1;
           v11 += 8;
         }
 
-        while (v13 + 8 != a2);
+        while (v13 + 1 != a2);
       }
     }
   }
@@ -334,17 +331,17 @@ void std::vector<unsigned long>::push_back[abi:ne200100](uint64_t a1, void *a2)
   *(a1 + 8) = v5;
 }
 
-double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(char *a1, char *a2, uint64_t **a3, unint64_t a4, uint64_t *a5, uint64_t a6)
+double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(uint64_t *result, uint64_t *a2, uint64_t **a3, unint64_t a4, uint64_t *a5, int64_t a6)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v6 = *(a2 - 1);
-      v7 = *a1;
-      if (*(**a3 + 8 * v6) > *(**a3 + 8 * *a1))
+      v7 = *result;
+      if (*(**a3 + 8 * v6) > *(**a3 + 8 * *result))
       {
-        *a1 = v6;
+        *result = v6;
         *(a2 - 1) = v7;
       }
     }
@@ -352,19 +349,19 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
     else if (a4 > 128)
     {
       v17 = a4 >> 1;
-      v18 = 8 * (a4 >> 1);
+      v18 = a4 >> 1;
       v19 = a4 - (a4 >> 1);
-      v20 = &a1[v18];
+      v20 = &result[v18];
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(a1, v20, a3, a4 >> 1, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(result, v20, a3, a4 >> 1, a5);
         v29 = &a5[v17];
-        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(&a1[v18], a2, a3, v19, v29);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(&result[v18], a2, a3, v19, v29);
         v30 = *a3;
         v31 = -1;
         v32 = v29;
         v33 = a5;
-        v34 = a1;
+        v34 = result;
         v35 = &a5[a4];
         do
         {
@@ -376,12 +373,12 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
               return v25.n128_f64[0];
             }
 
-            v53 = &a5[v18 / 8] - v33 - 8;
+            v53 = &a5[v18] - v33 - 8;
             if (v53 >= 0x38)
             {
-              if ((&a1[8 * v31] - v33) >= 0x20)
+              if ((&result[v31] - v33) >= 0x20)
               {
-                v55 = v34 + 1;
+                v55 = (v34 + 2);
                 v56 = (v53 >> 3) + 1;
                 v57 = v56 & 0x3FFFFFFFFFFFFFFCLL;
                 v54 = &v33[v57];
@@ -421,8 +418,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
             do
             {
               v61 = *v54++;
-              v34->n128_u64[0] = v61;
-              v34 = (v34 + 8);
+              *v34++ = v61;
             }
 
             while (v54 != v29);
@@ -449,8 +445,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
           v33 += v41;
           v44 = v42;
           v32 = &v36[v44];
-          v34->n128_u64[0] = v43;
-          v34 = (v34 + 8);
+          *v34++ = v43;
         }
 
         while (v33 != v29);
@@ -460,12 +455,12 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
         }
 
         v45 = v35 - &v36[v44] - 8;
-        if (v45 <= 0x57 || (&a1[8 * v31] - &v36[v44] + 8) < 0x20)
+        if (v45 <= 0x57 || (&result[v31] - &v36[v44] + 8) < 0x20)
         {
           goto LABEL_38;
         }
 
-        v46 = v34 + 1;
+        v46 = (v34 + 2);
         v47 = (v45 >> 3) + 1;
         v48 = 8 * (v47 & 0x3FFFFFFFFFFFFFFCLL);
         v32 = (v32 + v48);
@@ -490,8 +485,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
           {
 LABEL_38:
             v52 = *v32++;
-            v34->n128_u64[0] = v52;
-            v34 = (v34 + 8);
+            *v34++ = v52;
           }
 
           while (v32 != v35);
@@ -500,21 +494,21 @@ LABEL_38:
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(a1, v20, a3, a4 >> 1, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(&a1[v18], a2, a3, v19, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(result, v20, a3, a4 >> 1, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(&result[v18], a2, a3, v19, a5, a6);
 
-        v25.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(a1, &a1[v18], a2, a3, v17, v19, a5, a6).n128_u64[0];
+        v25.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(result, &result[v18], a2, a3, v17, v19, a5, a6).n128_u64[0];
       }
     }
 
-    else if (a1 != a2)
+    else if (result != a2)
     {
-      v8 = a1 + 8;
-      if (a1 + 8 != a2)
+      v8 = result + 1;
+      if (result + 1 != a2)
       {
         v9 = 0;
         v10 = **a3;
-        v11 = a1;
+        v11 = result;
         do
         {
           v13 = *v11;
@@ -525,28 +519,28 @@ LABEL_38:
             v15 = v9;
             do
             {
-              *&a1[v15 + 8] = v13;
+              *(result + v15 + 8) = v13;
               if (!v15)
               {
-                v12 = a1;
+                v12 = result;
                 goto LABEL_11;
               }
 
-              v13 = *&a1[v15 - 8];
+              v13 = *(result + v15 - 8);
               v15 -= 8;
             }
 
             while (*(v10 + 8 * v14) > *(v10 + 8 * v13));
-            v12 = &a1[v15 + 8];
+            v12 = (result + v15 + 8);
 LABEL_11:
             *v12 = v14;
           }
 
-          v8 = v11 + 8;
+          v8 = v11 + 1;
           v9 += 8;
         }
 
-        while (v11 + 8 != a2);
+        while (v11 + 1 != a2);
       }
     }
   }
@@ -554,19 +548,19 @@ LABEL_11:
   return v25.n128_f64[0];
 }
 
-double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(char *a1, char *a2, uint64_t **a3, unint64_t a4, uint64_t *a5, uint64_t a6, __n128 a7)
+double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(uint64_t *result, uint64_t *a2, uint64_t **a3, unint64_t a4, uint64_t *a5, int64_t a6, __n128 a7)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v7 = *(a2 - 1);
-      v8 = *a1;
+      v8 = *result;
       v9 = **a3;
       a7.n128_u32[0] = *(v9 + 4 * v7);
-      if (a7.n128_f32[0] > *(v9 + 4 * *a1))
+      if (a7.n128_f32[0] > *(v9 + 4 * *result))
       {
-        *a1 = v7;
+        *result = v7;
         *(a2 - 1) = v8;
       }
     }
@@ -574,19 +568,19 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
     else if (a4 > 128)
     {
       v19 = a4 >> 1;
-      v20 = 8 * (a4 >> 1);
+      v20 = a4 >> 1;
       v21 = a4 - (a4 >> 1);
-      v22 = &a1[v20];
+      v22 = &result[v20];
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(a1, v22, a3, a4 >> 1, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(result, v22, a3, a4 >> 1, a5);
         v31 = &a5[v19];
-        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(&a1[v20], a2, a3, v21, v31);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(&result[v20], a2, a3, v21, v31);
         v32 = *a3;
         v33 = -1;
         v34 = v31;
         v35 = a5;
-        v36 = a1;
+        v36 = result;
         v37 = &a5[a4];
         do
         {
@@ -598,12 +592,12 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
               return a7.n128_f64[0];
             }
 
-            v51 = &a5[v20 / 8] - v35 - 8;
+            v51 = &a5[v20] - v35 - 8;
             if (v51 >= 0x38)
             {
-              if ((&a1[8 * v33] - v35) >= 0x20)
+              if ((&result[v33] - v35) >= 0x20)
               {
-                v53 = v36 + 1;
+                v53 = (v36 + 2);
                 v54 = (v51 >> 3) + 1;
                 v55 = v54 & 0x3FFFFFFFFFFFFFFCLL;
                 v52 = &v35[v55];
@@ -643,8 +637,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
             do
             {
               v59 = *v52++;
-              v36->n128_u64[0] = v59;
-              v36 = (v36 + 8);
+              *v36++ = v59;
             }
 
             while (v52 != v31);
@@ -668,8 +661,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
           v35 += a7.n128_f32[0] <= v40;
           v42 = a7.n128_f32[0] > v40;
           v34 = &v38[v42];
-          v36->n128_u64[0] = v41;
-          v36 = (v36 + 8);
+          *v36++ = v41;
         }
 
         while (v35 != v31);
@@ -679,12 +671,12 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
         }
 
         v43 = v37 - &v38[v42] - 8;
-        if (v43 <= 0x57 || (&a1[8 * v33] - &v38[v42] + 8) < 0x20)
+        if (v43 <= 0x57 || (&result[v33] - &v38[v42] + 8) < 0x20)
         {
           goto LABEL_35;
         }
 
-        v44 = v36 + 1;
+        v44 = (v36 + 2);
         v45 = (v43 >> 3) + 1;
         v46 = 8 * (v45 & 0x3FFFFFFFFFFFFFFCLL);
         v34 = (v34 + v46);
@@ -709,8 +701,7 @@ double std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTarg
           {
 LABEL_35:
             v50 = *v34++;
-            v36->n128_u64[0] = v50;
-            v36 = (v36 + 8);
+            *v36++ = v50;
           }
 
           while (v34 != v37);
@@ -719,21 +710,21 @@ LABEL_35:
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(a1, v22, a3, a4 >> 1, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(&a1[v20], a2, a3, v21, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(result, v22, a3, a4 >> 1, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(&result[v20], a2, a3, v21, a5, a6);
 
-        a7.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(a1, &a1[v20], a2, a3, v19, v21, a5, a6, v27).n128_u64[0];
+        a7.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(result, &result[v20], a2, a3, v19, v21, a5, a6, v27).n128_u64[0];
       }
     }
 
-    else if (a1 != a2)
+    else if (result != a2)
     {
-      v10 = a1 + 8;
-      if (a1 + 8 != a2)
+      v10 = result + 1;
+      if (result + 1 != a2)
       {
         v11 = 0;
         v12 = **a3;
-        v13 = a1;
+        v13 = result;
         do
         {
           v15 = *v13;
@@ -745,28 +736,28 @@ LABEL_35:
             v17 = v11;
             do
             {
-              *&a1[v17 + 8] = v15;
+              *(result + v17 + 8) = v15;
               if (!v17)
               {
-                v14 = a1;
+                v14 = result;
                 goto LABEL_11;
               }
 
-              v15 = *&a1[v17 - 8];
+              v15 = *(result + v17 - 8);
               v17 -= 8;
             }
 
             while (a7.n128_f32[0] > *(v12 + 4 * v15));
-            v14 = &a1[v17 + 8];
+            v14 = (result + v17 + 8);
 LABEL_11:
             *v14 = v16;
           }
 
-          v10 = v13 + 8;
+          v10 = v13 + 1;
           v11 += 8;
         }
 
-        while (v13 + 8 != a2);
+        while (v13 + 1 != a2);
       }
     }
   }
@@ -774,7 +765,7 @@ LABEL_11:
   return a7.n128_f64[0];
 }
 
-char *std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(char *result, char *a2, uint64_t **a3, uint64_t a4, uint64_t *a5)
+uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(uint64_t *result, uint64_t *a2, uint64_t **a3, unint64_t a4, uint64_t *a5)
 {
   if (a4)
   {
@@ -788,7 +779,7 @@ LABEL_8:
     if (a4 == 2)
     {
       v7 = *(a2 - 1);
-      v5 = a2 - 8;
+      v5 = a2 - 1;
       v6 = v7;
       v8 = **a3;
       v9 = *(v8 + 4 * v7);
@@ -811,10 +802,10 @@ LABEL_8:
     {
       v22 = a4 >> 1;
       v23 = a4 >> 1;
-      v24 = &result[v23 * 8];
+      v24 = &result[v23];
       v25 = result;
       v29 = a5;
-      (std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>)();
+      std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(result, &result[v23], a3, v22, a5, v22);
       result = std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_2 &,std::__wrap_iter<unsigned long *>>(v24, a2, a3, a4 - v22, &v29[v23], a4 - v22);
       v30 = *a3;
       v31 = -1;
@@ -911,7 +902,7 @@ LABEL_8:
         v46 = *v44;
         *(v41 - 1) = *(v44 - 1);
         *v41 = v46;
-        v44 += 2;
+        v44 += 4;
         v41 += 2;
         v45 -= 4;
       }
@@ -934,8 +925,7 @@ LABEL_36:
     else if (result != a2)
     {
       v11 = *a3;
-      v12 = *result;
-      result += 8;
+      v12 = *result++;
       *a5 = v12;
       if (result != a2)
       {
@@ -981,7 +971,7 @@ LABEL_36:
             *v19 = *result;
           }
 
-          result += 8;
+          ++result;
           v13 += 8;
           v15 = v16;
         }
@@ -994,7 +984,7 @@ LABEL_36:
   return result;
 }
 
-char *std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(char *result, char *a2, uint64_t **a3, uint64_t a4, uint64_t *a5)
+uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(uint64_t *result, uint64_t *a2, uint64_t **a3, unint64_t a4, uint64_t *a5)
 {
   if (a4)
   {
@@ -1008,7 +998,7 @@ LABEL_8:
     if (a4 == 2)
     {
       v7 = *(a2 - 1);
-      v5 = a2 - 8;
+      v5 = a2 - 1;
       v6 = v7;
       v8 = **a3;
       v9 = *(v8 + 8 * v7);
@@ -1031,10 +1021,10 @@ LABEL_8:
     {
       v22 = a4 >> 1;
       v23 = a4 >> 1;
-      v24 = &result[v23 * 8];
+      v24 = &result[v23];
       v25 = result;
       v29 = a5;
-      (std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>)();
+      std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(result, &result[v23], a3, v22, a5, v22);
       result = std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(v24, a2, a3, a4 - v22, &v29[v23], a4 - v22);
       v30 = *a3;
       v31 = -1;
@@ -1134,7 +1124,7 @@ LABEL_8:
         v49 = *v47;
         *(v44 - 1) = *(v47 - 1);
         *v44 = v49;
-        v47 += 2;
+        v47 += 4;
         v44 += 2;
         v48 -= 4;
       }
@@ -1157,8 +1147,7 @@ LABEL_39:
     else if (result != a2)
     {
       v11 = *a3;
-      v12 = *result;
-      result += 8;
+      v12 = *result++;
       *a5 = v12;
       if (result != a2)
       {
@@ -1204,7 +1193,7 @@ LABEL_39:
             *v19 = *result;
           }
 
-          result += 8;
+          ++result;
           v13 += 8;
           v15 = v16;
         }
@@ -1329,7 +1318,7 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTa
     v30 = v29;
     if (v23 + v15 >= a5 + v9)
     {
-      std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(v29, v16, v72, a4, a5, v9, __src, a8);
+      result.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(v29, v16, v72, a4, a5, v9, __src, a8).n128_u64[0];
       v9 = v15;
       a7 = __src;
       a5 = v23;
@@ -1343,7 +1332,7 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTa
 
     else
     {
-      std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(a1, v17, v29, a4, v23, v15, __src, a8);
+      result.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_1 &,std::__wrap_iter<unsigned long *>>(a1, v17, v29, a4, v23, v15, __src, a8).n128_u64[0];
       a7 = __src;
       a1 = v30;
       a3 = v72;
@@ -1374,17 +1363,17 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTa
         v44 = (v41 >> 3) + 1;
         v45 = 8 * (v44 & 0x3FFFFFFFFFFFFFFCLL);
         v42 = &a7[v45];
-        v46 = (a1 + 16);
-        v47 = (a7 + 16);
+        v46 = a1 + 16;
+        v47 = a7 + 16;
         v48 = v44 & 0x3FFFFFFFFFFFFFFCLL;
         do
         {
-          result = v46[-1];
+          result = *(v46 - 1);
           v49 = *v46;
-          v47[-1] = result;
+          *(v47 - 1) = result;
           *v47 = v49;
-          v46 += 2;
-          v47 += 2;
+          v46 += 32;
+          v47 += 32;
           v48 -= 4;
         }
 
@@ -1457,17 +1446,17 @@ LABEL_47:
       v35 = (v32 >> 3) + 1;
       v36 = 8 * (v35 & 0x3FFFFFFFFFFFFFFCLL);
       v33 = &a7[v36];
-      v37 = (a2 + 16);
-      v38 = (a7 + 16);
+      v37 = a2 + 16;
+      v38 = a7 + 16;
       v39 = v35 & 0x3FFFFFFFFFFFFFFCLL;
       do
       {
-        result = v37[-1];
+        result = *(v37 - 1);
         v40 = *v37;
-        v38[-1] = result;
+        *(v38 - 1) = result;
         *v38 = v40;
-        v37 += 2;
-        v38 += 2;
+        v37 += 32;
+        v38 += 32;
         v39 -= 4;
       }
 
@@ -1563,7 +1552,7 @@ LABEL_73:
   return result;
 }
 
-char *std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(char *result, char *a2, uint64_t **a3, uint64_t a4, uint64_t *a5)
+uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(uint64_t *result, uint64_t *a2, uint64_t **a3, unint64_t a4, uint64_t *a5)
 {
   if (a4)
   {
@@ -1577,7 +1566,7 @@ LABEL_8:
     if (a4 == 2)
     {
       v7 = *(a2 - 1);
-      v5 = a2 - 8;
+      v5 = a2 - 1;
       v6 = v7;
       v8 = **a3;
       v9 = *(v8 + 4 * v7);
@@ -1600,10 +1589,10 @@ LABEL_8:
     {
       v22 = a4 >> 1;
       v23 = a4 >> 1;
-      v24 = &result[v23 * 8];
+      v24 = &result[v23];
       v25 = result;
       v29 = a5;
-      (std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>)();
+      std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(result, &result[v23], a3, v22, a5, v22);
       result = std::__stable_sort<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(v24, a2, a3, a4 - v22, &v29[v23], a4 - v22);
       v30 = *a3;
       v31 = -1;
@@ -1700,7 +1689,7 @@ LABEL_8:
         v46 = *v44;
         *(v41 - 1) = *(v44 - 1);
         *v41 = v46;
-        v44 += 2;
+        v44 += 4;
         v41 += 2;
         v45 -= 4;
       }
@@ -1723,8 +1712,7 @@ LABEL_36:
     else if (result != a2)
     {
       v11 = *a3;
-      v12 = *result;
-      result += 8;
+      v12 = *result++;
       *a5 = v12;
       if (result != a2)
       {
@@ -1770,7 +1758,7 @@ LABEL_36:
             *v19 = *result;
           }
 
-          result += 8;
+          ++result;
           v13 += 8;
           v15 = v16;
         }
@@ -1815,7 +1803,7 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTa
       }
     }
 
-    v68 = a3;
+    v69 = a3;
     __src = a7;
     if (a5 >= v10)
     {
@@ -1893,14 +1881,14 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTa
     a5 -= v24;
     v10 -= v16;
     v30 = std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<unsigned long *>,std::__wrap_iter<unsigned long *>>(v18, a2, v17);
-    v31 = v30;
+    v32 = v30;
     if (v24 + v16 >= a5 + v10)
     {
-      std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(v30, v17, v68, a4, a5, v10, __src, a8);
+      result.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(v30, v17, v69, a4, a5, v10, __src, a8, v31).n128_u64[0];
       v10 = v16;
       a7 = __src;
       a5 = v24;
-      a3 = v31;
+      a3 = v32;
       a2 = v18;
       if (!v16)
       {
@@ -1910,10 +1898,10 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTa
 
     else
     {
-      std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(a1, v18, v30, a4, v24, v16, __src, a8);
+      result.n128_u64[0] = std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTargetLogic(peridot::DetectorSingleTarget const(&)[3][3],unsigned long const(&)[3][27],unsigned long const(&)[3][27],BOOL const(&)[27],unsigned long,float &,float const*,BOOL &,unsigned long (&)[3][27],unsigned long (&)[3][27],BOOL (&)[27],BOOL (&)[3][27],unsigned char &)::$_0 &,std::__wrap_iter<unsigned long *>>(a1, v18, v30, a4, v24, v16, __src, a8, v31).n128_u64[0];
       a7 = __src;
-      a1 = v31;
-      a3 = v68;
+      a1 = v32;
+      a3 = v69;
       a2 = v17;
       if (!v10)
       {
@@ -1929,74 +1917,74 @@ __n128 std::__inplace_merge<std::_ClassicAlgPolicy,peridot::HDUnfoldClass::twoTa
       return result;
     }
 
-    v41 = a2 - a1 - 8;
-    v42 = a7;
-    v43 = a1;
-    if (v41 >= 0x18)
+    v42 = a2 - a1 - 8;
+    v43 = a7;
+    v44 = a1;
+    if (v42 >= 0x18)
     {
-      v42 = a7;
-      v43 = a1;
+      v43 = a7;
+      v44 = a1;
       if ((a7 - a1) > 0x1F)
       {
-        v44 = (v41 >> 3) + 1;
-        v45 = 8 * (v44 & 0x3FFFFFFFFFFFFFFCLL);
-        v42 = &a7[v45];
-        v46 = (a1 + 16);
-        v47 = (a7 + 16);
-        v48 = v44 & 0x3FFFFFFFFFFFFFFCLL;
+        v45 = (v42 >> 3) + 1;
+        v46 = 8 * (v45 & 0x3FFFFFFFFFFFFFFCLL);
+        v43 = &a7[v46];
+        v47 = a1 + 16;
+        v48 = a7 + 16;
+        v49 = v45 & 0x3FFFFFFFFFFFFFFCLL;
         do
         {
-          result = v46[-1];
-          v49 = *v46;
-          v47[-1] = result;
-          *v47 = v49;
-          v46 += 2;
-          v47 += 2;
-          v48 -= 4;
+          result = *(v47 - 1);
+          v50 = *v47;
+          *(v48 - 1) = result;
+          *v48 = v50;
+          v47 += 32;
+          v48 += 32;
+          v49 -= 4;
         }
 
-        while (v48);
-        if (v44 == (v44 & 0x3FFFFFFFFFFFFFFCLL))
+        while (v49);
+        if (v45 == (v45 & 0x3FFFFFFFFFFFFFFCLL))
         {
 LABEL_47:
-          v51 = *a4;
+          v52 = *a4;
           while (a2 != a3)
           {
-            v52 = *a2;
-            result.n128_u32[0] = *(*v51 + 4 * *a2);
-            v53 = *(*v51 + 4 * *a7);
-            if (result.n128_f32[0] <= v53)
+            v53 = *a2;
+            result.n128_u32[0] = *(*v52 + 4 * *a2);
+            v54 = *(*v52 + 4 * *a7);
+            if (result.n128_f32[0] <= v54)
             {
-              v52 = *a7;
+              v53 = *a7;
             }
 
-            a2 += 8 * (result.n128_f32[0] > v53);
-            a7 += 8 * (result.n128_f32[0] <= v53);
-            *a1 = v52;
+            a2 += 8 * (result.n128_f32[0] > v54);
+            a7 += 8 * (result.n128_f32[0] <= v54);
+            *a1 = v53;
             a1 += 8;
-            if (a7 == v42)
+            if (a7 == v43)
             {
               return result;
             }
           }
 
-          memmove(a1, a7, v42 - a7);
+          memmove(a1, a7, v43 - a7);
           return result;
         }
 
-        v43 = &a1[v45];
+        v44 = &a1[v46];
       }
     }
 
     do
     {
-      v50 = *v43;
+      v51 = *v44;
+      v44 += 8;
+      *v43 = v51;
       v43 += 8;
-      *v42 = v50;
-      v42 += 8;
     }
 
-    while (v43 != a2);
+    while (v44 != a2);
     goto LABEL_47;
   }
 
@@ -2005,123 +1993,123 @@ LABEL_47:
     return result;
   }
 
-  v32 = a3 - a2 - 8;
-  if (v32 < 0x18)
+  v33 = a3 - a2 - 8;
+  if (v33 < 0x18)
   {
-    v33 = a7;
-    v34 = a2;
+    v34 = a7;
+    v35 = a2;
   }
 
   else
   {
-    v33 = a7;
-    v34 = a2;
+    v34 = a7;
+    v35 = a2;
     if ((a7 - a2) > 0x1F)
     {
-      v35 = (v32 >> 3) + 1;
-      v36 = 8 * (v35 & 0x3FFFFFFFFFFFFFFCLL);
-      v33 = &a7[v36];
-      v37 = (a2 + 16);
-      v38 = (a7 + 16);
-      v39 = v35 & 0x3FFFFFFFFFFFFFFCLL;
+      v36 = (v33 >> 3) + 1;
+      v37 = 8 * (v36 & 0x3FFFFFFFFFFFFFFCLL);
+      v34 = &a7[v37];
+      v38 = a2 + 16;
+      v39 = a7 + 16;
+      v40 = v36 & 0x3FFFFFFFFFFFFFFCLL;
       do
       {
-        result = v37[-1];
-        v40 = *v37;
-        v38[-1] = result;
-        *v38 = v40;
-        v37 += 2;
-        v38 += 2;
-        v39 -= 4;
+        result = *(v38 - 1);
+        v41 = *v38;
+        *(v39 - 1) = result;
+        *v39 = v41;
+        v38 += 32;
+        v39 += 32;
+        v40 -= 4;
       }
 
-      while (v39);
-      if (v35 == (v35 & 0x3FFFFFFFFFFFFFFCLL))
+      while (v40);
+      if (v36 == (v36 & 0x3FFFFFFFFFFFFFFCLL))
       {
         goto LABEL_59;
       }
 
-      v34 = &a2[v36];
+      v35 = &a2[v37];
     }
   }
 
   do
   {
-    v54 = *v34;
+    v55 = *v35;
+    v35 += 8;
+    *v34 = v55;
     v34 += 8;
-    *v33 = v54;
-    v33 += 8;
   }
 
-  while (v34 != a3);
+  while (v35 != a3);
 LABEL_59:
-  v55 = 0;
-  v56 = *a4;
-  v57 = a3;
+  v56 = 0;
+  v57 = *a4;
+  v58 = a3;
   while (a2 != a1)
   {
-    v58 = *(a2 - 1);
-    result.n128_u32[0] = *(*v56 + 4 * *(v33 - 1));
-    if (result.n128_f32[0] > *(*v56 + 4 * v58))
+    v59 = *(a2 - 1);
+    result.n128_u32[0] = *(*v57 + 4 * *(v34 - 1));
+    if (result.n128_f32[0] > *(*v57 + 4 * v59))
     {
       a2 -= 8;
     }
 
     else
     {
-      v58 = *(v33 - 1);
-      v33 -= 8;
+      v59 = *(v34 - 1);
+      v34 -= 8;
     }
 
-    *(v57 - 1) = v58;
-    v57 -= 8;
-    ++v55;
-    if (v33 == a7)
+    *(v58 - 1) = v59;
+    v58 -= 8;
+    ++v56;
+    if (v34 == a7)
     {
       return result;
     }
   }
 
-  v59 = v33 - a7;
-  if (v33 != a7)
+  v60 = v34 - a7;
+  if (v34 != a7)
   {
-    v60 = v59 - 8;
-    if ((v59 - 8) < 0x48 || (v33 - a3 + 8 * v55) < 0x20)
+    v61 = v60 - 8;
+    if ((v60 - 8) < 0x48 || (v34 - a3 + 8 * v56) < 0x20)
     {
-      v61 = v33;
+      v62 = v34;
       goto LABEL_70;
     }
 
-    v64 = (v57 - 16);
-    v65 = (v60 >> 3) + 1;
-    v61 = &v33[-8 * (v65 & 0x3FFFFFFFFFFFFFFCLL)];
-    v66 = (v33 - 16);
-    v67 = v65 & 0x3FFFFFFFFFFFFFFCLL;
+    v65 = (v58 - 16);
+    v66 = (v61 >> 3) + 1;
+    v62 = &v34[-8 * (v66 & 0x3FFFFFFFFFFFFFFCLL)];
+    v67 = (v34 - 16);
+    v68 = v66 & 0x3FFFFFFFFFFFFFFCLL;
     do
     {
-      result = *v66;
-      v64[-1] = v66[-1];
-      *v64 = result;
-      v64 -= 2;
-      v66 -= 2;
-      v67 -= 4;
+      result = *v67;
+      v65[-1] = v67[-1];
+      *v65 = result;
+      v65 -= 2;
+      v67 -= 2;
+      v68 -= 4;
     }
 
-    while (v67);
-    if (v65 != (v65 & 0x3FFFFFFFFFFFFFFCLL))
+    while (v68);
+    if (v66 != (v66 & 0x3FFFFFFFFFFFFFFCLL))
     {
-      v57 -= 8 * (v65 & 0x3FFFFFFFFFFFFFFCLL);
+      v58 -= 8 * (v66 & 0x3FFFFFFFFFFFFFFCLL);
 LABEL_70:
-      v62 = v57 - 8;
+      v63 = v58 - 8;
       do
       {
-        v63 = *(v61 - 1);
-        v61 -= 8;
-        *v62 = v63;
+        v64 = *(v62 - 1);
         v62 -= 8;
+        *v63 = v64;
+        v63 -= 8;
       }
 
-      while (v61 != a7);
+      while (v62 != a7);
     }
   }
 
@@ -2266,7 +2254,7 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     CFDataSetLength(Mutable, 536);
     MutableBytePtr = CFDataGetMutableBytePtr(v6);
     bzero(MutableBytePtr, 0x218uLL);
-    peridot::CalibManager::getFwSpotLocations(this, a2, v96);
+    peridot::CalibManager::getFwSpotLocations(this, a2, &v96);
     *MutableBytePtr = 4;
     v8 = *(this + 8);
     v9 = *(this + 24);
@@ -2291,23 +2279,23 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     *(MutableBytePtr + 376) = v15;
     *(MutableBytePtr + 392) = v17;
     v16 = MutableBytePtr + 420;
-    v17.f32[0] = v96[1];
-    v18 = vcvtms_s32_f32(v96[0]);
+    v17.i32[0] = v96.i32[1];
+    v18 = vcvtms_s32_f32(v96.f32[0]);
     if (v18 >= 82)
     {
       v18 = 82;
     }
 
     MutableBytePtr[108] = v18 & ~(v18 >> 31);
-    v19 = v96[4];
-    v20 = vcvtms_s32_f32(v96[2]);
+    v19 = v97;
+    v20 = vcvtms_s32_f32(v96.f32[2]);
     if (v20 >= 82)
     {
       v20 = 82;
     }
 
     MutableBytePtr[110] = v20 & ~(v20 >> 31);
-    v17.f32[1] = v96[3];
+    v17.i32[1] = v96.i32[3];
     v21 = vcvtms_s32_f32(v19);
     if (v21 >= 82)
     {
@@ -2315,16 +2303,16 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     }
 
     MutableBytePtr[112] = v21 & ~(v21 >> 31);
-    v17.f32[2] = v96[5];
-    v23 = v96[8];
-    v22.f32[0] = v96[9];
-    v24 = vcvtms_s32_f32(v96[6]);
+    v17.i32[2] = v98;
+    v23 = v101;
+    v22.i32[0] = v102;
+    v24 = vcvtms_s32_f32(v99);
     if (v24 >= 82)
     {
       v24 = 82;
     }
 
-    v17.f32[3] = v96[7];
+    v17.i32[3] = v100;
     MutableBytePtr[114] = v24 & ~(v24 >> 31);
     v25 = vcvtms_s32_f32(v23);
     if (v25 >= 82)
@@ -2333,22 +2321,22 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     }
 
     MutableBytePtr[116] = v25 & ~(v25 >> 31);
-    v26 = vcvtms_s32_f32(v96[10]);
+    v26 = vcvtms_s32_f32(v103);
     if (v26 >= 82)
     {
       v26 = 82;
     }
 
-    v22.f32[1] = v96[11];
+    v22.i32[1] = v104;
     MutableBytePtr[118] = v26 & ~(v26 >> 31);
-    v27 = v96[14];
-    v28 = vcvtms_s32_f32(v96[12]);
+    v27 = v107;
+    v28 = vcvtms_s32_f32(v105);
     if (v28 >= 82)
     {
       v28 = 82;
     }
 
-    v22.f32[2] = v96[13];
+    v22.i32[2] = v106;
     MutableBytePtr[120] = v28 & ~(v28 >> 31);
     v29 = vcvtms_s32_f32(v27);
     if (v29 >= 82)
@@ -2356,7 +2344,7 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
       v29 = 82;
     }
 
-    v22.f32[3] = v96[15];
+    v22.i32[3] = v108;
     v30 = vmax_s8(vmin_s8(vmovn_s16(vuzp1q_s16(vcvtq_s32_f32(vrndaq_f32(v17)), vcvtq_s32_f32(vrndaq_f32(v22)))), 0x6A6A6A6A6A6A6A6ALL), 0);
     MutableBytePtr[109] = v30.i8[0];
     MutableBytePtr[111] = v30.u8[1];
@@ -2368,22 +2356,22 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     MutableBytePtr[122] = v29 & ~(v29 >> 31);
     MutableBytePtr[123] = v30.u8[7];
     *v16 = vand_s8(vmovn_s16(vuzp1q_s16(vcgtq_f32(vcvtq_f32_u32(vmovl_u16((*&vzip1_s8(v30, 0) & 0xFF00FF00FF00FFLL))), v17), vcgtq_f32(vcvtq_f32_u32(vmovl_u16((*&vzip2_s8(v30, 0) & 0xFF00FF00FF00FFLL))), v22))), 0x101010101010101);
-    v17.f32[0] = v96[17];
-    v31 = vcvtms_s32_f32(v96[16]);
+    v17.i32[0] = v110;
+    v31 = vcvtms_s32_f32(v109);
     if (v31 >= 82)
     {
       v31 = 82;
     }
 
     MutableBytePtr[124] = v31 & ~(v31 >> 31);
-    v32 = v96[20];
-    v33 = vcvtms_s32_f32(v96[18]);
+    v32 = v113;
+    v33 = vcvtms_s32_f32(v111);
     if (v33 >= 82)
     {
       v33 = 82;
     }
 
-    v17.f32[1] = v96[19];
+    v17.i32[1] = v112;
     MutableBytePtr[126] = v33 & ~(v33 >> 31);
     v34 = vcvtms_s32_f32(v32);
     if (v34 >= 82)
@@ -2391,16 +2379,16 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
       v34 = 82;
     }
 
-    v17.f32[2] = v96[21];
+    v17.i32[2] = v114;
     MutableBytePtr[128] = v34 & ~(v34 >> 31);
-    v35 = v96[24];
-    v36 = vcvtms_s32_f32(v96[22]);
+    v35 = v117;
+    v36 = vcvtms_s32_f32(v115);
     if (v36 >= 82)
     {
       v36 = 82;
     }
 
-    v17.f32[3] = v96[23];
+    v17.i32[3] = v116;
     *v37.f32 = vmax_s16(vmin_s16(vmovn_s32(vcvtq_s32_f32(vrndaq_f32(v17))), 0x6A006A006A006ALL), 0);
     MutableBytePtr[130] = v36 & ~(v36 >> 31);
     MutableBytePtr[125] = v37.i8[0];
@@ -2409,10 +2397,10 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     MutableBytePtr[131] = v37.u8[6];
     v38 = vand_s8(vmovn_s32(vcgtq_f32(vcvtq_f32_u32(vmovl_u16((v37.i64[0] & 0x80FF80FF80FF80FFLL))), v17)), 0x1000100010001);
     v37.f32[0] = floorf(v35);
-    v39 = v97;
-    v40 = v99;
-    v37.i32[1] = roundf(v97);
-    v37.i64[1] = __PAIR64__(COERCE_UNSIGNED_INT(roundf(v99)), COERCE_UNSIGNED_INT(floorf(v98)));
+    v39 = v118;
+    v40 = v120;
+    v37.i32[1] = roundf(v118);
+    v37.i64[1] = __PAIR64__(COERCE_UNSIGNED_INT(roundf(v120)), COERCE_UNSIGNED_INT(floorf(v119)));
     v41 = vmax_s16(vmin_s16(vmovn_s32(vcvtq_s32_f32(v37)), 0x6A0052006A0052), 0);
     *(MutableBytePtr + 107) = vuzp1_s8(v38, 0).u32[0];
     MutableBytePtr[432] = v39 < v41.u8[2];
@@ -2422,8 +2410,8 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     v43 = MutableBytePtr + 137;
     for (i = 28; i != 56; i += 2)
     {
-      v45 = v96[i + 1];
-      v46 = vcvtms_s32_f32(v96[i]);
+      v45 = v96.f32[i + 1];
+      v46 = vcvtms_s32_f32(v96.f32[i]);
       v47 = llroundf(v45);
       if (v46 >= 82)
       {
@@ -2451,8 +2439,8 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     v51 = MutableBytePtr + 165;
     for (j = 56; j != 84; j += 2)
     {
-      v53 = v96[j + 1];
-      v54 = vcvtms_s32_f32(v96[j]);
+      v53 = v96.f32[j + 1];
+      v54 = vcvtms_s32_f32(v96.f32[j]);
       v55 = llroundf(v53);
       if (v54 >= 82)
       {
@@ -2480,8 +2468,8 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     v59 = MutableBytePtr + 193;
     do
     {
-      v60 = v96[j + 1];
-      v61 = vcvtms_s32_f32(v96[j]);
+      v60 = v96.f32[j + 1];
+      v61 = vcvtms_s32_f32(v96.f32[j]);
       v62 = llroundf(v60);
       if (v61 >= 82)
       {
@@ -2511,8 +2499,8 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     v66 = MutableBytePtr + 221;
     do
     {
-      v67 = v96[j + 1];
-      v68 = vcvtms_s32_f32(v96[j]);
+      v67 = v96.f32[j + 1];
+      v68 = vcvtms_s32_f32(v96.f32[j]);
       v69 = llroundf(v67);
       if (v68 >= 82)
       {
@@ -2542,8 +2530,8 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     v73 = MutableBytePtr + 249;
     do
     {
-      v74 = v96[j + 1];
-      v75 = vcvtms_s32_f32(v96[j]);
+      v74 = v96.f32[j + 1];
+      v75 = vcvtms_s32_f32(v96.f32[j]);
       v76 = llroundf(v74);
       if (v75 >= 82)
       {
@@ -2573,8 +2561,8 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     v80 = MutableBytePtr + 277;
     do
     {
-      v81 = v96[j + 1];
-      v82 = vcvtms_s32_f32(v96[j]);
+      v81 = v96.f32[j + 1];
+      v82 = vcvtms_s32_f32(v96.f32[j]);
       v83 = llroundf(v81);
       if (v82 >= 82)
       {
@@ -2604,8 +2592,8 @@ __CFData *peridot::CalibManager::createIspFirmwareCalibV4(peridot::CalibManager 
     v87 = MutableBytePtr + 305;
     do
     {
-      v88 = v96[j + 1];
-      v89 = vcvtms_s32_f32(v96[j]);
+      v88 = v96.f32[j + 1];
+      v89 = vcvtms_s32_f32(v96.f32[j]);
       v90 = llroundf(v88);
       if (v89 >= 82)
       {
@@ -2745,9 +2733,9 @@ float peridot::PeridotBankTempMeas::getTempMeas(uint64_t a1, int a2)
   return *a1;
 }
 
-void sub_2246ECA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2246ECA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__exception_guard_exceptions<std::vector<std::vector<unsigned long>>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3135,11 +3123,11 @@ void peridot::PeridotAlgo::~PeridotAlgo(id **this)
 
 void peridot::PeridotAlgo::Impl::~Impl(id *this)
 {
-  v2 = (this + 221953);
+  v2 = this + 221953;
   v3 = this + 220296;
   v4 = this + 50317;
 
-  v5 = *(v2 + 2);
+  v5 = v2[2];
   if (v5)
   {
     do
@@ -3169,8 +3157,9 @@ void peridot::PeridotAlgo::Impl::~Impl(id *this)
   peridot::PeridotDXP::~PeridotDXP((this + 50436));
 }
 
-uint64_t peridot::PeridotAlgo::Impl::init(uint64_t a1, _PeridotCalib *a2, void *a3, int a4, int a5)
+uint64_t peridot::PeridotAlgo::Impl::init(uint64_t a1, _PeridotCalib *a2, void *a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   v9 = a1 + 402536;
   v10 = a3;
   v11 = v10;
@@ -3195,8 +3184,8 @@ LABEL_6:
     *(v9 + 8) = v15;
 
     bzero((a1 + 402552), 0x388uLL);
-    *(v9 + 928) = a5;
-    v17 = peridot::presetToRunMode(a5);
+    *(v9 + 928) = v5;
+    v17 = peridot::presetToRunMode(v5);
     *(v9 + 939) = BYTE2(v17);
     *(v9 + 937) = v17;
     v18 = [[Gmo alloc] initWithUnitInfo:a1 + 8 sessionState:0];
@@ -3204,7 +3193,7 @@ LABEL_6:
     *a1 = v18;
 
     *(a1 + 1766872) = 0;
-    peridot::PeridotDXP::init(a1 + 403488, a2, *v9, 0, *(v9 + 937) | (*(v9 + 939) << 16));
+    peridot::PeridotDXP::init((a1 + 403488), a2, *v9, 0, *(v9 + 937) | (*(v9 + 939) << 16));
   }
 
   if (v10)
@@ -3217,7 +3206,7 @@ LABEL_6:
   return 1;
 }
 
-uint64_t peridot::PeridotAlgo::prepare(void *a1, int a2)
+uint64_t peridot::PeridotAlgo::prepare(void *a1, uint64_t a2)
 {
   v2 = *a1;
   v33 = *a1 + 1665648;
@@ -3337,7 +3326,7 @@ uint64_t peridot::PeridotAlgo::prepare(void *a1, int a2)
   return 0;
 }
 
-uint64_t peridot::PeridotAlgo::Impl::prepare(uint64_t a1, int a2)
+uint64_t peridot::PeridotAlgo::Impl::prepare(uint64_t a1, uint64_t a2)
 {
   v35 = a1 + 1665648;
   v36 = a1 + 1690784;
@@ -3694,7 +3683,7 @@ LABEL_10:
   while (v16);
 }
 
-const double *peridot::PeridotAlgo::Impl::translateSpotLocationsToAnchors(peridot::PeridotAlgo::Impl *this, unsigned int a2, CGPoint *a3, unsigned __int8 *a4, unsigned __int8 *a5, int a6, double a7, double a8, double a9, double a10, uint8x16_t a11)
+CGPoint *peridot::PeridotAlgo::Impl::translateSpotLocationsToAnchors(peridot::PeridotAlgo::Impl *this, unsigned int a2, CGPoint *a3, unsigned __int8 *a4, unsigned __int8 *a5, int a6, double a7, double a8, double a9, double a10, uint8x16_t a11)
 {
   if (!a2)
   {
@@ -3779,8 +3768,8 @@ const double *peridot::PeridotAlgo::Impl::translateSpotLocationsToAnchors(perido
       v85 = vld2q_f64(v71);
       v72 = &v63[12].x;
       v86 = vld2q_f64(v72);
-      result = &v63[14].x;
-      v87 = vld2q_f64(result);
+      result = v63 + 14;
+      v87 = vld2q_f64(&result->x);
       v88.val[3] = vuzp1q_s32(vcvtq_u64_f64(vrndmq_f64(vaddq_f64(v86.val[0], _Q0))), vcvtq_u64_f64(vrndmq_f64(vaddq_f64(v87.val[0], _Q0))));
       v88.val[2] = vuzp1q_s32(vcvtq_u64_f64(vrndmq_f64(vaddq_f64(v89.val[2], _Q0))), vcvtq_u64_f64(vrndmq_f64(vaddq_f64(v85.val[0], _Q0))));
       v88.val[1] = vuzp1q_s32(vcvtq_u64_f64(vrndmq_f64(vaddq_f64(v84.val[0], _Q0))), vcvtq_u64_f64(vrndmq_f64(vaddq_f64(v89.val[0], _Q0))));
@@ -3840,8 +3829,8 @@ LABEL_13:
   {
     v79 = &v78->x;
     v81 = vld2q_f64(v79);
-    result = v79 + 4;
-    *a11.i8 = vld2q_f64(result);
+    result = (v79 + 4);
+    *a11.i8 = vld2q_f64(&result->x);
     *a11.i8 = vuzp1_s8(vmovn_s32(vuzp1q_s32(vcvtq_u64_f64(vrndmq_f64(vaddq_f64(v81.val[0], _Q0))), vcvtq_u64_f64(vrndmq_f64(vaddq_f64(a11, _Q0))))), *&_Q0.f64[0]);
     *v77 = a11.i32[0];
     v77 += 4;
@@ -3985,201 +3974,215 @@ LABEL_19:
   return result;
 }
 
-uint64_t peridot::PeridotAlgo::Impl::processSuperFrame(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
+uint64_t peridot::PeridotAlgo::Impl::processSuperFrame(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = MEMORY[0x28223BE20](a1, a2, a3, a4);
-  v50 = v5;
-  v7 = v6;
-  v8 = v4;
-  v72 = *MEMORY[0x277D85DE8];
-  v71 = 0;
-  v62 = 0;
-  v61 = 0;
-  if ((PeridotSuperFrame::loadFromBuffer(&v61, v9, v10, 0) & 1) == 0)
+  v3 = MEMORY[0x28223BE20](a1, a2, a3);
+  v5 = v4;
+  v50 = v6;
+  v8 = v7;
+  v9 = v3;
+  v84 = *MEMORY[0x277D85DE8];
+  v83 = 0;
+  v76 = 0;
+  v75 = 0;
+  if ((PeridotSuperFrame::loadFromBuffer(&v75, v10, v11, 0) & 1) == 0)
   {
     goto LABEL_6;
   }
 
-  v15 = v62;
-  if (!v62)
+  v16 = v76;
+  if (!v76)
   {
     peridot_depth_log("Empty frame");
     goto LABEL_6;
   }
 
-  if (v62 > *v7)
+  if (v76 > *v8)
   {
     peridot_depth_log("Number of banks provided by frame larger then requested");
 LABEL_6:
-    v16 = 1;
+    v17 = 1;
     goto LABEL_7;
   }
 
-  v19 = 0;
-  *v7 = v62;
-  v49 = (v8 + 403488);
-  v48 = v8;
-  for (i = 3728; v15; v19 += 4504)
+  v20 = 0;
+  v47 = v5;
+  *v8 = v76;
+  v49 = (v9 + 403488);
+  v48 = v9;
+  for (i = 3728; v16; v20 += 4504)
   {
-    v21 = v50 + v19;
-    LODWORD(v11) = HIDWORD(v49[21106 * (*(v64[*(&v61 + i)] + 2) - 1) + 5304]);
-    v51 = v11;
-    *(v50 + v19 + 4312) = *(v64[*(&v61 + i)] + 2) - 1;
-    bzero(v50 + v19, 0x10D8uLL);
-    v21[612] = 1;
-    v21[920] = 2;
-    v21[1228] = 3;
-    v21[1536] = 4;
-    v21[1844] = 5;
-    v21[2152] = 6;
-    v21[2460] = 7;
-    v21[2768] = 8;
-    v21[3076] = 9;
-    v21[3384] = 10;
-    v21[3692] = 11;
-    v21[4000] = 12;
-    v21[4308] = 13;
-    *(v21 + 540) = *(v8 + 220932);
-    *(v21 + 541) = *(v8 + 220933);
-    *(v21 + 542) = *(v8 + 220934);
-    *(v21 + 543) = *(v8 + 220935);
-    *(v21 + 544) = *(v8 + 220936);
-    *(v21 + 545) = *(v8 + 220937);
-    *(v21 + 546) = *(v8 + 220938);
-    *(v21 + 547) = *(v8 + 220939);
-    *(v21 + 548) = *(v8 + 220940);
-    v13 = v51;
-    *(v21 + 1102) = LODWORD(v51);
-    *(v21 + 553) = vmul_n_f32(0x3FC0000040400000, *&v51);
-    v12 = 2.3;
-    v11 = *&v51 * 2.3;
-    *&v11 = v11;
-    *(v21 + 1109) = LODWORD(v11);
-    *&v11 = *&v13 + *&v13;
-    *(v21 + 1110) = *&v51 + *&v51;
-    v22 = v50 + v19 + 4408;
-    *(v22 + 17) = 1017370378;
-    *(v22 + 60) = 0x4009999A3FD9999ALL;
-    *(v21 + 4484) = 0x3189705F2FA4ED3FLL;
-    --v15;
+    v22 = v50 + v20;
+    LODWORD(v12) = HIDWORD(v49[21106 * (*(v78[*(&v75 + i)] + 2) - 1) + 5304]);
+    v51 = v12;
+    *(v50 + v20 + 4312) = *(v78[*(&v75 + i)] + 2) - 1;
+    bzero(v50 + v20, 0x10D8uLL);
+    v22[612] = 1;
+    v22[920] = 2;
+    v22[1228] = 3;
+    v22[1536] = 4;
+    v22[1844] = 5;
+    v22[2152] = 6;
+    v22[2460] = 7;
+    v22[2768] = 8;
+    v22[3076] = 9;
+    v22[3384] = 10;
+    v22[3692] = 11;
+    v22[4000] = 12;
+    v22[4308] = 13;
+    *(v22 + 540) = *(v9 + 220932);
+    *(v22 + 541) = *(v9 + 220933);
+    *(v22 + 542) = *(v9 + 220934);
+    *(v22 + 543) = *(v9 + 220935);
+    *(v22 + 544) = *(v9 + 220936);
+    *(v22 + 545) = *(v9 + 220937);
+    *(v22 + 546) = *(v9 + 220938);
+    *(v22 + 547) = *(v9 + 220939);
+    *(v22 + 548) = *(v9 + 220940);
+    v14 = v51;
+    *(v22 + 1102) = LODWORD(v51);
+    *(v22 + 553) = vmul_n_f32(0x3FC0000040400000, *&v51);
+    v13 = 2.3;
+    v12 = *&v51 * 2.3;
+    *&v12 = v12;
+    *(v22 + 1109) = LODWORD(v12);
+    *&v12 = *&v14 + *&v14;
+    *(v22 + 1110) = *&v51 + *&v51;
+    v23 = v50 + v20 + 4408;
+    *(v23 + 17) = 1017370378;
+    *(v23 + 60) = 0x4009999A3FD9999ALL;
+    *(v22 + 4484) = 0x3189705F2FA4ED3FLL;
+    --v16;
     i += 8;
   }
 
-  if (v67 == -1 || v69 == -1)
+  if (v81[0] == -1 || v82[0] == -1)
   {
-    v24 = v67 == -1 && v69 == -1;
-    v26 = v8;
-    v27 = (v8 + 402544);
-    if (!v24)
+    v25 = v81[0] == -1 && v82[0] == -1;
+    v27 = v9;
+    v28 = (v9 + 402544);
+    if (!v25)
     {
       peridot_depth_log("Only MNormal/Normal mode is supported currently");
       goto LABEL_6;
     }
 
-    v25 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v25 = 2;
-    v26 = v8;
-    v27 = (v8 + 402544);
+    v26 = 2;
+    v27 = v9;
+    v28 = (v9 + 402544);
   }
 
-  *(v27 + 231) = v25;
-  v52 = v26 + 1754272;
-  if (v62 >> 1)
+  *(v28 + 231) = v26;
+  v52 = (v27 + 1754272);
+  if (v76 >> 1)
   {
-    if (*(v64[0] + 75) && *(v64[1] + 75))
+    if (*(v78[0] + 75) && *(v78[1] + 75))
     {
-      v28 = *(v63 + 9280 * v65 + 52);
-      v29 = (v28 >> 4) * (v28 >> 12);
-      if (v29 != 12 || (v30 = *(v63 + 9280 * v66 + 52), (v30 >> 4) * (v30 >> 12) != 12))
+      v29 = *(v77 + 9280 * v79 + 52);
+      v30 = (v29 >> 4) * (v29 >> 12);
+      if (v30 != 12 || (v31 = *(v77 + 9280 * v80 + 52), (v31 >> 4) * (v31 >> 12) != 12))
       {
-        peridot_depth_log("Wrong super frame - expected %zu normal frames, got %zu", 0xCuLL, v29);
+        peridot_depth_log("Wrong super frame - expected %zu normal frames, got %zu", 0xCuLL, v30);
         goto LABEL_6;
       }
 
-      v58 = v63 + 9280 * v65;
-      v57[0] = v63 + 9280 * v66;
-      if ((*(v27 + 231) - 1) > 1)
+      v72 = v77 + 9280 * v79;
+      v71[0] = v77 + 9280 * v80;
+      if ((*(v28 + 231) - 1) > 1)
       {
-        v31 = 0;
         v32 = 0;
-        v59 = 0;
-        v60 = 0;
+        v33 = 0;
+        v73 = 0;
+        v74 = 0;
       }
 
       else
       {
-        v59 = v63 + 9280 * v67;
-        v60 = v63 + 9280 * v69;
-        v31 = v63 + 9280 * v68;
-        v32 = v63 + 9280 * v70;
+        v73 = v77 + 9280 * v81[0];
+        v74 = v77 + 9280 * v82[0];
+        v32 = v77 + 9280 * v81[1];
+        v33 = v77 + 9280 * v82[1];
       }
 
-      v57[1] = v31;
-      v57[2] = v32;
-      v33 = *(v64[v64[351]] + 2) - 1;
-      v34 = *(v64[v64[352]] + 2) - 1;
-      peridot::PeridotAlgo::Impl::updateTempMeas(v26, &v58, v57, v33, v34, v11, v12, v13, v14);
-      v56 = 0;
-      v35 = &v49[21106 * v33];
-      peridot::PeridotDXP::configure(v35, &v61, *(v27 + 231), v26 + 8, 0, &v56);
-      if (!v39)
+      v71[1] = v32;
+      v71[2] = v33;
+      v34 = *(v78[v78[351]] + 2) - 1;
+      v35 = *(v78[v78[352]] + 2) - 1;
+      peridot::PeridotAlgo::Impl::updateTempMeas(v27, &v72, v71, v34, v35, v12, v13, v14, v15);
+      v70 = 0;
+      v36 = &v49[21106 * v34];
+      peridot::PeridotDXP::configure(v36, &v75, *(v28 + 231), v27 + 8, 0, &v70);
+      if (!v40)
       {
-        LODWORD(v40) = peridot::PeridotT0::configure((v52 + 776 * v33), &v61, 0, &v56, v36, v37, v38).u32[0];
-        v41 = *(v27 + 231);
-        if ((v41 - 1) <= 1 && *(v35 + 168488) == 1)
+        peridot::PeridotT0::configure(&v52[97 * v34], &v75, 0, &v70, v37, v38, v39);
+        v41 = *(v28 + 231);
+        if ((v41 - 1) <= 1 && v36[10530].i8[8] == 1)
         {
-          peridot::PeridotAlgo::Impl::macroProcessingDelayCalib(v26, v33, v41, v40);
+          peridot::PeridotAlgo::Impl::macroProcessingDelayCalib(v27, v34, v41);
         }
 
-        v55 = 0;
-        peridot::PeridotDXP::configure(&v49[21106 * v34], &v61, v41, v26 + 8, 1, &v55);
-        LODWORD(v46) = peridot::PeridotT0::configure((v52 + 776 * v34), &v61, 1, &v55, v42, v43, v44).u32[0];
-        v47 = *(v27 + 231);
-        if ((v47 - 1) <= 1 && LOBYTE(v49[21106 * v34 + 21061]) == 1)
+        v69 = 0;
+        peridot::PeridotDXP::configure(&v49[21106 * v35], &v75, v41, v27 + 8, 1, &v69);
+        peridot::PeridotT0::configure(&v52[97 * v35], &v75, 1, &v69, v42, v43, v44);
+        v46 = *(v28 + 231);
+        if ((v46 - 1) <= 1 && LOBYTE(v49[21106 * v35 + 21061]) == 1)
         {
-          peridot::PeridotAlgo::Impl::macroProcessingDelayCalib(v48, v34, *&v45, v46);
+          peridot::PeridotAlgo::Impl::macroProcessingDelayCalib(v48, v35, v45);
         }
 
-        bzero(v54, 0x4CCuLL);
-        bzero(v53, 0x4CCuLL);
-        peridot::PeridotDXP::refPixelDetectorEstimator(v35, &v58, v47);
+        bzero(v67, 0x4CCuLL);
+        bzero(v66, 0x4CCuLL);
+        v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        peridot::PeridotDXP::refPixelDetectorEstimator(v36, &v72, v46, v47, v53, v67, &v68);
       }
 
-      peridot_depth_log("Wrong Configuration: configuration failed for bank %d", v33);
-      v16 = 4;
+      peridot_depth_log("Wrong Configuration: configuration failed for bank %d", v34);
+      v17 = 4;
     }
 
     else
     {
       peridot_depth_log("trgouten flag is null - projector is off");
-      v16 = 3;
+      v17 = 3;
     }
   }
 
   else
   {
-    ++*(v8 + 220859);
-    [*v27 commit];
-    PeridotTelemetry::frameProcessed((v26 + 1775856), &v61, v50);
-    v16 = 0;
+    ++*(v9 + 220859);
+    [*v28 commit];
+    PeridotTelemetry::frameProcessed(v27 + 221982, &v75, v50);
+    v17 = 0;
   }
 
 LABEL_7:
-  v17 = v71;
-  v71 = 0;
-  if (v17)
+  v18 = v83;
+  v83 = 0;
+  if (v18)
   {
-    MEMORY[0x22AA53170](v17, 0x1000C801E9FC43BLL);
+    MEMORY[0x22AA53170](v18, 0x1000C801E9FC43BLL);
   }
 
-  return v16;
+  return v17;
 }
 
-void sub_2246F1D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
+void sub_2246F1D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
 {
   peridot::PeridotSpotRefDepth::~PeridotSpotRefDepth(&a34);
   peridot::PeridotSpotRefDepth::~PeridotSpotRefDepth(&a62);
@@ -4388,37 +4391,37 @@ uint64_t peridot::PeridotAlgo::Impl::updateTempMeas(uint64_t a1, uint64_t *a2, u
   return result;
 }
 
-void peridot::PeridotAlgo::Impl::macroProcessingDelayCalib(peridot::PeridotAlgo::Impl *this, uint64_t a2, uint64_t a3, float a4)
+void peridot::PeridotAlgo::Impl::macroProcessingDelayCalib(peridot::PeridotAlgo::Impl *this, uint64_t a2, uint64_t a3)
 {
-  v4 = MEMORY[0x28223BE20](this, a2, a3, a4);
-  v6 = v4 + 168848 * v5;
-  v7 = v4 + 776 * v5;
-  *(v6 + 407008) = 0;
-  *(v7 + 1754932) = 0;
-  *(v7 + 1754272) = 0u;
-  *(v7 + 1754288) = 0u;
-  *(v7 + 1754304) = 0u;
-  *(v7 + 1754320) = 0;
-  *(v7 + 1754328) = 0;
-  *(v7 + 1754332) = 0u;
-  *(v7 + 1754348) = 0u;
-  v8 = vdupq_n_s32(0x461E5800u).u64[0];
-  *(v6 + 406960) = 1176393728;
-  *(v6 + 406952) = v8;
-  *(v6 + 482384) = xmmword_2247A49A0;
-  *(v6 + 508920) = 1176393728;
-  *(v6 + 508912) = v8;
-  *(v6 + 482400) = xmmword_2247A49B0;
-  *(v6 + 407000) = vdup_n_s32(0x45EDD000u);
-  *(v6 + 406936) = 786163455;
-  *(v6 + 406928) = vdupq_n_s32(0x2EDBE6FFu).u64[0];
-  *(v6 + 540456) = 786163455;
-  *(v6 + 571904) = 786163455;
-  v9 = *(v6 + 407032);
-  v10 = *(v6 + 407040);
-  if (v10 != v9)
+  v3 = MEMORY[0x28223BE20](this, a2, a3);
+  v5 = v3 + 168848 * v4;
+  v6 = v3 + 776 * v4;
+  *(v5 + 407008) = 0;
+  *(v6 + 1754932) = 0;
+  *(v6 + 1754272) = 0u;
+  *(v6 + 1754288) = 0u;
+  *(v6 + 1754304) = 0u;
+  *(v6 + 1754320) = 0;
+  *(v6 + 1754328) = 0;
+  *(v6 + 1754332) = 0u;
+  *(v6 + 1754348) = 0u;
+  v7 = vdupq_n_s32(0x461E5800u).u64[0];
+  *(v5 + 406960) = 1176393728;
+  *(v5 + 406952) = v7;
+  *(v5 + 482384) = xmmword_2247A49A0;
+  *(v5 + 508920) = 1176393728;
+  *(v5 + 508912) = v7;
+  *(v5 + 482400) = xmmword_2247A49B0;
+  *(v5 + 407000) = vdup_n_s32(0x45EDD000u);
+  *(v5 + 406936) = 786163455;
+  *(v5 + 406928) = vdupq_n_s32(0x2EDBE6FFu).u64[0];
+  *(v5 + 540456) = 786163455;
+  *(v5 + 571904) = 786163455;
+  v8 = *(v5 + 407032);
+  v9 = *(v5 + 407040);
+  if (v9 != v8)
   {
-    if (((v10 - v9) & 0x8000000000000000) == 0)
+    if (((v9 - v8) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -4512,57 +4515,59 @@ LABEL_7:
   goto LABEL_8;
 }
 
-void peridot::PeridotAlgo::Impl::runBankWithT0(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
+void peridot::PeridotAlgo::Impl::runBankWithT0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = MEMORY[0x28223BE20](a1, a2, a3, a4);
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v13 = v4;
-  v38 = *MEMORY[0x277D85DE8];
-  v14 = (v4 + 168848 * v9);
-  v15 = *(v7 + 120);
-  v16 = *(v7 + 124);
-  v17 = vaddq_f32(*(v7 + 104), vaddq_f32(*(v7 + 72), *(v7 + 88)));
-  v17.f32[0] = vaddv_f32(*&vpaddq_f32(v17, v17));
-  v18 = vaddq_f32(*(v7 + 160), vaddq_f32(*(v7 + 128), *(v7 + 144)));
-  v17.i32[1] = vaddv_f32(*&vpaddq_f32(v18, v18));
-  v15.i32[1] = *(v7 + 176);
-  v16.i32[1] = *(v7 + 180);
-  *v17.f32 = vmul_f32(vadd_f32(*v17.f32, vadd_f32(v15, v16)), vdup_n_s32(0x3D924925u));
-  v19 = vdiv_f32(vbic_s8(*v17.f32, vcltz_f32(*v17.f32)), v14[50866]);
-  v34[0][0][0] = v19;
-  v20 = vaddq_f32(*(v7 + 216), vaddq_f32(*(v7 + 184), *(v7 + 200)));
-  v21 = (vaddv_f32(*&vpaddq_f32(v20, v20)) + (*(v7 + 232) + *(v7 + 236))) * 0.071429;
-  v22 = 0.0;
-  if (v21 < 0.0)
+  v3 = MEMORY[0x28223BE20](a1, a2, a3);
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v16 = v3;
+  v41 = *MEMORY[0x277D85DE8];
+  v17 = v3 + 168848 * v12;
+  v18 = *(v6 + 120);
+  v19 = *(v6 + 124);
+  v20 = vaddq_f32(*(v6 + 104), vaddq_f32(*(v6 + 72), *(v6 + 88)));
+  v20.f32[0] = vaddv_f32(*&vpaddq_f32(v20, v20));
+  v21 = vaddq_f32(*(v6 + 160), vaddq_f32(*(v6 + 128), *(v6 + 144)));
+  v20.i32[1] = vaddv_f32(*&vpaddq_f32(v21, v21));
+  v18.i32[1] = *(v6 + 176);
+  v19.i32[1] = *(v6 + 180);
+  *v20.f32 = vmul_f32(vadd_f32(*v20.f32, vadd_f32(v18, v19)), vdup_n_s32(0x3D924925u));
+  v22 = vdiv_f32(vbic_s8(*v20.f32, vcltz_f32(*v20.f32)), *(v17 + 406928));
+  v37[0][0][0] = v22;
+  v23 = vaddq_f32(*(v6 + 216), vaddq_f32(*(v6 + 184), *(v6 + 200)));
+  v24 = (vaddv_f32(*&vpaddq_f32(v23, v23)) + (*(v6 + 232) + *(v6 + 236))) * 0.071429;
+  v25 = 0.0;
+  if (v24 < 0.0)
   {
-    v21 = 0.0;
+    v24 = 0.0;
   }
 
-  v23 = v21 / v14[50867].f32[0];
-  *&v34[0][0][1] = v23;
+  v26 = v24 / *(v17 + 406936);
+  *&v37[0][0][1] = v26;
   __asm
   {
     FMOV            V3.2S, #1.5
     FMOV            V4.2S, #-1.5
   }
 
-  v32 = vbic_s8(vadd_f32(v19, _D4), vcgt_f32(_D3, v19));
-  if (v23 >= 1.5)
+  v35 = vbic_s8(vadd_f32(v22, _D4), vcgt_f32(_D3, v22));
+  if (v26 >= 1.5)
   {
-    v22 = v23 + -1.5;
+    v25 = v26 + -1.5;
   }
 
-  v33 = v22;
-  v31[0] = vcvt_f32_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_f32(vsub_f32(v19, vdup_lane_s32(v19, 0))), vdupq_n_s64(0x4059000000000000uLL))), vdupq_n_s64(0x3F847AE147AE147BuLL)));
-  v36 = v31[0];
-  v30 = round((v23 - v19.f32[0]) * 100.0) * 0.01;
-  *&v31[1] = v30;
-  v37 = v30;
-  peridot::PeridotDXPBaselineRemoval::strayPeakUpdate(&v14[55751], v34, v31, &v32, &v36);
-  peridot::PeridotDXP::run(v14 + 403488, v12, v8, v14 + 445880, v13 + 112 * v10 + 402552, &v36, &v35, v6);
+  v36 = v25;
+  v34[0] = vcvt_f32_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_f32(vsub_f32(v22, vdup_lane_s32(v22, 0))), vdupq_n_s64(0x4059000000000000uLL))), vdupq_n_s64(0x3F847AE147AE147BuLL)));
+  v39 = v34[0];
+  v33 = round((v26 - v22.f32[0]) * 100.0) * 0.01;
+  *&v34[1] = v33;
+  v40 = v33;
+  peridot::PeridotDXPBaselineRemoval::strayPeakUpdate((v17 + 446008), v37, v34, &v35, &v39);
+  peridot::PeridotDXP::run((v17 + 403488), v15, v7, v17 + 445880, v16 + 112 * v13 + 402552, &v39, v38, v5, ((*(v9 + 120) / *(v11 + 120)) + (*(v9 + 8) / *(v11 + 8))) * 0.5);
 }
 
 void peridot::PeridotAlgo::Impl::fillGmoInput(float a1, double a2, float a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, CMTime *a11)
@@ -4714,7 +4719,7 @@ void peridot::PeridotAlgo::Impl::fillGmoInput(float a1, double a2, float a3, uin
           v61 = 0;
           do
           {
-            v62 = *(*(v57 + 8 * v61) + 48);
+            v62 = *(v57[v61] + 48);
             *(v55 + 8 * v61++) = vzip2_s16(vzip1_s16(v62, vext_s8(v62, v62, 6uLL)), v62);
           }
 
@@ -4725,7 +4730,7 @@ void peridot::PeridotAlgo::Impl::fillGmoInput(float a1, double a2, float a3, uin
 
       ++v54;
       v55 += v56;
-      v57 += v56;
+      v57 = (v57 + v56);
     }
 
     while (v54 < v53);
@@ -5022,9 +5027,27 @@ void ***std::__exception_guard_exceptions<std::vector<peridot::ImgHistogram>::__
   return result;
 }
 
-void sub_2246F8DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void peridot::PeridotAlgo::Impl::processBank_MPDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t **a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned __int8 a12, int a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  va_start(va, a12);
+  bzero(v31, 0x4CCuLL);
+  v24 = 0u;
+  v23 = 0u;
+  v22 = 0u;
+  v21 = 0u;
+  v20 = 0u;
+  v19 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  peridot::PeridotDXP::refPixelDetectorEstimator_MPDC((a1 + 168848 * a12 + 403488), a5, a9, a10, a13, a15, v18, v31, &v32);
+}
+
+void sub_2246F8DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
   peridot::PeridotSpotRefDepth::~PeridotSpotRefDepth(va);
   _Unwind_Resume(a1);
 }
@@ -5085,62 +5108,64 @@ void ***std::vector<std::vector<peridot::RefHistogram>>::~vector[abi:ne200100](v
   return a1;
 }
 
-void peridot::PeridotAlgo::Impl::runBankWithT0_MPDC(uint64_t a1, uint64_t a2, uint64_t a3, float a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned __int8 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, peridot::PeridotDepth *a15)
+void peridot::PeridotAlgo::Impl::runBankWithT0_MPDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, peridot::PeridotDepth *a14)
 {
-  v15 = MEMORY[0x28223BE20](a1, a2, a3, a4);
-  v48 = v16;
-  v49 = v17;
-  v46 = v18;
-  v47 = v19;
-  v45 = v20;
-  v22 = v21;
-  v24 = v23;
-  v25 = v15;
-  v57 = *MEMORY[0x277D85DE8];
-  v27 = (v15 + 168848 * a10);
-  v28 = &v27[50436];
-  v29 = *(a11 + 120);
-  v30 = *(a11 + 124);
-  v31 = vaddq_f32(*(a11 + 104), vaddq_f32(*(a11 + 72), *(a11 + 88)));
-  v31.f32[0] = vaddv_f32(*&vpaddq_f32(v31, v31));
-  v32 = vaddq_f32(*(a11 + 160), vaddq_f32(*(a11 + 128), *(a11 + 144)));
-  v31.i32[1] = vaddv_f32(*&vpaddq_f32(v32, v32));
-  v29.i32[1] = *(a11 + 176);
-  v30.i32[1] = *(a11 + 180);
-  *v31.f32 = vmul_f32(vadd_f32(*v31.f32, vadd_f32(v29, v30)), vdup_n_s32(0x3D924925u));
-  v33 = vdiv_f32(vbic_s8(*v31.f32, vcltz_f32(*v31.f32)), v27[50866]);
-  v52 = v33;
-  v34 = vaddq_f32(*(a11 + 216), vaddq_f32(*(a11 + 184), *(a11 + 200)));
-  v35 = (vaddv_f32(*&vpaddq_f32(v34, v34)) + (*(a11 + 232) + *(a11 + 236))) * 0.071429;
-  v36 = 0.0;
-  if (v35 < 0.0)
+  v14 = MEMORY[0x28223BE20](a1, a2, a3);
+  v49 = v15;
+  v50 = v16;
+  v47 = v17;
+  v48 = v18;
+  v46 = v19;
+  v21 = v20;
+  v23 = v22;
+  v24 = v14;
+  v58 = *MEMORY[0x277D85DE8];
+  v26 = (v14 + 168848 * a9);
+  v27 = &v26[50436];
+  v28 = *(a10 + 120);
+  v29 = *(a10 + 124);
+  v30 = vaddq_f32(*(a10 + 104), vaddq_f32(*(a10 + 72), *(a10 + 88)));
+  v30.f32[0] = vaddv_f32(*&vpaddq_f32(v30, v30));
+  v31 = vaddq_f32(*(a10 + 160), vaddq_f32(*(a10 + 128), *(a10 + 144)));
+  v30.i32[1] = vaddv_f32(*&vpaddq_f32(v31, v31));
+  v28.i32[1] = *(a10 + 176);
+  v29.i32[1] = *(a10 + 180);
+  *v30.f32 = vmul_f32(vadd_f32(*v30.f32, vadd_f32(v28, v29)), vdup_n_s32(0x3D924925u));
+  v32 = vdiv_f32(vbic_s8(*v30.f32, vcltz_f32(*v30.f32)), v26[50866]);
+  v53 = v32;
+  v33 = vaddq_f32(*(a10 + 216), vaddq_f32(*(a10 + 184), *(a10 + 200)));
+  v34 = (vaddv_f32(*&vpaddq_f32(v33, v33)) + (*(a10 + 232) + *(a10 + 236))) * 0.071429;
+  v35 = 0.0;
+  if (v34 < 0.0)
   {
-    v35 = 0.0;
+    v34 = 0.0;
   }
 
-  v37 = v35 / v27[50867].f32[0];
-  v53 = v37;
+  v36 = v34 / v26[50867].f32[0];
+  v54 = v36;
   __asm
   {
     FMOV            V3.2S, #1.5
     FMOV            V4.2S, #-1.5
   }
 
-  v50 = vbic_s8(vadd_f32(v33, _D4), vcgt_f32(_D3, v33));
-  if (v37 >= 1.5)
+  v51 = vbic_s8(vadd_f32(v32, _D4), vcgt_f32(_D3, v32));
+  if (v36 >= 1.5)
   {
-    v36 = v37 + -1.5;
+    v35 = v36 + -1.5;
   }
 
-  v51 = v36;
-  v54[0] = vcvt_f32_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_f32(vsub_f32(v33, vdup_lane_s32(v33, 0))), vdupq_n_s64(0x4059000000000000uLL))), vdupq_n_s64(0x3F847AE147AE147BuLL)));
-  v55 = v54[0];
-  v44 = round((v37 - v33.f32[0]) * 100.0) * 0.01;
-  *&v54[1] = v44;
-  v56 = v44;
-  peridot::PeridotDXPBaselineRemoval::strayPeakUpdate(&v27[55751], &v52, v54, &v50, &v55);
-  memset(v54, 0, 14);
-  peridot::PeridotDXP::run_MPDC(v28, v24, v22, v45, v46, v47, v48, v49, a11, v54, v25 + 112 * a10 + 402552, a15);
+  v52 = v35;
+  v55[0] = vcvt_f32_f64(vmulq_f64(vrndaq_f64(vmulq_f64(vcvtq_f64_f32(vsub_f32(v32, vdup_lane_s32(v32, 0))), vdupq_n_s64(0x4059000000000000uLL))), vdupq_n_s64(0x3F847AE147AE147BuLL)));
+  v56 = v55[0];
+  v43 = round((v36 - v32.f32[0]) * 100.0) * 0.01;
+  *&v55[1] = v43;
+  v57 = v43;
+  peridot::PeridotDXPBaselineRemoval::strayPeakUpdate(&v26[55751], &v53, v55, &v51, &v56);
+  v44 = (*a10 + *(a10 + 4)) * 0.5;
+  v45 = ((*(a12 + 120) / *(a11 + 120)) + (*(a12 + 8) / *(a11 + 8))) * 0.5;
+  memset(v55, 0, 14);
+  peridot::PeridotDXP::run_MPDC(v27, v23, v21, v46, v47, v45, v44, v48, v49, v50, a10, v55, v24 + 112 * a9 + 402552, a14);
 }
 
 void peridot::PeridotAlgo::reportSessionStatistics(peridot::PeridotAlgo *this)
@@ -5178,7 +5203,7 @@ id peridot::PeridotAlgo::Impl::getInternalState(id *this)
   return v1;
 }
 
-uint64_t peridot::readFileToArr(uint64_t a1, uint64_t a2, void *a3)
+uint64_t peridot::readFileToArr(uint64_t *a1, uint64_t *a2, void *a3)
 {
   v13[19] = *MEMORY[0x277D85DE8];
   v13[6] = 0;
@@ -5217,10 +5242,11 @@ uint64_t peridot::readFileToArr(uint64_t a1, uint64_t a2, void *a3)
   return 1;
 }
 
-void sub_2246F98E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+void sub_2246F98E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  std::ifstream::~ifstream(&a26);
-  MEMORY[0x22AA53140](v26);
+  va_start(va, a25);
+  std::ifstream::~ifstream(va);
+  MEMORY[0x22AA53140](v25);
   _Unwind_Resume(a1);
 }
 
@@ -5351,28 +5377,31 @@ uint64_t peridot::peridotCameraPixelsToGranger(uint64_t this, unint64_t a2, cons
   return this;
 }
 
-void peridot::compensateForParallax(void *a1, int a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, int a7)
+void peridot::compensateForParallax(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v12 = a1;
-  if (a2)
+  v8 = a7;
+  v10 = a5;
+  v12 = a2;
+  v13 = a1;
+  if (v12)
   {
     operator new();
   }
 
-  memset(v15, 0, sizeof(v15));
-  [v12 undistort:0 distortedPixels:0 outUndistorted:0];
-  common::utils::getDistanceToPlane(v12, 0, v15, a4, a5, &v14);
-  common::utils::getDistanceToPlane(v12, 0, v15, a6, a7, &__p);
-  [v12 intrinsicMatrix];
-  [v12 distort:0 undistortedPixels:0 outDistorted:0];
+  memset(v16, 0, sizeof(v16));
+  [v13 undistort:0 distortedPixels:0 outUndistorted:0];
+  common::utils::getDistanceToPlane(v13, 0, v16, a4, v10, &v15);
+  common::utils::getDistanceToPlane(v13, 0, v16, a6, v8, &__p);
+  [v13 intrinsicMatrix];
+  [v13 distort:0 undistortedPixels:0 outDistorted:0];
   if (__p)
   {
     operator delete(__p);
   }
 
-  if (v14)
+  if (v15)
   {
-    operator delete(v14);
+    operator delete(v15);
   }
 }
 
@@ -6239,25 +6268,25 @@ float peridot::peridotTempToCelcius(peridot *this, float a2)
   }
 }
 
-uint64_t peridot::getThermalStateString@<X0>(void *a1@<X8>)
+uint64_t *peridot::getThermalStateString@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  v3 = [MEMORY[0x277CCAC38] processInfo];
-  v4 = [v3 thermalState];
+  v2 = [MEMORY[0x277CCAC38] processInfo];
+  v3 = [v2 thermalState];
 
-  if (v4 > 3)
+  if (v3 > 3)
   {
-    v5 = "Unknown";
+    v4 = "Unknown";
   }
 
   else
   {
-    v5 = off_27852C6C8[v4];
+    v4 = off_27852C6C8[v3];
   }
 
-  return MEMORY[0x22AA52EE0](a1, v5);
+  return MEMORY[0x22AA52EE0](a1, v4);
 }
 
 void sub_2246FB318(_Unwind_Exception *a1)
@@ -6284,7 +6313,7 @@ void sub_2246FB3D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void common::utils::getDistanceToPlane(void *a1@<X0>, int a2@<W1>, void *a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, void *a6@<X8>)
+void common::utils::getDistanceToPlane(void *a1@<X0>, signed int a2@<W1>, void *a3@<X2>, uint64_t a4@<X3>, int a5@<W4>, unsigned __int128 **a6@<X8>)
 {
   v11 = a1;
   a6[1] = 0;
@@ -6730,7 +6759,7 @@ uint64_t peridot::PeridotDxpDetector::configure(peridot::PeridotDxpDetector *thi
   return peridot::HDUnfoldClass::configure((this + 8), a2);
 }
 
-uint64_t peridot::PeridotDxpDetector::process(uint64_t a1, uint64_t a2, uint64_t *a3, _DWORD *a4, uint64_t a5)
+uint64_t peridot::PeridotDxpDetector::process(uint64_t a1, uint64_t a2, uint64_t *a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *(a5 + 680) = 0u;
   *(a5 + 696) = 0u;
@@ -6779,161 +6808,161 @@ uint64_t peridot::PeridotDxpDetector::process(uint64_t a1, uint64_t a2, uint64_t
   *(a5 + 491) = 0u;
   *(a5 + 507) = 0u;
   *(a5 + 475) = 0u;
-  v9 = a1 + 600;
-  v10 = *(a1 + 496);
-  v39 = *(a1 + 456);
-  v40 = v10;
-  v51 = *(a1 + 392);
-  v52 = *(a1 + 665) + *(a1 + 664);
-  v53 = a1 + 600;
-  v54 = *(a1 + 680);
-  v11 = *(a1 + 640);
-  v12 = *(a1 + 648);
-  v13 = *(a1 + 656);
-  v32 = a4 + 50;
-  v33 = a4 + 80;
-  v38 = a4[98];
-  v36 = a4 + 86;
-  v37 = a4 + 56;
-  v34 = a4 + 92;
-  v35 = a4 + 62;
-  v41 = *(a3 + 51);
-  v42 = a3[53];
-  v43 = *(a3 + 22);
-  v44 = a3[46];
-  v45 = *(a3 + 47);
-  v46 = a3[49];
-  v50 = *(a3 + 62);
-  v14 = a3[34];
-  v47 = *(a3 + 16);
-  if (v12 < v11)
+  v12 = a1 + 600;
+  v13 = *(a1 + 496);
+  v42 = *(a1 + 456);
+  v43 = v13;
+  v54 = *(a1 + 392);
+  v55 = *(a1 + 665) + *(a1 + 664);
+  v56 = a1 + 600;
+  v57 = *(a1 + 680);
+  v14 = *(a1 + 640);
+  v15 = *(a1 + 648);
+  v16 = *(a1 + 656);
+  v35 = a4 + 50;
+  v36 = a4 + 80;
+  v41 = a4[98];
+  v39 = a4 + 86;
+  v40 = a4 + 56;
+  v37 = a4 + 92;
+  v38 = a4 + 62;
+  v44 = *(a3 + 51);
+  v45 = a3[53];
+  v46 = *(a3 + 22);
+  v47 = a3[46];
+  v48 = *(a3 + 47);
+  v49 = a3[49];
+  v53 = *(a3 + 62);
+  v17 = a3[34];
+  v50 = *(a3 + 16);
+  if (v15 < v14)
   {
-    v11 = v12;
+    v14 = v15;
   }
 
-  v15 = a3[30];
-  if (v13 >= v11)
+  v18 = a3[30];
+  if (v16 >= v14)
   {
-    v16 = v11;
+    v19 = v14;
   }
 
   else
   {
-    v16 = v13;
+    v19 = v16;
   }
 
-  v48 = v14;
-  v49 = v15;
-  peridot::PeridotDxpDetector::blrDetector(a1, &v32, a5, a4);
-  v18 = *(a5 + 8);
-  *(a5 + 232) = *a5 > v16;
-  *(a5 + 233) = v18 > v16;
-  *(a5 + 234) = *(a5 + 16) > v16;
+  v51 = v17;
+  v52 = v18;
+  peridot::PeridotDxpDetector::blrDetector(a1, &v35, a5, a4);
+  v21 = *(a5 + 8);
+  *(a5 + 232) = *a5 > v19;
+  *(a5 + 233) = v21 > v19;
+  *(a5 + 234) = *(a5 + 16) > v19;
   if (*a1 == 1)
   {
-    v19 = *(a1 + 496);
-    v39 = *(a1 + 456);
-    v40 = v19;
-    v51 = *(a1 + 392);
-    v52 = *(a1 + 665);
-    v53 = v9;
-    v54 = *(a1 + 680);
-    v20 = *(a1 + 640);
-    if (*(a1 + 648) < v20)
+    v22 = *(a1 + 496);
+    v42 = *(a1 + 456);
+    v43 = v22;
+    v54 = *(a1 + 392);
+    v55 = *(a1 + 665);
+    v56 = v12;
+    v57 = *(a1 + 680);
+    v23 = *(a1 + 640);
+    if (*(a1 + 648) < v23)
     {
-      v20 = *(a1 + 648);
+      v23 = *(a1 + 648);
     }
 
-    if (*(a1 + 656) >= v20)
+    if (*(a1 + 656) >= v23)
     {
-      v21 = v20;
+      v24 = v23;
     }
 
     else
     {
-      v21 = *(a1 + 656);
+      v24 = *(a1 + 656);
     }
 
-    v32 = a4 + 100;
-    v33 = a4 + 130;
-    v38 = a4[148];
-    v36 = a4 + 136;
-    v37 = a4 + 106;
-    v34 = a4 + 142;
-    v35 = a4 + 112;
-    v41 = *(a3 + 81);
-    v42 = a3[83];
-    v43 = *(a3 + 37);
-    v44 = a3[76];
-    v45 = *(a3 + 77);
-    v46 = a3[79];
-    v22 = a3[64];
-    v47 = *(a3 + 31);
-    v50 = *(a3 + 122);
-    v23 = a3[60];
-    v48 = v22;
-    v49 = v23;
-    peridot::PeridotDxpDetector::blrDetector(a1, &v32, a5 + 240, v17);
-    v24 = *(a5 + 248);
-    *(a5 + 472) = *(a5 + 240) > v21;
-    *(a5 + 473) = v24 > v21;
-    *(a5 + 474) = *(a5 + 256) > v21;
+    v35 = a4 + 100;
+    v36 = a4 + 130;
+    v41 = a4[148];
+    v39 = a4 + 136;
+    v40 = a4 + 106;
+    v37 = a4 + 142;
+    v38 = a4 + 112;
+    v44 = *(a3 + 81);
+    v45 = a3[83];
+    v46 = *(a3 + 37);
+    v47 = a3[76];
+    v48 = *(a3 + 77);
+    v49 = a3[79];
+    v25 = a3[64];
+    v50 = *(a3 + 31);
+    v53 = *(a3 + 122);
+    v26 = a3[60];
+    v51 = v25;
+    v52 = v26;
+    peridot::PeridotDxpDetector::blrDetector(a1, &v35, a5 + 240, v20);
+    v27 = *(a5 + 248);
+    *(a5 + 472) = *(a5 + 240) > v24;
+    *(a5 + 473) = v27 > v24;
+    *(a5 + 474) = *(a5 + 256) > v24;
   }
 
-  v25 = *(a1 + 504);
-  v39 = *(a1 + 464);
-  v40 = v25;
-  v51 = 0;
-  v52 = *(a1 + 666);
-  v53 = a1 + 576;
-  v54 = *(a1 + 688);
-  v26 = *(a1 + 640);
-  if (*(a1 + 648) < v26)
+  v28 = *(a1 + 504);
+  v42 = *(a1 + 464);
+  v43 = v28;
+  v54 = 0;
+  v55 = *(a1 + 666);
+  v56 = a1 + 576;
+  v57 = *(a1 + 688);
+  v29 = *(a1 + 640);
+  if (*(a1 + 648) < v29)
   {
-    v26 = *(a1 + 648);
+    v29 = *(a1 + 648);
   }
 
-  if (*(a1 + 656) >= v26)
+  if (*(a1 + 656) >= v29)
   {
-    v27 = v26;
+    v30 = v29;
   }
 
   else
   {
-    v27 = *(a1 + 656);
+    v30 = *(a1 + 656);
   }
 
-  v32 = a4;
-  v33 = a4 + 30;
-  v36 = a4 + 36;
-  v37 = a4 + 6;
-  v38 = a4[48];
-  v34 = a4 + 42;
-  v35 = a4 + 12;
-  v41 = *(a3 + 21);
-  v42 = a3[23];
-  v43 = *(a3 + 7);
-  v44 = a3[16];
-  v45 = *(a3 + 17);
-  v46 = a3[19];
-  v28 = a3[4];
-  v47 = *(a3 + 1);
-  v29 = *a3;
-  v50 = *(a3 + 2);
-  v48 = v28;
-  v49 = v29;
-  peridot::PeridotDxpDetector::blrDetector(a1, &v32, a5 + 480, v17);
-  v30 = *(a5 + 488);
-  *(a5 + 712) = *(a5 + 480) > v27;
-  *(a5 + 713) = v30 > v27;
-  *(a5 + 714) = *(a5 + 496) > v27;
+  v35 = a4;
+  v36 = a4 + 30;
+  v39 = a4 + 36;
+  v40 = a4 + 6;
+  v41 = a4[48];
+  v37 = a4 + 42;
+  v38 = a4 + 12;
+  v44 = *(a3 + 21);
+  v45 = a3[23];
+  v46 = *(a3 + 7);
+  v47 = a3[16];
+  v48 = *(a3 + 17);
+  v49 = a3[19];
+  v31 = a3[4];
+  v50 = *(a3 + 1);
+  v32 = *a3;
+  v53 = *(a3 + 2);
+  v51 = v31;
+  v52 = v32;
+  peridot::PeridotDxpDetector::blrDetector(a1, &v35, a5 + 480, v20);
+  v33 = *(a5 + 488);
+  *(a5 + 712) = *(a5 + 480) > v30;
+  *(a5 + 713) = v33 > v30;
+  *(a5 + 714) = *(a5 + 496) > v30;
   return 0;
 }
 
 uint64_t peridot::PeridotDxpDetector::blrDetector(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = a1;
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v5 = 0.0;
   if (*(a2 + 180) == 1)
   {
@@ -6942,88 +6971,86 @@ uint64_t peridot::PeridotDxpDetector::blrDetector(uint64_t a1, uint64_t a2, uint
 
   v60 = *(*(a2 + 192) + 8);
   v61 = **(a2 + 192);
-  v6 = 0.0;
-  memset(v73, 0, sizeof(v73));
+  memset(v72, 0, sizeof(v72));
   v50 = *(a1 + 525);
   if (*(a1 + 525))
   {
-    v7 = 0;
-    v8 = (v60 - v61) >> 2;
-    v9 = (v8 >> 1);
-    v10 = *(a2 + 8);
+    v6 = 0;
+    v7 = (v60 - v61) >> 2;
+    v8 = (v7 >> 1);
+    v9 = *(a2 + 8);
     v47 = **(a2 + 16);
     v49 = (*(*(a2 + 16) + 8) - v47) >> 3;
     v45 = a2 + 120;
     v46 = a2 + 96;
-    v11 = a2 + 72;
-    v12 = *(a2 + 200);
-    v13 = 2 * v12;
-    v57 = v8;
+    v10 = a2 + 72;
+    v11 = *(a2 + 200);
+    v12 = 2 * v11;
+    v57 = v7;
     v58 = a1 + 624;
-    if (v8 <= 1)
+    if (v7 <= 1)
     {
-      v14 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v14 = (v60 - v61) >> 2;
+      v13 = (v60 - v61) >> 2;
     }
 
-    v53 = v14;
-    v55 = v14 & 0xFFFFFFFFFFFFFFFELL;
+    v53 = v13;
+    v55 = v13 & 0xFFFFFFFFFFFFFFFELL;
     v44 = *(a2 + 64);
-    v51 = 0xFFFFFFFF00000000 * v9;
-    v52 = -v9;
+    v51 = 0xFFFFFFFF00000000 * v8;
+    v52 = -v8;
     v48 = *(a2 + 32);
     v56 = *(a2 + 24);
     v59 = *(a2 + 200);
-    v54 = 0xFFFFFFFF00000000 * v12;
+    v54 = 0xFFFFFFFF00000000 * v11;
     while (1)
     {
-      v72 = 0;
-      v70 = 0;
       v71 = 0;
-      v68 = 0;
       v69 = 0;
+      v70 = 0;
+      v68 = 0uLL;
       v67 = 0;
       v66 = 0;
       v65 = 0;
       v64 = 0;
       v63 = 0;
       v62 = 0;
-      if (v7 == v49 || v7 >= (v48[1] - *v48) >> 3)
+      if (v6 == v49 || v6 >= (v48[1] - *v48) >> 3)
       {
-LABEL_36:
+LABEL_35:
         std::vector<float>::__throw_out_of_range[abi:ne200100]();
       }
 
-      a1 = peridot::PeridotDxpDetector::takeEchoes(a1, *(v47 + 8 * v7), *(*v48 + 8 * v7), a4, *(v4 + 512), *(v46 + 8 * v7), *(v45 + 8 * v7), v5, v44, &v71, &v68, &v66, &v64, &v62);
-      if (v68 || v69 || v70)
+      a1 = peridot::PeridotDxpDetector::takeEchoes(a1, *(v47 + 8 * v6), *(*v48 + 8 * v6), a4, *(v4 + 512), *(v46 + 8 * v6), *(v45 + 8 * v6), v5, v44, &v70, &v68, &v66, &v64, &v62);
+      if (v68 != 0 || v69)
       {
         break;
       }
 
 LABEL_8:
-      if (++v7 == v50)
+      if (++v6 == v50)
       {
-        goto LABEL_35;
+        goto LABEL_34;
       }
     }
 
-    v15 = 0;
+    v14 = 0;
     while (1)
     {
-      v18 = *(&v68 + v15);
+      v18 = *(&v68 + v14);
       if (!v18)
       {
-        v16 = *(&v71 + v15);
-        goto LABEL_16;
+        v15 = *(&v70 + v14);
+        goto LABEL_15;
       }
 
-      v16 = *(&v71 + v15);
-      v19 = expf((*(v4 + 484) - v16) * *(v4 + 480));
-      v20 = &v73[9 * v7 + 3 * v15];
+      v15 = *(&v70 + v14);
+      v19 = expf((*(v4 + 484) - v15) * *(v4 + 480));
+      v20 = &v72[9 * v6 + 3 * v14];
       v20[3] = 1.0 / (v19 + 1.0);
       if (v60 == v61)
       {
@@ -7032,13 +7059,13 @@ LABEL_8:
 
       else
       {
-        if (v7 >= (v56[1] - *v56) >> 3)
+        if (v6 >= (v56[1] - *v56) >> 3)
         {
-          goto LABEL_36;
+          goto LABEL_35;
         }
 
-        v21 = *(v11 + 8 * v7) + 1;
-        v22 = *(*(*v56 + 8 * v7) + 8);
+        v21 = *(v10 + 8 * v6) + 1;
+        v22 = *(*(*v56 + 8 * v6) + 8);
         if (v57 >= 2)
         {
           v25 = v51 + (v18 << 32);
@@ -7060,7 +7087,7 @@ LABEL_8:
           v23 = v55;
           if (v57 == v55)
           {
-            goto LABEL_28;
+            goto LABEL_27;
           }
         }
 
@@ -7084,20 +7111,20 @@ LABEL_8:
         while (v31);
       }
 
-LABEL_28:
+LABEL_27:
       v20[7] = v24;
-      if (v7 >= (v10[1] - *v10) >> 3)
+      if (v6 >= (v9[1] - *v9) >> 3)
       {
-        goto LABEL_36;
+        goto LABEL_35;
       }
 
-      v35 = *(v11 + 8 * v7) + 1;
-      v36 = *(*(*v10 + 8 * v7) + 8);
-      if (v13)
+      v35 = *(v10 + 8 * v6) + 1;
+      v36 = *(*(*v9 + 8 * v6) + 8);
+      if (v12)
       {
         v37 = v54 + (v18 << 32);
         v38 = 0.0;
-        v39 = v13;
+        v39 = v12;
         v40 = 0.0;
         do
         {
@@ -7116,126 +7143,126 @@ LABEL_28:
         v41 = 0.0;
       }
 
-      v20[4] = fmaxf(((*(v36 + 4 * ((v13 + v18 - v59) % v35)) + v41) * 0.25) / *(v58 + 4 * v7), 0.0);
-LABEL_16:
-      v17 = &v73[9 * v7 + 3 * v15];
-      *(v17 + 6) = *(&v64 + v15);
-      *(v17 + 40) = 1;
-      *(v17 + 2) = v16;
-      *v17 = v18;
-      v6 = *(&v62 + v15);
-      *(v17 + 8) = *(&v66 + v15);
-      *(v17 + 9) = v6;
-      if (++v15 == 3)
+      v20[4] = fmaxf(((*(v36 + 4 * ((v12 + v18 - v59) % v35)) + v41) * 0.25) / *(v58 + 4 * v6), 0.0);
+LABEL_15:
+      v16 = &v72[9 * v6 + 3 * v14];
+      *(v16 + 6) = *(&v64 + v14);
+      *(v16 + 40) = 1;
+      *(v16 + 2) = v15;
+      *v16 = v18;
+      v17 = *(&v62 + v14);
+      *(v16 + 8) = *(&v66 + v14);
+      *(v16 + 9) = v17;
+      if (++v14 == 3)
       {
         goto LABEL_8;
       }
     }
   }
 
-LABEL_35:
-  peridot::PeridotDxpDetector::hdUnfold(v4, v73, a2, v6);
+LABEL_34:
+  peridot::PeridotDxpDetector::hdUnfold(v4, v72, a2);
   return 0;
 }
 
-uint64_t peridot::PeridotDxpDetector::hdUnfold(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
+uint64_t peridot::PeridotDxpDetector::hdUnfold(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = MEMORY[0x28223BE20](a1, a2, a3, a4);
-  v8 = v7;
-  v9 = v6;
-  v10 = v5;
-  v44 = *MEMORY[0x277D85DE8];
-  if (*(v6 + 180))
+  v3 = MEMORY[0x28223BE20](a1, a2, a3);
+  v7 = v6;
+  v8 = v5;
+  v9 = v4;
+  __src[514] = *MEMORY[0x277D85DE8];
+  if (*(v5 + 180))
   {
-    v11 = v4;
-    v12 = *(v6 + 104);
-    v39[0] = *(v6 + 96);
-    v39[1] = v12;
-    v39[2] = *(v6 + 112);
-    v39[3] = *(v4 + 640) - *(v6 + 120);
-    v39[4] = *(v4 + 648) - *(v6 + 128);
-    v39[5] = *(v4 + 656) - *(v6 + 136);
-    v42 = 0.0;
+    v10 = v3;
+    v11 = *(v5 + 104);
+    v37[0] = *(v5 + 96);
+    v37[1] = v11;
+    v37[2] = *(v5 + 112);
+    v37[3] = *(v3 + 640) - *(v5 + 120);
+    v37[4] = *(v3 + 648) - *(v5 + 128);
+    v37[5] = *(v3 + 656) - *(v5 + 136);
+    v40 = 0.0;
     bzero(__src, 0x1010uLL);
-    *v40 = 0;
-    peridot::HDUnfoldClass::crtUnfold(v11 + 8, v10, v9 + 168, v13, v39, __src, &v42, v41, &v40[1], v40);
-    v14 = v40[0];
-    peridot::HDUnfoldClass::calcConf(v11 + 8, v15, __src, v16, v9 + 144, (v9 + 168), v9, *(v9 + 184), v42, v40[0], v8, v38);
-    *(v8 + 235) = v40[1];
-    *(v8 + 236) = v14;
+    *v38 = 0;
+    peridot::HDUnfoldClass::crtUnfold(v10 + 8, v9, v8 + 168, v37, __src, &v40, v39, &v38[1], v38);
+    v12 = v38[0];
+    peridot::HDUnfoldClass::calcConf(v10 + 8, v13, __src, v14, v8 + 144, (v8 + 168), v8, *(v8 + 184), v40, v38[0], v7, v36);
+    *(v7 + 235) = v38[1];
+    *(v7 + 236) = v12;
   }
 
   else
   {
-    v18 = 0;
-    v19 = v5 + 2;
-    v20 = 3;
+    v16 = 0;
+    v17 = v4 + 2;
+    v18 = 3;
     do
     {
-      v21 = *(v19 - 2);
-      v22 = v21;
-      v23 = *(v6 + 172);
-      v24 = *(v6 + 176);
-      v25 = fminf(fabsf((v21 - v5[18]) + v23), 3.4028e38);
-      v26 = fminf(fabsf((v21 - v5[36]) + v24), 3.4028e38);
-      v27 = fabsf((v21 - v5[24]) + v23);
-      v28 = fabsf((v21 - v5[42]) + v24);
-      if (v27 >= v25)
+      v19 = *(v17 - 2);
+      v20 = v19;
+      v21 = *(v5 + 172);
+      v22 = *(v5 + 176);
+      v23 = fminf(fabsf((v19 - v4[18]) + v21), 3.4028e38);
+      v24 = fminf(fabsf((v19 - v4[36]) + v22), 3.4028e38);
+      v25 = fabsf((v19 - v4[24]) + v21);
+      v26 = fabsf((v19 - v4[42]) + v22);
+      if (v25 >= v23)
       {
-        v29 = v25;
+        v27 = v23;
       }
 
       else
       {
-        v29 = v27;
+        v27 = v25;
       }
 
-      if (v28 >= v26)
+      if (v26 >= v24)
       {
-        v30 = v26;
-      }
-
-      else
-      {
-        v30 = v28;
-      }
-
-      v31 = fabsf((v22 - v5[30]) + v23);
-      v32 = fabsf((v22 - v5[48]) + v24);
-      if (v31 >= v29)
-      {
-        v33 = v29;
+        v28 = v24;
       }
 
       else
       {
-        v33 = v31;
+        v28 = v26;
       }
 
-      if (v32 >= v30)
+      v29 = fabsf((v20 - v4[30]) + v21);
+      v30 = fabsf((v20 - v4[48]) + v22);
+      if (v29 >= v27)
       {
-        v34 = v30;
+        v31 = v27;
       }
 
       else
       {
-        v34 = v32;
+        v31 = v29;
       }
 
-      v35 = *(v6 + 56);
-      if (v33 <= v35 && v34 <= v35 && v21 != 0)
+      if (v30 >= v28)
       {
-        *v7 = v21;
-        *(v7 + 24) = 2139095039;
+        v32 = v28;
+      }
+
+      else
+      {
+        v32 = v30;
+      }
+
+      v33 = *(v5 + 56);
+      if (v31 <= v33 && v32 <= v33 && v19 != 0)
+      {
+        *v6 = v19;
+        *(v6 + 24) = 2139095039;
         operator new();
       }
 
-      ++v18;
-      v19 += 6;
-      --v20;
+      ++v16;
+      v17 += 6;
+      --v18;
     }
 
-    while (v20);
+    while (v18);
   }
 
   return 0;
@@ -7243,8 +7270,8 @@ uint64_t peridot::PeridotDxpDetector::hdUnfold(uint64_t a1, uint64_t a2, uint64_
 
 uint64_t peridot::PeridotDxpDetector::takeEchoes(peridot::PeridotDxpDetector *this, peridot::Histogram *a2, peridot::Histogram *a3, unint64_t a4, unint64_t a5, unint64_t a6, unint64_t a7, float a8, unint64_t a9, float *a10, unint64_t *a11, float *a12, float *a13, float *a14)
 {
-  MEMORY[0x28223BE20](this, a2, a3, a8);
-  v68[367] = *MEMORY[0x277D85DE8];
+  MEMORY[0x28223BE20](this, a2, a3);
+  v66[368] = *MEMORY[0x277D85DE8];
   v21 = *(v14 + 16) - 2;
   if (v21 >= v18)
   {
@@ -7267,7 +7294,7 @@ uint64_t peridot::PeridotDxpDetector::takeEchoes(peridot::PeridotDxpDetector *th
     {
       if ((v27 = *(v25 - 2), v27 < v26) && (v26 > *v25 || vabds_f32(v26, v27) > 0.000001 && vabds_f32(v26, *v25) < 0.000001) || vabds_f32(v27, v26) < 0.000001 && v26 > *v25 && vabds_f32(v26, *v25) > 0.000001)
       {
-        *&v67[8 * v23++] = v22;
+        v66[v23++] = v22;
       }
     }
 
@@ -7288,7 +7315,7 @@ uint64_t peridot::PeridotDxpDetector::takeEchoes(peridot::PeridotDxpDetector *th
 LABEL_23:
     v34 = v23 - v29;
     v35 = &v65[v29];
-    v36 = &v67[8 * v29];
+    v36 = &v66[v29];
     do
     {
       v37 = *v36++;
@@ -7301,8 +7328,8 @@ LABEL_23:
   }
 
   v29 = v23 & 0xFFFFFFFFFFFFFFFELL;
-  v30 = &v66;
-  v31 = v68;
+  v30 = &v65[1];
+  v31 = &v66[1];
   v32 = v23 & 0xFFFFFFFFFFFFFFFELL;
   do
   {
@@ -7330,7 +7357,7 @@ LABEL_25:
     v42 = *v65;
     do
     {
-      if (*&v67[8 * v40])
+      if (v66[v40])
       {
         v43 = *&v65[v40];
         if (v43 > v42 && vabds_f32(v43, v42) > 0.000001)
@@ -7349,7 +7376,7 @@ LABEL_25:
       break;
     }
 
-    v44 = *&v67[8 * v41];
+    v44 = v66[v41];
     v45 = *(v24 + 4 * v44);
     LODWORD(v46) = v44 - v19;
     if (v44 - v19 <= v17)
@@ -7393,7 +7420,7 @@ LABEL_25:
       while (v44 != v50);
     }
 
-    v52 = *&v67[8 * v41];
+    v52 = v66[v41];
     while (1)
     {
       v53 = v52 + 1;
@@ -7426,7 +7453,7 @@ LABEL_25:
 LABEL_53:
     if (v44 == *a11 || v44 == a11[1] || v44 == a11[2] || v57 > v19)
     {
-      *&v67[8 * v41] = 0;
+      v66[v41] = 0;
       --v39;
       v65[v41] = -971227136;
       if (!v39)
@@ -7445,7 +7472,7 @@ LABEL_53:
       v58 = v44 - v16;
       v59 = v44 + v16;
       v60 = v65;
-      v61 = v67;
+      v61 = v66;
       v62 = v23;
       do
       {
@@ -7594,7 +7621,7 @@ void peridot::ImgHistogram::~ImgHistogram(peridot::ImgHistogram *this)
   *(this + 2) = 0;
 }
 
-void peridot::Histogram::Histogram(peridot::Histogram *this, uint64_t a2)
+void peridot::Histogram::Histogram(peridot::Histogram *this, unint64_t a2)
 {
   *this = off_283809F88;
   *(this + 2) = a2;
@@ -7607,7 +7634,7 @@ void peridot::Histogram::Histogram(peridot::Histogram *this, uint64_t a2)
   operator new[]();
 }
 
-void peridot::Histogram::Histogram(peridot::Histogram *this, uint64_t a2, float a3)
+void peridot::Histogram::Histogram(peridot::Histogram *this, unint64_t a2, float a3)
 {
   *this = off_283809F88;
   *(this + 2) = a2;
@@ -8015,7 +8042,7 @@ void *peridot::FullStaticHistogram::copyFrom(peridot::FullStaticHistogram *this,
   return memcpy(this, v5, 4 * v3);
 }
 
-uint64_t *peridot::RefHistogramAllSpots::operator=(uint64_t *a1, uint64_t a2)
+void *peridot::RefHistogramAllSpots::operator=(void *a1, uint64_t a2)
 {
   if (a1 != a2)
   {
@@ -9077,7 +9104,7 @@ void peridot::PeridotPreProcessOutput::PreProcessorOut::~PreProcessorOut(peridot
   }
 }
 
-uint64_t peridot::PeridotPreProcessOutput::PreProcessorOut::init(peridot::PeridotPreProcessOutput::PreProcessorOut *this, unint64_t a2)
+void peridot::PeridotPreProcessOutput::PreProcessorOut::init(peridot::PeridotPreProcessOutput::PreProcessorOut *this, unint64_t a2, unint64_t a3)
 {
   if (a2 > (*(this + 2) - *this) >> 3)
   {
@@ -9109,7 +9136,7 @@ uint64_t peridot::PeridotPreProcessOutput::PreProcessorOut::init(peridot::Perido
     goto LABEL_26;
   }
 
-  result = std::vector<BOOL>::reserve(this + 72, a2);
+  std::vector<BOOL>::reserve(this + 72, a2);
   if (a2 > (*(this + 14) - *(this + 12)) >> 2)
   {
     if (!(a2 >> 62))
@@ -9157,7 +9184,6 @@ LABEL_26:
   }
 
   *(this + 48) = 0;
-  return result;
 }
 
 void std::vector<peridot::Histogram *>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -9222,14 +9248,15 @@ void std::vector<peridot::Histogram *>::push_back[abi:ne200100](uint64_t a1, voi
   *(a1 + 8) = v5;
 }
 
-uint64_t peridot::PeridotPreProcessOutput::PreProcessorOutSpot::init(peridot::PeridotPreProcessOutput::PreProcessorOutSpot *this, unint64_t a2)
+void peridot::PeridotPreProcessOutput::PreProcessorOutSpot::init(peridot::PeridotPreProcessOutput::PreProcessorOutSpot *this, unint64_t a2, uint64_t a3, unint64_t a4)
 {
-  peridot::PeridotPreProcessOutput::PreProcessorOut::init(this, a2);
-  peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 200), a2);
-  peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 400), a2);
-  peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 600), 1uLL);
+  peridot::PeridotPreProcessOutput::PreProcessorOut::init(this, a2, 92 * a3);
+  a4 *= 92;
+  peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 200), a2, a4);
+  peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 400), a2, a4);
+  peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 600), 1uLL, 0x5CuLL);
 
-  return peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 800), 1uLL);
+  peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 800), 1uLL, 0x5CuLL);
 }
 
 void *peridot::PeridotPreProcessOutput::PreProcessorOutSpot::destroy(peridot::PeridotPreProcessOutput::PreProcessorOutSpot *this)
@@ -9242,37 +9269,34 @@ void *peridot::PeridotPreProcessOutput::PreProcessorOutSpot::destroy(peridot::Pe
   return peridot::PeridotPreProcessOutput::PreProcessorOut::destroy(this + 100);
 }
 
-uint64_t peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(uint64_t this, unint64_t a2, uint64_t a3, uint64_t a4)
+void peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(peridot::PeridotPreProcessOutput::PreProcessorOutSpot *this, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = this;
   if (*(this + 1000) != 1)
   {
     goto LABEL_5;
   }
 
-  if (*(this + 1008) != a3 && *(this + 1016) != a4)
+  if (*(this + 126) != a3 && *(this + 127) != a4)
   {
     v7 = a2;
     peridot::PeridotPreProcessOutput::PreProcessorOut::destroy(this);
-    peridot::PeridotPreProcessOutput::PreProcessorOut::destroy((v6 + 200));
-    peridot::PeridotPreProcessOutput::PreProcessorOut::destroy((v6 + 400));
-    peridot::PeridotPreProcessOutput::PreProcessorOut::destroy((v6 + 600));
-    peridot::PeridotPreProcessOutput::PreProcessorOut::destroy((v6 + 800));
+    peridot::PeridotPreProcessOutput::PreProcessorOut::destroy(this + 25);
+    peridot::PeridotPreProcessOutput::PreProcessorOut::destroy(this + 50);
+    peridot::PeridotPreProcessOutput::PreProcessorOut::destroy(this + 75);
+    peridot::PeridotPreProcessOutput::PreProcessorOut::destroy(this + 100);
     a2 = v7;
-    *(v6 + 1000) = 0;
+    *(this + 1000) = 0;
 LABEL_5:
     v8 = a2;
-    peridot::PeridotPreProcessOutput::PreProcessorOut::init(v6, a2);
-    peridot::PeridotPreProcessOutput::PreProcessorOut::init((v6 + 200), v8);
-    peridot::PeridotPreProcessOutput::PreProcessorOut::init((v6 + 400), v8);
-    peridot::PeridotPreProcessOutput::PreProcessorOut::init((v6 + 600), 1uLL);
-    this = peridot::PeridotPreProcessOutput::PreProcessorOut::init((v6 + 800), 1uLL);
-    *(v6 + 1016) = a4;
-    *(v6 + 1008) = a3;
-    *(v6 + 1000) = 1;
+    peridot::PeridotPreProcessOutput::PreProcessorOut::init(this, a2, 92 * a3);
+    peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 200), v8, 92 * a4);
+    peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 400), v8, 92 * a4);
+    peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 600), 1uLL, 0x5CuLL);
+    peridot::PeridotPreProcessOutput::PreProcessorOut::init((this + 800), 1uLL, 0x5CuLL);
+    *(this + 127) = a4;
+    *(this + 126) = a3;
+    *(this + 1000) = 1;
   }
-
-  return this;
 }
 
 double peridot::PeridotPreProcessOutput::init(uint64_t a1, uint64_t a2)
@@ -9292,33 +9316,31 @@ uint64_t peridot::PeridotPreProcessOutput::configure(uint64_t result, uint64_t a
   return result;
 }
 
-uint64_t peridot::PeridotPreProcessOutput::reset(uint64_t this)
+void peridot::PeridotPreProcessOutput::reset(peridot::PeridotPreProcessOutput *this)
 {
-  v1 = this + 12288;
+  v1 = (this + 12288);
   if (*(this + 14352) == 1)
   {
-    v2 = this;
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(this, *(this + 14353), *(this + 14336), *(this + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 1024, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 2048, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 3072, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 4096, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 5120, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 6144, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 7168, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 0x2000, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 9216, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 10240, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 11264, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v1, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
-    this = peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v2 + 13312, *(v1 + 2065), *(v2 + 14336), *(v2 + 14344));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(this, *(this + 14353), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 1024), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 2048), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 3072), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 4096), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 5120), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 6144), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 7168), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 0x2000), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 9216), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 10240), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 11264), *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset(v1, *(v1 + 2065), *(this + 1792), *(this + 1793));
+    peridot::PeridotPreProcessOutput::PreProcessorOutSpot::reset((this + 13312), *(v1 + 2065), *(this + 1792), *(this + 1793));
   }
 
   *(v1 + 2064) = 0;
-  return this;
 }
 
-peridot::PeridotEstimatorOut *peridot::PeridotEstimatorOut::PeridotEstimatorOut(peridot::PeridotEstimatorOut *this, unint64_t a2)
+peridot::PeridotEstimatorOut *peridot::PeridotEstimatorOut::PeridotEstimatorOut(peridot::PeridotEstimatorOut *this, unint64_t a2, unint64_t a3)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -9338,7 +9360,7 @@ peridot::PeridotEstimatorOut *peridot::PeridotEstimatorOut::PeridotEstimatorOut(
   *(this + 20) = 0;
   *(this + 21) = 0;
   *(this + 22) = 0;
-  peridot::PeridotEstimatorOut::init(this, a2);
+  peridot::PeridotEstimatorOut::init(this, a2, a3);
   return this;
 }
 
@@ -9436,14 +9458,14 @@ LABEL_13:
   _Unwind_Resume(exception_object);
 }
 
-uint64_t peridot::PeridotEstimatorOut::init(uint64_t this, unint64_t a2)
+void peridot::PeridotEstimatorOut::init(peridot::PeridotEstimatorOut *this, unint64_t a2, unint64_t a3)
 {
-  v2 = a2;
-  v3 = 0;
+  v3 = a2;
+  v4 = 0;
   do
   {
-    v4 = v3;
-    if (v2 > (*(this + 32 * v3 + 16) - *(this + 32 * v3)) >> 3)
+    v5 = v4;
+    if (v3 > (*(this + 4 * v4 + 2) - *(this + 4 * v4)) >> 3)
     {
       if (!(a2 >> 61))
       {
@@ -9453,18 +9475,17 @@ uint64_t peridot::PeridotEstimatorOut::init(uint64_t this, unint64_t a2)
       std::vector<std::string>::__throw_length_error[abi:ne200100]();
     }
 
-    if (v2)
+    if (v3)
     {
       operator new();
     }
 
-    v2 = a2;
-    ++v3;
+    v3 = a2;
+    ++v4;
   }
 
-  while (v4 != 2);
-  *(this + 192) = 0;
-  return this;
+  while (v5 != 2);
+  *(this + 48) = 0;
 }
 
 void peridot::PeridotEstimatorOut::~PeridotEstimatorOut(peridot::PeridotEstimatorOut *this)
@@ -9790,150 +9811,151 @@ void nvmGrnagerStruct::~nvmGrnagerStruct(nvmGrnagerStruct *this)
   }
 }
 
-uint64_t nvmToFDR(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
+uint64_t nvmToFDR(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = MEMORY[0x28223BE20](a1, a2, a3, a4);
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v11 = v4;
+  v3 = MEMORY[0x28223BE20](a1, a2, a3);
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v10 = v3;
   __dst[3904] = *MEMORY[0x277D85DE8];
-  v13 = v12;
-  bzero(v6, 0x256C4uLL);
-  if (!v10)
+  v12 = v11;
+  bzero(v5, 0x256C4uLL);
+  if (!v9)
   {
     peridot_depth_log_error("null quark buffer");
     goto LABEL_24;
   }
 
-  if (!v11)
+  if (!v10)
   {
     peridot_depth_log_error("null granger buffer");
     goto LABEL_24;
   }
 
-  v14.length = CFDataGetLength(v11);
-  v15 = v6 + 119612;
-  *(v6 + 119612) = 100;
-  *(v6 + 119616) = v14.length;
-  if (LOWORD(v14.length) <= 0x380uLL)
+  v13.length = CFDataGetLength(v10);
+  v14 = v5 + 119612;
+  *(v5 + 119612) = 100;
+  *(v5 + 119616) = v13.length;
+  if (LOWORD(v13.length) <= 0x380uLL)
   {
-    v14.location = 0;
-    CFDataGetBytes(v11, v14, (v6 + 119618));
+    v13.location = 0;
+    CFDataGetBytes(v10, v13, (v5 + 119618));
   }
 
-  v16.length = CFDataGetLength(v10);
-  *(v6 + 120514) = v16.length;
-  length = v16.length;
-  if (LOWORD(v16.length) <= 0x8000uLL)
+  v15.length = CFDataGetLength(v9);
+  *(v5 + 120514) = v15.length;
+  length = v15.length;
+  if (LOWORD(v15.length) <= 0x8000uLL)
   {
-    v16.location = 0;
-    CFDataGetBytes(v10, v16, (v6 + 120516));
-    length = *(v6 + 120514);
+    v15.location = 0;
+    CFDataGetBytes(v9, v15, (v5 + 120516));
+    length = *(v5 + 120514);
   }
 
-  __s = v8;
-  v99 = v6 + 120516;
-  v18 = (v6 + 120516 - length);
-  v102[0] = v18[34304];
-  v19 = v18[34276];
-  v102[1] = v18[34276];
-  v102[2] = v18[33531];
-  v102[3] = v18[33536];
-  v102[4] = *(v6 + 120433) & 0xF;
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:?];
-  v97 = v102[0];
-  v98 = v11;
-  v21 = v6;
-  [v13 setValue:v20 forKey:@"Depth__NVM__vsr_nvm_version"];
+  __s = v7;
+  v98 = v5 + 120516;
+  v17 = (v5 + 120516 - length);
+  v101[0] = v17[34304];
+  v18 = v17[34276];
+  v101[1] = v17[34276];
+  v101[2] = v17[33531];
+  v101[3] = v17[33536];
+  v101[4] = *(v5 + 120433) & 0xF;
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:?];
+  v96 = v101[0];
+  v97 = v10;
+  v20 = v5;
+  [v12 setValue:v19 forKey:@"Depth__NVM__vsr_nvm_version"];
 
-  v22 = *(v6 + 120516 - *(v6 + 120514) + 32799);
-  v23 = *(v6 + 120516 - *(v6 + 120514) + 32801);
-  v24 = *(v6 + 120516 - *(v6 + 120514) + 32802);
-  v25 = *(v99 - *(v15 + 902) + 33002);
-  v26 = *(v99 - *(v15 + 902) + 33003);
-  if (*(v99 - *(v15 + 902) + 32801))
+  v21 = *(v5 + 120516 - *(v5 + 120514) + 32799);
+  v22 = *(v5 + 120516 - *(v5 + 120514) + 32801);
+  v23 = *(v5 + 120516 - *(v5 + 120514) + 32802);
+  v24 = *(v98 - *(v14 + 902) + 33002);
+  v25 = *(v98 - *(v14 + 902) + 33003);
+  if (*(v98 - *(v14 + 902) + 32801))
   {
-    v27 = v23;
-  }
-
-  else
-  {
-    v27 = 178;
-  }
-
-  v28 = [MEMORY[0x277CCABB0] numberWithInt:v27];
-  [v13 setValue:v28 forKey:@"Depth__NVM__idac_h_txcfg0"];
-
-  if (v24)
-  {
-    v29 = v24;
+    v26 = v22;
   }
 
   else
   {
-    v29 = 138;
+    v26 = 178;
   }
 
-  v30 = [MEMORY[0x277CCABB0] numberWithInt:v29];
-  [v13 setValue:v30 forKey:@"Depth__NVM__idac_l_txcfg0"];
+  v27 = [MEMORY[0x277CCABB0] numberWithInt:v26];
+  [v12 setValue:v27 forKey:@"Depth__NVM__idac_h_txcfg0"];
 
-  if (v25 == 75)
+  if (v23)
   {
-    v31 = 120;
-  }
-
-  else
-  {
-    v31 = v25;
-  }
-
-  v32 = [MEMORY[0x277CCABB0] numberWithInt:v31];
-  [v13 setValue:v32 forKey:@"Depth__NVM__idac_h_txcfg1"];
-
-  if (v26 == 55)
-  {
-    v33 = 90;
+    v28 = v23;
   }
 
   else
   {
-    v33 = v26;
+    v28 = 138;
   }
 
-  v34 = [MEMORY[0x277CCABB0] numberWithInt:v33];
-  [v13 setValue:v34 forKey:@"Depth__NVM__idac_l_txcfg1"];
+  v29 = [MEMORY[0x277CCABB0] numberWithInt:v28];
+  [v12 setValue:v29 forKey:@"Depth__NVM__idac_l_txcfg0"];
 
-  v35 = [MEMORY[0x277CCABB0] numberWithInt:v22 >> 6];
-  [v13 setValue:v35 forKey:@"Depth__NVM__quark_test_fap_id"];
-
-  v36 = [MEMORY[0x277CCABB0] numberWithInt:(v22 >> 3) & 7];
-  [v13 setValue:v36 forKey:@"Depth__NVM__quark_lld_test_id"];
-
-  v37 = [MEMORY[0x277CCABB0] numberWithInt:v22 & 7];
-  [v13 setValue:v37 forKey:@"Depth__NVM__quark_optical_test_id"];
-
-  v39 = *(v15 + 902);
-  v40 = v39 - 1;
-  if ((v39 - 1) < 0x601)
+  if (v24 == 75)
   {
-    LOBYTE(v42) = 0;
+    v30 = 120;
+  }
+
+  else
+  {
+    v30 = v24;
+  }
+
+  v31 = [MEMORY[0x277CCABB0] numberWithInt:v30];
+  [v12 setValue:v31 forKey:@"Depth__NVM__idac_h_txcfg1"];
+
+  if (v25 == 55)
+  {
+    v32 = 90;
+  }
+
+  else
+  {
+    v32 = v25;
+  }
+
+  v33 = [MEMORY[0x277CCABB0] numberWithInt:v32];
+  [v12 setValue:v33 forKey:@"Depth__NVM__idac_l_txcfg1"];
+
+  v34 = [MEMORY[0x277CCABB0] numberWithInt:v21 >> 6];
+  [v12 setValue:v34 forKey:@"Depth__NVM__quark_test_fap_id"];
+
+  v35 = [MEMORY[0x277CCABB0] numberWithInt:(v21 >> 3) & 7];
+  [v12 setValue:v35 forKey:@"Depth__NVM__quark_lld_test_id"];
+
+  v36 = [MEMORY[0x277CCABB0] numberWithInt:v21 & 7];
+  [v12 setValue:v36 forKey:@"Depth__NVM__quark_optical_test_id"];
+
+  v38 = *(v14 + 902);
+  v39 = v38 - 1;
+  if ((v38 - 1) < 0x601)
+  {
+    LOBYTE(v41) = 0;
     goto LABEL_39;
   }
 
-  v41 = v39 - 1537;
-  if ((v39 - 1537) <= 7)
+  v40 = v38 - 1537;
+  if ((v38 - 1537) <= 7)
   {
-    LOBYTE(v42) = 0;
-    v43 = 1536;
+    LOBYTE(v41) = 0;
+    v42 = 1536;
     goto LABEL_37;
   }
 
-  if (v41 >= 0x20)
+  if (v40 >= 0x20)
   {
-    v45 = 0uLL;
-    v44 = v41 & 0xFFFFFFFFFFFFFFE0;
-    v46 = (v15 + 2456);
+    v44 = 0uLL;
+    v43 = v40 & 0xFFFFFFFFFFFFFFE0;
+    v45 = (v14 + 2456);
+    v46 = 0uLL;
     v47 = 0uLL;
     v48 = 0uLL;
     v49 = 0uLL;
@@ -9941,121 +9963,120 @@ uint64_t nvmToFDR(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
     v51 = 0uLL;
     v52 = 0uLL;
     v53 = 0uLL;
-    v54 = 0uLL;
-    v55 = v41 & 0xFFFFFFFFFFFFFFE0;
+    v54 = v40 & 0xFFFFFFFFFFFFFFE0;
+    v55 = 0uLL;
     v56 = 0uLL;
     v57 = 0uLL;
     v58 = 0uLL;
     v59 = 0uLL;
     v60 = 0uLL;
     v61 = 0uLL;
-    v62 = 0uLL;
     do
     {
-      v63 = v46[-1];
-      v64 = vqtbl1q_s8(v63, xmmword_2247A4890);
-      v65 = vqtbl1q_s8(v63, xmmword_2247A4880);
-      v66 = vqtbl1q_s8(v63, xmmword_2247A48A0);
-      v67 = vqtbl1q_s8(v63, xmmword_2247A48B0);
-      v68 = vqtbl1q_s8(*v46, xmmword_2247A4890);
-      v69 = vqtbl1q_s8(*v46, xmmword_2247A4880);
-      v70 = vqtbl1q_s8(*v46, xmmword_2247A48A0);
-      v71 = vqtbl1q_s8(*v46, xmmword_2247A48B0);
-      v47 = vaddw_high_u32(v47, v65);
-      v49 = vaddw_high_u32(v49, v64);
-      v48 = vaddw_u32(v48, *v64.i8);
-      v45 = vaddw_u32(v45, *v65.i8);
-      v50 = vaddw_u32(v50, *v66.i8);
-      v51 = vaddw_high_u32(v51, v66);
-      v52 = vaddw_u32(v52, *v67.i8);
-      v53 = vaddw_high_u32(v53, v67);
-      v56 = vaddw_high_u32(v56, v69);
-      v58 = vaddw_high_u32(v58, v68);
-      v57 = vaddw_u32(v57, *v68.i8);
-      v54 = vaddw_u32(v54, *v69.i8);
-      v59 = vaddw_u32(v59, *v70.i8);
-      v60 = vaddw_high_u32(v60, v70);
-      v61 = vaddw_u32(v61, *v71.i8);
-      v46 += 2;
-      v62 = vaddw_high_u32(v62, v71);
-      v55 -= 32;
+      v62 = v45[-1];
+      v63 = vqtbl1q_s8(v62, xmmword_2247A4890);
+      v64 = vqtbl1q_s8(v62, xmmword_2247A4880);
+      v65 = vqtbl1q_s8(v62, xmmword_2247A48A0);
+      v66 = vqtbl1q_s8(v62, xmmword_2247A48B0);
+      v67 = vqtbl1q_s8(*v45, xmmword_2247A4890);
+      v68 = vqtbl1q_s8(*v45, xmmword_2247A4880);
+      v69 = vqtbl1q_s8(*v45, xmmword_2247A48A0);
+      v70 = vqtbl1q_s8(*v45, xmmword_2247A48B0);
+      v46 = vaddw_high_u32(v46, v64);
+      v48 = vaddw_high_u32(v48, v63);
+      v47 = vaddw_u32(v47, *v63.i8);
+      v44 = vaddw_u32(v44, *v64.i8);
+      v49 = vaddw_u32(v49, *v65.i8);
+      v50 = vaddw_high_u32(v50, v65);
+      v51 = vaddw_u32(v51, *v66.i8);
+      v52 = vaddw_high_u32(v52, v66);
+      v55 = vaddw_high_u32(v55, v68);
+      v57 = vaddw_high_u32(v57, v67);
+      v56 = vaddw_u32(v56, *v67.i8);
+      v53 = vaddw_u32(v53, *v68.i8);
+      v58 = vaddw_u32(v58, *v69.i8);
+      v59 = vaddw_high_u32(v59, v69);
+      v60 = vaddw_u32(v60, *v70.i8);
+      v45 += 2;
+      v61 = vaddw_high_u32(v61, v70);
+      v54 -= 32;
     }
 
-    while (v55);
-    v72 = vaddq_s64(v56, v47);
-    v38 = vaddq_s64(v60, v51);
-    v42 = vaddvq_s64(vaddq_s64(vaddq_s64(vaddq_s64(vaddq_s64(v54, v45), vaddq_s64(v59, v50)), vaddq_s64(vaddq_s64(v57, v48), vaddq_s64(v61, v52))), vaddq_s64(vaddq_s64(v72, v38), vaddq_s64(vaddq_s64(v58, v49), vaddq_s64(v62, v53)))));
-    if (v41 == v44)
+    while (v54);
+    v71 = vaddq_s64(v55, v46);
+    v37 = vaddq_s64(v59, v50);
+    v41 = vaddvq_s64(vaddq_s64(vaddq_s64(vaddq_s64(vaddq_s64(v53, v44), vaddq_s64(v58, v49)), vaddq_s64(vaddq_s64(v56, v47), vaddq_s64(v60, v51))), vaddq_s64(vaddq_s64(v71, v37), vaddq_s64(vaddq_s64(v57, v48), vaddq_s64(v61, v52)))));
+    if (v40 == v43)
     {
       goto LABEL_39;
     }
 
-    if ((v41 & 0x18) == 0)
+    if ((v40 & 0x18) == 0)
     {
-      v43 = v44 + 1536;
+      v42 = v43 + 1536;
 LABEL_37:
-      v82 = ~v43 + v39;
-      v83 = (v21 + 120516 + v43);
+      v81 = ~v42 + v38;
+      v82 = (v20 + 120516 + v42);
       do
       {
-        v84 = *v83++;
-        LOBYTE(v42) = v42 + v84;
-        --v82;
+        v83 = *v82++;
+        LOBYTE(v41) = v41 + v83;
+        --v81;
       }
 
-      while (v82);
+      while (v81);
       goto LABEL_39;
     }
   }
 
   else
   {
-    v42 = 0;
-    v44 = 0;
+    v41 = 0;
+    v43 = 0;
   }
 
-  v73 = v41 & 0xFFFFFFFFFFFFFFF8;
-  v74 = 0uLL;
-  v75 = v42;
-  v76 = v44 - (v41 & 0xFFFFFFFFFFFFFFF8);
-  v77 = (v44 + 120516 + v21 + 1536);
+  v72 = v40 & 0xFFFFFFFFFFFFFFF8;
+  v73 = 0uLL;
+  v74 = v41;
+  v75 = v43 - (v40 & 0xFFFFFFFFFFFFFFF8);
+  v76 = (v43 + 120516 + v20 + 1536);
+  v77 = 0uLL;
   v78 = 0uLL;
-  v79 = 0uLL;
   do
   {
-    v80 = *v77++;
-    v38.i64[0] = v80;
-    v81 = vqtbl1q_s8(v38, xmmword_2247A4890);
-    v38 = vqtbl1q_s8(v38, xmmword_2247A4880);
-    v79 = vaddw_high_u32(v79, v81);
-    v74 = vaddw_high_u32(v74, v38);
-    v78 = vaddw_u32(v78, *v81.i8);
-    v75 = vaddw_u32(v75, *v38.i8);
-    v76 += 8;
+    v79 = *v76++;
+    v37.i64[0] = v79;
+    v80 = vqtbl1q_s8(v37, xmmword_2247A4890);
+    v37 = vqtbl1q_s8(v37, xmmword_2247A4880);
+    v78 = vaddw_high_u32(v78, v80);
+    v73 = vaddw_high_u32(v73, v37);
+    v77 = vaddw_u32(v77, *v80.i8);
+    v74 = vaddw_u32(v74, *v37.i8);
+    v75 += 8;
   }
 
-  while (v76);
-  LOBYTE(v42) = vaddvq_s64(vaddq_s64(vaddq_s64(v75, v78), vaddq_s64(v74, v79)));
-  if (v41 != v73)
+  while (v75);
+  LOBYTE(v41) = vaddvq_s64(vaddq_s64(vaddq_s64(v74, v77), vaddq_s64(v73, v78)));
+  if (v40 != v72)
   {
-    v43 = v73 + 1536;
+    v42 = v72 + 1536;
     goto LABEL_37;
   }
 
 LABEL_39:
-  v85 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v99 + v40) == v42];
-  [v13 setValue:v85 forKey:@"Depth__NVM__checksum_quark"];
+  v84 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v98 + v39) == v41];
+  [v12 setValue:v84 forKey:@"Depth__NVM__checksum_quark"];
 
-  if (v19 == 2)
+  if (v18 == 2)
   {
-    v86 = v99 - *(v15 + 902);
-    v87.i64[0] = *(v86 + 34261);
-    v87.i32[2] = *(v86 + 34269);
-    v87.i32[3] = *(v86 + 34250);
-    v88 = vrev32q_s8(v87);
-    *&v89 = vrev64q_s32(v88).u64[0];
-    *(&v89 + 1) = v88.i64[1];
-    *(v21 + 21840) = v89;
+    v85 = v98 - *(v14 + 902);
+    v86.i64[0] = *(v85 + 34261);
+    v86.i32[2] = *(v85 + 34269);
+    v86.i32[3] = *(v85 + 34250);
+    v87 = vrev32q_s8(v86);
+    *&v88 = vrev64q_s32(v87).u64[0];
+    *(&v88 + 1) = v87.i64[1];
+    *(v20 + 21840) = v88;
   }
 
   else
@@ -10063,65 +10084,65 @@ LABEL_39:
     peridot_depth_log_error("");
   }
 
-  if (v97 != 5)
+  if (v96 != 5)
   {
     peridot_depth_log_error("");
     goto LABEL_63;
   }
 
-  v90 = v99 - *(v15 + 902);
-  memcpy(__dst, (v90 + 34304), 0x7A00uLL);
-  if (v19 == 1)
+  v89 = v98 - *(v14 + 902);
+  memcpy(__dst, (v89 + 34304), 0x7A00uLL);
+  if (v18 == 1)
   {
-    memcpy(v103, (v90 + 34276), 0x156uLL);
-    v93 = strlen(__s);
-    if (v93 > 0x7FFFFFFFFFFFFFF7)
+    memcpy(v102, (v89 + 34276), 0x156uLL);
+    v92 = strlen(__s);
+    if (v92 > 0x7FFFFFFFFFFFFFF7)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v94 = v93;
-    if (v93 >= 0x17)
+    v93 = v92;
+    if (v92 >= 0x17)
     {
       operator new();
     }
 
-    v101 = v93;
-    if (v93)
+    v100 = v92;
+    if (v92)
     {
-      memcpy(&__p, __s, v93);
+      memcpy(&__p, __s, v92);
     }
 
-    *(&__p + v94) = 0;
-    extractFromCalsAndComp<CALS_calibration_ver005,COMP_ver001,PeridotAFDR>(__dst, v103, &__p, v21, v102, v13);
+    *(&__p + v93) = 0;
+    extractFromCalsAndComp<CALS_calibration_ver005,COMP_ver001,PeridotAFDR>(__dst, v102, &__p, v20, v101, v12);
     goto LABEL_61;
   }
 
-  if (v19 == 2)
+  if (v18 == 2)
   {
-    memcpy(v103, (v90 + 33927), sizeof(v103));
-    v91 = strlen(__s);
-    if (v91 > 0x7FFFFFFFFFFFFFF7)
+    memcpy(v102, (v89 + 33927), sizeof(v102));
+    v90 = strlen(__s);
+    if (v90 > 0x7FFFFFFFFFFFFFF7)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v92 = v91;
-    if (v91 >= 0x17)
+    v91 = v90;
+    if (v90 >= 0x17)
     {
       operator new();
     }
 
-    v101 = v91;
-    if (v91)
+    v100 = v90;
+    if (v90)
     {
-      memcpy(&__p, __s, v91);
+      memcpy(&__p, __s, v90);
     }
 
-    *(&__p + v92) = 0;
-    extractFromCalsAndComp<CALS_calibration_ver005,COMP_ver002,PeridotAFDR>(__dst, v103, &__p, v21, v102, v13);
+    *(&__p + v91) = 0;
+    extractFromCalsAndComp<CALS_calibration_ver005,COMP_ver002,PeridotAFDR>(__dst, v102, &__p, v20, v101, v12);
 LABEL_61:
-    if (v101 < 0)
+    if (v100 < 0)
     {
       operator delete(__p);
     }
@@ -10129,11 +10150,11 @@ LABEL_61:
 LABEL_63:
     __dst[0] = 0;
     LOBYTE(__dst[2]) = 0;
-    __dst[1] = CFDataGetLength(v98);
+    __dst[1] = CFDataGetLength(v97);
     operator new[]();
   }
 
-  peridot_depth_log_error("unknown comp buffer version in NVM (%d)", v19);
+  peridot_depth_log_error("unknown comp buffer version in NVM (%d)", v18);
 LABEL_24:
 
   return 0;

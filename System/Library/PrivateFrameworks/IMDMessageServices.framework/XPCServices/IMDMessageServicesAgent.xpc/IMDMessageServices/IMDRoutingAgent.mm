@@ -61,7 +61,7 @@ LABEL_8:
   v11 = v10;
   if (v10)
   {
-    [v10 duration];
+    objc_msgSend_duration(v10);
   }
 
   else

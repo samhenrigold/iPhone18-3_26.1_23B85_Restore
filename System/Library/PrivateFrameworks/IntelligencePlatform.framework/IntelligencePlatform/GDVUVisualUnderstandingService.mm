@@ -23,30 +23,28 @@
 
 - (GDVUVisualUnderstandingService)initWithClient:(id)client version:(int64_t)version url:(id)url error:(id *)error
 {
-  v8 = sub_1ABF21CF4();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v20[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = sub_1ABF21CF4();
+  v10 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_1ABAD219C(&qword_1EB4D1E40, &qword_1ABF349F0);
-  v14 = *(*(v13 - 8) + 64);
   MEMORY[0x1EEE9AC00](v13 - 8);
-  v16 = &v20[-v15];
+  v15 = v24 - v14;
   if (url)
   {
     sub_1ABF21CA4();
-    (*(v9 + 32))(v16, v12, v8);
-    v17 = 0;
+    (*(v10 + 32))(v15, v12, v9);
+    v16 = 0;
   }
 
   else
   {
-    v17 = 1;
+    v16 = 1;
   }
 
-  sub_1ABA7B9B4(v16, v17, 1, v8);
+  sub_1ABA7B9B4(v15, v16, 1, v9);
   clientCopy = client;
-  GDVUVisualUnderstandingService.init(client:version:url:)();
+  GDVUVisualUnderstandingService.init(client:version:url:)(clientCopy, version, v15, v18, v19, v20, v21, v22, v24[0], v24[1], v24[2], v24[3], v24[4], v24[5], v24[6], v24[7], v24[8], v24[9], v24[10], v24[11]);
   return result;
 }
 
@@ -135,10 +133,11 @@
 
 - (id)inferredDeviceOwnerWithIgnoreMeGroundTruth:(BOOL)truth
 {
+  truthCopy = truth;
   selfCopy = self;
-  v4 = sub_1ABECC210();
+  v5 = sub_1ABECC210(truthCopy);
 
-  return v4;
+  return v5;
 }
 
 @end

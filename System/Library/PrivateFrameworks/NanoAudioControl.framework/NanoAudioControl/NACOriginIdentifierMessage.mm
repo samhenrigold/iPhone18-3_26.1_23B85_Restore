@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    originIdentifier = self->_originIdentifier;
     PBDataWriterWriteInt32Field();
   }
 }

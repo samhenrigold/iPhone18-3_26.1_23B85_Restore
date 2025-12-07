@@ -16,7 +16,7 @@
 
 + (id)firstTopLevelResponse:(id)response error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = [self topLevelResponses:response error:?];
   v6 = v5;
   if (!v5)
@@ -38,10 +38,10 @@ LABEL_7:
     {
       v7 = MEMORY[0x277CCA9B8];
       v8 = *MEMORY[0x277D0B500];
-      v13 = *MEMORY[0x277CCA450];
+      v12 = *MEMORY[0x277CCA450];
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected number of responses. Expected %lu Received %lu", 1, objc_msgSend(v6, "count")];
-      v14[0] = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v13[0] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       *error = [v7 errorWithDomain:v8 code:11 userInfo:v10];
     }
 
@@ -49,8 +49,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return error;
 }

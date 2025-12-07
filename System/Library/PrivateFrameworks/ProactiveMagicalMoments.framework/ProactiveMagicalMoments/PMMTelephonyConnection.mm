@@ -11,13 +11,13 @@
   v5.receiver = self;
   v5.super_class = PMMTelephonyConnection;
   v2 = [(PMMTelephonyConnection *)&v5 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = *MEMORY[0x277CBECE8];
     v2->_ctServerConnnectionRef = _CTServerConnectionCreate();
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -40,41 +40,40 @@
   if (self->_ctServerConnnectionRef)
   {
     v2 = _CTServerConnectionIsAnyCallActiveOrHeld();
+    v3 = v2;
     if (v2)
     {
-      v3 = __atxlog_handle_pmm();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = __atxlog_handle_pmm(v2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v8 = v2;
+        v8 = v3;
         v9 = 1024;
-        v10 = HIDWORD(v2);
-        _os_log_impl(&dword_22639A000, v3, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionIsAnyCallActiveOrHeld failed %d, %d", buf, 0xEu);
+        v10 = HIDWORD(v3);
+        _os_log_impl(&dword_22639A000, v4, OS_LOG_TYPE_DEFAULT, "_CTServerConnectionIsAnyCallActiveOrHeld failed %d, %d", buf, 0xEu);
       }
     }
 
-    v4 = __atxlog_handle_pmm();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_pmm(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       v8 = 0;
-      _os_log_impl(&dword_22639A000, v4, OS_LOG_TYPE_DEFAULT, "PhoneCallState is %{BOOL}d", buf, 8u);
+      _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_DEFAULT, "PhoneCallState is %{BOOL}d", buf, 8u);
     }
   }
 
   else
   {
-    v4 = __atxlog_handle_pmm();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_pmm(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22639A000, v4, OS_LOG_TYPE_DEFAULT, "Telephony Connection is NULL", buf, 2u);
+      _os_log_impl(&dword_22639A000, v5, OS_LOG_TYPE_DEFAULT, "Telephony Connection is NULL", buf, 2u);
     }
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 @end

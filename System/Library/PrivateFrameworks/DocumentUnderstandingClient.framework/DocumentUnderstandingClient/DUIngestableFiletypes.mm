@@ -25,13 +25,12 @@
 {
   v3 = sub_249D21E00();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_249D21DF0();
-  v8 = static DUIngestableFiletypes.isFileURLSupported(_:)();
-  (*(v4 + 8))(v7, v3);
-  return v8;
+  v7 = static DUIngestableFiletypes.isFileURLSupported(_:)();
+  (*(v4 + 8))(v6, v3);
+  return v7;
 }
 
 + (NSString)icloudFileExtension

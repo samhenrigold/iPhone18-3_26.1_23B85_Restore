@@ -73,7 +73,7 @@
     goto LABEL_23;
   }
 
-  [specific extent];
+  objc_msgSend_extent(specific);
   if (v14 == 0.0 || v15 == 0.0 || ((v16 = *MEMORY[0x277D3A858], v17 = *(MEMORY[0x277D3A858] + 8), v14 == *MEMORY[0x277D3A858]) ? (v18 = v15 == v17) : (v18 = 0), v18))
   {
     v23 = MEMORY[0x277D2CF98];
@@ -94,7 +94,7 @@ LABEL_23:
     specific = v19;
   }
 
-  [specific extent];
+  objc_msgSend_extent(specific);
   if (v20 == 0.0 || v21 == 0.0 || (v21 == v17 ? (v22 = v20 == v16) : (v22 = 0), v22))
   {
     v28 = 0.0;
@@ -323,7 +323,7 @@ void __46__NUMaskTransformer_imageForComposition_size___block_invoke(uint64_t a1
 
 + (BOOL)isMaskValid:(id)valid
 {
-  [valid extent];
+  objc_msgSend_extent(valid, a2);
   if (v3 < 0.0 && v4 < 0.0)
   {
     return 0;
@@ -341,13 +341,13 @@ void __46__NUMaskTransformer_imageForComposition_size___block_invoke(uint64_t a1
 {
   sourceCopy = source;
   imageCopy = image;
-  [sourceCopy extent];
+  objc_msgSend_extent(sourceCopy);
   v8 = v7;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v10 = v8 / v9;
-  [sourceCopy extent];
+  objc_msgSend_extent(sourceCopy);
   v12 = v11;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   CGAffineTransformMakeScale(&v18, v10, v12 / v13);
   v14 = [imageCopy imageByApplyingTransform:&v18];
 
@@ -425,9 +425,9 @@ void __46__NUMaskTransformer_imageForComposition_size___block_invoke(uint64_t a1
       [v17 setPipelineFilters:v19];
 
       v20 = objc_alloc(MEMORY[0x277D2CFF0]);
-      [imageCopy extent];
+      objc_msgSend_extent(imageCopy);
       v22 = v21;
-      [imageCopy extent];
+      objc_msgSend_extent(imageCopy);
       v24 = [v20 initWithTargetPixelCount:(v22 * v23)];
       [v17 setScalePolicy:v24];
 
@@ -439,7 +439,7 @@ void __46__NUMaskTransformer_imageForComposition_size___block_invoke(uint64_t a1
         [geometry renderScale];
         NUScaleToDouble();
         v27 = v26;
-        [imageCopy extent];
+        objc_msgSend_extent(imageCopy);
         v95 = 1.0 / v27;
         NUScaleRect();
         v29 = v28;
@@ -490,7 +490,7 @@ void __46__NUMaskTransformer_imageForComposition_size___block_invoke(uint64_t a1
         v64 = v63;
         [geometry scaledExtent];
         v66 = v64 / v65;
-        [imageCopy extent];
+        objc_msgSend_extent(imageCopy);
         v69 = v67 / v68 / v66;
         scaledSize = [geometry scaledSize];
         [geometry scaledSize];
@@ -573,7 +573,7 @@ void __46__NUMaskTransformer_imageForComposition_size___block_invoke(uint64_t a1
   {
     v17 = [self maskedImageBackgroundImage:v15 source:sourceCopy];
     context = [MEMORY[0x277CBF740] context];
-    [v17 extent];
+    objc_msgSend_extent(v17);
     v19 = [context createCGImage:v17 fromRect:?];
   }
 

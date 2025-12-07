@@ -47,37 +47,37 @@
 {
   v4 = *&urgency;
   v6 = [_purgeable objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
-  v7 = sub_100095C60(v4);
-  v8 = BLBookCacheDeleteLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100095C60(v4, v7);
+  v9 = BLBookCacheDeleteLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 141558274;
-    v18 = 1752392040;
-    v19 = 2112;
-    v20 = v6;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Requested purgeable amount for volume %{mask.hash}@.", buf, 0x16u);
+    v19 = 1752392040;
+    v20 = 2112;
+    v21 = v6;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Requested purgeable amount for volume %{mask.hash}@.", buf, 0x16u);
   }
 
   purgeableProvider = [(BLCacheDeleteService *)self purgeableProvider];
-  v10 = [purgeableProvider purgeableForVolume:v6 urgency:v7];
+  v11 = [purgeableProvider purgeableForVolume:v6 urgency:v8];
 
-  v11 = BLBookCacheDeleteLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = BLBookCacheDeleteLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v18 = v10;
-    v19 = 2160;
-    v20 = 1752392040;
-    v21 = 2112;
-    v22 = v6;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Able to purge %ld for volume %{mask.hash}@.", buf, 0x20u);
+    v19 = v11;
+    v20 = 2160;
+    v21 = 1752392040;
+    v22 = 2112;
+    v23 = v6;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Able to purge %ld for volume %{mask.hash}@.", buf, 0x20u);
   }
 
-  v12 = [NSNumber numberWithInteger:v10, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v6];
-  v16[1] = v12;
-  v13 = [NSDictionary dictionaryWithObjects:v16 forKeys:&v15 count:2];
+  v13 = [NSNumber numberWithInteger:v11, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v6];
+  v17[1] = v13;
+  v14 = [NSDictionary dictionaryWithObjects:v17 forKeys:&v16 count:2];
 
-  return v13;
+  return v14;
 }
 
 - (id)_purge:(id)_purge urgency:(int)urgency
@@ -87,61 +87,61 @@
   v7 = [_purgeCopy objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
   v8 = [_purgeCopy objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
 
-  v9 = sub_100095C60(v4);
-  v10 = BLBookCacheDeleteLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100095C60(v4, v9);
+  v11 = BLBookCacheDeleteLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v26 = v8;
-    v27 = 2048;
-    v28 = v4;
-    v29 = 2160;
-    v30 = 1752392040;
-    v31 = 2112;
-    v32 = v7;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Requested to purge %@ with urgency %ld for volume %{mask.hash}@.", buf, 0x2Au);
+    v27 = v8;
+    v28 = 2048;
+    v29 = v4;
+    v30 = 2160;
+    v31 = 1752392040;
+    v32 = 2112;
+    v33 = v7;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Requested to purge %@ with urgency %ld for volume %{mask.hash}@.", buf, 0x2Au);
   }
 
   cacheDelete = [(BLCacheDeleteService *)self cacheDelete];
-  v12 = [cacheDelete purgeVolume:v7 urgency:v9 requested:v8];
+  v13 = [cacheDelete purgeVolume:v7 urgency:v10 requested:v8];
 
-  v13 = BLBookCacheDeleteLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = BLBookCacheDeleteLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v26 = v12;
-    v27 = 2160;
-    v28 = 1752392040;
-    v29 = 2112;
-    v30 = v7;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Purged %ld for volume %{mask.hash}@.", buf, 0x20u);
+    v27 = v13;
+    v28 = 2160;
+    v29 = 1752392040;
+    v30 = 2112;
+    v31 = v7;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Purged %ld for volume %{mask.hash}@.", buf, 0x20u);
   }
 
-  if (v12 >= 1)
+  if (v13 >= 1)
   {
-    v24[0] = @"purge";
-    v23[0] = BLSharedStorageUseChangedSourceKey;
-    v23[1] = off_10013E318;
-    v14 = [NSNumber numberWithInt:v4];
-    v24[1] = v14;
-    v24[2] = v7;
-    v23[2] = off_10013E320;
-    v23[3] = off_10013E328;
-    v24[3] = v8;
-    v23[4] = off_10013E330;
-    v15 = [NSNumber numberWithInteger:v12];
-    v24[4] = v15;
-    v16 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:5];
+    v25[0] = @"purge";
+    v24[0] = BLSharedStorageUseChangedSourceKey;
+    v24[1] = off_10013E318;
+    v15 = [NSNumber numberWithInt:v4];
+    v25[1] = v15;
+    v25[2] = v7;
+    v24[2] = off_10013E320;
+    v24[3] = off_10013E328;
+    v25[3] = v8;
+    v24[4] = off_10013E330;
+    v16 = [NSNumber numberWithInteger:v13];
+    v25[4] = v16;
+    v17 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:5];
 
-    v17 = +[NSNotificationCenter defaultCenter];
-    [v17 postNotificationName:BLSharedStorageUseChangedNotification object:v16];
+    v18 = +[NSNotificationCenter defaultCenter];
+    [v18 postNotificationName:BLSharedStorageUseChangedNotification object:v17];
   }
 
-  v18 = [NSNumber numberWithInteger:v12, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v7];
-  v22[1] = v18;
-  v19 = [NSDictionary dictionaryWithObjects:v22 forKeys:&v21 count:2];
+  v19 = [NSNumber numberWithInteger:v13, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v7];
+  v23[1] = v19;
+  v20 = [NSDictionary dictionaryWithObjects:v23 forKeys:&v22 count:2];
 
-  return v19;
+  return v20;
 }
 
 - (id)_periodic:(id)_periodic urgency:(int)urgency
@@ -151,57 +151,57 @@
   v7 = [_periodicCopy objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
   v8 = [_periodicCopy objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
 
-  v9 = sub_100095C60(v4);
-  v10 = BLBookCacheDeleteLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100095C60(v4, v9);
+  v11 = BLBookCacheDeleteLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v26 = v8;
-    v27 = 2048;
-    v28 = v4;
-    v29 = 2160;
-    v30 = 1752392040;
-    v31 = 2112;
-    v32 = v7;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Requested to periodic purge %@ with urgency %ld for volume %{mask.hash}@.", buf, 0x2Au);
+    v27 = v8;
+    v28 = 2048;
+    v29 = v4;
+    v30 = 2160;
+    v31 = 1752392040;
+    v32 = 2112;
+    v33 = v7;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Requested to periodic purge %@ with urgency %ld for volume %{mask.hash}@.", buf, 0x2Au);
   }
 
   cacheDelete = [(BLCacheDeleteService *)self cacheDelete];
-  v12 = [cacheDelete periodicPurgeVolume:v7 urgency:v9 requested:v8];
+  v13 = [cacheDelete periodicPurgeVolume:v7 urgency:v10 requested:v8];
 
-  v13 = BLBookCacheDeleteLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = BLBookCacheDeleteLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v26 = v12;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Purged %ld.", buf, 0xCu);
+    v27 = v13;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Purged %ld.", buf, 0xCu);
   }
 
-  if (v12 >= 1)
+  if (v13 >= 1)
   {
-    v24[0] = @"periodic";
-    v23[0] = BLSharedStorageUseChangedSourceKey;
-    v23[1] = off_10013E318;
-    v14 = [NSNumber numberWithInt:v4];
-    v24[1] = v14;
-    v24[2] = v7;
-    v23[2] = off_10013E320;
-    v23[3] = off_10013E328;
-    v24[3] = v8;
-    v23[4] = off_10013E330;
-    v15 = [NSNumber numberWithInteger:v12];
-    v24[4] = v15;
-    v16 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:5];
+    v25[0] = @"periodic";
+    v24[0] = BLSharedStorageUseChangedSourceKey;
+    v24[1] = off_10013E318;
+    v15 = [NSNumber numberWithInt:v4];
+    v25[1] = v15;
+    v25[2] = v7;
+    v24[2] = off_10013E320;
+    v24[3] = off_10013E328;
+    v25[3] = v8;
+    v24[4] = off_10013E330;
+    v16 = [NSNumber numberWithInteger:v13];
+    v25[4] = v16;
+    v17 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:5];
 
-    v17 = +[NSNotificationCenter defaultCenter];
-    [v17 postNotificationName:BLSharedStorageUseChangedNotification object:0 userInfo:v16];
+    v18 = +[NSNotificationCenter defaultCenter];
+    [v18 postNotificationName:BLSharedStorageUseChangedNotification object:0 userInfo:v17];
   }
 
-  v18 = [NSNumber numberWithInteger:v12, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v7];
-  v22[1] = v18;
-  v19 = [NSDictionary dictionaryWithObjects:v22 forKeys:&v21 count:2];
+  v19 = [NSNumber numberWithInteger:v13, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT", v7];
+  v23[1] = v19;
+  v20 = [NSDictionary dictionaryWithObjects:v23 forKeys:&v22 count:2];
 
-  return v19;
+  return v20;
 }
 
 - (void)_cancelPurge

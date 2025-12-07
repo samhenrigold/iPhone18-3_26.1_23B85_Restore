@@ -14,6 +14,7 @@
 - (void)_reallySetCriticalReliability:(BOOL)reliability;
 - (void)_setReliabilityTimeoutInterval;
 - (void)_tryToEnableReliability;
+- (void)setEnableCriticalReliability:(BOOL)reliability;
 @end
 
 @implementation FTNetworkSupport
@@ -246,7 +247,7 @@ LABEL_17:
 
 - (BOOL)dataActiveAndReachable
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69A6108] = [MEMORY[0x1E69A6108] sharedInstance];
   LODWORD(currentReachabilityStatus) = [mEMORY[0x1E69A6108] isDataConnectionActive];
 
@@ -264,7 +265,7 @@ LABEL_17:
       }
 
       *buf = 138412290;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "dataActiveAndReachable: isDataConnectionActive: %@", buf, 0xCu);
     }
 
@@ -278,7 +279,7 @@ LABEL_17:
         v10 = @"YES";
       }
 
-      v18 = v10;
+      v17 = v10;
       _IDSLogV();
     }
 
@@ -310,7 +311,7 @@ LABEL_17:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v20 = currentReachabilityStatus;
+        v19 = currentReachabilityStatus;
         _os_log_impl(&dword_195925000, v15, OS_LOG_TYPE_DEFAULT, "dataActiveAndReachable: status = %ld", buf, 0xCu);
       }
 
@@ -323,7 +324,6 @@ LABEL_17:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return currentReachabilityStatus;
 }
 
@@ -450,7 +450,7 @@ LABEL_17:
 - (void)_reallySetCriticalReliability:(BOOL)reliability
 {
   reliabilityCopy = reliability;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   self->_criticalReliabilityEnabledState = reliability;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -472,9 +472,9 @@ LABEL_17:
     }
 
     *buf = 138412546;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v6;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v6;
     _os_log_impl(&dword_195925000, v5, OS_LOG_TYPE_DEFAULT, "Updating critical reliability state from: %@ to: %@", buf, 0x16u);
   }
 
@@ -496,8 +496,8 @@ LABEL_17:
       v8 = @"YES";
     }
 
-    v16 = v9;
-    v17 = v8;
+    v15 = v9;
+    v16 = v8;
     _IDSLogV();
   }
 
@@ -512,9 +512,9 @@ LABEL_17:
     }
 
     *buf = 138412546;
-    v19 = v11;
-    v20 = 2112;
-    v21 = apsConnection;
+    v18 = v11;
+    v19 = 2112;
+    v20 = apsConnection;
     _os_log_impl(&dword_195925000, v10, OS_LOG_TYPE_DEFAULT, "Setting push critical state to: %@ (Connection: %@)", buf, 0x16u);
   }
 
@@ -526,24 +526,22 @@ LABEL_17:
       v13 = @"YES";
     }
 
-    v16 = v13;
-    v17 = self->_apsConnection;
+    v15 = v13;
+    v16 = self->_apsConnection;
     _IDSLogV();
   }
 
-  [(APSConnection *)self->_apsConnection setEnableCriticalReliability:self->_criticalReliabilityEnabledState, v16, v17];
+  [(APSConnection *)self->_apsConnection setEnableCriticalReliability:self->_criticalReliabilityEnabledState, v15, v16];
   if (!self->_criticalReliabilityEnabledState)
   {
     v14 = self->_apsConnection;
     self->_apsConnection = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tryToEnableReliability
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_enableCriticalReliability)
@@ -565,7 +563,7 @@ LABEL_17:
     }
 
     *buf = 138412290;
-    v15 = v4;
+    v14 = v4;
     _os_log_impl(&dword_195925000, v3, OS_LOG_TYPE_DEFAULT, "Trying to set push critical state to: %@", buf, 0xCu);
   }
 
@@ -581,7 +579,7 @@ LABEL_17:
       v5 = @"NO";
     }
 
-    v13 = v5;
+    v12 = v5;
     _IDSLogV();
   }
 
@@ -598,7 +596,7 @@ LABEL_17:
         {
           v8 = 1;
 LABEL_36:
-          [(FTNetworkSupport *)selfCopy _reallySetCriticalReliability:v8, v13];
+          [(FTNetworkSupport *)selfCopy _reallySetCriticalReliability:v8, v12];
           goto LABEL_37;
         }
 
@@ -656,8 +654,57 @@ LABEL_35:
   [(FTNetworkSupport *)selfCopy _clearReliabilityTimeoutInterval];
 LABEL_37:
   objc_sync_exit(selfCopy);
+}
 
-  v12 = *MEMORY[0x1E69E9840];
+- (void)setEnableCriticalReliability:(BOOL)reliability
+{
+  reliabilityCopy = reliability;
+  v11 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (selfCopy->_enableCriticalReliability != reliabilityCopy)
+  {
+    v5 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = @"NO";
+      if (reliabilityCopy)
+      {
+        v6 = @"YES";
+      }
+
+      *buf = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_195925000, v5, OS_LOG_TYPE_DEFAULT, "Setting pending set push critical state to: %@", buf, 0xCu);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    {
+      v7 = @"NO";
+      if (reliabilityCopy)
+      {
+        v7 = @"YES";
+      }
+
+      v8 = v7;
+      _IDSLogV();
+    }
+
+    selfCopy->_enableCriticalReliability = reliabilityCopy;
+    if (reliabilityCopy)
+    {
+      [(FTNetworkSupport *)selfCopy _setReliabilityTimeoutInterval];
+    }
+
+    else
+    {
+      [(FTNetworkSupport *)selfCopy _clearReliabilityTimeoutInterval];
+    }
+
+    [(FTNetworkSupport *)selfCopy _reallySetCriticalReliability:reliabilityCopy, v8];
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 @end

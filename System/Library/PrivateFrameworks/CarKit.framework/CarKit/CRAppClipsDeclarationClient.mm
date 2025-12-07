@@ -10,7 +10,7 @@
   v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -53,7 +53,7 @@ void __91__CRAppClipsDeclarationClient_fetchSupportedAppClipsForPairedVehicleIde
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = CarGeneralLogging();
+  v7 = CarGeneralLogging(v6);
   v8 = v7;
   if (v5)
   {
@@ -86,7 +86,7 @@ void __91__CRAppClipsDeclarationClient_fetchSupportedAppClipsForPairedVehicleIde
 void __91__CRAppClipsDeclarationClient_fetchSupportedAppClipsForPairedVehicleIdentifier_completion___block_invoke_21(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarGeneralLogging();
+  v4 = CarGeneralLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __91__CRAppClipsDeclarationClient_fetchSupportedAppClipsForPairedVehicleIdentifier_completion___block_invoke_21_cold_1(v3, v4);
@@ -103,7 +103,7 @@ void __91__CRAppClipsDeclarationClient_fetchSupportedAppClipsForPairedVehicleIde
 {
   blockCopy = block;
   handlerCopy = handler;
-  v7 = CarGeneralLogging();
+  v7 = CarGeneralLogging(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;

@@ -22,16 +22,17 @@
 {
   argumentCopy = argument;
   v6 = [MSDSetupUILocalization localizedStringForKey:key];
-  v11 = 0;
-  argumentCopy = [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v6 validFormatSpecifiers:@"%@" error:&v11, argumentCopy];
+  v12 = 0;
+  argumentCopy = [MEMORY[0x277CCACA8] localizedStringWithValidatedFormat:v6 validFormatSpecifiers:@"%@" error:&v12, argumentCopy];
 
-  v8 = v11;
+  v8 = v12;
+  v9 = v8;
   if (!argumentCopy)
   {
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = defaultLogHandle(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(MSDSetupUILocalization *)v6 localizedStringForKey:v8 withStringArgument:v9];
+      [(MSDSetupUILocalization *)v6 localizedStringForKey:v9 withStringArgument:v10];
     }
   }
 
@@ -40,15 +41,13 @@
 
 + (void)localizedStringForKey:(NSObject *)a3 withStringArgument:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 localizedDescription];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_259BCA000, a3, OS_LOG_TYPE_ERROR, "Failed to validate localized format string %{public}@: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_259BCA000, a3, OS_LOG_TYPE_ERROR, "Failed to validate localized format string %{public}@: %{public}@", &v6, 0x16u);
 }
 
 @end

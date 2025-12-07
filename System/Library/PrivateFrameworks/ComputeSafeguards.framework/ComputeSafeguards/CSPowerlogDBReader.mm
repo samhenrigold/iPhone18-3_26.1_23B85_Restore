@@ -7,6 +7,8 @@
 - (id)getDeviceBootTime;
 - (id)getMonotonicTime:(id)time;
 - (id)getPowerExceptionsRecordsWithStartDate:(id)date andEndDate:(id)endDate;
+- (id)getProcessesForCoalitionID:(int)d withStartDate:(id)date andEndDate:(id)endDate andDeviceBootDate:(id)bootDate;
+- (id)getProcessesForCoalitionID:(int)d withStartDate:(id)date andEndDate:(id)endDate andDeviceBootDate:(id)bootDate andCPURatio:(double)ratio;
 - (id)getSystemTime:(id)time;
 - (id)getTotalBatteryDrainWithStartDate:(id)date andEndDate:(id)endDate;
 - (id)getUnpluggedIntervalListWithStartDate:(id)date andEndDate:(id)endDate;
@@ -69,7 +71,7 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
 
 - (id)getTotalBatteryDrainWithStartDate:(id)date andEndDate:(id)endDate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   endDateCopy = endDate;
   v7 = [(CSPowerlogDBReader *)self getMonotonicTime:date];
   v8 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
@@ -83,61 +85,59 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v13;
+    v18 = v13;
     _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, " getTotalCPUDrainBetweenTimeInterval Query %@", buf, 0xCu);
   }
 
   v15 = [(PLSQLiteConnection *)self->_conn performQuery:v13];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (double)getTotalCPUTimeWithStartDate:(id)date andEndDate:(id)endDate
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   endDateCopy = endDate;
   v7 = [(CSPowerlogDBReader *)self getMonotonicTime:date];
-  v33 = endDateCopy;
+  v32 = endDateCopy;
   v8 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
   v9 = MEMORY[0x277CCACA8];
-  v32 = v7;
+  v31 = v7;
   [v7 timeIntervalSince1970];
   v11 = v10;
-  v31 = v8;
+  v30 = v8;
   [v8 timeIntervalSince1970];
   v13 = [v9 stringWithFormat:@"                             SELECT sum (cpu_time) AS %@                              FROM PLCoalitionAgent_EventInterval_CoalitionInterval where timestamp >= %f AND timestamp <= %f", @"Total", v11, v12];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v40 = v13;
+    v39 = v13;
     _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, " getTotalCPUTimeWithStartDate Query %@", buf, 0xCu);
   }
 
-  v30 = v13;
+  v29 = v13;
   v15 = [(PLSQLiteConnection *)self->_conn performQuery:v13];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v16 = [v15 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v35;
+    v18 = *v34;
     v19 = 0.0;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v35 != v18)
+        if (*v34 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v21 = *(*(&v34 + 1) + 8 * i);
+        v21 = *(*(&v33 + 1) + 8 * i);
         v22 = [v21 objectForKeyedSubscript:@"Total"];
         if (v22)
         {
@@ -154,7 +154,7 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v17);
@@ -165,52 +165,472 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
     v19 = 0.0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v19;
+}
+
+- (id)getProcessesForCoalitionID:(int)d withStartDate:(id)date andEndDate:(id)endDate andDeviceBootDate:(id)bootDate
+{
+  v8 = *&d;
+  v49 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  endDateCopy = endDate;
+  bootDateCopy = bootDate;
+  array = [MEMORY[0x277CBEB18] array];
+  v13 = [MEMORY[0x277CBEB58] set];
+  v38 = endDateCopy;
+  v14 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
+  if (!bootDateCopy)
+  {
+    bootDateCopy = dateCopy;
+  }
+
+  v39 = dateCopy;
+  v37 = bootDateCopy;
+  v15 = [(CSPowerlogDBReader *)self getMonotonicTime:bootDateCopy];
+  v16 = MEMORY[0x277CCACA8];
+  v35 = v15;
+  [v15 timeIntervalSince1970];
+  v18 = v17;
+  v36 = v14;
+  [v14 timeIntervalSince1970];
+  v34 = [v16 stringWithFormat:@"SELECT timestamp, PID, ProcessName, PUUID FROM PLProcessMonitorAgent_EventForward_ProcessID WHERE CoalitionID=%d AND timestamp >= %f AND timestamp <= %f", v8, v18, v19];;
+  [(PLSQLiteConnection *)self->_conn performQuery:?];
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v33 = v45 = 0u;
+  obj = [v33 reverseObjectEnumerator];
+  v20 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+  if (v20)
+  {
+    v21 = v20;
+    v22 = *v43;
+    do
+    {
+      for (i = 0; i != v21; ++i)
+      {
+        if (*v43 != v22)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v24 = *(*(&v42 + 1) + 8 * i);
+        v25 = [v24 valueForKey:@"ProcessName"];
+        v26 = [v13 containsObject:v25];
+
+        if ((v26 & 1) == 0)
+        {
+          v27 = [v24 valueForKey:@"ProcessName"];
+          [v13 addObject:v27];
+
+          v46[0] = @"ProcessName";
+          v28 = [v24 objectForKeyedSubscript:@"ProcessName"];
+          v47[0] = v28;
+          v46[1] = @"PID";
+          v29 = [v24 objectForKeyedSubscript:?];
+          v47[1] = v29;
+          v46[2] = @"PUUID";
+          v30 = [v24 objectForKeyedSubscript:@"PUUID"];
+          v47[2] = v30;
+          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
+          [array addObject:v31];
+        }
+      }
+
+      v21 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+    }
+
+    while (v21);
+  }
+
+  return array;
+}
+
+- (id)getProcessesForCoalitionID:(int)d withStartDate:(id)date andEndDate:(id)endDate andDeviceBootDate:(id)bootDate andCPURatio:(double)ratio
+{
+  v10 = *&d;
+  v151 = *MEMORY[0x277D85DE8];
+  dateCopy = date;
+  endDateCopy = endDate;
+  bootDateCopy = bootDate;
+  array = [MEMORY[0x277CBEB18] array];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+  dictionary3 = [MEMORY[0x277CBEB38] dictionary];
+  v118 = [MEMORY[0x277CBEB58] set];
+  if (!bootDateCopy)
+  {
+    bootDateCopy = dateCopy;
+  }
+
+  v106 = dateCopy;
+  v108 = [(CSPowerlogDBReader *)self getMonotonicTime:dateCopy];
+  v105 = endDateCopy;
+  v15 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
+  v104 = bootDateCopy;
+  v16 = [(CSPowerlogDBReader *)self getMonotonicTime:bootDateCopy];
+  v17 = MEMORY[0x277CCACA8];
+  v103 = v16;
+  [v16 timeIntervalSince1970];
+  v19 = v18;
+  v107 = v15;
+  [v15 timeIntervalSince1970];
+  [v17 stringWithFormat:@"SELECT timestamp, PID, ProcessName, PUUID FROM PLProcessMonitorAgent_EventForward_ProcessID WHERE CoalitionID=%d AND timestamp >= %f AND timestamp <= %f;", v10, v19, v20];
+  v102 = v111 = self;
+  [(PLSQLiteConnection *)self->_conn performQuery:?];
+  v131 = 0u;
+  v132 = 0u;
+  v133 = 0u;
+  v101 = v134 = 0u;
+  reverseObjectEnumerator = [v101 reverseObjectEnumerator];
+  v22 = [reverseObjectEnumerator countByEnumeratingWithState:&v131 objects:v150 count:16];
+  if (v22)
+  {
+    v23 = v22;
+    v24 = *v132;
+    do
+    {
+      for (i = 0; i != v23; ++i)
+      {
+        if (*v132 != v24)
+        {
+          objc_enumerationMutation(reverseObjectEnumerator);
+        }
+
+        v26 = *(*(&v131 + 1) + 8 * i);
+        v27 = [v26 objectForKeyedSubscript:@"ProcessName"];
+        v28 = [v118 containsObject:v27];
+
+        if ((v28 & 1) == 0)
+        {
+          v29 = [v26 objectForKeyedSubscript:@"ProcessName"];
+          [v118 addObject:v29];
+
+          v30 = [v26 objectForKeyedSubscript:@"PID"];
+          v31 = [v26 objectForKeyedSubscript:@"ProcessName"];
+          [dictionary2 setObject:v30 forKeyedSubscript:v31];
+
+          v32 = [v26 objectForKeyedSubscript:@"PUUID"];
+          v33 = [v26 objectForKeyedSubscript:@"ProcessName"];
+          [dictionary3 setObject:v32 forKeyedSubscript:v33];
+        }
+
+        v34 = [v26 objectForKeyedSubscript:@"ProcessName"];
+        v35 = [v26 objectForKeyedSubscript:@"PID"];
+        [dictionary setObject:v34 forKeyedSubscript:v35];
+      }
+
+      v23 = [reverseObjectEnumerator countByEnumeratingWithState:&v131 objects:v150 count:16];
+    }
+
+    while (v23);
+  }
+
+  v36 = dictionary2;
+  if ([dictionary2 count] > 1)
+  {
+    allKeys = [dictionary allKeys];
+    v49 = [allKeys valueForKey:@"stringValue"];
+    v50 = [v49 componentsJoinedByString:{@", "}];
+
+    v51 = MEMORY[0x277CCACA8];
+    [v107 timeIntervalSince1970];
+    v53 = v52;
+    [v108 timeIntervalSince1970];
+    obj = v50;
+    [v51 stringWithFormat:@"SELECT ProcessName AS %@, SUM(value) AS %@ from PLProcessMonitorAgent_EventInterval_ProcessMonitorInterval AS a JOIN PLProcessMonitorAgent_EventInterval_ProcessMonitorInterval_Dynamic AS b ON a.ID = b.FK_ID WHERE PID in (%@) AND timestamp <= %f AND timestampEnd >= %f GROUP BY ProcessName", @"ProcessName", @"Value", v50, v53, v54];
+    v100 = v55 = v111;
+    [(PLSQLiteConnection *)v111->_conn performQuery:?];
+    v123 = 0u;
+    v124 = 0u;
+    v125 = 0u;
+    v112 = v126 = 0u;
+    v56 = [v112 countByEnumeratingWithState:&v123 objects:v146 count:16];
+    if (v56)
+    {
+      v57 = v56;
+      v58 = *v124;
+      v59 = 0.0;
+      v60 = @"ProcessName";
+      do
+      {
+        for (j = 0; j != v57; ++j)
+        {
+          if (*v124 != v58)
+          {
+            objc_enumerationMutation(v112);
+          }
+
+          v62 = *(*(&v123 + 1) + 8 * j);
+          v63 = [v62 objectForKeyedSubscript:@"ProcessName"];
+          v64 = [v36 objectForKey:v63];
+
+          if (v64)
+          {
+            v65 = [v62 objectForKeyedSubscript:@"Value"];
+            [v65 doubleValue];
+            v59 = v59 + v66;
+          }
+
+          else
+          {
+            logger = v111->_logger;
+            if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
+            {
+              [CSPowerlogDBReader getProcessesForCoalitionID:logger withStartDate:v62 andEndDate:&v145 andDeviceBootDate:? andCPURatio:?];
+            }
+
+            v36 = dictionary2;
+          }
+        }
+
+        v57 = [v112 countByEnumeratingWithState:&v123 objects:v146 count:16];
+      }
+
+      while (v57);
+      if (v59 > 30.0)
+      {
+        v121 = 0u;
+        v122 = 0u;
+        v119 = 0u;
+        v120 = 0u;
+        v109 = v112;
+        v68 = [v109 countByEnumeratingWithState:&v119 objects:v143 count:16];
+        if (v68)
+        {
+          v69 = v68;
+          v70 = *v120;
+          v71 = v59 * ratio;
+          v72 = @"Value";
+          do
+          {
+            for (k = 0; k != v69; ++k)
+            {
+              if (*v120 != v70)
+              {
+                objc_enumerationMutation(v109);
+              }
+
+              v74 = *(*(&v119 + 1) + 8 * k);
+              v75 = [v74 objectForKeyedSubscript:v60];
+              v76 = [v36 objectForKey:v75];
+
+              if (v76)
+              {
+                v77 = [v74 objectForKeyedSubscript:v72];
+                [v77 doubleValue];
+                v79 = v78;
+
+                if (v79 >= v71)
+                {
+                  v141[0] = v60;
+                  v80 = [v74 objectForKeyedSubscript:v60];
+                  v142[0] = v80;
+                  v141[1] = @"PID";
+                  v110 = [v74 objectForKeyedSubscript:v60];
+                  v81 = [dictionary2 objectForKeyedSubscript:v110];
+                  v142[1] = v81;
+                  v141[2] = @"PUUID";
+                  v82 = [v74 objectForKeyedSubscript:v60];
+                  [dictionary3 objectForKeyedSubscript:v82];
+                  v84 = v83 = v72;
+                  v142[2] = v84;
+                  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v142 forKeys:v141 count:3];
+                  v85 = v60;
+                  v86 = v69;
+                  v88 = v87 = v70;
+                  [array addObject:v88];
+
+                  v70 = v87;
+                  v69 = v86;
+                  v60 = v85;
+
+                  v72 = v83;
+                  v36 = dictionary2;
+                }
+              }
+
+              else
+              {
+                v89 = v111->_logger;
+                if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+                {
+                  [CSPowerlogDBReader getProcessesForCoalitionID:buf withStartDate:v89 andEndDate:v74 andDeviceBootDate:&v136 andCPURatio:?];
+                }
+              }
+            }
+
+            v69 = [v109 countByEnumeratingWithState:&v119 objects:v143 count:16];
+          }
+
+          while (v69);
+        }
+
+        v46 = v105;
+        v45 = v106;
+        v90 = v103;
+        v47 = v104;
+        v92 = v101;
+        v91 = v102;
+        if ([array count])
+        {
+          goto LABEL_56;
+        }
+
+        v93 = v111->_logger;
+        if (!os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
+        {
+          goto LABEL_56;
+        }
+
+        v139 = 134217984;
+        ratioCopy = ratio;
+        v94 = "Fail to find a process name with higher than %f CPU ratio";
+        v95 = &v139;
+        v96 = v93;
+        v97 = 12;
+        goto LABEL_55;
+      }
+
+      v47 = v104;
+      v46 = v105;
+      v91 = v102;
+      v90 = v103;
+      v92 = v101;
+      v55 = v111;
+    }
+
+    else
+    {
+      v59 = 0.0;
+      v47 = v104;
+      v46 = v105;
+      v91 = v102;
+      v90 = v103;
+      v92 = v101;
+    }
+
+    v98 = v55->_logger;
+    v45 = v106;
+    if (!os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
+    {
+LABEL_56:
+
+      goto LABEL_57;
+    }
+
+    *buf = 134218240;
+    v136 = v59;
+    v137 = 2048;
+    v138 = 0x403E000000000000;
+    v94 = "Total CPU time %f from ProcessMonitor is less than threshold %f";
+    v95 = buf;
+    v96 = v98;
+    v97 = 22;
+LABEL_55:
+    _os_log_impl(&dword_243DC3000, v96, OS_LOG_TYPE_INFO, v94, v95, v97);
+    goto LABEL_56;
+  }
+
+  v129 = 0u;
+  v130 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  obj = dictionary2;
+  v37 = [obj countByEnumeratingWithState:&v127 objects:v149 count:16];
+  if (v37)
+  {
+    v38 = v37;
+    v39 = *v128;
+    do
+    {
+      for (m = 0; m != v38; ++m)
+      {
+        if (*v128 != v39)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v41 = *(*(&v127 + 1) + 8 * m);
+        v148[0] = v41;
+        v147[0] = @"ProcessName";
+        v147[1] = @"PID";
+        v42 = [obj objectForKeyedSubscript:v41];
+        v148[1] = v42;
+        v147[2] = @"PUUID";
+        v43 = [dictionary3 objectForKeyedSubscript:v41];
+        v148[2] = v43;
+        v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v148 forKeys:v147 count:3];
+        [array addObject:v44];
+      }
+
+      v38 = [obj countByEnumeratingWithState:&v127 objects:v149 count:16];
+    }
+
+    while (v38);
+    v46 = v105;
+    v45 = v106;
+    v47 = v104;
+    v36 = dictionary2;
+  }
+
+  else
+  {
+    v46 = v105;
+    v45 = dateCopy;
+    v47 = v104;
+  }
+
+  v91 = v102;
+  v90 = v103;
+  v92 = v101;
+LABEL_57:
+
+  return array;
 }
 
 - (id)getCPUBasedIntervalListMapWithStartDate:(id)date andEndDate:(id)endDate andAllowListCoalitions:(id)coalitions andDenyListCoalitions:(id)listCoalitions andDaemonOnly:(BOOL)only andMetricType:(int)type
 {
   onlyCopy = only;
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   coalitionsCopy = coalitions;
   listCoalitionsCopy = listCoalitions;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v80 = [(CSPowerlogDBReader *)self getMonotonicTime:dateCopy];
-  v79 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
+  v79 = [(CSPowerlogDBReader *)self getMonotonicTime:dateCopy];
+  v78 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
   if (onlyCopy)
   {
-    v86 = onlyCopy;
-    v88 = dictionary;
+    v85 = onlyCopy;
+    v87 = dictionary;
     v17 = endDateCopy;
     v18 = dateCopy;
-    v90 = [MEMORY[0x277CBEB58] set];
+    v89 = [MEMORY[0x277CBEB58] set];
     v19 = [(PLSQLiteConnection *)self->_conn performQuery:@"select distinct Identifier as bundleId from PLApplicationAgent_EventForward_Application"];
+    v94 = 0u;
     v95 = 0u;
     v96 = 0u;
     v97 = 0u;
-    v98 = 0u;
-    v20 = [v19 countByEnumeratingWithState:&v95 objects:v101 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v94 objects:v100 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v96;
+      v22 = *v95;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v96 != v22)
+          if (*v95 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = [*(*(&v95 + 1) + 8 * i) objectForKeyedSubscript:@"bundleId"];
-          [v90 addObject:v24];
+          v24 = [*(*(&v94 + 1) + 8 * i) objectForKeyedSubscript:@"bundleId"];
+          [v89 addObject:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v95 objects:v101 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v94 objects:v100 count:16];
       }
 
       while (v21);
@@ -218,13 +638,13 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
 
     dateCopy = v18;
     endDateCopy = v17;
-    dictionary = v88;
-    onlyCopy = v86;
+    dictionary = v87;
+    onlyCopy = v85;
   }
 
   else
   {
-    v90 = 0;
+    v89 = 0;
   }
 
   v25 = type - 3;
@@ -233,36 +653,36 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
     v26 = off_278DF5480[v25];
     v27 = off_278DF54B0[v25];
     v28 = MEMORY[0x277CCACA8];
-    [v80 timeIntervalSince1970];
+    [v79 timeIntervalSince1970];
     v30 = v29;
-    [v80 timeIntervalSince1970];
+    [v79 timeIntervalSince1970];
     v32 = v31;
-    [v79 timeIntervalSince1970];
+    [v78 timeIntervalSince1970];
     v34 = v33;
-    [v79 timeIntervalSince1970];
+    [v78 timeIntervalSince1970];
     v36 = v35;
-    [v80 timeIntervalSince1970];
-    v38 = v37;
     [v79 timeIntervalSince1970];
-    v84 = v26;
+    v38 = v37;
+    [v78 timeIntervalSince1970];
+    v83 = v26;
     v40 = [v28 stringWithFormat:@"        SELECT LaunchdName AS %@, LaunchdCoalitionID AS %@, BundleId AS %@, CASE WHEN timestamp > %f THEN timestamp ELSE %f END AS %@, CASE WHEN timestampEnd < %f THEN timestampEnd ELSE %f END AS %@, %@ AS %@         FROM PLCoalitionAgent_EventInterval_CoalitionInterval WHERE timestampEnd >= %f AND timestamp <= %f", @"LaunchdName", @"LaunchdCoalitionID", @"BundleID", v30, v32, @"TimestampStart", v34, v36, @"TimestampEnd", v27, v26, v38, v39];
     if (coalitionsCopy && [coalitionsCopy count])
     {
       v41 = MEMORY[0x277CCACA8];
       v42 = [coalitionsCopy componentsJoinedByString:{@", "}];
-      v43 = [v41 stringWithFormat:@" AND LaunchdName in (\"%@\"", v42];
+      v43 = [v41 stringWithFormat:@" AND LaunchdName in (%@", v42];
       v44 = [v40 stringByAppendingString:v43];
 
       v40 = v44;
     }
 
-    v77 = endDateCopy;
-    v78 = dateCopy;
+    v76 = endDateCopy;
+    v77 = dateCopy;
     if (listCoalitionsCopy && [listCoalitionsCopy count])
     {
       v45 = MEMORY[0x277CCACA8];
       v46 = [listCoalitionsCopy componentsJoinedByString:{@", "}];
-      v47 = [v45 stringWithFormat:@" AND LaunchdName not in (\"%@\"", v46];
+      v47 = [v45 stringWithFormat:@" AND LaunchdName not in (%@", v46];
       v48 = [v40 stringByAppendingString:v47];
 
       v40 = v48;
@@ -270,16 +690,16 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
 
     v49 = [v40 stringByAppendingString:@" ORDER by timestamp"];
 
-    v76 = v49;
+    v75 = v49;
     [(PLSQLiteConnection *)self->_conn performQuery:v49];
+    v90 = 0u;
     v91 = 0u;
     v92 = 0u;
-    v93 = 0u;
-    obj = v94 = 0u;
-    v89 = [obj countByEnumeratingWithState:&v91 objects:v100 count:16];
-    if (v89)
+    obj = v93 = 0u;
+    v88 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
+    if (v88)
     {
-      if (v90)
+      if (v89)
       {
         v50 = onlyCopy;
       }
@@ -289,22 +709,22 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
         v50 = 0;
       }
 
-      v87 = v50;
-      v85 = *v92;
+      v86 = v50;
+      v84 = *v91;
       do
       {
-        for (j = 0; j != v89; ++j)
+        for (j = 0; j != v88; ++j)
         {
-          if (*v92 != v85)
+          if (*v91 != v84)
           {
             objc_enumerationMutation(obj);
           }
 
-          v52 = *(*(&v91 + 1) + 8 * j);
-          if (v87)
+          v52 = *(*(&v90 + 1) + 8 * j);
+          if (v86)
           {
-            v53 = [*(*(&v91 + 1) + 8 * j) objectForKeyedSubscript:@"BundleID"];
-            v54 = [v90 containsObject:v53];
+            v53 = [*(*(&v90 + 1) + 8 * j) objectForKeyedSubscript:@"BundleID"];
+            v54 = [v89 containsObject:v53];
 
             if (v54)
             {
@@ -326,7 +746,7 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
           v64 = [v52 valueForKey:@"TimestampEnd"];
           [v64 doubleValue];
           v65 = [v63 dateWithTimeIntervalSince1970:?];
-          [v52 valueForKey:v84];
+          [v52 valueForKey:v83];
           v67 = v66 = dictionary;
           [v67 doubleValue];
           v68 = [(CSInterval *)v59 initWithStartTime:v62 endTime:v65 value:?];
@@ -343,21 +763,21 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
           else
           {
             v71 = [CSIntervalList alloc];
-            v99 = v68;
-            v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v99 count:1];
+            v98 = v68;
+            v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v98 count:1];
             v72 = [(CSIntervalList *)v71 initWithIntervals:v70];
             [v66 setObject:v72 forKey:v58];
           }
         }
 
-        v89 = [obj countByEnumeratingWithState:&v91 objects:v100 count:16];
+        v88 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
       }
 
-      while (v89);
+      while (v88);
     }
 
-    endDateCopy = v77;
-    dateCopy = v78;
+    endDateCopy = v76;
+    dateCopy = v77;
   }
 
   else
@@ -369,34 +789,32 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
     }
   }
 
-  v74 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (id)getUnpluggedIntervalListWithStartDate:(id)date andEndDate:(id)endDate
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   v8 = [CSIntervalList alloc];
-  v47 = [(CSIntervalList *)v8 initWithIntervals:MEMORY[0x277CBEBF8]];
+  v46 = [(CSIntervalList *)v8 initWithIntervals:MEMORY[0x277CBEBF8]];
   v9 = [(CSPowerlogDBReader *)self getMonotonicTime:dateCopy];
   v10 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
   v11 = MEMORY[0x277CCACA8];
   [v9 timeIntervalSince1970];
   v13 = v12;
-  v48 = v10;
+  v47 = v10;
   [v10 timeIntervalSince1970];
   v15 = [v11 stringWithFormat:@"SELECT timestamp, ExternalConnected FROM PLBatteryAgent_EventBackward_Battery WHERE timestamp >= %f - 300 AND timestamp < %f ORDER by timestamp", v13, v14];
   v16 = [(PLSQLiteConnection *)self->_conn performQuery:v15];
   v17 = v9;
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = v16;
-  v18 = [v16 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v18 = [v16 countByEnumeratingWithState:&v50 objects:v54 count:16];
   v19 = v17;
   if (!v18)
   {
@@ -404,13 +822,13 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
   }
 
   v20 = v18;
-  v44 = v15;
-  v45 = endDateCopy;
-  v46 = dateCopy;
+  v43 = v15;
+  v44 = endDateCopy;
+  v45 = dateCopy;
   v21 = 0;
   intValue = 1;
-  v23 = *v52;
-  v50 = v17;
+  v23 = *v51;
+  v49 = v17;
   v19 = v17;
   do
   {
@@ -418,12 +836,12 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
     v25 = v21;
     do
     {
-      if (*v52 != v23)
+      if (*v51 != v23)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v51 + 1) + 8 * v24);
+      v21 = *(*(&v50 + 1) + 8 * v24);
 
       v26 = [v21 valueForKey:@"ExternalConnected"];
       objc_opt_class();
@@ -436,24 +854,24 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
         [v29 doubleValue];
         v30 = [v28 dateWithTimeIntervalSince1970:?];
 
-        if ([v30 compare:v50] == 1)
+        if ([v30 compare:v49] == 1)
         {
-          if ([v30 compare:v48] == 1)
+          if ([v30 compare:v47] == 1)
           {
-            v31 = v48;
+            v31 = v47;
 
             v30 = v31;
           }
 
           if (!intValue)
           {
-            v32 = v47;
-            if (![(CSIntervalList *)v47 count])
+            v32 = v46;
+            if (![(CSIntervalList *)v46 count])
             {
               goto LABEL_14;
             }
 
-            lastInterval = [(CSIntervalList *)v47 lastInterval];
+            lastInterval = [(CSIntervalList *)v46 lastInterval];
             endTime = [(CSInterval *)lastInterval endTime];
 
             if (endTime == v19)
@@ -464,17 +882,17 @@ uint64_t __36__CSPowerlogDBReader_sharedInstance__block_invoke()
             else
             {
 
-              v32 = v47;
+              v32 = v46;
 LABEL_14:
               v35 = [CSInterval alloc];
-              if ([v19 compare:v50] == 1)
+              if ([v19 compare:v49] == 1)
               {
                 v36 = v19;
               }
 
               else
               {
-                v36 = v50;
+                v36 = v49;
               }
 
               lastInterval = [(CSInterval *)v35 initWithStartTime:v36 endTime:v30];
@@ -494,24 +912,24 @@ LABEL_14:
     }
 
     while (v20 != v24);
-    v20 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v20 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
   }
 
   while (v20);
 
   if (!intValue)
   {
-    if (![(CSIntervalList *)v47 count])
+    if (![(CSIntervalList *)v46 count])
     {
       goto LABEL_27;
     }
 
-    lastInterval2 = [(CSIntervalList *)v47 lastInterval];
+    lastInterval2 = [(CSIntervalList *)v46 lastInterval];
     endTime2 = [(CSInterval *)lastInterval2 endTime];
 
     if (endTime2 == v19)
     {
-      [(CSInterval *)lastInterval2 setEndTime:v48];
+      [(CSInterval *)lastInterval2 setEndTime:v47];
     }
 
     else
@@ -519,39 +937,37 @@ LABEL_14:
 
 LABEL_27:
       v40 = [CSInterval alloc];
-      if ([v19 compare:v50] == 1)
+      if ([v19 compare:v49] == 1)
       {
         v41 = v19;
       }
 
       else
       {
-        v41 = v50;
+        v41 = v49;
       }
 
-      lastInterval2 = [(CSInterval *)v40 initWithStartTime:v41 endTime:v48];
-      [(CSIntervalList *)v47 addInterval:lastInterval2];
+      lastInterval2 = [(CSInterval *)v40 initWithStartTime:v41 endTime:v47];
+      [(CSIntervalList *)v46 addInterval:lastInterval2];
     }
   }
 
-  endDateCopy = v45;
-  dateCopy = v46;
-  v15 = v44;
-  v17 = v50;
+  endDateCopy = v44;
+  dateCopy = v45;
+  v15 = v43;
+  v17 = v49;
 LABEL_34:
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v47;
+  return v46;
 }
 
 - (id)getAPWakeIntervalListWithStartDate:(id)date andEndDate:(id)endDate
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   v8 = [CSIntervalList alloc];
-  v45 = [(CSIntervalList *)v8 initWithIntervals:MEMORY[0x277CBEBF8]];
+  v44 = [(CSIntervalList *)v8 initWithIntervals:MEMORY[0x277CBEBF8]];
   v9 = [(CSPowerlogDBReader *)self getMonotonicTime:dateCopy];
   v10 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
   v11 = MEMORY[0x277CCACA8];
@@ -569,29 +985,29 @@ LABEL_34:
   if (![v17 count])
   {
     v18 = [[CSInterval alloc] initWithStartTime:v9 endTime:v10];
-    [(CSIntervalList *)v45 addInterval:v18];
+    [(CSIntervalList *)v44 addInterval:v18];
     goto LABEL_31;
   }
 
   v18 = v9;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   lastInterval2 = v17;
-  v20 = [(CSInterval *)lastInterval2 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v20 = [(CSInterval *)lastInterval2 countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (!v20)
   {
     goto LABEL_30;
   }
 
   v21 = v20;
-  v40 = v17;
-  v41 = v15;
-  v42 = v9;
-  v43 = endDateCopy;
-  v44 = dateCopy;
-  v22 = *v47;
+  v39 = v17;
+  v40 = v15;
+  v41 = v9;
+  v42 = endDateCopy;
+  v43 = dateCopy;
+  v22 = *v46;
   v23 = -1;
   do
   {
@@ -599,12 +1015,12 @@ LABEL_34:
     v25 = v18;
     do
     {
-      if (*v47 != v22)
+      if (*v46 != v22)
       {
         objc_enumerationMutation(lastInterval2);
       }
 
-      v26 = *(*(&v46 + 1) + 8 * v24);
+      v26 = *(*(&v45 + 1) + 8 * v24);
       v27 = MEMORY[0x277CBEAA8];
       v28 = [v26 valueForKey:@"timestamp"];
       [v28 doubleValue];
@@ -629,12 +1045,12 @@ LABEL_34:
 
       if (v33)
       {
-        if (![(CSIntervalList *)v45 count])
+        if (![(CSIntervalList *)v44 count])
         {
           goto LABEL_17;
         }
 
-        lastInterval = [(CSIntervalList *)v45 lastInterval];
+        lastInterval = [(CSIntervalList *)v44 lastInterval];
         endTime = [(CSInterval *)lastInterval endTime];
 
         if (endTime == v25)
@@ -647,7 +1063,7 @@ LABEL_34:
 
 LABEL_17:
           lastInterval = [[CSInterval alloc] initWithStartTime:v25 endTime:v18];
-          [(CSIntervalList *)v45 addInterval:lastInterval];
+          [(CSIntervalList *)v44 addInterval:lastInterval];
         }
       }
 
@@ -658,33 +1074,33 @@ LABEL_17:
     }
 
     while (v21 != v24);
-    v21 = [(CSInterval *)lastInterval2 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v21 = [(CSInterval *)lastInterval2 countByEnumeratingWithState:&v45 objects:v49 count:16];
   }
 
   while (v21);
 
-  v15 = v41;
+  v15 = v40;
   if (v32 == 4.0)
   {
-    endDateCopy = v43;
-    dateCopy = v44;
-    v9 = v42;
-    v17 = v40;
+    endDateCopy = v42;
+    dateCopy = v43;
+    v9 = v41;
+    v17 = v39;
   }
 
   else
   {
-    v36 = v45;
-    endDateCopy = v43;
-    dateCopy = v44;
-    v9 = v42;
-    v17 = v40;
-    if (![(CSIntervalList *)v45 count])
+    v36 = v44;
+    endDateCopy = v42;
+    dateCopy = v43;
+    v9 = v41;
+    v17 = v39;
+    if (![(CSIntervalList *)v44 count])
     {
       goto LABEL_26;
     }
 
-    lastInterval2 = [(CSIntervalList *)v45 lastInterval];
+    lastInterval2 = [(CSIntervalList *)v44 lastInterval];
     endTime2 = [(CSInterval *)lastInterval2 endTime];
 
     if (endTime2 == v18)
@@ -695,7 +1111,7 @@ LABEL_17:
     else
     {
 
-      v36 = v45;
+      v36 = v44;
 LABEL_26:
       lastInterval2 = [[CSInterval alloc] initWithStartTime:v18 endTime:v10];
       [(CSIntervalList *)v36 addInterval:lastInterval2];
@@ -706,56 +1122,54 @@ LABEL_30:
 
 LABEL_31:
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return v44;
 }
 
 - (id)getPowerExceptionsRecordsWithStartDate:(id)date andEndDate:(id)endDate
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   endDateCopy = endDate;
   v7 = [(CSPowerlogDBReader *)self getMonotonicTime:date];
-  v67 = endDateCopy;
+  v66 = endDateCopy;
   v8 = [(CSPowerlogDBReader *)self getMonotonicTime:endDateCopy];
   v9 = MEMORY[0x277CCACA8];
-  v66 = v7;
+  v65 = v7;
   [v7 timeIntervalSince1970];
   v11 = v10;
-  v65 = v8;
+  v64 = v8;
   [v8 timeIntervalSince1970];
   v13 = [v9 stringWithFormat:@"                             SELECT *                             FROM XPCMetrics_CPUViolations_1_2 where timestamp >= %f AND timestamp <= %f", v11, v12];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v75 = v13;
+    v74 = v13;
     _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_DEFAULT, " getPowerExceptionsRecordsWithStartDate Query %@", buf, 0xCu);
   }
 
-  v64 = v13;
+  v63 = v13;
   v15 = [(PLSQLiteConnection *)self->_conn performQuery:v13];
   array = [MEMORY[0x277CBEB18] array];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   v16 = v15;
-  v17 = [v16 countByEnumeratingWithState:&v69 objects:v73 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v68 objects:v72 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v70;
+    v19 = *v69;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v70 != v19)
+        if (*v69 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v69 + 1) + 8 * i);
+        v21 = *(*(&v68 + 1) + 8 * i);
         v22 = [v21 objectForKeyedSubscript:@"PUUID"];
         if (v22)
         {
@@ -879,13 +1293,11 @@ LABEL_31:
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v69 objects:v73 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v68 objects:v72 count:16];
     }
 
     while (v18);
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -990,19 +1402,17 @@ LABEL_6:
 
 void __39__CSPowerlogDBReader_getDeviceBootTime__block_invoke()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 0;
   v3 = 0;
-  v4 = 0;
-  *v6 = 0x1500000001;
-  v5 = 16;
-  if (sysctl(v6, 2u, &v3, &v5, 0, 0) != -1)
+  *v5 = 0x1500000001;
+  v4 = 16;
+  if (sysctl(v5, 2u, &v2, &v4, 0, 0) != -1)
   {
-    v0 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v4 / 1000000.0 + v3];
+    v0 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:v3 / 1000000.0 + v2];
     v1 = getDeviceBootTime_bootTime;
     getDeviceBootTime_bootTime = v0;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProcessesForCoalitionID:(void *)a3 withStartDate:(void *)a4 andEndDate:andDeviceBootDate:andCPURatio:.cold.1(_DWORD *a1, void *a2, void *a3, void *a4)
@@ -1016,20 +1426,18 @@ void __39__CSPowerlogDBReader_getDeviceBootTime__block_invoke()
 
 - (void)getCPUBasedIntervalListMapWithStartDate:(int)a1 andEndDate:(NSObject *)a2 andAllowListCoalitions:andDenyListCoalitions:andDaemonOnly:andMetricType:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_243DC3000, a2, OS_LOG_TYPE_ERROR, "Unrecognized metric type passed to getCPUBasedIntervalListMapWithStartDate: %u", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_243DC3000, a2, OS_LOG_TYPE_ERROR, "Unrecognized metric type passed to getCPUBasedIntervalListMapWithStartDate: %u", v2, 8u);
 }
 
 - (void)getAPWakeIntervalListWithStartDate:(uint64_t)a1 andEndDate:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_243DC3000, a2, OS_LOG_TYPE_DEBUG, "getAPWakeIntervalListWithStartDate Query:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_243DC3000, a2, OS_LOG_TYPE_DEBUG, "getAPWakeIntervalListWithStartDate Query:%@", &v2, 0xCu);
 }
 
 @end

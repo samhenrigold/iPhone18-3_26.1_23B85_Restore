@@ -2,12 +2,15 @@
 + (BOOL)hasAttributesForPath:(id)path error:(id *)error;
 + (BOOL)removeAttributeForKey:(id)key forFD:(int)d error:(id *)error;
 + (BOOL)removeAttributeForKey:(id)key forPathFSR:(const char *)r error:(id *)error;
++ (BOOL)setAttributes:(id)attributes forFD:(int)d error:(id *)error;
 + (BOOL)setAttributes:(id)attributes forPathFSR:(const char *)r error:(id *)error;
 + (BOOL)setValue:(id)value forKey:(id)key forFD:(int)d error:(id *)error;
 + (BOOL)setValue:(id)value forKey:(id)key forPathFSR:(const char *)r error:(id *)error;
++ (id)attributesForFD:(int)d error:(id *)error;
 + (id)attributesForPathFSR:(const char *)r error:(id *)error;
 + (id)keysForFD:(int)d error:(id *)error;
 + (id)keysForPathFSR:(const char *)r error:(id *)error;
++ (id)valueForKey:(id)key forFD:(int)d error:(id *)error;
 + (id)valueForKey:(id)key forPathFSR:(const char *)r error:(id *)error;
 + (int)xattrOptionsForFD:(int)d;
 + (int)xattrOptionsForPathFSR:(const char *)r;
@@ -35,8 +38,7 @@
         v16 = v7;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Failed to lstat %s: %{errno}d", buf, 0x12u);
         v10 = *__error();
-LABEL_10:
-        _MBLog();
+        _MBLog(@"Db", "Failed to lstat %s: %{errno}d", r, v10);
       }
     }
 
@@ -49,13 +51,13 @@ LABEL_10:
       v16 = v9;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to lstat %s: %{errno}d", buf, 0x12u);
       v11 = *__error();
-      goto LABEL_10;
+      _MBLog(@"E ", "Failed to lstat %s: %{errno}d", r, v11);
     }
 
     return 1;
   }
 
-  if ((v12.st_flags & 0x40000000) != 0)
+  else if ((v12.st_flags & 0x40000000) != 0)
   {
     return 33;
   }
@@ -68,6 +70,7 @@ LABEL_10:
 
 + (int)xattrOptionsForFD:(int)d
 {
+  v3 = *&d;
   memset(&v8, 0, sizeof(v8));
   if (!fstat(d, &v8))
   {
@@ -79,12 +82,12 @@ LABEL_10:
   {
     v5 = *__error();
     *buf = 67109376;
-    dCopy = d;
+    v10 = v3;
     v11 = 1024;
     v12 = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to stat fd %d: %{errno}d", buf, 0xEu);
-    v7 = *__error();
-    _MBLog();
+    v6 = __error();
+    _MBLog(@"E ", "Failed to stat fd %d: %{errno}d", v3, *v6);
   }
 
   return 0;
@@ -307,6 +310,56 @@ LABEL_10:
   return v16;
 }
 
++ (id)valueForKey:(id)key forFD:(int)d error:(id *)error
+{
+  v6 = *&d;
+  keyCopy = key;
+  uTF8String = [key UTF8String];
+  v11 = [self xattrOptionsForFD:v6];
+  v12 = fgetxattr(v6, uTF8String, 0, 0, 0, v11);
+  if (v12 < 0)
+  {
+    if (error)
+    {
+      [MBError posixErrorWithFormat:@"fgetxattr error"];
+      *error = v16 = 0;
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+  }
+
+  else
+  {
+    v13 = v12;
+    v14 = [NSMutableData dataWithLength:v12];
+    v15 = fgetxattr(v6, uTF8String, [v14 mutableBytes], v13, 0, v11);
+    if (v15 < 0)
+    {
+      if (error)
+      {
+        [MBError posixErrorWithFormat:@"fgetxattr error"];
+        *error = v16 = 0;
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+    }
+
+    else
+    {
+      [v14 setLength:v15];
+      v16 = v14;
+    }
+  }
+
+  return v16;
+}
+
 + (id)attributesForPathFSR:(const char *)r error:(id *)error
 {
   v6 = [MBExtendedAttributes keysForPathFSR:"keysForPathFSR:error:" error:?];
@@ -317,109 +370,207 @@ LABEL_10:
     {
       errorCopy = error;
       v8 = [NSMutableDictionary dictionaryWithCapacity:0];
+      v25 = 0u;
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
-      v30 = 0u;
-      v25 = v7;
+      v23 = v7;
       v9 = v7;
-      v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
       v11 = &OBJC_METACLASS___MBBackupAttemptSummary;
       if (v10)
       {
         v12 = v10;
-        v13 = *v28;
-LABEL_5:
-        v14 = 0;
-        while (1)
+        v13 = *v26;
+        while (2)
         {
-          if (*v28 != v13)
+          for (i = 0; i != v12; i = i + 1)
           {
-            objc_enumerationMutation(v9);
-          }
-
-          v15 = *(*(&v27 + 1) + 8 * v14);
-          v26 = 0;
-          v16 = [&v11[7] valueForKey:v15 forPathFSR:r error:{&v26, v22, rCopy4}];
-          v17 = v26;
-          if (!v16)
-          {
-            break;
-          }
-
-          [v8 setObject:v16 forKeyedSubscript:v15];
-LABEL_18:
-
-          if (v12 == ++v14)
-          {
-            v12 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
-            if (v12)
+            if (*v26 != v13)
             {
-              goto LABEL_5;
+              objc_enumerationMutation(v9);
             }
 
-            goto LABEL_20;
-          }
-        }
-
-        if ([MBError isError:v17 withCode:8])
-        {
-          v18 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-          {
-LABEL_17:
-
-            v11 = &OBJC_METACLASS___MBBackupAttemptSummary;
-            goto LABEL_18;
-          }
-
-          *buf = 138412546;
-          v32 = v15;
-          v33 = 2080;
-          rCopy3 = r;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Extended attribute %@ removed while getting all attributes of %s", buf, 0x16u);
-          v22 = v15;
-          rCopy4 = r;
-        }
-
-        else
-        {
-          if (![MBError isError:v17 withCode:24])
-          {
-            if (errorCopy)
+            v15 = *(*(&v25 + 1) + 8 * i);
+            v24 = 0;
+            v16 = [&v11[7] valueForKey:v15 forPathFSR:r error:&v24];
+            v17 = v24;
+            if (v16)
             {
-              v20 = v17;
-              *errorCopy = v17;
+              [v8 setObject:v16 forKeyedSubscript:v15];
             }
 
-            v19 = 0;
-            goto LABEL_26;
+            else
+            {
+              if ([MBError isError:v17 withCode:8])
+              {
+                v18 = MBGetDefaultLog();
+                if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 138412546;
+                  v30 = v15;
+                  v31 = 2080;
+                  rCopy2 = r;
+                  _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Extended attribute %@ removed while getting all attributes of %s", buf, 0x16u);
+                  _MBLog(@"E ", "Extended attribute %@ removed while getting all attributes of %s", v15, r);
+                }
+              }
+
+              else
+              {
+                if (![MBError isError:v17 withCode:24])
+                {
+                  if (errorCopy)
+                  {
+                    v20 = v17;
+                    *errorCopy = v17;
+                  }
+
+                  v19 = 0;
+                  goto LABEL_25;
+                }
+
+                v18 = MBGetDefaultLog();
+                if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 138412546;
+                  v30 = v15;
+                  v31 = 2080;
+                  rCopy2 = r;
+                  _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Skipping -- unable to read extended attribute %@ of %s", buf, 0x16u);
+                  _MBLog(@"E ", "Skipping -- unable to read extended attribute %@ of %s", v15, r);
+                }
+              }
+
+              v11 = &OBJC_METACLASS___MBBackupAttemptSummary;
+            }
           }
 
-          v18 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v12 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          if (v12)
           {
-            goto LABEL_17;
+            continue;
           }
 
-          *buf = 138412546;
-          v32 = v15;
-          v33 = 2080;
-          rCopy3 = r;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Skipping -- unable to read extended attribute %@ of %s", buf, 0x16u);
-          v22 = v15;
-          rCopy4 = r;
+          break;
         }
-
-        _MBLog();
-        goto LABEL_17;
       }
 
-LABEL_20:
+      v19 = v8;
+LABEL_25:
+      v7 = v23;
+    }
+
+    else
+    {
+      v19 = &__NSDictionary0__struct;
+    }
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  return v19;
+}
+
++ (id)attributesForFD:(int)d error:(id *)error
+{
+  v5 = *&d;
+  v6 = [MBExtendedAttributes keysForFD:"keysForFD:error:" error:?];
+  v7 = v6;
+  if (v6)
+  {
+    if ([v6 count])
+    {
+      errorCopy = error;
+      v8 = [NSMutableDictionary dictionaryWithCapacity:0];
+      v25 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v23 = v7;
+      v9 = v7;
+      v10 = [v9 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v11 = &OBJC_METACLASS___MBBackupAttemptSummary;
+      if (v10)
+      {
+        v12 = v10;
+        v13 = *v26;
+        while (2)
+        {
+          for (i = 0; i != v12; i = i + 1)
+          {
+            if (*v26 != v13)
+            {
+              objc_enumerationMutation(v9);
+            }
+
+            v15 = *(*(&v25 + 1) + 8 * i);
+            v24 = 0;
+            v16 = [&v11[7] valueForKey:v15 forFD:v5 error:&v24];
+            v17 = v24;
+            if (v16)
+            {
+              [v8 setObject:v16 forKeyedSubscript:v15];
+            }
+
+            else
+            {
+              if ([MBError isError:v17 withCode:8])
+              {
+                v18 = MBGetDefaultLog();
+                if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 138412290;
+                  v30 = v15;
+                  _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Extended attribute %@ removed while getting all attributes of file", buf, 0xCu);
+                  _MBLog(@"E ", "Extended attribute %@ removed while getting all attributes of file", v15);
+                }
+              }
+
+              else
+              {
+                if (![MBError isError:v17 withCode:24])
+                {
+                  if (errorCopy)
+                  {
+                    v20 = v17;
+                    *errorCopy = v17;
+                  }
+
+                  v19 = 0;
+                  goto LABEL_25;
+                }
+
+                v18 = MBGetDefaultLog();
+                if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 138412290;
+                  v30 = v15;
+                  _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Skipping -- unable to read extended attribute %@", buf, 0xCu);
+                  _MBLog(@"E ", "Skipping -- unable to read extended attribute %@", v15);
+                }
+              }
+
+              v11 = &OBJC_METACLASS___MBBackupAttemptSummary;
+            }
+          }
+
+          v12 = [v9 countByEnumeratingWithState:&v25 objects:v31 count:16];
+          if (v12)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
 
       v19 = v8;
-LABEL_26:
-      v7 = v25;
+LABEL_25:
+      v7 = v23;
     }
 
     else
@@ -475,43 +626,40 @@ LABEL_26:
 
 + (BOOL)setAttributes:(id)attributes forPathFSR:(const char *)r error:(id *)error
 {
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
   attributesCopy = attributes;
-  v8 = [attributesCopy countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v8 = [attributesCopy countByEnumeratingWithState:&v23 objects:v35 count:16];
   if (v8)
   {
     v9 = v8;
     errorCopy = error;
-    v10 = *v27;
+    v10 = *v24;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v27 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(attributesCopy);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
-        v13 = [attributesCopy objectForKeyedSubscript:{v12, rCopy4, rCopy2, v23, v24}];
+        v12 = *(*(&v23 + 1) + 8 * i);
+        v13 = [attributesCopy objectForKeyedSubscript:v12];
         v14 = MBGetDefaultLog();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = [v13 length];
           *buf = 138412802;
-          rCopy3 = v12;
-          v32 = 2080;
+          rCopy2 = v12;
+          v29 = 2080;
           rCopy = r;
-          v34 = 2048;
-          v35 = v15;
+          v31 = 2048;
+          v32 = v15;
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Setting %@ xattr at %s (%ld)", buf, 0x20u);
-          rCopy2 = r;
-          v23 = [v13 length];
-          rCopy4 = v12;
-          _MBLog();
+          _MBLog(@"I ", "Setting %@ xattr at %s (%ld)", v12, r, [v13 length]);
         }
 
         if (setxattr(r, [v12 UTF8String], objc_msgSend(v13, "bytes"), objc_msgSend(v13, "length"), 0, 1))
@@ -520,11 +668,11 @@ LABEL_26:
           {
             if (errorCopy)
             {
-              v19 = [NSString mb_stringWithFileSystemRepresentation:r];
-              *errorCopy = [MBError posixErrorWithPath:v19 format:@"setxattr error"];
+              v20 = [NSString mb_stringWithFileSystemRepresentation:r];
+              *errorCopy = [MBError posixErrorWithPath:v20 format:@"setxattr error"];
             }
 
-            v18 = 0;
+            v19 = 0;
             goto LABEL_20;
           }
 
@@ -533,24 +681,21 @@ LABEL_26:
           {
             v17 = *__error();
             *buf = 136315906;
-            rCopy3 = r;
-            v32 = 2112;
+            rCopy2 = r;
+            v29 = 2112;
             rCopy = v12;
-            v34 = 2112;
-            v35 = v13;
-            v36 = 1024;
-            v37 = v17;
+            v31 = 2112;
+            v32 = v13;
+            v33 = 1024;
+            v34 = v17;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "setxattr(%s, %@, %@) error: %{errno}d", buf, 0x26u);
-            v23 = v13;
-            v24 = *__error();
-            rCopy4 = r;
-            rCopy2 = v12;
-            _MBLog();
+            v18 = __error();
+            _MBLog(@"Df", "setxattr(%s, %@, %@) error: %{errno}d", r, v12, v13, *v18);
           }
         }
       }
 
-      v9 = [attributesCopy countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v9 = [attributesCopy countByEnumeratingWithState:&v23 objects:v35 count:16];
       if (v9)
       {
         continue;
@@ -560,10 +705,83 @@ LABEL_26:
     }
   }
 
-  v18 = 1;
+  v19 = 1;
 LABEL_20:
 
-  return v18;
+  return v19;
+}
+
++ (BOOL)setAttributes:(id)attributes forFD:(int)d error:(id *)error
+{
+  v6 = *&d;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  attributesCopy = attributes;
+  v8 = [attributesCopy countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    errorCopy = error;
+    v10 = *v21;
+    while (2)
+    {
+      for (i = 0; i != v9; i = i + 1)
+      {
+        if (*v21 != v10)
+        {
+          objc_enumerationMutation(attributesCopy);
+        }
+
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v13 = [attributesCopy objectForKeyedSubscript:v12];
+        if (fsetxattr(v6, [v12 UTF8String], objc_msgSend(v13, "bytes"), objc_msgSend(v13, "length"), 0, 0))
+        {
+          if (*__error() != 1 || ![v12 isEqualToString:@"com.apple.FinderInfo"])
+          {
+            if (errorCopy)
+            {
+              *errorCopy = [MBError posixErrorWithFormat:@"fsetxattr error"];
+            }
+
+            v17 = 0;
+            goto LABEL_18;
+          }
+
+          v14 = MBGetDefaultLog();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            v15 = *__error();
+            *buf = 67109890;
+            v25 = v6;
+            v26 = 2112;
+            v27 = v12;
+            v28 = 2112;
+            v29 = v13;
+            v30 = 1024;
+            v31 = v15;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "fsetxattr(%d, %@, %@) error: %{errno}d", buf, 0x22u);
+            v16 = __error();
+            _MBLog(@"Df", "fsetxattr(%d, %@, %@) error: %{errno}d", v6, v12, v13, *v16);
+          }
+        }
+      }
+
+      v9 = [attributesCopy countByEnumeratingWithState:&v20 objects:v32 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v17 = 1;
+LABEL_18:
+
+  return v17;
 }
 
 + (BOOL)removeAttributeForKey:(id)key forPathFSR:(const char *)r error:(id *)error

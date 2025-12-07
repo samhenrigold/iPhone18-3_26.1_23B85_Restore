@@ -7,7 +7,7 @@ void __default_focus_ring_color_block_invoke()
   CGColorSpaceRelease(DeviceGray);
 }
 
-void *rips_f_BltImage(uint64_t a1, int *a2, uint64_t a3, int *a4, int *a5, uint64_t a6, int32x2_t *a7, uint64_t a8)
+uint64_t *rips_f_BltImage(uint64_t a1, int *a2, int *a3, int *a4, int *a5, uint64_t a6, int32x2_t *a7, uint64_t a8)
 {
   v8 = a5;
   if (a3)
@@ -20,7 +20,7 @@ void *rips_f_BltImage(uint64_t a1, int *a2, uint64_t a3, int *a4, int *a5, uint6
     v9 = a2;
   }
 
-  v10 = (v9 + 12);
+  v10 = v9 + 3;
   if (a4)
   {
     v10 = a4;
@@ -34,7 +34,7 @@ void *rips_f_BltImage(uint64_t a1, int *a2, uint64_t a3, int *a4, int *a5, uint6
   return rips_f_DrawRing(a1, a2, a3, a4, a5, 0, 0, v8, 0, a6, a7, a8);
 }
 
-void *rips_f_BltGlyph(uint64_t a1, int *a2, uint64_t a3, int *a4, int *a5, uint64_t a6, int32x2_t *a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t *rips_f_BltGlyph(uint64_t a1, int *a2, int *a3, int *a4, uint64_t *a5, uint64_t a6, int32x2_t *a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v10 = a5;
   if (a3)
@@ -47,7 +47,7 @@ void *rips_f_BltGlyph(uint64_t a1, int *a2, uint64_t a3, int *a4, int *a5, uint6
     v11 = a2;
   }
 
-  v12 = (v11 + 12);
+  v12 = v11 + 3;
   if (a4)
   {
     v12 = a4;
@@ -61,7 +61,7 @@ void *rips_f_BltGlyph(uint64_t a1, int *a2, uint64_t a3, int *a4, int *a5, uint6
   return rips_f_DrawRing(a1, a2, a3, a4, a5, 0, v10, 0, 0, a6, a7, a10);
 }
 
-void *rips_f_BltShape(uint64_t a1, int *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, int32x2_t *a7, uint64_t a8)
+uint64_t *rips_f_BltShape(uint64_t a1, int *a2, int *a3, int *a4, uint64_t a5, uint64_t a6, int32x2_t *a7, uint64_t a8)
 {
   if (a3)
   {
@@ -73,7 +73,7 @@ void *rips_f_BltShape(uint64_t a1, int *a2, uint64_t a3, int *a4, uint64_t a5, u
     v9 = a2;
   }
 
-  v10 = (v9 + 12);
+  v10 = v9 + 3;
   if (a4)
   {
     v10 = a4;
@@ -92,20 +92,20 @@ void *rips_f_BltShape(uint64_t a1, int *a2, uint64_t a3, int *a4, uint64_t a5, u
   return rips_f_DrawRing(a1, a2, a3, a4, v11, a5, 0, 0, 0, a6, a7, a8);
 }
 
-CGColorSpaceRef rips_f_ColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CGColorSpaceRef rips_f_ColorSpace(uint64_t a1)
 {
-  v8 = *(a1 + 88);
-  if (!v8)
+  v1 = *(a1 + 88);
+  if (!v1)
   {
     return rips_f_cs;
   }
 
-  if ((v8 & 0x8000000000000000) != 0)
+  if ((v1 & 0x8000000000000000) != 0)
   {
-    return CGTaggedColorGetColorSpace(v8, a2, a3, a4, a5, a6, a7, a8);
+    return CGTaggedColorGetColorSpace(v1);
   }
 
-  return *(v8 + 24);
+  return *(v1 + 24);
 }
 
 uint64_t rips_f_Growth(uint64_t a1, unsigned int *a2)
@@ -356,95 +356,95 @@ CGContextRef CGPDFContextCreate(CGDataConsumerRef consumer, const CGRect *mediaB
     Value = CFDictionaryGetValue(auxiliaryInfo, @"CGPDFContextCreatePDFA");
     if (Value)
     {
-      v9 = Value;
-      v10 = CFGetTypeID(Value);
-      if (v10 == CFBooleanGetTypeID())
+      v7 = Value;
+      v8 = CFGetTypeID(Value);
+      if (v8 == CFBooleanGetTypeID())
       {
-        CFBooleanGetValue(v9);
+        CFBooleanGetValue(v7);
       }
     }
 
-    v11 = CFDictionaryGetValue(auxiliaryInfo, @"kCGPDFContextOwnerPassword");
-    v12 = v11;
-    if (v11 && !is_valid_password(v11))
+    v9 = CFDictionaryGetValue(auxiliaryInfo, @"kCGPDFContextOwnerPassword");
+    v10 = v9;
+    if (v9 && !is_valid_password(v9))
     {
       return 0;
     }
 
-    v13 = CFDictionaryGetValue(auxiliaryInfo, @"kCGPDFContextUserPassword");
-    v14 = v13;
-    if (v13)
+    v11 = CFDictionaryGetValue(auxiliaryInfo, @"kCGPDFContextUserPassword");
+    v12 = v11;
+    if (v11)
     {
-      if (!is_valid_password(v13))
+      if (!is_valid_password(v11))
       {
         return 0;
       }
     }
 
-    v15 = CFDictionaryGetValue(auxiliaryInfo, @"kCGPDFContextEncryptionKeyLength");
+    v13 = CFDictionaryGetValue(auxiliaryInfo, @"kCGPDFContextEncryptionKeyLength");
     valuePtr = 0;
-    if (v15)
+    if (v13)
     {
-      CFNumberGetValue(v15, kCFNumberIntType, &valuePtr);
-      v16 = 1;
+      CFNumberGetValue(v13, kCFNumberIntType, &valuePtr);
+      v14 = 1;
     }
 
     else
     {
-      v16 = (v12 | v14) != 0;
+      v14 = (v10 | v12) != 0;
       valuePtr = 128;
     }
 
-    v17 = CFDictionaryGetValue(auxiliaryInfo, @"kCGPDFContextEncryptionCipher");
+    v15 = CFDictionaryGetValue(auxiliaryInfo, @"kCGPDFContextEncryptionCipher");
     if (valuePtr > 128)
     {
       return 0;
     }
 
-    if (v17)
+    if (v15)
     {
-      if (CFEqual(v17, @"kCGPDFContextEncryptionCipherAESv3"))
+      if (CFEqual(v15, @"kCGPDFContextEncryptionCipherAESv3"))
       {
         return 0;
       }
     }
 
-    else if (v16)
+    else if (v14)
     {
       if (valuePtr == 128)
       {
-        v18 = @"kCGPDFContextEncryptionCipherAESv2";
+        v16 = @"kCGPDFContextEncryptionCipherAESv2";
       }
 
       else
       {
-        v18 = @"kCGPDFContextEncryptionCipherRC4";
+        v16 = @"kCGPDFContextEncryptionCipherRC4";
       }
 
       auxiliaryInfo = CFDictionaryCreateMutableCopy(0, 0, auxiliaryInfo);
-      CFDictionarySetValue(auxiliaryInfo, @"kCGPDFContextEncryptionCipher", v18);
+      CFDictionarySetValue(auxiliaryInfo, @"kCGPDFContextEncryptionCipher", v16);
     }
   }
 
-  v19 = CGContextCreateWithDelegateAndInfo(0, 1, 0, 0, 0, 0, v3, v4);
-  v27 = v19;
-  if (!v19)
+  v17 = CGContextCreateWithDelegateAndInfo(0, 1, 0, 0, 0, 0);
+  v18 = v17;
+  if (!v17)
   {
-    CGPostError("%s: failed to create PDF context.", v20, v21, v22, v23, v24, v25, v26, "CGPDFContextCreate");
-    return v27;
+    CGPostError("%s: failed to create PDF context.", "CGPDFContextCreate");
+    return v18;
   }
 
-  *(*(v19 + 112) + 8) = vdupq_n_s64(0x4062000000000000uLL);
-  v28 = creator_10542(consumer, mediaBox, auxiliaryInfo);
-  *(v27 + 5) = v28;
-  if (!v28)
+  *(*(v17 + 112) + 8) = vdupq_n_s64(0x4062000000000000uLL);
+  v19 = creator_10542(consumer, mediaBox, auxiliaryInfo);
+  *(v18 + 5) = v19;
+  if (!v19)
   {
-    CGPostError("%s: failed to create PDF context delegate.", v29, v30, v31, v32, v33, v34, v35, "CGPDFContextCreate");
-    CFRelease(v27);
+    CGPostError("%s: failed to create PDF context delegate.", "CGPDFContextCreate");
+    CFRelease(v18);
     return 0;
   }
 
-  return v27;
+  return v18;
 }
 
 uint64_t is_valid_password(const __CFString *a1)
@@ -458,11 +458,11 @@ uint64_t is_valid_password(const __CFString *a1)
   Length = CFStringGetLength(a1);
   if (Length)
   {
-    v13.location = 0;
-    v13.length = Length;
-    if (CFStringGetBytes(a1, v13, 0x600u, 0, 0, 0, Length, 0) < Length)
+    v5.location = 0;
+    v5.length = Length;
+    if (CFStringGetBytes(a1, v5, 0x600u, 0, 0, 0, Length, 0) < Length)
     {
-      CGPostError("Specified password cannot be converted to ASCII.", v4, v5, v6, v7, v8, v9, v10, usedBufLen);
+      CGPostError("Specified password cannot be converted to ASCII.");
       return 0;
     }
   }
@@ -470,28 +470,28 @@ uint64_t is_valid_password(const __CFString *a1)
   return 1;
 }
 
-void load_pdf_context_creator(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void load_pdf_context_creator()
 {
-  v9 = &links;
-  v10 = 6;
-  while (strcmp("__CGPDFContextDelegateCreate", *v9))
+  v0 = &links;
+  v1 = 6;
+  while (strcmp("__CGPDFContextDelegateCreate", *v0))
   {
-    v9 += 2;
-    if (!--v10)
+    v0 += 2;
+    if (!--v1)
     {
       goto LABEL_7;
     }
   }
 
-  if (v9[1])
+  if (v0[1])
   {
-    creator_10542 = v9[1];
+    creator_10542 = v0[1];
     return;
   }
 
 LABEL_7:
 
-  CGPostError("Failed to load PDF context.", v11, v12, v13, v14, v15, v16, v17, a9);
+  CGPostError("Failed to load PDF context.");
 }
 
 CGContextRef CGPDFContextCreateWithURL(CFURLRef url, const CGRect *mediaBox, CFDictionaryRef auxiliaryInfo)
@@ -542,7 +542,7 @@ void CGPDFContextClose(CGContextRef context)
 
   else
   {
-    handle_invalid_context("CGPDFContextClose", context, v1, v2, v3, v4, v5, v6);
+    handle_invalid_context("CGPDFContextClose", context);
   }
 }
 
@@ -550,24 +550,24 @@ void CGPDFContextBeginPage(CGContextRef context, CFDictionaryRef pageInfo)
 {
   if (context && *(context + 4) == 1129601108 && *(context + 6) == 1)
   {
-    v9 = *(context + 22);
-    *(context + 22) = v9 + 1;
-    if (v9)
+    v3 = *(context + 22);
+    *(context + 22) = v3 + 1;
+    if (v3)
     {
-      CGPostError("%s: Don't nest calls to this function -- the results will not be what you expect.", pageInfo, v2, v3, v4, v5, v6, v7, "CGPDFContextBeginPage");
+      CGPostError("%s: Don't nest calls to this function -- the results will not be what you expect.", "CGPDFContextBeginPage");
     }
 
     else
     {
-      CGContextResetTopGState(context, pageInfo, v2, v3, v4, v5, v6, v7);
-      v10 = *(context + 5);
-      if (v10)
+      v4.n128_f64[0] = CGContextResetTopGState(context);
+      v5 = *(context + 5);
+      if (v5)
       {
-        v11 = *(v10 + 152);
-        if (v11)
+        v6 = *(v5 + 152);
+        if (v6)
         {
 
-          v11();
+          v6(v4);
         }
       }
     }
@@ -576,7 +576,7 @@ void CGPDFContextBeginPage(CGContextRef context, CFDictionaryRef pageInfo)
   else
   {
 
-    handle_invalid_context("CGPDFContextBeginPage", context, v2, v3, v4, v5, v6, v7);
+    handle_invalid_context("CGPDFContextBeginPage", context);
   }
 }
 
@@ -584,23 +584,23 @@ void CGPDFContextEndPage(CGContextRef context)
 {
   if (context && *(context + 4) == 1129601108 && *(context + 6) == 1)
   {
-    v9 = *(context + 22) - 1;
-    *(context + 22) = v9;
-    if (v9)
+    v2 = *(context + 22) - 1;
+    *(context + 22) = v2;
+    if (v2)
     {
-      CGPostError("%s: Don't nest calls to this function -- the results will not be what you expect.", v1, v2, v3, v4, v5, v6, v7, "CGPDFContextEndPage");
+      CGPostError("%s: Don't nest calls to this function -- the results will not be what you expect.", "CGPDFContextEndPage");
     }
 
     else
     {
-      v10 = *(context + 5);
-      if (v10)
+      v3 = *(context + 5);
+      if (v3)
       {
-        v11 = *(v10 + 160);
-        if (v11)
+        v4 = *(v3 + 160);
+        if (v4)
         {
 
-          v11();
+          v4();
         }
       }
     }
@@ -609,7 +609,7 @@ void CGPDFContextEndPage(CGContextRef context)
   else
   {
 
-    handle_invalid_context("CGPDFContextEndPage", context, v2, v3, v4, v5, v6, v7);
+    handle_invalid_context("CGPDFContextEndPage", context);
   }
 }
 
@@ -625,35 +625,35 @@ void CGPDFContextSetURLForRect(CGContextRef context, CFURLRef url, CGRect rect)
         width = rect.size.width;
         y = rect.origin.y;
         x = rect.origin.x;
-        v15 = MEMORY[0x1E695E9D8];
-        v16 = MEMORY[0x1E695E9E8];
+        v9 = MEMORY[0x1E695E9D8];
+        v10 = MEMORY[0x1E695E9E8];
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v18 = CFDictionaryCreateMutable(0, 0, v15, v16);
-        CFDictionarySetValue(v18, @"/Type", @"/Action");
-        CFDictionarySetValue(v18, @"/S", @"/URI");
-        CFDictionarySetValue(v18, @"/URI", url);
-        CFDictionarySetValue(Mutable, @"/A", v18);
+        v12 = CFDictionaryCreateMutable(0, 0, v9, v10);
+        CFDictionarySetValue(v12, @"/Type", @"/Action");
+        CFDictionarySetValue(v12, @"/S", @"/URI");
+        CFDictionarySetValue(v12, @"/URI", url);
+        CFDictionarySetValue(Mutable, @"/A", v12);
         CFDictionarySetValue(Mutable, @"/Type", @"/Annot");
         CFDictionarySetValue(Mutable, @"/Subtype", @"/Link");
-        if (v18)
+        if (v12)
         {
-          CFRelease(v18);
+          CFRelease(v12);
         }
 
-        v27 = CGContainerCreateWithRect(x, y, width, height, v19, v20, v21, v22, v23, v24, v25, v26);
-        CFDictionarySetValue(Mutable, @"/Rect", v27);
-        CFRelease(v27);
-        v28 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
-        CGCFArrayAppendInteger(v28, 0);
-        CGCFArrayAppendInteger(v28, 0);
-        CGCFArrayAppendInteger(v28, 0);
-        CFDictionarySetValue(Mutable, @"/Border", v28);
-        if (v28)
+        v13 = CGContainerCreateWithRect(x, y, width, height);
+        CFDictionarySetValue(Mutable, @"/Rect", v13);
+        CFRelease(v13);
+        v14 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+        CGCFArrayAppendInteger(v14, 0);
+        CGCFArrayAppendInteger(v14, 0);
+        CGCFArrayAppendInteger(v14, 0);
+        CFDictionarySetValue(Mutable, @"/Border", v14);
+        if (v14)
         {
-          CFRelease(v28);
+          CFRelease(v14);
         }
 
-        CGPDFContextAddAnnotation(context, Mutable, v29, v30, v31, v32, v33, v34);
+        CGPDFContextAddAnnotation(context, Mutable);
 
         CFRelease(Mutable);
       }
@@ -661,18 +661,18 @@ void CGPDFContextSetURLForRect(CGContextRef context, CFURLRef url, CGRect rect)
       return;
     }
 
-    v35 = context;
+    v15 = context;
   }
 
   else
   {
-    v35 = 0;
+    v15 = 0;
   }
 
-  handle_invalid_context("CGPDFContextSetURLForRect", v35, v3, v4, v5, v6, v7, v8);
+  handle_invalid_context("CGPDFContextSetURLForRect", v15);
 }
 
-void CGPDFContextAddAnnotation(uint64_t a1, CFDictionaryRef theDict, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextAddAnnotation(uint64_t a1, CFDictionaryRef theDict)
 {
   if (a1)
   {
@@ -681,7 +681,7 @@ void CGPDFContextAddAnnotation(uint64_t a1, CFDictionaryRef theDict, uint64_t a3
       if (*(a1 + 24) == 1)
       {
         value = 0;
-        if (CFDictionaryGetValueIfPresent(theDict, @"Subtype", &value) && (v10 = CFGetTypeID(value), v10 == CFStringGetTypeID()) && CFStringCompare(value, @"Screen", 0) && CFDictionaryGetValueIfPresent(theDict, @"P", &value) && (v11 = CFGetTypeID(value), v11 == CFDictionaryGetTypeID()) && CFDictionaryGetValueIfPresent(value, @"Type", &value) && (v12 = CFGetTypeID(value), v12 == CFStringGetTypeID()) && CFStringCompare(value, @"Page", 0) == kCFCompareEqualTo)
+        if (CFDictionaryGetValueIfPresent(theDict, @"Subtype", &value) && (v4 = CFGetTypeID(value), v4 == CFStringGetTypeID()) && CFStringCompare(value, @"Screen", 0) && CFDictionaryGetValueIfPresent(theDict, @"P", &value) && (v5 = CFGetTypeID(value), v5 == CFDictionaryGetTypeID()) && CFDictionaryGetValueIfPresent(value, @"Type", &value) && (v6 = CFGetTypeID(value), v6 == CFStringGetTypeID()) && CFStringCompare(value, @"Page", 0) == kCFCompareEqualTo)
         {
           MutableCopy = CFDictionaryCreateMutableCopy(0, 0, theDict);
           CFDictionaryRemoveValue(MutableCopy, @"P");
@@ -692,31 +692,32 @@ void CGPDFContextAddAnnotation(uint64_t a1, CFDictionaryRef theDict, uint64_t a3
           MutableCopy = CFRetain(theDict);
         }
 
-        v14 = *(a1 + 40);
-        if (v14)
+        v8 = *(a1 + 40);
+        if (v8)
         {
-          v15 = *(v14 + 168);
-          if (v15)
+          v9 = *(v8 + 168);
+          if (v9)
           {
-            v15();
+            v9();
           }
         }
 
         CFRelease(MutableCopy);
       }
 
-      return;
+      return result;
     }
 
-    v16 = a1;
+    v11 = a1;
   }
 
   else
   {
-    v16 = 0;
+    v11 = 0;
   }
 
-  handle_invalid_context("CGPDFContextAddAnnotation", v16, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGPDFContextAddAnnotation", v11);
+  return result;
 }
 
 void CGPDFContextAddDestinationAtPoint(CGContextRef context, CFStringRef name, CGPoint point)
@@ -732,13 +733,13 @@ void CGPDFContextAddDestinationAtPoint(CGContextRef context, CFStringRef name, C
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         CFDictionarySetValue(Mutable, @"Label", name);
         CGCFDictionarySetPoint(Mutable, @"Point", x, y);
-        v14 = *(context + 5);
-        if (v14)
+        v8 = *(context + 5);
+        if (v8)
         {
-          v15 = *(v14 + 168);
-          if (v15)
+          v9 = *(v8 + 168);
+          if (v9)
           {
-            v15();
+            v9();
           }
         }
 
@@ -752,15 +753,15 @@ void CGPDFContextAddDestinationAtPoint(CGContextRef context, CFStringRef name, C
       return;
     }
 
-    v16 = context;
+    v10 = context;
   }
 
   else
   {
-    v16 = 0;
+    v10 = 0;
   }
 
-  handle_invalid_context("CGPDFContextAddDestinationAtPoint", v16, v3, v4, v5, v6, v7, v8);
+  handle_invalid_context("CGPDFContextAddDestinationAtPoint", v10);
 }
 
 void CGPDFContextSetDestinationForRect(CGContextRef context, CFStringRef name, CGRect rect)
@@ -778,25 +779,25 @@ void CGPDFContextSetDestinationForRect(CGContextRef context, CFStringRef name, C
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         CFDictionarySetValue(Mutable, @"/Type", @"/Annot");
         CFDictionarySetValue(Mutable, @"/Subtype", @"/Link");
-        v24 = CGContainerCreateWithRect(x, y, width, height, v16, v17, v18, v19, v20, v21, v22, v23);
-        CFDictionarySetValue(Mutable, @"/Rect", v24);
-        CFRelease(v24);
-        v25 = CFStringCreateMutable(0, 0);
-        CFStringAppend(v25, @"/>");
-        CFStringAppend(v25, name);
-        CFDictionarySetValue(Mutable, @"/Dest", v25);
-        CFRelease(v25);
-        v26 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
-        CGCFArrayAppendInteger(v26, 0);
-        CGCFArrayAppendInteger(v26, 0);
-        CGCFArrayAppendInteger(v26, 0);
-        CFDictionarySetValue(Mutable, @"/Border", v26);
-        if (v26)
+        v10 = CGContainerCreateWithRect(x, y, width, height);
+        CFDictionarySetValue(Mutable, @"/Rect", v10);
+        CFRelease(v10);
+        v11 = CFStringCreateMutable(0, 0);
+        CFStringAppend(v11, @"/>");
+        CFStringAppend(v11, name);
+        CFDictionarySetValue(Mutable, @"/Dest", v11);
+        CFRelease(v11);
+        v12 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+        CGCFArrayAppendInteger(v12, 0);
+        CGCFArrayAppendInteger(v12, 0);
+        CGCFArrayAppendInteger(v12, 0);
+        CFDictionarySetValue(Mutable, @"/Border", v12);
+        if (v12)
         {
-          CFRelease(v26);
+          CFRelease(v12);
         }
 
-        CGPDFContextAddAnnotation(context, Mutable, v27, v28, v29, v30, v31, v32);
+        CGPDFContextAddAnnotation(context, Mutable);
 
         CFRelease(Mutable);
       }
@@ -804,18 +805,18 @@ void CGPDFContextSetDestinationForRect(CGContextRef context, CFStringRef name, C
       return;
     }
 
-    v33 = context;
+    v13 = context;
   }
 
   else
   {
-    v33 = 0;
+    v13 = 0;
   }
 
-  handle_invalid_context("CGPDFContextSetDestinationForRect", v33, v3, v4, v5, v6, v7, v8);
+  handle_invalid_context("CGPDFContextSetDestinationForRect", v13);
 }
 
-void CGPDFContextAddCatalogEntry(uint64_t a1, const void *a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGPDFContextAddCatalogEntry(uint64_t a1, const void *a2, const void *a3)
 {
   if (a1)
   {
@@ -826,13 +827,13 @@ void CGPDFContextAddCatalogEntry(uint64_t a1, const void *a2, const void *a3, ui
         Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         CFDictionarySetValue(Mutable, @"Key", a2);
         CFDictionarySetValue(Mutable, @"Value", a3);
-        v15 = *(a1 + 40);
-        if (v15)
+        v10 = *(a1 + 40);
+        if (v10)
         {
-          v16 = *(v15 + 168);
-          if (v16)
+          v11 = *(v10 + 168);
+          if (v11)
           {
-            v16();
+            v11();
           }
         }
 
@@ -846,15 +847,15 @@ void CGPDFContextAddCatalogEntry(uint64_t a1, const void *a2, const void *a3, ui
       return;
     }
 
-    v13 = a1;
+    v8 = a1;
   }
 
   else
   {
-    v13 = 0;
+    v8 = 0;
   }
 
-  handle_invalid_context("CGPDFContextAddCatalogEntry", v13, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGPDFContextAddCatalogEntry", v8);
 }
 
 void CGPDFContextAddDocumentMetadata(CGContextRef context, CFDataRef metadata)
@@ -867,7 +868,7 @@ void CGPDFContextAddDocumentMetadata(CGContextRef context, CFDataRef metadata)
       CFDictionarySetValue(Mutable, @"/Type", @"/Metadata");
       CFDictionarySetValue(Mutable, @"/Subtype", @"/XML");
       CFDictionarySetValue(Mutable, @"/%Stream", metadata);
-      CGPDFContextAddCatalogEntry(context, @"/Metadata", Mutable, v11, v12, v13, v14, v15);
+      CGPDFContextAddCatalogEntry(context, @"/Metadata", Mutable);
 
       CFRelease(Mutable);
     }
@@ -876,184 +877,166 @@ void CGPDFContextAddDocumentMetadata(CGContextRef context, CFDataRef metadata)
   else
   {
 
-    handle_invalid_context("CGPDFContextAddDocumentMetadata", context, v2, v3, v4, v5, v6, v7);
+    handle_invalid_context("CGPDFContextAddDocumentMetadata", context);
   }
 }
 
-void CGPDFContextSetParentTree(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextSetParentTree(uint64_t a1, const void *a2)
 {
   if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v11 = Mutable;
+    v6 = Mutable;
     if (a2)
     {
       CFDictionarySetValue(Mutable, @"ParentTree", a2);
     }
 
-    v12 = *(a1 + 40);
-    if (v12)
+    v7 = *(a1 + 40);
+    if (v7)
     {
-      v13 = *(v12 + 168);
-      if (v13)
+      v8 = *(v7 + 168);
+      if (v8)
       {
-        v13();
+        v8();
       }
     }
 
-    if (v11)
+    if (v6)
     {
 
-      CFRelease(v11);
+      CFRelease(v6);
     }
   }
 
   else
   {
 
-    handle_invalid_context("CGPDFContextSetParentTree", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGPDFContextSetParentTree", a1);
   }
+
+  return result;
 }
 
-void CGPDFContextSetIDTree(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextSetIDTree(uint64_t a1, const void *a2)
 {
   if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v11 = Mutable;
+    v6 = Mutable;
     if (a2)
     {
       CFDictionarySetValue(Mutable, @"IDTree", a2);
     }
 
-    v12 = *(a1 + 40);
-    if (v12)
+    v7 = *(a1 + 40);
+    if (v7)
     {
-      v13 = *(v12 + 168);
-      if (v13)
+      v8 = *(v7 + 168);
+      if (v8)
       {
-        v13();
+        v8();
       }
     }
 
-    if (v11)
+    if (v6)
     {
 
-      CFRelease(v11);
+      CFRelease(v6);
     }
   }
 
   else
   {
 
-    handle_invalid_context("CGPDFContextSetIDTree", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGPDFContextSetIDTree", a1);
   }
+
+  return result;
 }
 
-void CGPDFContextSetPageTagStructureTree(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextSetPageTagStructureTree(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
   {
-    v8 = *(a1 + 40);
-    if (v8)
+    v1 = *(a1 + 40);
+    if (v1)
     {
-      v9 = *(v8 + 168);
-      if (v9)
+      v2 = *(v1 + 168);
+      if (v2)
       {
-        v9();
+        v2();
       }
     }
   }
 
   else
   {
-    handle_invalid_context("CGPDFContextSetPageTagStructureTree", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGPDFContextSetPageTagStructureTree", a1);
   }
+
+  return result;
 }
 
-void CGPDFContextAddPDFXInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextAddPDFXInfo(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
   {
-    v8 = *(a1 + 40);
-    if (v8)
+    v1 = *(a1 + 40);
+    if (v1)
     {
-      v9 = *(v8 + 168);
-      if (v9)
+      v2 = *(v1 + 168);
+      if (v2)
       {
-        v9();
+        v2();
       }
     }
   }
 
   else
   {
-    handle_invalid_context("CGPDFContextAddPDFXInfo", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGPDFContextAddPDFXInfo", a1);
   }
+
+  return result;
 }
 
-void CGPDFContextSetOutputIntent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextSetOutputIntent(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
   {
-    v8 = *(a1 + 40);
-    if (v8)
+    v1 = *(a1 + 40);
+    if (v1)
     {
-      v9 = *(v8 + 168);
-      if (v9)
+      v2 = *(v1 + 168);
+      if (v2)
       {
-        v9();
+        v2();
       }
     }
   }
 
   else
   {
-    handle_invalid_context("CGPDFContextSetOutputIntent", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGPDFContextSetOutputIntent", a1);
   }
+
+  return result;
 }
 
-void CGPDFContextSetShouldDeflate(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextSetShouldDeflate(uint64_t a1, int a2)
 {
   if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v11 = Mutable;
-    v12 = MEMORY[0x1E695E4D0];
+    v5 = Mutable;
+    v6 = MEMORY[0x1E695E4D0];
     if (!a2)
     {
-      v12 = MEMORY[0x1E695E4C0];
+      v6 = MEMORY[0x1E695E4C0];
     }
 
-    CFDictionarySetValue(Mutable, @"ShouldDeflate", *v12);
-    v13 = *(a1 + 40);
-    if (v13)
-    {
-      v14 = *(v13 + 168);
-      if (v14)
-      {
-        v14();
-      }
-    }
-
-    if (v11)
-    {
-
-      CFRelease(v11);
-    }
-  }
-
-  else
-  {
-
-    handle_invalid_context("CGPDFContextSetShouldDeflate", a1, a3, a4, a5, a6, a7, a8);
-  }
-}
-
-void CGPDFContextBeginDrawingHiddenText(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
-  {
+    CFDictionarySetValue(Mutable, @"ShouldDeflate", *v6);
     v8 = *(a1 + 40);
     if (v8)
     {
@@ -1063,36 +1046,70 @@ void CGPDFContextBeginDrawingHiddenText(uint64_t a1, uint64_t a2, uint64_t a3, u
         v9();
       }
     }
+
+    if (v5)
+    {
+
+      CFRelease(v5);
+    }
   }
 
   else
   {
-    handle_invalid_context("CGPDFContextBeginDrawingHiddenText", a1, a3, a4, a5, a6, a7, a8);
+
+    handle_invalid_context("CGPDFContextSetShouldDeflate", a1);
   }
+
+  return result;
 }
 
-void CGPDFContextEndDrawingHiddenText(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextBeginDrawingHiddenText(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
   {
-    v8 = *(a1 + 40);
-    if (v8)
+    v1 = *(a1 + 40);
+    if (v1)
     {
-      v9 = *(v8 + 168);
-      if (v9)
+      v2 = *(v1 + 168);
+      if (v2)
       {
-        v9();
+        v2();
       }
     }
   }
 
   else
   {
-    handle_invalid_context("CGPDFContextEndDrawingHiddenText", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGPDFContextBeginDrawingHiddenText", a1);
   }
+
+  return result;
 }
 
-void CGPDFContextSetImageTag(uint64_t a1, const void *a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextEndDrawingHiddenText(uint64_t a1)
+{
+  if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
+  {
+    v1 = *(a1 + 40);
+    if (v1)
+    {
+      v2 = *(v1 + 168);
+      if (v2)
+      {
+        v2();
+      }
+    }
+  }
+
+  else
+  {
+    handle_invalid_context("CGPDFContextEndDrawingHiddenText", a1);
+  }
+
+  return result;
+}
+
+double CGPDFContextSetImageTag(uint64_t a1, const void *a2, const void *a3)
 {
   if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
   {
@@ -1101,13 +1118,13 @@ void CGPDFContextSetImageTag(uint64_t a1, const void *a2, const void *a3, uint64
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       CFDictionarySetValue(Mutable, @"Image", a2);
       CFDictionarySetValue(Mutable, @"Tag", a3);
-      v12 = *(a1 + 40);
-      if (v12)
+      v8 = *(a1 + 40);
+      if (v8)
       {
-        v13 = *(v12 + 168);
-        if (v13)
+        v9 = *(v8 + 168);
+        if (v9)
         {
-          v13();
+          v9();
         }
       }
 
@@ -1122,8 +1139,10 @@ void CGPDFContextSetImageTag(uint64_t a1, const void *a2, const void *a3, uint64
   else
   {
 
-    handle_invalid_context("CGPDFContextSetImageTag", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGPDFContextSetImageTag", a1);
   }
+
+  return result;
 }
 
 void CGPDFContextSetOutline(CGContextRef context, CFDictionaryRef outline)
@@ -1132,13 +1151,13 @@ void CGPDFContextSetOutline(CGContextRef context, CFDictionaryRef outline)
   {
     if (!CFDictionaryContainsKey(outline, @"Title"))
     {
-      v10 = convertOutlineTree(outline);
-      if (v10)
+      v4 = convertOutlineTree(outline);
+      if (v4)
       {
-        v16 = v10;
-        CGPDFContextAddCatalogEntry(context, @"/Outlines", v10, v11, v12, v13, v14, v15);
+        v5 = v4;
+        CGPDFContextAddCatalogEntry(context, @"/Outlines", v4);
 
-        CFRelease(v16);
+        CFRelease(v5);
       }
     }
   }
@@ -1152,21 +1171,21 @@ void CGPDFContextSetOutline(CGContextRef context, CFDictionaryRef outline)
         return;
       }
 
-      v17 = context;
+      v6 = context;
     }
 
     else
     {
-      v17 = 0;
+      v6 = 0;
     }
 
-    handle_invalid_context("CGPDFContextAddCatalogEntry", v17, v2, v3, v4, v5, v6, v7);
+    handle_invalid_context("CGPDFContextAddCatalogEntry", v6);
   }
 }
 
 __CFDictionary *convertOutlineTree(const __CFDictionary *a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     return 0;
@@ -1186,50 +1205,50 @@ __CFDictionary *convertOutlineTree(const __CFDictionary *a1)
   {
     v6 = CFDictionaryGetValue(a1, @"DestinationRect");
     valuePtr = 0u;
-    *v46 = 0u;
-    if (v6 && (v7 = v6, get_point_from_dict(v6, &valuePtr), v8) && (get_size_from_dict(v7, v46), v9))
+    *v45 = 0u;
+    if (v6 && (v7 = v6, get_point_from_dict(v6, &valuePtr), v8) && (get_size_from_dict(v7, v45), v9))
     {
-      if (fabs(v46[0]) <= 2.22044605e-16 || fabs(v46[1]) <= 2.22044605e-16)
+      if (fabs(v45[0]) <= 2.22044605e-16 || fabs(v45[1]) <= 2.22044605e-16)
       {
         values = CFStringCreateWithFormat(0, 0, @"/#%@", v4);
-        v40 = @"/XYZ";
-        v41 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
-        v35 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr + 8);
-        v36 = *MEMORY[0x1E695E738];
+        v39 = @"/XYZ";
+        v40 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
+        v34 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr + 8);
+        v35 = *MEMORY[0x1E695E738];
+        v41 = v34;
         v42 = v35;
-        v43 = v36;
         v10 = CFArrayCreate(0, &values, 5, MEMORY[0x1E695E9C0]);
         CFRelease(values);
-        CFRelease(v41);
-        v11 = v42;
+        CFRelease(v40);
+        v11 = v41;
       }
 
       else
       {
-        v37 = v46[1] + *(&valuePtr + 1);
-        v38 = v46[0] + *&valuePtr;
+        v36 = v45[1] + *(&valuePtr + 1);
+        v37 = v45[0] + *&valuePtr;
         values = CFStringCreateWithFormat(0, 0, @"/#%@", v4);
-        v40 = @"/FitR";
-        v41 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
-        v42 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr + 8);
-        v43 = CFNumberCreate(0, kCFNumberCGFloatType, &v38);
-        v44 = CFNumberCreate(0, kCFNumberCGFloatType, &v37);
+        v39 = @"/FitR";
+        v40 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
+        v41 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr + 8);
+        v42 = CFNumberCreate(0, kCFNumberCGFloatType, &v37);
+        v43 = CFNumberCreate(0, kCFNumberCGFloatType, &v36);
         v10 = CFArrayCreate(0, &values, 6, MEMORY[0x1E695E9C0]);
         CFRelease(values);
+        CFRelease(v40);
         CFRelease(v41);
         CFRelease(v42);
-        CFRelease(v43);
-        v11 = v44;
+        v11 = v43;
       }
     }
 
     else
     {
       values = CFStringCreateWithFormat(0, 0, @"/#%@", v4);
-      v40 = @"/XYZ";
-      v41 = *MEMORY[0x1E695E738];
-      v42 = v41;
-      v43 = v41;
+      v39 = @"/XYZ";
+      v40 = *MEMORY[0x1E695E738];
+      v41 = v40;
+      v42 = v40;
       v10 = CFArrayCreate(0, &values, 5, MEMORY[0x1E695E9C0]);
       v11 = values;
     }
@@ -1247,7 +1266,7 @@ __CFDictionary *convertOutlineTree(const __CFDictionary *a1)
   }
 
   values = @"/S";
-  v40 = @"/URI";
+  v39 = @"/URI";
   *&valuePtr = @"/URI";
   *(&valuePtr + 1) = CFURLGetString(v4);
   v10 = CFDictionaryCreate(0, &values, &valuePtr, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -1261,11 +1280,11 @@ LABEL_15:
   {
     v15 = v14;
     Count = CFArrayGetCount(v14);
-    v18 = Count;
+    v17 = Count;
     values = Count;
     if (Count < 1)
     {
-      v23 = Count;
+      v22 = Count;
       if (Value)
       {
         goto LABEL_30;
@@ -1274,62 +1293,62 @@ LABEL_15:
 
     else
     {
-      v19 = 8 * Count;
-      MEMORY[0x1EEE9AC00](Count, v17);
-      v20 = &v37 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-      if (v19 >= 0x200)
+      v18 = 8 * Count;
+      MEMORY[0x1EEE9AC00](Count);
+      v19 = &v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+      if (v18 >= 0x200)
       {
-        v21 = 512;
+        v20 = 512;
       }
 
       else
       {
-        v21 = 8 * v18;
+        v20 = 8 * v17;
       }
 
-      bzero(&v37 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0), v21);
-      bzero(&v37 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v18);
+      bzero(&v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0), v20);
+      bzero(&v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v17);
+      v21 = 0;
       v22 = 0;
-      v23 = 0;
       do
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v15, v22);
-        v25 = convertOutlineTree(ValueAtIndex);
-        if (v25)
+        ValueAtIndex = CFArrayGetValueAtIndex(v15, v21);
+        v24 = convertOutlineTree(ValueAtIndex);
+        if (v24)
         {
-          *&v20[8 * v23++] = v25;
+          *&v19[8 * v22++] = v24;
         }
 
-        ++v22;
+        ++v21;
       }
 
-      while (v18 != v22);
-      values = v23;
-      v26 = *v20;
-      CFDictionarySetValue(Mutable, @"/First", *v20);
-      v27 = &v20[8 * v23];
-      v28 = *(v27 - 1);
-      CFDictionarySetValue(Mutable, @"/Last", v28);
-      if (v23 > 1)
+      while (v17 != v21);
+      values = v22;
+      v25 = *v19;
+      CFDictionarySetValue(Mutable, @"/First", *v19);
+      v26 = &v19[8 * v22];
+      v27 = *(v26 - 1);
+      CFDictionarySetValue(Mutable, @"/Last", v27);
+      if (v22 > 1)
       {
-        v29 = *(v20 + 1);
-        CFDictionarySetValue(v26, @"/Next", v29);
-        CFDictionarySetValue(v28, @"/Prev", *(v27 - 2));
-        v30 = v23 - 2;
-        if (v23 != 2)
+        v28 = *(v19 + 1);
+        CFDictionarySetValue(v25, @"/Next", v28);
+        CFDictionarySetValue(v27, @"/Prev", *(v26 - 2));
+        v29 = v22 - 2;
+        if (v22 != 2)
         {
-          v31 = (v20 + 16);
+          v30 = (v19 + 16);
           do
           {
-            v32 = *v31;
-            CFDictionarySetValue(v29, @"/Next", *v31);
-            CFDictionarySetValue(v29, @"/Prev", *(v31 - 2));
-            ++v31;
-            v29 = v32;
-            --v30;
+            v31 = *v30;
+            CFDictionarySetValue(v28, @"/Next", *v30);
+            CFDictionarySetValue(v28, @"/Prev", *(v30 - 2));
+            ++v30;
+            v28 = v31;
+            --v29;
           }
 
-          while (v30);
+          while (v29);
         }
       }
 
@@ -1339,11 +1358,11 @@ LABEL_15:
       }
     }
 
-    values = -v23;
+    values = -v22;
 LABEL_30:
-    v33 = CFNumberCreate(0, kCFNumberSInt64Type, &values);
-    CFDictionarySetValue(Mutable, @"/Count", v33);
-    CFRelease(v33);
+    v32 = CFNumberCreate(0, kCFNumberSInt64Type, &values);
+    CFDictionarySetValue(Mutable, @"/Count", v32);
+    CFRelease(v32);
   }
 
   return Mutable;
@@ -1663,13 +1682,13 @@ void CGPDFContextBeginTag(CGContextRef context, CGPDFTagType tagType, CFDictiona
       CFDictionarySetValue(Mutable, @"TagProperties", tagProperties);
     }
 
-    v12 = *(context + 5);
-    if (v12)
+    v7 = *(context + 5);
+    if (v7)
     {
-      v13 = *(v12 + 168);
-      if (v13)
+      v8 = *(v7 + 168);
+      if (v8)
       {
-        v13();
+        v8();
       }
     }
 
@@ -1683,7 +1702,7 @@ void CGPDFContextBeginTag(CGContextRef context, CGPDFTagType tagType, CFDictiona
   else
   {
 
-    handle_invalid_context("CGPDFContextBeginTag", context, tagProperties, v3, v4, v5, v6, v7);
+    handle_invalid_context("CGPDFContextBeginTag", context);
   }
 }
 
@@ -1691,7 +1710,35 @@ void CGPDFContextEndTag(CGContextRef context)
 {
   if (context && *(context + 4) == 1129601108 && *(context + 6) == 1)
   {
-    v7 = *(context + 5);
+    v1 = *(context + 5);
+    if (v1)
+    {
+      v2 = *(v1 + 168);
+      if (v2)
+      {
+        v2();
+      }
+    }
+  }
+
+  else
+  {
+    handle_invalid_context("CGPDFContextEndTag", context);
+  }
+}
+
+double CGPDFContextSetRedactionPath(uint64_t a1, const void *a2)
+{
+  if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
+  {
+    Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    v6 = Mutable;
+    if (a2)
+    {
+      CFDictionarySetValue(Mutable, @"RedactionPath", a2);
+    }
+
+    v7 = *(a1 + 40);
     if (v7)
     {
       v8 = *(v7 + 168);
@@ -1700,107 +1747,89 @@ void CGPDFContextEndTag(CGContextRef context)
         v8();
       }
     }
-  }
 
-  else
-  {
-    handle_invalid_context("CGPDFContextEndTag", context, v1, v2, v3, v4, v5, v6);
-  }
-}
-
-void CGPDFContextSetRedactionPath(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 && *(a1 + 16) == 1129601108 && *(a1 + 24) == 1)
-  {
-    Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v11 = Mutable;
-    if (a2)
-    {
-      CFDictionarySetValue(Mutable, @"RedactionPath", a2);
-    }
-
-    v12 = *(a1 + 40);
-    if (v12)
-    {
-      v13 = *(v12 + 168);
-      if (v13)
-      {
-        v13();
-      }
-    }
-
-    if (v11)
+    if (v6)
     {
 
-      CFRelease(v11);
+      CFRelease(v6);
     }
   }
 
   else
   {
 
-    handle_invalid_context("CGPDFContextSetRedactionPath", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGPDFContextSetRedactionPath", a1);
   }
+
+  return result;
 }
 
-void CGPDFContextBeginAccessibilitySpan(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextBeginAccessibilitySpan(uint64_t a1)
 {
-  if (!a1)
+  if (a1)
   {
-    v10 = 0;
-LABEL_8:
-    handle_invalid_context("CGPDFContextBeginAccessibilitySpan", v10, a3, a4, a5, a6, a7, a8);
-    return;
-  }
-
-  if (*(a1 + 16) != 1129601108)
-  {
-    v10 = a1;
-    goto LABEL_8;
-  }
-
-  if (*(a1 + 24) == 1)
-  {
-    v8 = *(a1 + 40);
-    if (v8)
+    if (*(a1 + 16) == 1129601108)
     {
-      v9 = *(v8 + 168);
-      if (v9)
+      if (*(a1 + 24) == 1)
       {
-        v9();
+        v1 = *(a1 + 40);
+        if (v1)
+        {
+          v2 = *(v1 + 168);
+          if (v2)
+          {
+            v2();
+          }
+        }
       }
     }
+
+    else
+    {
+      handle_invalid_context("CGPDFContextBeginAccessibilitySpan", a1);
+    }
   }
+
+  else
+  {
+    handle_invalid_context("CGPDFContextBeginAccessibilitySpan", 0);
+  }
+
+  return result;
 }
 
-void CGPDFContextEndAccessibilitySpan(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGPDFContextEndAccessibilitySpan(uint64_t a1)
 {
-  if (!a1)
+  if (a1)
   {
-    v10 = 0;
-LABEL_8:
-    handle_invalid_context("CGPDFContextEndAccessibilitySpan", v10, a3, a4, a5, a6, a7, a8);
-    return;
-  }
-
-  if (*(a1 + 16) != 1129601108)
-  {
-    v10 = a1;
-    goto LABEL_8;
-  }
-
-  if (*(a1 + 24) == 1)
-  {
-    v8 = *(a1 + 40);
-    if (v8)
+    if (*(a1 + 16) == 1129601108)
     {
-      v9 = *(v8 + 168);
-      if (v9)
+      if (*(a1 + 24) == 1)
       {
-        v9();
+        v1 = *(a1 + 40);
+        if (v1)
+        {
+          v2 = *(v1 + 168);
+          if (v2)
+          {
+            v2();
+          }
+        }
       }
     }
+
+    else
+    {
+      handle_invalid_context("CGPDFContextEndAccessibilitySpan", a1);
+    }
   }
+
+  else
+  {
+    handle_invalid_context("CGPDFContextEndAccessibilitySpan", 0);
+  }
+
+  return result;
 }
 
 const __CFString *CGPDFContextIsValidPassword(const __CFString *result)
@@ -1825,7 +1854,7 @@ const __CFString *CGPDFContextIsValidPassword(const __CFString *result)
   return result;
 }
 
-void sub_1841B839C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_1841B839C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a20 < 0)
   {
@@ -1837,7 +1866,7 @@ void sub_1841B839C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a9);
   }
 
-  MEMORY[0x1865EE610](v20, v21);
+  MEMORY[0x1865EE610](v20, v21, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -1848,11 +1877,11 @@ void Type1::~Type1(Type1 *this)
   JUMPOUT(0x1865EE610);
 }
 
-void sub_1841B85DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1841B85DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1863,51 +1892,50 @@ uint64_t __Block_byref_object_copy__10758(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1841B8794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1841B8794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1841B8AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1841B8AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1841B8BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1841B8BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1841B8D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1841B8D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 CGShadingRef CGShadingCreateAxial(CGColorSpaceRef space, CGPoint start, CGPoint end, CGFunctionRef function, BOOL extendStart, BOOL extendEnd)
 {
-  v7 = extendEnd;
   if (function)
   {
-    v8 = *(function + 5);
+    v7 = *(function + 5);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return CGShadingCreateAxialInternal(space, 0, 0, v8, function, extendStart, v7, v6, start.x, start.y, end.x, end.y);
+  return CGShadingCreateAxialInternal(space, 0, 0, v7, function, extendStart, extendEnd, start.x, start.y, end.x, end.y);
 }
 
-uint64_t CGShadingCreateAxialWithContentHeadroom(CGColorSpace *a1, void *a2, uint64_t a3, uint64_t a4, float a5, double a6, double a7, double a8, double a9)
+uint64_t CGShadingCreateAxialWithContentHeadroom(CGColorSpace *a1, void *a2, char a3, char a4, float a5, double a6, double a7, double a8, double a9)
 {
   if (CGColorSpaceGetModel(a1) != kCGColorSpaceModelRGB || !CGColorSpaceUsesITUR_2100TF(a1) && !CGColorSpaceUsesExtendedRange(a1))
   {
@@ -1916,46 +1944,94 @@ uint64_t CGShadingCreateAxialWithContentHeadroom(CGColorSpace *a1, void *a2, uin
 
   if (a2)
   {
-    v19 = a2[5];
+    v18 = a2[5];
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  result = CGShadingCreateAxialInternal(a1, 0, 0, v19, a2, a3, a4, v18, a6, a7, a8, a9);
-  v21 = 1.0;
+  result = CGShadingCreateAxialInternal(a1, 0, 0, v18, a2, a3, a4, a6, a7, a8, a9);
+  v20 = 1.0;
   if (a5 >= 1.0 || a5 <= 0.0)
   {
-    v21 = a5;
+    v20 = a5;
   }
 
   if (a5 < 0.0)
   {
-    v21 = 0.0;
+    v20 = 0.0;
   }
 
-  *(result + 96) = v21;
+  *(result + 96) = v20;
   return result;
 }
 
-uint64_t CGShadingCreateAxialWithGradient(void *a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7)
+uint64_t CGShadingCreateAxialWithGradient(void *a1, char a2, char a3, double a4, double a5, double a6, double a7)
 {
-  v21 = CFGetTypeID(a1);
+  v14 = CFGetTypeID(a1);
   if (kCGGradientInterpolatesPremultiplied_block_invoke_once[0] != -1)
   {
     dispatch_once(kCGGradientInterpolatesPremultiplied_block_invoke_once, &__block_literal_global_18_14085);
   }
 
-  if (v21 != CGGradientGetTypeID_gradient_type_id)
+  if (v14 != CGGradientGetTypeID_gradient_type_id)
   {
     return 0;
   }
 
   if (a1)
   {
-    v22 = a1[3];
+    v15 = a1[3];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  Function = CGGradientGetFunction(a1);
+  if (Function)
+  {
+    v18 = *(Function + 5);
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  AxialInternal = CGShadingCreateAxialInternal(v15, 0, 0, v18, Function, a2, a3, a4, a5, a6, a7);
+  *(AxialInternal + 96) = CGGradientGetContentHeadroom(a1);
+  return AxialInternal;
+}
+
+CGShadingRef CGShadingCreateRadial(CGColorSpaceRef space, CGPoint start, CGFloat startRadius, CGPoint end, CGFloat endRadius, CGFunctionRef function, BOOL extendStart, BOOL extendEnd)
+{
+  if (function)
+  {
+    v9 = *(function + 5);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return CGShadingCreateRadialInternal(space, 0, 0, v9, function, extendStart, extendEnd, start.x, start.y, startRadius, end.x, end.y, endRadius);
+}
+
+uint64_t CGShadingCreateRadialWithContentHeadroom(CGColorSpace *a1, void *a2, char a3, char a4, float a5, double a6, double a7, double a8, double a9, double a10, double a11)
+{
+  if (CGColorSpaceGetModel(a1) != kCGColorSpaceModelRGB || !CGColorSpaceUsesITUR_2100TF(a1) && !CGColorSpaceUsesExtendedRange(a1))
+  {
+    return 0;
+  }
+
+  if (a2)
+  {
+    v22 = a2[5];
   }
 
   else
@@ -1963,168 +2039,119 @@ uint64_t CGShadingCreateAxialWithGradient(void *a1, uint64_t a2, uint64_t a3, do
     v22 = 0;
   }
 
-  Function = CGGradientGetFunction(a1, v14, v15, v16, v17, v18, v19, v20);
-  if (Function)
-  {
-    v26 = *(Function + 5);
-  }
-
-  else
-  {
-    v26 = 0;
-  }
-
-  AxialInternal = CGShadingCreateAxialInternal(v22, 0, 0, v26, Function, a2, a3, v25, a4, a5, a6, a7);
-  *(AxialInternal + 96) = CGGradientGetContentHeadroom(a1);
-  return AxialInternal;
-}
-
-CGShadingRef CGShadingCreateRadial(CGColorSpaceRef space, CGPoint start, CGFloat startRadius, CGPoint end, CGFloat endRadius, CGFunctionRef function, BOOL extendStart, BOOL extendEnd)
-{
-  v9 = extendEnd;
-  if (function)
-  {
-    v10 = *(function + 5);
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  return CGShadingCreateRadialInternal(space, 0, 0, v10, function, extendStart, v9, v8, start.x, start.y, startRadius, end.x, end.y, endRadius);
-}
-
-uint64_t CGShadingCreateRadialWithContentHeadroom(CGColorSpace *a1, void *a2, uint64_t a3, uint64_t a4, float a5, double a6, double a7, double a8, double a9, double a10, double a11)
-{
-  if (CGColorSpaceGetModel(a1) != kCGColorSpaceModelRGB || !CGColorSpaceUsesITUR_2100TF(a1) && !CGColorSpaceUsesExtendedRange(a1))
-  {
-    return 0;
-  }
-
-  if (a2)
-  {
-    v23 = a2[5];
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  result = CGShadingCreateRadialInternal(a1, 0, 0, v23, a2, a3, a4, v22, a6, a7, a8, a9, a10, a11);
-  v25 = 1.0;
+  result = CGShadingCreateRadialInternal(a1, 0, 0, v22, a2, a3, a4, a6, a7, a8, a9, a10, a11);
+  v24 = 1.0;
   if (a5 >= 1.0 || a5 <= 0.0)
   {
-    v25 = a5;
+    v24 = a5;
   }
 
   if (a5 < 0.0)
   {
-    v25 = 0.0;
+    v24 = 0.0;
   }
 
-  *(result + 96) = v25;
+  *(result + 96) = v24;
   return result;
 }
 
-uint64_t CGShadingCreateRadialWithGradient(void *a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8, double a9)
+uint64_t CGShadingCreateRadialWithGradient(void *a1, char a2, char a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v25 = CFGetTypeID(a1);
+  v18 = CFGetTypeID(a1);
   if (kCGGradientInterpolatesPremultiplied_block_invoke_once[0] != -1)
   {
     dispatch_once(kCGGradientInterpolatesPremultiplied_block_invoke_once, &__block_literal_global_18_14085);
   }
 
-  if (v25 != CGGradientGetTypeID_gradient_type_id)
+  if (v18 != CGGradientGetTypeID_gradient_type_id)
   {
     return 0;
   }
 
   if (a1)
   {
-    v26 = a1[3];
+    v19 = a1[3];
   }
 
   else
   {
-    v26 = 0;
+    v19 = 0;
   }
 
-  Function = CGGradientGetFunction(a1, v18, v19, v20, v21, v22, v23, v24);
+  Function = CGGradientGetFunction(a1);
   if (Function)
   {
-    v30 = *(Function + 5);
+    v22 = *(Function + 5);
   }
 
   else
   {
-    v30 = 0;
+    v22 = 0;
   }
 
-  RadialInternal = CGShadingCreateRadialInternal(v26, 0, 0, v30, Function, a2, a3, v29, a4, a5, a6, a7, a8, a9);
+  RadialInternal = CGShadingCreateRadialInternal(v19, 0, 0, v22, Function, a2, a3, a4, a5, a6, a7, a8, a9);
   *(RadialInternal + 96) = CGGradientGetContentHeadroom(a1);
   return RadialInternal;
 }
 
-uint64_t CGShadingCreateConic(void *a1, void *a2, double a3, double a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t CGShadingCreateConic(void *a1, void *a2, double a3, double a4, double a5)
 {
   if (!a2 || !a1)
   {
     return 0;
   }
 
-  v12 = *(a1[3] + 48);
-  v13 = a2[6];
-  if (v13 != v12 && v13 != v12 + 1)
+  v6 = *(a1[3] + 48);
+  v7 = a2[6];
+  if (v7 != v6 && v7 != v6 + 1)
   {
     return 0;
   }
 
-  v18 = a2[5];
-  Empty = CGShadingCreateEmpty(3, a1, 0, 0, a8, a9, a10, a11);
+  v12 = a2[5];
+  Empty = CGShadingCreateEmpty(3, a1, 0, 0);
   *(Empty + 128) = a3;
   *(Empty + 136) = a4;
   *(Empty + 144) = a5;
   CFRetain(a2);
   *(Empty + 168) = a2;
-  if (v18)
+  if (v12)
   {
-    *(Empty + 152) = *v18;
-    v20 = v18[1];
+    *(Empty + 152) = *v12;
+    v14 = v12[1];
   }
 
   else
   {
     *(Empty + 152) = 0;
-    v20 = 1.0;
+    v14 = 1.0;
   }
 
-  *(Empty + 160) = v20;
+  *(Empty + 160) = v14;
   return Empty;
 }
 
-uint64_t CGShadingCreateCustom(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, _OWORD *a5, void *a6, uint64_t a7, uint64_t a8)
+uint64_t CGShadingCreateCustom(void *a1, uint64_t *a2, const CGRect *a3, uint64_t *a4, _OWORD *a5, void *a6)
 {
   Empty = 0;
   if (a1 && a6)
   {
-    v11 = *(a1[3] + 48);
-    v12 = a6[6];
-    if (v12 == v11 || v12 == v11 + 1)
+    v9 = *(a1[3] + 48);
+    v10 = a6[6];
+    if (v10 == v9 || v10 == v9 + 1)
     {
-      Empty = CGShadingCreateEmpty(4, a1, a2, a3, a5, a6, a7, a8);
+      Empty = CGShadingCreateEmpty(4, a1, a2, a3);
       CFRetain(a6);
       *(Empty + 160) = a6;
-      v16 = a5[1];
-      v15 = a5[2];
+      v14 = a5[1];
+      v13 = a5[2];
       *(Empty + 168) = *a5;
-      *(Empty + 184) = v16;
-      *(Empty + 200) = v15;
+      *(Empty + 184) = v14;
+      *(Empty + 200) = v13;
       for (i = 16; i != 20; ++i)
       {
-        v18 = *a4++;
-        *(Empty + 8 * i) = v18;
+        v16 = *a4++;
+        *(Empty + 8 * i) = v16;
       }
     }
 
@@ -2236,18 +2263,18 @@ CFTypeID CGShadingGetTypeID(void)
   return CGShadingGetTypeID_shading_type_id;
 }
 
-void CGShadingDrawInContextDelegate(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGShadingDrawInContextDelegate(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
     if (*(a1 + 112))
     {
-      v9 = CGContextCreateWithDelegateAndInfo(a2, 17, a3, a4, 0, 0, a7, a8);
-      (*(a1 + 112))(*(a1 + 80), v9);
-      if (v9)
+      v5 = CGContextCreateWithDelegateAndInfo(a2, 17, a3, a4, 0, 0);
+      (*(a1 + 112))(*(a1 + 80), v5);
+      if (v5)
       {
 
-        CFRelease(v9);
+        CFRelease(v5);
       }
     }
   }
@@ -2298,7 +2325,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t cmap_yy_create_buffer(uint64_t a1, uint64_t a2)
+void *cmap_yy_create_buffer(uint64_t a1, uint64_t a2)
 {
   v4 = malloc_type_malloc(0x48uLL, 0x4ADC8BA7uLL);
   if (!v4 || (v5 = v4, v4[3] = 0x4000, v6 = malloc_type_malloc(0x4002uLL, 0x4ADC8BA7uLL), (*(v5 + 8) = v6) == 0))
@@ -2579,7 +2606,7 @@ uint64_t CGPDFSecurityManagerUnlock(uint64_t a1, _OWORD *a2, size_t a3)
     pthread_mutex_lock(&lock);
     if (!CGPDFSecurityHandlerAuthenticateUserPassword(v3, a2, a3))
     {
-      if (!CGPDFSecurityHandlerAuthenticateOwnerPassword(v3, a2, a3))
+      if (!CGPDFSecurityHandlerAuthenticateOwnerPassword(v3, a2, a3, v7))
       {
         *(v3 + 184) = 0;
         *(v3 + 188) = 0;
@@ -2590,9 +2617,9 @@ LABEL_34:
       }
 
       *(v3 + 184) = 257;
-      v15 = 4095;
+      v16 = 4095;
 LABEL_33:
-      *(v3 + 188) = v15;
+      *(v3 + 188) = v16;
       goto LABEL_34;
     }
 
@@ -2601,87 +2628,87 @@ LABEL_33:
     {
       if (*v3 != 2)
       {
-        LOWORD(v15) = 0;
+        LOWORD(v16) = 0;
 LABEL_32:
-        v15 = v15;
+        v16 = v16;
         goto LABEL_33;
       }
 
-      v16 = *(v3 + 16);
-      if ((v16 & 0x10) != 0)
+      v17 = *(v3 + 16);
+      if ((v17 & 0x10) != 0)
       {
-        v12 = (v16 << 29 >> 31) & 7 | 0x38;
+        v13 = (v17 << 29 >> 31) & 7 | 0x38;
       }
 
       else
       {
-        v12 = (v16 << 29 >> 31) & 7;
+        v13 = (v17 << 29 >> 31) & 7;
       }
 
-      if ((v16 & 8) != 0)
+      if ((v17 & 8) != 0)
       {
-        LOWORD(v12) = v12 | 0xC40;
-        v17 = 960;
+        LOWORD(v13) = v13 | 0xC40;
+        v18 = 960;
       }
 
       else
       {
-        v17 = 832;
+        v18 = 832;
       }
 
-      v13 = v12 | v17;
-      v14 = (*(v3 + 16) & 0x20) == 0;
+      v14 = v13 | v18;
+      v15 = (*(v3 + 16) & 0x20) == 0;
     }
 
     else
     {
-      v7 = *(v3 + 16);
-      if ((v7 & 0x800) != 0)
+      v8 = *(v3 + 16);
+      if ((v8 & 0x800) != 0)
       {
-        v8 = 7;
+        v9 = 7;
       }
 
       else
       {
-        v8 = 3;
+        v9 = 3;
       }
 
-      v9 = v8 & ((v7 << 29) >> 31);
-      if ((v7 & 0x10) != 0)
+      v10 = v9 & ((v8 << 29) >> 31);
+      if ((v8 & 0x10) != 0)
       {
-        v9 |= 0x28u;
+        v10 |= 0x28u;
       }
 
-      v10 = v9 | (v7 >> 5) & 0x10;
-      if ((v7 & 8) != 0)
+      v11 = v10 | (v8 >> 5) & 0x10;
+      if ((v8 & 8) != 0)
       {
-        v10 |= 0x840u;
-        v11 = 960;
+        v11 |= 0x840u;
+        v12 = 960;
       }
 
       else
       {
-        v11 = 832;
+        v12 = 832;
       }
 
-      v12 = v10 | v11 & ((v7 << 26) >> 31);
-      if ((v7 & 0x100) != 0)
+      v13 = v11 | v12 & ((v8 << 26) >> 31);
+      if ((v8 & 0x100) != 0)
       {
-        LOWORD(v12) = v12 | 0x240;
+        LOWORD(v13) = v13 | 0x240;
       }
 
-      v13 = v12 | 0x440;
-      v14 = (*(v3 + 16) & 0x408) == 0;
+      v14 = v13 | 0x440;
+      v15 = (*(v3 + 16) & 0x408) == 0;
     }
 
-    if (v14)
+    if (v15)
     {
-      LOWORD(v15) = v12;
+      LOWORD(v16) = v13;
     }
 
     else
     {
-      LOWORD(v15) = v13;
+      LOWORD(v16) = v14;
     }
 
     goto LABEL_32;
@@ -2763,7 +2790,7 @@ LABEL_5:
   return CGPDFCryptFilterCreateDecryptor(v13, v7, v8, a4);
 }
 
-CGContextRef CGBitmapContextCreateAdaptive(size_t a1, size_t a2, CFTypeRef cf, const void *a4, const void *a5, const void *a6, const void *a7, uint64_t a8)
+CGContextRef CGBitmapContextCreateAdaptive(size_t a1, size_t a2, CFTypeRef cf, const void *a4, const void *a5, const void *a6, const void *a7)
 {
   if (useDebugBitmap_predicate_10881 != -1)
   {
@@ -2772,174 +2799,176 @@ CGContextRef CGBitmapContextCreateAdaptive(size_t a1, size_t a2, CFTypeRef cf, c
 
   if (useDebugBitmap_use_bitmap_10883)
   {
-    v15 = CGColorSpaceCreateWithName(@"kCGColorSpaceSRGB");
-    return CGBitmapContextCreateWithData(0, a1, a2, 8uLL, 0, v15, 1u, 0, 0);
+    v14 = CGColorSpaceCreateWithName(@"kCGColorSpaceSRGB");
+    return CGBitmapContextCreateWithData(0, a1, a2, 8uLL, 0, v14, 1u, 0, 0);
   }
 
-  if (!cf || (v17 = CFGetTypeID(cf), v17 == CFDictionaryGetTypeID()))
+  if (!cf || (v16 = CFGetTypeID(cf), v16 == CFDictionaryGetTypeID()))
   {
     if (a1 - 0x80000000 >= 0xFFFFFFFF80000001 && a2 - 0x80000000 >= 0xFFFFFFFF80000001)
     {
-      v18 = malloc_type_calloc(1uLL, 0x48uLL, 0x10E00409E4AD1ABuLL);
-      if (v18)
+      v17 = malloc_type_calloc(1uLL, 0x48uLL, 0x10E00409E4AD1ABuLL);
+      if (v17)
       {
-        v19 = v18;
-        v18->i64[0] = a1;
-        v18->i64[1] = a2;
-        v18[1] = vdupq_n_s64(0x4052000000000000uLL);
-        v18[2].i64[0] = _Block_copy(a4);
-        *(v19 + 40) = _Block_copy(a5);
-        *(v19 + 48) = _Block_copy(a6);
-        *(v19 + 56) = _Block_copy(a7);
+        v18 = v17;
+        v17->i64[0] = a1;
+        v17->i64[1] = a2;
+        v17[1] = vdupq_n_s64(0x4052000000000000uLL);
+        v17[2].i64[0] = _Block_copy(a4);
+        *(v18 + 40) = _Block_copy(a5);
+        *(v18 + 48) = _Block_copy(a6);
+        *(v18 + 56) = _Block_copy(a7);
         if (cf)
         {
-          v22 = CFRetain(cf);
+          v19 = CFRetain(cf);
         }
 
         else
         {
-          v22 = 0;
+          v19 = 0;
         }
 
-        *(v19 + 64) = v22;
-        v23 = CGContextCreateWithDelegateAndInfo(0, 13, 0, 0, v19, adaptive_bitmap_context_context_finalize, v20, v21);
-        if (!v23)
+        *(v18 + 64) = v19;
+        v20 = CGContextCreateWithDelegateAndInfo(0, 13, 0, 0, v18, adaptive_bitmap_context_context_finalize);
+        if (!v20)
         {
-          CGPostError("%s: failed to create btimap context with delegates.", v24, v25, v26, v27, v28, v29, v30, "CGBitmapContextCreateAdaptive");
-          adaptive_bitmap_context_info_release(v19, v66, v67, v68, v69, v70, v71, v72);
-          return v23;
+          CGPostError("%s: failed to create btimap context with delegates.", "CGBitmapContextCreateAdaptive");
+          adaptive_bitmap_context_info_release(v18);
+          return v20;
         }
 
-        v75 = *(v19 + 32);
-        v76 = *(v19 + 48);
-        v31 = *(v19 + 64);
-        v77 = v31;
-        v73 = *v19;
-        v74 = *(v19 + 16);
-        LODWORD(v78[0]) = 0;
-        if (CGCFDictionaryGetInteger(v31, @"kCGAdaptiveMaximumBitDepth", v78))
+        v34 = *(v18 + 32);
+        v35 = *(v18 + 48);
+        v21 = *(v18 + 64);
+        v36 = v21;
+        v32 = *v18;
+        v33 = *(v18 + 16);
+        LODWORD(v37[0]) = 0;
+        if (CGCFDictionaryGetInteger(v21, @"kCGAdaptiveMaximumBitDepth", v37))
         {
-          v32 = v78[0];
+          v22 = v37[0];
         }
 
         else
         {
-          v32 = 5;
+          v22 = 5;
         }
 
         Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
-        v78[0] = 0;
-        v78[1] = 0;
-        v79 = vcvtq_f64_u64(*v19);
-        CGDisplayList = CG::DisplayList::createCGDisplayList(0, v78, v34, v35, v36, v37, v38, v39);
+        v37[0] = 0;
+        v37[1] = 0;
+        v38 = vcvtq_f64_u64(*v18);
+        CGDisplayList = CG::DisplayList::createCGDisplayList(0, v37, v24);
         if (CGDisplayList)
         {
-          v48 = CGDisplayList;
-          v49 = CGDisplayListContextCreate(CGDisplayList, v41, v42, v43, v44, v45, v46, v47);
-          if (v49)
+          v26 = CGDisplayList;
+          v27 = CGDisplayListContextCreate(CGDisplayList);
+          if (v27)
           {
-            v50 = v49;
-            v51 = malloc_type_calloc(1uLL, 0x148uLL, 0x10E0040685F387CuLL);
-            if (v51)
+            v28 = v27;
+            v29 = malloc_type_calloc(1uLL, 0x148uLL, 0x10E0040685F387CuLL);
+            if (v29)
             {
-              v52 = v51;
-              *(v51 + 2) = v75;
-              *(v51 + 3) = v76;
-              *v51 = v73;
-              *(v51 + 1) = v74;
-              *(v51 + 8) = v77;
-              *(v51 + 9) = v48;
-              *(v51 + 10) = v50;
-              *(v51 + 11) = 0;
-              *(v51 + 24) = v32;
-              *(v51 + 108) = 0;
-              *(v51 + 100) = 0;
-              *(v51 + 29) = 1;
-              *(v51 + 15) = 850045863;
-              *(v51 + 9) = 0u;
-              *(v51 + 10) = 0u;
-              *(v51 + 8) = 0u;
-              *(v51 + 22) = 0;
-              *(v51 + 23) = Mutable;
-              *(v51 + 40) = 0;
-              *(v51 + 18) = 0u;
-              *(v51 + 19) = 0u;
-              *(v51 + 16) = 0u;
-              *(v51 + 17) = 0u;
-              *(v51 + 14) = 0u;
-              *(v51 + 15) = 0u;
-              *(v51 + 12) = 0u;
-              *(v51 + 13) = 0u;
-              pthread_mutex_init((v51 + 120), 0);
-              v60 = CGContextDelegateCreate(v52, v53, v54, v55, v56, v57, v58, v59);
-              CGContextDelegateSetCallbacks(v60, &RIPAdaptiveBitmapContextCreate_callbacks, 19, v61, v62, v63, v64, v65);
-              v23[5] = v60;
-              if (v60)
+              v30 = v29;
+              *(v29 + 2) = v34;
+              *(v29 + 3) = v35;
+              *v29 = v32;
+              *(v29 + 1) = v33;
+              *(v29 + 8) = v36;
+              *(v29 + 9) = v26;
+              *(v29 + 10) = v28;
+              *(v29 + 11) = 0;
+              *(v29 + 24) = v22;
+              *(v29 + 108) = 0;
+              *(v29 + 100) = 0;
+              *(v29 + 29) = 1;
+              *(v29 + 15) = 850045863;
+              *(v29 + 9) = 0u;
+              *(v29 + 10) = 0u;
+              *(v29 + 8) = 0u;
+              *(v29 + 22) = 0;
+              *(v29 + 23) = Mutable;
+              *(v29 + 40) = 0;
+              *(v29 + 18) = 0u;
+              *(v29 + 19) = 0u;
+              *(v29 + 16) = 0u;
+              *(v29 + 17) = 0u;
+              *(v29 + 14) = 0u;
+              *(v29 + 15) = 0u;
+              *(v29 + 12) = 0u;
+              *(v29 + 13) = 0u;
+              pthread_mutex_init((v29 + 120), 0);
+              v31 = CGContextDelegateCreate(v30);
+              CGContextDelegateSetCallbacks(v31, &RIPAdaptiveBitmapContextCreate_callbacks, 19);
+              v20[5] = v31;
+              if (v31)
               {
-                return v23;
+                return v20;
               }
 
               goto LABEL_30;
             }
 
-            CFRelease(v48);
+            CFRelease(v26);
           }
 
           else
           {
-            v50 = v48;
+            v28 = v26;
           }
 
-          CFRelease(v50);
+          CFRelease(v28);
         }
 
-        v23[5] = 0;
+        v20[5] = 0;
 LABEL_30:
-        CGPostError("%s: failed to create delegate.", v41, v42, v43, v44, v45, v46, v47, "CGBitmapContextCreateAdaptive");
-        CFRelease(v23);
+        CGPostError("%s: failed to create delegate.", "CGBitmapContextCreateAdaptive");
+        CFRelease(v20);
         return 0;
       }
     }
   }
 
-  CGPostError("%s: failed to create CGAdaptiveContextInfo.", a2, cf, a4, a5, a6, a7, a8, "CGBitmapContextCreateAdaptive");
+  CGPostError("%s: failed to create CGAdaptiveContextInfo.", "CGBitmapContextCreateAdaptive");
   return 0;
 }
 
-void adaptive_bitmap_context_info_release(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void adaptive_bitmap_context_info_release(uint64_t a1)
 {
   if (!a1)
   {
-    _CGHandleAssert("adaptive_bitmap_context_info_release", 22, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/API/CGAdaptiveBitmapContext.c", "info", "info is NULL", a6, a7, a8, v10);
+    _CGHandleAssert("adaptive_bitmap_context_info_release", 22, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/API/CGAdaptiveBitmapContext.c", "info", "info is NULL");
   }
 
   _Block_release(*(a1 + 32));
   _Block_release(*(a1 + 40));
   _Block_release(*(a1 + 48));
   _Block_release(*(a1 + 56));
-  v9 = *(a1 + 64);
-  if (v9)
+  v2 = *(a1 + 64);
+  if (v2)
   {
-    CFRelease(v9);
+    CFRelease(v2);
   }
 
   free(a1);
 }
 
-void adaptive_bitmap_context_context_finalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double adaptive_bitmap_context_context_finalize(uint64_t a1)
 {
   if (a1)
   {
     if (*(a1 + 16) == 1129601108)
     {
-      adaptive_bitmap_context_info_release(*(a1 + 32), a1, a3, a4, a5, a6, a7, a8);
+      adaptive_bitmap_context_info_release(*(a1 + 32));
     }
 
     else
     {
-      handle_invalid_context("adaptive_bitmap_context_context_finalize", a1, a3, a4, a5, a6, a7, a8);
+      handle_invalid_context("adaptive_bitmap_context_context_finalize", a1);
     }
   }
+
+  return result;
 }
 
 const void *__useDebugBitmap_block_invoke_10894()
@@ -3130,101 +3159,111 @@ double CGFontDefaultGetSmoothingContrast()
   return 2.0;
 }
 
-double CGFontGetDilationParameters(double a1, uint64_t a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+double CGFontGetDilationParameters(double a1, double a2, uint64_t a3, double *a4, unsigned int a5)
 {
-  v10 = a4;
   if (CGFontGetDilationParameters_defaultsOnce != -1)
   {
     dispatch_once_f(&CGFontGetDilationParameters_defaultsOnce, 0, get_glyph_debugging_defaults);
   }
 
-  if ((v10 & 2) != 0)
+  if ((a5 & 2) != 0)
   {
-    v13 = (v10 >> 4) & 7;
-    if (v13 <= 3)
+    v10 = (a5 >> 4) & 7;
+    if (v10 <= 3)
     {
-      if (((v10 >> 4) & 7) <= 1)
+      if (((a5 >> 4) & 7) <= 1)
       {
-        v14 = 0.0;
-        if (v13 != 1)
+        v12 = 0.0;
+        v11 = 0.0;
+        if (v10 != 1)
         {
-          goto LABEL_25;
+          goto LABEL_26;
         }
 
-        goto LABEL_27;
+        goto LABEL_28;
       }
 
-      if (v13 != 2)
+      if (v10 != 2)
       {
 LABEL_18:
-        v14 = 0.0120999999;
-        goto LABEL_27;
+        v11 = 0.0151249999;
+        v12 = 0.0120999999;
+        goto LABEL_28;
       }
 
-LABEL_22:
-      v14 = 0.00798599981;
-      goto LABEL_27;
+      v11 = 0.0100429999;
+LABEL_23:
+      v12 = 0.00798599981;
+      goto LABEL_28;
     }
 
-    if (((v10 >> 4) & 7) <= 5)
+    if (((a5 >> 4) & 7) <= 5)
     {
-      if (v13 == 4)
+      if (v10 == 4)
       {
-        v14 = 0.0169399995;
+        v11 = 0.0205700006;
+        v12 = 0.0169399995;
       }
 
       else
       {
-        v14 = 0.00124999997;
+        v11 = 0.00179999997;
+        v12 = 0.00124999997;
       }
 
-      goto LABEL_27;
+      goto LABEL_28;
     }
 
-    if (v13 == 6)
+    if (v10 == 6)
     {
-      v14 = 0.104999997;
-      goto LABEL_27;
+      v11 = 0.0131249996;
+      v12 = 0.104999997;
+      goto LABEL_28;
     }
 
 LABEL_21:
-    v14 = a1 * 0.300000012;
-    goto LABEL_27;
+    v12 = a1 * 0.300000012;
+    v11 = a2 * 0.300000012;
+    goto LABEL_28;
   }
 
-  v12 = ((v10 & 0xD80) - 128) >> 7;
-  if (v12 > 6)
+  v9 = ((a5 & 0xD80) - 128) >> 7;
+  if (v9 > 6)
   {
-    if (v12 - 7 >= 2)
+    if (v9 - 7 >= 2)
     {
-LABEL_25:
+LABEL_26:
       abort();
     }
 
     goto LABEL_21;
   }
 
-  if (!v12)
+  if (!v9)
   {
-    goto LABEL_22;
+    v11 = 0.0100429999;
+    goto LABEL_23;
   }
 
-  if (v12 != 1)
+  if (v9 != 1)
   {
-    if (v12 != 2)
+    if (v9 != 2)
     {
-      goto LABEL_25;
+      goto LABEL_26;
     }
 
     goto LABEL_18;
   }
 
-  v14 = 0.0100429999;
-LABEL_27:
-  v15 = v14 * sqrt(fabs(a3[1] * a3[2] + *a3 * a3[3]));
-  if (v15 <= 0.300000012)
+  v11 = 0.0125839999;
+  v12 = 0.0100429999;
+LABEL_28:
+  v13 = sqrt(fabs(a4[1] * a4[2] + *a4 * a4[3]));
+  v14 = v12 * v13;
+  v15 = v11 * v13;
+  if (v14 <= 0.300000012)
   {
-    v16 = v15;
+    v16 = v14;
   }
 
   else
@@ -3232,9 +3271,19 @@ LABEL_27:
     v16 = 0.300000012;
   }
 
+  if (v15 <= 0.300000012)
+  {
+    v17 = v15;
+  }
+
+  else
+  {
+    v17 = 0.300000012;
+  }
+
   if (default_glyph_debugging == 1)
   {
-    CGPostError("%s Effective dilation parameters are: dilation width = %f dilation height = %f", a3, a4, a5, a6, a7, a8, a9, "CGFontGetDilationParameters");
+    CGPostError("%s Effective dilation parameters are: dilation width = %f dilation height = %f", "CGFontGetDilationParameters", v16, v17);
   }
 
   return v16;
@@ -3323,36 +3372,36 @@ void rle_filter_finalize(const void **a1)
   }
 }
 
-uint64_t rle_filter_refill(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t rle_filter_refill(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   result = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = a2;
   while (result + 128 < a3 && (*(a1 + 8) & 1) == 0)
   {
-    v11 = CGPDFSourceGetc(*a1, a2, a3, a4, a5, a6, a7, a8);
-    if (v11 == -1)
+    v6 = CGPDFSourceGetc(*a1);
+    if (v6 == -1)
     {
       goto LABEL_17;
     }
 
-    v12 = v11;
-    if (v11 <= 127)
+    v7 = v6;
+    if (v6 <= 127)
     {
-      v13 = (v11 + 1);
+      v8 = (v6 + 1);
       while (1)
       {
-        v14 = CGPDFSourceGetc(*a1, a2, a3, a4, a5, a6, a7, a8);
-        if (v14 == -1)
+        v9 = CGPDFSourceGetc(*a1);
+        if (v9 == -1)
         {
           break;
         }
 
-        v16 = *(a1 + 16);
-        v15 = *(a1 + 24);
-        *(a1 + 16) = v16 + 1;
-        *(v15 + v16) = v14;
-        if (!--v13)
+        v11 = *(a1 + 16);
+        v10 = *(a1 + 24);
+        *(a1 + 16) = v11 + 1;
+        *(v10 + v11) = v9;
+        if (!--v8)
         {
           goto LABEL_16;
         }
@@ -3365,38 +3414,38 @@ LABEL_18:
       return *(a1 + 16);
     }
 
-    if (v11 == 128)
+    if (v6 == 128)
     {
       goto LABEL_18;
     }
 
-    v17 = CGPDFSourceGetc(*a1, a2, a3, a4, a5, a6, a7, a8);
-    if (v17 == -1)
+    v12 = CGPDFSourceGetc(*a1);
+    if (v12 == -1)
     {
       goto LABEL_17;
     }
 
-    LODWORD(v18) = 257 - v12;
-    if ((257 - v12) <= 1)
+    LODWORD(v13) = 257 - v7;
+    if ((257 - v7) <= 1)
     {
-      v18 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v18 = v18;
+      v13 = v13;
     }
 
     do
     {
-      v20 = *(a1 + 16);
-      v19 = *(a1 + 24);
-      *(a1 + 16) = v20 + 1;
-      *(v19 + v20) = v17;
-      --v18;
+      v15 = *(a1 + 16);
+      v14 = *(a1 + 24);
+      *(a1 + 16) = v15 + 1;
+      *(v14 + v15) = v12;
+      --v13;
     }
 
-    while (v18);
+    while (v13);
 LABEL_16:
     result = *(a1 + 16);
   }
@@ -3489,36 +3538,37 @@ void PDFImageSetRelease(uint64_t a1)
   }
 }
 
-const void *add_image(uint64_t a1, uint64_t a2, const void *a3, int a4, unsigned int a5)
+const void *add_image(uint64_t *a1, uint64_t a2, const void *a3, int a4, uint64_t a5)
 {
   Value = 0;
   if (a1 && a2)
   {
+    v7 = a5;
     if (add_image_predicate != -1)
     {
       dispatch_once(&add_image_predicate, &__block_literal_global_10959);
     }
 
     key[0] = add_image_f(a2);
-    key[1] = a5;
+    key[1] = v7;
     key[2] = a3;
-    Value = CFDictionaryGetValue(*(a1 + 8), key);
+    Value = CFDictionaryGetValue(a1[1], key);
     if (!Value)
     {
       if (a4)
       {
         v11 = *a1;
-        v12 = *(a1 + 32) + 1;
-        *(a1 + 32) = v12;
+        v12 = *(a1 + 8) + 1;
+        *(a1 + 8) = v12;
         v13 = a2;
         v14 = a3;
-        v15 = a5;
+        v15 = v7;
         v16 = 1;
       }
 
       else
       {
-        v17 = *(a1 + 24);
+        v17 = a1[3];
         if (v17)
         {
           v18 = CFDictionaryGetValue(v17, *(a2 + 24));
@@ -3526,20 +3576,20 @@ const void *add_image(uint64_t a1, uint64_t a2, const void *a3, int a4, unsigned
           {
             v19 = v18;
             v11 = *a1;
-            v12 = *(a1 + 32) + 1;
-            *(a1 + 32) = v12;
+            v12 = *(a1 + 8) + 1;
+            *(a1 + 8) = v12;
             v13 = 0;
             v14 = 0;
             v15 = 0;
             v16 = 0;
 LABEL_13:
             Value = create_image(v11, v13, v14, v15, v16, v19, v12);
-            CFDictionarySetValue(*(a1 + 8), key, Value);
-            v20 = *(a1 + 16);
+            CFDictionarySetValue(a1[1], key, Value);
+            v20 = a1[2];
             if (!v20)
             {
               v20 = CGOrderedSetCreate();
-              *(a1 + 16) = v20;
+              a1[2] = v20;
             }
 
             CGOrderedSetAddValue(v20, Value);
@@ -3549,11 +3599,11 @@ LABEL_13:
         }
 
         v11 = *a1;
-        v12 = *(a1 + 32) + 1;
-        *(a1 + 32) = v12;
+        v12 = *(a1 + 8) + 1;
+        *(a1 + 8) = v12;
         v13 = a2;
         v14 = 0;
-        v15 = a5;
+        v15 = v7;
         v16 = 0;
       }
 
@@ -3565,22 +3615,23 @@ LABEL_13:
   return Value;
 }
 
-void *__add_image_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t (*__add_image_block_invoke())(void)
 {
   if (CGLibraryLoadImageIODYLD_once != -1)
   {
     dispatch_once(&CGLibraryLoadImageIODYLD_once, &__block_literal_global_5_22103);
   }
 
+  v0 = CGLibraryLoadImageIODYLD_handle;
   if (!CGLibraryLoadImageIODYLD_handle)
   {
-    _CGHandleAssert("CGLibraryLoadImageIOFunction", 28, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageIO.h", "handle != NULL", "Handle for %s failed to load", a6, a7, a8, "CGImageGetHash");
+    _CGHandleAssert("CGLibraryLoadImageIOFunction", 28, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageIO.h", "handle != NULL", "Handle for %s failed to load", "CGImageGetHash");
   }
 
   result = dlsym(CGLibraryLoadImageIODYLD_handle, "CGImageGetHash");
   if (!result)
   {
-    _CGHandleAssert("CGLibraryLoadImageIOFunction", 30, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageIO.h", "ptr != NULL", "Could not find symbol %s in library handle %p", v9, v10, v11, "CGImageGetHash");
+    _CGHandleAssert("CGLibraryLoadImageIOFunction", 30, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageIO.h", "ptr != NULL", "Could not find symbol %s in library handle %p", "CGImageGetHash", v0);
   }
 
   add_image_f = result;
@@ -3619,11 +3670,11 @@ uint64_t PDFImageSetEmitDefinitions(uint64_t result)
   return result;
 }
 
-void emit_image_definition(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void emit_image_definition(uint64_t a1)
 {
-  v8 = a1;
-  v9 = *(a1 + 48);
-  if (!v9)
+  v1 = a1;
+  v2 = *(a1 + 48);
+  if (!v2)
   {
     goto LABEL_19;
   }
@@ -3631,753 +3682,753 @@ void emit_image_definition(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   EPSRep = CGImageGetEPSRep(*(a1 + 48));
   if (EPSRep)
   {
-    v11 = EPSRep;
-    v12 = *(v8 + 8);
-    v13 = PDFXRefTableAddObject(*(v12 + 504));
-    v14 = PDFStreamCreateWithObjectNumber(v12, v13);
-    v21 = v14;
-    if (v14)
+    v4 = EPSRep;
+    v5 = *(v1 + 8);
+    v6 = PDFXRefTableAddObject(*(v5 + 504));
+    v7 = PDFStreamCreateWithObjectNumber(v5, v6);
+    v8 = v7;
+    if (v7)
     {
-      v22 = v14[1];
-      v23 = v22;
+      v9 = v7[1];
+      v10 = v9;
     }
 
     else
     {
-      v23 = 0;
-      v22 = MEMORY[8];
+      v10 = 0;
+      v9 = MEMORY[8];
     }
 
-    *(v8 + 56) = v23;
-    PDFDocumentBeginObject(*v14, v22, v15, v16, v17, v18, v19, v20);
-    PDFDocumentPrintf(*v21, "<<", v24, v25, v26, v27, v28, v29, decode);
-    PDFDocumentPrintf(*(v8 + 8), "/Type /AAPL:EPSData", v30, v31, v32, v33, v34, v35, decodec);
-    PDFStreamBeginData(v21);
-    v36 = v11[2];
-    v37 = malloc_type_malloc(0x5000uLL, 0xE0DAC87uLL);
-    v43 = CGAccessSessionCreate(v36);
+    *(v1 + 56) = v10;
+    PDFDocumentBeginObject(*v7, v9);
+    PDFDocumentPrintf(*v8, "<<");
+    PDFDocumentPrintf(*(v1 + 8), "/Type /AAPL:EPSData");
+    PDFStreamBeginData(v8);
+    v11 = v4[2];
+    v12 = malloc_type_malloc(0x5000uLL, 0xE0DAC87uLL);
+    v13 = CGAccessSessionCreate(v11);
     while (1)
     {
-      Bytes = CGAccessSessionGetBytes(v43, v37, 20480, v38, v39, v40, v41, v42);
+      Bytes = CGAccessSessionGetBytes(v13, v12, 0x5000uLL);
       if (!Bytes)
       {
         break;
       }
 
-      CGDataConsumerPutBytes(v21[3], v37, Bytes);
+      CGDataConsumerPutBytes(v8[3], v12, Bytes);
     }
 
-    CGAccessSessionRelease(v43);
-    free(v37);
-    PDFStreamEndData(v21);
-    PDFStreamEnd(v21);
-    PDFStreamRelease(v21);
-    v9 = v11[3];
-    if (!v9)
+    CGAccessSessionRelease(v13);
+    free(v12);
+    PDFStreamEndData(v8);
+    PDFStreamEnd(v8);
+    PDFStreamRelease(v8);
+    v2 = v4[3];
+    if (!v2)
     {
       goto LABEL_19;
     }
   }
 
-  v45 = *(v9 + 36);
-  if ((v45 & 0x2000000) != 0)
+  v15 = *(v2 + 36);
+  if ((v15 & 0x2000000) != 0)
   {
-    if (*(v9 + 56) < 2uLL)
+    if (*(v2 + 56) < 2uLL)
     {
-      v116 = *(v8 + 16);
-      PDFDocumentBeginObject(*v116, *(v116 + 8), a3, a4, a5, a6, a7, a8);
-      PDFDocumentPrintf(*v116, "<<", v117, v118, v119, v120, v121, v122, decode);
-      PDFDocumentPrintf(*(v8 + 8), "/Type /XObject", v123, v124, v125, v126, v127, v128, decodei);
-      PDFDocumentPrintf(*(v8 + 8), "/Subtype /Image", v129, v130, v131, v132, v133, v134, decodej);
-      PDFDocumentPrintf(*(v8 + 8), "/Width %z", v135, v136, v137, v138, v139, v140, *(v9 + 40));
-      PDFDocumentPrintf(*(v8 + 8), "/Height %z", v141, v142, v143, v144, v145, v146, *(v9 + 48));
-      PDFDocumentPrintf(*(v8 + 8), "/ImageMask true", v147, v148, v149, v150, v151, v152, decodek);
-      emit_interpolation(v8, v153, v154, v155, v156, v157, v158, v159, decodel);
-      v160 = CGImageGetDecode(v9);
-      emit_decode(v8, v160, 2, v161, v162, v163, v164, v165, decodem);
-      if (*(v8 + 104) != -1)
+      v28 = *(v1 + 16);
+      PDFDocumentBeginObject(*v28, *(v28 + 8));
+      PDFDocumentPrintf(*v28, "<<");
+      PDFDocumentPrintf(*(v1 + 8), "/Type /XObject");
+      PDFDocumentPrintf(*(v1 + 8), "/Subtype /Image");
+      PDFDocumentPrintf(*(v1 + 8), "/Width %z", *(v2 + 40));
+      PDFDocumentPrintf(*(v1 + 8), "/Height %z", *(v2 + 48));
+      PDFDocumentPrintf(*(v1 + 8), "/ImageMask true");
+      emit_interpolation(v1);
+      Decode = CGImageGetDecode(v2);
+      emit_decode(v1, Decode, 2);
+      if (*(v1 + 104) != -1)
       {
-        PDFDocumentPrintf(*(v8 + 8), "/StructParent %d", v166, v167, v168, v169, v170, v171, *(v8 + 104));
+        PDFDocumentPrintf(*(v1 + 8), "/StructParent %d", *(v1 + 104));
       }
 
-      if (*(v8 + 73) == 1)
+      if (*(v1 + 73) == 1)
       {
         goto LABEL_44;
       }
 
-      v172 = v8;
-      v173 = v9;
-      if (*(v8 + 74) == 1)
+      v30 = v1;
+      v31 = v2;
+      if (*(v1 + 74) == 1)
       {
 LABEL_47:
-        emit_jpeg2000_data(v172, v173, v166, v167, v168, v169, v170, v171);
+        emit_jpeg2000_data(v30, v31);
         goto LABEL_50;
       }
 
 LABEL_49:
-      PDFImageEmitData(v172, v173);
+      PDFImageEmitData(v30, v31);
       goto LABEL_50;
     }
 
     pdf_error("unsupported image mask: bits/component > 1.");
 LABEL_19:
-    emit_empty_image(v8, a2, a3, a4, a5, a6, a7, a8);
+    emit_empty_image(v1);
     goto LABEL_207;
   }
 
-  if (*(v8 + 72) == 1)
+  if (*(v1 + 72) == 1)
   {
-    v46 = *(v8 + 16);
-    PDFDocumentBeginObject(*v46, *(v46 + 8), a3, a4, a5, a6, a7, a8);
-    PDFDocumentPrintf(*v46, "<<", v47, v48, v49, v50, v51, v52, decode);
-    PDFDocumentPrintf(*(v8 + 8), "/Type /XObject", v53, v54, v55, v56, v57, v58, decoded);
-    PDFDocumentPrintf(*(v8 + 8), "/Subtype /Image", v59, v60, v61, v62, v63, v64, decodee);
-    PDFDocumentPrintf(*(v8 + 8), "/Width %z", v65, v66, v67, v68, v69, v70, *(v9 + 40));
-    PDFDocumentPrintf(*(v8 + 8), "/Height %z", v71, v72, v73, v74, v75, v76, *(v9 + 48));
-    PDFDocumentPrintf(*(v8 + 8), "/ColorSpace /DeviceGray", v77, v78, v79, v80, v81, v82, decodef);
-    emit_interpolation(v8, v83, v84, v85, v86, v87, v88, v89, decodeg);
-    v90 = CGImageGetDecode(v9);
-    emit_decode(v8, v90, 2, v91, v92, v93, v94, v95, decodeh);
-    if (*(v8 + 104) != -1)
+    v16 = *(v1 + 16);
+    PDFDocumentBeginObject(*v16, *(v16 + 8));
+    PDFDocumentPrintf(*v16, "<<");
+    PDFDocumentPrintf(*(v1 + 8), "/Type /XObject");
+    PDFDocumentPrintf(*(v1 + 8), "/Subtype /Image");
+    PDFDocumentPrintf(*(v1 + 8), "/Width %z", *(v2 + 40));
+    PDFDocumentPrintf(*(v1 + 8), "/Height %z", *(v2 + 48));
+    PDFDocumentPrintf(*(v1 + 8), "/ColorSpace /DeviceGray");
+    emit_interpolation(v1);
+    v17 = CGImageGetDecode(v2);
+    emit_decode(v1, v17, 2);
+    if (*(v1 + 104) != -1)
     {
-      PDFDocumentPrintf(*(v8 + 8), "/StructParent %d", v97, v98, v99, v100, v101, v102, *(v8 + 104));
+      PDFDocumentPrintf(*(v1 + 8), "/StructParent %d", *(v1 + 104));
     }
 
-    v103 = *(v8 + 64);
-    if (v103)
+    v18 = *(v1 + 64);
+    if (v18)
     {
-      if (v103 < 0)
+      if (v18 < 0)
       {
-        NumberOfComponents = CGTaggedColorGetNumberOfComponents(v103, v96, v97, v98, v99, v100, v101, v102);
-        v103 = *(v8 + 64);
+        NumberOfComponents = CGTaggedColorGetNumberOfComponents(v18);
+        v18 = *(v1 + 64);
       }
 
       else
       {
-        NumberOfComponents = *(v103 + 56);
+        NumberOfComponents = *(v18 + 56);
       }
 
-      Components = CGColorGetComponents(v103);
-      PDFDocumentPrintf(*(v8 + 8), "/Matte [", v177, v178, v179, v180, v181, v182, decodea);
-      v189 = NumberOfComponents - 1;
+      Components = CGColorGetComponents(v18);
+      PDFDocumentPrintf(*(v1 + 8), "/Matte [");
+      v35 = NumberOfComponents - 1;
       if (NumberOfComponents != 1)
       {
         do
         {
-          v190 = *Components++;
-          PDFDocumentPrintf(*(v8 + 8), "%f", v183, v184, v185, v186, v187, v188, v190);
-          --v189;
+          v36 = *Components++;
+          PDFDocumentPrintf(*(v1 + 8), "%f", v36);
+          --v35;
         }
 
-        while (v189);
+        while (v35);
       }
 
-      PDFDocumentPrintf(*(v8 + 8), "]", v183, v184, v185, v186, v187, v188, decodeb);
+      PDFDocumentPrintf(*(v1 + 8), "]");
     }
 
-    if (*(v8 + 73) == 1)
+    if (*(v1 + 73) == 1)
     {
-      PDFDocumentPrintf(*(v8 + 8), "/BitsPerComponent %z", v97, v98, v99, v100, v101, v102, *(v9 + 56));
+      PDFDocumentPrintf(*(v1 + 8), "/BitsPerComponent %z", *(v2 + 56));
 LABEL_44:
-      emit_jpeg_data(v8);
+      emit_jpeg_data(v1);
 LABEL_50:
-      PDFStreamEnd(*(v8 + 16));
+      PDFStreamEnd(*(v1 + 16));
       goto LABEL_207;
     }
 
-    if (*(v8 + 74) == 1)
+    if (*(v1 + 74) == 1)
     {
-      PDFDocumentPrintf(*(v8 + 8), "/BitsPerComponent %z", v97, v98, v99, v100, v101, v102, *(v9 + 56));
-      v172 = v8;
-      v173 = v9;
+      PDFDocumentPrintf(*(v1 + 8), "/BitsPerComponent %z", *(v2 + 56));
+      v30 = v1;
+      v31 = v2;
       goto LABEL_47;
     }
 
-    v172 = v8;
-    v173 = v9;
+    v30 = v1;
+    v31 = v2;
     goto LABEL_49;
   }
 
-  if ((*(v8 + 74) & 1) != 0 || (v45 & 0x4000000) == 0)
+  if ((*(v1 + 74) & 1) != 0 || (v15 & 0x4000000) == 0)
   {
-    v174 = v8;
-    v175 = v9;
+    v32 = v1;
+    v33 = v2;
 LABEL_206:
-    emit_image(v174, v175, a3, a4, a5, a6, a7, a8);
+    emit_image(v32, v33);
     goto LABEL_207;
   }
 
-  PixelComponentType = CGImageGetPixelComponentType(v9);
+  PixelComponentType = CGImageGetPixelComponentType(v2);
   if (PixelComponentType == 3 || !PixelComponentType)
   {
-    PixelComponentType = CGImageGetUpscaledComponentType(v9);
+    PixelComponentType = CGImageGetUpscaledComponentType(v2);
   }
 
   if (PixelComponentType - 6 >= 0xFFFFFFFFFFFFFFFCLL)
   {
-    v106 = 2;
+    v21 = 2;
   }
 
   else
   {
-    v106 = PixelComponentType;
+    v21 = PixelComponentType;
   }
 
-  if (!*(v9 + 176))
+  if (!*(v2 + 176))
   {
     memset(__src, 0, 304);
-    CGBitmapPixelInfoInitializeWithImage(__src, __src, v9);
-    if ((v106 - 6) >= 0xFFFFFFFFFFFFFFFDLL)
+    CGBitmapPixelInfoInitializeWithImage(__src, __src, v2);
+    if ((v21 - 6) >= 0xFFFFFFFFFFFFFFFDLL)
     {
-      _CGHandleAssert("stream_create_from_image_without_softmask", 284, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "preblended ? CGPixelComponentLessThanOrEqual(pixel_component_type, kCGPixelComponent8BitInteger) : CGPixelComponentLessThanOrEqual(pixel_component_type, kCGPixelComponent16BitInteger)", "preblended %d", v195, v196, v197, 0);
+      _CGHandleAssert("stream_create_from_image_without_softmask", 284, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "preblended ? CGPixelComponentLessThanOrEqual(pixel_component_type, kCGPixelComponent8BitInteger) : CGPixelComponentLessThanOrEqual(pixel_component_type, kCGPixelComponent16BitInteger)", "preblended %d", 0);
     }
 
-    LODWORD(__src[0]) = v106;
-    *(&__src[0] + 1) = CGPixelComponentGetBitsPerComponent(v106, v191, v192, v193, v194, v195, v196, v197);
-    if (v106 == 2)
+    LODWORD(__src[0]) = v21;
+    *(&__src[0] + 1) = CGPixelComponentGetBitsPerComponent(v21);
+    if (v21 == 2)
     {
-      v198 = 12288;
-    }
-
-    else
-    {
-      v198 = 0;
-    }
-
-    if ((*(v9 + 36) & 0xC000000) != 0)
-    {
-      v199 = 3;
+      v37 = 12288;
     }
 
     else
     {
-      v199 = 0;
+      v37 = 0;
     }
 
-    *(&__src[1] + 1) = __PAIR64__(v198, v199);
-    v200 = *(v9 + 40);
-    v201 = *(v9 + 48);
+    if ((*(v2 + 36) & 0xC000000) != 0)
+    {
+      v38 = 3;
+    }
+
+    else
+    {
+      v38 = 0;
+    }
+
+    *(&__src[1] + 1) = __PAIR64__(v37, v38);
+    v39 = *(v2 + 40);
+    v40 = *(v2 + 48);
     memcpy(__dst, __src, 0x130uLL);
-    v209 = (CGBitmapPixelInfoGetBitsPerPixel(__dst, v202, v203, v204, v205, v206, v207, v208) * v200 + 7) >> 3;
-    v210 = (*(&__src[0] + 1) * v200 + 7) >> 3;
-    RenderingIntent = CGImageGetRenderingIntent(v9);
+    v41 = (CGBitmapPixelInfoGetBitsPerPixel(__dst) * v39 + 7) >> 3;
+    v42 = (*(&__src[0] + 1) * v39 + 7) >> 3;
+    RenderingIntent = CGImageGetRenderingIntent(v2);
     memcpy(__dst, __src, 0x130uLL);
-    v212 = CGDataProviderCreateForDestinationWithImage(0, __dst, v200, v201, v9, RenderingIntent, 0);
-    v213 = v212;
-    if (v212 && (v214 = *(v212 + 168)) != 0)
+    v44 = CGDataProviderCreateForDestinationWithImage(0, __dst, v39, v40, v2, RenderingIntent, 0);
+    v45 = v44;
+    if (v44 && (v46 = *(v44 + 168)) != 0)
     {
-      v215 = v214(*(v212 + 24));
+      v47 = v46(*(v44 + 24));
     }
 
     else
     {
-      v215 = 0;
+      v47 = 0;
     }
 
-    ColorSpace = CGImageGetColorSpace(v9);
+    ColorSpace = CGImageGetColorSpace(v2);
     if (DWORD2(__src[1]))
     {
-      v269 = v210;
+      v73 = v42;
     }
 
     else
     {
-      v269 = 0;
+      v73 = 0;
     }
 
     memcpy(__dst, __src, 0x130uLL);
-    image_stream = create_image_stream(ColorSpace, __dst, 0, v200, v201, v209, v269, v209, v269, v215, 0, v213, 0, 0);
+    image_stream = create_image_stream(ColorSpace, __dst, 0, v39, v40, v41, v73, v41, v73, v47, 0, v45, 0, 0);
     goto LABEL_116;
   }
 
-  Mask = CGImageGetMask(v9);
+  Mask = CGImageGetMask(v2);
   if (!Mask)
   {
-    _CGHandleAssert("stream_create_from_image_with_softmask", 449, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "mask != NULL", "mask missing", v108, v109, v110, decode);
+    _CGHandleAssert("stream_create_from_image_with_softmask", 449, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "mask != NULL", "mask missing");
   }
 
-  v111 = Mask;
-  v112 = CGImageGetPixelComponentType(v9);
-  v113 = CGImageGetPixelComponentType(v9);
-  v114 = CGImageGetPixelComponentType(v111);
-  v115 = *(v9 + 40) != *(v111 + 40) || *(v9 + 48) != *(v111 + 48);
-  v216 = *(v9 + 36);
-  if ((v216 & 0x4000000) == 0)
+  v23 = Mask;
+  v24 = CGImageGetPixelComponentType(v2);
+  v25 = CGImageGetPixelComponentType(v2);
+  v26 = CGImageGetPixelComponentType(v23);
+  v27 = *(v2 + 40) != *(v23 + 40) || *(v2 + 48) != *(v23 + 48);
+  v48 = *(v2 + 36);
+  if ((v48 & 0x4000000) == 0)
   {
-    v217 = (v216 >> 27) & 1;
-    if (v112 != v106)
+    v49 = (v48 >> 27) & 1;
+    if (v24 != v21)
     {
-      v217 = 1;
+      v49 = 1;
     }
 
-    if (((v217 | v115) & 1) == 0 && v113 == v114)
+    if (((v49 | v27) & 1) == 0 && v25 == v26)
     {
-      v218 = CGImageGetMask(v9);
+      v50 = CGImageGetMask(v2);
       memset(__src, 0, 304);
-      CGBitmapPixelInfoInitializeWithImage(__src, __src, v9);
+      CGBitmapPixelInfoInitializeWithImage(__src, __src, v2);
       memset(__dst, 0, 304);
-      CGBitmapPixelInfoInitializeWithImage(__dst, __dst, v218);
-      if (CGImageGetPixelComponentType(v9) - 6 >= 0xFFFFFFFFFFFFFFFDLL)
+      CGBitmapPixelInfoInitializeWithImage(__dst, __dst, v50);
+      if (CGImageGetPixelComponentType(v2) - 6 >= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v381 = CGImageGetPixelComponentType(v9);
-        _CGHandleAssert("stream_create_from_image_and_softmask_providers", 329, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "CGPixelComponentLessThanOrEqual(CGImageGetPixelComponentType(image), kCGPixelComponent16BitInteger)", "type %d", v382, v383, v384, v381);
+        v170 = CGImageGetPixelComponentType(v2);
+        _CGHandleAssert("stream_create_from_image_and_softmask_providers", 329, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "CGPixelComponentLessThanOrEqual(CGImageGetPixelComponentType(image), kCGPixelComponent16BitInteger)", "type %d", v170);
       }
 
-      if (CGImageGetPixelComponentType(v218) - 6 >= 0xFFFFFFFFFFFFFFFDLL)
+      if (CGImageGetPixelComponentType(v50) - 6 >= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v385 = CGImageGetPixelComponentType(v218);
-        _CGHandleAssert("stream_create_from_image_and_softmask_providers", 330, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "CGPixelComponentLessThanOrEqual(CGImageGetPixelComponentType(smask), kCGPixelComponent16BitInteger)", "mask %d", v386, v387, v388, v385);
+        v171 = CGImageGetPixelComponentType(v50);
+        _CGHandleAssert("stream_create_from_image_and_softmask_providers", 330, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "CGPixelComponentLessThanOrEqual(CGImageGetPixelComponentType(smask), kCGPixelComponent16BitInteger)", "mask %d", v171);
       }
 
-      LODWORD(__src[0]) = v106;
-      *(&__src[0] + 1) = CGPixelComponentGetBitsPerComponent(v106, v219, v220, v221, v222, v223, v224, v225);
-      if (CGImageGetPixelComponentType(v9) == 2)
+      LODWORD(__src[0]) = v21;
+      *(&__src[0] + 1) = CGPixelComponentGetBitsPerComponent(v21);
+      if (CGImageGetPixelComponentType(v2) == 2)
       {
-        v233 = 12288;
+        v51 = 12288;
       }
 
       else
       {
-        v233 = 0;
+        v51 = 0;
       }
 
-      HIDWORD(__src[1]) = v233;
+      HIDWORD(__src[1]) = v51;
       if (DWORD2(__src[1]))
       {
-        _CGHandleAssert("stream_create_from_image_and_softmask_providers", 340, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "image_info.alpha_info == kCGImageAlphaNone", "alpha %d", v230, v231, v232, SBYTE8(__src[1]));
+        _CGHandleAssert("stream_create_from_image_and_softmask_providers", 340, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "image_info.alpha_info == kCGImageAlphaNone", "alpha %d", DWORD2(__src[1]));
       }
 
-      LODWORD(__dst[0]) = v106;
-      *(&__src[0] + 1) = CGPixelComponentGetBitsPerComponent(v106, v226, v227, v228, v229, v230, v231, v232);
-      if (CGImageGetPixelComponentType(v218) == 2)
+      LODWORD(__dst[0]) = v21;
+      *(&__src[0] + 1) = CGPixelComponentGetBitsPerComponent(v21);
+      if (CGImageGetPixelComponentType(v50) == 2)
       {
-        v234 = 12288;
+        v52 = 12288;
       }
 
       else
       {
-        v234 = 0;
+        v52 = 0;
       }
 
-      HIDWORD(__dst[1]) = v234;
-      v235 = *(v9 + 40);
-      v236 = *(v9 + 48);
-      memcpy(v414, __src, sizeof(v414));
-      v244 = (CGBitmapPixelInfoGetBitsPerPixel(v414, v237, v238, v239, v240, v241, v242, v243) * v235 + 7) >> 3;
-      v245 = *(&__src[0] + 1) * v235 + 7;
-      v246 = CGImageGetRenderingIntent(v9);
-      memcpy(v414, __src, sizeof(v414));
-      v247 = CGDataProviderCreateForDestinationWithImage(0, v414, v235, v236, v9, v246, 0);
-      v248 = CGImageGetRenderingIntent(v218);
-      memcpy(v414, __dst, sizeof(v414));
-      v249 = CGDataProviderCreateForDestinationWithImage(0, v414, v235, v236, v218, v248, 0);
-      provider = v244;
-      if (v247 && (v250 = *(v247 + 21)) != 0)
+      HIDWORD(__dst[1]) = v52;
+      v53 = *(v2 + 40);
+      v54 = *(v2 + 48);
+      memcpy(v183, __src, sizeof(v183));
+      v55 = (CGBitmapPixelInfoGetBitsPerPixel(v183) * v53 + 7) >> 3;
+      v56 = *(&__src[0] + 1) * v53 + 7;
+      v57 = CGImageGetRenderingIntent(v2);
+      memcpy(v183, __src, sizeof(v183));
+      v58 = CGDataProviderCreateForDestinationWithImage(0, v183, v53, v54, v2, v57, 0);
+      v59 = CGImageGetRenderingIntent(v50);
+      memcpy(v183, __dst, sizeof(v183));
+      v60 = CGDataProviderCreateForDestinationWithImage(0, v183, v53, v54, v50, v59, 0);
+      provider = v55;
+      if (v58 && (v61 = *(v58 + 21)) != 0)
       {
-        v409 = v250(*(v247 + 3));
+        v178 = v61(*(v58 + 3));
       }
 
       else
       {
-        v409 = 0;
+        v178 = 0;
       }
 
-      v271 = v245 >> 3;
-      v272 = v9;
-      if (v249 && (v273 = *(v249 + 21)) != 0)
+      v75 = v56 >> 3;
+      v76 = v2;
+      if (v60 && (v77 = *(v60 + 21)) != 0)
       {
-        v274 = v273(*(v249 + 3));
+        v78 = v77(*(v60 + 3));
       }
 
       else
       {
-        v274 = 0;
+        v78 = 0;
       }
 
-      v275 = CGImageGetColorSpace(v272);
-      Matte = CGImageGetMatte(v272);
-      memcpy(v414, __src, sizeof(v414));
-      v403 = v274;
-      v9 = v272;
-      v267 = create_image_stream(v275, v414, 0, v235, v236, provider, v271, provider, v271, v409, v403, v247, v249, Matte);
-      CGDataProviderRelease(v247);
-      v277 = v249;
+      v79 = CGImageGetColorSpace(v76);
+      Matte = CGImageGetMatte(v76);
+      memcpy(v183, __src, sizeof(v183));
+      v172 = v78;
+      v2 = v76;
+      v71 = create_image_stream(v79, v183, 0, v53, v54, provider, v75, provider, v75, v178, v172, v58, v60, Matte);
+      CGDataProviderRelease(v58);
+      v81 = v60;
       goto LABEL_117;
     }
   }
 
-  if ((v106 - 3) >= 3)
+  if ((v21 - 3) >= 3)
   {
-    v251 = v106;
+    v62 = v21;
   }
 
   else
   {
-    v251 = 2;
+    v62 = 2;
   }
 
-  if ((v106 - 6) < 0xFFFFFFFFFFFFFFFBLL)
+  if ((v21 - 6) < 0xFFFFFFFFFFFFFFFBLL)
   {
-    v252 = 1;
+    v63 = 1;
   }
 
   else
   {
-    v252 = v251;
+    v63 = v62;
   }
 
-  v253 = CGImageGetMask(v9);
-  v254 = CGImageGetMatte(v9);
+  v64 = CGImageGetMask(v2);
+  v65 = CGImageGetMatte(v2);
   memset(__src, 0, 304);
-  CGBitmapPixelInfoInitializeWithImage(__src, __src, v9);
+  CGBitmapPixelInfoInitializeWithImage(__src, __src, v2);
   DWORD2(__src[1]) = 3;
-  LODWORD(__src[0]) = v252;
-  *(&__src[0] + 1) = CGPixelComponentGetBitsPerComponent(v252, v255, v256, v257, v258, v259, v260, v261);
-  if (v252 == 2)
+  LODWORD(__src[0]) = v63;
+  *(&__src[0] + 1) = CGPixelComponentGetBitsPerComponent(v63);
+  if (v63 == 2)
   {
-    v262 = 12288;
+    v66 = 12288;
   }
 
   else
   {
-    v262 = 0;
+    v66 = 0;
   }
 
-  HIDWORD(__src[1]) = v262;
-  v263 = *(v9 + 40);
-  v264 = *(v9 + 48);
-  if (!v253)
+  HIDWORD(__src[1]) = v66;
+  v67 = *(v2 + 40);
+  v68 = *(v2 + 48);
+  if (!v64)
   {
 LABEL_107:
-    v278 = CGImageGetRenderingIntent(v9);
+    v82 = CGImageGetRenderingIntent(v2);
     memcpy(__dst, __src, 0x130uLL);
-    v213 = CGDataProviderCreateWithSoftMaskAndMatte(0, __dst, v263, v264, v9, v278);
+    v45 = CGDataProviderCreateWithSoftMaskAndMatte(0, __dst, v67, v68, v2, v82);
     memcpy(__dst, __src, 0x130uLL);
-    v286 = (CGBitmapPixelInfoGetBitsPerPixel(__dst, v279, v280, v281, v282, v283, v284, v285) * v263 + 7) >> 3;
-    if (v213)
+    v83 = (CGBitmapPixelInfoGetBitsPerPixel(__dst) * v67 + 7) >> 3;
+    if (v45)
     {
-      v287 = *(v213 + 21);
-      if (v287)
+      v84 = *(v45 + 21);
+      if (v84)
       {
-        v288 = v287(*(v213 + 3));
+        v85 = v84(*(v45 + 3));
       }
 
       else
       {
-        v288 = 0;
+        v85 = 0;
       }
 
-      v289 = *(v213 + 22);
-      if (v289)
+      v86 = *(v45 + 22);
+      if (v86)
       {
-        v290 = v289(*(v213 + 3));
+        v87 = v86(*(v45 + 3));
 LABEL_115:
-        v291 = v9;
-        v292 = CGImageGetColorSpace(v9);
+        v88 = v2;
+        v89 = CGImageGetColorSpace(v2);
         memcpy(__dst, __src, 0x130uLL);
-        v293 = v292;
-        v9 = v291;
-        image_stream = create_image_stream(v293, __dst, 1, v263, v264, v286, v286, v286, v286, v288, v290, v213, 0, v254);
+        v90 = v89;
+        v2 = v88;
+        image_stream = create_image_stream(v90, __dst, 1, v67, v68, v83, v83, v83, v83, v85, v87, v45, 0, v65);
 LABEL_116:
-        v267 = image_stream;
-        v277 = v213;
+        v71 = image_stream;
+        v81 = v45;
 LABEL_117:
-        CGDataProviderRelease(v277);
+        CGDataProviderRelease(v81);
         goto LABEL_118;
       }
     }
 
     else
     {
-      v288 = 0;
+      v85 = 0;
     }
 
-    v290 = 0;
+    v87 = 0;
     goto LABEL_115;
   }
 
-  v265 = v253[5];
-  if (v265 - 0x4000000 >= 0xFFFFFFFFFC000001)
+  v69 = v64[5];
+  if (v69 - 0x4000000 >= 0xFFFFFFFFFC000001)
   {
-    v266 = v253[6];
-    if (v266 - 0x4000000 >= 0xFFFFFFFFFC000001)
+    v70 = v64[6];
+    if (v70 - 0x4000000 >= 0xFFFFFFFFFC000001)
     {
-      if (v265 > v263)
+      if (v69 > v67)
       {
-        v263 = v253[5];
+        v67 = v64[5];
       }
 
-      if (v266 > v264)
+      if (v70 > v68)
       {
-        v264 = v253[6];
+        v68 = v64[6];
       }
 
       goto LABEL_107;
     }
   }
 
-  v267 = 0;
+  v71 = 0;
 LABEL_118:
-  if (!v267)
+  if (!v71)
   {
     goto LABEL_205;
   }
 
-  v294 = (*(v267 + 2) * *(v267 + 3) * *(v267 + 39) + 7) >> 3;
-  v295 = *MEMORY[0x1E695E480];
-  Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], v294 * *(v267 + 40));
+  v91 = (*(v71 + 2) * *(v71 + 3) * *(v71 + 39) + 7) >> 3;
+  v92 = *MEMORY[0x1E695E480];
+  Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], v91 * *(v71 + 40));
   if (!Mutable)
   {
     goto LABEL_205;
   }
 
-  v297 = Mutable;
-  if (!*(v267 + 42))
+  v94 = Mutable;
+  if (!*(v71 + 42))
   {
-    image = v9;
-    v405 = v8;
-    v298 = 0;
-    v300 = 0;
+    image = v2;
+    v174 = v1;
+    v95 = 0;
+    v97 = 0;
     goto LABEL_124;
   }
 
-  v298 = (*(v267 + 39) * *(v267 + 2) + 7) >> 3;
-  v299 = CFDataCreateMutable(v295, v298 * *(v267 + 40));
-  if (!v299)
+  v95 = (*(v71 + 39) * *(v71 + 2) + 7) >> 3;
+  v96 = CFDataCreateMutable(v92, v95 * *(v71 + 40));
+  if (!v96)
   {
-    CFRelease(v297);
+    CFRelease(v94);
 LABEL_205:
-    v174 = v8;
-    v175 = 0;
+    v32 = v1;
+    v33 = 0;
     goto LABEL_206;
   }
 
-  v300 = v299;
-  image = v9;
-  v405 = v8;
+  v97 = v96;
+  image = v2;
+  v174 = v1;
 LABEL_124:
-  for (providera = 0; ; providera = (providera + v312))
+  for (providera = 0; ; providera = (providera + v109))
   {
-    v301 = *(v267 + 40);
-    v302 = v301 > providera;
-    v303 = v301 - providera;
-    if (!v302)
+    v98 = *(v71 + 40);
+    v99 = v98 > providera;
+    v100 = v98 - providera;
+    if (!v99)
     {
       break;
     }
 
-    if (v303 >= *(v267 + 43))
+    if (v100 >= *(v71 + 43))
     {
-      v304 = *(v267 + 43);
+      v101 = *(v71 + 43);
     }
 
     else
     {
-      v304 = v303;
+      v101 = v100;
     }
 
-    if (v267[521] == 1)
+    if (v71[521] == 1)
     {
-      v305 = *(v267 + 67) == 0;
-      v306 = (v267 + 384);
-      if (*(v267 + 67))
+      v102 = *(v71 + 67) == 0;
+      v103 = (v71 + 384);
+      if (*(v71 + 67))
       {
-        v306 = (v267 + 368);
+        v103 = (v71 + 368);
       }
     }
 
     else
     {
-      v305 = 0;
-      v306 = (v267 + 368);
+      v102 = 0;
+      v103 = (v71 + 368);
     }
 
-    ChunksAtPosition = CGAccessSessionGetChunksAtPosition(*(v267 + 84), *(v267 + 44) * providera, *(v267 + 41), *(v267 + 44) - *(v267 + 41), v304, *v306, 0, a8);
-    v308 = *(v267 + 41);
-    v309 = ChunksAtPosition + v308 - 1;
-    if (v308 <= 1)
+    ChunksAtPosition = CGAccessSessionGetChunksAtPosition(*(v71 + 84), *(v71 + 44) * providera, *(v71 + 41), *(v71 + 44) - *(v71 + 41), v101, *v103, 0);
+    v105 = *(v71 + 41);
+    v106 = ChunksAtPosition + v105 - 1;
+    if (v105 <= 1)
     {
-      v310 = 1;
+      v107 = 1;
     }
 
     else
     {
-      v310 = *(v267 + 41);
+      v107 = *(v71 + 41);
     }
 
-    v311 = *(v267 + 85);
-    v312 = v309 / v310;
-    if (v311)
+    v108 = *(v71 + 85);
+    v109 = v106 / v107;
+    if (v108)
     {
-      v313 = v304;
-      v314 = v309;
-      v315 = CGAccessSessionGetChunksAtPosition(v311, *(v267 + 45) * providera, *(v267 + 42), *(v267 + 45) - *(v267 + 42), v313, *(v267 + 47), 0, v309);
-      v309 = v314;
-      v318 = (v315 + *(v267 + 42) - 1) / *(v267 + 42);
-      if (v318 != v312)
+      v110 = v101;
+      v111 = v106;
+      v112 = CGAccessSessionGetChunksAtPosition(v108, *(v71 + 45) * providera, *(v71 + 42), *(v71 + 45) - *(v71 + 42), v110, *(v71 + 47), 0);
+      v106 = v111;
+      v113 = (v112 + *(v71 + 42) - 1) / *(v71 + 42);
+      if (v113 != v109)
       {
-        _CGHandleAssert("CGImageStreamRead", 576, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "smask_rows_read == rows_read", "%zu %zu", v316, v317, v314, v318);
+        _CGHandleAssert("CGImageStreamRead", 576, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGImageStream.c", "smask_rows_read == rows_read", "%zu %zu", v113, v109);
       }
     }
 
-    if (!v305)
+    if (!v102)
     {
       goto LABEL_187;
     }
 
-    v406 = *(v267 + 48);
-    v407 = v310;
-    v319 = *(v267 + 39);
-    v408 = v309;
-    memcpy(&__src[2] + 8, v267 + 696, 0x130uLL);
-    v320 = *(v267 + 41);
-    v321 = v298;
-    v322 = *(v267 + 46);
-    memcpy(&__dst[2] + 8, v267 + 1000, 0x130uLL);
-    v323 = *(v267 + 86);
-    *&__src[0] = v406;
-    *(&__src[0] + 1) = v319;
-    *&__src[1] = v312;
-    *(&__src[1] + 1) = v320;
+    v175 = *(v71 + 48);
+    v176 = v107;
+    v114 = *(v71 + 39);
+    v177 = v106;
+    memcpy(&__src[2] + 8, v71 + 696, 0x130uLL);
+    v115 = *(v71 + 41);
+    v116 = v95;
+    v117 = *(v71 + 46);
+    memcpy(&__dst[2] + 8, v71 + 1000, 0x130uLL);
+    v118 = *(v71 + 86);
+    *&__src[0] = v175;
+    *(&__src[0] + 1) = v114;
+    *&__src[1] = v109;
+    *(&__src[1] + 1) = v115;
     *&__src[2] = 0;
-    *&__dst[0] = v322;
-    *(&__dst[0] + 1) = v319;
-    v298 = v321;
-    *&__dst[1] = v312;
-    *(&__dst[1] + 1) = v320;
+    *&__dst[0] = v117;
+    *(&__dst[0] + 1) = v114;
+    v95 = v116;
+    *&__dst[1] = v109;
+    *(&__dst[1] + 1) = v115;
     *&__dst[2] = 0;
-    vImageConverterConvert(v323, __src, __dst, 0);
-    v310 = v407;
-    v309 = v408;
-    if (v407 > v408)
+    vImageConverterConvert(v118, __src, __dst, 0);
+    v107 = v176;
+    v106 = v177;
+    if (v176 > v177)
     {
       goto LABEL_187;
     }
 
-    v324 = 0;
-    v325 = *(v267 + 89);
-    v326 = *(v267 + 88);
-    v328 = *(v267 + 47);
-    v327 = *(v267 + 48);
-    v329 = v326 - 24;
+    v119 = 0;
+    v120 = *(v71 + 89);
+    v121 = *(v71 + 88);
+    v123 = *(v71 + 47);
+    v122 = *(v71 + 48);
+    v124 = v121 - 24;
     do
     {
-      v330 = *(v267 + 39);
-      if (!v330)
+      v125 = *(v71 + 39);
+      if (!v125)
       {
         goto LABEL_186;
       }
 
       LODWORD(j) = 0;
-      v332 = 0;
-      v333 = 0;
-      LODWORD(v334) = 0;
-      v335 = 0;
-      v336 = v328;
-      v337 = v327;
+      v127 = 0;
+      v128 = 0;
+      LODWORD(v129) = 0;
+      v130 = 0;
+      v131 = v123;
+      v132 = v122;
       do
       {
-        if (v325)
+        if (v120)
         {
-          for (i = 0; i != v325; ++i)
+          for (i = 0; i != v120; ++i)
           {
-            if (v326 < 0x19)
+            if (v121 < 0x19)
             {
-              v342 = v326;
+              v137 = v121;
             }
 
             else
             {
-              if (v334 > 0x17)
+              if (v129 > 0x17)
               {
-                v340 = v334;
+                v135 = v129;
               }
 
               else
               {
                 do
                 {
-                  v339 = *v337++;
-                  v335 = v339 | (v335 << 8);
-                  v340 = v334 + 8;
-                  v341 = v334 >= 0x10;
-                  LODWORD(v334) = v334 + 8;
+                  v134 = *v132++;
+                  v130 = v134 | (v130 << 8);
+                  v135 = v129 + 8;
+                  v136 = v129 >= 0x10;
+                  LODWORD(v129) = v129 + 8;
                 }
 
-                while (!v341);
+                while (!v136);
               }
 
-              LODWORD(v334) = v340 - 24;
-              v342 = v326 - 24;
+              LODWORD(v129) = v135 - 24;
+              v137 = v121 - 24;
             }
 
-            if (v342 > v334)
+            if (v137 > v129)
             {
               do
               {
-                v343 = *v337++;
-                v335 = v343 | (v335 << 8);
-                v334 = (v334 + 8);
+                v138 = *v132++;
+                v130 = v138 | (v130 << 8);
+                v129 = (v129 + 8);
               }
 
-              while (v342 > v334);
+              while (v137 > v129);
             }
 
-            LODWORD(v334) = v334 - v342;
+            LODWORD(v129) = v129 - v137;
           }
         }
 
-        if (v326 <= 0x18)
+        if (v121 <= 0x18)
         {
-          v346 = 0;
-          v347 = v334;
-          v348 = v326;
+          v141 = 0;
+          v142 = v129;
+          v143 = v121;
         }
 
         else
         {
-          if (v334 > 0x17)
+          if (v129 > 0x17)
           {
-            v345 = v334;
+            v140 = v129;
           }
 
           else
           {
             do
             {
-              v344 = *v337++;
-              v335 = v344 | (v335 << 8);
-              v345 = v334 + 8;
-              v341 = v334 >= 0x10;
-              LODWORD(v334) = v334 + 8;
+              v139 = *v132++;
+              v130 = v139 | (v130 << 8);
+              v140 = v129 + 8;
+              v136 = v129 >= 0x10;
+              LODWORD(v129) = v129 + 8;
             }
 
-            while (!v341);
+            while (!v136);
           }
 
-          v347 = (v345 - 24);
-          v346 = ((v335 >> (v345 - 24)) & 0xFFFFFF) << v329;
-          LODWORD(v334) = v347;
-          v348 = v326 - 24;
+          v142 = (v140 - 24);
+          v141 = ((v130 >> (v140 - 24)) & 0xFFFFFF) << v124;
+          LODWORD(v129) = v142;
+          v143 = v121 - 24;
         }
 
-        if (v348 > v347)
+        if (v143 > v142)
         {
           do
           {
-            v349 = *v337++;
-            v335 = v349 | (v335 << 8);
-            v334 = (v334 + 8);
+            v144 = *v132++;
+            v130 = v144 | (v130 << 8);
+            v129 = (v129 + 8);
           }
 
-          while (v348 > v334);
+          while (v143 > v129);
         }
 
-        LODWORD(v334) = v334 - v348;
-        v350 = (v335 >> v334) & ~(-1 << v348) | v346;
-        if (v326 < 0x19)
+        LODWORD(v129) = v129 - v143;
+        v145 = (v130 >> v129) & ~(-1 << v143) | v141;
+        if (v121 < 0x19)
         {
-          v351 = v326;
+          v146 = v121;
           if (j < 8)
           {
             goto LABEL_177;
@@ -4388,35 +4439,35 @@ LABEL_124:
         {
           if (j >= 8)
           {
-            for (j = j; j > 7; *v336++ = v333 >> j)
+            for (j = j; j > 7; *v131++ = v128 >> j)
             {
               j -= 8;
             }
           }
 
           LODWORD(j) = j | 0x18;
-          v333 = (v350 >> v329) & 0xFFFFFF | (v333 << 24);
-          v351 = v326 - 24;
+          v128 = (v145 >> v124) & 0xFFFFFF | (v128 << 24);
+          v146 = v121 - 24;
         }
 
-        v352 = (j - 8);
+        v147 = (j - 8);
         do
         {
           LODWORD(j) = j - 8;
-          *v336++ = v333 >> v352;
-          v352 -= 8;
+          *v131++ = v128 >> v147;
+          v147 -= 8;
         }
 
         while (j > 7);
-        v330 = *(v267 + 39);
+        v125 = *(v71 + 39);
 LABEL_177:
-        v333 = (v333 << v351) | v350 & ~(-1 << v351);
-        LODWORD(j) = j + v351;
-        ++v332;
+        v128 = (v128 << v146) | v145 & ~(-1 << v146);
+        LODWORD(j) = j + v146;
+        ++v127;
       }
 
-      while (v332 < v330);
-      if (v336 && j)
+      while (v127 < v125);
+      if (v131 && j)
       {
         do
         {
@@ -4427,147 +4478,147 @@ LABEL_177:
 
           else
           {
-            for (k = j; k > 7; *v336++ = v333 >> k)
+            for (k = j; k > 7; *v131++ = v128 >> k)
             {
               k -= 8;
             }
           }
 
-          v354 = -j & 7;
-          v333 <<= v354;
-          LODWORD(j) = k + v354;
+          v149 = -j & 7;
+          v128 <<= v149;
+          LODWORD(j) = k + v149;
         }
 
         while (j);
       }
 
 LABEL_186:
-      v327 += *(v267 + 41);
-      v328 += *(v267 + 42);
-      ++v324;
+      v122 += *(v71 + 41);
+      v123 += *(v71 + 42);
+      ++v119;
     }
 
-    while (v324 != v312);
+    while (v119 != v109);
 LABEL_187:
-    if (v310 > v309)
+    if (v107 > v106)
     {
       break;
     }
 
-    v355 = 0;
+    v150 = 0;
     do
     {
-      CFDataAppendBytes(v297, (*(v267 + 46) + *(v267 + 41) * v355), v294);
-      if (v300)
+      CFDataAppendBytes(v94, (*(v71 + 46) + *(v71 + 41) * v150), v91);
+      if (v97)
       {
-        CFDataAppendBytes(v300, (*(v267 + 47) + *(v267 + 42) * v355), v298);
+        CFDataAppendBytes(v97, (*(v71 + 47) + *(v71 + 42) * v150), v95);
       }
 
-      ++v355;
+      ++v150;
     }
 
-    while (v312 != v355);
+    while (v109 != v150);
   }
 
-  providerb = CGDataProviderCreateWithCFData(v297);
-  CFRelease(v297);
+  providerb = CGDataProviderCreateWithCFData(v94);
+  CFRelease(v94);
   shouldInterpolate = CGImageGetShouldInterpolate(image);
-  v356 = CGImageGetRenderingIntent(image);
-  CopyWithStandardRange = CGColorSpaceCreateCopyWithStandardRange(*v267);
-  v359 = *(v267 + 39);
-  v358 = *(v267 + 40);
-  v360 = *(v267 + 2);
-  v361 = *(v267 + 3) * v360;
-  memcpy(__src, v267 + 8, 0x130uLL);
+  v151 = CGImageGetRenderingIntent(image);
+  CopyWithStandardRange = CGColorSpaceCreateCopyWithStandardRange(*v71);
+  v154 = *(v71 + 39);
+  v153 = *(v71 + 40);
+  v155 = *(v71 + 2);
+  v156 = *(v71 + 3) * v155;
+  memcpy(__src, v71 + 8, 0x130uLL);
   CGImageBitmapInfo = CGBitmapPixelInfoGetCGImageBitmapInfo(__src);
-  v363 = CGImageCreate(v359, v358, v360, v361, v294, CopyWithStandardRange, CGImageBitmapInfo & 0xFFFFFFE0, providerb, *(v267 + 6), shouldInterpolate, v356);
+  v158 = CGImageCreate(v154, v153, v155, v156, v91, CopyWithStandardRange, CGImageBitmapInfo & 0xFFFFFFE0, providerb, *(v71 + 6), shouldInterpolate, v151);
   CGDataProviderRelease(providerb);
   CGColorSpaceRelease(CopyWithStandardRange);
-  if (v300)
+  if (v97)
   {
-    v364 = CGDataProviderCreateWithCFData(v300);
-    CFRelease(v300);
+    v159 = CGDataProviderCreateWithCFData(v97);
+    CFRelease(v97);
     DeviceGray = CGColorSpaceCreateDeviceGray();
-    v366 = *(v267 + 39);
-    v367 = *(v267 + 40);
-    v368 = *(v267 + 2);
-    memcpy(__src, v267 + 8, 0x130uLL);
-    v369 = CGBitmapPixelInfoGetCGImageBitmapInfo(__src);
-    v370 = CGImageCreate(v366, v367, v368, v368, v298, DeviceGray, v369 & 0xFFFFFFE0, v364, 0, 0, kCGRenderingIntentDefault);
+    v161 = *(v71 + 39);
+    v162 = *(v71 + 40);
+    v163 = *(v71 + 2);
+    memcpy(__src, v71 + 8, 0x130uLL);
+    v164 = CGBitmapPixelInfoGetCGImageBitmapInfo(__src);
+    v165 = CGImageCreate(v161, v162, v163, v163, v95, DeviceGray, v164 & 0xFFFFFFE0, v159, 0, 0, kCGRenderingIntentDefault);
     CGColorSpaceRelease(DeviceGray);
-    CGDataProviderRelease(v364);
-    if (v267[520])
+    CGDataProviderRelease(v159);
+    if (v71[520])
     {
-      v371 = (v267 + 392);
+      v166 = (v71 + 392);
     }
 
     else
     {
-      v371 = 0;
+      v166 = 0;
     }
 
-    v372 = CGImageCreateWithMaskAndMatte(v363, v370, v371);
-    v8 = v405;
-    if (v363)
+    v167 = CGImageCreateWithMaskAndMatte(v158, v165, v166);
+    v1 = v174;
+    if (v158)
     {
-      CFRelease(v363);
+      CFRelease(v158);
     }
 
-    if (v370)
+    if (v165)
     {
-      CFRelease(v370);
+      CFRelease(v165);
     }
   }
 
   else
   {
-    v372 = v363;
-    v8 = v405;
+    v167 = v158;
+    v1 = v174;
   }
 
-  CGImageStreamRelease(v267);
-  emit_image(v8, v372, v373, v374, v375, v376, v377, v378);
-  if (v372)
+  CGImageStreamRelease(v71);
+  emit_image(v1, v167);
+  if (v167)
   {
-    CFRelease(v372);
+    CFRelease(v167);
   }
 
 LABEL_207:
-  v379 = *(v8 + 48);
-  if (v379)
+  v168 = *(v1 + 48);
+  if (v168)
   {
-    CFRelease(v379);
+    CFRelease(v168);
   }
 
-  *(v8 + 48) = 0;
-  v380 = *(v8 + 80);
-  if (v380)
+  *(v1 + 48) = 0;
+  v169 = *(v1 + 80);
+  if (v169)
   {
-    CFRelease(v380);
-    *(v8 + 80) = 0;
+    CFRelease(v169);
+    *(v1 + 80) = 0;
   }
 
-  CGColorSpaceRelease(*(v8 + 88));
-  *(v8 + 88) = 0;
+  CGColorSpaceRelease(*(v1 + 88));
+  *(v1 + 88) = 0;
 }
 
-char *CGContextCopyTopGState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *CGContextCopyTopGState(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v8 = *(a1 + 96);
+    v1 = *(a1 + 96);
 
-    return CGGStateCreateCopy(v8);
+    return CGGStateCreateCopy(v1);
   }
 
   else
   {
-    handle_invalid_context("CGContextCopyTopGState", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextCopyTopGState", a1);
     return 0;
   }
 }
 
-void CGContextReplaceTopGState(CGContext *c, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGContextReplaceTopGState(CGContext *c, uint64_t a2)
 {
   if (c)
   {
@@ -4575,59 +4626,34 @@ void CGContextReplaceTopGState(CGContext *c, uint64_t a2, uint64_t a3, uint64_t 
     {
       if (a2)
       {
-        v10 = *(c + 13);
-        v11 = v10[1];
-        if (v11 != v10)
+        v4 = *(c + 13);
+        v5 = v4[1];
+        if (v5 != v4)
         {
-          v13 = *v11;
-          v12 = v11[1];
-          *(v13 + 8) = v12;
-          *v12 = v13;
-          *v11 = v11;
-          v11[1] = v11;
-          CGGStateRelease(v11);
+          v7 = *v5;
+          v6 = v5[1];
+          *(v7 + 8) = v6;
+          *v6 = v7;
+          *v5 = v5;
+          v5[1] = v5;
+          CGGStateRelease(v5);
         }
 
         Copy = CGGStateCreateCopy(a2);
-        v15 = v10[1];
-        v10[1] = Copy;
-        *Copy = v10;
-        *v15 = Copy;
-        *(Copy + 1) = v15;
-        *(c + 12) = v10[1];
+        v9 = v4[1];
+        v4[1] = Copy;
+        *Copy = v4;
+        *v9 = Copy;
+        *(Copy + 1) = v9;
+        *(c + 12) = v4[1];
       }
 
       else
       {
 
-        CGContextResetTopGState(c, 0, a3, a4, a5, a6, a7, a8);
+        CGContextResetTopGState(c);
       }
 
-      return;
-    }
-
-    v16 = c;
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  handle_invalid_context("CGContextReplaceTopGState", v16, a3, a4, a5, a6, a7, a8);
-}
-
-void CGContextResetTopGState(CGContext *c, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (c)
-  {
-    if (*(c + 4) == 1129601108)
-    {
-      *(*(c + 12) + 24) = CGAffineTransformIdentity;
-      CGContextResetClip(c);
-      v9 = *(c + 12);
-
-      CGGStateReset(v9);
       return;
     }
 
@@ -4639,7 +4665,33 @@ void CGContextResetTopGState(CGContext *c, uint64_t a2, uint64_t a3, uint64_t a4
     v10 = 0;
   }
 
-  handle_invalid_context("CGContextResetTopGState", v10, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextReplaceTopGState", v10);
+}
+
+double CGContextResetTopGState(CGContext *c)
+{
+  if (c)
+  {
+    if (*(c + 4) == 1129601108)
+    {
+      *(*(c + 12) + 24) = CGAffineTransformIdentity;
+      CGContextResetClip(c);
+      v2 = *(c + 12);
+
+      CGGStateReset(v2);
+      return result;
+    }
+
+    v4 = c;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  handle_invalid_context("CGContextResetTopGState", v4);
+  return result;
 }
 
 void CGContextResetClip(CGContextRef c)
@@ -4651,292 +4703,301 @@ void CGContextResetClip(CGContextRef c)
 
   else
   {
-    handle_invalid_context("CGContextResetClip", c, v1, v2, v3, v4, v5, v6);
+    handle_invalid_context("CGContextResetClip", c);
   }
 }
 
-void CGContextResetCTM(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CGFloat CGContextResetCTM(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     *(*(a1 + 96) + 24) = CGAffineTransformIdentity;
+    return CGAffineTransformIdentity.tx;
   }
 
   else
   {
-    handle_invalid_context("CGContextResetCTM", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextResetCTM", a1);
   }
+
+  return result;
 }
 
-void CGContextSetCTM(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextSetCTM(uint64_t a1, __int128 *a2)
 {
   if (a1)
   {
     if (*(a1 + 16) == 1129601108)
     {
-      v8 = *(a1 + 96);
-      v9 = *a2;
-      v10 = a2[1];
-      *(v8 + 56) = a2[2];
-      *(v8 + 40) = v10;
-      *(v8 + 24) = v9;
-      return;
+      v2 = *(a1 + 96);
+      v3 = *a2;
+      v4 = a2[1];
+      *(v2 + 56) = a2[2];
+      *(v2 + 40) = v4;
+      *(v2 + 24) = v3;
     }
 
-    v11 = a1;
+    else
+    {
+      handle_invalid_context("CGContextSetCTM", a1);
+    }
   }
 
   else
   {
-    v11 = 0;
+    handle_invalid_context("CGContextSetCTM", 0);
   }
 
-  handle_invalid_context("CGContextSetCTM", v11, a3, a4, a5, a6, a7, a8);
+  return *&v3;
 }
 
 void CGContextRotateCTM(CGContextRef c, CGFloat angle)
 {
   if (c && *(c + 4) == 1129601108)
   {
-    v9 = *(c + 12);
-    v11 = *(v9 + 40);
-    v12 = *(v9 + 24);
-    v13 = *(v9 + 56);
-    v10 = __sincos_stret(angle);
-    *(v9 + 24) = vmlaq_n_f64(vmulq_n_f64(v11, v10.__sinval), v12, v10.__cosval);
-    *(v9 + 40) = vmlsq_lane_f64(vmulq_n_f64(v11, v10.__cosval), v12, v10.__sinval, 0);
-    *(v9 + 56) = vaddq_f64(v13, vmlaq_f64(vmulq_f64(v11, 0), 0, v12));
+    v3 = *(c + 12);
+    v5 = *(v3 + 40);
+    v6 = *(v3 + 24);
+    v7 = *(v3 + 56);
+    v4 = __sincos_stret(angle);
+    *(v3 + 24) = vmlaq_n_f64(vmulq_n_f64(v5, v4.__sinval), v6, v4.__cosval);
+    *(v3 + 40) = vmlsq_lane_f64(vmulq_n_f64(v5, v4.__cosval), v6, v4.__sinval, 0);
+    *(v3 + 56) = vaddq_f64(v7, vmlaq_f64(vmulq_f64(v5, 0), 0, v6));
   }
 
   else
   {
 
-    handle_invalid_context("CGContextRotateCTM", c, v2, v3, v4, v5, v6, v7);
+    handle_invalid_context("CGContextRotateCTM", c);
   }
 }
 
-double CGContextGetLineWidth(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetLineWidth(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 128) + 8);
   }
 
-  handle_invalid_context("CGContextGetLineWidth", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetLineWidth", a1);
   return 0.0;
 }
 
-uint64_t CGContextGetLineCap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetLineCap(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 128) + 2);
   }
 
-  handle_invalid_context("CGContextGetLineCap", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetLineCap", a1);
   return 0;
 }
 
-uint64_t CGContextGetLineJoin(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetLineJoin(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 128) + 3);
   }
 
-  handle_invalid_context("CGContextGetLineJoin", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetLineJoin", a1);
   return 0;
 }
 
-double CGContextGetMiterLimit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetMiterLimit(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 128) + 16);
   }
 
-  handle_invalid_context("CGContextGetMiterLimit", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetMiterLimit", a1);
   return 0.0;
 }
 
-uint64_t CGContextGetLineDashCount(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetLineDashCount(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v8 = *(*(*(a1 + 96) + 128) + 32);
-    if (v8)
+    v1 = *(*(*(a1 + 96) + 128) + 32);
+    if (v1)
     {
-      return *(v8 + 16);
+      return *(v1 + 16);
     }
   }
 
   else
   {
-    handle_invalid_context("CGContextGetLineDashCount", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetLineDashCount", a1);
   }
 
   return 0;
 }
 
-double CGContextGetLineDashPattern(uint64_t a1, double *a2, double *a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double result)
+double CGContextGetLineDashPattern(uint64_t a1, double *a2, double *a3, unint64_t a4, double result)
 {
-  if (!a1)
+  if (a1)
   {
-    v10 = 0;
-LABEL_7:
-    handle_invalid_context("CGContextGetLineDashPattern", v10, a3, a4, a5, a6, a7, a8);
-    return result;
-  }
-
-  if (*(a1 + 16) != 1129601108)
-  {
-    v10 = a1;
-    goto LABEL_7;
-  }
-
-  v9 = *(*(*(a1 + 96) + 128) + 32);
-  if (a2)
-  {
-    if (v9)
+    if (*(a1 + 16) == 1129601108)
     {
-      result = *(v9 + 8);
+      v5 = *(*(*(a1 + 96) + 128) + 32);
+      if (a2)
+      {
+        if (v5)
+        {
+          result = *(v5 + 8);
+        }
+
+        else
+        {
+          result = 0.0;
+        }
+
+        *a2 = result;
+      }
+
+      if (v5)
+      {
+        v6 = *(v5 + 16);
+      }
+
+      else
+      {
+        v6 = 0;
+      }
+
+      if (v5)
+      {
+        v7 = (v5 + 24);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      if (v6 >= a4)
+      {
+        v6 = a4;
+      }
+
+      for (; v6; --v6)
+      {
+        v8 = *v7++;
+        result = v8;
+        *a3++ = v8;
+      }
     }
 
     else
     {
-      result = 0.0;
+      handle_invalid_context("CGContextGetLineDashPattern", a1);
     }
-
-    *a2 = result;
-  }
-
-  if (v9)
-  {
-    v11 = *(v9 + 16);
   }
 
   else
   {
-    v11 = 0;
-  }
-
-  if (v9)
-  {
-    v12 = (v9 + 24);
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  if (v11 >= a4)
-  {
-    v11 = a4;
-  }
-
-  for (; v11; --v11)
-  {
-    v13 = *v12++;
-    result = v13;
-    *a3++ = v13;
+    handle_invalid_context("CGContextGetLineDashPattern", 0);
   }
 
   return result;
 }
 
-uint64_t CGContextGetRenderingIntent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetRenderingIntent(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return ((*(*(*(a1 + 96) + 120) + 4) << 12) >> 28);
   }
 
-  handle_invalid_context("CGContextGetRenderingIntent", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetRenderingIntent", a1);
   return 2;
 }
 
-uint64_t CGContextGetContentToneMappingInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetContentToneMappingInfo(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 120) + 56);
   }
 
-  handle_invalid_context("CGContextGetContentToneMappingInfo", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetContentToneMappingInfo", a1);
   return 0;
 }
 
-void CGContextSetContentToneMappingInfo(uint64_t a1, int a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextSetContentToneMappingInfo(uint64_t a1, int a2, const void *a3)
 {
   if (a1)
   {
     if (*(a1 + 16) == 1129601108)
     {
       CGGStateSetContentToneMappingInfo(*(a1 + 96), a2, a3);
-      return;
     }
 
-    v8 = a1;
+    else
+    {
+      handle_invalid_context("CGContextSetContentToneMappingInfo", a1);
+    }
   }
 
   else
   {
-    v8 = 0;
+    handle_invalid_context("CGContextSetContentToneMappingInfo", 0);
   }
 
-  handle_invalid_context("CGContextSetContentToneMappingInfo", v8, a3, a4, a5, a6, a7, a8);
+  return result;
 }
 
-uint64_t CGContextGetStrokeAdjust(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetStrokeAdjust(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v8 = *(*(*(a1 + 96) + 128) + 1);
+    v1 = *(*(*(a1 + 96) + 128) + 1);
   }
 
   else
   {
-    handle_invalid_context("CGContextGetStrokeAdjust", a1, a3, a4, a5, a6, a7, a8);
-    v8 = 0;
+    handle_invalid_context("CGContextGetStrokeAdjust", a1);
+    v1 = 0;
   }
 
-  return v8 & 1;
+  return v1 & 1;
 }
 
-uint64_t CGContextGetFillColorAsColor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetFillColorAsColor(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v8 = *(a1 + 96);
+    v1 = *(a1 + 96);
 
-    return CGGStateGetFillColor(v8);
+    return CGGStateGetFillColor(v1);
   }
 
   else
   {
-    handle_invalid_context("CGContextGetFillColorAsColor", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetFillColorAsColor", a1);
     return 0;
   }
 }
 
-uint64_t CGContextGetStrokeColorAsColor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetStrokeColorAsColor(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v8 = *(a1 + 96);
+    v1 = *(a1 + 96);
 
-    return CGGStateGetStrokeColor(v8);
+    return CGGStateGetStrokeColor(v1);
   }
 
   else
   {
-    handle_invalid_context("CGContextGetStrokeColorAsColor", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetStrokeColorAsColor", a1);
     return 0;
   }
 }
 
-unint64_t CGContextGetFillColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t CGContextGetFillColorSpace(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
@@ -4946,7 +5007,7 @@ unint64_t CGContextGetFillColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint
       if ((result & 0x8000000000000000) != 0)
       {
 
-        return CGTaggedColorGetColorSpace(result, v9, v10, v11, v12, v13, v14, v15);
+        return CGTaggedColorGetColorSpace(result);
       }
 
       else
@@ -4958,14 +5019,14 @@ unint64_t CGContextGetFillColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint
 
   else
   {
-    handle_invalid_context("CGContextGetFillColorSpace", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetFillColorSpace", a1);
     return 0;
   }
 
   return result;
 }
 
-unint64_t CGContextGetStrokeColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t CGContextGetStrokeColorSpace(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
@@ -4975,7 +5036,7 @@ unint64_t CGContextGetStrokeColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, ui
       if ((result & 0x8000000000000000) != 0)
       {
 
-        return CGTaggedColorGetColorSpace(result, v9, v10, v11, v12, v13, v14, v15);
+        return CGTaggedColorGetColorSpace(result);
       }
 
       else
@@ -4987,14 +5048,14 @@ unint64_t CGContextGetStrokeColorSpace(uint64_t a1, uint64_t a2, uint64_t a3, ui
 
   else
   {
-    handle_invalid_context("CGContextGetStrokeColorSpace", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetStrokeColorSpace", a1);
     return 0;
   }
 
   return result;
 }
 
-void CGContextGetFillColor(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGContextGetFillColor(uint64_t a1, void *a2)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
@@ -5005,10 +5066,10 @@ void CGContextGetFillColor(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint
       return;
     }
 
-    v18 = Components;
+    v5 = Components;
     if (FillColor < 0)
     {
-      NumberOfComponents = CGTaggedColorGetNumberOfComponents(FillColor, v11, v12, v13, v14, v15, v16, v17);
+      NumberOfComponents = CGTaggedColorGetNumberOfComponents(FillColor);
       if (!NumberOfComponents)
       {
         return;
@@ -5026,8 +5087,8 @@ void CGContextGetFillColor(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint
 
     do
     {
-      v20 = *v18++;
-      *a2++ = v20;
+      v7 = *v5++;
+      *a2++ = v7;
       --NumberOfComponents;
     }
 
@@ -5037,11 +5098,11 @@ void CGContextGetFillColor(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint
   else
   {
 
-    handle_invalid_context("CGContextGetFillColor", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetFillColor", a1);
   }
 }
 
-void CGContextGetStrokeColor(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGContextGetStrokeColor(uint64_t a1, void *a2)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
@@ -5052,10 +5113,10 @@ void CGContextGetStrokeColor(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, ui
       return;
     }
 
-    v18 = Components;
+    v5 = Components;
     if (StrokeColor < 0)
     {
-      NumberOfComponents = CGTaggedColorGetNumberOfComponents(StrokeColor, v11, v12, v13, v14, v15, v16, v17);
+      NumberOfComponents = CGTaggedColorGetNumberOfComponents(StrokeColor);
       if (!NumberOfComponents)
       {
         return;
@@ -5073,8 +5134,8 @@ void CGContextGetStrokeColor(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, ui
 
     do
     {
-      v20 = *v18++;
-      *a2++ = v20;
+      v7 = *v5++;
+      *a2++ = v7;
       --NumberOfComponents;
     }
 
@@ -5084,7 +5145,7 @@ void CGContextGetStrokeColor(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, ui
   else
   {
 
-    handle_invalid_context("CGContextGetStrokeColor", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetStrokeColor", a1);
   }
 }
 
@@ -5096,17 +5157,17 @@ void CGContextSetFillPattern(CGContextRef c, CGPatternRef pattern, const CGFloat
     {
       if (!pattern || !components)
       {
-        CGPostError("%s: pattern and components may not be NULL.", pattern, components, v3, v4, v5, v6, v7, "CGContextSetFillPattern");
+        CGPostError("%s: pattern and components may not be NULL.");
         return;
       }
 
       FillColor = CGGStateGetFillColor(*(c + 12));
       if (FillColor)
       {
-        v19 = FillColor;
+        v7 = FillColor;
         if ((FillColor & 0x8000000000000000) != 0)
         {
-          ColorSpace = CGTaggedColorGetColorSpace(FillColor, v12, v13, v14, v15, v16, v17, v18);
+          ColorSpace = CGTaggedColorGetColorSpace(FillColor);
           if (ColorSpace)
           {
             goto LABEL_8;
@@ -5121,21 +5182,21 @@ void CGContextSetFillPattern(CGContextRef c, CGPatternRef pattern, const CGFloat
 LABEL_8:
             if (CGColorSpaceGetType(ColorSpace) == 9)
             {
-              if ((CGColorEqualToColorComponents(v19, ColorSpace, pattern, components, v24, v25, v26, v27) & 1) == 0)
+              if ((CGColorEqualToColorComponents(v7, ColorSpace, pattern, components) & 1) == 0)
               {
-                v28 = CGColorCreateWithPattern(ColorSpace, pattern, components);
-                CGContextSetFillColorWithColor(c, v28);
-                if (v28)
+                v9 = CGColorCreateWithPattern(ColorSpace, pattern, components);
+                CGContextSetFillColorWithColor(c, v9);
+                if (v9)
                 {
 
-                  CFRelease(v28);
+                  CFRelease(v9);
                 }
               }
             }
 
             else
             {
-              CGPostError("%s: pattern specified with non-pattern color space.", v21, v22, v23, v24, v25, v26, v27, "CGContextSetFillPattern");
+              CGPostError("%s: pattern specified with non-pattern color space.");
             }
 
             return;
@@ -5143,26 +5204,26 @@ LABEL_8:
         }
       }
 
-      CGPostError("%s: no color space specified for fill pattern.", v12, v13, v14, v15, v16, v17, v18, "CGContextSetFillPattern");
+      CGPostError("%s: no color space specified for fill pattern.");
       return;
     }
 
-    v29 = c;
+    v10 = c;
   }
 
   else
   {
-    v29 = 0;
+    v10 = 0;
   }
 
-  handle_invalid_context("CGContextSetFillPattern", v29, components, v3, v4, v5, v6, v7);
+  handle_invalid_context("CGContextSetFillPattern", v10);
 }
 
-uint64_t CGContextGetFillPattern(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetFillPattern(uint64_t a1, void *a2)
 {
   if (!a1 || *(a1 + 16) != 1129601108)
   {
-    handle_invalid_context("CGContextGetFillPattern", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetFillPattern", a1);
     return 0;
   }
 
@@ -5173,10 +5234,10 @@ uint64_t CGContextGetFillPattern(uint64_t a1, void *a2, uint64_t a3, uint64_t a4
     return 0;
   }
 
-  v18 = Components;
+  v5 = Components;
   if (FillColor < 0)
   {
-    NumberOfComponents = CGTaggedColorGetNumberOfComponents(FillColor, v11, v12, v13, v14, v15, v16, v17);
+    NumberOfComponents = CGTaggedColorGetNumberOfComponents(FillColor);
     if (!NumberOfComponents)
     {
       goto LABEL_11;
@@ -5194,8 +5255,8 @@ uint64_t CGContextGetFillPattern(uint64_t a1, void *a2, uint64_t a3, uint64_t a4
 
   do
   {
-    v21 = *v18++;
-    *a2++ = v21;
+    v8 = *v5++;
+    *a2++ = v8;
     --NumberOfComponents;
   }
 
@@ -5217,17 +5278,17 @@ void CGContextSetStrokePattern(CGContextRef c, CGPatternRef pattern, const CGFlo
     {
       if (!pattern || !components)
       {
-        CGPostError("%s: pattern and components may not be NULL.", pattern, components, v3, v4, v5, v6, v7, "CGContextSetStrokePattern");
+        CGPostError("%s: pattern and components may not be NULL.");
         return;
       }
 
       StrokeColor = CGGStateGetStrokeColor(*(c + 12));
       if (StrokeColor)
       {
-        v19 = StrokeColor;
+        v7 = StrokeColor;
         if ((StrokeColor & 0x8000000000000000) != 0)
         {
-          ColorSpace = CGTaggedColorGetColorSpace(StrokeColor, v12, v13, v14, v15, v16, v17, v18);
+          ColorSpace = CGTaggedColorGetColorSpace(StrokeColor);
           if (ColorSpace)
           {
             goto LABEL_8;
@@ -5242,21 +5303,21 @@ void CGContextSetStrokePattern(CGContextRef c, CGPatternRef pattern, const CGFlo
 LABEL_8:
             if (CGColorSpaceGetType(ColorSpace) == 9)
             {
-              if ((CGColorEqualToColorComponents(v19, ColorSpace, pattern, components, v24, v25, v26, v27) & 1) == 0)
+              if ((CGColorEqualToColorComponents(v7, ColorSpace, pattern, components) & 1) == 0)
               {
-                v28 = CGColorCreateWithPattern(ColorSpace, pattern, components);
-                CGContextSetStrokeColorWithColor(c, v28);
-                if (v28)
+                v9 = CGColorCreateWithPattern(ColorSpace, pattern, components);
+                CGContextSetStrokeColorWithColor(c, v9);
+                if (v9)
                 {
 
-                  CFRelease(v28);
+                  CFRelease(v9);
                 }
               }
             }
 
             else
             {
-              CGPostError("%s: pattern specified with non-pattern color space.", v21, v22, v23, v24, v25, v26, v27, "CGContextSetStrokePattern");
+              CGPostError("%s: pattern specified with non-pattern color space.");
             }
 
             return;
@@ -5264,26 +5325,26 @@ LABEL_8:
         }
       }
 
-      CGPostError("%s: no color space specified for stroke pattern.", v12, v13, v14, v15, v16, v17, v18, "CGContextSetStrokePattern");
+      CGPostError("%s: no color space specified for stroke pattern.");
       return;
     }
 
-    v29 = c;
+    v10 = c;
   }
 
   else
   {
-    v29 = 0;
+    v10 = 0;
   }
 
-  handle_invalid_context("CGContextSetStrokePattern", v29, components, v3, v4, v5, v6, v7);
+  handle_invalid_context("CGContextSetStrokePattern", v10);
 }
 
-uint64_t CGContextGetStrokePattern(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetStrokePattern(uint64_t a1, void *a2)
 {
   if (!a1 || *(a1 + 16) != 1129601108)
   {
-    handle_invalid_context("CGContextGetStrokePattern", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetStrokePattern", a1);
     return 0;
   }
 
@@ -5294,10 +5355,10 @@ uint64_t CGContextGetStrokePattern(uint64_t a1, void *a2, uint64_t a3, uint64_t 
     return 0;
   }
 
-  v18 = Components;
+  v5 = Components;
   if (StrokeColor < 0)
   {
-    NumberOfComponents = CGTaggedColorGetNumberOfComponents(StrokeColor, v11, v12, v13, v14, v15, v16, v17);
+    NumberOfComponents = CGTaggedColorGetNumberOfComponents(StrokeColor);
     if (!NumberOfComponents)
     {
       goto LABEL_11;
@@ -5315,8 +5376,8 @@ uint64_t CGContextGetStrokePattern(uint64_t a1, void *a2, uint64_t a3, uint64_t 
 
   do
   {
-    v21 = *v18++;
-    *a2++ = v21;
+    v8 = *v5++;
+    *a2++ = v8;
     --NumberOfComponents;
   }
 
@@ -5332,257 +5393,103 @@ LABEL_11:
 
 void CGContextSetGrayFillColor(CGContextRef c, CGFloat gray, CGFloat alpha)
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   if (c)
   {
     if (*(c + 4) == 1129601108)
     {
-      v18[0] = gray;
-      v18[1] = alpha;
+      v6[0] = gray;
+      v6[1] = alpha;
       DeviceGray = CGColorSpaceCreateDeviceGray();
-      set_fill_color_with_components(c, DeviceGray, v18, v11, v12, v13, v14, v15, v17);
+      set_fill_color_with_components(c, DeviceGray, v6);
       CGColorSpaceRelease(DeviceGray);
       return;
     }
 
-    v16 = c;
+    v5 = c;
   }
 
   else
   {
-    v16 = 0;
+    v5 = 0;
   }
 
-  handle_invalid_context("CGContextSetGrayFillColor", v16, v3, v4, v5, v6, v7, v8);
+  handle_invalid_context("CGContextSetGrayFillColor", v5);
 }
 
 void CGContextSetGrayStrokeColor(CGContextRef c, CGFloat gray, CGFloat alpha)
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   if (c)
   {
     if (*(c + 4) == 1129601108)
     {
-      v18[0] = gray;
-      v18[1] = alpha;
+      v6[0] = gray;
+      v6[1] = alpha;
       DeviceGray = CGColorSpaceCreateDeviceGray();
-      set_stroke_color_with_components(c, DeviceGray, v18, v11, v12, v13, v14, v15, v17);
+      set_stroke_color_with_components(c, DeviceGray, v6);
       CGColorSpaceRelease(DeviceGray);
       return;
     }
 
-    v16 = c;
+    v5 = c;
   }
 
   else
   {
-    v16 = 0;
+    v5 = 0;
   }
 
-  handle_invalid_context("CGContextSetGrayStrokeColor", v16, v3, v4, v5, v6, v7, v8);
+  handle_invalid_context("CGContextSetGrayStrokeColor", v5);
 }
 
 void CGContextSetRGBStrokeColor(CGContextRef c, CGFloat red, CGFloat green, CGFloat blue, CGFloat alpha)
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   if (c)
   {
     if (*(c + 4) == 1129601108)
     {
-      v20[0] = red;
-      v20[1] = green;
-      v20[2] = blue;
-      v20[3] = alpha;
+      v8[0] = red;
+      v8[1] = green;
+      v8[2] = blue;
+      v8[3] = alpha;
       DeviceRGB = CGColorSpaceCreateDeviceRGB();
-      set_stroke_color_with_components(c, DeviceRGB, v20, v13, v14, v15, v16, v17, v19);
+      set_stroke_color_with_components(c, DeviceRGB, v8);
       CGColorSpaceRelease(DeviceRGB);
       return;
     }
 
-    v18 = c;
+    v7 = c;
   }
 
   else
   {
-    v18 = 0;
+    v7 = 0;
   }
 
-  handle_invalid_context("CGContextSetRGBStrokeColor", v18, v5, v6, v7, v8, v9, v10);
+  handle_invalid_context("CGContextSetRGBStrokeColor", v7);
 }
 
 void CGContextSetCMYKFillColor(CGContextRef c, CGFloat cyan, CGFloat magenta, CGFloat yellow, CGFloat black, CGFloat alpha)
 {
-  v20[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   if (c)
   {
     if (*(c + 4) == 1129601108)
     {
-      LOBYTE(v20[0]) = LOBYTE(cyan);
-      v20[1] = magenta;
-      v20[2] = yellow;
-      v20[3] = black;
-      v20[4] = alpha;
+      v9[0] = cyan;
+      v9[1] = magenta;
+      v9[2] = yellow;
+      v9[3] = black;
+      v9[4] = alpha;
       DeviceCMYK = CGColorSpaceCreateDeviceCMYK();
-      set_fill_color_with_components(c, DeviceCMYK, v20, v14, v15, v16, v17, v18, SLOBYTE(v20[0]));
+      set_fill_color_with_components(c, DeviceCMYK, v9);
       CGColorSpaceRelease(DeviceCMYK);
       return;
     }
 
-    v19 = c;
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  handle_invalid_context("CGContextSetCMYKFillColor", v19, v6, v7, v8, v9, v10, v11);
-}
-
-void CGContextSetCMYKStrokeColor(CGContextRef c, CGFloat cyan, CGFloat magenta, CGFloat yellow, CGFloat black, CGFloat alpha)
-{
-  v20[5] = *MEMORY[0x1E69E9840];
-  if (c)
-  {
-    if (*(c + 4) == 1129601108)
-    {
-      LOBYTE(v20[0]) = LOBYTE(cyan);
-      v20[1] = magenta;
-      v20[2] = yellow;
-      v20[3] = black;
-      v20[4] = alpha;
-      DeviceCMYK = CGColorSpaceCreateDeviceCMYK();
-      set_stroke_color_with_components(c, DeviceCMYK, v20, v14, v15, v16, v17, v18, SLOBYTE(v20[0]));
-      CGColorSpaceRelease(DeviceCMYK);
-      return;
-    }
-
-    v19 = c;
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  handle_invalid_context("CGContextSetCMYKStrokeColor", v19, v6, v7, v8, v9, v10, v11);
-}
-
-uint64_t CGContextGetFont(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 && *(a1 + 16) == 1129601108)
-  {
-    return *(*(*(a1 + 96) + 136) + 8);
-  }
-
-  handle_invalid_context("CGContextGetFont", a1, a3, a4, a5, a6, a7, a8);
-  return 0;
-}
-
-double CGContextGetFontSize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 && *(a1 + 16) == 1129601108)
-  {
-    return *(*(*(a1 + 96) + 136) + 16);
-  }
-
-  handle_invalid_context("CGContextGetFontSize", a1, a3, a4, a5, a6, a7, a8);
-  return 0.0;
-}
-
-double CGContextGetCharacterSpacing(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 && *(a1 + 16) == 1129601108)
-  {
-    return *(*(*(a1 + 96) + 136) + 24);
-  }
-
-  handle_invalid_context("CGContextGetCharacterSpacing", a1, a3, a4, a5, a6, a7, a8);
-  return 0.0;
-}
-
-void CGContextSetCharacterSpacing(CGContextRef c, CGFloat spacing)
-{
-  if (c && *(c + 4) == 1129601108)
-  {
-    v10 = *(c + 12);
-    if (*(*(v10 + 136) + 24) != spacing)
-    {
-      maybe_copy_text_state(*(c + 12));
-      *(*(v10 + 136) + 24) = spacing;
-    }
-  }
-
-  else
-  {
-
-    handle_invalid_context("CGContextSetCharacterSpacing", c, v2, v3, v4, v5, v6, v7);
-  }
-}
-
-uint64_t CGContextGetTextDrawingMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 && *(a1 + 16) == 1129601108)
-  {
-    return *(*(*(a1 + 96) + 136) + 1);
-  }
-
-  handle_invalid_context("CGContextGetTextDrawingMode", a1, a3, a4, a5, a6, a7, a8);
-  return 0;
-}
-
-double CGContextGetTextGreekingThreshold(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 && *(a1 + 16) == 1129601108)
-  {
-    return *(*(*(a1 + 96) + 136) + 32);
-  }
-
-  handle_invalid_context("CGContextGetTextGreekingThreshold", a1, a3, a4, a5, a6, a7, a8);
-  return 0.0;
-}
-
-void CGContextSetTextGreekingThreshold(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  if (a1 && *(a1 + 16) == 1129601108)
-  {
-    v11 = *(a1 + 96);
-    if (*(*(v11 + 136) + 32) != a2)
-    {
-      maybe_copy_text_state(*(a1 + 96));
-      *(*(v11 + 136) + 32) = a2;
-    }
-  }
-
-  else
-  {
-
-    handle_invalid_context("CGContextSetTextGreekingThreshold", a1, a4, a5, a6, a7, a8, a9);
-  }
-}
-
-uint64_t CGContextGetShouldAntialiasFonts(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1 && *(a1 + 16) == 1129601108)
-  {
-    return (**(*(a1 + 96) + 136) >> 2) & 1;
-  }
-
-  handle_invalid_context("CGContextGetShouldAntialiasFonts", a1, a3, a4, a5, a6, a7, a8);
-  return 1;
-}
-
-void CGContextSetShouldAntialiasFonts(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1)
-  {
-    if (*(a1 + 16) == 1129601108)
-    {
-      CGGStateSetShouldAntialiasFonts(*(a1 + 96), a2);
-      return;
-    }
-
-    v8 = a1;
+    v8 = c;
   }
 
   else
@@ -5590,28 +5497,187 @@ void CGContextSetShouldAntialiasFonts(uint64_t a1, int a2, uint64_t a3, uint64_t
     v8 = 0;
   }
 
-  handle_invalid_context("CGContextSetShouldAntialiasFonts", v8, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextSetCMYKFillColor", v8);
 }
 
-uint64_t CGContextGetShouldSmoothFonts(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CGContextSetCMYKStrokeColor(CGContextRef c, CGFloat cyan, CGFloat magenta, CGFloat yellow, CGFloat black, CGFloat alpha)
+{
+  v9[5] = *MEMORY[0x1E69E9840];
+  if (c)
+  {
+    if (*(c + 4) == 1129601108)
+    {
+      v9[0] = cyan;
+      v9[1] = magenta;
+      v9[2] = yellow;
+      v9[3] = black;
+      v9[4] = alpha;
+      DeviceCMYK = CGColorSpaceCreateDeviceCMYK();
+      set_stroke_color_with_components(c, DeviceCMYK, v9);
+      CGColorSpaceRelease(DeviceCMYK);
+      return;
+    }
+
+    v8 = c;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  handle_invalid_context("CGContextSetCMYKStrokeColor", v8);
+}
+
+uint64_t CGContextGetFont(uint64_t a1)
+{
+  if (a1 && *(a1 + 16) == 1129601108)
+  {
+    return *(*(*(a1 + 96) + 136) + 8);
+  }
+
+  handle_invalid_context("CGContextGetFont", a1);
+  return 0;
+}
+
+double CGContextGetFontSize(uint64_t a1)
+{
+  if (a1 && *(a1 + 16) == 1129601108)
+  {
+    return *(*(*(a1 + 96) + 136) + 16);
+  }
+
+  handle_invalid_context("CGContextGetFontSize", a1);
+  return 0.0;
+}
+
+double CGContextGetCharacterSpacing(uint64_t a1)
+{
+  if (a1 && *(a1 + 16) == 1129601108)
+  {
+    return *(*(*(a1 + 96) + 136) + 24);
+  }
+
+  handle_invalid_context("CGContextGetCharacterSpacing", a1);
+  return 0.0;
+}
+
+void CGContextSetCharacterSpacing(CGContextRef c, CGFloat spacing)
+{
+  if (c && *(c + 4) == 1129601108)
+  {
+    v4 = *(c + 12);
+    if (*(*(v4 + 136) + 24) != spacing)
+    {
+      maybe_copy_text_state(*(c + 12));
+      *(*(v4 + 136) + 24) = spacing;
+    }
+  }
+
+  else
+  {
+
+    handle_invalid_context("CGContextSetCharacterSpacing", c);
+  }
+}
+
+uint64_t CGContextGetTextDrawingMode(uint64_t a1)
+{
+  if (a1 && *(a1 + 16) == 1129601108)
+  {
+    return *(*(*(a1 + 96) + 136) + 1);
+  }
+
+  handle_invalid_context("CGContextGetTextDrawingMode", a1);
+  return 0;
+}
+
+double CGContextGetTextGreekingThreshold(uint64_t a1)
+{
+  if (a1 && *(a1 + 16) == 1129601108)
+  {
+    return *(*(*(a1 + 96) + 136) + 32);
+  }
+
+  handle_invalid_context("CGContextGetTextGreekingThreshold", a1);
+  return 0.0;
+}
+
+double CGContextSetTextGreekingThreshold(uint64_t a1, double a2)
+{
+  if (a1 && *(a1 + 16) == 1129601108)
+  {
+    v4 = *(a1 + 96);
+    result = *(*(v4 + 136) + 32);
+    if (result != a2)
+    {
+      maybe_copy_text_state(*(a1 + 96));
+      *(*(v4 + 136) + 32) = a2;
+    }
+  }
+
+  else
+  {
+
+    handle_invalid_context("CGContextSetTextGreekingThreshold", a1);
+  }
+
+  return result;
+}
+
+uint64_t CGContextGetShouldAntialiasFonts(uint64_t a1)
+{
+  if (a1 && *(a1 + 16) == 1129601108)
+  {
+    return (**(*(a1 + 96) + 136) >> 2) & 1;
+  }
+
+  handle_invalid_context("CGContextGetShouldAntialiasFonts", a1);
+  return 1;
+}
+
+double CGContextSetShouldAntialiasFonts(uint64_t a1, int a2)
+{
+  if (a1)
+  {
+    if (*(a1 + 16) == 1129601108)
+    {
+      CGGStateSetShouldAntialiasFonts(*(a1 + 96), a2);
+    }
+
+    else
+    {
+      handle_invalid_context("CGContextSetShouldAntialiasFonts", a1);
+    }
+  }
+
+  else
+  {
+    handle_invalid_context("CGContextSetShouldAntialiasFonts", 0);
+  }
+
+  return result;
+}
+
+uint64_t CGContextGetShouldSmoothFonts(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return (**(*(a1 + 96) + 136) >> 3) & 1;
   }
 
-  handle_invalid_context("CGContextGetShouldSmoothFonts", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetShouldSmoothFonts", a1);
   return 1;
 }
 
-uint64_t CGContextGetShouldSubpixelPositionFonts(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetShouldSubpixelPositionFonts(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return (**(*(a1 + 96) + 136) >> 4) & 1;
   }
 
-  handle_invalid_context("CGContextGetShouldSubpixelPositionFonts", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetShouldSubpixelPositionFonts", a1);
   return 1;
 }
 
@@ -5622,28 +5688,28 @@ void CGContextSetShouldSubpixelPositionFonts(CGContextRef c, BOOL shouldSubpixel
     if (*(c + 4) == 1129601108)
     {
       CGGStateSetShouldSubpixelPositionFonts(*(c + 12), shouldSubpixelPositionFonts);
-      return;
     }
 
-    v8 = c;
+    else
+    {
+      handle_invalid_context("CGContextSetShouldSubpixelPositionFonts", c);
+    }
   }
 
   else
   {
-    v8 = 0;
+    handle_invalid_context("CGContextSetShouldSubpixelPositionFonts", 0);
   }
-
-  handle_invalid_context("CGContextSetShouldSubpixelPositionFonts", v8, v2, v3, v4, v5, v6, v7);
 }
 
-uint64_t CGContextGetShouldSubpixelQuantizeFonts(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetShouldSubpixelQuantizeFonts(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return (**(*(a1 + 96) + 136) >> 5) & 1;
   }
 
-  handle_invalid_context("CGContextGetShouldSubpixelQuantizeFonts", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetShouldSubpixelQuantizeFonts", a1);
   return 1;
 }
 
@@ -5654,88 +5720,90 @@ void CGContextSetShouldSubpixelQuantizeFonts(CGContextRef c, BOOL shouldSubpixel
     if (*(c + 4) == 1129601108)
     {
       CGGStateSetShouldSubpixelQuantizeFonts(*(c + 12), shouldSubpixelQuantizeFonts);
-      return;
     }
 
-    v8 = c;
+    else
+    {
+      handle_invalid_context("CGContextSetShouldSubpixelQuantizeFonts", c);
+    }
   }
 
   else
   {
-    v8 = 0;
+    handle_invalid_context("CGContextSetShouldSubpixelQuantizeFonts", 0);
   }
-
-  handle_invalid_context("CGContextSetShouldSubpixelQuantizeFonts", v8, v2, v3, v4, v5, v6, v7);
 }
 
-uint64_t CGContextGetShouldUsePlatformNativeGlyphs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetShouldUsePlatformNativeGlyphs(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return (**(*(a1 + 96) + 136) >> 6) & 1;
   }
 
-  handle_invalid_context("CGContextGetShouldUsePlatformNativeGlyphs", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetShouldUsePlatformNativeGlyphs", a1);
   return 1;
 }
 
-void CGContextSetShouldUsePlatformNativeGlyphs(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextSetShouldUsePlatformNativeGlyphs(uint64_t a1, int a2)
 {
   if (a1)
   {
     if (*(a1 + 16) == 1129601108)
     {
       CGGStateSetShouldUsePlatformNativeGlyphs(*(a1 + 96), a2);
-      return;
     }
 
-    v8 = a1;
+    else
+    {
+      handle_invalid_context("CGContextSetShouldUsePlatformNativeGlyphs", a1);
+    }
   }
 
   else
   {
-    v8 = 0;
+    handle_invalid_context("CGContextSetShouldUsePlatformNativeGlyphs", 0);
   }
 
-  handle_invalid_context("CGContextSetShouldUsePlatformNativeGlyphs", v8, a3, a4, a5, a6, a7, a8);
+  return result;
 }
 
-uint64_t CGContextGetShouldDrawBitmapRuns(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetShouldDrawBitmapRuns(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return (**(*(a1 + 96) + 136) >> 7) & 1;
   }
 
-  handle_invalid_context("CGContextGetShouldDrawBitmapRuns", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetShouldDrawBitmapRuns", a1);
   return 0;
 }
 
-uint64_t CGContextGetFontAntialiasingStyle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetFontAntialiasingStyle(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 136) + 48);
   }
 
-  handle_invalid_context("CGContextGetFontAntialiasingStyle", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetFontAntialiasingStyle", a1);
   return 0;
 }
 
-void CGContextSetFontAntialiasingStyle(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextSetFontAntialiasingStyle(uint64_t a1, int a2)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    HIDWORD(v10) = a2;
-    LODWORD(v10) = a2;
-    v9 = v10 >> 7;
-    if (v9 <= 9 && ((1 << v9) & 0x30F) != 0)
+    HIDWORD(v4) = a2;
+    LODWORD(v4) = a2;
+    v3 = v4 >> 7;
+    if (v3 <= 9 && ((1 << v3) & 0x30F) != 0)
     {
-      v11 = *(a1 + 96);
-      if (*(*(v11 + 136) + 48) != a2)
+      v5 = *(a1 + 96);
+      if (*(*(v5 + 136) + 48) != a2)
       {
         maybe_copy_text_state(*(a1 + 96));
-        *(*(v11 + 136) + 48) = a2;
+        *(*(v5 + 136) + 48) = a2;
       }
     }
   }
@@ -5743,34 +5811,36 @@ void CGContextSetFontAntialiasingStyle(uint64_t a1, int a2, uint64_t a3, uint64_
   else
   {
 
-    handle_invalid_context("CGContextSetFontAntialiasingStyle", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextSetFontAntialiasingStyle", a1);
   }
+
+  return result;
 }
 
-uint64_t CGContextGetFontSmoothingStyle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetFontSmoothingStyle(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 136) + 52);
   }
 
-  handle_invalid_context("CGContextGetFontSmoothingStyle", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetFontSmoothingStyle", a1);
   return 48;
 }
 
-void CGContextSetFontSmoothingStyle(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextSetFontSmoothingStyle(uint64_t a1, int a2)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    HIDWORD(v9) = a2 - 16;
-    LODWORD(v9) = a2 - 16;
-    if ((v9 >> 4) <= 6)
+    HIDWORD(v3) = a2 - 16;
+    LODWORD(v3) = a2 - 16;
+    if ((v3 >> 4) <= 6)
     {
-      v10 = *(a1 + 96);
-      if (*(*(v10 + 136) + 52) != a2)
+      v4 = *(a1 + 96);
+      if (*(*(v4 + 136) + 52) != a2)
       {
         maybe_copy_text_state(*(a1 + 96));
-        *(*(v10 + 136) + 52) = a2;
+        *(*(v4 + 136) + 52) = a2;
       }
     }
   }
@@ -5778,287 +5848,299 @@ void CGContextSetFontSmoothingStyle(uint64_t a1, int a2, uint64_t a3, uint64_t a
   else
   {
 
-    handle_invalid_context("CGContextSetFontSmoothingStyle", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextSetFontSmoothingStyle", a1);
   }
+
+  return result;
 }
 
-double CGContextGetFontSmoothingContrast(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetFontSmoothingContrast(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 136) + 40);
   }
 
-  handle_invalid_context("CGContextGetFontSmoothingContrast", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetFontSmoothingContrast", a1);
   return 1.0;
 }
 
-void CGContextSetFontSmoothingContrast(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+double CGContextSetFontSmoothingContrast(uint64_t a1, double a2)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v11 = *(a1 + 96);
-    if (*(*(v11 + 136) + 40) != a2)
+    v4 = *(a1 + 96);
+    result = *(*(v4 + 136) + 40);
+    if (result != a2)
     {
       maybe_copy_text_state(*(a1 + 96));
-      *(*(v11 + 136) + 40) = a2;
+      *(*(v4 + 136) + 40) = a2;
     }
   }
 
   else
   {
 
-    handle_invalid_context("CGContextSetFontSmoothingContrast", a1, a4, a5, a6, a7, a8, a9);
+    handle_invalid_context("CGContextSetFontSmoothingContrast", a1);
   }
+
+  return result;
 }
 
-uint64_t CGContextGetFontSmoothingBackgroundColor(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetFontSmoothingBackgroundColor(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 136) + 64);
   }
 
-  handle_invalid_context("CGContextGetFontSmoothingBackgroundColor", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetFontSmoothingBackgroundColor", a1);
   return 0;
 }
 
-void CGContextSetFontSmoothingBackgroundColor(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextSetFontSmoothingBackgroundColor(uint64_t a1, const void *a2)
 {
   if (a1)
   {
     if (*(a1 + 16) == 1129601108)
     {
       CGGStateSetFontSmoothingBackgroundColor(*(a1 + 96), a2);
-      return;
     }
 
-    v8 = a1;
+    else
+    {
+      handle_invalid_context("CGContextSetFontSmoothingBackgroundColor", a1);
+    }
   }
 
   else
   {
-    v8 = 0;
+    handle_invalid_context("CGContextSetFontSmoothingBackgroundColor", 0);
   }
 
-  handle_invalid_context("CGContextSetFontSmoothingBackgroundColor", v8, a3, a4, a5, a6, a7, a8);
+  return result;
 }
 
-double CGContextGetDeviceClipBoundingBox(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetDeviceClipBoundingBox(_DWORD *a1, __n128 a2)
 {
-  if (a1 && *(a1 + 16) == 1129601108)
+  if (a1 && a1[4] == 1129601108)
   {
-    return get_device_clip_bounding_box(a1);
+    return get_device_clip_bounding_box(a1, a2);
   }
 
-  handle_invalid_context("CGContextGetDeviceClipBoundingBox", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetDeviceClipBoundingBox", a1);
   return INFINITY;
 }
 
-double CGContextGetFlatness(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetFlatness(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 144) + 8);
   }
 
-  handle_invalid_context("CGContextGetFlatness", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetFlatness", a1);
   return 0.0;
 }
 
-uint64_t CGContextGetFillOverprint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetFillOverprint(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 144) + 24);
   }
 
-  handle_invalid_context("CGContextGetFillOverprint", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetFillOverprint", a1);
   return 0;
 }
 
-uint64_t CGContextGetStrokeOverprint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetStrokeOverprint(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 144) + 25);
   }
 
-  handle_invalid_context("CGContextGetStrokeOverprint", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetStrokeOverprint", a1);
   return 0;
 }
 
-uint64_t CGContextGetOverprintMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetOverprintMode(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 144) + 28);
   }
 
-  handle_invalid_context("CGContextGetOverprintMode", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetOverprintMode", a1);
   return 0;
 }
 
-uint64_t CGContextGetBlackGeneration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetBlackGeneration(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 144) + 32);
   }
 
-  handle_invalid_context("CGContextGetBlackGeneration", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetBlackGeneration", a1);
   return 0;
 }
 
-uint64_t CGContextGetUndercolorRemoval(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetUndercolorRemoval(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 144) + 40);
   }
 
-  handle_invalid_context("CGContextGetUndercolorRemoval", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetUndercolorRemoval", a1);
   return 0;
 }
 
-uint64_t CGContextGetTransferFunctions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetTransferFunctions(_DWORD *a1)
 {
-  if (!a1 || *(a1 + 16) != 1129601108)
+  if (!a1 || a1[4] != 1129601108)
   {
-    handle_invalid_context("CGContextGetTransferFunctions", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetTransferFunctions", a1);
   }
 
   return 0;
 }
 
-void CGContextSetTransferFunctions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextSetTransferFunctions(_DWORD *a1)
 {
-  if (!a1 || *(a1 + 16) != 1129601108)
+  if (!a1 || a1[4] != 1129601108)
   {
-    handle_invalid_context("CGContextSetTransferFunctions", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextSetTransferFunctions", a1);
   }
+
+  return result;
 }
 
-double CGContextGetSmoothness(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetSmoothness(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 144) + 16);
   }
 
-  handle_invalid_context("CGContextGetSmoothness", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetSmoothness", a1);
   return 0.0;
 }
 
-uint64_t CGContextGetShouldAntialias(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetShouldAntialias(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 120) + 7) & 1;
   }
 
-  handle_invalid_context("CGContextGetShouldAntialias", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetShouldAntialias", a1);
   return 1;
 }
 
-uint64_t CGContextGetBlendMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetBlendMode(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v8 = (*(*(*(a1 + 96) + 120) + 4) << 16) >> 24;
-    if (v8 <= 0x1B)
+    v1 = (*(*(*(a1 + 96) + 120) + 4) << 16) >> 24;
+    if (v1 <= 0x1B)
     {
-      return CGContextGetBlendMode_mode[v8];
+      return CGContextGetBlendMode_mode[v1];
     }
   }
 
   else
   {
-    handle_invalid_context("CGContextGetBlendMode", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetBlendMode", a1);
   }
 
   return 0;
 }
 
-uint64_t CGContextGetImageRenderingIntent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetImageRenderingIntent(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v8 = *(*(*(a1 + 96) + 120) + 4);
-    if (((v8 >> 20) & 0xF) != 0)
+    v1 = *(*(*(a1 + 96) + 120) + 4);
+    if (((v1 >> 20) & 0xF) != 0)
     {
-      v9 = v8 << 8;
+      v2 = v1 << 8;
     }
 
     else
     {
-      v9 = v8 << 12;
+      v2 = v1 << 12;
     }
 
-    return (v9 >> 28);
+    return (v2 >> 28);
   }
 
   else
   {
-    handle_invalid_context("CGContextGetImageRenderingIntent", a1, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetImageRenderingIntent", a1);
     return 3;
   }
 }
 
-double CGContextGetLineWidthThreshold(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetLineWidthThreshold(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 128) + 24);
   }
 
-  handle_invalid_context("CGContextGetLineWidthThreshold", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetLineWidthThreshold", a1);
   return 0.0;
 }
 
-void CGContextSetLineWidthThreshold(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+double CGContextSetLineWidthThreshold(uint64_t a1, double a2)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
-    v11 = *(a1 + 96);
-    if (*(*(v11 + 128) + 24) != a2)
+    v4 = *(a1 + 96);
+    result = *(*(v4 + 128) + 24);
+    if (result != a2)
     {
       maybe_copy_stroke_state(*(a1 + 96));
-      *(*(v11 + 128) + 24) = a2;
+      *(*(v4 + 128) + 24) = a2;
     }
   }
 
   else
   {
 
-    handle_invalid_context("CGContextSetLineWidthThreshold", a1, a4, a5, a6, a7, a8, a9);
+    handle_invalid_context("CGContextSetLineWidthThreshold", a1);
   }
+
+  return result;
 }
 
-double CGContextGetAdjustedLineWidth(CGContext *c, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetAdjustedLineWidth(CGContext *c)
 {
   if (c && *(c + 4) == 1129601108)
   {
-    v8 = *(c + 12);
-    CGContextGetUserSpaceToDeviceSpaceTransform(&v10, c);
-    return CGGStateGetAdjustedLineWidth(v8, &v10.a);
+    v1 = *(c + 12);
+    CGContextGetUserSpaceToDeviceSpaceTransform(&v3, c);
+    return CGGStateGetAdjustedLineWidth(v1, &v3.a);
   }
 
   else
   {
-    handle_invalid_context("CGContextGetAdjustedLineWidth", c, a3, a4, a5, a6, a7, a8);
+    handle_invalid_context("CGContextGetAdjustedLineWidth", c);
     return 0.0;
   }
 }
 
-double CGContextGetPatternPhase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetPatternPhase(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 120) + 24);
   }
 
-  handle_invalid_context("CGContextGetPatternPhase", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetPatternPhase", a1);
   return 0.0;
 }
 
@@ -6069,22 +6151,22 @@ CGInterpolationQuality CGContextGetInterpolationQuality(CGContextRef c)
     return *(*(*(c + 12) + 120) + 4);
   }
 
-  handle_invalid_context("CGContextGetInterpolationQuality", c, v1, v2, v3, v4, v5, v6);
+  handle_invalid_context("CGContextGetInterpolationQuality", c);
   return 0;
 }
 
-uint64_t CGContextGetAlphaIsShape(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetAlphaIsShape(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return (*(*(*(a1 + 96) + 120) + 7) >> 1) & 1;
   }
 
-  handle_invalid_context("CGContextGetAlphaIsShape", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetAlphaIsShape", a1);
   return 0;
 }
 
-void CGContextSetFontDilation(uint64_t a1, double a2, double a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+double CGContextSetFontDilation(uint64_t a1, double a2, double a3)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
@@ -6093,85 +6175,89 @@ void CGContextSetFontDilation(uint64_t a1, double a2, double a3, uint64_t a4, ui
 
   else
   {
-    handle_invalid_context("CGContextSetFontDilation", a1, a5, a6, a7, a8, a9, a10);
+    handle_invalid_context("CGContextSetFontDilation", a1);
   }
+
+  return result;
 }
 
-double CGContextGetFontDilation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextGetFontDilation(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 136) + 72);
   }
 
-  handle_invalid_context("CGContextGetFontDilation", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetFontDilation", a1);
   return 0.0;
 }
 
-uint64_t CGContextGetFontSubpixelQuantizationLevel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CGContextGetFontSubpixelQuantizationLevel(uint64_t a1)
 {
   if (a1 && *(a1 + 16) == 1129601108)
   {
     return *(*(*(a1 + 96) + 136) + 88);
   }
 
-  handle_invalid_context("CGContextGetFontSubpixelQuantizationLevel", a1, a3, a4, a5, a6, a7, a8);
+  handle_invalid_context("CGContextGetFontSubpixelQuantizationLevel", a1);
   return 0;
 }
 
-void CGContextSetFontSubpixelQuantizationLevel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double CGContextSetFontSubpixelQuantizationLevel(uint64_t a1, unint64_t a2)
 {
   if (!a1)
   {
-    v15 = 0;
+    v10 = 0;
 
     goto LABEL_16;
   }
 
   if (*(a1 + 16) != 1129601108)
   {
-    v15 = a1;
+    v10 = a1;
 
 LABEL_16:
-    handle_invalid_context("CGContextSetFontSubpixelQuantizationLevel", v15, a3, a4, a5, a6, a7, a8);
-    return;
+    handle_invalid_context("CGContextSetFontSubpixelQuantizationLevel", v10);
+    return result;
   }
 
-  v9 = *(a1 + 96);
-  v10 = HIDWORD(a2);
-  v11 = a2 & ~(a2 >> 31);
+  v3 = *(a1 + 96);
+  v4 = HIDWORD(a2);
+  v5 = a2 & ~(a2 >> 31);
   if (SHIDWORD(a2) >= 128)
   {
-    LODWORD(v10) = 128;
+    LODWORD(v4) = 128;
   }
 
-  if (v11 >= 128)
+  if (v5 >= 128)
   {
-    v12 = 128;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  if (a2 >= 0)
-  {
-    v13 = v10;
+    v6 = 128;
   }
 
   else
   {
-    v13 = 0;
+    v6 = v5;
   }
 
-  if (*(*(v9 + 136) + 88) != (v12 | (v13 << 32)))
+  if ((a2 & 0x8000000000000000) == 0)
   {
-    maybe_copy_text_state(v9);
-    v14 = *(v9 + 136);
-    *(v14 + 88) = v12;
-    *(v14 + 92) = v13;
+    v7 = v4;
   }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (*(*(v3 + 136) + 88) != (v6 | (v7 << 32)))
+  {
+    maybe_copy_text_state(v3);
+    v9 = *(v3 + 136);
+    *(v9 + 88) = v6;
+    *(v9 + 92) = v7;
+  }
+
+  return result;
 }
 
 void PDFAnnotationSetRelease(void *a1)
@@ -6444,64 +6530,64 @@ uint64_t CGPDFTextStringGetColorForIndex(uint64_t a1, unint64_t a2, uint64_t a3)
   return result;
 }
 
-void *CGPDFTextStringAppendTextLayout(void *result, uint64_t a2, void *a3, __n128 a4)
+void *CGPDFTextStringAppendTextLayout(void *result, uint64_t a2, void **a3)
 {
   if (result && a2 && a3)
   {
-    v17[0] = a2;
-    v17[1] = result;
+    v16[0] = a2;
+    v16[1] = result;
     if (*(result + 16) == 1)
     {
-      return CGPDFTextLayoutDrawGlyphs(a3, draw_glyphs, v17, a4);
+      return CGPDFTextLayoutDrawGlyphs(a3, draw_glyphs, v16);
     }
 
     else
     {
-      v5 = *a3;
+      v4 = *a3;
       if (*a3)
       {
-        v6 = 0;
+        v5 = 0;
         do
         {
-          v7 = v5;
-          v5 = *v5;
-          *v7 = v6;
-          v6 = v7;
+          v6 = v4;
+          v4 = *v4;
+          *v6 = v5;
+          v5 = v6;
         }
 
-        while (v5);
-        *a3 = v7;
+        while (v4);
+        *a3 = v6;
         do
         {
-          v8 = v7[1];
-          v9 = *(v8 + 40);
-          v10 = *(v8 + 128);
-          v11 = *(v8 + 136);
-          v12 = *(v8 + 8);
-          if (*(v8 + 17) == 1)
+          v7 = v6[1];
+          v8 = *(v7 + 40);
+          v9 = *(v7 + 128);
+          v10 = *(v7 + 136);
+          v11 = *(v7 + 8);
+          if (*(v7 + 17) == 1)
           {
-            v13 = *(v8 + 120);
-            v14 = *(v8 + 80);
-            v18 = *(v8 + 64);
-            v19 = v14;
-            v20 = *(v8 + 96);
-            draw_text(v17, v9, &v18, v10, v11, v13, 0, v12);
+            v12 = *(v7 + 120);
+            v13 = *(v7 + 80);
+            v17 = *(v7 + 64);
+            v18 = v13;
+            v19 = *(v7 + 96);
+            draw_text(v16, v8, &v17, v9, v10, v12, 0, v11);
           }
 
           else
           {
-            v15 = *(v8 + 112);
-            v16 = *(v8 + 80);
-            v18 = *(v8 + 64);
-            v19 = v16;
-            v20 = *(v8 + 96);
-            append_standard_text(v17, v9, &v18, 0, v10, v11, v15, v12);
+            v14 = *(v7 + 112);
+            v15 = *(v7 + 80);
+            v17 = *(v7 + 64);
+            v18 = v15;
+            v19 = *(v7 + 96);
+            append_standard_text(v16, v8, &v17, 0, v9, v10, v14, v11);
           }
 
-          v7 = *v7;
+          v6 = *v6;
         }
 
-        while (v7);
+        while (v6);
       }
 
       return text_layout_reset(a3);
@@ -6511,7 +6597,7 @@ void *CGPDFTextStringAppendTextLayout(void *result, uint64_t a2, void *a3, __n12
   return result;
 }
 
-void draw_text(uint64_t a1, void *a2, _OWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void draw_text(uint64_t a1, _DWORD *a2, _OWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a3[1];
   v9[0] = *a3;
@@ -6528,7 +6614,7 @@ void draw_text(uint64_t a1, void *a2, _OWORD *a3, uint64_t a4, uint64_t a5, uint
   }
 }
 
-uint64_t append_standard_text(uint64_t a1, void *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t append_standard_text(uint64_t a1, _DWORD *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v16 = *(a1 + 8);
   result = text_block_create(a8);
@@ -6681,8 +6767,8 @@ LABEL_27:
 
 void append_cid_text(uint64_t a1, void *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v53 = a5;
-  v55 = *MEMORY[0x1E69E9840];
+  v47 = a5;
+  v49 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 8);
   v16 = text_block_create(a8);
   if (!v16)
@@ -6720,77 +6806,77 @@ void append_cid_text(uint64_t a1, void *a2, double *a3, uint64_t a4, uint64_t a5
   ROSUnicodeCMap = CGPDFFontGetToUnicodeCMap(a2);
   if (ROSUnicodeCMap)
   {
-    v23 = v53;
+    v22 = v47;
     goto LABEL_11;
   }
 
-  v23 = v53;
+  v22 = v47;
   ROSUnicodeCMap = CGPDFFontGetROSUnicodeCMap(a2);
   if (ROSUnicodeCMap)
   {
 LABEL_11:
-    v24 = *(*(ROSUnicodeCMap + 16) + 48);
-    if (v24)
+    v23 = *(*(ROSUnicodeCMap + 16) + 48);
+    if (v23)
     {
-      v24 = *(v24 + 16);
-      if (v24)
+      v23 = *(v23 + 16);
+      if (v23)
       {
-        v24 = *(v24 + 40);
+        v23 = *(v23 + 40);
       }
     }
 
-    if (v24 <= 2)
+    if (v23 <= 2)
     {
-      v24 = 2;
+      v23 = 2;
     }
 
-    v25 = MEMORY[0x1EEE9AC00](2 * v24, v22);
-    v52 = &v50 - v32;
-    if (v31 <= 0x7FFFFFFFFFFFFFFELL)
+    v24 = MEMORY[0x1EEE9AC00](2 * v23);
+    v46 = &v44 - v26;
+    if (v25 <= 0x7FFFFFFFFFFFFFFELL)
     {
-      v33 = &v50 - v32;
+      v27 = &v44 - v26;
     }
 
     else
     {
-      v33 = 0;
+      v27 = 0;
     }
 
-    if (v31 - 0x7FFFFFFFFFFFFFFFLL >= 0x8000000000000022)
+    if (v25 - 0x7FFFFFFFFFFFFFFFLL >= 0x8000000000000022)
     {
-      v33 = malloc_type_malloc(v25, 0xC389D79uLL);
+      v27 = malloc_type_malloc(v24, 0xC389D79uLL);
     }
 
-    if (v33)
+    if (v27)
     {
-      v50 = &v50;
-      v51 = v15;
+      v44 = &v44;
+      v45 = v15;
       if (a8)
       {
-        v34 = 0;
-        v35 = 0;
+        v28 = 0;
+        v29 = 0;
         do
         {
-          v36 = *(*(ROSUnicodeCMap + 16) + 48);
-          if (!v36 || (unichars = cmap_bf_set_get_unichars(*(v36 + 16), *(v23 + 2 * v35), v33, v26, v27, v28, v29, v30)) == 0)
+          v30 = *(*(ROSUnicodeCMap + 16) + 48);
+          if (!v30 || (unichars = cmap_bf_set_get_unichars(*(v30 + 16), *(v22 + 2 * v29), v27)) == 0)
           {
-            unichars = CGPDFGetUnicharGuessForCID(*(v23 + 2 * v35), v33);
+            unichars = CGPDFGetUnicharGuessForCID(*(v22 + 2 * v29), v27);
           }
 
           if (unichars)
           {
             if (unichars == 1)
             {
-              v38 = v33;
+              v32 = v27;
             }
 
             else
             {
-              v39 = v17[2] + unichars - 1;
-              v17[2] = v39;
-              if (v39 <= 0x7FFFFFFFFFFFFFDLL)
+              v33 = v17[2] + unichars - 1;
+              v17[2] = v33;
+              if (v33 <= 0x7FFFFFFFFFFFFFDLL)
               {
-                v17 = malloc_type_realloc(v17, 32 * v39 + 88, 0x10200401B0FFA56uLL);
+                v17 = malloc_type_realloc(v17, 32 * v33 + 88, 0x10200401B0FFA56uLL);
               }
 
               else
@@ -6798,83 +6884,83 @@ LABEL_11:
                 v17 = 0;
               }
 
-              v40 = &v17[4 * v34 + 14] + 1;
-              v34 = unichars + v34 - 1;
-              v41 = v33;
-              v42 = unichars - 1;
+              v34 = &v17[4 * v28 + 14] + 1;
+              v28 = unichars + v28 - 1;
+              v35 = v27;
+              v36 = unichars - 1;
               do
               {
-                v43 = *v41;
-                v41 += 2;
-                *v40 = v43;
+                v37 = *v35;
+                v35 += 2;
+                *v34 = v37;
                 if (a4)
                 {
-                  v44 = *(a4 + 2 * v35);
+                  v38 = *(a4 + 2 * v29);
                 }
 
                 else
                 {
-                  v44 = 0;
+                  v38 = 0;
                 }
 
-                *(v40 - 1) = v44;
-                *(v40 - 13) = *(a6 + 16 * v35);
-                *(v40 - 5) = 0;
-                v40 += 16;
-                --v42;
+                *(v34 - 1) = v38;
+                *(v34 - 13) = *(a6 + 16 * v29);
+                *(v34 - 5) = 0;
+                v34 += 16;
+                --v36;
               }
 
-              while (v42);
-              v38 = &v33[2 * unichars - 2];
-              v23 = v53;
+              while (v36);
+              v32 = &v27[2 * unichars - 2];
+              v22 = v47;
             }
 
-            LOWORD(unichars) = *v38;
+            LOWORD(unichars) = *v32;
           }
 
-          v45 = &v17[4 * v34 + 11];
-          *(v45 + 26) = unichars;
+          v39 = &v17[4 * v28 + 11];
+          *(v39 + 26) = unichars;
           if (a4)
           {
-            v46 = *(a4 + 2 * v35);
+            v40 = *(a4 + 2 * v29);
           }
 
           else
           {
-            v46 = 0;
+            v40 = 0;
           }
 
-          *(v45 + 24) = v46;
-          *v45 = *(a6 + 16 * v35);
-          *(v45 + 16) = *(a7 + 8 * v35);
-          ++v34;
-          ++v35;
+          *(v39 + 24) = v40;
+          *v39 = *(a6 + 16 * v29);
+          *(v39 + 16) = *(a7 + 8 * v29);
+          ++v28;
+          ++v29;
         }
 
-        while (v35 != a8);
+        while (v29 != a8);
       }
 
-      if (v33 != v52)
+      if (v27 != v46)
       {
-        free(v33);
+        free(v27);
       }
 
-      v47 = v51;
-      v48 = (v51 + 32);
-      if (*(v51 + 24))
+      v41 = v45;
+      v42 = (v45 + 32);
+      if (*(v45 + 24))
       {
-        v49 = *v48;
+        v43 = *v42;
       }
 
       else
       {
-        v49 = (v51 + 32);
-        v48 = (v51 + 24);
+        v43 = (v45 + 32);
+        v42 = (v45 + 24);
       }
 
-      *v49 = v17;
-      *v48 = v17;
-      *(v47 + 48) += v17[2];
+      *v43 = v17;
+      *v42 = v17;
+      *(v41 + 48) += v17[2];
     }
 
     else
@@ -6911,7 +6997,7 @@ const void *copy_color()
   return v0;
 }
 
-void draw_glyphs(uint64_t a1, void *a2, _OWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void draw_glyphs(uint64_t a1, _DWORD *a2, _OWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v9 = a3[1];
   v10[0] = *a3;
@@ -7103,7 +7189,7 @@ void TaggedParser::AddPage(TaggedParser *this, CGPDFPage *a2)
 
   v5 = v4 - 1;
   v6 = *this;
-  if (*(*this + 256) <= v4 - 1)
+  if (*(*this + 256) <= (v4 - 1))
   {
     goto LABEL_103;
   }
@@ -7132,43 +7218,43 @@ void TaggedParser::AddPage(TaggedParser *this, CGPDFPage *a2)
       }
 
       *&info = a2;
-      v89 = v10;
-      v90 = this;
-      v91 = 0;
+      v77 = v10;
+      v78 = this;
+      v79 = 0;
       BoxRect = CGPDFPageGetBoxRect(a2, kCGPDFCropBox);
       x = BoxRect.origin.x;
       y = BoxRect.origin.y;
       width = BoxRect.size.width;
       height = BoxRect.size.height;
       *(&info + 1) = *&BoxRect.origin.x;
-      *&v87 = BoxRect.origin.y;
-      *(&v87 + 1) = *&BoxRect.size.width;
-      v88 = BoxRect.size.height;
+      *&v75 = BoxRect.origin.y;
+      *(&v75 + 1) = *&BoxRect.size.width;
+      v76 = BoxRect.size.height;
       RotationAngle = CGPDFPageGetRotationAngle(a2);
       if (RotationAngle == 270 || RotationAngle == 90)
       {
-        *(&v87 + 1) = height;
-        v88 = width;
-        v24 = width;
+        *(&v75 + 1) = height;
+        v76 = width;
+        v19 = width;
       }
 
       else
       {
-        v24 = height;
+        v19 = height;
         height = width;
       }
 
-      v94 = *&x;
-      v95 = *&y;
-      v96 = height;
-      v97 = v24;
-      CGDisplayList = CG::DisplayList::createCGDisplayList(0, &v94, v18, v19, v20, v21, v22, v23);
-      cf = CGDisplayListContextCreate(CGDisplayList, v25, v26, v27, v28, v29, v30, v31);
-      v32 = CGPDFScannerCreate(v9, v10, &info);
-      CGPDFScannerScan(v32);
-      if (v32)
+      v82 = *&x;
+      v83 = *&y;
+      v84 = height;
+      v85 = v19;
+      CGDisplayList = CG::DisplayList::createCGDisplayList(0, &v82, v18);
+      cf = CGDisplayListContextCreate(CGDisplayList);
+      v20 = CGPDFScannerCreate(v9, v10, &info);
+      CGPDFScannerScan(v20);
+      if (v20)
       {
-        CFRelease(v32);
+        CFRelease(v20);
       }
 
       if (v10)
@@ -7195,96 +7281,96 @@ void TaggedParser::AddPage(TaggedParser *this, CGPDFPage *a2)
     }
 
     std::mutex::lock((v6 + 32));
-    v33 = *this;
-    v34 = **this;
-    v35 = *(*this + 24);
-    if (v34)
+    v21 = *this;
+    v22 = **this;
+    v23 = *(*this + 24);
+    if (v22)
     {
-      if (v35)
+      if (v23)
       {
-        v37 = v33 + 200;
-        v36 = *(v33 + 200);
-        v38 = 0xAAAAAAAAAAAAAAABLL * ((*(v37 + 8) - v36) >> 3);
-        if (v38 <= v5)
+        v25 = v21 + 200;
+        v24 = *(v21 + 200);
+        v26 = 0xAAAAAAAAAAAAAAABLL * ((*(v25 + 8) - v24) >> 3);
+        if (v26 <= v5)
         {
           goto LABEL_103;
         }
 
-        v39 = (v36 + 24 * v5);
-        v94 = 0;
-        v95 = 0;
-        v96 = 0.0;
-        v40 = *v39;
-        v41 = v39[1];
-        *&info = &v94;
+        v27 = (v24 + 24 * v5);
+        v82 = 0;
+        v83 = 0;
+        v84 = 0.0;
+        v28 = *v27;
+        v29 = v27[1];
+        *&info = &v82;
         BYTE8(info) = 0;
-        if (v41 != v40)
+        if (v29 != v28)
         {
-          v42 = 0xAAAAAAAAAAAAAAABLL * ((v41 - v40) >> 3);
-          if (v42 < 0xAAAAAAAAAAAAAABLL)
+          v30 = 0xAAAAAAAAAAAAAAABLL * ((v29 - v28) >> 3);
+          if (v30 < 0xAAAAAAAAAAAAAABLL)
           {
-            std::__allocate_at_least[abi:fe200100]<std::allocator<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>>>(v42);
+            std::__allocate_at_least[abi:fe200100]<std::allocator<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>>>(v30);
           }
 
           std::vector<CG::DisplayListResource const*>::__throw_length_error[abi:fe200100]();
         }
 
-        if (v38 <= v5)
+        if (v26 <= v5)
         {
           goto LABEL_103;
         }
 
-        v43 = (v36 + 24 * v5);
-        v45 = *v43;
-        v44 = v43[1];
-        if (v44 != *v43)
+        v31 = (v24 + 24 * v5);
+        v33 = *v31;
+        v32 = v31[1];
+        if (v32 != *v31)
         {
           do
           {
-            v46 = v44 - 24;
-            std::__destroy_at[abi:fe200100]<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>,0>(*(v44 - 8));
-            v44 = v46;
+            v34 = v32 - 24;
+            std::__destroy_at[abi:fe200100]<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>,0>(*(v32 - 8));
+            v32 = v34;
           }
 
-          while (v46 != v45);
+          while (v34 != v33);
         }
 
-        v43[1] = v45;
-        v47 = v94;
-        v48 = v95;
-        if (v94 != v95)
+        v31[1] = v33;
+        v35 = v82;
+        v36 = v83;
+        if (v82 != v83)
         {
           while (1)
           {
             info = 0u;
-            v87 = 0u;
-            LODWORD(v88) = 1065353216;
-            v99 = 0;
+            v75 = 0u;
+            LODWORD(v76) = 1065353216;
+            v87 = 0;
             value[0] = 0;
-            v98 = 0;
-            v85[0] = value;
-            v85[1] = &v99;
-            v85[2] = &v98;
-            std::__memberwise_copy_assign[abi:fe200100]<std::tuple<StructureElement *&,unsigned long &,applesauce::CF::ObjectRef<CGPDFDictionary *> &>,std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>,0ul,1ul,2ul>(v85, v47);
-            v49 = *(value[0] + 11);
-            if (v99 >= (*(value[0] + 12) - v49) >> 3)
+            v86 = 0;
+            v73[0] = value;
+            v73[1] = &v87;
+            v73[2] = &v86;
+            std::__memberwise_copy_assign[abi:fe200100]<std::tuple<StructureElement *&,unsigned long &,applesauce::CF::ObjectRef<CGPDFDictionary *> &>,std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>,0ul,1ul,2ul>(v73, v35);
+            v37 = *(value[0] + 11);
+            if (v87 >= (*(value[0] + 12) - v37) >> 3)
             {
               break;
             }
 
-            if (!*(v49 + 8 * v99))
+            if (!*(v37 + 8 * v87))
             {
-              TaggedParser::BuildStructureElementFromDictionary();
+              TaggedParser::BuildStructureElementFromDictionary(this, value[0], v86, v4, &info, v87);
             }
 
-            if (v98)
+            if (v86)
             {
-              CFRelease(v98);
+              CFRelease(v86);
             }
 
             std::__hash_table<std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::__unordered_map_hasher<CGPDFFont *,std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::hash<CGPDFFont *>,std::equal_to<CGPDFFont *>,true>,std::__unordered_map_equal<CGPDFFont *,std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::equal_to<CGPDFFont *>,std::hash<CGPDFFont *>,true>,std::allocator<std::__hash_value_type<CGPDFFont *,std::pair<double,double>>>>::~__hash_table(&info);
-            v47 = (v47 + 24);
-            if (v47 == v48)
+            v35 = (v35 + 24);
+            if (v35 == v36)
             {
               goto LABEL_41;
             }
@@ -7296,28 +7382,28 @@ LABEL_103:
         }
 
 LABEL_41:
-        v50 = *(*this + 200);
-        if (0xAAAAAAAAAAAAAAABLL * ((*(*this + 208) - v50) >> 3) <= v5)
+        v38 = *(*this + 200);
+        if (0xAAAAAAAAAAAAAAABLL * ((*(*this + 208) - v38) >> 3) <= v5)
         {
           goto LABEL_103;
         }
 
-        if (*(v50 + 24 * v5 + 8) != *(v50 + 24 * v5))
+        if (*(v38 + 24 * v5 + 8) != *(v38 + 24 * v5))
         {
           __assert_rtn("AddPage", "TaggedParser.mm", 828, "_private->objectsToSearch[pageIndex].size() == 0");
         }
 
-        *&info = &v94;
+        *&info = &v82;
         std::vector<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>>::__destroy_vector::operator()[abi:fe200100](&info);
       }
 
       else
       {
-        v85[0] = v4;
-        if (TaggedParser::ValidatePageNumber(this, v34, v85))
+        v73[0] = v4;
+        if (TaggedParser::ValidatePageNumber(this, v22, v73))
         {
           value[0] = 0;
-          if (CGPDFDictionaryGetDictionary(v34, "RoleMap", value))
+          if (CGPDFDictionaryGetDictionary(v22, "RoleMap", value))
           {
             CGPDFDictionaryApplyFunction(value[0], RoleMapCallback, (*this + 152));
           }
@@ -7328,185 +7414,185 @@ LABEL_41:
         *(*this + 24) = 0;
       }
 
-      v51 = CGPDFPageCopyPageLayoutWithCTLD(a2, 1);
-      v52 = v51;
-      v94 = v51;
+      v39 = CGPDFPageCopyPageLayoutWithCTLD(a2, 1);
+      v40 = v39;
+      v82 = v39;
       if (a2)
       {
-        v53 = *(*(a2 + 5) + 8);
+        v41 = *(*(a2 + 5) + 8);
       }
 
       else
       {
-        v53 = 0;
+        v41 = 0;
       }
 
-      v54 = *(*this + 128);
-      if (0xAAAAAAAAAAAAAAABLL * ((*(*this + 136) - v54) >> 3) <= v53 - 1)
+      v42 = *(*this + 128);
+      if (0xAAAAAAAAAAAAAAABLL * ((*(*this + 136) - v42) >> 3) <= v41 - 1)
       {
         goto LABEL_103;
       }
 
-      *&info = v54 + 24 * (v53 - 1);
-      *(&info + 1) = v53;
-      *&v87 = v51 + 2;
-      *(&v87 + 1) = a2;
-      v55 = v51[40];
-      v56 = v51[41];
-      if (v55 != v56 && (v56 - v55) <= v51[17] - v51[16])
+      *&info = v42 + 24 * (v41 - 1);
+      *(&info + 1) = v41;
+      *&v75 = v39 + 2;
+      *(&v75 + 1) = a2;
+      v43 = v39[40];
+      v44 = v39[41];
+      if (v43 != v44 && (v44 - v43) <= v39[17] - v39[16])
       {
-        v57 = v51[10];
-        if (v51[11] == v57)
+        v45 = v39[10];
+        if (v39[11] == v45)
         {
-          v59 = 0;
-          v58 = -1;
+          v47 = 0;
+          v46 = -1;
         }
 
         else
         {
-          v58 = *(*v57 + 8) + **v57;
-          v59 = 1;
+          v46 = *(*v45 + 8) + **v45;
+          v47 = 1;
         }
 
-        v60 = 0;
-        v61 = 0;
-        v62 = 0;
-        v63 = 0;
-        v64 = *v55;
+        v48 = 0;
+        v49 = 0;
+        v50 = 0;
+        v51 = 0;
+        v52 = *v43;
         while (1)
         {
-          v65 = v52[13];
-          if (v60 >= (v52[14] - v65) >> 1)
+          v53 = v40[13];
+          if (v48 >= (v40[14] - v53) >> 1)
           {
             break;
           }
 
-          v66 = *&v55[8 * v63];
-          v67 = *(v65 + 2 * v60);
-          if (v67 == 32 || v64 != v66 || v63 == v58)
+          v54 = *&v43[8 * v51];
+          v55 = *(v53 + 2 * v48);
+          if (v55 == 32 || v52 != v54 || v51 == v46)
           {
-            if (v62 >= 1)
+            if (v50 >= 1)
             {
-              TaggedParser::addWords(CGPDFPage *)::$_0::operator()(&info, v64, v61, v62);
+              TaggedParser::addWords(CGPDFPage *)::$_0::operator()(&info, v52, v49, v50);
             }
 
-            v62 = v67 != 32;
-            if (v67 == 32)
+            v50 = v55 != 32;
+            if (v55 == 32)
             {
-              v61 = v63 + 1;
+              v49 = v51 + 1;
             }
 
             else
             {
-              v61 = v63;
+              v49 = v51;
             }
 
-            if (v63 == v58)
+            if (v51 == v46)
             {
-              v70 = v52[10];
-              if (v59 >= (v52[11] - v70) >> 4)
+              v58 = v40[10];
+              if (v47 >= (v40[11] - v58) >> 4)
               {
-                v58 = -1;
+                v46 = -1;
               }
 
               else
               {
-                v58 = *(*(v70 + 16 * v59) + 8) + **(v70 + 16 * v59);
-                ++v59;
+                v46 = *(*(v58 + 16 * v47) + 8) + **(v58 + 16 * v47);
+                ++v47;
               }
             }
           }
 
           else
           {
-            ++v62;
+            ++v50;
           }
 
-          v71 = v52[16];
-          if (v63 >= (v52[17] - v71) >> 3)
+          v59 = v40[16];
+          if (v51 >= (v40[17] - v59) >> 3)
           {
             goto LABEL_103;
           }
 
-          v60 += *(v71 + 8 * v63++);
-          v55 = v52[40];
-          v64 = v66;
-          if (v63 >= (v52[41] - v55) >> 3)
+          v48 += *(v59 + 8 * v51++);
+          v43 = v40[40];
+          v52 = v54;
+          if (v51 >= (v40[41] - v43) >> 3)
           {
             goto LABEL_83;
           }
         }
 
-        LODWORD(v66) = v64;
+        LODWORD(v54) = v52;
 LABEL_83:
-        if (v62 >= 1)
+        if (v50 >= 1)
         {
-          TaggedParser::addWords(CGPDFPage *)::$_0::operator()(&info, v66, v61, v62);
+          TaggedParser::addWords(CGPDFPage *)::$_0::operator()(&info, v54, v49, v50);
         }
       }
 
-      CFRelease(v52);
+      CFRelease(v40);
       if (!a2)
       {
         goto LABEL_103;
       }
 
-      v72 = *(*(a2 + 5) + 8) - 1;
-      v73 = *this;
-      v74 = *(*this + 224);
-      if (0xCCCCCCCCCCCCCCCDLL * ((*(*this + 232) - v74) >> 3) <= v72)
+      v60 = *(*(a2 + 5) + 8) - 1;
+      v61 = *this;
+      v62 = *(*this + 224);
+      if (0xCCCCCCCCCCCCCCCDLL * ((*(*this + 232) - v62) >> 3) <= v60)
       {
         goto LABEL_103;
       }
 
-      v76 = v73 + 128;
-      v75 = *(v73 + 128);
-      if (0xAAAAAAAAAAAAAAABLL * ((*(v76 + 8) - v75) >> 3) <= v72)
+      v64 = v61 + 128;
+      v63 = *(v61 + 128);
+      if (0xAAAAAAAAAAAAAAABLL * ((*(v64 + 8) - v63) >> 3) <= v60)
       {
         goto LABEL_103;
       }
 
-      v77 = *(v74 + 40 * v72 + 16);
-      if (v77)
+      v65 = *(v62 + 40 * v60 + 16);
+      if (v65)
       {
-        v78 = (v75 + 24 * v72 + 8);
+        v66 = (v63 + 24 * v60 + 8);
         do
         {
-          v79 = *v78;
-          if (*v78)
+          v67 = *v66;
+          if (*v66)
           {
-            v80 = v77[2];
-            v81 = v78;
+            v68 = v65[2];
+            v69 = v66;
             do
             {
-              if (v79[4] >= v80)
+              if (v67[4] >= v68)
               {
-                v81 = v79;
+                v69 = v67;
               }
 
-              v79 = v79[v79[4] < v80];
+              v67 = v67[v67[4] < v68];
             }
 
-            while (v79);
-            if (v81 != v78 && v80 >= v81[4])
+            while (v67);
+            if (v69 != v66 && v68 >= v69[4])
             {
-              v82 = v81[5];
-              v83 = *(v77 + 3);
-              v84 = *(v77 + 5);
-              *(v82 + 240) = *(v77 + 56);
-              *(v82 + 208) = v83;
-              *(v82 + 224) = v84;
+              v70 = v69[5];
+              v71 = *(v65 + 3);
+              v72 = *(v65 + 5);
+              *(v70 + 240) = *(v65 + 56);
+              *(v70 + 208) = v71;
+              *(v70 + 224) = v72;
             }
           }
 
-          v77 = *v77;
+          v65 = *v65;
         }
 
-        while (v77);
+        while (v65);
       }
     }
 
-    else if (!v35)
+    else if (!v23)
     {
       operator new();
     }
@@ -7515,11 +7601,11 @@ LABEL_83:
   }
 }
 
-void sub_1841C03EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1841C03EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::__unordered_map_hasher<CGPDFFont *,std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::hash<CGPDFFont *>,std::equal_to<CGPDFFont *>,true>,std::__unordered_map_equal<CGPDFFont *,std::__hash_value_type<CGPDFFont *,std::pair<double,double>>,std::equal_to<CGPDFFont *>,std::hash<CGPDFFont *>,true>,std::allocator<std::__hash_value_type<CGPDFFont *,std::pair<double,double>>>>::~__hash_table(va);
-  std::mutex::unlock((v7 + 32));
+  std::mutex::unlock((v13 + 32));
   _Unwind_Resume(a1);
 }
 
@@ -7554,7 +7640,7 @@ const void **applesauce::CF::ObjectRef<CGPDFDictionary *>::~ObjectRef(const void
   return a1;
 }
 
-void TaggedParser::addWords(CGPDFPage *)::$_0::operator()(void *a1, unsigned int a2, uint64_t a3, unint64_t a4)
+void TaggedParser::addWords(CGPDFPage *)::$_0::operator()(void *a1, unsigned int a2, unint64_t a3, unint64_t a4)
 {
   v4 = *(*a1 + 8);
   if (v4)
@@ -7727,8 +7813,8 @@ const void **applesauce::CF::ObjectRef<CGPDFTaggedNode *>::~ObjectRef(const void
 
 void TaggedParser::BuildStructureElement(TaggedParser *a1, StructureElement *a2, unint64_t a3, unint64_t a4, void *a5)
 {
-  v54 = a4;
-  v55 = a2;
+  v56 = a4;
+  v57 = a2;
   v9 = 0x9DDFEA08EB382D69 * ((8 * (a3 & 0x1FFFFFFF) + 8) ^ HIDWORD(a3));
   v10 = 0x9DDFEA08EB382D69 * (HIDWORD(a3) ^ (v9 >> 47) ^ v9);
   v11 = 0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47));
@@ -7874,31 +7960,31 @@ LABEL_32:
       value = 0;
       if (CGPDFDictionaryGetName(v31, "Type", &value) && !strcmp(value, "OBJR"))
       {
-        v53 = a4;
-        TaggedParser::ValidatePageNumber(a1, v31, &v53);
+        v55 = a4;
+        TaggedParser::ValidatePageNumber(a1, v31, &v55);
         cf = 0;
         if (CGPDFDictionaryGetDictionary(v31, "Obj", &cf))
         {
-          TaggedParser::BuildObjectElement(a2, v53, cf, v46);
+          TaggedParser::BuildObjectElement(a2, v55, cf, v46);
         }
 
         return;
       }
 
-      if (TaggedParser::ValidatePageNumber(a1, v31, &v54))
+      if (TaggedParser::ValidatePageNumber(a1, v31, &v56))
       {
-        TaggedParser::BuildStructureElementFromDictionary(a1, a2, v31, v54, a5, 0xFFFFFFFFLL);
+        TaggedParser::BuildStructureElementFromDictionary(a1, a2, v31, v56, a5, 0xFFFFFFFF);
         return;
       }
 
       v33 = (*(a2 + 12) - *(a2 + 11)) >> 3;
       cf = 0;
-      v53 = v33;
+      v55 = v33;
       std::vector<CGPDFObject *>::push_back[abi:fe200100](a2 + 88, &cf);
-      v34 = v54 - 1;
+      v34 = v56 - 1;
       v35 = *a1;
       v36 = *(*a1 + 200);
-      if (0xAAAAAAAAAAAAAAABLL * ((*(v35 + 208) - v36) >> 3) > v54 - 1)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(v35 + 208) - v36) >> 3) > v56 - 1)
       {
         if (v31)
         {
@@ -7910,7 +7996,7 @@ LABEL_32:
         v38 = v37[1];
         if (v38 >= v37[2])
         {
-          v44 = std::vector<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>>::__emplace_back_slow_path<StructureElement *&,unsigned long &,applesauce::CF::ObjectRef<CGPDFDictionary *>>(v37, &v55, &v53, &cf);
+          v44 = std::vector<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>>::__emplace_back_slow_path<StructureElement *&,unsigned long &,applesauce::CF::ObjectRef<CGPDFDictionary *>>(v37, &v57, &v55, &cf);
           v45 = cf;
           v37[1] = v44;
           if (v45)
@@ -7945,9 +8031,9 @@ LABEL_45:
     if (0xAAAAAAAAAAAAAAABLL * ((*(*a1 + 136) - v27) >> 3) > v22)
     {
       v28 = (*(a3 + 32) | (a4 << 32));
-      v53 = v28;
-      value = &v53;
-      std::__tree<std::__value_type<long long,StructureElement *>,std::__map_value_compare<long long,std::__value_type<long long,StructureElement *>,std::less<long long>,true>,std::allocator<std::__value_type<long long,StructureElement *>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(v27 + 24 * v22, v28)[5] = a2;
+      v55 = v28;
+      value = &v55;
+      std::__tree<std::__value_type<long long,StructureElement *>,std::__map_value_compare<long long,std::__value_type<long long,StructureElement *>,std::less<long long>,true>,std::allocator<std::__value_type<long long,StructureElement *>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>((v27 + 24 * v22), v28, &value)[5] = a2;
       *(a2 + 7) = v28;
       return;
     }
@@ -7980,7 +8066,7 @@ LABEL_45:
       value = 0;
       if (CGPDFArrayGetObject(v24, 0, &value))
       {
-        TaggedParser::BuildStructureElement(a1, a2);
+        TaggedParser::BuildStructureElement(a1, a2, value, a4, a5);
       }
 
       return;
@@ -8028,21 +8114,22 @@ LABEL_82:
     v47 = 0;
     while (2)
     {
-      v53 = 0;
-      if (CGPDFArrayGetObject(v24, v47, &v53))
+      v55 = 0;
+      if (CGPDFArrayGetObject(v24, v47, &v55))
       {
-        if (!v53)
+        if (!v55)
         {
           goto LABEL_98;
         }
 
-        v48 = *(v53 + 2);
+        v48 = *(v55 + 2);
         switch(v48)
         {
           case 12:
             goto LABEL_88;
           case 8:
-            if ((TaggedParser::BuildStructureElement(a1, a2) & 1) == 0)
+            TaggedParser::BuildStructureElement(a1, a2, v55, a4, a5);
+            if ((v52 & 1) == 0)
             {
               return;
             }
@@ -8050,22 +8137,23 @@ LABEL_82:
             break;
           case 3:
 LABEL_88:
+            v49 = *(v55 + 4);
             if (!v43)
             {
-              TaggedParser::CreateStructureElement(a1, a2);
+              TaggedParser::CreateStructureElement(a1, a2, a4, v49);
             }
 
-            v49 = *(*a1 + 128);
-            if (0xAAAAAAAAAAAAAAABLL * ((*(*a1 + 136) - v49) >> 3) <= v22)
+            v50 = *(*a1 + 128);
+            if (0xAAAAAAAAAAAAAAABLL * ((*(*a1 + 136) - v50) >> 3) <= v22)
             {
               goto LABEL_100;
             }
 
-            v50 = (*(v53 + 4) | (a4 << 32));
-            cf = v50;
+            v51 = (v49 | (a4 << 32));
+            cf = v51;
             value = &cf;
-            std::__tree<std::__value_type<long long,StructureElement *>,std::__map_value_compare<long long,std::__value_type<long long,StructureElement *>,std::less<long long>,true>,std::allocator<std::__value_type<long long,StructureElement *>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(v49 + 24 * v22, v50)[5] = a2;
-            *(a2 + 7) = v50;
+            std::__tree<std::__value_type<long long,StructureElement *>,std::__map_value_compare<long long,std::__value_type<long long,StructureElement *>,std::less<long long>,true>,std::allocator<std::__value_type<long long,StructureElement *>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>((v50 + 24 * v22), v51, &value)[5] = a2;
+            *(a2 + 7) = v51;
             break;
           default:
 LABEL_98:
@@ -8108,17 +8196,17 @@ LABEL_51:
   *(v29 + 97) = 1;
 }
 
-void sub_1841C1924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1841C1924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::ObjectRef<CGPDFDictionary *>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<long long,StructureElement *>,std::__map_value_compare<long long,std::__value_type<long long,StructureElement *>,std::less<long long>,true>,std::allocator<std::__value_type<long long,StructureElement *>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t **std::__tree<std::__value_type<long long,StructureElement *>,std::__map_value_compare<long long,std::__value_type<long long,StructureElement *>,std::less<long long>,true>,std::allocator<std::__value_type<long long,StructureElement *>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long &&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t ***a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -8128,27 +8216,27 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -8197,37 +8285,31 @@ BOOL TaggedParser::ValidatePageNumber(TaggedParser *this, CGPDFDictionary *a2, u
   return v9 < 2;
 }
 
-uint64_t TaggedParser::BuildObjectElement(uint64_t this, StructureElement *a2, CGPDFDictionaryRef dict, CGPDFDictionary *a4)
+void TaggedParser::BuildObjectElement(TaggedParser *this, StructureElement *a2, CGPDFDictionaryRef dict, CGPDFDictionary *a4)
 {
   if (this)
   {
     if (dict)
     {
-      v6 = this;
       value = 0;
-      this = CGPDFDictionaryGetName(dict, "Type", &value);
-      if (this)
+      if (CGPDFDictionaryGetName(dict, "Type", &value))
       {
-        this = value;
         if (value)
         {
-          this = strcmp(value, "Annot");
-          if (!this)
+          if (!strcmp(value, "Annot"))
           {
-            memset(v9, 0, sizeof(v9));
-            this = CGPDFDictionaryGetRect(dict, "Rect", v9);
-            if (this)
+            memset(v10, 0, sizeof(v10));
+            if (CGPDFDictionaryGetRect(dict, "Rect", v10))
             {
               __s1 = 0;
-              this = CGPDFDictionaryGetName(dict, "Subtype", &__s1);
-              if (this)
+              if (CGPDFDictionaryGetName(dict, "Subtype", &__s1))
               {
                 if (__s1)
                 {
-                  this = CGPDFAnnotationCreateWithCGPDFDictionary(dict);
-                  if (this)
+                  v7 = CGPDFAnnotationCreateWithCGPDFDictionary(dict);
+                  if (v7)
                   {
-                    TaggedParser::CreateStructureElement(v6, a2, this, v7);
+                    TaggedParser::CreateStructureElement(this, a2, v7, v8);
                   }
                 }
               }
@@ -8237,11 +8319,9 @@ uint64_t TaggedParser::BuildObjectElement(uint64_t this, StructureElement *a2, C
       }
     }
   }
-
-  return this;
 }
 
-uint64_t std::vector<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>>::__emplace_back_slow_path<StructureElement *&,unsigned long &,applesauce::CF::ObjectRef<CGPDFDictionary *>>(void *a1, void *a2, uint64_t *a3, void *a4)
+void *std::vector<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>>::__emplace_back_slow_path<StructureElement *&,unsigned long &,applesauce::CF::ObjectRef<CGPDFDictionary *>>(void *a1, void *a2, uint64_t *a3, void *a4)
 {
   v5 = *a1;
   v4 = a1[1];
@@ -8311,7 +8391,7 @@ uint64_t std::vector<std::tuple<StructureElement *,unsigned long,applesauce::CF:
     operator delete(v16);
   }
 
-  return 24 * v7 + 24;
+  return (24 * v7 + 24);
 }
 
 void std::__allocate_at_least[abi:fe200100]<std::allocator<std::tuple<StructureElement *,unsigned long,applesauce::CF::ObjectRef<CGPDFDictionary *>>>>(unint64_t a1)
@@ -8324,7 +8404,7 @@ void std::__allocate_at_least[abi:fe200100]<std::allocator<std::tuple<StructureE
   std::__throw_bad_array_new_length[abi:fe200100]();
 }
 
-void std::vector<__CFDictionary const*>::emplace_back<__CFDictionary const* const&>(uint64_t a1, void *a2)
+void std::vector<__CFDictionary const*>::emplace_back<__CFDictionary const* const&>(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -8386,7 +8466,7 @@ void std::vector<__CFDictionary const*>::emplace_back<__CFDictionary const* cons
   *(a1 + 8) = v5;
 }
 
-void TaggedParser::AddIntAttributeFromSourceDictionary(uint64_t a1, CGPDFDictionaryRef dict, const __CFString *a3)
+void TaggedParser::AddIntAttributeFromSourceDictionary(TaggedParser *a1, CGPDFDictionaryRef dict, __CFString *a3)
 {
   value = 0;
   CGPDFDictionaryGetDictionary(dict, "A", &value);
@@ -8394,9 +8474,9 @@ void TaggedParser::AddIntAttributeFromSourceDictionary(uint64_t a1, CGPDFDiction
   {
     v6 = -2;
     CStringPtr = CFStringGetCStringPtr(a3, 0x600u);
-    if (!*(a1 + 136))
+    if (!*(a1 + 17))
     {
-      *(a1 + 136) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      *(a1 + 17) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     }
 
     if (CStringPtr)
@@ -8577,13 +8657,13 @@ void sub_1841C2EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
     if (v10 == &a9)
     {
-      MEMORY[0x1865EE610](v9, 0x1020C4062D53EE8);
+      MEMORY[0x1865EE610](v9, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(a1);
     }
   }
 }
 
-void RoleMapCallback(char *__s, CGPDFObject *a2, void **a3)
+void RoleMapCallback(char *__s, CGPDFObject *a2, uint64_t **a3)
 {
   if (a2 && *(a2 + 2) == 5)
   {
@@ -8935,9 +9015,9 @@ uint64_t TaggedParser::GetCurrentMCID(uint64_t this, CGPDFPage *a2)
   return this;
 }
 
-void TaggedParser::AddGraphicBounds(TaggedParser *this, CGPDFPage *a2, CGRect a3)
+void TaggedParser::AddGraphicBounds(TaggedParser *this, CGPDFPage *a2, CGRect a3, char a4)
 {
-  v3 = *this;
+  v4 = *this;
   if ((*(*this + 97) & 1) == 0)
   {
     height = a3.size.height;
@@ -8947,35 +9027,35 @@ void TaggedParser::AddGraphicBounds(TaggedParser *this, CGPDFPage *a2, CGRect a3
     CurrentMCID = TaggedParser::GetCurrentMCID(this, a2);
     if (CurrentMCID != -1)
     {
-      v9 = HIDWORD(CurrentMCID) - 1;
-      v10 = *(v3 + 224);
-      if (0xCCCCCCCCCCCCCCCDLL * ((*(v3 + 232) - v10) >> 3) > v9)
+      v10 = HIDWORD(CurrentMCID) - 1;
+      v11 = *(v4 + 224);
+      if (0xCCCCCCCCCCCCCCCDLL * ((*(v4 + 232) - v11) >> 3) > v10)
       {
-        v11 = (v10 + 40 * v9);
-        v12 = v11[1];
-        if (!*&v12)
+        v12 = (v11 + 40 * v10);
+        v13 = v12[1];
+        if (!*&v13)
         {
           goto LABEL_21;
         }
 
-        v13 = vcnt_s8(v12);
-        v13.i16[0] = vaddlv_u8(v13);
-        if (v13.u32[0] > 1uLL)
+        v14 = vcnt_s8(v13);
+        v14.i16[0] = vaddlv_u8(v14);
+        if (v14.u32[0] > 1uLL)
         {
-          v14 = CurrentMCID;
-          if (CurrentMCID >= *&v12)
+          v15 = CurrentMCID;
+          if (CurrentMCID >= *&v13)
           {
-            v14 = CurrentMCID % *&v12;
+            v15 = CurrentMCID % *&v13;
           }
         }
 
         else
         {
-          v14 = (*&v12 - 1) & CurrentMCID;
+          v15 = (*&v13 - 1) & CurrentMCID;
         }
 
-        v15 = *(*v11 + 8 * v14);
-        if (!v15 || (v16 = *v15) == 0)
+        v16 = *(*v12 + 8 * v15);
+        if (!v16 || (v17 = *v16) == 0)
         {
 LABEL_21:
           operator new();
@@ -8983,43 +9063,43 @@ LABEL_21:
 
         while (1)
         {
-          v17 = v16[1];
-          if (v17 == CurrentMCID)
+          v18 = v17[1];
+          if (v18 == CurrentMCID)
           {
-            if (v16[2] == CurrentMCID)
+            if (v17[2] == CurrentMCID)
             {
-              v18.origin.x = x;
-              v18.origin.y = y;
-              v18.size.width = width;
-              v18.size.height = height;
-              *(v16 + 3) = CGRectUnion(*(v16 + 3), v18);
+              v19.origin.x = x;
+              v19.origin.y = y;
+              v19.size.width = width;
+              v19.size.height = height;
+              *(v17 + 3) = CGRectUnion(*(v17 + 3), v19);
               return;
             }
           }
 
           else
           {
-            if (v13.u32[0] > 1uLL)
+            if (v14.u32[0] > 1uLL)
             {
-              if (v17 >= *&v12)
+              if (v18 >= *&v13)
               {
-                v17 %= *&v12;
+                v18 %= *&v13;
               }
             }
 
             else
             {
-              v17 &= *&v12 - 1;
+              v18 &= *&v13 - 1;
             }
 
-            if (v17 != v14)
+            if (v18 != v15)
             {
               goto LABEL_21;
             }
           }
 
-          v16 = *v16;
-          if (!v16)
+          v17 = *v17;
+          if (!v17)
           {
             goto LABEL_21;
           }
@@ -9031,7 +9111,7 @@ LABEL_21:
   }
 }
 
-uint64_t CreateCGPDFTaggedNodeFromStructureElement(uint64_t result, CGPDFPage *a2)
+const StructureElement *CreateCGPDFTaggedNodeFromStructureElement(const StructureElement *result, CGPDFPage *a2)
 {
   if (!result)
   {
@@ -9048,16 +9128,16 @@ uint64_t CreateCGPDFTaggedNodeFromStructureElement(uint64_t result, CGPDFPage *a
   v5 = v4;
   if (v4)
   {
-    *(v4 + 16) = *(v3 + 8);
+    *(v4 + 16) = *(v3 + 2);
     if (*(v3 + 40) == 1)
     {
       *(v4 + 104) = 0;
     }
 
-    *(v4 + 24) = *(v3 + 64);
+    *(v4 + 24) = *(v3 + 4);
   }
 
-  v6 = *(v3 + 144);
+  v6 = *(v3 + 18);
   if (v6)
   {
     Value = CFDictionaryGetValue(v6, @"Alt");
@@ -9066,25 +9146,25 @@ uint64_t CreateCGPDFTaggedNodeFromStructureElement(uint64_t result, CGPDFPage *a
       CGPDFTaggedNodeSetAltText(v5, Value);
     }
 
-    v8 = CFDictionaryGetValue(*(v3 + 144), @"ActualText");
+    v8 = CFDictionaryGetValue(*(v3 + 18), @"ActualText");
     if (v8)
     {
       CGPDFTaggedNodeSetActualText(v5, v8);
     }
 
-    v9 = CFDictionaryGetValue(*(v3 + 144), @"T");
+    v9 = CFDictionaryGetValue(*(v3 + 18), @"T");
     if (v9)
     {
       CGPDFTaggedNodeSetTitleText(v5, v9);
     }
 
-    v10 = CFDictionaryGetValue(*(v3 + 144), @"Lang");
+    v10 = CFDictionaryGetValue(*(v3 + 18), @"Lang");
     if (v10)
     {
       CGPDFTaggedNodeSetLanguageText(v5, v10);
     }
 
-    v11 = CFDictionaryGetValue(*(v3 + 144), @"TextDecorationType");
+    v11 = CFDictionaryGetValue(*(v3 + 18), @"TextDecorationType");
     if (v11)
     {
       CGPDFTaggedNodeSetTextDecorationType(v5, v11);
@@ -9096,21 +9176,21 @@ uint64_t CreateCGPDFTaggedNodeFromStructureElement(uint64_t result, CGPDFPage *a
     v10 = 0;
   }
 
-  v12 = *(v3 + 136);
+  v12 = *(v3 + 17);
   if (v12)
   {
     if (CFDictionaryContainsKey(v12, @"RowSpan"))
     {
-      v13 = CFDictionaryGetValue(*(v3 + 136), @"RowSpan");
+      v13 = CFDictionaryGetValue(*(v3 + 17), @"RowSpan");
       if (v5)
       {
         *(v5 + 112) = v13;
       }
     }
 
-    if (CFDictionaryContainsKey(*(v3 + 136), @"ColSpan"))
+    if (CFDictionaryContainsKey(*(v3 + 17), @"ColSpan"))
     {
-      v14 = CFDictionaryGetValue(*(v3 + 136), @"ColSpan");
+      v14 = CFDictionaryGetValue(*(v3 + 17), @"ColSpan");
       if (v5)
       {
         *(v5 + 120) = v14;
@@ -9118,16 +9198,16 @@ uint64_t CreateCGPDFTaggedNodeFromStructureElement(uint64_t result, CGPDFPage *a
     }
   }
 
-  v15 = *(v3 + 160);
-  v16 = *(v3 + 168);
+  v15 = *(v3 + 20);
+  v16 = *(v3 + 21);
   while (v15 != v16)
   {
     v17 = *v15++;
     CGPDFTaggedNodeAddURL(v5, v17);
   }
 
-  v18 = *(v3 + 88);
-  v19 = *(v3 + 96);
+  v18 = *(v3 + 11);
+  v19 = *(v3 + 12);
   while (v18 != v19)
   {
     CGPDFTaggedNodeFromStructureElement = CreateCGPDFTaggedNodeFromStructureElement(*v18, a2);
@@ -9136,7 +9216,7 @@ uint64_t CreateCGPDFTaggedNodeFromStructureElement(uint64_t result, CGPDFPage *a
       v21 = CGPDFTaggedNodeFromStructureElement;
       if (v10)
       {
-        if (!*(CGPDFTaggedNodeFromStructureElement + 152))
+        if (!*(CGPDFTaggedNodeFromStructureElement + 19))
         {
           CGPDFTaggedNodeSetLanguageText(CGPDFTaggedNodeFromStructureElement, v10);
         }
@@ -9149,7 +9229,7 @@ uint64_t CreateCGPDFTaggedNodeFromStructureElement(uint64_t result, CGPDFPage *a
     ++v18;
   }
 
-  v22 = *(v3 + 56);
+  v22 = *(v3 + 7);
   if (v22 == -1)
   {
     v23 = 0;
@@ -9166,8 +9246,8 @@ uint64_t CreateCGPDFTaggedNodeFromStructureElement(uint64_t result, CGPDFPage *a
   }
 
   v67 = v23;
-  v24 = *(v3 + 112);
-  v25 = *(v3 + 120);
+  v24 = *(v3 + 14);
+  v25 = *(v3 + 15);
   while (v24 != v25)
   {
     v26 = *v24;
@@ -9298,8 +9378,8 @@ LABEL_72:
     ++v24;
   }
 
-  v45 = *(v3 + 184);
-  v46 = *(v3 + 192);
+  v45 = *(v3 + 23);
+  v46 = *(v3 + 24);
   while (v45 != v46)
   {
     v47 = *v45++;
@@ -9320,7 +9400,7 @@ LABEL_79:
     }
   }
 
-  else if (*(v3 + 88) == *(v3 + 96) && *(v3 + 184) == *(v3 + 192))
+  else if (*(v3 + 11) == *(v3 + 12) && *(v3 + 23) == *(v3 + 24))
   {
     v48 = CGPDFTaggedNodeGetBounds(v5).n128_u64[0];
     if (v5)
@@ -9330,7 +9410,7 @@ LABEL_79:
     }
   }
 
-  v53 = *(v3 + 152);
+  v53 = *(v3 + 19);
   if (v53)
   {
     Rect = CGPDFAnnotationGetRect(v53);
@@ -9374,8 +9454,8 @@ LABEL_79:
   else
   {
 LABEL_88:
-    v63 = *(v3 + 248);
-    v64 = *(v3 + 256);
+    v63 = *(v3 + 31);
+    v64 = *(v3 + 32);
     v65 = v63 == INFINITY;
     if (v64 == INFINITY)
     {
@@ -9579,20 +9659,20 @@ LABEL_15:
   }
 }
 
-void sub_1841C4380(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1841C4380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va4, a2);
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va4, a3);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
+  v6 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v7 = va_arg(va3, const void *);
+  v8 = va_arg(va3, const void *);
   va_copy(va4, va3);
-  v9 = va_arg(va4, const void *);
+  v10 = va_arg(va4, const void *);
   applesauce::CF::ObjectRef<CGPDFTaggedNode *>::~ObjectRef(va);
   applesauce::CF::ObjectRef<CGPDFTaggedNode *>::~ObjectRef(va1);
   applesauce::CF::ObjectRef<CGPDFTaggedNode *>::~ObjectRef(va2);

@@ -90,18 +90,11 @@
 
 - (Class)getResponseClass
 {
-  v3 = off_100098928;
   objc_opt_class();
-  v4 = [(MIBUNFCCommand *)self code]- 1;
-  if (v4 <= 0xB)
-  {
-    v3 = (&off_10009EC98)[v4];
-  }
+  [(MIBUNFCCommand *)self code];
+  v3 = objc_opt_class();
 
-  v5 = *v3;
-  v6 = objc_opt_class();
-
-  return v6;
+  return v3;
 }
 
 - (BOOL)_initWithCommandCode:(int64_t)code

@@ -457,7 +457,7 @@ uint64_t CMMsl::KappaSpinResult::KappaSpinResult(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::KappaSpinResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaSpinResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3003,22 +3003,11 @@ LABEL_26:
   }
 
 LABEL_46:
-  v25 = v5 ^ v3 ^ v6 ^ v7 ^ v9 ^ v10 ^ v11 ^ v12 ^ v14 ^ v16 ^ v18 ^ v19 ^ v20 ^ v21 ^ v23;
-  v26 = *(this + 10);
-  v27 = *(this + 11);
-  v28 = v25 ^ PBHashBytes();
-  v29 = *(this + 13);
-  v30 = *(this + 14);
-  v31 = PBHashBytes();
-  v32 = *(this + 1);
-  v33 = *(this + 2);
-  v34 = v28 ^ v31 ^ PBHashBytes();
-  v35 = *(this + 7);
-  v36 = *(this + 8);
-  v37 = PBHashBytes();
-  v38 = *(this + 4);
-  v39 = *(this + 5);
-  return v34 ^ v37 ^ PBHashBytes();
+  v25 = v5 ^ v3 ^ v6 ^ v7 ^ v9 ^ v10 ^ v11 ^ v12 ^ v14 ^ v16 ^ v18 ^ v19 ^ v20 ^ v21 ^ v23 ^ PBHashBytes();
+  v26 = PBHashBytes();
+  v27 = v25 ^ v26 ^ PBHashBytes();
+  v28 = PBHashBytes();
+  return v27 ^ v28 ^ PBHashBytes();
 }
 
 void CMMsl::KappaSteps::~KappaSteps(CMMsl::KappaSteps *this)
@@ -5953,7 +5942,7 @@ uint64_t CMMsl::KappaTrigger::KappaTrigger(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::KappaTrigger::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaTrigger::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9213,32 +9202,32 @@ uint64_t CMMsl::KappaTrigger::hash_value(CMMsl::KappaTrigger *this)
   v2 = *(this + 53);
   if ((v2 & 4) == 0)
   {
-    v54 = 0;
+    v48 = 0;
     if (v2 < 0)
     {
       goto LABEL_3;
     }
 
 LABEL_8:
-    v53 = 0;
+    v47 = 0;
     if (v2)
     {
       goto LABEL_4;
     }
 
 LABEL_9:
-    v52 = 0.0;
+    v46 = 0.0;
     goto LABEL_10;
   }
 
-  v54 = *(this + 12);
+  v48 = *(this + 12);
   if ((v2 & 0x80000000) == 0)
   {
     goto LABEL_8;
   }
 
 LABEL_3:
-  v53 = *(this + 211);
+  v47 = *(this + 211);
   if ((v2 & 1) == 0)
   {
     goto LABEL_9;
@@ -9251,26 +9240,20 @@ LABEL_4:
     v3 = 0.0;
   }
 
-  v52 = v3;
+  v46 = v3;
 LABEL_10:
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  v51 = PBHashBytes();
-  v6 = *(this + 7);
-  v7 = *(this + 8);
-  v50 = PBHashBytes();
-  v8 = *(this + 4);
-  v9 = *(this + 5);
-  v49 = PBHashBytes();
-  v10 = *(this + 53);
-  if ((v10 & 0x10000000) != 0)
+  v45 = PBHashBytes();
+  v44 = PBHashBytes();
+  v43 = PBHashBytes();
+  v4 = *(this + 53);
+  if ((v4 & 0x10000000) != 0)
   {
-    v48 = *(this + 208);
-    if ((v10 & 0x20000000) != 0)
+    v42 = *(this + 208);
+    if ((v4 & 0x20000000) != 0)
     {
 LABEL_12:
-      v47 = *(this + 209);
-      if ((v10 & 0x400000) != 0)
+      v41 = *(this + 209);
+      if ((v4 & 0x400000) != 0)
       {
         goto LABEL_13;
       }
@@ -9281,26 +9264,26 @@ LABEL_12:
 
   else
   {
-    v48 = 0;
-    if ((v10 & 0x20000000) != 0)
+    v42 = 0;
+    if ((v4 & 0x20000000) != 0)
     {
       goto LABEL_12;
     }
   }
 
-  v47 = 0;
-  if ((v10 & 0x400000) != 0)
+  v41 = 0;
+  if ((v4 & 0x400000) != 0)
   {
 LABEL_13:
-    v46 = *(this + 46);
-    if ((v10 & 0x10) != 0)
+    v40 = *(this + 46);
+    if ((v4 & 0x10) != 0)
     {
       goto LABEL_14;
     }
 
 LABEL_67:
-    v12 = 0;
-    if ((v10 & 0x80000) != 0)
+    v6 = 0;
+    if ((v4 & 0x80000) != 0)
     {
       goto LABEL_18;
     }
@@ -9309,29 +9292,29 @@ LABEL_67:
   }
 
 LABEL_66:
-  v46 = 0;
-  if ((v10 & 0x10) == 0)
+  v40 = 0;
+  if ((v4 & 0x10) == 0)
   {
     goto LABEL_67;
   }
 
 LABEL_14:
-  v11 = *(this + 28);
-  if (v11 == 0.0)
+  v5 = *(this + 28);
+  if (v5 == 0.0)
   {
-    v12 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v12 = LODWORD(v11);
+    v6 = LODWORD(v5);
   }
 
-  if ((v10 & 0x80000) != 0)
+  if ((v4 & 0x80000) != 0)
   {
 LABEL_18:
-    v13 = *(this + 43);
-    if ((v10 & 0x40000) != 0)
+    v7 = *(this + 43);
+    if ((v4 & 0x40000) != 0)
     {
       goto LABEL_19;
     }
@@ -9340,12 +9323,12 @@ LABEL_18:
   }
 
 LABEL_68:
-  v13 = 0;
-  if ((v10 & 0x40000) != 0)
+  v7 = 0;
+  if ((v4 & 0x40000) != 0)
   {
 LABEL_19:
-    v14 = *(this + 42);
-    if ((v10 & 0x20000) != 0)
+    v8 = *(this + 42);
+    if ((v4 & 0x20000) != 0)
     {
       goto LABEL_20;
     }
@@ -9354,12 +9337,12 @@ LABEL_19:
   }
 
 LABEL_69:
-  v14 = 0;
-  if ((v10 & 0x20000) != 0)
+  v8 = 0;
+  if ((v4 & 0x20000) != 0)
   {
 LABEL_20:
-    v15 = *(this + 41);
-    if ((v10 & 0x10000) != 0)
+    v9 = *(this + 41);
+    if ((v4 & 0x10000) != 0)
     {
       goto LABEL_21;
     }
@@ -9368,12 +9351,12 @@ LABEL_20:
   }
 
 LABEL_70:
-  v15 = 0;
-  if ((v10 & 0x10000) != 0)
+  v9 = 0;
+  if ((v4 & 0x10000) != 0)
   {
 LABEL_21:
-    v16 = *(this + 40);
-    if ((v10 & 0x8000) != 0)
+    v10 = *(this + 40);
+    if ((v4 & 0x8000) != 0)
     {
       goto LABEL_22;
     }
@@ -9382,12 +9365,12 @@ LABEL_21:
   }
 
 LABEL_71:
-  v16 = 0;
-  if ((v10 & 0x8000) != 0)
+  v10 = 0;
+  if ((v4 & 0x8000) != 0)
   {
 LABEL_22:
-    v17 = *(this + 39);
-    if ((v10 & 0x4000) != 0)
+    v11 = *(this + 39);
+    if ((v4 & 0x4000) != 0)
     {
       goto LABEL_23;
     }
@@ -9396,12 +9379,12 @@ LABEL_22:
   }
 
 LABEL_72:
-  v17 = 0;
-  if ((v10 & 0x4000) != 0)
+  v11 = 0;
+  if ((v4 & 0x4000) != 0)
   {
 LABEL_23:
-    v18 = *(this + 38);
-    if ((v10 & 0x2000) != 0)
+    v12 = *(this + 38);
+    if ((v4 & 0x2000) != 0)
     {
       goto LABEL_24;
     }
@@ -9410,12 +9393,12 @@ LABEL_23:
   }
 
 LABEL_73:
-  v18 = 0;
-  if ((v10 & 0x2000) != 0)
+  v12 = 0;
+  if ((v4 & 0x2000) != 0)
   {
 LABEL_24:
-    v19 = *(this + 37);
-    if ((v10 & 0x100000) != 0)
+    v13 = *(this + 37);
+    if ((v4 & 0x100000) != 0)
     {
       goto LABEL_25;
     }
@@ -9424,19 +9407,19 @@ LABEL_24:
   }
 
 LABEL_74:
-  v19 = 0;
-  if ((v10 & 0x100000) != 0)
+  v13 = 0;
+  if ((v4 & 0x100000) != 0)
   {
 LABEL_25:
-    v20 = *(this + 44);
-    if ((v10 & 0x100) != 0)
+    v14 = *(this + 44);
+    if ((v4 & 0x100) != 0)
     {
       goto LABEL_26;
     }
 
 LABEL_76:
-    v22 = 0;
-    if ((v10 & 0x1000000) != 0)
+    v16 = 0;
+    if ((v4 & 0x1000000) != 0)
     {
       goto LABEL_30;
     }
@@ -9445,29 +9428,29 @@ LABEL_76:
   }
 
 LABEL_75:
-  v20 = 0;
-  if ((v10 & 0x100) == 0)
+  v14 = 0;
+  if ((v4 & 0x100) == 0)
   {
     goto LABEL_76;
   }
 
 LABEL_26:
-  v21 = *(this + 32);
-  if (v21 == 0.0)
+  v15 = *(this + 32);
+  if (v15 == 0.0)
   {
-    v22 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v22 = LODWORD(v21);
+    v16 = LODWORD(v15);
   }
 
-  if ((v10 & 0x1000000) != 0)
+  if ((v4 & 0x1000000) != 0)
   {
 LABEL_30:
-    v23 = *(this + 48);
-    if ((v10 & 0x20) != 0)
+    v17 = *(this + 48);
+    if ((v4 & 0x20) != 0)
     {
       goto LABEL_31;
     }
@@ -9476,12 +9459,12 @@ LABEL_30:
   }
 
 LABEL_77:
-  v23 = 0;
-  if ((v10 & 0x20) != 0)
+  v17 = 0;
+  if ((v4 & 0x20) != 0)
   {
 LABEL_31:
-    v24 = *(this + 29);
-    if ((v10 & 8) != 0)
+    v18 = *(this + 29);
+    if ((v4 & 8) != 0)
     {
       goto LABEL_32;
     }
@@ -9490,33 +9473,33 @@ LABEL_31:
   }
 
 LABEL_78:
-  v24 = 0;
-  if ((v10 & 8) != 0)
+  v18 = 0;
+  if ((v4 & 8) != 0)
   {
 LABEL_32:
-    v25 = *(this + 13);
-    if ((v10 & 0x2000000) != 0)
+    v19 = *(this + 13);
+    if ((v4 & 0x2000000) != 0)
     {
       goto LABEL_33;
     }
 
 LABEL_80:
-    v27 = 0;
-    if ((v10 & 0x4000000) != 0)
+    v21 = 0;
+    if ((v4 & 0x4000000) != 0)
     {
       goto LABEL_37;
     }
 
 LABEL_81:
-    v29 = 0;
-    if ((v10 & 0x8000000) != 0)
+    v23 = 0;
+    if ((v4 & 0x8000000) != 0)
     {
       goto LABEL_41;
     }
 
 LABEL_82:
-    v31 = 0;
-    if ((v10 & 0x800) != 0)
+    v25 = 0;
+    if ((v4 & 0x800) != 0)
     {
       goto LABEL_45;
     }
@@ -9525,48 +9508,142 @@ LABEL_82:
   }
 
 LABEL_79:
-  v25 = 0;
-  if ((v10 & 0x2000000) == 0)
+  v19 = 0;
+  if ((v4 & 0x2000000) == 0)
   {
     goto LABEL_80;
   }
 
 LABEL_33:
-  v26 = *(this + 49);
-  if (v26 == 0.0)
+  v20 = *(this + 49);
+  if (v20 == 0.0)
   {
-    v27 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v27 = LODWORD(v26);
+    v21 = LODWORD(v20);
   }
 
-  if ((v10 & 0x4000000) == 0)
+  if ((v4 & 0x4000000) == 0)
   {
     goto LABEL_81;
   }
 
 LABEL_37:
-  v28 = *(this + 50);
-  if (v28 == 0.0)
+  v22 = *(this + 50);
+  if (v22 == 0.0)
   {
-    v29 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v29 = LODWORD(v28);
+    v23 = LODWORD(v22);
   }
 
-  if ((v10 & 0x8000000) == 0)
+  if ((v4 & 0x8000000) == 0)
   {
     goto LABEL_82;
   }
 
 LABEL_41:
-  v30 = *(this + 51);
+  v24 = *(this + 51);
+  if (v24 == 0.0)
+  {
+    v25 = 0;
+  }
+
+  else
+  {
+    v25 = LODWORD(v24);
+  }
+
+  if ((v4 & 0x800) != 0)
+  {
+LABEL_45:
+    v26 = *(this + 35);
+    if ((v4 & 0x80) != 0)
+    {
+      goto LABEL_46;
+    }
+
+    goto LABEL_84;
+  }
+
+LABEL_83:
+  v26 = 0;
+  if ((v4 & 0x80) != 0)
+  {
+LABEL_46:
+    v27 = *(this + 31);
+    if ((v4 & 2) != 0)
+    {
+      goto LABEL_47;
+    }
+
+    goto LABEL_85;
+  }
+
+LABEL_84:
+  v27 = 0;
+  if ((v4 & 2) != 0)
+  {
+LABEL_47:
+    v28 = *(this + 11);
+    if ((v4 & 0x40000000) != 0)
+    {
+      goto LABEL_48;
+    }
+
+    goto LABEL_86;
+  }
+
+LABEL_85:
+  v28 = 0;
+  if ((v4 & 0x40000000) != 0)
+  {
+LABEL_48:
+    v29 = *(this + 210);
+    if ((v4 & 0x1000) != 0)
+    {
+      goto LABEL_49;
+    }
+
+LABEL_87:
+    v31 = 0;
+    if ((v4 & 0x200) != 0)
+    {
+      goto LABEL_53;
+    }
+
+LABEL_88:
+    v33 = 0;
+    if ((v4 & 0x40) != 0)
+    {
+      goto LABEL_57;
+    }
+
+LABEL_89:
+    v35 = 0;
+    if ((v4 & 0x200000) != 0)
+    {
+      goto LABEL_61;
+    }
+
+    goto LABEL_90;
+  }
+
+LABEL_86:
+  v29 = 0;
+  if ((v4 & 0x1000) == 0)
+  {
+    goto LABEL_87;
+  }
+
+LABEL_49:
+  v30 = *(this + 36);
   if (v30 == 0.0)
   {
     v31 = 0;
@@ -9577,172 +9654,78 @@ LABEL_41:
     v31 = LODWORD(v30);
   }
 
-  if ((v10 & 0x800) != 0)
-  {
-LABEL_45:
-    v32 = *(this + 35);
-    if ((v10 & 0x80) != 0)
-    {
-      goto LABEL_46;
-    }
-
-    goto LABEL_84;
-  }
-
-LABEL_83:
-  v32 = 0;
-  if ((v10 & 0x80) != 0)
-  {
-LABEL_46:
-    v33 = *(this + 31);
-    if ((v10 & 2) != 0)
-    {
-      goto LABEL_47;
-    }
-
-    goto LABEL_85;
-  }
-
-LABEL_84:
-  v33 = 0;
-  if ((v10 & 2) != 0)
-  {
-LABEL_47:
-    v34 = *(this + 11);
-    if ((v10 & 0x40000000) != 0)
-    {
-      goto LABEL_48;
-    }
-
-    goto LABEL_86;
-  }
-
-LABEL_85:
-  v34 = 0;
-  if ((v10 & 0x40000000) != 0)
-  {
-LABEL_48:
-    v35 = *(this + 210);
-    if ((v10 & 0x1000) != 0)
-    {
-      goto LABEL_49;
-    }
-
-LABEL_87:
-    v37 = 0;
-    if ((v10 & 0x200) != 0)
-    {
-      goto LABEL_53;
-    }
-
-LABEL_88:
-    v39 = 0;
-    if ((v10 & 0x40) != 0)
-    {
-      goto LABEL_57;
-    }
-
-LABEL_89:
-    v41 = 0;
-    if ((v10 & 0x200000) != 0)
-    {
-      goto LABEL_61;
-    }
-
-    goto LABEL_90;
-  }
-
-LABEL_86:
-  v35 = 0;
-  if ((v10 & 0x1000) == 0)
-  {
-    goto LABEL_87;
-  }
-
-LABEL_49:
-  v36 = *(this + 36);
-  if (v36 == 0.0)
-  {
-    v37 = 0;
-  }
-
-  else
-  {
-    v37 = LODWORD(v36);
-  }
-
-  if ((v10 & 0x200) == 0)
+  if ((v4 & 0x200) == 0)
   {
     goto LABEL_88;
   }
 
 LABEL_53:
-  v38 = *(this + 33);
-  if (v38 == 0.0)
+  v32 = *(this + 33);
+  if (v32 == 0.0)
   {
-    v39 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v39 = LODWORD(v38);
+    v33 = LODWORD(v32);
   }
 
-  if ((v10 & 0x40) == 0)
+  if ((v4 & 0x40) == 0)
   {
     goto LABEL_89;
   }
 
 LABEL_57:
-  v40 = *(this + 30);
-  if (v40 == 0.0)
+  v34 = *(this + 30);
+  if (v34 == 0.0)
   {
-    v41 = 0;
+    v35 = 0;
   }
 
   else
   {
-    v41 = LODWORD(v40);
+    v35 = LODWORD(v34);
   }
 
-  if ((v10 & 0x200000) != 0)
+  if ((v4 & 0x200000) != 0)
   {
 LABEL_61:
-    v42 = *(this + 45);
-    if ((v10 & 0x400) != 0)
+    v36 = *(this + 45);
+    if ((v4 & 0x400) != 0)
     {
       goto LABEL_62;
     }
 
 LABEL_91:
-    v43 = 0;
-    if ((v10 & 0x800000) != 0)
+    v37 = 0;
+    if ((v4 & 0x800000) != 0)
     {
       goto LABEL_63;
     }
 
 LABEL_92:
-    v44 = 0;
-    return v53 ^ v54 ^ *&v52 ^ v51 ^ v50 ^ v49 ^ v48 ^ v47 ^ v46 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v18 ^ v19 ^ v20 ^ v22 ^ v23 ^ v24 ^ v25 ^ v27 ^ v29 ^ v31 ^ v32 ^ v33 ^ v34 ^ v35 ^ v37 ^ v39 ^ v41 ^ v42 ^ v43 ^ v44;
+    v38 = 0;
+    return v47 ^ v48 ^ *&v46 ^ v45 ^ v44 ^ v43 ^ v42 ^ v41 ^ v40 ^ v6 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v16 ^ v17 ^ v18 ^ v19 ^ v21 ^ v23 ^ v25 ^ v26 ^ v27 ^ v28 ^ v29 ^ v31 ^ v33 ^ v35 ^ v36 ^ v37 ^ v38;
   }
 
 LABEL_90:
-  v42 = 0;
-  if ((v10 & 0x400) == 0)
+  v36 = 0;
+  if ((v4 & 0x400) == 0)
   {
     goto LABEL_91;
   }
 
 LABEL_62:
-  v43 = *(this + 34);
-  if ((v10 & 0x800000) == 0)
+  v37 = *(this + 34);
+  if ((v4 & 0x800000) == 0)
   {
     goto LABEL_92;
   }
 
 LABEL_63:
-  v44 = *(this + 47);
-  return v53 ^ v54 ^ *&v52 ^ v51 ^ v50 ^ v49 ^ v48 ^ v47 ^ v46 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v18 ^ v19 ^ v20 ^ v22 ^ v23 ^ v24 ^ v25 ^ v27 ^ v29 ^ v31 ^ v32 ^ v33 ^ v34 ^ v35 ^ v37 ^ v39 ^ v41 ^ v42 ^ v43 ^ v44;
+  v38 = *(this + 47);
+  return v47 ^ v48 ^ *&v46 ^ v45 ^ v44 ^ v43 ^ v42 ^ v41 ^ v40 ^ v6 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v16 ^ v17 ^ v18 ^ v19 ^ v21 ^ v23 ^ v25 ^ v26 ^ v27 ^ v28 ^ v29 ^ v31 ^ v33 ^ v35 ^ v36 ^ v37 ^ v38;
 }
 
 void CMMsl::KappaTriggerClustersResult::~KappaTriggerClustersResult(CMMsl::KappaTriggerClustersResult *this)

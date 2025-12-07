@@ -24,7 +24,7 @@
     +[NSURL(SLFacebookURLAdditions) _isBetaSwitchEnabledForKey:];
   }
 
-  v4 = _preferencesQueue();
+  v4 = _preferencesQueue(self);
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __60__NSURL_SLFacebookURLAdditions___isBetaSwitchEnabledForKey___block_invoke;
@@ -207,23 +207,23 @@ LABEL_13:
   v4 = [defaultWorkspace URLOverrideForURL:self];
 
   scheme = [v4 scheme];
-  v6 = scheme;
+  v11 = scheme;
   if (scheme)
   {
-    if (![scheme compare:@"http" options:1] || (v7 = 1, !objc_msgSend(v6, "compare:options:", @"https", 1)))
+    if (![scheme compare:@"http" options:1] || (v12 = 1, !objc_msgSend(v11, "compare:options:", @"https", 1)))
     {
-      v7 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v7 = 1;
+    v12 = 1;
   }
 
-  _SLLog(v1, 6, @"URL %@ overridden to %@ scheme %@ will launch another app? %d");
+  _SLLog(v1, 6, @"URL %@ overridden to %@ scheme %@ will launch another app? %d", v6, v7, v8, v9, v10, self);
 
-  return v7;
+  return v12;
 }
 
 @end

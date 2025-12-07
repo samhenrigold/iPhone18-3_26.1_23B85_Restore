@@ -13,30 +13,30 @@
 {
   dictCopy = dict;
   v4 = +[NSMutableDictionary dictionary];
-  v27 = +[NSMutableDictionary dictionary];
-  v28 = dictCopy;
-  v29 = 0u;
+  v28 = +[NSMutableDictionary dictionary];
+  v29 = dictCopy;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
   allKeys = [dictCopy allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v30;
+    v9 = *v31;
     *&v7 = 138543618;
-    v26 = v7;
+    v27 = v7;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v30 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v30 + 1) + 8 * i);
         if ([v11 isSystemContainerPath])
         {
           getSystemContainerKeyword = [v11 getSystemContainerKeyword];
@@ -48,17 +48,17 @@
           }
 
           lookupSystemContainerPathUUID = [v11 lookupSystemContainerPathUUID];
-          v14 = sub_100021268();
+          v14 = sub_100021268(lookupSystemContainerPathUUID);
           v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
           if (lookupSystemContainerPathUUID)
           {
             if (v15)
             {
               getSystemContainerKeyword2 = [v11 getSystemContainerKeyword];
-              *buf = v26;
-              v34 = getSystemContainerKeyword2;
-              v35 = 2114;
-              v36 = lookupSystemContainerPathUUID;
+              *buf = v27;
+              v35 = getSystemContainerKeyword2;
+              v36 = 2114;
+              v37 = lookupSystemContainerPathUUID;
               _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "System container path mapping created: %{public}@ -> %{public}@", buf, 0x16u);
             }
 
@@ -72,22 +72,22 @@ LABEL_12:
 
             if (v19 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v22 = sub_100021268();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              v23 = sub_100021268(v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v34 = v11;
-                _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Cannot locate system container path identifier in path '%{public}@'. Skipping...", buf, 0xCu);
+                v35 = v11;
+                _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Cannot locate system container path identifier in path '%{public}@'. Skipping...", buf, 0xCu);
               }
             }
 
             else
             {
-              v23 = [v11 stringByReplacingCharactersInRange:v19 withString:{v21, lookupSystemContainerPathUUID}];
-              v24 = [v28 objectForKey:v11];
-              [v27 setObject:v24 forKey:v23];
+              v24 = [v11 stringByReplacingCharactersInRange:v19 withString:{v21, lookupSystemContainerPathUUID}];
+              v25 = [v29 objectForKey:v11];
+              [v28 setObject:v25 forKey:v24];
 
-              lookupSystemContainerPathUUID = v23;
+              lookupSystemContainerPathUUID = v24;
             }
           }
 
@@ -96,7 +96,7 @@ LABEL_12:
             if (v15)
             {
               *buf = 138543362;
-              v34 = v11;
+              v35 = v11;
               _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Cannot lookup system container path UUID from path '%{public}@'. Skipping...", buf, 0xCu);
             }
 
@@ -107,13 +107,13 @@ LABEL_12:
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v8);
   }
 
-  return v27;
+  return v28;
 }
 
 - (NSString)getSystemContainerKeyword

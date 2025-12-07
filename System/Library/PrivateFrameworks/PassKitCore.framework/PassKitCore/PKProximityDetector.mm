@@ -54,33 +54,33 @@
     [(PKProximityDetector *)self endDetecting];
   }
 
-  [(PKProximityDetector *)self _createPowerAssertion];
-  v6 = objc_alloc_init(getSFDeviceDiscoveryClass[0]());
+  _createPowerAssertion = [(PKProximityDetector *)self _createPowerAssertion];
+  v7 = objc_alloc_init(getSFDeviceDiscoveryClass(_createPowerAssertion));
   nearbyInfoDiscovery = self->_nearbyInfoDiscovery;
-  self->_nearbyInfoDiscovery = v6;
+  self->_nearbyInfoDiscovery = v7;
 
   if (self->_advertisingDeviceUUID)
   {
-    v8 = self->_nearbyInfoDiscovery;
-    v9 = [MEMORY[0x1E695DFD8] setWithObject:?];
-    [(SFDeviceDiscovery *)v8 setDeviceFilter:v9];
+    v9 = self->_nearbyInfoDiscovery;
+    v10 = [MEMORY[0x1E695DFD8] setWithObject:?];
+    [(SFDeviceDiscovery *)v9 setDeviceFilter:v10];
   }
 
   [(SFDeviceDiscovery *)self->_nearbyInfoDiscovery setDiscoveryFlags:1];
   [(SFDeviceDiscovery *)self->_nearbyInfoDiscovery setScanRate:50];
-  v10 = self->_nearbyInfoDiscovery;
-  v11 = [(PKProximityDetector *)self _createDeviceFoundBlockWithName:@"NearbyInfo"];
-  [(SFDeviceDiscovery *)v10 setDeviceFoundHandler:v11];
+  v11 = self->_nearbyInfoDiscovery;
+  v12 = [(PKProximityDetector *)self _createDeviceFoundBlockWithName:@"NearbyInfo"];
+  [(SFDeviceDiscovery *)v11 setDeviceFoundHandler:v12];
 
-  v12 = self->_nearbyInfoDiscovery;
-  v13 = [(PKProximityDetector *)self _createDeviceLostBlockWithName:@"NearbyInfo"];
-  [(SFDeviceDiscovery *)v12 setDeviceLostHandler:v13];
+  v13 = self->_nearbyInfoDiscovery;
+  v14 = [(PKProximityDetector *)self _createDeviceLostBlockWithName:@"NearbyInfo"];
+  [(SFDeviceDiscovery *)v13 setDeviceLostHandler:v14];
 
   [(SFDeviceDiscovery *)self->_nearbyInfoDiscovery setOverrideScreenOff:1];
   self->_isDetecting = 1;
-  v14 = self->_nearbyInfoDiscovery;
-  v15 = [(PKProximityDetector *)self _createDiscoveryActivationBlockWithName:@"NearbyInfo" duration:completionCopy completion:duration];
-  [(SFDeviceDiscovery *)v14 activateWithCompletion:v15];
+  v15 = self->_nearbyInfoDiscovery;
+  v16 = [(PKProximityDetector *)self _createDiscoveryActivationBlockWithName:@"NearbyInfo" duration:completionCopy completion:duration];
+  [(SFDeviceDiscovery *)v15 activateWithCompletion:v16];
 }
 
 - (id)_createDeviceFoundBlockWithName:(id)name

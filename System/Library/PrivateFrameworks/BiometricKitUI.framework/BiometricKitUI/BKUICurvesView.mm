@@ -11,6 +11,7 @@
 - (void)_resetLayers;
 - (void)_startAnimation:(unint64_t)animation withColor:(id)color isLast:(BOOL)last;
 - (void)_waitForInit;
+- (void)animationDidStop:(id)stop finished:(BOOL)finished;
 - (void)dealloc;
 - (void)estimateFailed;
 - (void)estimateProgress:(float)progress;
@@ -38,32 +39,32 @@
 
 - (void)_resetLayers
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_pathLayers;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) removeFromSuperlayer];
+        [*(*(&v8 + 1) + 8 * v7++) removeFromSuperlayer];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
@@ -71,7 +72,6 @@
 
   [(NSMutableArray *)self->_pathLayers removeAllObjects];
   self->_currentLayer = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_animateFromLayer:(unint64_t)layer toLayer:(unint64_t)toLayer withColor:(id)color
@@ -261,6 +261,17 @@ LABEL_18:
   initCondition = self->_initCondition;
 
   [(NSCondition *)initCondition unlock];
+}
+
+- (void)animationDidStop:(id)stop finished:(BOOL)finished
+{
+  v4 = [stop valueForKey:{@"oldLayer", finished}];
+  if (v4)
+  {
+    v5 = v4;
+    [v4 removeFromSuperlayer];
+    v4 = v5;
+  }
 }
 
 - (void)_startAnimation:(unint64_t)animation withColor:(id)color isLast:(BOOL)last
@@ -507,7 +518,7 @@ LABEL_4:
 
 - (void)loadDataFromXML:(id)l name:(id)name color:(id)color
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   lCopy = l;
   nameCopy = name;
   colorCopy = color;
@@ -550,11 +561,11 @@ LABEL_4:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v35 = lCopy;
-    v36 = 2112;
-    v37 = nameCopy;
-    v38 = 2112;
-    v39 = colorCopy;
+    v34 = lCopy;
+    v35 = 2112;
+    v36 = nameCopy;
+    v37 = 2112;
+    v38 = colorCopy;
     _os_log_impl(&dword_241B0A000, v26, OS_LOG_TYPE_INFO, "BiometricKitUI: Loading bundle: %@ with name: %@, and color: %@", buf, 0x20u);
   }
 
@@ -564,22 +575,20 @@ LABEL_4:
   block[2] = __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke;
   block[3] = &unk_278D09A60;
   block[4] = self;
-  v32 = lCopy;
-  v33 = nameCopy;
+  v31 = lCopy;
+  v32 = nameCopy;
   v28 = nameCopy;
   v29 = lCopy;
   dispatch_async(v27, block);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   if (os_log_type_enabled(*(*(a1 + 32) + 528), OS_LOG_TYPE_DEBUG))
   {
-    __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_cold_1(v2);
+    __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 40) pathForResource:*(a1 + 48) ofType:@"svg"];
@@ -596,63 +605,61 @@ void __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke(uint64_t a1)
     [*v2 bounds];
     v10 = v9;
     v12 = v11;
-    [*(*v2 + 504) bounds];
+    [*(*v2 + 63) bounds];
     v14 = v10 / v13;
-    [*(*v2 + 504) bounds];
+    [*(*v2 + 63) bounds];
     v16 = v12 / v15;
-    memset(&v33.c, 0, 32);
+    memset(&v32.c, 0, 32);
     if (v14 < v12 / v15)
     {
       v16 = v14;
     }
 
-    *&v33.a = 0uLL;
-    CGAffineTransformMakeScale(&v32, v16, v16);
-    [*(*v2 + 504) bounds];
+    *&v32.a = 0uLL;
+    CGAffineTransformMakeScale(&v31, v16, v16);
+    [*(*v2 + 63) bounds];
     v18 = -v17;
-    [*(*v2 + 504) bounds];
-    CGAffineTransformTranslate(&v33, &v32, v18, -v19);
-    v20 = [*v2 newQuartzPath:*(*v2 + 504) transform:&v33];
+    [*(*v2 + 63) bounds];
+    CGAffineTransformTranslate(&v32, &v31, v18, -v19);
+    v20 = [*v2 newQuartzPath:*(*v2 + 63) transform:&v32];
     [v8 setPath:v20];
     CFRelease(v20);
-    [v8 setStrokeColor:{objc_msgSend(*(*v2 + 416), "CGColor")}];
+    [v8 setStrokeColor:{objc_msgSend(*(*v2 + 52), "CGColor")}];
     [v8 setFillColor:0];
     [v8 setLineWidth:1.5];
     [v8 setLineJoin:*MEMORY[0x277CDA790]];
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_38;
-    v29 = &unk_278D09A38;
-    v30 = *v2;
-    v31 = v8;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_38;
+    v28 = &unk_278D09A38;
+    v29 = *v2;
+    v30 = v8;
     v21 = v8;
-    dispatch_async(MEMORY[0x277D85CD0], &v26);
+    dispatch_async(MEMORY[0x277D85CD0], &v25);
   }
 
   else
   {
-    v22 = *(*v2 + 528);
+    v22 = *(*v2 + 66);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_cold_2(v2, v22);
     }
   }
 
-  v23 = *(*v2 + 528);
+  v23 = *(*v2 + 66);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     v24 = *v2;
-    LODWORD(v33.a) = 138412290;
-    *(&v33.a + 4) = v24;
-    _os_log_impl(&dword_241B0A000, v23, OS_LOG_TYPE_INFO, "BiometricKitUI: dispatch_async exit, self = %@", &v33, 0xCu);
+    LODWORD(v32.a) = 138412290;
+    *(&v32.a + 4) = v24;
+    _os_log_impl(&dword_241B0A000, v23, OS_LOG_TYPE_INFO, "BiometricKitUI: dispatch_async exit, self = %@", &v32, 0xCu);
   }
 
-  [*(*v2 + 480) lock];
+  [*(*v2 + 60) lock];
   *(*v2 + 488) = 1;
-  [*(*v2 + 480) signal];
-  [*(*v2 + 480) unlock];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [*(*v2 + 60) signal];
+  [*(*v2 + 60) unlock];
 }
 
 uint64_t __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_38(uint64_t a1)
@@ -691,7 +698,7 @@ uint64_t __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_38(uint6
 {
   height = size.height;
   width = size.width;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(self->bkui_curves_view_log, OS_LOG_TYPE_DEBUG))
   {
     [BKUICurvesView setSublayersSize:];
@@ -730,11 +737,11 @@ uint64_t __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_38(uint6
     {
       self->_lastRatio = v9;
       memset(&buf, 0, sizeof(buf));
-      CGAffineTransformMakeScale(&v27, v9, v9);
+      CGAffineTransformMakeScale(&v26, v9, v9);
       [(UIBezierPath *)self->_wholePath bounds];
       v13 = -v12;
       [(UIBezierPath *)self->_wholePath bounds];
-      CGAffineTransformTranslate(&buf, &v27, v13, -v14);
+      CGAffineTransformTranslate(&buf, &v26, v13, -v14);
       v15 = [(BKUICurvesView *)self newQuartzPath:self->_wholePath transform:&buf];
       [(CAShapeLayer *)self->_fingerLayer setPath:v15];
       CFRelease(v15);
@@ -773,8 +780,6 @@ uint64_t __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_38(uint6
 
     [(BKUICurvesView *)self setSublayerSize:width, height];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)sublayerSize
@@ -786,56 +791,21 @@ uint64_t __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_38(uint6
   return result;
 }
 
-- (void)estimateProgress:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setProgress:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)parser:(uint64_t)a1 didStartElement:(NSObject *)a2 namespaceURI:qualifiedName:attributes:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "BiometricKitUI: Parsing error when processing: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "BiometricKitUI: Parsing error when processing: %@", &v2, 0xCu);
 }
 
 void __45__BKUICurvesView_loadDataFromXML_name_color___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "BiometricKitUI: NSXML parser failed or aborted, self = %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setSublayersSize:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "BiometricKitUI: NSXML parser failed or aborted, self = %@", &v3, 0xCu);
 }
 
 @end

@@ -9,60 +9,61 @@
 - (id)imageForImage:(id)image
 {
   imageCopy = image;
-  if ([(SUUIOnboardingCircleImageDataConsumer *)self usesSaturationFilter])
+  usesSaturationFilter = [(SUUIOnboardingCircleImageDataConsumer *)self usesSaturationFilter];
+  if (usesSaturationFilter)
   {
-    v5 = SUUICoreImageFramework();
-    v6 = SUUIWeakLinkedClassForString(&cfstr_Cicontext.isa, v5);
-    v7 = SUUIWeakLinkedClassForString(&cfstr_Ciimage.isa, v5);
-    v8 = SUUIWeakLinkedClassForString(&cfstr_Cifilter.isa, v5);
-    v9 = *SUUIWeakLinkedSymbolForString("kCIInputBackgroundImageKey", v5);
-    v10 = *SUUIWeakLinkedSymbolForString("kCIInputImageKey", v5);
-    v11 = *SUUIWeakLinkedSymbolForString("kCIOutputImageKey", v5);
-    v12 = [v8 filterWithName:@"CIColorControls" keysAndValues:{@"inputSaturation", &unk_286BBE060, 0}];
-    v13 = [v7 imageWithCGImage:{objc_msgSend(imageCopy, "CGImage")}];
-    [v12 setValue:v13 forKey:v10];
+    v7 = SUUICoreImageFramework(usesSaturationFilter, v6);
+    v8 = SUUIWeakLinkedClassForString(&cfstr_Cicontext.isa, v7);
+    v9 = SUUIWeakLinkedClassForString(&cfstr_Ciimage.isa, v7);
+    v10 = SUUIWeakLinkedClassForString(&cfstr_Cifilter.isa, v7);
+    v11 = *SUUIWeakLinkedSymbolForString("kCIInputBackgroundImageKey", v7);
+    v12 = *SUUIWeakLinkedSymbolForString("kCIInputImageKey", v7);
+    v13 = *SUUIWeakLinkedSymbolForString("kCIOutputImageKey", v7);
+    v14 = [v10 filterWithName:@"CIColorControls" keysAndValues:{@"inputSaturation", &unk_286BBE060, 0}];
+    v15 = [v9 imageWithCGImage:{objc_msgSend(imageCopy, "CGImage")}];
+    [v14 setValue:v15 forKey:v12];
 
-    v14 = [v8 filterWithName:@"CIMultiplyBlendMode"];
-    v15 = [v12 valueForKey:v11];
-    [v14 setValue:v15 forKey:v10];
+    v16 = [v10 filterWithName:@"CIMultiplyBlendMode"];
+    v17 = [v14 valueForKey:v13];
+    [v16 setValue:v17 forKey:v12];
 
     [imageCopy size];
-    v16 = [(SUUIOnboardingCircleImageDataConsumer *)self _saturationBackgroundImageWithSize:?];
-    v17 = [v7 imageWithCGImage:{objc_msgSend(v16, "CGImage")}];
-    [v14 setValue:v17 forKey:v9];
+    v18 = [(SUUIOnboardingCircleImageDataConsumer *)self _saturationBackgroundImageWithSize:?];
+    v19 = [v9 imageWithCGImage:{objc_msgSend(v18, "CGImage")}];
+    [v16 setValue:v19 forKey:v11];
 
-    v18 = [v6 contextWithOptions:0];
-    v19 = [v14 valueForKey:v11];
+    v20 = [v8 contextWithOptions:0];
+    v21 = [v16 valueForKey:v13];
 
-    [v19 extent];
-    v20 = [v18 createCGImage:v19 fromRect:?];
-    v21 = [MEMORY[0x277D755B8] imageWithCGImage:v20];
+    [v21 extent];
+    v22 = [v20 createCGImage:v21 fromRect:?];
+    v23 = [MEMORY[0x277D755B8] imageWithCGImage:v22];
 
-    CFRelease(v20);
-    imageCopy = v21;
+    CFRelease(v22);
+    imageCopy = v23;
   }
 
   p_outputSize = &self->_outputSize;
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
-  UIGraphicsBeginImageContextWithOptions(*p_outputSize, 0, v24);
+  UIGraphicsBeginImageContextWithOptions(*p_outputSize, 0, v26);
 
   CurrentContext = UIGraphicsGetCurrentContext();
   width = p_outputSize->width;
   height = p_outputSize->height;
   CGContextBeginPath(CurrentContext);
-  v31.origin.x = 0.0;
-  v31.origin.y = 0.0;
-  v31.size.width = width;
-  v31.size.height = height;
-  CGContextAddEllipseInRect(CurrentContext, v31);
+  v33.origin.x = 0.0;
+  v33.origin.y = 0.0;
+  v33.size.width = width;
+  v33.size.height = height;
+  CGContextAddEllipseInRect(CurrentContext, v33);
   CGContextClosePath(CurrentContext);
   CGContextClip(CurrentContext);
   [imageCopy drawInRect:{0.0, 0.0, width, height}];
-  v28 = UIGraphicsGetImageFromCurrentImageContext();
+  v30 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  return v28;
+  return v30;
 }
 
 - (id)_saturationBackgroundImageWithSize:(CGSize)size

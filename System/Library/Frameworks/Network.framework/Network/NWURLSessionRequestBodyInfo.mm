@@ -1,5 +1,5 @@
 @interface NWURLSessionRequestBodyInfo
-- (id)bodyProviderFromOffset:(void *)offset;
+- (id)bodyProviderFromOffset:(id *)offset;
 - (id)initWithFileURL:(void *)l queue:;
 - (id)initWithRequest:(void *)request queue:;
 - (id)initWithStream:(id *)stream queue:(void *)queue;
@@ -135,7 +135,7 @@
   return selfCopy;
 }
 
-- (id)bodyProviderFromOffset:(void *)offset
+- (id)bodyProviderFromOffset:(id *)offset
 {
   offsetCopy = offset;
   if (!offset)
@@ -147,7 +147,7 @@
   if (offset[2])
   {
     v5 = [NWURLSessionRequestBodyData alloc];
-    v6 = *(offsetCopy + 2);
+    v6 = offsetCopy[2];
     v7 = v6;
     if (v5)
     {
@@ -158,8 +158,8 @@
       if (v8)
       {
         objc_storeStrong(v8 + 1, v6);
-        *(offsetCopy + 2) = dispatch_data_get_size(v7);
-        *(offsetCopy + 3) = v4;
+        offsetCopy[2] = dispatch_data_get_size(v7);
+        offsetCopy[3] = v4;
       }
 
       goto LABEL_6;
@@ -188,7 +188,7 @@ LABEL_6:
       v17 = v7;
 
       v18 = [NWURLSessionRequestBodyStream alloc];
-      v19 = *(offsetCopy + 5);
+      v19 = offsetCopy[5];
       v4 = v17;
       v2 = v19;
       if (v18)
@@ -206,11 +206,11 @@ LABEL_21:
         if (![v4 streamStatus])
         {
           objc_storeStrong(offsetCopy + 2, v7);
-          *(offsetCopy + 3) = 0;
+          offsetCopy[3] = 0;
           objc_storeStrong(offsetCopy + 4, v19);
           v20 = objc_alloc_init(NWURLSessionReadRequest);
-          v21 = *(offsetCopy + 5);
-          *(offsetCopy + 5) = v20;
+          v21 = offsetCopy[5];
+          offsetCopy[5] = v20;
 
           goto LABEL_21;
         }
@@ -233,8 +233,8 @@ LABEL_27:
   }
 
   v9 = [NWURLSessionRequestBodyFile alloc];
-  v10 = *(offsetCopy + 5);
-  v11 = *(offsetCopy + 3);
+  v10 = offsetCopy[5];
+  v11 = offsetCopy[3];
   v12 = v10;
   if (v9)
   {
@@ -255,7 +255,7 @@ LABEL_27:
         if (v4)
         {
           lseek(v13, v4, 0);
-          *(offsetCopy + 4) = v4;
+          offsetCopy[4] = v4;
         }
 
         cleanup_handler.receiver = MEMORY[0x1E69E9820];
@@ -264,10 +264,10 @@ LABEL_27:
         v25 = &__block_descriptor_36_e8_v12__0i8l;
         v26 = v14;
         v15 = dispatch_io_create(0, v14, v12, &cleanup_handler);
-        v16 = *(offsetCopy + 2);
-        *(offsetCopy + 2) = v15;
+        v16 = offsetCopy[2];
+        offsetCopy[2] = v15;
 
-        dispatch_io_set_low_water(*(offsetCopy + 2), 0xFFFFFFFFFFFFFFFFLL);
+        dispatch_io_set_low_water(offsetCopy[2], 0xFFFFFFFFFFFFFFFFLL);
         objc_storeStrong(offsetCopy + 3, v10);
       }
     }

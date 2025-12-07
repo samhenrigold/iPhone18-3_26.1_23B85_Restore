@@ -98,65 +98,65 @@
 
 - (void)priorProbabilityForLanguages:(id)languages recipient:(id)recipient handler:(id)handler
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
   recipientCopy = recipient;
   handlerCopy = handler;
   if ([(_TILanguageLikelihoodModel *)self languageLikelihoodModelRef])
   {
-    v39 = 0;
+    v38 = 0;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v29 = languagesCopy;
+    v28 = languagesCopy;
     v12 = languagesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v36;
+      v15 = *v35;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v36 != v15)
+          if (*v35 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [dictionary setObject:&unk_28400BE68 forKey:*(*(&v35 + 1) + 8 * i)];
+          [dictionary setObject:&unk_28400BE68 forKey:*(*(&v34 + 1) + 8 * i)];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v14);
     }
 
-    v30 = recipientCopy;
+    v29 = recipientCopy;
     LMLanguageLikelihoodModelGetLanguagePriorProbabilities();
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v17 = v12;
-    v18 = [v17 countByEnumeratingWithState:&v31 objects:v42 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v30 objects:v41 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v32;
+      v20 = *v31;
 LABEL_11:
       v21 = 0;
       while (1)
       {
-        if (*v32 != v20)
+        if (*v31 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v31 + 1) + 8 * v21);
+        v22 = *(*(&v30 + 1) + 8 * v21);
         v23 = [dictionary objectForKey:v22];
         [v23 floatValue];
         v25 = v24;
@@ -171,22 +171,22 @@ LABEL_11:
           v26 = TIOSLogFacility();
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
-            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Pr(language=%@|recipient=%@) = %.3g", "-[_TILanguageLikelihoodModel priorProbabilityForLanguages:recipient:handler:]", v22, v30, v25];
+            v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Pr(language=%@|recipient=%@) = %.3g", "-[_TILanguageLikelihoodModel priorProbabilityForLanguages:recipient:handler:]", v22, v29, v25];
             *buf = 138412290;
-            v41 = v28;
+            v40 = v27;
             _os_log_debug_impl(&dword_22CA55000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
 
-        handlerCopy[2](handlerCopy, v22, &v39, v25);
-        if (v39)
+        handlerCopy[2](handlerCopy, v22, &v38, v25);
+        if (v38)
         {
           break;
         }
 
         if (v19 == ++v21)
         {
-          v19 = [v17 countByEnumeratingWithState:&v31 objects:v42 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v30 objects:v41 count:16];
           if (v19)
           {
             goto LABEL_11;
@@ -197,11 +197,9 @@ LABEL_11:
       }
     }
 
-    languagesCopy = v29;
-    recipientCopy = v30;
+    languagesCopy = v28;
+    recipientCopy = v29;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)rankedLanguagesForRecipient:(id)recipient
@@ -231,7 +229,7 @@ LABEL_11:
 
 - (void)addEvidence:(id)evidence timestamp:(double)timestamp adaptationType:(int)type forRecipient:(id)recipient app:(id)app language:(id)language
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   evidenceCopy = evidence;
   recipientCopy = recipient;
   appCopy = app;
@@ -247,7 +245,7 @@ LABEL_11:
     {
       evidenceCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s [recipient=%@, app=%@] evidence = %@", "-[_TILanguageLikelihoodModel addEvidence:timestamp:adaptationType:forRecipient:app:language:]", recipientCopy, appCopy, evidenceCopy];
       *buf = 138412290;
-      v18 = evidenceCopy;
+      v17 = evidenceCopy;
       _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -256,8 +254,6 @@ LABEL_11:
   {
     LMLanguageLikelihoodModelAddEvidenceForLanguage();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (_TILanguageLikelihoodModel)init

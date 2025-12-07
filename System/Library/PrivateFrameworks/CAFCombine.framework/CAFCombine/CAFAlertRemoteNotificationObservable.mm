@@ -42,14 +42,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFAlertRemoteNotificationObservable.alertRemoteNotificationService(_:didUpdateUserAction:)();
+  CAFAlertRemoteNotificationObservable.alertRemoteNotificationService(_:didUpdateUserAction:)(selfCopy, action);
 }
 
 - (void)alertRemoteNotificationService:(id)service didUpdateShowsPrimaryActionHighlight:(BOOL)highlight
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFAlertRemoteNotificationObservable.alertRemoteNotificationService(_:didUpdateShowsPrimaryActionHighlight:)();
+  CAFAlertRemoteNotificationObservable.alertRemoteNotificationService(_:didUpdateShowsPrimaryActionHighlight:)(selfCopy, highlight);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

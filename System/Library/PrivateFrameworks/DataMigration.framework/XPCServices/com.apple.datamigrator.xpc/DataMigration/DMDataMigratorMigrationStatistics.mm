@@ -319,7 +319,6 @@ LABEL_15:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -339,7 +338,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -354,7 +352,6 @@ LABEL_4:
   }
 
 LABEL_20:
-  fastPluginDuration = self->_fastPluginDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -369,7 +366,6 @@ LABEL_5:
   }
 
 LABEL_21:
-  pluginCrashCount = self->_pluginCrashCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -384,12 +380,10 @@ LABEL_6:
   }
 
 LABEL_22:
-  pluginWatchdogCount = self->_pluginWatchdogCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_7:
-    pluginReturnedFalseCount = self->_pluginReturnedFalseCount;
     PBDataWriterWriteUint32Field();
   }
 
@@ -399,16 +393,15 @@ LABEL_8:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x40) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x40) != 0)
   {
-    migratedAfterUpgrade = self->_migratedAfterUpgrade;
     PBDataWriterWriteBOOLField();
-    v6 = self->_has;
-    if ((v6 & 0x80) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x80) == 0)
     {
 LABEL_12:
-      if ((v6 & 0x100) == 0)
+      if ((v5 & 0x100) == 0)
       {
         goto LABEL_13;
       }
@@ -417,18 +410,17 @@ LABEL_12:
     }
   }
 
-  else if ((v6 & 0x80) == 0)
+  else if ((v5 & 0x80) == 0)
   {
     goto LABEL_12;
   }
 
-  migratedFromBackup = self->_migratedFromBackup;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((v6 & 0x100) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x100) == 0)
   {
 LABEL_13:
-    if ((v6 & 0x200) == 0)
+    if ((v5 & 0x200) == 0)
     {
       goto LABEL_15;
     }
@@ -437,12 +429,10 @@ LABEL_13:
   }
 
 LABEL_26:
-  migratedFromBackupSourceDifferentDevice = self->_migratedFromBackupSourceDifferentDevice;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_14:
-    migratedFromBackupSourceiCloud = self->_migratedFromBackupSourceiCloud;
     PBDataWriterWriteBOOLField();
   }
 
@@ -830,7 +820,6 @@ LABEL_12:
       goto LABEL_66;
     }
 
-    v10 = *(equalCopy + 44);
     if (self->_migratedAfterUpgrade)
     {
       if ((*(equalCopy + 44) & 1) == 0)
@@ -857,7 +846,6 @@ LABEL_12:
       goto LABEL_66;
     }
 
-    v11 = *(equalCopy + 45);
     if (self->_migratedFromBackup)
     {
       if ((*(equalCopy + 45) & 1) == 0)
@@ -884,7 +872,6 @@ LABEL_12:
       goto LABEL_66;
     }
 
-    v12 = *(equalCopy + 46);
     if (self->_migratedFromBackupSourceDifferentDevice)
     {
       if ((*(equalCopy + 46) & 1) == 0)

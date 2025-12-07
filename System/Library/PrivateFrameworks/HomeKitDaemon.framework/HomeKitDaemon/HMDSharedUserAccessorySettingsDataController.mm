@@ -17,7 +17,7 @@
 
 - (void)_addMissingAccessorySettingsFromAccessoryModelIDs:(id)ds dataRoot:(id)root
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   rootCopy = root;
   accessorySettings = [rootCopy accessorySettings];
@@ -35,55 +35,53 @@
   v11 = v10;
 
   v12 = [v11 na_map:&__block_literal_global_76_132297];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __107__HMDSharedUserAccessorySettingsDataController__addMissingAccessorySettingsFromAccessoryModelIDs_dataRoot___block_invoke_2;
-  v26[3] = &unk_27868A1B0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __107__HMDSharedUserAccessorySettingsDataController__addMissingAccessorySettingsFromAccessoryModelIDs_dataRoot___block_invoke_2;
+  v25[3] = &unk_27868A1B0;
   v13 = v12;
-  v27 = v13;
-  v21 = dsCopy;
-  v14 = [dsCopy na_filter:v26];
+  v26 = v13;
+  v20 = dsCopy;
+  v14 = [dsCopy na_filter:v25];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [MKFCKSharedUserAccessorySettings createWithHomeModelID:self->_homeModelID accessoryModelID:*(*(&v22 + 1) + 8 * i) persistentStore:self->_privateStore context:self->_moc];
+        v19 = [MKFCKSharedUserAccessorySettings createWithHomeModelID:self->_homeModelID accessoryModelID:*(*(&v21 + 1) + 8 * i) persistentStore:self->_privateStore context:self->_moc];
         [v19 setRoot:rootCopy];
         [rootCopy addAccessorySettingsObject:v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchDataRootWithError:(id *)error
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v5 = +[MKFCKSharedUserDataRoot fetchRequest];
   v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %@", @"homeModelID", self->_homeModelID];
   [v5 setPredicate:v6];
 
-  v39[0] = self->_privateStore;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+  v38[0] = self->_privateStore;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
   [v5 setAffectedStores:v7];
 
   v8 = [(HMDManagedObjectContext *)self->_moc executeFetchRequest:v5 error:error];
@@ -99,13 +97,13 @@
       homeModelID = self->_homeModelID;
       privateStore = self->_privateStore;
       *buf = 138544130;
-      v32 = v21;
-      v33 = 2112;
-      v34 = homeModelID;
-      v35 = 2112;
-      v36 = v5;
-      v37 = 2112;
-      v38 = privateStore;
+      v31 = v21;
+      v32 = 2112;
+      v33 = homeModelID;
+      v34 = 2112;
+      v35 = v5;
+      v36 = 2112;
+      v37 = privateStore;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@No shared data root found for home %@. It's nil. Request was %@. Store is %@", buf, 0x2Au);
     }
 
@@ -126,13 +124,13 @@ LABEL_10:
       v14 = self->_homeModelID;
       v15 = self->_privateStore;
       *buf = 138544130;
-      v32 = v13;
-      v33 = 2112;
-      v34 = v14;
-      v35 = 2112;
-      v36 = v5;
-      v37 = 2112;
-      v38 = v15;
+      v31 = v13;
+      v32 = 2112;
+      v33 = v14;
+      v34 = 2112;
+      v35 = v5;
+      v36 = 2112;
+      v37 = v15;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@No shared data root found for home %@. Request was %@. Store is %@", buf, 0x2Au);
     }
 
@@ -160,9 +158,9 @@ LABEL_10:
       v27 = HMFGetLogIdentifier();
       v28 = self->_homeModelID;
       *buf = 138543618;
-      v32 = v27;
-      v33 = 2112;
-      v34 = v28;
+      v31 = v27;
+      v32 = 2112;
+      v33 = v28;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@More than one shared data root with home modelID %@ is found, using the first one", buf, 0x16u);
     }
 
@@ -171,8 +169,6 @@ LABEL_10:
 
   firstObject = [v9 firstObject];
 LABEL_16:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -193,33 +189,33 @@ LABEL_16:
 
 void __82__HMDSharedUserAccessorySettingsDataController_handleRemovedAccessoryWithModelID___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v31 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v31];
-  v4 = v31;
+  v30 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v30];
+  v4 = v30;
   if (v3)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v5 = [v3 accessorySettings];
-    v6 = [v5 countByEnumeratingWithState:&v27 objects:v38 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v26 objects:v37 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v28;
+      v8 = *v27;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
+          v10 = *(*(&v26 + 1) + 8 * i);
           v11 = [v10 accessoryModelID];
           v12 = [v11 isEqual:*(a1 + 40)];
 
@@ -229,16 +225,16 @@ void __82__HMDSharedUserAccessorySettingsDataController_handleRemovedAccessoryWi
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v27 objects:v38 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v26 objects:v37 count:16];
       }
 
       while (v7);
     }
 
     v13 = *(*(a1 + 32) + 32);
-    v26 = v4;
-    [v13 save:&v26];
-    v14 = v26;
+    v25 = v4;
+    [v13 save:&v25];
+    v14 = v25;
 
     if (v14)
     {
@@ -250,11 +246,11 @@ void __82__HMDSharedUserAccessorySettingsDataController_handleRemovedAccessoryWi
         v18 = HMFGetLogIdentifier();
         v19 = *(a1 + 40);
         *buf = 138543874;
-        v33 = v18;
-        v34 = 2112;
-        v35 = v19;
-        v36 = 2112;
-        v37 = v14;
+        v32 = v18;
+        v33 = 2112;
+        v34 = v19;
+        v35 = 2112;
+        v36 = v14;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Deleting shared user accessory setting with modelID %@ failed with %@", buf, 0x20u);
       }
 
@@ -280,9 +276,9 @@ void __82__HMDSharedUserAccessorySettingsDataController_handleRemovedAccessoryWi
       v23 = HMFGetLogIdentifier();
       v24 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v33 = v23;
-      v34 = 2112;
-      v35 = v24;
+      v32 = v23;
+      v33 = 2112;
+      v34 = v24;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@No shared data root for home %@", buf, 0x16u);
     }
 
@@ -292,8 +288,6 @@ void __82__HMDSharedUserAccessorySettingsDataController_handleRemovedAccessoryWi
       v4 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableUserListeningHistoryForAccessory:(id)accessory
@@ -312,11 +306,11 @@ void __82__HMDSharedUserAccessorySettingsDataController_handleRemovedAccessoryWi
 
 void __87__HMDSharedUserAccessorySettingsDataController_enableUserListeningHistoryForAccessory___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v35 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v35];
-  v4 = v35;
+  v34 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v34];
+  v4 = v34;
   v5 = v4;
   if (!v3)
   {
@@ -328,9 +322,9 @@ void __87__HMDSharedUserAccessorySettingsDataController_enableUserListeningHisto
       v12 = HMFGetLogIdentifier();
       v13 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v39 = v12;
-      v40 = 2112;
-      v41 = v13;
+      v38 = v12;
+      v39 = 2112;
+      v40 = v13;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Enabling ULH failed with no shared data root for home %@", buf, 0x16u);
     }
 
@@ -346,9 +340,9 @@ void __87__HMDSharedUserAccessorySettingsDataController_enableUserListeningHisto
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v39 = v9;
-      v40 = 2112;
-      v41 = v5;
+      v38 = v9;
+      v39 = 2112;
+      v40 = v5;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Enabling ULH for shared user failed with %@", buf, 0x16u);
     }
 
@@ -358,30 +352,30 @@ LABEL_9:
   }
 
   v14 = *(a1 + 32);
-  v37 = *(a1 + 40);
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+  v36 = *(a1 + 40);
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
   [v14 _addMissingAccessorySettingsFromAccessoryModelIDs:v15 dataRoot:v3];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v16 = [v3 accessorySettings];
-  v17 = [v16 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v32;
+    v19 = *v31;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v32 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * i);
+        v21 = *(*(&v30 + 1) + 8 * i);
         v22 = *(a1 + 40);
         v23 = [v21 accessoryModelID];
         LODWORD(v22) = [v22 hmf_isEqualToUUID:v23];
@@ -392,16 +386,16 @@ LABEL_9:
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v18);
   }
 
   v24 = *(*(a1 + 32) + 32);
-  v30 = 0;
-  [v24 save:&v30];
-  v5 = v30;
+  v29 = 0;
+  [v24 save:&v29];
+  v5 = v29;
   if (v5)
   {
     v25 = objc_autoreleasePoolPush();
@@ -411,9 +405,9 @@ LABEL_9:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v39 = v28;
-      v40 = 2112;
-      v41 = v5;
+      v38 = v28;
+      v39 = 2112;
+      v40 = v5;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Enabling ULH for shared user failed with %@", buf, 0x16u);
     }
 
@@ -422,8 +416,6 @@ LABEL_9:
 
   [*(*(a1 + 32) + 32) reset];
 LABEL_24:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserListeningHistoryUpdateControlUpdatedAccessoryUUIDs:(id)ds completion:(id)completion
@@ -445,34 +437,34 @@ LABEL_24:
 
 void __120__HMDSharedUserAccessorySettingsDataController_handleUserListeningHistoryUpdateControlUpdatedAccessoryUUIDs_completion___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v35 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v35];
-  v4 = v35;
+  v34 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v34];
+  v4 = v34;
   if (v3)
   {
     [*(a1 + 32) _addMissingAccessorySettingsFromAccessoryModelIDs:*(a1 + 40) dataRoot:v3];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v5 = [v3 accessorySettings];
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v32;
+      v8 = *v31;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           v11 = *(a1 + 40);
           v12 = [v10 accessoryModelID];
           v13 = [v11 containsObject:v12];
@@ -480,16 +472,16 @@ void __120__HMDSharedUserAccessorySettingsDataController_handleUserListeningHist
           [v10 setListeningHistoryEnabled:v13];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v7);
     }
 
     v14 = *(*(a1 + 32) + 32);
-    v30 = v4;
-    [v14 save:&v30];
-    v15 = v30;
+    v29 = v4;
+    [v14 save:&v29];
+    v15 = v29;
 
     if (v15)
     {
@@ -500,9 +492,9 @@ void __120__HMDSharedUserAccessorySettingsDataController_handleUserListeningHist
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v38 = v19;
-        v39 = 2112;
-        v40 = v15;
+        v37 = v19;
+        v38 = 2112;
+        v39 = v15;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Saving updated user listening history access control failed with %@", buf, 0x16u);
       }
 
@@ -534,9 +526,9 @@ void __120__HMDSharedUserAccessorySettingsDataController_handleUserListeningHist
       v23 = HMFGetLogIdentifier();
       v24 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v38 = v23;
-      v39 = 2112;
-      v40 = v24;
+      v37 = v23;
+      v38 = 2112;
+      v39 = v24;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@No shared data root for home %@", buf, 0x16u);
     }
 
@@ -552,15 +544,13 @@ void __120__HMDSharedUserAccessorySettingsDataController_handleUserListeningHist
 
       else
       {
-        v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-        (v26)[2](v26, v29);
+        v28 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+        (v26)[2](v26, v28);
 
         v4 = 0;
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMediaContentProfileAccessControlUpdatedAccessoryUUIDs:(id)ds completion:(id)completion
@@ -582,34 +572,34 @@ void __120__HMDSharedUserAccessorySettingsDataController_handleUserListeningHist
 
 void __119__HMDSharedUserAccessorySettingsDataController_handleMediaContentProfileAccessControlUpdatedAccessoryUUIDs_completion___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v35 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v35];
-  v4 = v35;
+  v34 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v34];
+  v4 = v34;
   if (v3)
   {
     [*(a1 + 32) _addMissingAccessorySettingsFromAccessoryModelIDs:*(a1 + 40) dataRoot:v3];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v5 = [v3 accessorySettings];
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v32;
+      v8 = *v31;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           v11 = *(a1 + 40);
           v12 = [v10 accessoryModelID];
           v13 = [v11 containsObject:v12];
@@ -617,16 +607,16 @@ void __119__HMDSharedUserAccessorySettingsDataController_handleMediaContentProfi
           [v10 setMediaContentProfileEnabled:v13];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v7);
     }
 
     v14 = *(*(a1 + 32) + 32);
-    v30 = v4;
-    [v14 save:&v30];
-    v15 = v30;
+    v29 = v4;
+    [v14 save:&v29];
+    v15 = v29;
 
     if (v15)
     {
@@ -637,9 +627,9 @@ void __119__HMDSharedUserAccessorySettingsDataController_handleMediaContentProfi
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v38 = v19;
-        v39 = 2112;
-        v40 = v15;
+        v37 = v19;
+        v38 = 2112;
+        v39 = v15;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Saving updated media content profile access control failed with %@", buf, 0x16u);
       }
 
@@ -671,9 +661,9 @@ void __119__HMDSharedUserAccessorySettingsDataController_handleMediaContentProfi
       v23 = HMFGetLogIdentifier();
       v24 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v38 = v23;
-      v39 = 2112;
-      v40 = v24;
+      v37 = v23;
+      v38 = 2112;
+      v39 = v24;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@No shared data root for home %@", buf, 0x16u);
     }
 
@@ -689,15 +679,13 @@ void __119__HMDSharedUserAccessorySettingsDataController_handleMediaContentProfi
 
       else
       {
-        v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-        (v26)[2](v26, v29);
+        v28 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+        (v26)[2](v26, v28);
 
         v4 = 0;
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAssistantAccessControlAccessoryUUIDsUpdated:(id)updated activityNotificationsEnabledForPersonalRequests:(BOOL)requests completion:(id)completion
@@ -720,35 +708,35 @@ void __119__HMDSharedUserAccessorySettingsDataController_handleMediaContentProfi
 
 void __157__HMDSharedUserAccessorySettingsDataController_handleAssistantAccessControlAccessoryUUIDsUpdated_activityNotificationsEnabledForPersonalRequests_completion___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v35 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v35];
-  v4 = v35;
+  v34 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v34];
+  v4 = v34;
   if (v3)
   {
     [v3 setActivityNotificationsEnabledForPersonalRequests:*(a1 + 56)];
     [*(a1 + 32) _addMissingAccessorySettingsFromAccessoryModelIDs:*(a1 + 40) dataRoot:v3];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v5 = [v3 accessorySettings];
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v32;
+      v8 = *v31;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           v11 = *(a1 + 40);
           v12 = [v10 accessoryModelID];
           v13 = [v11 containsObject:v12];
@@ -756,16 +744,16 @@ void __157__HMDSharedUserAccessorySettingsDataController_handleAssistantAccessCo
           [v10 setPersonalRequestsEnabled:v13];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v7);
     }
 
     v14 = *(*(a1 + 32) + 32);
-    v30 = v4;
-    [v14 save:&v30];
-    v15 = v30;
+    v29 = v4;
+    [v14 save:&v29];
+    v15 = v29;
 
     if (v15)
     {
@@ -776,9 +764,9 @@ void __157__HMDSharedUserAccessorySettingsDataController_handleAssistantAccessCo
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v38 = v19;
-        v39 = 2112;
-        v40 = v15;
+        v37 = v19;
+        v38 = 2112;
+        v39 = v15;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Saving personal requests access control failed with %@", buf, 0x16u);
       }
 
@@ -810,9 +798,9 @@ void __157__HMDSharedUserAccessorySettingsDataController_handleAssistantAccessCo
       v23 = HMFGetLogIdentifier();
       v24 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v38 = v23;
-      v39 = 2112;
-      v40 = v24;
+      v37 = v23;
+      v38 = 2112;
+      v39 = v24;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@No shared data root for home %@", buf, 0x16u);
     }
 
@@ -828,15 +816,13 @@ void __157__HMDSharedUserAccessorySettingsDataController_handleAssistantAccessCo
 
       else
       {
-        v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-        (v26)[2](v26, v29);
+        v28 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+        (v26)[2](v26, v28);
 
         v4 = 0;
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)userListeningHistoryUpdateControlModelAccessoriesToEncode
@@ -874,11 +860,11 @@ void __157__HMDSharedUserAccessorySettingsDataController_handleAssistantAccessCo
 
 void __105__HMDSharedUserAccessorySettingsDataController_userListeningHistoryUpdateControlModelAccessoriesToEncode__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v16 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v15];
+  v4 = v15;
   if (v3)
   {
     v5 = [v3 accessorySettings];
@@ -899,9 +885,9 @@ void __105__HMDSharedUserAccessorySettingsDataController_userListeningHistoryUpd
       v13 = HMFGetLogIdentifier();
       v14 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@No shared data root for home %@", buf, 0x16u);
     }
 
@@ -911,8 +897,6 @@ void __105__HMDSharedUserAccessorySettingsDataController_userListeningHistoryUpd
       v4 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __105__HMDSharedUserAccessorySettingsDataController_userListeningHistoryUpdateControlModelAccessoriesToEncode__block_invoke_62(uint64_t a1, void *a2)
@@ -966,11 +950,11 @@ id __105__HMDSharedUserAccessorySettingsDataController_userListeningHistoryUpdat
 
 void __99__HMDSharedUserAccessorySettingsDataController_mediaContentProfileAccessControlAccessoriesToEncode__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v16 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v15];
+  v4 = v15;
   if (v3)
   {
     v5 = [v3 accessorySettings];
@@ -991,9 +975,9 @@ void __99__HMDSharedUserAccessorySettingsDataController_mediaContentProfileAcces
       v13 = HMFGetLogIdentifier();
       v14 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@No shared data root for home %@", buf, 0x16u);
     }
 
@@ -1003,8 +987,6 @@ void __99__HMDSharedUserAccessorySettingsDataController_mediaContentProfileAcces
       v4 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __99__HMDSharedUserAccessorySettingsDataController_mediaContentProfileAccessControlAccessoriesToEncode__block_invoke_59(uint64_t a1, void *a2)
@@ -1058,11 +1040,11 @@ id __99__HMDSharedUserAccessorySettingsDataController_mediaContentProfileAccessC
 
 void __89__HMDSharedUserAccessorySettingsDataController_assistantAccessControlAccessoriesToEncode__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v16 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v16];
-  v4 = v16;
+  v15 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v15];
+  v4 = v15;
   if (v3)
   {
     v5 = [v3 accessorySettings];
@@ -1083,9 +1065,9 @@ void __89__HMDSharedUserAccessorySettingsDataController_assistantAccessControlAc
       v13 = HMFGetLogIdentifier();
       v14 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@No shared data root for home %@", buf, 0x16u);
     }
 
@@ -1095,8 +1077,6 @@ void __89__HMDSharedUserAccessorySettingsDataController_assistantAccessControlAc
       v4 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __89__HMDSharedUserAccessorySettingsDataController_assistantAccessControlAccessoriesToEncode__block_invoke_55(uint64_t a1, void *a2)
@@ -1136,11 +1116,11 @@ id __89__HMDSharedUserAccessorySettingsDataController_assistantAccessControlAcce
 
 void __117__HMDSharedUserAccessorySettingsDataController_assistantAccessControlActivityNotificationsEnabledForPersonalRequests__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v11 = 0;
-  v3 = [v2 _fetchDataRootWithError:&v11];
-  v4 = v11;
+  v10 = 0;
+  v3 = [v2 _fetchDataRootWithError:&v10];
+  v4 = v10;
   if (v3)
   {
     *(*(*(a1 + 40) + 8) + 24) = [v3 activityNotificationsEnabledForPersonalRequests];
@@ -1156,16 +1136,14 @@ void __117__HMDSharedUserAccessorySettingsDataController_assistantAccessControlA
       v8 = HMFGetLogIdentifier();
       v9 = *(*(a1 + 32) + 16);
       *buf = 138543618;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v9;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@No shared data root for home %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSharedUserAccessorySettingsDataController)initWithUserModelID:(id)d homeModelID:(id)iD privateStore:(id)store managedObjectContext:(id)context

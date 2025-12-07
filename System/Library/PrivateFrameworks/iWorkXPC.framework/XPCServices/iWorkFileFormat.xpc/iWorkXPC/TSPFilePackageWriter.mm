@@ -1,6 +1,8 @@
 @interface TSPFilePackageWriter
 - (TSPFilePackageWriter)initWithURL:(id)l documentTargetURL:(id)rL relativeURLForExternalData:(id)data packageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties documentMetadata:(id)metadata fileFormatVersion:(unint64_t)version updateType:(int64_t)self0 cloneMode:(BOOL)self1 documentSaveValidationPolicy:(id)self2 encryptionKey:(id)self3 originalDocumentPackage:(id)self4 originalSupportPackage:(id)self5 fileCoordinatorDelegate:(id)self6 progress:(id)self7 error:(id *)self8;
 - (id)componentZipArchiveWriter;
+- (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate;
+- (id)newRawDataWriteChannelForRelativePath:(id)path originalLastModificationDate:(id)date originalSize:(unint64_t)size originalCRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate;
 - (id)zipArchiveWriter;
 - (void)closeWithQueue:(id)queue completion:(id)completion;
 - (void)finalizeComponentAndDataSectionWithCompletionHandler:(id)handler;
@@ -164,6 +166,53 @@
 LABEL_19:
 
   return v33;
+}
+
+- (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate
+{
+  identifierCopy = identifier;
+  propertiesCopy = properties;
+  keyCopy = key;
+  delegateCopy = delegate;
+  v14 = [(TSPPackage *)[TSPFilePackage alloc] initWithPackageIdentifier:identifierCopy documentProperties:propertiesCopy fileFormatVersion:version decryptionKey:keyCopy fileCoordinatorDelegate:delegateCopy isLazyLoading:0];
+
+  return v14;
+}
+
+- (id)newRawDataWriteChannelForRelativePath:(id)path originalLastModificationDate:(id)date originalSize:(unint64_t)size originalCRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate
+{
+  modificationDateCopy = modificationDate;
+  v8 = *&c;
+  pathCopy = path;
+  dateCopy = date;
+  if (!pathCopy)
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_100152C0C();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_100152C20();
+    }
+
+    v14 = [NSString stringWithUTF8String:"[TSPFilePackageWriter newRawDataWriteChannelForRelativePath:originalLastModificationDate:originalSize:originalCRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]"];
+    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPFilePackageWriter.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:116 isFatal:0 description:"invalid nil value for '%{public}s'", "path"];
+
+    +[TSUAssertionHandler logBacktraceThrottled];
+  }
+
+  zipArchiveWriter = [(TSPFilePackageWriter *)self zipArchiveWriter];
+  [zipArchiveWriter beginEntryWithName:pathCopy force32BitSize:0 lastModificationDate:dateCopy size:size CRC:v8 forceCalculatingSizeAndCRCForPreservingLastModificationDate:modificationDateCopy];
+
+  v17 = [TSPZipFileWriteChannel alloc];
+  zipArchiveWriter2 = [(TSPFilePackageWriter *)self zipArchiveWriter];
+  v19 = [(TSPZipFileWriteChannel *)v17 initWithArchiveWriter:zipArchiveWriter2];
+
+  return v19;
 }
 
 - (id)componentZipArchiveWriter

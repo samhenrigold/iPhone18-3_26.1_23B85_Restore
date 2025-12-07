@@ -15,16 +15,16 @@
 - (NEIKEv2EncryptionProtocol)initWithEncryptionType:(unint64_t)type
 {
   selfCopy = self;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (type - 1 >= 9)
   {
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       String = NEIKEv2EncryptionTypeCreateString(type);
-      v10 = 138412290;
-      v11 = String;
-      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "Invalid NEIKEv2EncryptionType %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = String;
+      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "Invalid NEIKEv2EncryptionType %@", &v9, 0xCu);
     }
 
     v4 = 0;
@@ -36,7 +36,6 @@
     v4 = selfCopy;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -190,7 +189,7 @@ LABEL_10:
 
 - (uint64_t)blockLength
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -199,9 +198,7 @@ LABEL_10:
     {
       if (v2 == 20 || v2 == 28)
       {
-LABEL_15:
-        result = 0;
-        goto LABEL_16;
+        return 0;
       }
     }
 
@@ -209,14 +206,12 @@ LABEL_15:
     {
       if ((v2 - 2) < 2)
       {
-        result = 8;
-        goto LABEL_16;
+        return 8;
       }
 
       if (v2 == 12)
       {
-        result = 16;
-        goto LABEL_16;
+        return 16;
       }
     }
 
@@ -224,27 +219,60 @@ LABEL_15:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       String = NEIKEv2EncryptionWireTypeCreateString(*(v1 + 16));
-      v7 = 138412290;
-      v8 = String;
-      _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Unknown encryption wire type %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = String;
+      _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Unknown encryption wire type %@", &v6, 0xCu);
     }
 
-    goto LABEL_15;
+    return 0;
   }
 
-LABEL_16:
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)keyMaterialLength
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
     v2 = *(result + 16);
-    if (v2 > 19)
+    if (v2 <= 19)
+    {
+      if (v2 == 2)
+      {
+        return 8;
+      }
+
+      if (v2 == 3)
+      {
+        return 24;
+      }
+
+      if (v2 != 12)
+      {
+        goto LABEL_15;
+      }
+
+      v3 = *(result + 8);
+      if (v3 == 128)
+      {
+        return 16;
+      }
+
+      if (v3 == 256)
+      {
+        return 32;
+      }
+
+      v4 = ne_log_obj();
+      if (!os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_27;
+      }
+    }
+
+    else
     {
       if (v2 > 29)
       {
@@ -255,9 +283,7 @@ LABEL_16:
             goto LABEL_15;
           }
 
-LABEL_19:
-          result = 36;
-          goto LABEL_28;
+          return 36;
         }
       }
 
@@ -270,88 +296,48 @@ LABEL_15:
           if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
           {
             String = NEIKEv2EncryptionWireTypeCreateString(*(v1 + 16));
-            v10 = 138412290;
-            v11 = String;
-            _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Unknown encryption wire type %@", &v10, 0xCu);
+            v9 = 138412290;
+            v10 = String;
+            _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Unknown encryption wire type %@", &v9, 0xCu);
           }
 
           goto LABEL_27;
         }
 
-        goto LABEL_19;
+        return 36;
       }
 
       v6 = *(result + 8);
       if (v6 == 128)
       {
-        result = 20;
-        goto LABEL_28;
+        return 20;
       }
 
       if (v6 == 256)
       {
-        goto LABEL_19;
+        return 36;
       }
 
       v4 = ne_log_obj();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      if (!os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
       {
-        goto LABEL_29;
-      }
-
-      goto LABEL_27;
-    }
-
-    if (v2 == 2)
-    {
-      result = 8;
-      goto LABEL_28;
-    }
-
-    if (v2 == 3)
-    {
-      result = 24;
-      goto LABEL_28;
-    }
-
-    if (v2 != 12)
-    {
-      goto LABEL_15;
-    }
-
-    v3 = *(result + 8);
-    if (v3 == 128)
-    {
-      result = 16;
-      goto LABEL_28;
-    }
-
-    if (v3 != 256)
-    {
-      v4 = ne_log_obj();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-      {
-LABEL_29:
-        v8 = NEIKEv2EncryptionWireTypeCreateString(*(v1 + 16));
-        v9 = *(v1 + 8);
-        v10 = 138412546;
-        v11 = v8;
-        v12 = 1024;
-        v13 = v9;
-        _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Unsupported %@ key length %u", &v10, 0x12u);
-      }
-
 LABEL_27:
 
-      result = 0;
-      goto LABEL_28;
+        return 0;
+      }
     }
 
-    result = 32;
+    v7 = NEIKEv2EncryptionWireTypeCreateString(*(v1 + 16));
+    v8 = *(v1 + 8);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 1024;
+    v12 = v8;
+    _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Unsupported %@ key length %u", &v9, 0x12u);
+
+    goto LABEL_27;
   }
 
-LABEL_28:
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 

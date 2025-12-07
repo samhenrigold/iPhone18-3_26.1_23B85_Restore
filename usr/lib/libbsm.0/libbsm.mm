@@ -44,28 +44,27 @@ void audit_token_to_au32(audit_token_t *atoken, uid_t *auidp, uid_t *euidp, gid_
 
 uint64_t audit_set_terminal_host(_DWORD *a1)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v1 = 4294901247;
-  *v7 = 0xB00000001;
+  *v6 = 0xB00000001;
   if (a1)
   {
     *a1 = 0;
-    v6 = 4;
-    if (sysctl(v7, 2u, a1, &v6, 0, 0))
+    v5 = 4;
+    if (sysctl(v6, 2u, a1, &v5, 0, 0))
     {
       v2 = __error();
       v3 = strerror(*v2);
       syslog(3, "sysctl() failed (%s)", v3);
-      v1 = 4294901249;
+      return 4294901249;
     }
 
     else
     {
-      v1 = 0;
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return v1;
 }
 
@@ -180,9 +179,9 @@ int au_write(int d, token_t *m)
   return -1;
 }
 
-uint64_t au_close_with_errors(int a1, int a2, au_event_t a3)
+uint64_t au_close_with_errors(int a1, int a2, uint64_t a3)
 {
-  v3 = *(&open_desc_table + a1);
+  v3 = open_desc_table[a1];
   if (v3 && *v3)
   {
     if (a2)
@@ -197,7 +196,7 @@ LABEL_12:
         return v4;
       }
 
-      v5 = au_assemble(*(&open_desc_table + a1), a3);
+      v5 = au_assemble(open_desc_table[a1], a3);
       if (v5 < 0)
       {
         v4 = (-30 - v5);
@@ -409,7 +408,7 @@ LABEL_11:
 
 int au_close_buffer(int d, __int16 event, u_char *buffer, size_t *buflen)
 {
-  v4 = *(&open_desc_table + d);
+  v4 = open_desc_table[d];
   if (!v4 || !*v4)
   {
     *__error() = 22;
@@ -420,7 +419,7 @@ int au_close_buffer(int d, __int16 event, u_char *buffer, size_t *buflen)
   v6 = v5 + 45;
   if ((v5 - 32544) >= 0xFFFFFFFFFFFF8000 && v6 <= *buflen)
   {
-    if ((au_assemble(*(&open_desc_table + d), event) & 0x80000000) == 0)
+    if ((au_assemble(open_desc_table[d], event) & 0x80000000) == 0)
     {
       memcpy(buffer, *(v4 + 24), *(v4 + 32));
       v8 = 0;
@@ -1190,92 +1189,86 @@ int getachost(char *auditstr, size_t len)
 
 int getacexpire(int *andflg, time_t *age, size_t *size)
 {
-  v18 = *MEMORY[0x29EDCA608];
-  *v15 = 0;
-  v16 = 0;
-  memset(v14, 0, sizeof(v14));
+  v17 = *MEMORY[0x29EDCA608];
+  *v14 = 0;
+  v15 = 0;
+  memset(v13, 0, sizeof(v13));
   *age = 0;
   *size = 0;
   *andflg = 0;
   pthread_mutex_lock(&mutex_1);
   setac_locked();
-  if ((getstrfromtype_locked("expire-after", &v16) & 0x80000000) != 0)
+  if ((getstrfromtype_locked("expire-after", &v15) & 0x80000000) != 0)
   {
     pthread_mutex_unlock(&mutex_1);
-    result = -2;
-    goto LABEL_25;
+    return -2;
   }
 
-  v6 = v16;
-  if (v16)
+  v6 = v15;
+  if (!v15)
   {
-    while (1)
-    {
-      v8 = *v6;
-      if (v8 != 32 && v8 != 9)
-      {
-        break;
-      }
+    pthread_mutex_unlock(&mutex_1);
+    return 1;
+  }
 
-      ++v6;
+  while (1)
+  {
+    v8 = *v6;
+    if (v8 != 32 && v8 != 9)
+    {
+      break;
     }
 
-    v10 = sscanf(v6, "%lu%c%[ \tadnorADNOR]%lu%c", v15, v14 + 1, __big, &v14[1], v14);
-    switch(v10)
-    {
-      case 1:
-        v11 = 66;
-        HIBYTE(v14[0]) = 66;
-        break;
-      case 5:
-        if (setexpirecond(age, size, *v15, SHIBYTE(v14[0])) || setexpirecond(age, size, *&v14[1], SLOBYTE(v14[0])))
+    ++v6;
+  }
+
+  v10 = sscanf(v6, "%lu%c%[ \tadnorADNOR]%lu%c", v14, v13 + 1, __big, &v13[1], v13);
+  switch(v10)
+  {
+    case 1:
+      v11 = 66;
+      HIBYTE(v13[0]) = 66;
+      break;
+    case 5:
+      if (setexpirecond(age, size, *v14, SHIBYTE(v13[0])) || setexpirecond(age, size, *&v13[1], SLOBYTE(v13[0])))
+      {
+        goto LABEL_20;
+      }
+
+      if (strcasestr(__big, "and"))
+      {
+        v12 = 1;
+      }
+
+      else
+      {
+        if (!strcasestr(__big, "or"))
         {
           goto LABEL_20;
         }
 
-        if (strcasestr(__big, "and"))
-        {
-          v12 = 1;
-        }
+        v12 = 0;
+      }
 
-        else
-        {
-          if (!strcasestr(__big, "or"))
-          {
-            goto LABEL_20;
-          }
-
-          v12 = 0;
-        }
-
-        *andflg = v12;
-        goto LABEL_24;
-      case 2:
-        v11 = HIBYTE(v14[0]);
-        break;
-      default:
+      *andflg = v12;
+      goto LABEL_24;
+    case 2:
+      v11 = HIBYTE(v13[0]);
+      break;
+    default:
 LABEL_20:
-        pthread_mutex_unlock(&mutex_1);
-        result = -1;
-        goto LABEL_25;
-    }
-
-    if (setexpirecond(age, size, *v15, v11))
-    {
-      goto LABEL_20;
-    }
-
-LABEL_24:
-    pthread_mutex_unlock(&mutex_1);
-    result = 0;
-    goto LABEL_25;
+      pthread_mutex_unlock(&mutex_1);
+      return -1;
   }
 
+  if (setexpirecond(age, size, *v14, v11))
+  {
+    goto LABEL_20;
+  }
+
+LABEL_24:
   pthread_mutex_unlock(&mutex_1);
-  result = 1;
-LABEL_25:
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 uint64_t setexpirecond(uint64_t *a1, void *a2, uint64_t a3, __darwin_ct_rune_t a4)
@@ -1637,16 +1630,16 @@ uint64_t eventfromstr(uint64_t a1)
 
 int getauditflagsbin(char *auditstr, au_mask_t *masks)
 {
-  v16[1] = *MEMORY[0x29EDCA608];
-  v16[0] = 0;
-  memset(v14, 0, sizeof(v14));
-  v15 = 0;
-  v12 = 0;
-  class_int.ac_name = v16;
+  v15[1] = *MEMORY[0x29EDCA608];
+  v15[0] = 0;
+  memset(v13, 0, sizeof(v13));
+  v14 = 0;
+  v11 = 0;
+  class_int.ac_name = v15;
   *&class_int.ac_class = 0;
-  class_int.ac_desc = v14;
+  class_int.ac_desc = v13;
   *masks = 0;
-  for (i = strtok_r(auditstr, ",", &v12); i; i = strtok_r(0, ",", &v12))
+  for (i = strtok_r(auditstr, ",", &v11); i; i = strtok_r(0, ",", &v11))
   {
     v4 = i + 1;
     v5 = *i;
@@ -1670,7 +1663,7 @@ int getauditflagsbin(char *auditstr, au_mask_t *masks)
     {
       *__error() = 22;
       LODWORD(i) = -1;
-      break;
+      return i;
     }
 
     if (v5 == 94)
@@ -1706,19 +1699,18 @@ int getauditflagsbin(char *auditstr, au_mask_t *masks)
     masks->am_failure = v9;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return i;
 }
 
 int getauditflagschar(char *auditstr, au_mask_t *masks, int verbose)
 {
-  v14[1] = *MEMORY[0x29EDCA608];
-  v14[0] = 0;
-  memset(v12, 0, sizeof(v12));
-  v13 = 0;
-  class_int.ac_name = v14;
+  v13[1] = *MEMORY[0x29EDCA608];
+  v13[0] = 0;
+  memset(v11, 0, sizeof(v11));
+  v12 = 0;
+  class_int.ac_name = v13;
   *&class_int.ac_class = 0;
-  class_int.ac_desc = v12;
+  class_int.ac_desc = v11;
   setauclass();
   v6 = auditstr;
   while (getauclassent_r(&class_int))
@@ -1748,7 +1740,6 @@ int getauditflagschar(char *auditstr, au_mask_t *masks, int verbose)
     *(v6 - 1) = 0;
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -3682,920 +3673,540 @@ uint64_t fetch_identity_tok(uint64_t a1, uint64_t a2, unsigned int a3)
 void au_print_flags_tok(FILE *outfp, tokenstr_t *tok, char *del, int oflags)
 {
   v4 = oflags;
-  v127 = *MEMORY[0x29EDCA608];
+  v103 = *MEMORY[0x29EDCA608];
   id = tok->id;
-  if (id <= 95)
+  if (id > 95)
   {
-    switch(id)
+    if (id <= 236)
     {
-      case 17:
-        print_tok_type(outfp, 17, "file", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          print_sec32(outfp, tok->tt.attr32.mode, v4);
-          fputs(del, outfp);
-          if (v4)
+      switch(id)
+      {
+        case 96:
+          print_tok_type(outfp, 96, "zone", oflags);
+          if ((v4 & 4) != 0)
           {
-            v9 = "%u";
+            fprintf(outfp, "%s=", "name");
+            print_string(outfp, tok->tt.arg64.val, tok->tt.grps.no, v4);
+            goto LABEL_240;
           }
 
-          else
-          {
-            v9 = " + %u msec";
-          }
-
-          fprintf(outfp, v9, tok->tt.arg32.val);
-          goto LABEL_98;
-        }
-
-        fprintf(outfp, "%s=", "time");
-        print_sec32(outfp, tok->tt.attr32.mode, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "msec");
-        if (v4)
-        {
-          fprintf(outfp, "%u");
-        }
-
-        else
-        {
-          fprintf(outfp, " + %u msec");
-        }
-
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fputc(62, outfp);
-        text = tok->tt.arg32.text;
-        len = tok->tt.arg32.len;
-LABEL_197:
-        print_string(outfp, text, len, v4);
-        goto LABEL_243;
-      case 18:
-      case 22:
-      case 23:
-      case 24:
-      case 25:
-      case 26:
-      case 27:
-      case 28:
-      case 29:
-      case 30:
-      case 31:
-      case 32:
-      case 37:
-      case 48:
-      case 49:
-      case 51:
-      case 52:
-      case 53:
-      case 54:
-      case 55:
-      case 56:
-      case 57:
-      case 58:
-        goto LABEL_77;
-      case 19:
-        print_tok_type(outfp, 19, "trailer", oflags);
-        if ((v4 & 4) != 0)
-        {
-          goto LABEL_154;
-        }
-
-        goto LABEL_152;
-      case 20:
-        print_tok_type(outfp, 20, "header", oflags);
-        if ((v4 & 4) == 0)
-        {
+LABEL_113:
           fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.attr32.mode);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.hdr32.version);
-          fputs(del, outfp);
-          print_event(outfp, tok->tt.hdr32.e_type, v4);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.arg32.len);
-          fputs(del, outfp);
-          print_sec32(outfp, tok->tt.attr32.fsid, v4);
-          fputs(del, outfp);
-          if (v4)
-          {
-            v30 = "%u";
-          }
-
-          else
-          {
-            v30 = " + %u msec";
-          }
-
-          v26 = tok->tt.grps.list[3];
-          goto LABEL_147;
-        }
-
-        fprintf(outfp, "%s=", "version");
-        fprintf(outfp, "%u", tok->tt.hdr32.version);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "event");
-        print_event(outfp, tok->tt.hdr32.e_type, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "modifier");
-        fprintf(outfp, "%u", tok->tt.arg32.len);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "time");
-        print_sec32(outfp, tok->tt.attr32.fsid, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "msec");
-        if (v4)
-        {
-          v79 = "%u";
-        }
-
-        else
-        {
-          v79 = " + %u msec";
-        }
-
-        v78 = tok->tt.grps.list[3];
-        goto LABEL_202;
-      case 21:
-        print_tok_type(outfp, 21, "header_ex", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.attr32.mode);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.hdr32.version);
-          fputs(del, outfp);
-          print_event(outfp, tok->tt.hdr32.e_type, v4);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.arg32.len);
-          fputs(del, outfp);
-          print_ip_ex_address(outfp, tok->tt.attr32.fsid, &tok->tt.inaddr_ex.addr[3]);
-          fputs(del, outfp);
-          print_sec32(outfp, tok->tt.grps.list[7], v4);
-          fputs(del, outfp);
-          if (v4)
-          {
-            v30 = "%u";
-          }
-
-          else
-          {
-            v30 = " + %u msec";
-          }
-
-          v26 = tok->tt.grps.list[8];
-          goto LABEL_147;
-        }
-
-        fprintf(outfp, "%s=", "version");
-        fprintf(outfp, "%u", tok->tt.hdr32.version);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "event");
-        print_event(outfp, tok->tt.hdr32.e_type, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "modifier");
-        fprintf(outfp, "%u", tok->tt.arg32.len);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "host");
-        print_ip_ex_address(outfp, tok->tt.attr32.fsid, &tok->tt.inaddr_ex.addr[3]);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "time");
-        print_sec32(outfp, tok->tt.grps.list[7], v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "msec");
-        if (v4)
-        {
-          v79 = "%u";
-        }
-
-        else
-        {
-          v79 = " + %u msec";
-        }
-
-        v78 = tok->tt.grps.list[8];
-        goto LABEL_202;
-      case 33:
-        print_tok_type(outfp, 33, "arbitrary", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-        }
-
-        no = tok->tt.arg32.no;
-        if (no > 4)
-        {
-          goto LABEL_154;
-        }
-
-        v65 = off_29EE9D598[no];
-        v66 = off_29EE9D5C0[no];
-        if ((v4 & 4) != 0)
-        {
-          fprintf(outfp, "%s=", "print");
-          v104 = strlen(v65);
-          print_string(outfp, v65, v104, v4);
-          fwrite(" ", 2uLL, 1uLL, outfp);
-        }
-
-        else
-        {
-          v67 = strlen(off_29EE9D598[no]);
-          print_string(outfp, v65, v67, v4);
-          fputs(del, outfp);
-        }
-
-        bu = tok->tt.arb.bu;
-        if (bu > 1)
-        {
-          if (bu == 2)
-          {
-            if ((v4 & 4) == 0)
-            {
-              print_string(outfp, "int", 3uLL, v4);
-              fputs(del, outfp);
-              fprintf(outfp, "%u", tok->tt.arb.uc);
-              fputs(del, outfp);
-              if (tok->tt.arb.uc)
-              {
-                v116 = 0;
-                do
-                {
-                  fprintf(outfp, v66, *(tok->tt.arg64.val + 4 * v116++));
-                }
-
-                while (v116 < tok->tt.arb.uc);
-              }
-
-              goto LABEL_154;
-            }
-
-            fprintf(outfp, "%s=", "type");
-            fprintf(outfp, "%zu", 4uLL);
-            fwrite(" ", 2uLL, 1uLL, outfp);
-            fprintf(outfp, "%s=", "count");
-            fprintf(outfp, "%u", tok->tt.arb.uc);
-            fwrite(" ", 2uLL, 1uLL, outfp);
-            fputc(62, outfp);
-            if (tok->tt.arb.uc)
-            {
-              v120 = 0;
-              do
-              {
-                fprintf(outfp, v66, *(tok->tt.arg64.val + 4 * v120++));
-              }
-
-              while (v120 < tok->tt.arb.uc);
-            }
-          }
-
-          else
-          {
-            if (bu != 3)
-            {
-              goto LABEL_154;
-            }
-
-            if ((v4 & 4) == 0)
-            {
-              print_string(outfp, "int64", 5uLL, v4);
-              fputs(del, outfp);
-              fprintf(outfp, "%u", tok->tt.arb.uc);
-              fputs(del, outfp);
-              if (tok->tt.arb.uc)
-              {
-                v107 = 0;
-                do
-                {
-                  fprintf(outfp, v66, *(tok->tt.arg64.val + 8 * v107++));
-                }
-
-                while (v107 < tok->tt.arb.uc);
-              }
-
-              goto LABEL_154;
-            }
-
-            fprintf(outfp, "%s=", "type");
-            fprintf(outfp, "%zu", 8uLL);
-            fwrite(" ", 2uLL, 1uLL, outfp);
-            fprintf(outfp, "%s=", "count");
-            fprintf(outfp, "%u", tok->tt.arb.uc);
-            fwrite(" ", 2uLL, 1uLL, outfp);
-            fputc(62, outfp);
-            if (tok->tt.arb.uc)
-            {
-              v118 = 0;
-              do
-              {
-                fprintf(outfp, v66, *(tok->tt.arg64.val + 8 * v118++));
-              }
-
-              while (v118 < tok->tt.arb.uc);
-            }
-          }
-        }
-
-        else if (tok->tt.arb.bu)
-        {
-          if (bu != 1)
-          {
-            goto LABEL_154;
-          }
-
+          data = tok->tt.arb.data;
+          no = tok->tt.grps.no;
+          goto LABEL_114;
+        case 113:
+          print_tok_type(outfp, 113, "argument", oflags);
           if ((v4 & 4) == 0)
           {
-            print_string(outfp, "short", 5uLL, v4);
             fputs(del, outfp);
-            fprintf(outfp, "%u", tok->tt.arb.uc);
+            fprintf(outfp, "%u", tok->tt.arg32.no);
             fputs(del, outfp);
-            if (tok->tt.arb.uc)
-            {
-              v106 = 0;
-              do
-              {
-                fprintf(outfp, v66, *(tok->tt.arg64.val + 2 * v106++));
-              }
-
-              while (v106 < tok->tt.arb.uc);
-            }
-
-            goto LABEL_154;
+            fprintf(outfp, "0x%llx", tok->tt.arg64.val);
+            fputs(del, outfp);
+            data = tok->tt.arg64.text;
+            no = tok->tt.arg64.len;
+            goto LABEL_114;
           }
 
-          fprintf(outfp, "%s=", "type");
-          fprintf(outfp, "%zu", 2uLL);
-          fwrite(" ", 2uLL, 1uLL, outfp);
-          fprintf(outfp, "%s=", "count");
-          fprintf(outfp, "%u", tok->tt.arb.uc);
-          fwrite(" ", 2uLL, 1uLL, outfp);
-          fputc(62, outfp);
-          if (tok->tt.arb.uc)
-          {
-            v117 = 0;
-            do
-            {
-              fprintf(outfp, v66, *(tok->tt.arg64.val + 2 * v117++));
-            }
-
-            while (v117 < tok->tt.arb.uc);
-          }
-        }
-
-        else
-        {
-          if ((v4 & 4) == 0)
-          {
-            print_string(outfp, "byte", 4uLL, v4);
-            fputs(del, outfp);
-            fprintf(outfp, "%u", tok->tt.arb.uc);
-            fputs(del, outfp);
-            if (tok->tt.arb.uc)
-            {
-              v115 = 0;
-              do
-              {
-                fprintf(outfp, v66, *(tok->tt.arg64.val + v115++));
-              }
-
-              while (v115 < tok->tt.arb.uc);
-            }
-
-            goto LABEL_154;
-          }
-
-          fprintf(outfp, "%s=", "type");
-          fprintf(outfp, "%zu", 1uLL);
-          fwrite(" ", 2uLL, 1uLL, outfp);
-          fprintf(outfp, "%s=", "count");
-          fprintf(outfp, "%u", tok->tt.arb.uc);
-          fwrite(" ", 2uLL, 1uLL, outfp);
-          fputc(62, outfp);
-          if (tok->tt.arb.uc)
-          {
-            v119 = 0;
-            do
-            {
-              fprintf(outfp, v66, *(tok->tt.arg64.val + v119++));
-            }
-
-            while (v119 < tok->tt.arb.uc);
-          }
-        }
-
-        goto LABEL_243;
-      case 34:
-        print_tok_type(outfp, 34, "IPC", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          print_ipctype(outfp, tok->tt.arg32.no, v4);
-          goto LABEL_152;
-        }
-
-        fprintf(outfp, "%s=", "ipc-type");
-        print_ipctype(outfp, tok->tt.arg32.no, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        v96 = "ipc-id";
-        goto LABEL_206;
-      case 35:
-        v58 = "path";
-        v59 = 35;
-        goto LABEL_112;
-      case 36:
-        print_tok_type(outfp, 36, "subject", oflags);
-        if ((v4 & 4) == 0)
-        {
-          goto LABEL_125;
-        }
-
-        fprintf(outfp, "%s=", "audit-uid");
-        print_user(outfp, tok->tt.attr32.mode, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "uid");
-        print_user(outfp, tok->tt.arg32.val, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "gid");
-        print_group(outfp, tok->tt.attr32.gid, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "ruid");
-        print_user(outfp, tok->tt.attr32.fsid, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "rgid");
-        print_group(outfp, tok->tt.grps.list[3], v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "pid");
-        fprintf(outfp, "%u", tok->tt.grps.list[4]);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "sid");
-        fprintf(outfp, "%u", tok->tt.attr32.dev);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "tid");
-        v60 = tok->tt.grps.list[6];
-        fprintf(outfp, "%u ");
-        goto LABEL_186;
-      case 38:
-        print_tok_type(outfp, 38, "process", oflags);
-        if ((v4 & 4) == 0)
-        {
-LABEL_125:
-          fputs(del, outfp);
-          print_user(outfp, tok->tt.attr32.mode, v4);
-          fputs(del, outfp);
-          print_user(outfp, tok->tt.arg32.val, v4);
-          fputs(del, outfp);
-          print_group(outfp, tok->tt.attr32.gid, v4);
-          fputs(del, outfp);
-          print_user(outfp, tok->tt.attr32.fsid, v4);
-          fputs(del, outfp);
-          print_group(outfp, tok->tt.grps.list[3], v4);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.grps.list[4]);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.attr32.dev);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.grps.list[6]);
-          fputs(del, outfp);
-          v28.s_addr = tok->tt.grps.list[7];
-          goto LABEL_157;
-        }
-
-        fprintf(outfp, "%s=", "audit-uid");
-        print_user(outfp, tok->tt.attr32.mode, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "uid");
-        print_user(outfp, tok->tt.arg32.val, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "gid");
-        print_group(outfp, tok->tt.attr32.gid, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "ruid");
-        print_user(outfp, tok->tt.attr32.fsid, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "rgid");
-        print_group(outfp, tok->tt.grps.list[3], v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "pid");
-        fprintf(outfp, "%u", tok->tt.grps.list[4]);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "sid");
-        fprintf(outfp, "%u", tok->tt.attr32.dev);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "tid");
-        v97 = tok->tt.grps.list[6];
-        fprintf(outfp, "%u");
-LABEL_186:
-        v29.s_addr = tok->tt.grps.list[7];
-        goto LABEL_187;
-      case 39:
-        print_tok_type(outfp, 39, "return", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          print_retval(outfp, tok->tt.arg32.no, v4);
-          goto LABEL_152;
-        }
-
-        fprintf(outfp, "%s=", "errval");
-        print_retval(outfp, tok->tt.arg32.no, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        v96 = "retval";
-LABEL_206:
-        fprintf(outfp, "%s=", v96);
-        val = tok->tt.arg32.val;
-        fprintf(outfp, "%u");
-        goto LABEL_242;
-      case 40:
-        v58 = "text";
-        v59 = 40;
-LABEL_112:
-        print_tok_type(outfp, v59, v58, oflags);
-        if ((v4 & 4) == 0)
-        {
-          goto LABEL_113;
-        }
-
-        text = tok->tt.arg64.val;
-        len = tok->tt.grps.no;
-        goto LABEL_197;
-      case 41:
-        print_tok_type(outfp, 41, "opaque", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.grps.no);
-          goto LABEL_101;
-        }
-
-        print_mem(outfp, tok->tt.arg64.val, tok->tt.grps.no);
-        goto LABEL_243;
-      case 42:
-        print_tok_type(outfp, 42, "ip addr", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          v28.s_addr = tok->tt.attr32.mode;
-          goto LABEL_157;
-        }
-
-        v102.s_addr = tok->tt.attr32.mode;
-        v103 = inet_ntoa(v102);
-        fputs(v103, outfp);
-        goto LABEL_243;
-      case 43:
-        print_tok_type(outfp, 43, "ip", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          print_mem(outfp, &tok->tt, 1uLL);
-          fputs(del, outfp);
-          print_mem(outfp, (&tok->tt.arg32.no + 1), 1uLL);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", bswap32(tok->tt.ip.id) >> 16);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", bswap32(tok->tt.hdr32.e_type) >> 16);
-          fputs(del, outfp);
-          print_mem(outfp, &tok->tt.arg64.val, 1uLL);
-          fputs(del, outfp);
-          print_mem(outfp, tok->tt.execarg.text + 1, 1uLL);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", bswap32(tok->tt.ip.chksm) >> 16);
-          fputs(del, outfp);
-          v56.s_addr = tok->tt.attr32.fsid;
-          v57 = inet_ntoa(v56);
-          fputs(v57, outfp);
-          fputs(del, outfp);
-          v28.s_addr = tok->tt.grps.list[3];
-          goto LABEL_157;
-        }
-
-        fprintf(outfp, "%s=", "version");
-        print_mem(outfp, &tok->tt, 1uLL);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "service_type");
-        print_mem(outfp, (&tok->tt.arg32.no + 1), 1uLL);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "len");
-        fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "id");
-        fprintf(outfp, "%u", bswap32(tok->tt.ip.id) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "offset");
-        fprintf(outfp, "%u", bswap32(tok->tt.hdr32.e_type) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "time_to_live");
-        print_mem(outfp, &tok->tt.arg64.val, 1uLL);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "protocol");
-        print_mem(outfp, tok->tt.execarg.text + 1, 1uLL);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "cksum");
-        fprintf(outfp, "%u", bswap32(tok->tt.ip.chksm) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "src_addr");
-        v92.s_addr = tok->tt.attr32.fsid;
-        v93 = inet_ntoa(v92);
-        fputs(v93, outfp);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "dest_addr");
-        v94.s_addr = tok->tt.grps.list[3];
-        v95 = inet_ntoa(v94);
-        fputs(v95, outfp);
-        goto LABEL_242;
-      case 44:
-        print_tok_type(outfp, 44, "ip port", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          v123 = bswap32(tok->tt.grps.no) >> 16;
-          fprintf(outfp, "%#x");
-          goto LABEL_154;
-        }
-
-        fprintf(outfp, "%#x", bswap32(tok->tt.grps.no) >> 16);
-        goto LABEL_243;
-      case 45:
-        print_tok_type(outfp, 45, "argument", oflags);
-        if ((v4 & 4) != 0)
-        {
           fprintf(outfp, "%s=", "arg-num");
           fprintf(outfp, "%u", tok->tt.arg32.no);
           fwrite(" ", 2uLL, 1uLL, outfp);
           fprintf(outfp, "%s=", "value");
-          fprintf(outfp, "0x%x", tok->tt.arg32.val);
+          fprintf(outfp, "0x%llx", tok->tt.arg64.val);
           fwrite(" ", 2uLL, 1uLL, outfp);
           fprintf(outfp, "%s=", "desc");
-          path = tok->tt.arg32.text;
-          v81 = tok->tt.arg32.len;
-          goto LABEL_180;
-        }
+          text = tok->tt.arg64.text;
+          len = tok->tt.arg64.len;
+          goto LABEL_178;
+        case 114:
+          print_tok_type(outfp, 114, "return", oflags);
+          if ((v4 & 4) == 0)
+          {
+            fputs(del, outfp);
+            print_retval(outfp, tok->tt.arg32.no, v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%lld");
+            return;
+          }
 
-        fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.arg32.no);
-        fputs(del, outfp);
-        v53 = tok->tt.arg32.val;
-        fprintf(outfp, "0x%x");
-LABEL_98:
-        fputs(del, outfp);
-        data = tok->tt.arg32.text;
-        v32 = tok->tt.arg32.len;
-        goto LABEL_114;
-      case 46:
-        print_tok_type(outfp, 46, "socket", oflags);
-        if ((v4 & 4) == 0)
-        {
+          fprintf(outfp, "%s=", "errval");
+          print_retval(outfp, tok->tt.arg32.no, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "retval");
+          fprintf(outfp, "%lld");
+          goto LABEL_240;
+        case 115:
+          print_tok_type(outfp, 115, "attribute", oflags);
+          if ((v4 & 4) == 0)
+          {
+            fputs(del, outfp);
+            fprintf(outfp, "%o", tok->tt.attr32.mode);
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.arg32.val, v4);
+            fputs(del, outfp);
+            print_group(outfp, tok->tt.attr32.gid, v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.attr32.fsid);
+            fputs(del, outfp);
+            fprintf(outfp, "%lld", tok->tt.attr32.nid);
+            fputs(del, outfp);
+            fprintf(outfp, "%llu");
+            return;
+          }
+
+          fprintf(outfp, "%s=", "mode");
+          fprintf(outfp, "%o", tok->tt.attr32.mode);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "uid");
+          print_user(outfp, tok->tt.arg32.val, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "gid");
+          print_group(outfp, tok->tt.attr32.gid, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "fsid");
+          fprintf(outfp, "%u", tok->tt.attr32.fsid);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "nodeid");
+          fprintf(outfp, "%lld", tok->tt.attr32.nid);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "device");
+          v100 = tok->tt.arg64.text;
+          v63 = "%llu";
+          goto LABEL_201;
+        case 116:
+          print_tok_type(outfp, 116, "header", oflags);
+          if ((v4 & 4) == 0)
+          {
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.attr32.mode);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.hdr32.version);
+            fputs(del, outfp);
+            print_event(outfp, tok->tt.hdr32.e_type, v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.arg32.len);
+            fputs(del, outfp);
+            print_sec64(outfp, tok->tt.arg32.text, v4);
+            fputs(del, outfp);
+            v24 = tok->tt.arg64.text;
+            goto LABEL_47;
+          }
+
+          fprintf(outfp, "%s=", "version");
+          fprintf(outfp, "%u", tok->tt.hdr32.version);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "event");
+          print_event(outfp, tok->tt.hdr32.e_type, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "modifier");
+          fprintf(outfp, "%u", tok->tt.arg32.len);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "time");
+          print_sec64(outfp, tok->tt.arg32.text, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "msec");
+          v62 = tok->tt.arg64.text;
+          goto LABEL_164;
+        case 117:
+          v20 = "subject";
+          v21 = 117;
+          goto LABEL_42;
+        case 119:
+          v20 = "process";
+          v21 = 119;
+LABEL_42:
+          print_tok_type(outfp, v21, v20, oflags);
+          if ((v4 & 4) == 0)
+          {
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.attr32.mode, v4);
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.arg32.val, v4);
+            fputs(del, outfp);
+            print_group(outfp, tok->tt.attr32.gid, v4);
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.attr32.fsid, v4);
+            fputs(del, outfp);
+            print_group(outfp, tok->tt.grps.list[3], v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.grps.list[4]);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.attr32.dev);
+            fputs(del, outfp);
+            fprintf(outfp, "%llu", tok->tt.hdr64_ex.s);
+            fputs(del, outfp);
+            v25.s_addr = tok->tt.grps.list[9];
+            goto LABEL_155;
+          }
+
+          fprintf(outfp, "%s=", "audit-uid");
+          print_user(outfp, tok->tt.attr32.mode, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "uid");
+          print_user(outfp, tok->tt.arg32.val, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "gid");
+          print_group(outfp, tok->tt.attr32.gid, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "ruid");
+          print_user(outfp, tok->tt.attr32.fsid, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "rgid");
+          print_group(outfp, tok->tt.grps.list[3], v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "pid");
+          fprintf(outfp, "%u", tok->tt.grps.list[4]);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "sid");
+          fprintf(outfp, "%u", tok->tt.attr32.dev);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "tid");
+          fprintf(outfp, "%llu", tok->tt.hdr64_ex.s);
+          v26.s_addr = tok->tt.grps.list[9];
+LABEL_185:
+          v80 = inet_ntoa(v26);
+          fputs(v80, outfp);
+          goto LABEL_240;
+        case 121:
+          print_tok_type(outfp, 121, "header_ex", oflags);
+          if ((v4 & 4) == 0)
+          {
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.attr32.mode);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.hdr32.version);
+            fputs(del, outfp);
+            print_event(outfp, tok->tt.hdr32.e_type, v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.arg32.len);
+            fputs(del, outfp);
+            print_ip_ex_address(outfp, tok->tt.attr32.fsid, &tok->tt.inaddr_ex.addr[3]);
+            fputs(del, outfp);
+            print_sec64(outfp, tok->tt.execarg.text[3], v4);
+            fputs(del, outfp);
+            v24 = tok->tt.execarg.text[4];
+LABEL_47:
+            if (v4)
+            {
+              v27 = "%u";
+            }
+
+            else
+            {
+              v27 = " + %u msec";
+            }
+
+LABEL_146:
+            fprintf(outfp, v27, v24);
+            return;
+          }
+
+          fprintf(outfp, "%s=", "version");
+          fprintf(outfp, "%u", tok->tt.hdr32.version);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "event");
+          print_event(outfp, tok->tt.hdr32.e_type, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "modifier");
+          fprintf(outfp, "%u", tok->tt.arg32.len);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "host");
+          print_ip_ex_address(outfp, tok->tt.attr32.fsid, &tok->tt.inaddr_ex.addr[3]);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "time");
+          print_sec64(outfp, tok->tt.execarg.text[3], v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "msec");
+          v62 = tok->tt.execarg.text[4];
+LABEL_164:
+          if (v4)
+          {
+            v63 = "%u";
+          }
+
+          else
+          {
+            v63 = " + %u msec";
+          }
+
+LABEL_200:
+          v100 = v62;
+LABEL_201:
+          v81 = outfp;
+          goto LABEL_209;
+        case 122:
+          v22 = "subject_ex";
+          v23 = 122;
+          goto LABEL_37;
+        case 123:
+          v22 = "process_ex";
+          v23 = 123;
+LABEL_37:
+          print_tok_type(outfp, v23, v22, oflags);
+          if ((v4 & 4) == 0)
+          {
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.attr32.mode, v4);
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.arg32.val, v4);
+            fputs(del, outfp);
+            print_group(outfp, tok->tt.attr32.gid, v4);
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.attr32.fsid, v4);
+            fputs(del, outfp);
+            print_group(outfp, tok->tt.grps.list[3], v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.grps.list[4]);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.attr32.dev);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.grps.list[6]);
+            fputs(del, outfp);
+            mode = tok->tt.grps.list[7];
+            p_uid = (&tok->tt.subj64.tid.port + 4);
+            goto LABEL_60;
+          }
+
+          fprintf(outfp, "%s=", "audit-uid");
+          print_user(outfp, tok->tt.attr32.mode, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "uid");
+          print_user(outfp, tok->tt.arg32.val, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "gid");
+          print_group(outfp, tok->tt.attr32.gid, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "ruid");
+          print_user(outfp, tok->tt.attr32.fsid, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "rgid");
+          print_group(outfp, tok->tt.grps.list[3], v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "pid");
+          fprintf(outfp, "%u", tok->tt.grps.list[4]);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "sid");
+          fprintf(outfp, "%u", tok->tt.attr32.dev);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "tid");
+          fprintf(outfp, "%u", tok->tt.grps.list[6]);
+          v18 = tok->tt.grps.list[7];
+          v19 = (&tok->tt.subj64.tid.port + 4);
+          goto LABEL_40;
+        case 124:
+          v14 = "subject_ex";
+          v15 = 124;
+          goto LABEL_27;
+        case 125:
+          v14 = "process_ex";
+          v15 = 125;
+LABEL_27:
+          print_tok_type(outfp, v15, v14, oflags);
+          if ((v4 & 4) == 0)
+          {
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.attr32.mode, v4);
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.arg32.val, v4);
+            fputs(del, outfp);
+            print_group(outfp, tok->tt.attr32.gid, v4);
+            fputs(del, outfp);
+            print_user(outfp, tok->tt.attr32.fsid, v4);
+            fputs(del, outfp);
+            print_group(outfp, tok->tt.grps.list[3], v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.grps.list[4]);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.attr32.dev);
+            fputs(del, outfp);
+            fprintf(outfp, "%llu", tok->tt.hdr64_ex.s);
+            fputs(del, outfp);
+            mode = tok->tt.grps.list[9];
+            p_uid = (&tok->tt.krb5_principal.text[4] + 4);
+            goto LABEL_60;
+          }
+
+          fprintf(outfp, "%s=", "audit-uid");
+          print_user(outfp, tok->tt.attr32.mode, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "uid");
+          print_user(outfp, tok->tt.arg32.val, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "gid");
+          print_group(outfp, tok->tt.attr32.gid, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "ruid");
+          print_user(outfp, tok->tt.attr32.fsid, v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "rgid");
+          print_group(outfp, tok->tt.grps.list[3], v4);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "pid");
+          fprintf(outfp, "%u", tok->tt.grps.list[4]);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "sid");
+          fprintf(outfp, "%u", tok->tt.attr32.dev);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "tid");
+          fprintf(outfp, "%llu", tok->tt.hdr64_ex.s);
+          v18 = tok->tt.grps.list[9];
+          v19 = (&tok->tt.krb5_principal.text[4] + 4);
+LABEL_40:
+          print_ip_ex_address(outfp, v18, v19);
+          goto LABEL_240;
+        case 126:
+          print_tok_type(outfp, 126, "ip addr ex", oflags);
+          if ((v4 & 4) == 0)
+          {
+            fputs(del, outfp);
+            mode = tok->tt.attr32.mode;
+            p_uid = &tok->tt.attr32.uid;
+            goto LABEL_60;
+          }
+
+          print_ip_ex_address(outfp, tok->tt.attr32.mode, &tok->tt.attr32.uid);
+          goto LABEL_241;
+        case 127:
+          print_tok_type(outfp, 127, "socket", oflags);
+          if ((v4 & 4) != 0)
+          {
+            fprintf(outfp, "%s=", "sock_dom");
+            v66 = "%#x";
+            fprintf(outfp, "%#x", tok->tt.grps.no);
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "sock_type");
+            fprintf(outfp, "%#x", tok->tt.ip.len);
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "lport");
+            fprintf(outfp, "%#x", bswap32(tok->tt.hdr32.e_type) >> 16);
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "laddr");
+            print_ip_ex_address(outfp, tok->tt.ip.id, (&tok->tt.exit + 1));
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "faddr");
+            print_ip_ex_address(outfp, tok->tt.ip.id, (&tok->tt.ret64 + 28));
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "fport");
+            dev = (bswap32(LOWORD(tok->tt.proc32_ex.sid)) >> 16);
+LABEL_208:
+            v100 = dev;
+            v81 = outfp;
+            v63 = v66;
+LABEL_209:
+            fprintf(v81, v63, v100);
+            goto LABEL_240;
+          }
+
+          fputs(del, outfp);
+          fprintf(outfp, "%#x", tok->tt.grps.no);
+          fputs(del, outfp);
+          fprintf(outfp, "%#x", tok->tt.ip.len);
+          fputs(del, outfp);
+          fprintf(outfp, "%#x", bswap32(tok->tt.hdr32.e_type) >> 16);
+          fputs(del, outfp);
+          print_ip_ex_address(outfp, tok->tt.ip.id, (&tok->tt.exit + 1));
+          fputs(del, outfp);
+          fprintf(outfp, "%#x", bswap32(LOWORD(tok->tt.proc32_ex.sid)) >> 16);
+          fputs(del, outfp);
+          mode = tok->tt.ip.id;
+          p_uid = (&tok->tt.ret64 + 28);
+LABEL_60:
+
+          print_ip_ex_address(outfp, mode, p_uid);
+          return;
+        case 128:
+          print_tok_type(outfp, 128, "socket-inet", oflags);
+          if ((v4 & 4) != 0)
+          {
+            fprintf(outfp, "%s=", "type");
+            fprintf(outfp, "%u", tok->tt.grps.no);
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "port");
+            fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "addr");
+            v69.s_addr = tok->tt.arg32.val;
+            v70 = inet_ntoa(v69);
+            fputs(v70, outfp);
+            goto LABEL_240;
+          }
+
           fputs(del, outfp);
           fprintf(outfp, "%u", tok->tt.grps.no);
           fputs(del, outfp);
           fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
           fputs(del, outfp);
-          v51.s_addr = tok->tt.arg32.val;
-          v52 = inet_ntoa(v51);
-          fputs(v52, outfp);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", bswap32(tok->tt.arg32.len) >> 16);
-          fputs(del, outfp);
-          v28.s_addr = tok->tt.attr32.fsid;
-          goto LABEL_157;
-        }
+          v25.s_addr = tok->tt.arg32.val;
+LABEL_155:
+          v61 = inet_ntoa(v25);
 
-        fprintf(outfp, "%s=", "sock_type");
-        fprintf(outfp, "%u", tok->tt.grps.no);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "lport");
-        fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "laddr");
-        v90.s_addr = tok->tt.arg32.val;
-        v91 = inet_ntoa(v90);
-        fputs(v91, outfp);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "fport");
-        fprintf(outfp, "%u", bswap32(tok->tt.arg32.len) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "faddr");
-        v29.s_addr = tok->tt.attr32.fsid;
-        goto LABEL_187;
-      case 47:
-        print_tok_type(outfp, 47, "sequence", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          mode = tok->tt.attr32.mode;
-          goto LABEL_153;
-        }
-
-        fprintf(outfp, "%s=", "seq-num");
-        fprintf(outfp, "%u", tok->tt.attr32.mode);
-        goto LABEL_242;
-      case 50:
-        print_tok_type(outfp, 50, "IPC perm", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          print_user(outfp, tok->tt.attr32.mode, v4);
-          fputs(del, outfp);
-          print_group(outfp, tok->tt.arg32.val, v4);
-          fputs(del, outfp);
-          print_user(outfp, tok->tt.attr32.gid, v4);
-          fputs(del, outfp);
-          print_group(outfp, tok->tt.attr32.fsid, v4);
-          fputs(del, outfp);
-          fprintf(outfp, "%o", tok->tt.grps.list[3]);
-          fputs(del, outfp);
-          v76 = tok->tt.grps.list[4];
-          fprintf(outfp, "%u");
-          goto LABEL_162;
-        }
-
-        fprintf(outfp, "%s=", "uid");
-        print_user(outfp, tok->tt.attr32.mode, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "gid");
-        print_group(outfp, tok->tt.arg32.val, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "creator-uid");
-        print_user(outfp, tok->tt.attr32.gid, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "creator-gid");
-        print_group(outfp, tok->tt.attr32.fsid, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "mode");
-        fprintf(outfp, "%o", tok->tt.grps.list[3]);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "seq");
-        v83 = "%u";
-        fprintf(outfp, "%u", tok->tt.grps.list[4]);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        v100 = "key";
-        goto LABEL_209;
-      case 59:
-        print_tok_type(outfp, 59, "group", oflags);
-        if (tok->tt.grps.no)
-        {
-          v69 = 0;
-          do
+          fputs(v61, outfp);
+          return;
+        case 129:
+          print_tok_type(outfp, 129, "socket-inet6", oflags);
+          if ((v4 & 4) != 0)
           {
-            v70 = tok + 4 * v69;
-            if ((v4 & 4) != 0)
-            {
-              fwrite("<gid>", 5uLL, 1uLL, outfp);
-              print_group(outfp, *(v70 + 7), v4);
-              fwrite("</gid>", 6uLL, 1uLL, outfp);
-              close_tag(outfp, tok->id);
-            }
-
-            else
-            {
-              fputs(del, outfp);
-              print_group(outfp, *(v70 + 7), v4);
-            }
-
-            ++v69;
+            fprintf(outfp, "%s=", "type");
+            fprintf(outfp, "%u", tok->tt.grps.no);
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "port");
+            fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            fprintf(outfp, "%s=", "addr");
+            v101 = *&tok->tt.attr32.uid;
+            v68 = inet_ntop(30, &v101, v102, 0x2Eu);
+            fputs(v68, outfp);
+            fwrite(" ", 2uLL, 1uLL, outfp);
+            close_tag(outfp, tok->id);
           }
 
-          while (v69 < tok->tt.grps.no);
-        }
-
-        goto LABEL_154;
-      case 60:
-        print_tok_type(outfp, 60, "exec arg", oflags);
-        if (tok->tt.attr32.mode)
-        {
-          v43 = 0;
-          p_val = &tok->tt.arg64.val;
-          do
+          else
           {
-            if ((v4 & 4) != 0)
-            {
-              fwrite("<arg>", 5uLL, 1uLL, outfp);
-              v46 = strlen(p_val[v43]);
-              print_string(outfp, p_val[v43], v46, v4);
-              fwrite("</arg>", 6uLL, 1uLL, outfp);
-            }
-
-            else
-            {
-              fputs(del, outfp);
-              v45 = strlen(p_val[v43]);
-              print_string(outfp, p_val[v43], v45, v4);
-            }
-
-            ++v43;
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.grps.no);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
+            fputs(del, outfp);
+            v101 = *&tok->tt.attr32.uid;
+            v30 = inet_ntop(30, &v101, v102, 0x2Eu);
+            fputs(v30, outfp);
           }
 
-          while (v43 < tok->tt.attr32.mode);
-        }
-
-        goto LABEL_92;
-      case 61:
-        print_tok_type(outfp, 61, "exec env", oflags);
-        if (tok->tt.attr32.mode)
-        {
-          v47 = 0;
-          v48 = &tok->tt.arg64.val;
-          do
+          return;
+        case 130:
+          print_tok_type(outfp, 130, "socket-unix", oflags);
+          if ((v4 & 4) == 0)
           {
-            if ((v4 & 4) != 0)
-            {
-              fwrite("<env>", 5uLL, 1uLL, outfp);
-              v50 = strlen(v48[v47]);
-              print_string(outfp, v48[v47], v50, v4);
-              fwrite("</env>", 6uLL, 1uLL, outfp);
-            }
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.grps.no);
+            fputs(del, outfp);
+            no = strlen(tok->tt.sockunix.path);
+            data = &tok->tt.arb.uc;
+LABEL_114:
 
-            else
-            {
-              fputs(del, outfp);
-              v49 = strlen(v48[v47]);
-              print_string(outfp, v48[v47], v49, v4);
-            }
-
-            ++v47;
+            print_string(outfp, data, no, v4);
+            return;
           }
 
-          while (v47 < tok->tt.attr32.mode);
-        }
-
-        goto LABEL_92;
-      case 62:
-        print_tok_type(outfp, 62, "attribute", oflags);
-        if ((v4 & 4) == 0)
-        {
-          fputs(del, outfp);
-          fprintf(outfp, "%o", tok->tt.attr32.mode);
-          fputs(del, outfp);
-          print_user(outfp, tok->tt.arg32.val, v4);
-          fputs(del, outfp);
-          print_group(outfp, tok->tt.attr32.gid, v4);
-          fputs(del, outfp);
-          fprintf(outfp, "%u", tok->tt.attr32.fsid);
-          fputs(del, outfp);
-          v71 = tok->tt.arg32.text;
-          fprintf(outfp, "%lld");
-LABEL_162:
-          fputs(del, outfp);
-          dev = tok->tt.attr32.dev;
-          fprintf(outfp, "%u");
-          goto LABEL_154;
-        }
-
-        fprintf(outfp, "%s=", "mode");
-        fprintf(outfp, "%o", tok->tt.attr32.mode);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "uid");
-        print_user(outfp, tok->tt.arg32.val, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "gid");
-        print_group(outfp, tok->tt.attr32.gid, v4);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "fsid");
-        v83 = "%u";
-        fprintf(outfp, "%u", tok->tt.attr32.fsid);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "nodeid");
-        fprintf(outfp, "%lld", tok->tt.attr32.nid);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        v100 = "device";
-LABEL_209:
-        fprintf(outfp, "%s=", v100);
-        v84 = tok->tt.attr32.dev;
-        goto LABEL_210;
-      default:
-        if (id != 82)
-        {
-          goto LABEL_77;
-        }
-
-        print_tok_type(outfp, 82, "exit", oflags);
-        if ((v4 & 4) != 0)
-        {
-          fprintf(outfp, "%s=", "errval");
-          fprintf(outfp, "Error %u", tok->tt.attr32.mode);
+          fprintf(outfp, "%s=", "type");
+          fprintf(outfp, "%u", tok->tt.grps.no);
           fwrite(" ", 2uLL, 1uLL, outfp);
-          fprintf(outfp, "%s=", "retval");
-          fprintf(outfp, "%u", tok->tt.arg32.val);
-          goto LABEL_242;
-        }
+          fprintf(outfp, "%s=", "port");
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "addr");
+          len = strlen(tok->tt.sockunix.path);
+          text = tok->tt.sockunix.path;
+LABEL_178:
+          print_string(outfp, text, len, v4);
+          break;
+        default:
+          goto LABEL_77;
+      }
 
-        fputs(del, outfp);
-        fprintf(outfp, "Error %u", tok->tt.attr32.mode);
-LABEL_152:
-        fputs(del, outfp);
-        v72 = tok->tt.arg32.val;
-LABEL_153:
-        fprintf(outfp, "%u");
-        break;
+      goto LABEL_240;
     }
 
-    goto LABEL_154;
-  }
-
-  if (id > 236)
-  {
     switch(id)
     {
       case 237:
@@ -4611,17 +4222,17 @@ LABEL_153:
           fprintf(outfp, "%s=", "signing-id-truncated");
           if (tok->tt.sockunix.path[14])
           {
-            v88 = "yes";
-            v89 = 3;
+            v71 = "yes";
+            v72 = 3;
           }
 
           else
           {
-            v88 = "no";
-            v89 = 2;
+            v71 = "no";
+            v72 = 2;
           }
 
-          fwrite(v88, v89, 1uLL, outfp);
+          fwrite(v71, v72, 1uLL, outfp);
           fwrite(" ", 2uLL, 1uLL, outfp);
           fprintf(outfp, "%s=", "team-id");
           print_string(outfp, tok->tt.arg64.text, tok->tt.identity.team_id_len, v4);
@@ -4629,23 +4240,27 @@ LABEL_153:
           fprintf(outfp, "%s=", "team-id-truncated");
           if (tok->tt.sockunix.path[30])
           {
-            v110 = "yes";
-            v111 = 3;
+            v91 = "yes";
+            v92 = 3;
           }
 
           else
           {
-            v110 = "no";
-            v111 = 2;
+            v91 = "no";
+            v92 = 2;
           }
 
-          fwrite(v110, v111, 1uLL, outfp);
+          fwrite(v91, v92, 1uLL, outfp);
           fwrite(" ", 2uLL, 1uLL, outfp);
           fprintf(outfp, "%s=", "cdhash");
           print_mem(outfp, tok->tt.execarg.text[4], tok->tt.identity.cdhash_len);
-LABEL_242:
+LABEL_240:
           fwrite(" ", 2uLL, 1uLL, outfp);
-          goto LABEL_243;
+LABEL_241:
+          v93 = tok->id;
+
+          close_tag(outfp, v93);
+          return;
         }
 
         fputs(del, outfp);
@@ -4655,80 +4270,73 @@ LABEL_242:
         fputs(del, outfp);
         if (tok->tt.sockunix.path[14])
         {
-          v37 = "truncated";
-          v38 = 9;
+          v31 = "truncated";
+          v32 = 9;
         }
 
         else
         {
-          v37 = "complete";
-          v38 = 8;
+          v31 = "complete";
+          v32 = 8;
         }
 
-        fwrite(v37, v38, 1uLL, outfp);
+        fwrite(v31, v32, 1uLL, outfp);
         fputs(del, outfp);
         print_string(outfp, tok->tt.arg64.text, tok->tt.identity.team_id_len, v4);
         fputs(del, outfp);
         if (tok->tt.sockunix.path[30])
         {
-          v108 = "truncated";
-          v109 = 9;
+          v89 = "truncated";
+          v90 = 9;
         }
 
         else
         {
-          v108 = "complete";
-          v109 = 8;
+          v89 = "complete";
+          v90 = 8;
         }
 
-        fwrite(v108, v109, 1uLL, outfp);
+        fwrite(v89, v90, 1uLL, outfp);
         fputs(del, outfp);
-        v54 = tok->tt.execarg.text[4];
+        v47 = tok->tt.execarg.text[4];
         cdhash_len = tok->tt.identity.cdhash_len;
         break;
       case 238:
         print_tok_type(outfp, 238, "principal", oflags);
         if (tok->tt.attr32.mode)
         {
-          v39 = 0;
-          v40 = &tok->tt.arg64.val;
+          v33 = 0;
+          p_val = &tok->tt.arg64.val;
           do
           {
             if ((v4 & 4) != 0)
             {
               fwrite("<principal>", 0xBuLL, 1uLL, outfp);
-              v42 = strlen(v40[v39]);
-              print_string(outfp, v40[v39], v42, v4);
+              v36 = strlen(p_val[v33]);
+              print_string(outfp, p_val[v33], v36, v4);
               fwrite("</principal>", 0xCuLL, 1uLL, outfp);
             }
 
             else
             {
               fputs(del, outfp);
-              v41 = strlen(v40[v39]);
-              print_string(outfp, v40[v39], v41, v4);
+              v35 = strlen(p_val[v33]);
+              print_string(outfp, p_val[v33], v35, v4);
             }
 
-            ++v39;
+            ++v33;
           }
 
-          while (v39 < tok->tt.attr32.mode);
+          while (v33 < tok->tt.attr32.mode);
         }
 
 LABEL_92:
-        if ((v4 & 4) != 0)
+        if ((v4 & 4) == 0)
         {
-LABEL_243:
-          v113 = tok->id;
-          v114 = *MEMORY[0x29EDCA608];
-
-          close_tag(outfp, v113);
           return;
         }
 
-LABEL_154:
-        v73 = *MEMORY[0x29EDCA608];
-        return;
+        goto LABEL_241;
       case 239:
         print_tok_type(outfp, 239, "cert hash", oflags);
         if (tok->tt.attr32.mode)
@@ -4763,125 +4371,99 @@ LABEL_154:
 LABEL_77:
         if ((oflags & 4) != 0)
         {
-          goto LABEL_154;
+          return;
         }
 
         print_tok_type(outfp, id, "unknown", oflags);
 LABEL_101:
         fputs(del, outfp);
-        v54 = tok->tt.execarg.text[0];
+        v47 = tok->tt.execarg.text[0];
         cdhash_len = tok->tt.grps.no;
         break;
     }
 
-    v112 = *MEMORY[0x29EDCA608];
-
-    print_mem(outfp, v54, cdhash_len);
+    print_mem(outfp, v47, cdhash_len);
     return;
   }
 
   switch(id)
   {
-    case 96:
-      print_tok_type(outfp, 96, "zone", oflags);
-      if ((v4 & 4) != 0)
-      {
-        fprintf(outfp, "%s=", "name");
-        print_string(outfp, tok->tt.arg64.val, tok->tt.grps.no, v4);
-        goto LABEL_242;
-      }
-
-LABEL_113:
-      fputs(del, outfp);
-      data = tok->tt.arb.data;
-      v32 = tok->tt.grps.no;
-      goto LABEL_114;
-    case 113:
-      print_tok_type(outfp, 113, "argument", oflags);
-      if ((v4 & 4) != 0)
-      {
-        fprintf(outfp, "%s=", "arg-num");
-        fprintf(outfp, "%u", tok->tt.arg32.no);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "value");
-        fprintf(outfp, "0x%llx", tok->tt.arg64.val);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "desc");
-        path = tok->tt.arg64.text;
-        v81 = tok->tt.arg64.len;
-        goto LABEL_180;
-      }
-
-      fputs(del, outfp);
-      fprintf(outfp, "%u", tok->tt.arg32.no);
-      fputs(del, outfp);
-      fprintf(outfp, "0x%llx", tok->tt.arg64.val);
-      fputs(del, outfp);
-      data = tok->tt.arg64.text;
-      v32 = tok->tt.arg64.len;
-LABEL_114:
-      v61 = *MEMORY[0x29EDCA608];
-      goto LABEL_115;
-    case 114:
-      print_tok_type(outfp, 114, "return", oflags);
+    case 17:
+      print_tok_type(outfp, 17, "file", oflags);
       if ((v4 & 4) == 0)
       {
         fputs(del, outfp);
-        print_retval(outfp, tok->tt.arg32.no, v4);
+        print_sec32(outfp, tok->tt.attr32.mode, v4);
         fputs(del, outfp);
-        v122 = tok->tt.arg64.val;
-        fprintf(outfp, "%lld");
-        goto LABEL_154;
+        if (v4)
+        {
+          v9 = "%u";
+        }
+
+        else
+        {
+          v9 = " + %u msec";
+        }
+
+        fprintf(outfp, v9, tok->tt.arg32.val);
+        goto LABEL_98;
       }
 
-      fprintf(outfp, "%s=", "errval");
-      print_retval(outfp, tok->tt.arg32.no, v4);
+      fprintf(outfp, "%s=", "time");
+      print_sec32(outfp, tok->tt.attr32.mode, v4);
       fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "retval");
-      v82 = tok->tt.arg64.val;
-      fprintf(outfp, "%lld");
-      goto LABEL_242;
-    case 115:
-      print_tok_type(outfp, 115, "attribute", oflags);
-      if ((v4 & 4) == 0)
+      fprintf(outfp, "%s=", "msec");
+      if (v4)
       {
-        fputs(del, outfp);
-        fprintf(outfp, "%o", tok->tt.attr32.mode);
-        fputs(del, outfp);
-        print_user(outfp, tok->tt.arg32.val, v4);
-        fputs(del, outfp);
-        print_group(outfp, tok->tt.attr32.gid, v4);
-        fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.attr32.fsid);
-        fputs(del, outfp);
-        fprintf(outfp, "%lld", tok->tt.attr32.nid);
-        fputs(del, outfp);
-        v121 = tok->tt.arg64.text;
-        fprintf(outfp, "%llu");
-        goto LABEL_154;
+        fprintf(outfp, "%u");
       }
 
-      fprintf(outfp, "%s=", "mode");
-      fprintf(outfp, "%o", tok->tt.attr32.mode);
+      else
+      {
+        fprintf(outfp, " + %u msec");
+      }
+
       fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "uid");
-      print_user(outfp, tok->tt.arg32.val, v4);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "gid");
-      print_group(outfp, tok->tt.attr32.gid, v4);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "fsid");
-      fprintf(outfp, "%u", tok->tt.attr32.fsid);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "nodeid");
-      fprintf(outfp, "%lld", tok->tt.attr32.nid);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "device");
-      v124 = tok->tt.arg64.text;
-      v79 = "%llu";
-      goto LABEL_203;
-    case 116:
-      print_tok_type(outfp, 116, "header", oflags);
+      fputc(62, outfp);
+      val = tok->tt.arg32.text;
+      v54 = tok->tt.arg32.len;
+LABEL_195:
+      print_string(outfp, val, v54, v4);
+      goto LABEL_241;
+    case 18:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+    case 28:
+    case 29:
+    case 30:
+    case 31:
+    case 32:
+    case 37:
+    case 48:
+    case 49:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57:
+    case 58:
+      goto LABEL_77;
+    case 19:
+      print_tok_type(outfp, 19, "trailer", oflags);
+      if ((v4 & 4) != 0)
+      {
+        return;
+      }
+
+      goto LABEL_151;
+    case 20:
+      print_tok_type(outfp, 20, "header", oflags);
       if ((v4 & 4) == 0)
       {
         fputs(del, outfp);
@@ -4893,10 +4475,20 @@ LABEL_114:
         fputs(del, outfp);
         fprintf(outfp, "%u", tok->tt.arg32.len);
         fputs(del, outfp);
-        print_sec64(outfp, tok->tt.arg32.text, v4);
+        print_sec32(outfp, tok->tt.attr32.fsid, v4);
         fputs(del, outfp);
-        v26 = tok->tt.arg64.text;
-        goto LABEL_47;
+        if (v4)
+        {
+          v27 = "%u";
+        }
+
+        else
+        {
+          v27 = " + %u msec";
+        }
+
+        v24 = tok->tt.grps.list[3];
+        goto LABEL_146;
       }
 
       fprintf(outfp, "%s=", "version");
@@ -4909,41 +4501,312 @@ LABEL_114:
       fprintf(outfp, "%u", tok->tt.arg32.len);
       fwrite(" ", 2uLL, 1uLL, outfp);
       fprintf(outfp, "%s=", "time");
-      print_sec64(outfp, tok->tt.arg32.text, v4);
+      print_sec32(outfp, tok->tt.attr32.fsid, v4);
       fwrite(" ", 2uLL, 1uLL, outfp);
       fprintf(outfp, "%s=", "msec");
-      v78 = tok->tt.arg64.text;
-      goto LABEL_166;
-    case 117:
-      v21 = "subject";
-      v22 = 117;
-      goto LABEL_42;
-    case 119:
-      v21 = "process";
-      v22 = 119;
-LABEL_42:
-      print_tok_type(outfp, v22, v21, oflags);
+      if (v4)
+      {
+        v63 = "%u";
+      }
+
+      else
+      {
+        v63 = " + %u msec";
+      }
+
+      v62 = tok->tt.grps.list[3];
+      goto LABEL_200;
+    case 21:
+      print_tok_type(outfp, 21, "header_ex", oflags);
       if ((v4 & 4) == 0)
       {
         fputs(del, outfp);
-        print_user(outfp, tok->tt.attr32.mode, v4);
+        fprintf(outfp, "%u", tok->tt.attr32.mode);
         fputs(del, outfp);
-        print_user(outfp, tok->tt.arg32.val, v4);
+        fprintf(outfp, "%u", tok->tt.hdr32.version);
         fputs(del, outfp);
-        print_group(outfp, tok->tt.attr32.gid, v4);
+        print_event(outfp, tok->tt.hdr32.e_type, v4);
         fputs(del, outfp);
-        print_user(outfp, tok->tt.attr32.fsid, v4);
+        fprintf(outfp, "%u", tok->tt.arg32.len);
         fputs(del, outfp);
-        print_group(outfp, tok->tt.grps.list[3], v4);
+        print_ip_ex_address(outfp, tok->tt.attr32.fsid, &tok->tt.inaddr_ex.addr[3]);
         fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.grps.list[4]);
+        print_sec32(outfp, tok->tt.grps.list[7], v4);
         fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.attr32.dev);
+        if (v4)
+        {
+          v27 = "%u";
+        }
+
+        else
+        {
+          v27 = " + %u msec";
+        }
+
+        v24 = tok->tt.grps.list[8];
+        goto LABEL_146;
+      }
+
+      fprintf(outfp, "%s=", "version");
+      fprintf(outfp, "%u", tok->tt.hdr32.version);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "event");
+      print_event(outfp, tok->tt.hdr32.e_type, v4);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "modifier");
+      fprintf(outfp, "%u", tok->tt.arg32.len);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "host");
+      print_ip_ex_address(outfp, tok->tt.attr32.fsid, &tok->tt.inaddr_ex.addr[3]);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "time");
+      print_sec32(outfp, tok->tt.grps.list[7], v4);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "msec");
+      if (v4)
+      {
+        v63 = "%u";
+      }
+
+      else
+      {
+        v63 = " + %u msec";
+      }
+
+      v62 = tok->tt.grps.list[8];
+      goto LABEL_200;
+    case 33:
+      print_tok_type(outfp, 33, "arbitrary", oflags);
+      if ((v4 & 4) == 0)
+      {
         fputs(del, outfp);
-        fprintf(outfp, "%llu", tok->tt.hdr64_ex.s);
+      }
+
+      v55 = tok->tt.arg32.no;
+      if (v55 > 4)
+      {
+        return;
+      }
+
+      v56 = off_29EE9D598[v55];
+      v57 = off_29EE9D5C0[v55];
+      if ((v4 & 4) != 0)
+      {
+        fprintf(outfp, "%s=", "print");
+        v85 = strlen(v56);
+        print_string(outfp, v56, v85, v4);
+        fwrite(" ", 2uLL, 1uLL, outfp);
+      }
+
+      else
+      {
+        v58 = strlen(off_29EE9D598[v55]);
+        print_string(outfp, v56, v58, v4);
         fputs(del, outfp);
-        v28.s_addr = tok->tt.grps.list[9];
-        goto LABEL_157;
+      }
+
+      bu = tok->tt.arb.bu;
+      if (bu > 1)
+      {
+        if (bu == 2)
+        {
+          if ((v4 & 4) == 0)
+          {
+            print_string(outfp, "int", 3uLL, v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.arb.uc);
+            fputs(del, outfp);
+            if (tok->tt.arb.uc)
+            {
+              v95 = 0;
+              do
+              {
+                fprintf(outfp, v57, *(tok->tt.arg64.val + 4 * v95++));
+              }
+
+              while (v95 < tok->tt.arb.uc);
+            }
+
+            return;
+          }
+
+          fprintf(outfp, "%s=", "type");
+          fprintf(outfp, "%zu", 4uLL);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "count");
+          fprintf(outfp, "%u", tok->tt.arb.uc);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fputc(62, outfp);
+          if (tok->tt.arb.uc)
+          {
+            v99 = 0;
+            do
+            {
+              fprintf(outfp, v57, *(tok->tt.arg64.val + 4 * v99++));
+            }
+
+            while (v99 < tok->tt.arb.uc);
+          }
+        }
+
+        else
+        {
+          if (bu != 3)
+          {
+            return;
+          }
+
+          if ((v4 & 4) == 0)
+          {
+            print_string(outfp, "int64", 5uLL, v4);
+            fputs(del, outfp);
+            fprintf(outfp, "%u", tok->tt.arb.uc);
+            fputs(del, outfp);
+            if (tok->tt.arb.uc)
+            {
+              v88 = 0;
+              do
+              {
+                fprintf(outfp, v57, *(tok->tt.arg64.val + 8 * v88++));
+              }
+
+              while (v88 < tok->tt.arb.uc);
+            }
+
+            return;
+          }
+
+          fprintf(outfp, "%s=", "type");
+          fprintf(outfp, "%zu", 8uLL);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fprintf(outfp, "%s=", "count");
+          fprintf(outfp, "%u", tok->tt.arb.uc);
+          fwrite(" ", 2uLL, 1uLL, outfp);
+          fputc(62, outfp);
+          if (tok->tt.arb.uc)
+          {
+            v97 = 0;
+            do
+            {
+              fprintf(outfp, v57, *(tok->tt.arg64.val + 8 * v97++));
+            }
+
+            while (v97 < tok->tt.arb.uc);
+          }
+        }
+      }
+
+      else if (tok->tt.arb.bu)
+      {
+        if (bu != 1)
+        {
+          return;
+        }
+
+        if ((v4 & 4) == 0)
+        {
+          print_string(outfp, "short", 5uLL, v4);
+          fputs(del, outfp);
+          fprintf(outfp, "%u", tok->tt.arb.uc);
+          fputs(del, outfp);
+          if (tok->tt.arb.uc)
+          {
+            v87 = 0;
+            do
+            {
+              fprintf(outfp, v57, *(tok->tt.arg64.val + 2 * v87++));
+            }
+
+            while (v87 < tok->tt.arb.uc);
+          }
+
+          return;
+        }
+
+        fprintf(outfp, "%s=", "type");
+        fprintf(outfp, "%zu", 2uLL);
+        fwrite(" ", 2uLL, 1uLL, outfp);
+        fprintf(outfp, "%s=", "count");
+        fprintf(outfp, "%u", tok->tt.arb.uc);
+        fwrite(" ", 2uLL, 1uLL, outfp);
+        fputc(62, outfp);
+        if (tok->tt.arb.uc)
+        {
+          v96 = 0;
+          do
+          {
+            fprintf(outfp, v57, *(tok->tt.arg64.val + 2 * v96++));
+          }
+
+          while (v96 < tok->tt.arb.uc);
+        }
+      }
+
+      else
+      {
+        if ((v4 & 4) == 0)
+        {
+          print_string(outfp, "byte", 4uLL, v4);
+          fputs(del, outfp);
+          fprintf(outfp, "%u", tok->tt.arb.uc);
+          fputs(del, outfp);
+          if (tok->tt.arb.uc)
+          {
+            v94 = 0;
+            do
+            {
+              fprintf(outfp, v57, *(tok->tt.arg64.val + v94++));
+            }
+
+            while (v94 < tok->tt.arb.uc);
+          }
+
+          return;
+        }
+
+        fprintf(outfp, "%s=", "type");
+        fprintf(outfp, "%zu", 1uLL);
+        fwrite(" ", 2uLL, 1uLL, outfp);
+        fprintf(outfp, "%s=", "count");
+        fprintf(outfp, "%u", tok->tt.arb.uc);
+        fwrite(" ", 2uLL, 1uLL, outfp);
+        fputc(62, outfp);
+        if (tok->tt.arb.uc)
+        {
+          v98 = 0;
+          do
+          {
+            fprintf(outfp, v57, *(tok->tt.arg64.val + v98++));
+          }
+
+          while (v98 < tok->tt.arb.uc);
+        }
+      }
+
+      goto LABEL_241;
+    case 34:
+      print_tok_type(outfp, 34, "IPC", oflags);
+      if ((v4 & 4) == 0)
+      {
+        fputs(del, outfp);
+        print_ipctype(outfp, tok->tt.arg32.no, v4);
+        goto LABEL_151;
+      }
+
+      fprintf(outfp, "%s=", "ipc-type");
+      print_ipctype(outfp, tok->tt.arg32.no, v4);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      v79 = "ipc-id";
+      goto LABEL_204;
+    case 35:
+      v51 = "path";
+      v52 = 35;
+      goto LABEL_112;
+    case 36:
+      print_tok_type(outfp, 36, "subject", oflags);
+      if ((v4 & 4) == 0)
+      {
+        goto LABEL_124;
       }
 
       fprintf(outfp, "%s=", "audit-uid");
@@ -4968,90 +4831,13 @@ LABEL_42:
       fprintf(outfp, "%u", tok->tt.attr32.dev);
       fwrite(" ", 2uLL, 1uLL, outfp);
       fprintf(outfp, "%s=", "tid");
-      fprintf(outfp, "%llu", tok->tt.hdr64_ex.s);
-      v29.s_addr = tok->tt.grps.list[9];
-LABEL_187:
-      v98 = inet_ntoa(v29);
-      fputs(v98, outfp);
-      goto LABEL_242;
-    case 121:
-      print_tok_type(outfp, 121, "header_ex", oflags);
+      fprintf(outfp, "%u ");
+      goto LABEL_184;
+    case 38:
+      print_tok_type(outfp, 38, "process", oflags);
       if ((v4 & 4) == 0)
       {
-        fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.attr32.mode);
-        fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.hdr32.version);
-        fputs(del, outfp);
-        print_event(outfp, tok->tt.hdr32.e_type, v4);
-        fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.arg32.len);
-        fputs(del, outfp);
-        print_ip_ex_address(outfp, tok->tt.attr32.fsid, &tok->tt.inaddr_ex.addr[3]);
-        fputs(del, outfp);
-        print_sec64(outfp, tok->tt.execarg.text[3], v4);
-        fputs(del, outfp);
-        v26 = tok->tt.execarg.text[4];
-LABEL_47:
-        if (v4)
-        {
-          v30 = "%u";
-        }
-
-        else
-        {
-          v30 = " + %u msec";
-        }
-
-LABEL_147:
-        fprintf(outfp, v30, v26);
-        goto LABEL_154;
-      }
-
-      fprintf(outfp, "%s=", "version");
-      fprintf(outfp, "%u", tok->tt.hdr32.version);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "event");
-      print_event(outfp, tok->tt.hdr32.e_type, v4);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "modifier");
-      fprintf(outfp, "%u", tok->tt.arg32.len);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "host");
-      print_ip_ex_address(outfp, tok->tt.attr32.fsid, &tok->tt.inaddr_ex.addr[3]);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "time");
-      print_sec64(outfp, tok->tt.execarg.text[3], v4);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "msec");
-      v78 = tok->tt.execarg.text[4];
-LABEL_166:
-      if (v4)
-      {
-        v79 = "%u";
-      }
-
-      else
-      {
-        v79 = " + %u msec";
-      }
-
-LABEL_202:
-      v124 = v78;
-LABEL_203:
-      v99 = outfp;
-      goto LABEL_211;
-    case 122:
-      v24 = "subject_ex";
-      v25 = 122;
-      goto LABEL_37;
-    case 123:
-      v24 = "process_ex";
-      v25 = 123;
-LABEL_37:
-      print_tok_type(outfp, v25, v24, oflags);
-      if ((v4 & 4) == 0)
-      {
+LABEL_124:
         fputs(del, outfp);
         print_user(outfp, tok->tt.attr32.mode, v4);
         fputs(del, outfp);
@@ -5069,10 +4855,8 @@ LABEL_37:
         fputs(del, outfp);
         fprintf(outfp, "%u", tok->tt.grps.list[6]);
         fputs(del, outfp);
-        v16 = tok->tt.grps.list[7];
-        v27 = *MEMORY[0x29EDCA608];
-        p_uid = (&tok->tt.subj64.tid.port + 4);
-        goto LABEL_60;
+        v25.s_addr = tok->tt.grps.list[7];
+        goto LABEL_155;
       }
 
       fprintf(outfp, "%s=", "audit-uid");
@@ -5097,46 +4881,360 @@ LABEL_37:
       fprintf(outfp, "%u", tok->tt.attr32.dev);
       fwrite(" ", 2uLL, 1uLL, outfp);
       fprintf(outfp, "%s=", "tid");
-      fprintf(outfp, "%u", tok->tt.grps.list[6]);
-      v19 = tok->tt.grps.list[7];
-      v20 = (&tok->tt.subj64.tid.port + 4);
-      goto LABEL_40;
-    case 124:
-      v14 = "subject_ex";
-      v15 = 124;
-      goto LABEL_27;
-    case 125:
-      v14 = "process_ex";
-      v15 = 125;
-LABEL_27:
-      print_tok_type(outfp, v15, v14, oflags);
+      fprintf(outfp, "%u");
+LABEL_184:
+      v26.s_addr = tok->tt.grps.list[7];
+      goto LABEL_185;
+    case 39:
+      print_tok_type(outfp, 39, "return", oflags);
+      if ((v4 & 4) == 0)
+      {
+        fputs(del, outfp);
+        print_retval(outfp, tok->tt.arg32.no, v4);
+        goto LABEL_151;
+      }
+
+      fprintf(outfp, "%s=", "errval");
+      print_retval(outfp, tok->tt.arg32.no, v4);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      v79 = "retval";
+LABEL_204:
+      fprintf(outfp, "%s=", v79);
+      fprintf(outfp, "%u");
+      goto LABEL_240;
+    case 40:
+      v51 = "text";
+      v52 = 40;
+LABEL_112:
+      print_tok_type(outfp, v52, v51, oflags);
+      if ((v4 & 4) == 0)
+      {
+        goto LABEL_113;
+      }
+
+      val = tok->tt.arg64.val;
+      v54 = tok->tt.grps.no;
+      goto LABEL_195;
+    case 41:
+      print_tok_type(outfp, 41, "opaque", oflags);
+      if ((v4 & 4) == 0)
+      {
+        fputs(del, outfp);
+        fprintf(outfp, "%u", tok->tt.grps.no);
+        goto LABEL_101;
+      }
+
+      print_mem(outfp, tok->tt.arg64.val, tok->tt.grps.no);
+      goto LABEL_241;
+    case 42:
+      print_tok_type(outfp, 42, "ip addr", oflags);
+      if ((v4 & 4) == 0)
+      {
+        fputs(del, outfp);
+        v25.s_addr = tok->tt.attr32.mode;
+        goto LABEL_155;
+      }
+
+      v83.s_addr = tok->tt.attr32.mode;
+      v84 = inet_ntoa(v83);
+      fputs(v84, outfp);
+      goto LABEL_241;
+    case 43:
+      print_tok_type(outfp, 43, "ip", oflags);
+      if ((v4 & 4) == 0)
+      {
+        fputs(del, outfp);
+        print_mem(outfp, &tok->tt, 1uLL);
+        fputs(del, outfp);
+        print_mem(outfp, (&tok->tt.arg32.no + 1), 1uLL);
+        fputs(del, outfp);
+        fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
+        fputs(del, outfp);
+        fprintf(outfp, "%u", bswap32(tok->tt.ip.id) >> 16);
+        fputs(del, outfp);
+        fprintf(outfp, "%u", bswap32(tok->tt.hdr32.e_type) >> 16);
+        fputs(del, outfp);
+        print_mem(outfp, &tok->tt.arg64.val, 1uLL);
+        fputs(del, outfp);
+        print_mem(outfp, tok->tt.execarg.text + 1, 1uLL);
+        fputs(del, outfp);
+        fprintf(outfp, "%u", bswap32(tok->tt.ip.chksm) >> 16);
+        fputs(del, outfp);
+        v49.s_addr = tok->tt.attr32.fsid;
+        v50 = inet_ntoa(v49);
+        fputs(v50, outfp);
+        fputs(del, outfp);
+        v25.s_addr = tok->tt.grps.list[3];
+        goto LABEL_155;
+      }
+
+      fprintf(outfp, "%s=", "version");
+      print_mem(outfp, &tok->tt, 1uLL);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "service_type");
+      print_mem(outfp, (&tok->tt.arg32.no + 1), 1uLL);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "len");
+      fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "id");
+      fprintf(outfp, "%u", bswap32(tok->tt.ip.id) >> 16);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "offset");
+      fprintf(outfp, "%u", bswap32(tok->tt.hdr32.e_type) >> 16);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "time_to_live");
+      print_mem(outfp, &tok->tt.arg64.val, 1uLL);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "protocol");
+      print_mem(outfp, tok->tt.execarg.text + 1, 1uLL);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "cksum");
+      fprintf(outfp, "%u", bswap32(tok->tt.ip.chksm) >> 16);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "src_addr");
+      v75.s_addr = tok->tt.attr32.fsid;
+      v76 = inet_ntoa(v75);
+      fputs(v76, outfp);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "dest_addr");
+      v77.s_addr = tok->tt.grps.list[3];
+      v78 = inet_ntoa(v77);
+      fputs(v78, outfp);
+      goto LABEL_240;
+    case 44:
+      print_tok_type(outfp, 44, "ip port", oflags);
+      if ((v4 & 4) == 0)
+      {
+        fputs(del, outfp);
+        fprintf(outfp, "%#x");
+        return;
+      }
+
+      fprintf(outfp, "%#x", bswap32(tok->tt.grps.no) >> 16);
+      goto LABEL_241;
+    case 45:
+      print_tok_type(outfp, 45, "argument", oflags);
+      if ((v4 & 4) != 0)
+      {
+        fprintf(outfp, "%s=", "arg-num");
+        fprintf(outfp, "%u", tok->tt.arg32.no);
+        fwrite(" ", 2uLL, 1uLL, outfp);
+        fprintf(outfp, "%s=", "value");
+        fprintf(outfp, "0x%x", tok->tt.arg32.val);
+        fwrite(" ", 2uLL, 1uLL, outfp);
+        fprintf(outfp, "%s=", "desc");
+        text = tok->tt.arg32.text;
+        len = tok->tt.arg32.len;
+        goto LABEL_178;
+      }
+
+      fputs(del, outfp);
+      fprintf(outfp, "%u", tok->tt.arg32.no);
+      fputs(del, outfp);
+      fprintf(outfp, "0x%x");
+LABEL_98:
+      fputs(del, outfp);
+      data = tok->tt.arg32.text;
+      no = tok->tt.arg32.len;
+      goto LABEL_114;
+    case 46:
+      print_tok_type(outfp, 46, "socket", oflags);
+      if ((v4 & 4) == 0)
+      {
+        fputs(del, outfp);
+        fprintf(outfp, "%u", tok->tt.grps.no);
+        fputs(del, outfp);
+        fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
+        fputs(del, outfp);
+        v45.s_addr = tok->tt.arg32.val;
+        v46 = inet_ntoa(v45);
+        fputs(v46, outfp);
+        fputs(del, outfp);
+        fprintf(outfp, "%u", bswap32(tok->tt.arg32.len) >> 16);
+        fputs(del, outfp);
+        v25.s_addr = tok->tt.attr32.fsid;
+        goto LABEL_155;
+      }
+
+      fprintf(outfp, "%s=", "sock_type");
+      fprintf(outfp, "%u", tok->tt.grps.no);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "lport");
+      fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "laddr");
+      v73.s_addr = tok->tt.arg32.val;
+      v74 = inet_ntoa(v73);
+      fputs(v74, outfp);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "fport");
+      fprintf(outfp, "%u", bswap32(tok->tt.arg32.len) >> 16);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "faddr");
+      v26.s_addr = tok->tt.attr32.fsid;
+      goto LABEL_185;
+    case 47:
+      print_tok_type(outfp, 47, "sequence", oflags);
+      if ((v4 & 4) == 0)
+      {
+        goto LABEL_151;
+      }
+
+      fprintf(outfp, "%s=", "seq-num");
+      fprintf(outfp, "%u", tok->tt.attr32.mode);
+      goto LABEL_240;
+    case 50:
+      print_tok_type(outfp, 50, "IPC perm", oflags);
       if ((v4 & 4) == 0)
       {
         fputs(del, outfp);
         print_user(outfp, tok->tt.attr32.mode, v4);
         fputs(del, outfp);
+        print_group(outfp, tok->tt.arg32.val, v4);
+        fputs(del, outfp);
+        print_user(outfp, tok->tt.attr32.gid, v4);
+        fputs(del, outfp);
+        print_group(outfp, tok->tt.attr32.fsid, v4);
+        fputs(del, outfp);
+        fprintf(outfp, "%o", tok->tt.grps.list[3]);
+        fputs(del, outfp);
+        fprintf(outfp, "%u");
+        goto LABEL_160;
+      }
+
+      fprintf(outfp, "%s=", "uid");
+      print_user(outfp, tok->tt.attr32.mode, v4);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "gid");
+      print_group(outfp, tok->tt.arg32.val, v4);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "creator-uid");
+      print_user(outfp, tok->tt.attr32.gid, v4);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "creator-gid");
+      print_group(outfp, tok->tt.attr32.fsid, v4);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "mode");
+      fprintf(outfp, "%o", tok->tt.grps.list[3]);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      fprintf(outfp, "%s=", "seq");
+      v66 = "%u";
+      fprintf(outfp, "%u", tok->tt.grps.list[4]);
+      fwrite(" ", 2uLL, 1uLL, outfp);
+      v82 = "key";
+      goto LABEL_207;
+    case 59:
+      print_tok_type(outfp, 59, "group", oflags);
+      if (tok->tt.grps.no)
+      {
+        v59 = 0;
+        do
+        {
+          v60 = tok + 4 * v59;
+          if ((v4 & 4) != 0)
+          {
+            fwrite("<gid>", 5uLL, 1uLL, outfp);
+            print_group(outfp, *(v60 + 7), v4);
+            fwrite("</gid>", 6uLL, 1uLL, outfp);
+            close_tag(outfp, tok->id);
+          }
+
+          else
+          {
+            fputs(del, outfp);
+            print_group(outfp, *(v60 + 7), v4);
+          }
+
+          ++v59;
+        }
+
+        while (v59 < tok->tt.grps.no);
+      }
+
+      return;
+    case 60:
+      print_tok_type(outfp, 60, "exec arg", oflags);
+      if (tok->tt.attr32.mode)
+      {
+        v37 = 0;
+        v38 = &tok->tt.arg64.val;
+        do
+        {
+          if ((v4 & 4) != 0)
+          {
+            fwrite("<arg>", 5uLL, 1uLL, outfp);
+            v40 = strlen(v38[v37]);
+            print_string(outfp, v38[v37], v40, v4);
+            fwrite("</arg>", 6uLL, 1uLL, outfp);
+          }
+
+          else
+          {
+            fputs(del, outfp);
+            v39 = strlen(v38[v37]);
+            print_string(outfp, v38[v37], v39, v4);
+          }
+
+          ++v37;
+        }
+
+        while (v37 < tok->tt.attr32.mode);
+      }
+
+      goto LABEL_92;
+    case 61:
+      print_tok_type(outfp, 61, "exec env", oflags);
+      if (tok->tt.attr32.mode)
+      {
+        v41 = 0;
+        v42 = &tok->tt.arg64.val;
+        do
+        {
+          if ((v4 & 4) != 0)
+          {
+            fwrite("<env>", 5uLL, 1uLL, outfp);
+            v44 = strlen(v42[v41]);
+            print_string(outfp, v42[v41], v44, v4);
+            fwrite("</env>", 6uLL, 1uLL, outfp);
+          }
+
+          else
+          {
+            fputs(del, outfp);
+            v43 = strlen(v42[v41]);
+            print_string(outfp, v42[v41], v43, v4);
+          }
+
+          ++v41;
+        }
+
+        while (v41 < tok->tt.attr32.mode);
+      }
+
+      goto LABEL_92;
+    case 62:
+      print_tok_type(outfp, 62, "attribute", oflags);
+      if ((v4 & 4) == 0)
+      {
+        fputs(del, outfp);
+        fprintf(outfp, "%o", tok->tt.attr32.mode);
+        fputs(del, outfp);
         print_user(outfp, tok->tt.arg32.val, v4);
         fputs(del, outfp);
         print_group(outfp, tok->tt.attr32.gid, v4);
         fputs(del, outfp);
-        print_user(outfp, tok->tt.attr32.fsid, v4);
+        fprintf(outfp, "%u", tok->tt.attr32.fsid);
         fputs(del, outfp);
-        print_group(outfp, tok->tt.grps.list[3], v4);
+        fprintf(outfp, "%lld");
+LABEL_160:
         fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.grps.list[4]);
-        fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.attr32.dev);
-        fputs(del, outfp);
-        fprintf(outfp, "%llu", tok->tt.hdr64_ex.s);
-        fputs(del, outfp);
-        v16 = tok->tt.grps.list[9];
-        v17 = *MEMORY[0x29EDCA608];
-        p_uid = (&tok->tt.krb5_principal.text[4] + 4);
-        goto LABEL_60;
+        fprintf(outfp, "%u");
+        return;
       }
 
-      fprintf(outfp, "%s=", "audit-uid");
-      print_user(outfp, tok->tt.attr32.mode, v4);
+      fprintf(outfp, "%s=", "mode");
+      fprintf(outfp, "%o", tok->tt.attr32.mode);
       fwrite(" ", 2uLL, 1uLL, outfp);
       fprintf(outfp, "%s=", "uid");
       print_user(outfp, tok->tt.arg32.val, v4);
@@ -5144,177 +5242,41 @@ LABEL_27:
       fprintf(outfp, "%s=", "gid");
       print_group(outfp, tok->tt.attr32.gid, v4);
       fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "ruid");
-      print_user(outfp, tok->tt.attr32.fsid, v4);
+      fprintf(outfp, "%s=", "fsid");
+      v66 = "%u";
+      fprintf(outfp, "%u", tok->tt.attr32.fsid);
       fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "rgid");
-      print_group(outfp, tok->tt.grps.list[3], v4);
+      fprintf(outfp, "%s=", "nodeid");
+      fprintf(outfp, "%lld", tok->tt.attr32.nid);
       fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "pid");
-      fprintf(outfp, "%u", tok->tt.grps.list[4]);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "sid");
-      fprintf(outfp, "%u", tok->tt.attr32.dev);
-      fwrite(" ", 2uLL, 1uLL, outfp);
-      fprintf(outfp, "%s=", "tid");
-      fprintf(outfp, "%llu", tok->tt.hdr64_ex.s);
-      v19 = tok->tt.grps.list[9];
-      v20 = (&tok->tt.krb5_principal.text[4] + 4);
-LABEL_40:
-      print_ip_ex_address(outfp, v19, v20);
-      goto LABEL_242;
-    case 126:
-      print_tok_type(outfp, 126, "ip addr ex", oflags);
-      if ((v4 & 4) == 0)
-      {
-        fputs(del, outfp);
-        v16 = tok->tt.attr32.mode;
-        v23 = *MEMORY[0x29EDCA608];
-        p_uid = &tok->tt.attr32.uid;
-        goto LABEL_60;
-      }
-
-      print_ip_ex_address(outfp, tok->tt.attr32.mode, &tok->tt.attr32.uid);
-      goto LABEL_243;
-    case 127:
-      print_tok_type(outfp, 127, "socket", oflags);
-      if ((v4 & 4) != 0)
-      {
-        fprintf(outfp, "%s=", "sock_dom");
-        v83 = "%#x";
-        fprintf(outfp, "%#x", tok->tt.grps.no);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "sock_type");
-        fprintf(outfp, "%#x", tok->tt.ip.len);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "lport");
-        fprintf(outfp, "%#x", bswap32(tok->tt.hdr32.e_type) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "laddr");
-        print_ip_ex_address(outfp, tok->tt.ip.id, (&tok->tt.exit + 1));
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "faddr");
-        print_ip_ex_address(outfp, tok->tt.ip.id, (&tok->tt.ret64 + 28));
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "fport");
-        v84 = (bswap32(LOWORD(tok->tt.proc32_ex.sid)) >> 16);
-LABEL_210:
-        v124 = v84;
-        v99 = outfp;
-        v79 = v83;
-LABEL_211:
-        fprintf(v99, v79, v124);
-        goto LABEL_242;
-      }
-
-      fputs(del, outfp);
-      fprintf(outfp, "%#x", tok->tt.grps.no);
-      fputs(del, outfp);
-      fprintf(outfp, "%#x", tok->tt.ip.len);
-      fputs(del, outfp);
-      fprintf(outfp, "%#x", bswap32(tok->tt.hdr32.e_type) >> 16);
-      fputs(del, outfp);
-      print_ip_ex_address(outfp, tok->tt.ip.id, (&tok->tt.exit + 1));
-      fputs(del, outfp);
-      fprintf(outfp, "%#x", bswap32(LOWORD(tok->tt.proc32_ex.sid)) >> 16);
-      fputs(del, outfp);
-      v16 = tok->tt.ip.id;
-      v35 = *MEMORY[0x29EDCA608];
-      p_uid = (&tok->tt.ret64 + 28);
-LABEL_60:
-
-      print_ip_ex_address(outfp, v16, p_uid);
-      return;
-    case 128:
-      print_tok_type(outfp, 128, "socket-inet", oflags);
-      if ((v4 & 4) != 0)
-      {
-        fprintf(outfp, "%s=", "type");
-        fprintf(outfp, "%u", tok->tt.grps.no);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "port");
-        fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "addr");
-        v86.s_addr = tok->tt.arg32.val;
-        v87 = inet_ntoa(v86);
-        fputs(v87, outfp);
-        goto LABEL_242;
-      }
-
-      fputs(del, outfp);
-      fprintf(outfp, "%u", tok->tt.grps.no);
-      fputs(del, outfp);
-      fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
-      fputs(del, outfp);
-      v28.s_addr = tok->tt.arg32.val;
-LABEL_157:
-      v74 = inet_ntoa(v28);
-      v75 = *MEMORY[0x29EDCA608];
-
-      fputs(v74, outfp);
-      return;
-    case 129:
-      print_tok_type(outfp, 129, "socket-inet6", oflags);
-      if ((v4 & 4) != 0)
-      {
-        fprintf(outfp, "%s=", "type");
-        fprintf(outfp, "%u", tok->tt.grps.no);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "port");
-        fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "addr");
-        v125 = *&tok->tt.attr32.uid;
-        v85 = inet_ntop(30, &v125, v126, 0x2Eu);
-        fputs(v85, outfp);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        close_tag(outfp, tok->id);
-      }
-
-      else
-      {
-        fputs(del, outfp);
-        fprintf(outfp, "%u", tok->tt.grps.no);
-        fputs(del, outfp);
-        fprintf(outfp, "%u", bswap32(tok->tt.ip.len) >> 16);
-        fputs(del, outfp);
-        v125 = *&tok->tt.attr32.uid;
-        v36 = inet_ntop(30, &v125, v126, 0x2Eu);
-        fputs(v36, outfp);
-      }
-
-      goto LABEL_154;
-    case 130:
-      print_tok_type(outfp, 130, "socket-unix", oflags);
-      if ((v4 & 4) != 0)
-      {
-        fprintf(outfp, "%s=", "type");
-        fprintf(outfp, "%u", tok->tt.grps.no);
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "port");
-        fwrite(" ", 2uLL, 1uLL, outfp);
-        fprintf(outfp, "%s=", "addr");
-        v81 = strlen(tok->tt.sockunix.path);
-        path = tok->tt.sockunix.path;
-LABEL_180:
-        print_string(outfp, path, v81, v4);
-        goto LABEL_242;
-      }
-
-      fputs(del, outfp);
-      fprintf(outfp, "%u", tok->tt.grps.no);
-      fputs(del, outfp);
-      v33 = strlen(tok->tt.sockunix.path);
-      v34 = *MEMORY[0x29EDCA608];
-      v32 = v33;
-      data = &tok->tt.arb.uc;
-LABEL_115:
-
-      print_string(outfp, data, v32, v4);
-      break;
+      v82 = "device";
+LABEL_207:
+      fprintf(outfp, "%s=", v82);
+      dev = tok->tt.attr32.dev;
+      goto LABEL_208;
     default:
-      goto LABEL_77;
+      if (id != 82)
+      {
+        goto LABEL_77;
+      }
+
+      print_tok_type(outfp, 82, "exit", oflags);
+      if ((v4 & 4) != 0)
+      {
+        fprintf(outfp, "%s=", "errval");
+        fprintf(outfp, "Error %u", tok->tt.attr32.mode);
+        fwrite(" ", 2uLL, 1uLL, outfp);
+        fprintf(outfp, "%s=", "retval");
+        fprintf(outfp, "%u", tok->tt.arg32.val);
+        goto LABEL_240;
+      }
+
+      fputs(del, outfp);
+      fprintf(outfp, "Error %u", tok->tt.attr32.mode);
+LABEL_151:
+      fputs(del, outfp);
+      fprintf(outfp, "%u");
+      break;
   }
 }
 
@@ -5671,59 +5633,47 @@ LABEL_53:
 
 uint64_t print_event(FILE *a1, int a2, char a3)
 {
-  v13[2] = *MEMORY[0x29EDCA608];
+  v12[2] = *MEMORY[0x29EDCA608];
   *&e.ae_number = 0;
   *&e.ae_class = 0;
-  v12[1] = 0;
-  v13[0] = 0;
+  v11[1] = 0;
   v12[0] = 0;
-  *(v13 + 6) = 0;
-  memset(v10, 0, sizeof(v10));
-  v11 = 0;
-  e.ae_name = v12;
-  e.ae_desc = v10;
+  v11[0] = 0;
+  *(v12 + 6) = 0;
+  memset(v9, 0, sizeof(v9));
+  v10 = 0;
+  e.ae_name = v11;
+  e.ae_desc = v9;
   if (!getauevnum_r(&e, a2) || (a3 & 1) != 0)
   {
-    result = fprintf(a1, "%u", a2);
+    return fprintf(a1, "%u", a2);
+  }
+
+  if ((a3 & 2) != 0)
+  {
+    ae_name = e.ae_name;
   }
 
   else
   {
-    if ((a3 & 2) != 0)
-    {
-      ae_name = e.ae_name;
-    }
-
-    else
-    {
-      ae_name = e.ae_desc;
-    }
-
-    result = fputs(ae_name, a1);
+    ae_name = e.ae_desc;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  return fputs(ae_name, a1);
 }
 
 uint64_t print_sec32(FILE *a1, unsigned int a2, char a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (a3)
   {
-    result = fprintf(a1, "%u", a2);
+    return fprintf(a1, "%u", a2);
   }
 
-  else
-  {
-    v6 = a2;
-    ctime_r(&v6, v7);
-    v7[24] = 0;
-    result = fputs(v7, a1);
-  }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  v5 = a2;
+  ctime_r(&v5, v6);
+  v6[24] = 0;
+  return fputs(v6, a1);
 }
 
 uint64_t close_tag(uint64_t __stream, int a2)
@@ -5878,48 +5828,38 @@ LABEL_13:
 
 size_t print_ip_ex_address(FILE *__stream, int a2, __int128 *a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   if (a2 == 16)
   {
-    v9 = *a3;
+    v7 = *a3;
     v4 = 30;
     goto LABEL_5;
   }
 
   if (a2 == 4)
   {
-    LODWORD(v9) = *a3;
+    LODWORD(v7) = *a3;
     v4 = 2;
 LABEL_5:
-    v5 = inet_ntop(v4, &v9, v10, 0x2Eu);
-    result = fputs(v5, __stream);
-    v7 = *MEMORY[0x29EDCA608];
-    return result;
+    v5 = inet_ntop(v4, &v7, v8, 0x2Eu);
+    return fputs(v5, __stream);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return fwrite("invalid", 7uLL, 1uLL, __stream);
 }
 
 uint64_t print_sec64(FILE *a1, time_t a2, char a3)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (a3)
   {
-    result = fprintf(a1, "%u", a2);
+    return fprintf(a1, "%u", a2);
   }
 
-  else
-  {
-    v6 = a2;
-    ctime_r(&v6, v7);
-    v7[24] = 0;
-    result = fputs(v7, a1);
-  }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  v5 = a2;
+  ctime_r(&v5, v6);
+  v6[24] = 0;
+  return fputs(v6, a1);
 }
 
 uint64_t print_string(uint64_t __stream, uint64_t a2, unint64_t a3, char a4)
@@ -8394,12 +8334,12 @@ au_user_ent *__cdecl getauusernam(const char *name)
 
 int au_user_mask(char *username, au_mask_t *mask_p)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   u.au_always = 0;
   u.au_never = 0;
-  memset(v8, 0, sizeof(v8));
-  v9 = 0;
-  u.au_name = v8;
+  memset(v7, 0, sizeof(v7));
+  v8 = 0;
+  u.au_name = v7;
   v3 = getauusernam_r(&u, username);
   if (v3)
   {
@@ -8410,8 +8350,7 @@ int au_user_mask(char *username, au_mask_t *mask_p)
   {
     if (getacflg(auditstr, 256))
     {
-      result = -1;
-      goto LABEL_8;
+      return -1;
     }
 
     v4 = getauditflagsbin(auditstr, mask_p);
@@ -8419,22 +8358,18 @@ int au_user_mask(char *username, au_mask_t *mask_p)
 
   if (v4 == -1)
   {
-    result = -1;
+    return -1;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-LABEL_8:
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 int getfauditflags(au_mask_t *usremask, au_mask_t *usrdmask, au_mask_t *lastmask)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   result = -1;
   if (usremask && usrdmask && lastmask)
   {
@@ -8453,11 +8388,10 @@ int getfauditflags(au_mask_t *usremask, au_mask_t *usrdmask, au_mask_t *lastmask
 
     else
     {
-      result = -1;
+      return -1;
     }
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -8465,108 +8399,106 @@ int audit_submit(__int16 au_event, au_id_t auid, char status, int reterr, const 
 {
   va_start(va, fmt);
   v7 = status;
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   cond = 0;
-  v36 = 0;
-  memset(&v35, 0, sizeof(v35));
+  v35 = 0;
+  memset(&v34, 0, sizeof(v34));
   tid = 0;
   if (!audit_get_cond(&cond))
   {
     if (cond == 2)
     {
-      goto LABEL_6;
+      return 0;
     }
 
-    v14 = au_open();
-    if (v14 < 0)
+    v13 = au_open();
+    if (v13 < 0)
     {
       v10 = *__error();
-      v23 = __error();
-      strerror(*v23);
+      v22 = __error();
+      strerror(*v22);
       syslog(35, "audit: au_open failed: %s");
       goto LABEL_4;
     }
 
-    v15 = v14;
-    if (getaudit_addr(&v35, 48) < 0)
+    v14 = v13;
+    if (getaudit_addr(&v34, 48) < 0)
     {
       v10 = *__error();
-      v24 = __error();
-      strerror(*v24);
+      v23 = __error();
+      strerror(*v23);
       syslog(35, "audit: getaudit_addr failed: %s");
       goto LABEL_4;
     }
 
-    at_type = v35.ai_termid.at_type;
-    v17 = getpid();
+    at_type = v34.ai_termid.at_type;
+    v16 = getpid();
     if (at_type == 16)
     {
-      v18 = geteuid();
-      v19 = getegid();
-      v20 = getuid();
-      v21 = getgid();
-      v22 = au_to_subject_ex(auid, v18, v19, v20, v21, v17, v17, (&v35 | 0xC));
+      v17 = geteuid();
+      v18 = getegid();
+      v19 = getuid();
+      v20 = getgid();
+      v21 = au_to_subject_ex(auid, v17, v18, v19, v20, v16, v16, (&v34 | 0xC));
     }
 
     else
     {
-      tid.port = v35.ai_termid.at_port;
-      tid.machine = v35.ai_termid.at_addr[0];
-      v25 = geteuid();
-      v26 = getegid();
-      v27 = getuid();
-      v28 = getgid();
-      v22 = au_to_subject32(auid, v25, v26, v27, v28, v17, v17, &tid);
+      tid.port = v34.ai_termid.at_port;
+      tid.machine = v34.ai_termid.at_addr[0];
+      v24 = geteuid();
+      v25 = getegid();
+      v26 = getuid();
+      v27 = getgid();
+      v21 = au_to_subject32(auid, v24, v25, v26, v27, v16, v16, &tid);
     }
 
-    if (v22)
+    if (v21)
     {
-      if (au_write(v15, v22) < 0)
+      if (au_write(v14, v21) < 0)
       {
-        goto LABEL_26;
+        goto LABEL_25;
       }
 
       if (fmt)
       {
-        va_copy(v36, va);
+        va_copy(v35, va);
         vsnprintf(__str, 0x100uLL, fmt, va);
-        v29 = au_to_text(__str);
-        if (!v29)
+        v28 = au_to_text(__str);
+        if (!v28)
         {
           syslog(35, "audit: failed to generate text token");
-          goto LABEL_25;
+          goto LABEL_24;
         }
 
-        if (au_write(v15, v29) < 0)
+        if (au_write(v14, v28) < 0)
         {
-          goto LABEL_26;
+          goto LABEL_25;
         }
       }
 
-      v30 = au_errno_to_bsm(v7);
-      v31 = au_to_return32(v30, reterr);
-      if (v31)
+      v29 = au_errno_to_bsm(v7);
+      v30 = au_to_return32(v29, reterr);
+      if (v30)
       {
-        if ((au_write(v15, v31) & 0x80000000) == 0)
+        if ((au_write(v14, v30) & 0x80000000) == 0)
         {
-          if (au_close(v15, 1, au_event) < 0)
+          if (au_close(v14, 1, au_event) < 0)
           {
             v10 = *__error();
             syslog(35, "audit: record not committed");
             goto LABEL_4;
           }
 
-LABEL_6:
-          result = 0;
-          goto LABEL_7;
+          return 0;
         }
 
-LABEL_26:
+LABEL_25:
         v10 = *__error();
-        v32 = __error();
-        v33 = strerror(*v32);
-        syslog(35, "audit: au_write failed: %s", v33);
-        au_close(v15, 0, au_event);
+        v31 = __error();
+        v32 = strerror(*v31);
+        syslog(35, "audit: au_write failed: %s", v32);
+        au_close(v14, 0, au_event);
         goto LABEL_4;
       }
 
@@ -8578,27 +8510,24 @@ LABEL_26:
       syslog(35, "audit: unable to build subject token");
     }
 
-LABEL_25:
-    au_close(v15, 0, au_event);
+LABEL_24:
+    au_close(v14, 0, au_event);
     v10 = 1;
     goto LABEL_4;
   }
 
-  if (*__error() == 78)
+  if (*__error() != 78)
   {
-    goto LABEL_6;
+    v10 = *__error();
+    v11 = __error();
+    strerror(*v11);
+    syslog(35, "audit: auditon failed: %s");
+LABEL_4:
+    *__error() = v10;
+    return -1;
   }
 
-  v10 = *__error();
-  v11 = __error();
-  strerror(*v11);
-  syslog(35, "audit: auditon failed: %s");
-LABEL_4:
-  *__error() = v10;
-  result = -1;
-LABEL_7:
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 int audit_get_cond(int *cond)

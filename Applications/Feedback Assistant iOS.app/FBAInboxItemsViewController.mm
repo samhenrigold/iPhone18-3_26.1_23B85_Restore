@@ -29,13 +29,16 @@
 - (void)reloadAppProxy;
 - (void)reloadView;
 - (void)removeFBAObservers;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setTeam:(id)team;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)toggleFiltering;
 - (void)updateSearchResults;
 - (void)updateSearchResultsForSearchController:(id)controller;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FBAInboxItemsViewController
@@ -224,6 +227,14 @@
   [searchBar becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = FBAInboxItemsViewController;
+  [(FBAInboxItemsViewController *)&v4 viewDidDisappear:disappear];
+  [(FBAInboxItemsViewController *)self removeFBAObservers];
+}
+
 - (void)removeFBAObservers
 {
   v3 = +[FBKData sharedInstance];
@@ -239,6 +250,123 @@
   [(NSMutableArray *)fbaDataObservers enumerateObjectsUsingBlock:v8];
   v7 = self->_fbaDataObservers;
   self->_fbaDataObservers = 0;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v47.receiver = self;
+  v47.super_class = FBAInboxItemsViewController;
+  [(FBAInboxItemsViewController *)&v47 viewWillAppear:appear];
+  tableView = [(FBAInboxItemsViewController *)self tableView];
+  indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
+
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v6 = indexPathsForSelectedRows;
+  v7 = [v6 countByEnumeratingWithState:&v43 objects:v48 count:16];
+  if (v7)
+  {
+    v8 = *v44;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v44 != v8)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v10 = *(*(&v43 + 1) + 8 * v9);
+        tableView2 = [(FBAInboxItemsViewController *)self tableView];
+        [tableView2 deselectRowAtIndexPath:v10 animated:0];
+
+        v9 = v9 + 1;
+      }
+
+      while (v7 != v9);
+      v7 = [v6 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    }
+
+    while (v7);
+  }
+
+  tableView3 = [(FBAInboxItemsViewController *)self tableView];
+  [tableView3 setSeparatorInset:{0.0, 32.0, 0.0, 0.0}];
+
+  [(FBAInboxItemsViewController *)self reloadView];
+  inbox = [(FBAInboxItemsViewController *)self inbox];
+  v14 = [inbox type] == 0;
+
+  if (v14)
+  {
+    editButtonItem = [(FBAInboxItemsViewController *)self editButtonItem];
+    navigationItem = [(FBAInboxItemsViewController *)self navigationItem];
+    [navigationItem setRightBarButtonItem:editButtonItem];
+
+    v15 = 16;
+  }
+
+  else
+  {
+    v15 = 14;
+  }
+
+  v18 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:v15 target:self action:"destroySelectedItems:"];
+  destructiveBarButtonItem = self->_destructiveBarButtonItem;
+  self->_destructiveBarButtonItem = v18;
+
+  navigationController = [(FBAInboxItemsViewController *)self navigationController];
+  [navigationController setToolbarHidden:0 animated:1];
+
+  fbaDataObservers = [(FBAInboxItemsViewController *)self fbaDataObservers];
+
+  if (fbaDataObservers)
+  {
+    [(FBAInboxItemsViewController *)self removeFBAObservers];
+  }
+
+  v22 = objc_opt_new();
+  [(FBAInboxItemsViewController *)self setFbaDataObservers:v22];
+
+  objc_initWeak(&location, self);
+  fbaDataObservers2 = [(FBAInboxItemsViewController *)self fbaDataObservers];
+  v24 = +[FBKData sharedInstance];
+  notificationCenter = [v24 notificationCenter];
+  v26 = +[NSOperationQueue mainQueue];
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_1000151E8;
+  v40[3] = &unk_1000DEC50;
+  objc_copyWeak(&v41, &location);
+  v27 = [notificationCenter addObserverForName:FBKDidReloadAppNotification object:0 queue:v26 usingBlock:v40];
+  [fbaDataObservers2 addObject:v27];
+
+  v28 = objc_loadWeakRetained(&location);
+  inbox2 = [v28 inbox];
+  LOBYTE(notificationCenter) = [inbox2 type] == 4;
+
+  if ((notificationCenter & 1) == 0)
+  {
+    fbaDataObservers3 = [(FBAInboxItemsViewController *)self fbaDataObservers];
+    v31 = +[FBKData sharedInstance];
+    mainQueueContext = [v31 mainQueueContext];
+    v34 = _NSConcreteStackBlock;
+    v35 = 3221225472;
+    v36 = sub_10001525C;
+    v37 = &unk_1000DED28;
+    objc_copyWeak(&v39, &location);
+    selfCopy = self;
+    v33 = [mainQueueContext addObjectsDidChangeNotificationObserver:&v34];
+    [fbaDataObservers3 addObject:{v33, v34, v35, v36, v37}];
+
+    objc_destroyWeak(&v39);
+  }
+
+  objc_destroyWeak(&v41);
+  objc_destroyWeak(&location);
 }
 
 - (void)reloadView
@@ -305,6 +433,51 @@
     splitViewController2 = [(FBAInboxItemsViewController *)self splitViewController];
     [splitViewController2 showDetailViewController:v8 sender:self];
   }
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  editingCopy = editing;
+  v18.receiver = self;
+  v18.super_class = FBAInboxItemsViewController;
+  [(FBAInboxItemsViewController *)&v18 setEditing:editing animated:animated];
+  if (editingCopy)
+  {
+    v6 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:5 target:0 action:0];
+    v19[0] = v6;
+    destructiveBarButtonItem = [(FBAInboxItemsViewController *)self destructiveBarButtonItem];
+    v19[1] = destructiveBarButtonItem;
+    v8 = [NSArray arrayWithObjects:v19 count:2];
+    [(FBAInboxItemsViewController *)self setToolbarItems:v8 animated:1];
+
+    destructiveBarButtonItem2 = [(FBAInboxItemsViewController *)self destructiveBarButtonItem];
+    [destructiveBarButtonItem2 setEnabled:0];
+
+    v10 = 0.33;
+  }
+
+  else
+  {
+    [(FBAInboxItemsViewController *)self fbkShowToolbarWithStatus:&stru_1000E2210 animated:1];
+    filterManager = [(FBAInboxItemsViewController *)self filterManager];
+    [(FBAInboxItemsViewController *)self filterContentForFilterManager:filterManager];
+
+    v10 = 1.0;
+    if (self->_needsUpdate)
+    {
+      [(FBAInboxItemsViewController *)self reloadView];
+    }
+  }
+
+  navigationItem = [(FBAInboxItemsViewController *)self navigationItem];
+  searchController = [navigationItem searchController];
+  searchBar = [searchController searchBar];
+  [searchBar setUserInteractionEnabled:!editingCopy];
+
+  navigationItem2 = [(FBAInboxItemsViewController *)self navigationItem];
+  searchController2 = [navigationItem2 searchController];
+  searchBar2 = [searchController2 searchBar];
+  [searchBar2 setAlpha:v10];
 }
 
 - (void)destroyItemAtIndexPath:(id)path

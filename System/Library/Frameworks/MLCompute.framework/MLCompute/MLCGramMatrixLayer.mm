@@ -35,7 +35,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -50,11 +50,11 @@
     {
       v19 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v25 = v19;
-      v26 = 1024;
-      v27 = dataType;
-      v28 = 2112;
-      v29 = deviceCopy;
+      v24 = v19;
+      v25 = 1024;
+      v26 = dataType;
+      v27 = 2112;
+      v28 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v16, OS_LOG_TYPE_ERROR, "%@: GramMatrix layer with data type = %d is not supported on a device = %@", buf, 0x1Cu);
     }
 
@@ -81,12 +81,11 @@ LABEL_10:
   computeEngine2 = [deviceCopy computeEngine];
   v18 = [computeEngine2 compileLayerDeviceOps:v16 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-  v23.receiver = self;
-  v23.super_class = MLCGramMatrixLayer;
-  [(MLCLayer *)&v23 bindDevice:deviceCopy deviceOps:v16];
+  v22.receiver = self;
+  v22.super_class = MLCGramMatrixLayer;
+  [(MLCLayer *)&v22 bindDevice:deviceCopy deviceOps:v16];
 LABEL_11:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -206,13 +205,11 @@ LABEL_7:
 
 - (void)resultSizeFromSourceSize:(const char *)a1 dimension:(NSObject *)a2 .cold.1(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: Please call resultSizeFromSourceSizes:dimension", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: Please call resultSizeFromSourceSizes:dimension", &v4, 0xCu);
 }
 
 @end

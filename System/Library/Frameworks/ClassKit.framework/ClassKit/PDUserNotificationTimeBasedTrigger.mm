@@ -53,10 +53,10 @@
   [(PDTaskSchedulerBlockTask *)v9 setGracePeriod:60];
   [(PDTaskSchedulerBlockTask *)v9 setRepeating:0];
   [(PDTaskSchedulerBlockTask *)v9 setRequiredNetworkState:0];
-  v10 = sub_10006DCEC();
+  v10 = sub_10006DCEC(PDTaskScheduler);
   sub_10006DEB8(v10, v8);
 
-  v11 = sub_10006DCEC();
+  v11 = sub_10006DCEC(PDTaskScheduler);
   sub_10006E4A0(v11, v9);
 
   objc_destroyWeak(&v13);
@@ -131,7 +131,7 @@
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@ checkForTriggerNow", v7, 0xCu);
   }
 
-  v6 = +[NSDate date];
+  v6 = [NSDate date:*v7];
   [(PDUserNotificationTimeBasedTrigger *)self checkForTriggerAtDate:v6];
 
   [(PDUserNotificationTimeBasedTrigger *)self scheduleCheckTimerForNextTriggerTime];
@@ -143,7 +143,7 @@
   v3 = NSStringFromClass(v2);
   v5 = [NSString stringWithFormat:@"com.apple.progressd.task.%@", v3];
 
-  v4 = sub_10006DCEC();
+  v4 = sub_10006DCEC(PDTaskScheduler);
   sub_10006DEB8(v4, v5);
 }
 

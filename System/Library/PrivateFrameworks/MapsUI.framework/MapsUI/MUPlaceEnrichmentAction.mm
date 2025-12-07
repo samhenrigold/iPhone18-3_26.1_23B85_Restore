@@ -1,5 +1,6 @@
 @interface MUPlaceEnrichmentAction
 - (BOOL)isEqual:(id)equal;
+- (MUPlaceEnrichmentAction)initWithActionType:(unint64_t)type isValidated:(BOOL)validated mkActionType:(unint64_t)actionType;
 - (MUPlaceEnrichmentAction)initWithActionType:(unint64_t)type isValidated:(BOOL)validated mkActionType:(unint64_t)actionType metadata:(id)metadata;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -75,11 +76,11 @@
 
 - (MUPlaceEnrichmentAction)initWithActionType:(unint64_t)type isValidated:(BOOL)validated mkActionType:(unint64_t)actionType metadata:(id)metadata
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
-  v29.receiver = self;
-  v29.super_class = MUPlaceEnrichmentAction;
-  v10 = [(MUPlaceEnrichmentAction *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = MUPlaceEnrichmentAction;
+  v10 = [(MUPlaceEnrichmentAction *)&v28 init];
   if (!v10)
   {
     goto LABEL_17;
@@ -143,13 +144,26 @@ LABEL_12:
     v25 = v24;
     v26 = [(MUPlaceEnrichmentAction *)v10 description];
     *buf = 138412290;
-    v31 = v26;
+    v30 = v26;
     _os_log_impl(&dword_1C5620000, v25, OS_LOG_TYPE_DEBUG, "Initialized action: %@", buf, 0xCu);
   }
 
 LABEL_17:
-  v27 = *MEMORY[0x1E69E9840];
   return v10;
+}
+
+- (MUPlaceEnrichmentAction)initWithActionType:(unint64_t)type isValidated:(BOOL)validated mkActionType:(unint64_t)actionType
+{
+  validatedCopy = validated;
+  v9.receiver = self;
+  v9.super_class = MUPlaceEnrichmentAction;
+  result = [(MUPlaceEnrichmentAction *)&v9 init];
+  if (result)
+  {
+    return [(MUPlaceEnrichmentAction *)result initWithActionType:type isValidated:validatedCopy mkActionType:actionType metadata:0];
+  }
+
+  return result;
 }
 
 @end

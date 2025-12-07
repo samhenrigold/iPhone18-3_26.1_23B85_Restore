@@ -1,8 +1,12 @@
 @interface AWDMETRICSCellularPowerLogNRSARRCStateChange
 - (BOOL)isEqual:(id)equal;
+- (id)causeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)frAsString:(int)string;
+- (id)prevStateAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsCause:(id)cause;
 - (int)StringAsFr:(id)fr;
 - (int)StringAsPrevState:(id)state;
@@ -51,6 +55,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10E68[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -110,6 +129,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)prevStateAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10E68[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevState:(id)state
@@ -199,6 +233,91 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)causeAsString:(int)string
+{
+  if (string <= 4)
+  {
+    if (string <= 1)
+    {
+      if (string)
+      {
+        if (string != 1)
+        {
+LABEL_46:
+          v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+          return v4;
+        }
+
+        v4 = @"HIGH_PRIORITY_ACCESS";
+      }
+
+      else
+      {
+        v4 = @"EMERGENCY";
+      }
+    }
+
+    else if (string == 2)
+    {
+      v4 = @"MT_ACCESS";
+    }
+
+    else if (string == 3)
+    {
+      v4 = @"MO_SIGNALLING";
+    }
+
+    else
+    {
+      v4 = @"MO_DATA";
+    }
+  }
+
+  else
+  {
+    if (string <= 7)
+    {
+      if (string == 5)
+      {
+        v4 = @"MO_VOICE_CALL";
+      }
+
+      else if (string == 6)
+      {
+        v4 = @"MO_VIDEO_CALL";
+      }
+
+      else
+      {
+        v4 = @"MO_SMS";
+      }
+
+      return v4;
+    }
+
+    switch(string)
+    {
+      case 8:
+        v4 = @"MPA_PRIORITY_ACCESS";
+
+        break;
+      case 9:
+        v4 = @"MCS_PRIORITY_ACCESS";
+
+        break;
+      case 254:
+        v4 = @"NONE";
+
+        return v4;
+      default:
+        goto LABEL_46;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsCause:(id)cause
@@ -293,6 +412,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)frAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10E88[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsFr:(id)fr
@@ -550,7 +684,6 @@ LABEL_49:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -570,7 +703,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -585,7 +717,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  prevState = self->_prevState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -600,7 +731,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  prevStateDurMs = self->_prevStateDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -615,7 +745,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -630,12 +759,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  cause = self->_cause;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_8:
-    fr = self->_fr;
     PBDataWriterWriteInt32Field();
   }
 

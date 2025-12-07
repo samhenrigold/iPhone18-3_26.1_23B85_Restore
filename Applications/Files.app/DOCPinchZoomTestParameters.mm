@@ -13,18 +13,16 @@
 {
   if (*(self + OBJC_IVAR____TtC5Files26DOCPinchZoomTestParameters_testName + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC5Files26DOCPinchZoomTestParameters_testName);
-    v3 = *(self + OBJC_IVAR____TtC5Files26DOCPinchZoomTestParameters_testName + 8);
 
-    v4 = String._bridgeToObjectiveC()();
+    v2 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setTestName:(id)name
@@ -41,7 +39,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtC5Files26DOCPinchZoomTestParameters_testName);
-  v7 = *(self + OBJC_IVAR____TtC5Files26DOCPinchZoomTestParameters_testName + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -90,7 +87,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10003461C(v8);
+  sub_10003461C(v8, v9);
 }
 
 - (id)composerBlock

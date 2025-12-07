@@ -156,7 +156,6 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
   }
 
@@ -168,14 +167,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    iteration = self->_iteration;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    weight = self->_weight;
     PBDataWriterWriteDoubleField();
   }
 
@@ -184,15 +181,14 @@
     PBDataWriterPlaceMark();
     if (self->_datas.count)
     {
-      v9 = 0;
+      v6 = 0;
       do
       {
-        v10 = self->_datas.list[v9];
         PBDataWriterWriteDoubleField();
-        ++v9;
+        ++v6;
       }
 
-      while (v9 < self->_datas.count);
+      while (v6 < self->_datas.count);
     }
 
     PBDataWriterRecallMark();
@@ -203,15 +199,14 @@
     PBDataWriterPlaceMark();
     if (self->_data32s.count)
     {
-      v11 = 0;
+      v7 = 0;
       do
       {
-        v12 = self->_data32s.list[v11];
         PBDataWriterWriteFloatField();
-        ++v11;
+        ++v7;
       }
 
-      while (v11 < self->_data32s.count);
+      while (v7 < self->_data32s.count);
     }
 
     PBDataWriterRecallMark();
@@ -351,7 +346,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 100);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 100) & 4) == 0 || self->_version != *(equalCopy + 24))
@@ -371,14 +365,13 @@
     if (![(NSString *)recipeId isEqual:?])
     {
 LABEL_26:
-      v11 = 0;
+      v9 = 0;
       goto LABEL_27;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 100);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 100) & 2) == 0 || self->_iteration != *(equalCopy + 18))
@@ -427,17 +420,17 @@ LABEL_26:
   dataTransport = self->_dataTransport;
   if (dataTransport | *(equalCopy + 8))
   {
-    v11 = [(DESDataTransport *)dataTransport isEqual:?];
+    v9 = [(DESDataTransport *)dataTransport isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_27:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

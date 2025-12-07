@@ -1,13 +1,38 @@
 @interface NEFilterBrowserFlow
+- (BOOL)createDataCompleteReply:(id)reply controlSocket:(int)socket direction:(int64_t)direction verdict:(id)verdict context:(id)context;
 - (BOOL)createDataReply:(id)reply controlSocket:(int)socket direction:(int64_t)direction verdict:(id)verdict context:(id)context;
 - (BOOL)createDropReply:(void *)reply verdict:(void *)verdict context:;
 - (BOOL)createNewFlowReply:(id)reply controlSocket:(int)socket verdict:(id)verdict context:(id)context;
 - (NEFilterBrowserFlow)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEFilterBrowserFlow
+
+- (BOOL)createDataCompleteReply:(id)reply controlSocket:(int)socket direction:(int64_t)direction verdict:(id)verdict context:(id)context
+{
+  v10 = *&socket;
+  replyCopy = reply;
+  verdictCopy = verdict;
+  contextCopy = context;
+  if ([verdictCopy drop])
+  {
+    v15 = verdictCopy;
+  }
+
+  else
+  {
+    v15 = +[NEFilterDataVerdict allowVerdict];
+  }
+
+  v16 = v15;
+  v17 = [(NEFilterBrowserFlow *)self createDataReply:replyCopy controlSocket:v10 direction:direction verdict:v15 context:contextCopy];
+  v18 = v17 | ~[v16 drop];
+
+  return v18 & 1;
+}
 
 - (BOOL)createDataReply:(id)reply controlSocket:(int)socket direction:(int64_t)direction verdict:(id)verdict context:(id)context
 {
@@ -271,7 +296,7 @@ LABEL_35:
     {
       scheme2 = [v48 scheme];
       lowercaseString = [scheme2 lowercaseString];
-      if ([lowercaseString isEqualToString:@"http"])
+      if (objc_msgSend_isEqualToString_(lowercaseString))
       {
 
 LABEL_30:
@@ -285,9 +310,9 @@ LABEL_34:
 
       scheme3 = [v49 scheme];
       lowercaseString2 = [scheme3 lowercaseString];
-      v69 = [lowercaseString2 isEqualToString:@"https"];
+      isEqualToString = objc_msgSend_isEqualToString_(lowercaseString2);
 
-      if (v69)
+      if (isEqualToString)
       {
         goto LABEL_30;
       }
@@ -381,6 +406,25 @@ LABEL_20:
 LABEL_21:
 
   return v20;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v13.receiver = self;
+  v13.super_class = NEFilterBrowserFlow;
+  v7 = [NEFilterFlow descriptionWithIndent:sel_descriptionWithIndent_options_ options:?];
+  parentURL = [(NEFilterBrowserFlow *)self parentURL];
+  host = [parentURL host];
+  [v7 appendPrettyObject:host withName:@"parentHostname" andIndent:v5 options:options | 1];
+
+  request = [(NEFilterBrowserFlow *)self request];
+  [v7 appendPrettyObject:request withName:@"request" andIndent:v5 options:options | 1];
+
+  response = [(NEFilterBrowserFlow *)self response];
+  [v7 appendPrettyObject:response withName:@"response" andIndent:v5 options:options | 1];
+
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -3,6 +3,8 @@
 - (void)_setupRemoteProxy;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -18,6 +20,33 @@
 
   rootViewController = [(VOTQuickSettingsViewServiceAdaptorViewController *)self rootViewController];
   [rootViewController setDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = VOTQuickSettingsViewServiceAdaptorViewController;
+  [(VOTQuickSettingsViewServiceAdaptorViewController *)&v9 viewDidAppear:appear];
+  [(VOTQuickSettingsViewServiceAdaptorViewController *)self _setupRemoteProxy];
+  v4 = [UINavigationController alloc];
+  rootViewController = [(VOTQuickSettingsViewServiceAdaptorViewController *)self rootViewController];
+  v6 = [v4 initWithRootViewController:rootViewController];
+
+  [v6 setModalPresentationStyle:2];
+  [v6 setModalTransitionStyle:2];
+  rootViewController2 = [(VOTQuickSettingsViewServiceAdaptorViewController *)self rootViewController];
+  presentationController = [v6 presentationController];
+  [presentationController setDelegate:rootViewController2];
+
+  [(VOTQuickSettingsViewServiceAdaptorViewController *)self presentViewController:v6 animated:1 completion:&stru_100028710];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VOTQuickSettingsViewServiceAdaptorViewController;
+  [(VOTQuickSettingsViewServiceAdaptorViewController *)&v4 viewDidDisappear:disappear];
+  [(VOTQuickSettingsViewServiceAdaptorViewController *)self _dismiss];
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion

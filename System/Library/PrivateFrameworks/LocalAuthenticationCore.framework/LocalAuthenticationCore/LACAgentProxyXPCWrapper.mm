@@ -240,7 +240,7 @@ uint64_t __60__LACAgentProxyXPCWrapper_setFUSDisabled_completionHandler___block_
 void __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LACLogServer();
+  v4 = LACLogServer(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke_cold_1(v3, v4);
@@ -260,12 +260,13 @@ void __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke_2(uint64_t a1, voi
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = LACLogServer();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = LACLogServer(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke_2_cold_1(v7, v8);
+      __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke_2_cold_1(v8, v9);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -274,7 +275,7 @@ void __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke_2(uint64_t a1, voi
   else
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v10 = WeakRetained;
+    v11 = WeakRetained;
     if (WeakRetained)
     {
       objc_storeStrong(WeakRetained + 2, a2);
@@ -292,20 +293,18 @@ void __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke_2(uint64_t a1, voi
 
 void __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Error on connection to system daemon: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Error on connection to system daemon: %{public}@", &v2, 0xCu);
 }
 
 void __39__LACAgentProxyXPCWrapper__agentProxy___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Failed to register agent proxy: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Failed to register agent proxy: %{public}@", &v2, 0xCu);
 }
 
 @end

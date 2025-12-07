@@ -730,7 +730,7 @@ LABEL_16:
   [panGestureRecognizer setAllowedTouchTypes:v15];
   [panGestureRecognizer2 setAllowedTouchTypes:v15];
   allowedTouchTypes = [drawingGestureRecognizer allowedTouchTypes];
-  AKLog(@"%s %@ types: %@ on recognizer: %p scrollview recognizer: %p");
+  AKLog();
 }
 
 - (void)_setupGestureDependencies
@@ -921,7 +921,7 @@ LABEL_16:
   memset(&v37[1], 0, sizeof(CGAffineTransform));
   if (viewCopy)
   {
-    [viewCopy drawingTransform];
+    objc_msgSend_drawingTransform(viewCopy);
   }
 
   v37[0] = v37[1];
@@ -972,7 +972,7 @@ LABEL_16:
     v26 = *(MEMORY[0x277CBF2C0] + 16);
     v27 = *MEMORY[0x277CBF2C0];
     v25 = *(MEMORY[0x277CBF2C0] + 32);
-    [viewCopy drawingTransform];
+    objc_msgSend_drawingTransform(viewCopy);
     v13 = v25;
     v12 = v26;
     v11 = v27;

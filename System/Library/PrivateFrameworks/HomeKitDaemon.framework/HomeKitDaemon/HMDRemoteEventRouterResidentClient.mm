@@ -5,6 +5,7 @@
 - (id)forwardingTopicsForTopics:(id)topics downstreamRouter:(id)router;
 - (id)initWitAccessoryUUID:(id)d homeUUID:(id)iD queue:(id)queue dataSource:(id)source messageDispatcher:(id)dispatcher notificationCenter:(id)center requestMessageName:(id)name updateMessageName:(id)self0 multiHopFetchResponseMessageName:(id)self1 storeReadHandle:(id)self2 storeWriteHandle:(id)self3 retryIntervalProvider:(id)self4 logCategory:(const char *)self5;
 - (void)_registerForNotifications;
+- (void)configureIsPrimaryResident:(BOOL)resident networkAvailable:(BOOL)available additionalPolicies:(id)policies;
 - (void)handleAccessoryDeviceDidUpdateNotification:(id)notification;
 - (void)handlePrimaryResidentConfirmedDeviceIdentifierChangeNotification:(id)notification;
 - (void)handlePrimaryResidentReceivedIncomingConnection:(id)connection;
@@ -98,7 +99,7 @@
 
 void __86__HMDRemoteEventRouterResidentClient_handlePrimaryResidentReceivedIncomingConnection___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ((*(*(a1 + 32) + 120) & 1) == 0)
   {
     v2 = objc_autoreleasePoolPush();
@@ -107,9 +108,9 @@ void __86__HMDRemoteEventRouterResidentClient_handlePrimaryResidentReceivedIncom
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Primary resident received incoming connection from client reset retry timer.", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Primary resident received incoming connection from client reset retry timer.", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -118,8 +119,6 @@ void __86__HMDRemoteEventRouterResidentClient_handlePrimaryResidentReceivedIncom
 
     *(*(a1 + 32) + 120) = 1;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryDeviceDidUpdateNotification:(id)notification
@@ -157,23 +156,21 @@ void __86__HMDRemoteEventRouterResidentClient_handlePrimaryResidentReceivedIncom
 
 void __81__HMDRemoteEventRouterResidentClient_handleAccessoryDeviceDidUpdateNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Accessory device updated, kicking event router client", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Accessory device updated, kicking event router client", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = [*(a1 + 32) eventRouterClient];
   [v6 connectionCapabilityDidChange];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePrimaryResidentConfirmedDeviceIdentifierChangeNotification:(id)notification
@@ -192,7 +189,7 @@ void __81__HMDRemoteEventRouterResidentClient_handleAccessoryDeviceDidUpdateNoti
 
 void __103__HMDRemoteEventRouterResidentClient_handlePrimaryResidentConfirmedDeviceIdentifierChangeNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -201,21 +198,19 @@ void __103__HMDRemoteEventRouterResidentClient_handlePrimaryResidentConfirmedDev
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Resident Client received primary resident change notification %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   v7 = *(a1 + 40);
-  v10.receiver = *(a1 + 32);
-  v10.super_class = HMDRemoteEventRouterResidentClient;
-  objc_msgSendSuper2(&v10, sel_handlePrimaryResidentConfirmedDeviceIdentifierChangeNotification_, v7);
+  v9.receiver = *(a1 + 32);
+  v9.super_class = HMDRemoteEventRouterResidentClient;
+  objc_msgSendSuper2(&v9, sel_handlePrimaryResidentConfirmedDeviceIdentifierChangeNotification_, v7);
   v8 = [*(a1 + 32) eventRouterClient];
   [v8 connectionCapabilityDidChange];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForNotifications
@@ -225,6 +220,14 @@ void __103__HMDRemoteEventRouterResidentClient_handlePrimaryResidentConfirmedDev
 
   notificationCenter2 = [(HMDRemoteEventRouterClient *)self notificationCenter];
   [notificationCenter2 addObserver:self selector:sel_handlePrimaryResidentReceivedIncomingConnection_ name:@"RemoteEventRouterServerDidReceiveConnectionToPrimary" object:0];
+}
+
+- (void)configureIsPrimaryResident:(BOOL)resident networkAvailable:(BOOL)available additionalPolicies:(id)policies
+{
+  v6.receiver = self;
+  v6.super_class = HMDRemoteEventRouterResidentClient;
+  [(HMDRemoteEventRouterClient *)&v6 configureIsPrimaryResident:resident networkAvailable:available additionalPolicies:policies];
+  [(HMDRemoteEventRouterResidentClient *)self _registerForNotifications];
 }
 
 - (id)initWitAccessoryUUID:(id)d homeUUID:(id)iD queue:(id)queue dataSource:(id)source messageDispatcher:(id)dispatcher notificationCenter:(id)center requestMessageName:(id)name updateMessageName:(id)self0 multiHopFetchResponseMessageName:(id)self1 storeReadHandle:(id)self2 storeWriteHandle:(id)self3 retryIntervalProvider:(id)self4 logCategory:(const char *)self5

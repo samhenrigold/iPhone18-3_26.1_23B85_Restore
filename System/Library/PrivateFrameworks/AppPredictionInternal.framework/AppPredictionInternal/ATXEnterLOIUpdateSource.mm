@@ -95,7 +95,7 @@
 
 void __70__ATXEnterLOIUpdateSource_updateMonitoredRegionsIfNecessaryWithReply___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   for (i = 0; i != 4; ++i)
   {
@@ -103,34 +103,34 @@ void __70__ATXEnterLOIUpdateSource_updateMonitoredRegionsIfNecessaryWithReply___
     [*(*(a1 + 32) + 16) stopMonitoringRegionWithIdentifier:v5];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (j = 0; j != v8; ++j)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * j);
-        v12 = [*(a1 + 32) _regionIdentifierForLocationOfInterestType:{objc_msgSend(v11, "type", v20)}];
+        v11 = *(*(&v19 + 1) + 8 * j);
+        v12 = [*(a1 + 32) _regionIdentifierForLocationOfInterestType:{objc_msgSend(v11, "type", v19)}];
         v13 = objc_alloc(MEMORY[0x277CBFBC8]);
         [v11 coordinate];
         v14 = [v13 initWithCenter:v12 radius:? identifier:?];
         [*(*(a1 + 32) + 16) beginMonitoringRegion:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -146,8 +146,6 @@ void __70__ATXEnterLOIUpdateSource_updateMonitoredRegionsIfNecessaryWithReply___
   {
     (*(v18 + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerDidEnterRegion:(id)region
@@ -156,24 +154,22 @@ void __70__ATXEnterLOIUpdateSource_updateMonitoredRegionsIfNecessaryWithReply___
   userInfo = [region userInfo];
   v5 = [userInfo valueForKey:*MEMORY[0x277D41CB0]];
 
-  v6 = __atxlog_handle_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_default(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     v11 = 138412802;
-    v12 = v8;
+    v12 = v9;
     v13 = 2080;
     v14 = "[ATXEnterLOIUpdateSource locationManagerDidEnterRegion:]";
     v15 = 2112;
     v16 = v5;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%@ - %s: did enter region %@", &v11, 0x20u);
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - %s: did enter region %@", &v11, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained tryUpdatePredictionsImmediatelyWithReason:8];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerDidExitRegion:(id)region
@@ -182,24 +178,22 @@ void __70__ATXEnterLOIUpdateSource_updateMonitoredRegionsIfNecessaryWithReply___
   userInfo = [region userInfo];
   v5 = [userInfo valueForKey:*MEMORY[0x277D41CB0]];
 
-  v6 = __atxlog_handle_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_default(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     v11 = 138412802;
-    v12 = v8;
+    v12 = v9;
     v13 = 2080;
     v14 = "[ATXEnterLOIUpdateSource locationManagerDidExitRegion:]";
     v15 = 2112;
     v16 = v5;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%@ - %s: did enter region %@", &v11, 0x20u);
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - %s: did enter region %@", &v11, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained tryUpdatePredictionsDefaultIntervalWithReason:9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_regionIdentifierForLocationOfInterestType:(int64_t)type

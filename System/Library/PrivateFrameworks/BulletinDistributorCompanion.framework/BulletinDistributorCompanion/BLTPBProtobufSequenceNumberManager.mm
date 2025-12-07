@@ -12,29 +12,29 @@
 
 - (BOOL)_writeSequenceNumbersToStore
 {
-  v35[6] = *MEMORY[0x277D85DE8];
+  v36[6] = *MEMORY[0x277D85DE8];
   _sequenceNumbersURL = [(BLTPBProtobufSequenceNumberManager *)self _sequenceNumbersURL];
   if (_sequenceNumbersURL)
   {
-    v34[0] = @"send";
+    v35[0] = @"send";
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_sendSequenceNumber];
-    v35[0] = v4;
-    v34[1] = @"recv";
+    v36[0] = v4;
+    v35[1] = @"recv";
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_recvSequenceNumber];
-    v35[1] = v5;
-    v34[2] = @"sessionState";
+    v36[1] = v5;
+    v35[2] = @"sessionState";
     v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_sessionState];
-    v35[2] = v6;
-    v34[3] = @"dupeindex";
+    v36[2] = v6;
+    v35[3] = @"dupeindex";
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[BLTCircularBitBuffer beginIndex](self->_duplicateEntries, "beginIndex")}];
-    v35[3] = v7;
-    v34[4] = @"dupebytes";
+    v36[3] = v7;
+    v35[4] = @"dupebytes";
     bitVector = [(BLTCircularBitBuffer *)self->_duplicateEntries bitVector];
-    v35[4] = bitVector;
-    v34[5] = @"sendSession";
+    v36[4] = bitVector;
+    v35[5] = @"sendSession";
     uUIDString = [(NSUUID *)self->_currentSessionIdentifier UUIDString];
-    v35[5] = uUIDString;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:6];
+    v36[5] = uUIDString;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:6];
     v11 = [v10 mutableCopy];
 
     recvSessionIdentifier = self->_recvSessionIdentifier;
@@ -48,26 +48,26 @@
     data = [MEMORY[0x277CBEA90] data];
     v16 = [data writeToURL:_sequenceNumbersURL options:0 error:0];
 
-    if (v16 && [_sequenceNumbersURL setResourceValue:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE878] error:0] && (objc_msgSend(v14, "writeToURL:options:error:", _sequenceNumbersURL, 0x10000000, 0) & 1) != 0)
+    if (v16 && [_sequenceNumbersURL setResourceValue:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE878] error:0] && (v17 = objc_msgSend(v14, "writeToURL:options:error:", _sequenceNumbersURL, 0x10000000, 0), (v17 & 1) != 0))
     {
-      v17 = blt_ids_log();
-      v18 = 1;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = blt_ids_log(v17);
+      v19 = 1;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         sendSequenceNumber = self->_sendSequenceNumber;
         uUIDString3 = [(NSUUID *)self->_currentSessionIdentifier UUIDString];
         recvSequenceNumber = self->_recvSequenceNumber;
         uUIDString4 = [(NSUUID *)self->_recvSessionIdentifier UUIDString];
-        v26 = 134218754;
-        v27 = sendSequenceNumber;
-        v28 = 2112;
-        v29 = uUIDString3;
-        v30 = 2048;
-        v31 = recvSequenceNumber;
-        v32 = 2112;
-        v33 = uUIDString4;
-        v18 = 1;
-        _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_INFO, "Sequence numbers written. Send: %llu session: %@ Recv: %llu session: %@", &v26, 0x2Au);
+        v27 = 134218754;
+        v28 = sendSequenceNumber;
+        v29 = 2112;
+        v30 = uUIDString3;
+        v31 = 2048;
+        v32 = recvSequenceNumber;
+        v33 = 2112;
+        v34 = uUIDString4;
+        v19 = 1;
+        _os_log_impl(&dword_241FB3000, v18, OS_LOG_TYPE_INFO, "Sequence numbers written. Send: %llu session: %@ Recv: %llu session: %@", &v27, 0x2Au);
       }
     }
 
@@ -76,23 +76,22 @@
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       [defaultManager removeItemAtURL:_sequenceNumbersURL error:0];
 
-      v17 = blt_ids_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = blt_ids_log(v25);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(BLTPBProtobufSequenceNumberManager *)v17 _writeSequenceNumbersToStore];
+        [(BLTPBProtobufSequenceNumberManager *)v18 _writeSequenceNumbersToStore];
       }
 
-      v18 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v19;
 }
 
 - (id)nextSendSequenceNumber

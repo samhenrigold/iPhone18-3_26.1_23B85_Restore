@@ -20,7 +20,7 @@
 {
   [(CRLUITableViewCellAccessibility *)self _accessibilityClearChildren];
 
-  CRLAccessibilityPostLayoutChangedNotification(0);
+  CRLAccessibilityPostLayoutChangedNotification(0, v2);
 }
 
 - (id)_accessibilityTableViewSwitch

@@ -149,7 +149,7 @@ LABEL_12:
         if (v20 == 3 && (intValue2 & 0xFFFFFFFE) == 2)
         {
           [v17 setProperty:objc_opt_class() forKey:@"cellClass"];
-          v25 = PhotosUICoreLibraryCore();
+          v25 = PhotosUICoreLibraryCore(0);
           if (intValue2 == 2)
           {
             if (!v25 || !getPXTCCSettingsFullAccessSubtitleSymbolLoc())
@@ -741,7 +741,7 @@ void __76__PSPhotoServicesAuthorizationLevelController__currentTCCAuthorizationR
 
   else
   {
-    v8 = _PSLoggingFacility();
+    v8 = _PSLoggingFacility(0);
     v6 = v8;
     if (a3)
     {

@@ -48,17 +48,15 @@
   return v5;
 }
 
-uint64_t __48__REMStoreInvocationValueStorage_initWithCoder___block_invoke()
+uint64_t __48__REMStoreInvocationValueStorage_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = MEMORY[0x1E695DFD8];
+  v19 = MEMORY[0x1E695DFD8];
+  v18 = objc_opt_class();
+  v17 = objc_opt_class();
   v16 = objc_opt_class();
   v15 = objc_opt_class();
   v14 = objc_opt_class();
   v13 = objc_opt_class();
-  v12 = objc_opt_class();
-  v11 = objc_opt_class();
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -67,7 +65,9 @@ uint64_t __48__REMStoreInvocationValueStorage_initWithCoder___block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  initWithCoder____sClasses = [v17 setWithObjects:{v16, v15, v14, v13, v12, v11, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  initWithCoder____sClasses = [v19 setWithObjects:{v18, v17, v16, v15, v14, v13, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
 
   return MEMORY[0x1EEE66BB8]();
 }

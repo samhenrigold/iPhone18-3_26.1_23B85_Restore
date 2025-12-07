@@ -8,7 +8,7 @@
 
 - (_TtC8AppStore27ComposeReviewViewController)initWithCompositionURL:(id)l
 {
-  v4 = sub_10002849C(&qword_100982460);
+  v4 = sub_10002849C(&qword_100982460, &unk_1007B5C90);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   if (l)

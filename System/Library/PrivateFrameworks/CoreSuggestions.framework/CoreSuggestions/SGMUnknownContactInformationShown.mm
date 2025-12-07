@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar app:(SGMContactDetailUsedApp_)app wasSuggestedContact:(SGMTypeSafeBool_)contact
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   if (app.var0 >= 0xC)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -46,34 +46,31 @@
   }
 
   tracker = self->_tracker;
-  v19[0] = v12;
-  v19[1] = v13;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = v12;
+  v18[1] = v13;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v17 value:scalar];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMUnknownContactInformationShown)init
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = SGMUnknownContactInformationShown;
-  v2 = [(SGMUnknownContactInformationShown *)&v11 init];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = SGMUnknownContactInformationShown;
+  v2 = [(SGMUnknownContactInformationShown *)&v10 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"App"];
     v4 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"WasSuggestedContact"];
     v5 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v12[0] = v3;
-    v12[1] = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v11[0] = v3;
+    v11[1] = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v7 = [v5 initWithFeatureId:@"Found" event:@"UnknownShown" registerProperties:v6 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v7;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

@@ -88,9 +88,9 @@
   v9 = *data;
   if (!*data)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should have data by now", "[TSPSnappyReadChannel processData:isDone:handler:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSnappyReadChannel.mm", 67);
     v23 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPSnappyReadChannel processData:isDone:handler:]", "[TSPSnappyReadChannel processData:isDone:handler:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSnappyReadChannel.mm", 67);
+    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPSnappyReadChannel processData:isDone:handler:]");
     v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSnappyReadChannel.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v28, v25, v27, 67, 1, "Should have data by now");
 

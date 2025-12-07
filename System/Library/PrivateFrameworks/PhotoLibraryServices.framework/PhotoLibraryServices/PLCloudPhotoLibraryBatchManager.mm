@@ -81,7 +81,7 @@
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_16:
-    if (sizeCopy && [(PLCloudPhotoLibraryBatchContainer *)self->_currentBatch count]<= 0xC8)
+    if (sizeCopy && objc_msgSend_count(self->_currentBatch) <= 0xC8)
     {
       if ((*MEMORY[0x1E6994D48] & 1) == 0)
       {
@@ -127,7 +127,7 @@ LABEL_52:
       goto LABEL_52;
     }
 
-    if ([(PLCloudPhotoLibraryBatchContainer *)v15 count]>= 0x32)
+    if (objc_msgSend_count(v15) >= 0x32)
     {
       lastAddedRecord = [(PLCloudPhotoLibraryBatchContainer *)self->_currentBatch lastAddedRecord];
       objc_opt_class();
@@ -172,7 +172,7 @@ LABEL_51:
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [(PLCloudPhotoLibraryBatchContainer *)self->_currentBatch count]>= 5)
+    if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_count(self->_currentBatch) >= 5)
     {
       if ((*MEMORY[0x1E6994D48] & 1) == 0)
       {
@@ -195,7 +195,7 @@ LABEL_42:
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [(PLCloudPhotoLibraryBatchContainer *)self->_currentBatch count]>= 5)
+      if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_count(self->_currentBatch) >= 5)
       {
         if ((*MEMORY[0x1E6994D48] & 1) == 0)
         {
@@ -216,10 +216,10 @@ LABEL_43:
       else
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || [(PLCloudPhotoLibraryBatchContainer *)self->_currentBatch count]< 0xA)
+        if ((objc_opt_isKindOfClass() & 1) == 0 || objc_msgSend_count(self->_currentBatch) < 0xA)
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0 || [(PLCloudPhotoLibraryBatchContainer *)recordCopy albumType]!= 7 || ![(PLCloudPhotoLibraryBatchContainer *)self->_currentBatch count])
+          if ((objc_opt_isKindOfClass() & 1) == 0 || [(PLCloudPhotoLibraryBatchContainer *)recordCopy albumType]!= 7 || !objc_msgSend_count(self->_currentBatch))
           {
             goto LABEL_52;
           }

@@ -8,6 +8,7 @@
 - (void)_markDisconnectedIsPermanent:(BOOL)permanent;
 - (void)_noteConnection;
 - (void)_sendInactiveMessage;
+- (void)_sendMessageTracingAckWithStatus:(int)status topic:(id)topic tracingUUID:(id)d token:(id)token;
 - (void)addDataListener:(id)listener;
 - (void)addStateListener:(id)listener;
 - (void)dealloc;
@@ -30,6 +31,10 @@
 - (void)removeStateListener:(id)listener;
 - (void)sendConnectMessageWithToken:(id)token presenceFlags:(int)flags certificates:(id)certificates nonce:(id)nonce signature:(id)signature hostCertificateInfo:(id)info connectionErrors:(id)errors withCompletion:(id)self0;
 - (void)sendFilterMessageWithEnabledTopicsByHash:(id)hash ignoredTopicsByHash:(id)byHash opportunisticTopicsByHash:(id)topicsByHash nonWakingTopicsByHash:(id)wakingTopicsByHash pausedTopicsByHash:(id)pausedTopicsByHash saltsByTopic:(id)topic token:(id)token version:(unint64_t)self0 expectsResponse:(BOOL)self1 withCompletion:(id)self2;
+- (void)sendMessageAcknowledgeMessageWithResponse:(int)response messageId:(id)id generation:(int64_t)generation token:(id)token;
+- (void)sendMessageTracingAckWithTopicHash:(id)hash topic:(id)topic tracingUUID:(id)d status:(int)status token:(id)token;
+- (void)sendPubSubChannelListWithMetadata:(id)metadata baseToken:(id)token messageID:(unsigned int)d;
+- (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type withCompletion:(id)completion;
 - (void)setEnabled:(BOOL)enabled;
 @end
 
@@ -168,6 +173,31 @@
     name = [(APSEnvironment *)self->_environment name];
     [(APSIDSProxyManager *)proxyManager sendInactiveWithEnvironmentName:name guid:self->_guid];
   }
+}
+
+- (void)_sendMessageTracingAckWithStatus:(int)status topic:(id)topic tracingUUID:(id)d token:(id)token
+{
+  v8 = *&status;
+  topicCopy = topic;
+  dCopy = d;
+  tokenCopy = token;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = 138413058;
+    selfCopy = self;
+    v18 = 1024;
+    v19 = v8;
+    v20 = 2112;
+    v21 = topicCopy;
+    v22 = 2112;
+    v23 = dCopy;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ send message tracing ack to agent device with status %u topic %@ tracingUUID %@", &v16, 0x26u);
+  }
+
+  guid = self->_guid;
+  proxyManager = self->_proxyManager;
+  name = [(APSEnvironment *)self->_environment name];
+  [(APSIDSProxyManager *)proxyManager sendMessageTracingStatus:v8 topic:topicCopy tracingUUID:dCopy token:tokenCopy guid:guid environmentName:name];
 }
 
 - (void)_failAllPendingMessages
@@ -1194,6 +1224,125 @@ LABEL_3:
 
     hashCopy = v30;
     topicsByHashCopy = v29;
+  }
+}
+
+- (void)sendMessageAcknowledgeMessageWithResponse:(int)response messageId:(id)id generation:(int64_t)generation token:(id)token
+{
+  v8 = *&response;
+  idCopy = id;
+  tokenCopy = token;
+  connectionTypeByMessageID = [(APSProxyAgent *)self connectionTypeByMessageID];
+  v12 = [connectionTypeByMessageID objectForKeyedSubscript:idCopy];
+
+  proxyManager = self->_proxyManager;
+  token = tokenCopy;
+  if (!tokenCopy)
+  {
+    token = [(APSProxyAgent *)self token];
+  }
+
+  integerValue = [v12 integerValue];
+  guid = self->_guid;
+  name = [(APSEnvironment *)self->_environment name];
+  [(APSIDSProxyManager *)proxyManager sendResponse:v8 messageId:idCopy token:token connectionType:integerValue generation:generation guid:guid environmentName:name];
+
+  if (!tokenCopy)
+  {
+  }
+}
+
+- (void)sendMessageTracingAckWithTopicHash:(id)hash topic:(id)topic tracingUUID:(id)d status:(int)status token:(id)token
+{
+  v8 = *&status;
+  hashCopy = hash;
+  topicCopy = topic;
+  dCopy = d;
+  tokenCopy = token;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = 138413058;
+    selfCopy = self;
+    v22 = 1024;
+    v23 = v8;
+    v24 = 2112;
+    v25 = topicCopy;
+    v26 = 2112;
+    v27 = dCopy;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ send message tracing ack to agent device with status %u topic %@ tracingUUID %@", &v20, 0x26u);
+  }
+
+  proxyManager = self->_proxyManager;
+  token = tokenCopy;
+  if (!tokenCopy)
+  {
+    token = [(APSProxyAgent *)self token];
+  }
+
+  guid = self->_guid;
+  name = [(APSEnvironment *)self->_environment name];
+  [(APSIDSProxyManager *)proxyManager sendMessageTracingStatus:v8 topic:topicCopy tracingUUID:dCopy token:token guid:guid environmentName:name];
+
+  if (!tokenCopy)
+  {
+  }
+}
+
+- (void)sendPubSubChannelListWithMetadata:(id)metadata baseToken:(id)token messageID:(unsigned int)d
+{
+  v5 = *&d;
+  metadataCopy = metadata;
+  tokenCopy = token;
+  if ([(APSProxyAgent *)self hasActiveConnection])
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 138412290;
+      selfCopy = self;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ sending pubsub channel list to agent device", &v13, 0xCu);
+    }
+
+    proxyManager = self->_proxyManager;
+    token = tokenCopy;
+    if (!tokenCopy)
+    {
+      token = [(APSProxyAgent *)self token];
+    }
+
+    name = [(APSEnvironment *)self->_environment name];
+    [(APSIDSProxyManager *)proxyManager sendPubSubChannelList:metadataCopy messageID:v5 token:token connectionType:2 environmentName:name guid:self->_guid];
+
+    if (!tokenCopy)
+    {
+    }
+  }
+}
+
+- (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type withCompletion:(id)completion
+{
+  v11 = *&l;
+  idCopy = id;
+  completionCopy = completion;
+  keyHashCopy = keyHash;
+  tokenCopy = token;
+  hashCopy = hash;
+  appTokenGenerateCompletions = [(APSProxyAgent *)self appTokenGenerateCompletions];
+  v21 = objc_retainBlock(completionCopy);
+
+  [appTokenGenerateCompletions addObject:v21];
+  proxyManager = self->_proxyManager;
+  token = tokenCopy;
+  if (!tokenCopy)
+  {
+    token = [(APSProxyAgent *)self token];
+  }
+
+  guid = self->_guid;
+  name = [(APSEnvironment *)self->_environment name];
+  [(APSIDSProxyManager *)proxyManager sendTokenGenerateMessageWithTopicHash:hashCopy baseToken:token appId:idCopy expirationTTL:v11 vapidPublicKeyHash:keyHashCopy type:type guid:guid environmentName:name];
+
+  if (!tokenCopy)
+  {
   }
 }
 

@@ -64,10 +64,10 @@
     interstitialTimeRanges = [itemCopy interstitialTimeRanges];
     if ([v4 status] == 1)
     {
-      [v4 duration];
+      objc_msgSend_duration(v4);
       if (v18)
       {
-        [v4 duration];
+        objc_msgSend_duration(v4);
         if ((v17 & 0x10) != 0)
         {
           v15 = 0u;
@@ -359,7 +359,7 @@ void __54__AVInterstitialController_skipInterstitialTimeRange___block_invoke(uin
       _os_log_impl(&dword_18B49C000, v4, OS_LOG_TYPE_DEFAULT, "%s %d", &v5, 0x12u);
     }
 
-    [(AVInterstitialController *)self currentTime];
+    objc_msgSend_currentTime(self);
     [(AVInterstitialController *)self _sendInterstitialBoundaryNotificationsForTime:?];
   }
 }
@@ -381,7 +381,7 @@ void __54__AVInterstitialController_skipInterstitialTimeRange___block_invoke(uin
 - (id)nextInterstitialTimeRange
 {
   interstitialTimeRangeCollection = [(AVInterstitialController *)self interstitialTimeRangeCollection];
-  [(AVInterstitialController *)self currentTime];
+  objc_msgSend_currentTime(self);
   v4 = [interstitialTimeRangeCollection timeRangeAfterTime:?];
 
   return v4;
@@ -390,7 +390,7 @@ void __54__AVInterstitialController_skipInterstitialTimeRange___block_invoke(uin
 - (AVTimeRange)previousInterstitialTimeRange
 {
   interstitialTimeRangeCollection = [(AVInterstitialController *)self interstitialTimeRangeCollection];
-  [(AVInterstitialController *)self currentTime];
+  objc_msgSend_currentTime(self);
   v4 = [interstitialTimeRangeCollection timeRangeBeforeTime:?];
 
   return v4;
@@ -410,7 +410,7 @@ void __54__AVInterstitialController_skipInterstitialTimeRange___block_invoke(uin
 
     else
     {
-      [(AVInterstitialController *)self currentTime];
+      objc_msgSend_currentTime(self);
       v5 = [interstitialTimeRangeCollection timeRangeContainingTime:?];
     }
 
@@ -546,7 +546,7 @@ void __65__AVInterstitialController__startObservingInterstitialTimeRanges__block
   if (WeakRetained)
   {
     v5 = WeakRetained;
-    [WeakRetained currentTime];
+    objc_msgSend_currentTime(WeakRetained);
     [v5 _setPendingTimeBoundary:?];
     v3 = objc_loadWeakRetained((a1 + 40));
     if (v3)
@@ -598,7 +598,7 @@ void __65__AVInterstitialController__startObservingInterstitialTimeRanges__block
     _os_log_impl(&dword_18B49C000, v3, OS_LOG_TYPE_DEFAULT, "%s %d", &v4, 0x12u);
   }
 
-  [(AVInterstitialController *)self currentTime];
+  objc_msgSend_currentTime(self);
   [(AVInterstitialController *)self _sendInterstitialBoundaryNotificationsForTime:?];
 }
 
@@ -786,7 +786,7 @@ LABEL_25:
   if (shouldEnforceInterstitialPolicy)
   {
     currentInterstitialTimeRange = [(AVInterstitialController *)self currentInterstitialTimeRange];
-    [(AVInterstitialController *)self currentTime];
+    objc_msgSend_currentTime(self);
     v5 = [currentInterstitialTimeRange requiresLinearPlaybackForTime:?];
 
     LOBYTE(shouldEnforceInterstitialPolicy) = v5;
@@ -1021,7 +1021,7 @@ LABEL_15:
     }
 
     eventController = self->_eventController;
-    [v4 resumptionOffset];
+    objc_msgSend_resumptionOffset(v4);
     [(AVPlayerInterstitialEventController *)eventController cancelCurrentEventWithResumptionOffset:&v7];
   }
 }
@@ -1090,7 +1090,7 @@ LABEL_15:
 
     else
     {
-      [(AVInterstitialController *)self currentTime];
+      objc_msgSend_currentTime(self);
       v10 = v9;
       [v4 startTime];
       v8 = v10 - v11;
@@ -1118,7 +1118,7 @@ LABEL_15:
 
   if (currentItem)
   {
-    [currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
   }
 
   else
@@ -1147,10 +1147,10 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
     if (v6)
     {
-      [currentItem duration];
+      objc_msgSend_duration(currentItem);
       v3 = (v5 >> 4) & 1;
       goto LABEL_7;
     }
@@ -1203,7 +1203,7 @@ LABEL_7:
 
   else
   {
-    [(AVInterstitialController *)self currentTime];
+    objc_msgSend_currentTime(self);
     v8 = v7;
     currentInterstitialTimeRange = [(AVInterstitialController *)self currentInterstitialTimeRange];
     if (currentInterstitialTimeRange)
@@ -1246,7 +1246,7 @@ LABEL_7:
   {
     if (currentItem)
     {
-      [currentItem currentTime];
+      objc_msgSend_currentTime(currentItem);
     }
 
     else
@@ -1749,7 +1749,7 @@ void __32__AVInterstitialController_init__block_invoke_2(uint64_t a1, uint64_t a
     v15 = v14;
     if (v14)
     {
-      [v14 CMTimeValue];
+      objc_msgSend_CMTimeValue(v14);
     }
 
     else
@@ -1772,7 +1772,7 @@ void __32__AVInterstitialController_init__block_invoke_2(uint64_t a1, uint64_t a
     v18 = v17;
     if (v17)
     {
-      [v17 CMTimeValue];
+      objc_msgSend_CMTimeValue(v17);
     }
 
     else
@@ -1913,20 +1913,20 @@ void __102__AVInterstitialController_AVPlayerInterstitialSupport__loadDurationOf
   _Block_object_dispose(v29, 8);
 }
 
-void __102__AVInterstitialController_AVPlayerInterstitialSupport__loadDurationOfCurrentOrNextInterstitialEvent___block_invoke_2(uint64_t a1)
+void __102__AVInterstitialController_AVPlayerInterstitialSupport__loadDurationOfCurrentOrNextInterstitialEvent___block_invoke_2(uint64_t a1, const char *a2)
 {
-  memset(&v10, 0, sizeof(v10));
-  v2 = *(a1 + 32);
-  if (v2)
+  memset(&v11, 0, sizeof(v11));
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 duration];
-    flags = v10.flags;
-    if ((~v10.flags & 0x11) == 0)
+    objc_msgSend_duration(v3, a2);
+    flags = v11.flags;
+    if ((~v11.flags & 0x11) == 0)
     {
-      v4 = *(*(a1 + 48) + 8);
-      v5 = MEMORY[0x1E6960C68];
-      *(v4 + 32) = *MEMORY[0x1E6960C68];
-      *(v4 + 48) = *(v5 + 16);
+      v5 = *(*(a1 + 48) + 8);
+      v6 = MEMORY[0x1E6960C68];
+      *(v5 + 32) = *MEMORY[0x1E6960C68];
+      *(v5 + 48) = *(v6 + 16);
     }
   }
 
@@ -1937,13 +1937,13 @@ void __102__AVInterstitialController_AVPlayerInterstitialSupport__loadDurationOf
 
   if ((flags & 0x1D) == 1)
   {
-    v6 = *(*(a1 + 48) + 8);
-    if ((*(v6 + 44) & 0x11) != 0x11)
+    v7 = *(*(a1 + 48) + 8);
+    if ((*(v7 + 44) & 0x11) != 0x11)
     {
-      lhs = *(v6 + 32);
-      v7 = v10;
-      CMTimeAdd(&v9, &lhs, &v7);
-      *(*(*(a1 + 48) + 8) + 32) = v9;
+      lhs = *(v7 + 32);
+      v8 = v11;
+      CMTimeAdd(&v10, &lhs, &v8);
+      *(*(*(a1 + 48) + 8) + 32) = v10;
     }
   }
 
@@ -2287,10 +2287,10 @@ LABEL_37:
     interstitialTimeRanges = [itemCopy interstitialTimeRanges];
     if ([v8 status] == 1)
     {
-      [v8 duration];
+      objc_msgSend_duration(v8);
       if (v36)
       {
-        [v8 duration];
+        objc_msgSend_duration(v8);
         if ((v35 & 0x10) != 0)
         {
           v33 = 0u;
@@ -2325,7 +2325,7 @@ LABEL_37:
     }
 
     memset(&v30, 0, sizeof(v30));
-    [v8 duration];
+    objc_msgSend_duration(v8);
     v15 = MEMORY[0x1E6960CC0];
     if ((time->var2 & 1) != 0 && (*&time1.start.value = *&time->var0, time1.start.epoch = time->var3, v26 = *MEMORY[0x1E6960CC0], *&time2.value = *MEMORY[0x1E6960CC0], v16 = *(MEMORY[0x1E6960CC0] + 16), time2.epoch = v16, CMTimeCompare(&time1.start, &time2) >= 1))
     {

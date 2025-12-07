@@ -74,7 +74,7 @@ LABEL_6:
 
 - (NSURL)URL
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sandboxExtensionToken = [(SLSecurityScopedURL *)self sandboxExtensionToken];
   if (sandboxExtensionToken)
   {
@@ -88,7 +88,7 @@ LABEL_6:
       [(SLSecurityScopedURL *)self setSandboxExtensionHandle:sandbox_extension_consume()];
 
       sandboxExtensionHandle2 = [(SLSecurityScopedURL *)self sandboxExtensionHandle];
-      v8 = SLFrameworkLogHandle();
+      v8 = SLFrameworkLogHandle(sandboxExtensionHandle2);
       v9 = v8;
       if (sandboxExtensionHandle2 < 0)
       {
@@ -101,9 +101,9 @@ LABEL_6:
       else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         URL = self->_URL;
-        v14 = 138412290;
-        v15 = URL;
-        _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_INFO, "Successfully consumed sandbox extension for URL: %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = URL;
+        _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_INFO, "Successfully consumed sandbox extension for URL: %@", &v13, 0xCu);
       }
 
       [(SLSecurityScopedURL *)self setSandboxExtensionToken:0];
@@ -111,7 +111,6 @@ LABEL_6:
   }
 
   v11 = self->_URL;
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -243,22 +242,22 @@ LABEL_18:
 
     if (v6)
     {
-      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
       free(v6);
       goto LABEL_8;
     }
 
-    v8 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SLFrameworkLogHandle(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(SLSecurityScopedURL *)self _issueSandboxExtension];
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v7;
+  return v8;
 }
 
 - (SLSecurityScopedURL)initWithCoder:(id)coder
@@ -341,22 +340,23 @@ LABEL_8:
 
 - (void)URL
 {
-  v10 = *MEMORY[0x277D85DE8];
   sandboxExtensionToken = [self sandboxExtensionToken];
-  [self sandboxExtensionHandle];
-  OUTLINED_FUNCTION_0_1(&dword_231772000, v3, v4, "Unable to consume sandbox extension with token %@, received handle %lld", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  *v9 = 138412546;
+  *&v9[4] = sandboxExtensionToken;
+  *&v9[12] = 2048;
+  *&v9[14] = [self sandboxExtensionHandle];
+  OUTLINED_FUNCTION_0_1(&dword_231772000, v3, v4, "Unable to consume sandbox extension with token %@, received handle %lld", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)_issueSandboxExtension
 {
-  v11 = *MEMORY[0x277D85DE8];
   sandboxExtensionClass = [self sandboxExtensionClass];
-  v10 = [self URL];
-  OUTLINED_FUNCTION_0_1(&dword_231772000, v3, v4, "Unable to issue sandbox extension of class %@ for URL %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v3 = [self URL];
+  *v10 = 138412546;
+  *&v10[4] = sandboxExtensionClass;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_0_1(&dword_231772000, v4, v5, "Unable to issue sandbox extension of class %@ for URL %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

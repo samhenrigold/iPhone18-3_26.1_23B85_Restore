@@ -72,31 +72,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    termsAccepted = self->_termsAccepted;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_userAgent)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    isExistingAccountTerms = self->_isExistingAccountTerms;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_responseData)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -165,7 +163,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 28);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0)
@@ -173,7 +170,6 @@
       goto LABEL_23;
     }
 
-    v11 = *(equalCopy + 25);
     if (self->_termsAccepted)
     {
       if ((*(equalCopy + 25) & 1) == 0)
@@ -204,7 +200,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 28);
   if ((has & 1) == 0)
   {
     if ((*(equalCopy + 28) & 1) == 0)
@@ -213,7 +208,7 @@
     }
 
 LABEL_23:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_24;
   }
 
@@ -222,7 +217,6 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v12 = *(equalCopy + 24);
   if (self->_isExistingAccountTerms)
   {
     if ((*(equalCopy + 24) & 1) == 0)
@@ -240,17 +234,17 @@ LABEL_9:
   responseData = self->_responseData;
   if (responseData | *(equalCopy + 1))
   {
-    v10 = [(NSString *)responseData isEqual:?];
+    v8 = [(NSString *)responseData isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_24:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -32,11 +32,11 @@
 {
   v3 = MEMORY[0x277CCACA8];
   animojiImageBuffer = [(JFXCachedAnimojiImage *)self animojiImageBuffer];
-  [(JFXCachedAnimojiImage *)self mediaTimeRange];
+  objc_msgSend_mediaTimeRange(self);
   *&time.start.value = v15;
   time.start.epoch = v16;
   Seconds = CMTimeGetSeconds(&time.start);
-  [(JFXCachedAnimojiImage *)self mediaTimeRange];
+  objc_msgSend_mediaTimeRange(self);
   CMTimeRangeGetEnd(&v14, &time);
   v6 = CMTimeGetSeconds(&v14);
   animojiRenderAttributes = [(JFXCachedAnimojiImage *)self animojiRenderAttributes];

@@ -57,9 +57,11 @@
 - (id)description
 {
   clientID = self->_clientID;
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "ASMPeripheralControlServices, CID 0x%X", clientID);
+  v2 = v5;
 
-  return 0;
+  return v2;
 }
 
 - (id)_ensureXPCStarted
@@ -134,23 +136,23 @@ uint64_t __49__ASMPeripheralControlServices__ensureXPCStarted__block_invoke_2(ui
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __42__ASMPeripheralControlServices_invalidate__block_invoke(uint64_t result)
+void *__42__ASMPeripheralControlServices_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 8) & 1) == 0)
   {
     v3 = result;
     *(v2 + 8) = 1;
-    if ((*(*(result + 32) + 9) & 1) == 0 && gLogCategory_ASMPeripheralControlServices <= 30 && (gLogCategory_ASMPeripheralControlServices != -1 || _LogCategory_Initialize()))
+    if ((*(result[4] + 9) & 1) == 0 && gLogCategory_ASMPeripheralControlServices <= 30 && (gLogCategory_ASMPeripheralControlServices != -1 || _LogCategory_Initialize()))
     {
       __42__ASMPeripheralControlServices_invalidate__block_invoke_cold_1();
     }
 
-    v4 = *(v3 + 32);
+    v4 = v3[4];
     if (v4[2])
     {
       [v4[2] invalidate];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     return [v4 _invalidated];
@@ -219,7 +221,7 @@ void __84__ASMPeripheralControlServices_modifyPeripheralConfiguration_identifier
 {
   if (gLogCategory_ASMPeripheralControlServices <= 30 && (gLogCategory_ASMPeripheralControlServices != -1 || _LogCategory_Initialize()))
   {
-    __84__ASMPeripheralControlServices_modifyPeripheralConfiguration_identifier_completion___block_invoke_cold_1(a1);
+    __84__ASMPeripheralControlServices_modifyPeripheralConfiguration_identifier_completion___block_invoke_cold_1();
   }
 
   v2 = [*(a1 + 48) _ensureXPCStarted];
@@ -299,7 +301,7 @@ void __83__ASMPeripheralControlServices_writeWithData_characteristic_identifier_
 {
   if (gLogCategory_ASMPeripheralControlServices <= 30 && (gLogCategory_ASMPeripheralControlServices != -1 || _LogCategory_Initialize()))
   {
-    __83__ASMPeripheralControlServices_writeWithData_characteristic_identifier_completion___block_invoke_cold_1(a1);
+    __83__ASMPeripheralControlServices_writeWithData_characteristic_identifier_completion___block_invoke_cold_1();
   }
 
   v2 = [*(a1 + 56) _ensureXPCStarted];
@@ -350,22 +352,6 @@ uint64_t __83__ASMPeripheralControlServices_writeWithData_characteristic_identif
   }
 
   return MEMORY[0x2821F96F8]();
-}
-
-uint64_t __84__ASMPeripheralControlServices_modifyPeripheralConfiguration_identifier_completion___block_invoke_cold_1(void *a1)
-{
-  v3 = a1[5];
-  v4 = *(a1[6] + 24);
-  v2 = a1[4];
-  return LogPrintF();
-}
-
-uint64_t __83__ASMPeripheralControlServices_writeWithData_characteristic_identifier_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v3 = *(a1 + 48);
-  v4 = *(*(a1 + 56) + 24);
-  v2 = *(a1 + 32);
-  return LogPrintF();
 }
 
 @end

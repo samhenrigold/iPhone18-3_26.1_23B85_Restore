@@ -109,7 +109,7 @@
 {
   keyServerCertificate = self->_keyServerCertificate;
   self->_keyServerCertificate = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, keyServerCertificate);
 }
 
 @end

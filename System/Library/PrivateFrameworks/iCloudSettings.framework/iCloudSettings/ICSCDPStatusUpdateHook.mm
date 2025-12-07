@@ -133,7 +133,7 @@
 
 - (void)_updateStatusWithAction:(id)action forObjectModel:(id)model completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   modelCopy = model;
   completionCopy = completion;
@@ -148,28 +148,28 @@
     self->_serverHookResponse = v14;
 
     objc_initWeak(&location, self);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __76__ICSCDPStatusUpdateHook__updateStatusWithAction_forObjectModel_completion___block_invoke;
-    v29[3] = &unk_27A666DA0;
-    objc_copyWeak(&v33, &location);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __76__ICSCDPStatusUpdateHook__updateStatusWithAction_forObjectModel_completion___block_invoke;
+    v28[3] = &unk_27A666DA0;
+    objc_copyWeak(&v32, &location);
     v16 = completionCopy;
-    v32 = v16;
+    v31 = v16;
     v17 = modelCopy;
-    v30 = v17;
+    v29 = v17;
     v18 = actionCopy;
-    v31 = v18;
-    [v11 setUserActionCallback:v29];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __76__ICSCDPStatusUpdateHook__updateStatusWithAction_forObjectModel_completion___block_invoke_46;
-    v24[3] = &unk_27A666DC8;
-    objc_copyWeak(&v28, &location);
-    v27 = v16;
-    v25 = v17;
+    v30 = v18;
+    [v11 setUserActionCallback:v28];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __76__ICSCDPStatusUpdateHook__updateStatusWithAction_forObjectModel_completion___block_invoke_46;
+    v23[3] = &unk_27A666DC8;
+    objc_copyWeak(&v27, &location);
+    v26 = v16;
+    v24 = v17;
     v19 = v18;
-    v26 = v19;
-    [v11 setCompletionCallback:v24];
+    v25 = v19;
+    [v11 setCompletionCallback:v23];
     v20 = _AAUILogSystem();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
@@ -178,9 +178,9 @@
     }
 
     [v11 presentWithViewController:v13 presentationType:self->_presentationType];
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
 
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(&location);
   }
 
@@ -195,8 +195,6 @@
     v13 = [MEMORY[0x277CCA9B8] aa_errorWithCode:-3];
     (*(completionCopy + 2))(completionCopy, 0, v13);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __76__ICSCDPStatusUpdateHook__updateStatusWithAction_forObjectModel_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -240,7 +238,7 @@ void __76__ICSCDPStatusUpdateHook__updateStatusWithAction_forObjectModel_complet
 
 - (void)_handleUserInteractionWithCallback:(id)callback onModel:(id)model forHookAction:(id)action userAction:(unint64_t)userAction
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   modelCopy = model;
   actionCopy = action;
@@ -254,11 +252,11 @@ void __76__ICSCDPStatusUpdateHook__updateStatusWithAction_forObjectModel_complet
     v14 = _AAUILogSystem();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = objc_opt_class();
-      v18 = 2112;
-      v19 = actionCopy;
-      _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "%@: Status for %@ not being updated due to user decline.", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = objc_opt_class();
+      v17 = 2112;
+      v18 = actionCopy;
+      _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "%@: Status for %@ not being updated due to user decline.", &v15, 0x16u);
     }
 
     v13 = @"onUserDecline";
@@ -272,13 +270,11 @@ LABEL_4:
 LABEL_8:
     [(ICSCDPStatusUpdateHook *)self _invokeJSCallback:v13 onModel:modelCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCompletionWithCallback:(id)callback onModel:(id)model forHookAction:(id)action userAction:(unint64_t)userAction error:(id)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   modelCopy = model;
   actionCopy = action;
@@ -291,11 +287,11 @@ LABEL_8:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v33 = objc_opt_class();
-      v34 = 2112;
-      v35 = actionCopy;
-      v36 = 2112;
-      v37 = v16;
+      v32 = objc_opt_class();
+      v33 = 2112;
+      v34 = actionCopy;
+      v35 = 2112;
+      v36 = v16;
       _os_log_debug_impl(&dword_275819000, v17, OS_LOG_TYPE_DEBUG, "%@: User declined status update for %@ and no error was provided. Using %@", buf, 0x20u);
     }
   }
@@ -307,18 +303,18 @@ LABEL_8:
     v21 = objc_opt_class();
     v22 = @"NO";
     *buf = 138413058;
-    v33 = v21;
-    v34 = 2112;
+    v32 = v21;
+    v33 = 2112;
     if (v19)
     {
       v22 = @"YES";
     }
 
-    v35 = actionCopy;
-    v36 = 2112;
-    v37 = v22;
-    v38 = 2112;
-    v39 = v16;
+    v34 = actionCopy;
+    v35 = 2112;
+    v36 = v22;
+    v37 = 2112;
+    v38 = v16;
     _os_log_impl(&dword_275819000, v20, OS_LOG_TYPE_DEFAULT, "%@: Calling completion callback for %@ with (didChange: %@, error: %@)", buf, 0x2Au);
   }
 
@@ -334,9 +330,9 @@ LABEL_8:
 
   v24 = null;
   v25 = [MEMORY[0x277CCABB0] numberWithBool:v19];
-  v31[0] = v25;
-  v31[1] = v24;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+  v30[0] = v25;
+  v30[1] = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
   [(ICSCDPStatusUpdateHook *)self _invokeJSCallback:@"onCompletion" onModel:modelCopy withArguments:v26];
 
   v27 = [(ICSCDPStatusUpdateHook *)self additionalPayloadForAction:actionCopy error:v16];
@@ -345,13 +341,11 @@ LABEL_8:
   v29 = userAction == 3 || v16 == 0;
   callbackCopy[2](callbackCopy, v29, v16);
   [(ICSCDPStatusUpdateHook *)self postCompletionProcessingForAction:actionCopy error:v16];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invokeJSCallback:(id)callback onModel:(id)model withArguments:(id)arguments
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   modelCopy = model;
   argumentsCopy = arguments;
@@ -375,15 +369,15 @@ LABEL_8:
   {
     if (v15)
     {
-      v18 = 138413058;
-      v19 = objc_opt_class();
-      v20 = 2112;
-      v21 = callbackCopy;
-      v22 = 2112;
-      v23 = v12;
-      v24 = 2112;
-      v25 = argumentsCopy;
-      _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "%@: Calling %@ callback using %@ with arguments: %@", &v18, 0x2Au);
+      v17 = 138413058;
+      v18 = objc_opt_class();
+      v19 = 2112;
+      v20 = callbackCopy;
+      v21 = 2112;
+      v22 = v12;
+      v23 = 2112;
+      v24 = argumentsCopy;
+      _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "%@: Calling %@ callback using %@ with arguments: %@", &v17, 0x2Au);
     }
 
     v16 = [modelCopy invokeScriptFunction:v12 withArguments:argumentsCopy];
@@ -393,15 +387,13 @@ LABEL_8:
   {
     if (v15)
     {
-      v18 = 138412546;
-      v19 = objc_opt_class();
-      v20 = 2112;
-      v21 = callbackCopy;
-      _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "%@: Skipping %@ callback, no function provided.", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = objc_opt_class();
+      v19 = 2112;
+      v20 = callbackCopy;
+      _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "%@: Skipping %@ callback, no function provided.", &v17, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (RUIServerHookDelegate)delegate
@@ -413,14 +405,13 @@ LABEL_8:
 
 - (void)_processAttributes:(os_log_t)log .cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_debug_impl(&dword_275819000, log, OS_LOG_TYPE_DEBUG, "%@: presentation type is: %lu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_debug_impl(&dword_275819000, log, OS_LOG_TYPE_DEBUG, "%@: presentation type is: %lu", &v4, 0x16u);
 }
 
 - (void)_updateStatusWithAction:(uint8_t *)buf forObjectModel:(os_log_t)log completion:.cold.1(uint64_t a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -434,13 +425,12 @@ LABEL_8:
 
 - (void)_updateStatusWithAction:(uint64_t)a1 forObjectModel:(uint64_t)a2 completion:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 138412546;
-  v7 = objc_opt_class();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_fault_impl(&dword_275819000, a3, OS_LOG_TYPE_FAULT, "%@: Unexpected action processed - %@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = objc_opt_class();
+  v7 = 2112;
+  v8 = a2;
+  _os_log_fault_impl(&dword_275819000, a3, OS_LOG_TYPE_FAULT, "%@: Unexpected action processed - %@", &v5, 0x16u);
 }
 
 @end

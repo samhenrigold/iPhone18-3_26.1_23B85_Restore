@@ -63,7 +63,7 @@
   result = self->_shared;
   if (result)
   {
-    return objc_msgSend_bufferInfo(result, a3, v3, v4, v5);
+    return objc_msgSend_bufferInfo(result, v3, v4, v5, a3);
   }
 
   *&retstr->count = 0u;

@@ -118,20 +118,20 @@ void __61__HFDebugStateDumpManager_registerStateDumpHandler_withName___block_inv
 - (id)_performStateDump:(BOOL)dump
 {
   dumpCopy = dump;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = HFLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = +[HFExecutionEnvironment sharedInstance];
-    v11 = 138413058;
+    v10 = 138413058;
     selfCopy = self;
-    v13 = 2080;
-    v14 = "[HFDebugStateDumpManager _performStateDump:]";
-    v15 = 1024;
-    v16 = dumpCopy;
-    v17 = 2048;
+    v12 = 2080;
+    v13 = "[HFDebugStateDumpManager _performStateDump:]";
+    v14 = 1024;
+    v15 = dumpCopy;
+    v16 = 2048;
     hostProcess = [v6 hostProcess];
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@:%s) logToConsole = %{BOOL}d. Process = %lu", &v11, 0x26u);
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%@:%s) logToConsole = %{BOOL}d. Process = %lu", &v10, 0x26u);
   }
 
   stateDumpHandlersByName = [(HFDebugStateDumpManager *)self stateDumpHandlersByName];
@@ -142,14 +142,12 @@ void __61__HFDebugStateDumpManager_registerStateDumpHandler_withName___block_inv
     [v8 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_27_7];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 id __45__HFDebugStateDumpManager__performStateDump___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = (*(a3 + 16))(a3);
+  v3 = (*(a3 + 16))(a3, a2);
   v4 = HFPrunePropertyList(v3);
 
   return v4;
@@ -157,19 +155,18 @@ id __45__HFDebugStateDumpManager__performStateDump___block_invoke(uint64_t a1, u
 
 void __45__HFDebugStateDumpManager__performStateDump___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = HFLogForCategory(0x45uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "State dump %@:", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "State dump %@:", &v7, 0xCu);
   }
 
   _HFLogStateDumpNode(v5, &stru_2824B1A78, 0);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_listenForAttachmentRequestNotifications
@@ -181,7 +178,7 @@ void __45__HFDebugStateDumpManager__performStateDump___block_invoke_2(uint64_t a
 
 - (void)_writeStateDump
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (+[HFUtilities isInternalInstall])
   {
     v3 = HFLogForCategory(0x45uLL);
@@ -190,7 +187,7 @@ void __45__HFDebugStateDumpManager__performStateDump___block_invoke_2(uint64_t a
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       bundleIdentifier = [mainBundle bundleIdentifier];
       *buf = 138412290;
-      v28 = bundleIdentifier;
+      v27 = bundleIdentifier;
       _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "Attempting to write state dump from %@", buf, 0xCu);
     }
 
@@ -219,9 +216,9 @@ void __45__HFDebugStateDumpManager__performStateDump___block_invoke_2(uint64_t a
     else
     {
       absoluteString2 = [v15 absoluteString];
-      v26 = 0;
-      [defaultManager createDirectoryAtPath:absoluteString2 withIntermediateDirectories:1 attributes:0 error:&v26];
-      v18 = v26;
+      v25 = 0;
+      [defaultManager createDirectoryAtPath:absoluteString2 withIntermediateDirectories:1 attributes:0 error:&v25];
+      v18 = v25;
 
       if (v18)
       {
@@ -229,16 +226,16 @@ void __45__HFDebugStateDumpManager__performStateDump___block_invoke_2(uint64_t a
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v28 = v18;
+          v27 = v18;
           _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "State dump Directory Creation Error: %@", buf, 0xCu);
         }
       }
     }
 
     v21 = [v15 URLByAppendingPathComponent:v14];
-    v25 = v18;
-    [v8 writeToURL:v21 error:&v25];
-    v22 = v25;
+    v24 = v18;
+    [v8 writeToURL:v21 error:&v24];
+    v22 = v24;
 
     if (v22)
     {
@@ -246,18 +243,16 @@ void __45__HFDebugStateDumpManager__performStateDump___block_invoke_2(uint64_t a
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v22;
+        v27 = v22;
         _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "State dump Write Error: %@", buf, 0xCu);
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 id __42__HFDebugStateDumpManager__writeStateDump__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = (*(a3 + 16))(a3);
+  v3 = (*(a3 + 16))(a3, a2);
   v4 = HFPrunePropertyList(v3);
 
   return v4;

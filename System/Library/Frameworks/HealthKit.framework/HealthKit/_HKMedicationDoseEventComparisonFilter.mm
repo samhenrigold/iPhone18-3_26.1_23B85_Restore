@@ -44,16 +44,16 @@
 
 + (id)allowedValueClassesForKeyPath:(id)path
 {
-  v19[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (([pathCopy isEqualToString:@"status"] & 1) != 0 || objc_msgSend(pathCopy, "isEqualToString:", @"logOrigin"))
   {
     v6 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v19[2] = objc_opt_class();
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v18[2] = objc_opt_class();
     v7 = MEMORY[0x1E695DEC8];
-    v8 = v19;
+    v8 = v18;
 LABEL_4:
     v9 = [v7 arrayWithObjects:v8 count:3];
     v10 = [v6 setWithArray:v9];
@@ -64,17 +64,6 @@ LABEL_4:
   if (([pathCopy isEqualToString:@"medicationIdentifier"] & 1) != 0 || objc_msgSend(pathCopy, "isEqualToString:", @"scheduleItemIdentifier"))
   {
     v6 = MEMORY[0x1E695DFD8];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v18[2] = objc_opt_class();
-    v7 = MEMORY[0x1E695DEC8];
-    v8 = v18;
-    goto LABEL_4;
-  }
-
-  if ([pathCopy isEqualToString:@"hashedMedicationIdentifier"])
-  {
-    v6 = MEMORY[0x1E695DFD8];
     v17[0] = objc_opt_class();
     v17[1] = objc_opt_class();
     v17[2] = objc_opt_class();
@@ -83,7 +72,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  if ([pathCopy isEqualToString:@"medicationUUID"])
+  if ([pathCopy isEqualToString:@"hashedMedicationIdentifier"])
   {
     v6 = MEMORY[0x1E695DFD8];
     v16[0] = objc_opt_class();
@@ -94,7 +83,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  if ([pathCopy isEqualToString:@"scheduledDate"])
+  if ([pathCopy isEqualToString:@"medicationUUID"])
   {
     v6 = MEMORY[0x1E695DFD8];
     v15[0] = objc_opt_class();
@@ -105,7 +94,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  if ([pathCopy isEqualToString:@"medicationConceptIdentifier"])
+  if ([pathCopy isEqualToString:@"scheduledDate"])
   {
     v6 = MEMORY[0x1E695DFD8];
     v14[0] = objc_opt_class();
@@ -116,13 +105,22 @@ LABEL_4:
     goto LABEL_4;
   }
 
+  if ([pathCopy isEqualToString:@"medicationConceptIdentifier"])
+  {
+    v6 = MEMORY[0x1E695DFD8];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v13[2] = objc_opt_class();
+    v7 = MEMORY[0x1E695DEC8];
+    v8 = v13;
+    goto LABEL_4;
+  }
+
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"_HKMedicationDoseEventComparisonFilter.m" lineNumber:94 description:@"Unreachable code has been executed"];
 
   v10 = [MEMORY[0x1E695DFD8] set];
 LABEL_5:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -37,7 +37,7 @@
 
     if (v9)
     {
-      if ([v9 isEqualToString:@"Default"])
+      if (objc_msgSend_isEqualToString_(v9))
       {
         v10 = 0;
 LABEL_8:
@@ -48,7 +48,7 @@ LABEL_8:
 
         if (v15)
         {
-          v16 = [v15 isEqualToString:@"!="];
+          isEqualToString = objc_msgSend_isEqualToString_(v15);
           if (environment == v10)
           {
             v11 = 0;
@@ -56,7 +56,7 @@ LABEL_8:
 
           else
           {
-            v11 = v16;
+            v11 = isEqualToString;
           }
         }
 
@@ -68,7 +68,7 @@ LABEL_8:
         goto LABEL_15;
       }
 
-      if ([v9 isEqualToString:@"HomeResident"])
+      if (objc_msgSend_isEqualToString_(v9))
       {
         v10 = 1;
         goto LABEL_8;

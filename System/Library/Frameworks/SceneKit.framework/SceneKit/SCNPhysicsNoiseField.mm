@@ -76,7 +76,7 @@ float __42__SCNPhysicsNoiseField_setAnimationSpeed___block_invoke(uint64_t a1)
 
 - (id)valueForUndefinedKey:(id)key
 {
-  if ([key isEqualToString:@"smoothness"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"smoothness"))
   {
     v5 = MEMORY[0x277CCABB0];
     v6 = 128;
@@ -84,7 +84,7 @@ float __42__SCNPhysicsNoiseField_setAnimationSpeed___block_invoke(uint64_t a1)
 
   else
   {
-    if (![key isEqualToString:@"animationSpeed"])
+    if (!objc_msgSend_isEqualToString_(key))
     {
       v9.receiver = self;
       v9.super_class = SCNPhysicsNoiseField;
@@ -102,14 +102,14 @@ float __42__SCNPhysicsNoiseField_setAnimationSpeed___block_invoke(uint64_t a1)
 
 - (void)setValue:(id)value forUndefinedKey:(id)key
 {
-  if ([key isEqualToString:@"smoothness"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"smoothness"))
   {
     [value doubleValue];
 
     [(SCNPhysicsNoiseField *)self setSmoothness:?];
   }
 
-  else if ([key isEqualToString:@"animationSpeed"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     [value doubleValue];
 

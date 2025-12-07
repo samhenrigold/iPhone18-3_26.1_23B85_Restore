@@ -81,36 +81,46 @@
   if (self->_isInline)
   {
     [(PKDiscoveryShelfView *)self contentInsets:fits.width];
+    v7 = v5 + v6;
     width = width - (v5 + v6);
   }
 
-  v7 = *MEMORY[0x1E695F060];
+  else
+  {
+    v7 = 0.0;
+  }
+
+  v8 = *MEMORY[0x1E695F060];
+  v9 = *(MEMORY[0x1E695F060] + 8);
   media = [(PKDiscoveryInlineMediaShelf *)self->_shelf media];
   [media width];
-  v10 = v9;
+  v12 = v11;
   [media height];
-  if (v11 > 0.0 && v10 > 0.0)
+  if (v13 > 0.0 && v12 > 0.0)
   {
-    v7 = width;
+    v9 = v13 * (width / v12);
+    v8 = width;
   }
 
   captionView = self->_captionView;
   if (captionView)
   {
-    [(PKDiscoveryInlineMediaCaptionView *)captionView sizeThatFits:v7, 1.79769313e308];
+    [(PKDiscoveryInlineMediaCaptionView *)captionView sizeThatFits:v8, 1.79769313e308];
+    v9 = v9 + v15;
   }
 
-  v13 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], 0);
-  [v13 lineHeight];
+  v16 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], 0);
+  [v16 lineHeight];
+  v18 = v17;
 
-  PKSizeRoundToPixel();
-  v15 = v14;
-  v17 = v16;
+  PKSizeRoundToPixel(v7 + width, v9 + v18);
+  v20 = v19;
+  v22 = v21;
 
-  v18 = v15;
-  v19 = v17;
-  result.height = v19;
-  result.width = v18;
+  v23 = v20;
+  v24 = v22;
+  result.height = v24;
+  result.width = v23;
   return result;
 }
 

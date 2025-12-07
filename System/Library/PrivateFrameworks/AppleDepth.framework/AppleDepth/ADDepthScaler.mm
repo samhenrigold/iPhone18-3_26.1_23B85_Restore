@@ -91,9 +91,9 @@ LABEL_803:
         CVPixelBufferLockBaseAddress(toBuffer, 0);
         memset(&buf, 0, sizeof(buf));
         v19 = MEMORY[0x277CBF3A0];
-        PixelBufferUtils::asVImageBuffer(buffer, *MEMORY[0x277CBF3A0], &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, buffer, *MEMORY[0x277CBF3A0]);
         memset(&v497, 0, sizeof(v497));
-        PixelBufferUtils::asVImageBuffer(toBuffer, *v19, &v497);
+        PixelBufferUtils::asVImageBuffer(&v497, toBuffer, *v19);
         v21 = v497.height;
         if (v497.height)
         {
@@ -367,9 +367,9 @@ LABEL_12:
     CVPixelBufferLockBaseAddress(toBuffer, 0);
     memset(&buf, 0, sizeof(buf));
     v263 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(buffer, *MEMORY[0x277CBF3A0], &buf);
+    PixelBufferUtils::asVImageBuffer(&buf, buffer, *MEMORY[0x277CBF3A0]);
     memset(&v497, 0, sizeof(v497));
-    PixelBufferUtils::asVImageBuffer(toBuffer, *v263, &v497);
+    PixelBufferUtils::asVImageBuffer(&v497, toBuffer, *v263);
     v265 = v497.height;
     if (v497.height)
     {
@@ -639,9 +639,9 @@ LABEL_801:
     CVPixelBufferLockBaseAddress(toBuffer, 0);
     memset(&buf, 0, sizeof(buf));
     v359 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(buffer, *MEMORY[0x277CBF3A0], &buf);
+    PixelBufferUtils::asVImageBuffer(&buf, buffer, *MEMORY[0x277CBF3A0]);
     memset(&v497, 0, sizeof(v497));
-    PixelBufferUtils::asVImageBuffer(toBuffer, *v359, &v497);
+    PixelBufferUtils::asVImageBuffer(&v497, toBuffer, *v359);
     v361 = v497.height;
     if (!v497.height)
     {
@@ -1040,9 +1040,9 @@ LABEL_788:
     CVPixelBufferLockBaseAddress(toBuffer, 0);
     memset(&buf, 0, sizeof(buf));
     v122 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(buffer, *MEMORY[0x277CBF3A0], &buf);
+    PixelBufferUtils::asVImageBuffer(&buf, buffer, *MEMORY[0x277CBF3A0]);
     memset(&v497, 0, sizeof(v497));
-    PixelBufferUtils::asVImageBuffer(toBuffer, *v122, &v497);
+    PixelBufferUtils::asVImageBuffer(&v497, toBuffer, *v122);
     v124 = v497.height;
     if (!v497.height)
     {

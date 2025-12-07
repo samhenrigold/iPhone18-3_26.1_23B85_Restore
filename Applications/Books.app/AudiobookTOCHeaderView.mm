@@ -10,7 +10,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10042C298();
+  sub_10042C298(selfCopy);
 }
 
 - (void)_traitCollectionDidChangeWithSender:(id)sender previousTraitCollection:(id)collection
@@ -37,7 +37,7 @@
   }
 
   [v7 setFont:qword_100AE2B00];
-  sub_1000074E0(&v10);
+  sub_1000074E0(v10);
 }
 
 - (void)didSelectSupplementalContent

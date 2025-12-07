@@ -96,39 +96,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_zoneIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_archiveContinuationToken)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    newestFirst = self->_newestFirst;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    limit = self->_limit;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_assetsToDownload)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -235,7 +233,6 @@
     }
   }
 
-  v12 = *(equalCopy + 44);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 44) & 2) == 0)
@@ -253,7 +250,6 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v13 = *(equalCopy + 40);
   if (self->_newestFirst)
   {
     if ((equalCopy[5] & 1) == 0)
@@ -282,10 +278,10 @@ LABEL_8:
   }
 
   assetsToDownload = self->_assetsToDownload;
-  v15 = equalCopy[2];
-  if (assetsToDownload | v15)
+  v13 = equalCopy[2];
+  if (assetsToDownload | v13)
   {
-    isEqual = objc_msgSend_isEqual_(assetsToDownload, v7, v15);
+    isEqual = objc_msgSend_isEqual_(assetsToDownload, v7, v13);
   }
 
   else

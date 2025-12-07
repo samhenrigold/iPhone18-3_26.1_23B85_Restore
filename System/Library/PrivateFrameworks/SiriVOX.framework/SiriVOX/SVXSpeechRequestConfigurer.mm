@@ -7,7 +7,7 @@
 
 - (id)speechRequestForContext:(id)context preferences:(id)preferences
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = [(SVXSynthesisVoiceConfigurer *)self->_voiceConfigurer voiceForContext:contextCopy preferences:preferences];
   request = [contextCopy request];
@@ -30,16 +30,14 @@
   v14 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v17 = 136315394;
-    v18 = "[SVXSpeechRequestConfigurer speechRequestForContext:preferences:]";
-    v19 = 2048;
-    v20 = audioSessionID;
-    _os_log_impl(&dword_2695B9000, v14, OS_LOG_TYPE_INFO, "%s audioSessionID = %lu", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "[SVXSpeechRequestConfigurer speechRequestForContext:preferences:]";
+    v18 = 2048;
+    v19 = audioSessionID;
+    _os_log_impl(&dword_2695B9000, v14, OS_LOG_TYPE_INFO, "%s audioSessionID = %lu", &v16, 0x16u);
   }
 
   [v9 setAudioSessionId:audioSessionID];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

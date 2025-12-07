@@ -1009,7 +1009,7 @@ void sub_100009454(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t start(int a1, uint64_t a2)
+uint64_t start(unsigned int a1, uint64_t a2)
 {
   v4 = os_log_create("com.apple.nsurlsessiond", "background");
   v5 = qword_1000EB210;
@@ -1244,15 +1244,11 @@ void sub_10000B430(uint64_t a1, void *a2)
 
 void sub_10000B570(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 72);
-  v5 = [*(a1 + 48) outgoingResponseIdentifier];
-  v6 = *(a1 + 74);
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 64);
-  v9 = v5;
-  [v2 _onqueue_sendMessage:v3 ofType:v4 responseIdentifier:0 forSourceApplication:? withUrgency:? withIDSMessageTimeout:? withReply:?];
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 72);
+  v4 = [*(a1 + 48) outgoingResponseIdentifier];
+  [v1 _onqueue_sendMessage:v2 ofType:v3 responseIdentifier:0 forSourceApplication:? withUrgency:? withIDSMessageTimeout:? withReply:?];
 }
 
 void sub_10000B720(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -1383,34 +1379,34 @@ void sub_10000EC2C(uint64_t a1)
   *(v2 + 136) = 0;
 }
 
-void *sub_10000ECEC(void *result)
+void *sub_10000ECEC(void *result, uint64_t a2)
 {
-  v2 = result[4];
-  v3 = *(v2 + 120);
-  *(v2 + 120) = v3 + 1;
-  if (!v3)
+  v3 = result[4];
+  v4 = *(v3 + 120);
+  *(v3 + 120) = v4 + 1;
+  if (!v4)
   {
-    v4 = result;
-    v5 = result[4];
-    v6 = *(v5 + 128);
-    if (v6)
+    v5 = result;
+    v6 = result[4];
+    v7 = *(v6 + 128);
+    if (v7)
     {
-      dispatch_source_set_timer(v6, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD64FFC4653600uLL, 0);
-      v5 = v4[4];
+      dispatch_source_set_timer(v7, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD64FFC4653600uLL, 0);
+      v6 = v5[4];
     }
 
-    v7 = *(v5 + 136);
-    if (!v7)
+    v8 = *(v6 + 136);
+    if (!v8)
     {
-      v8 = objc_opt_new();
-      v9 = v4[4];
-      v10 = *(v9 + 136);
-      *(v9 + 136) = v8;
+      v9 = objc_opt_new();
+      v10 = v5[4];
+      v11 = *(v10 + 136);
+      *(v10 + 136) = v9;
 
-      v7 = *(v4[4] + 136);
+      v8 = *(v5[4] + 136);
     }
 
-    return [v7 acquire];
+    return [v8 acquire];
   }
 
   return result;
@@ -1460,10 +1456,10 @@ void *sub_10000F138(void *result)
   return result;
 }
 
-void sub_10000F36C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10000F36C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PDBluetoothCompanionLinkAssertion;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2918,18 +2914,17 @@ void sub_10002A190(uint64_t a1, void *a2)
   v4 = qword_1000EB210;
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) uuid];
-    v7 = [*(a1 + 40) _loggableDescription];
-    v8 = 138543874;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "NDSession <%{public}@> %{public}@ client disconnected (error %@) with redirection outstanding, following redirect", &v8, 0x20u);
+    v5 = [*(a1 + 32) uuid];
+    v6 = [*(a1 + 40) _loggableDescription];
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "NDSession <%{public}@> %{public}@ client disconnected (error %@) with redirection outstanding, following redirect", &v7, 0x20u);
   }
 
-  v5 = *(a1 + 48);
   (*(*(a1 + 56) + 16))();
 }
 
@@ -2951,9 +2946,9 @@ void sub_10002A2D8(uint64_t a1, void *a2)
   (*(*(a1 + v7) + 16))();
 }
 
-void sub_10002ACA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10002ACA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3472,9 +3467,9 @@ void sub_100035BE0(uint64_t a1)
   }
 }
 
-void sub_100036218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, ...)
+void sub_100036218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3860,10 +3855,10 @@ void sub_100040694(void *a1)
   }
 }
 
-void sub_100040868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100040868(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = NDStatusMonitor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4236,9 +4231,9 @@ void sub_100044B88(uint64_t a1, void *a2)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_1000455AC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000455AC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4380,18 +4375,17 @@ void sub_1000478F0(uint64_t a1, void *a2)
   v4 = qword_1000EB210;
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) uuid];
-    v7 = *(a1 + 56);
-    v8 = 138543874;
-    v9 = v6;
-    v10 = 2048;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "NDNWSession <%{public}@> <%zu> client disconnected (error %@) with redirection outstanding, following redirect", &v8, 0x20u);
+    v5 = [*(a1 + 32) uuid];
+    v6 = *(a1 + 56);
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2048;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "NDNWSession <%{public}@> <%zu> client disconnected (error %@) with redirection outstanding, following redirect", &v7, 0x20u);
   }
 
-  v5 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -4413,9 +4407,9 @@ void sub_100047A14(uint64_t a1, void *a2)
   (*(*(a1 + v7) + 16))();
 }
 
-void sub_100048308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100048308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5257,27 +5251,26 @@ void sub_1000596C4(uint64_t a1)
 {
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = *(*(a1 + 32) + 16);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
-        v8 = *(a1 + 40);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 *(a1 + 40)];
@@ -5287,7 +5280,7 @@ void sub_1000596C4(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -5307,27 +5300,26 @@ void sub_1000598C4(uint64_t a1)
 {
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = *(*(a1 + 32) + 16);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
-        v8 = *(a1 + 40);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 *(a1 + 40)];
@@ -5337,7 +5329,7 @@ void sub_1000598C4(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -5961,9 +5953,9 @@ void sub_10005F938(uint64_t a1, void *a2, void *a3)
   _Block_object_dispose(&v22, 8);
 }
 
-void sub_10005FB44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10005FB44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6008,32 +6000,28 @@ void sub_10006171C(uint64_t a1)
 
   if (!v2)
   {
-    v3 = +[NSMutableDictionary dictionary];
-    v4 = *(a1 + 40);
-    v13 = v3;
+    v9 = +[NSMutableDictionary dictionary];
     [*(*(a1 + 32) + 16) setObject:? forKeyedSubscript:?];
   }
 
-  v5 = *(a1 + 48);
-  if (v5 && ([v5 user], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
+  v3 = *(a1 + 48);
+  if (v3 && ([v3 user], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
   {
-    v7 = [*(a1 + 48) user];
-    v8 = *(a1 + 40);
-    v14 = v7;
+    v10 = [*(a1 + 48) user];
     [*(*(a1 + 32) + 24) setObject:? forKeyedSubscript:?];
 
-    v9 = *(a1 + 48);
-    v15 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
-    v10 = [*(a1 + 48) user];
-    [v15 setObject:v9 forKeyedSubscript:v10];
+    v5 = *(a1 + 48);
+    v11 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
+    v6 = [*(a1 + 48) user];
+    [v11 setObject:v5 forKeyedSubscript:v6];
   }
 
   else
   {
-    v11 = *(a1 + 40);
-    v12 = *(*(a1 + 32) + 24);
+    v7 = *(a1 + 40);
+    v8 = *(*(a1 + 32) + 24);
 
-    [v12 removeObjectForKey:v11];
+    [v8 removeObjectForKey:v7];
   }
 }
 
@@ -6056,25 +6044,21 @@ void sub_100061CD8(uint64_t a1, void *a2)
 
 void sub_100061D98(uint64_t a1)
 {
-  v2 = [*(a1 + 48) user];
-  v3 = *(a1 + 40);
-  v9 = v2;
+  v5 = [*(a1 + 48) user];
   [*(*(a1 + 32) + 24) setObject:? forKeyedSubscript:?];
 
-  v4 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
+  v2 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
 
-  if (!v4)
+  if (!v2)
   {
-    v5 = +[NSMutableDictionary dictionary];
-    v6 = *(a1 + 40);
-    v10 = v5;
+    v6 = +[NSMutableDictionary dictionary];
     [*(*(a1 + 32) + 16) setObject:? forKeyedSubscript:?];
   }
 
-  v7 = *(a1 + 48);
-  v11 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
-  v8 = [*(a1 + 48) user];
-  [v11 setObject:v7 forKeyedSubscript:v8];
+  v3 = *(a1 + 48);
+  v7 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
+  v4 = [*(a1 + 48) user];
+  [v7 setObject:v3 forKeyedSubscript:v4];
 }
 
 uint64_t sub_100061EC4(uint64_t result, uint64_t a2)
@@ -6120,33 +6104,29 @@ void sub_100061FC8(uint64_t a1)
   v2 = *(a1 + 32);
   if (v2 && ([v2 user], v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
   {
-    v4 = [*(a1 + 32) user];
-    v5 = *(a1 + 48);
-    v13 = v4;
+    v9 = [*(a1 + 32) user];
     [*(*(a1 + 40) + 24) setObject:? forKeyedSubscript:?];
 
-    v6 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:*(a1 + 48)];
+    v4 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:*(a1 + 48)];
 
-    if (!v6)
+    if (!v4)
     {
-      v7 = +[NSMutableDictionary dictionary];
-      v8 = *(a1 + 48);
-      v14 = v7;
+      v10 = +[NSMutableDictionary dictionary];
       [*(*(a1 + 40) + 16) setObject:? forKeyedSubscript:?];
     }
 
-    v9 = *(a1 + 32);
-    v15 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:*(a1 + 48)];
-    v10 = [*(a1 + 32) user];
-    [v15 setObject:v9 forKeyedSubscript:v10];
+    v5 = *(a1 + 32);
+    v11 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:*(a1 + 48)];
+    v6 = [*(a1 + 32) user];
+    [v11 setObject:v5 forKeyedSubscript:v6];
   }
 
   else
   {
-    v11 = *(a1 + 48);
-    v12 = *(*(a1 + 40) + 24);
+    v7 = *(a1 + 48);
+    v8 = *(*(a1 + 40) + 24);
 
-    [v12 removeObjectForKey:v11];
+    [v8 removeObjectForKey:v7];
   }
 }
 
@@ -6175,18 +6155,16 @@ void sub_1000624F8(void *a1)
 
   if (!v2)
   {
-    v3 = +[NSMutableDictionary dictionary];
-    v4 = a1[5];
-    v7 = v3;
+    v5 = +[NSMutableDictionary dictionary];
     [*(a1[4] + 16) setObject:? forKeyedSubscript:?];
   }
 
-  v5 = a1[6];
-  if (v5)
+  v3 = a1[6];
+  if (v3)
   {
-    v8 = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
-    v6 = [a1[6] user];
-    [v8 setObject:v5 forKeyedSubscript:v6];
+    v6 = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
+    v4 = [a1[6] user];
+    [v6 setObject:v3 forKeyedSubscript:v4];
   }
 }
 
@@ -6259,12 +6237,10 @@ void sub_100062C8C(void *a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100062CE4(void *a1)
+void sub_100062CE4(uint64_t a1)
 {
-  v2 = [NSMutableDictionary dictionaryWithDictionary:a1[6]];
-  v3 = a1[5];
-  v4 = v2;
-  [*(a1[4] + 16) setObject:? forKeyedSubscript:?];
+  v2 = [NSMutableDictionary dictionaryWithDictionary:*(a1 + 48)];
+  [*(*(a1 + 32) + 16) setObject:? forKeyedSubscript:?];
 }
 
 void sub_100062D64(id a1, NSError *a2)
@@ -6412,29 +6388,28 @@ void sub_100065C90(uint64_t a1, void *a2, void *a3)
     v9 = [NSError _web_errorWithDomain:NSURLErrorDomain code:-997 URL:v8];
 
     [*(a1 + 32) _nsurlsessionproxy_cancelWithError:v9];
-    v10 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v11 = v5;
-    v12 = [v11 request];
-    v13 = [v12 _actualRequest];
+    v10 = v5;
+    v11 = [v10 request];
+    v12 = [v11 _actualRequest];
 
-    v14 = qword_1000EB1D8;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = qword_1000EB1D8;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [*(a1 + 48) descriptionForTaskWithIdentifier:*(a1 + 64)];
-      v16 = 138543618;
-      v17 = v15;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ client responded to redirect with request %@", &v16, 0x16u);
+      v14 = [*(a1 + 48) descriptionForTaskWithIdentifier:*(a1 + 64)];
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ client responded to redirect with request %@", &v15, 0x16u);
     }
 
     (*(*(a1 + 56) + 16))();
-    if (!v13)
+    if (!v12)
     {
       [*(a1 + 32) cancel];
     }
@@ -6590,11 +6565,11 @@ void sub_100067B74(uint64_t a1)
       v4 = [v3 code];
       v5 = *(a1 + 64);
       *buf = 138412802;
-      v14 = v3;
-      v15 = 2048;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v5;
+      v13 = v3;
+      v14 = 2048;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v5;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Received error %@ [%ld] reading from streamTask %@", buf, 0x20u);
     }
 
@@ -6609,8 +6584,7 @@ void sub_100067B74(uint64_t a1)
   {
     v8 = [*(a1 + 40) _createDispatchData];
     v10 = *(a1 + 48);
-    v11 = *(a1 + 56);
-    v12 = *(a1 + 64);
+    v11 = *(a1 + 64);
     tcp_connection_write();
   }
 
@@ -6720,18 +6694,16 @@ void sub_100068584(uint64_t a1, uint64_t a2, void *a3)
     v7 = [v5 streamTaskWithHostName:v6 port:{objc_msgSend(*(a1 + 40), "port")}];
 
     [v7 resume];
-    v8 = *(*(a1 + 32) + 144);
-    v9 = tcp_connection_create_with_connected_fd();
+    v8 = tcp_connection_create_with_connected_fd();
     tcp_connection_allow_client_socket_access();
-    v11 = v9;
-    v12 = *(a1 + 32);
-    v13 = v7;
+    v10 = v8;
+    v11 = v7;
     tcp_connection_set_event_handler();
     tcp_connection_start();
-    [*(*(a1 + 32) + 88) setObject:*(*(*(a1 + 56) + 8) + 40) forKeyedSubscript:v13];
-    [*(*(a1 + 32) + 96) setObject:v11 forKeyedSubscript:v13];
-    v10 = objc_retainBlock(*(a1 + 48));
-    [*(*(a1 + 32) + 104) setObject:v10 forKeyedSubscript:v13];
+    [*(*(a1 + 32) + 88) setObject:*(*(*(a1 + 56) + 8) + 40) forKeyedSubscript:v11];
+    [*(*(a1 + 32) + 96) setObject:v10 forKeyedSubscript:v11];
+    v9 = objc_retainBlock(*(a1 + 48));
+    [*(*(a1 + 32) + 104) setObject:v9 forKeyedSubscript:v11];
   }
 }
 
@@ -6741,11 +6713,11 @@ void sub_100068768(uint64_t a1, unsigned int a2)
   if (os_log_type_enabled(qword_1000EB1D8, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 134218240;
-    v8 = v5;
-    v9 = 2048;
-    v10 = a2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "received tcp_connection (%p) event %lu", &v7, 0x16u);
+    v6 = 134218240;
+    v7 = v5;
+    v8 = 2048;
+    v9 = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "received tcp_connection (%p) event %lu", &v6, 0x16u);
   }
 
   if (a2 == 3)
@@ -6753,7 +6725,6 @@ void sub_100068768(uint64_t a1, unsigned int a2)
     [*(a1 + 48) closeRead];
     [*(a1 + 48) closeWrite];
     [*(a1 + 48) cancel];
-    v6 = *(a1 + 32);
     tcp_connection_cancel();
   }
 
@@ -6776,7 +6747,7 @@ void sub_100068A5C(uint64_t a1)
     {
       v7 = 0;
       *&v6 = 138544130;
-      v20 = v6;
+      v19 = v6;
       do
       {
         if ([*(a1 + 40) streamStatus] > 4)
@@ -6791,18 +6762,18 @@ void sub_100068A5C(uint64_t a1)
           v10 = qword_1000EB1D8;
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            v21 = [*(a1 + 48) descriptionForTaskWithIdentifier:*(a1 + 80)];
+            v20 = [*(a1 + 48) descriptionForTaskWithIdentifier:*(a1 + 80)];
             v16 = [*(a1 + 40) streamError];
             v17 = [*(a1 + 40) streamError];
             v18 = [v17 code];
-            *buf = v20;
-            v23 = v21;
-            v24 = 1024;
-            v25 = v9;
-            v26 = 2112;
-            v27 = v16;
-            v28 = 2048;
-            v29 = v18;
+            *buf = v19;
+            v22 = v20;
+            v23 = 1024;
+            v24 = v9;
+            v25 = 2112;
+            v26 = v16;
+            v27 = 2048;
+            v28 = v18;
             _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@ writing to stream returned %d, error %@ [%ld]", buf, 0x26u);
           }
 
@@ -6839,7 +6810,6 @@ void sub_100068A5C(uint64_t a1)
     [*(a1 + 40) close];
   }
 
-  v19 = *(a1 + 64);
   (*(*(a1 + 72) + 16))();
 
   objc_autoreleasePoolPop(v2);
@@ -7118,20 +7088,20 @@ void sub_10006D8E0(uint64_t a1)
   }
 }
 
-id sub_10006D9A8(uint64_t a1)
+id sub_10006D9A8(uint64_t a1, uint64_t a2)
 {
-  v2 = IOPSDrawingUnlimitedPower();
-  v3 = *(a1 + 32);
-  if (v2)
+  v3 = IOPSDrawingUnlimitedPower();
+  v4 = *(a1 + 32);
+  if (v3)
   {
 
-    return [v3 stopThroughputMonitoring];
+    return [v4 stopThroughputMonitoring];
   }
 
   else
   {
 
-    return [v3 startThroughputMonitoring];
+    return [v4 startThroughputMonitoring];
   }
 }
 
@@ -7247,7 +7217,6 @@ void sub_10006E370(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
 uint64_t sub_10006E5E0(double a1)
 {
   sub_100088B68(a1);
-  v2 = *(v1 + 2360);
   result = objc_opt_class();
   if (result)
   {
@@ -7690,7 +7659,7 @@ void sub_100072244(id a1)
   qword_1000EB1E8 = v1;
 }
 
-void sub_100072EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
+void sub_100072EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -7722,9 +7691,9 @@ void sub_100072F90(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_100073D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, ...)
+void sub_100073D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -7742,7 +7711,7 @@ id sub_100073D58(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
   return result;
 }
 
-void sub_100073FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_100073FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -8320,10 +8289,10 @@ void sub_100075888(id a1, NSString *a2, NSArray *a3, BOOL *a4)
   }
 }
 
-void sub_100075A04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100075A04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = NDSpringBoard;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8377,13 +8346,11 @@ void sub_100076850(void *a1)
   if (!v2)
   {
     v3 = +[NSMutableArray array];
-    v4 = a1[5];
-    v5 = v3;
     [*(a1[4] + 24) setObject:? forKeyedSubscript:?];
   }
 
-  v6 = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
-  [v6 addObject:a1[6]];
+  v4 = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
+  [v4 addObject:a1[6]];
 }
 
 void sub_100076A34(id a1)
@@ -8901,12 +8868,11 @@ id sub_10007C328(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [*(a1 + 40) descriptionForTaskWithIdentifier:*(a1 + 72)];
-      v6 = 138543362;
-      v7 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ failed to ask client for modified request, using original proposed request", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ failed to ask client for modified request, using original proposed request", &v5, 0xCu);
     }
 
-    v5 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
     [*(a1 + 32) setHasBeenCalled:1];
     return [*(*(a1 + 56) + 8) removeObject:*(a1 + 32)];
@@ -8966,4 +8932,34 @@ void sub_10007C638(uint64_t a1, void *a2)
     [*(a1 + 32) setHasBeenCalled:1];
     [*(*(a1 + 40) + 8) removeObject:*(a1 + 32)];
   }
+}
+
+void sub_10007C73C(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = qword_1000EB210;
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = [*(a1 + 32) descriptionForTaskWithIdentifier:*(a1 + 56)];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ failed to deliver resolved MediaSelection", &v6, 0xCu);
+  }
+
+  [*(*(a1 + 40) + 8) removeObject:*(a1 + 48)];
+}
+
+void sub_10007C84C(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = qword_1000EB210;
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = [*(a1 + 32) descriptionForTaskWithIdentifier:*(a1 + 56)];
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ failed to deliver downloaded HLS variants", &v6, 0xCu);
+  }
+
+  [*(*(a1 + 40) + 8) removeObject:*(a1 + 48)];
 }

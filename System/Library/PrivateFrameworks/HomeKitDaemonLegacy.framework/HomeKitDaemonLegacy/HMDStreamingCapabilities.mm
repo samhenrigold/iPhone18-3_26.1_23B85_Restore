@@ -31,37 +31,37 @@
 
 - (HMDStreamingCapabilities)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = HMDStreamingCapabilities;
-  v5 = [(HMDStreamingCapabilities *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = HMDStreamingCapabilities;
+  v5 = [(HMDStreamingCapabilities *)&v22 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"a"];
     supportedVideoCodecs = v5->_supportedVideoCodecs;
     v5->_supportedVideoCodecs = v9;
 
     v11 = MEMORY[0x277CBEB98];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v25[2] = objc_opt_class();
-    v25[3] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v24[2] = objc_opt_class();
+    v24[3] = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"b"];
     supportedAudioCodecs = v5->_supportedAudioCodecs;
     v5->_supportedAudioCodecs = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v18 = [v16 setWithArray:v17];
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"c"];
     supportedVideoResolutions = v5->_supportedVideoResolutions;
@@ -71,7 +71,6 @@
     v5->_supportsComfortNoise = [coderCopy decodeBoolForKey:@"e"];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -156,7 +155,7 @@
 
 - (void)_updateWithStreamPreference:(id)preference
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   preferenceCopy = preference;
   videoPreferences = [preferenceCopy videoPreferences];
   resolutions = [videoPreferences resolutions];
@@ -164,27 +163,27 @@
   if ([resolutions count])
   {
     v7 = [MEMORY[0x277CBEB58] set];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     v8 = resolutions;
     v9 = resolutions;
-    v10 = [v9 countByEnumeratingWithState:&v57 objects:v67 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v56 objects:v66 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v58;
+      v12 = *v57;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v58 != v12)
+          if (*v57 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          videoResolution = [*(*(&v57 + 1) + 8 * i) videoResolution];
+          videoResolution = [*(*(&v56 + 1) + 8 * i) videoResolution];
           if ((videoResolution - 1) <= 0x1C)
           {
             v15 = [[HMDVideoResolution alloc] initWithResolution:videoResolution];
@@ -192,13 +191,13 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v57 objects:v67 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v56 objects:v66 count:16];
       }
 
       while (v11);
     }
 
-    v16 = [v7 copy];
+    v16 = objc_msgSend_copy(v7);
     supportedVideoResolutions = self->_supportedVideoResolutions;
     self->_supportedVideoResolutions = v16;
 
@@ -209,9 +208,9 @@
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v64 = v21;
-      v65 = 2112;
-      v66 = v7;
+      v63 = v21;
+      v64 = 2112;
+      v65 = v7;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Overriding the video resolution capabilities with %@", buf, 0x16u);
     }
 
@@ -224,31 +223,31 @@
 
   if ([codecs count])
   {
-    v48 = resolutions;
+    v47 = resolutions;
     v24 = [MEMORY[0x277CBEB58] set];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     v25 = codecs;
-    v26 = [v25 countByEnumeratingWithState:&v53 objects:v62 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v52 objects:v61 count:16];
     if (!v26)
     {
       goto LABEL_27;
     }
 
     v27 = v26;
-    v28 = *v54;
+    v28 = *v53;
     while (1)
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v54 != v28)
+        if (*v53 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        audioCodec = [*(*(&v53 + 1) + 8 * j) audioCodec];
+        audioCodec = [*(*(&v52 + 1) + 8 * j) audioCodec];
         if (audioCodec == 1)
         {
           v31 = 2;
@@ -268,7 +267,7 @@
         [v24 addObject:v32];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v53 objects:v62 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v52 objects:v61 count:16];
       if (!v27)
       {
 LABEL_27:
@@ -276,53 +275,53 @@ LABEL_27:
         supportedAudioCodecs = [(HMDStreamingCapabilities *)self supportedAudioCodecs];
         v34 = [supportedAudioCodecs mutableCopy];
 
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
         supportedAudioCodecs2 = [(HMDStreamingCapabilities *)self supportedAudioCodecs];
-        v36 = [supportedAudioCodecs2 countByEnumeratingWithState:&v49 objects:v61 count:16];
+        v36 = [supportedAudioCodecs2 countByEnumeratingWithState:&v48 objects:v60 count:16];
         if (v36)
         {
           v37 = v36;
-          v38 = *v50;
+          v38 = *v49;
           do
           {
             for (k = 0; k != v37; ++k)
             {
-              if (*v50 != v38)
+              if (*v49 != v38)
               {
                 objc_enumerationMutation(supportedAudioCodecs2);
               }
 
-              v40 = *(*(&v49 + 1) + 8 * k);
+              v40 = *(*(&v48 + 1) + 8 * k);
               if (([v24 containsObject:v40] & 1) == 0)
               {
                 [v34 removeObjectForKey:v40];
               }
             }
 
-            v37 = [supportedAudioCodecs2 countByEnumeratingWithState:&v49 objects:v61 count:16];
+            v37 = [supportedAudioCodecs2 countByEnumeratingWithState:&v48 objects:v60 count:16];
           }
 
           while (v37);
         }
 
-        v41 = [v34 copy];
+        v41 = objc_msgSend_copy(v34);
         supportedAudioCodecs = self->_supportedAudioCodecs;
         self->_supportedAudioCodecs = v41;
 
         v43 = objc_autoreleasePoolPush();
         selfCopy2 = self;
         v45 = HMFGetOSLogHandle();
-        resolutions = v48;
+        resolutions = v47;
         if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
           v46 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v64 = v46;
-          v65 = 2112;
-          v66 = v34;
+          v63 = v46;
+          v64 = 2112;
+          v65 = v34;
           _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@Overriding the audio codec group capabilities with %@", buf, 0x16u);
         }
 
@@ -331,8 +330,6 @@ LABEL_27:
       }
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_supportedResolutionsWithOverrides
@@ -410,7 +407,7 @@ LABEL_27:
   v25 = [[HMDVideoResolution alloc] initWithResolution:v7];
   [v2 addObject:v25];
 
-  v26 = [v2 copy];
+  v26 = objc_msgSend_copy(v2);
 
   return v26;
 }
@@ -473,18 +470,18 @@ LABEL_27:
 
 void __53__HMDStreamingCapabilities_initWithStreamPreference___block_invoke()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CE56E8] capabilities];
   v1 = objc_autoreleasePoolPush();
   v2 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v0;
-    _os_log_impl(&dword_2531F8000, v2, OS_LOG_TYPE_INFO, "%{public}@Audio streaming capabilities as reported by AVCAudioStream: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v0;
+    _os_log_impl(&dword_2531F8000, v2, OS_LOG_TYPE_INFO, "%{public}@Audio streaming capabilities as reported by AVCAudioStream: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v1);
@@ -494,19 +491,17 @@ void __53__HMDStreamingCapabilities_initWithStreamPreference___block_invoke()
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Video streaming capabilities as reported by AVCVideoStream: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Video streaming capabilities as reported by AVCVideoStream: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   v8 = [v0 mutableCopy];
   [v8 addEntriesFromDictionary:v4];
   [HMDStreamingCapabilities translateCapabilities:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -538,7 +533,7 @@ void __53__HMDStreamingCapabilities_initWithStreamPreference___block_invoke()
 
 + (unint64_t)aspectRatioOfResolution:(id)resolution
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   resolutionCopy = resolution;
   resolutionType = [resolutionCopy resolutionType];
   if ((resolutionType - 1) >= 0x1D)
@@ -549,13 +544,13 @@ void __53__HMDStreamingCapabilities_initWithStreamPreference___block_invoke()
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543874;
-      v14 = v10;
-      v15 = 2112;
-      v16 = resolutionCopy;
-      v17 = 2112;
-      v18 = @"HMDVideoResolutionAspectRatio16x9";
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Resolution: %@ is not handled, returning default aspect ratio: %@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v10;
+      v14 = 2112;
+      v15 = resolutionCopy;
+      v16 = 2112;
+      v17 = @"HMDVideoResolutionAspectRatio16x9";
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Resolution: %@ is not handled, returning default aspect ratio: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -567,13 +562,12 @@ void __53__HMDStreamingCapabilities_initWithStreamPreference___block_invoke()
     v6 = qword_253D4B930[resolutionType - 1];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (void)translateCapabilities:(id)capabilities
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v5 = [capabilitiesCopy objectForKeyedSubscript:*MEMORY[0x277CE5790]];
@@ -582,29 +576,29 @@ void __53__HMDStreamingCapabilities_initWithStreamPreference___block_invoke()
   aBlock[2] = __50__HMDStreamingCapabilities_translateCapabilities___block_invoke;
   aBlock[3] = &unk_279728250;
   v6 = dictionary;
-  v60 = v6;
+  v59 = v6;
   v7 = _Block_copy(aBlock);
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v55 objects:v64 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v54 objects:v63 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v56;
+    v11 = *v55;
     do
     {
       v12 = 0;
       do
       {
-        if (*v56 != v11)
+        if (*v55 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        unsignedIntegerValue = [*(*(&v55 + 1) + 8 * v12) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v54 + 1) + 8 * v12) unsignedIntegerValue];
         if (unsignedIntegerValue > 3)
         {
           if (unsignedIntegerValue > 8)
@@ -698,41 +692,41 @@ LABEL_28:
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v54 objects:v63 count:16];
     }
 
     while (v10);
   }
 
-  v45 = v6;
-  v18 = [v6 copy];
+  v44 = v6;
+  v18 = objc_msgSend_copy(v6);
   v19 = supportedHMDAudioCodecs;
   supportedHMDAudioCodecs = v18;
 
-  v46 = capabilitiesCopy;
+  v45 = capabilitiesCopy;
   v20 = [capabilitiesCopy objectForKeyedSubscript:*MEMORY[0x277CE5798]];
   v21 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v20, "count")}];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v22 = v20;
-  v23 = [v22 countByEnumeratingWithState:&v51 objects:v63 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v50 objects:v62 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v52;
+    v25 = *v51;
     do
     {
       v26 = 0;
       do
       {
-        if (*v52 != v25)
+        if (*v51 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        if (![*(*(&v51 + 1) + 8 * v26) unsignedIntegerValue])
+        if (![*(*(&v50 + 1) + 8 * v26) unsignedIntegerValue])
         {
           v27 = [[HMDVideoCodec alloc] initWithCodec:0];
           [v21 addObject:v27];
@@ -742,13 +736,13 @@ LABEL_28:
       }
 
       while (v24 != v26);
-      v24 = [v22 countByEnumeratingWithState:&v51 objects:v63 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v50 objects:v62 count:16];
     }
 
     while (v24);
   }
 
-  v28 = [v21 copy];
+  v28 = objc_msgSend_copy(v21);
   v29 = supportedHMDVideoCodecs;
   supportedHMDVideoCodecs = v28;
 
@@ -756,38 +750,38 @@ LABEL_28:
   {
     v30 = MEMORY[0x277CBEB98];
     v31 = [[HMDVideoResolution alloc] initWithResolution:1];
-    v62 = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+    v61 = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
     v33 = [v30 setWithArray:v32];
-    v34 = v46;
+    v34 = v45;
   }
 
   else
   {
-    v44 = v8;
-    v35 = [v46 objectForKeyedSubscript:*MEMORY[0x277CE57A0]];
+    v43 = v8;
+    v35 = [v45 objectForKeyedSubscript:*MEMORY[0x277CE57A0]];
     v32 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v35, "count")}];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v31 = v35;
-    v36 = [(HMDVideoResolution *)v31 countByEnumeratingWithState:&v47 objects:v61 count:16];
+    v36 = [(HMDVideoResolution *)v31 countByEnumeratingWithState:&v46 objects:v60 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v48;
+      v38 = *v47;
       do
       {
         v39 = 0;
         do
         {
-          if (*v48 != v38)
+          if (*v47 != v38)
           {
             objc_enumerationMutation(v31);
           }
 
-          unsignedIntegerValue2 = [*(*(&v47 + 1) + 8 * v39) unsignedIntegerValue];
+          unsignedIntegerValue2 = [*(*(&v46 + 1) + 8 * v39) unsignedIntegerValue];
           if (unsignedIntegerValue2 <= 9)
           {
             v41 = [[HMDVideoResolution alloc] initWithResolution:unsignedIntegerValue2 + 1];
@@ -798,21 +792,19 @@ LABEL_28:
         }
 
         while (v37 != v39);
-        v37 = [(HMDVideoResolution *)v31 countByEnumeratingWithState:&v47 objects:v61 count:16];
+        v37 = [(HMDVideoResolution *)v31 countByEnumeratingWithState:&v46 objects:v60 count:16];
       }
 
       while (v37);
     }
 
-    v33 = [v32 copy];
-    v34 = v46;
-    v8 = v44;
+    v33 = objc_msgSend_copy(v32);
+    v34 = v45;
+    v8 = v43;
   }
 
   v42 = supportedHMDVideoResolutions;
   supportedHMDVideoResolutions = v33;
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDStreamingCapabilities_translateCapabilities___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -825,14 +817,14 @@ void __50__HMDStreamingCapabilities_translateCapabilities___block_invoke(uint64_
     v7 = v6;
     v8 = [v6 mutableCopy];
     [v8 addObject:v5];
-    v9 = [v8 copy];
+    v9 = objc_msgSend_copy(v8);
   }
 
   else
   {
     v8 = [MEMORY[0x277CBEB58] set];
     [v8 addObject:v5];
-    v9 = [v8 copy];
+    v9 = objc_msgSend_copy(v8);
   }
 
   [*(a1 + 32) setObject:v9 forKeyedSubscript:v10];

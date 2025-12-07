@@ -90,16 +90,16 @@
   digestSummaryPlatterView = self->_digestSummaryPlatterView;
   if (isOnboardingSummary)
   {
-    [(NCDigestSummaryPlatterView *)self->_digestSummaryPlatterView setDate:0];
-    v6 = self->_digestSummaryPlatterView;
-    v7 = NCUserNotificationsUIKitFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_TITLE" value:&stru_282FE84F8 table:0];
-    [(NCDigestSummaryPlatterView *)v6 setHeading:v8];
+    v6 = [(NCDigestSummaryPlatterView *)self->_digestSummaryPlatterView setDate:0];
+    v7 = self->_digestSummaryPlatterView;
+    v8 = NCUserNotificationsUIKitFrameworkBundle(v6);
+    v9 = [v8 localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_TITLE" value:&stru_282FE84F8 table:0];
+    [(NCDigestSummaryPlatterView *)v7 setHeading:v9];
 
-    v9 = self->_digestSummaryPlatterView;
-    summaryHeading = NCUserNotificationsUIKitFrameworkBundle();
-    v11 = [summaryHeading localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_MESSAGE" value:&stru_282FE84F8 table:0];
-    [(NCDigestSummaryPlatterView *)v9 setSubheading:v11];
+    v10 = self->_digestSummaryPlatterView;
+    summaryHeading = NCUserNotificationsUIKitFrameworkBundle(v11);
+    v13 = [summaryHeading localizedStringForKey:@"NOTIFICATION_SUMMARY_ONBOARDING_SUGGESTION_MESSAGE" value:&stru_282FE84F8 table:0];
+    [(NCDigestSummaryPlatterView *)v10 setSubheading:v13];
   }
 
   else
@@ -116,21 +116,21 @@
       [(NCDigestSummaryPlatterView *)digestSummaryPlatterView setDate:date];
     }
 
-    v14 = self->_digestSummaryPlatterView;
+    v16 = self->_digestSummaryPlatterView;
     summaryHeading = [(NCNotificationSummaryOrderProvider *)self summaryHeading];
-    [(NCDigestSummaryPlatterView *)v14 setHeading:summaryHeading];
+    [(NCDigestSummaryPlatterView *)v16 setHeading:summaryHeading];
   }
 
   _atxHighlightedGroups = [(NCNotificationDigestDetailedSummaryOrderProvider *)self _atxHighlightedGroups];
   [(NCNotificationDigestDetailedSummaryOrderProvider *)self _updateFeaturedNotificationContentProvidersWithHighlightedGroups:_atxHighlightedGroups];
   [(NCNotificationDigestDetailedSummaryOrderProvider *)self _updateCommunicationsSummaryContentProvider];
-  v15 = MEMORY[0x277CBEB18];
+  v17 = MEMORY[0x277CBEB18];
   userNotificationDigest = [(NCNotificationDigestSummaryOrderProvider *)self userNotificationDigest];
   rankedGroups = [userNotificationDigest rankedGroups];
-  v18 = [v15 arrayWithArray:rankedGroups];
+  v20 = [v17 arrayWithArray:rankedGroups];
 
-  [v18 removeObjectsInArray:_atxHighlightedGroups];
-  [(NCNotificationDigestDetailedSummaryOrderProvider *)self _updateAppsSummaryContentProvidersWithRankedGroups:v18];
+  [v20 removeObjectsInArray:_atxHighlightedGroups];
+  [(NCNotificationDigestDetailedSummaryOrderProvider *)self _updateAppsSummaryContentProvidersWithRankedGroups:v20];
   if ([(NCNotificationSummaryOrderProvider *)self isOnboardingSummary])
   {
     [(NCDigestSummaryPlatterView *)self->_digestSummaryPlatterView setCount:0];
@@ -139,28 +139,28 @@
   else if ([(NCNotificationDigestDetailedSummaryOrderProvider *)self _shouldAllowTapOnLeadingSummaryPlatterView])
   {
     cachedOrderedNotificationGroupLists = [(NCNotificationSummaryOrderProvider *)self cachedOrderedNotificationGroupLists];
-    v20 = [(NCNotificationSummaryOrderProvider *)self notificationCountForNotificationGroupLists:cachedOrderedNotificationGroupLists];
+    v22 = [(NCNotificationSummaryOrderProvider *)self notificationCountForNotificationGroupLists:cachedOrderedNotificationGroupLists];
 
-    if (v20 >= 0x63)
+    if (v22 >= 0x63)
     {
-      v21 = 99;
+      v23 = 99;
     }
 
     else
     {
-      v21 = v20;
+      v23 = v22;
     }
 
-    [(NCDigestSummaryPlatterView *)self->_digestSummaryPlatterView setCount:v21];
+    [(NCDigestSummaryPlatterView *)self->_digestSummaryPlatterView setCount:v23];
     [(NCDigestSummaryPlatterView *)self->_digestSummaryPlatterView setClearControlView:0];
   }
 
   else
   {
     [(NCDigestSummaryPlatterView *)self->_digestSummaryPlatterView setCount:0];
-    v22 = self->_digestSummaryPlatterView;
+    v24 = self->_digestSummaryPlatterView;
     clearControlViewForLeadingSummaryPlatterView = [(NCNotificationSummaryOrderProvider *)self clearControlViewForLeadingSummaryPlatterView];
-    [(NCDigestSummaryPlatterView *)v22 setClearControlView:clearControlViewForLeadingSummaryPlatterView];
+    [(NCDigestSummaryPlatterView *)v24 setClearControlView:clearControlViewForLeadingSummaryPlatterView];
   }
 
   delegate = [(NCNotificationSummaryOrderProvider *)self delegate];

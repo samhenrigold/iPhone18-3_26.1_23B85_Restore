@@ -19,7 +19,7 @@
 
 - (id)websiteURLWithQueryParameters
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   webPageURL = [(VSOnscreenCodeViewModel *)self webPageURL];
 
   if (!webPageURL)
@@ -46,8 +46,8 @@ LABEL_10:
 
   v7 = v6;
   queryItems = [v7 queryItems];
-  v32 = v7;
-  v33 = webPageURL3;
+  v31 = v7;
+  v32 = webPageURL3;
   if (queryItems)
   {
     queryItems2 = [v7 queryItems];
@@ -67,26 +67,26 @@ LABEL_10:
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v35;
+    v17 = *v34;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v35 != v17)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * i);
+        v19 = *(*(&v33 + 1) + 8 * i);
         name = [v19 name];
         v21 = [name isEqualToString:@"code"];
 
@@ -97,12 +97,12 @@ LABEL_10:
         if (v21 & 1) != 0 || (v24)
         {
           v27 = v14;
-          v29 = v32;
+          v29 = v31;
           goto LABEL_23;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v16)
       {
         continue;
@@ -118,14 +118,13 @@ LABEL_10:
 
   [v14 addObject:v27];
   v28 = [v14 copy];
-  v29 = v32;
-  [v32 setQueryItems:v28];
+  v29 = v31;
+  [v31 setQueryItems:v28];
 
 LABEL_23:
   v13 = [v29 URL];
 
 LABEL_24:
-  v30 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

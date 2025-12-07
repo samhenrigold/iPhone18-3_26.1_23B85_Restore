@@ -116,9 +116,9 @@
 
   if (v16 != objc_msgSend_incrementReferenceFromIdentifier_toIdentifier_increment_(objectToDataReferenceMap, v15, identifierCopy, dataIdentifier, increment))
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Inconsistent internal structure for component data reference map.", "[TSPMutableComponentDataReferenceMap incrementReferenceFromObjectIdentifier:toDataIdentifier:objectHasUUID:increment:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentDataReferenceMap.mm", 270);
     v27 = MEMORY[0x277D81150];
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPMutableComponentDataReferenceMap incrementReferenceFromObjectIdentifier:toDataIdentifier:objectHasUUID:increment:]", "[TSPMutableComponentDataReferenceMap incrementReferenceFromObjectIdentifier:toDataIdentifier:objectHasUUID:increment:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentDataReferenceMap.mm", 270);
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[TSPMutableComponentDataReferenceMap incrementReferenceFromObjectIdentifier:toDataIdentifier:objectHasUUID:increment:]");
     v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentDataReferenceMap.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v32, v29, v31, 270, 1, "Inconsistent internal structure for component data reference map.");
 
@@ -148,14 +148,14 @@
 
 - (void)objectIdentifier:(int64_t)identifier didResetToObjectIdentifier:(int64_t)objectIdentifier
 {
-  v22[0] = identifier;
+  identifierCopy = identifier;
   v7 = objc_msgSend_allReferencesFromIdentifier_(self->_objectToDataReferenceMap, a2, objectIdentifier);
 
   if (v7)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should not have references from the new object identifier.", "[TSPMutableComponentDataReferenceMap objectIdentifier:didResetToObjectIdentifier:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentDataReferenceMap.mm", 284);
     v15 = MEMORY[0x277D81150];
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSPMutableComponentDataReferenceMap objectIdentifier:didResetToObjectIdentifier:]", "[TSPMutableComponentDataReferenceMap objectIdentifier:didResetToObjectIdentifier:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentDataReferenceMap.mm", 284);
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSPMutableComponentDataReferenceMap objectIdentifier:didResetToObjectIdentifier:]");
     v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentDataReferenceMap.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v17, v19, 284, 1, "Should not have references from the new object identifier.");
 
@@ -189,8 +189,8 @@
     operator new();
   }
 
-  v22[2] = v22;
-  sub_276AA5EAC(resetObjectIdentifiers, v22)[3] = objectIdentifier;
+  v23 = &identifierCopy;
+  sub_276AA5EAC(resetObjectIdentifiers, &identifierCopy, &unk_276C16A92, &v23)[3] = objectIdentifier;
 }
 
 - (id)makeComponentDataReferenceMap

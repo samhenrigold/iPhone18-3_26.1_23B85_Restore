@@ -44,80 +44,17 @@
 - (BOOL)publisherFilter:(id)filter
 {
   eventBody = [filter eventBody];
-  if (!eventBody)
+  if (eventBody && (objc_msgSend_home(self), v5 = objc_claimAutoreleasedReturnValue(), [v5 uniqueIdentifier], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "UUIDString"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(eventBody, "base"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "homeUniqueIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v7, "isEqualToString:", v9), v9, v8, v7, v6, v5, v10) && ((-[HFBiomeAbstractFetchRequest room](self, "room"), (v11 = objc_claimAutoreleasedReturnValue()) == 0) || (v12 = v11, -[HFBiomeAbstractFetchRequest room](self, "room"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "uniqueIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "UUIDString"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(eventBody, "roomUniqueIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqualToString:", v16), v16, v15, v14, v13, v12, v17)) && ((-[HFBiomeAbstractFetchRequest zone](self, "zone"), (v18 = objc_claimAutoreleasedReturnValue()) == 0) || (v19 = v18, objc_msgSend(eventBody, "zoneUniqueIdentifiers"), v20 = objc_claimAutoreleasedReturnValue(), -[HFBiomeAbstractFetchRequest zone](self, "zone"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "uniqueIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "UUIDString"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v20, "containsObject:", v23), v23, v22, v21, v20, v19, v24)) && ((-[HFBiomeAbstractFetchRequest accessory](self, "accessory"), (v25 = objc_claimAutoreleasedReturnValue()) == 0) || (v26 = v25, -[HFBiomeAbstractFetchRequest accessory](self, "accessory"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "uniqueIdentifier"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "UUIDString"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(eventBody, "accessoryUniqueIdentifier"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v29, "isEqualToString:", v30), v30, v29, v28, v27, v26, v31)))
   {
-    goto LABEL_11;
-  }
-
-  home = [(HFBiomeAbstractFetchRequest *)self home];
-  uniqueIdentifier = [home uniqueIdentifier];
-  uUIDString = [uniqueIdentifier UUIDString];
-  base = [eventBody base];
-  homeUniqueIdentifier = [base homeUniqueIdentifier];
-  v10 = [uUIDString isEqualToString:homeUniqueIdentifier];
-
-  if (!v10)
-  {
-    goto LABEL_11;
-  }
-
-  room = [(HFBiomeAbstractFetchRequest *)self room];
-  if (room)
-  {
-    v12 = room;
-    room2 = [(HFBiomeAbstractFetchRequest *)self room];
-    uniqueIdentifier2 = [room2 uniqueIdentifier];
-    uUIDString2 = [uniqueIdentifier2 UUIDString];
-    roomUniqueIdentifier = [eventBody roomUniqueIdentifier];
-    v17 = [uUIDString2 isEqualToString:roomUniqueIdentifier];
-
-    if (!v17)
+    v32 = objc_msgSend_service(self);
+    if (v32)
     {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = [(HFBiomeAbstractFetchRequest *)self zone];
-  if (v18)
-  {
-    v19 = v18;
-    zoneUniqueIdentifiers = [eventBody zoneUniqueIdentifiers];
-    v21 = [(HFBiomeAbstractFetchRequest *)self zone];
-    uniqueIdentifier3 = [v21 uniqueIdentifier];
-    uUIDString3 = [uniqueIdentifier3 UUIDString];
-    v24 = [zoneUniqueIdentifiers containsObject:uUIDString3];
-
-    if (!v24)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  accessory = [(HFBiomeAbstractFetchRequest *)self accessory];
-  if (!accessory)
-  {
-    goto LABEL_9;
-  }
-
-  v26 = accessory;
-  accessory2 = [(HFBiomeAbstractFetchRequest *)self accessory];
-  uniqueIdentifier4 = [accessory2 uniqueIdentifier];
-  uUIDString4 = [uniqueIdentifier4 UUIDString];
-  accessoryUniqueIdentifier = [eventBody accessoryUniqueIdentifier];
-  v31 = [uUIDString4 isEqualToString:accessoryUniqueIdentifier];
-
-  if (v31)
-  {
-LABEL_9:
-    service = [(HFBiomeAbstractFetchRequest *)self service];
-    if (service)
-    {
-      v33 = service;
-      service2 = [(HFBiomeAbstractFetchRequest *)self service];
-      uniqueIdentifier5 = [service2 uniqueIdentifier];
-      uUIDString5 = [uniqueIdentifier5 UUIDString];
+      v33 = v32;
+      v34 = objc_msgSend_service(self);
+      uniqueIdentifier = [v34 uniqueIdentifier];
+      uUIDString = [uniqueIdentifier UUIDString];
       serviceUniqueIdentifier = [eventBody serviceUniqueIdentifier];
-      v38 = [uUIDString5 isEqualToString:serviceUniqueIdentifier];
+      v38 = [uUIDString isEqualToString:serviceUniqueIdentifier];
     }
 
     else
@@ -128,7 +65,6 @@ LABEL_9:
 
   else
   {
-LABEL_11:
     v38 = 0;
   }
 
@@ -183,18 +119,18 @@ uint64_t __49__HFBiomeAbstractFetchRequest__fetchWithPromise___block_invoke(uint
 
 void __49__HFBiomeAbstractFetchRequest__fetchWithPromise___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
     v4 = HFLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = [v3 error];
+      v8 = [v3 error];
       *buf = 136315394;
-      v17 = "[HFBiomeAbstractFetchRequest _fetchWithPromise:]_block_invoke_2";
-      v18 = 2112;
-      v19 = v9;
+      v16 = "[HFBiomeAbstractFetchRequest _fetchWithPromise:]_block_invoke_2";
+      v17 = 2112;
+      v18 = v8;
       _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%s: %@", buf, 0x16u);
     }
 
@@ -202,11 +138,11 @@ void __49__HFBiomeAbstractFetchRequest__fetchWithPromise___block_invoke_2(uint64
     block[1] = 3221225472;
     block[2] = __49__HFBiomeAbstractFetchRequest__fetchWithPromise___block_invoke_10;
     block[3] = &unk_277DF3370;
-    v14 = *(a1 + 32);
-    v15 = v3;
+    v13 = *(a1 + 32);
+    v14 = v3;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v5 = v14;
+    v5 = v13;
   }
 
   else
@@ -214,17 +150,15 @@ void __49__HFBiomeAbstractFetchRequest__fetchWithPromise___block_invoke_2(uint64
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     v7 = [WeakRetained successHandler];
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __49__HFBiomeAbstractFetchRequest__fetchWithPromise___block_invoke_2_12;
-    v10[3] = &unk_277DF3370;
-    v11 = v7;
-    v12 = *(a1 + 32);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __49__HFBiomeAbstractFetchRequest__fetchWithPromise___block_invoke_2_12;
+    v9[3] = &unk_277DF3370;
+    v10 = v7;
+    v11 = *(a1 + 32);
     v5 = v7;
-    dispatch_async(MEMORY[0x277D85CD0], v10);
+    dispatch_async(MEMORY[0x277D85CD0], v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HFBiomeAbstractFetchRequest__fetchWithPromise___block_invoke_10(uint64_t a1)

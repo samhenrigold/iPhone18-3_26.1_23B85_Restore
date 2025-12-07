@@ -36,13 +36,13 @@
   {
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
     language = [(NSLocale *)currentLocale language];
-    v2 = currentLanguage_language;
+    v3 = currentLanguage_language;
     currentLanguage_language = language;
   }
 
-  v3 = currentLanguage_language;
+  v4 = currentLanguage_language;
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isDevice24HourTime

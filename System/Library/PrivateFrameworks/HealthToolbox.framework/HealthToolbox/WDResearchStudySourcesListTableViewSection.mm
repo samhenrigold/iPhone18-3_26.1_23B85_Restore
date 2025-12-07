@@ -13,7 +13,7 @@
 
 - (void)dataSourceDidUpdate
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataSource = [(WDSourcesListTableViewSection *)self dataSource];
   sources = [dataSource sources];
   orderedResearchStudySources = [sources orderedResearchStudySources];
@@ -25,25 +25,25 @@
   restorationSourceBundleIdentifier = [(WDSourcesListTableViewSection *)self restorationSourceBundleIdentifier];
   if (restorationSourceBundleIdentifier)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     researchSources = [(WDResearchStudySourcesListTableViewSection *)self researchSources];
-    v9 = [researchSources countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [researchSources countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
-      v10 = *v21;
+      v10 = *v20;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(researchSources);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
+          v12 = *(*(&v19 + 1) + 8 * i);
           source = [v12 source];
           bundleIdentifier = [source bundleIdentifier];
           v15 = [bundleIdentifier isEqualToString:restorationSourceBundleIdentifier];
@@ -51,19 +51,19 @@
           if (v15)
           {
             objc_initWeak(&location, self);
-            v17[0] = MEMORY[0x277D85DD0];
-            v17[1] = 3221225472;
-            v17[2] = __65__WDResearchStudySourcesListTableViewSection_dataSourceDidUpdate__block_invoke;
-            v17[3] = &unk_2796E7C50;
-            objc_copyWeak(&v18, &location);
-            [(WDSourcesListTableViewSection *)self createDetailViewControllerForSourceModel:v12 completion:v17];
-            objc_destroyWeak(&v18);
+            v16[0] = MEMORY[0x277D85DD0];
+            v16[1] = 3221225472;
+            v16[2] = __65__WDResearchStudySourcesListTableViewSection_dataSourceDidUpdate__block_invoke;
+            v16[3] = &unk_2796E7C50;
+            objc_copyWeak(&v17, &location);
+            [(WDSourcesListTableViewSection *)self createDetailViewControllerForSourceModel:v12 completion:v16];
+            objc_destroyWeak(&v17);
             objc_destroyWeak(&location);
             goto LABEL_12;
           }
         }
 
-        v9 = [researchSources countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [researchSources countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v9)
         {
           continue;
@@ -77,8 +77,6 @@ LABEL_12:
 
     [(WDSourcesListTableViewSection *)self setRestorationSourceBundleIdentifier:0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __65__WDResearchStudySourcesListTableViewSection_dataSourceDidUpdate__block_invoke(uint64_t a1, void *a2)

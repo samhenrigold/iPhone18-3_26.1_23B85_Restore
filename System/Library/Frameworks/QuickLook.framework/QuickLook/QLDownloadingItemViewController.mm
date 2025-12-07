@@ -2,8 +2,15 @@
 - (BOOL)shouldAutoDownloadInNetworkState:(unint64_t)state downloadSize:(id)size forceIfPossible:(BOOL)possible;
 - (QLDownloadingItemViewControllerDelegate)downloadingDelegate;
 - (void)_presentConnectivityAlert;
+- (void)_setDownloading:(BOOL)downloading animated:(BOOL)animated;
+- (void)_startDownload:(BOOL)download;
 - (void)_startDownloadOperation;
+- (void)_stopDownload:(BOOL)download;
+- (void)_toggleDownload:(BOOL)download;
+- (void)_updateFileSizeWithProgress:(double)progress animated:(BOOL)animated;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setShowsLoadingPreviewSpinner:(BOOL)spinner;
 - (void)startDownload:(BOOL)download;
 - (void)startDownloadIfNeeded;
@@ -64,6 +71,28 @@
   [(QLDetailItemViewController *)self setState:self->_readyForDownloadState animated:0];
 }
 
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  v7.receiver = self;
+  v7.super_class = QLDownloadingItemViewController;
+  [(QLDetailItemViewController *)&v7 setAppearance:appearanceCopy animated:animatedCopy];
+  [(QLDownloadingItemViewController *)self loadViewIfNeeded];
+  if (!self->_downloading && !self->_downloaded)
+  {
+    if ([appearanceCopy presentationMode] == 4)
+    {
+      [(QLDownloadingItemViewController *)self _startDownload:0];
+    }
+
+    else
+    {
+      [(QLDownloadingItemViewController *)self startDownloadIfNeeded];
+    }
+  }
+}
+
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler
 {
   contentsCopy = contents;
@@ -99,7 +128,7 @@ uint64_t __95__QLDownloadingItemViewController_loadPreviewControllerWithContents
 
 - (BOOL)shouldAutoDownloadInNetworkState:(unint64_t)state downloadSize:(id)size forceIfPossible:(BOOL)possible
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sizeCopy = size;
   v8 = sizeCopy;
   if (state > 2)
@@ -127,9 +156,9 @@ uint64_t __95__QLDownloadingItemViewController_loadPreviewControllerWithContents
       v17 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
-        v23 = MEMORY[0x277D43EF8];
+        v22 = MEMORY[0x277D43EF8];
         QLSInitLogging();
-        v17 = *v23;
+        v17 = *v22;
       }
 
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
@@ -146,11 +175,11 @@ uint64_t __95__QLDownloadingItemViewController_loadPreviewControllerWithContents
 
         v19 = v17;
         v20 = NSStringFromQLNetworkState();
-        v24 = 138412546;
-        v25 = v18;
-        v26 = 2112;
-        v27 = v20;
-        _os_log_impl(&dword_23A714000, v19, OS_LOG_TYPE_INFO, "Should auto-download: '%@', state is %@ #Downloading", &v24, 0x16u);
+        v23 = 138412546;
+        v24 = v18;
+        v25 = 2112;
+        v26 = v20;
+        _os_log_impl(&dword_23A714000, v19, OS_LOG_TYPE_INFO, "Should auto-download: '%@', state is %@ #Downloading", &v23, 0x16u);
       }
     }
   }
@@ -169,16 +198,63 @@ uint64_t __95__QLDownloadingItemViewController_loadPreviewControllerWithContents
     {
       v11 = v10;
       v12 = NSStringFromQLNetworkState();
-      v24 = 138412290;
-      v25 = v12;
-      _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_INFO, "Avoid auto-download, since state is %@ #Downloading", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = v12;
+      _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_INFO, "Avoid auto-download, since state is %@ #Downloading", &v23, 0xCu);
     }
 
     v13 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
+}
+
+- (void)_updateFileSizeWithProgress:(double)progress animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v19[1] = *MEMORY[0x277D85DE8];
+  fetcher = [(QLItem *)self->_previewItem fetcher];
+  itemSize = [fetcher itemSize];
+
+  v9 = [MEMORY[0x277CCA8E8] stringFromByteCount:objc_msgSend(itemSize countStyle:{"longLongValue"), 0}];
+  if (v9 && [itemSize integerValue] >= 1)
+  {
+    if (self->_downloading)
+    {
+      v10 = v9;
+      longLongValue = [itemSize longLongValue];
+      v12 = [MEMORY[0x277CCA8E8] stringFromByteCount:(longLongValue * progress) countStyle:0];
+      v13 = MEMORY[0x277CCACA8];
+      v14 = QLLocalizedString();
+      v15 = [v13 stringWithFormat:v14, v12, v10];
+
+      v19[0] = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+
+      [(QLDetailItemViewController *)self setInformation:v16];
+    }
+
+    else
+    {
+      v18 = v9;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+      [(QLDetailItemViewController *)self setInformation:v17];
+    }
+  }
+
+  else
+  {
+    [(QLDetailItemViewController *)self setInformation:&unk_284D731A8];
+  }
+
+  [(QLRoundProgressView *)self->_progressView setProgress:animatedCopy animated:progress];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = QLDownloadingItemViewController;
+  [(QLItemViewController *)&v3 previewDidAppear:appear];
 }
 
 - (void)setShowsLoadingPreviewSpinner:(BOOL)spinner
@@ -193,6 +269,19 @@ uint64_t __95__QLDownloadingItemViewController_loadPreviewControllerWithContents
     }
 
     [(QLDetailItemViewController *)self setState:*(&self->super.super.super.super.super.isa + *v3) animated:1];
+  }
+}
+
+- (void)_toggleDownload:(BOOL)download
+{
+  if (self->_downloading)
+  {
+    [(QLDownloadingItemViewController *)self _stopDownload:download];
+  }
+
+  else
+  {
+    [(QLDownloadingItemViewController *)self _startDownload:download];
   }
 }
 
@@ -220,7 +309,6 @@ void __49__QLDownloadingItemViewController_startDownload___block_invoke(uint64_t
     v7 = *(a1 + 32);
     if ((*(v7 + 1200) & 1) == 0 && *(v7 + 1202) == 1)
     {
-      v8 = *(a1 + 32);
       QLRunInMainThread();
     }
   }
@@ -243,6 +331,101 @@ void __49__QLDownloadingItemViewController_startDownload___block_invoke(uint64_t
   }
 
   [(QLDownloadingItemViewController *)self startDownload:v6];
+}
+
+- (void)_startDownload:(BOOL)download
+{
+  downloadCopy = download;
+  mEMORY[0x277D43F88] = [MEMORY[0x277D43F88] sharedInstance];
+  isConnected = [mEMORY[0x277D43F88] isConnected];
+
+  if (isConnected)
+  {
+    if (!self->_downloading)
+    {
+      [(QLDownloadingItemViewController *)self _startDownloadOperation];
+
+      [(QLDownloadingItemViewController *)self _setDownloading:1 animated:downloadCopy];
+    }
+  }
+
+  else
+  {
+    [(QLDownloadingItemViewController *)self _setDownloading:0 animated:downloadCopy];
+    appearance = [(QLItemViewController *)self appearance];
+    presentationMode = [appearance presentationMode];
+
+    if (presentationMode != 4)
+    {
+
+      [(QLDownloadingItemViewController *)self _presentConnectivityAlert];
+    }
+  }
+}
+
+- (void)_stopDownload:(BOOL)download
+{
+  if (self->_downloading)
+  {
+    downloadCopy = download;
+    fetcher = [(QLItem *)self->_previewItem fetcher];
+    canBeCanceled = [fetcher canBeCanceled];
+
+    if (canBeCanceled)
+    {
+      fetcher2 = [(QLItem *)self->_previewItem fetcher];
+      [fetcher2 cancelFetch];
+
+      [(QLDownloadingItemViewController *)self _setDownloading:0 animated:downloadCopy];
+    }
+  }
+}
+
+- (void)_setDownloading:(BOOL)downloading animated:(BOOL)animated
+{
+  if (self->_downloading != downloading)
+  {
+    v17 = v6;
+    v18 = v5;
+    v19 = v4;
+    animatedCopy = animated;
+    self->_downloading = downloading;
+    if (downloading)
+    {
+      fetcher = [(QLItem *)self->_previewItem fetcher];
+      canBeCanceled = [fetcher canBeCanceled];
+      v14 = &OBJC_IVAR___QLDownloadingItemViewController__nonCancelableDownloadingState;
+      if (canBeCanceled)
+      {
+        v14 = &OBJC_IVAR___QLDownloadingItemViewController__cancelableDownloadingState;
+      }
+
+      [(QLDetailItemViewController *)self setState:*(&self->super.super.super.super.super.isa + *v14) animated:animatedCopy, v7, v17, v18, v19, v8];
+    }
+
+    else
+    {
+      if (self->_downloaded)
+      {
+        v15 = 1248;
+      }
+
+      else
+      {
+        v15 = 1224;
+      }
+
+      [(QLDetailItemViewController *)self setState:*(&self->super.super.super.super.super.isa + v15) animated:animated, v7, v6, v18, v19, v8];
+    }
+
+    v16 = 0.0;
+    if (self->_downloaded)
+    {
+      v16 = 1.0;
+    }
+
+    [(QLDownloadingItemViewController *)self _updateFileSizeWithProgress:0 animated:v16];
+  }
 }
 
 - (void)_presentConnectivityAlert
@@ -310,15 +493,14 @@ void __58__QLDownloadingItemViewController__startDownloadOperation__block_invoke
   v6 = a3;
   v7 = v5;
   v8 = v6;
-  v9 = *(a1 + 32);
-  objc_copyWeak(&v10, (a1 + 40));
+  objc_copyWeak(&v9, (a1 + 40));
   QLRunInMainThread();
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
 }
 
 void __58__QLDownloadingItemViewController__startDownloadOperation__block_invoke_4(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32) || *(a1 + 40))
   {
     v2 = MEMORY[0x277D43EF8];
@@ -332,9 +514,9 @@ void __58__QLDownloadingItemViewController__startDownloadOperation__block_invoke
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v4 = *(a1 + 40);
-      v22 = 138412290;
-      v23 = v4;
-      _os_log_impl(&dword_23A714000, v3, OS_LOG_TYPE_ERROR, "Error during downloading operation: %@ #Downloading", &v22, 0xCu);
+      v20 = 138412290;
+      v21 = v4;
+      _os_log_impl(&dword_23A714000, v3, OS_LOG_TYPE_ERROR, "Error during downloading operation: %@ #Downloading", &v20, 0xCu);
     }
 
     v5 = [*(a1 + 40) domain];
@@ -363,7 +545,6 @@ LABEL_15:
         [*(a1 + 48) _setDownloading:0 animated:1];
 LABEL_17:
 
-        v12 = *MEMORY[0x277D85DE8];
         return;
       }
 
@@ -390,22 +571,21 @@ LABEL_17:
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   [WeakRetained setDownloaded:1];
 
-  v14 = objc_loadWeakRetained((a1 + 56));
-  v15 = [v14 downloadingDelegate];
-  v16 = objc_opt_respondsToSelector();
+  v13 = objc_loadWeakRetained((a1 + 56));
+  v14 = [v13 downloadingDelegate];
+  v15 = objc_opt_respondsToSelector();
 
-  if (v16)
+  if (v15)
   {
-    v17 = objc_loadWeakRetained((a1 + 56));
-    v18 = [v17 downloadingDelegate];
-    v19 = objc_loadWeakRetained((a1 + 56));
-    [v18 downloadingItemViewControllerDidFinishLoadingPreviewItem:v19 withContents:*(a1 + 32)];
+    v16 = objc_loadWeakRetained((a1 + 56));
+    v17 = [v16 downloadingDelegate];
+    v18 = objc_loadWeakRetained((a1 + 56));
+    [v17 downloadingItemViewControllerDidFinishLoadingPreviewItem:v18 withContents:*(a1 + 32)];
   }
 
-  v20 = *(a1 + 48);
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *(a1 + 48);
 
-  [v20 _setDownloading:0 animated:1];
+  [v19 _setDownloading:0 animated:1];
 }
 
 - (QLDownloadingItemViewControllerDelegate)downloadingDelegate

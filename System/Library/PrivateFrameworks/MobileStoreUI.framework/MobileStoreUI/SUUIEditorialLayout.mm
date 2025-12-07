@@ -85,7 +85,7 @@ LABEL_6:
   editorial = self->_editorial;
   if (editorial)
   {
-    [(SUUIEditorialComponent *)editorial editorialStyle:0];
+    objc_msgSend_editorialStyle(editorial, 0, 0, 0);
   }
 
   if (v7)
@@ -319,7 +319,7 @@ LABEL_6:
   editorial = self->_editorial;
   if (editorial)
   {
-    [(SUUIEditorialComponent *)editorial editorialStyle];
+    objc_msgSend_editorialStyle(editorial, 0);
     editorial = self->_editorial;
   }
 
@@ -359,7 +359,7 @@ LABEL_6:
   editorial = self->_editorial;
   if (editorial)
   {
-    [(SUUIEditorialComponent *)editorial editorialStyle:0];
+    objc_msgSend_editorialStyle(editorial, 0, 0);
   }
 
   [(SUUITextLayoutRequest *)v5 setFontWeight:0, v14];

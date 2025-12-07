@@ -19,7 +19,7 @@
 - (void)consume:(unint64_t)consume
 {
   selfCopy = self;
-  sub_10010F060();
+  sub_10010F060(consume);
 }
 
 @end

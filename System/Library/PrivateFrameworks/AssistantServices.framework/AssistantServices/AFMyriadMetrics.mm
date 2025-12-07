@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (BOOL)isMyriadMetricsMessage:(id)message;
 - (double)getSessionId:(MyriadMetricsDataV1 *)id;
+- (id)_createEndAnalyticContexFromIntermediateContext:(id)context forVersion:(unsigned int)version sessionId:(double)id;
 - (id)_getRequestType:(unint64_t)type;
 - (id)getCDASessionId:(MyriadMetricsDataV1 *)id;
 - (int)_getCDASchemaCDATriggerType:(unint64_t)type;
@@ -9,13 +10,26 @@
 - (void)_decisionMadeContext:(MyriadMetricsDataV1 *)context additionalContext:(id)additionalContext instrumentation:(id)instrumentation completion:(id)completion;
 - (void)_submitMyriadMetrics:(MyriadMetricsDataV1 *)metrics additionalContext:(id)context toStream:(id)stream instrumentation:(id)instrumentation completion:(id)completion;
 - (void)submitAccessoryMyriadMetricsToAnalyticsStream:(id)stream payload:(id)payload additionalContext:(id)context instrumentation:(id)instrumentation completion:(id)completion;
+- (void)submitMyriadMetricsToAnalyticsStream:(id)stream context:(id)context forEvent:(int64_t)event contextNoCopy:(BOOL)copy;
 @end
 
 @implementation AFMyriadMetrics
 
+- (void)submitMyriadMetricsToAnalyticsStream:(id)stream context:(id)context forEvent:(int64_t)event contextNoCopy:(BOOL)copy
+{
+  copyCopy = copy;
+  streamCopy = stream;
+  contextCopy = context;
+  v10 = +[AFFeatureFlags isMyriadSelfMetricsEnabled];
+  if (streamCopy && !v10)
+  {
+    [streamCopy logEventWithType:event context:contextCopy contextNoCopy:copyCopy];
+  }
+}
+
 - (void)submitAccessoryMyriadMetricsToAnalyticsStream:(id)stream payload:(id)payload additionalContext:(id)context instrumentation:(id)instrumentation completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
   payloadCopy = payload;
   contextCopy = context;
@@ -31,19 +45,19 @@
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         v20 = v19;
-        *v25 = 136315906;
-        *&v25[4] = "[AFMyriadMetrics submitAccessoryMyriadMetricsToAnalyticsStream:payload:additionalContext:instrumentation:completion:]";
-        *&v25[12] = 1024;
-        *&v25[14] = [v18 version];
-        v26 = 2048;
-        v27 = streamCopy;
-        v28 = 2112;
-        *&v29 = contextCopy;
-        _os_log_impl(&dword_1912FE000, v20, OS_LOG_TYPE_INFO, "%s version = %u analytics stream = %p additional = [%@]", v25, 0x26u);
+        *v24 = 136315906;
+        *&v24[4] = "[AFMyriadMetrics submitAccessoryMyriadMetricsToAnalyticsStream:payload:additionalContext:instrumentation:completion:]";
+        *&v24[12] = 1024;
+        *&v24[14] = [v18 version];
+        v25 = 2048;
+        v26 = streamCopy;
+        v27 = 2112;
+        *&v28 = contextCopy;
+        _os_log_impl(&dword_1912FE000, v20, OS_LOG_TYPE_INFO, "%s version = %u analytics stream = %p additional = [%@]", v24, 0x26u);
       }
 
-      [v18 messageAsStruct];
-      [(AFMyriadMetrics *)self _submitMyriadMetrics:v25 additionalContext:contextCopy toStream:streamCopy instrumentation:instrumentationCopy completion:completionCopy];
+      objc_msgSend_messageAsStruct(v18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, v29);
+      [(AFMyriadMetrics *)self _submitMyriadMetrics:v24 additionalContext:contextCopy toStream:streamCopy instrumentation:instrumentationCopy completion:completionCopy];
     }
 
     else
@@ -57,9 +71,9 @@
       v23 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
-        *v25 = 136315138;
-        *&v25[4] = "[AFMyriadMetrics submitAccessoryMyriadMetricsToAnalyticsStream:payload:additionalContext:instrumentation:completion:]";
-        _os_log_error_impl(&dword_1912FE000, v23, OS_LOG_TYPE_ERROR, "%s Invalid analytics data received", v25, 0xCu);
+        *v24 = 136315138;
+        *&v24[4] = "[AFMyriadMetrics submitAccessoryMyriadMetricsToAnalyticsStream:payload:additionalContext:instrumentation:completion:]";
+        _os_log_error_impl(&dword_1912FE000, v23, OS_LOG_TYPE_ERROR, "%s Invalid analytics data received", v24, 0xCu);
       }
 
       v18 = 0;
@@ -71,9 +85,9 @@
     v21 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      *v25 = 136315138;
-      *&v25[4] = "[AFMyriadMetrics submitAccessoryMyriadMetricsToAnalyticsStream:payload:additionalContext:instrumentation:completion:]";
-      _os_log_error_impl(&dword_1912FE000, v21, OS_LOG_TYPE_ERROR, "%s Invalid analytics stream.", v25, 0xCu);
+      *v24 = 136315138;
+      *&v24[4] = "[AFMyriadMetrics submitAccessoryMyriadMetricsToAnalyticsStream:payload:additionalContext:instrumentation:completion:]";
+      _os_log_error_impl(&dword_1912FE000, v21, OS_LOG_TYPE_ERROR, "%s Invalid analytics stream.", v24, 0xCu);
     }
 
     v18 = [AFError errorWithCode:2202];
@@ -82,13 +96,11 @@
       completionCopy[2](completionCopy, v18, 0);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_decisionMadeContext:(MyriadMetricsDataV1 *)context additionalContext:(id)additionalContext instrumentation:(id)instrumentation completion:(id)completion
 {
-  v78[3] = *MEMORY[0x1E69E9840];
+  v77[3] = *MEMORY[0x1E69E9840];
   additionalContextCopy = additionalContext;
   instrumentationCopy = instrumentation;
   completionCopy = completion;
@@ -98,12 +110,12 @@
     if (context->version)
     {
       selfCopy = self;
-      v68 = completionCopy;
-      v71 = instrumentationCopy;
-      v72 = additionalContextCopy;
+      v67 = completionCopy;
+      v70 = instrumentationCopy;
+      v71 = additionalContextCopy;
       electionParticipantCount = context->electionParticipantCount;
       electionParticipantCount = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", electionParticipantCount];
-      v70 = v13;
+      v69 = v13;
       [v13 setObject:electionParticipantCount forKey:@"device_count"];
 
       v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:electionParticipantCount];
@@ -118,9 +130,9 @@
         v18 = electionParticipantCount;
       }
 
-      v69 = v18;
-      v73 = electionParticipantCount;
-      v74 = v16;
+      v68 = v18;
+      v72 = electionParticipantCount;
+      v73 = v16;
       if (electionParticipantCount)
       {
         electionParticipantDeviceType = context->electionParticipantDeviceType;
@@ -128,20 +140,20 @@
         do
         {
           v21 = objc_alloc(MEMORY[0x1E695DF90]);
-          v77[0] = @"dc";
+          v76[0] = @"dc";
           v22 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:*electionParticipantDeviceType];
-          v78[0] = v22;
-          v77[1] = @"pt";
+          v77[0] = v22;
+          v76[1] = @"pt";
           v23 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:electionParticipantDeviceType[50]];
-          v78[1] = v23;
-          v77[2] = @"goodness";
+          v77[1] = v23;
+          v76[2] = @"goodness";
           v24 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:*(electionParticipantDeviceType - 50)];
-          v78[2] = v24;
-          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:v77 count:3];
+          v77[2] = v24;
+          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:3];
           v26 = [v21 initWithDictionary:v25];
 
-          v17 = v74;
-          [v74 addObject:v26];
+          v17 = v73;
+          [v73 addObject:v26];
 
           ++electionParticipantDeviceType;
           --v20;
@@ -150,8 +162,8 @@
         while (v20);
       }
 
-      v13 = v70;
-      [v70 setObject:v17 forKey:@"goodness_scores"];
+      v13 = v69;
+      [v69 setObject:v17 forKey:@"goodness_scores"];
       if (context->previousDecision)
       {
         v27 = @"YES";
@@ -162,9 +174,9 @@
         v27 = @"NO";
       }
 
-      [v70 setObject:v27 forKey:@"previous_decision"];
+      [v69 setObject:v27 forKey:@"previous_decision"];
       v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%llu", context->previousDecisionTime];
-      [v70 setObject:v28 forKey:@"previous_decision_time"];
+      [v69 setObject:v28 forKey:@"previous_decision_time"];
 
       if (context->decision)
       {
@@ -176,17 +188,17 @@
         v29 = @"NO";
       }
 
-      [v70 setObject:v29 forKey:@"decision"];
-      if (v73)
+      [v69 setObject:v29 forKey:@"decision"];
+      if (v72)
       {
         v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%hhu", context->electionParticipantGoodnessScore[0]];
-        [v70 setObject:v30 forKey:@"winner_goodness"];
+        [v69 setObject:v30 forKey:@"winner_goodness"];
 
         v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", context->electionParticipantDeviceType[0]];
-        [v70 setObject:v31 forKey:@"winner_device_class"];
+        [v69 setObject:v31 forKey:@"winner_device_class"];
 
         v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", context->electionParticipantProductType[0]];
-        [v70 setObject:v32 forKey:@"winner_product_type"];
+        [v69 setObject:v32 forKey:@"winner_product_type"];
       }
 
       if (context->homepodInvolved)
@@ -199,9 +211,9 @@
         v33 = @"NO";
       }
 
-      [v70 setObject:v33 forKey:@"homepod_involved"];
-      instrumentationCopy = v71;
-      if (v73 && !context->decision)
+      [v69 setObject:v33 forKey:@"homepod_involved"];
+      instrumentationCopy = v70;
+      if (v72 && !context->decision)
       {
         if (context->electionParticipantGoodnessScore[0] == 255)
         {
@@ -213,70 +225,70 @@
           v34 = @"NO";
         }
 
-        [v70 setObject:v34 forKey:@"winner_sent_suppresssion"];
+        [v69 setObject:v34 forKey:@"winner_sent_suppresssion"];
       }
 
       v35 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:context->version];
-      [v70 setObject:v35 forKey:@"version"];
+      [v69 setObject:v35 forKey:@"version"];
 
       if (context->lateToElection)
       {
         v36 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:?];
-        [v70 setObject:v36 forKey:@"late_for_device_arbitration"];
+        [v69 setObject:v36 forKey:@"late_for_device_arbitration"];
 
         v37 = [MEMORY[0x1E696AD98] numberWithDouble:context->advInterval];
-        [v70 setObject:v37 forKey:@"device_arbitration_delay"];
+        [v69 setObject:v37 forKey:@"device_arbitration_delay"];
       }
 
       if (additionalContextCopy)
       {
         v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%hhu", objc_msgSend(additionalContextCopy, "rawGoodnessScore")];
-        [v70 setObject:v38 forKey:@"raw_goodness_score"];
+        [v69 setObject:v38 forKey:@"raw_goodness_score"];
 
         v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%hhu", objc_msgSend(additionalContextCopy, "goodnessScore")];
-        [v70 setObject:v39 forKey:@"my_goodness"];
+        [v69 setObject:v39 forKey:@"my_goodness"];
 
         v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", objc_msgSend(additionalContextCopy, "deviceClass")];
-        [v70 setObject:v40 forKey:@"my_device_class"];
+        [v69 setObject:v40 forKey:@"my_device_class"];
 
         v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", objc_msgSend(additionalContextCopy, "deviceProductType")];
-        [v70 setObject:v41 forKey:@"my_product_type"];
+        [v69 setObject:v41 forKey:@"my_product_type"];
       }
 
       v42 = +[AFFeatureFlags isMyriadSelfMetricsEnabled];
-      if (v71 && v42)
+      if (v70 && v42)
       {
         v43 = objc_alloc_init(MEMORY[0x1E69CE940]);
         v44 = context->electionParticipantDeviceType;
         [v43 setDeviceClass:context->electionParticipantDeviceType[0]];
         [v43 setProductType:context->electionParticipantProductType[0]];
-        v66 = v43;
+        v65 = v43;
         [v43 setGoodnessScore:context->electionParticipantGoodnessScore[0]];
         v45 = objc_alloc_init(MEMORY[0x1E69CE940]);
         [v45 setDeviceClass:{objc_msgSend(additionalContextCopy, "deviceClass")}];
         [v45 setProductType:{objc_msgSend(additionalContextCopy, "deviceProductType")}];
-        v65 = v45;
+        v64 = v45;
         [v45 setGoodnessScore:{objc_msgSend(additionalContextCopy, "goodnessScore")}];
-        if (v73)
+        if (v72)
         {
           v46 = context->electionParticipantDeviceType;
-          v47 = v69;
+          v47 = v68;
           do
           {
             v48 = objc_alloc(MEMORY[0x1E695DF90]);
-            v75[0] = @"dc";
+            v74[0] = @"dc";
             v49 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:*v46];
-            v76[0] = v49;
-            v75[1] = @"pt";
+            v75[0] = v49;
+            v74[1] = @"pt";
             v50 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v46[50]];
-            v76[1] = v50;
-            v75[2] = @"goodness";
+            v75[1] = v50;
+            v74[2] = @"goodness";
             v51 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:*(v46 - 50)];
-            v76[2] = v51;
-            v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:3];
+            v75[2] = v51;
+            v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:3];
             v53 = [v48 initWithDictionary:v52];
 
-            [v74 addObject:v53];
+            [v73 addObject:v53];
             ++v46;
             --v47;
           }
@@ -284,9 +296,9 @@
           while (v47);
         }
 
-        v54 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v73];
-        v55 = v69;
-        if (v73)
+        v54 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v72];
+        v55 = v68;
+        if (v72)
         {
           do
           {
@@ -324,45 +336,43 @@
         }
 
         v59 = mach_absolute_time();
-        instrumentationCopy = v71;
+        instrumentationCopy = v70;
         if (_AFMachAbsoluteTimeRate_onceToken != -1)
         {
           dispatch_once(&_AFMachAbsoluteTimeRate_onceToken, &__block_literal_global_1033);
         }
 
-        additionalContextCopy = v72;
-        v13 = v70;
+        additionalContextCopy = v71;
+        v13 = v69;
         v60 = (((*&_AFMachAbsoluteTimeRate_rate * v59) - context->previousDecisionTime) / 1000000.0);
-        rawGoodnessScore = [v72 rawGoodnessScore];
+        rawGoodnessScore = [v71 rawGoodnessScore];
         v62 = [(AFMyriadMetrics *)selfCopy getCDASessionId:context];
-        LODWORD(v64) = rawGoodnessScore;
-        [v71 logCDAElectionDecisionMade:11 withDecision:v57 withPreviousDecision:v58 timeSincePreviousDecision:v60 withWinningDevice:v66 withThisDevice:v65 withParticipants:v54 withRawScore:v64 withBoost:0 withCdaId:v62 currentRequestId:0 withTimestamp:mach_absolute_time()];
+        LODWORD(v63) = rawGoodnessScore;
+        [v70 logCDAElectionDecisionMade:11 withDecision:v57 withPreviousDecision:v58 timeSincePreviousDecision:v60 withWinningDevice:v65 withThisDevice:v64 withParticipants:v54 withRawScore:v63 withBoost:0 withCdaId:v62 currentRequestId:0 withTimestamp:mach_absolute_time()];
 
-        v17 = v74;
+        v17 = v73;
       }
 
-      completionCopy = v68;
+      completionCopy = v67;
     }
 
     completionCopy[2](completionCopy, v13);
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_submitMyriadMetrics:(MyriadMetricsDataV1 *)metrics additionalContext:(id)context toStream:(id)stream instrumentation:(id)instrumentation completion:(id)completion
 {
-  v111[2] = *MEMORY[0x1E69E9840];
+  v110[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   streamCopy = stream;
   instrumentationCopy = instrumentation;
   completionCopy = completion;
-  v90 = 0;
-  v91 = &v90;
-  v92 = 0x3032000000;
-  v93 = __Block_byref_object_copy__23453;
-  v94 = __Block_byref_object_dispose__23454;
-  v95 = 0;
+  v89 = 0;
+  v90 = &v89;
+  v91 = 0x3032000000;
+  v92 = __Block_byref_object_copy__23453;
+  v93 = __Block_byref_object_dispose__23454;
+  v94 = 0;
   if (!metrics)
   {
     v16 = 2202;
@@ -377,22 +387,22 @@
     {
       requestType = metrics->requestType;
       state = metrics->state;
-      v110[0] = @"state";
+      v109[0] = @"state";
       state = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", state];
-      v110[1] = @"trigger";
-      v111[0] = state;
+      v109[1] = @"trigger";
+      v110[0] = state;
       v46 = [(AFMyriadMetrics *)self _getRequestType:requestType];
-      v111[1] = v46;
-      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v111 forKeys:v110 count:2];
+      v110[1] = v46;
+      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:2];
       v48 = [(AFMyriadMetrics *)self getVersion:metrics];
       [(AFMyriadMetrics *)self getSessionId:metrics];
       v49 = [(AFMyriadMetrics *)self _createEndAnalyticContexFromIntermediateContext:v47 forVersion:v48 sessionId:?];
-      v50 = v91[5];
-      v91[5] = v49;
+      v50 = v90[5];
+      v90[5] = v49;
 
       if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
       {
-        [streamCopy logEventWithType:2011 context:v91[5]];
+        [streamCopy logEventWithType:2011 context:v90[5]];
       }
 
       v51 = !+[AFFeatureFlags isMyriadSelfMetricsEnabled];
@@ -414,19 +424,19 @@
     if (eventType == 1)
     {
       v70 = metrics->state;
-      v108 = @"state";
+      v107 = @"state";
       v71 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", v70];
-      v109 = v71;
-      v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+      v108 = v71;
+      v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
       v73 = [(AFMyriadMetrics *)self getVersion:metrics];
       [(AFMyriadMetrics *)self getSessionId:metrics];
       v74 = [(AFMyriadMetrics *)self _createEndAnalyticContexFromIntermediateContext:v72 forVersion:v73 sessionId:?];
-      v75 = v91[5];
-      v91[5] = v74;
+      v75 = v90[5];
+      v90[5] = v74;
 
       if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
       {
-        [streamCopy logEventWithType:2012 context:v91[5]];
+        [streamCopy logEventWithType:2012 context:v90[5]];
       }
 
       v76 = !+[AFFeatureFlags isMyriadSelfMetricsEnabled];
@@ -449,26 +459,26 @@
       v29 = metrics->state;
       advDelay = metrics->advDelay;
       advInterval = metrics->advInterval;
-      v106[0] = @"state";
-      v83 = v29;
+      v105[0] = @"state";
+      v82 = v29;
       v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", v29];
-      v107[0] = v32;
-      v106[1] = @"adv-delay";
+      v106[0] = v32;
+      v105[1] = @"adv-delay";
       v33 = [MEMORY[0x1E696AD98] numberWithDouble:advDelay];
-      v107[1] = v33;
-      v106[2] = @"adv-interval";
+      v106[1] = v33;
+      v105[2] = @"adv-interval";
       v34 = [MEMORY[0x1E696AD98] numberWithDouble:advInterval];
-      v107[2] = v34;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:v106 count:3];
+      v106[2] = v34;
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:v105 count:3];
       v36 = [(AFMyriadMetrics *)self getVersion:metrics];
       [(AFMyriadMetrics *)self getSessionId:metrics];
       v37 = [(AFMyriadMetrics *)self _createEndAnalyticContexFromIntermediateContext:v35 forVersion:v36 sessionId:?];
-      v38 = v91[5];
-      v91[5] = v37;
+      v38 = v90[5];
+      v90[5] = v37;
 
       if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
       {
-        [streamCopy logEventWithType:2002 context:v91[5]];
+        [streamCopy logEventWithType:2002 context:v90[5]];
       }
 
       v39 = !+[AFFeatureFlags isMyriadSelfMetricsEnabled];
@@ -483,7 +493,7 @@
         v41 = mach_absolute_time();
         *&v42 = advDelay;
         *&v43 = advInterval;
-        [instrumentationCopy logCDAElectionAdvertisingStarting:(v83 + 1) withDelay:v40 withInterval:v41 withCdaId:v42 withTimestamp:v43];
+        [instrumentationCopy logCDAElectionAdvertisingStarting:(v82 + 1) withDelay:v40 withInterval:v41 withCdaId:v42 withTimestamp:v43];
       }
 
       goto LABEL_50;
@@ -497,19 +507,19 @@
     if (eventType == 3)
     {
       v54 = metrics->state;
-      v104 = @"state";
+      v103 = @"state";
       v55 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", v54];
-      v105 = v55;
-      v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+      v104 = v55;
+      v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
       v57 = [(AFMyriadMetrics *)self getVersion:metrics];
       [(AFMyriadMetrics *)self getSessionId:metrics];
       v58 = [(AFMyriadMetrics *)self _createEndAnalyticContexFromIntermediateContext:v56 forVersion:v57 sessionId:?];
-      v59 = v91[5];
-      v91[5] = v58;
+      v59 = v90[5];
+      v90[5] = v58;
 
       if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
       {
-        [streamCopy logEventWithType:2003 context:v91[5]];
+        [streamCopy logEventWithType:2003 context:v90[5]];
       }
 
       v60 = !+[AFFeatureFlags isMyriadSelfMetricsEnabled];
@@ -530,26 +540,26 @@
     if (eventType == 4)
     {
       v17 = metrics->state;
-      v102[0] = @"state";
-      v82 = v17;
+      v101[0] = @"state";
+      v81 = v17;
       v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", v17];
-      v102[1] = @"unixTime";
-      v103[0] = v18;
+      v101[1] = @"unixTime";
+      v102[0] = v18;
       v19 = MEMORY[0x1E696AD98];
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSince1970];
       v21 = [v19 numberWithDouble:?];
-      v103[1] = v21;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v103 forKeys:v102 count:2];
+      v102[1] = v21;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:2];
       v23 = [(AFMyriadMetrics *)self getVersion:metrics];
       [(AFMyriadMetrics *)self getSessionId:metrics];
       v24 = [(AFMyriadMetrics *)self _createEndAnalyticContexFromIntermediateContext:v22 forVersion:v23 sessionId:?];
-      v25 = v91[5];
-      v91[5] = v24;
+      v25 = v90[5];
+      v90[5] = v24;
 
       if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
       {
-        [streamCopy logEventWithType:2010 context:v91[5]];
+        [streamCopy logEventWithType:2010 context:v90[5]];
       }
 
       v26 = !+[AFFeatureFlags isMyriadSelfMetricsEnabled];
@@ -561,7 +571,7 @@
       if ((v26 & 1) == 0)
       {
         v27 = [(AFMyriadMetrics *)self getCDASessionId:metrics];
-        [instrumentationCopy logCDAElectionTimerEnded:(v82 + 1) withCdaId:v27 withTimestamp:mach_absolute_time()];
+        [instrumentationCopy logCDAElectionTimerEnded:(v81 + 1) withCdaId:v27 withTimestamp:mach_absolute_time()];
       }
 
       goto LABEL_50;
@@ -575,19 +585,19 @@ LABEL_13:
   if (eventType == 5)
   {
     v62 = metrics->state;
-    v100 = @"state";
+    v99 = @"state";
     v63 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", v62];
-    v101 = v63;
-    v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+    v100 = v63;
+    v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
     v65 = [(AFMyriadMetrics *)self getVersion:metrics];
     [(AFMyriadMetrics *)self getSessionId:metrics];
     v66 = [(AFMyriadMetrics *)self _createEndAnalyticContexFromIntermediateContext:v64 forVersion:v65 sessionId:?];
-    v67 = v91[5];
-    v91[5] = v66;
+    v67 = v90[5];
+    v90[5] = v66;
 
     if (!+[AFFeatureFlags isMyriadSelfMetricsEnabled])
     {
-      [streamCopy logEventWithType:2005 context:v91[5]];
+      [streamCopy logEventWithType:2005 context:v90[5]];
     }
 
     v68 = !+[AFFeatureFlags isMyriadSelfMetricsEnabled];
@@ -610,15 +620,15 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v86[0] = MEMORY[0x1E69E9820];
-  v86[1] = 3221225472;
-  v86[2] = __94__AFMyriadMetrics__submitMyriadMetrics_additionalContext_toStream_instrumentation_completion___block_invoke;
-  v86[3] = &unk_1E73458A8;
-  v88 = &v90;
+  v85[0] = MEMORY[0x1E69E9820];
+  v85[1] = 3221225472;
+  v85[2] = __94__AFMyriadMetrics__submitMyriadMetrics_additionalContext_toStream_instrumentation_completion___block_invoke;
+  v85[3] = &unk_1E73458A8;
+  v87 = &v89;
   metricsCopy = metrics;
-  v86[4] = self;
-  v87 = streamCopy;
-  [(AFMyriadMetrics *)self _decisionMadeContext:metrics additionalContext:contextCopy instrumentation:instrumentationCopy completion:v86];
+  v85[4] = self;
+  v86 = streamCopy;
+  [(AFMyriadMetrics *)self _decisionMadeContext:metrics additionalContext:contextCopy instrumentation:instrumentationCopy completion:v85];
 
 LABEL_50:
   v28 = 0;
@@ -626,11 +636,11 @@ LABEL_51:
   v78 = AFSiriLogContextMyriad;
   if (os_log_type_enabled(AFSiriLogContextMyriad, OS_LOG_TYPE_DEBUG))
   {
-    v81 = v91[5];
+    v80 = v90[5];
     *buf = 136315394;
-    v97 = "[AFMyriadMetrics _submitMyriadMetrics:additionalContext:toStream:instrumentation:completion:]";
-    v98 = 2112;
-    v99 = v81;
+    v96 = "[AFMyriadMetrics _submitMyriadMetrics:additionalContext:toStream:instrumentation:completion:]";
+    v97 = 2112;
+    v98 = v80;
     _os_log_debug_impl(&dword_1912FE000, v78, OS_LOG_TYPE_DEBUG, "%s Myriad endpoint metrics context: %@", buf, 0x16u);
     if (!completionCopy)
     {
@@ -643,14 +653,13 @@ LABEL_51:
   if (completionCopy)
   {
 LABEL_53:
-    v79 = [v91[5] copy];
+    v79 = [v90[5] copy];
     completionCopy[2](completionCopy, v28, v79);
   }
 
 LABEL_54:
 
-  _Block_object_dispose(&v90, 8);
-  v80 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v89, 8);
 }
 
 uint64_t __94__AFMyriadMetrics__submitMyriadMetrics_additionalContext_toStream_instrumentation_completion___block_invoke(uint64_t a1, void *a2)
@@ -676,6 +685,23 @@ uint64_t __94__AFMyriadMetrics__submitMyriadMetrics_additionalContext_toStream_i
   }
 
   return result;
+}
+
+- (id)_createEndAnalyticContexFromIntermediateContext:(id)context forVersion:(unsigned int)version sessionId:(double)id
+{
+  v6 = *&version;
+  v7 = MEMORY[0x1E695DF90];
+  contextCopy = context;
+  v9 = objc_alloc_init(v7);
+  [v9 addEntriesFromDictionary:contextCopy];
+
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+  [v9 setObject:v10 forKey:@"version"];
+
+  v11 = [MEMORY[0x1E696AD98] numberWithDouble:id];
+  [v9 setObject:v11 forKey:@"session_id"];
+
+  return v9;
 }
 
 - (id)getCDASessionId:(MyriadMetricsDataV1 *)id

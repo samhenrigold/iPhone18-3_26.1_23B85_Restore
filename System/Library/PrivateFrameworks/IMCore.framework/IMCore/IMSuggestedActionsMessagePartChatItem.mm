@@ -10,19 +10,19 @@
 {
   itemCopy = item;
   listCopy = list;
-  v16.receiver = self;
-  v16.super_class = IMSuggestedActionsMessagePartChatItem;
-  v10 = [(IMChatItem *)&v16 _initWithItem:itemCopy];
-  if (v10)
+  v12.receiver = self;
+  v12.super_class = IMSuggestedActionsMessagePartChatItem;
+  v8 = [(IMChatItem *)&v12 _initWithItem:itemCopy];
+  if (v8)
   {
-    v11 = objc_msgSend_guid(itemCopy, v8, v9);
-    v12 = sub_1A83AC604();
-    objc_msgSend__setGUID_(v10, v13, v12);
+    guid = [itemCopy guid];
+    v10 = sub_1A83AC604();
+    [(IMTranscriptChatItem *)v8 _setGUID:v10];
 
-    objc_msgSend_setSuggestedActionsList_(v10, v14, listCopy);
+    [(IMMessagePartChatItem *)v8 setSuggestedActionsList:listCopy];
   }
 
-  return v10;
+  return v8;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -32,37 +32,37 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    v8 = objc_msgSend_guid(self, v6, v7);
-    v11 = objc_msgSend_guid(v5, v9, v10);
-    if (objc_msgSend_isEqualToString_(v8, v12, v11))
+    guid = [(IMTranscriptChatItem *)self guid];
+    guid2 = [v5 guid];
+    if ([guid isEqualToString:guid2])
     {
-      v15 = objc_msgSend_suggestedActionsList(self, v13, v14);
-      v18 = objc_msgSend_suggestedActionsList(v5, v16, v17);
-      isEqual = objc_msgSend_isEqual_(v15, v19, v18);
+      suggestedActionsList = [(IMMessagePartChatItem *)self suggestedActionsList];
+      suggestedActionsList2 = [v5 suggestedActionsList];
+      v10 = [suggestedActionsList isEqual:suggestedActionsList2];
     }
 
     else
     {
-      isEqual = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    isEqual = 0;
+    v10 = 0;
   }
 
-  return isEqual;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [IMSuggestedActionsMessagePartChatItem alloc];
-  v7 = objc_msgSend_messageItem(self, v5, v6);
-  v10 = objc_msgSend_suggestedActionsList(self, v8, v9);
-  v12 = objc_msgSend_initWithItem_suggestedActionsList_(v4, v11, v7, v10);
+  messageItem = [(IMMessageChatItem *)self messageItem];
+  suggestedActionsList = [(IMMessagePartChatItem *)self suggestedActionsList];
+  v7 = [(IMSuggestedActionsMessagePartChatItem *)v4 initWithItem:messageItem suggestedActionsList:suggestedActionsList];
 
-  return v12;
+  return v7;
 }
 
 @end

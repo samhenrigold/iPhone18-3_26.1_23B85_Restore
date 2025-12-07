@@ -30,8 +30,9 @@
 
 - (void)setIsInputEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  sub_1001375FC(enabled);
+  sub_1001375FC(enabledCopy);
 }
 
 - (void)editBegan

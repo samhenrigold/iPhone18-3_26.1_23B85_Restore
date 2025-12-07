@@ -5,6 +5,7 @@
 - (RPTransportServiceHandoverMessage)initWithMetadata:(id)metadata applicationLabel:(id)label payload:(id)payload version:(id)version;
 - (id)connectionHandoverRequest;
 - (id)connectionHandoverSelect;
+- (id)descriptionWithLevel:(int)level;
 - (id)transportServicesMetadataDictionaryRepresentation;
 @end
 
@@ -82,6 +83,88 @@
   }
 
   return v3;
+}
+
+- (id)descriptionWithLevel:(int)level
+{
+  v3 = *&level;
+  v34 = 0;
+  v5 = objc_opt_class();
+  NSAppendPrintF(&v34, "%@", v5);
+  v6 = v34;
+  v7 = v6;
+  version = self->_version;
+  if (version)
+  {
+    v33 = v6;
+    v9 = version;
+    NSAppendPrintF(&v33, " Ver %@", v9);
+    v10 = v33;
+
+    v7 = v10;
+  }
+
+  applicationLabel = self->_applicationLabel;
+  if (applicationLabel)
+  {
+    v32 = v7;
+    v12 = applicationLabel;
+    NSAppendPrintF(&v32, " applicationLabel %@", v12);
+    v13 = v32;
+
+    v7 = v13;
+  }
+
+  payload = self->_payload;
+  if (payload)
+  {
+    v31 = v7;
+    v15 = payload;
+    NSAppendPrintF(&v31, " payload: %@", v15);
+    v16 = v31;
+
+    v7 = v16;
+  }
+
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v17 = self->_transportServicesMetadata;
+  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = *v28;
+    do
+    {
+      v21 = 0;
+      v22 = v7;
+      do
+      {
+        if (*v28 != v20)
+        {
+          objc_enumerationMutation(v17);
+        }
+
+        v23 = *(*(&v27 + 1) + 8 * v21);
+        v26 = v22;
+        v24 = [v23 descriptionWithLevel:v3];
+        NSAppendPrintF(&v26, "\n\t%@", v24);
+        v7 = v26;
+
+        v21 = v21 + 1;
+        v22 = v7;
+      }
+
+      while (v19 != v21);
+      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    }
+
+    while (v19);
+  }
+
+  return v7;
 }
 
 + (RPTransportServiceHandoverMessage)messageWithConnectionHandoverSelect:(id)select
@@ -206,7 +289,7 @@ LABEL_17:
   dictionaryRepresentation = [payload dictionaryRepresentation];
 
   transportServicesMetadataDictionaryRepresentation = [(RPTransportServiceHandoverMessage *)self transportServicesMetadataDictionaryRepresentation];
-  v6 = objc_alloc(off_1001D3FE0[0]());
+  v6 = objc_alloc(off_1001D3FE0());
   version = [(RPTransportServiceHandoverMessage *)self version];
   applicationLabel = [(RPTransportServiceHandoverMessage *)self applicationLabel];
   v9 = [v6 initWithVersion:version applicationLabel:applicationLabel serivceList:transportServicesMetadataDictionaryRepresentation userInfo:dictionaryRepresentation];

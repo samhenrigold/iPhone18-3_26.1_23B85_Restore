@@ -69,7 +69,7 @@
       v15 = firstObject;
       if (firstObject)
       {
-        [firstObject preferredTransform];
+        objc_msgSend_preferredTransform(firstObject);
       }
 
       else
@@ -188,7 +188,7 @@ LABEL_3:
     videoAdjustments = self->_videoAdjustments;
     if (videoAdjustments)
     {
-      [(PFVideoAdjustments *)videoAdjustments slowMotionTimeRange];
+      objc_msgSend_slowMotionTimeRange(videoAdjustments);
     }
 
     else
@@ -268,7 +268,7 @@ LABEL_3:
     videoAdjustments = self->_videoAdjustments;
     if (videoAdjustments)
     {
-      [(PFVideoAdjustments *)videoAdjustments slowMotionTimeRange];
+      objc_msgSend_slowMotionTimeRange(videoAdjustments);
     }
 
     else
@@ -357,7 +357,7 @@ LABEL_3:
     videoAdjustments = self->_videoAdjustments;
     if (videoAdjustments)
     {
-      [(PFVideoAdjustments *)videoAdjustments slowMotionTimeRange];
+      objc_msgSend_slowMotionTimeRange(videoAdjustments);
     }
 
     else
@@ -586,14 +586,14 @@ double __70__PFVideoAVObjectBuilder_SlowMotion__slowMotionRampOutRangeForExport_
   if ((*(v6 + 24) & 1) == 0)
   {
     *(v6 + 24) = 1;
-    CMTimeMakeWithSeconds(&v12, a5, +[PFSlowMotionUtilities preferredTimeScale]);
-    *(*(*(a1 + 40) + 8) + 32) = v12;
-    CMTimeMakeWithSeconds(&v11, (a6 - a5), +[PFSlowMotionUtilities preferredTimeScale]);
-    result = *&v11.value;
-    *(*(*(a1 + 40) + 8) + 56) = v11;
+    CMTimeMakeWithSeconds(&v11, a5, [PFSlowMotionUtilities preferredTimeScale:a2]);
+    *(*(*(a1 + 40) + 8) + 32) = v11;
+    CMTimeMakeWithSeconds(&v10, (a6 - a5), +[PFSlowMotionUtilities preferredTimeScale]);
+    a2 = *&v10.value;
+    *(*(*(a1 + 40) + 8) + 56) = v10;
   }
 
-  return result;
+  return a2;
 }
 
 - ($E33AF59C8D263E738CA17719EFF006B3)slowMotionRampInRangeForExport:(SEL)export
@@ -635,14 +635,14 @@ double __69__PFVideoAVObjectBuilder_SlowMotion__slowMotionRampInRangeForExport__
   if ((*(v4 + 24) & 1) == 0)
   {
     *(v4 + 24) = 1;
-    CMTimeMakeWithSeconds(&v10, a3, +[PFSlowMotionUtilities preferredTimeScale]);
-    *(*(*(a1 + 40) + 8) + 32) = v10;
-    CMTimeMakeWithSeconds(&v9, (a4 - a3), +[PFSlowMotionUtilities preferredTimeScale]);
-    result = *&v9.value;
-    *(*(*(a1 + 40) + 8) + 56) = v9;
+    CMTimeMakeWithSeconds(&v9, a3, +[PFSlowMotionUtilities preferredTimeScale]);
+    *(*(*(a1 + 40) + 8) + 32) = v9;
+    CMTimeMakeWithSeconds(&v8, (a4 - a3), +[PFSlowMotionUtilities preferredTimeScale]);
+    a2 = *&v8.value;
+    *(*(*(a1 + 40) + 8) + 56) = v8;
   }
 
-  return result;
+  return a2;
 }
 
 - (id)_getOrCreateTimeRangeMapperForExport:(BOOL)export
@@ -664,7 +664,7 @@ double __69__PFVideoAVObjectBuilder_SlowMotion__slowMotionRampInRangeForExport__
     videoAsset = self->_videoAsset;
     if (videoAsset)
     {
-      [(AVAsset *)videoAsset duration];
+      objc_msgSend_duration(videoAsset);
     }
 
     else
@@ -679,7 +679,7 @@ double __69__PFVideoAVObjectBuilder_SlowMotion__slowMotionRampInRangeForExport__
     videoAdjustments = self->_videoAdjustments;
     if (videoAdjustments)
     {
-      [(PFVideoAdjustments *)videoAdjustments slowMotionTimeRange];
+      objc_msgSend_slowMotionTimeRange(videoAdjustments);
     }
 
     else

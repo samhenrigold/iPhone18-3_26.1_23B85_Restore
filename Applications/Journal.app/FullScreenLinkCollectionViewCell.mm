@@ -14,7 +14,7 @@
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal32FullScreenLinkCollectionViewCell_linkView) = 0;
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal32FullScreenLinkCollectionViewCell_asset) = 0;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for FullScreenLinkCollectionViewCell();
+  v8.super_class = type metadata accessor for FullScreenLinkCollectionViewCell(0);
   return [(FullScreenAssetCollectionViewCell *)&v8 initWithFrame:x, y, width, height];
 }
 
@@ -22,7 +22,7 @@
 {
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal32FullScreenLinkCollectionViewCell_linkView) = 0;
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal32FullScreenLinkCollectionViewCell_asset) = 0;
-  type metadata accessor for FullScreenLinkCollectionViewCell();
+  type metadata accessor for FullScreenLinkCollectionViewCell(0);
   swift_deallocPartialClassInstance();
   return 0;
 }

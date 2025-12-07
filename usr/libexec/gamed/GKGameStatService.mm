@@ -74,99 +74,79 @@
   }
 
   v14 = [dictionaryForRequest objectForKeyedSubscript:@"bundle-id"];
-  v31 = v14;
-  if (v7 == 3)
+  v28 = v14;
+  switch(v7)
   {
-    v15 = [NSPredicate predicateWithFormat:@"game.bundleID = %@ AND type = %d AND reference = %@", v14, 3, referenceCopy, v14];
-    v46[0] = @"game";
-    v46[1] = @"match-type";
-    v47[0] = dictionaryForRequest;
-    v47[1] = @"achievement-compatible";
-    v46[2] = @"achievement-id";
-    v47[2] = referenceCopy;
-    v16 = v47;
-    v17 = v46;
+    case 3:
+      v15 = [NSPredicate predicateWithFormat:@"game.bundleID = %@ AND type = %d AND reference = %@", v14, 3, referenceCopy, v14];
+      v45 = @"game";
+      v46 = @"match-type";
+      v48 = dictionaryForRequest;
+      v49 = @"achievement-compatible";
+      v47 = @"achievement-id";
+      v50 = referenceCopy;
+      break;
+    case 2:
+      v15 = [NSPredicate predicateWithFormat:@"game.bundleID = %@ AND type = %d AND reference = %@", v14, 2, referenceCopy, v14];
+      v51 = @"game";
+      v52 = @"match-type";
+      v54 = dictionaryForRequest;
+      v55 = @"leaderboard-compatible";
+      v53 = @"leaderboard-id";
+      v56 = referenceCopy;
+      break;
+    case 1:
+      v15 = [NSPredicate predicateWithFormat:@"game.bundleID = %@ AND type = %d", v14, 1];
+      v57 = @"game";
+      v58 = @"match-type";
+      v59 = dictionaryForRequest;
+      v60 = @"multiplayer-compatible";
+      break;
+    default:
+      v15 = [NSPredicate predicateWithFormat:@"game.bundleID = %@ AND type = %d", v14, v7];
+      v41 = @"game";
+      v42 = @"match-type";
+      v43 = dictionaryForRequest;
+      v44 = @"exact-match";
+      break;
   }
 
-  else
-  {
-    if (v7 != 2)
-    {
-      if (v7 == 1)
-      {
-        v15 = [NSPredicate predicateWithFormat:@"game.bundleID = %@ AND type = %d", v14, 1];
-        v50[0] = @"game";
-        v50[1] = @"match-type";
-        v51[0] = dictionaryForRequest;
-        v51[1] = @"multiplayer-compatible";
-        v16 = v51;
-        v17 = v50;
-      }
-
-      else
-      {
-        v15 = [NSPredicate predicateWithFormat:@"game.bundleID = %@ AND type = %d", v14, v7];
-        v44[0] = @"game";
-        v44[1] = @"match-type";
-        v45[0] = dictionaryForRequest;
-        v45[1] = @"exact-match";
-        v16 = v45;
-        v17 = v44;
-      }
-
-      v18 = 2;
-      goto LABEL_12;
-    }
-
-    v15 = [NSPredicate predicateWithFormat:@"game.bundleID = %@ AND type = %d AND reference = %@", v14, 2, referenceCopy, v14];
-    v48[0] = @"game";
-    v48[1] = @"match-type";
-    v49[0] = dictionaryForRequest;
-    v49[1] = @"leaderboard-compatible";
-    v48[2] = @"leaderboard-id";
-    v49[2] = referenceCopy;
-    v16 = v49;
-    v17 = v48;
-  }
-
-  v18 = 3;
-LABEL_12:
-  v19 = [NSDictionary dictionaryWithObjects:v16 forKeys:v17 count:v18];
-  v20 = [NSString stringWithFormat:@"%s:%d %s", "GKGameStatService.m", 119, "[GKGameStatService _getRecentMatchesForGameDescriptor:type:reference:handler:]"];
-  v21 = [(GKService *)self transactionGroupWithName:v20];
+  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v17 = [NSString stringWithFormat:@"%s:%d %s", "GKGameStatService.m", 119, "[GKGameStatService _getRecentMatchesForGameDescriptor:type:reference:handler:]"];
+  v18 = [(GKService *)self transactionGroupWithName:v17];
 
   clientProxy2 = [(GKService *)self clientProxy];
   replyQueue = [clientProxy2 replyQueue];
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_1000A72FC;
-  v36[3] = &unk_100364428;
-  v24 = v21;
-  v37 = v24;
-  v25 = v15;
-  v38 = v25;
-  v26 = v19;
-  v39 = v26;
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_1000A72FC;
+  v33[3] = &unk_100364428;
+  v21 = v18;
+  v34 = v21;
+  v22 = v15;
+  v35 = v22;
+  v23 = v16;
+  v36 = v23;
   selfCopy = self;
-  v43 = v7;
-  v27 = referenceCopy;
-  v41 = v27;
-  v28 = dictionaryForRequest;
-  v42 = v28;
-  [v24 performOnQueue:replyQueue block:v36];
+  v40 = v7;
+  v24 = referenceCopy;
+  v38 = v24;
+  v25 = dictionaryForRequest;
+  v39 = v25;
+  [v21 performOnQueue:replyQueue block:v33];
 
   if (handlerCopy)
   {
     clientProxy3 = [(GKService *)self clientProxy];
     replyQueue2 = [clientProxy3 replyQueue];
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_1000A7D48;
-    v32[3] = &unk_100360FC8;
-    v33 = v24;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_1000A7D48;
+    v29[3] = &unk_100360FC8;
+    v30 = v21;
     selfCopy2 = self;
-    v35 = handlerCopy;
-    [v33 notifyOnQueue:replyQueue2 block:v32];
+    v32 = handlerCopy;
+    [v30 notifyOnQueue:replyQueue2 block:v29];
   }
 }
 

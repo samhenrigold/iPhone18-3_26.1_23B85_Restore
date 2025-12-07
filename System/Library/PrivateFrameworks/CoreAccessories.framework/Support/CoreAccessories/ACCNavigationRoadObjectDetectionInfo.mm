@@ -2,6 +2,8 @@
 + (id)keyForType:(unsigned __int16)type;
 - (ACCNavigationRoadObjectDetectionInfo)init;
 - (BOOL)_checkDataClassForType:(unsigned __int16)type data:(id)data;
+- (BOOL)setInfo:(unsigned __int16)info data:(id)data;
+- (id)copyInfo:(unsigned __int16)info;
 - (id)description;
 - (void)setInfoFromDictionary:(id)dictionary;
 @end
@@ -103,12 +105,47 @@
 
   else
   {
-    v6 = *(&off_100226B50)[typeCopy];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
   }
 
   return isKindOfClass & 1;
+}
+
+- (id)copyInfo:(unsigned __int16)info
+{
+  v4 = [ACCNavigationRoadObjectDetectionInfo keyForType:info];
+  if (v4)
+  {
+    v5 = [(NSMutableDictionary *)self->_infoDict objectForKey:v4];
+    v6 = [v5 copy];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+- (BOOL)setInfo:(unsigned __int16)info data:(id)data
+{
+  infoCopy = info;
+  dataCopy = data;
+  v7 = [ACCNavigationRoadObjectDetectionInfo keyForType:infoCopy];
+  if (v7 && [(ACCNavigationRoadObjectDetectionInfo *)self _checkDataClassForType:infoCopy data:dataCopy])
+  {
+    [(NSMutableDictionary *)self->_infoDict setObject:dataCopy forKey:v7];
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (void)setInfoFromDictionary:(id)dictionary

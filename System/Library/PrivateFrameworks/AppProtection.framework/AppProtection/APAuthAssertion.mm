@@ -60,7 +60,6 @@
   MEMORY[0x1865FCFA0]();
   if (*((*(&self->super.isa + v4) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(&self->super.isa + v4) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v6 = *((*(&self->super.isa + v4) & 0xFFFFFFFFFFFFFF8) + 0x10);
     sub_185B67F8C();
   }
 

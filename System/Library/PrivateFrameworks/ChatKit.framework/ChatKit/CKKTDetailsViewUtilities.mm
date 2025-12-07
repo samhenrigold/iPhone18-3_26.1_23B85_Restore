@@ -235,14 +235,14 @@ LABEL_14:
   placeholderCopy = placeholder;
   v6 = [CKKTDetailsViewUtilities _commaSeparatedNamesForHandles:handles];
   v7 = MEMORY[0x1E696AEC0];
-  v8 = CKFrameworkBundle();
+  v8 = CKFrameworkBundle(v6);
   v9 = [v8 localizedStringForKey:placeholderCopy value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 
-  v10 = CKFrameworkBundle();
-  v11 = [v10 localizedStringForKey:@"KT_LEARN_MORE_FOOTER_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v12 = [v7 localizedStringWithFormat:v9, v6, v11];
+  v11 = CKFrameworkBundle(v10);
+  v12 = [v11 localizedStringForKey:@"KT_LEARN_MORE_FOOTER_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v13 = [v7 localizedStringWithFormat:v9, v6, v12];
 
-  return v12;
+  return v13;
 }
 
 + (id)securityFooterStringForKTChatState:(unint64_t)state handles:(id)handles
@@ -253,9 +253,9 @@ LABEL_14:
   switch(state)
   {
     case 0uLL:
-      v22 = CKFrameworkBundle();
-      v12 = v22;
-      v23 = @"KT_TURN_ON_FOOTER_TEXT";
+      v25 = CKFrameworkBundle(handlesCopy);
+      v13 = v25;
+      v26 = @"KT_TURN_ON_FOOTER_TEXT";
       goto LABEL_22;
     case 1uLL:
     case 0xAuLL:
@@ -263,67 +263,71 @@ LABEL_14:
     case 0xEuLL:
     case 0x13uLL:
       v8 = CKIsRunningInMacCatalyst();
-      v9 = CKFrameworkBundle();
-      v10 = v9;
-      if (v8)
+      v9 = v8;
+      v10 = CKFrameworkBundle(v8);
+      v11 = v10;
+      if (v9)
       {
-        v11 = @"SYSTEM_SETTINGS";
+        v12 = @"SYSTEM_SETTINGS";
       }
 
       else
       {
-        v11 = @"SETTINGS";
+        v12 = @"SETTINGS";
       }
 
-      v12 = [v9 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+      v13 = [v10 localizedStringForKey:v12 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 
-      v13 = [CKKTDetailsViewUtilities _commaSeparatedNamesForHandles:v6];
-      if ([v6 count] == 1)
+      v14 = [CKKTDetailsViewUtilities _commaSeparatedNamesForHandles:v6];
+      v15 = [v6 count];
+      if (v15 == 1)
       {
-        v14 = @"KT_FOOTER_VIEW_TEXT_DISABLED";
+        v16 = @"KT_FOOTER_VIEW_TEXT_DISABLED";
       }
 
       else
       {
-        v14 = @"KT_FOOTER_VIEW_TEXT_DISABLED_PLURAL";
+        v16 = @"KT_FOOTER_VIEW_TEXT_DISABLED_PLURAL";
       }
 
-      v15 = MEMORY[0x1E696AEC0];
-      v16 = CKFrameworkBundle();
-      v17 = [v16 localizedStringForKey:v14 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-      v18 = CKFrameworkBundle();
-      v19 = [v18 localizedStringForKey:@"KT_LEARN_MORE_FOOTER_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-      v20 = [v15 localizedStringWithFormat:v17, v13, v12, v19];
+      v17 = MEMORY[0x1E696AEC0];
+      v18 = CKFrameworkBundle(v15);
+      v19 = [v18 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+      v20 = CKFrameworkBundle(v19);
+      v21 = [v20 localizedStringForKey:@"KT_LEARN_MORE_FOOTER_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+      v22 = [v17 localizedStringWithFormat:v19, v14, v13, v21];
 
       goto LABEL_23;
     case 2uLL:
     case 0xBuLL:
     case 0xCuLL:
-      v22 = CKFrameworkBundle();
-      v12 = v22;
-      v23 = @"KT_FOOTER_VIEW_TEXT_UNAVAILABLE";
+      v25 = CKFrameworkBundle(handlesCopy);
+      v13 = v25;
+      v26 = @"KT_FOOTER_VIEW_TEXT_UNAVAILABLE";
       goto LABEL_22;
     case 3uLL:
     case 0x11uLL:
       if ([handlesCopy count] == 1)
       {
-        v21 = @"KT_FOOTER_TEXT_NOT_VERIFIED";
+        v23 = @"KT_FOOTER_TEXT_NOT_VERIFIED";
       }
 
       else
       {
-        v21 = @"KT_FOOTER_TEXT_NOT_VERIFIED_GROUP";
+        v23 = @"KT_FOOTER_TEXT_NOT_VERIFIED_GROUP";
       }
 
       goto LABEL_10;
     case 4uLL:
     case 0x12uLL:
-      if ([handlesCopy count] == 1)
+      v27 = [handlesCopy count];
+      if (v27 == 1)
       {
-        v21 = @"KT_FOOTER_TEXT_VERIFIED";
+        v23 = @"KT_FOOTER_TEXT_VERIFIED";
 LABEL_10:
-        v20 = [CKKTDetailsViewUtilities securityDescriptionWithPlaceholder:v21 handles:v6];
-        if (!v20)
+        v24 = [CKKTDetailsViewUtilities securityDescriptionWithPlaceholder:v23 handles:v6];
+        v22 = v24;
+        if (!v24)
         {
 LABEL_11:
           v7 = 0;
@@ -333,50 +337,50 @@ LABEL_11:
 
       else
       {
-        v22 = CKFrameworkBundle();
-        v12 = v22;
-        v23 = @"KT_FOOTER_TEXT_VERIFIED_GROUP";
+        v25 = CKFrameworkBundle(v27);
+        v13 = v25;
+        v26 = @"KT_FOOTER_TEXT_VERIFIED_GROUP";
 LABEL_22:
-        v20 = [v22 localizedStringForKey:v23 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+        v22 = [v25 localizedStringForKey:v26 value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 LABEL_23:
 
-        if (!v20)
+        if (!v22)
         {
           goto LABEL_11;
         }
       }
 
-      v24 = CKFrameworkBundle();
-      v25 = [v24 localizedStringForKey:@"KT_LEARN_MORE_FOOTER_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+      v28 = CKFrameworkBundle(v24);
+      v29 = [v28 localizedStringForKey:@"KT_LEARN_MORE_FOOTER_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 
-      v26 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:v20, v25];
-      v27 = [v26 rangeOfString:v25];
-      v29 = v28;
-      v30 = [v26 length];
-      v7 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v26];
-      v43 = v20;
-      v31 = +[CKUIBehavior sharedBehaviors];
-      [v31 headerFont];
-      v32 = v44 = v6;
-      v33 = [CKUIBehavior font:v32 adjustedForMaxSizeCategory:*MEMORY[0x1E69DDC28]];
+      v30 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:v22, v29];
+      v31 = [v30 rangeOfString:v29];
+      v33 = v32;
+      v34 = [v30 length];
+      v7 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v30];
+      v47 = v22;
+      v35 = +[CKUIBehavior sharedBehaviors];
+      [v35 headerFont];
+      v36 = v48 = v6;
+      v37 = [CKUIBehavior font:v36 adjustedForMaxSizeCategory:*MEMORY[0x1E69DDC28]];
 
-      [v7 addAttribute:*MEMORY[0x1E69DB648] value:v33 range:{0, v30}];
-      v34 = *MEMORY[0x1E69DB650];
+      [v7 addAttribute:*MEMORY[0x1E69DB648] value:v37 range:{0, v34}];
+      v38 = *MEMORY[0x1E69DB650];
       secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-      [v7 addAttribute:v34 value:secondaryLabelColor range:{0, v30}];
+      [v7 addAttribute:v38 value:secondaryLabelColor range:{0, v34}];
 
-      v36 = +[CKUIBehavior sharedBehaviors];
-      theme = [v36 theme];
+      v40 = +[CKUIBehavior sharedBehaviors];
+      theme = [v40 theme];
       appTintColor = [theme appTintColor];
-      [v7 addAttribute:v34 value:appTintColor range:{v27, v29}];
+      [v7 addAttribute:v38 value:appTintColor range:{v31, v33}];
 
-      v39 = *MEMORY[0x1E69DB670];
-      v40 = [MEMORY[0x1E695DFF8] URLWithString:&stru_1F04268F8];
-      v41 = v39;
-      v6 = v44;
-      [v7 addAttribute:v41 value:v40 range:{v27, v29}];
+      v43 = *MEMORY[0x1E69DB670];
+      v44 = [MEMORY[0x1E695DFF8] URLWithString:&stru_1F04268F8];
+      v45 = v43;
+      v6 = v48;
+      [v7 addAttribute:v45 value:v44 range:{v31, v33}];
 
-      [v7 addAttribute:*MEMORY[0x1E69DB758] value:MEMORY[0x1E695E110] range:{v27, v29}];
+      [v7 addAttribute:*MEMORY[0x1E69DB758] value:MEMORY[0x1E695E110] range:{v31, v33}];
 LABEL_25:
 
       return v7;
@@ -384,17 +388,17 @@ LABEL_25:
     case 6uLL:
     case 7uLL:
     case 8uLL:
-      v21 = @"KT_FOOTER_VIEW_TEXT_VERIFICATION_FAILURE";
+      v23 = @"KT_FOOTER_VIEW_TEXT_VERIFICATION_FAILURE";
       goto LABEL_10;
     case 9uLL:
       if ([handlesCopy count] == 1)
       {
-        v21 = @"KT_FOOTER_VIEW_TEXT_TURNED_OFF";
+        v23 = @"KT_FOOTER_VIEW_TEXT_TURNED_OFF";
       }
 
       else
       {
-        v21 = @"KT_FOOTER_VIEW_TEXT_TURNED_OFF_PLURAL";
+        v23 = @"KT_FOOTER_VIEW_TEXT_TURNED_OFF_PLURAL";
       }
 
       goto LABEL_10;
@@ -405,7 +409,7 @@ LABEL_25:
 
 + (id)securityHeaderString
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"KT_HEADER_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 
   return v3;
@@ -413,7 +417,7 @@ LABEL_25:
 
 + (id)enableKTCellText
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"KT_ENABLE_KT_CELL_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 
   return v3;

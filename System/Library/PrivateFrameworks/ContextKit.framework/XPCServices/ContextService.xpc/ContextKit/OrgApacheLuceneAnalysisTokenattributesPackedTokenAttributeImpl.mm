@@ -7,6 +7,8 @@
 - (void)copyToWithOrgApacheLuceneUtilAttributeImpl:(id)impl;
 - (void)dealloc;
 - (void)reflectWithWithOrgApacheLuceneUtilAttributeReflector:(id)reflector;
+- (void)setOffsetWithInt:(int)int withInt:(int)withInt;
+- (void)setPositionIncrementWithInt:(int)int;
 @end
 
 @implementation OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl
@@ -18,6 +20,31 @@
   HIDWORD(self->type_) = 1;
   self->positionIncrement_ = 1;
   return self;
+}
+
+- (void)setPositionIncrementWithInt:(int)int
+{
+  if (int < 0)
+  {
+    v8 = JreStrcat("$I", a2, *&int, v3, v4, v5, v6, v7, @"Increment must be zero or greater: ");
+    v9 = new_JavaLangIllegalArgumentException_initWithNSString_(v8);
+    objc_exception_throw(v9);
+  }
+
+  HIDWORD(self->type_) = int;
+}
+
+- (void)setOffsetWithInt:(int)int withInt:(int)withInt
+{
+  if (int < 0 || withInt < int)
+  {
+    v8 = JreStrcat("$I$I", a2, *&int, *&withInt, v4, v5, v6, v7, @"startOffset must be non-negative, and endOffset must be >= startOffset, startOffset=");
+    v9 = new_JavaLangIllegalArgumentException_initWithNSString_(v8);
+    objc_exception_throw(v9);
+  }
+
+  *(&self->super.termLength_ + 1) = int;
+  self->startOffset_ = withInt;
 }
 
 - (void)clear
@@ -121,22 +148,22 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v7.receiver = self;
-    v7.super_class = OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl;
-    [(OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl *)&v7 copyToWithOrgApacheLuceneUtilAttributeImpl:impl];
-    v6 = OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_();
+    v15.receiver = self;
+    v15.super_class = OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl;
+    v6 = [(OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl *)&v15 copyToWithOrgApacheLuceneUtilAttributeImpl:impl];
+    v8 = OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_(v6, v7);
     if (impl)
     {
-      if ([v6 isInstance:impl])
+      if ([v8 isInstance:impl])
       {
-        [impl setOffsetWithInt:*(&self->super.termLength_ + 1) withInt:self->startOffset_];
-        if ([OrgApacheLuceneAnalysisTokenattributesPositionIncrementAttribute_class_() isInstance:impl])
+        v9 = [impl setOffsetWithInt:*(&self->super.termLength_ + 1) withInt:self->startOffset_];
+        if ([OrgApacheLuceneAnalysisTokenattributesPositionIncrementAttribute_class_(v9 v10)])
         {
-          [impl setPositionIncrementWithInt:HIDWORD(self->type_)];
-          if ([OrgApacheLuceneAnalysisTokenattributesPositionLengthAttribute_class_() isInstance:impl])
+          v11 = [impl setPositionIncrementWithInt:HIDWORD(self->type_)];
+          if ([OrgApacheLuceneAnalysisTokenattributesPositionLengthAttribute_class_(v11 v12)])
           {
-            [impl setPositionLengthWithInt:self->positionIncrement_];
-            if ([OrgApacheLuceneAnalysisTokenattributesTypeAttribute_class_() isInstance:impl])
+            v13 = [impl setPositionLengthWithInt:self->positionIncrement_];
+            if ([OrgApacheLuceneAnalysisTokenattributesTypeAttribute_class_(v13 v14)])
             {
               [impl setTypeWithNSString:*&self->endOffset_];
               return;
@@ -176,23 +203,23 @@ LABEL_14:
 
 - (void)reflectWithWithOrgApacheLuceneUtilAttributeReflector:(id)reflector
 {
-  v9.receiver = self;
-  v9.super_class = OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl;
-  [(OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl *)&v9 reflectWithWithOrgApacheLuceneUtilAttributeReflector:?];
+  v19.receiver = self;
+  v19.super_class = OrgApacheLuceneAnalysisTokenattributesPackedTokenAttributeImpl;
+  v5 = [(OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl *)&v19 reflectWithWithOrgApacheLuceneUtilAttributeReflector:?];
   if (!reflector)
   {
     JreThrowNullPointerException();
   }
 
-  v5 = OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_();
-  [reflector reflectWithIOSClass:v5 withNSString:@"startOffset" withId:JavaLangInteger_valueOfWithInt_(*(&self->super.termLength_ + 1))];
-  v6 = OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_();
-  [reflector reflectWithIOSClass:v6 withNSString:@"endOffset" withId:JavaLangInteger_valueOfWithInt_(self->startOffset_)];
-  v7 = OrgApacheLuceneAnalysisTokenattributesPositionIncrementAttribute_class_();
-  [reflector reflectWithIOSClass:v7 withNSString:@"positionIncrement" withId:JavaLangInteger_valueOfWithInt_(HIDWORD(self->type_))];
-  v8 = OrgApacheLuceneAnalysisTokenattributesPositionLengthAttribute_class_();
-  [reflector reflectWithIOSClass:v8 withNSString:@"positionLength" withId:JavaLangInteger_valueOfWithInt_(self->positionIncrement_)];
-  [reflector reflectWithIOSClass:OrgApacheLuceneAnalysisTokenattributesTypeAttribute_class_() withNSString:@"type" withId:*&self->endOffset_];
+  v7 = OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_(v5, v6);
+  v8 = [reflector reflectWithIOSClass:v7 withNSString:@"startOffset" withId:JavaLangInteger_valueOfWithInt_(*(&self->super.termLength_ + 1))];
+  v10 = OrgApacheLuceneAnalysisTokenattributesOffsetAttribute_class_(v8, v9);
+  v11 = [reflector reflectWithIOSClass:v10 withNSString:@"endOffset" withId:JavaLangInteger_valueOfWithInt_(self->startOffset_)];
+  v13 = OrgApacheLuceneAnalysisTokenattributesPositionIncrementAttribute_class_(v11, v12);
+  v14 = [reflector reflectWithIOSClass:v13 withNSString:@"positionIncrement" withId:JavaLangInteger_valueOfWithInt_(HIDWORD(self->type_))];
+  v16 = OrgApacheLuceneAnalysisTokenattributesPositionLengthAttribute_class_(v14, v15);
+  v17 = [reflector reflectWithIOSClass:v16 withNSString:@"positionLength" withId:JavaLangInteger_valueOfWithInt_(self->positionIncrement_)];
+  [reflector reflectWithIOSClass:OrgApacheLuceneAnalysisTokenattributesTypeAttribute_class_(v17 withNSString:v18) withId:{@"type", *&self->endOffset_}];
 }
 
 - (void)dealloc

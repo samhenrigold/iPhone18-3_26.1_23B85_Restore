@@ -24,9 +24,11 @@
 
 uint64_t __27__CNFileServices_tmpDirLog__block_invoke()
 {
-  tmpDirLog_cn_once_object_1 = os_log_create("com.apple.contacts", "temp-dir");
+  v0 = os_log_create("com.apple.contacts", "temp-dir");
+  v1 = tmpDirLog_cn_once_object_1;
+  tmpDirLog_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (CNFileServices)sharedInstance
@@ -43,9 +45,11 @@ uint64_t __27__CNFileServices_tmpDirLog__block_invoke()
 
 uint64_t __32__CNFileServices_sharedInstance__block_invoke()
 {
-  sharedInstance_cn_once_object_2_0 = objc_alloc_init(CNFileServices);
+  v0 = objc_alloc_init(CNFileServices);
+  v1 = sharedInstance_cn_once_object_2_0;
+  sharedInstance_cn_once_object_2_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)temporaryDirectory
@@ -65,7 +69,7 @@ uint64_t __32__CNFileServices_sharedInstance__block_invoke()
 
 - (id)secureTemporarySubdirectoryWithName:(id)name
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (name)
   {
     nameCopy = name;
@@ -79,40 +83,38 @@ uint64_t __32__CNFileServices_sharedInstance__block_invoke()
     v6 = MEMORY[0x1E695E0F0];
   }
 
-  v7 = [(CNFileServices *)self secureTemporarySubdirectoryWithSubpathComponents:v6, nameCopy, v11];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [(CNFileServices *)self secureTemporarySubdirectoryWithSubpathComponents:v6, nameCopy, v10];
 
   return v7;
 }
 
 - (id)secureTemporarySubdirectoryWithSubpathComponents:(id)components
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   componentsCopy = components;
   temporaryDirectory = [(CNFileServices *)self temporaryDirectory];
   v6 = [temporaryDirectory URLByAppendingPathComponent:@"TemporaryItems" isDirectory:1];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v7 = componentsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         if ([v12 length])
         {
           v13 = [v6 URLByAppendingPathComponent:v12 isDirectory:1];
@@ -121,16 +123,16 @@ uint64_t __32__CNFileServices_sharedInstance__block_invoke()
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v9);
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v22 = 0;
-  v15 = [defaultManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v22];
-  v16 = v22;
+  v21 = 0;
+  v15 = [defaultManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v21];
+  v16 = v21;
   if ((v15 & 1) == 0 && ![CNFoundationError isFileAlreadyExistsError:v16])
   {
     tmpDirLog = [objc_opt_class() tmpDirLog];
@@ -141,14 +143,13 @@ uint64_t __32__CNFileServices_sharedInstance__block_invoke()
 
     if (os_log_type_enabled(tmpDirLog, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_1859F0000, tmpDirLog, OS_LOG_TYPE_DEFAULT, "The action with a temporary URL will still be attempted, but the behavior is now undefined.", v21, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_1859F0000, tmpDirLog, OS_LOG_TYPE_DEFAULT, "The action with a temporary URL will still be attempted, but the behavior is now undefined.", v20, 2u);
     }
   }
 
   v18 = v6;
 
-  v19 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -213,13 +214,12 @@ LABEL_9:
 
 - (void)secureTemporarySubdirectoryWithSubpathComponents:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1859F0000, log, OS_LOG_TYPE_ERROR, "Could not create secure temporary directory %{public}@: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1859F0000, log, OS_LOG_TYPE_ERROR, "Could not create secure temporary directory %{public}@: %{public}@", &v3, 0x16u);
 }
 
 @end

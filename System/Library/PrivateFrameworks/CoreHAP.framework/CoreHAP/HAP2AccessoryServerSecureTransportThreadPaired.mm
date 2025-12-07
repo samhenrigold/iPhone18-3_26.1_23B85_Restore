@@ -52,7 +52,7 @@ id __84__HAP2AccessoryServerSecureTransportThreadPaired_securitySession_didClose
 
 void __73__HAP2AccessoryServerSecureTransportThreadPaired_securitySessionDidOpen___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) additionalDerivedKeys];
   v3 = [v2 objectForKeyedSubscript:@"Event-Salt"];
 
@@ -64,9 +64,9 @@ void __73__HAP2AccessoryServerSecureTransportThreadPaired_securitySessionDidOpen
     [*(a1 + 40) setEventEncryption:v6];
 
     v7 = *(a1 + 32);
-    v11.receiver = *(a1 + 40);
-    v11.super_class = HAP2AccessoryServerSecureTransportThreadPaired;
-    objc_msgSendSuper2(&v11, sel_securitySessionDidOpen_, v7);
+    v10.receiver = *(a1 + 40);
+    v10.super_class = HAP2AccessoryServerSecureTransportThreadPaired;
+    objc_msgSendSuper2(&v10, sel_securitySessionDidOpen_, v7);
   }
 
   else
@@ -79,42 +79,38 @@ void __73__HAP2AccessoryServerSecureTransportThreadPaired_securitySessionDidOpen
     v8 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
+      v9 = *(a1 + 40);
       *buf = 138412290;
-      v13 = v10;
+      v12 = v9;
       _os_log_error_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%@ No event key was derived", buf, 0xCu);
     }
 
     [*(a1 + 32) close];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)securitySessionDidRequestAdditionalDerivedKeyTuples:(id)tuples
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [HAPSecuritySessionDelegateAdditionalDerivedKeyTuple alloc];
   v4 = [@"Event-Salt" dataUsingEncoding:4];
   v5 = [@"Event-Read-Encryption-Key" dataUsingEncoding:4];
   v6 = [(HAPSecuritySessionDelegateAdditionalDerivedKeyTuple *)v3 initWithName:@"Event-Salt" saltData:v4 infoData:v5];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }
 
 - (id)decryptData:(id)data type:(unint64_t)type error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (type != 1)
   {
-    v19.receiver = self;
-    v19.super_class = HAP2AccessoryServerSecureTransportThreadPaired;
-    v11 = [(HAP2AccessoryServerSecureTransportBase *)&v19 decryptData:dataCopy type:type error:error];
+    v18.receiver = self;
+    v18.super_class = HAP2AccessoryServerSecureTransportThreadPaired;
+    v11 = [(HAP2AccessoryServerSecureTransportBase *)&v18 decryptData:dataCopy type:type error:error];
     goto LABEL_14;
   }
 
@@ -152,9 +148,9 @@ LABEL_10:
   }
 
   eventEncryption2 = [(HAP2AccessoryServerSecureTransportThreadPaired *)self eventEncryption];
-  v18 = 0;
-  v11 = [eventEncryption2 decrypt:dataCopy additionalAuthenticatedData:0 error:&v18];
-  v12 = v18;
+  v17 = 0;
+  v11 = [eventEncryption2 decrypt:dataCopy additionalAuthenticatedData:0 error:&v17];
+  v12 = v17;
 
   if (v11)
   {
@@ -172,7 +168,6 @@ LABEL_10:
   }
 
 LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

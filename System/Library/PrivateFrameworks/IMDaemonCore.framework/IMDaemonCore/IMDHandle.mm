@@ -37,10 +37,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  personCentricID = self->_personCentricID;
-  v7 = [v3 stringWithFormat:@"[%@: <%@:%@:%@:%@:%@>]", v5, self->_id, self->_unformattedID, self->_countryCode, personCentricID, self->_CNContactID];
+  v6 = [v3 stringWithFormat:@"[%@: <%@:%@:%@:%@:%@>]", v5, self->_id, self->_unformattedID, self->_countryCode, self->_personCentricID, self->_CNContactID];
 
-  return v7;
+  return v6;
 }
 
 - (IMDHandle)initWithID:(id)d unformattedID:(id)iD countryCode:(id)code personCentricID:(id)centricID

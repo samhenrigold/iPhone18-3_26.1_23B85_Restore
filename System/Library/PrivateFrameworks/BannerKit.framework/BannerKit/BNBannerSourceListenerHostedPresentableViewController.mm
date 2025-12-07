@@ -529,7 +529,7 @@ void __74__BNBannerSourceListenerHostedPresentableViewController_viewDidDisappea
   CGAffineTransformMakeRotation(&t1, v16);
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -548,7 +548,7 @@ void __74__BNBannerSourceListenerHostedPresentableViewController_viewDidDisappea
     v25 = v24;
     if (coordinatorCopy)
     {
-      [coordinatorCopy targetTransform];
+      objc_msgSend_targetTransform(coordinatorCopy);
     }
 
     else

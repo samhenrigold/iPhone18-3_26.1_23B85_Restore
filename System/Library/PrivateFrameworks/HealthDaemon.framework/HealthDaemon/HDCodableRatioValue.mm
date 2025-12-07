@@ -147,18 +147,28 @@ LABEL_7:
   v8 = fromCopy[1];
   if (denominator)
   {
-    if (v8)
+    if (!v8)
     {
-      [(HDCodableCodedQuantity *)denominator mergeFrom:?];
+      goto LABEL_13;
     }
+
+    denominator = [(HDCodableCodedQuantity *)denominator mergeFrom:?];
   }
 
-  else if (v8)
+  else
   {
-    [(HDCodableRatioValue *)self setDenominator:?];
+    if (!v8)
+    {
+      goto LABEL_13;
+    }
+
+    denominator = [(HDCodableRatioValue *)self setDenominator:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v9;
+LABEL_13:
+
+  MEMORY[0x2821F96F8](denominator, fromCopy);
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation AXSMotionCuesActive
 
-uint64_t ___AXSMotionCuesActive_block_invoke()
+void *___AXSMotionCuesActive_block_invoke()
 {
   if (_kAXSCacheMotionCuesActiveDidChangeNotification && !_processIsResponsibleForPreferenceObserving())
   {

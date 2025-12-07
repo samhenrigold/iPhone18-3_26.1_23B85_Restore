@@ -8,9 +8,9 @@
 - (ASDTRawProperty)initWithConfig:(id)config
 {
   configCopy = config;
-  v11.receiver = self;
-  v11.super_class = ASDTRawProperty;
-  v5 = [(ASDTCustomProperty *)&v11 initWithConfig:configCopy propertyDataType:1918990199 qualifierDataType:0];
+  v13.receiver = self;
+  v13.super_class = ASDTRawProperty;
+  v5 = [(ASDTCustomProperty *)&v13 initWithConfig:configCopy propertyDataType:1918990199 qualifierDataType:0];
   v6 = v5;
   if (!v5)
   {
@@ -20,25 +20,26 @@
   [(ASDTCustomProperty *)v5 setCacheMode:2];
   asdtPropertyValue = [configCopy asdtPropertyValue];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [(ASDTRawProperty *)v6 storePropertyValue:asdtPropertyValue];
 
 LABEL_4:
-    v8 = v6;
+    v10 = v6;
     goto LABEL_8;
   }
 
-  v9 = ASDTBaseLogType();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = ASDTBaseLogType(isKindOfClass, v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [(ASDTRawProperty *)v6 initWithConfig:v9];
+    [(ASDTRawProperty *)v6 initWithConfig:v11];
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_8:
 
-  return v8;
+  return v10;
 }
 
 - (BOOL)storePropertyValue:(id)value
@@ -54,15 +55,13 @@ LABEL_8:
 
 - (void)initWithConfig:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 name];
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = @"Value";
-  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "%@: Key %@ must specify an NSData object.", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = @"Value";
+  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "%@: Key %@ must specify an NSData object.", &v4, 0x16u);
 }
 
 @end

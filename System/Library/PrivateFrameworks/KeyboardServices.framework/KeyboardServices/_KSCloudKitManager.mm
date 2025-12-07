@@ -198,23 +198,22 @@
 
 - (void)accountStatusDidChange:(id)change
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = KSCategory();
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = KSCategory(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v9 = "[_KSCloudKitManager accountStatusDidChange:]";
+    v8 = "[_KSCloudKitManager accountStatusDidChange:]";
     _os_log_impl(&dword_2557E2000, v4, OS_LOG_TYPE_INFO, "%s  Received account change from cloudkit", buf, 0xCu);
   }
 
   accountChangeThrottle = self->_accountChangeThrottle;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __45___KSCloudKitManager_accountStatusDidChange___block_invoke;
-  v7[3] = &unk_2797F6610;
-  v7[4] = self;
-  [(_KSRequestThrottle *)accountChangeThrottle postRequest:v7];
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __45___KSCloudKitManager_accountStatusDidChange___block_invoke;
+  v6[3] = &unk_2797F6610;
+  v6[4] = self;
+  [(_KSRequestThrottle *)accountChangeThrottle postRequest:v6];
 }
 
 - (void)identityUpdated:(id)updated
@@ -252,71 +251,71 @@
 
 - (BOOL)isAccountAvailable
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl() && ([getCloudSettingsManagerClass() sharedCloudSettingsManager], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "isEnabledForStore:", @"com.apple.cloudsettings.keyboard"), v3, (v4 & 1) == 0))
   {
-    v20 = KSCategory();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = KSCategory(v5);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v30) = 136315138;
-      *(&v30 + 4) = "[_KSCloudKitManager isAccountAvailable]";
-      _os_log_impl(&dword_2557E2000, v20, OS_LOG_TYPE_INFO, "%s  iCloud sync is disabled by preferences", &v30, 0xCu);
+      LODWORD(v31) = 136315138;
+      *(&v31 + 4) = "[_KSCloudKitManager isAccountAvailable]";
+      _os_log_impl(&dword_2557E2000, v22, OS_LOG_TYPE_INFO, "%s  iCloud sync is disabled by preferences", &v31, 0xCu);
     }
 
-    v17 = 0;
+    v19 = 0;
   }
 
   else
   {
-    *&v30 = 0;
-    *(&v30 + 1) = &v30;
-    v31 = 0x2020000000;
-    v32 = 0;
-    v5 = dispatch_group_create();
-    dispatch_group_enter(v5);
+    *&v31 = 0;
+    *(&v31 + 1) = &v31;
+    v32 = 0x2020000000;
+    v33 = 0;
+    v6 = dispatch_group_create();
+    dispatch_group_enter(v6);
     ckWorkQueue = self->_ckWorkQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __40___KSCloudKitManager_isAccountAvailable__block_invoke;
     block[3] = &unk_2797F6728;
     block[4] = self;
-    v25 = &v30;
-    v7 = v5;
-    v24 = v7;
+    v26 = &v31;
+    v8 = v6;
+    v25 = v8;
     dispatch_async(ckWorkQueue, block);
-    v8 = dispatch_time(0, 5000000000);
-    if (dispatch_group_wait(v7, v8))
+    v9 = dispatch_time(0, 5000000000);
+    v10 = dispatch_group_wait(v8, v9);
+    if (v10)
     {
-      v9 = KSCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = KSCategory(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(_KSCloudKitManager *)v9 isAccountAvailable:v10];
+        [(_KSCloudKitManager *)v11 isAccountAvailable:v12];
       }
 
-      v17 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v18 = KSCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v20 = KSCategory(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v19 = [MEMORY[0x277CCABB0] numberWithBool:*(*(&v30 + 1) + 24)];
+        v21 = [MEMORY[0x277CCABB0] numberWithBool:*(*(&v31 + 1) + 24)];
         *buf = 136315394;
-        v27 = "[_KSCloudKitManager isAccountAvailable]";
-        v28 = 2112;
-        v29 = v19;
-        _os_log_impl(&dword_2557E2000, v18, OS_LOG_TYPE_INFO, "%s  Account status: %@", buf, 0x16u);
+        v28 = "[_KSCloudKitManager isAccountAvailable]";
+        v29 = 2112;
+        v30 = v21;
+        _os_log_impl(&dword_2557E2000, v20, OS_LOG_TYPE_INFO, "%s  Account status: %@", buf, 0x16u);
       }
 
-      v17 = *(*(&v30 + 1) + 24);
+      v19 = *(*(&v31 + 1) + 24);
     }
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v31, 8);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v17 & 1;
+  return v19 & 1;
 }
 
 - (void)_checkAccountStatusWithCompletionHandler:(id)handler withRetryCount:(unint64_t)count
@@ -397,7 +396,7 @@
 
 - (id)recordWithName:(id)name type:(id)type cloudData:(id)data attributes:(id)attributes encryptedFields:(id)fields
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   typeCopy = type;
   dataCopy = data;
@@ -405,29 +404,27 @@
   fieldsCopy = fields;
   v16 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:0];
   v17 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v16];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __79___KSCloudKitManager_recordWithName_type_cloudData_attributes_encryptedFields___block_invoke;
-  v24[3] = &unk_2797F68E0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __79___KSCloudKitManager_recordWithName_type_cloudData_attributes_encryptedFields___block_invoke;
+  v23[3] = &unk_2797F68E0;
   v18 = v17;
-  v25 = v18;
-  [attributesCopy enumerateKeysAndObjectsUsingBlock:v24];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __79___KSCloudKitManager_recordWithName_type_cloudData_attributes_encryptedFields___block_invoke_2;
-  v22[3] = &unk_2797F68E0;
+  v24 = v18;
+  [attributesCopy enumerateKeysAndObjectsUsingBlock:v23];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __79___KSCloudKitManager_recordWithName_type_cloudData_attributes_encryptedFields___block_invoke_2;
+  v21[3] = &unk_2797F68E0;
   v19 = v18;
-  v23 = v19;
-  [fieldsCopy enumerateKeysAndObjectsUsingBlock:v22];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = v19;
+  [fieldsCopy enumerateKeysAndObjectsUsingBlock:v21];
 
   return v19;
 }
 
 - (id)recordWithName:(id)name type:(id)type attributes:(id)attributes encryptedFields:(id)fields
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   typeCopy = type;
   attributesCopy = attributes;
@@ -438,36 +435,31 @@
   v17 = [v14 initWithRecordName:nameCopy zoneID:zoneID];
 
   v18 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:typeCopy recordID:v17];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __69___KSCloudKitManager_recordWithName_type_attributes_encryptedFields___block_invoke;
-  v25[3] = &unk_2797F68E0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __69___KSCloudKitManager_recordWithName_type_attributes_encryptedFields___block_invoke;
+  v24[3] = &unk_2797F68E0;
   v19 = v18;
-  v26 = v19;
-  [attributesCopy enumerateKeysAndObjectsUsingBlock:v25];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __69___KSCloudKitManager_recordWithName_type_attributes_encryptedFields___block_invoke_2;
-  v23[3] = &unk_2797F68E0;
+  v25 = v19;
+  [attributesCopy enumerateKeysAndObjectsUsingBlock:v24];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __69___KSCloudKitManager_recordWithName_type_attributes_encryptedFields___block_invoke_2;
+  v22[3] = &unk_2797F68E0;
   v20 = v19;
-  v24 = v20;
-  [fieldsCopy enumerateKeysAndObjectsUsingBlock:v23];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = v20;
+  [fieldsCopy enumerateKeysAndObjectsUsingBlock:v22];
 
   return v20;
 }
 
 - (id)recordIDForName:(id)name
 {
-  v11 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = objc_alloc(MEMORY[0x277CBC5D0]);
   recordZone = [(_KSCloudKitManager *)self recordZone];
   zoneID = [recordZone zoneID];
   v8 = [v5 initWithRecordName:nameCopy zoneID:zoneID];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -520,12 +512,12 @@ LABEL_10:
 
   if (v7)
   {
-    v8 = KSCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = KSCategory(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v15 = "[_KSCloudKitManager setupSubscription]";
-      _os_log_impl(&dword_2557E2000, v8, OS_LOG_TYPE_INFO, "%s  already subsribed for zone change", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v9, OS_LOG_TYPE_INFO, "%s  already subsribed for zone change", buf, 0xCu);
     }
   }
 
@@ -541,8 +533,6 @@ LABEL_10:
     v13 = v5;
     dispatch_async(ckWorkQueue, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRecords:(id)records deleteRecordIDs:(id)ds withPriority:(unint64_t)priority completionHandler:(id)handler
@@ -575,33 +565,33 @@ LABEL_10:
   dispatch_assert_queue_V2(self->_ckWorkQueue);
   if (count == 2)
   {
-    v15 = KSCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = KSCategory(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v35 = "[_KSCloudKitManager updateRecords:deleteRecordIDs:withPriority:completionHandler:retryCount:]";
-      _os_log_impl(&dword_2557E2000, v15, OS_LOG_TYPE_INFO, "%s  hit max retry limit, not updating records", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v16, OS_LOG_TYPE_INFO, "%s  hit max retry limit, not updating records", buf, 0xCu);
     }
 
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:KSCKErrorDomain code:1 userInfo:0];
-    handlerCopy[2](handlerCopy, 0, recordsCopy, v16);
+    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:KSCKErrorDomain code:1 userInfo:0];
+    handlerCopy[2](handlerCopy, 0, recordsCopy, v17);
   }
 
   else
   {
-    v16 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:recordsCopy recordIDsToDelete:dsCopy];
-    [v16 setSavePolicy:0];
+    v17 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:recordsCopy recordIDsToDelete:dsCopy];
+    [v17 setSavePolicy:0];
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
     v31[0] = MEMORY[0x277D85DD0];
     v31[1] = 3221225472;
     v31[2] = __94___KSCloudKitManager_updateRecords_deleteRecordIDs_withPriority_completionHandler_retryCount___block_invoke;
     v31[3] = &unk_2797F6980;
-    v19 = array;
-    v32 = v19;
-    v20 = array2;
-    v33 = v20;
-    [v16 setPerRecordCompletionBlock:v31];
+    v20 = array;
+    v32 = v20;
+    v21 = array2;
+    v33 = v21;
+    [v17 setPerRecordCompletionBlock:v31];
     v24[0] = MEMORY[0x277D85DD0];
     v24[1] = 3221225472;
     v24[2] = __94___KSCloudKitManager_updateRecords_deleteRecordIDs_withPriority_completionHandler_retryCount___block_invoke_127;
@@ -609,46 +599,44 @@ LABEL_10:
     v24[4] = self;
     v25 = recordsCopy;
     priorityCopy = priority;
-    v27 = v19;
+    v27 = v20;
     v28 = handlerCopy;
     countCopy = count;
-    v26 = v20;
-    v21 = v19;
+    v26 = v21;
     v22 = v20;
-    [v16 setModifyRecordsCompletionBlock:v24];
-    [(_KSCloudKitManager *)self addOperation:v16 priority:priority];
+    v23 = v21;
+    [v17 setModifyRecordsCompletionBlock:v24];
+    [(_KSCloudKitManager *)self addOperation:v17 priority:priority];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resolveConflicts:(id)conflicts
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   conflictsCopy = conflicts;
-  v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(conflictsCopy, "count")}];
+  v20 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(conflictsCopy, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = conflictsCopy;
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     v7 = *MEMORY[0x277CBBFE8];
     v8 = *MEMORY[0x277CBBFE0];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:v7];
         v12 = [v10 objectForKeyedSubscript:v8];
         objc_opt_class();
@@ -662,48 +650,46 @@ LABEL_10:
             [(_KSCloudKitManager *)self copyFieldsFromRecord:v12 toRecord:v11];
           }
 
-          [v21 addObject:v11];
+          [v20 addObject:v11];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 - (void)copyFieldsFromRecord:(id)record toRecord:(id)toRecord
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   toRecordCopy = toRecord;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   valuesByKey = [recordCopy valuesByKey];
   allKeys = [valuesByKey allKeys];
 
-  v9 = [allKeys countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v9)
   {
-    v10 = *v31;
+    v10 = *v30;
     do
     {
       v11 = 0;
       do
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * v11);
+        v12 = *(*(&v29 + 1) + 8 * v11);
         valuesByKey2 = [recordCopy valuesByKey];
         v14 = [valuesByKey2 objectForKeyedSubscript:v12];
         valuesByKey3 = [toRecordCopy valuesByKey];
@@ -713,34 +699,34 @@ LABEL_10:
       }
 
       while (v9 != v11);
-      v9 = [allKeys countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v9);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   encryptedValuesByKey = [recordCopy encryptedValuesByKey];
   allKeys2 = [encryptedValuesByKey allKeys];
 
-  v18 = [allKeys2 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v18 = [allKeys2 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v18)
   {
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       v20 = 0;
       do
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * v20);
+        v21 = *(*(&v25 + 1) + 8 * v20);
         encryptedValuesByKey2 = [recordCopy encryptedValuesByKey];
         v23 = [encryptedValuesByKey2 objectForKeyedSubscript:v21];
         encryptedValuesByKey3 = [toRecordCopy encryptedValuesByKey];
@@ -750,20 +736,18 @@ LABEL_10:
       }
 
       while (v18 != v20);
-      v18 = [allKeys2 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v18 = [allKeys2 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v18);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchRecordsWithPriority:(unint64_t)priority changeToken:(id)token completionHandler:(id)handler retryCount:(unint64_t)count
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
-  v29 = tokenCopy;
+  v28 = tokenCopy;
   countCopy = count;
   handlerCopy = handler;
   priorityCopy = priority;
@@ -789,13 +773,13 @@ LABEL_6:
   v14 = objc_alloc(MEMORY[0x277CBC3B8]);
   recordZone = [(_KSCloudKitManager *)self recordZone];
   zoneID = [recordZone zoneID];
-  v39[0] = zoneID;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+  v38[0] = zoneID;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
   recordZone2 = [(_KSCloudKitManager *)self recordZone];
   zoneID2 = [recordZone2 zoneID];
-  v37 = zoneID2;
-  v38 = v13;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+  v36 = zoneID2;
+  v37 = v13;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
   v21 = [v14 initWithRecordZoneIDs:v17 optionsByRecordZoneID:v20];
 
   ckWorkQueue = self->_ckWorkQueue;
@@ -804,17 +788,15 @@ LABEL_6:
   block[2] = __88___KSCloudKitManager_fetchRecordsWithPriority_changeToken_completionHandler_retryCount___block_invoke;
   block[3] = &unk_2797F69D0;
   block[4] = self;
-  v32 = v21;
-  v33 = v29;
-  v34 = handlerCopy;
-  v35 = priorityCopy;
-  v36 = countCopy;
+  v31 = v21;
+  v32 = v28;
+  v33 = handlerCopy;
+  v34 = priorityCopy;
+  v35 = countCopy;
   v23 = handlerCopy;
-  v24 = v29;
+  v24 = v28;
   v25 = v21;
   dispatch_async(ckWorkQueue, block);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitFetchRecordsOperation:(id)operation withPriority:(unint64_t)priority changeToken:(id)token completionHandler:(id)handler retryCount:(unint64_t)count
@@ -922,50 +904,46 @@ LABEL_6:
 
 - (void)_ckSaveRecordZone:(id)zone completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   handlerCopy = handler;
   v8 = objc_alloc(MEMORY[0x277CBC490]);
-  v20[0] = zoneCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = zoneCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v10 = [v8 initWithRecordZonesToSave:v9 recordZoneIDsToDelete:0];
 
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __58___KSCloudKitManager__ckSaveRecordZone_completionHandler___block_invoke;
-  v17 = &unk_2797F6CA0;
-  v18 = zoneCopy;
-  v19 = handlerCopy;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __58___KSCloudKitManager__ckSaveRecordZone_completionHandler___block_invoke;
+  v16 = &unk_2797F6CA0;
+  v17 = zoneCopy;
+  v18 = handlerCopy;
   v11 = zoneCopy;
   v12 = handlerCopy;
-  [v10 setModifyRecordZonesCompletionBlock:&v14];
-  [(_KSCloudKitManager *)self _inconvenientOperation:v10, v14, v15, v16, v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v10 setModifyRecordZonesCompletionBlock:&v13];
+  [(_KSCloudKitManager *)self _inconvenientOperation:v10, v13, v14, v15, v16];
 }
 
 - (void)_ckDeleteRecordZoneWithID:(id)d completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v8 = objc_alloc(MEMORY[0x277CBC490]);
-  v20[0] = dCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = dCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v10 = [v8 initWithRecordZonesToSave:0 recordZoneIDsToDelete:v9];
 
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __66___KSCloudKitManager__ckDeleteRecordZoneWithID_completionHandler___block_invoke;
-  v17 = &unk_2797F6CA0;
-  v18 = dCopy;
-  v19 = handlerCopy;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __66___KSCloudKitManager__ckDeleteRecordZoneWithID_completionHandler___block_invoke;
+  v16 = &unk_2797F6CA0;
+  v17 = dCopy;
+  v18 = handlerCopy;
   v11 = dCopy;
   v12 = handlerCopy;
-  [v10 setModifyRecordZonesCompletionBlock:&v14];
-  [(_KSCloudKitManager *)self _inconvenientOperation:v10, v14, v15, v16, v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v10 setModifyRecordZonesCompletionBlock:&v13];
+  [(_KSCloudKitManager *)self _inconvenientOperation:v10, v13, v14, v15, v16];
 }
 
 - (_KSCloudKitManagerDelegate)delegate
@@ -977,9 +955,9 @@ LABEL_6:
 
 - (void)isAccountAvailable
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2557E2000, self, a3, "%s  Failed to get account status", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_KSCloudKitManager isAccountAvailable]";
+  OUTLINED_FUNCTION_3(&dword_2557E2000, self, a3, "%s  Failed to get account status", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recordWithName:type:cloudData:attributes:encryptedFields:.cold.1()
@@ -1016,9 +994,9 @@ LABEL_6:
 
 - (void)fetchRecordsWithPriority:(uint64_t)a3 changeToken:(uint64_t)a4 completionHandler:(uint64_t)a5 retryCount:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2557E2000, a1, a3, "%s  !!!ERROR failed to unarachive change token", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_KSCloudKitManager fetchRecordsWithPriority:changeToken:completionHandler:retryCount:]";
+  OUTLINED_FUNCTION_3(&dword_2557E2000, a1, a3, "%s  !!!ERROR failed to unarachive change token", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

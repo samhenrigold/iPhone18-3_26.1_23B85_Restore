@@ -69,7 +69,7 @@
 
 - (BOOL)shouldHideWebViewForLoadWithRequest:(id)request
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   webAuthRequestClass = [(SLWebClient *)self->_webClient webAuthRequestClass];
   v8 = [requestCopy URL];
@@ -77,107 +77,107 @@
 
   if (webAuthRequestClass)
   {
-    _SLLog(v3, 7, @"SLWebAuthFlowController shouldHideWebViewForLoadWithRequest: waiting for authentication code in page load url");
+    _SLLog(v3, 7, @"SLWebAuthFlowController shouldHideWebViewForLoadWithRequest: waiting for authentication code in page load url", v9, v10, v11, v12, v13, v33);
     objc_storeStrong(&self->_requestWithAuthorizationCode, request);
-    v9 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v10 = MEMORY[0x1E696AF20];
-    v11 = [requestCopy URL];
-    v12 = [v10 componentsWithURL:v11 resolvingAgainstBaseURL:0];
+    v15 = MEMORY[0x1E696AF20];
+    v16 = [requestCopy URL];
+    v17 = [v15 componentsWithURL:v16 resolvingAgainstBaseURL:0];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    obj = [v12 queryItems];
-    v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
-    v9 = v13 != 0;
-    if (v13)
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    obj = [v17 queryItems];
+    v18 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v14 = v18 != 0;
+    if (v18)
     {
-      v14 = v13;
-      v28 = v13 != 0;
+      v19 = v18;
+      v34 = v18 != 0;
       selfCopy = self;
-      v30 = v12;
-      v31 = requestCopy;
-      v15 = 0;
-      v16 = 0;
-      v17 = *v35;
+      v36 = v17;
+      v37 = requestCopy;
+      v20 = 0;
+      v21 = 0;
+      v22 = *v41;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v35 != v17)
+          if (*v41 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v34 + 1) + 8 * i);
-          name = [v19 name];
-          v21 = [@"account" isEqualToString:name];
+          v24 = *(*(&v40 + 1) + 8 * i);
+          name = [v24 name];
+          v26 = [@"account" isEqualToString:name];
 
-          if (v21)
+          if (v26)
           {
-            value = [v19 value];
+            value = [v24 value];
 
-            v15 = value;
+            v20 = value;
           }
 
-          name2 = [v19 name];
-          v24 = [@"email" isEqualToString:name2];
+          name2 = [v24 name];
+          v29 = [@"email" isEqualToString:name2];
 
-          if (v24)
+          if (v29)
           {
-            value2 = [v19 value];
+            value2 = [v24 value];
 
-            v16 = value2;
+            v21 = value2;
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v19 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
       }
 
-      while (v14);
+      while (v19);
 
-      v9 = 0;
-      if (v16)
+      v14 = 0;
+      if (v21)
       {
-        v12 = v30;
-        requestCopy = v31;
-        if (v15)
+        v17 = v36;
+        requestCopy = v37;
+        if (v20)
         {
-          if ([v15 isEqualToString:@"yahoo_japan"])
+          if ([v20 isEqualToString:@"yahoo_japan"])
           {
-            v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:v16];
+            v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:v21];
             obja = selfCopy->_yahooJapanUserName;
-            selfCopy->_yahooJapanUserName = v26;
-            v9 = v28;
+            selfCopy->_yahooJapanUserName = v31;
+            v14 = v34;
           }
 
           else
           {
-            v9 = 0;
+            v14 = 0;
           }
         }
       }
 
       else
       {
-        v12 = v30;
-        requestCopy = v31;
+        v17 = v36;
+        requestCopy = v37;
       }
     }
 
     else
     {
-      v16 = 0;
-      v15 = 0;
+      v21 = 0;
+      v20 = 0;
     }
   }
 
-  return v9;
+  return v14;
 }
 
 - (void)webViewDidFinishLoadWithPageTitleSupplier:(id)supplier

@@ -22,7 +22,7 @@
     v12 = v11;
 
     v13 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
-    falsePredicate = HDQuantitySampleEntityPredicateForQuantity(v4);
+    falsePredicate = HDQuantitySampleEntityPredicateForQuantity(v4, v13);
   }
 
   else

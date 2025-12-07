@@ -19,57 +19,55 @@
   v24.receiver = self;
   v24.super_class = SPOfflineAdvertisingKeysDelegate;
   v6 = [(SPOfflineAdvertisingKeysDelegate *)&v24 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = LogCategory_OfflineAdvertising();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LogCategory_OfflineAdvertising(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *v23 = 0;
-      _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: SPOfflineAdvertisingKeysDelegate created.", v23, 2u);
+      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: SPOfflineAdvertisingKeysDelegate created.", v23, 2u);
     }
 
-    objc_storeStrong(&v6->_beaconManager, manager);
-    v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v9 = dispatch_queue_create("SPOfflineAdvertisingKeysDelegate", v8);
-    queue = v6->_queue;
-    v6->_queue = v9;
+    objc_storeStrong(&v7->_beaconManager, manager);
+    v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v10 = dispatch_queue_create("SPOfflineAdvertisingKeysDelegate", v9);
+    queue = v7->_queue;
+    v7->_queue = v10;
 
-    v11 = objc_alloc(MEMORY[0x277D07BA0]);
-    remoteInterface = [(SPOfflineAdvertisingKeysDelegate *)v6 remoteInterface];
-    v13 = [v11 initWithMachServiceName:@"com.apple.icloud.searchpartyd.beaconmanager" options:0 remoteObjectInterface:remoteInterface interruptionHandler:0 invalidationHandler:0];
-    serviceDescription = v6->_serviceDescription;
-    v6->_serviceDescription = v13;
+    v12 = objc_alloc(MEMORY[0x277D07BA0]);
+    remoteInterface = [(SPOfflineAdvertisingKeysDelegate *)v7 remoteInterface];
+    v14 = [v12 initWithMachServiceName:@"com.apple.icloud.searchpartyd.beaconmanager" options:0 remoteObjectInterface:remoteInterface interruptionHandler:0 invalidationHandler:0];
+    serviceDescription = v7->_serviceDescription;
+    v7->_serviceDescription = v14;
 
-    v15 = objc_alloc(MEMORY[0x277CBE068]);
-    v16 = v6->_queue;
-    v17 = *MEMORY[0x277CBDF38];
+    v16 = objc_alloc(MEMORY[0x277CBE068]);
+    v17 = v7->_queue;
+    v18 = *MEMORY[0x277CBDF38];
     v25[0] = *MEMORY[0x277CBDF08];
-    v25[1] = v17;
+    v25[1] = v18;
     v26[0] = MEMORY[0x277CBEC38];
     v26[1] = MEMORY[0x277CBEC38];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-    v19 = [v15 initWithDelegate:v6 queue:v16 options:v18];
-    peripheralManager = v6->_peripheralManager;
-    v6->_peripheralManager = v19;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v20 = [v16 initWithDelegate:v7 queue:v17 options:v19];
+    peripheralManager = v7->_peripheralManager;
+    v7->_peripheralManager = v20;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (id)remoteInterface
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287606B50];
   v3 = MEMORY[0x277CBEB98];
+  v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v10 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:3];
-  v5 = [v3 setWithArray:{v4, v8, v9}];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:3];
+  v5 = [v3 setWithArray:{v4, v7, v8}];
   [v2 setClasses:v5 forSelector:sel_offlineAdvertisingKeysForReason_completion_ argumentIndex:0 ofReply:1];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -89,14 +87,14 @@
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPOfflineAdvertisingKeysDelegate *)self setSession:v7];
 
-    v8 = LogCategory_OfflineAdvertising();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_OfflineAdvertising(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPOfflineAdvertisingKeysDelegate *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPOfflineAdvertisingKeysDelegate *)self session];
@@ -105,8 +103,6 @@
 
   session3 = [(SPOfflineAdvertisingKeysDelegate *)self session];
   proxy = [session3 proxy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -126,14 +122,14 @@
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPOfflineAdvertisingKeysDelegate *)self setSession:v7];
 
-    v8 = LogCategory_OfflineAdvertising();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_OfflineAdvertising(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPOfflineAdvertisingKeysDelegate *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPOfflineAdvertisingKeysDelegate *)self session];
@@ -141,17 +137,15 @@
   }
 
   session3 = [(SPOfflineAdvertisingKeysDelegate *)self session];
-  v13 = [session3 syncProxyWithErrorHandler:&__block_literal_global_172];
+  v14 = [session3 syncProxyWithErrorHandler:&__block_literal_global_172];
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 void __45__SPOfflineAdvertisingKeysDelegate_syncProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = LogCategory_OfflineAdvertising();
+  v3 = LogCategory_OfflineAdvertising(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __45__SPOfflineAdvertisingKeysDelegate_syncProxy__block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -161,25 +155,26 @@ void __45__SPOfflineAdvertisingKeysDelegate_syncProxy__block_invoke(uint64_t a1,
 - (void)peripheralManagerDidUpdateState:(id)state
 {
   stateCopy = state;
-  if ([(SPOfflineAdvertisingKeysDelegate *)self inLowPowerMode])
+  inLowPowerMode = [(SPOfflineAdvertisingKeysDelegate *)self inLowPowerMode];
+  if (inLowPowerMode)
   {
-    v5 = LogCategory_OfflineAdvertising();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_OfflineAdvertising(inLowPowerMode);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v6 = 2;
-      _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Sending bluetoothPowerStateUpdated(SPBluetoothPowerStateLowPowerMode)", buf, 2u);
+      v7 = 2;
+      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Sending bluetoothPowerStateUpdated(SPBluetoothPowerStateLowPowerMode)", buf, 2u);
     }
 
     else
     {
-      v6 = 2;
+      v7 = 2;
     }
 
 LABEL_13:
 
     userAgentSyncProxy = [(SPOfflineAdvertisingKeysDelegate *)self userAgentSyncProxy];
-    [userAgentSyncProxy bluetoothPowerStateUpdated:v6];
+    [userAgentSyncProxy bluetoothPowerStateUpdated:v7];
 
     goto LABEL_14;
   }
@@ -187,27 +182,27 @@ LABEL_13:
   state = [stateCopy state];
   if (state == 5)
   {
-    v5 = LogCategory_OfflineAdvertising();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_OfflineAdvertising(5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Sending bluetoothPowerStateUpdated(SPBluetoothPowerStateOn)", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Sending bluetoothPowerStateUpdated(SPBluetoothPowerStateOn)", v10, 2u);
     }
 
-    v6 = 1;
+    v7 = 1;
     goto LABEL_13;
   }
 
   if (state == 4)
   {
-    v5 = LogCategory_OfflineAdvertising();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_OfflineAdvertising(4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Sending bluetoothPowerStateUpdated(SPBluetoothPowerStateOff)", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Sending bluetoothPowerStateUpdated(SPBluetoothPowerStateOff)", v11, 2u);
     }
 
-    v6 = 0;
+    v7 = 0;
     goto LABEL_13;
   }
 
@@ -216,15 +211,14 @@ LABEL_14:
 
 - (void)enterLowPowerMode
 {
-  v3 = LogCategory_OfflineAdvertising();
+  v3 = LogCategory_OfflineAdvertising(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_2643D0000, v3, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: Entering low power mode", buf, 2u);
   }
 
-  [(SPOfflineAdvertisingKeysDelegate *)self setInLowPowerMode:1];
-  v4 = LogCategory_OfflineAdvertising();
+  v4 = LogCategory_OfflineAdvertising([(SPOfflineAdvertisingKeysDelegate *)self setInLowPowerMode:1]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -240,7 +234,7 @@ LABEL_14:
   reasonCopy = reason;
   if (reason >= 3)
   {
-    v4 = LogCategory_OfflineAdvertising();
+    v4 = LogCategory_OfflineAdvertising(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(SPOfflineAdvertisingKeysDelegate *)reasonCopy transformReason:v4, v5, v6, v7, v8, v9, v10];
@@ -260,12 +254,12 @@ LABEL_14:
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v7 = [standardUserDefaults BOOLForKey:@"__qa__log_offline_keys"];
 
-  v8 = LogCategory_OfflineAdvertising();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = LogCategory_OfflineAdvertising(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v42 = responseCopy;
-    _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: processKeyResponse: %@", buf, 0xCu);
+    _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: processKeyResponse: %@", buf, 0xCu);
   }
 
   if ((has_internal_content & v7) == 1)
@@ -275,35 +269,40 @@ LABEL_14:
     v38 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v9 = [responseCopy objectAtIndexedSubscript:0];
-    keys = [v9 keys];
+    v10 = [responseCopy objectAtIndexedSubscript:0];
+    keys = [v10 keys];
 
-    v11 = [keys countByEnumeratingWithState:&v35 objects:v40 count:16];
-    if (v11)
+    v12 = [keys countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v36;
+      v13 = v12;
+      v14 = *v36;
       do
       {
-        for (i = 0; i != v12; ++i)
+        v15 = 0;
+        do
         {
-          if (*v36 != v13)
+          if (*v36 != v14)
           {
             objc_enumerationMutation(keys);
           }
 
-          v15 = *(*(&v35 + 1) + 8 * i);
-          v16 = LogCategory_OfflineAdvertising();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v16 = *(*(&v35 + 1) + 8 * v15);
+          v17 = LogCategory_OfflineAdvertising(v12);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            fm_hexString = [v15 fm_hexString];
+            fm_hexString = [v16 fm_hexString];
             *buf = 138412290;
             v42 = fm_hexString;
-            _os_log_impl(&dword_2643D0000, v16, OS_LOG_TYPE_DEFAULT, "OFFLINE_KEYS: First : %@", buf, 0xCu);
+            _os_log_impl(&dword_2643D0000, v17, OS_LOG_TYPE_DEFAULT, "OFFLINE_KEYS: First : %@", buf, 0xCu);
           }
+
+          ++v15;
         }
 
+        while (v13 != v15);
         v12 = [keys countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v13 = v12;
       }
 
       while (v12);
@@ -313,35 +312,40 @@ LABEL_14:
     v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v18 = [responseCopy objectAtIndexedSubscript:1];
-    keys2 = [v18 keys];
+    v19 = [responseCopy objectAtIndexedSubscript:1];
+    keys2 = [v19 keys];
 
-    v20 = [keys2 countByEnumeratingWithState:&v31 objects:v39 count:16];
-    if (v20)
+    v21 = [keys2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    if (v21)
     {
-      v21 = v20;
-      v22 = *v32;
+      v22 = v21;
+      v23 = *v32;
       do
       {
-        for (j = 0; j != v21; ++j)
+        v24 = 0;
+        do
         {
-          if (*v32 != v22)
+          if (*v32 != v23)
           {
             objc_enumerationMutation(keys2);
           }
 
-          v24 = *(*(&v31 + 1) + 8 * j);
-          v25 = LogCategory_OfflineAdvertising();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v25 = *(*(&v31 + 1) + 8 * v24);
+          v26 = LogCategory_OfflineAdvertising(v21);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            fm_hexString2 = [v24 fm_hexString];
+            fm_hexString2 = [v25 fm_hexString];
             *buf = 138412290;
             v42 = fm_hexString2;
-            _os_log_impl(&dword_2643D0000, v25, OS_LOG_TYPE_DEFAULT, "OFFLINE_KEYS: Second: %@", buf, 0xCu);
+            _os_log_impl(&dword_2643D0000, v26, OS_LOG_TYPE_DEFAULT, "OFFLINE_KEYS: Second: %@", buf, 0xCu);
           }
+
+          ++v24;
         }
 
+        while (v22 != v24);
         v21 = [keys2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v22 = v21;
       }
 
       while (v21);
@@ -350,11 +354,9 @@ LABEL_14:
     self = selfCopy;
   }
 
-  v27 = [responseCopy fm_map:&__block_literal_global_180];
+  v28 = [responseCopy fm_map:&__block_literal_global_180];
   peripheralManager = [(SPOfflineAdvertisingKeysDelegate *)self peripheralManager];
-  [peripheralManager setOfflineAdvertisingParamsAndData:v27];
-
-  v29 = *MEMORY[0x277D85DE8];
+  [peripheralManager setOfflineAdvertisingParamsAndData:v28];
 }
 
 - (void)peripheralManager:(id)manager offlineAdvPayloadRequestedWithReason:(int64_t)reason
@@ -370,14 +372,14 @@ LABEL_14:
 
 void __91__SPOfflineAdvertisingKeysDelegate_peripheralManager_offlineAdvPayloadRequestedWithReason___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_OfflineAdvertising();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_OfflineAdvertising(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v9 = 134217984;
-    v10 = v3;
-    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: offlineAdvPayloadRequestedWithReason: %ld", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = v3;
+    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPOfflineAdvertisingKeysDelegate: offlineAdvPayloadRequestedWithReason: %ld", &v8, 0xCu);
   }
 
   [*(a1 + 32) enterLowPowerMode];
@@ -387,21 +389,20 @@ void __91__SPOfflineAdvertisingKeysDelegate_peripheralManager_offlineAdvPayloadR
   v7 = [v4 generateOfflineAdvertisingKeysForReason:v5 now:v6];
 
   [*(a1 + 32) processKeyResponse:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SPOfflineAdvertisingKeysDelegate_syncProxy__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2643D0000, a2, a3, "sync proxy error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2643D0000, a2, a3, "sync proxy error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)transformReason:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2643D0000, a2, a3, "SPOfflineAdvertisingKeysDelegate: Unexpected CBPeripheralManagerShutdownReason value: %ld", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2643D0000, a2, a3, "SPOfflineAdvertisingKeysDelegate: Unexpected CBPeripheralManagerShutdownReason value: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end
